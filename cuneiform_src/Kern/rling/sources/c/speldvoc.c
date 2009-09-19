@@ -97,11 +97,11 @@ static INT set_voc_accnt( voc_state *, INT );
 static INT fillgap( vert  * currvert, voc_state * voc, INT cnt,
                     LTIMG **wrddef, INT gapcont );
 static void chkfill( INT cnt, LTIMG * wrddef[], INT gapcont,
-                     INT *fillfind, BYTE symb, LT  **gaplt );
+                     INT *fillfind, uchar symb, LT  **gaplt );
  static WTOKEN  * get_wtoken(voc_state *voc);
  static WTOKEN  * alloc_wtoken(voc_state *voc);
  static INT AcceptAndCheck ( vert  *currvert, voc_state *voc);
- static INT Found ( BYTE *str, voc_state *voc);
+ static INT Found ( uchar *str, voc_state *voc);
 
 /*************************************************************************/
 /*                      Main function                                    */
@@ -559,7 +559,7 @@ static INT set_voc_accnt( voc_state * voc,INT dcount)
     }
   else
     {
-      currvert->accnt=/*(NATURAL)*/(BYTE)buf;    /* set & return new value         */
+      currvert->accnt=/*(NATURAL)*/(uchar)buf;    /* set & return new value         */
       return (buf);
     }
 }
@@ -600,7 +600,7 @@ static uint16_t voc_alloc (
 
 static void chkfill (
       INT cnt, LTIMG * wrddef[],
-      INT gapcont, INT *fillfind, BYTE symb,
+      INT gapcont, INT *fillfind, uchar symb,
       LT  ** gaplt
     )
  {
@@ -697,7 +697,7 @@ Fail:     if ( gapcont != 0 ) { wrddef[cnt]->blank=0;
 
 /* ------------------------------------------------------------------ */
 
-INT next_word_from_voc(BYTE *str, voc_state *voc)
+INT next_word_from_voc(uchar *str, voc_state *voc)
  { vert  * currvert;
   if ( voc->lev == -1 )
     currvert=(vert  *)V_POINT(voc->vocseg,sizeof(DYN_DICT_HEADER));
@@ -743,7 +743,7 @@ INT AcceptAndCheck ( vert  *currvert, voc_state *voc)
 
 /* ------------------------------------------------------------------ */
 
-INT Found ( BYTE *str, voc_state *voc)
+INT Found ( uchar *str, voc_state *voc)
  {  INT i;
   for ( i = 0; i <= voc ->lev; i++)
     str[i] = ((vert *)V_POINT(voc->vocseg, voc -> path[i]))->key;

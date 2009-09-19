@@ -76,10 +76,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TRSPNLT  120    // penalty to be treated as reason to cut
 #define TRSCUT   36     // penalty to be treated as cut
 
-extern BYTE db_status;  // snap presence byte
-extern BYTE line_scale;
+extern uchar db_status;  // snap presence byte
+extern uchar line_scale;
 extern INT  line_number;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 
 void bring_dust(INT);
 void all_cell_levcut(INT);
@@ -96,11 +96,11 @@ EXTLIN INT           bsdust_upper, bsdust_lower, bsdust_ps;
 // параметры БЛ
 EXTLIN INT           Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
 // мульти - БЛ
-EXTLIN BYTE          multi_bas;
+EXTLIN uchar          multi_bas;
 
 EXTLIN INT           Ns1,Ns2;        // in Iot.c   only  !!!
 
-EXTLIN BYTE          let_to_dust;
+EXTLIN uchar          let_to_dust;
 
 EXTLIN char          all_caps;
 EXTLIN char          all_diffs_made;
@@ -116,7 +116,7 @@ EXTLIN char          dust_in ;
 #define cpsf1(i)   cpsaf(i)+1
 #define cpsf2(i)   cpsaf(i)-1
 
-extern BYTE     *let_linpos,
+extern uchar     *let_linpos,
                 *let_linshape,
                 *let_lindef,
 				// let_lindef когда знаем точно bs3
@@ -132,7 +132,7 @@ extern BYTE     *let_linpos,
 #endif
 typedef struct bas_ln_type
   {INT startcol, endcol, startf, endf, ncells;
-   INT ps, b1, b2, b3, b4, n1, n2, n3, n4; BYTE fl_def, fl_ext;
+   INT ps, b1, b2, b3, b4, n1, n2, n3, n4; uchar fl_def, fl_ext;
    cell *c1, *c2, *cf1, *cf2; } bas_ln;
 //
 #define c_df_round  16
@@ -152,10 +152,10 @@ typedef struct hi_ac_t { INT all, b1, a1, b2, a2, bc; } hi_ac;
 #define PROP_MAX 20	// VERY TALL PATTERN criterium
 
 
-extern BYTE db_status;  // snap presence byte
-extern BYTE line_scale;
+extern uchar db_status;  // snap presence byte
+extern uchar line_scale;
 extern INT line_number;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 
 INT defbas(INT filter);
 void diffs_by_vers();
@@ -176,16 +176,16 @@ void mutual_influence();
 void cut_sunk_let ();
 void all_cell_ledust();
 INT  dust_to_let();
-void histb(INT x1, INT x2, INT flg, BYTE *begs);
+void histb(INT x1, INT x2, INT flg, uchar *begs);
 void set_basarr(bas_ln * bs, INT x, INT l);
 INT  multi_hist(INT p);
-BYTE get_let_tb(BYTE);
+uchar get_let_tb(uchar);
 void insert_basar(INT x1, INT x2);
-INT  get_maxmax(BYTE *begs);
+INT  get_maxmax(uchar *begs);
 INT  cells_for_base (INT base);
 cell *def_init_cell();
 INT  multi_hist();
-INT  same_int(cell *, BYTE);
+INT  same_int(cell *, uchar);
 void extend_int();
 void cell_bases();
 void set_int();
@@ -193,9 +193,9 @@ void set_basint();
 void make_intpairs();
 void histes();
 void diffs_by_cells();
-INT  comp_Llet(BYTE, cell*);
+INT  comp_Llet(uchar, cell*);
 INT  comp_Lbad(cell *);
-INT  comp_Slet(BYTE, cell *);
+INT  comp_Slet(uchar, cell *);
 INT  comp_Sbad(cell *);
 void complete_int(bas_ln *bp);
 void cell_analyze(cell *BC);
@@ -210,7 +210,7 @@ void set_difflg(cell *B1, INT filter);
 #define f_retain 0xc0
 
 EXTLIN hi_ac  hi_beg[192];
-EXTLIN BYTE   lin_begs[192],
+EXTLIN uchar   lin_begs[192],
               loc_begs[192],
               lin_ends[192],
               lin_segs[192],
@@ -258,8 +258,8 @@ EXTLIN INT  krit_hist, krit_loc;
 EXTLIN bas_acc_t bas_acc[8];
 EXTLIN INT  first_max, second_max;
 EXTLIN INT forbiset, all_doubts;
-EXTLIN BYTE linpos_arg, multi_bas, hist_done;
-EXTLIN BYTE let_to_dust;
+EXTLIN uchar linpos_arg, multi_bas, hist_done;
+EXTLIN uchar let_to_dust;
 EXTLIN bas_ln all_bases[32];
 
 #define cpsu(i)  ((((i)<3) && ((i)>-3))? i : ((i) * 26 / DPs))
@@ -270,7 +270,7 @@ EXTLIN bas_ln all_bases[32];
 #define cpsf1(i)   cpsaf(i)+1
 #define cpsf2(i)   cpsaf(i)-1
 
-extern BYTE     *let_linpos,    *let_lindef,
+extern uchar     *let_linpos,    *let_lindef,
                 *let_lincomp,   *let_linshape,
                 *let_sans_acc,  *let_lindef3;
 

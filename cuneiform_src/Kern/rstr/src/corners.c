@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cutstr.h"
 #include "func.h"
@@ -78,32 +77,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 INT u_around_bl_corner ( s_glue * );
 INT n_around_ur_corner ( s_glue * );
 void comp_row_col( s_glue * );
-static void comp_parms( BYTE );
-// static INT bottom_right_corner (PBYTE, BYTE, BYTE, BYTE);
-static INT bottom_left_corner (PBYTE, BYTE, BYTE, BYTE);
-static INT upper_right_corner (PBYTE, BYTE, BYTE, BYTE);
-//static INT upper_left_corner (PBYTE, BYTE, BYTE, BYTE);
+static void comp_parms( uchar );
+// static INT bottom_right_corner (puchar, uchar, uchar, uchar);
+static INT bottom_left_corner (puchar, uchar, uchar, uchar);
+static INT upper_right_corner (puchar, uchar, uchar, uchar);
+//static INT upper_left_corner (puchar, uchar, uchar, uchar);
 static Bool is_italic();
 static void compare_corners_mass();
-static void make_straight_abris (s_glue *, PBYTE, PBYTE);
-static INT func_mode_val( PBYTE func, BYTE from, BYTE to);
+static void make_straight_abris (s_glue *, puchar, puchar);
+static INT func_mode_val( puchar func, uchar from, uchar to);
 static INT left_right_dist();
 /*************************************************************************/
 
 extern servBOX SBOX;
-BYTE str_left[128];
-BYTE str_right[128];
+uchar str_left[128];
+uchar str_right[128];
 
-BYTE l_tab_shift[128];       // the tables of shifts ( avoiding italic
-BYTE r_tab_shift[128];       //  and oblique )
+uchar l_tab_shift[128];       // the tables of shifts ( avoiding italic
+uchar r_tab_shift[128];       //  and oblique )
 
 #define ST_PEN_NUM 5
 static INT pen_for_staires[ST_PEN_NUM+1] = { 0, 14, 36, 60, 72, 120 };
 #define LRD_PEN_NUM 7
 static INT pen_for_left_right_dist[LRD_PEN_NUM+1] =
                                      { 0, 0, 12, 46, 80, 120, 160, 220 };
-static BYTE comp_h, un_code;
-static BYTE num_st, beg_zone, end_zone;
+static uchar comp_h, un_code;
+static uchar num_st, beg_zone, end_zone;
 static INT pen_u, pen_n;
 static INT maxrow, maxcol, minrow, mincol;
 
@@ -117,7 +116,7 @@ INT wi;
  memset ( l_tab_shift, 0, sizeof (l_tab_shift) );
  memset ( r_tab_shift, 0, sizeof (r_tab_shift) );
 
- pen_u = 0; pen_n = 0; un_code = (BYTE)cod_let;
+ pen_u = 0; pen_n = 0; un_code = (uchar)cod_let;
 
  comp_row_col( GL );          // compute coordinates of the composed box
  // check italic incline of the component
@@ -154,10 +153,10 @@ ApplyPenalty:
   }
 }
 
-static void make_straight_abris (s_glue *GL, PBYTE left_shift, PBYTE right_shift)
+static void make_straight_abris (s_glue *GL, puchar left_shift, puchar right_shift)
 {
     INT             i, j, y;
-    BYTE            beg, end;
+    uchar            beg, end;
     interval        *cur_int;
     lnhead          *Line;
     cell            *WC;
@@ -170,7 +169,7 @@ static void make_straight_abris (s_glue *GL, PBYTE left_shift, PBYTE right_shift
   while ( (WC=GL->celist[j]) != NULL )
   {
     // set address of the first line
-    Line = (lnhead *)(((PBYTE) (WC -> env)) + WC -> env -> lines + sizeof (INT));
+    Line = (lnhead *)(((puchar) (WC -> env)) + WC -> env -> lines + sizeof (INT));
 
     while ( Line -> lth )        // loop for all lines
     {
@@ -190,14 +189,14 @@ static void make_straight_abris (s_glue *GL, PBYTE left_shift, PBYTE right_shift
 
             cur_int++;
         }
-        Line = (lnhead *)( (PBYTE)Line + Line->lth );
+        Line = (lnhead *)( (puchar)Line + Line->lth );
     }
    j++;
   }
 }
 
 /*********************
-static INT upper_left_corner (PBYTE s_left, BYTE from, BYTE to, BYTE minst)
+static INT upper_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 {
     INT  dif;
     INT  st, prev, cur;
@@ -221,7 +220,7 @@ static INT upper_left_corner (PBYTE s_left, BYTE from, BYTE to, BYTE minst)
 }
 *******************/
 
-static INT upper_right_corner (PBYTE s_right, BYTE from, BYTE to, BYTE minst)
+static INT upper_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
 {
     INT dif;
     INT st, prev, cur;
@@ -244,7 +243,7 @@ static INT upper_right_corner (PBYTE s_right, BYTE from, BYTE to, BYTE minst)
 }
 
 
-static INT bottom_left_corner (PBYTE s_left, BYTE from, BYTE to, BYTE minst)
+static INT bottom_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 {
     INT  dif;
     INT  st, prev, cur;
@@ -269,7 +268,7 @@ static INT bottom_left_corner (PBYTE s_left, BYTE from, BYTE to, BYTE minst)
 
 
 /*****************
-static INT bottom_right_corner (PBYTE s_right, BYTE from, BYTE to, BYTE minst)
+static INT bottom_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
 {
     INT  dif;
     INT  st, prev, cur;
@@ -293,7 +292,7 @@ static INT bottom_right_corner (PBYTE s_right, BYTE from, BYTE to, BYTE minst)
 }
 ******************/
 
-static void comp_parms( BYTE fullh )
+static void comp_parms( uchar fullh )
 {
 
   if ( (fullh < 40) && (fullh > 24) )
@@ -324,17 +323,17 @@ INT j;
    j++;
   }
  GL->height = maxrow - minrow;
- comp_h = (BYTE)GL->height;
+ comp_h = (uchar)GL->height;
  GL->width = maxcol - mincol;
 }
 
 INT n_around_ur_corner ( s_glue *GL )
 {
- BYTE from, to, np;
+ uchar from, to, np;
  INT ret_pen;
 
   ret_pen = 0;
-  comp_parms ( (BYTE)GL->height );
+  comp_parms ( (uchar)GL->height );
   from = GL->height - end_zone + 1;
   to = GL->height - 1 - beg_zone;
 
@@ -347,10 +346,10 @@ INT n_around_ur_corner ( s_glue *GL )
 
 INT u_around_bl_corner ( s_glue *GL )
 {
- BYTE from, to, np;
+ uchar from, to, np;
  INT ret_pen;
 
-  comp_parms ( (BYTE)GL->height );
+  comp_parms ( (uchar)GL->height );
   from = beg_zone;
   to = end_zone;
 
@@ -365,7 +364,7 @@ INT u_around_bl_corner ( s_glue *GL )
 
 static Bool is_italic()
 {
-BYTE h14, i;
+uchar h14, i;
 INT lmax, xmax;
 
  h14 =(comp_h>>2);
@@ -409,22 +408,22 @@ INT  d;
 static INT left_right_dist()
 {
 INT lmd, rmd, h14;
-BYTE j;
+uchar j;
 
    h14 = (comp_h >> 2);
-   lmd = func_mode_val( str_left, (BYTE)h14, (BYTE)(comp_h - h14));
+   lmd = func_mode_val( str_left, (uchar)h14, (uchar)(comp_h - h14));
    lmd -= CONST_PLUS;
-   rmd = func_mode_val( str_right, (BYTE)h14, (BYTE)(comp_h - h14));
+   rmd = func_mode_val( str_right, (uchar)h14, (uchar)(comp_h - h14));
    j = abs(lmd - rmd);
    if ( j > LRD_PEN_NUM ) j = LRD_PEN_NUM;
    return pen_for_left_right_dist[j];
 }
 
-static INT func_mode_val( PBYTE func, BYTE from, BYTE to)
+static INT func_mode_val( puchar func, uchar from, uchar to)
 {
 INT ans;
 INT i, j, maxv;
-BYTE counts[128];
+uchar counts[128];
 
   memset ( counts, 0, sizeof( counts ) );
 

@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 
@@ -93,12 +92,12 @@ extern INT bs_got;
 
 static STICK cane[NSTICKMAX];
 static LONG hist[ /*** HORSZMAX*NINCL ***/  4000 ];    // 4000
-//static BYTE raster[VERTMAX*HORMAX/8];                  // 1024
-static BYTE raster[VERTMAX*HORMAX];                      //O.S.
+//static uchar raster[VERTMAX*HORMAX/8];                  // 1024
+static uchar raster[VERTMAX*HORMAX];                      //O.S.
 static struct val {LONG b,e,y,c;} val[NVALMAX];
-static struct extr {BYTE x,incl,h;} extr[NEXTRMAX];
+static struct extr {uchar x,incl,h;} extr[NEXTRMAX];
 static LONG ps,H,W,/*lr,*/mdl,dl,dr,horsz,MD,nval,nextr,nstick;
-struct pairs {BYTE b,e;};
+struct pairs {uchar b,e;};
 
 static LONG line_to_hist(lnhead *);
 static LONG sticks_find();
@@ -179,7 +178,7 @@ INT sticks_in_letter(cell *c,INT mode,STICK **res)
  ret=(INT)(sticks_find());
  if( ret>=0 && ret<4 )
     {
-    c->n_baton = (BYTE)ret;
+    c->n_baton = (uchar)ret;
     if( ret>0 )
         memcpy(c->save_baton,cane,ret*sizeof(STICK));
     }
@@ -312,7 +311,7 @@ static LONG test_extr(LONG i,LONG x,LONG hh)
   }
 
  if (nextr==NEXTRMAX) return FALSE;
- extr[nextr].x=(BYTE)x; extr[nextr].incl=(BYTE)i; extr[nextr].h=(BYTE)hh; nextr++;
+ extr[nextr].x=(uchar)x; extr[nextr].incl=(uchar)i; extr[nextr].h=(uchar)hh; nextr++;
 
 /* printf("x=%d,incl=%d,hist=%d\n",x-dl,(i-INCL)*DELINCL,hh);*/
 
@@ -328,9 +327,9 @@ static void ordextr()
   for (i2=i1; i2<nextr; i2++)
    if (extr[i1-1].h<extr[i2].h)
     {
-    w=extr[i1-1].x; extr[i1-1].x=extr[i2].x; extr[i2].x=(BYTE)w;
-    w=extr[i1-1].incl; extr[i1-1].incl=extr[i2].incl; extr[i2].incl=(BYTE)w;
-    w=extr[i1-1].h; extr[i1-1].h=extr[i2].h; extr[i2].h=(BYTE)w;
+    w=extr[i1-1].x; extr[i1-1].x=extr[i2].x; extr[i2].x=(uchar)w;
+    w=extr[i1-1].incl; extr[i1-1].incl=extr[i2].incl; extr[i2].incl=(uchar)w;
+    w=extr[i1-1].h; extr[i1-1].h=extr[i2].h; extr[i2].h=(uchar)w;
     }
  }
 
@@ -436,12 +435,12 @@ ok:
  if (nstick==NSTICKMAX) return FALSE;
 
  cane[nstick].x=(x+((x>0)?1:-1))/2;
- cane[nstick].y=(BYTE)ymi;
+ cane[nstick].y=(uchar)ymi;
  cane[nstick].l=yma-ymi+1;
  cane[nstick].incl=(INT)incl;
- cane[nstick].w=(BYTE)w;
- cane[nstick].bot=(BYTE)typend(&cane[nstick],0);
- cane[nstick].top=(BYTE)typend(&cane[nstick],1);
+ cane[nstick].w=(uchar)w;
+ cane[nstick].bot=(uchar)typend(&cane[nstick],0);
+ cane[nstick].top=(uchar)typend(&cane[nstick],1);
 
  nstick++;
 
@@ -492,9 +491,9 @@ static LONG typend(STICK *st,LONG mode)
   for (xm=MIN(W-1,x0+dx),x=MAX(0,x0-dx);
        x<=xm && /* !(raster[y*lr+x/8]&(128>>(x&7))) */!raster[y*lr+x]; x++) ;
   if (x>xm) continue;
-  val[ll].b=(BYTE)(x-(x0-dx));
+  val[ll].b=(uchar)(x-(x0-dx));
   for (x=xm; /* !(raster[y*lr+x/8]&(128>>(x&7))) */!raster[y*lr+x]; x--) ;
-  val[ll].e=(BYTE)(x-(x0-dx));
+  val[ll].e=(uchar)(x-(x0-dx));
 /*  printf("b=%d,e=%d\n",val[ll].b,val[ll].e);*/
   ll++;
   }

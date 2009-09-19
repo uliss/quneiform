@@ -74,8 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     float k;
     short thickness;
     float angle;
-    BYTE FeatOrient;
-    BYTE TypeLine;
+    uchar FeatOrient;
+    uchar TypeLine;
     short LenShadow;
   } STRET;
   typedef struct { KNOT ***beg_as; KNOT *beg_free;
@@ -99,7 +99,7 @@ typedef struct hSUB_ALLOC
 typedef struct hHIER_LINE
 {
 	int NumLev;    //Число V- или H-уровней
-  BYTE *TypeLine;//[NumLev] Типы линий на V- или H-уровнях
+  uchar *TypeLine;//[NumLev] Типы линий на V- или H-уровнях
 } HIER_LINE;
 
 //---Иерархия шапки/боковика таблицы (фиксирована, полностью задается
@@ -125,8 +125,8 @@ typedef struct hHIER_CELL_TXT
 typedef struct hLINE_INTRVL
 {
 	int Interval,sko;//интервал до след.соседа-линии и его с.к.о
-  BYTE TypeLine;
-  BYTE Align;
+  uchar TypeLine;
+  uchar Align;
 } LINE_INTRVL;
 typedef struct hLINE_APRIOR
 {
@@ -148,7 +148,7 @@ typedef struct hCONTENT
   ProperName:1,      //первое слово ячейки - имя собственное
   All:1,             //любой символ
   buf:6;             //резерв
-  BYTE *SpecSymb;    //здесь перечислены в форме С-строки возможные отдельные
+  uchar *SpecSymb;    //здесь перечислены в форме С-строки возможные отдельные
                      //коды или NULL
 } CONTENT;
 #endif
@@ -200,8 +200,8 @@ typedef struct hPAR_TABL
 typedef struct hSMP_LINE
 {
 	int Coor,Interval,sko;//Коор-та оси линии,интервал до соседа ,с.к.о. интервала
-  BYTE TypeLine; //Тип линии
-  BYTE Align;
+  uchar TypeLine; //Тип линии
+  uchar Align;
   int Num;       //Число измерений, соотнесенных с этим эталоном
   int LenShad;   //Длина взаим.затенения
   int Ave;       //Усредненная коор-та измерений
@@ -210,8 +210,8 @@ typedef struct hSMP_LINE
 typedef struct hCOOR_IDENT
 {
 	short Coor,Thick;
-  BYTE Id; //TRUE или FALSE, если линия не соответствует реальной линии,
-  BYTE TypeLine;
+  uchar Id; //TRUE или FALSE, если линия не соответствует реальной линии,
+  uchar TypeLine;
 } COOR_IDENT;
 typedef struct hKNOTT
 {
@@ -264,8 +264,8 @@ typedef struct hLINE_KNOT //Описание линии для узлов дер
 {
 	int beg;       //Для V-Line это левая граница толстой линии
   int BegTxt;    //Текстовая коор-та
-  BYTE Thick;    //Толщина
-  BYTE TypeLine; //Тип
+  uchar Thick;    //Толщина
+  uchar TypeLine; //Тип
 } LINE_KNOT;
 typedef struct hKNOT_TMP {KNOTT *Knot; int in;} KNOT_TMP;
 

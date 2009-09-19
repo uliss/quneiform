@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 extern STD std;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern INT ABCSize;
 extern INT vocs_NOK;
 LT stddig[] =
@@ -108,7 +108,7 @@ static INT  checkart_permit (SOBJ * obj);
 static INT checkart (SOBJ * obj, INT pi1, INT pi2, struct artstr * a);
 static INT checkart1 (SOBJ * obj, INT pi1, INT pi2, struct artstr * a);
 static INT  set_act_art (SOBJ * obj, INT act_art[]);
-static INT  setart_new (SOBJ * obj, INT * pa, BYTE code,BYTE type);
+static INT  setart_new (SOBJ * obj, INT * pa, uchar code,uchar type);
 
 static INT max_art;      /* last index */
 
@@ -240,7 +240,7 @@ INT wordchange (SOBJ * obj)
 {
  if (!(obj->word->type_art & T_CHANGE))
     { INT lth;
-      BYTE *b;
+      uchar *b;
       lth = obj->word->lth-1;
       b = obj ->wordchar;
       switch (b[lth])
@@ -461,7 +461,7 @@ INT  checkart_permit (SOBJ * obj)
  INT checkart (SOBJ * obj, INT pi1, INT pi2, struct artstr * a)
 
 {
- BYTE sr1,sr2;
+ uchar sr1,sr2;
 
  sr1 = a->sr1;
  sr2 = a->sr2;
@@ -505,7 +505,7 @@ No_checkart:
 }
 
   // Valdemar             ¬    ¦    и    й    о    ®    Ї
-static BYTE wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
+static uchar wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
 /* ********************************************************************** */
 /* This procedure checks whether pos1|pos2 to be modified
    meets all conditions, specified by artbase.
@@ -619,12 +619,12 @@ if ( a->sr2)
      ai = act_art[pi1];        /* id of artificial change                   */
      if (!(ai))                /* is there change in this pos               */
       {                        /* No, set as in setpart:                    */
-       obj->part->posn[pa2] = (BYTE)pi1;
+       obj->part->posn[pa2] = (uchar)pi1;
        pa1++; pa2++;/*new indxs of obj->part->posn[pa2]&obj->part->art[pa1] */
       }
      else                      /* set change of the part                    */
       {
-       obj->part->art[pa1]=(BYTE)ai; /* store artificial change id                */
+       obj->part->art[pa1]=(uchar)ai; /* store artificial change id                */
        pa1++;                  /* next old pos                              */
        if (artbase[ai].sr2)    /* two-pos change ?                          */
 	{                      /* Yes, find next pos after pi1 :            */
@@ -721,15 +721,15 @@ return(OK);
 								       */
 /***********************************************************************/
 INT  setart_new (SOBJ * obj, INT * pa,
-                BYTE code,
-                BYTE type)
+                uchar code,
+                uchar type)
 
 {
  INT posn, stdn;
  INT i;
  LT  * lt;
  char  * pc;
- BYTE   c;              // Valdemar+Lepik for russian
+ uchar   c;              // Valdemar+Lepik for russian
 
  if (!code)
   goto Ok_setart_new;      /* code=0 => nothing to do                       */
@@ -793,7 +793,7 @@ INT  setart_new (SOBJ * obj, INT * pa,
       }
     }
   }
- obj->part->posn[*pa] = (BYTE)posn;
+ obj->part->posn[*pa] = (uchar)posn;
  (*pa)++;
  obj->art_minpos = posn ;  /* curr pos-buf used to construct new pos         */
 Ok_setart_new:

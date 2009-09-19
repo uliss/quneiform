@@ -91,10 +91,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 EXPORT(void) grey_open (uint16_t H, uint16_t N);
 void    grey_open_init_flags (void);
 void    grey_open_init_MEM (void);
-EXPORT(uint16_t) grey_to   (BYTE far *pKogo);    //returns n_lines_ready
+EXPORT(uint16_t) grey_to   (uchar far *pKogo);    //returns n_lines_ready
 void	grey_to_memory_monitor (void);
 void	grey_to_monitor_MBIT (uint16_t n_from);
-EXPORT(void) grey_from (BYTE far *pKuda);
+EXPORT(void) grey_from (uchar far *pKuda);
 EXPORT(uint16_t) grey_close (void);      //returns n_lines_ready
 void	grey_quant_KOROB (void);
 void	grey_quant_KOROB_1x1 (void);
@@ -176,38 +176,38 @@ uint16_t	N_of_TEK_MEM;		// 0 - 7;
 uint16_t	N_Lines_in_TEK_MEM;
 uint16_t	N_tek_Line_in_MBIT;
 
-BYTE	IER;
-BYTE	Flag_ERR_Hist_L, Flag_ERR_Hist_R;
-BYTE	mk_Key;		// -Key		MK KEY for OTLADKA PRINTS
-BYTE	Flag_3x3;	// +3x3		enable any work 3*3;
-BYTE	Flag_5work;	// +5work	Work with 5x, 5y;
-BYTE	Flag_d8P;	// +d8P		Porog +- Diapazon_8 (for Speed)
-BYTE	Flag_GLUE;	// +Glue 	make Korob (right + 2);
-BYTE	Flag_Hor;	// +Hor		Hor. SEDLO;
-BYTE	Flag_Lapl;	// +Laplas	Laplas 3*3 Contour
-BYTE	Flag_MAX;	// +MAX		for new POROG QUANT 1x3 (use D_16)
-BYTE	Flag_musor;	// +musor1x5	DELETE small Korobs
-BYTE	Flag_0musor;	// +0musor	DELETE Korobs more 8*8 with F=0
-BYTE	Flag_PLAN;	// +Plan	"Plan" 3*3 Contour
-BYTE	Flag_T;		// -T		SHAVE (not used now);
-BYTE	Flag_Vert;	// +Vert        Vert. SEDLO;
-BYTE	Flag_VERB;	// +Verblud	Porog with GORB;	// OLD WERB
-BYTE	Flag_WrKor;	// +WrKor	Write 2 Korob Files
-BYTE	Flag_Xverb;	// +Xverblud	for TIMES ROMAN
-BYTE	Flag_Z;		// -Z		RAZREZ (not used now);
-BYTE	Flag_Draw, Flag_see;		// for OTLADKA only
-BYTE	Flag_STAT;			// for OTLADKA: Statistic
-BYTE	Flag_FactPR, Flag_grHist;	// for OTLADKA only
-BYTE	Flag_OTL;	// can be used for any non-destructive OTLADKA  M.K.
+uchar	IER;
+uchar	Flag_ERR_Hist_L, Flag_ERR_Hist_R;
+uchar	mk_Key;		// -Key		MK KEY for OTLADKA PRINTS
+uchar	Flag_3x3;	// +3x3		enable any work 3*3;
+uchar	Flag_5work;	// +5work	Work with 5x, 5y;
+uchar	Flag_d8P;	// +d8P		Porog +- Diapazon_8 (for Speed)
+uchar	Flag_GLUE;	// +Glue 	make Korob (right + 2);
+uchar	Flag_Hor;	// +Hor		Hor. SEDLO;
+uchar	Flag_Lapl;	// +Laplas	Laplas 3*3 Contour
+uchar	Flag_MAX;	// +MAX		for new POROG QUANT 1x3 (use D_16)
+uchar	Flag_musor;	// +musor1x5	DELETE small Korobs
+uchar	Flag_0musor;	// +0musor	DELETE Korobs more 8*8 with F=0
+uchar	Flag_PLAN;	// +Plan	"Plan" 3*3 Contour
+uchar	Flag_T;		// -T		SHAVE (not used now);
+uchar	Flag_Vert;	// +Vert        Vert. SEDLO;
+uchar	Flag_VERB;	// +Verblud	Porog with GORB;	// OLD WERB
+uchar	Flag_WrKor;	// +WrKor	Write 2 Korob Files
+uchar	Flag_Xverb;	// +Xverblud	for TIMES ROMAN
+uchar	Flag_Z;		// -Z		RAZREZ (not used now);
+uchar	Flag_Draw, Flag_see;		// for OTLADKA only
+uchar	Flag_STAT;			// for OTLADKA: Statistic
+uchar	Flag_FactPR, Flag_grHist;	// for OTLADKA only
+uchar	Flag_OTL;	// can be used for any non-destructive OTLADKA  M.K.
 
-BYTE	Flag_ERR_DISK;
-BYTE	Flag_Korob_OK;
+uchar	Flag_ERR_DISK;
+uchar	Flag_Korob_OK;
 
-BYTE	Flag_Mem_123;
-BYTE	Flag_OPEN=FALSE;
-BYTE	Porog_12, Porog_34,   Porog_08, Porog_88;  // for OTLADKA
-BYTE	Diapazon_8, Porog_38, Porog_58, Porog_78;
-BYTE	Diapazon_16;
+uchar	Flag_Mem_123;
+uchar	Flag_OPEN=FALSE;
+uchar	Porog_12, Porog_34,   Porog_08, Porog_88;  // for OTLADKA
+uchar	Diapazon_8, Porog_38, Porog_58, Porog_78;
+uchar	Diapazon_16;
 //----------------------------------------------------------------------//
 char	mkText [199];					//ARRAYs
 int32_t	Hist_tek [256], Hist_glad [256];
@@ -227,7 +227,7 @@ LPBYTE	pMem08 [8];	// ARRAY for 8 MEMs			//POINTERs
 LPBYTE	pMBIT, pMBIT_tek;
 LPBYTE	pMREF;		// for KOROBS REFERENCES
 LPBYTE	pMem_TEK, pMem_kuda;
-BYTE far * far * ppMem;	//Array of FAR Pointers
+uchar far * far * ppMem;	//Array of FAR Pointers
 /*----------------------------------------------------------------------*/
 							// KOROB VARIABLES
 uint16_t	Korob_i1;		// ==Itek !!!
@@ -235,7 +235,7 @@ uint16_t	Korob_i2;		// include this Line
 uint16_t	Korob_j1, Korob_nj;
 uint16_t	Korob_Factor;
 int16_t	Korob_x, Korob_y;
-BYTE	Korob_porog;
+uchar	Korob_porog;
 /*----------------------------------------------------------------------*/
 uint16_t	N_Korob;					// KOROBS STATISTIC
 int32_t	LS_Korobs, LSH_Korobs, LSL_Korobs, LNgrey16, LNgreyD8, LNgrey08;
@@ -298,7 +298,7 @@ PR_BEG	"MK Message:\nGREY OPEN  %d*%d %04X %d (%d) %d",
 /*----------------------------------------------------------------------*/
 void	grey_open_init_flags ()  {			// 02.11.1992
 uint16_t	k, kk, n;
-BYTE	b1, b2, bb, cc;
+uchar	b1, b2, bb, cc;
 char	Full_Name_GREY_INI [33];
 static	char	Name_GREY_INI[]="\\grey.ini";	// 10 chars, include 00
 char	buf [888];
@@ -339,7 +339,7 @@ char	buf [888];
 	    if ((b1=='-') || (b1=='+'))  {
 //////		bb = (b1=='-') ? FALSE : TRUE;
 		if (b1=='-')  bb = FALSE;  else  bb = TRUE;
-		cc = (BYTE) '-' - bb - bb;	// '-' or '+'
+		cc = (uchar) '-' - bb - bb;	// '-' or '+'
 		if (b2=='K')  { mk_Key    = bb;	KEY_ERR_1 ("%cKey",  cc); }
 
 //////		if (b2=='C')  { Flag_Cont = bb;	KEY_ERR_1 ("%cCont", cc); }
@@ -407,7 +407,7 @@ if (N_Bytes_FROM==0)  pr_ERR ("GREY: NBF==0");
 	I_to = 0;	// for  grey_to
 }
 /*----------------------------------------------------------------------*/
-EXPORT(uint16_t) grey_to (BYTE far *pKogo)   {       // 30.10.1992
+EXPORT(uint16_t) grey_to (uchar far *pKogo)   {       // 30.10.1992
 uint16_t	n_acc, n_from;	// really it is N_lines_will_be_ready;
 
 	if (Flag_OPEN==FALSE)
@@ -487,7 +487,7 @@ uint16_t	n1, n2;
 	if (Flag_grHist) grey_quant_KOROB_graph_Hist ();
 }
 /*----------------------------------------------------------------------*/
-EXPORT(void) grey_from (BYTE far *pKuda) {       // 29.08.1992
+EXPORT(void) grey_from (uchar far *pKuda) {       // 29.08.1992
 
 	if (Flag_OPEN==FALSE)  return;	////////////	really ERROR
 	if (Itek>=I_to)  return;	////////////	really ERROR
@@ -549,7 +549,7 @@ void	grey_quant_KOROB_1x1 ()	{			// 29.08.1992
 uint16_t	i, i1, i2;					// SIMPLE VARIANT
 uint16_t	j, j1, nj, j7;
 int16_t	porog_tek;
-BYTE	b, mask_left, mask;
+uchar	b, mask_left, mask;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pkogo;
 
@@ -566,18 +566,18 @@ LPBYTE	pkogo;
 
 	for (i=i1; i<=i2; i++)  {
 	    pkuda = pkuda_beg;	pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 /*......................................................................*/
 	    pkogo = ppMem [i] + j1;
 	    for (j=0; j<nj; j++)  {
 		if ((int16_t)*pkogo++>=porog_tek)  b |= mask;
 		if (mask>>=1)  continue;
-		*pkuda++ = b;		// WRITE OLD BYTE
-		b = *pkuda;		// READ NEW BYTE
+		*pkuda++ = b;		// WRITE OLD uchar
+		b = *pkuda;		// READ NEW uchar
 		mask = 0x80;		// NEW MASK
 		}	// FOR J
-	    *pkuda++ = b;		// WRITE LAST BYTE
+	    *pkuda++ = b;		// WRITE LAST uchar
 /*......................................................................*/
 	    }		// FOR I
 }
@@ -588,7 +588,7 @@ uint16_t	j, j1, nj, j7;				// Vers-33: begin;
 uint16_t	nj_8;					// Vers-34: NO for 8 El. L/R
 int16_t	porog_tek, porog_max, delta;
 int16_t	nL, nC, nR;
-BYTE	b, mask_left, mask;
+uchar	b, mask_left, mask;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pkogo;
 
@@ -606,7 +606,7 @@ LPBYTE	pkogo;
 
 	for (i=i1; i<=i2; i++)  {
 	    pkuda = pkuda_beg;	pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 /*......................................................................*/
 	    pkogo = ppMem [i] + j1;
@@ -628,11 +628,11 @@ LPBYTE	pkogo;
 		if ((nC - delta) < porog_tek)  goto m2;		// WHITE !!!
 m1:		b |= mask;			// BLACK
 m2:		if (mask>>=1)  continue;
-		*pkuda++ = b;		// WRITE OLD BYTE
-		b = *pkuda;		// READ NEW BYTE
+		*pkuda++ = b;		// WRITE OLD uchar
+		b = *pkuda;		// READ NEW uchar
 		mask = 0x80;		// NEW MASK
 		}	// FOR J
-	    *pkuda++ = b;		// WRITE LAST BYTE
+	    *pkuda++ = b;		// WRITE LAST uchar
 /*......................................................................*/
 	    }		// FOR I
 }
@@ -643,7 +643,7 @@ uint16_t	j, j1, j7;					// from 03.11.1992
 uint16_t	j_beg, j_end;			// NB: spec work for 2 left & 2 right
 int16_t	porog_tek;
 int16_t	nLL, nL, nC, nR, nRR, nCmod;
-BYTE	b, mask_left, mask;
+uchar	b, mask_left, mask;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pkogo;
 
@@ -661,7 +661,7 @@ LPBYTE	pkogo;
 
 	for (i=i1; i<=i2; i++)  {
 	    pkuda = pkuda_beg;	pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 /*......................................................................*/
 	    pkogo = ppMem [i] + j1;
@@ -697,8 +697,8 @@ LPBYTE	pkogo;
 
 m1:		b |= mask;			// BLACK
 m2:		if (mask>>=1)  continue;
-		*pkuda++ = b;		// WRITE OLD BYTE
-		b = *pkuda;		// READ NEW BYTE
+		*pkuda++ = b;		// WRITE OLD uchar
+		b = *pkuda;		// READ NEW uchar
 		mask = 0x80;		// NEW MASK
 		}	// FOR J
 
@@ -710,7 +710,7 @@ m2:		if (mask>>=1)  continue;
 	    if (nRR>=porog_tek)  b |= mask;	// BLACK
 	    if ((mask>>=1)==0)  { *pkuda++ = b;  b = *pkuda;  mask = 0x80; }
 
-	    *pkuda++ = b;		// WRITE LAST BYTE
+	    *pkuda++ = b;		// WRITE LAST uchar
 /*......................................................................*/
 	    }		// FOR I
 }
@@ -723,8 +723,8 @@ int16_t	nUL, nU, nUR;
 int16_t	nL,  nC, nR;
 int16_t	nDL, nD, nDR;
 int16_t	k_plan;
-BYTE	b, mask_left, mask;
-BYTE	here_Laplas, here_Plan, here_Hor, here_Vert;
+uchar	b, mask_left, mask;
+uchar	here_Laplas, here_Plan, here_Hor, here_Vert;
 int32_t	L_kp_D8;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pU, pC, pD;		// Up, Centre, Down
@@ -763,7 +763,7 @@ LPBYTE	pU, pC, pD;		// Up, Centre, Down
 
 	for (i=i1; i<=i2; i++)  {
 	    pkuda = pkuda_beg;	pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 /*......................................................................*/
     pU = ppMem [i - 1] + j1 - 1;	// UP
@@ -857,11 +857,11 @@ int16_t	sedlo;				/* for BLACK THICK Text only	*/
 /*......................................................................*/
 	if (n>=porog_tek)  b |= mask;
 m_mask:	if (mask>>=1)  continue;
-	*pkuda++ = b;		// WRITE OLD BYTE
-	b = *pkuda;		// READ NEW BYTE
+	*pkuda++ = b;		// WRITE OLD uchar
+	b = *pkuda;		// READ NEW uchar
 	mask = 0x80;		// NEW MASK
 	}	// FOR J
-    *pkuda++ = b;		// WRITE LAST BYTE
+    *pkuda++ = b;		// WRITE LAST uchar
 /*......................................................................*/
 	    }		// FOR I
 }
@@ -874,7 +874,7 @@ int16_t	nUL, nU, nUR;
 int16_t	nL,  nC, nR;
 int16_t	nDL, nD, nDR;
 int16_t	lapl;
-BYTE	b, mask_left, mask;
+uchar	b, mask_left, mask;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pU, pC, pD;		// Up, Centre, Down
 
@@ -892,7 +892,7 @@ LPBYTE	pU, pC, pD;		// Up, Centre, Down
 
 	for (i=i1; i<=i2; i++)  {
 	    pkuda = pkuda_beg;	pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 /*......................................................................*/
     pU = ppMem [i - 1] + j1 - 1;	// UP
@@ -929,11 +929,11 @@ LPBYTE	pU, pC, pD;		// Up, Centre, Down
 /*......................................................................*/
 	if (n>=porog_tek)  b |= mask;
 m_mask:	if (mask>>=1)  continue;
-	*pkuda++ = b;		// WRITE OLD BYTE
-	b = *pkuda;		// READ NEW BYTE
+	*pkuda++ = b;		// WRITE OLD uchar
+	b = *pkuda;		// READ NEW uchar
 	mask = 0x80;		// NEW MASK
 	}	// FOR J
-    *pkuda++ = b;		// WRITE LAST BYTE
+    *pkuda++ = b;		// WRITE LAST uchar
 /*......................................................................*/
 	    }		// FOR I
 }
@@ -941,7 +941,7 @@ m_mask:	if (mask>>=1)  continue;
 void	grey_quant_KOROB_draw_RAMKA ()	{		// 29.08.1992
 uint16_t	i, i1, i2;
 uint16_t	j, j1, nj, j2;
-BYTE	mask, mask_L, mask_R;
+uchar	mask, mask_L, mask_R;
 LPBYTE	pU, pD, pL, pR;		// Up, Down, Left, Right
 
 	i1 = Korob_i1;
@@ -973,8 +973,8 @@ LPBYTE	pU, pD, pL, pR;		// Up, Down, Left, Right
 void	grey_quant_KOROB_graph_Hist ()	{		// 22.09.1992
 uint16_t	i = Itek + N_Lines_per_1_MEM - 8;
 
-	grey_PR_BYTE (i, 16, (BYTE)((Itek >> 8) & 0xFF));	// HIGH
-	grey_PR_BYTE (i, 24, (BYTE)(Itek & 0xFF));	// LOW
+	grey_PR_BYTE (i, 16, (uchar)((Itek >> 8) & 0xFF));	// HIGH
+	grey_PR_BYTE (i, 24, (uchar)(Itek & 0xFF));	// LOW
 
 	grey_PR_BYTE (i, 36, Porog_08);	// min
 
@@ -996,7 +996,7 @@ uint16_t	ibeg, jbeg;
 void	grey_PR_BYTE (uint16_t ibeg, uint16_t jbeg, uint16_t value) {   // 22.09.1992
 uint16_t	i, j, k;
 uint16_t	cifra, scale;
-BYTE	mask;
+uchar	mask;
 LPBYTE	p;
 /*......................................................................*/
 	cifra = value / 16;
@@ -1189,15 +1189,15 @@ KEY	pr_ERR_1 ("GREY: unknown Left Max (nkR=%02X)", KmaxR);
 m_err_OK:
 	KmaxL = 0;	KmaxR = 0xFF;	/* BBB	*/
 /*......................................................................*/
-m_ex:	Porog_12 = (BYTE) ((KmaxL + KmaxR) / 2);		  // 4/8
-	Porog_34 = (BYTE) ((KmaxL + KmaxR + KmaxR + KmaxR) / 4);  // 6/8
-	Porog_08 = (BYTE) KmaxL;
-	Porog_88 = (BYTE) KmaxR;
-	Diapazon_8 = (BYTE) ((KmaxR - KmaxL) / 8);
+m_ex:	Porog_12 = (uchar) ((KmaxL + KmaxR) / 2);		  // 4/8
+	Porog_34 = (uchar) ((KmaxL + KmaxR + KmaxR + KmaxR) / 4);  // 6/8
+	Porog_08 = (uchar) KmaxL;
+	Porog_88 = (uchar) KmaxR;
+	Diapazon_8 = (uchar) ((KmaxR - KmaxL) / 8);
 	Porog_38 = Porog_12 - Diapazon_8;
 	Porog_58 = Porog_12 + Diapazon_8;
 	Porog_78 = Porog_34 + Diapazon_8;
-	Diapazon_16 = (BYTE) (Diapazon_8 >> 1);	// for +MAX 1x3 work
+	Diapazon_16 = (uchar) (Diapazon_8 >> 1);	// for +MAX 1x3 work
 /*......................................................................*/
 }
 /*----------------------------------------------------------------------*/
@@ -1428,8 +1428,8 @@ uint16_t	ii, jj;					/* NB: U+ -> +2  R & L	*/
 uint16_t	i1,i2, ni, i_down;
 uint16_t	j1,j2, nj;
 uint16_t	n_0_2, n_j_empty;	/* for RIGHT +0 (U-) or +2 (U+) GLUE  */
-BYTE	/*FlagR,*/ FlagD, FlagL/*, Flag_DOWN_100*/;
-BYTE far *p;
+uchar	/*FlagR,*/ FlagD, FlagL/*, Flag_DOWN_100*/;
+uchar far *p;
 int16_t	count_5555 = 5555;	// BBB for OTLADKA
 
 	i1 = i2 = Itek;	ni = 1;
@@ -1557,7 +1557,7 @@ void	Korob_calc_Factor ()	{			// 07.09.1992
 int32_t	LNblack, LNdiff, LNinter;
 uint16_t	i1,i2, j1,nj, nj_1;
 uint16_t	i, j;
-BYTE	por_tek;
+uchar	por_tek;
 LPBYTE	pU, pC, pD;	/* Up, Centre, Down */
 
 	i1 = Korob_i1;	j1 = Korob_j1;
@@ -1601,7 +1601,7 @@ LPBYTE	pU, pC, pD;	/* Up, Centre, Down */
 void	Korob_calc_TdP ()	{			// 01.09.1992
 int16_t	i1,i2, j1,nj, Factor;				/* OTLADKA ONLY	*/
 int16_t	i, j;
-BYTE	mkMax, nn/*, dd*/;
+uchar	mkMax, nn/*, dd*/;
 
 	if (Flag_T==FALSE)  return;
 /*......................................................................*/
@@ -1746,7 +1746,7 @@ m_Verblud:/*			6/8   -
 		porog_tek = Porog_34 - (Factor - 0xD8)*Diapazon_8 / 0x08;
 	else	porog_tek = Porog_12;
 /*......................................................................*/
-m_ex:	Korob_porog = (BYTE) porog_tek;
+m_ex:	Korob_porog = (uchar) porog_tek;
 	Korob_x = xx;
 	Korob_y = yy;
 /*......................................................................*/
@@ -1925,7 +1925,7 @@ void	memory_allocation ()
 	pMREF = KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 	if (pMREF==NULL)  PR_BEG "pMREF = NULL", k);  PR_END
 
-	ppMem = (BYTE far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+	ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 	if (ppMem==NULL)  PR_BEG "ppMem = NULL", k);  PR_END
 /*......................................................................*/
 KEY	PR_BEG "hMem08: %X,%X,%X,%X,%X,%X,%X,%X",
@@ -1947,7 +1947,7 @@ KEY	PR_BEG	"pMem08: %lX,%lX,%lX,%lX\n....... %lX,%lX,%lX,%lX",
 /*----------------------------------------------------------------------*/
 void	memory_alloc_from_body ()	{		// 11.02.1992
 uint16_t	k;
-static	BYTE	Virginity = TRUE;
+static	uchar	Virginity = TRUE;
 
 	if (!Virginity)  return;
 
@@ -1982,7 +1982,7 @@ static	BYTE	Virginity = TRUE;
 	pMREF = KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 	if (pMREF==NULL)  PR_BEG "pMREF = NULL", k);  PR_END
 
-	ppMem = (BYTE far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+	ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 	if (ppMem==NULL)  PR_BEG "ppMem = NULL", k);  PR_END
 /*......................................................................*/
 KEY	PR_BEG "hMem08: %X,%X,%X,%X,%X,%X,%X,%X",

@@ -55,13 +55,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#include "nt_types.h"
+
 #include "roots.h"
 
 #define LETTER_OK (ROOT_LETTER+ROOT_DUST+ROOT_RECOGNIZED)
 #define RECF_DUST (ROOT_DUST+ROOT_RECOGNIZED)
 
-BYTE letters_sf_table[256] = {
+uchar letters_sf_table[256] = {
 RECF_DUST,		//  0
 RECF_DUST,		//  1
 RECF_DUST,		//  2

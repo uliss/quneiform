@@ -1946,7 +1946,7 @@ public:
 		if((cf.dwMask & (CFM_ITALIC | CFM_BOLD)) == (CFM_ITALIC | CFM_BOLD))
 		{
 			m_lf.lfWeight = ((cf.dwEffects & CFE_BOLD) != 0) ? FW_BOLD : FW_NORMAL;
-			m_lf.lfItalic = (BYTE)(((cf.dwEffects & CFE_ITALIC) != 0) ? TRUE : FALSE);
+			m_lf.lfItalic = (uchar)(((cf.dwEffects & CFE_ITALIC) != 0) ? TRUE : FALSE);
 		}
 		else
 		{
@@ -1958,13 +1958,13 @@ public:
 		if((cf.dwMask & (CFM_UNDERLINE | CFM_STRIKEOUT | CFM_COLOR)) == (CFM_UNDERLINE|CFM_STRIKEOUT|CFM_COLOR))
 		{
 			dwFlags |= CF_EFFECTS;
-			m_lf.lfUnderline = (BYTE)(((cf.dwEffects & CFE_UNDERLINE) != 0) ? TRUE : FALSE);
-			m_lf.lfStrikeOut = (BYTE)(((cf.dwEffects & CFE_STRIKEOUT) != 0) ? TRUE : FALSE);
+			m_lf.lfUnderline = (uchar)(((cf.dwEffects & CFE_UNDERLINE) != 0) ? TRUE : FALSE);
+			m_lf.lfStrikeOut = (uchar)(((cf.dwEffects & CFE_STRIKEOUT) != 0) ? TRUE : FALSE);
 		}
 		else
 		{
-			m_lf.lfUnderline = (BYTE)FALSE;
-			m_lf.lfStrikeOut = (BYTE)FALSE;
+			m_lf.lfUnderline = (uchar)FALSE;
+			m_lf.lfStrikeOut = (uchar)FALSE;
 		}
 
 		if((cf.dwMask & CFM_CHARSET) != 0)
@@ -3086,7 +3086,7 @@ public:
 	}
 
 	void Create(bool bDlgEx, LPCTSTR lpszCaption, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle = 0, DWORD dwExStyle = 0,
-	            LPCTSTR lpstrFontName = NULL, uint16_t wFontSize = 0, uint16_t wWeight = 0, BYTE bItalic = 0, BYTE bCharset = 0, DWORD dwHelpID = 0,
+	            LPCTSTR lpstrFontName = NULL, uint16_t wFontSize = 0, uint16_t wWeight = 0, uchar bItalic = 0, uchar bCharset = 0, DWORD dwHelpID = 0,
 				ATL::_U_STRINGorID ClassName = 0U, ATL::_U_STRINGorID Menu = 0U)
 	{
 		// Should have DS_SETFONT style to set the dialog font name and size
@@ -3296,8 +3296,8 @@ protected:
 		LPCTSTR szFontName = NULL; \
 		uint16_t wFontSize = 0; \
 		uint16_t wWeight = 0; \
-		BYTE bItalic = 0; \
-		BYTE bCharset = 0; \
+		uchar bItalic = 0; \
+		uchar bCharset = 0; \
 		DWORD dwHelpID = 0; \
 		ATL::_U_STRINGorID Menu = 0U; \
 		ATL::_U_STRINGorID ClassName = 0U;
@@ -3314,8 +3314,8 @@ protected:
 		LPCTSTR szFontName = NULL; \
 		uint16_t wFontSize = 0; \
 		uint16_t wWeight = 0; \
-		BYTE bItalic = 0; \
-		BYTE bCharset = 0; \
+		uchar bItalic = 0; \
+		uchar bCharset = 0; \
 		DWORD dwHelpID = helpID; \
 		ATL::_U_STRINGorID Menu = 0U; \
 		ATL::_U_STRINGorID ClassName = 0U;
@@ -4699,11 +4699,11 @@ public:
 		{
 			HRSRC hDlgInit = ::FindResource(hInstance, lpTemplateName, (LPTSTR)_ATL_RT_DLGINIT);
 
-			BYTE* pInitData = NULL;
+			uchar* pInitData = NULL;
 			if(hDlgInit != NULL)
 			{
 				m_hInitData = ::LoadResource(hInstance, hDlgInit);
-				pInitData = (BYTE*)::LockResource(m_hInitData);
+				pInitData = (uchar*)::LockResource(m_hInitData);
 			}
 
 			m_hDlgRes = ::LoadResource(hInstance, hDlg);
@@ -4818,14 +4818,14 @@ public:
 	{
 		// Load dialog template and InitData
 		HRSRC hDlgInit = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (LPTSTR)_ATL_RT_DLGINIT);
-		BYTE* pInitData = NULL;
+		uchar* pInitData = NULL;
 		HGLOBAL hData = NULL;
 		HRESULT hr = S_OK;
 		if (hDlgInit != NULL)
 		{
 			hData = ::LoadResource(ATL::_AtlBaseModule.GetResourceInstance(), hDlgInit);
 			if (hData != NULL)
-				pInitData = (BYTE*) ::LockResource(hData);
+				pInitData = (uchar*) ::LockResource(hData);
 		}
 
 		HRSRC hDlg = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (LPTSTR)RT_DIALOG);
@@ -4852,7 +4852,7 @@ public:
 						DWORD wID = bDialogEx ? ((ATL::_DialogSplitHelper::DLGITEMTEMPLATEEX*)pItem)->id : pItem->id;
 						if (ATL::_DialogSplitHelper::IsActiveXControl(pItem, bDialogEx))
 						{
-							BYTE* pData = NULL;
+							uchar* pData = NULL;
 							DWORD dwLen = ATL::_DialogSplitHelper::FindCreateData(wID, pInitData, &pData);
 							ATL::CComPtr<IStream> spStream;
 							if (dwLen != 0)
@@ -4860,8 +4860,8 @@ public:
 								HGLOBAL h = GlobalAlloc(GHND, dwLen);
 								if (h != NULL)
 								{
-									BYTE* pBytes = (BYTE*) GlobalLock(h);
-									BYTE* pSource = pData;
+									uchar* pBytes = (uchar*) GlobalLock(h);
+									uchar* pSource = pData;
 									SecureHelper::memcpy_x(pBytes, dwLen, pSource, dwLen);
 									GlobalUnlock(h);
 									CreateStreamOnHGlobal(h, TRUE, &spStream);

@@ -64,6 +64,6 @@ static INT  create_new_bas (cell *first, INT cmps);
 static INT try_TM (cell **first, INT num);
 static void ReRecogComponents (INT mode);
 static void init_sublist (INT mode);
-static BYTE is_dig (BYTE letter);
+static uchar is_dig (uchar letter);
 
 #define MAX_TM_COMPS 8

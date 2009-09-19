@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-typedef unsigned char BYTE;
+typedef unsigned char uchar;
 
 static int32_t _stdOpenCounter=0;
 static int32_t _stdCloseCounter=0;
@@ -651,7 +651,7 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,int32_t nNetPathSize,const char* psz
     szDrv[0]=(char)stdUpperAscii((char)szDrv[0]);
     XPath xpPathWoDrv(pszLocalPath);
     xpPathWoDrv.EraseDrive();
-uint32_t nValType=0; BYTE szValData[256]={0}; uint32_t nDataLen=sizeof(szValData);
+uint32_t nValType=0; uchar szValData[256]={0}; uint32_t nDataLen=sizeof(szValData);
     if(nDrvType==DRIVE_FIXED)
     {
         char szComputer[128]={0}; ulong nSize=sizeof(szComputer);

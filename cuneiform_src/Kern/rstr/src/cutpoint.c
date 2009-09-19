@@ -59,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -72,11 +71,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //  snap globals
-extern BYTE db_status;      // snap presence byte
-extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+extern uchar db_status;      // snap presence byte
+extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;
 
-extern BYTE *ForRaster1;
+extern uchar *ForRaster1;
 
 static void begin(INT,INT);
 static void allcuts();
@@ -109,7 +108,7 @@ static struct extrem_elem exfoot[MAX_HOR/2];
 static struct extrem_elem exhead[MAX_HOR/2];
 static INT totalh;
 //Lepik searches objezd:
- static INT  SearchObjezd(INT x,  PBYTE c,
+ static INT  SearchObjezd(INT x,  puchar c,
                           INT width, INT y,
                           INT dh, INT r0,
                           INT height, INT y_beg);
@@ -444,7 +443,7 @@ static void regmin(char c)
    struct segment *s_ptr;
    line_num--;
    l_ptr=&Ed_lines[line_num];
-   s_ptr = (struct segment *) ((BYTE *)t_line_ptr + l_ptr->segm_addr);
+   s_ptr = (struct segment *) ((uchar *)t_line_ptr + l_ptr->segm_addr);
    s_ptr += wx-l_ptr->top;
    dh=s_ptr->lth;
    h=s_ptr->end;
@@ -1058,7 +1057,7 @@ static void make_func()
   {
   p=path[n];
   l_ptr=&Ed_lines[p];
-  s_ptr = (struct segment *) ((BYTE *)t_line_ptr + l_ptr->segm_addr);
+  s_ptr = (struct segment *) ((uchar *)t_line_ptr + l_ptr->segm_addr);
   for (x=l_ptr->top; x < l_ptr->bot; x++,s_ptr++,totalh++)
    {
    heads[totalh]=s_ptr->end;
@@ -1263,7 +1262,7 @@ static void make_info()
  for (nl=0; nl < max_line; nl++)
   {
   l_ptr=&Ed_lines[nl];
-  s_ptr = (struct segment *) ((BYTE *)t_line_ptr + l_ptr->segm_addr);
+  s_ptr = (struct segment *) ((uchar *)t_line_ptr + l_ptr->segm_addr);
 
   for (nx=l_ptr->top; nx < l_ptr->bot; nx++,s_ptr++)
    {
@@ -1286,7 +1285,7 @@ static void make_info()
   }
  }
 
-INT cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans)
+INT cut_points(INT width,INT height,uchar *r,struct cut_elm *ans)
  {
  char n, a, i;
  struct cut_elm *a1;
@@ -1351,7 +1350,7 @@ ret:;
  return a;
  }
 /////////////////////
-INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
+INT Alik_cut_points(INT width,INT height,uchar *r,struct cut_elm *ans,INT row)
  {
  char n,a,i;
  struct cut_elm *a1;
@@ -1392,11 +1391,11 @@ INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AK changed 26.03.98
-MN  *cut_rast(PBYTE r,INT width, INT height,INT upper, INT left,
+MN  *cut_rast(puchar r,INT width, INT height,INT upper, INT left,
 	      struct cut_elm *cuts, char p, char flg, char *svp, cut_pos *cpos)
 {
-	BYTE *c, *s;
-	BYTE b, bt, bs;
+	uchar *c, *s;
+	uchar b, bt, bs;
 	char x, h, dh, fl;
 	INT totc, dx, y, r0, tr1, tr2, r1, r2, f1;
 	//  flg - request type :
@@ -1479,7 +1478,7 @@ agacut:;
 				continue;
 			}
 
-			if ((BYTE)(*c & bt) != 0)   // interval starts or continues
+			if ((uchar)(*c & bt) != 0)   // interval starts or continues
 			{
 				// Lepik:
 				if( !cuts_point_methode )
@@ -1496,7 +1495,7 @@ agacut:;
 							while (ret-- >=0)
 							{
 								*s |= bs;
-								bs = (BYTE)(bs>>1);
+								bs = (uchar)(bs>>1);
 								if (bs==0)
 								{
 									bs=0x80;
@@ -1534,7 +1533,7 @@ agacut:;
 					f1 |=2;
 				};
 	//
-			bs = (BYTE)(bs>>1);
+			bs = (uchar)(bs>>1);
 
 			if (bs==0)
 			{
@@ -1557,7 +1556,7 @@ agacut:;
 			if (*s & bs)
 				*c |= bt;
 
-			bs = (BYTE)(bs>>1);
+			bs = (uchar)(bs>>1);
 
 			if (bs==0)
 			{
@@ -1605,14 +1604,14 @@ agacut:;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define obLook  4
 //                       0    1    2    3    4    5    6    7
-static BYTE bits[8] ={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
-static BYTE lstr[8] ={0x80,0xC0,0xE0,0xF0,0x78,0x3C,0x1E,0x0F};
-static BYTE rstr[8] ={0xF0,0x78,0x3C,0x1E,0x0F,0x07,0x03,0x01};
-static BYTE  aux[8] ={0x07,0x03,0x01,0x00,0x00,0x80,0xC0,0xE0};
+static uchar bits[8] ={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+static uchar lstr[8] ={0x80,0xC0,0xE0,0xF0,0x78,0x3C,0x1E,0x0F};
+static uchar rstr[8] ={0xF0,0x78,0x3C,0x1E,0x0F,0x07,0x03,0x01};
+static uchar  aux[8] ={0x07,0x03,0x01,0x00,0x00,0x80,0xC0,0xE0};
 
 
 INT  SearchObjezd(INT     x,         // column number where cutting is going.
-                  PBYTE   c,         // pointer to curr byte in raster
+                  puchar   c,         // pointer to curr byte in raster
                   INT width,         // width of raster (pixs)
                   INT     y,         // current row (in relative coords)
                   INT    dh,         // no of rows to investigate(rel coords)
@@ -1621,10 +1620,10 @@ INT  SearchObjezd(INT     x,         // column number where cutting is going.
                   INT beg_y)         // first row for cut
  {
   INT  i;
-  PBYTE cc;
+  puchar cc;
   INT dx;             //  width of raster in bytes.
   INT  bitNo;         // Curr Bit No in byte
-  BYTE  CurB, aCurB,  Mask, aMask, Accu, aAccu;
+  uchar  CurB, aCurB,  Mask, aMask, Accu, aAccu;
   INT strategy; // 0 - left and right strips in one byte,
                 // 1 - right split by byte,
                 // 2 - left   split by byte.
@@ -1637,7 +1636,7 @@ INT  SearchObjezd(INT     x,         // column number where cutting is going.
 
                // the following block searches the last row of interval.
   {
-    BYTE b;
+    uchar b;
     b=0x80>>bitNo;
     for (i =y+1, cc =c+dx; i <dh; i++, cc+=dx)
        if (! (*cc & b))  break;

@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -79,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define pen_roof_upright 100
 #define pen_roof_itun 32
 #define pen_roof_itm  64
-extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern char db_status;
 extern char db_pass;
 static int fl_sort_vers;
@@ -89,13 +88,13 @@ static char leg_midw, leg_uneven, leg_maxpos, leg_minpos, leg_botw, pen_ne,
             sumw1, sumw2, sumw3, sumw12, sumw23;
 static INT leg_sumw;
 static char mn_err, des, mhh, shh, ehh, hhh;
-static BYTE at_sum[64];
-static BYTE at_sum[64];
+static uchar at_sum[64];
+static uchar at_sum[64];
 static char at_end[3][64], at_lth[3][64];
 static char at_dif0[64], at_dif1[64], at_dif2[64];
 static char at_roof[128];
 
-static BYTE pens_leg[32] = {
+static uchar pens_leg[32] = {
 100,
 100,64,100,
 100,64,100,
@@ -106,7 +105,7 @@ static BYTE pens_leg[32] = {
 100,100,
 36
 };
-static BYTE pen_ne_12[] = {0,12,36,64,96,100,128,160 };
+static uchar pen_ne_12[] = {0,12,36,64,96,100,128,160 };
 static char *legs_err[]={
  "ok",
  "1st bad", "1st uneven", "1st like \\",
@@ -123,14 +122,14 @@ static char roof_incompl[]={"incomplete roof/floor"};
 static char roof_hole[]={"gap not in place"};
 
 void est_snap(char user,cell *C,pchar txt);
-static BYTE pen_roofm[8]={0,2,4,12,24,36,48,100};
-static BYTE pen_roofn[8]={0,2,4,12,24,36,48,100};
-static BYTE pen_iroofn[8]={0,0,0,0,12,36,48,100};
-static BYTE pen_floor[8]={0,0,0,0,12,36,48,100};
-static BYTE pen_ifloor[8]={0,2,4,12,24,36,48,100};
-static BYTE ital_un, cum_ital;
+static uchar pen_roofm[8]={0,2,4,12,24,36,48,100};
+static uchar pen_roofn[8]={0,2,4,12,24,36,48,100};
+static uchar pen_iroofn[8]={0,0,0,0,12,36,48,100};
+static uchar pen_floor[8]={0,0,0,0,12,36,48,100};
+static uchar pen_ifloor[8]={0,2,4,12,24,36,48,100};
+static uchar ital_un, cum_ital;
 static INT analeg(pchar);
-void del_vers(cell *c, BYTE x, BYTE pen);
+void del_vers(cell *c, uchar x, uchar pen);
 
 void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
 //
@@ -163,7 +162,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
      roofl, roofr, roofd, rooftl, rooftr,
      botl, bottl, botd;
  INT legd, rowd, i, j;
- BYTE  sm_reason, flsort;
+ uchar  sm_reason, flsort;
  INT Lc1,lc1;
  interval *int1;
  c_comp *cp1;
@@ -176,7 +175,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
  nok = uok = 0;
  cum_ital = 0;
  sm_reason =  0;
- flsort=(BYTE)flag;     /*********** "flag"  and "flsort" NOT USED   ************/
+ flsort=(uchar)flag;     /*********** "flag"  and "flsort" NOT USED   ************/
  fl_sort_vers=0;
  vers=0;
  nc=0;
@@ -891,7 +890,7 @@ wrk3:
         p=pen_roofn[d];
       else
         p=pen_iroofn[d];
-      del_vers(AA,2,(BYTE)p);
+      del_vers(AA,2,(uchar)p);
       if (db_status && (db_trace_flag & 2))
          est_snap(db_pass,AA,roof_incompl);
       goto retsort;
@@ -973,7 +972,7 @@ horizu:
         p=pen_floor[d];
       else
         p=pen_ifloor[d];
-      del_vers(AA,4,(BYTE)p);
+      del_vers(AA,4,(uchar)p);
       if (db_status && (db_trace_flag & 2))
         est_snap(db_pass,AA,roof_incompl);
       goto retsort;
@@ -1110,10 +1109,10 @@ static INT analeg (char *l)
 
  }
 
-void del_vers(cell *c, BYTE x, BYTE pen)
+void del_vers(cell *c, uchar x, uchar pen)
 {
  version *dv1;
- BYTE cx, cx_acc, fld, fla;
+ uchar cx, cx_acc, fld, fla;
  INT p;
  fld=0;
  for (dv1=c->vers; (cx_acc=dv1->let)!=0; dv1++)
@@ -1128,7 +1127,7 @@ void del_vers(cell *c, BYTE x, BYTE pen)
    if (fld & fla) { dv1->prob=0; continue;}
    p=dv1->prob-pen;
    if (p<0) p=2;
-   dv1->prob = (BYTE)p;
+   dv1->prob = (uchar)p;
    fld |= fla;
    fl_sort_vers=1;
  }

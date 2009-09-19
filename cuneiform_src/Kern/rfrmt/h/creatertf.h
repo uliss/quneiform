@@ -197,7 +197,7 @@ public:
 	 Bool	                Write_USE_NONE( void );
 	 Bool	                Write_USE_FRAME( void );
 	 Bool	                Write_USE_FRAME_AND_COLUMN( void );
- 	int16_t               	GetFlagAndNumberFragment( BYTE* FragmentType, int16_t* CurrentSectorNumber );
+ 	int16_t               	GetFlagAndNumberFragment( uchar* FragmentType, int16_t* CurrentSectorNumber );
   void                 WriteSectorsHeader(int16_t i);
   void                 ToPlacePicturesAndTables(void);
   void                 Rtf_CED_CreatePage(void);
@@ -227,7 +227,7 @@ public:
 		int32_t                InitMargT;
 		int32_t                InitMargB;
 
-		BYTE                 FlagBadColumn;
+		uchar                 FlagBadColumn;
   int		                m_nIndex;
   int                  m_nCurSectorNumber;
   int                  m_nPrevSectorNumber;
@@ -289,7 +289,7 @@ public:
   Bool                 GetFlagStrongLeft(int beg, int end);
   Bool                 GetFlagRight(int beg, int end);
   Bool                 GetFlagBigSpace(int beg, int end);
-  Bool                 CheckNumber(BYTE FirstChar);
+  Bool                 CheckNumber(uchar FirstChar);
 
   void                 PrintTheResult(const char*);
 
@@ -355,12 +355,12 @@ uint32_t                m_wUserNumberForFormattedMode;
   int16_t                m_sl;
 
   int16_t                m_max_dist;
-  BYTE                 m_Attr;
-  BYTE                 m_FlagCarry;
-  BYTE                 m_FlagLeft;
-  BYTE                 m_FlagStrongLeft;
-  BYTE                 m_FlagRight;
-  BYTE                 m_FlagBigSpace;
+  uchar                 m_Attr;
+  uchar                 m_FlagCarry;
+  uchar                 m_FlagLeft;
+  uchar                 m_FlagStrongLeft;
+  uchar                 m_FlagRight;
+  uchar                 m_FlagBigSpace;
 uint32_t                m_Flag;
 };
 
@@ -439,7 +439,7 @@ public:
   /*CObArray*/std::vector<vectorWord*>	            m_arVTerminalColumnsGroup;
   /*CObArray*/std::vector<vectorWord*>	            m_arVTerminalColumnsIndex;
   /*CWordArray*/vectorWord           m_arSpacePlace;
-		/*CByteArray*/std::vector<BYTE>           m_arOrderingNumber;
+		/*CByteArray*/std::vector<uchar>           m_arOrderingNumber;
 
   uint16_t     	           m_wVerticalColumnsCount;
   uint16_t	                m_wIndex;
@@ -507,14 +507,14 @@ public:
   uint16_t	               m_wPrevAlignment;
   uint16_t	               m_LengthStringInTwips;
   uint16_t	               m_wSpaceBefore;
-  BYTE                 m_wLeftBorderEqual;
-  BYTE                 m_wRightBorderEqual;
-  BYTE                 m_wCentreEqual;
-  BYTE                 m_bLineTransfer;
-  BYTE                 m_LastChar;
-  BYTE                 m_FirstChar;
-  BYTE                 m_Attr;
-  BYTE                 m_FlagCarry;
+  uchar                 m_wLeftBorderEqual;
+  uchar                 m_wRightBorderEqual;
+  uchar                 m_wCentreEqual;
+  uchar                 m_bLineTransfer;
+  uchar                 m_LastChar;
+  uchar                 m_FirstChar;
+  uchar                 m_Attr;
+  uchar                 m_FlagCarry;
   uint32_t               S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
@@ -561,15 +561,15 @@ public:
 
   struct
   {
-  BYTE	        m_bChar;
-  BYTE	        m_bProbability;
+  uchar	        m_bChar;
+  uchar	        m_bProbability;
   } m_chrVersions[REC_MAX_VERS];//!!! Art
   RECT	               m_Idealrect;
   RECT	               m_Realrect;
-		BYTE                 m_blanguage;
-		BYTE                 m_bFlg_spell;
-		BYTE                 m_bFlg_spell_nocarrying;
-		BYTE                 m_bFlg_cup_drop;
+		uchar                 m_blanguage;
+		uchar                 m_bFlg_spell;
+		uchar                 m_bFlg_spell_nocarrying;
+		uchar                 m_bFlg_cup_drop;
 	 uint16_t                 m_wCountAlt;
 	 uint16_t                 m_wFontNumber;
   uint16_t                 m_wFontPointSize;

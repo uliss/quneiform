@@ -160,7 +160,7 @@ DEC_FUN(void, CED_ShowTree,(char * name, Handle hEdPage));
 DEC_FUN(Bool32, CED_IsEdFile, (char * file,Bool32 readFromFile, uint32_t bufLen));
 
 DEC_FUN(Handle, CED_CreatePage,(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dpi,int _turn,int _pageNumber,EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar));
-DEC_FUN(Bool32, CED_CreateFont,(Handle hEdPage, BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,char* fontName));
+DEC_FUN(Bool32, CED_CreateFont,(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,char* fontName));
 DEC_FUN(Bool32, CED_CreatePicture,(Handle hEdPage, int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len));
 DEC_FUN(Handle, CED_CreateSection,(Handle hEdPage,EDRECT border, char sectionBreak, int width, int height, char orientation, int headerY, int footerY));
 DEC_FUN(Handle, CED_CreateColumn,( Handle hEdSection,int width, int space));
@@ -181,7 +181,7 @@ DEC_FUN(EDSIZE,CED_GetPageSize,(Handle hEdPage));
 DEC_FUN(char,CED_GetPageUnrecogChar,(Handle hEdPage));
 DEC_FUN(uint32_t,CED_GetNumberOfParagraphs,(Handle hEdPage));
 DEC_FUN(Handle, CED_GetParagraph,(Handle hEdPage,int _num));
-DEC_FUN(Bool32, CED_GetFont,(Handle hEdPage,int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,char* fontName));
+DEC_FUN(Bool32, CED_GetFont,(Handle hEdPage,int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,char* fontName));
 DEC_FUN(int, CED_GetNumOfFonts,(Handle hEdPage));
 DEC_FUN(uint32_t,CED_GetCountSection,(Handle hEdPage));
 DEC_FUN(Handle, CED_GetSection,(Handle hEdPage, uint32_t number));
@@ -234,17 +234,17 @@ struct pageDescr
         uint32_t margr;
         uint32_t margt;
         uint32_t margb;
-	BYTE  resizeToFit;
-	BYTE  recogLang;
+	uchar  resizeToFit;
+	uchar  recogLang;
 };
 
 #pragma pack(1)
 struct fontDiscr
 {
 	uint16_t size;
-    BYTE fontNumber;
-    BYTE fontPitchAndFamily;
-    BYTE fontCharset;
+    uchar fontNumber;
+    uchar fontPitchAndFamily;
+    uchar fontCharset;
 };
 
 #pragma pack(1)
@@ -254,8 +254,8 @@ struct pictDescr
 	uint16_t pictNumber;
 	EDSIZE pictSize;
 	EDSIZE pictGoal;
-	BYTE pictAlign;
-	BYTE type;
+	uchar pictAlign;
+	uchar type;
         uint32_t len;
 };
 
@@ -268,7 +268,7 @@ struct originalImageDesc
     uint16_t pageNum;
     uint32_t width;
     uint32_t height;
-	BYTE unrecogSymbol;
+	uchar unrecogSymbol;
 };
 
 #pragma pack(1)
@@ -278,26 +278,26 @@ struct sectParams1
     uint32_t bottomMargin;
     uint32_t leftMargin;
     uint32_t rightMargin;
-	BYTE columns;
-	BYTE numSnakeCols;
+	uchar columns;
+	uchar numSnakeCols;
     uint32_t colInterval;
 };
 #pragma pack(1)
 struct sectParams2
 {
-	BYTE sectionBreak;
+	uchar sectionBreak;
     uint32_t width;
     uint32_t height;
-	BYTE orientation;
+	uchar orientation;
         uint32_t headerY;
         uint32_t footerY;
-	BYTE lineBetCol;
+	uchar lineBetCol;
 };
 
 #pragma pack(1)
 struct frameParam
 {
-	BYTE position;
+	uchar position;
     uint32_t posx;
     uint32_t posy;
     uint32_t absw;
@@ -305,7 +305,7 @@ struct frameParam
         uint32_t borderSpace;
         uint32_t dxfrtextx;
         uint32_t dxfrtexty;
-	BYTE flag;
+	uchar flag;
 };
 
 #pragma pack(1)
@@ -313,37 +313,37 @@ struct rowParam
 {
         uint32_t left;
         uint32_t rowHeight;
-	BYTE leftBrdrType;
+	uchar leftBrdrType;
         uint32_t leftBrdrWidth;
-	BYTE rightBrdrType;
+	uchar rightBrdrType;
         uint32_t rightBrdrWidth;
-	BYTE topBrdrType;
+	uchar topBrdrType;
         uint32_t topBrdrWidth;
-	BYTE bottomBrdrType;
+	uchar bottomBrdrType;
         uint32_t bottomBrdrWidth;
         uint32_t gaph;
-	BYTE position;
-	BYTE header;
+	uchar position;
+	uchar header;
 };
 
 #pragma pack(1)
 struct cellParam
 {
         uint32_t cellX;
-	BYTE merging;
-	BYTE vertTextAlign;
-	BYTE leftBrdrType;
+	uchar merging;
+	uchar vertTextAlign;
+	uchar leftBrdrType;
         uint32_t leftBrdrWidth;
-	BYTE rightBrdrType;
+	uchar rightBrdrType;
         uint32_t rightBrdrWidth;
-	BYTE topBrdrType;
+	uchar topBrdrType;
         uint32_t topBrdrWidth;
-	BYTE bottomBrdrType;
+	uchar bottomBrdrType;
         uint32_t bottomBrdrWidth;
 	EDBOX layout;
 	uint16_t shading;
 	uint16_t color;
-	BYTE flag;
+	uchar flag;
 };
 
 #pragma pack(1)
@@ -352,24 +352,24 @@ struct paraParams
         uint32_t firstIndent;
         uint32_t leftIndent;
     uint32_t rightIndent;
-    BYTE  alignment;
+    uchar  alignment;
 	uint16_t  userNum;
 	uint16_t  color;
 	uint16_t  shading;
     uint32_t spaceBefore;
     uint32_t spaceAfter;
     uint32_t spaceBetweenLines;
-	BYTE  spcBtwLnsMult;
-	BYTE  keep;
-	BYTE leftBrdrType;
+	uchar  spcBtwLnsMult;
+	uchar  keep;
+	uchar leftBrdrType;
         uint32_t leftBrdrWidth;
-	BYTE rightBrdrType;
+	uchar rightBrdrType;
         uint32_t rightBrdrWidth;
-	BYTE topBrdrType;
+	uchar topBrdrType;
         uint32_t topBrdrWidth;
-	BYTE bottomBrdrType;
+	uchar bottomBrdrType;
         uint32_t bottomBrdrWidth;
-	BYTE brdrBtw;
+	uchar brdrBtw;
 };
 
 #pragma pack(1)
@@ -392,7 +392,7 @@ struct StrRtfOut {                        // Rtf output file processing block
       int  output;                        // rtr output type: RTF_FILE,RTF_BUF,RTF_CB
       HANDLE hFile;                        // stream if file is used
       HGLOBAL hBuf;                       // output buffer handle if using buffer output
-      BYTE *buf;                     // output buffer pointer if using buffer
+      uchar *buf;                     // output buffer pointer if using buffer
       long BufLen;                        // allcated length of buffer
       long BufIndex;                      // index of next character in the buffer
       char text[MAX_WIDTH+1];             // temporary buffer to write text
@@ -422,11 +422,11 @@ struct StrRtfOut {                        // Rtf output file processing block
       long IntParam;                      // rtf control word parameter in integer numeric format
 	  char CurWord[MAX_WIDTH+1];          // current word
       int  WordLen;                       // length of the current word
-      int  TextIndex;                     // index if current BYTE in the 'text' buffer
+      int  TextIndex;                     // index if current uchar in the 'text' buffer
       char CurChar;                       // last character read
       Bool eof;                           // end of file
       char param[MAX_WIDTH/3];            // rtf control word parameter
-      BYTE stack[MAX_WIDTH+1];            // characters returned from previous operations
+      uchar stack[MAX_WIDTH+1];            // characters returned from previous operations
       int  StackLen;                      // number of characters in the stack
 
 	};
@@ -465,7 +465,7 @@ Bool WriteRtfCharFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDChar* curChar);
 Bool EndRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
 Bool WriteRtfParaFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDParagraph* NewPfmt,CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/);
 Bool FlushRtfLine(/*PTERWND w,*/struct StrRtfOut *rtf);
-Bool PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
+Bool PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf,uchar CurChar);
 Bool WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf, const char* text, int TextLen);
 Bool WriteRtfRow(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell,CEDParagraph * prevRow);
 Bool WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
@@ -473,7 +473,7 @@ Bool WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
 Bool WriteRtfPara(struct StrRtfOut *rtf,CEDParagraph* p, Bool brk);
 Bool WriteFrmPos(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* frm, Bool writeWidth);
 Bool WriteRtfDIB(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
-Bool PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
+Bool PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf,uchar CurChar);
 Bool WriteRtfMetafile(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
 Bool WriteRtfMergedHeader(struct StrRtfOut *rtf, const char * name);
 Bool WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);

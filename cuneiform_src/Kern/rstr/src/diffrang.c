@@ -63,20 +63,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-        #include "nt_types.h"
         #include "status.h"
         #include "discrim.h"
         #include "tuner.h"
         #include "ligas.h"
 
 /************************************************************/
-extern INT  LeftDistance(BYTE *RASTER,INT dx);
-extern INT  RightDistance(BYTE *RASTER,INT dx);
+extern INT  LeftDistance(uchar *RASTER,INT dx);
+extern INT  RightDistance(uchar *RASTER,INT dx);
 extern segment * go_line(segment *s,uint16_t num);
 
 /************************************************************/
-static INT long_line( PBYTE seg,INT w,INT line,INT part);
+static INT long_line( puchar seg,INT w,INT line,INT part);
 
 
 #define bytlen(c) ((c+7)>>3)
@@ -100,7 +98,7 @@ static INT buf_lines[NUM_LINES];	/* буфер длин линий	*/
 
 typedef struct
 	{
-	BYTE 		tl, 		/* ВЕРХНИЙ ЛЕВЫЙ 	*/
+	uchar 		tl, 		/* ВЕРХНИЙ ЛЕВЫЙ 	*/
 			tr,             /* ВЕРХНИЙ ПРАВЫЙ	*/
 			bl,             /* НИЖНИЙ  ЛЕВЫЙ 	*/
 			br;             /* НИЖНИЙ  ПРАВЫЙ	*/
@@ -112,9 +110,9 @@ CRN cut_crn={0}, cut_crn0={0}, cut_crn1={0};
 CRN	angles,				/* буфер углов 		*/
 *default_corners ;                      /* углы по умолчанию    */
 
-static INT non_similar_angles(BYTE def_a, BYTE a,
+static INT non_similar_angles(uchar def_a, uchar a,
 #ifdef UFA
-  BYTE cut_sign,
+  uchar cut_sign,
 #endif
   INT dy)
 {
@@ -155,7 +153,7 @@ if( def_a==A_C && a==SERIF )
 return ret;
 }
 
-INT corner_type( BYTE crn )
+INT corner_type( uchar crn )
 {
 if( crn == SERIF )  return SERIF;
 else if( crn == 0 ) return NON_CURVE;
@@ -168,7 +166,7 @@ return UNDEF;
 }
 
 /* дискриминатор за различие углов по вычисленным типам angles */
-static INT check_angles(BYTE let,INT dy)
+static INT check_angles(uchar let,INT dy)
 {
 INT non_sim=0,non_num=0,p;
 INT deskr[]={0,40,80,200,240};	// 0, 50, 120, ...
@@ -208,7 +206,7 @@ return( deskr[  non_sim>>1 ] );
 
 /* определить тип угла по NUM_LINES расстояниям из buf_lines 	*/
 /* ищем только тип CURVE					*/
-static BYTE calc_one_angle(INT h)
+static uchar calc_one_angle(INT h)
 {
 INT i,old=buf_lines[0],neue,num_jmps,s;
  INT back_jmps,equ;
@@ -250,15 +248,15 @@ for(num_jmps=0,old=buf_lines[0],i=1;i<h;i++)
 if( num_jmps==1 && back_jmps>=1 ||   /* 1+ 1- */
     num_jmps>1  && back_jmps>1 )     /* 2+ 2- */
         num_jmps   = 0;
-return(BYTE)num_jmps ;
+return(uchar)num_jmps ;
 }
 
 /* вычислить NUM_LINES расстояния слева до растра 			*/
 /* пропускать начальные линии из-за скачков более DIST_LIN		*/
 /* позиция угла определяется растром в вызывающей программе		*/
 /* направление задается знаком D_X					*/
-static BYTE get_lines(BYTE *RASTER, INT D_X, INT dx,
-                INT (*Distance)(BYTE *, INT) , INT h)
+static uchar get_lines(uchar *RASTER, INT D_X, INT dx,
+                INT (*Distance)(uchar *, INT) , INT h)
 {
 INT i,old,neue;
 
@@ -302,16 +300,16 @@ if( h==4 )
 return( calc_one_angle(h) );
 }
 
-BYTE Let_Width_Bottom_Right_Curve[]="ВБЭЗО";
+uchar Let_Width_Bottom_Right_Curve[]="ВБЭЗО";
 /* дискриминатор за углы символу let, h - высота, type - курсивность   */
-INT discr_angles(BYTE let, INT h, INT type)
+INT discr_angles(uchar let, INT h, INT type)
 {
 
 default_corners = (CRN *)(type ? def_corn_cs : def_corn);
 
 memcpy(&cut_crn,&cut_crn0,sizeof(cut_crn));
 #ifdef UFA
-default_corners[(BYTE)'Б'].tr=0;
+default_corners[(uchar)'Б'].tr=0;
 if( MEMCHR(Let_Width_Bottom_Right_Curve,let,
     sizeof(Let_Width_Bottom_Right_Curve)) )
       memcpy(&cut_crn,&cut_crn1,sizeof(cut_crn));
@@ -319,21 +317,21 @@ if( MEMCHR(Let_Width_Bottom_Right_Curve,let,
 
 if( multy_language )
   {
-  default_corners[(BYTE)'5'].tl=N_C;
-  default_corners[(BYTE)'5'].bl=A_C;
+  default_corners[(uchar)'5'].tl=N_C;
+  default_corners[(uchar)'5'].bl=A_C;
 
   if (!is_turkish_language(language)) // 21.05.2002 E.P.
-	default_corners[(BYTE)'й'].tr=N_C;
+	default_corners[(uchar)'й'].tr=N_C;
 
-  default_corners[(BYTE)'Й'].tr=N_C;
+  default_corners[(uchar)'Й'].tr=N_C;
   }
 
 return check_angles(let,h);
 }
 
 /* сколько строк идут до границы компоненты */
-static BYTE is_angle(BYTE *RASTER, INT D_X, INT dx,
-                INT (*Distance)(BYTE *, INT) , INT h, INT dest)
+static uchar is_angle(uchar *RASTER, INT D_X, INT dx,
+                INT (*Distance)(uchar *, INT) , INT h, INT dest)
 {
 INT zero,i;
 
@@ -343,9 +341,9 @@ for(zero=i=0;i<h;i++,RASTER+=D_X)
 return zero>2;
 }
 
-void calc_angles(struct rst *_rst,PBYTE segment,BYTE ang[],BYTE cutl,BYTE cutr)
+void calc_angles(struct rst *_rst,puchar segment,uchar ang[],uchar cutl,uchar cutr)
 {
-BYTE *rt,*rb;
+uchar *rt,*rb;
 INT D_X,dx;
 INT skip,h;
 INT right_dest;
@@ -385,7 +383,7 @@ memcpy(ang,&angles,4*sizeof(ang[0]));
 return ;
 }
 
-INT long_line( PBYTE seg,INT w,INT line,INT part)
+INT long_line( puchar seg,INT w,INT line,INT part)
 {
 segment * segm;
 

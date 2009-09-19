@@ -472,8 +472,8 @@ FOUND:
 
 	/*DDD
 {                // Формируем блоки с рисунками
-PBYTE           pbPicStrip;
-PBYTE           pbPic;
+puchar           pbPicStrip;
+puchar           pbPic;
 INT             i;
 uint16_t            right;
 uint16_t            wSizeStrip;

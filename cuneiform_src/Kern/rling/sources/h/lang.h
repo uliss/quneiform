@@ -62,6 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #include "lang_def.h"
-extern BYTE language;
+extern uchar language;
 
 #endif  // #ifndef _LANG_INCLUDED_

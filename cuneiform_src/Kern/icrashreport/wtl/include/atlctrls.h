@@ -5618,7 +5618,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_SETBUTTONINFO, nID, (LPARAM)lptbbi);
 	}
 
-	Bool SetButtonInfo(int nID, DWORD dwMask, BYTE Style, BYTE State, LPCTSTR lpszItem,
+	Bool SetButtonInfo(int nID, DWORD dwMask, uchar Style, uchar State, LPCTSTR lpszItem,
 	                   int iImage, uint16_t cx, int iCommand, DWORD_PTR lParam)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
@@ -5897,7 +5897,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_INSERTBUTTON, nIndex, (LPARAM)lpButton);
 	}
 
-	Bool InsertButton(int nIndex, int iCommand, BYTE Style, BYTE State, int iBitmap,
+	Bool InsertButton(int nIndex, int iCommand, uchar Style, uchar State, int iBitmap,
 	                  INT_PTR iString, DWORD_PTR lParam)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
@@ -5911,7 +5911,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_INSERTBUTTON, nIndex, (LPARAM)&tbb);
 	}
 
-	Bool InsertButton(int nIndex, int iCommand, BYTE Style, BYTE State, int iBitmap,
+	Bool InsertButton(int nIndex, int iCommand, uchar Style, uchar State, int iBitmap,
 	                  LPCTSTR lpszItem, DWORD_PTR lParam)
 	{
 		return InsertButton(nIndex, iCommand, Style, State, iBitmap, (INT_PTR)lpszItem, lParam);
@@ -5922,12 +5922,12 @@ public:
 		return InsertButton(-1, lpButton);
 	}
 
-	Bool AddButton(int iCommand, BYTE Style, BYTE State, int iBitmap, INT_PTR iString, DWORD_PTR lParam)
+	Bool AddButton(int iCommand, uchar Style, uchar State, int iBitmap, INT_PTR iString, DWORD_PTR lParam)
 	{
 		return InsertButton(-1, iCommand, Style, State, iBitmap, iString, lParam);
 	}
 
-	Bool AddButton(int iCommand, BYTE Style, BYTE State, int iBitmap, LPCTSTR lpszItem, DWORD_PTR lParam)
+	Bool AddButton(int iCommand, uchar Style, uchar State, int iBitmap, LPCTSTR lpszItem, DWORD_PTR lParam)
 	{
 		return InsertButton(-1, iCommand, Style, State, iBitmap, lpszItem, lParam);
 	}
@@ -9552,7 +9552,7 @@ public:
 		::SendMessage(m_hWnd, IPM_SETRANGE, nField, wRange);
 	}
 
-	void SetRange(int nField, BYTE nMin, BYTE nMax)
+	void SetRange(int nField, uchar nMin, uchar nMax)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, IPM_SETRANGE, nField, MAKEIPRANGE(nMin, nMax));

@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "c_types.h"
 #include "cttypes.h"
+#include "minmax.h"
 
 #ifndef SFONT_H
 #define SFONT_H
@@ -113,26 +113,26 @@ typedef struct tag_welet {
 	 twin       : 1, // has twin among strong clusters
 	 : 8;
 	 */
-	BYTE let; // ascii code
-	BYTE mw;
-	BYTE mh; // medium width,height
-	BYTE prob; // probability
-	BYTE weight; // number of pattern were placed to raster
+	uchar let; // ascii code
+	uchar mw;
+	uchar mh; // medium width,height
+	uchar prob; // probability
+	uchar weight; // number of pattern were placed to raster
 	char porog; // threshold level for cluster
-	BYTE valid; // validity - CTB
-	BYTE kegl; // tipical kegl
+	uchar valid; // validity - CTB
+	uchar kegl; // tipical kegl
 	uint32_t tablColumn; // from what columns
 } welet;
 
 typedef struct tag_raster_header {
 	uint16_t w, h; // actual width and height
-	uint16_t let;  // ascii code
-	BYTE code[4]; // code of first intervals
+	uint16_t let; // ascii code
+	uchar code[4]; // code of first intervals
 	SINT sr_col, sr_row; // real coord of letter
 	uint16_t num; // number of cluster that was accept raster
 	uint16_t solid :1, // confirmed letter
 			:15;
-	BYTE reserved[6];
+	uchar reserved[6];
 } raster_header;
 
 // results of clusterization
@@ -174,7 +174,7 @@ typedef struct tag_version {
 
 typedef struct tag_answer {
 	Version vers[MAXVERS + 1];
-	BYTE nvers;
+	uchar nvers;
 	SINT ret;
 	uint16_t recletterdone :1, // recognition method
 			recfulldone :1, // recognition method
@@ -200,20 +200,20 @@ typedef struct tag_Nraster_header {
 	uint16_t h;
 	uint16_t xbyte; // special !
 	uint16_t let;
-	BYTE *pHau; // pointer to picture
-	BYTE *pHaur; // pointer to thick picture
+	uchar *pHau; // pointer to picture
+	uchar *pHaur; // pointer to thick picture
 	SINT sr_col;
 	SINT sr_row;
 	SINT nInCTB; // number in CTB
 	uint16_t nField; // field in plat
 	uint16_t num; // use to mark - if >0 - invalid, and = ClusterNumber
-	BYTE solid :1, fat :1, italic :1, bold :1, serif :1, gelv :1, narrow :1,
+	uchar solid :1, fat :1, italic :1, bold :1, serif :1, gelv :1, narrow :1,
 			reservBits :1;
-	BYTE kegl;
-	BYTE prob;
-	BYTE valid;
-	BYTE tablColumn; // > 0 - from column of tabl
-	BYTE reserv[1]; // 32 bytes align
+	uchar kegl;
+	uchar prob;
+	uchar valid;
+	uchar tablColumn; // > 0 - from column of tabl
+	uchar reserv[1]; // 32 bytes align
 } Nraster_header;
 
 typedef struct tagInfoCluster {
@@ -223,16 +223,16 @@ typedef struct tagInfoCluster {
 	int16_t count;
 	int16_t first;
 	int16_t let;
-	BYTE invalid;
-	BYTE good;
-	BYTE prob;
-	BYTE valid;
-	BYTE nItalic;
-	BYTE nSerif;
-	BYTE nGelv;
-	BYTE nBold;
-	BYTE attr; // attributes - italic,...
-	BYTE isSame; // working for test 0O6b
+	uchar invalid;
+	uchar good;
+	uchar prob;
+	uchar valid;
+	uchar nItalic;
+	uchar nSerif;
+	uchar nGelv;
+	uchar nBold;
+	uchar attr; // attributes - italic,...
+	uchar isSame; // working for test 0O6b
 	uint32_t tablColumn;
 } InfoCluster;
 
@@ -246,9 +246,9 @@ typedef struct tagFontField {
 
 #define METKA_VALID 0x80  // get as good in font
 #define POROG_ANGLES  20           // 18 ?
-SINT Razmaz2(BYTE *bSource, BYTE *bDest, SINT xbit, SINT yrow, SINT porogX,
+SINT Razmaz2(uchar *bSource, uchar *bDest, SINT xbit, SINT yrow, SINT porogX,
 		SINT porogY);
-SINT Razmaz2xByte(BYTE *bSource, BYTE *bDest, SINT xbyteAll, SINT xbit,
+SINT Razmaz2xByte(uchar *bSource, uchar *bDest, SINT xbyteAll, SINT xbit,
 		SINT yrow, SINT porogX, SINT porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		SINT *nClus, InfoCluster *infoC, int porog);
@@ -256,10 +256,10 @@ LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);
-int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus, int16_t countFont,
-		uint32_t *allFields);
+int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus,
+		int16_t countFont, uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
-SINT Razmaz(BYTE *bSource, BYTE *bDest, SINT xbyte, SINT xbit, SINT yrow,
-		BYTE bold);
+SINT Razmaz(uchar *bSource, uchar *bDest, SINT xbyte, SINT xbit, SINT yrow,
+		uchar bold);
 #endif
 

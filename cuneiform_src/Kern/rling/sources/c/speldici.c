@@ -66,22 +66,22 @@
 //            28-June-93 ). Release has been received from Joe by FEDERAL
 //            mail.
 //
-// 1. Function < BYTE * load_stat_dict ( char  *point ) > has
+// 1. Function < uchar * load_stat_dict ( char  *point ) > has
 //    been rewritten to use new strems technology.
 //    Parameter CountryCode in the load_stat_dict has been removed.
-//    The global variable BYTE language is used now to check current
+//    The global variable uchar language is used now to check current
 //    language settings. All IO operations have been changed to use
 //    data streams from IOLIB.H.
 // 2. Functions < void user_voc_init (void) > and < static void
 //    unload_user_dicts(void) > have been added after Joe.
-// 3. Function < void load_user_dicts ( PSTR list_name, char  *
+// 3. Function < void load_user_dicts ( char * list_name, char  *
 //    point) > has been rewritten after Joe.
 // 4. Function < LONG read_all_voc( INT seqn, char *name, char  *p ) >
 //    has been removed with new streams technology.
 //
 // 08-14-93 06:01pm, Mike
 //
-// 5. Function < BYTE * load_stat_dict ( char  *point ) > has
+// 5. Function < uchar * load_stat_dict ( char  *point ) > has
 //    been changed to load ALL tables at once. Speller's standalone module
 //    MAIN.C need to be changed !!!
 //
@@ -97,7 +97,7 @@
 #include <stdio.h>
 
 #include "spelmode.h"
-#include "nt_types.h"
+
 #include "recdefs.h"
 #include "lang.h"
 
@@ -124,7 +124,7 @@ void (*my_free)(void *);
 void ErrorExit(int Code);
 //uint32_t  LoadUserDict( char*, char*, uint32_t, voc_state*);
 
-BYTE * load_stat_dict(char *point);
+uchar * load_stat_dict(char *point);
 /*---------- Updated : 04-01-93 09:46pm, Mike ------
  Function loads static dictionary file into far memory location
  <point> The side effect is initialization of decoder table
@@ -140,8 +140,8 @@ void init_stat_dict(struct dict_state * dict);
  --------------------------------------------------*/
 
 // 08-13-93 08:55pm, Mike
-// Return type has been changed from <BYTE  *> to <void>
-void load_user_dicts(PSTR list_name, char * point);
+// Return type has been changed from <uchar  *> to <void>
+void load_user_dicts(char * list_name, char * point);
 /*-----------------17-02-93 03:30pm-----------------
  Function loads user's dictionaries into memory by
  list of vocs.
@@ -169,13 +169,13 @@ extern INT vocs_NOK;
 /**************************************************************************/
 /* -- Code -- */
 
-INT cond_open(INT seqn, PBYTE name, uint16_t b1, uint16_t b2);
-PBYTE seq_nam(INT seqn);
-pchar full_name(PBYTE w, PBYTE n);
+INT cond_open(INT seqn, puchar name, uint16_t b1, uint16_t b2);
+puchar seq_nam(INT seqn);
+pchar full_name(puchar w, puchar n);
 
 /* -- Data -- */
 
-extern BYTE alphabet[][ABCSIZE];
+extern uchar alphabet[][ABCSIZE];
 
 extern char tiger_dir[40];
 
@@ -191,13 +191,13 @@ extern char tiger_dir[40];
 //     or with number <seqn> into far memory location <p>.
 //     --------------------------------------------------*/
 
-static INT parce_voc_list_record(PSTR w, PSTR nm, INT *type);
+static INT parce_voc_list_record(char * w, char * nm, INT *type);
 
 /**************************************************************************/
 /***********      Code section.      **************************************/
 /**************************************************************************/
 
-BYTE * load_stat_dict(char *point)
+uchar * load_stat_dict(char *point)
 /*---------- Updated : 04-01-93 09:46pm, Mike ------
  Function loads static dictionary file into far memory location
  <point> The side effect is initialization of decoder table
@@ -228,7 +228,7 @@ BYTE * load_stat_dict(char *point)
 		PRINTF("Unable to open TREE.VOC \n");
 #endif
 		ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
-		//return (BYTE  *)dict;
+		//return (uchar  *)dict;
 	} else {
 		dict->size = size;
 		dictHdr = (PTDictHeaderMask) point;
@@ -237,18 +237,18 @@ BYTE * load_stat_dict(char *point)
 	/* -- Check correctness of file header. -- */
 	memcpy(nearBuf, dictHdr->sign, sizeof(dictHdr->sign));
 	if (memcmp(nearBuf, STAT_DICT_SIGN, sizeof(STAT_DICT_SIGN))) {
-		return (BYTE *) dict;
+		return (uchar *) dict;
 	}
 
 	/* -- Check CPU type for current data. -- */
 #ifdef PC_TYPE
 	if ( dictHdr->cpuType[0] != 'I' ) {
-		return (BYTE *)dict;
+		return (uchar *)dict;
 	}
 #endif
 #ifdef __MAC__
 	if ( dictHdr->cpuType[0] != 'M' ) {
-		return (BYTE *)dict;
+		return (uchar *)dict;
 	}
 #endif
 
@@ -261,7 +261,7 @@ BYTE * load_stat_dict(char *point)
 	/* -- Get alphabet size. -- */
 	size = strtoul(dictHdr->abcSize, NULL, 10);
 	if (size > 64) {
-		return (BYTE *) dict;
+		return (uchar *) dict;
 	} else {
 		dict->abcSize = (uint16_t) size;
 	}
@@ -279,17 +279,17 @@ BYTE * load_stat_dict(char *point)
 	dectable_init();
 
 	/* -- Set pointers for access procedure. -- */
-	dict->root = (BYTE *) dictHdr + sizeof(TDictHeaderMask);
-	dict->tailset_root = (BYTE *) dict->root + treeLength;
-	dict->vartable = (PTTailVar)((BYTE *) dict->tailset_root + tailsLength);
-	dict->table = (PTShiftType)((BYTE *) dict->vartable + rulesLength);
+	dict->root = (uchar *) dictHdr + sizeof(TDictHeaderMask);
+	dict->tailset_root = (uchar *) dict->root + treeLength;
+	dict->vartable = (PTTailVar)((uchar *) dict->tailset_root + tailsLength);
+	dict->table = (PTShiftType)((uchar *) dict->vartable + rulesLength);
 
 	/* -- Check size corectness. -- */
 	size = treeLength + tailsLength + rulesLength + hushLength
 			+ sizeof(TDictHeaderMask);
 
 	if ((LONG) dict->size != size) {
-		return (BYTE *) dict;
+		return (uchar *) dict;
 	}
 
 	// 08-14-93 05:50pm, Mike
@@ -308,7 +308,7 @@ BYTE * load_stat_dict(char *point)
 #ifdef SYSPR
 		PRINTF( "\n SPELLER: Unable to open Special voc...\n");
 #endif
-		return (BYTE *) dict;
+		return (uchar *) dict;
 	}
 
 	if (!loadArtBase(language)) {
@@ -317,7 +317,7 @@ BYTE * load_stat_dict(char *point)
 				" replacement table...\n"
 		);
 #endif
-		return (BYTE *) dict;
+		return (uchar *) dict;
 	}
 
 	return point;
@@ -334,13 +334,13 @@ BYTE * load_stat_dict(char *point)
 //     --------------------------------------------------*/
 //{
 //  LONG l;
-//  BYTE w[MAXPATH];
+//  uchar w[MAXPATH];
 //
-//  full_name( w, (PBYTE)name );
-//  l = read_all_file( (PSTR)w, p );
+//  full_name( w, (puchar)name );
+//  l = read_all_file( (char *)w, p );
 //  if ( l <= 0 ) {
-//    full_name( w, (PBYTE)seq_nam( seqn ));
-//    l =  read_all_file( (PSTR)w, p );
+//    full_name( w, (puchar)seq_nam( seqn ));
+//    l =  read_all_file( (char *)w, p );
 //  }
 //
 //  return l;
@@ -382,7 +382,7 @@ void unload_user_dicts(void) {
 #define VOCMEMSIZE 0x10000L     /* 64K */
 // old version : read list of vocs from disk file USER.LST
 
-void load_user_dicts_kzl(PSTR list_name, char * point)
+void load_user_dicts_kzl(char * list_name, char * point)
 /*-----------------17-02-93 03:30pm-----------------
  Function loads user's dictionaries into memory by
  list of vocs.
@@ -439,7 +439,7 @@ void load_user_dicts_kzl(PSTR list_name, char * point)
  Function loads user's dictionaries into memory using
  list of names of vocabularies(in list_of_names).
  --------------------------------------------------*/
-void load_user_dicts(PSTR list_of_names, char * point) {
+void load_user_dicts(char * list_of_names, char * point) {
 	INT type;
 	INT errorNo = 0;
 	char nm[MAXPATH];
@@ -481,7 +481,7 @@ void load_user_dicts(PSTR list_of_names, char * point) {
 }
 /* ------------------------------------------------------------------ */
 
-INT parce_voc_list_record(PSTR w, PSTR nm, INT *type) {
+INT parce_voc_list_record(char * w, char * nm, INT *type) {
 	*type = 0;
 	while ((*w) && (*w == ' '))
 		w++;

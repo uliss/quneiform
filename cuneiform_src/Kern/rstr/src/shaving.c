@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <stdlib.h>
 # ifndef SHV_DEBUG
-# include "nt_types.h"
+
 # include "struct.h"
 # include "cuthdr.h"
 # include "func.h"
@@ -79,9 +79,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*			Byte size data					*/
 
 typedef signed char		char;
-typedef	unsigned char		BYTE;
+typedef	unsigned char		uchar;
 typedef signed char near *	pchar;
-typedef unsigned char near *	PBYTE;
+typedef unsigned char near *	puchar;
 
 /*			Word size data					*/
 

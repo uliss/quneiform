@@ -152,7 +152,7 @@ typedef struct h_BMPL
   int height;
   int widthByte;
   int NumBuf;
-  BYTE **bmp; //bmp[NumBuf][64000]
+  uchar **bmp; //bmp[NumBuf][64000]
 } BMPL;
 //typedef int (*FUN_POMP)(void);
 //typedef void (*FUN_MESS)(uint16_t wPar,DWORD lPar);

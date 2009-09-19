@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -76,16 +75,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 #define MAX_DUST_CELLS 12
-//extern BYTE accent_tab[];
-extern BYTE db_pass;
+//extern uchar accent_tab[];
+extern uchar db_pass;
 static char b1b2;
 static cell *LET, *I1;
 static INT n_news;
 static cell *new_cells[MAX_DUST_CELLS];
 
 static INT col_comps(cell *B1, MN *mn1, INT pass);
-static INT thinlev_top(PBYTE,INT,INT);
-static INT thinlev_bot(PBYTE,INT,INT,INT); /* extra parameter - height */
+static INT thinlev_top(puchar,INT,INT);
+static INT thinlev_bot(puchar,INT,INT,INT); /* extra parameter - height */
 /**************************************************************************/
 INT try_cut_accent(cell *C1, B_LINES *my_bases, INT flag)
 {
@@ -108,7 +107,7 @@ INT try_cut_accent(cell *C1, B_LINES *my_bases, INT flag)
 static INT col_comps(cell *B1, MN *mn1, INT pass)
 {
  cell *newcell;
- BYTE  just;
+ uchar  just;
  if (pass && mn1->mnnext!=NULL)
    goto restall;
  just = B1->cg_flag & c_cg_just;
@@ -171,9 +170,9 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 {
  cell sv_b1;
  INT  b1, b2, ret_ans;
- BYTE *rp1, *rp2, *rp3;
- BYTE acc_raster[1024];
- BYTE let,chr;
+ uchar *rp1, *rp2, *rp3;
+ uchar acc_raster[1024];
+ uchar let,chr;
  INT  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
  MN   *mn1;
  s_glue GL;
@@ -252,13 +251,13 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
  }
  ww = (cw+7)>>3;
  // make raster at standard (work_raster) place
- rp1=(BYTE*)save_raster(C1);
+ rp1=(uchar*)save_raster(C1);
  // copy raster to be own
- rp2=(BYTE *)&acc_raster;
+ rp2=(uchar *)&acc_raster;
  rpn = ww * ch;
    for (i=0; i<rpn; i++)
      *(rp2++) = *(rp1++);
- rp2=(BYTE *)&acc_raster;
+ rp2=(uchar *)&acc_raster;
  dh=thinlev_top(rp2,cw,dh);
  if( dh<1 )
     return 0;
@@ -434,7 +433,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
  return ret_ans;
 }
 /**************************************************************************/
-static INT thinlev_top(PBYTE r,INT w,INT dh)
+static INT thinlev_top(puchar r,INT w,INT dh)
  {
  INT l,d,i,j,s1,s2,min1,min2,i1,i2;
 
@@ -466,7 +465,7 @@ static INT thinlev_top(PBYTE r,INT w,INT dh)
  return ((abs(i1-dh)<=abs(i2-dh))?i1:i2);
  }
 /**************************************************************************/
-static INT thinlev_bot(PBYTE r,INT w,INT h,INT dh)
+static INT thinlev_bot(puchar r,INT w,INT h,INT dh)
 {
  /* Find height of bottom accent. */
  INT l,d,i,j,s1,s2,min1,min2,i1,i2;
@@ -503,9 +502,9 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
 {
  cell sv_b1;
  INT  b1, b3, ret_ans=0;
- BYTE *rp1, *rp2, *rp3;
- BYTE acc_raster[1024];
- BYTE let;
+ uchar *rp1, *rp2, *rp3;
+ uchar acc_raster[1024];
+ uchar let;
  INT  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
  MN   *mn1;
  SVERS svers;
@@ -564,13 +563,13 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
  }
  ww = (cw+7)>>3;
  // make raster at standard (work_raster) place
- rp1=(BYTE*)save_raster(C1);
+ rp1=(uchar*)save_raster(C1);
  // copy raster to be own
- rp2=(BYTE *)&acc_raster;
+ rp2=(uchar *)&acc_raster;
  rpn = ww * ch;
    for (i=0; i<rpn; i++)
      *(rp2++) = *(rp1++);
- rp2=(BYTE *)&acc_raster;
+ rp2=(uchar *)&acc_raster;
  dh=thinlev_bot(rp2,cw,ch,dh);
 
 // Для турецких cs полезно отрезать ближе к b3. 18.06.2002 E.P.

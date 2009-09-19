@@ -106,7 +106,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 b/ engendering all the necessaries structures
                 c/ setting up the pointers
 */
-INT begin(BYTE batch_run)
+INT begin(uchar batch_run)
 {
 	/* INT  *p;*/
 	uint16_t i;
@@ -160,7 +160,7 @@ INT begin(BYTE batch_run)
  }
 /*********************************************************************/
 
-define_lth(BYTE  *symb)
+define_lth(uchar  *symb)
 /*
     This procedure calculates length of letter.
 */
@@ -239,7 +239,7 @@ INT processEdSymb(void)
 							break;
 		case SS_TABUL     : ret=mvbuf(sizeof(struct tabul));
 							break;
-		case SS_TABL_TABUL: if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff >= SPQ.buff_l-1)
+		case SS_TABL_TABUL: if (SPQ.buff_ptr-(uchar*)SPQ.text_buff >= SPQ.buff_l-1)
 								ret=NO;
 							else
 							 {
@@ -300,7 +300,7 @@ INT mvbuf(uint16_t l)
 */
  {
   if( l==0 )  return -1; // Oleg : need stop if unknown tag in ED
-  if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff+l > SPQ.buff_l)
+  if (SPQ.buff_ptr-(uchar*)SPQ.text_buff+l > SPQ.buff_l)
     return(NO);
   SPQ.l+=l;
   move_from_near_to_huge(SPQ.str_ptr, SPQ.buff_ptr,l);
@@ -347,13 +347,13 @@ INT set_descr(char c)
    {                                   /* sheet */
     SPQ.sheet_disk_descr_ptr=(struct sheet_disk_descr *)SPQ.buff_ptr;
 
-    if ((uint32_t)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct sheet_disk_descr)))
+    if ((uint32_t)(SPQ.buff_ptr - (uchar*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct sheet_disk_descr)))
       return(NO);
 
 	SPQ.qt_fm=SPQ.sheet_disk_descr_ptr->quant_fragm;
     if(SPQ.qt_fm >= MAX_FRAGM )                         return TOO_MANY_FRAGMS;
 
-    if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff >=
+    if (SPQ.buff_ptr-(uchar*)SPQ.text_buff >=
 	 SPQ.buff_l-SPQ.sheet_disk_descr_ptr->descr_lth)
 			 /* not enough room in buffer for all fragm descr */
       return(NO);
@@ -373,7 +373,7 @@ INT set_descr(char c)
      SPQ.st.cur_segm->string_lth+=DELTA;
      SPQ.free_alloc_mem+=DELTA;
    check_free_mem();
-    if ( (uint32_t)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct line_beg)) )
+    if ( (uint32_t)(SPQ.buff_ptr - (uchar*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct line_beg)) )
       return(NO);
     SPQ.ptr_next_segm=(struct segm *)SPQ.free_alloc_mem;
     SPQ.str_ptr=SPQ.ptr_next_segm->string;
@@ -414,7 +414,7 @@ INT do_fragm(void)
 
   check_free_mem();
 
-  if ( (uint32_t)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct fragm_disk)) )
+  if ( (uint32_t)(SPQ.buff_ptr - (uchar*)SPQ.text_buff) > (uint32_t)(SPQ.buff_l - sizeof(struct fragm_disk)) )
     return(NO);
   SPQ.fragm_disk_ptr=(struct fragm_disk *)SPQ.buff_ptr;
   SPQ.cur_fragm=SPQ.fragm_disk_ptr->fragm_numb;
@@ -488,7 +488,7 @@ void skip_letter_in_line(struct segm  *segm_ptr,INT x)
   INT i;
   INT max;
 
-  BYTE  *symb,  *c;
+  uchar  *symb,  *c;
   struct segm  *segm_c;
   SPQ.end_l=NO;
   segm_ptr=cur_line(FRAGM,segm_ptr);
@@ -540,9 +540,9 @@ void move_from_cur_to_new(struct segm  *cur_segm, char  *cur_symb)
     if it's necessary.
 */
  {
- BYTE  *s_old;
- BYTE  *s;
- BYTE  * s_new;
+ uchar  *s_old;
+ uchar  *s;
+ uchar  * s_new;
 
   s_new=&SPQ.new_segm->string[SPQ.new_segm->busy_lth];
   s_old=&cur_segm->string[cur_segm->busy_lth];
@@ -717,7 +717,7 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
  return(flag_b);
  }
 
-move_to_first( INT dir,BYTE let,INT num)
+move_to_first( INT dir,uchar let,INT num)
 /*
  This procedure moves to first space symbol.
  dir -- direction

@@ -61,7 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*								    */
 /********************************************************************/
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "func.h"
@@ -80,14 +79,14 @@ Bool boldshave(cell *C,INT method)
  MN *mn;
  cell *D;
  INT bd; char df;
- BYTE sv[sizeof(D->nvers)+sizeof(D->vers)];
- BYTE svf;
+ uchar sv[sizeof(D->nvers)+sizeof(D->vers)];
+ uchar svf;
 // cell c;
 
  Z=&string;
  // memcpy (&c,C,sizeof(c));
  memcpy (sv,&C->nvers,sizeof(C->nvers)+sizeof(C->vers));
- svf = (BYTE)C->flg;
+ svf = (uchar)C->flg;
  SHAVE_CELL=C;
  SHAVE_RASTER=save_raster(C);
  SHAVE_FLAGS=t_raster();
@@ -106,7 +105,7 @@ Bool boldshave(cell *C,INT method)
  return 1;
  }
 
-static BYTE mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+static uchar mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 static void rotate_coords(INT *row,INT *col,INT direct,INT H)
 {
 INT t;
@@ -143,7 +142,7 @@ return;
 }
 
 
-static BYTE read_pixel(INT H,INT BW,INT row,INT col,INT direct)
+static uchar read_pixel(INT H,INT BW,INT row,INT col,INT direct)
 //
 //  This procedure read one pixel in raster
 //
@@ -168,7 +167,7 @@ return( !read_pixel(ch,cw,(INT)(row-1),col,1) && !read_pixel(ch,cw,(INT)(row+1),
 static INT enable_deleting_pimple(INT ch,INT cw,INT row,INT col,INT len,INT d)
 {
 INT i;
-BYTE p;
+uchar p;
 
 for(p=0,i=0;i<len;i++)
       {
@@ -365,10 +364,10 @@ Bool pimpleshave(cell *C, INT shave, INT incline)
  cell *CC,*WW;
  INT   bd;
  char df;
- BYTE  svf;
+ uchar  svf;
 
  Z=&string;
- svf = (BYTE)C->flg;
+ svf = (uchar)C->flg;
  // BEFORE SHAVE
 
  SHAVE_RASTER=save_raster(C);

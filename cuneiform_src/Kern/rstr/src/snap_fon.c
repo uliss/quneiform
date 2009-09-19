@@ -61,10 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef _USE_DFON_
 
 #include <windows.h>
-#include "nt_types.h"
+
 #include "rstr.h"
 
-Bool snap_show_text(BYTE *txt);
+Bool snap_show_text(uchar *txt);
 
 static HINSTANCE hDFon = NULL;
 

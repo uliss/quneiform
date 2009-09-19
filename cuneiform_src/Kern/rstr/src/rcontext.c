@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "nt_types.h"
+
 #include "context.h"
 #include "linutil.h"
 #include "func.h"
@@ -74,40 +74,40 @@ INT return_code, nv;
   return_code = NO_ACTION;
 if (n_ltr == 1 )             /** single letter case: **/
   {
-  nv = get_nvers(c, (BYTE)'Ž');
+  nv = get_nvers(c, (uchar)'Ž');
   if( nv>0 && memchr("0",c->vers[0].let,1) &&
       ((c->prev->flg&c_f_let)||
        (c->next->flg&c_f_let)||
        (c->next->nvers>0&&memchr(".,",c->next->vers[0].let,2)) ) )
      {
-     vers_to_first_place ( c,get_nvers(c,(BYTE)'Ž') ); // make it first
+     vers_to_first_place ( c,get_nvers(c,(uchar)'Ž') ); // make it first
      sort_vers(c);
      return_code = CONTINUE_ACTION;
      }
 
-  nv = get_nvers(c, (BYTE)'3');
+  nv = get_nvers(c, (uchar)'3');
   if( nv>0 && memchr("§‡",c->vers[0].let,2) )
      {
-     vers_to_first_place ( c,get_nvers(c,(BYTE)'3') ); // make it first
+     vers_to_first_place ( c,get_nvers(c,(uchar)'3') ); // make it first
      sort_vers(c);
      return_code = CONTINUE_ACTION;
      }
 
-   nv = get_nvers(c, (BYTE)'¨');
+   nv = get_nvers(c, (uchar)'¨');
    if(((c->font|c->font_new) & c_fp_it) || (c->cg_flag & c_cg_comp))
-    if(  nv > 0 && get_nvers(c,(BYTE)'ï')!=0 ) // Oleg : 12-07-1994 : 'Ÿ'in first
+    if(  nv > 0 && get_nvers(c,(uchar)'ï')!=0 ) // Oleg : 12-07-1994 : 'Ÿ'in first
     {
     if(c->vers[nv].prob > 120 )
      {
-     promote( 0,c,(BYTE)'¨',30 );
+     promote( 0,c,(uchar)'¨',30 );
      sort_vers(c);
      return_code = CONTINUE_ACTION;
      }
     }
     else if( memchr("­¯",c->vers[0].let,2) )
          {  //return return_code;
-          promote(0,c,(BYTE)'¨',0);   //  add vers
-    vers_to_first_place ( c,get_nvers(c,(BYTE)'¨') ); // make it first
+          promote(0,c,(uchar)'¨',0);   //  add vers
+    vers_to_first_place ( c,get_nvers(c,(uchar)'¨') ); // make it first
           sort_vers(c);
           return_code = CONTINUE_ACTION;
 	 }
@@ -118,7 +118,7 @@ if (n_ltr == 1 )             /** single letter case: **/
   cell * wc;
   INT i;
   INT num_dig;
-  BYTE let;
+  uchar let;
 #ifdef INTERSEPTOR
   for( wc=c,num_dig=i=0; i < n_ltr;wc=wc->nextl,i++ ) // scan to word end
    if( memchr("1234567890+-/Ž¡‡’‚.,",wc->vers[0].let,20) )
@@ -130,10 +130,10 @@ if (n_ltr == 1 )             /** single letter case: **/
              {  // add russian versions
              switch( wc->vers[0].let )
                 {
-                case '‚': let=(BYTE)'8'; break;
-                case 'Ž': let=(BYTE)'0'; break;
-                case '‡': let=(BYTE)'3'; break;
-                case '¡': let=(BYTE)'6'; break;
+                case '‚': let=(uchar)'8'; break;
+                case 'Ž': let=(uchar)'0'; break;
+                case '‡': let=(uchar)'3'; break;
+                case '¡': let=(uchar)'6'; break;
                 }
              nv = get_nvers(wc, let);
              if( nv==-1 )
@@ -160,9 +160,9 @@ if (n_ltr == 1 )             /** single letter case: **/
              {  // add russian versions
              switch( wc->vers[0].let )
                 {
-                case '0': let=(BYTE)'Ž'; break;
-                case '3': let=(BYTE)'‡'; break;
-                case '6': let=(BYTE)'¡'; break;
+                case '0': let=(uchar)'Ž'; break;
+                case '3': let=(uchar)'‡'; break;
+                case '6': let=(uchar)'¡'; break;
                 }
              nv = get_nvers(wc, let);
              if( nv==-1 )
@@ -176,22 +176,22 @@ if (n_ltr == 1 )             /** single letter case: **/
   if( n_ltr > 3 )
    for( wc=c,i=0; i < n_ltr;wc=wc->nextl,i++ ) // scan to word end
    {
-    if( wc->nvers==1 && wc->vers[0].let==(BYTE)'á' &&
+    if( wc->nvers==1 && wc->vers[0].let==(uchar)'á' &&
         wc->vers[0].prob < 254 && !(wc->cg_flag & c_cg_cut) &&
         wc->recsource & c_rs_ev
       )
       {
-      promote(0,wc,(BYTE)'¥',0);   //  add vers
-      promote(0,wc,(BYTE)'¥',-48); // spell checker may correct this word
+      promote(0,wc,(uchar)'¥',0);   //  add vers
+      promote(0,wc,(uchar)'¥',-48); // spell checker may correct this word
       sort_vers(wc);
 			return_code = NO_ACTION;	// Oleg : 12-07-1994 : go complex word
       }
-         if(wc->vers[0].let==(BYTE)'ê')
+         if(wc->vers[0].let==(uchar)'ê')
          {
 		  // Ìàëûé òâåðäûé çíàê â Áîëãàðñêîì îñíîâíàÿ áóêâà.  08.09.2000 E.P.
           if( !langBul &&
 			  i == n_ltr-1 && wc->vers[0].prob > 150 ) // last letter in word
-            {  wc->vers[0].let=(BYTE)'ì';
+            {  wc->vers[0].let=(uchar)'ì';
         /*  else  wc->vers[0].prob=MAX(0,wc->vers[0].prob-20); // decrease prob
           sort_vers(wc);*/
 					return_code = NO_ACTION; // Oleg : 12-07-1994 : go complex word
@@ -211,13 +211,13 @@ cnt += help_spelling_checker(c);
 return cnt > 0;
 }
 
-static BYTE predessor[]="®î¥áãí";
+static uchar predessor[]="®î¥áãí";
 
 INT help_spelling_checker(cell * c)
 {
 if( !(c->flg&(c_f_let|c_f_bad)) )
   return 0;
-if(c->vers[0].let != (BYTE)'£')
+if(c->vers[0].let != (uchar)'£')
   return 0;
 
 if( memchr(predessor,c->prevl->vers[0].let,sizeof(predessor)) &&
@@ -226,9 +226,9 @@ if( memchr(predessor,c->prevl->vers[0].let,sizeof(predessor)) &&
     if(c->vers[0].prob > 120 )
      { version * v0;
      for (v0=c->vers; v0->let != 0; v0++)
-      if( v0->let ==(BYTE)'â' ) return 0;     // already exist - OK
-       promote(0,c,(BYTE)'â',0);   //  add vers
-       promote(0,c,(BYTE)'â',-48); // promotion
+      if( v0->let ==(uchar)'â' ) return 0;     // already exist - OK
+       promote(0,c,(uchar)'â',0);   //  add vers
+       promote(0,c,(uchar)'â',-48); // promotion
        c->vers[c->nvers].let=c->vers[c->nvers].prob=0;
        return 1;
      }
@@ -239,19 +239,19 @@ if( memchr(predessor,c->prevl->vers[0].let,sizeof(predessor)) &&
 #define MAX_LEN_WORD  48
 
 static Bool case_convert(cell *b, cell *e);
-static BYTE wave_up_abris(cell *b, cell *e);
-static void make_convert(cell *b, cell *e, BYTE r);
+static uchar wave_up_abris(cell *b, cell *e);
+static void make_convert(cell *b, cell *e, uchar r);
 
-static BYTE capital_rus[]="‰–Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž";
-static BYTE   small_rus[]="©æª­£èé§åêäë¢¯®«¤¦íïçá¬¨âìî";
+static uchar capital_rus[]="‰–Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž";
+static uchar   small_rus[]="©æª­£èé§åêäë¢¯®«¤¦íïçá¬¨âìî";
 //
 // TRY CONVERT CASE FOR ANY CELL
 //
 void correct_case(void)
 {
 cell *c, *e;
-BYTE buf[MAX_LEN_WORD+40],word_len;
-BYTE wrd[MAX_LEN_WORD+40];
+uchar buf[MAX_LEN_WORD+40],word_len;
+uchar wrd[MAX_LEN_WORD+40];
 Bool r;
 
 
@@ -293,10 +293,10 @@ return;
 }
 
 
-void make_convert(cell *b, cell *e, BYTE r)
+void make_convert(cell *b, cell *e, uchar r)
 {
 cell *c;
-PBYTE p;
+puchar p;
 
 if( r==1 )
   {  // to lower
@@ -323,7 +323,7 @@ else
 return;
 }
 
-BYTE wave_up_abris(cell *b, cell *e)
+uchar wave_up_abris(cell *b, cell *e)
 {
 cell *c;
 INT  up, dn, n, up1, up2;
@@ -350,7 +350,7 @@ return up2 ? 1 : 2 ;
 
 Bool case_convert(cell *b, cell *e)
 {
-BYTE r;
+uchar r;
 
 if( b->next==e || (b->next->flg&c_f_fict) && b->next->next==e )
   return FALSE;        // one or two letters in word

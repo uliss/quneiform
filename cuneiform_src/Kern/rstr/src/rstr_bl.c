@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "cstr.h"
 #include "func.h"
@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "bal.h"
 
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern uchar language;
-extern BYTE multy_language;
+extern uchar multy_language;
 
 extern uint16_t actual_resolution;
 extern Bool   line_BL;
@@ -91,12 +91,12 @@ INT     bs_got=0;     // in baton.c - LONG - error!?
 INT			  bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;  // bbst,
 INT           bsdust_upper, bsdust_lower, bsdust_ps;
 INT           Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
-BYTE          multi_bas;
+uchar          multi_bas;
 
 INT           Ns1=0,Ns2=0;        // in Iot.c   only  !!!
 //INT           pen_up;         // for otladka 't' in St_tools.c
 
-BYTE          let_to_dust=0;
+uchar          let_to_dust=0;
 
 char          all_caps=0;
 char          all_diffs_made=0;
@@ -240,39 +240,39 @@ LONG get_size()                                                   //16.01.97
 
 /*============= Func prototypes ==================*/
 
-BYTE to_lower(BYTE c);
-BYTE to_upper(BYTE c);
-INT  is_lower(BYTE ch);
-INT  is_upper(BYTE ch);
-INT  isletter(BYTE ch);
-BYTE get_homot(BYTE ch);
+uchar to_lower(uchar c);
+uchar to_upper(uchar c);
+INT  is_lower(uchar ch);
+INT  is_upper(uchar ch);
+INT  isletter(uchar ch);
+uchar get_homot(uchar ch);
 INT  draft_cut_hyps(INT bs,INT fl);
 
 /*============= Source code ============*/
-Bool is_liga_ff(BYTE c)
+Bool is_liga_ff(uchar c)
 {
 //  од лиги определен через макру в ligas.h 05.09.2000 E.P.
   return (c==liga_ff);
 }
-Bool is_liga_ffl(BYTE c)
+Bool is_liga_ffl(uchar c)
 {
 //  од лиги определен через макру в ligas.h 05.09.2000 E.P.
   return (c==liga_ffl);
 }
 
-INT is_russian(BYTE ch)
+INT is_russian(uchar ch)
 {
 if( language==LANG_RUSSIAN || language==LANG_ENGLISH && multy_language )
 switch(fEdCode){
   case ED_ASCII: // for ASCII
-   if((ch >=(BYTE)'†' && ch <=(BYTE)'ѓ') ||
-      (ch >=(BYTE)'а' && ch <=(BYTE)'п') ||
-      (ch >=(BYTE)'А' && ch <=(BYTE)'Я') ||
+   if((ch >=(uchar)'†' && ch <=(uchar)'ѓ') ||
+      (ch >=(uchar)'а' && ch <=(uchar)'п') ||
+      (ch >=(uchar)'А' && ch <=(uchar)'Я') ||
        memchr("рсхчшэ»ј",ch,8)
      ) return 1;
   break;
   case ED_WIN: // for Windows (ANSI)
-      if( (ch >=0xE0 && ch <=0xFF)||(ch >=(BYTE)'А' && ch <=(BYTE)'Я'))
+      if( (ch >=0xE0 && ch <=0xFF)||(ch >=(uchar)'А' && ch <=(uchar)'Я'))
         return 1;
   break;
   case ED_MAC: // for Macintosh
@@ -284,7 +284,7 @@ switch(fEdCode){
 return 0;
 }
 
-INT is_english(BYTE ch)
+INT is_english(uchar ch)
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (
@@ -295,7 +295,7 @@ return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
 	   ;
 }
 
-INT is_serbian_special(BYTE ch)
+INT is_serbian_special(uchar ch)
 {
 return (ch == SERB_j  ||   ch == SERB_J  ||
         ch == SERB_n  ||   ch == SERB_N  ||
@@ -306,7 +306,7 @@ return (ch == SERB_j  ||   ch == SERB_J  ||
 
 }
 
-INT is_polish_special(BYTE ch)
+INT is_polish_special(uchar ch)
 {
 return (ch == POLISH_SS  ||   ch == POLISH_s  ||
         ch == POLISH_ZZD ||   ch == POLISH_zd ||
@@ -320,7 +320,7 @@ return (ch == POLISH_SS  ||   ch == POLISH_s  ||
     );
 }
 
-INT is_czech_special(BYTE let)
+INT is_czech_special(uchar let)
 {
 return (
      let == AA_right_accent || let == a_right_accent	||
@@ -341,7 +341,7 @@ return (
     );
 }
 
-INT is_roman_special(BYTE let)
+INT is_roman_special(uchar let)
 {
 return (
      let == AA_semicircle			|| 	let == a_semicircle				||
@@ -352,7 +352,7 @@ return (
     );
 }
 
-INT is_hungar_special(BYTE let)
+INT is_hungar_special(uchar let)
 {
 return (
      let == AA_right_accent || 		let == a_right_accent ||
@@ -363,7 +363,7 @@ return (
      let == OO_double_right || 		let == o_double_right
     );
 }
-INT is_slovenian_special(BYTE let)
+INT is_slovenian_special(uchar let)
 {
 return (
      let == CC_inv_roof			|| let == c_inv_roof		||
@@ -372,7 +372,7 @@ return (
     );
 }
 
-INT isnot_slovenian(BYTE let)
+INT isnot_slovenian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -382,7 +382,7 @@ return (
     );
 }
 
-INT is_baltic_palka(BYTE c)
+INT is_baltic_palka(uchar c)
 {
 // ќпределение балтийских палок. 30.05.2002 E.P.
 
@@ -397,7 +397,7 @@ INT is_baltic_palka(BYTE c)
 			);
 }
 
-INT is_latvian_special(BYTE let)
+INT is_latvian_special(uchar let)
 {
 return (
      let == AA_macron			||let == a_macron			||
@@ -415,7 +415,7 @@ return (
     );
 }
 
-INT isnot_latvian(BYTE let)
+INT isnot_latvian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -425,7 +425,7 @@ return (
     );
 }
 
-INT is_lithuanian_special(BYTE let)
+INT is_lithuanian_special(uchar let)
 {
 return (
      let == AA_bottom_accent	|| 	let == a_bottom_accent	||
@@ -441,7 +441,7 @@ return (
     );
 }
 
-INT isnot_lithuanian(BYTE let)
+INT isnot_lithuanian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -450,7 +450,7 @@ return (
     );
 }
 
-INT is_estonian_special(BYTE let)
+INT is_estonian_special(uchar let)
 {
 return (
      let == AA_2dot_accent		|| 	let == a_2dot_accent		||
@@ -463,7 +463,7 @@ return (
     );
 }
 
-INT isnot_estonian(BYTE let)
+INT isnot_estonian(uchar let)
 {
 return (
      let == 'C' || let == 'c' ||
@@ -474,7 +474,7 @@ return (
     );
 }
 
-INT is_turkish_special(BYTE let)
+INT is_turkish_special(uchar let)
 {
 return (
      let == AA_roof_accent			|| 	let == a_roof_accent			||
@@ -490,7 +490,7 @@ return (
     );
 }
 
-INT is_turkish_bottom_accent(BYTE c)
+INT is_turkish_bottom_accent(uchar c)
 {
 // ќпределение нижнего акцента. 20.05.2002 E.P.
 	return (
@@ -501,7 +501,7 @@ INT is_turkish_bottom_accent(BYTE c)
 	0);
 }
 
-INT is_turkish_palka(BYTE c)
+INT is_turkish_palka(uchar c)
 {
 // ќпределение турецких палок. 21.05.2002 E.P.
 
@@ -515,7 +515,7 @@ INT is_turkish_palka(BYTE c)
 			);
 }
 
-INT is_russian_turkish_conflict(BYTE c)
+INT is_russian_turkish_conflict(uchar c)
 {
 /*
 	ќпределение конфликта между русскими
@@ -555,7 +555,7 @@ INT is_russian_turkish_conflict(BYTE c)
 	return FALSE;
 }
 
-INT isnot_turkish(BYTE let)
+INT isnot_turkish(uchar let)
 {
 extern  char    alphabet[256];
 
@@ -568,14 +568,14 @@ return (
 }
 
 ///////////////////////////////////////
-INT is_lower(BYTE ch)
+INT is_lower(uchar ch)
 {
 
 if(language==LANG_RUSSIAN)
         switch(fEdCode){
   case ED_ASCII: // for ASCII
-   if((ch >=(BYTE)'†' && ch <=(BYTE)'ѓ') ||
-      (ch >=(BYTE)'а' && ch <=(BYTE)'п') ||
+   if((ch >=(uchar)'†' && ch <=(uchar)'ѓ') ||
+      (ch >=(uchar)'а' && ch <=(uchar)'п') ||
        memchr("рсхчшэј",ch,7)
      ) return 1;
   break;
@@ -591,14 +591,14 @@ if(language==LANG_RUSSIAN)
  if(ch >= 'a' && ch <= 'z') return 1;
  return 0;
 }
-INT is_upper(BYTE ch)
+INT is_upper(uchar ch)
 {
 if(language==LANG_RUSSIAN)
     switch(fEdCode){
     case ED_ASCII:
     case ED_MAC: // for ASCII and Macintosh
-      if(ch >=(BYTE)'А' && ch <=(BYTE)'Я'||
-         ch==(BYTE)r_EE_2dot
+      if(ch >=(uchar)'А' && ch <=(uchar)'Я'||
+         ch==(uchar)r_EE_2dot
         )  return 1;
     break;
     case ED_WIN: // for Windows (ANSI)
@@ -610,22 +610,22 @@ if(ch >= 'A' && ch <= 'Z') return 1;
  return 0;
 }
 
-Bool is_digit(BYTE ch)
+Bool is_digit(uchar ch)
 {
-if(ch >= (BYTE)'0' && ch <= (BYTE)'9') return TRUE;
+if(ch >= (uchar)'0' && ch <= (uchar)'9') return TRUE;
 else return FALSE;
 }
 
-INT isletter(BYTE ch)
+INT isletter(uchar ch)
 {
 if(is_lower(ch) || is_upper(ch)) return 1;
 else return 0;
 }
 
-static const BYTE non_twin[]="†А°Б•Е";
-static const BYTE lat_twins[]="cCoOpPsSvVwWxXzZ";
+static const uchar non_twin[]="†А°Б•Е";
+static const uchar lat_twins[]="cCoOpPsSvVwWxXzZ";
 
-INT twin(BYTE ch)
+INT twin(uchar ch)
 {
 if(!isletter(ch)) return 0;
 if( language==LANG_RUSSIAN )
@@ -635,23 +635,23 @@ if( language!=LANG_RUSSIAN && memchr(lat_twins,ch,sizeof lat_twins)) return 1;
 return 0;
 }
 
-BYTE get_homot(BYTE ch )
+uchar get_homot(uchar ch )
 {
- if(ch == '0') return ((BYTE)'Ѓ');
+ if(ch == '0') return ((uchar)'Ѓ');
  if(is_upper(ch)) return to_lower(ch);
  if(is_lower(ch)) return to_upper(ch);
  return ch;
 }
 
 /* Function returns UPPER CASE variant of the letter.             */
-BYTE to_upper( BYTE c )
+uchar to_upper( uchar c )
 {
-  if ( c >= (BYTE)'a' && c <= (BYTE)'z') return c - (BYTE)'a' + (BYTE)'A';
+  if ( c >= (uchar)'a' && c <= (uchar)'z') return c - (uchar)'a' + (uchar)'A';
   if(language==LANG_RUSSIAN)
        switch(fEdCode){
   case ED_ASCII:  // for ASCII
-    if ( c >= (BYTE)'†' && c <= (BYTE)'ѓ') return c - (BYTE)'†' + (BYTE)'А';
-    if ( c >= (BYTE)'а' && c <= (BYTE)'п') return c - (BYTE)'а' + (BYTE)'Р';
+    if ( c >= (uchar)'†' && c <= (uchar)'ѓ') return c - (uchar)'†' + (uchar)'А';
+    if ( c >= (uchar)'а' && c <= (uchar)'п') return c - (uchar)'а' + (uchar)'Р';
   break;
   case ED_WIN: // for Windows (ANSI)
     if ( c >= 0xE0 && c <= 0xFF ) return c - 0xE0 + 0xC0;
@@ -665,14 +665,14 @@ BYTE to_upper( BYTE c )
 }
 
  /* Function returns LOWER CASE variant of the letter.             */
-BYTE to_lower(BYTE c)
+uchar to_lower(uchar c)
 {
-  if ( c >= (BYTE)'A' && c <= (BYTE)'Z') return c - (BYTE)'A'+ (BYTE)'a' ;
+  if ( c >= (uchar)'A' && c <= (uchar)'Z') return c - (uchar)'A'+ (uchar)'a' ;
   if(language==LANG_RUSSIAN)
         switch(fEdCode){
   case ED_ASCII: // for ASCII
-    if ( c >= (BYTE)'А' && c <= (BYTE)'П') return c - (BYTE)'А'+ (BYTE)'†' ;
-    if ( c >= (BYTE)'Р' && c <= (BYTE)'Я') return c - (BYTE)'Р'+ (BYTE)'а' ;
+    if ( c >= (uchar)'А' && c <= (uchar)'П') return c - (uchar)'А'+ (uchar)'†' ;
+    if ( c >= (uchar)'Р' && c <= (uchar)'Я') return c - (uchar)'Р'+ (uchar)'а' ;
   break;
   case ED_WIN: // for Windows
     if ( c >= 0xC0 && c <= 0xDF) return c - 0xC0 + 0xE0 ;
@@ -685,7 +685,7 @@ BYTE to_lower(BYTE c)
     return c;
 }
 /////////////////////
-INT is_cen_bottom_accent(BYTE c)
+INT is_cen_bottom_accent(uchar c)
 {
 // ќпределение нижнего акцента 12.09.2000 E.P.
 	return (
@@ -699,7 +699,7 @@ INT is_cen_bottom_accent(BYTE c)
 	0);
 }
 /////////////////////
-INT is_baltic_bottom_accent(BYTE c)
+INT is_baltic_bottom_accent(uchar c)
 {
 // ќпределение нижнего акцента 10.07.2001 E.P.
 	return (
@@ -715,7 +715,7 @@ INT is_baltic_bottom_accent(BYTE c)
 	0);
 }
 
-INT is_russian_baltic_conflict(BYTE c)
+INT is_russian_baltic_conflict(uchar c)
 {
 // ќпределение конфликта между русскими и балтийскими буквами. 17.07.2001 E.P.
 	if (!is_baltic_language(language))

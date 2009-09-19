@@ -105,12 +105,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* ------------------------------------------------------------------ */
 
   INT      ABCSize;
-  BYTE     alphabet[3][ABCSIZE];
+  uchar     alphabet[3][ABCSIZE];
   KEYTYPE  codetable  [256];
   KEYTYPE  codepermit [256];
 
-  BYTE all_lt [256];
-  BYTE tabstdn[256];    /* nmbs of STD symb in order      */
+  uchar all_lt [256];
+  uchar tabstdn[256];    /* nmbs of STD symb in order      */
 
   STD  std;
 
@@ -119,14 +119,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* 01-15-94 10:11pm, Mike                                             */
 /*    #define ACSBUFSZ 120                                            */
 /*                                                                    */
-/*    BYTE AcsGrps[ACSBUFSZ];                                         */
-/*    BYTE AcsInd [256];                 - Table of shifts in AcsGrps */
+/*    uchar AcsGrps[ACSBUFSZ];                                         */
+/*    uchar AcsInd [256];                 - Table of shifts in AcsGrps */
 /*                                                                    */
 /*  static Bool setUpAcsGrps ( INT h );                               */
 /*                                                                    */
 /* ------------------------------------------------------------------ */
 
-BYTE _2low (BYTE c)
+uchar _2low (uchar c)
 {
   if ( all_lt[c] != E_CP ) {
     return c;
@@ -138,7 +138,7 @@ BYTE _2low (BYTE c)
 
 /* ------------------------------------------------------------------ */
 
-BYTE _2cap(BYTE c)
+uchar _2cap(uchar c)
 {
   if ( all_lt[c] != E_OD ) {
     return c;
@@ -150,17 +150,17 @@ BYTE _2cap(BYTE c)
 
 /* ------------------------------------------------------------------ */
 
-Bool IsVowel(BYTE c)
+Bool IsVowel(uchar c)
 {
-  return alphabet[2][codetable[c]] == (BYTE)'^' ? TRUE : FALSE;
+  return alphabet[2][codetable[c]] == (uchar)'^' ? TRUE : FALSE;
 }
 
 /* ------------------------------------------------------------------ */
 
-extern void init_tab_alpha(BYTE *s1,BYTE *s2,INT num);
+extern void init_tab_alpha(uchar *s1,uchar *s2,INT num);
 Bool InitializeAlphabet (INT CountryCode)
 {
-  BYTE w[ABCSIZE+1];
+  uchar w[ABCSIZE+1];
   INT  h;
 
   if ( (h = TBOPEN( 6, language, BO_READ_TEXT, S_IREAD )) < 0 ) {
@@ -224,7 +224,7 @@ Bool InitializeAlphabet (INT CountryCode)
 /*   memset( AcsInd, 0, sizeof(AcsInd));                              */
 /*                                                                    */
 /*   do{                                                              */
-/*     while ( AcsGrps[i] == (BYTE)' ' ) { i++; }                     */
+/*     while ( AcsGrps[i] == (uchar)' ' ) { i++; }                     */
 /*     j =i;                                                          */
 /*     while ( AcsGrps[i] > 0x20 ) { AcsInd[ AcsGrps[i++] ] = j; }    */
 /*   } while ( AcsGrps[i] != 0 );                                     */
@@ -244,7 +244,7 @@ void dectable_init(void)
 
   for ( i=0 ; i < 2 ; i++ ) {
     for ( j=0 ; j < ABCSize ; j++ ) {
-      index = (BYTE)alphabet[i][j];
+      index = (uchar)alphabet[i][j];
       codetable[index]  = (KEYTYPE)j;
       codepermit[index] = (KEYTYPE)1;
     }
@@ -280,12 +280,12 @@ void initcode( void )
     all_lt[alphabet[1][i]]=E_OD;
   }
 
-  all_lt[(BYTE)BLANK]     =_BLK;
-  all_lt[(BYTE)SPACE]     =_SPC;
-  all_lt[(BYTE)TRADEMARK] =E_DL;
+  all_lt[(uchar)BLANK]     =_BLK;
+  all_lt[(uchar)SPACE]     =_SPC;
+  all_lt[(uchar)TRADEMARK] =E_DL;
 
-  all_lt[(BYTE)WRDDIV]    =_WDV;  // 11-23-93 Mike : DASH problem...
-  /* i=(BYTE)WRDDIV; all_lt[i]=E_DL; */
+  all_lt[(uchar)WRDDIV]    =_WDV;  // 11-23-93 Mike : DASH problem...
+  /* i=(uchar)WRDDIV; all_lt[i]=E_DL; */
 
   all_lt[0x1e] = _SP1;
   all_lt[0x1f] = _SP2;
@@ -329,7 +329,7 @@ void initcode( void )
 
 INT symcode(char  *ed)
 {
-  return all_lt[ (BYTE)*ed ];
+  return all_lt[ (uchar)*ed ];
 }
 
 
@@ -346,7 +346,7 @@ void initstdn(void)
 
   for( i = 0; i < sizeof(STD)/sizeof(LT); i++ ) {
     j=std.stdlt[i].code;                      /* symb ASCII mnb */
-    tabstdn[j] = (BYTE)i;
+    tabstdn[j] = (uchar)i;
   }
 
   return;
@@ -357,5 +357,5 @@ void initstdn(void)
 /**********************************************************************/
 INT getstdn ( char  *ed)
 {
-  return tabstdn[ (BYTE)*ed ];
+  return tabstdn[ (uchar)*ed ];
 }

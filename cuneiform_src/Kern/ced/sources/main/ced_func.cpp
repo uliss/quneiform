@@ -173,7 +173,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		mainPage->pageBordersInTwips.right=  pd->margr;
 		mainPage->resizeToFit=               pd->resizeToFit;
 		//for backward compatibility
-		if ( unsigned( (&(pd->recogLang)) - ((BYTE*)pd) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(pd->recogLang)) - ((uchar*)pd) )<pt->length-sizeof(edExtention))
 			mainPage->recogLang=pd->recogLang;
 		break;
 	}
@@ -232,7 +232,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		sect->orientation=  sp2->orientation	;
 		sect->sectionBreak= sp2->sectionBreak;
 		//for backward compatibility
-		if ( unsigned( (&(sp2->lineBetCol)) - ((BYTE*)sp) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(sp2->lineBetCol)) - ((uchar*)sp) )<pt->length-sizeof(edExtention))
 			sect->lineBetCol=sp2->lineBetCol;
 		break;
 	}
@@ -253,21 +253,21 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		hPara->spcBtwLnsMult=        pard->spcBtwLnsMult;
 		hPara->userNumber=           (signed short)pard->userNum;
 		//for backward compatibility
-		if ( unsigned( (&(pard->topBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(pard->topBrdrType)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->topBrdrType=pard->topBrdrType		;
-		if ( unsigned( (BYTE*)(&(pard->topBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (uchar*)(&(pard->topBrdrWidth)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->topBrdrWidth=    pard->topBrdrWidth	;
-		if ( unsigned( (&(pard->bottomBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(pard->bottomBrdrType)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->bottomBrdrType=  pard->bottomBrdrType	;
-		if ( unsigned( (BYTE*)(&(pard->bottomBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (uchar*)(&(pard->bottomBrdrWidth)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->bottomBrdrWidth= pard->bottomBrdrWidth	;
-		if ( unsigned( (&(pard->leftBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(pard->leftBrdrType)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->leftBrdrType=    pard->leftBrdrType	;
-		if ( unsigned( (BYTE*)(&(pard->leftBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (uchar*)(&(pard->leftBrdrWidth)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->leftBrdrWidth=   pard->leftBrdrWidth	;
-		if ( unsigned( (&(pard->rightBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(pard->rightBrdrType)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->rightBrdrType=   pard->rightBrdrType	;
-		if ( unsigned( (BYTE*)(&(pard->rightBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (uchar*)(&(pard->rightBrdrWidth)) - ((uchar*)pard) )<pt->length-sizeof(edExtention))
 			hPara->rightBrdrWidth=  pard->rightBrdrWidth	;
 
 		break;
@@ -312,7 +312,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		cd->merging=         cp->merging			;
 		cd->vertTextAlign=	 cp->vertTextAlign;
 		//for backward compatibility
-		if ( unsigned( (&(cp->flag)) - ((BYTE*)cp) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(cp->flag)) - ((uchar*)cp) )<pt->length-sizeof(edExtention))
 			cd->flag=cp->flag;
 		break;
 	}
@@ -330,7 +330,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		fd->dxfrtexty=  fp->dxfrtexty	;
 		fd->position=	fp->position;
 		//for backward compatiility
-		if ( unsigned( (&(fp->flag)) - ((BYTE*)fp) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (&(fp->flag)) - ((uchar*)fp) )<pt->length-sizeof(edExtention))
 			fd->flag=fp->flag;
 		break;
 	}
@@ -340,7 +340,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		fontNum=chp->fontNumber;
 		foregroundColor=chp->foregroundColor;
 		//for backward compatibility
-		if ( unsigned( (BYTE*)(&(chp->backgroundColor)) - ((BYTE*)chp) )<pt->length-sizeof(edExtention))
+		if ( unsigned( (uchar*)(&(chp->backgroundColor)) - ((uchar*)chp) )<pt->length-sizeof(edExtention))
 			backgroundColor=chp->backgroundColor;
 		else
 			backgroundColor=-1;
@@ -774,7 +774,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	pd.margl=page->pageBordersInTwips.left;
 	pd.margb=page->pageBordersInTwips.bottom;
 	pd.margr=page->pageBordersInTwips.right;
-	pd.resizeToFit=BYTE(page->resizeToFit);
+	pd.resizeToFit=uchar(page->resizeToFit);
 	pd.recogLang=page->recogLang;
 	if (!WriteExtCode(hFile,EDEXT_BORDERS, &pd,sizeof(pd))) goto ED_WRITE_END;
 	//Write parameters of .tif
@@ -841,7 +841,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 				rp.rightBrdrType=rd->rightBrdrType;
 				rp.rightBrdrWidth=rd->rightBrdrWidth;
 				rp.gaph=rd->gaph;
-				rp.header=BYTE(rd->header);
+				rp.header=uchar(rd->header);
  				rp.left=rd->header;
 				rp.position=rd->position;
 				rp.rowHeight=rd->rowHeight;

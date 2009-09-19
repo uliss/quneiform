@@ -101,7 +101,7 @@ void FreeAllData (void)
 }
 
 # ifdef LT_STAND_ALONE
-void ErrorNoEnoughMemory (PBYTE message)
+void ErrorNoEnoughMemory (puchar message)
 {
     LDPUMA_Console ("No enough memory - press any key\nMESSAGE:%s",message);
 //    LT_Getch ();
@@ -111,7 +111,7 @@ void ErrorNoEnoughMemory (PBYTE message)
 //    exit (-1);
 }
 
-void ErrorInternal (PSTR s)
+void ErrorInternal (char * s)
 {
     LDPUMA_Console ("Internal error: %s - press any key\n", s);
 //    LT_Getch ();
@@ -404,7 +404,7 @@ void * DebugRealloc(void * old_blk,size_t size)
         }
 
 
-void ErrorNoEnoughMemory (PBYTE message)
+void ErrorNoEnoughMemory (puchar message)
 {
 
     message=message;
@@ -419,7 +419,7 @@ void ErrorNoEnoughMemory (PBYTE message)
     error_exit (ERR_comp, ERROR_NO_ENOUGH_MEMORY);
 }
 
-void ErrorInternal (PSTR s)
+void ErrorInternal (char * s)
 {
 
 

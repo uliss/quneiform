@@ -56,49 +56,49 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "struct.h"
 
-Bool is_liga_ff(BYTE c) ;
-Bool is_liga_ffl(BYTE c);
-BYTE to_lower(BYTE c);
-BYTE to_upper(BYTE c);
-INT  is_lower(BYTE ch);
-INT  is_upper(BYTE ch);
-INT  is_russian(BYTE ch);
-INT  is_english(BYTE ch);
-INT is_polish_special(BYTE ch);
-INT is_czech_special(BYTE ch);	// 05.09.2000 E.P.
-INT is_roman_special(BYTE ch);
-INT is_hungar_special(BYTE ch);
-INT is_serbian_special(BYTE ch);
+Bool is_liga_ff(uchar c) ;
+Bool is_liga_ffl(uchar c);
+uchar to_lower(uchar c);
+uchar to_upper(uchar c);
+INT  is_lower(uchar ch);
+INT  is_upper(uchar ch);
+INT  is_russian(uchar ch);
+INT  is_english(uchar ch);
+INT is_polish_special(uchar ch);
+INT is_czech_special(uchar ch);	// 05.09.2000 E.P.
+INT is_roman_special(uchar ch);
+INT is_hungar_special(uchar ch);
+INT is_serbian_special(uchar ch);
 
-INT is_slovenian_special(BYTE ch);	// 25.05.2001 E.P.
-INT isnot_slovenian(BYTE let); // 25.05.2001 E.P.
+INT is_slovenian_special(uchar ch);	// 25.05.2001 E.P.
+INT isnot_slovenian(uchar let); // 25.05.2001 E.P.
 
 // 09.07.2001 E.P.
-INT is_latvian_special(BYTE ch);
-INT isnot_latvian(BYTE let);
+INT is_latvian_special(uchar ch);
+INT isnot_latvian(uchar let);
 
-INT is_lithuanian_special(BYTE ch);
-INT isnot_lithuanian(BYTE let);
+INT is_lithuanian_special(uchar ch);
+INT isnot_lithuanian(uchar let);
 
-INT is_estonian_special(BYTE ch);
-INT isnot_estonian(BYTE let);
-INT is_baltic_palka(BYTE c);
+INT is_estonian_special(uchar ch);
+INT isnot_estonian(uchar let);
+INT is_baltic_palka(uchar c);
 
-INT is_cen_bottom_accent(BYTE c);		// 12.09.2000 E.P.
-INT is_baltic_bottom_accent(BYTE c);	// 10.07.2001 E.P.
-INT is_russian_baltic_conflict(BYTE c);	// 17.07.2001 E.P.
+INT is_cen_bottom_accent(uchar c);		// 12.09.2000 E.P.
+INT is_baltic_bottom_accent(uchar c);	// 10.07.2001 E.P.
+INT is_russian_baltic_conflict(uchar c);	// 17.07.2001 E.P.
 
 // Турецкий язык 20.05.2002 E.P.
-INT is_turkish_special(BYTE ch);
-INT isnot_turkish(BYTE let);
-INT is_turkish_bottom_accent(BYTE c);
-INT is_turkish_palka(BYTE c);
-INT is_russian_turkish_conflict(BYTE c);
+INT is_turkish_special(uchar ch);
+INT isnot_turkish(uchar let);
+INT is_turkish_bottom_accent(uchar c);
+INT is_turkish_palka(uchar c);
+INT is_russian_turkish_conflict(uchar c);
 
-INT  isletter(BYTE ch);
-Bool is_digit(BYTE ch);
-BYTE get_homot(BYTE ch);
-INT  twin(BYTE ch);
+INT  isletter(uchar ch);
+Bool is_digit(uchar ch);
+uchar get_homot(uchar ch);
+INT  twin(uchar ch);
 //INT  setup_let_case(void);
 INT  setup_let_case(INT);
 INT  count_line_hi(void);
@@ -109,10 +109,10 @@ INT smart_diff(cell * c);
 void tell_for_b3(INT hist_array[]);
 INT flood_peak(INT *Hh,INT ind);
 INT GetPsFromHeights(void);
-BYTE BracketIn(version *v);
+uchar BracketIn(version *v);
 INT def_upper_side(void);
 
-extern BYTE page_stat,ufa,stable_b3;
+extern uchar page_stat,ufa,stable_b3;
 extern INT HIST_STATISTIC;
 
 struct uf_bases { INT bb1,bb2; };

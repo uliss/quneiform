@@ -93,7 +93,7 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 	pool=ALI_PR(pool);
 #endif
 
-	user_dict -> vocseg = (BYTE *) SET_VOC_ROOT(pool);
+	user_dict -> vocseg = (uchar *) SET_VOC_ROOT(pool);
 
 	{
 		INT Fh;
@@ -138,7 +138,7 @@ void ResetUserDict(voc_state * user_dict) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
+Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict) {
 	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
 		LONG size;

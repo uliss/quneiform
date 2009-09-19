@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                   */
 /*********************************************************************/
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
@@ -70,18 +70,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 #include "alphabet.h"
 
-extern BYTE language;
-extern BYTE langUkr;
-extern BYTE langBul;
-extern BYTE langSer;
+extern uchar language;
+extern uchar langUkr;
+extern uchar langBul;
+extern uchar langSer;
 extern c_comp wcomp;
-extern BYTE multy_language ;
-extern BYTE alphabet[];
-extern BYTE alpha_used_mode;
-extern BYTE line_tabcell;
+extern uchar multy_language ;
+extern uchar alphabet[];
+extern uchar alpha_used_mode;
+extern uchar line_tabcell;
 //////////////////////////////////////////////////////////////////////////////////////
 //
-static BYTE Only_symbols[257]={
+static uchar Only_symbols[257]={
 /*     0 1 2 3 4 5 6 7 8 9 a b c d e f  */
 /* 0*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /* 1*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -102,11 +102,11 @@ static BYTE Only_symbols[257]={
 };
 //////////////////////////////////////////////////////////////////////////////////////
 //
-extern  BYTE    line_alphabet;
-static Bool proplet_tg(BYTE let)
+extern  uchar    line_alphabet;
+static Bool proplet_tg(uchar let)
 {
 
-	extern BYTE NO_Punct;
+	extern uchar NO_Punct;
 
 	if ( language == LANG_DIG )
 		return is_digit(let);
@@ -314,7 +314,7 @@ static Bool proplet_tg(BYTE let)
 	return TRUE;
 }
 
-Bool proplet(BYTE let)
+Bool proplet(uchar let)
 {
 Bool rc = proplet_tg(let) ;
 if( !alpha_used_mode )

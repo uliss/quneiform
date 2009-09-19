@@ -56,13 +56,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "tuner.h"
 /*
-  BYTE    tl,     // ┌┘░•█┬┴ ▀┘┌⌡┴
+  uchar    tl,     // ┌┘░•█┬┴ ▀┘┌⌡┴
           tr,     // ┌┘░•█┬┴ ▐░─┌⌡┴
           bl,     // █┬├█┬┴  ▀┘┌⌡┴
           br;     // █┬├█┬┴  ▐░─┌⌡┴
 */
 #ifndef INTERSEPTOR
-static BYTE def_corn[]=
+static uchar def_corn[]=
 {
 0000, 0000, 0000, 0000, /*   */
 0000, 0000, 0000, 0000, /*   */
@@ -322,7 +322,7 @@ A_C , 0000, 0000, 0000, /* Щ */
 0000, 0000, 0000, 0000  /*  */
 };
 #else
-static BYTE def_corn[]= // INTERSEPTOR
+static uchar def_corn[]= // INTERSEPTOR
 {
 0000, 0000, 0000, 0000, /*   */
 0000, 0000, 0000, 0000, /*   */
@@ -585,7 +585,7 @@ A_C , 0000, 0000, 0000, /* Щ */
 #endif
 
 
-static BYTE def_corn_cs[]=
+static uchar def_corn_cs[]=
 {
 0000, 0000, 0000, 0000, /*   */
 0000, 0000, 0000, 0000, /*   */

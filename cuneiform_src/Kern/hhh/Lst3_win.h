@@ -546,12 +546,12 @@ typedef unsigned short PRS_ONE;
 #else
 #define PRS_ONE struct h_prs_one
 PRS_ONE1 {
-	BYTE code;
+	uchar code;
 	uint16_t metri;
 };
 PRS_ONE {
 	uint typ :2, het :1, scob :1, dummi :12;
-	BYTE dummi1;
+	uchar dummi1;
 };
 #define WIDTH_PRS 3
 #endif
@@ -918,8 +918,8 @@ typedef struct hSTRET
 	float k; //Тангенс наклон линии y=kx+b
 	short thickness; //средняя толщина отрезка
 	float angle; //Угол наклона = atan2(..)
-	BYTE FeatOrient; //HOR_LINE || VER_LINE
-	BYTE TypeLine; //Тип линии DOT_LINE || SOLID_LINE || DOUBLE_LINE
+	uchar FeatOrient; //HOR_LINE || VER_LINE
+	uchar TypeLine; //Тип линии DOT_LINE || SOLID_LINE || DOUBLE_LINE
 	short LenShadow; //Длина перекрытия
 	void *ptr; //вспомогат. ук-ль (для FindDot)
 }STRET;
@@ -936,13 +936,13 @@ int ClustLine(LINES *Lines, short NumStretchAll,float *tg_ang1,long ThresEvkl,
 		FRAME **frm,int *NumFrm);
 int MetrRectSoAxis(FRAME *ff,KNOT3 *ptr,KNOT3 **beg_cl);
 int UnionEtalonClust(KNOT3 **beg_cl,KNOT3 **bs, int *k_bs,FRAME *ff,RECT **ReUn);
-void UnionStret(STRET *Stret,int *IndStretLine,int Num,BYTE Orient,
+void UnionStret(STRET *Stret,int *IndStretLine,int Num,uchar Orient,
 		STRET *Stret1,int RegDouble);
 int compKNOT3_STRET_xn(KNOT3 **a,KNOT3 **b);
 int compKNOT3_STRET_yn(KNOT3 **a,KNOT3 **b);
 int comp_STRET_xn(STRET**a,STRET**b);
 int comp_STRET_yn(STRET**a,STRET**b);
-int ProcSoAxis(BYTE Orient,STRET *Stret1,short NumS,BOUND bnd,
+int ProcSoAxis(uchar Orient,STRET *Stret1,short NumS,BOUND bnd,
 		float ThresDelOrient,short ThresShadow,short ThresDouble,
 		int size_x,int size_y,
 		KNOT3 **beg_cl,KNOT3 **beg_free1,short *k_cl1,STRET_P **PtrObj,

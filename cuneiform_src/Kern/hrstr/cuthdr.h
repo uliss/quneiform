@@ -137,10 +137,10 @@ struct common
  char c_best_cut_point;
  lnhead *c_t_line_ptr;
  INT  c_max_line;
- BYTE *c_s_raster;
+ uchar *c_s_raster;
  struct less_vertex_elem c_less_vertices[MAX_LINES];
  struct short_line_header c_lines[MAX_LINES];
- BYTE c_path[MAX_LINES];
+ uchar c_path[MAX_LINES];
 // char dum[prot_size];
  };
 
@@ -162,8 +162,8 @@ union Work
  {
  struct
   {
-  BYTE w_rast[1024];
-  BYTE a_sum[32];
+  uchar w_rast[1024];
+  uchar a_sum[32];
   char a_end[3][32], a_lth[3][32],
        a_dif0[32], a_dif1[32], a_dif2[32];
   char a_roof[128];

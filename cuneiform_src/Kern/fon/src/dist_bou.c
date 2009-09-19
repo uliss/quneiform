@@ -58,31 +58,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MAX_ALT_BOU   4
 
-#include "c_types.h"
-
 #include <stdlib.h>
 #include <string.h>
-/*#include <io.h>*/
 #include <fcntl.h>
-/*#include <sys\stat.h>*/
 #include <stdio.h>
 
 #include "ligas.h"
 #include "fon.h"
 #include "sfont.h"
 #include "fonrec.h"
+#include "minmax.h"
 
-uint16_t cmp(PBYTE r,uint16_t fullwb,uint16_t w,uint16_t h,welet * wl);
-SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
+uint16_t cmp(puchar r,uint16_t fullwb,uint16_t w,uint16_t h,welet * wl);
+SINT RazmazHalf(uchar *bSource,uchar *bDest,SINT xbit,SINT yrow);
 
 static int LookLeft(int *startRow,int yrow,int bits,int height,
 					int *outHeight);
-static void FillLeft(BYTE *pic,int xbyte,int yrow,int bits,
+static void FillLeft(uchar *pic,int xbyte,int yrow,int bits,
 					 int *outStart);
 typedef struct tagRECBOU
 	{
-	  BYTE name;
-	  BYTE prob;
+	  uchar name;
+	  uchar prob;
 	  int  num;
 	  int  dist;
 	  int  movx;
@@ -228,12 +225,12 @@ int *bou;
 // return - сколько точек растра вылазит за серую область
 //
 
-static int DistToWeletBound(PBYTE r,int fullByte,int w,int h,welet * wl,
+static int DistToWeletBound(puchar r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,int *bou )
 {
 pchar curr;
 int   i,j,jj;
-BYTE  cbyte,cc;
+uchar  cbyte,cc;
 int rbyte;
 int dist1;
 int dist;
@@ -289,13 +286,13 @@ int lastColumn;
 // штрафуем точки cluster's
 // return - сколько точек черной области вылезло за окрестность растра
 //
-static int DistWeletRazmazBound(PBYTE r,int fullByte,int  w,int  h,welet * wl,
+static int DistWeletRazmazBound(puchar r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int *bou)
 {
 SINT ww=wl->w, hh=wl->h;
 pchar curr;
 SINT i,j;
-BYTE  cbyte,cc;
+uchar  cbyte,cc;
 SINT rbyte;
 int dist;
 int startx; // =(WR_MAX_WIDTH-w)/2;
@@ -304,8 +301,8 @@ int stx=(WR_MAX_WIDTH-ww)/2;   // start cluster
 int sty=(WR_MAX_HEIGHT-hh)/2;
 int wei=wl->weight>>1;
 int lasty,lastx;
-BYTE initCC;
-BYTE *rr;
+uchar initCC;
+uchar *rr;
 
   // берем только левую часть размазанного растра !
  if( w > wl->mw +2  ) startx = wl-> mw+2 ;
@@ -375,7 +372,7 @@ BYTE *rr;
 }
 ////////////////////
 ///////////
-static int distOneBound(BYTE *buf,BYTE *bufrazmaz,int w,int h,
+static int distOneBound(uchar *buf,uchar *bufrazmaz,int w,int h,
 						int bestdist,welet *wel,int x,int y,
 				        int *bou, int countRazmaz)
 {
@@ -393,7 +390,7 @@ int dist,j;
   return dist+((j+countRazmaz-1)/countRazmaz);
 }
 ////////////
-static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,
+static int distWeletBound(uchar *buf,uchar *bufraz,int w,int h,welet * wl,int porog,
 						  int *bou,RECBOU *recBou, int countRazmaz)
 {
  uint16_t best,east,west,north,south,center;
@@ -580,7 +577,7 @@ static Bool32 IsSinglePoint(int *bou)
  return TRUE;
 }
 ////////////
-static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
+static int FindBestClustersBound(int w,int h,uchar *buf,uchar *bufrazmaz,
 		      int NumClus, int porog,welet *wel,
 			  RECBOU *recBounds,  int maxNames,
 			  int *leftStart,
@@ -669,8 +666,8 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 	 for(k=yStart+yHeight;k<h;k++)
 		 recBou.bound[k]=2;
 
-	 recBou.name =(BYTE)wel->let;
-     recBou.prob =(BYTE)(MAX(0,255-STRAFPOINT*dist));
+	 recBou.name =(uchar)wel->let;
+     recBou.prob =(uchar)(MAX(0,255-STRAFPOINT*dist));
 	 recBou.dist = dist;
      recBou.num  =i;
 
@@ -689,19 +686,19 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 }
 
 ///////////////////////
-static BYTE buf[REC_MAX_RASTER_SIZE];
-static BYTE bufrazmaz[2*REC_MAX_RASTER_SIZE];
+static uchar buf[REC_MAX_RASTER_SIZE];
+static uchar bufrazmaz[2*REC_MAX_RASTER_SIZE];
 
 static int StartInRow[WR_MAX_HEIGHT];
 
 // bounds - massiv yyrow*maxNames
-SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
-			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
+SINT RecogCluBound(uchar *rast,SINT xbyte,SINT xbit,SINT yyrow,uchar *names,
+			 uchar *probs,SINT maxNames,welet *wl,int numWel,
 			 int *bounds, int countRazmaz)
 {
  int i,numAlt;
  int rbyte=(xbit+7)>>3;
- BYTE *b1;
+ uchar *b1;
  int porog;
  int yrow=yyrow;
 
@@ -756,7 +753,7 @@ SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
 //
 // найти положение левой границы символа шириной bits
 //
-static void FillLeft(BYTE *pic,int xbyte,int yrow,int bits,
+static void FillLeft(uchar *pic,int xbyte,int yrow,int bits,
 					 int *outStart)
 {
  int i,j,k;
@@ -898,10 +895,10 @@ static int LookLeft(int *startRow,int yrow,int bits,int height,
 //   unkley functions
 //
 //////////////////
-static int MinBoundLeft(BYTE *pic,int xbyte,int yrow,int *bou )
+static int MinBoundLeft(uchar *pic,int xbyte,int yrow,int *bou )
 {
  int i,j,k;
- BYTE  cc;
+ uchar  cc;
  int minBou=xbyte<<3;
  int prevBou=minBou;
  int prevPoint=minBou;
@@ -945,7 +942,7 @@ static int MinBoundLeft(BYTE *pic,int xbyte,int yrow,int *bou )
 }
 /////////////////
 
-static void RemoveLeft(BYTE *inBuf,
+static void RemoveLeft(uchar *inBuf,
 					 int xbyte,int yrow,
 					 int startX,int *bou)
 {
@@ -961,14 +958,14 @@ static void RemoveLeft(BYTE *inBuf,
     }
 }
 ////////////////
-static void (*MoveWindowRow)(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit);
+static void (*MoveWindowRow)(uchar *outrow,uchar *inrow,int SizeByte,int fbit);
 ///////////////////////////////////
-void MoveWindowRow0(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
+void MoveWindowRow0(uchar *outrow,uchar *inrow,int SizeByte,int fbit)
 {
 	  memcpy(outrow,inrow,SizeByte);
 }
 //////////
-void MoveWindowRow2(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
+void MoveWindowRow2(uchar *outrow,uchar *inrow,int SizeByte,int fbit)
 {
  int i;
   switch(fbit)
@@ -1006,7 +1003,7 @@ void MoveWindowRow2(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
 
 }
 ///////////////
-void MoveWindowRow1(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
+void MoveWindowRow1(uchar *outrow,uchar *inrow,int SizeByte,int fbit)
 {
  int i;
   SizeByte--;
@@ -1053,15 +1050,15 @@ void MoveWindowRow1(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
 }
 ///////////////
 // return number of bits
-static int MoveAllLeft(BYTE *inBuf,int xbyte,
+static int MoveAllLeft(uchar *inBuf,int xbyte,
 					    int xbit, int yrow,
-					    BYTE *outBuf,int start)
+					    uchar *outBuf,int start)
 {
  int i;
  int outSizeBit= xbit-start;
  int outSizeByte=(outSizeBit+7)>>3;
  int firBit=start&7;
- BYTE hvost=mas10[outSizeBit&7];
+ uchar hvost=mas10[outSizeBit&7];
 
  inBuf+=start>>3;
 
@@ -1083,7 +1080,7 @@ static int MoveAllLeft(BYTE *inBuf,int xbyte,
 // найти первый кластер, подходящий по порогу
 //
 static int FindFirstClusterPorog(int w,int h,
-			  BYTE *buf,BYTE *bufrazmaz,
+			  uchar *buf,uchar *bufrazmaz,
 		      int startClus,int NumClus, welet *wel,
 			  int porog, int *outBou ,int *outDist,
 			  int *yFir,int *yHei)
@@ -1167,8 +1164,8 @@ static int FindFirstClusterPorog(int w,int h,
 	*outDist=dist;
 	*yFir   =yStart;
 	*yHei   =yHeight;
-//	recBou.name =(BYTE)wel->let;
-//  recBou.prob =(BYTE)(255-dist);
+//	recBou.name =(uchar)wel->let;
+//  recBou.prob =(uchar)(255-dist);
 //  recBou.order=i;
 
 	return i;
@@ -1230,8 +1227,8 @@ static int UpdateSpisokAlter(int oldPorog,int *oldSumma)
   return maxDist;
 }
 //////////////
-static int GetFromStack(BYTE *inBuf,int xbyte,int xbit,int yrow,
-						BYTE *outBuf,int *oBit,
+static int GetFromStack(uchar *inBuf,int xbyte,int xbit,int yrow,
+						uchar *outBuf,int *oBit,
 						int *bou)
 {
 //int *bou;
@@ -1273,11 +1270,11 @@ int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 }
 ///////////////
 extern Bool IsSnap;
-int AddBitmapToSnap(BYTE *buf,int xbit,int yrow,int num,int dist);
+int AddBitmapToSnap(uchar *buf,int xbit,int yrow,int num,int dist);
 
-int KleyRecog(BYTE *inBuf,int xbyte,int xbit, int yrow,
+int KleyRecog(uchar *inBuf,int xbyte,int xbit, int yrow,
 					 welet *wl,int numWel,int porog,
-					 BYTE *names,BYTE *probs,int maxNames)
+					 uchar *names,uchar *probs,int maxNames)
 {
 int  startX=0,startY=0;
 int  outBou[WR_MAX_HEIGHT];
@@ -1303,8 +1300,8 @@ int  heiY;
  if( yrow > WR_MAX_HEIGHT-2)
         yrow = WR_MAX_HEIGHT-2;
 
-// SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
-//			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
+// SINT RecogCluBound(uchar *rast,SINT xbyte,SINT xbit,SINT yyrow,uchar *names,
+//			 uchar *probs,SINT maxNames,welet *wl,int numWel,
 //			 int *bounds);
 
  TekInStack=0;
@@ -1362,8 +1359,8 @@ int  heiY;
 
   for(k=0;k<inBestStack && k < maxNames;k++)
   {
-	   names[k]=(BYTE)bestStack[k].name;
-	   probs[k]=(BYTE)(255-STRAFPOINT*bestStack[k].dist);
+	   names[k]=(uchar)bestStack[k].name;
+	   probs[k]=(uchar)(255-STRAFPOINT*bestStack[k].dist);
   }
 
  return k;
@@ -1407,14 +1404,14 @@ static int GetCommonSize(CSTR_rast fir,CSTR_rast last,RECT *rect)
    return (rect->right-rect->left+7)>>3;
 }
 ///////////////
-static int FillInBuf(BYTE *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
+static int FillInBuf(uchar *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
 					 RECT *rect)
 {
  CSTR_rast_attr attr;
  RecRaster recRast;
  int i,j;
  int sdvig,asdvig;
- BYTE *bu,*inbu;
+ uchar *bu,*inbu;
  int xbyte8;
  int inbyte;
 
@@ -1451,11 +1448,11 @@ static int FillInBuf(BYTE *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
    return (rect->right-rect->left+7)>>3;
 }
 ///////////////
-static int RemoveRight(BYTE *buff,int startX,int xbyte,int yrow,int *bou,
+static int RemoveRight(uchar *buff,int startX,int xbyte,int yrow,int *bou,
 					   RECT *rect)
 {
 	int i,j,k;
-	BYTE *buf;
+	uchar *buf;
 
 	rect->left = 0;
 	rect->right= 0;
@@ -1500,7 +1497,7 @@ static int RemoveRight(BYTE *buff,int startX,int xbyte,int yrow,int *bou,
 }
 //////////////
 // use bufrazmaz as temporary buffer
-static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
+static int GetAsRecRaster(uchar *inBuf,int xbit,int yrow,
 						  RecRaster *rec, int nInStack,
 						  RECT *rect)
 {
@@ -1509,7 +1506,7 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
  int startX;
  int outByte,outBit;
  int xbyte8;
- BYTE *bb;
+ uchar *bb;
  int  yFir,yHei;
  int i;
 
@@ -1552,7 +1549,7 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
 }
 ///////////////
 // from rcm.c
-BYTE decode_ASCII_to_[256][4]=
+uchar decode_ASCII_to_[256][4]=
 {
 /*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
 /* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",
@@ -1573,7 +1570,7 @@ BYTE decode_ASCII_to_[256][4]=
 /* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20"
 };
 //////////////////
-BYTE CodePages[LANG_TOTAL]={
+uchar CodePages[LANG_TOTAL]={
 CSTR_ANSI_CHARSET            , // LANG_ENGLISH
 CSTR_ANSI_CHARSET            , // LANG_GERMAN
 CSTR_ANSI_CHARSET            , // LANG_FRENCH
@@ -1633,7 +1630,7 @@ uchar let;
  return CSTR_StoreCollectionUni(rast,ver);
 }
 /////////////////
-static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
+static int PutNewRasters(uchar *inBuf,int xbit,int yrow,CSTR_rast outFir,
 						 int posLineX,int posLineY,int lang, int nNaklon, RECS2 *recs,
 						 Bool32 fromNew, int countRazmaz)
 {
@@ -1675,19 +1672,19 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
 		 {
 	      memset(&vers,0,sizeof(RecVersions));
 	      vers.lnAltCnt = 1;
-	      vers.Alt[0].Code=(BYTE)bestStack[i].name;
-	      vers.Alt[0].Prob=(BYTE)(255-STRAFPOINT*bestStack[i].dist);
+	      vers.Alt[0].Code=(uchar)bestStack[i].name;
+	      vers.Alt[0].Prob=(uchar)(255-STRAFPOINT*bestStack[i].dist);
 	      vers.Alt[0].Method=REC_METHOD_FON;
 		 }
 		 else
 		 {
 			 if( vers.lnAltCnt > 1 &&
-				 (BYTE)bestStack[i].name == vers.Alt[1].Code &&
+				 (uchar)bestStack[i].name == vers.Alt[1].Code &&
 				 vers.Alt[0].Prob == vers.Alt[1].Prob
                )
 			 {
 				 vers.Alt[1].Code = vers.Alt[0].Code;
-				 vers.Alt[0].Code = (BYTE)bestStack[i].name;
+				 vers.Alt[0].Code = (uchar)bestStack[i].name;
 			 }
 		 }
 	   }
@@ -1695,7 +1692,7 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
        attr.n_baton=255;  // =NO_BATONS;
        attr.pos_inc = 0;  // =erect_no;
 
-       attr.language=(BYTE)lang;
+       attr.language=(uchar)lang;
 	   attr.flg =CSTR_f_let;
 
 	   attr.w   = (short)rec.lnPixWidth;
@@ -1751,7 +1748,7 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
  welet *wl;
  int numWel;
  RECT wordRect;
- BYTE *inBuf=NULL;
+ uchar *inBuf=NULL;
  int xbyte,xbit,yrow;
  int porog=20;
 
@@ -1870,7 +1867,7 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
  FONBASE *fonbase = GetStaticFonbase();
  welet *wl;
  int numWel;
- BYTE *inBuf=NULL;
+ uchar *inBuf=NULL;
  int xbyte,xbit,yrow;
  int i,j,k;
  int better;
@@ -1954,7 +1951,7 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
   int nAlt;
   int firY,lasY;
   int out8;
-  BYTE *oBuf;
+  uchar *oBuf;
   RECS2  *recs=(better==-1?recs2:recs2+1);
 
   startX=GetFromStack( inBuf, xbyte, xbit, yrow,
@@ -2003,7 +2000,7 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
   memset(recs->rast.Raster,0,out8*recs->rast.lnPixHeight);
 
   {
-   BYTE *iBuf = recs->rast.Raster;
+   uchar *iBuf = recs->rast.Raster;
    oBuf = buf+outByte*firY;
    for(j=recs->rast.lnPixHeight;j>0;j--,iBuf+=out8,oBuf+=outByte)
 		  memcpy(iBuf,oBuf,outByte);
@@ -2137,7 +2134,7 @@ FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
   attr.n_baton=255;  // =NO_BATONS;
   attr.pos_inc = 0;  // =erect_no;
 
-  attr.language=(BYTE)lang;
+  attr.language=(uchar)lang;
   attr.flg =CSTR_f_let;
 
   attr.w   = (short)recRast.lnPixWidth;

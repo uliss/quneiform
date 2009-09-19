@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*************  for GENUINE INTEL PENTIUM CPU with MMX            ************/
 /*****************************************************************************/
 
-#include "nt_types.h"
+
 #include "func.h"
 #include "p2libr.h"
 #include "tuner.h"

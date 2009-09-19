@@ -62,7 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <assert.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "lang.h"
@@ -74,11 +73,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 extern INT   up_position,dw_position;
-extern BYTE *MemForCutPoints;
-extern BYTE *MemForCutPointsTwo;
-extern BYTE *ForRaster2;
-extern BYTE *ForRaster3;
-extern BYTE  db_status;  // snap presence byte
+extern uchar *MemForCutPoints;
+extern uchar *MemForCutPointsTwo;
+extern uchar *ForRaster2;
+extern uchar *ForRaster3;
+extern uchar  db_status;  // snap presence byte
 void snap_clear_screen(void);
 
 
@@ -100,7 +99,7 @@ INT Alik_define_cut_points(
  PINT   penalty,cut_points,adr_cut_points,my_penalty;
  pchar  adrw,adrw_two,product,product_two,trace,adr_raster,stek,adr_ras_two,
         SourceRaster;
- PBYTE  IntBuf,CountCut,UpBlackPoint;
+ puchar  IntBuf,CountCut,UpBlackPoint;
  struct own_cut *ans_ptr;
 #ifdef AlikBl
 char snap[380],*buf=snap;
@@ -127,8 +126,8 @@ char snap[380],*buf=snap;
  adrw_two=MemForCutPointsTwo;
  adr_ras_two = adrw_two+(CP>i?CP:i);
  product_two = adr_ras_two+(CP>i?CP:i); /* под произведения последовательных столбцов слева и справа*/
- UpBlackPoint= (PBYTE)(product_two+dx);
- CountCut    = (PBYTE)(UpBlackPoint+dx);
+ UpBlackPoint= (puchar)(product_two+dx);
+ CountCut    = (puchar)(UpBlackPoint+dx);
  SourceRaster= (pchar)(CountCut+dx);
  my_penalty  = (PINT)(SourceRaster+(CP>i?CP:i));
  IntBuf      = (pchar)(my_penalty+dx);
@@ -138,7 +137,7 @@ char snap[380],*buf=snap;
 if(CP)
  {
    memcpy(SourceRaster,raster_frag,hor_byte*dy);
-   memset((PBYTE)adr_cut_points,0,R_S);
+   memset((puchar)adr_cut_points,0,R_S);
    memset(CountCut,0,dx);
 
    Alik_tr_bit_matr(ver_byte,dy,raster_frag,adr_raster,hor_byte,dx); /* транспонирование исходного растра */
@@ -347,9 +346,9 @@ int Alik_sort_function( const void *a, const void *b)
 }
 
 void Alik_set_method_for_cut_points(struct own_cut *ans,INT dy,INT dx,
-                                    PBYTE CountCut)
+                                    puchar CountCut)
 {
-BYTE CountGrupElem,n,i,j,m,gde,flag4;
+uchar CountGrupElem,n,i,j,m,gde,flag4;
 INT  min_dh;
 struct own_cut oct[STK_H],*ptr;
 
@@ -373,7 +372,7 @@ struct own_cut oct[STK_H],*ptr;
    CountGrupElem=j-i+1;
    if(CountGrupElem<=3)
    {                                        // OLEG : case CountGrupElem==0 ????
-     gde=Alik_gde_i_kak_naxodjatsa_tochki((BYTE)(CountGrupElem-1),&oct[i],dy,min_dh);
+     gde=Alik_gde_i_kak_naxodjatsa_tochki((uchar)(CountGrupElem-1),&oct[i],dy,min_dh);
      for(m=i;m<=j;m++)  oct[m].var=(char)GDE_KAK[gde][m-i];
     }
    else
@@ -403,10 +402,10 @@ struct own_cut oct[STK_H],*ptr;
   }
 }
 
-BYTE Alik_gde_i_kak_naxodjatsa_tochki(BYTE CountGrupElem,struct own_cut *ans,
+uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,struct own_cut *ans,
                                       INT height,INT min_dh)
 {
-BYTE i;
+uchar i;
 INT  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
 
  h_h        = ((height+1)>>1);

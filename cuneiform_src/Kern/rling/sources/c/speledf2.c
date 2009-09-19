@@ -98,8 +98,8 @@ static void stack_to_null(void);
 /*************************************************************************/
 extern dQ SPQ;     //Q;
 
-BYTE  *next_symb(INT i, INT j, INT k,
-      struct segm  *cur_segm, BYTE  *cur_symb)
+uchar  *next_symb(INT i, INT j, INT k,
+      struct segm  *cur_segm, uchar  *cur_symb)
 /*
     This procedure is in charge with sleathering through the string.
     i=YES means missing rule symbols,returns pointer to the next letter
@@ -110,10 +110,10 @@ BYTE  *next_symb(INT i, INT j, INT k,
 */
  //INT i,j,k;
  //struct segm  *cur_segm;
- //BYTE  *cur_symb;
+ //uchar  *cur_symb;
  {
   uint16_t ret;
-  BYTE l;
+  uchar l;
   void * NsCache[8];
   uint16_t NsCount = 0;
   /* struct segm  *segm_ptr; */
@@ -136,7 +136,7 @@ BYTE  *next_symb(INT i, INT j, INT k,
      {
       case SS_SHEET_DESCR:
 		       SPQ.end_altern=1;
-		       l = (BYTE)SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].lth;
+		       l = (uchar)SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].lth;
                        SPQ.ns_symb=&SPQ.ns_segm->string[l];
 		       break;
       case SS_LANGUAGE  : SPQ.ns_symb=SPQ.ns_symb+sizeof(struct EdTagLanguage);
@@ -191,7 +191,7 @@ BYTE  *next_symb(INT i, INT j, INT k,
 			{
 			 push_stack();
 			 SPQ.stack->kegl = SPQ.h_font_kegl_ptr->new_kegl;
-			 SPQ.stack->font = (BYTE)SPQ.h_font_kegl_ptr->new_font;
+			 SPQ.stack->font = (uchar)SPQ.h_font_kegl_ptr->new_font;
 			}
 			 SPQ.ns_symb=SPQ.ns_symb+sizeof(struct font_kegl);
 		       break;

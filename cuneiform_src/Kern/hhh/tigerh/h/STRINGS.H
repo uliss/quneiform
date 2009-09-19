@@ -110,7 +110,7 @@ struct _String
            STRING *pDown;
 
            unsigned uFlags;
-           BYTE     language; // Pit 02-??-94
+           uchar     language; // Pit 02-??-94
            int      nBlock;
 	   int      nUserNum;// Piter 08-17-95 06:18pm
 

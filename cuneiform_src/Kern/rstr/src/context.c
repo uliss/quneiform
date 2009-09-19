@@ -72,7 +72,7 @@ void context() {
 
 	// Nick 2.11.2000
 	{
-		extern BYTE line_tabcell;
+		extern uchar line_tabcell;
 		if (line_tabcell)
 			contextNumberTable();
 	}
@@ -210,7 +210,7 @@ static INT find_and_class_word(cell *first_C)
 //
 {
 	char fl_beg;
-	BYTE class, wf;
+	uchar class, wf;
 	cell *wc, *C;
 
 	wf = after_word_flag;
@@ -246,7 +246,7 @@ static INT find_and_class_word(cell *first_C)
 			}
 			n_ltr++;
 			if (fl_beg_irish_name == AFTER_C)
-				irish_name_pos = (BYTE) n_ltr; // store first letter position
+				irish_name_pos = (uchar) n_ltr; // store first letter position
 			//  of the actual irish name
 			break;
 		case SPEC_SYM_SLASH:
@@ -291,19 +291,19 @@ static INT find_and_class_word(cell *first_C)
 	return (n_ltr);
 }
 
-static BYTE classify(cell *curc) {
+static uchar classify(cell *curc) {
 	INT Let, nv;
 
 	Let = curc->vers[0].let;
 	if (curc->flg & c_f_bad)
 		return BAD_SYM;
-	if ((curc->flg & c_f_let) && check_alphanum((BYTE) Let)) {
+	if ((curc->flg & c_f_let) && check_alphanum((uchar) Let)) {
 		test_roma_num_sym(curc);
 		test_irish_name_cur_sym(Let);
 		/* Oleg : 11-07-1994 : collection ('1','!') at the end of word */
 		if (language == LANG_RUSSIAN && Let == '1' && curc->nvers == 2
 				&& (curc->vers[1].let == '!' || curc->vers[1].let
-						== (BYTE) liga_exm)) {
+						== (uchar) liga_exm)) {
 			if (!(curc->prev->flg & c_f_fict) && !(curc->prev->nvers > 0
 					&& memchr("0123456789%$-", curc->prev->vers[0].let, 13)))
 				if (curc->vers[1].let == liga_exm)
@@ -443,15 +443,15 @@ static void check_vers(cell *curc) //AK 04.07.97
 			break;
 		Let = curc->vers[i].let;
 
-		if (check_lower((BYTE) Let)) {
+		if (check_lower((uchar) Let)) {
 			fl |= LOWER;
 			continue;
 		}
-		if (check_upper((BYTE) Let)) {
+		if (check_upper((uchar) Let)) {
 			fl |= UPPER;
 			continue;
 		}
-		if (check_numb_0_9((BYTE) Let)) {
+		if (check_numb_0_9((uchar) Let)) {
 			fl |= NUMBER;
 			continue;
 		}
@@ -466,7 +466,7 @@ static void check_vers(cell *curc) //AK 04.07.97
 		num_dig++;
 	if ((fl & (LOWER | UPPER)) && (fl & NUMBER == 0))
 		num_let++;
-	if ((curc->nvers == 1) && (check_numb_2_9((BYTE) Let)))
+	if ((curc->nvers == 1) && (check_numb_2_9((uchar) Let)))
 		word_flag &= ~UINT;
 	if ((fl & NUMBER) == 0)
 		word_flag &= ~NUMBER;
@@ -530,7 +530,7 @@ static void Livers(cell *NC)
 			break;
 		kt++;
 		if (check_lowerconson(w->let) || check_lowerconson(
-				(BYTE)(w->let + 0x20)))
+				(uchar)(w->let + 0x20)))
 			kc++;
 		else
 			kv++;
@@ -696,7 +696,7 @@ static void estimate_chain(INT word_pos) {
 	INT cn, pn;
 	INT bn, mest, est;
 	cell *c;
-	BYTE first, fr;
+	uchar first, fr;
 
 	for (cn = 0, curr = cdv; cn < COMP_NVAR; cn++, curr++) {
 		mest = -32000;
@@ -774,14 +774,14 @@ static void estimate_letter(cell *C, INT pos) {
 		case L_BIG:
 			if ((cdv + L_BIG)->class == L_EMPTY) {
 				(cdv + L_BIG)->class = L_BIG;
-				(cdv + L_BIG)->pos = (BYTE) i;
+				(cdv + L_BIG)->pos = (uchar) i;
 				(cdv + L_BIG)->est = p - i;
 			}
 			break;
 		case L_SMALL:
 			if ((cdv + L_SMALL)->class == L_EMPTY) {
 				(cdv + L_SMALL)->class = L_SMALL;
-				(cdv + L_SMALL)->pos = (BYTE) i;
+				(cdv + L_SMALL)->pos = (uchar) i;
 				(cdv + L_SMALL)->est = p - i;
 				if (pos != 0)
 					(cdv + L_SMALL)->est += SMALL_INC;
@@ -792,7 +792,7 @@ static void estimate_letter(cell *C, INT pos) {
 		case L_NUM:
 			if ((cdv + L_NUM)->class == L_EMPTY) {
 				(cdv + L_NUM)->class = L_NUM;
-				(cdv + L_NUM)->pos = (BYTE) i;
+				(cdv + L_NUM)->pos = (uchar) i;
 				(cdv + L_NUM)->est = p + NUM_INC - i;
 			}
 			break;
@@ -802,7 +802,7 @@ static void estimate_letter(cell *C, INT pos) {
 			for (pm = 0; pm < 3; pm++)
 				if ((cdv + pm)->class == L_EMPTY) {
 					(cdv + pm)->class = L_UNDEF;
-					(cdv + pm)->pos = (BYTE) i;
+					(cdv + pm)->pos = (uchar) i;
 					(cdv + pm)->est = p - i;
 				}
 			goto stloop;

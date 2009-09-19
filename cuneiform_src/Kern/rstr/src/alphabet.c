@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "status.h"
@@ -81,14 +80,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-static BYTE digital_mode;            // see in module pass3.c
-static BYTE plusminus_mode;
-static BYTE alphabet_set[32];
+static uchar digital_mode;            // see in module pass3.c
+static uchar plusminus_mode;
+static uchar alphabet_set[32];
 static cell *clist[2];
 INT  digital_string_penalty;
-extern BYTE CodePages[];
+extern uchar CodePages[];
 
-Bool isLikeDigit(BYTE c)
+Bool isLikeDigit(uchar c)
 {
 // Ñ ó÷åòîì òóðåöêî-ðóññêèõ êîíôëèêòîâ. 21.05.2002 E.P.
  if( memchr("0123456789Ž®¡‡§’‚øl",c,19) &&
@@ -105,7 +104,7 @@ Bool digital_last_context(void)
   char punct_list[]="'\"=:";
   char sign_list[]="+-_";
   INT  l = strlen(punct_list),num,num_dig,num_bad,num_broken;
-  BYTE c,p;
+  uchar c,p;
 
 if( db_status && snap_activity('c') )
  {
@@ -208,26 +207,26 @@ if( digital_mode==2     ||
 
       c = curr->vers[0].let;
       p = curr->vers[0].prob;
-      if( c==(BYTE)'_' )
+      if( c==(uchar)'_' )
         curr->vers[0].let='-' ;
-      if( c==(BYTE)'ø' )
+      if( c==(uchar)'ø' )
         curr->vers[0].let='2' ;
-      if( c==(BYTE)'Ž' ||
+      if( c==(uchar)'Ž' ||
 			// 21.05.2002 E.P.
-			( c==(BYTE)'®')&& !is_russian_turkish_conflict(c)
+			( c==(uchar)'®')&& !is_russian_turkish_conflict(c)
 		)
         curr->vers[0].let='0' ;
-      if( c==(BYTE)'¡' )
+      if( c==(uchar)'¡' )
         curr->vers[0].let='6' ;
-      if( c==(BYTE)'‡' || c==(BYTE)'§')
+      if( c==(uchar)'‡' || c==(uchar)'§')
         curr->vers[0].let='3' ;
-      if( c==(BYTE)'‚' )
+      if( c==(uchar)'‚' )
         curr->vers[0].let='8' ;
-      if( c==(BYTE)'‘' && (p<190 || num_broken+num_dig==num ) )
+      if( c==(uchar)'‘' && (p<190 || num_broken+num_dig==num ) )
         curr->vers[0].let='0' ;
-      if( c==(BYTE)'’' || c==liga_exm || c=='!' || c=='|' )
+      if( c==(uchar)'’' || c==liga_exm || c=='!' || c=='|' )
         curr->vers[0].let='1' ;
-      if( c==(BYTE)'l' )
+      if( c==(uchar)'l' )
         curr->vers[0].let='1' ;
 
       if( c=='$' && curr->nvers==1 )
@@ -238,7 +237,7 @@ if( digital_mode==2     ||
         curr->nvers=2;
         }
 
-      if( c=='5' && curr->nvers>2 && curr->vers[1].let==(BYTE)'¡' &&
+      if( c=='5' && curr->nvers>2 && curr->vers[1].let==(uchar)'¡' &&
           p==curr->vers[1].prob && curr->vers[2].let=='6' &&
           curr->vers[2].prob>150 )
           { /* alternates : ¡56 -->>CONTEXT-->> 5¡6 */
@@ -336,7 +335,7 @@ if( db_status && snap_activity('c') )
 void add_digital_versions(void)
 {
 cell *curr;
-BYTE c,p;
+uchar c,p;
 
 curr = cell_f();
 while(   (curr=curr->next)->next )
@@ -349,11 +348,11 @@ while(   (curr=curr->next)->next )
       c = curr->vers[1].let;
       p = curr->vers[1].prob;
       }
-    if( (curr->nvers==1 || c==(BYTE)'’' && curr->nvers==2)&& p>220 )
+    if( (curr->nvers==1 || c==(uchar)'’' && curr->nvers==2)&& p>220 )
         switch( c )
           {
-          case (BYTE)'’' : add_stick_vers (curr, '1', p);break;
-          case (BYTE)'¡' : add_stick_vers (curr, '6', p);break;
+          case (uchar)'’' : add_stick_vers (curr, '1', p);break;
+          case (uchar)'¡' : add_stick_vers (curr, '6', p);break;
           default        : break;
           }
     }
@@ -370,7 +369,7 @@ INT  num_dig,num_let,num_bad,num_all, num_dig_let;
 char dig_let_list[]="036",let_dig_list[]="‚¢ø";
 // letters_ini ïóíêòóàöèþ ïåðåâîäèò â letter !!!
 char punct_list[]="'\"=:!¼?\\.,-"; // remove (){}[]/
-BYTE c,p;
+uchar c,p;
 
 digital_mode=0;
 set_all_alphabet();
@@ -440,7 +439,7 @@ char   dig_let_list[]="036",let_dig_list[]="‚¢ø";
 //char punct_list[]="'\"=:!(){}[]!¼?\\/";
 char punct_list[]="'\"=:;";
 char asOne_list[]="1[]/!|";
-BYTE c,p;
+uchar c,p;
 
 digital_mode=0;
 set_all_alphabet();
@@ -580,30 +579,30 @@ digital_string_penalty=0;
 return;
 }
 
-void add_alphabet_elem(BYTE let)
+void add_alphabet_elem(uchar let)
 {
-BYTE add_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uchar add_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 alphabet_set[let/8] |= add_mask[ let%8 ];
 
 return;
 }
 
-void del_alphabet_elem(BYTE let)
+void del_alphabet_elem(uchar let)
 {
-BYTE del_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uchar del_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 alphabet_set[let/8] &= ~del_mask[ let%8 ];
 
 return;
 }
 
-Bool test_alphabet_elem(BYTE let)
+Bool test_alphabet_elem(uchar let)
 {
-BYTE test_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uchar test_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 
 return (alphabet_set[let/8] & test_mask[ let%8 ]);
 }
 
-void copy_alphabet(PBYTE alph)
+void copy_alphabet(puchar alph)
 {
 memcpy(alphabet_set,alph,32);
 //enable_setup_alphabet = FALSE; //???
@@ -653,11 +652,11 @@ void set_digital_alphabet(void)
 
   // 21.05.2002 E.P.
   if (!is_turkish_language(language))
-	add_alphabet_elem((BYTE)'®');
+	add_alphabet_elem((uchar)'®');
 
-  add_alphabet_elem((BYTE)'Ž');
-  add_alphabet_elem((BYTE)'¡');
-  add_alphabet_elem((BYTE)'‡');
+  add_alphabet_elem((uchar)'Ž');
+  add_alphabet_elem((uchar)'¡');
+  add_alphabet_elem((uchar)'‡');
   return;
 }
 
@@ -668,10 +667,10 @@ set_digital_alphabet();
 //digital_string_penalty=0;
 return;
 }
-extern PBYTE save_raster_align8(cell *c);
+extern puchar save_raster_align8(cell *c);
 void save_alphabet_information(str_info *str,INT column,CSTR_line ln)
 {
-BYTE            buf[256]={0};
+uchar            buf[256]={0};
 cell *          c;
 RecObject       ro={0};
 CSTR_rast       rst;
@@ -698,7 +697,7 @@ for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
     if( c->nvers==0 && c->w*2>c->h && c->h*2>c->w )
         {
-        PBYTE           wr;
+        puchar           wr;
         // to work_rst
         wr=save_raster_align8(c);
         // rst -->> rrst
@@ -884,7 +883,7 @@ for(c=cell_f()->next;c!=e;c=c->next)
     if( lang==LANG_RUSSIAN )
       r_criteria(c,NULL);
     }
-db_pass = (BYTE)dbp;
+db_pass = (uchar)dbp;
 return;
 }
 
@@ -933,7 +932,7 @@ Bool is_digital_string(void)
 /////////////////////////////////////////////
 static INT geom_neck(INT neck, cell *c)
 {
-BYTE inter_l,h, nl;
+uchar inter_l,h, nl;
 lnhead   *line;
 interval *inter;
 INT ll, pos_n;
@@ -943,7 +942,7 @@ if( !c->env )
 for (pos_n=nl=0,inter_l=255,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
-	h=(BYTE)line->h;
+	h=(uchar)line->h;
   if( nl>1 )
     return( 0 );
   if( h>1 )
@@ -999,7 +998,7 @@ return;
 ///////////
 void save_alphabet_information_pass2(str_info *str,INT column,CSTR_line ln)
 {
-BYTE            buf[256]={0};
+uchar            buf[256]={0};
 
 if( db_status && snap_activity('n') )
  {
@@ -1018,7 +1017,7 @@ for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
     if( c->nvers==0 && c->w*2>c->h && c->h*2>c->w )
         {
-        PBYTE           wr;
+        puchar           wr;
         // to work_rst
         wr=save_raster_align8(c);
         // rst -->> rrst

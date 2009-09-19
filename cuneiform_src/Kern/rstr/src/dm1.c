@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <assert.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -111,7 +110,7 @@ cell *dot_ij(cell *c);
 static INT dust_is_dot(all_cells *,cell *);
 static INT owned_dust(cell *,cell *);
 //static INT dust_is_cut(cell *,all_cells *);
-cell * finpat(cell *,s_glue *, INT, BYTE, BYTE);
+cell * finpat(cell *,s_glue *, INT, uchar, uchar);
 void svcell_to_cell(cell *c);
 void cell_to_svcell(cell *c);
 static INT rec_own(cell *,s_glue *,INT,INT,INT,PINT);
@@ -119,13 +118,13 @@ static INT forbid_stick_cut(cell *,cut_pos *,INT);
 
 #define TUR_PALKA_POROG 211
 
-extern BYTE db_status;	// snap presence byte
-extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
-extern BYTE fax1x2;
+extern uchar db_status;	// snap presence byte
+extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+extern uchar fax1x2;
 extern char db_pass;
-extern BYTE language;
+extern uchar language;
 static INT  dust_monus;
-static BYTE dust_mon_flag;
+static uchar dust_mon_flag;
 
 char fbg=0;
 extern INT line_number;
@@ -320,7 +319,7 @@ static INT dust_usage;
 //extern char accent_tab[];
 INT discrid(cell *B1, INT mon)
  {
- BYTE p; INT fl, np, max, dd; version *v;  BYTE c;
+ uchar p; INT fl, np, max, dd; version *v;  uchar c;
  dd=dust_usage=0;
  if (B1->nvers==0) return 0;
  max = 0;
@@ -441,7 +440,7 @@ fa:
 
 static INT owned_dust(cell *c,cell *cc)
  {
- BYTE let;
+ uchar let;
 
  let=c->vers[0].let;
  switch(let)
@@ -512,7 +511,7 @@ static cell * try_glue(s_glue *GL, cell *BC)
    GLM.arg   = GAtigr;
    estcomp('a',CC,&sv0,TRS2,0,0,&GLM,&cposd,&cposd,0,0,0);
    if (svs.vers[0].let != CC->vers[0].let)
-   {  BYTE p1, p2;
+   {  uchar p1, p2;
       p1 = svs.vers[0].prob;
       p2 = CC->vers[0].prob;
       if ((p2 < TRS2) || ((p2-p1) < 2))
@@ -535,7 +534,7 @@ static cell * try_glue(s_glue *GL, cell *BC)
 }
 
 
-cell * finpat(cell *BC, s_glue *GL, INT var, BYTE flag, BYTE pen)
+cell * finpat(cell *BC, s_glue *GL, INT var, uchar flag, uchar pen)
  {
  cell  *WC, *GC;
  INT  nsc, n, p1;
@@ -619,13 +618,13 @@ static INT max_var;
 
 static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
 {
-  BYTE c1;
+  uchar c1;
   if (p0 > bnd1) return 1;
   c1 = B1->vers[0].let;
   if ((p0 > bnd2) &&
       ((c1=='i') || (c1=='j') ||
       (language == LANG_RUSSIAN &&
-		((c1==(BYTE)'©') || (c1==(BYTE)'Й'))
+		((c1==(uchar)'©') || (c1==(uchar)'Й'))
 	  ) ||
       (c1==invers_exm) || (c1==invers_qm)))
     return 1;
@@ -658,17 +657,17 @@ void cmp_snap (cell *B1, char *txt, INT n, cell **clist)
 static INT rec_own(cell *B1,s_glue *GL,INT bnd1,INT bnd2, INT dupf,INT *disd)
  {
  INT  wn, cans, ans, ncl, n0, n1, n2, n3, n4, sarg, sff, sfs;
- BYTE e, emax, svcg,clet;
+ uchar e, emax, svcg,clet;
  SVERS sv_v[5];
  char dip[5];
- BYTE Var, Flg;
+ uchar Var, Flg;
  c_comp *KITA;
- BYTE let0, let1;	// 16.07.2001 E.P.
+ uchar let0, let1;	// 16.07.2001 E.P.
 
  Flg= GL->fres = Var= GL->var = 0;
  svcg=B1->cg_flag;
  max_var = -1;
- emax = (BYTE)max_var;
+ emax = (uchar)max_var;
  GL->maxval = 0;
  KITA = ( c_comp*) give_kit_addr();
  env_to_show = 0;
@@ -700,7 +699,7 @@ static INT rec_own(cell *B1,s_glue *GL,INT bnd1,INT bnd2, INT dupf,INT *disd)
      { INT em;
        em=discrid(B1,dust_monus);
        if (dust_usage==0)       // upper dust near cell not used by self
-       emax=(BYTE)em;
+       emax=(uchar)em;
      }
    }
 rst1:
@@ -733,7 +732,7 @@ rst1:
     if ((e > emax) &&  allow_comp(B1, bnd1, bnd2, e))
     {
       *disd = 0;
-      Var=1; Flg=(BYTE)sfs; max_var=1; emax=e;
+      Var=1; Flg=(uchar)sfs; max_var=1; emax=e;
       SBOX_to_static();
       wn = GL->maxnc = GL->ncell;
       memcpy(GL->maxlist,GL->celist,sizeof(cell*)*wn);
@@ -754,10 +753,10 @@ boxbad:
    save_vers(B1,&(sv_v[2]));
    e= B1->vers[0].prob;
    if ((dupf > 1) && (dust_in_pattern==0))   // upper dust near cell not used by self
-       e=(BYTE)discrid(B1,(BYTE)dust_monus);
+       e=(uchar)discrid(B1,(uchar)dust_monus);
    if ((e > emax) &&  allow_comp(B1, bnd1, bnd2, e))
     {
-    Var=1; Flg=(BYTE)sff; max_var=2; emax=e;
+    Var=1; Flg=(uchar)sff; max_var=2; emax=e;
     SBOX_to_static();
     wn = GL->maxnc = GL->ncell;
     memcpy(GL->maxlist,GL->celist,sizeof(cell*)*wn);
@@ -781,10 +780,10 @@ dosur:
      save_vers(B1,&(sv_v[3]));
      e= B1->vers[0].prob;
      if ((dupf > 1) && (dust_in_pattern==0))   // upper dust near cell not used by self
-       e=(BYTE)discrid(B1,(BYTE)dust_monus);
+       e=(uchar)discrid(B1,(uchar)dust_monus);
      if ((e > emax) &&  allow_comp(B1, bnd1, bnd2, e))
      {
-       Var=2; Flg=(BYTE)sfs; max_var=3; emax=e;
+       Var=2; Flg=(uchar)sfs; max_var=3; emax=e;
        SBOX_to_static();
        dip[3]=dust_in_pattern;
        wn = GL->maxnc = GL->ncell;
@@ -805,10 +804,10 @@ surbad:
      save_vers(B1,&(sv_v[4]));
      e= B1->vers[0].prob;
      if ((dupf > 1) && (dust_in_pattern==0))   // upper dust near cell not used by self
-       e=(BYTE)discrid(B1,(BYTE)dust_monus);
+       e=(uchar)discrid(B1,(uchar)dust_monus);
      if ((e > emax) &&  allow_comp(B1, bnd1, bnd2, e))
      {
-       Var=2; Flg=(BYTE)sff; max_var=4; emax=e;
+       Var=2; Flg=(uchar)sff; max_var=4; emax=e;
        SBOX_to_static();
        dip[4]=dust_in_pattern;
        wn = GL->maxnc = GL->ncell;
@@ -961,9 +960,9 @@ static char msingl[]={"single nondiscrim ready"};
 INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
     s_glue *GL, cut_pos *cpos1, cut_pos *cpos2, char pnt1 ,char pnt2, char iv)
  {
- BYTE c, c_sacc, ct, svarg;
+ uchar c, c_sacc, ct, svarg;
  INT flag_m, flg_own, disd;
- BYTE  p1, pans, dup;
+ uchar  p1, pans, dup;
  char wrk[32];
  char *pmsg;
  cut_pos *wcp;   // to cover dummy arg warning;
@@ -985,7 +984,7 @@ INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 
  if(pass4_in) GL->arg |= GABOXR; // Valdemar 02-09-96 07:43pm
 
- dup = (BYTE)decidust(B1);
+ dup = (uchar)decidust(B1);
  GL->var=0;
  if (GL->arg & GAtigr)                    // request for full estimation
  {   recog_cell(B1);
@@ -1003,7 +1002,7 @@ INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 
  if ((B1->flg & c_f_let) && (B1->nvers==1))
  {
- BYTE let = B1->vers[0].let;
+ uchar let = B1->vers[0].let;
    if (
 		language!=LANG_ENGLISH &&
 		language!=LANG_CROATIAN && language!=LANG_RUSSIAN&&
@@ -1080,7 +1079,7 @@ INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
    if  (c==liga_rt)    // 'rt'
    { p1 -= 82; if (p1 < 2) p1= 2; B1->vers[0].prob=p1; goto argBOX_ready; }
    if  ((c=='h') || (c=='b'))
-   { p1=(BYTE)h_filt(B1,p1,GL,c);  goto deciBOX; }
+   { p1=(uchar)h_filt(B1,p1,GL,c);  goto deciBOX; }
       c_sacc = let_sans_acc[c];
    if ( (language!=LANG_CROATIAN && memchr("sSaoO0QGDMNHURdxq6<>cCkwWBEA",c_sacc,28)) ||
         !B1->accent_leader &&
@@ -1107,7 +1106,7 @@ INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 			) ||
         ( c_sacc == ss_deaf_sound && language != LANG_RUSSIAN) ) // Vademar 2.2.93
     {
-    p1=(BYTE)abris(GL,B1,c_sacc,p1);
+    p1=(uchar)abris(GL,B1,c_sacc,p1);
     goto deciBOX;
     }
 
@@ -1265,7 +1264,7 @@ INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 			)
 		 )
 	  )
-      pans=p1=(BYTE)rec_own(B1,GL,bnd1,bnd2,dup,&disd);
+      pans=p1=(uchar)rec_own(B1,GL,bnd1,bnd2,dup,&disd);
     else
       {
       pans=p1=B1->vers[0].let;
@@ -1301,7 +1300,7 @@ retp:
  if (flg_own && (dup>1))  /* upper dust near letter */
  {
    dust_mon_flag = 1;
-   pans=(BYTE)discrid(B1,dust_monus);
+   pans=(uchar)discrid(B1,dust_monus);
    pans &= 0xfe ;
    if (db_status && (db_trace_flag & 2))
    {
@@ -1312,11 +1311,11 @@ retp:
  return pans;
 }
 
-static BYTE thick_crit[33] =
+static uchar thick_crit[33] =
 { 4,4,6,6,8,8,10,10,12,12,16,16,18,18,20,20,
   22,22,24,24,26,26,28,28,30,30,30,30,30,30,30,32,32};
 
-void   croat_reverse(cell *B1,BYTE c)
+void   croat_reverse(cell *B1,uchar c)
 {
 /*
 	“еперь вызываетс€ дл€ всех центральноевропейских €зыков 05.09.2000 E.P.
@@ -1326,8 +1325,8 @@ void   croat_reverse(cell *B1,BYTE c)
 	16.07.2001 - 21.05.2002 E.P.
 */
 
-BYTE model[]=  "sScCzZcCoOzZsSoOoO";
-BYTE croat[]={CROAT_SR,  CROAT_sr,  CROAT_CA,  CROAT_ca,
+uchar model[]=  "sScCzZcCoOzZsSoOoO";
+uchar croat[]={CROAT_SR,  CROAT_sr,  CROAT_CA,  CROAT_ca,
               CROAT_ZR,  CROAT_zr,  CROAT_CR,  CROAT_cr,
 			  OO_right_accent, o_right_accent, // 05.09.2000 E.P.
 			  ZZ_right_accent, z_right_accent, // 05.09.2000 E.P.
@@ -1335,7 +1334,7 @@ BYTE croat[]={CROAT_SR,  CROAT_sr,  CROAT_CA,  CROAT_ca,
 			  OO_double_right, o_double_right, // 05.09.2000 E.P.
 			  OO_2dot_accent,  o_2dot_accent   // 05.09.2000 E.P.
 			 };
-BYTE rever[]={CROAT_sr,  CROAT_SR,  CROAT_ca,  CROAT_CA,
+uchar rever[]={CROAT_sr,  CROAT_SR,  CROAT_ca,  CROAT_CA,
               CROAT_zr,  CROAT_ZR,  CROAT_cr,  CROAT_CR,
 			  o_right_accent, OO_right_accent, // 05.09.2000 E.P.
 			  z_right_accent, ZZ_right_accent, // 05.09.2000 E.P.
@@ -1343,7 +1342,7 @@ BYTE rever[]={CROAT_sr,  CROAT_SR,  CROAT_ca,  CROAT_CA,
 			  o_double_right, OO_double_right, // 05.09.2000 E.P.
 			  o_2dot_accent,  OO_2dot_accent   // 05.09.2000 E.P.
 			 };
-BYTE *p;
+uchar *p;
 INT  i1, i2;
 if(  !B1->nvers )
   return;
@@ -1369,7 +1368,7 @@ if( i1==i2 )
 return;
 }
 
-void   baltic_turkish_reverse(cell *B1,BYTE c)
+void   baltic_turkish_reverse(cell *B1,uchar c)
 {
 /*
 	»сключает линейно идентичную версию с акцентом.
@@ -1378,7 +1377,7 @@ void   baltic_turkish_reverse(cell *B1,BYTE c)
 	¬ызываетс€ дл€ прибалтийских €зыков 16.07.2001 E.P.
 	ј также дл€ турецкого 21.05.2002 E.P.
 */
-BYTE baltic_letters[]={
+uchar baltic_letters[]={
 	CC_inv_roof, c_inv_roof,
 	II_macron, i_macron,
 	II_bottom_accent, i_bottom_accent,
@@ -1392,7 +1391,7 @@ BYTE baltic_letters[]={
 	ZZ_inv_roof_baltic, z_inv_roof_baltic,
 	0};
 
-BYTE turkish_letters[]={
+uchar turkish_letters[]={
 	CC_bottom_accent, c_bottom_accent,
 	II_roof_accent, i_roof_accent,
 	'I', i_sans_accent,
@@ -1403,10 +1402,10 @@ BYTE turkish_letters[]={
 	UU_2dot_accent, u_2dot_accent,
 	0};
 
-BYTE *p;
+uchar *p;
 INT  i1, i2;
-BYTE c1, c2, c3, c4;
-BYTE *letters = 0;
+uchar c1, c2, c3, c4;
+uchar *letters = 0;
 
 if (is_baltic_language(language))
 	letters = baltic_letters;
@@ -1476,10 +1475,10 @@ void make_all_cuts()
  cell  PROTO ;
  cell  *B1, *I1, *I3, *T1, *T2, *T3, *TD, *NL;
  char n1, n2, nc;
- BYTE left_dust_allowed, left_dust_seen, fldust, svcg, fljust;
+ uchar left_dust_allowed, left_dust_seen, fldust, svcg, fljust;
  INT  av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
- BYTE c0, c1, c3, *rp1, *rp2, already_cut;
- BYTE acc_p;
+ uchar c0, c1, c3, *rp1, *rp2, already_cut;
+ uchar acc_p;
  uint16_t fo1, fo2, fo3, sp0;
  INT  p0, p1, p2, p3;
  v_val pe;
@@ -1487,10 +1486,10 @@ void make_all_cuts()
  char   doubles_allowed,  double_cutsn;
  char bf_d[180], *bf_p;
  SVERS  sv0, sv1, sv2, sv3;
- BYTE   csv1[32], csv2[32];               // savearea for cutten bits
+ uchar   csv1[32], csv2[32];               // savearea for cutten bits
  s_glue GL;
  struct cut_elm  *cpnt0, *cpntw, *cpnt1, *cpnt2;
- BYTE best_vars[64], best_flags[64];
+ uchar best_vars[64], best_flags[64];
  cell *done_cells[64];
  INT done_num, done_ind;
  MN *mn1;
@@ -1607,7 +1606,7 @@ init_est_done:
    if (gv0 > 0)   // best version was with surrounding cells
      {
      rest_vers(B1,&sv0);
-     B1=finpat(B1,&GL,gv0,(BYTE)gf0,32);
+     B1=finpat(B1,&GL,gv0,(uchar)gf0,32);
      // Nick&Oleg : 290699 : can be init of accent! for pass2
      }
    else
@@ -1651,7 +1650,7 @@ init_est_done:
      cpnt1->duflm=cpnt1->duflr=cpnt1->gvarr=cpnt1->gvarm=(char)0;
     }
 
- rp1=(BYTE*)save_raster(B1);
+ rp1=(uchar*)save_raster(B1);
 
  if( !cuts_point_methode )
       N=cut_points(mw, mh, rp1, cpnt0);
@@ -2031,7 +2030,7 @@ estim_right:
    cpnt1->lv.v1=254;
    cpnt1->px = 0;                          // indicate single cut
    memcpy(&(cpnt1->versm),&sv1,sizeof(SVERS));
-   min3(&cpnt1->lv,(BYTE)cpnt1->rv.v3,&pe);
+   min3(&cpnt1->lv,(uchar)cpnt1->rv.v3,&pe);
    delcels(&CL);
    // already_cut = 1;          // assume CL ready (don't cut at "celcut")
    if (av_dens >= 16*ndens)  // semibold
@@ -2069,7 +2068,7 @@ nocut1:
      if (mn1==NULL) { glsnap('a',I1,"locomp"); goto next2; }
      cpos2.row1 = cpos2.row1 - B1->r_row + B1->row;
      cpos2.row2 = cpos2.row2 - B1->r_row + B1->row;
-     nc=(BYTE)colcels(&CL,mn1,I1,I3,mw);
+     nc=(uchar)colcels(&CL,mn1,I1,I3,mw);
      if (nc < 2)
        goto next2;
      if (nc == 3)      // T1-T2-T3
@@ -2081,7 +2080,7 @@ nocut1:
      if (!CL.Nd) goto next2;
      if (!is_defis(CL.dcells[0])) goto next2;
      p2=220;
-     min3(&cpnt2->lv,(BYTE)p2,&pe);
+     min3(&cpnt2->lv,(uchar)p2,&pe);
      if (compare_vect(&cpnt1->lv,&pe) < 0)
      {
        cpnt1->lv.v1 = pe.v1; cpnt1->lv.v2=pe.v2; cpnt1->lv.v3=pe.v3;
@@ -2160,7 +2159,7 @@ acc2d:
      p2 -= CL.Nd<<4;
      if (p2 < 0) p2=0;
 estim:
-     min3(&cpnt2->lv,(BYTE)p2,&pe);
+     min3(&cpnt2->lv,(uchar)p2,&pe);
      if (pe.v3 <= MINlet)
        goto next2;
      if (compare_vect(&cpnt1->lv,&pe) < 0)
@@ -2183,7 +2182,7 @@ next1:
 //   if(flag_cut_point)  { flag_cut_point=0; db_status=1;}
    cut_rast(cell_raster,mw,mh,mrr,mrc,cpnt0,n1,0,csv1,&cposc);    // glue back
    take_kit_addr(KITA1);
-   min3(&cpnt1->lv,(BYTE)cpnt1->rv.v3,&pe);
+   min3(&cpnt1->lv,(uchar)cpnt1->rv.v3,&pe);
    if (compare_vect(&cpnt0->lv,&pe) < 0)
    goto replg;
    if (fo3 && (cpnt1->rv.v3 >= TRSO3))      // don't try to cut solid 'O'
@@ -2246,7 +2245,7 @@ restore_cell:
  if (gv0 & 15)    // estimate made with BOXes or accent_cut ?
  {
    rest_vers(B1,&sv0);
-   B1=finpat(B1,&GL,gv0,(BYTE)gf0,32);
+   B1=finpat(B1,&GL,gv0,(uchar)gf0,32);
    B1->cg_flag |= c_cg_cutdone;
  }
  else
@@ -2368,7 +2367,7 @@ dontcut:  // cut was done in T1-T3 parts
    {
      // cell *WC; INT c_num;
      flag = best_flags [done_ind];
-     CF=finpat(CF,&GL,var,(BYTE)flag,32);
+     CF=finpat(CF,&GL,var,(uchar)flag,32);
    }
    if (CFN==NL)
      NL=CF;
@@ -2571,7 +2570,7 @@ static INT have_upper_dot(cell *c)
 }
 static INT forbid_stick_cut(cell *c, cut_pos *cpos, INT edge)
  {
- BYTE l, prob;
+ uchar l, prob;
  INT  wd, bm3, bm, b3;
  INT  row1, row2;
 
@@ -2624,10 +2623,10 @@ static INT forbid_stick_cut(cell *c, cut_pos *cpos, INT edge)
 
 }
 
-void promote (BYTE sn, cell *cl, BYTE let, INT delta)
+void promote (uchar sn, cell *cl, uchar let, INT delta)
 {
- BYTE wl, wl_sacc, let_sacc;
- version *vp1, *vp2; BYTE p1, pw; INT pwi, dlt, dlv, fld;
+ uchar wl, wl_sacc, let_sacc;
+ version *vp1, *vp2; uchar p1, pw; INT pwi, dlt, dlv, fld;
  if (cl->nvers==0) return;
  let_sacc = let_sans_acc[let];
  dlt=delta;
@@ -2652,7 +2651,7 @@ void promote (BYTE sn, cell *cl, BYTE let, INT delta)
          pwi += dlt;
        }
        if (pwi > 254) pwi = 254;
-       vp1->prob=(BYTE)pwi;  // give (max+delta) to promoted version
+       vp1->prob=(uchar)pwi;  // give (max+delta) to promoted version
        sort_vers(cl);
        if (sn)
          glsnap(sn,cl,"promoted ");
@@ -2662,7 +2661,7 @@ void promote (BYTE sn, cell *cl, BYTE let, INT delta)
      {
        pwi=p1; pwi += delta;
        if (pwi <= 2) pwi=2;
-       vp1->prob=(BYTE)pwi;
+       vp1->prob=(uchar)pwi;
        sort_vers(cl);
        if (sn)
          glsnap(sn,cl,"monused ");
@@ -2677,7 +2676,7 @@ void promote (BYTE sn, cell *cl, BYTE let, INT delta)
  if (fld)
    { if (pwi < dlv) pwi=dlv; }
  else pwi += dlt;
- if (pwi > 254) pwi=254; vp1->prob=(BYTE)pwi;
+ if (pwi > 254) pwi=254; vp1->prob=(uchar)pwi;
  cl->vers[cl->nvers].let=cl->vers[cl->nvers].prob=0;
  sort_vers(cl);
  if (sn)
@@ -2686,8 +2685,8 @@ void promote (BYTE sn, cell *cl, BYTE let, INT delta)
 
 static void corr_cut()
 { cell *b1, *b2, *b3;
-  BYTE c1,c2,c3;
-  BYTE p2;
+  uchar c1,c2,c3;
+  uchar p2;
  b2=cell_f();
  while ((b2=b2->nextl)->nextl != NULL)
  {
@@ -2732,7 +2731,7 @@ static void corr_cut()
 static INT TM_suspect(INT position, cell *c)
 {
   INT nvers, i;
-  BYTE let;
+  uchar let;
 
   if (nvers=c->nvers)
      for (i=0; i<nvers; i++)
@@ -2742,7 +2741,7 @@ static INT TM_suspect(INT position, cell *c)
                   {
                     case 1:
                         if ( (let=='T' || let=='t' ||
-							  let==(BYTE)'Т' || let==(BYTE)'в' ) &&
+							  let==(uchar)'Т' || let==(uchar)'в' ) &&
 						     !is_russian_baltic_conflict(let) &&// 17.07.2001 E.P.
 							 !is_russian_turkish_conflict(let)	// 21.05.2002 E.P.
 						   )
@@ -2753,7 +2752,7 @@ static INT TM_suspect(INT position, cell *c)
                              return MAX_TM_PROB;
                            }
                     case 2:
-                       if (let=='M' || let=='m' || let==(BYTE)'М' || let==(BYTE)'ђ')
+                       if (let=='M' || let=='m' || let==(uchar)'М' || let==(uchar)'ђ')
                            {
                              c->vers[i].prob=MAX_TM_PROB;
                              sort_vers(c);

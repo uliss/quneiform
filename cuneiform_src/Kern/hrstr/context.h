@@ -57,7 +57,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "lang.h"
 #include "ligas.h"
@@ -70,17 +69,17 @@
 #endif
 
 /****** Global Variables: *************/
-extern BYTE language;
+extern uchar language;
 extern INT line_number;
 
 /******* Context Internal Type Definitions: **********/
 typedef cell * pCell;
 typedef struct din_var {
 	cell *C;
-	BYTE pos; // the version number
-	BYTE class; // the kind of symbol : big, small, digit, empty and undef
-	BYTE first;
-	BYTE res;
+	uchar pos; // the version number
+	uchar class; // the kind of symbol : big, small, digit, empty and undef
+	uchar first;
+	uchar res;
 	INT est; // current estimation
 	INT back; // refference to previous element
 } dv;
@@ -162,21 +161,21 @@ typedef struct din_var {
 #define CONTINUE_ACTION     0
 #define NO_ACTION           1
 /***** Common variables and functions **********/
-CONT_EXTERN BYTE word_flag;
+CONT_EXTERN uchar word_flag;
 CONT_EXTERN INT n_ltr; // number of letters in word
 CONT_EXTERN INT total_words;
 CONT_EXTERN INT roman_sym_num;
-CONT_EXTERN BYTE swed_lju_flag;
-CONT_EXTERN BYTE fl_beg_irish_name;
+CONT_EXTERN uchar swed_lju_flag;
+CONT_EXTERN uchar fl_beg_irish_name;
 
 void vers_to_first_place(cell *A, INT nver);
 INT get_nvers(cell *A, INT Let);
-INT check_numb_2_9(BYTE);
-INT check_numb_0_9(BYTE);
-INT check_upper(BYTE);
-INT check_lower(BYTE);
-INT check_alphanum(BYTE);
-INT check_lowerconson(BYTE);
+INT check_numb_2_9(uchar);
+INT check_numb_0_9(uchar);
+INT check_upper(uchar);
+INT check_lower(uchar);
+INT check_alphanum(uchar);
+INT check_lowerconson(uchar);
 void test_O_and_slash();
 INT english_context_process(cell* C);
 INT franch_context_process(cell* C);
@@ -203,15 +202,15 @@ INT delim_flag, possible_delim_flag;
 
 cell *WB; // first cell in word
 cell *EB; // last cell in word
-BYTE after_word_flag;
-BYTE fl_cap_first; // first letter has capital version flag
+uchar after_word_flag;
+uchar fl_cap_first; // first letter has capital version flag
 INT num_dig, num_upper, num_lower, num_bad, num_let;
-BYTE irish_name_pos;
+uchar irish_name_pos;
 static pCell use_word_flags[MAX_NUM_WORDS];
 static pCell pDotComCell;
 
 static INT find_and_class_word (cell *);
-static BYTE classify (cell *);
+static uchar classify (cell *);
 static Bool find_delim ( INT );
 static void set_after_word_flag ( INT );
 static void set_word_flag ( INT );

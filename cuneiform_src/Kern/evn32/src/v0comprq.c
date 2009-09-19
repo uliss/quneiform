@@ -125,12 +125,12 @@ static uchar v_dash_defis[] = {ch_punct,cs_dash_defis_size,0};
 static uchar v_side_punct[] = {ch_punct,cs_punct_sw_size,0};
 static uchar v_up_punct[] = {ch_punct,cs_punct_up_size,0};
 static uchar v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
-//static BYTE v_small_stick[] = {ch_letter,cs_stick_by_size,
+//static uchar v_small_stick[] = {ch_letter,cs_stick_by_size,
 //		'l','i','I','!','j','f','t',0};
-//static BYTE v_stick_by_size[] = {ch_letter,cs_stick_by_size,
+//static uchar v_stick_by_size[] = {ch_letter,cs_stick_by_size,
 //		'l','i','I','!','j',0};
-//static BYTE v_temp_one_line[] = {ch_stick,cs_one_line_ltr,0};
-//static BYTE v_comma_dot[] = {ch_punct,cs_comma_dot,0};
+//static uchar v_temp_one_line[] = {ch_stick,cs_one_line_ltr,0};
+//static uchar v_comma_dot[] = {ch_punct,cs_comma_dot,0};
 
 static uint32_t check_iIl1();	// 04.06.2002 E.P.
 static uint32_t check_letter(uchar let); // 18.06.2002 E.P.

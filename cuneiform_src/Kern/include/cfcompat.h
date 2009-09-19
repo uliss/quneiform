@@ -132,9 +132,9 @@ CFCOMPAT_FUNC(int) lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 
 CFCOMPAT_FUNC(Bool) DeleteObject(HGDIOBJ hObject);
 
-#define GetGValue(rgb) ((BYTE) (((uint16_t) (rgb)) >> 8))
-#define GetBValue(rgb) ((BYTE) ((rgb) >> 16))
-#define GetRValue(rgb) ((BYTE) (rgb))
+#define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))
+#define GetBValue(rgb) ((uchar) ((rgb) >> 16))
+#define GetRValue(rgb) ((uchar) (rgb))
 
 CFCOMPAT_FUNC(HWND) GetFocus();
 CFCOMPAT_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, uint uType);

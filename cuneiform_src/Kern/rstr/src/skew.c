@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 
@@ -73,7 +73,7 @@ typedef struct pairs pairs;
 extern INT nIncline;
 extern INT page_nIncline;
 extern INT line_number;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 
 static INT row,row_prev;
 static INT incline_prev;
@@ -296,7 +296,7 @@ static uint16_t skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
  {
  INT i,im,d;
  uint16_t l;
- BYTE hist[HIMAX];
+ uchar hist[HIMAX];
  CSTR_attr		attrlin;
 
  CSTR_GetLineAttr(ln, &attrlin);

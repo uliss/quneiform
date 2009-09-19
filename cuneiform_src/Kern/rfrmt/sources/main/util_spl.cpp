@@ -122,16 +122,16 @@ int ExtSettings;
 //char AlphabetAllow[256];
 char WordOne[256];
 uchar Upper[256],Lower[256],UppLow[256],UppLowOther[256],EndSentence[256];
-BYTE KoderRus[256],KoderLat[256];
+uchar KoderRus[256],KoderLat[256];
 int FlCarryStr;
 char FileParSpel[MAXFILENAME],FileParSpelOut[MAXFILENAME];
 int *Pen;
 int MaxValue;
 //--КОРРЕКТОР ПО ОДНОРОДНОСТИ
 FEAT_LET FeatLet[256];
-BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
+uchar **ClustOCR;int K_Clust;//Кластеры перепутывания
 //---WORK---
-BYTE buf[1024],buf1[1024];
+uchar buf[1024],buf1[1024];
 #ifdef __cplusplus
 }
 #endif
@@ -199,14 +199,14 @@ int SaveFullOutTiger(char *FileName);
 //
 uint16_t NumZ,NumW,NumS;
 int16_t SizeYGlobUpp;
-int IsB1(BYTE a)
+int IsB1(uchar a)
 { if((FeatLet[a].Chif && a != ',' && a != '.' && a != '-') ||
      (FeatLet[a].Let &&  a != '-' && a != '\'' &&
      (FeatLet[a].Shift==UPP || FeatLet[a].PosUpLine==UPP)))
      		return 1;
   return 0;
 }
-int IsB2(BYTE a)
+int IsB2(uchar a)
 { if((FeatLet[a].Let && a != '-' && a != '\'' &&
       (FeatLet[a].Shift==LOW && FeatLet[a].PosUpLine==LOW)))
       	return 1;
@@ -219,7 +219,7 @@ int CalcStatTiger(void)
 	int numL,numU,maxL=1000,maxU=300,*Upp,*Low,med,mod,sig,ave,nc,ns,nw,nz;
   int numB1,*arrB1,maxB1=30;
 	int ThrDif_b1b2;
-  BYTE a;
+  uchar a;
 	//SRECT rr;
 
 	Upp  =(int*)malloc(maxU*sizeof(int));
@@ -441,10 +441,10 @@ int CalcStatTiger(void)
 //                int16_t  NumAlt     число альтернатив
 //                Alt[0], ..., Alt[NumAlt-1] альтернативы
 //                  Alt[nf][ns][nw][nz][na] одна альтернатива
-//                    BYTE Code код
-//                    BYTE Prob  вероятность
-//                    BYTE Spell check end string for -
-//                    BYTE Base  base number чтобы задавать шрифты для таблицы шрифтов RTF (семейство + имя)
+//                    uchar Code код
+//                    uchar Prob  вероятность
+//                    uchar Spell check end string for -
+//                    uchar Base  base number чтобы задавать шрифты для таблицы шрифтов RTF (семейство + имя)
 
 // -------  paragraphs mark --------
 //if(BEG_PARAG1(Zn[nc][ns][0][0].Title.Z_Id) == 1 ||
@@ -633,7 +633,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 					//fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
 					readSRECT(&tz->Z_RealRect, in);
 
-					fread(&num, sizeof(int16_t), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
+					fread(&num, sizeof(int16_t), 1, in);  tz->Z_Num_Alt=(uchar)MIN(num,REC_MAX_VERS); //NumAlt
 //					if(num > 1)
 //						num = 1;
 
@@ -681,10 +681,10 @@ BadReturn:
 }
 
 /*// !!! Art - устарело
-BYTE *AnsiOem,*OemAnsi;
+uchar *AnsiOem,*OemAnsi;
 void GenArrAnsiOem(void)
 { uint i;
-  for(i=0; i < 256; ++i) AnsiOem[i]=OemAnsi[i]=(BYTE)i;
+  for(i=0; i < 256; ++i) AnsiOem[i]=OemAnsi[i]=(uchar)i;
   AnsiOem[256]=OemAnsi[256]=0;
   #ifdef WIN_MOD
     AnsiToOem((char*)&AnsiOem[1],(char*)&AnsiOem[1]);
@@ -697,7 +697,7 @@ void GenArrAnsiOem(void)
 int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 //==
 { int fl;
-  AnsiOem=(BYTE*)malloc(257); OemAnsi=(BYTE*)malloc(257);
+  AnsiOem=(uchar*)malloc(257); OemAnsi=(uchar*)malloc(257);
   GenArrAnsiOem();
   #ifdef DRAW
     if(viz) viz=fl_cor;
@@ -1149,9 +1149,9 @@ int OpenFullOut(char *FileName)
            if((tw->AltSpell=(ALT_SPELL*)Submalloc(num*sizeof(ALT_SPELL),&SubZn))==NULL)return -3;
           #endif
           do0(i,0,num-1)
-          { BYTE w; ALT_SPELL *AltS=&tw->AltSpell[i];
-            fread_m(&AltS->Len,sizeof(BYTE),1,in);
-            fread_m(&w,sizeof(BYTE),1,in);fread_m(&AltS->Penalty,sizeof(uint16_t),1,in);
+          { uchar w; ALT_SPELL *AltS=&tw->AltSpell[i];
+            fread_m(&AltS->Len,sizeof(uchar),1,in);
+            fread_m(&w,sizeof(uchar),1,in);fread_m(&AltS->Penalty,sizeof(uint16_t),1,in);
             Len=(int)AltS->Len;
             #ifndef SUB_ZN
              if((AltS->Alt=(char*)malloc(Len))==NULL)return NOT_ALLOC;
@@ -1396,7 +1396,7 @@ int OpenFullOut(char *FileName)
                 end_alt: continue;
               }
             }
-            tz->Z_Num_Alt=(BYTE)(na+1);
+            tz->Z_Num_Alt=(uchar)(na+1);
             if(na > 0) //Перемещение Alt-вы с min Dist вверх
             { Dmin=AltZ[0].a_Dist; ii=0;
               do0(i,1,na)
@@ -1478,9 +1478,9 @@ int OpenFullOut(char *FileName)
         { if((num=TitleWord[nc][ns][nw].NumAltSpell) <= 0)
             ERR(1,err);
           do0(i,0,num-1)
-          { BYTE w;
-            fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Len ,sizeof(BYTE),1,in);
-            fwrite_m(&w ,sizeof(BYTE),1,in);
+          { uchar w;
+            fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Len ,sizeof(uchar),1,in);
+            fwrite_m(&w ,sizeof(uchar),1,in);
             fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Penalty,sizeof(uint16_t),1,in);
             fwrite_m(TitleWord[nc][ns][nw].AltSpell[i].Alt,(int)TitleWord[nc][ns][nw].AltSpell[i].Len,1,in);
           }
@@ -1569,7 +1569,7 @@ int ChooseRelationMin(TITLE_WORD t)
     if(Rel > par_ful.RelKrit) return 0;
     else //защита от одинаковости 0-ой и 1-ой подсказок с точностью до регистра
     { int k0=strlen_m(t.AltSpell[0].Alt),k1=strlen_m(t.AltSpell[1].Alt),i;
-      BYTE cod0,cod1;
+      uchar cod0,cod1;
       if(k0 == k1)
       { --k0;
         do0(i,0,k0)
@@ -1815,11 +1815,11 @@ void close_f03(void)
 //int Init_FeatLet(void)
 ////==============
 //{ STATIC char *p,buf[8]; int i,k;
-//  STATIC BYTE UpLine[14];//Исъыючхэш шч ярртшыр
-//  STATIC BYTE DownLine[25];//
-//  STATIC BYTE Chif[25];
-//  STATIC BYTE ImUppLow[80];
-//  STATIC BYTE DelimSubWord[16];
+//  STATIC uchar UpLine[14];//Исъыючхэш шч ярртшыр
+//  STATIC uchar DownLine[25];//
+//  STATIC uchar Chif[25];
+//  STATIC uchar ImUppLow[80];
+//  STATIC uchar DelimSubWord[16];
 //  uint16_t w;
 //  if(TypeDoc!=NORV)
 //  #ifdef WIN_MOD
@@ -1865,12 +1865,12 @@ void close_f03(void)
 //      #endif
 //      while(*Lo != 0)
 //      { if(*Up != '-' && *Up != '\'')
-//        { FeatLet[(BYTE)(*Up)].Let=FeatLet[(BYTE)(*Lo)].Let=1;
-//          FeatLet[(BYTE)(*Up)].Lang=(*p == 'R') ? RUS : LAT;
-//          FeatLet[(BYTE)(*Lo)].Lang=(*p == 'R') ? RUS : LAT;
-//          FeatLet[(BYTE)(*Up)].Shift=FeatLet[(BYTE)(*Up)].PosUpLine=UPP;
-//          FeatLet[(BYTE)(*Lo)].Shift=FeatLet[(BYTE)(*Lo)].PosUpLine=LOW;
-//          FeatLet[(BYTE)(*Up)].PosDownLine=FeatLet[(BYTE)(*Lo)].PosDownLine=LOW;
+//        { FeatLet[(uchar)(*Up)].Let=FeatLet[(uchar)(*Lo)].Let=1;
+//          FeatLet[(uchar)(*Up)].Lang=(*p == 'R') ? RUS : LAT;
+//          FeatLet[(uchar)(*Lo)].Lang=(*p == 'R') ? RUS : LAT;
+//          FeatLet[(uchar)(*Up)].Shift=FeatLet[(uchar)(*Up)].PosUpLine=UPP;
+//          FeatLet[(uchar)(*Lo)].Shift=FeatLet[(uchar)(*Lo)].PosUpLine=LOW;
+//          FeatLet[(uchar)(*Up)].PosDownLine=FeatLet[(uchar)(*Lo)].PosDownLine=LOW;
 //        }
 //        ++Lo;++Up;
 //      }
@@ -1880,8 +1880,8 @@ void close_f03(void)
 //      #endif
 //    }
 //  #else
-//    { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
-//      BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
+//    { uchar *loR=(uchar*)malloc(40),*upR=(uchar*)malloc(40),*Lo,*Up;
+//      uchar *loE=(uchar*)malloc(40),*upE=(uchar*)malloc(40),*bLo[2],*bUp[2];
 //      k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
 //      strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
 //      strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
@@ -1891,12 +1891,12 @@ void close_f03(void)
 //      { Lo=bLo[i]; Up=bUp[i];
 //        while(*Lo != 0)
 //        { if(*Up != '-' && *Up != '\'')
-//          { FeatLet[(BYTE)(*Up)].Let=FeatLet[(BYTE)(*Lo)].Let=1;
-//            FeatLet[(BYTE)(*Up)].Lang= !i ? RUS : LAT;
-//            FeatLet[(BYTE)(*Lo)].Lang= !i ? RUS : LAT;
-//            FeatLet[(BYTE)(*Up)].Shift=FeatLet[(BYTE)(*Up)].PosUpLine=UPP;
-//            FeatLet[(BYTE)(*Lo)].Shift=FeatLet[(BYTE)(*Lo)].PosUpLine=LOW;
-//            FeatLet[(BYTE)(*Up)].PosDownLine=FeatLet[(BYTE)(*Lo)].PosDownLine=LOW;
+//          { FeatLet[(uchar)(*Up)].Let=FeatLet[(uchar)(*Lo)].Let=1;
+//            FeatLet[(uchar)(*Up)].Lang= !i ? RUS : LAT;
+//            FeatLet[(uchar)(*Lo)].Lang= !i ? RUS : LAT;
+//            FeatLet[(uchar)(*Up)].Shift=FeatLet[(uchar)(*Up)].PosUpLine=UPP;
+//            FeatLet[(uchar)(*Lo)].Shift=FeatLet[(uchar)(*Lo)].PosUpLine=LOW;
+//            FeatLet[(uchar)(*Up)].PosDownLine=FeatLet[(uchar)(*Lo)].PosDownLine=LOW;
 //          }
 //          ++Lo;++Up;
 //        }
@@ -1911,23 +1911,23 @@ void close_f03(void)
 //  k=strlen_m((char*)DelimSubWord)-1;
 //  do0(i,0,k) FeatLet[DelimSubWord[i]].DelimSubWord=1;
 //  //---Чтение кластеров перепутывания---
-//  { BYTE *str=(BYTE*)malloc(50);
-//    BYTE *NameCl=(BYTE*)malloc(20);
-//    BYTE *NameClOne=(BYTE*)malloc(20);
+//  { uchar *str=(uchar*)malloc(50);
+//    uchar *NameCl=(uchar*)malloc(20);
+//    uchar *NameClOne=(uchar*)malloc(20);
 //    int in,k,*act;
-//    STATIC BYTE *s;
+//    STATIC uchar *s;
 //    strcpy_m((char*)NameCl,"Clust0");
 //    strcpy_m((char*)NameClOne,"ClustOneSym0");
-//    ClustOCR=(BYTE**)malloc(MAX_CLUST*sizeof(BYTE*));
+//    ClustOCR=(uchar**)malloc(MAX_CLUST*sizeof(uchar*));
 //    act=(int*)malloc(MAX_CLUST*sizeof(int));
 //    K_Clust=-1;
 //    for(;;) //Common Cluster
 //    { GetPrivateProfileString("corr_word",(char *)NameCl,"",(char *)str,49,(char *)FileParSpel);
 //      if(str[0] == 0) break;//Список кластеров исчерпан
-//      ClustOCR[++K_Clust]=(BYTE*)malloc(((k=strlen_m((char*)str))+1));
+//      ClustOCR[++K_Clust]=(uchar*)malloc(((k=strlen_m((char*)str))+1));
 //      --k; strcpy_m((char *)ClustOCR[K_Clust],(char *)str);
 //      do0(i,0,k)
-//        FeatLet[(BYTE)str[i]].IndCl=K_Clust+1;
+//        FeatLet[(uchar)str[i]].IndCl=K_Clust+1;
 //      //NameCl[5]=++cod;
 //      ++NameCl[strlen_m((char*)NameCl)-1];
 //    }
@@ -1938,21 +1938,21 @@ void close_f03(void)
 //      k=0;while(str[++k]!=':') if(k>48) goto EndOne;
 //      s=&str[k+1]; --k;
 //      do0(i,0,k)
-//      { in=FeatLet[(BYTE)str[i]].IndCl-1;//Индекс old-cluster
+//      { in=FeatLet[(uchar)str[i]].IndCl-1;//Индекс old-cluster
 //        if(in < 0) //Letter not found Cluster
-//        { ClustOCR[++K_Clust]=(BYTE*)malloc(strlen_m((char*)s)+1);
+//        { ClustOCR[++K_Clust]=(uchar*)malloc(strlen_m((char*)s)+1);
 //          strcpy_m((char *)ClustOCR[K_Clust],(char *)s);
 //          in=K_Clust;
 //        }
 //        else if(act[in] == 0) //Create new Cluster
 //        {
-//					ClustOCR[++K_Clust]=(BYTE*)malloc(strlen_m((char*)s)+strlen_m((char*)ClustOCR[in])+2);
+//					ClustOCR[++K_Clust]=(uchar*)malloc(strlen_m((char*)s)+strlen_m((char*)ClustOCR[in])+2);
 //          strcpy_m((char*)ClustOCR[K_Clust],(char*)ClustOCR[in]);
 //					strcat((char*)ClustOCR[K_Clust],(char*)s);
 //          act[in]=K_Clust; in=K_Clust;
 //        }
 //        else in=act[in];
-//        FeatLet[(BYTE)str[i]].IndCl=in+1;
+//        FeatLet[(uchar)str[i]].IndCl=in+1;
 //      }
 //      ++NameClOne[strlen_m((char*)NameClOne)-1];
 //    }
@@ -2004,7 +2004,7 @@ int init_ful()
     uchar WordOneSymb[]="АаБбВвИиКкОоСсУуЭэЯя";
   #endif
   int NumOne;
-  BYTE s[3];uint16_t w;
+  uchar s[3];uint16_t w;
   static uchar Upp[159]="АБВГДЕЖЗИЙКЛМНОПРСТУФХШЩЦЧЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
   static uchar Low[159]="абвгдежзийклмнопрстуфхшщцчъыьэюяabcdefghijklmnopqrstuvwxyz";
   static uchar Punct1[5]=".!?";
@@ -2032,7 +2032,7 @@ int init_ful()
        Up=malloc(strlen_m(UpIn)+2); strcpy_m(Up,UpIn); LmUnWord(Up);
       #endif
       while(*Lo != 0)
-      { Upper[(BYTE)(*Up)]=1; Lower[(BYTE)(*Lo)]=1;
+      { Upper[(uchar)(*Up)]=1; Lower[(uchar)(*Lo)]=1;
         Upp[++k]=*Up;Low[k]=*Lo;
         ++Lo;++Up;
       }
@@ -2042,8 +2042,8 @@ int init_ful()
       #endif
     }
   #else
-    { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
-      BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
+    { uchar *loR=(uchar*)malloc(40),*upR=(uchar*)malloc(40),*Lo,*Up;
+      uchar *loE=(uchar*)malloc(40),*upE=(uchar*)malloc(40),*bLo[2],*bUp[2];
       k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
       strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
       strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
@@ -2052,7 +2052,7 @@ int init_ful()
       for(i=0; i < 2; ++i)
       { Lo=bLo[i]; Up=bUp[i];
         while(*Lo != 0)
-        { Upper[(BYTE)(*Up)]=1; Lower[(BYTE)(*Lo)]=1;
+        { Upper[(uchar)(*Up)]=1; Lower[(uchar)(*Lo)]=1;
           Upp[++k]=*Up;Low[k]=*Lo;
           ++Lo;++Up;
         }
@@ -2098,11 +2098,11 @@ int init_ful()
   par_ful.IntervalTimer=(uint32_t)GetPrivateProfileInt("ful_txt","IntervalTimer",32000,FileParSpel);
   { //Temp filling KoderTabl R<->L coincidal tracing
     #ifdef WIN_MOD
-      BYTE *Rus=(BYTE*)"АрВЕхКъМНОюРрСсТУуХх",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
+      uchar *Rus=(uchar*)"АрВЕхКъМНОюРрСсТУуХх",*Lat=(uchar*)"AaBEeKkMHOoPpCcTYyXx";
     #else
-      BYTE *Rus=(BYTE*)"АаВЕеКкМНОоРрСсТУуХх",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
+      uchar *Rus=(uchar*)"АаВЕеКкМНОоРрСсТУуХх",*Lat=(uchar*)"AaBEeKkMHOoPpCcTYyXx";
     #endif
-    do0(i,0,255) KoderRus[i]=KoderLat[i]=(BYTE)i;
+    do0(i,0,255) KoderRus[i]=KoderLat[i]=(uchar)i;
     if(TypeDoc!=NORV)
      do0(i,0,19) { KoderLat[Rus[i]]=Lat[i]; KoderRus[Lat[i]]=Rus[i]; }
   }
@@ -2294,7 +2294,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 	int **Ksym;
   char **Txt,*err="GenFullTxtfromTree"; int K_Col,K_Rows;
   int fl,nc,ns,nz,dx,dy,tmp,nT,in,beg,end,i,y0,y1,x0,x1,DelLine,j;
-  BYTE *MultiPoint;
+  uchar *MultiPoint;
   SRECT BndPage;
   STAT_CELL *StatCell=Inf->StatCell;
   LINE_KNOT *LineH=Inf->LineHK,*LineV=Inf->LineVK;
@@ -2302,7 +2302,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   int NumTV=Inf->NumTV,nH=Inf->nH,nV=Inf->nV,HeiStr=StatCell[0].HeiStr,
       Space=abs(Inf->MonoSpaceTrue);
   STACK St;
-  BYTE ImageLineV[MAX_TYPE_LINE],ImageLineH[MAX_TYPE_LINE],charLine;
+  uchar ImageLineV[MAX_TYPE_LINE],ImageLineH[MAX_TYPE_LINE],charLine;
   ImageLineV[SOLID_LINE ]='|'; ImageLineH[SOLID_LINE ]='-';
   ImageLineV[DOUBLE_LINE]='#'; ImageLineH[DOUBLE_LINE]='=';
   ImageLineV[THICK_LINE ]='*'; ImageLineH[THICK_LINE ]='*';
@@ -2465,7 +2465,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
     memset(Txt[ns],' ',K_Col+1);
   }
   if(Inf->TypeDoc==NORV)
-		MultiPoint=(BYTE*)malloc(100);
+		MultiPoint=(uchar*)malloc(100);
   for(i=0; i < nT; ++i)
   { KNOTT *Kn=AllT[i];
     int l,nci,nw,NumAdd,dx1;

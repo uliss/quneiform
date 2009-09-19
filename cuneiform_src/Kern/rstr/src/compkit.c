@@ -55,7 +55,6 @@
  */
 
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 
@@ -64,11 +63,11 @@ Bool boxes_account();
 extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
-extern BYTE lpool[];
+extern uchar lpool[];
 extern uint16_t lpool_lth;
-extern BYTE work_raster[];
+extern uchar work_raster[];
 //extern version * start_rec, * rec_ptr;
-extern BYTE records_change;
+extern uchar records_change;
 
 static void boxes_to_line();
 
@@ -147,15 +146,15 @@ static void boxes_to_line() {
 	lnp->row = lsp->y - wcomp.upper;
 	lnp->flg = bp->boxflag;
 	ip = (interval *) (lnp + 1);
-	ip->l = (BYTE) lsp->l;
+	ip->l = (uchar) lsp->l;
 	x = lsp->x - wcomp.left;
-	(ip++)->e = (BYTE) x;
+	(ip++)->e = (uchar) x;
 	bip = (BOXINT *) (lsp + 1);
 	n = (bp->boxptr - sizeof(BOX) - sizeof(LNSTRT)) / sizeof(BOXINT);
 	cont_box: while (n--) {
-		ip->l = (BYTE) bip->l;
+		ip->l = (uchar) bip->l;
 		x += (bip++)->d;
-		(ip++)->e = (BYTE) x;
+		(ip++)->e = (uchar) x;
 	}
 	if ((bp->boxflag & BOXEND) == 0) {
 		bp = bp->boxnext;
@@ -164,22 +163,22 @@ static void boxes_to_line() {
 		goto cont_box;
 	}
 	(ip++)->l = 0;
-	lnp->lth = (PBYTE) ip - (PBYTE) lnp;
+	lnp->lth = (puchar) ip - (puchar) lnp;
 	lnp->h = (lnp->lth - sizeof(*lnp) - sizeof(*ip)) / sizeof(*ip);
 	lnp->flg |= bp->boxflag;
 	lnp = (lnhead *) ip;
 	if (bp != dl_last_in_chain)
 		goto next_line;
 	lnp->lth = 0;
-	lpool_lth = (PBYTE) lnp - lpool + sizeof(lnp->lth);
+	lpool_lth = (puchar) lnp - lpool + sizeof(lnp->lth);
 }
 
-static BYTE make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
+static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 
-PBYTE make_raster() {
+puchar make_raster() {
 	lnhead * lp;
 	interval *ip;
-	PBYTE p, pp;
+	puchar p, pp;
 	INT x, l, sh;
 	uint16_t w;
 
@@ -208,16 +207,16 @@ PBYTE make_raster() {
 	return work_raster;
 }
 
-PBYTE make_extended_raster(c_comp *cp) {
+puchar make_extended_raster(c_comp *cp) {
 	lnhead * lp;
 	large_interval *ip;
-	PBYTE p, pp;
+	puchar p, pp;
 	INT x, l, sh;
 	uint16_t wd, w;
 
 	memset(work_raster, 0, cp->rw * cp->h);
 	wd = cp->rw;
-	lp = (lnhead *) ((PBYTE) cp + cp->lines + sizeof(uint32_t));
+	lp = (lnhead *) ((puchar) cp + cp->lines + sizeof(uint32_t));
 	while (lp->lth) {
 		pp = work_raster + lp->row * wd;
 		ip = (large_interval *) (lp + 1);
@@ -236,7 +235,7 @@ PBYTE make_extended_raster(c_comp *cp) {
 			*(p - 1) |= w >> 8;
 			pp += wd;
 		}
-		lp = (lnhead *) ((PBYTE) ip - sizeof(uint16_t));
+		lp = (lnhead *) ((puchar) ip - sizeof(uint16_t));
 	}
 	return work_raster;
 }
@@ -259,7 +258,7 @@ INT MN_to_line(MN * mn) {
 uint16_t length_table[] = { 0x100, 0x300, 0x700, 0xf00, 0x1f00, 0x3f00, 0x7f00,
 		0xff00 };
 
-BYTE byte_seg_size[256] = {
+uchar byte_seg_size[256] = {
 		// 0   1    2    3    4    5    6    7    8    9    a    b    c    d    e    f
 		0x00,
 		0x18,

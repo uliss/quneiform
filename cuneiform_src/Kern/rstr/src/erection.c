@@ -71,7 +71,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
@@ -79,33 +78,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-static BYTE solid_sticks[]     ="|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêðà 08.09.2000 E.P.
-static BYTE incline_main[]     ="­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏÐ×ÈÒirbtfnBTEIPDFHLN"
-static BYTE incline_chars[]    =
+static uchar solid_sticks[]     ="|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêðà 08.09.2000 E.P.
+static uchar incline_main[]     ="­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏÐ×ÈÒirbtfnBTEIPDFHLN"
+static uchar incline_chars[]    =
 	"©æ­£èéêäë¢¯àïç¨âêì¡î‰–…ƒ˜™š”›‚Ÿ—ˆ’œšž\xf7\xf5ijbrtfnBTEIPDFHLNR";
 //	"éöíãøùúôûâïðÿ÷èòúüáþÉÖÅÍÃØÙÚÔÛÂÏÐß×ÈÒÜÚÁÞ\xf7\xf5ijbrtfnBTEIPDFHLNR";
 // cursive ¨,â
-static BYTE aux_inc_chars[]    ="ªê¥ ý®¦íá¬ŠŽ†‘ŒukdhqecmoKUOCM";
-static BYTE disable_rerecog[] ="á¨¬¢ìcb";
-static BYTE incline_alias[]    ="¡||";
-static BYTE nonincline_alias[] ="6)>";
-static BYTE incline_alias2[]   ="¯";
-static BYTE nonincline_alias2[]="«‹";
+static uchar aux_inc_chars[]    ="ªê¥ ý®¦íá¬ŠŽ†‘ŒukdhqecmoKUOCM";
+static uchar disable_rerecog[] ="á¨¬¢ìcb";
+static uchar incline_alias[]    ="¡||";
+static uchar nonincline_alias[] ="6)>";
+static uchar incline_alias2[]   ="¯";
+static uchar nonincline_alias2[]="«‹";
 static INT  local_pass;
 static INT  hist[256], num_extr, max_incline, line_incline;
-static BYTE extr[4];
+static uchar extr[4];
 
-  extern BYTE db_status       ;    // snap presence byte
-  extern BYTE langSer, langUkr;
-  extern BYTE db_trace_flag   ;    // snap-detail presence byte
-  extern BYTE db_pass         ;    // snap-pass indicator
+  extern uchar db_status       ;    // snap presence byte
+  extern uchar langSer, langUkr;
+  extern uchar db_trace_flag   ;    // snap-detail presence byte
+  extern uchar db_pass         ;    // snap-pass indicator
   extern INT  nIncline        ;    // global page incline
   extern INT  pitchsize       ;    // string pitch
-  extern BYTE erection_enable ;
-  extern BYTE    decode_ASCII_to_[256][4];
-  extern BYTE line_scale, p2_active;
+  extern uchar erection_enable ;
+  extern uchar    decode_ASCII_to_[256][4];
+  extern uchar line_scale, p2_active;
 
-  extern INT LeftDistance(BYTE *RASTER, INT NWIDTH);
+  extern INT LeftDistance(uchar *RASTER, INT NWIDTH);
   extern INT   line_number   ;
 
 
@@ -123,7 +122,7 @@ static LONG calc_dens(cell *c);
 static INT  get_incline_of_word(cell *b, cell *e);
 static INT  erection_incline_word(cell *b, cell *e, INT base_3,INT n_call);
 static void shift_word( cell *c, cell *e, INT shift );
-static cell * erect_end_word(cell *cs,BYTE *str,BYTE *word_len,INT limit);
+static cell * erect_end_word(cell *cs,uchar *str,uchar *word_len,INT limit);
 static cell * erect_next_word(cell *cs);
 static Bool setup_incline_word(cell *b, cell *e, Bool t);
 static void clear_incline_word(cell *b, cell *e);
@@ -135,7 +134,7 @@ static void average_inc(INT inc_list[],INT n, INT *rint, INT *rnum);
 static INT  select_inc(INT inc_list[],INT n, INT delta, INT *rinc, INT *rnum);
 static INT diff_left_limit_cell(cell *c, INT tab_angle[], INT init_max);
 static INT diff_left_limit_one_line(lnhead *line, INT tab_angle[], INT init_max);
-static INT diff_left_limit_rast(BYTE *raster, INT dx, INT dy, INT tab_angle[]);
+static INT diff_left_limit_rast(uchar *raster, INT dx, INT dy, INT tab_angle[]);
 
 void erect_init_global_tab(void)
 {
@@ -274,9 +273,9 @@ return c->w;
 // incline is VALUE, shave - enable shaving
 // use for back rotating too
 //
-INT erect_raster_value (BYTE *raster, INT dx, INT dy, INT inc)
+INT erect_raster_value (uchar *raster, INT dx, INT dy, INT inc)
 {
-BYTE    sh_raster[1024] ;
+uchar    sh_raster[1024] ;
 INT     i               ;
 INT     tab_angle[256]  ;
 
@@ -304,8 +303,8 @@ INT     dx=c->w, dy=c->h, le, ri, sinc=inc     ;
 INT     lminx, lminsx, lminy, lminsy           ;
 MN      *sh_mn                                 ;
 cell    *sh_cell[MAX_CELLS_IN_LIST+1],res_cell ;
-PBYTE   raster                                 ;
-BYTE    sh_raster[1024*2]                      ;
+puchar   raster                                 ;
+uchar    sh_raster[1024*2]                      ;
 INT     i, d_x, n                              ;
 INT     tab_angle[256]                         ;
 cell    *cret = c                              ;
@@ -487,8 +486,8 @@ INT     dx=c->w, dy=c->h, le, ri               ;
 INT     lminx, lminsx, lminy, lminsy           ;
 MN      *sh_mn                                 ;
 cell    *sh_cell[MAX_CELLS_IN_LIST+1],res_cell ;
-PBYTE   raster                                 ;
-BYTE    sh_raster[1024]                        ;
+puchar   raster                                 ;
+uchar    sh_raster[1024]                        ;
 INT     i, d_x, n, inc                         ;
 cell    *cret = c                              ;
 
@@ -602,7 +601,7 @@ for(c=b;c!=e;c=c->next)
 return TRUE;
 }
 
-BYTE   erection_one_incline_word(cell *b, cell *e)
+uchar   erection_one_incline_word(cell *b, cell *e)
 {
 Bool    inc   ;
 B_LINES bl    ;
@@ -620,18 +619,18 @@ if( !setup_incline_word(b,e, FALSE) ) // without statistic making
 get_b_lines(b,&bl);
 
 inc = erection_incline_word_set(b, e);
-return (BYTE)inc;
+return (uchar)inc;
 }
 
 //
 // main erection function :
 // find and erected incline words
 //
-BYTE   erection_incline_words(INT pass)
+uchar   erection_incline_words(INT pass)
 {
 cell *c, *e, *tmp, *sc              ;
-BYTE buf[MAX_LEN_WORD+40]           ;
-BYTE wrd[MAX_LEN_WORD+40], word_len ;
+uchar buf[MAX_LEN_WORD+40]           ;
+uchar wrd[MAX_LEN_WORD+40], word_len ;
 Bool inc, incline, no_res           ;
 B_LINES bl                          ;
 #ifdef STEND_INC
@@ -743,7 +742,7 @@ if( db_status && snap_activity('i') )
  snap_monitor();
  }
 
-return(BYTE) incline ;
+return(uchar) incline ;
 }
 
 
@@ -849,7 +848,7 @@ if( calc )
     { // binarize if few nonIncline images & many incline images
     for(inc=0;inc<128;inc++)
       if( hist[ inc ]>=ninc/4 && num_extr<sizeof( extr ) )
-        extr[ num_extr++ ] = (BYTE)inc;
+        extr[ num_extr++ ] = (uchar)inc;
     }
   if( num_extr )
     max_incline = MAX((extr[ num_extr-1 ]+1)*16,512);
@@ -909,7 +908,7 @@ return TRUE;
 void clear_incline_word(cell *b, cell *e)
 {
 cell *c, *prev ;
-PBYTE p ;
+puchar p ;
 
 for( c=b; c!=e; c = c->next)
   {
@@ -1002,7 +1001,7 @@ return FALSE;
 Bool no_bad_alias(cell *c)
 {
 INT  i, n;
-BYTE *p;
+uchar *p;
 
 if( c->nvers<2 )
     return TRUE;
@@ -1124,7 +1123,7 @@ if( n==0 )
     {
     inc1 /= n1;
     if( inc1<300 ) inc1=0;
-    return (BYTE)inc1;
+    return (uchar)inc1;
     }
   else
     return 0;
@@ -1383,7 +1382,7 @@ for( c=b; c!=e; c=c->next)
        erect_solid_stick(c))) )
     c->save_stick_inc=c->stick_inc;
   else
-    c->save_stick_inc=(BYTE)inc;
+    c->save_stick_inc=(uchar)inc;
   c->pos_inc=erect_no;
   c->stick_inc = NO_INCLINE;
   }
@@ -1403,7 +1402,7 @@ return (c->flg&c_f_fict)?NULL:c;
 }
 
 // finding end of word
-cell * erect_end_word(cell *cs,BYTE *str,BYTE *word_len, INT limit)
+cell * erect_end_word(cell *cs,uchar *str,uchar *word_len, INT limit)
 {
 cell *c=cs             ;
 INT   i=0, old=c->col+c->w  ;
@@ -1417,7 +1416,7 @@ while(1)
   if( c->col+c->w>old) old =c->col+c->w;
   }
 *str='\0';
-*word_len = (BYTE)i;
+*word_len = (uchar)i;
 return c;
 }
 
@@ -1534,10 +1533,10 @@ B_LINES bl;
 return;
 }
 
-INT diff_left_limit_rast(BYTE *raster, INT dx, INT dy, INT tab_angle[])
+INT diff_left_limit_rast(uchar *raster, INT dx, INT dy, INT tab_angle[])
 {
 INT i, d, c, rr, lmax;
-BYTE  *r ;
+uchar  *r ;
 
 d  = bytlen (dx);
 for (r=raster,lmax=i=0; i<dy; i++,r+=d)
@@ -1633,7 +1632,7 @@ return dens;
 
 cell *convert_to_cells(cell *start)
 {
-PBYTE    raster = save_raster (start);
+puchar    raster = save_raster (start);
 MN      *sh_mn;
 cell    *sh_cell, *next=start->next;
 INT      i;
@@ -1746,17 +1745,17 @@ for(i=0;i<c->nvers;i++)
 return (c->nvers>0);
 }
 
-INT erection_cond_language(BYTE language)
+INT erection_cond_language(uchar language)
 {
 return !(language==LANG_RUSSIAN && !langSer && !langUkr);
 }
 
-INT erection_language(BYTE language)
+INT erection_language(uchar language)
 {
 return TRUE;
 }
 
-INT erection_cyr_language(BYTE language)
+INT erection_cyr_language(uchar language)
 {
 return (language==LANG_RUSSIAN);
 }

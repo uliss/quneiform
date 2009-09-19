@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdlib.h>
-#include "nt_types.h"
+
 #include "tuner.h"
 #include "lang.h"
 
@@ -94,14 +94,14 @@ void dif_II( void )
 
    cp = workI.c->env;
    for(;cp!=NULL;cp=cp->next){
-      lp = (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t));
+      lp = (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t));
       while( lp->lth != 0 ){
          if( lp->row <= workI.c->h/8 ){
             ii++;
             if( h > lp->h )
               h = lp->h;
          }
-         lp = (lnhead *)((PBYTE)lp + lp->lth);
+         lp = (lnhead *)((puchar)lp + lp->lth);
       }
    }
    workI.c->vers[0].prob -= 24*workI.twoDot;
@@ -122,7 +122,7 @@ ret_dif:
 Bool  proc_UKR_I( cell *c )
 {
    cell  *cc,*clist[3];
-   BYTE  one,Ione,let;
+   uchar  one,Ione,let;
    INT   i,ii=0;
 
    if( c->flg & (c_f_dust|c_f_punct) )

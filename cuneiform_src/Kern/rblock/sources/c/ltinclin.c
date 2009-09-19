@@ -267,7 +267,7 @@ Bool SelectStringAndCalculateIncline (int iStart)
 {
     int iLeft, iRight, oSkipped;
     int nLower = pBar [iStart].nLower;
-    extern BYTE fax1x2;
+    extern uchar fax1x2;
 
     for (iLeft = iStart; iLeft >= 0;)
     {

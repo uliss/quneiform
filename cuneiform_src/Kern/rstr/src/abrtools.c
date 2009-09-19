@@ -59,10 +59,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #define  MLTPLR 64
 
-static BYTE pen_over_b2[8]={ 0,0,20,80,120,200,220,240 };
+static uchar pen_over_b2[8]={ 0,0,20,80,120,200,220,240 };
 static INT  x_beg, y_beg, delta_x, delta_y;
 static INT  orient;
-static BYTE pen_for_convex[6] = { 0, 32, 48, 64, 128, 240 };
+static uchar pen_for_convex[6] = { 0, 32, 48, 64, 128, 240 };
 
 
 void abris_reset()
@@ -71,7 +71,7 @@ void abris_reset()
  abriflag=leftfl=rightfl=topfl=botfl=0;
 }
 
-INT make_histo ( BYTE *array, BYTE max_num)
+INT make_histo ( uchar *array, uchar max_num)
 {
 INT i,j, mode_val;
 
@@ -84,7 +84,7 @@ INT i,j, mode_val;
    j = array[i];
    histo[j] ++;
    if ( j > histo_max_value )
-     histo_max_value = (BYTE)j;
+     histo_max_value = (uchar)j;
   }
  for (i=0, j=0; i <= histo_max_value; i++)
   {
@@ -100,8 +100,8 @@ void make_abris(s_glue *GL, cell *cl)
  interval *int1;
  c_comp *cp1;
  cell *a;
- BYTE *rpsum, *rpln, *rpleft, *rpright, *rpwid;
- BYTE intbeg, intend, intlth;
+ uchar *rpsum, *rpln, *rpleft, *rpright, *rpwid;
+ uchar intbeg, intend, intlth;
  INT  Lc1, lc1, nc,
       hw, hm, rowd, cold;
 
@@ -169,13 +169,13 @@ void make_abris(s_glue *GL, cell *cl)
         intlth=int1->l;
         intbeg=intend-intlth;
         {
-            BYTE bhm = (BYTE)hm;
-            BYTE bfl = fullh-hm;
+            uchar bhm = (uchar)hm;
+            uchar bfl = fullh-hm;
             LONG i, e = intend;
             for (i=intbeg; i<e; i++)
             {
-                if ((BYTE)bhm < (BYTE)top[i] ) top[i]=bhm;
-                if ((BYTE)bfl < (BYTE)bot[i] ) bot[i]=bfl;
+                if ((uchar)bhm < (uchar)top[i] ) top[i]=bhm;
+                if ((uchar)bfl < (uchar)bot[i] ) bot[i]=bfl;
             }
         }
         intend=fullw-intend;
@@ -208,7 +208,7 @@ void make_abris(s_glue *GL, cell *cl)
 }
 /***************************************/
 void make_wid()
-{ INT i, ns; BYTE *pfun;
+{ INT i, ns; uchar *pfun;
  if (sfl & 1) return;
  swt=0;
  for (i=0, pfun=wid; i<fullh; pfun++,i++)
@@ -221,20 +221,20 @@ void make_wid()
 }
 /*************************************/
 void make_left_max()
-{ INT i; BYTE *pfun, sb, nb;
+{ INT i; uchar *pfun, sb, nb;
  if (leftfl & 1) return;
  leftfl |= 1;
  lmin1=lmin2=255;
  lmax=0;
  for (i=0, pfun=l_abr; i< fullh/3; i++,pfun++)
   {
-   if (lmin1 > *pfun)  { lmin1 = *pfun; lxmin11=(BYTE)i; }
-   if (lmin1 == *pfun)                  lxmin12=(BYTE)i;
+   if (lmin1 > *pfun)  { lmin1 = *pfun; lxmin11=(uchar)i; }
+   if (lmin1 == *pfun)                  lxmin12=(uchar)i;
   }
  for (i=fullh-i, pfun=&l_abr[i]; i<fullh; i++,pfun++)
   {
-   if (lmin2 > *pfun)  { lmin2 = *pfun; lxmin21=(BYTE)i; }
-   if (lmin2 == *pfun)                  lxmin22=(BYTE)i;
+   if (lmin2 > *pfun)  { lmin2 = *pfun; lxmin21=(uchar)i; }
+   if (lmin2 == *pfun)                  lxmin22=(uchar)i;
   }
 
  ljmp=0;  lnmid=255;
@@ -242,94 +242,94 @@ void make_left_max()
   {
     if (linh[i] < lnmid) lnmid=linh[i];
     nb=*pfun;
-    if (lmax < nb) {  lmax=nb; lxmax1=(BYTE)i; }
-    if (lmax == nb)   lxmax2=(BYTE)i;
-    if ((nb > sb) && (ljmp==0))   { ljmp=1; ljmp1=(BYTE)i; }  // 1st right jump
-    if ((nb < sb) && (ljmp > 0))  { ljmp=2; ljmp2=(BYTE)i; }  // last left jump
+    if (lmax < nb) {  lmax=nb; lxmax1=(uchar)i; }
+    if (lmax == nb)   lxmax2=(uchar)i;
+    if ((nb > sb) && (ljmp==0))   { ljmp=1; ljmp1=(uchar)i; }  // 1st right jump
+    if ((nb < sb) && (ljmp > 0))  { ljmp=2; ljmp2=(uchar)i; }  // last left jump
   }
 }
 
 void make_right_max()
 {
- INT i; BYTE *pfun, sb, nb;
+ INT i; uchar *pfun, sb, nb;
  if (rightfl & 1) return;
  rightfl |= 1;
  rmin1=rmin2=255;
  rmax=0;
  for (i=0, pfun=r_abr; i< fullh/3; i++,pfun++)
   {
-   if (rmin1 > *pfun)  { rmin1 = *pfun; rxmin11=(BYTE)i; }
-   if (rmin1 == *pfun)                  rxmin12=(BYTE)i;
+   if (rmin1 > *pfun)  { rmin1 = *pfun; rxmin11=(uchar)i; }
+   if (rmin1 == *pfun)                  rxmin12=(uchar)i;
   }
  for (i=fullh-i, pfun=&r_abr[i]; i<fullh; i++,pfun++)
   {
-   if (rmin2 > *pfun)  { rmin2 = *pfun; rxmin21=(BYTE)i; }
-   if (rmin2 == *pfun)                  rxmin22=(BYTE)i;
+   if (rmin2 > *pfun)  { rmin2 = *pfun; rxmin21=(uchar)i; }
+   if (rmin2 == *pfun)                  rxmin22=(uchar)i;
   }
 
  rjmp=0;
  for (i=rxmin12, pfun=&r_abr[i], sb=*pfun; i<rxmin21; i++, pfun++,sb=nb)
   {
     nb=*pfun;
-    if (rmax < nb) {  rmax=nb; rxmax1=(BYTE)i; }
-    if (rmax == nb)   rxmax2=(BYTE)i;
-    if ((nb > sb) && (rjmp==0))   { rjmp=1; rjmp1=(BYTE)i; }  // 1st  left  jump
-    if ((nb < sb) && (rjmp > 0))  { rjmp=2; rjmp2=(BYTE)i; }  // last right jump
+    if (rmax < nb) {  rmax=nb; rxmax1=(uchar)i; }
+    if (rmax == nb)   rxmax2=(uchar)i;
+    if ((nb > sb) && (rjmp==0))   { rjmp=1; rjmp1=(uchar)i; }  // 1st  left  jump
+    if ((nb < sb) && (rjmp > 0))  { rjmp=2; rjmp2=(uchar)i; }  // last right jump
   }
 }
 
 void make_top_max()
-{ INT i; BYTE *pfun;
+{ INT i; uchar *pfun;
  if (topfl & 1) return;
  topfl |= 1;
  tmin1=tmin2=255;
  tmax=0;
  for (i=0, pfun=top; i< fullw/3; i++,pfun++)
   {
-   if (tmin1 > *pfun)  { tmin1 = *pfun; txmin11=(BYTE)i; }
-   if (tmin1 == *pfun)                  txmin12=(BYTE)i;
+   if (tmin1 > *pfun)  { tmin1 = *pfun; txmin11=(uchar)i; }
+   if (tmin1 == *pfun)                  txmin12=(uchar)i;
   }
  for (i=fullw-i; i<fullw; i++,pfun++)
   {
-   if (tmin2 > *pfun)  { tmin2 = *pfun; txmin21=(BYTE)i; }
-   if (tmin2 == *pfun)                  txmin22=(BYTE)i;
+   if (tmin2 > *pfun)  { tmin2 = *pfun; txmin21=(uchar)i; }
+   if (tmin2 == *pfun)                  txmin22=(uchar)i;
   }
 
  for (i=txmin12, pfun=&top[i]; i<txmin21; i++, pfun++)
   {
-    if (tmax < *pfun) {  tmax=*pfun; txmax1=(BYTE)i; }
-    if (tmax == *pfun)   txmax2=(BYTE)i;
+    if (tmax < *pfun) {  tmax=*pfun; txmax1=(uchar)i; }
+    if (tmax == *pfun)   txmax2=(uchar)i;
   }
 }
 
 
 void make_bot_max()
-{ INT i; BYTE *pfun;
+{ INT i; uchar *pfun;
  if (botfl & 1) return;
  botfl |= 1;
  bmin1=bmin2=255;
  bmax=0;
  for (i=0, pfun=bot; i< fullw/3; i++,pfun++)
   {
-   if (bmin1 > *pfun)  { bmin1 = *pfun; bxmin11=(BYTE)i; }
-   if (bmin1 == *pfun)                  bxmin12=(BYTE)i;
+   if (bmin1 > *pfun)  { bmin1 = *pfun; bxmin11=(uchar)i; }
+   if (bmin1 == *pfun)                  bxmin12=(uchar)i;
   }
  for (i=fullw-i; i<fullw; i++,pfun++)
   {
-   if (bmin2 > *pfun)  { bmin2 = *pfun; bxmin21=(BYTE)i; }
-   if (bmin2 == *pfun)                  bxmin22=(BYTE)i;
+   if (bmin2 > *pfun)  { bmin2 = *pfun; bxmin21=(uchar)i; }
+   if (bmin2 == *pfun)                  bxmin22=(uchar)i;
   }
 
  for (i=bxmin12, pfun=&bot[i]; i<bxmin21; i++, pfun++)
   {
-    if (bmax < *pfun) {  bmax=*pfun; bxmax1=(BYTE)i; }
-    if (bmax == *pfun)   bxmax2=(BYTE)i;
+    if (bmax < *pfun) {  bmax=*pfun; bxmax1=(uchar)i; }
+    if (bmax == *pfun)   bxmax2=(uchar)i;
   }
 }
 
 void    make_inter_white_histo()
 {
-BYTE i;
+uchar i;
 
     histo_max_value = 0;
     memset( histo, 0, 128 );
@@ -342,9 +342,9 @@ BYTE i;
     return;
 }
 
-BYTE    find_2int_zone( BYTE from, BYTE to, PBYTE beg, PBYTE end )
+uchar    find_2int_zone( uchar from, uchar to, puchar beg, puchar end )
 {
-    BYTE ret_code, i;
+    uchar ret_code, i;
     INT wb, we;
     ret_code = NOT_FOUND_TWO_INT_ZONE;
     wb = we = -1;
@@ -371,20 +371,20 @@ BYTE    find_2int_zone( BYTE from, BYTE to, PBYTE beg, PBYTE end )
     if ( we - wb > 1 )
     {
         ret_code = FOUND_TWO_INT_ZONE;
-        *beg = (BYTE)wb;
-        *end = (BYTE)(we-1);
+        *beg = (uchar)wb;
+        *end = (uchar)(we-1);
     }
     return ret_code;
 }
 
- BYTE    find_1int_zone( BYTE from, BYTE to, PBYTE beg, PBYTE end )
+ uchar    find_1int_zone( uchar from, uchar to, puchar beg, puchar end )
 {
-    BYTE ret_code, i;
+    uchar ret_code, i;
     INT wb, we;
     ret_code = NOT_FOUND_ONE_INT_ZONE;
     wb = we = -1;
 
-    for ( i = (BYTE)midh; i >= from; i-- )
+    for ( i = (uchar)midh; i >= from; i-- )
     {
         if ( (linh[i] == 1) ||
              ( (linh[i] == 2) && (linh[i-1] == 1) &&
@@ -396,7 +396,7 @@ BYTE    find_2int_zone( BYTE from, BYTE to, PBYTE beg, PBYTE end )
             break;
          }
     }
-    for ( i = (BYTE)midh; i <= to; i++ )
+    for ( i = (uchar)midh; i <= to; i++ )
     {
         if ( linh[i] == 1 )
             we = i;
@@ -408,16 +408,16 @@ BYTE    find_2int_zone( BYTE from, BYTE to, PBYTE beg, PBYTE end )
     if ( we - wb >= ( (fullh + 9)/10 ) )
     {
         ret_code = FOUND_ONE_INT_ZONE;
-        *beg = (BYTE)wb;
-        *end = (BYTE)we;
+        *beg = (uchar)wb;
+        *end = (uchar)we;
     }
 F1Z_Ret:
     return ret_code;
 }
 
-BYTE r_tail ( BYTE lev)
+uchar r_tail ( uchar lev)
 {
-BYTE xtail=0, ltail, j, fl, tresh;
+uchar xtail=0, ltail, j, fl, tresh;
  ltail = fullh / 5;
 
  for ( j = fullw -1; j >= midw; j--)
@@ -435,26 +435,26 @@ BYTE xtail=0, ltail, j, fl, tresh;
  tresh = fullw/10;
  if ( tresh > 0 )
     tresh--;
- fl = monotonous_decrease( l_abr, 1, (BYTE)(fullh - (fullh/4)), &j, tresh );
+ fl = monotonous_decrease( l_abr, 1, (uchar)(fullh - (fullh/4)), &j, tresh );
  if ( fl == NOT_FOUND_MON_DECR )
     return 0;
  if ( top[fullw -1] > 3 )
     return 0;
- fl = monotonous_increase( r_abr, top[fullw -1], (BYTE)(fullh - 1), &j, 0 );
+ fl = monotonous_increase( r_abr, top[fullw -1], (uchar)(fullh - 1), &j, 0 );
  if ( fl != NOT_FOUND_MON_INCR )
     return 0;
- fl = monotonous_increase( r_abr, (BYTE)(j + 2), (BYTE)(fullh - 1), &ltail, 0 );
+ fl = monotonous_increase( r_abr, (uchar)(j + 2), (uchar)(fullh - 1), &ltail, 0 );
  if ( fl == FOUND_MON_INCR )
     return 1;
  return 0;
 }
 
 
-BYTE rb_corner()
+uchar rb_corner()
 {
 #define PNL_ROUND_RBC  10      // Round abris at right bottom corner
 
- BYTE pen, shift;
+ uchar pen, shift;
  INT  fl, i1, i2, i3, i4, j1, j2, j3, j4;
 
  make_right_max();
@@ -493,7 +493,7 @@ Penalty:
  return pen;
 }
 
-BYTE a_rb_corner( INT cur_p )
+uchar a_rb_corner( INT cur_p )
 {
 INT pnl_rbc, newprob;
 
@@ -504,15 +504,15 @@ INT pnl_rbc, newprob;
 
  if (newprob <= 0 )
   newprob = 2;
- return( (BYTE)newprob );
+ return( (uchar)newprob );
 }
 
-BYTE round_rb_corner()
+uchar round_rb_corner()
 {
 #define PNL_NOT_ROUND_RBC  10      // Penalty for not round
                                    //  abris at right bottom corner
 
- BYTE pen;
+ uchar pen;
  INT  st, bnd, prev, cur;
 
  pen = 0;
@@ -535,10 +535,10 @@ BYTE round_rb_corner()
  return pen;
 }
 
- BYTE test_bottom_corner( PBYTE abris, INT *size)
+ uchar test_bottom_corner( puchar abris, INT *size)
 {
 
- BYTE type;
+ uchar type;
  INT  pen, convex_st, concave_st, bnd, prev, cur;
 
  pen = 0; type = 0;
@@ -592,7 +592,7 @@ INT two_int_over_b2 ( cell *curc, INT *loc_2_int)
 // This procedure is used by discriminaters of follow letters: 'b', 'h' and 'd'
 {
 INT twoint, retpen, h14, i;
-BYTE  shift_from_top;
+uchar  shift_from_top;
 
  retpen = 0;
  twoint = -1;
@@ -658,11 +658,11 @@ BYTE  shift_from_top;
 
 #define GAP_MAX_SIZE 128
  INT gap_in_side(
-       BYTE from, BYTE to, BYTE code_func, INT tresh, BYTE *flit)
+       uchar from, uchar to, uchar code_func, INT tresh, uchar *flit)
 {
 INT retgap;
-BYTE fmax, fmin, xmax, xmin, i;
-BYTE *func;
+uchar fmax, fmin, xmax, xmin, i;
+uchar *func;
 
    *flit = 0; retgap = 0;
    switch ( code_func )
@@ -724,10 +724,10 @@ GIS_Ret:
   return retgap;
 }
 
-void get_max_min ( PBYTE func, BYTE from, BYTE to,
-                     PBYTE fmax, PBYTE fmin, PBYTE x_fmax, PBYTE x_fmin )
+void get_max_min ( puchar func, uchar from, uchar to,
+                     puchar fmax, puchar fmin, puchar x_fmax, puchar x_fmin )
 {
-BYTE i;
+uchar i;
 
    for ( i=from, *fmax=0, *fmin=255; i < to; i++ )
     // find extremum onto interval (from, to) of the func:
@@ -739,9 +739,9 @@ BYTE i;
     return;
 }
 
- BYTE constancy_vally_lth (PBYTE func, BYTE from, BYTE to, BYTE tresh)
+ uchar constancy_vally_lth (puchar func, uchar from, uchar to, uchar tresh)
 {
-BYTE i, cvlth, fl, beg, end;
+uchar i, cvlth, fl, beg, end;
 
    cvlth = 0; fl = 0; beg = 0; end = 0;
    for ( i = from + 1; i < to - 1; i++, fl = 0 )
@@ -775,11 +775,11 @@ BYTE i, cvlth, fl, beg, end;
    return cvlth;
 }
 
-BYTE monotonous_decrease
-        ( PBYTE func, BYTE from, BYTE to, PBYTE last_decr, BYTE tresh)
+uchar monotonous_decrease
+        ( puchar func, uchar from, uchar to, puchar last_decr, uchar tresh)
 {
 INT  delta;
-BYTE ret_code, smooth_sum, i;
+uchar ret_code, smooth_sum, i;
 
     ret_code = FOUND_MON_DECR;
     for ( smooth_sum = 0, i = from; i < to - 1; i++ )
@@ -799,11 +799,11 @@ BYTE ret_code, smooth_sum, i;
     return ret_code;
 }
 
- BYTE monotonous_increase
-        ( PBYTE func, BYTE from, BYTE to, PBYTE last_incr, BYTE tresh)
+ uchar monotonous_increase
+        ( puchar func, uchar from, uchar to, puchar last_incr, uchar tresh)
 {
 INT  delta;
-BYTE ret_code, smooth_sum, i;
+uchar ret_code, smooth_sum, i;
 
     ret_code = FOUND_MON_INCR;
     for ( smooth_sum = 0, i = from; i < to - 1; i++ )
@@ -825,7 +825,7 @@ BYTE ret_code, smooth_sum, i;
 
  INT top_end_bottom_weights_delta()
 {
-BYTE i, wto, wfrom;
+uchar i, wto, wfrom;
 INT  delta, wi, bot_sum, top_sum;
 
     wi = 1;
@@ -834,7 +834,7 @@ INT  delta, wi, bot_sum, top_sum;
     if ( (fullh & wi) == 1 )      // fullh is odd
         wfrom = midh + 1;
     else                          // fullh is even
-        wfrom = (BYTE)midh;
+        wfrom = (uchar)midh;
 
     for ( top_sum = 0, i = 0; i <= wto; i++ )
         top_sum += sumh[i];
@@ -847,20 +847,20 @@ INT  delta, wi, bot_sum, top_sum;
 
 }
 
- BYTE new_prob( INT penalty )
+ uchar new_prob( INT penalty )
 {
-BYTE ret_prob;
+uchar ret_prob;
 INT wprob;
 
  wprob = cprob - penalty;
  if ( wprob < 2 )
   ret_prob = 2;
  else
-  ret_prob = (BYTE)wprob;
+  ret_prob = (uchar)wprob;
  return ret_prob;
 }
 
-void construct_line_by_two_points( BYTE x1, BYTE y1, BYTE x2, BYTE y2 )
+void construct_line_by_two_points( uchar x1, uchar y1, uchar x2, uchar y2 )
 {
     x_beg   = MLTPLR * x1;
     y_beg   = MLTPLR * y1;
@@ -873,7 +873,7 @@ void construct_line_by_two_points( BYTE x1, BYTE y1, BYTE x2, BYTE y2 )
     return;
 }
 
-INT get_x_coord( BYTE y_coord )
+INT get_x_coord( uchar y_coord )
 {
 	INT xc;
 	//AK! add for no divide by zerro
@@ -884,10 +884,10 @@ INT get_x_coord( BYTE y_coord )
 		return xc;
 }
 
-BYTE test_against_convex( PBYTE func, BYTE from, BYTE to )
+uchar test_against_convex( puchar func, uchar from, uchar to )
 {
 INT  x, i, dx;
-BYTE pen, cnt;
+uchar pen, cnt;
 LONG    total;
 
     pen = 0;
@@ -895,7 +895,7 @@ LONG    total;
     construct_line_by_two_points( func[from], from, func[to], to );
     for ( cnt = 0, i = from; i <= to; i++ )
     {
-        x = get_x_coord( (BYTE)i );
+        x = get_x_coord( (uchar)i );
         if ( ( dx = abs(x - (MLTPLR * func[i])) ) > 0 )
         {
             total += dx;

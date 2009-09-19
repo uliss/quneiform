@@ -242,7 +242,7 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 
 		// Массив подстановок [3][128] (Tiger/Windows/DOS)
 		case ROUT_PPBYTE_TigerToUserCharSet:
-			gTigerToUserCharSet = (BYTE**) pData;
+			gTigerToUserCharSet = (uchar**) pData;
 			break;
 
 		// Максимальное количество строк текста в одной таблице

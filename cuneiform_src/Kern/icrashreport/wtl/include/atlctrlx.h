@@ -3520,7 +3520,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
                 break;
             }
             temp.Hi32 = static_cast<ulong>(product);
-            temp.scale = (BYTE)(temp.scale + scaleDiff);
+            temp.scale = (uchar)(temp.scale + scaleDiff);
         }
         if (temp.scale < pdecRight->scale)
         {

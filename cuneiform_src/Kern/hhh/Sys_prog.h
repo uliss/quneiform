@@ -151,7 +151,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 /*
 #ifndef WIN_MOD
-  typedef unsigned char BYTE;
+  typedef unsigned char uchar;
   typedef unsigned int uint16_t;
   typedef signed long LONG;
   typedef unsigned long DWORD;

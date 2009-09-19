@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #define PUNCT_CORRECTION0 //Loginov
@@ -77,23 +77,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include"compat_defs.h"
 
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern INT pitchsize;
-extern BYTE db_status;
+extern uchar db_status;
 extern INT line_number;
 extern cell *accadr1;
 extern cell *accadr2;
-extern BYTE line_tabcell;
+extern uchar line_tabcell;
 
 #define HPERMIN 4
 #define KEGM    14
 #define FEAT_SIZE 40
 
-static PBYTE rstr;
+static puchar rstr;
 static INT italic;
 static B_LINES bl;
 static cell *clist[4];
-PBYTE sv_fantom=NULL;
+puchar sv_fantom=NULL;
 
 static void order();
 static void bad_to_dust();
@@ -109,7 +109,7 @@ static void no_cut(cell *);
 static INT dustpos(INT,cell *);
 #ifdef PUNCT_CORRECTION
  //static INT exist_prev_next(cell *c,INT *dif1,INT *dif2);
-//static INT get_dust_status(cell *c,BYTE *dust_st);
+//static INT get_dust_status(cell *c,uchar *dust_st);
 //static INT dust_pos_new(cell *);
 INT is_dash(cell *c);
 INT is_dust_2(cell *c);
@@ -152,7 +152,7 @@ return;
 void punct()
  {
  cell *c1,*c2,*c;
- BYTE l;
+ uchar l;
  INT x,d;
 
  if (language == LANG_RUSSIAN)  sv_fantom=NULL;
@@ -627,7 +627,7 @@ if( !compose_cell(n,clist,c) )
  c->difflg=0;
  c->cg_flag=0;
  c->dens=255;
- c->keg=(BYTE)bl->ps;
+ c->keg=(uchar)bl->ps;
  c->nvers=0;
  // AL-JOE decicion-making was here; all c1-c4 were deleted
  if( (r&MBI) && !(language==LANG_RUSSIAN&&!langUkr&&!langSer))
@@ -661,7 +661,7 @@ if( !compose_cell(n,clist,c) )
 static void dots()
  {
  cell *c,*cc,csv;
- BYTE let;
+ uchar let;
  INT i,nv;
  version vers[VERS_IN_CELL];
 
@@ -830,7 +830,7 @@ static void dots()
 static void quockets()
  {
  cell *c;
- BYTE let;
+ uchar let;
  INT h;
 
  for (c=(cell_f())->nextl; c->next!=NULL; c=c->nextl)
@@ -874,7 +874,7 @@ static void quockets()
 static void punctsign(cell **ac1,cell **ac2)
  {
  INT h,d,dd,dp,fl,dc,p,lr,a;
- BYTE let,str[80];
+ uchar let,str[80];
  cell *c;
  cell *c1;
  cell *c2;
@@ -1189,7 +1189,7 @@ static INT dustpos(INT h,cell *c)
 static INT chkdotcom(INT h,INT dp,cell *c)
  {
  INT x,y,dt,cm,hc,wc,wm,i,j,k,ls,s;
- BYTE str[80];
+ uchar str[80];
  B_LINES bl;
 
  if (snap_activity('e'))
@@ -1345,7 +1345,7 @@ ret:
 static INT chkdash(INT h,INT dp,cell *c)
  {
  INT r;
- BYTE str[80];
+ uchar str[80];
 
  r=(dp<=3 && /*9*(c->h)<=4*h*/27*c->h<=13*h && c->w>=MIN(4,h/3) &&
     (5*(c->w)>=2*h || dp==2 && c->w>c->h))?1:0;
@@ -1362,7 +1362,7 @@ static INT chkdash(INT h,INT dp,cell *c)
 static INT chkquot(INT h,INT dp,cell *c)
  {
  uint16_t ls,i,j,k,i1,j1,k1,min,l,s,r,lu,ru,ld,rd;
- BYTE str[80];
+ uchar str[80];
 
  if (snap_activity('e'))
   {
@@ -1427,7 +1427,7 @@ static INT chkquot(INT h,INT dp,cell *c)
 static INT chkstar(INT h,INT dp,cell *c)
  {
  INT ls,i,j,l,r,x,y,n,p;
- BYTE str[80];
+ uchar str[80];
 
  if (snap_activity('e'))
   {
@@ -1512,7 +1512,7 @@ ret:
 static INT chkplus(INT h,INT dp,cell *c)
  {
  INT ls,i,j,l,r,x,y,lu,ru,ld,rd;
- BYTE str[80];
+ uchar str[80];
 
  if (snap_activity('e'))
   {
@@ -1572,7 +1572,7 @@ static INT chkplus(INT h,INT dp,cell *c)
 static INT chkslash(INT h,INT dp,cell *c)
  {
  INT r,ls,i,j,s;
- BYTE str[80];
+ uchar str[80];
 
  r=0;
  if ((dp==1 || dp==2) && c->h>=4 && c->h>=h/2-2 && c->w>=h-2)
@@ -1601,12 +1601,12 @@ static INT chkslash(INT h,INT dp,cell *c)
 static INT chkcircle(INT h,INT dp,cell *c)
  {
  INT r,i;
- BYTE flgsv,str[80];
+ uchar flgsv,str[80];
 
  r=0;
  if (dp<4 && c->h>=h/2-1)
   {
-  flgsv=(BYTE)c->flg;
+  flgsv=(uchar)c->flg;
   short_recog_cell(c);
   c->flg=flgsv;
   for (i=0; i<c->nvers; i++)
@@ -1625,7 +1625,7 @@ static INT chkcircle(INT h,INT dp,cell *c)
 static INT chkquock(INT h,INT dp,cell *c)
  {
  INT r,sl,sr,i,j,l;
- BYTE str[80];
+ uchar str[80];
 
  r=0;
  if (dp==2 && 11*c->h>=4*h && c->h>=c->w)
@@ -1677,11 +1677,11 @@ static INT chkquock(INT h,INT dp,cell *c)
  return r;
  }
 
-INT chkquocks2(cell*c,PBYTE r,INT h,INT w,INT d);
+INT chkquocks2(cell*c,puchar r,INT h,INT w,INT d);
 static INT chkquocks(INT h,INT dp,cell *c)
  {
  INT i,di,i1,i2,j,j1,j2,l,d,r;
- BYTE str[80];
+ uchar str[80];
 
  d=0;
  if (dp==2 && 11*c->h>=4*h && 3*c->w>=2*c->h &&
@@ -1712,7 +1712,7 @@ static INT chkquocks(INT h,INT dp,cell *c)
    }
    if(chkquocks2(c,rstr,c->h,c->w,d)) goto ret;
 {
-extern BYTE multy_language;
+extern uchar multy_language;
    // >> similar з , << similar Є,­
    if( multy_language && d!=0 && c->h>12 )
     {
@@ -1831,7 +1831,7 @@ static void dust_to_bad(cell *c)
 static void intval(cell *c,cell *cb)
  {
  cell *c1,*c2,*c3,/* *sav1,*sav2, */ *cbb;
- BYTE l1,l2,l3;
+ uchar l1,l2,l3;
  INT fe,fm;
  INT h,d,max,s,hh,ww;
 
@@ -2374,7 +2374,7 @@ cell *hide(cell *C)
 	return C;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void hide_dusts(BYTE mode)
+void hide_dusts(uchar mode)
 {
 	cell *C;
 
@@ -2392,7 +2392,7 @@ return;
   while (sv_fantom)
   {
     B=rest_cell(sv_fantom,B);
-    sv_fantom=(PBYTE)(B->complist);
+    sv_fantom=(puchar)(B->complist);
   }
 }
 void clear_twin_flags(void)
@@ -2413,7 +2413,7 @@ void czech_dt_glue_apostroph()
 // ACC_ROOF_INF над d,t в Чешском похож на апостроф. 07.09.2000 E.P.
 
  cell *c,*cc;
- BYTE let;
+ uchar let;
  INT gap=get_gap();
  INT d;
 

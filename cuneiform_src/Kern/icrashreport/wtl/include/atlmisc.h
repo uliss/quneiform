@@ -827,7 +827,7 @@ struct CStringData
 // empty string data (and locked)
 _declspec(selectany) int rgInitData[] = { -1, 0, 0, 0 };
 _declspec(selectany) CStringData* _atltmpDataNil = (CStringData*)&rgInitData;
-_declspec(selectany) LPCTSTR _atltmpPchNil = (LPCTSTR)(((BYTE*)&rgInitData) + sizeof(CStringData));
+_declspec(selectany) LPCTSTR _atltmpPchNil = (LPCTSTR)(((uchar*)&rgInitData) + sizeof(CStringData));
 
 
 class CString
@@ -2258,7 +2258,7 @@ public:
 		if (GetData() != _atltmpDataNil)
 		{
 			if (InterlockedDecrement(&GetData()->nRefs) <= 0)
-				delete[] (BYTE*)GetData();
+				delete[] (uchar*)GetData();
 		}
 	}
 
@@ -2327,7 +2327,7 @@ protected:
 		else
 		{
 			CStringData* pData = NULL;
-			ATLTRY(pData = (CStringData*)new BYTE[sizeof(CStringData) + (nLen + 1) * sizeof(TCHAR)]);
+			ATLTRY(pData = (CStringData*)new uchar[sizeof(CStringData) + (nLen + 1) * sizeof(TCHAR)]);
 			if(pData == NULL)
 				return FALSE;
 
@@ -2451,7 +2451,7 @@ protected:
 		{
 			ATLASSERT(GetData()->nRefs != 0);
 			if (InterlockedDecrement(&GetData()->nRefs) <= 0)
-				delete[] (BYTE*)GetData();
+				delete[] (uchar*)GetData();
 			Init();
 		}
 	}
@@ -2462,7 +2462,7 @@ protected:
 		{
 			ATLASSERT(pData->nRefs != 0);
 			if (InterlockedDecrement(&pData->nRefs) <= 0)
-				delete[] (BYTE*)pData;
+				delete[] (uchar*)pData;
 		}
 	}
 

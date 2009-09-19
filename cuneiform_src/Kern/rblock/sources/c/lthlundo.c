@@ -259,7 +259,7 @@ void LayoutBackup (void)
 //    Save pictures information.
 
      {
-     PBYTE      buffer;
+     puchar      buffer;
 
 //DDD            pCopy -> lPictures = update_pictures(&buffer);
      if(pCopy -> lPictures > 0){

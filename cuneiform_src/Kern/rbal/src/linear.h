@@ -62,13 +62,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 // typedef struct bas_ln_type
 //  {INT startcol, endcol, startf, endf, ncells;
-//   INT ps, b1, b2, b3, b4, n1, n2, n3, n4; BYTE fl_def, fl_ext;
+//   INT ps, b1, b2, b3, b4, n1, n2, n3, n4; uchar fl_def, fl_ext;
 //   cell *c1, *c2, *cf1, *cf2; } bas_ln;
 
 typedef struct bas_ln_type
 {  INT startcol, endcol, startf, endf, ncells;
    INT ps, b1, b2, b3, b4, n1, n2, n3, n4;
-   BYTE fl_def, fl_ext;
+   uchar fl_def, fl_ext;
    CSTR_rast c1, c2, cf1, cf2;
 } bas_ln;
 
@@ -97,9 +97,9 @@ typedef struct hi_ac_t { INT all, b1, a1, b2, a2, bc; } hi_ac;
 #define PROP_MAX 20	// VERY TALL PATTERN criterium
 
 
-extern BYTE db_status;  // snap presence byte
+extern uchar db_status;  // snap presence byte
 extern INT  line_number;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 
 INT defbas(INT filter);
 void diffs_by_vers();
@@ -120,24 +120,24 @@ static void mutual_influence();
 void cut_sunk_let ();
 void all_cell_ledust();
 INT  dust_to_let();
-void histb(INT x1, INT x2, INT flg, BYTE *begs);
+void histb(INT x1, INT x2, INT flg, uchar *begs);
 void set_basarr(bas_ln * bs, INT x, INT l);
 INT  multi_hist(INT p);
-BYTE get_let_tb(BYTE);
+uchar get_let_tb(uchar);
 void insert_basar(INT x1, INT x2);
-INT  get_maxmax(BYTE *begs);
+INT  get_maxmax(uchar *begs);
 INT  cells_for_base (INT base);
 CSTR_rast def_init_cell();
 /*INT  multi_hist();*/
-INT  same_int(CSTR_rast, BYTE);
+INT  same_int(CSTR_rast, uchar);
 void extend_int();
 void cell_bases();
 void set_int();
 void histes();
 void diffs_by_cells();
-INT  comp_Llet(BYTE, CSTR_rast);
+INT  comp_Llet(uchar, CSTR_rast);
 INT  comp_Lbad(CSTR_rast );
-INT  comp_Slet(BYTE, CSTR_rast );
+INT  comp_Slet(uchar, CSTR_rast );
 INT  comp_Sbad(CSTR_rast );
 void complete_int(bas_ln *bp);
 void cell_analyze(CSTR_rast );
@@ -154,7 +154,7 @@ void set_difflg(CSTR_rast , INT filter);
 
 EXTLIN hi_ac  hi_beg[192];
 
-EXTLIN BYTE   lin_begs[192],
+EXTLIN uchar   lin_begs[192],
               lin_ends[192];
 
 // EXTLIN  INT  mindef_col, maxdef_col;
@@ -200,8 +200,8 @@ EXTLIN INT  krit_hist, krit_loc;
 EXTLIN bas_acc_t bas_acc[8];
 EXTLIN INT  first_max, second_max;
 EXTLIN INT forbiset, all_doubts;
-EXTLIN BYTE linpos_arg, multi_bas, hist_done;
-EXTLIN BYTE let_to_dust;
+EXTLIN uchar linpos_arg, multi_bas, hist_done;
+EXTLIN uchar let_to_dust;
 EXTLIN bas_ln all_bases[32];
 
 #define cpsu(i)  ((((i)<3) && ((i)>-3))? i : ((i) * 26 / DPs))
@@ -212,7 +212,7 @@ EXTLIN bas_ln all_bases[32];
 #define cpsf1(i)   cpsaf(i)+1
 #define cpsf2(i)   cpsaf(i)-1
 
-extern BYTE     *let_linpos,    *let_lindef,
+extern uchar     *let_linpos,    *let_lindef,
                 *let_lincomp,   *let_linshape,
                 *let_sans_acc,  *let_lindef3;
 
@@ -231,7 +231,7 @@ void gen_reset(void);
 
 void sort_vers(CSTR_rast c);
 void set_bad_cell(CSTR_rast c);
-void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta);
+void promote (uchar sn, CSTR_rast cl, uchar let, INT delta);
 INT prop_index(INT h, INT w);
 
 void ideal_rc(CSTR_rast c);
@@ -244,13 +244,13 @@ Bool (*snap_monitor_rbal)(void);
 //IGOR
 Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 Bool (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
-Bool (*snap_baselines_rbal)(BYTE a);//IGOR
+Bool (*snap_baselines_rbal)(uchar a);//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 										  uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
-Bool (*snap_show_text_rbal)(BYTE *txt);
-Bool (*snap_activity_rbal)(BYTE a);
+Bool (*snap_show_text_rbal)(uchar *txt);
+Bool (*snap_activity_rbal)(uchar a);
 //Bool snap_newcell (CSTR_rast c);
 
 // from struct.h

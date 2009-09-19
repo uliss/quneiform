@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -69,31 +69,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "ccomdefs.h"
 
-LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
-extern BYTE db_status;	// snap presence byte
-extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, uchar * lp, INT lth, uchar *res    );
+extern uchar db_status;	// snap presence byte
+extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;
 extern INT nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
-extern PBYTE ED_file_bound,ED_file_end/* memory_pool_end*/;
-static PBYTE kit_start, kit_curr;
+extern puchar ED_file_bound,ED_file_end/* memory_pool_end*/;
+static puchar kit_start, kit_curr;
 
 static cell first_cell, last_cell;
 static cell * empty_cell, * free_cell_chain, * cell_boundary;
 extern c_comp wcomp;
 extern version * start_rec, * rec_ptr;
 extern INT lpool_lth;
-extern BYTE lpool[];
+extern uchar lpool[];
 
-static PBYTE save_kit(PBYTE c, INT l);
-static void rest_kit(PBYTE s, PBYTE k);
+static puchar save_kit(puchar c, INT l);
+static void rest_kit(puchar s, puchar k);
 static INT second_recog(cell *c);
 static INT vers_to_cell(cell *c);
-static PBYTE comp_to_kit(MN * mn);
+static puchar comp_to_kit(MN * mn);
 static void comp_from_kit(cell *c);
 
-static BYTE il1_pool[8192]={0};	// 19.07.2001 E.P.
+static uchar il1_pool[8192]={0};	// 19.07.2001 E.P.
 
 char deb_messages[]="Virtal shape set\0Skeleton match got\0"
 				"Create scaled shape\0"
@@ -109,12 +109,12 @@ char deb_messages[]="Virtal shape set\0Skeleton match got\0"
 				"Tilting done\0"
 				"Shape oscilation: %d\0"
 				"Phase shift found\0";
-extern BYTE work_raster_1[];
+extern uchar work_raster_1[];
 
 
 /*======================= Memory management ===========================*/
-PBYTE il1_pool_ptr() { return il1_pool; }
-PBYTE t_raster() { return work_raster_1; }
+puchar il1_pool_ptr() { return il1_pool; }
+puchar t_raster() { return work_raster_1; }
 
 /*====================== Cell internal actions =======================*/
 
@@ -270,7 +270,7 @@ void AKClearVers()
 {
 	cell * Count;
 	char   Let;
-	//BYTE   Prob;
+	//uchar   Prob;
 	int    i;
 
 	// проверяем цепочку на случай зацикливания или обрыва
@@ -315,7 +315,7 @@ void set_bad_cell(cell *c)
 void sort_v_vect(INT n, version *v0)
  {
  version *v,*vs,*vm;
- BYTE l;
+ uchar l;
 
  for (vs=v0+1,vm=v0+n; vs<vm; vs++)
   for (v=vs; v>v0 && (v-1)->prob<v->prob; v--)
@@ -332,7 +332,7 @@ void sort_v_vect(INT n, version *v0)
 void sort_vers(cell *c)
  {
  version *v,*vs,*vm;
- BYTE l;
+ uchar l;
 
  if (c->nvers <= 0)  {set_bad_cell(c); return; }
  for (vs=c->vers+1,vm=c->vers+c->nvers; vs<vm; vs++)
@@ -371,11 +371,11 @@ INT wp,wp1;
        if ((wp1=(pv->prob - wp)) < 0)
         pv->prob = 2;
        else
-        pv->prob = (BYTE)wp1;
+        pv->prob = (uchar)wp1;
       }
      pVer->prob = MAX_PROB;
     }
-   else pVer->prob = (BYTE)resp;
+   else pVer->prob = (uchar)resp;
   }
 }
 
@@ -389,7 +389,7 @@ version *pv;
   }
 }
 /*=================== Start of string processing ======================*/
-extern BYTE *CellsPage_rstr, *CellsPageEnd_rstr;
+extern uchar *CellsPage_rstr, *CellsPageEnd_rstr;
 void setup_string()
 {
 LONG    number_of_cells=((LONG)CellsPageEnd_rstr-(LONG)CellsPage_rstr)/sizeof (cell);
@@ -406,9 +406,9 @@ LONG    number_of_cells=((LONG)CellsPageEnd_rstr-(LONG)CellsPage_rstr)/sizeof (c
 void kit_init() {
   kit_start = kit_curr = ED_file_bound; }
 
-PBYTE give_kit_addr() { return kit_curr; }
+puchar give_kit_addr() { return kit_curr; }
 
-void take_kit_addr(PBYTE a)
+void take_kit_addr(puchar a)
          { kit_curr = a;
          }
 
@@ -461,9 +461,9 @@ void free_cell(cell *c)
 /////////////////////////////////////////////////////////////////////////////////////////
 //======================= Kit function ===============================
 
-static PBYTE save_kit(PBYTE c, INT l)
+static puchar save_kit(puchar c, INT l)
 {
- PBYTE w;
+ puchar w;
  if (ED_file_end - kit_curr - 2 < l)
 	ErrorExit (RSTR_ERR_NOPLACE);
  *(PINT) kit_curr=l; memcpy (kit_curr+2,c,l);
@@ -471,14 +471,14 @@ static PBYTE save_kit(PBYTE c, INT l)
  return w;
 }
 
-static void rest_kit(PBYTE s, PBYTE k)
+static void rest_kit(puchar s, puchar k)
 {
  memcpy(s,k+2,*(PINT)k);
 }
 
-static PBYTE comp_to_kit(MN * mn)
+static puchar comp_to_kit(MN * mn)
 {
- PBYTE sv;
+ puchar sv;
  INT lth;
  MN_to_line(mn);
  lth = sizeof(c_comp) + lpool_lth + 2;
@@ -498,7 +498,7 @@ static PBYTE comp_to_kit(MN * mn)
 
 c_comp * comp_vers_to_kit(MN * mn, c_comp *c)
 {
- PBYTE sv=kit_curr;
+ puchar sv=kit_curr;
  INT lth;
  MN_to_line(mn);
  if (c->size == 1)
@@ -544,7 +544,7 @@ static void comp_from_kit(cell *c)
 	if ( c->env )
 	{
 		memcpy (&wcomp,w,sizeof(c_comp));
-		w = (c_comp *)((PBYTE)w + w->lines);
+		w = (c_comp *)((puchar)w + w->lines);
 		lpool_lth=*(PINT)w;
 		w=(c_comp *)((PINT)w+1);
 		memcpy (lpool,w,lpool_lth);
@@ -556,7 +556,7 @@ static void comp_from_kit(cell *c)
 void online_comp(c_comp *w)
 {
  memcpy (&wcomp,w,sizeof(c_comp));
- w = (c_comp *)((PBYTE)w + w->lines);
+ w = (c_comp *)((puchar)w + w->lines);
  lpool_lth=*(PINT)w; w=(c_comp *)((PINT)w+1);
  memcpy (lpool,w,lpool_lth);
  rec_ptr=start_rec;
@@ -694,7 +694,7 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
 c_comp *compose_comp(INT n,c_comp **c)
  {
  INT lower,right,i,j,l,nl,du,dl,lth;
- PBYTE w,sv;
+ puchar w,sv;
  lnhead *ln;
  interval *intv;
 
@@ -732,7 +732,7 @@ c_comp *compose_comp(INT n,c_comp **c)
  {
   if (c[i]!=NULL)
    {
-   w=(PBYTE)(c[i])+c[i]->lines;
+   w=(puchar)(c[i])+c[i]->lines;
    l+=*((INT *)w)-((i==n-1)?0:2);
   }
  }
@@ -741,14 +741,14 @@ c_comp *compose_comp(INT n,c_comp **c)
  for (i=0; i<n; i++,lpool_lth+=l)
   if (c[i]!=NULL)
    {
-   w=(PBYTE)(c[i])+c[i]->lines;
+   w=(puchar)(c[i])+c[i]->lines;
    nl=c[i]->nl;
    du=c[i]->upper-wcomp.upper;
    dl=c[i]->left-wcomp.left;
    l=*((INT *)w)-((i==n-1)?0:2);
-   memcpy((PBYTE)lpool+lpool_lth,w+2,l);
-   for (ln=(lnhead*)((PBYTE)lpool+lpool_lth),j=0; j<nl;
-					 j++,ln=(lnhead *)((PBYTE)ln+lth))
+   memcpy((puchar)lpool+lpool_lth,w+2,l);
+   for (ln=(lnhead*)((puchar)lpool+lpool_lth),j=0; j<nl;
+					 j++,ln=(lnhead *)((puchar)ln+lth))
     {
     ln->row+=du;
     lth=ln->lth;
@@ -756,13 +756,13 @@ c_comp *compose_comp(INT n,c_comp **c)
      ln->flg|=l_cbeg;
     if (j==nl-1)
      ln->flg|=l_cend;
-    for (intv=(interval *)((PBYTE)ln+sizeof(lnhead)); intv->l; intv++)
+    for (intv=(interval *)((puchar)ln+sizeof(lnhead)); intv->l; intv++)
      intv->e+=dl;
     }
    }
 
  *((INT *)lpool)=lpool_lth-2;
- if( (PBYTE)(ED_file_end - kit_curr)<(PBYTE)(lpool_lth+sizeof(c_comp)) )
+ if( (puchar)(ED_file_end - kit_curr)<(puchar)(lpool_lth+sizeof(c_comp)) )
   ErrorExit (RSTR_ERR_NOPLACE);
  sv=kit_curr;
  wcomp.size = (sizeof(c_comp) + lpool_lth + 15) / 16; // Vald
@@ -817,10 +817,10 @@ cell * del_cell(cell *c)
 }
 
 
-PBYTE del_save_cell(cell *c)
+puchar del_save_cell(cell *c)
 {
- PBYTE p;
- p =  save_kit((PBYTE)c,sizeof(cell));
+ puchar p;
+ p =  save_kit((puchar)c,sizeof(cell));
  del_cell(c);
  return p;
 }
@@ -828,7 +828,7 @@ PBYTE del_save_cell(cell *c)
 cell * rest_cell(void *k, cell *ci)
 {
  cell * c = new_cell();
- rest_kit((PBYTE) c, k);
+ rest_kit((puchar) c, k);
  insert_cell(c,ci);
  return c;
 }
@@ -1056,7 +1056,7 @@ INT short_recog_cell (cell *c)
  comp_from_kit(c);
  {
 INT n,i;
-BYTE res[20];
+uchar res[20];
 CCOM_comp cc;
 //запись в структуру CCOM_comp данных для EVNRecog_lp
 cc.h = c->env->h;
@@ -1143,12 +1143,12 @@ INT recop_cell(cell *c)
 }
 
 /*================ Make raster function =======================*/
-PBYTE save_raster(cell *c)
+puchar save_raster(cell *c)
 {
  comp_from_kit(c); return make_raster();
 }
 
-PBYTE save_raster_align8(cell *c)
+puchar save_raster_align8(cell *c)
 {
  comp_from_kit(c);
  wcomp.rw = ((wcomp.w+63)/64)*8;
@@ -1190,7 +1190,7 @@ for(i=0;i<n;i++)
 return FALSE;
 }
 
-void del_version(  cell *c,BYTE let)
+void del_version(  cell *c,uchar let)
 {
  INT i,nvers;
  version *v ;

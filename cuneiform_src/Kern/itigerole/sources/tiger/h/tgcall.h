@@ -394,8 +394,8 @@ struct ED_Character
 {
     uint16_t    wCharNumber;  // Character number
     ED_RECT rFrame;       // Character frame
-    BYTE    bCharacter;   // Character itself
-    BYTE    bProbability; // Character recognition quality
+    uchar    bCharacter;   // Character itself
+    uchar    bProbability; // Character recognition quality
 };
 //////////////////////////////////////////////////////////////////////////////
 typedef struct ED_Character       ED_CHARACTER;

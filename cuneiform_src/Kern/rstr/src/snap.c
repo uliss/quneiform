@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "func.h"
 #include "struct.h"
 #include "status.h"
@@ -80,16 +80,16 @@ static void snap_sticks(cell *,char *);
 
 
 // from module PASSE
-Bool _spell(pchar s,BYTE lang);
-Bool _spell_agressive(pchar s,BYTE lang);
-Bool short_spell(BYTE *wrd,BYTE language );
-Bool short_spell_re(BYTE *wrd,BYTE language );
+Bool _spell(pchar s,uchar lang);
+Bool _spell_agressive(pchar s,uchar lang);
+Bool short_spell(uchar *wrd,uchar language );
+Bool short_spell_re(uchar *wrd,uchar language );
 
-BYTE mwInput[80];
+uchar mwInput[80];
 extern INT      line_number;
 extern INT      show_cut_points;
-extern BYTE     db_pass      ;
-extern BYTE     db_trace_flag, language;
+extern uchar     db_pass      ;
+extern uchar     db_trace_flag, language;
 extern  struct  cut_elm *my_cut_points;
 extern  INT             show_cut_points;
 extern  INT             flag_cut_point;
@@ -104,9 +104,9 @@ extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
       RecVersions* EVNres       );
 // from RCM.C
 extern  void    ErrorExit(int Code);
-extern  BYTE    decode_ASCII_to_[256][4];
+extern  uchar    decode_ASCII_to_[256][4];
 extern  char    StopPoint;
-extern  BYTE    CodePages[];
+extern  uchar    CodePages[];
 //extern  INT     gbCol1,gbCol2;
 
 static  Bool    exit_enable         = FALSE;
@@ -114,7 +114,7 @@ static  Bool    cut_enable          = FALSE;
 static  Bool    snap_disable        = FALSE;
 static  Bool    snap_continue       = FALSE;
 Bool    snap_page_disable   = FALSE;
-static  BYTE    db_skip_client;
+static  uchar    db_skip_client;
 static  CSTR_line   snap_line;
 static  cell        currcell;//,*db_stopcell;
 static  Point32 cutpoints_show[128];
@@ -124,11 +124,11 @@ static  int32_t   select_line=0, num_select_lines=0;
 cell   *stopcell=NULL;
 static  int stop_number=0, curr_pass=-1;
 
-static  BYTE *snap_pass[]={
+static  uchar *snap_pass[]={
 "Cut","Glue","Context","Line","Punct","Space","Lineout","(TM)(R)","Italic","Bold","Serif","Solid","Pass2","Digital","BLCut","\0"
 // a   b      c         d      e       f       g          h        i        j      k       l       m       n         o
 };
-static  BYTE *snap_fict[]={
+static  uchar *snap_fict[]={
 "Fict0","Fict1","Fict2","Fict3","Fict4","Fict5","Fict6","Fict7","Fict8","Fict9","Fict10","Fict11","Fict12","Fict13","Fict14","\0"
 // a    b       c       d       e       f       g       h       i       j       k        l        m         n        o
 };
@@ -159,7 +159,7 @@ Handle hSnapSerifTrace;
 Handle hSnapLEO;
 Handle hSnapSmartCut;
 //IGOR
-static  BYTE *snap_bl[]={
+static  uchar *snap_bl[]={
 "STAT Base Lines","PUMA & STAT Base Lines", "PUMA & STAT Base Lines & Differences","\0"
 // a   b
 };
@@ -212,7 +212,7 @@ static Bool ASCII2ANSI(char *ascii,char *ansi)
 *ansi='\0';
 for(;*ascii ;ascii++)
     {
-    strcat(ansi, decode_ASCII_to_[(BYTE)*ascii] );
+    strcat(ansi, decode_ASCII_to_[(uchar)*ascii] );
     }
 return TRUE;
 }
@@ -372,7 +372,7 @@ static void snap_recogEVN(CSTR_rast r,cell * cl)
     if( !pidx_skip(cl->h, cl->w,rv.Alt[i].Code) )
         {
         sprintf(buf,"PROP KILL : %s,pidx=%d",
-            decode_ASCII_to_[(BYTE)rv.Alt[i].Code],
+            decode_ASCII_to_[(uchar)rv.Alt[i].Code],
             prop_index(cl->h,cl->w));
         RUS_Console(buf);
         }
@@ -390,7 +390,7 @@ for(i=0;i<c->nvers;i++)
     {
     if( !pidx_skip(c->h, c->w,c->vers[i].let) )
         {
-        sprintf(buf,"PROP KILL : %s",decode_ASCII_to_[(BYTE)c->vers[i].let]);
+        sprintf(buf,"PROP KILL : %s",decode_ASCII_to_[(uchar)c->vers[i].let]);
         RUS_Console(buf);
         }
     }
@@ -403,7 +403,7 @@ static void snap_recog3X5(cell *b)
  {
  s_glue GL={0};
  cell   sb=*b;
- BYTE save_db_pass=db_pass;
+ uchar save_db_pass=db_pass;
 
  db_pass='a';
  internal_skip[0]=FALSE;
@@ -633,7 +633,7 @@ UniVersions     uvs;
 RecRaster       rRaster;
 CSTR_rast_attr  attr;
 static Bool32   shift=0;
-BYTE            str[1200];
+uchar            str[1200];
 static CSTR_rast s_r = (CSTR_rast)0;
 unsigned int    i,ii;
 static Bool     no_process=TRUE;
@@ -1207,7 +1207,7 @@ return TRUE;
 
 
 // вывести текст
-Bool snap_show_text(BYTE *txt)
+Bool snap_show_text(uchar *txt)
 {
 char text[256],texto[80*40];
 if( snap_disable
@@ -1240,10 +1240,10 @@ while(1)
 text[0]='\0';
 for(;*txt && *txt!='\n';txt++)
     {
-    if( strlen(text)+strlen(decode_ASCII_to_[(BYTE)*txt])>256 )
+    if( strlen(text)+strlen(decode_ASCII_to_[(uchar)*txt])>256 )
            break;
-    strcat(text, decode_ASCII_to_[(BYTE)*txt] );
-    strcat(texto, decode_ASCII_to_[(BYTE)*txt] );
+    strcat(text, decode_ASCII_to_[(uchar)*txt] );
+    strcat(texto, decode_ASCII_to_[(uchar)*txt] );
     }
 if( !text[0] )
     break;
@@ -1275,7 +1275,7 @@ return !( (p.x < r.r_col)||(p.x > r.r_col+r.r_wid )||
 }
 
 // активен ли клиент
-Bool snap_activity(BYTE a)
+Bool snap_activity(uchar a)
 {
 Bool32 ret;
 if( snap_disable || snap_page_disable || db_skip_client || (a-'a')>=snap_clients)
@@ -1334,7 +1334,7 @@ return;
 }
 
 // вывести растр
-Bool snap_show_raster(PBYTE raster, INT height, INT width)
+Bool snap_show_raster(puchar raster, INT height, INT width)
 {
 DPUMA_RecRaster rs={0};
 
@@ -1420,7 +1420,7 @@ return ;
 }
 
 // начало нового шага
-Bool snap_newpass(BYTE pass)
+Bool snap_newpass(uchar pass)
 {
 if( snap_disable || snap_page_disable  )
     return FALSE;
@@ -1468,7 +1468,7 @@ return;
 
 
 // knot for Alik debug. Absent pass 'j'
-Bool Alik_snap_show_raster(PBYTE raster,PBYTE raster1,PBYTE buf,INT height,
+Bool Alik_snap_show_raster(puchar raster,puchar raster1,puchar buf,INT height,
                            INT width,pchar product,pchar product_two,
                            PINT penalty)
 
@@ -1477,7 +1477,7 @@ return FALSE;
 }
 
 // knot for EVENT snap
-void snap_keep(BYTE user, PBYTE addr, uint16_t lth)
+void snap_keep(uchar user, puchar addr, uint16_t lth)
 {
 if( snap_disable || snap_page_disable || db_skip_client)
     return ;
@@ -1493,7 +1493,7 @@ return TRUE;
 }
 
 //IGOR
-Bool snap_baselines(BYTE a)
+Bool snap_baselines(uchar a)
 {
 	if(!hSnapLineBL[a - 'a'])
 		return FALSE;

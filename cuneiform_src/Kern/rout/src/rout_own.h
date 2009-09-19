@@ -189,7 +189,7 @@ EXTERN Byte *gMemCur	VAL(0);		// Текущий конец данных
 // Настройка перекодировки, загружаемая из REC6.DAT
 // для Узбекского и Казахского.
 EXTERN long gCountTigerToUserCharSet	VAL(0);
-EXTERN BYTE **gTigerToUserCharSet VAL({0});	// [3][128]; // SPELABC.C
+EXTERN uchar **gTigerToUserCharSet VAL({0});	// [3][128]; // SPELABC.C
 
 // Для удобства
 EXTERN Bool langUzbek	VAL(FALSE);

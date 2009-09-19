@@ -96,7 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* ╟╟╟                                                          ╟╟╟ */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 
-static BYTE tab_F[]=	// MK new Discrim dis_F, use l_f_symptom 11.01.1993
+static uchar tab_F[]=	// MK new Discrim dis_F, use l_f_symptom 11.01.1993
 	{
 	0,	// 0. l_f_symptom=0: NO DISCRIM
 	30,	// 1. =1
@@ -109,7 +109,7 @@ static BYTE tab_F[]=	// MK new Discrim dis_F, use l_f_symptom 11.01.1993
 	40	// 6. for GLUE
 	};			// (and for other cases)
 
-static BYTE tab_I[]=				// dis_I
+static uchar tab_I[]=				// dis_I
 	{
 	20,	// 0. long halfserif
 	8, 	// 1. too different flaghs
@@ -131,7 +131,7 @@ static BYTE tab_I[]=				// dis_I
 	6	// 17. about thin '(' or ')'	09.06.1993
 	};
 
-static BYTE tab_J[]=				// dis_J
+static uchar tab_J[]=				// dis_J
 	{
 	100, /* 0. no left downer flag                 */
 	20,  /* 1. too near left downer flag           */
@@ -141,7 +141,7 @@ static BYTE tab_J[]=				// dis_J
 	6    /* 5. for any near central flag           */
 	};
 
-static BYTE tab_L[]=				// dis_L
+static uchar tab_L[]=				// dis_L
 	{
 	40, /* 0. for long central flag		*/
 	6,  /* 1. for near central flag		*/
@@ -153,7 +153,7 @@ static BYTE tab_L[]=				// dis_L
 	100 /* 7. too LONG down right flag	*/
 	};
 
-static BYTE tab_T[]=				// for dis_T
+static uchar tab_T[]=				// for dis_T
 	{
 	40,	// 0. for long central flag
 	6,	// 1. for near central flag
@@ -171,7 +171,7 @@ static BYTE tab_T[]=				// for dis_T
 	60	// 10. similar '7'			// 60;
 	};
 
-static BYTE tab_Y[] =				// dis_Y
+static uchar tab_Y[] =				// dis_Y
 	{
 	40, /* 0. for long central flag		*/
 	6,  /* 1. for near central flag		*/
@@ -183,7 +183,7 @@ static BYTE tab_Y[] =				// dis_Y
 
 /*......................................................................*/
 
-static BYTE tab_circle_brace[]=
+static uchar tab_circle_brace[]=
 	{
 	70, /* 0. up or down serif                 */
 	10, /* 1. '(' similar    't'               */
@@ -194,14 +194,14 @@ static BYTE tab_circle_brace[]=
 	28  /* 6. bad budgles                      */
 	};
 
-static BYTE tab_slash[] =
+static uchar tab_slash[] =
 	{
 	20, /* 0. for long central flag       */
 	0,  /* 1. for near central flag       */
 	40  /* 2. central beam                */
 	};
 
-static BYTE tab_sq_brace[]=
+static uchar tab_sq_brace[]=
 	{
 	44,  /* 0. no flag : б 	MK: 44 from 29.09.1993 (old 4)	*/
 	8,   /* 1. bad paar flags : бд  for ], дб for [         */
@@ -212,7 +212,7 @@ static BYTE tab_sq_brace[]=
 	222  /* 6. MK ADD 30.09.1993 for TERRIBLE case		*/
 	};
 
-static BYTE tab_vert[]=
+static uchar tab_vert[]=
 	{
 	60, /* 0. for any serif               */
 	40, /* 1. for long central flag       */

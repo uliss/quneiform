@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*	STIC_MAK.C	18.01.1994	from STIC_DEF.C			*/
 /*----------------------------------------------------------------------*/
 
-#include "nt_types.h"
+
 
 			// here was DEBUG_GRAPH
   #include <stdlib.h>
@@ -71,10 +71,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////  #include "inc_tab_rstr.h"
 extern INT nIncline  ;
 
-extern BYTE fax1x2;	// MK NEW 14.01.1993
+extern uchar fax1x2;	// MK NEW 14.01.1993
 
 extern int  inc_num_EEM;	// in ST_TOOLS.C;
-extern BYTE inc_char_EEM;	// in ST_TOOLS.C;
+extern uchar inc_char_EEM;	// in ST_TOOLS.C;
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
@@ -107,51 +107,51 @@ struct  shift_inform   /* work struct for function find_opt_shift */
 	};
 /*----------------------------------------------------------------------*/
 INT make_center_line (center_interval center[], INT nc,
-		      BYTE left[], BYTE right[],
+		      uchar left[], uchar right[],
 		      INT  dy, INT dx,  INC_BASE *angles[],INT num_angles,
 		      INT  tab_angle[],
 		      Bool comp_wide, Bool sig_T, Bool sig_f, Bool sig_r,
-          INT  *wid, INT hooks[], INT *inc_v, BYTE enable_corrcet);
+          INT  *wid, INT hooks[], INT *inc_v, uchar enable_corrcet);
 
-INT	abris_convexity(BYTE fun[],INT n,INT w);
+INT	abris_convexity(uchar fun[],INT n,INT w);
 Bool	bad_overlay(INT over,INT width,INT dy,INT sig_wide,Bool c_f);
 INT	centers_len_to_hist(center_interval fun[],INT n,INT dy,INT dx,
-			  BYTE hist[]);
+			  uchar hist[]);
 INT	overlay_interval(center_interval c[],INT nc, INT col,INT typ,
 			    INT tab_angle[]);
 
-static INT abris_inc_line(BYTE fun[],INT n,INT inc[],Bool s_l);
+static INT abris_inc_line(uchar fun[],INT n,INT inc[],Bool s_l);
 static INT calc_inc_periods(INT inc[],INT dy,INT inc_periods[]);
 static void compress_centers(center_interval center[],INT nc,INT inc[],INT n,
 		    center_interval cent[],INT hooks[]);
 static INT correct_result (center_interval cent[], INT inc[], INT dy);
 static INT correct_result_MK (center_interval cent[], INT inc[], INT dy);
 static INT correct_result_BACK (center_interval cent[], INT inc[], INT dy);
-static INT enable_shift(BYTE l[],BYTE r[],INT h,INT w,INT inc[]);
+static INT enable_shift(uchar l[],uchar r[],INT h,INT w,INT inc[]);
 static INT find_opt_shift(INC_BASE *angles[],INT num_angles,
 		INT dy, INT dx, center_interval center[], INT nc, INT wid,
 		Bool sig_T,Bool sig_f,INT tab_angle[],
-		BYTE hist[], struct shift_inform *res);
+		uchar hist[], struct shift_inform *res);
 //////static INT intermediate_center_d(center_interval *c,INT inc);
 //////static INT intermediate_center_u(center_interval *c,INT inc);
-static void make_hist(center_interval center[], INT nc, BYTE hist[], INT inc[],
+static void make_hist(center_interval center[], INT nc, uchar hist[], INT inc[],
 		INT dx, INT len, INT typ);
 static void make_hist_centers_LIMITED (center_interval center[], INT nc,
-		BYTE hist[], INT inc[], INT dx, INT len_limit);
+		uchar hist[], INT inc[], INT dx, INT len_limit);
 static INT make_result( INT n,INT opt,INT res[]);
 //////static INT make_tab_angles(INC_BASE angle[], INT hei, INT tab[]);
 static void make_tab_angles(INC_BASE angle[], INT hei, INT tab[]);
 
-	INT max_center_hist(BYTE fun[],INT n,
+	INT max_center_hist(uchar fun[],INT n,
 		    center_interval center[],INT nc,INT tab[],INT typ);
-static	INT max_center_hist_new(BYTE fun[],INT n,	// MK PROBA 15.01.1993
+static	INT max_center_hist_new(uchar fun[],INT n,	// MK PROBA 15.01.1993
 		    center_interval center[],INT nc,INT tab[],INT typ);
 ////////////////////center_interval center[],INT nc,INT tab[],INT len_limit);
 
-static INT calc_LENs_LIMITED (BYTE fun[], INT n, INT sum);
+static INT calc_LENs_LIMITED (uchar fun[], INT n, INT sum);
 
 static INT num_of_short_int(center_interval center[],INT nc,INT lim);
-static INT width_of_hist(BYTE hist[],INT len);
+static INT width_of_hist(uchar hist[],INT len);
 /*----------------------------------------------------------------------*/
 
 /**************************************/
@@ -163,17 +163,17 @@ static INT width_of_hist(BYTE hist[],INT len);
 
 /* GLOBAL VARIABLES : */	/****** see STIC_DEF.C ******/
 /******************************************************	BEFORE 18.10.1993:
-extern	BYTE hist_BBB[2*LIMIT_HEIGHT];	// array for histogramm
+extern	uchar hist_BBB[2*LIMIT_HEIGHT];	// array for histogramm
 					// NO STATIC from 23.03.1993
 extern	center_interval cent_BBB[LIMIT_HEIGHT];	// center of intervals
-extern	BYTE left1[LIMIT_HEIGHT],	// auxiliary left and
+extern	uchar left1[LIMIT_HEIGHT],	// auxiliary left and
 	    right1[LIMIT_HEIGHT];	//    right abris-arrays
 	    *************************************************************/
 					// from 18.10.1993:
-extern	BYTE GL_hist [2*LIMIT_HEIGHT];	// array for histogramm
+extern	uchar GL_hist [2*LIMIT_HEIGHT];	// array for histogramm
 					// NO STATIC from 23.03.1993
 extern	center_interval GL_cent [LIMIT_HEIGHT];	// center of intervals
-extern	BYTE GL_left1 [LIMIT_HEIGHT],	// auxiliary left and
+extern	uchar GL_left1 [LIMIT_HEIGHT],	// auxiliary left and
 	     GL_right1[LIMIT_HEIGHT];	//    right abris-arrays
 /*......................................................................*/
 static INT inc_periods[LIMIT_HEIGHT];
@@ -198,11 +198,11 @@ static INT inc_periods[LIMIT_HEIGHT];
 //////static INT make_center_line(center_interval center[],INT nc,
 /*----------------------------------------------------------------------*/
 INT make_center_line (center_interval center[], INT nc,		// 22.11.1993
-			BYTE left[], BYTE right[],
+			uchar left[], uchar right[],
 			INT  dy, INT dx, INC_BASE *angles[], INT num_angles,
 			INT  tab_angle[],
 			Bool comp_wide, Bool sig_T, Bool sig_f, Bool sig_r,
-      INT  *wide, INT hooks[], INT *inc_v, BYTE enable_correct)
+      INT  *wide, INT hooks[], INT *inc_v, uchar enable_correct)
 {
 struct shift_inform tmp;
 INT imax=-1;
@@ -417,11 +417,11 @@ return (0);	/* normal return */
 }
 /*-----------------------------------------------------------------------*/
 /* if abris(fun[0:n-1]) is arc curve(w-limit wide) return 1 else return 0  */
-INT abris_convexity(BYTE fun[],INT n,INT w)
+INT abris_convexity(uchar fun[],INT n,INT w)
 {
-BYTE i,ff,fo,imin,num,minim,eq;
+uchar i,ff,fo,imin,num,minim,eq;
 
-minim = (BYTE)find_minimum( fun, n, &imin );
+minim = (uchar)find_minimum( fun, n, &imin );
 
 if( w>0 )
 	{
@@ -483,7 +483,7 @@ return(ret);
 /* out : hist[] - histogramm of length    */
 /* return : size of histogram             */
 INT centers_len_to_hist(center_interval center[],INT nc,INT dy,INT dx,
-			  BYTE hist[])
+			  uchar hist[])
 {
 INT i;
 center_interval *p_center=&center[0],*p_end=&center[nc];	// OLEG OLD
@@ -531,7 +531,7 @@ return(num>>1);
 /*----------------------------------------------------------------------*/
 /*----------------------------------------------------------------------*/
 /*  if abris(fun[0:n-1]) similar inc line(inc[0:n-1]) ret 1 else ret 0  */
-static INT abris_inc_line (BYTE fun[], INT n, INT inc[], Bool sig_left)  {
+static INT abris_inc_line (uchar fun[], INT n, INT inc[], Bool sig_left)  {
 							// 27.10.1993
 					// MK EDITION:
 					// LEFT - Exactly 0;
@@ -990,7 +990,7 @@ return(1);
 /* return : 0 - normally ( enable shift )            */
 /*          1(2) - recognize left(right) arg         */
 /*          3 - recognize left or right line         */
-static INT enable_shift(BYTE left[],BYTE right[],INT h,INT w,
+static INT enable_shift(uchar left[],uchar right[],INT h,INT w,
 			INT inc[])
 {
 if( abris_convexity(left,h,w) )
@@ -1016,7 +1016,7 @@ static INT find_opt_shift(INC_BASE *angles[],INT num_angles,
 			  INT dy, INT dx, center_interval center[], INT nc,
 			  INT wid,Bool sig_T,Bool sig_f,
 			  INT tab_angle[],
-			  BYTE hist[], struct shift_inform *res)
+			  uchar hist[], struct shift_inform *res)
 {
 
 INT i, maxim=res->max, imax, over, ovmax, op, optmax, curr_max, pr;
@@ -1100,7 +1100,7 @@ return( c->len!=0 && (c->col<<1) - inc >= 4  ); /* step inc = 4  */
 /*	type=1 - selected centers by length,0 - non selected	*/
 /*								*/
 /* out : hist[]-histogramm of centers				*/
-static void make_hist (center_interval center[],INT nc, BYTE hist[], INT ang[],
+static void make_hist (center_interval center[],INT nc, uchar hist[], INT ang[],
 		      INT dx,INT len, INT typ)
 {
 INT k;
@@ -1132,7 +1132,7 @@ return ;
 }
 /*----------------------------------------------------------------------*/
 static void make_hist_centers_LIMITED (center_interval center[], INT nc,
-		BYTE hist[], INT ang[], INT dx, INT len_limit)  {
+		uchar hist[], INT ang[], INT dx, INT len_limit)  {
 							// 15.10.1993
 INT k;							// see make_hist ();
 center_interval *p_center=&center[0], *p_end=&center[nc];	// OLEG
@@ -1208,11 +1208,11 @@ INT j;
 /*       center[0:nc-1] - array of center,                 */
 /*       tab_angle[0:dy-1] - tab of angle                  */
 /* return : position of maximun in hist                    */
-//////////////////////static INT max_center_hist(BYTE fun[],INT n,
-INT	max_center_hist (BYTE fun[], INT n,
+//////////////////////static INT max_center_hist(uchar fun[],INT n,
+INT	max_center_hist (uchar fun[], INT n,
 		center_interval center[], INT nc, INT tab_angle[], INT typ)
 {
-INT i,im=-1,maxim=-1,ov=-1,over,io,ic;       BYTE ff;
+INT i,im=-1,maxim=-1,ov=-1,over,io,ic;       uchar ff;
 if( typ )
 {
 for (i=0; i<n;)
@@ -1237,7 +1237,7 @@ for (i=0; i<n;)
 else
 {	/* typ==0 : overlay chars are non interessant */
 
-BYTE *b_fun=&fun[0],*e_fun=&fun[n],*p_fun,*p_old;
+uchar *b_fun=&fun[0],*e_fun=&fun[n],*p_fun,*p_old;
 
 for (p_fun=b_fun; p_fun<e_fun;)
 	{
@@ -1255,13 +1255,13 @@ for (p_fun=b_fun; p_fun<e_fun;)
 return(im);
 }
 /*----------------------------------------------------------------------*/
-static INT max_center_hist_new (BYTE fun[], INT n,	// 15.10.1993
+static INT max_center_hist_new (uchar fun[], INT n,	// 15.10.1993
 		center_interval center[], INT nc, INT tab_angle[],
 		INT typ)  {
 //////		INT wid)  {		// NEW PARAMETR 20.01.1993 (DELETED)
 ////INT	i, im=-1, maxim=-1, ov=-1, over, io, ic;	// OLEG: maxim=-1;
 INT	i, im=-1, maxim=0,  ov=-1, over, io, ic;	// MK:   maxim=0;
-BYTE	ff;
+uchar	ff;
 /*......................................................................*/
 if( typ )  {				// FOR WIDE LETTERS (UNUSED NOW ???)
 for (i=0; i<n;)  {			// NB: this part - for CENTERs ONLY !!!
@@ -1285,10 +1285,10 @@ for (i=0; i<n;)  {			// NB: this part - for CENTERs ONLY !!!
 /*......................................................................*/
 else	{     /* typ==0 : overlay chars are non interessant */
 
-//////BYTE	*b_fun=&fun[0], *e_fun=&fun[n], *p_fun, *p_old;
-BYTE	fold, ftek, fnext;
-BYTE	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
-//////BYTE	porog_4 = (nc - 2) >> 2;	// for 18 porog_2=4;
+//////uchar	*b_fun=&fun[0], *e_fun=&fun[n], *p_fun, *p_old;
+uchar	fold, ftek, fnext;
+uchar	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
+//////uchar	porog_4 = (nc - 2) >> 2;	// for 18 porog_2=4;
 
 //////for (p_fun=b_fun; p_fun<e_fun;)  {	// IT WAS POIINTER-CICLE...
 
@@ -1317,14 +1317,14 @@ BYTE	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
 return (im);
 }
 /*----------------------------------------------------------------------*/
-static INT calc_LENs_LIMITED (BYTE fun[], INT n, INT sum)  {	// 15.10.1993
+static INT calc_LENs_LIMITED (uchar fun[], INT n, INT sum)  {	// 15.10.1993
 
 					// see max_center_hist_new (Part 2);
 
 INT	i, im=-1, maxim=0;	// MK:   maxim=0;
-BYTE	fold, ftek, fnext;
-///BYTE	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
-BYTE	porog_2 = (sum - 1) >> 1;	// for 18 porog_2=8;
+uchar	fold, ftek, fnext;
+///uchar	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
+uchar	porog_2 = (sum - 1) >> 1;	// for 18 porog_2=8;
 /*......................................................................*/
 	ftek = 0;	// for ftek => fold
 	for (i=0; i<=n; i++)  {
@@ -1360,10 +1360,10 @@ return(n);
 }
 /*----------------------------------------------------------------------*/
 /* Number of nonzero components in hist.           */
-static INT width_of_hist(BYTE hist[],INT len)
+static INT width_of_hist(uchar hist[],INT len)
 {
 INT num;
-BYTE *p_hist=&hist[0],*p_end=&hist[len];
+uchar *p_hist=&hist[0],*p_end=&hist[len];
 
 for(num=0;p_hist!=p_end;p_hist++)
 	if( *p_hist )

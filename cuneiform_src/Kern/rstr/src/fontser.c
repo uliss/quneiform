@@ -57,10 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdlib.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "cstr.h"
-//#include "cpage.h"
 #include "func.h"
 #include "linutil.h"
 #include "fon.h"
@@ -76,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Handle hSnapSerifTrace;
 extern INT    erection_inc;
-extern BYTE   p2_active;
+extern uchar   p2_active;
 
 Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec);
 
@@ -137,8 +135,8 @@ static cell *serif_word(cell *c);
 static LONG new_serif(cell *c);
 static LONG fon_test(cell *c);
 static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm);
-static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st);
-static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st);
+static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st);
+static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st);
 static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st);
 static void ideal2rc(Point16 *p);
 static void bound_cell(cell *c, uint32_t color);
@@ -174,7 +172,7 @@ static cell *serif_word(cell *c)
 
     if (c->flg & (c_f_let | c_f_bad))
     {
-      BYTE let;
+      uchar let;
       c->font &= ~(c_fp_gelv | c_fp_ser);
       if (!(c->font & c_fp_it) || is_upper(let=c->vers[0].let) ||
 			strchr("Јав",let) &&
@@ -218,7 +216,7 @@ static cell *serif_word(cell *c)
 
       if (c->flg & (c_f_let | c_f_bad))
       {
-        BYTE let;
+        uchar let;
         if (!(c->font & c_fp_it) || is_upper(let=c->vers[0].let) ||
 				strchr("Јав",let) &&
 					!is_russian_baltic_conflict(let)&&// 17.07.2001 E.P.
@@ -248,7 +246,7 @@ static cell *serif_word(cell *c)
 
   if (serif != 0)
   {
-    BYTE font;
+    uchar font;
     if (reliable)  font = (serif>0) ? c_fp_ser : c_fp_gelv;
     else           font = c_fp_ser | c_fp_gelv;
 
@@ -277,7 +275,7 @@ static cell *serif_word(cell *c)
 
 static LONG new_serif(cell *c)
 {
-  BYTE let=let_sans_acc[c->vers[0].let];
+  uchar let=let_sans_acc[c->vers[0].let];
   uint16_t map=tabserif[let];
   LONG meas=0,np=0,nm=0;
 
@@ -288,7 +286,7 @@ static LONG new_serif(cell *c)
 
   if (map=tabvserif[let])
   {
-    BYTE *rast=save_raster(c);
+    uchar *rast=save_raster(c);
     INT t_height=c->w,t_width_b = (c->h+7)/8;
     MN   *mn;
 
@@ -330,7 +328,7 @@ static LONG fon_test(cell *c)
 {
   FonTestInfo testInfo[MAXCHECKALT];
   RecRaster recRast;
-  BYTE let=let_sans_acc[c->vers[0].let];
+  uchar let=let_sans_acc[c->vers[0].let];
   uint16_t map=tabserif[let];
   LONG i,nitem=0,serific,nbit=8*sizeof(map);
 
@@ -343,7 +341,7 @@ static LONG fon_test(cell *c)
   // Nick 20.9.99
   // уже искались атрибуты ?
   if( c->clu_attr )
-      testInfo[0].flag = (BYTE)c->clu_attr;
+      testInfo[0].flag = (uchar)c->clu_attr;
   else
   {
     p2_Line2Raster(c->env,&recRast);
@@ -371,7 +369,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
 {
   STICK *st,*sti;
   INT i,nstick;
-  BYTE shape;
+  uchar shape;
   INT w0=c->w,dw=0,w3,w23;  //w0 - width of untilted letter
 
   if (c->n_baton==255)
@@ -528,7 +526,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
   }
 }
 
-static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
+static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st)
 {
   INT h,H8=H/8,H3=H/3;
   lnhead *line;
@@ -630,7 +628,7 @@ static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
   return 0;
 }
 
-static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st)
+static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st)
 {
   INT h,H8=H/8,H3=H/3;
   lnhead *line;

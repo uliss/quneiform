@@ -57,18 +57,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _ALPHABET_H_
 #define _ALPHABET_H_
 
+#include "minmax.h"
+
 typedef struct { INT dig,fuzzy_dig,all,alphabet,dollars,pm;} str_info;
 
 void  add_digital_versions(void);
-void   copy_alphabet(PBYTE);
-Bool   test_alphabet_elem(BYTE let);
+void   copy_alphabet(puchar);
+Bool   test_alphabet_elem(uchar let);
 void del_punct_and_last_context(void);
 void clear_digital_mode(void);
 void set_digital_mode(void);
 void set_digital_alphabet(void);
 void set_all_alphabet(void);
-void add_alphabet_elem(BYTE let);
-void del_alphabet_elem(BYTE let);
+void add_alphabet_elem(uchar let);
+void del_alphabet_elem(uchar let);
 void save_alphabet_information(str_info *s,INT num,CSTR_line ln);
 INT  GetColumn(INT *VertLines,INT VertNum);
 void make_simples_diff(INT lang);

@@ -58,6 +58,6 @@ typedef struct  strucI{
   cell *          c;           /* pointer to the currente cell */
   cell *          ld;          /* pointer to the 'left dot' cell */
   cell *          rd;          /* pointer to the 'right dot' cell */
-  BYTE            twoDot;      /* twoDot */
-  BYTE            lw,rw,lh,rh;
+  uchar            twoDot;      /* twoDot */
+  uchar            lw,rw,lh,rh;
 }  strucI;

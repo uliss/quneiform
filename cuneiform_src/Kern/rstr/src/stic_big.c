@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	mk_80_for_CUT	80
 /*----------------------------------------------------------------------*/
 
-#include "nt_types.h"
+
 
   #include <stdlib.h>
   #include <string.h>
@@ -74,11 +74,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "tuner.h"
   #include "status.h"
 #include "minmax.h"
-extern BYTE multy_language;
+extern uchar multy_language;
 
 extern INT pitchsize ;
 extern INT nIncline  ;
-extern BYTE fax1x2;	// MK NEW 05.01.1993
+extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994
 /*......................................................................*/
@@ -114,16 +114,16 @@ INT	dis_figa_right(STICK_SIGNUMS *s);
 INT	dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
 INT	dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, INT add_flag, char type);
 /*......................................................................*/
-static BYTE config_f( STICK_CHARS *l,STICK_CHARS *r);
-static BYTE config_r( STICK_CHARS *l,STICK_CHARS *r);
-static BYTE config_t( STICK_CHARS *l,STICK_CHARS *r);
-static BYTE config_1( STICK_CHARS *l,STICK_CHARS *r);
+static uchar config_f( STICK_CHARS *l,STICK_CHARS *r);
+static uchar config_r( STICK_CHARS *l,STICK_CHARS *r);
+static uchar config_t( STICK_CHARS *l,STICK_CHARS *r);
+static uchar config_1( STICK_CHARS *l,STICK_CHARS *r);
 /*......................................................................*/
 /*		NOTA BENE: some functions without DECLARATION:
  *  INT similar_excl(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
  *  INT similar_lcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
  *  INT similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
- *  BYTE similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
+ *  uchar similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
  */
 /*----------------------------------------------------------------------*/
 INT dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)	{
@@ -1040,9 +1040,9 @@ INT similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 return( dis_circle_brace(l,r,s,0)<MIN_ADD_DIS );
 }
 /*----------------------------------------------------------------------*/
-BYTE similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
+uchar similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
 {
-BYTE ret=0;
+uchar ret=0;
 ret |= config_f(left_chars,right_chars);
 ret |= config_r(left_chars,right_chars)<<2;
 ret |= config_t(left_chars,right_chars)<<4;
@@ -1051,9 +1051,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 'f' */
-static BYTE config_f( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_f( STICK_CHARS *l,STICK_CHARS *r)
 {
-BYTE ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0),
 	br_l=(r->mount[0]&&r->mount[4]&&l->mount[2]);
 if( rf<2 && r->m_meandr==2 && r->mount[4]==0 && r->mount[3]==0 )
@@ -1070,9 +1070,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 'r' */
-static BYTE config_r( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_r( STICK_CHARS *l,STICK_CHARS *r)
 {
-BYTE ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0);
 if( lf==0 && rf==1 )
 	ret=r->mount[0]?2:1;
@@ -1082,9 +1082,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 't' */
-static BYTE config_t( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_t( STICK_CHARS *l,STICK_CHARS *r)
 {
-BYTE ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0);
 
 if( lf==1 && l->m_meandr==1 && rf==1 )
@@ -1095,9 +1095,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter '1' */
-static BYTE config_1( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_1( STICK_CHARS *l,STICK_CHARS *r)
 {
-BYTE ret=3;
+uchar ret=3;
 
 if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
     r->mount[3]==0 && r->mount[4]==0 && l->mount[2]==0 &&

@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _LANG_INCLUDED_
 #define _LANG_INCLUDED_
 #include "lang_def.h"
-//#define LANG_RUSSIAN_AND_ENGLISH   7  // Pit 1.06.94
-//#define LANG_RUSENG LANG_RUSSIAN_AND_ENGLISH
-//#define LANG_UKRAINIAN  8
-extern BYTE language;
+#include "cttypes.h"
+extern uchar language;
 #endif

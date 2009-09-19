@@ -65,10 +65,10 @@ static INT LiliI                (cell *);
 static INT bon_to_dig           (cell *);
 static Bool apostr_ll           (cell *);
 static void inc_or_dec_slash    (cell *wc, INT numv);
-extern BYTE langUkr;
-extern BYTE langSer;
+extern uchar langUkr;
+extern uchar langSer;
 
-INT check_numb_2_9 (BYTE c)
+INT check_numb_2_9 (uchar c)
 //
 //	This procedure checks symbol to be number.
 //	Number means >=2 and <=9 since 0 and 1 could be confused.
@@ -79,7 +79,7 @@ INT check_numb_2_9 (BYTE c)
                    return FALSE;
  }
 
- INT check_numb_0_9(BYTE c)
+ INT check_numb_0_9(uchar c)
 //
 //	This procedure checks symbol to be number.
 //
@@ -91,7 +91,7 @@ INT check_numb_2_9 (BYTE c)
 			       return 0;
  }
 
- INT check_upper(BYTE c)
+ INT check_upper(uchar c)
 //
 //  This procedure checks symbol to be capital letter,
 //	that means A-Z.
@@ -424,7 +424,7 @@ INT check_numb_2_9 (BYTE c)
         return FALSE;
  }
 
- INT check_lower(BYTE c)
+ INT check_lower(uchar c)
 //
 //  This procedure checks symbol to be lower case letter,
 //	that means a-z.
@@ -769,7 +769,7 @@ if( language==LANG_RUSSIAN && langUkr ){
  return FALSE;
  }
 
- INT check_foreign_language_ligature(BYTE c)
+ INT check_foreign_language_ligature(uchar c)
 //
 //  This procedure checks symbol to be foreign language ligature.
 //
@@ -827,7 +827,7 @@ if( language==LANG_RUSSIAN && langUkr ){
                    return FALSE;
  }
 
-INT check_foreign_language_ligature_slavic(BYTE c)
+INT check_foreign_language_ligature_slavic(uchar c)
 //
 //  This procedure checks symbol to be foreign lahguage ligature.
 //
@@ -869,7 +869,7 @@ INT check_foreign_language_ligature_slavic(BYTE c)
                    return FALSE;
  }
 
- INT check_alphanum(BYTE c)
+ INT check_alphanum(uchar c)
 //
 //	This procedure checks symbol to be letter or number.
 //	that means 0-9, A-Z, a-z, $.
@@ -945,7 +945,7 @@ INT check_foreign_language_ligature_slavic(BYTE c)
  return 0;
 }
 
- INT check_lowerconson(BYTE c)
+ INT check_lowerconson(uchar c)
 //
 //	This procedure checks symbol to be lowercase consonant,
 //	that means b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y,z.
@@ -1087,7 +1087,7 @@ void test_irish_name_cur_sym( INT Let )
         break;
 
       case LOWER_C  :
-        if ( check_upper( (BYTE)Let )  )
+        if ( check_upper( (uchar)Let )  )
           fl_beg_irish_name = AFTER_C;
         else
           fl_beg_irish_name = NO_IRISH_NAME;
@@ -1381,7 +1381,7 @@ INT german_context_process( cell* C )
 {
 INT return_code;
 cell * wc;
-BYTE i, wp;
+uchar i, wp;
 INT  nv_c, nv_h, nv_b;
 
     return_code = NO_ACTION;

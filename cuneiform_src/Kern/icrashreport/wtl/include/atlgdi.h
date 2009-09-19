@@ -639,9 +639,9 @@ public:
 
 #if !defined(_WIN32_WCE) || (_ATL_VER >= 0x0800)
 	HFONT CreateFont(int nHeight, int nWidth, int nEscapement,
-			int nOrientation, int nWeight, BYTE bItalic, BYTE bUnderline,
-			BYTE cStrikeOut, BYTE nCharSet, BYTE nOutPrecision,
-			BYTE nClipPrecision, BYTE nQuality, BYTE nPitchAndFamily,
+			int nOrientation, int nWeight, uchar bItalic, uchar bUnderline,
+			uchar cStrikeOut, uchar nCharSet, uchar nOutPrecision,
+			uchar nClipPrecision, uchar nQuality, uchar nPitchAndFamily,
 			LPCTSTR lpszFacename)
 	{
 		ATLASSERT(m_hFont == NULL);
@@ -670,7 +670,7 @@ public:
 		if(bBold)
 			logFont.lfWeight = FW_BOLD;
 		if(bItalic)
-			logFont.lfItalic = (BYTE)TRUE;
+			logFont.lfItalic = (uchar)TRUE;
 
 		return CreatePointFontIndirect(&logFont, hDC);
 	}
@@ -2061,7 +2061,7 @@ public:
 		return ::SetArcDirection(m_hDC, nArcDirection);
 	}
 
-	Bool PolyDraw(const POINT* lpPoints, const BYTE* lpTypes, int nCount)
+	Bool PolyDraw(const POINT* lpPoints, const uchar* lpTypes, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyDraw(m_hDC, lpPoints, lpTypes, nCount);
@@ -2882,7 +2882,7 @@ public:
 		return ::PlayEnhMetaFile(m_hDC, hEnhMetaFile, lpBounds);
 	}
 
-	Bool AddMetaFileComment(uint nDataSize, const BYTE* pCommentData) // can be used for enhanced metafiles only
+	Bool AddMetaFileComment(uint nDataSize, const uchar* pCommentData) // can be used for enhanced metafiles only
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GdiComment(m_hDC, nDataSize, pCommentData);
@@ -3482,7 +3482,7 @@ class CEnhMetaFileInfo
 public:
 // Data members
 	HENHMETAFILE m_hEMF;
-	BYTE* m_pBits;
+	uchar* m_pBits;
 	TCHAR* m_pDesc;
 	ENHMETAHEADER m_header;
 	PIXELFORMATDESCRIPTOR m_pfd;
@@ -3498,13 +3498,13 @@ public:
 	}
 
 // Operations
-	BYTE* GetEnhMetaFileBits()
+	uchar* GetEnhMetaFileBits()
 	{
 		ATLASSERT(m_hEMF != NULL);
 		uint nBytes = ::GetEnhMetaFileBits(m_hEMF, 0, NULL);
 		delete [] m_pBits;
 		m_pBits = NULL;
-		ATLTRY(m_pBits = new BYTE[nBytes]);
+		ATLTRY(m_pBits = new uchar[nBytes]);
 		if (m_pBits != NULL)
 			::GetEnhMetaFileBits(m_hEMF, nBytes, m_pBits);
 		return m_pBits;

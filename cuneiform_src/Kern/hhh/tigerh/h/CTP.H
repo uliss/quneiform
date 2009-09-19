@@ -63,7 +63,7 @@
 
 struct ctp_hdr {
 #define SIGNA	"CT Picture"
-	BYTE Signatura[10];
+	uchar Signatura[10];
 };
 
 struct ctp_pic_hdr {
@@ -74,8 +74,8 @@ struct ctp_pic_hdr {
 	uint16_t h; // in pixels
 	uint16_t resolution;
 	uint16_t bpl; // bytes per line. Only if native format
-	BYTE bitpix;
-	BYTE type;
+	uchar bitpix;
+	uchar type;
 #define ctp_BW          0
 #define ctp_greytone    1
 #define ctp_color	2
@@ -89,7 +89,7 @@ struct ctp_pic_hdr {
 #define ctp_bmp         68
 #define ctp_wmf		69
 #define ctp_jpeg	70
-	BYTE PicName[32];
+	uchar PicName[32];
 };
 
 typedef struct ctp_pic_hdr pic_id;

@@ -78,15 +78,15 @@ typedef struct tagFONBase
 typedef struct tagRecResult
 {
    short int nClust;
-   BYTE name;
-   BYTE prob;
+   uchar name;
+   uchar prob;
 }
 RECRESULT;
 
 
-int AddVersion(RECRESULT *recres,BYTE let,BYTE rec,int nClust,
+int AddVersion(RECRESULT *recres,uchar let,uchar rec,int nClust,
 			   int num,int maxNames);
-SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+SINT RecogClu(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recResult,SINT size,
               welet *wl, int numWelet,
               int porog,int nInCTB,int16_t col,int16_t row,int32_t countRazmaz);

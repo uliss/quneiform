@@ -198,8 +198,8 @@ Bool OneChar(Handle charHandle)
 		// Французский Макинтош - непонятно,
 		// но оставляю как есть. 26.05.99
 #ifdef __MAC__
-		case (BYTE)206: case (BYTE)207:
-		case (BYTE)174: case (BYTE)190:
+		case (uchar)206: case (uchar)207:
+		case (uchar)174: case (uchar)190:
 			if( gLanguage==LANG_FRENCH )
 				c2=с1;
 			break;

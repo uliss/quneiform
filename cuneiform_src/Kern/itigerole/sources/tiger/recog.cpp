@@ -383,7 +383,7 @@ Bool _PageAnalysis(Bool bUpdateCPAGE)
 		else
 		{
 
-			BYTE * Buffer = (BYTE FAR *)lpBlocks;
+			uchar * Buffer = (uchar FAR *)lpBlocks;
 			TIGER_LAYOUTSTRIP * pStrip = NULL;
 			TIGER_LAYOUTSTRIPHANDLE * pStripHandle = NULL;
 
@@ -503,7 +503,7 @@ Bool _FinalRecognition()
 		if(rc)
 		{
 			BOOL16 bRc;
-			BYTE * Buffer = (BYTE FAR *)lpBlocks;
+			uchar * Buffer = (uchar FAR *)lpBlocks;
 			for(i=0;i<nBlocks;i++)
 			{
 			TIGER_LAYOUTSTRIP * pStrip = NULL;

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 
-static BYTE *pMatrix = NULL;
+static uchar *pMatrix = NULL;
 static int  nWidth;
 static int  nHeight;
 static int  nSize;     // резонно предположить, что это -- размер матрицы
@@ -134,7 +134,7 @@ void IntervalsInit (void)
 void IntervalsBuild (int y)
 {
     int x;
-    BYTE *pLine = pMatrix + y * nWidth;
+    uchar *pLine = pMatrix + y * nWidth;
 
     nIntervals = 0;
     x = 0;
@@ -294,12 +294,12 @@ static void RewriteAllStripsPointers
     if (pOldStripsPool == NULL || pStripsPool == pOldStripsPool)
         return;
 
-    offset = (BYTE *) pStripsPool - (BYTE *) pOldStripsPool;
+    offset = (uchar *) pStripsPool - (uchar *) pOldStripsPool;
 
     for (pStrip = pStripsPool; pStrip < pStripsPool + nLength; pStrip++)
     {
         if (pStrip -> pNext != NULL)
-            pStrip -> pNext = (STRIP *) ((BYTE *) pStrip -> pNext + offset);
+            pStrip -> pNext = (STRIP *) ((uchar *) pStrip -> pNext + offset);
     }
 
     for (pComp = pCompsList; pComp != NULL; pComp = pComp -> pNext)
@@ -307,13 +307,13 @@ static void RewriteAllStripsPointers
         if (pComp -> pStripsListBegin != NULL)
         {
             pComp -> pStripsListBegin =
-                (STRIP *) ((BYTE *) pComp -> pStripsListBegin + offset);
+                (STRIP *) ((uchar *) pComp -> pStripsListBegin + offset);
         }
 
         if (pComp -> pStripsListEnd   != NULL)
         {
             pComp -> pStripsListEnd =
-                (STRIP *) ((BYTE *) pComp -> pStripsListEnd + offset);
+                (STRIP *) ((uchar *) pComp -> pStripsListEnd + offset);
         }
     }
 }
@@ -395,15 +395,15 @@ static void RewriteAllCompsPointers
     if (pOldCompsPool == NULL || pCompsPool == pOldCompsPool)
         return;
 
-    offset = (BYTE *) pCompsPool - (BYTE *) pOldCompsPool;
+    offset = (uchar *) pCompsPool - (uchar *) pOldCompsPool;
 
     for (pComp = pCompsPool; pComp < pCompsPool + nLength; pComp++)
     {
         if (pComp -> pNext != NULL)
-            pComp -> pNext = (COMP *) ((BYTE *) pComp -> pNext + offset);
+            pComp -> pNext = (COMP *) ((uchar *) pComp -> pNext + offset);
 
         if (pComp -> pPrev != NULL)
-            pComp -> pPrev = (COMP *) ((BYTE *) pComp -> pPrev + offset);
+            pComp -> pPrev = (COMP *) ((uchar *) pComp -> pPrev + offset);
     }
 
     for (pInt = pIntervals;
@@ -411,7 +411,7 @@ static void RewriteAllCompsPointers
                  pInt++)
     {
         if (pInt -> pComp != NULL)
-            pInt -> pComp = (COMP *) ((BYTE *) pInt -> pComp + offset);
+            pInt -> pComp = (COMP *) ((uchar *) pInt -> pComp + offset);
     }
 
     for (pInt = pPrevIntervals;
@@ -419,10 +419,10 @@ static void RewriteAllCompsPointers
                  pInt++)
     {
         if (pInt -> pComp != NULL)
-            pInt -> pComp = (COMP *) ((BYTE *) pInt -> pComp + offset);
+            pInt -> pComp = (COMP *) ((uchar *) pInt -> pComp + offset);
     }
 
-    pCompsList = (COMP *) ((BYTE *) pCompsList + offset);
+    pCompsList = (COMP *) ((uchar *) pCompsList + offset);
 }
 
 COMP *CompNew (void)
@@ -579,7 +579,7 @@ void CompsConnect (COMP *pComp1, COMP *pComp2)
 void CompOR_Matrix (COMP *pComp, int Mask)
 {
     STRIP *pStrip;
-    BYTE  *p;
+    uchar  *p;
 
     for (pStrip = pComp -> pStripsListBegin;
              pStrip != NULL;
@@ -598,7 +598,7 @@ void CompOR_Matrix (COMP *pComp, int Mask)
 void CompAND_Matrix (COMP *pComp, int Mask)
 {
     STRIP *pStrip;
-    BYTE  *p;
+    uchar  *p;
 
     for (pStrip = pComp -> pStripsListBegin;
              pStrip != NULL;
@@ -615,7 +615,7 @@ void CompAND_Matrix (COMP *pComp, int Mask)
 
 void CompsBuild
 (
-    BYTE *_pMatrix,
+    uchar *_pMatrix,
     int   _nWidth,
     int   _nHeight,
     int   _nSize,

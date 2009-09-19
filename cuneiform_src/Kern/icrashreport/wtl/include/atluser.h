@@ -778,7 +778,7 @@ public:
 		return m_hIcon;
 	}
 
-	HICON CreateIcon(int nWidth, int nHeight, BYTE cPlanes, BYTE cBitsPixel, CONST BYTE* lpbANDbits, CONST BYTE *lpbXORbits)
+	HICON CreateIcon(int nWidth, int nHeight, uchar cPlanes, uchar cBitsPixel, CONST uchar* lpbANDbits, CONST uchar *lpbXORbits)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(lpbANDbits != NULL);
@@ -787,7 +787,7 @@ public:
 		return m_hIcon;
 	}
 
-	HICON CreateIconFromResource(PBYTE pBits, DWORD dwResSize, DWORD dwVersion = 0x00030000)
+	HICON CreateIconFromResource(puchar pBits, DWORD dwResSize, DWORD dwVersion = 0x00030000)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(pBits != NULL);
@@ -795,7 +795,7 @@ public:
 		return m_hIcon;
 	}
 
-	HICON CreateIconFromResourceEx(PBYTE pbBits, DWORD cbBits, DWORD dwVersion = 0x00030000, int cxDesired = 0, int cyDesired = 0, uint uFlags = LR_DEFAULTCOLOR)
+	HICON CreateIconFromResourceEx(puchar pbBits, DWORD cbBits, DWORD dwVersion = 0x00030000, int cxDesired = 0, int cyDesired = 0, uint uFlags = LR_DEFAULTCOLOR)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(pbBits != NULL);
@@ -1067,7 +1067,7 @@ public:
 #endif // !defined(_WIN32_WCE) || ((_WIN32_WCE >= 0x400) && !(defined(WIN32_PLATFORM_PSPC) || defined(WIN32_PLATFORM_WFSP)))
 
 #ifndef _WIN32_WCE
-	HCURSOR CreateCursorFromResource(PBYTE pBits, DWORD dwResSize, DWORD dwVersion = 0x00030000)
+	HCURSOR CreateCursorFromResource(puchar pBits, DWORD dwResSize, DWORD dwVersion = 0x00030000)
 	{
 		ATLASSERT(m_hCursor == NULL);
 		ATLASSERT(pBits != NULL);
@@ -1075,7 +1075,7 @@ public:
 		return m_hCursor;
 	}
 
-	HCURSOR CreateCursorFromResourceEx(PBYTE pbBits, DWORD cbBits, DWORD dwVersion = 0x00030000, int cxDesired = 0, int cyDesired = 0, uint uFlags = LR_DEFAULTCOLOR)
+	HCURSOR CreateCursorFromResourceEx(puchar pbBits, DWORD cbBits, DWORD dwVersion = 0x00030000, int cxDesired = 0, int cyDesired = 0, uint uFlags = LR_DEFAULTCOLOR)
 	{
 		ATLASSERT(m_hCursor == NULL);
 		ATLASSERT(pbBits != NULL);

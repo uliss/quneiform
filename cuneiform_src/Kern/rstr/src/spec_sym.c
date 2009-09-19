@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "status.h"
@@ -85,26 +85,26 @@ static INT flag_abris_curve_left, flag_abris_curve_right,
 
 static INT comp_is_bullet(cell *c );
 static void init_bullet_functions(void);
-static Bool comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w);
-static Bool comp_is_rectangle(BYTE left[],BYTE right[],INT h);
-static Bool comp_is_ellipse(BYTE left[],BYTE right[],INT n,INT w);
-static Bool abris_line(BYTE fun[],INT n, INT denominator);
-static INT place_fun_limit(BYTE fun[],INT n);
-static INT place_fun(BYTE fun[],INT n);
-static INT limit_place(BYTE left[],BYTE right[],INT h);
-static void find_abris(cell *c,INT wid,BYTE left[],BYTE right[]);
+static Bool comp_is_triangle(uchar left[],uchar right[],INT h,INT w);
+static Bool comp_is_rectangle(uchar left[],uchar right[],INT h);
+static Bool comp_is_ellipse(uchar left[],uchar right[],INT n,INT w);
+static Bool abris_line(uchar fun[],INT n, INT denominator);
+static INT place_fun_limit(uchar fun[],INT n);
+static INT place_fun(uchar fun[],INT n);
+static INT limit_place(uchar left[],uchar right[],INT h);
+static void find_abris(cell *c,INT wid,uchar left[],uchar right[]);
 static INT one_line_in_comp(cell *c);
 static Bool comp_glue(cell *c);
 static Bool comp_projections_overlay(cell *c1, cell *c2);
 static INT context_next(cell *c);
 static INT context_prev(cell *c);
 static Bool context_bullet(cell *c);
-static INT conv_size_capital_let(BYTE let,INT wide);
+static INT conv_size_capital_let(uchar let,INT wide);
 
 static Bool comp_is_star5(cell *c);
-static Bool pit(BYTE fun[],INT h);
-static Bool concave_line(BYTE fun[],INT h);
-static Bool ray_head_and_hands(BYTE left[],BYTE right[],INT h);
+static Bool pit(uchar fun[],INT h);
+static Bool concave_line(uchar fun[],INT h);
+static Bool ray_head_and_hands(uchar left[],uchar right[],INT h);
 static Bool ray_head_and_feets(cell *c);
 
 #define NON_BULLET       0
@@ -117,14 +117,14 @@ static Bool ray_head_and_feets(cell *c);
 #define BAD_CODE         126
 #define CODE_BULLET      liga_bull
 
-extern BYTE fax1x2;
+extern uchar fax1x2;
 #define INC_FAX( val )            \
 	if( fax1x2 ) val += 2;
 #define DEC_FAX( val )            \
 	if( fax1x2 ) val -= 2;
 
 /* is letter bullet ? */
-INT chkbullet( BYTE let )
+INT chkbullet( uchar let )
 {
 return( let==liga_bull);
 }
@@ -225,7 +225,7 @@ return;
 static INT comp_is_bullet(cell *c)
 {
 
-BYTE left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
+uchar left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
 INT height=c->h, width=c->w;
 Bool i1=FALSE, i2=FALSE, i3=FALSE;
 INT place_limit, place=(height-2)*width;
@@ -409,7 +409,7 @@ return(1);                      /* good tandem           */
 }
 
 /* decrease size for capital letter */
-static INT conv_size_capital_let(BYTE let,INT wide)
+static INT conv_size_capital_let(uchar let,INT wide)
 {
 return( let<91 ? (wide*2)/3 : wide);
 }
@@ -441,7 +441,7 @@ if( b2<=b1 && b1<=e2 )return(TRUE);
 return( FALSE );
 }
 
-static Bool comp_is_ellipse(BYTE left[],BYTE right[],INT h,INT w)
+static Bool comp_is_ellipse(uchar left[],uchar right[],INT h,INT w)
 {
 if( flag_abris_curve_left<0 )
 	flag_abris_curve_left = abris_curve(left,h,w);
@@ -450,7 +450,7 @@ if( flag_abris_curve_right<0 )
 return flag_abris_curve_left && flag_abris_curve_right ;
 }
 
-static Bool comp_is_rectangle(BYTE left[],BYTE right[],INT h)
+static Bool comp_is_rectangle(uchar left[],uchar right[],INT h)
 {
 if( flag_abris_line_left<0 )
 	flag_abris_line_left = abris_line(left,h,4);
@@ -463,7 +463,7 @@ if( flag_abris_line_left && !flag_abris_line_right )
 return flag_abris_line_left && flag_abris_line_right ;
 }
 
-static Bool comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w)
+static Bool comp_is_triangle(uchar left[],uchar right[],INT h,INT w)
 {
 if( flag_abris_curve_left<0 )
 	flag_abris_curve_left = abris_curve(left,h,w);
@@ -479,12 +479,12 @@ return flag_abris_curve_left && flag_abris_line_right ||
 
 /* limit_place : sum of limit points in box (size h*w) */
 /*               left(right) - array left(right) abris */
-static INT limit_place(BYTE left[],BYTE right[],INT h)
+static INT limit_place(uchar left[],uchar right[],INT h)
 {
 return ( place_fun_limit(left,h) + place_fun_limit(right,h) ) ;
 }
 
-static INT place_fun_limit(BYTE fun[],INT n )
+static INT place_fun_limit(uchar fun[],INT n )
 {
 INT i,s,vert_line=1,nn=(n-2)>>1; /* nn-1/2 heigh of c_comp             */
 for(s=0,i=1;i<n-1;i++)           /* first and last lines skipped     */
@@ -501,7 +501,7 @@ return( s );
 }
 
 
-static INT place_fun(BYTE fun[],INT n)
+static INT place_fun(uchar fun[],INT n)
 {
 INT i,s;
 for(s=i=0;i<n;i++)
@@ -509,11 +509,11 @@ for(s=i=0;i<n;i++)
 return( s );
 }
 
-Bool abris_curve(BYTE fun[],INT n,INT w)
+Bool abris_curve(uchar fun[],INT n,INT w)
 {
-BYTE i=n>>2,minim,ff,fo,imin;
+uchar i=n>>2,minim,ff,fo,imin;
 
-minim = (BYTE)find_minimum( fun, n, &imin );
+minim = (uchar)find_minimum( fun, n, &imin );
 
 if( imin<i || imin>(n-i) )
 	return(FALSE) ;     /* max of fun belong [n/4, 3n/4] */
@@ -538,7 +538,7 @@ if( (fun[0]-minim)<w || (fun[n-1]-minim)<w )
 return(TRUE);                           /* similar arc       */
 }
 
-static Bool abris_line(BYTE fun[],INT n,INT denominator)
+static Bool abris_line(uchar fun[],INT n,INT denominator)
 {
 #define NUM_OF_LEAP (n/denominator)
 INT i,hist=0;
@@ -553,7 +553,7 @@ return( hist<= NUM_OF_LEAP ); /* TRUE if too few jumps in abris */
 
 static INT one_line_in_comp(cell *c)
 {
- BYTE fill[LIMIT_HEIGHT];
+ uchar fill[LIMIT_HEIGHT];
  lnhead *line;
  interval *inter;
  INT ind,i,ll,h,max_h=c->h,num_int;
@@ -593,16 +593,16 @@ static INT one_line_in_comp(cell *c)
 return( num_int==max_h-1 );          /* TRUE if all rows good, else FALSE */
 }
 
-static void find_abris(cell *c,INT wid,BYTE left[],BYTE right[])
+static void find_abris(cell *c,INT wid,uchar left[],uchar right[])
 {
  lnhead *line;
  INT i,ll,ind;
  interval *inter;
- BYTE l,r,h;
+ uchar l,r,h;
 
  for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 			(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
- if( (h=(BYTE)line->h)>1 )                         /* long line        */
+ if( (h=(uchar)line->h)>1 )                         /* long line        */
  for( i=0, inter=(interval *)((pchar)line+sizeof(lnhead));i<h;i++,inter++)
 	{
 	r= wid - inter->e;                   /* current interval */
@@ -617,7 +617,7 @@ return ;
 static Bool comp_is_star5(cell *c)
 {
 B_LINES bl;
-BYTE left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
+uchar left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
 INT height=c->h, width=c->w ;
 
 if( height<6 || width<6 ) return(0);      /* no star : small c_comp      */
@@ -651,14 +651,14 @@ return( TRUE );
 }
 
 
-static Bool ray_head_and_hands(BYTE left[],BYTE right[],INT h)
+static Bool ray_head_and_hands(uchar left[],uchar right[],INT h)
 {
 return pit(left,h) & pit(right,h) ;
 }
 
 static Bool ray_head_and_feets(cell *c )
 {
-BYTE work[LIMIT_HEIGHT];    /* number of intervals in row              */
+uchar work[LIMIT_HEIGHT];    /* number of intervals in row              */
 INT height=c->h;
 INT h_c=height/5;           /* height of ray                           */
 INT skip_h =  height - h_c;
@@ -697,12 +697,12 @@ if( h_c==1 && height<11 && (work[height-1]==2 || work[height-2]==2) )
 return( (i>=height/4) && (l>skip_h/2) && (ll>h_c-((fax1x2)?1:0)) );
 }
 
-static Bool pit(BYTE fun[],INT h)
+static Bool pit(uchar fun[],INT h)
 {
-BYTE imin, minim;
+uchar imin, minim;
 INT wide;
 
-minim = (BYTE)find_minimum( fun, h,  &imin );
+minim = (uchar)find_minimum( fun, h,  &imin );
 while( imin>0 && fun[imin]==minim ) imin--;
 imin++;                                       /* find position horiz ray  */
 
@@ -716,7 +716,7 @@ return( concave_line( fun, (INT)(imin+1) ) );        /* concave upper area      
 }
 
 /* fun[0] = upper point of head; fun[n-1] = limits point of hand-ray */
-static Bool concave_line(BYTE fun[],INT n)
+static Bool concave_line(uchar fun[],INT n)
 {
 INT st = (fun[0]+fun[n-1])*n/2;        /* place of trapeze         */
 INT sf = place_fun(fun,n);             /* integral of function     */

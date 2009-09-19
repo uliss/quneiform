@@ -88,14 +88,14 @@ INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
 		struct dict_state * dict);
 
 /* -- Data -- */
-extern BYTE alphabet[2][ABCSIZE];
+extern uchar alphabet[2][ABCSIZE];
 extern KEYTYPE codetable[256];
 
 #ifdef S_COMMENTS
 
 /* 03-22-93 10:51pm, Mike                 */
 /* 03-22-93 10:52pm, Mike -- See above... */
-BYTE alphabet[][ABCSIZE]= {
+uchar alphabet[][ABCSIZE]= {
 	{	'\'','A','.','Ћ','Џ','.','.','’','B','C','Ђ','D','E','.','.',
 		'.','ђ','F','G','H','I','.','.','.','.','J','K','L','M','N',
 		'Ґ','O','.','™','.','.','P','Q','R','S','T','U','љ','.','.',
@@ -117,18 +117,18 @@ KEYTYPE codetable[256];
 static INT
 		analyse(INT * account, INT * wordsize, LTIMG * wrddef[], INT * found);
 static INT next_level(KEYTYPE ch);
-static INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl,
+static INT test_tail(uchar * ptr, INT * accounter, INT * tailmaxl,
 		LTIMG * wrddef[], INT * tailfound);
 
-static TShiftType brother2(BYTE * ptr);
+static TShiftType brother2(uchar * ptr);
 
 static INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr,
 		INT * tailmaxl, LTIMG * wrddef[], INT * tailfound);
 static INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont);
 static INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		INT * tailfound, BYTE *tailptr);
+		INT * tailfound, uchar *tailptr);
 static INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
-		INT * fillfind, BYTE symb, LT ** gaplt);
+		INT * fillfind, uchar symb, LT ** gaplt);
 
 /* -- Macro -- */
 
@@ -147,7 +147,7 @@ static INT poslevel; /* current level in pos. tree if indpos==1  */
 static INT indpos; /* 1-ndptr points to pos. tree,0-otherwise  */
 static INT maxlevel; /* max num of level in current pos. tree    */
 
-static BYTE *ndptr; /* pointer to current vertex in  */
+static uchar *ndptr; /* pointer to current vertex in  */
 
 /*************************************************************************/
 /*              Macros & constants insted of Bit Fields.                 */
@@ -331,7 +331,7 @@ INT next_level(KEYTYPE ch) {
 /* function cntinues searching to next(right) brother.                    */
 /**************************************************************************/
 
-TShiftType brother2(BYTE * ptr) {
+TShiftType brother2(uchar * ptr) {
 	TShiftType shift = 0;
 
 	if (VERTV_CONT(ptr) == 0) {
@@ -371,7 +371,7 @@ TShiftType brother2(BYTE * ptr) {
 
 INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
 	INT tailmaxl = 0;
-	BYTE * ptr; /* serv pointer: points to vertex cont. */
+	uchar * ptr; /* serv pointer: points to vertex cont. */
 
 	if (indpos)
 		lthorshift = ((TShiftType) VERTP_SHIFT0(ndptr) << 16)
@@ -424,7 +424,7 @@ INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
 /*               ->  LONGADDR,ACCOUNT,POSTFICS !                      */
 /**********************************************************************/
 
-INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
+INT test_tail(uchar * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
 		INT * tailfound) {
 	INT contflag = 0;
 	INT tailscnter = 0;
@@ -496,8 +496,8 @@ INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
 INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr, INT * tailmaxl,
 		LTIMG * wrddef[], INT * tailfound) {
 	register INT j, k;
-	BYTE * ptr;
-	BYTE * tailptr;
+	uchar * ptr;
+	uchar * tailptr;
 	uint32_t mask;
 
 	if (dictInfo->vartable[varnum].maxtaillth < rest) {
@@ -555,7 +555,7 @@ INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 	INT xposlevel;
 	INT xmaxlevel;
 	TShiftType xlthorshift;
-	BYTE * xndptr;
+	uchar * xndptr;
 
 	INT fillfind = 0;
 
@@ -650,7 +650,7 @@ INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 /*************************************************************************/
 
 INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
-		INT * fillfind, BYTE symb, LT ** gaplt) {
+		INT * fillfind, uchar symb, LT ** gaplt) {
 	LT * xxgaplt;
 
 	if (gapcont == 0) {
@@ -694,9 +694,9 @@ INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
 /*************************************************************************/
 
 INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		INT * tailfound, BYTE *tailptr) {
+		INT * tailfound, uchar *tailptr) {
 
-	BYTE * xxptr;
+	uchar * xxptr;
 	INT xj;
 	LT * xxgaplt = NULL;
 	INT bl_flag = 0;

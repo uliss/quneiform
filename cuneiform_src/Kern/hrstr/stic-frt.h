@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* °°°								°°° */
 /* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 
-static BYTE tab_f[]=					// dis_f
+static uchar tab_f[]=					// dis_f
 	{
 	40,	// 0.  beam belong upper zone
 	20,	// 1.  no beam : exist only one flags>1
@@ -88,13 +88,13 @@ static BYTE tab_f[]=					// dis_f
 //////	222	// 16. MK: UP-LEFT SERIF
 	};
 
-static BYTE plus_f[]=    /* part of dis-value * 16 for bonus */
+static uchar plus_f[]=    /* part of dis-value * 16 for bonus */
 	{
 	8,  /* 0.  exist left upper hole               */
 	4   /* 1.  left_sig_f=right_sign_f=1           */
 	};
 
-static BYTE  tab_r[]=					// dis_r
+static uchar  tab_r[]=					// dis_r
 	{
 	20,	// 0. beam : left flag > right		// OLD 8
 	2,	// 1. upper right flag = 1
@@ -116,7 +116,7 @@ static BYTE  tab_r[]=					// dis_r
 	40	// 17. MK: UP FLAGS 2:1	    25.10.1993
 	};
 
-static BYTE tab_t[]=					// dis_t
+static uchar tab_t[]=					// dis_t
 	{
 	40,  /* 0.  no flags                                  */
 	20,  /* 1.  no beam : exist only one flags>1          */

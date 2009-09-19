@@ -107,7 +107,7 @@ void progress_finish(void) {
 #undef realloc
 #undef free
 
-void Tiger_ReportError(uint16_t status, PBYTE message) {
+void Tiger_ReportError(uint16_t status, puchar message) {
 	LDPUMA_Console("Tiger_ReportError (%u,%s )", status, message);
 }
 ;
@@ -141,25 +141,25 @@ void * TigerReallocateMemory(void * mem, uint32_t size) {
 
 extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
 		int16_t left);
-extern BYTE work_raster[], work_raster_1[];
+extern uchar work_raster[], work_raster_1[];
 //extern c_comp wcomp;
 extern uint16_t lpool_lth;
-extern BYTE lpool[];
+extern uchar lpool[];
 //extern version * start_rec, *rec_ptr;
-static BYTE make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
+static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
 
 /* LOC_CLocomp is in loc.c and calls c_locomp function
  * in locompmn.c.
  */
 /*
- MN * c_locomp (PBYTE raster, LONG bw, LONG h, INT upper, INT left)
+ MN * c_locomp (puchar raster, LONG bw, LONG h, INT upper, INT left)
  {
  return LOC_CLocomp (raster, bw, h, upper, left);
  }
  */
 
-PBYTE make_raster_CCOM(CCOM_comp *cmp) {
+puchar make_raster_CCOM(CCOM_comp *cmp) {
 	INT h, d, dd, k, i, ii;
 	RecRaster rs;
 
@@ -175,7 +175,7 @@ PBYTE make_raster_CCOM(CCOM_comp *cmp) {
 	return work_raster;
 }
 
-PBYTE make_extended_raster_CCOM(CCOM_comp *cmp) {
+puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
 	INT h, d, dd, k, i, ii;
 	RecRaster rs;
 

@@ -65,11 +65,11 @@ typedef struct tagMatchWordPar
   B_LINES   *bases;  //базовые линии
 uint32_t cut_width;   //>=0 - минимальная ширина компонента, который можно резать
 uint32_t  monitors;   //номера букв (по байту), оценки которых нужно отследить
-  BYTE   p2_active;  //call while p2 pass
-  BYTE    language;
+  uchar   p2_active;  //call while p2 pass
+  uchar    language;
 } MatchWordPar;
 
-Weight match_string(CSTR_line ln, BYTE *str, MatchWordPar *param);
+Weight match_string(CSTR_line ln, uchar *str, MatchWordPar *param);
 //На строку ln накладывает слово str (без знаков препинания); param->monitors определяет возвращаемое значение:
 // param->monitors==0: meas - три наихудшие оценки (по байту), nlet - номера соответствующих букв в str;
 // param->monitors задает номера букв в str, а в meas - их оценки и nlet == param->monitors.

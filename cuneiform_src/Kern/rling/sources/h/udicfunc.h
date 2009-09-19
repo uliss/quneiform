@@ -72,12 +72,12 @@ void ResetUserDict(voc_state * user_dict);
 
 INT _IsUserDict(char *FileName);
 
-Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict);
-INT AddWordToUserDictionary(BYTE * word, INT weight, voc_state * user_dict);
-INT DeleteWordFromUserDictionary(BYTE * word, voc_state * user_dict);
-INT IsWordInUserDictionary(BYTE * word, voc_state * user_dict);
-INT SplitWordRecord(BYTE * str);
+Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict);
+INT AddWordToUserDictionary(uchar * word, INT weight, voc_state * user_dict);
+INT DeleteWordFromUserDictionary(uchar * word, voc_state * user_dict);
+INT IsWordInUserDictionary(uchar * word, voc_state * user_dict);
+INT SplitWordRecord(uchar * str);
 INT voc_init(voc_state * voc);
-INT next_word_from_voc(BYTE *str, voc_state *voc);
+INT next_word_from_voc(uchar *str, voc_state *voc);
 
 #endif   //#ifndef __USERDICT_FUNCS_H__

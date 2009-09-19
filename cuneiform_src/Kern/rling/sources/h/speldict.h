@@ -109,7 +109,7 @@
 
 /* --- Key type for search in the dictionary. ----------------------- */
 
-#define KEYTYPE BYTE
+#define KEYTYPE uchar
 #define NATURAL uint16_t
 
 /* --- Positional tree. --------------------------------------------- */
@@ -197,8 +197,8 @@ typedef TShiftType * PTShiftType;
 /* --- Static dictionary control structure type. -------------------- */
 
 struct dict_state { /* declaration for compatibility... */
-	BYTE * root; /* pointer to dictionary tree       */
-	BYTE * tailset_root; /* pointer to tail set allocation   */
+	uchar * root; /* pointer to dictionary tree       */
+	uchar * tailset_root; /* pointer to tail set allocation   */
 	PTTailVar vartable; /* table of "tail rules"            */
 	PTShiftType table; /* table of shifts to "tail strings"*/
 	uint32_t size; /* size of used memory              */

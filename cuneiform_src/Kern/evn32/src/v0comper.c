@@ -54,14 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
-//#include "c_types.h"
 #include <stdlib.h>
 #include <string.h>
 #include "struct.h"
 #include "ligas.h"
 #include "v1comp.h"
-#include "c_types.h"	// 06.09.00 E.P.
 #include "status.h"		// 06.09.00 E.P.
 #include "lang_def.h"	// 06.09.00 E.P.
 

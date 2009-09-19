@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -96,10 +95,10 @@ static char txg6[]={"n,a,m,e,l"};
 	10,11 for UKR_I,II
 	12,13 for turkish palka
 */
-static BYTE sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"};
+static uchar sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"};
 
 
-static BYTE letters_left_to_bad[] =  {" nrvtcC(u<>ìœ¯|á‘£"}; // 0th pos for sticks
+static uchar letters_left_to_bad[] =  {" nrvtcC(u<>ìœ¯|á‘£"}; // 0th pos for sticks
 
 static char ltmp0[] = "kDPbh¯ "; /* stick */
 static char ltmp1[] = "m"; /* n */
@@ -129,8 +128,8 @@ static char *results_left_to_bad[] = {
 	0 pos reserved for liga_i
 	6-7 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
 */
-static BYTE sticks_right_to_bad[] =  {" /l1I]11"};  // 1st pos reserved for liga_i
-static BYTE letters_right_to_bad[] = {" nvt)u><áæ–®Žª÷"}; // 0th pos for sticks
+static uchar sticks_right_to_bad[] =  {" /l1I]11"};  // 1st pos reserved for liga_i
+static uchar letters_right_to_bad[] = {" nvt)u><áæ–®Žª÷"}; // 0th pos for sticks
 
 static char rtmp0[] = "d­¨¯";
 static char rtmp1[] = "m"; /* n */
@@ -160,10 +159,10 @@ static char percgot;       // percent was got as result of a glue
 extern char db_pass;
 
 void collect_pat(cell *BC, s_glue *GL, cell *EC);
-cell * finpat(cell *BC, s_glue *GL, INT var, BYTE flag,BYTE pen);
+cell * finpat(cell *BC, s_glue *GL, INT var, uchar flag,uchar pen);
 
-extern BYTE db_status;	//snap presence
-//extern BYTE accent_tab[];
+extern uchar db_status;	//snap presence
+//extern uchar accent_tab[];
 
 static void glue_let_dust();
 static void glue_let_bad();
@@ -179,7 +178,7 @@ static Bool config_III(cell *BC,cell *EC, cell *ECN);
 static Bool config_brace_and_K(cell *BC,cell *EC);
 static Bool config_CapRusGe_and_bad(cell *BC,cell *EC);
 
-static INT is_bad_turkish_glue(BYTE c1, BYTE c2, BYTE c3); // 27.06.2002 E.P.
+static INT is_bad_turkish_glue(uchar c1, uchar c2, uchar c3); // 27.06.2002 E.P.
 
 void make_all_glues()
  {
@@ -216,7 +215,7 @@ void make_all_glues()
   if( langUkr ){
      sticks_left_to_bad[10] = UKR_I;
      sticks_left_to_bad[11] = UKR_II;
-     *((BYTE*)&results_left_to_bad[0][7]) = (BYTE)'Š';
+     *((uchar*)&results_left_to_bad[0][7]) = (uchar)'Š';
   }
 
  snap_newpass('b');
@@ -328,7 +327,7 @@ static void glue_let_dust()
  INT i, nsc, ngc, n, p1, p1l, p2;
  SVERS svv1;
  char  defl, ww[40];
- BYTE c1, c1l, c2, cp;
+ uchar c1, c1l, c2, cp;
  cell bc;
  MN *mn;
  INT  inc=0;
@@ -508,7 +507,7 @@ static char txt21[]="B<--B";
 static char txt22[]="L<--B";
 
 static lll=0;
-INT glue_to_o (BYTE c2, BYTE c3, cell *BC, cell *EC)
+INT glue_to_o (uchar c2, uchar c3, cell *BC, cell *EC)
 {
   if (
        ( ( c2=='(' ) || ( c2=='<')  )  &&
@@ -526,15 +525,15 @@ INT glue_to_o (BYTE c2, BYTE c3, cell *BC, cell *EC)
   return 0;
 }
 
-BYTE broken_ii; // broken '¯','­','¨'
+uchar broken_ii; // broken '¯','­','¨'
 
 static void glue_let_bad()
  {
  INT   i, j, dist, ndist, wdg, bdiff, trsuccess;
  char dflag, gtofl;
  uint16_t  p1, p2, pt;
- BYTE  *tx1, *tx2, **rp1, *rp2, *rps, c2, c3, cw, flb;
- BYTE  rus_iee;
+ uchar  *tx1, *tx2, **rp1, *rp2, *rps, c2, c3, cw, flb;
+ uchar  rus_iee;
  cell  *B1, *B2, *BP, *BD, *BC, *EC, *WS;
  void  *k1, *k2, *k3;
  c_comp *S[8];
@@ -626,7 +625,7 @@ passfb:
 		c3==liga_exm
 		)
       if (EC->cg_flag & c_cg_cutl)        // cut at left  side
-        if ((c2=='c') || (c2=='(') || (c2=='<') || (c2==(BYTE)'ƒ'))
+        if ((c2=='c') || (c2=='(') || (c2=='<') || (c2==(uchar)'ƒ'))
           { glsnap ('b',BC,"<+I-->d");
             goto asif2bad;
           }
@@ -864,7 +863,7 @@ fingb:
 	      promote(1,BC,'›',60);
 
   if (gtofl)
-  { BYTE vers_c;
+  { uchar vers_c;
     vers_c = BC->vers[0].let;
     if (! ( memchr("oO0®Ž",vers_c,5) &&
 			!is_russian_turkish_conflict(BC->vers[0].let)	// 21.05.2002 E.P.
@@ -906,7 +905,7 @@ fingb:
       goto accel;
   }
   if( language==LANG_RUSSIAN && BC->vers[0].prob>230 &&
-      c2==(BYTE)'¯' && c3==(BYTE)'ø' && cw==(BYTE)'õ' )
+      c2==(uchar)'¯' && c3==(uchar)'ø' && cw==(uchar)'õ' )
       goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
   if ( ((BC->recsource & c_rs_ev) == 0) ||
        ( i < 220) ||
@@ -1143,7 +1142,7 @@ void dummy_snap_place()
 
 
 #ifdef UFA
-extern BYTE pitch;
+extern uchar pitch;
 static void glue_all_dusts()
  {
 s_glue GLG;
@@ -1261,9 +1260,9 @@ Bool config_III(cell *BC,cell *EC, cell *ECN)
 return(  (EC->flg&c_f_bad) &&
        (ECN->flg&c_f_let) &&
        BC->broken_II && (BC->flg&c_f_let) && BC->nvers>0 &&
-       (BC->vers[0].let==(BYTE)'¯' ||
-       BC->vers[1].let==(BYTE)'¯'&& BC->vers[1].prob==BC->vers[0].prob ||
-       BC->vers[2].let==(BYTE)'¯'&& BC->vers[2].prob==BC->vers[0].prob) );
+       (BC->vers[0].let==(uchar)'¯' ||
+       BC->vers[1].let==(uchar)'¯'&& BC->vers[1].prob==BC->vers[0].prob ||
+       BC->vers[2].let==(uchar)'¯'&& BC->vers[2].prob==BC->vers[0].prob) );
 
 }
 
@@ -1281,18 +1280,18 @@ return ( !(BP->flg&c_f_fict) && !(BC->flg&c_f_fict) && !(EC->flg&c_f_fict) &&
 			!is_russian_turkish_conflict(BP->vers[0].let)	// 21.05.2002 E.P.
 		 ||
          BP->nvers>0 && BP->vers[0].let=='|' &&
-           BPP!=NULL && BPP->nvers>0 && BPP->vers[0].let==(BYTE)'ì' &&
+           BPP!=NULL && BPP->nvers>0 && BPP->vers[0].let==(uchar)'ì' &&
 			!is_russian_baltic_conflict(BPP->vers[0].let) &&// 17.07.2001 E.P.
 			!is_russian_turkish_conflict(BPP->vers[0].let)	// 21.05.2002 E.P.
 		 )&&
-         BC->nvers>0 && BC->vers[0].let==(BYTE)'ƒ' && BC->vers[0].prob<220 &&
+         BC->nvers>0 && BC->vers[0].let==(uchar)'ƒ' && BC->vers[0].prob<220 &&
          EC->nvers<1 );
 }
 
 Bool config_brace_and_K(cell *BC,cell *EC)
 {
-return( BC->nvers>0 && BC->vers[0].let==(BYTE)'>' &&
-        EC->nvers>0 && EC->vers[0].let==(BYTE)'ª' &&
+return( BC->nvers>0 && BC->vers[0].let==(uchar)'>' &&
+        EC->nvers>0 && EC->vers[0].let==(uchar)'ª' &&
         EC->col - BC->col - BC->w<3 );
 }
 s_glue GLG;
@@ -1303,7 +1302,7 @@ void glue_III()
 cell *BC,*EC;
 INT ngl=0,row,col,w,h, inc=0;
 INT rrow,rcol;
-BYTE res[30];
+uchar res[30];
 
       if( db_status && snap_activity('b') )
        {
@@ -1353,8 +1352,8 @@ while (1)
 
     GLG.row   = row; GLG.col  = col;
     GLG.width = w; GLG.height = h;
-    GLG.ncell = (BYTE)ngl;
-    GLG.maxnc = (BYTE)ngl;
+    GLG.ncell = (uchar)ngl;
+    GLG.maxnc = (uchar)ngl;
     GLG.complist[ngl]=0;
     GLG.celist[ngl]  =0;
     GLG.maxlist[ngl] =0;
@@ -1412,7 +1411,7 @@ return;
 } /* end glue_III */
 
 // 27.06.2002 E.P.
-INT is_bad_turkish_glue(BYTE c1, BYTE c2, BYTE c3)
+INT is_bad_turkish_glue(uchar c1, uchar c2, uchar c3)
 {
 /*
 	Îïðåäåëåíèå íåóäà÷íîé òóðåöêîé ñêëåéêè. 27.06.2002 E.P.

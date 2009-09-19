@@ -69,12 +69,12 @@ typedef struct env envelope;
 Bool shutdown_pictures(void);
 Bool del_picture(INT handle);
 INT new_picture(INT top, INT left, INT h, INT w, uint16_t mod);
-uint32_t update_pictures(BYTE ** pool);
-PBYTE get_picture(INT handle);
+uint32_t update_pictures(uchar ** pool);
+puchar get_picture(INT handle);
 INT merge_pictures(INT ha1, INT ha2);
-INT undo_pictures(PBYTE pool, uint32_t size);
+INT undo_pictures(puchar pool, uint32_t size);
 
-extern BYTE pic_state;
+extern uchar pic_state;
 #define  pic_non_exist	0
 #define  pic_in_core	1
 #define  pic_flushed	2

@@ -58,6 +58,7 @@
 #define H_struct_h
 
 #include "tuner.h"
+#include "cttypes.h"
 
 #ifdef  HUGE_IMAGE
 #define WORLD_MAX_HEIGHT            10000
@@ -164,8 +165,8 @@ struct comp_struc {
 	INT left; // left boundary of component
 	INT h; // height of component
 	INT w; // width of component
-	BYTE rw; // raster width in bytes
-	BYTE type; // recognition type
+	uchar rw; // raster width in bytes
+	uchar type; // recognition type
 #define ch_perfect    1     // perfect type defined
 #define ch_letter     2     // letter type
 #define ch_dust       4     // dust type
@@ -174,21 +175,21 @@ struct comp_struc {
 #define ch_great     32     // great component
 #define ch_merge     64     // merged components
 #define ch_notltr   128     // not letter or punctuation
-	BYTE cs; // recognition case (see bellow)
-	BYTE pidx; // proportional index (ref.)
+	uchar cs; // recognition case (see bellow)
+	uchar pidx; // proportional index (ref.)
 	INT nvers; // number of alternative versions
 	INT records; // recognition records offset
 	INT lines; // ptr to line representation
 	INT nl; // number of lines
-	BYTE begs; // number of free begins
-	BYTE ends; // number of free ends
-	BYTE reasno; // proportional criteria messages
-	BYTE large; // large type
+	uchar begs; // number of free begins
+	uchar ends; // number of free ends
+	uchar reasno; // proportional criteria messages
+	uchar large; // large type
 #define ch_underlined   1       // component was underlined
 #define ch_taken        2       // taken to line at dust_ini
-	BYTE scale; // scale of the component
+	uchar scale; // scale of the component
 	// union {
-	// BYTE stairs[4];                // bit_map for stairs_vector components
+	// uchar stairs[4];                // bit_map for stairs_vector components
 	struct comp_struc * next;
 	//       };
 };
@@ -199,8 +200,8 @@ typedef struct comp_struc c_comp;
 #define VERS_IN_CELL 16 // Vald. 06-04-94
 struct vers_struct // versions with probabilities
 {
-	BYTE let; // character
-	BYTE prob; // probability
+	uchar let; // character
+	uchar prob; // probability
 };
 typedef struct vers_struct version;
 //----------------------- stick -------------------------------
@@ -224,7 +225,7 @@ struct cell_struc {
 	struct cell_struc *prevl; // prev letter ( only for letters )
 	// 28
 	char bdiff; // local base line corrective displacement
-	BYTE difflg; // local correction flg
+	uchar difflg; // local correction flg
 	// baseline defined by cell:
 #define c_db_b1         1
 #define c_db_b2         2
@@ -234,7 +235,7 @@ struct cell_struc {
 #define c_db_up     32     // base corrected 1 pixel up
 #define c_db_forbid 64     // don't take to calculate bases (abnormal pos)
 #define c_db_solid  128    // BOX_solid letter not penalized
-	BYTE basflg;
+	uchar basflg;
 #define c_bs_b1a    1      // agrees to be at  b1
 #define c_bs_b2a    2      //                  b2
 #define c_bs_bt     4      //                  't' level
@@ -248,7 +249,7 @@ struct cell_struc {
 	char bas2;
 	char bas3;
 	char bas4;
-	BYTE cg_flag; // cut-to-glue message
+	uchar cg_flag; // cut-to-glue message
 #define c_cg_noglue     1   // don't glue to ... ( just cut )
 #define c_cg_noenv      2       // envelope address obsolete
 #define tenv(c)         ((c)->env && !((c)->cg_flag&c_cg_noenv))
@@ -277,7 +278,7 @@ struct cell_struc {
 #define c_f_confirmed   64      // confirmed letter
 #define c_f_fict        128     // fictive element
 #define c_f_detouch     256     // fictive element
-	BYTE cpos; // position of component
+	uchar cpos; // position of component
 #define ce_p_small      1
 #define ce_p_large      2
 #define ce_p_low        4
@@ -287,12 +288,12 @@ struct cell_struc {
 #define ce_p_bra        64
 #define ce_p_ex         128
 #define ce_p_all        255     // all positions are possible
-	BYTE reasno; // proportional criteria messages
+	uchar reasno; // proportional criteria messages
 #define c_rn_right      1       // right refuse by proportions
 #define c_rn_left       2       // left refuse by proportions
 #define c_rn_pi         4       // this is a dot of some 'i'
-	BYTE keg; // kegel
-	BYTE font; // font properties
+	uchar keg; // kegel
+	uchar font; // font properties
 #define c_fp_ser        1       // serific
 #define c_fp_gelv       2       // helvetic
 #define c_fp_bold       4       // bold
@@ -302,8 +303,8 @@ struct cell_struc {
 #define c_fp_undrln     64      // underlined
 #define c_fp_narrow     128     // narrow str
 	// 80
-	BYTE dens; // BOX - calculated density
-	BYTE recsource; // who and how recognized
+	uchar dens; // BOX - calculated density
+	uchar recsource; // who and how recognized
 #define c_rs_ev     1   //  events brought versions
 #define c_rs_BOX    2   //  BOX done
 #define c_rs_BOXs   4   //  BOX > "29500"
@@ -317,28 +318,28 @@ struct cell_struc {
 	// 88
 	INT left; // left  of main part (without accent)
 	INT right; // right of main part (without accent)
-	BYTE bas_acc; // cell's relations with bases
+	uchar bas_acc; // cell's relations with bases
 #define c_ba_b1  1    // accepted  to b1
 #define c_ba_b2  2    // accepted  to b2
 #define c_ba_killed 4 // temporary: all versions killed by linear
 #define c_ba_chance 8 // one more chance for cut version
-	BYTE shape;
+	uchar shape;
 #define c_shp_cap   1
 #define c_shp_stick 2
 #define c_shp_stb1  4
 #define c_shp_small 8
 #define c_shp_dbh   32
 #define c_shp_b1up  16
-	BYTE rus_eng_word; // information for RUS/ENG manipulations
+	uchar rus_eng_word; // information for RUS/ENG manipulations
 #define ruseng_no      0  // russian
 #define ruseng_rus     0  // russian
 #define ruseng_re      1  // russian or english
 #define ruseng_eng     2  // english
 #define ruseng_alt     3  // many alternates
-	BYTE broken_II; // II configuration
+	uchar broken_II; // II configuration
 	// 96
-	BYTE language;
-	BYTE pos_inc;
+	uchar language;
+	uchar pos_inc;
 #define erect_no       0   // really envelop
 #define erect_rot      1   // rotate image
 #define erect_rest     2   // restore after rotating
@@ -346,7 +347,7 @@ struct cell_struc {
 #define erect_zero     8   // disable rotate and cursive study
 #define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&tenv(c) ) \
              { (c)->stick_inc=inc; (c)->pos_inc=inc?erect_rot:erect_zero; }
-	BYTE cg_flag_fine; // type of cutting position
+	uchar cg_flag_fine; // type of cutting position
 #define c_cg_cut_tl     0x01    // left top    cutten
 #define c_cg_cut_ml     0x02    // left middle cutten
 #define c_cg_cut_bl     0x04    // left bottom cutten
@@ -355,13 +356,13 @@ struct cell_struc {
 #define c_cg_cut_mr     0x20   // right middle cutten
 #define c_cg_cut_br     0x40   // right bottom cutten
 #define c_cg_cut_fr     0x80   // right full   cutten
-	BYTE accent_leader; // leader cell in farajev complex-cell
+	uchar accent_leader; // leader cell in farajev complex-cell
 	INT save_stick_inc; // save_inc of stick
 	INT clink; // Link to the cluster
 	// 104
 	uint16_t clu_attr; // cluster attributes
-	BYTE bottom_accent; // was spare[1]; 16.10.97 E.P.
-	BYTE n_baton;
+	uchar bottom_accent; // was spare[1]; 16.10.97 E.P.
+	uchar n_baton;
 #define MAX_BATON 3
 #define NO_BATONS 255
 	struct cell_struc * dup; // ref to copy of this word; defined only in spaces
@@ -371,10 +372,10 @@ struct cell_struc {
 	LONG dupstart, dupend;
 #define dup_default     ((cell*)0xffffffff)
 	// 144
-	BYTE dlang_dup;
-	BYTE font_new;
-	BYTE history;
-	BYTE solid_no;
+	uchar dlang_dup;
+	uchar font_new;
+	uchar history;
+	uchar solid_no;
 	uint32_t flg_new;
 #define c_fn_shave      0x00000001 // shaved cell
 #define c_fn_acccap     0x00000002 // accent cap
@@ -395,7 +396,7 @@ struct cell_struc {
 	INT nClust;
 	version pr_vers; //version from I pass
 	// 156
-	BYTE reserv[4];
+	uchar reserv[4];
 };
 typedef struct cell_struc cell;
 
@@ -421,8 +422,8 @@ typedef struct ln_head lnhead;
 
 //      one interval
 struct int_s {
-	BYTE l; // length of interval
-	BYTE e; // end of interval coordinates
+	uchar l; // length of interval
+	uchar e; // end of interval coordinates
 };
 typedef struct int_s interval;
 
@@ -446,7 +447,7 @@ struct str_struc {
 	uint16_t last;
 	uint16_t scale; // scale of the string
 	INT fragment; // fragment of the string
-	BYTE language; // language of the string
+	uchar language; // language of the string
 	c_comp *ccomp[1]; // array of ptrs to components
 };
 typedef struct str_struc str;
@@ -467,8 +468,8 @@ typedef struct baseline_struct B_LINES;
 
 struct rule_struct {
 	POINT beg, end;
-	BYTE width;
-	BYTE type;
+	uchar width;
+	uchar type;
 #define VERT_LN  0
 #define HOR_LN   1
 #define UNDRLN   2

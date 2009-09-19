@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
+
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
@@ -85,24 +85,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"	// 31.05.2002 E.P.
 #include "minmax.h"
 
-static INT correct_braces(BYTE fun[],INT n,INT lev,INT typ);
-static INT num_zero_intervals(BYTE fun[],INT n,INT lev);
-static INT dest_to_comp( BYTE raster[],INT hei, INT wid);
-static INT off_shift_string( BYTE string[],INT len );
+static INT correct_braces(uchar fun[],INT n,INT lev,INT typ);
+static INT num_zero_intervals(uchar fun[],INT n,INT lev);
+static INT dest_to_comp( uchar raster[],INT hei, INT wid);
+static INT off_shift_string( uchar string[],INT len );
 static INT kill_stick(version *v);
-static INT kill_version( BYTE prob);
+static INT kill_version( uchar prob);
 
-  extern BYTE db_status    ;	// snap presence byte
-  extern BYTE db_trace_flag;    // snap-detail presence byte
-  extern BYTE db_pass      ;    // snap-pass indicator
+  extern uchar db_status    ;	// snap presence byte
+  extern uchar db_trace_flag;    // snap-detail presence byte
+  extern uchar db_pass      ;    // snap-pass indicator
   extern INT nIncline      ;
   extern INT pitchsize     ;
 //////  extern INT pen_up, pen_dn;	// 10.01.1994	for OTLADKA PRINT ONLY;
 //  extern INT pen_up;		// 17.01.1994	for OTLADKA 't'
-  extern BYTE line_tabcell;
+  extern uchar line_tabcell;
 
-  extern BYTE enable_table_recog; // Oleg : 10-02-95 09:05pm : sheet version
-  extern Bool test_alphabet_elem(BYTE let);
+  extern uchar enable_table_recog; // Oleg : 10-02-95 09:05pm : sheet version
+  extern Bool test_alphabet_elem(uchar let);
 /*......................................................................*/
 uint16_t	mkm1=0x1111, mkm2=0x2222, mkm3=0x3333,	// MK Variables
 	mkm4=0x4444, mkm5=0x5555;
@@ -115,10 +115,10 @@ uint16_t	mkFlag_Dump = FALSE;
 uint16_t	N_eq_Neck;					// 28.07.1993
 uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see CHA, DEF, DIS;
 int	inc_num_EEM;	// 15.11.1993;  formed in STIC_MAK.C;
-BYTE	inc_char_EEM;	// 16.11.1993 for SNAP only;  formed in STIC_MAK.C;
+uchar	inc_char_EEM;	// 16.11.1993 for SNAP only;  formed in STIC_MAK.C;
 int	dis_LIMIT_EEM;	// 18.11.1993;
 int	mk_dis_for_liga_exm;	// 06.01.1994
-BYTE	left_letter_EEM;	// 17.01.1994
+uchar	left_letter_EEM;	// 17.01.1994
 /*......................................................................*/
 
 #define bytlen(bit) (((bit)+7)>>3)
@@ -128,7 +128,7 @@ BYTE	left_letter_EEM;	// 17.01.1994
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
 
 /* add version : if '*' or  'Ч' (spec symbols) then kill primary versions */
-void new_vers( cell *c, BYTE vers, BYTE prob)
+void new_vers( cell *c, uchar vers, uchar prob)
 {
 
 INT n=(c->flg&c_f_dust)?0:c->nvers,spec_sym=( chkbullet(vers) || vers=='*' );
@@ -177,11 +177,11 @@ return;
 
 /* set letter (let) propability to (prob) if prob > old propability */
 /* return FALSE if letter (let) not exist in cell *c                */
-Bool set_prob(cell *c, char let, BYTE prob)
+Bool set_prob(cell *c, char let, uchar prob)
 {
 INT i,n=c->nvers;
 for(i=0;i<n;i++)
-	if( c->vers[i].let==(BYTE)let )
+	if( c->vers[i].let==(uchar)let )
 		{
 		if( prob > c->vers[i].prob )
 			c->vers[i].prob = prob;
@@ -216,7 +216,7 @@ return;
 }
 
 /* add version (let,prob) if she not exist, else correct propability */
-void add_stick_vers(cell *c,char let,BYTE prob)
+void add_stick_vers(cell *c,char let,uchar prob)
 {
 if( !check_let(c,let) )
 	new_vers(c,let,prob);	/* adding new version */
@@ -227,7 +227,7 @@ return;
 
 Bool check_let(cell *c, char let )
 {
-BYTE i,l=(BYTE)let,n=(BYTE)c->nvers;
+uchar i,l=(uchar)let,n=(uchar)c->nvers;
 version *bv;
 
 for(bv=c->vers,i=0;i<n;i++,bv++)
@@ -278,7 +278,7 @@ B_LINES bl;
 INT	del_sticks_F_60 (cell *c)  {			// 05.03.1993
 INT	i, n=c->nvers;
 INT	prob_F;
-BYTE let;
+uchar let;
 
 for(i=0;i<n;i++)
 	{
@@ -296,7 +296,7 @@ for(i=0;i<n;i++)
 		prob_F = (&c->vers[i])->prob;
 		prob_F -= 60;
 		if (prob_F<=0) prob_F = 2;
-		c->vers[i].prob = (BYTE)prob_F;
+		c->vers[i].prob = (uchar)prob_F;
 		}
 	}
 
@@ -307,7 +307,7 @@ for(i=0;i<n;i++)
 /* decrease letter-propability for stick codes  */
 static INT kill_stick(version *v)
 {
-BYTE let = v->let ;			// A.A.LEMAN from 28.06.1993
+uchar let = v->let ;			// A.A.LEMAN from 28.06.1993
 char stick_list[]="frtIJT1l!ij/[]{}LFY";	// 22.11.1993		//17/19
 if( memchr(stick_list, let,17)!=NULL             ||
     ( language == LANG_CROATIAN && (let==CROAT_d||let=='d') ) ||
@@ -345,11 +345,11 @@ if( memchr(stick_list, let,17)!=NULL             ||
 		is_turkish_palka(let)	// рСПЕЖЙХЕ ОЮКЙХ. 21.05.2002 E.P.
 
   )
-		v->prob = (BYTE)kill_version(v->prob);
+		v->prob = (uchar)kill_version(v->prob);
 return( v->prob );
 }
 
-static INT kill_version( BYTE prob)
+static INT kill_version( uchar prob)
 {
 prob>>=2;
 if( prob&1 )
@@ -410,7 +410,7 @@ INT	discrim_all_sticks (cell *c,
 {							// 27.01.1994
 INT  i, n=c->nvers, num, tmp, c_f=check_let(c,'f');
 INT  prob;
-BYTE let;
+uchar let;
 B_LINES bll;
 
 	get_b_lines(c,&bll);
@@ -439,7 +439,7 @@ B_LINES bll;
 			if (prob>254) prob = 254;	// CENSURE for BONUS (t^...);
 			if (tmp==-444)			// INCREASE SPEC.CASE "ft"
 				prob = 200;		// 27.01.1994 (for Igor)
-			c->vers[i].prob = (BYTE)prob;
+			c->vers[i].prob = (uchar)prob;
 		}
 	}
 
@@ -452,9 +452,9 @@ return(num);
 /* ╟╟╟           FUNCTIONS FOR FILTRATE ABRIS-ARRAY             ╟╟╟  */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
 /* shave near pimples              */
-void filtr_short(BYTE fun[],INT n,INT lev)
+void filtr_short(uchar fun[],INT n,INT lev)
 {
-BYTE i;
+uchar i;
 lev++;
 for(i=1;i<n-1;i++)
 	if( fun[i-1]==fun[i+1] && abs(fun[i]-fun[i-1])<lev )
@@ -463,7 +463,7 @@ return;
 }
 
 /* filtr 121 : fun[i] = fun[i-1]+2*fun[i]+fun[i+1]    */
-void filtr121(BYTE fun[],INT n)
+void filtr121(uchar fun[],INT n)
 {
 #define LIM_OF_DIST 6
 INT i,fprev=fun[0],fcurr,fnext;
@@ -487,7 +487,7 @@ for(i=1;i<n-1;i++)
 }
 
 /* filtr_bullet : for fun[i-1]=fun[i+1]=0 set fun[i]=0 */
-void filtr_bullet(BYTE fun[],INT len)
+void filtr_bullet(uchar fun[],INT len)
 {
 INT i;
 for( len--,i=3; i<len; i++) /* first and last elem skipped */
@@ -500,7 +500,7 @@ return;
 }
 
 /*  fultr_shave : fun[i-1]=fun[i+1] and fun[i]!=fun[i-1] set fun[i]=fun[i-1] */
-void filtr_shave(BYTE fun[],INT len)
+void filtr_shave(uchar fun[],INT len)
 {
 INT i;
 for( len--,i=3; i<len; i++) /* first and last elem skipped */
@@ -512,9 +512,9 @@ for( len--,i=3; i<len; i++) /* first and last elem skipped */
 return;
 }
 
-INT find_minimum(BYTE fun[],INT n,BYTE *_imin)
+INT find_minimum(uchar fun[],INT n,uchar *_imin)
 {
-BYTE i, imin, minim, io, ff;
+uchar i, imin, minim, io, ff;
 
 for(imin=0,minim=fun[0],i=1;i<n;)
 	{
@@ -566,7 +566,7 @@ if (s->neck==3)					// 16.12.1993  ADD ╨ FIRST:
 //////	add_stick_vers (c, liga_i, cut_by_pos(c,liga_i,prob,1,1));
 if(language != LANG_RUSSIAN)
 	add_stick_vers (c, (char)liga_i,	// 17.01.1994, 140 for der Laterne:
-			(BYTE)cut_by_pos(c,liga_i,(char)(MAX(prob,140)),1,1));
+			(uchar)cut_by_pos(c,liga_i,(char)(MAX(prob,140)),1,1));
 
 if( !inc &&  wide<<1<=dx &&				// ADD ╨ SECOND:
     s->neck && typ_snap &&
@@ -574,13 +574,13 @@ if( !inc &&  wide<<1<=dx &&				// ADD ╨ SECOND:
 	/* no inc; exist neck; thin stick; similar '╨' */
 //////	add_stick_vers (c,'╨',cut_by_pos(c,'╨',prob,1,1));
 if(language != LANG_RUSSIAN)
-	add_stick_vers (c, (char)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
+	add_stick_vers (c, (char)liga_i, (uchar)cut_by_pos(c,liga_i,prob,1,1));
 
 if( inc<2 &&         // ADD ╩ SECOND:
     s->neck && typ_snap &&
     similar_0xBB (l, r, s) )
 if(language != LANG_RUSSIAN)
-  add_stick_vers (c, (char)liga_j, (BYTE)cut_by_pos(c,liga_j,prob,1,1));
+  add_stick_vers (c, (char)liga_j, (uchar)cut_by_pos(c,liga_j,prob,1,1));
 
 if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
 	{                   /* not left cut and not i-dot */
@@ -588,14 +588,14 @@ if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
 	    if (c->nvers==0  ||  c->vers[0].let != '/')	// PROBA 25.06.1993
 //////		add_stick_vers(c,'╨',cut_by_pos(c,'╨',prob,1,1));
 if(language != LANG_RUSSIAN)
-		add_stick_vers (c, (char)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
+		add_stick_vers (c, (char)liga_i, (uchar)cut_by_pos(c,liga_i,prob,1,1));
 /*......................................................................*/
 	if( (check_let(c,'l')||check_let(c,'I')) &&		// ADD '1'
 	    (!check_let(c,'1')) &&			// 08.07.1993 MK !!!
 	    similar_1 (l, r, s)
 	  )
 		add_stick_vers (c,(char)'1',
-			(BYTE)cut_by_pos(c,'1',prob,1,1) );
+			(uchar)cut_by_pos(c,'1',prob,1,1) );
 
   if( language == LANG_POLISH  &&
       (check_let(c,'t') || check_let(c,'1') ) &&   // ADD '1'
@@ -603,7 +603,7 @@ if(language != LANG_RUSSIAN)
       similar_l_stroked (l, r, s)
 	)
 		add_stick_vers (c,(char)POLISH_l,
-			(BYTE)cut_by_pos(c,POLISH_l,prob,1,1) );
+			(uchar)cut_by_pos(c,POLISH_l,prob,1,1) );
 
   }
 
@@ -616,13 +616,13 @@ if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 	if( similar_excl (l, r, s) )
 		{
 		if( dot_excl(c)!=NULL )
-			add_stick_vers(c,'!',(BYTE)pr);
+			add_stick_vers(c,'!',(uchar)pr);
 		else if( language == LANG_RUSSIAN &&  !line_tabcell  )
 			{
 			B_LINES bl;
 			get_b_lines(c,&bl);
 			if( c->nvers>0 && c->row<bl.bm )
-				add_stick_vers(c,(char)liga_exm,(BYTE)pr);
+				add_stick_vers(c,(char)liga_exm,(uchar)pr);
 			}
 		}
 	else if( language == LANG_RUSSIAN &&  !line_tabcell && dot_excl(c)==NULL &&
@@ -631,7 +631,7 @@ if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 		B_LINES bl;
 		get_b_lines(c,&bl);
 		if( c->nvers>0 && c->row<bl.bm )
-			add_stick_vers(c,(char)liga_exm,(BYTE)pr);
+			add_stick_vers(c,(char)liga_exm,(uchar)pr);
 		}
 	}
 
@@ -686,7 +686,7 @@ if ((s->right_mode - s->left_mode < 5)  &&	// 07.01.1994
 			    prob_new += 2;			// MORE;
 		    if (s->neck)  prob_new -= 2;		// LESS; (ENTE);
 		    if (prob_new>254)  prob_new = 254;	// CENSURE;
-		    add_stick_vers (c, (char)liga_exm, (BYTE)prob_new);
+		    add_stick_vers (c, (char)liga_exm, (uchar)prob_new);
             //////		sort_vers (c);			// VERY VERY OLD (COPY OF...);
             //////		mk_dis_for_liga_exm = 2;	// 06.01.1994
 		    mk_dis_for_liga_exm = (prob_l==254) ? 2 : 0;	// l 254->252;
@@ -699,14 +699,14 @@ if (language == LANG_SPANISH	&&		// 03.01.1994  INVERS EXM !
     s->base_3mk+2 < s->height	&&
     l->num_long_flags + r->num_long_flags == 0)  {
 //////		add_stick_vers (c, invers_exm, pr);
-		add_stick_vers (c, (char)invers_exm, (BYTE)prob);	// ????????????
+		add_stick_vers (c, (char)invers_exm, (uchar)prob);	// ????????????
 		}
 
 return;
 }
 /*----------------------------------------------------------------------*/
 /* add versions 't','f','(',')' for dx<=4 - small kegls */	// <=4 !!!
-void add_thin_stick_versions (cell *c, BYTE left[], BYTE right[],
+void add_thin_stick_versions (cell *c, uchar left[], uchar right[],
 			   INT dy, INT dx, INT typ_inc,
 			   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
@@ -727,7 +727,7 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 	      !l->mount[4] &&
           !check_let(c,(uchar)t_inv_roof)
         )
-	   new_vers(c,t_inv_roof,(BYTE)cut_by_pos(c,t_inv_roof,prob,1,1) );
+	   new_vers(c,t_inv_roof,(uchar)cut_by_pos(c,t_inv_roof,prob,1,1) );
 	}
 
 	//  Nick 10.09.2000 - for ROMAN
@@ -741,15 +741,15 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 		  c->row < basL.b2 &&
           c->row + c->h > basL.b3 + (c->h/5 )
 		 )
-	    new_vers(c,t_bottom_accent,(BYTE)cut_by_pos(c,t_bottom_accent,prob,1,1) );
+	    new_vers(c,t_bottom_accent,(uchar)cut_by_pos(c,t_bottom_accent,prob,1,1) );
 	}
 
 	/* adding 't','f' */
 	if( dy<17 && t>0 && !check_let(c,'t') )
-		new_vers(c,'t',(BYTE)cut_by_pos(c,'t',prob,1,1) );
+		new_vers(c,'t',(uchar)cut_by_pos(c,'t',prob,1,1) );
 
 	if( dy<22 && t>1 && !check_let(c,'f') )
-		new_vers(c,'f',(BYTE)cut_by_pos(c,'f',prob,1,1) );
+		new_vers(c,'f',(uchar)cut_by_pos(c,'f',prob,1,1) );
 	}
 
 if( dx<=4 && !typ_inc )  {		/* adding circle braces	*/
@@ -759,18 +759,18 @@ INT nzr = num_zero_intervals(right,dy,(INT)((dx-1)<<2));
 	    correct_braces(left,dy,0,1)  &&
 	    correct_braces(right,dy,(INT)((dx-1)<<2),0)  &&
 	    similar_lcb (l, r, s) )
-		new_vers(c,'(',(BYTE)cut_by_pos(c,'(',prob,1,1) );
+		new_vers(c,'(',(uchar)cut_by_pos(c,'(',prob,1,1) );
 	if ( nzl==2  &&  nzr==1  &&  !check_let(c,')')  &&
 	    correct_braces(left,dy,0,0)  &&
 	    correct_braces(right,dy,(INT)((dx-1)<<2),1)  &&
 	    similar_rcb (l, r, s) )
-		new_vers(c,')',(BYTE)cut_by_pos(c,')',prob,1,1) );
+		new_vers(c,')',(uchar)cut_by_pos(c,')',prob,1,1) );
 	}
 return;
 }
 /*----------------------------------------------------------------------*/
 /* study limits of first and last columns for c_comp '(',')' */
-static INT correct_braces(BYTE fun[],INT n,INT lev,INT typ)
+static INT correct_braces(uchar fun[],INT n,INT lev,INT typ)
 {
 if( typ )
 	{  /* right */
@@ -786,7 +786,7 @@ return(1);
 }
 
 /* number of intervals of const in column (lev) */
-static INT num_zero_intervals(BYTE fun[],INT n,INT lev)
+static INT num_zero_intervals(uchar fun[],INT n,INT lev)
 {
 INT i,s;
 for(i=1,s=(fun[0]==lev);i<n;i++)
@@ -842,13 +842,13 @@ MN	*sh_mn;
 cell	*sh_cell;
 c_comp	*buf_cell;
 char	buf[1024],*pbuf;
-PBYTE	raster;
-BYTE	sh_raster[1024];
+puchar	raster;
+uchar	sh_raster[1024];
 INT	i, d_x, off, buf_w, c_f;
-BYTE	cUL = (l->up_hook)   ? '~' : ' ',  dUL = l->up_serif;
-BYTE	cUR = (r->up_hook)   ? '~' : ' ',  dUR = r->up_serif;
-BYTE	cDL = (l->down_hook) ? '_' : ' ',  dDL = l->down_serif;
-BYTE	cDR = (r->down_hook) ? '_' : ' ',  dDR = r->down_serif;
+uchar	cUL = (l->up_hook)   ? '~' : ' ',  dUL = l->up_serif;
+uchar	cUR = (r->up_hook)   ? '~' : ' ',  dUR = r->up_serif;
+uchar	cDL = (l->down_hook) ? '_' : ' ',  dDL = l->down_serif;
+uchar	cDR = (r->down_hook) ? '_' : ' ',  dDR = r->down_serif;
 INT	cut_0123;
 static	char	*vars_cut_0123 [] =  {	"NO CUT",	// 0
 					"CUT R",	// 1
@@ -1046,7 +1046,7 @@ cell	*cell_LEFT = c->prevl;
   for(i=0;i<c->nvers;i++)
     {
     INT   dis ,  dis_abs;
-    BYTE  let  = c->vers[i].let;
+    uchar  let  = c->vers[i].let;
     if( let=='|' && (c->pos_inc&erect_rot) && c->stick_inc>256 )  let='i';
     dis = discrim_stick(let,l,r,s,c_f);
     dis_abs = abs (dis);
@@ -1101,8 +1101,8 @@ return;
 
 /*----------------------------------------------------------------------*/
 /* position of first bit in string */
-static INT off_shift_string ( BYTE string[], INT len )  {
-BYTE i,f,k;
+static INT off_shift_string ( uchar string[], INT len )  {
+uchar i,f,k;
 
 for (i=0; i<len&&string[i]==0x00; i++);		/* skip  zero bytes */
 f = string [i];
@@ -1115,9 +1115,9 @@ return (k);
 /*----------------------------------------------------------------------*/
 /* MINIMAL number of first bit in any row of raster  */
 /* this (not optimal !) function used in SNAP only   */
-static INT dest_to_comp (BYTE raster[], INT hei, INT wid)  {
+static INT dest_to_comp (uchar raster[], INT hei, INT wid)  {
 INT	i, minim, d, bwid=bytlen(wid);
-BYTE	*p ;
+uchar	*p ;
 for (minim=wid,p=&raster[0],i=0; i<hei; i++,p+=bwid)  {
 	d = off_shift_string ( p, bwid );	/* p - pointer to curret row */
 	if ( d<minim )
@@ -1130,11 +1130,11 @@ return ( minim );
 // max_shift - max offset of string
 // result : raster *res, return : new width of raster
 //  AK add stack crash protection : Oleg : up size of local buffer
-INT shift_raster (BYTE *raster, INT dy, INT dx, INT tab_angle[],
-      INT max_shift, BYTE *res, INT dir)
+INT shift_raster (uchar *raster, INT dy, INT dx, INT tab_angle[],
+      INT max_shift, uchar *res, INT dir)
 {
 	INT i, ii, j, Dx, d, dd, c;
-	BYTE  *r, *rr, s1, s2;
+	uchar  *r, *rr, s1, s2;
 
 	d  = bytlen (dx);
 	Dx = dx+max_shift;

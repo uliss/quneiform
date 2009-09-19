@@ -170,11 +170,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RECLEV                 0.6       /* num of BLANK / all length */
 #define ATDBL                  3
 #define MAXWRDBUFF             38
-#define BLANK                  (BYTE)bad_char
-#define CR                     (BYTE)0xFF
+#define BLANK                  (uchar)bad_char
+#define CR                     (uchar)0xFF
 #define TRADEMARK              0X7E
-#define WRDDIV                 (BYTE)'-'
-#define EOLIST                 (BYTE)0x01
+#define WRDDIV                 (uchar)'-'
+#define EOLIST                 (uchar)0x01
 #define User_dicts             4          /* word has to be checked only according
                                            * user dictionaries. */
 #define All_dicts              3          /* word has to be checked according all
@@ -208,7 +208,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define VOC_ACCNT_ZERO         -5
 #define VOC_TOO_SMALL          -6      /* MAX_VOC_SIZE less then sizeof(vert) */
 /**************************************************************************/
-typedef BYTE byte;
+typedef uchar byte;
 
 struct bit_map_ref
 {
@@ -265,8 +265,8 @@ struct retrieve_level
 
 struct EdTagLanguage //for russian-english recognize
  {
- BYTE code; // 0x0F
- BYTE language;
+ uchar code; // 0x0F
+ uchar language;
  };
 
 struct underline                       /* 0 - straight font            */
@@ -383,7 +383,7 @@ struct segm
   struct bit_map_ref  map_ref;          /* reference to bit-map */
   INT line_ref;                  /* reference to the line of schedule */
   char store[3];                       /* expand */
-  BYTE string[1];                      /* text itself */
+  uchar string[1];                      /* text itself */
  };
 
 struct sheet_descr
@@ -395,7 +395,7 @@ struct sheet_descr
  struct sheet_descr  *prev_sheet; /* address of previous sheet */
  struct sheet_descr  *next_sheet; /* address of next sheet */
  struct sheet_descr  *sheet;      /* address of sheet */
- BYTE quant_fragm;                      /* quant. of fragments in sheet */
+ uchar quant_fragm;                      /* quant. of fragments in sheet */
  INT lth;                               /*length of descriptor with fragm*/
  struct fragm_descr *fragm[256];  /* addresses of sheet's fragments */
 };
@@ -415,10 +415,10 @@ struct file_descr
 struct sheet_disk_descr
 {
  byte code;
- BYTE quant_fragm;
+ uchar quant_fragm;
  INT sheet_numb;
  INT descr_lth;
- BYTE byte_flag;
+ uchar byte_flag;
  char tabl[17];
 };
 
@@ -476,7 +476,7 @@ struct state_stack_elem
   char density;                        /* printing density */
   char underline;                      /* presence of underline */
   struct bit_map_ref map_ref;          /* address of cur_symb in bit_map */
- BYTE  *ns_ref_ptr;       /*address of current map_ref*/
+ uchar  *ns_ref_ptr;       /*address of current map_ref*/
   INT letter_ref;                      /* ??????? */
   INT halo_ref;                        /* ??????? */
   INT word_ref;                        /*  */
@@ -493,7 +493,7 @@ struct letter
 typedef struct state
  {                        /* description of state characteristics */
   struct segm *cur_segm;          /* address of current segm */
-  BYTE  *cur_symb;            /* address of current non control symbol */
+  uchar  *cur_symb;            /* address of current non control symbol */
   char stack_level;           /* level of state stack */
   char size_tab[18];                   /* values of tabulation */
   INT position;                        /* ?????? */
@@ -530,11 +530,11 @@ typedef struct stdhlt {
 
 struct ltimg {
     struct letter  *lt;                    /* ref to curr LT in list              */
-    BYTE  *source;     /* reference to header & list          */
+    uchar  *source;     /* reference to header & list          */
     STD std;                        /* ref to standard header & list       */
     INT blank;                      /* =1, if alternatives are not set     */
             /* alt indices in respective pos (obj->pos[i].alt[]): */
-    BYTE altn[ABCSIZE];
+    uchar altn[ABCSIZE];
                /* all pos[] for the wrdimg are in obj->part->pos   */
            /* if blank=1, altn[]={0,1,2,...,ABCSIZE}                   */
       } ;
@@ -556,11 +556,11 @@ typedef struct word_descr_in_voc
     INT                   nmb;
     struct segm   *segm;
     char          *symb;
-    BYTE                 type;
-    BYTE              type_sp;
-    BYTE                  voc;
-    BYTE               l_cont;
-    BYTE               r_cont;
+    uchar                 type;
+    uchar              type_sp;
+    uchar                  voc;
+    uchar               l_cont;
+    uchar               r_cont;
       } WTOKEN;
 /*********************      CONTEXT FLAGS      *****************************/
 
@@ -593,9 +593,9 @@ typedef struct word_descr_in_voc
 /***************************************************************************/
 
 struct v {
-  BYTE key;                  /*  key of vertex                    */
-  BYTE wrdterm :1;            /*  flag of word termination         */
-  BYTE accnt :7;              /*  statistics account               */
+  uchar key;                  /*  key of vertex                    */
+  uchar wrdterm :1;            /*  flag of word termination         */
+  uchar accnt :7;              /*  statistics account               */
   uint16_t left;                  /*  pointer to left brother          */
   uint16_t right;                 /*  pointer to right brother         */
   uint16_t down;                  /*  pointer to down brother ( son )  */
@@ -616,9 +616,9 @@ struct vstate
 	uint16_t path [MAX_WORD_SIZE];  /* path from root to current vertex  */
 	/*  uint16_t vocseg;    */        /* base register of vocabulary       */
 
-	BYTE * vocseg;
+	uchar * vocseg;
 	uint16_t vocfree;               /* size of unused space in voc.      */
-	BYTE state;
+	uchar state;
 };
                   /*           Voc states definitions */
 #define VOC_CHANGED  0x01
@@ -692,7 +692,7 @@ typedef struct super
   uint16_t corner;
    uint16_t end_altern;
   uint16_t last_altern;
-  BYTE text_line[sizeof(struct letter)*MAX_STRING_LTH];  //  2 * 80
+  uchar text_line[sizeof(struct letter)*MAX_STRING_LTH];  //  2 * 80
   dt  *tab_ptr;
   char * text_buff;
   //////// char text_buff_pool[BUFSIZE];   // 8192
@@ -709,7 +709,7 @@ typedef struct super
   struct segm  * last_del_line;
   struct segm  *ptr_cur_segm;
   struct segm  *ptr_next_segm;
-  BYTE *buff_ptr;
+  uchar *buff_ptr;
   struct segm  *new_segm;
   char atr;
   char bgc;
@@ -774,7 +774,7 @@ typedef struct super
   INT shift_status;
   INT key;
   struct segm  *ns_segm;        /* segm_ptr corresponding to next_symb() */
-  BYTE  *ns_symb;      /* symbol corresponding to next_symb() */
+  uchar  *ns_symb;      /* symbol corresponding to next_symb() */
   INT skip_line_x;
   INT flag_out;
   char edit_file_name[40];
@@ -842,7 +842,7 @@ typedef struct super
      uint16_t             kegl;
      uint16_t        font_type;
      char      file_name[40];
-     BYTE *   buf;
+     uchar *   buf;
      uint16_t         buf_size;
      uint16_t              lth;
         };
@@ -850,7 +850,7 @@ typedef struct super
   struct tif_state
           {
        uint16_t          shift;    /*  shift (in tif lines ) */
-       BYTE  *buf;
+       uchar  *buf;
        uint16_t       buf_size;
        uint16_t            lth;
      } ;
@@ -918,7 +918,7 @@ struct tifref
   uint16_t col;                   /*  ...                    */
   uint16_t width;                 /*  ...                    */
   uint16_t height;                /*  ...                    */
-  BYTE *env_ref;    /* ref to envelope specification in tif */
+  uchar *env_ref;    /* ref to envelope specification in tif */
   struct segm * segm;        /*        Q.ns.segm        */
   char *symb;               /*        Q.ns.symb        */
  };
@@ -1068,18 +1068,18 @@ struct tifref
 
     struct letter orig;    /* original code & probability              */
     struct letter  * lt; /* ref to alt & prob                      */
-    BYTE seqnum;  /* sequential nmb in original alt list      */
+    uchar seqnum;  /* sequential nmb in original alt list      */
                    /* 0, if was not available (then generated) */
     INT dif_wt;            /* weight of discrepancy with orig alts     */
 /* ???
     uint16_t prob_BOX;
    ??? */
-    BYTE type;
+    uchar type;
                    /* T_ALPHA - alphabetic   */
                    /* T_DIG   - digital      */
                    /* T_CAP   - capital      */
                    /* T_LOW   - low case     */
-/*    BYTE type_sp;*/              /* T_DELIM  */
+/*    uchar type_sp;*/              /* T_DELIM  */
         } SALT;
 
 
@@ -1096,7 +1096,7 @@ struct tifref
     struct matrBOX e_BOX;
      ??? */
                     /*   context info:   */
-    BYTE type;
+    uchar type;
                     /* T_ALPHA - all alts alphabetic   */
                     /* T_DIG   - all alts digital      */
                     /* T_MIXED - mixed (alphabet+digit)*/
@@ -1106,7 +1106,7 @@ struct tifref
                     /* T_NAME  - name                  */
 
                     /*   blank, alts, space, hyphen info: */
-    BYTE type_sp;      /* T_LINE - new line begins here         */
+    uchar type_sp;      /* T_LINE - new line begins here         */
                     /* T_BLANK   - blank (originally)        */
                     /* T_MYBLANK - T_BLANK is assigned by me */
                     /* T_ALTS  - alternatives available      */
@@ -1115,10 +1115,10 @@ struct tifref
                     /* T_HYPHEN - hyphen                     */
                     /* T_DELIM - an alt-delimiter takes place*/
 
-    BYTE type_art; /* artificial change (repl & glue-cut) flags:*/
+    uchar type_art; /* artificial change (repl & glue-cut) flags:*/
                     /* T_REPL - special replacement          */
                     /* T_GC   - glue-cut                     */
-    BYTE art;          /* artificial change id                  */
+    uchar art;          /* artificial change id                  */
 
     float prop_ind;             /*  proportionality index          */
     struct tifref tif_ref;      /* tiff specifications             */
@@ -1134,7 +1134,7 @@ struct tifref
 
 typedef struct objstr {
                    /* object's context specification:    */
-    BYTE type;
+    uchar type;
                   /* T_ALPHA -   pure alphabetic          */
                   /* T_DIG   - pure digital               */
                   /* T_MIXED - mixed (alphabetic+digital) */
@@ -1144,7 +1144,7 @@ typedef struct objstr {
                   /* T_NAME - name                        */
 
                   /*   blank, alts, space, hyphen info:  */
-    BYTE type_sp;    /* T_LINE - new line begins here            */
+    uchar type_sp;    /* T_LINE - new line begins here            */
                   /* T_BLANK   - blanks (originally) exist    */
                   /* T_MYBLANK - blank assigned by me exist   */
                   /* T_ALTS - alternatives available          */
@@ -1194,7 +1194,7 @@ typedef struct objstr {
     INT lthok;         /* lth of curr word piece found in dict/voc          */
     INT allowedlth;
 
-    BYTE type_art;  /* artificial change (repl & glue-cut) kind:   */
+    uchar type_art;  /* artificial change (repl & glue-cut) kind:   */
                /* T_REPL - special replacement                      */
                /* T_GC   - glue-cut                                 */
     INT art [MAX_VIEW_SIZE]; /* artificial change identifiers               */
@@ -1203,9 +1203,9 @@ typedef struct objstr {
     INT max_art;       /* curr max art id (right bound of artbase)          */
     INT art_minpos;    /* min pos of obj->pos[] curr used for part-changes  */
 
-    BYTE type_orig; /* original type (context) of curr part        */
+    uchar type_orig; /* original type (context) of curr part        */
     struct wordstr * word; /* ref to current word under treatment           */
-    BYTE wordchar [MAX_WORD_SIZE]; /* word as a char-chain         */
+    uchar wordchar [MAX_WORD_SIZE]; /* word as a char-chain         */
     INT nmb_wrdfound;  /* a nmb of words found for a current part           */
 
           } SOBJ;
@@ -1226,15 +1226,15 @@ typedef struct objstr {
 
       struct wordstr * next;           /* ref to next word in part-word-list */
       struct posstr * pos[MAX_WORD_SIZE]; /* refs to obj pos-s               */
-      BYTE altn [MAX_WORD_SIZE]; /* alt numbs for correspondent poss*/
-      BYTE alt_doubt [MAX_WORD_SIZE]; /* alt doubt values, received */
+      uchar altn [MAX_WORD_SIZE]; /* alt numbs for correspondent poss*/
+      uchar alt_doubt [MAX_WORD_SIZE]; /* alt doubt values, received */
                     /* by back_recog (for corresp pos-s  */
-      BYTE type;
+      uchar type;
                   /* T_ALPHA - all alts alphabetic       */
                   /* T_DIG   - all alts digital          */
                   /* T_CAP   - all capitals (in fact)    */
                   /* T_LOW   - all low case (in fact)    */
-      BYTE type_sp;
+      uchar type_sp;
                  /* T_BLANK   - blank (originally)        */
                  /* T_DELIM - an alt-delimiter takes place*/
       INT lth;                /* word length                         */
@@ -1243,10 +1243,10 @@ typedef struct objstr {
                   /* 3 - pure digital word (consid.to be in voc) */
                   /* 2 - dict (static)                   */
                   /* 1 - voc  (dynamic)                  */
-      BYTE type_art; /* artificial change (repl & glue-cut) kind:*/
+      uchar type_art; /* artificial change (repl & glue-cut) kind:*/
                   /* T_REPL - special replacement take place  */
                   /* T_GC   - glue-cut take place             */
-      BYTE art [MAX_WORD_SIZE]; /* artificial change identifiers */
+      uchar art [MAX_WORD_SIZE]; /* artificial change identifiers */
 
       INT dif_wt;             /* weight of discrepancy with original alts */
       INT low_alt_nmb;        /* nmb of alts with prob < PROB_ALLOWED */
@@ -1269,10 +1269,10 @@ typedef struct partstr
   INT end;                        /* part id: end position    */
   INT begi;                       /* beg index in obj->pos_part[] */
   INT endi;                       /* end index in obj->pos_part[] */
-  BYTE posn[MAX_WORD_SIZE]; /* part positions - list */
+  uchar posn[MAX_WORD_SIZE]; /* part positions - list */
   INT lth;                        /* nmb of elements in the list above    */
                   /* part context specification:          */
-  BYTE type;             /* T_CHEESE   - quantity ( set of digits suspected.)*/
+  uchar type;             /* T_CHEESE   - quantity ( set of digits suspected.)*/
                   /* T_ALPHA -   pure alphabetic          */
                   /* T_DIG   - pure digital               */
                   /* T_MIXED - mixed (alphabetic+digital) */
@@ -1283,7 +1283,7 @@ typedef struct partstr
 
                   /*   blank, alts, space, hyphen info:  */
                   /* only blanks are valuable for a part */
-  BYTE type_sp;      /* T_LINE - new line begins here            */
+  uchar type_sp;      /* T_LINE - new line begins here            */
                   /* T_BLANK   - blanks (originally) exist    */
                   /* T_MYBLANK - blank assigned by me exist   */
                   /* T_ALTS - alternatives available          */
@@ -1295,10 +1295,10 @@ typedef struct partstr
   INT dif_wt;                 /* weight of discrepancy with original alts */
   INT alt_nmb;                /* nmb of alternatives                      */
 
-  BYTE type_art;     /* artificial change (repl & glue-cut) kind:*/
+  uchar type_art;     /* artificial change (repl & glue-cut) kind:*/
                   /* T_REPL - special replacement take place  */
                   /* T_GC   - glue-cut take place             */
-  BYTE art [MAX_WORD_SIZE]; /* artificial change identifiers     */
+  uchar art [MAX_WORD_SIZE]; /* artificial change identifiers     */
 
   struct wordstr * word;      /* ref to curr word: last is 1-st in list   */
  }  SPART;
@@ -1310,19 +1310,19 @@ typedef struct partstr
 //
 //typedef struct artstr
 // {
-//  BYTE sr1;       /* code1 of what replace */
-//  BYTE sr2;       /* code2 of what replace */
-//  BYTE obj1;      /* code1 by what replace */
-//  BYTE obj2;      /* code2 by what replace */
-//  BYTE objt1;     /* type of obj1          */
-//  BYTE objt2;     /* type of obj2          */
-//  BYTE objts1;    /* type_sp of obj1       */
-//  BYTE objts2;    /* type_sp of obj2       */
-//  BYTE cond_sr1;  /* cond1 for sr1         */
-//  BYTE cond_sr2;  /* cond2 for sr2         */
-//  BYTE cond_sr12; /* cond12 for sr1&sr2    */
-//  BYTE cond_obj12x;/* cond12 for obj1&obj2 to check before */
-//  BYTE cond_obj12r;/* cond12 for obj1&obj2 to check after  */
+//  uchar sr1;       /* code1 of what replace */
+//  uchar sr2;       /* code2 of what replace */
+//  uchar obj1;      /* code1 by what replace */
+//  uchar obj2;      /* code2 by what replace */
+//  uchar objt1;     /* type of obj1          */
+//  uchar objt2;     /* type of obj2          */
+//  uchar objts1;    /* type_sp of obj1       */
+//  uchar objts2;    /* type_sp of obj2       */
+//  uchar cond_sr1;  /* cond1 for sr1         */
+//  uchar cond_sr2;  /* cond2 for sr2         */
+//  uchar cond_sr12; /* cond12 for sr1&sr2    */
+//  uchar cond_obj12x;/* cond12 for obj1&obj2 to check before */
+//  uchar cond_obj12r;/* cond12 for obj1&obj2 to check after  */
 // } ARTS;
 
 #define MAX_ARTS 41
@@ -1467,8 +1467,8 @@ typedef struct partstr
 /****                   STATISTIC COLLECTION             ****/
 /************************************************************/
 typedef struct stat_of_replace
-    { BYTE   was;
-      BYTE    be;
+    { uchar   was;
+      uchar    be;
       INT     no;
     } RSTAT;
 

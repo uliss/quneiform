@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	mk_80_for_CUT	80
 /*----------------------------------------------------------------------*/
 
-#include "nt_types.h"
+
 
   #include <stdlib.h>
   #include <string.h>
@@ -77,19 +77,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 #ifdef UFA
-extern BYTE no_linear_crit;
+extern uchar no_linear_crit;
 #endif
 
-extern BYTE multy_language;
+extern uchar multy_language;
 
 extern INT pitchsize ;
 
 extern INT nIncline  ;
-extern BYTE fax1x2;	// MK NEW 05.01.1993
+extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994
-extern BYTE left_letter_EEM;	// 17.01.1994
+extern uchar left_letter_EEM;	// 17.01.1994
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
 extern uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
@@ -135,7 +135,7 @@ extern	INT dis_t (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
 extern	INT find_beam (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
 extern	INT find_neck (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
 /*----------------------------------------------------------------------*/
-INT discrim_stick (BYTE let, STICK_CHARS *l, STICK_CHARS *r,
+INT discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
       STICK_SIGNUMS *s, INT sign_f);
 
 static INT dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
@@ -160,7 +160,7 @@ INT similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 /*----------------------------------------------------------------------*/
 /* let - code discrim letter, width - optimal wide of stick, 		   */
 /* inc = 1 or 0(no inc), (*l,*r) - left and right characteristics of stick */
-INT discrim_stick (BYTE let, STICK_CHARS *l, STICK_CHARS *r,
+INT discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
       STICK_SIGNUMS *s, INT sign_f )
 {
 INT dis=0;
@@ -201,19 +201,19 @@ switch( let )
 	case '>' : dis = dis_sign_more(s);	break;
 	case '/' : dis = dis_slash(l,r,s);	break;
 	case 'J' : dis = dis_J(l,r,s);		break;
-  case (BYTE)'£' :
-  case (BYTE)'Г' :
+  case (uchar)'£' :
+  case (uchar)'Г' :
 		if( language==LANG_RUSSIAN )    dis = dis_RusG(l,r,s);
                                                 break;
 
-  case (BYTE)'в' :
+  case (uchar)'в' :
 
 	if (is_baltic_language(language) || //  онфликтный код a_macron 17.07.2001 E.P.
 		is_turkish_language(language)	// 21.05.2002 E.P.
 		)
 		{dis = 0; break;}
 
-  case (BYTE)'Т' : if( language!=LANG_RUSSIAN )    break;
+  case (uchar)'Т' : if( language!=LANG_RUSSIAN )    break;
 
   case 'T' : dis = dis_T(l,r,s);      break;
   case 'Y' : dis = dis_Y(l,r,s);      break;

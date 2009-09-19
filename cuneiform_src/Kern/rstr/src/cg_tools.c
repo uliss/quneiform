@@ -59,10 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 
-#ifndef __MAC__
-//#include <bios.h>
-#endif
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "lang.h"
@@ -81,7 +77,7 @@ extern Bool pass4_in;   //флаг: второй проход по странице
                 возвращает указатель на него
   NB! шч сюы№°шї ъюьяюэхэЄ ьюцхЄ яюыєўшЄ№ё  фєёЄ!
 -------------------------------------------------------------------*/
-cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, BYTE dflag)
+cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, uchar dflag)
 {
   INT i,top,bot,left,right;
   cell *B;                       //текущий cell
@@ -172,13 +168,13 @@ cell *col_to_one(cell **clist, INT n)
 static cell *overlap_cell( cell *C, cell *D )
 {
   cell *list[2],*P;
-  BYTE *r;
+  uchar *r;
   MN *mn1;
 
   if (C->r_col+C->w < D->r_col)  return NULL;
   list[0]=C; list[1]=D;
   if (!(P=col_to_one(list,2)))   return NULL;
-  r=(BYTE*)save_raster(P);
+  r=(uchar*)save_raster(P);
   mn1=c_locomp(r,(INT)((P->w+7)>>3),P->h,P->r_row,P->r_col);
   del_cell(P);
   if (mn1)
@@ -273,7 +269,7 @@ seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
   not_connect_sect  проверяет несвязность секции между i1-ым и i0-ым
                     сечениями; возвращает номер сечения-раздела
 ---------------------------------------------------------------------*/
-BYTE not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list)
+uchar not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list)
 {
   struct cut_elm *cur=&cut_list[i0],*last=&cut_list[i1];
 
@@ -307,11 +303,11 @@ static char quote(cell *B)
 
   if ( !dust(B) && B->nvers && !fict(P=B->prevl) && P->nvers )
   {
-    BYTE let1=B->vers[0].let,let2=P->vers[0].let;
+    uchar let1=B->vers[0].let,let2=P->vers[0].let;
     if ( ( let1=='>' && let2=='>' || let1=='<' && let2=='<' )
           && P->col+P->w > B->col )
     {
-      BYTE p1=B->vers[0].prob,p2=P->vers[0].prob;
+      uchar p1=B->vers[0].prob,p2=P->vers[0].prob;
       if ( MAX(p1,p2) >= MINlet )
       {
         glsnap('a',B,"quotation");  return 1;
@@ -391,7 +387,7 @@ static void mark_own_dust(cell *B)
 --------------------------------------------------------------*/
 static INT discr_vers(cell *B1, INT mon, char all_vers)
  {
- version *v;  BYTE c,chg=0;
+ version *v;  uchar c,chg=0;
  if (B1->nvers==0) return 0;
  for (v=B1->vers; ((c=v->let) != 0) && (v->prob != 0); v++)
    if (language == LANG_RUSSIAN || accent_tab[c]==0 || all_vers)
@@ -418,7 +414,7 @@ void adjust_3x5(Bool prerecog)
 
      if (pass4_in)
      {
-       BYTE let;
+       uchar let;
        B->pr_vers=B->vers[0];
        if (prerecog)  set_bad_cell(B);
        if (may_glue(B))
@@ -526,7 +522,7 @@ void cg_show_rast(cell *C, raster *r, char *msg, struct cut_elm *cut_list)
 /*-----------------06-27-95 01:28pm------------------------------
   cg_show_list  выводит на экран изображение списка  N cell'ов cells
 ---------------------------------------------------------------*/
-void cg_show_list(cell **cells, INT N, BYTE *msg)
+void cg_show_list(cell **cells, INT N, uchar *msg)
 {
   INT i;
   cell *B;
@@ -550,7 +546,7 @@ void cg_show_list(cell **cells, INT N, BYTE *msg)
 /*------------------------------------------------------------------
   show_dp  выводит на экран состояние графа ДП
 ------------------------------------------------------------------*/
-char *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0)
+char *show_dp( puchar s, struct cut_elm *cut_list, INT i0)
 {
   SVERS  *vers;
   char c;

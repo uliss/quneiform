@@ -80,7 +80,7 @@ void _clearscreen (int mode)
 static uint32_t swColor = 0;
 void _setcolor (int color)
 {
-	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+	#define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 	uint32_t clr[16] =
 	{ // 16 цветов в порядке, заданном DOS (see MENUCOLOR :) )
     __RGB__(0,0,0),          // 0  черный    _COLOR_BLACK
@@ -225,7 +225,7 @@ void _grtext (int x, int y, const char * text)
 unsigned _getlinestyle (){return 0;};
 void break_point_data (char * c){};
 void write_prot () {};
-Bool snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
+Bool snapAutofont(uchar a){ a=a; return TRUE; } // Andrew Theer
 
 int LT_Getch (void)
 {

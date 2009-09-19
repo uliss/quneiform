@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdlib.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "cut_glue.h"
@@ -86,7 +85,7 @@ static INT bl_lim=3;
 
 static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first);
 static void bl_cut(cell *B, cell *E, INT cut);
-static Bool find_clust(BYTE let);
+static Bool find_clust(uchar let);
 static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc);
 static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_inc);
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag);
@@ -94,7 +93,7 @@ static  INT create_cells(cell *whither, raster *r, cell *celist[], INT st_inc);
 static cell *hide(cell *c, cell **clink);
 static void restore(cell *clink, cell *wherever);
 static void del_hided(cell *clink);
-static Bool capital(BYTE let);
+static Bool capital(uchar let);
 
 void  base_lines_cut()
 {
@@ -169,7 +168,7 @@ LONG testDirt(CSTR_rast *beg, CSTR_rast *end)
 
     if (uni.Alt[0].Prob<trs2)
     {
-      BYTE let=uni.Alt[0].Code[0],letpos = let_linpos[let];
+      uchar let=uni.Alt[0].Code[0],letpos = let_linpos[let];
       INT bot=attr.row+attr.h;
       Bool d2=attr.row<bl.b2-bl_lim,d3=bot>bl.b3+bl_lim;
 
@@ -245,8 +244,8 @@ static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_firs
 
     if (c->vers[0].prob<trs2)
     {
-      BYTE let=c->vers[0].let;
-      BYTE letpos = let_linpos[let];
+      uchar let=c->vers[0].let;
+      uchar letpos = let_linpos[let];
       INT bot=c->row+c->h;
       Bool d2 = (fb2) ? c->row<bl.b2-bl_lim : TRUE;
       Bool d3 = (fb3) ? bot>bl.b3+bl_lim : TRUE;
@@ -261,7 +260,7 @@ static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_firs
 
       if (!c->nvers)
       {
-        BYTE let=c->pr_vers.let;
+        uchar let=c->pr_vers.let;
 //        if (c->pr_vers.prob>=220)  continue;
         if (d2)
         {
@@ -365,7 +364,7 @@ mark:
   return 0;
 }
 
-static Bool find_clust(BYTE let)
+static Bool find_clust(uchar let)
 {
 #ifdef _USE_FON_
   ClustInfo clustinfo;
@@ -464,7 +463,7 @@ static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc
 
       if (size>sizeof(r.pict))
         return FALSE;
-      memcpy(&(r.pict),(BYTE*)save_raster(c),size);
+      memcpy(&(r.pict),(uchar*)save_raster(c),size);
       r.w=c->w; r.h=c->h; r.top=c->r_row; r.left=c->r_col;
 
       if (j==0)
@@ -604,7 +603,7 @@ static void del_hided(cell *clink)
   }
 }
 
-static Bool capital(BYTE let)
+static Bool capital(uchar let)
 {
     return (let>='0' && let<='9' || let>='A' && let<='Z' || let>='À' && let<='ß');
 }

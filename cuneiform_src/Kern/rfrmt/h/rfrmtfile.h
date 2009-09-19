@@ -215,13 +215,13 @@ public:
 	RECT m_rectChar;
 	RECT m_RealRectChar;
 	struct {
-		BYTE m_bChar;
-		BYTE m_bProbability;
+		uchar m_bChar;
+		uchar m_bProbability;
 	} m_chrVersions[REC_MAX_VERS];//!!! Art
-	BYTE m_blanguage;
-	BYTE m_bFlg_spell;
-	BYTE m_bFlg_spell_nocarrying;
-	BYTE m_bFlg_cup_drop;
+	uchar m_blanguage;
+	uchar m_bFlg_spell;
+	uchar m_bFlg_spell_nocarrying;
+	uchar m_bFlg_cup_drop;
 	uint16_t m_wCountAlt;
 	uint16_t m_wFontNumber;
 	uint16_t m_wIndex;

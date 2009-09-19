@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 
@@ -101,7 +101,7 @@ uint32_t v;
  return (LONG)v;
 }
 
-static BYTE sqrt_tab[] = {
+static uchar sqrt_tab[] = {
  0,
  1, 1, 1,
  2, 2, 2, 2, 2,
@@ -124,7 +124,7 @@ INT long_sqrt (uint32_t n)
 {
  uint16_t w;
 uint32_t d, step, lw;
- BYTE sh;
+ uchar sh;
  if ((w = (uint16_t)(n >> 16)) != 0) sh = 8;
  else { w = (uint16_t)n; sh = 0; }
 
@@ -140,7 +140,7 @@ sq_loop:
 //	Add component to box raster
 
 extern c_comp wcomp;
-extern BYTE lpool[];
+extern uchar lpool[];
 
 static void make_box_raster(PWORD matr, c_comp * cp,
      INT row, INT col, INT h, INT w, lnhead * lp);
@@ -151,7 +151,7 @@ void comp_to_box (PWORD matr, c_comp * cp,
 	uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
  make_box_raster (matr, cp, row, (INT)((cp->left - col)*3), h, w,
-   (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t)));
+   (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t)));
 }
 
 void wcomp_to_box (PWORD matr)
@@ -211,7 +211,7 @@ fint:;
 							break;
     }
   }
- lp = (lnhead *)((PBYTE)lp + lp->lth);
+ lp = (lnhead *)((puchar)lp + lp->lth);
  if (lp->lth != 0) goto next_line;
 }
 

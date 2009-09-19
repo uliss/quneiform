@@ -90,7 +90,7 @@ void _grtext (int x, int y, const char * text);
 unsigned _getlinestyle ();
 void break_point_data (char * c);
 void write_prot ();
-Bool snapAutofont(BYTE a); // Andrew Theer
+Bool snapAutofont(uchar a); // Andrew Theer
 int LT_Getch (void);
 // 16.10.2001 (George Fedorov)
 // 16 цветов в порядке, заданном DOS (см. хэлп к MENUCOLOR )

@@ -121,7 +121,7 @@ uint32_t GetPictCount(void)
 }
 
 //=====================     Размер картинки     ===================================
-BYTE GetPictRect( uint32_t NumberPict , Rect16* RectPict,uint32_t* UserNumber )
+uchar GetPictRect( uint32_t NumberPict , Rect16* RectPict,uint32_t* UserNumber )
 {
 	uint32_t  PictCount  = 0;
 	Point32 Lr = {0};

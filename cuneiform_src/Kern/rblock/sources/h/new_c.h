@@ -127,7 +127,7 @@ EXTERN Handle logFile_pict;
 EXTERN Handle resFile_blocks;
 EXTERN Handle logFile_blocks;
 
-EXTERN BYTE *CellsPage VAL1(NULL); //Rom 08-02-99
+EXTERN uchar *CellsPage VAL1(NULL); //Rom 08-02-99
 EXTERN RPIC_Comp_Rect * pBigLetters VAL1(NULL);
 EXTERN int nBigLetters  VAL1(0);
 EXTERN uint32_t nPics;

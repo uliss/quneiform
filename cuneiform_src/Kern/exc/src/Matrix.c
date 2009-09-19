@@ -64,12 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include "globus.h"
-//#include "nt_types.h"
-//#include "status.h"
 #include "msgerr.h"
-
-//AK changes for MSVisual
-//#include "spelwatc.h"
 
 #define LBUF 0x6000
 

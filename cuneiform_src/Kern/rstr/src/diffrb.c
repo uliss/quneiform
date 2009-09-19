@@ -82,23 +82,18 @@
 /************************************************************************/
 
 #include <string.h>
-/*
- #ifdef __MAC__
- #define __WATCOMC__
- #endif				*/
-
-#include "nt_types.h"	// базовые типы
+#include "cttypes.h"
 #include "diskrtab.h"      	// таблицы
-BYTE BUFFER[256]; // вертикальная проекция
-BYTE LOCAL[50]; // список центров ног
-BYTE LOCAL_W[50]; // список ширин   ног
-BYTE beg2, end1; // начало 2-ой, конец 1-ой ног
+uchar BUFFER[256]; // вертикальная проекция
+uchar LOCAL[50]; // список центров ног
+uchar LOCAL_W[50]; // список ширин   ног
+uchar beg2, end1; // начало 2-ой, конец 1-ой ног
 
 #define bytlen(bits)  ((bits+7)>>3)
 
 // EndBlackInterval - номер последнего черного бита
 // в первой слева пачке черных бит
-INT EndBlackInterval(BYTE *RASTER, INT NWIDTH) {
+INT EndBlackInterval(uchar *RASTER, INT NWIDTH) {
 	INT i;
 
 	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER++)
@@ -116,7 +111,7 @@ INT EndBlackInterval(BYTE *RASTER, INT NWIDTH) {
 }
 
 /* LeftDistance - расстояние до первого слева бита			*/
-INT LeftDistance(BYTE *RASTER, INT NWIDTH) {
+INT LeftDistance(uchar *RASTER, INT NWIDTH) {
 	INT i;
 
 	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER++)
@@ -129,7 +124,7 @@ INT LeftDistance(BYTE *RASTER, INT NWIDTH) {
 }
 
 /* RightDistance -расстояние до первого справа бита			*/
-INT RightDistance(BYTE *RASTER, INT NWIDTH) {
+INT RightDistance(uchar *RASTER, INT NWIDTH) {
 	INT i;
 
 	RASTER += NWIDTH - 1;
@@ -144,7 +139,7 @@ INT RightDistance(BYTE *RASTER, INT NWIDTH) {
 }
 
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
-INT SumIntervalBits(BYTE *RASTER, INT n1, INT n2) {
+INT SumIntervalBits(uchar *RASTER, INT n1, INT n2) {
 	INT i, d, l;
 
 	i = n1 >> 3;
@@ -163,7 +158,7 @@ INT SumIntervalBits(BYTE *RASTER, INT n1, INT n2) {
 }
 
 /* SumBits - посчитать сумму бит в строке байт 				*/
-INT SumBits(BYTE *RASTER, INT NWIDTH) {
+INT SumBits(uchar *RASTER, INT NWIDTH) {
 	INT i, s;
 
 	for (i = s = 0; i < NWIDTH; i++, RASTER++)
@@ -172,9 +167,9 @@ INT SumBits(BYTE *RASTER, INT NWIDTH) {
 }
 
 /* VertSum - посчитать сумму бит в столбце  				*/
-INT VertSum(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column) {
+INT VertSum(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 	INT i, d;
-	BYTE mask = mask_byte[Column & 7];
+	uchar mask = mask_byte[Column & 7];
 
 	RASTER += (Column >> 3);
 
@@ -184,7 +179,7 @@ INT VertSum(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 }
 
 /* MinMaxLeft - найти min и max расстояние на левом абрисе 		*/
-INT MinMaxLeft(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NHEIGHT, INT *Pmin,
+INT MinMaxLeft(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
 		INT *Pmax) {
 	INT maxr = 0, minr = 100, r, i;
 
@@ -203,7 +198,7 @@ INT MinMaxLeft(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NHEIGHT, INT *Pmin,
 }
 
 /* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
-INT MinMaxRight(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NHEIGHT, INT *Pmin,
+INT MinMaxRight(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
 		INT *Pmax) {
 	INT maxr = 0, minr = 100, r, i;
 
@@ -222,9 +217,9 @@ INT MinMaxRight(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NHEIGHT, INT *Pmin,
 }
 
 /* NumHorizInterval - число интервалов в строке 			*/
-INT NumHorizInterval(BYTE *RASTER, INT NWIDTH) {
+INT NumHorizInterval(uchar *RASTER, INT NWIDTH) {
 	INT i, d;
-	BYTE c, old;
+	uchar c, old;
 
 	for (i = d = old = 0; i < NWIDTH; i++, RASTER++) {
 		c = *RASTER;
@@ -238,9 +233,9 @@ INT NumHorizInterval(BYTE *RASTER, INT NWIDTH) {
 }
 
 /* NumVertInterval - число интервалов в столбце 			*/
-INT NumVertInterval(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column) {
+INT NumVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 	INT i, d;
-	BYTE c, old, mask = mask_byte[Column & 7];
+	uchar c, old, mask = mask_byte[Column & 7];
 
 	RASTER += (Column >> 3);
 
@@ -258,9 +253,9 @@ INT NumVertInterval(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 }
 
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
-INT FOOT_A(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH) {
+INT FOOT_A(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
 	INT i, j, k, d;
-	BYTE *p, c;
+	uchar *p, c;
 
 	d = bytlen(NWIDTH);
 	memset(BUFFER, 0, NWIDTH);
@@ -291,10 +286,10 @@ INT FOOT_A(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH) {
 
 /* FOOT3_2 - вычислить число ног ( ожидается 3-ногая буква)     */
 /*           в верхней и нижней половинах                       */
-INT FOOT3_2(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH) {
+INT FOOT3_2(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
 	INT i, old, du, dd;
-	BYTE c;
-	FOOT_A(RASTER, Wx, NWIDTH, (BYTE)(NLENGTH / 2)); /* проекция */
+	uchar c;
+	FOOT_A(RASTER, Wx, NWIDTH, (uchar)(NLENGTH / 2)); /* проекция */
 
 	for (i = 0; i < NWIDTH; i++)
 		BUFFER[i] = (BUFFER[i] > 0); /* бинаризация */
@@ -309,7 +304,7 @@ INT FOOT3_2(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH) {
 		du++;
 	du >>= 1; /* du - число скачков вверху */
 
-	FOOT_A(RASTER + (NLENGTH / 2) * Wx, Wx, NWIDTH, (BYTE)(NLENGTH / 2)); /* проекция */
+	FOOT_A(RASTER + (NLENGTH / 2) * Wx, Wx, NWIDTH, (uchar)(NLENGTH / 2)); /* проекция */
 
 	for (i = 0; i < NWIDTH; i++)
 		BUFFER[i] = (BUFFER[i] > 0); /* бинаризация */
@@ -327,10 +322,10 @@ INT FOOT3_2(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH) {
 }
 
 /* FOOT3 - вычислить число ног ( ожидается 3-ногая буква)     */
-INT FOOT3(BYTE *RASTER, INT Wx, BYTE START, BYTE NWIDTH, BYTE NLENGTH,
+INT FOOT3(uchar *RASTER, INT Wx, uchar START, uchar NWIDTH, uchar NLENGTH,
 		INT SHIFT) {
 	INT i, old, d;
-	BYTE c;
+	uchar c;
 	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
 
 	d = NLENGTH;
@@ -351,7 +346,7 @@ INT FOOT3(BYTE *RASTER, INT Wx, BYTE START, BYTE NWIDTH, BYTE NLENGTH,
 }
 
 /* Assym_let - оценить вертикальную асимметрию буквы  			*/
-INT Asymm_let(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH, INT TW) {
+INT Asymm_let(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, INT TW) {
 	INT i, i1, i2, t1, t2;
 
 	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
@@ -373,9 +368,9 @@ INT Asymm_let(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH, INT TW) {
 }
 
 /* FOOT - вычислить число ног  						*/
-INT FOOT(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH, BYTE HARD_FILTER) {
+INT FOOT(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, uchar HARD_FILTER) {
 	INT i, old, d, l, k;
-	BYTE c, curr, first, second;
+	uchar c, curr, first, second;
 	memset(LOCAL, 0, 50);
 	memset(LOCAL_W, 0, 50);
 	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
@@ -455,19 +450,19 @@ INT FOOT(BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH, BYTE HARD_FILTER) {
 	for (i = 1; i < NWIDTH; i++)
 		if (BUFFER[i] == 0 && BUFFER[i - 1] == 1)
 			break;
-	end1 = (BYTE) i; /* конец 1-ой ноги */
+	end1 = (uchar) i; /* конец 1-ой ноги */
 	for (i = NWIDTH - 2; i >= 0; i--)
 		if (BUFFER[i] == 0 && BUFFER[i + 1] == 1)
 			break;
-	beg2 = (BYTE) i; /* начало 2-ой ноги */
+	beg2 = (uchar) i; /* начало 2-ой ноги */
 
 	return (2);
 }
 
 /* CenterVertInterval - середина интервала в столбце 			*/
-INT CenterVertInterval(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column, INT *up,
+INT CenterVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column, INT *up,
 		INT *down) {
-	BYTE mask = mask_byte[Column & 7], c, old;
+	uchar mask = mask_byte[Column & 7], c, old;
 	INT i, num, center, up_center;
 
 	*up = *down = -1;
@@ -519,17 +514,17 @@ INT CenterVertInterval(BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column, INT *up,
 	return ((NHEIGHT << 1) - center); /* удвоенное расстояние от низа растра */
 }
 
-INT LinesWithNumIntervals(BYTE *rastr, INT Wx, INT NLENGHT, INT num) {
+INT LinesWithNumIntervals(uchar *rastr, INT Wx, INT NLENGHT, INT num) {
 	INT i, n;
 	for (n = i = 0; i < NLENGHT; i++, rastr += Wx)
 		n += (NumHorizInterval(rastr, Wx) == num);
 	return n;
 }
 
-INT LeftEdgeOfRightmostInt(BYTE *rst, INT Wdth) {
+INT LeftEdgeOfRightmostInt(uchar *rst, INT Wdth) {
 	INT i, j;
-	BYTE c, old;
-	BYTE fl = 0;
+	uchar c, old;
+	uchar fl = 0;
 	for (i = Wdth, rst = rst + Wdth - 1, c = *rst; i > 0; i--, rst--, c = *rst) {
 		if ((!c) && (!fl))
 			continue;

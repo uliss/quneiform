@@ -1235,7 +1235,7 @@ public:
 
 private:
 	T* m_p;
-	BYTE m_abFixedBuffer[t_nFixedBytes];
+	uchar m_abFixedBuffer[t_nFixedBytes];
 };
 
 #pragma warning(default: 4284)

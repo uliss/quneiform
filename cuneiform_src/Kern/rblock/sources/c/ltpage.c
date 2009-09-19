@@ -81,8 +81,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 #include "compat_defs.h"
 
-BYTE * PageMatrix;  ////  [PAGE_MATRIX_SIZE];
-extern BYTE *CellsPage;
+uchar * PageMatrix;  ////  [PAGE_MATRIX_SIZE];
+extern uchar *CellsPage;
 extern Handle hPageMatrix;
 
 Bool bPageMatrixInitialized = FALSE;
@@ -145,25 +145,25 @@ void SpecCompPut (MN *mn)
 
 		if (pBox -> boxflag & BOXBEG)
         {
-            pLine = (LNSTRT *) ((BYTE *) pBox + sizeof (BOX));
+            pLine = (LNSTRT *) ((uchar *) pBox + sizeof (BOX));
 
             xEnd = pLine -> x;
             y    = pLine -> y;
 
             PutInterval (y, xEnd - pLine -> l, pLine -> l);
-            pInts = (BOXINT *) ((BYTE *) pBox + sizeof (BOX) + sizeof (LNSTRT));
+            pInts = (BOXINT *) ((uchar *) pBox + sizeof (BOX) + sizeof (LNSTRT));
         }
         else
         {
             if ( y == 0 )
 				return;
-			pInts = (BOXINT *) ((BYTE *) pBox + sizeof (BOX));
+			pInts = (BOXINT *) ((uchar *) pBox + sizeof (BOX));
         }
 
-        pAfterInts = (BOXINT *) ((BYTE *) pBox + pBox -> boxptr);
+        pAfterInts = (BOXINT *) ((uchar *) pBox + pBox -> boxptr);
 
         for (pInt = pInts;
-                 (BYTE *) pAfterInts - (BYTE *) pInt >= sizeof (BOXINT);
+                 (uchar *) pAfterInts - (uchar *) pInt >= sizeof (BOXINT);
                      pInt++)
         {
             xEnd += pInt -> d;
@@ -198,7 +198,7 @@ void PageMatrixPutRoots (void)
                      o += PAGE_MATRIX_WIDTH)
         // т.е., for(y=top;y<=bottom;y++,o=PAGE_MATRIX_WIDTH*y)
         {
-            BYTE *p;
+            uchar *p;
 			_ASSERT((o + r.xRight) < PAGE_MATRIX_SIZE); // < 1024^2
             for (p = PageMatrix + o + r.xLeft; // start=&matrix+MaxW*y+left
                      p <= PageMatrix + o + r.xRight; //end=start+right
@@ -383,7 +383,7 @@ static DRAW_ACTION fDrawMatrixPictureVertInterval;
 
 void PutMatrixPictureHorzInterval (int y, int x1, int x2)
 {
-    BYTE *p, *pBegin, *pEnd;
+    uchar *p, *pBegin, *pEnd;
 
     if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
         return;
@@ -410,7 +410,7 @@ void PutMatrixPictureHorzInterval (int y, int x1, int x2)
 // закрашивание интервалов происходит добавлением флага картинки
 void PutMatrixPictureVertInterval (int x, int y1, int y2)
 {
-    BYTE *p, *pBegin, *pEnd;
+    uchar *p, *pBegin, *pEnd;
 
     if (x < 0 || x >= PAGE_MATRIX_WIDTH)
         return;
@@ -436,7 +436,7 @@ void PutMatrixPictureVertInterval (int x, int y1, int y2)
 
 void RemoveMatrixPictureHorzInterval (int y, int x1, int x2)
 {
-    BYTE *p, *pBegin, *pEnd;
+    uchar *p, *pBegin, *pEnd;
 
     if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
         return;
@@ -462,7 +462,7 @@ void RemoveMatrixPictureHorzInterval (int y, int x1, int x2)
 
 void RemoveMatrixPictureVertInterval (int x, int y1, int y2)
 {
-    BYTE *p, *pBegin, *pEnd;
+    uchar *p, *pBegin, *pEnd;
 
     if (x < 0 || x >= PAGE_MATRIX_WIDTH)
         return;
@@ -697,7 +697,7 @@ void PageMatrixExcludeSeparators (Bool bConvertToRealCoords)
     }
 }
 
-BYTE PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal)
+uchar PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal)
 {
     int xReal, yReal;
 

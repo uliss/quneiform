@@ -85,12 +85,12 @@ void EndNumMemory(void)
 static SINT MakeBitmapsRecRaster(Nraster_header  *rhh,
 								 RecRaster *r)
 {
-BYTE *AddBuffer(LONG sizebitmap);
+uchar *AddBuffer(LONG sizebitmap);
 
  SINT j,i;
  SINT sx=rhh->w,sy=rhh->h,sxbyte;
  LONG sizebitmap;
- BYTE *pic,*pp;
+ uchar *pic,*pp;
  int32_t wb = ((r->lnPixWidth+63)/64)*8;
 
   rhh->xbyte=sxbyte=(sx>>3)+1;
@@ -107,7 +107,7 @@ BYTE *AddBuffer(LONG sizebitmap);
 
   rhh->pHaur=rhh->pHau+sxbyte*sy;
   // размазать и обнулить хвосты!
-  rhh->fat=(BYTE)Razmaz(rhh->pHau,rhh->pHaur,sxbyte,sx,sy,rhh->bold);
+  rhh->fat=(uchar)Razmaz(rhh->pHau,rhh->pHaur,sxbyte,sx,sy,rhh->bold);
 
  return 0;
 }

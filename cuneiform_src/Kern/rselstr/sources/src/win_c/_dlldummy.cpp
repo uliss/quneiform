@@ -89,7 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 
-# define SCREEN_MEMORY     ((BYTE *) 0xA0000)
+# define SCREEN_MEMORY     ((uchar *) 0xA0000)
 # define SCREEN_WIDTH      1500
 # define SCREEN_HEIGHT     1500
 # define SCREEN_BYTE_WIDTH (SCREEN_WIDTH / 8)

@@ -67,7 +67,7 @@
 #include "extract.h"
 #include "stick.h"
 
-extern BYTE *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
+extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3, *accent_tab;
 
 // module diffrv.c
@@ -80,12 +80,12 @@ INT brigt(INT, INT, INT, INT);
 pchar full_name(pchar w, pchar n);
 
 // module kernel.c
-void correct_dir_path(PBYTE p);
+void correct_dir_path(puchar p);
 
 // module proimage.c
 void image_file_close();
 Bool image_file_open();
-INT source_read(PBYTE start, PBYTE ptr, PBYTE end);
+INT source_read(puchar start, puchar ptr, puchar end);
 
 // module progress.c
 void set_percentage(void);
@@ -97,7 +97,7 @@ void progress_finish(void);
 // module matrix.c
 void matrix_open();
 void matrix_close();
-INT matrix_read(PBYTE buff, uint16_t lth);
+INT matrix_read(puchar buff, uint16_t lth);
 
 // module rules.c
 void rules_open();
@@ -140,15 +140,15 @@ void serbian_J2j(void);
 Bool snap_init();
 Bool snap_finish();
 Bool snap_newline();
-Bool snap_newpass(BYTE);
-Bool snap_show_text(PBYTE);
-Bool snap_show_text1(PBYTE);
+Bool snap_newpass(uchar);
+Bool snap_show_text(puchar);
+Bool snap_show_text1(puchar);
 Bool snap_monitor();
 Bool snap_newcell(cell *);
 Bool snap_stopcell(cell *, cell *);
-Bool snap_activity(BYTE);
-Bool snap_show_raster(PBYTE, INT, INT);
-Bool Alik_snap_show_raster(PBYTE, PBYTE, PBYTE, INT, INT, pchar, pchar, PINT);
+Bool snap_activity(uchar);
+Bool snap_show_raster(puchar, INT, INT);
+Bool Alik_snap_show_raster(puchar, puchar, puchar, INT, INT, pchar, pchar, PINT);
 void snap_newcut();
 void snap_show_cuts(cell *C, struct cut_elm *cut_points);
 void snap_newpoint(INT i);
@@ -167,8 +167,8 @@ cell *dot_ij(cell *);
 cell *dot_excl(cell *);
 cell *dot_inv(cell *);
 INT ij_test(cell *);
-void v_to_y(cell * c, BYTE compose);
-void c_to_ctail(cell * c, BYTE compose);
+void v_to_y(cell * c, uchar compose);
+void c_to_ctail(cell * c, uchar compose);
 
 // module accents.c
 void pass_accent(void);
@@ -196,7 +196,7 @@ INT get_bsm(); //AK 04.03.97 ? to LONG
 INT is_defis(cell *);
 void basedraft(str *);
 void basefin(str *);
-INT cut_by_pos(cell *C, BYTE c, INT wp, BYTE fl, BYTE arg);
+INT cut_by_pos(cell *C, uchar c, INT wp, uchar fl, uchar arg);
 
 // module dmacc.c
 INT try_cut_accent(cell *C1, B_LINES *my_bases, INT flag);
@@ -211,7 +211,7 @@ INT estcomp(char, cell *, SVERS *, INT, INT, INT, s_glue *, cut_pos*, cut_pos*,
 		char, char, char);
 void snBOX(cell *);
 void est_snap(char user, cell *C, pchar txt);
-void promote(BYTE, cell *, BYTE, INT);
+void promote(uchar, cell *, uchar, INT);
 void collect_pat(cell *, s_glue *, cell *);
 
 // module dm2.c
@@ -220,7 +220,7 @@ void glsnap(char, cell *, pchar);
 
 // module dms.c
 void save_vers(cell *, SVERS *);
-void min3(v_val *, BYTE, v_val *);
+void min3(v_val *, uchar, v_val *);
 void rest_vers(cell *, SVERS *);
 INT signif_line_count(cell*);
 INT compare_vect(v_val *, v_val *);
@@ -228,10 +228,10 @@ INT cell_is_BOX_solid(cell*);
 
 // module locomp.asm
 /*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
-MN *c_locomp(PBYTE, LONG, LONG, INT, INT);
+MN *c_locomp(puchar, LONG, LONG, INT, INT);
 
 // module v0compgl.asm
-void invert_tiff(PBYTE c, uint16_t lth);
+void invert_tiff(puchar c, uint16_t lth);
 
 // module cutgraph.c
 INT make_graph();
@@ -239,13 +239,13 @@ void excl_connect();
 void find_path();
 
 // module cutpoint.c
-INT cut_points(INT, INT, PBYTE, struct cut_elm *);
-INT Alik_cut_points(INT, INT, PBYTE, struct cut_elm *, INT);
-MN* cut_rast(PBYTE, INT, INT, INT, INT, struct cut_elm *, char, char, pchar,
+INT cut_points(INT, INT, puchar, struct cut_elm *);
+INT Alik_cut_points(INT, INT, puchar, struct cut_elm *, INT);
+MN* cut_rast(puchar, INT, INT, INT, INT, struct cut_elm *, char, char, pchar,
 		cut_pos*);
 
 // module alcutfun.c
-void Alik_def_cut_flg(cell *, struct cut_elm *, struct cut_elm *, INT, BYTE);
+void Alik_def_cut_flg(cell *, struct cut_elm *, struct cut_elm *, INT, uchar);
 
 // module glue.c
 MN *glue(c_comp **, INT);
@@ -278,8 +278,8 @@ void comp_to_box(PWORD, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
 
 // module abris.c
 void abris_reset();
-INT abris(s_glue *, cell *, BYTE, INT);
-INT h_filt(cell *, INT, s_glue *, BYTE Let);
+INT abris(s_glue *, cell *, uchar, INT);
+INT h_filt(cell *, INT, s_glue *, uchar Let);
 INT rtf(cell *cl, INT prob, s_glue *GL);
 void apply_monus(cell *);
 
@@ -300,29 +300,29 @@ void SpecCompPut(MN *mn);
 // module spec_sym.c
 void star();
 void bullet();
-INT chkbullet(BYTE);
-Bool abris_curve(BYTE fun[], INT n, INT w);
-INT find_minimum(BYTE fun[], INT n, BYTE *_imin);
+INT chkbullet(uchar);
+Bool abris_curve(uchar fun[], INT n, INT w);
+INT find_minimum(uchar fun[], INT n, uchar *_imin);
 
 // module S_TOOLS.C
-void new_vers(cell *c, BYTE vers, BYTE prob);
+void new_vers(cell *c, uchar vers, uchar prob);
 void down_all_versions(cell *c, INT monus);
-void filtr_shave(BYTE fun[], INT len);
-Bool set_prob(cell *c, char let, BYTE prob);
+void filtr_shave(uchar fun[], INT len);
+Bool set_prob(cell *c, char let, uchar prob);
 Bool check_let(cell *c, char let);
-void add_stick_vers(cell *c, char let, BYTE prob);
-void filtr_short(BYTE fun[], INT n, INT lev);
-void filtr121(BYTE fun[], INT n);
-void filtr_bullet(BYTE fun[], INT len);
+void add_stick_vers(cell *c, char let, uchar prob);
+void filtr_short(uchar fun[], INT n, INT lev);
+void filtr121(uchar fun[], INT n);
+void filtr_bullet(uchar fun[], INT len);
 void add_thick_stick_versions(cell *c, INT dx, INT wide, INT inc, INT typ_snap,
 		STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums);
-void add_thin_stick_versions(cell *c, BYTE left[], BYTE right[], INT dy,
+void add_thin_stick_versions(cell *c, uchar left[], uchar right[], INT dy,
 		INT dx, INT typ_inc, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums);
-Bool sign_neck(BYTE left[], BYTE right[], INT n, INT base, INT mode);
+Bool sign_neck(uchar left[], uchar right[], INT n, INT base, INT mode);
 INT conv_prob(INT prob);
-INT shift_raster(BYTE *r, INT dy, INT dx, INT tab[], INT max_shift, BYTE *res,
+INT shift_raster(uchar *r, INT dy, INT dx, INT tab[], INT max_shift, uchar *res,
 		INT dir);
 /******************************
  void full_snap(cell *c,STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
@@ -335,7 +335,7 @@ INT shift_raster(BYTE *r, INT dy, INT dx, INT tab[], INT max_shift, BYTE *res,
 // module dis_stic.c
 INT discrim_all_sticks(cell *c, STICK_CHARS *left_chars,
 		STICK_CHARS *right_chars, STICK_SIGNUMS *signums);
-INT discrim_stick(BYTE, STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *, INT);
+INT discrim_stick(uchar, STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *, INT);
 INT del_sticks(cell *c, char let);
 INT similar_0xBA(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
 INT similar_0xBB(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
@@ -345,7 +345,7 @@ INT similar_lcb(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
 INT similar_rcb(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
 INT similar_excl(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
 INT similar_excl_with_dot(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
-BYTE similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars);
+uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars);
 
 // module def_stic.c
 INT stick_center_study(cell *c, s_glue *GL, INT typ);
@@ -353,24 +353,24 @@ uint16_t typ_thin_stick(lnhead *lin, INT dy, INT dx);
 INT erector(cell *c, INT enable_erect, INT enable_shave, INT enable_snap);
 
 // module cha_stic.c
-INT set_stick_char(BYTE left[], BYTE right[], INT tails[], INT dy, INT dx,
+INT set_stick_char(uchar left[], uchar right[], INT tails[], INT dy, INT dx,
 		INT opt, INT wid, INT corr_mode, INT skip_ul, INT skip_dl, INT skip_ur,
 		INT skip_dr, INT inc, STICK_CHARS *left_chars,
 		STICK_CHARS *right_chars, STICK_SIGNUMS *signums, INT *l_mode,
 		INT *r_mode);
-INT calc_right_f_symptom(BYTE fun[], INT n, INT m);
-INT calc_left_f_symptom(BYTE fun[], INT n, INT nx, Bool c_ft);
-void num_of_skip_line(BYTE left[], BYTE right[], INT dy, INT opt, INT wide,
+INT calc_right_f_symptom(uchar fun[], INT n, INT m);
+INT calc_left_f_symptom(uchar fun[], INT n, INT nx, Bool c_ft);
+void num_of_skip_line(uchar left[], uchar right[], INT dy, INT opt, INT wide,
 		INT *up_l, INT *up_r, INT *down_l, INT *down_r);
 
-void set_stick_aux_signums(cell *c, BYTE left[], BYTE right[], INT dy,
+void set_stick_aux_signums(cell *c, uchar left[], uchar right[], INT dy,
 		INT wide_up, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums, INT dis_left_brace, INT dis_right_brace,
 		INT dis_slash, INT l_f_sym, INT r_f_sym, INT T_c, uint16_t T_2_3,
 		uint16_t T_skok, B_LINES *bl, INT nlines, INT incline);
 
 void
-		calc_skipped_lines(INT hist_int[], BYTE left[], BYTE right[], INT dy,
+		calc_skipped_lines(INT hist_int[], uchar left[], uchar right[], INT dy,
 				INT dx, INT wide, INT opt, Bool c_r, INT *ul, INT *ur, INT *dl,
 				INT *dr);
 void correct_f_symptoms(INT hist_int[], INT dy, INT *l_f_sym, INT *r_f_sym);
@@ -393,7 +393,7 @@ void clear_punct_twin_flags(void);
 void clean_punct();
 void clean_line();
 void recover_dusts(void);
-void hide_dusts(BYTE reg);
+void hide_dusts(uchar reg);
 
 // module il1peak.c
 void extremum(pchar, INT, INT, INT, INT, char, char);
@@ -419,7 +419,7 @@ void complex_word();
 void correct_case(void);
 
 // module spec_sym.c
-Bool abris_curve(BYTE fun[], INT n, INT w);
+Bool abris_curve(uchar fun[], INT n, INT w);
 
 // module fontprop.c
 void font_let();
@@ -436,7 +436,7 @@ void rules_to_ed();
 void ed_load();
 void ed_flip();
 void ed_out_finish();
-void set_initial_edout(PBYTE pool, uint32_t lth);
+void set_initial_edout(puchar pool, uint32_t lth);
 void ed_save(void);
 void init_sheet_tag(void);
 
@@ -446,11 +446,11 @@ void loutf_bcr();
 void louti_bcr();
 
 // module edscan.c
-INT ed_scan(Bool(*)(PBYTE, INT), Bool(*)(PBYTE, INT), PBYTE, PBYTE);
-Bool scan_skip(PBYTE p, INT lth);
+INT ed_scan(Bool(*)(puchar, INT), Bool(*)(puchar, INT), puchar, puchar);
+Bool scan_skip(puchar p, INT lth);
 
 // module edp.c
-void edp_main(PBYTE memory, LONG lth);
+void edp_main(puchar memory, LONG lth);
 
 // module edpsave.c
 void save_ed(void);
@@ -467,8 +467,8 @@ void sort_vers(cell *);
 void sort_v_vect(INT, version *);
 void setup_string();
 void kit_init();
-PBYTE il1_pool_ptr();
-PBYTE t_raster();
+puchar il1_pool_ptr();
+puchar t_raster();
 c_comp * comp_vers_to_kit(MN * mn, c_comp *c);
 c_comp * dust_to_kit(dust_comp *);
 c_comp * comp_from_file(uint32_t, LONG);
@@ -477,7 +477,7 @@ Bool compose_cell(INT, cell **, cell *);
 Bool compose_cell_save(INT, cell **, cell *);
 void del_retain_cell(cell *);
 cell *del_cell(cell *);
-PBYTE del_save_cell(cell *);
+puchar del_save_cell(cell *);
 cell *rest_cell(void *, cell *);
 cell *cell_f();
 cell *cell_l();
@@ -500,11 +500,11 @@ INT short_recog_cell(cell *);
 INT recog_cell(cell *);
 INT recop_cell(cell *);
 INT reco2_cell(cell *);
-PBYTE save_raster(cell *);
-PBYTE give_kit_addr();
-void take_kit_addr(PBYTE a);
+puchar save_raster(cell *);
+puchar give_kit_addr();
+void take_kit_addr(puchar a);
 void add_vers(cell *, version *);
-void del_version(cell *c, BYTE let);
+void del_version(cell *c, uchar let);
 void online_comp(c_comp *);
 Bool save_MN(MN *);
 void cell_bonus_let(cell *C, char Let, INT BonVal);
@@ -521,12 +521,12 @@ str *next_string();
 INT read_string();
 void setup_memory();
 void convert_rtf();
-void maden_comp(PBYTE, INT, INT, INT, INT);
+void maden_comp(puchar, INT, INT, INT, INT);
 c_comp *get_comp(PROOT);
 void Pass2(void);
-void read_rec_file(INT seqn, PBYTE pool, PBYTE * end);
+void read_rec_file(INT seqn, puchar pool, puchar * end);
 ///////////////////INT cond_open(INT seqn, pchar name, uint16_t b1, uint16_t b2);
-PBYTE seq_nam(INT seqn);
+puchar seq_nam(INT seqn);
 INT to_voc(void);
 void to_edp(void);
 void make_rtf(void);
@@ -545,7 +545,7 @@ void snap_events(cell *);
 void write_events(cell *);
 void * snap_ev_res();
 void snap_ev_reset();
-void snap_keep(BYTE user, PBYTE addr, uint16_t lth);
+void snap_keep(uchar user, puchar addr, uint16_t lth);
 void snap_sticks(cell *);
 
 // module v0compmn.asm
@@ -558,49 +558,49 @@ void recog_save_maden();
 // module proport.c
 void v2_pidx_crit(cell *);
 void pidx_crit();
-Bool pidx_skip(INT h, INT w, BYTE t_let);
+Bool pidx_skip(INT h, INT w, uchar t_let);
 uint16_t el_pidx_crit(uint16_t t_let, INT pidx);
 
 // module lang_fil.c
 void ev_lang_filter();
-Bool proplet(BYTE);
+Bool proplet(uchar);
 
 // module compkit.c
 INT MN_to_line(MN *);
-PBYTE make_raster();
-PBYTE make_extended_raster(c_comp *);
-void save_dust_comp(dust_comp *, c_comp *, PBYTE);
-INT read_dust_comp(dust_comp *, PBYTE);
+puchar make_raster();
+puchar make_extended_raster(c_comp *);
+void save_dust_comp(dust_comp *, c_comp *, puchar);
+INT read_dust_comp(dust_comp *, puchar);
 
 // module picture.c
-INT scaled(INT value, BYTE scale);
+INT scaled(INT value, uchar scale);
 
 // module large.asm
-PBYTE compress_component(c_comp *c, BYTE scale);
-PBYTE compress_large_component(c_comp *c, BYTE scale);
-PBYTE compress_dust_component(c_comp *c, BYTE scale);
+puchar compress_component(c_comp *c, uchar scale);
+puchar compress_large_component(c_comp *c, uchar scale);
+puchar compress_dust_component(c_comp *c, uchar scale);
 INT filling_MN(MN *mn, uint16_t h, uint16_t w);
 
 // 	module tg_spell
-INT spelling(PBYTE memory, LONG size);
+INT spelling(puchar memory, LONG size);
 
 // module in_treei.c
-BYTE * load_stat_dict(PBYTE ptr);
-void load_user_dicts(PSTR list_name, PBYTE ptr);
+uchar * load_stat_dict(puchar ptr);
+void load_user_dicts(char * list_name, puchar ptr);
 void user_voc_init(void);
 
 // module corners.c
 void discrim_un(cell *, s_glue *, INT);
 
 // module rtf.c
-void rtf_main(PBYTE memory, LONG memory_lth);
+void rtf_main(puchar memory, LONG memory_lth);
 
 // module rtfdebug.c
 void print_fragments();
 
 // module ascisave.c
-void smart_ascii_save(PBYTE pool, LONG lth);
-void ascii_save(PBYTE pool, LONG lth);
+void smart_ascii_save(puchar pool, LONG lth);
+void ascii_save(puchar pool, LONG lth);
 
 // module writepro
 void write_prot(cell *);
@@ -610,7 +610,7 @@ INT give_scan_handle(void);
 uint16_t scan_close(void);
 
 // module dllentry or run
-void write_text(BYTE);
+void write_text(uchar);
 
 // module celldump.c
 void setup_dump(void);
@@ -621,13 +621,13 @@ void dump_to_string(void);
 void trade_marks(void);
 
 //module passe.c
-cell * end_word(cell *cs, BYTE *str, BYTE *word_len);
+cell * end_word(cell *cs, uchar *str, uchar *word_len);
 cell * next_word(cell *cs);
-Bool russian_word(BYTE *wrd);
+Bool russian_word(uchar *wrd);
 
 //module erection.c
-BYTE erection_incline_words(void);
-BYTE erection_one_incline_word(cell *c, cell *e);
+uchar erection_incline_words(void);
+uchar erection_one_incline_word(cell *c, cell *e);
 void erection_delete(void);
 void erection_restore(void);
 void erection_delete_seq(cell *b, cell *e);
@@ -639,7 +639,7 @@ cell* erect_cell_value(cell *c, INT inc, INT shave, Bool cutting);
 cell* erect_cell_table(cell *c, INT tab_angle[], INT shave, Bool cutting);
 Bool erect_make_tab(cell *c, INT tab_angle[]);
 void erect_shift_intervals(void *addr, INT h, INT tab_angle[]);
-INT erect_raster_value(BYTE *raster, INT dx, INT dy, INT inc);
+INT erect_raster_value(uchar *raster, INT dx, INT dy, INT inc);
 
 // module shevron.c
 void shevron(cell*);
@@ -649,16 +649,16 @@ Bool check_cancel(uint16_t perc);
 
 MN *cell_cut(cell *);
 
-void set_page_name(PBYTE);
+void set_page_name(puchar);
 
 void setdrmode(INT);
 
-void c_rastror(PBYTE, PBYTE, uint16_t, uint16_t);
+void c_rastror(puchar, puchar, uint16_t, uint16_t);
 
 lnhead *c_boxln(MN *);
 
 // module html.c
-void html_main(PBYTE memory, LONG memory_lth);
+void html_main(puchar memory, LONG memory_lth);
 
 // virtual function...
 uint16_t Tiger_BIOSKEY(uint16_t);

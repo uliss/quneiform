@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   SPART   part[MAX_PARTS];                /* fundamental parts of     */
                                           /* the object:              */
 
-  BYTE    word[MAX_WORDS * sizeof(SWORD)];/* best words within object */
+  uchar    word[MAX_WORDS * sizeof(SWORD)];/* best words within object */
                                           /* fundamental parts        */
                                           /* ( mixed buf for parts):  */
 

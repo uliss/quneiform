@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
  #include <sys/stat.h>
 /* #include <io.h> */
- #include "nt_types.h"
+ 
  #include <stdlib.h>
  #include <setjmp.h>
  #include <assert.h>
@@ -111,35 +111,35 @@ extern Bool32 rstr_kit_realloc(void);
 extern Bool32 trees_load(void);
 extern void ErrorExit(int Code);
 extern Bool32 trees_load_fict(void);
-extern PBYTE string_curr;
-extern BYTE line_scale,line_alphabet, line_minus, line_handfragment,line_pointsusp;
+extern puchar string_curr;
+extern uchar line_scale,line_alphabet, line_minus, line_handfragment,line_pointsusp;
 extern Bool line_readyBL,line_BL;
-extern BYTE line_tabcell;
-extern BYTE db_trace_flag;
+extern uchar line_tabcell;
+extern uchar db_trace_flag;
 extern INT nIncline;
 // PASSe.C functions
 extern void   set_spell_solid(void);
-extern BYTE   english_word_recognize(void);
-extern BYTE   small_english_str(void) ;
+extern uchar   english_word_recognize(void);
+extern uchar   small_english_str(void) ;
 extern void   russian_english_context(void);
 // from Acc_tabs.c
 void    correct_let_tables(void);
-Bool    is_russian_language(BYTE lang);
+Bool    is_russian_language(uchar lang);
 
 extern LONG Flag_Courier;
 extern INT line_number;
 extern FILE *dbg_f;
-extern BYTE prop_in_trouble;
-extern BYTE let_to_dust;
+extern uchar prop_in_trouble;
+extern uchar let_to_dust;
 extern Bool bCancelled;
 extern INT bs_got;
 extern INT flag_cut_point;
-extern BYTE language;
-extern BYTE CodePages[];
-extern BYTE decode_ASCII_to_[256][4];
+extern uchar language;
+extern uchar CodePages[];
+extern uchar decode_ASCII_to_[256][4];
 extern char alphabet[256];
 INT    page_nIncline;
-BYTE   pass2;
+uchar   pass2;
 INT    del_squares();
 Bool   ProgressSetPhase (char *text, uint16_t wPhaseSize);
 Bool   ProgressSetPercentage (uint16_t wPercentage);
@@ -150,8 +150,8 @@ INT    tot_strings(void);
 Bool   kernel_reload_vocs(void);
 void   delete_spaces(void);
 
-BYTE   no_linear_crit=1;
-BYTE   save_sp;
+uchar   no_linear_crit=1;
+uchar   save_sp;
 
 static  void pass3_special_recode(CSTR_line ln);
 void pass3_table_points_suspension(CSTR_line ln);
@@ -169,7 +169,7 @@ static  Bool del_spaces_before_carry(CSTR_line ln);
 static  void pass3_Ps(CSTR_line lin);
 static  void delete_far_dust(CSTR_line lin);
 static  void CSTR_refresh_flags(CSTR_line ln);
-static  void set_cells_language(BYTE lang);
+static  void set_cells_language(uchar lang);
 static  void pass_start();
 static  void convert_ligas(void);
 static  void postrecog();
@@ -333,7 +333,7 @@ for(c=cell_f()->next;c!=cell_l();c=c->next)
 return;
 }
 
-Bool unique_upper(BYTE c)
+Bool unique_upper(uchar c)
 {
 Bool    ret;
 switch(language)
@@ -381,7 +381,7 @@ void pass3(CSTR_line ln,CSTR_line lout)
 {
     INT     h;
     INT     lsq;
-    BYTE    Lang;
+    uchar    Lang;
     INT     Step=0,no_crit;
     INT     eng=0;
     Bool    snap_active=FALSE,line_scale0=FALSE,stop_pass2=FALSE;
@@ -765,7 +765,7 @@ got_line:
                 int32_t i;
                 P2GLOBALS p2globals;
                 extern Handle hSnapSmartCut;
-                BYTE    slang=language;
+                uchar    slang=language;
                 // set bas lines - for cut/glue & after p2_...
                 p2_setBasLines(ln);
                 // fill values - language,...
@@ -880,7 +880,7 @@ got_line:
                             }
                     else
                             {
-                            BYTE sv = cuts_point_methode;
+                            uchar sv = cuts_point_methode;
 
                             cuts_point_methode = 0 ;       // leman def cut points
                             make_all_cuts();               // leman cut process
@@ -1044,7 +1044,7 @@ got_line:
         space_size(h);
 
         if(pass2 &&  !Step )
-            save_sp = (BYTE)get_space_size();
+            save_sp = (uchar)get_space_size();
 
         if(pass2 &&  Step  )
             set_space_size(save_sp);
@@ -1366,7 +1366,7 @@ if( line_alphabet==ALPHA_DIGITAL_TRUE )
 return;
 }
 
-BYTE    convert_eng_liga( BYTE c)
+uchar    convert_eng_liga( uchar c)
 {
 switch( c )
         {
@@ -1503,7 +1503,7 @@ else if( mode==1 )
   Nbt =oNbt;
   Ps  =oPs;
   Psf =oPsf;
-  multi_bas=(BYTE)omulti_bas;
+  multi_bas=(uchar)omulti_bas;
   if( line_crit )
     all_cell_levcut(1);    // apply penalties
   }
@@ -1554,7 +1554,7 @@ if( shift )
 return;
 }
 
-extern PBYTE kit_curr, kit_end;
+extern puchar kit_curr, kit_end;
 static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, Bool shift)
  {
  c_comp ec={0};
@@ -1636,7 +1636,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
  CCOM_comp      *cmp;
  INT             i,j,hmax,nscale=0,nsmall=0,nall=0,ndust, nlet;
  RecVersions     evn,zer={0};
- BYTE            sl=language, ssc=line_scale;
+ uchar            sl=language, ssc=line_scale;
 
 
  c1=cell_f();
@@ -1684,7 +1684,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
             page_lines[num_of_lines].end.y=cmp->upper+cmp->h/2;
             page_lines[num_of_lines].end.x=cmp->left+cmp->w;
             page_lines[num_of_lines].type=HOR_LN;
-            page_lines[num_of_lines].width=(BYTE)cmp->h;
+            page_lines[num_of_lines].width=(uchar)cmp->h;
             num_of_lines++;
             if (snap_activity('d'))
                         {
@@ -1872,7 +1872,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
             scale_comp->h= 1<<scale;
 
         accept_Cell(c2,&cur, scale_comp, scale);
-        c2->env->scale=(BYTE)line_scale;
+        c2->env->scale=(uchar)line_scale;
         if( cmp->scale )
             compress_second(c2,1);
         }
@@ -1897,7 +1897,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
         {
     if( evn.lnAltCnt && evn.Alt[0].Method==REC_METHOD_NCU)
         {
-        BYTE   *p,local_alphabet[256]={0};
+        uchar   *p,local_alphabet[256]={0};
         for(j=i=0;i<evn.lnAltCnt;i++)
             {
 
@@ -2076,7 +2076,7 @@ void dust_ini(CSTR_line lin)
     if( scale_comp->h<(1<<scale) )
         scale_comp->h= 1<<scale;
     accept_Cell(c2,&cur, scale_comp, scale); // compressed this
-    c2->env->scale=(BYTE)line_scale;
+    c2->env->scale=(uchar)line_scale;
     if( cmp->scale )
             compress_second(c2,1);
     }
@@ -2374,7 +2374,7 @@ if( ver->lnAltCnt )
           }
       else if( i==0 )
           {
-          ver->Alt[j].Code = (BYTE)let;
+          ver->Alt[j].Code = (uchar)let;
               ver->Alt[j].CodeExt = 0;
               ver->Alt[j].Prob = c->vers[i].prob;
           j++;
@@ -2416,7 +2416,7 @@ if( ver->lnAltCnt )
       {
       let = (INT)c->vers[i].let;
       strcpy(ver->Alt[i].Code , decode_ASCII_to_[let]);
-      ver->Alt[i].Liga      = (BYTE)c->vers[i].let;
+      ver->Alt[i].Liga      = (uchar)c->vers[i].let;
           ver->Alt[i].Prob      = c->vers[i].prob;
       switch( c->recsource&0xef )
             {
@@ -2916,7 +2916,7 @@ Bool pass3BL(CSTR_line ln)
     INT     lsq, loc_bdiff[6]={0},i, mlbd, bd, imlbd, bado, badn;
     Bool    snap_active=FALSE,line_scale0=0;
     cell   *c;
-    BYTE    str[100];
+    uchar    str[100];
     Bool    ret;
 	int16_t   minr,maxr;
 
@@ -3043,10 +3043,10 @@ return ret;
 }
 
 
-Bool match_word_prepare(CSTR_line ln, BYTE *alphabet, MatchWordPar *param)
+Bool match_word_prepare(CSTR_line ln, uchar *alphabet, MatchWordPar *param)
 {
     INT     lsq;
-    BYTE    Lang;
+    uchar    Lang;
     INT     Step=0,no_crit;
     Bool    line_scale0=0;
     extern Bool pass4_in;
@@ -3237,22 +3237,22 @@ return TRUE;
 Bool add_rus_under(cell *c)
 {
 Bool    ret = FALSE;
-BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
+uchar    pr = (uchar)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
-    case    (BYTE)'ç':
+    case    (uchar)'ç':
 		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
 
         add_stick_vers(c,(char)'ã', pr ) ;
         ret = TRUE;
         break;
-    case    (BYTE)'¨':
+    case    (uchar)'¨':
         add_stick_vers(c,(char)'æ', pr ) ;
-        add_stick_vers(c,(char)'ã', (BYTE)MAX((INT)pr-10,2) ) ;
+        add_stick_vers(c,(char)'ã', (uchar)MAX((INT)pr-10,2) ) ;
         ret = TRUE;
         break;
-    case    (BYTE)'®':
+    case    (uchar)'®':
  		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
        add_stick_vers(c,(char)'à', pr ) ;
@@ -3267,18 +3267,18 @@ return FALSE;
 Bool add_eng_under(cell *c)
 {
 Bool    ret = FALSE;
-BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
+uchar    pr = (uchar)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
-    case    (BYTE)'v':
+    case    (uchar)'v':
         add_stick_vers(c,(char)'y',pr ) ;
         ret = TRUE;
         break;
-    case    (BYTE)'o':
+    case    (uchar)'o':
         add_stick_vers(c,(char)'p',pr ) ;
         ret = TRUE;
         break;
-    case    (BYTE)'a':
+    case    (uchar)'a':
         add_stick_vers(c,(char)'q',pr ) ;
         add_stick_vers(c,(char)'g',pr ) ;
         ret = TRUE;

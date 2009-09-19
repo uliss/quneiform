@@ -106,62 +106,62 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct tag_brus { INT  L; INT  R; INT H; INT P;}; /* L-left,R_right,H-height,P-position */
 typedef struct tag_brus  Coor_brus;
 
-struct tag_intervals {BYTE osnl; BYTE osnr; BYTE lb; BYTE mb; BYTE rb; BYTE cvl; BYTE cvr; BYTE cvm; BYTE wf; };
+struct tag_intervals {uchar osnl; uchar osnr; uchar lb; uchar mb; uchar rb; uchar cvl; uchar cvr; uchar cvm; uchar wf; };
 /* lb-левая граница,rb-правая граница,cvl-кол-во голосуюших за этот интервал
    слева,cvr-кол-во голосуюших за этот интервал справа,ps-кол-во голосуюших за этот интервал с середины */
 typedef struct tag_intervals MasIntervals; /* массив интервалов*/
 
-struct tag_intervals1 {BYTE osnl; BYTE osnr;};
+struct tag_intervals1 {uchar osnl; uchar osnr;};
 typedef struct tag_intervals1 MasIntervals1; /* массив интервалов*/
 
 // module defpoint.c
 INT  Alik_define_cut_points(pchar,struct own_cut *,INT,INT,INT);
-void Alik_set_method_for_cut_points(struct own_cut *,INT,INT,PBYTE);
-BYTE Alik_gde_i_kak_naxodjatsa_tochki(BYTE,struct own_cut *,INT,INT);
+void Alik_set_method_for_cut_points(struct own_cut *,INT,INT,puchar);
+uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar,struct own_cut *,INT,INT);
 
 // module alcutfun.c
 void Alik_del_equal_hole(PINT,pchar,PINT,INT,INT,INT);
 void Alik_del_p_cut(pchar,PINT,INT,INT,INT,char);
-void Alik_del_3_cut(pchar,PINT,INT,INT,INT,PBYTE);
+void Alik_del_3_cut(pchar,PINT,INT,INT,INT,puchar);
 void Alik_del_y_cut(pchar,INT,PINT,INT);
 void Alik_del_equal(PINT);
 INT  Alik_del_doubl_cut(PINT,pchar,PINT,INT);
 INT  Alik_del_detail(pchar,INT,INT,PINT);
-BYTE Alik_kill_right_points(INT,pchar,pchar,PINT,INT);
-BYTE Alik_kill_left_points(INT,PINT,INT);
-BYTE Alik_kill_left_right_points(PINT,INT);
-BYTE Alik_del_a(PINT,PBYTE,BYTE,BYTE);
-BYTE Alik_del_a_from_interval(PINT,PBYTE,BYTE,BYTE,BYTE*,BYTE*);
-void Alik_UpBlackPoint(pchar,INT,INT,PBYTE);
-BYTE Alik_check_c(PBYTE,PINT,INT);
+uchar Alik_kill_right_points(INT,pchar,pchar,PINT,INT);
+uchar Alik_kill_left_points(INT,PINT,INT);
+uchar Alik_kill_left_right_points(PINT,INT);
+uchar Alik_del_a(PINT,puchar,uchar,uchar);
+uchar Alik_del_a_from_interval(PINT,puchar,uchar,uchar,uchar*,uchar*);
+void Alik_UpBlackPoint(pchar,INT,INT,puchar);
+uchar Alik_check_c(puchar,PINT,INT);
 
 void Alik_cut_short(pchar,pchar,INT,INT,pchar,PINT,PINT,pchar);
-void Alik_cut_hole(pchar,INT,PINT,INT,INT,pchar,PINT,BYTE);
+void Alik_cut_hole(pchar,INT,PINT,INT,INT,pchar,PINT,uchar);
 void Alik_cut_l(PINT,pchar,INT,INT,PINT);
 void Alik_cut_d(pchar,PINT,pchar,INT,INT,INT,INT,pchar);
-void Alik_cut_y(pchar,pchar,pchar,INT,INT,PINT,PBYTE,INT,pchar,pchar,PINT,PBYTE);
-void Alik_double_serif(PINT,pchar,pchar,INT,INT,INT,INT,PINT,PBYTE,PBYTE);
+void Alik_cut_y(pchar,pchar,pchar,INT,INT,PINT,puchar,INT,pchar,pchar,PINT,puchar);
+void Alik_double_serif(PINT,pchar,pchar,INT,INT,INT,INT,PINT,puchar,puchar);
 void Alik_defis(pchar,PINT,INT,INT,INT,INT,PINT);
 
-void Alik_def_cut_flg(cell *,struct cut_elm *,struct cut_elm *,INT,BYTE);
+void Alik_def_cut_flg(cell *,struct cut_elm *,struct cut_elm *,INT,uchar);
 INT  Alik_set_position_brus(pchar,INT,INT,INT);
 INT  Alik_Check_T(pchar,INT,INT,INT);
-void Alik_Check_Rus_D(pchar,pchar,INT,INT,PINT,PBYTE,INT,pchar,pchar,PINT,PBYTE);
-void Alik_find_brus(pchar,pchar,pchar,INT,INT,INT,pchar,pchar,PINT,PINT,PBYTE,PBYTE);
-void Alik_rus_bad_c(pchar,pchar,INT,INT,pchar,pchar,PINT,PINT,PBYTE,PBYTE);
-BYTE Alik_find_black_interval(PBYTE str,BYTE len,PBYTE intrvl);
+void Alik_Check_Rus_D(pchar,pchar,INT,INT,PINT,puchar,INT,pchar,pchar,PINT,puchar);
+void Alik_find_brus(pchar,pchar,pchar,INT,INT,INT,pchar,pchar,PINT,PINT,puchar,puchar);
+void Alik_rus_bad_c(pchar,pchar,INT,INT,pchar,pchar,PINT,PINT,puchar,puchar);
+uchar Alik_find_black_interval(puchar str,uchar len,puchar intrvl);
 
 void Alik_form_bound(pchar,uint16_t,uint16_t,uint16_t,pchar,uint16_t);
-void Alik_my_correct_base_lines(PINT,PINT,INT,INT,INT,PBYTE,PWORD,PBYTE);
+void Alik_my_correct_base_lines(PINT,PINT,INT,INT,INT,puchar,PWORD,puchar);
 void Alik_correct_base_lines(pchar,INT,INT,INT*,INT*);
 INT  Alik_sort(PINT,PINT,INT);
 INT  Alik_search_bound_point_in_raster(pchar,INT,INT);
 void Alik_tr_bit_matr(INT,INT,pchar,pchar,INT,INT);
 void Alik_cor_pnt(PINT,PINT,PINT,INT,INT,INT,INT,pchar,pchar);
 int  Alik_sort_function( const void *a, const void *b);
-INT  Alik_up_position_double_serif(PBYTE,INT,INT,PWORD,PBYTE,INT);
-void Alik_CountCut(pchar,INT,INT,PBYTE,PBYTE);
-BYTE Alik_priznak_del_3_cut(PBYTE,INT,INT);
+INT  Alik_up_position_double_serif(puchar,INT,INT,PWORD,puchar,INT);
+void Alik_CountCut(pchar,INT,INT,puchar,puchar);
+uchar Alik_priznak_del_3_cut(puchar,INT,INT);
 void Alik_cor_height_and_var(INT,struct own_cut *,PINT,INT,INT);
 void Alik_new_points(INT *,struct own_cut *,struct own_cut *,INT,INT,PINT,
                      pchar);

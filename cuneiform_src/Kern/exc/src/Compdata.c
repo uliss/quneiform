@@ -66,7 +66,7 @@ uchar work_raster[2048*32], work_raster_1[2048*32];
 int32_t sz_work_raster=sizeof(work_raster), sz_work_raster_1=sizeof(work_raster_1);
 struct main_memory_str Q;
 version * start_rec, *rec_ptr;
-//BYTE string[8192]; // 20.01.97 19:15
+//uchar string[8192]; // 20.01.97 19:15
 uchar lpool_lth;
 uchar lpool[6000*10];
 

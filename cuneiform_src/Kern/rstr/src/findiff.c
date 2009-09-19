@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
@@ -72,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BYTE language;
+extern uchar language;
 
 static B_LINES bl;
 static cell* clist[2];
@@ -106,7 +105,7 @@ extern INT final_crit_russian(cell * c);
 void final_crit()
  {
  cell *c;
- BYTE let,let1;
+ uchar let,let1;
  INT cnt;
 
  for (cnt=0,c=cell_f()->next; c->next!=NULL; c=c->next)
@@ -264,7 +263,7 @@ static void final_eg(cell *c)
 
 static void final_ao_gpq(cell *c)
  {
- BYTE let;
+ uchar let;
  INT nvers,i;
 
  if (c->vers[0].prob<=DAO) return;
@@ -343,7 +342,7 @@ static void final_dotcom(cell *c)
 static INT final_slash_l(cell *c)
  {
  INT i;
- BYTE fnt;
+ uchar fnt;
 
  get_b_lines(c,&bl);
  if (c->row+c->h>=bl.b3+MIN(3,MAX(1,c->h/10)))
@@ -376,7 +375,7 @@ static INT final_slash_l(cell *c)
 
 static Bool is_slash(cell *c)
  {
- PBYTE raster;
+ puchar raster;
  INT i1,i2,j1,j2,l;
  INT    ginc=erect_get_local();
  if( c->stick_inc==NO_INCLINE || c->stick_inc==0 )
@@ -400,7 +399,7 @@ if( c->stick_inc!=NO_INCLINE && ginc<400 && ginc*2<c->stick_inc )
 static INT final_no_slash(cell *c)
  {
  INT i;
- BYTE fnt;
+ uchar fnt;
 
  if (c->env==NULL)
   return 0;
@@ -438,7 +437,7 @@ static INT final_back_slash(cell *c)
 
 static Bool is_back_slash(cell *c)
  {
- PBYTE raster;
+ puchar raster;
  INT l,i1,i2,i3,j1,j2,j3,k1,k2,k3;
 
  raster=save_raster(c);
@@ -532,9 +531,9 @@ static void final_ii_u(cell *c)
 
 static void final_AOU_2dot(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,i,i1,j,j1,j2,j3,j4;
- BYTE let,b;
+ uchar let,b;
 
  r=save_raster(c);
  let=c->vers[0].let;
@@ -579,7 +578,7 @@ static void final_AOU_2dot(cell *c)
 
 static void final_A_circle(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,i,im,j,j1,j2;
 
  r=save_raster(c);
@@ -603,9 +602,9 @@ static void final_A_circle(cell *c)
 
 static void final_vv_w(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,i,j,n1,n2;
- BYTE b;
+ uchar b;
 
  r=save_raster(c);
  l=(c->w+7)/8;

@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "c_types.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -65,6 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sfont.h"
 #include "fonrec.h"
 #include "clu_lang.h"
+#include "minmax.h"
 
 #define POROG_TEST 5
 #define POROG_SAME 3
@@ -77,7 +77,7 @@ extern int countCluster[256]; // how many clust
 Bool32 BadCluster(InfoCluster *infoC);
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 						SINT *nClus,InfoCluster *infoC,int *countC,
-						BYTE *metkaGood,BYTE *metkaValid,Bool addLingvo);
+						uchar *metkaGood,uchar *metkaValid,Bool addLingvo);
 
 #define GoodCluster(infoC) (infoC.valid & LEO_VALID_LINGVO )
 
@@ -85,7 +85,7 @@ void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 static int GetVes(Nraster_header *rh)
 {
 	int i=rh->xbyte*rh->h;
-	BYTE *buf=rh->pHau;
+	uchar *buf=rh->pHau;
 	int summa;
 
 	for(summa=0;i>0;i--,buf++)
@@ -261,8 +261,8 @@ static Bool32 SameSizes(InfoCluster *infoC,int i,int j,
 	   return FALSE;
 }
 ///////////////////
-extern SINT DistanceHausDLL(BYTE  *b1,SINT xbyte1,SINT yrow1,
-						BYTE  *b2,SINT xbyte2,SINT yrow2,
+extern SINT DistanceHausDLL(uchar  *b1,SINT xbyte1,SINT yrow1,
+						uchar  *b2,SINT xbyte2,SINT yrow2,
 						SINT porog);
 /*
 static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
@@ -276,7 +276,7 @@ static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
 		if(nClus[i] == i1)
 		{
 			sum1+=DistanceHausDLL(rh[num].pHau,rh[num].byte1,SINT yrow1,
-						BYTE  *b2,SINT xbyte2,SINT yrow2,
+						uchar  *b2,SINT xbyte2,SINT yrow2,
 						SINT porog);
 		}
 

@@ -60,7 +60,6 @@
 /*								    */
 /********************************************************************/
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "func.h"
@@ -120,7 +119,7 @@ static INT init_list()
 	 INT lth;	   // length of one line representation
 	 INT h;		   // height of line
 	 INT row;	   // relative row of line start
-	 BYTE flg;	   // flags of free beg and free end
+	 uchar flg;	   // flags of free beg and free end
 	 #define l_fbeg		0x20
 	 #define l_fend		0x80
 	 };
@@ -132,7 +131,7 @@ static INT init_list()
 	for (n_lines = 0; lp->lth != 0; n_lines++, sl_ptr++) {
 		if (n_lines >= MAX_LINES)
 			return 0;
-		sl_ptr->top = (BYTE) lp->row;
+		sl_ptr->top = (uchar) lp->row;
 		sl_ptr->bot = sl_ptr->top + lp->h;
 		sl_ptr->segm_addr = ((pchar) lp) - ((pchar) t_line_ptr) + sizeof(*lp);
 		segm_ptr = (struct segment *) (lp + 1); // skip header of line
@@ -319,19 +318,19 @@ static void place_in_list()
 			if ((blp->top > nlp->top) || ((blp->top == nlp->top) && (blp->fb
 					> nlp->fb))) {
 				nlp->next = blpold->next;
-				blpold->next = (BYTE) max_line;
+				blpold->next = (uchar) max_line;
 				break;
 			}
 			blpold = blp;
 			if (blp->next == 0) {
-				blp->next = (BYTE) max_line;
+				blp->next = (uchar) max_line;
 				nlp->next = 0;
 				break;
 			}
 			blp = &Ed_lines[blp->next];
 		}
 	} else
-		fl_ptr->next = (BYTE) max_line;
+		fl_ptr->next = (uchar) max_line;
 }
 
 static INT wr_vertex()
@@ -392,7 +391,7 @@ void find_path()
 //
 {
 	INT n, l, l0, v;
-	BYTE svpath[MAX_LINES];
+	uchar svpath[MAX_LINES];
 	INT svpathl, svpatot;
 
 	Z = &string;
@@ -408,7 +407,7 @@ void find_path()
 	while (1) {
 		if ((n = next_edge()) > 0) {
 			l = verts[n].bot;
-			path[path_lth++] = (BYTE) n;
+			path[path_lth++] = (uchar) n;
 			if ((l - l0) > svpatot) // save longest path
 			{
 				svpatot = l - l0;
@@ -457,8 +456,8 @@ static INT next_edge()
 }
 
 struct conn {
-	PBYTE adjs; // current point in the edges list
-	PBYTE adje; // end of the edges list
+	puchar adjs; // current point in the edges list
+	puchar adje; // end of the edges list
 	uint32_t vert; // number of vertex (identifier)
 	INT covers; // crossing vertexes starts counter
 	uint16_t ncp; // components counter
@@ -472,7 +471,7 @@ void excl_connect()
 {
 	struct conn stk[MAX_LINES + 1], *stp, *ref;
 	struct conn * mark[MAX_LINES];
-	PBYTE edge, edge_end;
+	puchar edge, edge_end;
 	uint32_t vn, nverts = n_verts;
 
 	memset(mark, 0, sizeof(mark)); // clear usage vertexes list

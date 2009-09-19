@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // --------------------------------------------------------------------
 
   #include "spelmode.h"
-  #include "nt_types.h"
+  
   #include <stdlib.h>
   #include <stdio.h>
   #include <string.h>
@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "compat_defs.h"
 // --------------------------------------------------------------------
   void	ErrorExit(int Code);
-  void ed_out_write(PBYTE p, uint16_t size);
+  void ed_out_write(puchar p, uint16_t size);
 
   //AK kill all stupid macros
   //#define t  SPQ.t
@@ -112,8 +112,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // --------------------------------------------------------------------
 
-  extern BYTE * ED_file_start;
-  extern BYTE * ED_file_end;
+  extern uchar * ED_file_start;
+  extern uchar * ED_file_end;
   extern dQ SPQ;            //Q;
 
 // --------------------------------------------------------------------
@@ -125,7 +125,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // This procedure stores new state of ed_file into output stream.
 //
-INT save_ed_file(BYTE batch_run)
+INT save_ed_file(uchar batch_run)
 {
   struct segm  *segm_ptr;
   INT lth;
@@ -153,7 +153,7 @@ INT save_ed_file(BYTE batch_run)
 //  This procedure reads ed file into memory and generates
 //  needed structures.
 //
-INT read_file( BYTE batch_run )
+INT read_file( uchar batch_run )
 {
 	INT  i;
 	char ret;

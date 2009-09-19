@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <memory.h>
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -137,7 +137,7 @@ static WORDThick WordThick[BOLDMAXWORD];
 static int thickBuffer[MAXTHICK];
 static int heiAllBuffer[MAXHEI];
 static int heiLitBuffer[MAXHEI];
-static BYTE mas[8]={128,64,32,16,8,4,2,1};
+static uchar mas[8]={128,64,32,16,8,4,2,1};
 
 static int pageLight=0,pageBold=MAXTHICK;
 static int pageLineLight=0,pageLineBold=MAXTHICK;
@@ -2264,7 +2264,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
  int  i;
  int  lefth=-1;
  int  prommin = -1;
- BYTE spusk = 0;
+ uchar spusk = 0;
  int  numPoi;
  int  dimPlato;
  int  bestProgib,bestPlato;

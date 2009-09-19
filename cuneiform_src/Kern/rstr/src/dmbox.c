@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "status.h"
 #include "cuthdr.h"
@@ -86,10 +85,10 @@ INT my_Ps;
 servBOX SBOX;
 #define WIDE5x3  170
 servBOX SBOX5x3;
-BYTE  bool5x3;
+uchar  bool5x3;
 
-extern BYTE db_status;  // snap presence byte
-extern BYTE db_pass;  // current pass letter
+extern uchar db_status;  // snap presence byte
+extern uchar db_pass;  // current pass letter
 extern INT best_answer_BOX;
 
 static INT Proi[][6]=
@@ -106,7 +105,7 @@ static INT many_legs(s_glue *);
 
 #include "linutil.h"
 
-static BYTE wide_let[] = {166,172,228,232,233,235,238};
+static uchar wide_let[] = {166,172,228,232,233,235,238};
 
 
 //  Add component to box raster
@@ -117,7 +116,7 @@ static void comp_to_box5x3(PWORD matr, c_comp * cp,
         uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
  make_box_raster5x3(matr, cp, row, (INT)((cp->left - col)*5), h, w,
-   (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t)));
+   (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t)));
 }
 
 
@@ -181,7 +180,7 @@ fint:;
      case 3: *pm += s1*3; *(pm+1) += s2*3; *(pm+2) += s3*3; *(pm+3) += s4*3; *(pm+4) += s5*3; break;
     }
   }
- lp = (lnhead *)((PBYTE)lp + lp->lth);
+ lp = (lnhead *)((puchar)lp + lp->lth);
  if (lp->lth != 0) goto next_line;
 }/*make_box_raster5x3*/
 
@@ -200,7 +199,7 @@ INT crecell5x3(cell *B1, s_glue *GL)
 }/*crecell5x3*/
 
 
-INT  isWideLetter( BYTE let )
+INT  isWideLetter( uchar let )
 {
    if( (language == LANG_RUSSIAN) && memchr(wide_let,to_lower(let),sizeof(wide_let)) )
      return  1;
@@ -213,9 +212,9 @@ INT  isKlasterFull( INT typl );
 static INT recBOX(INT rq, INT tpl, INT ftv, cell *BC)
 {
  INT typl, svr, svh, svw, svc, svmr, svmc, pa, pA, py;
- BYTE c1, c2, c3;
-BYTE p1, p2, p3;
-//extern BYTE no_linpen;
+ uchar c1, c2, c3;
+uchar p1, p2, p3;
+//extern uchar no_linpen;
 //if( no_linpen )
 //    return 8;
 
@@ -236,9 +235,9 @@ BYTE p1, p2, p3;
   if (rq)
     {
          if( language == LANG_RUSSIAN ){ // Valdemar
-        BC->vers[0].let =  (BYTE)' ';
-        BC->vers[1].let =  (BYTE)'€';
-        BC->vers[2].let =  (BYTE)'ã';
+        BC->vers[0].let =  (uchar)' ';
+        BC->vers[1].let =  (uchar)'€';
+        BC->vers[2].let =  (uchar)'ã';
                                    }
      else{
         BC->vers[0].let =  'a';
@@ -260,15 +259,15 @@ BYTE p1, p2, p3;
      c3= BC->vers[2].let;
      pa=pA=py=0;
      if( language == LANG_RUSSIAN ){
-     if (c1==(BYTE)' ') pa=p1;
-     if (c1==(BYTE)'€') pA=p1;
-     if (c1==(BYTE)'ã') py=p1;
-     if (c2==(BYTE)' ') pa=p2;
-     if (c2==(BYTE)'€') pA=p2;
-     if (c2==(BYTE)'ã') py=p2;
-     if (c3==(BYTE)' ') pa=p3;
-     if (c3==(BYTE)'€') pA=p3;
-     if (c3==(BYTE)'ã') py=p3;
+     if (c1==(uchar)' ') pa=p1;
+     if (c1==(uchar)'€') pA=p1;
+     if (c1==(uchar)'ã') py=p1;
+     if (c2==(uchar)' ') pa=p2;
+     if (c2==(uchar)'€') pA=p2;
+     if (c2==(uchar)'ã') py=p2;
+     if (c3==(uchar)' ') pa=p3;
+     if (c3==(uchar)'€') pA=p3;
+     if (c3==(uchar)'ã') py=p3;
      }
      else {
      if (c1=='a') pa=p1;
@@ -296,7 +295,7 @@ BYTE p1, p2, p3;
   BC->col=svmc;
   return typl/*(rq)?(typl|8):(typl)*/;
 }
-extern BYTE db_trace_flag;
+extern uchar db_trace_flag;
 
 INT dmiBOX(cell *A, s_glue *GL, INT fl2)
  {
@@ -307,7 +306,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
  SVERS svers, fsvers;
  version *dv1, *dv2;
  uint16_t wcos, beste, best3, *pb1, *pb2;
- BYTE c, c_acc, pb, wc; INT flit;
+ uchar c, c_acc, pb, wc; INT flit;
  char scg, vx, px, pl, flnu, flag_m, flag_rtf, stick;
  char wbuf[256]; // 06-09-94 09:59pm
  char flag_stick=0;  // Oleg : 31.08.92.
@@ -457,8 +456,8 @@ makeans:
               if (db_status && (db_trace_flag & 4))
                 est_snap(db_pass,BC,"u-->n");
             }
-            if( language==LANG_RUSSIAN && c==(BYTE)'÷' )
-            { c=(BYTE)'¯';
+            if( language==LANG_RUSSIAN && c==(uchar)'÷' )
+            { c=(uchar)'¯';
               if (db_status && (db_trace_flag & 4))
                 est_snap(db_pass,BC,"÷-->¯");
             }
@@ -511,7 +510,7 @@ makeans:
       w1 = proport(wcos,*pb1,*pb2,*pi1,*pi2);
       if (w1==0)  w1=2;
       w1 &= 0x00fe;
-      dv1->prob = (BYTE)w1;
+      dv1->prob = (uchar)w1;
       if ((my_Ps < 18) && (v->fnt ==4) && ((c=='i') || (c=='l'))) flit=w1-8;
       break;
       }
@@ -529,13 +528,13 @@ makeans:
  if (db_status)
   {
    if ((GL->arg & GABOXt) || (fvers))
-     snap_keep(7,(PBYTE)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+     snap_keep(7,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
    else
      {
       if (GL->arg & GABOXl)
-    snap_keep(8,(PBYTE)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+    snap_keep(8,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
       else
-    snap_keep(10,(PBYTE)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+    snap_keep(10,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
      }
   }
 
@@ -568,7 +567,7 @@ makeans:
                 break;
              }
           }
-          dv1[i].prob = (BYTE)w1;
+          dv1[i].prob = (uchar)w1;
       }
    }// for  versions
    }//if( !ftv )
@@ -632,7 +631,7 @@ makeans:
 				language == LANG_TURKISH &&  // 30.05.2002 E.P.
 					(wc==i_sans_accent||wc==II_dot_accent)
 			  )  // stick
-           dv2->prob = (BYTE)beste;   // make all sticks equivalent by BOX
+           dv2->prob = (uchar)beste;   // make all sticks equivalent by BOX
      if (db_status && (db_trace_flag & 4))
        est_snap(db_pass,BC,"all sticks to (best EVENT's+best BOX)/2");
          goto personal;
@@ -680,7 +679,7 @@ makeans:
      if (w1 > dv2->prob)        // killed is better
      {
        (dv2-1)->let=c;
-       (dv2-1)->prob = (BYTE)w1;
+       (dv2-1)->prob = (uchar)w1;
      }  // don't increment dv2: list is full
     }
       }    // for all old tiger's
@@ -762,7 +761,7 @@ personal:
 				!is_russian_turkish_conflict(c)	// 21.05.2002 E.P.
 		   ||
              ( c == ss_deaf_sound ) ||
-             ( c == (BYTE)liga_CC ) || ( c == (BYTE)liga_CR )
+             ( c == (uchar)liga_CC ) || ( c == (uchar)liga_CR )
            )
          )
 		w1=abris(GL,BC,c,w1);
@@ -894,7 +893,7 @@ INT dmBOX(cell *BC, s_glue *GL)
 {INT ret=0;
 if(pass4_in)
   {// OLEG : SERBIAN PASS4
-  extern BYTE langSer;
+  extern uchar langSer;
   ret =estletter(BC,GL);
   if( language==LANG_RUSSIAN && langSer &&
       BC->nvers && BC->vers[0].let==SERB_j && ij_dot(BC)<=0 )
@@ -935,7 +934,7 @@ INT crepat(cell *A, s_glue *GL, INT var, INT flag)
  {
  cell *BC, *DC;
  INT  d1, e3, e4;
- BYTE pc;
+ uchar pc;
 
  BC = A;
  dust_in_pattern=0;
@@ -997,7 +996,7 @@ INT crepat(cell *A, s_glue *GL, INT var, INT flag)
   if (DC->flg & c_f_let) break;
     // Valdemar 08.11.93 to paste ë
   if(language == LANG_RUSSIAN &&
-     (BC->vers[0].let ==(BYTE)'ì' || BC->vers[0].let ==(BYTE)'œ') )
+     (BC->vers[0].let ==(uchar)'ì' || BC->vers[0].let ==(uchar)'œ') )
      if( d1 > 5) break;
   else
   if (d1 > 4) break;     // too far
@@ -1075,7 +1074,7 @@ void GL_to_SBOX(s_glue *g)
  }
 
 void dens_to_cell(cell *c)
- { c->dens = (BYTE)sv_dens; }
+ { c->dens = (uchar)sv_dens; }
 
 void static_to_cell(cell *c)
  { c->r_row=sv_r;
@@ -1084,7 +1083,7 @@ void static_to_cell(cell *c)
    c->h=sv_h;
    c->row=sv_mr;
    c->col=sv_mc;
-   c->dens=(BYTE)sv_dens;
+   c->dens=(uchar)sv_dens;
  }
 
 void svcell_to_cell(cell *c)
@@ -1095,7 +1094,7 @@ void svcell_to_cell(cell *c)
    c->h=sc_h;
    c->row=sc_mr;
    c->col=sc_mc;
-   c->dens=(BYTE)sc_dens;
+   c->dens=(uchar)sc_dens;
  }
 
 void cell_to_svcell(cell *c)
@@ -1136,7 +1135,7 @@ static INT many_legs(s_glue *GL)
  cell *A;
  lnhead  *Lp1;
  char   n1, h1, h2;
- BYTE  *wb;
+ uchar  *wb;
  INT nc, Lc1,lc1,nleg;
  struct comp_struc *cp1;
  INT bm;
@@ -1149,7 +1148,7 @@ static INT many_legs(s_glue *GL)
   if (!A) return 0;
   bm  = get_bsm()+A->bdiff-A->row;
   cp1 = A->env;
-  wb = (BYTE *) cp1;
+  wb = (uchar *) cp1;
   wb += cp1->lines;
   Lc1=cp1->nl;                         // number of lines in component
   if (Lc1 < 5) return 0;

@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "func.h"
 #include "struct.h"
 #include "status.h"		// 31.08.2000 E.P.
@@ -67,14 +67,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BYTE db_trace_flag   ;    // snap-detail presence byte
-extern BYTE  db_status;
-extern BYTE *MemForCutPointsTwo;
+extern uchar db_trace_flag   ;    // snap-detail presence byte
+extern uchar  db_status;
+extern uchar *MemForCutPointsTwo;
 
 static cell *clbeg,*clend;
 static void analysis_words(void);
 
-BYTE Alik_find_black_interval(PBYTE str,BYTE len,PBYTE intrvl);
+uchar Alik_find_black_interval(puchar str,uchar len,puchar intrvl);
 void shevron(cell* );
 void check_contekst_shevron(void);
 INT  find_word(void);
@@ -170,7 +170,7 @@ return 1;
 #define MIN_PROB  150
 #define MID_PROB  200
 #define ok_K_hgt  10
-static BYTE ruslet[]  ="‰–“Š…ƒ˜™‡•š”›‚€Ž‹„†Ÿ—‘Œˆ’œžã¥ë ®ï¨î";
+static uchar ruslet[]  ="‰–“Š…ƒ˜™‡•š”›‚€Ž‹„†Ÿ—‘Œˆ’œžã¥ë ®ï¨î";
 //					   "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞóåûàîÿèþ"
 /***************************************************************/
 void analysis_words(void)
@@ -242,17 +242,17 @@ void analysis_words(void)
      )
       {
        if((WE->vers[0].prob<MIN_PROB && (WE->h>>1)*3 <= (WE->prevl)->h)   ||
-          (WE->vers[0].let==(BYTE)'í' &&
+          (WE->vers[0].let==(uchar)'í' &&
 			!is_russian_baltic_conflict(WE->vers[0].let) &&	// 17.07.2001 E.P.
 			WE->vers[0].prob<MIN_PROB        &&
 	      (WE->prevl)->vers[0].prob>=230)                                 ||
-          (WE->vers[0].let==(BYTE)'í' &&
+          (WE->vers[0].let==(uchar)'í' &&
 			!is_russian_baltic_conflict(WE->vers[0].let) &&	// 17.07.2001 E.P.
 			WE->vers[0].prob-5<PROB_OK       &&
 	      memchr(ruslet,(WE->prevl)->vers[0].let,sizeof(ruslet) ) &&
 			!is_russian_baltic_conflict((WE->prevl)->vers[0].let)	// 17.07.2001 E.P.
 			)         ||
-          (WE->vers[0].let==(BYTE)'í' &&
+          (WE->vers[0].let==(uchar)'í' &&
 			!is_russian_baltic_conflict(WE->vers[0].let) &&	// 17.07.2001 E.P.
 			WE->vers[0].prob<MAX_PROB        &&
 	      memchr(ruslet,(WE->prevl)->vers[0].let,sizeof(ruslet)) &&
@@ -323,10 +323,10 @@ void analysis_words(void)
 INT check_shevron(cell *c,INT flag_qual)
 {
 INT   i,i1,i2,penalty,hor_byte,sum,priznak,width,hgt,hgt2,hgt3,hgt23,l_priz;
-BYTE  Col,*CurPos,*I,bound[2],prev_b[4],povedenie,max_interval,priz2,
+uchar  Col,*CurPos,*I,bound[2],prev_b[4],povedenie,max_interval,priz2,
       inter1,inter2,priz_12,prev_col,up_max,dw_max,priz_seredini,tmp_max,
       l_min[3],r_min[3],l_m[2],r_m[2],priz_k,prev_left_dist;
-PBYTE raster;
+puchar raster;
 
 #ifdef AlikSevron
 INT   b1,b2,b3,b4,r1,r2;
@@ -348,7 +348,7 @@ char  snap[380],*buf=snap;
  I=MemForCutPointsTwo;
  sum=0; povedenie=0; priznak=0; max_interval=0; priz2=0; l_priz=0;
  inter1=0; inter2=0; up_max=0;  dw_max=0; priz_seredini=0;
- priz_k=1; prev_left_dist=(BYTE)width;
+ priz_k=1; prev_left_dist=(uchar)width;
  for(i=0;i<3;i++)
    {
     l_min[i]=0; r_min[i]=0;
@@ -359,7 +359,7 @@ char  snap[380],*buf=snap;
 //-------------------------step1--------------------------------------------
  for(i=0; i<hgt; i++)
   {
-   Col=Alik_find_black_interval(CurPos,(BYTE)hor_byte,I);
+   Col=Alik_find_black_interval(CurPos,(uchar)hor_byte,I);
    CurPos+=hor_byte;
    switch(Col)
     {
@@ -371,7 +371,7 @@ char  snap[380],*buf=snap;
 	     prev_b[0]=I[1];
 	     prev_b[1]=I[2];
 	     if(I[2]-I[1]-1==1) inter1=1;
-	     if(Alik_find_black_interval(CurPos,(BYTE)hor_byte,I)==1 && i==0 && hgt>ok_K_hgt)
+	     if(Alik_find_black_interval(CurPos,(uchar)hor_byte,I)==1 && i==0 && hgt>ok_K_hgt)
                 goto step2;
 	     if(!povedenie)
 	      {
@@ -411,7 +411,7 @@ step2:
  CurPos=raster+(hgt-1)*hor_byte;
  for(i=0; i<hgt; i++)
   {
-   Col=Alik_find_black_interval(CurPos,(BYTE)hor_byte,I);
+   Col=Alik_find_black_interval(CurPos,(uchar)hor_byte,I);
    CurPos-=hor_byte;
    switch(Col)
     {
@@ -423,7 +423,7 @@ step2:
 	     prev_b[0]=I[1];
 	     prev_b[1]=I[2];
 	     if(I[2]-I[1]-1==1) inter2=1;
-	     if(Alik_find_black_interval(CurPos,(BYTE)hor_byte,I)==1 && i==0 && hgt>ok_K_hgt)
+	     if(Alik_find_black_interval(CurPos,(uchar)hor_byte,I)==1 && i==0 && hgt>ok_K_hgt)
                 goto step3;
 	     if(!povedenie)
 	      {
@@ -464,7 +464,7 @@ step3:
  CurPos=raster;
  for(i=0; i<hgt; i++)
   {
-   Col=Alik_find_black_interval(CurPos,(BYTE)hor_byte,I);
+   Col=Alik_find_black_interval(CurPos,(uchar)hor_byte,I);
    CurPos+=hor_byte;
 
    switch(Col)
@@ -509,7 +509,7 @@ step4:
  CurPos=raster;
  for(i=0; i<hgt; i++)
   {
-   Col=Alik_find_black_interval(CurPos,(BYTE)hor_byte,I);
+   Col=Alik_find_black_interval(CurPos,(uchar)hor_byte,I);
    CurPos+=hor_byte;
    if(Col)
     {
@@ -657,7 +657,7 @@ if(!priz_12 && max_interval )                                    --priznak;
    CurPos=raster+i1*hor_byte;
    for(i=i1; i<i2; i++)
    {
-    Col=Alik_find_black_interval(CurPos,(BYTE)hor_byte,I);
+    Col=Alik_find_black_interval(CurPos,(uchar)hor_byte,I);
     CurPos+=hor_byte;
     switch(Col)
      {

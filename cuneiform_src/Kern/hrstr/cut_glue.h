@@ -100,24 +100,24 @@ struct raster_struct   //растр cell'а
   INT h;       //высота
   INT top;     //строка левого верхнего угла
   INT left;    //столбец  -""-
-  BYTE pict[RASTER_WIDTH*RASTER_HEIGHT/8];  //растр
+  uchar pict[RASTER_WIDTH*RASTER_HEIGHT/8];  //растр
 };
 typedef struct raster_struct raster;
 
 //-------------------  variables  -------------------------------------
 
- extern BYTE db_status;  // snap presence byte
- extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+ extern uchar db_status;  // snap presence byte
+ extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 
 //cg_main.c
- extern BYTE sticks_left_to_bad[];
- extern BYTE letters_left_to_bad[];
+ extern uchar sticks_left_to_bad[];
+ extern uchar letters_left_to_bad[];
  extern char *results_left_to_bad[];
- extern BYTE prob_left_to_bad[];
- extern BYTE sticks_right_to_bad[];
- extern BYTE letters_right_to_bad[];
+ extern uchar prob_left_to_bad[];
+ extern uchar sticks_right_to_bad[];
+ extern uchar letters_right_to_bad[];
  extern char *results_right_to_bad[];
- extern BYTE prob_right_to_bad[];
+ extern uchar prob_right_to_bad[];
 
  extern B_LINES my_bases; //базовые линии
  extern INT        blank; //ширина пробела
@@ -130,8 +130,8 @@ typedef struct raster_struct raster;
 
  extern char snap_text[],*snap;
 
- extern BYTE trs2;             // >trs2 - буква хорошая во всех отношениях
- extern BYTE trg;              //порог для склеивания
+ extern uchar trs2;             // >trs2 - буква хорошая во всех отношениях
+ extern uchar trg;              //порог для склеивания
 
 //---------------------  macros  --------------------------------------
 
@@ -195,7 +195,7 @@ void dp_pass0(cell *LC, raster *r, struct cut_elm *cut_list,
 
 //cg_main.c
 cell *process_word (cell *WB, cell *WE);
-BYTE addij(cell *C, raster *r0, struct cut_elm *cut_list,
+uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
            seg_vers **vers_list, INT ncut, INT i1, INT i0, char mode);
 void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               INT pass, INT *ib, INT *ie);
@@ -204,10 +204,10 @@ cell * create_my_cell(MN * mn, cell * ci, char bdiff, char dflag);
 
 //cg_tools.c
 cell *col_to_one(cell **clist, INT n);
-cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, BYTE dflag);
+cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, uchar dflag);
 Bool glue_overlap(cell *LC, cell *E);
 seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list );
-BYTE not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list);
+uchar not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list);
 INT on_path(INT i, INT ie, struct cut_elm *cut_list);
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
          INT i1, INT i0, SVERS *vers, INT ro, INT width, char gvar);
@@ -215,8 +215,8 @@ void adjust_3x5(Bool prerecog);
 
 void cg_show_rast(cell *C, raster *r, char *msg,
                struct cut_elm *cut_list);
-void cg_show_list(cell **cells, INT N, BYTE *msg);
-char *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0);
+void cg_show_list(cell **cells, INT N, uchar *msg);
+char *show_dp( puchar s, struct cut_elm *cut_list, INT i0);
 void det_snap(cell *C, char *txt);
 void show_and_wait(char *txt);
 

@@ -59,22 +59,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
-#include "nt_types.h"
-//#include "struct.h"
 #include "status.h"
 #include "cstr.h"
-//#include "func.h"
 #include "linear.h"
 #include "ligas.h"
-//#include "lang.h"
 #include "linutil.h"
 #include "tuner.h"
-
 
 INT sMALL_SIZE=SMALL_SIZE;  //NB 3.4.95
 
 EXTLIN CSTR_line lin_str;
-//extern Bool  FlagRestDust;
 
 static void cell_position(CSTR_rast c);
 INT if_dust(CSTR_rast C);
@@ -84,7 +78,7 @@ void   restore_dust(void);
 
 #define no__MULTI_PROT__
 extern uint16_t actual_resolution;
-extern BYTE let_captype[];
+extern uchar let_captype[];
 extern INT line_number;
 INT it_done;
 
@@ -474,10 +468,10 @@ static INT  top, bot, db, bs1, bs2, bs3, bs4;
 
 // возвращается новая оценка для chr. Старая - wp
 // С - только для атрибутов!
-INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+INT cut_by_posu(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   INT  dps;
-  BYTE dflag;
+  uchar dflag;
   unsigned char pen_upr;
   INT  up, dn;
   INT  i, j, ib2, bsi, b1, b2, b3, b4;
@@ -884,10 +878,10 @@ static unsigned char ftu3[6][4] =
 // для факса
 // возвращается новая оценка для chr. Старая - wp
 // С - только для атрибутов!
-INT cut_by_posf(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+INT cut_by_posf(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   INT  dps;
-  BYTE dflag;
+  uchar dflag;
   unsigned char pen_upr;
   INT  up, dn;
   INT  i, j, bsi, b1, b2, b3, b4;
@@ -1163,7 +1157,7 @@ cut:
    return 0;
 }
 
-INT cut_by_pos(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+INT cut_by_pos(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   if (actual_resolution > 64 )
   {
@@ -1191,7 +1185,7 @@ INT levcut(CSTR_rast C, INT arg)
  INT ncut, nalive, wp, np;
  INT pold, pnew, flcv;
 // version  *v0;
- BYTE  chr, surviver;
+ uchar  chr, surviver;
  UniVersions vers;
  int i;
  CSTR_rast_attr attr;
@@ -1236,7 +1230,7 @@ INT levcut(CSTR_rast C, INT arg)
 //   if (chr==bad_char)
 //	   return 0;
 
-   np = cut_by_pos(C,chr,wp,0,(BYTE)arg);
+   np = cut_by_pos(C,chr,wp,0,(uchar)arg);
    if (np > 0)
    {
      pnew = 0;
@@ -1288,7 +1282,7 @@ INT levcut(CSTR_rast C, INT arg)
  // entirely killed cell
  {
 // version *v0;
-   BYTE chr;
+   uchar chr;
 
    CSTR_GetCollectionUni(C,&vers);
 // for (v0=C->vers; (chr=v0->let) !=0; v0++)
@@ -1663,7 +1657,7 @@ p_prot (11001);
         {
          uint16_t iI,nv_o;
          INT pidx;
-		 BYTE let;
+		 uchar let;
 		 UniVersions vers;
 
          attr.bas_acc|=CSTR_ba_chance;  // try one more
@@ -1846,7 +1840,7 @@ p_prot(11003);
 ///////////////
 static INT influate(CSTR_rast c, CSTR_rast b)
 {
-  BYTE in_flag, cc, bc, dfc, dfb;
+  uchar in_flag, cc, bc, dfc, dfb;
   INT wp, dp, dp2;
   //version  *v0;
   UniVersions vers;
@@ -1942,7 +1936,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 
  INT influ_cap(CSTR_rast b)
 {
-  BYTE in_flag, bc;
+  uchar in_flag, bc;
   INT wp;
 //  version  *v0;
   UniVersions vers;
@@ -2002,7 +1996,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 
 static INT influ_b1b2(CSTR_rast b)
 {
-  BYTE in_flag, bc;
+  uchar in_flag, bc;
   INT wp, top, db, b1, b2, b12, d12;
 //  version  *v0;
   UniVersions vers;
@@ -2485,7 +2479,7 @@ static INT fincells()
    }
 
    if ( vers.lnAltCnt == 2 )
-   { BYTE c1, c2, p1, p2;
+   { uchar c1, c2, p1, p2;
      c1=vers.Alt[0].Liga;
      c2=vers.Alt[1].Liga;
      if (

@@ -98,17 +98,17 @@ The following constants are restriction flags for special replacement table.
 
 typedef struct
  {
-  BYTE   id[ sizeof(ARTFILE_ID)];
-  BYTE   voc_no;                      // INT
-  BYTE  _unused;
+  uchar   id[ sizeof(ARTFILE_ID)];
+  uchar   voc_no;                      // INT
+  uchar  _unused;
  } ArtFH;
 
 typedef struct
  {
   char pref_no;
   char post_no;
-  BYTE relabty;                       // INT
-  BYTE  _unused;
+  uchar relabty;                       // INT
+  uchar  _unused;
  } ArtVH;
 
 #define NOVOC -1
@@ -122,27 +122,27 @@ typedef struct
 
 typedef struct
  {
-  BYTE  id[ sizeof(TABFILE_ID)];
-  BYTE  rep_no;                       // INT
-  BYTE  _unused;
+  uchar  id[ sizeof(TABFILE_ID)];
+  uchar  rep_no;                       // INT
+  uchar  _unused;
  } TabFH;
 
 typedef struct artstr
  {
-  BYTE sr1;                   /* code1 of what replace */
-  BYTE sr2;                   /* code2 of what replace */
-  BYTE obj1;                  /* code1 by what replace */
-  BYTE obj2;                  /* code2 by what replace */
-  BYTE objt1;                 /* type of obj1          */
-  BYTE objt2;                 /* type of obj2          */
-  BYTE objts1;                /* type_sp of obj1       */
-  BYTE objts2;                /* type_sp of obj2       */
-  BYTE cond_sr1;              /* cond1 for sr1         */
-  BYTE cond_sr2;              /* cond2 for sr2         */
-  BYTE cond_sr12;             /* cond12 for sr1&sr2    */
-  BYTE cond_obj12x;           /* cond12 for obj1&obj2 to check before */
-  BYTE cond_obj12r;           /* cond12 for obj1&obj2 to check after  */
-  BYTE _unused;
+  uchar sr1;                   /* code1 of what replace */
+  uchar sr2;                   /* code2 of what replace */
+  uchar obj1;                  /* code1 by what replace */
+  uchar obj2;                  /* code2 by what replace */
+  uchar objt1;                 /* type of obj1          */
+  uchar objt2;                 /* type of obj2          */
+  uchar objts1;                /* type_sp of obj1       */
+  uchar objts2;                /* type_sp of obj2       */
+  uchar cond_sr1;              /* cond1 for sr1         */
+  uchar cond_sr2;              /* cond2 for sr2         */
+  uchar cond_sr12;             /* cond12 for sr1&sr2    */
+  uchar cond_obj12x;           /* cond12 for obj1&obj2 to check before */
+  uchar cond_obj12r;           /* cond12 for obj1&obj2 to check after  */
+  uchar _unused;
  } ARTS;
 
 /*

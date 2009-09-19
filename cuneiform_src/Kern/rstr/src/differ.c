@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
@@ -72,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 extern INT pitchsize;
-extern BYTE bcr_layout;
-extern BYTE language;
+extern uchar bcr_layout;
+extern uchar language;
 
 static void dif_DO(cell *);
 static void dif_FP(cell *);
@@ -132,7 +131,7 @@ void differ()
 static void dif_DO(cell *c)
  {
  INT prob_D,prob_O,i,nstick,d,s1,s2;
- BYTE let;
+ uchar let;
  STICK *st;
 
  for (prob_O=prob_D=0,i=c->nvers-1; i>=0; i--)
@@ -201,7 +200,7 @@ rec_D:
 static void dif_FP(cell *c)
  {
  INT prob_F,prob_P,i,nstick,d;
- BYTE let;
+ uchar let;
  STICK *st;
 
  for (prob_F=prob_P=0,i=c->nvers-1; i>=0; i--)
@@ -248,7 +247,7 @@ rec_P:
 static void dif_n_ri(cell *c)
  {
  cell *cc;
- PBYTE r;
+ puchar r;
  INT i,j1,j2;
 
  if (c->vers[0].let=='n' && !pitchsize && (cc=dot_ri(c))!=NULL)
@@ -278,8 +277,8 @@ static void dif_n_ri(cell *c)
 
 static void dif_BE(cell *c)
  {
- BYTE let1,let2;
- PBYTE raster;
+ uchar let1,let2;
+ puchar raster;
  INT l,s,i,j,j0;
 
  if (c->nvers!=2)
@@ -336,10 +335,10 @@ static void dif_cct(cell *c)
 
 static void dif_Sdol(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,i,j,jmin,jmax,jm,max;
  INT hist[20];
- BYTE b;
+ uchar b;
 
  if (c->vers[0].let!='S' || c->w-2*(c->w/3)>20)
   return;
@@ -382,9 +381,9 @@ static void dif_Sdol(cell *c)
 static void dif_add(cell *c)
  {
  version *v;
- PBYTE r;
+ puchar r;
  INT l,i,j,n1,n2;
- BYTE b;
+ uchar b;
 
  if (bcr_layout)
   if (c->flg&c_f_bad || c->vers[0].prob<=120 ||
@@ -495,7 +494,7 @@ static Bool compadd(cell *c)
 static void dif_sae(cell *c)
  {
  version *v;
- PBYTE r;
+ puchar r;
  INT l,i,i1,i2,imin,j,max,min;
 
  if (!memchr("ae",c->vers[0].let,2))
@@ -534,8 +533,8 @@ static void dif_sae(cell *c)
 
 static void dif_uv(cell *c)
  {
- BYTE l1,l2;
- PBYTE r;
+ uchar l1,l2;
+ puchar r;
  INT l,i,j1,j2,d1,d2;
 
  l1=c->vers[0].let;
@@ -566,7 +565,7 @@ static void dif_uv(cell *c)
 static void dif_O0(cell *c)
  {
  version *v;
- BYTE probO,prob0;
+ uchar probO,prob0;
 
  for (probO=prob0=0,v=c->vers; v->let; v++)
   {
@@ -600,7 +599,7 @@ exit:
 static void dif_inv_roof(cell *c, uchar letNoRoof, uchar letRoof) // Nick 05.9.00
 {
  INT prob_t,prob_troof,i;
- BYTE let;
+ uchar let;
  int16_t nIntersect,hei3;
  extern int16_t NumIntersect2(c_comp *cmp, int mHei);
  uchar goodLet,badLet;
@@ -713,7 +712,7 @@ static void dif_f_t_inv_roof(cell *c1)
  int      numRow;     // all intervals
  int      lastUp;
  int      wideStart,isStep;
- BYTE     let;
+ uchar     let;
  uchar    goodLet,badLet;
 
   if( language != LANG_CZECH )
@@ -812,7 +811,7 @@ static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
  int      numRow;     // all intervals
  int      lastUp;
  int      wideStart,numStep,wideEnd;
- BYTE     let;
+ uchar     let;
  uchar    goodLet,badLet;
  int      maxWidth;
 
@@ -922,7 +921,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
  int      wid[RASTER_MAX_HEIGHT+1];
  int      standWid;   // standard width
  int      lastUp,lastDn;
- BYTE     let;
+ uchar     let;
  uchar    goodLet,badLet;
  int32_t    isLeft, isRight;
  int32_t    leftMin, rightMax;

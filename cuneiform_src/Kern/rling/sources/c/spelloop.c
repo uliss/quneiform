@@ -83,7 +83,7 @@
 //
 #include "tuner.h"
 #include "spelmode.h"
-#include "nt_types.h"
+
 #include "tigeremulate.h"
 /*
  #if defined(TURBO_C)
@@ -139,7 +139,7 @@ void ErrorExit(int Code);
 
 extern RSTAT rst[];
 extern INT rst_last;
-extern BYTE ast[MAX_ARTS];
+extern uchar ast[MAX_ARTS];
 extern ARTS artbase[];
 
 #endif
@@ -185,11 +185,11 @@ WSTACK wstack;
 #endif
 
 #ifdef  RUS_ENG_LANG
-extern BYTE multy_language;
+extern uchar multy_language;
 #endif
 
 /************************************************************************/
-INT spelling(BYTE *beg, LONG size) {
+INT spelling(uchar *beg, LONG size) {
 	INT ret;
 	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = beg;
 	SPQ.end_alloc_mem = (char *) beg + size * 16;
@@ -313,7 +313,7 @@ LONG read_all_vtab( INT tabn, char *buff)
 /***********************************************************************/
 
 INT perebor_threshold;
-BYTE * tempword;
+uchar * tempword;
 #define MAX_PART_VARS 36
 INT part_var_counter;
 
@@ -328,7 +328,7 @@ INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
 	/* fundamental parts of the object: */
 	extern SPART part[MAX_PARTS];
 	/* best words within object fundamental parts (mixed buf for parts):  */
-	static BYTE word[MAX_WORDS * sizeof(SWORD)];
+	static uchar word[MAX_WORDS * sizeof(SWORD)];
 
 	extern LTIMG wrdimg[MAX_WORD_SIZE];
 	extern LTIMG * wrddef[MAX_WORD_SIZE];
@@ -372,7 +372,7 @@ INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
 			continue;
 
 		obj.word = (SWORD *) &word[0];
-		tempword = (PBYTE) word + sizeof(word) - sizeof(SWORD);
+		tempword = (puchar) word + sizeof(word) - sizeof(SWORD);
 		TPR(chkobj=yes)
 		/*Start_part:*/
 		sp_n = 0;
@@ -595,7 +595,7 @@ INT anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
 
 		obj->part->word = obj->word;
 
-		if ((PBYTE) obj ->word < tempword)
+		if ((puchar) obj ->word < tempword)
 			(++obj->word)->next = obj->part->word;
 		else
 			return Stop;
@@ -699,7 +699,7 @@ void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
 /*  Function set_context(T1,T2) sets context flags between word 1 and 2      */
 /*****************************************************************************/
 void set_context(WTOKEN *left,WTOKEN *right)
-{	BYTE flags;
+{	uchar flags;
 	if( right->l_cont & C_STBEG )
 	left->r_cont=C_STEND;
 	else

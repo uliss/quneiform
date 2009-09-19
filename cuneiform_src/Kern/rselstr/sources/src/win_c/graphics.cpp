@@ -83,7 +83,7 @@ static uint32_t swColor = 0;
 
 void _setcolor (int color)
 {
-	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+	#define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 	uint32_t clr[16] =
 	{
 		__RGB__(0,0,0),// 0 черный
@@ -217,5 +217,5 @@ void break_point_data (char * c){}
 
 void write_prot () {}
 
-Bool snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
+Bool snapAutofont(uchar a){ a=a; return TRUE; } // Andrew Theer
 ////////////////////////////////////////////////

@@ -78,15 +78,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct elidx
  {
- BYTE ltr;                  // the letter
- BYTE vnum;                 // the number of the classes
+ uchar ltr;                  // the letter
+ uchar vnum;                 // the number of the classes
  uint16_t numel;                // the number of the first class
  } indBOX;
 
 typedef struct eltab
  {
- BYTE ltr;                  // the letter
- BYTE fnt;                  // the font number
+ uchar ltr;                  // the letter
+ uchar fnt;                  // the font number
  uint16_t list;                 // next of same letter
  uint16_t bnd;                  // the bound of the typeface
  uint16_t vect[15];             // the vector of the letter
@@ -98,8 +98,8 @@ struct res_recog
  char best_font[NBBOX+1];
  uint16_t ibest_cosinus[NBBOX+1];  // best cosinus
  uint16_t icurr_cosinus;
- BYTE curr_ltr;
- BYTE curr_font;
+ uchar curr_ltr;
+ uchar curr_font;
  char n_rsn[NBBOX+1]; // number of letter from all same letters
  };
 

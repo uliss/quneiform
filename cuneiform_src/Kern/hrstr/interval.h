@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*                        C-Count L-Left  R-Right I-Interval   */
-struct tag_interval {BYTE C; BYTE L; BYTE R; BYTE I[8];};
+struct tag_interval {uchar C; uchar L; uchar R; uchar I[8];};
 typedef struct tag_interval MasInterval;
 
 MasInterval P[]=

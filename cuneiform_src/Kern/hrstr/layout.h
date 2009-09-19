@@ -70,7 +70,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define __LAYOUT_H_INCLUDE
 
 # include "ltconfig.h"
-# include "nt_types.h"
 # include "lterrors.h"
 # include "roots.h"
 # include "madebug.h"
@@ -158,7 +157,7 @@ extern int nRootStripsStep;
 extern int nRootStripsOffset;
 
 # ifdef LT_STAND_ALONE
-Bool RootsLoadFile (PSTR pFilename);
+Bool RootsLoadFile (char * pFilename);
 # endif
 void CalculatePageParameters (void);
 
@@ -305,7 +304,7 @@ void CompAND_Matrix (COMP *pComp, int Mask);
 
 void CompsBuild
 (
-    BYTE *pMatrix,
+    uchar *pMatrix,
     int   nWidth,
     int   nHeight,
     int   nSize,
@@ -362,7 +361,7 @@ void CompsFreeData (void);
 # define PAGE_MATRIX_REAL_WIDTH  (PAGE_MATRIX_WIDTH  << PAGE_COMP_SHIFT)
 # define PAGE_MATRIX_REAL_HEIGHT (PAGE_MATRIX_HEIGHT << PAGE_COMP_SHIFT)
 
-extern BYTE *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
+extern uchar *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
 extern Bool bPageMatrixInitialized;
 
 void PageMatrixInit (int nWidth, int nHeight);
@@ -374,7 +373,7 @@ void PageMatrixExcludeIntersections (void);
 void PageMatrixBuild (void);
 void PageMatrixPutSeparators (Bool bConvertToRealCoords);
 void PageMatrixExcludeSeparators (Bool bConvertToRealCoords);
-BYTE PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal);
+uchar PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal);
 void PageMatrixFreeData (void);
 
 # define PAGE_MATRIX_MARK_SHIFT  3
@@ -455,7 +454,7 @@ struct _Block
     int        nNumber;
     int        nUserNum;  // Number call of User ExractBlocks Piter 08-17-95 06:20pm
     //05-25-94 03:01pm,Pit
-    BYTE        language; // ­  Є Є®¬ п§лЄҐ ­ ЇЁб ­®
+    uchar        language; // ­  Є Є®¬ п§лЄҐ ­ ЇЁб ­®
     RECTANGLE  Rect;
 
     int        nEmbedding;
@@ -568,7 +567,7 @@ void HystogramFreeData (void);
 # define MARKED_CELL          2
 # define SUSPICION_COMP_CELL  4
 
-extern BYTE *pSB_Matrix;
+extern uchar *pSB_Matrix;
 extern int  nSB_Width;
 extern int  nSB_Height;
 extern int  nSB_Size;
@@ -722,7 +721,7 @@ struct _BackupCopy
     BLOCK        *pBlocks;
 
     long         lPictures; // size of pictures buffer Pit 09-29-94 03:05pm
-    PBYTE        pPictures; //         pictures buffer
+    puchar        pPictures; //         pictures buffer
 
     int          nSheets;   // зЁб«® в Ў«Ёж
     SHT          *sht;      // Ёе ®ЇЁб вҐ«Ё

@@ -453,7 +453,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
     buff_image=(uint16_t  *)(recraster->Raster);
 
     nm=0;
-    err=(int16_t) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),
+    err=(int16_t) recindex (0, (uchar)(0), hor, ver, lett_coo, (uchar)(0),
                           buff_image, p1616, &io_char, TRUE );
 
     //Indres->lnAltCnt=nm;
@@ -503,8 +503,8 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
         if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
-                                  (BYTE)(0),buff_image, p1616, &io_char, TRUE );
+            err=(int16_t) recindex (257, (uchar)(0) ,hor, ver, lett_coo,
+                                  (uchar)(0),buff_image, p1616, &io_char, TRUE );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
             else
@@ -547,8 +547,8 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
-                                  (BYTE)(0),buff_image, p1616, &io_char, (uchar)((Flags&1)?FALSE:TRUE) );
+            err=(int16_t) recindex (257, (uchar)(0) ,hor, ver, lett_coo,
+                                  (uchar)(0),buff_image, p1616, &io_char, (uchar)((Flags&1)?FALSE:TRUE) );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
             else
@@ -610,7 +610,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
     buff_image=(Bool16  *)(recraster->Raster);
 
     nm=0;
-    err=(int16_t) recindexNDX(hor,ver,lett_coo,(BYTE)(0),
+    err=(int16_t) recindexNDX(hor,ver,lett_coo,(uchar)(0),
                             buff_image);
     if (err!=0)
         return FALSE;
@@ -700,11 +700,11 @@ int tch_in(const char *NameFile)
 
 short recindex
         (short ptr_char,
-         BYTE get_put,
+         uchar get_put,
          short hor,           // input
          short ver,           // input
          short *lett_coo,      // input
-         BYTE buff_col,      // input
+         uchar buff_col,      // input
          uint16_t  *buff_image,    // input
          uchar  *p1616,
          uchar  *io_char,       // output
@@ -727,7 +727,7 @@ short recindexNDX
         (short hor,           // input
          short ver,           // input
          short *lett_coo,      // input
-         BYTE buff_col,      // input
+         uchar buff_col,      // input
          uint16_t  *buff_image    // input
          )
 {
@@ -762,7 +762,7 @@ short recindexNDX
 #define MIN_WID_PERC  33
 #define MAX_WID_PERC 460
 int new_reco(short ptr_char, short hor,uint16_t  *bgf,
-             uchar  *p1616, BYTE bgf_col, BYTE pri, short m1,
+             uchar  *p1616, uchar bgf_col, uchar pri, short m1,
              short n1,short m2,short n2, uchar *ch, uchar enable_1)
 {
     short rt/*,i,jj*/;
@@ -838,7 +838,7 @@ int new_reco(short ptr_char, short hor,uint16_t  *bgf,
 /**       k0,l0,k1,l1 - line&column start&final  **/
 /**       coordinates of output matrix.          **/
 /**************************************************/
-int chn_mat(int16_t coo,uint16_t  *bgf,BYTE bgf_col,
+int chn_mat(int16_t coo,uint16_t  *bgf,uchar bgf_col,
             int16_t i1,int16_t j1,int16_t i2,int16_t j2,uint16_t *ss,
             int16_t co1,int16_t k0,int16_t l0,int16_t k1,int16_t l1)
 {

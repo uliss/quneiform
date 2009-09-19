@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <assert.h>	// 17.06.2002 E.P.
 
-#include "nt_types.h"
 #include "struct.h"
 #include "ligas.h"
 #include "status.h"
@@ -77,12 +76,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern INT pitchsize;
 extern INT current_fragment;
 extern INT line_number;
-extern BYTE language;
-extern BYTE db_status;
+extern uchar language;
+extern uchar db_status;
 
 static B_LINES bl;
 static INT H;
@@ -92,7 +91,7 @@ static cell *clist[2];
 INT dist_point_of_i_1,dist_point_of_i_2,
     dist_point_of_i_3,dist_point_of_i_b;
 
-INT AnglesCurve(BYTE *raster,INT D_X,INT hei);
+INT AnglesCurve(uchar *raster,INT D_X,INT hei);
 
 static INT upper_dot_I(cell *c);
 static INT upper_right_angle(cell *c);
@@ -103,7 +102,7 @@ static void crit_oa(cell *);
 static INT short_lines(cell *);
 // static INT n_or_ri(cell *);
 // static void n_or_u(cell *,version *);
-// static BYTE left_line(cell *);
+// static uchar left_line(cell *);
 //static INT ij_dot(cell *);
 static INT excl_dot(cell *);
 static INT inv_dot(cell *);
@@ -143,10 +142,10 @@ void criteries()
  }
  }
 
-//extern BYTE pass_cut;
+//extern uchar pass_cut;
 void criteria (cell *c)
  {
- BYTE  let,*raster;
+ uchar  let,*raster;
  version *vers;
  INT r,flacc,flon,inc; //,dl,dr;
  version    save[VERS_IN_CELL];
@@ -408,7 +407,7 @@ static INT short_lines(cell *c)
  lnhead *line;
  interval *intval;
  INT l,row,col,h,w,a;
- BYTE flg;
+ uchar flg;
 
  for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
@@ -488,9 +487,9 @@ cell *dot_ri(cell *c)
 /*
 static void n_or_u(cell *c,version *vers)
  {
- BYTE l1,l2;
+ uchar l1,l2;
  version *v1,*v2;
- BYTE str[5];
+ uchar str[5];
 
  if (tenv(c) && (l1=left_line(c))!=0)
   {
@@ -514,7 +513,7 @@ static void n_or_u(cell *c,version *vers)
   }
  }
 
-static BYTE left_line(cell *c)
+static uchar left_line(cell *c)
  {
  lnhead *line;
  INT l,H,h,b1,b2,e1,e2;
@@ -626,9 +625,9 @@ INT ij_test(cell *c)
 		 )
     )
     {
-    BYTE saveN, saveV[VERS_IN_CELL*sizeof(version)], rc, let;
+    uchar saveN, saveV[VERS_IN_CELL*sizeof(version)], rc, let;
 
-    saveN = (BYTE)c->nvers;
+    saveN = (uchar)c->nvers;
     memcpy(saveV,c->vers,VERS_IN_CELL*sizeof(version));
     c->vers[0].let='i'; c->vers[0].prob=254;
     c->vers[1].let=c->vers[1].prob=0;
@@ -796,7 +795,7 @@ cell *dot_iUkr(cell *c)
       workI.lw = workI.rw;
       workI.lh = workI.rh;
       workI.rd = cc;
-      workI.rw = (BYTE)rw;
+      workI.rw = (uchar)rw;
       workI.rh = c->row - (cc->row+cc->h/2);
       if (cc->col+cc->w/2>c->col+c->w/2)
        break;
@@ -810,7 +809,7 @@ cell *dot_iUkr(cell *c)
       workI.lw = workI.rw;
       workI.lh = workI.rh;
       workI.rd = cc;
-      workI.rw = (BYTE)rw;
+      workI.rw = (uchar)rw;
       workI.rh = c->row - (cc->row+cc->h/2);
      if (cc->col+cc->w/2>c->col+c->w/2)
       break;
@@ -830,7 +829,7 @@ cell *dot_ij(cell *c)
  {
  cell *cc,*csv;
  INT e,d,H;
- BYTE let = 0;
+ uchar let = 0;
 
    if( language == LANG_RUSSIAN && langUkr )
      return  dot_iUkr(c);
@@ -1013,7 +1012,7 @@ cell *dot_inv(cell *c)
  return NULL;
  }
 
-void v_to_y(cell * c, BYTE compose)
+void v_to_y(cell * c, uchar compose)
  {
  cell * cc;
  INT e;
@@ -1046,12 +1045,12 @@ void v_to_y(cell * c, BYTE compose)
    }
  }
 
-void c_to_ctail(cell * c, BYTE compose)
+void c_to_ctail(cell * c, uchar compose)
  {
  cell *cc;
  INT e;
  version *v;
- BYTE str[10];
+ uchar str[10];
 
  for (e=c->col+c->w,cc=c->next; cc->col<=e; cc=cc->next)
   if (cc->flg&(c_f_dust|c_f_punct) &&

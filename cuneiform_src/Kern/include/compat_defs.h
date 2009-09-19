@@ -229,10 +229,10 @@ struct _finddata_t {
 };
 
 typedef struct tagRGBQUAD {
-	BYTE rgbBlue;
-	BYTE rgbGreen;
-	BYTE rgbRed;
-	BYTE rgbReserved;
+	uchar rgbBlue;
+	uchar rgbGreen;
+	uchar rgbRed;
+	uchar rgbReserved;
 } RGBQUAD;
 
 typedef struct tagBITMAPINFO {
@@ -241,9 +241,9 @@ typedef struct tagBITMAPINFO {
 } BITMAPINFO, *PBITMAPINFO;
 
 typedef struct tagRGBTRIPLE {
-	BYTE rgbtBlue;
-	BYTE rgbtGreen;
-	BYTE rgbtRed;
+	uchar rgbtBlue;
+	uchar rgbtGreen;
+	uchar rgbtRed;
 } RGBTRIPLE;
 
 typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
@@ -261,10 +261,10 @@ typedef struct tagMETAHEADER {
 } METAHEADER, *PMETAHEADER;
 
 typedef struct tagPALETTEENTRY {
-	BYTE peRed;
-	BYTE peGreen;
-	BYTE peBlue;
-	BYTE peFlags;
+	uchar peRed;
+	uchar peGreen;
+	uchar peBlue;
+	uchar peFlags;
 } PALETTEENTRY;
 
 typedef struct tagLOGPALETTE {

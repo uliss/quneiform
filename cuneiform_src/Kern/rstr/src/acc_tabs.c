@@ -58,16 +58,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ACC_TABS.C
 
 #include "string.h"
-#include "nt_types.h"
+#include "cttypes.h"
 #include "cstr.h"
 #include "context.h"
 #include "status.h"
 #include "lang.h"
 #include "ligas.h"
-#include <stdint.h>
 
 // RCM.C
-extern  BYTE alpha_used_mode;
+extern  uchar alpha_used_mode;
 
 uint16_t accent_tab_lat[256] =
 	{
@@ -222,7 +221,7 @@ char tblt[]={0x11,0x11,0x11,0x16,0x10,0x16,0x11,0x16,0x11,0x16,
 		0: free
 ************/
 
-   static BYTE let_linpos_lat[256] = {
+   static uchar let_linpos_lat[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -258,7 +257,7 @@ char tblt[]={0x11,0x11,0x11,0x16,0x10,0x16,0x11,0x16,0x11,0x16,
 //     n~  o`   o'   o^   o~   o:     0 u`   u'   u^   u:   y'     y:
    };
 
-   static BYTE let_linpos_rus[256] = {
+   static uchar let_linpos_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -303,7 +302,7 @@ static char tblg[]={0x01,0x01,0x01,0x01,0x44,0x06,0x01,0x01,
 //              ffl    i.   j. !. ?.
 
 //  tbdf describes baselines defined by a character; 8->bs1,...,1->bs4
-BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
+uchar let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
 //                     !    " #    $    % & ' (    )    * + , - . /    30
              0x35,5,5,1,0x40,0x40,0x44,1,5,1,0,0,0x40,0,0x40,0x40,0x40,
 //           0    1 2 3 4    5    6    7 8 9 : ; <    = >    ?    @    40
@@ -325,7 +324,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
 // define bases: 1 - bs1, 2 - bs2, 4 - bs3, 8 - bs4
 // Nick 25.12.2001 for a,n,o,u accents (0xe0 - 0xe5, f1, f2-f6, f9-fc) change from 0x16 to 0x14
 
- static   BYTE let_lindef_lat[256] = {
+ static   uchar let_lindef_lat[256] = {
 
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -364,7 +363,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
 
 // Nick 25/01/2001 дл€ русского маленького 'о' изменено с 0x34 на 0x36
 //                 дл€ i с 6 на 4
-   static BYTE let_lindef_rus[256] = {
+   static uchar let_lindef_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -407,7 +406,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
 
 
 // lindef3 == lindef when b3 made, so twins could be resolved (as pP, yY)
-   static BYTE  let_lindef3_lat[256] = {
+   static uchar  let_lindef3_lat[256] = {
 
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -443,7 +442,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
    0, 6,0x36,0x36,0x36,0x36,0x36, 0, 0,0x36,0x36,0x36,0x36,0x0a, 0,0x0a      //  n, o, u, y^ y:
 // f0
    };
-   static BYTE let_lindef3_rus[256] = {
+   static uchar let_lindef3_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -496,7 +495,7 @@ static char tbdf[]={    // starts at 'space'
 //           a b c d e f  g  h i j k l m n o p  q r s t  u v w x y z
 **********/
 // Nick 25.12.2001 for a,n,o,u accents (0xe0 - 0xe5, f1, f2-f6, f9-fc) change from 1 to 0
-   static BYTE let_lincomp_lat[256] = {
+   static uchar let_lincomp_lat[256] = {
 
      9,3,9,10,9,2,9,12,9,1,0,10,0,3,2,8,
 //                                                         last 0f
@@ -529,7 +528,7 @@ static char tbdf[]={    // starts at 'space'
 //    n  o  o  o  o  o        u  u  u  u  y     y
    };
 
-   static BYTE let_lincomp_rus[256] = {
+   static uchar let_lincomp_rus[256] = {
      9,3,9,10,9,2,9,12,9,1,0,10,0,3,2,8,
 //                                                         last 0f
      4,3,4,15,4,7,4,14,4,9,5,4,4,9,5,6,
@@ -562,7 +561,7 @@ static char tbdf[]={    // starts at 'space'
    };
 
 
-   static BYTE let_linshape_lat[256] = {
+   static uchar let_linshape_lat[256] = {
 // 1 - capital
 // 2 - sticky
 // 4 - stick allows to define bs1
@@ -611,7 +610,7 @@ static char tbdf[]={    // starts at 'space'
 // f0
    };
 
-   static BYTE let_linshape_rus[256] = {
+   static uchar let_linshape_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -648,7 +647,7 @@ static char tbdf[]={    // starts at 'space'
 
 
 /**************/
-static BYTE let_sans_acc_lat[257] = {
+static uchar let_sans_acc_lat[257] = {
    "\0               "
    "                "
    ".!\"#$%&'()*+,-./"
@@ -678,7 +677,7 @@ static BYTE let_sans_acc_lat[257] = {
    "eeeeiiii"
    " nooooo  uuuuy y"
 };
-static BYTE let_sans_acc_rus[257] = {
+static uchar let_sans_acc_rus[257] = {
    "\0               "
    "                "
    ".!\"#$%&'()*+,-./"
@@ -697,12 +696,12 @@ static BYTE let_sans_acc_rus[257] = {
    "рсoooхoчшuuuuэ y"
 };
 /************/
-BYTE    *let_linpos,    *let_lindef,
+uchar    *let_linpos,    *let_lindef,
         *let_lincomp,   *let_linshape,
         *let_sans_acc,  *let_lindef3;
 uint16_t *accent_tab; // 30.08.2000 E.P.
 
- static BYTE alph_russian[256]={
+ static uchar alph_russian[256]={
 
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
@@ -722,7 +721,7 @@ uint16_t *accent_tab; // 30.08.2000 E.P.
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
-static BYTE alph_digital[256]={
+static uchar alph_digital[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -741,7 +740,7 @@ static BYTE alph_digital[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
- static BYTE alph_english[256]={
+ static uchar alph_english[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -760,7 +759,7 @@ static BYTE alph_digital[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
- static BYTE alph_ce[256]={
+ static uchar alph_ce[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -781,9 +780,9 @@ static BYTE alph_digital[256]={
  };
  // [3] - Nick 20.10.2000 - на странице может быть 3 €зыка одновременно -
  // русский, английский и цифровой !!!
-BYTE fon_alphabet_language[3][256];
+uchar fon_alphabet_language[3][256];
 
-BYTE *alphabet_language[LANG_TOTAL]={	// 31.08.2000 E.P.
+uchar *alphabet_language[LANG_TOTAL]={	// 31.08.2000 E.P.
 alph_english        , // LANG_ENGLISH     0
 alph_english        , // LANG_GERMAN      1
 alph_english        , // LANG_FRENCH      2
@@ -819,9 +818,9 @@ static void list_turkish_letters();	// 20.05.2002 E.P.
 
 void    correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 {
-extern  BYTE    decode_ASCII_to_[256][4];
-extern  BYTE    decode_rus_ASCII_to_[256][4];
-extern  BYTE    CodePages[];
+extern  uchar    decode_ASCII_to_[256][4];
+extern  uchar    decode_rus_ASCII_to_[256][4];
+extern  uchar    CodePages[];
 extern  char    alphabet[256];
 int32_t   i;
 alpha_used_mode=0;
@@ -862,19 +861,19 @@ if(language==LANG_RUSSIAN){
         alphabet[liga_lperc]=1;
         if( multy_language )
             {
-            strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_j      ],   "_j_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_exm    ],   "_!_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_qm     ],   "_?_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_inv_exm],   "_\xA2_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_inv_qm ],   "_\xBF_");
-            strcpy(decode_ASCII_to_[(BYTE)liga_fi     ],   "fi");
-            strcpy(decode_ASCII_to_[(BYTE)liga_fl     ],   "fl");
-            strcpy(decode_ASCII_to_[(BYTE)liga_ff     ],   "ff");
-            strcpy(decode_ASCII_to_[(BYTE)liga_ffi    ],   "ffi");
-            strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
-            strcpy(decode_ASCII_to_[(BYTE)liga_ri     ],   "ri");
-            strcpy(decode_ASCII_to_[(BYTE)liga_ffl    ],   "ffl");
+            strcpy(decode_ASCII_to_[(uchar)liga_i      ],   "_i_");
+            strcpy(decode_ASCII_to_[(uchar)liga_j      ],   "_j_");
+            strcpy(decode_ASCII_to_[(uchar)liga_exm    ],   "_!_");
+            strcpy(decode_ASCII_to_[(uchar)liga_qm     ],   "_?_");
+            strcpy(decode_ASCII_to_[(uchar)liga_inv_exm],   "_\xA2_");
+            strcpy(decode_ASCII_to_[(uchar)liga_inv_qm ],   "_\xBF_");
+            strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
+            strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");
+            strcpy(decode_ASCII_to_[(uchar)liga_ff     ],   "ff");
+            strcpy(decode_ASCII_to_[(uchar)liga_ffi    ],   "ffi");
+            strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
+            strcpy(decode_ASCII_to_[(uchar)liga_ri     ],   "ri");
+            strcpy(decode_ASCII_to_[(uchar)liga_ffl    ],   "ffl");
             }
 if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      {
@@ -897,8 +896,8 @@ if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      let_linshape[r_e_2dot]= 0x08;
 
      // for accent is used in abris
-     let_sans_acc[r_EE_2dot]= (BYTE)'Е';
-     let_sans_acc[r_e_2dot]= (BYTE)'•';
+     let_sans_acc[r_EE_2dot]= (uchar)'Е';
+     let_sans_acc[r_e_2dot]= (uchar)'•';
 
      // ???
      let_lindef3[r_EE_2dot]= 0;
@@ -1232,13 +1231,13 @@ if(is_cen_language(language))
     let_lindef3[liga_CR]=		let_lindef3[liga_CR_usual]		;
     let_lindef3[liga_bull]=		let_lindef3[liga_bull_usual]	;
 
-    strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_exm    ],   "_!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_inv_exm],   "_!!_");
-    strcpy(decode_ASCII_to_[(BYTE)right_quocket],  "\xbb");
-	strcpy(decode_ASCII_to_[(BYTE)liga_CC     ],   "\xa9");
-	strcpy(decode_ASCII_to_[(BYTE)liga_CR     ],   "\xae");
-    strcpy(decode_ASCII_to_[(BYTE)liga_bull   ],   "\xB0");
+    strcpy(decode_ASCII_to_[(uchar)liga_i      ],   "_i_");
+    strcpy(decode_ASCII_to_[(uchar)liga_exm    ],   "_!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_inv_exm],   "_!!_");
+    strcpy(decode_ASCII_to_[(uchar)right_quocket],  "\xbb");
+	strcpy(decode_ASCII_to_[(uchar)liga_CC     ],   "\xa9");
+	strcpy(decode_ASCII_to_[(uchar)liga_CR     ],   "\xae");
+    strcpy(decode_ASCII_to_[(uchar)liga_bull   ],   "\xB0");
 
 	}
 
@@ -1943,10 +1942,10 @@ if(is_baltic_language(language))
      alphabet[SS_inv_roof_latin]=			alphabet[s_inv_roof_latin]=1;
      alphabet[ZZ_inv_roof_latin]=			alphabet[z_inv_roof_latin]=1;
 
-     alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
-     alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
-     alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
-     alphabet[(BYTE)'Y'] = alphabet[(BYTE)'y'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
+     alphabet[(uchar)'Y'] = alphabet[(uchar)'y'] = 0;
 
 	 // base lines for diskrim (SLOVENIAN)
      let_linpos[CC_inv_roof]=1;		let_linpos[c_inv_roof]=0x11;
@@ -2186,10 +2185,10 @@ if( language==LANG_LATVIAN )
      alphabet[UU_macron]=			alphabet[u_macron]=1;
      alphabet[ZZ_inv_roof_baltic]=	alphabet[z_inv_roof_baltic]=1;
 
-     alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
-     alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
-     alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
-     alphabet[(BYTE)'Y'] = alphabet[(BYTE)'y'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
+     alphabet[(uchar)'Y'] = alphabet[(uchar)'y'] = 0;
 
 	 // base lines for diskrim (LATVIAN)
      let_linpos[AA_macron			]=1;		let_linpos[a_macron			]=0x11;
@@ -2332,9 +2331,9 @@ if( language==LANG_LITHUANIAN )
      alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
-     alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
-     alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
-     alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
 
 	 // base lines for diskrim (LITHUANIAN)
      let_linpos[AA_bottom_accent	]=0x16;	let_linpos[a_bottom_accent	]=0x22;
@@ -2465,11 +2464,11 @@ if( language==LANG_ESTONIAN )
      alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
-     alphabet[(BYTE)'C'] = alphabet[(BYTE)'c'] = 0;
-     alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
-     alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
-     alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
-     alphabet[(BYTE)'Y'] = alphabet[(BYTE)'y'] = 0;
+     alphabet[(uchar)'C'] = alphabet[(uchar)'c'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
+     alphabet[(uchar)'Y'] = alphabet[(uchar)'y'] = 0;
 
 	 // base lines for diskrim (ESTONIAN)
      let_linpos[AA_2dot_accent		]=1;	let_linpos[a_2dot_accent	]=0x11;
@@ -2606,9 +2605,9 @@ if(language == LANG_TURKISH)
 	alphabet[i_sans_accent				]=1;
 	alphabet[SS_bottom_accent_turkish	]=1;
 	alphabet[s_bottom_accent_turkish	]=1;
-	alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
-	alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
-	alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
+	alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+	alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+	alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
 
 	 // ƒл€ линейного критери€ (TURKISH)
 	let_linpos[GG_semicircle			]=    1;
@@ -2692,143 +2691,143 @@ if(language == LANG_TURKISH)
 } // !LANG_RUSSIAN
 
 // for all code pages :
-strcpy(decode_ASCII_to_[(BYTE)'!'         ],   "!");
-strcpy(decode_ASCII_to_[(BYTE)'?'         ],   "?");
-strcpy(decode_ASCII_to_[(BYTE)liga_TM     ],   "Щ");
-strcpy(decode_ASCII_to_[(BYTE)liga_CC     ],   "©");
-strcpy(decode_ASCII_to_[(BYTE)liga_CR     ],   "Ѓ");
-strcpy(decode_ASCII_to_[(BYTE)SS_NEG_HALF_SPACE],   "");
-strcpy(decode_ASCII_to_[(BYTE)SS_POS_HALF_SPACE],   " ");
+strcpy(decode_ASCII_to_[(uchar)'!'         ],   "!");
+strcpy(decode_ASCII_to_[(uchar)'?'         ],   "?");
+strcpy(decode_ASCII_to_[(uchar)liga_TM     ],   "Щ");
+strcpy(decode_ASCII_to_[(uchar)liga_CC     ],   "©");
+strcpy(decode_ASCII_to_[(uchar)liga_CR     ],   "Ѓ");
+strcpy(decode_ASCII_to_[(uchar)SS_NEG_HALF_SPACE],   "");
+strcpy(decode_ASCII_to_[(uchar)SS_POS_HALF_SPACE],   " ");
 
 if( CodePages[language]==CSTR_ANSI_CHARSET    )
     {
-    strcpy(decode_ASCII_to_[(BYTE)liga_fi     ],   "fi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_fl     ],   "fl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ff     ],   "ff");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffi    ],   "ffi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ri     ],   "ri");
-    strcpy(decode_ASCII_to_[(BYTE)liga_uperc  ],   "%%u");
-    strcpy(decode_ASCII_to_[(BYTE)liga_lperc  ],   "%%d");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffl    ],   "ffl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_j      ],   "_j_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_exm    ],   "_!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_qm     ],   "_?_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_inv_exm],   "_\xA2_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_inv_qm ],   "_\xBF_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_bull   ],   "\xB0");
+    strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
+    strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");
+    strcpy(decode_ASCII_to_[(uchar)liga_ff     ],   "ff");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffi    ],   "ffi");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_ri     ],   "ri");
+    strcpy(decode_ASCII_to_[(uchar)liga_uperc  ],   "%%u");
+    strcpy(decode_ASCII_to_[(uchar)liga_lperc  ],   "%%d");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffl    ],   "ffl");
+    strcpy(decode_ASCII_to_[(uchar)liga_i      ],   "_i_");
+    strcpy(decode_ASCII_to_[(uchar)liga_j      ],   "_j_");
+    strcpy(decode_ASCII_to_[(uchar)liga_exm    ],   "_!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_qm     ],   "_?_");
+    strcpy(decode_ASCII_to_[(uchar)liga_inv_exm],   "_\xA2_");
+    strcpy(decode_ASCII_to_[(uchar)liga_inv_qm ],   "_\xBF_");
+    strcpy(decode_ASCII_to_[(uchar)liga_bull   ],   "\xB0");
 
 #ifndef SPEC_PROJECT1
-    strcpy(decode_ASCII_to_[(BYTE)left_quocket],   "Ђ");
+    strcpy(decode_ASCII_to_[(uchar)left_quocket],   "Ђ");
 #else
     strcpy(decode_ASCII_to_[left_quocket],"<<");
 #endif
-    strcpy(decode_ASCII_to_[(BYTE)right_quocket],  "ї");
-    strcpy(decode_ASCII_to_[(BYTE)low_quotes  ],   "Д");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
-    strcpy(decode_ASCII_to_[(BYTE)AA_left_accent    ],   "\xC0");
-    strcpy(decode_ASCII_to_[(BYTE)a_left_accent     ],   "\xE0");
-    strcpy(decode_ASCII_to_[(BYTE)AA_right_accent   ],   "\xC1");
-    strcpy(decode_ASCII_to_[(BYTE)a_right_accent    ],   "\xE1");
-    strcpy(decode_ASCII_to_[(BYTE)AA_roof_accent    ],   "\xC2");
-    strcpy(decode_ASCII_to_[(BYTE)a_roof_accent     ],   "\xE2");
-    strcpy(decode_ASCII_to_[(BYTE)AA_tild_accent    ],   "\xC3");
-    strcpy(decode_ASCII_to_[(BYTE)a_tild_accent     ],   "\xE3");
-    strcpy(decode_ASCII_to_[(BYTE)AA_2dot_accent    ],   "\xC4");
-    strcpy(decode_ASCII_to_[(BYTE)a_2dot_accent     ],   "\xE4");
-    strcpy(decode_ASCII_to_[(BYTE)AA_circle_accent  ],   "\xC5");
-    strcpy(decode_ASCII_to_[(BYTE)a_circle_accent   ],   "\xE5");
-    strcpy(decode_ASCII_to_[(BYTE)EE_left_accent    ],   "\xC8");
-    strcpy(decode_ASCII_to_[(BYTE)e_left_accent     ],   "\xE8");
-    strcpy(decode_ASCII_to_[(BYTE)EE_right_accent   ],   "\xC9");
-    strcpy(decode_ASCII_to_[(BYTE)e_right_accent    ],   "\xE9");
-    strcpy(decode_ASCII_to_[(BYTE)EE_roof_accent    ],   "\xCA");
-    strcpy(decode_ASCII_to_[(BYTE)e_roof_accent     ],   "\xEA");
-    strcpy(decode_ASCII_to_[(BYTE)EE_2dot_accent    ],   "\xCB");
-    strcpy(decode_ASCII_to_[(BYTE)e_2dot_accent     ],   "\xEB");
-    strcpy(decode_ASCII_to_[(BYTE)II_left_accent    ],   "\xCC");
-    strcpy(decode_ASCII_to_[(BYTE)i_left_accent     ],   "\xEC");
-    strcpy(decode_ASCII_to_[(BYTE)II_right_accent   ],   "\xCD");
-    strcpy(decode_ASCII_to_[(BYTE)i_right_accent    ],   "\xED");
-    strcpy(decode_ASCII_to_[(BYTE)II_roof_accent    ],   "\xCE");
-    strcpy(decode_ASCII_to_[(BYTE)i_roof_accent     ],   "\xEE");
-    strcpy(decode_ASCII_to_[(BYTE)II_2dot_accent    ],   "\xCF");
-    strcpy(decode_ASCII_to_[(BYTE)i_2dot_accent     ],   "\xEF");
-    strcpy(decode_ASCII_to_[(BYTE)NN_tild_accent    ],   "\xD1");
-    strcpy(decode_ASCII_to_[(BYTE)n_tild_accent     ],   "\xF1");
-    strcpy(decode_ASCII_to_[(BYTE)OO_left_accent    ],   "\xD2");
-    strcpy(decode_ASCII_to_[(BYTE)o_left_accent     ],   "\xF2");
-    strcpy(decode_ASCII_to_[(BYTE)OO_right_accent   ],   "\xD3");
-    strcpy(decode_ASCII_to_[(BYTE)o_right_accent    ],   "\xF3");
-    strcpy(decode_ASCII_to_[(BYTE)OO_roof_accent    ],   "\xD4");
-    strcpy(decode_ASCII_to_[(BYTE)o_roof_accent     ],   "\xF4");
-    strcpy(decode_ASCII_to_[(BYTE)OO_tild_accent    ],   "\xD5");
-    strcpy(decode_ASCII_to_[(BYTE)o_tild_accent     ],   "\xF5");
-    strcpy(decode_ASCII_to_[(BYTE)OO_2dot_accent    ],   "\xD6");
-    strcpy(decode_ASCII_to_[(BYTE)o_2dot_accent     ],   "\xF6");
-    strcpy(decode_ASCII_to_[(BYTE)UU_left_accent    ],   "\xD9");
-    strcpy(decode_ASCII_to_[(BYTE)u_left_accent     ],   "\xF9");
-    strcpy(decode_ASCII_to_[(BYTE)UU_right_accent   ],   "\xDA");
-    strcpy(decode_ASCII_to_[(BYTE)u_right_accent    ],   "\xFA");
-    strcpy(decode_ASCII_to_[(BYTE)UU_roof_accent    ],   "\xDB");
-    strcpy(decode_ASCII_to_[(BYTE)u_roof_accent     ],   "\xFB");
-    strcpy(decode_ASCII_to_[(BYTE)UU_2dot_accent    ],   "\xDC");
-    strcpy(decode_ASCII_to_[(BYTE)u_2dot_accent     ],   "\xFC");
-    strcpy(decode_ASCII_to_[(BYTE)AE_cap_deaf_sound ],   "AE");
-    strcpy(decode_ASCII_to_[(BYTE)ae_deaf_sound     ],   "ae");
-    strcpy(decode_ASCII_to_[(BYTE)OE_cap_deaf_sound ],   "OE");
-    strcpy(decode_ASCII_to_[(BYTE)oe_deaf_sound     ],   "oe");
-    strcpy(decode_ASCII_to_[(BYTE)ss_deaf_sound     ],   "\xDF");
-    strcpy(decode_ASCII_to_[(BYTE)CC_bottom_accent  ],   "\xC7");
-    strcpy(decode_ASCII_to_[(BYTE)c_bottom_accent   ],   "\xE7");
-    strcpy(decode_ASCII_to_[(BYTE)invers_exm        ],   "\xA1");
-    strcpy(decode_ASCII_to_[(BYTE)invers_qm         ],   "\xA0");
+    strcpy(decode_ASCII_to_[(uchar)right_quocket],  "ї");
+    strcpy(decode_ASCII_to_[(uchar)low_quotes  ],   "Д");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)AA_left_accent    ],   "\xC0");
+    strcpy(decode_ASCII_to_[(uchar)a_left_accent     ],   "\xE0");
+    strcpy(decode_ASCII_to_[(uchar)AA_right_accent   ],   "\xC1");
+    strcpy(decode_ASCII_to_[(uchar)a_right_accent    ],   "\xE1");
+    strcpy(decode_ASCII_to_[(uchar)AA_roof_accent    ],   "\xC2");
+    strcpy(decode_ASCII_to_[(uchar)a_roof_accent     ],   "\xE2");
+    strcpy(decode_ASCII_to_[(uchar)AA_tild_accent    ],   "\xC3");
+    strcpy(decode_ASCII_to_[(uchar)a_tild_accent     ],   "\xE3");
+    strcpy(decode_ASCII_to_[(uchar)AA_2dot_accent    ],   "\xC4");
+    strcpy(decode_ASCII_to_[(uchar)a_2dot_accent     ],   "\xE4");
+    strcpy(decode_ASCII_to_[(uchar)AA_circle_accent  ],   "\xC5");
+    strcpy(decode_ASCII_to_[(uchar)a_circle_accent   ],   "\xE5");
+    strcpy(decode_ASCII_to_[(uchar)EE_left_accent    ],   "\xC8");
+    strcpy(decode_ASCII_to_[(uchar)e_left_accent     ],   "\xE8");
+    strcpy(decode_ASCII_to_[(uchar)EE_right_accent   ],   "\xC9");
+    strcpy(decode_ASCII_to_[(uchar)e_right_accent    ],   "\xE9");
+    strcpy(decode_ASCII_to_[(uchar)EE_roof_accent    ],   "\xCA");
+    strcpy(decode_ASCII_to_[(uchar)e_roof_accent     ],   "\xEA");
+    strcpy(decode_ASCII_to_[(uchar)EE_2dot_accent    ],   "\xCB");
+    strcpy(decode_ASCII_to_[(uchar)e_2dot_accent     ],   "\xEB");
+    strcpy(decode_ASCII_to_[(uchar)II_left_accent    ],   "\xCC");
+    strcpy(decode_ASCII_to_[(uchar)i_left_accent     ],   "\xEC");
+    strcpy(decode_ASCII_to_[(uchar)II_right_accent   ],   "\xCD");
+    strcpy(decode_ASCII_to_[(uchar)i_right_accent    ],   "\xED");
+    strcpy(decode_ASCII_to_[(uchar)II_roof_accent    ],   "\xCE");
+    strcpy(decode_ASCII_to_[(uchar)i_roof_accent     ],   "\xEE");
+    strcpy(decode_ASCII_to_[(uchar)II_2dot_accent    ],   "\xCF");
+    strcpy(decode_ASCII_to_[(uchar)i_2dot_accent     ],   "\xEF");
+    strcpy(decode_ASCII_to_[(uchar)NN_tild_accent    ],   "\xD1");
+    strcpy(decode_ASCII_to_[(uchar)n_tild_accent     ],   "\xF1");
+    strcpy(decode_ASCII_to_[(uchar)OO_left_accent    ],   "\xD2");
+    strcpy(decode_ASCII_to_[(uchar)o_left_accent     ],   "\xF2");
+    strcpy(decode_ASCII_to_[(uchar)OO_right_accent   ],   "\xD3");
+    strcpy(decode_ASCII_to_[(uchar)o_right_accent    ],   "\xF3");
+    strcpy(decode_ASCII_to_[(uchar)OO_roof_accent    ],   "\xD4");
+    strcpy(decode_ASCII_to_[(uchar)o_roof_accent     ],   "\xF4");
+    strcpy(decode_ASCII_to_[(uchar)OO_tild_accent    ],   "\xD5");
+    strcpy(decode_ASCII_to_[(uchar)o_tild_accent     ],   "\xF5");
+    strcpy(decode_ASCII_to_[(uchar)OO_2dot_accent    ],   "\xD6");
+    strcpy(decode_ASCII_to_[(uchar)o_2dot_accent     ],   "\xF6");
+    strcpy(decode_ASCII_to_[(uchar)UU_left_accent    ],   "\xD9");
+    strcpy(decode_ASCII_to_[(uchar)u_left_accent     ],   "\xF9");
+    strcpy(decode_ASCII_to_[(uchar)UU_right_accent   ],   "\xDA");
+    strcpy(decode_ASCII_to_[(uchar)u_right_accent    ],   "\xFA");
+    strcpy(decode_ASCII_to_[(uchar)UU_roof_accent    ],   "\xDB");
+    strcpy(decode_ASCII_to_[(uchar)u_roof_accent     ],   "\xFB");
+    strcpy(decode_ASCII_to_[(uchar)UU_2dot_accent    ],   "\xDC");
+    strcpy(decode_ASCII_to_[(uchar)u_2dot_accent     ],   "\xFC");
+    strcpy(decode_ASCII_to_[(uchar)AE_cap_deaf_sound ],   "AE");
+    strcpy(decode_ASCII_to_[(uchar)ae_deaf_sound     ],   "ae");
+    strcpy(decode_ASCII_to_[(uchar)OE_cap_deaf_sound ],   "OE");
+    strcpy(decode_ASCII_to_[(uchar)oe_deaf_sound     ],   "oe");
+    strcpy(decode_ASCII_to_[(uchar)ss_deaf_sound     ],   "\xDF");
+    strcpy(decode_ASCII_to_[(uchar)CC_bottom_accent  ],   "\xC7");
+    strcpy(decode_ASCII_to_[(uchar)c_bottom_accent   ],   "\xE7");
+    strcpy(decode_ASCII_to_[(uchar)invers_exm        ],   "\xA1");
+    strcpy(decode_ASCII_to_[(uchar)invers_qm         ],   "\xA0");
 
 	if( language==LANG_DANISH )
 		{
-		strcpy(decode_ASCII_to_[(BYTE)OO_crossed    ],   "\xD8");
-		strcpy(decode_ASCII_to_[(BYTE)o_crossed     ],   "\xF8");
+		strcpy(decode_ASCII_to_[(uchar)OO_crossed    ],   "\xD8");
+		strcpy(decode_ASCII_to_[(uchar)o_crossed     ],   "\xF8");
 		}
 
     }
 
 if( CodePages[language]==CSTR_RUSSIAN_CHARSET  )
     {
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_d     ],   "д");
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_g     ],   "д");
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_m     ],   "т");
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_u     ],   "и");
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_z     ],   "г");
-    strcpy(decode_ASCII_to_[(BYTE)r_cu_a     ],   "а");
-    strcpy(decode_ASCII_to_[(BYTE)r_EE_2dot  ],   "®");
-    strcpy(decode_ASCII_to_[(BYTE)r_e_2dot   ],   "Є");
-    strcpy(decode_ASCII_to_[(BYTE)0xC3       ],   "_#_");
-    strcpy(decode_ASCII_to_[(BYTE)low_quotes_rus  ],   "Д");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_d     ],   "д");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_g     ],   "д");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_m     ],   "т");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_u     ],   "и");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_z     ],   "г");
+    strcpy(decode_ASCII_to_[(uchar)r_cu_a     ],   "а");
+    strcpy(decode_ASCII_to_[(uchar)r_EE_2dot  ],   "®");
+    strcpy(decode_ASCII_to_[(uchar)r_e_2dot   ],   "Є");
+    strcpy(decode_ASCII_to_[(uchar)0xC3       ],   "_#_");
+    strcpy(decode_ASCII_to_[(uchar)low_quotes_rus  ],   "Д");
     }
 
 if( CodePages[language]==CSTR_EASTEUROPE_CHARSET )
     {
-    strcpy(decode_ASCII_to_[(BYTE)liga_fi     ],   "fi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_fl     ],   "fl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ff     ],   "ff");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffi    ],   "ffi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ri     ],   "ri");
-    strcpy(decode_ASCII_to_[(BYTE)liga_uperc  ],   "%%u");
-    strcpy(decode_ASCII_to_[(BYTE)liga_lperc  ],   "%%d");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffl    ],   "ffl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_j      ],   "_j_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_exm    ],   "_!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_qm     ],   "_?_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_inv_exm],   "_!!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_inv_qm ],   "_??_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_bull   ],   "\xB0");
-    strcpy(decode_ASCII_to_[(BYTE)left_quocket],   "Ђ");
-    strcpy(decode_ASCII_to_[(BYTE)right_quocket],  "ї");
-    strcpy(decode_ASCII_to_[(BYTE)low_quotes  ],   "Д");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
+    strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");
+    strcpy(decode_ASCII_to_[(uchar)liga_ff     ],   "ff");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffi    ],   "ffi");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_ri     ],   "ri");
+    strcpy(decode_ASCII_to_[(uchar)liga_uperc  ],   "%%u");
+    strcpy(decode_ASCII_to_[(uchar)liga_lperc  ],   "%%d");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffl    ],   "ffl");
+    strcpy(decode_ASCII_to_[(uchar)liga_i      ],   "_i_");
+    strcpy(decode_ASCII_to_[(uchar)liga_j      ],   "_j_");
+    strcpy(decode_ASCII_to_[(uchar)liga_exm    ],   "_!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_qm     ],   "_?_");
+    strcpy(decode_ASCII_to_[(uchar)liga_inv_exm],   "_!!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_inv_qm ],   "_??_");
+    strcpy(decode_ASCII_to_[(uchar)liga_bull   ],   "\xB0");
+    strcpy(decode_ASCII_to_[(uchar)left_quocket],   "Ђ");
+    strcpy(decode_ASCII_to_[(uchar)right_quocket],  "ї");
+    strcpy(decode_ASCII_to_[(uchar)low_quotes  ],   "Д");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
 
 	// —писок букв cp1250
 	list_latin_letters();
@@ -2838,28 +2837,28 @@ if( CodePages[language]==CSTR_EASTEUROPE_CHARSET )
 if( CodePages[language]==BALTIC_CHARSET )
     {
 
-    strcpy(decode_ASCII_to_[(BYTE)liga_TM		 ],"\x99");
-    strcpy(decode_ASCII_to_[(BYTE)liga_CC		 ],"\xa9");
-    strcpy(decode_ASCII_to_[(BYTE)liga_CR		 ],"\xae");
+    strcpy(decode_ASCII_to_[(uchar)liga_TM		 ],"\x99");
+    strcpy(decode_ASCII_to_[(uchar)liga_CC		 ],"\xa9");
+    strcpy(decode_ASCII_to_[(uchar)liga_CR		 ],"\xae");
 
-    strcpy(decode_ASCII_to_[(BYTE)liga_fi     ],   "fi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_fl     ],   "fl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ff     ],   "ff");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffi    ],   "ffi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ri     ],   "ri");
-    strcpy(decode_ASCII_to_[(BYTE)liga_uperc  ],   "%%u");
-    strcpy(decode_ASCII_to_[(BYTE)liga_lperc  ],   "%%d");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffl    ],   "ffl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_j      ],   "_j_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_exm    ],   "_!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_qm     ],   "_?_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_bull   ],   "\x95");
-    strcpy(decode_ASCII_to_[(BYTE)left_quocket],   "Ђ");
-    strcpy(decode_ASCII_to_[(BYTE)right_quocket],  "ї");
-    strcpy(decode_ASCII_to_[(BYTE)low_quotes  ],   "Д");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
+    strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");
+    strcpy(decode_ASCII_to_[(uchar)liga_ff     ],   "ff");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffi    ],   "ffi");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_ri     ],   "ri");
+    strcpy(decode_ASCII_to_[(uchar)liga_uperc  ],   "%%u");
+    strcpy(decode_ASCII_to_[(uchar)liga_lperc  ],   "%%d");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffl    ],   "ffl");
+    strcpy(decode_ASCII_to_[(uchar)liga_i      ],   "_i_");
+    strcpy(decode_ASCII_to_[(uchar)liga_j      ],   "_j_");
+    strcpy(decode_ASCII_to_[(uchar)liga_exm    ],   "_!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_qm     ],   "_?_");
+    strcpy(decode_ASCII_to_[(uchar)liga_bull   ],   "\x95");
+    strcpy(decode_ASCII_to_[(uchar)left_quocket],   "Ђ");
+    strcpy(decode_ASCII_to_[(uchar)right_quocket],  "ї");
+    strcpy(decode_ASCII_to_[(uchar)low_quotes  ],   "Д");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt     ],   "rt");
 
 	// —писок букв cp1257
 	list_baltic_letters();
@@ -2869,28 +2868,28 @@ if( CodePages[language]==BALTIC_CHARSET )
 if( CodePages[language]==TURKISH_CHARSET )
     {
 
-    strcpy(decode_ASCII_to_[(BYTE)liga_TM		 ],"\x99");
-    strcpy(decode_ASCII_to_[(BYTE)liga_CC		 ],"\xa9");
-    strcpy(decode_ASCII_to_[(BYTE)liga_CR		 ],"\xae");
-    strcpy(decode_ASCII_to_[(BYTE)liga_bull		 ],"\x95");
+    strcpy(decode_ASCII_to_[(uchar)liga_TM		 ],"\x99");
+    strcpy(decode_ASCII_to_[(uchar)liga_CC		 ],"\xa9");
+    strcpy(decode_ASCII_to_[(uchar)liga_CR		 ],"\xae");
+    strcpy(decode_ASCII_to_[(uchar)liga_bull		 ],"\x95");
 
-    strcpy(decode_ASCII_to_[(BYTE)liga_fi		 ],"fi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_fl		 ],"fl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ff		 ],"ff");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffi		 ],"ffi");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt		 ],"rt");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ri		 ],"ri");
-    strcpy(decode_ASCII_to_[(BYTE)liga_uperc	 ],"%%u");
-    strcpy(decode_ASCII_to_[(BYTE)liga_lperc	 ],"%%d");
-    strcpy(decode_ASCII_to_[(BYTE)liga_ffl		 ],"ffl");
-    strcpy(decode_ASCII_to_[(BYTE)liga_i		 ],"_i_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_j		 ],"_j_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_exm		 ],"_!_");
-    strcpy(decode_ASCII_to_[(BYTE)liga_qm		 ],"_?_");
-    strcpy(decode_ASCII_to_[(BYTE)left_quocket	 ],"Ђ");
-    strcpy(decode_ASCII_to_[(BYTE)right_quocket	 ],"ї");
-    strcpy(decode_ASCII_to_[(BYTE)low_quotes	 ],"Д");
-    strcpy(decode_ASCII_to_[(BYTE)liga_rt		 ],"rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_fi		 ],"fi");
+    strcpy(decode_ASCII_to_[(uchar)liga_fl		 ],"fl");
+    strcpy(decode_ASCII_to_[(uchar)liga_ff		 ],"ff");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffi		 ],"ffi");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt		 ],"rt");
+    strcpy(decode_ASCII_to_[(uchar)liga_ri		 ],"ri");
+    strcpy(decode_ASCII_to_[(uchar)liga_uperc	 ],"%%u");
+    strcpy(decode_ASCII_to_[(uchar)liga_lperc	 ],"%%d");
+    strcpy(decode_ASCII_to_[(uchar)liga_ffl		 ],"ffl");
+    strcpy(decode_ASCII_to_[(uchar)liga_i		 ],"_i_");
+    strcpy(decode_ASCII_to_[(uchar)liga_j		 ],"_j_");
+    strcpy(decode_ASCII_to_[(uchar)liga_exm		 ],"_!_");
+    strcpy(decode_ASCII_to_[(uchar)liga_qm		 ],"_?_");
+    strcpy(decode_ASCII_to_[(uchar)left_quocket	 ],"Ђ");
+    strcpy(decode_ASCII_to_[(uchar)right_quocket	 ],"ї");
+    strcpy(decode_ASCII_to_[(uchar)low_quotes	 ],"Д");
+    strcpy(decode_ASCII_to_[(uchar)liga_rt		 ],"rt");
 
 	// —писок букв cp1254
 	list_turkish_letters();
@@ -2936,7 +2935,7 @@ switch( language )
     }
 }
 
-Bool    is_russian_language(BYTE lang)
+Bool    is_russian_language(uchar lang)
 {
 return (lang==LANG_RUSSIAN ||lang==LANG_UKRAINIAN ||
 		lang==LANG_SERBIAN ||lang==LANG_UZBEK ||
@@ -2948,7 +2947,7 @@ void list_latin_letters()	// 05.09.2000 E.P.
 {
 // —писок букв cp1250
 
-BYTE tab[] = {
+uchar tab[] = {
 
 	CROAT_D ,				CROAT_d ,
 	POLISH_LL,				POLISH_l,
@@ -2989,15 +2988,15 @@ BYTE tab[] = {
 
 0};
 
-BYTE *p;
-extern  BYTE    decode_ASCII_to_[256][4];
+uchar *p;
+extern  uchar    decode_ASCII_to_[256][4];
 
 	// «десь нужно оставить код без изменени€,
 	// а вот в ROUT/CodeTables.cpp функци€ fromcp1250_to_cp852()
 	// перекодирует из cp1250 в cp852. —м. ROUT/CodeTables.cpp.
 	for (p = tab; *p; p++)
 		{
-		BYTE c = *p;
+		uchar c = *p;
 		decode_ASCII_to_[c][0] = c;
 		decode_ASCII_to_[c][1] = 0;
 		}
@@ -3008,7 +3007,7 @@ void list_baltic_letters()	// 09.07.2001 E.P.
 {
 // —писок букв cp1257
 
-BYTE tab[] = {
+uchar tab[] = {
 	AA_2dot_accent			,a_2dot_accent			,
 	AA_macron				,a_macron				,
 	AA_bottom_accent_baltic	,a_bottom_accent_baltic	,
@@ -3031,12 +3030,12 @@ BYTE tab[] = {
 	ZZ_inv_roof_baltic		,z_inv_roof_baltic		,
 0};
 
-BYTE *p;
-extern  BYTE    decode_ASCII_to_[256][4];
+uchar *p;
+extern  uchar    decode_ASCII_to_[256][4];
 
 	for (p = tab; *p; p++)
 		{
-		BYTE c = *p;
+		uchar c = *p;
 		decode_ASCII_to_[c][0] = c;
 		decode_ASCII_to_[c][1] = 0;
 		}
@@ -3047,7 +3046,7 @@ void list_turkish_letters()	// 20.05.2002 E.P.
 {
 // —писок букв cp1254
 
-BYTE tab[] = {
+uchar tab[] = {
 	OO_2dot_accent			,o_2dot_accent			,
 	UU_2dot_accent			,u_2dot_accent			,
 	AA_roof_accent			,a_roof_accent			,
@@ -3059,12 +3058,12 @@ BYTE tab[] = {
 
 0};
 
-BYTE *p;
-extern  BYTE    decode_ASCII_to_[256][4];
+uchar *p;
+extern  uchar    decode_ASCII_to_[256][4];
 
 	for (p = tab; *p; p++)
 		{
-		BYTE c = *p;
+		uchar c = *p;
 		decode_ASCII_to_[c][0] = c;
 		decode_ASCII_to_[c][1] = 0;
 		}

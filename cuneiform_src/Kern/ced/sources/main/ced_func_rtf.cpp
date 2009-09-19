@@ -88,7 +88,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
 //       WriteBegRow=0;
 //       WriteBegCol=0;
 //       WriteEndRow=TotalLines-1;
-//       WriteEndCol=LineLen(WriteEndRow);     // last BYTE not included
+//       WriteEndCol=LineLen(WriteEndRow);     // last uchar not included
 
     // allocate space for the Strrtf info structure
     if (NULL==(rtf=new StrRtfOut))
@@ -155,7 +155,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
        if (output==RTF_BUF) AllocType=GMEM_MOVEABLE;
        else                 AllocType=GMEM_MOVEABLE|GMEM_DDESHARE;   // clipboard data needs to be shareable
        if ( NULL==(rtf->hBuf=GlobalAlloc(AllocType,rtf->BufLen))
-         || NULL==(rtf->buf=(BYTE *)GlobalLock(rtf->hBuf)) ){
+         || NULL==(rtf->buf=(uchar *)GlobalLock(rtf->hBuf)) ){
           PrintError(w,MSG_OUT_OF_MEM,"RtfWrite(buf)");
           return FALSE;
        }
@@ -431,7 +431,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, Bool brk)
 			lastLin=l;
 			// determine the column range to write
 			FirstCol=0;
-			LastCol=CED_GetCountChar(l);                // last BYTE not included
+			LastCol=CED_GetCountChar(l);                // last uchar not included
 			if (FirstCol>=LastCol) goto LINE_END;  // nothing to write
 
 //       ptr=pText(l);                   // lock the text
@@ -585,7 +585,7 @@ Bool BeginRtfGroup(struct StrRtfOut far *rtf)
     PutRtfChar:
     Write a character to rtf output
 ******************************************************************************/
-Bool PutRtfChar(struct StrRtfOut far *rtf,BYTE CurChar)
+Bool PutRtfChar(struct StrRtfOut far *rtf,uchar CurChar)
 {
     Bool IgnoreSlash=rtf->flags&ROFLAG_IGNORE_SLASH;
 
@@ -672,7 +672,7 @@ Bool FlushRtfLine(struct StrRtfOut far *rtf)
 
           GlobalUnlock(rtf->hBuf);
           if ( NULL==(rtf->hBuf=GlobalReAlloc(rtf->hBuf,rtf->BufLen+1, 0))
-            || NULL==(rtf->buf=(BYTE *)GlobalLock(rtf->hBuf)) ){
+            || NULL==(rtf->buf=(uchar *)GlobalLock(rtf->hBuf)) ){
              return PrintError(w,MSG_OUT_OF_MEM,"FlushRtfLine");
           }
        }
@@ -694,7 +694,7 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
 {
 //    int i;
 	char /*name[32],*/family[32];
-//    BYTE FontFamily,DefFamily;
+//    uchar FontFamily,DefFamily;
 
 	if (head)
 	{
@@ -882,15 +882,15 @@ Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 ******************************************************************************/
 Bool WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 {
-//    BYTE CurTypeFace[32],PrevTypeFace[32];
-    BYTE CurFamily,PrevFamily;
+//    uchar CurTypeFace[32],PrevTypeFace[32];
+    uchar CurFamily,PrevFamily;
     uint CurStyle,PrevStyle;
 //    int  CurCharSID,PrevCharSID;
     int  /*i,*/CurPointSize,PrevPointSize/*,CurFieldId,PrevFieldId*/;
     Bool result;
     COLORREF PrevTextColor,CurTextColor;
     COLORREF PrevTextBkColor,CurTextBkColor;
-//	BYTE CurCharSet,PrevCharSet;
+//	uchar CurCharSet,PrevCharSet;
 
 	CEDChar* prevChar=&(rtf->PrevChar);//curChar->prev;
     if (curChar==0) return TRUE;
@@ -1425,7 +1425,7 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
 {
     int i;
-    BYTE CurChar;
+    uchar CurChar;
     Bool IgnoreSlash=rtf->flags&ROFLAG_IGNORE_SLASH;
 
     if (TextLen==0) return TRUE;
@@ -1734,7 +1734,7 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    // Write the actual DIB to the rtf file
 
    long height,width,width_bytes;
-   BYTE *pMem;
+   uchar *pMem;
    LPBITMAPINFO pInfo;
 
    // get picture height/width
@@ -1764,7 +1764,7 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    // write picture alignment
    if (!WriteRtfControl(rtf,"sspicalign",PARAM_INT,(int)(rtf->page->picsTable[pict].pictAlign) )) return FALSE;  // write picture format
 
-  pMem=(BYTE *)rtf->page->picsTable[pict].data;
+  pMem=(uchar *)rtf->page->picsTable[pict].data;
    // write the picture information
    for (uint32_t l(0); l < rtf->page->picsTable[pict].len; ++l) {
       if (!(result=PutRtfHexChar(rtf,pMem[l]))) break;
@@ -1778,9 +1778,9 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
     PutRtfHexChar:
     Write a character to rtf output in hex format
 ******************************************************************************/
-Bool PutRtfHexChar(struct StrRtfOut far *rtf,BYTE CurChar)
+Bool PutRtfHexChar(struct StrRtfOut far *rtf,uchar CurChar)
 {
-    BYTE HiChar,LoChar,HexChar;
+    uchar HiChar,LoChar,HexChar;
     int SaveFlag;
 
     HiChar=(char)((CurChar&0xF0)>>4);
@@ -1814,7 +1814,7 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf,int pict)
 {
    long l;//,bmHeight,bmWidth;
 //   HGLOBAL hMem;
-   BYTE *pMem;
+   uchar *pMem;
    Bool result=TRUE;
 
    // get picture height/width
@@ -1860,7 +1860,7 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf,int pict)
 
 
    // retrieve picture handle
-	pMem=(BYTE *)rtf->page->picsTable[pict].data;
+	pMem=(uchar *)rtf->page->picsTable[pict].data;
 
 	for (l=0;l<(long)rtf->page->picsTable[pict].len;l++) {
       result=PutRtfHexChar(rtf,pMem[l]);
@@ -2132,8 +2132,8 @@ Bool PushRtfChar(struct StrRtfOut far *rtf);
 ******************************************************************************/
 Bool GetRtfWord(struct StrRtfOut far *rtf)
 {
-    BYTE CurChar,TempChar;
-    BYTE line[MAX_WIDTH+1];
+    uchar CurChar,TempChar;
+    uchar line[MAX_WIDTH+1];
 	char TempString[MAX_WIDTH+1];
     int  len,i,j,k,temp,GroupLevel;
     Bool SpecialChar,NumParamFound,NumFound;
@@ -2542,7 +2542,7 @@ Bool WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
 Bool WriteRtfColor(struct StrRtfOut far *rtf,Bool head)
 {
     int i,j,TotalColors;
-    BYTE red,green,blue;
+    uchar red,green,blue;
     struct StrRtfColor far *color;
 	int oldColors=rtf->TotalColors;
 
@@ -2634,7 +2634,7 @@ int ReadRtfColorTable(struct StrRtfOut far *rtf)
 {
     struct StrRtfColor far *color;
     int    i,CurColor=0,ControlGroupLevel=0;
-    BYTE   red,green,blue;
+    uchar   red,green,blue;
 
     color=rtf->color;
     for (i=0;i<MAX_RTF_COLORS;i++) color->color=-1;   // initialize colors
@@ -2661,9 +2661,9 @@ int ReadRtfColorTable(struct StrRtfOut far *rtf)
           green=GetGValue(color[CurColor].color);
           blue=GetBValue(color[CurColor].color);
 
-          if      (lstrcmpi(rtf->CurWord,"red")==0)   red=(BYTE)(rtf->IntParam);
-          else if (lstrcmpi(rtf->CurWord,"green")==0) green=(BYTE)(rtf->IntParam);
-          else if (lstrcmpi(rtf->CurWord,"blue")==0)  blue=(BYTE)(rtf->IntParam);
+          if      (lstrcmpi(rtf->CurWord,"red")==0)   red=(uchar)(rtf->IntParam);
+          else if (lstrcmpi(rtf->CurWord,"green")==0) green=(uchar)(rtf->IntParam);
+          else if (lstrcmpi(rtf->CurWord,"blue")==0)  blue=(uchar)(rtf->IntParam);
           color[CurColor].color=RGB(red,green,blue);   // extracted color
        }
        else {

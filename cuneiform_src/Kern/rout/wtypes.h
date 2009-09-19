@@ -172,7 +172,7 @@ typedef struct  tagRemBRUSH
 #endif // !FALSE
 #ifndef _BYTE_DEFINED
 #define _BYTE_DEFINED
-typedef unsigned char BYTE;
+typedef unsigned char uchar;
 
 #endif // !_BYTE_DEFINED
 #ifndef _WORD_DEFINED
@@ -276,10 +276,10 @@ typedef /* [string] */ const TCHAR __RPC_FAR *LPCTSTR;
 
 typedef struct  tagPALETTEENTRY
     {
-    BYTE peRed;
-    BYTE peGreen;
-    BYTE peBlue;
-    BYTE peFlags;
+    uchar peRed;
+    uchar peGreen;
+    uchar peBlue;
+    uchar peFlags;
     }	PALETTEENTRY;
 
 typedef struct tagPALETTEENTRY __RPC_FAR *PPALETTEENTRY;
@@ -573,7 +573,7 @@ typedef struct  _GUID
 uint32_t Data1;
     uint16_t Data2;
     uint16_t Data3;
-    BYTE Data4[ 8 ];
+    uchar Data4[ 8 ];
     }	GUID;
 
 #endif // !GUID_DEFINED
@@ -994,11 +994,11 @@ typedef struct  tagTEXTMETRICW
     WCHAR tmLastChar;
     WCHAR tmDefaultChar;
     WCHAR tmBreakChar;
-    BYTE tmItalic;
-    BYTE tmUnderlined;
-    BYTE tmStruckOut;
-    BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    uchar tmItalic;
+    uchar tmUnderlined;
+    uchar tmStruckOut;
+    uchar tmPitchAndFamily;
+    uchar tmCharSet;
     }	TEXTMETRICW;
 
 #endif //0
@@ -1102,8 +1102,8 @@ typedef CY __RPC_FAR *LPCY;
 typedef struct  tagDEC
     {
     USHORT wReserved;
-    BYTE scale;
-    BYTE sign;
+    uchar scale;
+    uchar sign;
     ulong Hi32;
     ULONGLONG Lo64;
     }	DECIMAL;
@@ -1114,8 +1114,8 @@ typedef struct tagDEC {
     USHORT wReserved;
     union {
         struct {
-            BYTE scale;
-            BYTE sign;
+            uchar scale;
+            uchar sign;
         };
         USHORT signscale;
     };
@@ -1133,7 +1133,7 @@ typedef struct tagDEC {
         ULONGLONG Lo64;
     };
 } DECIMAL;
-#define DECIMAL_NEG ((BYTE)0x80)
+#define DECIMAL_NEG ((uchar)0x80)
 #define DECIMAL_SETZERO(dec) \
         {(dec).Lo64 = 0; (dec).Hi32 = 0; (dec).signscale = 0;}
 #endif /* _tagDEC_DEFINED */
@@ -1169,7 +1169,7 @@ typedef boolean BOOLEAN;
 typedef struct  tagBSTRBLOB
     {
     ulong cbSize;
-    /* [size_is] */ BYTE __RPC_FAR *pData;
+    /* [size_is] */ uchar __RPC_FAR *pData;
     }	BSTRBLOB;
 
 typedef struct tagBSTRBLOB __RPC_FAR *LPBSTRBLOB;
@@ -1184,7 +1184,7 @@ typedef struct tagBSTRBLOB __RPC_FAR *LPBSTRBLOB;
 typedef struct  tagBLOB
     {
     ulong cbSize;
-    /* [size_is] */ BYTE __RPC_FAR *pBlobData;
+    /* [size_is] */ uchar __RPC_FAR *pBlobData;
     }	BLOB;
 
 typedef struct tagBLOB __RPC_FAR *LPBLOB;
@@ -1194,7 +1194,7 @@ typedef struct  tagCLIPDATA
     {
     ulong cbSize;
     long ulClipFmt;
-    /* [size_is] */ BYTE __RPC_FAR *pClipData;
+    /* [size_is] */ uchar __RPC_FAR *pClipData;
     }	CLIPDATA;
 
 // Macro to calculate the size of the above pClipData

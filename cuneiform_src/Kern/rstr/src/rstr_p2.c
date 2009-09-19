@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include <sys/stat.h>
 /* #include <io.h>*/
 
- #include "nt_types.h"
+ 
  #include <setjmp.h>
  #include <assert.h>
  #include <stdio.h>
@@ -98,26 +98,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static int p2_checkUpperLower(void);
 
 //======== EXTERN FUNCTIONS
-Bool _spell(pchar s,BYTE lang);
+Bool _spell(pchar s,uchar lang);
 void clear_cells(void);
 int cell2UniVers(UniVersions *ver, cell *c); // pass3
 int CopyVers2CSTR(RecVersions *ver, cell *c);    // pass3
 
 //======== EXTERN BUFFERS
 extern Handle hSnapLEO;
-extern PBYTE kit_curr, kit_end;
-extern BYTE decode_ASCII_to_[256][4];
-extern BYTE CodePages[];
-extern BYTE fon_alphabet_language[3][256];
+extern puchar kit_curr, kit_end;
+extern uchar decode_ASCII_to_[256][4];
+extern uchar CodePages[];
+extern uchar fon_alphabet_language[3][256];
 
-extern BYTE line_alphabet;
+extern uchar line_alphabet;
 extern INT  line_number;
-extern BYTE line_scale;
-extern BYTE line_tabcell;//OLEG
+extern uchar line_scale;
+extern uchar line_tabcell;//OLEG
 extern INT  nIncline;   //
 ////////////
 
-static Bool32 p2_twin(BYTE ch);
+static Bool32 p2_twin(uchar ch);
 static int recogGlueRaster( const s_glue * gl,
 						    RecVersions *vers );
 
@@ -475,7 +475,7 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->cpos  = c->cpos   ;
         attr->bas_acc= c->bas_acc   ;
         attr->dlang_dup = c->dlang_dup; // oleg
-                attr->flg    = (BYTE) c->flg;
+                attr->flg    = (uchar) c->flg;
                 if( attr->flg & CSTR_f_dust )
             attr->flg &= ~(CSTR_f_punct|CSTR_f_let|CSTR_f_bad);
                 else if( attr->flg & CSTR_f_punct )
@@ -817,7 +817,7 @@ int nClust=0;
 	  )
 
     {
-     vers.Alt[i].Prob = (BYTE)MAX(1,vers.Alt[i].Prob - CritVers(BC,GL,vers.Alt[i].Code,vers.Alt[i].Prob));
+     vers.Alt[i].Prob = (uchar)MAX(1,vers.Alt[i].Prob - CritVers(BC,GL,vers.Alt[i].Code,vers.Alt[i].Prob));
     }
   }
 
@@ -900,7 +900,7 @@ void make_all_glues(void);
  if( language!=LANG_RUSSIAN )
  {
   cell *c;
-  BYTE sv = cuts_point_methode;
+  uchar sv = cuts_point_methode;
   cuts_point_methode = 0 ;       // leman def cut points
 
   for(c=cell_f()->next; c->next != NULL; c=c->next)
@@ -920,7 +920,7 @@ void make_all_glues(void);
  { // Paul
   void cuts_glues(void);
   void proc_Ukr(void);
-  extern BYTE langUkr;
+  extern uchar langUkr;
 
   cuts_glues();
 
@@ -1053,7 +1053,7 @@ void p2_SetP2Alphabet(int lang,char *alBet)
 
 }
 ////////////////////
-BYTE p2_GetCodePage(int lang)
+uchar p2_GetCodePage(int lang)
 {
 	return CodePages[lang];
 }
@@ -1251,10 +1251,10 @@ void	p2_init		(void)
 ////////////////
 // проверить сомнительные большие-маленькие на втором проходе
 /////////////
-static const BYTE non_twin[]=" ЂЎЃҐ…";
-static const BYTE lat_twins[]="cCoOpPsSvVwWxXzZ";
+static const uchar non_twin[]=" ЂЎЃҐ…";
+static const uchar lat_twins[]="cCoOpPsSvVwWxXzZ";
 
-static Bool32 p2_twin(BYTE ch)
+static Bool32 p2_twin(uchar ch)
 {
  if( language==LANG_RUSSIAN )
  {
@@ -1743,7 +1743,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
  int  i;
  int  lefth=-1;
  int  prommin = -1;
- BYTE spusk = 0;
+ uchar spusk = 0;
  int  numPoi;
  int  dimPlato;
 
@@ -2154,7 +2154,7 @@ static int p2_checkUpperLower(void)
 
  int bound;
 
- BYTE sav_lang=language;
+ uchar sav_lang=language;
 
  // на втором проходе языки могут смешиваться!
  if( language == LANG_ENGLISH && multy_language )
@@ -2537,7 +2537,7 @@ static int addRaster(c_comp *w, uchar *raster,
  int lpool_lth;
  int wid = bytesx<<3;
 
- w = (c_comp *)((PBYTE)w + w->lines);
+ w = (c_comp *)((puchar)w + w->lines);
  lpool_lth=*(PINT)w;
  w=(c_comp *)((PINT)w+1);
 

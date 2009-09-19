@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 #include <stdio.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "status.h"

@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -74,8 +74,8 @@ extern uint16_t actual_resolution;
 extern INT idshv;
 
 static INT nx,ny,mstb;
-static BYTE scsweep[512];
-static BYTE work_state=0;
+static uchar scsweep[512];
+static uchar work_state=0;
 static uint32_t offset;
 
 static void stat_garb(PWORD);
@@ -195,7 +195,7 @@ if ((c=cell_f()->next)->vers[0].let==liga_bull && c->next->flg==c_f_fict)
 return 1;
 }
 
-extern BYTE line_scale;
+extern uchar line_scale;
 
 #define WHPROP     30
 #define PRBAD     100
@@ -205,7 +205,7 @@ extern BYTE line_scale;
 
 static Bool badcell(cell *c)
  {
- BYTE let,prob;
+ uchar let,prob;
 
  if (c->flg&(c_f_dust|c_f_punct|c_f_bad) || c->w-c->h/WHPROP<=3 ||
      (prob=c->vers[0].prob)<PRBAD ||
@@ -239,7 +239,7 @@ static Bool badglue(cell **pc,INT direct)
  {
  INT s,n;
  cell *c;
- BYTE let;
+ uchar let;
 
  for (s=n=0,c=*pc;
 	!(c->flg&c_f_fict) && c->cg_flag&((direct>0)?c_cg_cutr:c_cg_cutl);

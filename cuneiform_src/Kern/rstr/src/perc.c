@@ -108,7 +108,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
@@ -143,7 +143,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LIKE_O       100
 #define middle(x) ((x)->r_col + ((x)->w>>1))
 
-extern BYTE db_status;
+extern uchar db_status;
 
 
 typedef struct bnd_allowed
@@ -161,7 +161,7 @@ typedef struct  perc_struct
   cell *          ldcp;         /* pointer to the 'left dust' cell for percent
                                    or 'undeline cell' for number */
   cell *          rdcp;         /* pointer to the 'right dust' cell */
-  BYTE            FL;           /* existing 'good' dusts flag */
+  uchar            FL;           /* existing 'good' dusts flag */
   INT             rcps;         /* the return code of the percent searching */
   INT             n_ver_perc;   /* the number of the found percent version */
   /* the allowed boundaries of the upper dust */
@@ -232,7 +232,7 @@ perc_struct glstr;
     if( language==LANG_ROMAN)
       continue;
 
-    if  ((gpt->rcps=search_perc_vers()) != (BYTE)PRO_NUMBER &&    /* find the proNumber version */
+    if  ((gpt->rcps=search_perc_vers()) != (uchar)PRO_NUMBER &&    /* find the proNumber version */
           gpt->rcps != 'N')
      continue;
 
@@ -241,20 +241,20 @@ perc_struct glstr;
        snap_monitor();
     }
 
-    if (gpt->rcps==(BYTE)PRO_NUMBER && gpt->BC->vers[0].prob<RELIABLE_NUM)
+    if (gpt->rcps==(uchar)PRO_NUMBER && gpt->BC->vers[0].prob<RELIABLE_NUM)
       improve_proN();
     else
-    if (gpt->rcps==(BYTE)PRO_NUM_PART)
+    if (gpt->rcps==(uchar)PRO_NUM_PART)
     {
       improve_proN();
-      if (gpt->BC->vers[0].let != (BYTE)PRO_NUMBER)
+      if (gpt->BC->vers[0].let != (uchar)PRO_NUMBER)
         continue;
     }
 
     prc_setup();
     proc_perc();
 
-    if( gpt->BC->vers[0].let != (BYTE)NUMBER && gpt->rcps != 'N'){
+    if( gpt->BC->vers[0].let != (uchar)NUMBER && gpt->rcps != 'N'){
        gpt->BC->vers[gpt->n_ver_perc].prob = 0; // kill proNumber
        sort_vers(gpt->BC);
        gpt->BC->vers[gpt->BC->nvers].let = gpt->BC->nvers>0? 0:bad_char;
@@ -288,13 +288,13 @@ perc_struct glstr;
        snap_monitor();
     }
 
-    if (gpt->rcps==(BYTE)PRO_NUMBER && gpt->BC->vers[0].prob<RELIABLE_NUM)
+    if (gpt->rcps==(uchar)PRO_NUMBER && gpt->BC->vers[0].prob<RELIABLE_NUM)
       improve_proN();
     else
-    if (gpt->rcps==(BYTE)PRO_NUM_PART)
+    if (gpt->rcps==(uchar)PRO_NUM_PART)
     {
       improve_proN();
-      if (gpt->BC->vers[0].let != (BYTE)PRO_NUMBER)
+      if (gpt->BC->vers[0].let != (uchar)PRO_NUMBER)
         continue;
     }
 
@@ -325,7 +325,7 @@ INT midBC=middle(gpt->BC);
  gpt->lbw=(gpt->BC->r_col + (gpt->BC->w*(EW_K_DENOM-EW_K_NOM))/EW_K_DENOM);
  gpt->lbh=(gpt->rcps=='N') ?
    (gpt->BC->r_row) :
-   ((gpt->rcps==(BYTE)PRO_NUMBER) ?
+   ((gpt->rcps==(uchar)PRO_NUMBER) ?
     (gpt->BC->r_row + (gpt->BC->h*(EH_K_DENOM_N-EH_K_NOM_N))/EH_K_DENOM_N) :
     (gpt->BC->r_row + (gpt->BC->h*(EH_K_DENOM-EH_K_NOM))/EH_K_DENOM)
    );
@@ -349,7 +349,7 @@ static void proc_perc()
 {
 INT rcslds;                /* the return code of the left dust searching */
 INT rcsrds;                /* the return code of the right dust searching */
-BYTE p;
+uchar p;
  switch (gpt->rcps)
   {
    case  '/':
@@ -371,7 +371,7 @@ BYTE p;
       rcslds=search_left_dust();
       if (rcslds == 0) break;
       goto compose;
-   case  (BYTE)PRO_NUMBER:
+   case  (uchar)PRO_NUMBER:
       rcslds=search_underline_dust();
       rcsrds=search_right_dust(gpt->like_O);
       p=gpt->BC->vers[gpt->n_ver_perc].prob;
@@ -409,9 +409,9 @@ static INT search_perc_vers()
 {   /* searching the percent-symbol version */
 
 INT i,rc;
-BYTE l=gpt->BC->vers[0].let;
+uchar l=gpt->BC->vers[0].let;
  if (language==LANG_RUSSIAN)
-   if (l==(BYTE)'«' || l==(BYTE)'‹')  return PRO_NUM_PART;
+   if (l==(uchar)'«' || l==(uchar)'‹')  return PRO_NUM_PART;
 
  for (i=0,rc=0; i<=gpt->BC->nvers; i++)
   {
@@ -433,9 +433,9 @@ BYTE l=gpt->BC->vers[0].let;
       gpt->n_ver_perc=i;
       break;
      }
-    if ( gpt->BC->vers[i].let == (BYTE)PRO_NUMBER )
+    if ( gpt->BC->vers[i].let == (uchar)PRO_NUMBER )
      {
-      rc=(BYTE)PRO_NUMBER;
+      rc=(uchar)PRO_NUMBER;
       gpt->n_ver_perc=i;
       break;
      }
@@ -514,7 +514,7 @@ INT rv=0,po=0;
 
 static INT change_vers()
 {
- if ( gpt->rcps == (BYTE)PRO_NUMBER || gpt->rcps == 'N' ){
+ if ( gpt->rcps == (uchar)PRO_NUMBER || gpt->rcps == 'N' ){
     gpt->BC->vers[0].let = NUMBER;   /* first version is number */
  }
  else{
@@ -621,10 +621,10 @@ static void compute_bnd_lbox(cell *pc,bnd_allowed *bnd)
 
 static INT test_O0(cell *pc)
 {
-BYTE rc=0;
+uchar rc=0;
 uint16_t save_c_flg;
 INT  saveN;
-BYTE saveV[VERS_IN_CELL*sizeof(version)];
+uchar saveV[VERS_IN_CELL*sizeof(version)];
 version *v;
 
 
@@ -636,7 +636,7 @@ version *v;
     this flag but doas not correct the lists of the cells  */
   memset(pc->vers,0,4*sizeof(version));
   pc->nvers=3;
-  pc->vers[0].let='0';   pc->vers[1].let=(BYTE)'Ž';  pc->vers[2].let='O';
+  pc->vers[0].let='0';   pc->vers[1].let=(uchar)'Ž';  pc->vers[2].let='O';
   if (test_cell(pc))
     for (v=pc->vers; v->let; v++)
       rc=MAX(rc,v->prob);
@@ -662,7 +662,7 @@ static INT rec_O0(cell *pc)
 INT wi,rc;
 uint16_t save_c_flg;
 INT  saveN;
-BYTE saveV[VERS_IN_CELL*sizeof(version)];
+uchar saveV[VERS_IN_CELL*sizeof(version)];
 
 
   save_c_flg=pc->flg;         /* save flag of the cell */
@@ -677,8 +677,8 @@ BYTE saveV[VERS_IN_CELL*sizeof(version)];
     if (
 	(pc->vers[wi].let == 'O') ||
     (pc->vers[wi].let == 'o') ||
-        (language==LANG_RUSSIAN && ((pc->vers[wi].let == (BYTE)'Ž')  ||
-                                    (pc->vers[wi].let == (BYTE)'®')))||
+        (language==LANG_RUSSIAN && ((pc->vers[wi].let == (uchar)'Ž')  ||
+                                    (pc->vers[wi].let == (uchar)'®')))||
   (pc->vers[wi].let == '0')
        )
        {  rc=pc->vers[wi].prob;goto Rexit;}
@@ -762,7 +762,7 @@ static void  improve_proN()
   if (BC->complist != NULL)
   {
     test_cell(BC);
-    if (BC->vers[0].let != (BYTE)PRO_NUMBER || BC->vers[0].prob<=p)
+    if (BC->vers[0].let != (uchar)PRO_NUMBER || BC->vers[0].prob<=p)
       BC=rest_composition(BC);
     else
     {

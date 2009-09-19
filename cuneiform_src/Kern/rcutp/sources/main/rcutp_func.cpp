@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.h"
 #include "struct.h"
 #include "cutstr.h"
 #include "alik_rec.h"
@@ -71,11 +70,11 @@ extern  int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 
 void snap_clear_screen(void);
 
-extern BYTE  db_status;              // snap presence byte
+extern uchar  db_status;              // snap presence byte
 INT up_position,dw_position;
 static INT Alik_count_int_number(pchar Praster,INT len_row);
-INT LeftDistance(BYTE *RASTER, INT NWIDTH);
-INT RightDistance(BYTE *RASTER, INT NWIDTH);
+INT LeftDistance(uchar *RASTER, INT NWIDTH);
+INT RightDistance(uchar *RASTER, INT NWIDTH);
 
 static char table_int[256]=
        {0,1,1,1,1,2,1,1,1,2,2,2,1,2,1,1,1,2,2,2,2,3,2,2,1,2,2,2,1,2,1,1,
@@ -119,12 +118,12 @@ static char fb_table[512]=  /* Б═║╚╗Ф═ ╜╝╛╔Ю═ А═╛╝
 
 void Alik_rus_bad_c(pchar raster_frag,pchar SourceRaster,INT hgt,INT rx_bite,
                     pchar product,pchar product_two,PINT penalty,
-		    PINT cut_points,PBYTE CountCut,PBYTE UpBlackPoint)
+		    PINT cut_points,puchar CountCut,puchar UpBlackPoint)
 {
 #ifdef Alikc
 char snap[380],*buf=snap;
 #endif
-PBYTE PtrCountCut;
+puchar PtrCountCut;
 INT   i,Left,Right,CP;
 PINT  Pcut_points,Pen;
 pchar prod_two;
@@ -177,7 +176,7 @@ pchar prod_two;
  *cut_points=(uint16_t)(Pcut_points-cut_points);
 }
 
-BYTE Alik_check_c(PBYTE PtrCountCut,PINT Pen,INT Right)
+uchar Alik_check_c(puchar PtrCountCut,PINT Pen,INT Right)
 {
 INT i;
 
@@ -192,14 +191,14 @@ INT i;
 }
 
 void Alik_Check_Rus_D(pchar raster_frag,pchar SourceRaster,INT dy,INT dx,
-                      PINT cut_points,PBYTE IntBuf,INT row,pchar product,
-		      pchar product_two,PINT penalty,PBYTE CountCut)
+                      PINT cut_points,puchar IntBuf,INT row,pchar product,
+		      pchar product_two,PINT penalty,puchar CountCut)
 {
 #ifdef Alikd
 char snap[380],*buf=snap;
 #endif
 
-BYTE  SumCol=0,Col,*CurIntBuf,lb,rb,lb1,rb1,nlb,ColOst,ColOsn;
+uchar  SumCol=0,Col,*CurIntBuf,lb,rb,lb1,rb1,nlb,ColOst,ColOsn;
 pchar CurPos;
 INT   i,j,*CurCP,hor_byte,up_ot_bbs3=0,CP,dif;
 
@@ -229,7 +228,7 @@ MasIntervals1 MI1[MAX_CUT_POINT_NUMBER];
    {
     CurIntBuf=IntBuf;
     CurPos   =SourceRaster+(dy-(i+up_ot_bbs3))*hor_byte;
-    Col=SumCol=Alik_find_black_interval((PBYTE)CurPos,(BYTE)hor_byte,CurIntBuf);
+    Col=SumCol=Alik_find_black_interval((puchar)CurPos,(uchar)hor_byte,CurIntBuf);
     CurPos+=hor_byte;
 
     for(j=0,ColOsn=0;j<Col;j++)
@@ -308,7 +307,7 @@ MasIntervals1 MI1[MAX_CUT_POINT_NUMBER];
 
    if(ColOst)
     {
-
+
      /*  ┌КГ╔А╚ОНБАО ╚═╞╙╗ └ */
      CurPos   =SourceRaster + dy*hor_byte;
 
@@ -316,7 +315,7 @@ MasIntervals1 MI1[MAX_CUT_POINT_NUMBER];
       {
        CurPos-=hor_byte;
        CurIntBuf=IntBuf+(SumCol<<1);
-       SumCol+=Alik_find_black_interval((PBYTE)CurPos,(BYTE)hor_byte,CurIntBuf);
+       SumCol+=Alik_find_black_interval((puchar)CurPos,(uchar)hor_byte,CurIntBuf);
       }
 
      CurIntBuf=IntBuf+(Col<<1);
@@ -451,9 +450,9 @@ con:	 MI[i].wf=MAX(MI[i].wf,rb-lb+1);
   }
 }
 
-BYTE Alik_del_a(PINT penalty,PBYTE CountCut,BYTE lb,BYTE rb)
+uchar Alik_del_a(PINT penalty,puchar CountCut,uchar lb,uchar rb)
 {
-BYTE Sum,i;
+uchar Sum,i;
 
  penalty=penalty+lb;
  CountCut=CountCut+lb;
@@ -463,10 +462,10 @@ BYTE Sum,i;
  else                 return 0;
 }
 
-BYTE Alik_del_a_from_interval(PINT penalty,PBYTE CountCut,BYTE lb,BYTE rb,
-                              BYTE* lb1,BYTE* rb1)
+uchar Alik_del_a_from_interval(PINT penalty,puchar CountCut,uchar lb,uchar rb,
+                              uchar* lb1,uchar* rb1)
 {
-BYTE Sum,i;
+uchar Sum,i;
 
  penalty=penalty+lb-1;
  CountCut=CountCut+lb-1;
@@ -488,9 +487,9 @@ BYTE Sum,i;
  return 0;
 }
 
-BYTE  Alik_priznak_del_3_cut(PBYTE CountCut,INT CP,INT dx)
+uchar  Alik_priznak_del_3_cut(puchar CountCut,INT CP,INT dx)
 {
-PBYTE  CurCutPoint;
+puchar  CurCutPoint;
 INT    i,Sum;
 
  Sum=0;
@@ -513,7 +512,7 @@ INT    i,Sum;
 }
 
 void Alik_def_cut_flg(cell *T,struct cut_elm *cpnt1,
-                      struct cut_elm *cpnt2,INT height,BYTE WhereCutten)
+                      struct cut_elm *cpnt2,INT height,uchar WhereCutten)
 {
 INT begin,end;
 
@@ -569,7 +568,7 @@ return;
 void Alik_cut_short(pchar bufer,pchar bufer_two,INT ry,INT rx_bite,
                 pchar product,PINT penalty, PINT cut_points,pchar prod_two)
 {
-BYTE   flag_seredina;
+uchar   flag_seredina;
 INT    i,i1,i2,Sum,SumTwo;
 pchar  Pproduct,PProdTwo,Pbufer,PBufTwo;
 PINT   Pcut_points;
@@ -593,14 +592,14 @@ PINT   Pcut_points;
           else
            if(flag_seredina==1)
             {
-             if(sum_table[(BYTE)(*PBufTwo & (*(PBufTwo+rx_bite)))] >
-                sum_table[(BYTE)(*PBufTwo & (*(PBufTwo-rx_bite)))])
+             if(sum_table[(uchar)(*PBufTwo & (*(PBufTwo+rx_bite)))] >
+                sum_table[(uchar)(*PBufTwo & (*(PBufTwo-rx_bite)))])
                    *PBufTwo &= *(PBufTwo+rx_bite);
              else  *PBufTwo &= *(PBufTwo-rx_bite);
             }
            else                 *PBufTwo &= *(PBufTwo-rx_bite);
 
-          SumTwo+=sum_table[(BYTE)*PBufTwo++];
+          SumTwo+=sum_table[(uchar)*PBufTwo++];
         }
       *PProdTwo++ = (char)SumTwo;
       if(PProdTwo >= (prod_two + ry)) break;
@@ -612,7 +611,7 @@ PINT   Pcut_points;
       for(i=0; i<rx_bite; i++)
         {
          *Pbufer &= *(Pbufer+rx_bite);
-          Sum+=sum_table[(BYTE)*Pbufer++];
+          Sum+=sum_table[(uchar)*Pbufer++];
         }
       *Pproduct++ = (char)Sum;
       if(Pproduct >= (product + ry-1)) break;
@@ -648,13 +647,13 @@ f4c:  i1--;
 
 void Alik_find_brus(pchar raster_frag,pchar SourceRaster,pchar bufer,INT ry,
                     INT hgt,INT rx_bite,pchar product,pchar product_two,
-		    PINT penalty,PINT cut_points,PBYTE CountCut,
-		    PBYTE UpBlackPoint)
+		    PINT penalty,PINT cut_points,puchar CountCut,
+		    puchar UpBlackPoint)
 {
 #if defined (AlikBrus) || defined (Alikt)
 char snap[380],*buf=snap;
 #endif
-BYTE CountBrus=0,Col=0,flag_point,foot_size,interval,max_h,
+uchar CountBrus=0,Col=0,flag_point,foot_size,interval,max_h,
      flag_brus,tolshina[MaxHeightBrus],j,n;
 INT    i,min_height_t;
 pchar  Pproduct,Pproduct_two,Pbufer,pp,ppt;
@@ -694,7 +693,7 @@ Coor_brus CB[MaxCountBrus+1];  // +1 Nick 24.08.2002, was bug
 
            for(j=0;j<=interval;j++,pp++,ppt++)
             if(*pp>0 && *pp<=MaxHeightBrus && *ppt>0 && *ppt<=MaxHeightBrus)
-                                           tolshina[(BYTE)*ppt-1]++;
+                                           tolshina[(uchar)*ppt-1]++;
 
            for(j=0,max_h=0;j<MaxHeightBrus;j++)
             if(tolshina[j]>tolshina[max_h]) max_h=j;
@@ -838,10 +837,10 @@ Coor_brus CB[MaxCountBrus+1];  // +1 Nick 24.08.2002, was bug
   *cut_points=(uint16_t)(Pcut_points-cut_points);
 }
 
-BYTE Alik_kill_right_points(INT dx,pchar prod,pchar prod2,PINT cut_points,
+uchar Alik_kill_right_points(INT dx,pchar prod,pchar prod2,PINT cut_points,
                             INT CP)
 {
-BYTE flag_point;
+uchar flag_point;
 INT  i,j,x,*Ptr;
 
  x=dx-CP;
@@ -855,9 +854,9 @@ INT  i,j,x,*Ptr;
  return flag_point;
 }
 
-BYTE Alik_kill_left_points(INT dx,PINT cut_points,INT CP)
+uchar Alik_kill_left_points(INT dx,PINT cut_points,INT CP)
 {
-BYTE flag_point;
+uchar flag_point;
 INT  i,j,x,*Ptr;
 
  x=dx-CP;
@@ -871,9 +870,9 @@ INT  i,j,x,*Ptr;
  return flag_point;
 }
 
-BYTE Alik_kill_left_right_points(PINT cut_points,INT CP)
+uchar Alik_kill_left_right_points(PINT cut_points,INT CP)
 {
-BYTE flag_point;
+uchar flag_point;
 INT  i,j,*Ptr;
 
  flag_point=0;
@@ -898,8 +897,8 @@ INT   i,ver_byte,interval,l1,r1,minl,maxl,minr,maxr,tret;
 
  for(i=0; i<=interval; i++,CurPos+=ver_byte)
   {
-   l1=LeftDistance((PBYTE)CurPos,ver_byte);
-   r1=RightDistance((PBYTE)CurPos,ver_byte);
+   l1=LeftDistance((puchar)CurPos,ver_byte);
+   r1=RightDistance((puchar)CurPos,ver_byte);
    if(l1<0 || r1<0) return -1;
    if(i>0)
     {
@@ -931,7 +930,7 @@ INT   i,ver_byte,interval,dist,mind,maxd;
 
  for(i=0; i<=interval; i++,CurPos+=ver_byte)
   {
-   dist=LeftDistance((PBYTE)CurPos,ver_byte);
+   dist=LeftDistance((puchar)CurPos,ver_byte);
    if(i>0) { mind=MIN(mind,dist);  maxd=MAX(maxd,dist); }
    else      mind=maxd=dist;
   }
@@ -940,16 +939,16 @@ INT   i,ver_byte,interval,dist,mind,maxd;
  else                         return 1;
 }
 
-
+
 void Alik_cut_y(pchar raster_frag,pchar SourceRaster,pchar bufer,INT dy,
-                INT dx,PINT cut_points,PBYTE IntBuf,INT row,pchar product,
-		pchar product_two,PINT penalty,PBYTE CountCut)
+                INT dx,PINT cut_points,puchar IntBuf,INT row,pchar product,
+		pchar product_two,PINT penalty,puchar CountCut)
 {
 #ifdef Aliky
 char snap[380],*buf=snap;
 #endif
 
-BYTE  Col,*CurIntBuf,lb,rb,left,right,*SumStr,l_bound,r_bound,flag_near;
+uchar  Col,*CurIntBuf,lb,rb,left,right,*SumStr,l_bound,r_bound,flag_near;
 char  min_prod_two;
 pchar CurPos,prod,prod_two;
 INT   i,j,k,hor_byte,ver_byte,dw_ot_bbs3=3,width_tail,*pen,*CurCP,flag_y,
@@ -985,7 +984,7 @@ uint16_t  min_pen;
 
  SumStr=IntBuf;
  CurIntBuf=IntBuf+hor_byte;
- Col=Alik_find_black_interval(SumStr,(BYTE)hor_byte,CurIntBuf);
+ Col=Alik_find_black_interval(SumStr,(uchar)hor_byte,CurIntBuf);
 
  for(j=0;j<Col;j++)
    {
@@ -1027,7 +1026,7 @@ uint16_t  min_pen;
       if(*prod_two < min_prod_two ||  *prod < min_prod_two ||
         (*prod_two == min_prod_two && (uint16_t)*pen < min_pen))
        {
-        left=(BYTE)i;
+        left=(uchar)i;
         min_prod_two=MIN(*prod_two,*prod);
         min_pen=(uint16_t)(*pen);
        }
@@ -1035,7 +1034,7 @@ uint16_t  min_pen;
     if(left >= MINCOL) { *++CurCP=dx-left; *cut_points+=1;}
    }
   CurPos  =bufer + left*ver_byte;
-  LeftDist=LeftDistance((PBYTE)CurPos,ver_byte);
+  LeftDist=LeftDistance((puchar)CurPos,ver_byte);
 /*************     ▌╞Ю╔╓╔╚О╔╛ ╞Ю═╒ЦН Б╝Г╙Ц      *************/
   if(dx-right >= MINCOL)
    {
@@ -1052,14 +1051,14 @@ uint16_t  min_pen;
       if(*prod_two < min_prod_two || *prod < min_prod_two ||
         (*prod_two == min_prod_two && (uint16_t)*pen < min_pen))
         {
-         right=(BYTE)i;
+         right=(uchar)i;
          min_prod_two=MIN(*prod_two,*prod);
          min_pen=(uint16_t)(*pen);
         }
       CurPos =bufer + i*ver_byte;
-      RightDist=LeftDistance((PBYTE)CurPos,ver_byte);
+      RightDist=LeftDistance((puchar)CurPos,ver_byte);
       if(abs(RightDist-LeftDist)<=1) flag_near++;
-      if(flag_near>5) {right=(BYTE)i; break;}
+      if(flag_near>5) {right=(uchar)i; break;}
      }
     if(dx-right>=MINCOL) { *++CurCP=dx-right;*cut_points+=1;}
    }
@@ -1078,9 +1077,9 @@ uint16_t  min_pen;
 }
 
 
-BYTE Alik_find_black_interval(PBYTE str,BYTE len,PBYTE intrvl)
+uchar Alik_find_black_interval(puchar str,uchar len,puchar intrvl)
 {
-BYTE  Flag_P=0,Col=0;
+uchar  Flag_P=0,Col=0;
 INT   i,j,offset;
 MasInterval *Ptr;
 
@@ -1126,7 +1125,7 @@ void Alik_form_bound(pchar raster,uint16_t ry,uint16_t rx,uint16_t xbytes,
         Al=*Praster; Praster+=one;
         if(Al)  break;
        }
-      Al=Ptable[(BYTE)Al]+Ah;
+      Al=Ptable[(uchar)Al]+Ah;
 j3b:  if(prizn != 0  && !tmp_xbytes)  Al=rx-Al;
       *adr_bound++ =Al;
       Praster=(pchar)Praster1 + i*xbytes;
@@ -1142,17 +1141,17 @@ j3b:  if(prizn != 0  && !tmp_xbytes)  Al=rx-Al;
 /******************************************************************/
 #pragma warning( disable : 4245 )					 //AK. 07.03.97
 void  Alik_cut_hole(pchar trace,INT rx,PINT cut_points,INT first,INT ry,
-                    pchar product,PINT penalty,BYTE ind)
+                    pchar product,PINT penalty,uchar ind)
 {
 INT   i;
-BYTE  HRastr;
+uchar  HRastr;
 PINT  Pcut_points,Pcut_points1,Ppenalty,Ppenalty1;
 pchar Pproduct,Pproduct1,Ptrace,Ptrace1;
-BYTE  Comp,AL;
+uchar  Comp,AL;
 uint16_t  DX,DI,Offset,Count;
    penalty=penalty;
    first=first;
-   HRastr = (BYTE)((ry*3)>>2);
+   HRastr = (uchar)((ry*3)>>2);
 b0:
    /* АД╝Ю╛╗Ю╝╒═╚╗ ═╓Ю╔А ╓╚О ЕЮ═╜╔╜╗О Б╝Г╔╙ Ю═╖Ю╔╖═*/
    Pcut_points=Pcut_points1=(PINT)((pchar)cut_points+((INT)(*cut_points)<<1));
@@ -1324,7 +1323,7 @@ at4:   Count = LastCount -1;
 }
 
 void Alik_del_3_cut(pchar raster,PINT cut_points,INT first,INT len_row,
-                    INT nrow,PBYTE CountCut)
+                    INT nrow,puchar CountCut)
 {
 PINT   CurCutPoints,Ptr;
 INT    Count,i,j,SumCutPoints;
@@ -1365,30 +1364,30 @@ pchar  Ptable_int;
    {
     if(((c1=*Praster++) & 0x80) && (c & 1)) SumCutPoints--;
     c=c1;
-    SumCutPoints+=Ptable_int[(BYTE)c1];
+    SumCutPoints+=Ptable_int[(uchar)c1];
    }
   return SumCutPoints;
 }
 
-void Alik_CountCut(pchar bufer,INT dy,INT dx,PBYTE  CountCut,PBYTE IntBuf)
+void Alik_CountCut(pchar bufer,INT dy,INT dx,puchar  CountCut,puchar IntBuf)
 {
 INT    i,ver_byte;
  ver_byte=(dy+7)>>3;
  for(i=0; i<dx; i++)
    {
-    *CountCut++=Alik_find_black_interval((PBYTE)bufer,(BYTE)ver_byte,IntBuf);
+    *CountCut++=Alik_find_black_interval((puchar)bufer,(uchar)ver_byte,IntBuf);
     bufer+=ver_byte;
    }
 }
-
+
 //upp
-void Alik_UpBlackPoint(pchar bufer,INT dy,INT dx,PBYTE  UpBlackPoint)
+void Alik_UpBlackPoint(pchar bufer,INT dy,INT dx,puchar  UpBlackPoint)
 {
 INT    i,ver_byte;
  ver_byte=(dy+7)>>3;
  for(i=0; i<dx; i++)
    {
-    *UpBlackPoint++=(BYTE)LeftDistance((PBYTE)bufer,ver_byte);;
+    *UpBlackPoint++=(uchar)LeftDistance((puchar)bufer,ver_byte);;
     bufer+=ver_byte;
    }
 }
@@ -1396,13 +1395,13 @@ INT    i,ver_byte;
 #define SERIF_POGRESHNOST     8
 #define SERIF_POGRESHNOST_IN  4
 
-INT Alik_up_position_double_serif(PBYTE bufer,INT dy,INT dx,
-                                  PWORD penalty,PBYTE IntBuf,INT hgt)
+INT Alik_up_position_double_serif(puchar bufer,INT dy,INT dx,
+                                  PWORD penalty,puchar IntBuf,INT hgt)
 {
 INT    i,ver_byte,pos,hgt_bbs;
 PWORD  PPen;
-BYTE   I_begin,I_end,II_begin,II_end,in_up,in_dw,out_up,out_dw;
-PBYTE  CurPos;
+uchar   I_begin,I_end,II_begin,II_end,in_up,in_dw,out_up,out_dw;
+puchar  CurPos;
 
  CurPos=bufer;
  PPen=penalty;
@@ -1413,7 +1412,7 @@ PBYTE  CurPos;
 
  for(i=0; i<dx; i++,PPen++)
   {
-   pos=Alik_find_black_interval(CurPos,(BYTE)ver_byte,IntBuf);
+   pos=Alik_find_black_interval(CurPos,(uchar)ver_byte,IntBuf);
    if(*PPen==0 && pos==2)
     {
      I_begin  = *IntBuf++; I_end  = *IntBuf++;
@@ -1447,7 +1446,7 @@ return -1;
 
 #define POGRESHNOST 3
 void Alik_my_correct_base_lines(PINT bl_up,PINT bl_dw,INT dy,INT dx,INT row,
-        PBYTE bufer,PWORD penalty,PBYTE IntBuf)
+        puchar bufer,PWORD penalty,puchar IntBuf)
 {
 INT hgt;
  up_position=0; dw_position=0;
@@ -1506,7 +1505,7 @@ uint16_t  CountPoints,i,Chastnoe,c2;
     for(i=size_x;i>0;i--)
      {
       Ptr=PTrace++;
-      if((BYTE)*Ptr>(BYTE)c || (BYTE)*Ptr<c1) continue;
+      if((uchar)*Ptr>(uchar)c || (uchar)*Ptr<c1) continue;
       c2 += *Ptr;  CountPoints++;
      }
     if(CountPoints)
@@ -1521,21 +1520,21 @@ uint16_t  CountPoints,i,Chastnoe,c2;
   *Adr=size_y-*Adr;
 }
 
-
+
 void Alik_double_serif(PINT cut_points,pchar trace,pchar product,INT rx,
                        INT ry,INT bl_up,INT bl_dw,PINT penalty,
-		       PBYTE bufer,PBYTE IntBuf)
+		       puchar bufer,puchar IntBuf)
 {
 PINT   BegCP,CurCP,OldCP,Ppenalty;
 char   BasLin,Granisa;
-BYTE   c,c1,*CurPos,pos;
+uchar   c,c1,*CurPos,pos;
 pchar  PTrace,Pproduct;
 INT    i,j,BX,tmp,ver_byte;
 
   ver_byte=(ry+7)>>3;
   BegCP = OldCP = CurCP = (PINT)((pchar)cut_points + (*cut_points<<1));
   PTrace = trace;
-  c=(BYTE)((bl_dw-bl_up)>>1);
+  c=(uchar)((bl_dw-bl_up)>>1);
   bl_dw = ry-bl_dw;
   c1=0xFE;
   Pproduct=product;
@@ -1543,7 +1542,7 @@ INT    i,j,BX,tmp,ver_byte;
   for(i=rx-1; i>0; i--)
    {
      Ppenalty=++penalty;
-     if((BYTE)*Pproduct > c)    goto v9;
+     if((uchar)*Pproduct > c)    goto v9;
      if((uint16_t)*Ppenalty > NAV_BOUND)  goto v9a;
      BasLin = (char)bl_dw;     BX=rx;
 v1a: Granisa = *(PTrace+BX) - *(PTrace+BX+1);
@@ -1561,10 +1560,10 @@ v1a: Granisa = *(PTrace+BX) - *(PTrace+BX+1);
       }
      BasLin=(char)bl_up;
      if(!(BX-=rx)) goto v1a;
-     if((BYTE)*Pproduct>(c1+1)) goto v9;  //06-24-96 08:40pm
+     if((uchar)*Pproduct>(c1+1)) goto v9;  //06-24-96 08:40pm
      CurCP=BegCP;
-     if((BYTE)*Pproduct < c1)             //06-24-96 08:41pm
-        {c1=(BYTE)*Pproduct; CurCP=OldCP;}
+     if((uchar)*Pproduct < c1)             //06-24-96 08:41pm
+        {c1=(uchar)*Pproduct; CurCP=OldCP;}
      *++CurCP=i;   BegCP=CurCP;
      goto v9a;
 v9:  if(c1==0xFE) goto v9a;
@@ -1578,7 +1577,7 @@ v9:  if(c1==0xFE) goto v9a;
        CurPos=bufer+(rx-i)*ver_byte;
        for(j=0; j<STEP_SER; j++)
         {
-	 pos=Alik_find_black_interval(CurPos,(BYTE)ver_byte,IntBuf);
+	 pos=Alik_find_black_interval(CurPos,(uchar)ver_byte,IntBuf);
          if(pos != 2)  break;
          CurPos-=ver_byte;
         }
@@ -1731,7 +1730,7 @@ r1b: if(!(--c)) {flag=1; goto r6;}
      HgtRaster=size_y;   PRasterOld=PRaster;
 r3:  c1=*PRaster;
      if(!c1) {HgtRaster-=8; PRaster+=step; goto r3;}
-     c1=Pfb_table[(BYTE)c1];
+     c1=Pfb_table[(uchar)c1];
      HgtRaster-=c1; PRaster=PRasterOld;  step*=-1;
      if(step<=0) { Pfb_table+=256; PRaster+=first-1; goto r3; }
      c1=(char)HgtRaster;  HgtRaster<<=2;   Pfb_table-=256;
@@ -1888,7 +1887,7 @@ void Alik_tr_bit_matr(INT byte_ver,INT size_y,pchar buf_in,pchar buf_out,
 {
 INT    ByteHor,i,Count;
 pchar  BufOut,Ptr;
-BYTE   POutCurBit,PNextBit,CurOutByte,CountPicsel,c,c1;
+uchar   POutCurBit,PNextBit,CurOutByte,CountPicsel,c,c1;
 
  ByteHor=byte_hor;
  BufOut =buf_out;
@@ -1943,7 +1942,7 @@ PINT  POldPoints,PNewPoints,PBufer;
 pchar Pfb_table,Ptr,PtrOld,PTrace;
 char  Ras,c,c1,tmp;
 
- c = tmp =(BYTE) (y_size - ((y_size+7) & 0x0f8) - 8);
+ c = tmp =(uchar) (y_size - ((y_size+7) & 0x0f8) - 8);
  y_size--;
  POldPoints=old_points;
  PBufer=bufer;
@@ -1964,7 +1963,7 @@ bb5:  c1+=8;
        {
         Ras=*Ptr; Ptr+=flag;
         if(!Ras)  goto bb5;
-        Ras=Pfb_table[(BYTE)Ras];
+        Ras=Pfb_table[(uchar)Ras];
         Ras+=c1;  flag=1;
         if(Pfb_table!=fb_table) Ras=y_size-Ras;
         *PNewPoints++=Ras;
@@ -2058,7 +2057,7 @@ PINT   WPen,WPenNew;
 pchar  PBuf,PBuf1,CurBound,Ptr;
 char   Proxod=6,flag,ctmp,index=0;
 INT    i,ByteLenStr,BitLenStr,I2,I1;
-BYTE   c;
+uchar   c;
 
  ++penalty;
 do
@@ -2130,7 +2129,7 @@ a10a: if(flag){++WPenNew; if(!(c>>=1)) {c=0x80; ++PBuf; ++PBuf1; ++CurBound;}}
 }
 
 /* LeftDistance - Ю═ААБ╝О╜╗╔ ╓╝ ╞╔Ю╒╝ё╝ А╚╔╒═ ║╗Б═			*/
-INT LeftDistance(BYTE *RASTER, INT NWIDTH)
+INT LeftDistance(uchar *RASTER, INT NWIDTH)
 {
 INT i;
 
@@ -2143,7 +2142,7 @@ return( (i<<3)+start_pos[*RASTER] );
 }
 
 /* RightDistance -Ю═ААБ╝О╜╗╔ ╓╝ ╞╔Ю╒╝ё╝ А╞Ю═╒═ ║╗Б═			*/
-INT RightDistance(BYTE *RASTER, INT NWIDTH)
+INT RightDistance(uchar *RASTER, INT NWIDTH)
 {
 INT i;
 

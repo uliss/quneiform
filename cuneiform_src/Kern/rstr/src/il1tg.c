@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "cuthdr.h"
@@ -89,23 +89,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct statist             // structure for statistics
  {
- BYTE top;                 // upper bound of black segments
- BYTE bot;                 // lower bound of black segments
- BYTE sum;                 // number of black pixels
- BYTE res;                 // reserve byte (for speed)
+ uchar top;                 // upper bound of black segments
+ uchar bot;                 // lower bound of black segments
+ uchar sum;                 // number of black pixels
+ uchar res;                 // reserve byte (for speed)
  };
 
 
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern INT line_number;
 
 INT    n_peak[NFUNC];
-PBYTE  peak_vect[NFUNC];
+puchar  peak_vect[NFUNC];
 
 static INT total_num_let;
 static struct statist *hor;
 static struct statist *vert;
-static BYTE *hist[N_HIST]; // histograms:
+static uchar *hist[N_HIST]; // histograms:
 			   //   0 - black vertical
 			   //   1 - black filled vertical
 			   //   2 - white vertical
@@ -119,7 +119,7 @@ static BYTE *hist[N_HIST]; // histograms:
                //  10 - left abris ( as in ABRIS.C )
                //  11 - right abris ( as in ABRIS.C )
 
-static BYTE *funcs[MAX_NEW_FUNC];
+static uchar *funcs[MAX_NEW_FUNC];
 static INT  nfunc=1;
 static char recog_res[10];
 static char *R;
@@ -131,7 +131,7 @@ static INT  TYprop;
 static INT  ecprop;
 static INT bon_a,mon_c;
 static INT  gmax_y, gmin_y;
-static BYTE maxprob;
+static uchar maxprob;
 static char text_string  [256];
 static char text_string1 [256];
 struct nose_struct
@@ -142,7 +142,7 @@ struct nose_struct
 };
 
 version    oa_src_vers[MAX_VERS];
-BYTE       oa_src_nvers;
+uchar       oa_src_nvers;
 INT        oa_accent_existing_flag;
 
 static void oacell                  (cell *);
@@ -153,21 +153,21 @@ static void TYcell                  (cell *);
 static void GCcell                  (cell *);
 static void set_mem                 (void);
 static INT  check_two_case          (cell *, pchar);
-static void comptorast              (PBYTE, cell *);
+static void comptorast              (puchar, cell *);
 static void make_hor_vert           (cell *);
 static void make_hist               (void);
 static void make_func               (void);
-static INT  line_width              (PBYTE, INT, INT);
-static uint16_t integral                (PBYTE, INT, INT, INT);
-static INT  gmax                    (PBYTE, INT, INT);
-static INT  gmin                    (PBYTE, INT, INT);
+static INT  line_width              (puchar, INT, INT);
+static uint16_t integral                (puchar, INT, INT, INT);
+static INT  gmax                    (puchar, INT, INT);
+static INT  gmin                    (puchar, INT, INT);
 static INT  vertsym                 (INT);
 static INT  centrsym                (INT);
-static Bool increase                (PBYTE, INT, INT);
-static Bool decrease                (PBYTE, INT, INT);
-static INT  difference              (PBYTE, INT, INT);
-static INT  valley                  (PBYTE, INT, INT, INT);
-static Bool fill                    (PBYTE, INT, INT, INT);
+static Bool increase                (puchar, INT, INT);
+static Bool decrease                (puchar, INT, INT);
+static INT  difference              (puchar, INT, INT);
+static INT  valley                  (puchar, INT, INT, INT);
+static Bool fill                    (puchar, INT, INT, INT);
 static void oarecog                 (cell *);
 static void TYrecog                 (void);
 //static void put_two_case            (cell *, pchar);
@@ -178,12 +178,12 @@ static void make_hist_ec            (void);
 static void make_func_ec            (void);
 static Bool not_AvanGard_a          (void);
 static Bool middle_long_sharp_peak  (INT,   INT, INT);
-static Bool pure_concave            (PBYTE, INT, INT, INT);
-static Bool hole_in_func            (PBYTE, INT, INT, INT);
-// static Bool hill_in_func            (PBYTE, INT, INT, INT);
-static Bool flat_func               (PBYTE, INT, INT, INT);
+static Bool pure_concave            (puchar, INT, INT, INT);
+static Bool hole_in_func            (puchar, INT, INT, INT);
+// static Bool hill_in_func            (puchar, INT, INT, INT);
+static Bool flat_func               (puchar, INT, INT, INT);
 static void ecrecog                 (void);
-static BYTE filled_head             (void);
+static uchar filled_head             (void);
 #define FH_Y_FILLED                 1
 #define FH_N_FILLED                 2
 #define FH_NO_IDEA                  0
@@ -298,7 +298,7 @@ INT was_a = (let_sans_acc[C->vers[0].let] == 'a')?1:0;
 static INT oa_accent_removing( cell *srC )
 {
 INT        new_nvers, i, ret_code;
-BYTE       flag;
+uchar       flag;
 version    subst_vers[MAX_VERS];
 version    *wpv;
 
@@ -367,7 +367,7 @@ default_case:
         }
         if ( flag == (A_ACCENT + O_ACCENT) )
         {
-            oa_src_nvers = (BYTE)srC->nvers;
+            oa_src_nvers = (uchar)srC->nvers;
             srC->nvers = new_nvers;
             memcpy( oa_src_vers, srC->vers, sizeof( srC->vers ) );
             memset( wpv, 0, sizeof( version ) );   // end of versions list
@@ -418,7 +418,7 @@ static void NHcell (cell *C)
     INT     col,row,h,w;
     extern  servBOX SBOX;
     s_glue  GL;
-    BYTE    sv [sizeof ( C-> nvers) + sizeof (C -> vers)];
+    uchar    sv [sizeof ( C-> nvers) + sizeof (C -> vers)];
     cell    c, *p, *pl, *n, *nl;
 
     if (check_two_case (C, "NH") && tsimple(C))
@@ -735,7 +735,7 @@ static INT check_two_case (cell *C, pchar c)
 
 #include "il1tgh.c"
 
-static Bool flat_func (PBYTE func, INT from, INT to, INT jump)
+static Bool flat_func (puchar func, INT from, INT to, INT jump)
 {
     INT i;
 
@@ -758,7 +758,7 @@ static Bool flat_func (PBYTE func, INT from, INT to, INT jump)
     return TRUE;
 }
 
-static INT difference (PBYTE func, INT from, INT to)
+static INT difference (puchar func, INT from, INT to)
 {
     INT m1,m2;
 
@@ -768,7 +768,7 @@ static INT difference (PBYTE func, INT from, INT to)
     return m2 - m1;
 }
 
-static INT valley (PBYTE func, INT from, INT to, INT percent)
+static INT valley (puchar func, INT from, INT to, INT percent)
 //
 //	This procedure checks difference between minimum and maximum
 //	of function in given region.
@@ -782,7 +782,7 @@ static INT valley (PBYTE func, INT from, INT to, INT percent)
                                                 return 1;
 }
 
-static Bool fill (PBYTE func, INT from, INT to, INT percent)
+static Bool fill (puchar func, INT from, INT to, INT percent)
 //
 //	This procedure checks whether given region is close to constant.
 //
@@ -962,8 +962,8 @@ end:;
 static void make_hor_vert_ec ()
 {
     INT  i, x, y, k;
-    BYTE *c;
-    BYTE b;
+    uchar *c;
+    uchar b;
     struct statist *h;
     INT  bnd;
 
@@ -979,8 +979,8 @@ static void make_hor_vert_ec ()
             {
                 if ((*c & b) != 0)
                 {
-                    if (h -> sum == 0)      h -> top = h -> bot = (BYTE)y;
-                    else if (h -> bot > y)  h -> bot            = (BYTE)y;
+                    if (h -> sum == 0)      h -> top = h -> bot = (uchar)y;
+                    else if (h -> bot > y)  h -> bot            = (uchar)y;
                     h -> sum ++;
                 }
             }
@@ -999,8 +999,8 @@ static void make_hor_vert_ec ()
                 if (k > bnd)                    continue;
                 if ((*c & b) != 0)
                 {
-                    if (h -> sum == 0)  h -> top = h -> bot = (BYTE)k;
-                    else                h -> top            = (BYTE)k;
+                    if (h -> sum == 0)  h -> top = h -> bot = (uchar)k;
+                    else                h -> top            = (uchar)k;
                     h -> sum ++;
                 }
             }
@@ -1084,7 +1084,7 @@ static Bool middle_long_sharp_peak (INT nf, INT from, INT to)
                                                 return FALSE;
 }
 
-static Bool pure_concave (PBYTE f, INT from, INT to, INT jmp)
+static Bool pure_concave (puchar f, INT from, INT to, INT jmp)
 {
     INT i, j, fl;
 
@@ -1108,7 +1108,7 @@ static Bool pure_concave (PBYTE f, INT from, INT to, INT jmp)
                                                 return FALSE;
 }
 
-static Bool hole_in_func (PBYTE f, INT from, INT to, INT jmp)
+static Bool hole_in_func (puchar f, INT from, INT to, INT jmp)
 {
     INT  min;
     min = gmin ( f, from, to );
@@ -1119,7 +1119,7 @@ static Bool hole_in_func (PBYTE f, INT from, INT to, INT jmp)
 }
 
 /*
-static Bool hill_in_func (PBYTE f, INT from, INT to, INT jmp)
+static Bool hill_in_func (puchar f, INT from, INT to, INT jmp)
 {
     INT  max;
     max = gmax ( f, from, to );
@@ -1248,7 +1248,7 @@ fin:;
 }
 
 #define TRESH_MATR 100
-static BYTE filled_head()
+static uchar filled_head()
 {
 extern  servBOX SBOX;
 s_glue  GL;
@@ -1277,7 +1277,7 @@ uint16_t wup, wbot;
              if ( SBOX.dens <= 21 )
               return FH_Y_FILLED;
              {
-               BYTE i;
+               uchar i;
                for ( wbot = 32657, i = 0; i < WBOX * HBOX; i++ )
                 {
                   if ( wbot > SBOX.matrBOX.vect[i] )

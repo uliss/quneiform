@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "status.h"
@@ -77,8 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define NEW_PROBEL
 
 extern INT pitchsize;
-extern BYTE fax1x2;
-extern BYTE line_tabcell; // OLEG
+extern uchar fax1x2;
+extern uchar line_tabcell; // OLEG
 #define sp_min      897
 #define sp_min1     725
 #define sp_max      392
@@ -95,10 +95,10 @@ extern BYTE line_tabcell; // OLEG
 
 #define NBSMIN        5
 
-static BYTE dist[300];
+static uchar dist[300];
 
 // Перенес в функцию space_ligas() в конце модуля 29.08.2000 E.P.
-//static BYTE  leftlig[]={"ffffrr./fij!?Ў "},
+//static uchar  leftlig[]={"ffffrr./fij!?Ў "},
 //	     rightlig[]={"ilfiti/.lij!?Ў "};
 
 static INT sm,sp,spmin,spmax;
@@ -108,14 +108,14 @@ static Bool italic;
 static INT  gap;
 
 /* static void order();*/
-static INT delta(cell *,cell *,BYTE,BYTE);
+static INT delta(cell *,cell *,uchar,uchar);
 static INT vers1(cell *);
 static INT longtail(cell *);
 static INT notflatf(cell *,INT);
 static INT ser_g(cell *);
 static void insert_space(cell *,cell *,INT);
 
-static void space_ligas(BYTE *let1, BYTE *let2); // 29.08.2000 E.P.
+static void space_ligas(uchar *let1, uchar *let2); // 29.08.2000 E.P.
 
 void space_size(INT h)
 {
@@ -123,7 +123,7 @@ void space_size(INT h)
  uint16_t s,ss,s1,n1,n2,x[128],y[128],hist[128];
  LONG S;
  cell *c1,*c2,*c;
- BYTE str[2100],let1,let2,fl;
+ uchar str[2100],let1,let2,fl;
 
  snap_newpass('f');
 /* order();*/
@@ -261,7 +261,7 @@ void space_size(INT h)
 	if ( n > 298 )                       //AK! crash gurd fo dist[300]
 		n = 298;
 
-	dist[n++]=(BYTE)i;
+	dist[n++]=(uchar)i;
 
 	if (i<sm) sm=i;
 
@@ -733,12 +733,12 @@ static void order()
 #define d_sign          8        // between ? and !
 #define d_rus_lowered  10        // russian italic 'p' 'y'
 
-static INT delta(cell *c1,cell *c2,BYTE let1,BYTE let2)
+static INT delta(cell *c1,cell *c2,uchar let1,uchar let2)
  {
  cell *c3;
  INT d,dd;
  B_LINES bl;
- BYTE let0;
+ uchar let0;
 
  get_b_lines(c1,&bl);
  d=0;
@@ -1026,7 +1026,7 @@ static INT delta(cell *c1,cell *c2,BYTE let1,BYTE let2)
  if (language==LANG_FRENCH && let1=='l' && let2==0x27)
   d-=H/d_l_ast;
  if( language==LANG_RUSSIAN && ((c2->font|c2->font_new) & c_fp_it) &&
-     (let2==(BYTE)'а' || let2==(BYTE)'г'))
+     (let2==(uchar)'а' || let2==(uchar)'г'))
     d += H/d_rus_lowered;
 
  return d;
@@ -1043,7 +1043,7 @@ static INT vers1(cell *c)
 
 static INT longtail(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,dh,dw,i,j;
 
  r=save_raster(c);
@@ -1059,7 +1059,7 @@ static INT longtail(cell *c)
 
 static INT notflatf(cell *c,INT bm)
  {
- PBYTE r;
+ puchar r;
  INT l,i;
 
  r=save_raster(c);
@@ -1072,9 +1072,9 @@ static INT notflatf(cell *c,INT bm)
 
 static INT ser_g(cell *c)
  {
- PBYTE r;
+ puchar r;
  INT l,i,j,a1,a2,s;
- BYTE b;
+ uchar b;
 
  r=save_raster(c);
  l=(c->w+7)/8;
@@ -1093,7 +1093,7 @@ static INT ser_g(cell *c)
  return 0;
  }
 
-Bool enable_word(cell *c1,cell *c2,BYTE *word)
+Bool enable_word(cell *c1,cell *c2,uchar *word)
  {
    if( !strcmp("http",word) &&
         c2->nvers && c2->vers[0].let==':' )
@@ -1146,7 +1146,7 @@ void space_cell()
  {
  INT i,n,d;
  cell *c1,*c2;
- BYTE let1,let2,word[300],*wrd=&word[0];
+ uchar let1,let2,word[300],*wrd=&word[0];
 
  c1=cell_f();
  c2=c1->next;
@@ -1367,9 +1367,9 @@ if( p2_active  )
 void cont_space()
  {
  cell *c1,*c2,*c3,*c4,*c5;
- BYTE let1,let2,let3,let5;
+ uchar let1,let2,let3,let5;
  INT h,i,d,dd,d1,d2,cnt,ss;
- BYTE str[80],word[300],*wrd=&word[0];
+ uchar str[80],word[300],*wrd=&word[0];
  *wrd=0;
  if (pitchsize)
 	 return;
@@ -1747,9 +1747,9 @@ for ( c1=(cell_f())->next;
 	if (c4 == cell_l() )
 		break;
 
-	if ( c1->vers[0].let==(BYTE)'.' && c4->vers[0].let==(BYTE)'.' &&
+	if ( c1->vers[0].let==(uchar)'.' && c4->vers[0].let==(uchar)'.' &&
          ((let2=c2->vers[0].let)==0x1f || let2==0x1e ||
-         let2==(BYTE)' ' && c3->left-c1->right<h/2) &&
+         let2==(uchar)' ' && c3->left-c1->right<h/2) &&
          c3->flg&(c_f_let+c_f_bad) )
 		del_cell(c2);
 }
@@ -1760,17 +1760,17 @@ for (c1=(cell_f())->next; c1 != cell_l() && c1->next != cell_l(); c1=c1->next)
 	if ( c2 == cell_l() )
 		break;
 
-	if ( c1->vers[0].let == (BYTE)'-' &&
+	if ( c1->vers[0].let == (uchar)'-' &&
 		 c2->flg&c_f_space &&
-		 c2->vers[0].let != (BYTE)' ')
+		 c2->vers[0].let != (uchar)' ')
 	{
 		del_cell(c2);
 		continue;
 	}
 
 	if ( c1->flg&c_f_space &&
-		 c1->vers[0].let != (BYTE)' ' &&
-		 c2->vers[0].let == (BYTE)'-' )
+		 c1->vers[0].let != (uchar)' ' &&
+		 c2->vers[0].let == (uchar)'-' )
 		c1=del_cell(c1);
 }
 
@@ -1898,20 +1898,20 @@ return;
 }
 
 //
-static void space_ligas(BYTE *let1, BYTE *let2) // 29.08.2000 E.P.
+static void space_ligas(uchar *let1, uchar *let2) // 29.08.2000 E.P.
 {
-  BYTE c1=(let1)?(*let1):0,
+  uchar c1=(let1)?(*let1):0,
        c2=(let2)?(*let2):0;
 
-static BYTE  leftlig[]={"ffffrr./fij!?ба"},
+static uchar  leftlig[]={"ffffrr./fij!?ба"},
             rightlig[]={"ilfiti/.lij!?ба"};
 
-static BYTE  leftlig_cen[]={"ff"},
+static uchar  leftlig_cen[]={"ff"},
             rightlig_cen[]={"fl"};
 
-static BYTE rightlig_baltic[]={"ilfiti/.lrj!?"};
+static uchar rightlig_baltic[]={"ilfiti/.lrj!?"};
 
-static BYTE rightlig_turkish[]={"ilfiti/.lrj!?"};
+static uchar rightlig_turkish[]={"ilfiti/.lrj!?"};
 
   // Different codes for some ligas in Central Europe languages.
   if (is_cen_language(language))

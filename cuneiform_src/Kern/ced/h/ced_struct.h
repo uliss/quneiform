@@ -91,7 +91,7 @@ typedef struct edFrameDescr
 {
 	CEDParagraph* last;
 	EDBOX	rec;
-	BYTE position;
+	uchar position;
 	int borderSpace;
 	int dxfrtextx;
 	int dxfrtexty;
@@ -138,9 +138,9 @@ typedef struct edRowDescr
 
 typedef struct fontEntry
 {
-	BYTE fontNumber;
-    BYTE fontPitchAndFamily;
-    BYTE fontCharset;
+	uchar fontNumber;
+    uchar fontPitchAndFamily;
+    uchar fontCharset;
     char* fontName;
 }FONTENTRY;
 typedef struct pictEntry
@@ -148,8 +148,8 @@ typedef struct pictEntry
 	uint16_t pictNumber;
 	EDSIZE pictSize;
 	EDSIZE pictGoal;
-	BYTE pictAlign;
-	BYTE type;
+	uchar pictAlign;
+	uchar type;
         uint32_t len;
 	void* data;
 }PICTENTRY;
@@ -210,12 +210,12 @@ public:
 	int	GetNumberOfLines();
 	int	GetNumberOfChars();
 
-	Bool32 CreateFont(BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,
+	Bool32 CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
 				char* fontName);
-	Bool32 GetFont(int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,
+	Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
 				char** fontName);
 
-	int GetFontByNum(BYTE fontNumber);
+	int GetFontByNum(uchar fontNumber);
 
 	Bool32 CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len);
 

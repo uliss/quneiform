@@ -54,8 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "c_types.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -208,7 +206,7 @@ Bool32 SmallSymbol(int i)
   return FALSE;
 }
 /////////////
-Bool32 is_czech_special(BYTE let)
+Bool32 is_czech_special(uchar let)
 {
 return (
      let == AA_right_accent || let == a_right_accent	||
@@ -229,7 +227,7 @@ return (
     );
 }
 ///////////////
-Bool32 is_roman_special(BYTE let)
+Bool32 is_roman_special(uchar let)
 {
 return (
      let == AA_semicircle    || 	let == a_semicircle		||
@@ -240,7 +238,7 @@ return (
     );
 }
 ////////////////////
-Bool32 is_hungar_special(BYTE let)
+Bool32 is_hungar_special(uchar let)
 {
 return (
      let == AA_right_accent || 		let == a_right_accent ||
@@ -252,7 +250,7 @@ return (
     );
 }
 /////////////////
-Bool32 is_latvian_special(BYTE let)
+Bool32 is_latvian_special(uchar let)
 {
 return (
      let == AA_macron			||let == a_macron			||
@@ -270,7 +268,7 @@ return (
     );
 }
 ////////////////
-Bool32 is_lithuanian_special(BYTE let)
+Bool32 is_lithuanian_special(uchar let)
 {
 return (
      let == AA_bottom_accent	|| 	let == a_bottom_accent	||
@@ -286,7 +284,7 @@ return (
     );
 }
 //////////////
-Bool32 is_estonian_special(BYTE let)
+Bool32 is_estonian_special(uchar let)
 {
 return (
      let == AA_2dot_accent		|| 	let == a_2dot_accent		||
@@ -299,7 +297,7 @@ return (
     );
 }
 ////////////////////////////
-Bool32 is_turkish_special(BYTE let)
+Bool32 is_turkish_special(uchar let)
 {
 return (
      let == AA_roof_accent			|| 	let == a_roof_accent			||
@@ -325,33 +323,33 @@ Bool32 NotStandardSymbol(int i)
 	  if(i>= 0xC0 && i < 0xDE )
 		  return TRUE;
 
-	  if( is_roman_special((BYTE)i) )
+	  if( is_roman_special((uchar)i) )
 		  return TRUE;
 
 	  switch(language)
 	  {
 	   case LANG_HUNGAR:
-		   if( is_hungar_special((BYTE)i) )
+		   if( is_hungar_special((uchar)i) )
 		      return TRUE;
 		   break;
        case LANG_CZECH:
-		   if( is_czech_special((BYTE)i) )
+		   if( is_czech_special((uchar)i) )
 		      return TRUE;
 		   break;
 	   case LANG_LITHUANIAN:
-		   if( is_lithuanian_special((BYTE)i) )
+		   if( is_lithuanian_special((uchar)i) )
 		      return TRUE;
 		   break;
        case LANG_LATVIAN:
-		   if( is_latvian_special((BYTE)i) )
+		   if( is_latvian_special((uchar)i) )
 		      return TRUE;
 		   break;
        case LANG_ESTONIAN:
-		   if( is_estonian_special((BYTE)i) )
+		   if( is_estonian_special((uchar)i) )
 		      return TRUE;
 		   break;
        case LANG_TURKISH:
-		   if( is_turkish_special((BYTE)i) )
+		   if( is_turkish_special((uchar)i) )
 		      return TRUE;
 		   break;
 

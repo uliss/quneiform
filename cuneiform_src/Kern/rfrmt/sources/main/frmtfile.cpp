@@ -387,8 +387,8 @@ void CFragment::AddString( CSTR_line* Comingline, PageElementCount* Count)
  CSTR_attr line_attr;
  CFString* String;
  RECT     TmpRect,*PrevStringRect;
- BYTE      Flag_Continuation_Strings = FALSE;
- BYTE      dist;
+ uchar      Flag_Continuation_Strings = FALSE;
+ uchar      dist;
 
  if(CheckLineForFilling(Comingline)==FALSE)
 	return;

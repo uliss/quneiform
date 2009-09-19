@@ -139,7 +139,7 @@ FON_FUNC(int32_t) FONEndSnap(void)
 	return 1;
 }
 ////////////////////
-int PutNamesSnap(int nvar, BYTE *names, int *probs) {
+int PutNamesSnap(int nvar, uchar *names, int *probs) {
 	int i;
 
 	memset(recogResult, 0, sizeof(recogResult));
@@ -164,11 +164,11 @@ int AddRasterToSnap(RecRaster *rr, int num) {
 	return 1;
 }
 //////////////
-int AddBitmapToSnap(BYTE *buf, int xbit, int yrow, int name, int dist) {
+int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
 	int bytesx = ((xbit + 63) / 64) * 8;
 	int xbyte = (xbit + 7) >> 3;
 	RecRaster *recRas;
-	BYTE *ras;
+	uchar *ras;
 
 	if (!IsSnap)
 		return 0;
@@ -214,8 +214,8 @@ static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) 
 	int hei = rr->lnPixHeight;
 	int xbyte = ((wid + 63) / 64) * 8;
 	int step, x, y;
-	BYTE cc;
-	BYTE *buf = rr->Raster;
+	uchar cc;
+	uchar *buf = rr->Raster;
 
 	step = MIN(sx / wid, sy / hei);
 	if (step < 3)

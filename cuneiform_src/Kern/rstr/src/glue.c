@@ -58,7 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -70,12 +69,11 @@ static INT h1,h2, h10, h20;
 static INT y1,y2;
 struct int_s *int1;
 struct int_s *int2;
-/*** static testcnt=0; ***/
 static lnhead *lp1;
 static lnhead *lp2;
 static int pass;
 static INT gi1l,gi1e,gh1;
-static BYTE can_glue;
+static uchar can_glue;
 static INT gi2l,gi2e,gh2;
 static INT gs1l,gs1e,sh1;
 static INT gs2l,gs2e,sh2;
@@ -84,7 +82,7 @@ static INT rastur,rastlc;
 static INT maxh, maxw;
 static INT c1ur,c1lc;
 static INT c2ur,c2lc;
-static BYTE raster[128*64/8];
+static uchar raster[128*64/8];
 static INT arg_dist;
 
 static void comptorast(c_comp *);

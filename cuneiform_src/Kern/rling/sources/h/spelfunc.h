@@ -62,30 +62,30 @@
 #ifndef __SPEL_FUNCS_H__
 #define __SPEL_FUNCS_H__
 
-#include "nt_types.h"
+
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 /*** TG_SPELL ***/
 
-LONG read_all_file(PSTR name, char *buff); /* atal  .lib */
-LONG write_all_file(PSTR name, char *, uint32_t size);
+LONG read_all_file(char * name, char *buff); /* atal  .lib */
+LONG write_all_file(char * name, char *, uint32_t size);
 /*** SPELABC  ***/
 
 void initcode(void);
 void initstdn(void);
-BYTE _2cap(BYTE c);
-BYTE _2low(BYTE c);
+uchar _2cap(uchar c);
+uchar _2low(uchar c);
 void dectable_init(void);
 Bool InitializeAlphabet(INT CountryCode);
-Bool IsVowel(BYTE c);
+Bool IsVowel(uchar c);
 
 /*** SPELSPEC ***/
 
-BYTE * load_specABC(BYTE *point, INT Country);
+uchar * load_specABC(uchar *point, INT Country);
 INT check_art_dict(char word[], INT * wordlth, INT * vockind);
-INT test_apppostrof(BYTE word[], SWORD *wrd, INT *l, INT *r);
+INT test_apppostrof(uchar word[], SWORD *wrd, INT *l, INT *r);
 
 /*** SPELLFUN ***/
 
@@ -145,7 +145,7 @@ INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
 
 /*** EDFORMAT ***/
 
-INT begin(BYTE batch_run);
+INT begin(uchar batch_run);
 struct segm * next_line(char tt, struct segm *cur_segm);
 void skip_letter_in_line(struct segm *segm_ptr, INT x);
 void shift(char dir, INT v_s, struct segm *cur_segm, char *cur_symb);
@@ -157,7 +157,7 @@ void puff_last_segm(void);
 
 /*** NEXT_SYM ***/
 
-BYTE * next_symb(INT i, INT j, INT k, struct segm *cur_segm, BYTE * cur_symb);
+uchar * next_symb(INT i, INT j, INT k, struct segm *cur_segm, uchar * cur_symb);
 void create_new_stack(void);
 INT check_free_mem(void);
 
@@ -183,11 +183,11 @@ void init_stat_dict(struct dict_state *);/* in_treei.c */
 
 // 08-13-93 08:59pm, Mike
 // Second parameter has been removed.
-BYTE * load_stat_dict(char *point);
+uchar * load_stat_dict(char *point);
 
 // 08-13-93 09:00pm, Mike
 // Return type has been changed.
-void load_user_dicts(PSTR list_name, char * point);
+void load_user_dicts(char * list_name, char * point);
 
 LONG read_all_voc(INT seqn, char *name, char *p);
 
@@ -206,7 +206,7 @@ INT stat_replacements(SOBJ *obj);
 #endif
 
 /*** IOED_TF ~~ IOED_TST  ***/
-INT read_file(BYTE batch_run);
-INT save_ed_file(BYTE batch_run);
+INT read_file(uchar batch_run);
+INT save_ed_file(uchar batch_run);
 
 #endif    //#ifndef __SPEL_FUNCS_H__

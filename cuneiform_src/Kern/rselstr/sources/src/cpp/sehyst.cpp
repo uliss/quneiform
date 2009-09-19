@@ -108,7 +108,7 @@ void BlocksHystogramsBuild (void)
 
 # ifdef SE_DEBUG
         if (pRoot -> nBlock > nBlocks)
-            ErrorInternal ((PSTR)"Bad number of blocks");
+            ErrorInternal ((char *)"Bad number of blocks");
 # endif
 		if (IS_LAYOUT_DUST (*pRoot))
             continue;

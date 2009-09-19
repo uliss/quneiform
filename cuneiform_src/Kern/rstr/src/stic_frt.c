@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	mk_80_for_CUT	80
 /*----------------------------------------------------------------------*/
 
-#include "nt_types.h"
+
 
   #include <stdlib.h>
   #include <string.h>
@@ -70,12 +70,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "ligas.h"
   #include "tuner.h"
 #include "minmax.h"
-extern BYTE multy_language;
+extern uchar multy_language;
 
 extern INT pitchsize ;
 
 extern INT nIncline  ;
-extern BYTE fax1x2;	// MK NEW 05.01.1993
+extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 /*......................................................................*/
@@ -112,7 +112,7 @@ INT	dis_f (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 INT	i, dis=0, t, lm, rm, dy=s->height;
 INT	lf=l->num_flags, lc=l->num_concs, rf=r->num_flags;
 INT	wid=s->stick_width, inc=s->inc;
-BYTE	Flag_bad_overlay=0;	// MK
+uchar	Flag_bad_overlay=0;	// MK
 
 if ( s->l_f_symptom>1 && s->r_f_symptom>1 )  return(0);	/* good symptoms */
 
@@ -357,7 +357,7 @@ if ((r->down_serif || r->mount[4]>2) && l->down_serif==0 ||	// 07.01.1994
 		dis += tab_r[6] ;	// too different down flags	// 4
 //////	if( l->mount[4]==0 && r->mount[4]>1 )
 	if (l->mount[4]==0 && r->mount[4] > (inc ? 2 : 1))  {	// 20.11.1993
-static	BYTE	OTL_similar_t=0;
+static	uchar	OTL_similar_t=0;
 		dis += tab_r[10];					// 20
 //////		if (r->mount[4]>wid)		// 07.01.1994 similar 't'
 		if (r->mount[4]>wid &&		// 07.01.1994 similar 't'

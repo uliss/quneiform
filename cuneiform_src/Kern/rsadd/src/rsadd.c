@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leodefs.h"
 #include <stdlib.h>
 #define etap_name 'g'
-#define BYTE    uchar
+#define uchar    uchar
 #include "ligas.h"
 #include "minmax.h"
 
@@ -1036,7 +1036,7 @@ CSTR_rast_attr  a;
 UniVersions     u;
 
 // Nick 29.10.2000 - remove left, right terms
-BYTE left_terms[]="<(\"\'/[",
+uchar left_terms[]="<(\"\'/[",
      right_terms[]="/)>]\"!\';?\x1e\x1f";
 Bool32 wasRight;
 int    nlet;

@@ -61,7 +61,7 @@ extern "C" {
 #include "wind32.h"
 #include "recdefs.h"
 
-//typedef unsigned char BYTE;
+//typedef unsigned char uchar;
 
 
 #define SUB_ZN
@@ -121,28 +121,28 @@ SRECT {int left,top,right,bottom;};
 #define LEN_START 3
 COOR_COMP
 {
-	BYTE  start_pos[LEN_START];
-	BYTE  buf;
+	uchar  start_pos[LEN_START];
+	uchar  buf;
 	short lenght;
 };
-TITLE_ZN { BYTE Z_Code; // identification code header (= 0)
+TITLE_ZN { uchar Z_Code; // identification code header (= 0)
            ID_SYM Z_Id; // identification code
-           BYTE Z_Gen;  //Родословная знакоместа
+           uchar Z_Gen;  //Родословная знакоместа
            SRECT Z_Rect;// Frame
            SRECT Z_RealRect;// Real frame
-           BYTE Z_Num_Alt;// # of alternatives
-           BYTE Z_NumComp;
+           uchar Z_Num_Alt;// # of alternatives
+           uchar Z_NumComp;
            #ifdef CMP
             COOR_COMP CoorComp;// Address components (component)
            #endif
          };
-ALT_ZN { BYTE a_Code; //Код символа
-         BYTE a_Base; //Номер базы
-         BYTE a_Prob;
-         BYTE a_language;
-         BYTE a_SpellNoCarrying;
-         BYTE a_FlagCupDrop;
-         BYTE a_Spell;
+ALT_ZN { uchar a_Code; //Код символа
+         uchar a_Base; //Номер базы
+         uchar a_Prob;
+         uchar a_language;
+         uchar a_SpellNoCarrying;
+         uchar a_FlagCupDrop;
+         uchar a_Spell;
          float a_Dist;//Дефект распознавания
        };
 ZN { TITLE_ZN Title;     //Заголовок знакоместа
@@ -150,18 +150,18 @@ ZN { TITLE_ZN Title;     //Заголовок знакоместа
    };
 
 W_GEN { uint16_t W_NumSym; //Число символов
-        BYTE W_Spell;  //Spell-Check
-        BYTE Reserv[2];
+        uchar W_Spell;  //Spell-Check
+        uchar Reserv[2];
 		uint16_t FontNumber;
 		uint16_t FontSize;
       };
-ALT_SPELL { BYTE Len; //Длина подсказки с завершающим \0 (счет - с 1)
-            BYTE Reserv;
+ALT_SPELL { uchar Len; //Длина подсказки с завершающим \0 (счет - с 1)
+            uchar Reserv;
             int  Penalty;//Штраф в метрике SPELL до данной альтернативы
             char *Alt; //Сама альтернатива - строка в формате С
           };
 
-TITLE_WORD { BYTE Z_Code; //Опознавательный код заголовка (=1)
+TITLE_WORD { uchar Z_Code; //Опознавательный код заголовка (=1)
              W_GEN W_Gen; //Родословная слова
              //SRECT W_Rect;//Рамка
              int NumAltSpell; //Число подсказок
@@ -169,30 +169,30 @@ TITLE_WORD { BYTE Z_Code; //Опознавательный код заголов
              ALT_SPELL *AltSpell;//Подсказки
              uint16_t W_Attr; //Атрибуты слова
              #ifndef ID4
-              BYTE Dummy[DELTA_TITLE];
+              uchar Dummy[DELTA_TITLE];
              #endif
            };
 
 S_GEN {
 			uint16_t S_NumWord;//Число слов в строке
-		    BYTE HeadLine;
-			BYTE Reserv[2];
+		    uchar HeadLine;
+			uchar Reserv[2];
       };
 
 TITLE_STR {
-			BYTE     Z_Code;       //Опознавательный код заголовка (=2)
+			uchar     Z_Code;       //Опознавательный код заголовка (=2)
             S_GEN    S_Gen;        //Родословная строки
             SRECT    S_Rect;       //Base Line
 			SRECT    S_Real_Rect;  //Координаты строки
             uint16_t     S_Attr;       //Атрибуты строки
 			uint32_t   S_Flags;      //NEGA_STR vmk 10-06-2001
             #ifndef ID4
-				BYTE Dummy[DELTA_TITLE];
+				uchar Dummy[DELTA_TITLE];
             #endif
           };
 RECOG_MODES
 {
-	BYTE s[10];
+	uchar s[10];
 };
 
 //Стр-ры описания узлов дерева колонок в файле
@@ -218,12 +218,12 @@ uint32_t dNumZ;  //Количество знакомест в файле
 uint32_t FntNameOffset;//Смещение секции имен баз в файле
 uint32_t ColOffset;//Смещение секции колонок в файле
 uint32_t ZOffset;  //Смещение секции знакомест в файле
-  BYTE ProcSpell;//Признак обработки Spell
-  BYTE Reserv_1;
+  uchar ProcSpell;//Признак обработки Spell
+  uchar Reserv_1;
   uint16_t nWord;    // Число слов
   uint16_t nStr;     // Число строк
-  BYTE Reserv[26];
-  //BYTE *Reserv;//malloc(size=wFHSize-46)
+  uchar Reserv[26];
+  //uchar *Reserv;//malloc(size=wFHSize-46)
 };
 #pragma pack(2)
 #define PAR_FUL struct h_par_ful
@@ -261,7 +261,7 @@ uint32_t IntervalTimer;
 //---Прототипы функций
 //int OpenFullOut(char *FileName);
 //int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncOut);
-BYTE KoderSym(BYTE Base,BYTE Kod);
+uchar KoderSym(uchar Base,uchar Kod);
 int PASC GenFullTxt(char *FileNameFul,char *FileNameOut);
 int AnalysLocationPairRect(SRECT b1,SRECT b2);
 int BelongPointRect(SRECT b1,int x,int y);
@@ -297,7 +297,7 @@ int TstCarry(int nc,int ns,int nw);
 //int init_ful();
 int AllowWordLang(uchar *word,int CodLang);
 int TstCarry(int nc,int ns,int nw);
-int PutStructAltSpell(BYTE *buf,uint16_t  *Dist,TITLE_WORD *t);
+int PutStructAltSpell(uchar *buf,uint16_t  *Dist,TITLE_WORD *t);
 int InsertWord(int nc,int ns,int nw,ZN *zi,int kz);
 //int TstNameOwr(uchar LastCod,uchar FirstCod);
 //uchar GetAlt(int nc,int ns,int nw,int nz,int na);
@@ -311,7 +311,7 @@ int NormParSpellOCR(ZN *z,int kz,int flo,uint16_t *reinst,uint16_t *reinstb,uint
     uint16_t *reelse,uint16_t *reunknow,float *del,uint16_t *porog);
 int Norm2ParSpellOCR(ZN *z,int kz,int flo,uint16_t *reinst,uint16_t *reinstb,uint16_t *redel,
     uint16_t *reelse,uint16_t *reunknow,float *del,uint16_t *porog);
-int FindWord(int flo,ZN *z,BYTE *word,BYTE *buf,uint16_t *DistMin,uint16_t *porog1,
+int FindWord(int flo,ZN *z,uchar *word,uchar *buf,uint16_t *DistMin,uint16_t *porog1,
 TITLE_WORD *t,uint16_t MaxAltSpell);
 //void SetTimerOwn(DWORD NumMs);
 //int PASCAL _export killOwn(void);
@@ -319,7 +319,7 @@ TITLE_WORD *t,uint16_t MaxAltSpell);
 int CloseSpell(void);
 int PASC SpellOneWord(uchar *in,uchar *out,int MaxAltSpell);
 int PASC CorrOneWord(uchar *in,uchar *out,
-         BYTE LastCod,int fl_all,int HeadLine,SRECT *bnds);
+         uchar LastCod,int fl_all,int HeadLine,SRECT *bnds);
 //--SpelNewOneWord--
 typedef int (CALLBACK *FUNC_GEN_FULWORD)(ID_SYM id,ZN *z,int MaxZn);
 //int  PASC InitOneSpell(FUNC_GEN_FULWORD AddrFuncGenFulWord);
@@ -359,7 +359,7 @@ void image_r(SRECT *b);
 #define MAX_CLUST_ONE 9
 #define MAX_ELEM_CLUST 19
 
-typedef int (*REGLE)(BYTE kod);
+typedef int (*REGLE)(uchar kod);
 
 #define FEAT_LET struct h_feat_let
 FEAT_LET
@@ -373,29 +373,29 @@ FEAT_LET
   uint DelimSubWord:1;// - ( ) [ ] { } " '
   uint IndCl:6;//Индекс кластера перепутыванмя,если > 0
   uint Reserv:2;
-  //BYTE RusLat;//Коды сходных по написанию букв др.яз. или 0
+  //uchar RusLat;//Коды сходных по написанию букв др.яз. или 0
 };
 
 //int Init_FeatLet(void);
 uchar Get1Alt(ZN *z,int na);
 int GetFeatLet(ZN *z,int fl_all,int fl_Ext,REGLE Regle);
-int R_Chif(BYTE cod);
-int R_Let (BYTE cod);
-int R_Rus (BYTE cod);
-int R_Lat (BYTE cod);
-int R_Upp (BYTE cod);
-int R_Low (BYTE cod);
+int R_Chif(uchar cod);
+int R_Let (uchar cod);
+int R_Rus (uchar cod);
+int R_Lat (uchar cod);
+int R_Upp (uchar cod);
+int R_Low (uchar cod);
 int TestWordFeat(ZN *z,int kz, int fl_all,REGLE Regle1, REGLE Regle2);
 int TestWordChifLet(ZN *z,int kz,int fl_all);
 int TestWordLang(ZN *z,int kz,int fl_all);
 int CorrFeat(ZN *z,int kz,REGLE Regle);
 int CorrWordChifLet(ZN *z,int kz,int fl_all);
 int CorrWordLang(ZN *z,int kz,int fl_all);
-int CorrWord(ZN *z,int kz,BYTE LastCod,int fl_all,int HeadLine,SRECT *bnds);
+int CorrWord(ZN *z,int kz,uchar LastCod,int fl_all,int HeadLine,SRECT *bnds);
 int TestStickUpp(ZN *z,SRECT *bnds);
 int GetFeatShift(ZN *z,int fl_all,SRECT *bnds);
 int TestWordShift(ZN *z,int kz,int fl_all,SRECT *bnds);
-int CorrWordShift(ZN *z,int kz,BYTE LastCod,int fl_all,int fl_bnd,int fl_ExtAlt,
+int CorrWordShift(ZN *z,int kz,uchar LastCod,int fl_all,int fl_bnd,int fl_ExtAlt,
     int Lang,int HeadLine,SRECT *bnds);
 int CorrShift(ZN *z,int flUppLow,int fl_bnd,int fl_ExtAlt,int fl_all,int Lang,
     int PosWord,SRECT *bnds);
@@ -452,7 +452,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   //char AlphabetAllow[256];
   char WordOne[256];
   uchar Upper[256],Lower[256],UppLow[256],UppLowOther[256],EndSentence[256];
-  BYTE KoderRus[256],KoderLat[256];
+  uchar KoderRus[256],KoderLat[256];
   int FlCarryStr;
   #ifdef FUL
    // svocabg far *ParSpell;
@@ -462,9 +462,9 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   int MaxValue;
   //--КОРРЕКТОР ПО ОДНОРОДНОСТИ
   FEAT_LET FeatLet[256];
-  BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
+  uchar **ClustOCR;int K_Clust;//Кластеры перепутывания
   //---WORK---
-  BYTE buf[1024],buf1[1024];
+  uchar buf[1024],buf1[1024];
 */
 #else
   //---Из секции колонок---
@@ -496,7 +496,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   //extern char AlphabetAllow[256];
   extern char WordOne[256];
   extern uchar Upper[256],Lower[256],UppLow[256],UppLowOther[256],EndSentence[256];
-  extern BYTE KoderRus[256],KoderLat[256];
+  extern uchar KoderRus[256],KoderLat[256];
   extern int FlCarryStr;
   #ifdef FUL
  // extern svocabg far *ParSpell;
@@ -506,9 +506,9 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   extern int MaxValue;
   //--КОРРЕКТОР ПО ОДНОРОДНОСТИ
   extern FEAT_LET FeatLet[256];
-  extern BYTE **ClustOCR;extern int K_Clust;
+  extern uchar **ClustOCR;extern int K_Clust;
   //---WORK---
-  extern BYTE buf[1024],buf1[1024];
+  extern uchar buf[1024],buf1[1024];
 #endif
 void FreeClustOCR(void);
 //#ifdef BLANK
@@ -524,9 +524,9 @@ int CorrCol5_7(int nc);
 //#endif
 //Изменения Ful-формата
 // 1.В заголовке файла после поля ZOffset (смещение секции знакомест)
-// добавилось поле BYTE ProcSpell;//Признак обработки Spell
+// добавилось поле uchar ProcSpell;//Признак обработки Spell
 // 2. После чтения OpenFul вместо поля W_Rect (8 байт) в TitleWord - другие поля
-//TITLE_WORD { BYTE Z_Code; //Опознавательный код заголовка (=1)
+//TITLE_WORD { uchar Z_Code; //Опознавательный код заголовка (=1)
 //             W_GEN W_Gen; //Родословная слова
 //             //SRECT W_Rect;//Рамка
 //             int NumAltSpell; //Число подсказок
@@ -534,8 +534,8 @@ int CorrCol5_7(int nc);
 //             ALT_SPELL *AltSpell;//Подсказки
 //             uint16_t W_Attr; //Атрибуты слова
 //           };
-//ALT_SPELL { BYTE Len; //Длина подсказки с завершающим \0 (счет - с 1)
-//            BYTE Reserv;
+//ALT_SPELL { uchar Len; //Длина подсказки с завершающим \0 (счет - с 1)
+//            uchar Reserv;
 //            int  Penalty;//Штраф в метрнике SPELL до данной альтернативы
 //            char *Alt; //Сама альтернатива - строка в формате С
 //          };

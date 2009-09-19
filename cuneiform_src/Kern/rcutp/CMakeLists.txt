@@ -1,4 +1,4 @@
-include_directories(sources/main)
+include_directories(BEFORE sources/main)
 
 add_library(rcutp ${LIBTYPE}
 ${SNP_SRC}

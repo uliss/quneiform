@@ -72,7 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -81,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern servBOX SBOX;
 extern INT best_answer_BOX;
 
-void min3(v_val *a, BYTE b, v_val *c)
+void min3(v_val *a, uchar b, v_val *c)
  {
 Z = &string;
 // insert value 'b' in proper place of vector 'a'; vector 'c' -- target
@@ -291,7 +290,7 @@ INT rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
  CSTR_rast_attr attr;
  c_comp *env;
 
- extern PBYTE kit_curr;
+ extern puchar kit_curr;
 
  cmp = CSTR_GetComp(B1);
  CSTR_GetAttr(B1,&attr);

@@ -87,7 +87,7 @@
 
 #include "compat_defs.h"
 
-static int recog_raster(BYTE *r, uint16_t fullBytes, uint16_t w, uint16_t h,
+static int recog_raster(uchar *r, uint16_t fullBytes, uint16_t w, uint16_t h,
 		FONBASE *fonba, RECRESULT *recres, int maxNames, int inCTB, int col,
 		int row);
 static int DiskriminatorTest(void);
@@ -148,7 +148,7 @@ static int CheckFileClu(char *name) {
 	access_tab act;
 	long ln;
 	int fh;
-	BYTE *mem = NULL;
+	uchar *mem = NULL;
 	welet *end;
 
 	if ((fh = open(name, O_RDONLY | O_BINARY)) == -1)
@@ -705,7 +705,7 @@ FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *attr,int
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+	SINT CheckClu(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
 			FONBASE *fbase,int let,FonTestInfo *attr,int16_t nInCTB);
 
 	if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
@@ -723,7 +723,7 @@ FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,uchar let,FonTestInfo *att
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	int CheckRaster(PBYTE r,uint16_t fullBytes,uint16_t w,uint16_t h,
+	int CheckRaster(puchar r,uint16_t fullBytes,uint16_t w,uint16_t h,
 			int let,FonTestInfo *attr);
 
 	if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
@@ -866,14 +866,14 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 //  Recognition itself
 //
 ////////////////////////////////////////////
-//static uint16_t  (*_cmp)(PBYTE r,uint16_t h,uint16_t w,welet * wl,INT xo,INT yo);
+//static uint16_t  (*_cmp)(puchar r,uint16_t h,uint16_t w,welet * wl,INT xo,INT yo);
 
 ///////////////////////
-SINT cmp0(PBYTE r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT xo, SINT yo) {
+SINT cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT xo, SINT yo) {
 	LONG n, ac, np;
 	pchar curr;
 	SINT i, j, jj;
-	BYTE cbyte, cc;
+	uchar cbyte, cc;
 	SINT rbyte;
 	int avr;
 
@@ -913,10 +913,10 @@ SINT cmp0(PBYTE r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT x
 }
 ///////////////////////
 // _cmp = cmpMMX  - was in Tiger
-static SINT (*_cmp)(PBYTE r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, SINT xo,
+static SINT (*_cmp)(puchar r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, SINT xo,
 		SINT yo) = cmp0;
 ///////////
-uint16_t cmp(PBYTE r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
+uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
 	uint16_t best, east, west, north, south, center;
 	int lbest; // local best
 
@@ -958,7 +958,7 @@ uint16_t cmp(PBYTE r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
 }
 
 ///////////////////////////
-int recogWelet(PBYTE r, uint16_t fullRow, uint16_t w, uint16_t h, welet * wl) {
+int recogWelet(puchar r, uint16_t fullRow, uint16_t w, uint16_t h, welet * wl) {
 	if (!(wl->attr & FON_CLU_SOLID))
 		return 0; // suspect cluster
 		//   if(! can_compare(wl))          return ver; // prevent rec letter by itself
@@ -979,7 +979,7 @@ int recogWelet(PBYTE r, uint16_t fullRow, uint16_t w, uint16_t h, welet * wl) {
 }
 ///////////////////////
 ///////
-int AddVersion(RECRESULT *recres, BYTE let, BYTE rec, int nClust, int num,
+int AddVersion(RECRESULT *recres, uchar let, uchar rec, int nClust, int num,
 		int maxNames) {
 	int j, k;
 
@@ -1022,7 +1022,7 @@ int AddVersion(RECRESULT *recres, BYTE let, BYTE rec, int nClust, int num,
 	return num;
 }
 //////////////
-int recog_raster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *fonba,
+int recog_raster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *fonba,
 		RECRESULT *recres, int maxNames, int inCTB, int col, int row) {
 	int i;
 	welet *wel;
@@ -1042,12 +1042,12 @@ int recog_raster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *f
 		if ((rec = recogWelet(r, fullBytes, w, h, wel)) < POROG_GOOD)
 			continue;
 
-		num = AddVersion(recres, (BYTE) wel->let, (BYTE) rec, i, num, maxNames);
+		num = AddVersion(recres, (uchar) wel->let, (uchar) rec, i, num, maxNames);
 	}
 	return num;
 }
 /////////////////////
-int CheckRaster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
+int CheckRaster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
 		FonTestInfo *attr) {
 	int i;
 	int num = 0;
@@ -1085,7 +1085,7 @@ int CheckRaster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
  static uint16_t id=1971;
  welet * wl;
  uint16_t nvers=0,nrec;
- BYTE index[16],*ndx;
+ uchar index[16],*ndx;
  PWORD lp;
 
 
@@ -1114,7 +1114,7 @@ int CheckRaster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
  if(nvers==0 || answ[0].prob < PROB_OK )
  {
  uint32_t i,nindexes;
- BYTE like[16];
+ uchar like[16];
  for(nindexes=ndx-index,i=0;i<nindexes;i++)
  {
  get_most_likely(index[i],like); // get all close indexes
@@ -1149,7 +1149,7 @@ int CheckRaster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
 FON_FUNC(int32_t) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
 		int movx,int movy)
 {
-	int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
+	int CompareCluster(uchar *rast,int xbyte,int xbit,int yrow,welet *wel,
 			int movex,int movey);
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -1191,7 +1191,7 @@ FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,R
 	int starty;
 	int i,j;
 	welet *wel;
-	BYTE *rr1,maska;
+	uchar *rr1,maska;
 
 	if( fonbase.inBase <= 0 ||
 			fonbase.start == NULL ) return -10;
@@ -1292,7 +1292,7 @@ static int DiskriminatorTest(void)
 
 		memset(&collect,0,sizeof(RecVersions));
 		collect.lnAltCnt=1;
-		collect.Alt[0].Code=(BYTE)wel->let;
+		collect.Alt[0].Code=(uchar)wel->let;
 		collect.Alt[0].Prob=255;
 		rett = DIFPenaltyChar(&myRaster,&collect);
 		if(rett==FALSE)
@@ -1313,14 +1313,14 @@ static int DiskriminatorTest(void)
 FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
 		int32_t *recBounds)
 {
-	SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
-			BYTE *probs,SINT maxNames,welet *wl,int numWel,
+	SINT RecogCluBound(uchar *rast,SINT xbyte,SINT xbit,SINT yyrow,uchar *names,
+			uchar *probs,SINT maxNames,welet *wl,int numWel,
 			int *bounds,int countRazmaz);
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	BYTE names[REC_MAX_VERS];
-	BYTE probs[REC_MAX_VERS];
+	uchar names[REC_MAX_VERS];
+	uchar probs[REC_MAX_VERS];
 
 	memset(collection,0,sizeof(RecVersions));
 
@@ -1347,14 +1347,14 @@ FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
 ///////////////////
 FON_FUNC(int32_t) FONRecogKley(RecRaster *recRast,RecVersions *collection)
 {
-	int KleyRecog(BYTE *inBuf,int xbyte,int xbit, int yrow,
+	int KleyRecog(uchar *inBuf,int xbyte,int xbit, int yrow,
 			welet *wl,int numWel,int porog,
-			BYTE *names,BYTE *probs,int maxNames);
+			uchar *names,uchar *probs,int maxNames);
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	BYTE names[REC_MAX_VERS];
-	BYTE probs[REC_MAX_VERS];
+	uchar names[REC_MAX_VERS];
+	uchar probs[REC_MAX_VERS];
 
 	memset(collection,0,sizeof(RecVersions));
 
@@ -1613,7 +1613,7 @@ FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpec
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
 	int16_t col,row;
-	int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+	int RecogCluOkr(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,
 			welet *wl,int numWel,
 			int porog ,int nInCTB, int16_t col, int16_t row,
@@ -1705,7 +1705,7 @@ FON_FUNC(int32_t) FONCompareOkrRasterCluster(RecRaster *recRast,int numWelet,
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
+	int CompareClusterOkr(uchar *rast,int xbyte,int xbit,int yrow,welet *wel,
 			int movex,int movey,int okr,int proc,
 			int *dist1,int *dist2);
 
@@ -1731,7 +1731,7 @@ FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSp
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
 	int16_t col,row;
-	int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+	int RecogCluInner(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,
 			welet *wl,int numWel,
 			int nInCTB, int16_t *col, int16_t *row);

@@ -58,18 +58,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef __MAC__
-//#include <bios.h>
-#endif
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "cut_glue.h"
 #include "dmconst.h"
 #include "linutil.h"
 
- extern BYTE db_status;  // snap presence byte
- extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+ extern uchar db_status;  // snap presence byte
+ extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 
 //юс∙шх ярЁрьхЄЁ√ ёъыхщъш
  static cell *LC;                  //cell ёыхтр юЄ ёъыхщъш
@@ -90,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  static INT iemax;       //яЁртр  уЁрэшЎр
  static char right_dust; //Їыру: ёяЁртр dust (тюьюцэю Єюўър шыш чря Єр )
  static char fl_b;       //Їыру: яЁш фтшцхэшш ёыхтр тёЄЁхЄшыё  "№"
- static BYTE connect_;    //Їыру Ёхцшьр яю ёт чэ√ь ъюьяюэхэЄрь
+ static uchar connect_;    //Їыру Ёхцшьр яю ёт чэ√ь ъюьяюэхэЄрь
 
  static INT w1,w2,h2;
 
@@ -123,7 +119,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
 {
   INT i,j,x;
   INT i1,i2;
-  BYTE let;
+  uchar let;
   INT cc;
   struct cut_elm *cut;
   SVERS *vers;
@@ -159,9 +155,9 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
     cut=cut_list+ib2;
     if (cut->duflm)
 		addij(LC,r,cut_list,vers_list,ncut,ib1,ib2,0);
-    if ((let=cut->versm.vers[0].let)==(BYTE)'ь' &&
+    if ((let=cut->versm.vers[0].let)==(uchar)'ь' &&
 			!is_russian_baltic_conflict(let) ||		// 17.07.2001 E.P.
-			let==(BYTE)'Ь'
+			let==(uchar)'Ь'
 	   )
       fl_b=1;
   }
@@ -280,7 +276,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
         {
           j=on_path(ir,iemax,cut_list);
           vers0=&cut_list[j].versm.vers[0];
-          if ( (let=vers0->let)==(BYTE)'т' &&
+          if ( (let=vers0->let)==(uchar)'т' &&
 			  !is_russian_baltic_conflict(let) && 	// 17.07.2001 E.P.
 			  !is_russian_turkish_conflict(let) 	// 21.05.2002 E.P.
 			  )
@@ -289,7 +285,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
             if ( (ilet=strchr(letters_right_to_bad,let))!=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(uchar*)ilet-letters_right_to_bad])
                 ie1=j;          //может быть частью буквы
           ie2=ir;
         }
@@ -302,7 +298,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
         {
           cut=cut_list+il;
           vers0=&cut->versm.vers[0];
-          if ((let=vers0->let)==(BYTE)'т' &&
+          if ((let=vers0->let)==(uchar)'т' &&
 			  !is_russian_baltic_conflict(let) && 	// 17.07.2001 E.P.
 			  !is_russian_turkish_conflict(let) 	// 21.05.2002 E.P.
 			  )
@@ -311,7 +307,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
             if ( (ilet=strchr(letters_right_to_bad,let)) !=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(uchar*)ilet-letters_right_to_bad])
                 ie1=cut->px;          //может быть частью буквы
           ib2=il;
         }
@@ -442,7 +438,7 @@ finish:
 static char l2r(INT *ib1, INT *ib2, INT *il)
 {
   INT i,x0;
-  BYTE let;
+  uchar let;
   struct cut_elm *cut;
   char cc;
   INT ib2p;       //предыдущая ib2
@@ -525,7 +521,7 @@ accept:
       if (let=='-')
         *ib1=ib1p;
       else
-        if ( (let==(BYTE)'т' || let==(BYTE)'ш' || let==(BYTE)'Ш' ||
+        if ( (let==(uchar)'т' || let==(uchar)'ш' || let==(uchar)'Ш' ||
               strchr(sticks_left_to_bad,let)
 			 ) &&
 			 !is_russian_baltic_conflict(let) &&// 17.07.2001 E.P.
@@ -536,7 +532,7 @@ accept:
           if ( (ilet=strchr(letters_left_to_bad,let))!=0 &&
 			  !is_russian_baltic_conflict(let)	// 17.07.2001 E.P.
 			  )
-            if (vers0->prob < prob_left_to_bad[(BYTE*)ilet-letters_left_to_bad])
+            if (vers0->prob < prob_left_to_bad[(uchar*)ilet-letters_left_to_bad])
               *ib1=ib0;            //может быть частью буквы
 
       if (debug_on)
@@ -550,7 +546,7 @@ accept:
       if (*ib2>=ie2)
         if (*ib2==ie2 || on_path(*ib2,iemax,cut_list))
 		  return 1;
-      if ( (let==(BYTE)'ь' || let==(BYTE)'Ь') &&
+      if ( (let==(uchar)'ь' || let==(uchar)'Ь') &&
 		  !is_russian_baltic_conflict(let) 	// 17.07.2001 E.P.
 		 )
       {
@@ -580,9 +576,9 @@ static char lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
   INT x0=xb+sym_width;      //начальное сечение
   INT xe=xb+wmax;           //правая граница
   struct cut_elm  *cutl,*cutr; INT il,ir;   //сечения слева и справа от x0
-  BYTE p;
+  uchar p;
   INT sete=set;
-  BYTE cc;
+  uchar cc;
   seg_vers *cur_vers;
 
   xb += wmin;
@@ -672,7 +668,7 @@ right:
 static char r2l(INT *ir, INT *ie2, INT *ie1, INT mode)
 {
   INT i,x0;
-  BYTE let;
+  uchar let;
   seg_vers *cur_vers;
   struct cut_elm *cut;
   char cc;
@@ -758,7 +754,7 @@ accept:
         if (let=='-')
           *ie1=ie1p;
         else
-          if ( (let==(BYTE)'т' || strchr(sticks_right_to_bad,let) ) &&
+          if ( (let==(uchar)'т' || strchr(sticks_right_to_bad,let) ) &&
 			   !is_russian_baltic_conflict(let) &&	// 17.07.2001 E.P.
 			   !is_russian_turkish_conflict(let) 	// 21.05.2002 E.P.
 			 )
@@ -767,7 +763,7 @@ accept:
             if ( (ilet=strchr(letters_right_to_bad,let))!=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(uchar*)ilet-letters_right_to_bad])
                 *ie1=ie0;          //может быть частью буквы
       }
 
@@ -805,9 +801,9 @@ static char rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
   INT x0=xe-sym_width;      //начальное сечение
   INT xb=xe-wmax;           //левая граница
   struct cut_elm  *cutl,*cutr; INT il,ir;   //сечения слева и справа от x0
-  BYTE p;
+  uchar p;
   INT sete=set;
-  BYTE cc;
+  uchar cc;
   seg_vers *cur_vers;
 
   xe -= wmin;
@@ -1002,7 +998,7 @@ static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
   INT iln;                                   //текущий правый край
   INT xb=cut->x-d, xe=cut->x+d;              //границы поиска
   INT pl,pr;    //вероятности версий слева и справа от i
-  BYTE good;    //наилучшая вероятность слева
+  uchar good;    //наилучшая вероятность слева
   INT dir=((cut+1)->x-cut->x < cut->x-(cut-1)->x) ? 1 : -1;
                                               // направление смещения
   INT set;
@@ -1049,7 +1045,7 @@ static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
         if (cc) { *ib0=i; *il=iln; *pmax=pr; return 1; }
       }
       if (pl<=good) break;    //лучше не стало
-      good=(BYTE)pl; *ib0=i; *il=iln; *pmax=pr;
+      good=(uchar)pl; *ib0=i; *il=iln; *pmax=pr;
       cut += dir;  i += dir;
     }
     dir= -dir;
@@ -1071,7 +1067,7 @@ static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
   INT irn;                                   //текущий левый край
   INT xb=cut->x-d, xe=cut->x+d;              //границы поиска
   INT pl,pr;   //вероятности версий слева и справа от i
-  BYTE good;   //наилучшая вероятность справа
+  uchar good;   //наилучшая вероятность справа
   INT dir=((cut+1)->x-cut->x < cut->x-(cut-1)->x) ? 1 : -1;
                                               // направление смещения
   INT set;
@@ -1123,7 +1119,7 @@ static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
         if (cc) { *ie0=i; *ir=irn; *pmax=pl; return 1; }
       }
       if (pr<=good) break;    //лучше не стало
-      good=(BYTE)pr; *ie0=i; *ir=irn; *pmax=pl;
+      good=(uchar)pr; *ie0=i; *ir=irn; *pmax=pl;
       cut += dir;  i += dir;
     }
     dir= -dir;
@@ -1139,7 +1135,7 @@ static void spec_pairs()
   struct cut_elm *cut;
   INT i,ip; //текущее и предыдущее сечения
   SVERS *vers;                   //текущая версия
-  BYTE let,letp;                 //текущая и предыдущая буквы
+  uchar let,letp;                 //текущая и предыдущая буквы
   struct cut_elm *cuts;
   INT is,x0;  //правая граница "с"
   INT m_row;                     //средняя базовая линия
@@ -1169,12 +1165,12 @@ static void spec_pairs()
         if ( cut->dh != 0 && strchr("кКтТуУ",let) &&
 		    !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(let)&&	// 21.05.2002 E.P.
-		     (letp==(BYTE)'г' || letp==(BYTE)'Г')
+		     (letp==(uchar)'г' || letp==(uchar)'Г')
 		   )
           {
            INT  j,il=cut->px;
            INT x0=cut->x-((cut_list[ip].x-cut->x)>>1);
-           BYTE *letr=&cut_list[ip].versm.vers[0].let;
+           uchar *letr=&cut_list[ip].versm.vers[0].let;
            for (j=i-1,cuts=cut-1; j>il && cuts->x >= x0; j--,cuts--)
              {
               if (addij(LC,r,cut_list,vers_list,ncut,il,j,0)>1)
@@ -1183,7 +1179,7 @@ static void spec_pairs()
 //			       break;
               if (addij(LC,r,cut_list,vers_list,ncut,j,ip,0)>1)
 				 continue;
-              if ( (*letr==(BYTE)'т' || *letr==(BYTE)'Т')  &&
+              if ( (*letr==(uchar)'т' || *letr==(uchar)'Т')  &&
 					!is_russian_baltic_conflict(*letr) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(*letr)	// 21.05.2002 E.P.
 				 )
@@ -1196,7 +1192,7 @@ static void spec_pairs()
 				 strchr("еиИнНпПоОсС",let) &&			// "хш╚э═я╧ю╬ё╤"
 			     !is_russian_baltic_conflict(let) &&	// 17.07.2001 E.P.
 				 !is_russian_turkish_conflict(let) &&	// 21.05.2002 E.P.
-				 (letp==(BYTE)'г' || letp==(BYTE)'Г'))	// у├
+				 (letp==(uchar)'г' || letp==(uchar)'Г'))	// у├
                {
                 m_row=my_bases.bm+(INT)((LONG)nIncline*(r->left+cut->x)/2048);
                 x0=right_bound(r,0,cut->x,(INT)(m_row-r->top+1),(INT)(r->h-1));
@@ -1204,22 +1200,22 @@ static void spec_pairs()
               else
                 if (cut->dh != 0 && strchr("есС",let) &&
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
-				    (letp==(BYTE)'п' || letp==(BYTE)'П'))
+				    (letp==(uchar)'п' || letp==(uchar)'П'))
                   {
                    m_row=my_bases.bm+(INT)((LONG)nIncline*(r->left+cut->x)/2048);
                    x0=right_bound(r,0,cut->x,0,(INT)(m_row-r->top));
                   }
                  else
-                   if (cut->dh != 0 && (letp==(BYTE)'ь' || letp==(BYTE)'Ь') &&
+                   if (cut->dh != 0 && (letp==(uchar)'ь' || letp==(uchar)'Ь') &&
 					   !is_russian_baltic_conflict(letp) // 17.07.2001 E.P.
 					  )
                      {
                       x0=cut->x-((cut_list[ip].x-cut->x)>>2);
                      }
                     else
-                      if ((let==(BYTE)'ы' || let==(BYTE)'Ы') &&
+                      if ((let==(uchar)'ы' || let==(uchar)'Ы') &&
 					      strchr(letters_right_to_bad,letp) &&
-			              letp != (BYTE)'к' && letp != (BYTE)'К' &&
+			              letp != (uchar)'к' && letp != (uchar)'К' &&
 						  !is_russian_baltic_conflict(let)	&&	// 17.07.2001 E.P.
 						  !is_russian_baltic_conflict(letp)		// 17.07.2001 E.P.
 						 )
@@ -1227,7 +1223,7 @@ static void spec_pairs()
                        else
                          if (let=='|' && strchr(letters_right_to_bad,letp) &&
 							 !is_russian_baltic_conflict(letp) && // 17.07.2001 E.P.
-                             letp != (BYTE)'к' && letp != (BYTE)'К')
+                             letp != (uchar)'к' && letp != (uchar)'К')
                            {
                             i=cut->px;
                             if (i==0)
@@ -1269,14 +1265,14 @@ static INT right_bound(raster *r, INT x1, INT x2, INT y1, INT y2)
   INT i;
   INT wb=(r->w+7)/8;    //ширина растра в байтах;
   INT h1=y2-y1+1;       //высота области
-  BYTE *b0=r->pict + wb*y1;  //начало горизонтали
-  BYTE *b1=b0+x1/8;          //верхние левый
-  BYTE *b2=b0+x2/8;          // и правый байты области
+  uchar *b0=r->pict + wb*y1;  //начало горизонтали
+  uchar *b1=b0+x1/8;          //верхние левый
+  uchar *b2=b0+x2/8;          // и правый байты области
   char p;               //проекция столбика
-  BYTE *bx=b2;          //верхний байт столбика
-  BYTE *ib;             //текущий  -"-
-  BYTE m1=0xff>>(x1%8); //интересующие биты в проекции
-  BYTE m2=0xff<<(7-x2%8);
+  uchar *bx=b2;          //верхний байт столбика
+  uchar *ib;             //текущий  -"-
+  uchar m1=0xff>>(x1%8); //интересующие биты в проекции
+  uchar m2=0xff<<(7-x2%8);
 
   do
   {

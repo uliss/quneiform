@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-static BYTE sqrt_tab[] = {
+static uchar sqrt_tab[] = {
  0,
  1, 1, 1,
  2, 2, 2, 2, 2,
@@ -83,7 +83,7 @@ INT long_sqrt (uint32_t n)
 {
  uint16_t w;
 uint32_t d, step, lw;
- BYTE sh;
+ uchar sh;
  if ((w = n >> 16) != 0) sh = 8;
  else { w = (uint16_t)n; sh = 0; }
 

@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-static void comptorast (PBYTE raster, cell *C)
+static void comptorast (puchar raster, cell *C)
 {
     memcpy (raster, save_raster (C), ((C -> w + 7)/8) * C -> h);
 }
@@ -69,7 +69,7 @@ static void make_hor_vert (cell *cl)
     memset (hor,  0, sizeof (*hor)  * ((dx + 7) & 0xF8));
     memset (vert, 0, sizeof (*vert) * dy);
 
-    c = (interval *)(((PBYTE) (cl -> env)) + cl -> env -> lines + sizeof (INT));
+    c = (interval *)(((puchar) (cl -> env)) + cl -> env -> lines + sizeof (INT));
 
     while (((lnhead *) c) -> lth)
     {
@@ -92,12 +92,12 @@ static void make_hor_vert (cell *cl)
             for (h = hor + c -> e - 1, i = c -> l; i > 0; i--, ((h--) -> sum)++)
             if (h -> sum)
             {
-                if      (h -> bot >= y) h -> bot = (BYTE)y;
-                else if (h -> top <= y) h -> top = (BYTE)y;
+                if      (h -> bot >= y) h -> bot = (uchar)y;
+                else if (h -> top <= y) h -> top = (uchar)y;
             }
             else
             {
-                h -> top = h -> bot = (BYTE)y;
+                h -> top = h -> bot = (uchar)y;
             }
             c ++;
             y --;
@@ -150,7 +150,7 @@ static void make_func ()
     nfunc = 8;
 }
 
-static INT line_width (PBYTE func, INT beg, INT end)
+static INT line_width (puchar func, INT beg, INT end)
 {
     INT i;
     INT max         = 0;
@@ -174,7 +174,7 @@ static INT line_width (PBYTE func, INT beg, INT end)
     return lines_value;
 }
 
-static uint16_t integral (PBYTE func, INT from, INT to, INT threshold)
+static uint16_t integral (puchar func, INT from, INT to, INT threshold)
 {
     uint16_t  s;
     uint32_t i;
@@ -185,7 +185,7 @@ static uint16_t integral (PBYTE func, INT from, INT to, INT threshold)
     return s;
 }
 
-static INT gmax (PBYTE func, INT from, INT to)
+static INT gmax (puchar func, INT from, INT to)
 {
     uint16_t s;
     INT  i;
@@ -196,7 +196,7 @@ static INT gmax (PBYTE func, INT from, INT to)
     return s;
 }
 
-static INT gmin (PBYTE func, INT from, INT to)
+static INT gmin (puchar func, INT from, INT to)
 {
     uint16_t s;
     INT  i;
@@ -208,7 +208,7 @@ static INT gmin (PBYTE func, INT from, INT to)
 }
 
 /*
-static INT pure_hill (PBYTE func, INT from, INT to)
+static INT pure_hill (puchar func, INT from, INT to)
 {
  while (from != to)
   {
@@ -382,7 +382,7 @@ static INT botlad(INT jump,INT percent)
 }
 */
 
-static Bool increase (PBYTE f, INT from, INT to)
+static Bool increase (puchar f, INT from, INT to)
 {
     INT i;
 
@@ -393,7 +393,7 @@ static Bool increase (PBYTE f, INT from, INT to)
 }
 
 /*
-static Bool decrease (PBYTE f, INT from, INT to)
+static Bool decrease (puchar f, INT from, INT to)
 //
 //	This procedure checks function to be decreasing.
 //

@@ -67,7 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"ctb.h"
 #include"tuner.h"
 #include"ligas.h"
-#include"nt_types.h"	// 17.07.2001 E.P.
 #include"status.h"		// 17.07.2001 E.P.
 
 #include"compat_defs.h"

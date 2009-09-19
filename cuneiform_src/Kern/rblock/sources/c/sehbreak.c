@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH
 # define EXTENDED_RASTER_MAX_HEIGHT (RASTER_MAX_HEIGHT * 2)
 
-BYTE *pRaster;
+uchar *pRaster;
 int   nRasterWidth;
 int   nRasterHeight;
 int   nRasterByteWidth;
@@ -95,8 +95,8 @@ int   nOldRoots;
 ROOT  *pOldAfterRoots;
 
 extern  CCOM_comp *get_CCOM_comp(PROOT r);
-extern  PBYTE make_raster_CCOM(CCOM_comp *cmp);
-extern  PBYTE make_extended_raster_CCOM(CCOM_comp *cmp);
+extern  puchar make_raster_CCOM(CCOM_comp *cmp);
+extern  puchar make_extended_raster_CCOM(CCOM_comp *cmp);
 
 void RotatePageToReal (void);// Piter
 

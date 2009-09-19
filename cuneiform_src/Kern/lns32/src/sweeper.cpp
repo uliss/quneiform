@@ -112,9 +112,9 @@ void InitSweeperData( THVSegBambuk* sb )
 static Bool MustCloseImage = FALSE;
 static Tiger_ImageInfo ImageInfo;
 
-//static BYTE* ImageBuf = NULL;
+//static uchar* ImageBuf = NULL;
 static uchar* LinesBuf = NULL;
-//static BYTE* ResultBuf = NULL;
+//static uchar* ResultBuf = NULL;
 static int32_t  CurLine = 0;
 static Bool  Ready = FALSE;
 

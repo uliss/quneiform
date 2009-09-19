@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "status.h"
@@ -110,8 +110,8 @@ return;
 Bool  tradeCR( cell *c )
 {
 	 cell  *nextc,*clist[2];
-	 BYTE  snap[80],*s=snap,save_flg,save_language;
-   BYTE  saveN,saveV[VERS_IN_CELL*sizeof(version)];
+	 uchar  snap[80],*s=snap,save_flg,save_language;
+   uchar  saveN,saveV[VERS_IN_CELL*sizeof(version)];
 
    INT   i,tm=0;
 
@@ -122,13 +122,13 @@ Bool  tradeCR( cell *c )
 
 //simpleBOX(c,128); only  for  tmp  debug
    nextc = c->next;
-   save_flg = (BYTE)nextc->flg;
+   save_flg = (uchar)nextc->flg;
    if( save_flg & (c_f_dust|c_f_space) ){
 //   if( (save_flg & c_f_space) ||
 //       ( (save_flg & c_f_dust) && (nextc->complist[0].size==1) )
 //     ){
       nextc = c->nextl;
-      save_flg = (BYTE)nextc->flg;
+      save_flg = (uchar)nextc->flg;
    }
    if( save_flg & c_f_fict )
      return  FALSE;
@@ -138,15 +138,15 @@ Bool  tradeCR( cell *c )
    if( nextc->col - c->col <= c->w/2 && nextc->row - c->row <= c->h/2 ){
       // Oleg : 26-07-1995 : cell without env can't recog
       if( c->env && nextc->env )
-      if( c->vers[0].let == (BYTE)'o' || c->vers[0].let == (BYTE)'O' || c->vers[0].let == (BYTE)'0' ||
+      if( c->vers[0].let == (uchar)'o' || c->vers[0].let == (uchar)'O' || c->vers[0].let == (uchar)'0' ||
 
-          c->vers[0].let == (BYTE)'Ѓ' &&
+          c->vers[0].let == (uchar)'Ѓ' &&
 			!is_russian_turkish_conflict(c->vers[0].let)	// 21.05.2002 E.P.
 
 		  ||
-		  c->vers[0].let == (BYTE)'О' || c->vers[0].let == (BYTE)'Q'
+		  c->vers[0].let == (uchar)'О' || c->vers[0].let == (uchar)'Q'
 		){
-         saveN = (BYTE)nextc->nvers;
+         saveN = (uchar)nextc->nvers;
          memcpy(saveV,nextc->vers,VERS_IN_CELL*sizeof(version));
          language = LANG_ENGLISH;
          short_recog_cell(nextc);
@@ -167,8 +167,8 @@ Bool  tradeCR( cell *c )
                switch( nextc->vers[i].let ){
                case  'c':
 			   case  'C':
-               case  (BYTE)'б': // –усска€ "с" - конфликтный код дл€ балтики 17.07.2001
-			   case  (BYTE)'С':
+               case  (uchar)'б': // –усска€ "с" - конфликтный код дл€ балтики 17.07.2001
+			   case  (uchar)'С':
 				    //  онфликтный код
 					if (!is_russian_baltic_conflict(nextc->vers[i].let))	// 17.07.2001 E.P.
 						tm = liga_CC;
@@ -192,7 +192,7 @@ Bool  tradeCR( cell *c )
                clist[1]=nextc;
                compose_cell(2,clist,c);
                c->nvers = 1;
-               c->vers[0].let = (BYTE)tm;
+               c->vers[0].let = (uchar)tm;
                c->vers[0].prob = 254;
             }
          }
@@ -240,7 +240,7 @@ INT is_square(cell *a)
  INT  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
       Ln, lc1, lineh, hcur, hcur8, hrest, hrest8, hint;
  LONG wrkl, cellsq, sumlth;
- BYTE was_here;
+ uchar was_here;
 
  was_here=0;
  flsq = 1;   // assume square
@@ -653,12 +653,12 @@ static INT try_TM (cell **first_cell_ptr, INT num)
 	INT shift=2, strange_disposition=0;
 	INT  obbs1, obbs2, obbs3, obbs4, oPs, oPsf, ominrow;
 	INT  obbsm;  // Nick 28.01.2002
-	BYTE omulti_bas, //olang,
+	uchar omulti_bas, //olang,
        let, TM_found=0, components_may_be_modified=0,
 			 confidence=MAX_TM_CONFID,
 			 chkTM;
 #ifdef UP_DIGITS
-	BYTE	all_digits=1;
+	uchar	all_digits=1;
 #endif
 
 	if (num<0)
@@ -843,7 +843,7 @@ chk_TM:    // check for TradeMark
 				{
 				let=c->vers[j].let;
 	if (let=='t' || let=='T' ||  // let=='1' ||
-					( language==LANG_RUSSIAN && (let==(BYTE)'в' || let==(BYTE)'Т')) ) // Russian T
+					( language==LANG_RUSSIAN && (let==(uchar)'в' || let==(uchar)'Т')) ) // Russian T
 						{
 							tc = c;
 							TM_found=1;  // T is found
@@ -888,7 +888,7 @@ chk_TM:    // check for TradeMark
       {
 	let=fc->vers[j].let;
 	if (let=='m' || let=='M' ||
-			(language==LANG_RUSSIAN && (let==(BYTE)'ђ' || let==(BYTE)'М') ) ) // Russian M
+			(language==LANG_RUSSIAN && (let==(uchar)'ђ' || let==(uchar)'М') ) ) // Russian M
 	   {
 	     TM_found|=2;  // M is found
 	     Mprob += fc->vers[j].prob;
@@ -1320,9 +1320,9 @@ static void init_sublist (INT mode)   // Initialization of sublist
 
 
 #ifdef UP_DIGITS
-static BYTE is_dig (BYTE letter)
+static uchar is_dig (uchar letter)
 {
-	BYTE *a, digits[]={'0','1','2','3','4','5','6','7','8','9'};
+	uchar *a, digits[]={'0','1','2','3','4','5','6','7','8','9'};
 	INT i=0;
 
 	a=&digits[0];

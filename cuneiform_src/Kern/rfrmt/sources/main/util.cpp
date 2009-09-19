@@ -454,7 +454,7 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 	static int findname(char *sect, char *key, char *res, char *name)
 	{
 		FILE *File;
-		BYTE buf03[255];
+		uchar buf03[255];
 		int16_t ret=0;
 
 		if((File=fopen(name,"rt")) == NULL) {

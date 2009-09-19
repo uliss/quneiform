@@ -86,7 +86,7 @@ void apply_monus(cell *cl)
 }
 
 
-INT abris(s_glue *GL, cell *cl, BYTE Let, INT prob)
+INT abris(s_glue *GL, cell *cl, uchar Let, INT prob)
 {
 
  scl=cl;    letter = Let; cprob = prob;
@@ -129,23 +129,23 @@ INT abris(s_glue *GL, cell *cl, BYTE Let, INT prob)
      case 'E':                      return E_filt();
 
 	 // 31.08.2000 E.P.
-     case (BYTE)liga_CC_usual:
-     case (BYTE)liga_CR_usual:
+     case (uchar)liga_CC_usual:
+     case (uchar)liga_CR_usual:
 		 if (liga_CC == liga_CC_usual) return CR_filt();
 		 break;
 
-     case (BYTE)liga_CC_latin: // = liga_CC_turkish 31.05.2002 E.P.
-     case (BYTE)liga_CR_latin: // = liga_CR_turkish 31.05.2002 E.P.
+     case (uchar)liga_CC_latin: // = liga_CC_turkish 31.05.2002 E.P.
+     case (uchar)liga_CR_latin: // = liga_CR_turkish 31.05.2002 E.P.
 		 if (liga_CC == liga_CC_latin) return CR_filt(); // »справил 21.05.2002 E.P.
 		 break;
 
-     case (BYTE)'о':
+     case (uchar)'о':
 		 //  онфликтный код 17.07.2001 E.P.
 		 if (is_baltic_language(language) ||
 			 is_turkish_language(language)	// 21.05.2002 E.P.
 			 )
 			 break;
-     case (BYTE)'Ю':                return yu_filt();
+     case (uchar)'Ю':                return yu_filt();
     }
   return prob;
   }
@@ -154,7 +154,7 @@ INT abris(s_glue *GL, cell *cl, BYTE Let, INT prob)
 
 }
 
-BYTE s_filt(cell *cl)
+uchar s_filt(cell *cl)
 {
 
 // the list of penalties for different features
@@ -199,14 +199,14 @@ accept:
     //let_mon[let_mind['o'-'0']] -= PNL_GAP;
     //let_mon[let_mind['O'-'0']] -= PNL_GAP;
     //let_mon[let_mind['0'-'0']] -= PNL_GAP;
-    if ( let_mind[(BYTE)'a'-(BYTE)'0'] < let_monN )
-		let_mon[let_mind[(BYTE)'a'-(BYTE)'0']] -= PNL_GAP;
-    if ( let_mind[(BYTE)'o'-(BYTE)'0'] < let_monN )
-		let_mon[let_mind[(BYTE)'o'-(BYTE)'0']] -= PNL_GAP;
-    if ( let_mind[(BYTE)'O'-(BYTE)'0'] < let_monN )
-		let_mon[let_mind[(BYTE)'O'-(BYTE)'0']] -= PNL_GAP;
-    if ( let_mind[(BYTE)'0'-(BYTE)'0'] < let_monN )
-        let_mon[let_mind[(BYTE)'0'-(BYTE)'0']] -= PNL_GAP;
+    if ( let_mind[(uchar)'a'-(uchar)'0'] < let_monN )
+		let_mon[let_mind[(uchar)'a'-(uchar)'0']] -= PNL_GAP;
+    if ( let_mind[(uchar)'o'-(uchar)'0'] < let_monN )
+		let_mon[let_mind[(uchar)'o'-(uchar)'0']] -= PNL_GAP;
+    if ( let_mind[(uchar)'O'-(uchar)'0'] < let_monN )
+		let_mon[let_mind[(uchar)'O'-(uchar)'0']] -= PNL_GAP;
+    if ( let_mind[(uchar)'0'-(uchar)'0'] < let_monN )
+        let_mon[let_mind[(uchar)'0'-(uchar)'0']] -= PNL_GAP;
     mon_fl=1;
    }
  if (mon)       // s to be monused
@@ -218,22 +218,22 @@ accept:
      //let_mon[let_mind['o'-'0']] -= PNL_GAP;
      //let_mon[let_mind['O'-'0']] -= PNL_GAP;
      //let_mon[let_mind['0'-'0']] -= PNL_GAP;
-     if ( let_mind[(BYTE)'e'-(BYTE)'0'] < let_monN )
-        let_mon[let_mind[(BYTE)'e'-(BYTE)'0']] -= PNL_GAP;
-     if ( let_mind[(BYTE)'o'-(BYTE)'0'] < let_monN )
-        let_mon[let_mind[(BYTE)'o'-(BYTE)'0']] -= PNL_GAP;
-     if ( let_mind[(BYTE)'O'-(BYTE)'0'] < let_monN )
-        let_mon[let_mind[(BYTE)'O'-(BYTE)'0']] -= PNL_GAP;
-     if ( let_mind[(BYTE)'0'-(BYTE)'0'] < let_monN )
-        let_mon[let_mind[(BYTE)'0'-(BYTE)'0']] -= PNL_GAP;
+     if ( let_mind[(uchar)'e'-(uchar)'0'] < let_monN )
+        let_mon[let_mind[(uchar)'e'-(uchar)'0']] -= PNL_GAP;
+     if ( let_mind[(uchar)'o'-(uchar)'0'] < let_monN )
+        let_mon[let_mind[(uchar)'o'-(uchar)'0']] -= PNL_GAP;
+     if ( let_mind[(uchar)'O'-(uchar)'0'] < let_monN )
+        let_mon[let_mind[(uchar)'O'-(uchar)'0']] -= PNL_GAP;
+     if ( let_mind[(uchar)'0'-(uchar)'0'] < let_monN )
+        let_mon[let_mind[(uchar)'0'-(uchar)'0']] -= PNL_GAP;
      mon_fl=1;
     }
    if (3*rxmax1 <= cl->h)
     {       // there is a gap at 1/3 of height at right side
      //AK!
 	 //let_mon[let_mind['e'-'0']] -= PNL_GAP;
-     if ( let_mind[(BYTE)'e'-(BYTE)'0'] < let_monN )
-         let_mon[let_mind[(BYTE)'e'-(BYTE)'0']] -= PNL_GAP;
+     if ( let_mind[(uchar)'e'-(uchar)'0'] < let_monN )
+         let_mon[let_mind[(uchar)'e'-(uchar)'0']] -= PNL_GAP;
      mon_fl=1;
     }
    if (lnmid < 2)      // one line (black interval) at middle level
@@ -242,12 +242,12 @@ accept:
 	 //let_mon[let_mind['o'-'0']] -= PNL_1LN;
      //let_mon[let_mind['O'-'0']] -= PNL_1LN;
      //let_mon[let_mind['0'-'0']] -= PNL_1LN;
-     if ( let_mind[(BYTE)'o'-(BYTE)'0'] < let_monN )
-         let_mon[let_mind[(BYTE)'o'-(BYTE)'0']] -= PNL_1LN;
-     if ( let_mind[(BYTE)'O'-(BYTE)'0'] < let_monN )
-         let_mon[let_mind[(BYTE)'O'-(BYTE)'0']] -= PNL_1LN;
-     if ( let_mind[(BYTE)'0'-(BYTE)'0'] < let_monN )
-         let_mon[let_mind[(BYTE)'0'-(BYTE)'0']] -= PNL_1LN;
+     if ( let_mind[(uchar)'o'-(uchar)'0'] < let_monN )
+         let_mon[let_mind[(uchar)'o'-(uchar)'0']] -= PNL_1LN;
+     if ( let_mind[(uchar)'O'-(uchar)'0'] < let_monN )
+         let_mon[let_mind[(uchar)'O'-(uchar)'0']] -= PNL_1LN;
+     if ( let_mind[(uchar)'0'-(uchar)'0'] < let_monN )
+         let_mon[let_mind[(uchar)'0'-(uchar)'0']] -= PNL_1LN;
      mon_fl=1;
     }
   }
@@ -269,11 +269,11 @@ SF_Bidx:
  return new_prob( mon );
 }
 
-BYTE D_filt()
+uchar D_filt()
 {
  INT  pen;
- BYTE dev, wfrom, wto, lcv;
- BYTE h_max, h_min, h_xmax, h_xmin;
+ uchar dev, wfrom, wto, lcv;
+ uchar h_max, h_min, h_xmax, h_xmin;
 
     pen = 0;
     cprob = o_filt(0x3a);
@@ -295,15 +295,15 @@ DF_Ret:
     return new_prob( pen );
 }
 
-BYTE B_filt()
+uchar B_filt()
 {
  INT  pen;
- BYTE fl, dev, wfrom, lth;
+ uchar fl, dev, wfrom, lth;
 
     pen = 0;
     if ( ( scl->nvers == 1 ) || ( fullh <= 22 ) )  goto BF_Ret;
     dev = MAX( fullh / 10, 1 );
-    get_max_min ( r_abr, (BYTE)(midh>>1), (BYTE)(fullh - (midh>>1)), &rmax, &rmin1,
+    get_max_min ( r_abr, (uchar)(midh>>1), (uchar)(fullh - (midh>>1)), &rmax, &rmin1,
                         &rxmax1, &rxmin11 );
     fl = monotonous_decrease( r_abr, 1, 6, &rmin2, 0 );
     if ( fl == SMOOTH_FUNC )
@@ -313,7 +313,7 @@ BYTE B_filt()
         if ( rmax - rmin1 < dev )
             pen += 80;         // PNL_FOR_FLAT_RIGHT_SIDE;
 
-        fl = monotonous_decrease( r_abr, (BYTE)(midh-2), (BYTE)(midh+3), &wfrom, dev );
+        fl = monotonous_decrease( r_abr, (uchar)(midh-2), (uchar)(midh+3), &wfrom, dev );
         if ( fl == SMOOTH_FUNC )
             pen += 40;
     }
@@ -326,7 +326,7 @@ BYTE B_filt()
     if ( histo[1] == 0 )
         pen += 20;
     wfrom += lth;
-    lth = (BYTE)midh;
+    lth = (uchar)midh;
     //AK!
 	if (wfrom >= 0 && wfrom < 128 )
        make_histo( &linh[wfrom], lth );
@@ -344,7 +344,7 @@ BF_Ret:
 }
 
 #define MAX_PEN_FOR_ONE_LEG  100
-BYTE A_filt()
+uchar A_filt()
 {
  INT  pen, i;
 
@@ -362,10 +362,10 @@ BYTE A_filt()
     return new_prob( pen );
 }
 
-BYTE c_filt()
+uchar c_filt()
 {
  INT  pen, top_bot_delta, ww1, ww2;
- BYTE fl, wi, wi0, wi1, wi2, i;
+ uchar fl, wi, wi0, wi1, wi2, i;
 
  pen = 0;
 
@@ -374,24 +374,24 @@ BYTE c_filt()
  //get_max_min( sumh, 0, fullh - 1, &fl, &wi, &wi1, &wi2 );
  //top_bot_delta = top_end_bottom_weights_delta();
  // 02-09-94 06:51pm, LD-update 
- fl = monotonous_decrease( r_abr, 0, (BYTE)(midh+1), &wi, 0 );
+ fl = monotonous_decrease( r_abr, 0, (uchar)(midh+1), &wi, 0 );
  if ( fl == FOUND_MON_DECR )
     pen += 80;
- fl = monotonous_increase( r_abr, (BYTE)midh, (BYTE)fullh, &wi, 0 );
+ fl = monotonous_increase( r_abr, (uchar)midh, (uchar)fullh, &wi, 0 );
  if ( fl == FOUND_MON_INCR )
     pen += 80;
  if ( letter == 'c' )    // for lower case only
  {
-    BYTE wfrom, wto, beg2, end2;
+    uchar wfrom, wto, beg2, end2;
     wfrom = (midh - (midh>>1));
     wto = (midh + (midh>>1));
-    fl = find_2int_zone( 1, (BYTE)(midh + 1), &beg2, &end2 );
+    fl = find_2int_zone( 1, (uchar)(midh + 1), &beg2, &end2 );
     if ( fl == FOUND_TWO_INT_ZONE )
     {
-        fl = monotonous_increase( histo, beg2, (BYTE)(end2 + 1), &wi, 0 );
+        fl = monotonous_increase( histo, beg2, (uchar)(end2 + 1), &wi, 0 );
         if ( fl != NOT_FOUND_MON_INCR )
             goto    CF_BotAndTop;
-        get_max_min( histo, beg2, (BYTE)(end2 + 1), &fl, &wi, &wi1, &wi2 );
+        get_max_min( histo, beg2, (uchar)(end2 + 1), &fl, &wi, &wi1, &wi2 );
         if ( fl - wi <= 1 )
             goto CF_BotAndTop;
         //AK! add
@@ -415,7 +415,7 @@ BYTE c_filt()
 
         wi = end2;
         wi2 = end2 - beg2 + 1;
-        fl = find_2int_zone( (BYTE)midh, (BYTE)fullh, &beg2, &end2 );
+        fl = find_2int_zone( (uchar)midh, (uchar)fullh, &beg2, &end2 );
         wi1 = end2 - beg2 + 1;
         if ( ( fl == FOUND_TWO_INT_ZONE ) && ( wi2 > 3 ) )
         {
@@ -441,7 +441,7 @@ BYTE c_filt()
     fl = find_1int_zone( wfrom, wto, &beg2, &end2 );
     if ( fl == FOUND_ONE_INT_ZONE )
     {
-        get_max_min( sumh, beg2, (BYTE)(end2 + 1), &fl, &wi, &wi1, &wi2 );
+        get_max_min( sumh, beg2, (uchar)(end2 + 1), &fl, &wi, &wi1, &wi2 );
         // wi - minimum of sumh in 1-interval zone
         if ( midw <= wi )      // bold 'c' case
             goto CF_BotAndTop;
@@ -452,7 +452,7 @@ BYTE c_filt()
 				if ( abs(wid[i] - wid[wi2]) > (fullh/3) )
 				   break;
 			wfrom = i;
-			for ( i = (BYTE)midh; i < end2 && i < 128; i ++ )
+			for ( i = (uchar)midh; i < end2 && i < 128; i ++ )
 				if ( abs(wid[i] - wid[wi2]) > (fullh/3) )
 					break;
             wto = i + 1;
@@ -523,7 +523,7 @@ CF_BotAndTop:
     if ( wi > ( midw>>1 ) )
         pen += CONST_VALLY_PNL;
     wi1 = MIN( fullw - 3, midw + (midw>>1) + 1 );
-    for ( fl = 0, wi = (BYTE)midw; wi <= wi1; wi++ )
+    for ( fl = 0, wi = (uchar)midw; wi <= wi1; wi++ )
     {
         if ( wi < 127 && wi >= 0 &&
 			 (abs(top[wi] - top[wi+1]) < midh) &&
@@ -541,10 +541,10 @@ CF_Ret:
  return new_prob( pen );
 }
 
-BYTE a_filt()
+uchar a_filt()
 {
  INT i, pen;
- BYTE  prev, fl, fl_tail;
+ uchar  prev, fl, fl_tail;
 
  pen = 0;
  cprob = o_filt(0x04); fl_tail = 0;
@@ -572,7 +572,7 @@ BYTE a_filt()
           pen += 10;
          else
          {
-           fl_tail = r_tail((BYTE)i);
+           fl_tail = r_tail((uchar)i);
            if ( fl_tail )
              break;
            else
@@ -589,7 +589,7 @@ AF_Cont:
 AF_TopAbrisTest:
  // Test Top Abris to be monotonous decreasing (for cells aren't composed only)
  if ( ncells > 1 ) goto AF_BintIndexTest;
- fl = monotonous_decrease( top, 0, (BYTE)midw, &prev, 1 );
+ fl = monotonous_decrease( top, 0, (uchar)midw, &prev, 1 );
  if ( fl == NOT_FOUND_MON_DECR )
     pen += 80;
 
@@ -603,8 +603,8 @@ AF_BintIndexTest:
 
  if ( fl_tail )
  {
-    BYTE    wb;
-    get_max_min( bot, (BYTE)MAX( 1, (fullw/10) ), (BYTE)((fullw - (midw>>1))),
+    uchar    wb;
+    get_max_min( bot, (uchar)MAX( 1, (fullw/10) ), (uchar)((fullw - (midw>>1))),
                                         &fl, &prev, &wb, &wb );
     if ( fl - prev > midh )
         pen += 80;
@@ -617,11 +617,11 @@ AF_BintIndexTest:
 }
 
 
-BYTE M_filt()
+uchar M_filt()
 {
  INT pen;
  INT i1, i2, dev, gap;
- BYTE flit, i3, fax_corr, mode_linh;
+ uchar flit, i3, fax_corr, mode_linh;
 
  pen=0; flit=0; fax_corr = 0;
  if ( fax1x2 ) fax_corr = 1;
@@ -637,7 +637,7 @@ BYTE M_filt()
  i1 = (fullh >> 3) + fax_corr;
  i3 = fullh - i1;
  dev = MAX( get_size () / 10, 1 );
- mode_linh = (BYTE)make_histo( &linh[1], (BYTE)(fullh-1) );
+ mode_linh = (uchar)make_histo( &linh[1], (uchar)(fullh-1) );
      // this function returns mode value of the array ( 1st param.)
      // and generates histo_max_value variable
      // the mode value of the black intervals numbers has to be <= 3
@@ -678,20 +678,20 @@ BYTE M_filt()
    {
         i1 = fullh >> 2;  i2 = fullh - i1 - fax_corr;
 
-        gap = gap_in_side( (BYTE)i1, (BYTE)i2, RIGHT_S, dev, &flit );
+        gap = gap_in_side( (uchar)i1, (uchar)i2, RIGHT_S, dev, &flit );
         if ( gap > 0 ) pen += gap * GAP_IN_SIDE_PNL;
 
-        gap = gap_in_side( (BYTE)i1, (BYTE)i2, LEFT_S, dev, &i3 );
+        gap = gap_in_side( (uchar)i1, (uchar)i2, LEFT_S, dev, &i3 );
         if ( gap > 0 )  pen += gap * GAP_IN_SIDE_PNL;
    }
  // check bottom and right abris to avoid some conglomerats like "NI"
   if ( flit )  goto MF_LetterN_Testing;
   if ( (scl->nvers == 1 ) && ( letter == 'M') )  goto MF_Rbcorner;
   i1 = (midw >> 1);  i2 = midw + i1;
-  i3 = constancy_vally_lth (bot, (BYTE)i1, (BYTE)i2, 1);
+  i3 = constancy_vally_lth (bot, (uchar)i1, (uchar)i2, 1);
   if ( i3 > i1 )
    pen += ( i3 - i1 ) * CONST_VALLY_PNL;
-  i3 = constancy_vally_lth (top, (BYTE)i1, (BYTE)i2, 1);
+  i3 = constancy_vally_lth (top, (uchar)i1, (uchar)i2, 1);
   if ( i3 > i1 )
    pen += ( i3 - i1 ) * CONST_VALLY_PNL;
 
@@ -717,15 +717,15 @@ MF_Ret:
 }
 
 
-BYTE R_filt()
+uchar R_filt()
 {
  INT pen;
- BYTE fl, dev, wfrom;
+ uchar fl, dev, wfrom;
 
   pen=0;  dev = MAX( fullh / 10, 1 );
 
  if ( scl->nvers == 1 ) goto RF_Ret;
- get_max_min ( r_abr, (BYTE)(midh>>1), (BYTE)(fullh - (midh>>1)), &rmax, &rmin1,
+ get_max_min ( r_abr, (uchar)(midh>>1), (uchar)(fullh - (midh>>1)), &rmax, &rmin1,
                &rxmax1, &rxmin11 );
  fl = monotonous_decrease( r_abr, 1, 6, &rmin2, 0 );
  if ( ( rmax - rmin1 < dev ) && ( fl == NOT_FOUND_MON_DECR ) )
@@ -734,7 +734,7 @@ BYTE R_filt()
   wfrom = (midh>>1);
   //AK! add
   if (wfrom < 128 && wfrom >= 0 )
-      make_histo( &linh[wfrom], (BYTE)midh );
+      make_histo( &linh[wfrom], (uchar)midh );
   if ( ( histo[3] > 1 ) && ( histo[1] == 0 ) )
     pen += 60;
 
@@ -751,18 +751,18 @@ RF_Ret:
 
 }
 
-BYTE HH_filt()
+uchar HH_filt()
 {
  INT  pen;
  INT  dev, gap;
- BYTE flit, i3, i1, i2;
+ uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;
 
 
  // test right side and left side against rounding ( avoiding "OO" )
 
- i2 = (BYTE)midh;
+ i2 = (uchar)midh;
  i1 = fullh >> 3;
  i3 = fullh - i1;
  dev = MAX( fullh / 10, 1 );
@@ -804,13 +804,13 @@ BYTE HH_filt()
     i2 = test_bottom_corner( r_abr,  &gap );
     if ( i2 == BC_SERIF )
     {
-        i3 = monotonous_increase( l_abr, 1, (BYTE)(3+dev), &i1, 0 );
+        i3 = monotonous_increase( l_abr, 1, (uchar)(3+dev), &i1, 0 );
         if ( i3 != FOUND_MON_INCR )
             pen += gap;
     }
     if ( i2 == BC_CONCAVE )
     {
-        i3 = monotonous_increase( l_abr, (BYTE)dev, (BYTE)(dev+4), &i1, 0 );
+        i3 = monotonous_increase( l_abr, (uchar)dev, (uchar)(dev+4), &i1, 0 );
         if ( i3 != FOUND_MON_INCR )
             pen += gap;
     }
@@ -820,7 +820,7 @@ BYTE HH_filt()
      pen += 60;             // that distances must be invariable
   }
 // check the number of black intervals to be < 3 ( avoiding "FI" conglomerat )
- make_histo( linh, (BYTE)fullh );          // generates histo_max_value variable
+ make_histo( linh, (uchar)fullh );          // generates histo_max_value variable
  if ( (histo_max_value > 2) &&       // 3 intervals and more are forbidden
       ( (histo[3] > histo[2]) || (histo[3] > fullh/3) )  )
    pen += 80;
@@ -830,10 +830,10 @@ BYTE HH_filt()
 
 
 #define PNL_JMP_RS 20
-BYTE w_filt()
+uchar w_filt()
 {
  INT pen, i, i3, j1, j2, db;
- BYTE sb, nb, flat_side, dps, jmp, fl_ev_vers, dp1, dp2, fl, pnl_rs;
+ uchar sb, nb, flat_side, dps, jmp, fl_ev_vers, dp1, dp2, fl, pnl_rs;
  INT    arm1, arm2;
  pen=0;
 
@@ -847,12 +847,12 @@ BYTE w_filt()
        )  fl_ev_vers = 1;
    else   fl_ev_vers = 0;
  // Checking up top central node position ( avoiding 'vv' conglomerat )
- get_max_min( bot, (BYTE)(midw>>1), (BYTE)(fullw - (midw>>1)), &bmax, &bmin1,
+ get_max_min( bot, (uchar)(midw>>1), (uchar)(fullw - (midw>>1)), &bmax, &bmin1,
                                             &bxmax1, &bxmin11 );
  if ( ( ncells == 1 ) && ( bmax > midh ) && ( MIN( bxmax1, midw ) > 3 ) )
  {
     i3 = 0; dp1 = MAX( bxmax1, midw );
-    i3 = constancy_vally_lth ( bot, (BYTE)(dp1 - 3), (BYTE)(dp1 + 3), 0 );
+    i3 = constancy_vally_lth ( bot, (uchar)(dp1 - 3), (uchar)(dp1 + 3), 0 );
     if ( ( i3 > MAX( 1, (fullw/10) ) ) || ( fullh - bmax < 3 ) )
         pen += 36;
  }
@@ -1085,10 +1085,10 @@ WF_Ret:
 }
 
 
-BYTE o_filt(INT f)
+uchar o_filt(INT f)
 {
  INT pen, fl, i, i1, i2, i3, i4, j1, j2, j3, j4;
- BYTE *lp1, pv, cv;
+ uchar *lp1, pv, cv;
  i1=fullh-1; i2=i1-1; i3=i2-1; i4=i3-1;
  j1=fullw-1; j2=j1-1; j3=j2-1; j4=j3-1;
  pen=0;
@@ -1113,7 +1113,7 @@ BYTE o_filt(INT f)
     }
      // not more than 2 lines in every horizontal scan line
   }
- if ( pen > 0 ) cv = (BYTE)pen;
+ if ( pen > 0 ) cv = (uchar)pen;
  else           cv = 0;
  if (fullh < 18) goto small_;
  if (f & 1)
@@ -1360,13 +1360,13 @@ getout:
  return new_prob( pen );
 }
 
-BYTE left_angle_braket_filt()
+uchar left_angle_braket_filt()
 {
 INT     pen;
-BYTE    tresh;
+uchar    tresh;
 
     pen = 0;
-    tresh = (BYTE)prop_index( fullh, fullw );
+    tresh = (uchar)prop_index( fullh, fullw );
     if ( ( tresh > 76 ) && ( tresh < 19 ) )
     {
         pen += 160;
@@ -1375,27 +1375,27 @@ BYTE    tresh;
     tresh = fullh/25;
 
 {
-    BYTE mid_bound1, mid_bound2;
-    mid_bound1 = mid_bound2 = (BYTE)midh;
+    uchar mid_bound1, mid_bound2;
+    mid_bound1 = mid_bound2 = (uchar)midh;
     if ( (fullh & 1) == 0 )         // if height is even, then mid_bounds are 2
         mid_bound1 -= 1;
     pen += test_against_convex( l_abr, tresh, mid_bound1 );
     pen += test_against_convex( l_abr, mid_bound2,
-                                    (BYTE)MIN( fullh-1, fullh-tresh ) );
+                                    (uchar)MIN( fullh-1, fullh-tresh ) );
 }
 
 {
     INT lcv;
     tresh = MIN( 2, fullh/20 );
-    lcv = constancy_vally_lth( r_abr, (BYTE)(midh - (midh>>1)),
-                                        (BYTE)(midh + (midh>>1)), tresh );
+    lcv = constancy_vally_lth( r_abr, (uchar)(midh - (midh>>1)),
+                                        (uchar)(midh + (midh>>1)), tresh );
     if ( lcv > midh - (midh>>2) )
         pen += 48;
 }
 
     if ( fullw > 8 )
     {
-        make_histo( wid, (BYTE)fullh );
+        make_histo( wid, (uchar)fullh );
         if ( fullw - histo_max_value <= ( midw>>1 ) )
             pen += 60;
     }
@@ -1404,13 +1404,13 @@ LAB_Ret:
 }
 
 
-BYTE right_angle_braket_filt()
+uchar right_angle_braket_filt()
 {
 INT     pen;
-BYTE    tresh;
+uchar    tresh;
 
     pen = 0;
-    tresh = (BYTE)prop_index( fullh, fullw );
+    tresh = (uchar)prop_index( fullh, fullw );
     if ( ( tresh > 76 ) && ( tresh < 19 ) )
     {
         pen += 160;
@@ -1420,24 +1420,24 @@ BYTE    tresh;
     tresh = fullh/25;
 
 {
-    BYTE mid_bound1, mid_bound2;
-    mid_bound1 = mid_bound2 = (BYTE)midh;
+    uchar mid_bound1, mid_bound2;
+    mid_bound1 = mid_bound2 = (uchar)midh;
     if ( (fullh & 1) == 0 )         // if height is even, then mid_bounds are 2
         mid_bound1 -= 1;
     pen += test_against_convex( r_abr, tresh, mid_bound1 );
-    pen += test_against_convex( r_abr, mid_bound2, (BYTE)MIN( fullh-1, fullh-tresh ) );
+    pen += test_against_convex( r_abr, mid_bound2, (uchar)MIN( fullh-1, fullh-tresh ) );
 }
 {
     INT lcv;
     tresh = MIN( 2, fullh/20 );
-    lcv = constancy_vally_lth( l_abr, (BYTE)(midh - (midh>>1)),
-                                        (BYTE)(midh + (midh>>1)), tresh );
+    lcv = constancy_vally_lth( l_abr, (uchar)(midh - (midh>>1)),
+                                        (uchar)(midh + (midh>>1)), tresh );
     if ( lcv > midh - (midh>>2) )
         pen += 48;
 }
     if ( fullw > 8 )
     {
-        make_histo( wid, (BYTE)fullh );
+        make_histo( wid, (uchar)fullh );
         if ( fullw - histo_max_value <= ( midw>>1 ) )
             pen += 60;
     }
@@ -1445,9 +1445,9 @@ RAB_Ret:
     return  new_prob(pen);
 }
 
-BYTE ss_filt()
+uchar ss_filt()
 {
-BYTE wi, wi1, wi2;
+uchar wi, wi1, wi2;
 INT pen, degree;
 
     pen = 0;
@@ -1490,9 +1490,9 @@ INT pen, degree;
     return new_prob( pen );
 }
 
-BYTE k_filt()
+uchar k_filt()
 {
-BYTE wi, wi1, fl;
+uchar wi, wi1, fl;
 INT pen, degree, numi_mode_val;
 
    pen = 0;
@@ -1502,10 +1502,10 @@ INT pen, degree, numi_mode_val;
    wi = bases.b2 - scl->row;
    //AK! add
    if ( wi < 128 && wi >= 0 )
-	numi_mode_val = make_histo( &linh[wi], (BYTE)(fullh - wi - 1) );
+	numi_mode_val = make_histo( &linh[wi], (uchar)(fullh - wi - 1) );
    if ( ( histo[1] > 1 ) || ( histo_max_value >= 3 ) )
    {
-       get_max_min( top, (BYTE)((midw>>1)), (BYTE)(midw + 1), &tmax,
+       get_max_min( top, (uchar)((midw>>1)), (uchar)(midw + 1), &tmax,
                                         &tmin1, &txmax1, &txmin11 );
        if ( tmax > ( wi + ((bases.b3 - bases.b2)>>1) )  )
        //if ( tmax - ( wi + ((bases.b3 - bases.b2)>>1) ) > (fullh/10) )
@@ -1515,17 +1515,17 @@ INT pen, degree, numi_mode_val;
    if ( (numi_mode_val == 2) && ( histo_max_value == 2 ) && ( histo[1] == 0 ) )
    {
       wi += 2;
-      get_max_min( r_abr, wi, (BYTE)(fullh - 1), &rmax, &rmin1, &rxmax1, &rxmin11 );
+      get_max_min( r_abr, wi, (uchar)(fullh - 1), &rmax, &rmin1, &rxmax1, &rxmin11 );
       fl = monotonous_increase( r_abr, wi, rxmax1, &wi1, 0 );
       if ( fl == NOT_FOUND_MON_INCR )
           pen += 40;
-      fl = monotonous_decrease( r_abr, rxmax1, (BYTE)(fullh - (fullh>>3)), &wi1, 0 );
+      fl = monotonous_decrease( r_abr, rxmax1, (uchar)(fullh - (fullh>>3)), &wi1, 0 );
       if ( fl == NOT_FOUND_MON_DECR )
           pen += 40;
       for ( wi1 = 0; wi1 < fullh && wi1 < 128; wi1++ )
         histo[wi1] = wid[wi1] - sumh[wi1];
       wi1 = ( fullh>>3 );
-      get_max_min( histo, wi, (BYTE)(fullh - wi1), &bmax, &bmin1, &bxmax1, &bxmin11 );
+      get_max_min( histo, wi, (uchar)(fullh - wi1), &bmax, &bmin1, &bxmax1, &bxmin11 );
       if ( bmax - bmin1 <= 1 )
         pen += 80;
    }
@@ -1535,7 +1535,7 @@ KF_Ret:
 
 #define PNL_X_NOSIM 40
 #define PNL_X_FLAT_SIDE 40
-BYTE x_filt()
+uchar x_filt()
 {
 INT wi, tresh;
 INT pnl;
@@ -1550,7 +1550,7 @@ INT pnl;
   if ( rjmp == 0 )
    pnl += PNL_X_FLAT_SIDE;
 // Check italic case ( italic letters have not simmetrical covers )
-    make_histo( linh, (BYTE)fullh );         // generates histo_max_value variable
+    make_histo( linh, (uchar)fullh );         // generates histo_max_value variable
     if ( (histo_max_value >= 3) &&     // 3 int-s and more vote for italic 'x'
          ( (histo[3] > 1) || (histo[4] > 1) )  )
         goto    XF_Ret;
@@ -1563,11 +1563,11 @@ XF_Ret:
  return new_prob( pnl );
 }
 
-BYTE d_filt()
+uchar d_filt()
 {
 INT twoint, lgap, i;
-BYTE h14, h23;
-BYTE b_max, b_min, b_x_max, b_x_min, b_end;
+uchar h14, h23;
+uchar b_max, b_min, b_x_max, b_x_min, b_end;
 INT pnl;
 
   twoint = 0;   pnl = 0;
@@ -1625,12 +1625,12 @@ DF_around:
   //AK! add
   if (fullh >=3 && fullh < 131 )
       b_end = fullw - r_abr[fullh-3];  // avoiding italic
-  get_max_min( bot, (BYTE)(midw>>1), b_end,
+  get_max_min( bot, (uchar)(midw>>1), b_end,
                &b_max, &b_min, &b_x_max, &b_x_min );
   lgap = b_max - b_min;
   if ( ( lgap > i ) && ( (fullh - b_max) - twoint < h14 ) )
    {
-    BYTE p,q;
+    uchar p,q;
     for ( q = 0, p = MIN(b_x_max, 127); ( q<10 && p>(midw>>1) && p >= 0); p-- )
      {
       if ( bot[p] - b_min > i )
@@ -1650,21 +1650,21 @@ DF_around:
  return new_prob( pnl );
 }
 
-BYTE v_filt()
+uchar v_filt()
 {
 INT   pen;
-BYTE  wi1, wi2;
+uchar  wi1, wi2;
 
     pen = 0;  wi1 = wi2 = (fullh/6);
 
-    return (BYTE)cprob;
+    return (uchar)cprob;
     //return new_prob( pen );
 }
 
-BYTE q_filt()
+uchar q_filt()
 {
 INT pnl, wi;
-BYTE  i, extr_min, extr_min_pos, dif, wpos;
+uchar  i, extr_min, extr_min_pos, dif, wpos;
 
  pnl = 0;
 
@@ -1697,13 +1697,13 @@ BYTE  i, extr_min, extr_min_pos, dif, wpos;
  return new_prob( pnl );
 }
 
-BYTE Dig_6_filt()
+uchar Dig_6_filt()
 {
   INT   pen;
-  BYTE  i, sumb, max_sum, min_sum, max_x_sum, min_x_sum;
+  uchar  i, sumb, max_sum, min_sum, max_x_sum, min_x_sum;
 
   pen = 0;
-  get_max_min( r_abr, 0, (BYTE)(midh + 1), &rmax, &rmin1, &rxmax1, &rxmin11 );
+  get_max_min( r_abr, 0, (uchar)(midh + 1), &rmax, &rmin1, &rxmax1, &rxmin11 );
   for ( sumb = 0, i = MAX(rxmax1,0); (i < midh && i < 128 ); i++ )
   {
     if ( linh[i] != 1 )
@@ -1715,7 +1715,7 @@ BYTE Dig_6_filt()
   if ( (rxmax1*10) > (fullh * 3) )       // accent size > 3/10 of height
     goto D6F_Ret;                        // it means that symb. is 6 for shure
 
-  get_max_min( sumh, 1, (BYTE)(sumb + 1), &max_sum, &min_sum, &max_x_sum, &min_x_sum );
+  get_max_min( sumh, 1, (uchar)(sumb + 1), &max_sum, &min_sum, &max_x_sum, &min_x_sum );
 //AK! add
   if  ( rxmax1 >= 0 && rxmax1 < 128 && min_x_sum >= 0 && min_x_sum < 128 &&
 	    sumb >=0 && sumb < 128 &&
@@ -1740,14 +1740,14 @@ D6F_Ret:
   return new_prob( pen );
 }
 
-BYTE E_filt()
+uchar E_filt()
 {
-BYTE tbc;
+uchar tbc;
 INT pen;
 
     pen = 0;
-    tbc = monotonous_decrease( l_abr, (BYTE)(midh - (midh>>1)), (BYTE)(midh + (midh>>1)),
-                                    &wbyte, (BYTE)MAX( 1, fullh/20 ) );
+    tbc = monotonous_decrease( l_abr, (uchar)(midh - (midh>>1)), (uchar)(midh + (midh>>1)),
+                                    &wbyte, (uchar)MAX( 1, fullh/20 ) );
     if ( !( tbc == SMOOTH_FUNC ) || ( tbc == FOUND_MON_DECR ) )
         pen += 60;
 
@@ -1760,15 +1760,15 @@ INT pen;
     return new_prob( pen );
 }
 
-INT h_filt(cell *c, INT prob, s_glue *GL, BYTE h_or_b_Let)
+INT h_filt(cell *c, INT prob, s_glue *GL, uchar h_or_b_Let)
 {
  lnhead *Lp1, *Lp2;
  interval *int1;
  c_comp *cp1;
  cell *a;
 
- BYTE intbeg1, intend1, intlth1,  intbeg2, intend2, intlth2, fax_corr;
- BYTE h14, h23;
+ uchar intbeg1, intend1, intlth1,  intbeg2, intend2, intlth2, fax_corr;
+ uchar h14, h23;
  INT  Lc1, lc1, pnl, nc,
       hbeg, hend, rowd, cold;
 
@@ -1872,15 +1872,15 @@ UpperGap:
 }
 
 
-BYTE CR_filt()
+uchar CR_filt()
 {
  INT  pen;
  INT  dev, gap;
- BYTE flit, i3, i1, i2;
+ uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;
 
- i2 = (BYTE)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
+ i2 = (uchar)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
  dev = MAX( fullh / 10, 1 );
 
  // test right side against gap ( avoiding any garbege from BOX )
@@ -1923,15 +1923,15 @@ BYTE CR_filt()
 }
 
 
-BYTE yu_filt()
+uchar yu_filt()
 {
  INT  pen;
  INT  dev, gap;
- BYTE flit, i3, i1, i2;
+ uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;
 
- i2 = (BYTE)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
+ i2 = (uchar)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
  dev = MAX( fullh / 10, 1 );
 
     if ( ncells == 1 )

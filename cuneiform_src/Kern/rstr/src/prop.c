@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*********************************************************************/
 
 #include <stdio.h>
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 
@@ -92,11 +92,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cell *cell_f();         /* get first cell of the string */
 /*  short_recog_cell(cell *);  */   /* recognition of the cell */
-PBYTE proptab_ptr();          /* obtain ptr to proportional table */
-extern BYTE db_pidx_crit;     /* use or not use proportional crit. */
-extern BYTE *letters_pidx_table;
-extern BYTE line_scale;
-extern BYTE fax1x2;
+puchar proptab_ptr();          /* obtain ptr to proportional table */
+extern uchar db_pidx_crit;     /* use or not use proportional crit. */
+extern uchar *letters_pidx_table;
+extern uchar line_scale;
+extern uchar fax1x2;
 
 typedef struct prop_struct
  {
@@ -107,23 +107,23 @@ typedef struct prop_struct
       n_extwid,             /* the number of the extra wide letters */
       n_mrgnar,             /* the number of the marginal narrow letters */
       n_mrgwid;             /* the number of the marginal wide letters */
-  PBYTE   ptab;
-  BYTE    npass;             /* the pass number on  the string */
+  puchar   ptab;
+  uchar    npass;             /* the pass number on  the string */
   char wstr[260];            /* the string to information snaping */
-  BYTE nlet,                 /* the letter number in  the string */
+  uchar nlet,                 /* the letter number in  the string */
       f_nar,              /* the flag of the narrow letters */
       f_wide,             /* the flag of the wide letters */
       f_extn,             /* the flag of the extra narrow letters */
       f_extw,             /* the flag of the extra wide letters */
       f_mrgn,             /* the flag of the marginal narrow letters */
       f_mrgw;             /* the flag of the marginal wide letters */
-  BYTE fladd;             /* the flag of the changing of the DELTA */
+  uchar fladd;             /* the flag of the changing of the DELTA */
  } prop_struct;
 
 typedef struct prop_tab_el
  {  /* description of the element of the proportional table */
-  BYTE min;               /* minimal proportional index */
-  BYTE max;               /* maximal proportional index */
+  uchar min;               /* minimal proportional index */
+  uchar max;               /* maximal proportional index */
  } prop_tab_el;
 /**** Prototypes of all functions *******/
 INT des_re_rec();
@@ -131,7 +131,7 @@ INT des_re_rec();
 #define TROUBLE_PROP      14
 #define ONE_LET_LINE_TRSH 4
 
-BYTE prop_in_trouble;     /* if DELTA>14 then line was strange (for cutting)*/
+uchar prop_in_trouble;     /* if DELTA>14 then line was strange (for cutting)*/
 static INT  call_flag;
 
 /*---------- prop_l_delta and prop_r_delta are global variables ----------*/
@@ -299,7 +299,7 @@ void proc_string(void)
 /*****************************************************************************/
 void accept_let(void)
 {
-BYTE clet;           /* the recognized letter (first version) */
+uchar clet;           /* the recognized letter (first version) */
 INT  wi,             /* proportional index of the letter */
      lb,             /* left bound of the prop. index under delta */
      rb,             /* right bound of the prop. index under delta */

@@ -144,12 +144,12 @@ int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 //
 extern int Num11[256];
 //
-static int DistMoveRasters(BYTE *buf,int fullByte,int w,int h,
-						   BYTE *bufraz,int xbyte2,int xbit2,int yrow2,
+static int DistMoveRasters(uchar *buf,int fullByte,int w,int h,
+						   uchar *bufraz,int xbyte2,int xbit2,int yrow2,
 					       int xmove,int ymove,int porog)
 {
 int   i,j;
-BYTE  cbyte,ccbyte;
+uchar  cbyte,ccbyte;
 int   rbyte;
 int   dist;
 int   ylast=MIN(h,yrow2-ymove-1);
@@ -254,8 +254,8 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
 				   SINT  *LasIn, SINT *NumIn,
 				   int porog)
 {
- BYTE *tmpbuf=(BYTE *)welBuf;
- BYTE *tmp2;
+ uchar *tmpbuf=(uchar *)welBuf;
+ uchar *tmp2;
  int  maxSize=sizeof(welet);
  int i,j,k;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
@@ -338,8 +338,8 @@ int TestFromGoodRaster(int start,Nraster_header *rh,int NumAll,
 				   InfoCluster *infoC,
 				   int porog)
 {
- BYTE *tmpbuf=(BYTE *)welBuf;
- BYTE *tmp2;
+ uchar *tmpbuf=(uchar *)welBuf;
+ uchar *tmp2;
  int  maxSize=sizeof(welet);
  int i,j;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
@@ -414,16 +414,16 @@ static const char twinLet2[] ="l!!\xAB";
 static int TestSymbolGood(  Nraster_header *rh,
 					 int start,int NumAll,
 					 int porog,  SINT *nClus,
-					 BYTE *metkaGood,BYTE *metkaValid,int nCompare
+					 uchar *metkaGood,uchar *metkaValid,int nCompare
 					 )
 {
- BYTE *tmpbuf=(BYTE *)welBuf;
- BYTE *tmp2;
+ uchar *tmpbuf=(uchar *)welBuf;
+ uchar *tmp2;
  int  maxSize=sizeof(welet);
  int i,j;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
  int xmove,ymove;
- BYTE twin1=0,twin2=0;
+ uchar twin1=0,twin2=0;
  char *qq;
 
   qq=strchr(twinHave,rh[start].let);
@@ -504,7 +504,7 @@ static int TestSymbolGood(  Nraster_header *rh,
 int TestClusterGood(  Nraster_header *rh,
 					 int testClus,int start,int inCluster,
 					 int NumAll, int porog,  SINT *nClus,
-					 BYTE *metkaGood,BYTE *metkaValid,
+					 uchar *metkaGood,uchar *metkaValid,
 					 int nCompare
 					 )
 {

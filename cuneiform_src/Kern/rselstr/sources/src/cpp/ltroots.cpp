@@ -168,7 +168,7 @@ void RootStripsCalculate (void)
     int  iStripEnd;
 
     if (nRoots == 0)
-        ErrorInternal ((PSTR)"nRoots == 0");
+        ErrorInternal ((char *)"nRoots == 0");
 
     yMin = pRoots [0].yRow;
     yMax = pRoots [0].yRow + pRoots [0].nHeight - 1;
@@ -241,7 +241,7 @@ void RootStripsGetLoopParameters
     int  iStrip;
 
     if (nRootStripsStep == 0)
-        ErrorInternal ((PSTR)"nRootStripsStep == 0");
+        ErrorInternal ((char *)"nRootStripsStep == 0");
 
     iStripBegin = (yTop
                    - nRootStripsOffset)
@@ -283,7 +283,7 @@ void RootStripsGetLoopParameters
     }
 
     if ((pBegin == NULL) != (pEnd == NULL))
-        ErrorInternal ((PSTR)"(pBegin == NULL) != (pEnd == NULL)");
+        ErrorInternal ((char *)"(pBegin == NULL) != (pEnd == NULL)");
 
     if (pBegin == NULL)
     {
@@ -320,7 +320,7 @@ void RootsSaveNonLayoutData (void)
     int i;
 
     if (pRootExts != NULL)
-        ErrorInternal ((PSTR)"RootsSaveNonLayoutData: pRootExts != NULL");
+        ErrorInternal ((char *)"RootsSaveNonLayoutData: pRootExts != NULL");
 
     nRootExts = nRoots;
 
@@ -343,7 +343,7 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved (void)
     int i;
 
     if (pRootExts == NULL)
-        ErrorInternal ((PSTR)"RootsRestoreNonLayoutData: pRootExts == NULL");
+        ErrorInternal ((char *)"RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (i = 0; i < nRootExts; i++)
     {
@@ -361,7 +361,7 @@ void RootsRestoreNonLayoutData (void)
     int i;
 
     if (pRootExts == NULL)
-        ErrorInternal ((PSTR)"RootsRestoreNonLayoutData: pRootExts == NULL");
+        ErrorInternal ((char *)"RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (i = 0; i < nRootExts; i++)
     {

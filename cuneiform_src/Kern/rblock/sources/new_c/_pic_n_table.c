@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 /************** External declaration ***********************/
-//extern BYTE *CellsPage;
+//extern uchar *CellsPage;
 //extern RPIC_Comp_Rect * pBigLetters;
 //extern int nBigLetters;
 

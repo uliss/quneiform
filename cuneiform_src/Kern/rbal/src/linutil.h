@@ -56,24 +56,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#include "struct.h"
 
-Bool is_liga_ff(BYTE c) ;
-Bool is_liga_ffl(BYTE c);
-BYTE to_lower(BYTE c);
-BYTE to_upper(BYTE c);
-INT  is_lower(BYTE ch);
-INT  is_upper(BYTE ch);
-INT  is_russian(BYTE ch);
-INT  is_english(BYTE ch);
-INT is_polish_special(BYTE ch);
-INT is_czech_special(BYTE ch);	// 05.09.2000 E.P.
-INT is_roman_special(BYTE ch);
-INT is_hungar_special(BYTE ch);
-INT is_serbian_special(BYTE ch);
-INT is_cen_bottom_accent(BYTE c); // 12.09.2000 E.P.
-INT  isletter(BYTE ch);
-Bool is_digit(BYTE ch);
-BYTE get_homot(BYTE ch);
-INT  twin(BYTE ch);
+Bool is_liga_ff(uchar c) ;
+Bool is_liga_ffl(uchar c);
+uchar to_lower(uchar c);
+uchar to_upper(uchar c);
+INT  is_lower(uchar ch);
+INT  is_upper(uchar ch);
+INT  is_russian(uchar ch);
+INT  is_english(uchar ch);
+INT is_polish_special(uchar ch);
+INT is_czech_special(uchar ch);	// 05.09.2000 E.P.
+INT is_roman_special(uchar ch);
+INT is_hungar_special(uchar ch);
+INT is_serbian_special(uchar ch);
+INT is_cen_bottom_accent(uchar c); // 12.09.2000 E.P.
+INT  isletter(uchar ch);
+Bool is_digit(uchar ch);
+uchar get_homot(uchar ch);
+INT  twin(uchar ch);
 //INT  setup_let_case(void);
 INT  setup_let_case(INT);
 INT  count_line_hi(void);
@@ -84,10 +84,10 @@ INT smart_diff(CSTR_rast c);
 void tell_for_b3(INT hist_array[]);
 INT flood_peak(INT *Hh,INT ind);
 INT GetPsFromHeights(void);
-BYTE BracketIn(UniVersions *v);
+uchar BracketIn(UniVersions *v);
 INT def_upper_side(void);
 
-extern BYTE page_stat,ufa,stable_b3;
+extern uchar page_stat,ufa,stable_b3;
 extern INT HIST_STATISTIC;
 
 struct uf_bases { INT bb1,bb2; };

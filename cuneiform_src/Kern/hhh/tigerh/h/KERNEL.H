@@ -70,17 +70,17 @@
 Bool kernel_init(void);
 Bool bcr_init(void);
 void kernel_run_options(uint16_t options);
-Bool recognize(PBYTE ed_file_name);
+Bool recognize(puchar ed_file_name);
 Bool page_analysis(void);
-Bool final_recognition(PBYTE ed_file_name);
-Bool spelling_checker(PBYTE ed_file_name);
+Bool final_recognition(puchar ed_file_name);
+Bool spelling_checker(puchar ed_file_name);
 Bool kernel_reset(void);
 Bool kernel_reload_vocs(void);
-Bool kernel_set_temp_dir(BYTE *tmp_dir);
-Bool kernel_set_windows_dir(BYTE *tmp_dir);
+Bool kernel_set_temp_dir(uchar *tmp_dir);
+Bool kernel_set_windows_dir(uchar *tmp_dir);
 Bool kernel_valid_version(INT, INT);
-Bool kernel_set_enable_table_recog(BYTE table_recog);
-Bool kernel_set_user_dict(BYTE *user_dict);
+Bool kernel_set_enable_table_recog(uchar table_recog);
+Bool kernel_set_user_dict(uchar *user_dict);
 
 //  Error status functions
 pchar get_message(uint16_t code);
@@ -90,8 +90,8 @@ void set_error_status(uint16_t group, uint16_t element);
 void clear_error_status(void);
 
 //	Convetrt to text
-Bool convert_to_text(PBYTE edfile, PBYTE textfile, uint16_t options, uint16_t codepage,
-		BYTE badchar);
+Bool convert_to_text(puchar edfile, puchar textfile, uint16_t options, uint16_t codepage,
+		uchar badchar);
 #define SAVE_TEXT_ED            0x01
 #define SAVE_TEXT_ASCII         0x02
 #define SAVE_TEXT_SMART_ASCII   0x04
@@ -121,7 +121,7 @@ Bool convert_to_text(PBYTE edfile, PBYTE textfile, uint16_t options, uint16_t co
 # define TIGER_CODE_KOI8        0x0004
 # define TIGER_CODE_ISO         0x0008
 
-void write_text(BYTE);
+void write_text(uchar);
 
 //-------------------- Callback functions -------------------------
 
@@ -134,8 +134,8 @@ struct AttrImage {
 	uint16_t LeftDisplacement;
 	uint16_t Resolution_X;
 	uint16_t Resolution_Y;
-	BYTE FotoMetrics;
-	BYTE bUnused;
+	uchar FotoMetrics;
+	uchar bUnused;
 	uint16_t AddX;
 	uint16_t AddY;
 };
@@ -143,14 +143,14 @@ struct AttrImage {
 Bool Tiger_ImageOpen(struct AttrImage * p);
 Bool Tiger_ImageOpen_xy(struct AttrImage * p, uint16_t x, uint16_t y, uint16_t w, uint16_t h);
 Bool Tiger_ImageClose(void);
-INT Tiger_ImageRead(PBYTE buffer, uint16_t lth);
-uint32_t Tiger_ProcessPictures(PBYTE buffer, uint32_t lth);
+INT Tiger_ImageRead(puchar buffer, uint16_t lth);
+uint32_t Tiger_ProcessPictures(puchar buffer, uint32_t lth);
 
 //	Immediate error report
-void Tiger_ReportError(uint16_t status, PBYTE message);
+void Tiger_ReportError(uint16_t status, puchar message);
 
 // Progress Monitor
 Bool Tiger_ProgressStart(void);
 Bool Tiger_ProgressFinish(void);
 Bool Tiger_ProgressSetPercentage(uint16_t wPercent);
-Bool Tiger_ProgressSetStage(uint16_t wStageNumber, PBYTE pStageName, uint16_t wVolume);
+Bool Tiger_ProgressSetStage(uint16_t wStageNumber, puchar pStageName, uint16_t wVolume);

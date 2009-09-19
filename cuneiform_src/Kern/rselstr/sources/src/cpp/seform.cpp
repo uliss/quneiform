@@ -555,7 +555,7 @@ void StringsForming (void)
     if (pCurrentBlock -> pHystogram == NULL ||
         pCurrentBlock -> nHystColumns == 0)
     {
-        ErrorInternal ((PSTR)"Empty hystogram");
+        ErrorInternal ((char *)"Empty hystogram");
     }
 # endif
 

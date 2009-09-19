@@ -57,5 +57,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _LANG_INCLUDED_
 #define _LANG_INCLUDED_
 #include "lang_def.h"
-extern BYTE language;
+extern uchar language;
 #endif

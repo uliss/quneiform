@@ -55,8 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
  #include <stdlib.h>
-
- #include "nt_types.h"
  #include <stdio.h>
  #include <string.h>
 
@@ -76,7 +74,7 @@ void  my_p2_SetP2Alphabet(int lang,char *alf)
 	  memset(alf,0,256);
 	  return;
 }
-BYTE  my_p2_GetCodePage(int lang){return 0;};
+uchar  my_p2_GetCodePage(int lang){return 0;};
 void  my_p2_DecodeCode(char *pCode,int let){return;};
 //////////////////
 // снэр
@@ -90,7 +88,7 @@ Bool32  mySetupPage(void *info) {return FALSE;};
 Bool32  mySpecRecog(RecObject *ro) {return FALSE;};
 ///////////////
 // проверка по словарю
-Bool    my_p2_spell(pchar s,BYTE lang) {return FALSE;};
+Bool    my_p2_spell(pchar s,uchar lang) {return FALSE;};
 
 ///////////////////////////////
 // распознать с разрезанием/склейкой кусок - от first до last,
@@ -102,7 +100,7 @@ int32_t (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last, CSTR_line  line
 //////////////////////
 // допустимые символы, перекодировка
 void  (*RSTR_p2_SetP2Alphabet)(int lang,char *alf)=my_p2_SetP2Alphabet;
-BYTE  (*RSTR_p2_GetCodePage)(int lang)=my_p2_GetCodePage;
+uchar  (*RSTR_p2_GetCodePage)(int lang)=my_p2_GetCodePage;
 void  (*RSTR_p2_DecodeCode)(char *pCode,int let)=my_p2_DecodeCode;
 //////////////////
 // снэр
@@ -112,7 +110,7 @@ Bool16	(*RSTR_p2_snap_activity)(uchar a)=my_snap_activity;
 Bool16	(*RSTR_p2_snap_show_text)(uchar *txt)=my_snap_show_text;
 ///////////////
 // проверка по словарю
-Bool    (*RSTR_p2_spell)(pchar s,BYTE lang)=my_p2_spell;
+Bool    (*RSTR_p2_spell)(pchar s,uchar lang)=my_p2_spell;
 
 // дополнительное распознавание (LEO)
 Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo)=mySetupField;

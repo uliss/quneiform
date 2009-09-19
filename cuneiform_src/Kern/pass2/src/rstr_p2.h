@@ -65,18 +65,18 @@ int32_t (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last,
 // по языку заполнить массив допустимых символов alphaBet[256]
 void  (*RSTR_p2_SetP2Alphabet)(int lang,char *alphaBet);
 // по языку получить номер кодовой страницы
-BYTE  (*RSTR_p2_GetCodePage)(int lang);
+uchar  (*RSTR_p2_GetCodePage)(int lang);
 // перевести let в ANSII (возможно строку)
 void  (*RSTR_p2_DecodeCode)(char *pCode,int let);
 //////////////////
 // снэр
 Bool (*RSTR_p2_NoStopSnapLEO)(void);
-Bool (*RSTR_p2_snap_show_text)(BYTE *txt);
-Bool (*RSTR_p2_snap_activity)(BYTE a);
+Bool (*RSTR_p2_snap_show_text)(uchar *txt);
+Bool (*RSTR_p2_snap_activity)(uchar a);
 Bool (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
 ///////////////
 // проверка по словарю
-Bool (*RSTR_p2_spell)(pchar s,BYTE lang);
+Bool (*RSTR_p2_spell)(pchar s,uchar lang);
 
 // дополнительное распознавание (LEO)
 Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo);

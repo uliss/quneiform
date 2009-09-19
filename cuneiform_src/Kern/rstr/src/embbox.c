@@ -74,7 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -86,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "tuner.h"
 #ifdef UFA
-  Bool test_alphabet_elem(BYTE let);
+  Bool test_alphabet_elem(uchar let);
 #endif
 
 double koeK=1.;                            //AK 30.04.97 It's need?
@@ -95,26 +94,26 @@ long   allK=0,klaK=0;                      //AK -"-
 
 struct res_recog RR;
 extern char *tableBOX;
-extern PBYTE fontBOX/*,auto_pool*/;    /* BOX table for font  */
-PBYTE  omniBOX;    /* BOX save table for omni  */
+extern puchar fontBOX/*,auto_pool*/;    /* BOX table for font  */
+puchar  omniBOX;    /* BOX save table for omni  */
 
 INT best_answer_BOX;
 static void store_bests(INT);
 static void store_all_bests(INT);
 static indBOX *wiptr, *indp;
-static BYTE curlet;
+static uchar curlet;
 
 char forbidBOX[]={"&#@!-."};
 char *db_m1[]={"3x3 tab","3x7 tbl", "5x11 t","7x13 march","16x16 cell"};
 
-static PBYTE full_list[512];
-static PBYTE font_full_list[512];
-static PBYTE omni_full_list[512];
+static puchar full_list[512];
+static puchar font_full_list[512];
+static puchar omni_full_list[512];
 
 struct list_BOX
  {
-  BYTE let;
-  BYTE flag;
+  uchar let;
+  uchar flag;
   uint16_t res;
  };
 typedef struct list_BOX LST;
@@ -350,10 +349,10 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 INT i, hyp,  fll,cnt;
 version *hypa;
 uint16_t probest;
-BYTE ocurlet;
+uchar ocurlet;
 uint16_t vect[16];
 elmBOX  *matr,  *wmatr;
-PBYTE klist;
+puchar klist;
 
 t_answer *ans_ptr;
 Z=&string;
@@ -399,7 +398,7 @@ relet:           // repeat for "similar" letter[s]
                ans_ptr->n_rsn=(char)cnt;
                }
             cnt++;
-            klist += sizeof(PBYTE *);
+            klist += sizeof(puchar *);
             }// while end  (all versions of one letter)
         }
     else
@@ -419,7 +418,7 @@ relet:           // repeat for "similar" letter[s]
                     }
                 }
             cnt++;
-            klist += sizeof(PBYTE *);
+            klist += sizeof(puchar *);
             }// while end  (all versions of one letter)
         }
 
@@ -439,7 +438,7 @@ if (!fll)                             // all not in table - make .99 to all
 return;
 }
 
-Bool pidx_skip(INT h, INT w,BYTE t_let);
+Bool pidx_skip(INT h, INT w,uchar t_let);
 void embBOXF(servBOX *SBOX, INT typl, Bool erection)
 //
 //	This procedure checks r_raster against compressed images from
@@ -450,11 +449,11 @@ void embBOXF(servBOX *SBOX, INT typl, Bool erection)
 //
 {
 INT i, flp, flprop;
-BYTE curr_font;
+uchar curr_font;
 uint16_t curr_cosinus;
 PWORD vectp;
 uint32_t norm;
-PBYTE list;
+puchar list;
 char cnt,n_rsn;
 elmBOX *wmatr;
 t_answer *ans_ptr;
@@ -493,13 +492,13 @@ while ((curlet = ((LST *)list)->let) != 0)
                         i=32766;
                     if ((uint16_t)i > 32767)
                         i=32767;
-                    *(PBYTE)(&curr_font)=wmatr->fnt;
+                    *(puchar)(&curr_font)=wmatr->fnt;
                     *(PWORD)(&curr_cosinus)=i;
                     n_rsn=cnt;
                     }
                 }
             cnt++;
-            list += sizeof(PBYTE *);
+            list += sizeof(puchar *);
             }  // while all letter's list entries
         }
     else
@@ -515,13 +514,13 @@ while ((curlet = ((LST *)list)->let) != 0)
                     {
                     if ((uint16_t)i == 32767)i=32766;
                     if ((uint16_t)i > 32767) i=32767;
-                    *(PBYTE)(&curr_font)=wmatr->fnt;
+                    *(puchar)(&curr_font)=wmatr->fnt;
                     *(PWORD)(&curr_cosinus)=i;
                     n_rsn=cnt;
                     }
                 }
             cnt++;
-            list += sizeof(PBYTE *);
+            list += sizeof(puchar *);
             }  // while all letter's list entries
     }
         if (flprop)
@@ -531,7 +530,7 @@ while ((curlet = ((LST *)list)->let) != 0)
             else
                 store_new_bests(curr_cosinus,curlet,curr_font,n_rsn);
             }
-    list += sizeof(PBYTE *);
+    list += sizeof(puchar *);
     }   // while all list elements
 
 // RR_answers to user's answer field
@@ -556,7 +555,7 @@ void sort_events_box (PWORD list, INT nl)
  PWORD ncur, ncp;
  uint16_t ev_marks[100], probest;
  uint16_t vector[15], norm;
- BYTE ocurlet;
+ uchar ocurlet;
  elmBOX  *matr,  *wmatr;
 
  memset (vector,0,sizeof(vector));
@@ -567,12 +566,12 @@ void sort_events_box (PWORD list, INT nl)
  indp = (indBOX *) tableBOX;    matr = (elmBOX *) (tableBOX+1024);
  do
   {
-     *ncur = 327;	ocurlet = *(PBYTE)lcur;
+     *ncur = 327;	ocurlet = *(puchar)lcur;
      wiptr=&indp[ocurlet];
      if ((!wiptr->ltr) ||                 // no such letter in table
       (strchr(forbidBOX,ocurlet)))      // forbidden in BOX
 	 continue;
-     //wmatr=(elmBOX *)((PBYTE)matr+wiptr->numel);
+     //wmatr=(elmBOX *)((puchar)matr+wiptr->numel);
      wmatr=matr+wiptr->numel;
      while(1)
       {
@@ -584,7 +583,7 @@ void sort_events_box (PWORD list, INT nl)
 	}
        probest = wmatr->list;
        if (!probest) break;
-       //wmatr=(elmBOX *)((PBYTE)matr+probest);
+       //wmatr=(elmBOX *)((puchar)matr+probest);
        wmatr=matr+wiptr->numel;
       }
 
@@ -592,7 +591,7 @@ void sort_events_box (PWORD list, INT nl)
     while (ncp != ev_marks)
      {
       if (*ncp <= *(ncp-1)) break;
-      if (*(((PBYTE)lcp)+1) < *(((PBYTE)lcp)-1)) break;
+      if (*(((puchar)lcp)+1) < *(((puchar)lcp)-1)) break;
       probest = *ncp; *ncp = *(ncp-1); ncp--; *ncp = probest;
       probest = *lcp; *lcp = *(lcp-1); lcp--; *lcp = probest;
      }
@@ -603,20 +602,20 @@ void sort_events_box (PWORD list, INT nl)
 
 //--------------------- Load BOX tables ----------------------------------
 
-static void straight_BOX(PBYTE free)
+static void straight_BOX(puchar free)
 {
  indBOX *o;
  elmBOX *m;
  o=(indBOX  *)tableBOX;
  m=(elmBOX  *)(tableBOX+1024);
  //while (++o != (indBOX *) m)    o->numel *= sizeof (elmBOX);
- //while (free -(PBYTE)m > 0) { m->list *= sizeof(elmBOX); m++; }
+ //while (free -(puchar)m > 0) { m->list *= sizeof(elmBOX); m++; }
 }
 
-static PBYTE list_BOX(PBYTE free, INT typl)
+static puchar list_BOX(puchar free, INT typl)
 {
  INT flp;
- BYTE tlw;
+ uchar tlw;
  register unsigned ocurlet;
  uint16_t list;
  indBOX *owiptr;
@@ -627,7 +626,7 @@ static PBYTE list_BOX(PBYTE free, INT typl)
  full_list[typl] = free;
 
    if( typl >= 32 ){
-      BYTE  bnd=0;
+      uchar  bnd=0;
       if( typl >= 256 )
         bnd = 1;
       indp = owiptr = (indBOX  *)tableBOX;
@@ -638,7 +637,7 @@ static PBYTE list_BOX(PBYTE free, INT typl)
       if( owiptr->ltr ){
          curlet = ocurlet = owiptr->ltr;
          tlw = 0;
-         //wmatr=(elmBOX *)((PBYTE)matr+owiptr->numel);
+         //wmatr=(elmBOX *)((puchar)matr+owiptr->numel);
          wmatr=matr+owiptr->numel;
          ((LST *)free)->let = curlet;
          ((LST *)free)->flag = 0;
@@ -646,15 +645,15 @@ static PBYTE list_BOX(PBYTE free, INT typl)
          while(1){
             if( ( (wmatr->bnd/256) & 0x01 ) == bnd ){
                tlw++;
-               *(PBYTE *)free = (PBYTE) wmatr;   free += sizeof(PBYTE *);
+               *(puchar *)free = (puchar) wmatr;   free += sizeof(puchar *);
             }
             list = wmatr->list;
             if (!list) break;
-            //wmatr=(elmBOX *)((PBYTE)matr+list);
+            //wmatr=(elmBOX *)((puchar)matr+list);
             wmatr=(elmBOX *)matr+list;
          }
          if( tlw ){
-            *((PBYTE *)free) = NULL; free += sizeof (PBYTE *);
+            *((puchar *)free) = NULL; free += sizeof (puchar *);
          }
          else{
             free -= sizeof (LST);
@@ -691,7 +690,7 @@ second:
   if ((tlw = typl & 0x0f) != 0)
     if ((let_lincomp[ocurlet] & tlw) == 0)   // size incompatible to letter
       continue;
-  //wmatr=(elmBOX *)((PBYTE)matr+owiptr->numel);
+  //wmatr=(elmBOX *)((puchar)matr+owiptr->numel);
   wmatr=matr+owiptr->numel;
   if ((flp=letagain(curlet,0))==0)
    {
@@ -707,24 +706,24 @@ second:
   free += sizeof(LST);
 
 rwrk:;
-  //wmatr=(elmBOX *)((PBYTE)matr+wiptr->numel);
+  //wmatr=(elmBOX *)((puchar)matr+wiptr->numel);
   wmatr=matr+wiptr->numel;
 lwrk:;
   while(1)
    {
    if( ( (wmatr->bnd/256) & 0x01 ) == 0 ){
-      *(PBYTE *)free = (PBYTE) wmatr;   free += sizeof(PBYTE *);
+      *(puchar *)free = (puchar) wmatr;   free += sizeof(puchar *);
    }
    list = wmatr->list;
    if (!list) break;
-   //wmatr=(elmBOX *)((PBYTE)matr+list);
+   //wmatr=(elmBOX *)((puchar)matr+list);
    wmatr=(elmBOX *)matr+list;
    }
 
   if (flp == 0) goto lwrs;  // not a paired letter
   if  (letagain(curlet,1) && wiptr) goto rwrk;
 lwrs:;
-  *((PBYTE *)free) = NULL; free += sizeof (PBYTE *);
+  *((puchar *)free) = NULL; free += sizeof (puchar *);
   }
  if ((typl & 256) == 0)
   {
@@ -740,7 +739,7 @@ lwrs:;
 void correct_let_tables(void);
 void correct_letters_pidx_table(void);
 
-PBYTE load_BOX(PBYTE free)
+puchar load_BOX(puchar free)
 {
  INT i;
  correct_let_tables(); // overload lang depending tables А╛. Д═╘╚ ACC_TABS.c
@@ -752,7 +751,7 @@ PBYTE load_BOX(PBYTE free)
    free = list_BOX(free,i);
 
 //for  two  tables  3x5
- memcpy(omni_full_list,full_list,512*sizeof(PBYTE));
+ memcpy(omni_full_list,full_list,512*sizeof(puchar));
  omniBOX = tableBOX;
 
  return free;
@@ -763,11 +762,11 @@ void load_font( INT  font )
 {
 
  if( font ){
-    memcpy(full_list,font_full_list,512*sizeof(PBYTE));
+    memcpy(full_list,font_full_list,512*sizeof(puchar));
     tableBOX = fontBOX;
  }
  else{
-    memcpy(full_list,omni_full_list,512*sizeof(PBYTE));
+    memcpy(full_list,omni_full_list,512*sizeof(puchar));
     tableBOX = omniBOX;
  }
 
@@ -775,11 +774,11 @@ void load_font( INT  font )
 }/*load_font*/
 
 
-PBYTE  preload_font_BOX( PBYTE free )
+puchar  preload_font_BOX( puchar free )
 {
  INT   i;
 // LONG  l;
-// BYTE  workLetter;
+// uchar  workLetter;
 // StructTree *tmp=(StructTree *)auto_pool;               //AK
 
  /*
@@ -815,7 +814,7 @@ PBYTE  preload_font_BOX( PBYTE free )
 /*
   while (++o != (indBOX *) m)
      o->numel *= size_m;      //AK 29.04.97
-  while (free-(PBYTE)m > 0)
+  while (free-(puchar)m > 0)
     {
      m->list *= size_m;        //AK 29.04.97
      m++;
@@ -829,7 +828,7 @@ PBYTE  preload_font_BOX( PBYTE free )
    free = list_BOX(free,i);
  for (i=32; i<512; i++)
    free = list_BOX(free,i);
- memcpy(font_full_list,full_list,512*sizeof(PBYTE));
+ memcpy(font_full_list,full_list,512*sizeof(puchar));
 
  return  free;
 }/*preload_font_BOX*/

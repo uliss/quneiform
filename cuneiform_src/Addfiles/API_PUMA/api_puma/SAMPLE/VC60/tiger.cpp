@@ -26,7 +26,7 @@ short IRecognition::GetLanguage()
 
 void IRecognition::SetLanguage(short nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I2;
 	InvokeHelper(0x1, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -41,7 +41,7 @@ long IRecognition::GetSpeller()
 
 void IRecognition::SetSpeller(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -56,7 +56,7 @@ long IRecognition::GetOneColumn()
 
 void IRecognition::SetOneColumn(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x3, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -71,7 +71,7 @@ long IRecognition::GetFax100()
 
 void IRecognition::SetFax100(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x4, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -86,7 +86,7 @@ long IRecognition::GetDotMatrix()
 
 void IRecognition::SetDotMatrix(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x5, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -101,7 +101,7 @@ CString IRecognition::GetUserDictName()
 
 void IRecognition::SetUserDictName(LPCTSTR lpszNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR;
 	InvokeHelper(0x6, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 lpszNewValue);
@@ -116,7 +116,7 @@ long IRecognition::GetBold()
 
 void IRecognition::SetBold(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x7, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -131,7 +131,7 @@ long IRecognition::GetItalic()
 
 void IRecognition::SetItalic(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x8, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -146,7 +146,7 @@ long IRecognition::GetSize()
 
 void IRecognition::SetSize(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x9, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -161,7 +161,7 @@ long IRecognition::GetFormat()
 
 void IRecognition::SetFormat(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0xa, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -176,7 +176,7 @@ CString IRecognition::GetSerifName()
 
 void IRecognition::SetSerifName(LPCTSTR lpszNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR;
 	InvokeHelper(0xb, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 lpszNewValue);
@@ -191,7 +191,7 @@ CString IRecognition::GetSansSerifName()
 
 void IRecognition::SetSansSerifName(LPCTSTR lpszNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR;
 	InvokeHelper(0xc, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 lpszNewValue);
@@ -206,7 +206,7 @@ CString IRecognition::GetCourierName()
 
 void IRecognition::SetCourierName(LPCTSTR lpszNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR;
 	InvokeHelper(0xd, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 lpszNewValue);
@@ -221,7 +221,7 @@ long IRecognition::GetProgressStep()
 
 void IRecognition::SetProgressStep(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0xe, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -236,7 +236,7 @@ long IRecognition::GetProgressStop()
 
 void IRecognition::SetProgressStop(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0xf, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -251,7 +251,7 @@ long IRecognition::GetProgressStart()
 
 void IRecognition::SetProgressStart(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x10, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -267,7 +267,7 @@ long IRecognition::GetReturnCode()
 CString IRecognition::GetReturnString(long rc)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x12, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		rc);
@@ -289,7 +289,7 @@ void IRecognition::Unload()
 long IRecognition::RecogDIBtoFile(long hDIB, LPCTSTR lpFileName, short shFormat, short shCode)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_BSTR VTS_I2 VTS_I2;
 	InvokeHelper(0x15, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		hDIB, lpFileName, shFormat, shCode);
@@ -299,7 +299,7 @@ long IRecognition::RecogDIBtoFile(long hDIB, LPCTSTR lpFileName, short shFormat,
 short IRecognition::EnumLanguage(short PrevLang)
 {
 	short result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I2;
 	InvokeHelper(0x16, DISPATCH_METHOD, VT_I2, (void*)&result, parms,
 		PrevLang);
@@ -309,7 +309,7 @@ short IRecognition::EnumLanguage(short PrevLang)
 long IRecognition::RecogDIBtoMemory(long hDIB, long* lphMem, short Format, short Code)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_PI4 VTS_I2 VTS_I2;
 	InvokeHelper(0x17, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		hDIB, lphMem, Format, Code);
@@ -326,7 +326,7 @@ long IRecognition::RecogClipboard()
 long IRecognition::XOpen(long hDIB, LPCTSTR FileName)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_BSTR;
 	InvokeHelper(0x19, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		hDIB, FileName);
@@ -343,7 +343,7 @@ long IRecognition::XClose()
 long IRecognition::XRecognition(long bThread, long context)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_I4;
 	InvokeHelper(0x1b, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		bThread, context);
@@ -353,7 +353,7 @@ long IRecognition::XRecognition(long bThread, long context)
 long IRecognition::XSave(LPCTSTR FileName, long Format, long Code)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR VTS_I4 VTS_I4;
 	InvokeHelper(0x1c, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		FileName, Format, Code);
@@ -370,7 +370,7 @@ long IRecognition::XPageAnalysis()
 CString IRecognition::GetLanguageString(long Code)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x1e, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		Code);
@@ -380,7 +380,7 @@ CString IRecognition::GetLanguageString(long Code)
 long IRecognition::EnumFormats(long prev)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x1f, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		prev);
@@ -390,7 +390,7 @@ long IRecognition::EnumFormats(long prev)
 CString IRecognition::GetFormatString(long Code)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x20, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		Code);
@@ -400,7 +400,7 @@ CString IRecognition::GetFormatString(long Code)
 long IRecognition::EnumCodes(long Format, long prev)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_I4;
 	InvokeHelper(0x21, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		Format, prev);
@@ -410,7 +410,7 @@ long IRecognition::EnumCodes(long Format, long prev)
 CString IRecognition::GetCodeString(long Code)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x22, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		Code);
@@ -426,7 +426,7 @@ long IRecognition::GetModePicture()
 
 void IRecognition::SetModePicture(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x23, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -441,7 +441,7 @@ long IRecognition::GetModeTable()
 
 void IRecognition::SetModeTable(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x24, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -456,7 +456,7 @@ long IRecognition::GetModeFormat()
 
 void IRecognition::SetModeFormat(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x25, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -478,7 +478,7 @@ short IRecognition::GetUnrecogChar()
 
 void IRecognition::SetUnrecogChar(short nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I2;
 	InvokeHelper(0x27, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -487,7 +487,7 @@ void IRecognition::SetUnrecogChar(short nNewValue)
 long IRecognition::EnumFormatMode(long nPrev)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x28, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		nPrev);
@@ -497,7 +497,7 @@ long IRecognition::EnumFormatMode(long nPrev)
 long IRecognition::EnumTableMode(long nPrev)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x29, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		nPrev);
@@ -507,7 +507,7 @@ long IRecognition::EnumTableMode(long nPrev)
 long IRecognition::EnumPictureMode(long nPrev)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2a, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		nPrev);
@@ -517,7 +517,7 @@ long IRecognition::EnumPictureMode(long nPrev)
 CString IRecognition::GetFormatModeString(long nMode)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2b, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		nMode);
@@ -527,7 +527,7 @@ CString IRecognition::GetFormatModeString(long nMode)
 CString IRecognition::GetPictureModeString(long nMode)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2c, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		nMode);
@@ -537,7 +537,7 @@ CString IRecognition::GetPictureModeString(long nMode)
 CString IRecognition::GetTableModeString(long nMode)
 {
 	CString result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2d, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms,
 		nMode);
@@ -547,7 +547,7 @@ CString IRecognition::GetTableModeString(long nMode)
 long IRecognition::XGetRotateDIB(long* phDIB, long* x0, long* y0)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_PI4 VTS_PI4 VTS_PI4;
 	InvokeHelper(0x2e, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		phDIB, x0, y0);
@@ -563,7 +563,7 @@ long IRecognition::GetAutoRotate()
 
 void IRecognition::SetAutoRotate(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x2f, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -571,7 +571,7 @@ void IRecognition::SetAutoRotate(long nNewValue)
 
 void IRecognition::SetPageSize(long width, long height)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_I4;
 	InvokeHelper(0x30, DISPATCH_METHOD, VT_EMPTY, NULL, parms,
 		 width, height);
@@ -579,7 +579,7 @@ void IRecognition::SetPageSize(long width, long height)
 
 void IRecognition::RenameImageFile(LPCTSTR name)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_BSTR;
 	InvokeHelper(0x31, DISPATCH_METHOD, VT_EMPTY, NULL, parms,
 		 name);
@@ -588,7 +588,7 @@ void IRecognition::RenameImageFile(LPCTSTR name)
 long IRecognition::XSetTemplate(long nLeft, long nTop, long nRight, long nBottom)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_I4 VTS_I4 VTS_I4;
 	InvokeHelper(0x32, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		nLeft, nTop, nRight, nBottom);
@@ -604,7 +604,7 @@ long IRecognition::GetCurrentEdPage()
 
 void IRecognition::SetCurrentEdPage(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x33, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -619,7 +619,7 @@ long IRecognition::GetPreserveLineBreaks()
 
 void IRecognition::SetPreserveLineBreaks(long nNewValue)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x34, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms,
 		 nNewValue);
@@ -628,7 +628,7 @@ void IRecognition::SetPreserveLineBreaks(long nNewValue)
 long IRecognition::Save(long hEdPage, LPCTSTR FileName, long Format, long Code, long bAppend)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_BSTR VTS_I4 VTS_I4 VTS_I4;
 	InvokeHelper(0x35, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		hEdPage, FileName, Format, Code, bAppend);
@@ -638,7 +638,7 @@ long IRecognition::Save(long hEdPage, LPCTSTR FileName, long Format, long Code, 
 long IRecognition::SaveToBSTR(long hEdPage, long Format, long Code, BSTR* lpbstr)
 {
 	long result;
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4 VTS_I4 VTS_I4 VTS_PBSTR;
 	InvokeHelper(0x36, DISPATCH_METHOD, VT_I4, (void*)&result, parms,
 		hEdPage, Format, Code, lpbstr);
@@ -647,7 +647,7 @@ long IRecognition::SaveToBSTR(long hEdPage, long Format, long Code, BSTR* lpbstr
 
 void IRecognition::DeleteEdPage(long hEdPage)
 {
-	static BYTE parms[] =
+	static uchar parms[] =
 		VTS_I4;
 	InvokeHelper(0x37, DISPATCH_METHOD, VT_EMPTY, NULL, parms,
 		 hEdPage);

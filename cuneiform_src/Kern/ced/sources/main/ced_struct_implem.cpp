@@ -381,7 +381,7 @@ int	CEDPage::GetNumberOfChars()
 	return i+1;
 }
 
-Bool32 CEDPage::CreateFont(BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,
+Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
 				char* fontName)
 {
 	if(fontsUsed>=fontsCreated)
@@ -410,7 +410,7 @@ Bool32 CEDPage::CreateFont(BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCh
 	return TRUE;
 }
 
-Bool32 CEDPage::GetFont(int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,
+Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
 				char** fontName)
 {
 	if (number>=fontsUsed)
@@ -426,7 +426,7 @@ Bool32 CEDPage::GetFont(int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, 
 	return TRUE;
 }
 
-int CEDPage::GetFontByNum(BYTE fontNumber)
+int CEDPage::GetFontByNum(uchar fontNumber)
 {
 	for (int i=0;i<fontsUsed;i++)
 		if (fontTable[i].fontNumber==fontNumber) return i;

@@ -101,8 +101,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAXFONT         8
 #define UNRECOG_SYMBOL '~'
 
-#include "c_types.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -112,9 +110,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sfont.h"
 #include "fonrec.h"
 #include "clu_lang.h"
+#include "minmax.h"
 
-SINT DistanceHausDLL(BYTE  *b1,SINT xbyte1,SINT yrow1,
-						BYTE  *b2,SINT xbyte2,SINT yrow2,
+SINT DistanceHausDLL(uchar  *b1,SINT xbyte1,SINT yrow1,
+						uchar  *b2,SINT xbyte2,SINT yrow2,
 						SINT porog);
 static void CorrectSizes(int *minBig,int *maxBig,int *minLit,int *maxLit,int bSize,int lSize,int porogSize);
 
@@ -126,11 +125,11 @@ int32_t TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
 // проверить растр на противоречие с хорошими кластерами
 //
 int TestClusterGood(  Nraster_header *rh, int testClus,int startNum,int count,int NumAll,
-					 int porog,  SINT *nClus, BYTE *metkaGood,BYTE *metkaValid,int nCompare);
+					 int porog,  SINT *nClus, uchar *metkaGood,uchar *metkaValid,int nCompare);
 int TestIntersectFields(int count,FONTFIELD *f1,InfoCluster *infoC);
 
 static int AnalizeSizes(InfoCluster *infoC,int numClus,
-						BYTE *metka, int fir);
+						uchar *metka, int fir);
 static int GetNextFont(int *bSize,int *lSize,int *pSize,
 					   int *minBig,int *maxBig,
 					   int *minLit,int *maxLit,
@@ -208,7 +207,7 @@ void AddDWORDField(int i,uint32_t *fifi)
 static int GetMaxFrom0(int numSymbol,Nraster_header *rh,
 				  int clusDig,SINT *nClus,
 				  int bSize,int numClus,InfoCluster *infoC,
-				  BYTE *metkaGood,BYTE *metkaValid)
+				  uchar *metkaGood,uchar *metkaValid)
 {
 	int i,best;
 
@@ -310,7 +309,7 @@ static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
 static int TestO0b6(int numSymbol,Nraster_header *rh,
 				  int clusDig,int clusLet,SINT *nClus,
 				  int bSize,int numClus,InfoCluster *infoC,
-				  BYTE *metkaGood,int nameLet)
+				  uchar *metkaGood,int nameLet)
 {
  int i,j;
  int best=-1;    // best from new clusters
@@ -365,7 +364,7 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
 ///////////////////////
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 						SINT *nClus,InfoCluster *infoC,int *countC,
-						BYTE *metkaGood,BYTE *metkaValid,Bool addLingvo)
+						uchar *metkaGood,uchar *metkaValid,Bool addLingvo)
 {
  int i;
  int curClus;
@@ -465,7 +464,7 @@ void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 // use maxCluster,max2Cluster - as static !
 static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 					int minSize,int maxSize,
-					BYTE *metkaGood,BYTE *metkaValid,
+					uchar *metkaGood,uchar *metkaValid,
 					int isCluster,int porogSize,
 					Nraster_header *rh,int NumAll,
 					SINT *nClus)
@@ -521,7 +520,7 @@ static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 }
 //////////////
 static int AddSpecialName(int  let,int numCluster,InfoCluster *infoC,
-					BYTE *metkaGood )
+					uchar *metkaGood )
 {
 	int i;
 
@@ -538,7 +537,7 @@ static int AddSpecialName(int  let,int numCluster,InfoCluster *infoC,
 }
 //////////////
 static int BestBySize(int let,int numCluster,InfoCluster *infoC,int bSize,int porog,
-					  BYTE *metkaGood)
+					  uchar *metkaGood)
 {
 
 	int i,best;
@@ -581,7 +580,7 @@ Bool32 BadCluster(InfoCluster *infoC)
 ////////////////
 #define POROG_HEIGHT 4
 static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
-					   BYTE *metkaGood, BYTE *metkaValid,
+					   uchar *metkaGood, uchar *metkaValid,
 					   int *tipSizeBig,int *tipSizeLit,
 					   int *porSize,int *standWidth)
 {
@@ -659,7 +658,7 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
 ////////////////
 #ifdef _TEST_MULTI_FONT_
 static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
-					     BYTE *metkaGood, BYTE *metkaValid )
+					     uchar *metkaGood, uchar *metkaValid )
 {
  int j;
 
@@ -708,7 +707,7 @@ static int GetBestClusters(int minSizeBig,int maxSizeBig,
 						   int porogSize,
 					int bWidth ,
 					InfoCluster *infoC, int *countC, int numCluster,
-					BYTE *metkaGood,
+					uchar *metkaGood,
 					int *maxC,int *max2,uint32_t *curFields)
 {
 int i,j;
@@ -905,7 +904,7 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
 // получить кластеры из поля
 static int GetFieldClusters( InfoCluster *infoC, int numCluster,SINT *nClus,
 							Nraster_header *rh, int numSymbol,
-					      BYTE *metkaGood, 	int *maxC ,
+					      uchar *metkaGood, 	int *maxC ,
 						  uint32_t *testField,
 						  FONTFIELD *fontF,int numF,int inField)
 {
@@ -1140,7 +1139,7 @@ endNoFont:
 //////////////////
 
 int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
-					 SINT *nClus,BYTE *metka,BYTE *metkaValid,
+					 SINT *nClus,uchar *metka,uchar *metkaValid,
 					 int maxOutFonts,uint32_t *ffFields)
 {
  int i,j;
@@ -1584,7 +1583,7 @@ fillGood:
 }
 /////////////////////////
 int GetProbValid(int numSymbol,int numCluster,Nraster_header *rh,SINT *nClus,
-				 BYTE *metkaGood,BYTE *metkaValid)
+				 uchar *metkaGood,uchar *metkaValid)
 {
 int i,curClus;
 
@@ -1604,8 +1603,8 @@ int i,curClus;
 // for not-single font version
 static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
 					   int *countC,int *maxC,int *max2,
-					   BYTE *metkaGood,int *minSizeBig,
-					   BYTE *metkaValid)
+					   uchar *metkaGood,int *minSizeBig,
+					   uchar *metkaValid)
 {
  int j;
  //
@@ -1656,7 +1655,7 @@ static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
 }
 //////////////////
 int MultiFindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
-					 SINT *nClus,BYTE *metka,BYTE *metkaValid)
+					 SINT *nClus,uchar *metka,uchar *metkaValid)
 {
 int i;
 int bSize;  // minimal size of big letter
@@ -1820,7 +1819,7 @@ static int ProgibFun(int *hhh,int GreyLev,int *valProg)
  int prog=0,leftprog=0;
  int lefth=-1;
  int best=-1,prommin = -1;
- BYTE spusk = 0;
+ uchar spusk = 0;
 
 	// not need start
  for(i=1;i<GreyLev;i++)
@@ -1965,7 +1964,7 @@ KUCHKA tmpKuch;
 }
 ///////////////
 static int AnalizeSizes(InfoCluster *infoC,int numClus,
-						BYTE *metka, int fir)
+						uchar *metka, int fir)
 {
  int i,j;
  int hei;

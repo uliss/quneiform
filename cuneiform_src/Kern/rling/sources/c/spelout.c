@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef SECOND_PASS
   RSTAT    rst[RST_BUFF_SIZE];
   INT      rst_last=0;
-  BYTE     ast[MAX_ARTS];
+  uchar     ast[MAX_ARTS];
 #endif
 
 extern dQ SPQ;                        //Q;                        /* ED-file access common structure */
@@ -94,24 +94,24 @@ extern struct artstr artbase[24];
    /* base of artificial changes      */
 #endif
 #ifdef  RUS_ENG_LANG
-extern BYTE multy_language ;
+extern uchar multy_language ;
 #endif
 /*=================================================================== */
 /*                    Local  functions prototypes                     */
 /*=================================================================== */
-  static INT outpos_repl (SOBJ * obj,INT pos, BYTE cnew);
+  static INT outpos_repl (SOBJ * obj,INT pos, uchar cnew);
   static INT outpos_repl_bl (SOBJ * obj, SPART * part,INT pos, INT anew);
   static INT outpart (SOBJ * obj, SPART * part);
   static INT outpos_ins_bl (SOBJ * obj, SPART *part, INT pos, INT anew);
-  static INT outpos_ins (SOBJ * obj,INT pos, BYTE cnew);
+  static INT outpos_ins (SOBJ * obj,INT pos, uchar cnew);
   static INT outpos_del (SOBJ * obj, INT pos);
-  static INT outpos_context ( SPART * part, INT pos, BYTE * c);
+  static INT outpos_context ( SPART * part, INT pos, uchar * c);
   static INT  getpos_bel (SOBJ * obj, INT pos, LT  ** beg,
                           LT  ** end, INT * lth );
   static INT corrpos_lt (SOBJ * obj, INT pos, LONG lth);
   static INT shift_left(INT v_s,struct segm * cur_segm,
                           char * cur_symb);
-  static INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew);
+  static INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew);
 
 #ifdef SECOND_PASS
   static void collect_repl_stat(SOBJ *,INT npos,INT nalt);
@@ -381,7 +381,7 @@ INT outpos_repl_bl (SOBJ * obj, SPART * part,
 
 {
  LT  * lt1;
- BYTE c;
+ uchar c;
 
  c = obj->pos[SPEC_POS].alt[anew].orig.code;
  lt1 = obj->pos[pos].lt;
@@ -403,12 +403,12 @@ return(OK);
    by the new alt, specified by char 'cnew'
 								       */
 /***********************************************************************/
- INT outpos_repl (SOBJ * obj, INT pos, BYTE cnew)
+ INT outpos_repl (SOBJ * obj, INT pos, uchar cnew)
 
 {
  LT  * lt1;
 #ifdef EDPR_CORR
- BYTE c;
+ uchar c;
 #endif
  if ( obj->pos[pos].type_sp & (T_BLANK|T_SP1|T_SP2|T_HYPHEN) )
   lt1 = obj->pos[pos].lt;           /* no detailed alt-info : pos beg      */
@@ -440,7 +440,7 @@ INT outpos_exch (SOBJ * obj, INT pos, INT anew)
 {
  LT  * lt1;
  LT  * lt2;
- BYTE c;
+ uchar c;
 
  lt1 = obj->pos[pos].alt[0].lt;
  c = lt1->code;
@@ -470,7 +470,7 @@ INT outpos_ins_bl (SOBJ * obj, SPART * part,
 
 {
  /*LT  * lt1;*/
- BYTE c;
+ uchar c;
 
  c = obj->pos[SPEC_POS].alt[anew].orig.code; /* what to insert          */
  outpos_context (part, pos, &c);     /* correct context, if needed */
@@ -499,7 +499,7 @@ INT outpos_ins_bl (SOBJ * obj, SPART * part,
 /* This procedure inserts 1-st char "cnew" as a new position (!) after "pos"
 								       */
 /***********************************************************************/
- INT outpos_ins (SOBJ * obj,INT pos, BYTE cnew)
+ INT outpos_ins (SOBJ * obj,INT pos, uchar cnew)
 
 {
  if(outpos_ins_shift (obj, pos, cnew)==YES)
@@ -530,7 +530,7 @@ return(OK);
 								       */
 /***********************************************************************/
 INT outpos_context ( SPART * part,
-                   INT pos, BYTE * c)
+                   INT pos, uchar * c)
 
 {
  if (part->word->type & T_LOW)          /*???&& (!(obj->type & T_DIG)) )*/
@@ -550,7 +550,7 @@ return (OK);
 /* This procedure inserts 1-st char "cnew" as a new position (!) after "pos"
 								       */
 /***********************************************************************/
-INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
+INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew)
 
 {
  struct segm  * savesegm;
@@ -586,7 +586,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
 				/* either insert in old segm or not: */
   {                                 /* old segm is full, set newsegm       */
 				    /* everywhere after the pos inserted:  */
-   shift= (LONG)(SPQ.ns_symb-(BYTE  *)(lt));
+   shift= (LONG)(SPQ.ns_symb-(uchar  *)(lt));
    for(pi=pos+1; pi<endpos; pi++)
     {
      if(obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?   */
@@ -718,9 +718,9 @@ INT shift_left(INT v_s,struct segm * cur_segm, char * cur_symb)
  *****************************************************/
   if(cur_segm == SPQ.ns_segm)
   {
-   if (cur_segm->busy_lth+v_s == SPQ.ns_symb-(BYTE *)cur_segm->string+2)
+   if (cur_segm->busy_lth+v_s == SPQ.ns_symb-(uchar *)cur_segm->string+2)
    {
-    BYTE  *symb;
+    uchar  *symb;
                        /* Set SPQ.ns_symb onto the last line position */
 
     skip_letter_in_line (cur_segm,-1) ;
@@ -799,7 +799,7 @@ if (multy_language&&language==LANG_RUSSIAN)
 {
  if( rst_last < RST_BUFF_SIZE)
   { register INT i;
-    register BYTE was,be,ex=No;
+    register uchar was,be,ex=No;
     was=obj->pos[npos].alt[0].orig.code;
      be=obj->pos[npos].alt[nalt].orig.code;
     for( i=0; i<rst_last;i++)

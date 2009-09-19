@@ -95,8 +95,8 @@ struct Tiger_ImageInfo
                                   //   image line in pixels, usually 0
     uint16_t  wResolutionX;           // Resolution by X-axe
     uint16_t  wResolutionY;           // Resolution by Y-axe
-    BYTE  bFotoMetrics;           // White pixel
-    BYTE  bUnused;                // not used; for alignment purpose only
+    uchar  bFotoMetrics;           // White pixel
+    uchar  bUnused;                // not used; for alignment purpose only
 
     uint16_t  wAddX;
     uint16_t  wAddY;

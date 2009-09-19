@@ -95,8 +95,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct bit_map_ref
  {
- BYTE code;
- BYTE pos;
+ uchar code;
+ uchar pos;
  INT row;
  INT col;
  INT width;
@@ -105,48 +105,48 @@ struct bit_map_ref
 
 struct text_ref
  {                                     /* 0 - letter */
- BYTE code;                            /* 1 -        */
- BYTE type;                            /* 2 - word   */
+ uchar code;                            /* 1 -        */
+ uchar type;                            /* 2 - word   */
  INT object;                           /* 3 - string */
  };
 
 struct font_kegl                       /*  1 - serific     */
  {                                     /*  2 - gelvetic    */
- BYTE code;                            /*  4 - bold        */
- BYTE new_kegl;                        /*  8 - light       */
- BYTE new_font;                        /* 16 - italic      */
- BYTE reserv;                          /* 32 - straight    */
+ uchar code;                            /*  4 - bold        */
+ uchar new_kegl;                        /*  8 - light       */
+ uchar new_font;                        /* 16 - italic      */
+ uchar reserv;                          /* 32 - straight    */
  };                                    /* 64 - underlined  */
 
 struct kegl
  {
- BYTE code;
- BYTE new_kegl;
+ uchar code;
+ uchar new_kegl;
  };
 
 struct EdTagLanguage //for russian-english recognize
  {
- BYTE code; // 0x0F
- BYTE language;
+ uchar code; // 0x0F
+ uchar language;
  };
 
 struct shift
  {
- BYTE code;
- BYTE kegl;
+ uchar code;
+ uchar kegl;
  INT clearance;                         /* value of lift or descent */
  };                                     /* lift positive            */
 					/* descent negative         */
 struct retrieve_level
  {
- BYTE code;
- BYTE kegl;
+ uchar code;
+ uchar kegl;
  };
 
 struct underline
  {                                     /* 0 - thin straight       */
- BYTE code;                            /* 1- half thick straight  */
- BYTE type;                            /* 2- thick straight       */
+ uchar code;                            /* 1- half thick straight  */
+ uchar type;                            /* 2- thick straight       */
  };                                    /* 3- thin cursive         */
 				       /* 4- half thick cursive   */
 				       /* 5- thick cursive        */
@@ -154,76 +154,76 @@ struct underline
 				       /* 7- end of underline     */
 struct dens_print
  {
- BYTE code;
- BYTE dens_atr;                         /* attribute of print's    */
+ uchar code;
+ uchar dens_atr;                         /* attribute of print's    */
  };				        /*                 density */
 
 struct tabul
  {
- BYTE code;
- BYTE numb_in_tab_tabul;                /* number of position in        */
+ uchar code;
+ uchar numb_in_tab_tabul;                /* number of position in        */
  };                                     /*         table of tabulation  */
 
 struct tabl_tabul
  {
- BYTE code;
- BYTE lth;                              /* scale of arow               */
+ uchar code;
+ uchar lth;                              /* scale of arow               */
  INT arow_pos[1] ;
  };
 
 struct fragm_disk
  {
- BYTE code;
- BYTE fragm_numb;
+ uchar code;
+ uchar fragm_numb;
  INT depth;
  };
 
 struct step_back
  {
- BYTE code;
- BYTE Step_back;                        // value of backstep //AK 18.03.97 step -> Step
+ uchar code;
+ uchar Step_back;                        // value of backstep //AK 18.03.97 step -> Step
  };
 
 struct line_beg
  {
- BYTE code;
- BYTE height;
+ uchar code;
+ uchar height;
  INT base_line;                         /* displacement for current         */
  };                                     /*     line to upper frame of fragm */
 
 struct position
  {
- BYTE code;
- BYTE store;
+ uchar code;
+ uchar store;
  INT pos;                               /* position in line for      */
  };                                     /*     left frame of  fragm  */
 
 struct table_conform_sizes
  {
- BYTE code;
- BYTE store;
+ uchar code;
+ uchar store;
  char tab_val_A [9*2];                   /* table of sizes of letter A  */
  };              			 /*     for kegles from 4 to 12 */
 
 
 struct group_words
  {
- BYTE code;
- BYTE  gr_wd_type;                     	  /* 0 - beg of group             */
+ uchar code;
+ uchar  gr_wd_type;                     	  /* 0 - beg of group             */
  };			                  /* 1 - cur. word of group       */
 					  /* 2 - end                      */
 					  /* 3 - partition between groups */
 
 struct group_symbols
  {
- BYTE code;
- BYTE gr_sb_type;
+ uchar code;
+ uchar gr_sb_type;
  };
 
 struct border
     {
-    BYTE code;          /* 0x16 SS_BORDER             */
-    BYTE type;          /* 1 - left                   */
+    uchar code;          /* 0x16 SS_BORDER             */
+    uchar type;          /* 1 - left                   */
 #define b_vert 1	/* 2 - right                  */
 #define b_hor  4	/* 4 - top                    */
 			/* 8 - bottom                 */
@@ -233,45 +233,45 @@ struct border
 
 struct table_header
     {
-    BYTE    code;       /* 0x17 SS_TABLE_HEADER                   */
-    BYTE    cols;       /* Number of columns                      */
+    uchar    code;       /* 0x17 SS_TABLE_HEADER                   */
+    uchar    cols;       /* Number of columns                      */
     INT     lth;        /* Total length of record                 */
     INT     nfrag[1];    /* List of fragments in header of table   */
     };
 
 struct list_of_fragments
     {
-    BYTE    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
-    BYTE    cols;       /* Number of columns            */
+    uchar    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
+    uchar    cols;       /* Number of columns            */
     INT     lth;        /* Total length of record       */
     INT     nfrag[1];   /* List of fragments in table   */
     };
 
 struct aksant
  {
- BYTE code1;
- BYTE code;
+ uchar code1;
+ uchar code;
  };
 
 struct neg_half_space
  {
- BYTE code;
- BYTE authenticity_degree;
+ uchar code;
+ uchar authenticity_degree;
  };
 
 struct pos_half_space
  {
- BYTE code;
- BYTE authenticity_degree;
+ uchar code;
+ uchar authenticity_degree;
  };
 
 struct sheet_disk_descr
  {
- BYTE code;
+ uchar code;
  char quant_fragm;
  INT sheet_numb;
  INT descr_lth;
- BYTE byte_flag;
+ uchar byte_flag;
  uint16_t resolution;
  INT  incline;
  char tabl[13];
@@ -279,7 +279,7 @@ struct sheet_disk_descr
 
 struct fragm_disk_descr
  {
- BYTE code;
+ uchar code;
  INT row;                             /* coordinates of left upper  */
  INT col;                             /* angle of fragment's frame  */
  INT height;                          /* height of fragment         */
@@ -290,10 +290,10 @@ struct fragm_disk_descr
 #define FD_TYPE_TABLE 2
 #define FD_TYPE_EMPTY 3
 
- BYTE kegl;                           /* kegl for following fragm    */
- BYTE font;                            /* font ~~~~~~~~~~~~~~~~~~    */
- BYTE language;//reserv;              /* language for fragment       03-29-94 02:21pm,Pit*/
- BYTE type_underl;                    /* type specifications of font    */
+ uchar kegl;                           /* kegl for following fragm    */
+ uchar font;                            /* font ~~~~~~~~~~~~~~~~~~    */
+ uchar language;//reserv;              /* language for fragment       03-29-94 02:21pm,Pit*/
+ uchar type_underl;                    /* type specifications of font    */
  };				      /*     for additional information */
 				      /*     look at underline          */
 

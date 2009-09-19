@@ -105,7 +105,7 @@ uint32_t i(0);
     }
 
     if (nMinBlock == 0 || nMaxBlock == 0)
-        ErrorInternal ((PSTR)"No blocks");
+        ErrorInternal ((char *)"No blocks");
 
     nBlocks = nMaxBlock + 1;
     pBlockPointer =(BLOCK**) malloc (nBlocks * sizeof (BLOCK *));

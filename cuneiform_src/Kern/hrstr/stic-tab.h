@@ -112,7 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* ╟╟╟								╟╟╟ */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 
-static BYTE tab_1[]=					// dis_1
+static uchar tab_1[]=					// dis_1
 	{
 	60,  /* 0. no left upper flag : zones 0, 1        */
 	2,   /* 1. for right upper flag : zone  0         */
@@ -137,7 +137,7 @@ static BYTE tab_1[]=					// dis_1
 	BP   /* 20. bad proportions                       */
 	};
 
-static BYTE tab_0xBA[]=
+static uchar tab_0xBA[]=
 	{
 	6,   /* 0. central long left flag                */
 	20,  /* 1. up serif                              */
@@ -164,7 +164,7 @@ static BYTE tab_0xBA[]=
 	50	// 22. similar	'l'	MK
 	};
 
-static BYTE tab_i[]=
+static uchar tab_i[]=
 	{
 	40,  /* 0. for long central flag       */
 	6,   /* 1. for near central flag       */
@@ -172,7 +172,7 @@ static BYTE tab_i[]=
 	BR_i /* 3. for configurations [,] with point {Ь} */
 	};
 
-static BYTE tab_l[]=					// dis_l
+static uchar tab_l[]=					// dis_l
 	{
 	2,	// 0. right upper flag > left or no left
 	8,	// 1. -- // -- + long right flag

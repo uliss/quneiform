@@ -106,7 +106,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dp
 }
 
 //create foont
-CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,
+CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
 				char* fontName)
 {
 	if (logStream)
@@ -564,7 +564,7 @@ return ((CEDPage*)hEdPage)->GetParagraph(_num);
 }
 
 //get font
-CED_FUNC(Bool32) CED_GetFont(Handle hEdPage,int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,
+CED_FUNC(Bool32) CED_GetFont(Handle hEdPage,int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
 				char** fontName)
 {
 	return ((CEDPage*)hEdPage)->GetFont(number,fontNumber,fontPitchAndFamily,fontCharset,fontName);

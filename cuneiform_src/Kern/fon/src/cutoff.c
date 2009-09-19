@@ -187,12 +187,12 @@ SINT MakeIdeal(welet *wel,SINT porog)
 ////////////////////////////////
 ////////////////
 // start find distance L1 from all points to raster
-SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
+SINT AnalisFirstRow(uchar *row,SINT fir,SINT las,uchar *out,
 						 SINT sizex,SINT sizey,SINT fullx)
 {
  register SINT i,j;
  SINT PrevDist;
- BYTE *nextRow;
+ uchar *nextRow;
 
  if(fir >= las) return 0;
 
@@ -209,7 +209,7 @@ SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
 	  if(las < sizex && out[i] > las-i) out[i]=las-i;
 	  PrevDist=MIN(out[i],sizey);
 	  for(j=1,nextRow=row+fullx+i;j< PrevDist;j++,nextRow+=fullx)
-			if( *nextRow) {out[i]=(BYTE)j;break;}
+			if( *nextRow) {out[i]=(uchar)j;break;}
 	 }
 
 	// check distance from right
@@ -225,7 +225,7 @@ SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
 	  out[i]=out[i+1]+1;
 	  PrevDist=MIN(out[i],sizey);
 	  for(j=1,nextRow=row+fullx+i;j< PrevDist;j++,nextRow+=fullx)
-			if( *nextRow) {out[i]=(BYTE)j;break;}
+			if( *nextRow) {out[i]=(uchar)j;break;}
 	 }
 
 	// check distance from left
@@ -235,12 +235,12 @@ SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
  return 0;
 }
 /////////////////////////
-SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
+SINT AnalisNextRow (uchar *row,SINT fir,SINT las, uchar *out,
 						 SINT sizex,SINT sizey,SINT fullx)
 {
  register SINT i,j;
  SINT PrevDist;
- BYTE *nextRow;
+ uchar *nextRow;
 
   if(fir > 0)  out[fir]=1;
   else
@@ -253,7 +253,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 		 PrevDist=MIN(out[fir],sizey);
 		 for(j=(out[fir]==2?1:out[fir]-2),nextRow=row+j*fullx+fir;j< PrevDist;
 					  j++,nextRow+=fullx)
-			if( *nextRow) {out[fir]=(BYTE)j;break;}
+			if( *nextRow) {out[fir]=(uchar)j;break;}
 		}
 	 }
 
@@ -277,7 +277,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 	  if(j>=PrevDist) continue;
 
 	  for(nextRow=row+j*fullx+i;j< PrevDist;j++,nextRow+=fullx)
-			if( *nextRow) {out[i]=(BYTE)j;break;}
+			if( *nextRow) {out[i]=(uchar)j;break;}
 	 }
 
 	// check distance from right
@@ -286,7 +286,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
  return 0;
 }
 ///////////////////////
-static SINT FindDist(BYTE *ras,SINT sizex,SINT sizey,SINT fullx,BYTE *out)
+static SINT FindDist(uchar *ras,SINT sizex,SINT sizey,SINT fullx,uchar *out)
 {
  SINT i;
  SINT fir,k;
@@ -338,27 +338,27 @@ static SINT FindDist(BYTE *ras,SINT sizex,SINT sizey,SINT fullx,BYTE *out)
 // find distances in wel - results put to outwel
 SINT FindDistanceWr(welet *wel,welet *outwel)
 {
- BYTE *cur;
+ uchar *cur;
  SINT startx,starty;
- BYTE *out;
+ uchar *out;
  register SINT i,j;
  SINT bound;
  SINT sizex,sizey;
  SINT fill;
- BYTE *cout;
+ uchar *cout;
 #ifdef _WEIDIST_
  uint16_t koef;
- BYTE ckoef,maxvei;
+ uchar ckoef,maxvei;
  char *ras,*cras;
 #else
  SINT b2;
- BYTE *fullout;
+ uchar *fullout;
 #endif
 
  startx=(WR_MAX_WIDTH-wel->w)/2;
  starty=(WR_MAX_HEIGHT-wel->h)/2;
- cur=(BYTE *)wel->raster+starty*WR_MAX_WIDTH+startx;
- out=(BYTE *)outwel->raster+starty*WR_MAX_WIDTH+startx;
+ cur=(uchar *)wel->raster+starty*WR_MAX_WIDTH+startx;
+ out=(uchar *)outwel->raster+starty*WR_MAX_WIDTH+startx;
 
  fill=FindDist(cur,wel->w,wel->h,(SINT)WR_MAX_WIDTH,out);
 
@@ -462,7 +462,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 
  #else
   // left/right - parts
- fullout=(BYTE *)outwel->raster+starty*WR_MAX_WIDTH;
+ fullout=(uchar *)outwel->raster+starty*WR_MAX_WIDTH;
  for(i=0,cout=out;i<sizey;i++,fullout+=WR_MAX_WIDTH,cout+=WR_MAX_WIDTH)
  {
    // left
@@ -474,7 +474,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
  }
 
  // up part
- fullout=(BYTE *)outwel->raster+(starty-1)*WR_MAX_WIDTH;
+ fullout=(uchar *)outwel->raster+(starty-1)*WR_MAX_WIDTH;
  cout=fullout+WR_MAX_WIDTH;
  /*
  fullout+=WR_MAX_WIDTH-1;
@@ -490,7 +490,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
  }
 
  // down part
- fullout=(BYTE *)outwel->raster+(starty+sizey)*WR_MAX_WIDTH;
+ fullout=(uchar *)outwel->raster+(starty+sizey)*WR_MAX_WIDTH;
  cout=fullout-WR_MAX_WIDTH;
  /*
  j=(WR_MAX_HEIGHT-starty-sizey)*WR_MAX_WIDTH;
@@ -505,7 +505,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 
  j=WR_MAX_WIDTH*WR_MAX_HEIGHT;
  ras=wel->raster;
- out=(BYTE *)outwel->raster;
+ out=(uchar *)outwel->raster;
  for(i=0;i<j;i++) if(out[i] > 0) ras[i]=-out[i];
 #endif
  return fill;

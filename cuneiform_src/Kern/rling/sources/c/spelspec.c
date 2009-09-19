@@ -80,9 +80,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct spec_abc {
 		ArtVH           *    hd;
-		BYTE    *  *  pref;
-		BYTE            *  body;
-		BYTE    *  * postf;
+		uchar    *  *  pref;
+		uchar            *  body;
+		uchar    *  * postf;
 } SABC;
 
 SABC          SpABC[SP_ABC_NO];
@@ -92,10 +92,10 @@ ArtFH  *        SpABCroot;
 
 extern LONG read_all_vtab(INT,char  *);
 
-BYTE  * load_specABC (BYTE  *point, INT Country)
+uchar  * load_specABC (uchar  *point, INT Country)
 {
-  BYTE  *a;
-  BYTE  *  *b;
+  uchar  *a;
+  uchar  *  *b;
   long  size;
   int i,j;
 
@@ -123,7 +123,7 @@ BYTE  * load_specABC (BYTE  *point, INT Country)
   }
 
   a = point + sizeof(ArtFH);
-  b = (BYTE * *)(point + size);
+  b = (uchar * *)(point + size);
   for ( i = 0; i < SpABCroot -> voc_no; i++) {
     SpABC[i].hd = (ArtVH *)a;
     a += sizeof (ArtVH);
@@ -146,7 +146,7 @@ BYTE  * load_specABC (BYTE  *point, INT Country)
   }
 
  Country=0;
- return (BYTE *)b;
+ return (uchar *)b;
 }
 
 
@@ -161,7 +161,7 @@ INT check_art_dict (char word[], INT * wordlth, INT * vockind)
       char  CapWord[MAX_WORD_SIZE];
  register pchar             body_b;
       pchar                 body_e;
- register BYTE             *p;
+ register uchar             *p;
   word[*wordlth+1]=0;
 
   for ( p =word,body_b = CapWord; *p  ; p++,body_b++)
@@ -215,10 +215,10 @@ INT check_art_dict (char word[], INT * wordlth, INT * vockind)
 
 /* ------------------------------------------------------------------ */
 
-INT test_apppostrof (BYTE word[],SWORD *wrd, INT *l, INT *r)
+INT test_apppostrof (uchar word[],SWORD *wrd, INT *l, INT *r)
  {
   INT       i, pref, apf, postf;
-  BYTE       *p,  *pp;
+  uchar       *p,  *pp;
   char   CapWord[MAX_WORD_SIZE];
 
   for ( p =word, pp = CapWord ; (*p) != 0  ; p++, pp++)

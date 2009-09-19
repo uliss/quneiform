@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-static BYTE *english_voc[]={
+static uchar *english_voc[]={
   "at"  ,          "on"  ,
   "pro" ,          "more",
   "an"  ,          "mr"  ,
@@ -91,7 +91,7 @@ static BYTE *english_voc[]={
   "cashe",
   "\0" // end of word list
 };
-static BYTE *russian_voc[]={
+static uchar *russian_voc[]={
   "Є Є",            "ҐЈ®",
   "§ ",             "в Є",
   "­ ",             "­Ґ",
@@ -113,13 +113,13 @@ static BYTE *russian_voc[]={
   "Єв®",
   "\0" // end of word list
 };
-static BYTE *english_voc_all[]={
+static uchar *english_voc_all[]={
 "for",
 "ole",
 "win",
 "\0"
 };
-static BYTE *russian_voc_all[]={
+static uchar *russian_voc_all[]={
 "или",
 "лет",
 "сил",
@@ -134,7 +134,7 @@ static BYTE *russian_voc_all[]={
 "\0"
 };
 
-static BYTE *russian_voc_short[]={
+static uchar *russian_voc_short[]={
 "тыс",
 "соч",
 "стр",

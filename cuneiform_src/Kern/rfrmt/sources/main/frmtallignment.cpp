@@ -534,7 +534,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CheckNumber
 
-Bool CRtfFragment::CheckNumber(BYTE FirstChar)
+Bool CRtfFragment::CheckNumber(uchar FirstChar)
 {
  const char* result=NULL;
  const char* MasNumber="0123456789";
@@ -638,8 +638,8 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
 {
  CRtfString  *pRtfStringPrev;
  CRtfString  *pRtfString;
- BYTE        FlagStringParagraph=FALSE;
- BYTE        FlagStringParagraphSoft=FALSE;
+ uchar        FlagStringParagraph=FALSE;
+ uchar        FlagStringParagraphSoft=FALSE;
  uint16_t        Count=0;
  int16_t       LeftFragm, RightFragm;
  int16_t       LeftDif,RightDif;
@@ -780,7 +780,7 @@ return TRUE;
 Bool CRtfFragment::DeterminationOfListType(int beg, int end)
 {
  CRtfString  *pRtfString;
-	BYTE        FlagListParagraph = 0;
+	uchar        FlagListParagraph = 0;
  int32_t       MinLeft,MaxLeft,MaxRight;
  int32_t       CountMinLeft=0, CountMaxLeft=0, CountMaxRight=0;
  uint16_t        CountCentreEqual=0;

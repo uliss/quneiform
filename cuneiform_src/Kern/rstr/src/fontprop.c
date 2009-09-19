@@ -59,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "nt_types.h"
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
@@ -71,12 +70,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 extern Bool line_readyBL;
-extern BYTE p2_active;
+extern uchar p2_active;
 extern INT  nIncline;
 extern INT  page_nIncline;
-extern BYTE line_scale;
+extern uchar line_scale;
 extern uint16_t actual_resolution;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 
 #define WORDMAX  100
 struct word_inf {cell *c; INT dens,n;} bld[WORDMAX];
@@ -87,17 +86,17 @@ static INT linerev(INT,INT *);
 static LONG inclin(INT,INT *);
 static void serif(cell *);
 static void underline();
-static BYTE keg_word(cell *,cell *,INT,B_LINES *);
+static uchar keg_word(cell *,cell *,INT,B_LINES *);
 static void bold_word(cell *,cell *,struct word_inf *);
 static INT dens_let(cell *);
 static INT pitch();
 
 // RCM.C
-extern BYTE line_tabcell;
+extern uchar line_tabcell;
 extern Bool pass4_in;
-static BYTE bad_italic[]="03┤▌▒²╔╖╝АМeocOC"; // a g m u..."03гнящЕГНЯЩeocOC"
-static BYTE nei_italic[]="02356789()%┤▌▒²╔╖╘╝АМ";	// "02356789()%гнящЕГИНЯЩ"
-static BYTE one_italic[]="╒╙";	// "БЙ"
+static uchar bad_italic[]="03┤▌▒²╔╖╝АМeocOC"; // a g m u..."03гнящЕГНЯЩeocOC"
+static uchar nei_italic[]="02356789()%┤▌▒²╔╖╘╝АМ";	// "02356789()%гнящЕГИНЯЩ"
+static uchar one_italic[]="╒╙";	// "БЙ"
 
 #define STAT_PIT
 #ifdef  STAT_PIT
@@ -122,7 +121,7 @@ register i,j,k;
  for(i=1;i<16;i++){
    for(j=0;j<16;j++){
    // ╞╔Г═Б═БЛ Б╝╚Л╙╝ ╜╔ ╞ЦАБК╔ АБЮ╝╙╗
-       BYTE * byte = (BYTE *)(stat+i*16+j);
+       uchar * byte = (uchar *)(stat+i*16+j);
        for(k=0;k<sizeof(STAT);k++)
             if(byte[k])
                 {
@@ -161,8 +160,8 @@ void font_let()
 
  }
 
-static BYTE twinsl[]={"cCpPsSvVwVxXzZ0O1l"};
-static BYTE twinsr[]={"╒┌ё┐╓└╕├╖┤╗┬╘┴╙┼╚▀╛▄╜█╝▌╞▐Ю░А▒Б▓Ц⌠Д■Е•Ф√Г≈Х≤И≥Й К⌡Л°М²Н·О÷"};
+static uchar twinsl[]={"cCpPsSvVwVxXzZ0O1l"};
+static uchar twinsr[]={"╒┌ё┐╓└╕├╖┤╗┬╘┴╙┼╚▀╛▄╜█╝▌╞▐Ю░А▒Б▓Ц⌠Д■Е•Ф√Г≈Х≤И≥Й К⌡Л°М²Н·О÷"};
 //				      "БбЦцДдФфГгХхИиЙйКкЛлМмНнОоПпЯяРрСсТтУуЖжВвЬьЫыЗзШшЭэЩщЧчЪъ
 
 #define NVAR         256 // Valdemar & Oleg
@@ -173,17 +172,17 @@ static BYTE twinsr[]={"╒┌ё┐╓└╕├╖┤╗┬╘┴╙┼╚▀╛�
 #define PROBMIN      30000
 #define DPROB        500
 
-static BYTE solid_italic[]="ПЯУВЬЩ"; // a g m u...
-static BYTE strong_italic[]="ПЯУВЬ"; // a is not strong
-//static BYTE non_inclinable_letters[]="▒А▌╝═";
+static uchar solid_italic[]="ПЯУВЬЩ"; // a g m u...
+static uchar strong_italic[]="ПЯУВЬ"; // a is not strong
+//static uchar non_inclinable_letters[]="▒А▌╝═";
 static void italic(cell *c)
  {
  s_glue GL;
  servBOX *s;
  indBOX *h;
  elmBOX *elm;
- BYTE let;
- PBYTE          twins;
+ uchar let;
+ puchar          twins;
  char font[2*NVAR];
  uint16_t i,prob[2*NVAR];
  INT nansw,maxi,maxni,l;
@@ -325,7 +324,7 @@ if( c->pos_inc==erect_no )
   }
 
 ret:
-c->pos_inc        = (BYTE)sv_pos_inc        ;
+c->pos_inc        = (uchar)sv_pos_inc        ;
 c->stick_inc      = sv_stick_inc      ;
 c->save_stick_inc = sv_save_stick_inc ;
 return;
@@ -368,7 +367,7 @@ static char tabincl[256]={
 
 INT letincl(cell *c)
  {
- BYTE f,let;
+ uchar f,let;
  INT i,mini,maxi,h,nr,nl;
  INT left[KEGMAX],right[KEGMAX];
  lnhead *line;
@@ -478,7 +477,7 @@ static char tabserif[256]={
 
 static void serif(cell *c)
  {
- BYTE let;
+ uchar let;
  lnhead *line;
  interval *i1,*i2;
  INT H,n1,n2,h,b1,b2,e1,e2;
@@ -551,7 +550,7 @@ void checkpitch()
 static INT pitch()
  {
  cell *c;
- BYTE let;
+ uchar let;
  INT nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
  LONG s,min;
  uint16_t center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
@@ -709,8 +708,8 @@ void font_str()
 {
 	INT ni1,ni2,ns1,ns2,nu,n,trp;
 	cell *c,*c1,*c2;
-	BYTE fnt,fntu,fntprev;
-	BYTE keg,kegprev;
+	uchar fnt,fntu,fntprev;
+	uchar keg,kegprev;
 	B_LINES bl;
 
 
@@ -718,7 +717,7 @@ void font_str()
 	{
 		cell *c1,*c;
 		INT bool,n;
-		BYTE fnt;
+		uchar fnt;
 	} w_inc[WORDMAX];
 
 	INT nwi=1; // 0 is fictive as left neigbor
@@ -977,7 +976,7 @@ void font_str()
 			if( fnt && (fnt^(c_fp_it+c_fp_str)) )
 			{
 				w_inc[i].bool = 0;
-				w_inc[i].fnt = (BYTE)fnt;
+				w_inc[i].fnt = (uchar)fnt;
 				{
 					char snap[80],sg[30];
 
@@ -1182,7 +1181,7 @@ static char tabpos[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};                   // 240 - 255
 //      П Я Р С Т У Ж В Ь Ы З Ш Э Щ Ч
 // from pass3.c
-static BYTE keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
+static uchar keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
  {
  INT s[4],m[4],i,ss,bm1,bm2;
  cell *c;
@@ -1190,11 +1189,11 @@ static BYTE keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
 
  if (!n) return 0;
  if (bl->n2>=3 && bl->n3>=3)
-  return (BYTE)bl->ps;
+  return (uchar)bl->ps;
  if( bl->n1>=3 && bl->n3>=3 && bl->n2<1 && bl->n4<1 )
-  return (BYTE)bl->ps;
+  return (uchar)bl->ps;
  if( line_readyBL )
-  return (BYTE)bl->ps;
+  return (uchar)bl->ps;
  for (ss=s[0]=s[1]=s[2]=s[3]=m[0]=m[1]=m[2]=m[3]=bm1=bm2=0,c=c1;
 							 c!=c2; c=c->next)
   if (c->flg&c_f_let)
@@ -1253,7 +1252,7 @@ static BYTE keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
   bl->ps=(6*bl->ps+2)/5;
  if (ss && abs(ss-(bl->ps+((fax1x2)?2:0)))<=1)
   ss=bl->ps+((fax1x2)?2:0);
- return (BYTE)ss;
+ return (uchar)ss;
  }
 
 #define NOTAPPL -200
@@ -1326,8 +1325,8 @@ void avdens()
  //c_comp **curr,**last,*cmp;
  lnhead *line;
  interval *ic,*ie;
- //extern PBYTE box_pool,string_curr;
- //extern PBYTE comp_file,comp_curr;
+ //extern puchar box_pool,string_curr;
+ //extern puchar comp_file,comp_curr;
  //extern uint16_t comp_lth;
  cell *c,*c1=cell_f(),*c2=cell_l();
 
@@ -1340,7 +1339,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 	for( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
 		{
-		for (ie=(ic=(interval *)((PBYTE)line+sizeof(lnhead)))+line->h;
+		for (ie=(ic=(interval *)((puchar)line+sizeof(lnhead)))+line->h;
 			  ic<ie; ic++)
 			{
 			s+=ic->l;
@@ -1348,10 +1347,10 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 		}
 	}
  /*
- for (s=n=0,ln=(str *)box_pool; (PBYTE)ln!=string_curr;
-					  ln=(str *)((PBYTE)ln+ln->lth))
+ for (s=n=0,ln=(str *)box_pool; (puchar)ln!=string_curr;
+					  ln=(str *)((puchar)ln+ln->lth))
   {
-  last=(c_comp **)((PBYTE)ln+ln->dust);
+  last=(c_comp **)((puchar)ln+ln->dust);
 
   for (curr=&(ln->c_comp); curr<last; curr++) //AK 04.03.97 ? for address
    {
@@ -1366,9 +1365,9 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
     }
    if (cmp->h>=KEGMAX || cmp->w>=WMAX) continue;
    n+=(cmp->h)*(cmp->w);
-   for (line=(lnhead *)((PBYTE)cmp+cmp->lines+sizeof(INT));
-		  line->lth>0; line=(lnhead *)((PBYTE)line+line->lth))
-    for (ie=(ic=(interval *)((PBYTE)line+sizeof(lnhead)))+line->h;
+   for (line=(lnhead *)((puchar)cmp+cmp->lines+sizeof(INT));
+		  line->lth>0; line=(lnhead *)((puchar)line+line->lth))
+    for (ie=(ic=(interval *)((puchar)line+sizeof(lnhead)))+line->h;
 							  ic<ie; ic++)
      s+=ic->l;
    }
@@ -1631,7 +1630,7 @@ static INT dens_let(cell *c)
  {
  INT d,h;
  pchar tab;
- BYTE let,fnt;
+ uchar let,fnt;
  if (c->dens>100)  // 11-10-94 05:59pm Pit for debug
   return NOTAPPL;  //
  if (c->dens==NODENS)
@@ -1721,7 +1720,7 @@ static INT dens_let(cell *c)
 void font_narrow(void)
 {
 cell *  c;
-BYTE    slanguage=language;
+uchar    slanguage=language;
 INT     prop, nall, nval, narrow, pn;
 
 if( line_tabcell || !line_scale )

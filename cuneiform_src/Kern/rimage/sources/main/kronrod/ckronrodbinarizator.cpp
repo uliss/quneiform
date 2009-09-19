@@ -464,7 +464,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x1()
 	{
 		pkuda = pkuda_beg;
 		pkuda_beg += N_Bytes_in_MBIT_Line;
-		b = *pkuda;			// READ FIRST BYTE
+		b = *pkuda;			// READ FIRST uchar
 		mask = mask_left;
 		/*......................................................................*/
 		pkogo = ppMem [i] + j1;
@@ -475,12 +475,12 @@ void CKronrodBinarizator::grey_quant_KOROB_1x1()
 				b |= mask;
 			if (mask>>=1)
 				continue;
-			*pkuda++ = b;		// WRITE OLD BYTE
-			b = *pkuda;		// READ NEW BYTE
+			*pkuda++ = b;		// WRITE OLD uchar
+			b = *pkuda;		// READ NEW uchar
 			mask = 0x80;		// NEW MASK
 		}	// FOR J
 
-		*pkuda++ = b;		// WRITE LAST BYTE
+		*pkuda++ = b;		// WRITE LAST uchar
 		/*......................................................................*/
 	}		// FOR I
 }
@@ -513,7 +513,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x3_MAX()
 	{
 	    pkuda = pkuda_beg;
 		pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 		//......................................................................
 	    pkogo = ppMem [i] + j1;
@@ -546,11 +546,11 @@ m1:
 m2:
 			if (mask>>=1)
 				continue;
-			*pkuda++ = b;		// WRITE OLD BYTE
-			b = *pkuda;		// READ NEW BYTE
+			*pkuda++ = b;		// WRITE OLD uchar
+			b = *pkuda;		// READ NEW uchar
 			mask = 0x80;		// NEW MASK
 		}	// FOR J
-	    *pkuda++ = b;		// WRITE LAST BYTE
+	    *pkuda++ = b;		// WRITE LAST uchar
 	//......................................................................
 	}		// FOR I
 }
@@ -586,7 +586,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x5work()
 	{
 	    pkuda = pkuda_beg;
 		pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 		//......................................................................
 	    pkogo = ppMem [i] + j1;
@@ -633,8 +633,8 @@ m1:
 m2:
 			if (mask>>=1)
 				continue;
-			*pkuda++ = b;		// WRITE OLD BYTE
-			b = *pkuda;		// READ NEW BYTE
+			*pkuda++ = b;		// WRITE OLD uchar
+			b = *pkuda;		// READ NEW uchar
 			mask = 0x80;		// NEW MASK
 		}	// FOR J
 
@@ -656,7 +656,7 @@ m2:
 			mask = 0x80;
 		}
 
-	    *pkuda++ = b;		// WRITE LAST BYTE
+	    *pkuda++ = b;		// WRITE LAST uchar
 	//......................................................................
 	}		// FOR I
 }
@@ -717,7 +717,7 @@ void CKronrodBinarizator::grey_quant_KOROB_3x3()
 	{
 	    pkuda = pkuda_beg;
 		pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 		//......................................................................
 		pU = ppMem [i - 1] + j1 - 1;	// UP
@@ -841,11 +841,11 @@ m_mask:
 			if (mask>>=1)
 				continue;
 
-			*pkuda++ = b;		// WRITE OLD BYTE
-			b = *pkuda;		// READ NEW BYTE
+			*pkuda++ = b;		// WRITE OLD uchar
+			b = *pkuda;		// READ NEW uchar
 			mask = 0x80;		// NEW MASK
 		}	// FOR J
-		*pkuda++ = b;		// WRITE LAST BYTE
+		*pkuda++ = b;		// WRITE LAST uchar
 		/*......................................................................*/
 	}		// FOR I
 }
@@ -880,7 +880,7 @@ void CKronrodBinarizator::grey_quant_KOROB_3x3_VERB()
 	{
 	    pkuda = pkuda_beg;
 		pkuda_beg += N_Bytes_in_MBIT_Line;
-	    b = *pkuda;			// READ FIRST BYTE
+	    b = *pkuda;			// READ FIRST uchar
 	    mask = mask_left;
 		//......................................................................
 		pU = ppMem [i - 1] + j1 - 1;	// UP
@@ -930,11 +930,11 @@ m_mask:
 			if (mask>>=1)
 				continue;
 
-			*pkuda++ = b;		// WRITE OLD BYTE
-			b = *pkuda;		// READ NEW BYTE
+			*pkuda++ = b;		// WRITE OLD uchar
+			b = *pkuda;		// READ NEW uchar
 			mask = 0x80;		// NEW MASK
 		}	// FOR J
-		*pkuda++ = b;		// WRITE LAST BYTE
+		*pkuda++ = b;		// WRITE LAST uchar
 		//.....................................................................
 	}		// FOR I
 }
@@ -995,8 +995,8 @@ void CKronrodBinarizator::grey_quant_KOROB_graph_Hist()
 {
 	uint32_t	i = Itek + N_Lines_per_1_MEM - 8;
 
-	grey_PR_BYTE (i, 16, (BYTE)((Itek >> 8) & 0xFF));	// HIGH
-	grey_PR_BYTE (i, 24, (BYTE)(Itek & 0xFF));	// LOW
+	grey_PR_BYTE (i, 16, (uchar)((Itek >> 8) & 0xFF));	// HIGH
+	grey_PR_BYTE (i, 24, (uchar)(Itek & 0xFF));	// LOW
 	grey_PR_BYTE (i, 36, Porog_08);	// min
 	grey_PR_BYTE (i, 48, Porog_88);	// MAX
 }
@@ -1231,15 +1231,15 @@ m_err_OK:
 	KmaxR = 0xFF;	/* BBB	*/
 	/*......................................................................*/
 m_ex:
-	Porog_12 = (BYTE) ((KmaxL + KmaxR) / 2);		  // 4/8
-	Porog_34 = (BYTE) ((KmaxL + KmaxR + KmaxR + KmaxR) / 4);  // 6/8
-	Porog_08 = (BYTE) KmaxL;
-	Porog_88 = (BYTE) KmaxR;
-	Diapazon_8 = (BYTE) ((KmaxR - KmaxL) / 8);
+	Porog_12 = (uchar) ((KmaxL + KmaxR) / 2);		  // 4/8
+	Porog_34 = (uchar) ((KmaxL + KmaxR + KmaxR + KmaxR) / 4);  // 6/8
+	Porog_08 = (uchar) KmaxL;
+	Porog_88 = (uchar) KmaxR;
+	Diapazon_8 = (uchar) ((KmaxR - KmaxL) / 8);
 	Porog_38 = Porog_12 - Diapazon_8;
 	Porog_58 = Porog_12 + Diapazon_8;
 	Porog_78 = Porog_34 + Diapazon_8;
-	Diapazon_16 = (BYTE) (Diapazon_8 >> 1);	// for +MAX 1x3 work
+	Diapazon_16 = (uchar) (Diapazon_8 >> 1);	// for +MAX 1x3 work
 	/*......................................................................*/
 }
 
@@ -1821,7 +1821,7 @@ void CKronrodBinarizator::Korob_calc_TdP()
 		}
 		///////	    dd = (mkMax>=Porog_34)  ?  0 : (Porog_34 - mkMax)/8;  ???????????
 		//	    if (mkMax>=Porog_34)                          // commented by D.L.3.4.94 as never used
-		//		  dd = (BYTE) (((uint16_t) (Porog_34 - mkMax) / 8));// commented by D.L.3.4.94 as never used
+		//		  dd = (uchar) (((uint16_t) (Porog_34 - mkMax) / 8));// commented by D.L.3.4.94 as never used
 		//	    else  dd = 0;// commented by D.L.3.4.94 as never used
 		///////	    Buf_TdP [j1 + j] = dd;
 	}
@@ -2017,7 +2017,7 @@ m_Verblud:
 	/*......................................................................*/
 m_ex:
 
-	Korob_porog = (BYTE) porog_tek;
+	Korob_porog = (uchar) porog_tek;
 	Korob_x = xx;
 	Korob_y = yy;
 /*......................................................................*/
@@ -2226,7 +2226,7 @@ void CKronrodBinarizator::memory_allocation()
 	pMREF = (puchar)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 	if (pMREF==NULL)  PR_BEG "pMREF = NULL", k);  PR_END
 
-	ppMem = (BYTE far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+	ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 	if (ppMem==NULL)  PR_BEG "ppMem = NULL", k);  PR_END
 	/*......................................................................*/
 	KEY
@@ -2308,7 +2308,7 @@ void CKronrodBinarizator::memory_alloc_from_body()
 			"pMREF = NULL", k);
 		PR_END
 
-	ppMem = (BYTE far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+	ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 	if (ppMem==NULL)
 		PR_BEG
 			"ppMem = NULL", k);

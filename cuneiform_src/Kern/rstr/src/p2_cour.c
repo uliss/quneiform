@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 /*#include <io.h>*/
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctb.h"
 #include "linutil.h"
 extern  char    alphabet[256];
-extern  BYTE    decode_ASCII_to_[256][4];
+extern  uchar    decode_ASCII_to_[256][4];
 static  int            HndTab=0, HndTabInc=0;
 static  char    alpha_str[]="ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝ‗×ÑÌÈÒÜÁÞ/0123456789יצףךוםדרשחץתפûגאןנמכהז‎ÿקסלטעüב‏#%^()";
 static  char    alpha_str_lat[]="QWERTYUIOPASDFGHJKLZXCVBNM/0123456789qwertyuiopasdfghjklzxcvbnm#%^()";

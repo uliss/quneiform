@@ -106,8 +106,8 @@ MN  *mainalloc;	// main number free chain start
 BWS *oldline;	// old line area
 BWS *newline;	// new line area
 //
-PBYTE dcodeptr;	// current decoding line offset
-PBYTE dcodeend;	// end of read line buffer ptr
+puchar dcodeptr;	// current decoding line offset
+puchar dcodeend;	// end of read line buffer ptr
 //								lth=12
 //		Line service
 //
@@ -125,13 +125,13 @@ uint16_t reserv_v1comp;	// arround byte
 //// BWS line1start[SEG_MAX_NUM];    // line 1
 //// BWS line2start[SEG_MAX_NUM];    // line 2
 //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-//// BYTE scan_buffer[0x4000+LINE_MAX_LTH];  // buffer for image reding
+//// uchar scan_buffer[0x4000+LINE_MAX_LTH];  // buffer for image reding
 
  MN  *mnstart; // [SEG_MAX_NUM];    // pool of main numbers
  BOX *boxstart;	   // box pool
  BWS *line1start; // [SEG_MAX_NUM];    // line 1
  BWS *line2start; //[SEG_MAX_NUM];    // line 2
 //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
- BYTE *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
+ uchar *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
 };
 

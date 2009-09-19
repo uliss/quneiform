@@ -117,7 +117,7 @@ static DIRECTION Dirs [N_DIRECTIONS];
 static int PassHorzInterval (int y, int x1, int x2)
 {
     int nCounter;
-    BYTE *p;
+    uchar *p;
 
     if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
         return (0);
@@ -150,7 +150,7 @@ static int PassHorzInterval (int y, int x1, int x2)
 static int PassVertInterval (int x, int y1, int y2)
 {
     int nCounter;
-    BYTE *p;
+    uchar *p;
 
     if (x < 0 || x >= PAGE_MATRIX_WIDTH)
         return (0);
@@ -194,7 +194,7 @@ static RECTANGLE rMatrix;
 
 # ifdef LT_DEBUG
 static RECTANGLE rBoundary;
-static BYTE      *pFirstLine, *pLastLine, *pLine, *p;
+static uchar      *pFirstLine, *pLastLine, *pLine, *p;
 
 void PrepareDebugPictureOutput (void)
 {

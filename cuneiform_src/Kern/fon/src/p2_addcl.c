@@ -85,22 +85,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "fon.h"
 #include "sfont.h"
+#include "minmax.h"
 
 #include "compat_defs.h"
 
 SINT SetAccessTab(SINT fl,void *buf);
 SINT CheckAccessTab(SINT fh,void *buf);
 typedef LONG (* MKFAM) (raster_header * rh,uint16_t nclu);
-uint16_t PutSymbolRaster(BYTE *pHau,char *rast,SINT rbyte,
+uint16_t PutSymbolRaster(uchar *pHau,char *rast,SINT rbyte,
 		 SINT xbits,SINT xbyte,SINT yrow);
 //SINT FindDistanceWr(welet *wel,welet *outwel);
 void init11(void);
-SINT SaveCluster(SINT fh,SINT clus,SINT NumAll,BYTE *m1,BYTE *m2);
+SINT SaveCluster(SINT fh,SINT clus,SINT NumAll,uchar *m1,uchar *m2);
 LONG StartHausdorfDLL(int num,void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 SINT MakeClusters(SINT fir,SINT NumAll,SINT CurClus,SINT porog,SINT AllCount);
-SINT SaveSym(char *NameWr,SINT NumAll,BYTE *buf,SINT size,MKFAM accept);
-SINT ReadAllFromWr(char  *name,BYTE *buf,SINT size,SINT *nClu,char *movxy,SINT NumAll,SINT AllCount);
+SINT SaveSym(char *NameWr,SINT NumAll,uchar *buf,SINT size,MKFAM accept);
+SINT ReadAllFromWr(char  *name,uchar *buf,SINT size,SINT *nClu,char *movxy,SINT NumAll,SINT AllCount);
 void MakRas(char *inp,char *ras,SINT point);
 SINT GetNumSym(char *NameWr);
 
@@ -144,7 +145,7 @@ extern	SINT   nClus[MAXSYM];
 extern	welet *welBuf,*dist_wel;     // use as xbytes,myst
 
 static SINT   NumWelHau=0;       // number of bitmap buffers
-static BYTE  *WelHau[MAXWELHAU];   // big buffers for welet
+static uchar  *WelHau[MAXWELHAU];   // big buffers for welet
 static SINT   IsStart[MAXWELSYM];     // first added symbol
 static SINT   IsAdd[MAXWELSYM];     // last added symbol+1
 static SINT   FirLet[256];
@@ -155,7 +156,7 @@ static SWEL *swel=NULL;
 
 static LONG StartHausdorfDLL2(int num,void *ExternBuf, uint32_t SizeExternBuf);
 static void EndHausdorfDLL2(void);
-static SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
+static SINT FindBestClusterMemory(SINT let,SINT w,SINT h,uchar *buf,uchar *bufrazmaz,
 		      SINT NumClus, SINT porog,SINT xcen,SINT ycen,char *movxy);
 
 typedef struct tagPOSXY
@@ -164,14 +165,14 @@ typedef struct tagPOSXY
 static SINT NumClusRecog=0;
 static POSXY *posXY=NULL;
 
-SINT FindCenterRaster(BYTE *raster,SINT xbyte,SINT yrow,SINT *y);
+SINT FindCenterRaster(uchar *raster,SINT xbyte,SINT yrow,SINT *y);
 SINT FindCenterWel(welet *wl,SINT *y);
  // Ґбвм «Ё в®зЄЁ ў r  б а ббв®п­ЁҐ¬ > dist1
-SINT DistBitRas(PBYTE r,SINT w,SINT h,     // b/w bitmap
+SINT DistBitRas(puchar r,SINT w,SINT h,     // b/w bitmap
 		 pchar wr,SINT ww,SINT wh,char dist1,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
  // Ґбвм «Ё в®зЄЁ ў wr  б ўҐб®¬ > wei ­Ґ ўе®¤пйЁҐ ў r
-SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
+SINT DistRasBit(puchar r,SINT w,SINT h,     // b/w bitmap
 		 pchar wr,SINT ww,SINT wh,char wei,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
 
@@ -182,7 +183,7 @@ SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
 // porog2 - for other names
 // return - number of all symbols
 SINT AddToClusters(char  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,char *movxy,
-		    BYTE *tmpbuf,SINT AllCount)
+		    uchar *tmpbuf,SINT AllCount)
 {
  SINT allnum;
  SINT fh;
@@ -192,8 +193,8 @@ SINT AddToClusters(char  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
  SINT NumBad=0;
  SINT xcen=0,ycen=0;  // middle of symbol
  raster_header rh;
- BYTE *bufrh=tmpbuf;
- BYTE *bufrazmaz=tmpbuf+(WR_MAX_WIDTH>>1)*WR_MAX_HEIGHT;
+ uchar *bufrh=tmpbuf;
+ uchar *bufrazmaz=tmpbuf+(WR_MAX_WIDTH>>1)*WR_MAX_HEIGHT;
  SINT  CurCount=0;
 
  if( (fh=open(rname,O_RDWR|O_BINARY))==-1)
@@ -242,7 +243,7 @@ SINT AddToClusters(char  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
     nClus[allnum]=-i;  // mark invalid
     NumBad++;
     /*
-    printf(" Invalid - %c with %c (%d)!\n",(BYTE)rh.let,(BYTE)swel[i-1].let,i);
+    printf(" Invalid - %c with %c (%d)!\n",(uchar)rh.let,(uchar)swel[i-1].let,i);
     */
    }
    else
@@ -297,7 +298,7 @@ LONG size=0;
 
  NumWelHau=0;
  // init bitmap for buffers
- WelHau[0]=(BYTE  *)malloc(SIZEBUF);  // take one segment
+ WelHau[0]=(uchar  *)malloc(SIZEBUF);  // take one segment
  if(WelHau[0]==NULL)	 return -1;
  MaxSizeBuf2=SIZEBUF;
  size=( uint32_t)num*sizeof(SWEL)+SIZEBUF;
@@ -308,7 +309,7 @@ LONG size=0;
  {
   swel=(SWEL *)malloc((uint32_t)MAXWELSYM*sizeof(SWEL)+(uint32_t)SIZEBUF);
   if(swel==NULL) return -1;
-  WelHau[0]=(BYTE *)swel;
+  WelHau[0]=(uchar *)swel;
   WelHau[0]+=(uint32_t)num*sizeof(SWEL);
   IsRhHauBuf2=1;
   MaxSizeBuf2=(uint32_t)MAXWELSYM*sizeof(SWEL)+(uint32_t)SIZEBUF-(uint32_t)num*sizeof(SWEL);
@@ -317,7 +318,7 @@ LONG size=0;
  else if(SizeExternBuf >= (uint32_t)num*sizeof(SWEL))
   {
 	swel=(SWEL *)ExternBuf;
-	WelHau[0]=(BYTE *)swel;
+	WelHau[0]=(uchar *)swel;
         WelHau[0]+=(uint32_t)num*sizeof(SWEL);
         MaxSizeBuf2=SizeExternBuf-(uint32_t)num*sizeof(SWEL);
 	IsRhHauBuf2=0;
@@ -327,7 +328,7 @@ LONG size=0;
   {
   swel=(SWEL *)malloc((uint32_t)MAXWELSYM*sizeof(SWEL));
   if(swel==NULL) return -1;
-  WelHau[0]=(BYTE *)ExternBuf;
+  WelHau[0]=(uchar *)ExternBuf;
   MaxSizeBuf2=SizeExternBuf;
   IsRhHauBuf2=1;
   size=(uint32_t)MAXWELSYM*sizeof(SWEL);
@@ -390,7 +391,7 @@ SINT stx,sty;
  return 0;
 }
 ////////////////
-SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
+SINT FindBestClusterMemory(SINT let,SINT w,SINT h,uchar *buf,uchar *bufrazmaz,
 		      SINT NumClus, SINT porog,SINT xcen,SINT ycen,char *bxy)
 {
  SINT i;
@@ -462,7 +463,7 @@ SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
  return (best+1);
 }
 ///////////////////////
-static SINT GetNumSwelWeight(SINT fclu,SINT nclus,BYTE weight)
+static SINT GetNumSwelWeight(SINT fclu,SINT nclus,uchar weight)
 {
 SINT i,j;
 
@@ -486,7 +487,7 @@ SINT i,j;
 ////////////////
 
 static SINT GetSwel(pchar cluname,SINT nclus,SWEL *sw,clu_info *cin,
-			SINT AllCount,BYTE size)
+			SINT AllCount,uchar size)
 {
 SINT i;
 SINT fclu;
@@ -694,8 +695,8 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
  if(j ==0 ) {/*wel->attr &= ~FON_CLU_UPDATE;*/ goto lsave;}  // nothing add
 
   // middle width,height
- wel->mw=(BYTE)( (summax+((uint16_t)wei/2)) /(uint16_t)wei );
- wel->mh=(BYTE)( (summay+((uint16_t)wei/2)) /(uint16_t)wei );
+ wel->mw=(uchar)( (summax+((uint16_t)wei/2)) /(uint16_t)wei );
+ wel->mh=(uchar)( (summay+((uint16_t)wei/2)) /(uint16_t)wei );
 
  // check new center of weighted raster
  // get new sizes:
@@ -707,7 +708,7 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
  wel->w=lastx;
  wel->h=lasty;
 
- wel->weight=(BYTE)wei;
+ wel->weight=(uchar)wei;
  wel->porog =wel->weight/POROG_IDEAL;
 
 //#ifdef _IDEAL_
@@ -730,7 +731,7 @@ lsave:
 // get clusters from nameClu, get memory,
 // put clusters in special form
 //
-static SINT StartWeightedClusters(char *nameClu,PBYTE extern_buf,LONG size_extern,clu_info *cin,
+static SINT StartWeightedClusters(char *nameClu,puchar extern_buf,LONG size_extern,clu_info *cin,
 								 int sizeCluster)
 {
 LONG size;
@@ -753,7 +754,7 @@ SINT NumClus; // how many clusters
    }
 
   NumClus=size/sizeof(welet);
-  if( sizeCluster > 0) NumClus= GetNumSwelWeight(fh,NumClus,(BYTE)sizeCluster);
+  if( sizeCluster > 0) NumClus= GetNumSwelWeight(fh,NumClus,(uchar)sizeCluster);
   close(fh);
 
   if(NumClus <= 0)   return -4;
@@ -770,7 +771,7 @@ SINT NumClus; // how many clusters
 
 
      // put weighted clusters to memory, get some statistics
-  if( (i=GetSwel(nameClu,NumClus,swel,cin,(SINT)(NumClus/SIGNAL_START),(BYTE)(sizeCluster<=0?0:sizeCluster))) < 0 )
+  if( (i=GetSwel(nameClu,NumClus,swel,cin,(SINT)(NumClus/SIGNAL_START),(uchar)(sizeCluster<=0?0:sizeCluster))) < 0 )
     { EndHausdorfDLL2();
       return i;
     }
@@ -788,7 +789,7 @@ SINT NumClus; // how many clusters
 SINT AddClusterHausdorf(char  *NameWr,char  *szOutName,
 			SINT porog,SINT porog2,
 			MKFAM accept,
-			PBYTE extern_buf,LONG size_extern,clu_info *cin)
+			puchar extern_buf,LONG size_extern,clu_info *cin)
 {
  SINT i,j,k;
  SINT CurClus=0;
@@ -824,7 +825,7 @@ SINT AddClusterHausdorf(char  *NameWr,char  *szOutName,
 #endif
 	// add to clusters, remember - how need move symbols
   NumAll=AddToClusters(NameWr,NumClus,porog,porog2,nClus,movxy,
-	  (BYTE *)dist_wel,(SINT)(NumAll/SIGNAL_CLUSTER) );
+	  (uchar *)dist_wel,(SINT)(NumAll/SIGNAL_CLUSTER) );
   EndHausdorfDLL2();
   if(NumAll < 0 ) return NumAll;
 
@@ -845,7 +846,7 @@ SINT AddClusterHausdorf(char  *NameWr,char  *szOutName,
 
 	// make bitmaps, razmaz for not-added
 	// set values from movxy to Nraster_header for added
- i=ReadAllFromWr(NameWr,(BYTE *)dist_wel,sizeof(welet),nClus,movxy,
+ i=ReadAllFromWr(NameWr,(uchar *)dist_wel,sizeof(welet),nClus,movxy,
 		   NumAll,(SINT)(NumAll/SIGNAL_ADD) );
  if(i <= 0)  // read invalid
 	 {
@@ -927,7 +928,7 @@ SINT AddClusterHausdorf(char  *NameWr,char  *szOutName,
 
 	// call external function && write numbers to file .r
 	// dist_wel - as temporary buffer
-  i=SaveSym(NameWr,NumAll,(BYTE *)dist_wel,MAXSYM*sizeof(SINT),
+  i=SaveSym(NameWr,NumAll,(uchar *)dist_wel,MAXSYM*sizeof(SINT),
 			  accept);
   if(i < 0) ret=i;
   Signal();

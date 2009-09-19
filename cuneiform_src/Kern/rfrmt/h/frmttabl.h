@@ -96,7 +96,7 @@ uint32_t GetTablCount(void);
 void   ViewTable(void);
 void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
 Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
-//void   TablePutChar( CString* TableString, BYTE sym );
+//void   TablePutChar( CString* TableString, uchar sym );
 
 #ifdef __cplusplus
 	}
@@ -242,7 +242,7 @@ public:
   uint16_t          m_wBold;
   uint16_t          m_wItalic;
   uint16_t          m_wProb;
-  BYTE          m_bSpell;
+  uchar          m_bSpell;
 uint32_t         m_Flags;
 };
 
@@ -260,11 +260,11 @@ public:
   RECT	        m_rectChar;
   struct
   {
-  BYTE	        m_bChar;
-  BYTE	        m_bProbability;
+  uchar	        m_bChar;
+  uchar	        m_bProbability;
   } m_chrVersions[REC_MAX_VERS];//!!! Art
-  BYTE          m_blanguage;
-  BYTE          m_bFlg_spell;
+  uchar          m_blanguage;
+  uchar          m_bFlg_spell;
   uint16_t          m_wCountAlt;
   uint16_t          m_wFontNumber;
   uint16_t	        m_wIndex;

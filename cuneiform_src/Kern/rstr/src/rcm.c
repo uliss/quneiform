@@ -151,7 +151,7 @@ extern Bool32   EVNSetAlphabet(   char*     char_tbl_put_to   );
 extern void     prop_init(void);
 // from PASS3.C
 uchar    convert_eng_liga( uchar c);
-#include "nt_types.h"
+
 #define  CREATE_STATUS
 #define  __KERNEL__
 #include "status.h"
@@ -165,19 +165,19 @@ static  Bool32  stop_user = FALSE;
 uchar   valid_word_number=0;
 version * start_rec, *rec_ptr;
 INT  text_findstat(char * w);
-BYTE db_pass;
-BYTE string[8192];
+uchar db_pass;
+uchar string[8192];
 uint16_t lpool_lth;
-BYTE lpool[LPOOL_SIZE];
+uchar lpool[LPOOL_SIZE];
 LONG Flag_Courier=FALSE;
-BYTE evfulln;
-BYTE double_fax;            // setup in RSTR_SetOptions
-BYTE db_trace_flag;
+uchar evfulln;
+uchar double_fax;            // setup in RSTR_SetOptions
+uchar db_trace_flag;
 uint16_t actual_resolution=300; // setup in RSTR_SetOptions
 #define MAX_LINE_COUNT 5000
 STRLN   page_lines[MAX_LINE_COUNT];
 int32_t   num_of_lines;
-BYTE decode_ASCII_to_[256][4]=
+uchar decode_ASCII_to_[256][4]=
 {
     /*       0      1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
     /* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",/* 0*/
@@ -197,7 +197,7 @@ BYTE decode_ASCII_to_[256][4]=
                                                                                                       /* e*/ "\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf7","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\xff",/* e*/
                                                                                                              /* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20" /* f*/
                                                                                                                 };
-BYTE decode_rus_ASCII_to_[256][4]=
+uchar decode_rus_ASCII_to_[256][4]=
 {
     /*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
     /* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",
@@ -219,7 +219,7 @@ BYTE decode_rus_ASCII_to_[256][4]=
                                                                                                                 };
 
 char alphabet[256];
-BYTE CodePages[LANG_TOTAL]={   // 29.08.2000 E.P.
+uchar CodePages[LANG_TOTAL]={   // 29.08.2000 E.P.
     CSTR_ANSI_CHARSET            , // LANG_ENGLISH    0
     CSTR_ANSI_CHARSET            , // LANG_GERMAN     1
     CSTR_ANSI_CHARSET            , // LANG_FRENCH     2
@@ -342,13 +342,13 @@ static char *tabevn2[]={
     "rec2tur.dat"       // LANG_TURKISH		27
 };
 
-BYTE *  CellsPage_rstr, *CellsPageEnd_rstr;
-BYTE *  MemForCutPoints, *MemForCutPointsTwo;
-BYTE *  ForRaster1;
-BYTE *  ForRaster2;
-BYTE *  ForRaster3;
-BYTE *  ED_file_bound,*ED_file_end;
-PBYTE   kit_curr, kit_end, kit_start;
+uchar *  CellsPage_rstr, *CellsPageEnd_rstr;
+uchar *  MemForCutPoints, *MemForCutPointsTwo;
+uchar *  ForRaster1;
+uchar *  ForRaster2;
+uchar *  ForRaster3;
+uchar *  ED_file_bound,*ED_file_end;
+puchar   kit_curr, kit_end, kit_start;
 LONG    kit_size=65536*4;
 Bool32  kit_max_size=FALSE;
 uint16_t           wHeightRC      = 0;
@@ -372,7 +372,7 @@ Bool pass4_in;
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
-BYTE work_raster[2048*4], work_raster_1[2048*4];
+uchar work_raster[2048*4], work_raster_1[2048*4];
 //uchar language; // setup in RSTR_SetOptions
 FIELD_INFO FieldInfo;
 Bool FirstField;
@@ -388,18 +388,18 @@ static jmp_buf jumper;
 static int32_t  nResolutionY=300; // setup in RSTR_SetOptions
 
 //=============== Code implementation ======
-PBYTE tableBOX=NULL;        /* BOX table memory start */
-PBYTE box_pool=NULL;        /* boxes pool for extr_comp */
-PBYTE memory_pool=NULL,memory_pool_end=NULL;
-extern PBYTE load_BOX (PBYTE end);
+puchar tableBOX=NULL;        /* BOX table memory start */
+puchar box_pool=NULL;        /* boxes pool for extr_comp */
+puchar memory_pool=NULL,memory_pool_end=NULL;
+extern puchar load_BOX (puchar end);
 LONG    memory_length;
-PBYTE fontBOX=NULL;
-BYTE line_scale=0, line_alphabet=0, line_minus=0, line_pointsusp=0; // need setup after calculation in ExStr
+puchar fontBOX=NULL;
+uchar line_scale=0, line_alphabet=0, line_minus=0, line_pointsusp=0; // need setup after calculation in ExStr
 Bool line_readyBL=FALSE,line_BL=FALSE,line_handfragment=FALSE,line_rerecog=FALSE;
-BYTE line_tabcell=0;
+uchar line_tabcell=0;
 
 #define MEMORY                  0x50000 //500000        //0x450000
-Bool32 read_rec_file(INT lang, PBYTE pool, PBYTE * end)
+Bool32 read_rec_file(INT lang, puchar pool, puchar * end)
 {
 uint32_t l;
     INT h;
@@ -420,7 +420,7 @@ uint32_t l;
     l=(l+15) & -16; *end=pool+l;
     return TRUE;
 }
-static PBYTE box_pool_save;
+static puchar box_pool_save;
 Bool32 trees_load(void)
 {
     int lang=language;
@@ -581,7 +581,7 @@ RSTR_FUNC(Bool32)  RSTRInit( MemFunc* mem )
         fprintf(stderr, "RSTR_ERR_NOMEMORY");
         return FALSE;
     }
-    memory_pool_end = (PBYTE)(memory_pool + memory_length);
+    memory_pool_end = (puchar)(memory_pool + memory_length);
     tableBOX = memory_pool;
     cell_f()->next   =cell_l();
     cell_f()->nextl  =cell_l();

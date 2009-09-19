@@ -65,8 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #pragma pack(1)                                          //AK 30.04.97
 
-#include "nt_types.h"
-
+#include "cttypes.h"
 
 #define  R_W    128
 #define  R_WB   R_W/8
@@ -98,15 +97,15 @@ struct strucAlternative
 
 
 typedef  struct{
-   BYTE  let;
+   uchar  let;
    LONG  tr1,tr2;
 }  StructTree;
 
 
 
-LONG  read_auto_tree( BYTE );
+LONG  read_auto_tree( uchar );
 pchar tree_start( INT n );
-INT copy_raster( PBYTE in, INT dy, INT dx,PBYTE out,INT row,INT col );
+INT copy_raster( puchar in, INT dy, INT dx,puchar out,INT row,INT col );
 void  errorExit( pchar str );
 INT  recog( void );
 INT  rec_without_halo( void );

@@ -127,8 +127,8 @@ struct _Root
 
         INT   nHeight;
         INT   nWidth;
-        BYTE  bType;
-        BYTE  bReached;
+        uchar  bType;
+        uchar  bReached;
         INT   nBlock;   // тип блока: "дустовый" али какой
 		INT   nUserNum;
 		void * pComp;

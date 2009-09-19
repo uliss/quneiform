@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
- #include "nt_types.h"
+ 
  #include "func.h"
  #include "struct.h"
  #include "linear.h"
@@ -72,15 +72,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include "func.h"
 #include "minmax.h"
 
-extern BYTE p2_active;
+extern uchar p2_active;
 // Discrim © by base lines                              *
 static INT rec_ii(cell*c,cell*cap);
 static INT rec_ii_halo(cell * c);
 
-static BYTE iot_pen_lc[]={ 120,60,10,0,0 };
-static BYTE iot_pen_uc[]={ 140,10,0 ,0,0 };
+static uchar iot_pen_lc[]={ 120,60,10,0,0 };
+static uchar iot_pen_uc[]={ 140,10,0 ,0,0 };
 
-INT cut_by_pos_ii(s_glue * const gl,BYTE let)
+INT cut_by_pos_ii(s_glue * const gl,uchar let)
 {
 B_LINES bl;
 INT pen=0,upper=32000,dis,i;
@@ -90,7 +90,7 @@ INT pen=0,upper=32000,dis,i;
  for(i=0;i < gl->ncell;i++)
   upper = MIN(upper,gl->celist[i]->row);
 
- if(let==(BYTE)'©' &&
+ if(let==(uchar)'©' &&
 	 !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
    ){
   if((dis=upper-bl.b2) <= 0 ){ // letter upper than bbs2
@@ -105,7 +105,7 @@ INT pen=0,upper=32000,dis,i;
     pen +=  dis<3 ? 60 : 0;
    }
  }
- if(let==(BYTE)'‰'){ // Capital iot
+ if(let==(uchar)'‰'){ // Capital iot
   if((dis=upper-bl.b1) <= 0 ){ // letter upper than bbs1
    dis = abs(dis);
    if(dis < 5) pen = iot_pen_uc[dis];
@@ -118,7 +118,7 @@ INT pen=0,upper=32000,dis,i;
 void proc_ii(void)
 {
 cell * c,*cap;
-BYTE let;
+uchar let;
 INT ndust;
   c = cell_f();
  while((c=c->nextl) != NULL ){
@@ -172,7 +172,7 @@ next_let: ;
 INT rec_ii(cell* c,cell * cap)
 {
 cell *clist[8];
-BYTE let;
+uchar let;
      let = c->vers[0].let;
    if( cap->row > c->row )        return 0; // not a cap
    if( cap->w*3 < c->w )          return 0; // not so wide as need
@@ -200,7 +200,7 @@ if(0&&!p2_active)  // OLEG
     clist[1]=cap;
     if( !compose_cell(2,clist,c) )
       return -1; //OLEG:new return style of composed
-     let = is_lower(let) ? (BYTE)'©' : (BYTE)'‰';
+     let = is_lower(let) ? (uchar)'©' : (uchar)'‰';
         c->vers[0].let = let;
 	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact
@@ -213,7 +213,7 @@ INT rec_ii_halo(cell * c)
 {
 #define n_pieces        48
 cell *cap,*caplist[n_pieces];
-BYTE let;
+uchar let;
 INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
       i=0;
       cap = c;
@@ -267,7 +267,7 @@ INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
     caplist[0]=c;
     if( !compose_cell((INT)(i+1),caplist,c) )
       return 0; //OLEG:new return style of composed
-     let = is_lower(let) ? (BYTE)'©' : (BYTE)'‰';
+     let = is_lower(let) ? (uchar)'©' : (uchar)'‰';
         c->vers[0].let = let;
 	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact

@@ -62,11 +62,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 
-#include "nt_types.h"
+
 
 //---------------------Turbo large pointers---------------------------
 #define V_OFF(a,b) (int)((long int)a-(long int)b)
-#define V_POINT(a,b) (BYTE *)(a+b)
+#define V_POINT(a,b) (uchar *)(a+b)
 #define TEST_PRPH(a) 0
 #define ALI_PR(a) (((long int)a)/16+1)*16
 #define SET_VOC_ROOT(a) a
@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*typedef signed char * LPSTR;*/
 /************************* Bitfield types *****************************/
 
-#define BIT_BYTE    BYTE
+#define BIT_BYTE    uchar
 #define BIT_WORD    uint16_t
 #define BIT_DWORD   DWORD
 

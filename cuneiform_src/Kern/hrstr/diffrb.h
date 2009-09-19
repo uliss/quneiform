@@ -56,22 +56,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __DIFFRB_H__
 #define __DIFFRB_H__
-INT EndBlackInterval(BYTE *RASTER, INT NWIDTH);
-INT LeftDistance(BYTE *RASTER, INT NWIDTH);
-INT RightDistance(BYTE *RASTER, INT NWIDTH);
-INT SumIntervalBits( BYTE *RASTER, INT n1, INT n2);
-INT SumBits( BYTE *RASTER, INT NWIDTH);
-INT VertSum( BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column);
-INT MinMaxLeft( BYTE *RAST, INT Wx, BYTE NW, BYTE NH,INT *min, INT *max);
-INT MinMaxRIght( BYTE *RAST, INT Wx, BYTE NW, BYTE NH,INT *min, INT *max);
-INT NumHorizInterval( BYTE *RASTER, INT NWIDTH);
-INT NumVertInterval( BYTE *RASTER, INT Wx, INT NHEIGHT, INT Column);
-INT FOOT_A( BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH);
-INT FOOT3_2( BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH);
-INT FOOT3( BYTE *RASTER, INT Wx, BYTE START, BYTE NWIDTH, BYTE NLENGTH, INT SHIFT);
-INT Asymm_let( BYTE *RASTER, INT Wx, BYTE NWIDTH, BYTE NLENGTH, INT TW);
-INT FOOT( BYTE *RAST, INT Wx, BYTE NW, BYTE NH,  BYTE HARD_FILTER);
-INT CenterVertInterval( BYTE *R, INT Wx, INT NH, INT Col,INT *up, INT *down);
-INT LinesWithNumIntervals(BYTE *rastr,INT Wx, INT NLENGHT, INT num);
-INT LeftEdgeOfRightmostInt( BYTE *rst, INT Wdth);
+INT EndBlackInterval(uchar *RASTER, INT NWIDTH);
+INT LeftDistance(uchar *RASTER, INT NWIDTH);
+INT RightDistance(uchar *RASTER, INT NWIDTH);
+INT SumIntervalBits( uchar *RASTER, INT n1, INT n2);
+INT SumBits( uchar *RASTER, INT NWIDTH);
+INT VertSum( uchar *RASTER, INT Wx, INT NHEIGHT, INT Column);
+INT MinMaxLeft( uchar *RAST, INT Wx, uchar NW, uchar NH,INT *min, INT *max);
+INT MinMaxRIght( uchar *RAST, INT Wx, uchar NW, uchar NH,INT *min, INT *max);
+INT NumHorizInterval( uchar *RASTER, INT NWIDTH);
+INT NumVertInterval( uchar *RASTER, INT Wx, INT NHEIGHT, INT Column);
+INT FOOT_A( uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH);
+INT FOOT3_2( uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH);
+INT FOOT3( uchar *RASTER, INT Wx, uchar START, uchar NWIDTH, uchar NLENGTH, INT SHIFT);
+INT Asymm_let( uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, INT TW);
+INT FOOT( uchar *RAST, INT Wx, uchar NW, uchar NH,  uchar HARD_FILTER);
+INT CenterVertInterval( uchar *R, INT Wx, INT NH, INT Col,INT *up, INT *down);
+INT LinesWithNumIntervals(uchar *rastr,INT Wx, INT NLENGHT, INT num);
+INT LeftEdgeOfRightmostInt( uchar *rst, INT Wdth);
 #endif

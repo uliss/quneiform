@@ -121,16 +121,16 @@ void * TigerReallocateMemory(void * mem, uint32_t size) {
 	return DebugRealloc(mem, size);
 }
 
-extern BYTE work_raster[], work_raster_1[];
+extern uchar work_raster[], work_raster_1[];
 extern uint16_t lpool_lth;
-extern BYTE lpool[];
-static BYTE make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
+extern uchar lpool[];
+static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
-MN * c_locomp(PBYTE raster, INT bw, INT h, INT upper, INT left) {
+MN * c_locomp(puchar raster, INT bw, INT h, INT upper, INT left) {
 	return LOC_CLocomp(raster, bw, h, upper, left);
 }
 
-PBYTE make_raster_CCOM(CCOM_comp *cmp) {
+puchar make_raster_CCOM(CCOM_comp *cmp) {
 	INT h, d, dd, k, i, ii;
 	RecRaster rs;
 
@@ -146,7 +146,7 @@ PBYTE make_raster_CCOM(CCOM_comp *cmp) {
 	return work_raster;
 }
 
-PBYTE make_extended_raster_CCOM(CCOM_comp *cmp) {
+puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
 	INT h, d, dd, k, i, ii;
 	RecRaster rs;
 

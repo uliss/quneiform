@@ -59,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 
 
-#include "nt_types.h"
 #include "struct.h"
 #include "lang_def.h"
 #include "func.h"
@@ -68,38 +67,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "tuner.h"
 extern uchar *EVN_GetSegmentPool (void);
-//#include "Autofont.H"
 #include "tm.h"  //NB 4.4.95
 #include "diffrb.h"
-//#include "sfont.h"
 #include "p2libr.h"
 #include "status.h"
 
 #include "compat_defs.h"
 
-extern BYTE digital_string_penalty;
+extern uchar digital_string_penalty;
 //AK for debug
 static LONG * AK_deb;
 /*============ Import functions ==================*/
-Bool test_alphabet_elem(BYTE let);
+Bool test_alphabet_elem(uchar let);
 
-INT  Diskrim(BYTE let,PBYTE raster,INT dw,INT x,INT y,INT dx,INT dy,BYTE cg,INT inc);
-INT  discr_angles(BYTE let, INT dy, INT type);
-void init_diskrim(PBYTE r,INT h,INT w);
-void calc_angles(struct rst *rast,PBYTE p,BYTE ang[],BYTE cflgl,BYTE cflgr);
-Bool snap_show_raster(PBYTE raster, INT height, INT width);
+INT  Diskrim(uchar let,puchar raster,INT dw,INT x,INT y,INT dx,INT dy,uchar cg,INT inc);
+INT  discr_angles(uchar let, INT dy, INT type);
+void init_diskrim(puchar r,INT h,INT w);
+void calc_angles(struct rst *rast,puchar p,uchar ang[],uchar cflgl,uchar cflgr);
+Bool snap_show_raster(puchar raster, INT height, INT width);
 
-INT  SumIntervalBits( BYTE *r, INT bx, INT ex);
-INT  NumHorizInterval( BYTE *r, INT );
-INT  corner_type(BYTE crn);
-INT  cut_by_pos_ii(s_glue * gl,BYTE let);
+INT  SumIntervalBits( uchar *r, INT bx, INT ex);
+INT  NumHorizInterval( uchar *r, INT );
+INT  corner_type(uchar crn);
+INT  cut_by_pos_ii(s_glue * gl,uchar let);
 
 /*============ Export functions ==================*/
 
 segment * go_line(segment * seg_pool,uint16_t ln);
 void proc_bI(INT pass); // glue 'ы'
-INT  chkquocks2(cell * c,PBYTE r,INT h,INT w,INT d);
-void c_add_raster(PBYTE target,INT wb,INT y,INT col,PBYTE source,
+INT  chkquocks2(cell * c,puchar r,INT h,INT w,INT d);
+void c_add_raster(puchar target,INT wb,INT y,INT col,puchar source,
         INT sh,INT swb);
 struct rst create_raster(cell * c, const s_glue * gl);
 /*========== Local functions ===================*/
@@ -117,26 +114,26 @@ static Bool check_upri_hook_cell( cell * c );
 static Bool check_uple_hook_cell( cell * c );
 static Bool dust_in_glue( cell *s,s_glue *GL,INT c1,INT r1,INT c2, INT r2);
 static Bool dust_near_rusG(cell *cc);
-static void adjust_left(PBYTE pint,INT height);
-static void calc_data(PBYTE pint,INT height,INT width );
-static INT  discr_iot(cell * c,BYTE let,INT upper);
+static void adjust_left(puchar pint,INT height);
+static void calc_data(puchar pint,INT height,INT width );
+static INT  discr_iot(cell * c,uchar let,INT upper);
 static void _init_(void);
-static INT  sym_italic( cell * c,BYTE let );
+static INT  sym_italic( cell * c,uchar let );
 static Bool valid_inc( uint16_t inc );
 static uint16_t check_inc_foots(cell * c,INT nums);
 static INT  calc_dest_foot(INT h,INT w,INT *dest_foot,INT wid_foot);
 static uint16_t check_num_foots(INT nums,INT h);
-static INT  check_cursiv_inp(BYTE *rast,INT w,INT h,INT foot_wid,INT dest,BYTE let);
+static INT  check_cursiv_inp(uchar *rast,INT w,INT h,INT foot_wid,INT dest,uchar let);
 static Bool check_bend_up( cell * c );
 static Bool check_bend_dn( cell * c );
 static INT  multicell_hist(cell *base_c, const s_glue *GL,
 			    INT hist_n[], INT hist_d[]);
 static void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[]);
-static void make_white_hist(PBYTE pint,INT height);
-static void calc_abris(PBYTE pint,INT height );
+static void make_white_hist(puchar pint,INT height);
+static void calc_abris(puchar pint,INT height );
 static Bool valid_line(segment * segm);
-static INT  triangle_bottom(BYTE *raster,INT dx, INT dy, INT wid);
-static INT  triangle_top(BYTE *raster,INT dx, INT dy, INT wid);
+static INT  triangle_bottom(uchar *raster,INT dx, INT dy, INT wid);
+static INT  triangle_top(uchar *raster,INT dx, INT dy, INT wid);
 static uint16_t internal_filling(segment * segm,INT h,INT w);
 static Bool stick_online(cell * c);
 static Bool suspect_italic_iee(void);
@@ -151,54 +148,54 @@ static INT  o_symmetric(INT h,INT w);
 static uint16_t check_III(cell *c,INT foot_wid,INT dest[]);
 static uint16_t check_III_bend(cell *c,INT dest[]);
 static uint16_t check_futuris_aa(struct rst * const rst);
-static uint16_t check_EK(BYTE let,cell * c);
-static uint16_t check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy );
+static uint16_t check_EK(uchar let,cell * c);
+static uint16_t check_tg( cell * c, uchar let, puchar RASTR, INT dx, INT dy );
 static uint16_t check_ya( cell * c);
 static uint16_t check_zz( cell * c);
 static uint16_t check_xX( cell * c);
-static uint16_t check_xk(INT h,BYTE let) ;
-static uint16_t check_pl( cell * cc, cell * ci,BYTE let,struct rst * const rst);
-static uint16_t check_iee( cell * c,BYTE let);
-static uint16_t check_oa( cell * c,BYTE let,struct rst * const rst);
+static uint16_t check_xk(INT h,uchar let) ;
+static uint16_t check_pl( cell * cc, cell * ci,uchar let,struct rst * const rst);
+static uint16_t check_iee( cell * c,uchar let);
+static uint16_t check_oa( cell * c,uchar let,struct rst * const rst);
 static uint16_t check_ee( cell * c);
 static uint16_t check_uu( cell * c,INT h);
-//static uint16_t check_ss(cell * c,PBYTE pint,INT height);
-static uint16_t check_veza(cell * c,segment * segm,INT h,INT w,BYTE let);
+//static uint16_t check_ss(cell * c,puchar pint,INT height);
+static uint16_t check_veza(cell * c,segment * segm,INT h,INT w,uchar let);
 static uint16_t check_nn(cell * c);
 static uint16_t check_m( cell * c);
-static uint16_t check_AL(cell * c,BYTE let);
-static uint16_t check_stick( cell * c,BYTE let );
-static uint16_t check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast);
+static uint16_t check_AL(cell * c,uchar let);
+static uint16_t check_stick( cell * c,uchar let );
+static uint16_t check_cursiv( cell * c,uchar let,INT old_diskr,uchar *rast);
 static uint16_t stick_bI(cell * cl);
 static INT  check_italic_ch(INT h);
-static uint16_t check_I_dot(cell * c,BYTE let);    // !
+static uint16_t check_I_dot(cell * c,uchar let);    // !
 static uint16_t check_bb(void);
 
 /*========== Import global data ===================*/
 
-extern BYTE db_status    ;    // snap presence byte
-extern BYTE db_trace_flag;    // snap-detail presence byte
-extern BYTE db_pass      ;    // snap-pass indicator
+extern uchar db_status    ;    // snap presence byte
+extern uchar db_trace_flag;    // snap-detail presence byte
+extern uchar db_pass      ;    // snap-pass indicator
 
-extern BYTE broken_flag  ;    // broken raster discrim safety
-extern BYTE broken_ii    ;    // two sticks flag for rus discr
+extern uchar broken_flag  ;    // broken raster discrim safety
+extern uchar broken_ii    ;    // two sticks flag for rus discr
 
-extern BYTE work_raster[];
-extern BYTE work_raster_1[];
+extern uchar work_raster[];
+extern uchar work_raster_1[];
 extern INT iFont;
-/*extern*/ BYTE *segment_pool;
+/*extern*/ uchar *segment_pool;
 
 /*========= Global data ===================*/
 
 /*========= Local data ===================*/
-static BYTE Rus_similar_Eng[]="гпrn$чЧР";//"гпrNn$чЧР";
-static BYTE abris_online;
-static BYTE corners[4];
+static uchar Rus_similar_Eng[]="гпrn$чЧР";//"гпrNn$чЧР";
+static uchar abris_online;
+static uchar corners[4];
 static INT hist_n[128],hist_d[128];/* число интервалов в строке и плотность */
 static INT hist_white[128]; /* расстояние между 1-ой и второй палкой */
 static INT hist_black[128]; /* конец 1-ой палки                      */
-static BYTE rus_like[]="х"; // "оОх"
-static BYTE emu_like[]="x"; // "oOx"
+static uchar rus_like[]="х"; // "оОх"
+static uchar emu_like[]="x"; // "oOx"
 static STICK *stick; // pointer to array of stick if NULL no calculated stick
 static STICK stic[30];
 static INT   nstick;       // number of sticks in letter
@@ -220,7 +217,7 @@ INT up_jack;
  64 - any incline
  128 - must match number of foots and his incline
  */
-static BYTE let_stick[256] = {
+static uchar let_stick[256] = {
    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -262,7 +259,7 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
- BYTE    pen_m=0,flag_m=0,maxprob;
+ uchar    pen_m=0,flag_m=0,maxprob;
  LONG     inc=0 ;                                          //change from INT
  version    save[VERS_IN_CELL];
  INT    snvers;
@@ -338,7 +335,7 @@ snvers=c->nvers;
 //#pragma warning	( disable : 4047 4024 )				   //AK 11.03.97
 
  calc_angles(&_rst,segment_pool,/*&*/corners,              //AK 04.03.97 ? for address
-              (BYTE)(c->cg_flag&c_cg_cutl),(BYTE)(c->cg_flag&c_cg_cutr));
+              (uchar)(c->cg_flag&c_cg_cutl),(uchar)(c->cg_flag&c_cg_cutr));
  abris_online = TRUE;
  calc_abris(segment_pool,_rst.h);
 
@@ -349,7 +346,7 @@ snvers=c->nvers;
     if( v0->let == r_cu_m && (!broken_flag || !inc) )
       { // Analize m
        cell C=*c;
-       BYTE p=v0->prob;
+       uchar p=v0->prob;
 
        flag_m=TRUE;
        C.vers[0].let='m';
@@ -401,7 +398,7 @@ snvers=c->nvers;
     if( dd )
       switch(v0->let)
        {
-        case  (BYTE)'$':
+        case  (uchar)'$':
             if( i == 1 )
 	            {                        /*c->vers[0].let == '$' ){*/
                 INT  i,dl=0,dr=0;
@@ -437,58 +434,58 @@ snvers=c->nvers;
                     }
                 }/* if unique $ */
             break;
-        case  (BYTE)'г':
-        case  (BYTE)'Г':
-        case  (BYTE)'т':
-        case  (BYTE)'Т':
+        case  (uchar)'г':
+        case  (uchar)'Г':
+        case  (uchar)'т':
+        case  (uchar)'Т':
             if(cc && !broken_flag)
                 d_cun += check_tg( cc, v0->let,_rst.raster,_rst.w,_rst.h);
             if( cc && dust_near_rusG(cc) )
                 d += 80;
             break;
-        case  (BYTE)'Е':
-        case  (BYTE)'К':
+        case  (uchar)'Е':
+        case  (uchar)'К':
             if(cc)
 	            d_cun += check_EK(v0->let,cc);
             break;
-        case  (BYTE)'в':
+        case  (uchar)'в':
             d_cun += check_veza(cc,(segment*)segment_pool,_rst.h,_rst.w,v0->let);
             break;
-        case  (BYTE)'е':
-        case  (BYTE) UKR_e:
+        case  (uchar)'е':
+        case  (uchar) UKR_e:
             if(cc && (cc->recsource & c_rs_ev))
                 break;
             d_cun += check_veza(cc,(segment*)segment_pool,_rst.h,_rst.w,'е');
             break;
-        case  (BYTE)'н':
+        case  (uchar)'н':
             if(cc)
 	            d_cun += check_nn(cc);
             break;
-        case  (BYTE)'А':
+        case  (uchar)'А':
             if(cc)
                 d_cun += check_AL(cc,v0->let);
             break;
-        case  (BYTE)'Л':
+        case  (uchar)'Л':
             if(cc)
                 d_cun += check_AL(cc,v0->let);
-        case  (BYTE)'л':
-        case  (BYTE)'п':
-        case  (BYTE)'П':
+        case  (uchar)'л':
+        case  (uchar)'п':
+        case  (uchar)'П':
             if(cc)
 	            d_cun += check_pl( cc,c, v0->let,&_rst);
 	        if( broken_flag && glc.ncell==2 &&
 		        dust_in_glue(cc,&glc,33,33,66,66) )
     	     d_cun += 80;
              break;
-        case  (BYTE)'о':
+        case  (uchar)'о':
             if( cc )
                 if(  !(erection_enable && (cc->pos_inc&erect_rot))  )
                     d_cun = check_oa( cc,'о',&_rst);
             break;
-        case  (BYTE)'а':
+        case  (uchar)'а':
             d_cun += check_veza(cc,(segment*)segment_pool,_rst.h,_rst.w,v0->let);
             break;
-        case  (BYTE)'э':
+        case  (uchar)'э':
 						// ┬ сюыурЁёъюь эхЄ ▌¤. 08.09.2000 E.P.
 			if (language==LANG_RUSSIAN && langBul)
 				{d_cun = 200;break;}
@@ -497,90 +494,90 @@ snvers=c->nvers;
             if( cc )
                 d_cun += check_ee(cc);
             break;
-        case  (BYTE)'з':
+        case  (uchar)'з':
             d_cun += check_veza(cc,(segment*)segment_pool,_rst.h,_rst.w,v0->let);
             if(cc) d_cun += check_zz(cc);
                 if( cc )
                     d_cun += check_ee(cc);
             break;
-        case  (BYTE)'я':
+        case  (uchar)'я':
             if(cc)
 	            d_cun = check_ya( cc );
             break;
-        case  (BYTE)'Ы':
-        case  (BYTE)'ы':
+        case  (uchar)'Ы':
+        case  (uchar)'ы':
             if(cc && !broken_flag)
 	            d_cun = check_iee( cc,v0->let );
             break;
-        case  (BYTE)'х':
+        case  (uchar)'х':
             if(cc)
 	            d_cun += check_xX( cc );
 	        d_cun += check_xk(_rst.h,v0->let);
             break;
-        case  (BYTE)'Х':
+        case  (uchar)'Х':
             if(cc) d_cun = check_xX( cc );
          break;
-        case  (BYTE)'к':
+        case  (uchar)'к':
             d_cun += check_xk(_rst.h,v0->let);
             if( inc && !(corners[0]==128 && corners[2]==128) )
                 if( dnri_hook && !upri_hook )
                     d_cun+=40;
             break;
-        case  (BYTE)'ь':
+        case  (uchar)'ь':
             d_cun = check_bb();
-        case  (BYTE)'Ь':
+        case  (uchar)'Ь':
             if( dust_in_glue(cc,&glc,60,0,100,33) )
 	            d += 80;
             break;
-        case  (BYTE)'й':
-        case  (BYTE)'Й':
+        case  (uchar)'й':
+        case  (uchar)'Й':
             d_cun = cut_by_pos_ii(&glc,v0->let);
             break;
-        case  (BYTE)'ч':
-        case  (BYTE)'Ч':
+        case  (uchar)'ч':
+        case  (uchar)'Ч':
             if( dust_in_glue(cc,&glc,0-20,66-20,33,100) )
 	            d += 80;
             break;
-        case  (BYTE)'с':
-        case  (BYTE)'С' :
+        case  (uchar)'с':
+        case  (uchar)'С' :
             if( cc && dust_in_glue(cc,NULL,25,33,75,66) )
                 d += 80;
             break;
-        case (BYTE)r_cu_a:
+        case (uchar)r_cu_a:
             if(cc)
 	            d_cun += check_oa( cc,'а',&_rst);
             break;
-        case (BYTE)r_cu_u:
+        case (uchar)r_cu_u:
             d_cun = check_uu( cc,_rst.h );
             break;
-        case (BYTE)r_cu_m:
+        case (uchar)r_cu_m:
             d_abris = pen_m;
             if(cc&&!(c->pos_inc&(erect_rot|erect_zero)))
 	            d_cun = check_m(cc);
             if(cc&&(c->pos_inc&erect_zero))
 	            d_cun += 80;
             break;
-        case (BYTE)'|':
+        case (uchar)'|':
             d_cun = stick_bI(c);
             break;
-        case (BYTE)'!':
-        case (BYTE)'>':
-        case (BYTE)'<':
+        case (uchar)'!':
+        case (uchar)'>':
+        case (uchar)'<':
 			            d_cun = check_I_dot(c,v0->let);
 		 break;
 
 		// 31.08.2000 E.P.
-        case (BYTE)liga_exm_usual:
+        case (uchar)liga_exm_usual:
 		 if (liga_exm_usual == liga_exm)
             d_cun = check_I_dot(c,v0->let);
 		 break;
 
-        case (BYTE)liga_exm_latin:
+        case (uchar)liga_exm_latin:
 		 if (liga_exm_latin == liga_exm)
             d_cun = check_I_dot(c,v0->let);
 		 break;
 
-        case (BYTE)'1':
+        case (uchar)'1':
            d_cun = check_I_dot(c,v0->let);
          break;
        }
@@ -612,9 +609,9 @@ snvers=c->nvers;
       d_cun += 60;
     if(memchr(rus_like,v0->let,sizeof rus_like))
       {      // Here abris discrim for rus letters that looks like english
-       BYTE ch,ds;
-       ch = emu_like[(PBYTE)memchr(rus_like,v0->let,sizeof rus_like) - rus_like];
-       ds=(BYTE)abris(&glc,c,ch,v0->prob);
+       uchar ch,ds;
+       ch = emu_like[(puchar)memchr(rus_like,v0->let,sizeof rus_like) - rus_like];
+       ds=(uchar)abris(&glc,c,ch,v0->prob);
        d_abris = v0->prob - ds;
       }
 
@@ -651,15 +648,15 @@ if( v0->let=='|'                ||
     d += d_cun;
     d += d_abris; // sum penalty
     if ( TM_check_active &&
-         (v0->let=='T' || v0->let=='t' || v0->let==(BYTE)'Т' || v0->let==(BYTE)'т'
-         || v0->let=='M' || v0->let=='m' || v0->let==(BYTE)'М' || v0->let==(BYTE)'м'))
+         (v0->let=='T' || v0->let=='t' || v0->let==(uchar)'Т' || v0->let==(uchar)'т'
+         || v0->let=='M' || v0->let=='m' || v0->let==(uchar)'М' || v0->let==(uchar)'м'))
        v0->prob=MAX_TM_PROB;
      else
       {
        if(v0->prob < d)
          v0->prob = 0;
         else
-         v0->prob-= (BYTE)d;
+         v0->prob-= (uchar)d;
       }
    }        // for by vers
  sort_vers(c);
@@ -698,10 +695,10 @@ uint16_t nl=0,pen=0;
 }
 ///////////////////////////////////////////////////////////////////
 // check 'k','x' abris
-uint16_t check_xk(INT h,BYTE let)
+uint16_t check_xk(INT h,uchar let)
 {
  uint16_t max,index,pen_lx,pen_lk,pen_rk,pen_rx;
- BYTE hist[128];
+ uchar hist[128];
  INT jump[128]={0};
  INT i,smooth,mono;
 	// only stright 'k','x'
@@ -806,7 +803,7 @@ uint16_t check_xk(INT h,BYTE let)
          }
      }
 
- return let == (BYTE)'х' ? pen_rx + pen_lx : pen_rk + pen_lk;
+ return let == (uchar)'х' ? pen_rx + pen_lx : pen_rk + pen_lk;
 }
 /////////////////////////////////////////////////////////////////////
 // 'ь' refuse with 'a' that have no upper bend
@@ -818,9 +815,9 @@ return 0;
 }
 
 /* Analize '<<' and '>>' abris */
-static BYTE dh1[8]={ 0,0,0,1,1,2,2,3 };
-static BYTE dh2[8]={ 0,0,1,1,1,2,2,3 };
-INT chkquocks2(cell * c,PBYTE rstr,INT h,INT w,INT d)
+static uchar dh1[8]={ 0,0,0,1,1,2,2,3 };
+static uchar dh2[8]={ 0,0,1,1,1,2,2,3 };
+INT chkquocks2(cell * c,puchar rstr,INT h,INT w,INT d)
 {
 INT i,i1,i2,extr1,ln,ln1,h1,h2;
 INT tanx,tany,sum1,sum2;
@@ -934,7 +931,7 @@ INT i;
  return pen;
 }
 /*
-uint16_t check_ss(cell * c,PBYTE pint,INT height)
+uint16_t check_ss(cell * c,puchar pint,INT height)
 {
 segment * segm;
 INT i,j,col,prev_col;
@@ -961,7 +958,7 @@ for(i=0,segm = (segment*)pint,segm++;i < height/2 - j;i++) // set active line
  return d;
 }
 */
-uint16_t check_AL(cell * c,BYTE let)
+uint16_t check_AL(cell * c,uchar let)
 {
 INT gaps;
 lnhead *line;
@@ -974,12 +971,12 @@ INT l;
    if(line->h == 1) gaps--; // skip non valueble lines
    else if(line->row > c->h/2 && line->h < 3) gaps--;
 
-  if( let == (BYTE)'А' && gaps != 1 ) return 40;
-  if( let == (BYTE)'Л' && gaps > 0  ) return 40;
+  if( let == (uchar)'А' && gaps != 1 ) return 40;
+  if( let == (uchar)'Л' && gaps > 0  ) return 40;
   return 0;
 }
 
-uint16_t check_EK(BYTE let,cell * c)
+uint16_t check_EK(uchar let,cell * c)
 {
  lnhead *line;
  INT l;
@@ -993,22 +990,22 @@ uint16_t check_EK(BYTE let,cell * c)
      pen_E += 100;
 
  switch( let ){
- case (BYTE)'К' :  return (pen_K + ( pen_E == 0 ? 100 : 0 )); break;
- case (BYTE)'Е' :  return pen_E; break;
+ case (uchar)'К' :  return (pen_K + ( pen_E == 0 ? 100 : 0 )); break;
+ case (uchar)'Е' :  return pen_E; break;
  }
 
   return 0;
 }
 // ы
-uint16_t check_iee(cell * c,BYTE let)
+uint16_t check_iee(cell * c,uchar let)
 {
  lnhead *line;
  INT l;
  uint16_t pen=0,gaps;
 
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
-  if( gaps == 0 && let == (BYTE)'ы') return 10;
-  else if ( gaps == 0 && let == (BYTE)'Ы' ) return 60;
+  if( gaps == 0 && let == (uchar)'ы') return 10;
+  else if ( gaps == 0 && let == (uchar)'Ы' ) return 60;
      // hole in top right square
  for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
@@ -1041,14 +1038,14 @@ uint16_t check_ya( cell * c)
 static STICK st[30],*stickLP;
 static INT nstickLP;
 
-uint16_t check_pl( cell * c, cell * ci,BYTE let,struct rst * const rst )
+uint16_t check_pl( cell * c, cell * ci,uchar let,struct rst * const rst )
 {
 char  maxL=0,maxR=0;
 INT i,j1,j2,j,sym,nInvest;
 uint16_t penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
 uint16_t left=0,right=0,mean=0,D_X;
 INT begin0,begin;
-BYTE  *RAST,*RASTR,saveR[5];
+uchar  *RAST,*RASTR,saveR[5];
 MN *mn;
 cell * cc=NULL;
 INT dx,dy;
@@ -1130,9 +1127,9 @@ if( stick[0].incl <= stick[1].incl )
 			}
     mean += j;
     if( maxL < j1 )
-      maxL = (BYTE)j1;
+      maxL = (uchar)j1;
     if( maxR < j2 )
-      maxR = (BYTE)j2;
+      maxR = (uchar)j2;
     }
 
    if( (c->cg_flag_fine&c_cg_cut_bl) && stick[0].bot<0 ||
@@ -1323,9 +1320,9 @@ for(RAST=RASTR+(dy-1)*D_X,i=0;i<nInvest;i++,RAST-=D_X)
     }
   mean += j;
   if( maxL < j1 )
-    maxL = (BYTE)j1;
+    maxL = (uchar)j1;
   if( maxR < j2 )
-    maxR = (BYTE)j2;
+    maxR = (uchar)j2;
   }
 
 if( !left && !right )
@@ -1413,22 +1410,22 @@ if( maxR > 0 )
 
 switch( let )
   {
-  case (BYTE)'п':  case (BYTE)'П':
+  case (uchar)'п':  case (uchar)'П':
     return  penP+pen_serif;
-  case (BYTE)'л':  case (BYTE)'Л':
+  case (uchar)'л':  case (uchar)'Л':
     return  penL;
   }/* switch let */
 
 return pen;
 }/*check_pl*/
 
-uint16_t check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy )
+uint16_t check_tg( cell * c, uchar let, puchar RASTR, INT dx, INT dy )
 {
-BYTE  j,n4=dy>>2,D_X=(dx+7)/8;
+uchar  j,n4=dy>>2,D_X=(dx+7)/8;
 char  beg,end;
 INT   i,k,piece2=0,piece3=0;
 INT   left=0,right=0,sum=0,tg=0;
-BYTE  *RAST;
+uchar  *RAST;
 
 stick_online(c);
 if( nstick < 0 ) return 0;
@@ -1437,8 +1434,8 @@ if( nstick != 1) return 100;
 beg = stick[0].x+(dy-stick[0].y)*stick[0].incl/2048-stick[0].w/2;
 if( beg < 0 )   beg = 0;
 end = beg+stick[0].w;
-if( beg > dx )  beg = (BYTE)dx;
-if( end > dx )  end = (BYTE)dx;
+if( beg > dx )  beg = (uchar)dx;
+if( end > dx )  end = (uchar)dx;
 
 /* calculate  symmetric  of  top */
 for (RAST=RASTR,i=0;i<2*n4;i++,RAST+=D_X)
@@ -1460,7 +1457,7 @@ for (RAST=RASTR,i=0;i<n4;i++,RAST+=D_X)
 
 for (RAST=RASTR+i*D_X,k=i;k<(i+2*n4);k++,RAST+=D_X)
   {
-  j=(BYTE)NumHorizInterval( RAST, D_X );
+  j=(uchar)NumHorizInterval( RAST, D_X );
   if( j == 2 )
     piece2++;
   if( j == 3 )
@@ -1481,7 +1478,7 @@ switch( let )
     else
       tg = 0;
     break;
-  case (BYTE)'т':  case (BYTE)'Т':
+  case (uchar)'т':  case (uchar)'Т':
     if( !((c->cg_flag_fine&c_cg_cut_tl) && left<right) ||
         !((c->cg_flag_fine==0) && (c->cg_flag&c_cg_cutl) && left<right) )
       {
@@ -1498,7 +1495,7 @@ switch( let )
     if( left > 2*right )
       tg += ( 40+5*(left-2*right) );
     break;
-   case (BYTE)'г':  case (BYTE)'Г':
+   case (uchar)'г':  case (uchar)'Г':
       if( tg<0 )
          tg = 20*(2-tg);
       else
@@ -1794,7 +1791,7 @@ for(i=0;i<2;i++)
 	save_flg=cc[i]->flg; save_cg_flag=cc[i]->cg_flag;
 	cc[i]->flg=cc[i]->cg_flag=0;
 	ns = sticks_in_letter(cc[i],0,&s[i]);
-	cc[i]->flg=save_flg; cc[i]->cg_flag=(BYTE)save_cg_flag;
+	cc[i]->flg=save_flg; cc[i]->cg_flag=(uchar)save_cg_flag;
 	if( ns != 1 )
 		return FALSE;	/* в осколке не одна нога ! */
 	memcpy(&ss[i],s[i],sizeof(STICK));
@@ -1810,7 +1807,7 @@ nstick_broken=2;
 return TRUE;
 }
 
-Bool broken_sym_italic(s_glue *GL,BYTE let)
+Bool broken_sym_italic(s_glue *GL,uchar let)
 {
 STICK  *s[2];
 cell *c,*cc[2];
@@ -1839,7 +1836,7 @@ for(cs=i=0;i<2;i++)
 	save_flg=cc[i]->flg; save_cg_flag=cc[i]->cg_flag;
 	cc[i]->flg=cc[i]->cg_flag=0;
 	ns = sticks_in_letter(cc[i],0,&s[0]);
-	cc[i]->flg=save_flg; cc[i]->cg_flag=(BYTE)save_cg_flag;
+	cc[i]->flg=save_flg; cc[i]->cg_flag=(uchar)save_cg_flag;
 	if( ns != 1 )
 		return FALSE;	/* в осколке не одна нога ! */
 	if( s[0]->l*5 >= cc[i]->h*4 )
@@ -1849,7 +1846,7 @@ for(cs=i=0;i<2;i++)
 return (cs>0);
 }
 
-uint16_t check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast)
+uint16_t check_cursiv( cell * c,uchar let,INT old_diskr,uchar *rast)
 {
 uint16_t pen=0;
 INT i,j,foot_wid,ind,t;   /* средняя ширина ноги */
@@ -1881,8 +1878,8 @@ if( nstick==2 || nstick_broken==2)
 	dest_foot[0]=calc_dest_foot(c->h,c->w,dest_foot,foot_wid);
 
   switch( let ){
-  case  (BYTE)'ш'     :
-  case  (BYTE)'Ш'     :
+  case  (uchar)'ш'     :
+  case  (uchar)'Ш'     :
 	  if(suspect_italic_III(c))
 	    {
 		 pen += old_diskr;
@@ -1890,8 +1887,8 @@ if( nstick==2 || nstick_broken==2)
 	    }
 	  pen = check_III(c,foot_wid,dest_foot);
      break;
-  case  (BYTE)'щ'     :
-  case  (BYTE)'Щ'     :
+  case  (uchar)'щ'     :
+  case  (uchar)'Щ'     :
 	  if(suspect_italic_III_bend(c))
 	    {
 		 pen += old_diskr;
@@ -1899,8 +1896,8 @@ if( nstick==2 || nstick_broken==2)
 	    }
 		pen = check_III_bend(c,dest_foot);
 	   break;
-  case  (BYTE)'п'     :
-  case  (BYTE)'П'     :
+  case  (uchar)'п'     :
+  case  (uchar)'П'     :
 	  if(suspect_italic_nn()&&!dnri_hook)
 	    {
 		 pen += old_diskr;
@@ -1910,27 +1907,27 @@ if( nstick==2 || nstick_broken==2)
 		pen += check_inc_foots(c,2);
       pen += check_cursiv_inp(rast,c->w,c->h,foot_wid,dest_foot[0],'п');
      break;
-  case  (BYTE)'и'     :
-  case  (BYTE)'И'     : if(suspect_italic_ii()){ pen += old_diskr;break; }
+  case  (uchar)'и'     :
+  case  (uchar)'И'     : if(suspect_italic_ii()){ pen += old_diskr;break; }
 		  pen += check_cursiv_inp(rast,c->w,c->h,foot_wid,dest_foot[0],'и');
                    break;
-  case  (BYTE)'н'     :
-  case  (BYTE)'Н'     : if(suspect_italic_nn()){ pen += old_diskr;break; }
+  case  (uchar)'н'     :
+  case  (uchar)'Н'     : if(suspect_italic_nn()){ pen += old_diskr;break; }
 		  pen += check_cursiv_inp(rast,c->w,c->h,foot_wid,dest_foot[0],let);
 		    break;
-  case  (BYTE)'ч'     :
+  case  (uchar)'ч'     :
   case  '4'     :
-  case  (BYTE)'Ч'     : if(suspect_italic_tche()){ pen += old_diskr;break; }
+  case  (uchar)'Ч'     : if(suspect_italic_tche()){ pen += old_diskr;break; }
 			pen = check_italic_ch(c->h);
                         break;
-  case  (BYTE)'ы'     :
-  case  (BYTE)'Ы'     : pen = old_diskr + suspect_italic_iee(); /* ??? */
+  case  (uchar)'ы'     :
+  case  (uchar)'Ы'     : pen = old_diskr + suspect_italic_iee(); /* ??? */
                   break;
-  case  (BYTE)'ж'     :
-  case  (BYTE)'Ж'     : pen = old_diskr;
+  case  (uchar)'ж'     :
+  case  (uchar)'Ж'     : pen = old_diskr;
                   break;
-  case (BYTE)'к'  :
-  case (BYTE)'К'  :
+  case (uchar)'к'  :
+  case (uchar)'К'  :
 		if(suspect_italic_kk()){ pen += old_diskr;break; }
 		pen = check_kk(c->h);
 		if( nstick==2 || nstick_broken==2 )
@@ -2020,11 +2017,11 @@ for(d=s2=ss=0,i=dy*3/8;i < h;i++)
 
 /* левая нога имеет треугольный верх */
 
-INT triangle_bottom(BYTE *raster,INT dx, INT dy, INT wid)
+INT triangle_bottom(uchar *raster,INT dx, INT dy, INT wid)
 {
 INT BD_X = (dx+7)>>3;
 
-BYTE *R = &raster[(dy-1)*BD_X];
+uchar *R = &raster[(dy-1)*BD_X];
 INT bx = 0, ex = (dx>>1)-1, H = dy / 3;
 INT old,new,s,i;
 INT good_inc;
@@ -2047,10 +2044,10 @@ return(s>3 && (old<wid+2||good_inc>2) );
 }
 
 /* правая нога имеет треугольный верх */
-INT triangle_top(BYTE *raster,INT dx, INT dy, INT wid)
+INT triangle_top(uchar *raster,INT dx, INT dy, INT wid)
 {
 INT BD_X = (dx+7)>>3;
-BYTE *R = &raster[0];
+uchar *R = &raster[0];
 INT bx = (dx>>1), ex = dx-1, H = dy / 3;
 INT old,new,s,i;
 INT good_inc;
@@ -2115,8 +2112,8 @@ return( hist_white[i+2]<5 &&
 		hist_white[i]<hist_white[i+1] );
 }
 
-INT    check_cursiv_inp(BYTE *raster,INT w,INT h,INT foot_wid,INT dest_foot,
-			BYTE let)
+INT    check_cursiv_inp(uchar *raster,INT w,INT h,INT foot_wid,INT dest_foot,
+			uchar let)
 {
 INT i,j,beg=h>>2,end=h-beg;
 INT lim ,n_long,n_3,pen=0,p,n_1,n_long_p;
@@ -2303,7 +2300,7 @@ p = triangle_top(raster,w,h,foot_wid) && triangle_bottom(raster,w,h,foot_wid) ;
 
 switch( let )
         {
-        case (BYTE)'п': case (BYTE)'П':
+        case (uchar)'п': case (uchar)'П':
 		if( n_long_p>2 )
                         pen += 80;
                 if( n_3>3 )
@@ -2315,14 +2312,14 @@ switch( let )
 
                 break;
 
-        case (BYTE)'н': case (BYTE)'Н':
+        case (uchar)'н': case (uchar)'Н':
 		if( n_long==0 )
 			pen += 160;
 		if( p )
 			pen += 160;     /* similar to И */
     if( similar_n<2 )   pen += /*30**/similar_i;
 		break;
-  case (BYTE)'и': case (BYTE)'И':
+  case (uchar)'и': case (uchar)'И':
 		if( !p )
 		{
 		if( n_3==0 && n_long==0 )
@@ -2358,7 +2355,7 @@ switch( let )
 		else if( similar_n && n_1>3 && stair<3 )
 			pen += 60;
 		break;
-  case (BYTE)'к' : case (BYTE)'К' :
+  case (uchar)'к' : case (uchar)'К' :
     if( !(stick[0].incl!=stick[1].incl&&uple_hook&&dnri_hook) )
     if( nstick==2 && stick[1].incl || nstick_broken==2   )
       {
@@ -2366,7 +2363,7 @@ switch( let )
         pen += 80;
       if( down_n_signum && dest_foot-dop>=2 )
         pen += 80;
-      if( let==(BYTE)'К' )
+      if( let==(uchar)'К' )
         pen >>= 1;
       }
       break;
@@ -2426,7 +2423,7 @@ for(s2=ss=0;i < h;i++)
 
 // a, cursiv a and o heuristic
 
-uint16_t check_oa( cell * c,BYTE let,struct rst * const rst)
+uint16_t check_oa( cell * c,uchar let,struct rst * const rst)
 {
 INT r,gaps;
 uint16_t pen_a=0,pen_o=0,futuris=0;
@@ -2437,7 +2434,7 @@ if( gaps > 1 ) return 0;
    futuris = check_futuris_aa( rst );
    pen_o  += futuris;
 
-   if( let == (BYTE)'а' && (corner_type(corners[0])==SERIF ||
+   if( let == (uchar)'а' && (corner_type(corners[0])==SERIF ||
      corner_type(corners[0])==NON_CURVE) ) pen_a += 80;
 
  if ((r=short_lines2(c))>0)
@@ -2450,14 +2447,14 @@ if( gaps > 1 ) return 0;
     else          pen_o += 10; // 1 short line
     }
   }
-   if(let == (BYTE)'а' && !check_bend_up(c) && !check_bend_dn(c)
+   if(let == (uchar)'а' && !check_bend_up(c) && !check_bend_dn(c)
       && corner_type(corners[3]) == CURVE  && futuris < 50 )
      pen_a +=  r>0 ? 80 : 90;// 'a' bend
    else
-    if(let == (BYTE)'а' && !check_bend_up(c) && !check_bend_dn(c) &&
+    if(let == (uchar)'а' && !check_bend_up(c) && !check_bend_dn(c) &&
        futuris < 50 ) pen_a += o_symmetric(c->h,c->w);
 
- return (let == (BYTE)'а') ? pen_a : pen_o ;
+ return (let == (uchar)'а') ? pen_a : pen_o ;
  }
 INT o_symmetric(INT h,INT w)
 {
@@ -2469,7 +2466,7 @@ INT  i,asym=0,center_l,center_r;
   return (asym < h/5)*40;
 }
 /////////////////////////////////////////////////////////////////////
-void calc_abris(PBYTE pint,INT height )
+void calc_abris(puchar pint,INT height )
 {
  INT col,i,ndx;
  segment * segm = (segment*)pint;
@@ -2512,13 +2509,13 @@ do
 return (vl > 0);
 }
 
-static BYTE futuris[]={ 30,90,140,210 };
+static uchar futuris[]={ 30,90,140,210 };
 
 uint16_t check_futuris_aa(struct rst * const rst)
 {
 INT i,pen=0,h,max_value;
 uint16_t max,index;
-BYTE hist[128]={0};
+uchar hist[128]={0};
         if( ! abris_online ){ abris_online = TRUE;
 	  calc_abris(segment_pool,rst->h);
         }
@@ -2607,7 +2604,7 @@ Bool check_bend_dn( cell * c )
  lnhead *line;
  interval *intval;
  INT l,row,col,h,w,a;
- BYTE flg;
+ uchar flg;
 
  for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
@@ -2680,7 +2677,7 @@ for(row=0,end=0,col=0,start=0,segm++;
 }
 /**********************************************end of internal_filling*/
 
-uint16_t check_veza(cell * c,segment * segm,INT h,INT w,BYTE let)
+uint16_t check_veza(cell * c,segment * segm,INT h,INT w,uchar let)
 {
 uint16_t pen_a,pen_e,pen_z,pen_v,pen_ie;
 INT gaps=-1,l;
@@ -2692,12 +2689,12 @@ interval *in;
 
      if(c)
  gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
- if( let == (BYTE)'а' && gaps == 1 && c->recsource & c_rs_ev )
+ if( let == (uchar)'а' && gaps == 1 && c->recsource & c_rs_ev )
         goto ret; // I trust events
-    if(!abris_online){  calc_abris((PBYTE)segm,h); abris_online=TRUE;  }
+    if(!abris_online){  calc_abris((puchar)segm,h); abris_online=TRUE;  }
 if(!broken_flag){
-if(c && let != (BYTE)'а' && check_bend_up(c)){ pen_v+=80; pen_z+=80;pen_ie+=80; }
-if(c && let != (BYTE)'а' && check_bend_dn(c))
+if(c && let != (uchar)'а' && check_bend_up(c)){ pen_v+=80; pen_z+=80;pen_ie+=80; }
+if(c && let != (uchar)'а' && check_bend_dn(c))
  { pen_v+=80; pen_z+=80; pen_ie+=80; }
 }
 if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
@@ -2709,7 +2706,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
   if( dens > BOLD ){ pen_v += 100; pen_e += 80; }
   else if( dens > THIN ){ pen_v += 40; pen_e +=30; }
 
-  if( let == (BYTE)'е' && dens > BOLD && gaps == 2 &&
+  if( let == (uchar)'е' && dens > BOLD && gaps == 2 &&
       corner_type(corners[3]) != CURVE ) pen_e += 40;
 
   if(corner_type(corners[0]) == NON_CURVE &&   // refuse з -- в
@@ -2720,7 +2717,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
   // h=i; // real height
  tresh = h/10 + h%10/5;  smooth=0;
  /* find  left pad */
-       if( let == (BYTE)'в' ){
+       if( let == (uchar)'в' ){
        char jm1,jm2,jm3,jm4,pn;
             jm1=jm2=jm3=jm4=pn=0;
        for(i=h/4+h%4/2,cnt=0;i< h*3/4-1;i++)
@@ -2741,7 +2738,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
         }
        pen_v += pn;
        }
- if(let == (BYTE)'в' && c && dens > BOLD   && gaps == 2 &&
+ if(let == (uchar)'в' && c && dens > BOLD   && gaps == 2 &&
     corner_type(corners[0]) == CURVE &&
     corner_type(corners[2]) == CURVE
    ){ // refuse в -- blood е with 2 gaps
@@ -2761,17 +2758,17 @@ for(i=h/5+1,cnt=0;i< 2*h/3;i++)
 ret:
  // get out result
     switch(let){
-    case (BYTE)'а'  : return pen_a;
-    case (BYTE)'в'  : return pen_v;
-    case (BYTE)'з'  : return pen_z;
-    case (BYTE)'э'  :
+    case (uchar)'а'  : return pen_a;
+    case (uchar)'в'  : return pen_v;
+    case (uchar)'з'  : return pen_z;
+    case (uchar)'э'  :
 			   // ┬ сюыурЁёъюь эхЄ ¤. 08.09.2000 E.P.
 	   if (language==LANG_RUSSIAN && langBul)
 			return 200;
 
 		return pen_ie;
 
-    case (BYTE)'е'  : return pen_e;
+    case (uchar)'е'  : return pen_e;
      default 	: return 0;
     }
 }
@@ -2815,7 +2812,7 @@ return ret;
 
 extern INT nIncline;
 
-INT sym_italic( cell * c ,BYTE let)
+INT sym_italic( cell * c ,uchar let)
 {
 INT i,cs=0;
    if( ! let_stick[let] ) return FALSE;
@@ -2848,7 +2845,7 @@ if( c->n_baton==NO_BATONS )
   stick = stic;
   if( nstick>0 && nstick<4 )
     {
-    c->n_baton = (BYTE)nstick;
+    c->n_baton = (uchar)nstick;
     memcpy(c->save_baton,s,nstick*sizeof(STICK));
     }
   else if( nstick==0 )
@@ -2884,14 +2881,14 @@ return seg_pool;
 #define DB_TIF_COL 2            // first column in tif window
 #define DB_TIF_H 13             // height of tif window
 #define DB_TIF_W 40             // width of tif window
-void add_raster(PBYTE target,INT wb,INT row,INT col,PBYTE source,INT h,INT w);
+void add_raster(puchar target,INT wb,INT row,INT col,puchar source,INT h,INT w);
 
 struct rst create_raster(cell * c, const s_glue * gl)
 {
 c_comp * cp;
 INT i,right,bottom,left,upper,wb;
 struct rst _rst={0};
-PBYTE rast;
+puchar rast;
     if(gl != NULL){
     left=upper=30000U; right=bottom=0; i=0;
     while((cp = gl->complist[i++]) != NULL){
@@ -2934,11 +2931,11 @@ return _rst;
 
 #define copy_byte       *t++=0xff
 
-void c_add_raster(PBYTE target,INT wb,INT y,INT col,PBYTE source,INT sh,INT swb)
+void c_add_raster(puchar target,INT wb,INT y,INT col,puchar source,INT sh,INT swb)
 {
-BYTE m0,m1;
-PBYTE t;
-PBYTE s=source;
+uchar m0,m1;
+puchar t;
+puchar s=source;
 INT i;
          if( wb < swb ) return; // wider that target raster
         t=target+wb*y+col/8;   // offset in target raster
@@ -3035,7 +3032,7 @@ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 return;
 }
 /***************************************** start make_white_hist */
-void make_white_hist(PBYTE pint,INT height)
+void make_white_hist(puchar pint,INT height)
 {
  segment * segm;
  LONG i;                                                 //change from INT
@@ -3101,7 +3098,7 @@ return (sc.vers[0].prob>220);
 void proc_bI(INT pass)
 {
 cell * c,*clist[8];
-BYTE let;
+uchar let;
 
 c = cell_f();
 while((c=c->nextl) != NULL )
@@ -3131,7 +3128,7 @@ while((c=c->nextl) != NULL )
         clist[0]=c;
         clist[1]=c->nextl;
         compose_cell(2,clist,c);
-        let = is_lower(let) ? (BYTE)'ы' : (BYTE)'Ы';
+        let = is_lower(let) ? (uchar)'ы' : (uchar)'Ы';
         c->vers[0].let = let;
 	    c->recsource = 0; // artifact
 	    c->dens = 255; // undef
@@ -3141,7 +3138,7 @@ while((c=c->nextl) != NULL )
 return;
 }
 
-uint16_t check_I_dot(cell * c,BYTE let)
+uint16_t check_I_dot(cell * c,uchar let)
 {
  switch( let ){ // !,1,! with dot :  can't be pasted
  case '1'       : return (c->cg_flag & c_cg_cut) ? 80  : 0;
@@ -3335,36 +3332,36 @@ multicell_hist(c,NULL,hist_n, hist_d);
 
 switch( c->vers[0].let )
   {
-  case (BYTE)'Р' :
+  case (uchar)'Р' :
             if( c->nvers==1 && c->vers[0].prob==254
                 && similar_R( hist_n, c->h) )
                 down_all_versions(c, 40);
              break;
-  case (BYTE)'ч' : case (BYTE)'Ч' :
+  case (uchar)'ч' : case (uchar)'Ч' :
              if( c->nvers==1 && c->vers[0].prob==254 )
                 r_criteria(c,NULL);
              break;
-  case (BYTE)'$' :
+  case (uchar)'$' :
              if( c->h>15 && similar_S( hist_n, hist_d, (INT)(c->w/4), c->h) )
                 down_all_versions(c, 40);
              break;
 
-  case (BYTE)'п' :
-  case (BYTE)'г' :
+  case (uchar)'п' :
+  case (uchar)'г' :
              if( (F=RE_rus_Ge(hist_n, hist_d,(INT)(c->h<30?4:6),c->w))>0 )
                 down_all_versions(c, (INT)(2 + F*20));
              break;
-  case (BYTE)'n' :
-  case (BYTE)'r' :
+  case (uchar)'n' :
+  case (uchar)'r' :
              if( (F=RE_rus_Ge(hist_n, hist_d,(INT)(c->h<30?4:6),c->w))<0 )
                 down_all_versions(c, (INT)(2-F*20));
              break;
-  case (BYTE)'N':
+  case (uchar)'N':
              _rst = create_raster(c,NULL);
              if(_rst.raster )
                 {
                 INT pen =
-             Diskrim((BYTE)'N',_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,
+             Diskrim((uchar)'N',_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,
                    (INT)(c->save_stick_inc!=NO_INCLINE?c->save_stick_inc:0));
              if(  pen )
                 down_all_versions(c, (INT)(pen));

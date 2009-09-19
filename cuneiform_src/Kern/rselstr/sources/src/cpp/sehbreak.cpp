@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* FIXME: JussiP, I added this here to make it link. Don't know if it's correct. */
 #define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))
 
-BYTE *pRaster;
+uchar *pRaster;
 int   nRasterWidth;
 int   nRasterHeight;
 int   nRasterByteWidth;
@@ -94,8 +94,8 @@ int   nOldRoots;
 ROOT  *pOldAfterRoots;
 
 extern  CCOM_comp *get_CCOM_comp(PROOT r);
-extern  PBYTE make_raster_CCOM(CCOM_comp *cmp);
-extern  PBYTE make_extended_raster_CCOM(CCOM_comp *cmp);
+extern  puchar make_raster_CCOM(CCOM_comp *cmp);
+extern  puchar make_extended_raster_CCOM(CCOM_comp *cmp);
 
 void RotatePageToReal (void);// Piter
 

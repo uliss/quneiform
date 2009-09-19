@@ -75,9 +75,9 @@ struct v_v
 typedef struct v_v v_val;
 
 struct save_vers
- {INT nvers; version vers[VERS_IN_CELL]; char flg; char pos; BYTE source;
-  BYTE broken_II; BYTE cg_flag_fine;BYTE accent_leader;
-  BYTE bottom_accent;   // 16.10.97 E.P.
+ {INT nvers; version vers[VERS_IN_CELL]; char flg; char pos; uchar source;
+  uchar broken_II; uchar cg_flag_fine;uchar accent_leader;
+  uchar bottom_accent;   // 16.10.97 E.P.
   };
 typedef struct save_vers SVERS;
 
@@ -104,8 +104,8 @@ struct glue_struct
  cell *maxlist[MAX_CELLS_IN_LIST];
  cell *nclist[MAX_CELLS_IN_LIST];
  void *kitlist[MAX_CELLS_IN_LIST];
- BYTE ncell, ngluc, arg, maxnc;
- BYTE flarg, fres, var;
+ uchar ncell, ngluc, arg, maxnc;
+ uchar flarg, fres, var;
  INT  Dist, dist, bdiff, maxval;
  MN   *mn;
  INT  row, col, height, width;
@@ -116,7 +116,7 @@ typedef struct glue_struct s_glue;
 struct all_c
  {
  INT   Nb, Nd, minb, mind, minf;
- BYTE  flag;
+ uchar  flag;
  #define dust_left 1
  #define dust_right 2
  #define cl_disorder 4
@@ -169,30 +169,30 @@ struct linehdr
 
 struct segment
  {
- BYTE lth;
- BYTE end;
+ uchar lth;
+ uchar end;
  };
 
 struct short_line_header
  {
- BYTE top;      	// top string of line (relative)
- BYTE bot;	        // bottom string of line (relative)
- BYTE fb;	        // beginning of first segment of line
- BYTE fe;	        // end of first segment of line
- BYTE lb;	        // beginning of last segment of line
- BYTE le;	        // end of last segment of line
- BYTE next;	        // number of next line in (shortened) lines' list
+ uchar top;      	// top string of line (relative)
+ uchar bot;	        // bottom string of line (relative)
+ uchar fb;	        // beginning of first segment of line
+ uchar fe;	        // end of first segment of line
+ uchar lb;	        // beginning of last segment of line
+ uchar le;	        // end of last segment of line
+ uchar next;	        // number of next line in (shortened) lines' list
  INT  segm_addr;        // offset of first segment in line
  };
 
 struct vertex_header
  {
- BYTE top;	// top string of component (relative)
- BYTE bot;	// bottom string of component (relative)
+ uchar top;	// top string of component (relative)
+ uchar bot;	// bottom string of component (relative)
  INT  beg;	// offset of first segment of line in c_comp
  INT  end;	// offset of last + 1 segment of line in c_comp
- BYTE out;	// outgoing valency
- BYTE in;	// incoming valency
+ uchar out;	// outgoing valency
+ uchar in;	// incoming valency
  };
 
 struct local_min

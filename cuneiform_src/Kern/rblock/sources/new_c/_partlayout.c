@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //extern uint16_t run_options;
 //extern int nComps;
 //extern CCOM_comp *pComps;
-//extern BYTE *CellsPage; // *** Rom 03-03-99
+//extern uchar *CellsPage; // *** Rom 03-03-99
 /*
 #define ROM_TYPE_TABLE 111;
 #define BOUND 15

@@ -311,7 +311,7 @@ pchar get_message (uint16_t code)
         extern char decode_ASCII_to_[];
         INT i;
         for(i=0;*(c+i);i++)
-                *(c+i)=decode_ASCII_to_[(BYTE)(*(c+i))];
+                *(c+i)=decode_ASCII_to_[(uchar)(*(c+i))];
         }
 #endif
     return c;

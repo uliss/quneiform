@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  ╟╟ CHA_STICK : CALCULATION CHARACTERISTICS OF STICK   05.11.92. ╟╟ */
 /*  ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 
-#include "nt_types.h"
+
 
 			// here was DEBUG_GRAPH
   #include <stdlib.h>
@@ -75,8 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "stick.h"
 #include "minmax.h"
 
-extern BYTE fax1x2;	// MK NEW 06.01.1993
-//////extern BYTE left0[], right0[];	// MK NEW 19.01.1993
+extern uchar fax1x2;	// MK NEW 06.01.1993
+//////extern uchar left0[], right0[];	// MK NEW 19.01.1993
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
 extern	uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
@@ -87,14 +87,14 @@ extern	uint16_t	N_eq_Neck;	// for sign_neck;  see ST_TOOLS.C;
 extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS.C;
 /*......................................................................*/
 
-static INT fun_ge(BYTE fun[],INT n, INT level);
-static INT fun_le(BYTE fun[],INT n, INT level);
+static INT fun_ge(uchar fun[],INT n, INT level);
+static INT fun_le(uchar fun[],INT n, INT level);
 static void num_flag_conc(STICK_CHARS *res, INT width);
-static INT typ_nose_1(BYTE left[],INT n,INT lim,INT lev);
-static INT study_nose_1(BYTE left[],INT n,INT level,INT width);
+static INT typ_nose_1(uchar left[],INT n,INT lim,INT lev);
+static INT study_nose_1(uchar left[],INT n,INT level,INT width);
 static INT correct_beam(STICK_CHARS *l, STICK_CHARS *r,INT lev,INT dist);
 static INT correct_neck(STICK_CHARS *l, STICK_CHARS *r,INT lev,INT dist);
-static void set_near( BYTE fun[],INT skip_u, INT skip_d,
+static void set_near( uchar fun[],INT skip_u, INT skip_d,
 		    INT n,INT level,INT lim[],
 		    INT left[],INT  right[],INT l_pos[],INT r_pos[],
                     INT lb_pos[],INT le_pos[],INT rb_pos[],INT re_pos[],
@@ -104,37 +104,37 @@ static INT set_flags(STICK_CHARS *res, INT right[],INT left[],
 		     INT lb_pos[],INT le_pos[],INT rb_pos[],INT re_pos[],
 		     INT sum_r, INT sum_l,INT ear);
 static void calc_chars(STICK_CHARS *res,INT level,INT typ,
-		BYTE fun[],INT n,INT skip_u,INT skip_d);
+		uchar fun[],INT n,INT skip_u,INT skip_d);
 static INT correct_two_zones(INT *k,INT *m,INT i,INT im,INT ex,INT lim[]);
 static INT index_arr(INT v,INT limit[],INT n);
 static INT compress4(INT v);
-static void set_long(BYTE fun[],INT skip_u,INT skip_d,INT n,
+static void set_long(uchar fun[],INT skip_u,INT skip_d,INT n,
 	      INT level,INT lim[], INT sl, INT sr,
 	      INT left[],INT right[],INT l_pos[],INT r_pos[],
               INT lb_pos[],INT le_pos[],INT rb_pos[],INT re_pos[],
 	      INT *ll,INT *rr);
-//static void find_peak(INT *ind1,INT *ind2,BYTE fun[],INT nn,INT level,INT sr,
-//////	 INT *extr_pos,BYTE *extr_fun);
-static void find_peak_new(INT *ind1,INT *ind2,BYTE fun[],INT nn,	// MK
-	INT level,INT sr,INT *extr_pos,BYTE *extr_fun);
-//static void find_conc(INT *ind1,INT *ind2,BYTE fun[],INT nn,INT level,INT sr,
-//////	 INT *extr_pos,BYTE *extr_fun);
-static void find_conc_new(INT *ind1,INT *ind2,BYTE fun[],INT nn,	// MK
-	INT level,INT sr,INT *extr_pos,BYTE *extr_fun);
-static Bool find_first_ne(BYTE fun[],INT n,INT direct,INT level);
-static void set_serifs(BYTE left[],BYTE right[],
+//static void find_peak(INT *ind1,INT *ind2,uchar fun[],INT nn,INT level,INT sr,
+//////	 INT *extr_pos,uchar *extr_fun);
+static void find_peak_new(INT *ind1,INT *ind2,uchar fun[],INT nn,	// MK
+	INT level,INT sr,INT *extr_pos,uchar *extr_fun);
+//static void find_conc(INT *ind1,INT *ind2,uchar fun[],INT nn,INT level,INT sr,
+//////	 INT *extr_pos,uchar *extr_fun);
+static void find_conc_new(INT *ind1,INT *ind2,uchar fun[],INT nn,	// MK
+	INT level,INT sr,INT *extr_pos,uchar *extr_fun);
+static Bool find_first_ne(uchar fun[],INT n,INT direct,INT level);
+static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
                        INT skip_ul,INT skip_dl,INT skip_ur,INT skip_dr,
 		       INT l,INT r,INT dy,INT dx);
-static void correct_serifs(BYTE left[],BYTE right[],
+static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
 		       INT skip_ul,INT skip_dl,INT skip_ur,INT skip_dr,
 		       INT l,INT r,INT dy);
 static void calc_of_skip(INT hist[],INT dy,INT opt,
-			 BYTE left[],BYTE right[],INT lim_l,INT lim_r,
+			 uchar left[],uchar right[],INT lim_l,INT lim_r,
 			 INT *s_ul,INT *s_dl,INT *s_ur,INT *s_dr);
 static void correct_Y_peak(STICK_CHARS *l,INT dy);
-static Bool sign_t_TOP (BYTE left[], BYTE right[]);
+static Bool sign_t_TOP (uchar left[], uchar right[]);
 
 #define COPY_PEAK(lr,i,j)                \
 	{                                \
@@ -167,7 +167,7 @@ static Bool sign_t_TOP (BYTE left[], BYTE right[]);
 /*                                                                  */
 /* out : left_chars,right_chars - characteristics of stick          */
 /*                                                                  */
-INT set_stick_char (BYTE left[], BYTE right[], INT hooks[],
+INT set_stick_char (uchar left[], uchar right[], INT hooks[],
 		   INT dy, INT dx, INT opt, INT wide, INT corr_mode,
 		   INT skip_ul, INT skip_dl, INT skip_ur, INT skip_dr,
 //////		   INT inc,
@@ -218,7 +218,7 @@ lll_dis = study_nose_1(left,dy,lm,wide);	// 01.06.1993
 s->lll_nose_1 = lll_dis >> 8;		// 00xx or 01xx => 0 or 1
 s->dis_nose_1 = lll_dis & 0xFF;
 
-s->typ_nose_1 = (BYTE)typ_nose_1(left,dy,(INT)((wide>4)?4:2),lm);
+s->typ_nose_1 = (uchar)typ_nose_1(left,dy,(INT)((wide>4)?4:2),lm);
 	/* typ_nose_1 - indicator normal (inc) nose 1 */
 
 l->up_hook    = (hooks[0]>1);	/* hooks-signums ex. right down : */
@@ -228,7 +228,7 @@ r->down_hook = (hooks[3]>1);	/*   ╟╟╟╟                         */
 
 s->height = dy;
 s->width  = dx;
-s->stick_width  = (BYTE)wide;
+s->stick_width  = (uchar)wide;
 
 /*****************************	BEFORE 10.12.1993:
 //////s->inc    = inc;		// before 03.06.1993
@@ -238,7 +238,7 @@ s->inc_v16 = (char) (inc & 0xFF);	// 17.11.1993 for case inc_v16<0;
 ********************************/
 
 s->inc = (inc_num!=0);
-s->inc_num = (BYTE)inc_num;	// 10.12.1993
+s->inc_num = (uchar)inc_num;	// 10.12.1993
 
 /* serifs checking */
 set_serifs (left, right, l, r,
@@ -258,9 +258,9 @@ num_flag_conc (l, wide);
 ///*l_mode = left_mode_EEM = (lm-corr_mode)>>2;	// 05.08.1993	SOPLI I WOPLI
 ///*r_mode = (rm-corr_mode)>>2;
 *l_mode = left_mode_EEM = (lm-corr_mode)>>2;	// 07.01.1994
-s->left_mode  = (BYTE)(left_mode_EEM);
+s->left_mode  = (uchar)(left_mode_EEM);
 *r_mode = (rm-corr_mode)>>2;
-s->right_mode = (BYTE)(*r_mode);
+s->right_mode = (uchar)(*r_mode);
 //////s->full_width = l->max_flag + wide + r->max_flag;	// 07.01.1994	###
 s->full_width = (s->right_mode - s->left_mode + 1) +	// 07.01.1994
 		l->max_flag + r->max_flag;
@@ -298,7 +298,7 @@ if( !c->mount[0] )
 return;
 }
 
-static INT fun_ge(BYTE fun[],INT n, INT level)
+static INT fun_ge(uchar fun[],INT n, INT level)
 {
 INT i,s,f;
 for(s=i=0;i<n;i++)
@@ -309,7 +309,7 @@ for(s=i=0;i<n;i++)
 return(s);
 }
 
-static INT fun_le(BYTE fun[],INT n, INT level)
+static INT fun_le(uchar fun[],INT n, INT level)
 {
 INT i,s,f;
 for(s=i=0;i<n;i++)
@@ -327,7 +327,7 @@ return(s);
 /*      skip_ul(dl,ur,dr) - numbers of upper left ( downer left,     */
 /*                          upper right,downer right) skipped rows ; */
 /*      l,r - left and right modes; dy - height of stick             */
-static void set_serifs(BYTE left[],BYTE right[],
+static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
 		       INT skip_ul,INT skip_dl,INT skip_ur,INT skip_dr,
 		       INT l,INT r,INT dy,INT dx)
@@ -390,7 +390,7 @@ return;
 /*                          upper right,downer right) skipped rows ; */
 /*      l,r - left and right modes; dy - height of stick             */
 
-static void correct_serifs(BYTE left[],BYTE right[],
+static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
 		       INT skip_ul,INT skip_dl,INT skip_ur,INT skip_dr,
 		       INT l,INT r,INT dy)
@@ -450,16 +450,16 @@ return;
 /* exist value in array (fun) no equivalence (level)                      */
 /* n - number of elems in array, direct=1 <--> fun[0],fun[1],...,fun[n-1] */
 /* direct=-1 <--> fun[0],fun[-1],...,fun[1-n]                             */
-static Bool find_first_ne(BYTE fun[],INT n,INT direct,INT level)
+static Bool find_first_ne(uchar fun[],INT n,INT direct,INT level)
 {
-INT i,ind; BYTE lev=(BYTE)level;
+INT i,ind; uchar lev=(uchar)level;
 for(ind=i=0;i<n;i++,ind+=direct)
 	if( fun[ind]!=lev )
 		return(TRUE);
 return(FALSE);
 }
 /*----------------------------------------------------------------------*/
-static BYTE tab_1[]=
+static uchar tab_1[]=
 	{
 	120,	// 0. no left upper flag and left mode > 0
 	80,	// 1. too down begin of nose
@@ -474,7 +474,7 @@ static BYTE tab_1[]=
 	};
 /*----------------------------------------------------------------------*/
 /* study and calculate prob 1 for his nose (left abris) */
-static INT study_nose_1(BYTE left[],INT n,INT level, INT width)
+static INT study_nose_1(uchar left[],INT n,INT level, INT width)
 {
 INT  i = -1, ii, nn=n>>1, dis=0 ,minim, imin  ,s , lmin ;
 
@@ -568,7 +568,7 @@ return( dis );
 }
 /*----------------------------------------------------------------------*/
 /* study typ of nose for letter 1 */
-static INT typ_nose_1(BYTE left[],INT n,INT lim,INT lev)
+static INT typ_nose_1(uchar left[],INT n,INT lim,INT lev)
 {                                         /* normal nose (inc+jumps) : */
 INT  i ,jumps, ret   ;                        /*        ╟╟             */
 for(jumps=i=0;i<n && left[i]>=left[i+1]; i++) /*       ╟╟╟             */
@@ -592,7 +592,7 @@ return( ret );
 /*       dx - wide of c_comp , m - diapason for study : fun[i]>dx-m  */
 /*                                                                 */
 /* out : r->f_symptom  : 0(not sign),1(bad f-abris),2(good)        */
-INT calc_right_f_symptom(BYTE fun[],INT n,INT m)
+INT calc_right_f_symptom(uchar fun[],INT n,INT m)
 {
 int i,l=MIN(m,4),lev,s,n2=n>>1,n3=n/3;
 if( l==0 ) l=1;
@@ -628,7 +628,7 @@ return(0);
 /*       nx - wide of c_comp                                         */
 /*                                                                 */
 /* out : l->f_symptom : 0(not f left abris),1(bad f),2(good f)     */
-INT calc_left_f_symptom(BYTE fun[],INT n,INT nx,Bool c_ft)
+INT calc_left_f_symptom(uchar fun[],INT n,INT nx,Bool c_ft)
 {
 INT i,s,ss,f,ret_code,nn=n>>1;
 ss=nn*(nx>>1);   /* place of study-zone */
@@ -803,7 +803,7 @@ return(0);
 /*  out : res->mount[0:4], res->conc[0:4], res->m_meandr ( number of	*/
 /*        near mount(pimples)), res->c_meandr(number of near conc)	*/
 static void calc_chars (STICK_CHARS *res, INT level, INT typ,
-		      BYTE fun[], INT n, INT skip_u, INT skip_d)
+		      uchar fun[], INT n, INT skip_u, INT skip_d)
 {
 #define SIZ 6
 INT	r, l, sr=2, sl=2, sum_r, sum_l;
@@ -865,10 +865,10 @@ return;
 /*      sl - diapason of flat, *extr_fun - first value( fun[*ind1]  )   */
 /* out : [*ind2,*ind1] - overlay of peak,                                */
 /*       *extr_fun = fun[*extr_pos] - maximum                           */
-static void find_peak(INT *ind1,INT *ind2,BYTE fun[],INT nn,INT level,INT sr,
-	 INT *extr_pos,BYTE *extr_fun)
+static void find_peak(INT *ind1,INT *ind2,uchar fun[],INT nn,INT level,INT sr,
+	 INT *extr_pos,uchar *extr_fun)
 {
-INT i=*ind1,extr; BYTE f=*extr_fun;
+INT i=*ind1,extr; uchar f=*extr_fun;
 extr=*ind2=i++ ;
 
 /* increase fun */
@@ -888,13 +888,13 @@ return;
 }
 #endif
 /*----------------------------------------------------------------------*/
-static void find_peak_new (INT *ind1, INT *ind2, BYTE fun[], INT nn,
-	INT level, INT sr, INT *extr_pos, BYTE *extr_fun)	// MK NEW
+static void find_peak_new (INT *ind1, INT *ind2, uchar fun[], INT nn,
+	INT level, INT sr, INT *extr_pos, uchar *extr_fun)	// MK NEW
 {							// 14.01.1993
 INT	i=*ind1, extr;
-BYTE	f=*extr_fun;
+uchar	f=*extr_fun;
 ///INT	w_of_max = right0 [i] - left0 [i];	// MK 19.01.1993
-///BYTE	f_i, w_i;
+///uchar	f_i, w_i;
 
 	extr=*ind2=i++ ;
 
@@ -929,11 +929,11 @@ BYTE	f=*extr_fun;
 //	return;
 }
 /*----------------------------------------------------------------------*/
-static void find_conc_new (INT *ind1, INT *ind2, BYTE fun[], INT nn,
-	INT level, INT sl, INT *extr_pos, BYTE *extr_fun)	// MK NEW
+static void find_conc_new (INT *ind1, INT *ind2, uchar fun[], INT nn,
+	INT level, INT sl, INT *extr_pos, uchar *extr_fun)	// MK NEW
 {							// 14.01.1992
 INT	i=*ind1, extr;
-BYTE	f=*extr_fun;
+uchar	f=*extr_fun;
 	extr=*ind2=i++;
 
 	//MK: NO END && NEXT==TEK   && NEXT.NEXT==TEK  GO TO NEXT
@@ -958,10 +958,10 @@ BYTE	f=*extr_fun;
 /*      sl - diapason of flat, *extr_fun - first value( fun[*ind1]  )   */
 /* out : [*ind2,*ind1] - overlay of conc,                               */
 /*       *extr_fun = fun[*extr_pos] - minimum                           */
-static void find_conc(INT *ind1,INT *ind2,BYTE fun[],INT nn,INT level,INT sl,
-	 INT *extr_pos,BYTE *extr_fun)
+static void find_conc(INT *ind1,INT *ind2,uchar fun[],INT nn,INT level,INT sl,
+	 INT *extr_pos,uchar *extr_fun)
 {
-INT i=*ind1,extr; BYTE f=*extr_fun;
+INT i=*ind1,extr; uchar f=*extr_fun;
 extr=*ind2=i++;
 
 /* decrease fun */
@@ -991,13 +991,13 @@ return;
 /*	l_pos[0:4],r_pos[0:4] - centers left and right flags		*/
 /*	*ll,*rr( sum of long uncorrect flags and concaves		*/
 /*----------------------------------------------------------------------*/
-static void set_long(BYTE fun[],INT skip_u,INT skip_d,INT n,
+static void set_long(uchar fun[],INT skip_u,INT skip_d,INT n,
 	      INT lev,INT lim[], INT sl, INT sr,
 	      INT left[],INT right[],INT l_pos[],INT r_pos[],
               INT lb_pos[],INT le_pos[],INT rb_pos[],INT re_pos[],
 	      INT *ll,INT *rr)
 {
-INT i,k,m,extr,imax,l,r,nn=n-skip_d; BYTE level=(BYTE)lev,f;
+INT i,k,m,extr,imax,l,r,nn=n-skip_d; uchar level=(uchar)lev,f;
 for(r=l=0,i=skip_u;i<nn;i++)
 	{
 	f=fun[i];
@@ -1060,7 +1060,7 @@ return;
 /*	l_pos[0:4],r_pos[0:4] - centers left and right flags		*/
 /*	*sum_l_near_int,*sum_r_near_int( sum of right near intervals	*/
 /*----------------------------------------------------------------------*/
-static void set_near ( BYTE fun[], INT skip_u, INT skip_d,
+static void set_near ( uchar fun[], INT skip_u, INT skip_d,
 //////		   INT n, INT lev, INT lim[],
 		   INT n_full, INT lev, INT lim[],
 		   INT left[], INT right[], INT l_pos[], INT r_pos[],
@@ -1072,7 +1072,7 @@ static void set_near ( BYTE fun[], INT skip_u, INT skip_d,
 				// and USE NOW  "nn"  ONLY!!!
 				// (TAK GOVORIL ZARATUSTRA)
 INT	i, k, b, e, ex,  nn = n_full - skip_d;
-BYTE	level=(BYTE)lev, f;	// NB: INT lev, BYTE level;
+uchar	level=(uchar)lev, f;	// NB: INT lev, uchar level;
 INT	nL, nR;		// 28.01.1994 (OLD l, r);
 
 ///for (l=r=0,i=skip_u;i<nn;i++) //this cykl find near mounts for any interval:
@@ -1140,19 +1140,19 @@ INT i;
 
 for(i=0;i<5;i++)
 	{
-	res->mount[i] = (BYTE)compress4(right[i]);
-	res->m_pos[i] = (BYTE)r_pos[i];
-	res->mb_pos[i] = (BYTE)mb_pos[i];
-	res->me_pos[i] = (BYTE)me_pos[i];
+	res->mount[i] = (uchar)compress4(right[i]);
+	res->m_pos[i] = (uchar)r_pos[i];
+	res->mb_pos[i] = (uchar)mb_pos[i];
+	res->me_pos[i] = (uchar)me_pos[i];
 
-	res->conc[i]  = (BYTE)compress4(left[i]);
-	res->c_pos[i] = (BYTE)l_pos[i];
-	res->cb_pos[i] = (BYTE)cb_pos[i];
-	res->ce_pos[i] = (BYTE)ce_pos[i];
+	res->conc[i]  = (uchar)compress4(left[i]);
+	res->c_pos[i] = (uchar)l_pos[i];
+	res->cb_pos[i] = (uchar)cb_pos[i];
+	res->ce_pos[i] = (uchar)ce_pos[i];
 	}
-res->m_meandr = (BYTE)sum_r;
-res->c_meandr = (BYTE)sum_l;
-res->main_ear = (BYTE)ear  ;
+res->m_meandr = (uchar)sum_r;
+res->c_meandr = (uchar)sum_l;
+res->main_ear = (uchar)ear  ;
 
 return(1);
 }
@@ -1231,7 +1231,7 @@ return( i-1 );
 			// here was DEBUG_GRAPH
 /*----------------------------------------------------------------------*/
 /* set auxiliary signums to struct *signums */
-void set_stick_aux_signums (cell *c, BYTE left[], BYTE right[],
+void set_stick_aux_signums (cell *c, uchar left[], uchar right[],
 		INT dy, INT wide_up,
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		INT dis_left_brace, INT dis_right_brace, INT dis_slash,
@@ -1247,7 +1247,7 @@ if( c->row<bl->b2 )  {		/* normal position */
 	s->base_2 = s->base_2mk = bl->b2 - c->row;	// 03.01.1994:
 	s->base_3 = s->base_3mk = bl->b3 - c->row;
 		    s->base_4mk = bl->b4 - c->row;
-	if( (s->neck=(BYTE)sign_neck(left,right,dy,s->base_2,wid_up_here))>0 )
+	if( (s->neck=(uchar)sign_neck(left,right,dy,s->base_2,wid_up_here))>0 )
 		s->dis_0xBA = 0;   /* exist neck */
 	else  if( l->down_serif==0 && r->down_serif==0 ||
 		  l->mount[4]<4 && r->mount[4]<4   )  {
@@ -1276,7 +1276,7 @@ else	{
 	s->base_4mk = (bl->n4>0) ? (bl->b4 - c->row) : 0x80;
 	}					// NB: 0x80 - MK: NOT EXIST;
 /*......................................................................*/
-	s->t_TOP = (BYTE)sign_t_TOP (left, right);	// 09.01.1994
+	s->t_TOP = (uchar)sign_t_TOP (left, right);	// 09.01.1994
 /*......................................................................*/
 //////s->dis_up_dot      = (dot_ij(c)!=NULL ? 80 : 0);    /* set */
 							// 05.08.1993
@@ -1286,17 +1286,17 @@ else	{
 	    s->dis_up_dot = s->up_dot_H = s->up_dot_W = s->up_dot_dCOL = 0;
 	else  {
 	    s->dis_up_dot = 80;		// set
-	    s->up_dot_H = (BYTE)cdot->h;
-	    s->up_dot_W = (BYTE)cdot->w;
+	    s->up_dot_H = (uchar)cdot->h;
+	    s->up_dot_W = (uchar)cdot->w;
 	    s->up_dot_dCOL = cdot->col - c->col;	// Displacement
 	    }
 /*......................................................................*/
-s->dis_slash       = (BYTE)dis_slash;                     /* aux */
-s->dis_left_brace  = (BYTE)dis_left_brace;                /* sig */
-s->dis_right_brace = (BYTE)dis_right_brace;
-s->l_f_symptom     = (BYTE)l_f_sym;
-s->r_f_symptom	   = (BYTE)r_f_sym;
-s->T_config	   = (BYTE)T_config;
+s->dis_slash       = (uchar)dis_slash;                     /* aux */
+s->dis_left_brace  = (uchar)dis_left_brace;                /* sig */
+s->dis_right_brace = (uchar)dis_right_brace;
+s->l_f_symptom     = (uchar)l_f_sym;
+s->r_f_symptom	   = (uchar)r_f_sym;
+s->T_config	   = (uchar)T_config;
 //////s->Y_config        = Y_config;
 s->T_2		   = T_2_3 >> 8;
 s->T_3		   = T_2_3 & 0xFF;
@@ -1306,7 +1306,7 @@ s->T_skok_R	   = T_skok & 0xFF;	// 17.02.1993
 s->cut_l	   = ( c->cg_flag & c_cg_cutl );
 s->cut_r	   = ( c->cg_flag & c_cg_cutr );
 
-s->num_lines = (BYTE)num_lines; /* OLEG:03.03.94. */
+s->num_lines = (uchar)num_lines; /* OLEG:03.03.94. */
 s->incline = normal_incline;
 /////mkm2 = (l->mb_pos[1]<<8) | l->me_pos[1];  // L.1
 /////mkm3 = (l->mb_pos[2]<<8) | l->me_pos[2];  // L.2
@@ -1324,7 +1324,7 @@ return;
 /*			 disable discrimination 'l','I','1' prob  )  */
 /*		     2 - good neck ( enable adding, enable discrim)  */
 /*----------------------------------------------------------------------*/
-Bool sign_neck (BYTE left[], BYTE right[], INT n, INT base, INT mode)
+Bool sign_neck (uchar left[], uchar right[], INT n, INT base, INT mode)
 {							// 18.02.1993
 ///INT i,s,l,ml,sig_wide=mode>10?1:0,f,e=3;   /* sig_wide = signum of thick */
 ///INT i,l,ml,sig_wide=mode>10?1:0,f;	/* sig_wide = signum of thick */
@@ -1434,7 +1434,7 @@ if( n_less==0 ) {  // not find neck belong diapason base,base+3 (base correct)
 //////return( s );
 }
 /*----------------------------------------------------------------------*/
-static	Bool  sign_t_TOP (BYTE left[], BYTE right[])  {	// 26.01.1994
+static	Bool  sign_t_TOP (uchar left[], uchar right[])  {	// 26.01.1994
 INT	d0 = right[0]-left[0];				// see sign_neck ABOVE;
 INT	d1 = right[1]-left[1];				// NB: MASTAB = 4 !!!
 INT	d2 = right[2]-left[2];				// 0, 4, 8, 12 are
@@ -1461,7 +1461,7 @@ if( i<dy>>1 && s>3 )
 return;
 }
 
-void calc_skipped_lines(INT hist_int[],BYTE left[],BYTE right[],
+void calc_skipped_lines(INT hist_int[],uchar left[],uchar right[],
 			INT dy,INT dx,INT wide,INT opt,Bool c_r,
 			INT *ul,INT *ur,INT *dl,INT *dr)
 {
@@ -1489,7 +1489,7 @@ return;
 
 
 static void calc_of_skip(INT hist[],INT dy,INT opt,
-			 BYTE left[],BYTE right[],
+			 uchar left[],uchar right[],
 			 INT left_mode,INT right_mode,
 			 INT *s_ul,INT *s_dl,INT *s_ur,INT *s_dr)
 {
@@ -1568,10 +1568,10 @@ for(n=i=0; i<5 ;i++)
 	if(res->mount[i]>t)
 		n++;
 
-res -> num_flags = (BYTE)sf;          /* number of flags      */
-res -> num_concs = (BYTE)sc;          /* number of concaves   */
-res -> num_long_flags = (BYTE)n;      /* number of long flags */
-res -> max_flag = (BYTE)max_flag;	// 06.01.1994
+res -> num_flags = (uchar)sf;          /* number of flags      */
+res -> num_concs = (uchar)sc;          /* number of concaves   */
+res -> num_long_flags = (uchar)n;      /* number of long flags */
+res -> max_flag = (uchar)max_flag;	// 06.01.1994
 
 return;
 }

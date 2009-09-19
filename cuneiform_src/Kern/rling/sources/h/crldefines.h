@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define APIENTRY     __stdcall
 #endif
 
-#include "nt_types.h"
+
 /*
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

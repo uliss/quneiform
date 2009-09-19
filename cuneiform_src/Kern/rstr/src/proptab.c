@@ -55,7 +55,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <string.h>
-#include "nt_types.h"
+
+#include "cttypes.h"
 #include "lang.h"
 #include "func.h"
 #include "tuner.h"
@@ -66,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ;*****  h<w ==> p=128 - (64*h)/w    ******
 */
 
-static BYTE letters_pidx_table_lat[512] = {
+static uchar letters_pidx_table_lat[512] = {
 10,100,		//  0
 10,100,		//  1
 10,100,		//  2
@@ -339,7 +340,7 @@ static BYTE letters_pidx_table_lat[512] = {
 10,100		// ff
 };
 
-static BYTE letters_pidx_table_rus[512]={
+static uchar letters_pidx_table_rus[512]={
   1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127, // 0x00
   1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127,  1,127, // 0x01
   1,127,
@@ -568,17 +569,17 @@ static BYTE letters_pidx_table_rus[512]={
         1,127 //
               };
 
-static BYTE work_table[512]={0};        /* 23.09.1997 E.Pliskin */
-BYTE *letters_pidx_table=work_table;
+static uchar work_table[512]={0};        /* 23.09.1997 E.Pliskin */
+uchar *letters_pidx_table=work_table;
 
 #define SET_LET(a,b,c) \
-{work_table[2*(BYTE)(a)]=(b);\
-work_table[2*(BYTE)(a)+1]=(c);}
+{work_table[2*(uchar)(a)]=(b);\
+work_table[2*(uchar)(a)+1]=(c);}
 
 // 05.09.2000 E.P.
 #define COPY_LET(a,b) \
-{work_table[2*(BYTE)(a)]=work_table[2*(BYTE)(b)];\
-work_table[2*(BYTE)(a)+1]=work_table[2*(BYTE)(b)+1];}
+{work_table[2*(uchar)(a)]=work_table[2*(uchar)(b)];\
+work_table[2*(uchar)(a)+1]=work_table[2*(uchar)(b)+1];}
 
 void correct_letters_pidx_table(void)
 {

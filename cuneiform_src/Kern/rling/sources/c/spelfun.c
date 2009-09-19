@@ -94,10 +94,10 @@ extern INT searcmode;             /* .... */
 
 /************************************************************************/
 extern STD std;
-extern BYTE all_lt[256];
+extern uchar all_lt[256];
 
 #ifdef S_COMMENTS
-BYTE all_lt[]=
+uchar all_lt[]=
 {
   /*0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F */
 
@@ -466,7 +466,7 @@ INT setwrd (SOBJ * obj,
      if (wlt == NULL)
        goto mytail1;     /* He DOESN'T caught his tail */
      if (wlt->code == wrddef[i]->lt->code)
-       obj->word->altn[i] = (BYTE)ai;
+       obj->word->altn[i] = (uchar)ai;
      else                                       /* I've caught my tail ! */
       {
 #ifdef SYSPR
@@ -491,7 +491,7 @@ INT setwrd (SOBJ * obj,
      if (wlt == NULL)
        goto mytail1;     /* He DOESN'T caught his tail */
      if (wlt->code == wrddef[i]->lt->code)
-       obj->word->altn[i] = (BYTE)ai;
+       obj->word->altn[i] = (uchar)ai;
      else                                       /* I've caught my tail ! */
       {
         mytail1:

@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define RASTER_SIZE 128*64/8
 
-BYTE raster[RASTER_SIZE];
+uchar raster[RASTER_SIZE];
 
 #ifdef RECOGTEST
  extern INT show;
@@ -758,8 +758,8 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
                 SWORD * word)
 {
  INT pi;
- BYTE c;
- BYTE  * pc;
+ uchar c;
+ uchar  * pc;
 
  pc =&c;
 
@@ -773,8 +773,8 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 
       )
     {                             /* Yes, it must be stored as a SPEC_POS: */
-     c = (BYTE)wrddef[pi]->lt->code;
-     word->altn[pi] = (BYTE)getstdn(pc); /* decode letter to the std-alt nmb     */
+     c = (uchar)wrddef[pi]->lt->code;
+     word->altn[pi] = (uchar)getstdn(pc); /* decode letter to the std-alt nmb     */
      word->pos [pi] = &(obj->pos[SPEC_POS]); /*  and store spec pos        */
     }
   }
@@ -847,7 +847,7 @@ Compwrd_ex:
      else
       m2 += v2;
 Compwrd_next:
-     w2->alt_doubt[pi] = (BYTE)v2;    /* store new word mark by back_recog */
+     w2->alt_doubt[pi] = (uchar)v2;    /* store new word mark by back_recog */
     }
    else
     {
@@ -885,7 +885,7 @@ Compwrd_next:
     No  - the alternative cannot be estimated (should be rejected)
 									    */
 /****************************************************************************/
-extern BYTE * letters_pidx_table;
+extern uchar * letters_pidx_table;
 static  back_recog(SOBJ * obj,
                       SWORD * word,
                       INT pi, INT ai,
@@ -1214,8 +1214,8 @@ static INT fill_raster(char raster[], char  *tif_buf,
 		 /* it will be used for tiff shift (left) while   */
 		 /* move to raster                                */
    uint16_t two; /* the two bytes to use for shift & move     */
-   BYTE *c,*cc;
-   BYTE  *tt;
+   uchar *c,*cc;
+   uchar  *tt;
 
    tx_map=x_map/8;		/* |tx_map                         */
    dest=x_map%8;		/* |dest   |    8    |    8    |.. */

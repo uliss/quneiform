@@ -141,7 +141,7 @@ void BlocksHystogramsFreeData (void);
 void BlockHystogramShow (BLOCK *pBlock);
 # endif
 
-extern BYTE *pRaster;
+extern uchar *pRaster;
 extern int   nRasterWidth;
 extern int   nRasterHeight;
 extern int   nRasterByteWidth;

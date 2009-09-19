@@ -101,14 +101,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	      /***        P R O T O T Y P E S       ****/
 
- static INT UserDictRDWR( BYTE * word,voc_state * user_dict,INT weight,INT mode);
- static Bool ispermitted (BYTE a);
- extern BYTE multy_language;
+ static INT UserDictRDWR( uchar * word,voc_state * user_dict,INT weight,INT mode);
+ static Bool ispermitted (uchar a);
+ extern uchar multy_language;
 
 
 /* ------------------------------------------------------------------ */
 
-INT AddWordToUserDictionary ( BYTE * word, INT weight,voc_state * user_dict)
+INT AddWordToUserDictionary ( uchar * word, INT weight,voc_state * user_dict)
 { INT resp;
 
   resp =UserDictRDWR( word, user_dict, weight, VOC_W);
@@ -130,7 +130,7 @@ INT AddWordToUserDictionary ( BYTE * word, INT weight,voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT DeleteWordFromUserDictionary ( BYTE * word, voc_state * user_dict)
+INT DeleteWordFromUserDictionary ( uchar * word, voc_state * user_dict)
 { INT resp;
 
   resp =UserDictRDWR( word, user_dict,-256, VOC_R);
@@ -145,7 +145,7 @@ INT DeleteWordFromUserDictionary ( BYTE * word, voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT _IsWordInUserDictionary ( BYTE * word, voc_state * user_dict)
+INT _IsWordInUserDictionary ( uchar * word, voc_state * user_dict)
 { INT resp;
 
   resp =UserDictRDWR( word, user_dict,0, VOC_R);
@@ -156,7 +156,7 @@ INT _IsWordInUserDictionary ( BYTE * word, voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT UserDictRDWR( BYTE * word, voc_state * user_dict, INT weight, INT mode)
+INT UserDictRDWR( uchar * word, voc_state * user_dict, INT weight, INT mode)
 {
   LTIMG wrdimg[MAX_WORD_SIZE],*wrddef[MAX_WORD_SIZE+1];
   LT lt[MAX_WORD_SIZE];
@@ -185,8 +185,8 @@ INT UserDictRDWR( BYTE * word, voc_state * user_dict, INT weight, INT mode)
 // if line is empty -1 returned.
 // otherwise frc returned.
 */
-INT   SplitWordRecord(BYTE  * str)
-{ BYTE *b;
+INT   SplitWordRecord(uchar  * str)
+{ uchar *b;
   b = str;
   while((*str) && (*str== ' ')) str++;
   if ((!*str )||(*str == '\n'))               return -1;
@@ -227,7 +227,7 @@ static byte tab_alphas [256] =
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1     // f0
 };
 
-void init_tab_alpha(BYTE *s1,BYTE *s2,INT num)
+void init_tab_alpha(uchar *s1,uchar *s2,INT num)
 {
 INT i;
 if( language==LANG_RUSSIAN && multy_language || language==LANG_RUSENG)
@@ -239,11 +239,11 @@ for(i=0;i<num;i++)
 return;
 }
 
-Bool ispermitted (BYTE a)
+Bool ispermitted (uchar a)
 {
   return tab_alphas[a];
 }
-//Bool ispermitted (BYTE a)
+//Bool ispermitted (uchar a)
 //{
 // if ( isalpha (a))                   return TRUE;
 // if ( a == '\'')                     return TRUE;

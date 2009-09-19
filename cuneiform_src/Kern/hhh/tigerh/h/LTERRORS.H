@@ -82,8 +82,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "c_types.h"
 
 void FreeAllData (void);
-void ErrorNoEnoughMemory (PBYTE /*char**/);
-void ErrorInternal (PSTR s);
+void ErrorNoEnoughMemory (puchar /*char**/);
+void ErrorInternal (char * s);
 void ErrorFile (void);
 void ErrorEmptyPage(void);
 # endif

@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "status.h"
 #include "cstr.h"
@@ -73,15 +73,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _BAL_VERSION_   // Nick 10.02.2001
 
-extern BYTE   pass2;
+extern uchar   pass2;
 //extern Bool  FlagRestDust;
 void   save_dust(void);
 void   restore_dust(void);
 
 extern uint16_t actual_resolution;
-extern BYTE let_captype[];
+extern uchar let_captype[];
 extern INT line_number;
-extern BYTE fax1x2;
+extern uchar fax1x2;
 extern uchar language;
 
 /// static variables
@@ -397,10 +397,10 @@ static unsigned char ftu3[6][4] =
 // static unsigned char ptd6[8]={0,0,20,80,120,140,240,240};
    static unsigned char ftd6[8]={0,0,0,20,60,100,120,240};
 
-static INT cut_by_posf(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+static INT cut_by_posf(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   INT  dps;
-  BYTE dflag;
+  uchar dflag;
   unsigned char pen_upr;
   INT  up, dn;
   INT  i, j, bsi, b1, b2, b3, b4;
@@ -703,10 +703,10 @@ static unsigned char ptd7[8]={140,20,0,0,0,0,0,0}; //  ж й ¤
 
 
 
-INT cut_by_posu(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+INT cut_by_posu(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   INT  dps;
-  BYTE dflag;
+  uchar dflag;
   unsigned char pen_upr;
   INT  up, dn;
   INT  i, j, ib2, bsi, b1, b2, b3, b4;
@@ -1020,7 +1020,7 @@ cut:
 }
 //////////////////////////////
 // оштрафовать - удалить версию chr по базовым линиям
-INT cut_by_pos(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
+INT cut_by_pos(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
 {
   if (actual_resolution > 64 )
   {
@@ -1045,7 +1045,7 @@ INT levcut(cell *C, INT arg)
  INT ncut, nalive, wp, np;
  INT pold, pnew, flcv;
  version  *v0;
- BYTE  chr, surviver;
+ uchar  chr, surviver;
 
  top=C->row-minrow;
  bot=top+C->h;
@@ -1063,7 +1063,7 @@ INT levcut(cell *C, INT arg)
  {
    chr=v0->let; wp=v0->prob; pold = wp & 1; wp &= 0xfe;
    if (chr==bad_char) return 0;
-   np = cut_by_pos(C,chr,wp,0,(BYTE)arg);
+   np = cut_by_pos(C,chr,wp,0,(uchar)arg);
    if (np > 0)
    {
      pnew = 0;
@@ -1101,7 +1101,7 @@ INT levcut(cell *C, INT arg)
      ((nalive==1) && (surviver == invers_exm) && language != LANG_RUSSIAN)
     )
  // entirely killed cell
- { version *v0; BYTE chr;
+ { version *v0; uchar chr;
    for (v0=C->vers; (chr=v0->let) !=0; v0++)
    {
      if(! memchr("LTJ()<>[]trI1l!/",chr,16) &&

@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#include "nt_types.h"
+
 #include "struct.h"
 #include "func.h"
 #include "lang.h"
@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern c_comp wcomp;
 //extern version * start_rec;
-//extern BYTE records_change;
+//extern uchar records_change;
 
 //
 //		Proportional criteria
@@ -74,7 +74,7 @@ extern c_comp wcomp;
 //
 
 extern INT prop_l_delta, prop_r_delta;
-extern BYTE * letters_pidx_table;
+extern uchar * letters_pidx_table;
 void pidx_crit ()
 {
 	/*
@@ -83,10 +83,10 @@ void pidx_crit ()
  INT i;
  uint16_t let;
  pidx = prop_index (wcomp.h, wcomp.w);
- wcomp.pidx = (BYTE)pidx;
+ wcomp.pidx = (uchar)pidx;
  for (i=0, v=start_rec; i<wcomp.nvers; i++, v++)
   {
-   let = (BYTE)(v->let) * 2;
+   let = (uchar)(v->let) * 2;
    if (pidx + prop_l_delta < letters_pidx_table[let])
     {
      wcomp.reasno |= c_rn_left;
@@ -131,7 +131,7 @@ void v2_pidx_crit (cell *c)
  if ((c->nvers -= v-wv) == 0) set_bad_cell(c);
 }
 
-Bool pidx_skip(INT h, INT w,BYTE t_let)
+Bool pidx_skip(INT h, INT w,uchar t_let)
 {
   INT pidx;
   uint16_t let;
@@ -147,7 +147,7 @@ uint16_t el_pidx_crit(uint16_t t_let,INT pidx)
 {
   uint16_t let;
 
-  let = (BYTE)t_let * 2;
+  let = (uchar)t_let * 2;
   if( (pidx + prop_l_delta < letters_pidx_table[let]) ||
     (pidx - prop_r_delta > letters_pidx_table[let+1]) ) return FALSE;
   else return TRUE;

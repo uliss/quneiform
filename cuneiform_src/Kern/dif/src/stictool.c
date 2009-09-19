@@ -427,7 +427,7 @@ static int16_t calc_LENs_LIMITED (uchar fun[], int16_t n, int16_t sum)  {  // 15
 
 int16_t i, im=-1, maxim=0;  // MK:   maxim=0;
 uchar  fold, ftek, fnext;
-///BYTE	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
+///uchar	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
 uchar  porog_2 = (sum - 1) >> 1; // for 18 porog_2=8;
 /*......................................................................*/
 	ftek = 0;	// for ftek => fold

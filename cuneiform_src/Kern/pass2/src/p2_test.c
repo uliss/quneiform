@@ -58,8 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <memory.h>
 
-#include "nt_types.h"
-//#include "struct.h"
+#include "minmax.h"
 #include "lang_def.h"
 #include "cstr.h" // OLEG
 #include "fon.h"

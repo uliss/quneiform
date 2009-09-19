@@ -89,7 +89,7 @@ extern "C" Bool  PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *Fil
 extern "C" Bool	 WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/Bool OutPutMode);
 extern "C" Bool	 WritePict( uint32_t IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, Bool OutPutTypeFrame);
 extern "C" { void GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber ); }
-extern "C" { BYTE GetPictRect ( uint32_t NumberPict  , Rect16* RectPict ,uint32_t* UserNumber ); }
+extern "C" { uchar GetPictRect ( uint32_t NumberPict  , Rect16* RectPict ,uint32_t* UserNumber ); }
 extern  void RtfAssignRect_CRect_Rect16(RECT *s1,Rect16 *s2);
 extern  void	RtfCalcRectSizeInTwips(RECT *s1, float Twips);
 extern  void RtfUnionRect_CRect_CRect(RECT *s1,RECT *s2);
@@ -99,7 +99,7 @@ int16_t   CreateEmptyRtfFile(void);
 void    PutC(char sym);
 void    PutCom(const char *Command, int32_t value, int16_t space);
 void    Put(const char *Data);
-void    PutChar(BYTE sym);
+void    PutChar(uchar sym);
 int16_t   get_font_name(int16_t FontNumber);
 
 int16_t   GetRealSizeKegl( const char * /*CString**/ str, int16_t width, int16_t FontPointSize, int16_t FontNumber );
@@ -626,7 +626,7 @@ void CRtfPage::AddLines(void)
 void	CRtfPage::SortUserNumber(void)
 {
 	CRtfFragment* pRtfFragment;
-	BYTE FlagChange;
+	uchar FlagChange;
  uint32_t mas[500],MinUserNumber=32000;
  int indexMinUserNumber,i,j;
  int16_t CountFragments;
@@ -1066,7 +1066,7 @@ Bool CRtfPage::Write(const char *FileNameOut)
 Bool CRtfPage::Write_USE_NONE()
 {
 	int16_t         NumberCurrentFragment,InGroupNumber;
-	BYTE          FragmentType;
+	uchar          FragmentType;
 	CRtfFragment  *pRtfFragment;
 	CRtfSector    *pRtfSector;
 
@@ -1363,7 +1363,7 @@ Bool CRtfPage::WriteHeaderRtf(void)
 	char  Eol[3],Nname[260];
 
 #ifdef EdWrite
-	BYTE fontPitchAndFamily;
+	uchar fontPitchAndFamily;
 #endif
 
 	 Eol[0]=(char)cr; Eol[1]=(char)lf; Eol[2]=0;
@@ -1444,7 +1444,7 @@ Bool CRtfPage::WriteHeaderRtf(void)
 			}
 
    if(!RtfWriteMode)
-    CED_CreateFont(m_hED, (BYTE)i, fontPitchAndFamily, (BYTE)Frmt_CharSet, Font[i].name);
+    CED_CreateFont(m_hED, (uchar)i, fontPitchAndFamily, (uchar)Frmt_CharSet, Font[i].name);
 #endif
 		}
   Put("}");
@@ -1617,7 +1617,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetFlagAndNumberFragment                                       //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-int16_t CRtfPage::GetFlagAndNumberFragment( BYTE* FragmentType, int16_t* InGroupNumber )
+int16_t CRtfPage::GetFlagAndNumberFragment( uchar* FragmentType, int16_t* InGroupNumber )
 {
  int16_t j,i,CountT,CountTT,CountTTP;
  CRtfFragment* pRtfFragment;
@@ -2050,7 +2050,7 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void)
 {
 	CRtfVerticalColumn* pRtfVerticalColumn;
 	int32_t               TmpBottom = 32000;
-	std::vector<BYTE>          Hist;
+	std::vector<uchar>          Hist;
 	int32_t               Left=32000,Right=0,Length,Left1,Right1;
 	int                 i,j,FlagLeft,FlagRight,tmp;
 	int32_t                MaxWidth=1,MaxHeight=1;
@@ -2167,7 +2167,7 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfHorizontalColumn::DefineTerminalProperty(void)
 { //~ recalculation of histogram after victim deletion
-	std::vector<BYTE>    Hist;
+	std::vector<uchar>    Hist;
 	vectorWord*   pGroup;
 	CRtfVerticalColumn* pRtfVerticalColumn;
 	int32_t Left=32000,Right=0,Length,Left1,Right1;
@@ -4069,7 +4069,7 @@ void Put(const char *Data)
 }
 
 //==
-void PutChar(BYTE sym)
+void PutChar(uchar sym)
 { char s[10]; int16_t i,len;
 	if(RtfWriteMode == FALSE)
   return;
@@ -4111,7 +4111,7 @@ int16_t GetRealSize( char* str,int16_t len,int16_t FontSize,int16_t FontNumber,i
 	HFONT       testFont;
 	SIZE        size;
 	int         n_Weight=600,fn;
-	BYTE        bItalic;
+	uchar        bItalic;
 //	TEXTMETRIC  tm;
 
 	if( !(FlagMode & NOBOLD) && ((char)FontNumber & TG_EDW_BOLD))

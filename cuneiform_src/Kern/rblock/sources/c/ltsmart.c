@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "dpuma.h"
 
 extern Handle hBlocksBreaking;
-BYTE *pSB_Matrix = NULL;
+uchar *pSB_Matrix = NULL;
 int  nSB_Width;
 int  nSB_Height;
 int  nSB_Size;
@@ -188,7 +188,7 @@ void SB_MatrixFreeData (void)
 static int CalculateSuspicionCells (COMP *pComp)
 {
     STRIP *pStrip;
-    BYTE  *pBegin, *pEnd, *p;
+    uchar  *pBegin, *pEnd, *p;
     int   nSuspicionCells;
 
     nSuspicionCells = 0;

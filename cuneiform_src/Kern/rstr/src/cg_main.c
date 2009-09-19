@@ -58,10 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef __MAC__
-//#include <bios.h>
-#endif
-#include "nt_types.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"
@@ -77,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BYTE langUkr , langSer;
+extern uchar langUkr , langSer;
 //#define  PROTOCOL
 
 #define  STRRCHR  strrchr
@@ -131,15 +127,15 @@ typedef struct grup_struct grup;
 //-------------------  variables  -------------------------------------
 
  //extern char accent_tab[];
- extern BYTE db_status;  // snap presence byte
- extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
+ extern uchar db_status;  // snap presence byte
+ extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
  extern Bool pass4_in;   //флаг: второй проход по странице
  extern INT  sMALL_SIZE; //минимальная высота "большого" элемента
  Handle hSnapBLcut;
 
- BYTE sticks_left_to_bad[]  =  {"  1/!|l1IJ)}[]"};  // 0,1st pos reserved for liga_i, liga_exm
+ uchar sticks_left_to_bad[]  =  {"  1/!|l1IJ)}[]"};  // 0,1st pos reserved for liga_i, liga_exm
 												    // 2nd	for turkish i_sans_accent - Nick 12.06.02
- BYTE letters_left_to_bad[] =  {" nrvtcC(u<>ьЬиИўкКлнНпПсСгГ"}; // 0th pos for sticks " nrvtcC(u<>№▄ш╚ўъ╩ыэ═я╧ё╤у├"
+ uchar letters_left_to_bad[] =  {" nrvtcC(u<>ьЬиИўкКлнНпПсСгГ"}; // 0th pos for sticks " nrvtcC(u<>№▄ш╚ўъ╩ыэ═я╧ё╤у├"
 
  static char ltmp0[] = "kDPbhвВнНиИпПкКмМцЦшШщЩюЮ";
  static char ltmp1[] = "m"; /* m */
@@ -175,7 +171,7 @@ typedef struct grup_struct grup;
          ltmp20, ltmp21, ltmp22, ltmp23, ltmp24, ltmp25, ltmp26
       };
 
- BYTE prob_left_to_bad[] =
+ uchar prob_left_to_bad[] =
       { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
  //     stick   n       r       v       t       c       C       (       u
         MAX_RO, MAX_RO, MAX_RO, MAX_RO, 240, 240, MAX_RO, MAX_RO, MAX_RO,
@@ -188,10 +184,10 @@ typedef struct grup_struct grup;
 	1st pos reserved for liga_exm,
 	2-3 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
 */
- BYTE sticks_right_to_bad[] =  {"1111/!|l1I[]"};
+ uchar sticks_right_to_bad[] =  {"1111/!|l1I[]"};
 
 
- BYTE letters_right_to_bad[] = {" cJnNvt)u><гГсСцЦиИўнНоОпПкКл"};	// " cJnNvt)u><у├ё╤Ў╓ш╚ўэ═ю╬я╧ъ╩ы"
+ uchar letters_right_to_bad[] = {" cJnNvt)u><гГсСцЦиИўнНоОпПкКл"};	// " cJnNvt)u><у├ё╤Ў╓ш╚ўэ═ю╬я╧ъ╩ы"
                                                       // 0th pos for sticks
 
  static char tmp0[] = "dUлЛмМнНиИпПшШыЫ";
@@ -229,7 +225,7 @@ typedef struct grup_struct grup;
     tmp10, tmp11, tmp12, tmp13 ,tmp14 ,tmp15, tmp16, tmp17, tmp18, tmp19,
     tmp20, tmp21, tmp22, tmp23 ,tmp24 ,tmp25, tmp26, tmp27, tmp28};
  //  к   К   л
- BYTE prob_right_to_bad[] =
+ uchar prob_right_to_bad[] =
       { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
  //     stick   c       J       n       N       v       t       )       u
         MAX_RO, MAX_RO, MAX_RO, MAX_RO, 240, 240, MAX_RO, MAX_RO, 240, 240,
@@ -240,14 +236,14 @@ typedef struct grup_struct grup;
 #define RESLEN 26 //максимальная длина пересечения results_left_to_bad и
                   // results_right_to_bad
 
- static BYTE  left_to_bad[] = {" /!l1IJ)}]cCnrvtгГсўСч(u<>ьЬпП|\x0"}; // 0 =>liga_exm.  10.09.2000 E.P.
- static BYTE right_to_bad[] = {"/|!l1I]nvt)u><гГўпПсСкКцЦчоО\x0"};
- static BYTE       sticks[] = {"  1lI1]!"}; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
+ static uchar  left_to_bad[] = {" /!l1IJ)}]cCnrvtгГсўСч(u<>ьЬпП|\x0"}; // 0 =>liga_exm.  10.09.2000 E.P.
+ static uchar right_to_bad[] = {"/|!l1I]nvt)u><гГўпПсСкКцЦчоО\x0"};
+ static uchar       sticks[] = {"  1lI1]!"}; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
 											// 2 -> turkish i_sans_accent	Nick 12.06.02
- static BYTE  left_to_dust[] = {"лоч1!"};
- static BYTE right_to_dust[] = {"гГоич!"};
+ static uchar  left_to_dust[] = {"лоч1!"};
+ static uchar right_to_dust[] = {"гГоич!"};
 
- static BYTE unify_width[] =   //символы "стандартной" ширины
+ static uchar unify_width[] =   //символы "стандартной" ширины
   {"023456789абвгезиклнопрстуфхцчъьэяАБВГЕЗИКЛНОПРСТУФХЦЧЪЬЭЯЁёў°¤"};
 
  B_LINES my_bases; //базовые линии
@@ -262,8 +258,8 @@ typedef struct grup_struct grup;
 
  char snap_text[80]={0},*snap=snap_text;
 
- BYTE trs2;             // >trs2 - буква хорошая во всех отношениях
- BYTE trg;              //порог для склеивания
+ uchar trs2;             // >trs2 - буква хорошая во всех отношениях
+ uchar trg;              //порог для склеивания
 
 // char bs_cut_en=0;
 
@@ -308,32 +304,32 @@ static void init_sect(struct cut_elm *cpnti);
 static void cor_sect(cell *C, struct cut_elm *cut, INT left, INT down);
 static char dp_passi(cell *LC, raster *r, struct cut_elm *cut_list,
                      seg_vers **vers_list, INT ncut, INT pass);
-static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
+static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
                            seg_vers **vers_list, INT i1, INT i0, char mode);
-static char *res_for(BYTE let, BYTE *sticks, BYTE *letters, char **results);
+static char *res_for(uchar let, uchar *sticks, uchar *letters, char **results);
 static char *unite_list(char *resstr,INT i1,INT i0,struct cut_elm *cut_list,
                         seg_vers **vers_list);
 static char *strXcrs(char *resstr, char *str1, char *str2);
-static INT select_cells(cell *C,MN *mn1,INT pos1, INT pos2, BYTE cut_fl,
+static INT select_cells(cell *C,MN *mn1,INT pos1, INT pos2, uchar cut_fl,
                         cell_list *left_list, cell_list *right_list);
-INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
-                   BYTE cut_fine,INT inc, INT *roi, BYTE *gvar,
+INT recogij(cell *C, cell **org_cells, INT N, uchar cut_fl,
+                   uchar cut_fine,INT inc, INT *roi, uchar *gvar,
                    SVERS *vers, INT *width );
-static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
+static uchar classify (cell **cells, INT N, grup *box, grup *bottom,
                       grup *top, grup *far_bottom, grup *far_top);
-static INT horiz_proj(cell **cells, INT N, BYTE *proj, INT size);
+static INT horiz_proj(cell **cells, INT N, uchar *proj, INT size);
 static void change(void **arr, INT i, INT j);
 static INT recog_one(cell *B0, s_glue *GL, INT tol, SVERS *vers);
 //static char wide (cell *C);
-static INT recog_set(cell *C,cell **org_cells, INT N, BYTE cut_fl,
-                     BYTE cut_fine, INT inc,
-                     INT tolbox, BYTE *gvar, SVERS *vers, INT *width);
-static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, BYTE *gvar);
-static BYTE accept_vers(char *snap, struct cut_elm *cut_list,
+static INT recog_set(cell *C,cell **org_cells, INT N, uchar cut_fl,
+                     uchar cut_fine, INT inc,
+                     INT tolbox, uchar *gvar, SVERS *vers, INT *width);
+static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, uchar *gvar);
+static uchar accept_vers(char *snap, struct cut_elm *cut_list,
                         INT i1, INT i0, SVERS *vers, char gvar, INT width,
                         INT cur_meas);
-static BYTE not_connect_chain(INT i1, INT i0, struct cut_elm *cut_list);
-static BYTE dust_chain(INT i1, INT i0, struct cut_elm *cut_list);
+static uchar not_connect_chain(INT i1, INT i0, struct cut_elm *cut_list);
+static uchar dust_chain(INT i1, INT i0, struct cut_elm *cut_list);
 static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
                           INT N, cell *LC, cell *RC, char ovfl);
 static INT locate(cell *B, struct cut_elm *cut_list, INT N, INT left);
@@ -350,7 +346,7 @@ static INT contain(cell *new, cell *old);
 cell * create_my_cell(MN * mn, cell * ci, char bdiff, char dflag);
 
 //dm2.c
-INT glue_to_o (BYTE c2, BYTE c3, cell *BC, cell *EC);
+INT glue_to_o (uchar c2, uchar c3, cell *BC, cell *EC);
 
 void test_match_cell_word(B_LINES *my_bases, INT cut_width);
 
@@ -613,10 +609,10 @@ static INT hist_sq(INT *hist, INT *top)
 static INT get_sym_width2()
 {
  cell *B;
- BYTE *ip,*ip2;
+ uchar *ip,*ip2;
  INT ws=0;           //искомая ширина
- BYTE hist[256]={0}; //гистограмма ширины
- BYTE top=0,*itop;   //вершина гистограммы
+ uchar hist[256]={0}; //гистограмма ширины
+ uchar top=0,*itop;   //вершина гистограммы
  INT s=0,s1=0;       //площадь гистограммы: общая и в области (3/4;5/4)ws
 
 //строим гистограмму
@@ -683,7 +679,7 @@ cell *process_word (cell *WB, cell *WE)
   INT max_gate;//ьръё. "яЁюётхЄ" тэєЄЁш Ёрчтрышт°хуюё  ёшьтюыр
   cell *RW;    //cell ёяЁртр юЄ ёыютр
   cell *ST;    //ярыър яюёых "№"
-  BYTE let;
+  uchar let;
   cell *C;
 
  RW=WE->next; B=WB; max_gate=my_bases.ps/3;
@@ -701,9 +697,9 @@ cell *process_word (cell *WB, cell *WE)
 
        if ( let(E) &&
 				(
-				let==(BYTE)'т' &&
+				let==(uchar)'т' &&
 					!is_russian_turkish_conflict(let) || // 21.05.2002 E.P.
-				let==(BYTE)'Т')
+				let==(uchar)'Т')
 				)
        {                 //"т" не всегда надежно по эвентам
          if ( !complete_recog(E) )
@@ -765,7 +761,7 @@ static cell *process_frame (cell *WB, cell *WE)
  INT   w,dh;  //его размеры
  INT      n;  //количество cell'ов в нем
  INT  maxcl;  //правый столбец + 1
- BYTE   let;  //лучшая версия cell'а
+ uchar   let;  //лучшая версия cell'а
  INT      p;  //ее вероятность
  INT   h1,h2;
 
@@ -834,7 +830,7 @@ static cell *process_frame (cell *WB, cell *WE)
          {
            INT midc=C->row+(C->h>>1);
            char fl =  middle > C->row && bottom < midc &&
-                      (let==(BYTE)'г' || let==(BYTE)'Г');
+                      (let==(uchar)'г' || let==(uchar)'Г');
            if ( B->r_col+B->w > C->r_col || fl ) //C и dust перекрываются
            {                                     //или может быть "Т"("т")
              if ( !complete_recog(C) )
@@ -847,12 +843,12 @@ static cell *process_frame (cell *WB, cell *WE)
              if ( fl )  p -= 60; //Т,т
              else
                if ( middle < C->row &&
-						let==(BYTE)'о' &&
+						let==(uchar)'о' &&
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				)  p -= 50; //б
                else
                  if ( B->row > midc &&
-					 let==(BYTE)'ч' &&
+					 let==(uchar)'ч' &&
 						!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					 )  p -= 30; //у,н
 
@@ -877,22 +873,22 @@ static cell *process_frame (cell *WB, cell *WE)
              }
              p=C->vers[0].prob;
              //фора для развалившихся букв:
-             if ( fl || bottom < midc && let==(BYTE)'л'   //Г,х
+             if ( fl || bottom < midc && let==(uchar)'л'   //Г,х
                      || B->row > midc &&
-						let==(BYTE)'ч' &&
+						let==(uchar)'ч' &&
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) //н,у
                p -= 30;
              else
                if ( middle < C->row &&
-					let==(BYTE)'о' &&
+					let==(uchar)'о' &&
 						!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				  )  p -= 50;  //б
                else
-                 if ( (let==(BYTE)'г' || let==(BYTE)'Г') && B->row > C->row &&
+                 if ( (let==(uchar)'г' || let==(uchar)'Г') && B->row > C->row &&
                        middle < C->row+C->h   //п
                       ||
-                      (let==(BYTE)'ь' || let==(BYTE)'Ь') && middle>C->row && middle<midc )//в
+                      (let==(uchar)'ь' || let==(uchar)'Ь') && middle>C->row && middle<midc )//в
                           p -= 20;
              B=C;
 
@@ -911,7 +907,7 @@ static cell *process_frame (cell *WB, cell *WE)
 //ёыхтр:
 
    C=B->prev;  let=C->vers[0].let;
-   if ( C != LW && !dust(C) && (may_glue(C) || let==(BYTE)'ь' || let==(BYTE)'Ь'))
+   if ( C != LW && !dust(C) && (may_glue(C) || let==(uchar)'ь' || let==(uchar)'Ь'))
    {
      char  add=0;          //Їыру: фюсртшЄ№ ёшьтюы ёыхтр
      if ( dust(B) && lefter(B,C->r_col+C->w) )  //C яхЁхъЁ√трхЄё  dust'юь
@@ -1033,9 +1029,9 @@ static INT one_glue (INT n, cell **S, INT tol)
   MN      *mn;   //промежуточный результат склейки
   INT     i;     //вспомогательные переменные
   INT nstick=0;  //число палок
-  BYTE  fl_b=0;  //флаг "ь"
+  uchar  fl_b=0;  //флаг "ь"
   INT  inc;      //усредненный наклон
-  BYTE cg_flag=0;
+  uchar cg_flag=0;
 
   B=*S;
   glsnap('a',B,"glue begin");
@@ -1045,7 +1041,7 @@ static INT one_glue (INT n, cell **S, INT tol)
 
 //составляем список
 
-  GL.ncell=(BYTE)n; GL.ngluc=1;
+  GL.ncell=(uchar)n; GL.ngluc=1;
   for ( i=0; i<n; i++ )
   {
     cg_flag |= B->cg_flag;
@@ -1053,10 +1049,10 @@ static INT one_glue (INT n, cell **S, INT tol)
       if (nstick<2)
         switch(fl_b)
         {
-          BYTE let;
+          uchar let;
 
           case 0:       //первый раз
-            if ( B->nvers && ((let=B->vers[0].let)==(BYTE)'ь' || let==(BYTE)'Ь') )
+            if ( B->nvers && ((let=B->vers[0].let)==(uchar)'ь' || let==(uchar)'Ь') )
                {
 			    fl_b=2;
 			    break;
@@ -1299,13 +1295,13 @@ static cell *cut_glue (cell *LC, cell *E, char ovfl)
 static cell *break_cell(cell *B)
 {
   MN *mn1;
-  BYTE *rp1;                   //промежуточный растр
+  uchar *rp1;                   //промежуточный растр
   cell *C=NULL,*RC=B->next;    //AK C=NULL
 
   if (!composed(B))  return RC;
 
   det_snap(B,"cell fuse");
-  rp1=(BYTE*)save_raster(B);
+  rp1=(uchar*)save_raster(B);
   if (!(mn1=c_locomp(rp1,(INT)((B->w+7)>>3),B->h,B->r_row,B->r_col)))
   {
     det_snap(B,"locomp error"); return NULL;
@@ -1330,7 +1326,7 @@ static cell *break_cell(cell *B)
 static INT compose_raster(raster *r, cell **clist, INT N)
 {
   cell *c;
-  BYTE *rp1;                   //промежуточный растр
+  uchar *rp1;                   //промежуточный растр
   c_comp *elist[MAX_CUTS];
   INT i,top,bot,left,right;
 
@@ -1365,7 +1361,7 @@ static INT compose_raster(raster *r, cell **clist, INT N)
 
 //формируем растр
 
-  rp1=(BYTE*)save_raster(c);
+  rp1=(uchar*)save_raster(c);
   memcpy(r->pict,rp1,((c->w+7)>>3)*c->h);
   r->w=c->w; r->h=c->h; r->top=c->r_row; r->left=c->r_col;
   del_cell(c);
@@ -1690,14 +1686,14 @@ INT get_cuts (cell *C, struct cut_elm *list, INT nmax )
 {
   INT i;             //параметр цикла
   INT mw,mh,mrr,mrc; //размеры и координаты элемента
-  BYTE *rp1;         //растр для поиска сечений
+  uchar *rp1;         //растр для поиска сечений
   INT  N0,N;         //количество сечений: всех и отобранных
   struct cut_elm list0[MAX_CUTS];  //полный список сечений
   struct cut_elm *cpnti,*spnti;    //исходные и отобранные сечения
   char x_prev,v_prev; //координата и тип разреза предыдущего сечения
-//  BYTE raster[RASTER_WIDTH*RASTER_HEIGHT/8];  //растр для разрезания
+//  uchar raster[RASTER_WIDTH*RASTER_HEIGHT/8];  //растр для разрезания
   MN *mn1;
-  BYTE csv[32];       //параметры сечения
+  uchar csv[32];       //параметры сечения
   cut_pos cpos;
 
  //начальные значения
@@ -1711,7 +1707,7 @@ INT get_cuts (cell *C, struct cut_elm *list, INT nmax )
 
 //вычисление точек разреза
 
- rp1=(BYTE*)save_raster(C);
+ rp1=(uchar*)save_raster(C);
 
 // clock_on();
 
@@ -1805,7 +1801,7 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
   INT i,ip,ibp,i1,i2,i2p,et,type,x,ie1=*ie,ib1=*ib;
   struct cut_elm *cut,*cut1;
   SVERS *versi;   //версии i-го сечения
-  BYTE let,let1;
+  uchar let,let1;
   char  resstr[RESLEN],*res; //ожидаемый результат объединения сегментов
 
   for ( i=ib1; i<ie1; i++ )  cut_list[i].var |= NOT_CUT;  //не резать
@@ -1845,7 +1841,7 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               char weakp;
 
               case '|':
-              case (BYTE)'ы': case (BYTE)'Ы':
+              case (uchar)'ы': case (uchar)'Ы':
               if (pass==1 && strchr("оОсCцЦ",	// "ю╬ёCЎ╓"
 								(cut_list+ip)->versm.vers[0].let) &&
                                 //"№■","√ю" ш Є.я.
@@ -1866,17 +1862,17 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               }
               break;
 
-              case (BYTE)'ю':
+              case (uchar)'ю':
 				  if (is_russian_turkish_conflict(let)) // 21.05.2002 E.P.
 					  break;
-			  case (BYTE)'Ю':
+			  case (uchar)'Ю':
               if ( cut1->dh != 0 &&
-                   ((let1=cut1->versm.vers[0].let)==(BYTE)'п' || let1==(BYTE)'П') &&
+                   ((let1=cut1->versm.vers[0].let)==(uchar)'п' || let1==(uchar)'П') &&
                    not_connect_sect(cut->px,i,cut_list)
                  )  type=1;
               break;
 
-              case (BYTE)'г': case (BYTE)'Г':
+              case (uchar)'г': case (uchar)'Г':
               if ( cut1->dh != 0 )  //"г"->"т"
               {
                 if (et==0) et=i;
@@ -1894,7 +1890,7 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               i2=i;
               break;
 
-              case (BYTE)'п': case (BYTE)'П':   //только двойные разрезы внутри -
+              case (uchar)'п': case (uchar)'П':   //только двойные разрезы внутри -
               weakp=0;              // "п" ненадежное
               for (cuti=cut1+1; cuti<cut; cuti++)
                 if (cuti->var & 40)   weakp=1;
@@ -1975,17 +1971,17 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
         ърцфюую ёхуьхэЄр;
         *C чрфрхЄ юсЁрсрЄ√трхьє■ ёЄЁюъє
 --------------------------------------------------------------------*/
-BYTE addij(cell *C, raster *r0, struct cut_elm *cut_list,
+uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
            seg_vers **vers_list, INT ncut, INT i1, INT i0, char mode)
 {
   INT i,j,ro;
   INT ie=ncut-1;
-  BYTE let1;
+  uchar let1;
   seg_vers *cur_vers;
   struct cut_elm *seci0,*seci,*secj; //описатели сечений
-  BYTE let0;       //текущая версия i0-го сечения
+  uchar let0;       //текущая версия i0-го сечения
   char msg[500],*s;
-  BYTE err=accept_segment(C,r0,cut_list,vers_list,i1,i0,mode);
+  uchar err=accept_segment(C,r0,cut_list,vers_list,i1,i0,mode);
 
   if (err) return err;
 
@@ -2005,10 +2001,10 @@ BYTE addij(cell *C, raster *r0, struct cut_elm *cut_list,
     if ( ip>=i0)
     {
       if ( ip==i0 &&
-           ( let0==(BYTE)'ь' && let1 != (BYTE)'|' &&
+           ( let0==(uchar)'ь' && let1 != (uchar)'|' &&
              (seci->x-seci0->x) < (seci0->x-(cut_list+seci0->px)->x)
              ||
-             let1==(BYTE)'|' && let0 != (BYTE)'ь'
+             let1==(uchar)'|' && let0 != (uchar)'ь'
          ) )
       {                   //текущая versi должна быть заменена
         INT width=seci->x-seci0->x;
@@ -2080,15 +2076,15 @@ BYTE addij(cell *C, raster *r0, struct cut_elm *cut_list,
                    2 - результата нет в списке   32 - хуже мера
                    4 - слишком узкий
 -------------------------------------------------------------------*/
-static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
+static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
                            seg_vers **vers_list, INT i1, INT i0, char mode)
 {
   INT i,dh,fora;
-  BYTE let;
+  uchar let;
   cell **CI;
   seg_vers *cur_vers;
-  BYTE cut_fl;    //флаг: сегмент (i1,i0) получен разрезанием
-  BYTE cut_fine;  //то же для Алика
+  uchar cut_fl;    //флаг: сегмент (i1,i0) получен разрезанием
+  uchar cut_fine;  //то же для Алика
   struct cut_elm *seci0,*seci1; //описатели i0-го и i1-го сечений
   SVERS *versi0,*versi1;        //версии i0-го,i1-го сечений
   INT x0,x1;       //координаты i0-го и i1-го сечений
@@ -2100,7 +2096,7 @@ static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 #define ROI_LEN 4
 #define ROI_SIZE ROI_LEN*sizeof(INT)
   INT roi[ROI_LEN]; //составляющие ro
-  BYTE csv0[32],csv1[32];       //параметры сечения
+  uchar csv0[32],csv1[32];       //параметры сечения
   cut_pos    cpos0={0},cpos1={0},cposc;
   MN *mn1;         //преобразованный растр
   void *kit;       //указатель стека kit
@@ -2108,7 +2104,7 @@ static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
   INT d_row;       //разность координат реальной и повернутой строки в
                    //сечении i0
   char  resstr[RESLEN],*res; //ожидаемый результат объединения сегментов
-  BYTE  retv=0;    //возвращаемое значение
+  uchar  retv=0;    //возвращаемое значение
   char msg[500],*s=msg;
 
   s += sprintf(s,"%d-%d ",i1,i0);
@@ -2143,8 +2139,8 @@ static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
   if (i1>0 && !(mode & 2) && seci1->versm.flg)
   {
     let= (versi0->nvers) ? versi0->vers[0].let : 0;
-    if (let == (BYTE)'г' || let == (BYTE)'Г') fora=G_to_T;  //фора для 'т'
-    else if ( let == (BYTE)'п' || let == (BYTE)'П') fora=P_to_L;  //фора для 'л'
+    if (let == (uchar)'г' || let == (uchar)'Г') fora=G_to_T;  //фора для 'т'
+    else if ( let == (uchar)'п' || let == (uchar)'П') fora=P_to_L;  //фора для 'л'
          else                             fora=0;
     fora=seci1->lv.v1-norm(fora,x0-x1);
     if ( fora>seci0->lv.v1 || fora>cut_list->rv.v1 )
@@ -2201,7 +2197,7 @@ static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 //чтобы распозналась палка присваиваем версию 'ь'
 
   let= (versi1->nvers) ? versi1->vers[0].let : 0;
-  if ( let==(BYTE)'ь' )
+  if ( let==(uchar)'ь' )
     for ( i=0,CI=left_list.cells; i<left_list.N; i++,CI++ )
       if (!dust(*CI)) rest_vers(*CI,versi1);
 
@@ -2358,7 +2354,7 @@ static char *unite_list(char *resstr,INT i1,INT i0,struct cut_elm *cut_list,
   INT  i=i0;           // boundary between them
   char  *res;          // res1 intersection and res2
   char  *res0=NULL;    // return value
-  BYTE let,pt;
+  uchar let,pt;
   char  wrk1[RESLEN],wrk2[RESLEN];
   seg_vers *cur_vers;
 
@@ -2366,7 +2362,7 @@ static char *unite_list(char *resstr,INT i1,INT i0,struct cut_elm *cut_list,
   if (is_baltic_language(language))
 	results_right_to_bad[9][6]=0;
   else
-	results_right_to_bad[9][6] = (BYTE)0xe0;  // Russian letter "p" appears in the text as "a"
+	results_right_to_bad[9][6] = (uchar)0xe0;  // Russian letter "p" appears in the text as "a"
 
   // 21.05.2002 E.P. Turkish-russian conflicts
   if (is_turkish_language(language))
@@ -2427,7 +2423,7 @@ static char *unite_list(char *resstr,INT i1,INT i0,struct cut_elm *cut_list,
           if (vers1->nvers)
           {
             let=vers1->vers[0].let;
-            pt = (let==(BYTE)'т' &&
+            pt = (let==(uchar)'т' &&
 					!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				 ) ? trs2 : trg;
             if (vers1->vers[0].prob>=pt)
@@ -2440,7 +2436,7 @@ static char *unite_list(char *resstr,INT i1,INT i0,struct cut_elm *cut_list,
           if (vers2->nvers)
           {
             let=vers2->vers[0].let;
-            pt = (let==(BYTE)'т' &&
+            pt = (let==(uchar)'т' &&
 				!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) ? trs2 : trg;
             if (vers2->vers[0].prob>=pt)
@@ -2505,7 +2501,7 @@ empty_list:
            let, хёыш юэр ёюфхЁцшЄё  т ьрёёштрї sticks ш letters, шэрўх
            тючтЁр∙рхЄ NULL
 --------------------------------------------------------------------*/
-static char *res_for(BYTE let, BYTE *sticks, BYTE *letters, char **results)
+static char *res_for(uchar let, uchar *sticks, uchar *letters, char **results)
 {
   char *pos;
 
@@ -2535,7 +2531,7 @@ static char *res_for(BYTE let, BYTE *sticks, BYTE *letters, char **results)
 static char *strXcrs(char *resstr, char *str1, char *str2)
 {
   char *res;
-  BYTE let;
+  uchar let;
 
   for (res=resstr; *str1; str1++)
   {
@@ -2554,7 +2550,7 @@ static char *strXcrs(char *resstr, char *str1, char *str2)
                 отрезанные cell'ы в списке right_list; возвращает
                 высоту списка right_list над my_bases.b3
 ----------------------------------------------------------------------*/
-static INT select_cells(cell *C,MN *mn1,INT pos1, INT pos2, BYTE cut_fl,
+static INT select_cells(cell *C,MN *mn1,INT pos1, INT pos2, uchar cut_fl,
                         cell_list *left_list, cell_list *right_list)
 {
   INT i;
@@ -2602,23 +2598,23 @@ static INT select_cells(cell *C,MN *mn1,INT pos1, INT pos2, BYTE cut_fl,
             входе должен содержать версии распознавания без dust'ов
             (если они есть) или все нули
 ---------------------------------------------------------------------*/
-INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
-                   BYTE cut_fine,INT inc, INT *roi, BYTE *gvar,
+INT recogij(cell *C, cell **org_cells, INT N, uchar cut_fl,
+                   uchar cut_fine,INT inc, INT *roi, uchar *gvar,
                    SVERS *vers, INT *width )
 {
   INT i;
   cell *B,*B0,**P; //текущий cell
   INT ro =MAX_RO-vers->vers[0].prob;  //ошибка распознавания
   INT rod=MAX_RO;  //то же с dust'ами
-  BYTE  gvard;     //вариант склеивания с dust'ми
+  uchar  gvard;     //вариант склеивания с dust'ми
   SVERS versd;     //версии с dust'ми
   INT  widthd;     //ширина с dust'ами
   grup box,top,bottom,far_top,far_bottom;   //описатели групп cell'ов
   INT nstick=0;    //количество больших и палок в исходных cell'ах
   INT Nfar;        //количество дальних
   INT fora=0;      //фора для "б"
-  BYTE up_used=0;  //флаг: верхние dust'ы уже использованы
-  BYTE cut_up=0,cut_low=0,cut_far=0; //флаги: соответствующие dust'ы отрезаны
+  uchar up_used=0;  //флаг: верхние dust'ы уже использованы
+  uchar cut_up=0,cut_low=0,cut_far=0; //флаги: соответствующие dust'ы отрезаны
 
   *gvar=0;
 
@@ -2690,7 +2686,7 @@ INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
       if( !dust(B=org_cells[i]) )
         if (nstick<2)  nstick += is_stick(B);
         else           nstick = 3;
-  *gvar = gvard = (BYTE)nstick;
+  *gvar = gvard = (uchar)nstick;
 
 //распознаем
 
@@ -2699,13 +2695,13 @@ INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
   if ( let_or_bad(vers) )
     switch(vers->vers[0].let)
     {
-      case (BYTE)'ы':               //"м" и "ы" клеятся друг в друга
-      case (BYTE)'м':
-      case (BYTE)'ц':               //"ц" иногда плохо клеится
+      case (uchar)'ы':               //"м" и "ы" клеятся друг в друга
+      case (uchar)'м':
+      case (uchar)'ц':               //"ц" иногда плохо клеится
       case '%':
         if ( *gvar & glued )
         {
-          BYTE  gvardd=2;     //без склеивания
+          uchar  gvardd=2;     //без склеивания
           rod=recog_set(C,org_cells,box.n,cut_fl,cut_fine,inc,trs2,
                         &gvardd,&versd,width);
           if ( rod<ro )
@@ -2715,15 +2711,15 @@ INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
             memcpy(vers,&versd,sizeof(SVERS));
           }
         }
-      case (BYTE)'н':
-      case (BYTE)'п':
+      case (uchar)'н':
+      case (uchar)'п':
         if ( top.n )  ro += PEN_TOP_DUST;    //возможно "й"
         break;
-      case (BYTE)'и':
+      case (uchar)'и':
         if ( ro<RO_DUST_OFF && top.b<my_bases.b2 && !bottom.n )  //"й"
           goto ret;
         break;
-      case (BYTE)'о':
+      case (uchar)'о':
 		  if (is_russian_turkish_conflict(vers->vers[0].let)) // 21.05.2002 E.P.
 			  break;
         if ( top.n )
@@ -2803,7 +2799,7 @@ ret:
   for ( i=0; i<N; i++ )  del_cell(org_cells[i]);
   if ( cut_fl )                    //штраф за разрез
   {
-    BYTE let=vers->vers[0].let;
+    uchar let=vers->vers[0].let;
     if ( dust(vers) && let != '-' ||
          cut_up  && !(*gvar &  up_dust) && let != 'i' &&
 			!(let ='й' &&
@@ -2871,15 +2867,15 @@ static char wide (cell *C)
              если склейка разрешена, на выходе gvar - вариант объ-
              единения, width-ширина; tolbox - параметр для full_recog;
 -----------------------------------------------------------------*/
-static INT recog_set(cell *C,cell **org_cells, INT N, BYTE cut_fl,
-                     BYTE cut_fine, INT inc,
-                     INT tolbox, BYTE *gvar, SVERS *vers, INT *width)
+static INT recog_set(cell *C,cell **org_cells, INT N, uchar cut_fl,
+                     uchar cut_fine, INT inc,
+                     INT tolbox, uchar *gvar, SVERS *vers, INT *width)
 {
   INT i;
   cell *B0=NULL;    //cell для распознавания
   s_glue GL={0};
   INT ro =MAX_RO;   //ошибка распознавания
-  BYTE broken_II=0; //флаг: две палки
+  uchar broken_II=0; //флаг: две палки
 
   memset(vers,0,sizeof(SVERS));
   *width=0;
@@ -2922,7 +2918,7 @@ static INT recog_set(cell *C,cell **org_cells, INT N, BYTE cut_fl,
                        ёюїЁрэхээ√х т kit, хёыш ёъыхшыюё№;
          тючтЁр∙рхЄ яюыєўхээ√щ cell
 ------------------------------------------------------------------*/
-static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, BYTE *gvar)
+static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, uchar *gvar)
 {
   INT i;
   cell *B;
@@ -2946,7 +2942,7 @@ static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, BYTE *gvar)
     GL->celist[i]=B; GL->complist[i]=B->env;
   }
   GL->celist[N]=NULL; GL->complist[N]=NULL;
-  GL->ncell=(BYTE)N;
+  GL->ncell=(uchar)N;
 
 //клеим
 
@@ -2962,7 +2958,7 @@ static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, BYTE *gvar)
         B=create_my_cell(mn,C,0,0);
         GL->celist[i]=B; GL->complist[i]=B->env;
       }
-      GL->ncell=(BYTE)i;
+      GL->ncell=(uchar)i;
       GL->celist[i]=NULL; GL->complist[i]=NULL;
       for ( i=0; i<N; i++ )
         org_cells[i]=(cell *)del_save_cell(org_cells[i]);
@@ -2999,7 +2995,7 @@ static cell *unite (cell *C, cell **org_cells, INT N, s_glue *GL, BYTE *gvar)
             группе n и границы a и b (верхняя и нижняя);
             возвращает 1 в случае успеха и 0 в противном случае
 -----------------------------------------------------------------*/
-static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
+static uchar classify (cell **cells, INT N, grup *box, grup *bottom,
                       grup *top, grup *far_bottom, grup *far_top)
 {
   INT i;
@@ -3009,7 +3005,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
   INT width;               //ширина просвета: широкий,
   INT wide=my_bases.ps>>1; // если на краю шире wide,
   INT mid=my_bases.ps/3;   // а в середине шире mid
-  BYTE proj[RASTER_HEIGHT+1];  //проекция на вертикальную ось
+  uchar proj[RASTER_HEIGHT+1];  //проекция на вертикальную ось
 
   far_top->n=far_bottom->n=top->n=bottom->n=0;
   upper=horiz_proj(cells,N,&proj,RASTER_HEIGHT+1);
@@ -3119,7 +3115,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
    horiz_proj вычисляет проекцию proj на вертикальную ось N
               cell'ов cells; возвращает смещение массива proj
 ---------------------------------------------------------------*/
-static INT horiz_proj(cell **cells, INT N, BYTE *proj, INT size)
+static INT horiz_proj(cell **cells, INT N, uchar *proj, INT size)
 {
   INT i;
   INT upper=10000;   //верхняя граница cell'ов
@@ -3170,15 +3166,15 @@ static void change(void **arr, INT i, INT j)
                cur_meas - эръюяыхээр  ьхЁр т ёыєўрх яЁшэ Єш 
                           тхЁёшщ vers
 ----------------------------------------------------------------*/
-static BYTE accept_vers(char *s, struct cut_elm *cut_list,
+static uchar accept_vers(char *s, struct cut_elm *cut_list,
                         INT i1, INT i0, SVERS *vers, char gvar, INT width,
                         INT cur_meas)
 {
-  BYTE let=0,p;                        //AK let=0
+  uchar let=0,p;                        //AK let=0
   struct cut_elm *seci; SVERS *versi;
   struct cut_elm *secl,*secm,*secr=cut_list+i0;  INT il,im,xl,xm,xr;
                    //левое, среднее и правое сечения и их координаты
-  SVERS *vers0,*versl,*versr;  BYTE let0,letl,letr;
+  SVERS *vers0,*versl,*versr;  uchar let0,letl,letr;
                    //версии сегмента (i2,i0), его левой и правой частей
   INT pen=0;       //штраф: в пользу сборки >0, в пользу разрезания <0
   INT ip=secr->px;                   //предыдущая точка оптимального пути
@@ -3192,20 +3188,20 @@ static BYTE accept_vers(char *s, struct cut_elm *cut_list,
 
   if (i1==ip)
   {
-    BYTE new_let=vers->vers[0].let;
-    BYTE old_let=secr->versm.vers[0].let;
+    uchar new_let=vers->vers[0].let;
+    uchar old_let=secr->versm.vers[0].let;
     switch(new_let)
     {
   //расширение 'о' до 'б'
-      case (BYTE)'б':
-      if ( old_let == (BYTE)'о' &&
+      case (uchar)'б':
+      if ( old_let == (uchar)'о' &&
 		  !is_russian_turkish_conflict(old_let) // 21.05.2002 E.P.
 		  )  pen=-O_to_B;
       break;
 
   //расширение 'г'до  'п'
-      case (BYTE)'п':  case (BYTE)'П':
-      if ( ( old_let == (BYTE)'г' || old_let == (BYTE)'Г')  &&
+      case (uchar)'п':  case (uchar)'П':
+      if ( ( old_let == (uchar)'г' || old_let == (uchar)'Г')  &&
            !(gvar & (up_dust+low_dust))      //dust'ы только из коробки
          )  pen=-40;
       break;
@@ -3224,34 +3220,34 @@ static BYTE accept_vers(char *s, struct cut_elm *cut_list,
     switch(let0)
     {
     //расширение 'г' до 'т'
-      case (BYTE)'т':
+      case (uchar)'т':
 		  if (is_russian_turkish_conflict(let0))
 			  break; // 21.05.2002 E.P.
-      case (BYTE)'Т':
-         if ( (letr==(BYTE)'г' || letr==(BYTE)'Г') && xm-xl < (xr-xl)>>1 )
-           pen = (letl==(BYTE)'у' || letl==(BYTE)'У') ? 30 : G_to_T;
+      case (uchar)'Т':
+         if ( (letr==(uchar)'г' || letr==(uchar)'Г') && xm-xl < (xr-xl)>>1 )
+           pen = (letl==(uchar)'у' || letl==(uchar)'У') ? 30 : G_to_T;
          break;
 
   //расширение 'п' до 'л'
-      case (BYTE)'л':  case (BYTE)'Л':
-      if ( ( letr==(BYTE)'п' || letr==(BYTE)'П') && secm->dh != 0 && xm-xl <= (xr-xl)>>2
+      case (uchar)'л':  case (uchar)'Л':
+      if ( ( letr==(uchar)'п' || letr==(uchar)'П') && secm->dh != 0 && xm-xl <= (xr-xl)>>2
          )  pen=P_to_L;
       break;
 
   //"ї" или "тп"
-      case (BYTE)'ї':
-      if ( letl==(BYTE)'т' &&
+      case (uchar)'ї':
+      if ( letl==(uchar)'т' &&
 		  !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
-		  letr==(BYTE)'п' )  pen=30;
+		  letr==(uchar)'п' )  pen=30;
       break;
 
   //"ыо" или "ью"
-      case (BYTE)'ю':
-	  case (BYTE)'Ю':
+      case (uchar)'ю':
+	  case (uchar)'Ю':
 		  if (is_russian_turkish_conflict(let0)) // 21.05.2002 E.P.
 			  break;
-      if ( letl==(BYTE)'|' || letl==liga_exm ||
-		   letl==(BYTE)'ы' || letl==(BYTE)'Ы' // √█
+      if ( letl==(uchar)'|' || letl==liga_exm ||
+		   letl==(uchar)'ы' || letl==(uchar)'Ы' // √█
 		 )
         if ( secl->dh==0 && secm->dh==0 )  //ярыър эшъєфр эх яЁшъыххэр
         {              //яЁшюЁшЄхЄ "ю", хёыш ярыър сышцх ъ "№"
@@ -3337,18 +3333,18 @@ static BYTE accept_vers(char *s, struct cut_elm *cut_list,
       switch(let0)
       {
       //шёъы■ўхэшх "єэштхЁёры№э√ї" сєът
-        case (BYTE)'м':	// 'ь'
-        case (BYTE)'М': // '╠'
-        case (BYTE)'ї':
+        case (uchar)'м':	// 'ь'
+        case (uchar)'М': // '╠'
+        case (uchar)'ї':
         seci=secr;
         while ( seci>secl )
         {
           versi=&seci->versm;
           let=versi->vers[0].let;
-          if ( ( let==(BYTE)'о' &&
+          if ( ( let==(uchar)'о' &&
 			  		!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			     ||
-				let==(BYTE)'О'
+				let==(uchar)'О'
 			   ) && versi->vers[0].prob>trs2
 			 ) goto retb;
 
@@ -3357,7 +3353,7 @@ static BYTE accept_vers(char *s, struct cut_elm *cut_list,
         break;
 
       //запрещается расширять "9" до "И"
-        case (BYTE)'И':
+        case (uchar)'И':
         if ( letr=='9' && versr->vers[0].prob>=RELIABLE_9 )  goto retb;
         break;
       }
@@ -3423,7 +3419,7 @@ retb:    //разрезать
                      ций от i1-го до i0-го сечения;
                      cut_list - список сечений
 ------------------------------------------------------------------*/
-static BYTE not_connect_chain(INT i1, INT i0, struct cut_elm *cut_list)
+static uchar not_connect_chain(INT i1, INT i0, struct cut_elm *cut_list)
 {
   struct cut_elm *cur;  //текущее сечение на оптимальном пути
   INT i;
@@ -3446,7 +3442,7 @@ static BYTE not_connect_chain(INT i1, INT i0, struct cut_elm *cut_list)
   dust_chain  проверяет наличие цепочки из dust-секций между i1-ым и
               i0-ым сечением
 ------------------------------------------------------------------*/
-static BYTE dust_chain(INT i1, INT i0, struct cut_elm *cut_list)
+static uchar dust_chain(INT i1, INT i0, struct cut_elm *cut_list)
 {
   struct cut_elm *cur,*last;
 
@@ -3476,7 +3472,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
   grup box,top,bottom,far_top,far_bottom;   //юяшёрЄхыш уЁєяя cell'ют
   struct cut_elm *seci,*seci0;      //юяшёрЄхыш i-ую ш i0-ую ёхўхэш 
   SVERS *versi0;                     //тхЁёшш ёхўхэш 
-  BYTE csv[32];                     //ярЁрьхЄЁ√ ёхўхэш 
+  uchar csv[32];                     //ярЁрьхЄЁ√ ёхўхэш 
   s_glue GL;
   cut_pos    cpos;
   MN *mn1;
@@ -3514,11 +3510,11 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
       versi0=&seci0->versm;  v0=&versi0->vers[0];
       if (versi0->nvers && v0->prob<trs2) set_bad(versi0);
       if (seci0->px != 0)
-        if ( bad(versi0) || v0->let==(BYTE)'ы' ||
+        if ( bad(versi0) || v0->let==(uchar)'ы' ||
             ( (ilet=strchr(letters_left_to_bad,v0->let)) &&
 			  !is_russian_baltic_conflict(v0->let) &&	// 17.07.2001 E.P.
 			  !is_russian_turkish_conflict(v0->let) &&	// 21.05.2002 E.P.
-              v0->prob < prob_left_to_bad[(BYTE*)ilet-letters_left_to_bad]
+              v0->prob < prob_left_to_bad[(uchar*)ilet-letters_left_to_bad]
            ))
         {
           if (strchr("иИнНпПшШщЩ",v0->let) &&
@@ -3720,9 +3716,9 @@ static INT is_stick(cell *B)
 {
 #define hist_len RASTER_HEIGHT*2/3+1
   INT i,j;
-  BYTE hist[hist_len],*hp,*he;  //гистограмма
+  uchar hist[hist_len],*hp,*he;  //гистограмма
   char emax;          //правый край гистограммы + 1
-  BYTE hmax,hmax2;    //высота горба и 1/2
+  uchar hmax,hmax2;    //высота горба и 1/2
   INT  w;             //ширина горба
   INT s0,s1;          //площадь горба и остальной части
   c_comp *cp;         //envelope C
@@ -3772,11 +3768,11 @@ static INT is_stick(cell *B)
 static void paste()
 {
   cell *B,*BC,*EC;
-  BYTE p,c2,c3;
+  uchar p,c2,c3;
   INT bdiff;
   char dflag;
   s_glue GL;
-  BYTE expect;   //ожидаемый результат
+  uchar expect;   //ожидаемый результат
   INT  inc;      //усредненный наклон
 
   BC=cell_f();
@@ -3797,7 +3793,7 @@ static void paste()
 		  !is_turkish_language(language) && // 21.05.2002 E.P.
 		  glue_to_o (c2,c3,BC,EC)
 		  )
-        expect=(BYTE)'о';
+        expect=(uchar)'о';
       else
         if(memchr("ьЬЪ",c2,3) &&
 			(memchr("/1!()°",c3,6) || c3==liga_exm) // 10.09.2000 E.P.
@@ -3805,7 +3801,7 @@ static void paste()
            abs(BC->h - EC->h) < 4 && abs(BC->row - EC->row) < 4 &&
            EC->r_col - (BC->r_col+BC->w) < BC->h/10 + 4
           ) /*to paste ы */
-          expect = is_lower(c2) ? (BYTE)'ы' : (BYTE)'Ы';
+          expect = is_lower(c2) ? (uchar)'ы' : (uchar)'Ы';
         else
           continue;
 
@@ -3826,7 +3822,7 @@ static void paste()
       dmBOX(B,&GL);
 
       p= (B->nvers) ? B->vers[0].prob : 0;
-      if (expect==(BYTE)'о')
+      if (expect==(uchar)'о')
       {
         if (!memchr("oO0оО",B->vers[0].let,5))
         {
@@ -3878,9 +3874,9 @@ INT full_recog (cell *B1, s_glue *gl0, INT trs, INT tol)
   SVERS svown,svorg;
   s_glue  sg;
   s_glue  *GL=&sg;
- BYTE c, c_sacc, ct, svarg;
+ uchar c, c_sacc, ct, svarg;
  INT flag_m, flg_own;
- BYTE  p1, pans, porg;
+ uchar  p1, pans, porg;
  char wrk[32];
  char *pmsg,madeBOX;
  extern INT best_answer_BOX;
@@ -4013,11 +4009,11 @@ INT full_recog (cell *B1, s_glue *gl0, INT trs, INT tol)
    if  (c==liga_rt)    // 'rt'
    { p1 -= 82; if (p1 < 2) p1= 2; B1->vers[0].prob=p1; goto argBOX_ready; }
    if  ((c=='h') || (c=='b'))
-   { p1=(BYTE)h_filt(B1,p1,GL,c);  goto deciBOX; }
+   { p1=(uchar)h_filt(B1,p1,GL,c);  goto deciBOX; }
       c_sacc = let_sans_acc[c];
    if ( (memchr("sSaoO0QGDMNHURdxq6<>cCkwWBEA",c_sacc,28)) ||
         ( c_sacc == ss_deaf_sound && language != LANG_RUSSIAN) ) // Vademar 2.2.93
-    {  p1=(BYTE)abris(GL,B1,c_sacc,p1); goto deciBOX; }
+    {  p1=(uchar)abris(GL,B1,c_sacc,p1); goto deciBOX; }
 
    if ( memchr("rtfTJ()<>[]LI1il!/F7тТгГ°|",c,26) &&
    		  !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
@@ -4231,7 +4227,7 @@ retp:
 
 static void corr_cut()
 { cell *b1, *b2, *b3;
-  BYTE c1,c2,c3;
+  uchar c1,c2,c3;
 
   b2=cell_f();
   while ( (b2=b2->nextl)->nextl )
@@ -4309,7 +4305,7 @@ void set_bad_vers(SVERS *c)
 static INT forbid_stick_cut(cell *c, SVERS *vers, INT h, cut_pos *cpos,
                             INT edge)
  {
- BYTE l, prob;
+ uchar l, prob;
  INT  wd, bm3, bm, b3;
  INT  row1, row2;
 

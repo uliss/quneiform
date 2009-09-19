@@ -119,9 +119,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // сколько на первой, второй линиях
    INT           Ns1,Ns2;        // in Iot.c   only  !!!
 // мульти - БЛ
-   BYTE          multi_bas;
+   uchar          multi_bas;
 // буква была переведена в dust
-   BYTE          let_to_dust;
+   uchar          let_to_dust;
 // все буквы в строке заглавные
    char          all_caps;
 // посчитаны и заполнены в растры ->bdiff, ->difflg.
@@ -134,8 +134,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //, startf, endf, ncells;
    int16_t ps, b1, b2, b3, b4;
    int16_t n1, n2, n3, n4;
-   BYTE fl_def;
-//   BYTE fl_ext;
+   uchar fl_def;
+//   uchar fl_ext;
 //   cell *c1, *c2, *cf1, *cf2;
  } BAL_bas_ln;
 

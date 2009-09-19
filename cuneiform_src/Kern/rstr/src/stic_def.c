@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-#include "nt_types.h"
+
 
   #include <stdlib.h>
   #include <string.h>
@@ -70,10 +70,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 extern INT nIncline  ;
 
-extern BYTE fax1x2;	// MK NEW 14.01.1993
+extern uchar fax1x2;	// MK NEW 14.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994
-extern BYTE left_letter_EEM;	// 17.01.1994
+extern uchar left_letter_EEM;	// 17.01.1994
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
 extern uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
@@ -109,62 +109,62 @@ void short_snap (char *s, INT t);
 						// STIC_MAK.C MODULES:
 
 extern INT make_center_line(center_interval center[],INT nc,
-		      BYTE left[], BYTE right[],
+		      uchar left[], uchar right[],
 		      INT dy, INT dx,  INC_BASE *angles[],INT num_angles,
 		      INT tab_angle[],
 		      Bool comp_wide,Bool sig_T,Bool sig_f,Bool sig_r,
-          INT *wid,INT hooks[],INT *inc_v, BYTE enable_correct);
+          INT *wid,INT hooks[],INT *inc_v, uchar enable_correct);
 
-INT abris_convexity(BYTE fun[],INT n,INT w);
+INT abris_convexity(uchar fun[],INT n,INT w);
 extern	Bool bad_overlay(INT over,INT width,INT dy,INT sig_wide,Bool c_f);
 extern	INT centers_len_to_hist(center_interval fun[],INT n,INT dy,INT dx,
-			  BYTE hist[]);
+			  uchar hist[]);
 extern	INT overlay_interval(center_interval c[],INT nc, INT col,INT typ,
 			    INT tab_angle[]);
 
-extern	INT max_center_hist(BYTE fun[],INT n,
+extern	INT max_center_hist(uchar fun[],INT n,
 		    center_interval center[],INT nc,INT tab[],INT typ);
 /*----------------------------------------------------------------------*/
-static INT abris_expansion (BYTE left[], BYTE right[],
+static INT abris_expansion (uchar left[], uchar right[],
 			    INT dy, INT dx, INT tab_angle[]);
-static INT discrim_left_brace (BYTE left[], BYTE right[],
+static INT discrim_left_brace (uchar left[], uchar right[],
 			INT dy, INT dx, INT wid);
-static INT discrim_right_brace (BYTE left[], BYTE right[],
+static INT discrim_right_brace (uchar left[], uchar right[],
 			INT dy, INT dx, INT wid);
-static Bool dis_bold_r (BYTE fun[], INT n);
+static Bool dis_bold_r (uchar fun[], INT n);
 static INT first_tg (INC_BASE *tab_inc[], INT num_inc, INT tg2048 );
 
-static void calc_discrim_braces(BYTE left[], BYTE right[], INT dy, INT dx,
+static void calc_discrim_braces(uchar left[], uchar right[], INT dy, INT dx,
 				center_interval center[], INT nc, INT wide,
-				INT tab_angle[], BYTE left1[], BYTE right1[],
+				INT tab_angle[], uchar left1[], uchar right1[],
 				Bool c_brace_l, Bool c_brace_r,
 				INT *d_l, INT *d_r);
 
-static void filtrate_abris( BYTE left[],BYTE right[],INT dy,INT dx,INT wide,
+static void filtrate_abris( uchar left[],uchar right[],INT dy,INT dx,INT wide,
 		      INT hooks[],INT ul,INT ur,INT dl,INT dr,INT inc);
 static INT calc_T_config(INT hist_int[],INT n,INT up_lim,INT lev);
 static uint16_t calc_T_2_3 (INT hist_int[],INT n);	//MK 21.01.1993 (old Y_config)
-static uint16_t abris_leap_new(BYTE left[], BYTE right[], INT n, INT wide); // MK
-static Bool T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w);
+static uint16_t abris_leap_new(uchar left[], uchar right[], INT n, INT wide); // MK
+static Bool T_roof(INT hist_int[],uchar left[],uchar right[],INT n,INT w);
 static void add_stick_vers_a_posteriory (cell *c,
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 
 			// here was DEBUG_GRAPH
 static INT cell_to_centers(cell *c, INT nc,INT offstr,INT offcol,INT maxcol,
-		    center_interval center[],BYTE left[], BYTE right[]);
+		    center_interval center[],uchar left[], uchar right[]);
 static INT multicell_to_centers(cell *c,s_glue *GL, center_interval center[],
-			    BYTE left[], BYTE right[], INT *dy, INT *dx);
+			    uchar left[], uchar right[], INT *dy, INT *dx);
 
 static INT num_of_lines(center_interval center[],INT nc,INT dy,INT h[]);
-static INT off_shift_string( BYTE string[],INT len );
+static INT off_shift_string( uchar string[],INT len );
 
-static INT dest_to_comp( BYTE raster[],INT hei, INT wid);
-static INT num_zero_intervals(BYTE fun[],INT n,INT lev);
-static INT correct_braces(BYTE fun[],INT n,INT lev,INT typ);
+static INT dest_to_comp( uchar raster[],INT hei, INT wid);
+static INT num_zero_intervals(uchar fun[],INT n,INT lev);
+static INT correct_braces(uchar fun[],INT n,INT lev,INT typ);
 static INT lnhead_to_centers(lnhead *lin, INT wid,
-		    center_interval center[],BYTE left[], BYTE right[]);
+		    center_interval center[],uchar left[], uchar right[]);
 static INT study_typ_of_center_line(cell *c,INT typ_snap,
-	INT typ,BYTE right[],INT dy,INT prob);
+	INT typ,uchar right[],INT dy,INT prob);
 
 #define MIN_LIMIT_HEIGHT 4
 #define LIMIT_HEIGHT     256
@@ -173,19 +173,19 @@ static INT study_typ_of_center_line(cell *c,INT typ_snap,
 #define LIMIT_OF_ANGLES  8
 /*----------------------------------------------------------------------*/
 						// GLOBAL VARIABLES :
-BYTE GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
+uchar GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
 
 center_interval GL_cent [LIMIT_HEIGHT];		/* center of intervals	*/
 
 center_interval GL_center [LIMIT_CENTER];	// center of c_comp-intervals
 
-	BYTE GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
+	uchar GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
 	     GL_right1[LIMIT_HEIGHT];	/*    right abris-arrays	*/
 
 static INT  GL_hooks[4];		/* array of "hooks"		*/
 static INT  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
 
-	BYTE GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
+	uchar GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
 	     GL_right0[LIMIT_HEIGHT];	// NO STATIC from 19.01.1993
 
 static INT GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
@@ -593,7 +593,7 @@ INT	let_0=c->vers[0].let;
 		prob_new = (l->conc[2] + r->conc[2]) >= ((wid+1)>>1) ?
 			   MIN (prob_0+2, 254) : MAX (prob_0-2, 2);
 //////		add_stick_vers (c, liga_exm, 254);	// ST_TOOLS.C
-		add_stick_vers (c, (char)liga_exm, (BYTE)prob_new);
+		add_stick_vers (c, (char)liga_exm, (uchar)prob_new);
 //////		sort_vers (c);
 		}
 					// NOTA BENE: without TEST of LINEAR;
@@ -602,13 +602,13 @@ INT	let_0=c->vers[0].let;
 	    inc  &&
 	    l->mount[0]<2 && l->mount[4]<2  &&
 	    dy > 24)
-		add_stick_vers (c, ']', (BYTE)MIN (prob_0+2, 254));
+		add_stick_vers (c, ']', (uchar)MIN (prob_0+2, 254));
 
 //////	sort_vers (c);
 	return;
 }
 /*----------------------------------------------------------------------*/
-static Bool T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w)
+static Bool T_roof(INT hist_int[],uchar left[],uchar right[],INT n,INT w)
 {
 INT i;
 w <<= 2;
@@ -643,7 +643,7 @@ return(0);
 /*----------------------------------------------------------------------*/
 #ifdef	OLEG_abris_leap_OLD
 /* abris 'Y' hav'nt long jumps in upper zone */
-static Bool abris_leap(BYTE fun[],INT n,INT width)
+static Bool abris_leap(uchar fun[],INT n,INT width)
 {
 INT i;
 n>>=1;
@@ -656,8 +656,8 @@ return(FALSE);
 #endif
 /*----------------------------------------------------------------------*/
 /* abris 'Y' hav'nt long jumps in upper zone */		// 21.01.1993	MK
-/////static Bool abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
-static uint16_t abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
+/////static Bool abris_leap_new (uchar left[], uchar right[], INT n, INT wide)  {
+static uint16_t abris_leap_new (uchar left[], uchar right[], INT n, INT wide)  {
 							// 17.02.1993
 ////INT	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
 INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
@@ -695,7 +695,7 @@ INT	i, k, n2=0, n3=0;
 /*----------------------------------------------------------------------*/
 			// here was DEBUG_GRAPH
 static INT study_typ_of_center_line(cell *c,INT typ_snap,
-	INT typ,BYTE right[],INT dy,INT prob)
+	INT typ,uchar right[],INT dy,INT prob)
 {
 INT	ret;
 /* c_comp	*env; */		// 08.07.1993	for 'r'
@@ -751,7 +751,7 @@ switch(typ)
 			del_sticks (c, '(');	// 21.10.1993
 			if( !(c->cg_flag&c_cg_cut) )  {
 				prob =  cut_by_pos(c,'(',prob,1,1) ;
-				add_stick_vers(c,'(',(BYTE)prob);  /* add ')'   */
+				add_stick_vers(c,'(',(uchar)prob);  /* add ')'   */
 				}
 			}
                 sort_vers(c);
@@ -766,7 +766,7 @@ switch(typ)
 			del_sticks (c, ')');	// 21.10.1993
 			if( !(c->cg_flag&c_cg_cut) )  {
 				prob =  cut_by_pos(c,')',prob,1,1) ;
-				add_stick_vers(c,')',(BYTE)prob); /* add ')'    */
+				add_stick_vers(c,')',(uchar)prob); /* add ')'    */
 				}
 			}
                 sort_vers(c);
@@ -780,7 +780,7 @@ switch(typ)
 return(ret);   /* -2 - all right, 0 - add braces, 1 - no sticks */
 }              /* anothe ret-code used TC-version               */
 
-static void filtrate_abris( BYTE left[],BYTE right[],INT dy,INT dx,INT wide,
+static void filtrate_abris( uchar left[],uchar right[],INT dy,INT dx,INT wide,
 		      INT hooks[],INT ul,INT ur,INT dl,INT dr,INT inc)
 {
 INT center_h;
@@ -811,9 +811,9 @@ if( ( dx>wide*3 || inc&&dx>wide*2 ) &&    /* by may be false pimples */
 
 }
 /*----------------------------------------------------------------------*/
-static void calc_discrim_braces(BYTE left[],BYTE right[],INT dy,INT dx,
+static void calc_discrim_braces(uchar left[],uchar right[],INT dy,INT dx,
 				center_interval center[],INT nc,INT wide,
-				INT tab_angle[],BYTE left1[],BYTE right1[],
+				INT tab_angle[],uchar left1[],uchar right1[],
 				Bool c_brace_l,Bool c_brace_r,
 				INT *dis_l,INT *dis_r)
 {
@@ -850,7 +850,7 @@ return;
 }
 /*----------------------------------------------------------------------*/
 /* study right abris for letter 'r'(bold)   */
-static Bool dis_bold_r(BYTE fun[],INT n)
+static Bool dis_bold_r(uchar fun[],INT n)
 {
 INT i,m=n>>1,s1,s2,f,f_next,s;
 			 /*   NEED :              */
@@ -900,7 +900,7 @@ return(i);
 /* in :	left[0:dy-1],right[dy-1] - abris arrays, dx - wide of c_comp	*/
 /*	tab_angle[0:dy-1] - inc						*/
 /* out : corrected left and right abris-arrays				*/
-static INT abris_expansion (BYTE left[], BYTE right[],
+static INT abris_expansion (uchar left[], uchar right[],
 			    INT dy, INT dx, INT tab_angle[])  {
 							// 09.12.1993
 INT	i, opt;
@@ -916,10 +916,10 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + (left [i] << 2) - tab_angle [i];	// 09.12.1993
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_left>k)  max_negat_left = k;
-		left [i] = (BYTE)k;
+		left [i] = (uchar)k;
 		}
         else
-		left[i] = (BYTE)opt;  /* empty string */
+		left[i] = (uchar)opt;  /* empty string */
 
 	if ( right[i]!=0xFF )  {
 		/******************************	BEFORE 09.12.1993
@@ -929,22 +929,22 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + ((dx - 1 - right[i]) << 2) - tab_angle [i];
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_right>k)  max_negat_right = k;
-		right [i] = (BYTE)k;
+		right [i] = (uchar)k;
 		}
 	else
-		right[i] = (BYTE)opt; /* empty string  */
+		right[i] = (uchar)opt; /* empty string  */
 	}
 /*......................................................................*/
 if (max_negat_left)					// 09.12.1993
-	for (i=0; i<dy; i++)  left [i] -= (BYTE) max_negat_left;
+	for (i=0; i<dy; i++)  left [i] -= (uchar) max_negat_left;
 
 if (max_negat_right)
-	for (i=0; i<dy; i++)  right [i] -= (BYTE) max_negat_right;
+	for (i=0; i<dy; i++)  right [i] -= (uchar) max_negat_right;
 
 return(1);
 }
 /*----------------------------------------------------------------------*/
-static INT discrim_left_brace(BYTE left[],BYTE right[],
+static INT discrim_left_brace(uchar left[],uchar right[],
 			       INT dy,INT dx,INT wid)
 {
 INT i,ret;
@@ -961,7 +961,7 @@ for(i=0;i<dy;i++)
 return(ret);
 }
 /*----------------------------------------------------------------------*/
-static INT discrim_right_brace(BYTE left[],BYTE right[],
+static INT discrim_right_brace(uchar left[],uchar right[],
 				INT dy,INT dx,INT wid)
 {
 INT i,ret;
@@ -991,7 +991,7 @@ return(ret);
 /* return : number of center or 0 (too many intervals)         */
 static INT multicell_to_centers(cell *base_c,s_glue *GL,
 			    center_interval center[],
-			    BYTE left[], BYTE right[],INT *dy, INT *dx)
+			    uchar left[], uchar right[],INT *dy, INT *dx)
 {
 cell *c;
 INT i,nc=0,n,mincol,minrow,maxcol,maxrow,ncells=0;
@@ -1053,18 +1053,18 @@ return(nc);
 /* for cell (*c) correct left and right abris and array of centers */
 static INT cell_to_centers(cell *c, INT nc,
 		    INT off_str,INT off_col,INT max_col,
-		    center_interval center[],BYTE left[], BYTE right[])
+		    center_interval center[],uchar left[], uchar right[])
 {
  INT ll,ind,n=nc,off_col_1=off_col-1, wid=max_col-c->col;
  lnhead   *line;
  interval *inter;
- BYTE l,r,h;
+ uchar l,r,h;
  center_interval *p_center=&center[nc];
 
 for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
-	h=(BYTE)line->h;
+	h=(uchar)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
@@ -1072,7 +1072,7 @@ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 	     inter=(interval *)((pchar)line+sizeof(lnhead));
 	     h ;ind++,h--,inter++)     		/* one line     */
 		{
-		BYTE inter_e = inter->e, inter_l = inter->l;
+		uchar inter_e = inter->e, inter_l = inter->l;
 		r=  wid    - inter_e;	        /* one interval */
 		l = inter_e - inter_l+off_col;
 
@@ -1093,24 +1093,24 @@ return(n);
 /* and make abris-arrays left[],right[]. used in function typ_thin_stick */
 /* During EVENTS-pass comps are unknown - we have (lnhead * ) only       */
 static INT lnhead_to_centers(lnhead *lin, INT wid,
-		    center_interval center[],BYTE left[], BYTE right[])
+		    center_interval center[],uchar left[], uchar right[])
 {
  INT ll,ind,n;
  lnhead   *line;
  interval *inter;
- BYTE l,r,h;
+ uchar l,r,h;
  center_interval *p_center=&center[0];
 
 for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
-	h=(BYTE)line->h;
+	h=(uchar)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
 	for( ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead));
 			h ;ind++,h--,inter++)     /* one line    */
 		{
-		BYTE inter_e = inter->e, inter_l = inter->l;
+		uchar inter_e = inter->e, inter_l = inter->l;
 		r = wid     - inter_e;            /* one interval */
 		l = inter_e - inter_l;
 
@@ -1191,9 +1191,9 @@ return(ret);
 }
 /*-----------------------------------------------------------------------*/
 /* if abris(fun[0:n-1]) is arc curve(w-limit wide) return 1 else return 0  */
-/*static INT abris_convexity(BYTE fun[],INT n,INT w)
+/*static INT abris_convexity(uchar fun[],INT n,INT w)
 {
-BYTE i,ff,fo,imin,num,minim,eq;
+uchar i,ff,fo,imin,num,minim,eq;
 
 minim = find_minimum( fun, n, &imin );
 

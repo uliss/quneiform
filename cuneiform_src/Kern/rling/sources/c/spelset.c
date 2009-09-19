@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "tigeremulate.h"
 
 #ifdef  RUS_ENG_LANG
-extern BYTE multy_language ;
+extern uchar multy_language ;
 #endif
 
 
@@ -462,7 +462,7 @@ INT analdash (SOBJ * obj, INT npos, INT * nalt)
 INT analother (SOBJ * obj, INT npos,INT nalt)
 
 {
-  BYTE attr;
+  uchar attr;
 
   switch ( symcode(SPQ.ns_symb) ) {
 
@@ -771,7 +771,7 @@ void setalt (SOBJ * obj, INT npos, INT * nalt, LT  * lt)
     break;
   }
 
- obj->pos[npos].alt[*nalt].seqnum = (BYTE)i;     /* sequential nmb in orig alt-list*/
+ obj->pos[npos].alt[*nalt].seqnum = (uchar)i;     /* sequential nmb in orig alt-list*/
  /*
  obj->pos[npos].alt[*nalt].dif_wt = i;
  */
@@ -926,7 +926,7 @@ Setpart_new:
   {
    if (!(obj->pos[j].type_sp & (T_SP1|T_SP2|T_HYPHEN))) /* spsp-position ?  */
     {
-     part[i].posn[k]=(BYTE)j;                                 /* No, set part pos */
+     part[i].posn[k]=(uchar)j;                                 /* No, set part pos */
      k++;
     }
    else
