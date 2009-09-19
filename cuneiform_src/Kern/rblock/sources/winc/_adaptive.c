@@ -69,7 +69,7 @@
 #include "dpuma.h"
 #include "newfunc.h"
 
-extern INT nIncline;
+extern int16_t nIncline;
 
 PROOT root_file = NULL;
 uint16_t run_options = 0;
@@ -147,20 +147,20 @@ extern uint16_t lpool_lth;
 extern uchar lpool[];
 //extern version * start_rec, *rec_ptr;
 static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
-static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
+static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
 
 /* LOC_CLocomp is in loc.c and calls c_locomp function
  * in locompmn.c.
  */
 /*
- MN * c_locomp (puchar raster, LONG bw, LONG h, INT upper, INT left)
+ MN * c_locomp (puchar raster, LONG bw, LONG h, int16_t upper, int16_t left)
  {
  return LOC_CLocomp (raster, bw, h, upper, left);
  }
  */
 
 puchar make_raster_CCOM(CCOM_comp *cmp) {
-	INT h, d, dd, k, i, ii;
+	int16_t h, d, dd, k, i, ii;
 	RecRaster rs;
 
 	memset(work_raster, 0, cmp->rw * cmp->h);
@@ -176,7 +176,7 @@ puchar make_raster_CCOM(CCOM_comp *cmp) {
 }
 
 puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
-	INT h, d, dd, k, i, ii;
+	int16_t h, d, dd, k, i, ii;
 	RecRaster rs;
 
 	memset(work_raster, 0, cmp->rw * cmp->h);

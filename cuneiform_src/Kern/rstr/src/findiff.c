@@ -81,10 +81,10 @@ static void final_eg(cell *);
 static void final_ao_gpq(cell *);
 static void final_OQ(cell *);
 static void final_dotcom(cell *);
-static INT final_slash_l(cell *);
+static int16_t final_slash_l(cell *);
 static Bool is_slash(cell *);
-static INT final_no_slash(cell *);
-static INT final_back_slash(cell *);
+static int16_t final_no_slash(cell *);
+static int16_t final_back_slash(cell *);
 static Bool is_back_slash(cell *);
 static void final_bh(cell *);
 static void final_ii_u(cell *);
@@ -96,7 +96,7 @@ static void final_Il_1(cell *);
 static void final_7_T(cell *);
 static void delspace();
 
-extern INT final_crit_russian(cell * c);
+extern int16_t final_crit_russian(cell * c);
 
 #define PROBD 160
 #define PROBB 130
@@ -106,7 +106,7 @@ void final_crit()
  {
  cell *c;
  uchar let,let1;
- INT cnt;
+ int16_t cnt;
 
  for (cnt=0,c=cell_f()->next; c->next!=NULL; c=c->next)
   {
@@ -223,7 +223,7 @@ void final_crit()
  if (cnt)
   {
   delspace();
-  space_size((INT)get_size());
+  space_size((int16_t)get_size());
   space_cell();
   context_proc_line();
   cont_space();
@@ -264,7 +264,7 @@ static void final_eg(cell *c)
 static void final_ao_gpq(cell *c)
  {
  uchar let;
- INT nvers,i;
+ int16_t nvers,i;
 
  if (c->vers[0].prob<=DAO) return;
  get_b_lines(c,&bl);
@@ -339,9 +339,9 @@ static void final_dotcom(cell *c)
   c->vers[0].let=',';
  }
 
-static INT final_slash_l(cell *c)
+static int16_t final_slash_l(cell *c)
  {
- INT i;
+ int16_t i;
  uchar fnt;
 
  get_b_lines(c,&bl);
@@ -376,8 +376,8 @@ static INT final_slash_l(cell *c)
 static Bool is_slash(cell *c)
  {
  puchar raster;
- INT i1,i2,j1,j2,l;
- INT    ginc=erect_get_local();
+ int16_t i1,i2,j1,j2,l;
+ int16_t    ginc=erect_get_local();
  if( c->stick_inc==NO_INCLINE || c->stick_inc==0 )
     stick_center_study(c,NULL,1);
 if( nIncline<256 && c->stick_inc>700 && (c->flg&c_f_solid))
@@ -396,9 +396,9 @@ if( c->stick_inc!=NO_INCLINE && ginc<400 && ginc*2<c->stick_inc )
  return FALSE;
  }
 
-static INT final_no_slash(cell *c)
+static int16_t final_no_slash(cell *c)
  {
- INT i;
+ int16_t i;
  uchar fnt;
 
  if (c->env==NULL)
@@ -421,7 +421,7 @@ static INT final_no_slash(cell *c)
  return 1;
  }
 
-static INT final_back_slash(cell *c)
+static int16_t final_back_slash(cell *c)
  {
 
  get_b_lines(c,&bl);
@@ -438,7 +438,7 @@ static INT final_back_slash(cell *c)
 static Bool is_back_slash(cell *c)
  {
  puchar raster;
- INT l,i1,i2,i3,j1,j2,j3,k1,k2,k3;
+ int16_t l,i1,i2,i3,j1,j2,j3,k1,k2,k3;
 
  raster=save_raster(c);
  l=(c->w+7)/8;
@@ -468,7 +468,7 @@ static Bool is_back_slash(cell *c)
 
 static void final_bh(cell *c)
  {
- INT i;
+ int16_t i;
 
  for (i=1; i<c->nvers; i++)
   if (memchr("bh",c->vers[i].let,2))
@@ -532,7 +532,7 @@ static void final_ii_u(cell *c)
 static void final_AOU_2dot(cell *c)
  {
  puchar r;
- INT l,i,i1,j,j1,j2,j3,j4;
+ int16_t l,i,i1,j,j1,j2,j3,j4;
  uchar let,b;
 
  r=save_raster(c);
@@ -579,7 +579,7 @@ static void final_AOU_2dot(cell *c)
 static void final_A_circle(cell *c)
  {
  puchar r;
- INT l,i,im,j,j1,j2;
+ int16_t l,i,im,j,j1,j2;
 
  r=save_raster(c);
  l=(c->w+7)/8;
@@ -603,7 +603,7 @@ static void final_A_circle(cell *c)
 static void final_vv_w(cell *c)
  {
  puchar r;
- INT l,i,j,n1,n2;
+ int16_t l,i,j,n1,n2;
  uchar b;
 
  r=save_raster(c);
@@ -660,7 +660,7 @@ static void final_Il_1(cell *c)
  elmBOX *elm;
  extern pchar tableBOX;
  uint16_t max,prob;
- INT i;
+ int16_t i;
 
  GL.celist[0]=c;
  GL.complist[0]=c->env;

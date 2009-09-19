@@ -80,61 +80,61 @@ static LONG * AK_deb;
 /*============ Import functions ==================*/
 Bool test_alphabet_elem(uchar let);
 
-INT  Diskrim(uchar let,puchar raster,INT dw,INT x,INT y,INT dx,INT dy,uchar cg,INT inc);
-INT  discr_angles(uchar let, INT dy, INT type);
-void init_diskrim(puchar r,INT h,INT w);
+int16_t  Diskrim(uchar let,puchar raster,int16_t dw,int16_t x,int16_t y,int16_t dx,int16_t dy,uchar cg,int16_t inc);
+int16_t  discr_angles(uchar let, int16_t dy, int16_t type);
+void init_diskrim(puchar r,int16_t h,int16_t w);
 void calc_angles(struct rst *rast,puchar p,uchar ang[],uchar cflgl,uchar cflgr);
-Bool snap_show_raster(puchar raster, INT height, INT width);
+Bool snap_show_raster(puchar raster, int16_t height, int16_t width);
 
-INT  SumIntervalBits( uchar *r, INT bx, INT ex);
-INT  NumHorizInterval( uchar *r, INT );
-INT  corner_type(uchar crn);
-INT  cut_by_pos_ii(s_glue * gl,uchar let);
+int16_t  SumIntervalBits( uchar *r, int16_t bx, int16_t ex);
+int16_t  NumHorizInterval( uchar *r, int16_t );
+int16_t  corner_type(uchar crn);
+int16_t  cut_by_pos_ii(s_glue * gl,uchar let);
 
 /*============ Export functions ==================*/
 
 segment * go_line(segment * seg_pool,uint16_t ln);
-void proc_bI(INT pass); // glue 'ы'
-INT  chkquocks2(cell * c,puchar r,INT h,INT w,INT d);
-void c_add_raster(puchar target,INT wb,INT y,INT col,puchar source,
-        INT sh,INT swb);
+void proc_bI(int16_t pass); // glue 'ы'
+int16_t  chkquocks2(cell * c,puchar r,int16_t h,int16_t w,int16_t d);
+void c_add_raster(puchar target,int16_t wb,int16_t y,int16_t col,puchar source,
+        int16_t sh,int16_t swb);
 struct rst create_raster(cell * c, const s_glue * gl);
 /*========== Local functions ===================*/
 
 
-static INT  RE_rus_Ge(INT hist[], INT histd[], INT hei, INT wid);
+static int16_t  RE_rus_Ge(int16_t hist[], int16_t histd[], int16_t hei, int16_t wid);
 static void RE_final_descr(cell *c);
-static Bool similar_S( INT hist_n[],INT hist_d[], INT w,INT h);
-static Bool similar_R( INT hist_n[],INT h);
-static INT  check_kk(INT h);
-static INT  short_lines2(cell * c);
+static Bool similar_S( int16_t hist_n[],int16_t hist_d[], int16_t w,int16_t h);
+static Bool similar_R( int16_t hist_n[],int16_t h);
+static int16_t  check_kk(int16_t h);
+static int16_t  short_lines2(cell * c);
 static Bool check_dnri_hook( s_glue *s, cell * c );
-static Bool check_dnri_hook_cell( cell * c , INT w);
+static Bool check_dnri_hook_cell( cell * c , int16_t w);
 static Bool check_upri_hook_cell( cell * c );
 static Bool check_uple_hook_cell( cell * c );
-static Bool dust_in_glue( cell *s,s_glue *GL,INT c1,INT r1,INT c2, INT r2);
+static Bool dust_in_glue( cell *s,s_glue *GL,int16_t c1,int16_t r1,int16_t c2, int16_t r2);
 static Bool dust_near_rusG(cell *cc);
-static void adjust_left(puchar pint,INT height);
-static void calc_data(puchar pint,INT height,INT width );
-static INT  discr_iot(cell * c,uchar let,INT upper);
+static void adjust_left(puchar pint,int16_t height);
+static void calc_data(puchar pint,int16_t height,int16_t width );
+static int16_t  discr_iot(cell * c,uchar let,int16_t upper);
 static void _init_(void);
-static INT  sym_italic( cell * c,uchar let );
+static int16_t  sym_italic( cell * c,uchar let );
 static Bool valid_inc( uint16_t inc );
-static uint16_t check_inc_foots(cell * c,INT nums);
-static INT  calc_dest_foot(INT h,INT w,INT *dest_foot,INT wid_foot);
-static uint16_t check_num_foots(INT nums,INT h);
-static INT  check_cursiv_inp(uchar *rast,INT w,INT h,INT foot_wid,INT dest,uchar let);
+static uint16_t check_inc_foots(cell * c,int16_t nums);
+static int16_t  calc_dest_foot(int16_t h,int16_t w,int16_t *dest_foot,int16_t wid_foot);
+static uint16_t check_num_foots(int16_t nums,int16_t h);
+static int16_t  check_cursiv_inp(uchar *rast,int16_t w,int16_t h,int16_t foot_wid,int16_t dest,uchar let);
 static Bool check_bend_up( cell * c );
 static Bool check_bend_dn( cell * c );
-static INT  multicell_hist(cell *base_c, const s_glue *GL,
-			    INT hist_n[], INT hist_d[]);
-static void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[]);
-static void make_white_hist(puchar pint,INT height);
-static void calc_abris(puchar pint,INT height );
+static int16_t  multicell_hist(cell *base_c, const s_glue *GL,
+			    int16_t hist_n[], int16_t hist_d[]);
+static void add_cell_to_hist(cell *c,int16_t off_str,int16_t hist_n[],int16_t hist_d[]);
+static void make_white_hist(puchar pint,int16_t height);
+static void calc_abris(puchar pint,int16_t height );
 static Bool valid_line(segment * segm);
-static INT  triangle_bottom(uchar *raster,INT dx, INT dy, INT wid);
-static INT  triangle_top(uchar *raster,INT dx, INT dy, INT wid);
-static uint16_t internal_filling(segment * segm,INT h,INT w);
+static int16_t  triangle_bottom(uchar *raster,int16_t dx, int16_t dy, int16_t wid);
+static int16_t  triangle_top(uchar *raster,int16_t dx, int16_t dy, int16_t wid);
+static uint16_t internal_filling(segment * segm,int16_t h,int16_t w);
 static Bool stick_online(cell * c);
 static Bool suspect_italic_iee(void);
 static Bool suspect_italic_tche(void);
@@ -143,31 +143,31 @@ static Bool suspect_italic_III(cell*);
 static Bool suspect_italic_kk(void);
 static Bool suspect_italic_ce(cell *c);
 static Bool suspect_italic_III_bend(cell * c);
-static INT  o_symmetric(INT h,INT w);
+static int16_t  o_symmetric(int16_t h,int16_t w);
 /*----*/
-static uint16_t check_III(cell *c,INT foot_wid,INT dest[]);
-static uint16_t check_III_bend(cell *c,INT dest[]);
+static uint16_t check_III(cell *c,int16_t foot_wid,int16_t dest[]);
+static uint16_t check_III_bend(cell *c,int16_t dest[]);
 static uint16_t check_futuris_aa(struct rst * const rst);
 static uint16_t check_EK(uchar let,cell * c);
-static uint16_t check_tg( cell * c, uchar let, puchar RASTR, INT dx, INT dy );
+static uint16_t check_tg( cell * c, uchar let, puchar RASTR, int16_t dx, int16_t dy );
 static uint16_t check_ya( cell * c);
 static uint16_t check_zz( cell * c);
 static uint16_t check_xX( cell * c);
-static uint16_t check_xk(INT h,uchar let) ;
+static uint16_t check_xk(int16_t h,uchar let) ;
 static uint16_t check_pl( cell * cc, cell * ci,uchar let,struct rst * const rst);
 static uint16_t check_iee( cell * c,uchar let);
 static uint16_t check_oa( cell * c,uchar let,struct rst * const rst);
 static uint16_t check_ee( cell * c);
-static uint16_t check_uu( cell * c,INT h);
-//static uint16_t check_ss(cell * c,puchar pint,INT height);
-static uint16_t check_veza(cell * c,segment * segm,INT h,INT w,uchar let);
+static uint16_t check_uu( cell * c,int16_t h);
+//static uint16_t check_ss(cell * c,puchar pint,int16_t height);
+static uint16_t check_veza(cell * c,segment * segm,int16_t h,int16_t w,uchar let);
 static uint16_t check_nn(cell * c);
 static uint16_t check_m( cell * c);
 static uint16_t check_AL(cell * c,uchar let);
 static uint16_t check_stick( cell * c,uchar let );
-static uint16_t check_cursiv( cell * c,uchar let,INT old_diskr,uchar *rast);
+static uint16_t check_cursiv( cell * c,uchar let,int16_t old_diskr,uchar *rast);
 static uint16_t stick_bI(cell * cl);
-static INT  check_italic_ch(INT h);
+static int16_t  check_italic_ch(int16_t h);
 static uint16_t check_I_dot(cell * c,uchar let);    // !
 static uint16_t check_bb(void);
 
@@ -182,7 +182,7 @@ extern uchar broken_ii    ;    // two sticks flag for rus discr
 
 extern uchar work_raster[];
 extern uchar work_raster_1[];
-extern INT iFont;
+extern int16_t iFont;
 /*extern*/ uchar *segment_pool;
 
 /*========= Global data ===================*/
@@ -191,23 +191,23 @@ extern INT iFont;
 static uchar Rus_similar_Eng[]="гпrn$чЧР";//"гпrNn$чЧР";
 static uchar abris_online;
 static uchar corners[4];
-static INT hist_n[128],hist_d[128];/* число интервалов в строке и плотность */
-static INT hist_white[128]; /* расстояние между 1-ой и второй палкой */
-static INT hist_black[128]; /* конец 1-ой палки                      */
+static int16_t hist_n[128],hist_d[128];/* число интервалов в строке и плотность */
+static int16_t hist_white[128]; /* расстояние между 1-ой и второй палкой */
+static int16_t hist_black[128]; /* конец 1-ой палки                      */
 static uchar rus_like[]="х"; // "оОх"
 static uchar emu_like[]="x"; // "oOx"
 static STICK *stick; // pointer to array of stick if NULL no calculated stick
 static STICK stic[30];
-static INT   nstick;       // number of sticks in letter
+static int16_t   nstick;       // number of sticks in letter
 static uint16_t dens;
 static s_glue glc;
 //AK!
-static INT l_abris[80],r_abris[80];
+static int16_t l_abris[80],r_abris[80];
 
-INT dnri_hook, top_dnri_hook;// bootom right hook samll russian italic letters III,II
-INT upri_hook, bot_upri_hook;
-INT uple_hook, bot_uple_hook;
-INT up_jack;
+int16_t dnri_hook, top_dnri_hook;// bootom right hook samll russian italic letters III,II
+int16_t upri_hook, bot_upri_hook;
+int16_t uple_hook, bot_uple_hook;
+int16_t up_jack;
 /*
  number of foots < 16 +
  iclineness :
@@ -254,15 +254,15 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
 {
  extern Bool TM_check_active;
  version *v0;
- LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
+ LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from int16_t
  char    snap[380],*s=snap;
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
  uchar    pen_m=0,flag_m=0,maxprob;
- LONG     inc=0 ;                                          //change from INT
+ LONG     inc=0 ;                                          //change from int16_t
  version    save[VERS_IN_CELL];
- INT    snvers;
+ int16_t    snvers;
 
  // Nick 20.02.2001 - add *sizeof(version) !!!
 if( c->nvers>0 )
@@ -303,7 +303,7 @@ snvers=c->nvers;
  dnri_hook = check_dnri_hook( &glc, c );
  upri_hook = check_upri_hook_cell( c );
  uple_hook = check_uple_hook_cell( c );
- up_jack   = RE_rus_Ge(hist_n, hist_d, (INT)(c->h<30?4:6),c->w);
+ up_jack   = RE_rus_Ge(hist_n, hist_d, (int16_t)(c->h<30?4:6),c->w);
 
  init_diskrim(_rst.raster,_rst.h,_rst.w);
  _init_();
@@ -313,7 +313,7 @@ snvers=c->nvers;
   else
     {
      cell * cp;
-     INT h;
+     int16_t h;
      for(i=0,h=0;i < gl->ncell ;i++)
        if( gl->celist[i]->flg & (c_f_let | c_f_bad)
            && gl->celist[i]->env != NULL
@@ -327,7 +327,7 @@ snvers=c->nvers;
      cc = cp; // set main comp
     }
  abris_reset();
- mn = c_locomp(_rst.raster,(INT)((_rst.w + 7)>>3),_rst.h,0,0);
+ mn = c_locomp(_rst.raster,(int16_t)((_rst.w + 7)>>3),_rst.h,0,0);
  segment_pool = EVN_GetSegmentPool();
  make_white_hist(segment_pool,_rst.h);
  dens = internal_filling((segment*)segment_pool,_rst.h,_rst.w);
@@ -362,7 +362,7 @@ snvers=c->nvers;
    {
     if( !broken_ii && broken_flag ) // Oleg : 1-07-1994 : set signum two sticks
       {
-       INT num;
+       int16_t num;
        for(num=0,i=0;i < gl->ncell ;i++)
          if(   gl->celist[i]->flg & (c_f_let | c_f_bad) &&
                gl->celist[i]->env != NULL  &&
@@ -401,7 +401,7 @@ snvers=c->nvers;
         case  (uchar)'$':
             if( i == 1 )
 	            {                        /*c->vers[0].let == '$' ){*/
-                INT  i,dl=0,dr=0;
+                int16_t  i,dl=0,dr=0;
                 if( c->prevl->flg & c_f_let )
 	                {
                     for(i=0;i<c->prevl->nvers;i++)
@@ -587,7 +587,7 @@ snvers=c->nvers;
       if( !test_alphabet_elem(v0->let) )
         dd=digital_string_penalty;
     if( dd<0 )
-      dd = Diskrim(v0->let,_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,(INT)inc);
+      dd = Diskrim(v0->let,_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,(int16_t)inc);
 
     if( dd<0 )
       {       // Bonus для 2-х палок ИНП
@@ -603,7 +603,7 @@ snvers=c->nvers;
       }
      else
        d += dd;
-    d_ang = discr_angles(v0->let,_rst.h,(INT)(cc?(cc->pos_inc&erect_rot):0)); // rotation
+    d_ang = discr_angles(v0->let,_rst.h,(int16_t)(cc?(cc->pos_inc&erect_rot):0)); // rotation
     if( flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) &&
         memchr("шщи",v0->let,3))
       d_cun += 60;
@@ -624,7 +624,7 @@ snvers=c->nvers;
 	    (memchr("щЩ",v0->let,2) && suspect_italic_III_bend(cc)==0) ||
 	    (memchr("цЦ",v0->let,2) && suspect_italic_ce(cc)==0))
           {
-           d_cun += check_cursiv( cc,v0->let,(INT)d ,_rst.raster);
+           d_cun += check_cursiv( cc,v0->let,(int16_t)d ,_rst.raster);
            d_ang =  discr_angles(v0->let,_rst.h,1);
            d = 0;
           }
@@ -684,10 +684,10 @@ if( comp_versions(c->vers,save,c->nvers,snvers) )
 uint16_t check_xX(cell * c)
 {
 lnhead *line;
-INT l;
+int16_t l;
 uint16_t nl=0,pen=0;
 
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->h > 2 || !(line->flg & (l_fbeg | l_fend)) ) nl++;
   if( nl == 1 ) pen+=220;
@@ -695,12 +695,12 @@ uint16_t nl=0,pen=0;
 }
 ///////////////////////////////////////////////////////////////////
 // check 'k','x' abris
-uint16_t check_xk(INT h,uchar let)
+uint16_t check_xk(int16_t h,uchar let)
 {
  uint16_t max,index,pen_lx,pen_lk,pen_rk,pen_rx;
  uchar hist[128];
- INT jump[128]={0};
- INT i,smooth,mono;
+ int16_t jump[128]={0};
+ int16_t i,smooth,mono;
 	// only stright 'k','x'
 	// calc histgramm
  if( ! abris_online )
@@ -773,7 +773,7 @@ uint16_t check_xk(INT h,uchar let)
 
   if( pen_rk == 0 )
      { // try to find meandr in right
-      INT min,max,j,pos,neg;
+      int16_t min,max,j,pos,neg;
       for(i=h/5+1,j=0,min=max=r_abris[h/5];i < h*4/5 ;i++,j++)
 	     {
           min = MIN(min,r_abris[i]);
@@ -817,13 +817,13 @@ return 0;
 /* Analize '<<' and '>>' abris */
 static uchar dh1[8]={ 0,0,0,1,1,2,2,3 };
 static uchar dh2[8]={ 0,0,1,1,1,2,2,3 };
-INT chkquocks2(cell * c,puchar rstr,INT h,INT w,INT d)
+int16_t chkquocks2(cell * c,puchar rstr,int16_t h,int16_t w,int16_t d)
 {
-INT i,i1,i2,extr1,ln,ln1,h1,h2;
-INT tanx,tany,sum1,sum2;
+int16_t i,i1,i2,extr1,ln,ln1,h1,h2;
+int16_t tanx,tany,sum1,sum2;
 MN *mn;
 char buf[200],tmp[200];
-  mn = c_locomp(rstr,(INT)((w + 7)>>3),h,0,0);
+  mn = c_locomp(rstr,(int16_t)((w + 7)>>3),h,0,0);
   if(mn){
   segment_pool = EVN_GetSegmentPool();
   abris_online = TRUE;
@@ -909,7 +909,7 @@ return (sum1 && sum2);
 uint16_t check_m( cell * c)
 {
 uint16_t pen=0;
-INT i;
+int16_t i;
     stick_online(c);
    if( nstick < 0 ) return 0;
    if( nstick == 1 )
@@ -931,10 +931,10 @@ INT i;
  return pen;
 }
 /*
-uint16_t check_ss(cell * c,puchar pint,INT height)
+uint16_t check_ss(cell * c,puchar pint,int16_t height)
 {
 segment * segm;
-INT i,j,col,prev_col;
+int16_t i,j,col,prev_col;
 uint16_t d=0,gaps=0;
 
   if( c ) // 'c' mustn't have a hole
@@ -960,12 +960,12 @@ for(i=0,segm = (segment*)pint,segm++;i < height/2 - j;i++) // set active line
 */
 uint16_t check_AL(cell * c,uchar let)
 {
-INT gaps;
+int16_t gaps;
 lnhead *line;
-INT l;
+int16_t l;
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
  if( gaps > 0)
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if(!(line->flg & (l_fend | l_fbeg)) )
    if(line->h == 1) gaps--; // skip non valueble lines
@@ -979,12 +979,12 @@ INT l;
 uint16_t check_EK(uchar let,cell * c)
 {
  lnhead *line;
- INT l;
+ int16_t l;
  uint16_t pen_E=0,pen_K=0;
 
  if(((c_comp*)c->env)->nl == 1) pen_K = 200;
 
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->row < c->h/3 && !(line->flg&l_fend) && line->h > c->h/4 )
      pen_E += 100;
@@ -1000,14 +1000,14 @@ uint16_t check_EK(uchar let,cell * c)
 uint16_t check_iee(cell * c,uchar let)
 {
  lnhead *line;
- INT l;
+ int16_t l;
  uint16_t pen=0,gaps;
 
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
   if( gaps == 0 && let == (uchar)'ы') return 10;
   else if ( gaps == 0 && let == (uchar)'Ы' ) return 60;
      // hole in top right square
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->row < c->h/2 &&  line->h < c->h/4 &&
   (!(line->flg&l_fend) && !(line->flg&l_fbeg))  )
@@ -1019,10 +1019,10 @@ uint16_t check_iee(cell * c,uchar let)
 uint16_t check_ya( cell * c)
 {
  lnhead *line;
- INT l,suspect=0,strong=0;
+ int16_t l,suspect=0,strong=0;
  uint16_t pen=0,gaps;
    gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if ( (line->flg & (l_fbeg | l_fend)) == 0 )
    if (line->row > c->h/3) suspect++;
@@ -1036,20 +1036,20 @@ uint16_t check_ya( cell * c)
 
 // Andrew zone
 static STICK st[30],*stickLP;
-static INT nstickLP;
+static int16_t nstickLP;
 
 uint16_t check_pl( cell * c, cell * ci,uchar let,struct rst * const rst )
 {
 char  maxL=0,maxR=0;
-INT i,j1,j2,j,sym,nInvest;
+int16_t i,j1,j2,j,sym,nInvest;
 uint16_t penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
 uint16_t left=0,right=0,mean=0,D_X;
-INT begin0,begin;
+int16_t begin0,begin;
 uchar  *RAST,*RASTR,saveR[5];
 MN *mn;
 cell * cc=NULL;
-INT dx,dy;
-INT pen_serif = 0;
+int16_t dx,dy;
+int16_t pen_serif = 0;
 
 dx = rst->w;   dy = rst->h;   RASTR=rst->raster;
 D_X = (dx+7)>>3;
@@ -1081,7 +1081,7 @@ if( stick[0].incl <= stick[1].incl )
     nInvest = dy/4;
   for(RAST=RASTR+(dy-1)*D_X,i=0;i<dy/4;i++,RAST-=D_X)
     {
-    if( SumIntervalBits(RAST,0,(INT)(dx/3)) < 3*stick[0].w/2 )
+    if( SumIntervalBits(RAST,0,(int16_t)(dx/3)) < 3*stick[0].w/2 )
       {
       nInvest++;
 			}
@@ -1111,14 +1111,14 @@ if( stick[0].incl <= stick[1].incl )
     if( begin <= 0 )
       j1 = 0;
     left += j1;
-    j2 = SumIntervalBits(RAST,(INT)(begin+stick[0].w),meanLetter);
-    if( ! SumIntervalBits(RAST,(INT)(begin+stick[0].w),(INT)(begin+stick[0].w+1)) )
+    j2 = SumIntervalBits(RAST,(int16_t)(begin+stick[0].w),meanLetter);
+    if( ! SumIntervalBits(RAST,(int16_t)(begin+stick[0].w),(int16_t)(begin+stick[0].w+1)) )
       j2 = 0;
-    if( ! SumIntervalBits(RAST,(INT)(begin+stick[0].w-1),(INT)(begin+stick[0].w)) )
+    if( ! SumIntervalBits(RAST,(int16_t)(begin+stick[0].w-1),(int16_t)(begin+stick[0].w)) )
       j2 = 0;
     right += j2;
-    j = 3*stick[0].w-SumIntervalBits(RAST,begin,(INT)(begin+stick[0].w));
-    if( SumIntervalBits(RAST,0,(INT)(begin+stick[0].w)) < 3*stick[0].w/2 )
+    j = 3*stick[0].w-SumIntervalBits(RAST,begin,(int16_t)(begin+stick[0].w));
+    if( SumIntervalBits(RAST,0,(int16_t)(begin+stick[0].w)) < 3*stick[0].w/2 )
       {
       j = 0;
       mean = 0;
@@ -1135,10 +1135,10 @@ if( stick[0].incl <= stick[1].incl )
    if( (c->cg_flag_fine&c_cg_cut_bl) && stick[0].bot<0 ||
      (c->cg_flag_fine==0)&&(c->cg_flag&c_cg_cutl) && stick[0].bot<0 )
     {
-    INT n=dy/4, num, old, e;
-    INT r0=VertSum(RASTR,D_X,dy,(INT)(dx-1));
-    INT r1=VertSum(RASTR,D_X,dy,(INT)(dx-2));
-    INT r2=VertSum(RASTR,D_X,dy,(INT)(dx-3));
+    int16_t n=dy/4, num, old, e;
+    int16_t r0=VertSum(RASTR,D_X,dy,(int16_t)(dx-1));
+    int16_t r1=VertSum(RASTR,D_X,dy,(int16_t)(dx-2));
+    int16_t r2=VertSum(RASTR,D_X,dy,(int16_t)(dx-3));
     if( r0<dy && r1<=dy-2 && r1>dy-4 && r2>dy-2 )
       r1=r2;
     old=EndBlackInterval(RASTR+(dy-1)*D_X, D_X);
@@ -1233,7 +1233,7 @@ for(i=0;( (i<D_X) && (i<5) );i++)
   }
 
 //cut  1/4  down  part  to  calculate   sticks  for  Л  without  errors
-mn = c_locomp(rst->raster,D_X,(INT)(dy-dy/4),0,0);
+mn = c_locomp(rst->raster,D_X,(int16_t)(dy-dy/4),0,0);
 if(mn) cc=create_cell(mn,ci,0,0);
 //recover  after  for  not  cut  left  black  rectangle
 for(i=0;( (i<D_X) && (i<5) );i++)
@@ -1274,7 +1274,7 @@ if( nInvest > dy/4 )
   nInvest = dy/4;
 for(RAST=RASTR+(dy-1)*D_X,i=0;i<dy/4;i++,RAST-=D_X)
   {
-  if( SumIntervalBits(RAST,0,(INT)(dx/3)) < 3*stickLP[0].w/2 )
+  if( SumIntervalBits(RAST,0,(int16_t)(dx/3)) < 3*stickLP[0].w/2 )
     {
     nInvest++;
     }
@@ -1304,14 +1304,14 @@ for(RAST=RASTR+(dy-1)*D_X,i=0;i<nInvest;i++,RAST-=D_X)
   if( begin <= 0 )
     j1 = 0;
   left += j1;
-  j2 = SumIntervalBits(RAST,(INT)(begin+stickLP[0].w),meanLetter);
-  if( ! SumIntervalBits(RAST,(INT)(begin+stickLP[0].w),(INT)(begin+stickLP[0].w+1)) )
+  j2 = SumIntervalBits(RAST,(int16_t)(begin+stickLP[0].w),meanLetter);
+  if( ! SumIntervalBits(RAST,(int16_t)(begin+stickLP[0].w),(int16_t)(begin+stickLP[0].w+1)) )
     j2 = 0;
-  if( ! SumIntervalBits(RAST,(INT)(begin+stickLP[0].w-1),(INT)(begin+stickLP[0].w)) )
+  if( ! SumIntervalBits(RAST,(int16_t)(begin+stickLP[0].w-1),(int16_t)(begin+stickLP[0].w)) )
     j2 = 0;
       right += j2;
-  j = 3*stickLP[0].w-SumIntervalBits(RAST,begin,(INT)(begin+stickLP[0].w));
-  if( SumIntervalBits(RAST,0,(INT)(begin+stickLP[0].w)) < 3*stickLP[0].w/2 )
+  j = 3*stickLP[0].w-SumIntervalBits(RAST,begin,(int16_t)(begin+stickLP[0].w));
+  if( SumIntervalBits(RAST,0,(int16_t)(begin+stickLP[0].w)) < 3*stickLP[0].w/2 )
     {
     j = 0;
     mean = 0;
@@ -1419,12 +1419,12 @@ switch( let )
 return pen;
 }/*check_pl*/
 
-uint16_t check_tg( cell * c, uchar let, puchar RASTR, INT dx, INT dy )
+uint16_t check_tg( cell * c, uchar let, puchar RASTR, int16_t dx, int16_t dy )
 {
 uchar  j,n4=dy>>2,D_X=(dx+7)/8;
 char  beg,end;
-INT   i,k,piece2=0,piece3=0;
-INT   left=0,right=0,sum=0,tg=0;
+int16_t   i,k,piece2=0,piece3=0;
+int16_t   left=0,right=0,sum=0,tg=0;
 uchar  *RAST;
 
 stick_online(c);
@@ -1512,7 +1512,7 @@ return( tg );
 
 uint16_t check_zz( cell * c)
 {
-INT i;
+int16_t i;
 uint16_t pen=0;
       stick_online(c);
      if( nstick <= 0 ) return 0; // error or no sticks
@@ -1523,17 +1523,17 @@ uint16_t pen=0;
   return pen;
 }
 
-uint16_t check_uu( cell * c,INT h)
+uint16_t check_uu( cell * c,int16_t h)
 {
 uint16_t pen;
  lnhead *line;
- INT l,cnt=0;
+ int16_t l,cnt=0;
    pen  = check_num_foots(2,h);
    if( !c ) return pen;
 if( !(c->pos_inc&erect_rot) )
    pen += check_inc_foots(c,2);
 
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
                         (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if ( line->h*3 >= c->h*2 && line->row+line->h >= c->h*2/3 ) cnt++;
   switch(cnt){
@@ -1549,9 +1549,9 @@ if( !(c->pos_inc&erect_rot) )
 Bool check_uple_hook_cell( cell * c )
 {
  lnhead *line;
- INT l,h,ind,wid, av;
+ int16_t l,h,ind,wid, av;
  interval *i;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
    i=(interval *)((pchar)line+sizeof(lnhead));
    wid = i->l;
@@ -1579,9 +1579,9 @@ return FALSE;
 Bool check_upri_hook_cell( cell * c )
 {
  lnhead *line;
- INT l,h,ind,wid;
+ int16_t l,h,ind,wid;
  interval *i;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
    i=(interval *)((pchar)line+sizeof(lnhead));
    wid = i->l;
@@ -1605,12 +1605,12 @@ return FALSE;
 }
 
 
-Bool check_dnri_hook_cell( cell * c , INT w)
+Bool check_dnri_hook_cell( cell * c , int16_t w)
 {
  lnhead *line;
- INT l,h,ind, ri;
+ int16_t l,h,ind, ri;
  interval *i;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
       (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   {
   i=(interval *)((pchar)line+sizeof(lnhead));
@@ -1642,12 +1642,12 @@ return FALSE;
 Bool check_dnri_hook( s_glue *GL, cell *s)
 {
 cell *c;
-INT ncells=0, maxc=-1;
+int16_t ncells=0, maxc=-1;
 
 if( GL == NULL )
 	{
 	if( s )
-    return (check_dnri_hook_cell(s, (INT)(s->col+s->w)));
+    return (check_dnri_hook_cell(s, (int16_t)(s->col+s->w)));
 	else
 		return FALSE;
 	}
@@ -1709,7 +1709,7 @@ if( nstick == 2)
 }
 Bool suspect_italic_III(cell * c)
 {
-INT s=0;
+int16_t s=0;
 
      stick_online(c);
      if( nstick != 3 ) return TRUE; // error or no sticks
@@ -1720,7 +1720,7 @@ if( nstick == 3)
 }
 Bool suspect_italic_III_bend(cell * c)
 {
-INT s=0;
+int16_t s=0;
 
      stick_online(c);
      if( nstick != 3 && nstick!=4 ) return TRUE; // error or no sticks
@@ -1731,7 +1731,7 @@ s+= ( stick[0].incl==0)+( stick[1].incl==0 )+( stick[2].incl==0 ) ;
 }
 Bool suspect_italic_ce(cell * c)
 {
-INT s=0,h=c->h,i;
+int16_t s=0,h=c->h,i;
 
      stick_online(c);
      if( nstick !=2  && nstick !=3 ) return TRUE; // error or no sticks
@@ -1755,9 +1755,9 @@ if( nstick == 3)
  return FALSE;
 }
 
-INT check_italic_ch(INT h)
+int16_t check_italic_ch(int16_t h)
 {
-INT i,cnt=0;
+int16_t i,cnt=0;
 if( nstick > 1)
 for(i=0;i<nstick;i++)
   if( stick[i].l*4 > h*3 ) cnt++;
@@ -1765,11 +1765,11 @@ for(i=0;i<nstick;i++)
 }
 
 static int nstick_broken;
-Bool two_stick_online(s_glue *GL,INT *dest_foot, INT *wid_foot)
+Bool two_stick_online(s_glue *GL,int16_t *dest_foot, int16_t *wid_foot)
 {
 STICK  *s[2],ss[2];
 cell *c,*cc[2];
-INT ncells=0,i,j,ns,save_flg,save_cg_flag;
+int16_t ncells=0,i,j,ns,save_flg,save_cg_flag;
 
 nstick_broken=0;
 if( GL == NULL )	return FALSE;
@@ -1811,7 +1811,7 @@ Bool broken_sym_italic(s_glue *GL,uchar let)
 {
 STICK  *s[2];
 cell *c,*cc[2];
-INT ncells=0,i,j,ns,save_flg,save_cg_flag,cs;
+int16_t ncells=0,i,j,ns,save_flg,save_cg_flag,cs;
 
 if( ! let_stick[let] ) return FALSE;
 
@@ -1846,11 +1846,11 @@ for(cs=i=0;i<2;i++)
 return (cs>0);
 }
 
-uint16_t check_cursiv( cell * c,uchar let,INT old_diskr,uchar *rast)
+uint16_t check_cursiv( cell * c,uchar let,int16_t old_diskr,uchar *rast)
 {
 uint16_t pen=0;
-INT i,j,foot_wid,ind,t;   /* средняя ширина ноги */
-INT dest_foot[4]={0};
+int16_t i,j,foot_wid,ind,t;   /* средняя ширина ноги */
+int16_t dest_foot[4]={0};
 
      stick_online(c);
      if( nstick <= 0 ) return 0; // error or no sticks
@@ -1940,10 +1940,10 @@ if( nstick==2 || nstick_broken==2)
 return pen;
 }
 
-uint16_t check_III_bend(cell *c,INT dest_foot[])
+uint16_t check_III_bend(cell *c,int16_t dest_foot[])
 {
 uint16_t pen=0;
-INT w=c->w,h=c->h,i,j,hh=c->h>>1,num;
+int16_t w=c->w,h=c->h,i,j,hh=c->h>>1,num;
 if( broken_flag )
 	return 0;
    stick_online(c);
@@ -1979,11 +1979,11 @@ for(num=j=0,i=h-1;i>hh;i--,j++)
   return pen;
 }
 
-uint16_t check_III(cell *c,INT wid_foot,INT dest_foot[])
+uint16_t check_III(cell *c,int16_t wid_foot,int16_t dest_foot[])
 {
-INT dy=c->h;
-INT i=dy*3/8;
-INT h=dy-dy*3/8,s2,ss,d;
+int16_t dy=c->h;
+int16_t i=dy*3/8;
+int16_t h=dy-dy*3/8,s2,ss,d;
 uint16_t pen=0;
 
 stick_online(c);
@@ -2017,14 +2017,14 @@ for(d=s2=ss=0,i=dy*3/8;i < h;i++)
 
 /* левая нога имеет треугольный верх */
 
-INT triangle_bottom(uchar *raster,INT dx, INT dy, INT wid)
+int16_t triangle_bottom(uchar *raster,int16_t dx, int16_t dy, int16_t wid)
 {
-INT BD_X = (dx+7)>>3;
+int16_t BD_X = (dx+7)>>3;
 
 uchar *R = &raster[(dy-1)*BD_X];
-INT bx = 0, ex = (dx>>1)-1, H = dy / 3;
-INT old,new,s,i;
-INT good_inc;
+int16_t bx = 0, ex = (dx>>1)-1, H = dy / 3;
+int16_t old,new,s,i;
+int16_t good_inc;
 
 for(good_inc=s=old=i=0;i<H && s<4; i++, R-=BD_X)
 	{
@@ -2044,13 +2044,13 @@ return(s>3 && (old<wid+2||good_inc>2) );
 }
 
 /* правая нога имеет треугольный верх */
-INT triangle_top(uchar *raster,INT dx, INT dy, INT wid)
+int16_t triangle_top(uchar *raster,int16_t dx, int16_t dy, int16_t wid)
 {
-INT BD_X = (dx+7)>>3;
+int16_t BD_X = (dx+7)>>3;
 uchar *R = &raster[0];
-INT bx = (dx>>1), ex = dx-1, H = dy / 3;
-INT old,new,s,i;
-INT good_inc;
+int16_t bx = (dx>>1), ex = dx-1, H = dy / 3;
+int16_t old,new,s,i;
+int16_t good_inc;
 
 
 for(good_inc=s=old=i=0;i<H && s<4; i++, R+=BD_X)
@@ -2071,10 +2071,10 @@ for(good_inc=s=old=i=0;i<H && s<4; i++, R+=BD_X)
 return(s>3 && (old<wid+2||good_inc>2)  );
 }
 
-INT    calc_dest_foot(INT h,INT w,INT *dest_foot,INT wid_foot)
+int16_t    calc_dest_foot(int16_t h,int16_t w,int16_t *dest_foot,int16_t wid_foot)
 {
-INT i,beg=h>>2,end=h-beg,p;
-INT n[256],n_max;
+int16_t i,beg=h>>2,end=h-beg,p;
+int16_t n[256],n_max;
 if( w>sizeof(n)/sizeof(n[0]) )
   return *dest_foot;
 memset(n,0,2*w);
@@ -2097,14 +2097,14 @@ for(p=n_max=0,i=1;i<w;i++)
 return n_max>3 ? p : *dest_foot ;
 }
 
-Bool up_ii_config(INT i)
+Bool up_ii_config(int16_t i)
 {
 if( hist_white[i]==0 )i--;
 return( hist_white[i-2]<5 &&
     hist_white[i-1]<hist_white[i-2] &&
 		hist_white[i]<hist_white[i-1] );
 }
-Bool down_ii_config(INT i)
+Bool down_ii_config(int16_t i)
 {
 if( hist_white[i]==0 )i++;
 return( hist_white[i+2]<5 &&
@@ -2112,15 +2112,15 @@ return( hist_white[i+2]<5 &&
 		hist_white[i]<hist_white[i+1] );
 }
 
-INT    check_cursiv_inp(uchar *raster,INT w,INT h,INT foot_wid,INT dest_foot,
+int16_t    check_cursiv_inp(uchar *raster,int16_t w,int16_t h,int16_t foot_wid,int16_t dest_foot,
 			uchar let)
 {
-INT i,j,beg=h>>2,end=h-beg;
-INT lim ,n_long,n_3,pen=0,p,n_1,n_long_p;
-INT up_n_signum=0,down_n_signum=0,dop=h>22?3:2;
-INT stair=0,old,new,similar_n=0,similar_i=0,min_dest;
-INT lstairs,rstairs,n_empty;
-INT up_stair=0;
+int16_t i,j,beg=h>>2,end=h-beg;
+int16_t lim ,n_long,n_3,pen=0,p,n_1,n_long_p;
+int16_t up_n_signum=0,down_n_signum=0,dop=h>22?3:2;
+int16_t stair=0,old,new,similar_n=0,similar_i=0,min_dest;
+int16_t lstairs,rstairs,n_empty;
+int16_t up_stair=0;
 
 if( dest_foot==0 )
 	return 0;/* ноги на расстоянии 0 */
@@ -2373,9 +2373,9 @@ switch( let )
 return pen ;
 }
 
-INT    check_kk(INT h)
+int16_t    check_kk(int16_t h)
 {
-INT i,lim,beg=h>>2,end=h-beg,n_3;
+int16_t i,lim,beg=h>>2,end=h-beg,n_3;
 
 if( nstick==1 )
 	return 0;
@@ -2394,9 +2394,9 @@ return n_3>=lim ? 120 : 0;
 
 
 // End of Oleg zone
-uint16_t check_inc_foots(cell * c,INT nums)
+uint16_t check_inc_foots(cell * c,int16_t nums)
 {
-INT i,dis=0;
+int16_t i,dis=0;
 
       stick_online(c);
       if( nstick != nums && !broken_flag ) return 40;
@@ -2405,10 +2405,10 @@ INT i,dis=0;
   return dis;
 }
 
-uint16_t check_num_foots(INT nums,INT dy)
+uint16_t check_num_foots(int16_t nums,int16_t dy)
 {
-INT i=dy/3,dis=0;
-INT h=i+dy/3,s2,ss;
+int16_t i=dy/3,dis=0;
+int16_t h=i+dy/3,s2,ss;
 
 for(s2=ss=0;i < h;i++)
         if (hist_n[i]==nums)       s2++;
@@ -2425,7 +2425,7 @@ for(s2=ss=0;i < h;i++)
 
 uint16_t check_oa( cell * c,uchar let,struct rst * const rst)
 {
-INT r,gaps;
+int16_t r,gaps;
 uint16_t pen_a=0,pen_o=0,futuris=0;
 
 gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
@@ -2456,9 +2456,9 @@ if( gaps > 1 ) return 0;
 
  return (let == (uchar)'а') ? pen_a : pen_o ;
  }
-INT o_symmetric(INT h,INT w)
+int16_t o_symmetric(int16_t h,int16_t w)
 {
-INT  i,asym=0,center_l,center_r;
+int16_t  i,asym=0,center_l,center_r;
  if(w%2==0)center_l=center_r=w/2;
  else{ center_l=w/2; center_r=w/2+1; } // exclude center column
  for(i=h*2/3;i < ((h < 16) ? h : h-1) ; i++)
@@ -2466,9 +2466,9 @@ INT  i,asym=0,center_l,center_r;
   return (asym < h/5)*40;
 }
 /////////////////////////////////////////////////////////////////////
-void calc_abris(puchar pint,INT height )
+void calc_abris(puchar pint,int16_t height )
 {
- INT col,i,ndx;
+ int16_t col,i,ndx;
  segment * segm = (segment*)pint;
 
  memset(l_abris,0x33,sizeof l_abris );
@@ -2513,7 +2513,7 @@ static uchar futuris[]={ 30,90,140,210 };
 
 uint16_t check_futuris_aa(struct rst * const rst)
 {
-INT i,pen=0,h,max_value;
+int16_t i,pen=0,h,max_value;
 uint16_t max,index;
 uchar hist[128]={0};
         if( ! abris_online ){ abris_online = TRUE;
@@ -2553,7 +2553,7 @@ if( max*4 > (h-2)*3 )
         if(r_abris[i] - r_abris[i+1] < 0 ||
 	   r_abris[i] - r_abris[i+1]  > 2) break;
       if( i >= h*6/7){ // монотонно гладко убывает ! А насколько равномерно ?
-	INT tan,lbound = i,sum=0;
+	int16_t tan,lbound = i,sum=0;
   tan =(i-max_value) / (r_abris[max_value]-r_abris[i]) +
        ((i-max_value) % (r_abris[max_value]-r_abris[i]))/((i-max_value)/2);
          for(i=max_value;i < lbound;i++)
@@ -2571,9 +2571,9 @@ if( max*4 > (h-2)*3 )
 Bool check_bend_up( cell * c )
 {
  lnhead *line;
- INT l;
+ int16_t l;
  interval *i;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
                         (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
  i=(interval *)((pchar)line+sizeof(lnhead));
   if( line->row > c->h/2 && line->h*4 <= c->h && i->e-i->l > 3*c->w/4 &&
@@ -2585,9 +2585,9 @@ Bool check_bend_up( cell * c )
 Bool check_bend_dn( cell * c )
 {
  lnhead *line;
- INT l;
+ int16_t l;
  interval *i;
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
                         (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
  i=(interval *)((pchar)line+sizeof(lnhead));
   if( line->row > 2*c->h/3 && line->h*4 <= c->h && (i->e-i->l)*2 > c->w &&
@@ -2599,14 +2599,14 @@ Bool check_bend_dn( cell * c )
                         }
    return FALSE;
 }
- INT short_lines2(cell *c)
+ int16_t short_lines2(cell *c)
  {
  lnhead *line;
  interval *intval;
- INT l,row,col,h,w,a;
+ int16_t l,row,col,h,w,a;
  uchar flg;
 
- for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
   if ((h=line->h)<=2)
    {
@@ -2627,7 +2627,7 @@ Bool check_bend_dn( cell * c )
 
 /* return dens = black*256/(black+white) */
 /*******************************************************internal_filling*/
-static uint16_t internal_filling(segment * segm,INT h,INT w)
+static uint16_t internal_filling(segment * segm,int16_t h,int16_t w)
 {
  uint32_t fill=0;
  LONG start, end, col;
@@ -2677,11 +2677,11 @@ for(row=0,end=0,col=0,start=0,segm++;
 }
 /**********************************************end of internal_filling*/
 
-uint16_t check_veza(cell * c,segment * segm,INT h,INT w,uchar let)
+uint16_t check_veza(cell * c,segment * segm,int16_t h,int16_t w,uchar let)
 {
 uint16_t pen_a,pen_e,pen_z,pen_v,pen_ie;
-INT gaps=-1,l;
-INT i,tresh,smooth,cnt;
+int16_t gaps=-1,l;
+int16_t i,tresh,smooth,cnt;
 lnhead *line;
 interval *in;
 
@@ -2742,7 +2742,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
     corner_type(corners[0]) == CURVE &&
     corner_type(corners[2]) == CURVE
    ){ // refuse в -- blood е with 2 gaps
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
                         (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
  in=(interval *)((pchar)line+sizeof(lnhead));
   if( !(line->flg & l_fbeg) && !(line->flg & l_fend) &&
@@ -2775,7 +2775,7 @@ ret:
 
 static uint16_t check_ee( cell * c)
 {
-INT    i, num;
+int16_t    i, num;
 
 for(num=0,i=0;i<c->h; i++)
   num +=(hist_n[i]==2);
@@ -2787,7 +2787,7 @@ return( (num>(c->h*3)/4)?100:0 );
 
 uint16_t check_nn(cell * c)
 {
-INT gaps=-1,pen=0;
+int16_t gaps=-1,pen=0;
 
  if(c) gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
 
@@ -2803,18 +2803,18 @@ INT gaps=-1,pen=0;
 
 static Bool valid_inc( uint16_t inc )
 {
-INT ret=0;
+int16_t ret=0;
  if( inc == 0 || inc > 800) ret = 0;
  else if( inc == 200 ) ret = 1;
       else             ret = 2;
 return ret;
 }
 
-extern INT nIncline;
+extern int16_t nIncline;
 
-INT sym_italic( cell * c ,uchar let)
+int16_t sym_italic( cell * c ,uchar let)
 {
-INT i,cs=0;
+int16_t i,cs=0;
    if( ! let_stick[let] ) return FALSE;
    stick_online(c);
   for(i=0;i < nstick;i++)
@@ -2867,7 +2867,7 @@ return stick != NULL;
 
 segment * go_line(segment * seg_pool,uint16_t ln)
 {
-INT i;
+int16_t i;
 for(i=0,seg_pool++;i < ln;i++) // skip lines
 while((seg_pool++)->segwhite != 0x9000);
 return seg_pool;
@@ -2881,12 +2881,12 @@ return seg_pool;
 #define DB_TIF_COL 2            // first column in tif window
 #define DB_TIF_H 13             // height of tif window
 #define DB_TIF_W 40             // width of tif window
-void add_raster(puchar target,INT wb,INT row,INT col,puchar source,INT h,INT w);
+void add_raster(puchar target,int16_t wb,int16_t row,int16_t col,puchar source,int16_t h,int16_t w);
 
 struct rst create_raster(cell * c, const s_glue * gl)
 {
 c_comp * cp;
-INT i,right,bottom,left,upper,wb;
+int16_t i,right,bottom,left,upper,wb;
 struct rst _rst={0};
 puchar rast;
     if(gl != NULL){
@@ -2906,8 +2906,8 @@ puchar rast;
     while((cp = gl->complist[i++]) != NULL){
     online_comp(cp);
     rast = make_raster();
-    c_add_raster(work_raster_1,wb,(INT)(cp->upper - upper),(INT)(cp->left - left),
-               rast,cp->h,(INT)((cp->w+7)/8));
+    c_add_raster(work_raster_1,wb,(int16_t)(cp->upper - upper),(int16_t)(cp->left - left),
+               rast,cp->h,(int16_t)((cp->w+7)/8));
     }
      if(db_status && snap_activity(db_pass)){
      snap_show_raster(work_raster_1,_rst.h,_rst.w);
@@ -2931,12 +2931,12 @@ return _rst;
 
 #define copy_byte       *t++=0xff
 
-void c_add_raster(puchar target,INT wb,INT y,INT col,puchar source,INT sh,INT swb)
+void c_add_raster(puchar target,int16_t wb,int16_t y,int16_t col,puchar source,int16_t sh,int16_t swb)
 {
 uchar m0,m1;
 puchar t;
 puchar s=source;
-INT i;
+int16_t i;
          if( wb < swb ) return; // wider that target raster
         t=target+wb*y+col/8;   // offset in target raster
         col%=8;
@@ -2962,10 +2962,10 @@ INT i;
 /* hist_d - number of bits      in row 		*/
 /* 	return height of multicell		*/
 /*						*/
-INT multicell_hist(cell *base_c, const s_glue *GL,INT hist_n[], INT hist_d[])
+int16_t multicell_hist(cell *base_c, const s_glue *GL,int16_t hist_n[], int16_t hist_d[])
 {
 cell *c;
-INT i,minrow,maxrow,ncells=0,dy;
+int16_t i,minrow,maxrow,ncells=0,dy;
 
 if( base_c==NULL && GL==NULL )
 	return 0;
@@ -3002,7 +3002,7 @@ for(i=0;i<ncells;i++)
 	{
 	if( (c=GL->celist[i])->env==NULL )
 		continue;              /* no enviroment   */
-	add_cell_to_hist(c,(INT)(c->row-minrow),hist_n,hist_d);
+	add_cell_to_hist(c,(int16_t)(c->row-minrow),hist_n,hist_d);
 	}
 
 return dy;
@@ -3010,13 +3010,13 @@ return dy;
 
 /* add_cell_to_hist : обновить гистограммы по интервалам клетки	*/
 /* 	off_str - смещение клетки по высоте			*/
-void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[])
+void add_cell_to_hist(cell *c,int16_t off_str,int16_t hist_n[],int16_t hist_d[])
 {
- INT ll,ind,h;
+ int16_t ll,ind,h;
  lnhead   *line;
  interval *inter;
 
-for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=line->h;
@@ -3032,10 +3032,10 @@ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
 return;
 }
 /***************************************** start make_white_hist */
-void make_white_hist(puchar pint,INT height)
+void make_white_hist(puchar pint,int16_t height)
 {
  segment * segm;
- LONG i;                                                 //change from INT
+ LONG i;                                                 //change from int16_t
 
  memset(hist_white,0,height<<1);
  for(i=0,segm = (segment*)pint,segm++;i < height;i++)
@@ -3060,7 +3060,7 @@ void make_white_hist(puchar pint,INT height)
 uint16_t stick_bI(cell * cl)
 {
 cell *  c, sc;
-INT     dist;
+int16_t     dist;
 
 c = cl->prevl;
 if( c )
@@ -3095,7 +3095,7 @@ stick_center_study(&sc,&glc,1);
 return (sc.vers[0].prob>220);
 }
 
-void proc_bI(INT pass)
+void proc_bI(int16_t pass)
 {
 cell * c,*clist[8];
 uchar let;
@@ -3167,10 +3167,10 @@ return 0;
 /*	s - ведущая клетка склейки GL; [(c1,r1),(c2,r2)] - область	*/
 /*	c1,c2,r1,r2 - координаты внутреннего прямоугольника		*/
 /*		выраженные в процентах (от размеров оболочки)		*/
-Bool dust_in_glue( cell *s, s_glue *GL,INT c1,INT r1,INT c2, INT r2)
+Bool dust_in_glue( cell *s, s_glue *GL,int16_t c1,int16_t r1,int16_t c2, int16_t r2)
 {
 cell *c,*ss=NULL;
-INT ncells,maxrow,minrow,maxcol,mincol,h,w;
+int16_t ncells,maxrow,minrow,maxcol,mincol,h,w;
 
 if( GL==NULL && s==NULL )	return FALSE;
 
@@ -3246,7 +3246,7 @@ return FALSE;
 Bool dust_near_rusG(cell *cc)
 {
 cell *c;
-INT dw,dh;
+int16_t dw,dh;
 
 if( cc==NULL )	return FALSE;
 c = cc->prev;
@@ -3273,9 +3273,9 @@ for(c=b;c!=e;c=c->next)
 return ;
 }
 
-INT RE_rus_Ge(INT hist[], INT histd[], INT hei, INT wid)
+int16_t RE_rus_Ge(int16_t hist[], int16_t histd[], int16_t hei, int16_t wid)
 {
-INT i,num;
+int16_t i,num;
 
 wid = (wid >> 1)+(wid >> 2);
 for(num=i=0;i<hei;i++)
@@ -3298,9 +3298,9 @@ for(num=i=0;i<hei;i++)
 return num;
 }
 
-Bool similar_S( INT hist_n[],INT hist_d[], INT w,INT h)
+Bool similar_S( int16_t hist_n[],int16_t hist_d[], int16_t w,int16_t h)
 {
-INT i,ii,p,pp;
+int16_t i,ii,p,pp;
 for(ii=h-1,p=pp=i=0;i<3;i++,ii--)
   {
   p  += (hist_n[i]==1  && hist_d[i]>w);
@@ -3310,9 +3310,9 @@ for(ii=h-1,p=pp=i=0;i<3;i++,ii--)
 return( p==3 && pp==3 );
 }
 
-Bool similar_R( INT hist_n[], INT h)
+Bool similar_R( int16_t hist_n[], int16_t h)
 {
-INT i,ii,p;
+int16_t i,ii,p;
 for(ii=h-1,p=i=0;i<h/2;i++,ii--)
   p  += (hist_n[i]==2);
 
@@ -3321,7 +3321,7 @@ return( p>h/5 );
 
 void RE_final_descr(cell *c)
 {
-INT F;
+int16_t F;
 struct rst _rst;
 
 if( !memchr(Rus_similar_Eng,c->vers[0].let,sizeof(Rus_similar_Eng)) ||
@@ -3342,29 +3342,29 @@ switch( c->vers[0].let )
                 r_criteria(c,NULL);
              break;
   case (uchar)'$' :
-             if( c->h>15 && similar_S( hist_n, hist_d, (INT)(c->w/4), c->h) )
+             if( c->h>15 && similar_S( hist_n, hist_d, (int16_t)(c->w/4), c->h) )
                 down_all_versions(c, 40);
              break;
 
   case (uchar)'п' :
   case (uchar)'г' :
-             if( (F=RE_rus_Ge(hist_n, hist_d,(INT)(c->h<30?4:6),c->w))>0 )
-                down_all_versions(c, (INT)(2 + F*20));
+             if( (F=RE_rus_Ge(hist_n, hist_d,(int16_t)(c->h<30?4:6),c->w))>0 )
+                down_all_versions(c, (int16_t)(2 + F*20));
              break;
   case (uchar)'n' :
   case (uchar)'r' :
-             if( (F=RE_rus_Ge(hist_n, hist_d,(INT)(c->h<30?4:6),c->w))<0 )
-                down_all_versions(c, (INT)(2-F*20));
+             if( (F=RE_rus_Ge(hist_n, hist_d,(int16_t)(c->h<30?4:6),c->w))<0 )
+                down_all_versions(c, (int16_t)(2-F*20));
              break;
   case (uchar)'N':
              _rst = create_raster(c,NULL);
              if(_rst.raster )
                 {
-                INT pen =
+                int16_t pen =
              Diskrim((uchar)'N',_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,
-                   (INT)(c->save_stick_inc!=NO_INCLINE?c->save_stick_inc:0));
+                   (int16_t)(c->save_stick_inc!=NO_INCLINE?c->save_stick_inc:0));
              if(  pen )
-                down_all_versions(c, (INT)(pen));
+                down_all_versions(c, (int16_t)(pen));
                 }
              break;
   default :  break;

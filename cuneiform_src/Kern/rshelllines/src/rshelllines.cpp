@@ -636,7 +636,7 @@ Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar  pRaster, B
     return TRUE;
 }
 
-void   FillingStripes(CLINE_handle line, int y, INT Count, uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine)
+void   FillingStripes(CLINE_handle line, int y, int16_t Count, uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine)
 {
 }
 
@@ -644,7 +644,7 @@ void   CheckDotLines(DLine* pCLine, Bool FlagVerticalLine)
 {
 }
 
-void   TypeIntervals(int y, INT Count, uint16_t* pIntervals)
+void   TypeIntervals(int y, int16_t Count, uint16_t* pIntervals)
 {
 }
 

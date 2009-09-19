@@ -255,7 +255,7 @@ Bool GluedLettersProcess (ROOT *pRoot)
     CCOM_comp *pComp;
     ROOT *pPreviousAfterRoots = pAfterRoots;
 	ROOT *pTmpRoot;
-    INT  yRealRow, xRealColumn;
+    int16_t  yRealRow, xRealColumn;
 	int nMN = 0;
 
     if (pRoot -> nWidth  > EXTENDED_RASTER_MAX_WIDTH ||

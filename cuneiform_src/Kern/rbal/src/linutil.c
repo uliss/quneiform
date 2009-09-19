@@ -70,13 +70,13 @@
 
 uchar to_lower(uchar c);
 uchar to_upper(uchar c);
-INT is_lower(uchar ch);
-INT is_upper(uchar ch);
-INT isletter(uchar ch);
+int16_t is_lower(uchar ch);
+int16_t is_upper(uchar ch);
+int16_t isletter(uchar ch);
 uchar get_homot(uchar ch);
-INT twin(uchar ch);
-INT count_line_hi(void);
-INT draft_cut_hyps(INT bs, INT fl);
+int16_t twin(uchar ch);
+int16_t count_line_hi(void);
+int16_t draft_cut_hyps(int16_t bs, int16_t fl);
 
 #define MAX_HEIGHT 70  // such was...  change ?
 extern uchar language;
@@ -88,7 +88,7 @@ extern uchar fEdCode; // Change code letter in module LINUTIL.C
 
 /*============= Local function portotypes ==============*/
 
-/*static*/INT h_hist(void);
+/*static*/int16_t h_hist(void);
 
 /*============= Source code ============*/
 Bool is_liga_ff(uchar c) {
@@ -100,7 +100,7 @@ Bool is_liga_ffl(uchar c) {
 	return (c == liga_ffl);
 }
 
-INT is_english(uchar ch) {
+int16_t is_english(uchar ch) {
 	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (
 	//	   ch>=ligas_beg && ch<=ligas_end &&
 			is_liga(ch) && // 14.09.2000 E.P.
@@ -108,14 +108,14 @@ INT is_english(uchar ch) {
 					ch != liga_exm && ch != liga_qm);
 }
 
-INT is_serbian_special(uchar ch) {
+int16_t is_serbian_special(uchar ch) {
 	return (ch == SERB_j || ch == SERB_J || ch == SERB_n || ch == SERB_N || ch
 			== SERB_l || ch == SERB_L || ch == SERB_h || ch == SERB_H || ch
 			== SERB_hh || ch == SERB_HH || ch == SERB_u || ch == SERB_U);
 
 }
 
-INT is_polish_special(uchar ch) {
+int16_t is_polish_special(uchar ch) {
 	return (ch == POLISH_SS || ch == POLISH_s || ch == POLISH_ZZD || ch
 			== POLISH_zd || ch == POLISH_ZZR || ch == POLISH_zr || ch
 			== POLISH_LL || ch == POLISH_l || ch == POLISH_AA || ch == POLISH_a
@@ -124,7 +124,7 @@ INT is_polish_special(uchar ch) {
 			|| ch == POLISH_o);
 }
 
-INT is_czech_special(uchar let) {
+int16_t is_czech_special(uchar let) {
 	return (let == AA_right_accent || let == a_right_accent || let
 			== CC_inv_roof || let == c_inv_roof || let == DD_inv_roof || let
 			== d_inv_roof || let == EE_right_accent || let == e_right_accent
@@ -139,7 +139,7 @@ INT is_czech_special(uchar let) {
 			|| let == z_inv_roof);
 }
 
-INT is_roman_special(uchar let) {
+int16_t is_roman_special(uchar let) {
 	return (let == AA_semicircle || let == a_semicircle || let
 			== AA_roof_accent || let == a_roof_accent || let == II_roof_accent
 			|| let == i_roof_accent || let == SS_bottom_accent_latin || let
@@ -147,7 +147,7 @@ INT is_roman_special(uchar let) {
 			== t_bottom_accent);
 }
 
-INT is_hungar_special(uchar let) {
+int16_t is_hungar_special(uchar let) {
 	return (let == AA_right_accent || let == a_right_accent || let
 			== EE_right_accent || let == e_right_accent || let
 			== II_right_accent || let == i_right_accent || let
@@ -156,7 +156,7 @@ INT is_hungar_special(uchar let) {
 			|| let == o_double_right);
 }
 
-INT is_lower(uchar ch) {
+int16_t is_lower(uchar ch) {
 
 	if (language == LANG_RUSSIAN)
 		switch (fEdCode) {
@@ -178,7 +178,7 @@ INT is_lower(uchar ch) {
 		return 1;
 	return 0;
 }
-INT is_upper(uchar ch) {
+int16_t is_upper(uchar ch) {
 	if (language == LANG_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII:
@@ -204,7 +204,7 @@ Bool is_digit(uchar ch) {
 		return FALSE;
 }
 
-INT isletter(uchar ch) {
+int16_t isletter(uchar ch) {
 	if (is_lower(ch) || is_upper(ch))
 		return 1;
 	else
@@ -224,7 +224,7 @@ uchar get_homot(uchar ch) {
 static const uchar non_twin[] = "†А°Б•Е";
 static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 
-INT twin(uchar ch) {
+int16_t twin(uchar ch) {
 	if (!isletter(ch))
 		return 0;
 	if (language == LANG_RUSSIAN)
@@ -290,7 +290,7 @@ uchar to_lower(uchar c) {
 }
 
 static struct {
-	INT ns1, ns2;
+	int16_t ns1, ns2;
 	uchar lcase, caps;
 } lht[128];
 
@@ -309,8 +309,8 @@ void BaseLineStatisticInit(void) {
 		memset(&lht[i], 0, sizeof(lht[0])); //init
 }
 /////////////////
-INT count_line_hi(void) {
-	INT d23[MAX_HEIGHT] = { 0 }, d13[MAX_HEIGHT] = { 0 }, i, max, index,
+int16_t count_line_hi(void) {
+	int16_t d23[MAX_HEIGHT] = { 0 }, d13[MAX_HEIGHT] = { 0 }, i, max, index,
 			nbcaps = 0, nbsmall = 0;
 	CSTR_rast c;
 	CSTR_rast_attr attr;
@@ -376,10 +376,10 @@ INT count_line_hi(void) {
 }
 
 /* Return  most usable height in line */
-INT h_hist(void) {
+int16_t h_hist(void) {
 	CSTR_rast c;
 	CSTR_rast_attr attr;
-	INT h[MAX_HEIGHT] = { 0 }, th[MAX_HEIGHT] = { 0 }, i, max, index,
+	int16_t h[MAX_HEIGHT] = { 0 }, th[MAX_HEIGHT] = { 0 }, i, max, index,
 			recognized = 0, total = 0;
 	uchar ch;
 	UniVersions vers;
@@ -466,9 +466,9 @@ INT h_hist(void) {
  *--------------------------------------*/
 uchar page_stat, stable_b3;
 
-INT setup_let_case(INT ckH) {
-	INT i, umax, lmax, lh, uprob, lprob, ret = 0;
-	INT uc[MAX_HEIGHT] = { 0 }, lc[MAX_HEIGHT] = { 0 };
+int16_t setup_let_case(int16_t ckH) {
+	int16_t i, umax, lmax, lh, uprob, lprob, ret = 0;
+	int16_t uc[MAX_HEIGHT] = { 0 }, lc[MAX_HEIGHT] = { 0 };
 
 	// Nick 26.01.2000  - в таблицах могут быть очень большие номера строк!
 	int lastLineNumber = MIN(sizeof(lht) / sizeof(lht[0]), line_number);
@@ -525,14 +525,14 @@ INT setup_let_case(INT ckH) {
  *      Only for russian language.                      *
  ********************************************************/
 
-INT draft_cut_hyps(INT bs, INT flag) {
+int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 	CSTR_rast c;
 	CSTR_rast_attr attr;
 	//version * v;
 	UniVersions vers;
 	int i;
 	uchar ldef, let, gtwin = 0;
-	INT dist, cutting_made = 0, diff;
+	int16_t dist, cutting_made = 0, diff;
 
 	c = cell_f();
 
@@ -673,9 +673,9 @@ INT draft_cut_hyps(INT bs, INT flag) {
 }
 /////////////
 extern uchar disable_twins;
-extern INT it_done;
+extern int16_t it_done;
 
-void set_rus_difflg(CSTR_rast B1, INT filter) {
+void set_rus_difflg(CSTR_rast B1, int16_t filter) {
 	//CSTR_comp *env;
 	CCOM_comp *env;
 	CSTR_rast_attr attr;
@@ -808,8 +808,8 @@ void set_rus_difflg(CSTR_rast B1, INT filter) {
 }
 
 ///////////////
-INT smart_diff(CSTR_rast c) {
-	INT d1, d2, bm, row;
+int16_t smart_diff(CSTR_rast c) {
+	int16_t d1, d2, bm, row;
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(c, &attr);
@@ -866,19 +866,19 @@ INT smart_diff(CSTR_rast c) {
 	return attr.bdiff;
 }
 
-INT HIST_STATISTIC = 0;
+int16_t HIST_STATISTIC = 0;
 
-extern INT hist_b3[];
-extern INT hist_b3_f[];
+extern int16_t hist_b3[];
+extern int16_t hist_b3_f[];
 
-INT GetPsFromHeights(void) {
+int16_t GetPsFromHeights(void) {
 	CSTR_rast c;
 	CSTR_rast_attr attr;
 	UniVersions vers;
 
-	INT BPs, cDefs, i, max1, max2, ind1, ind2, peak2, h_size, b_top, n_sunk,
+	int16_t BPs, cDefs, i, max1, max2, ind1, ind2, peak2, h_size, b_top, n_sunk,
 			b1_or_b2_rong;
-	INT Hh[RASTER_MAX_HEIGHT * 2] = { 0 };
+	int16_t Hh[RASTER_MAX_HEIGHT * 2] = { 0 };
 
 	HIST_STATISTIC = 0;
 
@@ -893,7 +893,7 @@ INT GetPsFromHeights(void) {
 	c = cell_f();
 	//  while( (c=c->nextl)->nextl )
 	while (c = CSTR_GetNextRaster(c, f_letter)) {
-		INT df, sn;
+		int16_t df, sn;
 
 		CSTR_GetAttr(c, &attr);
 		df = attr.bdiff;
@@ -983,7 +983,7 @@ INT GetPsFromHeights(void) {
 
 
 	if (n_sunk > 2 && !b1_or_b2_rong) {
-		INT TPs, ds;
+		int16_t TPs, ds;
 		TPs = def_upper_side(); // check tops
 		ds = (peak2 && ind2 < ind1) ? ind2 : ind1;
 		if (TPs > 0 && abs(TPs - ds) < 3) {
@@ -994,7 +994,7 @@ INT GetPsFromHeights(void) {
 
 	if (b1_or_b2_rong == FALSE) {
 		if (Ns2 > 0 && Ns2 >= Ns1) {
-			INT BS2 = bbs3 - bbs2;
+			int16_t BS2 = bbs3 - bbs2;
 			if (abs(ind1 - BS2) < 3) {
 				BPs = ind1;
 				goto ret;
@@ -1004,7 +1004,7 @@ INT GetPsFromHeights(void) {
 			}
 		}
 		if (Ns1 > 0) {
-			INT BS1 = bbs3 - bbs1;
+			int16_t BS1 = bbs3 - bbs1;
 			if (abs(ind1 - BS1) < 3) {
 				BPs = -ind1;
 				goto ret;
@@ -1072,13 +1072,13 @@ uchar BracketIn(UniVersions *v) {
 
 ////////////
 
-INT def_upper_side(void) {
+int16_t def_upper_side(void) {
 	CSTR_rast c;
 	CSTR_rast_attr attr;
-	INT i, max, max_sn, ind, ind_sn;
+	int16_t i, max, max_sn, ind, ind_sn;
 	uint16_t h_size, n_def, n_sn;
 
-	INT h_top[RASTER_MAX_HEIGHT * 2] = { 0 }, h_sunk[RASTER_MAX_HEIGHT * 2] = {
+	int16_t h_top[RASTER_MAX_HEIGHT * 2] = { 0 }, h_sunk[RASTER_MAX_HEIGHT * 2] = {
 			0 };
 
 	h_size = RASTER_MAX_HEIGHT * 2;
@@ -1087,7 +1087,7 @@ INT def_upper_side(void) {
 	n_def = n_sn = 0;
 	//  while( (c=c->nextl)->nextl )
 	while ((c = CSTR_GetNextRaster(c, CSTR_f_let))) {
-		INT df, sn, b_top;
+		int16_t df, sn, b_top;
 
 		//    if(!(c->flg & CSTR_f_let) ) continue;
 
@@ -1166,8 +1166,8 @@ INT def_upper_side(void) {
 }
 //////////////
 
-void tell_for_b3(INT hist_array[]) {
-	INT i;
+void tell_for_b3(int16_t hist_array[]) {
+	int16_t i;
 	uint32_t NDisp, ON3;
 
 	stable_b3 = FALSE;
@@ -1191,7 +1191,7 @@ void tell_for_b3(INT hist_array[]) {
 
 ///////////////
 
-INT flood_peak(INT *Hh, INT ind) {
+int16_t flood_peak(int16_t *Hh, int16_t ind) {
 	uint16_t Num, Den, t, t1;
 
 	if (ind > 1)
@@ -1222,7 +1222,7 @@ INT flood_peak(INT *Hh, INT ind) {
 }
 
 /////////
-INT is_cen_bottom_accent(uchar c) {
+int16_t is_cen_bottom_accent(uchar c) {
 	// ќпределение нижнего акцента 12.09.2000 E.P.
 	return (
 

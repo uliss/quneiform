@@ -137,23 +137,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-LONG my_filelth (INT);                      /* / handle    */
-INT  my_open    (INT, char *, INT, INT);    /* / stream, name, ... */
-FILE *my_fopen  (INT, char *, char *);      /* / stream, name, ... */
-void my_file_rem (INT, char *);             /* / stream, name      */
-INT  my_close   (INT);                      /* / handle            */
-LONG my_read    (INT, char *, LONG);        /* / handle, addr, lth */
-LONG my_write   (INT, char *, LONG);        /* / handle, addr, lth */
-LONG my_seek    (INT, LONG, INT);           /* / handle, addr, type*/
-INT  my_chsize  (INT, LONG);                /* / handle, addr      */
-Bool save_dir   (INT, void * );             /* / stream, name      */
-INT  is_open    (INT);                      /* / stream            */
+LONG my_filelth (int16_t);                      /* / handle    */
+int16_t  my_open    (int16_t, char *, int16_t, int16_t);    /* / stream, name, ... */
+FILE *my_fopen  (int16_t, char *, char *);      /* / stream, name, ... */
+void my_file_rem (int16_t, char *);             /* / stream, name      */
+int16_t  my_close   (int16_t);                      /* / handle            */
+LONG my_read    (int16_t, char *, LONG);        /* / handle, addr, lth */
+LONG my_write   (int16_t, char *, LONG);        /* / handle, addr, lth */
+LONG my_seek    (int16_t, LONG, int16_t);           /* / handle, addr, type*/
+int16_t  my_chsize  (int16_t, LONG);                /* / handle, addr      */
+Bool save_dir   (int16_t, void * );             /* / stream, name      */
+int16_t  is_open    (int16_t);                      /* / stream            */
 void set_name_ext   (char *);               /* / stream=TX; extention  */
-INT  my_table_op (INT, INT, INT, INT);      /* / table #, ...          */
+int16_t  my_table_op (int16_t, int16_t, int16_t, int16_t);      /* / table #, ...          */
 
 // 08-14-93 02:49pm, Mike
-FILE *my_table_fop (INT, INT, char *);      /* / table #, ...          */
-char *handle_fgets ( INT handle, char * s, INT len );
+FILE *my_table_fop (int16_t, int16_t, char *);      /* / table #, ...          */
+char *handle_fgets ( int16_t handle, char * s, int16_t len );
 
 #ifdef __cplusplus
 }

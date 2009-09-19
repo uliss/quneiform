@@ -263,13 +263,13 @@ static uint16_t status_code = 0;
 static char mess[512],add_mess[256];
 //	Fatal error break processing
 
-static void msg_err (INT group, INT element)
+static void msg_err (int16_t group, int16_t element)
 {
     status_code = 1000 + group * 100 + element;
     Tiger_ReportError (status_code, get_message (status_code));
 }
 
-void error_exit (INT group, INT element)
+void error_exit (int16_t group, int16_t element)
 {
  extern void FreeAllData(void);
 
@@ -282,7 +282,7 @@ void error_exit (INT group, INT element)
 
 }
 
-void error_exit_str(INT group, INT element,pchar s)
+void error_exit_str(int16_t group, int16_t element,pchar s)
 {
  extern void FreeAllData(void);
 
@@ -292,7 +292,7 @@ void error_exit_str(INT group, INT element,pchar s)
     longjmp (fatal_error_exit, element);
 }
 
-void error_exit_asm (INT element)
+void error_exit_asm (int16_t element)
 {
     error_exit (ERR_comp,element);
 }
@@ -309,7 +309,7 @@ pchar get_message (uint16_t code)
 // тк программа под DOS и WINDOWS собирается на одной компиляции
         {
         extern char decode_ASCII_to_[];
-        INT i;
+        int16_t i;
         for(i=0;*(c+i);i++)
                 *(c+i)=decode_ASCII_to_[(uchar)(*(c+i))];
         }

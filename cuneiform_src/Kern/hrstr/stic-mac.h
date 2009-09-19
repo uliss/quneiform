@@ -149,7 +149,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 #define DIS_CENTER_CONC(U,i,inc,t1,t2)              \
-	{ INT t,m;                                  \
+	{ int16_t t,m;                                  \
 	m = ((U->up_serif==0)&&(U->down_serif==0)); \
 	t = U->conc[i];                             \
 	if( t>1 )                                   \
@@ -176,7 +176,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 #define DIS_CENTER_FLAG(U,i,width,inc,t1,t2)             \
-	{ INT t,dist=1;                                  \
+	{ int16_t t,dist=1;                                  \
 	t = U->mount[i];                                 \
 	if( U->mount[0]>width || U->mount[4]>width )     \
 		dist++;                                  \
@@ -192,7 +192,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 #define DIS_CENTER_FLAG_1(U,i,width,inc,t1,t2)			\
-	{ INT t,dist=1;						\
+	{ int16_t t,dist=1;						\
 	t = U->mount[i];					\
 	if( U->mount[0]>width )  dist++;			\
 	if( t>dist )						\
@@ -207,7 +207,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 #define DIS_CENTER_FLAG_2(U,i,width,inc,t1,t2)			\
-	{ INT t,dist=1;						\
+	{ int16_t t,dist=1;						\
 	t = U->mount[i];					\
 	if( width>=6 )  dist++;					\
 	if( t>dist )						\
@@ -217,7 +217,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define DIS_CURVE(L,R,i,lev,tab)         	   \
 	{                                          \
-	INT ll,rr;                                 \
+	int16_t ll,rr;                                 \
 	ll=L->mount[i]; rr=R->conc[i];             \
 	if( ll>lev && rr>lev && (ll>0||rr>0) )     \
 		dis += (ll+rr)*(tab);              \
@@ -229,8 +229,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 					// 27.07.1993:	for lev==1 only;
 #define DIS_CURVE_MK(L,R,i,lev,tab)		\
 	{					\
-INT	lm=L->mount[i],	rm=R->mount[i];		\
-INT	lc=L->conc[i],	rc=R->conc[i];		\
+int16_t	lm=L->mount[i],	rm=R->mount[i];		\
+int16_t	lc=L->conc[i],	rc=R->conc[i];		\
 	if (lc==0 && lm>lev && rc>lev)		\
 		dis += (lm+rc)*(tab);		\
 	if (rc==0 && rm>lev && lc>lev)		\
@@ -239,7 +239,7 @@ INT	lc=L->conc[i],	rc=R->conc[i];		\
 
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
-	INT t,m;                                      \
+	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  min(L->mount[i],R->mount[i]) ;           \
 	if( t>max(((wid)>>1),dist) || m==0 )          \

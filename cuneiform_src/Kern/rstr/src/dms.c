@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 
 extern servBOX SBOX;
-extern INT best_answer_BOX;
+extern int16_t best_answer_BOX;
 
 void min3(v_val *a, uchar b, v_val *c)
  {
@@ -96,13 +96,13 @@ Z = &string;
  c->v1 = a->v1;
  }
 
-INT compare_vect(v_val *a, v_val *b)
+int16_t compare_vect(v_val *a, v_val *b)
  {
- INT x;
- INT a1;
- INT a2, a3;
- INT b1;
- INT b2, b3;
+ int16_t x;
+ int16_t a1;
+ int16_t a2, a3;
+ int16_t b1;
+ int16_t b2, b3;
 
  x = (a3 = a->v3)-(b3=b->v3);
  if (x)
@@ -135,7 +135,7 @@ INT compare_vect(v_val *a, v_val *b)
 
 void save_vers(cell *C, SVERS *S)
  {
- INT i, nn;
+ int16_t i, nn;
  version *s, *d;
  S->nvers  = C->nvers;
  S->source = C->recsource;
@@ -164,7 +164,7 @@ void save_vers(cell *C, SVERS *S)
 
 void rest_vers(cell *C, SVERS *S)
 {
- INT i, nn;
+ int16_t i, nn;
  version *s, *d;
  C->nvers = S->nvers;
  C->flg   = S->flg;
@@ -193,12 +193,12 @@ void rest_vers(cell *C, SVERS *S)
  adjust_links(C);
 }
 
-INT signif_line_count (cell *a)
+int16_t signif_line_count (cell *a)
 {
  lnhead *Lp1, *Lp2;
  c_comp *cp1;
 
- INT  nl, lc1, Lc1;
+ int16_t  nl, lc1, Lc1;
 
   if (a->env == NULL) return 0;
   nl = 0;
@@ -214,7 +214,7 @@ INT signif_line_count (cell *a)
  return nl;
 }
 /////////////////////////
-INT cell_is_BOX_solid (cell  *B1)
+int16_t cell_is_BOX_solid (cell  *B1)
 {
  SVERS svers;
  if (!tenv(B1))
@@ -242,7 +242,7 @@ INT cell_is_BOX_solid (cell  *B1)
 // for BAL - new version 6.02.2001
 void save_rast_vers(CSTR_rast C, SVERS *S)
  {
- INT i, nn;
+ int16_t i, nn;
 // version *s, *d;
  UniVersions vers;
  CSTR_rast_attr attr;
@@ -281,9 +281,9 @@ void save_rast_vers(CSTR_rast C, SVERS *S)
  S->pr_vers= S->vers[0];
 }
 ////////////////
-Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT scale);
+Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, int16_t scale);
 ///////////////////
-INT rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
+int16_t rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
 {
  SVERS svers;
  CCOM_comp *cmp;

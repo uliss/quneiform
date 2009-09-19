@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                  */
 /********************************************************************/
 
-INT    prop_narrow[256]=
+int16_t    prop_narrow[256]=
 {
 /*   0   */0,
 /*   1  */0,

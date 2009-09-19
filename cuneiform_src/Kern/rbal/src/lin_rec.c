@@ -70,7 +70,7 @@ extern int16_t prop_l_delta, prop_r_delta;
 extern uchar *letters_pidx_table;
 //////////////
 // proport.c    - no more !!
-uint16_t el_pidx_crit(uint16_t t_let, INT pidx) {
+uint16_t el_pidx_crit(uint16_t t_let, int16_t pidx) {
 	uint16_t let;
 
 	let = (uchar) t_let * 2;
@@ -82,7 +82,7 @@ uint16_t el_pidx_crit(uint16_t t_let, INT pidx) {
 }
 /////////////////
 // prop.c
-INT prop_index(INT h, INT w) {
+int16_t prop_index(int16_t h, int16_t w) {
 	if (fax1x2)
 		h += 2;
 
@@ -98,7 +98,7 @@ INT prop_index(INT h, INT w) {
 }
 /////////////////
 static void v2_pidx_crit(CSTR_rast c) {
-	INT pidx;
+	int16_t pidx;
 	// version *v, *wv;
 	UniVersions vers, wvers = { 0 };
 	uint16_t let;
@@ -210,8 +210,8 @@ static void v2_pidx_crit(CSTR_rast c) {
 ////////////////////
 /////////////////
 // Tools.c
-INT short_recog_cell(CSTR_rast c, int line_scale) {
-	INT n, i;
+int16_t short_recog_cell(CSTR_rast c, int line_scale) {
+	int16_t n, i;
 	uchar res[20];
 
 	CSTR_rast_attr attr;
@@ -239,13 +239,13 @@ INT short_recog_cell(CSTR_rast c, int line_scale) {
 	 if( !Ccomp2ExtComponenet(comp,&ec,&attr,line_scale) )
 	 return 0;
 	 */
-	// n = (INT)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
+	// n = (int16_t)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
 
 	pint16 = (int16_t *) comp->linerep;
 	// *pint16 == comp->size_linerep ?????
 	lpool = comp->linerep + 2;
-	//  n = (INT)EVNRecog_lp(&ec,lpool,*pint16,&res[0]);
-	n = (INT) EVNRecog_lp(comp, lpool, *pint16, &res[0]);
+	//  n = (int16_t)EVNRecog_lp(&ec,lpool,*pint16,&res[0]);
+	n = (int16_t) EVNRecog_lp(comp, lpool, *pint16, &res[0]);
 
 	vers.lnAltMax = REC_MAX_VERS;
 	if (n) {

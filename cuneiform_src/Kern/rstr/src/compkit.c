@@ -83,7 +83,7 @@ Bool component_account() {
 Bool boxes_account() {
 	MN *mn;
 	BOX *bp;
-	INT left, right, n;
+	int16_t left, right, n;
 	memset(&wcomp, 0, sizeof(wcomp));
 	mn = main_number_ptr;
 	bp = mn->mnfirstbox;
@@ -136,7 +136,7 @@ static void boxes_to_line() {
 	LNSTRT *lsp;
 	interval * ip;
 	BOXINT * bip;
-	INT x, n;
+	int16_t x, n;
 
 	bp = boxchain;
 	lnp = (lnhead *) lpool;
@@ -179,7 +179,7 @@ puchar make_raster() {
 	lnhead * lp;
 	interval *ip;
 	puchar p, pp;
-	INT x, l, sh;
+	int16_t x, l, sh;
 	uint16_t w;
 
 	memset(work_raster, 0, wcomp.rw * wcomp.h);
@@ -211,7 +211,7 @@ puchar make_extended_raster(c_comp *cp) {
 	lnhead * lp;
 	large_interval *ip;
 	puchar p, pp;
-	INT x, l, sh;
+	int16_t x, l, sh;
 	uint16_t wd, w;
 
 	memset(work_raster, 0, cp->rw * cp->h);
@@ -247,7 +247,7 @@ lnhead *c_boxln(MN *mn) {
 	return (lnhead *) lpool;
 }
 
-INT MN_to_line(MN * mn) {
+int16_t MN_to_line(MN * mn) {
 	main_number_ptr = mn;
 	boxes_account();
 	boxes_to_line();

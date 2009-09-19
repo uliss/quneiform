@@ -126,9 +126,9 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////////////
-extern INT total_words;
+extern int16_t total_words;
 extern user_voc voc_array[];
-extern INT real_voc_no;
+extern int16_t real_voc_no;
 
 uint32_t progress_set_step(uint32_t volume);
 uint32_t progress_set_percent(uint32_t volume);
@@ -138,7 +138,7 @@ void ErrorExit(int Code);
 #ifdef SECOND_PASS
 
 extern RSTAT rst[];
-extern INT rst_last;
+extern int16_t rst_last;
 extern uchar ast[MAX_ARTS];
 extern ARTS artbase[];
 
@@ -149,24 +149,24 @@ extern ARTS artbase[];
 
 
 /********DEBUG*********/
-INT db = 187;
-/*INT env; */
+int16_t db = 187;
+/*int16_t env; */
 /* =================================================================== */
 /*                      Functions' Definition                          */
 /* =================================================================== */
 
-static INT batch_setup(void);
-static INT run_page(void);
-static INT ed_conv(struct dict_state *, user_voc *, INT);
-static INT anal_part_wrd(SOBJ*, LTIMG**, struct dict_state*, user_voc*, INT);
+static int16_t batch_setup(void);
+static int16_t run_page(void);
+static int16_t ed_conv(struct dict_state *, user_voc *, int16_t);
+static int16_t anal_part_wrd(SOBJ*, LTIMG**, struct dict_state*, user_voc*, int16_t);
 
 /***********************************************************************/
 /*                                                                     */
 /*                  common used (global) variables                     */
 /*                                                                     */
 /***********************************************************************/
-INT back_flag = 0; /* nonzero if back_recog required */
-INT debug_obj_nmb = 1;
+int16_t back_flag = 0; /* nonzero if back_recog required */
+int16_t debug_obj_nmb = 1;
 
 #ifdef TIMETEST
 static char time_buf[80]; /* buff to output time */
@@ -175,7 +175,7 @@ static char time_buf[80]; /* buff to output time */
 static char *q_free_alloc_mem; /* poiter to save SPQ.free_alloc_mem */
 
 extern dQ SPQ; //Q;
-extern INT vocs_NOK; // 08-13-93 07:45pm, Mike
+extern int16_t vocs_NOK; // 08-13-93 07:45pm, Mike
 extern char spell_buff_pool[]; // 08-13-93 07:40pm, Mike
 extern char spell_buff_out[]; // 08-13-93 07:40pm, Mike
 
@@ -189,8 +189,8 @@ extern uchar multy_language;
 #endif
 
 /************************************************************************/
-INT spelling(uchar *beg, LONG size) {
-	INT ret;
+int16_t spelling(uchar *beg, LONG size) {
+	int16_t ret;
 	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = beg;
 	SPQ.end_alloc_mem = (char *) beg + size * 16;
 	SPQ.alloc_size = size;
@@ -203,7 +203,7 @@ INT spelling(uchar *beg, LONG size) {
 /**************************************************************************/
 /*  Batch_setup                                                           */
 /**************************************************************************/
-static INT batch_setup(void) {
+static int16_t batch_setup(void) {
 #ifdef S_COMMENTS
 	initcode(); /* see spellfun : these are symb */
 	initstdn(); /*                convert tables */
@@ -224,9 +224,9 @@ static INT batch_setup(void) {
 /**************************************************************************/
 /*  Run one page                                                          */
 /**************************************************************************/
-static INT run_page() /* run one page */
+static int16_t run_page() /* run one page */
 {
-	INT obj_nmb = 0;
+	int16_t obj_nmb = 0;
 
 	SPQ.free_alloc_mem = q_free_alloc_mem; /* RESTORE ! */
 
@@ -272,7 +272,7 @@ LONG read_all_vfile( char *path, char *buff)
 }
 LONG write_all_vfile( char *path, char *buff,uint32_t lth)
 {
-	INT f;
+	int16_t f;
 
 	f=open(path,O_WRONLY|O_BINARY|O_CREAT|O_TRUNC,S_IWRITE);
 	if(f==-1) return(-1);
@@ -282,7 +282,7 @@ LONG write_all_vfile( char *path, char *buff,uint32_t lth)
 	return(lth);
 }
 
-LONG read_all_vtab( INT tabn, char *buff)
+LONG read_all_vtab( int16_t tabn, char *buff)
 {
 	int f;
 	LONG lth;
@@ -290,7 +290,7 @@ LONG read_all_vtab( INT tabn, char *buff)
 	if (vocs_NOK)
 	return -1;
 
-	f=TBOPEN((INT)tabn,(INT)language,(INT)(O_RDONLY|O_BINARY),(INT)(S_IREAD));
+	f=TBOPEN((int16_t)tabn,(int16_t)language,(int16_t)(O_RDONLY|O_BINARY),(int16_t)(S_IREAD));
 
 	if(f==-1)
 	{
@@ -298,8 +298,8 @@ LONG read_all_vtab( INT tabn, char *buff)
 		return(-1);
 	}
 
-	lth=TGREAD((INT)(f), buff, (LONG)(TGFILELTH((INT)f)));
-	TGCLOSE((INT)f);
+	lth=TGREAD((int16_t)(f), buff, (LONG)(TGFILELTH((int16_t)f)));
+	TGCLOSE((int16_t)f);
 
 	return(lth);
 }
@@ -312,15 +312,15 @@ LONG read_all_vtab( INT tabn, char *buff)
 /*                                                                     */
 /***********************************************************************/
 
-INT perebor_threshold;
+int16_t perebor_threshold;
 uchar * tempword;
 #define MAX_PART_VARS 36
-INT part_var_counter;
+int16_t part_var_counter;
 
-INT check_cancel( uint16_t);
-static INT obj_number, sp_n;
+int16_t check_cancel( uint16_t);
+static int16_t obj_number, sp_n;
 //////////////////////////////////////////////////////////////////////////
-INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
+int16_t ed_conv(struct dict_state * dict, user_voc voc_array[], int16_t voc_no)
 /* extern insted of static -- from Mike */
 {
 	/* basic structure of the whole object being considered: */
@@ -333,8 +333,8 @@ INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
 	extern LTIMG wrdimg[MAX_WORD_SIZE];
 	extern LTIMG * wrddef[MAX_WORD_SIZE];
 
-	INT ret; /* return flag: check=proc results       */
-	//INT sperc;
+	int16_t ret; /* return flag: check=proc results       */
+	//int16_t sperc;
 
 	/* dbg_f=fopen("dbg.dbg","a");
 	 fprintf(dbg_f,"ed_conv entered\n");
@@ -354,9 +354,9 @@ INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
 	/************************ F I R S T    P A S S  ****************************/
 
 	obj_number = 0;
-	//sperc = (INT)progress_set_step (total_words);
+	//sperc = (int16_t)progress_set_step (total_words);
 	while (readobj(S_NEWOBJ, &obj)) {
-		INT bpart, epart;
+		int16_t bpart, epart;
 		obj_number++;
 
 		//if (obj_number >= sperc)  sperc = progress_set_percent (obj_number);
@@ -554,9 +554,9 @@ TPR			(outobj done)
 /*************************************************************************/
 #define TEMP_PEREBOR_THRESHOLD 512
 //////////////////////////////////////////////////////////////////////////////
-INT anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
-		user_voc voc_array[], INT voc_no) {
-	INT found;
+int16_t anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
+		user_voc voc_array[], int16_t voc_no) {
+	int16_t found;
 
 	obj->type_art &= ~T_ALTS;
 
@@ -610,11 +610,11 @@ INT anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
 /*        vocabulary and word stack for spelling second pass.             */
 /**************************************************************************/
 
-INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
+int16_t pull_to_stat(int16_t status,SOBJ*obj,SPART *part,
 		LTIMG wrdimg[],LTIMG *wrddef[])
 {
-	register INT i;
-	INT lth;
+	register int16_t i;
+	int16_t lth;
 
 	if(obj->pos_part_nmb!=1)
 	return(No);
@@ -648,7 +648,7 @@ INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
 /*  and wrddef description.                                               */
 /**************************************************************************/
 
-void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
+void investigate_word(int16_t status,SOBJ *obj,LTIMG *wrddef[],
 		WTOKEN *token)
 {	register char fst_lt=1;
 	token->nmb=obj->nmb;
@@ -718,9 +718,9 @@ void set_context(WTOKEN *left,WTOKEN *right)
 /*           set_img_for found() sets up wrdimg for word found              */
 /****************************************************************************/
 
-INT set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[])
-{	register INT in_obj,in_part=0,in_word=0;
-	INT in_art;
+int16_t set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[])
+{	register int16_t in_obj,in_part=0,in_word=0;
+	int16_t in_art;
 	for( in_obj= part->beg; in_obj < part->end; in_obj++,in_part++,in_word++)
 	{	wrdimg[in_word].blank=0;
 		wrdimg[in_word].lt=(LT *)&wrdimg[in_word].std;
@@ -756,8 +756,8 @@ INT set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[])
 /* set_img_for_notfound() sets up wrdimg according original first           */
 /*    alternatives. BLANK is treated as ordinal letter.                     */
 /****************************************************************************/
-INT set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[])
-{	register INT in_obj,in_word=0;
+int16_t set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[])
+{	register int16_t in_obj,in_word=0;
 
 	for( in_obj= part->beg; in_obj < part->end; in_obj++,in_word++)
 	{	wrdimg[in_word].blank=0;
@@ -770,9 +770,9 @@ INT set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[])
 /*  stat_replacements() looks for possibility to invoke replacements of    */
 /* alternatives  occured over page.                                        */
 /***************************************************************************/
-INT stat_replacements(SOBJ *obj)
-{	register INT in_obj,in_tab,in_pos;
-	INT ret=No;
+int16_t stat_replacements(SOBJ *obj)
+{	register int16_t in_obj,in_tab,in_pos;
+	int16_t ret=No;
 	for(in_obj=0;in_obj<obj->pos_part[obj->pos_part_nmb];in_obj++)
 	for(in_tab=0; in_tab<rst_last;in_tab++)
 	if( obj->pos[in_obj].orig.code==rst[in_tab].was)

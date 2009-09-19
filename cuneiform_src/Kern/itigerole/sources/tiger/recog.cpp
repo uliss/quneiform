@@ -102,11 +102,11 @@ static Point32 CorrectPointTo(int32_t x,int32_t y,int32_t Incline2048)
 {
 	Point32 rc;
 	// Вернем в реальные координаты
-		y = (INT) (y + (LONG) x * Incline2048 / 2048);
-		x = (INT) (x - (LONG) y * Incline2048 / 2048);
+		y = (int16_t) (y + (LONG) x * Incline2048 / 2048);
+		x = (int16_t) (x - (LONG) y * Incline2048 / 2048);
 	// Переведем в идеальные
-		y = (INT) (y - (LONG) x * Incline2048 / 2048);
-		x = (INT) (x + (LONG) y * Incline2048 / 2048);
+		y = (int16_t) (y - (LONG) x * Incline2048 / 2048);
+		x = (int16_t) (x + (LONG) y * Incline2048 / 2048);
 rc.x = x;
 rc.y = y;
 return rc;
@@ -117,11 +117,11 @@ static void CorrectPointFrom(Point32 p, int32_t & x,int32_t & y,int32_t Incline2
 	x = p.x;
 	y = p.y;
 	// Вернем в реальные координаты
-		x = (INT) (x - (LONG) y * Incline2048 / 2048);
-		y = (INT) (y + (LONG) x * Incline2048 / 2048);
+		x = (int16_t) (x - (LONG) y * Incline2048 / 2048);
+		y = (int16_t) (y + (LONG) x * Incline2048 / 2048);
 	// Переведем в идеальные
-		x = (INT) (x + (LONG) y * Incline2048 / 2048);
-		y = (INT) (y - (LONG) x * Incline2048 / 2048);
+		x = (int16_t) (x + (LONG) y * Incline2048 / 2048);
+		y = (int16_t) (y - (LONG) x * Incline2048 / 2048);
 }
 ///////////////////////////////////////////////////////////////////////////
 char * _GetVersion()

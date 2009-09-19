@@ -69,12 +69,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         #include "ligas.h"
 
 /************************************************************/
-extern INT  LeftDistance(uchar *RASTER,INT dx);
-extern INT  RightDistance(uchar *RASTER,INT dx);
+extern int16_t  LeftDistance(uchar *RASTER,int16_t dx);
+extern int16_t  RightDistance(uchar *RASTER,int16_t dx);
 extern segment * go_line(segment *s,uint16_t num);
 
 /************************************************************/
-static INT long_line( puchar seg,INT w,INT line,INT part);
+static int16_t long_line( puchar seg,int16_t w,int16_t line,int16_t part);
 
 
 #define bytlen(c) ((c+7)>>3)
@@ -93,8 +93,8 @@ static INT long_line( puchar seg,INT w,INT line,INT part);
 #define N_C  16			/* тип "нет скругления"		*/
 
 
-static INT height;
-static INT buf_lines[NUM_LINES];	/* буфер длин линий	*/
+static int16_t height;
+static int16_t buf_lines[NUM_LINES];	/* буфер длин линий	*/
 
 typedef struct
 	{
@@ -110,13 +110,13 @@ CRN cut_crn={0}, cut_crn0={0}, cut_crn1={0};
 CRN	angles,				/* буфер углов 		*/
 *default_corners ;                      /* углы по умолчанию    */
 
-static INT non_similar_angles(uchar def_a, uchar a,
+static int16_t non_similar_angles(uchar def_a, uchar a,
 #ifdef UFA
   uchar cut_sign,
 #endif
-  INT dy)
+  int16_t dy)
 {
-INT ret=0;
+int16_t ret=0;
 
 if( a==255 )
         return 0; /* angle have empty lines */
@@ -153,7 +153,7 @@ if( def_a==A_C && a==SERIF )
 return ret;
 }
 
-INT corner_type( uchar crn )
+int16_t corner_type( uchar crn )
 {
 if( crn == SERIF )  return SERIF;
 else if( crn == 0 ) return NON_CURVE;
@@ -166,10 +166,10 @@ return UNDEF;
 }
 
 /* дискриминатор за различие углов по вычисленным типам angles */
-static INT check_angles(uchar let,INT dy)
+static int16_t check_angles(uchar let,int16_t dy)
 {
-INT non_sim=0,non_num=0,p;
-INT deskr[]={0,40,80,200,240};	// 0, 50, 120, ...
+int16_t non_sim=0,non_num=0,p;
+int16_t deskr[]={0,40,80,200,240};	// 0, 50, 120, ...
 
 /* default_corners - базовые углы */
 if( (p=non_similar_angles(default_corners[let].tl,angles.tl,
@@ -206,10 +206,10 @@ return( deskr[  non_sim>>1 ] );
 
 /* определить тип угла по NUM_LINES расстояниям из buf_lines 	*/
 /* ищем только тип CURVE					*/
-static uchar calc_one_angle(INT h)
+static uchar calc_one_angle(int16_t h)
 {
-INT i,old=buf_lines[0],neue,num_jmps,s;
- INT back_jmps,equ;
+int16_t i,old=buf_lines[0],neue,num_jmps,s;
+ int16_t back_jmps,equ;
 
  equ=0;
 for(s=i=1,num_jmps=0;i<h;i++)
@@ -255,10 +255,10 @@ return(uchar)num_jmps ;
 /* пропускать начальные линии из-за скачков более DIST_LIN		*/
 /* позиция угла определяется растром в вызывающей программе		*/
 /* направление задается знаком D_X					*/
-static uchar get_lines(uchar *RASTER, INT D_X, INT dx,
-                INT (*Distance)(uchar *, INT) , INT h)
+static uchar get_lines(uchar *RASTER, int16_t D_X, int16_t dx,
+                int16_t (*Distance)(uchar *, int16_t) , int16_t h)
 {
-INT i,old,neue;
+int16_t i,old,neue;
 
 memset( buf_lines,0,sizeof(buf_lines));
 
@@ -302,7 +302,7 @@ return( calc_one_angle(h) );
 
 uchar Let_Width_Bottom_Right_Curve[]="ВБЭЗО";
 /* дискриминатор за углы символу let, h - высота, type - курсивность   */
-INT discr_angles(uchar let, INT h, INT type)
+int16_t discr_angles(uchar let, int16_t h, int16_t type)
 {
 
 default_corners = (CRN *)(type ? def_corn_cs : def_corn);
@@ -330,10 +330,10 @@ return check_angles(let,h);
 }
 
 /* сколько строк идут до границы компоненты */
-static uchar is_angle(uchar *RASTER, INT D_X, INT dx,
-                INT (*Distance)(uchar *, INT) , INT h, INT dest)
+static uchar is_angle(uchar *RASTER, int16_t D_X, int16_t dx,
+                int16_t (*Distance)(uchar *, int16_t) , int16_t h, int16_t dest)
 {
-INT zero,i;
+int16_t zero,i;
 
 for(zero=i=0;i<h;i++,RASTER+=D_X)
   zero += ( Distance(RASTER,dx)==dest );
@@ -344,9 +344,9 @@ return zero>2;
 void calc_angles(struct rst *_rst,puchar segment,uchar ang[],uchar cutl,uchar cutr)
 {
 uchar *rt,*rb;
-INT D_X,dx;
-INT skip,h;
-INT right_dest;
+int16_t D_X,dx;
+int16_t skip,h;
+int16_t right_dest;
 
         height = _rst->h;
         h = _rst->h<LARGE_KEGL?4:5;
@@ -359,31 +359,31 @@ INT right_dest;
 memset(&cut_crn0,0,sizeof(cut_crn));
 memset(&cut_crn1,0,sizeof(cut_crn));
 
-        skip = long_line(segment,(INT)(_rst->w/3),0,0);
+        skip = long_line(segment,(int16_t)(_rst->w/3),0,0);
         angles.tl =get_lines(rt+D_X*skip,D_X,dx,LeftDistance,h);
         if( cutl && is_angle(rt+D_X*skip,D_X,dx,LeftDistance,4,0) )
           cut_crn1.tl=1;
 
-        skip = long_line(segment,(INT)(_rst->w/3),(INT)(_rst->h-1),0);
-        angles.bl =get_lines(rb-D_X*skip,(INT)(-D_X),dx,LeftDistance,h);
-        if( cutl && is_angle(rb-D_X*skip,(INT)(-D_X),dx,LeftDistance,4,0) )
+        skip = long_line(segment,(int16_t)(_rst->w/3),(int16_t)(_rst->h-1),0);
+        angles.bl =get_lines(rb-D_X*skip,(int16_t)(-D_X),dx,LeftDistance,h);
+        if( cutl && is_angle(rb-D_X*skip,(int16_t)(-D_X),dx,LeftDistance,4,0) )
           cut_crn1.bl=1;
 
-        skip = long_line(segment,(INT)(_rst->w/3),0,1);
+        skip = long_line(segment,(int16_t)(_rst->w/3),0,1);
         angles.tr =get_lines(rt+D_X*skip,D_X,dx,RightDistance,h);
-        if( cutr && is_angle(rt,(INT)(D_X*skip),dx,RightDistance,4,right_dest) )
+        if( cutr && is_angle(rt,(int16_t)(D_X*skip),dx,RightDistance,4,right_dest) )
           cut_crn1.tr=1;
 
-        skip = long_line(segment,(INT)(_rst->w/3),(INT)(_rst->h-1),1);
-        angles.br =get_lines(rb-D_X*skip,(INT)(-D_X),dx,RightDistance,h);
-        if( cutr && is_angle(rb-D_X*skip,(INT)(-D_X),dx,RightDistance,4,right_dest) )
+        skip = long_line(segment,(int16_t)(_rst->w/3),(int16_t)(_rst->h-1),1);
+        angles.br =get_lines(rb-D_X*skip,(int16_t)(-D_X),dx,RightDistance,h);
+        if( cutr && is_angle(rb-D_X*skip,(int16_t)(-D_X),dx,RightDistance,4,right_dest) )
           cut_crn1.br=1;
 
 memcpy(ang,&angles,4*sizeof(ang[0]));
 return ;
 }
 
-INT long_line( puchar seg,INT w,INT line,INT part)
+int16_t long_line( puchar seg,int16_t w,int16_t line,int16_t part)
 {
 segment * segm;
 

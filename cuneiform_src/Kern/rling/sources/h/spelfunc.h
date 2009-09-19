@@ -78,103 +78,103 @@ void initstdn(void);
 uchar _2cap(uchar c);
 uchar _2low(uchar c);
 void dectable_init(void);
-Bool InitializeAlphabet(INT CountryCode);
+Bool InitializeAlphabet(int16_t CountryCode);
 Bool IsVowel(uchar c);
 
 /*** SPELSPEC ***/
 
-uchar * load_specABC(uchar *point, INT Country);
-INT check_art_dict(char word[], INT * wordlth, INT * vockind);
-INT test_apppostrof(uchar word[], SWORD *wrd, INT *l, INT *r);
+uchar * load_specABC(uchar *point, int16_t Country);
+int16_t check_art_dict(char word[], int16_t * wordlth, int16_t * vockind);
+int16_t test_apppostrof(uchar word[], SWORD *wrd, int16_t *l, int16_t *r);
 
 /*** SPELLFUN ***/
 
-INT setwrd(SOBJ *, LTIMG **);
-INT setimg(SOBJ *, LTIMG *);
-INT setdef(LTIMG *, LTIMG **, INT *);
-INT nextwrd(SOBJ *, LTIMG **);
-INT check_compound(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
-INT check_dict_voc(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
-INT prtobj(SOBJ *, INT, INT);
-INT prtwrd(SOBJ *, SWORD *, INT, INT);
-INT symcode(char *);
-INT findpart(SOBJ*, SPART[], INT, INT, INT *);
-INT findparte(SPART *, INT, INT, INT*);
-INT getstdn(char *);
+int16_t setwrd(SOBJ *, LTIMG **);
+int16_t setimg(SOBJ *, LTIMG *);
+int16_t setdef(LTIMG *, LTIMG **, int16_t *);
+int16_t nextwrd(SOBJ *, LTIMG **);
+int16_t check_compound(SOBJ *, LTIMG **, struct dict_state *, user_voc *, int16_t);
+int16_t check_dict_voc(SOBJ *, LTIMG **, struct dict_state *, user_voc *, int16_t);
+int16_t prtobj(SOBJ *, int16_t, int16_t);
+int16_t prtwrd(SOBJ *, SWORD *, int16_t, int16_t);
+int16_t symcode(char *);
+int16_t findpart(SOBJ*, SPART[], int16_t, int16_t, int16_t *);
+int16_t findparte(SPART *, int16_t, int16_t, int16_t*);
+int16_t getstdn(char *);
 
 /*** SPELLCHK ***/
 
-INT selectopt(SOBJ *, SPART[]);
-INT checkpart(SOBJ*);
-INT checkobj(SOBJ *);
-INT checkwrd(SOBJ *);
-INT selectwrd(SOBJ *, LTIMG **);
-INT selectpart(SOBJ *);
-INT selectobj(SOBJ *, INT, SPART[]);
-INT CheckContext(SOBJ *obj, LTIMG *wrddef[], INT lth);
+int16_t selectopt(SOBJ *, SPART[]);
+int16_t checkpart(SOBJ*);
+int16_t checkobj(SOBJ *);
+int16_t checkwrd(SOBJ *);
+int16_t selectwrd(SOBJ *, LTIMG **);
+int16_t selectpart(SOBJ *);
+int16_t selectobj(SOBJ *, int16_t, SPART[]);
+int16_t CheckContext(SOBJ *obj, LTIMG *wrddef[], int16_t lth);
 
 /*** SPELLART ***/
 
-INT wordchange(SOBJ*);
-INT partspec(SOBJ *, SPART[]);
-INT partgc(SOBJ *, SPART[]);
-INT partbrk(SOBJ*, SPART[]);
-INT init_specpos(SOBJ*);
-Bool loadArtBase(INT);
+int16_t wordchange(SOBJ*);
+int16_t partspec(SOBJ *, SPART[]);
+int16_t partgc(SOBJ *, SPART[]);
+int16_t partbrk(SOBJ*, SPART[]);
+int16_t init_specpos(SOBJ*);
+Bool loadArtBase(int16_t);
 
 /*** SPELLSET ***/
 
-INT genwrd(SOBJ*);
-INT readobj(INT status, SOBJ *);
+int16_t genwrd(SOBJ*);
+int16_t readobj(int16_t status, SOBJ *);
 void genobj(SOBJ *);
-INT setpart(SOBJ *, SPART[]);
-INT genpart(SOBJ *);
+int16_t setpart(SOBJ *, SPART[]);
+int16_t genpart(SOBJ *);
 
 /*** SPELLOUT ***/
 
 char * find_byte_flag(void);
-INT outobj(SOBJ *, SPART *);
-INT setobj_blue(SOBJ *);
-INT setpart_blue(SOBJ *obj, INT beg, INT end);
-INT outpos_exch(SOBJ * obj, INT pos, INT anew);
+int16_t outobj(SOBJ *, SPART *);
+int16_t setobj_blue(SOBJ *);
+int16_t setpart_blue(SOBJ *obj, int16_t beg, int16_t end);
+int16_t outpos_exch(SOBJ * obj, int16_t pos, int16_t anew);
 
 /*** STATDICT ***/
 
-INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
 		struct dict_state * dict);
 
 /*** EDFORMAT ***/
 
-INT begin(uchar batch_run);
+int16_t begin(uchar batch_run);
 struct segm * next_line(char tt, struct segm *cur_segm);
-void skip_letter_in_line(struct segm *segm_ptr, INT x);
-void shift(char dir, INT v_s, struct segm *cur_segm, char *cur_symb);
-INT test_spare_space(struct segm * segm, INT need_size);
-INT load_fragm(void);
-INT insert_symb(struct segm *, char *, LT *);
-INT processEdSymb(void);
+void skip_letter_in_line(struct segm *segm_ptr, int16_t x);
+void shift(char dir, int16_t v_s, struct segm *cur_segm, char *cur_symb);
+int16_t test_spare_space(struct segm * segm, int16_t need_size);
+int16_t load_fragm(void);
+int16_t insert_symb(struct segm *, char *, LT *);
+int16_t processEdSymb(void);
 void puff_last_segm(void);
 
 /*** NEXT_SYM ***/
 
-uchar * next_symb(INT i, INT j, INT k, struct segm *cur_segm, uchar * cur_symb);
+uchar * next_symb(int16_t i, int16_t j, int16_t k, struct segm *cur_segm, uchar * cur_symb);
 void create_new_stack(void);
-INT check_free_mem(void);
+int16_t check_free_mem(void);
 
 /*** FINDWORD ***/
 
-INT findstat(INT *, LTIMG **, struct dict_state *);
+int16_t findstat(int16_t *, LTIMG **, struct dict_state *);
 
 /*** FINDVOC  ***/
 
-INT look_through_voc(INT * currw, LTIMG * wrddef[], voc_state * voc,
-		INT vocmode, INT incr, WTOKEN * * wtoken);
+int16_t look_through_voc(int16_t * currw, LTIMG * wrddef[], voc_state * voc,
+		int16_t vocmode, int16_t incr, WTOKEN * * wtoken);
 
 /***   VOC    ***/
 
-INT voc_init(voc_state*);
+int16_t voc_init(voc_state*);
 void voc_open(voc_state*);
-INT voc_(voc_state *voc, LTIMG **wrddef, INT *lth, INT weight, INT mode,
+int16_t voc_(voc_state *voc, LTIMG **wrddef, int16_t *lth, int16_t weight, int16_t mode,
 		WTOKEN * *wtoken);
 
 /*** IN_TREEI ***/
@@ -189,24 +189,24 @@ uchar * load_stat_dict(char *point);
 // Return type has been changed.
 void load_user_dicts(char * list_name, char * point);
 
-LONG read_all_voc(INT seqn, char *name, char *p);
+LONG read_all_voc(int16_t seqn, char *name, char *p);
 
 #ifdef SECOND_PASS
 
-INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
+int16_t pull_to_stat(int16_t status,SOBJ*obj,SPART *part,
 		LTIMG wrdimg[],LTIMG *wrddef[]);
-void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
+void investigate_word(int16_t status,SOBJ *obj,LTIMG *wrddef[],
 		WTOKEN *token);
 void set_context(WTOKEN *left,WTOKEN *right);
-INT set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
-INT set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
+int16_t set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
+int16_t set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
 
-INT stat_replacements(SOBJ *obj);
+int16_t stat_replacements(SOBJ *obj);
 
 #endif
 
 /*** IOED_TF ~~ IOED_TST  ***/
-INT read_file(uchar batch_run);
-INT save_ed_file(uchar batch_run);
+int16_t read_file(uchar batch_run);
+int16_t save_ed_file(uchar batch_run);
 
 #endif    //#ifndef __SPEL_FUNCS_H__

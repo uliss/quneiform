@@ -68,17 +68,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 cell *SHAVE_CELL;
 char *SHAVE_RASTER;
 char *SHAVE_FLAGS;
-INT SHAVE_HEIGHT;
-INT SHAVE_WIDTH ;
+int16_t SHAVE_HEIGHT;
+int16_t SHAVE_WIDTH ;
 
-Bool boldshave(cell *C,INT method)
+Bool boldshave(cell *C,int16_t method)
 //
 //  This procedure shaves skin from image in cell *C.
 //
  {
  MN *mn;
  cell *D;
- INT bd; char df;
+ int16_t bd; char df;
  uchar sv[sizeof(D->nvers)+sizeof(D->vers)];
  uchar svf;
 // cell c;
@@ -92,7 +92,7 @@ Bool boldshave(cell *C,INT method)
  SHAVE_FLAGS=t_raster();
  memset(SHAVE_FLAGS,0,1024);
  shaving(method);
- mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
+ mn=c_locomp(SHAVE_RASTER,(int16_t)((C->w+7)/8),C->h,C->r_row,C->r_col);
  if (!mn) return 0;
  D=C->prev;
  bd=C->bdiff; df = C->difflg & 0xf0;
@@ -106,9 +106,9 @@ Bool boldshave(cell *C,INT method)
  }
 
 static uchar mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
-static void rotate_coords(INT *row,INT *col,INT direct,INT H)
+static void rotate_coords(int16_t *row,int16_t *col,int16_t direct,int16_t H)
 {
-INT t;
+int16_t t;
 
 if( !direct )
   { // rotate coords
@@ -119,7 +119,7 @@ if( !direct )
 return;
 }
 
-static void clear_pixel(INT H,INT BW,INT row,INT col,INT direct)
+static void clear_pixel(int16_t H,int16_t BW,int16_t row,int16_t col,int16_t direct)
 //
 //  This procedure clear one pixel in raster
 //
@@ -130,7 +130,7 @@ SHAVE_RASTER[ BW*row + (col>>3)] &= ~mask[ col&7 ];
 return;
 }
 
-static void set_pixel(INT H,INT BW,INT row,INT col,INT direct)
+static void set_pixel(int16_t H,int16_t BW,int16_t row,int16_t col,int16_t direct)
 //
 //  This procedure set one pixel in raster
 //
@@ -142,7 +142,7 @@ return;
 }
 
 
-static uchar read_pixel(INT H,INT BW,INT row,INT col,INT direct)
+static uchar read_pixel(int16_t H,int16_t BW,int16_t row,int16_t col,int16_t direct)
 //
 //  This procedure read one pixel in raster
 //
@@ -154,80 +154,80 @@ if( col<0 || col>=SHAVE_WIDTH  )  return 0;
 return( (SHAVE_RASTER[ BW*row + (col>>3)] & mask[ col&7 ])!=0);
 }
 
-static INT enable_shl(INT ch,INT cw,INT row,INT col)
+static int16_t enable_shl(int16_t ch,int16_t cw,int16_t row,int16_t col)
 {
-return( !read_pixel(ch,cw,(INT)(row-1),col,1) && !read_pixel(ch,cw,(INT)(row+1),col,1) );
+return( !read_pixel(ch,cw,(int16_t)(row-1),col,1) && !read_pixel(ch,cw,(int16_t)(row+1),col,1) );
 }
 
-static INT enable_shr(INT ch,INT cw,INT row,INT col)
+static int16_t enable_shr(int16_t ch,int16_t cw,int16_t row,int16_t col)
 {
-return( !read_pixel(ch,cw,(INT)(row-1),col,1) && !read_pixel(ch,cw,(INT)(row+1),col,1) );
+return( !read_pixel(ch,cw,(int16_t)(row-1),col,1) && !read_pixel(ch,cw,(int16_t)(row+1),col,1) );
 }
 
-static INT enable_deleting_pimple(INT ch,INT cw,INT row,INT col,INT len,INT d)
+static int16_t enable_deleting_pimple(int16_t ch,int16_t cw,int16_t row,int16_t col,int16_t len,int16_t d)
 {
-INT i;
+int16_t i;
 uchar p;
 
 for(p=0,i=0;i<len;i++)
       {
       p <<= 1;
-      p += read_pixel(ch,cw,row,(INT)(col+i),d);
+      p += read_pixel(ch,cw,row,(int16_t)(col+i),d);
       }
 return len==3 ? (p!=5) : ( p!=9 && p!=11 && p!=13 ) ;
 }
 
-static INT disable_deleting_pimple1(INT ch,INT cw,INT row,INT e,INT d)
+static int16_t disable_deleting_pimple1(int16_t ch,int16_t cw,int16_t row,int16_t e,int16_t d)
 {
 if( row<0 || row>=SHAVE_HEIGHT )  return 0;
 // 0xx0    0xx0  for len==1
 // 00pe    0pe0
-if( !read_pixel(ch,cw,row,(INT)(e-3),d) && !read_pixel(ch,cw,row,e,d) &&
-      (read_pixel(ch,cw,row,(INT)(e-2),d)||read_pixel(ch,cw,row,(INT)(e-1),d))  )
+if( !read_pixel(ch,cw,row,(int16_t)(e-3),d) && !read_pixel(ch,cw,row,e,d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-2),d)||read_pixel(ch,cw,row,(int16_t)(e-1),d))  )
   return 1;
-if( !read_pixel(ch,cw,row,(INT)(e-2),d) && !read_pixel(ch,cw,row,(INT)(e+1),d) &&
-      (read_pixel(ch,cw,row,(INT)(e-1),d)||read_pixel(ch,cw,row,e,d))   )
+if( !read_pixel(ch,cw,row,(int16_t)(e-2),d) && !read_pixel(ch,cw,row,(int16_t)(e+1),d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-1),d)||read_pixel(ch,cw,row,e,d))   )
   return 1;
 
 return 0;
 }
 
-static INT disable_deleting_pimple2(INT ch,INT cw,INT row, INT e, INT d)
+static int16_t disable_deleting_pimple2(int16_t ch,int16_t cw,int16_t row, int16_t e, int16_t d)
 {
 if( row<0 || row>=SHAVE_HEIGHT )  return 0;
 // 0xxx0   0xxx0  0xxx0   0xxx0 for len==2
 // 0ppe0   00ppe  000ppe  ppe00
-if( !read_pixel(ch,cw,row,(INT)(e-3),d) && !read_pixel(ch,cw,row,(INT)(e+1),d) &&
-      (read_pixel(ch,cw,row,(INT)(e-2),d)||
-       read_pixel(ch,cw,row,(INT)(e-1),d)||
+if( !read_pixel(ch,cw,row,(int16_t)(e-3),d) && !read_pixel(ch,cw,row,(int16_t)(e+1),d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-2),d)||
+       read_pixel(ch,cw,row,(int16_t)(e-1),d)||
        read_pixel(ch,cw,row,e,d))  )
   return 1;
-if( !read_pixel(ch,cw,row,(INT)(e-4),d) && !read_pixel(ch,cw,row,e,d) &&
-      (read_pixel(ch,cw,row,(INT)(e-3),d)||
-       read_pixel(ch,cw,row,(INT)(e-2),d)||
-       read_pixel(ch,cw,row,(INT)(e-1),d))   )
+if( !read_pixel(ch,cw,row,(int16_t)(e-4),d) && !read_pixel(ch,cw,row,e,d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-3),d)||
+       read_pixel(ch,cw,row,(int16_t)(e-2),d)||
+       read_pixel(ch,cw,row,(int16_t)(e-1),d))   )
   return 1;
 
-if( !read_pixel(ch,cw,row,(INT)(e-5),d) && !read_pixel(ch,cw,row,(INT)(e-1),d) &&
-      (read_pixel(ch,cw,row,(INT)(e-4),d)||
-       read_pixel(ch,cw,row,(INT)(e-3),d)||
-       read_pixel(ch,cw,row,(INT)(e-2),d))   )
+if( !read_pixel(ch,cw,row,(int16_t)(e-5),d) && !read_pixel(ch,cw,row,(int16_t)(e-1),d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-4),d)||
+       read_pixel(ch,cw,row,(int16_t)(e-3),d)||
+       read_pixel(ch,cw,row,(int16_t)(e-2),d))   )
   return 1;
-if( !read_pixel(ch,cw,row,(INT)(e-2),d) && !read_pixel(ch,cw,row,(INT)(e-2),d) &&
-      (read_pixel(ch,cw,row,(INT)(e-1),d)||
+if( !read_pixel(ch,cw,row,(int16_t)(e-2),d) && !read_pixel(ch,cw,row,(int16_t)(e-2),d) &&
+      (read_pixel(ch,cw,row,(int16_t)(e-1),d)||
        read_pixel(ch,cw,row,e,d)||
-       read_pixel(ch,cw,row,(INT)(e-1),d))   )
+       read_pixel(ch,cw,row,(int16_t)(e-1),d))   )
   return 1;
 
 return 0;
 }
 
-static void pimples_deleting_one_line(lnhead *line,INT cw,INT ch,INT direct)
+static void pimples_deleting_one_line(lnhead *line,int16_t cw,int16_t ch,int16_t direct)
 //
 //  This procedure deletes pimples from one line in work raster
 //
 {
-INT      num_row, i, h;
+int16_t      num_row, i, h;
 interval *inter;
 
 h=line->h;  i=0;  num_row = line->row;
@@ -239,20 +239,20 @@ for( ; h ; h--,inter++,i++,num_row++)
     switch( inter->l )
       {
       case 1 :
-      if( enable_deleting_pimple(ch,cw,(INT)(num_row+1),(INT)(inter->e-2),3,direct) &&
-          enable_deleting_pimple(ch,cw,(INT)(num_row-1),(INT)(inter->e-2),3,direct) &&
-          !disable_deleting_pimple1(ch,cw,(INT)(num_row+1),inter->e,direct)  &&
-          !disable_deleting_pimple1(ch,cw,(INT)(num_row-1),inter->e,direct) )
-          clear_pixel(ch,cw,num_row,(INT)(inter->e-1),direct);
+      if( enable_deleting_pimple(ch,cw,(int16_t)(num_row+1),(int16_t)(inter->e-2),3,direct) &&
+          enable_deleting_pimple(ch,cw,(int16_t)(num_row-1),(int16_t)(inter->e-2),3,direct) &&
+          !disable_deleting_pimple1(ch,cw,(int16_t)(num_row+1),inter->e,direct)  &&
+          !disable_deleting_pimple1(ch,cw,(int16_t)(num_row-1),inter->e,direct) )
+          clear_pixel(ch,cw,num_row,(int16_t)(inter->e-1),direct);
         break;
       case 2 :
-      if( enable_deleting_pimple(ch,cw,(INT)(num_row+1),(INT)(inter->e-3),4,direct) &&
-          enable_deleting_pimple(ch,cw,(INT)(num_row-1),(INT)(inter->e-3),4,direct) &&
-          !disable_deleting_pimple2(ch,cw,(INT)(num_row+1),inter->e,direct)  &&
-          !disable_deleting_pimple2(ch,cw,(INT)(num_row-1),inter->e,direct) )
+      if( enable_deleting_pimple(ch,cw,(int16_t)(num_row+1),(int16_t)(inter->e-3),4,direct) &&
+          enable_deleting_pimple(ch,cw,(int16_t)(num_row-1),(int16_t)(inter->e-3),4,direct) &&
+          !disable_deleting_pimple2(ch,cw,(int16_t)(num_row+1),inter->e,direct)  &&
+          !disable_deleting_pimple2(ch,cw,(int16_t)(num_row-1),inter->e,direct) )
           {
-          clear_pixel(ch,cw,num_row,(INT)(inter->e-1),direct);
-          clear_pixel(ch,cw,num_row,(INT)(inter->e-2),direct);
+          clear_pixel(ch,cw,num_row,(int16_t)(inter->e-1),direct);
+          clear_pixel(ch,cw,num_row,(int16_t)(inter->e-2),direct);
           }
         break;
       }
@@ -262,30 +262,30 @@ return ;
 }
 
 
-static void pimples_deleting(cell *c,INT direct)
+static void pimples_deleting(cell *c,int16_t direct)
 //
 //  This procedure deletes pimples from image in work raster
 //
 {
  lnhead   *line;
- INT      ll;
- INT      cw=direct?((c->w+7)/8):((c->h+7)/8),ch=c->w;
+ int16_t      ll;
+ int16_t      cw=direct?((c->w+7)/8):((c->h+7)/8),ch=c->w;
 
-for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
     (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         pimples_deleting_one_line(line,cw,ch,direct);
 
 return;
 }
 
-static void jumps_deleting_one_line(lnhead *line,INT cw,INT ch)
+static void jumps_deleting_one_line(lnhead *line,int16_t cw,int16_t ch)
 //
 //  This procedure deletes pimples from one line in work raster
 //
 {
-INT      num_row, i, h;
+int16_t      num_row, i, h;
 interval *inter;
-INT      pb,pe, b,e, nb,ne;
+int16_t      pb,pe, b,e, nb,ne;
 
 h=line->h;
 if( h<3 ) return;
@@ -314,11 +314,11 @@ for( ; h ; h--,inter++,i++,num_row++)
   if( pe==ne && e==ne+1 && b>pb && b>nb ) // right pimples, left hole
   if( enable_shl(ch,cw,num_row,e) )
     {
-    clear_pixel(ch,cw,num_row,(INT)(e-1),1);
-    set_pixel  (ch,cw,num_row,(INT)(b-1),1);
+    clear_pixel(ch,cw,num_row,(int16_t)(e-1),1);
+    set_pixel  (ch,cw,num_row,(int16_t)(b-1),1);
     }
   if( pb==nb && b==nb-1 && e<pe && e<ne ) // right pimples, left hole
-  if( enable_shr(ch,cw,num_row,(INT)(b-1)) )
+  if( enable_shr(ch,cw,num_row,(int16_t)(b-1)) )
     {
     clear_pixel(ch,cw,num_row,b,1);
     set_pixel  (ch,cw,num_row,e,1);
@@ -328,10 +328,10 @@ for( ; h ; h--,inter++,i++,num_row++)
     if( b==nb && e==ne-1 ) // right hole
       set_pixel  (ch,cw,num_row,e,1);
     if( e==ne && b==nb+1 ) // left hole
-      set_pixel  (ch,cw,num_row,(INT)(b-1),1);
+      set_pixel  (ch,cw,num_row,(int16_t)(b-1),1);
     }
   if( nb==pb && b==nb+1 && ( e-b==ne-nb || e-b==pe-pb ) )
-    set_pixel  (ch,cw,num_row,(INT)(b-1),1);  // right hole
+    set_pixel  (ch,cw,num_row,(int16_t)(b-1),1);  // right hole
   if( ne==pe && e==ne-1 && ( e-b==ne-nb || e-b==pe-pb ) )
     set_pixel  (ch,cw,num_row,e,1);// left hole
   }
@@ -345,24 +345,24 @@ static void jumps_deleting(cell *c)
 //
 {
  lnhead   *line;
- INT      ll;
- INT      cw=((c->w+7)/8),ch=c->w;
+ int16_t      ll;
+ int16_t      cw=((c->w+7)/8),ch=c->w;
 
-for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
     (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         jumps_deleting_one_line(line,cw,ch);
 
 return;
 }
 
-Bool pimpleshave(cell *C, INT shave, INT incline)
+Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 //
 //  This procedure deletes pimples from image in cell *C.
 //
  {
  MN   *mn;
  cell *CC,*WW;
- INT   bd;
+ int16_t   bd;
  char df;
  uchar  svf;
 
@@ -379,7 +379,7 @@ bd=C->bdiff; df = C->difflg & 0xf0;
 if( shave )
  {
  pimples_deleting(C,1); // modify SHAVE_RASTER
- mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
+ mn=c_locomp(SHAVE_RASTER,(int16_t)((C->w+7)/8),C->h,C->r_row,C->r_col);
  if (!mn) return 0;
 
  WW=create_cell(mn,C,(char)bd, df);
@@ -397,13 +397,13 @@ if( shave )
   t_left_shift=8-WW->h%8;
  t_height=WW->w;
  t_width_b = (WW->h+7)/8;
- mn=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift));
+ mn=c_locomp(t_raster(),t_width_b,t_height,0,(int16_t)(-t_left_shift));
 			      // extraction components from t_raster
  if (!mn) {del_cell(WW);return 0;}
  CC=create_cell(mn,WW,(char)bd, df);
  pimples_deleting(CC,0); // modify SHAVE_RASTER
  del_cell(CC);
- mn=c_locomp(SHAVE_RASTER,(INT)((WW->w+7)/8),WW->h,WW->r_row,WW->r_col);
+ mn=c_locomp(SHAVE_RASTER,(int16_t)((WW->w+7)/8),WW->h,WW->r_row,WW->r_col);
  del_cell(WW);
  if (!mn) return 0;
  WW=create_cell(mn,C,(char)bd, df);
@@ -413,7 +413,7 @@ if( shave )
  }
  else
   { // without SHAVING : correct rotate defectes only
-  mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
+  mn=c_locomp(SHAVE_RASTER,(int16_t)((C->w+7)/8),C->h,C->r_row,C->r_col);
   if (!mn)
     return 0;
   WW=create_cell(mn,C,(char)bd, df);

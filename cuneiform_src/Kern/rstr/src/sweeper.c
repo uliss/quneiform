@@ -71,9 +71,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 
 extern uint16_t actual_resolution;
-extern INT idshv;
+extern int16_t idshv;
 
-static INT nx,ny,mstb;
+static int16_t nx,ny,mstb;
 static uchar scsweep[512];
 static uchar work_state=0;
 static uint32_t offset;
@@ -86,7 +86,7 @@ static void write_comp(pchar,LONG);
 
 #define ROK       50
 #define NBOXMAX   4096
-#define BXSZ      ((INT)((64*(LONG)actual_resolution)/300))
+#define BXSZ      ((int16_t)((64*(LONG)actual_resolution)/300))
 #define SMALL     ((8*actual_resolution)/300)
 #define BNDBX     32
 #define BND1BX    16
@@ -94,19 +94,19 @@ static void write_comp(pchar,LONG);
 
 static Bool badcell(cell *);
 static Bool near_garb(cell *);
-static Bool badglue(cell **,INT);
+static Bool badglue(cell **,int16_t);
 
 #define BIGANGLE  100
 #define NLETBLN    10
 #define GARBLETMAX  3
 #define DEFBASE    10
 
-extern INT nIncline;
-extern INT page_nIncline;
+extern int16_t nIncline;
+extern int16_t page_nIncline;
 
-INT delgarb()
+int16_t delgarb()
 {
-INT s,t,b3,ps,max;
+int16_t s,t,b3,ps,max;
 cell *c,*c1,*c2;
 B_LINES bl;
 extern Bool line_readyBL, line_handfragment;
@@ -222,7 +222,7 @@ static Bool badcell(cell *c)
 
 static Bool near_garb(cell *c)
  {
- INT i,imi,ima,j,jmi,jma,n;
+ int16_t i,imi,ima,j,jmi,jma,n;
 
  imi=(c->row<<line_scale)/BXSZ;
  ima=((c->row+c->h-1)<<line_scale)/BXSZ;
@@ -235,9 +235,9 @@ static Bool near_garb(cell *c)
  return FALSE;
  }
 
-static Bool badglue(cell **pc,INT direct)
+static Bool badglue(cell **pc,int16_t direct)
  {
- INT s,n;
+ int16_t s,n;
  cell *c;
  uchar let;
 

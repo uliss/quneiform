@@ -77,9 +77,9 @@ extern Bool pass4_in;   //флаг: второй проход по странице
                 возвращает указатель на него
   NB! шч сюы№°шї ъюьяюэхэЄ ьюцхЄ яюыєўшЄ№ё  фєёЄ!
 -------------------------------------------------------------------*/
-cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, uchar dflag)
+cell *comp_to_cell(cell *C, c_comp **list, int16_t N, char bdiff, uchar dflag)
 {
-  INT i,top,bot,left,right;
+  int16_t i,top,bot,left,right;
   cell *B;                       //текущий cell
 
   if ( N==0 ) return NULL;
@@ -101,8 +101,8 @@ cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, uchar dflag)
   B->h=bot-top;
   B->r_col=left;
   B->w=right-left;
-  B->row=B->r_row-(INT)((LONG)nIncline*B->r_col/2048);
-  B->col=B->r_col+(INT)((LONG)nIncline*B->r_row/2048);
+  B->row=B->r_row-(int16_t)((LONG)nIncline*B->r_col/2048);
+  B->col=B->r_col+(int16_t)((LONG)nIncline*B->r_row/2048);
   B->env=compose_comp(i,list);
   if ( N>1 ) B->cg_flag=c_cg_comp;
   if ( if_dust(B) & 0x0c )  set_dust(B);
@@ -117,9 +117,9 @@ cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, uchar dflag)
   col_to_one строит совокупный cell из n cell'ов списка list;
              возвращает указатель на него
 -------------------------------------------------------------------*/
-cell *col_to_one(cell **clist, INT n)
+cell *col_to_one(cell **clist, int16_t n)
  {
- INT i,top,bot,left,right;
+ int16_t i,top,bot,left,right;
  cell *c;
  c_comp *elist[MAX_SECT];
 
@@ -143,8 +143,8 @@ cell *col_to_one(cell **clist, INT n)
  c->h=bot-top;
  c->r_col=left;
  c->w=right-left;
- c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
- c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+ c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
+ c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
   if ( if_dust(c) & 0x0c )  set_dust(c);
   else                      set_bad(c);
   set_bad_cell(c);
@@ -175,7 +175,7 @@ static cell *overlap_cell( cell *C, cell *D )
   list[0]=C; list[1]=D;
   if (!(P=col_to_one(list,2)))   return NULL;
   r=(uchar*)save_raster(P);
-  mn1=c_locomp(r,(INT)((P->w+7)>>3),P->h,P->r_row,P->r_col);
+  mn1=c_locomp(r,(int16_t)((P->w+7)>>3),P->h,P->r_row,P->r_col);
   del_cell(P);
   if (mn1)
     if (!mn1->mnnext)            //склеились
@@ -222,7 +222,7 @@ Bool glue_overlap(cell *LC, cell *E)
               структуре vers_list; возвращает указатель на версии, если
               найдена, и NULL, если нет
 ---------------------------------------------------------------------*/
-seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list )
+seg_vers *find_vers( int16_t i1, int16_t i0, seg_vers **vers_list )
 {
   seg_vers *cur_vers;
 
@@ -240,7 +240,7 @@ seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list )
                указатель на обновленные версии
 ---------------------------------------------------------------------*/
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
-         INT i1, INT i0, SVERS *vers, INT ro, INT width, char gvar)
+         int16_t i1, int16_t i0, SVERS *vers, int16_t ro, int16_t width, char gvar)
 {
   if (!cur_vers && (*vers_list))           //-Rўлc //AK! crash //новый
   {
@@ -269,7 +269,7 @@ seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
   not_connect_sect  проверяет несвязность секции между i1-ым и i0-ым
                     сечениями; возвращает номер сечения-раздела
 ---------------------------------------------------------------------*/
-uchar not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list)
+uchar not_connect_sect(int16_t i1, int16_t i0, struct cut_elm *cut_list)
 {
   struct cut_elm *cur=&cut_list[i0],*last=&cut_list[i1];
 
@@ -283,9 +283,9 @@ uchar not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list)
           ie, возвращает номер следующей вершины, иначе - 0;
           cut_list - список сечений
 --------------------------------------------------------------*/
-INT on_path(INT i, INT ie, struct cut_elm *cut_list)
+int16_t on_path(int16_t i, int16_t ie, struct cut_elm *cut_list)
 {
-  INT next=0;
+  int16_t next=0;
   while (ie>i)
   {
     next=ie;
@@ -319,9 +319,9 @@ static char quote(cell *B)
 
 /*--------------------------------------------------------------
 --------------------------------------------------------------*/
-static INT up_dust_mon(cell *B1)
+static int16_t up_dust_mon(cell *B1)
  {
- INT h, w, row, dust_monus;
+ int16_t h, w, row, dust_monus;
  long cellsz, dustsz;
  cell * wc;
 
@@ -355,9 +355,9 @@ fa:
  cellsz = (h=B1->h) * (w=B1->w);
  dustsz = wc->h * wc->w;
  if (w < h)       // doubtful as multi_letter cell
-   dust_monus = (INT)(dustsz * MONdust * 32 / cellsz);
+   dust_monus = (int16_t)(dustsz * MONdust * 32 / cellsz);
  else
-   dust_monus = (INT)(dustsz * MONdust * 256 / cellsz);
+   dust_monus = (int16_t)(dustsz * MONdust * 256 / cellsz);
  if (dust_monus > MONdust) dust_monus = MONdust;
  return dust_monus & 0xfe;
  }
@@ -367,7 +367,7 @@ fa:
 -----------------------------------------------------------------*/
 static void mark_own_dust(cell *B)
 {
-  INT rc=B->r_col+B->w;
+  int16_t rc=B->r_col+B->w;
   cell *C=B->prev;
 
   while (dust(C))
@@ -385,7 +385,7 @@ static void mark_own_dust(cell *B)
 
 /*--------------------------------------------------------------
 --------------------------------------------------------------*/
-static INT discr_vers(cell *B1, INT mon, char all_vers)
+static int16_t discr_vers(cell *B1, int16_t mon, char all_vers)
  {
  version *v;  uchar c,chg=0;
  if (B1->nvers==0) return 0;
@@ -410,7 +410,7 @@ void adjust_3x5(Bool prerecog)
    if (!pass4_in)  glsnap('a',B,"");
    if ( B->w <= 3*B->h )
    {
-     INT dust_monus;
+     int16_t dust_monus;
 
      if (pass4_in)
      {
@@ -419,7 +419,7 @@ void adjust_3x5(Bool prerecog)
        if (prerecog)  set_bad_cell(B);
        if (may_glue(B))
        {
-         if (prerecog)  full_recog(B,NULL,(INT)(-((INT)trs2)),trs2);
+         if (prerecog)  full_recog(B,NULL,(int16_t)(-((int16_t)trs2)),trs2);
          if ( let(B) &&
               ((let=B->vers[0].let)=='m' || let=='n' || let==liga_rt) )
            if ( dust_monus=up_dust_mon(B) )
@@ -441,7 +441,7 @@ void adjust_3x5(Bool prerecog)
        }
        if ( let(B) && B->vers[0].prob<trs2 )  //ненадежные - как плохие
          set_bad(B);
-       full_recog(B,NULL,(INT)(-((INT)trs2)),trs2);
+       full_recog(B,NULL,(int16_t)(-((int16_t)trs2)),trs2);
        if ( let(B) && language != LANG_RUSSIAN ||
             B->nvers && memchr("мнпцы",B->vers[0].let,5) &&
 		    !is_russian_baltic_conflict(B->vers[0].let) // 17.07.2001 E.P.
@@ -485,7 +485,7 @@ void adjust_3x5(Bool prerecog)
 --------------------------------------------------------------------*/
 void cg_show_rast(cell *C, raster *r, char *msg, struct cut_elm *cut_list)
 {
-  INT   i,n;
+  int16_t   i,n;
   MN *mn1;
   cell *B,*CI[MAX_SECT];
   void *KIT;
@@ -494,7 +494,7 @@ void cg_show_rast(cell *C, raster *r, char *msg, struct cut_elm *cut_list)
 
   KIT=give_kit_addr();     //верхушка стека
 
-  if (!(mn1=c_locomp(r->pict,(INT)((r->w+7)>>3),r->h,r->top,r->left)))
+  if (!(mn1=c_locomp(r->pict,(int16_t)((r->w+7)>>3),r->h,r->top,r->left)))
   {
     glsnap('a',C,"locomp error"); return;
   }
@@ -522,9 +522,9 @@ void cg_show_rast(cell *C, raster *r, char *msg, struct cut_elm *cut_list)
 /*-----------------06-27-95 01:28pm------------------------------
   cg_show_list  выводит на экран изображение списка  N cell'ов cells
 ---------------------------------------------------------------*/
-void cg_show_list(cell **cells, INT N, uchar *msg)
+void cg_show_list(cell **cells, int16_t N, uchar *msg)
 {
-  INT i;
+  int16_t i;
   cell *B;
   c_comp *complist[MAX_SECT];
   void *KIT;
@@ -546,11 +546,11 @@ void cg_show_list(cell **cells, INT N, uchar *msg)
 /*------------------------------------------------------------------
   show_dp  выводит на экран состояние графа ДП
 ------------------------------------------------------------------*/
-char *show_dp( puchar s, struct cut_elm *cut_list, INT i0)
+char *show_dp( puchar s, struct cut_elm *cut_list, int16_t i0)
 {
   SVERS  *vers;
   char c;
-  INT x,i,i1 = (i0>15) ? i0-14 : 1;  //на экран - последние 15 вершин
+  int16_t x,i,i1 = (i0>15) ? i0-14 : 1;  //на экран - последние 15 вершин
 
   *s++='\n';
   for (i=i1; i<=i0; i++)  s += sprintf(s,"%5d",i);

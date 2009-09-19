@@ -97,9 +97,9 @@ extern char *tableBOX;
 extern puchar fontBOX/*,auto_pool*/;    /* BOX table for font  */
 puchar  omniBOX;    /* BOX save table for omni  */
 
-INT best_answer_BOX;
-static void store_bests(INT);
-static void store_all_bests(INT);
+int16_t best_answer_BOX;
+static void store_bests(int16_t);
+static void store_all_bests(int16_t);
 static indBOX *wiptr, *indp;
 static uchar curlet;
 
@@ -120,7 +120,7 @@ typedef struct list_BOX LST;
 static void store_new_bests(uint16_t ibcos, char pl, char ff,char n_rsn);
 
 
-INT  isKlasterFull( INT typl )
+int16_t  isKlasterFull( int16_t typl )
 {
    if( ((LST *)(full_list[typl]))->let )     // yes such letter in table
       return  1;
@@ -128,7 +128,7 @@ INT  isKlasterFull( INT typl )
    return  0;
 }/*isWideLetter*/
 
-static void store_many(uint16_t ibcos, char let, char ff, INT typl)
+static void store_many(uint16_t ibcos, char let, char ff, int16_t typl)
 {
      if(language==LANG_RUSSIAN) return;
   switch (let)
@@ -218,9 +218,9 @@ static void store_new_bests(uint16_t ibcos, char pl, char ff,char n_rsn)
 
 static char rbfo, rbfc, rbfv, rbfw, rbfx, rbfs, rbfp, rbfz, rbil;
 
-static INT letagain(char curleta,INT fl)
+static int16_t letagain(char curleta,int16_t fl)
 {
-   INT fl1, fl2, fl4;
+   int16_t fl1, fl2, fl4;
    fl1 = fl;
    fl2 = fl*2;
    fl4 = fl*4;
@@ -346,7 +346,7 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 //	ON EXIT : ans - sequence of best choices that finishes with ltr=0.
 //
 {
-INT i, hyp,  fll,cnt;
+int16_t i, hyp,  fll,cnt;
 version *hypa;
 uint16_t probest;
 uchar ocurlet;
@@ -438,8 +438,8 @@ if (!fll)                             // all not in table - make .99 to all
 return;
 }
 
-Bool pidx_skip(INT h, INT w,uchar t_let);
-void embBOXF(servBOX *SBOX, INT typl, Bool erection)
+Bool pidx_skip(int16_t h, int16_t w,uchar t_let);
+void embBOXF(servBOX *SBOX, int16_t typl, Bool erection)
 //
 //	This procedure checks r_raster against compressed images from
 //  table BOX of letters given by tgrhyp.
@@ -448,7 +448,7 @@ void embBOXF(servBOX *SBOX, INT typl, Bool erection)
 //	ON EXIT : ans - sequence of best choices that finishes with ltr=0.
 //
 {
-INT i, flp, flprop;
+int16_t i, flp, flprop;
 uchar curr_font;
 uint16_t curr_cosinus;
 PWORD vectp;
@@ -484,7 +484,7 @@ while ((curlet = ((LST *)list)->let) != 0)
             if (flprop)
                 {
                 nAll++;
-                i = (INT)((*scalar)(wmatr->vect,vect)>>15);
+                i = (int16_t)((*scalar)(wmatr->vect,vect)>>15);
 
                 if ((uint16_t)i > (uint16_t)curr_cosinus)
                     {
@@ -508,7 +508,7 @@ while ((curlet = ((LST *)list)->let) != 0)
             if (flprop && !(wmatr->bnd&0x200) )
                 {
                 nAll++;
-                i = (INT)((*scalar)(wmatr->vect,vect)>>15);
+                i = (int16_t)((*scalar)(wmatr->vect,vect)>>15);
 
                 if ((uint16_t)i > (uint16_t)curr_cosinus)
                     {
@@ -549,7 +549,7 @@ allK += nAll;
 //----------------- Sorting events by BOX -------------------------------
 void wcomp_to_box(PWORD vector);
 
-void sort_events_box (PWORD list, INT nl)
+void sort_events_box (PWORD list, int16_t nl)
 {
  PWORD lend, lcur, lcp;
  PWORD ncur, ncp;
@@ -612,9 +612,9 @@ static void straight_BOX(puchar free)
  //while (free -(puchar)m > 0) { m->list *= sizeof(elmBOX); m++; }
 }
 
-static puchar list_BOX(puchar free, INT typl)
+static puchar list_BOX(puchar free, int16_t typl)
 {
- INT flp;
+ int16_t flp;
  uchar tlw;
  register unsigned ocurlet;
  uint16_t list;
@@ -741,7 +741,7 @@ void correct_letters_pidx_table(void);
 
 puchar load_BOX(puchar free)
 {
- INT i;
+ int16_t i;
  correct_let_tables(); // overload lang depending tables А╛. Д═╘╚ ACC_TABS.c
  correct_letters_pidx_table(); // overload proportinal tab
  straight_BOX(free);
@@ -758,7 +758,7 @@ puchar load_BOX(puchar free)
 }
 
 
-void load_font( INT  font )
+void load_font( int16_t  font )
 {
 
  if( font ){
@@ -776,7 +776,7 @@ void load_font( INT  font )
 
 puchar  preload_font_BOX( puchar free )
 {
- INT   i;
+ int16_t   i;
 // LONG  l;
 // uchar  workLetter;
 // StructTree *tmp=(StructTree *)auto_pool;               //AK

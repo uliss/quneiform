@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef SECOND_PASS
   RSTAT    rst[RST_BUFF_SIZE];
-  INT      rst_last=0;
+  int16_t      rst_last=0;
   uchar     ast[MAX_ARTS];
 #endif
 
@@ -99,22 +99,22 @@ extern uchar multy_language ;
 /*=================================================================== */
 /*                    Local  functions prototypes                     */
 /*=================================================================== */
-  static INT outpos_repl (SOBJ * obj,INT pos, uchar cnew);
-  static INT outpos_repl_bl (SOBJ * obj, SPART * part,INT pos, INT anew);
-  static INT outpart (SOBJ * obj, SPART * part);
-  static INT outpos_ins_bl (SOBJ * obj, SPART *part, INT pos, INT anew);
-  static INT outpos_ins (SOBJ * obj,INT pos, uchar cnew);
-  static INT outpos_del (SOBJ * obj, INT pos);
-  static INT outpos_context ( SPART * part, INT pos, uchar * c);
-  static INT  getpos_bel (SOBJ * obj, INT pos, LT  ** beg,
-                          LT  ** end, INT * lth );
-  static INT corrpos_lt (SOBJ * obj, INT pos, LONG lth);
-  static INT shift_left(INT v_s,struct segm * cur_segm,
+  static int16_t outpos_repl (SOBJ * obj,int16_t pos, uchar cnew);
+  static int16_t outpos_repl_bl (SOBJ * obj, SPART * part,int16_t pos, int16_t anew);
+  static int16_t outpart (SOBJ * obj, SPART * part);
+  static int16_t outpos_ins_bl (SOBJ * obj, SPART *part, int16_t pos, int16_t anew);
+  static int16_t outpos_ins (SOBJ * obj,int16_t pos, uchar cnew);
+  static int16_t outpos_del (SOBJ * obj, int16_t pos);
+  static int16_t outpos_context ( SPART * part, int16_t pos, uchar * c);
+  static int16_t  getpos_bel (SOBJ * obj, int16_t pos, LT  ** beg,
+                          LT  ** end, int16_t * lth );
+  static int16_t corrpos_lt (SOBJ * obj, int16_t pos, LONG lth);
+  static int16_t shift_left(int16_t v_s,struct segm * cur_segm,
                           char * cur_symb);
-  static INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew);
+  static int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew);
 
 #ifdef SECOND_PASS
-  static void collect_repl_stat(SOBJ *,INT npos,INT nalt);
+  static void collect_repl_stat(SOBJ *,int16_t npos,int16_t nalt);
 #endif
 
 
@@ -150,10 +150,10 @@ char * find_byte_flag()
    The best part-chain is specified by obj->opt_part[]
 								       */
 /***********************************************************************/
-INT outobj (SOBJ * obj, SPART * part)
+int16_t outobj (SOBJ * obj, SPART * part)
 
 {
- INT beg, ei, pi, pos;
+ int16_t beg, ei, pi, pos;
 
  beg = 0;                             /* previous valuable pos              */
  for (ei=1; ei<=obj->pos_part_nmb; ei++) /* scan best parts                 */
@@ -172,7 +172,7 @@ INT outobj (SOBJ * obj, SPART * part)
         //else
         if(ei!=obj->pos_part_nmb)
 	 {
-          INT dummy;
+          int16_t dummy;
 	  for(dummy=ei+1;dummy<=obj->pos_part_nmb;dummy++)
 	    if(obj->opt_part[dummy]) break;
 	  if(
@@ -191,8 +191,8 @@ INT outobj (SOBJ * obj, SPART * part)
          //else
          if(ei!=obj->pos_part_nmb)
 	  {
-           INT dummy;
-           INT dm;
+           int16_t dummy;
+           int16_t dm;
 	   for(dummy=ei+1;dummy<=obj->pos_part_nmb;dummy++)
 	     if(obj->opt_part[dummy]) break;
 	   if(
@@ -214,12 +214,12 @@ INT outobj (SOBJ * obj, SPART * part)
    All changes of ED-file within the part are being considered and done
 								       */
 /***********************************************************************/
- INT outpart (SOBJ * obj, SPART * part)
+ int16_t outpart (SOBJ * obj, SPART * part)
 
 {
- INT pa;       /* part->pos[pa] part-pos-numbers                           */
- INT pa_x=0;   /* displacement of pa for words: part->word->altn[pa+pa_x]  */
- INT pi,       /* curr obj-pos[pi]                                         */
+ int16_t pa;       /* part->pos[pa] part-pos-numbers                           */
+ int16_t pa_x=0;   /* displacement of pa for words: part->word->altn[pa+pa_x]  */
+ int16_t pi,       /* curr obj-pos[pi]                                         */
      ai,       /* curr obj->pos[pi]->alt[ai]                               */
      arti;     /* current art-change-id                                    */
 
@@ -288,7 +288,7 @@ INT outobj (SOBJ * obj, SPART * part)
       {                     	/* Yes                                     */
        pa_x++;                  /* shift in object-pos-s                   */
        ai = part->word->altn[pa+pa_x]; /*alt ind for 1-st pos of art-change*/
-       {INT ret;
+       {int16_t ret;
 	if (artbase[arti].objts2 & T_BLANK)/* ins blank=> alt from spec pos */
 	 ret=outpos_ins_bl (obj, part, pi, ai);
 	else                     /* not blank => insert from artbase        */
@@ -376,8 +376,8 @@ Outpart_ok:
    The context is to be taken into account
 								       */
 /***********************************************************************/
-INT outpos_repl_bl (SOBJ * obj, SPART * part,
-                    INT pos, INT anew)
+int16_t outpos_repl_bl (SOBJ * obj, SPART * part,
+                    int16_t pos, int16_t anew)
 
 {
  LT  * lt1;
@@ -403,7 +403,7 @@ return(OK);
    by the new alt, specified by char 'cnew'
 								       */
 /***********************************************************************/
- INT outpos_repl (SOBJ * obj, INT pos, uchar cnew)
+ int16_t outpos_repl (SOBJ * obj, int16_t pos, uchar cnew)
 
 {
  LT  * lt1;
@@ -435,7 +435,7 @@ return(OK);
    with the new alt, specified by "anew" alt
 								       */
 /***********************************************************************/
-INT outpos_exch (SOBJ * obj, INT pos, INT anew)
+int16_t outpos_exch (SOBJ * obj, int16_t pos, int16_t anew)
 
 {
  LT  * lt1;
@@ -465,8 +465,8 @@ return(OK);
    The context is to be taken into account
 								       */
 /***********************************************************************/
-INT outpos_ins_bl (SOBJ * obj, SPART * part,
-                   INT pos, INT anew)
+int16_t outpos_ins_bl (SOBJ * obj, SPART * part,
+                   int16_t pos, int16_t anew)
 
 {
  /*LT  * lt1;*/
@@ -499,7 +499,7 @@ INT outpos_ins_bl (SOBJ * obj, SPART * part,
 /* This procedure inserts 1-st char "cnew" as a new position (!) after "pos"
 								       */
 /***********************************************************************/
- INT outpos_ins (SOBJ * obj,INT pos, uchar cnew)
+ int16_t outpos_ins (SOBJ * obj,int16_t pos, uchar cnew)
 
 {
  if(outpos_ins_shift (obj, pos, cnew)==YES)
@@ -529,8 +529,8 @@ return(OK);
    if the convertion required according to the word's context
 								       */
 /***********************************************************************/
-INT outpos_context ( SPART * part,
-                   INT pos, uchar * c)
+int16_t outpos_context ( SPART * part,
+                   int16_t pos, uchar * c)
 
 {
  if (part->word->type & T_LOW)          /*???&& (!(obj->type & T_DIG)) )*/
@@ -550,7 +550,7 @@ return (OK);
 /* This procedure inserts 1-st char "cnew" as a new position (!) after "pos"
 								       */
 /***********************************************************************/
-INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew)
+int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew)
 
 {
  struct segm  * savesegm;
@@ -560,11 +560,11 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew)
  struct segm  * segm;        /* segm of where to insert                */
  LT  * symb;      /* end of pos, i.e. where to insert       */
  LT  * lt;        /* beg of pos,after which to insert       */
- INT lth=0;
+ int16_t lth=0;
  /*struct segm  *tmp;*/
  LONG shift=0;
- INT endposp, endpos;
- INT pi;                         /* curr pos                               */
+ int16_t endposp, endpos;
+ int16_t pi;                         /* curr pos                               */
 
  savesegm=SPQ.ns_segm;
  savesymb=SPQ.ns_symb;
@@ -602,7 +602,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, uchar cnew)
       }
     }
 
-   getpos_bel (obj, (INT)(pi - 1), &lt, &symb, &lth);/* get beg(lt),end(symb) & lth */
+   getpos_bel (obj, (int16_t)(pi - 1), &lt, &symb, &lth);/* get beg(lt),end(symb) & lth */
    SPQ.ns_symb = (char  *)(symb); /* set SPQ.ns_symb via last pos     */
    /* ????SPQ.ns_symb = wrdimg[i-1].source+( (pi-1==pos) ? shift:0); */
   }
@@ -626,15 +626,15 @@ return(OK);
 /* This procedure delete all alts of obj->pos[pos]
 								       */
 /***********************************************************************/
- INT outpos_del (SOBJ * obj, INT pos)
+ int16_t outpos_del (SOBJ * obj, int16_t pos)
 
 {
  struct segm  * segm;          /* curr pos segm   */
  LT  * symb;        /* end of curr pos */
  LT  * lt;          /* beg of curr pos */
- INT    lth=0;
- INT endposp, endpos;
- INT pi;                           /* curr pos        */
+ int16_t    lth=0;
+ int16_t endposp, endpos;
+ int16_t pi;                           /* curr pos        */
 
  getpos_bel (obj, pos, &lt, &symb, &lth);  /* get beg(lt), end(symb) & lth */
  segm = obj->pos[pos].tif_ref.segm;        /* segm arg of the pos          */
@@ -666,10 +666,10 @@ return(OK);
     obj->pos[pos].alt[..].lt
 									  */
 /* ********************************************************************** */
-INT corrpos_lt (SOBJ * obj, INT pos, LONG lth)
+int16_t corrpos_lt (SOBJ * obj, int16_t pos, LONG lth)
 
 {
- INT ai;
+ int16_t ai;
  obj->pos[pos].lt=(LT *)
    ((char  *)(obj->pos[pos].lt)+lth);
 			  /* correct pos                 */
@@ -690,10 +690,10 @@ INT corrpos_lt (SOBJ * obj, INT pos, LONG lth)
     cur_symb - address of rightmost ed_symb to shift
 									  */
 /* ********************************************************************** */
-INT shift_left(INT v_s,struct segm * cur_segm, char * cur_symb)
+int16_t shift_left(int16_t v_s,struct segm * cur_segm, char * cur_symb)
  {
   char  *c;
-  /*INT l;*/
+  /*int16_t l;*/
   char  *from;
   char  *to;
   char  *end;
@@ -742,10 +742,10 @@ INT shift_left(INT v_s,struct segm * cur_segm, char * cur_symb)
    as well as total length of all alternatives of the pos
 								       */
 /***********************************************************************/
-INT  getpos_bel (SOBJ * obj, INT pos,
+int16_t  getpos_bel (SOBJ * obj, int16_t pos,
                 LT  ** beg,
                 LT  ** end,
-                INT * lth
+                int16_t * lth
 	       )
 {
  *lth = 0;
@@ -765,7 +765,7 @@ INT  getpos_bel (SOBJ * obj, INT pos,
 }
 /***********************************************************************/
 char suppress_voc = 0;
- INT setobj_blue(SOBJ *obj)
+ int16_t setobj_blue(SOBJ *obj)
  {
   int i;
   if (suppress_voc) return (OK);	/* no paintings */
@@ -776,7 +776,7 @@ char suppress_voc = 0;
   return(OK);
   }
 /*********************************************************************/
- INT setpart_blue(SOBJ *obj,INT beg, INT end)
+ int16_t setpart_blue(SOBJ *obj,int16_t beg, int16_t end)
   { register i = 0;
 #ifdef  RUS_ENG_LANG
 if (multy_language&&language==LANG_RUSSIAN)
@@ -795,10 +795,10 @@ if (multy_language&&language==LANG_RUSSIAN)
 /*****************************************************************/
 #ifdef SECOND_PASS
 
- void collect_repl_stat(SOBJ *obj,INT npos,INT nalt)
+ void collect_repl_stat(SOBJ *obj,int16_t npos,int16_t nalt)
 {
  if( rst_last < RST_BUFF_SIZE)
-  { register INT i;
+  { register int16_t i;
     register uchar was,be,ex=No;
     was=obj->pos[npos].alt[0].orig.code;
      be=obj->pos[npos].alt[nalt].orig.code;

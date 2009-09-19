@@ -129,14 +129,14 @@
 extern uchar fax1x2;
 extern char db_pass;
 extern char fbg;
-extern INT line_number;
+extern int16_t line_number;
 /***** Common variables and functions **********/
 ABRIS_EXTERN B_LINES bases;
-ABRIS_EXTERN INT wint; // work integer variable
+ABRIS_EXTERN int16_t wint; // work integer variable
 ABRIS_EXTERN uchar wbyte; // work uchar variable
 ABRIS_EXTERN char let_mon[let_monN], mon_fl;
-ABRIS_EXTERN INT abriflag, ncells, fullh, midh, midw, fullw, cprob;
-ABRIS_EXTERN INT gl_mincol, gl_minrow, gl_maxcol, gl_maxrow;
+ABRIS_EXTERN int16_t abriflag, ncells, fullh, midh, midw, fullw, cprob;
+ABRIS_EXTERN int16_t gl_mincol, gl_minrow, gl_maxcol, gl_maxrow;
 ABRIS_EXTERN uchar lmax, lmin1, lmin2, lxmin11, lxmin12, lxmin21, lxmin22,
 		lxmax1, lxmax2, ljmp1, ljmp2, ljmp, leftfl; // left abris done flag
 ABRIS_EXTERN uchar rmax, rmin1, rmin2, rxmin11, rxmin12, rxmin21, rxmin22,
@@ -149,9 +149,9 @@ ABRIS_EXTERN uchar tmax, tmin1, tmin2, txmin11, txmin12, txmin21, txmin22,
 		txmax1, txmax2, topfl; // top abris done flag
 ABRIS_EXTERN cell *scl;
 ABRIS_EXTERN uchar letter;
-ABRIS_EXTERN INT total_num_black_int;
-ABRIS_EXTERN INT total_lth_inter_white;
-ABRIS_EXTERN INT total_lth_black;
+ABRIS_EXTERN int16_t total_num_black_int;
+ABRIS_EXTERN int16_t total_lth_inter_white;
+ABRIS_EXTERN int16_t total_lth_black;
 ABRIS_EXTERN uchar bold_flag;
 ABRIS_EXTERN uchar num_lines_of_comp;
 ABRIS_EXTERN uchar l_abr[128], r_abr[128], // left and right abrises
@@ -162,18 +162,18 @@ ABRIS_EXTERN uchar l_abr[128], r_abr[128], // left and right abrises
 ABRIS_EXTERN uchar histo_max_value;
 
 /********** functions from module ABRTOOLS.C are common use *****************/
-uchar a_rb_corner(INT);
+uchar a_rb_corner(int16_t);
 uchar rb_corner();
 uchar round_rb_corner();
-uchar new_prob(INT penalty);
-uchar test_bottom_corner(puchar abris, INT *size);
-INT Let_bint_index(char Let);
-INT two_int_over_b2(cell *curc, INT *loc_2_int);
+uchar new_prob(int16_t penalty);
+uchar test_bottom_corner(puchar abris, int16_t *size);
+int16_t Let_bint_index(char Let);
+int16_t two_int_over_b2(cell *curc, int16_t *loc_2_int);
 uchar r_tail(uchar);
-INT gap_in_side(uchar from, uchar to, uchar code_func, INT tresh, uchar *flit);
+int16_t gap_in_side(uchar from, uchar to, uchar code_func, int16_t tresh, uchar *flit);
 void get_max_min(puchar func, uchar from, uchar to, puchar fmax, puchar fmin,
 		puchar x_fmax, puchar x_fmin);
-INT make_histo(uchar *array, uchar max_num);
+int16_t make_histo(uchar *array, uchar max_num);
 void make_abris(s_glue *GL, cell *cl); //AK. 07.03.97
 void make_wid();
 void make_left_max();
@@ -187,9 +187,9 @@ uchar monotonous_increase(puchar func, uchar from, uchar to, puchar last_incr,
 		uchar tresh);
 uchar find_2int_zone(uchar from, uchar to, puchar beg, puchar end);
 uchar find_1int_zone(uchar from, uchar to, puchar beg, puchar end);
-INT top_end_bottom_weights_delta();
+int16_t top_end_bottom_weights_delta();
 void construct_line_by_two_points(uchar x1, uchar y1, uchar x2, uchar y2);
-INT get_x_coord(uchar y_coord);
+int16_t get_x_coord(uchar y_coord);
 uchar test_against_convex(puchar func, uchar from, uchar to);
 void make_inter_white_histo();
 
@@ -209,7 +209,7 @@ uchar D_filt();
 uchar B_filt();
 uchar A_filt();
 uchar c_filt();
-uchar o_filt(INT);
+uchar o_filt(int16_t);
 uchar d_filt();
 uchar v_filt();
 uchar left_angle_braket_filt();

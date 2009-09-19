@@ -78,7 +78,7 @@ static char let_mind[80] = {
 
 void apply_monus(cell *cl)
 {
- INT i, j;
+ int16_t i, j;
  if (mon_fl == 0) return;
  for (i=0; i<let_monN; i++)
    if ((j=let_mon[i]))
@@ -86,7 +86,7 @@ void apply_monus(cell *cl)
 }
 
 
-INT abris(s_glue *GL, cell *cl, uchar Let, INT prob)
+int16_t abris(s_glue *GL, cell *cl, uchar Let, int16_t prob)
 {
 
  scl=cl;    letter = Let; cprob = prob;
@@ -164,7 +164,7 @@ uchar s_filt(cell *cl)
 #define PNL_1LN     20      // Just 1 line in section at specific level (32)
 #define SMALL_KEG   14
 
- INT  i, mon;
+ int16_t  i, mon;
  mon=0;
 
  cprob = o_filt(0x01);
@@ -271,7 +271,7 @@ SF_Bidx:
 
 uchar D_filt()
 {
- INT  pen;
+ int16_t  pen;
  uchar dev, wfrom, wto, lcv;
  uchar h_max, h_min, h_xmax, h_xmin;
 
@@ -297,7 +297,7 @@ DF_Ret:
 
 uchar B_filt()
 {
- INT  pen;
+ int16_t  pen;
  uchar fl, dev, wfrom, lth;
 
     pen = 0;
@@ -346,7 +346,7 @@ BF_Ret:
 #define MAX_PEN_FOR_ONE_LEG  100
 uchar A_filt()
 {
- INT  pen, i;
+ int16_t  pen, i;
 
     pen = 0;
     for ( i = fullh - 2; i > fullh - (midh>>1) - 1; i-- )
@@ -364,7 +364,7 @@ uchar A_filt()
 
 uchar c_filt()
 {
- INT  pen, top_bot_delta, ww1, ww2;
+ int16_t  pen, top_bot_delta, ww1, ww2;
  uchar fl, wi, wi0, wi1, wi2, i;
 
  pen = 0;
@@ -543,7 +543,7 @@ CF_Ret:
 
 uchar a_filt()
 {
- INT i, pen;
+ int16_t i, pen;
  uchar  prev, fl, fl_tail;
 
  pen = 0;
@@ -619,8 +619,8 @@ AF_BintIndexTest:
 
 uchar M_filt()
 {
- INT pen;
- INT i1, i2, dev, gap;
+ int16_t pen;
+ int16_t i1, i2, dev, gap;
  uchar flit, i3, fax_corr, mode_linh;
 
  pen=0; flit=0; fax_corr = 0;
@@ -719,7 +719,7 @@ MF_Ret:
 
 uchar R_filt()
 {
- INT pen;
+ int16_t pen;
  uchar fl, dev, wfrom;
 
   pen=0;  dev = MAX( fullh / 10, 1 );
@@ -753,8 +753,8 @@ RF_Ret:
 
 uchar HH_filt()
 {
- INT  pen;
- INT  dev, gap;
+ int16_t  pen;
+ int16_t  dev, gap;
  uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;
@@ -832,9 +832,9 @@ uchar HH_filt()
 #define PNL_JMP_RS 20
 uchar w_filt()
 {
- INT pen, i, i3, j1, j2, db;
+ int16_t pen, i, i3, j1, j2, db;
  uchar sb, nb, flat_side, dps, jmp, fl_ev_vers, dp1, dp2, fl, pnl_rs;
- INT    arm1, arm2;
+ int16_t    arm1, arm2;
  pen=0;
 
    if ( ( ( scl->nvers == 1 ) ||
@@ -1085,9 +1085,9 @@ WF_Ret:
 }
 
 
-uchar o_filt(INT f)
+uchar o_filt(int16_t f)
 {
- INT pen, fl, i, i1, i2, i3, i4, j1, j2, j3, j4;
+ int16_t pen, fl, i, i1, i2, i3, i4, j1, j2, j3, j4;
  uchar *lp1, pv, cv;
  i1=fullh-1; i2=i1-1; i3=i2-1; i4=i3-1;
  j1=fullw-1; j2=j1-1; j3=j2-1; j4=j3-1;
@@ -1362,7 +1362,7 @@ getout:
 
 uchar left_angle_braket_filt()
 {
-INT     pen;
+int16_t     pen;
 uchar    tresh;
 
     pen = 0;
@@ -1385,7 +1385,7 @@ uchar    tresh;
 }
 
 {
-    INT lcv;
+    int16_t lcv;
     tresh = MIN( 2, fullh/20 );
     lcv = constancy_vally_lth( r_abr, (uchar)(midh - (midh>>1)),
                                         (uchar)(midh + (midh>>1)), tresh );
@@ -1406,7 +1406,7 @@ LAB_Ret:
 
 uchar right_angle_braket_filt()
 {
-INT     pen;
+int16_t     pen;
 uchar    tresh;
 
     pen = 0;
@@ -1428,7 +1428,7 @@ uchar    tresh;
     pen += test_against_convex( r_abr, mid_bound2, (uchar)MIN( fullh-1, fullh-tresh ) );
 }
 {
-    INT lcv;
+    int16_t lcv;
     tresh = MIN( 2, fullh/20 );
     lcv = constancy_vally_lth( l_abr, (uchar)(midh - (midh>>1)),
                                         (uchar)(midh + (midh>>1)), tresh );
@@ -1448,7 +1448,7 @@ RAB_Ret:
 uchar ss_filt()
 {
 uchar wi, wi1, wi2;
-INT pen, degree;
+int16_t pen, degree;
 
     pen = 0;
     wi = test_bottom_corner( l_abr, &degree );
@@ -1493,7 +1493,7 @@ INT pen, degree;
 uchar k_filt()
 {
 uchar wi, wi1, fl;
-INT pen, degree, numi_mode_val;
+int16_t pen, degree, numi_mode_val;
 
    pen = 0;
    wi = test_bottom_corner( l_abr, &degree );
@@ -1537,8 +1537,8 @@ KF_Ret:
 #define PNL_X_FLAT_SIDE 40
 uchar x_filt()
 {
-INT wi, tresh;
-INT pnl;
+int16_t wi, tresh;
+int16_t pnl;
 
    pnl = 0;
 
@@ -1565,10 +1565,10 @@ XF_Ret:
 
 uchar d_filt()
 {
-INT twoint, lgap, i;
+int16_t twoint, lgap, i;
 uchar h14, h23;
 uchar b_max, b_min, b_x_max, b_x_min, b_end;
-INT pnl;
+int16_t pnl;
 
   twoint = 0;   pnl = 0;
 
@@ -1596,7 +1596,7 @@ INT pnl;
   {
    if ( fax1x2 )
     {
-     INT j,k;
+     int16_t j,k;
 	 for ( j=0, k=0, i=MAX(twoint,0); ((i < fullh-2) && k<5 && i < 127); k++,i++ )
       {
         if ( ( linh[i] >= 3 ) && ( linh[i+1] >= 3 ) )
@@ -1652,7 +1652,7 @@ DF_around:
 
 uchar v_filt()
 {
-INT   pen;
+int16_t   pen;
 uchar  wi1, wi2;
 
     pen = 0;  wi1 = wi2 = (fullh/6);
@@ -1663,7 +1663,7 @@ uchar  wi1, wi2;
 
 uchar q_filt()
 {
-INT pnl, wi;
+int16_t pnl, wi;
 uchar  i, extr_min, extr_min_pos, dif, wpos;
 
  pnl = 0;
@@ -1699,7 +1699,7 @@ uchar  i, extr_min, extr_min_pos, dif, wpos;
 
 uchar Dig_6_filt()
 {
-  INT   pen;
+  int16_t   pen;
   uchar  i, sumb, max_sum, min_sum, max_x_sum, min_x_sum;
 
   pen = 0;
@@ -1743,7 +1743,7 @@ D6F_Ret:
 uchar E_filt()
 {
 uchar tbc;
-INT pen;
+int16_t pen;
 
     pen = 0;
     tbc = monotonous_decrease( l_abr, (uchar)(midh - (midh>>1)), (uchar)(midh + (midh>>1)),
@@ -1760,7 +1760,7 @@ INT pen;
     return new_prob( pen );
 }
 
-INT h_filt(cell *c, INT prob, s_glue *GL, uchar h_or_b_Let)
+int16_t h_filt(cell *c, int16_t prob, s_glue *GL, uchar h_or_b_Let)
 {
  lnhead *Lp1, *Lp2;
  interval *int1;
@@ -1769,7 +1769,7 @@ INT h_filt(cell *c, INT prob, s_glue *GL, uchar h_or_b_Let)
 
  uchar intbeg1, intend1, intlth1,  intbeg2, intend2, intlth2, fax_corr;
  uchar h14, h23;
- INT  Lc1, lc1, pnl, nc,
+ int16_t  Lc1, lc1, pnl, nc,
       hbeg, hend, rowd, cold;
 
  cprob=prob;
@@ -1874,8 +1874,8 @@ UpperGap:
 
 uchar CR_filt()
 {
- INT  pen;
- INT  dev, gap;
+ int16_t  pen;
+ int16_t  dev, gap;
  uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;
@@ -1925,8 +1925,8 @@ uchar CR_filt()
 
 uchar yu_filt()
 {
- INT  pen;
- INT  dev, gap;
+ int16_t  pen;
+ int16_t  dev, gap;
  uchar flit, i3, i1, i2;
 
  pen=0; flit = 0;

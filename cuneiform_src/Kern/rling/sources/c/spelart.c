@@ -91,8 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern STD std;
 extern uchar fax1x2;
-extern INT ABCSize;
-extern INT vocs_NOK;
+extern int16_t ABCSize;
+extern int16_t vocs_NOK;
 LT stddig[] =
   {
     {'0',0}, {'1',0}, {'2',0}, {'3',0}, {'4',0}, {'5',0},
@@ -102,15 +102,15 @@ LT stddig[] =
 /*************            Function  Prototypes.       *********************/
 /**************************************************************************/
 
-static INT nextart (SOBJ * obj);
-static INT setart (SOBJ * obj);
-static INT  checkart_permit (SOBJ * obj);
-static INT checkart (SOBJ * obj, INT pi1, INT pi2, struct artstr * a);
-static INT checkart1 (SOBJ * obj, INT pi1, INT pi2, struct artstr * a);
-static INT  set_act_art (SOBJ * obj, INT act_art[]);
-static INT  setart_new (SOBJ * obj, INT * pa, uchar code,uchar type);
+static int16_t nextart (SOBJ * obj);
+static int16_t setart (SOBJ * obj);
+static int16_t  checkart_permit (SOBJ * obj);
+static int16_t checkart (SOBJ * obj, int16_t pi1, int16_t pi2, struct artstr * a);
+static int16_t checkart1 (SOBJ * obj, int16_t pi1, int16_t pi2, struct artstr * a);
+static int16_t  set_act_art (SOBJ * obj, int16_t act_art[]);
+static int16_t  setart_new (SOBJ * obj, int16_t * pa, uchar code,uchar type);
 
-static INT max_art;      /* last index */
+static int16_t max_art;      /* last index */
 
 ARTS artbase[MAX_ARTS] =
 
@@ -152,25 +152,25 @@ ARTS artbase[MAX_ARTS] =
 
 /* ------------------------------------------------------------------ */
 
-static INT AlreadyLoaded=0;
+static int16_t AlreadyLoaded=0;
 static int Built_inSize;
 
 
 // 08-13-93 09:44pm, Mike
 // New stream technology.
 
-Bool loadArtBase (INT CountryCode)
+Bool loadArtBase (int16_t CountryCode)
 {
-	INT h;
+	int16_t h;
 	TabFH f;
-	INT   i;
+	int16_t   i;
 
 	// 08-13-93 09:44pm, Mike
 	// Load *.tab file.
 	if (vocs_NOK)
 		return FALSE;
 
-	h = TBOPEN( (INT)9, (INT)language, (INT)(O_RDONLY|O_BINARY), (INT)S_IREAD );
+	h = TBOPEN( (int16_t)9, (int16_t)language, (int16_t)(O_RDONLY|O_BINARY), (int16_t)S_IREAD );
 	if ( h == -1)
 	{
 		vocs_NOK |= 1<<9;
@@ -235,11 +235,11 @@ Bool loadArtBase (INT CountryCode)
       No ed-file changes will result.
 									  */
 /* ********************************************************************** */
-INT wordchange (SOBJ * obj)
+int16_t wordchange (SOBJ * obj)
 
 {
  if (!(obj->word->type_art & T_CHANGE))
-    { INT lth;
+    { int16_t lth;
       uchar *b;
       lth = obj->word->lth-1;
       b = obj ->wordchar;
@@ -277,7 +277,7 @@ Cut:   case '\'':
     No - no more repl can be done
 									  */
 /* ********************************************************************** */
-INT partspec (SOBJ * obj, SPART part[])
+int16_t partspec (SOBJ * obj, SPART part[])
  {
   if (!(obj->type_art & (T_GC|T_BRK)))    /* is glue-cut being considered ?           */
    {
@@ -308,7 +308,7 @@ return (No);                 /* No: cannot do any more with the spel repls*/
 /*
 									    */
 /* ************************************************************************ */
-INT partgc (SOBJ * obj, SPART part[])
+int16_t partgc (SOBJ * obj, SPART part[])
 
 {
 if(!(obj->type_art & T_BRK))
@@ -331,7 +331,7 @@ if(!(obj->type_art & T_BRK))
 return(No);
 }
 /**************************************************************************/
-INT  partbrk(SOBJ*obj,SPART  part[])
+int16_t  partbrk(SOBJ*obj,SPART  part[])
 
 {
  if(!(obj->type_art & T_BRK))    /* is glue-cut being considered 1-st time ? */
@@ -367,13 +367,13 @@ INT  partbrk(SOBJ*obj,SPART  part[])
     each ind_in_art = obj->art[pi1] stores last artificial change applied to this pos
 									  */
 /* ********************************************************************** */
- INT nextart (SOBJ * obj)
+ int16_t nextart (SOBJ * obj)
  {
-  register INT  ind_in_part;
-  INT  ind_in_art;
-  INT  fst_in_obj;
-  INT  nxt_in_obj;
-  INT  ret=No;
+  register int16_t  ind_in_part;
+  int16_t  ind_in_art;
+  int16_t  fst_in_obj;
+  int16_t  nxt_in_obj;
+  int16_t  ret=No;
 
   ind_in_part=obj->artn;
 
@@ -419,11 +419,11 @@ return(ret);
     No - otherwise
 									  */
 /* ********************************************************************** */
-INT  checkart_permit (SOBJ * obj)
+int16_t  checkart_permit (SOBJ * obj)
 
 {
- INT val=0, lth=0, lthmin=0;
- INT i;
+ int16_t val=0, lth=0, lthmin=0;
+ int16_t i;
 
  /* lth = obj->part->lth+1; */
  for (i = 0; i <= obj -> part ->lth; i++)
@@ -458,7 +458,7 @@ INT  checkart_permit (SOBJ * obj)
    a  - artbase[] el which defines modification.
 									  */
 /* ********************************************************************** */
- INT checkart (SOBJ * obj, INT pi1, INT pi2, struct artstr * a)
+ int16_t checkart (SOBJ * obj, int16_t pi1, int16_t pi2, struct artstr * a)
 
 {
  uchar sr1,sr2;
@@ -513,9 +513,9 @@ static uchar wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
     a  - artbase[] el which defines modification
 									  */
 /* ********************************************************************** */
- INT checkart1 (SOBJ * obj, INT pi1, INT pi2, struct artstr * a)
+ int16_t checkart1 (SOBJ * obj, int16_t pi1, int16_t pi2, struct artstr * a)
 
-{  INT  type;
+{  int16_t  type;
  switch (a->cond_sr1)
   { case  BAD_S : if(obj->pos[pi1].orig.attr>PROB_TO_BRK)
 		      return(No);
@@ -540,9 +540,9 @@ static uchar wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
   }
  switch(a->cond_sr12)
   {
-    case EMB_S :  if((INT)obj->pos[pi2].tif_ref.col-
-		     (INT)obj->pos[pi1].tif_ref.col -
-		     (INT)obj->pos[pi1].tif_ref.width>1) return(No);
+    case EMB_S :  if((int16_t)obj->pos[pi2].tif_ref.col-
+		     (int16_t)obj->pos[pi1].tif_ref.col -
+		     (int16_t)obj->pos[pi1].tif_ref.width>1) return(No);
 		  break;
     case FAX_M :  if (!fax1x2) return(No);
 		  break;
@@ -586,14 +586,14 @@ if ( a->sr2)
     No - otherwise (buff overflowed or object itself is BAD)
 								       */
 /***********************************************************************/
- INT setart (SOBJ * obj)
+ int16_t setart (SOBJ * obj)
 
 {
- INT pa1;       /* obj->part->art[pa1]  - old position index of obj->art[]  */
- INT pa2;       /* obj->part->posn[pa2] - new position index of obj->pos[]  */
- INT pi1,       /* curr obj-pos to change                                   */
+ int16_t pa1;       /* obj->part->art[pa1]  - old position index of obj->art[]  */
+ int16_t pa2;       /* obj->part->posn[pa2] - new position index of obj->pos[]  */
+ int16_t pi1,       /* curr obj-pos to change                                   */
      ai;        /* current art-change-id                                    */
- INT act_art [MAX_VIEW_SIZE]; /* art ids  actually used for changes         */
+ int16_t act_art [MAX_VIEW_SIZE]; /* art ids  actually used for changes         */
   SPART savepa;
 #ifdef ARTPR_ALL
  printarts(obj);
@@ -655,20 +655,20 @@ No_setart:
    be excluded. The procedure excludes the least important arts
 								       */
 /***********************************************************************/
-INT  set_act_art (SOBJ * obj, INT act_art[])
+int16_t  set_act_art (SOBJ * obj, int16_t act_art[])
 
 {
- INT pa1;       /* obj->part->art[pa1]  - old position index of obj->art[]  */
+ int16_t pa1;       /* obj->part->art[pa1]  - old position index of obj->art[]  */
 #ifdef ARTPR_REGECT
- INT pa2,       /* obj->part->posn[pa2] - new position index of obj->pos[]  */
+ int16_t pa2,       /* obj->part->posn[pa2] - new position index of obj->pos[]  */
 	pi2; /* next            obj-pos to change (temporary used)       */
 #endif
- INT pi1=0, /* Lepik's zero,it needs to examine...*/
+ int16_t pi1=0, /* Lepik's zero,it needs to examine...*/
  pi1m,  /* curr & previous obj-pos to change                        */
      ai;        /* current art-change-id                                    */
- INT aix;
+ int16_t aix;
 
- memset (&(act_art[0]),0,sizeof(INT)*MAX_VIEW_SIZE); /* act_art init state */
+ memset (&(act_art[0]),0,sizeof(int16_t)*MAX_VIEW_SIZE); /* act_art init state */
  for (ai=1; ai /*< MAX_ARTS*/ <=max_art; ai++)
   {
    for (pa1=0; pa1<=obj->part->lth; pa1++)
@@ -720,13 +720,13 @@ return(OK);
     No - otherwise (buff obj->pos[] is overflowed)
 								       */
 /***********************************************************************/
-INT  setart_new (SOBJ * obj, INT * pa,
+int16_t  setart_new (SOBJ * obj, int16_t * pa,
                 uchar code,
                 uchar type)
 
 {
- INT posn, stdn;
- INT i;
+ int16_t posn, stdn;
+ int16_t i;
  LT  * lt;
  char  * pc;
  uchar   c;              // Valdemar+Lepik for russian
@@ -814,7 +814,7 @@ No_setart_new:
  printarts (SOBJ * obj)
 
 {
- INT pa,
+ int16_t pa,
      pi1, pi2, ai,
      i;
 
@@ -843,7 +843,7 @@ No_setart_new:
    specified by {obj->pos[pi1], obj->pos[pi2]} and artbase[ai]
 									  */
 /* ********************************************************************** */
- printart1 (SOBJ * obj, INT pi1, INT pi2, INT ai)
+ printart1 (SOBJ * obj, int16_t pi1, int16_t pi2, int16_t ai)
 
 {
  if (ai)                          /* is it real artificial change (id!=0) */
@@ -868,10 +868,10 @@ No_setart_new:
    artificial change of part.
 								       */
 /***********************************************************************/
-INT init_specpos (SOBJ * obj)
+int16_t init_specpos (SOBJ * obj)
 
 {
- INT i;
+ int16_t i;
  LT  * lt;
 
  memset (&(obj->pos[SPEC_POS]),0,sizeof(SPOS));

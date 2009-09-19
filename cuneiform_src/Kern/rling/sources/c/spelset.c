@@ -92,41 +92,41 @@ static char trm_flag=0;  /* turns to 1 if .?! are occured    */
 
 /*NEW*/
 extern STD std;
-extern INT ABCSize;
+extern int16_t ABCSize;
 /*END*/
 /*=================================================================== */
 /*                   local  functions prototypes                      */
 /*=================================================================== */
-  static INT  analsymb  (SOBJ *, INT, INT *);
-  static INT  analspsp  (SOBJ *, INT, INT *);
+  static int16_t  analsymb  (SOBJ *, int16_t, int16_t *);
+  static int16_t  analspsp  (SOBJ *, int16_t, int16_t *);
 #ifdef S_COMMENTS
-  static INT  analdash  (SOBJ *, INT, INT *);
+  static int16_t  analdash  (SOBJ *, int16_t, int16_t *);
 #endif
-  static INT  analother (SOBJ *,INT,INT);
-  static INT  checkexline (SOBJ *, INT);
-  static INT  checkline (void);
-  static INT  truncobj   (SOBJ *, INT *);
-  static INT  nextinobj (SOBJ *, INT npos, INT nalt);
-  static INT  trytruncobj (SOBJ *, INT *);
-  static void setpos (SOBJ *, INT, INT *, LT  *);
-  static void setalt (SOBJ *, INT, INT *, LT  *);
-  static void genpos (SOBJ *, INT, INT);
+  static int16_t  analother (SOBJ *,int16_t,int16_t);
+  static int16_t  checkexline (SOBJ *, int16_t);
+  static int16_t  checkline (void);
+  static int16_t  truncobj   (SOBJ *, int16_t *);
+  static int16_t  nextinobj (SOBJ *, int16_t npos, int16_t nalt);
+  static int16_t  trytruncobj (SOBJ *, int16_t *);
+  static void setpos (SOBJ *, int16_t, int16_t *, LT  *);
+  static void setalt (SOBJ *, int16_t, int16_t *, LT  *);
+  static void genpos (SOBJ *, int16_t, int16_t);
 
 /* ************************************************************************ */
 /* This procedure reads object from ED-file to the obj (objstr) with
    all alternatives stored so no changes of ED-file could be done.
 									    */
 ///////////////////////////////////////////////////////////////////////////////
-INT readobj (INT status,SOBJ * obj)   /* Two statuses may occur             */
+int16_t readobj (int16_t status,SOBJ * obj)   /* Two statuses may occur             */
 				      /* S_NEWOBJ -when SPQ.ns_symb points on */
 				      /* the rest of previous object, and   */
 				      /* S_OLDOBJ -when SPQ.ns_symb points on */
 				      /* the beginning of object to be read */
 
 {
-	INT ret;                      /* working return-flag         */
-	INT nobj;                     /* curr obj nmb */
-	INT npos=0, nalt=0;           /* curr nmb of position & alternative */
+	int16_t ret;                      /* working return-flag         */
+	int16_t nobj;                     /* curr obj nmb */
+	int16_t npos=0, nalt=0;           /* curr nmb of position & alternative */
 
 	if (!obj->nmb)	                /* if it is the first obj:            */
 		if (!checkline ())   /* is there smth in curr line ?       */
@@ -261,7 +261,7 @@ Analsymb:
 		npos++;
 		nalt=0;
 	}
-	while (nextinobj(obj,(INT)(npos - 1),(INT)(nalt)));     /* next ED-byte, may be in next line*/
+	while (nextinobj(obj,(int16_t)(npos - 1),(int16_t)(nalt)));     /* next ED-byte, may be in next line*/
 	/* ----------------------- end of do-loop ------------------------------- */
 Readok:
 	if (!trytruncobj(obj, &npos))     /* try to trunc spec symb in obj tail    */
@@ -325,7 +325,7 @@ Readno:
     No - otherwise (end of pos)
 								       */
 /***********************************************************************/
-INT analsymb (SOBJ * obj, INT npos, INT * nalt)
+int16_t analsymb (SOBJ * obj, int16_t npos, int16_t * nalt)
 
 {
  LT  *lt;
@@ -394,7 +394,7 @@ INT analsymb (SOBJ * obj, INT npos, INT * nalt)
    Always should go to next position
 								       */
 /***********************************************************************/
-INT analspsp (SOBJ * obj, INT npos, INT * nalt)
+int16_t analspsp (SOBJ * obj, int16_t npos, int16_t * nalt)
 
 {
  LT  *lt;
@@ -434,7 +434,7 @@ INT analspsp (SOBJ * obj, INT npos, INT * nalt)
    (if next line follows and there is smth in the next line)
 								       */
 /***********************************************************************/
-INT analdash (SOBJ * obj, INT npos, INT * nalt)
+int16_t analdash (SOBJ * obj, int16_t npos, int16_t * nalt)
 
 {
   LT  *lt;
@@ -459,7 +459,7 @@ INT analdash (SOBJ * obj, INT npos, INT * nalt)
     No -   symbol not allowed within a word and it is  a delimiter
 \***********************************************************************/
 
-INT analother (SOBJ * obj, INT npos,INT nalt)
+int16_t analother (SOBJ * obj, int16_t npos,int16_t nalt)
 
 {
   uchar attr;
@@ -492,7 +492,7 @@ INT analother (SOBJ * obj, INT npos,INT nalt)
 *  This procedure checks whether next ED-file line exists and
    if exists, is there something in the next ED-file line
 \***********************************************************************/
-INT checkexline (SOBJ * obj, INT npos)
+int16_t checkexline (SOBJ * obj, int16_t npos)
 {
   do {
     SPQ.ns_segm=next_line(SHEET,SPQ.ns_segm); /* is there next line ?   */
@@ -512,7 +512,7 @@ INT checkexline (SOBJ * obj, INT npos)
    Used to analyse 1-st symbol of the line
 								       */
 /***********************************************************************/
-INT checkline (void)
+int16_t checkline (void)
 
 {
  skip_letter_in_line(SPQ.ns_segm,0);  /* try to find something in the line */
@@ -529,7 +529,7 @@ INT checkline (void)
 /* This procedure truncates obj if there is hyphen or suspected space
 								       */
 /***********************************************************************/
-INT truncobj (SOBJ * obj, INT * npos)
+int16_t truncobj (SOBJ * obj, int16_t * npos)
 
 {
  if (!(obj->pos_part_nmb))         /* is any object partitioning ?        */
@@ -567,7 +567,7 @@ Restore:
      then End Of object
 								       */
 /***********************************************************************/
-INT nextinobj (SOBJ * obj, INT npos, INT nalt)
+int16_t nextinobj (SOBJ * obj, int16_t npos, int16_t nalt)
 
 {
 	char  * symb;                   /* variables to save ED-file last point */
@@ -604,7 +604,7 @@ INT nextinobj (SOBJ * obj, INT npos, INT nalt)
 		if (npos > 0)                                  /* is it not 1-st obj-pos ? */
 			if(obj->pos[npos].orig.code==WRDDIV)      /* the last position ='-' ? */
 			{                               /* yes: it is suspected to be hyphen */
-				if (!checkexline (obj, (INT)(npos+1)))/* is there smth in next line ?      */
+				if (!checkexline (obj, (int16_t)(npos+1)))/* is there smth in next line ?      */
 					goto No_nextinobj;            /* No - end of ED-file               */
 				else		            /* smth in new line after '-' => hyphen */
 				{
@@ -641,10 +641,10 @@ Ok_nextinobj:
    npos = last pos chosen + 1
 								       */
 /***********************************************************************/
-INT trytruncobj (SOBJ * obj, INT * npos)
+int16_t trytruncobj (SOBJ * obj, int16_t * npos)
 
 {
- INT i=0;
+ int16_t i=0;
  char  * symb;                /* variables to save ED-file last point */
  struct segm  * segm;
 
@@ -714,7 +714,7 @@ Ok_trytrunc:
 /* This procedure sets up initial state of an object position
 								       */
 /***********************************************************************/
-void setpos (SOBJ * obj, INT npos, INT * nalt, LT  * lt)
+void setpos (SOBJ * obj, int16_t npos, int16_t * nalt, LT  * lt)
 
 {
  if (*nalt)                     /* nmb of alts > 1 :                    */
@@ -746,10 +746,10 @@ void setpos (SOBJ * obj, INT npos, INT * nalt, LT  * lt)
 								       */
 /***********************************************************************/
 
-void setalt (SOBJ * obj, INT npos, INT * nalt, LT  * lt)
+void setalt (SOBJ * obj, int16_t npos, int16_t * nalt, LT  * lt)
 
 {
- INT i;
+ int16_t i;
 
  obj->pos[npos].alt[*nalt].lt = lt;        /* ref to alt in tiff (ltr&attr)  */
  obj->pos[npos].alt[*nalt].orig.code =
@@ -786,10 +786,10 @@ void setalt (SOBJ * obj, INT npos, INT * nalt, LT  * lt)
    using its alts info
 								       */
 /***********************************************************************/
-void genpos (SOBJ * obj, INT npos, INT nalt)
+void genpos (SOBJ * obj, int16_t npos, int16_t nalt)
 
 {
- INT i;
+ int16_t i;
  LT  * lt;
 
  obj->pos[npos].type &= T_STMT;    /* only this type-flag is persistent */
@@ -826,7 +826,7 @@ void genpos (SOBJ * obj, INT npos, INT nalt)
 void genobj (SOBJ * obj)
 
 {
- INT i, npos;
+ int16_t i, npos;
 
  npos = obj->pos_part[obj->pos_part_nmb]; /* last part end position         */
  obj->type = 0;
@@ -895,10 +895,10 @@ void genobj (SOBJ * obj)
     No - otherwise (buff overflowed or object itself is BAD)
 								       */
 /***********************************************************************/
-INT setpart (SOBJ * obj, SPART part[])
+int16_t setpart (SOBJ * obj, SPART part[])
 
 {
- INT i, j, k;
+ int16_t i, j, k;
 
  if (obj->type_art & (T_REPL|T_GC|T_BRK)) /* always reset when part was changed */
   {
@@ -952,11 +952,11 @@ Setpart_old:
     No - part is not worthy of treatment (all positions are BAD)
 								       */
 /***********************************************************************/
-INT genpart (SOBJ * obj)
+int16_t genpart (SOBJ * obj)
 
 {
- INT i, ipos;
- INT f_type =0;
+ int16_t i, ipos;
+ int16_t f_type =0;
  obj->part->type     = 0;
  obj->part->type_sp  &= (T_SP1|T_SP2|T_HYPHEN); /* save what setpart sets */
  obj->part->type_art = 0;
@@ -1023,11 +1023,11 @@ INT genpart (SOBJ * obj)
    via its alts.
 								       */
 /***********************************************************************/
-INT genwrd (SOBJ * obj)
+int16_t genwrd (SOBJ * obj)
 
 {
- INT i, j;
- INT max_wt=0;
+ int16_t i, j;
+ int16_t max_wt=0;
  register cur_wt;
  obj->word->type        = 0;
  obj->word->type_art    = obj->type_art;

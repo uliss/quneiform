@@ -73,14 +73,14 @@
 
 //IGOR
 #define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
-							snap_draw_line_rbal(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 1##l)
+							snap_draw_line_rbal(NULL, &rs, &re, (int16_t)nIncline/2, rgb, -100, 1##l)
 #define draw_stat_bl(n,l)	rs.y = re.y = minrow + m_attr.bs##n;\
-							snap_draw_line_rbal(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 2##l)
+							snap_draw_line_rbal(NULL, &rs, &re, (int16_t)nIncline/2, rgb, -100, 2##l)
 #define draw_bl_marking(n,l)	rsm.y = rs.y - 1; rem.y = rs.y + 1;	\
 								for(mc = 0; mc < n; mc++)	\
 								{	\
 									rsm.x = rs.x - 1 + mc*5; rem.x = rs.x + 1 + mc*5;	\
-									snap_draw_line_rbal(NULL, &rsm, &rem, (INT)nIncline/2, rgb, -100, 1##l);\
+									snap_draw_line_rbal(NULL, &rsm, &rem, (int16_t)nIncline/2, rgb, -100, 1##l);\
 								}
 #define del_bl(m,l)			snap_del_line_rbal(NULL,  m##l);
 //IGOR
@@ -95,9 +95,9 @@ extern CSTR_line lin_str;
 extern int32_t nIncline;
 //IGOR
 
-INT obtain_diff(INT arg);
+int16_t obtain_diff(int16_t arg);
 
-void set_basarr(bas_ln * bs, INT x, INT l) {
+void set_basarr(bas_ln * bs, int16_t x, int16_t l) {
 	// Nick 13.03.2001
 	memset(bs, 0, sizeof(bas_ln));
 
@@ -134,9 +134,9 @@ void set_basarr(bas_ln * bs, INT x, INT l) {
 	bs->n4 = Nb4;
 }
 
-INT def_locbas(CSTR_rast cl) {
+int16_t def_locbas(CSTR_rast cl) {
 	bas_ln *bc, *bn, *bsp;
-	INT i, x, y, dc, dn;
+	int16_t i, x, y, dc, dn;
 	CSTR_rast_attr attr;
 	uchar fl_defb;
 
@@ -202,7 +202,7 @@ INT def_locbas(CSTR_rast cl) {
 }
 
 void get_b_lines(CSTR_rast C, B_LINES *bas) {
-	INT dif;
+	int16_t dif;
 	CSTR_rast_attr attr;
 
 	if (C) {
@@ -253,8 +253,8 @@ void get_b_lines(CSTR_rast C, B_LINES *bas) {
 }
 ///////////////
 // arg == column
-INT obtain_diff(INT arg) {
-	INT wl, ce, w1m, da, d1n;
+int16_t obtain_diff(int16_t arg) {
+	int16_t wl, ce, w1m, da, d1n;
 	CSTR_rast C;
 	CSTR_rast_attr attr;
 
@@ -338,8 +338,8 @@ void complete_bas(char *txt) {
 	}
 }
 
-INT approve_by_hist() {
-	INT s;
+int16_t approve_by_hist() {
+	int16_t s;
 	uchar *p1, *p2, *p3;
 
 	if (Ns1 < 3)
@@ -365,7 +365,7 @@ INT approve_by_hist() {
 	return 1;
 }
 
-INT mult_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
+int16_t mult_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
 	if (ncut_old * 4 >= ntot_old)
 		return 0; // many dead cells
 	if (k2 * sum_letlth < k1 * sum_cellth)
@@ -384,7 +384,7 @@ INT mult_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
 	return 1;
 }
 
-INT all_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
+int16_t all_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
 	if (ncut_old * 4 >= ntot_old)
 		return 0; // many dead cells
 	if (k2 * sum_letlth < k1 * sum_cellth)
@@ -403,8 +403,8 @@ INT all_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
 	set_basarr(&all_bases[0], -32000, 32000);
 	return 1;
 }
-INT b1b2_byhist() {
-	INT fl12, dl, i, iw, ett, ets, ibeg, ilim, m, ms1, ms2, m1, m2, lb1, lb2,
+int16_t b1b2_byhist() {
+	int16_t fl12, dl, i, iw, ett, ets, ibeg, ilim, m, ms1, ms2, m1, m2, lb1, lb2,
 			b2x;
 	uchar old_ok, *bp, *bc, *bn;
 	CSTR_rast cb2;
@@ -419,7 +419,7 @@ INT b1b2_byhist() {
 	ett = ets = 0; // no 't' level
 	fl12 = 0;
 	if (Nst) {
-		INT i;
+		int16_t i;
 		// uchar *bpp, *bnn;
 		ets = ett = sbst / Nst + 32;
 		if ((ett < 0) || (ett > 181)) // 940415
@@ -452,7 +452,7 @@ INT b1b2_byhist() {
 				ibeg = 1; ilim = bbs3+32-5; // search 2nd max in full area
 				if (Ns2 > 0) // bs2  obtained
 				{
-					INT it;
+					int16_t it;
 					it = (sbs2+(Ns2>>1))/Ns2 + 32;
 					if (lb2 > it-3) // lb2 --> bs2
 					{
@@ -463,7 +463,7 @@ INT b1b2_byhist() {
 				}
 				if (Ns1 > 0)
 				{
-					INT it;
+					int16_t it;
 					it = (sbs1+(Ns1>>1))/Ns1 + 32;
 					if (lb2 < it+3) // lb2 --> bs1
 					{
@@ -544,7 +544,7 @@ INT b1b2_byhist() {
    /*#ifdef UFA
    if(language == LANG_RUSSIAN)
    {
-   INT b2=MAX(lb1,lb2)-32;
+   int16_t b2=MAX(lb1,lb2)-32;
    if( b2+3 >= bbs3/2 && fl12 != 1)
     { // one peak is a dream
     if( lb2-32 < bbs3/4 )
@@ -556,7 +556,7 @@ INT b1b2_byhist() {
    #endif*/
  if (dl >= 0)   // make them sorted: lb1, lb2
  {
-   INT i;
+   int16_t i;
    i=lb2; lb2=lb1; lb1=i;
    i=m2;  m2=m1;   m1=i;
  }
@@ -567,7 +567,7 @@ INT b1b2_byhist() {
    else
    {
      if (lb1 > ett)
-     { INT b2;
+     { int16_t b2;
        b2 = lb1;
        lb1 = ett;
        // where is b2: which max is greater and use proportions
@@ -593,7 +593,7 @@ INT b1b2_byhist() {
  /*************************************************************/
  b2x = (bbs3+2*bbs1)/3;         // 940125  UNLV1009/36
  if (bbs2 > b2x)   // b2 doubtful
- { INT fl_ser, s_ser, ng_ser, top, dif;
+ { int16_t fl_ser, s_ser, ng_ser, top, dif;
   // if (m2 <= m1)
   // {
   //   bbs2 = b2x; Nb2 = -1;
@@ -634,13 +634,13 @@ rtn:
 }
 
 		////////////////
-void add_hist(CSTR_rast a, INT flg, uchar *begs) {
-	INT hcell, hbeg;
+void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
+	int16_t hcell, hbeg;
 	//lnhead *Lp1, *Lp2;
 	CCOM_lnhead *Lp1, *Lp2;
 	//c_comp *cp1;
 	CCOM_comp *cp1;
-	INT Lc1, lc1, rowd;
+	int16_t Lc1, lc1, rowd;
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(a, &attr);
@@ -657,7 +657,7 @@ void add_hist(CSTR_rast a, INT flg, uchar *begs) {
 	Lp1 = (CCOM_lnhead *) (cp1->linerep + 2);
 	Lp2 = Lp1;
 	for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
-		INT th;
+		int16_t th;
 		//Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
 		Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 		if (!(Lp1->flg & l_fbeg))
@@ -674,17 +674,17 @@ void add_hist(CSTR_rast a, INT flg, uchar *begs) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //AK! crash at memset
-void hist_bot(INT x1, INT x2) {
+void hist_bot(int16_t x1, int16_t x2) {
 	//cell      *a;
 	CSTR_rast a;
 	CSTR_rast_attr attr;
 
-	INT hcell, hend;
+	int16_t hcell, hend;
 	//lnhead    *Lp1, *Lp2;
 	CCOM_lnhead *Lp1, *Lp2;
 	//c_comp    *cp1;
 	CCOM_comp *cp1;
-	INT Lc1, lc1, rowd;
+	int16_t Lc1, lc1, rowd;
 	CCOM_interval * int1, *int2;
 	int il;
 
@@ -748,16 +748,16 @@ void hist_bot(INT x1, INT x2) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void hist_top(INT x1, INT x2) {
+void hist_top(int16_t x1, int16_t x2) {
 	//cell *a;
 	CSTR_rast a;
 	CSTR_rast_attr attr;
-	INT hcell, hbeg;
+	int16_t hcell, hbeg;
 	//lnhead *Lp1, *Lp2;
 	CCOM_lnhead *Lp1, *Lp2;
 	//c_comp *cp1;
 	CCOM_comp *cp1;
-	INT Lc1, lc1, rowd;
+	int16_t Lc1, lc1, rowd;
 	int il;
 
 	if (hist_done & 2)
@@ -789,7 +789,7 @@ void hist_top(INT x1, INT x2) {
 		Lp1 = (CCOM_lnhead *) (cp1->linerep + 2); // beginning of first line
 		Lp2 = Lp1;
 		for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
-			INT th, ih;
+			int16_t th, ih;
 			Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 			if (!(Lp1->flg & l_fbeg))
 				continue; // take free begs only
@@ -811,7 +811,7 @@ void hist_top(INT x1, INT x2) {
 	} // while letters and bads
 }
 
-INT bas_by_hist(INT x1, INT x2, INT fl) {
+int16_t bas_by_hist(int16_t x1, int16_t x2, int16_t fl) {
 	if (fl & 1) {
 		hist_bot(x1, x2);
 		histes();
@@ -820,7 +820,7 @@ INT bas_by_hist(INT x1, INT x2, INT fl) {
 	if (fl & 2)
 		hist_top(x1, x2);
 	if (!approve_by_hist()) {
-		INT rb12;
+		int16_t rb12;
 		rb12 = b1b2_byhist();
 		if (rb12)
 			return 1;
@@ -838,7 +838,7 @@ INT bas_by_hist(INT x1, INT x2, INT fl) {
 	return 1;
 }
 
-void histb(INT x1, INT x2, INT flg, uchar *begs) {
+void histb(int16_t x1, int16_t x2, int16_t flg, uchar *begs) {
 	CSTR_rast a;
 	CSTR_rast_attr attr;
 
@@ -862,12 +862,12 @@ void histb(INT x1, INT x2, INT flg, uchar *begs) {
 }
 
 void histes() {
-	INT i, m, m3, lb3;
+	int16_t i, m, m3, lb3;
 	uchar *bp, *bc, *bn;
 	// find: MAX(segs) in same place as max(ends)
 	m3 = -1;
 	if (Ns3) {
-		INT ibeg, iend;
+		int16_t ibeg, iend;
 		ibeg = bbs3 + 30;
 		iend = ibeg + 6;
 		for (i = ibeg, bc = &lin_ends[ibeg], bp = bc - 1, bn = bc + 1, m3 = 0; i
@@ -892,8 +892,8 @@ void histes() {
 }
 void discrim_pos();
 
-INT defbas(INT filter) {
-	INT mb1, i, bbh, mult;
+int16_t defbas(int16_t filter) {
+	int16_t mb1, i, bbh, mult;
 	//cell *B1;
 	CSTR_rast B1;
 	CSTR_rast_attr attr;
@@ -1113,11 +1113,11 @@ void discrim_pos() {
 	}
 }
 
-INT smart_diff( CSTR_rast); // reject stupid diffs
+int16_t smart_diff( CSTR_rast); // reject stupid diffs
 
 
 void diffs_by_cells() {
-	INT i, j, df, mdif, ndif, difet;
+	int16_t i, j, df, mdif, ndif, difet;
 	CSTR_rast B1, P, N;
 	CSTR_rast_attr attr;
 
@@ -1231,7 +1231,7 @@ void diffs_by_cells() {
 	} // while let_bad
 }
 
-void dbreset(INT filter) {
+void dbreset(int16_t filter) {
 	CSTR_rast B1;
 	CSTR_rast_attr attr;
 	uchar ret;
@@ -1264,12 +1264,12 @@ void dbreset(INT filter) {
 /***************************************************************
  **************************************************/
 void hist_max(CSTR_rast a) {
-	INT m1, m2, hcell, hbeg, lntyp, lnbeg;
+	int16_t m1, m2, hcell, hbeg, lntyp, lnbeg;
 	CCOM_interval * int1, *int2;
 	CCOM_lnhead *Lp1, *Lp2;
 	CCOM_comp *cp1;
 	bas_acc_t *ba1, *pa1, *pa2;
-	INT Lc1, lc1, rowd;
+	int16_t Lc1, lc1, rowd;
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(a, &attr);
@@ -1286,7 +1286,7 @@ void hist_max(CSTR_rast a) {
 	Lp1 = (CCOM_lnhead *) (cp1->linerep + 2); // beginning of first line
 	Lp2 = Lp1;
 	for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
-		INT th;
+		int16_t th;
 		//Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
 		Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 		if (!(Lp1->flg & l_fbeg))
@@ -1366,9 +1366,9 @@ void hist_max(CSTR_rast a) {
 	CSTR_SetAttr(a, &attr);
 }
 
-void set_rus_difflg(CSTR_rast B1, INT filter); // linutil.c
+void set_rus_difflg(CSTR_rast B1, int16_t filter); // linutil.c
 
-void make_difbas(CSTR_rast B1, INT filter) {
+void make_difbas(CSTR_rast B1, int16_t filter) {
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(B1, &attr);
@@ -1394,7 +1394,7 @@ void make_difbas(CSTR_rast B1, INT filter) {
 
 static uchar t_type;
 // set basflg, difflg;
-void set_difflg(CSTR_rast B1, INT filter) {
+void set_difflg(CSTR_rast B1, int16_t filter) {
 	//c_comp *env;
 	CCOM_comp *env;
 	uchar let, tbe, tshp;
@@ -1503,20 +1503,20 @@ void set_difflg(CSTR_rast B1, INT filter) {
 }
 
 uchar disable_twins; // only for russian
-void all_cell_levcut( INT);
+void all_cell_levcut( int16_t);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // собрать статистику для поиска БЛ
-INT dbsum(INT filter) {
+int16_t dbsum(int16_t filter) {
 	CSTR_rast B1;
 	CSTR_rast_attr attr;
 
-	INT rz, fl1, fls, wr, top, bot;
-	INT draft_cut_12, draft_cut_3;
-	INT hist_b3[RASTER_MAX_HEIGHT * 2];
+	int16_t rz, fl1, fls, wr, top, bot;
+	int16_t draft_cut_12, draft_cut_3;
+	int16_t hist_b3[RASTER_MAX_HEIGHT * 2];
 
 	char ww[256];//IGOR
-	INT jl = 0, i_method = 0;//IGOR
+	int16_t jl = 0, i_method = 0;//IGOR
 	CSTR_attr m_attr;//IGOR
 
 	hi_ac *ha;
@@ -1570,7 +1570,7 @@ INT dbsum(INT filter) {
 		CSTR_GetAttr(B1, &attr);
 
 		if (attr.flg & (CSTR_f_let)) {
-			INT i, d;
+			int16_t i, d;
 
 			ncletrs++;
 			sum_letlth += ww;
@@ -1720,7 +1720,7 @@ INT dbsum(INT filter) {
 		if (rz >= 10 && (page_stat || HIST_STATISTIC) && !draft_cut_12) { // set b1/b2 by page statistics
 			draft_cut_12 = 1;
 			disable_twins = 1; // disable all twins
-			if (draft_cut_hyps((INT)(rz / 10) /* == 2 ? 1 : 2*/, 0))
+			if (draft_cut_hyps((int16_t)(rz / 10) /* == 2 ? 1 : 2*/, 0))
 				goto recalc;
 		}
 		if ((draft_cut_12 || draft_cut_3) && lin_pass == 3)
@@ -1882,8 +1882,8 @@ INT dbsum(INT filter) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // собственно поиск БЛ
-INT calc_base() {
-	INT j, iret;
+int16_t calc_base() {
+	int16_t j, iret;
 	LONG w1, w2;
 
 	Nb2 = Ns2;
@@ -1897,7 +1897,7 @@ INT calc_base() {
 			{
 				CSTR_rast C;
 				CSTR_rast_attr attr;
-				INT top, middle;
+				int16_t top, middle;
 
 				all_wrong:
 				fl_artifact = 3;
@@ -1986,7 +1986,7 @@ INT calc_base() {
 		if (3*Ns2 > Ns3)
 		bbs2=(sbs2+(Ns2>>1))/Ns2;
 		else
-		{	INT i;
+		{	int16_t i;
 			w1=sbs3; w1*=Ns2;
 			w2=sbs2; w2*=Ns3;
 			w1-=w2;
@@ -2014,7 +2014,7 @@ INT calc_base() {
 
 	if( language == LANG_RUSSIAN && (stable_b3 || Ns3<5))
 	{
-		INT pSt;
+		int16_t pSt;
 		if( pSt=GetPsFromHeights(), pSt!=0)
 		{
 			if(pSt>0)
@@ -2055,7 +2055,7 @@ INT calc_base() {
 	page_stat:
 	if(language == LANG_RUSSIAN)
 	{ // try to get b1,b2 from page statistic
-		INT tmp;
+		int16_t tmp;
 #ifdef UFA
 		uf_bases uf_b;
 		uf_b = uf_let_case();
@@ -2100,9 +2100,9 @@ INT calc_base() {
 // какие есть сомнения по БЛ
 // возврат - не мера оценки, а коды, например 21 - сомнения
 // по 1-й и 2-й линиям
-static INT doubt_bas() {
+static int16_t doubt_bas() {
 	hi_ac *hc, *hp, *hn, *hpp, *hnn, *hl1, *hl2;
-	INT n1, n2, n3, n4, n5, s, s5, n;
+	int16_t n1, n2, n3, n4, n5, s, s5, n;
 	uchar b12_s;
 
 	all_doubts = 0;
@@ -2204,7 +2204,7 @@ static INT doubt_bas() {
 			if (fax1x2) Psf = Ps + 2;
 
 			if (histiter)
-			{	INT wd;
+			{	int16_t wd;
 				if (b12_s & 1) return 11;
 				if (b12_s & 2) return 22;
 				if (b12_s & 4) return 19;

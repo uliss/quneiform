@@ -3252,7 +3252,7 @@ public:
 	}
 
 #if (_WIN32_WCE >= 410)
-	void SetItemSpacing(INT cySpacing)
+	void SetItemSpacing(int16_t cySpacing)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ListView_SetItemSpacing(m_hWnd, cySpacing);

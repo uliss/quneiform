@@ -70,7 +70,7 @@
 
 /****** Global Variables: *************/
 extern uchar language;
-extern INT line_number;
+extern int16_t line_number;
 
 /******* Context Internal Type Definitions: **********/
 typedef cell * pCell;
@@ -80,8 +80,8 @@ typedef struct din_var {
 	uchar class; // the kind of symbol : big, small, digit, empty and undef
 	uchar first;
 	uchar res;
-	INT est; // current estimation
-	INT back; // refference to previous element
+	int16_t est; // current estimation
+	int16_t back; // refference to previous element
 } dv;
 /*######## Constants Defenitions : ############*/
 #define APOSTROPH       0x27
@@ -162,58 +162,58 @@ typedef struct din_var {
 #define NO_ACTION           1
 /***** Common variables and functions **********/
 CONT_EXTERN uchar word_flag;
-CONT_EXTERN INT n_ltr; // number of letters in word
-CONT_EXTERN INT total_words;
-CONT_EXTERN INT roman_sym_num;
+CONT_EXTERN int16_t n_ltr; // number of letters in word
+CONT_EXTERN int16_t total_words;
+CONT_EXTERN int16_t roman_sym_num;
 CONT_EXTERN uchar swed_lju_flag;
 CONT_EXTERN uchar fl_beg_irish_name;
 
-void vers_to_first_place(cell *A, INT nver);
-INT get_nvers(cell *A, INT Let);
-INT check_numb_2_9(uchar);
-INT check_numb_0_9(uchar);
-INT check_upper(uchar);
-INT check_lower(uchar);
-INT check_alphanum(uchar);
-INT check_lowerconson(uchar);
+void vers_to_first_place(cell *A, int16_t nver);
+int16_t get_nvers(cell *A, int16_t Let);
+int16_t check_numb_2_9(uchar);
+int16_t check_numb_0_9(uchar);
+int16_t check_upper(uchar);
+int16_t check_lower(uchar);
+int16_t check_alphanum(uchar);
+int16_t check_lowerconson(uchar);
 void test_O_and_slash();
-INT english_context_process(cell* C);
-INT franch_context_process(cell* C);
-INT german_context_process(cell* C);
-INT swedish_context_process(cell* C);
-INT spanish_context_process(cell* C);
+int16_t english_context_process(cell* C);
+int16_t franch_context_process(cell* C);
+int16_t german_context_process(cell* C);
+int16_t swedish_context_process(cell* C);
+int16_t spanish_context_process(cell* C);
 void test_roma_num_sym(cell *C);
-void test_irish_name_cur_sym(INT Let);
+void test_irish_name_cur_sym(int16_t Let);
 /*========================================================*/
 
 #ifdef MAIN_CONTEXT_MODULE
-static INT find_dig_chr_var ();
+static int16_t find_dig_chr_var ();
 static void make_dig_chr_chain ();
 static void up_substr ( pchar substr );
 static void up_rest_str ();
-static INT get_est_substr_in_word ( pchar );
-static INT est_rest_dig ( dv *);
-static INT test_var ( pchar );
+static int16_t get_est_substr_in_word ( pchar );
+static int16_t est_rest_dig ( dv *);
+static int16_t test_var ( pchar );
 /*****************/
 static dv * cdv, *last_dv, *last_dig_dv, *beg_dv;
-static INT best_l, num_v, admvar = 0, maxest;
-INT delim_flag, possible_delim_flag;
+static int16_t best_l, num_v, admvar = 0, maxest;
+int16_t delim_flag, possible_delim_flag;
 /***********************************************************************/
 
 cell *WB; // first cell in word
 cell *EB; // last cell in word
 uchar after_word_flag;
 uchar fl_cap_first; // first letter has capital version flag
-INT num_dig, num_upper, num_lower, num_bad, num_let;
+int16_t num_dig, num_upper, num_lower, num_bad, num_let;
 uchar irish_name_pos;
 static pCell use_word_flags[MAX_NUM_WORDS];
 static pCell pDotComCell;
 
-static INT find_and_class_word (cell *);
+static int16_t find_and_class_word (cell *);
 static uchar classify (cell *);
-static Bool find_delim ( INT );
-static void set_after_word_flag ( INT );
-static void set_word_flag ( INT );
+static Bool find_delim ( int16_t );
+static void set_after_word_flag ( int16_t );
+static void set_word_flag ( int16_t );
 static void check_vers (cell *);
 static void set_word_type ();
 static Bool real_delim ();
@@ -223,14 +223,14 @@ static void cut_lower_ver (cell *);
 static Bool roma_num (void);
 static Bool is_roma_num (void);
 static void make_roma_num (void);
-static INT best_estimation (void);
-static void estimate_chain (INT);
-static void estimate_letter (cell *, INT);
-static INT class_of_letter (char);
+static int16_t best_estimation (void);
+static void estimate_chain (int16_t);
+static void estimate_letter (cell *, int16_t);
+static int16_t class_of_letter (char);
 static void setup_complex (void);
-static INT make_best_choice (INT);
+static int16_t make_best_choice (int16_t);
 /*******************
- static INT is_cons_jmp          ( dv *prv, dv *crn );
- static INT is_vowel_jmp         ( dv *prv, dv *crn );
+ static int16_t is_cons_jmp          ( dv *prv, dv *crn );
+ static int16_t is_vowel_jmp         ( dv *prv, dv *crn );
  ********************/
 #endif

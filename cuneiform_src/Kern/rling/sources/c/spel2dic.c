@@ -84,10 +84,10 @@ extern KEYTYPE codepermit[256];
 /*************************************************************************/
 /*              decoding & search word in dictionary                     */
 /*************************************************************************/
-INT findstat(INT * currw,LTIMG * wrddef[],
+int16_t findstat(int16_t * currw,LTIMG * wrddef[],
              struct dict_state * dict)
 { KEYTYPE wordin[MAX_WORD_SIZE],c;
-  register INT i;
+  register int16_t i;
 
   /* ---------- decoding input word -----------------------------------*/
   for (i=0; i<=*currw ;i++)
@@ -110,14 +110,14 @@ INT findstat(INT * currw,LTIMG * wrddef[],
 /*			far memory					 */
 /*************************************************************************/
 extern struct dict_state  * load_dict;
-extern INT vocs_NOK;   // 0 - vocs found at load
+extern int16_t vocs_NOK;   // 0 - vocs found at load
 
-INT text_findstat_rling(char * word)
+int16_t text_findstat_rling(char * word)
 { KEYTYPE wordin[MAX_WORD_SIZE],c;
   LTIMG * wrddef[MAX_WORD_SIZE+1], *p;
   LTIMG wrdim[MAX_WORD_SIZE];
   struct letter lt[MAX_WORD_SIZE];
-  INT i;
+  int16_t i;
   if (vocs_NOK) return 0;
   /* ---------- decoding input word -----------------------------------*/
   for (i=0; *word ;i++, word++)

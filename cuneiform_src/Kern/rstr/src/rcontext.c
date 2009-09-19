@@ -62,14 +62,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 #include "linear.h"
 
-INT final_crit_russian(cell * c);
-INT russian_context_process(cell * c);
+int16_t final_crit_russian(cell * c);
+int16_t russian_context_process(cell * c);
 
-static INT help_spelling_checker(cell * c);
+static int16_t help_spelling_checker(cell * c);
 
-INT russian_context_process(cell * c)
+int16_t russian_context_process(cell * c)
 {
-INT return_code, nv;
+int16_t return_code, nv;
 
   return_code = NO_ACTION;
 if (n_ltr == 1 )             /** single letter case: **/
@@ -116,8 +116,8 @@ if (n_ltr == 1 )             /** single letter case: **/
   else
   {   // more then 1 letter in word
   cell * wc;
-  INT i;
-  INT num_dig;
+  int16_t i;
+  int16_t num_dig;
   uchar let;
 #ifdef INTERSEPTOR
   for( wc=c,num_dig=i=0; i < n_ltr;wc=wc->nextl,i++ ) // scan to word end
@@ -203,9 +203,9 @@ if (n_ltr == 1 )             /** single letter case: **/
  return return_code;
 }
 
-INT final_crit_russian(cell * c)
+int16_t final_crit_russian(cell * c)
 {
-INT cnt=0;
+int16_t cnt=0;
 
 cnt += help_spelling_checker(c);
 return cnt > 0;
@@ -213,7 +213,7 @@ return cnt > 0;
 
 static uchar predessor[]="®ξ₯αγν";
 
-INT help_spelling_checker(cell * c)
+int16_t help_spelling_checker(cell * c)
 {
 if( !(c->flg&(c_f_let|c_f_bad)) )
   return 0;
@@ -326,7 +326,7 @@ return;
 uchar wave_up_abris(cell *b, cell *e)
 {
 cell *c;
-INT  up, dn, n, up1, up2;
+int16_t  up, dn, n, up1, up2;
 
 if( Nb1==-1 || Nb2==-1 || Nb2==128 || Nb1==128 )
   return 0;

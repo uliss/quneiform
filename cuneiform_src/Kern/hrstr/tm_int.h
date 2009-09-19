@@ -57,13 +57,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //NB  Upper index functions proto
 #include "tm.h"
 
-static INT check_TM (cell **first_cell);
-static INT badvertProjectionTM (cell *predcessor, cell *successor,
-						INT TM_left, INT TM_right);
-static INT  create_new_bas (cell *first, INT cmps);
-static INT try_TM (cell **first, INT num);
-static void ReRecogComponents (INT mode);
-static void init_sublist (INT mode);
+static int16_t check_TM (cell **first_cell);
+static int16_t badvertProjectionTM (cell *predcessor, cell *successor,
+						int16_t TM_left, int16_t TM_right);
+static int16_t  create_new_bas (cell *first, int16_t cmps);
+static int16_t try_TM (cell **first, int16_t num);
+static void ReRecogComponents (int16_t mode);
+static void init_sublist (int16_t mode);
 static uchar is_dig (uchar letter);
 
 #define MAX_TM_COMPS 8

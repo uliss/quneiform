@@ -107,17 +107,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // наклон строки
    int32_t   nIncline;
 // параметры строки
-   INT     minrow,mincol, maxrow, maxcol;
+   int16_t     minrow,mincol, maxrow, maxcol;
 // получены БЛ
-   INT     bs_got;     //
+   int16_t     bs_got;     //
 // линии
-   INT	   bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;
+   int16_t	   bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;
 // параметры для определения dust
-   INT     bsdust_upper, bsdust_lower, bsdust_ps;
+   int16_t     bsdust_upper, bsdust_lower, bsdust_ps;
 // параметры БЛ
-   INT     Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
+   int16_t     Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
 // сколько на первой, второй линиях
-   INT           Ns1,Ns2;        // in Iot.c   only  !!!
+   int16_t           Ns1,Ns2;        // in Iot.c   only  !!!
 // мульти - БЛ
    uchar          multi_bas;
 // буква была переведена в dust

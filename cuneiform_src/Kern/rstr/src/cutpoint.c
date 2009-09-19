@@ -77,44 +77,44 @@ extern char db_pass;
 
 extern uchar *ForRaster1;
 
-static void begin(INT,INT);
+static void begin(int16_t,int16_t);
 static void allcuts();
 static void interlines();
 static void minlincut(char);
-static void fixcut(INT,INT,INT,INT);
-static INT scamin(INT,INT,INT);
+static void fixcut(int16_t,int16_t,int16_t,int16_t);
+static int16_t scamin(int16_t,int16_t,int16_t);
 static void regmin(char);
 static void make_limits();
 static void findbotbnd();
-static INT bot_serif(char);
-// static INT verifh(pchar,char,CHAR);
-static INT walltest(INT,INT,INT,INT,INT);
-static INT middle_puso(char);
-static INT lower_gap(char);
+static int16_t bot_serif(char);
+// static int16_t verifh(pchar,char,CHAR);
+static int16_t walltest(int16_t,int16_t,int16_t,int16_t,int16_t);
+static int16_t middle_puso(char);
+static int16_t lower_gap(char);
 static void lower_pen(char);
 static void findtopbnd();
-static INT top_serif(char);
-static INT upper_gap(char);
-// static INT lower_gap2(char);
+static int16_t top_serif(char);
+static int16_t upper_gap(char);
+// static int16_t lower_gap2(char);
 static void define_cat(struct extrem_elem *,char);
 static void make_func();
-static INT make_extrem(pchar,struct extrem_elem *);
-static INT make_absextr(char,struct extrem_elem *);
+static int16_t make_extrem(pchar,struct extrem_elem *);
+static int16_t make_absextr(char,struct extrem_elem *);
 static void make_info();
 static char bodyes[128], cut_place[128];
 static char foots[128], heads[128];
 static struct extrem_elem exbody[MAX_HOR/2];
 static struct extrem_elem exfoot[MAX_HOR/2];
 static struct extrem_elem exhead[MAX_HOR/2];
-static INT totalh;
+static int16_t totalh;
 //Lepik searches objezd:
- static INT  SearchObjezd(INT x,  puchar c,
-                          INT width, INT y,
-                          INT dh, INT r0,
-                          INT height, INT y_beg);
+ static int16_t  SearchObjezd(int16_t x,  puchar c,
+                          int16_t width, int16_t y,
+                          int16_t dh, int16_t r0,
+                          int16_t height, int16_t y_beg);
 
 
-static void begin(INT width,INT height)
+static void begin(int16_t width,int16_t height)
 //
 //	This procedure sets up all variables.
 //
@@ -137,10 +137,10 @@ static void allcuts()
 // This procedure builds graphics and finds all reasonable cutting points.
 //
  {
- INT  cline;
+ int16_t  cline;
  char svbest, svbestx;
  struct extrem_elem *Extrc;
- INT  pnt;
+ int16_t  pnt;
 
 
  lastmax=0;
@@ -256,7 +256,7 @@ static void minlincut(char arg)
 //    This procedure builds graphics and finds all reasonable cutting points.
 //
  {
- INT nx, cline,min, max, svf, svn, svl,twh, tw2, tw3, is4,
+ int16_t nx, cline,min, max, svf, svn, svl,twh, tw2, tw3, is4,
      wdsfl, lastx, lastw, curw, nfix, flgr, fldef;
  struct info_elm *inf;
 
@@ -287,17 +287,17 @@ static void minlincut(char arg)
   {
   curw=inf->sumb;
   is4=curw<<2;
-  if ((INT)min >= (INT)(inf->botf)) min=inf->botf;
-  if ((INT)max <= (INT)(inf->toph)) max=inf->toph;
-  if ((INT)is4 > (INT)t_width)
+  if ((int16_t)min >= (int16_t)(inf->botf)) min=inf->botf;
+  if ((int16_t)max <= (int16_t)(inf->toph)) max=inf->toph;
+  if ((int16_t)is4 > (int16_t)t_width)
    { wdsfl++;  nfix=2; }            // may look at thin line
-  if (((INT)(max-min) > (INT)twh) && ((nx >(INT)5) && svn))
+  if (((int16_t)(max-min) > (int16_t)twh) && ((nx >(int16_t)5) && svn))
    { fixcut(svf,svl,svn,arg); svn=0; max=0; min=127; }
-  if ((INT)lastw == (INT)curw)
+  if ((int16_t)lastw == (int16_t)curw)
    continue;
-  if ((INT)lastw > (INT)curw)                 // became narrower
+  if ((int16_t)lastw > (int16_t)curw)                 // became narrower
    {
-   if (((INT)nx > (INT)(t_height-4)) && ((INT)(nx-lastx) > (INT)2))
+   if (((int16_t)nx > (int16_t)(t_height-4)) && ((int16_t)(nx-lastx) > (int16_t)2))
 					// close to pattern end
     {
      if ((lastw<<2) > tw3)           // too thick
@@ -354,9 +354,9 @@ gr1:
  fixcut(127,lastx,nx,arg);
  }
 
-static void fixcut(INT fl,INT x1,INT x2,INT arg)
+static void fixcut(int16_t fl,int16_t x1,int16_t x2,int16_t arg)
  {
- INT ctf;
+ int16_t ctf;
 
  switch (arg)
   {
@@ -382,9 +382,9 @@ static void fixcut(INT fl,INT x1,INT x2,INT arg)
   }
  }
 
-static INT scamin(INT a,INT d,INT r)
+static int16_t scamin(int16_t a,int16_t d,int16_t r)
  {
- INT nx, y, m;
+ int16_t nx, y, m;
 
  nx=a;
  y=points[nx].sumb;
@@ -403,7 +403,7 @@ static INT scamin(INT a,INT d,INT r)
 static void regmin(char c)
 // cut in x=bestx, method=c;
  {
- INT v, line_num; char rept, full, w, wx, ww, dh, h, vr;
+ int16_t v, line_num; char rept, full, w, wx, ww, dh, h, vr;
  struct info_elm *inf;
  struct own_cut *ad;
 
@@ -600,9 +600,9 @@ lrdo:;
  return;
  }
 
-static INT bot_serif(char ret)
+static int16_t bot_serif(char ret)
  {
- INT  nx, x, x1, x2 /*, ty, cy*/;
+ int16_t  nx, x, x1, x2 /*, ty, cy*/;
  char *cf, maxf, minf;
  char *ch, maxh, minh;
 
@@ -672,9 +672,9 @@ static INT bot_serif(char ret)
  }
 
 
-static INT walltest(INT flg, INT dn1, INT dn2, INT k1, INT k2)
+static int16_t walltest(int16_t flg, int16_t dn1, int16_t dn2, int16_t k1, int16_t k2)
  {
- INT nx, w, wt, n1, n2, maxh, minf;
+ int16_t nx, w, wt, n1, n2, maxh, minf;
 
  maxh=0; minf=256;
  wt= t_width * k1;
@@ -701,9 +701,9 @@ static INT walltest(INT flg, INT dn1, INT dn2, INT k1, INT k2)
  return 0;
  }
 
-static INT middle_puso(char ret)
+static int16_t middle_puso(char ret)
  {
- INT nm;
+ int16_t nm;
 
  if (heads[bestx]+foots[bestx] < t_width)
   {
@@ -737,10 +737,10 @@ static INT middle_puso(char ret)
   }
  }
 
-static INT lower_gap(char ret)
+static int16_t lower_gap(char ret)
  {
  char  nm, x1, x2;
- INT line_num;
+ int16_t line_num;
 
  extrp = &exfoot[0];
  extrc = &exfoot[1];
@@ -880,10 +880,10 @@ lbnd++;
  }
 
 
-static INT top_serif(char ret)
+static int16_t top_serif(char ret)
  {
- INT nx;
- INT x, x1, x2, v1, v2, v3, v4;
+ int16_t nx;
+ int16_t x, x1, x2, v1, v2, v3, v4;
  char cmin, cmax;
 
 				 // serif has not to be too thick
@@ -987,10 +987,10 @@ rt:
  }
 
 
-static INT upper_gap(char ret)
+static int16_t upper_gap(char ret)
  {
  char nx, y;
- INT line_num;
+ int16_t line_num;
 
 				       // not beside MAxbody
  if (!FlM) return 0;
@@ -1019,7 +1019,7 @@ static INT upper_gap(char ret)
 
 static void define_cat(struct extrem_elem *fun, char N)
  {
- INT nm;
+ int16_t nm;
 
  extrp = &fun[0];
  extrc = &fun[1];
@@ -1042,7 +1042,7 @@ static void make_func()
  {
  struct short_line_header *l_ptr;
  struct segment  *s_ptr;
- INT n,x,y,z,bd,bn, cps,cpn, u,p;
+ int16_t n,x,y,z,bd,bn, cps,cpn, u,p;
  char *h1, *h2, *h3, *f1, *f2, *f3, *cb, *cp;
 
  totalh=0;
@@ -1127,9 +1127,9 @@ static void make_func()
  }
 
 
-static INT make_extrem( char func[], struct extrem_elem extr[])
+static int16_t make_extrem( char func[], struct extrem_elem extr[])
  {
- INT N,n;
+ int16_t N,n;
  char prevx, prevf, prevd;
  char curf, curd;
  struct extrem_elem *el;
@@ -1183,9 +1183,9 @@ jump:
  return(N);
  }
 
-static INT make_absextr( char f, struct extrem_elem extr[])
+static int16_t make_absextr( char f, struct extrem_elem extr[])
  {
- INT N,n;
+ int16_t N,n;
  char prevx, prevf, prevd;
  char curf, curd;
  struct extrem_elem *el;
@@ -1247,7 +1247,7 @@ static INT make_absextr( char f, struct extrem_elem extr[])
 
 static void make_info()
  {
- INT nx, nl;
+ int16_t nx, nl;
  struct short_line_header *l_ptr;
  struct segment  *s_ptr;
  struct info_elm *inf;
@@ -1285,7 +1285,7 @@ static void make_info()
   }
  }
 
-INT cut_points(INT width,INT height,uchar *r,struct cut_elm *ans)
+int16_t cut_points(int16_t width,int16_t height,uchar *r,struct cut_elm *ans)
  {
  char n, a, i;
  struct cut_elm *a1;
@@ -1299,7 +1299,7 @@ INT cut_points(INT width,INT height,uchar *r,struct cut_elm *ans)
  s_raster=r;
  c_rastror(s_raster,t_raster(),s_width,s_height);
 			      // turn s_raster for 90 degrees clockwise
- t_comp_ptr=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift));
+ t_comp_ptr=c_locomp(t_raster(),t_width_b,t_height,0,(int16_t)(-t_left_shift));
 			      // extraction components from t_raster
  if (t_comp_ptr == NULL)
    return -1;
@@ -1350,7 +1350,7 @@ ret:;
  return a;
  }
 /////////////////////
-INT Alik_cut_points(INT width,INT height,uchar *r,struct cut_elm *ans,INT row)
+int16_t Alik_cut_points(int16_t width,int16_t height,uchar *r,struct cut_elm *ans,int16_t row)
  {
  char n,a,i;
  struct cut_elm *a1;
@@ -1368,7 +1368,7 @@ INT Alik_cut_points(INT width,INT height,uchar *r,struct cut_elm *ans,INT row)
 
  s_raster=r;
  c_rastror(s_raster,t_raster(),s_width,s_height); // turn s_raster for 90 degrees clockwise
- t_comp_ptr=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift)); // extraction components from t_raster
+ t_comp_ptr=c_locomp(t_raster(),t_width_b,t_height,0,(int16_t)(-t_left_shift)); // extraction components from t_raster
  if (t_comp_ptr == NULL)     return -1;
  t_line_ptr=c_boxln(t_comp_ptr);                  // box presentation of a component ->  line presentation of the component
  if ((i=(char)make_graph()) <= 0 && width<20)  return i;        // make graph of shortened lines for  turned raster
@@ -1391,13 +1391,13 @@ INT Alik_cut_points(INT width,INT height,uchar *r,struct cut_elm *ans,INT row)
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AK changed 26.03.98
-MN  *cut_rast(puchar r,INT width, INT height,INT upper, INT left,
+MN  *cut_rast(puchar r,int16_t width, int16_t height,int16_t upper, int16_t left,
 	      struct cut_elm *cuts, char p, char flg, char *svp, cut_pos *cpos)
 {
 	uchar *c, *s;
 	uchar b, bt, bs;
 	char x, h, dh, fl;
-	INT totc, dx, y, r0, tr1, tr2, r1, r2, f1;
+	int16_t totc, dx, y, r0, tr1, tr2, r1, r2, f1;
 	//  flg - request type :
 	//  0 -  glue back
 	//  1 -  make cut
@@ -1405,7 +1405,7 @@ MN  *cut_rast(puchar r,INT width, INT height,INT upper, INT left,
 	//  3 -  create components after all cuts made
 
 	if (flg==3)
-		return(c_locomp(r,(INT)((width+7)>>3),height,upper,left));
+		return(c_locomp(r,(int16_t)((width+7)>>3),height,upper,left));
 
 	if (flg)
 		memset (svp,0,16);
@@ -1484,8 +1484,8 @@ agacut:;
 				if( !cuts_point_methode )
 					if ((fl ==0) &&(!(f1 & 1)))      // beginning of vertical interval
 					{
-						INT ret;
-						ret = SearchObjezd(x, c, width, y, dh, r0, height, (INT)(height -h));
+						int16_t ret;
+						ret = SearchObjezd(x, c, width, y, dh, r0, height, (int16_t)(height -h));
 						if (ret)
 						{
 							ret -=1;
@@ -1597,7 +1597,7 @@ agacut:;
 	}
 
 	if (flg==2)
-		return(c_locomp(r,(INT)((width+7)>>3),height,upper,left));
+		return(c_locomp(r,(int16_t)((width+7)>>3),height,upper,left));
 
 	return NULL;
 }
@@ -1610,21 +1610,21 @@ static uchar rstr[8] ={0xF0,0x78,0x3C,0x1E,0x0F,0x07,0x03,0x01};
 static uchar  aux[8] ={0x07,0x03,0x01,0x00,0x00,0x80,0xC0,0xE0};
 
 
-INT  SearchObjezd(INT     x,         // column number where cutting is going.
+int16_t  SearchObjezd(int16_t     x,         // column number where cutting is going.
                   puchar   c,         // pointer to curr byte in raster
-                  INT width,         // width of raster (pixs)
-                  INT     y,         // current row (in relative coords)
-                  INT    dh,         // no of rows to investigate(rel coords)
-                  INT    r0,         // first row (in rast coords)
-                  INT height,        // height of raster
-                  INT beg_y)         // first row for cut
+                  int16_t width,         // width of raster (pixs)
+                  int16_t     y,         // current row (in relative coords)
+                  int16_t    dh,         // no of rows to investigate(rel coords)
+                  int16_t    r0,         // first row (in rast coords)
+                  int16_t height,        // height of raster
+                  int16_t beg_y)         // first row for cut
  {
-  INT  i;
+  int16_t  i;
   puchar cc;
-  INT dx;             //  width of raster in bytes.
-  INT  bitNo;         // Curr Bit No in byte
+  int16_t dx;             //  width of raster in bytes.
+  int16_t  bitNo;         // Curr Bit No in byte
   uchar  CurB, aCurB,  Mask, aMask, Accu, aAccu;
-  INT strategy; // 0 - left and right strips in one byte,
+  int16_t strategy; // 0 - left and right strips in one byte,
                 // 1 - right split by byte,
                 // 2 - left   split by byte.
 

@@ -85,7 +85,7 @@ uint32_t   nRoots = 0;
 
 ROOT  *pAfterRoots;
 
-INT  nOriginalRoots;
+int16_t  nOriginalRoots;
 ROOT *pAfterOriginalRoots;
 
 ROOT_EXT *pRootExts      = NULL;
@@ -363,7 +363,7 @@ void RootsRemoveFromRulers (void)
 {
     ROOT *p;
     int  x, y;
-    extern void del_root (INT row, INT col, INT h, INT w);
+    extern void del_root (int16_t row, int16_t col, int16_t h, int16_t w);
 
     for (p = pRoots; p < pAfterRoots; p++)
     {

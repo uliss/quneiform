@@ -490,7 +490,7 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
  CWord*          CurrentWord;
  const char*     SeparatorsWord=" ";
  const char*     result=NULL;
- INT             FlagWord;
+ int16_t             FlagWord;
  Bool            FlagString,FlagCapDrop;
 
  line        = *Comingline;

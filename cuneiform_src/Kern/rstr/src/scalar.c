@@ -120,7 +120,7 @@ static uchar sqrt_tab[] = {
 15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 };
 
-INT long_sqrt (uint32_t n)
+int16_t long_sqrt (uint32_t n)
 {
  uint16_t w;
 uint32_t d, step, lw;
@@ -134,7 +134,7 @@ uint32_t d, step, lw;
 sq_loop:
  d -= (step = (lw = (d * d - n))/ (2*d)); if (step) goto sq_loop;
  if (lw >= d-1) d--;
- return (INT) d;
+ return (int16_t) d;
 }
 
 //	Add component to box raster
@@ -143,14 +143,14 @@ extern c_comp wcomp;
 extern uchar lpool[];
 
 static void make_box_raster(PWORD matr, c_comp * cp,
-     INT row, INT col, INT h, INT w, lnhead * lp);
+     int16_t row, int16_t col, int16_t h, int16_t w, lnhead * lp);
 
 
 
 void comp_to_box (PWORD matr, c_comp * cp,
 	uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
- make_box_raster (matr, cp, row, (INT)((cp->left - col)*3), h, w,
+ make_box_raster (matr, cp, row, (int16_t)((cp->left - col)*3), h, w,
    (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t)));
 }
 
@@ -161,11 +161,11 @@ void wcomp_to_box (PWORD matr)
 }
 
 static void make_box_raster(PWORD matr, c_comp * cp,
-     INT row, INT add_col, INT h, INT w, lnhead * lp)
+     int16_t row, int16_t add_col, int16_t h, int16_t w, lnhead * lp)
 {
- INT r3, row_rest, w2;
+ int16_t r3, row_rest, w2;
  PWORD pm, p;
- INT xs, xe, s1, s2, s3;
+ int16_t xs, xe, s1, s2, s3;
  interval * ip;
 
  w2 = w+w;
@@ -215,8 +215,8 @@ fint:;
  if (lp->lth != 0) goto next_line;
 }
 
-INT proport(uint16_t best_cos,uint16_t next_cos,uint16_t prev_cos,
-		INT next_res,INT full_res)
+int16_t proport(uint16_t best_cos,uint16_t next_cos,uint16_t prev_cos,
+		int16_t next_res,int16_t full_res)
 {
  return
   ((best_cos - prev_cos) * (next_res - full_res))/(next_cos - prev_cos)

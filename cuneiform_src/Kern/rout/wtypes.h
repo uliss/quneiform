@@ -182,7 +182,7 @@ typedef unsigned short uint16_t;
 #endif // !_WORD_DEFINED
 typedef unsigned int uint;
 
-typedef int INT;
+typedef int int16_t;
 
 typedef long Bool;
 
@@ -240,7 +240,7 @@ typedef HANDLE HDWP;
 
 #ifndef _HFILE_DEFINED
 #define _HFILE_DEFINED
-typedef INT HFILE;
+typedef int16_t HFILE;
 
 #endif // !_HFILE_DEFINED
 #ifndef _LPWORD_DEFINED
@@ -361,8 +361,8 @@ typedef struct tagSIZE __RPC_FAR *LPSIZE;
 #else // WIN16
 typedef struct tagSIZE
 {
-    INT cx;
-    INT cy;
+    int16_t cx;
+    int16_t cy;
 } SIZE, *PSIZE, *LPSIZE;
 #endif // WIN16
 typedef struct  tagSIZEL

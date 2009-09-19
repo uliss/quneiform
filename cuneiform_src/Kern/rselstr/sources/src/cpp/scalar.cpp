@@ -73,7 +73,7 @@ static uchar sqrt_tab[] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4,
 		15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
 		15, 15, 15 };
 
-INT long_sqrt(uint32_t n) {
+int16_t long_sqrt(uint32_t n) {
 	uint16_t w;
 	uint32_t d, step, lw;
 	uchar sh;
@@ -98,5 +98,5 @@ INT long_sqrt(uint32_t n) {
 		goto sq_loop;
 	if (lw >= d - 1)
 		d--;
-	return (INT) d;
+	return (int16_t) d;
 }

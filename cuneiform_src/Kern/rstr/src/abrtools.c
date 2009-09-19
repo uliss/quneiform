@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define  MLTPLR 64
 
 static uchar pen_over_b2[8]={ 0,0,20,80,120,200,220,240 };
-static INT  x_beg, y_beg, delta_x, delta_y;
-static INT  orient;
+static int16_t  x_beg, y_beg, delta_x, delta_y;
+static int16_t  orient;
 static uchar pen_for_convex[6] = { 0, 32, 48, 64, 128, 240 };
 
 
@@ -71,9 +71,9 @@ void abris_reset()
  abriflag=leftfl=rightfl=topfl=botfl=0;
 }
 
-INT make_histo ( uchar *array, uchar max_num)
+int16_t make_histo ( uchar *array, uchar max_num)
 {
-INT i,j, mode_val;
+int16_t i,j, mode_val;
 
  memset(histo,0,128);
  histo_max_value = 0;
@@ -102,7 +102,7 @@ void make_abris(s_glue *GL, cell *cl)
  cell *a;
  uchar *rpsum, *rpln, *rpleft, *rpright, *rpwid;
  uchar intbeg, intend, intlth;
- INT  Lc1, lc1, nc,
+ int16_t  Lc1, lc1, nc,
       hw, hm, rowd, cold;
 
  Z=&string;
@@ -124,7 +124,7 @@ void make_abris(s_glue *GL, cell *cl)
  ncells--;
 
  {
-  INT h = gl_maxrow - gl_minrow; INT w = gl_maxcol - gl_mincol;
+  int16_t h = gl_maxrow - gl_minrow; int16_t w = gl_maxcol - gl_mincol;
    memset(l_abr,255,h);
    memset(r_abr,255,h);
    memset(top,255,w);
@@ -208,7 +208,7 @@ void make_abris(s_glue *GL, cell *cl)
 }
 /***************************************/
 void make_wid()
-{ INT i, ns; uchar *pfun;
+{ int16_t i, ns; uchar *pfun;
  if (sfl & 1) return;
  swt=0;
  for (i=0, pfun=wid; i<fullh; pfun++,i++)
@@ -221,7 +221,7 @@ void make_wid()
 }
 /*************************************/
 void make_left_max()
-{ INT i; uchar *pfun, sb, nb;
+{ int16_t i; uchar *pfun, sb, nb;
  if (leftfl & 1) return;
  leftfl |= 1;
  lmin1=lmin2=255;
@@ -251,7 +251,7 @@ void make_left_max()
 
 void make_right_max()
 {
- INT i; uchar *pfun, sb, nb;
+ int16_t i; uchar *pfun, sb, nb;
  if (rightfl & 1) return;
  rightfl |= 1;
  rmin1=rmin2=255;
@@ -279,7 +279,7 @@ void make_right_max()
 }
 
 void make_top_max()
-{ INT i; uchar *pfun;
+{ int16_t i; uchar *pfun;
  if (topfl & 1) return;
  topfl |= 1;
  tmin1=tmin2=255;
@@ -304,7 +304,7 @@ void make_top_max()
 
 
 void make_bot_max()
-{ INT i; uchar *pfun;
+{ int16_t i; uchar *pfun;
  if (botfl & 1) return;
  botfl |= 1;
  bmin1=bmin2=255;
@@ -345,7 +345,7 @@ uchar i;
 uchar    find_2int_zone( uchar from, uchar to, puchar beg, puchar end )
 {
     uchar ret_code, i;
-    INT wb, we;
+    int16_t wb, we;
     ret_code = NOT_FOUND_TWO_INT_ZONE;
     wb = we = -1;
     memset( histo, 0, 128 );
@@ -380,7 +380,7 @@ uchar    find_2int_zone( uchar from, uchar to, puchar beg, puchar end )
  uchar    find_1int_zone( uchar from, uchar to, puchar beg, puchar end )
 {
     uchar ret_code, i;
-    INT wb, we;
+    int16_t wb, we;
     ret_code = NOT_FOUND_ONE_INT_ZONE;
     wb = we = -1;
 
@@ -455,7 +455,7 @@ uchar rb_corner()
 #define PNL_ROUND_RBC  10      // Round abris at right bottom corner
 
  uchar pen, shift;
- INT  fl, i1, i2, i3, i4, j1, j2, j3, j4;
+ int16_t  fl, i1, i2, i3, i4, j1, j2, j3, j4;
 
  make_right_max();
  i1=fullh-1; i2=i1-1; i3=i2-1; i4=i3-1;
@@ -493,9 +493,9 @@ Penalty:
  return pen;
 }
 
-uchar a_rb_corner( INT cur_p )
+uchar a_rb_corner( int16_t cur_p )
 {
-INT pnl_rbc, newprob;
+int16_t pnl_rbc, newprob;
 
  pnl_rbc = rb_corner();
  if ( linh[fullh-2] == 2 )          // the bottom abris likes letter 'a'
@@ -513,7 +513,7 @@ uchar round_rb_corner()
                                    //  abris at right bottom corner
 
  uchar pen;
- INT  st, bnd, prev, cur;
+ int16_t  st, bnd, prev, cur;
 
  pen = 0;
  bnd = fullh - (fullh >> 2) - 1;
@@ -535,11 +535,11 @@ uchar round_rb_corner()
  return pen;
 }
 
- uchar test_bottom_corner( puchar abris, INT *size)
+ uchar test_bottom_corner( puchar abris, int16_t *size)
 {
 
  uchar type;
- INT  pen, convex_st, concave_st, bnd, prev, cur;
+ int16_t  pen, convex_st, concave_st, bnd, prev, cur;
 
  pen = 0; type = 0;
  bnd = fullh - (fullh >> 2) - 1;
@@ -587,11 +587,11 @@ TBC_Ret:
   return type;
 }
 
-INT two_int_over_b2 ( cell *curc, INT *loc_2_int)
+int16_t two_int_over_b2 ( cell *curc, int16_t *loc_2_int)
 // This procedure determines the apperance two black intervals near 2nd base
 // This procedure is used by discriminaters of follow letters: 'b', 'h' and 'd'
 {
-INT twoint, retpen, h14, i;
+int16_t twoint, retpen, h14, i;
 uchar  shift_from_top;
 
  retpen = 0;
@@ -641,7 +641,7 @@ uchar  shift_from_top;
  return retpen;
 }
 
- INT Let_bint_index( char Let )
+ int16_t Let_bint_index( char Let )
 {
  switch (Let)
   {
@@ -657,10 +657,10 @@ uchar  shift_from_top;
 }
 
 #define GAP_MAX_SIZE 128
- INT gap_in_side(
-       uchar from, uchar to, uchar code_func, INT tresh, uchar *flit)
+ int16_t gap_in_side(
+       uchar from, uchar to, uchar code_func, int16_t tresh, uchar *flit)
 {
-INT retgap;
+int16_t retgap;
 uchar fmax, fmin, xmax, xmin, i;
 uchar *func;
 
@@ -778,7 +778,7 @@ uchar i, cvlth, fl, beg, end;
 uchar monotonous_decrease
         ( puchar func, uchar from, uchar to, puchar last_decr, uchar tresh)
 {
-INT  delta;
+int16_t  delta;
 uchar ret_code, smooth_sum, i;
 
     ret_code = FOUND_MON_DECR;
@@ -802,7 +802,7 @@ uchar ret_code, smooth_sum, i;
  uchar monotonous_increase
         ( puchar func, uchar from, uchar to, puchar last_incr, uchar tresh)
 {
-INT  delta;
+int16_t  delta;
 uchar ret_code, smooth_sum, i;
 
     ret_code = FOUND_MON_INCR;
@@ -823,10 +823,10 @@ uchar ret_code, smooth_sum, i;
     return ret_code;
 }
 
- INT top_end_bottom_weights_delta()
+ int16_t top_end_bottom_weights_delta()
 {
 uchar i, wto, wfrom;
-INT  delta, wi, bot_sum, top_sum;
+int16_t  delta, wi, bot_sum, top_sum;
 
     wi = 1;
     wto = midh - 1;
@@ -847,10 +847,10 @@ INT  delta, wi, bot_sum, top_sum;
 
 }
 
- uchar new_prob( INT penalty )
+ uchar new_prob( int16_t penalty )
 {
 uchar ret_prob;
-INT wprob;
+int16_t wprob;
 
  wprob = cprob - penalty;
  if ( wprob < 2 )
@@ -873,9 +873,9 @@ void construct_line_by_two_points( uchar x1, uchar y1, uchar x2, uchar y2 )
     return;
 }
 
-INT get_x_coord( uchar y_coord )
+int16_t get_x_coord( uchar y_coord )
 {
-	INT xc;
+	int16_t xc;
 	//AK! add for no divide by zerro
 		if ( delta_y )
 					xc = x_beg + orient * ( (( (y_coord * MLTPLR) - y_beg ) * delta_x ) / delta_y );
@@ -886,7 +886,7 @@ INT get_x_coord( uchar y_coord )
 
 uchar test_against_convex( puchar func, uchar from, uchar to )
 {
-INT  x, i, dx;
+int16_t  x, i, dx;
 uchar pen, cnt;
 LONG    total;
 

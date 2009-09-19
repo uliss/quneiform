@@ -164,7 +164,7 @@ Bool32  enable_pass2=TRUE;
 static  Bool32  stop_user = FALSE;
 uchar   valid_word_number=0;
 version * start_rec, *rec_ptr;
-INT  text_findstat(char * w);
+int16_t  text_findstat(char * w);
 uchar db_pass;
 uchar string[8192];
 uint16_t lpool_lth;
@@ -364,10 +364,10 @@ void correct_letters_pidx_table(void);
 //=============== Global data ==============
 Err16 rcmErr;
 
-INT nIncline;         // setup in RcmSetup
-INT current_fragment; // setup in RSTR_SetOptions
-INT iFont=0;
-INT line_number;
+int16_t nIncline;         // setup in RcmSetup
+int16_t current_fragment; // setup in RSTR_SetOptions
+int16_t iFont=0;
+int16_t line_number;
 Bool pass4_in;
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
@@ -382,7 +382,7 @@ Bool16 first_number; // OLEG : 26-10-1998 : best cutting of glued "#"
 //=============== External data ==============
 extern cell   *stopcell;
 extern Bool    snap_page_disable;
-extern INT page_nIncline;
+extern int16_t page_nIncline;
 //=============== Local data ==============
 static jmp_buf jumper;
 static int32_t  nResolutionY=300; // setup in RSTR_SetOptions
@@ -399,10 +399,10 @@ Bool line_readyBL=FALSE,line_BL=FALSE,line_handfragment=FALSE,line_rerecog=FALSE
 uchar line_tabcell=0;
 
 #define MEMORY                  0x50000 //500000        //0x450000
-Bool32 read_rec_file(INT lang, puchar pool, puchar * end)
+Bool32 read_rec_file(int16_t lang, puchar pool, puchar * end)
 {
 uint32_t l;
-    INT h;
+    int16_t h;
     LONG  size;
 
 #ifndef O_BINARY /* This is defined only in Windows. */
@@ -758,9 +758,9 @@ RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
     return TRUE;
 }
 
-static Bool rcm_find(INT Ax,INT Ay,INT Bx,INT By)
+static Bool rcm_find(int16_t Ax,int16_t Ay,int16_t Bx,int16_t By)
 {
-    INT i;
+    int16_t i;
     for (i=0; i<num_of_lines; i++)
     {
         if(   (page_lines[i].type&UNDRLN) &&
@@ -1551,7 +1551,7 @@ if( !spec_camera )
     }
 CSTR_GetLineAttr (lino, &lattr);
 lattr.pageSkew2048=page_nIncline;
-lattr.ResolutionY=(INT)nResolutionY;
+lattr.ResolutionY=(int16_t)nResolutionY;
 if( fax1x2 )
         lattr.Flags |= CSTR_STR_Fax100x200;
 if( matrix )
@@ -1761,7 +1761,7 @@ RSTR_FUNC(Bool32)  RSTRRecognizePostMain(
     }
     CSTR_GetLineAttr (lino, &lattr);
     lattr.pageSkew2048=page_nIncline;
-    lattr.ResolutionY=(INT)nResolutionY;
+    lattr.ResolutionY=(int16_t)nResolutionY;
     if( fax1x2 )
         lattr.Flags |= CSTR_STR_Fax100x200;
     if( matrix )
@@ -2005,7 +2005,7 @@ RSTR_FUNC(Bool32)  RSTR_SetOptions (RSTR_Options *opt)
         *p=0;
     }
     language = opt->language;
-    page_nIncline=(INT)opt->pageSkew2048;
+    page_nIncline=(int16_t)opt->pageSkew2048;
     actual_resolution=300;
     nResolutionY=actual_resolution;
     current_fragment=0;
@@ -2142,12 +2142,12 @@ RSTR_FUNC(Bool32) RSTR_TestAlphabet(RSTR_info *str,CSTR_line lin)
     line_rerecog=FALSE;
     line_readyBL=FALSE;
     line_tabcell=0;
-    str0.all        = (INT)str->nall     ;
-    str0.dig        = (INT)str->ndig     ;
-    str0.fuzzy_dig  = (INT)str->nfdig    ;
-    str0.dollars    = (INT)str->ndollars ;
-    str0.alphabet   = (INT)str->alphabet ;
-    str0.pm         = (INT)str->nplus_minus;
+    str0.all        = (int16_t)str->nall     ;
+    str0.dig        = (int16_t)str->ndig     ;
+    str0.fuzzy_dig  = (int16_t)str->nfdig    ;
+    str0.dollars    = (int16_t)str->ndollars ;
+    str0.alphabet   = (int16_t)str->alphabet ;
+    str0.pm         = (int16_t)str->nplus_minus;
     pass1_test_alphabet(&str0,lin);
     str->nall       = str0.all;
     str->ndig       = str0.dig;
@@ -2161,12 +2161,12 @@ RSTR_FUNC(Bool32) RSTR_TestAlphabet(RSTR_info *str,CSTR_line lin)
 RSTR_FUNC(Bool32) RSTR_StudyAlphabet(RSTR_info *str)
 {
     str_info    str0;
-    str0.all        = (INT)str->nall     ;
-    str0.dig        = (INT)str->ndig     ;
-    str0.fuzzy_dig  = (INT)str->nfdig    ;
-    str0.dollars    = (INT)str->ndollars ;
-    str0.alphabet   = (INT)str->alphabet ;
-    str0.pm         = (INT)str->nplus_minus;
+    str0.all        = (int16_t)str->nall     ;
+    str0.dig        = (int16_t)str->ndig     ;
+    str0.fuzzy_dig  = (int16_t)str->nfdig    ;
+    str0.dollars    = (int16_t)str->ndollars ;
+    str0.alphabet   = (int16_t)str->alphabet ;
+    str0.pm         = (int16_t)str->nplus_minus;
     set_column_alphabets(&str0,1); // 1 column
     str->nall       = str0.all;
     str->ndig       = str0.dig;
@@ -2202,12 +2202,12 @@ RSTR_FUNC(Bool32) RSTR_TestAlphabetPass2(RSTR_info *str,CSTR_line lin)
     line_rerecog=FALSE;
     line_readyBL=FALSE;
     line_tabcell=0;
-    str0.all        = (INT)str->nall     ;
-    str0.dig        = (INT)str->ndig     ;
-    str0.fuzzy_dig  = (INT)str->nfdig    ;
-    str0.dollars    = (INT)str->ndollars ;
-    str0.alphabet   = (INT)str->alphabet ;
-    str0.pm         = (INT)str->nplus_minus;
+    str0.all        = (int16_t)str->nall     ;
+    str0.dig        = (int16_t)str->ndig     ;
+    str0.fuzzy_dig  = (int16_t)str->nfdig    ;
+    str0.dollars    = (int16_t)str->ndollars ;
+    str0.alphabet   = (int16_t)str->alphabet ;
+    str0.pm         = (int16_t)str->nplus_minus;
     pass2_test_alphabet(&str0,lin);
     str->nall       = str0.all;
     str->ndig       = str0.dig;
@@ -2221,12 +2221,12 @@ RSTR_FUNC(Bool32) RSTR_TestAlphabetPass2(RSTR_info *str,CSTR_line lin)
 RSTR_FUNC(Bool32) RSTR_StudyAlphabetPass2(RSTR_info *str)
 {
     str_info    str0;
-    str0.all        = (INT)str->nall     ;
-    str0.dig        = (INT)str->ndig     ;
-    str0.fuzzy_dig  = (INT)str->nfdig    ;
-    str0.dollars    = (INT)str->ndollars ;
-    str0.alphabet   = (INT)str->alphabet ;
-    str0.pm         = (INT)str->nplus_minus;
+    str0.all        = (int16_t)str->nall     ;
+    str0.dig        = (int16_t)str->ndig     ;
+    str0.fuzzy_dig  = (int16_t)str->nfdig    ;
+    str0.dollars    = (int16_t)str->ndollars ;
+    str0.alphabet   = (int16_t)str->alphabet ;
+    str0.pm         = (int16_t)str->nplus_minus;
     set_column_alphabets_pass2(&str0,1); // 1 column
     str->nall       = str0.all;
     str->ndig       = str0.dig;
@@ -2650,7 +2650,7 @@ void store_colors(CSTR_line lino)
 }
 
 
-INT  text_findstat(char * w)
+int16_t  text_findstat(char * w)
 {
 #ifdef     _USE_SPELLING_
     int32_t                      Check = 0;
@@ -2658,13 +2658,13 @@ INT  text_findstat(char * w)
         return 0;
     if( !RLING_CheckWord((pchar)w, &Check) )
         return 0;
-    return (INT)Check;
+    return (int16_t)Check;
 #else
     return 0;
 #endif
 }
 
-INT  text_findstat_aux(char * w)
+int16_t  text_findstat_aux(char * w)
 {
 #ifdef     _USE_SPELLING_
     int32_t                      Check = 0;
@@ -2672,13 +2672,13 @@ INT  text_findstat_aux(char * w)
         return 0;
     if( !RLING_CheckSecWord((pchar)w, &Check) )
         return 0;
-    return (INT)Check;
+    return (int16_t)Check;
 #else
     return 0;
 #endif
 }
 
-INT  text_findstat_agressive(char * w)
+int16_t  text_findstat_agressive(char * w)
 {
     return 0;
 }

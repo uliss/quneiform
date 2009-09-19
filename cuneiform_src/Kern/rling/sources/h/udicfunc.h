@@ -70,14 +70,14 @@ uint32_t InitializeNewUserDict(char * pool, uint32_t pool_size,
 		voc_state *user_dict);
 void ResetUserDict(voc_state * user_dict);
 
-INT _IsUserDict(char *FileName);
+int16_t _IsUserDict(char *FileName);
 
 Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict);
-INT AddWordToUserDictionary(uchar * word, INT weight, voc_state * user_dict);
-INT DeleteWordFromUserDictionary(uchar * word, voc_state * user_dict);
-INT IsWordInUserDictionary(uchar * word, voc_state * user_dict);
-INT SplitWordRecord(uchar * str);
-INT voc_init(voc_state * voc);
-INT next_word_from_voc(uchar *str, voc_state *voc);
+int16_t AddWordToUserDictionary(uchar * word, int16_t weight, voc_state * user_dict);
+int16_t DeleteWordFromUserDictionary(uchar * word, voc_state * user_dict);
+int16_t IsWordInUserDictionary(uchar * word, voc_state * user_dict);
+int16_t SplitWordRecord(uchar * str);
+int16_t voc_init(voc_state * voc);
+int16_t next_word_from_voc(uchar *str, voc_state *voc);
 
 #endif   //#ifndef __USERDICT_FUNCS_H__

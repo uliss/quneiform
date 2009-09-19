@@ -87,7 +87,7 @@ CFCOMPAT_FUNC(Bool) WritePrivateProfileString(LPCTSTR lpAppName,
 CFCOMPAT_FUNC(uint32_t) GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 		LPCTSTR lpDefault, LPTSTR lpReturnedString, uint32_t nSize, LPCTSTR lpFileName);
 CFCOMPAT_FUNC(uint) GetPrivateProfileInt(LPCTSTR lpAppName,
-		LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName);
+		LPCTSTR lpKeyName, int16_t nDefault, LPCTSTR lpFileName);
 
 CFCOMPAT_FUNC(int) WideCharToMultiByte(uint CodePage, uint32_t dwFlags, const wchar_t *lpWideCharStr,
 		int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,

@@ -153,13 +153,13 @@ static char *results_right_to_bad[] = {
 };
 
 static char *ltoi;
-static INT lton;
-static INT glue_pass;
+static int16_t lton;
+static int16_t glue_pass;
 static char percgot;       // percent was got as result of a glue
 extern char db_pass;
 
 void collect_pat(cell *BC, s_glue *GL, cell *EC);
-cell * finpat(cell *BC, s_glue *GL, INT var, uchar flag,uchar pen);
+cell * finpat(cell *BC, s_glue *GL, int16_t var, uchar flag,uchar pen);
 
 extern uchar db_status;	//snap presence
 //extern uchar accent_tab[];
@@ -170,7 +170,7 @@ static void glue_dust_dust();
 #ifdef UFA
 static void glue_all_dusts();
 #endif
-static INT contain(cell *,cell *);
+static int16_t contain(cell *,cell *);
 static cut_pos cposd;
 // russian glue-heuristics
 static void glue_III();
@@ -178,7 +178,7 @@ static Bool config_III(cell *BC,cell *EC, cell *ECN);
 static Bool config_brace_and_K(cell *BC,cell *EC);
 static Bool config_CapRusGe_and_bad(cell *BC,cell *EC);
 
-static INT is_bad_turkish_glue(uchar c1, uchar c2, uchar c3); // 27.06.2002 E.P.
+static int16_t is_bad_turkish_glue(uchar c1, uchar c2, uchar c3); // 27.06.2002 E.P.
 
 void make_all_glues()
  {
@@ -287,7 +287,7 @@ void make_all_glues()
 void collect_pat(cell *BC, s_glue *GL, cell *EC)
  {
  //cell *WC;
- INT  n, fl;
+ int16_t  n, fl;
  if (db_status)
    snap_newcell(BC);
  fl = 0;
@@ -323,14 +323,14 @@ static void glue_let_dust()
 //
  s_glue GL={0};
  cell *BC,*LC,*WC,*WS,*CC,*DC;
- INT bdiff; char dflag;
- INT i, nsc, ngc, n, p1, p1l, p2;
+ int16_t bdiff; char dflag;
+ int16_t i, nsc, ngc, n, p1, p1l, p2;
  SVERS svv1;
  char  defl, ww[40];
  uchar c1, c1l, c2, cp;
  cell bc;
  MN *mn;
- INT  inc=0;
+ int16_t  inc=0;
 
  snap_newpass('b');
 
@@ -446,7 +446,7 @@ static void glue_let_dust()
   if (WC && (WC->flg & (c_f_bad | c_f_let)))
     i=estcomp('b',WC,&svv1,TRSG2,0,0,&GL,&cposd,&cposd,0,0,0);
   if  (i>=TRSG2)
-  { INT var_w;
+  { int16_t var_w;
     var_w = GL.var & 15;
     p2 = p1;
     cp=WC->vers[0].let;
@@ -507,7 +507,7 @@ static char txt21[]="B<--B";
 static char txt22[]="L<--B";
 
 static lll=0;
-INT glue_to_o (uchar c2, uchar c3, cell *BC, cell *EC)
+int16_t glue_to_o (uchar c2, uchar c3, cell *BC, cell *EC)
 {
   if (
        ( ( c2=='(' ) || ( c2=='<')  )  &&
@@ -529,7 +529,7 @@ uchar broken_ii; // broken 'Ї','­','Ё'
 
 static void glue_let_bad()
  {
- INT   i, j, dist, ndist, wdg, bdiff, trsuccess;
+ int16_t   i, j, dist, ndist, wdg, bdiff, trsuccess;
  char dflag, gtofl;
  uint16_t  p1, p2, pt;
  uchar  *tx1, *tx2, **rp1, *rp2, *rps, c2, c3, cw, flb;
@@ -542,7 +542,7 @@ static void glue_let_bad()
  cell w;
  SVERS svv1, sav1, sav2;
  s_glue GL={0};
- INT inc=0;     cell *C[8];
+ int16_t inc=0;     cell *C[8];
 
  lll++;
  flb=0;               // 1st pass:  B+B  only
@@ -975,12 +975,12 @@ accel:                                 // accept new cells
 
 static void glue_dust_dust()
  {
- INT  i,j, bdiff;
+ int16_t  i,j, bdiff;
  char dflag;
  cell *BC, *EC, *WS;
  void *k1, *k2;
  c_comp *S[8];
- cell   *C[8]; INT inc=0;
+ cell   *C[8]; int16_t inc=0;
  char  flgBOX;
  MN  *mn;
  cell w;
@@ -1109,7 +1109,7 @@ restc:
  }
 
 
-static INT contain(cell *new, cell *old)
+static int16_t contain(cell *new, cell *old)
 //
 //	This procedure check whether new cell contains old one.
 //
@@ -1147,10 +1147,10 @@ static void glue_all_dusts()
  {
 s_glue GLG;
 B_LINES bl;
-INT f_u,f_d,f_r,f_l;
+int16_t f_u,f_d,f_r,f_l;
 cell *BC,*EC,*C;
-INT ngl=0,row,col,w,h,ngreat;
-INT rrow,rcol;
+int16_t ngl=0,row,col,w,h,ngreat;
+int16_t rrow,rcol;
 
       if( db_status && snap_activity('b') )
        {
@@ -1300,8 +1300,8 @@ cell *C;
 void glue_III()
  {
 cell *BC,*EC;
-INT ngl=0,row,col,w,h, inc=0;
-INT rrow,rcol;
+int16_t ngl=0,row,col,w,h, inc=0;
+int16_t rrow,rcol;
 uchar res[30];
 
       if( db_status && snap_activity('b') )
@@ -1411,7 +1411,7 @@ return;
 } /* end glue_III */
 
 // 27.06.2002 E.P.
-INT is_bad_turkish_glue(uchar c1, uchar c2, uchar c3)
+int16_t is_bad_turkish_glue(uchar c1, uchar c2, uchar c3)
 {
 /*
 	Определение неудачной турецкой склейки. 27.06.2002 E.P.

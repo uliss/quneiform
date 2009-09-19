@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* from O.S.  */
 #define lr    HORMAX
 
-extern INT bs_got;
+extern int16_t bs_got;
 
 static STICK cane[NSTICKMAX];
 static LONG hist[ /*** HORSZMAX*NINCL ***/  4000 ];    // 4000
@@ -139,7 +139,7 @@ void set_tab_incl()
  */
  }
 
-INT sticks_in_letter(cell *c,INT mode,STICK **res)
+int16_t sticks_in_letter(cell *c,int16_t mode,STICK **res)
 // return value - number of sticks (if >= 0)
 //                code of error    (if <  0)
 //                  -1   base lines arn't yet counted
@@ -151,7 +151,7 @@ INT sticks_in_letter(cell *c,INT mode,STICK **res)
  c_comp *cmp;
  lnhead *line;
  LONG l;                                                          //20.02.97
- INT    ret;
+ int16_t    ret;
 
  if (!bs_got) return -1;
  if (c->flg&c_f_space || !tenv(c))
@@ -170,12 +170,12 @@ INT sticks_in_letter(cell *c,INT mode,STICK **res)
  memset(hist,0,horsz*NINCL*sizeof(*hist));
  memset(raster,0,lr*H*sizeof(*raster));
 
- for (nval=0,cmp=c->env,line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
+ for (nval=0,cmp=c->env,line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(int16_t));
                            (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (!line_to_hist(line)) return -3;
 
  *res=cane;
- ret=(INT)(sticks_find());
+ ret=(int16_t)(sticks_find());
  if( ret>=0 && ret<4 )
     {
     c->n_baton = (uchar)ret;
@@ -437,7 +437,7 @@ ok:
  cane[nstick].x=(x+((x>0)?1:-1))/2;
  cane[nstick].y=(uchar)ymi;
  cane[nstick].l=yma-ymi+1;
- cane[nstick].incl=(INT)incl;
+ cane[nstick].incl=(int16_t)incl;
  cane[nstick].w=(uchar)w;
  cane[nstick].bot=(uchar)typend(&cane[nstick],0);
  cane[nstick].top=(uchar)typend(&cane[nstick],1);

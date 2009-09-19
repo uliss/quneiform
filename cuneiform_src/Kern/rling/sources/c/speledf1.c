@@ -90,14 +90,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**********************************************************************/
 /******** L o k a l    f u n c t i o n s   p r o t o t y p e s ********/
 /**********************************************************************/
- static INT mvbuf(uint16_t l);
- static INT set_descr(char c);
- static INT do_fragm(void);
- static void move_from_near_to_huge(char  *a, char *b, INT l);
- static INT create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type);
- static INT n_l(void);
- static INT p_l(void);
- static INT prev_letter(void);
+ static int16_t mvbuf(uint16_t l);
+ static int16_t set_descr(char c);
+ static int16_t do_fragm(void);
+ static void move_from_near_to_huge(char  *a, char *b, int16_t l);
+ static int16_t create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type);
+ static int16_t n_l(void);
+ static int16_t p_l(void);
+ static int16_t prev_letter(void);
 
 /***********************************************************************/
 /*
@@ -106,9 +106,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 b/ engendering all the necessaries structures
                 c/ setting up the pointers
 */
-INT begin(uchar batch_run)
+int16_t begin(uchar batch_run)
 {
-	/* INT  *p;*/
+	/* int16_t  *p;*/
 	uint16_t i;
 	uint16_t i1;
 	/*  uint32_t l;*/
@@ -166,7 +166,7 @@ define_lth(uchar  *symb)
 */
  {
   LT  *let;
-  INT n;
+  int16_t n;
 
   let=(LT  *)symb;
   n=0;
@@ -212,10 +212,10 @@ define_lth(uchar  *symb)
   return(cur_segm);
  }
 /**********************************************************************/
-INT processEdSymb(void)
+int16_t processEdSymb(void)
 {
-	INT ret = YES;
-	INT n;
+	int16_t ret = YES;
+	int16_t n;
 
 	switch (*SPQ.buff_ptr)
 	{
@@ -293,7 +293,7 @@ void puff_last_segm(void)
  check_free_mem();
 }
 /************************************************************************/
-INT mvbuf(uint16_t l)
+int16_t mvbuf(uint16_t l)
 /*
      This subroutine is in charge with setting down symbols
      into string of concerned segm.
@@ -312,7 +312,7 @@ INT mvbuf(uint16_t l)
   return(YES);
  }
 /*************************************************************************/
-void fill_fragm(INT n_fragm)
+void fill_fragm(int16_t n_fragm)
 /*
      This procedure fills out fragment description table.
 */
@@ -333,13 +333,13 @@ void fill_fragm(INT n_fragm)
  }                                     /* end of fill_fragm */
 
 /************************************************************************/
-INT set_descr(char c)
+int16_t set_descr(char c)
 /*
     This procedure sets up sheet_descr or head of line.
     c=SHEET means sheet_descriptor; c=LINE means line_descriptor.
 */
  {
-  INT i  /*,k*/;
+  int16_t i  /*,k*/;
   struct segm  *segm_ptr;
   /* char * return_str_ptr;*/
   check_free_mem();
@@ -404,7 +404,7 @@ INT set_descr(char c)
 
 
 /*------------------------------------------------------------------*/
-INT do_fragm(void)
+int16_t do_fragm(void)
 /*
     This procedure sets up fragm_descr or head of line.
 */
@@ -475,7 +475,7 @@ struct segm  *cur_line(char tt, struct segm * cur_segm)
  }
 
 
-void skip_letter_in_line(struct segm  *segm_ptr,INT x)
+void skip_letter_in_line(struct segm  *segm_ptr,int16_t x)
 /*
     This procedure sets up to SPQ.ns_symb adrress of letter
     with given x-coordinate in line.
@@ -485,8 +485,8 @@ void skip_letter_in_line(struct segm  *segm_ptr,INT x)
     SPQ.skip_line_x - actual x-coordinate.
 */
  {
-  INT i;
-  INT max;
+  int16_t i;
+  int16_t max;
 
   uchar  *symb,  *c;
   struct segm  *segm_c;
@@ -529,7 +529,7 @@ void skip_letter_in_line(struct segm  *segm_ptr,INT x)
     SPQ.skip_line_x=0;
  }
 /*****************************************************/
-void move_from_near_to_huge(char  *a, char *b, INT l)
+void move_from_near_to_huge(char  *a, char *b, int16_t l)
 {
  while (l--) *a++=*b++;
 }
@@ -560,7 +560,7 @@ void move_from_cur_to_new(struct segm  *cur_segm, char  *cur_symb)
    }
  }
  /*------------------------*/
-void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
+void shift(char dir,int16_t v_s,struct segm *cur_segm,char *cur_symb)
 /*
     This procedure transfers text.
     dir - RIGHT/LEFT.
@@ -569,7 +569,7 @@ void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
 */
  {
   char  *c;
-  /*INT l;*/
+  /*int16_t l;*/
   char  *from;
   char  *to;
   char  *end;
@@ -603,7 +603,7 @@ void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
    }
  }
 
- INT create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type)
+ int16_t create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type)
 /*
     This procedure allocates new segment and connects it with old ones.
 */
@@ -643,7 +643,7 @@ void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
   return(YES);
  }
 
-INT insert_symb(cur_segm, cur_symb,new_symb)
+int16_t insert_symb(cur_segm, cur_symb,new_symb)
 /*
     This procedure inserts symbol in current position.
     If the string doesn't contain letters we place new letter
@@ -655,11 +655,11 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
  char  * cur_symb;
  LT  *new_symb;
  {
-  INT l;
+  int16_t l;
   char shift_flag;
  LT  *new_symb1;
-  INT flag_n;
-  INT flag_b;
+  int16_t flag_n;
+  int16_t flag_b;
   flag_b=NO;
   flag_n=NO;
   if (SPQ.ins_status == NO)
@@ -669,7 +669,7 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
            (LT *)next_symb(YES,YES,YES,cur_segm,cur_symb)) != NULL))
      {
       l=define_lth(cur_symb);
-      shift(LEFT,(INT)(l-sizeof(LT)),cur_segm,cur_symb+l);
+      shift(LEFT,(int16_t)(l-sizeof(LT)),cur_segm,cur_symb+l);
       new_symb1=(LT  *)cur_symb;
       return(NO);
      }
@@ -717,7 +717,7 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
  return(flag_b);
  }
 
-move_to_first( INT dir,uchar let,INT num)
+move_to_first( int16_t dir,uchar let,int16_t num)
 /*
  This procedure moves to first space symbol.
  dir -- direction
@@ -725,7 +725,7 @@ move_to_first( INT dir,uchar let,INT num)
  */
 {
  /*char  *symb;*/
-/* INT rec;*/
+/* int16_t rec;*/
  SPQ.E.miss=NO;
  if(dir== RIGHT)
   {
@@ -814,7 +814,7 @@ move_to_first( INT dir,uchar let,INT num)
 }
 
 
-INT n_l(void)
+int16_t n_l(void)
 {
 SPQ.ns_segm=next_line(SHEET,SPQ.ns_segm);
 if(SPQ.ns_segm== NULL)
@@ -830,9 +830,9 @@ if(SPQ.ns_segm== NULL)
  return(YES);
 }
 
-INT p_l(void)
+int16_t p_l(void)
 {
- INT shift,shift1;
+ int16_t shift,shift1;
  SPQ.ns_segm=cur_line(FRAGM,SPQ.ns_segm)->prev_in_sheet;
  if(SPQ.ns_segm== NULL)
   return(NO);
@@ -853,7 +853,7 @@ INT p_l(void)
 return(YES);
 }
 
-INT prev_letter(void)
+int16_t prev_letter(void)
 /*
  This procedure moves to previos letter in line and changes
  SPQ.E.x,SPQ.E.x_a,SPQ.E.y,SPQ.E,y_a,SPQ.ns_symb,SPQ.ns_segm.
@@ -877,7 +877,7 @@ INT prev_letter(void)
       skip_letter_in_line(SPQ.ns_segm,SPQ.E.x_a);
  return(YES);
  }
- INT load_fragm()
+ int16_t load_fragm()
  /*
  This procedure loads givev fragm atherwise returns NO.
  */
@@ -909,7 +909,7 @@ return(NO);
   return(YES);
  }
 /******************************************************************/
- INT test_spare_space(struct segm * segm,INT need_size)
+ int16_t test_spare_space(struct segm * segm,int16_t need_size)
  {
    return
      (segm->busy_lth + need_size > segm->string_lth)? NO : YES  ;

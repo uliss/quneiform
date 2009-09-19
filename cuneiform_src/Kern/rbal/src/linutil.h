@@ -60,37 +60,37 @@ Bool is_liga_ff(uchar c) ;
 Bool is_liga_ffl(uchar c);
 uchar to_lower(uchar c);
 uchar to_upper(uchar c);
-INT  is_lower(uchar ch);
-INT  is_upper(uchar ch);
-INT  is_russian(uchar ch);
-INT  is_english(uchar ch);
-INT is_polish_special(uchar ch);
-INT is_czech_special(uchar ch);	// 05.09.2000 E.P.
-INT is_roman_special(uchar ch);
-INT is_hungar_special(uchar ch);
-INT is_serbian_special(uchar ch);
-INT is_cen_bottom_accent(uchar c); // 12.09.2000 E.P.
-INT  isletter(uchar ch);
+int16_t  is_lower(uchar ch);
+int16_t  is_upper(uchar ch);
+int16_t  is_russian(uchar ch);
+int16_t  is_english(uchar ch);
+int16_t is_polish_special(uchar ch);
+int16_t is_czech_special(uchar ch);	// 05.09.2000 E.P.
+int16_t is_roman_special(uchar ch);
+int16_t is_hungar_special(uchar ch);
+int16_t is_serbian_special(uchar ch);
+int16_t is_cen_bottom_accent(uchar c); // 12.09.2000 E.P.
+int16_t  isletter(uchar ch);
 Bool is_digit(uchar ch);
 uchar get_homot(uchar ch);
-INT  twin(uchar ch);
-//INT  setup_let_case(void);
-INT  setup_let_case(INT);
-INT  count_line_hi(void);
-INT  draft_cut_hyps(INT bs,INT fl);
-INT smart_diff(CSTR_rast c);
+int16_t  twin(uchar ch);
+//int16_t  setup_let_case(void);
+int16_t  setup_let_case(int16_t);
+int16_t  count_line_hi(void);
+int16_t  draft_cut_hyps(int16_t bs,int16_t fl);
+int16_t smart_diff(CSTR_rast c);
 
 
-void tell_for_b3(INT hist_array[]);
-INT flood_peak(INT *Hh,INT ind);
-INT GetPsFromHeights(void);
+void tell_for_b3(int16_t hist_array[]);
+int16_t flood_peak(int16_t *Hh,int16_t ind);
+int16_t GetPsFromHeights(void);
 uchar BracketIn(UniVersions *v);
-INT def_upper_side(void);
+int16_t def_upper_side(void);
 
 extern uchar page_stat,ufa,stable_b3;
-extern INT HIST_STATISTIC;
+extern int16_t HIST_STATISTIC;
 
-struct uf_bases { INT bb1,bb2; };
+struct uf_bases { int16_t bb1,bb2; };
 
 struct uf_bases uf_let_case(void);
 #define arrnum(a)	(sizeof(a)/sizeof(a[0]))

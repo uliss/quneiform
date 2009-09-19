@@ -78,9 +78,9 @@ extern "C"
 	void EnableDebug( void );
 
 	jmp_buf fatal_error_exit;	// For error handling
-	INT nStrings;
+	int16_t nStrings;
 	CLINE_handle HCLINE=0;
-	INT nIncline;
+	int16_t nIncline;
 }
 
 Handle MainWindowD;

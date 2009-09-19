@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define ED_LLP(p)   (ed_table[*(p)])
 #define ED_PPP(p)   ( (p) + (ED_LLP(p)&15) )
-#define ED_LREC(p) ( (ED_LLP(p)<64)? ED_LLP(p):( (ED_LLP(p)&64)? (*ED_PPP(p)):(*(INT*)(ED_PPP(p))) ) )
-#define ED_VAR_LREC(p) ((ED_LLP(p)&64)? (*(uchar*)(ED_PPP(p))): (*(INT*)(ED_PPP(p))))
+#define ED_LREC(p) ( (ED_LLP(p)<64)? ED_LLP(p):( (ED_LLP(p)&64)? (*ED_PPP(p)):(*(int16_t*)(ED_PPP(p))) ) )
+#define ED_VAR_LREC(p) ((ED_LLP(p)&64)? (*(uchar*)(ED_PPP(p))): (*(int16_t*)(ED_PPP(p))))
 
 static unsigned char ed_table[]=
     {

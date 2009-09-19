@@ -78,7 +78,7 @@ Bool kernel_reset(void);
 Bool kernel_reload_vocs(void);
 Bool kernel_set_temp_dir(uchar *tmp_dir);
 Bool kernel_set_windows_dir(uchar *tmp_dir);
-Bool kernel_valid_version(INT, INT);
+Bool kernel_valid_version(int16_t, int16_t);
 Bool kernel_set_enable_table_recog(uchar table_recog);
 Bool kernel_set_user_dict(uchar *user_dict);
 
@@ -143,7 +143,7 @@ struct AttrImage {
 Bool Tiger_ImageOpen(struct AttrImage * p);
 Bool Tiger_ImageOpen_xy(struct AttrImage * p, uint16_t x, uint16_t y, uint16_t w, uint16_t h);
 Bool Tiger_ImageClose(void);
-INT Tiger_ImageRead(puchar buffer, uint16_t lth);
+int16_t Tiger_ImageRead(puchar buffer, uint16_t lth);
 uint32_t Tiger_ProcessPictures(puchar buffer, uint32_t lth);
 
 //	Immediate error report

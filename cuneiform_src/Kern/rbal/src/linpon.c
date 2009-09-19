@@ -66,12 +66,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "tuner.h"
 
-INT sMALL_SIZE=SMALL_SIZE;  //NB 3.4.95
+int16_t sMALL_SIZE=SMALL_SIZE;  //NB 3.4.95
 
 EXTLIN CSTR_line lin_str;
 
 static void cell_position(CSTR_rast c);
-INT if_dust(CSTR_rast C);
+int16_t if_dust(CSTR_rast C);
 
 void   save_dust(void);
 void   restore_dust(void);
@@ -79,18 +79,18 @@ void   restore_dust(void);
 #define no__MULTI_PROT__
 extern uint16_t actual_resolution;
 extern uchar let_captype[];
-extern INT line_number;
-INT it_done;
+extern int16_t line_number;
+int16_t it_done;
 
 #define noPEN_TAB
-INT DPs, DPsf;
+int16_t DPs, DPsf;
 #define no__POS_PROT__
 
 #ifdef __POS_PROT__
 static FILE *ff;
-extern INT line_number;
-static INT os2;
-void p_prot(INT x)
+extern int16_t line_number;
+static int16_t os2;
+void p_prot(int16_t x)
 {
   if (os2 & 2)
   {
@@ -151,7 +151,7 @@ void cell_by_base()
 // установить c->cpos
 static void cell_position(CSTR_rast c)
  {
- INT w,f, row;
+ int16_t w,f, row;
  CSTR_rast_attr attr;
 
 #ifdef __POS_PROT__
@@ -464,17 +464,17 @@ static unsigned char ptd3[8]={240,100,20,0,0,0,0,0};
 static unsigned char ptd6[8]={0,0,20,80,120,140,240,240};
 static unsigned char ptd7[8]={140,20,0,0,0,0,0,0}; //  ж й ¤
 
-static INT  top, bot, db, bs1, bs2, bs3, bs4;
+static int16_t  top, bot, db, bs1, bs2, bs3, bs4;
 
 // возвращается новая оценка для chr. Старая - wp
 // С - только для атрибутов!
-INT cut_by_posu(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
+int16_t cut_by_posu(CSTR_rast C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
-  INT  dps;
+  int16_t  dps;
   uchar dflag;
   unsigned char pen_upr;
-  INT  up, dn;
-  INT  i, j, ib2, bsi, b1, b2, b3, b4;
+  int16_t  up, dn;
+  int16_t  i, j, ib2, bsi, b1, b2, b3, b4;
   CSTR_rast_attr attr;
 
   CSTR_GetAttr(C, &attr);
@@ -878,13 +878,13 @@ static unsigned char ftu3[6][4] =
 // для факса
 // возвращается новая оценка для chr. Старая - wp
 // С - только для атрибутов!
-INT cut_by_posf(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
+int16_t cut_by_posf(CSTR_rast C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
-  INT  dps;
+  int16_t  dps;
   uchar dflag;
   unsigned char pen_upr;
-  INT  up, dn;
-  INT  i, j, bsi, b1, b2, b3, b4;
+  int16_t  up, dn;
+  int16_t  i, j, bsi, b1, b2, b3, b4;
   CSTR_rast_attr attr;
 
   CSTR_GetAttr(C,&attr);
@@ -1157,7 +1157,7 @@ cut:
    return 0;
 }
 
-INT cut_by_pos(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
+int16_t cut_by_pos(CSTR_rast C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
   if (actual_resolution > 64 )
   {
@@ -1180,10 +1180,10 @@ INT cut_by_pos(CSTR_rast C, uchar chr, INT wp, uchar flg, uchar arg)
 }
 
 // проверить - изменить оценки версий по БЛ
-INT levcut(CSTR_rast C, INT arg)
+int16_t levcut(CSTR_rast C, int16_t arg)
 {
- INT ncut, nalive, wp, np;
- INT pold, pnew, flcv;
+ int16_t ncut, nalive, wp, np;
+ int16_t pold, pnew, flcv;
 // version  *v0;
  uchar  chr, surviver;
  UniVersions vers;
@@ -1310,13 +1310,13 @@ retncut:
 ///////////
 void gen_reset()
 {
- INT nc, sm;
+ int16_t nc, sm;
  CSTR_rast C;
  CSTR_rast_attr attr;
  //version *v0;
  UniVersions vers;
  int i;
- INT wc, wr;
+ int16_t wc, wr;
 
  all_diffs_made = 0;
  minrow=mincol=32000;
@@ -1397,7 +1397,7 @@ void gen_reset()
 void basedraft(CSTR_line ln)
 {
  char riter1, riter0;
- INT i;
+ int16_t i;
  CSTR_rast C;
 
  //if (line_number == 0)
@@ -1515,7 +1515,7 @@ drfin:
 /****************************************************/
 void approve_bases()
 {
-  INT appr;
+  int16_t appr;
   appr = 0;
 
   if (bbs1 >= (bbs2-1))
@@ -1535,9 +1535,9 @@ void approve_bases()
 // уточнить БЛ, обрезать версии, противоречащие БЛ
 void linpos(CSTR_line ln)
 {
- INT riter1;
+ int16_t riter1;
  LONG sumbox;
- INT sum_n, finCSTR_n, dead_cells=0,v_prom;
+ int16_t sum_n, finCSTR_n, dead_cells=0,v_prom;
 
  lin_str = ln;
 
@@ -1621,7 +1621,7 @@ p_prot (11001);
          {
            CSTR_rast wd;
 		   CSTR_rast_attr attr2;
-		   INT weight;
+		   int16_t weight;
 		   UniVersions vers;
 		   uchar chr;
 
@@ -1656,7 +1656,7 @@ p_prot (11001);
         else
         {
          uint16_t iI,nv_o;
-         INT pidx;
+         int16_t pidx;
 		 uchar let;
 		 UniVersions vers;
 
@@ -1666,7 +1666,7 @@ p_prot (11001);
          CSTR_GetCollectionUni(wc,&vers);
 
          //nv_o=wc->nvers;
-		 nv_o = (INT)vers.lnAltCnt;
+		 nv_o = (int16_t)vers.lnAltCnt;
          pidx=prop_index(attr.h,attr.w);
 
 //         for(iI = 0; iI < wc->nvers; iI++)
@@ -1789,7 +1789,7 @@ p_prot(11002);
    if (bs_int_no==1)
    {
      bas_ln *bw;
-     INT fl;
+     int16_t fl;
      fl = 0;
      bw = &all_bases[0];
      bbs1 = bw->b1; bbs2 = bw->b2; bbs3 = bw->b3; bbs4 = bw->b4;
@@ -1808,7 +1808,7 @@ no_multi:
  #ifdef __MULTI_PROT__
  if (multi_bas & 7)
  {
-   FILE *ff; INT mi;
+   FILE *ff; int16_t mi;
    mi = multi_bas & 15;
    if (multi_bas & 64)  mi+=100;
    if (multi_bas & 128) mi+=200;
@@ -1838,10 +1838,10 @@ p_prot(11003);
 }
 
 ///////////////
-static INT influate(CSTR_rast c, CSTR_rast b)
+static int16_t influate(CSTR_rast c, CSTR_rast b)
 {
   uchar in_flag, cc, bc, dfc, dfb;
-  INT wp, dp, dp2;
+  int16_t wp, dp, dp2;
   //version  *v0;
   UniVersions vers;
   int i;
@@ -1934,10 +1934,10 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 }
 /////////////////
 
- INT influ_cap(CSTR_rast b)
+ int16_t influ_cap(CSTR_rast b)
 {
   uchar in_flag, bc;
-  INT wp;
+  int16_t wp;
 //  version  *v0;
   UniVersions vers;
   int i;
@@ -1994,10 +1994,10 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 }
 ////////////////
 
-static INT influ_b1b2(CSTR_rast b)
+static int16_t influ_b1b2(CSTR_rast b)
 {
   uchar in_flag, bc;
-  INT wp, top, db, b1, b2, b12, d12;
+  int16_t wp, top, db, b1, b2, b12, d12;
 //  version  *v0;
   UniVersions vers;
   int i;
@@ -2070,7 +2070,7 @@ static void mutual_influence()
 {
  CSTR_rast C;
  CSTR_rast_attr attr;
- INT crow, brow, suminfl;
+ int16_t crow, brow, suminfl;
  suminfl = 0;
 
  C=cell_f();
@@ -2173,7 +2173,7 @@ static void mutual_influence()
  }
 }
 ////////////////////
-INT count_line_hi(void); // only for russian
+int16_t count_line_hi(void); // only for russian
 
 // окончательная установка/проверка линий
 void basefin(CSTR_line ln)
@@ -2239,7 +2239,7 @@ void basefin(CSTR_line ln)
 
 void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
 {
- INT bsc, bsp, bsn, wdn, wdp, clp, cln, clc;
+ int16_t bsc, bsp, bsn, wdn, wdp, clp, cln, clc;
  CSTR_rast_attr attrP,attrN,attrB;
 
  CSTR_GetAttr(P,&attrP);
@@ -2420,11 +2420,11 @@ void inter_diff(CSTR_rast B1)
 
 ////////////////
 
-static INT fincells()
+static int16_t fincells()
  {
  CSTR_rast B1;
  CSTR_rast_attr attr;
- INT top, done;
+ int16_t top, done;
 // version *v0;
  UniVersions vers;
  int i;
@@ -2436,7 +2436,7 @@ static INT fincells()
 // while((B1=B1->nextl)->nextl)
  for(;B1;B1=CSTR_GetNextRaster(B1,f_letter))
  {
-   INT b2m, bm3, h;
+   int16_t b2m, bm3, h;
 //   CSTR_rast wc;
 
    def_locbas(B1);
@@ -2502,7 +2502,7 @@ static INT fincells()
 // проверить все версии по БЛ
 // arg !=0  - не трогать некоторые единичные версии
 //
-void all_cell_levcut(INT arg) // Valdemar makes func global
+void all_cell_levcut(int16_t arg) // Valdemar makes func global
 {
  CSTR_rast C;
  CSTR_rast_attr attr;
@@ -2597,7 +2597,7 @@ void all_cell_ledust()
 {
  CSTR_rast C;
  CSTR_rast_attr attr;
- INT df;
+ int16_t df;
 
  C=cell_f();
 // while ((C=C->nextl)->nextl)
@@ -2623,9 +2623,9 @@ void all_cell_ledust()
 }
 ///////////////
 
-INT if_dust(CSTR_rast C)
+int16_t if_dust(CSTR_rast C)
 {
- INT rb, w1, wh, wps;
+ int16_t rb, w1, wh, wps;
  CSTR_rast_attr attr;
 
  // Check position in the string - have to intersect with string middle
@@ -2660,7 +2660,7 @@ chks:              // height(cell) + 4 >= main_base-small_base
 }
 ////////////////
 
-INT get_bsm()
+int16_t get_bsm()
  { return (bbsm+minrow); }
 
 /////////////
@@ -2676,9 +2676,9 @@ LONG get_size()                                                   //16.01.97
 #define MAX_SKEW (1 << SKEW_SCALE)/10
 
 //////////////
-INT dust_to_let()
+int16_t dust_to_let()
 {
- INT n;
+ int16_t n;
  CSTR_rast c;
  CSTR_rast_attr attr;
  int line_scale = 0;
@@ -2713,7 +2713,7 @@ INT dust_to_let()
    CSTR_GetAttr(c,&attr);
    if ( attr.flg & CSTR_f_dust)   // brought as dust
    {
-	 INT wr;
+	 int16_t wr;
 
      if ((((wr=if_dust(c)) & 7) == 0) || (wr & 16))
      // not posed as dust, not sized as small dust

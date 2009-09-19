@@ -96,7 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* ------------------------------------------------------------------ */
 
-  extern INT vocs_NOK;
+  extern int16_t vocs_NOK;
 
   void std_init(void);
   void initcode(void);
@@ -104,7 +104,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* ------------------------------------------------------------------ */
 
-  INT      ABCSize;
+  int16_t      ABCSize;
   uchar     alphabet[3][ABCSIZE];
   KEYTYPE  codetable  [256];
   KEYTYPE  codepermit [256];
@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*    uchar AcsGrps[ACSBUFSZ];                                         */
 /*    uchar AcsInd [256];                 - Table of shifts in AcsGrps */
 /*                                                                    */
-/*  static Bool setUpAcsGrps ( INT h );                               */
+/*  static Bool setUpAcsGrps ( int16_t h );                               */
 /*                                                                    */
 /* ------------------------------------------------------------------ */
 
@@ -157,11 +157,11 @@ Bool IsVowel(uchar c)
 
 /* ------------------------------------------------------------------ */
 
-extern void init_tab_alpha(uchar *s1,uchar *s2,INT num);
-Bool InitializeAlphabet (INT CountryCode)
+extern void init_tab_alpha(uchar *s1,uchar *s2,int16_t num);
+Bool InitializeAlphabet (int16_t CountryCode)
 {
   uchar w[ABCSIZE+1];
-  INT  h;
+  int16_t  h;
 
   if ( (h = TBOPEN( 6, language, BO_READ_TEXT, S_IREAD )) < 0 ) {
     vocs_NOK |= 1<<6;
@@ -213,9 +213,9 @@ Bool InitializeAlphabet (INT CountryCode)
 
 /* ------------------------------------------------------------------ */
 /* 01-15-94 10:10pm, Mike                                             */
-/* Bool setUpAcsGrps ( INT h )                                        */
+/* Bool setUpAcsGrps ( int16_t h )                                        */
 /* {                                                                  */
-/*   INT  i = 0, j = 0;                                               */
+/*   int16_t  i = 0, j = 0;                                               */
 /*                                                                    */
 /*   if ( TGGETS( h, AcsGrps, sizeof(AcsGrps) ) == NULL ) {           */
 /*     return FALSE;                                                  */
@@ -236,7 +236,7 @@ Bool InitializeAlphabet (INT CountryCode)
 
 void dectable_init(void)
 {
-  INT i,j;
+  int16_t i,j;
   uint16_t index;
 
   memset(codetable,0,sizeof(codetable));
@@ -271,7 +271,7 @@ void std_init(void)
 
 void initcode( void )
 {
-  register INT i;
+  register int16_t i;
 
   memset( all_lt, 0, sizeof(all_lt));
 
@@ -327,7 +327,7 @@ void initcode( void )
 
 /* ------------------------------------------------------------------ */
 
-INT symcode(char  *ed)
+int16_t symcode(char  *ed)
 {
   return all_lt[ (uchar)*ed ];
 }
@@ -340,7 +340,7 @@ INT symcode(char  *ed)
 /**********************************************************************/
 void initstdn(void)
 {
-  register INT i, j;
+  register int16_t i, j;
 
   memset( tabstdn, 0xFF, sizeof(tabstdn) );
 
@@ -355,7 +355,7 @@ void initstdn(void)
 /**********************************************************************/
 /* This procedure converts STD symbol code to it number in STD-list   */
 /**********************************************************************/
-INT getstdn ( char  *ed)
+int16_t getstdn ( char  *ed)
 {
   return tabstdn[ (uchar)*ed ];
 }

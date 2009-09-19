@@ -93,8 +93,8 @@ uchar beg2, end1; // начало 2-ой, конец 1-ой ног
 
 // EndBlackInterval - номер последнего черного бита
 // в первой слева пачке черных бит
-INT EndBlackInterval(uchar *RASTER, INT NWIDTH) {
-	INT i;
+int16_t EndBlackInterval(uchar *RASTER, int16_t NWIDTH) {
+	int16_t i;
 
 	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER++)
 		; // skip white bytes
@@ -111,8 +111,8 @@ INT EndBlackInterval(uchar *RASTER, INT NWIDTH) {
 }
 
 /* LeftDistance - расстояние до первого слева бита			*/
-INT LeftDistance(uchar *RASTER, INT NWIDTH) {
-	INT i;
+int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH) {
+	int16_t i;
 
 	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER++)
 		;
@@ -124,8 +124,8 @@ INT LeftDistance(uchar *RASTER, INT NWIDTH) {
 }
 
 /* RightDistance -расстояние до первого справа бита			*/
-INT RightDistance(uchar *RASTER, INT NWIDTH) {
-	INT i;
+int16_t RightDistance(uchar *RASTER, int16_t NWIDTH) {
+	int16_t i;
 
 	RASTER += NWIDTH - 1;
 
@@ -139,8 +139,8 @@ INT RightDistance(uchar *RASTER, INT NWIDTH) {
 }
 
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
-INT SumIntervalBits(uchar *RASTER, INT n1, INT n2) {
-	INT i, d, l;
+int16_t SumIntervalBits(uchar *RASTER, int16_t n1, int16_t n2) {
+	int16_t i, d, l;
 
 	i = n1 >> 3;
 	l = n2 >> 3;
@@ -158,8 +158,8 @@ INT SumIntervalBits(uchar *RASTER, INT n1, INT n2) {
 }
 
 /* SumBits - посчитать сумму бит в строке байт 				*/
-INT SumBits(uchar *RASTER, INT NWIDTH) {
-	INT i, s;
+int16_t SumBits(uchar *RASTER, int16_t NWIDTH) {
+	int16_t i, s;
 
 	for (i = s = 0; i < NWIDTH; i++, RASTER++)
 		s += bit_cnt[*RASTER];
@@ -167,8 +167,8 @@ INT SumBits(uchar *RASTER, INT NWIDTH) {
 }
 
 /* VertSum - посчитать сумму бит в столбце  				*/
-INT VertSum(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
-	INT i, d;
+int16_t VertSum(uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column) {
+	int16_t i, d;
 	uchar mask = mask_byte[Column & 7];
 
 	RASTER += (Column >> 3);
@@ -179,9 +179,9 @@ INT VertSum(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 }
 
 /* MinMaxLeft - найти min и max расстояние на левом абрисе 		*/
-INT MinMaxLeft(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
-		INT *Pmax) {
-	INT maxr = 0, minr = 100, r, i;
+int16_t MinMaxLeft(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT, int16_t *Pmin,
+		int16_t *Pmax) {
+	int16_t maxr = 0, minr = 100, r, i;
 
 	NWIDTH = bytlen(NWIDTH);
 	for (i = 0; i < NHEIGHT; i++, RASTER += Wx) {
@@ -198,9 +198,9 @@ INT MinMaxLeft(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
 }
 
 /* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
-INT MinMaxRight(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
-		INT *Pmax) {
-	INT maxr = 0, minr = 100, r, i;
+int16_t MinMaxRight(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT, int16_t *Pmin,
+		int16_t *Pmax) {
+	int16_t maxr = 0, minr = 100, r, i;
 
 	NWIDTH = bytlen(NWIDTH);
 	for (i = 0; i < NHEIGHT; i++, RASTER += Wx) {
@@ -217,8 +217,8 @@ INT MinMaxRight(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NHEIGHT, INT *Pmin,
 }
 
 /* NumHorizInterval - число интервалов в строке 			*/
-INT NumHorizInterval(uchar *RASTER, INT NWIDTH) {
-	INT i, d;
+int16_t NumHorizInterval(uchar *RASTER, int16_t NWIDTH) {
+	int16_t i, d;
 	uchar c, old;
 
 	for (i = d = old = 0; i < NWIDTH; i++, RASTER++) {
@@ -233,8 +233,8 @@ INT NumHorizInterval(uchar *RASTER, INT NWIDTH) {
 }
 
 /* NumVertInterval - число интервалов в столбце 			*/
-INT NumVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
-	INT i, d;
+int16_t NumVertInterval(uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column) {
+	int16_t i, d;
 	uchar c, old, mask = mask_byte[Column & 7];
 
 	RASTER += (Column >> 3);
@@ -253,8 +253,8 @@ INT NumVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column) {
 }
 
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
-INT FOOT_A(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
-	INT i, j, k, d;
+int16_t FOOT_A(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH) {
+	int16_t i, j, k, d;
 	uchar *p, c;
 
 	d = bytlen(NWIDTH);
@@ -286,8 +286,8 @@ INT FOOT_A(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
 
 /* FOOT3_2 - вычислить число ног ( ожидается 3-ногая буква)     */
 /*           в верхней и нижней половинах                       */
-INT FOOT3_2(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
-	INT i, old, du, dd;
+int16_t FOOT3_2(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH) {
+	int16_t i, old, du, dd;
 	uchar c;
 	FOOT_A(RASTER, Wx, NWIDTH, (uchar)(NLENGTH / 2)); /* проекция */
 
@@ -322,9 +322,9 @@ INT FOOT3_2(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH) {
 }
 
 /* FOOT3 - вычислить число ног ( ожидается 3-ногая буква)     */
-INT FOOT3(uchar *RASTER, INT Wx, uchar START, uchar NWIDTH, uchar NLENGTH,
-		INT SHIFT) {
-	INT i, old, d;
+int16_t FOOT3(uchar *RASTER, int16_t Wx, uchar START, uchar NWIDTH, uchar NLENGTH,
+		int16_t SHIFT) {
+	int16_t i, old, d;
 	uchar c;
 	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
 
@@ -346,8 +346,8 @@ INT FOOT3(uchar *RASTER, INT Wx, uchar START, uchar NWIDTH, uchar NLENGTH,
 }
 
 /* Assym_let - оценить вертикальную асимметрию буквы  			*/
-INT Asymm_let(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, INT TW) {
-	INT i, i1, i2, t1, t2;
+int16_t Asymm_let(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH, int16_t TW) {
+	int16_t i, i1, i2, t1, t2;
 
 	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
 
@@ -368,8 +368,8 @@ INT Asymm_let(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, INT TW) {
 }
 
 /* FOOT - вычислить число ног  						*/
-INT FOOT(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, uchar HARD_FILTER) {
-	INT i, old, d, l, k;
+int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH, uchar HARD_FILTER) {
+	int16_t i, old, d, l, k;
 	uchar c, curr, first, second;
 	memset(LOCAL, 0, 50);
 	memset(LOCAL_W, 0, 50);
@@ -460,10 +460,10 @@ INT FOOT(uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH, uchar HARD_FILTER) 
 }
 
 /* CenterVertInterval - середина интервала в столбце 			*/
-INT CenterVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column, INT *up,
-		INT *down) {
+int16_t CenterVertInterval(uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column, int16_t *up,
+		int16_t *down) {
 	uchar mask = mask_byte[Column & 7], c, old;
-	INT i, num, center, up_center;
+	int16_t i, num, center, up_center;
 
 	*up = *down = -1;
 	RASTER += (Column >> 3);
@@ -514,15 +514,15 @@ INT CenterVertInterval(uchar *RASTER, INT Wx, INT NHEIGHT, INT Column, INT *up,
 	return ((NHEIGHT << 1) - center); /* удвоенное расстояние от низа растра */
 }
 
-INT LinesWithNumIntervals(uchar *rastr, INT Wx, INT NLENGHT, INT num) {
-	INT i, n;
+int16_t LinesWithNumIntervals(uchar *rastr, int16_t Wx, int16_t NLENGHT, int16_t num) {
+	int16_t i, n;
 	for (n = i = 0; i < NLENGHT; i++, rastr += Wx)
 		n += (NumHorizInterval(rastr, Wx) == num);
 	return n;
 }
 
-INT LeftEdgeOfRightmostInt(uchar *rst, INT Wdth) {
-	INT i, j;
+int16_t LeftEdgeOfRightmostInt(uchar *rst, int16_t Wdth) {
+	int16_t i, j;
 	uchar c, old;
 	uchar fl = 0;
 	for (i = Wdth, rst = rst + Wdth - 1, c = *rst; i > 0; i--, rst--, c = *rst) {

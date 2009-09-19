@@ -91,7 +91,7 @@
 
 struct mn_struc {
 	void *mnfirstbox; // address of the first box
-	int16_t mncounter; // (was INT) number of living lines in the component
+	int16_t mncounter; // (was int16_t) number of living lines in the component
 #define mnfree  mnfirstbox      // reference to next free main number
 	int16_t mnupper; // upper bound of component
 	int16_t mnlower; // lower bound of component
@@ -145,15 +145,15 @@ typedef struct box_struct BOX;
 #define BOXSIZE (BOXHLTH+32*4)  // the length of box
 #define BOXBOUNDARY (BOXSIZE-6) // the boundary control
 struct ldescr_struct {
-	INT y; // y coord. of the first interval
-	INT l; // first interval length
-	INT x; // x coord. of the end of the first interval
+	int16_t y; // y coord. of the first interval
+	int16_t l; // first interval length
+	int16_t x; // x coord. of the end of the first interval
 };
 typedef struct ldescr_struct LNSTRT;
 
 struct box_interval {
-	INT l; // length of interval
-	INT d; // displacement of the end of the current interval relative
+	int16_t l; // length of interval
+	int16_t d; // displacement of the end of the current interval relative
 }; //      to the previous
 typedef struct box_interval BOXINT;
 
@@ -161,10 +161,10 @@ typedef struct box_interval BOXINT;
 
 struct comp_struc {
 	uint16_t size; // size of component in paragraphs >=3
-	INT upper; // upper boundary of component
-	INT left; // left boundary of component
-	INT h; // height of component
-	INT w; // width of component
+	int16_t upper; // upper boundary of component
+	int16_t left; // left boundary of component
+	int16_t h; // height of component
+	int16_t w; // width of component
 	uchar rw; // raster width in bytes
 	uchar type; // recognition type
 #define ch_perfect    1     // perfect type defined
@@ -177,10 +177,10 @@ struct comp_struc {
 #define ch_notltr   128     // not letter or punctuation
 	uchar cs; // recognition case (see bellow)
 	uchar pidx; // proportional index (ref.)
-	INT nvers; // number of alternative versions
-	INT records; // recognition records offset
-	INT lines; // ptr to line representation
-	INT nl; // number of lines
+	int16_t nvers; // number of alternative versions
+	int16_t records; // recognition records offset
+	int16_t lines; // ptr to line representation
+	int16_t nl; // number of lines
 	uchar begs; // number of free begins
 	uchar ends; // number of free ends
 	uchar reasno; // proportional criteria messages
@@ -208,15 +208,15 @@ typedef struct vers_struct version;
 
 struct stick_struct {
 	char x, y, l, w, top, bot;
-	INT incl;
+	int16_t incl;
 };
 typedef struct stick_struct STICK;
 
 struct cell_struc {
-	INT row; // ideal row of cell
-	INT col; // ideal collumn of cell
-	INT h; // height of cell
-	INT w; // width of cell
+	int16_t row; // ideal row of cell
+	int16_t col; // ideal collumn of cell
+	int16_t h; // height of cell
+	int16_t w; // width of cell
 	// 8
 	c_comp *env; // envelope and line representation ptr
 	struct cell_struc *next; // next in all string
@@ -264,9 +264,9 @@ struct cell_struc {
 #define c_cg_cutacc     8+16+32 // cutted accent
 #define c_cg_just       64  // just created
 #define c_cg_cutoff    128  // ignore "cutted" flags at glue attempt
-	INT r_row; // real row of cell
-	INT r_col; // real collumn of cell
-	INT nvers; // number of versions
+	int16_t r_row; // real row of cell
+	int16_t r_col; // real collumn of cell
+	int16_t nvers; // number of versions
 	version vers[VERS_IN_CELL];
 	uint16_t flg; // flag of cell
 #define c_f_let         1       // letter component
@@ -312,12 +312,12 @@ struct cell_struc {
 #define c_rs_deskr  16  //  diskriminator
 #define c_rs_NCU    32  //  neural network
 #define c_rs_LEO    64  //  LEO
-	INT stick_inc; // inc of stick
+	int16_t stick_inc; // inc of stick
 #define NO_INCLINE 10000 // not init incline
 	c_comp *complist; // if no envelope - list of envelopes
 	// 88
-	INT left; // left  of main part (without accent)
-	INT right; // right of main part (without accent)
+	int16_t left; // left  of main part (without accent)
+	int16_t right; // right of main part (without accent)
 	uchar bas_acc; // cell's relations with bases
 #define c_ba_b1  1    // accepted  to b1
 #define c_ba_b2  2    // accepted  to b2
@@ -357,8 +357,8 @@ struct cell_struc {
 #define c_cg_cut_br     0x40   // right bottom cutten
 #define c_cg_cut_fr     0x80   // right full   cutten
 	uchar accent_leader; // leader cell in farajev complex-cell
-	INT save_stick_inc; // save_inc of stick
-	INT clink; // Link to the cluster
+	int16_t save_stick_inc; // save_inc of stick
+	int16_t clink; // Link to the cluster
 	// 104
 	uint16_t clu_attr; // cluster attributes
 	uchar bottom_accent; // was spare[1]; 16.10.97 E.P.
@@ -393,7 +393,7 @@ struct cell_struc {
 #define c_fn_space      0x00002000 // need convert to space ' '
 #define c_fn_taken      0x00004000 // was taken from dust
 	// 152
-	INT nClust;
+	int16_t nClust;
 	version pr_vers; //version from I pass
 	// 156
 	uchar reserv[4];
@@ -436,17 +436,17 @@ typedef struct large_int_s large_interval;
 //------------------- string of letters ------------------------
 
 struct str_struc {
-	INT row; // upper of line
-	INT col; // left of line
-	INT lower; // lower of line
-	INT right; // right of line
+	int16_t row; // upper of line
+	int16_t col; // left of line
+	int16_t lower; // lower of line
+	int16_t right; // right of line
 	uint16_t dust; // end of letter ptrs
 	uint16_t end; // end of dust ptrs
 	uint16_t lth;
 	uint16_t first;
 	uint16_t last;
 	uint16_t scale; // scale of the string
-	INT fragment; // fragment of the string
+	int16_t fragment; // fragment of the string
 	uchar language; // language of the string
 	c_comp *ccomp[1]; // array of ptrs to components
 };
@@ -455,8 +455,8 @@ typedef struct str_struc str;
 //----------------------- base lines --------------------------
 
 struct baseline_struct {
-	INT b0, b1, b2, b3, b4, bm, ps; // four base lines, middle line, point size
-	INT n1, n2, n3, n4;
+	int16_t b0, b1, b2, b3, b4, bm, ps; // four base lines, middle line, point size
+	int16_t n1, n2, n3, n4;
 };
 typedef struct baseline_struct B_LINES;
 

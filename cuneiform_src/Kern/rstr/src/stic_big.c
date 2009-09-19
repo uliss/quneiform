@@ -76,8 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 extern uchar multy_language;
 
-extern INT pitchsize ;
-extern INT nIncline  ;
+extern int16_t pitchsize ;
+extern int16_t nIncline  ;
 extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994
@@ -94,25 +94,25 @@ extern uint16_t	mkma, mkmb, mkmc, mkmd;
 #include "stic-mac.h"
 #include "stic-tb.h"
 /*----------------------------------------------------------------------*/
-///INT	dis_F (STICK_CHARS *r, STICK_SIGNUMS *s);	// MK
-INT	dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s); // 25.03.1993
-INT	dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT dis_RusG (STICK_CHARS *l, STICK_CHARS *r,STICK_SIGNUMS *signums);
-INT	dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-			INT typ);
-INT	dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-INT	dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+///int16_t	dis_F (STICK_CHARS *r, STICK_SIGNUMS *s);	// MK
+int16_t	dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s); // 25.03.1993
+int16_t	dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t dis_RusG (STICK_CHARS *l, STICK_CHARS *r,STICK_SIGNUMS *signums);
+int16_t	dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
+			int16_t typ);
+int16_t	dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+int16_t	dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
 
 			// 30.09.1993 add DUMMY DISCRIM's:
-INT	dis_figa_left (STICK_SIGNUMS *s);
-INT	dis_figa_right(STICK_SIGNUMS *s);
+int16_t	dis_figa_left (STICK_SIGNUMS *s);
+int16_t	dis_figa_right(STICK_SIGNUMS *s);
 
-INT	dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-INT	dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, INT add_flag, char type);
+int16_t	dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+int16_t	dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, int16_t add_flag, char type);
 /*......................................................................*/
 static uchar config_f( STICK_CHARS *l,STICK_CHARS *r);
 static uchar config_r( STICK_CHARS *l,STICK_CHARS *r);
@@ -120,15 +120,15 @@ static uchar config_t( STICK_CHARS *l,STICK_CHARS *r);
 static uchar config_1( STICK_CHARS *l,STICK_CHARS *r);
 /*......................................................................*/
 /*		NOTA BENE: some functions without DECLARATION:
- *  INT similar_excl(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
- *  INT similar_lcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
- *  INT similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+ *  int16_t similar_excl(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+ *  int16_t similar_lcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+ *  int16_t similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
  *  uchar similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
  */
 /*----------------------------------------------------------------------*/
-INT dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)	{
-INT	dis=0;						// 12.10.1993
-INT	porog = MAX (s->stick_width, 4);	// NB: 4 - MK VOLUNTARY
+int16_t dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)	{
+int16_t	dis=0;						// 12.10.1993
+int16_t	porog = MAX (s->stick_width, 4);	// NB: 4 - MK VOLUNTARY
 	// NB: porog used 2 times !!!
 /*......................................................................*/
 				// 03.01.1993	PROBA USE f_symptoms:
@@ -143,7 +143,7 @@ INT	porog = MAX (s->stick_width, 4);	// NB: 4 - MK VOLUNTARY
 if (l->up_serif==0)  {		// USLOWIE 25.03.1993 about 'F'=>'P'
 				// fax50/7,14	"FileNet"(#2),"France"
 				// fax51/12	"FileNet"
-INT	r0=r->mount[0], r1=r->mount[1], r2=r->mount[2], r01, r12;
+int16_t	r0=r->mount[0], r1=r->mount[1], r2=r->mount[2], r01, r12;
 	r01 = MAX (r0,r1);		// before 04.03.1993
 	r12 = MAX (r1,r2);
 
@@ -165,7 +165,7 @@ INT	r0=r->mount[0], r1=r->mount[1], r2=r->mount[2], r01, r12;
 		*****************************************/
 /*......................................................................*/
 {				// 01.02.1993 SECOND POPYTKA:
-INT	porog_down;
+int16_t	porog_down;
 	if ( r->mount[4] > porog )  {
 	    porog_down = MAX (r->mount[0], porog);	// ??????
 	    porog_down = MAX (r->mount[1], porog_down);
@@ -199,13 +199,13 @@ INT	porog_down;
 	return (dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {	// 17.01.1994
+int16_t dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {	// 17.01.1994
 
-INT	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_n, num_z,z;
-INT	sl=l->num_flags, sr=r->num_flags;
-INT	wid=s->stick_width, inc=s->inc, dy=s->height;
-INT	max_u, max_d;
-INT	d_L, d_R;	// 24.02.1993
+int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_n, num_z,z;
+int16_t	sl=l->num_flags, sr=r->num_flags;
+int16_t	wid=s->stick_width, inc=s->inc, dy=s->height;
+int16_t	max_u, max_d;
+int16_t	d_L, d_R;	// 24.02.1993
 
 	dis = dis_LIMIT_EEM;		// 18.11.1993 (0 or 100);
 //////	dis += mk_dis_for_liga_exm;	// 06.01.1994 (0 or 2);	MOVE TO END;
@@ -403,9 +403,9 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 	return(dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {	// 18.10.1993
-INT	dis=0, t;
-INT	wid=s->stick_width, inc=s->inc;
+int16_t dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {	// 18.10.1993
+int16_t	dis=0, t;
+int16_t	wid=s->stick_width, inc=s->inc;
 
 t = MAX(l->mount[3],l->mount[4]) ;
 if ( t==0 )
@@ -439,7 +439,7 @@ DIS_DIFFERENT_SERIFS(l,r,0,4,wid,tab_J[3]);				// *6
 DIS_CENTER_FLAGS(l,r,1,wid,inc,tab_J[4],tab_J[5]);		// *40/6
 if( language==LANG_RUSSIAN && langSer )
   {
-  INT dis0=dis;
+  int16_t dis0=dis;
   DIS_CENTER_FLAGS(l,r,2,wid,inc,tab_J[4],tab_J[5]);    // *40/6
   if( dis>dis0 )
     dis = dis0+20;
@@ -458,9 +458,9 @@ if (r->down_serif && t<r->mount[4]*2)	// 28.07.1993: frae6/27 "Jean"
 return(dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
-INT	dis=0;
-INT	wid=s->stick_width, inc=s->inc, dy=s->height;
+int16_t dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+int16_t	dis=0;
+int16_t	wid=s->stick_width, inc=s->inc, dy=s->height;
 
 if ( l->up_serif==0 && r->up_serif==0 &&	// 09.07.1993	frab6/16(20)
      l->mount[0]    && r->mount[0] )		// "t." with beam in ZONE-0
@@ -528,12 +528,12 @@ if (r->conc[2] >= MAX(wid,4)-1)			// 02.06.1993	PROBA:
 return(dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT	dis=0, u, d;
-INT	wid=s->stick_width, inc=s->inc;
-INT	tl, tr;		// NEW: 20/23.01.1992
-INT	porog;
+int16_t	dis=0, u, d;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	tl, tr;		// NEW: 20/23.01.1992
+int16_t	porog;
 
 				// MK 20/22.01.1993	// UP HOR ASSIMETR:
 				// see fax27/13 {"This},  fax13/20: {"This}
@@ -600,10 +600,10 @@ if( language==LANG_RUSSIAN &&  s->cut_r && abs(u-d)<1 ||
 return	(dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT	dis=0;
-INT	wid = s->stick_width, inc = s->inc;
+int16_t	dis=0;
+int16_t	wid = s->stick_width, inc = s->inc;
 
 DIS_CENTER_FLAGS (l, r, 2, wid, inc,tab_Y[0], tab_Y[1]);
 DIS_CENTER_FLAGS (l, r, 3, wid, inc,tab_Y[0], tab_Y[1]);
@@ -625,7 +625,7 @@ if (s->T_3)					// There are 3-intervals Lines
 if ( s->T_skok_L | s->T_skok_R )	dis += tab_Y[5];	// 80
 
 if( l->mount[0] && r->mount[0] && !inc )  {
-	 INT lh,rh;
+	 int16_t lh,rh;
 	 rh = r->me_pos[0]-r->mb_pos[0];
 	 lh = l->me_pos[0]-l->mb_pos[0];
 	 if( rh*3<lh || lh*3<rh )   /* T with cutting left or right ear */
@@ -637,11 +637,11 @@ return(dis);
 /*----------------------------------------------------------------------*/
 /*----------------------------------------------------------------------*/
 /* letters '(',')'  */
-INT dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, INT typ)
+int16_t dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ)
 {
-INT dis=0;
-INT inc = s->inc;
-INT sl=l->num_flags,sr=r->num_flags,wid=s->stick_width;
+int16_t dis=0;
+int16_t inc = s->inc;
+int16_t sl=l->num_flags,sr=r->num_flags,wid=s->stick_width;
 
 if( l->up_serif && r->up_serif &&
     ( !inc || l->down_serif + r->down_serif>2 && !inc)  )
@@ -696,9 +696,9 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /* letter '<'	*/				// MK-FARA 17.06.1993
-INT dis_sign_less (STICK_SIGNUMS *s)			// 24.06.1993
+int16_t dis_sign_less (STICK_SIGNUMS *s)			// 24.06.1993
 {
-INT dis=0;
+int16_t dis=0;
 
 	if( s->cut_r )				// 17.06.1993	MK-FARA
 		dis  += mk_80_for_CUT;		// see tab_circle_brace[5];
@@ -710,9 +710,9 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /* letter '>'	*/				// MK-FARA 17.06.1993
-INT dis_sign_more (STICK_SIGNUMS *s)			// 24.06.1993
+int16_t dis_sign_more (STICK_SIGNUMS *s)			// 24.06.1993
 {
-INT dis=0;
+int16_t dis=0;
 
 	if( s->cut_l )				// 17.06.1993	MK-FARA
 		dis  += mk_80_for_CUT;		// see tab_circle_brace[5];
@@ -724,10 +724,10 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /* letter [ */						// 22.11.1993
-INT dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT	dis=0, lmu, rmu, lmd, rmd, dy=s->height;
-INT	wid=s->stick_width, inc=s->inc;
+int16_t	dis=0, lmu, rmu, lmd, rmd, dy=s->height;
+int16_t	wid=s->stick_width, inc=s->inc;
 
 lmu = l->mount[0];  rmu = r->mount[0];
 lmd = l->mount[4];  rmd = r->mount[4];
@@ -797,10 +797,10 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /* letter ] */						// 29.09.1993	MK
-INT dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT dis=0,lmu,rmu,lmd,rmd,dy=s->height;
-INT wid=s->stick_width,inc=s->inc;
+int16_t dis=0,lmu,rmu,lmd,rmd,dy=s->height;
+int16_t wid=s->stick_width,inc=s->inc;
 
 lmu = l->mount[0];  rmu = r->mount[0];
 lmd = l->mount[4];  rmd = r->mount[4];
@@ -857,8 +857,8 @@ if (wid<=2  && r->num_flags>=2 && l->num_flags>=3)
 return(dis);
 }
 /*----------------------------------------------------------------------*/
-INT	dis_figa_left (STICK_SIGNUMS *s)  {		// 30.09.1993	'{'
-INT	dis=0;				// NOTA BENE: see ST_TOOLS.C:
+int16_t	dis_figa_left (STICK_SIGNUMS *s)  {		// 30.09.1993	'{'
+int16_t	dis=0;				// NOTA BENE: see ST_TOOLS.C:
 					// by comments - it was some
 					// work with {} about CUT,
 					// but may be in some spec cases
@@ -868,17 +868,17 @@ INT	dis=0;				// NOTA BENE: see ST_TOOLS.C:
 	return (dis);
 }
 /*----------------------------------------------------------------------*/
-INT	dis_figa_right (STICK_SIGNUMS *s)  {		// 30.09.1993	'}'
-INT	dis=0;
+int16_t	dis_figa_right (STICK_SIGNUMS *s)  {		// 30.09.1993	'}'
+int16_t	dis=0;
 	if (s->cut_l)	dis += 80;
 	if (s->cut_r)	dis += 80;
 	return (dis);
 }
 /*----------------------------------------------------------------------*/
-INT dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
-INT	dis=0;						// 13.12.1993
-////INT	wid = s->stick_width;	NOT USED NOW
-INT	inc=s->inc;
+int16_t dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+int16_t	dis=0;						// 13.12.1993
+////int16_t	wid = s->stick_width;	NOT USED NOW
+int16_t	inc=s->inc;
 
 dis += s->dis_slash;  /* primary discrim  */
 
@@ -915,16 +915,16 @@ return(dis);
 /*----------------------------------------------------------------------*/
 /* letter '!'								*/
 /*      add_flag = 1 - put '!' to list of versions - delicate discrim	*/
-INT dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *signums,
-		    INT add_flag, char typ)
+int16_t dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *signums,
+		    int16_t add_flag, char typ)
 {
-INT dis=0,l_beam = add_flag ? 3 : 5;
-INT inc = signums->inc;
-INT rc=MAX(r->conc[3],r->conc[4]),lc=max(l->conc[3],l->conc[4]);
-INT	s=signums->stick_width;
-INT L_max=s>>1;	/* 1/2 stick width */
-INT rmd,rmu,lmd,lmu;
-INT r3,r4,l3,l4,ss,m;
+int16_t dis=0,l_beam = add_flag ? 3 : 5;
+int16_t inc = signums->inc;
+int16_t rc=MAX(r->conc[3],r->conc[4]),lc=max(l->conc[3],l->conc[4]);
+int16_t	s=signums->stick_width;
+int16_t L_max=s>>1;	/* 1/2 stick width */
+int16_t rmd,rmu,lmd,lmu;
+int16_t r3,r4,l3,l4,ss,m;
 
 if( language == LANG_RUSSIAN )
 {
@@ -943,7 +943,7 @@ if( !add_flag )
 	l4=(l->conc[4]==0)||(l->conc[4]!=0&&l->ce_pos[4]==ss);
 	if( (r3&&r4 || l3&&l4) && !m )
 		{
-		INT bon = ( r->conc[3]>1 || l->conc[3]>1 )?10:0;
+		int16_t bon = ( r->conc[3]>1 || l->conc[3]>1 )?10:0;
 		dis += tab_vert[6]-bon;   /* no neck */
 		}
 	}
@@ -1018,24 +1018,24 @@ return(dis);
 /* ╟╟╟								╟╟╟ */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 /*----------------------------------------------------------------------*/
-INT similar_excl(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_excl(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_vert(l,r,s,1,'!')<MIN_ADD_DIS);
 }
 /*----------------------------------------------------------------------*/
-INT similar_excl_with_dot(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_excl_with_dot(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_vert(l,r,s,1,(char)liga_exm)<MIN_ADD_DIS+2 );
 }
 /*----------------------------------------------------------------------*/
 /* similar left circle brance */
-INT similar_lcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_lcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return( dis_circle_brace(l,r,s,1)<MIN_ADD_DIS );
 }
 /*----------------------------------------------------------------------*/
 /* similar right circle brance */
-INT similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_rcb(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return( dis_circle_brace(l,r,s,0)<MIN_ADD_DIS );
 }
@@ -1111,9 +1111,9 @@ if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
 return(ret);
 }
 /*----------------------------------------------------------------------*/
-INT dis_RusG (STICK_CHARS *l, STICK_CHARS *r,STICK_SIGNUMS *signums)
+int16_t dis_RusG (STICK_CHARS *l, STICK_CHARS *r,STICK_SIGNUMS *signums)
 {
-INT     dis=0, u, d, t;
+int16_t     dis=0, u, d, t;
 
 u = MAX(l->mount[0],l->mount[1]);
 d = MAX(r->mount[0],r->mount[1]);
@@ -1143,9 +1143,9 @@ return	(dis);
 }
 /////////
 // Nick 14.09.2000 - special for romanian II_roof_accent
-INT dis_I_forRoman (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_I_forRoman (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
- INT dis=0;
+ int16_t dis=0;
 
 	if( !l->mount[0] || !r->mount[0] )
 		return 0;

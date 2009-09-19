@@ -72,9 +72,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 extern uchar multy_language;
 
-extern INT pitchsize ;
+extern int16_t pitchsize ;
 
-extern INT nIncline  ;
+extern int16_t nIncline  ;
 extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
@@ -93,12 +93,12 @@ extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS, CHA;
 #include "stic-mac.h"
 #include "stic-frt.h"
 /*----------------------------------------------------------------------*/
-INT	dis_f (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_r (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, INT sign_f);
+int16_t	dis_f (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_r (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f);
 
-INT	find_beam (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
-INT	find_neck (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
+int16_t	find_beam (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
+int16_t	find_neck (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
 /*----------------------------------------------------------------------*/
 
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
@@ -107,11 +107,11 @@ INT	find_neck (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
 /* ╟╟╟								╟╟╟ */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 
-INT	dis_f (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t	dis_f (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT	i, dis=0, t, lm, rm, dy=s->height;
-INT	lf=l->num_flags, lc=l->num_concs, rf=r->num_flags;
-INT	wid=s->stick_width, inc=s->inc;
+int16_t	i, dis=0, t, lm, rm, dy=s->height;
+int16_t	lf=l->num_flags, lc=l->num_concs, rf=r->num_flags;
+int16_t	wid=s->stick_width, inc=s->inc;
 uchar	Flag_bad_overlay=0;	// MK
 
 if ( s->l_f_symptom>1 && s->r_f_symptom>1 )  return(0);	/* good symptoms */
@@ -207,7 +207,7 @@ if( t>0 )     /* normal beam ; for zones 1,2,3,4 */
 
 	if( s->base_2!=-1 )	/* base lines known */
 		{
-		INT h_beam = (l->m_pos[t]+r->m_pos[t])>>1;
+		int16_t h_beam = (l->m_pos[t]+r->m_pos[t])>>1;
 		if (Flag_bad_overlay)	{		// MK 14/20.01.1992
 //////		    h_beam = (lm>rm)  ?  l->m_pos[t]  :  r->m_pos[t]; ######
 		    if (l->mount[t] > r->mount[t])	h_beam = l->m_pos[t];
@@ -258,8 +258,8 @@ if( s->l_f_symptom>0 && s->r_f_symptom>1 )
 	/* decrease DIS if good right symptom and delicate left symptom */
 
 {				// 11.03.1993 SOPLI about {f'}; NE NA MESTE !!!
-INT	l12 = MAX (l->mount[1],l->mount[2]);
-INT	r12 = MAX (r->mount[1],r->mount[2]);
+int16_t	l12 = MAX (l->mount[1],l->mount[2]);
+int16_t	r12 = MAX (r->mount[1],r->mount[2]);
 	if ( r->mount[0] >		// fax23/14(16) "Cardiff's"
 //////	     MAX (l12,l->mount[4]) + wid + MAX (r12,r->mount[4]) )	// a)
 	     MAX (l12,l->mount[4]) + wid + MAX (r12,r->mount[4]) + 4)	// b)
@@ -286,13 +286,13 @@ INT	r12 = MAX (r->mount[1],r->mount[2]);
 return (dis);		// dis_f
 }
 /*----------------------------------------------------------------------*/
-INT	dis_r (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+int16_t	dis_r (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
 							// 27.01.1994
-INT	nl=l->num_long_flags, nr=r->num_long_flags;
-INT	wid=s->stick_width, inc=s->inc;
-INT	dis=0, wid_2=wid>>1, dy=s->height;	// t
-INT	lmu, rmu;	// 26.01.1994 (OLD lm, rm);
-INT	lmd, rmd;	// 25.01.1994
+int16_t	nl=l->num_long_flags, nr=r->num_long_flags;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	dis=0, wid_2=wid>>1, dy=s->height;	// t
+int16_t	lmu, rmu;	// 26.01.1994 (OLD lm, rm);
+int16_t	lmd, rmd;	// 25.01.1994
 
 //////printf (" r(%d,%d) ", r->mount[0], r->mount[4]);
 
@@ -447,13 +447,13 @@ return (dis);		// dis_r
 }
 /*----------------------------------------------------------------------*/
 /*	sign_f = 1 - 'f' belong list of versions */
-INT	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, INT sign_f)
+int16_t	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f)
 {							// 10.01.1994
-INT i, dis=0, t, lm, rm, dy=s->height, dx=s->width, t2;
-INT	nl=l->num_long_flags, nr=r->num_long_flags;
-INT	sl=l->num_flags, sr=r->num_flags;
-INT	wid=s->stick_width, inc=s->inc;
-INT	tpos;	// 18.11.1993 (old - use the same {t}, how for zone)
+int16_t i, dis=0, t, lm, rm, dy=s->height, dx=s->width, t2;
+int16_t	nl=l->num_long_flags, nr=r->num_long_flags;
+int16_t	sl=l->num_flags, sr=r->num_flags;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	tpos;	// 18.11.1993 (old - use the same {t}, how for zone)
 
 t = find_beam (l, r, 1);
 /*......................................................................*/
@@ -551,7 +551,7 @@ if( multy_language ) t2=4;
 
 	if( lm+rm>3 )	/* flags : 1,2  2,1 2,2  ... */
 		{	/* long flags */
-		INT im,ma;
+		int16_t im,ma;
 		if( lm*3>rm*4 && lm>3 )
 			dis += tab_t[3];  /* left>right */		// 4
 
@@ -683,7 +683,7 @@ if( l->m_meandr==1 && l->num_flags==1 && l->mount[4] &&
 
 /*......................................................................*/
 {				// MK: TOO LONG HOOK: for "t." ==> 't'
-///INT	n1, n2;			// NB: tab_t[29]=80 (fax12/32 "document.")
+///int16_t	n1, n2;			// NB: tab_t[29]=80 (fax12/32 "document.")
 ///	n1 = MAX (wid, (lm+rm));
 //////	n2 = (n1<4) ? (n1+4) : (n1*2);	// 4 - MK VOLUNTAR.	before 9.3.1993
 ///	n2 = (n1<4) ? (n1+4) : (n1*2)-2; // 4 - MK VOLUNTAR.	from 09.03.1993
@@ -729,9 +729,9 @@ return(dis);
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟ */
 /*----------------------------------------------------------------------*/
 /* find beam (lim_long - width of beam-flag) in stick */
-INT	find_beam (STICK_CHARS *l, STICK_CHARS *r,INT lim_long)
+int16_t	find_beam (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long)
 {
-INT i,num,maxim,m,rr,ll;
+int16_t i,num,maxim,m,rr,ll;
 
 for(num=-1,maxim=m=i=0;i<3;i++)
 	{
@@ -749,9 +749,9 @@ for(num=-1,maxim=m=i=0;i<3;i++)
 return( num );
 }
 /*----------------------------------------------------------------------*/
-INT	find_neck(STICK_CHARS *l, STICK_CHARS *r,INT lim_long)
+int16_t	find_neck(STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long)
 {
-INT i,num,minim,m,rr,ll;
+int16_t i,num,minim,m,rr,ll;
 
 for(num=-1,minim=m=i=0;i<3;i++)
 	{

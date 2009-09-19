@@ -101,7 +101,7 @@ extern uchar fax1x2;
 typedef struct prop_struct
  {
   cell *BC;                 /* pointer to the currente cell */
-  INT n_narrow,             /* the number of the narrow letters */
+  int16_t n_narrow,             /* the number of the narrow letters */
       n_wide,               /* the number of the wide letters */
       n_extnar,             /* the number of the extra narrow letters */
       n_extwid,             /* the number of the extra wide letters */
@@ -126,16 +126,16 @@ typedef struct prop_tab_el
   uchar max;               /* maximal proportional index */
  } prop_tab_el;
 /**** Prototypes of all functions *******/
-INT des_re_rec();
+int16_t des_re_rec();
 
 #define TROUBLE_PROP      14
 #define ONE_LET_LINE_TRSH 4
 
 uchar prop_in_trouble;     /* if DELTA>14 then line was strange (for cutting)*/
-static INT  call_flag;
+static int16_t  call_flag;
 
 /*---------- prop_l_delta and prop_r_delta are global variables ----------*/
- INT prop_l_delta=0, prop_r_delta=0;
+ int16_t prop_l_delta=0, prop_r_delta=0;
 /*------------------------------------------------------------------------*/
 
 static prop_struct *glp;
@@ -148,7 +148,7 @@ void bad_letter(void);
 void p_prt_cell(void);
 
 
-void prop(INT call_num)
+void prop(int16_t call_num)
 
 /***********************************************************************
 	This procedure counts the proprtional coefficient.
@@ -300,7 +300,7 @@ void proc_string(void)
 void accept_let(void)
 {
 uchar clet;           /* the recognized letter (first version) */
-INT  wi,             /* proportional index of the letter */
+int16_t  wi,             /* proportional index of the letter */
      lb,             /* left bound of the prop. index under delta */
      rb,             /* right bound of the prop. index under delta */
      mlb,             /* left bound of the 'normal' prop. index */
@@ -346,7 +346,7 @@ void bad_letter(void)
 /*******************************************************/
 void cnt_delta(void)
 {
-INT wi;
+int16_t wi;
 /***** delta is increased if recognition was under delta  *****/
 
  glp->fladd = 0;    /* to clear the changing of DELTA flag */
@@ -403,9 +403,9 @@ void p_prt_cell(void)
  glp->f_wide=glp->f_extw=glp->f_mrgw='N';
 }
 
-INT des_re_rec()
+int16_t des_re_rec()
 {
-INT cc;
+int16_t cc;
   cc=0;
 
  if ( ( glp->nlet == 1 ) &&
@@ -442,7 +442,7 @@ DRR_Ret:
 
 /*--------------------- Count proprtional index -------------------*/
 
-INT prop_index(INT h, INT w)
+int16_t prop_index(int16_t h, int16_t w)
 {
  if (fax1x2)	h+=2;
  if (w <= h)   	return ((uint16_t)w << 6) / h;

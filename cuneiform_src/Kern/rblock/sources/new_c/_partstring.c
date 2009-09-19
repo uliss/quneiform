@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /////////////////////////////////
 extern jmp_buf fatal_error_exit;	// For error handling
-extern INT nStrings;
+extern int16_t nStrings;
 extern uint16_t run_options;
 
 extern Handle hShowString;

@@ -125,10 +125,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // This procedure stores new state of ed_file into output stream.
 //
-INT save_ed_file(uchar batch_run)
+int16_t save_ed_file(uchar batch_run)
 {
   struct segm  *segm_ptr;
-  INT lth;
+  int16_t lth;
 
   batch_run++;
   segm_ptr=SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].first_segm;
@@ -153,12 +153,12 @@ INT save_ed_file(uchar batch_run)
 //  This procedure reads ed file into memory and generates
 //  needed structures.
 //
-INT read_file( uchar batch_run )
+int16_t read_file( uchar batch_run )
 {
-	INT  i;
+	int16_t  i;
 	char ret;
 	LONG shift;
-	INT  read_cnt;
+	int16_t  read_cnt;
 	LT   safeGuard = { 0x20, 0xF };
 
 	batch_run++;

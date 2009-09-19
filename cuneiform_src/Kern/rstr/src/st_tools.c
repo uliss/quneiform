@@ -85,20 +85,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"	// 31.05.2002 E.P.
 #include "minmax.h"
 
-static INT correct_braces(uchar fun[],INT n,INT lev,INT typ);
-static INT num_zero_intervals(uchar fun[],INT n,INT lev);
-static INT dest_to_comp( uchar raster[],INT hei, INT wid);
-static INT off_shift_string( uchar string[],INT len );
-static INT kill_stick(version *v);
-static INT kill_version( uchar prob);
+static int16_t correct_braces(uchar fun[],int16_t n,int16_t lev,int16_t typ);
+static int16_t num_zero_intervals(uchar fun[],int16_t n,int16_t lev);
+static int16_t dest_to_comp( uchar raster[],int16_t hei, int16_t wid);
+static int16_t off_shift_string( uchar string[],int16_t len );
+static int16_t kill_stick(version *v);
+static int16_t kill_version( uchar prob);
 
   extern uchar db_status    ;	// snap presence byte
   extern uchar db_trace_flag;    // snap-detail presence byte
   extern uchar db_pass      ;    // snap-pass indicator
-  extern INT nIncline      ;
-  extern INT pitchsize     ;
-//////  extern INT pen_up, pen_dn;	// 10.01.1994	for OTLADKA PRINT ONLY;
-//  extern INT pen_up;		// 17.01.1994	for OTLADKA 't'
+  extern int16_t nIncline      ;
+  extern int16_t pitchsize     ;
+//////  extern int16_t pen_up, pen_dn;	// 10.01.1994	for OTLADKA PRINT ONLY;
+//  extern int16_t pen_up;		// 17.01.1994	for OTLADKA 't'
   extern uchar line_tabcell;
 
   extern uchar enable_table_recog; // Oleg : 10-02-95 09:05pm : sheet version
@@ -111,7 +111,7 @@ uint16_t	mkma=0xAAAA, mkmb=0xBBBB, mkmc=0xCCCC, mkmd=0xDDDD, mkme=0xEEEE;
 uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;	// MK OTLADKA
 #endif
 uint16_t	mkFlag_Dump = FALSE;
-//////static	INT	mk_INT_short_snap_last_typ;	// 18.06.1993	SOPLI
+//////static	int16_t	mk_INT_short_snap_last_typ;	// 18.06.1993	SOPLI
 uint16_t	N_eq_Neck;					// 28.07.1993
 uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see CHA, DEF, DIS;
 int	inc_num_EEM;	// 15.11.1993;  formed in STIC_MAK.C;
@@ -131,7 +131,7 @@ uchar	left_letter_EEM;	// 17.01.1994
 void new_vers( cell *c, uchar vers, uchar prob)
 {
 
-INT n=(c->flg&c_f_dust)?0:c->nvers,spec_sym=( chkbullet(vers) || vers=='*' );
+int16_t n=(c->flg&c_f_dust)?0:c->nvers,spec_sym=( chkbullet(vers) || vers=='*' );
 cell *tmp = c->prev;
 
 if( enable_table_recog )
@@ -179,7 +179,7 @@ return;
 /* return FALSE if letter (let) not exist in cell *c                */
 Bool set_prob(cell *c, char let, uchar prob)
 {
-INT i,n=c->nvers;
+int16_t i,n=c->nvers;
 for(i=0;i<n;i++)
 	if( c->vers[i].let==(uchar)let )
 		{
@@ -203,9 +203,9 @@ return( i<n );
 }
 
 /* decrease propability for any version in cell */
-void down_all_versions(cell *c, INT monus)
+void down_all_versions(cell *c, int16_t monus)
 {
-INT i,p;
+int16_t i,p;
 for(i=0;i<c->nvers;i++)
   {
   p = c->vers[i].prob - monus;
@@ -236,11 +236,11 @@ for(bv=c->vers,i=0;i<n;i++,bv++)
 return(FALSE);
 }
 /*----------------------------------------------------------------------*/
-INT del_sticks (cell *c, char let)  {			// 26.10.1993
-INT	i, n=c->nvers;
-INT	prob;
-INT	dis_CUT=0;
-INT	base_4_1=0;	// BBB
+int16_t del_sticks (cell *c, char let)  {			// 26.10.1993
+int16_t	i, n=c->nvers;
+int16_t	prob;
+int16_t	dis_CUT=0;
+int16_t	base_4_1=0;	// BBB
 B_LINES bl;
 
 	if (c->cg_flag & c_cg_cutl)  dis_CUT  = mk_80_for_CUT;	// CUT LEFT
@@ -275,9 +275,9 @@ B_LINES bl;
 	return( 1 );
 }
 /*----------------------------------------------------------------------*/
-INT	del_sticks_F_60 (cell *c)  {			// 05.03.1993
-INT	i, n=c->nvers;
-INT	prob_F;
+int16_t	del_sticks_F_60 (cell *c)  {			// 05.03.1993
+int16_t	i, n=c->nvers;
+int16_t	prob_F;
 uchar let;
 
 for(i=0;i<n;i++)
@@ -305,7 +305,7 @@ for(i=0;i<n;i++)
 }
 /*----------------------------------------------------------------------*/
 /* decrease letter-propability for stick codes  */
-static INT kill_stick(version *v)
+static int16_t kill_stick(version *v)
 {
 uchar let = v->let ;			// A.A.LEMAN from 28.06.1993
 char stick_list[]="frtIJT1l!ij/[]{}LFY";	// 22.11.1993		//17/19
@@ -349,7 +349,7 @@ if( memchr(stick_list, let,17)!=NULL             ||
 return( v->prob );
 }
 
-static INT kill_version( uchar prob)
+static int16_t kill_version( uchar prob)
 {
 prob>>=2;
 if( prob&1 )
@@ -362,7 +362,7 @@ static int dotIsGlue(cell *c)
 #define MAX_UP 32
  lnhead *line;
  interval *intval;
- INT l,i,start;
+ int16_t l,i,start;
  int maxH = MIN(MAX_UP,c->h/3);
  int size[MAX_UP];
 
@@ -371,7 +371,7 @@ static int dotIsGlue(cell *c)
 
 	memset (size, 0, maxH*sizeof(int));
 
-	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)  )
 	{
 		start = line->row;
@@ -404,12 +404,12 @@ static int dotIsGlue(cell *c)
 ////////////////
 /*----------------------------------------------------------------------*/
 /* revaluation all propabilitys in list of version  */
-INT	discrim_all_sticks (cell *c,
+int16_t	discrim_all_sticks (cell *c,
 		STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums)
 {							// 27.01.1994
-INT  i, n=c->nvers, num, tmp, c_f=check_let(c,'f');
-INT  prob;
+int16_t  i, n=c->nvers, num, tmp, c_f=check_let(c,'f');
+int16_t  prob;
 uchar let;
 B_LINES bll;
 
@@ -452,7 +452,7 @@ return(num);
 /* ╟╟╟           FUNCTIONS FOR FILTRATE ABRIS-ARRAY             ╟╟╟  */
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
 /* shave near pimples              */
-void filtr_short(uchar fun[],INT n,INT lev)
+void filtr_short(uchar fun[],int16_t n,int16_t lev)
 {
 uchar i;
 lev++;
@@ -463,10 +463,10 @@ return;
 }
 
 /* filtr 121 : fun[i] = fun[i-1]+2*fun[i]+fun[i+1]    */
-void filtr121(uchar fun[],INT n)
+void filtr121(uchar fun[],int16_t n)
 {
 #define LIM_OF_DIST 6
-INT i,fprev=fun[0],fcurr,fnext;
+int16_t i,fprev=fun[0],fcurr,fnext;
 for(i=1;i<n-1;i++)
 	{
 	fnext = fun[i+1];
@@ -487,9 +487,9 @@ for(i=1;i<n-1;i++)
 }
 
 /* filtr_bullet : for fun[i-1]=fun[i+1]=0 set fun[i]=0 */
-void filtr_bullet(uchar fun[],INT len)
+void filtr_bullet(uchar fun[],int16_t len)
 {
-INT i;
+int16_t i;
 for( len--,i=3; i<len; i++) /* first and last elem skipped */
 	if( fun[i]==0 && fun[i-2]==0 && fun[i-1]!=0 )
 		{
@@ -500,9 +500,9 @@ return;
 }
 
 /*  fultr_shave : fun[i-1]=fun[i+1] and fun[i]!=fun[i-1] set fun[i]=fun[i-1] */
-void filtr_shave(uchar fun[],INT len)
+void filtr_shave(uchar fun[],int16_t len)
 {
-INT i;
+int16_t i;
 for( len--,i=3; i<len; i++) /* first and last elem skipped */
     if( fun[i]==fun[i-2] && abs( fun[i-1]-fun[i] )==1 )
 		{
@@ -512,7 +512,7 @@ for( len--,i=3; i<len; i++) /* first and last elem skipped */
 return;
 }
 
-INT find_minimum(uchar fun[],INT n,uchar *_imin)
+int16_t find_minimum(uchar fun[],int16_t n,uchar *_imin)
 {
 uchar i, imin, minim, io, ff;
 
@@ -542,14 +542,14 @@ return(minim);
 /* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
 /*----------------------------------------------------------------------*/
 			// add '╨','1','!', liga_exm, invers_exm to cell:
-void add_thick_stick_versions (cell *c, INT dx, INT wide, INT inc,
-			   INT typ_snap,
+void add_thick_stick_versions (cell *c, int16_t dx, int16_t wide, int16_t inc,
+			   int16_t typ_snap,
 			   STICK_CHARS *l, STICK_CHARS *r,
 			   STICK_SIGNUMS *s)
 {
-INT	prob = conv_prob((INT)ADD_PROB(c));	// POSIT,EVEN  (prob.0 - 4  or  254)
-//////INT  wid=s->stick_width;	// NB: wide - THE SAME ???
-INT	prob_l = 0;	// 07.01.1994 for liga_exm !!!
+int16_t	prob = conv_prob((int16_t)ADD_PROB(c));	// POSIT,EVEN  (prob.0 - 4  or  254)
+//////int16_t  wid=s->stick_width;	// NB: wide - THE SAME ???
+int16_t	prob_l = 0;	// 07.01.1994 for liga_exm !!!
 
 //////	if (prob<140)  prob = 200;	// 17.01.1994, 200 - for der Laterne;
 					// MANY ERRORS for CRASY LETTERS;
@@ -610,7 +610,7 @@ if(language != LANG_RUSSIAN)
 /*......................................................................*/
 if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 	{                   /* not cut and exist !-dot */
-	INT pr = ADD_PROB(c);
+	int16_t pr = ADD_PROB(c);
 	if( language != LANG_RUSSIAN && pr<200 )
 		pr=202; /* ????!!!!!! : for good glue */
 	if( similar_excl (l, r, s) )
@@ -653,10 +653,10 @@ if ((s->right_mode - s->left_mode < 5)  &&	// 07.01.1994
     (s->full_width <= wide+3)  &&
     (prob_l) && !line_tabcell)
     {			// SECOND VARIANT: 'l' #0 or #1;
-    INT	tl, lbeg, lend, l_len,  tr, rbeg, rend, r_len,  prob_new;
-    ////INT	mk_base = s->height - s->stick_width - 1;	// FIRST PROBA;
-    INT	base_C = s->height - s->stick_width -2;		// for CONCAVE;
-    INT	base_M = base_C + 1;				// for MOUNT;
+    int16_t	tl, lbeg, lend, l_len,  tr, rbeg, rend, r_len,  prob_new;
+    ////int16_t	mk_base = s->height - s->stick_width - 1;	// FIRST PROBA;
+    int16_t	base_C = s->height - s->stick_width -2;		// for CONCAVE;
+    int16_t	base_M = base_C + 1;				// for MOUNT;
 	lbeg = lend = l_len = rbeg = rend = r_len = 0;  tl = tr = 3;
 	if (l->conc[3])	{ lbeg = l->cb_pos[3];  lend = l->ce_pos[3]; }
 		else if (l->conc[2])
@@ -707,11 +707,11 @@ return;
 /*----------------------------------------------------------------------*/
 /* add versions 't','f','(',')' for dx<=4 - small kegls */	// <=4 !!!
 void add_thin_stick_versions (cell *c, uchar left[], uchar right[],
-			   INT dy, INT dx, INT typ_inc,
+			   int16_t dy, int16_t dx, int16_t typ_inc,
 			   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT t = r->mount[0] + r->mount[1] + r->mount[2];
-INT prob = conv_prob((INT)ADD_PROB(c));	// POSIT,EVEN  (prob.0 - 4  or  254)
+int16_t t = r->mount[0] + r->mount[1] + r->mount[2];
+int16_t prob = conv_prob((int16_t)ADD_PROB(c));	// POSIT,EVEN  (prob.0 - 4  or  254)
 B_LINES basL;
 
 if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
@@ -753,16 +753,16 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 	}
 
 if( dx<=4 && !typ_inc )  {		/* adding circle braces	*/
-INT nzl = num_zero_intervals(left,dy,0);
-INT nzr = num_zero_intervals(right,dy,(INT)((dx-1)<<2));
+int16_t nzl = num_zero_intervals(left,dy,0);
+int16_t nzr = num_zero_intervals(right,dy,(int16_t)((dx-1)<<2));
 	if ( nzl==1  &&  nzr==2  &&  !check_let(c,'(')  &&
 	    correct_braces(left,dy,0,1)  &&
-	    correct_braces(right,dy,(INT)((dx-1)<<2),0)  &&
+	    correct_braces(right,dy,(int16_t)((dx-1)<<2),0)  &&
 	    similar_lcb (l, r, s) )
 		new_vers(c,'(',(uchar)cut_by_pos(c,'(',prob,1,1) );
 	if ( nzl==2  &&  nzr==1  &&  !check_let(c,')')  &&
 	    correct_braces(left,dy,0,0)  &&
-	    correct_braces(right,dy,(INT)((dx-1)<<2),1)  &&
+	    correct_braces(right,dy,(int16_t)((dx-1)<<2),1)  &&
 	    similar_rcb (l, r, s) )
 		new_vers(c,')',(uchar)cut_by_pos(c,')',prob,1,1) );
 	}
@@ -770,7 +770,7 @@ return;
 }
 /*----------------------------------------------------------------------*/
 /* study limits of first and last columns for c_comp '(',')' */
-static INT correct_braces(uchar fun[],INT n,INT lev,INT typ)
+static int16_t correct_braces(uchar fun[],int16_t n,int16_t lev,int16_t typ)
 {
 if( typ )
 	{  /* right */
@@ -786,9 +786,9 @@ return(1);
 }
 
 /* number of intervals of const in column (lev) */
-static INT num_zero_intervals(uchar fun[],INT n,INT lev)
+static int16_t num_zero_intervals(uchar fun[],int16_t n,int16_t lev)
 {
-INT i,s;
+int16_t i,s;
 for(i=1,s=(fun[0]==lev);i<n;i++)
 	{
 	if( fun[i]==lev && fun[i-1]!=lev )
@@ -798,7 +798,7 @@ return(  s  );
 }
 
 /* transformation prob to correct (>0,even) number */
-INT conv_prob(INT prob)
+int16_t conv_prob(int16_t prob)
 {
 //////if( prob<=0 )
 if( prob<=1 )		// 06.01.1994 for CASE 1;
@@ -815,7 +815,7 @@ return( prob);
 
 
 /* out text string */
-void short_snap(char *s,INT typ_snap)
+void short_snap(char *s,int16_t typ_snap)
 {
 //////mk_INT_short_snap_last_typ = typ_snap;	// DELETE 24.06.1993
 if ( db_status && ( typ_snap==0 ||
@@ -832,24 +832,24 @@ return;
 void full_snap (cell *c,
 		s_glue *GLU,	// 14.12.1993 add this parametr;
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		INT tab_angle[],
-		INT left_mode, INT right_mode, INT opt,
-		INT wide,	// INDICAT "5!" IF NE (right_mode-left_mode+1);
-		INT inc_v, INT typ_snap)
+		int16_t tab_angle[],
+		int16_t left_mode, int16_t right_mode, int16_t opt,
+		int16_t wide,	// INDICAT "5!" IF NE (right_mode-left_mode+1);
+		int16_t inc_v, int16_t typ_snap)
 {
-INT	dx=c->w, dy=c->h;
+int16_t	dx=c->w, dy=c->h;
 MN	*sh_mn;
 cell	*sh_cell;
 c_comp	*buf_cell;
 char	buf[1024],*pbuf;
 puchar	raster;
 uchar	sh_raster[1024];
-INT	i, d_x, off, buf_w, c_f;
+int16_t	i, d_x, off, buf_w, c_f;
 uchar	cUL = (l->up_hook)   ? '~' : ' ',  dUL = l->up_serif;
 uchar	cUR = (r->up_hook)   ? '~' : ' ',  dUR = r->up_serif;
 uchar	cDL = (l->down_hook) ? '_' : ' ',  dDL = l->down_serif;
 uchar	cDR = (r->down_hook) ? '_' : ' ',  dDR = r->down_serif;
-INT	cut_0123;
+int16_t	cut_0123;
 static	char	*vars_cut_0123 [] =  {	"NO CUT",	// 0
 					"CUT R",	// 1
 					"CUT L",	// 2
@@ -864,17 +864,17 @@ if (db_status && (typ_snap==0 ||
 			tab_angle[i] = (tab_angle[i]-opt)>>2;
 		raster = save_raster (c);
 		off = off_shift_string (&raster[(dy-1)*bytlen(dx)],
-					(INT)(bytlen(dx)) );
+					(int16_t)(bytlen(dx)) );
 		d_x = shift_raster (raster, dy, dx, tab_angle,
-      (INT)(MAX (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
+      (int16_t)(MAX (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
 		off -= off_shift_string (&sh_raster[(dy-1)*bytlen(d_x)],
-					 (INT)(bytlen(d_x)) );
+					 (int16_t)(bytlen(d_x)) );
 		off += dest_to_comp (sh_raster, dy, d_x);
 		/* off - offset shift raster */
 		right_mode -= off;
 		left_mode  -= off;
 		opt        -= off<<2;
-		sh_mn = c_locomp (sh_raster, (INT)(bytlen(d_x)), dy, 0, 0);
+		sh_mn = c_locomp (sh_raster, (int16_t)(bytlen(d_x)), dy, 0, 0);
 		sh_cell = create_cell (sh_mn, c, c->bdiff, (char)(c->difflg & 0xf0));
 
 		buf_cell = c->env;
@@ -990,7 +990,7 @@ case 3: pbuf += sprintf(pbuf, "dis_1=%d d_/=%d d_jj=%d",
 	pbuf += sprintf(pbuf, " d_()=%d,%d  LM=%d",
 //////			s->dis_left_brace, s->dis_right_brace, left_mode_EEM);
 			s->dis_left_brace, s->dis_right_brace,
-			(INT) left_mode_EEM);	// for ERROR: 65533 => -3;
+			(int16_t) left_mode_EEM);	// for ERROR: 65533 => -3;
 		break;
 				       // MK: 1111 2222 3333 4444 5555
 case 4:	pbuf+= sprintf(pbuf, "MK: %04X %04X %04X %04X %04X",
@@ -1045,7 +1045,7 @@ cell	*cell_LEFT = c->prevl;
 
   for(i=0;i<c->nvers;i++)
     {
-    INT   dis ,  dis_abs;
+    int16_t   dis ,  dis_abs;
     uchar  let  = c->vers[i].let;
     if( let=='|' && (c->pos_inc&erect_rot) && c->stick_inc>256 )  let='i';
     dis = discrim_stick(let,l,r,s,c_f);
@@ -1101,7 +1101,7 @@ return;
 
 /*----------------------------------------------------------------------*/
 /* position of first bit in string */
-static INT off_shift_string ( uchar string[], INT len )  {
+static int16_t off_shift_string ( uchar string[], int16_t len )  {
 uchar i,f,k;
 
 for (i=0; i<len&&string[i]==0x00; i++);		/* skip  zero bytes */
@@ -1115,8 +1115,8 @@ return (k);
 /*----------------------------------------------------------------------*/
 /* MINIMAL number of first bit in any row of raster  */
 /* this (not optimal !) function used in SNAP only   */
-static INT dest_to_comp (uchar raster[], INT hei, INT wid)  {
-INT	i, minim, d, bwid=bytlen(wid);
+static int16_t dest_to_comp (uchar raster[], int16_t hei, int16_t wid)  {
+int16_t	i, minim, d, bwid=bytlen(wid);
 uchar	*p ;
 for (minim=wid,p=&raster[0],i=0; i<hei; i++,p+=bwid)  {
 	d = off_shift_string ( p, bwid );	/* p - pointer to curret row */
@@ -1130,10 +1130,10 @@ return ( minim );
 // max_shift - max offset of string
 // result : raster *res, return : new width of raster
 //  AK add stack crash protection : Oleg : up size of local buffer
-INT shift_raster (uchar *raster, INT dy, INT dx, INT tab_angle[],
-      INT max_shift, uchar *res, INT dir)
+int16_t shift_raster (uchar *raster, int16_t dy, int16_t dx, int16_t tab_angle[],
+      int16_t max_shift, uchar *res, int16_t dir)
 {
-	INT i, ii, j, Dx, d, dd, c;
+	int16_t i, ii, j, Dx, d, dd, c;
 	uchar  *r, *rr, s1, s2;
 
 	d  = bytlen (dx);

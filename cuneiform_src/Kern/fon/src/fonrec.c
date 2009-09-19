@@ -866,7 +866,7 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 //  Recognition itself
 //
 ////////////////////////////////////////////
-//static uint16_t  (*_cmp)(puchar r,uint16_t h,uint16_t w,welet * wl,INT xo,INT yo);
+//static uint16_t  (*_cmp)(puchar r,uint16_t h,uint16_t w,welet * wl,int16_t xo,int16_t yo);
 
 ///////////////////////
 int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, int16_t xo, int16_t yo) {

@@ -188,26 +188,26 @@ extern int  *pnHeightesCounter;
 extern int  nHeightesAllocated;
 extern int  nHeightes;
 
-extern INT nIncline;
+extern int16_t nIncline;
 
 Bool InclinesAccount (void);
 void InclinesFreeData (void);
 
-void IdealXY (INT x, INT y, INT *px, INT *py);
-void RealXY (INT x, INT y, INT *px, INT *py);
+void IdealXY (int16_t x, int16_t y, int16_t *px, int16_t *py);
+void RealXY (int16_t x, int16_t y, int16_t *px, int16_t *py);
 
 void RotatePageToIdeal (void);
 
 # define IDEAL_XY(x, y)   \
          {\
-             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 /****************************************************************************
@@ -449,7 +449,7 @@ struct _Block
     BLOCK *pNext;
     BLOCK *pPrev;
 
-    INT        Type;
+    int16_t        Type;
     unsigned   uFlags;
     int        nNumber;
     int        nUserNum;  // Number call of User ExractBlocks Piter 08-17-95 06:20pm
@@ -706,7 +706,7 @@ void BlockRemove (BLOCK *p);
 
 struct _RootBackup
 {
-    INT  nBlock;
+    int16_t  nBlock;
     ROOT *pNext;
 };
 

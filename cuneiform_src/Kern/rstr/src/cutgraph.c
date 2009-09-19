@@ -64,20 +64,20 @@
 #include "cuthdr.h"
 #include "func.h"
 
-static INT init_list(void);
+static int16_t init_list(void);
 static void order_list(void);
 static void init_graph(void);
-static INT merge_split(void);
+static int16_t merge_split(void);
 static void intersect(void);
 static void make_half(struct short_line_header *);
 static void place_in_list(void);
-static INT wr_vertex(void);
+static int16_t wr_vertex(void);
 static void add_edge(void);
-static INT next_edge(void);
+static int16_t next_edge(void);
 // static void three_excl_connect  (void);
-// static INT concomp          (INT);
+// static int16_t concomp          (int16_t);
 
-INT make_graph()
+int16_t make_graph()
 //
 //	This procedure constructs the graph of (shortened) Ed_lines
 //	of given component.
@@ -107,7 +107,7 @@ INT make_graph()
 	return n_verts;
 }
 
-static INT init_list()
+static int16_t init_list()
 //
 //	This procedure constructs initial list of lines.
 //
@@ -116,9 +116,9 @@ static INT init_list()
 	/*
 	 struct ln_head
 	 {
-	 INT lth;	   // length of one line representation
-	 INT h;		   // height of line
-	 INT row;	   // relative row of line start
+	 int16_t lth;	   // length of one line representation
+	 int16_t h;		   // height of line
+	 int16_t row;	   // relative row of line start
 	 uchar flg;	   // flags of free beg and free end
 	 #define l_fbeg		0x20
 	 #define l_fend		0x80
@@ -153,7 +153,7 @@ static void order_list()
 {
 	struct short_line_header *slp;
 	struct short_line_header wline;
-	INT i, j, k;
+	int16_t i, j, k;
 
 	for (i = 1; i < n_lines; i++) {
 		j = i;
@@ -184,7 +184,7 @@ static void init_graph()
 	memset(verts, 0, sizeof(verts));
 }
 
-static INT merge_split()
+static int16_t merge_split()
 //
 //	This procedure finds a line which merges with first line
 //	or goes out from the first line. Then the first line separates
@@ -193,7 +193,7 @@ static INT merge_split()
 //	in the list in accordance with ordering.
 //
 {
-	INT i;
+	int16_t i;
 
 	meet_flag = 0;
 	wr_vertex_flag = 0;
@@ -333,7 +333,7 @@ static void place_in_list()
 		fl_ptr->next = (uchar) max_line;
 }
 
-static INT wr_vertex()
+static int16_t wr_vertex()
 //
 //	This procedure adds first_line as a new vertex to the graph.
 //
@@ -390,9 +390,9 @@ void find_path()
 //  If it fails, it means so-called "S"-case that will be treated specially.
 //
 {
-	INT n, l, l0, v;
+	int16_t n, l, l0, v;
 	uchar svpath[MAX_LINES];
-	INT svpathl, svpatot;
+	int16_t svpathl, svpatot;
 
 	Z = &string;
 	svpatot = -1;
@@ -438,14 +438,14 @@ void find_path()
 	}
 }
 
-static INT next_edge()
+static int16_t next_edge()
 //
 //	This procedure gives number of next outcoming edge
 //	from vertex path[path_lth-1].
 //
 {
 	char *mp;
-	INT n;
+	int16_t n;
 
 	n = path[path_lth] + 1; // 1 + older son of path[path_lth-1]
 	mp = adj_matrix[path[path_lth - 1]] + n;
@@ -459,7 +459,7 @@ struct conn {
 	puchar adjs; // current point in the edges list
 	puchar adje; // end of the edges list
 	uint32_t vert; // number of vertex (identifier)
-	INT covers; // crossing vertexes starts counter
+	int16_t covers; // crossing vertexes starts counter
 	uint16_t ncp; // components counter
 };
 
@@ -535,8 +535,8 @@ void excl_connect()
  //
  {
  struct less_vertex_elem *lv_ptr;
- INT n,vert;
- INT i,j,k;
+ int16_t n,vert;
+ int16_t i,j,k;
  pchar c;
  pchar ac;
  pchar s;
@@ -642,15 +642,15 @@ void excl_connect()
  }
  }
 
- static INT concomp(int nv)
+ static int16_t concomp(int nv)
  {
  char mark[MAX_LINES];
- INT ncp;
+ int16_t ncp;
  char vert_list[MAX_LINES];
- INT beg,end;
+ int16_t beg,end;
  pchar mc,mp;
- INT n;
- INT i;
+ int16_t n;
+ int16_t i;
 
  memset(mark,0xFF,sizeof(mark));
  mark[0]=1;

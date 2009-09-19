@@ -66,8 +66,8 @@
 #include "bal.h"
 #include "minmax.h"
 
-extern INT it_done;
-static int16_t skew_corr_stat(CSTR_line ln, INT pool_src);
+extern int16_t it_done;
+static int16_t skew_corr_stat(CSTR_line ln, int16_t pool_src);
 static int16_t rast_is_BOX_solid(CSTR_rast B1, int16_t scale);
 static Bool snap_monitor_stat(void);
 static Bool snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines);//IGOR
@@ -81,7 +81,7 @@ static Bool snap_activity_stat(uchar a);
 
 static uchar let_linempty[512] = { 0 };
 
-int16_t (*RSTR_skew_corr)(CSTR_line ln, INT pool_src) = skew_corr_stat;
+int16_t (*RSTR_skew_corr)(CSTR_line ln, int16_t pool_src) = skew_corr_stat;
 int16_t (*RSTR_rast_is_BOX_solid)(CSTR_rast B1, int16_t scale) =
 		rast_is_BOX_solid;
 Bool (*snap_monitor_rbal)(void) = snap_monitor_stat;
@@ -218,8 +218,8 @@ void ideal_rc(CSTR_rast c) {
 
 	CSTR_GetAttr(c, &attr);
 
-	attr.row = attr.r_row - (INT)((LONG) nIncline * attr.r_col / 2048);
-	attr.col = attr.r_col + (INT)((LONG) nIncline * attr.r_row / 2048);
+	attr.row = attr.r_row - (int16_t)((LONG) nIncline * attr.r_col / 2048);
+	attr.col = attr.r_col + (int16_t)((LONG) nIncline * attr.r_row / 2048);
 
 	CSTR_SetAttr(c, &attr);
 }
@@ -227,13 +227,13 @@ void ideal_rc(CSTR_rast c) {
 
 ///////////////////////////
 // dm1.c
-void promote(uchar sn, CSTR_rast cl, uchar let, INT delta) {
+void promote(uchar sn, CSTR_rast cl, uchar let, int16_t delta) {
 	uchar wl, wl_sacc, let_sacc;
 	// version *vp1, *vp2;
 	UniVersions vers;
 	int i, j;
 	uchar p1, pw;
-	INT pwi, dlt, dlv, fld;
+	int16_t pwi, dlt, dlv, fld;
 
 	CSTR_GetCollectionUni(cl, &vers);
 	if (vers.lnAltCnt <= 0)
@@ -345,7 +345,7 @@ void promote(uchar sn, CSTR_rast cl, uchar let, INT delta) {
 
 ////////////////////////////
 // skew.c
-static int16_t skew_corr_stat(CSTR_line ln, INT pool_src) {
+static int16_t skew_corr_stat(CSTR_line ln, int16_t pool_src) {
 	return (int16_t) nIncline;
 }
 ////////////
@@ -394,7 +394,7 @@ void dust_ini(CSTR_line lin) {
 	CSTR_attr attr;
 	CSTR_rast curr, last;
 	CCOM_comp * cmp;
-	INT cmpscale;
+	int16_t cmpscale;
 
 	CSTR_GetLineAttr(lin, &attr);
 
@@ -482,7 +482,7 @@ Bool snap_activity_stat(uchar a) {
 /////////////////
 // old - если arg==0 - добавить мусор из строки lin_str
 // проверить/изменить метки мусор-нет
-static void test_dust(void) // INT arg)
+static void test_dust(void) // int16_t arg)
 {
 	/*
 	 if (arg==0)
@@ -514,7 +514,7 @@ static void test_dust(void) // INT arg)
 static int basedraft(CSTR_line ln, uchar isDust) {
 	// char riter1, riter0;
 	int riter1;
-	INT i;
+	int16_t i;
 	CSTR_rast C;
 
 	lin_str = ln;

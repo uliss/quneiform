@@ -99,7 +99,7 @@ static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, Bool sca);
 // P2_COUR.C
 Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Vs);
 // ERECTION.C
-extern INT    erection_inc;
+extern int16_t    erection_inc;
 // DIFFRV.C
 void final_descriminate(cell *b, cell *e);
 // EVN.DLL
@@ -116,7 +116,7 @@ extern uchar line_scale,line_alphabet, line_minus, line_handfragment,line_points
 extern Bool line_readyBL,line_BL;
 extern uchar line_tabcell;
 extern uchar db_trace_flag;
-extern INT nIncline;
+extern int16_t nIncline;
 // PASSe.C functions
 extern void   set_spell_solid(void);
 extern uchar   english_word_recognize(void);
@@ -127,26 +127,26 @@ void    correct_let_tables(void);
 Bool    is_russian_language(uchar lang);
 
 extern LONG Flag_Courier;
-extern INT line_number;
+extern int16_t line_number;
 extern FILE *dbg_f;
 extern uchar prop_in_trouble;
 extern uchar let_to_dust;
 extern Bool bCancelled;
-extern INT bs_got;
-extern INT flag_cut_point;
+extern int16_t bs_got;
+extern int16_t flag_cut_point;
 extern uchar language;
 extern uchar CodePages[];
 extern uchar decode_ASCII_to_[256][4];
 extern char alphabet[256];
-INT    page_nIncline;
+int16_t    page_nIncline;
 uchar   pass2;
-INT    del_squares();
+int16_t    del_squares();
 Bool   ProgressSetPhase (char *text, uint16_t wPhaseSize);
 Bool   ProgressSetPercentage (uint16_t wPercentage);
 Bool   ProgressHandleMessages (void);
 Bool   check_cancel(uint16_t t);
 Bool   snap_skip();
-INT    tot_strings(void);
+int16_t    tot_strings(void);
 Bool   kernel_reload_vocs(void);
 void   delete_spaces(void);
 
@@ -157,8 +157,8 @@ static  void pass3_special_recode(CSTR_line ln);
 void pass3_table_points_suspension(CSTR_line ln);
 void pass3_table_points_suspension2(CSTR_line ln);
 static  Bool recog_minus(void);
-static  INT p2_GetPs(void);
-static  INT p2_GetPs_up(void);
+static  int16_t p2_GetPs(void);
+static  int16_t p2_GetPs_up(void);
 static  void cstr_rerecog_leo(CSTR_line ln);
 static  void add_vers_underlined(void);
 static  Bool32  cstr_scaled_in_res(CSTR_line ln);
@@ -178,7 +178,7 @@ static  Bool test_short_english_blines(void);
 void Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_scaled);
 void    make_all_cuts( void);
 void    make_all_glues(void);
-void    all_cell_levcut(INT arg);
+void    all_cell_levcut(int16_t arg);
 void    letters_ini(CSTR_line lin, Bool enable_scaling);
 void clear_cells(void);
 void clear_cells_pass2(void);
@@ -186,9 +186,9 @@ void clear_dust_alternates(void);
 
 static  Bool    font_ready=FALSE;
 static  CSTR_line   lne, lneout, lnout, lnsave;
-static INT  pass3_num_killed_line()
+static int16_t  pass3_num_killed_line()
 {
-INT n;
+int16_t n;
 cell    *c;
 for(n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
@@ -205,7 +205,7 @@ CSTR_rast       rst=CSTR_GetNext(CSTR_GetFirstRaster(lin));
 
 if( lin )
     CSTR_GetLineAttr(lin, &attrlin);
-CSTR_ClearLine(lino,(INT)(-16000+1),(INT)(0x7fff-1));
+CSTR_ClearLine(lino,(int16_t)(-16000+1),(int16_t)(0x7fff-1));
 
 attrlin.col=0;
 attrlin.row=0;
@@ -260,12 +260,12 @@ while(1){
 str * first_string_language(void);
 str * next_string_language(void);
 
-void proc_bI(INT pass);
+void proc_bI(int16_t pass);
 void proc_ii(void);
 
 
-void save_rest_bases(INT mode, INT line_crit);
-void save_rest_incline(INT mode);
+void save_rest_bases(int16_t mode, int16_t line_crit);
+void save_rest_incline(int16_t mode);
 
 void proc_Ukr( void ); // see module UKR.C
 
@@ -357,7 +357,7 @@ B_LINES         my_bases;
 CSTR_rast       rst=CSTR_GetFirstRaster(ln);
 CSTR_rast_attr  attr;
 RecVersions     vers;
-INT             pen;
+int16_t             pen;
 
 get_b_lines(NULL,&my_bases);
 for(pen=0,rst=CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
@@ -379,11 +379,11 @@ return (pen>0);
 
 void pass3(CSTR_line ln,CSTR_line lout)
 {
-    INT     h;
-    INT     lsq;
+    int16_t     h;
+    int16_t     lsq;
     uchar    Lang;
-    INT     Step=0,no_crit;
-    INT     eng=0;
+    int16_t     Step=0,no_crit;
+    int16_t     eng=0;
     Bool    snap_active=FALSE,line_scale0=FALSE,stop_pass2=FALSE;
     CSTR_attr   lattr;
 
@@ -504,7 +504,7 @@ for (Step=0; Step<pass2+1; Step++ )
 //		- îòñå÷åíèå àëüòåðíàòèâ ïî áàçîâûì ëèíèÿì. Ïðîâåðêà êîððåêòíîñòè.
         if( line_readyBL && !line_scale )
             {
-            INT old_nIncline=nIncline, bado, badn;
+            int16_t old_nIncline=nIncline, bado, badn;
             lin_str=!Step?ln:lne;
             p2_setBasLines(lin_str);
             if( old_nIncline!=nIncline )
@@ -1004,7 +1004,7 @@ got_line:
 
 //ïðîâåðêà-óòî÷íåíèå ñòàíäàðòíîé âûñîòû, øèðèíû
         checkpitch();
-        h=(INT)get_size();
+        h=(int16_t)get_size();
         if( !erection_cond_language(language) )
             erection_delete();
 
@@ -1170,7 +1170,7 @@ if( pass2 )
             snap_show_text("RUS-ENG LINE after english adding");
             snap_monitor();
             }
-        CSTR_ClearLine(lout,(INT)(-16000+1),(INT)(0x7fff-1));
+        CSTR_ClearLine(lout,(int16_t)(-16000+1),(int16_t)(0x7fff-1));
         }
     else
 #endif
@@ -1178,7 +1178,7 @@ if( pass2 )
         language = LANG_RUSSIAN;
         trees_load_fict();
         p2_Cstr2Cell( lout,NULL,NULL,TRUE,CSTR_f_dust);
-        CSTR_ClearLine(lout,(INT)(-16000+1),(INT)(0x7fff-1));
+        CSTR_ClearLine(lout,(int16_t)(-16000+1),(int16_t)(0x7fff-1));
         }
     CSTR_DeleteLine(lne);
     erection_restore();
@@ -1209,7 +1209,7 @@ if(!p2_active)
 clean_line();
 if( p2_active)
     {
-    INT p2Ps= p2_GetPs();
+    int16_t p2Ps= p2_GetPs();
     if(p2Ps )
         {
         if( line_readyBL && abs(p2Ps-(bbs3-bbs2))>1 ||
@@ -1261,7 +1261,7 @@ if( p2_active )  // p2_active ?
 
         lneout = CSTR_GetLineHandle(line_number, CSTR_LINVERS_ENGOUT);
         if( lneout )
-            CSTR_ClearLine(lneout,(INT)(-16000+1),(INT)(0x7fff-1));
+            CSTR_ClearLine(lneout,(int16_t)(-16000+1),(int16_t)(0x7fff-1));
         }
     p2_CellsToCSTR( lout );
     }
@@ -1292,7 +1292,7 @@ if( line_scale0 && !p2_active )
     {
     if( cstr_scaled_in_res(lout) )
         {
-        CSTR_ClearLine(ln,(INT)(-16000+1),(INT)(0x7fff-1));
+        CSTR_ClearLine(ln,(int16_t)(-16000+1),(int16_t)(0x7fff-1));
         CSTR_CopyLine (ln,lnsave);
         }
     else
@@ -1417,7 +1417,7 @@ return c;
 void convert_ligas(void)
 {
 cell *c, *ce;
-INT i;
+int16_t i;
 
 for(c=cell_f()->next,ce=cell_l();c!=ce;c=c->next )
     {
@@ -1449,9 +1449,9 @@ for(c=cell_f()->next;c!=cell_l();c=c->next)
 return;
 }
 
-void save_rest_incline(INT mode)
+void save_rest_incline(int16_t mode)
 {
-static INT sIncline;
+static int16_t sIncline;
 cell *c,*e;
 if( !mode )
   sIncline = nIncline;  // save
@@ -1464,9 +1464,9 @@ else
 return;
 }
 
-void save_rest_bases(INT mode, INT line_crit)
+void save_rest_bases(int16_t mode, int16_t line_crit)
 {
-static INT ominrow, omincol,
+static int16_t ominrow, omincol,
    obbs1,   obbs2,   obbs3,   obbs4,   obbsm,
    oNb1 ,   oNb2 ,   oNb3 ,   oNb4 ,   oNbt,
    oPs  ,   oPsf ,   omulti_bas;
@@ -1541,10 +1541,10 @@ static void pass_start()
  }
 
 #define PROPMAX   25
-void DeskewCell(cell *c, CCOM_comp *cmp, INT nIncline, INT shift)
+void DeskewCell(cell *c, CCOM_comp *cmp, int16_t nIncline, int16_t shift)
 {
-c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
-c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
+c->row=cmp->upper-(int16_t)((LONG)nIncline*cmp->left/2048);
+c->col=cmp->left+(int16_t)((LONG)nIncline*cmp->upper/2048);
 if( shift )
     {
     c->row>>=shift;
@@ -1606,7 +1606,7 @@ kit_curr += 2;
  return;
  }
 
-static void compress_second(cell *c2,INT scale)
+static void compress_second(cell *c2,int16_t scale)
 {
 if( !c2 )
     return;
@@ -1634,7 +1634,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
  CSTR_rast       curr, last, one;
  CSTR_attr       attr;
  CCOM_comp      *cmp;
- INT             i,j,hmax,nscale=0,nsmall=0,nall=0,ndust, nlet;
+ int16_t             i,j,hmax,nscale=0,nsmall=0,nall=0,ndust, nlet;
  RecVersions     evn,zer={0};
  uchar            sl=language, ssc=line_scale;
 
@@ -1710,7 +1710,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
 /* åùå íå ïîñòðîåíû bsdust_upper è ò.ï. ! Nick 16.03.2001
     if( cur.flg==CSTR_f_dust )
         {
-        INT c2bdiff=(char)(obtain_diff(cmp->left));
+        int16_t c2bdiff=(char)(obtain_diff(cmp->left));
         if( cmp->upper+cmp->h < bsdust_upper + c2bdiff ||
            (cmp->upper+(cmp->h+1)/2>bsdust_lower+c2bdiff) &&
           !(cmp->h<bsdust_ps/2 && cmp->w>=bsdust_ps) ||
@@ -1916,7 +1916,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
            if( j==VERS_IN_CELL-1 )
                         break;
             }
-        c2->nvers=(INT)j;
+        c2->nvers=(int16_t)j;
         c2->recsource = c_rs_NCU;
         c2->history   = c_rs_NCU;
         c2->vers[j].let=0;
@@ -1933,7 +1933,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
                 j++;
                 }
             }
-        c2->nvers=(INT)j;
+        c2->nvers=(int16_t)j;
         c2->recsource = c_rs_ev;
         c2->history   = c_rs_ev;
         c2->vers[j].let=0;
@@ -1977,7 +1977,7 @@ void dust_ini(CSTR_line lin)
  CSTR_rast        curr, last;
  CCOM_comp       *cmp;
  RecVersions      zer={0};
- INT              cmpscale;
+ int16_t              cmpscale;
 
  CSTR_GetLineAttr(lin,&attr);
  for(c1=cell_f(),c2=cell_l();c1!=c2;c1=c1->next)
@@ -1990,7 +1990,7 @@ void dust_ini(CSTR_line lin)
 
  if(db_special_project==SPEC_PRJ_GIP)   // OLEG : 02-05-18 : FOR GiP
  {
-     INT   nSmall=0, nAll=0;
+     int16_t   nSmall=0, nAll=0;
      curr=CSTR_GetFirstRaster(lin);
      for (curr=CSTR_GetNext(curr); curr; curr=CSTR_GetNext(curr))
      {
@@ -2156,7 +2156,7 @@ static void postrecog()
  {
  version vers[VERS_IN_CELL];
  cell *c;
- INT i,j;
+ int16_t i,j;
 
  for (c=cell_f()->next; c->next!=NULL; c=c->next)
   {
@@ -2203,7 +2203,7 @@ for(c=cell_f()->next, e=cell_l(); c!=e; c=c->next )
     }
   if( c->nvers>0 )
     {
-    INT i;
+    int16_t i;
     for(i=0;i<c->nvers;i++)
       if( c->vers[i].let==0 || c->vers[i].prob==0)  break;
     if( i!=c->nvers )
@@ -2228,7 +2228,7 @@ return;
 
 Bool test_short_english_blines(void)
 {
-INT bad;
+int16_t bad;
 bad = (Nb1==-1)+(Nb2==-1)+(Nb3==-1)+(Nb4==-1);
 return Nb2==-1 || Nb3==-1 || bad==2 ;
 }
@@ -2333,7 +2333,7 @@ void CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
 
 int CopyVers2CSTR(RecVersions *ver, cell *c)
 {
-INT i,j,let, ret=0;
+int16_t i,j,let, ret=0;
 memset(ver,0,sizeof(RecVersions));
 ver->lnAltCnt = c->nvers;
 ver->lnAltMax = REC_MAX_VERS;
@@ -2342,7 +2342,7 @@ if( ver->lnAltCnt )
   {
   for(j=i=0;i<ver->lnAltCnt;i++)
       {
-      let = (INT)c->vers[i].let;
+      let = (int16_t)c->vers[i].let;
       if( decode_ASCII_to_[let][1]==0 )
           {
           ver->Alt[j].Code = decode_ASCII_to_[let][0];
@@ -2393,8 +2393,8 @@ return ret;
 
 int cell2UniVers(UniVersions *ver, cell *c)
 {
-INT i,let, ret=0;
-INT lang=c->language;
+int16_t i,let, ret=0;
+int16_t lang=c->language;
 
 if( lang==LANG_ENGLISH && multy_language )
     lang    = LANG_RUSENG;
@@ -2414,7 +2414,7 @@ if( ver->lnAltCnt )
   {
   for(i=0;i<ver->lnAltCnt;i++)
       {
-      let = (INT)c->vers[i].let;
+      let = (int16_t)c->vers[i].let;
       strcpy(ver->Alt[i].Code , decode_ASCII_to_[let]);
       ver->Alt[i].Liga      = (uchar)c->vers[i].let;
           ver->Alt[i].Prob      = c->vers[i].prob;
@@ -2676,7 +2676,7 @@ return;
 
 void accept_cell(cell *c,c_comp *cmp)
  {
- extern INT nIncline;
+ extern int16_t nIncline;
 
  c->env=cmp;
  c->h=cmp->h;
@@ -2685,8 +2685,8 @@ void accept_cell(cell *c,c_comp *cmp)
  c->r_col=cmp->left;
  c->reasno=cmp->reasno;
  c->cpos=c->keg=c->font=0;
- c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
- c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
+ c->row=cmp->upper-(int16_t)((LONG)nIncline*cmp->left/2048);
+ c->col=cmp->left+(int16_t)((LONG)nIncline*cmp->upper/2048);
  if ((c->nvers=cmp->nvers)>0)
   {
   memcpy(c->vers,(pchar)cmp+cmp->records,c->nvers*sizeof(version));
@@ -2743,9 +2743,9 @@ for(c=cell_f();c!=cell_l();c=c->next)
 return;
 }
 
-void del_word_for2lang(INT left_limit,INT right_limit)
+void del_word_for2lang(int16_t left_limit,int16_t right_limit)
 {
-CSTR_ClearLine(lne,(INT)(left_limit<<line_scale),(INT)(right_limit<<line_scale));
+CSTR_ClearLine(lne,(int16_t)(left_limit<<line_scale),(int16_t)(right_limit<<line_scale));
 return;
 }
 
@@ -2756,7 +2756,7 @@ cell           *c=cell_f()->next,*cc;
 CSTR_rast       r=CSTR_GetNext(CSTR_GetFirstRaster(ln));
 CSTR_rast_attr  a;
 CCOM_comp      *com;
-INT             m;
+int16_t             m;
 
 for(; c!=cell_l() && r ; r=CSTR_GetNext(r),c=c->next)
     {
@@ -2886,7 +2886,7 @@ void import_lines_features(void)
 {
 cell *c,*b=cell_f()->next, *e=cell_l();
 LONG i,dy,dx;
-INT up, uploc;
+int16_t up, uploc;
 
 for(i=0;i<num_of_lines;i++)
     {
@@ -2913,7 +2913,7 @@ return;
 
 Bool pass3BL(CSTR_line ln)
 {
-    INT     lsq, loc_bdiff[6]={0},i, mlbd, bd, imlbd, bado, badn;
+    int16_t     lsq, loc_bdiff[6]={0},i, mlbd, bd, imlbd, bado, badn;
     Bool    snap_active=FALSE,line_scale0=0;
     cell   *c;
     uchar    str[100];
@@ -3045,9 +3045,9 @@ return ret;
 
 Bool match_word_prepare(CSTR_line ln, uchar *alphabet, MatchWordPar *param)
 {
-    INT     lsq;
+    int16_t     lsq;
     uchar    Lang;
-    INT     Step=0,no_crit;
+    int16_t     Step=0,no_crit;
     Bool    line_scale0=0;
     extern Bool pass4_in;
 
@@ -3206,7 +3206,7 @@ Bool pass1_test_alphabet(str_info *str,CSTR_line ln)
 CSTR_attr   la;
 CSTR_GetLineAttr(ln,&la);
 snap_is_active();
-line_number = (INT)la.number;
+line_number = (int16_t)la.number;
 kit_init();
 setup_string();
 letters_ini(ln, 1);
@@ -3222,7 +3222,7 @@ Bool pass2_test_alphabet(str_info *str,CSTR_line ln)
 CSTR_attr   la;
 CSTR_GetLineAttr(ln,&la);
 snap_is_active();
-line_number = (INT)la.number;
+line_number = (int16_t)la.number;
 kit_init();
 setup_string();
 letters_ini(ln, 1);
@@ -3237,7 +3237,7 @@ return TRUE;
 Bool add_rus_under(cell *c)
 {
 Bool    ret = FALSE;
-uchar    pr = (uchar)(MAX((INT)c->vers[0].prob-10,2));
+uchar    pr = (uchar)(MAX((int16_t)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (uchar)'ç':
@@ -3249,7 +3249,7 @@ switch( c->vers[0].let )
         break;
     case    (uchar)'¨':
         add_stick_vers(c,(char)'æ', pr ) ;
-        add_stick_vers(c,(char)'ã', (uchar)MAX((INT)pr-10,2) ) ;
+        add_stick_vers(c,(char)'ã', (uchar)MAX((int16_t)pr-10,2) ) ;
         ret = TRUE;
         break;
     case    (uchar)'®':
@@ -3267,7 +3267,7 @@ return FALSE;
 Bool add_eng_under(cell *c)
 {
 Bool    ret = FALSE;
-uchar    pr = (uchar)(MAX((INT)c->vers[0].prob-10,2));
+uchar    pr = (uchar)(MAX((int16_t)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (uchar)'v':
@@ -3347,7 +3347,7 @@ for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
 
 Bool recog_minus(void)
 {
-INT up, dn, dh, rn, con, wn, hn;
+int16_t up, dn, dh, rn, con, wn, hn;
 cell    *c=cell_f()->next, *cn, *clist[2];
 
 dh=(bbs3-bbs2)/4;
@@ -3405,7 +3405,7 @@ if( c->h*12<c->w*5 &&
 return FALSE;
 }
 
-INT p2_GetPs(void)
+int16_t p2_GetPs(void)
 {
 cell *  c;
 char    lets[]="weuoaszxcvnmª¥­£è§åêë¢ ¯®«¦íïçá¬¨âì¡î";
@@ -3443,12 +3443,12 @@ if( n>=6*2 || nl<6 && nl*2>na && n>2 )
     s12=s1*s1;
     s2-=s12;
     if( s12>s2*7 ) // dispersion > CKO * 2.65
-        return (INT)s1;
+        return (int16_t)s1;
     }
 return 0;
 }
 
-INT p2_GetPs_up(void)
+int16_t p2_GetPs_up(void)
 {
 cell *  c;
 char    lets_up[]="WERTYUOPQASDFGHJKLZXCVBNM‰“Š…ƒ˜‡•š”›‚€Ž‹†Ÿ—‘Œˆ’œž012234567890";
@@ -3485,7 +3485,7 @@ if( n>1 )
     s12=s1*s1;
     s2-=s12;
     if( s12>s2*7 ) // dispersion > CKO * 2.65
-        return (INT)(s1*2/3);
+        return (int16_t)(s1*2/3);
     }
 return 0;
 }

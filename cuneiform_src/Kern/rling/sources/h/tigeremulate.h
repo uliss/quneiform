@@ -85,12 +85,12 @@
 
 #define DIRSEP        '\\'
 
-INT TE_open(INT, char *, INT, INT); /* / stream, name, ... */
+int16_t TE_open(int16_t, char *, int16_t, int16_t); /* / stream, name, ... */
 int16_t TE_write(int16_t, puchar, uint32_t); /* / stream, name, ... */
-INT TE_table_op(INT, INT, INT, INT); /* / table #, ...          */
+int16_t TE_table_op(int16_t, int16_t, int16_t, int16_t); /* / table #, ...          */
 int32_t TE_read(int16_t, pchar, int32_t); /* / handle, addr, lth */
-INT TE_close(INT); /* / handle            */
-char * TE_handle_fgets(INT handle, char * s, INT len);
+int16_t TE_close(int16_t); /* / handle            */
+char * TE_handle_fgets(int16_t handle, char * s, int16_t len);
 int32_t TE_file_length(int16_t);
 
 #define TGOPEN(a,b,c,d)        TE_open(a,b,c,d)
@@ -126,7 +126,7 @@ typedef struct eltab {
 ///////////////////////////////////////////////////////////////////////////////////
 struct mn_struc {
 	void *mnfirstbox; // address of the first box
-	int16_t mncounter; // (was INT) number of living lines in the component
+	int16_t mncounter; // (was int16_t) number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
 	int16_t mnupper; // upper bound of component
 	int16_t mnlower; // lower bound of component
@@ -146,8 +146,8 @@ struct _Root;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 struct _Root {
-	INT yRow;
-	INT xColumn;
+	int16_t yRow;
+	int16_t xColumn;
 
 	union {
 		struct {
@@ -158,12 +158,12 @@ struct _Root {
 		ROOT *pNext;
 	} u1;
 
-	INT nHeight;
-	INT nWidth;
+	int16_t nHeight;
+	int16_t nWidth;
 	uchar bType;
 	uchar bReached;
-	INT nBlock;
-	INT nUserNum;
+	int16_t nBlock;
+	int16_t nUserNum;
 	void *pComp;
 };
 ////////////////////////////////////////////////////////////////////////////////////

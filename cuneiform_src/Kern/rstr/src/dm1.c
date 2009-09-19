@@ -82,39 +82,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 static struct cut_elm cut_pnts[64];
-static struct {INT row,col,count;} debug_try_cut ={0};
+static struct {int16_t row,col,count;} debug_try_cut ={0};
 
 struct cut_elm *my_cut_points;  //ALIK 01-31-96 04:56pm
-INT    show_cut_points;
+int16_t    show_cut_points;
 char   StopPoint;
-INT    flag_cut_point=0;
-INT    flag_ShiftF9=0;
+int16_t    flag_cut_point=0;
+int16_t    flag_ShiftF9=0;
 
 static SVERS sv00, svown;
 static B_LINES my_bases;
-static INT bs12, bs2m, bsm3, bs34;
+static int16_t bs12, bs2m, bsm3, bs34;
 static char glob_diff;
 static char glob_dflg;
 static char wch[80];
 static char madeBOX;
 #ifdef NEW_TM    //10.4.95
- static INT TM_suspect(INT position, cell *c);
+ static int16_t TM_suspect(int16_t position, cell *c);
 #endif
-static Bool is_comma(cell *c, INT bases3);
+static Bool is_comma(cell *c, int16_t bases3);
 static void delcels(all_cells *);
-static INT colcels(all_cells *,MN *,cell *,cell *,INT);
-static INT forest(cell *,INT,INT);
-static INT pen_badust;  // penalty for "bad-->dust" transform
-INT    try_cut_accent(cell *, B_LINES *, INT);
+static int16_t colcels(all_cells *,MN *,cell *,cell *,int16_t);
+static int16_t forest(cell *,int16_t,int16_t);
+static int16_t pen_badust;  // penalty for "bad-->dust" transform
+int16_t    try_cut_accent(cell *, B_LINES *, int16_t);
 cell *dot_ij(cell *c);
-static INT dust_is_dot(all_cells *,cell *);
-static INT owned_dust(cell *,cell *);
-//static INT dust_is_cut(cell *,all_cells *);
-cell * finpat(cell *,s_glue *, INT, uchar, uchar);
+static int16_t dust_is_dot(all_cells *,cell *);
+static int16_t owned_dust(cell *,cell *);
+//static int16_t dust_is_cut(cell *,all_cells *);
+cell * finpat(cell *,s_glue *, int16_t, uchar, uchar);
 void svcell_to_cell(cell *c);
 void cell_to_svcell(cell *c);
-static INT rec_own(cell *,s_glue *,INT,INT,INT,PINT);
-static INT forbid_stick_cut(cell *,cut_pos *,INT);
+static int16_t rec_own(cell *,s_glue *,int16_t,int16_t,int16_t,PINT);
+static int16_t forbid_stick_cut(cell *,cut_pos *,int16_t);
 
 #define TUR_PALKA_POROG 211
 
@@ -123,20 +123,20 @@ extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern uchar fax1x2;
 extern char db_pass;
 extern uchar language;
-static INT  dust_monus;
+static int16_t  dust_monus;
 static uchar dust_mon_flag;
 
 char fbg=0;
-extern INT line_number;
+extern int16_t line_number;
 extern FILE *dbg_f;
 char Ldb_flag = 0;
 static void corr_cut();
 c_comp * env_to_show;
-INT w_to_show, h_to_show, row_to_show, col_to_show;
+int16_t w_to_show, h_to_show, row_to_show, col_to_show;
 
 static char log_str[256], *log_s;
 
-static void lsnap(char user,cell *C,pchar txt, INT p)
+static void lsnap(char user,cell *C,pchar txt, int16_t p)
 {
  char wrk[16];
  if (!db_status) return;
@@ -177,7 +177,7 @@ void est_snap(char user,cell *C,pchar txt)
 //static int dc_cnt=0;
 static void delcels(all_cells *CL)
  {
- INT nc;
+ int16_t nc;
  cell *wc;
 
  if( !CL )
@@ -198,9 +198,9 @@ static void delcels(all_cells *CL)
  }
 }
 
-static INT colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, INT wd)
+static int16_t colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, int16_t wd)
  {
- INT  f1, fl1, fdust, mincol, maxend, col, colend;
+ int16_t  f1, fl1, fdust, mincol, maxend, col, colend;
  cell *newcell;
  CL->minlet = CL->maxlet = CL->mincl = CL->maxcl = NULL;
  f1 = fl1 = 0;
@@ -249,7 +249,7 @@ static INT colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, INT wd)
   newcell->cg_flag |= c_cg_noglue;
   if (newcell->flg & (c_f_let + c_f_bad))
   {
-    INT midbas, wrow;
+    int16_t midbas, wrow;
     midbas = get_bsm();
     wrow = newcell->row;
     if ((wrow > midbas) || (wrow + newcell->h < midbas))
@@ -283,7 +283,7 @@ static INT colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, INT wd)
   {
  dustgot:
     if(language == LANG_RUSSIAN)
-    {INT midbas, wrow;
+    {int16_t midbas, wrow;
     midbas = get_bsm();
     wrow = newcell->row;
     if( wrow >= midbas-1 && // Valdemar: allow cut for special cases
@@ -315,11 +315,11 @@ static INT colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, INT wd)
 return CL->Nb;
 }
 
-static INT dust_usage;
+static int16_t dust_usage;
 //extern char accent_tab[];
-INT discrid(cell *B1, INT mon)
+int16_t discrid(cell *B1, int16_t mon)
  {
- uchar p; INT fl, np, max, dd; version *v;  uchar c;
+ uchar p; int16_t fl, np, max, dd; version *v;  uchar c;
  dd=dust_usage=0;
  if (B1->nvers==0) return 0;
  max = 0;
@@ -334,7 +334,7 @@ INT discrid(cell *B1, INT mon)
  }
 
 
-static INT forest(cell *B1, INT p, INT TR)
+static int16_t forest(cell *B1, int16_t p, int16_t TR)
  {
  char c;
 
@@ -344,12 +344,12 @@ static INT forest(cell *B1, INT p, INT TR)
  return 0;
  }
 
-static INT dust_is_dot(all_cells *CL, cell *C)
+static int16_t dust_is_dot(all_cells *CL, cell *C)
 {
    cell *dot;
    char l;
    version *v;
-   INT nv, p;
+   int16_t nv, p;
    for (nv=0, v=C->vers; nv<C->nvers; nv++,v++)
    {
      l = v->let;
@@ -384,9 +384,9 @@ static INT dust_is_dot(all_cells *CL, cell *C)
    return 0;
 }
 
-INT decidust(cell *B1)
+int16_t decidust(cell *B1)
  {
- INT h, w, row, d;
+ int16_t h, w, row, d;
  long cellsz, dustsz;
  cell * wc;
 
@@ -431,14 +431,14 @@ fa:
  cellsz = (h=B1->h) * (w=B1->w);
  dustsz = wc->h * wc->w;
  if (w < h)       // doubtful as multi_letter cell
-   dust_monus = (INT)(dustsz * MONdust * 32 / cellsz);
+   dust_monus = (int16_t)(dustsz * MONdust * 32 / cellsz);
  else
-   dust_monus = (INT)(dustsz * MONdust * 256 / cellsz);
+   dust_monus = (int16_t)(dustsz * MONdust * 256 / cellsz);
  if (dust_monus > MONdust) dust_monus = MONdust;
  return 2;
  }
 
-static INT owned_dust(cell *c,cell *cc)
+static int16_t owned_dust(cell *c,cell *cc)
  {
  uchar let;
 
@@ -462,7 +462,7 @@ static INT owned_dust(cell *c,cell *cc)
 static cell * try_glue(s_glue *GL, cell *BC)
 {
 
- cell *CC, *LC; INT glue_pass, i, diff; MN *mn; char dflag;
+ cell *CC, *LC; int16_t glue_pass, i, diff; MN *mn; char dflag;
  cut_pos cposd;  // place of cut for 1st, 2nd points and dummy
  SVERS  svs, sv0;
  s_glue GLM;
@@ -534,10 +534,10 @@ static cell * try_glue(s_glue *GL, cell *BC)
 }
 
 
-cell * finpat(cell *BC, s_glue *GL, INT var, uchar flag, uchar pen)
+cell * finpat(cell *BC, s_glue *GL, int16_t var, uchar flag, uchar pen)
  {
  cell  *WC, *GC;
- INT  nsc, n, p1;
+ int16_t  nsc, n, p1;
 
  cell_to_svcell(BC);
  p1 = BC->vers[0].prob;
@@ -614,9 +614,9 @@ cell * finpat(cell *BC, s_glue *GL, INT var, uchar flag, uchar pen)
 }
 
 extern char dust_in_pattern;
-static INT max_var;
+static int16_t max_var;
 
-static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
+static int16_t allow_comp(cell *B1, int16_t bnd1, int16_t bnd2, int16_t p0)
 {
   uchar c1;
   if (p0 > bnd1) return 1;
@@ -634,12 +634,12 @@ static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
 }
 
 
-void cmp_snap (cell *B1, char *txt, INT n, cell **clist)
+void cmp_snap (cell *B1, char *txt, int16_t n, cell **clist)
 {
   c_comp *my_list [8];
   if (n > 1)
   {
-    INT i;
+    int16_t i;
 //    est_snap (db_pass, B1, "before");
     if (n >= 8) n=8;  // protect my_list
     for (i=0; i<n; i++)
@@ -654,9 +654,9 @@ void cmp_snap (cell *B1, char *txt, INT n, cell **clist)
 }
 
 
-static INT rec_own(cell *B1,s_glue *GL,INT bnd1,INT bnd2, INT dupf,INT *disd)
+static int16_t rec_own(cell *B1,s_glue *GL,int16_t bnd1,int16_t bnd2, int16_t dupf,int16_t *disd)
  {
- INT  wn, cans, ans, ncl, n0, n1, n2, n3, n4, sarg, sff, sfs;
+ int16_t  wn, cans, ans, ncl, n0, n1, n2, n3, n4, sarg, sff, sfs;
  uchar e, emax, svcg,clet;
  SVERS sv_v[5];
  char dip[5];
@@ -696,7 +696,7 @@ static INT rec_own(cell *B1,s_glue *GL,INT bnd1,INT bnd2, INT dupf,INT *disd)
      save_vers(B1,&(sv_v[0]));
      emax=e;
      if (dupf > 1)
-     { INT em;
+     { int16_t em;
        em=discrid(B1,dust_monus);
        if (dust_usage==0)       // upper dust near cell not used by self
        emax=(uchar)em;
@@ -957,16 +957,16 @@ static char msnat220[]={"native >220 --> ready"};
 static char ms29500[]={"stick > 29500"};
 static char msingl[]={"single nondiscrim ready"};
 
-INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
+int16_t estcomp(char user, cell *B1, SVERS *save, int16_t trs, int16_t bnd1, int16_t bnd2,
     s_glue *GL, cut_pos *cpos1, cut_pos *cpos2, char pnt1 ,char pnt2, char iv)
  {
  uchar c, c_sacc, ct, svarg;
- INT flag_m, flg_own, disd;
+ int16_t flag_m, flg_own, disd;
  uchar  p1, pans, dup;
  char wrk[32];
  char *pmsg;
  cut_pos *wcp;   // to cover dummy arg warning;
- extern INT best_answer_BOX;
+ extern int16_t best_answer_BOX;
 
  get_b_lines(B1,&my_bases);
  bs12=(my_bases.b1+my_bases.b2)/2;
@@ -1343,7 +1343,7 @@ uchar rever[]={CROAT_sr,  CROAT_SR,  CROAT_ca,  CROAT_CA,
 			  o_2dot_accent,  OO_2dot_accent   // 05.09.2000 E.P.
 			 };
 uchar *p;
-INT  i1, i2;
+int16_t  i1, i2;
 if(  !B1->nvers )
   return;
 p = memchr(croat,B1->vers[0].let,sizeof(croat)/sizeof(croat[0]) ) ;
@@ -1403,7 +1403,7 @@ uchar turkish_letters[]={
 	0};
 
 uchar *p;
-INT  i1, i2;
+int16_t  i1, i2;
 uchar c1, c2, c3, c4;
 uchar *letters = 0;
 
@@ -1467,7 +1467,7 @@ void make_all_cuts()
 //
  {
 #ifdef NEW_TM        //10.4.95
- extern INT TM_check_active;
+ extern int16_t TM_check_active;
 #endif
 
  void  *CK1, *KITA, *KITA1;
@@ -1476,11 +1476,11 @@ void make_all_cuts()
  cell  *B1, *I1, *I3, *T1, *T2, *T3, *TD, *NL;
  char n1, n2, nc;
  uchar left_dust_allowed, left_dust_seen, fldust, svcg, fljust;
- INT  av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
+ int16_t  av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
  uchar c0, c1, c3, *rp1, *rp2, already_cut;
  uchar acc_p;
  uint16_t fo1, fo2, fo3, sp0;
- INT  p0, p1, p2, p3;
+ int16_t  p0, p1, p2, p3;
  v_val pe;
  cut_pos cpos1, cpos2, cposd, cposc;  // place of cut for 1st, 2nd points and dummy
  char   doubles_allowed,  double_cutsn;
@@ -1491,9 +1491,9 @@ void make_all_cuts()
  struct cut_elm  *cpnt0, *cpntw, *cpnt1, *cpnt2;
  uchar best_vars[64], best_flags[64];
  cell *done_cells[64];
- INT done_num, done_ind;
+ int16_t done_num, done_ind;
  MN *mn1;
- INT num_shaves=0;       // Oleg : use pimples shaving
+ int16_t num_shaves=0;       // Oleg : use pimples shaving
 
  flag_cut_point=0;
 
@@ -1769,7 +1769,7 @@ repeat_with_doubles:
    {
      if (db_status && (db_trace_flag & 2))
      {
-       INT nc; cell *X;
+       int16_t nc; cell *X;
        est_snap(db_pass,CL.mincl,"1st cut: not 2 large comps got");
        for (nc=0; nc < CL.Nb; nc++)
        {
@@ -2357,15 +2357,15 @@ dontcut:  // cut was done in T1-T3 parts
  // collect broken cells
  for (done_ind=0; done_ind < done_num; done_ind++)
  {
-   INT var, flag;
-   // INT  col;
+   int16_t var, flag;
+   // int16_t  col;
    cell *CF, *CFN;
    CFN=CF = done_cells [done_ind];
    var = best_vars[done_ind];
    CF->cg_flag |= c_cg_just;  // to inform finpat
    if (var & 15)
    {
-     // cell *WC; INT c_num;
+     // cell *WC; int16_t c_num;
      flag = best_flags [done_ind];
      CF=finpat(CF,&GL,var,(uchar)flag,32);
    }
@@ -2545,10 +2545,10 @@ fin:
 
 }
 
-static INT have_upper_dot(cell *c)
+static int16_t have_upper_dot(cell *c)
 {
  cell *cc;
- INT H;
+ int16_t H;
  H=my_bases.ps;
  cc=c->prev;
  if ((cc->flg & c_f_dust) &&
@@ -2568,11 +2568,11 @@ static INT have_upper_dot(cell *c)
    return 1;
  return 0;
 }
-static INT forbid_stick_cut(cell *c, cut_pos *cpos, INT edge)
+static int16_t forbid_stick_cut(cell *c, cut_pos *cpos, int16_t edge)
  {
  uchar l, prob;
- INT  wd, bm3, bm, b3;
- INT  row1, row2;
+ int16_t  wd, bm3, bm, b3;
+ int16_t  row1, row2;
 
   l = c->vers[0].let;
   prob = c->vers[0].prob;
@@ -2623,10 +2623,10 @@ static INT forbid_stick_cut(cell *c, cut_pos *cpos, INT edge)
 
 }
 
-void promote (uchar sn, cell *cl, uchar let, INT delta)
+void promote (uchar sn, cell *cl, uchar let, int16_t delta)
 {
  uchar wl, wl_sacc, let_sacc;
- version *vp1, *vp2; uchar p1, pw; INT pwi, dlt, dlv, fld;
+ version *vp1, *vp2; uchar p1, pw; int16_t pwi, dlt, dlv, fld;
  if (cl->nvers==0) return;
  let_sacc = let_sans_acc[let];
  dlt=delta;
@@ -2728,9 +2728,9 @@ static void corr_cut()
 }
 
 #ifdef NEW_TM        //10.4.95
-static INT TM_suspect(INT position, cell *c)
+static int16_t TM_suspect(int16_t position, cell *c)
 {
-  INT nvers, i;
+  int16_t nvers, i;
   uchar let;
 
   if (nvers=c->nvers)
@@ -2764,10 +2764,10 @@ return c->vers[0].prob;
 }
 #endif
 
-Bool is_comma(cell *c, INT bases3)
+Bool is_comma(cell *c, int16_t bases3)
 {
  uint32_t    d;
- INT      ll, n, h, i;
+ int16_t      ll, n, h, i;
  lnhead   *line;
  interval *inter;
 
@@ -2780,7 +2780,7 @@ Bool is_comma(cell *c, INT bases3)
       return FALSE;
     else
       {
-      for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT)),n=0,d=0;
+      for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t)),n=0,d=0;
         (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         {
         h=line->h;

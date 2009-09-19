@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef D_STICK_TYPES
 #define D_STICK_TYPES
 /*----------------------------------------------------------------------*/
-typedef struct { INT row,  /* row in c_comp */
+typedef struct { int16_t row,  /* row in c_comp */
 		     col,  /* column * 2  */
 		     len;  /* length      */
 		} center_interval;
@@ -125,7 +125,7 @@ typedef struct						// l->xxx, r->xxx;
 /*----------------------------------------------------------------------*/
 typedef struct							// s->xxx;
 	{
-	INT     height,		// height of c_comp
+	int16_t     height,		// height of c_comp
 		width ,		// width  of c_comp
 		base_2,		// second base line
 		base_3,		// third  base line
@@ -168,15 +168,15 @@ typedef struct							// s->xxx;
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
 	uchar    num_lines;      /* Number of with none single interval 	*/
-	INT	incline;	/* Normal tg(stick)*2048 + line_incline */
+	int16_t	incline;	/* Normal tg(stick)*2048 + line_incline */
 	} STICK_SIGNUMS;	// auxiliary information for
 				// stick diskrimination
 /*----------------------------------------------------------------------*/
 typedef struct
         {
-	INT tg;             /* tg = tangens*2048  */
-	INT num;	    /* 15.11.1993 MK NEW  */
-	INT inc[128];       /* table of inc       */
+	int16_t tg;             /* tg = tangens*2048  */
+	int16_t num;	    /* 15.11.1993 MK NEW  */
+	int16_t inc[128];       /* table of inc       */
 	} INC_BASE;         /* base tables of inc */
 /*----------------------------------------------------------------------*/
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )

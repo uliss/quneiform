@@ -103,7 +103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define REMAINDER_BLOCK_NUMBER      1
 # define FIRST_REGULAR_BLOCK_NUMBER  2
 
-# define REMOVED_BLOCK_NUMBER   ((INT)-1)
+# define REMOVED_BLOCK_NUMBER   ((int16_t)-1)
 
 struct _Root;
 typedef struct _Root ROOT;
@@ -111,8 +111,8 @@ typedef struct _Root *PROOT;
 
 struct _Root
     {
-        INT   yRow;
-        INT   xColumn;
+        int16_t   yRow;
+        int16_t   xColumn;
 
         union
         {
@@ -125,12 +125,12 @@ struct _Root
             ROOT *pNext;
         } u1;
 
-        INT   nHeight;
-        INT   nWidth;
+        int16_t   nHeight;
+        int16_t   nWidth;
         uchar  bType;
         uchar  bReached;
-        INT   nBlock;   // тип блока: "дустовый" али какой
-		INT   nUserNum;
+        int16_t   nBlock;   // тип блока: "дустовый" али какой
+		int16_t   nUserNum;
 		void * pComp;
     };
 
@@ -158,7 +158,7 @@ typedef struct
 
 extern ROOT *pRoots;
 extern uint32_t  nRoots;
-extern INT  nOriginalRoots;
+extern int16_t  nOriginalRoots;
 extern ROOT *pAfterRoots;
 extern ROOT *pAfterOriginalRoots;
 

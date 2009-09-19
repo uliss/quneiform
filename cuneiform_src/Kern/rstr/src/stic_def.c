@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "lang.h"
   #include "inc_tab_rstr.h"
 #include "minmax.h"
-extern INT nIncline  ;
+extern int16_t nIncline  ;
 
 extern uchar fax1x2;	// MK NEW 14.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C;
@@ -94,77 +94,77 @@ extern	uint16_t	mkFlag_Dump;
 /*......................................................................*/
 #endif
 /*----------------------------------------------------------------------*/
-extern	INT del_sticks_F_60 (cell *c);			// 05.03.1993
+extern	int16_t del_sticks_F_60 (cell *c);			// 05.03.1993
 /*----------------------------------------------------------------------*/
 							// ST_TOOLS.C:
 				// 14.12.1993 move them here from FUNC.H:
 void full_snap (cell *c,
 		s_glue *GLU,	// 14.12.1993 add this parametr;
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		INT tab_angle[],
-		INT left_mode, INT right_mode, INT opt, INT wide,
-		INT inc_v, INT t);
-void short_snap (char *s, INT t);
+		int16_t tab_angle[],
+		int16_t left_mode, int16_t right_mode, int16_t opt, int16_t wide,
+		int16_t inc_v, int16_t t);
+void short_snap (char *s, int16_t t);
 /*----------------------------------------------------------------------*/
 						// STIC_MAK.C MODULES:
 
-extern INT make_center_line(center_interval center[],INT nc,
+extern int16_t make_center_line(center_interval center[],int16_t nc,
 		      uchar left[], uchar right[],
-		      INT dy, INT dx,  INC_BASE *angles[],INT num_angles,
-		      INT tab_angle[],
+		      int16_t dy, int16_t dx,  INC_BASE *angles[],int16_t num_angles,
+		      int16_t tab_angle[],
 		      Bool comp_wide,Bool sig_T,Bool sig_f,Bool sig_r,
-          INT *wid,INT hooks[],INT *inc_v, uchar enable_correct);
+          int16_t *wid,int16_t hooks[],int16_t *inc_v, uchar enable_correct);
 
-INT abris_convexity(uchar fun[],INT n,INT w);
-extern	Bool bad_overlay(INT over,INT width,INT dy,INT sig_wide,Bool c_f);
-extern	INT centers_len_to_hist(center_interval fun[],INT n,INT dy,INT dx,
+int16_t abris_convexity(uchar fun[],int16_t n,int16_t w);
+extern	Bool bad_overlay(int16_t over,int16_t width,int16_t dy,int16_t sig_wide,Bool c_f);
+extern	int16_t centers_len_to_hist(center_interval fun[],int16_t n,int16_t dy,int16_t dx,
 			  uchar hist[]);
-extern	INT overlay_interval(center_interval c[],INT nc, INT col,INT typ,
-			    INT tab_angle[]);
+extern	int16_t overlay_interval(center_interval c[],int16_t nc, int16_t col,int16_t typ,
+			    int16_t tab_angle[]);
 
-extern	INT max_center_hist(uchar fun[],INT n,
-		    center_interval center[],INT nc,INT tab[],INT typ);
+extern	int16_t max_center_hist(uchar fun[],int16_t n,
+		    center_interval center[],int16_t nc,int16_t tab[],int16_t typ);
 /*----------------------------------------------------------------------*/
-static INT abris_expansion (uchar left[], uchar right[],
-			    INT dy, INT dx, INT tab_angle[]);
-static INT discrim_left_brace (uchar left[], uchar right[],
-			INT dy, INT dx, INT wid);
-static INT discrim_right_brace (uchar left[], uchar right[],
-			INT dy, INT dx, INT wid);
-static Bool dis_bold_r (uchar fun[], INT n);
-static INT first_tg (INC_BASE *tab_inc[], INT num_inc, INT tg2048 );
+static int16_t abris_expansion (uchar left[], uchar right[],
+			    int16_t dy, int16_t dx, int16_t tab_angle[]);
+static int16_t discrim_left_brace (uchar left[], uchar right[],
+			int16_t dy, int16_t dx, int16_t wid);
+static int16_t discrim_right_brace (uchar left[], uchar right[],
+			int16_t dy, int16_t dx, int16_t wid);
+static Bool dis_bold_r (uchar fun[], int16_t n);
+static int16_t first_tg (INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048 );
 
-static void calc_discrim_braces(uchar left[], uchar right[], INT dy, INT dx,
-				center_interval center[], INT nc, INT wide,
-				INT tab_angle[], uchar left1[], uchar right1[],
+static void calc_discrim_braces(uchar left[], uchar right[], int16_t dy, int16_t dx,
+				center_interval center[], int16_t nc, int16_t wide,
+				int16_t tab_angle[], uchar left1[], uchar right1[],
 				Bool c_brace_l, Bool c_brace_r,
-				INT *d_l, INT *d_r);
+				int16_t *d_l, int16_t *d_r);
 
-static void filtrate_abris( uchar left[],uchar right[],INT dy,INT dx,INT wide,
-		      INT hooks[],INT ul,INT ur,INT dl,INT dr,INT inc);
-static INT calc_T_config(INT hist_int[],INT n,INT up_lim,INT lev);
-static uint16_t calc_T_2_3 (INT hist_int[],INT n);	//MK 21.01.1993 (old Y_config)
-static uint16_t abris_leap_new(uchar left[], uchar right[], INT n, INT wide); // MK
-static Bool T_roof(INT hist_int[],uchar left[],uchar right[],INT n,INT w);
+static void filtrate_abris( uchar left[],uchar right[],int16_t dy,int16_t dx,int16_t wide,
+		      int16_t hooks[],int16_t ul,int16_t ur,int16_t dl,int16_t dr,int16_t inc);
+static int16_t calc_T_config(int16_t hist_int[],int16_t n,int16_t up_lim,int16_t lev);
+static uint16_t calc_T_2_3 (int16_t hist_int[],int16_t n);	//MK 21.01.1993 (old Y_config)
+static uint16_t abris_leap_new(uchar left[], uchar right[], int16_t n, int16_t wide); // MK
+static Bool T_roof(int16_t hist_int[],uchar left[],uchar right[],int16_t n,int16_t w);
 static void add_stick_vers_a_posteriory (cell *c,
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 
 			// here was DEBUG_GRAPH
-static INT cell_to_centers(cell *c, INT nc,INT offstr,INT offcol,INT maxcol,
+static int16_t cell_to_centers(cell *c, int16_t nc,int16_t offstr,int16_t offcol,int16_t maxcol,
 		    center_interval center[],uchar left[], uchar right[]);
-static INT multicell_to_centers(cell *c,s_glue *GL, center_interval center[],
-			    uchar left[], uchar right[], INT *dy, INT *dx);
+static int16_t multicell_to_centers(cell *c,s_glue *GL, center_interval center[],
+			    uchar left[], uchar right[], int16_t *dy, int16_t *dx);
 
-static INT num_of_lines(center_interval center[],INT nc,INT dy,INT h[]);
-static INT off_shift_string( uchar string[],INT len );
+static int16_t num_of_lines(center_interval center[],int16_t nc,int16_t dy,int16_t h[]);
+static int16_t off_shift_string( uchar string[],int16_t len );
 
-static INT dest_to_comp( uchar raster[],INT hei, INT wid);
-static INT num_zero_intervals(uchar fun[],INT n,INT lev);
-static INT correct_braces(uchar fun[],INT n,INT lev,INT typ);
-static INT lnhead_to_centers(lnhead *lin, INT wid,
+static int16_t dest_to_comp( uchar raster[],int16_t hei, int16_t wid);
+static int16_t num_zero_intervals(uchar fun[],int16_t n,int16_t lev);
+static int16_t correct_braces(uchar fun[],int16_t n,int16_t lev,int16_t typ);
+static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
 		    center_interval center[],uchar left[], uchar right[]);
-static INT study_typ_of_center_line(cell *c,INT typ_snap,
-	INT typ,uchar right[],INT dy,INT prob);
+static int16_t study_typ_of_center_line(cell *c,int16_t typ_snap,
+	int16_t typ,uchar right[],int16_t dy,int16_t prob);
 
 #define MIN_LIMIT_HEIGHT 4
 #define LIMIT_HEIGHT     256
@@ -182,14 +182,14 @@ center_interval GL_center [LIMIT_CENTER];	// center of c_comp-intervals
 	uchar GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
 	     GL_right1[LIMIT_HEIGHT];	/*    right abris-arrays	*/
 
-static INT  GL_hooks[4];		/* array of "hooks"		*/
-static INT  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
+static int16_t  GL_hooks[4];		/* array of "hooks"		*/
+static int16_t  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
 
 	uchar GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
 	     GL_right0[LIMIT_HEIGHT];	// NO STATIC from 19.01.1993
 
-static INT GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
-static INT num_lines;
+static int16_t GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
+static int16_t num_lines;
 /*----------------------------------------------------------------------*/
 /*                                                                       */
 /* in WATCOM __STK need time for init size for array - use global array  */
@@ -203,14 +203,14 @@ static INT num_lines;
 /*                                                                   */
 /* GLOBAL : array left,right,left1,right1,base_angles,               */
 /*                tab_angle,center                                   */
-INT erector (cell *c , INT disable_rotate, INT enable_shave,INT typ_snap, INT enable_diskrim )
+int16_t erector (cell *c , int16_t disable_rotate, int16_t enable_shave,int16_t typ_snap, int16_t enable_diskrim )
 {
-INT dis_slash=0, typ_inc;
-INT typ,wide,opt,prob,inc_v;
-INT skip_ul,skip_dl,skip_ur,skip_dr;
-INT nc,num_angles,f_a;
+int16_t dis_slash=0, typ_inc;
+int16_t typ,wide,opt,prob,inc_v;
+int16_t skip_ul,skip_dl,skip_ur,skip_dr;
+int16_t nc,num_angles,f_a;
 
-INT dy=c->h,dx=c->w;
+int16_t dy=c->h,dx=c->w;
 Bool c_wide = check_let(c,'r')|check_let(c,'T')|
     check_let(c,'J')|check_let(c,'L');
 Bool c_slash = check_let(c,'/'), c_f=check_let(c,'f');
@@ -244,9 +244,9 @@ prob = ADD_PROB(c) - abs(dy-nc)*20;
 num_angles =   sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0]);
 f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
-           (INT)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
+           (int16_t)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
 if( f_a<11 ) f_a=11;
-typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
+typ=make_center_line (GL_center, (int16_t)(nc-(GL_center[nc-1].len==1)),
 		GL_left0, GL_right0, dy, dx, &stick_inc_rs[f_a], num_angles,
 		GL_tab_angle, c_wide, c_T, c_f, c_r,
     &wide, GL_hooks, &inc_v, 0); // without correct
@@ -282,7 +282,7 @@ if (GL_tab_angle[0]!=GL_tab_angle[dy-1]  &&
     (GL_hooks[0] || GL_hooks[2])  &&  corr)
 	{   /* redefined wide for inc by two upper hooks */
 	wide = centers_len_to_hist(GL_cent,dy,dy,dx,GL_hist);
-	wide = (max_center_hist(&GL_hist[1], (INT)(wide-1),
+	wide = (max_center_hist(&GL_hist[1], (int16_t)(wide-1),
 				GL_cent, dy, GL_tab_angle, 0) >> 1) + 1;
 	}
 
@@ -298,21 +298,21 @@ c->stick_inc = inc_v;
 return(0);   /* normal return */
 }
 
-INT stick_center_study (cell *c, s_glue *GLU, INT typ_snap )
+int16_t stick_center_study (cell *c, s_glue *GLU, int16_t typ_snap )
 {
-INT dis_left_brace=0,dis_right_brace=0; /* discrim value for braces   */
-INT	dis_slash=0, l_f_sym=0, r_f_sym=0, typ_inc, typ_T;
+int16_t dis_left_brace=0,dis_right_brace=0; /* discrim value for braces   */
+int16_t	dis_slash=0, l_f_sym=0, r_f_sym=0, typ_inc, typ_T;
 ///uint16_t	T_2_3, T_skok;			// OLD  typ_Y  for  Y_config
 uint16_t	T_2_3, T_skok_LR;		// OLD  typ_Y  for  Y_config
-INT typ,wide,opt,prob,left_mode,right_mode,inc_v;
-INT skip_ul,skip_dl,skip_ur,skip_dr;
-INT nc,num_angles,f_a,wide_up;
+int16_t typ,wide,opt,prob,left_mode,right_mode,inc_v;
+int16_t skip_ul,skip_dl,skip_ur,skip_dr;
+int16_t nc,num_angles,f_a,wide_up;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
 			// here was DEBUG_GRAPH
 B_LINES bl;
-INT dy=c->h,dx=c->w;
+int16_t dy=c->h,dx=c->w;
 Bool c_brace_l = check_let(c,'('), c_brace_r = check_let(c,')');
 Bool c_wide = check_let(c,'r')|check_let(c,'T')|
 		check_let(c,'J')|check_let(c,'L'),
@@ -368,7 +368,7 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) && !c_T )
 
 if ( !c_r && GL_hist_int[0]==2 )
 {
-INT i;
+int16_t i;
 for(i=0; GL_hist_int[i]==2 && i<dy; i++);
 if( i>dy>>2 )  /* too big number of 2-interval-rows */
   {      /* selected upper glue dust          */
@@ -385,9 +385,9 @@ if( i>dy>>2 )  /* too big number of 2-interval-rows */
 num_angles =   sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0]);
 f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
-           (INT)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
+           (int16_t)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
 
-typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
+typ=make_center_line (GL_center, (int16_t)(nc-(GL_center[nc-1].len==1)),
 		GL_left0, GL_right0, dy, dx, &stick_inc_rs[f_a], num_angles,
 		GL_tab_angle, c_wide, c_T, c_f, c_r,
     &wide, GL_hooks, &inc_v, 1); // with correct
@@ -428,9 +428,9 @@ if( typ!=-2 )
 opt = MAX ( GL_tab_angle[0], GL_tab_angle[dy-1] );
 if( c_f )
 	{   /* calculate symptoms 'f' befor shift */
-	INT e_len = dx-1-((opt+wide*2)>>2);
+	int16_t e_len = dx-1-((opt+wide*2)>>2);
 	if( opt%4==0 ) e_len++;
-	l_f_sym = calc_left_f_symptom (GL_left0, dy, (INT)(dx>>1), (Bool)(c_f&c_t));
+	l_f_sym = calc_left_f_symptom (GL_left0, dy, (int16_t)(dx>>1), (Bool)(c_f&c_t));
 	r_f_sym = calc_right_f_symptom(GL_right0, dy, e_len);
 	}
 
@@ -458,7 +458,7 @@ if (GL_tab_angle[0]!=GL_tab_angle[dy-1]  &&
     (GL_hooks[0] || GL_hooks[2])  &&  corr)
 	{   /* redefined wide for inc by two upper hooks */
 	wide = centers_len_to_hist(GL_cent,dy,dy,dx,GL_hist);
-	wide = (max_center_hist(&GL_hist[1], (INT)(wide-1),
+	wide = (max_center_hist(&GL_hist[1], (int16_t)(wide-1),
 				GL_cent, dy, GL_tab_angle, 0) >> 1) + 1;
 	}
 
@@ -467,9 +467,9 @@ if (GL_tab_angle[0]!=GL_tab_angle[dy-1]  &&
 //////mkm5 = tab_angle[dy-1];
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(INT)(opt - MIN (GL_tab_angle[0], GL_tab_angle[dy-1])),
+		(int16_t)(opt - MIN (GL_tab_angle[0], GL_tab_angle[dy-1])),
 		skip_ul, skip_dl, skip_ur, skip_dr,
-		(INT)inc_num_EEM,
+		(int16_t)inc_num_EEM,
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
 if( c_Y )
@@ -490,16 +490,16 @@ if( GL_hist_int[0]==1 && c_f && right_chars.mount[0]>wide &&
 
 if( c_Y || c_T )
 	{   /* calculate similar-flags for TY  */
-	typ_T = calc_T_config (GL_hist_int, (INT)(dy>>1), (INT)MAX(skip_ul,skip_ur),
-			       (INT)(wide<3?1:2));
-	T_2_3 = calc_T_2_3 (GL_hist_int, (INT)(dy>>1));		// 21.01.1993
-	T_skok_LR = abris_leap_new (GL_left0, GL_right0, (INT)(dy/2), wide);
+	typ_T = calc_T_config (GL_hist_int, (int16_t)(dy>>1), (int16_t)MAX(skip_ul,skip_ur),
+			       (int16_t)(wide<3?1:2));
+	T_2_3 = calc_T_2_3 (GL_hist_int, (int16_t)(dy>>1));		// 21.01.1993
+	T_skok_LR = abris_leap_new (GL_left0, GL_right0, (int16_t)(dy/2), wide);
 								// 17.02.1993
 
 	if( !typ_T && dy>15 &&
 	    left_chars.down_serif==0 && right_chars.down_serif==0 )
 		{  /* > 8-kegl; no down serif; typ_t==0 */
-		INT s=MAX(skip_ul,skip_ur);
+		int16_t s=MAX(skip_ul,skip_ur);
 		typ_T = T_roof (&GL_hist_int[s], &GL_left0[s], &GL_right0[s],
 				2, dx);
 		}
@@ -519,7 +519,7 @@ wide_up=wide;
 get_b_lines(c,&bl);
 if( wide<3 && left_chars.down_serif && right_chars.down_serif )
 	{    /* calculation new wide by thin stick */
-	wide_up = centers_len_to_hist (GL_center, nc, (INT)(bl.b2-c->row+2),
+	wide_up = centers_len_to_hist (GL_center, nc, (int16_t)(bl.b2-c->row+2),
 					dx, GL_hist);
 	wide_up = max_center_hist (GL_hist, wide_up,
 				  GL_center, nc, GL_tab_angle, 0)>>1;
@@ -530,7 +530,7 @@ set_stick_aux_signums (c, GL_left0, GL_right0, dy, wide_up,
 		&left_chars,&right_chars,&signums,
 		dis_left_brace,dis_right_brace,dis_slash,l_f_sym,r_f_sym,
 		typ_T, T_2_3, T_skok_LR,	// OLD  typ_T,typ_Y,
-		&bl,num_lines,(INT)(inc_v-nIncline));
+		&bl,num_lines,(int16_t)(inc_v-nIncline));
 /* -------------  all chars and signums are ready -------------- */
 
 mk_dis_for_liga_exm = 0;	// 06.01.1994	MK NEW PAREMETR;
@@ -549,7 +549,7 @@ full_snap (c,
 	   GLU,		// 14.12.1993 add this parametr;
 	   &left_chars, &right_chars, &signums, GL_tab_angle,
 	   left_mode, right_mode,
-	   (INT)MIN (GL_tab_angle[0], GL_tab_angle[dy-1]),
+	   (int16_t)MIN (GL_tab_angle[0], GL_tab_angle[dy-1]),
 	   wide,
 	   inc_v, typ_snap);	/* show results */
 
@@ -578,10 +578,10 @@ return(0);   /* normal return */
 static void add_stick_vers_a_posteriory (cell *c,	// 23.11.1993
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
 
-//////INT	i, n=c->nvers, num, tmp, c_f=check_let(c,'f');
-INT	wid=s->stick_width, dy=s->height, inc=s->inc;
-INT	prob_0=c->vers[0].prob, prob_new;
-INT	let_0=c->vers[0].let;
+//////int16_t	i, n=c->nvers, num, tmp, c_f=check_let(c,'f');
+int16_t	wid=s->stick_width, dy=s->height, inc=s->inc;
+int16_t	prob_0=c->vers[0].prob, prob_new;
+int16_t	let_0=c->vers[0].let;
 
 	if (check_let (c,'t')  &&		// liga_exm	('!')
 	    l->conc[2]  &&  r->conc[2]  &&
@@ -608,9 +608,9 @@ INT	let_0=c->vers[0].let;
 	return;
 }
 /*----------------------------------------------------------------------*/
-static Bool T_roof(INT hist_int[],uchar left[],uchar right[],INT n,INT w)
+static Bool T_roof(int16_t hist_int[],uchar left[],uchar right[],int16_t n,int16_t w)
 {
-INT i;
+int16_t i;
 w <<= 2;
 for(i=0;i<n;i++)
 	if( hist_int[i]>1 || w-(right[i]-left[i])>8 )
@@ -621,9 +621,9 @@ for(i=0;i<n;i++)
 	return (2);	/* upper layer similar roof        */
 }
 /*----------------------------------------------------------------------*/
-static INT calc_T_config(INT hist_int[],INT n,INT up_lim,INT lev)
+static int16_t calc_T_config(int16_t hist_int[],int16_t n,int16_t up_lim,int16_t lev)
 {							// 21.01.1993
-INT	i, s;
+int16_t	i, s;
 //////		It was  n2=n>>1;  (REALLY USED h/4 ???)
 //////	for (s=0,i=1; i<n2; i++)  if (hist_int[i]>2)  s++;	// see T_3
 //////	if (s>0)  return (200 + s);
@@ -643,9 +643,9 @@ return(0);
 /*----------------------------------------------------------------------*/
 #ifdef	OLEG_abris_leap_OLD
 /* abris 'Y' hav'nt long jumps in upper zone */
-static Bool abris_leap(uchar fun[],INT n,INT width)
+static Bool abris_leap(uchar fun[],int16_t n,int16_t width)
 {
-INT i;
+int16_t i;
 n>>=1;
 width>>=1;
 for(i=1;i<n;i++)
@@ -656,11 +656,11 @@ return(FALSE);
 #endif
 /*----------------------------------------------------------------------*/
 /* abris 'Y' hav'nt long jumps in upper zone */		// 21.01.1993	MK
-/////static Bool abris_leap_new (uchar left[], uchar right[], INT n, INT wide)  {
-static uint16_t abris_leap_new (uchar left[], uchar right[], INT n, INT wide)  {
+/////static Bool abris_leap_new (uchar left[], uchar right[], int16_t n, int16_t wide)  {
+static uint16_t abris_leap_new (uchar left[], uchar right[], int16_t n, int16_t wide)  {
 							// 17.02.1993
-////INT	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
-INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
+////int16_t	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
+int16_t	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
 		// NOTA BENE: left,right - MASTAB.4 (*4),  wide - MAST.1 (sic!)
 
 	for(i=1; i<n; i++)  {
@@ -674,8 +674,8 @@ INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
 	return ( (dL<<8) | dR );
 }
 /*----------------------------------------------------------------------*/
-static uint16_t calc_T_2_3 (INT hist_int[], INT n)  {	// 21.01.1993
-INT	i, k, n2=0, n3=0;
+static uint16_t calc_T_2_3 (int16_t hist_int[], int16_t n)  {	// 21.01.1993
+int16_t	i, k, n2=0, n3=0;
 							// OLD Y_config
 	/* number of rows with >2 intervals : Y hav upper pit, T - no */
 
@@ -694,12 +694,12 @@ INT	i, k, n2=0, n3=0;
 }
 /*----------------------------------------------------------------------*/
 			// here was DEBUG_GRAPH
-static INT study_typ_of_center_line(cell *c,INT typ_snap,
-	INT typ,uchar right[],INT dy,INT prob)
+static int16_t study_typ_of_center_line(cell *c,int16_t typ_snap,
+	int16_t typ,uchar right[],int16_t dy,int16_t prob)
 {
-INT	ret;
+int16_t	ret;
 /* c_comp	*env; */		// 08.07.1993	for 'r'
-INT	N_lines;
+int16_t	N_lines;
 switch(typ)
 	{
 	case 4 :                      /* wide c_comp  */
@@ -780,20 +780,20 @@ switch(typ)
 return(ret);   /* -2 - all right, 0 - add braces, 1 - no sticks */
 }              /* anothe ret-code used TC-version               */
 
-static void filtrate_abris( uchar left[],uchar right[],INT dy,INT dx,INT wide,
-		      INT hooks[],INT ul,INT ur,INT dl,INT dr,INT inc)
+static void filtrate_abris( uchar left[],uchar right[],int16_t dy,int16_t dx,int16_t wide,
+		      int16_t hooks[],int16_t ul,int16_t ur,int16_t dl,int16_t dr,int16_t inc)
 {
-INT center_h;
+int16_t center_h;
 
 if( language==LANG_RUSSIAN && dx*2>wide*7 && wide>4 )
     {
-    filtr121(&left[1+ul],(INT)(dy-2-ul-dl));
+    filtr121(&left[1+ul],(int16_t)(dy-2-ul-dl));
     }
 
 if( wide>6 || dx>wide*4 && wide>2 || dx>wide*5 && wide<3 )   /* !!!???!!! */
 	{
-	filtr121(&left[1+ul],(INT)(dy-2-ul-dl));
-	filtr121(&right[1+ur],(INT)(dy-2-ur-dr));
+	filtr121(&left[1+ul],(int16_t)(dy-2-ul-dl));
+	filtr121(&right[1+ur],(int16_t)(dy-2-ur-dr));
 	}
 
 if( dx>wide*3 && wide>2 && hooks[2]>1 )   /* !!!???!!! */
@@ -806,18 +806,18 @@ if( ( dx>wide*3 || inc&&dx>wide*2 ) &&    /* by may be false pimples */
     wide>2 && hooks[3]>1 )   /* !!!???!!! */
 	{        /* filtrate right downer hook 'l','i' */
 	center_h = (dy-2-ur-dr )>>1;
-	filtr_short(&right[1+ur+center_h],(INT)(dy-2-ur-dr-center_h),5);
+	filtr_short(&right[1+ur+center_h],(int16_t)(dy-2-ur-dr-center_h),5);
 	}
 
 }
 /*----------------------------------------------------------------------*/
-static void calc_discrim_braces(uchar left[],uchar right[],INT dy,INT dx,
-				center_interval center[],INT nc,INT wide,
-				INT tab_angle[],uchar left1[],uchar right1[],
+static void calc_discrim_braces(uchar left[],uchar right[],int16_t dy,int16_t dx,
+				center_interval center[],int16_t nc,int16_t wide,
+				int16_t tab_angle[],uchar left1[],uchar right1[],
 				Bool c_brace_l,Bool c_brace_r,
-				INT *dis_l,INT *dis_r)
+				int16_t *dis_l,int16_t *dis_r)
 {
-INT	i, n_2, porog;	// MK 20.01.1993
+int16_t	i, n_2, porog;	// MK 20.01.1993
 wide = centers_len_to_hist(center,nc,dy,dx,GL_hist);
 wide = max_center_hist(GL_hist,wide,center,nc,tab_angle,0)>>1;
 /* calc average width     */
@@ -850,9 +850,9 @@ return;
 }
 /*----------------------------------------------------------------------*/
 /* study right abris for letter 'r'(bold)   */
-static Bool dis_bold_r(uchar fun[],INT n)
+static Bool dis_bold_r(uchar fun[],int16_t n)
 {
-INT i,m=n>>1,s1,s2,f,f_next,s;
+int16_t i,m=n>>1,s1,s2,f,f_next,s;
 			 /*   NEED :              */
 for(s1=i=0;i<m;i++)      /*   °°°°ЫЫЫЫ            */
         s1 += fun[i];    /*   °°°°ЫЫЫЫ  s1 -> 0   */
@@ -876,9 +876,9 @@ return((s1<<2)>s2 || s>=(n/3) );    /* see pict. + inc right abris */
 }
 
 /* fisrt_angle  :         tg2048/2048 is inc current line  */
-static INT first_tg(INC_BASE *tab_inc[], INT num_inc, INT tg2048 )
+static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048 )
 {
-INT i;
+int16_t i;
 if( abs(tg2048)>32 )      /* nonzero incline      */
 	{
 	for(i=0; i<num_inc && tg2048>tab_inc[i]->tg;i++);
@@ -900,11 +900,11 @@ return(i);
 /* in :	left[0:dy-1],right[dy-1] - abris arrays, dx - wide of c_comp	*/
 /*	tab_angle[0:dy-1] - inc						*/
 /* out : corrected left and right abris-arrays				*/
-static INT abris_expansion (uchar left[], uchar right[],
-			    INT dy, INT dx, INT tab_angle[])  {
+static int16_t abris_expansion (uchar left[], uchar right[],
+			    int16_t dy, int16_t dx, int16_t tab_angle[])  {
 							// 09.12.1993
-INT	i, opt;
-INT	k, max_negat_left=0, max_negat_right=0;	// 09.12.1993
+int16_t	i, opt;
+int16_t	k, max_negat_left=0, max_negat_right=0;	// 09.12.1993
 
 opt = MAX (tab_angle[0], tab_angle[dy-1]);	// NB: NO VERY GOOD !!!
 for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
@@ -944,35 +944,35 @@ if (max_negat_right)
 return(1);
 }
 /*----------------------------------------------------------------------*/
-static INT discrim_left_brace(uchar left[],uchar right[],
-			       INT dy,INT dx,INT wid)
+static int16_t discrim_left_brace(uchar left[],uchar right[],
+			       int16_t dy,int16_t dx,int16_t wid)
 {
-INT i,ret;
+int16_t i,ret;
 for(i=0;i<dy;i++)
 	right[i] = dx-1 - right[i]; /* vert axes simmetry */
 if( wid<4 )
 	ret = (abris_convexity(left,dy,0)       &&
 	       abris_convexity(right,dy,0)      ?0:128);
 else
-	ret = (abris_convexity(&left[1],(INT)(dy-2),0)&&
-	       abris_convexity(&right[1],(INT)(dy-2),0)?0:128);
+	ret = (abris_convexity(&left[1],(int16_t)(dy-2),0)&&
+	       abris_convexity(&right[1],(int16_t)(dy-2),0)?0:128);
 for(i=0;i<dy;i++)
 	right[i] = dx-1 - right[i]; /* restore array      */
 return(ret);
 }
 /*----------------------------------------------------------------------*/
-static INT discrim_right_brace(uchar left[],uchar right[],
-				INT dy,INT dx,INT wid)
+static int16_t discrim_right_brace(uchar left[],uchar right[],
+				int16_t dy,int16_t dx,int16_t wid)
 {
-INT i,ret;
+int16_t i,ret;
 for(i=0;i<dy;i++)
 	left[i]  = dx-1 - left[i];  /* vert axes simmetry */
 if( wid<4 )
 	ret = (abris_convexity(left,dy,0)&&
 	       abris_convexity(right,dy,0)?0:128);
 else
-	ret = (abris_convexity(&left[1],(INT)(dy-2),0)&&
-	       abris_convexity(&right[1],(INT)(dy-2),0)?0:128);
+	ret = (abris_convexity(&left[1],(int16_t)(dy-2),0)&&
+	       abris_convexity(&right[1],(int16_t)(dy-2),0)?0:128);
 for(i=0;i<dy;i++)
 	left[i]  = dx-1 - left[i];  /* restore array      */
 return(ret);
@@ -980,7 +980,7 @@ return(ret);
 /*----------------------------------------------------------------------*/
 //////	make_center_line - see STIC_MAK.C ////////////////////////////////
 /*----------------------------------------------------------------------*/
-//////	static INT inc_periods[LIMIT_HEIGHT];	### NB: It was HERE !!!!!!
+//////	static int16_t inc_periods[LIMIT_HEIGHT];	### NB: It was HERE !!!!!!
 /*----------------------------------------------------------------------*/
 			// here was DEBUG_GRAPH
 /* make left and right abris and array of center of intervals  */
@@ -989,12 +989,12 @@ return(ret);
 /*       left[],right[] - left and right abris                 */
 /*       *dy,*dx - sizes of box                                */
 /* return : number of center or 0 (too many intervals)         */
-static INT multicell_to_centers(cell *base_c,s_glue *GL,
+static int16_t multicell_to_centers(cell *base_c,s_glue *GL,
 			    center_interval center[],
-			    uchar left[], uchar right[],INT *dy, INT *dx)
+			    uchar left[], uchar right[],int16_t *dy, int16_t *dx)
 {
 cell *c;
-INT i,nc=0,n,mincol,minrow,maxcol,maxrow,ncells=0;
+int16_t i,nc=0,n,mincol,minrow,maxcol,maxrow,ncells=0;
 
 memset(left, 0xFF, *dy );	// first - for CELL only;
 memset(right,0xFF, *dy );
@@ -1005,7 +1005,7 @@ if( GL==NULL )
 
 	*dx = c->w;
 	*dy = c->h;
-	if( !(n=cell_to_centers(c,nc,0,0,(INT)(*dx+c->col),center,left,right)) )
+	if( !(n=cell_to_centers(c,nc,0,0,(int16_t)(*dx+c->col),center,left,right)) )
 		return(0);   /* too many center */
 	else 	return(n);   /* normal return   */
 
@@ -1040,8 +1040,8 @@ for(i=0;i<ncells;i++)
 	{
 	if( (c=GL->celist[i])->env==NULL )
 		continue;              /* no enviroment   */
-	if( !(n=cell_to_centers(c,nc,(INT)(c->row-minrow),
-				     (INT)(c->col-mincol),maxcol,
+	if( !(n=cell_to_centers(c,nc,(int16_t)(c->row-minrow),
+				     (int16_t)(c->col-mincol),maxcol,
 				     center,left,right)) )
 			  return(0);   /* too many center */
 	else nc=n;                     /* normal return   */
@@ -1051,17 +1051,17 @@ return(nc);
 }
 /*----------------------------------------------------------------------*/
 /* for cell (*c) correct left and right abris and array of centers */
-static INT cell_to_centers(cell *c, INT nc,
-		    INT off_str,INT off_col,INT max_col,
+static int16_t cell_to_centers(cell *c, int16_t nc,
+		    int16_t off_str,int16_t off_col,int16_t max_col,
 		    center_interval center[],uchar left[], uchar right[])
 {
- INT ll,ind,n=nc,off_col_1=off_col-1, wid=max_col-c->col;
+ int16_t ll,ind,n=nc,off_col_1=off_col-1, wid=max_col-c->col;
  lnhead   *line;
  interval *inter;
  uchar l,r,h;
  center_interval *p_center=&center[nc];
 
-for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=(uchar)line->h;
@@ -1092,10 +1092,10 @@ return(n);
 /* transform list of intervals *lin to array of center_interval          */
 /* and make abris-arrays left[],right[]. used in function typ_thin_stick */
 /* During EVENTS-pass comps are unknown - we have (lnhead * ) only       */
-static INT lnhead_to_centers(lnhead *lin, INT wid,
+static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
 		    center_interval center[],uchar left[], uchar right[])
 {
- INT ll,ind,n;
+ int16_t ll,ind,n;
  lnhead   *line;
  interval *inter;
  uchar l,r,h;
@@ -1132,9 +1132,9 @@ return(n);
 /*     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )	*/
 /*              tt,rr,ff = 01(bad),10(good),11(verybad)			*/
 			// here was DEBUG_GRAPH
-uint16_t typ_thin_stick(lnhead *lin,INT dy,INT dx)
+uint16_t typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx)
 {
-INT wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
+int16_t wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
 uint16_t ret=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
@@ -1159,7 +1159,7 @@ f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES,
            sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1);
 
-if( make_center_line(GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
+if( make_center_line(GL_center, (int16_t)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc_rs[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
@@ -1170,7 +1170,7 @@ opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(INT)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(int16_t)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
@@ -1191,7 +1191,7 @@ return(ret);
 }
 /*-----------------------------------------------------------------------*/
 /* if abris(fun[0:n-1]) is arc curve(w-limit wide) return 1 else return 0  */
-/*static INT abris_convexity(uchar fun[],INT n,INT w)
+/*static int16_t abris_convexity(uchar fun[],int16_t n,int16_t w)
 {
 uchar i,ff,fo,imin,num,minim,eq;
 
@@ -1241,9 +1241,9 @@ else
 }*/
 /*----------------------------------------------------------------------*/
 /* simple rule for defined number of sticks in c_comp   */
-static INT num_of_lines(center_interval center[],INT nc,INT dy,INT hist[])
+static int16_t num_of_lines(center_interval center[],int16_t nc,int16_t dy,int16_t hist[])
 {
-INT n,*r,*e,ret;
+int16_t n,*r,*e,ret;
 center_interval *p_center,*p_end=&center[nc];
 
 memset(hist,0,dy*sizeof(hist[0]));
@@ -1260,7 +1260,7 @@ dy -= 2;
 ret = (n<<2>(dy-2)*3);      /* !!!???!!! */
 if( ret==0 )
 	{    /* normal number of intervals */
-	INT i,j;
+	int16_t i,j;
 	for(i=1;i<dy&&hist[i]==1;i++); /* one interval in row     */
 	for(j=i;i<dy&&hist[i]>=2;i++); /* more 1 intervals        */
 	if( (i-j)<<1>dy )

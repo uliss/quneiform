@@ -86,7 +86,7 @@ static char leg_midw, leg_uneven, leg_maxpos, leg_minpos, leg_botw, pen_ne,
             unev1, unev2, unev3, unev12, unev23,
             botw1, botw2, botw3, botw12, botw23,
             sumw1, sumw2, sumw3, sumw12, sumw23;
-static INT leg_sumw;
+static int16_t leg_sumw;
 static char mn_err, des, mhh, shh, ehh, hhh;
 static uchar at_sum[64];
 static uchar at_sum[64];
@@ -128,10 +128,10 @@ static uchar pen_iroofn[8]={0,0,0,0,12,36,48,100};
 static uchar pen_floor[8]={0,0,0,0,12,36,48,100};
 static uchar pen_ifloor[8]={0,2,4,12,24,36,48,100};
 static uchar ital_un, cum_ital;
-static INT analeg(pchar);
+static int16_t analeg(pchar);
 void del_vers(cell *c, uchar x, uchar pen);
 
-void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
+void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 //
 //	This procedure finds all uprigth legs of a component.
 //	ON ENTRY: cell in question
@@ -141,7 +141,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
  {
  cell *A, *WC;
  char *at, *rp, ri;
- INT  df0, df1, df2, wdf, awdf;
+ int16_t  df0, df1, df2, wdf, awdf;
  char *lp0=NULL, *lp1=NULL, *lp2=NULL, *e0=NULL, *e1=NULL, *e2=NULL;
  char bw0, bw1, bw2, un0, un1, un2, sm0, sm1, sm2,
       l0, l1, l2, l3, l4, l5;
@@ -152,7 +152,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
       hhi1, hhi2, hh1, hh2, hhw, hzone, hbase, thmdle,
       nok, uok, hw, h1, h2, hc, hclow, hchigh,
       hm, mr1, mr2, mrw1, mrw2, fl_short, fl_shln;
- INT nc, mcol, mrow, Mrow;
+ int16_t nc, mcol, mrow, Mrow;
  char vers;
  lnhead *Lp1, *Lp2;
  char     n1, nw1, y1;
@@ -161,12 +161,12 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
      minroof, minrx, minr1, minr2, minr3, minr4,
      roofl, roofr, roofd, rooftl, rooftr,
      botl, bottl, botd;
- INT legd, rowd, i, j;
+ int16_t legd, rowd, i, j;
  uchar  sm_reason, flsort;
- INT Lc1,lc1;
+ int16_t Lc1,lc1;
  interval *int1;
  c_comp *cp1;
-/** static INT testi(cell *,char); **/
+/** static int16_t testi(cell *,char); **/
 
  Z=&string;
  discrim_un( AA, GL, flag_m );
@@ -206,7 +206,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
     Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
     Lp2=Lp1;
     for (lc1=0; lc1 < Lc1; lc1++)
-    { INT hl;
+    { int16_t hl;
       if ((hl=Lp1->h) <= 3)  goto nextl1;   // ignore short lines
       hm = Lp1->row + rowd;
       if ((Lp1->flg & l_fend) && (2*(hm+Lp1->h) <= WC->h)) goto nextl1;
@@ -279,7 +279,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
   nc=0;
   hhmin = 0; hhmax = 127;
   while (1)
-  { INT  hw1, hw2;
+  { int16_t  hw1, hw2;
     WC= GL->celist[nc++];
     if (!WC) break;
     rowd=WC->row - mrow;
@@ -392,7 +392,7 @@ get_lines:
      else
        if (fl_short)
        {
-         INT cleg;
+         int16_t cleg;
      try_short:
          if ( (Lp1->flg  & (l_fbeg|l_fend)) != 0)
            goto skip;   // non_free begs and ends of interest
@@ -405,7 +405,7 @@ get_lines:
            if (hw > hh2) break;
            for (cleg = 0; cleg < nleg; cleg++)
            { // test if short leg amends any found "full" leg
-             INT cbeg, cend, clth, ch, nbeg, nend, nlth;
+             int16_t cbeg, cend, clth, ch, nbeg, nend, nlth;
              ch = hw-hh1;
              cend = at_end[cleg][ch];
              clth = at_lth[cleg][ch];
@@ -560,7 +560,7 @@ mn_again:
 
    ital_un = 0;
    mhh = (shh+ehh)/2;
-   { INT d1, d2, d3, d12, d23;
+   { int16_t d1, d2, d3, d12, d23;
      d3 = e0[shh];
      d2 = e0[mhh];
      d1 = e0[ehh-1];
@@ -741,7 +741,7 @@ wrk3:
 
    ital_un = 0;
    mhh = (shh+ehh)/2;
-   { INT d1, d2, d3, d12, d23;
+   { int16_t d1, d2, d3, d12, d23;
      //93.01.28  d3,d1 were miscalculated; all 'm' were upright
      d3 = e0[shh] - lp0[shh];
      d2 = e0[mhh] - lp0[mhh];
@@ -883,7 +883,7 @@ wrk3:
   if (roofd > 0)    // incomplete roof
   {
     if (nc > 2)      // glued - penalize by gap size
-    { INT d,p;
+    { int16_t d,p;
       d=roofd;
       if (d > 7) d=7;
       if (ital_un)
@@ -918,12 +918,12 @@ wrk3:
   i=MIN(mr1,mr2);
   if (minroof <= (i+2)) goto tryu;		// not too deep gap
   if (minrx < minr4)                  // in left half of cell
-  { INT gap_bnd_up, gap_bnd_mdl;
+  { int16_t gap_bnd_up, gap_bnd_mdl;
     gap_bnd_mdl = e0[thmdle]+3;
     if (minrx < gap_bnd_mdl) goto tryu;   // close to (left leg in its middle)
     gap_bnd_up = e0[1]+3;
     if (ital_un)
-    { INT ital_inc;
+    { int16_t ital_inc;
       ital_inc = gap_bnd_up - gap_bnd_mdl;
       if (ital_inc > 0)
         gap_bnd_up += ital_inc;
@@ -965,7 +965,7 @@ horizu:
   if (botd > 0)      // incomplete floor
   {
     if (nc > 2)      // glued - penalize by gap size
-    { INT d,p;
+    { int16_t d,p;
       d=botd;
       if (d > 7) d=7;
       if (ital_un)
@@ -1011,7 +1011,7 @@ horizm:
     if (at_roof[i] & 1) roofl++;
   roofd = rooftl-roofl;
   if (nc>2)  // glued - more than 1/2 should be covered
-   { INT d;
+   { int16_t d;
      if ((d=roofd) > roofl)
      {
        pen_roof = (cum_ital) ?  pen_roof_itm : pen_roof_upright;
@@ -1073,7 +1073,7 @@ retsort:
   if (fl_sort_vers) sort_vers(AA);
  }
 
-static INT analeg (char *l)
+static int16_t analeg (char *l)
 {
  char *sp, *ep, *cp, *sp1, *ep1, min, max, w;
  min=127; max=0;
@@ -1113,7 +1113,7 @@ void del_vers(cell *c, uchar x, uchar pen)
 {
  version *dv1;
  uchar cx, cx_acc, fld, fla;
- INT p;
+ int16_t p;
  fld=0;
  for (dv1=c->vers; (cx_acc=dv1->let)!=0; dv1++)
  {

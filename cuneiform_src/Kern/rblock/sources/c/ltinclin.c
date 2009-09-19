@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cttypes.h" // Piter
 
 
-INT nIncline;
+int16_t nIncline;
 
 int  *pnHeightesCounter;
 int  nHeightesAllocated;
@@ -444,7 +444,7 @@ Bool InclinesAccount (void)
     int  iLastBar;
     int  nRoughIncline;
     int  nCorrectedIncline;
-    //INT  angle;
+    //int16_t  angle;
     Bool bSuccess;
 	// *************** Rom
 	Handle h = NULL;
@@ -502,7 +502,7 @@ Bool InclinesAccount (void)
         bSuccess = CorrectIncline (nRoughIncline, &nCorrectedIncline);
     }
 
-    nIncline = bSuccess ? (INT) nCorrectedIncline : 0;
+    nIncline = bSuccess ? (int16_t) nCorrectedIncline : 0;
     // Piter 09-14-95 04:13pm
     //DDDif(GetSheetIncline(&angle))
     //DDD   nIncline = 2 * angle;
@@ -515,18 +515,18 @@ Bool InclinesAccount (void)
 }
 */
 
-void IdealXY (INT x, INT y, INT *px, INT *py)
+void IdealXY (int16_t x, int16_t y, int16_t *px, int16_t *py)
 {
-    *px = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);
-    //*py = (INT) (y - (LONG) *px * nIncline / INCLINE_FACTOR);
-	*py = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR); // Piter
+    *px = (int16_t) (x + (LONG) y * nIncline / INCLINE_FACTOR);
+    //*py = (int16_t) (y - (LONG) *px * nIncline / INCLINE_FACTOR);
+	*py = (int16_t) (y - (LONG) x * nIncline / INCLINE_FACTOR); // Piter
 }
 
-void RealXY (INT x, INT y, INT *px, INT *py)
+void RealXY (int16_t x, int16_t y, int16_t *px, int16_t *py)
 {
-    *py = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);
-    //*px = (INT) (x - (LONG) *py * nIncline / INCLINE_FACTOR);
-    *px = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR); // Piter
+    *py = (int16_t) (y + (LONG) x * nIncline / INCLINE_FACTOR);
+    //*px = (int16_t) (x - (LONG) *py * nIncline / INCLINE_FACTOR);
+    *px = (int16_t) (x - (LONG) y * nIncline / INCLINE_FACTOR); // Piter
 }
 
 void RotatePageToIdeal (void)

@@ -68,7 +68,7 @@ void   p2_CellsToCSTR(CSTR_line lino);
 int32_t  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
 
 //int32_t	p2_proc		(CSTR_line lineDraft,CSTR_line lineOne);
-INT	    estletter	(cell * BC,s_glue * GL);
+int16_t	    estletter	(cell * BC,s_glue * GL);
 void	p2_init		(void);
 int32_t   p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============

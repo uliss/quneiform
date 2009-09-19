@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "ccomdefs.h"
 
-LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, uchar * lp, INT lth, uchar *res    );
+LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, uchar * lp, int16_t lth, uchar *res    );
 extern uchar db_status;	// snap presence byte
 extern uchar db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;
-extern INT nIncline;
+extern int16_t nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
 extern puchar ED_file_bound,ED_file_end/* memory_pool_end*/;
@@ -83,13 +83,13 @@ static cell first_cell, last_cell;
 static cell * empty_cell, * free_cell_chain, * cell_boundary;
 extern c_comp wcomp;
 extern version * start_rec, * rec_ptr;
-extern INT lpool_lth;
+extern int16_t lpool_lth;
 extern uchar lpool[];
 
-static puchar save_kit(puchar c, INT l);
+static puchar save_kit(puchar c, int16_t l);
 static void rest_kit(puchar s, puchar k);
-static INT second_recog(cell *c);
-static INT vers_to_cell(cell *c);
+static int16_t second_recog(cell *c);
+static int16_t vers_to_cell(cell *c);
 static puchar comp_to_kit(MN * mn);
 static void comp_from_kit(cell *c);
 
@@ -226,7 +226,7 @@ void AKCheckChain()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // смотрим. есть ли такой cell в цепочке
-INT AKCellInChain(cell * Cell)
+int16_t AKCellInChain(cell * Cell)
 {
 	cell * Count;
 
@@ -312,7 +312,7 @@ void set_bad_cell(cell *c)
  if (c->flg & (c_f_let+c_f_bad)) c->flg=c_f_bad;
  }
 
-void sort_v_vect(INT n, version *v0)
+void sort_v_vect(int16_t n, version *v0)
  {
  version *v,*vs,*vm;
  uchar l;
@@ -351,11 +351,11 @@ void sort_vers(cell *c)
 
 #define MAX_PROB 254
 
-void cell_bonus(cell *C, version *pVer, INT BonVal)
+void cell_bonus(cell *C, version *pVer, int16_t BonVal)
 {
-INT resp;
+int16_t resp;
 version *pv;
-INT wp,wp1;
+int16_t wp,wp1;
 
  if (pVer->prob != 0)
   {
@@ -379,7 +379,7 @@ INT wp,wp1;
   }
 }
 
-void cell_bonus_let(cell *C, char Let, INT BonVal)
+void cell_bonus_let(cell *C, char Let, int16_t BonVal)
 {
 version *pv;
  for (pv=C->vers; pv->let != 0 ; pv++)
@@ -461,7 +461,7 @@ void free_cell(cell *c)
 /////////////////////////////////////////////////////////////////////////////////////////
 //======================= Kit function ===============================
 
-static puchar save_kit(puchar c, INT l)
+static puchar save_kit(puchar c, int16_t l)
 {
  puchar w;
  if (ED_file_end - kit_curr - 2 < l)
@@ -479,7 +479,7 @@ static void rest_kit(puchar s, puchar k)
 static puchar comp_to_kit(MN * mn)
 {
  puchar sv;
- INT lth;
+ int16_t lth;
  MN_to_line(mn);
  lth = sizeof(c_comp) + lpool_lth + 2;
  wcomp.size = (lth + 15)/16; // Vald 11-24-95 05:06pm
@@ -487,7 +487,7 @@ static puchar comp_to_kit(MN * mn)
  if (ED_file_end - kit_curr < lth)
 	 ErrorExit (RSTR_ERR_NOPLACE);
  memcpy(kit_curr,&wcomp,sizeof(wcomp));
- *(INT *)(kit_curr+sizeof(wcomp)) = lpool_lth;
+ *(int16_t *)(kit_curr+sizeof(wcomp)) = lpool_lth;
  memcpy(kit_curr+sizeof(c_comp)+2,lpool,lpool_lth);
  sv=kit_curr;
  kit_curr+=sizeof(c_comp)+2+lpool_lth;
@@ -499,7 +499,7 @@ static puchar comp_to_kit(MN * mn)
 c_comp * comp_vers_to_kit(MN * mn, c_comp *c)
 {
  puchar sv=kit_curr;
- INT lth;
+ int16_t lth;
  MN_to_line(mn);
  if (c->size == 1)
   {
@@ -509,8 +509,8 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c)
    wcomp.type=ch_punct; wcomp.records=0; wcomp.lines=sizeof(c_comp);
    memcpy(kit_curr,&wcomp,sizeof(c_comp));
    ((c_comp*)kit_curr)->size=(lth+sizeof(lpool_lth)+15)/16; // Vald 02-15-96 07:12pm
-   *(INT *)(kit_curr+sizeof(c_comp)) = lpool_lth;
-   kit_curr+=sizeof(c_comp)+sizeof(INT);
+   *(int16_t *)(kit_curr+sizeof(c_comp)) = lpool_lth;
+   kit_curr+=sizeof(c_comp)+sizeof(int16_t);
    memcpy(kit_curr,lpool,lpool_lth);
    kit_curr+=lpool_lth;
    return (c_comp *)sv;
@@ -529,7 +529,7 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c)
   cc->nl=wcomp.nl; cc->begs=wcomp.begs; cc->ends=wcomp.ends;
  }
  kit_curr+=sizeof(wcomp)+(c->nvers+1)*sizeof(version);
- *(INT *)kit_curr = lpool_lth;
+ *(int16_t *)kit_curr = lpool_lth;
  memcpy(kit_curr+sizeof(lpool_lth),lpool,lpool_lth);
  kit_curr+=sizeof(lpool_lth)+lpool_lth;
  return (c_comp *)sv;
@@ -564,11 +564,11 @@ void online_comp(c_comp *w)
 
 #define NCOMPMAX 8
 
-Bool compose_cell(INT n,cell **clist,cell *c)
+Bool compose_cell(int16_t n,cell **clist,cell *c)
  {
- INT i,top,bot,left,right,hmax,imax;
+ int16_t i,top,bot,left,right,hmax,imax;
  c_comp *elist[NCOMPMAX];
- INT inc;
+ int16_t inc;
  Bool   ret=TRUE;
 
  for ( top=left=10000,imax=hmax=bot=right=-10000,i=0; i<n && i<NCOMPMAX; i++)
@@ -606,8 +606,8 @@ Bool compose_cell(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+     c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
+     c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }
@@ -629,11 +629,11 @@ Bool compose_cell(INT n,cell **clist,cell *c)
  }
 
 // analog of compose_cell whithout deleting
-Bool compose_cell_save(INT n,cell **clist,cell *c)
+Bool compose_cell_save(int16_t n,cell **clist,cell *c)
  {
- INT i,top,bot,left,right,hmax,imax;
+ int16_t i,top,bot,left,right,hmax,imax;
  c_comp *elist[NCOMPMAX];
- INT inc;
+ int16_t inc;
  Bool   ret=TRUE;
 
  for (top=left=10000,imax=hmax=bot=right=-10000,i=0; i<n && i<NCOMPMAX; i++)
@@ -671,8 +671,8 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+     c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
+     c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }
@@ -691,9 +691,9 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
  }
 
 
-c_comp *compose_comp(INT n,c_comp **c)
+c_comp *compose_comp(int16_t n,c_comp **c)
  {
- INT lower,right,i,j,l,nl,du,dl,lth;
+ int16_t lower,right,i,j,l,nl,du,dl,lth;
  puchar w,sv;
  lnhead *ln;
  interval *intv;
@@ -733,7 +733,7 @@ c_comp *compose_comp(INT n,c_comp **c)
   if (c[i]!=NULL)
    {
    w=(puchar)(c[i])+c[i]->lines;
-   l+=*((INT *)w)-((i==n-1)?0:2);
+   l+=*((int16_t *)w)-((i==n-1)?0:2);
   }
  }
  if( l>LPOOL_SIZE)
@@ -745,7 +745,7 @@ c_comp *compose_comp(INT n,c_comp **c)
    nl=c[i]->nl;
    du=c[i]->upper-wcomp.upper;
    dl=c[i]->left-wcomp.left;
-   l=*((INT *)w)-((i==n-1)?0:2);
+   l=*((int16_t *)w)-((i==n-1)?0:2);
    memcpy((puchar)lpool+lpool_lth,w+2,l);
    for (ln=(lnhead*)((puchar)lpool+lpool_lth),j=0; j<nl;
 					 j++,ln=(lnhead *)((puchar)ln+lth))
@@ -761,7 +761,7 @@ c_comp *compose_comp(INT n,c_comp **c)
     }
    }
 
- *((INT *)lpool)=lpool_lth-2;
+ *((int16_t *)lpool)=lpool_lth-2;
  if( (puchar)(ED_file_end - kit_curr)<(puchar)(lpool_lth+sizeof(c_comp)) )
   ErrorExit (RSTR_ERR_NOPLACE);
  sv=kit_curr;
@@ -835,7 +835,7 @@ cell * rest_cell(void *k, cell *ci)
 
 void insert_cell(cell *c,cell *ci)
 {
-	INT col=c->col;
+	int16_t col=c->col;
 	if(!(ci->flg & c_f_space)) // Valdemar 02-15-96 00:17am
 // Paul 10-11-96
 /*
@@ -884,7 +884,7 @@ void insert_cell(cell *c,cell *ci)
 // crash attention!
 void insert_cell1(cell *c,cell *ci)
 {
-	INT col=c->col;
+	int16_t col=c->col;
 
 	if( !(ci->flg & c_f_space)) // Valdemar 02-15-96 00:17am
 		if ( col <= ci->col)
@@ -1013,9 +1013,9 @@ cell * create_cell_work(MN * mn, cell * ci, char bdiff, char dflag)
 
 /*=============== Cell rocognition ===========================*/
 
-static INT vers_to_cell(cell *c)
+static int16_t vers_to_cell(cell *c)
 {
- INT i;
+ int16_t i;
  c->recsource = 0;
  if ((i=rec_ptr-start_rec) !=0)
   {
@@ -1030,7 +1030,7 @@ static INT vers_to_cell(cell *c)
  set_bad_cell(c); return 0;
 }
 
-static INT second_recog(cell *c)
+static int16_t second_recog(cell *c)
 {
  levcut(c,1);
  if (db_status && (db_trace_flag & 2))
@@ -1046,7 +1046,7 @@ static INT second_recog(cell *c)
 }
 
 
-INT short_recog_cell (cell *c)
+int16_t short_recog_cell (cell *c)
 {
  // was && но если нет c->evn - что распознавать?
  if( (c->cg_flag & c_cg_comp) ||
@@ -1055,7 +1055,7 @@ INT short_recog_cell (cell *c)
 
  comp_from_kit(c);
  {
-INT n,i;
+int16_t n,i;
 uchar res[20];
 CCOM_comp cc;
 //запись в структуру CCOM_comp данных для EVNRecog_lp
@@ -1067,8 +1067,8 @@ cc.begs = c->env->begs;
 cc.ends = c->env->ends;
 cc.scale = c->env->scale;
 
-// n = (INT)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
- n = (INT)EVNRecog_lp(&cc,lpool,lpool_lth,&res[0]);
+// n = (int16_t)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
+ n = (int16_t)EVNRecog_lp(&cc,lpool,lpool_lth,&res[0]);
 
 //восстановление из структуры CCOM_comp результатов EVNRecog_lp
  c->env->type = cc.type;
@@ -1105,7 +1105,7 @@ cc.scale = c->env->scale;
  return c->nvers;
 }
 
-INT recog_cell(cell *c)
+int16_t recog_cell(cell *c)
 {
 if( !c->env ) return 0; // Oleg : can't recog null cells
  short_recog_cell(c);
@@ -1115,7 +1115,7 @@ if( !c->env ) return 0; // Oleg : can't recog null cells
  return second_recog(c);
 }
 
-INT reco2_cell(cell *c)
+int16_t reco2_cell(cell *c)
 {
  c->reasno=0;
  second_recog(c);
@@ -1132,7 +1132,7 @@ INT reco2_cell(cell *c)
  return c->nvers;
 }
 
-INT recop_cell(cell *c)
+int16_t recop_cell(cell *c)
 {
  c->reasno=0; criteria(c);  if (db_pidx_crit) v2_pidx_crit(c);
  if ( c->nvers == 0 )  {
@@ -1157,7 +1157,7 @@ puchar save_raster_align8(cell *c)
 
 void add_vers(cell *bc, version *wv)
 {
- INT nv;
+ int16_t nv;
  nv=bc->nvers;
  if (nv == VERS_IN_CELL-1)
   {
@@ -1176,9 +1176,9 @@ void add_vers(cell *bc, version *wv)
   }
 }
 
-Bool    comp_versions(version *v, version *w, INT n,INT    snvers)
+Bool    comp_versions(version *v, version *w, int16_t n,int16_t    snvers)
 {
-INT i;
+int16_t i;
 
 if( n!=snvers )
     return TRUE;
@@ -1192,7 +1192,7 @@ return FALSE;
 
 void del_version(  cell *c,uchar let)
 {
- INT i,nvers;
+ int16_t i,nvers;
  version *v ;
 
  if( c->nvers<1 )
@@ -1214,9 +1214,9 @@ return;
 }
 
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }
-INT stick_w_4()
+int16_t stick_w_4()
 {
- INT answ;
+ int16_t answ;
  answ = typ_thin_stick((lnhead *)lpool,wcomp.h,wcomp.w);
  rec_ptr = start_rec;
  if (answ == 0) goto ret;

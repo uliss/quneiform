@@ -73,14 +73,14 @@ extern c_comp wcomp;
 //
 //
 
-extern INT prop_l_delta, prop_r_delta;
+extern int16_t prop_l_delta, prop_r_delta;
 extern uchar * letters_pidx_table;
 void pidx_crit ()
 {
 	/*
- INT pidx;
+ int16_t pidx;
  version *v;
- INT i;
+ int16_t i;
  uint16_t let;
  pidx = prop_index (wcomp.h, wcomp.w);
  wcomp.pidx = (uchar)pidx;
@@ -101,7 +101,7 @@ false:
 
 void v2_pidx_crit (cell *c)
 {
- INT pidx;
+ int16_t pidx;
  version *v, *wv;
  uint16_t let;
  // Paul 07-12-99
@@ -131,9 +131,9 @@ void v2_pidx_crit (cell *c)
  if ((c->nvers -= v-wv) == 0) set_bad_cell(c);
 }
 
-Bool pidx_skip(INT h, INT w,uchar t_let)
+Bool pidx_skip(int16_t h, int16_t w,uchar t_let)
 {
-  INT pidx;
+  int16_t pidx;
   uint16_t let;
 
   pidx=prop_index(h,w);
@@ -143,7 +143,7 @@ Bool pidx_skip(INT h, INT w,uchar t_let)
   else return TRUE;
 }
 
-uint16_t el_pidx_crit(uint16_t t_let,INT pidx)
+uint16_t el_pidx_crit(uint16_t t_let,int16_t pidx)
 {
   uint16_t let;
 

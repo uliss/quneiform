@@ -126,17 +126,17 @@ struct common
  {
  char dum[prot_size];
  struct own_cut *c_odrans;
- INT  c_pa8;
- INT  c_path_lth;
+ int16_t  c_pa8;
+ int16_t  c_path_lth;
  char c_S_flag;		// flag of "S"-case
- INT  c_s_width,c_s_width_b,c_s_height;
- INT  c_t_width,c_t_width_b,c_t_height;
+ int16_t  c_s_width,c_s_width_b,c_s_height;
+ int16_t  c_t_width,c_t_width_b,c_t_height;
  MN   *c_t_comp_ptr;   	// pointer to component header
- INT  c_t_left_shift;
+ int16_t  c_t_left_shift;
  char c_cut_flag;
  char c_best_cut_point;
  lnhead *c_t_line_ptr;
- INT  c_max_line;
+ int16_t  c_max_line;
  uchar *c_s_raster;
  struct less_vertex_elem c_less_vertices[MAX_LINES];
  struct short_line_header c_lines[MAX_LINES];
@@ -146,9 +146,9 @@ struct common
 
 struct edik
  {
- INT  e_first_line;	// number of first (shortened) line in list
- INT  e_n_lines;
- INT  e_n_verts;
+ int16_t  e_first_line;	// number of first (shortened) line in list
+ int16_t  e_n_lines;
+ int16_t  e_n_verts;
  struct short_line_header *e_fl_ptr, *e_sl_ptr;
  struct segment *e_segm_ptr;
  struct vertex_header *e_vert_ptr;

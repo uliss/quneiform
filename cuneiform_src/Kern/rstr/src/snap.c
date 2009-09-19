@@ -86,14 +86,14 @@ Bool short_spell(uchar *wrd,uchar language );
 Bool short_spell_re(uchar *wrd,uchar language );
 
 uchar mwInput[80];
-extern INT      line_number;
-extern INT      show_cut_points;
+extern int16_t      line_number;
+extern int16_t      show_cut_points;
 extern uchar     db_pass      ;
 extern uchar     db_trace_flag, language;
 extern  struct  cut_elm *my_cut_points;
-extern  INT             show_cut_points;
-extern  INT             flag_cut_point;
-extern  INT     flag_ShiftF9;
+extern  int16_t             show_cut_points;
+extern  int16_t             flag_cut_point;
+extern  int16_t     flag_ShiftF9;
 extern  void    Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_scaled);
 extern  void    CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c);
 extern  int     cell2UniVers(UniVersions *ver, cell *c);
@@ -107,7 +107,7 @@ extern  void    ErrorExit(int Code);
 extern  uchar    decode_ASCII_to_[256][4];
 extern  char    StopPoint;
 extern  uchar    CodePages[];
-//extern  INT     gbCol1,gbCol2;
+//extern  int16_t     gbCol1,gbCol2;
 
 static  Bool    exit_enable         = FALSE;
 static  Bool    cut_enable          = FALSE;
@@ -336,7 +336,7 @@ cutpoints_cell=NULL;
 return TRUE;
 }
 
-Bool snap_fictive_skip(INT i)
+Bool snap_fictive_skip(int16_t i)
 {
 return (Bool)LDPUMA_SkipEx(hSnapFict[i],FALSE,TRUE,1);
 }
@@ -344,7 +344,7 @@ return (Bool)LDPUMA_SkipEx(hSnapFict[i],FALSE,TRUE,1);
 // показ распознавания эвент
 static void snap_recogEVN(CSTR_rast r,cell * cl)
  {
- INT    i;
+ int16_t    i;
  RecRaster  rRaster;
  char       evn[256], evnr[256],evnw[256], evnrw[256], buf[256];
 
@@ -434,7 +434,7 @@ return;
 // показ батонов Фараджева
 static void snap_sticks(cell *c, char *str)
  {
- INT i,n;
+ int16_t i,n;
  STICK *res,*r;
 
  n=sticks_in_letter(c,0,&res);
@@ -943,7 +943,7 @@ switch(message)
                 shift=0;
                 if( (c->pos_inc&erect_rot) )
                     {
-                    erect_cell_value(c, (INT)(-c->stick_inc), 0, FALSE);
+                    erect_cell_value(c, (int16_t)(-c->stick_inc), 0, FALSE);
                     c->stick_inc=NO_INCLINE;
                     c->pos_inc=erect_no;
                     END_RUN_CELL("уничтожение выпрямления");
@@ -1334,7 +1334,7 @@ return;
 }
 
 // вывести растр
-Bool snap_show_raster(puchar raster, INT height, INT width)
+Bool snap_show_raster(puchar raster, int16_t height, int16_t width)
 {
 DPUMA_RecRaster rs={0};
 
@@ -1456,7 +1456,7 @@ return;
 }
 
 // точка остановки в разрезании
-void snap_newpoint(INT i)
+void snap_newpoint(int16_t i)
 {
 if( snap_disable || snap_page_disable || db_skip_client )
     return ;
@@ -1468,8 +1468,8 @@ return;
 
 
 // knot for Alik debug. Absent pass 'j'
-Bool Alik_snap_show_raster(puchar raster,puchar raster1,puchar buf,INT height,
-                           INT width,pchar product,pchar product_two,
+Bool Alik_snap_show_raster(puchar raster,puchar raster1,puchar buf,int16_t height,
+                           int16_t width,pchar product,pchar product_two,
                            PINT penalty)
 
 {

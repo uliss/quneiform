@@ -74,16 +74,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern uchar p2_active;
 // Discrim © by base lines                              *
-static INT rec_ii(cell*c,cell*cap);
-static INT rec_ii_halo(cell * c);
+static int16_t rec_ii(cell*c,cell*cap);
+static int16_t rec_ii_halo(cell * c);
 
 static uchar iot_pen_lc[]={ 120,60,10,0,0 };
 static uchar iot_pen_uc[]={ 140,10,0 ,0,0 };
 
-INT cut_by_pos_ii(s_glue * const gl,uchar let)
+int16_t cut_by_pos_ii(s_glue * const gl,uchar let)
 {
 B_LINES bl;
-INT pen=0,upper=32000,dis,i;
+int16_t pen=0,upper=32000,dis,i;
 
 
  get_b_lines(gl->celist[0],&bl);
@@ -119,7 +119,7 @@ void proc_ii(void)
 {
 cell * c,*cap;
 uchar let;
-INT ndust;
+int16_t ndust;
   c = cell_f();
  while((c=c->nextl) != NULL ){
  if( !(c->flg & (c_f_let+c_f_bad)) ) continue;
@@ -169,7 +169,7 @@ next_let: ;
  } // while by letters
 }
 
-INT rec_ii(cell* c,cell * cap)
+int16_t rec_ii(cell* c,cell * cap)
 {
 cell *clist[8];
 uchar let;
@@ -209,12 +209,12 @@ if(0&&!p2_active)  // OLEG
   return 1;
 }
 
-INT rec_ii_halo(cell * c)
+int16_t rec_ii_halo(cell * c)
 {
 #define n_pieces        48
 cell *cap,*caplist[n_pieces];
 uchar let;
-INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
+int16_t i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
       i=0;
       cap = c;
       while((cap=cap->next)!=NULL && cap != c->nextl && i < n_pieces-1)
@@ -265,7 +265,7 @@ INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
 
     memmove(&caplist[1],caplist,i*sizeof(cell*));
     caplist[0]=c;
-    if( !compose_cell((INT)(i+1),caplist,c) )
+    if( !compose_cell((int16_t)(i+1),caplist,c) )
       return 0; //OLEG:new return style of composed
      let = is_lower(let) ? (uchar)'©' : (uchar)'‰';
         c->vers[0].let = let;

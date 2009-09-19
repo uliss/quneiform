@@ -87,14 +87,14 @@ void context() {
 	}
 }
 
-INT russian_context_process(cell * C);
+int16_t russian_context_process(cell * C);
 
 void context_proc_line() {
 	//
 	//	This procedure changes alternatives using context.
 	//
 	cell * C;
-	INT lang_ret_code;
+	int16_t lang_ret_code;
 
 	pDotComCell = NULL;
 	after_word_flag = 0;
@@ -137,7 +137,7 @@ void context_proc_line() {
 		{ //
 			cell * c;
 			char wrd[80], *p;
-			INT i, n;
+			int16_t i, n;
 			for (c = WB, p = wrd, n = sizeof(wrd) - 1, i = 0; i < n && c
 					!= EB->next; c = c->next) {
 				*p++ = c->nvers ? c->vers[0].let : '~';
@@ -170,7 +170,7 @@ void context_proc_line() {
 		}
 #ifdef UFA
 		{
-			INT num=0,num_dig=0;
+			int16_t num=0,num_dig=0;
 			cell *c;
 			for(num=num_dig=0,c=WB;c!=EB;c=c->next)
 			{
@@ -196,7 +196,7 @@ void context_proc_line() {
 	} /* end_of_while */
 }
 
-static INT find_and_class_word(cell *first_C)
+static int16_t find_and_class_word(cell *first_C)
 //
 //  This procedure scans string and finds next word after cell *C,
 //   classifies this word by follows types:
@@ -292,7 +292,7 @@ static INT find_and_class_word(cell *first_C)
 }
 
 static uchar classify(cell *curc) {
-	INT Let, nv;
+	int16_t Let, nv;
 
 	Let = curc->vers[0].let;
 	if (curc->flg & c_f_bad)
@@ -383,7 +383,7 @@ static uchar classify(cell *curc) {
 	return 0;
 }
 
-static Bool find_delim(INT Let) {
+static Bool find_delim(int16_t Let) {
 	if ((strchr("?!:;+'\x22\x20\x1f\x2f\x5c", Let)) || (Let == liga_exm))
 	/**********            "   spc +spc /  \  *********/
 	{
@@ -413,7 +413,7 @@ static Bool find_delim(INT Let) {
 	}
 }
 
-static void set_word_flag(INT Let) {
+static void set_word_flag(int16_t Let) {
 	if ((strchr("!?.", Let)) || (Let == liga_exm))
 		word_flag |= AFTERDOT;
 	if (pDotComCell != NULL)
@@ -422,7 +422,7 @@ static void set_word_flag(INT Let) {
 		word_flag |= AFTERAPOSTROPHE;
 }
 
-static void set_after_word_flag(INT Let) {
+static void set_after_word_flag(int16_t Let) {
 	if ((strchr("!?.", Let)) || (Let == liga_exm))
 		after_word_flag |= AFTERDOT;
 	if (pDotComCell != NULL)
@@ -433,7 +433,7 @@ static void set_after_word_flag(INT Let) {
 /******************************************/
 static void check_vers(cell *curc) //AK 04.07.97
 {
-	INT i = 0, Let = 0, fl = 0;
+	int16_t i = 0, Let = 0, fl = 0;
 
 	fl = 0;
 	for (i = 0; i < curc->nvers; i++) {
@@ -511,7 +511,7 @@ static void Livers(cell *NC)
 //	(is it consonant or vowel).
 //
 {
-	INT i, j, kc, kv, kt;
+	int16_t i, j, kc, kv, kt;
 	cell * W;
 	version *v, *w;
 
@@ -567,7 +567,7 @@ static void negspace()
 	cell *C,*D,*E;
 	version *v;
 	char fl;
-	INT i;
+	int16_t i;
 
 	C=cell_f();
 	while ((C=C->nextl)->nextl)
@@ -613,7 +613,7 @@ static Bool roma_num() {
 
 void complex_word() {
 	cell * C;
-	INT i, j, est_dc;
+	int16_t i, j, est_dc;
 
 	if (n_ltr > MAX_SYMB)
 		return;
@@ -677,8 +677,8 @@ void complex_word() {
 	CW_Ret: return;
 }
 
-static INT best_estimation() {
-	INT i, mest, n;
+static int16_t best_estimation() {
+	int16_t i, mest, n;
 
 	cdv -= COMP_NVAR;
 	mest = cdv->est;
@@ -691,10 +691,10 @@ static INT best_estimation() {
 	return n;
 }
 
-static void estimate_chain(INT word_pos) {
+static void estimate_chain(int16_t word_pos) {
 	dv * prev, *curr;
-	INT cn, pn;
-	INT bn, mest, est;
+	int16_t cn, pn;
+	int16_t bn, mest, est;
 	cell *c;
 	uchar first, fr;
 
@@ -756,9 +756,9 @@ static void estimate_chain(INT word_pos) {
 	}
 }
 
-static void estimate_letter(cell *C, INT pos) {
+static void estimate_letter(cell *C, int16_t pos) {
 	version *v;
-	INT i, p, pm;
+	int16_t i, p, pm;
 
 	cdv->class = (cdv + 1)->class = (cdv + 2)->class = L_EMPTY;
 	cdv->first = (cdv + 1)->first = (cdv + 2)->first = L_EMPTY;
@@ -813,7 +813,7 @@ static void estimate_letter(cell *C, INT pos) {
 	stloop: ;
 }
 
-static INT class_of_letter(char c) {
+static int16_t class_of_letter(char c) {
 	if (check_upper(c))
 		return L_BIG;
 	if (check_lower(c))
@@ -829,9 +829,9 @@ static void setup_complex() {
 	cdv = beg_dv;
 }
 
-static INT make_best_choice(INT num_var) {
+static int16_t make_best_choice(int16_t num_var) {
 	version *v, wi;
-	INT n;
+	int16_t n;
 
 	v = (cdv + num_var)->C->vers;
 	n = (cdv + num_var)->pos;
@@ -851,9 +851,9 @@ static INT make_best_choice(INT num_var) {
 	return ((cdv + num_var)->back);
 }
 
-static INT find_dig_chr_var() {
-	INT curest, i, wc;
-	INT rp;
+static int16_t find_dig_chr_var() {
+	int16_t curest, i, wc;
+	int16_t rp;
 
 	maxest = 0;
 	admvar = 0;
@@ -958,7 +958,7 @@ static void make_dig_chr_chain() {
 }
 
 static void up_substr(pchar substr) {
-	INT wlet, n, i, shift;
+	int16_t wlet, n, i, shift;
 	dv *cv;
 	cell *wc;
 
@@ -982,7 +982,7 @@ static void up_substr(pchar substr) {
 static void up_rest_str() {
 	cell *wc;
 	dv *cv;
-	INT wlet, i;
+	int16_t wlet, i;
 
 	if (last_dig_dv == NULL)
 		return;
@@ -994,9 +994,9 @@ static void up_rest_str() {
 	}
 }
 
-static INT get_est_substr_in_word(pchar str) {
+static int16_t get_est_substr_in_word(pchar str) {
 	dv *cv;
-	INT n, m, sump, lstr, shift;
+	int16_t n, m, sump, lstr, shift;
 
 	sump = 0;
 	lstr = strlen(str);
@@ -1025,9 +1025,9 @@ static INT get_est_substr_in_word(pchar str) {
 	Ret: return sump;
 }
 
-static INT est_rest_dig(dv *from) {
+static int16_t est_rest_dig(dv *from) {
 	dv *cv;
-	INT i, ret_est;
+	int16_t i, ret_est;
 
 	ret_est = 0;
 	for (cv = from; cv >= beg_dv; cv -= COMP_NVAR) {
@@ -1043,8 +1043,8 @@ static INT est_rest_dig(dv *from) {
 	ERD_Ret: return ret_est;
 }
 
-static INT test_var(pchar str_var) {
-	INT rc, curest;
+static int16_t test_var(pchar str_var) {
+	int16_t rc, curest;
 
 	curest = 0;
 	last_dig_dv = NULL;
@@ -1067,7 +1067,7 @@ static INT test_var(pchar str_var) {
 
 static Bool Lbs_word() {
 	Bool ret_code;
-	INT pos_l, pos_b, pos_s, pos_dot;
+	int16_t pos_l, pos_b, pos_s, pos_dot;
 	cell *c_l, *c_b, *c_s, *c_dot;
 
 	c_l = c_b = c_s = c_dot = NULL;
@@ -1123,7 +1123,7 @@ static Bool Lbs_word() {
 
 static void make_roma_num() {
 	cell *wc;
-	INT i, j;
+	int16_t i, j;
 
 	for (wc = WB, i = 1; ((i <= n_ltr) && (wc->prev != EB)); i++, wc
 			= wc->nextl) {

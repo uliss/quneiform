@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define RASTER_SIZE 128*64/8
 #define RASTER_WIDTH_B 128/8
-INT my_Ps;
+int16_t my_Ps;
 
 servBOX SBOX;
 #define WIDE5x3  170
@@ -89,9 +89,9 @@ uchar  bool5x3;
 
 extern uchar db_status;  // snap presence byte
 extern uchar db_pass;  // current pass letter
-extern INT best_answer_BOX;
+extern int16_t best_answer_BOX;
 
-static INT Proi[][6]=
+static int16_t Proi[][6]=
  {
   {255,230,190,110,50, 0},             // all   DEFAULT
   {255,180,100,70, 40, 0},             // wM@  VERY BAD
@@ -101,7 +101,7 @@ static INT Proi[][6]=
 static uint16_t prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
 //                    100     98     96     93
 
-static INT many_legs(s_glue *);
+static int16_t many_legs(s_glue *);
 
 #include "linutil.h"
 
@@ -110,22 +110,22 @@ static uchar wide_let[] = {166,172,228,232,233,235,238};
 
 //  Add component to box raster
 static void make_box_raster5x3(PWORD matr, c_comp * cp,
-     INT row, INT col, INT h, INT w, lnhead * lp);
+     int16_t row, int16_t col, int16_t h, int16_t w, lnhead * lp);
 
 static void comp_to_box5x3(PWORD matr, c_comp * cp,
         uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
- make_box_raster5x3(matr, cp, row, (INT)((cp->left - col)*5), h, w,
+ make_box_raster5x3(matr, cp, row, (int16_t)((cp->left - col)*5), h, w,
    (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t)));
 }
 
 
 static void make_box_raster5x3(PWORD matr, c_comp * cp,
-     INT row, INT add_col, INT h, INT w, lnhead * lp)
+     int16_t row, int16_t add_col, int16_t h, int16_t w, lnhead * lp)
 {
- INT r3, row_rest, w2, w3, w4;
+ int16_t r3, row_rest, w2, w3, w4;
  PWORD pm, p;
- INT xs, xe, s1, s2, s3, s4, s5;
+ int16_t xs, xe, s1, s2, s3, s4, s5;
  interval * ip;
 
  w2 = w + w;
@@ -184,7 +184,7 @@ fint:;
  if (lp->lth != 0) goto next_line;
 }/*make_box_raster5x3*/
 
-INT crecell5x3(cell *B1, s_glue *GL)
+int16_t crecell5x3(cell *B1, s_glue *GL)
 {
    servBOX save;
 
@@ -199,7 +199,7 @@ INT crecell5x3(cell *B1, s_glue *GL)
 }/*crecell5x3*/
 
 
-INT  isWideLetter( uchar let )
+int16_t  isWideLetter( uchar let )
 {
    if( (language == LANG_RUSSIAN) && memchr(wide_let,to_lower(let),sizeof(wide_let)) )
      return  1;
@@ -207,11 +207,11 @@ INT  isWideLetter( uchar let )
    return  0;
 }/*isWideLetter*/
 
-INT  isKlasterFull( INT typl );
+int16_t  isKlasterFull( int16_t typl );
 
-static INT recBOX(INT rq, INT tpl, INT ftv, cell *BC)
+static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
 {
- INT typl, svr, svh, svw, svc, svmr, svmc, pa, pA, py;
+ int16_t typl, svr, svh, svw, svc, svmr, svmc, pa, pA, py;
  uchar c1, c2, c3;
 uchar p1, p2, p3;
 //extern uchar no_linpen;
@@ -297,16 +297,16 @@ uchar p1, p2, p3;
 }
 extern uchar db_trace_flag;
 
-INT dmiBOX(cell *A, s_glue *GL, INT fl2)
+int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2)
  {
  cell *BC;
  t_answer *v;
- INT i,ps, typl, fvers, ffull, fBOXvers, ftv,  w1, w1max, upper, lower;
- INT *pi1, *pi2;
+ int16_t i,ps, typl, fvers, ffull, fBOXvers, ftv,  w1, w1max, upper, lower;
+ int16_t *pi1, *pi2;
  SVERS svers, fsvers;
  version *dv1, *dv2;
  uint16_t wcos, beste, best3, *pb1, *pb2;
- uchar c, c_acc, pb, wc; INT flit;
+ uchar c, c_acc, pb, wc; int16_t flit;
  char scg, vx, px, pl, flnu, flag_m, flag_rtf, stick;
  char wbuf[256]; // 06-09-94 09:59pm
  char flag_stick=0;  // Oleg : 31.08.92.
@@ -381,7 +381,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
    }  // BEST > 29500
 // express estimate advices  "full" BOX
    typl=0;
-   ps=(INT)get_size();    // try to cut some letters by linear criterion
+   ps=(int16_t)get_size();    // try to cut some letters by linear criterion
    if (ps)
      { typl=recBOX(1,typl,ftv,BC);  set_bad_cell(BC); }
 #ifdef NO_LIN_KLASTER
@@ -398,7 +398,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
      est_snap(db_pass,BC,"use FULL BOX");
    if (GL->arg & GABOXl)
     {typl=15; embBOXF(&SBOX,typl,(Bool)((A->pos_inc&erect_rot)!=0)); goto makeans;}
-   ps=(INT)get_size();    // try to cut some letters by linear criterion
+   ps=(int16_t)get_size();    // try to cut some letters by linear criterion
    if (ps)
    {
      if (!fvers)    // no tiger's - use letters compatile with linear criterion
@@ -528,13 +528,13 @@ makeans:
  if (db_status)
   {
    if ((GL->arg & GABOXt) || (fvers))
-     snap_keep(7,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+     snap_keep(7,(puchar)&SBOX.best_BOX,(int16_t)(BC->nvers*5+1));
    else
      {
       if (GL->arg & GABOXl)
-    snap_keep(8,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+    snap_keep(8,(puchar)&SBOX.best_BOX,(int16_t)(BC->nvers*5+1));
       else
-    snap_keep(10,(puchar)&SBOX.best_BOX,(INT)(BC->nvers*5+1));
+    snap_keep(10,(puchar)&SBOX.best_BOX,(int16_t)(BC->nvers*5+1));
      }
   }
 
@@ -542,10 +542,10 @@ makeans:
    dv1 = BC->vers;
    for(i=0;i<BC->nvers;i++){
       c = dv1[i].let;
-      if( isWideLetter(c) && isKlasterFull((INT)(0x100+c)) )
+      if( isWideLetter(c) && isKlasterFull((int16_t)(0x100+c)) )
       if( dv1[i].prob >= WIDE5x3 ){
           crecell5x3(BC,GL);
-          embBOXF(&SBOX5x3,(INT)(0x100+c),(Bool)((A->pos_inc&erect_rot)!=0));
+          embBOXF(&SBOX5x3,(int16_t)(0x100+c),(Bool)((A->pos_inc&erect_rot)!=0));
           wcos = SBOX5x3.best_BOX->iprob;
           for (px=0,pb1=prob,pi1=Proi[pl],pb2=pb1+1,pi2=pi1+1;
                px<5; px++, pi1++, pb1++,pi2++,pb2++){
@@ -690,7 +690,7 @@ makeans:
   // apply personal trial criteria
 
 personal:
-  if (flit && (BC->h > (my_Ps+1))) promote(0,BC,'t',(INT)(flit+512));
+  if (flit && (BC->h > (my_Ps+1))) promote(0,BC,'t',(int16_t)(flit+512));
   for (w1max=(dv2=BC->vers)->prob;
        (((c_acc=dv2->let) != 0) && ((w1=dv2->prob) != 0)); dv2++)
     {
@@ -874,7 +874,7 @@ make_full:
  ffull=1;
  if (db_status && (db_trace_flag & 4))
    est_snap(db_pass,BC,"now use FULL BOX");
- ps=(INT)get_size();    // try to cut some letters by linear criterion
+ ps=(int16_t)get_size();    // try to cut some letters by linear criterion
  if (ps)
    typl=recBOX(1,0,ftv,BC);
  else typl=15;  // all tiger's were bad - don't believe linear criterion
@@ -889,8 +889,8 @@ make_full:
 
 #include "p2libr.h"
 extern  LONG    all_probs, good_probs, zero_probs;
-INT dmBOX(cell *BC, s_glue *GL)
-{INT ret=0;
+int16_t dmBOX(cell *BC, s_glue *GL)
+{int16_t ret=0;
 if(pass4_in)
   {// OLEG : SERBIAN PASS4
   extern uchar langSer;
@@ -930,10 +930,10 @@ return ret;
 }
 
 char dust_in_pattern;
-INT crepat(cell *A, s_glue *GL, INT var, INT flag)
+int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag)
  {
  cell *BC, *DC;
- INT  d1, e3, e4;
+ int16_t  d1, e3, e4;
  uchar pc;
 
  BC = A;
@@ -1032,8 +1032,8 @@ retpt:
  return GL->ncell;
  }
 
-static INT sv_w, sv_h, sv_r, sv_c, sv_mr, sv_mc, sv_dens;
-static INT sc_w, sc_h, sc_r, sc_c, sc_mr, sc_mc, sc_dens;
+static int16_t sv_w, sv_h, sv_r, sv_c, sv_mr, sv_mc, sv_dens;
+static int16_t sc_w, sc_h, sc_r, sc_c, sc_mr, sc_mc, sc_dens;
 void SBOX_to_static()
  { sv_r=SBOX.up_row;
    sv_c=SBOX.left_col;
@@ -1108,9 +1108,9 @@ void cell_to_svcell(cell *c)
    sc_dens=c->dens;
  }
 
-INT crecell(cell *B1, s_glue *GL, INT var)
+int16_t crecell(cell *B1, s_glue *GL, int16_t var)
  {
- INT wr, wc, ww, wh, wmr, wmc;
+ int16_t wr, wc, ww, wh, wmr, wmc;
  // make raster and (if var & 2) calculate new width,height
  if (!make_broken_raster(GL,var))
   return -1;
@@ -1130,15 +1130,15 @@ INT crecell(cell *B1, s_glue *GL, INT var)
  return GL->ncell;
  }
 
-static INT many_legs(s_glue *GL)
+static int16_t many_legs(s_glue *GL)
  {
  cell *A;
  lnhead  *Lp1;
  char   n1, h1, h2;
  uchar  *wb;
- INT nc, Lc1,lc1,nleg;
+ int16_t nc, Lc1,lc1,nleg;
  struct comp_struc *cp1;
- INT bm;
+ int16_t bm;
 
  nc=0;
  nleg=0;
@@ -1170,12 +1170,12 @@ static INT many_legs(s_glue *GL)
   }
  }
 
-servBOX *make_broken_raster(s_glue *GL, INT rq)
+servBOX *make_broken_raster(s_glue *GL, int16_t rq)
 //
 //      This procedure makes joint raster for several components.
 //
  {
- INT i, bw; LONG m, t,s; uint16_t *p;
+ int16_t i, bw; LONG m, t,s; uint16_t *p;
  c_comp  **cp;
  c_comp  *cp1;
  cell **celist;
@@ -1256,7 +1256,7 @@ void snBOX(cell *b)
  }
 
 
-INT  simpleBOX( cell *C, INT typl ) //(cell,128) for full exept 1l
+int16_t  simpleBOX( cell *C, int16_t typl ) //(cell,128) for full exept 1l
 {
    s_glue  GL;
 
@@ -1271,7 +1271,7 @@ INT  simpleBOX( cell *C, INT typl ) //(cell,128) for full exept 1l
 /*
    if( db_status && snap_activity('h') ){
       char  snap[80],*s=snap;
-      INT   i,n=0;
+      int16_t   i,n=0;
 
       for(i=0;i<VERS_IN_CELL-1;i++){
          if( SBOX.best_BOX[i].ltr == 0 )

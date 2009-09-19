@@ -101,7 +101,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct mn_struc
  {
  void *mnfirstbox; 		// address of the first box
- int16_t mncounter; 		// (was INT) number of living lines in the component
+ int16_t mncounter; 		// (was int16_t) number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
  int16_t mnupper;   		// upper bound of component
  int16_t mnlower; 			// lower bound of component
@@ -159,16 +159,16 @@ typedef struct box_struct BOX;
 
 struct ldescr_struct
  {
- INT y; 	// y coord. of the first interval
- INT l; 	// first interval length
- INT x; 	// x coord. of the end of the first interval
+ int16_t y; 	// y coord. of the first interval
+ int16_t l; 	// first interval length
+ int16_t x; 	// x coord. of the end of the first interval
  };
 typedef struct ldescr_struct LNSTRT;
 
 struct box_interval
  {
- INT l;		// length of interval
- INT d;	        // displacement of the end of the current interval relative
+ int16_t l;		// length of interval
+ int16_t d;	        // displacement of the end of the current interval relative
  };      	//      to the previous
 typedef struct box_interval BOXINT;
 
@@ -177,10 +177,10 @@ typedef struct box_interval BOXINT;
 struct comp_struc
  {
  uint16_t size;     	// size of component in paragraphs >=3
- INT upper;		// upper boundary of component
- INT left;		// left boundary of component
- INT h; 		// height of component
- INT w;	        	// width of component
+ int16_t upper;		// upper boundary of component
+ int16_t left;		// left boundary of component
+ int16_t h; 		// height of component
+ int16_t w;	        	// width of component
  uchar rw;               // raster width in bytes
  uchar type;     	// recognition type
 #define ch_perfect    1	    // perfect type defined
@@ -193,10 +193,10 @@ struct comp_struc
 #define ch_notltr   128	    // not letter or punctuation
  uchar cs;	        // recognition case (see bellow)
  uchar pidx;	        // proportional index (ref.)
- INT nvers;		// number of alternative versions
- INT records;		// recognition records offset
- INT lines;		// ptr to line representation
- INT nl;		// number of lines
+ int16_t nvers;		// number of alternative versions
+ int16_t records;		// recognition records offset
+ int16_t lines;		// ptr to line representation
+ int16_t nl;		// number of lines
  uchar begs;     	// number of free begins
  uchar ends;	        // number of free ends
  uchar reasno;           // proportional criteria messages
@@ -214,8 +214,8 @@ typedef struct comp_struc c_comp;
 struct dust_comp_struc
  {
   uint16_t size;            // =1
-  INT  upper;
-  INT  left;
+  int16_t  upper;
+  int16_t  left;
   uchar h;               // >0
   uchar w;               // >0
   uchar raster[8];
@@ -225,8 +225,8 @@ typedef struct dust_comp_struc dust_comp;
 struct file_comp_struct
  {
  uint16_t  size;           // =1
- INT   upper;
- INT   left;
+ int16_t   upper;
+ int16_t   left;
  uchar  h;              // =0
  uchar  w;              // =0
 uint32_t offset;
@@ -251,16 +251,16 @@ typedef struct vers_struct version;
 struct stick_struct
  {
  char x,y,l,w,top,bot;
- INT incl;
+ int16_t incl;
  };
 typedef struct stick_struct STICK;
 
 struct cell_struc
  {
- INT row; 	// ideal row of cell
- INT col; 	// ideal collumn of cell
- INT h; 	// height of cell
- INT w; 	// width of cell
+ int16_t row; 	// ideal row of cell
+ int16_t col; 	// ideal collumn of cell
+ int16_t h; 	// height of cell
+ int16_t w; 	// width of cell
  c_comp *env;     // envelope and line representation ptr
  struct cell_struc *next; 	// next in all string
  struct cell_struc *prev; 	// prev in all string
@@ -291,9 +291,9 @@ struct cell_struc
  char bas2;
  char bas3;
  char bas4;
- INT r_row;     // real row of cell
- INT r_col; 	// real collumn of cell
- INT nvers; 	// number of versions
+ int16_t r_row;     // real row of cell
+ int16_t r_col; 	// real collumn of cell
+ int16_t nvers; 	// number of versions
  version vers[VERS_IN_CELL];
  uchar cg_flag;  // cut-to-glue message
 #define c_cg_noglue     1   // don't glue to ... ( just cut )
@@ -349,7 +349,7 @@ struct cell_struc
 #define c_rs_BOX 2   // BOX done
 #define c_rs_BOXs 4  // BOX > "29500"
 #define c_rs_bitcmp 8  // bit compare takes versions
- INT  stick_inc;   // inc of stick
+ int16_t  stick_inc;   // inc of stick
 #define NO_INCLINE 10000 // not init incline
  c_comp *complist;   // if no envelope - list of envelopes
  uchar bas_acc;       // cell's relations with bases
@@ -357,8 +357,8 @@ struct cell_struc
 #define c_ba_b2  2    // accepted  to b2
 #define c_ba_killed 4 // temporary: all versions killed by linear
 #define c_ba_chance 8 // one more chance for cut version
- INT left;            // left  of main part (without accent)
- INT right;           // right of main part (without accent)
+ int16_t left;            // left  of main part (without accent)
+ int16_t right;           // right of main part (without accent)
  uchar shape;
 #define c_shp_cap   1
 #define c_shp_stick 2
@@ -382,7 +382,7 @@ struct cell_struc
 #define erect_zero     8   // disable rotate and cursive study
 #define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&tenv(c) ) \
              { (c)->stick_inc=inc; (c)->pos_inc=inc?erect_rot:erect_zero; }
- INT  save_stick_inc;   // save_inc of stick
+ int16_t  save_stick_inc;   // save_inc of stick
  uchar cg_flag_fine;        // type of cutting position
 #define c_cg_cut_tl     0x01    // left top    cutten
 #define c_cg_cut_ml     0x02    // left middle cutten
@@ -415,9 +415,9 @@ typedef struct cell_struc cell;
 //	line header
 struct ln_head
  {
- INT lth;	// length of one line representation
- INT h;		// height of line
- INT row;	// relative row of line start
+ int16_t lth;	// length of one line representation
+ int16_t h;		// height of line
+ int16_t row;	// relative row of line start
  uchar flg;	// flags of free beg and free end
 #define l_fbeg		0x20
 #define l_fend		0x80
@@ -445,17 +445,17 @@ typedef struct large_int_s large_interval;
 
 struct str_struc
  {
- INT row;             // upper of line
- INT col;             // left of line
- INT lower;           // lower of line
- INT right;           // right of line
+ int16_t row;             // upper of line
+ int16_t col;             // left of line
+ int16_t lower;           // lower of line
+ int16_t right;           // right of line
  uint16_t dust;           // end of letter ptrs
  uint16_t end;            // end of dust ptrs
  uint16_t lth;
  uint16_t first;
  uint16_t last;
  uint16_t scale;		// scale of the string
- INT fragment;		// fragment of the string
+ int16_t fragment;		// fragment of the string
  uchar language;         // language of the string
  c_comp *c__comp[1];       // array of ptrs to components
  };
@@ -465,8 +465,8 @@ typedef struct str_struc str;
 
 struct baseline_struct
  {
- INT b0,b1,b2,b3,b4,bm,ps;    // four base lines, middle line, point size
- INT n1,n2,n3,n4;
+ int16_t b0,b1,b2,b3,b4,bm,ps;    // four base lines, middle line, point size
+ int16_t n1,n2,n3,n4;
  };
 typedef struct baseline_struct B_LINES;
 
@@ -474,7 +474,7 @@ typedef struct baseline_struct B_LINES;
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_
 
-struct POINT_S {INT row,col;} ;
+struct POINT_S {int16_t row,col;} ;
 
 struct rule_struct
  {
@@ -500,7 +500,7 @@ typedef struct frame_struct FRAME;
 #define TO_FDF(i) ((i)<FDSIZE ? (i):0)
 
 struct FragmentDescriptor {
-      INT  user_num;  // Number of USER
+      int16_t  user_num;  // Number of USER
       uchar language;  // Language of fragments
       uchar reserv;
       };

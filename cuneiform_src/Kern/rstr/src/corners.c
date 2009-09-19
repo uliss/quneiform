@@ -74,19 +74,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define AVOID_PRYSCH 3
 
 /************** all function prototypes ***********************************/
-INT u_around_bl_corner ( s_glue * );
-INT n_around_ur_corner ( s_glue * );
+int16_t u_around_bl_corner ( s_glue * );
+int16_t n_around_ur_corner ( s_glue * );
 void comp_row_col( s_glue * );
 static void comp_parms( uchar );
-// static INT bottom_right_corner (puchar, uchar, uchar, uchar);
-static INT bottom_left_corner (puchar, uchar, uchar, uchar);
-static INT upper_right_corner (puchar, uchar, uchar, uchar);
-//static INT upper_left_corner (puchar, uchar, uchar, uchar);
+// static int16_t bottom_right_corner (puchar, uchar, uchar, uchar);
+static int16_t bottom_left_corner (puchar, uchar, uchar, uchar);
+static int16_t upper_right_corner (puchar, uchar, uchar, uchar);
+//static int16_t upper_left_corner (puchar, uchar, uchar, uchar);
 static Bool is_italic();
 static void compare_corners_mass();
 static void make_straight_abris (s_glue *, puchar, puchar);
-static INT func_mode_val( puchar func, uchar from, uchar to);
-static INT left_right_dist();
+static int16_t func_mode_val( puchar func, uchar from, uchar to);
+static int16_t left_right_dist();
 /*************************************************************************/
 
 extern servBOX SBOX;
@@ -97,21 +97,21 @@ uchar l_tab_shift[128];       // the tables of shifts ( avoiding italic
 uchar r_tab_shift[128];       //  and oblique )
 
 #define ST_PEN_NUM 5
-static INT pen_for_staires[ST_PEN_NUM+1] = { 0, 14, 36, 60, 72, 120 };
+static int16_t pen_for_staires[ST_PEN_NUM+1] = { 0, 14, 36, 60, 72, 120 };
 #define LRD_PEN_NUM 7
-static INT pen_for_left_right_dist[LRD_PEN_NUM+1] =
+static int16_t pen_for_left_right_dist[LRD_PEN_NUM+1] =
                                      { 0, 0, 12, 46, 80, 120, 160, 220 };
 static uchar comp_h, un_code;
 static uchar num_st, beg_zone, end_zone;
-static INT pen_u, pen_n;
-static INT maxrow, maxcol, minrow, mincol;
+static int16_t pen_u, pen_n;
+static int16_t maxrow, maxcol, minrow, mincol;
 
 
 #define Let_n   2
 #define Let_u   4
-void discrim_un( cell *GC, s_glue *GL, INT cod_let )
+void discrim_un( cell *GC, s_glue *GL, int16_t cod_let )
 {
-INT wi;
+int16_t wi;
 
  memset ( l_tab_shift, 0, sizeof (l_tab_shift) );
  memset ( r_tab_shift, 0, sizeof (r_tab_shift) );
@@ -143,19 +143,19 @@ INT wi;
 ApplyPenalty:
  if ( pen_u )
   {
-   cell_bonus_let(GC, 'u', (INT)(-(pen_u)) );
+   cell_bonus_let(GC, 'u', (int16_t)(-(pen_u)) );
    sort_vers( GC );
   }
  if ( pen_n )
   {
-   cell_bonus_let(GC, 'n', (INT)(-(pen_n)) );
+   cell_bonus_let(GC, 'n', (int16_t)(-(pen_n)) );
    sort_vers( GC );
   }
 }
 
 static void make_straight_abris (s_glue *GL, puchar left_shift, puchar right_shift)
 {
-    INT             i, j, y;
+    int16_t             i, j, y;
     uchar            beg, end;
     interval        *cur_int;
     lnhead          *Line;
@@ -169,7 +169,7 @@ static void make_straight_abris (s_glue *GL, puchar left_shift, puchar right_shi
   while ( (WC=GL->celist[j]) != NULL )
   {
     // set address of the first line
-    Line = (lnhead *)(((puchar) (WC -> env)) + WC -> env -> lines + sizeof (INT));
+    Line = (lnhead *)(((puchar) (WC -> env)) + WC -> env -> lines + sizeof (int16_t));
 
     while ( Line -> lth )        // loop for all lines
     {
@@ -196,10 +196,10 @@ static void make_straight_abris (s_glue *GL, puchar left_shift, puchar right_shi
 }
 
 /*********************
-static INT upper_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
+static int16_t upper_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 {
-    INT  dif;
-    INT  st, prev, cur;
+    int16_t  dif;
+    int16_t  st, prev, cur;
 
  for ( st=0, cur=to-1, prev=to; ( cur>=from && st<minst ); prev--, cur-- )
   {
@@ -220,10 +220,10 @@ static INT upper_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 }
 *******************/
 
-static INT upper_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
+static int16_t upper_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
 {
-    INT dif;
-    INT st, prev, cur;
+    int16_t dif;
+    int16_t st, prev, cur;
 
  for ( st=0, cur=to-1, prev=to; ( cur>=from && st<minst ); prev--, cur-- )
   {
@@ -243,10 +243,10 @@ static INT upper_right_corner (puchar s_right, uchar from, uchar to, uchar minst
 }
 
 
-static INT bottom_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
+static int16_t bottom_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 {
-    INT  dif;
-    INT  st, prev, cur;
+    int16_t  dif;
+    int16_t  st, prev, cur;
 
  for ( st=0, cur=from+1, prev=from; ( cur <= to && st<minst ); prev++, cur++ )
   {
@@ -268,10 +268,10 @@ static INT bottom_left_corner (puchar s_left, uchar from, uchar to, uchar minst)
 
 
 /*****************
-static INT bottom_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
+static int16_t bottom_right_corner (puchar s_right, uchar from, uchar to, uchar minst)
 {
-    INT  dif;
-    INT  st, prev, cur;
+    int16_t  dif;
+    int16_t  st, prev, cur;
 
  for ( st=0, cur=from+1, prev=from; ( cur <= to && st<minst ); prev++, cur++ )
   {
@@ -308,7 +308,7 @@ static void comp_parms( uchar fullh )
 void comp_row_col( s_glue *GL )
 {
 cell * curc;
-INT j;
+int16_t j;
 
   maxrow = maxcol = -32000;
   minrow = mincol = 32767;
@@ -327,10 +327,10 @@ INT j;
  GL->width = maxcol - mincol;
 }
 
-INT n_around_ur_corner ( s_glue *GL )
+int16_t n_around_ur_corner ( s_glue *GL )
 {
  uchar from, to, np;
- INT ret_pen;
+ int16_t ret_pen;
 
   ret_pen = 0;
   comp_parms ( (uchar)GL->height );
@@ -344,10 +344,10 @@ INT n_around_ur_corner ( s_glue *GL )
   return ret_pen;
 }
 
-INT u_around_bl_corner ( s_glue *GL )
+int16_t u_around_bl_corner ( s_glue *GL )
 {
  uchar from, to, np;
- INT ret_pen;
+ int16_t ret_pen;
 
   comp_parms ( (uchar)GL->height );
   from = beg_zone;
@@ -365,7 +365,7 @@ INT u_around_bl_corner ( s_glue *GL )
 static Bool is_italic()
 {
 uchar h14, i;
-INT lmax, xmax;
+int16_t lmax, xmax;
 
  h14 =(comp_h>>2);
  for ( xmax=h14, lmax=0, i=h14; i < comp_h - 2; i++ )
@@ -390,7 +390,7 @@ INT lmax, xmax;
 
 static void compare_corners_mass()
 {
-INT  d;
+int16_t  d;
 
  d = mBOX[2] - mBOX[12];
  if ( d > 0 )
@@ -405,9 +405,9 @@ INT  d;
   }
 }
 
-static INT left_right_dist()
+static int16_t left_right_dist()
 {
-INT lmd, rmd, h14;
+int16_t lmd, rmd, h14;
 uchar j;
 
    h14 = (comp_h >> 2);
@@ -419,10 +419,10 @@ uchar j;
    return pen_for_left_right_dist[j];
 }
 
-static INT func_mode_val( puchar func, uchar from, uchar to)
+static int16_t func_mode_val( puchar func, uchar from, uchar to)
 {
-INT ans;
-INT i, j, maxv;
+int16_t ans;
+int16_t i, j, maxv;
 uchar counts[128];
 
   memset ( counts, 0, sizeof( counts ) );

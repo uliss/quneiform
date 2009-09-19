@@ -90,9 +90,9 @@ ArtFH  *        SpABCroot;
 
 /* ------------------------------------------------------------------ */
 
-extern LONG read_all_vtab(INT,char  *);
+extern LONG read_all_vtab(int16_t,char  *);
 
-uchar  * load_specABC (uchar  *point, INT Country)
+uchar  * load_specABC (uchar  *point, int16_t Country)
 {
   uchar  *a;
   uchar  *  *b;
@@ -152,7 +152,7 @@ uchar  * load_specABC (uchar  *point, INT Country)
 
 /* ------------------------------------------------------------------ */
 
-INT check_art_dict (char word[], INT * wordlth, INT * vockind)
+int16_t check_art_dict (char word[], int16_t * wordlth, int16_t * vockind)
 {
 
       char                      no;
@@ -215,9 +215,9 @@ INT check_art_dict (char word[], INT * wordlth, INT * vockind)
 
 /* ------------------------------------------------------------------ */
 
-INT test_apppostrof (uchar word[],SWORD *wrd, INT *l, INT *r)
+int16_t test_apppostrof (uchar word[],SWORD *wrd, int16_t *l, int16_t *r)
  {
-  INT       i, pref, apf, postf;
+  int16_t       i, pref, apf, postf;
   uchar       *p,  *pp;
   char   CapWord[MAX_WORD_SIZE];
 

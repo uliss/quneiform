@@ -77,42 +77,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 extern uchar fax1x2;
-extern INT pitchsize;
-extern INT current_fragment;
-extern INT line_number;
+extern int16_t pitchsize;
+extern int16_t current_fragment;
+extern int16_t line_number;
 extern uchar language;
 extern uchar db_status;
 
 static B_LINES bl;
-static INT H;
-static INT curr_frag;
+static int16_t H;
+static int16_t curr_frag;
 static cell *clist[2];
 
-INT dist_point_of_i_1,dist_point_of_i_2,
+int16_t dist_point_of_i_1,dist_point_of_i_2,
     dist_point_of_i_3,dist_point_of_i_b;
 
-INT AnglesCurve(uchar *raster,INT D_X,INT hei);
+int16_t AnglesCurve(uchar *raster,int16_t D_X,int16_t hei);
 
-static INT upper_dot_I(cell *c);
-static INT upper_right_angle(cell *c);
+static int16_t upper_dot_I(cell *c);
+static int16_t upper_right_angle(cell *c);
 static void test_rq(cell *);
 static void test_c(cell *);
-static INT long_line_c(cell *);
+static int16_t long_line_c(cell *);
 static void crit_oa(cell *);
-static INT short_lines(cell *);
-// static INT n_or_ri(cell *);
+static int16_t short_lines(cell *);
+// static int16_t n_or_ri(cell *);
 // static void n_or_u(cell *,version *);
 // static uchar left_line(cell *);
-//static INT ij_dot(cell *);
-static INT excl_dot(cell *);
-static INT inv_dot(cell *);
-static INT not_rt(cell *);
-static INT long_lines_rt(cell *);
-static INT not_ff(cell *);
-static INT long_lines_ff(cell *);
-// static INT not_1(cell *);
-// static INT not_no(cell *);
-static INT upper_right_line(cell *);
+//static int16_t ij_dot(cell *);
+static int16_t excl_dot(cell *);
+static int16_t inv_dot(cell *);
+static int16_t not_rt(cell *);
+static int16_t long_lines_rt(cell *);
+static int16_t not_ff(cell *);
+static int16_t long_lines_ff(cell *);
+// static int16_t not_1(cell *);
+// static int16_t not_no(cell *);
+static int16_t upper_right_line(cell *);
 uint32_t check_letter(cell *c, uchar let); // 18.06.2002 E.P.
 
 void criteries()
@@ -147,9 +147,9 @@ void criteria (cell *c)
  {
  uchar  let,*raster;
  version *vers;
- INT r,flacc,flon,inc; //,dl,dr;
+ int16_t r,flacc,flon,inc; //,dl,dr;
  version    save[VERS_IN_CELL];
- INT    snvers;
+ int16_t    snvers;
 
 // #define PROB_V_OK 170
 if( c->nvers>0 )
@@ -158,7 +158,7 @@ snvers=c->nvers;
  if (!c->nvers)
   return;
  get_b_lines(c,&bl);
- H=(INT)get_size();
+ H=(int16_t)get_size();
  if (c->nvers==1 && c->vers[0].let=='>')
   test_rq(c);
  if (c->nvers==1 && ((let=c->vers[0].let)=='c' || let=='C') ||
@@ -173,7 +173,7 @@ snvers=c->nvers;
 { //Andrew
   if( (let=vers->let) == liga_CC || let == liga_CR ){
      raster = save_raster(c);
-     inc = AnglesCurve(raster,(INT)((c->w+7)/8),c->h);
+     inc = AnglesCurve(raster,(int16_t)((c->w+7)/8),c->h);
      inc = (4-inc)*40;
      if( 3*c->w > 4*c->h )
        inc += 150;
@@ -333,13 +333,13 @@ static void test_c(cell *c)
   }
  }
 
-static INT long_line_c(cell *c)
+static int16_t long_line_c(cell *c)
  {
  lnhead *line;
- INT l;
+ int16_t l;
  interval *i;
 
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->flg&l_fbeg && line->flg&l_fend)
    {
@@ -354,7 +354,7 @@ static INT long_line_c(cell *c)
 
 static void crit_oa(cell *c)
  {
- INT r;
+ int16_t r;
 
  if (tenv(c) && (r=short_lines(c))>0)
   {
@@ -402,14 +402,14 @@ static void crit_oa(cell *c)
   }
  }
 
-static INT short_lines(cell *c)
+static int16_t short_lines(cell *c)
  {
  lnhead *line;
  interval *intval;
- INT l,row,col,h,w,a;
+ int16_t l,row,col,h,w,a;
  uchar flg;
 
- for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
   if ((h=line->h)<=2)
    {
@@ -429,9 +429,9 @@ static INT short_lines(cell *c)
  }
 
 /*
-static INT n_or_ri(cell *c)
+static int16_t n_or_ri(cell *c)
  {
- INT r;
+ int16_t r;
  version *v1,*v2;
 
  if (!pitchsize && dot_ri(c))
@@ -466,7 +466,7 @@ static INT n_or_ri(cell *c)
 cell *dot_ri(cell *c)
  {
  cell *cc;
- INT e;
+ int16_t e;
 
  get_b_lines(c,&bl);
  for (e=c->col+c->w,cc=c->prevl->next; cc->col<=e; cc=cc->next)
@@ -516,10 +516,10 @@ static void n_or_u(cell *c,version *vers)
 static uchar left_line(cell *c)
  {
  lnhead *line;
- INT l,H,h,b1,b2,e1,e2;
+ int16_t l,H,h,b1,b2,e1,e2;
  interval *i1,*i2;
 
- for (H=c->h,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (H=c->h,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			  (l=line->lth)>0; line=(lnhead *)((pchar)line+l) )
   if (line->flg&l_fend && (h=line->h)>=3*H/4 && line->row+h+2>=H)
    {
@@ -539,11 +539,11 @@ static uchar left_line(cell *c)
  }
 */
 
-INT ij_test(cell *c)
+int16_t ij_test(cell *c)
  {
  version *v1,*v2;
  cell cc;
- INT r,n;
+ int16_t r,n;
 
  for (v1=c->vers; v1->let && v1->let!='i' && v1->let!='j'; v1++) ;
  if (!(v1->let))
@@ -596,10 +596,10 @@ INT ij_test(cell *c)
 
 #define TRPROB 50
 // OLEG : SERBIAN PASS4
-/*static*/ INT ij_dot(cell *c)
+/*static*/ int16_t ij_dot(cell *c)
  {
  version *v,*v1,*v2;
- INT d;
+ int16_t d;
  cell *cc=0;	// 17.06.2002 E.P.
 
  cc=dot_ij(c);
@@ -745,7 +745,7 @@ extern strucI workI;
 cell *dot_iUkr(cell *c)
  {
  cell *cc,*csv;
- INT e,H,rw;
+ int16_t e,H,rw;
 
  workI.rd = NULL;
  workI.ld = NULL;
@@ -828,7 +828,7 @@ if( workI.rd && workI.ld == NULL ){
 cell *dot_ij(cell *c)
  {
  cell *cc,*csv;
- INT e,d,H;
+ int16_t e,d,H;
  uchar let = 0;
 
    if( language == LANG_RUSSIAN && langUkr )
@@ -888,7 +888,7 @@ cell *dot_ij(cell *c)
  return csv;
  }
 
-static INT excl_dot(cell *c)
+static int16_t excl_dot(cell *c)
  {
  version *v1,*v2;
 
@@ -932,7 +932,7 @@ static INT excl_dot(cell *c)
 cell *dot_excl(cell *c)
  {
  cell * cc;
- INT e,H;
+ int16_t e,H;
 
 
  for (e=c->col+c->w,cc=c->prevl->next; cc->col<=e&&cc!=cell_l(); cc=cc->next)
@@ -952,7 +952,7 @@ cell *dot_excl(cell *c)
  return NULL;
  }
 
-static INT inv_dot(cell *c)
+static int16_t inv_dot(cell *c)
  {
  version *v1,*v2;
 
@@ -996,7 +996,7 @@ static INT inv_dot(cell *c)
 cell *dot_inv(cell *c)
  {
  cell * cc;
- INT e,H;
+ int16_t e,H;
 
  get_b_lines(c,&bl); H=bl.ps;
  for (e=c->col+c->w,cc=c->prevl->next; cc->col<=e; cc=cc->next)
@@ -1015,7 +1015,7 @@ cell *dot_inv(cell *c)
 void v_to_y(cell * c, uchar compose)
  {
  cell * cc;
- INT e;
+ int16_t e;
 
  for (e=c->col+c->w,cc=c->prevl->next; cc->col<=e; cc=cc->next)
   if (cc->flg&(c_f_dust+c_f_punct) &&
@@ -1048,7 +1048,7 @@ void v_to_y(cell * c, uchar compose)
 void c_to_ctail(cell * c, uchar compose)
  {
  cell *cc;
- INT e;
+ int16_t e;
  version *v;
  uchar str[10];
 
@@ -1083,7 +1083,7 @@ void c_to_ctail(cell * c, uchar compose)
    }
  }
 
-static INT not_rt(cell *c)
+static int16_t not_rt(cell *c)
  {
  version *v1,*v2;
 
@@ -1110,14 +1110,14 @@ static INT not_rt(cell *c)
  return 0;
  }
 
-static INT long_lines_rt(cell *c)
+static int16_t long_lines_rt(cell *c)
  {
  lnhead *line,*ln1,*ln2;
- INT l,m1,m2;
+ int16_t l,m1,m2;
  interval *i1,*i2;
 
  for (m1=m2=1000,
-	  ln1=line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	  ln1=line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			     (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->flg&l_fbeg && line->h>=2)
    {
@@ -1135,7 +1135,7 @@ static INT long_lines_rt(cell *c)
  return 0;
  }
 
-static INT not_ff(cell *c)
+static int16_t not_ff(cell *c)
  {
  version *v1,*v2;
 
@@ -1163,13 +1163,13 @@ static INT not_ff(cell *c)
  return 0;
  }
 
-static INT long_lines_ff(cell *c)
+static int16_t long_lines_ff(cell *c)
  {
  lnhead *line,*ln1,*ln2;
- INT l,m1,m2;
+ int16_t l,m1,m2;
 
  for (m1=m2=1000,
-	  ln1=line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	  ln1=line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			    (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->flg&l_fbeg && line->h>=2)
    {
@@ -1186,7 +1186,7 @@ static INT long_lines_ff(cell *c)
  }
 
 /*
-static INT not_1(cell *c)
+static int16_t not_1(cell *c)
  {
  version *v1,*v2;
 
@@ -1218,7 +1218,7 @@ static INT not_1(cell *c)
 */
 
 /*
-static INT not_no(cell *c)
+static int16_t not_no(cell *c)
  {
  version *v1,*v2;
 
@@ -1238,20 +1238,20 @@ static INT not_no(cell *c)
  }
 */
 
-static INT upper_right_line(cell *c)
+static int16_t upper_right_line(cell *c)
  {
  lnhead *line;
  interval *intval;
- INT l,e,max,min,i;
+ int16_t l,e,max,min,i;
 
- for (e=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (e=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
   if (line->h>=(c->h)/2)
    {
    intval=(interval *)((pchar)line+sizeof(lnhead));
    if (intval->e>e) e=intval->e;
    }
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
   if (line->h<=(c->h)/4 && line->flg&l_fbeg && line->row<=c->h/4)
    {
@@ -1285,11 +1285,11 @@ return 0;
 /////////////
 // Nick 18.06.2002
 #define MAX_UPR 32
-static INT upper_right_angle(cell *c)
+static int16_t upper_right_angle(cell *c)
  {
  lnhead *line;
  interval *intval;
- INT l,i;
+ int16_t l,i;
  int maxH = MIN(MAX_UPR,c->h/3);
  int nDuga = 0;
  int nBigLine = 0;
@@ -1305,7 +1305,7 @@ static INT upper_right_angle(cell *c)
 	for(i=0;i< maxH ;i++)
 		lBound[i] = c->w;
 
-	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)  )
 	{
 		if( line->h * 4 >= c->h * 3 )
@@ -1357,11 +1357,11 @@ static INT upper_right_angle(cell *c)
 /////////////
 /////////////
 // Nick 23.06.2002
-static INT upper_dot_I(cell *c)
+static int16_t upper_dot_I(cell *c)
  {
  lnhead *line;
  interval *intval;
- INT l,i;
+ int16_t l,i;
  int maxH = MIN(MAX_UPR,c->h/3);
  int nBigLine = 0;
  int rBound[MAX_UPR];
@@ -1375,7 +1375,7 @@ static INT upper_dot_I(cell *c)
 	for(i=0;i< maxH ;i++)
 		lBound[i] = c->w;
 
-	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)  )
 	{
 		if( line->h * 4 >= c->h * 3 )

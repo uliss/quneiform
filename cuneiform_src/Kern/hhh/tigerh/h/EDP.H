@@ -99,16 +99,16 @@ typedef struct d_dp {
 #define TERM     0x08    // terminal part
 #define NEW      0x20    // not yet splitted
 #define NONREST  0x40    // not yet restructed
-	INT x, w, y, h; // coordinates and sizes
+	int16_t x, w, y, h; // coordinates and sizes
 	struct d_dp *parent; // encompassing part
 	struct d_dp *next; // next and previsious parts
 	struct d_dp *prev; //   of the same level
 	struct d_dp *first; // first and last subparts
 	struct d_dp *last; //  (if not terminal)
-	INT npart; // number of subparts
+	int16_t npart; // number of subparts
 	struct d_df *fr1; // first fragment
 	struct d_df *fr2; // next of last fragment
-	INT nfrag; // number of fragments;
+	int16_t nfrag; // number of fragments;
 } DP;
 
 //*****************************************************************************
@@ -116,15 +116,15 @@ typedef struct d_dp {
 typedef struct d_df {
 	struct d_df* next; // Next fragment in the chain
 	struct d_df* prev; // Prev fragment in the chain
-	INT x, w; // Horizontal position of alignement borders in TIF
-	INT y, h; // Vertical position
+	int16_t x, w; // Horizontal position of alignement borders in TIF
+	int16_t y, h; // Vertical position
 	FDD* fdd; // FDD address
 	struct d_dl* line1; // First line address
 	struct d_dl* line2; // Last  line address
 	struct d_dp* part; // Terminal part adress
-	INT num; // Number of fragment givet automatically
-	INT user_num; // Number of fragment given by user
-	INT lplain; // Width of fragment in ED text mode
+	int16_t num; // Number of fragment givet automatically
+	int16_t user_num; // Number of fragment given by user
+	int16_t lplain; // Width of fragment in ED text mode
 	uint16_t type;
 #define ONE_LINE      0x0001
 #define LEFT_ALLIGN   0x0002
@@ -146,11 +146,11 @@ typedef struct d_df {
 #define DEL           (NOT_RECOG|BORDER)
 #define FICT_FR_FLAGS (BORDER|BRACKET)
 
-	INT base; // Regular margin from 'x'
-	INT xmin; // Calculated minimum x-coord for fragment
+	int16_t base; // Regular margin from 'x'
+	int16_t xmin; // Calculated minimum x-coord for fragment
 	struct d_df *rel_fr; // for centered fragment - centered parent
 	// TAB_BEG - list of cells sizes (x,w)
-	INT pnum; // if TAB_BEG | MCOL_BEG - number of cells/columns
+	int16_t pnum; // if TAB_BEG | MCOL_BEG - number of cells/columns
 } DF;
 
 #define fict_fr(a) (a->type & (FICT_FR_FLAGS))
@@ -159,26 +159,26 @@ typedef struct d_df {
 typedef struct d_dl {
 	struct d_dl*next; // Adress of the next line in the column
 	struct d_dl*prev; // Adress of the prev line in the column
-	INT baseline; // 3d baseline position (ideal)
-	INT upper; // Upper boundary of the line
+	int16_t baseline; // 3d baseline position (ideal)
+	int16_t upper; // Upper boundary of the line
 	uchar height; // Height beetween 2nd and 3rd baselines
 	uchar pitch; // Pitch - number of plain characters per inch or 0.
-	INT x, w; // Horizontal position
+	int16_t x, w; // Horizontal position
 	uchar paragraph;
 #define ORD_LN   0
 #define NEW_PAR  0x1        // new paragraph
 #define BUL_PAR  0x2        // paragraph with bullet
-	INT indent; // size of indent (only if paragraph)
-	INT bulind; // size of bullet indent (only if bullet)
+	int16_t indent; // size of indent (only if paragraph)
+	int16_t bulind; // size of bullet indent (only if bullet)
 	uint16_t type; // 0 for deleted line
 #define DL_HUGE_XW   0x1      // XW changed due to huge letter
 #define DL_HUGE      0x2      // Huge letter
 #define DL_ASSEMBLY  0x4      // Line assembled from pieces
 #define DL_SINGLE    0x8      // Single-letter line
 	uchar* edbeg; // Address of the ED-text
-	INT edlth; // It's length
-	INT npieces; // Number of original pieces within line - 1
-	INT lplain; // Number of print characters including spaces
+	int16_t edlth; // It's length
+	int16_t npieces; // Number of original pieces within line - 1
+	int16_t lplain; // Number of print characters including spaces
 } DL;
 
 // RTF segment header
@@ -187,7 +187,7 @@ typedef struct d_dl {
 //    void*   next;           // Next segment
 //    void*   begtext;        // Begin of used space in the segment
 //    void*   endtext;        // End of used space in the segment
-//    INT     flag;
+//    int16_t     flag;
 // #define SEG_MALLOC 1        // Segment was created by malloc
 //    } SEG;
 
@@ -196,8 +196,8 @@ struct line_ref {
 	struct line_ref * prev;
 	DF * frag;
 	DL * line;
-	INT finy;
-	INT x;
+	int16_t finy;
+	int16_t x;
 	uint16_t width;
 	uint16_t indent;
 	uint16_t base;
@@ -210,20 +210,20 @@ typedef struct line_ref LREF;
 
 //*****************************************************************************
 typedef struct {
-	INT dpi; // Resolution of scanner in dots per inch
-	INT turn; // Turn of page: turn=(xideal-xreal)/yreal*2048=
+	int16_t dpi; // Resolution of scanner in dots per inch
+	int16_t turn; // Turn of page: turn=(xideal-xreal)/yreal*2048=
 	//                   =(yreal-yideal)/xreal*2048
 	// Symbol substitutions
 	char subst_bad; // Subst. for not recognized character
 	char subst_dash[3]; // Subst. for dash
 
 	// E	D
-	INT edfile; // ED-file handle
+	int16_t edfile; // ED-file handle
 	uchar *edbeg; // Begin address of the ED file
 	uchar *edcur; // Current address in the ED-file
 	uchar *edfree; // End ptr to ED-file
 	SDD* psdd; // ED header
-	INT font; // Font properties as in ED struct font_kegle
+	int16_t font; // Font properties as in ED struct font_kegle
 
 #define FONT_SERIFIC       1
 #define FONT_HELVETIC      2
@@ -239,22 +239,22 @@ typedef struct {
 	// Fragments
 	DF* frag; // Table of fragments
 	DF* pf; // Current frag address
-	INT nf; // It's number
-	INT nfrag; // No of fragments
+	int16_t nf; // It's number
+	int16_t nfrag; // No of fragments
 
 	// Lines
 	DL* line; // Table of lines
 	DL* pl; // Current line desc address
-	INT nl; // It's number
-	INT qlines; // No of lines
+	int16_t nl; // It's number
+	int16_t qlines; // No of lines
 
 	// Graph of fragments
-	INT* graph; // Array of exits
-	INT qgr; // No of used elements in array
+	int16_t* graph; // Array of exits
+	int16_t qgr; // No of used elements in array
 
 
 	// Debug
-	INT debug; // 1-debug activated
+	int16_t debug; // 1-debug activated
 	FILE *prt; // Debug print file
 
 	//  External memory pool
@@ -263,8 +263,8 @@ typedef struct {
 
 	// Control of dynamic memory taken by malloc's
 	uint32_t dynmem_size; // Total count of dynamic memory size
-	INT tables_in_dynamic_memory; // Flag =1 if tables are in dynamic mem
-	INT ed_in_dynamic_memory; // Flag =1 if ED is in dynalic memory
+	int16_t tables_in_dynamic_memory; // Flag =1 if tables are in dynamic mem
+	int16_t ed_in_dynamic_memory; // Flag =1 if ED is in dynalic memory
 
 
 	// Follow coordinates in TIFF
@@ -284,13 +284,13 @@ typedef struct {
 	uchar table_flag; // table flag
 
 	// ED save working area
-	INT Xmin; // Minimal left coordinate of all fragments
-	INT Xmax; // Maximal right coordinate of all fragments
+	int16_t Xmin; // Minimal left coordinate of all fragments
+	int16_t Xmax; // Maximal right coordinate of all fragments
 	PWORD char_tab; // Tabulation table pointer
 	DF ** sort_frag; // List of sorted by upper fragment
 	uint16_t cn; // Local fragment counter for sortlist
-	INT cy; // Current 'y' for plank
-	INT finy; // Minimal of rows to finish active lines
+	int16_t cy; // Current 'y' for plank
+	int16_t finy; // Minimal of rows to finish active lines
 	LREF * cfirst; // First fictive element in lines chain
 	LREF * clast; // Last fictive element in lines chain
 	LREF * cfree; // Free lines reference chain start
@@ -318,8 +318,8 @@ typedef struct {
 } dL;
 //*****************************************************************************
 
-INT ed_scan(Bool(*func_spec)(puchar p, INT lth), Bool(*func_char)(puchar p,
-		INT lth), puchar start, puchar end);
+int16_t ed_scan(Bool(*func_spec)(puchar p, int16_t lth), Bool(*func_char)(puchar p,
+		int16_t lth), puchar start, puchar end);
 
 #if RTF_DEBUG!=0
 #define PGM " "

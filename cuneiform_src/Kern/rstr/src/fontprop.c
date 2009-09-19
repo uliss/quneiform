@@ -71,25 +71,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Bool line_readyBL;
 extern uchar p2_active;
-extern INT  nIncline;
-extern INT  page_nIncline;
+extern int16_t  nIncline;
+extern int16_t  page_nIncline;
 extern uchar line_scale;
 extern uint16_t actual_resolution;
 extern uchar fax1x2;
 
 #define WORDMAX  100
-struct word_inf {cell *c; INT dens,n;} bld[WORDMAX];
-INT nw;
+struct word_inf {cell *c; int16_t dens,n;} bld[WORDMAX];
+int16_t nw;
 
 static void italic(cell *);
-static INT linerev(INT,INT *);
-static LONG inclin(INT,INT *);
+static int16_t linerev(int16_t,int16_t *);
+static LONG inclin(int16_t,int16_t *);
 static void serif(cell *);
 static void underline();
-static uchar keg_word(cell *,cell *,INT,B_LINES *);
+static uchar keg_word(cell *,cell *,int16_t,B_LINES *);
 static void bold_word(cell *,cell *,struct word_inf *);
-static INT dens_let(cell *);
-static INT pitch();
+static int16_t dens_let(cell *);
+static int16_t pitch();
 
 // RCM.C
 extern uchar line_tabcell;
@@ -100,9 +100,9 @@ static uchar one_italic[]="╒╙";	// "БЙ"
 
 #define STAT_PIT
 #ifdef  STAT_PIT
-struct B { INT mid; // Е═Ю═╙Б╔Ю╗АБ╗╙═
-           INT real;
-           INT max,min;
+struct B { int16_t mid; // Е═Ю═╙Б╔Ю╗АБ╗╙═
+           int16_t real;
+           int16_t max,min;
            uint16_t n; // Г╗А╚╝ А╗╛╒╝╚╝╒
            };
 typedef struct B STAT;
@@ -185,9 +185,9 @@ static void italic(cell *c)
  puchar          twins;
  char font[2*NVAR];
  uint16_t i,prob[2*NVAR];
- INT nansw,maxi,maxni,l;
+ int16_t nansw,maxi,maxni,l;
  extern pchar tableBOX;
- INT sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
+ int16_t sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
  Bool   bad_cur_ge, disable_it=FALSE;
 
 if( c->pos_inc==erect_no )
@@ -198,7 +198,7 @@ if( c->pos_inc==erect_no )
  sv_save_stick_inc = c->save_stick_inc ;
 
  c->save_stick_inc = c->stick_inc;
- c->stick_inc = (INT)0x8000;
+ c->stick_inc = (int16_t)0x8000;
  bad_cur_ge = (c->vers[0].let==r_cu_z &&
     (c->recsource==c_rs_ev || c->recsource==(c_rs_ev|c_rs_deskr)) &&
     c->vers[0].prob==254);
@@ -365,11 +365,11 @@ static char tabincl[256]={
 #define BNDINCL  200
 #define BNDNINCL 150
 
-INT letincl(cell *c)
+int16_t letincl(cell *c)
  {
  uchar f,let;
- INT i,mini,maxi,h,nr,nl;
- INT left[KEGMAX],right[KEGMAX];
+ int16_t i,mini,maxi,h,nr,nl;
+ int16_t left[KEGMAX],right[KEGMAX];
  lnhead *line;
  interval *intv0,*intv,*intve;
  LONG s;
@@ -387,7 +387,7 @@ INT letincl(cell *c)
 /* printf("let=%c,h=%u,mini=%u,maxi=%u\n",let,c->h,mini,maxi);*/
  if (f&RINCL) {memset(right,0,h+h); nr=h;}
  if (f&LINCL) {for (i=0; i<h; i++) left[i]=WMAX; nl=h;}
- for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
   if (line->row<=maxi && line->row+line->h>mini)
    {
@@ -416,9 +416,9 @@ INT letincl(cell *c)
  return 0;
  }
 
-static INT linerev(INT n,INT *line)
+static int16_t linerev(int16_t n,int16_t *line)
  {
- INT i,beg,end;
+ int16_t i,beg,end;
 
  if (n<KEGMIN/2)
   return n;
@@ -431,9 +431,9 @@ static INT linerev(INT n,INT *line)
  return end-beg+1;
  }
 
-static LONG inclin(INT n,INT *line)
+static LONG inclin(int16_t n,int16_t *line)
  {
- INT x;
+ int16_t x;
  LONG sy,sxy,inc;
 
  for (sxy=sy=x=0; x<n; x++)
@@ -480,11 +480,11 @@ static void serif(cell *c)
  uchar let;
  lnhead *line;
  interval *i1,*i2;
- INT H,n1,n2,h,b1,b2,e1,e2;
+ int16_t H,n1,n2,h,b1,b2,e1,e2;
 
  H=c->h;
  let=let_sans_acc[c->vers[0].let];
- for (n1=n2=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+ for (n1=n2=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
   {
   if (tabserif[let]&LSER && line->flg&l_fend && (h=line->h)>=5 && h>=H/4 &&
@@ -514,8 +514,8 @@ static void serif(cell *c)
  if (n1<n2) c->font|=c_fp_gelv;
  }
 
-INT pitchsize=0;
-INT averwid;
+int16_t pitchsize=0;
+int16_t averwid;
 
 #define LSTRMAX 300
 #define LSTRMIN 5
@@ -529,13 +529,13 @@ INT averwid;
 #define NTHLMAX  3
 #define DELTMAX  4
 
-static INT total_pitch=0;  // =0 Nick 04.01.2002
-static INT base_prevstr=0; // =0 Nick 04.01.2002
-static INT kegl_prevstr=0; // =0 Nick 04.01.2002
+static int16_t total_pitch=0;  // =0 Nick 04.01.2002
+static int16_t base_prevstr=0; // =0 Nick 04.01.2002
+static int16_t kegl_prevstr=0; // =0 Nick 04.01.2002
 
 void checkpitch()
  {
- extern INT line_number;
+ extern int16_t line_number;
  extern Bool pass4_in;
  B_LINES bl;
 
@@ -547,11 +547,11 @@ void checkpitch()
  pitchsize=pitch();
  }
 
-static INT pitch()
+static int16_t pitch()
  {
  cell *c;
  uchar let;
- INT nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
+ int16_t nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
  LONG s,min;
  uint16_t center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
 
@@ -706,7 +706,7 @@ static INT pitch()
 // AK 19.02.98
 void font_str()
 {
-	INT ni1,ni2,ns1,ns2,nu,n,trp;
+	int16_t ni1,ni2,ns1,ns2,nu,n,trp;
 	cell *c,*c1,*c2;
 	uchar fnt,fntu,fntprev;
 	uchar keg,kegprev;
@@ -716,11 +716,11 @@ void font_str()
 	struct word_inc
 	{
 		cell *c1,*c;
-		INT bool,n;
+		int16_t bool,n;
 		uchar fnt;
 	} w_inc[WORDMAX];
 
-	INT nwi=1; // 0 is fictive as left neigbor
+	int16_t nwi=1; // 0 is fictive as left neigbor
 
 	snap_newpass('i');
 
@@ -830,7 +830,7 @@ void font_str()
 
 				//save prew word :
 				{
-					INT  bool=0;
+					int16_t  bool=0;
 
 					for (c2=c1; c2!=c; c2=c2->next)
 					{
@@ -945,7 +945,7 @@ void font_str()
 	//use neigbor information for italic :
     if(0)
 	{
-		INT  i,fl,fr,fnt;
+		int16_t  i,fl,fr,fnt;
 
 		w_inc[0].fnt = 0;
 		w_inc[0].bool = 0;
@@ -1096,10 +1096,10 @@ static void underline()
 extern STRLN page_lines[];
 extern int32_t num_of_lines;
 
- INT nl=(INT)num_of_lines;
+ int16_t nl=(int16_t)num_of_lines;
 
  STRLN *lines=page_lines;
- INT i,bx,by,ex,ey,x;
+ int16_t i,bx,by,ex,ey,x;
  B_LINES bl;
  cell *c,*cf,*cl;
 
@@ -1113,8 +1113,8 @@ extern int32_t num_of_lines;
   by=lines[i].beg.y>>line_scale;
   ex=lines[i].end.x>>line_scale;
   ey=lines[i].end.y>>line_scale;
-  by-=(INT)((LONG)nIncline*bx/2048);
-  ey-=(INT)((LONG)nIncline*ex/2048);
+  by-=(int16_t)((LONG)nIncline*bx/2048);
+  ey-=(int16_t)((LONG)nIncline*ex/2048);
   if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||
       cf->r_col-bl.ps>bx || cl->r_col+cl->w+bl.ps<ex)
     continue;
@@ -1181,9 +1181,9 @@ static char tabpos[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};                   // 240 - 255
 //      П Я Р С Т У Ж В Ь Ы З Ш Э Щ Ч
 // from pass3.c
-static uchar keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
+static uchar keg_word(cell *c1,cell *c2,int16_t n,B_LINES *bl)
  {
- INT s[4],m[4],i,ss,bm1,bm2;
+ int16_t s[4],m[4],i,ss,bm1,bm2;
  cell *c;
  version *v;
 
@@ -1265,7 +1265,7 @@ static uchar keg_word(cell *c1,cell *c2,INT n,B_LINES *bl)
 static void bold_word(cell *c1,cell *c2,struct word_inf *inf)
  {
  cell *c;
- INT sd,nd,td;
+ int16_t sd,nd,td;
 
  for (sd=nd=0,c=c1; c!=c2; c=c->next)
   {
@@ -1288,7 +1288,7 @@ static void bold_word(cell *c1,cell *c2,struct word_inf *inf)
 if(0)
 {
    char snap[80],sg[30];
-   INT  ser,gel;
+   int16_t  ser,gel;
 
    ser = gel = 0;
    for(c=c1; c!=c2; c=c->next){
@@ -1336,7 +1336,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 	if ( !(c->flg & (c_f_let|c_f_bad)) )
 		continue;
 	n+=(c->env->h)*(c->env->w);
-	for( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+	for( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
 		{
 		for (ie=(ic=(interval *)((puchar)line+sizeof(lnhead)))+line->h;
@@ -1365,7 +1365,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
     }
    if (cmp->h>=KEGMAX || cmp->w>=WMAX) continue;
    n+=(cmp->h)*(cmp->w);
-   for (line=(lnhead *)((puchar)cmp+cmp->lines+sizeof(INT));
+   for (line=(lnhead *)((puchar)cmp+cmp->lines+sizeof(int16_t));
 		  line->lth>0; line=(lnhead *)((puchar)line+line->lth))
     for (ie=(ic=(interval *)((puchar)line+sizeof(lnhead)))+line->h;
 							  ic<ie; ic++)
@@ -1626,9 +1626,9 @@ static char tabmd[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};                   // 240 - 255
 //      П Я Р С Т У Ж В Ь Ы З Ш Э Щ Ч
 
-static INT dens_let(cell *c)
+static int16_t dens_let(cell *c)
  {
- INT d,h;
+ int16_t d,h;
  pchar tab;
  uchar let,fnt;
  if (c->dens>100)  // 11-10-94 05:59pm Pit for debug
@@ -1721,7 +1721,7 @@ void font_narrow(void)
 {
 cell *  c;
 uchar    slanguage=language;
-INT     prop, nall, nval, narrow, pn;
+int16_t     prop, nall, nval, narrow, pn;
 
 if( line_tabcell || !line_scale )
     return;
@@ -1732,7 +1732,7 @@ for(nval=nall=narrow=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     language = c->language;
     nall++;
     prop = prop_index(c->h, c->w);
-    pn = prop_narrow[ (INT)c->vers[0].let ];
+    pn = prop_narrow[ (int16_t)c->vers[0].let ];
     if( pn )
         nval++;
     if( (c->font & c_fp_narrow) )

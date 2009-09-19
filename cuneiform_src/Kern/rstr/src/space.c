@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#define NEW_PROBEL
 
-extern INT pitchsize;
+extern int16_t pitchsize;
 extern uchar fax1x2;
 extern uchar line_tabcell; // OLEG
 #define sp_min      897
@@ -101,25 +101,25 @@ static uchar dist[300];
 //static uchar  leftlig[]={"ffffrr./fij!?¡ "},
 //	     rightlig[]={"ilfiti/.lij!?¡ "};
 
-static INT sm,sp,spmin,spmax;
+static int16_t sm,sp,spmin,spmax;
 static uint16_t n;
 static LONG H;
 static Bool italic;
-static INT  gap;
+static int16_t  gap;
 
 /* static void order();*/
-static INT delta(cell *,cell *,uchar,uchar);
-static INT vers1(cell *);
-static INT longtail(cell *);
-static INT notflatf(cell *,INT);
-static INT ser_g(cell *);
-static void insert_space(cell *,cell *,INT);
+static int16_t delta(cell *,cell *,uchar,uchar);
+static int16_t vers1(cell *);
+static int16_t longtail(cell *);
+static int16_t notflatf(cell *,int16_t);
+static int16_t ser_g(cell *);
+static void insert_space(cell *,cell *,int16_t);
 
 static void space_ligas(uchar *let1, uchar *let2); // 29.08.2000 E.P.
 
-void space_size(INT h)
+void space_size(int16_t h)
 {
- INT nh,nh1,i,j,d,pl,sss,dd,sv;
+ int16_t nh,nh1,i,j,d,pl,sss,dd,sv;
  uint16_t s,ss,s1,n1,n2,x[128],y[128],hist[128];
  LONG S;
  cell *c1,*c2,*c;
@@ -733,10 +733,10 @@ static void order()
 #define d_sign          8        // between ? and !
 #define d_rus_lowered  10        // russian italic 'p' 'y'
 
-static INT delta(cell *c1,cell *c2,uchar let1,uchar let2)
+static int16_t delta(cell *c1,cell *c2,uchar let1,uchar let2)
  {
  cell *c3;
- INT d,dd;
+ int16_t d,dd;
  B_LINES bl;
  uchar let0;
 
@@ -1032,19 +1032,19 @@ static INT delta(cell *c1,cell *c2,uchar let1,uchar let2)
  return d;
  }
 
-static INT vers1(cell *c)
+static int16_t vers1(cell *c)
  {
- INT n,i;
+ int16_t n,i;
 
  for (n=c->nvers,i=0; i<n; i++)
   if (c->vers[i].let=='1') return 1;
  return 0;
  }
 
-static INT longtail(cell *c)
+static int16_t longtail(cell *c)
  {
  puchar r;
- INT l,dh,dw,i,j;
+ int16_t l,dh,dw,i,j;
 
  r=save_raster(c);
  l=(c->w+7)/8;
@@ -1057,10 +1057,10 @@ static INT longtail(cell *c)
  return 1;
  }
 
-static INT notflatf(cell *c,INT bm)
+static int16_t notflatf(cell *c,int16_t bm)
  {
  puchar r;
- INT l,i;
+ int16_t l,i;
 
  r=save_raster(c);
  l=((c->w+7)/8)*(bm-c->row);
@@ -1070,10 +1070,10 @@ static INT notflatf(cell *c,INT bm)
  return 1;
  }
 
-static INT ser_g(cell *c)
+static int16_t ser_g(cell *c)
  {
  puchar r;
- INT l,i,j,a1,a2,s;
+ int16_t l,i,j,a1,a2,s;
  uchar b;
 
  r=save_raster(c);
@@ -1144,7 +1144,7 @@ return TRUE;
 
 void space_cell()
  {
- INT i,n,d;
+ int16_t i,n,d;
  cell *c1,*c2;
  uchar let1,let2,word[300],*wrd=&word[0];
 
@@ -1242,7 +1242,7 @@ void space_cell()
     i=c2->left+c2->w/2-(c1->left+c1->w/2);
     if(language==LANG_RUSSIAN)
 	{
-        INT distance;
+        int16_t distance;
         //if (memchr("ë›è˜é™î¦†",let2,10) && c2->w>c2->h) i-=c2->w/3;
         if (isletter(let2) && let2>128 && c2->w>c2->h)
 			i-=c2->w/3;
@@ -1327,7 +1327,7 @@ void space_cell()
   }
  }
 
-void insert_space(cell *c1,cell *c2,INT mode)
+void insert_space(cell *c1,cell *c2,int16_t mode)
  {
  cell *c;
 
@@ -1368,7 +1368,7 @@ void cont_space()
  {
  cell *c1,*c2,*c3,*c4,*c5;
  uchar let1,let2,let3,let5;
- INT h,i,d,dd,d1,d2,cnt,ss;
+ int16_t h,i,d,dd,d1,d2,cnt,ss;
  uchar str[80],word[300],*wrd=&word[0];
  *wrd=0;
  if (pitchsize)
@@ -1380,7 +1380,7 @@ void cont_space()
 	  snap_monitor();
  }
 
- h=(INT)get_size();
+ h=(int16_t)get_size();
  ss=sm+H/((n>=lw_aver)?sp_min:sp_min1);
 
  if (sp<ss)
@@ -1806,13 +1806,13 @@ void showgap(cell *CL)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // call after space_size(get_size());
-INT get_space_size(void)
+int16_t get_space_size(void)
 {
 	return sp;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void set_space_size(INT spn)
+void set_space_size(int16_t spn)
 {
 	char str[80];
 
@@ -1831,7 +1831,7 @@ void set_space_size(INT spn)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-INT get_gap(void)
+int16_t get_gap(void)
 {
 	return gap;
 }

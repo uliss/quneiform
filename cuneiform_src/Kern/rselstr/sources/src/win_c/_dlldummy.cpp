@@ -1087,6 +1087,6 @@ void LT_GraphicsBreakingOutput (const char *pTitle)
 
 // Pit 11-21-94 04:56pm
 #include "edp.h"
-INT maxx,minx,maxy,miny;
-INT scale;
+int16_t maxx,minx,maxy,miny;
+int16_t scale;
 

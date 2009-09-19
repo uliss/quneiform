@@ -82,12 +82,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 uchar raster[RASTER_SIZE];
 
 #ifdef RECOGTEST
- extern INT show;
- extern INT begshow;
+ extern int16_t show;
+ extern int16_t begshow;
 #endif
 
  extern dQ SPQ;     //Q;
- extern INT back_flag;             /*   ACT !!! see tg_spell */
+ extern int16_t back_flag;             /*   ACT !!! see tg_spell */
 
  struct tre_state tre_st;
  struct tif_state tif_st;
@@ -95,18 +95,18 @@ uchar raster[RASTER_SIZE];
 /*=================================================================== */
 /*                  Local  functions  definition                      */
 /*=================================================================== */
-  static INT setwrd_changed (SOBJ * obj, LTIMG ** wrddef,
+  static int16_t setwrd_changed (SOBJ * obj, LTIMG ** wrddef,
                 SWORD * word);
-  static INT selectobj_best (SOBJ * obj, SPART part[],
-                       INT cur_part[], INT * entire);
-  static INT compwrd (SOBJ * obj, SWORD * w1, SWORD * w2);
+  static int16_t selectobj_best (SOBJ * obj, SPART part[],
+                       int16_t cur_part[], int16_t * entire);
+  static int16_t compwrd (SOBJ * obj, SWORD * w1, SWORD * w2);
 
 #ifdef V_RECOG
-  static INT form_raster (SOBJ *, SPOS *);
-  static INT back_recog (SOBJ *, SWORD *, INT, INT, INT * );
+  static int16_t form_raster (SOBJ *, SPOS *);
+  static int16_t back_recog (SOBJ *, SWORD *, int16_t, int16_t, int16_t * );
   static void set_last_symb(struct segm  *,char  *);
-  static void  set_tif_strip(struct segm  *,char  *,INT *,INT *);
-  static INT fill_raster();
+  static void  set_tif_strip(struct segm  *,char  *,int16_t *,int16_t *);
+  static int16_t fill_raster();
 #else
   #define back_recog(a,s,c,v,b) ((a=a),0)
 #endif
@@ -120,10 +120,10 @@ uchar raster[RASTER_SIZE];
    whether the object is worth or not for consideration
 								       */
 /***********************************************************************/
-INT checkobj (SOBJ * obj)
+int16_t checkobj (SOBJ * obj)
 
 {
- INT val=0, ppn=0, lth=0;
+ int16_t val=0, ppn=0, lth=0;
 
  ppn = obj->pos_part_nmb;
  lth = obj->pos_part[ppn];
@@ -156,10 +156,10 @@ INT checkobj (SOBJ * obj)
    whether the object is worth or not for consideration
 								       */
 /***********************************************************************/
-INT checkpart (SOBJ * obj)
+int16_t checkpart (SOBJ * obj)
 
-{ INT pi, si;
-  INT BlankNo =0, DigNo =0, RelDigNo=0;
+{ int16_t pi, si;
+  int16_t BlankNo =0, DigNo =0, RelDigNo=0;
   SPART *prt;
   prt = obj -> part;
   if (!( prt -> type & T_DIG))                         return Ok;
@@ -188,10 +188,10 @@ INT checkpart (SOBJ * obj)
    Thus the decision is being made to determine whether the object
    is worth or not.                             		       */
 /***********************************************************************/
-INT selectopt (SOBJ * obj, SPART * part)
+int16_t selectopt (SOBJ * obj, SPART * part)
 
 {
- INT pi;
+ int16_t pi;
 
  pi = obj->pos_part_nmb - 1; /* part not found => consider last part   */
  if (selectobj (obj, pi, part))  /* find best part-chain               */
@@ -219,20 +219,20 @@ INT selectopt (SOBJ * obj, SPART * part)
 	 but the chain is not entire
 									    */
 /****************************************************************************/
-INT selectobj (SOBJ * obj, INT ibeg, SPART * part)
+int16_t selectobj (SOBJ * obj, int16_t ibeg, SPART * part)
 
 {
- INT i;
- INT ib, ie;                   /* curr ibeg & iend                          */
- INT cur_part [MAX_WORD_SIZE]; /* curr list of obj partitioning positions:
+ int16_t i;
+ int16_t ib, ie;                   /* curr ibeg & iend                          */
+ int16_t cur_part [MAX_WORD_SIZE]; /* curr list of obj partitioning positions:
 				 it is the copy of pos_part[], but
 				 0,..x,0,x,0,x,..N - partitioning, so that
 				  0 => no end & beg of parts,
 				  x => end & beg of best parts chosen       */
- INT cur_pi   [MAX_WORD_SIZE]; /* respective part indices: {0,x} - pi0,.. . */
- INT maxi;                     /* the most right index of cur_pi[curi]      */
- INT pi;
- INT entire = 0;               /* nonzero, if entire chain is construced    */
+ int16_t cur_pi   [MAX_WORD_SIZE]; /* respective part indices: {0,x} - pi0,.. . */
+ int16_t maxi;                     /* the most right index of cur_pi[curi]      */
+ int16_t pi;
+ int16_t entire = 0;               /* nonzero, if entire chain is construced    */
 /* ------------------------------------------------------------------------ */
 /* The Data Structure Chart:
 						   ibeg
@@ -370,11 +370,11 @@ No_selectobj:
     No - otherwise
 									   */
 /***************************************************************************/
-INT selectobj_best (SOBJ * obj, SPART part[],
-                INT cur_part[], INT * entire)
+int16_t selectobj_best (SOBJ * obj, SPART part[],
+                int16_t cur_part[], int16_t * entire)
 
 {
- INT ib, ie, pi, sumpen=0, summark=0;
+ int16_t ib, ie, pi, sumpen=0, summark=0;
 
  *entire = 1;                        /* default: entire part-chain       */
 
@@ -418,12 +418,12 @@ Ok_selobjbest:
    generated with a part considered or not. If yes, the part will
    be presented in parts-buf.                    		       */
 /***********************************************************************/
-INT selectpart (SOBJ * obj)
+int16_t selectpart (SOBJ * obj)
 {
-	INT     nw=0;                   /* a nmb of words in the part           */
+	int16_t     nw=0;                   /* a nmb of words in the part           */
 	SWORD * wrdptr;    /* curr wrd ptr                         */
 	SWORD * wrdfst;    /* it will be 1-st wrd ptr for the part */
-	INT     bestmark=0;    /* best word's mark                 */
+	int16_t     bestmark=0;    /* best word's mark                 */
 	SWORD * bestword=NULL; /* best wrd ptr                     */
 
 	wrdfst = obj->word;
@@ -503,11 +503,11 @@ Selectp_no:                         /* ------------------------------------ */
    It may be used if glue-cut or special replacement available.
 								       */
 /***********************************************************************/
-INT checkwrd (SOBJ * obj)
+int16_t checkwrd (SOBJ * obj)
 
 {
- INT val=0;
- INT lthmin=0;
+ int16_t val=0;
+ int16_t lthmin=0;
  SWORD * wrd;
 
  wrd = obj->word;
@@ -551,17 +551,17 @@ INT checkwrd (SOBJ * obj)
 
 /* ------------------------------------------------------------------ */
 
-INT CheckContext ( SOBJ *obj,LTIMG *wrddef[], INT lth)
+int16_t CheckContext ( SOBJ *obj,LTIMG *wrddef[], int16_t lth)
  {
-  INT type;
+  int16_t type;
  type = obj -> word -> type;
 
  if ( (type & T_CAP) && (type & T_LOW) )      /* low & capital  ?         */
   {
     char a;
-    INT fl = 0;
-    INT i;
-    INT ApfFlag =FALSE;
+    int16_t fl = 0;
+    int16_t i;
+    int16_t ApfFlag =FALSE;
 
    for (i=0; i < lth ; i++)
     {
@@ -609,9 +609,9 @@ INT CheckContext ( SOBJ *obj,LTIMG *wrddef[], INT lth)
 //////////////////////////////////////////////////////////////////////////////
 // Allex 27.04.99
 // подбираем максимальную разность для замены альтернатив
-static INT GetMaxDiff( SOBJ * pObj, INT WordLenght)
+static int16_t GetMaxDiff( SOBJ * pObj, int16_t WordLenght)
 {
-	INT MaxDiff;
+	int16_t MaxDiff;
 
 	if(pObj -> part -> type&T_NAME)
 		if (pObj -> word -> type&T_NAME)
@@ -645,11 +645,11 @@ static INT GetMaxDiff( SOBJ * pObj, INT WordLenght)
        (i.e. all words generation from the part will be repeated);
    It may be used if glue-cut or special replacement available.        */
 /***********************************************************************/
-INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
+int16_t selectwrd (SOBJ * obj, LTIMG ** wrddef)
 {
-	INT val=0;
+	int16_t val=0;
 	SWORD * wrd;
-	INT max_dif;
+	int16_t max_dif;
 
 	wrd = obj->word;
 
@@ -657,7 +657,7 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 
 	if(wrd->dif_wt> max_dif)
 	{
-		INT i;
+		int16_t i;
 
 		for (i=0; i<= obj -> lthok; i++)
 			if( (wrd->pos[i]->alt[wrd->altn[i]].dif_wt>max_dif) &&
@@ -686,10 +686,10 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 	}
 #endif
 	{
-		INT  i;
-		INT not_first=0;
-		INT del_fl   =0;
-		INT tp =0;
+		int16_t  i;
+		int16_t not_first=0;
+		int16_t del_fl   =0;
+		int16_t tp =0;
 
 		for(i=0;i<wrd->lth;i++)
 		{
@@ -754,10 +754,10 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
    if they are artificially changed
 									    */
 /****************************************************************************/
- INT setwrd_changed (SOBJ * obj, LTIMG ** wrddef,
+ int16_t setwrd_changed (SOBJ * obj, LTIMG ** wrddef,
                 SWORD * word)
 {
- INT pi;
+ int16_t pi;
  uchar c;
  uchar  * pc;
 
@@ -793,14 +793,14 @@ return(OK);
     No - bestword is still the best
 								       */
 /***********************************************************************/
-INT compwrd (SOBJ * obj,
+int16_t compwrd (SOBJ * obj,
          SWORD * w1, SWORD * w2)
 
 {
- INT pi;                       /* pos nmb                */
- INT ai1, ai2;                 /* alt nmbrs              */
- INT m1=0,m2=0;                /* total estimations      */
- INT v1=0,v2=0;                /* one-letter estimations */
+ int16_t pi;                       /* pos nmb                */
+ int16_t ai1, ai2;                 /* alt nmbrs              */
+ int16_t m1=0,m2=0;                /* total estimations      */
+ int16_t v1=0,v2=0;                /* one-letter estimations */
 
  for (pi=0; pi<w2->lth; pi++)
   {
@@ -888,13 +888,13 @@ Compwrd_next:
 extern uchar * letters_pidx_table;
 static  back_recog(SOBJ * obj,
                       SWORD * word,
-                      INT pi, INT ai,
-                      INT * val
+                      int16_t pi, int16_t ai,
+                      int16_t * val
 		     )
 {
- INT i,j;
+ int16_t i,j;
  char fl=0;
- INT code;
+ int16_t code;
  LONG isq = 0;        /* the eBOX structure item */
  uint16_t icosinus;
  struct tifref * wt;
@@ -965,8 +965,8 @@ static char *Plst[]=        /* The matter of what to discriminate : */
   "Y",
   "/"
  };
-static INT Pl=6;            /* N_of items in the Discr.Table */
-static INT Proi[][6]=       /* the Discriminating Table:     */
+static int16_t Pl=6;            /* N_of items in the Discr.Table */
+static int16_t Proi[][6]=       /* the Discriminating Table:     */
  {
   {255,230,200,120,70, 0},  /* all DEFAULT       	 */
   {255,180,100,70, 40, 0},  /* mw  VERY BAD		 */
@@ -979,7 +979,7 @@ static uint16_t prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
 
 /* ??? old static Proi independent of symbs (no discrimination) :
 static uint16_t mark[7]={32767,32685,30474, 29491, 27525, 0, 0};
-static INT Proi[7]={255, 240,200,150,50,0,0};
+static int16_t Proi[7]={255, 240,200,150,50,0,0};
    ??? */
 
 /****************************************************************************/
@@ -989,16 +989,16 @@ static INT Proi[7]={255, 240,200,150,50,0,0};
    "discriminating") table Proi
 									    */
 /****************************************************************************/
-static INT make_probBOXf(INT ltr, uint16_t  *fi)
+static int16_t make_probBOXf(int16_t ltr, uint16_t  *fi)
 {
- INT result=0;
- INT  px, *pi1, *pi2;
+ int16_t result=0;
+ int16_t  px, *pi1, *pi2;
  uint16_t wcos, *pb1, *pb2;
  char pl;
- INT  w1;
+ int16_t  w1;
 
  for (pl=1; pl<Pl; pl++)
-  if (STRCHR(Plst[pl],(INT)ltr))
+  if (STRCHR(Plst[pl],(int16_t)ltr))
    goto Discret;
  pl=0;
 Discret:
@@ -1026,9 +1026,9 @@ Discret:
    a symbol being recognized. Isn't used more
 									    */
 /****************************************************************************/
-static INT make_probBOXf_old (uint16_t  *fi)
+static int16_t make_probBOXf_old (uint16_t  *fi)
  {
-  INT prob, px, *pi1, *pi2;
+  int16_t prob, px, *pi1, *pi2;
   uint16_t wcos, *pb1, *pb2;
   wcos = *fi;
       for (px=0,pb1=mark,pi1=Proi,pb2=pb1+1,pi2=pi1+1;
@@ -1101,12 +1101,12 @@ adjust_tif(SOBJ * obj, SPOS * pos)
 /*
 									    */
 /****************************************************************************/
-void set_tif_strip(struct segm  *segm,char  *symb,INT*min,INT*max)
+void set_tif_strip(struct segm  *segm,char  *symb,int16_t*min,int16_t*max)
 
  {
   char  *savesymb;
   char  *savesegm;
-  INT i;
+  int16_t i;
 
   savesymb=Q.ns_symb;
   savesegm=Q.ns_segm;
@@ -1197,20 +1197,20 @@ check_tif()
 /*
 									    */
 /****************************************************************************/
-static INT fill_raster(char raster[], char  *tif_buf,
-                    INT x_map, INT y_map, INT t_wth, INT t_hght,
-                    INT tif_line_lth, INT status)
+static int16_t fill_raster(char raster[], char  *tif_buf,
+                    int16_t x_map, int16_t y_map, int16_t t_wth, int16_t t_hght,
+                    int16_t tif_line_lth, int16_t status)
       /* check y_map ???? */
 /*
 	This procedure writes part of tif lane into raster
 	corresponding to tif address of current symbol in ed_file.
 */
  {
-   INT tx_map;        /* curr byte in tiff-line                   */
-   INT ty_map;        /* curr         tiff-line                   */
-   INT tx_wth;        /* tiff width (bytes)                       */
-   INT  xx;      /* curr byte in curr result-line                 */
-   INT dest;     /* destination: x_map%8                          */
+   int16_t tx_map;        /* curr byte in tiff-line                   */
+   int16_t ty_map;        /* curr         tiff-line                   */
+   int16_t tx_wth;        /* tiff width (bytes)                       */
+   int16_t  xx;      /* curr byte in curr result-line                 */
+   int16_t dest;     /* destination: x_map%8                          */
 		 /* it will be used for tiff shift (left) while   */
 		 /* move to raster                                */
    uint16_t two; /* the two bytes to use for shift & move     */

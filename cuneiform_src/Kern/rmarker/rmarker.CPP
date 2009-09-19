@@ -77,14 +77,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
 		}
 
 #define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")

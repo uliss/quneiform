@@ -112,9 +112,9 @@ typedef struct t_m_3_5 t_mBOX;
 
 struct str_servBOX
  {
- INT up_row,left_col;       // left upper corner coordinates
- INT math_row, math_col;    // same after deskewing
- INT rast_h,rast_w;         // height, width
+ int16_t up_row,left_col;       // left upper corner coordinates
+ int16_t math_row, math_col;    // same after deskewing
+ int16_t rast_h,rast_w;         // height, width
  char dens;                 // density in 1/8-ths
  t_mBOX matrBOX;
  t_answer best_BOX[NBBOX+1];

@@ -97,17 +97,17 @@ struct bit_map_ref
  {
  uchar code;
  uchar pos;
- INT row;
- INT col;
- INT width;
- INT height;
+ int16_t row;
+ int16_t col;
+ int16_t width;
+ int16_t height;
  };
 
 struct text_ref
  {                                     /* 0 - letter */
  uchar code;                            /* 1 -        */
  uchar type;                            /* 2 - word   */
- INT object;                           /* 3 - string */
+ int16_t object;                           /* 3 - string */
  };
 
 struct font_kegl                       /*  1 - serific     */
@@ -134,7 +134,7 @@ struct shift
  {
  uchar code;
  uchar kegl;
- INT clearance;                         /* value of lift or descent */
+ int16_t clearance;                         /* value of lift or descent */
  };                                     /* lift positive            */
 					/* descent negative         */
 struct retrieve_level
@@ -168,14 +168,14 @@ struct tabl_tabul
  {
  uchar code;
  uchar lth;                              /* scale of arow               */
- INT arow_pos[1] ;
+ int16_t arow_pos[1] ;
  };
 
 struct fragm_disk
  {
  uchar code;
  uchar fragm_numb;
- INT depth;
+ int16_t depth;
  };
 
 struct step_back
@@ -188,14 +188,14 @@ struct line_beg
  {
  uchar code;
  uchar height;
- INT base_line;                         /* displacement for current         */
+ int16_t base_line;                         /* displacement for current         */
  };                                     /*     line to upper frame of fragm */
 
 struct position
  {
  uchar code;
  uchar store;
- INT pos;                               /* position in line for      */
+ int16_t pos;                               /* position in line for      */
  };                                     /*     left frame of  fragm  */
 
 struct table_conform_sizes
@@ -227,24 +227,24 @@ struct border
 #define b_vert 1	/* 2 - right                  */
 #define b_hor  4	/* 4 - top                    */
 			/* 8 - bottom                 */
-    INT  length;        /* Length of border in pixels */
-    INT  x,y;           /* Coordinates of line begin  */
+    int16_t  length;        /* Length of border in pixels */
+    int16_t  x,y;           /* Coordinates of line begin  */
     };
 
 struct table_header
     {
     uchar    code;       /* 0x17 SS_TABLE_HEADER                   */
     uchar    cols;       /* Number of columns                      */
-    INT     lth;        /* Total length of record                 */
-    INT     nfrag[1];    /* List of fragments in header of table   */
+    int16_t     lth;        /* Total length of record                 */
+    int16_t     nfrag[1];    /* List of fragments in header of table   */
     };
 
 struct list_of_fragments
     {
     uchar    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
     uchar    cols;       /* Number of columns            */
-    INT     lth;        /* Total length of record       */
-    INT     nfrag[1];   /* List of fragments in table   */
+    int16_t     lth;        /* Total length of record       */
+    int16_t     nfrag[1];   /* List of fragments in table   */
     };
 
 struct aksant
@@ -269,21 +269,21 @@ struct sheet_disk_descr
  {
  uchar code;
  char quant_fragm;
- INT sheet_numb;
- INT descr_lth;
+ int16_t sheet_numb;
+ int16_t descr_lth;
  uchar byte_flag;
  uint16_t resolution;
- INT  incline;
+ int16_t  incline;
  char tabl[13];
  };
 
 struct fragm_disk_descr
  {
  uchar code;
- INT row;                             /* coordinates of left upper  */
- INT col;                             /* angle of fragment's frame  */
- INT height;                          /* height of fragment         */
- INT w_width;                         /* Q.w_width of fragment      */
+ int16_t row;                             /* coordinates of left upper  */
+ int16_t col;                             /* angle of fragment's frame  */
+ int16_t height;                          /* height of fragment         */
+ int16_t w_width;                         /* Q.w_width of fragment      */
  char type;
 #define FD_TYPE_TEXT 0
 #define FD_TYPE_PICT 1

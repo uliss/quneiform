@@ -148,7 +148,7 @@ extern uchar db_status;
 
 typedef struct bnd_allowed
  {
-  INT     bw,                 /* beginning of the widht interval */
+  int16_t     bw,                 /* beginning of the widht interval */
 		  ew,                 /* end of the widht interval */
 		  bh,                 /* beginning of the height interval */
 		  eh;                 /* end of the height interval */
@@ -162,22 +162,22 @@ typedef struct  perc_struct
                                    or 'undeline cell' for number */
   cell *          rdcp;         /* pointer to the 'right dust' cell */
   uchar            FL;           /* existing 'good' dusts flag */
-  INT             rcps;         /* the return code of the percent searching */
-  INT             n_ver_perc;   /* the number of the found percent version */
+  int16_t             rcps;         /* the return code of the percent searching */
+  int16_t             n_ver_perc;   /* the number of the found percent version */
   /* the allowed boundaries of the upper dust */
-  INT     ubw,          /* beginning of the widht interval */
+  int16_t     ubw,          /* beginning of the widht interval */
 		  uew,          /* end of the widht interval */
 		  ubh,          /* beginning of the height interval */
 		  ueh;          /* end of the height interval */
   /* the allowed boundaries of the lower dust */
-  INT     lbw,          /* beginning of the widht interval */
+  int16_t     lbw,          /* beginning of the widht interval */
 		  lew,          /* end of the widht interval */
 		  lbh,          /* beginning of the height interval */
 		  leh;          /* end of the height interval */
-  INT     mw,           /* "middl" of the widht */
+  int16_t     mw,           /* "middl" of the widht */
           mh;           /* "middl" of the height */
-  INT maxh;         /* maximum of height */
-  INT like_O;       /* tolerence for circle in number */
+  int16_t maxh;         /* maximum of height */
+  int16_t like_O;       /* tolerence for circle in number */
  } perc_struct;
 
 /*
@@ -185,12 +185,12 @@ typedef struct  perc_struct
 	whether it is the percent symbol or not.
 */
 /********** Prototypes of the functions ******************/
-static INT search_perc_vers();
-static INT search_left_dust();
-static INT search_right_dust(INT like_o);
-static INT compare_bound(cell *,char);
-static INT rec_O0(cell *);
-static INT change_vers();
+static int16_t search_perc_vers();
+static int16_t search_left_dust();
+static int16_t search_right_dust(int16_t like_o);
+static int16_t compare_bound(cell *,char);
+static int16_t rec_O0(cell *);
+static int16_t change_vers();
 static void collect_cell(cell *mainc, cell *c2);
 static cell *collect_cell_save(cell *mainc, cell *c2);
 static void prc_setup();
@@ -199,9 +199,9 @@ static void merge_ld();
 static void merge_rd();
 static void compute_bnd_lbox(cell *pc,bnd_allowed *bnd);
 static void compute_bnd_ubox(cell *pc,bnd_allowed *bnd);
-static INT  search_underline_dust();
+static int16_t  search_underline_dust();
 static cell *rest_composition(cell *cmplx);
-static INT test_O0(cell *c);
+static int16_t test_O0(cell *c);
 static void  improve_proN();
 
 Bool test_cell(cell *c);
@@ -306,7 +306,7 @@ perc_struct glstr;
 static void prc_setup()
 {
 cell *prd=gpt->BC;
-INT midBC=middle(gpt->BC);
+int16_t midBC=middle(gpt->BC);
 
  while (!(prd->next->flg & c_f_fict) && middle(prd)<=midBC)
  {
@@ -347,8 +347,8 @@ INT midBC=middle(gpt->BC);
 static void proc_perc()
 
 {
-INT rcslds;                /* the return code of the left dust searching */
-INT rcsrds;                /* the return code of the right dust searching */
+int16_t rcslds;                /* the return code of the left dust searching */
+int16_t rcsrds;                /* the return code of the right dust searching */
 uchar p;
  switch (gpt->rcps)
   {
@@ -405,10 +405,10 @@ compose:
   return;
 } /*------------------------------------------------------------------*/
 
-static INT search_perc_vers()
+static int16_t search_perc_vers()
 {   /* searching the percent-symbol version */
 
-INT i,rc;
+int16_t i,rc;
 uchar l=gpt->BC->vers[0].let;
  if (language==LANG_RUSSIAN)
    if (l==(uchar)'«' || l==(uchar)'‹')  return PRO_NUM_PART;
@@ -448,10 +448,10 @@ uchar l=gpt->BC->vers[0].let;
  return(rc);
 } /*------------------------------------------------------------------*/
 
-static INT search_left_dust()
+static int16_t search_left_dust()
 {
 cell *pld;
-INT rv=0;
+int16_t rv=0;
 
  pld=gpt->RC->prev;
  while (pld->prev && pld->r_col>=gpt->ubw)
@@ -479,10 +479,10 @@ INT rv=0;
  return rv;
 } /*------------------------------------------------------------------*/
 
-static INT search_right_dust(INT like_o)
+static int16_t search_right_dust(int16_t like_o)
 {
 cell *prd;
-INT rv=0,po=0;
+int16_t rv=0,po=0;
 
  prd=gpt->RC;
  while (prd->next && prd->r_col<=gpt->lew)
@@ -512,7 +512,7 @@ INT rv=0,po=0;
  return MAX(rv,po);
 } /*------------------------------------------------------------------*/
 
-static INT change_vers()
+static int16_t change_vers()
 {
  if ( gpt->rcps == (uchar)PRO_NUMBER || gpt->rcps == 'N' ){
     gpt->BC->vers[0].let = NUMBER;   /* first version is number */
@@ -572,7 +572,7 @@ static cell *collect_cell_save(cell *mainc, cell *c2)
   return mainc;
 } /*------------------------------------------------------------------*/
 
-static INT compare_bound(cell *pc, char rorl)
+static int16_t compare_bound(cell *pc, char rorl)
 {
 bnd_allowed ldbnd;
 
@@ -619,11 +619,11 @@ static void compute_bnd_lbox(cell *pc,bnd_allowed *bnd)
   bnd->eh=(pc->r_row+pc->h);
 } /*------------------------------------------------------------------*/
 
-static INT test_O0(cell *pc)
+static int16_t test_O0(cell *pc)
 {
 uchar rc=0;
 uint16_t save_c_flg;
-INT  saveN;
+int16_t  saveN;
 uchar saveV[VERS_IN_CELL*sizeof(version)];
 version *v;
 
@@ -657,11 +657,11 @@ version *v;
 }
 //------------------------------------------------
 
-static INT rec_O0(cell *pc)
+static int16_t rec_O0(cell *pc)
 {
-INT wi,rc;
+int16_t wi,rc;
 uint16_t save_c_flg;
-INT  saveN;
+int16_t  saveN;
 uchar saveV[VERS_IN_CELL*sizeof(version)];
 
 
@@ -697,7 +697,7 @@ Rexit:
   return(rc);
 } /*------------------------------------------------------------------*/
 
-static INT search_underline_dust()
+static int16_t search_underline_dust()
 {
 cell *prd=gpt->RC;
 Bool weak=FALSE;
@@ -738,9 +738,9 @@ static cell *rest_composition(cell *cmplx)
 static void  improve_proN()
 {
   cell *BC=gpt->BC,*cl=BC->prev,*cr=BC->next;
-  INT p=BC->vers[gpt->n_ver_perc].prob;
-  INT w3=(5*BC->w+6)/12,h8=BC->h/8;
-  INT bot=BC->r_row+BC->h,right=BC->r_col+BC->w;
+  int16_t p=BC->vers[gpt->n_ver_perc].prob;
+  int16_t w3=(5*BC->w+6)/12,h8=BC->h/8;
+  int16_t bot=BC->r_row+BC->h,right=BC->r_col+BC->w;
 
   BC->complist=NULL;   //single
   while (cl->flg & c_f_dust &&
@@ -858,7 +858,7 @@ Bool test_cell(cell *c)
   RecAlt* alt;
   version *v;
   c_comp*  comp = c->env;
-  INT i;
+  int16_t i;
 
    // Oleg : 26-07-1995 : TCell without env can't recog
   if( !comp )
@@ -886,7 +886,7 @@ Bool test_cell(cell *c)
     alt->Code=stdAsciiToAnsi(v->let);
 //  memcpy(result->Alt,c->vers,sizeof(version)*c->nvers);
   if (!LEORecogCharPRN_expert(&recobj))  return FALSE;
-  c->nvers=(INT)result->lnAltCnt;
+  c->nvers=(int16_t)result->lnAltCnt;
   for (i=0,alt=result->Alt,v=c->vers; i<c->nvers; i++,alt++,v++)
   {
     v->let=stdAnsiToAscii(alt->Code);

@@ -85,7 +85,7 @@ typedef unsigned char near *	puchar;
 
 /*			Word size data					*/
 
-typedef signed short int		INT;
+typedef signed short int		int16_t;
 typedef unsigned short int		uint16_t;
 typedef signed short int near *		PINT;
 typedef unsigned short int near *	PWORD;
@@ -140,14 +140,14 @@ typedef unsigned long int near *	PDWORD;
 # define WHITE_COLOR     MAX_COLOR
 # define BLACK_COLOR     MIN_COLOR
 
-INT cursor_beg, cursor_end;
+int16_t cursor_beg, cursor_end;
 
 static cursor_off                       (void);
 static cursor_on                        (void);
-static INT symbol_to_color              (INT);
-static INT color_to_symbol              (INT);
+static int16_t symbol_to_color              (int16_t);
+static int16_t color_to_symbol              (int16_t);
 static void init_field                  (void);
-static void putch_cell                  (INT);
+static void putch_cell                  (int16_t);
 static void update_screen               (void);
 static void goto_status                 (void);
 static void clear_status                (void);
@@ -161,19 +161,19 @@ static void make_thinning               (void);
 static void delete_skin                 (void);
 static void make_unthinning             (void);
 static void make_new                    (void);
-static INT  account_neighbors           (INT x, INT);
-static INT account_connect4_components  (INT, INT);
+static int16_t  account_neighbors           (int16_t x, int16_t);
+static int16_t account_connect4_components  (int16_t, int16_t);
 static print_object                     (void);
-static INT Hall_algorithm               (void);
-static INT compute_condition_N          (INT, INT);
-static INT compute_condition_C          (INT, INT);
-static INT Guo_and_Hall_algorithm       (void);
-static INT skin                         (INT, INT);
-static INT Karzanov_and_Komissarchik_algorithm (void);
-static INT is_internal                  (INT, INT);
-static INT check_shape                  (INT, INT, pchar, INT);
-static INT check_picture                (INT, INT);
-static INT Talalai_algorithm            (void);
+static int16_t Hall_algorithm               (void);
+static int16_t compute_condition_N          (int16_t, int16_t);
+static int16_t compute_condition_C          (int16_t, int16_t);
+static int16_t Guo_and_Hall_algorithm       (void);
+static int16_t skin                         (int16_t, int16_t);
+static int16_t Karzanov_and_Komissarchik_algorithm (void);
+static int16_t is_internal                  (int16_t, int16_t);
+static int16_t check_shape                  (int16_t, int16_t, pchar, int16_t);
+static int16_t check_picture                (int16_t, int16_t);
+static int16_t Talalai_algorithm            (void);
 
 
 static cursor_off ()
@@ -203,7 +203,7 @@ static cursor_on ()
 }
 
 
-static INT symbol_to_color (INT c)
+static int16_t symbol_to_color (int16_t c)
 {
     switch (c)
     {
@@ -215,7 +215,7 @@ static INT symbol_to_color (INT c)
 }
 
 
-static INT color_to_symbol (INT c)
+static int16_t color_to_symbol (int16_t c)
 {
     switch (c)
     {
@@ -227,11 +227,11 @@ static INT color_to_symbol (INT c)
 
 
 char field [FIELD_WIDTH][FIELD_HEIGHT];
-INT  white_color;
+int16_t  white_color;
 
 static void init_field (void)
 {
-    INT x, y;
+    int16_t x, y;
 
     for (x = 0; x < FIELD_WIDTH; x++)
 	for (y = 0; y < FIELD_HEIGHT; y++)
@@ -241,7 +241,7 @@ static void init_field (void)
 }
 
 
-static void putch_cell (INT color)
+static void putch_cell (int16_t color)
 {
     textbackground (color);
     putch (' ');
@@ -250,7 +250,7 @@ static void putch_cell (INT color)
 
 static void update_screen (void)
 {
-    INT x, y;
+    int16_t x, y;
 
     cursor_off ();
 
@@ -306,8 +306,8 @@ static void load_field (void)
 {
     char buffer[FILENAME_LENGTH + 3], *filename;
     FILE *f;
-    INT  x, y;
-    INT  c;
+    int16_t  x, y;
+    int16_t  c;
 
     message ("Enter filename to load : ");
 
@@ -358,8 +358,8 @@ static void save_field (void)
 {
     char buffer[FILENAME_LENGTH + 3], *filename;
     FILE *f;
-    INT  x, y;
-    INT  c;
+    int16_t  x, y;
+    int16_t  c;
 
     message ("Enter filename to save : ");
 
@@ -388,13 +388,13 @@ static void save_field (void)
 
 # define METHODS  4
 
-INT Hall_algorithm (void);
-INT Guo_and_Hall_algorithm (void);
-INT Karzanov_and_Komissarchik_algorithm (void);
-INT Talalai_algorithm (void);
+int16_t Hall_algorithm (void);
+int16_t Guo_and_Hall_algorithm (void);
+int16_t Karzanov_and_Komissarchik_algorithm (void);
+int16_t Talalai_algorithm (void);
 
 struct {
-      INT (*algorithm) (void);
+      int16_t (*algorithm) (void);
       char *method_name;
        }  method_desc [METHODS] =
 {
@@ -409,7 +409,7 @@ struct {
 
 };
 
-INT method_number = 0;
+int16_t method_number = 0;
 
 
 static void update_mode_line (void)
@@ -439,7 +439,7 @@ static void make_thinning (void)
 
 static void delete_skin (void)
 {
-    INT x, y;
+    int16_t x, y;
 
     for (x = 0; x < FIELD_WIDTH; x++)
 	for (y = 0; y < FIELD_HEIGHT; y++)
@@ -453,7 +453,7 @@ static void delete_skin (void)
 
 static void make_unthinning (void)
 {
-    INT x, y;
+    int16_t x, y;
 
     if (white_color == WHITE_COLOR)
     {
@@ -478,10 +478,10 @@ static void make_new (void)
 }
 
 /****************************************************/
-void main (INT argc, char **argv)
+void main (int16_t argc, char **argv)
 {
-    INT x, y;
-    INT c;
+    int16_t x, y;
+    int16_t c;
 
     textcolor (TEXT_COLOR);
     textbackground (TEXT_BACKGROUND);
@@ -627,18 +627,18 @@ void main (INT argc, char **argv)
 # define DP8     (IS_DELETABLE (x - 1, y))
 
 # define PATH_LEN   8
-INT path_x [PATH_LEN] = { -1,  0,  1,  1,  1,  0, -1, -1 };
-INT path_y [PATH_LEN] = { -1, -1, -1,  0,  1,  1,  1,  0 };
+int16_t path_x [PATH_LEN] = { -1,  0,  1,  1,  1,  0, -1, -1 };
+int16_t path_y [PATH_LEN] = { -1, -1, -1,  0,  1,  1,  1,  0 };
 
 # include <stdio.h>
 
 
-static INT  account_neighbors (INT x, INT y)
+static int16_t  account_neighbors (int16_t x, int16_t y)
 {
-    INT i;
-    INT counter;
-    INT wmod8;
-    INT Xwrk, Ywrk;
+    int16_t i;
+    int16_t counter;
+    int16_t wmod8;
+    int16_t Xwrk, Ywrk;
 
     counter = 0;
 /*****************************************************
@@ -693,12 +693,12 @@ static INT  account_neighbors (INT x, INT y)
  */
 
 
-static INT account_connect4_components (INT x, INT y)
+static int16_t account_connect4_components (int16_t x, int16_t y)
 {
-    INT i;
-    INT color_changes;
-    INT prev_color;
-    INT color;
+    int16_t i;
+    int16_t color_changes;
+    int16_t prev_color;
+    int16_t color;
 
     color_changes = 0;
     prev_color    = IS_PIXEL (x + path_x [PATH_LEN - 1],
@@ -721,7 +721,7 @@ static INT account_connect4_components (INT x, INT y)
 
 static print_object (void)
 {
-    INT x, y;
+    int16_t x, y;
 
     for (y = 0; y < HEIGHT; y++)
     {
@@ -735,10 +735,10 @@ static print_object (void)
 */
 
 
-static INT Hall_algorithm (void)
+static int16_t Hall_algorithm (void)
 {
-    INT x, y;
-    INT deleted_cells = 0;
+    int16_t x, y;
+    int16_t deleted_cells = 0;
 
     for (x = 0; x < WIDTH; x++)
 	for (y = 0; y < HEIGHT; y++)
@@ -800,33 +800,33 @@ static INT Hall_algorithm (void)
  */
 
 
-static INT compute_condition_N (INT x, INT y)
+static int16_t compute_condition_N (int16_t x, int16_t y)
 {
-    INT n1 = (PP1 | PP2) + (PP3 | PP4) + (PP5 | PP6) + (PP7 | PP8);
-    INT n2 = (PP2 | PP3) + (PP4 | PP5) + (PP6 | PP7) + (PP8 | PP1);
+    int16_t n1 = (PP1 | PP2) + (PP3 | PP4) + (PP5 | PP6) + (PP7 | PP8);
+    int16_t n2 = (PP2 | PP3) + (PP4 | PP5) + (PP6 | PP7) + (PP8 | PP1);
     return (MIN (n1, n2));
 }
 
 
-static INT compute_condition_C (INT x, INT y)
+static int16_t compute_condition_C (int16_t x, int16_t y)
 {
     return ((~PP2 & (PP3 | PP4)) + (~PP4 & (PP5 | PP6))
 	      + (~PP6 & (PP7 | PP8)) + (~PP8 & (PP1 | PP2)));
 }
 
 
-static INT Guo_and_Hall_algorithm (void)
+static int16_t Guo_and_Hall_algorithm (void)
 {
-    INT x, y;
-    INT iter;
-    INT deleted_cells = 0;
+    int16_t x, y;
+    int16_t iter;
+    int16_t deleted_cells = 0;
 
     for (iter = 1; iter <= 2; iter++)
     {
         for (x = 0; x < WIDTH; x++)
             for (y = 0; y < HEIGHT; y++)
             {
-		INT n = compute_condition_N (x, y);
+		int16_t n = compute_condition_N (x, y);
 
                 if (PP &&
                     2 <= n && n <= 3 &&
@@ -860,7 +860,7 @@ static INT Guo_and_Hall_algorithm (void)
  */
 
 
-static INT skin (INT x, INT y)
+static int16_t skin (int16_t x, int16_t y)
 {
     x=y;
     y=x+1;
@@ -868,10 +868,10 @@ static INT skin (INT x, INT y)
 }
 
 
-INT Karzanov_and_Komissarchik_algorithm (void)
+int16_t Karzanov_and_Komissarchik_algorithm (void)
 {
-    INT x, y;
-    INT deleted_cells = 0;
+    int16_t x, y;
+    int16_t deleted_cells = 0;
 
     Z = &string;
     for (x = 0; x < WIDTH; x++)
@@ -897,8 +897,8 @@ INT Karzanov_and_Komissarchik_algorithm (void)
 
 typedef struct
       {
-      INT   max_neighbors;
-      INT   min_neighbors;
+      int16_t   max_neighbors;
+      int16_t   min_neighbors;
       pchar string;
       } SHAPE;
 
@@ -917,15 +917,15 @@ SHAPE picture_shape [] =
 };
 
 
-static INT is_internal (INT x, INT y)
+static int16_t is_internal (int16_t x, int16_t y)
 {
     return (PP & PP2 & PP4 & PP6 & PP8);
 }
 
 
-static INT check_shape (INT x, INT y, pchar sh_string, INT offset)
+static int16_t check_shape (int16_t x, int16_t y, pchar sh_string, int16_t offset)
 {
-    INT i, j;
+    int16_t i, j;
 
     for (i = 0; i < PATH_LEN; i++)
     {
@@ -947,7 +947,7 @@ static INT check_shape (INT x, INT y, pchar sh_string, INT offset)
 		break;
 
 	    case '?':
-		if (!is_internal ((INT)(x + path_x [i]), (INT)(y + path_y [i])))
+		if (!is_internal ((int16_t)(x + path_x [i]), (int16_t)(y + path_y [i])))
 			return (0);
 		break;
 	}
@@ -957,11 +957,11 @@ static INT check_shape (INT x, INT y, pchar sh_string, INT offset)
 }
 
 
-static INT check_picture (INT x, INT y)
+static int16_t check_picture (int16_t x, int16_t y)
 {
     SHAPE *shape;
-    INT   neighbors = account_neighbors (x, y);
-    INT   angle_offset;
+    int16_t   neighbors = account_neighbors (x, y);
+    int16_t   angle_offset;
 
     if (!PP || neighbors == 8) return (0);
 
@@ -979,10 +979,10 @@ static INT check_picture (INT x, INT y)
 }
 
 
-static INT Talalai_algorithm (void)
+static int16_t Talalai_algorithm (void)
 {
-    INT x, y;
-    INT deleted_cells = 0;
+    int16_t x, y;
+    int16_t deleted_cells = 0;
 
     for (x = 0; x < WIDTH; x++)
 	for (y = 0; y < HEIGHT; y++)
@@ -1003,7 +1003,7 @@ static INT Talalai_algorithm (void)
 
 # ifndef SHV_DEBUG
 
-INT shaving (INT method)
+int16_t shaving (int16_t method)
 {
     switch (method)
     {

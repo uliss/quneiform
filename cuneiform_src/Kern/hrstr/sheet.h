@@ -68,13 +68,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct Line {int Ax,Ay,Bx,By;}  LINE;
 
 struct strSheet {
- INT      Sh,Sv,angle,VerCount;
- INT	  *Ver;
- INT	  *Hor;
- INT	  *Tab;
+ int16_t      Sh,Sv,angle,VerCount;
+ int16_t	  *Ver;
+ int16_t	  *Hor;
+ int16_t	  *Tab;
  LINE     *VerLine;
- INT      ShiftX;
- INT      ShiftY;
+ int16_t      ShiftX;
+ int16_t      ShiftY;
                 };
 typedef struct strSheet SHT;
 
@@ -82,10 +82,10 @@ typedef struct strSheet SHT;
 int  GetUserNumSheet(SHT * sht,int x,int y);
 int  GetWidthSheet(SHT * sht,int x,int y);
 int  GetNumFragmentColumn(SHT * sht,int num);
-Bool ExtractSheets(INT NumSht,SHT ** sht);
-Bool DeleteSheet(INT);
+Bool ExtractSheets(int16_t NumSht,SHT ** sht);
+Bool DeleteSheet(int16_t);
 Bool ExistSheets(void);
-Bool GetSheetIncline(INT * angle);
+Bool GetSheetIncline(int16_t * angle);
 Bool ItsSheetBlock(BLOCK * p);
 Bool OutsideSheet(int * xLeft,int * yTop,int * xRight,int * yBottom);
 

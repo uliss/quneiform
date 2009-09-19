@@ -241,7 +241,7 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 #endif
 
 #ifndef PtrToInt
-  #define PtrToInt( p ) ((INT)(INT_PTR) (p) )
+  #define PtrToInt( p ) ((int16_t)(INT_PTR) (p) )
 #endif
 
 #else // !(_ATL_VER >= 0x0800)
@@ -426,7 +426,7 @@ static CWndClassInfo& GetWndClassInfo() \
     #define PtrToUint( p ) ((uint)(UINT_PTR) (p) )
   #endif
   #ifndef PtrToInt
-    #define PtrToInt( p ) ((INT)(INT_PTR) (p) )
+    #define PtrToInt( p ) ((int16_t)(INT_PTR) (p) )
   #endif
   #ifndef PtrToUshort
     #define PtrToUshort( p ) ((unsigned short)(ULONG_PTR)(p) )

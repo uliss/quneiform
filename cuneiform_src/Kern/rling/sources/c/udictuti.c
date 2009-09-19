@@ -101,15 +101,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	      /***        P R O T O T Y P E S       ****/
 
- static INT UserDictRDWR( uchar * word,voc_state * user_dict,INT weight,INT mode);
+ static int16_t UserDictRDWR( uchar * word,voc_state * user_dict,int16_t weight,int16_t mode);
  static Bool ispermitted (uchar a);
  extern uchar multy_language;
 
 
 /* ------------------------------------------------------------------ */
 
-INT AddWordToUserDictionary ( uchar * word, INT weight,voc_state * user_dict)
-{ INT resp;
+int16_t AddWordToUserDictionary ( uchar * word, int16_t weight,voc_state * user_dict)
+{ int16_t resp;
 
   resp =UserDictRDWR( word, user_dict, weight, VOC_W);
 
@@ -130,8 +130,8 @@ INT AddWordToUserDictionary ( uchar * word, INT weight,voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT DeleteWordFromUserDictionary ( uchar * word, voc_state * user_dict)
-{ INT resp;
+int16_t DeleteWordFromUserDictionary ( uchar * word, voc_state * user_dict)
+{ int16_t resp;
 
   resp =UserDictRDWR( word, user_dict,-256, VOC_R);
 
@@ -145,8 +145,8 @@ INT DeleteWordFromUserDictionary ( uchar * word, voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT _IsWordInUserDictionary ( uchar * word, voc_state * user_dict)
-{ INT resp;
+int16_t _IsWordInUserDictionary ( uchar * word, voc_state * user_dict)
+{ int16_t resp;
 
   resp =UserDictRDWR( word, user_dict,0, VOC_R);
   if( resp >= 0 )                                 return   resp;
@@ -156,12 +156,12 @@ INT _IsWordInUserDictionary ( uchar * word, voc_state * user_dict)
 
 /* ------------------------------------------------------------------ */
 
-INT UserDictRDWR( uchar * word, voc_state * user_dict, INT weight, INT mode)
+int16_t UserDictRDWR( uchar * word, voc_state * user_dict, int16_t weight, int16_t mode)
 {
   LTIMG wrdimg[MAX_WORD_SIZE],*wrddef[MAX_WORD_SIZE+1];
   LT lt[MAX_WORD_SIZE];
-  INT i;
-  INT lth;
+  int16_t i;
+  int16_t lth;
     for ( i = 0; *word ; i ++,word++)
     {
       if ( i == MAX_WORD_SIZE) return 0;
@@ -185,7 +185,7 @@ INT UserDictRDWR( uchar * word, voc_state * user_dict, INT weight, INT mode)
 // if line is empty -1 returned.
 // otherwise frc returned.
 */
-INT   SplitWordRecord(uchar  * str)
+int16_t   SplitWordRecord(uchar  * str)
 { uchar *b;
   b = str;
   while((*str) && (*str== ' ')) str++;
@@ -227,9 +227,9 @@ static byte tab_alphas [256] =
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1     // f0
 };
 
-void init_tab_alpha(uchar *s1,uchar *s2,INT num)
+void init_tab_alpha(uchar *s1,uchar *s2,int16_t num)
 {
-INT i;
+int16_t i;
 if( language==LANG_RUSSIAN && multy_language || language==LANG_RUSENG)
   memset(&tab_alphas[128],0,128);
 else
@@ -261,13 +261,13 @@ Bool ispermitted (uchar a)
 			 - UD_PERMITTED  - file has a CTC user dict header.
 */
 
-INT _IsUserDict (char * name)
+int16_t _IsUserDict (char * name)
 {
   char buff[128];
-  INT f;
+  int16_t f;
   LONG ret;
 
-  f = TGOPEN( (INT)VC_STREAM, name, (INT)(O_RDONLY|O_BINARY), S_IREAD );
+  f = TGOPEN( (int16_t)VC_STREAM, name, (int16_t)(O_RDONLY|O_BINARY), S_IREAD );
   if ( f ==-1) {
     return UD_NOTEXIST;
   }

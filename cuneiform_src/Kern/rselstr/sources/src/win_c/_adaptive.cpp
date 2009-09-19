@@ -74,7 +74,7 @@
 
 #include "new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
 
-extern INT nIncline;
+extern int16_t nIncline;
 
 PROOT root_file = NULL;
 uint16_t run_options = 0;
@@ -125,13 +125,13 @@ extern uchar work_raster[], work_raster_1[];
 extern uint16_t lpool_lth;
 extern uchar lpool[];
 static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
-static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
-MN * c_locomp(puchar raster, INT bw, INT h, INT upper, INT left) {
+static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
+MN * c_locomp(puchar raster, int16_t bw, int16_t h, int16_t upper, int16_t left) {
 	return LOC_CLocomp(raster, bw, h, upper, left);
 }
 
 puchar make_raster_CCOM(CCOM_comp *cmp) {
-	INT h, d, dd, k, i, ii;
+	int16_t h, d, dd, k, i, ii;
 	RecRaster rs;
 
 	memset(work_raster, 0, cmp->rw * cmp->h);
@@ -147,7 +147,7 @@ puchar make_raster_CCOM(CCOM_comp *cmp) {
 }
 
 puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
-	INT h, d, dd, k, i, ii;
+	int16_t h, d, dd, k, i, ii;
 	RecRaster rs;
 
 	memset(work_raster, 0, cmp->rw * cmp->h);

@@ -202,7 +202,7 @@ uint32_t GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 	return 0;
 }
 
-uint GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, INT nDefault,
+uint GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, int16_t nDefault,
 		LPCTSTR lpFileName) {
 	return 0;
 }

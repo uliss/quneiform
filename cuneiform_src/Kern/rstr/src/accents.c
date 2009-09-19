@@ -75,29 +75,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 extern uchar language;
-extern INT pitchsize;
+extern int16_t pitchsize;
 extern uchar db_status;
 
 cell *accadr1;
 cell *accadr2;
 
 static B_LINES bl;
-static INT H;
+static int16_t H;
 
-static INT acc_lr(cell *,cell *,puchar);
-static INT acc_roof(cell *,puchar);
-static INT acc_weak_roof(cell *cc,puchar r);	// 31.05.2001 E.P.
-static INT acc_2dot(cell *,cell *,puchar,uchar);
-static INT acc_cir(cell *,puchar);
-static INT acc_tild(cell *,puchar);
-static INT acc_macron(cell *,puchar);	// 17.07.2001 E.P.
-static INT acc_dot(cell *c,cell *cc);
+static int16_t acc_lr(cell *,cell *,puchar);
+static int16_t acc_roof(cell *,puchar);
+static int16_t acc_weak_roof(cell *cc,puchar r);	// 31.05.2001 E.P.
+static int16_t acc_2dot(cell *,cell *,puchar,uchar);
+static int16_t acc_cir(cell *,puchar);
+static int16_t acc_tild(cell *,puchar);
+static int16_t acc_macron(cell *,puchar);	// 17.07.2001 E.P.
+static int16_t acc_dot(cell *c,cell *cc);
 
 int16_t NumIntersect2(c_comp *cmp, int mHei);
 
 // 04.09.2000 E.P.
-static INT acc_double_right(cell *c,cell *cc,puchar r);
-static INT acc_semicircle(cell *cc,puchar r);
+static int16_t acc_double_right(cell *c,cell *cc,puchar r);
+static int16_t acc_semicircle(cell *cc,puchar r);
 
 //static void debug_print_raster(char *text, puchar r); 19.07.2001 E.P.
 
@@ -156,11 +156,11 @@ for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
 return;
 }
 //**************************************************************************
-INT bottom_accent(cell *c)
+int16_t bottom_accent(cell *c)
 {
- INT i,n,chr;
+ int16_t i,n,chr;
  version *v1,*v2,vers[VERS_IN_CELL];
- INT was_l = 0;
+ int16_t was_l = 0;
 
  if (!find_bottom_accent(c))
     return 0;
@@ -294,9 +294,9 @@ INT bottom_accent(cell *c)
  return 1;
 }
 //**************************************************************************
-INT accent(cell *c)
+int16_t accent(cell *c)
  {
- INT acc_type,i,n;
+ int16_t acc_type,i,n;
  version *v1,*v2,vers[VERS_IN_CELL];
  uchar str[15];
 
@@ -990,9 +990,9 @@ _ok:
  return 1;
  }
 //**************************************************************************
-static void mirror(puchar rinp,INT h, INT wb )
+static void mirror(puchar rinp,int16_t h, int16_t wb )
 {
-INT i;
+int16_t i;
 puchar pi, po;
 uchar  str[100];
 for(po=rinp+wb*(h-1),pi=rinp,i=0;i<h/2;i++, pi+=wb, po-=wb)
@@ -1004,13 +1004,13 @@ for(po=rinp+wb*(h-1),pi=rinp,i=0;i<h/2;i++, pi+=wb, po-=wb)
 return;
 }
 //**************************************************************************
-INT type_acc(cell *c,Bool enable_mark_satellit)
+int16_t type_acc(cell *c,Bool enable_mark_satellit)
  {
  cell *cc;
- INT i=0,e,r,d,fld, ret;
+ int16_t i=0,e,r,d,fld, ret;
  puchar raster;
  uchar let;
- uchar acc_base[128];INT acc_base_num;
+ uchar acc_base[128];int16_t acc_base_num;
 
  accadr1=accadr2=NULL;
  get_b_lines(c,&bl);
@@ -1186,13 +1186,13 @@ INT type_acc(cell *c,Bool enable_mark_satellit)
 		// ACC_SEMICIRCLE
 		if (memchr("Aa",let,2))
 			{
-			mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+			mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
 			if( acc_semicircle(cc,raster) )
 				{
 				ret= ACC_SEMICIRCLE;
 				goto non_zero_ret;
 				}
-			mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+			mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
 			}
 		}
 
@@ -1215,13 +1215,13 @@ INT type_acc(cell *c,Bool enable_mark_satellit)
 		// ACC_SEMICIRCLE
 		if (memchr("Gg",let,2))
 			{
-			mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+			mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
 			if( acc_semicircle(cc,raster) )
 				{
 				ret= ACC_SEMICIRCLE;
 				goto non_zero_ret;
 				}
-			mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+			mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
 			}
 		}
 
@@ -1234,13 +1234,13 @@ INT type_acc(cell *c,Bool enable_mark_satellit)
 			memchr("CcSsZz",let,6)
 		)
       {
-      mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+      mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
       if( acc_roof(cc,raster) )
 		{
 		ret= ACC_ROOF_INV;
 		goto non_zero_ret;
 		}
-      mirror(raster,cc->h,(INT)((cc->w+7)/8) );
+      mirror(raster,cc->h,(int16_t)((cc->w+7)/8) );
       }
 
 	 // ACC_RIGHT, ACC_LEFT
@@ -1421,7 +1421,7 @@ INT type_acc(cell *c,Bool enable_mark_satellit)
 			(let=='U'||let=='u' || c->vers[1].let=='U' || c->vers[1].let=='u')
 	  )
 		{
-		INT wlet=1;	// Обычные буквы: aEe
+		int16_t wlet=1;	// Обычные буквы: aEe
 
 		// Узкие буквы
 		if (strchr("Ii",let))
@@ -1527,11 +1527,11 @@ INT type_acc(cell *c,Bool enable_mark_satellit)
     return ret;
  }
 //**************************************************************************
-static INT acc_lr(cell *c,cell *cc,puchar r)
+static int16_t acc_lr(cell *c,cell *cc,puchar r)
  {
- INT l,r1,r2,r3,b,s1,s2,s3,s4,s13,s24,i,j,d;
+ int16_t l,r1,r2,r3,b,s1,s2,s3,s4,s13,s24,i,j,d;
  char *sCanHaveLRAccents = NULL;     // 21.08.1997 E.P. for Polish
- INT nCanHaveLRAccents = 0;
+ int16_t nCanHaveLRAccents = 0;
  uchar let;
 
  if (cc->env->nl>2)
@@ -1686,9 +1686,9 @@ static INT acc_lr(cell *c,cell *cc,puchar r)
  return 0;
  }
 //**************************************************************************
-static INT acc_roof(cell *cc,puchar r)
+static int16_t acc_roof(cell *cc,puchar r)
  {
- INT r1,r2,r3,b,s11,s12,s21,s22,s31,s32,ss13,ss2,sp,sm,ss,i,j,l;
+ int16_t r1,r2,r3,b,s11,s12,s21,s22,s31,s32,ss13,ss2,sp,sm,ss,i,j,l;
 
  if (cc->h>cc->w+2 || cc->w<=5)
   return 0;
@@ -1830,10 +1830,10 @@ static Bool32 IsProgib(puchar r,int w,int h)
 	return TRUE;
 }
 /////////////////
-static INT acc_2dot(cell *c,cell *cc,puchar r,uchar let)
+static int16_t acc_2dot(cell *c,cell *cc,puchar r,uchar let)
  {
  cell *cc1;
- INT l,d,b,j,i1,i2,r1,r2,r3,s1,s2,u;
+ int16_t l,d,b,j,i1,i2,r1,r2,r3,s1,s2,u;
  uchar let1;
 
  if (cc->row<bl.b1-1 && cc->row+cc->h<c->row-MAX(4,cc->h)-1)
@@ -1955,9 +1955,9 @@ static INT acc_2dot(cell *c,cell *cc,puchar r,uchar let)
  return 0;
  }
 //**************************************************************************
-static INT acc_cir(cell *c,puchar r)
+static int16_t acc_cir(cell *c,puchar r)
  {
- INT l,u,v,i,j,s;
+ int16_t l,u,v,i,j,s;
 
  accadr1=c;
  l=(c->w+7)/8;
@@ -1995,11 +1995,11 @@ static INT acc_cir(cell *c,puchar r)
  return 0;
  }
 //**************************************************************************
-static INT acc_tild(cell *c,puchar r)
+static int16_t acc_tild(cell *c,puchar r)
  {
- INT j;
- INT noTild = 0;
- INT numIntersect=0;
+ int16_t j;
+ int16_t noTild = 0;
+ int16_t numIntersect=0;
 
  accadr1=c;
  if (c->h<=3 && 3*c->h<=c->w)
@@ -2070,7 +2070,7 @@ static INT acc_tild(cell *c,puchar r)
  return 1;
  }
 
- static INT acc_dot(cell *c,cell *cc)
+ static int16_t acc_dot(cell *c,cell *cc)
  {
  extern uchar fax1x2;
 
@@ -2104,12 +2104,12 @@ static INT acc_tild(cell *c,puchar r)
  return 0;
  }
 //**************************************************************************
-INT find_bottom_accent(cell *c)
+int16_t find_bottom_accent(cell *c)
  {
  cell *cc;
- INT i,e,fld;
+ int16_t i,e,fld;
  uchar let;
- uchar acc_base[128];INT acc_base_num;
+ uchar acc_base[128];int16_t acc_base_num;
 
  accadr1=accadr2=NULL;
  get_b_lines(c,&bl);
@@ -2246,7 +2246,7 @@ INT find_bottom_accent(cell *c)
  return 0;
  }
 //**************************************************************************
-static INT acc_semicircle(cell *cc,puchar r)
+static int16_t acc_semicircle(cell *cc,puchar r)
 {
 /* ACC_SEMICIRCLE - акцент в форме полукруга над румынской Аа.
 
@@ -2256,7 +2256,7 @@ static INT acc_semicircle(cell *cc,puchar r)
 	Скопирован из acc_roof().
 	04.09.2000 E.P.
 */
- INT r1,r2,r3,b,s11,s12,s21,s22,s31,s32,ss13,ss2,sp,sm,ss,i,j,l;
+ int16_t r1,r2,r3,b,s11,s12,s21,s22,s31,s32,ss13,ss2,sp,sm,ss,i,j,l;
 
  if (cc->h>cc->w+2 || cc->w<=5)
   return 0;
@@ -2344,7 +2344,7 @@ int16_t NumIntersect2(c_comp *cmp, int mHei)
 
  memset(numint,0,mHei*sizeof(int));
 
- line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(int16_t));
 
  // test all lines
  for (; (len=line->lth)>0; line=(lnhead *)((pchar)line+len))
@@ -2384,7 +2384,7 @@ static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
  *lUAngle = *rUAngle = c->h + c->w;
  *lDAngle = *rDAngle = c->h + c->w;
 
- line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(int16_t));
 
  // test all lines
  for (; (len=line->lth)>0; line=(lnhead *)((pchar)line+len))
@@ -2447,7 +2447,7 @@ static int16_t Test2Cell2(cell *c1,cell *c2,
 
  for(j=0, cmp=cmp1;j<2;j++,cmp=cmp2)
  {
-  line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(int16_t));
 
   startRow = (j==0?c1->row:c2->row)-minRow;
   startCol = (j==0?c1->col:c2->col)-minCol;
@@ -2480,7 +2480,7 @@ static int16_t Test2Cell2(cell *c1,cell *c2,
  return (i*100)/mHei;
 }
 //**************************************************************************
-static INT acc_double_right(cell *c,cell *cc,puchar r)
+static int16_t acc_double_right(cell *c,cell *cc,puchar r)
 {
 // ACC_DOUBLE_RIGHT - двойной правый акцент
 
@@ -2593,9 +2593,9 @@ static INT acc_double_right(cell *c,cell *cc,puchar r)
   return 0;
 }
 //**************************************************************************
-static INT acc_weak_roof(cell *cc,puchar r)
+static int16_t acc_weak_roof(cell *cc,puchar r)
  {
- INT r1,r2,r3,b,j,l;
+ int16_t r1,r2,r3,b,j,l;
 
  if (cc->h>cc->w+2 || cc->w<=5)
   return 0;
@@ -2620,7 +2620,7 @@ static INT acc_weak_roof(cell *cc,puchar r)
  }
 //**************************************************************************/
 //Nick 20.08.01
-static Bool NotEmptyInside(puchar r, INT w, INT h)
+static Bool NotEmptyInside(puchar r, int16_t w, int16_t h)
 {
 	int i,j,sum,allSum;
 	int wb = (w+7)>>3;
@@ -2665,11 +2665,11 @@ static Bool NotEmptyInside(puchar r, INT w, INT h)
 	return FALSE;
 }
 ////////////////
-static INT acc_macron(cell *c,puchar r)
+static int16_t acc_macron(cell *c,puchar r)
 {
  // Изучение растра акцента типа "макрон" - черта сверху над буквой
-	INT i, j;
-	INT h, w, l, s, start;
+	int16_t i, j;
+	int16_t h, w, l, s, start;
 
 	h=c->h;
 	w=c->w;

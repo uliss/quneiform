@@ -84,7 +84,7 @@
 /* ------ Export section. ------------------------------------------- */
 /* -- Code -- */
 
-INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
 		struct dict_state * dict);
 
 /* -- Data -- */
@@ -114,21 +114,21 @@ KEYTYPE codetable[256];
 /*************************************************************************/
 /* -- Code -- */
 
-static INT
-		analyse(INT * account, INT * wordsize, LTIMG * wrddef[], INT * found);
-static INT next_level(KEYTYPE ch);
-static INT test_tail(uchar * ptr, INT * accounter, INT * tailmaxl,
-		LTIMG * wrddef[], INT * tailfound);
+static int16_t
+		analyse(int16_t * account, int16_t * wordsize, LTIMG * wrddef[], int16_t * found);
+static int16_t next_level(KEYTYPE ch);
+static int16_t test_tail(uchar * ptr, int16_t * accounter, int16_t * tailmaxl,
+		LTIMG * wrddef[], int16_t * tailfound);
 
 static TShiftType brother2(uchar * ptr);
 
-static INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr,
-		INT * tailmaxl, LTIMG * wrddef[], INT * tailfound);
-static INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont);
-static INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		INT * tailfound, uchar *tailptr);
-static INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
-		INT * fillfind, uchar symb, LT ** gaplt);
+static int16_t comp_tail(int16_t varnum, int16_t rest, int16_t cnt, KEYTYPE * wptr,
+		int16_t * tailmaxl, LTIMG * wrddef[], int16_t * tailfound);
+static int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont);
+static int16_t tailout(int16_t cnt, int16_t rest, KEYTYPE * wptr, LTIMG * wrddef[],
+		int16_t * tailfound, uchar *tailptr);
+static int16_t chkfill(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
+		int16_t * fillfind, uchar symb, LT ** gaplt);
 
 /* -- Macro -- */
 
@@ -139,13 +139,13 @@ static INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
 static PTDictState dictInfo; /* dictionary control structure  */
 
 static KEYTYPE *wptr; /* pointer to working word       */
-static INT rest; /* lth of word rest              */
-static INT cnt; /* character counter             */
+static int16_t rest; /* lth of word rest              */
+static int16_t cnt; /* character counter             */
 static TShiftType lthorshift; /* lth of curr VERTV or shift to */
 
-static INT poslevel; /* current level in pos. tree if indpos==1  */
-static INT indpos; /* 1-ndptr points to pos. tree,0-otherwise  */
-static INT maxlevel; /* max num of level in current pos. tree    */
+static int16_t poslevel; /* current level in pos. tree if indpos==1  */
+static int16_t indpos; /* 1-ndptr points to pos. tree,0-otherwise  */
+static int16_t maxlevel; /* max num of level in current pos. tree    */
 
 static uchar *ndptr; /* pointer to current vertex in  */
 
@@ -212,12 +212,12 @@ static uchar *ndptr; /* pointer to current vertex in  */
 /*                                                                       */
 /*************************************************************************/
 
-INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
 		struct dict_state * dict) {
-	INT found = 0;
-	INT state; /* state of search in dictionary */
-	INT account = 0; /* word statistic                */
-	INT full_size = *wordsize; /* ATAL, save word size          */
+	int16_t found = 0;
+	int16_t state; /* state of search in dictionary */
+	int16_t account = 0; /* word statistic                */
+	int16_t full_size = *wordsize; /* ATAL, save word size          */
 
 	dictInfo = dict; /* initial values of prossess    */
 	ndptr = dict->root;
@@ -270,7 +270,7 @@ INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
 /*  returns 1, otherwise 0 is returned.                                  */
 /*************************************************************************/
 
-INT next_level(KEYTYPE ch) {
+int16_t next_level(KEYTYPE ch) {
 	TShiftType shift;
 
 	Begin: if (indpos)
@@ -369,8 +369,8 @@ TShiftType brother2(uchar * ptr) {
 /*  terminal in tree or not.                                             */
 /*************************************************************************/
 
-INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
-	INT tailmaxl = 0;
+int16_t analyse(int16_t * account, int16_t * wordsize, LTIMG ** wrddef, int16_t * found) {
+	int16_t tailmaxl = 0;
 	uchar * ptr; /* serv pointer: points to vertex cont. */
 
 	if (indpos)
@@ -382,7 +382,7 @@ INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
 	ptr = ndptr + lthorshift;
 
 	if (VERTV_CONT(ndptr) != 0 && rest >= 0) {
-		INT ret = test_tail(ptr, account, &tailmaxl, wrddef, found);
+		int16_t ret = test_tail(ptr, account, &tailmaxl, wrddef, found);
 		if (ret && !*found) {
 			goto Success;
 		}
@@ -424,11 +424,11 @@ INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
 /*               ->  LONGADDR,ACCOUNT,POSTFICS !                      */
 /**********************************************************************/
 
-INT test_tail(uchar * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
-		INT * tailfound) {
-	INT contflag = 0;
-	INT tailscnter = 0;
-	INT accntcnter = 0;
+int16_t test_tail(uchar * ptr, int16_t * accounter, int16_t * tailmaxl, LTIMG * wrddef[],
+		int16_t * tailfound) {
+	int16_t contflag = 0;
+	int16_t tailscnter = 0;
+	int16_t accntcnter = 0;
 	uint32_t wCount = 0;
 
 	do {
@@ -493,9 +493,9 @@ INT test_tail(uchar * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
 
 #define MASK 0x1L
 
-INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr, INT * tailmaxl,
-		LTIMG * wrddef[], INT * tailfound) {
-	register INT j, k;
+int16_t comp_tail(int16_t varnum, int16_t rest, int16_t cnt, KEYTYPE * wptr, int16_t * tailmaxl,
+		LTIMG * wrddef[], int16_t * tailfound) {
+	register int16_t j, k;
 	uchar * ptr;
 	uchar * tailptr;
 	uint32_t mask;
@@ -546,18 +546,18 @@ INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr, INT * tailmaxl,
 /*                                                                       */
 /*************************************************************************/
 
-INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
+int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont) {
 
 	TShiftType shift;
 
 	LT * gaplt;
-	INT xindpos;
-	INT xposlevel;
-	INT xmaxlevel;
+	int16_t xindpos;
+	int16_t xposlevel;
+	int16_t xmaxlevel;
 	TShiftType xlthorshift;
 	uchar * xndptr;
 
-	INT fillfind = 0;
+	int16_t fillfind = 0;
 
 	xindpos = indpos;
 	xposlevel = poslevel;
@@ -581,7 +581,7 @@ INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 	if (xindpos) {
 		if (xposlevel != xmaxlevel) {
 
-			register INT i;
+			register int16_t i;
 			uint16_t abcSize = dictInfo->abcSize;
 			;
 
@@ -649,8 +649,8 @@ INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 /*                                                                       */
 /*************************************************************************/
 
-INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
-		INT * fillfind, uchar symb, LT ** gaplt) {
+int16_t chkfill(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
+		int16_t * fillfind, uchar symb, LT ** gaplt) {
 	LT * xxgaplt;
 
 	if (gapcont == 0) {
@@ -693,14 +693,14 @@ INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
 /*             Function fills blank positions from the tail.             */
 /*************************************************************************/
 
-INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		INT * tailfound, uchar *tailptr) {
+int16_t tailout(int16_t cnt, int16_t rest, KEYTYPE * wptr, LTIMG * wrddef[],
+		int16_t * tailfound, uchar *tailptr) {
 
 	uchar * xxptr;
-	INT xj;
+	int16_t xj;
 	LT * xxgaplt = NULL;
-	INT bl_flag = 0;
-	INT last_bl = 0;
+	int16_t bl_flag = 0;
+	int16_t last_bl = 0;
 
 	xj = cnt + 1;
 	xxptr = tailptr;

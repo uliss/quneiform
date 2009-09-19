@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INCL_FAC 2048
 
 extern Handle hSnapSerifTrace;
-extern INT    erection_inc;
+extern int16_t    erection_inc;
 extern uchar   p2_active;
 
 Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec);
@@ -135,9 +135,9 @@ static cell *serif_word(cell *c);
 static LONG new_serif(cell *c);
 static LONG fon_test(cell *c);
 static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm);
-static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st);
-static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st);
-static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st);
+static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st);
+static LONG upserif(c_comp *env, uchar shape, int16_t H, STICK *st);
+static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st);
 static void ideal2rc(Point16 *p);
 static void bound_cell(cell *c, uint32_t color);
 
@@ -287,7 +287,7 @@ static LONG new_serif(cell *c)
   if (map=tabvserif[let])
   {
     uchar *rast=save_raster(c);
-    INT t_height=c->w,t_width_b = (c->h+7)/8;
+    int16_t t_height=c->w,t_width_b = (c->h+7)/8;
     MN   *mn;
 
     c_rastror(rast,t_raster(),c->w,c->h);
@@ -368,9 +368,9 @@ static LONG fon_test(cell *c)
 static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
 {
   STICK *st,*sti;
-  INT i,nstick;
+  int16_t i,nstick;
   uchar shape;
-  INT w0=c->w,dw=0,w3,w23;  //w0 - width of untilted letter
+  int16_t w0=c->w,dw=0,w3,w23;  //w0 - width of untilted letter
 
   if (c->n_baton==255)
     nstick=sticks_in_letter(c,0,&st);
@@ -384,7 +384,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
 
   if (c->font & c_fp_it)
   {
-    INT stick_inc=c->stick_inc;
+    int16_t stick_inc=c->stick_inc;
     if (stick_inc==NO_INCLINE)
       if (erection_inc != 0)
         stick_inc=erection_inc;
@@ -462,7 +462,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     sti=st+nstick-1;
     if (sti->y+sti->l+2>=c->h)
     {
-      INT x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
+      int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
       if (w23 < x && x < c->w)
       {
         LONG m=upserif(c->env,shape,c->h,sti);
@@ -481,7 +481,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     for (i=0,sti=st; i<nstick; i++,sti++)
       if (sti->y+sti->l+2>=c->h)
       {
-        INT x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
+        int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
         if (w3 <= x && x < w23)
         {
           LONG m=upserif(c->env,shape,c->h,sti);
@@ -501,7 +501,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     for (i=0,sti=st; i<MIN(2,nstick); i++,sti++)   //in russian 'i' left stick maybe not first
       if (sti->y+sti->l+2>=c->h)
       {
-        INT x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
+        int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
         if (x < w3)
         {
           LONG m=upserif(c->env,shape,c->h,sti);
@@ -526,18 +526,18 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
   }
 }
 
-static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st)
+static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st)
 {
-  INT h,H8=H/8,H3=H/3;
+  int16_t h,H8=H/8,H3=H/3;
   lnhead *line;
   LONG rv=0;
 
-  for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(INT));
+  for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(int16_t));
 			 line->lth>0;
        line=(lnhead *)((pchar)line+line->lth))
     if (line->flg&l_fend && (h=line->h) > H3 && line->row+h+2 >= H)
     {
-      INT x1,x2,i,i0=h-H3-1,in,begl=0,begr=0;
+      int16_t x1,x2,i,i0=h-H3-1,in,begl=0,begr=0;
       LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
@@ -561,7 +561,7 @@ static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st)
 //          break;              //a tump on the line end
 //        else
         {
-          INT dx=(i*st->incl+INCL_FAC/2)/INCL_FAC,s;
+          int16_t dx=(i*st->incl+INCL_FAC/2)/INCL_FAC,s;
           if (shape&2)
           {
             s=x1-(intv->e-intv->l+dx);
@@ -628,18 +628,18 @@ static LONG downserif(c_comp *env, uchar shape, INT H, STICK *st)
   return 0;
 }
 
-static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st)
+static LONG upserif(c_comp *env, uchar shape, int16_t H, STICK *st)
 {
-  INT h,H8=H/8,H3=H/3;
+  int16_t h,H8=H/8,H3=H/3;
   lnhead *line;
   LONG rv=0;
 
-  for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(INT));
+  for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(int16_t));
 			 line->lth>0;
        line=(lnhead *)((pchar)line+line->lth))
     if (line->flg&l_fbeg && (h=line->h) > H3 && line->row <= 2)
     {
-      INT x1,x2,i,i0=MIN(H3,h),begl=0,begr=0;
+      int16_t x1,x2,i,i0=MIN(H3,h),begl=0,begr=0;
       LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
@@ -664,7 +664,7 @@ static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st)
 //          break;               //a tump on the line begin
 //        else
         {
-          INT dx=(i*st->incl+INCL_FAC/2)/INCL_FAC,s;
+          int16_t dx=(i*st->incl+INCL_FAC/2)/INCL_FAC,s;
           if (shape&2)
           {
             s=x1-(intv->e-intv->l-dx);
@@ -750,11 +750,11 @@ static LONG upserif(c_comp *env, uchar shape, INT H, STICK *st)
   return 0;
 }
 
-static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st)
+static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st)
 //return pointer to i-th interval of the line if it corresponds to stick st;
 {
-  INT h0=H-(line->row+i);    //from raster bottom
-  INT x0=st->x+(h0-st->y)*st->incl/INCL_FAC;
+  int16_t h0=H-(line->row+i);    //from raster bottom
+  int16_t x0=st->x+(h0-st->y)*st->incl/INCL_FAC;
   interval *intv=(interval *)((pchar)line+sizeof(lnhead))+i;
   if (x0 > intv->e || x0 < intv->e-intv->l)  intv=NULL;
   return intv;
@@ -762,9 +762,9 @@ static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st)
 
 static void ideal2rc(Point16 *p)
 {
-  INT y=p->y;
-  p->y=y+(INT)((LONG)nIncline*p->x/2048);
-  p->x=p->x-(INT)((LONG)nIncline*y/2048);
+  int16_t y=p->y;
+  p->y=y+(int16_t)((LONG)nIncline*p->x/2048);
+  p->x=p->x-(int16_t)((LONG)nIncline*y/2048);
 }
 
 static void bound_cell(cell *c, uint32_t color)

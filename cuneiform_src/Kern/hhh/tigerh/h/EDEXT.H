@@ -111,12 +111,12 @@ typedef struct edExtention EDEXT;
 typedef struct sTable
 {
  EDEXT 	  head;
- INT      Sh;   	// count horizontal lines
- INT      Sv;           // count vertical lines
- INT      angle;        // angle of table 1/1024 rad
- INT      VerCount;     // count not delete of vert lines
- INT      ShiftX;       // shift tables in image
- INT      ShiftY;       //
+ int16_t      Sh;   	// count horizontal lines
+ int16_t      Sv;           // count vertical lines
+ int16_t      angle;        // angle of table 1/1024 rad
+ int16_t      VerCount;     // count not delete of vert lines
+ int16_t      ShiftX;       // shift tables in image
+ int16_t      ShiftY;       //
 } edTable;
 
 #define EDEXT_SIZE_FILENAME 256

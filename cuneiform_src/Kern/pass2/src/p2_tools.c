@@ -82,10 +82,10 @@ extern P2GLOBALS p2globals;
 #include "ligas.h"				// 01.06.2001 E.P.
 ////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
-	INT i;
+	int16_t i;
 	UniVersions cver, *ver;
 	uchar let;
-	INT lang = p2globals.language;
+	int16_t lang = p2globals.language;
 
 	if (lang == LANG_ENGLISH && p2globals.multy_language)
 		lang = LANG_RUSENG;
@@ -332,7 +332,7 @@ int p2_rotateRecRaster(RecRaster *rec, int ninc) {
 	if (ninc == 0)
 		return 1;
 
-	//rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);
+	//rec->lnPixWidth=erect_raster_value(tmpRaster,(int16_t)rec->lnPixWidth,(int16_t)yrow,(int16_t)ninc);
 
 	max_shift = ((long) (yrow - 1) * ninc) / 2048;
 	if (max_shift < 0)
@@ -371,7 +371,7 @@ int p2_rotateRecRaster(RecRaster *rec, int ninc) {
 
 	}
 
-	//  rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);
+	//  rec->lnPixWidth=erect_raster_value(tmpRaster,(int16_t)rec->lnPixWidth,(int16_t)yrow,(int16_t)ninc);
 
 	// найти настоящие границы !
 	for (i = 0, firCol = outXbit; i < outXbyte; i++) {

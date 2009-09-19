@@ -80,26 +80,26 @@ void   restore_dust(void);
 
 extern uint16_t actual_resolution;
 extern uchar let_captype[];
-extern INT line_number;
+extern int16_t line_number;
 extern uchar fax1x2;
 extern uchar language;
 
 /// static variables
 
-static INT DPs, DPsf;
+static int16_t DPs, DPsf;
 static char diff_curv = 0;   // always !
 
-static INT change_vote = 0;  // only ++, never more used !
+static int16_t change_vote = 0;  // only ++, never more used !
 
-static INT ncut_cells=0;  // static
-static INT ncut_vers=0;   // static
-static INT ntot_cells=0;  // static
+static int16_t ncut_cells=0;  // static
+static int16_t ncut_vers=0;   // static
+static int16_t ntot_cells=0;  // static
 
 //////////////////
 
 void cell_position(cell *c)
  {
- INT w,f, row;
+ int16_t w,f, row;
 
  if (Nb2==-2)
  {
@@ -183,9 +183,9 @@ void cell_position(cell *c)
  /*********************************/
 
 // from linpon.c
-INT smart_diff(cell * c)
+int16_t smart_diff(cell * c)
 {
-INT d1,d2,bm,row;
+int16_t d1,d2,bm,row;
  row = c->row - minrow;
  d1 = row - bbs1;
  d2 = row - bbs2;
@@ -231,7 +231,7 @@ return c->bdiff ;
 ///////////////////////
 void interdif(cell *P, cell *N, cell *B1)
 {
- INT bsc, bsp, bsn, wdn, wdp, clp, cln, clc;
+ int16_t bsc, bsp, bsn, wdn, wdp, clp, cln, clc;
  bsp=P->h+P->row-minrow;
  bsn=N->h+N->row-minrow;
  clp=P->col; cln=N->col;
@@ -341,7 +341,7 @@ void inter_diff(cell *B1)
 }
 //////////////////////////
 
-static INT  top, bot, db, bs1, bs2, bs3, bs4;
+static int16_t  top, bot, db, bs1, bs2, bs3, bs4;
 
 //
 // FAX 100*200 penalties
@@ -397,13 +397,13 @@ static unsigned char ftu3[6][4] =
 // static unsigned char ptd6[8]={0,0,20,80,120,140,240,240};
    static unsigned char ftd6[8]={0,0,0,20,60,100,120,240};
 
-static INT cut_by_posf(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
+static int16_t cut_by_posf(cell *C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
-  INT  dps;
+  int16_t  dps;
   uchar dflag;
   unsigned char pen_upr;
-  INT  up, dn;
-  INT  i, j, bsi, b1, b2, b3, b4;
+  int16_t  up, dn;
+  int16_t  i, j, bsi, b1, b2, b3, b4;
 
   int  pen_up,pen_dn;
 
@@ -703,13 +703,13 @@ static unsigned char ptd7[8]={140,20,0,0,0,0,0,0}; //  ж й ¤
 
 
 
-INT cut_by_posu(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
+int16_t cut_by_posu(cell *C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
-  INT  dps;
+  int16_t  dps;
   uchar dflag;
   unsigned char pen_upr;
-  INT  up, dn;
-  INT  i, j, ib2, bsi, b1, b2, b3, b4;
+  int16_t  up, dn;
+  int16_t  i, j, ib2, bsi, b1, b2, b3, b4;
 
   int pen_up,pen_dn;
 
@@ -1020,7 +1020,7 @@ cut:
 }
 //////////////////////////////
 // оштрафовать - удалить версию chr по базовым линиям
-INT cut_by_pos(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
+int16_t cut_by_pos(cell *C, uchar chr, int16_t wp, uchar flg, uchar arg)
 {
   if (actual_resolution > 64 )
   {
@@ -1040,10 +1040,10 @@ INT cut_by_pos(cell *C, uchar chr, INT wp, uchar flg, uchar arg)
 }
 /////////////////
 // оштрафовать - удалить версии C по базовым линиям
-INT levcut(cell *C, INT arg)
+int16_t levcut(cell *C, int16_t arg)
 {
- INT ncut, nalive, wp, np;
- INT pold, pnew, flcv;
+ int16_t ncut, nalive, wp, np;
+ int16_t pold, pnew, flcv;
  version  *v0;
  uchar  chr, surviver;
 
@@ -1124,7 +1124,7 @@ retncut:
 ///////////////////////////
 // по всей строке
 // оштрафовать - удалить версии по базовым линиям
-void all_cell_levcut(INT arg) // Valdemar makes func global
+void all_cell_levcut(int16_t arg) // Valdemar makes func global
  {
  cell *C;
  C=cell_f();
@@ -1148,9 +1148,9 @@ void all_cell_levcut(INT arg) // Valdemar makes func global
 // вернуть С->bdiff для С c C->difflg & 4 и
 // C->col ближайшим к arg
 // from linban.c
-INT obtain_diff(INT arg)
+int16_t obtain_diff(int16_t arg)
  {
- INT wl, ce, w1m, da, d1n;
+ int16_t wl, ce, w1m, da, d1n;
  cell *C;
 
  w1m=d1n=127;
@@ -1204,7 +1204,7 @@ static void discrim_by_dust()
 ////////////////
 static void all_cell_ledust()
 {
- cell *C; INT df;
+ cell *C; int16_t df;
  C=cell_f();
  while ((C=C->nextl)->nextl)
  {
@@ -1226,9 +1226,9 @@ static void all_cell_ledust()
  }
 }
 ////////////////////////
-static INT dust_to_let()
+static int16_t dust_to_let()
  {
- INT n;
+ int16_t n;
  cell *c,*cn, *cp;
  // glsnap('d',cell_f()->next,"dust_to_let beg");
  for (n=0,c=(cell_f())->next; c->next!=NULL; c=c->next)
@@ -1243,7 +1243,7 @@ static INT dust_to_let()
       { c = cp; continue; }
    }
    if (c->flg & c_f_dust)   // brought as dust
-   { INT wr;
+   { int16_t wr;
      //   if (((wr=if_dust(c)) & 7) == 0)  931229 -- or LARGE
      if ((((wr=if_dust(c)) & 7) == 0) || (wr & 16))
      // not posed as dust, not sized as small dust
@@ -1272,7 +1272,7 @@ static INT dust_to_let()
 // добавить мелочь из lin_str (if arg==0)
 // проверить буквы -> мусор и наоборот
 // linbam.c
-void bring_dust(INT arg)
+void bring_dust(int16_t arg)
 {
  if (arg==0)
  {

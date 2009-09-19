@@ -76,7 +76,7 @@
 //    unload_user_dicts(void) > have been added after Joe.
 // 3. Function < void load_user_dicts ( char * list_name, char  *
 //    point) > has been rewritten after Joe.
-// 4. Function < LONG read_all_voc( INT seqn, char *name, char  *p ) >
+// 4. Function < LONG read_all_voc( int16_t seqn, char *name, char  *p ) >
 //    has been removed with new streams technology.
 //
 // 08-14-93 06:01pm, Mike
@@ -149,7 +149,7 @@ void load_user_dicts(char * list_name, char * point);
 void unload_user_dicts(void);
 
 // 08-13-93 06:35pm, Mike after Joe...
-extern LONG read_all_vtab(INT seqn, char *p);
+extern LONG read_all_vtab(int16_t seqn, char *p);
 
 /* -- Data -- */
 
@@ -159,18 +159,18 @@ struct dict_state * load_dict = NULL; //Allex 09.07.98
  --------------------------------------------------*/
 
 user_voc voc_array[MAX_VOC_NUMBER];
-INT real_voc_no = 0;
+int16_t real_voc_no = 0;
 
 // 08-13-93 06:35pm, Mike after Joe...
-extern INT vocs_NOK;
+extern int16_t vocs_NOK;
 
 /**************************************************************************/
 /***********      Import section.       ***********************************/
 /**************************************************************************/
 /* -- Code -- */
 
-INT cond_open(INT seqn, puchar name, uint16_t b1, uint16_t b2);
-puchar seq_nam(INT seqn);
+int16_t cond_open(int16_t seqn, puchar name, uint16_t b1, uint16_t b2);
+puchar seq_nam(int16_t seqn);
 pchar full_name(puchar w, puchar n);
 
 /* -- Data -- */
@@ -185,13 +185,13 @@ extern char tiger_dir[40];
 /* -- Code -- */
 
 // 08-13-93 06:32pm, Mike
-//  LONG  read_all_voc(INT seqn, char *name, char  *p);
+//  LONG  read_all_voc(int16_t seqn, char *name, char  *p);
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
 //     --------------------------------------------------*/
 
-static INT parce_voc_list_record(char * w, char * nm, INT *type);
+static int16_t parce_voc_list_record(char * w, char * nm, int16_t *type);
 
 /**************************************************************************/
 /***********      Code section.      **************************************/
@@ -327,7 +327,7 @@ uchar * load_stat_dict(char *point)
 // 08-13-93 05:37pm, Mike
 // Not needed with IOLIB.H
 //
-//LONG read_all_voc( INT seqn, char *name, char  *p )
+//LONG read_all_voc( int16_t seqn, char *name, char  *p )
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
@@ -390,8 +390,8 @@ void load_user_dicts_kzl(char * list_name, char * point)
 {
 	char w[MAXPATH], nm[MAXPATH];
 	FILE * lst;
-	INT type;
-	INT errorNo = 0;
+	int16_t type;
+	int16_t errorNo = 0;
 
 	unload_user_dicts();
 
@@ -440,8 +440,8 @@ void load_user_dicts_kzl(char * list_name, char * point)
  list of names of vocabularies(in list_of_names).
  --------------------------------------------------*/
 void load_user_dicts(char * list_of_names, char * point) {
-	INT type;
-	INT errorNo = 0;
+	int16_t type;
+	int16_t errorNo = 0;
 	char nm[MAXPATH];
 
 	unload_user_dicts();
@@ -481,7 +481,7 @@ void load_user_dicts(char * list_of_names, char * point) {
 }
 /* ------------------------------------------------------------------ */
 
-INT parce_voc_list_record(char * w, char * nm, INT *type) {
+int16_t parce_voc_list_record(char * w, char * nm, int16_t *type) {
 	*type = 0;
 	while ((*w) && (*w == ' '))
 		w++;

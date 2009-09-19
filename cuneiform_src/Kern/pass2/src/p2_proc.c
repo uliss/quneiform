@@ -152,7 +152,7 @@ int32_t p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last);
 //extern uchar fon_alphabet_language[2][256];
 /*======= Export funcs =================*/
 //int32_t   p2_proc (CSTR_line lineDraft,CSTR_line lineOne);
-//INT     estletter       (cell * BC,s_glue * GL);
+//int16_t     estletter       (cell * BC,s_glue * GL);
 // snap.c
 //extern Handle hSnapLEO;
 //////// local variables    //////////
@@ -634,7 +634,7 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
 		{
 			CSTR_rast firOld = (CSTR_rast) NULL, lasOld;
 
-			//B->r_row-(INT)((LONG)nIncline*B->r_col/2048);
+			//B->r_row-(int16_t)((LONG)nIncline*B->r_col/2048);
 			// возьмем нужный кусок сырой строки
 			FindAccordLine(lineRaw, &firOld, &lasOld, first, last,
 					(int) p2globals.nIncline);
@@ -1463,7 +1463,7 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 				}
 				vers->lnAltCnt = ii;
 
-				//levcut(cell *C, INT arg);
+				//levcut(cell *C, int16_t arg);
 				// нужно вызвать в строке cell-ов для помеченных как LEO
 				return vers->lnAltCnt;
 			}
@@ -1759,8 +1759,8 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return 0;
 
 		if (naklon) {
-			attr.row = attr.r_row - (INT)((LONG) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (INT)((LONG) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t)((LONG) naklon * attr.r_col / 2048);
+			attr.col = attr.r_col + (int16_t)((LONG) naklon * attr.r_row / 2048);
 		}
 
 		if (attr.col < bLeft)
@@ -2317,8 +2317,8 @@ static void FindAccordLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return;
 		}
 		if (naklon) {
-			attr.row = attr.r_row - (INT)((LONG) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (INT)((LONG) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t)((LONG) naklon * attr.r_col / 2048);
+			attr.col = attr.r_col + (int16_t)((LONG) naklon * attr.r_row / 2048);
 		}
 
 		if (attr.col + attr.w - maxX >= maxX - attr.col && attr.col > minX)
@@ -2380,9 +2380,9 @@ static CSTR_rast AddRastersLine(CSTR_rast fRast, CSTR_rast eRast,
 				attr.pos_inc = CSTR_erect_no;
 			}
 			if (nNaklon) {
-				attr.row = attr.r_row - (INT)((LONG) nNaklon * attr.r_col
+				attr.row = attr.r_row - (int16_t)((LONG) nNaklon * attr.r_col
 						/ 2048);
-				attr.col = attr.r_col + (INT)((LONG) nNaklon * attr.r_row
+				attr.col = attr.r_col + (int16_t)((LONG) nNaklon * attr.r_row
 						/ 2048);
 			}
 

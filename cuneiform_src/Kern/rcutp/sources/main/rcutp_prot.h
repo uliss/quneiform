@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __rcutp_prot_h__
 #define __rcutp_prot_h__
 
-INT  Alik_define_cut_points(pchar,struct own_cut *,INT,INT,INT);
+int16_t  Alik_define_cut_points(pchar,struct own_cut *,int16_t,int16_t,int16_t);
 
 #ifdef __cplusplus
 	extern "C" {

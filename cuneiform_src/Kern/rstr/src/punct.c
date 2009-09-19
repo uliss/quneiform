@@ -78,9 +78,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"compat_defs.h"
 
 extern uchar fax1x2;
-extern INT pitchsize;
+extern int16_t pitchsize;
 extern uchar db_status;
-extern INT line_number;
+extern int16_t line_number;
 extern cell *accadr1;
 extern cell *accadr2;
 extern uchar line_tabcell;
@@ -90,7 +90,7 @@ extern uchar line_tabcell;
 #define FEAT_SIZE 40
 
 static puchar rstr;
-static INT italic;
+static int16_t italic;
 static B_LINES bl;
 static cell *clist[4];
 puchar sv_fantom=NULL;
@@ -98,7 +98,7 @@ puchar sv_fantom=NULL;
 static void order();
 static void bad_to_dust();
 static void glue_dust();
-static INT exclam (cell *,cell *,B_LINES *);
+static int16_t exclam (cell *,cell *,B_LINES *);
 static cell *let_gl(cell *,cell *,cell *,cell *,B_LINES *);
 static void dots();
 static void quockets();
@@ -106,32 +106,32 @@ static void dust_to_bad(cell *);
 static void punctsign(cell **,cell **);
 static void intval (cell *,cell *);
 static void no_cut(cell *);
-static INT dustpos(INT,cell *);
+static int16_t dustpos(int16_t,cell *);
 #ifdef PUNCT_CORRECTION
- //static INT exist_prev_next(cell *c,INT *dif1,INT *dif2);
-//static INT get_dust_status(cell *c,uchar *dust_st);
-//static INT dust_pos_new(cell *);
-INT is_dash(cell *c);
-INT is_dust_2(cell *c);
-INT is_dust(cell *);
-INT is_point_stop(cell *c);
+ //static int16_t exist_prev_next(cell *c,int16_t *dif1,int16_t *dif2);
+//static int16_t get_dust_status(cell *c,uchar *dust_st);
+//static int16_t dust_pos_new(cell *);
+int16_t is_dash(cell *c);
+int16_t is_dust_2(cell *c);
+int16_t is_dust(cell *);
+int16_t is_point_stop(cell *c);
 #endif
-static INT chkquot(INT,INT,cell *);
-static INT chkstar(INT,INT,cell *);
-static INT chkdotcom(INT,INT,cell *);
-static INT chkdash(INT,INT,cell *);
-static INT chkplus(INT,INT,cell *);
-static INT chkslash(INT,INT,cell *);
-static INT chkcircle(INT,INT,cell *);
-static INT chkquock(INT,INT,cell *);
-static INT chkquocks(INT,INT,cell *);
-static INT contain(cell *new, cell *old);
+static int16_t chkquot(int16_t,int16_t,cell *);
+static int16_t chkstar(int16_t,int16_t,cell *);
+static int16_t chkdotcom(int16_t,int16_t,cell *);
+static int16_t chkdash(int16_t,int16_t,cell *);
+static int16_t chkplus(int16_t,int16_t,cell *);
+static int16_t chkslash(int16_t,int16_t,cell *);
+static int16_t chkcircle(int16_t,int16_t,cell *);
+static int16_t chkquock(int16_t,int16_t,cell *);
+static int16_t chkquocks(int16_t,int16_t,cell *);
+static int16_t contain(cell *new, cell *old);
 cell *hide(cell *C);
 
 static void czech_dt_glue_apostroph(); // 07.09.2000 E.P.
 
 
-INT check_shevron(cell *c,INT flag_qual); //Alik
+int16_t check_shevron(cell *c,int16_t flag_qual); //Alik
 
 //
 // kill temporary twin flags BAD+DUST for pass4
@@ -153,7 +153,7 @@ void punct()
  {
  cell *c1,*c2,*c;
  uchar l;
- INT x,d;
+ int16_t x,d;
 
  if (language == LANG_RUSSIAN)  sv_fantom=NULL;
  snap_newpass('e');
@@ -405,7 +405,7 @@ void punct()
 static void bad_to_dust()
  {
  cell *c, *cc;
- INT r;
+ int16_t r;
 
  for (c=cell_f()->nextl; c->next!=NULL; c=c->nextl)
   {
@@ -461,7 +461,7 @@ static void bad_to_dust()
 static void glue_dust()
  {
  cell *c1,*c2,*c3,*c4;cell *cc1;
- INT h,s,m1,m2,m3,m4;
+ int16_t h,s,m1,m2,m3,m4;
 
  for (c1=(cell_f())->next; c1 && (c2=c1->next)!=NULL; c1=c1->next)
   if (c1->flg&c2->flg&c_f_dust)
@@ -537,7 +537,7 @@ static void glue_dust()
    }
  }
 
-static INT exclam(cell *c1,cell *c2,B_LINES *bl)
+static int16_t exclam(cell *c1,cell *c2,B_LINES *bl)
  {
  cell *c,*cc;
 
@@ -576,7 +576,7 @@ static INT exclam(cell *c1,cell *c2,B_LINES *bl)
 static cell *let_gl(cell *c1,cell *c2,cell *c3,cell *c4,B_LINES *bl)
  {
  cell *c, *cp;
- INT r,n;
+ int16_t r,n;
 #define MBI 1
 #define MBE 2
 
@@ -662,7 +662,7 @@ static void dots()
  {
  cell *c,*cc,csv;
  uchar let;
- INT i,nv;
+ int16_t i,nv;
  version vers[VERS_IN_CELL];
 
  for (c=(cell_f())->next; c->next!=NULL; c=c->next)
@@ -831,7 +831,7 @@ static void quockets()
  {
  cell *c;
  uchar let;
- INT h;
+ int16_t h;
 
  for (c=(cell_f())->nextl; c->next!=NULL; c=c->nextl)
   {
@@ -873,7 +873,7 @@ static void quockets()
 
 static void punctsign(cell **ac1,cell **ac2)
  {
- INT h,d,dd,dp,fl,dc,p,lr,a;
+ int16_t h,d,dd,dp,fl,dc,p,lr,a;
  uchar let,str[80];
  cell *c;
  cell *c1;
@@ -1134,7 +1134,7 @@ static void punctsign(cell **ac1,cell **ac2)
 #define BASEOK 15
 /////////////////
 /////////////////
-static INT dustpos(INT h,cell *c)
+static int16_t dustpos(int16_t h,cell *c)
 
 /***********************************************************
 
@@ -1150,7 +1150,7 @@ static INT dustpos(INT h,cell *c)
 ***********************************************************/
 
  {
- INT mid,a,d;
+ int16_t mid,a,d;
 
  get_b_lines(c,&bl);
  mid=c->row+c->h/2;
@@ -1186,9 +1186,9 @@ static INT dustpos(INT h,cell *c)
   }
  }
 ///////////////////
-static INT chkdotcom(INT h,INT dp,cell *c)
+static int16_t chkdotcom(int16_t h,int16_t dp,cell *c)
  {
- INT x,y,dt,cm,hc,wc,wm,i,j,k,ls,s;
+ int16_t x,y,dt,cm,hc,wc,wm,i,j,k,ls,s;
  uchar str[80];
  B_LINES bl;
 
@@ -1342,9 +1342,9 @@ ret:
  return (dt+(cm<<1));
  }
 
-static INT chkdash(INT h,INT dp,cell *c)
+static int16_t chkdash(int16_t h,int16_t dp,cell *c)
  {
- INT r;
+ int16_t r;
  uchar str[80];
 
  r=(dp<=3 && /*9*(c->h)<=4*h*/27*c->h<=13*h && c->w>=MIN(4,h/3) &&
@@ -1359,7 +1359,7 @@ static INT chkdash(INT h,INT dp,cell *c)
  return r;
  }
 
-static INT chkquot(INT h,INT dp,cell *c)
+static int16_t chkquot(int16_t h,int16_t dp,cell *c)
  {
  uint16_t ls,i,j,k,i1,j1,k1,min,l,s,r,lu,ru,ld,rd;
  uchar str[80];
@@ -1424,9 +1424,9 @@ static INT chkquot(INT h,INT dp,cell *c)
  return(r);
  }
 
-static INT chkstar(INT h,INT dp,cell *c)
+static int16_t chkstar(int16_t h,int16_t dp,cell *c)
  {
- INT ls,i,j,l,r,x,y,n,p;
+ int16_t ls,i,j,l,r,x,y,n,p;
  uchar str[80];
 
  if (snap_activity('e'))
@@ -1509,9 +1509,9 @@ ret:
  return(r);
  }
 
-static INT chkplus(INT h,INT dp,cell *c)
+static int16_t chkplus(int16_t h,int16_t dp,cell *c)
  {
- INT ls,i,j,l,r,x,y,lu,ru,ld,rd;
+ int16_t ls,i,j,l,r,x,y,lu,ru,ld,rd;
  uchar str[80];
 
  if (snap_activity('e'))
@@ -1569,9 +1569,9 @@ static INT chkplus(INT h,INT dp,cell *c)
  return(r);
  }
 
-static INT chkslash(INT h,INT dp,cell *c)
+static int16_t chkslash(int16_t h,int16_t dp,cell *c)
  {
- INT r,ls,i,j,s;
+ int16_t r,ls,i,j,s;
  uchar str[80];
 
  r=0;
@@ -1598,9 +1598,9 @@ static INT chkslash(INT h,INT dp,cell *c)
  return r;
  }
 
-static INT chkcircle(INT h,INT dp,cell *c)
+static int16_t chkcircle(int16_t h,int16_t dp,cell *c)
  {
- INT r,i;
+ int16_t r,i;
  uchar flgsv,str[80];
 
  r=0;
@@ -1622,9 +1622,9 @@ static INT chkcircle(INT h,INT dp,cell *c)
  return r;
  }
 
-static INT chkquock(INT h,INT dp,cell *c)
+static int16_t chkquock(int16_t h,int16_t dp,cell *c)
  {
- INT r,sl,sr,i,j,l;
+ int16_t r,sl,sr,i,j,l;
  uchar str[80];
 
  r=0;
@@ -1677,10 +1677,10 @@ static INT chkquock(INT h,INT dp,cell *c)
  return r;
  }
 
-INT chkquocks2(cell*c,puchar r,INT h,INT w,INT d);
-static INT chkquocks(INT h,INT dp,cell *c)
+int16_t chkquocks2(cell*c,puchar r,int16_t h,int16_t w,int16_t d);
+static int16_t chkquocks(int16_t h,int16_t dp,cell *c)
  {
- INT i,di,i1,i2,j,j1,j2,l,d,r;
+ int16_t i,di,i1,i2,j,j1,j2,l,d,r;
  uchar str[80];
 
  d=0;
@@ -1716,7 +1716,7 @@ extern uchar multy_language;
    // >> similar з , << similar Є,­
    if( multy_language && d!=0 && c->h>12 )
     {
-    INT ii,jj,ll;
+    int16_t ii,jj,ll;
     if( d>0 && j1*8<c->w )
       {
       d=0;
@@ -1789,7 +1789,7 @@ ret:
 
 static void dust_to_bad(cell *c)
  {
- INT i;
+ int16_t i;
  cell *c1;
 
  if (db_status)
@@ -1832,8 +1832,8 @@ static void intval(cell *c,cell *cb)
  {
  cell *c1,*c2,*c3,/* *sav1,*sav2, */ *cbb;
  uchar l1,l2,l3;
- INT fe,fm;
- INT h,d,max,s,hh,ww;
+ int16_t fe,fm;
+ int16_t h,d,max,s,hh,ww;
 
  cbb=cb->prev;
  for (c1=cbb->next; c1!=c; c1=c1->next)
@@ -2143,7 +2143,7 @@ static void intval(cell *c,cell *cb)
        if (fm==2)
         no_cut(c3);
        // AL OK
-       compose_cell((INT)(fm+1),clist,c2);
+       compose_cell((int16_t)(fm+1),clist,c2);
        c2->left=c2->col;
        c2->right=c2->col+c2->w;
        c1=c2;
@@ -2289,7 +2289,7 @@ void clean_punct()
 {
   cell *L,*R,*C=cell_f()->next;
   char str[80];
-  INT gap=get_gap();
+  int16_t gap=get_gap();
 
   for (; C->next; C=C->next)
   {
@@ -2336,7 +2336,7 @@ void clean_line()
   }
 }
 
-static INT contain(cell *new, cell *old)
+static int16_t contain(cell *new, cell *old)
 //
 //	This procedure check whether new cell contains old one.
 //
@@ -2414,8 +2414,8 @@ void czech_dt_glue_apostroph()
 
  cell *c,*cc;
  uchar let;
- INT gap=get_gap();
- INT d;
+ int16_t gap=get_gap();
+ int16_t d;
 
 for (c=(cell_f())->next; (cc=c->next)!=NULL; c=c->next)
 	{

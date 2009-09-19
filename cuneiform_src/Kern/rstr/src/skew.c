@@ -67,24 +67,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-struct pairs {INT x,y; char f;};
+struct pairs {int16_t x,y; char f;};
 typedef struct pairs pairs;
 
-extern INT nIncline;
-extern INT page_nIncline;
-extern INT line_number;
+extern int16_t nIncline;
+extern int16_t page_nIncline;
+extern int16_t line_number;
 extern uchar fax1x2;
 
-static INT row,row_prev;
-static INT incline_prev;
-static INT relab;
+static int16_t row,row_prev;
+static int16_t incline_prev;
+static int16_t relab;
 
-static INT skew_pool_fill(CSTR_line,pairs *);
-static INT skew_pool_refill(CSTR_line ln,pairs *pool);
-static INT skew_pool_refill2(CSTR_line ln,pairs *pool);
+static int16_t skew_pool_fill(CSTR_line,pairs *);
+static int16_t skew_pool_refill(CSTR_line ln,pairs *pool);
+static int16_t skew_pool_refill2(CSTR_line ln,pairs *pool);
 
-static INT incl_init(INT,pairs *);
-static uint16_t skew_stat(INT,CSTR_line,INT,pairs *);
+static int16_t incl_init(int16_t,pairs *);
+static uint16_t skew_stat(int16_t,CSTR_line,int16_t,pairs *);
 static void total_skew();
 
 #define DINCL  10
@@ -93,9 +93,9 @@ static void total_skew();
 #define NRELABMIN 7
 #define NRELABMAX 30
 
-int16_t skew_corr(CSTR_line ln, INT pool_src)
+int16_t skew_corr(CSTR_line ln, int16_t pool_src)
  {
- INT skew_pool_n=0,inclini;
+ int16_t skew_pool_n=0,inclini;
  uint16_t l,l1;
  pairs skew_pool[255];
 
@@ -116,19 +116,19 @@ int16_t skew_corr(CSTR_line ln, INT pool_src)
  l=skew_stat(nIncline,ln,skew_pool_n,skew_pool);
  if (l==0)
 	 return nIncline;
- while ((l1=skew_stat((INT)(nIncline-1),ln,skew_pool_n,skew_pool))>l)
+ while ((l1=skew_stat((int16_t)(nIncline-1),ln,skew_pool_n,skew_pool))>l)
   { nIncline--; l=l1;}
  if (nIncline==inclini)
-  while ((l1=skew_stat((INT)(nIncline+1),ln,skew_pool_n,skew_pool))>l)
+  while ((l1=skew_stat((int16_t)(nIncline+1),ln,skew_pool_n,skew_pool))>l)
    { nIncline++; l=l1;}
  total_skew();
 
  return nIncline;
 }
 
-static INT skew_pool_fill(CSTR_line ln,pairs *pool)
+static int16_t skew_pool_fill(CSTR_line ln,pairs *pool)
  {
- INT /*nl,*/i;
+ int16_t /*nl,*/i;
  pairs *p;
  CSTR_rast       rst=CSTR_GetFirstRaster(ln);
  CCOM_comp *com;
@@ -151,7 +151,7 @@ static INT skew_pool_fill(CSTR_line ln,pairs *pool)
   if( !(attr.flg&CSTR_f_dust) )
       {
       p->x=com->left;
-      p->y=(INT)(com->upper+com->h-row);//attrlin.row-1);
+      p->y=(int16_t)(com->upper+com->h-row);//attrlin.row-1);
       i++;
       p++;
       }
@@ -159,9 +159,9 @@ static INT skew_pool_fill(CSTR_line ln,pairs *pool)
  return i;
  }
 
-static INT skew_pool_refill(CSTR_line ln,pairs *pool)
+static int16_t skew_pool_refill(CSTR_line ln,pairs *pool)
  {
- INT nl;
+ int16_t nl;
  pairs *p;
  cell *cl;
  CSTR_attr		attrlin;
@@ -174,7 +174,7 @@ static INT skew_pool_refill(CSTR_line ln,pairs *pool)
   {
   if (cl->difflg&64 && !(cl->difflg&4)) continue;   // skip totally forbidden
   p->x=cl->r_col;
-  p->y=(INT)(cl->r_row+cl->h - attrlin.row);//-1);
+  p->y=(int16_t)(cl->r_row+cl->h - attrlin.row);//-1);
   p++;
   nl++;
   if (nl > 254) break;
@@ -182,9 +182,9 @@ static INT skew_pool_refill(CSTR_line ln,pairs *pool)
  return nl;
  }
 
-static INT skew_pool_refill2(CSTR_line ln,pairs *pool)
+static int16_t skew_pool_refill2(CSTR_line ln,pairs *pool)
  {
- INT nl;
+ int16_t nl;
  pairs *p;
  CSTR_attr		attrlin;
  CSTR_rast       rst=CSTR_GetFirstRaster(ln);
@@ -205,16 +205,16 @@ static INT skew_pool_refill2(CSTR_line ln,pairs *pool)
   if ( (attr.difflg&64) && !(attr.difflg&4))
 	  continue;   // skip totally forbidden
   p->x=attr.r_col;
-  p->y=(INT)(attr.r_row+attr.h - attrlin.row);//-1);
+  p->y=(int16_t)(attr.r_row+attr.h - attrlin.row);//-1);
   p++;
   nl++;
  }
  return nl;
 }
 
-static INT incl_init(INT n,pairs *pool)
+static int16_t incl_init(int16_t n,pairs *pool)
  {
- INT i,incl,shift,m,d;
+ int16_t i,incl,shift,m,d;
  LONG sx,sy,sxy,sx2,w,sigma,dd;
  pairs *p;
 
@@ -229,12 +229,12 @@ static INT incl_init(INT n,pairs *pool)
  if (w<=0)
   {relab=0; return nIncline;}
  dd=8*(n*sxy-sx*sy);
- incl=(INT)((dd+((dd>0)?w/2:-w/2))/w);
- shift=(INT)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
+ incl=(int16_t)((dd+((dd>0)?w/2:-w/2))/w);
+ shift=(int16_t)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
  for (p=pool,w=i=0; i<n; i++,p++)
   {
   dd=(LONG)incl*p->x;
-  d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
+  d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)>100)
    d=100;
   w+=d*d;
@@ -251,7 +251,7 @@ static INT incl_init(INT n,pairs *pool)
  for (p=pool,sx=sy=sxy=sx2=m=i=0; i<n; i++,p++)
   {
   dd=(LONG)incl*p->x;
-  d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
+  d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)<100 && d*d<=sigma)
    {
    sx+=p->x;
@@ -267,13 +267,13 @@ static INT incl_init(INT n,pairs *pool)
  if (w>0 && 3*m>2*n)
   {
   dd=8*(m*sxy-sx*sy);
-  incl=(INT)((dd+((dd>0)?w/2:-w/2))/w);
-  shift=(INT)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
+  incl=(int16_t)((dd+((dd>0)?w/2:-w/2))/w);
+  shift=(int16_t)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
   for (p=pool,w=i=0; i<n; i++,p++)
    if (p->f)
     {
     dd=(LONG)incl*p->x;
-    d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
+    d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
     if (abs(d)>100)
      d=100;
     w+=d*d;
@@ -292,20 +292,20 @@ static INT incl_init(INT n,pairs *pool)
 
 #define HIMAX  1000
 
-static uint16_t skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
+static uint16_t skew_stat(int16_t incl,CSTR_line ln,int16_t pool_n,pairs *pool)
  {
- INT i,im,d;
+ int16_t i,im,d;
  uint16_t l;
  uchar hist[HIMAX];
  CSTR_attr		attrlin;
 
  CSTR_GetLineAttr(ln, &attrlin);
- im=(INT)(2*attrlin.hei);
+ im=(int16_t)(2*attrlin.hei);
  if (im<0 || im>=HIMAX) return 0;
  memset(hist,0,HIMAX);// Piter change im) for HIMAX;
  for (i=0; i<pool_n; i++)
   {
-  d=im/2+pool[i].y-(INT)((LONG)incl*pool[i].x/2048);
+  d=im/2+pool[i].y-(int16_t)((LONG)incl*pool[i].x/2048);
   if (d>0 && d<HIMAX) hist[d]++;
   }
  for (l=i=0; i<im; i++)
@@ -315,7 +315,7 @@ static uint16_t skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
 
 static void total_skew()
  {
- INT totincl;
+ int16_t totincl;
 
  if (relab) return;
  if (line_number>1 && abs(row-row_prev)<=DPREVL)
@@ -334,6 +334,6 @@ void skew_end()
 
 void ideal_rc(cell *c)
  {
- c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
- c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+ c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
+ c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
  }

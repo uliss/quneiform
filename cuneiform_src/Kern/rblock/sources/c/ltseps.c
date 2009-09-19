@@ -84,9 +84,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ifndef LT_STAND_ALONE
 # include "struct.h"
 extern FRAME frames [];
-extern INT   nf;
+extern int16_t   nf;
 extern STRLN lines [];
-extern INT   nl;
+extern int16_t   nl;
 # endif
 
 SEPARATOR *pSeps = NULL;

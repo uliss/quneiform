@@ -84,7 +84,7 @@ static uchar digital_mode;            // see in module pass3.c
 static uchar plusminus_mode;
 static uchar alphabet_set[32];
 static cell *clist[2];
-INT  digital_string_penalty;
+int16_t  digital_string_penalty;
 extern uchar CodePages[];
 
 Bool isLikeDigit(uchar c)
@@ -103,7 +103,7 @@ Bool digital_last_context(void)
   cell *curr,*tmp;
   char punct_list[]="'\"=:";
   char sign_list[]="+-_";
-  INT  l = strlen(punct_list),num,num_dig,num_bad,num_broken;
+  int16_t  l = strlen(punct_list),num,num_dig,num_bad,num_broken;
   uchar c,p;
 
 if( db_status && snap_activity('c') )
@@ -361,10 +361,10 @@ return;
 }
 
 
-void setup_digital_mode_pass2(str_info *str, INT first_pass)
+void setup_digital_mode_pass2(str_info *str, int16_t first_pass)
 {
 cell *curr;
-INT  num_dig,num_let,num_bad,num_all, num_dig_let;
+int16_t  num_dig,num_let,num_bad,num_all, num_dig_let;
 ///char dig_list[]="|1234567890¡Ž®‡§‚ø¢", 21.05.2002 E.P.
 char dig_let_list[]="036",let_dig_list[]="‚¢ø";
 // letters_ini ïóíêòóàöèþ ïåðåâîäèò â letter !!!
@@ -429,11 +429,11 @@ return;
 }
 
 
-void setup_digital_mode(str_info *str, INT first_pass)
+void setup_digital_mode(str_info *str, int16_t first_pass)
 {
 cell *curr;
-INT  num_dig,num_let,num_bad,num_all, num_dig_let;
-INT  num_asOne;
+int16_t  num_dig,num_let,num_bad,num_all, num_dig_let;
+int16_t  num_asOne;
 //char dig_list[]="|1234567890¡Ž®‡§‚ø¢",
 char   dig_let_list[]="036",let_dig_list[]="‚¢ø";
 //char punct_list[]="'\"=:!(){}[]!¼?\\/";
@@ -486,7 +486,7 @@ while(   (curr=curr->next)->next )
 
 if( str->alphabet==ALPHA_ALL )
   {
-  INT dig=0;
+  int16_t dig=0;
   switch( num_all )
     {
     case 0  : break;
@@ -612,7 +612,7 @@ return;
 
 void set_all_alphabet(void)
 {
-  INT i;
+  int16_t i;
   for(i=0;i<32;i++)
     alphabet_set[i] = 0xFF;
 
@@ -668,7 +668,7 @@ set_digital_alphabet();
 return;
 }
 extern puchar save_raster_align8(cell *c);
-void save_alphabet_information(str_info *str,INT column,CSTR_line ln)
+void save_alphabet_information(str_info *str,int16_t column,CSTR_line ln)
 {
 uchar            buf[256]={0};
 cell *          c;
@@ -843,9 +843,9 @@ else
 return;
 }
 
-INT  dichotomy_array(INT value,INT *array,INT start,INT end)
+int16_t  dichotomy_array(int16_t value,int16_t *array,int16_t start,int16_t end)
 {
-INT mid;
+int16_t mid;
 
 do{
   mid = (start+end)/2;
@@ -857,10 +857,10 @@ do{
 return start;
 }
 
-INT  GetColumn(INT *VertLines,INT VertNum )
+int16_t  GetColumn(int16_t *VertLines,int16_t VertNum )
 {
-INT start_col, end_col;
-INT col;
+int16_t start_col, end_col;
+int16_t col;
 start_col = cell_f()->next->col;
 end_col   = cell_l()->prev->col;
 if( start_col<VertLines[0] || start_col>=VertLines[VertNum-1] ) return -1;
@@ -869,11 +869,11 @@ if( end_col>VertLines[col+1] ) return -1;
 return col;
 }
 
-void make_simples_diff(INT lang)
+void make_simples_diff(int16_t lang)
 {
 extern char db_pass;
 cell *c,*e=cell_l();
-INT  dbp = db_pass;
+int16_t  dbp = db_pass;
 
 db_pass=0;
 for(c=cell_f()->next;c!=e;c=c->next)
@@ -887,9 +887,9 @@ db_pass = (uchar)dbp;
 return;
 }
 
-void set_column_alphabets(str_info *str_inf,INT VertNum)
+void set_column_alphabets(str_info *str_inf,int16_t VertNum)
 {
-INT i;
+int16_t i;
 for(i=0;i<VertNum;i++)
   {
   if( str_inf[i].all>10 )
@@ -930,16 +930,16 @@ Bool is_digital_string(void)
 /////////////////////////////////////////////
 // SERBIAN section
 /////////////////////////////////////////////
-static INT geom_neck(INT neck, cell *c)
+static int16_t geom_neck(int16_t neck, cell *c)
 {
 uchar inter_l,h, nl;
 lnhead   *line;
 interval *inter;
-INT ll, pos_n;
+int16_t ll, pos_n;
 
 if( !c->env )
   return 0;
-for (pos_n=nl=0,inter_l=255,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+for (pos_n=nl=0,inter_l=255,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
 		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=(uchar)line->h;
@@ -966,7 +966,7 @@ void serbian_J2j(void)
 {
 B_LINES my_bases;
 cell *c,*e;
-INT   n;
+int16_t   n;
 char bb[90];
 
 get_b_lines(NULL,&my_bases);
@@ -977,7 +977,7 @@ for(c=cell_f()->nextl,e=cell_l();c!=e;c=c->nextl)
           c->row<(my_bases.b2 + my_bases.b1)/2&&
           c->row+c->h>(my_bases.b3 + my_bases.b4)/2) )
     {
-    if( (n=geom_neck((INT)(my_bases.b2 - my_bases.b1),c))!=0 )
+    if( (n=geom_neck((int16_t)(my_bases.b2 - my_bases.b1),c))!=0 )
       {
       if( db_status && snap_activity('c') )
         {
@@ -996,7 +996,7 @@ return;
 }
 
 ///////////
-void save_alphabet_information_pass2(str_info *str,INT column,CSTR_line ln)
+void save_alphabet_information_pass2(str_info *str,int16_t column,CSTR_line ln)
 {
 uchar            buf[256]={0};
 
@@ -1058,9 +1058,9 @@ if( digital_mode==2 )
 return;
 }
 
-void set_column_alphabets_pass2(str_info *str_inf,INT VertNum)
+void set_column_alphabets_pass2(str_info *str_inf,int16_t VertNum)
 {
-INT i;
+int16_t i;
 for(i=0;i<VertNum;i++)
   {
   if( str_inf[i].all>10 )

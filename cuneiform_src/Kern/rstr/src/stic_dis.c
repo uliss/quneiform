@@ -82,9 +82,9 @@ extern uchar no_linear_crit;
 
 extern uchar multy_language;
 
-extern INT pitchsize ;
+extern int16_t pitchsize ;
 
-extern INT nIncline  ;
+extern int16_t nIncline  ;
 extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  inc_num_EEM;	// in ST_TOOLS.C
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
@@ -106,64 +106,64 @@ extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS, CHA;
 #include "stic-tab.h"
 /*----------------------------------------------------------------------*/
 						// to STIC_BIG.C:
-//////extern	INT dis_F(STICK_CHARS *r,STICK_SIGNUMS *s);	// MK
-extern  INT dis_RusG (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-extern	INT dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);//25.03.93
-extern	INT dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-extern	INT dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-extern	INT dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-extern	INT dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-extern	INT dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+//////extern	int16_t dis_F(STICK_CHARS *r,STICK_SIGNUMS *s);	// MK
+extern  int16_t dis_RusG (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+extern	int16_t dis_F (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);//25.03.93
+extern	int16_t dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+extern	int16_t dis_J (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+extern	int16_t dis_L (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+extern	int16_t dis_T (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+extern	int16_t dis_Y (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 
-extern	INT dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-		 INT typ);
-extern	INT dis_sign_less(STICK_SIGNUMS *s);	// MK&FARA 17.06.1993
-extern	INT dis_sign_more(STICK_SIGNUMS *s);	// MK&FARA 17.06.1993
-extern	INT dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-extern	INT dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-extern	INT dis_figa_left (STICK_SIGNUMS *s);
-extern	INT dis_figa_right(STICK_SIGNUMS *s);
-extern	INT dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-extern	INT dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-		INT add_flag, char type);
+extern	int16_t dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
+		 int16_t typ);
+extern	int16_t dis_sign_less(STICK_SIGNUMS *s);	// MK&FARA 17.06.1993
+extern	int16_t dis_sign_more(STICK_SIGNUMS *s);	// MK&FARA 17.06.1993
+extern	int16_t dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+extern	int16_t dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+extern	int16_t dis_figa_left (STICK_SIGNUMS *s);
+extern	int16_t dis_figa_right(STICK_SIGNUMS *s);
+extern	int16_t dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+extern	int16_t dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
+		int16_t add_flag, char type);
 /*----------------------------------------------------------------------*/
 						// to STIC_FRT.C:
-extern	INT dis_f (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-extern	INT dis_r (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-extern	INT dis_t (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-							INT sign_f);
-extern	INT find_beam (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
-extern	INT find_neck (STICK_CHARS *l, STICK_CHARS *r,INT lim_long);
+extern	int16_t dis_f (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+extern	int16_t dis_r (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+extern	int16_t dis_t (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
+							int16_t sign_f);
+extern	int16_t find_beam (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
+extern	int16_t find_neck (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
 /*----------------------------------------------------------------------*/
-INT discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
-      STICK_SIGNUMS *s, INT sign_f);
+int16_t discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
+      STICK_SIGNUMS *s, int16_t sign_f);
 
-static INT dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		 INT add_flag);
-static INT dis_0xBB (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-     INT add_flag);
-//////static INT dis_i (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-static INT dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		 INT npoints_1_or_2);
-static INT dis_j (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-static INT dis_1 (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		 INT add_flag);
-static INT dis_l (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-static INT dis_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-static INT dis_d_croatian (STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
-static INT dis_d(STICK_CHARS *l,STICK_CHARS *r);
-static INT dis_7(STICK_SIGNUMS *s);
+static int16_t dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		 int16_t add_flag);
+static int16_t dis_0xBB (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+     int16_t add_flag);
+//////static int16_t dis_i (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+static int16_t dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		 int16_t npoints_1_or_2);
+static int16_t dis_j (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+static int16_t dis_1 (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		 int16_t add_flag);
+static int16_t dis_l (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+static int16_t dis_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
+static int16_t dis_d_croatian (STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
+static int16_t dis_d(STICK_CHARS *l,STICK_CHARS *r);
+static int16_t dis_7(STICK_SIGNUMS *s);
 
-INT similar_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT similar_1    (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-INT similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t similar_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t similar_1    (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+int16_t similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 /*----------------------------------------------------------------------*/
 /* let - code discrim letter, width - optimal wide of stick, 		   */
 /* inc = 1 or 0(no inc), (*l,*r) - left and right characteristics of stick */
-INT discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
-      STICK_SIGNUMS *s, INT sign_f )
+int16_t discrim_stick (uchar let, STICK_CHARS *l, STICK_CHARS *r,
+      STICK_SIGNUMS *s, int16_t sign_f )
 {
-INT dis=0;
+int16_t dis=0;
 #ifdef UFA
 if( no_linear_crit )
   {
@@ -323,12 +323,12 @@ return( dis );	// NOTA BENE: m.b.-444 for dis_t for "ft"
 /*----------------------------------------------------------------------*/
 /*	letter �  (i+point)						*/
 /*	sign_add = 1 - put '�' to list of versions - delicate discrim	*/
-static INT dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		    INT sign_add)
+static int16_t dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		    int16_t sign_add)
 {
-INT	i, dis=0, t, lm, rm, dy=s->height, lt, rt, ltp;
-INT	nr=r->num_long_flags, lc=l->num_concs, rc=r->num_concs;
-INT	wid=s->stick_width, inc=s->inc;
+int16_t	i, dis=0, t, lm, rm, dy=s->height, lt, rt, ltp;
+int16_t	nr=r->num_long_flags, lc=l->num_concs, rc=r->num_concs;
+int16_t	wid=s->stick_width, inc=s->inc;
 
 for (lt=l->mount[(ltp=0)],i=1;i<3;i++)
 	if ( lt<l->mount[i] )
@@ -508,11 +508,11 @@ if ((MIN(wid,6) + wid + r->mount[4]) > dy)			// 12.10.1993
 return(dis);
 }
 /*----------------------------------------------------------------------*/
-static INT dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		  INT npoints_1_or_2)  {		// 17.01.1994
-INT	dis=0;
-INT	wid=s->stick_width, inc=s->inc;
-INT maxlen = MAX (MAX(l->mount[0],l->mount[4]), max(r->mount[0],l->mount[4]));
+static int16_t dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		  int16_t npoints_1_or_2)  {		// 17.01.1994
+int16_t	dis=0;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t maxlen = MAX (MAX(l->mount[0],l->mount[4]), max(r->mount[0],l->mount[4]));
 
 /*......................................................................*/
 				// 05.08.1993 about DOT:
@@ -567,10 +567,10 @@ return(dis);
 }
 
 // j with dot
-static INT dis_0xBB (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-		    INT sign_add)
+static int16_t dis_0xBB (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+		    int16_t sign_add)
 {
-INT dis=0;
+int16_t dis=0;
 if( !l->mount[4] && !l->mount[3])
   dis += 40;
 if( !r->conc[4]  )
@@ -582,9 +582,9 @@ if( s->base_3> s->height )
 return dis;
 }
 /*----------------------------------------------------------------------*/
-static INT dis_j (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
-INT	dis=0;						// 07.12.1993
-INT	wid=s->stick_width, inc=s->inc;
+static int16_t dis_j (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+int16_t	dis=0;						// 07.12.1993
+int16_t	wid=s->stick_width, inc=s->inc;
 	l = l;	// FOR NO WARNING
 /*......................................................................*/
 				// 22.11.1993 about DOT:  COPY from dis_i:
@@ -598,12 +598,12 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /*	typ_add = 1 - put '1' to list of versions - delicate discrim */
-static INT dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, INT typ_add)
+static int16_t dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, int16_t typ_add)
 {							// 17.01.1994
-INT	dis=0, t, lmu, rmu, lmd, rmd, dy=s->height;
-INT	wid=s->stick_width, inc=s->inc;
-INT	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
-//////INT	d_L, d_R;	// 04.06.1993
+int16_t	dis=0, t, lmu, rmu, lmd, rmd, dy=s->height;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
+//////int16_t	d_L, d_R;	// 04.06.1993
 
 lmu = MAX(l->mount[0],l->mount[1]);  rmu = max(r->mount[0],r->mount[1]);
 lmd = l->mount[4];  rmd = r->mount[4];
@@ -644,7 +644,7 @@ if( inc && ( r->down_hook || r->mount[3]>1 ))
 /*..................................................*/
 if( typ_add==0 && !(s->typ_nose_1&&l->mount[0]>wid) )	/* not add */
 {
-INT ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
+int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
 
 if(  language != LANG_RUSSIAN )
 {
@@ -661,7 +661,7 @@ if ( (r->conc[0]>1 && r->conc[4]>1) ||	// OLD OLEG
 	dis += tab_1[16];		// this also ')'-config		// 40
 if( (r->conc[0] || r->conc[1]) && r->mount[4]>2 && l->mount[4]>2 )
 	{	/* pitch � */
-	INT tt=find_neck(l,r,1);
+	int16_t tt=find_neck(l,r,1);
 /******	if( tt<2 ) ******/
 	if( tt>=0  &&  tt<2 )		// 31.05.1993 (WAS ERROR if FFFF)
 		dis += tab_1[13];	// similar    �			// 20
@@ -783,13 +783,13 @@ if( language==LANG_RUSSIAN )
 return(dis);
 }
 /*----------------------------------------------------------------------*/
-static INT dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+static int16_t dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
 							// 17.01.1994
-INT	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
-INT	sl=l->num_flags, sr=r->num_flags;
-INT	wid=s->stick_width, inc=s->inc;
-INT	tt;		// MK WORK 28.01.1992
-INT	d_L, d_R;	// 23.02.1993
+int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
+int16_t	sl=l->num_flags, sr=r->num_flags;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	tt;		// MK WORK 28.01.1992
+int16_t	d_L, d_R;	// 23.02.1993
 
 	dis = dis_LIMIT_EEM;		// 18.11.1993 (0 or 100);
 //////	dis += mk_dis_for_liga_exm;	// 06.01.1994 (0 or 2);	MOVE TO END;
@@ -836,7 +836,7 @@ if( !inc && l->down_serif && r->down_serif )
 	DIS_DIFFERENT_SERIFS(l,r,4,2,wid,tab_l[2]);		// *6
 
 if( l->up_serif && r->up_serif && !inc )  {
-	INT ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
+	int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
 
 	DIS_CURVE(l,r,4,1,tab_l[8]);				// 10
 
@@ -1105,12 +1105,12 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 	return(dis);
 }
 
-static INT dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
-INT	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
-INT	sl=l->num_flags, sr=r->num_flags;
-INT	wid=s->stick_width, inc=s->inc;
-INT	tt;		// MK WORK 28.01.1992
-INT	d_L, d_R;	// 23.02.1993
+static int16_t dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  {
+int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
+int16_t	sl=l->num_flags, sr=r->num_flags;
+int16_t	wid=s->stick_width, inc=s->inc;
+int16_t	tt;		// MK WORK 28.01.1992
+int16_t	d_L, d_R;	// 23.02.1993
 
 	dis = dis_LIMIT_EEM;		// 18.11.1993 (0 or 100);
 
@@ -1153,7 +1153,7 @@ if( !inc && l->down_serif && r->down_serif )
 	DIS_DIFFERENT_SERIFS(l,r,4,2,wid,tab_l[2]);		// *6
 
 if( l->up_serif && r->up_serif && !inc )  {
-	INT ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
+	int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
 
 	DIS_CURVE(l,r,4,1,tab_l[8]);				// 10
 
@@ -1272,7 +1272,7 @@ if( wid<3 )  { l->c_meandr++;  r->c_meandr++;  }	// MODIFY c_meandr !!!
 // special polish
 if( l->mount[2]<3 || r->mount[2]<3 )
   {
-  INT rm=r->mount[0],lm=l->mount[0];
+  int16_t rm=r->mount[0],lm=l->mount[0];
   if( rm<r->mount[1] ) rm=r->mount[1];
   if( rm<r->mount[2] ) rm=r->mount[2];
   if( lm<l->mount[1] ) lm=l->mount[1];
@@ -1372,30 +1372,30 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 /* 같�								같� */
 /* 같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같 */
 /*----------------------------------------------------------------------*/
-INT similar_0xBA (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_0xBA (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_0xBA(l,r,s,1)<MAX_ADD_DIS);
 }
 
-INT similar_0xBB (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_0xBB (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_0xBB(l,r,s,1)<MAX_ADD_DIS);
 }
 /*----------------------------------------------------------------------*/
-INT similar_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_1(l,r,s,1)<MAX_ADD_DIS);
 }
 
-INT similar_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+int16_t similar_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_l_stroked(l,r,s)<MAX_ADD_DIS);
 }
 /*----------------------------------------------------------------------*/
 /* similar to 'T' */
-static INT dis_7 (STICK_SIGNUMS *s)
+static int16_t dis_7 (STICK_SIGNUMS *s)
 {
-INT     dis=0;
+int16_t     dis=0;
 
 if( language == LANG_RUSSIAN )
         {
@@ -1408,9 +1408,9 @@ return(dis);
 }
 
 
-INT dis_d_croatian (STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
+int16_t dis_d_croatian (STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-INT     dis=0;
+int16_t     dis=0;
 
 if( language == LANG_CROATIAN )
         {
@@ -1425,9 +1425,9 @@ if( language == LANG_CROATIAN )
 return(dis);
 }
 
-INT dis_d (STICK_CHARS *l, STICK_CHARS *r)
+int16_t dis_d (STICK_CHARS *l, STICK_CHARS *r)
 {
-INT     dis=0;
+int16_t     dis=0;
 
 if( language == LANG_CROATIAN )
         {

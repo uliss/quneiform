@@ -79,11 +79,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern uchar db_trace_flag;
 extern uchar decode_ASCII_to_[256][4];
 extern uchar valid_word_number;
-extern INT  text_findstat(char * w);
-extern INT  text_findstat_aux(char * w);
-extern INT  text_findstat_agressive(char * w);
-static INT  get_right_coord(cell *c);
-static INT  get_left_coord(cell *c);
+extern int16_t  text_findstat(char * w);
+extern int16_t  text_findstat_aux(char * w);
+extern int16_t  text_findstat_agressive(char * w);
+static int16_t  get_right_coord(cell *c);
+static int16_t  get_left_coord(cell *c);
 static uchar is_english_word(cell *c,cell *e);
 static uchar change_Il1(cell *b, cell *e);
 static uchar eng_recognize(cell *b, cell *e);
@@ -100,19 +100,19 @@ Bool english_word(uchar *wrd);
 Bool russian_word_all(uchar *wrd,uchar language,uchar nextlet);
 Bool english_word_all(uchar *wrd,uchar language);
 static Bool exist_symbol(cell *b,cell *e,uchar ch) ;
-static Bool left_over(cell *b,INT limit);
+static Bool left_over(cell *b,int16_t limit);
 
 //Alik 04-25-96 06:53pm
 //============== Import func ===========
-//INT text_findstat(char * word);
+//int16_t text_findstat(char * word);
 //============== Local func =================
 static Bool russian_dictionary_word(cell * first, cell * last,puchar);
 Bool _spell(pchar s,uchar lang);
 Bool _spell_agressive(pchar s,uchar lang);
 Bool short_spell(uchar *wrd,uchar language, uchar nextlet );
 extern void final_descriminate(cell *b, cell *e);
-extern void del_word_for2lang(INT left_limit,INT right_limit);
-extern INT line_number;         // number of line in ed_file
+extern void del_word_for2lang(int16_t left_limit,int16_t right_limit);
+extern int16_t line_number;         // number of line in ed_file
 
 #define MAX_LEN_WORD  48
 #define GOOD_PROB     200
@@ -179,7 +179,7 @@ return TRUE;
 
 Bool cells_left_solid(cell *c)
 {
-INT sol=0;
+int16_t sol=0;
 for(c=c->prev;(c->flg&(c_f_punct));c=c->prev);
 if( c->flg&c_f_fict )
     return TRUE;
@@ -196,7 +196,7 @@ return (c->flg&c_f_fict)?TRUE:FALSE;
 
 Bool cells_right_solid(cell *c)
 {
-INT sol=0;
+int16_t sol=0;
 for(c=c->next;(c->flg&(c_f_punct));c=c->next);
 if( c->flg&c_f_fict )
     return TRUE;
@@ -222,7 +222,7 @@ uchar    word_len,buf[MAX_LEN_WORD+40], *wrd, *pwrd,
 //      right_terms[]="/)>ÕØ¼\"!\';?\x1e\x1f",
         right_terms[]="///)>¼\"!\';?\x1e\x1f",	// 31.05.2001 E.P.
 		nextlet;
-INT		l,n=sizeof(buf)-1;
+int16_t		l,n=sizeof(buf)-1;
 
 // Ëèãè çàäàşòñÿ ìàêğîñàìè è çàâèñÿò îò ÿçûêà. 31.05.2001 E.P.
 left_terms[0] = low_quotes;
@@ -275,7 +275,7 @@ while(1)
 
   if( llanguage!=255 )
       {
-      INT   u, d;
+      int16_t   u, d;
       cell  *cu, *cd;
       if ( !cells_get_solid(c,e) &&
             (short_spell(wrd,llanguage,nextlet ) ||
@@ -422,7 +422,7 @@ uchar   english_word_recognize(void)
 cell *c, *e;
 uchar buf[MAX_LEN_WORD+40],is_eng,word_len,eng,r1,r2,val,BadWord;
 uchar wrd[MAX_LEN_WORD+40];
-INT  left_limit, right_limit, last_wrd;
+int16_t  left_limit, right_limit, last_wrd;
 cell    *right_cell, *left_cell  ;
 
 if( db_status && snap_activity('c') )
@@ -505,7 +505,7 @@ while(1)
     e=get_nonpunct_cell(e);
     left_limit = get_right_coord(e);
     left_cell  = e;
-    if( e->prev->save_stick_inc!=NO_INCLINE && !left_over(e,(INT)(left_limit+1)) )
+    if( e->prev->save_stick_inc!=NO_INCLINE && !left_over(e,(int16_t)(left_limit+1)) )
       left_limit++;
     e=get_nonlet_cell(e);
     }
@@ -552,7 +552,7 @@ if( !is_eng && !BadWord )
     e=get_nonpunct_cell(e);
     left_limit = get_left_coord(e);
     left_cell  = e;
-    if( e->prev->save_stick_inc!=NO_INCLINE && !left_over(e,(INT)(left_limit+1)) )
+    if( e->prev->save_stick_inc!=NO_INCLINE && !left_over(e,(int16_t)(left_limit+1)) )
       left_limit++;
     e=get_nonlet_cell(e);
     is_eng=1; // for SNAP
@@ -590,7 +590,7 @@ Bool russian_dictionary_word(cell * first, cell * last,puchar BadWord)
 #define FINE_LET	200
 
 char word[76],*pw;
-INT  cl;
+int16_t  cl;
 cell *c,*roll;
 
  for(; first != last; first=first->next)               // skip head punct
@@ -654,7 +654,7 @@ Bool _spell(pchar s,uchar lang)
 {
 
 char        w[76]="",*pw; uchar ss;
-INT         ret;
+int16_t         ret;
 
 for(pw=w; *s; s++)
  {
@@ -688,7 +688,7 @@ Bool _spell_agressive(pchar s,uchar lang)
 {
 
 char        w[76]="",*pw; uchar ss;
-INT         ret;
+int16_t         ret;
 
 if( lang!=LANG_RUSSIAN )
     return FALSE;
@@ -722,7 +722,7 @@ static uchar critical_digitals[]="183";
 uchar is_english_word(cell *b,cell *e)
 {
 cell *c;
-INT n,r,re,r1,rd,rp;
+int16_t n,r,re,r1,rd,rp;
 uchar ch,pr;
 
 if( b==e->prev )
@@ -778,7 +778,7 @@ return r<1 || r==1 && r1;
 uchar change_Il1(cell *b, cell *e)
 {
 cell *c;
-INT  upper,n,digit,ret = FALSE, rc;
+int16_t  upper,n,digit,ret = FALSE, rc;
 uchar let;
 uchar saveN, saveV[VERS_IN_CELL*sizeof(version)];
 
@@ -814,7 +814,7 @@ return (uchar)ret;
 uchar eng_recognize(cell *b, cell *e)
 {
 cell *c,cc;
-INT n;
+int16_t n;
 uchar let,two_l,eng_l,bad_l;
 
 for(bad_l=eng_l=two_l=0,n=0,c=b;c!=e;c=c->next,n++)
@@ -929,7 +929,7 @@ uchar   small_english_str(void)
 {
 cell *c;
 uchar non_base_define_letters[]="TYUuOoSsKZzXxCcVvHB3Ii1°0";
-INT n,m;
+int16_t n,m;
 
 for(c=cell_f()->nextl,n=0;c!=cell_l();c=c->nextl,n++);
 for(c=cell_f()->nextl,m=0;c!=cell_l();c=c->nextl)
@@ -965,9 +965,9 @@ return c->broken_II;
 Bool more_alt(cell *b,cell *e)
 {
 cell *c;
-INT min_prob=1000;
-INT flag_nvers=0;
-INT flag_big_nvers=0;
+int16_t min_prob=1000;
+int16_t flag_nvers=0;
+int16_t flag_big_nvers=0;
 for(c=b;c!=e;c=c->next)
  {
   if( c->nvers<1 )continue;
@@ -990,7 +990,7 @@ static uchar russian_ligas[] ="ğñõ÷øıÀÈ";
 static uchar russian_ligas_recode[] ="¤¤â¨£ ¥…";
 Bool russian_word(uchar *wrd)
 {
-INT i,ii,iv;
+int16_t i,ii,iv;
 uchar w[MAX_LEN_WORD],c,*oc;
 
 for(ii=i=0;wrd[i]!='\0'&&i<MAX_LEN_WORD-1;i++)
@@ -1017,7 +1017,7 @@ return FALSE;
 
 Bool russian_word_all(uchar *wrd,uchar language,uchar nextlet)
 {
-INT i,ii,iv;
+int16_t i,ii,iv;
 uchar ww[MAX_LEN_WORD],*w=&ww[0],c;
 
 if( language!=LANG_RUSSIAN )
@@ -1060,7 +1060,7 @@ return FALSE;
 
 Bool english_word(uchar *wrd)
 {
-INT i,ii,iv;
+int16_t i,ii,iv;
 uchar w[MAX_LEN_WORD];
 
 for(ii=i=0;wrd[i]!='\0'&&i<MAX_LEN_WORD-1;i++)
@@ -1080,7 +1080,7 @@ return FALSE;
 
 Bool english_word_all(uchar *wrd,uchar language)
 {
-INT i,ii,iv;
+int16_t i,ii,iv;
 uchar w[MAX_LEN_WORD];
 if( language!=LANG_ENGLISH )
     return FALSE;
@@ -1115,7 +1115,7 @@ Bool mixed_eng_rus_word(cell *b, cell *e)
 {
   cell *c;
   uchar *p;
-  INT n,u,d;
+  int16_t n,u,d;
   uchar wrd[MAX_LEN_WORD];
 
   for(c=b;c!=e;c=c->next)
@@ -1145,7 +1145,7 @@ Bool mixed_rus_eng_word(cell *b, cell *e)
 {
   cell *c;
   uchar *p;
-  INT n,u,d;
+  int16_t n,u,d;
   uchar wrd[MAX_LEN_WORD];
 
   for(c=b;c!=e;c=c->next)
@@ -1286,7 +1286,7 @@ void   russian_english_context(void)
 cell *c, *e, *c1, *e1;
 uchar buf[MAX_LEN_WORD+40],word_len,word_len1;
 uchar wrd1[MAX_LEN_WORD+40];
-INT  prev_wrd, next_wrd, curr_wrd;
+int16_t  prev_wrd, next_wrd, curr_wrd;
 
 
 if( db_status && snap_activity('c') )
@@ -1439,8 +1439,8 @@ return (c->flg&c_f_fict)?NULL:c;
 cell * end_word(cell *cs,uchar *str,uchar *word_len,uchar *add_letters)
 {
 cell *c=cs;
-INT i=0;
-INT let;
+int16_t i=0;
+int16_t let;
 
 do{
   *str++  = c->vers[0].let;
@@ -1463,7 +1463,7 @@ do{
 return c;
 }
 
-Bool left_over(cell *b,INT limit)
+Bool left_over(cell *b,int16_t limit)
 {
 cell *c,*e=cell_l()->prev;
 for(c=b;c!=e;c=c->next )
@@ -1474,14 +1474,14 @@ if( c->flg&c_f_fict ) return FALSE;
 return c->r_col<=limit;
 }
 
-INT  get_left_coord(cell *b)
+int16_t  get_left_coord(cell *b)
 {
 cell *c=b;
 while( !(c->flg&(c_f_let|c_f_bad|c_f_fict|c_f_dust|c_f_punct)) )c=c->next;
 return c->r_col;
 }
 
-INT  get_right_coord(cell *b)
+int16_t  get_right_coord(cell *b)
 {
 cell *c=b->prev;
 while( !(c->flg&(c_f_let|c_f_bad|c_f_fict|c_f_dust|c_f_punct)) )c=c->prev;

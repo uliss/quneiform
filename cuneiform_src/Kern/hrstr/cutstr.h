@@ -62,17 +62,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_CELLS_IN_LIST    8
 
 struct v_v
- {INT v1,v2,v3;};
+ {int16_t v1,v2,v3;};
 typedef struct v_v v_val;
 
 struct save_vers
- {INT nvers; version vers[VERS_IN_CELL]; char flg; char pos; uchar source;
+ {int16_t nvers; version vers[VERS_IN_CELL]; char flg; char pos; uchar source;
   uchar broken_II; uchar cg_flag_fine;uchar accent_leader;
   uchar bottom_accent;   // 16.10.97 E.P.
   uchar history;      // Nick  18.6.99
-  INT  clink;        // Nick  18.6.99
+  int16_t  clink;        // Nick  18.6.99
   uint16_t clu_attr;     // Nick  18.6.99
-  INT  nClust;
+  int16_t  nClust;
   version pr_vers;
   };
 typedef struct save_vers SVERS;
@@ -92,7 +92,7 @@ struct cut_elm
  };
 
 typedef struct cut_position
- { INT row1, row2, cuth; char flag; } cut_pos;
+ { int16_t row1, row2, cuth; char flag; } cut_pos;
 struct glue_struct
  {
  c_comp *complist[MAX_CELLS_IN_LIST];
@@ -102,16 +102,16 @@ struct glue_struct
  void *kitlist[MAX_CELLS_IN_LIST];
  uchar ncell, ngluc, arg, maxnc;
  uchar flarg, fres, var;
- INT  Dist, dist, bdiff, maxval;
+ int16_t  Dist, dist, bdiff, maxval;
  MN   *mn;
- INT  row, col, height, width;
- INT c_r, c_c, c_w, c_h, c_mc, c_mr, c_dens;
+ int16_t  row, col, height, width;
+ int16_t c_r, c_c, c_w, c_h, c_mc, c_mr, c_dens;
  };
 typedef struct glue_struct s_glue;
 
 struct all_c
  {
- INT   Nb, Nd, minb, mind, minf;
+ int16_t   Nb, Nd, minb, mind, minf;
  uchar  flag;
  #define dust_left 1
  #define dust_right 2
@@ -157,7 +157,7 @@ struct extrem_elem
 
 struct linehdr
  {
- INT  lth;
+ int16_t  lth;
  uint16_t  dy;
  uint16_t  y0;
  char flag;
@@ -178,24 +178,24 @@ struct short_line_header
  uchar lb;	        // beginning of last segment of line
  uchar le;	        // end of last segment of line
  uchar next;	        // number of next line in (shortened) lines' list
- INT  segm_addr;        // offset of first segment in line
+ int16_t  segm_addr;        // offset of first segment in line
  };
 
 struct vertex_header
  {
  uchar top;	// top string of component (relative)
  uchar bot;	// bottom string of component (relative)
- INT  beg;	// offset of first segment of line in c_comp
- INT  end;	// offset of last + 1 segment of line in c_comp
+ int16_t  beg;	// offset of first segment of line in c_comp
+ int16_t  end;	// offset of last + 1 segment of line in c_comp
  uchar out;	// outgoing valency
  uchar in;	// incoming valency
  };
 
 struct local_min
  {
- INT  value;    // value of minimum
- INT  ambeg;    // x-coordinate of beginning
- INT  amend;    // end of local minimum area
+ int16_t  value;    // value of minimum
+ int16_t  ambeg;    // x-coordinate of beginning
+ int16_t  amend;    // end of local minimum area
  };
 
 struct func_elem

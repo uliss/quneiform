@@ -61,14 +61,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 
 
-static INT LiliI                (cell *);
-static INT bon_to_dig           (cell *);
+static int16_t LiliI                (cell *);
+static int16_t bon_to_dig           (cell *);
 static Bool apostr_ll           (cell *);
-static void inc_or_dec_slash    (cell *wc, INT numv);
+static void inc_or_dec_slash    (cell *wc, int16_t numv);
 extern uchar langUkr;
 extern uchar langSer;
 
-INT check_numb_2_9 (uchar c)
+int16_t check_numb_2_9 (uchar c)
 //
 //	This procedure checks symbol to be number.
 //	Number means >=2 and <=9 since 0 and 1 could be confused.
@@ -79,7 +79,7 @@ INT check_numb_2_9 (uchar c)
                    return FALSE;
  }
 
- INT check_numb_0_9(uchar c)
+ int16_t check_numb_0_9(uchar c)
 //
 //	This procedure checks symbol to be number.
 //
@@ -91,7 +91,7 @@ INT check_numb_2_9 (uchar c)
 			       return 0;
  }
 
- INT check_upper(uchar c)
+ int16_t check_upper(uchar c)
 //
 //  This procedure checks symbol to be capital letter,
 //	that means A-Z.
@@ -424,7 +424,7 @@ INT check_numb_2_9 (uchar c)
         return FALSE;
  }
 
- INT check_lower(uchar c)
+ int16_t check_lower(uchar c)
 //
 //  This procedure checks symbol to be lower case letter,
 //	that means a-z.
@@ -769,7 +769,7 @@ if( language==LANG_RUSSIAN && langUkr ){
  return FALSE;
  }
 
- INT check_foreign_language_ligature(uchar c)
+ int16_t check_foreign_language_ligature(uchar c)
 //
 //  This procedure checks symbol to be foreign language ligature.
 //
@@ -827,7 +827,7 @@ if( language==LANG_RUSSIAN && langUkr ){
                    return FALSE;
  }
 
-INT check_foreign_language_ligature_slavic(uchar c)
+int16_t check_foreign_language_ligature_slavic(uchar c)
 //
 //  This procedure checks symbol to be foreign lahguage ligature.
 //
@@ -869,7 +869,7 @@ INT check_foreign_language_ligature_slavic(uchar c)
                    return FALSE;
  }
 
- INT check_alphanum(uchar c)
+ int16_t check_alphanum(uchar c)
 //
 //	This procedure checks symbol to be letter or number.
 //	that means 0-9, A-Z, a-z, $.
@@ -945,7 +945,7 @@ INT check_foreign_language_ligature_slavic(uchar c)
  return 0;
 }
 
- INT check_lowerconson(uchar c)
+ int16_t check_lowerconson(uchar c)
 //
 //	This procedure checks symbol to be lowercase consonant,
 //	that means b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y,z.
@@ -1065,7 +1065,7 @@ INT check_foreign_language_ligature_slavic(uchar c)
 
 }
 
-void test_irish_name_cur_sym( INT Let )
+void test_irish_name_cur_sym( int16_t Let )
 {
     switch ( fl_beg_irish_name )
     {
@@ -1106,7 +1106,7 @@ void test_irish_name_cur_sym( INT Let )
  void test_O_and_slash()
 {
 cell *C;
-INT nv;
+int16_t nv;
 
  C = cell_f();
  while ((C=C->nextl)->nextl)
@@ -1146,7 +1146,7 @@ INT nv;
  }
 }
 
-static void inc_or_dec_slash(cell *wc, INT numv)
+static void inc_or_dec_slash(cell *wc, int16_t numv)
 //
 //  This procedure decreases probability '/' if its neighbour letters are
 //   italic ( to prefer 'l' or 'I' ) and
@@ -1163,16 +1163,16 @@ static void inc_or_dec_slash(cell *wc, INT numv)
   cnext = wc->next;
   if ( !((cprev->flg & c_f_let) && (cnext->flg & c_f_let)) ) return;
   if ( ((cprev->font|cprev->font_new) & c_fp_it) && ((cnext->font|cnext->font_new) & c_fp_it) )
-   { cell_bonus(wc, &(wc->vers[numv]), (INT)(no_Il?2:-BONUS_SLASH)); goto IDS_Sort; }
+   { cell_bonus(wc, &(wc->vers[numv]), (int16_t)(no_Il?2:-BONUS_SLASH)); goto IDS_Sort; }
   if ( ((cprev->font|cprev->font_new) & c_fp_str) && ((cnext->font|cnext->font_new) & c_fp_str) )
-    cell_bonus(wc, &(wc->vers[numv]), (INT)(no_Il?2:BONUS_SLASH));
+    cell_bonus(wc, &(wc->vers[numv]), (int16_t)(no_Il?2:BONUS_SLASH));
 IDS_Sort:
   sort_vers(wc);
  }
 
-INT english_context_process( cell* C )
+int16_t english_context_process( cell* C )
 {
-INT return_code, nv;
+int16_t return_code, nv;
 
   return_code = NO_ACTION;
 
@@ -1220,12 +1220,12 @@ ECP_Ret:
     return  return_code;
 }
 
-static INT LiliI(cell *NC)
+static int16_t LiliI(cell *NC)
 //
 //	This procedure gives bonus to 'I' in one letter word.
 //
  {
- INT i;
+ int16_t i;
  version *v;
 
  bon_to_dig(NC);                    // monus to non- "1"
@@ -1247,12 +1247,12 @@ monus:;
  return 1;
  }
 
-static INT bon_to_dig(cell *NC)
+static int16_t bon_to_dig(cell *NC)
 //
 //	This procedure gives bonus to digits in one letter word.
 //
  {
- INT i;
+ int16_t i;
  version *v;
 
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
@@ -1274,7 +1274,7 @@ static Bool apostr_ll(cell *NC)
 //	ON ENTRY: NC - address of cell for first letter.
 //
 {
- INT i;
+ int16_t i;
  version *v;
 
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
@@ -1304,10 +1304,10 @@ monus:;
  return TRUE;
 }
 
-INT franch_context_process( cell* C )
+int16_t franch_context_process( cell* C )
 {
-INT return_code;
-INT i, nvI, nvl, nvs;
+int16_t return_code;
+int16_t i, nvI, nvl, nvs;
 
   return_code = NO_ACTION;
 
@@ -1377,12 +1377,12 @@ FCP_Ret:
   return return_code;
 }
 
-INT german_context_process( cell* C )
+int16_t german_context_process( cell* C )
 {
-INT return_code;
+int16_t return_code;
 cell * wc;
 uchar i, wp;
-INT  nv_c, nv_h, nv_b;
+int16_t  nv_c, nv_h, nv_b;
 
     return_code = NO_ACTION;
 
@@ -1427,9 +1427,9 @@ GCP_Ret:
     return return_code;
 }
 
-INT swedish_context_process     ( cell* C )
+int16_t swedish_context_process     ( cell* C )
 {
-INT return_code;
+int16_t return_code;
 
     swed_lju_flag = FALSE;
     return_code = NO_ACTION;
@@ -1442,7 +1442,7 @@ INT return_code;
     }
     if ( n_ltr > 2 )        // Process 'lju' at start of word
     {
-      INT nv_l, nv_j, nv_u;
+      int16_t nv_l, nv_j, nv_u;
 
       nv_l = get_nvers( C, 'l');
       if ( nv_l < 0 ) goto SwCP_Ret;
@@ -1468,9 +1468,9 @@ SwCP_Ret:
     return return_code;
 }
 
-INT spanish_context_process     ( cell* C )
+int16_t spanish_context_process     ( cell* C )
 {
-INT return_code;
+int16_t return_code;
 
     return_code = NO_ACTION;
     if ( n_ltr > 2 )
@@ -1483,9 +1483,9 @@ SpCP_Ret:
     return return_code;
 }
 
-INT get_nvers ( cell *A, INT Let )
+int16_t get_nvers ( cell *A, int16_t Let )
 {
-INT n;
+int16_t n;
   for ( n = 0; n < A->nvers; n++)
    {
     if (  A->vers[n].let == Let )
@@ -1494,7 +1494,7 @@ INT n;
   return -1;
 }
 
-void vers_to_first_place ( cell *A, INT nver)
+void vers_to_first_place ( cell *A, int16_t nver)
 {
 version *v, wver;
  v = A->vers;

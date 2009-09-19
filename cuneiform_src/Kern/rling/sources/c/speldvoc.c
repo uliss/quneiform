@@ -87,36 +87,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*             Preliminary functions definition                          */
 /*************************************************************************/
 
-static uint16_t voc_alloc ( voc_state *, INT );
-static INT voc_read ( voc_state *, LTIMG **, INT * );
-static INT voc_write ( voc_state *, LTIMG **, INT * );
-static INT make_tail ( voc_state *, LTIMG **, INT * );
-static INT insert_brother( voc_state *, LTIMG ** );
-static INT set_voc_accnt( voc_state *, INT );
+static uint16_t voc_alloc ( voc_state *, int16_t );
+static int16_t voc_read ( voc_state *, LTIMG **, int16_t * );
+static int16_t voc_write ( voc_state *, LTIMG **, int16_t * );
+static int16_t make_tail ( voc_state *, LTIMG **, int16_t * );
+static int16_t insert_brother( voc_state *, LTIMG ** );
+static int16_t set_voc_accnt( voc_state *, int16_t );
 
-static INT fillgap( vert  * currvert, voc_state * voc, INT cnt,
-                    LTIMG **wrddef, INT gapcont );
-static void chkfill( INT cnt, LTIMG * wrddef[], INT gapcont,
-                     INT *fillfind, uchar symb, LT  **gaplt );
+static int16_t fillgap( vert  * currvert, voc_state * voc, int16_t cnt,
+                    LTIMG **wrddef, int16_t gapcont );
+static void chkfill( int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
+                     int16_t *fillfind, uchar symb, LT  **gaplt );
  static WTOKEN  * get_wtoken(voc_state *voc);
  static WTOKEN  * alloc_wtoken(voc_state *voc);
- static INT AcceptAndCheck ( vert  *currvert, voc_state *voc);
- static INT Found ( uchar *str, voc_state *voc);
+ static int16_t AcceptAndCheck ( vert  *currvert, voc_state *voc);
+ static int16_t Found ( uchar *str, voc_state *voc);
 
 /*************************************************************************/
 /*                      Main function                                    */
 /*************************************************************************/
 
-INT voc_  (
+int16_t voc_  (
        voc_state * voc,       /* variable of vocabulary state            */
        LTIMG ** wrddef,/* ptr to user's word def start elem       */
-       INT *lth,              /* length of word                          */
-       INT dcount,            /* change (+n,0,-n) of word usage counter  */
-       INT acs,                /* access : write or read                  */
+       int16_t *lth,              /* length of word                          */
+       int16_t dcount,            /* change (+n,0,-n) of word usage counter  */
+       int16_t acs,                /* access : write or read                  */
        WTOKEN  *  * wtoken
 	  )
 
-{ INT respons;               /* function's respons                       */
+{ int16_t respons;               /* function's respons                       */
 
   switch ( acs ) {
 
@@ -160,7 +160,7 @@ INT voc_  (
 /*                                                                       */
 /*************************************************************************/
 
-INT voc_init (
+int16_t voc_init (
       voc_state * voc         /*structure of current state of vocabulary */
       )
 { vert  * currvert;        /* serv pointer to current vertex in RAM   */
@@ -195,7 +195,7 @@ INT voc_init (
 void voc_open (
       voc_state * voc         /*structure of current state of vocabulary */
       )
-{ register INT i;
+{ register int16_t i;
 
   voc->lev=-1;
   for ( i=0; i < MAX_WORD_SIZE ; i++ ) voc->path[i]=0;
@@ -209,7 +209,7 @@ void voc_open (
 /* input :                                                               */
 /*   voc_state * voc        - structure of current state of vocabulary.  */
 /*   LTIMG ** wrddef - ptr to user's wrddef start elem.           */
-/*   INT * lth              - ptr to length of user's input wrddef       */
+/*   int16_t * lth              - ptr to length of user's input wrddef       */
 /*                            sequence.                                  */
 /* output:                                                               */
 /*   if word was found, then returned value of accnt field of the last   */
@@ -222,15 +222,15 @@ void voc_open (
 /*   element of wrddef.                                                  */
 /*************************************************************************/
 
-static INT voc_read (
+static int16_t voc_read (
       voc_state * voc,        /*structure of current state of vocabulary */
       LTIMG ** wrddef, /* ptr to user's wrddef start elem         */
-      INT *lth                /* ptr to length of user's input wrddef    */
+      int16_t *lth                /* ptr to length of user's input wrddef    */
       )                       /* sequence ( in sense C array index !)    */
 {
   vert  * currvert;                 /* pointer to current vertex      */
-  INT cnt;                             /* index in input wrddef          */
-  INT rest;                            /* rest of input sequence         */
+  int16_t cnt;                             /* index in input wrddef          */
+  int16_t rest;                            /* rest of input sequence         */
 
       /* -- loop through the input character sequence */
   if ( voc->lev == -1 )
@@ -295,7 +295,7 @@ Down_Fail: *lth=cnt+1;
 /* input :                                                               */
 /*   voc_state * voc        - structure of current state of vocabulary.  */
 /*   LTIMG ** wrddef - ptr to user's wrddef start elem.           */
-/*   INT * lth              - ptr to length of user's input wrddef       */
+/*   int16_t * lth              - ptr to length of user's input wrddef       */
 /*                            sequence.                                  */
 /* output:                                                               */
 /*   if word was written, returned value of accnt field of the last      */
@@ -313,14 +313,14 @@ Down_Fail: *lth=cnt+1;
 /*                                                                       */
 /*************************************************************************/
 
-static INT voc_write (
+static int16_t voc_write (
        voc_state * voc,       /*structure of current state of vocabulary */
        LTIMG ** wrddef,/* ptr to user's wrddef start elem         */
-       INT *lth               /* ptr to length of user's input wrddef    */
+       int16_t *lth               /* ptr to length of user's input wrddef    */
        )                      /* sequence ( in sense C array index !)    */
-{ INT respons=0;
-  INT mylth;
-  INT buf;
+{ int16_t respons=0;
+  int16_t mylth;
+  int16_t buf;
 
   mylth=*lth;
 
@@ -373,7 +373,7 @@ Out: *lth=buf+mylth+1;       /* -- set pointer to the first non worked   */
 /*                                                                       */
 /* input : voc-state * voc        - current state of vocabulary.         */
 /*         LTIMG ** wrddef - input part of word.                  */
-/*         INT * lth              - ptr to length of input word.         */
+/*         int16_t * lth              - ptr to length of input word.         */
 /*                                                                       */
 /* output: zero, if all right.                                           */
 /*         VOC_MEM_OVERFLOW ( <0 ), if can not write whole sequence, as  */
@@ -381,12 +381,12 @@ Out: *lth=buf+mylth+1;       /* -- set pointer to the first non worked   */
 /*                                                                       */
 /*************************************************************************/
 
-static INT make_tail (
+static int16_t make_tail (
        voc_state * voc,       /* - structure of current state of voc     */
        LTIMG ** wrddef,/* -- ptr to user's wrddef start elem      */
-       INT *lth               /* - ptr to length of user's input wrddef  */
+       int16_t *lth               /* - ptr to length of user's input wrddef  */
        )                      /*   sequence ( in sense C array index !)  */
-{ INT newlth;                 /* -- length of worked part of input       */
+{ int16_t newlth;                 /* -- length of worked part of input       */
   vert  * newvert;         /* - real (  ) pointer to vertex        */
   vert  * oldvert;         /* - real ( far ) pointer to vertex        */
 
@@ -453,7 +453,7 @@ Fail    : return ( VOC_MEM_OVERFLOW );
 /*                                                                       */
 /*************************************************************************/
 
-static INT insert_brother(
+static int16_t insert_brother(
        voc_state * voc,       /*structure of current state of vocabulary */
        LTIMG ** wrddef /* ptr to wrddef start elem (def by user)  */
        )
@@ -533,16 +533,16 @@ Fail    : return( VOC_MEM_OVERFLOW );
 /*   Function change account value of current vertex by dcount.          */
 /*                                                                       */
 /* input : voc_state * voc - structure of current state of vocabulary    */
-/*         INT dcount      - delta value of accnt field                  */
+/*         int16_t dcount      - delta value of accnt field                  */
 /*                                                                       */
 /* output: new value of account field in range 0:0x7F ( 7 bits, uint16_t)*/
 /*   if new value will be more 0x7f, returned VOC_ACCNTOVERFLOW ( < 0 ). */
 /*   if new value will be less 0, returned VOC_ACCNTZERO ( < 0 ).        */
 /*************************************************************************/
 
-static INT set_voc_accnt( voc_state * voc,INT dcount)
+static int16_t set_voc_accnt( voc_state * voc,int16_t dcount)
 {
-  INT buf;                 /*                                            */
+  int16_t buf;                 /*                                            */
   vert  * currvert;     /*                                            */
 
   currvert=(vert  *)V_POINT(voc->vocseg,voc->path[voc->lev]);
@@ -569,7 +569,7 @@ static INT set_voc_accnt( voc_state * voc,INT dcount)
 /*   formal parameter 'size'.                                            */
 /*                                                                       */
 /* input : voc_state * voc - structure of current state of vocabulary    */
-/*         INT size        - size of memory, which will be allocated     */
+/*         int16_t size        - size of memory, which will be allocated     */
 /*                                                                       */
 /* output: offset from vocabulary base for new vertex.                   */
 /*         if have not enought space, error message VOC_MEM_OVERFLOW (<0)*/
@@ -582,7 +582,7 @@ static INT set_voc_accnt( voc_state * voc,INT dcount)
 
 static uint16_t voc_alloc (
 	voc_state * voc,
-        INT size
+        int16_t size
 	)
 { uint16_t pointer;
 
@@ -599,8 +599,8 @@ static uint16_t voc_alloc (
 /*************************************************************************/
 
 static void chkfill (
-      INT cnt, LTIMG * wrddef[],
-      INT gapcont, INT *fillfind, uchar symb,
+      int16_t cnt, LTIMG * wrddef[],
+      int16_t gapcont, int16_t *fillfind, uchar symb,
       LT  ** gaplt
     )
  {
@@ -631,16 +631,16 @@ Gap_add:  if ( *gaplt != (LT  *)&wrddef[cnt]->std )
  */
  }
 
-static INT fillgap (
+static int16_t fillgap (
       vert  * currvert,
       voc_state * voc,
-      INT cnt,
+      int16_t cnt,
       LTIMG **wrddef,
-      INT gapcont
+      int16_t gapcont
     )
  {
    LT  * gaplt;
-   INT fillfind=0;
+   int16_t fillfind=0;
 
   if (gapcont == 0)                /* fill gap from the beginning */
     gaplt = wrddef[cnt]->lt = (LT  *)&wrddef[cnt]->std;
@@ -697,7 +697,7 @@ Fail:     if ( gapcont != 0 ) { wrddef[cnt]->blank=0;
 
 /* ------------------------------------------------------------------ */
 
-INT next_word_from_voc(uchar *str, voc_state *voc)
+int16_t next_word_from_voc(uchar *str, voc_state *voc)
  { vert  * currvert;
   if ( voc->lev == -1 )
     currvert=(vert  *)V_POINT(voc->vocseg,sizeof(DYN_DICT_HEADER));
@@ -735,7 +735,7 @@ do {
 
 /* ------------------------------------------------------------------ */
 
-INT AcceptAndCheck ( vert  *currvert, voc_state *voc)
+int16_t AcceptAndCheck ( vert  *currvert, voc_state *voc)
  {
       voc -> path[voc->lev] =V_OFF(currvert, voc ->vocseg);
       return ( currvert -> wrdterm) ? 1 : 0;
@@ -743,8 +743,8 @@ INT AcceptAndCheck ( vert  *currvert, voc_state *voc)
 
 /* ------------------------------------------------------------------ */
 
-INT Found ( uchar *str, voc_state *voc)
- {  INT i;
+int16_t Found ( uchar *str, voc_state *voc)
+ {  int16_t i;
   for ( i = 0; i <= voc ->lev; i++)
     str[i] = ((vert *)V_POINT(voc->vocseg, voc -> path[i]))->key;
   str[i] = 0;

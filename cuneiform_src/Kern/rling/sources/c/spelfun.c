@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define st Q.st
 
 extern dQ  SPQ;      //Q;         /* .... */
-extern INT searcmode;             /* .... */
+extern int16_t searcmode;             /* .... */
 
 /************************************************************************/
 extern STD std;
@@ -129,10 +129,10 @@ dQ *vz=&SPQ;           //Q;
 /*=================================================================== */
 /*                         functions' prototypes                      */
 /*=================================================================== */
-static INT check_and_look(INT *,LTIMG **,
-                   voc_state *,INT ,INT );
+static int16_t check_and_look(int16_t *,LTIMG **,
+                   voc_state *,int16_t ,int16_t );
 
-INT check_art_dict (char word[], INT * wordlth, INT * vockind);
+int16_t check_art_dict (char word[], int16_t * wordlth, int16_t * vockind);
 
 
 /****************************************************************************/
@@ -146,16 +146,16 @@ INT check_art_dict (char word[], INT * wordlth, INT * vockind);
 
 									    */
 /****************************************************************************/
-INT check_compound (SOBJ   *    obj,
+int16_t check_compound (SOBJ   *    obj,
                     LTIMG ** wrddef,
          struct dict_state *   dict,
               user_voc  voc_array[],
-                   INT       voc_no )
-{INT    insect, depth= 0, prob = 1024;
- INT    wordlth;
- INT    lth;
+                   int16_t       voc_no )
+{int16_t    insect, depth= 0, prob = 1024;
+ int16_t    wordlth;
+ int16_t    lth;
  char   save_word [sizeof(obj->wordchar)+1];
- INT    beg=0,   loclth=0;
+ int16_t    beg=0,   loclth=0;
  char                *out;
  SWORD   *wrd;
  wrd = obj -> word;
@@ -229,15 +229,15 @@ INT check_compound (SOBJ   *    obj,
 /* This procedure is the DICT-VOC interface for spelling checker
 									    */
 /****************************************************************************/
-INT check_dict_voc (SOBJ * obj,
+int16_t check_dict_voc (SOBJ * obj,
             LTIMG ** wrddef,
 	    struct dict_state * dict,
-	user_voc  voc_array[], INT voc_no
+	user_voc  voc_array[], int16_t voc_no
        )
 {
- INT wordlth;
- INT max_dep = 0;
- INT direction;
+ int16_t wordlth;
+ int16_t max_dep = 0;
+ int16_t direction;
  SWORD *wrd;
  wrd = obj -> word;
  direction = CheckContext ( obj, wrddef, wrd -> lth);
@@ -257,7 +257,7 @@ if ( direction == All_dicts)
 
    if (wrd -> type_sp & T_APF)
     {
-     INT l, r;
+     int16_t l, r;
 	 if (test_apppostrof (obj -> wordchar, wrd, &l,&r))
 	  {
 	   wordlth = r-l-1;
@@ -274,7 +274,7 @@ if ( direction == All_dicts)
 
 if ( voc_no)
  if (!wrd -> voc_prob)
-  { INT i, lth;
+  { int16_t i, lth;
    obj ->voc_kind = 1;
     for(i =0; i<voc_no; i++)
      {
@@ -291,7 +291,7 @@ if ( voc_no)
 // Le 06-02-95 06:52pm
    if (wrd -> type_sp & T_APF)
     {
-     INT l, r;
+     int16_t l, r;
 	 if (test_apppostrof (obj -> wordchar, wrd, &l,&r))
 	  {
 	   wordlth = r-l-1;
@@ -340,8 +340,8 @@ return (wrd -> voc_prob) ? Ok : No ;
 /****************************************************************************/
 /* This procedure is the VOC (dynamic) interface for spelling checker       */
 /****************************************************************************/
-INT check_and_look (INT *lth,LTIMG **wrddef,
-                voc_state *dindict,INT status,INT incr)
+int16_t check_and_look (int16_t *lth,LTIMG **wrddef,
+                voc_state *dindict,int16_t status,int16_t incr)
 {
 #ifdef OVERVOC
  if(CHECKVOC)
@@ -367,13 +367,13 @@ INT check_and_look (INT *lth,LTIMG **wrddef,
    via current part of a current object
 									    */
 /****************************************************************************/
-INT setimg (SOBJ * obj,
+int16_t setimg (SOBJ * obj,
         LTIMG wrdimg[]
        )
 {
- INT pi;                       /* curr pos index                             */
- INT ii;                       /* wrdimg curr pos index                      */
- INT ai;                       /* index of curr alt of curr pos              */
+ int16_t pi;                       /* curr pos index                             */
+ int16_t ii;                       /* wrdimg curr pos index                      */
+ int16_t ai;                       /* index of curr alt of curr pos              */
  LT  * alt;     /* pointer to curr alt stored in img-alt-list */
 
  for (ii=0; ii<=obj->part->lth; ii++)
@@ -414,12 +414,12 @@ INT setimg (SOBJ * obj,
     *lth=last wrddef index
 									  */
 /**************************************************************************/
-INT setdef (LTIMG wrdimg[],
+int16_t setdef (LTIMG wrdimg[],
         LTIMG * wrddef[],
-        INT * lth
+        int16_t * lth
        )
 {
- register INT i;
+ register int16_t i;
  for (i=0; wrdimg[i].lt; i++)
   wrddef[i]=&wrdimg[i];
  wrddef[i]=NULL;
@@ -435,11 +435,11 @@ return(OK);
        obj->word->(SWORD)
 									 */
 /*************************************************************************/
-INT setwrd (SOBJ * obj,
+int16_t setwrd (SOBJ * obj,
             LTIMG * wrddef[]
 	   )
 {
- INT i, pi, ai;
+ int16_t i, pi, ai;
  SWORD * wrd;
  LT  * lt;
  LT  * wlt;
@@ -518,12 +518,12 @@ PRINTF ("\n SYSTEM ERROR (SPELLSET.SETWORD): alt specified not found !!!\n");
     Stop - no next word
 									 */
 /*************************************************************************/
-INT nextwrd (SOBJ * obj,
+int16_t nextwrd (SOBJ * obj,
              LTIMG * wrddef[]
 	    )
 {
- INT i;                         /* curr index of wrddef[i]              */
- INT l;                         /*      index of wrddef[l] for next alt */
+ int16_t i;                         /* curr index of wrddef[i]              */
+ int16_t l;                         /*      index of wrddef[l] for next alt */
 
  l=obj->lthok;
  while ((l>=0)&& ((wrddef[l]->lt->attr&EOLIST) || wrddef[l] ->blank))
@@ -561,13 +561,13 @@ INT nextwrd (SOBJ * obj,
     No - not found
 									 */
 /*************************************************************************/
-INT findpart (SOBJ * obj,
+int16_t findpart (SOBJ * obj,
               SPART * part,
-              INT beg, INT end,
-              INT * parti
+              int16_t beg, int16_t end,
+              int16_t * parti
 	     )
 {
- INT pi;
+ int16_t pi;
  for (pi=0; pi<obj->part_max; pi++) /* find the part in part[]            */
   {
    if ( (part[pi].beg == beg)
@@ -590,14 +590,14 @@ Ok_findpart:
     No - not found
 									 */
 /*************************************************************************/
-INT findparte (
+int16_t findparte (
                SPART * part,
-               INT end,
-               INT maxpi,
-               INT * parti
+               int16_t end,
+               int16_t maxpi,
+               int16_t * parti
 	      )
 {
- INT pi;
+ int16_t pi;
 
  for (pi=maxpi-1; pi>=0; pi--)    /* find previous part with fixed end    */
   {

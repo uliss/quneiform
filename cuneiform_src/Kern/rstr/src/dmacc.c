@@ -79,16 +79,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern uchar db_pass;
 static char b1b2;
 static cell *LET, *I1;
-static INT n_news;
+static int16_t n_news;
 static cell *new_cells[MAX_DUST_CELLS];
 
-static INT col_comps(cell *B1, MN *mn1, INT pass);
-static INT thinlev_top(puchar,INT,INT);
-static INT thinlev_bot(puchar,INT,INT,INT); /* extra parameter - height */
+static int16_t col_comps(cell *B1, MN *mn1, int16_t pass);
+static int16_t thinlev_top(puchar,int16_t,int16_t);
+static int16_t thinlev_bot(puchar,int16_t,int16_t,int16_t); /* extra parameter - height */
 /**************************************************************************/
-INT try_cut_accent(cell *C1, B_LINES *my_bases, INT flag)
+int16_t try_cut_accent(cell *C1, B_LINES *my_bases, int16_t flag)
 {
-    INT ans = 0;
+    int16_t ans = 0;
 
     if (!flag)  // flag==0 - Estimate
         {
@@ -104,7 +104,7 @@ INT try_cut_accent(cell *C1, B_LINES *my_bases, INT flag)
     return ans;
 }
 /**************************************************************************/
-static INT col_comps(cell *B1, MN *mn1, INT pass)
+static int16_t col_comps(cell *B1, MN *mn1, int16_t pass)
 {
  cell *newcell;
  uchar  just;
@@ -121,7 +121,7 @@ static INT col_comps(cell *B1, MN *mn1, INT pass)
      goto restall;
    if (newcell->flg & (c_f_let + c_f_bad))
    {
-     INT midbas, wrow;
+     int16_t midbas, wrow;
      midbas = get_bsm();
      wrow = newcell->row;
      if ((wrow > midbas) || (wrow + newcell->h < midbas))
@@ -166,14 +166,14 @@ static INT col_comps(cell *B1, MN *mn1, INT pass)
  return n_news;
 }
 /**************************************************************************/
-INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
+int16_t try_cut_top_accent(cell *C1, B_LINES *my_bases, int16_t flag)
 {
  cell sv_b1;
- INT  b1, b2, ret_ans;
+ int16_t  b1, b2, ret_ans;
  uchar *rp1, *rp2, *rp3;
  uchar acc_raster[1024];
  uchar let,chr;
- INT  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
+ int16_t  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
  MN   *mn1;
  s_glue GL;
 
@@ -272,7 +272,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
  n_news = 0; LET=NULL;
  if ( col_comps (C1, mn1,0) < 0)
    return 0;
- mn1 = c_locomp(rp3,ww,(INT)(ch-dh),(INT)(C1->r_row+dh),C1->r_col);
+ mn1 = c_locomp(rp3,ww,(int16_t)(ch-dh),(int16_t)(C1->r_row+dh),C1->r_col);
  if( mn1==NULL )
   return 0;
  if ( col_comps (C1, mn1,1) < 0)
@@ -433,9 +433,9 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
  return ret_ans;
 }
 /**************************************************************************/
-static INT thinlev_top(puchar r,INT w,INT dh)
+static int16_t thinlev_top(puchar r,int16_t w,int16_t dh)
  {
- INT l,d,i,j,s1,s2,min1,min2,i1,i2;
+ int16_t l,d,i,j,s1,s2,min1,min2,i1,i2;
 
  l=(w+7)/8;
  d=MIN(2,dh/3);
@@ -465,10 +465,10 @@ static INT thinlev_top(puchar r,INT w,INT dh)
  return ((abs(i1-dh)<=abs(i2-dh))?i1:i2);
  }
 /**************************************************************************/
-static INT thinlev_bot(puchar r,INT w,INT h,INT dh)
+static int16_t thinlev_bot(puchar r,int16_t w,int16_t h,int16_t dh)
 {
  /* Find height of bottom accent. */
- INT l,d,i,j,s1,s2,min1,min2,i1,i2;
+ int16_t l,d,i,j,s1,s2,min1,min2,i1,i2;
 
  l=(w+7)/8;
  d=MIN(2,dh/3);
@@ -498,14 +498,14 @@ static INT thinlev_bot(puchar r,INT w,INT h,INT dh)
  return ((abs(i1-dh)<=abs(i2-dh))?i1:i2);
 }
 /**************************************************************************/
-INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
+int16_t try_cut_bot_accent(cell *C1, B_LINES *my_bases, int16_t flag)
 {
  cell sv_b1;
- INT  b1, b3, ret_ans=0;
+ int16_t  b1, b3, ret_ans=0;
  uchar *rp1, *rp2, *rp3;
  uchar acc_raster[1024];
  uchar let;
- INT  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
+ int16_t  prob, dh, rpn, i, cr, cc, cw, ch, mh, ww;
  MN   *mn1;
  SVERS svers;
 
@@ -583,14 +583,14 @@ if (is_turkish_language(language))
  // for (i=0; i<ww; i++,rp3++)
  //   *rp3=0;
  // extrcomp both parts: first bottom accent, next letter
- mn1 = c_locomp(rp3,ww,dh,(INT)(C1->r_row+ch-dh),C1->r_col);
+ mn1 = c_locomp(rp3,ww,dh,(int16_t)(C1->r_row+ch-dh),C1->r_col);
  if( mn1==NULL )
   return 0;
  I1 = C1->prevl;
  n_news = 0; LET=NULL;
  if ( col_comps (C1, mn1,0) < 0)
    return 0;
- mn1 = c_locomp(rp2,ww,(INT)(ch-dh),C1->r_row,C1->r_col);
+ mn1 = c_locomp(rp2,ww,(int16_t)(ch-dh),C1->r_row,C1->r_col);
  if( mn1==NULL )
   return 0;
  if ( col_comps (C1, mn1,1) < 0)

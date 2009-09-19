@@ -176,11 +176,6 @@ typedef const char* LPCTSTR;
 
 typedef LONG * PLONG;
 typedef uint32_t * PDWORD;
-
-typedef int16_t _INT;
-typedef int16_t * _PINT;
-#define INT  _INT
-#define PINT _PINT
 typedef uint16_t * PWORD;
 
 typedef uchar* LPBYTE;

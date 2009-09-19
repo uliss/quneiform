@@ -71,17 +71,17 @@ extern CSTR_line lin_str;
 static void set_basint(void);
 static void make_intpairs(void);
 
-INT int_caps(bas_ln *bc);
-INT int_smalls(bas_ln *bc);
-INT int_nocap(bas_ln *bc, INT);
-INT int_nosmall(bas_ln *bc);
-INT cell_sticker(CSTR_rast bc);
-INT int_sticker(bas_ln *bc);
-INT int_similar(bas_ln *b1, bas_ln *b2);
-INT int_sim_base2(bas_ln *b1, bas_ln *b2);
-INT int_sim_base1(bas_ln *b1, bas_ln *b2);
+int16_t int_caps(bas_ln *bc);
+int16_t int_smalls(bas_ln *bc);
+int16_t int_nocap(bas_ln *bc, int16_t);
+int16_t int_nosmall(bas_ln *bc);
+int16_t cell_sticker(CSTR_rast bc);
+int16_t int_sticker(bas_ln *bc);
+int16_t int_similar(bas_ln *b1, bas_ln *b2);
+int16_t int_sim_base2(bas_ln *b1, bas_ln *b2);
+int16_t int_sim_base1(bas_ln *b1, bas_ln *b2);
 
-INT stick_like(CSTR_rast r) {
+int16_t stick_like(CSTR_rast r) {
 	//version * v;
 	uchar c;
 	CSTR_rast_attr trr;
@@ -105,8 +105,8 @@ INT stick_like(CSTR_rast r) {
 	return 1;
 }
 
-INT get_maxmax(uchar *begs) {
-	INT i, m, m1, lb1;
+int16_t get_maxmax(uchar *begs) {
+	int16_t i, m, m1, lb1;
 	uchar *bp, *bc, *bn;
 	m1 = 0;
 	lb1 = -1;
@@ -120,7 +120,7 @@ INT get_maxmax(uchar *begs) {
 	return lb1;
 }
 
-INT can_serve(CSTR_rast b, INT bs, INT pass) {
+int16_t can_serve(CSTR_rast b, int16_t bs, int16_t pass) {
 	CSTR_rast_attr bb2;
 	CSTR_rast_attr *b2 = &bb2;
 	UniVersions vv;
@@ -163,13 +163,13 @@ CSTR_rast def_init_cell() {
 	CSTR_rast_attr aab2;
 	CSTR_rast_attr *ab2 = &aab2;
 
-	INT up, dflg, nmax, nacc, pass;
+	int16_t up, dflg, nmax, nacc, pass;
 
 	Start_cell = NULL;
 	pass = 0;
 	again: if (b2_solid) {
-		INT w;
-		INT dmin = 32000;
+		int16_t w;
+		int16_t dmin = 32000;
 		b1 = NULL;
 		b2 = cell_f(); // CSTR_GetFirstRaster(lin_str);
 		while (b2) {
@@ -220,7 +220,7 @@ CSTR_rast def_init_cell() {
 			CSTR_GetAttr(b3, ab2);
 			if (ab2->basflg & dflg) // agrees to be same type ?
 			{
-				INT rw;
+				int16_t rw;
 				rw = ab2->row - minrow - ab2->bdiff;
 				if (abs(rw - up) < 2)
 					nacc++;
@@ -273,7 +273,7 @@ CSTR_rast def_init_cell() {
 
 				if (ab2->basflg & CSTR_bs_b1a) // agrees to be at B1 ?
 				{
-					INT rw;
+					int16_t rw;
 
 					rw = ab2->row - minrow - ab2->bdiff;
 					if (abs(rw - up) < 2)
@@ -294,7 +294,7 @@ CSTR_rast def_init_cell() {
 /*
  // если arg==0 - добавить мусор из строки lin_str
  // проверить/изменить метки мусор-нет
- void bring_dust(INT arg)
+ void bring_dust(int16_t arg)
  {
  if (arg==0)
  {
@@ -313,7 +313,7 @@ CSTR_rast def_init_cell() {
  //////////////////
  */
 void stand_bas() {
-	INT i, j;
+	int16_t i, j;
 	LONG w1, w2;
 	// b3 assured
 	Nb2 = Ns2;
@@ -331,7 +331,7 @@ void stand_bas() {
 		if (3* Ns2 > Ns3)
 			bbs2 = (sbs2 + (Ns2 >> 1)) / Ns2;
 		else {
-			INT i;
+			int16_t i;
 			w1 = sbs3;
 			w1 *= Ns2;
 			w2 = sbs2;
@@ -429,7 +429,7 @@ void cut_sunk_let() {
 	CSTR_rast wc;
 	uchar chr, tbe, flcut;
 	//version *v0;
-	INT nv, rowup, rowdn;
+	int16_t nv, rowup, rowdn;
 	//c_comp *env;
 	CCOM_comp *env;
 	uchar tshp;
@@ -447,7 +447,7 @@ void cut_sunk_let() {
 		CSTR_GetCollectionUni(wc, &vers);
 
 		v0 = &vers;
-		nv = (INT) vers.lnAltCnt;
+		nv = (int16_t) vers.lnAltCnt;
 
 		if (nv <= 0)
 			goto forw; // bad cell
@@ -590,7 +590,7 @@ void cut_sunk_let() {
 
 }
 
-INT multi_hist(INT p) {
+int16_t multi_hist(int16_t p) {
 	CSTR_rast BC;
 	CSTR_rast_attr attr;
 
@@ -656,7 +656,7 @@ INT multi_hist(INT p) {
 		End_cell = Start_cell;
 
 		while (1) {
-			INT i;
+			int16_t i;
 			End_cell = CSTR_GetNextRaster(End_cell, f_letter | CSTR_f_fict);
 			// End_cell->nextl;
 			if ((i = same_int(End_cell, 1)) == 0)
@@ -679,7 +679,7 @@ INT multi_hist(INT p) {
 		fl_fail = 0;
 
 		while (1) {
-			INT i;
+			int16_t i;
 			Start_cell = CSTR_GetPrevRaster(Start_cell, f_letter | CSTR_f_fict);
 			if ((i = same_int(Start_cell, 2)) == 0)
 				break;
@@ -706,7 +706,7 @@ INT multi_hist(INT p) {
 void set_int()
 // set baselines in last (bp->) interval using compound cell histogram
 {
-	INT ch;
+	int16_t ch;
 	CSTR_rast_attr attr;
 	CSTR_GetAttr(Start_cell, &attr);
 
@@ -743,8 +743,8 @@ void set_int()
 }
 
 static uchar fbd, fbs;
-INT same_int(CSTR_rast St, uchar dir) {
-	INT ch, rb;
+int16_t same_int(CSTR_rast St, uchar dir) {
+	int16_t ch, rb;
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(St, &attr);
@@ -870,7 +870,7 @@ static void int_basfin(bas_ln *bc) {
 	CSTR_rast wc;
 	CSTR_rast_attr attr;
 	UniVersions vers;
-	INT row, rowd, sumb1, sumb2, nsum1, nsum2, sumb4, nsum4;
+	int16_t row, rowd, sumb1, sumb2, nsum1, nsum2, sumb4, nsum4;
 	uchar chr, fl4;
 	int i;
 
@@ -931,9 +931,9 @@ static void int_basfin(bas_ln *bc) {
 	}
 }
 
-INT comp_Slet(uchar dir, CSTR_rast St) // Small initiator
+int16_t comp_Slet(uchar dir, CSTR_rast St) // Small initiator
 {
-	INT bndh, bndup, bnddn, difi, dif1, dift, adifi, adif1, adift;
+	int16_t bndh, bndup, bnddn, difi, dif1, dift, adifi, adif1, adift;
 	uchar roundi, roundc;
 	CSTR_rast_attr attr;
 	UniVersions vers;
@@ -1027,7 +1027,7 @@ INT comp_Slet(uchar dir, CSTR_rast St) // Small initiator
 	}
 	if (adif1 <= 1) // same as b1/bt  ///// ************ <= 2
 	{
-		INT tmp;
+		int16_t tmp;
 		tmp = int_fbd & fbs;
 		if (tmp == 0)
 			return -1;
@@ -1080,9 +1080,9 @@ INT comp_Slet(uchar dir, CSTR_rast St) // Small initiator
 	return 5;
 }
 
-INT comp_Llet(uchar dir, CSTR_rast St) // Large initiator
+int16_t comp_Llet(uchar dir, CSTR_rast St) // Large initiator
 {
-	INT bndh, bndup, bnddn, difi, dif2, dift, adifi, adif2, adift;
+	int16_t bndh, bndup, bnddn, difi, dif2, dift, adifi, adif2, adift;
 	uchar roundi, roundc;
 
 	CSTR_rast_attr attr;
@@ -1171,7 +1171,7 @@ INT comp_Llet(uchar dir, CSTR_rast St) // Large initiator
 	}
 	if (adif2 <= 1) // same as b2/bt   ////***** <= 2
 	{
-		INT tmp;
+		int16_t tmp;
 		tmp = int_fbd & fbs;
 		if (tmp == 0)
 			return -1;
@@ -1225,7 +1225,7 @@ INT comp_Llet(uchar dir, CSTR_rast St) // Large initiator
 	return 5;
 }
 
-INT comp_Lbad(CSTR_rast St) {
+int16_t comp_Lbad(CSTR_rast St) {
 	CSTR_rast_attr attr;
 
 	CSTR_GetAttr(St, &attr);
@@ -1247,7 +1247,7 @@ INT comp_Lbad(CSTR_rast St) {
 	return 1;
 }
 
-INT comp_Sbad(CSTR_rast St) {
+int16_t comp_Sbad(CSTR_rast St) {
 	CSTR_rast_attr attr;
 	CSTR_GetAttr(St, &attr);
 
@@ -1307,7 +1307,7 @@ void prt_interval(bas_ln *bp) {
 	char ww[128];
 	if (db_status) {
 		CSTR_rast wc;
-		INT cl1, cl2;
+		int16_t cl1, cl2;
 
 		wc = bp->c1;
 		if (bp->startcol == -32000) {
@@ -1318,7 +1318,7 @@ void prt_interval(bas_ln *bp) {
 			cl2 = bp->endf;
 		}
 
-		sprintf(ww, "INT: %d (%d (%d %d) %d)  %d: %d %d %d %d (-%d)",
+		sprintf(ww, "int16_t: %d (%d (%d %d) %d)  %d: %d %d %d %d (-%d)",
 				bp->ncells, cl1, bp->startcol, bp->endcol, cl2, bp->fl_def,
 				bp->b1, bp->b2, bp->b3, bp->b4, minrow);
 		glsnap('d', wc, ww);
@@ -1331,8 +1331,8 @@ static void set_basint()
 {
 	bas_ln *bp, *bn;
 	CSTR_rast bc, wc, wcn, wcm;
-	INT dones, sticks, i, dif, maxdif, s1, e1, e1c, sp, sn, ep, en;
-	INT n_again = 0;
+	int16_t dones, sticks, i, dif, maxdif, s1, e1, e1c, sp, sn, ep, en;
+	int16_t n_again = 0;
 	CSTR_rast oldStart_cell = NULL, oldEnd_cell = NULL;
 	CSTR_rast_attr attr;
 	CSTR_rast_attr attrn;
@@ -1566,8 +1566,8 @@ static void set_basint()
 	prt_interval(bn);
 }
 
-INT int_dream(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
-	INT sim;
+int16_t int_dream(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
+	int16_t sim;
 
 	sim = int_similar(bp, bn);
 	if (sim == 0)
@@ -1600,8 +1600,8 @@ INT int_dream(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
 	return 0;
 }
 
-INT int_dream2(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
-	INT sim;
+int16_t int_dream2(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
+	int16_t sim;
 
 	sim = int_sim_base2(bp, bn);
 	if ((sim & 2) == 0)
@@ -1624,7 +1624,7 @@ INT int_dream2(bas_ln *bp, bas_ln *bc, bas_ln *bn) {
 	return 0;
 }
 
-INT cell_sticker(CSTR_rast wc) {
+int16_t cell_sticker(CSTR_rast wc) {
 	uchar chr;
 	UniVersions vers;
 	int i;
@@ -1644,7 +1644,7 @@ INT cell_sticker(CSTR_rast wc) {
 	return 1;
 }
 
-INT int_sticker(bas_ln *bc) {
+int16_t int_sticker(bas_ln *bc) {
 	CSTR_rast wc;
 	wc = bc->c1;
 	while (wc) {
@@ -1657,8 +1657,8 @@ INT int_sticker(bas_ln *bc) {
 	return 1;
 }
 
-INT int_nocap(bas_ln *bc, INT flag) {
-	INT clet;
+int16_t int_nocap(bas_ln *bc, int16_t flag) {
+	int16_t clet;
 	clet = int_caps(bc);
 	if (clet == 0)
 		return 1;
@@ -1673,8 +1673,8 @@ INT int_nocap(bas_ln *bc, INT flag) {
 	return 0;
 }
 
-INT int_nosmall(bas_ln *bc) {
-	INT slet;
+int16_t int_nosmall(bas_ln *bc) {
+	int16_t slet;
 	slet = int_smalls(bc);
 	if (slet <= 1)
 		return 1;
@@ -1682,13 +1682,13 @@ INT int_nosmall(bas_ln *bc) {
 	return 0;
 }
 
-INT int_caps(bas_ln *bc) {
+int16_t int_caps(bas_ln *bc) {
 	CSTR_rast wc;
 	CSTR_rast_attr attr;
 	UniVersions vers;
 	int i;
 	uchar chr;
-	INT nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
+	int16_t nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
 
 	smallal = smallrq = capsal = capsrq = cells = 0;
 	wc = bc->c1;
@@ -1697,7 +1697,7 @@ INT int_caps(bas_ln *bc) {
 		CSTR_GetAttr(wc, &attr);
 		CSTR_GetCollectionUni(wc, &vers);
 		//v0=wc->vers;
-		nv = (INT) vers.lnAltCnt; // wc->nvers;
+		nv = (int16_t) vers.lnAltCnt; // wc->nvers;
 		dsmall = dcap = 0;
 		//if ((v0->let == bad_char) || (nv==0))
 		if (vers.lnAltCnt <= 0)
@@ -1730,13 +1730,13 @@ INT int_caps(bas_ln *bc) {
 	return capsrq;
 }
 
-INT int_smalls(bas_ln *bc) {
+int16_t int_smalls(bas_ln *bc) {
 	CSTR_rast wc;
 	CSTR_rast_attr attr;
 	UniVersions vers;
 
 	uchar chr;
-	INT nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
+	int16_t nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
 	int i;
 
 	smallal = smallrq = capsal = capsrq = cells = 0;
@@ -1748,7 +1748,7 @@ INT int_smalls(bas_ln *bc) {
 		CSTR_GetCollectionUni(wc, &vers);
 		//v0=wc->vers;
 		//nv = wc->nvers;
-		nv = (INT) vers.lnAltCnt;
+		nv = (int16_t) vers.lnAltCnt;
 		dsmall = dcap = 0;
 		//if ((v0->let == bad_char) || (nv==0))
 		if (vers.lnAltCnt <= 0)
@@ -1780,7 +1780,7 @@ INT int_smalls(bas_ln *bc) {
 	return smallrq;
 }
 
-INT int_sim_base2(bas_ln *b1, bas_ln *b2) {
+int16_t int_sim_base2(bas_ln *b1, bas_ln *b2) {
 	if ((b1->fl_def & CSTR_db_b2) == 0)
 		return 0;
 	if ((b2->fl_def & CSTR_db_b2) == 0)
@@ -1789,7 +1789,7 @@ INT int_sim_base2(bas_ln *b1, bas_ln *b2) {
 		return 2;
 	return 0;
 }
-INT int_sim_base1(bas_ln *b1, bas_ln *b2) {
+int16_t int_sim_base1(bas_ln *b1, bas_ln *b2) {
 	if ((b1->fl_def & CSTR_db_b1) == 0)
 		return 0;
 	if ((b2->fl_def & CSTR_db_b1) == 0)
@@ -1803,9 +1803,9 @@ INT int_sim_base1(bas_ln *b1, bas_ln *b2) {
 	return 0;
 }
 
-INT int_similar(bas_ln *b1, bas_ln *b2) {
+int16_t int_similar(bas_ln *b1, bas_ln *b2) {
 	// suspicios b1/b2
-	INT sw;
+	int16_t sw;
 	if ((b1->fl_def & CSTR_db_b2) && (b1->fl_def & CSTR_db_b1) && (5*
 			(b1 ->b2-b1->b1) < b1->ps)
 			)
@@ -1856,8 +1856,8 @@ INT int_similar(bas_ln *b1, bas_ln *b2) {
 			return 0;
 		}
 
-INT int_covered(bas_ln *bc, bas_ln *bm, INT ends, INT flag) {
-	INT sw;
+int16_t int_covered(bas_ln *bc, bas_ln *bm, int16_t ends, int16_t flag) {
+	int16_t sw;
 	if (bc->ncells > bm->ncells)
 		return 0;
 	sw = 0;
@@ -2009,7 +2009,7 @@ static void make_intpairs() {
 	bas_ln *bc, *bp, *bn, *bmax;
 	CSTR_rast sw, s1, sn;
 	CSTR_rast_attr attr, attr2;
-	INT maxi, maxn, Scol, Ecol, i, simfl, pairfl, closfl;
+	int16_t maxi, maxn, Scol, Ecol, i, simfl, pairfl, closfl;
 
 	//s1 = cell_f()->nextl;
 	s1 = CSTR_GetNextRaster(cell_f(), f_letter | CSTR_f_fict);
@@ -2079,7 +2079,7 @@ static void make_intpairs() {
 	again_m0: if (bs_int_no <= 1)
 		goto all_done;
 	if (maxi > 0) {
-		INT intsim;
+		int16_t intsim;
 		bp = bc - 1;
 		if (((intsim = int_similar(bc, bp)) != 0) || // not to eat close intrvl "blindly" but when b2==b1 only
 				(((bc->startcol - bp->endcol) < 4) && int_covered(bp, bc, 0, 1))) {
@@ -2102,7 +2102,7 @@ static void make_intpairs() {
 	again_mm: if (bs_int_no <= 1)
 		goto all_done;
 	if (maxi < (bs_int_no - 1)) {
-		INT intsim;
+		int16_t intsim;
 		bn = bc + 1;
 		if (((intsim = int_similar(bc, bn)) != 0) || // not to eat close intvl blindly
 				(((bn->startcol - bc->endcol) < 4) && int_covered(bn, bc, 0, 1))) {

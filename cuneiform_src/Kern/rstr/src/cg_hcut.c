@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 #include "minmax.h"
 
-INT gbCol1,gbCol2;
+int16_t gbCol1,gbCol2;
 
 typedef struct tagRecogStat
 {
-  INT nbig,ndust,weight;
+  int16_t nbig,ndust,weight;
 } RecogStat;
 
 static B_LINES bl;
@@ -81,15 +81,15 @@ static Bool fb1;
 static Bool fb2;
 static Bool fb3;
 static Bool fb4;
-static INT bl_lim=3;
+static int16_t bl_lim=3;
 
-static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first);
-static void bl_cut(cell *B, cell *E, INT cut);
+static int16_t dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first);
+static void bl_cut(cell *B, cell *E, int16_t cut);
 static Bool find_clust(uchar let);
-static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc);
-static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_inc);
+static Bool clip_cell(int16_t j, cell *c, int16_t b1, int16_t b2, int16_t b3, int16_t b4, int16_t st_inc);
+static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, int16_t *st_inc);
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag);
-static  INT create_cells(cell *whither, raster *r, cell *celist[], INT st_inc);
+static  int16_t create_cells(cell *whither, raster *r, cell *celist[], int16_t st_inc);
 static cell *hide(cell *c, cell **clink);
 static void restore(cell *clink, cell *wherever);
 static void del_hided(cell *clink);
@@ -98,7 +98,7 @@ static Bool capital(uchar let);
 void  base_lines_cut()
 {
   cell *BI,*EI,*B0=cell_f()->nextl,*E0=cell_l();
-  INT cut=0;
+  int16_t cut=0;
   get_b_lines(NULL,&bl);
   fb1=bl.n1>0 && bl.n1<255;
   fb2=bl.n2>0 && bl.n2<255;
@@ -145,7 +145,7 @@ LONG testDirt(CSTR_rast *beg, CSTR_rast *end)
 {
   CSTR_rast rst=*beg,first=rst,last=CSTR_GetNext(*end);
   CSTR_rast capb=0,cape=0;
-  INT dirtup=0,dirtdown=0,ncap=0;
+  int16_t dirtup=0,dirtdown=0,ncap=0;
 
   get_b_lines(NULL,&bl);
   fb1=bl.n1>0 && bl.n1<255;
@@ -169,7 +169,7 @@ LONG testDirt(CSTR_rast *beg, CSTR_rast *end)
     if (uni.Alt[0].Prob<trs2)
     {
       uchar let=uni.Alt[0].Code[0],letpos = let_linpos[let];
-      INT bot=attr.row+attr.h;
+      int16_t bot=attr.row+attr.h;
       Bool d2=attr.row<bl.b2-bl_lim,d3=bot>bl.b3+bl_lim;
 
       if (uni.lnAltCnt==0)
@@ -223,11 +223,11 @@ mark:
   return 0;
 }
 
-static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first)
+static int16_t dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first)
 {
   cell *c=*B,*end=*E;
   cell *capb=NULL,*cape=NULL;
-  INT dirtup=0,dirtdown=0,ncap=0;
+  int16_t dirtup=0,dirtdown=0,ncap=0;
 /*
   gbCol1=gbCol2=0;
   glsnap('o',c,"Cut by bases; input r_col for begin and end");
@@ -246,7 +246,7 @@ static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_firs
     {
       uchar let=c->vers[0].let;
       uchar letpos = let_linpos[let];
-      INT bot=c->row+c->h;
+      int16_t bot=c->row+c->h;
       Bool d2 = (fb2) ? c->row<bl.b2-bl_lim : TRUE;
       Bool d3 = (fb3) ? bot>bl.b3+bl_lim : TRUE;
 
@@ -375,12 +375,12 @@ static Bool find_clust(uchar let)
 #endif
 }
 
-static void bl_cut(cell *B, cell *E, INT cut)
+static void bl_cut(cell *B, cell *E, int16_t cut)
 {
   cell *f=B,*LC=B->prev,*RC=E->next;
   RecogStat rs;
   cell *sv_frag=NULL;
-  INT st_inc;          //средний наклон
+  int16_t st_inc;          //средний наклон
   Bool repair=TRUE;
 
   //save current state
@@ -398,10 +398,10 @@ static void bl_cut(cell *B, cell *E, INT cut)
     }
     else
     {
-      INT b1 = (fb1 && cut>0) ? bl.b1-c->row : 0;
-      INT b2 = (fb2 && cut>0) ? bl.b2-c->row : 0;
-      INT b3 = (fb3 && cut<0) ? bl.b3-c->row : 0;
-      INT b4 = (fb4 && cut<0) ? bl.b4-c->row : 0;
+      int16_t b1 = (fb1 && cut>0) ? bl.b1-c->row : 0;
+      int16_t b2 = (fb2 && cut>0) ? bl.b2-c->row : 0;
+      int16_t b3 = (fb3 && cut<0) ? bl.b3-c->row : 0;
+      int16_t b4 = (fb4 && cut<0) ? bl.b4-c->row : 0;
 
       if (let_or_bad(c))
       {
@@ -428,12 +428,12 @@ static void bl_cut(cell *B, cell *E, INT cut)
     del_hided(sv_frag);
 }
 
-static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc)
+static Bool clip_cell(int16_t j, cell *c, int16_t b1, int16_t b2, int16_t b3, int16_t b4, int16_t st_inc)
 {
 //отрезает от c все, что выходит за b1,b4 (отсчет от c->row); b2,b3 - дополнительные разрезы,
 // если нужно
-//  INT j;
-  INT crow=c->row;  //b1,b2,b3,b4 refer to crow
+//  int16_t j;
+  int16_t crow=c->row;  //b1,b2,b3,b4 refer to crow
   Bool repair=TRUE;
 
 //  for (j=0; j<2 && c; j++)
@@ -458,8 +458,8 @@ static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc
     {
       raster r;                   //промежуточный растр
       cell *celist[MAX_SECT+1];
-      INT wbyte=(c->w+7)>>3,i,nall,size=((c->w+7)>>3)*c->h;
-      INT nbig=0;
+      int16_t wbyte=(c->w+7)>>3,i,nall,size=((c->w+7)>>3)*c->h;
+      int16_t nbig=0;
 
       if (size>sizeof(r.pict))
         return FALSE;
@@ -496,7 +496,7 @@ static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc
         if (bad(t))
         {
           full_recog(t,NULL,trs2,trs2);
-          if (!let(t))  repair &= clip_cell((INT)(j+1),t,0,(INT)(crow+b2-t->row),(INT)(crow+b3-t->row),0,st_inc);
+          if (!let(t))  repair &= clip_cell((int16_t)(j+1),t,0,(int16_t)(crow+b2-t->row),(int16_t)(crow+b3-t->row),0,st_inc);
         }
       }
       del_cell(c);
@@ -504,15 +504,15 @@ static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc
       return repair && nbig != 0;
     }
     else
-      return clip_cell((INT)(j+1),c,0,(INT)(crow+b2-c->row),(INT)(crow+b3-c->row),0,st_inc);
+      return clip_cell((int16_t)(j+1),c,0,(int16_t)(crow+b2-c->row),(int16_t)(crow+b3-c->row),0,st_inc);
   }
   return let(c) != 0;
 }
 
-static INT create_cells(cell *whither, raster *r, cell *celist[], INT st_inc)
+static int16_t create_cells(cell *whither, raster *r, cell *celist[], int16_t st_inc)
 {
-  INT i;
-  MN  *mn=c_locomp(r->pict,(INT)((r->w+7)>>3),r->h,r->top,r->left);
+  int16_t i;
+  MN  *mn=c_locomp(r->pict,(int16_t)((r->w+7)>>3),r->h,r->top,r->left);
   for (i=0; i<MAX_SECT && mn; i++,mn=mn->mnnext)
   {
     cell *c=create_my_cell(mn,whither,0,0);
@@ -523,10 +523,10 @@ static INT create_cells(cell *whither, raster *r, cell *celist[], INT st_inc)
   return i;
 }
 
-static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_inc)
+static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, int16_t *st_inc)
 {
   cell *celist[MAX_SECT];
-  INT n=0;
+  int16_t n=0;
   E=E->next;
   B->complist=NULL;
   rs->weight=256;  rs->nbig=rs->ndust=0;
@@ -552,7 +552,7 @@ static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_i
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag)
 {
   cell *c;
-  INT weight=256,nbig=0,ndust=0;
+  int16_t weight=256,nbig=0,ndust=0;
 //  B_LINES bs=bl;
 
   E=E->next;

@@ -89,7 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////
 void   clear_cells(void);
 void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,Bool ansi);
-extern INT  line_number;
+extern int16_t  line_number;
 
 static int FindBounds(int *val,int size);
 static uchar SetBoldByTable(int nThick, int midThick,

@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern INT pitchsize;
+extern int16_t pitchsize;
 extern uchar bcr_layout;
 extern uchar language;
 
@@ -130,7 +130,7 @@ void differ()
 
 static void dif_DO(cell *c)
  {
- INT prob_D,prob_O,i,nstick,d,s1,s2;
+ int16_t prob_D,prob_O,i,nstick,d,s1,s2;
  uchar let;
  STICK *st;
 
@@ -199,7 +199,7 @@ rec_D:
 
 static void dif_FP(cell *c)
  {
- INT prob_F,prob_P,i,nstick,d;
+ int16_t prob_F,prob_P,i,nstick,d;
  uchar let;
  STICK *st;
 
@@ -248,7 +248,7 @@ static void dif_n_ri(cell *c)
  {
  cell *cc;
  puchar r;
- INT i,j1,j2;
+ int16_t i,j1,j2;
 
  if (c->vers[0].let=='n' && !pitchsize && (cc=dot_ri(c))!=NULL)
   {
@@ -279,7 +279,7 @@ static void dif_BE(cell *c)
  {
  uchar let1,let2;
  puchar raster;
- INT l,s,i,j,j0;
+ int16_t l,s,i,j,j0;
 
  if (c->nvers!=2)
   return;
@@ -336,8 +336,8 @@ static void dif_cct(cell *c)
 static void dif_Sdol(cell *c)
  {
  puchar r;
- INT l,i,j,jmin,jmax,jm,max;
- INT hist[20];
+ int16_t l,i,j,jmin,jmax,jm,max;
+ int16_t hist[20];
  uchar b;
 
  if (c->vers[0].let!='S' || c->w-2*(c->w/3)>20)
@@ -382,7 +382,7 @@ static void dif_add(cell *c)
  {
  version *v;
  puchar r;
- INT l,i,j,n1,n2;
+ int16_t l,i,j,n1,n2;
  uchar b;
 
  if (bcr_layout)
@@ -446,7 +446,7 @@ static Bool compadd(cell *c)
  elmBOX *elm;
  extern pchar tableBOX;
  cell *cc;
- INT i,n;
+ int16_t i,n;
  uint16_t max,prob;
 
  for (i=0,cc=c->prevl->next;
@@ -495,7 +495,7 @@ static void dif_sae(cell *c)
  {
  version *v;
  puchar r;
- INT l,i,i1,i2,imin,j,max,min;
+ int16_t l,i,i1,i2,imin,j,max,min;
 
  if (!memchr("ae",c->vers[0].let,2))
   return;
@@ -535,7 +535,7 @@ static void dif_uv(cell *c)
  {
  uchar l1,l2;
  puchar r;
- INT l,i,j1,j2,d1,d2;
+ int16_t l,i,j1,j2,d1,d2;
 
  l1=c->vers[0].let;
  l2=c->vers[1].let;
@@ -598,7 +598,7 @@ exit:
 // diskriminator d - d'    t - t'  for czech lang
 static void dif_inv_roof(cell *c, uchar letNoRoof, uchar letRoof) // Nick 05.9.00
 {
- INT prob_t,prob_troof,i;
+ int16_t prob_t,prob_troof,i;
  uchar let;
  int16_t nIntersect,hei3;
  extern int16_t NumIntersect2(c_comp *cmp, int mHei);
@@ -672,7 +672,7 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
   if( !cmp )
      return -1;
 
-  line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(int16_t));
 // test all lines - fill bounds
   for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((pchar)line+len))
   {
@@ -703,7 +703,7 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
 // diskriminator f - t'  for czech lang
 static void dif_f_t_inv_roof(cell *c1)
 {
- INT      prob_f,prob_troof;
+ int16_t      prob_f,prob_troof;
  int      i,crow;     // current row
  int      lBound[RASTER_MAX_HEIGHT+1];
  int      rBound[RASTER_MAX_HEIGHT+1];
@@ -802,7 +802,7 @@ static void dif_f_t_inv_roof(cell *c1)
 // diskriminator f - (I,i) with right accent  for czech lang
 static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
 {
- INT      prob_f,prob_troof;
+ int16_t      prob_f,prob_troof;
  int      i,crow;     // current row
  int      lBound[RASTER_MAX_HEIGHT+1];
  int      rBound[RASTER_MAX_HEIGHT+1];
@@ -913,7 +913,7 @@ static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
 // diskriminator j - i_bottom_accent  for lithuanian
 static void dif_j_i_bottom_accent(cell *c1 )
 {
- INT      prob_j, prob_i;
+ int16_t      prob_j, prob_i;
 
  int      i;
  int      lBound[RASTER_MAX_HEIGHT+1];

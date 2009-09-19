@@ -75,7 +75,7 @@ void dif_II( void )
 {
    c_comp *cp;
    lnhead *lp;
-   INT  h=workI.c->h/2,ii=0;
+   int16_t  h=workI.c->h/2,ii=0;
 
    if( !workI.twoDot && workI.ld == NULL && workI.rd && workI.rh > 0 ){
       workI.c->vers[1].prob -= 20;
@@ -123,7 +123,7 @@ Bool  proc_UKR_I( cell *c )
 {
    cell  *cc,*clist[3];
    uchar  one,Ione,let;
-   INT   i,ii=0;
+   int16_t   i,ii=0;
 
    if( c->flg & (c_f_dust|c_f_punct) )
      return  FALSE;
@@ -167,7 +167,7 @@ Bool  proc_UKR_I( cell *c )
 
       if( ii ){
          clist[0]=c;
-         compose_cell((INT)(ii+1),clist,c);
+         compose_cell((int16_t)(ii+1),clist,c);
       }
       if( let != 'i' ){ // upper
          c->vers[0].let = UKR_I;
@@ -176,7 +176,7 @@ Bool  proc_UKR_I( cell *c )
          c->nvers = 2;
          dif_II();
          if( one ){
-            INT  i,dl=0,dr=0;
+            int16_t  i,dl=0,dr=0;
 
             c->vers[c->nvers].let = 0;
             c->vers[c->nvers].prob = 0;
@@ -202,9 +202,9 @@ Bool  proc_UKR_I( cell *c )
                promote('b',c,UKR_I,-10);
                promote('b',c,UKR_II,-10);
             }
-            if( (INT)Ione-one < 0 ){
-               promote('b',c,UKR_I,(INT)(Ione-one));
-               promote('b',c,UKR_II,(INT)(Ione-one));
+            if( (int16_t)Ione-one < 0 ){
+               promote('b',c,UKR_I,(int16_t)(Ione-one));
+               promote('b',c,UKR_II,(int16_t)(Ione-one));
             }
          }
       }
@@ -215,7 +215,7 @@ Bool  proc_UKR_I( cell *c )
             c->nvers = 2;
             dif_II();
             if( c->prevl->vers[0].let == UKR_i || c->prevl->vers[0].let == UKR_ii ){
-               INT  ldis,rdis,mdis;
+               int16_t  ldis,rdis,mdis;
 
                ldis = c->prevl->col - c->prevl->prevl->col - c->prevl->prevl->w;
                rdis = c->nextl->col - c->col - c->w;

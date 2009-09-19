@@ -71,32 +71,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct local_extremum
  {
- INT x;        // x_coordinate of local extremum
- INT beg;      // begin of local extremum area
- INT end;      // end of local exremum area
- INT jump;     // difference between peak and valley
+ int16_t x;        // x_coordinate of local extremum
+ int16_t beg;      // begin of local extremum area
+ int16_t end;      // end of local exremum area
+ int16_t jump;     // difference between peak and valley
  };
 
-extern INT n_peak[NFUNC];
+extern int16_t n_peak[NFUNC];
 extern pchar peak_vect[NFUNC];
 
-void extremum (pchar func, INT n_func, INT from, INT to, INT threshold,
+void extremum (pchar func, int16_t n_func, int16_t from, int16_t to, int16_t threshold,
 	       char f2, char fbound)
  {
- INT x;
- INT min,max;
- INT n_min,n_max;
- INT locmin2[MAX_HOR_IL1],locmin1[MAX_HOR_IL1];
- INT locmax1[MAX_HOR_IL1];
+ int16_t x;
+ int16_t min,max;
+ int16_t n_min,n_max;
+ int16_t locmin2[MAX_HOR_IL1],locmin1[MAX_HOR_IL1];
+ int16_t locmax1[MAX_HOR_IL1];
  struct local_extremum locmax2[MAX_HOR_IL1];
- INT i;
- INT minway,maxway;
- INT gmin,gmax;
+ int16_t i;
+ int16_t minway,maxway;
+ int16_t gmin,gmax;
  LONG f,t;
- INT r,l;
- INT j,k;
- INT width;
- INT bnd;
+ int16_t r,l;
+ int16_t j,k;
+ int16_t width;
+ int16_t bnd;
 
  Z=&string;
  width=to+1-from;
@@ -185,7 +185,7 @@ nomin:
   f=func[locmax1[i]]-threshold;
   t=width;
   t=(gmax-threshold)*MIN_JUMP;
-  l=r=(INT)f;
+  l=r=(int16_t)f;
   if (locmin2[i] != -1)
    l-=MAX(0,func[locmin2[i]]-threshold);
   else
@@ -206,7 +206,7 @@ nomin:
   if ((l >= t) || (r >= t))
    {
    locmax2[n_peak[n_func]].x=locmax1[i];
-   locmax2[n_peak[n_func]].jump=(INT)f;
+   locmax2[n_peak[n_func]].jump=(int16_t)f;
    n_peak[n_func]++;
    }
   }

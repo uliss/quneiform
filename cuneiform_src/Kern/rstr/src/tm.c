@@ -113,7 +113,7 @@ Bool  tradeCR( cell *c )
 	 uchar  snap[80],*s=snap,save_flg,save_language;
    uchar  saveN,saveV[VERS_IN_CELL*sizeof(version)];
 
-   INT   i,tm=0;
+   int16_t   i,tm=0;
 
    if( !(c->flg & c_f_let) )
      return  FALSE;
@@ -229,15 +229,15 @@ void  trade_marks( void )
 }/*trade_marks*/
 
 
-extern INT nIncline;
-INT is_square(cell *a)
+extern int16_t nIncline;
+int16_t is_square(cell *a)
 {
  lnhead *Lp1, *Lp2;
  interval *int1;
  c_comp *cp1;
 
- INT  intbeg, intend, intlth, flsq, dens;
- INT  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
+ int16_t  intbeg, intend, intlth, flsq, dens;
+ int16_t  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
       Ln, lc1, lineh, hcur, hcur8, hrest, hrest8, hint;
  LONG wrkl, cellsq, sumlth;
  uchar was_here;
@@ -332,7 +332,7 @@ INT is_square(cell *a)
  }
 //if( !cellsq ) // Oleg
 //    return 0;
- dens = (INT)((sumlth*255) / cellsq);
+ dens = (int16_t)((sumlth*255) / cellsq);
  a->dens = dens/8;  // for calc BOLD
  if (dens > 127)     // too dens - not a sqare
    flsq = 0;
@@ -342,8 +342,8 @@ INT is_square(cell *a)
 }
 
 
-INT del_squares()
-{ INT del_tot;
+int16_t del_squares()
+{ int16_t del_tot;
   cell *BC;
   del_tot = 0;
   for (BC = cell_f (); BC != cell_l(); BC = BC -> next)
@@ -391,7 +391,7 @@ void TM_control (void)
 {
  cell *c, *last_cell;
  B_LINES bas;
- INT cells, TM_yes;
+ int16_t cells, TM_yes;
 
  last_cell = cell_l();
  c = cell_f();
@@ -411,9 +411,9 @@ if( TM_yes )
 return;
 }
 
-static INT check_TM (cell **first_cell)
+static int16_t check_TM (cell **first_cell)
 {
-	INT bottom,
+	int16_t bottom,
 	greater,  // bottom of TM should be less then bbs2+greater
 	cell_num=0,  // number of letters before suspected
 	suspected_num,
@@ -495,7 +495,7 @@ static INT check_TM (cell **first_cell)
 		   {
 			*first_cell = first_suspect;  // first suspected cell
 			if (badvertProjectionTM
-			       (predcessor,successor, TM_left, (INT)(TM_left+width_of_whole_TM_box)))
+			       (predcessor,successor, TM_left, (int16_t)(TM_left+width_of_whole_TM_box)))
 			   suspected_num=-suspected_num;
 			return suspected_num;
 		   }
@@ -506,10 +506,10 @@ static INT check_TM (cell **first_cell)
   return 0;
 }
 
-static INT badvertProjectionTM (cell *predcessor, cell *successor,
-			      INT TM_left, INT TM_right)
+static int16_t badvertProjectionTM (cell *predcessor, cell *successor,
+			      int16_t TM_left, int16_t TM_right)
 {
-  INT  left, right;
+  int16_t  left, right;
 
   left=predcessor->col;
   right=left+predcessor->w;
@@ -524,12 +524,12 @@ static INT badvertProjectionTM (cell *predcessor, cell *successor,
 
 
 
-static INT create_new_bas (cell *first, INT cmps)
+static int16_t create_new_bas (cell *first, int16_t cmps)
 {
   cell *c;
-  INT i=0,
+  int16_t i=0,
       no_bases_set=1;  // No base is set
-  INT top=MAXINT, bottom=-MAXINT,
+  int16_t top=MAXINT, bottom=-MAXINT,
       Botto,  // components should upper the Botto
       ctop, cbot,
       zones_used=0,
@@ -631,9 +631,9 @@ static INT create_new_bas (cell *first, INT cmps)
 
 
 
-static INT try_TM (cell **first_cell_ptr, INT num)
+static int16_t try_TM (cell **first_cell_ptr, int16_t num)
 {
-  extern INT sMALL_SIZE;
+  extern int16_t sMALL_SIZE;
 
 	cell *first_next, *first_nextl,  // successors of fictive first cell
 			 // If fictive first cell refers into sublist
@@ -649,10 +649,10 @@ static INT try_TM (cell **first_cell_ptr, INT num)
 			 *tc,
 			 *clist[MAX_TM_COMPS];
 
-	INT i=0, j, max_v, Tprob=0, Mprob=0;
-	INT shift=2, strange_disposition=0;
-	INT  obbs1, obbs2, obbs3, obbs4, oPs, oPsf, ominrow;
-	INT  obbsm;  // Nick 28.01.2002
+	int16_t i=0, j, max_v, Tprob=0, Mprob=0;
+	int16_t shift=2, strange_disposition=0;
+	int16_t  obbs1, obbs2, obbs3, obbs4, oPs, oPsf, ominrow;
+	int16_t  obbsm;  // Nick 28.01.2002
 	uchar omulti_bas, //olang,
        let, TM_found=0, components_may_be_modified=0,
 			 confidence=MAX_TM_CONFID,
@@ -1184,10 +1184,10 @@ restore:
 
 }
 
-static void ReRecogComponents (INT mode)
+static void ReRecogComponents (int16_t mode)
 {
 	cell *c, *prevl, *lastl;
-	INT letters=0;
+	int16_t letters=0;
 
  prevl=c=cell_f();
  lastl=cell_l();
@@ -1241,7 +1241,7 @@ static void ReRecogComponents (INT mode)
 }
 
 
-static void init_sublist (INT mode)   // Initialization of sublist
+static void init_sublist (int16_t mode)   // Initialization of sublist
 // mode = 0 - creation of new (copied) cells,
 //        1 - deleting new & restoring old cells,
 //        2 - deleting old cells
@@ -1323,7 +1323,7 @@ static void init_sublist (INT mode)   // Initialization of sublist
 static uchar is_dig (uchar letter)
 {
 	uchar *a, digits[]={'0','1','2','3','4','5','6','7','8','9'};
-	INT i=0;
+	int16_t i=0;
 
 	a=&digits[0];
 	while (i++<10)

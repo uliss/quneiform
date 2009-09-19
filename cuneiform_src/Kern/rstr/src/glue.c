@@ -64,34 +64,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "minmax.h"
 
-static INT n1,n2;
-static INT h1,h2, h10, h20;
-static INT y1,y2;
+static int16_t n1,n2;
+static int16_t h1,h2, h10, h20;
+static int16_t y1,y2;
 struct int_s *int1;
 struct int_s *int2;
 static lnhead *lp1;
 static lnhead *lp2;
 static int pass;
-static INT gi1l,gi1e,gh1;
+static int16_t gi1l,gi1e,gh1;
 static uchar can_glue;
-static INT gi2l,gi2e,gh2;
-static INT gs1l,gs1e,sh1;
-static INT gs2l,gs2e,sh2;
+static int16_t gi2l,gi2e,gh2;
+static int16_t gs1l,gs1e,sh1;
+static int16_t gs2l,gs2e,sh2;
 static char fgl1,fgl2;
-static INT rastur,rastlc;
-static INT maxh, maxw;
-static INT c1ur,c1lc;
-static INT c2ur,c2lc;
+static int16_t rastur,rastlc;
+static int16_t maxh, maxw;
+static int16_t c1ur,c1lc;
+static int16_t c2ur,c2lc;
 static uchar raster[128*64/8];
-static INT arg_dist;
+static int16_t arg_dist;
 
 static void comptorast(c_comp *);
 static void glueline();
 static void gluetorast();
-static void inttorast(INT,INT,INT);
-static INT glueable();
+static void inttorast(int16_t,int16_t,int16_t);
+static int16_t glueable();
 
-MN *glue(c_comp **cp, INT flag_dist)
+MN *glue(c_comp **cp, int16_t flag_dist)
 //
 //	This procedure glues a set of components. It takes each pair of
 //	components and put first one into raster with additional intervals
@@ -128,10 +128,10 @@ MN *glue(c_comp **cp, INT flag_dist)
 //	   unsigned char e;	 end of interval + 1
 //
  {
- INT i,j;
+ int16_t i,j;
  c_comp *cp1;
  c_comp *cp2;
- INT Lc1,lc1,Lc2,lc2;
+ int16_t Lc1,lc1,Lc2,lc2;
 
  Z=&string;
  i=0;
@@ -205,7 +205,7 @@ fin:
 
 static void comptorast(c_comp *cp1)
 {
- INT Lc1,lc1;
+ int16_t Lc1,lc1;
 
  Lc1=cp1->nl;			       // number of lines in component
  lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
@@ -214,14 +214,14 @@ static void comptorast(c_comp *cp1)
    h1=lp1->row+c1ur-rastur;
    int1=(interval *)(lp1+1);       // ptr to current interval
    for (y1=0; y1 < lp1->h; y1++, int1++, h1++)
-     inttorast(h1,(INT)(int1->e+c1lc-rastlc),int1->l);
+     inttorast(h1,(int16_t)(int1->e+c1lc-rastlc),int1->l);
    lp1=(lnhead *) ((char *)lp1+lp1->lth);   // next line
  }
 }
 
 static void glueline()
  {
- INT a,b,A,B,wa,wb,wA,wB;
+ int16_t a,b,A,B,wa,wb,wA,wB;
  struct int_s *wint1;
  struct int_s *wint2;
 
@@ -360,9 +360,9 @@ static void gluetorast()
  }
 }
 
-static void inttorast( INT h, INT end, INT lth)
+static void inttorast( int16_t h, int16_t end, int16_t lth)
  {
- INT j,je,me,ib,jb,mb;
+ int16_t j,je,me,ib,jb,mb;
 
  ib=end-lth;
  mb = 0xff >> (ib & 7);
@@ -380,14 +380,14 @@ static void inttorast( INT h, INT end, INT lth)
   raster[j] = 0xff;
  }
 
-static INT glueable()
+static int16_t glueable()
 //
 //	This procedure produces glue to paste two intervals *int1 and *int2.
 //
  {
- INT a,b,A,B;	                       // [A,B] is lower than [a,b]
- INT lh;
- INT dh;
+ int16_t a,b,A,B;	                       // [A,B] is lower than [a,b]
+ int16_t lh;
+ int16_t dh;
 
  gi1l=gi2l=0;
  dh=h1-h2;
@@ -458,7 +458,7 @@ static INT glueable()
    if ((pass==2) && ((h1==0) || (h2==0) || (h1==maxh) || (h2==maxh)))
    {
      if (arg_dist == 2)
-     { INT wm;
+     { int16_t wm;
        if ((n1 < (wm=maxh-2)) || (n2 < wm))  // not a full height fragments
          goto ret01;
      }
@@ -481,7 +481,7 @@ static INT glueable()
    if ((pass==2) && ((h1==0) || (h1==maxh)))
    {
      if (arg_dist == 2)
-     { INT wm;
+     { int16_t wm;
        if ((n1 < (wm=maxh-2)) || (n2 < wm))  // not a full height fragments
          goto ret01;
      }

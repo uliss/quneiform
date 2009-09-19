@@ -87,18 +87,18 @@ void	ErrorExit(int Code);
 /*************************************************************************/
 /************ L o c a l   f u n c t i o n s   p r o t o t y p e s  *******/
 /*************************************************************************/
-static INT check_mem(INT l);
-static INT push_stack(void);
-static INT pop_stack(void);
-static INT esc_next_symb(INT i,INT j ,INT k );
-static INT check(INT i,INT j);
-static INT check_letter(INT j);
+static int16_t check_mem(int16_t l);
+static int16_t push_stack(void);
+static int16_t pop_stack(void);
+static int16_t esc_next_symb(int16_t i,int16_t j ,int16_t k );
+static int16_t check(int16_t i,int16_t j);
+static int16_t check_letter(int16_t j);
 static void copy_prev_level(void);
 static void stack_to_null(void);
 /*************************************************************************/
 extern dQ SPQ;     //Q;
 
-uchar  *next_symb(INT i, INT j, INT k,
+uchar  *next_symb(int16_t i, int16_t j, int16_t k,
       struct segm  *cur_segm, uchar  *cur_symb)
 /*
     This procedure is in charge with sleathering through the string.
@@ -108,7 +108,7 @@ uchar  *next_symb(INT i, INT j, INT k,
     k=YES means search in all segments of given line.
     k=NO  means searh in given segm
 */
- //INT i,j,k;
+ //int16_t i,j,k;
  //struct segm  *cur_segm;
  //uchar  *cur_symb;
  {
@@ -324,7 +324,7 @@ uchar  *next_symb(INT i, INT j, INT k,
 /* return(SPQ.ns_symb);*/
  }
 
-INT check_mem(INT l)
+int16_t check_mem(int16_t l)
 /*
     This procedure controls placing in boundaries of current string
     and changing address of temporary segm due to overrunning
@@ -363,7 +363,7 @@ INT check_mem(INT l)
 /* return(YES);*/
  }
 
-INT esc_next_symb(INT i,INT j ,INT k )
+int16_t esc_next_symb(int16_t i,int16_t j ,int16_t k )
 /*
       This procedure controls exit from subroutine next_symb.
       i=YES means missing control symbols.
@@ -379,7 +379,7 @@ INT esc_next_symb(INT i,INT j ,INT k )
   return(check(i,j));
  }
 
-INT check(INT i,INT j)
+int16_t check(int16_t i,int16_t j)
 /*
      This procedure checks presence of next symbol.
 */
@@ -408,12 +408,12 @@ INT check(INT i,INT j)
    }
  }
 
-INT check_letter(INT j)
+int16_t check_letter(int16_t j)
 /*
      This procedure does checking for letter.
 */
  {
-  INT k;
+  int16_t k;
 
   if (j == YES)
    {                                   /* skip alternatives */
@@ -437,7 +437,7 @@ INT check_letter(INT j)
    }
  }
 
-INT push_stack(void)
+int16_t push_stack(void)
 /*
     This procedure creates new level in stack and copies to it previous one.
 */
@@ -459,7 +459,7 @@ void copy_prev_level(void)
  {
   char  *from;
   char  *to;
-  INT i;
+  int16_t i;
 
   if (SPQ.st.stack_level == 0)
     return;
@@ -473,7 +473,7 @@ void copy_prev_level(void)
 //This procedure creats new stack.
 void create_new_stack(void)
 {
-	INT i;
+	int16_t i;
 	char  * symb;
 	struct segm  * segm;
 
@@ -537,7 +537,7 @@ void stack_to_null(void)
   SPQ.stack->next=NULL;                         /* addres of stack next level */
  }
 
-INT check_free_mem(void)
+int16_t check_free_mem(void)
 /*
      This procedure checks possibility of intersection
      memory for stack and memory for text.
@@ -559,7 +559,7 @@ INT check_free_mem(void)
  return (OK);
  }
 
-INT pop_stack(void)
+int16_t pop_stack(void)
 /*
    This procedure subtract stack_level by 1.
 */

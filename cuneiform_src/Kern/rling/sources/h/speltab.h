@@ -99,7 +99,7 @@ The following constants are restriction flags for special replacement table.
 typedef struct
  {
   uchar   id[ sizeof(ARTFILE_ID)];
-  uchar   voc_no;                      // INT
+  uchar   voc_no;                      // int16_t
   uchar  _unused;
  } ArtFH;
 
@@ -107,7 +107,7 @@ typedef struct
  {
   char pref_no;
   char post_no;
-  uchar relabty;                       // INT
+  uchar relabty;                       // int16_t
   uchar  _unused;
  } ArtVH;
 
@@ -123,7 +123,7 @@ typedef struct
 typedef struct
  {
   uchar  id[ sizeof(TABFILE_ID)];
-  uchar  rep_no;                       // INT
+  uchar  rep_no;                       // int16_t
   uchar  _unused;
  } TabFH;
 

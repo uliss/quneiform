@@ -81,7 +81,7 @@ BLOCK *pCurrentBlock;
 void BlocksAccessTableBuild (void)
 {
 uint32_t i(0);
-	INT w(0);
+	int16_t w(0);
     BLOCK *p;
 
 	int PrevMin, CurrMin;

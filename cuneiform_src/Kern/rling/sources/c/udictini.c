@@ -96,10 +96,10 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 	user_dict -> vocseg = (uchar *) SET_VOC_ROOT(pool);
 
 	{
-		INT Fh;
+		int16_t Fh;
 		char nm[128];
 		strcpy(nm, DictName);
-		Fh = TGOPEN(VC_STREAM, nm, (INT)(O_RDONLY | O_BINARY), S_IREAD);
+		Fh = TGOPEN(VC_STREAM, nm, (int16_t)(O_RDONLY | O_BINARY), S_IREAD);
 		if (Fh == -1)
 			return 0;
 		if (TGFILELTH(Fh) > MAX_VOC_SIZE) {
@@ -142,7 +142,7 @@ Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict) {
 	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
 		LONG size;
-		INT h;
+		int16_t h;
 
 		strcpy(w, DictName);
 		h = TGOPEN(VC_STREAM, w, O_CREAT, S_IREAD);

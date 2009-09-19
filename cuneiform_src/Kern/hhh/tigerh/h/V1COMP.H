@@ -73,8 +73,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 struct bw_segment
 {
- INT b;
- INT w;
+ int16_t b;
+ int16_t w;
  BOX * box;
 };
 

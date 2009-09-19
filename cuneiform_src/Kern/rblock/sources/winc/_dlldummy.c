@@ -2426,8 +2426,8 @@ void LT_GraphicsLinearRemovingConditionsOutput2 (char *pTitle)
 
 // Pit 11-21-94 04:56pm
 #include "edp.h"
-INT maxx, minx, maxy, miny;
-INT scale;
+int16_t maxx, minx, maxy, miny;
+int16_t scale;
 
 static void part_minmax(DP * part) {
 	DP * p;
@@ -2449,7 +2449,7 @@ static void part_minmax(DP * part) {
 	}
 }
 
-static void part_graph(DP * part, INT level) {
+static void part_graph(DP * part, int16_t level) {
 	DP * p;
 
 	for (p = part->first; p; p++) {

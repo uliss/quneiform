@@ -81,7 +81,7 @@ extern  uchar      language;
 #define MIN(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
-extern INT   up_position,dw_position;
+extern int16_t   up_position,dw_position;
 uchar MemForCutPoints[65536];
 uchar MemForCutPointsTwo[65536];
 uchar ForRaster3[R_S];
@@ -89,21 +89,21 @@ extern uchar  db_status;  // snap presence byte
 void snap_clear_screen(void);
 
 
-static INT GDE_KAK[13][3] = {{1,0,0} ,{4,0,0}  ,{8,0,0} ,
+static int16_t GDE_KAK[13][3] = {{1,0,0} ,{4,0,0}  ,{8,0,0} ,
                             {1,8,0} ,{8,1,0} ,{8,8,0},
                             {1,8,8},{8,8,1},{8,1,8},{8,8,8},
 			    {4,8,8},{8,4,8},{8,8,4}};
 
-INT Alik_define_cut_points(
+int16_t Alik_define_cut_points(
   pchar raster_frag,
   struct own_cut *ans,
-  INT dx,                  /* ࠡ��� �ਭ� ����          */
-  INT dy,                   /* ࠡ��� ���� ����          */
-  INT row
+  int16_t dx,                  /* ࠡ��� �ਭ� ����          */
+  int16_t dy,                   /* ࠡ��� ���� ����          */
+  int16_t row
 )
 
 {
- INT    hor_byte,ver_byte,nshort,CP,i,j,bl_up,bl_dw,tret_h;
+ int16_t    hor_byte,ver_byte,nshort,CP,i,j,bl_up,bl_dw,tret_h;
  PINT   penalty,cut_points,adr_cut_points,my_penalty;
  pchar  adrw,adrw_two,product,product_two,trace,adr_raster,stek,adr_ras_two,
         SourceRaster;
@@ -149,13 +149,13 @@ if(CP)
    memset(CountCut,0,dx);
 
    Alik_tr_bit_matr(ver_byte,dy,raster_frag,adr_raster,hor_byte,dx); /* �࠭ᯮ��஢���� ��室���� ���� */
-   memset((PINT)trace,0,sizeof(INT)*dx);      /* ���㫥��� ���� ���⮢�� ���ᨢ�� */
-   memset(penalty,0,sizeof(INT)*dx);          /* ���㫥��� ���ᨢ� ���䮢 */
-   CP=Alik_del_detail(raster_frag,dx,(INT)(dy*hor_byte),penalty);
+   memset((PINT)trace,0,sizeof(int16_t)*dx);      /* ���㫥��� ���� ���⮢�� ���ᨢ�� */
+   memset(penalty,0,sizeof(int16_t)*dx);          /* ���㫥��� ���ᨢ� ���䮢 */
+   CP=Alik_del_detail(raster_frag,dx,(int16_t)(dy*hor_byte),penalty);
    if(!CP && dx>20 && dx<=128) CP=1;   //10-09-96 03:24pm  Alik  cten33.tif
    if(!CP)                        /* ���� �ᯠ��� */
     {
-     memset(penalty,0,sizeof(INT)*dx);        /* ���㫥��� ���ᨢ� ���䮢 */
+     memset(penalty,0,sizeof(int16_t)*dx);        /* ���㫥��� ���ᨢ� ���䮢 */
      memcpy(adr_raster,adrw,ver_byte*dx);
     }
    else
@@ -168,7 +168,7 @@ if(CP)
      Alik_form_bound(adrw,dx,dy,ver_byte,trace,0);
      memcpy(adr_ras_two,adrw,ver_byte*dx);
      memcpy(adrw_two,adrw,ver_byte*dx);
-     memcpy(my_penalty,penalty,sizeof(INT)*dx);
+     memcpy(my_penalty,penalty,sizeof(int16_t)*dx);
 
      Alik_CountCut(adrw,dy,dx,CountCut,IntBuf);
      Alik_UpBlackPoint(adrw,dy,dx,UpBlackPoint);
@@ -183,7 +183,7 @@ if(CP)
                            product,product_two,penalty);
 #endif
      if(language==LANG_RUSSIAN)
-       Alik_find_brus(raster_frag,SourceRaster,adr_ras_two,(INT)(bl_dw-bl_up),dy,dx,
+       Alik_find_brus(raster_frag,SourceRaster,adr_ras_two,(int16_t)(bl_dw-bl_up),dy,dx,
                       product,product_two,penalty,cut_points,CountCut,
 		      UpBlackPoint);
 #ifdef AlikBl
@@ -283,10 +283,10 @@ if(CP)
  return CP;
 }
 
-void Alik_new_points(INT *CP,struct own_cut *a,struct own_cut *ptr,INT dy,
-                     INT dx,PINT pen,pchar prod)
+void Alik_new_points(int16_t *CP,struct own_cut *a,struct own_cut *ptr,int16_t dy,
+                     int16_t dx,PINT pen,pchar prod)
 {
-INT i,j,count,min_pen,min_prod,real_x,Ix,IIx;
+int16_t i,j,count,min_pen,min_prod,real_x,Ix,IIx;
 
  count = *CP;
  for(i=0; i<count; i++)
@@ -325,10 +325,10 @@ INT i,j,count,min_pen,min_prod,real_x,Ix,IIx;
  ptr->x=127;
 }
 
-void Alik_cor_height_and_var(INT CP,struct own_cut *ans,PINT pen,INT dx,
-                             INT dy)
+void Alik_cor_height_and_var(int16_t CP,struct own_cut *ans,PINT pen,int16_t dx,
+                             int16_t dy)
 {
-INT i,Count;
+int16_t i,Count;
 
  Count=CP;
  for(i=0;i<Count;++i,++ans)
@@ -353,11 +353,11 @@ int Alik_sort_function( const void *a, const void *b)
  return 0;
 }
 
-void Alik_set_method_for_cut_points(struct own_cut *ans,INT dy,INT dx,
+void Alik_set_method_for_cut_points(struct own_cut *ans,int16_t dy,int16_t dx,
                                     puchar CountCut)
 {
 uchar CountGrupElem,n,i,j,m,gde,flag4;
-INT  min_dh;
+int16_t  min_dh;
 struct own_cut oct[STK_H],*ptr;
 
  min_dh=dy;
@@ -411,10 +411,10 @@ struct own_cut oct[STK_H],*ptr;
 }
 
 uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,struct own_cut *ans,
-                                      INT height,INT min_dh)
+                                      int16_t height,int16_t min_dh)
 {
 uchar i;
-INT  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
+int16_t  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
 
  h_h        = ((height+1)>>1);
  tret_h     = height/3 +1;

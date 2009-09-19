@@ -81,8 +81,8 @@ jmp_buf fatal_error_exit;
 
 
 
-INT nStrings;
-extern INT nIncline;
+int16_t nStrings;
+extern int16_t nIncline;
 Handle HCCOM;
 Handle HCPAGE;
 

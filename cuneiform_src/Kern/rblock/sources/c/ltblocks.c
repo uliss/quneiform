@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Handle hSetTrivAverHeight;//George, 12.11.01 (dd.mm.yy)
 
 
-// INT LayoutUserNumber = 0; // Piter 08-17-95 06:26pm
+// int16_t LayoutUserNumber = 0; // Piter 08-17-95 06:26pm
 
 BLOCK *pBlocksList              = NULL;
 BLOCK *pHighEmbeddingBlocksList = NULL;
@@ -474,7 +474,7 @@ FOUND:
 {                // Формируем блоки с рисунками
 puchar           pbPicStrip;
 puchar           pbPic;
-INT             i;
+int16_t             i;
 uint16_t            right;
 uint16_t            wSizeStrip;
 strip *         pStrip;

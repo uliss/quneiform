@@ -71,95 +71,95 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 uchar broken_flag=0;
 uchar rec5_flag=1,font_type=0,omni=1;
-static INT AngleBottomLeft(uchar *raster,INT D_X,INT hei);
-static INT AngleTopLeft(uchar *raster,INT D_X,INT hei);
-static INT AngleBottomRight(uchar *raster,INT D_X,INT hei);
-static INT AngleTopRight(uchar *raster,INT D_X,INT hei);
-INT AnglesCurve(uchar *raster,INT D_X,INT hei);
+static int16_t AngleBottomLeft(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t AngleTopLeft(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t AngleBottomRight(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t AngleTopRight(uchar *raster,int16_t D_X,int16_t hei);
+int16_t AnglesCurve(uchar *raster,int16_t D_X,int16_t hei);
 
 #ifdef UFA
-static INT Diskr5(uchar *raster,INT D_X,INT hei);
-static INT Diskr2(uchar *raster,INT D_X,INT hei);
-static INT OlegJurit( uchar *R, INT D_X, INT dy);
-static INT DiskrHoriz(uchar *R,INT D_X,INT hei);
+static int16_t Diskr5(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t Diskr2(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t OlegJurit( uchar *R, int16_t D_X, int16_t dy);
+static int16_t DiskrHoriz(uchar *R,int16_t D_X,int16_t hei);
 #include "Tab_angl.H"
 #endif
 
-INT  LinesWithNumIntervals(uchar *rastr,INT D_X,INT dy,INT num);
-INT  NumVertInterval(uchar *RASTER,INT D_X, INT dy, INT i);
-INT  VertSum(uchar *rastr,INT D_X, INT dy, INT i);
-INT  SumBits(uchar *rastr,INT D_X);
-INT  NumHorizInterval(uchar *,INT);
-INT  MinMaxRight(uchar *raster,INT D_X,uchar dx,
-				uchar Ly, INT *mi,INT *ma);
-INT  MinMaxLeft (uchar *raster,INT D_X,uchar dx,
-				uchar Ly, INT *mi,INT *ma);
-INT  FOOT(uchar *raster,INT DX,uchar dx,uchar Ly,
+int16_t  LinesWithNumIntervals(uchar *rastr,int16_t D_X,int16_t dy,int16_t num);
+int16_t  NumVertInterval(uchar *RASTER,int16_t D_X, int16_t dy, int16_t i);
+int16_t  VertSum(uchar *rastr,int16_t D_X, int16_t dy, int16_t i);
+int16_t  SumBits(uchar *rastr,int16_t D_X);
+int16_t  NumHorizInterval(uchar *,int16_t);
+int16_t  MinMaxRight(uchar *raster,int16_t D_X,uchar dx,
+				uchar Ly, int16_t *mi,int16_t *ma);
+int16_t  MinMaxLeft (uchar *raster,int16_t D_X,uchar dx,
+				uchar Ly, int16_t *mi,int16_t *ma);
+int16_t  FOOT(uchar *raster,int16_t DX,uchar dx,uchar Ly,
 		uchar sign_filter);
-INT  FOOT3(uchar *raster,INT DX,uchar start,uchar dx,uchar Ly, INT SHIFT);
-INT  FOOT3_2(uchar *raster,INT DX,uchar dx,uchar Ly);
-INT  FOOT_A(uchar *raster,INT DX,uchar dx,uchar Ly);
-INT  Asymm_let(uchar *raster,INT DX,uchar dx,
+int16_t  FOOT3(uchar *raster,int16_t DX,uchar start,uchar dx,uchar Ly, int16_t SHIFT);
+int16_t  FOOT3_2(uchar *raster,int16_t DX,uchar dx,uchar Ly);
+int16_t  FOOT_A(uchar *raster,int16_t DX,uchar dx,uchar Ly);
+int16_t  Asymm_let(uchar *raster,int16_t DX,uchar dx,
 		  uchar Ly,uchar TW);
 
-INT  LeftDistance(uchar *RASTER,INT dx);
-INT  RightDistance(uchar *RASTER,INT dx);
-INT  SumIntervalBits(uchar *RASTER,INT bx,INT ex);
-INT  CenterVertInterval(uchar *,INT ,INT ,INT, INT *,INT *);
-INT  LeftEdgeOfRightmostInt( uchar *rst, INT Wdth);
-INT EndBlackInterval(uchar *RASTER, INT NWIDTH);
-static INT DiskrSymSh( uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH);
-static INT Diskr9(uchar *rastr,INT D_X,INT dy,INT dx);
-static INT DiskrLeftBottomHole(uchar *raster,INT D_X,INT hei,INT lim);
-static INT DiskrRightTopHole(uchar *raster,INT D_X,INT hei,INT lim);
-static INT LepikJurit( uchar *r,INT D_X, INT dy);
-static INT Num2Interval(uchar *r,INT D_X,INT dx,INT dy);
-static INT broken_M(uchar * r,INT D_X,INT dy,INT ll1, INT ll);
-static INT descr_ce(uchar *r,INT D_X,INT h);
+int16_t  LeftDistance(uchar *RASTER,int16_t dx);
+int16_t  RightDistance(uchar *RASTER,int16_t dx);
+int16_t  SumIntervalBits(uchar *RASTER,int16_t bx,int16_t ex);
+int16_t  CenterVertInterval(uchar *,int16_t ,int16_t ,int16_t, int16_t *,int16_t *);
+int16_t  LeftEdgeOfRightmostInt( uchar *rst, int16_t Wdth);
+int16_t EndBlackInterval(uchar *RASTER, int16_t NWIDTH);
+static int16_t DiskrSymSh( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH);
+static int16_t Diskr9(uchar *rastr,int16_t D_X,int16_t dy,int16_t dx);
+static int16_t DiskrLeftBottomHole(uchar *raster,int16_t D_X,int16_t hei,int16_t lim);
+static int16_t DiskrRightTopHole(uchar *raster,int16_t D_X,int16_t hei,int16_t lim);
+static int16_t LepikJurit( uchar *r,int16_t D_X, int16_t dy);
+static int16_t Num2Interval(uchar *r,int16_t D_X,int16_t dx,int16_t dy);
+static int16_t broken_M(uchar * r,int16_t D_X,int16_t dy,int16_t ll1, int16_t ll);
+static int16_t descr_ce(uchar *r,int16_t D_X,int16_t h);
 #ifndef INTERSEPTOR
-//static INT DiskrJu(uchar *RASTR,INT D_X,INT dx,INT Ly);
+//static int16_t DiskrJu(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly);
 #else
-static INT DiskrJu1(uchar *RASTR,INT D_X,INT dx,INT Ly);
+static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly);
 #endif
-static INT Diskr3(uchar *RASTR,INT D_X,INT dx,INT Ly);
-static INT DiskrJ0(uchar *RASTR,INT D_X,INT dx,INT Ly,INT lim);
+static int16_t Diskr3(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly);
+static int16_t DiskrJ0(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly,int16_t lim);
 static int DiskrJ(unsigned char *RASTR,int D_X,int dx,int dy);
-static INT DiskrSh(uchar *RASTR,INT D_X,INT dx,INT Ly);
-static INT DiskrLeft(uchar *RASTR,INT D_X,INT dx,INT Ly, INT L);
-static INT DiskrLeftBig(uchar *RASTR,INT D_X,INT dx,INT Ly, INT L);
-static INT DiskrRight(uchar *RASTR,INT D_X,INT dx,INT Ly, INT L);
-static INT DiskrRightBig(uchar *RASTR,INT D_X,INT dx,INT Ly, INT L);
-static INT DiskrVertCE(uchar *RASTR,INT D_X,INT dx,INT dy,INT X,uchar l,uchar inc);
-static INT DiskrSh0(uchar *RASTR,INT D_X,INT dx,INT dy,INT dx0);
-static INT DiskrTsh(uchar *RASTR,INT D_X,INT dx,INT dy,INT Dx);
-static void DiskrIN(uchar *RASTR,INT D_X,INT dy, INT wb,INT dx);
-static INT DiskrHorizIN(uchar *RASTR,INT D_X,INT dy);
-static INT DiskrEZ(uchar *RASTR,INT D_X,INT dx,INT dy);
-static INT DiskrimM(puchar RAST,INT D_X,INT dx,INT dy);
-static INT DiskrimM1(uchar *RAST,INT D_X,INT dx,INT dy);
-static INT whiteMeanBitLeft(uchar *RAST,INT D_X,INT meanBit);
-static INT whiteMeanBitRight(uchar *RAST,INT D_X,INT dx,INT meanBit);
-static INT up_down_hist_M(uchar *rastr,INT D_X, INT Dx,INT dy);
-static INT average_angle(uchar *RASTER, INT D_X, INT dx, INT dy,
-			 INT  (*Distance)(uchar *,INT),INT t);
-static INT average_tl_angle(uchar *RASTER, INT D_X, INT dx, INT dy,INT t);
-static INT average_bl_angle(uchar *RASTER, INT D_X, INT dx, INT dy,INT t);
-static INT average_br_angle(uchar *RASTER, INT D_X, INT dx, INT dy,INT t);
-static INT NoSymmLastColumn(uchar *raster,INT D_X,INT Dx,INT dy);
-INT no_serific(uchar *RASTR,INT dy,INT dx,INT wb);
-static INT fill_center_zone(uchar *raster,INT D_X,INT dy,
-        INT beg, INT end, INT II);
-static INT up_down_zones(uchar *raster,INT D_X,INT dx,INT dx0,
-			INT start1,INT stop1,
-			INT start2,INT stop2);
-static INT up_down_zones_for_B(uchar *raster,INT D_X,INT dx,INT dx0,
-			INT start1,INT stop1,
-			INT start2,INT stop2);
-static INT small_density(uchar *RAST,INT n,INT D_X,INT bw);
-static INT horiz_density(uchar *RAST,INT D_X,INT dx,INT beg,INT end);
+static int16_t DiskrSh(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly);
+static int16_t DiskrLeft(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly, int16_t L);
+static int16_t DiskrLeftBig(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly, int16_t L);
+static int16_t DiskrRight(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly, int16_t L);
+static int16_t DiskrRightBig(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly, int16_t L);
+static int16_t DiskrVertCE(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t X,uchar l,uchar inc);
+static int16_t DiskrSh0(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t dx0);
+static int16_t DiskrTsh(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t Dx);
+static void DiskrIN(uchar *RASTR,int16_t D_X,int16_t dy, int16_t wb,int16_t dx);
+static int16_t DiskrHorizIN(uchar *RASTR,int16_t D_X,int16_t dy);
+static int16_t DiskrEZ(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy);
+static int16_t DiskrimM(puchar RAST,int16_t D_X,int16_t dx,int16_t dy);
+static int16_t DiskrimM1(uchar *RAST,int16_t D_X,int16_t dx,int16_t dy);
+static int16_t whiteMeanBitLeft(uchar *RAST,int16_t D_X,int16_t meanBit);
+static int16_t whiteMeanBitRight(uchar *RAST,int16_t D_X,int16_t dx,int16_t meanBit);
+static int16_t up_down_hist_M(uchar *rastr,int16_t D_X, int16_t Dx,int16_t dy);
+static int16_t average_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,
+			 int16_t  (*Distance)(uchar *,int16_t),int16_t t);
+static int16_t average_tl_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,int16_t t);
+static int16_t average_bl_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,int16_t t);
+static int16_t average_br_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,int16_t t);
+static int16_t NoSymmLastColumn(uchar *raster,int16_t D_X,int16_t Dx,int16_t dy);
+int16_t no_serific(uchar *RASTR,int16_t dy,int16_t dx,int16_t wb);
+static int16_t fill_center_zone(uchar *raster,int16_t D_X,int16_t dy,
+        int16_t beg, int16_t end, int16_t II);
+static int16_t up_down_zones(uchar *raster,int16_t D_X,int16_t dx,int16_t dx0,
+			int16_t start1,int16_t stop1,
+			int16_t start2,int16_t stop2);
+static int16_t up_down_zones_for_B(uchar *raster,int16_t D_X,int16_t dx,int16_t dx0,
+			int16_t start1,int16_t stop1,
+			int16_t start2,int16_t stop2);
+static int16_t small_density(uchar *RAST,int16_t n,int16_t D_X,int16_t bw);
+static int16_t horiz_density(uchar *RAST,int16_t D_X,int16_t dx,int16_t beg,int16_t end);
 #ifdef INTERSEPTOR
-static INT DiskrVV(uchar *raster,INT D_X,INT hei);
-static INT DiskrII(uchar *raster,INT D_X,INT hei);
+static int16_t DiskrVV(uchar *raster,int16_t D_X,int16_t hei);
+static int16_t DiskrII(uchar *raster,int16_t D_X,int16_t hei);
 #endif
 
 #define bytlen(bits)  ((bits+7)>>3)
@@ -169,30 +169,30 @@ extern uchar LOCAL[50];        	/* координаты     ног          		*/
 extern uchar LOCAL_W[50];      	/* ширины         ног          		*/
 extern uchar end1,beg2;        	/* конец 1 и начало 2-ой ног инп	*/
 extern broken_ii;		/* флаг двух палок			*/
-extern INT dnri_hook; // bottom right hook in small russian italic II,III
-extern INT uple_hook; // bottom left  hook in small russian italic II,III
-extern INT up_jack  ; // upper jack
+extern int16_t dnri_hook; // bottom right hook in small russian italic II,III
+extern int16_t uple_hook; // bottom left  hook in small russian italic II,III
+extern int16_t up_jack  ; // upper jack
 
-static INT upper_skip_lines,lower_skip_lines;
-static INT diskr_g,diskr_sh,diskr_b,diskr_k,diskr_ju,diskr_f2,diskr_tsh,
+static int16_t upper_skip_lines,lower_skip_lines;
+static int16_t diskr_g,diskr_sh,diskr_b,diskr_k,diskr_ju,diskr_f2,diskr_tsh,
 	diskr_ii,IN_N_Bonus,IN_P_Bonus,IN_I_Bonus,IN_IN_Monus,diskr_N,
     diskr_o,diskr_c,diskr_e,diskr_h,diskr_ja,diskr_z,diskr_ee,diskr_d,
     diskr_ce,IN_dis,diskr_i,diskr_n,diskr_p,IN_equ,IN_N,IN_I,IN_M,IN_pics,
     diskr_m,mii,diskr_tsche,diskr_l,
     diskr_EZ,diskr_B,diskr_E,diskr_y,
     diskr_9,diskr_6,diskr_5,diskr_2,diskr_8;
-INT left_dist[4], right_dist[4], num_foot, c_or_e,d_c,d_e,
+int16_t left_dist[4], right_dist[4], num_foot, c_or_e,d_c,d_e,
     right_max,left_max,left_line,right_line,
     left_dist_big[4], right_dist_big[4],lower_long_line;
-INT av_tl, av_bl,av_br, rotate;
+int16_t av_tl, av_bl,av_br, rotate;
 /* g-Ж, sh-Ш, b-B, k-K, ju-Ю, f2-ИНП, tsh-Щ, ii-Ы, o-O, c-C, e-E,
    h-Х, ja-Я, z-З, ee-Э, d-Д, ce-Ц  */
-INT fill_center,up_down_serif,up_down_serif_B,IN_horiz_dis,broken_M_pen;
+int16_t fill_center,up_down_serif,up_down_serif_B,IN_horiz_dis,broken_M_pen;
 
 /*  clear diskrimination flags */
-void init_diskrim(puchar raster,INT height ,INT width)
+void init_diskrim(puchar raster,int16_t height ,int16_t width)
 {
-INT i, D_X=bytlen(width);
+int16_t i, D_X=bytlen(width);
 puchar r;
 
 rotate=0;
@@ -239,12 +239,12 @@ return;
 /*   RETURN :   0 - good letter                            */
 /*	       >0 - decreasing code                        */
 
-INT Diskrim(uchar let,puchar raster,
-      INT D_X,INT X,INT Y,INT dx,INT dy,uchar cg_flag, INT inc)
+int16_t Diskrim(uchar let,puchar raster,
+      int16_t D_X,int16_t X,int16_t Y,int16_t dx,int16_t dy,uchar cg_flag, int16_t inc)
 {
-INT P=0,F=0,Dx,Hy,n,bw;
+int16_t P=0,F=0,Dx,Hy,n,bw;
 uchar *rastr,*rastr0;
-INT d_l, d_r;
+int16_t d_l, d_r;
 #define  step_diskr 20
 
 rotate= (inc>180) ;
@@ -431,7 +431,7 @@ switch( (uchar)let )
                         {
                         if( DiskrLeft(rastr0, D_X, Dx, dy,2) )
                                 P+=3*step_diskr;
-                        if( DiskrJ0(rastr, D_X, Dx, Hy,(INT)(dy<18?4:5))==0 )
+                        if( DiskrJ0(rastr, D_X, Dx, Hy,(int16_t)(dy<18?4:5))==0 )
                                 P+=5*step_diskr;
                         }
                    else
@@ -478,7 +478,7 @@ switch( (uchar)let )
         }
 		   else
         {   /* вмятина есть */
-        if( (n=up_down_zones_for_B(rastr0,D_X,Dx,dx,0,(INT)(dy>>2),Hy,dy))==1 )
+        if( (n=up_down_zones_for_B(rastr0,D_X,Dx,dx,0,(int16_t)(dy>>2),Hy,dy))==1 )
           {
           if( !omni )
             P+=n*2*step_diskr;
@@ -528,7 +528,7 @@ switch( (uchar)let )
 
 		if( diskr_ee<0 )
 		   {
-       if( DiskrRight(rastr0, D_X, (INT)((dy<20)?Dx:Dx-1), dy,1) )
+       if( DiskrRight(rastr0, D_X, (int16_t)((dy<20)?Dx:Dx-1), dy,1) )
 			P+=2*step_diskr;
 
        if( dy>13 && dy<21)
@@ -590,12 +590,12 @@ switch( (uchar)let )
 		   if( !DiskrRightBig(rastr0, D_X, Dx, dy,2) )
         P+=3*step_diskr;
        F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,0);
-       if( F!=3 && (n=DiskrJ0(rastr, D_X, Dx, Hy,(INT)(dy<18?4:5)))!=0 )
+       if( F!=3 && (n=DiskrJ0(rastr, D_X, Dx, Hy,(int16_t)(dy<18?4:5)))!=0 )
         { /* в средней половине нет 3-частных линий */
         if( !DiskrJ(rastr0, D_X, Dx, dy) )
           P+=2*n*step_diskr;
         }
-       if( F!=3 && (n=DiskrJ0(rastr0, D_X, Dx, Hy,(INT)(dy<18?2:3)))!=0 )
+       if( F!=3 && (n=DiskrJ0(rastr0, D_X, Dx, Hy,(int16_t)(dy<18?2:3)))!=0 )
         { /* в верхней половине нет 3-частных линий */
         if( !DiskrJ(rastr0, D_X, Dx, dy) )
           P+=2*n*step_diskr;
@@ -637,7 +637,7 @@ switch( (uchar)let )
 			if( average_br_angle(rastr0,D_X,Dx,dy,0)>d_r+1 )
 				P += 4*step_diskr;
       if( !(uple_hook && rotate) )
-      if( F==2 && descr_ce(rastr0+(dy-3)*D_X,D_X,(INT)(dy/2)) )
+      if( F==2 && descr_ce(rastr0+(dy-3)*D_X,D_X,(int16_t)(dy/2)) )
 				P += 6*step_diskr;
 			diskr_ce = P;
 			}
@@ -667,7 +667,7 @@ switch( (uchar)let )
        // OLEG : ERECTION conditions : 09-20-95 08:34pm
 			 if( inc>0 && dnri_hook )
         {
-        if( DiskrSh(rastr, D_X, (INT)(LOCAL[2]+LOCAL_W[2]/2), Hy) )
+        if( DiskrSh(rastr, D_X, (int16_t)(LOCAL[2]+LOCAL_W[2]/2), Hy) )
           P += step_diskr;
         }
        else
@@ -705,11 +705,11 @@ switch( (uchar)let )
 			else
         { // F==2
         if( rotate && (dnri_hook||dy<22&&up_jack>1) )
-          fill_center_zone(rastr+D_X*(Hy>>2),D_X,(INT)(Hy-(Hy>>2)),end1,beg2,1);
+          fill_center_zone(rastr+D_X*(Hy>>2),D_X,(int16_t)(Hy-(Hy>>2)),end1,beg2,1);
         else
           fill_center_zone(rastr,D_X,Hy,end1,beg2,0);
         {
-        INT f_c=fill_center;
+        int16_t f_c=fill_center;
         DiskrIN(rastr0,D_X,dy,bw,dx);
         if( !(rotate && (dnri_hook||dy<22&&up_jack>1)) )
           f_c = fill_center;
@@ -718,7 +718,7 @@ switch( (uchar)let )
         }
       }
 
-			if( (n=up_down_zones(rastr0,D_X,Dx,dx,0,(INT)(dy>>2),Hy,dy))!=0 )
+			if( (n=up_down_zones(rastr0,D_X,Dx,dx,0,(int16_t)(dy>>2),Hy,dy))!=0 )
 				{
 				if( omni )
 				{
@@ -736,7 +736,7 @@ switch( (uchar)let )
 
 			if( 	IN_P_Bonus && broken_flag && (broken_ii ||
 				!IN_IN_Monus &&
-				Num2Interval(rastr0+2*D_X, D_X,Dx, (INT)(dy-4))) )
+				Num2Interval(rastr0+2*D_X, D_X,Dx, (int16_t)(dy-4))) )
 					P =(IN_P_Bonus==2)?-254:-250;
 
       diskr_p = P;
@@ -766,7 +766,7 @@ switch( (uchar)let )
 		   else
 		   {
        if( rotate && dnri_hook )
-        fill_center_zone(rastr+D_X*(Hy>>2),D_X,(INT)(Hy-(Hy>>2)),end1,beg2,0);
+        fill_center_zone(rastr+D_X*(Hy>>2),D_X,(int16_t)(Hy-(Hy>>2)),end1,beg2,0);
       else
         fill_center_zone(rastr,D_X,Hy,end1,beg2,0);
 		   DiskrIN(rastr0,D_X,dy,bw,dx);
@@ -786,11 +786,11 @@ switch( (uchar)let )
 			P += IN_equ*step_diskr;
       if( IN_I>=9 )
         { /* очень негоризонтальная перекладина */
-        if( (F=up_down_hist_M(rastr0+D_X, D_X,Dx, (INT)(dy-2)))>0 )
+        if( (F=up_down_hist_M(rastr0+D_X, D_X,Dx, (int16_t)(dy-2)))>0 )
           P += F*step_diskr>>2;
         if( LOCAL[1]>(Dx>>1) &&
-        broken_M(rastr0+2*D_X, D_X,(INT)(dy-4),(INT)(LOCAL[0]-LOCAL_W[0]/2),
-          (INT)(LOCAL[1]-LOCAL_W[1]/2)) )
+        broken_M(rastr0+2*D_X, D_X,(int16_t)(dy-4),(int16_t)(LOCAL[0]-LOCAL_W[0]/2),
+          (int16_t)(LOCAL[1]-LOCAL_W[1]/2)) )
           P += 4*step_diskr;
         }
 		   }
@@ -798,7 +798,7 @@ switch( (uchar)let )
         P >>= 1;
       if(     IN_I_Bonus && broken_flag && (broken_ii ||
 			!IN_IN_Monus &&
-			Num2Interval(rastr0+2*D_X, D_X,Dx, (INT)(dy-4))) )
+			Num2Interval(rastr0+2*D_X, D_X,Dx, (int16_t)(dy-4))) )
 			P =(IN_I_Bonus==2)?-254:-250;
 		diskr_i = P;
 		}
@@ -820,7 +820,7 @@ switch( (uchar)let )
 		else
 		   {
       if( rotate && dnri_hook )
-        fill_center_zone(rastr+D_X*(Hy>>2),D_X,(INT)(Hy-(Hy>>2)),end1,beg2,0);
+        fill_center_zone(rastr+D_X*(Hy>>2),D_X,(int16_t)(Hy-(Hy>>2)),end1,beg2,0);
       else
         fill_center_zone(rastr,D_X,Hy,end1,beg2,0);
 		   DiskrIN(rastr0,D_X,dy,bw,dx);
@@ -842,7 +842,7 @@ switch( (uchar)let )
 
 		   if( IN_N>3 )
 			P += MIN(IN_N * step_diskr,160)/2;
-		   if( DiskrRight(rastr0, D_X, Dx, dy,(INT)(dy>22?3:2)) )
+		   if( DiskrRight(rastr0, D_X, Dx, dy,(int16_t)(dy>22?3:2)) )
 			P += 3*step_diskr;
 		   if( omni )
 			{
@@ -853,7 +853,7 @@ switch( (uchar)let )
 		   }
     if( IN_N_Bonus && broken_flag && (broken_ii ||
 			!IN_IN_Monus &&
-			Num2Interval(rastr0+2*D_X, D_X,Dx, (INT)(dy-4))) )
+			Num2Interval(rastr0+2*D_X, D_X,Dx, (int16_t)(dy-4))) )
 			P =(IN_N_Bonus==2)?-254:-250;
 		diskr_n = P;
 		}
@@ -967,9 +967,9 @@ switch( (uchar)let )
 	case '6' :
 		if( diskr_6<0 )
 		{
-		if( DiskrLeft(rastr0, D_X, (INT)((dy<20)?Dx:Dx-1), dy,2) )
+		if( DiskrLeft(rastr0, D_X, (int16_t)((dy<20)?Dx:Dx-1), dy,2) )
 			P = step_diskr;
-		if( DiskrLeftBottomHole(rastr,D_X,(INT)(dy/2),(INT)(dx>>1)) )
+		if( DiskrLeftBottomHole(rastr,D_X,(int16_t)(dy/2),(int16_t)(dx>>1)) )
 			P += 2*step_diskr;
 		diskr_6 = P;
 		}
@@ -978,7 +978,7 @@ switch( (uchar)let )
 	case '9' :
 		if( diskr_9<0 )
 		{
-		if( DiskrRight(rastr0, D_X, (INT)((dy<20)?Dx:Dx-1), dy,2) )
+		if( DiskrRight(rastr0, D_X, (int16_t)((dy<20)?Dx:Dx-1), dy,2) )
 			P = 2*step_diskr;
 
 #ifdef UFA
@@ -986,7 +986,7 @@ switch( (uchar)let )
 			DiskrLeftBottomHole(rastr,D_X,dy/2,dx>>1) )
 				P = 0;
 #endif
-		if( Diskr9(rastr,D_X,(INT)(dy/2),dx)     )
+		if( Diskr9(rastr,D_X,(int16_t)(dy/2),dx)     )
 				P += 2*step_diskr;
 		diskr_9 = P;
 		}
@@ -999,9 +999,9 @@ switch( (uchar)let )
 			P+=2*step_diskr;
 		   if( !DiskrRight(rastr0, D_X, Dx, dy,1) )
 			P+=2*step_diskr;
-		   if( !P && DiskrLeftBottomHole(rastr,D_X,(INT)(dy/2),(INT)(dx>>1)) )
+		   if( !P && DiskrLeftBottomHole(rastr,D_X,(int16_t)(dy/2),(int16_t)(dx>>1)) )
 			P += 2*step_diskr;
-		   if( !P && DiskrRightTopHole(rastr,D_X,(INT)(dy/2),(INT)(dx>>1)) )
+		   if( !P && DiskrRightTopHole(rastr,D_X,(int16_t)(dy/2),(int16_t)(dx>>1)) )
 			P += 2*step_diskr;
 		   diskr_8 = P;
 		   }
@@ -1010,7 +1010,7 @@ switch( (uchar)let )
     case '5' :
 		if( diskr_5<0 )
     {
-    if( !DiskrLeftBottomHole(rastr,D_X,(INT)(dy/2),(INT)(dx/2-((dy<21&&dx<15)?2:0))) )
+    if( !DiskrLeftBottomHole(rastr,D_X,(int16_t)(dy/2),(int16_t)(dx/2-((dy<21&&dx<15)?2:0))) )
       P += 2*step_diskr;
     diskr_5 = P;
 		}
@@ -1054,9 +1054,9 @@ if( 	MaxCurveAngles[(uchar)let] &&
 return(P & 0xFFFE);
 }
 
-INT Diskr9(uchar *rastr,INT D_X,INT dy,INT dx)
+int16_t Diskr9(uchar *rastr,int16_t D_X,int16_t dy,int16_t dx)
 {
-INT l,r,i,d=dx>>1,num,black;
+int16_t l,r,i,d=dx>>1,num,black;
 uchar *rr;
 for(rr=rastr,num=i=0;i<dy;i++, rr+=D_X)
 	{
@@ -1070,9 +1070,9 @@ for(rr=rastr,num=i=0;i<dy;i++, rr+=D_X)
 return !num;
 }
 
-INT DiskrLeftBottomHole(uchar *raster,INT D_X,INT hei,INT lim)
+int16_t DiskrLeftBottomHole(uchar *raster,int16_t D_X,int16_t hei,int16_t lim)
 {
-INT i,pen;
+int16_t i,pen;
 uchar *r;
 
 for(pen=0,r=raster,i=0;i<hei;i++,r+=D_X)
@@ -1081,9 +1081,9 @@ for(pen=0,r=raster,i=0;i<hei;i++,r+=D_X)
 return pen>hei/4;
 }
 
-INT DiskrRightTopHole(uchar *raster,INT D_X,INT hei,INT lim)
+int16_t DiskrRightTopHole(uchar *raster,int16_t D_X,int16_t hei,int16_t lim)
 {
-INT i,pen;
+int16_t i,pen;
 uchar *r;
 
 for(pen=0,r=raster,i=0;i<hei;i++,r+=D_X)
@@ -1095,9 +1095,9 @@ return pen>MIN(4,hei/4);
 
 #ifdef UFA
 
-INT DiskrHoriz(uchar *R,INT D_X,INT hei)
+int16_t DiskrHoriz(uchar *R,int16_t D_X,int16_t hei)
 {
-INT i;
+int16_t i;
 uchar *rast=R;
 
 for(i=0;i<hei;i++,rast+=D_X)
@@ -1105,9 +1105,9 @@ for(i=0;i<hei;i++,rast+=D_X)
 		return 0;
 return 1;
 }
-INT OlegJurit( uchar *R, INT D_X, INT dy)
+int16_t OlegJurit( uchar *R, int16_t D_X, int16_t dy)
 {
-  INT y2,y4,i,ld,rd, ret;
+  int16_t y2,y4,i,ld,rd, ret;
   uchar *r;
 
   y2 = dy/2;
@@ -1122,7 +1122,7 @@ INT OlegJurit( uchar *R, INT D_X, INT dy)
 }
 
 
-INT Diskr5(uchar *raster,INT D_X,INT hei)
+int16_t Diskr5(uchar *raster,int16_t D_X,int16_t hei)
 {
 int pen=0,inc;
 
@@ -1135,7 +1135,7 @@ if( inc>3 || hei<23 && inc>2 ) pen++;
 return pen;
 }
 
-INT Diskr2(uchar *raster,INT D_X,INT hei)
+int16_t Diskr2(uchar *raster,int16_t D_X,int16_t hei)
 {
 int inc = AngleBottomLeft(raster,D_X,hei),pen=0;
 if( inc>3 || hei<23 && inc>2 ) pen++;
@@ -1146,7 +1146,7 @@ return pen;
 #endif
 
 #ifdef INTERSEPTOR
-INT DiskrVV(uchar *raster,INT D_X,INT hei)
+int16_t DiskrVV(uchar *raster,int16_t D_X,int16_t hei)
 {
 int inc = AngleBottomLeft(raster,D_X,hei),pen=0;
 if( inc>5 ) pen++;
@@ -1156,7 +1156,7 @@ if( inc>5 ) pen++;
 return pen;
 }
 
-INT DiskrII(uchar *raster,INT D_X,INT hei)
+int16_t DiskrII(uchar *raster,int16_t D_X,int16_t hei)
 {
 int pen=0,inc;
 
@@ -1177,7 +1177,7 @@ return pen;
 
 #endif
 
-INT AngleBottomRight(uchar *raster,INT D_X,INT hei)
+int16_t AngleBottomRight(uchar *raster,int16_t D_X,int16_t hei)
 {
 int i,old,neue,inc;
 uchar *r;
@@ -1196,7 +1196,7 @@ for(inc=0,r=raster-D_X,i=1;i<hei;i++,r-=D_X)
 return inc;
 }
 
-INT AngleTopRight(uchar *raster,INT D_X,INT hei)
+int16_t AngleTopRight(uchar *raster,int16_t D_X,int16_t hei)
 {
 int i,old,neue,inc;
 uchar *r;
@@ -1215,7 +1215,7 @@ for(inc=0,r=raster+D_X,i=1;i<hei;i++,r+=D_X)
 return inc;
 }
 
-INT AngleBottomLeft(uchar *raster,INT D_X,INT hei)
+int16_t AngleBottomLeft(uchar *raster,int16_t D_X,int16_t hei)
 {
 int i,old,neue,inc;
 uchar *r;
@@ -1234,7 +1234,7 @@ for(inc=0,r=raster-D_X,i=1;i<hei;i++,r-=D_X)
 return inc;
 }
 
-INT AngleTopLeft(uchar *raster,INT D_X,INT hei)
+int16_t AngleTopLeft(uchar *raster,int16_t D_X,int16_t hei)
 {
 int i,old,neue,inc;
 uchar *r;
@@ -1253,7 +1253,7 @@ for(inc=0,r=raster+D_X,i=1;i<hei;i++,r+=D_X)
 return inc;
 }
 
-INT AnglesCurve(uchar *raster,INT D_X,INT hei)
+int16_t AnglesCurve(uchar *raster,int16_t D_X,int16_t hei)
 {
 int pen=0,inc;
 
@@ -1272,9 +1272,9 @@ if( inc>3 || hei<23 && inc>2 ) pen++;
 return pen;
 }
 
-INT Num2Interval(uchar *r,INT D_X,INT dx,INT dy)
+int16_t Num2Interval(uchar *r,int16_t D_X,int16_t dx,int16_t dy)
 {
-INT i,n2,p,d;
+int16_t i,n2,p,d;
 d = bytlen(dx);
 for(i=1;i<3;i++)
 if( 	(p=NumHorizInterval(r-D_X*i,d))==1 &&
@@ -1290,9 +1290,9 @@ return ( n2==dy );
 }
 
 /* broken_M : сходство с обломком М без левого копытца */
-INT broken_M(uchar * r,INT D_X,INT dy,INT left_lim,INT ll)
+int16_t broken_M(uchar * r,int16_t D_X,int16_t dy,int16_t left_lim,int16_t ll)
 {
-INT i,old,neue,dest,sign,fc,maxd,incr;
+int16_t i,old,neue,dest,sign,fc,maxd,incr;
 uchar *rr;
 if( broken_M_pen>=0 )
 	return broken_M_pen;
@@ -1335,18 +1335,18 @@ return(broken_M_pen= ((dest>left_lim ||
 			&& fc<3 && maxd>3) );
 }
 /* descr_ce : дикриминатор 'Ц','ц' с очень короткими хвостами */
-static INT descr_ce(uchar *r,INT D_X,INT hy)
+static int16_t descr_ce(uchar *r,int16_t D_X,int16_t hy)
 {
 uchar *rr=r+D_X;
-INT i;
-INT b1=LOCAL[0]-(LOCAL_W[0]>>1);
-INT e2=LOCAL[1]+(LOCAL_W[1]>>1);
-INT i1=SumIntervalBits(r+2*D_X,b1,(INT)(e2+1))/3;
-INT num;
+int16_t i;
+int16_t b1=LOCAL[0]-(LOCAL_W[0]>>1);
+int16_t e2=LOCAL[1]+(LOCAL_W[1]>>1);
+int16_t i1=SumIntervalBits(r+2*D_X,b1,(int16_t)(e2+1))/3;
+int16_t num;
 				/* заливка 1-ой снизу линии             */
-INT i2=SumIntervalBits(r+D_X,b1,(INT)(e2+1))/3;
+int16_t i2=SumIntervalBits(r+D_X,b1,(int16_t)(e2+1))/3;
                                 /* заливка 2-ой снизу линии             */
-INT diap = e2-b1;               /* конец 2-ой ноги - начало 1-ой ноги   */
+int16_t diap = e2-b1;               /* конец 2-ой ноги - начало 1-ой ноги   */
 
 diap -= (diap>>3);		/* 7/8 					*/
 
@@ -1357,7 +1357,7 @@ if( broken_flag )
 for(num=i=0;i<hy;i++,rr-=D_X)
 	{
 	num+=(NumHorizInterval(rr,D_X)==2);
-	if( SumIntervalBits(rr,b1,(INT)(e2+1))/3>=diap )
+	if( SumIntervalBits(rr,b1,(int16_t)(e2+1))/3>=diap )
 		{
 		if( i>2 && num>=i-1 )
 			return (1);/* по 2 интервала во всех строках i>=3 */
@@ -1371,10 +1371,10 @@ return(1);                      /* в нижней зоне нет залитых линий      */
 
 /*  DiskrJu : дискриминатор Ю (в среднем 3 интервала в каждом сечении) */
 #ifdef INTERSEPTOR
-static INT DiskrJu1(uchar *RASTR,INT D_X,INT dx,INT dy)
+static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 {
 uchar *RASTER=RASTR;
-INT i,ret,r,s2,s3,n,ddx;
+int16_t i,ret,r,s2,s3,n,ddx;
 uchar inter[256],sum[256];
 ddx = bytlen(dx);
 
@@ -1424,10 +1424,10 @@ return  (ret) ;
 }
 #else
 /*
-static INT DiskrJu(uchar *RASTR,INT D_X,INT dx,INT Ly)
+static int16_t DiskrJu(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly)
 {
 uchar *RASTER=RASTR;
-INT i,ret,r,s2,s3,n;
+int16_t i,ret,r,s2,s3,n;
 dx = bytlen(dx);
 
 for(n=s2=s3=i=0;i<Ly; i++, RASTER+=D_X,n++ )
@@ -1451,10 +1451,10 @@ return  (ret) ;
 #endif
 
 /* for letters 'ж' */
-static INT DiskrJ0(uchar *RASTR,INT D_X,INT dx,INT Ly,INT lim)
+static int16_t DiskrJ0(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly,int16_t lim)
 {
 uchar *RASTER=RASTR;
-INT i,three,n,all,ret,one;
+int16_t i,three,n,all,ret,one;
 dx = bytlen(dx);
 for(one=all=three=i=0;i<Ly; i++, RASTER+=D_X )
 	{
@@ -1483,10 +1483,10 @@ if( lim<=3 && ret && one+all>Ly-3 )
 return( ret );
 }
 
-static INT Diskr3(uchar *RASTR,INT D_X,INT dx,INT Ly)
+static int16_t Diskr3(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly)
 {
 uchar *RASTER=RASTR;
-INT i,n,all,ret,one;
+int16_t i,n,all,ret,one;
 dx = bytlen(dx);
 for(one=all=i=0;i<Ly; i++, RASTER+=D_X )
 	{
@@ -1527,10 +1527,10 @@ return	(
 }
 
 /* for letters 'ш' */
-static INT DiskrSh(uchar *RASTR,INT D_X,INT dx,INT Ly)
+static int16_t DiskrSh(uchar *RASTR,int16_t D_X,int16_t dx,int16_t Ly)
 {
 uchar *RASTER=RASTR;
-INT i,num,n2,p,ddx;
+int16_t i,num,n2,p,ddx;
 ddx = bytlen(dx);
 for(n2=num=i=0;i<Ly; i++, RASTER+=D_X )
 	{
@@ -1542,7 +1542,7 @@ for(n2=num=i=0;i<Ly; i++, RASTER+=D_X )
 
 if( n2 )
 {	/* есть двухинтервальные строки */
-INT b=(LOCAL[0]+LOCAL[1])/2,dd=(LOCAL[1]-LOCAL[0])+(LOCAL_W[1]+LOCAL_W[0])/2;
+int16_t b=(LOCAL[0]+LOCAL[1])/2,dd=(LOCAL[1]-LOCAL[0])+(LOCAL_W[1]+LOCAL_W[0])/2;
 i = Ly<<1;
 i = Ly/3-(Ly>>2);
 Ly -= i;
@@ -1557,10 +1557,10 @@ return( num>2?num-2:0 );
 }
 
 /* for letters 'ш' */
-static INT DiskrSh0(uchar *RASTR,INT D_X,INT dx,INT dy,INT dx0)
+static int16_t DiskrSh0(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t dx0)
 {
 uchar *RASTER=RASTR+D_X*(dy-(dy>>2));
-INT i,num,l=dx0-(dx0>>2);
+int16_t i,num,l=dx0-(dx0>>2);
 if( lower_long_line<0 )
 {
 dx = bytlen(dx);
@@ -1573,10 +1573,10 @@ return( lower_long_line );
 }
 
 /*  DiskrLeft : есть ли дыра справа ? */
-INT DiskrLeft(uchar *RASTR,INT D_X,INT dx,INT dy, INT L)
+int16_t DiskrLeft(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy, int16_t L)
 {
-INT sum,p,x,i,Ly,p_old,curr_sum,h;
-INT minr,maxr;
+int16_t sum,p,x,i,Ly,p_old,curr_sum,h;
+int16_t minr,maxr;
 uchar *RASTER=RASTR+D_X*(dy>>2),*R;
 if( left_dist[L]>=0 )
 	return( left_dist[L] );
@@ -1631,10 +1631,10 @@ return( left_dist[L] );
 }
 
 /*  DiskrLeftBig : есть ли бльшая дыра слева ? */
-INT DiskrLeftBig(uchar *RASTR,INT D_X,INT dx,INT dy, INT L)
+int16_t DiskrLeftBig(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy, int16_t L)
 {
-INT sum,p,x,i,Ly,p_old,curr_sum,h;
-INT minr,maxr;
+int16_t sum,p,x,i,Ly,p_old,curr_sum,h;
+int16_t minr,maxr;
 uchar *RASTER=RASTR+D_X,*R;
 if( left_dist_big[L]>=0 )
 	return( left_dist_big[L] );
@@ -1681,10 +1681,10 @@ return( left_dist_big[L] );
 }
 
 /*  DiskrRight : есть ли дыра справа ? */
-INT DiskrRight(uchar *RASTR,INT D_X,INT dx,INT dy,INT L)
+int16_t DiskrRight(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t L)
 {
-INT sum,p,x,dl,Ly,i,p_old,curr_sum,h;
-INT minr,maxr,ddy;
+int16_t sum,p,x,dl,Ly,i,p_old,curr_sum,h;
+int16_t minr,maxr,ddy;
 uchar *RASTER=RASTR+D_X*(dy>>2),*R;
 if( right_dist[L]>=0 )
 	return( right_dist[L] );
@@ -1739,10 +1739,10 @@ return( right_dist[L] );
 }
 
 /*  DiskrRightBig : есть ли большая дыра справа ? */
-INT DiskrRightBig(uchar *RASTR,INT D_X,INT dx,INT dy,INT L)
+int16_t DiskrRightBig(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t L)
 {
-INT sum,p,x,dl,Ly,i,p_old,curr_sum,h;
-INT minr,maxr;
+int16_t sum,p,x,dl,Ly,i,p_old,curr_sum,h;
+int16_t minr,maxr;
 uchar *RASTER=RASTR+D_X,*R;
 if( right_dist_big[L]<0 )
 {
@@ -1795,16 +1795,16 @@ return( right_dist_big[L] );
 
 
 /* for letters 'C','c','e' */
-static INT DiskrVertCE(uchar *RASTR,INT D_X,INT dx,INT dy,INT X,
+static int16_t DiskrVertCE(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t X,
                         uchar let, uchar inc)
 {
 uchar *RASTER=RASTR;
-INT i,p,n,s3,d=dx>>2,wid=bytlen(dx);
-INT ody=dy>>2;
+int16_t i,p,n,s3,d=dx>>2,wid=bytlen(dx);
+int16_t ody=dy>>2;
 	uchar *r=RASTR+ody*D_X;
-	INT t1,t2,t3,num1,num2,num3,minnum,n2;
-	INT l = dy -(ody<<1),num,z=dx-(dx>>3);
-	INT nn[7];
+	int16_t t1,t2,t3,num1,num2,num3,minnum,n2;
+	int16_t l = dy -(ody<<1),num,z=dx-(dx>>3);
+	int16_t nn[7];
 
 if( c_or_e<0 )
 	{
@@ -1912,36 +1912,36 @@ return( (let==(uchar)'е')?d_e:d_c );
 }
 
 
-static INT average_tl_angle(uchar *RASTER, INT D_X, INT dx, INT dy,
-				INT t)
+static int16_t average_tl_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,
+				int16_t t)
 {
 if( av_tl<0 )
-	av_tl=average_angle(RASTER,D_X,dx,(INT)(dy>>2),LeftDistance,t);
+	av_tl=average_angle(RASTER,D_X,dx,(int16_t)(dy>>2),LeftDistance,t);
 return(av_tl);
 }
 
-static INT average_bl_angle(uchar *RASTER, INT D_X, INT dx, INT dy,
-				INT t)
+static int16_t average_bl_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,
+				int16_t t)
 {
 if( av_bl<0 )
 	av_bl=average_angle(RASTER+D_X*(dy-(dy>>2)),
-		D_X,dx,(INT)(dy>>2),LeftDistance,t);
+		D_X,dx,(int16_t)(dy>>2),LeftDistance,t);
 return(av_bl);
 }
 
-static INT average_br_angle(uchar *RASTER, INT D_X, INT dx, INT dy,
-				INT t)
+static int16_t average_br_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,
+				int16_t t)
 {
 if( av_br<0 )
 	av_br=average_angle(RASTER+D_X*(dy-(dy>>2)),
-		D_X,dx,(INT)(dy>>2),RightDistance,t);
+		D_X,dx,(int16_t)(dy>>2),RightDistance,t);
 return(av_br);
 }
 
-static INT average_angle(uchar *RASTER, INT D_X, INT dx, INT dy,
-			 INT  (*Distance)(uchar *, INT), INT t)
+static int16_t average_angle(uchar *RASTER, int16_t D_X, int16_t dx, int16_t dy,
+			 int16_t  (*Distance)(uchar *, int16_t), int16_t t)
 {
-INT i=0,n,p,H;
+int16_t i=0,n,p,H;
 if( t==0 )
 {       /* при t=0 срезаем массивные строки - ищем корни */
 while( SumBits(RASTER,(uchar)bytlen(dx))>(dx>>1) && i<dy )
@@ -1963,16 +1963,16 @@ for(H=n=0;i<dy; i++,RASTER+=D_X)
 return(H?n/H:-1);
 }
 
-static INT NoSymmLastColumn(uchar *raster,INT D_X,INT Dx,INT dy)
+static int16_t NoSymmLastColumn(uchar *raster,int16_t D_X,int16_t Dx,int16_t dy)
 {
-INT up,down,col=Dx-1,h=dy>>1;
+int16_t up,down,col=Dx-1,h=dy>>1;
 up   = VertSum(raster,D_X,h,col);
-down = VertSum(raster+D_X*h,D_X,(INT)(dy-h),col); /* последний столбик */
+down = VertSum(raster+D_X*h,D_X,(int16_t)(dy-h),col); /* последний столбик */
 if( up+down==1 )
         {
         col--;
         up   = VertSum(raster,D_X,h,col);
-        down = VertSum(raster+D_X*h,D_X,(INT)(dy-h),col); /* последний столбик */
+        down = VertSum(raster+D_X*h,D_X,(int16_t)(dy-h),col); /* последний столбик */
         }
 if( dy<15 )
 	{	/* кегль 6 */
@@ -1982,15 +1982,15 @@ if( up+down<=3 )
 	{
 	col --;
         up   = VertSum(raster,D_X,h,col);
-	down = VertSum(raster+D_X*h,D_X,(INT)(dy-h),col);
+	down = VertSum(raster+D_X*h,D_X,(int16_t)(dy-h),col);
 	}                                   /* предпоследний столбик */
 return( down>3 && down>up+2 );  /* внизу больше чем наверху */
 }
 
-INT fill_center_zone(uchar *raster,INT D_X,INT dy,
-      INT beg, INT end, INT II)
+int16_t fill_center_zone(uchar *raster,int16_t D_X,int16_t dy,
+      int16_t beg, int16_t end, int16_t II)
 {
-INT i,num,l,ny,d=((end-beg)>>1),p, white, w;
+int16_t i,num,l,ny,d=((end-beg)>>1),p, white, w;
 uchar *r=raster;
 
 #ifdef INTERSEPTOR
@@ -2007,7 +2007,7 @@ white=end+p-beg+1;
 
 for(ny=num=i=0;i<dy;i++,r+=D_X)
 	{
-	l = SumIntervalBits(r,beg,(INT)(end+p))/3;
+	l = SumIntervalBits(r,beg,(int16_t)(end+p))/3;
 	if( i==0 && l>=d )
 		continue;
   w = end+p-beg-l;
@@ -2049,11 +2049,11 @@ return( fill_center );
 }
 
 /* корректность слития крыши и нижних серифов для 'П','п' */
-INT up_down_zones(uchar *raster, INT D_X, INT dx, INT dx0,
-			INT start1, INT stop1,
-			INT start2, INT stop2)
+int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
+			int16_t start1, int16_t stop1,
+			int16_t start2, int16_t stop2)
 {
-INT i,num1,num2,l=dx0-(dx0>>3);
+int16_t i,num1,num2,l=dx0-(dx0>>3);
 uchar *r=raster;
 if( up_down_serif>=0 )
 	return( up_down_serif );
@@ -2081,11 +2081,11 @@ return( (up_down_serif=0) );
 }
 
 /* корректность слития крыши и нижних серифов для 'В','в' */
-INT up_down_zones_for_B(uchar *raster, INT D_X, INT dx, INT dx0,
-			INT start1, INT stop1,
-			INT start2, INT stop2)
+int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
+			int16_t start1, int16_t stop1,
+			int16_t start2, int16_t stop2)
 {
-INT i,num1,num2,p,l=dx0-(dx0>>1);
+int16_t i,num1,num2,p,l=dx0-(dx0>>1);
 uchar *r=raster;
 if( up_down_serif_B>=0 )
 	return( up_down_serif_B );
@@ -2120,7 +2120,7 @@ return( up_down_serif_B );
 /*   возвращает   0   иначе                                                */
 /*                                                                         */
 /***************************************************************************/
-static INT DiskrTsh(uchar *RASTR,INT D_X,INT dx,INT dy,INT Dx)
+static int16_t DiskrTsh(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy,int16_t Dx)
 /***************************************************************************/
 /****     *RASTR     указатель   на  масив  с  учетом  пропуска     ********/
 /****			      первой  строчки                       ********/
@@ -2132,14 +2132,14 @@ static INT DiskrTsh(uchar *RASTR,INT D_X,INT dx,INT dy,INT Dx)
 /***************************************************************************/
 {  uchar  j,n4=dy>>2,bool_foot=1;
    uchar  bit0,bit1,bit2;
-   INT            i,fine=0;
+   int16_t            i,fine=0;
    uchar  *RAST;
 
 /****************   проверка   наличия   двух  хвостиков  ******************/
 
 
    for (RAST=RASTR+(dy-3)*D_X,i=dy-3;;i--,RAST-=D_X){
-      j=SumIntervalBits( RAST,(INT)0,(INT)dx )/3 ;
+      j=SumIntervalBits( RAST,(int16_t)0,(int16_t)dx )/3 ;
       if(  (j > 5*D_X) || (i<2*n4) ) break;
       j=(uchar)NumHorizInterval( RAST, D_X );
       if( j > 1 )  fine+=20;
@@ -2156,7 +2156,7 @@ static INT DiskrTsh(uchar *RASTR,INT D_X,INT dx,INT dy,INT Dx)
 
 fine=0;
    for (RAST=RASTR,i=0;i<n4;i++,RAST+=D_X){
-      j=SumIntervalBits(RAST,(INT)bit0,(INT)bit1)/3;
+      j=SumIntervalBits(RAST,(int16_t)bit0,(int16_t)bit1)/3;
       if( j >  3*(bit1-bit0)/5 )    fine+=20;
       if( j == (bit1-bit0) )        goto end;
    }
@@ -2175,7 +2175,7 @@ fine=0;
 
 bbb:fine=0;
    for (RAST=RASTR,i=0;i<n4;i++,RAST+=D_X){
-      j=SumIntervalBits(RAST,(INT)bit1,(INT)bit2)/3;
+      j=SumIntervalBits(RAST,(int16_t)bit1,(int16_t)bit2)/3;
       if( j >  3*(bit2-bit1)/5 )  	 fine+=20;
       if( j == (bit2-bit1) )             {  return(1); }
    }
@@ -2193,10 +2193,10 @@ end: return ( 0 );
 
 }  /* DiskrTsh */
 
-INT small_density(uchar *RAST,INT n,INT D_X,INT bw)
+int16_t small_density(uchar *RAST,int16_t n,int16_t D_X,int16_t bw)
 {
-INT i,l,w,d;
-INT b = bw << 3;
+int16_t i,l,w,d;
+int16_t b = bw << 3;
 
 if( !omni && font_type==0 )
 	return(1);
@@ -2211,14 +2211,14 @@ for(l=i=0;i<n;i++,RAST+=D_X)
 return( l<=(n/3) );
 }
 
-INT no_serific(uchar *RASTR,INT dy,INT dx,INT wb)
+int16_t no_serific(uchar *RASTR,int16_t dy,int16_t dx,int16_t wb)
 {
-INT l0=VertSum(RASTR,wb,dy,0);
-INT l1=VertSum(RASTR,wb,dy,1);
-INT l2=VertSum(RASTR,wb,dy,2);
-INT r0=VertSum(RASTR,wb,dy,(INT)(dx-1));
-INT r1=VertSum(RASTR,wb,dy,(INT)(dx-2));
-INT r2=VertSum(RASTR,wb,dy,(INT)(dx-3));
+int16_t l0=VertSum(RASTR,wb,dy,0);
+int16_t l1=VertSum(RASTR,wb,dy,1);
+int16_t l2=VertSum(RASTR,wb,dy,2);
+int16_t r0=VertSum(RASTR,wb,dy,(int16_t)(dx-1));
+int16_t r1=VertSum(RASTR,wb,dy,(int16_t)(dx-2));
+int16_t r2=VertSum(RASTR,wb,dy,(int16_t)(dx-3));
 dy -= 2;
 if( l0<dy && l1<=dy && l1>dy-2 && l2>dy )
 	l1=l2;
@@ -2227,9 +2227,9 @@ if( r0<dy && r1<=dy && r1>dy-2 && r2>dy )
 return ( l0>dy || l1>dy ) && ( r0>dy || r1>dy ) ;
 }
 
-INT vert_stairs(INT arr[], INT lim)
+int16_t vert_stairs(int16_t arr[], int16_t lim)
 {
-INT i,old,jmp;
+int16_t i,old,jmp;
 for(jmp=0,i=1,old=arr[0];i<lim;i++)
 	{
 	if( arr[i]==-1 )
@@ -2248,18 +2248,18 @@ return ( jmp );
 /*  возвращает   оценку возрастания середин интервалов перкладины ИН       */
 /*                                                                         */
 /***************************************************************************/
-static void DiskrIN(uchar *RASTR,INT D_X,INT dy,INT bw,INT dx)
+static void DiskrIN(uchar *RASTR,int16_t D_X,int16_t dy,int16_t bw,int16_t dx)
 /***************************************************************************/
 /****     *RASTR     указатель   на  массив                         ********/
 /****	   dy        kоличество  строк                              ********/
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {  uchar  n[256],hist[256];
-   INT   ua[256],da[256];
-   INT  i,n2=dy-2*(dy>>2),n4,mean,fine;
-   INT 	incr,decr,old,neue,equ;
-   INT  l=beg2-end1-1,l_real,t,jump,rmin,rmax;
-   INT  ol=1,or=1;	/* зазор слева и справа */
+   int16_t   ua[256],da[256];
+   int16_t  i,n2=dy-2*(dy>>2),n4,mean,fine;
+   int16_t 	incr,decr,old,neue,equ;
+   int16_t  l=beg2-end1-1,l_real,t,jump,rmin,rmax;
+   int16_t  ol=1,or=1;	/* зазор слева и справа */
    uchar *RAST ,*R;
 
 
@@ -2299,11 +2299,11 @@ if( l<3 )
 	}
 if( l>3 )
 {
-INT up_space=-1, down_space=-1;
-INT up_fill=0,down_fill=0,d;
+int16_t up_space=-1, down_space=-1;
+int16_t up_fill=0,down_fill=0,d;
 for(R=RAST,i=n4;i<=dy-2;i++,R+=D_X)
 	{
-	d=SumIntervalBits(R,(INT)(end1+ol),(INT)(beg2-or+1))/3;
+	d=SumIntervalBits(R,(int16_t)(end1+ol),(int16_t)(beg2-or+1))/3;
 	hist[i]=(uchar)d;
 	if( d==l && !up_fill )
 		up_fill=i;
@@ -2331,7 +2331,7 @@ for( old=hist[n4],i=n4+1;i<=n2;i++)
 	    {
 	    if( NumHorizInterval(RASTR+D_X*(i+1),bw)==1 )
         {
-        INT j,d;
+        int16_t j,d;
         up_space = (neue==l ? 0 : 1);
 
         for(j=i+1;j<dy-2 && hist[j]>=l-1;j++);
@@ -2415,7 +2415,7 @@ if( l_real<=1 && ((n[end1]==0&&n[end1+1]==0) || (n[beg2]==0&&n[beg2-1]==0)) )
 
 if( no_serific(RASTR,dy,dx,bw) )
 	{	/* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
-	INT nn4,nn2,h;
+	int16_t nn4,nn2,h;
 	nn4 = MAX(dy>>2,(LOCAL_W[0]+LOCAL_W[1])>>1);
   if( nn4>dy/3 ) nn4=dy/4;
   nn2 = dy - (nn4<<1);
@@ -2465,7 +2465,7 @@ if( l_real<4 )
 	 }
 if( l_real<=1 )
 {
-INT dy1=n2/*dy>>1*/,nn,mm,mm1,minup,mindown,zaz;
+int16_t dy1=n2/*dy>>1*/,nn,mm,mm1,minup,mindown,zaz;
 uchar *rrrr,*rrrr1;
 zaz = beg2 - end1;
 for(	minup=mindown=zaz, rrrr=RASTR, rrrr1=RASTR+(dy-1)*D_X, i=0;
@@ -2506,7 +2506,7 @@ else
 	}
 }
 {
-INT z=beg2-end1+1;
+int16_t z=beg2-end1+1;
 if( z>4 && l_real*2>z )
 	IN_IN_Monus=1;	/* А перекладины разрыв то маленький ! */
 if( 	l_real>4 	|| 	l-l_real<=3 && l>5 ||
@@ -2536,7 +2536,7 @@ if( l_real>1 )
 if( l_real!=l && !(l_real==l-1 && (n[end1]==0||n[beg2]==0) ) )
 if( !fill_center && l_real<=4 || l_real<=3 )
 	{
-	INT an[2],en[2],ll,dy1=n2,san[2],sen[2],z;
+	int16_t an[2],en[2],ll,dy1=n2,san[2],sen[2],z;
 	/* поиск прыщей от 'Н' на середине высоты */
 	an[0]=n[end1];
 	an[1]=n[end1+1];
@@ -2591,10 +2591,10 @@ if( !fill_center && l_real<=4 || l_real<=3 )
 		en[1]=n[beg2];
 		for(ll=i=0;i<2;i++)
 			{
-			z=VertSum(RAST, D_X, n2, (INT)(end1+i));
+			z=VertSum(RAST, D_X, n2, (int16_t)(end1+i));
 			if( an[i]>0 && an[i]<dy1-2 && z<n4 )
 				ll++;
-			z=VertSum(RAST, D_X, n2, (INT)(beg2-i));
+			z=VertSum(RAST, D_X, n2, (int16_t)(beg2-i));
 			if( en[i]>0 && en[i]>dy1+2 && z<n4)
 				ll++;
 			}
@@ -2614,7 +2614,7 @@ else
 {
 if( fill_center && l_real>l-3 && l>2 )
 {
-INT lim = (beg2-or-end1+ol)>>1;
+int16_t lim = (beg2-or-end1+ol)>>1;
 for(t=0,i=end1+ol;i<=lim;i++)
 	if( n[i]>((n2-2)<<1) )
 		t++;
@@ -2664,7 +2664,7 @@ if( fine && l_real==3 && incr==2 )
 	fine+=2;	/* 2 скачка в 3-х столбцах */
 
 if( omni ){
-INT fin=fine,inc=incr,dec=decr;
+int16_t fin=fine,inc=incr,dec=decr;
 
 neue = n[end1];
 if( ol && neue && neue<n[end1+1] )
@@ -2730,10 +2730,10 @@ if( incr<2   &&            /* маловато возрастаний   */
 				/* постоянства длины 3		*/
 	if( equ>1 && fine<6 )
 		{
-		INT fineold=fine;
+		int16_t fineold=fine;
 		t = n4 + n2 - (t>>1);
 		for( RAST=RASTR+D_X*(t-2),i=t-2;i<=t+2;i++,RAST+=D_X)
-			if( SumIntervalBits(RAST,end1,(INT)(beg2+1))==
+			if( SumIntervalBits(RAST,end1,(int16_t)(beg2+1))==
 				(beg2-end1+1)*3 )
 				{		/* есть перекладина */
 				fine=0;
@@ -2836,7 +2836,7 @@ if( DiskrHorizIN(RASTR,D_X,dy) )
 			}
 if( omni )
 	{	/* 'И' путается с 'М' */
-	INT i,le,ri,nnn=(beg2+end1+ol-or)/2;
+	int16_t i,le,ri,nnn=(beg2+end1+ol-or)/2;
 	if( fine>15 && decr>3 || fine>20 && decr>2 ||
 	    fine>10 && incr<1 && decr>3 )
 		IN_I=1;
@@ -2868,8 +2868,8 @@ if( omni )
 	}
 
 {
-INT up_skip=vert_stairs(&ua[end1],(INT)(beg2-end1+1));
-INT down_skip=vert_stairs(&da[end1],(INT)(beg2-end1+1));
+int16_t up_skip=vert_stairs(&ua[end1],(int16_t)(beg2-end1+1));
+int16_t down_skip=vert_stairs(&da[end1],(int16_t)(beg2-end1+1));
 
 if( IN_I<=3 )
 if( up_skip>3 && down_skip>3 ||
@@ -2887,15 +2887,15 @@ return;
 } 			/* 		DiskrIN 		*/
 
 /***************************************************************************/
-INT DiskrHorizIN(uchar *RASTR,INT D_X,INT dy)
+int16_t DiskrHorizIN(uchar *RASTR,int16_t D_X,int16_t dy)
 /***************************************************************************/
 /****     *RASTR     указатель   на  массив                         ********/
 /****	   dy        kоличество  строк                              ********/
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {  uchar n[256];
-   INT  i,j,n2=dy-2*(dy>>2),n4=dy>>2,imax,nmax,kmax;
-   INT l = beg2 - end1 ,h;
+   int16_t  i,j,n2=dy-2*(dy>>2),n4=dy>>2,imax,nmax,kmax;
+   int16_t l = beg2 - end1 ,h;
    uchar *RAST = RASTR+D_X*n4;
 
 
@@ -2934,7 +2934,7 @@ else
 return (IN_horiz_dis= (h&&l) ) ;
 } 			/* 		DiskrHorizIN 		*/
 
-static INT DiskrEZ(uchar *RASTR,INT D_X,INT dx,INT dy)
+static int16_t DiskrEZ(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 /***************************************************************************/
 /****     *RASTR     указатель   на  масив  с  учетом  пропуска     ********/
 /****			      первой  строчки                       ********/
@@ -2947,9 +2947,9 @@ static INT DiskrEZ(uchar *RASTR,INT D_X,INT dx,INT dy)
 
 /***************************************************************************/
 {  uchar  j;
-   INT n4=dy>>2,n2=dy>>1;
+   int16_t n4=dy>>2,n2=dy>>1;
    uchar  j1,j2,j3,j4;
-   INT            i;
+   int16_t            i;
    uchar  *RAST,*r1,*r2;
 
 if( diskr_EZ>=0 )
@@ -2989,7 +2989,7 @@ diskr_EZ=0;
    return(diskr_EZ);        /* неопределенность */
 }  /* DiskrEZ */
 
-static INT horiz_density(uchar *RAST,INT D_X,INT dx,INT beg,INT end)
+static int16_t horiz_density(uchar *RAST,int16_t D_X,int16_t dx,int16_t beg,int16_t end)
 /***************************************************************************/
 /****     *RAST      указатель   на  масив  с  учетом  пропуска     ********/
 /****			      первой  строчки                       ********/
@@ -2998,7 +2998,7 @@ static INT horiz_density(uchar *RAST,INT D_X,INT dx,INT beg,INT end)
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {  uchar  j,*r;
-   INT i,n_count=0,n=end-beg,den_x;
+   int16_t i,n_count=0,n=end-beg,den_x;
    dx-=1;
    den_x=3*(dx-(dx>>3));
    for (r=RAST+beg*D_X,i=0;i<=n;i++,r+=D_X){
@@ -3010,7 +3010,7 @@ static INT horiz_density(uchar *RAST,INT D_X,INT dx,INT beg,INT end)
    return(n_count);        /* ... */
 }  /*  */
 
-static INT DiskrimM(uchar *RAST,INT D_X,INT dx,INT dy)
+static int16_t DiskrimM(uchar *RAST,int16_t D_X,int16_t dx,int16_t dy)
 /***************************************************************************/
 /****     *RAST      указатель   на  масив                          ********/
 /****      dx        количество  битов  в  строке                   ********/
@@ -3018,9 +3018,9 @@ static INT DiskrimM(uchar *RAST,INT D_X,INT dx,INT dy)
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {
-   INT    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
-   INT    i,j,k,up=0,down=0,cUp=0,cDown=0;
-   INT    prev=0,byte=0;
+   int16_t    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
+   int16_t    i,j,k,up=0,down=0,cUp=0,cDown=0;
+   int16_t    prev=0,byte=0;
    uchar   *r;
 
 /*  calculate  mean  of  hole  */
@@ -3092,7 +3092,7 @@ if( down==0 && up==0 )  return(2); /* м - hole is absent */
    return(0);
 }  /* DiskrM */
 
-static INT DiskrimM1(uchar *RAST,INT D_X,INT dx,INT dy)
+static int16_t DiskrimM1(uchar *RAST,int16_t D_X,int16_t dx,int16_t dy)
 /***************************************************************************/
 /****     *RAST      указатель   на  масив                          ********/
 /****      dx        количество  битов  в  строке                   ********/
@@ -3100,9 +3100,9 @@ static INT DiskrimM1(uchar *RAST,INT D_X,INT dx,INT dy)
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {
-   INT    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
-   INT    i,j,k,up=0,down=0,cUp=0,cDown=0;
-   INT    prev=0,byte=0;
+   int16_t    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
+   int16_t    i,j,k,up=0,down=0,cUp=0,cDown=0;
+   int16_t    prev=0,byte=0;
    uchar   *r;
 
 /*  calculate  mean  of  hole  */
@@ -3173,7 +3173,7 @@ static INT DiskrimM1(uchar *RAST,INT D_X,INT dx,INT dy)
    return(0);
 }  /* DiskrM1 */
 
-static INT whiteMeanBitLeft(uchar *RAST,INT D_X,INT meanBit)
+static int16_t whiteMeanBitLeft(uchar *RAST,int16_t D_X,int16_t meanBit)
 /***************************************************************************/
 /****     *RAST      указатель   на  масив  с  учетом  пропуска     ********/
 /****			      первой  строчки                       ********/
@@ -3181,8 +3181,8 @@ static INT whiteMeanBitLeft(uchar *RAST,INT D_X,INT meanBit)
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {
-   INT    meanByte, byte;
-   INT    i,counter=0;
+   int16_t    meanByte, byte;
+   int16_t    i,counter=0;
 
    for(i=meanBit;i>=0;i--){
       meanByte = i>>3;
@@ -3217,7 +3217,7 @@ static INT whiteMeanBitLeft(uchar *RAST,INT D_X,INT meanBit)
    return( counter );
 }  /* whiteMeanBitLeft */
 
-static INT whiteMeanBitRight(uchar *RAST,INT D_X,INT dx,INT meanBit)
+static int16_t whiteMeanBitRight(uchar *RAST,int16_t D_X,int16_t dx,int16_t meanBit)
 /***************************************************************************/
 /****     *RAST      указатель   на  масив  с  учетом  пропуска     ********/
 /****			      первой  строчки                       ********/
@@ -3225,8 +3225,8 @@ static INT whiteMeanBitRight(uchar *RAST,INT D_X,INT dx,INT meanBit)
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {
-   INT    meanByte, byte;
-   INT    i,counter=0;
+   int16_t    meanByte, byte;
+   int16_t    i,counter=0;
 
    for(i=meanBit+1;i<dx;i++){
       meanByte = i>>3;
@@ -3261,13 +3261,13 @@ static INT whiteMeanBitRight(uchar *RAST,INT D_X,INT dx,INT meanBit)
    return( counter );
 }  /* whiteMeanBitRight */
 
-INT LepikJurit( uchar *R, INT D_X, INT dy)
+int16_t LepikJurit( uchar *R, int16_t D_X, int16_t dy)
 {
-  INT y2,y4,i;
-  INT ug,ugg, bg;
-  INT us/*,bs*/;   /* Oleg : Lepic ne jurit etoi peremennoi */
-  INT uu;
-  INT ret;
+  int16_t y2,y4,i;
+  int16_t ug,ugg, bg;
+  int16_t us/*,bs*/;   /* Oleg : Lepic ne jurit etoi peremennoi */
+  int16_t uu;
+  int16_t ret;
   uchar *r;
   y2 = dy/2;
   y4 = dy/4;
@@ -3297,9 +3297,9 @@ INT LepikJurit( uchar *R, INT D_X, INT dy)
 }
 
 /* 1 строка пропущена сверху, 1 - снизу */
-INT up_down_hist_M(uchar *rastr,INT D_X, INT Dx,INT dy)
+int16_t up_down_hist_M(uchar *rastr,int16_t D_X, int16_t Dx,int16_t dy)
 {
-INT i,j,d,h=dy>>1,s,t,n;
+int16_t i,j,d,h=dy>>1,s,t,n;
 uchar *r;
 
 Dx =  bytlen(Dx);
@@ -3329,9 +3329,9 @@ return(4);
 }
 
 /*  для 'ш': ноги на одинаковом расстоянии? Да: <0; нет: >0; неясно: 0 */
-static INT DiskrSymSh( uchar *RASTER, INT Wx, uchar NWIDTH, uchar NLENGTH)
+static int16_t DiskrSymSh( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
 {
-  INT i,old,l,k,d;
+  int16_t i,old,l,k,d;
   uchar c,w,minw=255,maxw=0;
 
   FOOT_A(RASTER,Wx,NWIDTH,NLENGTH);       /* проекция */

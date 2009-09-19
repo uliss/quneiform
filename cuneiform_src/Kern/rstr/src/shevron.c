@@ -77,8 +77,8 @@ static void analysis_words(void);
 uchar Alik_find_black_interval(puchar str,uchar len,puchar intrvl);
 void shevron(cell* );
 void check_contekst_shevron(void);
-INT  find_word(void);
-INT  check_shevron(cell *c,INT flag_qual);
+int16_t  find_word(void);
+int16_t  check_shevron(cell *c,int16_t flag_qual);
 
 void shevron(cell* WB)
 {
@@ -140,7 +140,7 @@ cell *nextc,*clist[2];
   }
 }
 
-INT find_word()
+int16_t find_word()
 {
    if(clbeg->nextl==NULL) return 0;
    clend=clbeg;
@@ -175,7 +175,7 @@ static uchar ruslet[]  ="‰–“Š…ƒ˜™‡•š”›‚€Ž‹„†Ÿ—‘Œˆ’œžã¥ë ®ï¨î";
 /***************************************************************/
 void analysis_words(void)
 {
-	INT   left,right,flag=0,flag_qual;
+	int16_t   left,right,flag=0,flag_qual;
 	cell  *WB,*WE,*cl;
 	char  snap[380],*buf=snap;
 
@@ -320,16 +320,16 @@ void analysis_words(void)
 /*************************************************************/
 #define  AlikSevron ON
 #define  otkritost  3
-INT check_shevron(cell *c,INT flag_qual)
+int16_t check_shevron(cell *c,int16_t flag_qual)
 {
-INT   i,i1,i2,penalty,hor_byte,sum,priznak,width,hgt,hgt2,hgt3,hgt23,l_priz;
+int16_t   i,i1,i2,penalty,hor_byte,sum,priznak,width,hgt,hgt2,hgt3,hgt23,l_priz;
 uchar  Col,*CurPos,*I,bound[2],prev_b[4],povedenie,max_interval,priz2,
       inter1,inter2,priz_12,prev_col,up_max,dw_max,priz_seredini,tmp_max,
       l_min[3],r_min[3],l_m[2],r_m[2],priz_k,prev_left_dist;
 puchar raster;
 
 #ifdef AlikSevron
-INT   b1,b2,b3,b4,r1,r2;
+int16_t   b1,b2,b3,b4,r1,r2;
 char  snap[380],*buf=snap;
   buf+=sprintf(buf,"step0: let=%c,w=%d,h=%d \n ",c->vers[0].let,c->w,c->h);
 #endif

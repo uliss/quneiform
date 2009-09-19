@@ -67,12 +67,12 @@ typedef struct env envelope;
 #define pic_overkill		2 // if total overlay kill him
 #define pic_interlace_merge	4 // if interlaced merge
 Bool shutdown_pictures(void);
-Bool del_picture(INT handle);
-INT new_picture(INT top, INT left, INT h, INT w, uint16_t mod);
+Bool del_picture(int16_t handle);
+int16_t new_picture(int16_t top, int16_t left, int16_t h, int16_t w, uint16_t mod);
 uint32_t update_pictures(uchar ** pool);
-puchar get_picture(INT handle);
-INT merge_pictures(INT ha1, INT ha2);
-INT undo_pictures(puchar pool, uint32_t size);
+puchar get_picture(int16_t handle);
+int16_t merge_pictures(int16_t ha1, int16_t ha2);
+int16_t undo_pictures(puchar pool, uint32_t size);
 
 extern uchar pic_state;
 #define  pic_non_exist	0

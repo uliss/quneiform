@@ -85,16 +85,16 @@ extern uchar *letters_pidx_table;  // 512
 extern uchar decode_ASCII_to_[256][4];
 
 
-INT     minrow,mincol, maxrow, maxcol;
-INT     bs_got=0;     // in baton.c - LONG - error!?
+int16_t     minrow,mincol, maxrow, maxcol;
+int16_t     bs_got=0;     // in baton.c - LONG - error!?
 
-INT			  bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;  // bbst,
-INT           bsdust_upper, bsdust_lower, bsdust_ps;
-INT           Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
+int16_t			  bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;  // bbst,
+int16_t           bsdust_upper, bsdust_lower, bsdust_ps;
+int16_t           Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
 uchar          multi_bas;
 
-INT           Ns1=0,Ns2=0;        // in Iot.c   only  !!!
-//INT           pen_up;         // for otladka 't' in St_tools.c
+int16_t           Ns1=0,Ns2=0;        // in Iot.c   only  !!!
+//int16_t           pen_up;         // for otladka 't' in St_tools.c
 
 uchar          let_to_dust=0;
 
@@ -107,19 +107,19 @@ char          dust_in = 0;
 static BAL_bas_ln all_bases[32];
 
 // Linpon.c
-INT sMALL_SIZE=SMALL_SIZE;
+int16_t sMALL_SIZE=SMALL_SIZE;
 
-INT obtain_diff(INT arg);
+int16_t obtain_diff(int16_t arg);
 
 /////////////////////
 
-INT get_bsm()
+int16_t get_bsm()
  { return (bbsm+minrow); }
 /////////
-INT def_locbas(cell *cl)
+int16_t def_locbas(cell *cl)
 {
  BAL_bas_ln *bc, *bn, *bsp;
- INT i, x, y, dc, dn;
+ int16_t i, x, y, dc, dn;
  uchar fl_defb;
 
  if ((multi_bas & 128) == 0)
@@ -177,7 +177,7 @@ retps:
 //////////
 void get_b_lines(cell *C, B_LINES *bas)
  {
- INT dif;
+ int16_t dif;
 
  if (C)
  {
@@ -242,11 +242,11 @@ LONG get_size()                                                   //16.01.97
 
 uchar to_lower(uchar c);
 uchar to_upper(uchar c);
-INT  is_lower(uchar ch);
-INT  is_upper(uchar ch);
-INT  isletter(uchar ch);
+int16_t  is_lower(uchar ch);
+int16_t  is_upper(uchar ch);
+int16_t  isletter(uchar ch);
 uchar get_homot(uchar ch);
-INT  draft_cut_hyps(INT bs,INT fl);
+int16_t  draft_cut_hyps(int16_t bs,int16_t fl);
 
 /*============= Source code ============*/
 Bool is_liga_ff(uchar c)
@@ -260,7 +260,7 @@ Bool is_liga_ffl(uchar c)
   return (c==liga_ffl);
 }
 
-INT is_russian(uchar ch)
+int16_t is_russian(uchar ch)
 {
 if( language==LANG_RUSSIAN || language==LANG_ENGLISH && multy_language )
 switch(fEdCode){
@@ -284,7 +284,7 @@ switch(fEdCode){
 return 0;
 }
 
-INT is_english(uchar ch)
+int16_t is_english(uchar ch)
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (
@@ -295,7 +295,7 @@ return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
 	   ;
 }
 
-INT is_serbian_special(uchar ch)
+int16_t is_serbian_special(uchar ch)
 {
 return (ch == SERB_j  ||   ch == SERB_J  ||
         ch == SERB_n  ||   ch == SERB_N  ||
@@ -306,7 +306,7 @@ return (ch == SERB_j  ||   ch == SERB_J  ||
 
 }
 
-INT is_polish_special(uchar ch)
+int16_t is_polish_special(uchar ch)
 {
 return (ch == POLISH_SS  ||   ch == POLISH_s  ||
         ch == POLISH_ZZD ||   ch == POLISH_zd ||
@@ -320,7 +320,7 @@ return (ch == POLISH_SS  ||   ch == POLISH_s  ||
     );
 }
 
-INT is_czech_special(uchar let)
+int16_t is_czech_special(uchar let)
 {
 return (
      let == AA_right_accent || let == a_right_accent	||
@@ -341,7 +341,7 @@ return (
     );
 }
 
-INT is_roman_special(uchar let)
+int16_t is_roman_special(uchar let)
 {
 return (
      let == AA_semicircle			|| 	let == a_semicircle				||
@@ -352,7 +352,7 @@ return (
     );
 }
 
-INT is_hungar_special(uchar let)
+int16_t is_hungar_special(uchar let)
 {
 return (
      let == AA_right_accent || 		let == a_right_accent ||
@@ -363,7 +363,7 @@ return (
      let == OO_double_right || 		let == o_double_right
     );
 }
-INT is_slovenian_special(uchar let)
+int16_t is_slovenian_special(uchar let)
 {
 return (
      let == CC_inv_roof			|| let == c_inv_roof		||
@@ -372,7 +372,7 @@ return (
     );
 }
 
-INT isnot_slovenian(uchar let)
+int16_t isnot_slovenian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -382,7 +382,7 @@ return (
     );
 }
 
-INT is_baltic_palka(uchar c)
+int16_t is_baltic_palka(uchar c)
 {
 // Определение балтийских палок. 30.05.2002 E.P.
 
@@ -397,7 +397,7 @@ INT is_baltic_palka(uchar c)
 			);
 }
 
-INT is_latvian_special(uchar let)
+int16_t is_latvian_special(uchar let)
 {
 return (
      let == AA_macron			||let == a_macron			||
@@ -415,7 +415,7 @@ return (
     );
 }
 
-INT isnot_latvian(uchar let)
+int16_t isnot_latvian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -425,7 +425,7 @@ return (
     );
 }
 
-INT is_lithuanian_special(uchar let)
+int16_t is_lithuanian_special(uchar let)
 {
 return (
      let == AA_bottom_accent	|| 	let == a_bottom_accent	||
@@ -441,7 +441,7 @@ return (
     );
 }
 
-INT isnot_lithuanian(uchar let)
+int16_t isnot_lithuanian(uchar let)
 {
 return (
      let == 'Q' || let == 'q' ||
@@ -450,7 +450,7 @@ return (
     );
 }
 
-INT is_estonian_special(uchar let)
+int16_t is_estonian_special(uchar let)
 {
 return (
      let == AA_2dot_accent		|| 	let == a_2dot_accent		||
@@ -463,7 +463,7 @@ return (
     );
 }
 
-INT isnot_estonian(uchar let)
+int16_t isnot_estonian(uchar let)
 {
 return (
      let == 'C' || let == 'c' ||
@@ -474,7 +474,7 @@ return (
     );
 }
 
-INT is_turkish_special(uchar let)
+int16_t is_turkish_special(uchar let)
 {
 return (
      let == AA_roof_accent			|| 	let == a_roof_accent			||
@@ -490,7 +490,7 @@ return (
     );
 }
 
-INT is_turkish_bottom_accent(uchar c)
+int16_t is_turkish_bottom_accent(uchar c)
 {
 // Определение нижнего акцента. 20.05.2002 E.P.
 	return (
@@ -501,7 +501,7 @@ INT is_turkish_bottom_accent(uchar c)
 	0);
 }
 
-INT is_turkish_palka(uchar c)
+int16_t is_turkish_palka(uchar c)
 {
 // Определение турецких палок. 21.05.2002 E.P.
 
@@ -515,7 +515,7 @@ INT is_turkish_palka(uchar c)
 			);
 }
 
-INT is_russian_turkish_conflict(uchar c)
+int16_t is_russian_turkish_conflict(uchar c)
 {
 /*
 	Определение конфликта между русскими
@@ -555,7 +555,7 @@ INT is_russian_turkish_conflict(uchar c)
 	return FALSE;
 }
 
-INT isnot_turkish(uchar let)
+int16_t isnot_turkish(uchar let)
 {
 extern  char    alphabet[256];
 
@@ -568,7 +568,7 @@ return (
 }
 
 ///////////////////////////////////////
-INT is_lower(uchar ch)
+int16_t is_lower(uchar ch)
 {
 
 if(language==LANG_RUSSIAN)
@@ -591,7 +591,7 @@ if(language==LANG_RUSSIAN)
  if(ch >= 'a' && ch <= 'z') return 1;
  return 0;
 }
-INT is_upper(uchar ch)
+int16_t is_upper(uchar ch)
 {
 if(language==LANG_RUSSIAN)
     switch(fEdCode){
@@ -616,7 +616,7 @@ if(ch >= (uchar)'0' && ch <= (uchar)'9') return TRUE;
 else return FALSE;
 }
 
-INT isletter(uchar ch)
+int16_t isletter(uchar ch)
 {
 if(is_lower(ch) || is_upper(ch)) return 1;
 else return 0;
@@ -625,7 +625,7 @@ else return 0;
 static const uchar non_twin[]=" ЂЎЃҐ…";
 static const uchar lat_twins[]="cCoOpPsSvVwWxXzZ";
 
-INT twin(uchar ch)
+int16_t twin(uchar ch)
 {
 if(!isletter(ch)) return 0;
 if( language==LANG_RUSSIAN )
@@ -685,7 +685,7 @@ uchar to_lower(uchar c)
     return c;
 }
 /////////////////////
-INT is_cen_bottom_accent(uchar c)
+int16_t is_cen_bottom_accent(uchar c)
 {
 // Определение нижнего акцента 12.09.2000 E.P.
 	return (
@@ -699,7 +699,7 @@ INT is_cen_bottom_accent(uchar c)
 	0);
 }
 /////////////////////
-INT is_baltic_bottom_accent(uchar c)
+int16_t is_baltic_bottom_accent(uchar c)
 {
 // Определение нижнего акцента 10.07.2001 E.P.
 	return (
@@ -715,7 +715,7 @@ INT is_baltic_bottom_accent(uchar c)
 	0);
 }
 
-INT is_russian_baltic_conflict(uchar c)
+int16_t is_russian_baltic_conflict(uchar c)
 {
 // Определение конфликта между русскими и балтийскими буквами. 17.07.2001 E.P.
 	if (!is_baltic_language(language))
@@ -728,9 +728,9 @@ INT is_russian_baltic_conflict(uchar c)
 }
 /////////////////////////////////
 // Linpon.c
-INT is_defis(cell *C)
- {   INT bs2m, bsm3;
- INT i, j;
+int16_t is_defis(cell *C)
+ {   int16_t bs2m, bsm3;
+ int16_t i, j;
  if ((C->w < 3) || (C->h < 2) || (2*C->h > C->w) || (9 * (C->h) > 4 * Ps))
   return 0;
  i=C->row-minrow+C->bdiff; j=i+C->h;
@@ -741,8 +741,8 @@ INT is_defis(cell *C)
  }
 //////////////////////
 // Linpon.c
-INT if_dust(cell *C)
- { INT rb, w1, wh, wps;
+int16_t if_dust(cell *C)
+ { int16_t rb, w1, wh, wps;
  // Check position in the string - have to intersect with string middle
  // MUST request local BASELINES !!!!!!!!!!!!!!
  rb = 0;
@@ -767,7 +767,7 @@ chks:              // height(cell) + 4 >= main_base-small_base
 //////////////////////
 static void SetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
 {
-INT rast_is_BOX_solid (CSTR_rast B1);
+int16_t rast_is_BOX_solid (CSTR_rast B1);
 
 	rstrGlob->language = language;
 	rstrGlob->line_number = line_number;

@@ -349,7 +349,7 @@ void StringAccountRepresentationParameters2 (STRING *pString, int iRoot)
 
 void StringCountRecog (STRING *q)
 {
-    INT i, j;
+    int16_t i, j;
     q->nRecognized = 0;
     for (i = 0; i < q -> nLetters; i++)
     {

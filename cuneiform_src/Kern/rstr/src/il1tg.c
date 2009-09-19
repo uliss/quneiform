@@ -97,12 +97,12 @@ struct statist             // structure for statistics
 
 
 extern uchar fax1x2;
-extern INT line_number;
+extern int16_t line_number;
 
-INT    n_peak[NFUNC];
+int16_t    n_peak[NFUNC];
 puchar  peak_vect[NFUNC];
 
-static INT total_num_let;
+static int16_t total_num_let;
 static struct statist *hor;
 static struct statist *vert;
 static uchar *hist[N_HIST]; // histograms:
@@ -120,30 +120,30 @@ static uchar *hist[N_HIST]; // histograms:
                //  11 - right abris ( as in ABRIS.C )
 
 static uchar *funcs[MAX_NEW_FUNC];
-static INT  nfunc=1;
+static int16_t  nfunc=1;
 static char recog_res[10];
 static char *R;
-static INT  dx,dy;
+static int16_t  dx,dy;
 static cell * ec_c;
-static INT  oaprop;
-//static INT  DOprop;
-static INT  TYprop;
-static INT  ecprop;
-static INT bon_a,mon_c;
-static INT  gmax_y, gmin_y;
+static int16_t  oaprop;
+//static int16_t  DOprop;
+static int16_t  TYprop;
+static int16_t  ecprop;
+static int16_t bon_a,mon_c;
+static int16_t  gmax_y, gmin_y;
 static uchar maxprob;
 static char text_string  [256];
 static char text_string1 [256];
 struct nose_struct
 {
-    INT peak;
-    INT weight;
-    INT y;
+    int16_t peak;
+    int16_t weight;
+    int16_t y;
 };
 
 version    oa_src_vers[MAX_VERS];
 uchar       oa_src_nvers;
-INT        oa_accent_existing_flag;
+int16_t        oa_accent_existing_flag;
 
 static void oacell                  (cell *);
 static void eccell                  (cell *);
@@ -152,22 +152,22 @@ static void NHdiff                  (cell *);
 static void TYcell                  (cell *);
 static void GCcell                  (cell *);
 static void set_mem                 (void);
-static INT  check_two_case          (cell *, pchar);
+static int16_t  check_two_case          (cell *, pchar);
 static void comptorast              (puchar, cell *);
 static void make_hor_vert           (cell *);
 static void make_hist               (void);
 static void make_func               (void);
-static INT  line_width              (puchar, INT, INT);
-static uint16_t integral                (puchar, INT, INT, INT);
-static INT  gmax                    (puchar, INT, INT);
-static INT  gmin                    (puchar, INT, INT);
-static INT  vertsym                 (INT);
-static INT  centrsym                (INT);
-static Bool increase                (puchar, INT, INT);
-static Bool decrease                (puchar, INT, INT);
-static INT  difference              (puchar, INT, INT);
-static INT  valley                  (puchar, INT, INT, INT);
-static Bool fill                    (puchar, INT, INT, INT);
+static int16_t  line_width              (puchar, int16_t, int16_t);
+static uint16_t integral                (puchar, int16_t, int16_t, int16_t);
+static int16_t  gmax                    (puchar, int16_t, int16_t);
+static int16_t  gmin                    (puchar, int16_t, int16_t);
+static int16_t  vertsym                 (int16_t);
+static int16_t  centrsym                (int16_t);
+static Bool increase                (puchar, int16_t, int16_t);
+static Bool decrease                (puchar, int16_t, int16_t);
+static int16_t  difference              (puchar, int16_t, int16_t);
+static int16_t  valley                  (puchar, int16_t, int16_t, int16_t);
+static Bool fill                    (puchar, int16_t, int16_t, int16_t);
 static void oarecog                 (cell *);
 static void TYrecog                 (void);
 //static void put_two_case            (cell *, pchar);
@@ -177,11 +177,11 @@ static void make_hor_vert_ec        (void);
 static void make_hist_ec            (void);
 static void make_func_ec            (void);
 static Bool not_AvanGard_a          (void);
-static Bool middle_long_sharp_peak  (INT,   INT, INT);
-static Bool pure_concave            (puchar, INT, INT, INT);
-static Bool hole_in_func            (puchar, INT, INT, INT);
-// static Bool hill_in_func            (puchar, INT, INT, INT);
-static Bool flat_func               (puchar, INT, INT, INT);
+static Bool middle_long_sharp_peak  (int16_t,   int16_t, int16_t);
+static Bool pure_concave            (puchar, int16_t, int16_t, int16_t);
+static Bool hole_in_func            (puchar, int16_t, int16_t, int16_t);
+// static Bool hill_in_func            (puchar, int16_t, int16_t, int16_t);
+static Bool flat_func               (puchar, int16_t, int16_t, int16_t);
 static void ecrecog                 (void);
 static uchar filled_head             (void);
 #define FH_Y_FILLED                 1
@@ -190,7 +190,7 @@ static uchar filled_head             (void);
 static void cell_versions_to_text   (cell *);
 static Bool not_letter              (cell *);
 
-static INT  oa_accent_removing      ( cell *srC );
+static int16_t  oa_accent_removing      ( cell *srC );
 static void oa_accent_restoring     ( cell *resC );
 
 
@@ -216,13 +216,13 @@ loop:;
         TYcell  (C);
         GCcell  (C);
    if( language == LANG_RUSSIAN && langUkr ){
-      INT  i;
+      int16_t  i;
       for(i=0;i<C->nvers;i++)
         if( C->vers[i].let == liga_i )
           C->vers[i].let = 'i';
    }
    if( language == LANG_RUSSIAN && langSer ){
-      INT  i;
+      int16_t  i;
       for(i=0;i<C->nvers;i++){
         if( C->vers[i].let == liga_j )
           C->vers[i].let = 'j';
@@ -238,8 +238,8 @@ loop:;
 
 static void oacell (cell *C)
 {
-INT was_a = (let_sans_acc[C->vers[0].let] == 'a')?1:0;
-	INT res_o = 0;
+int16_t was_a = (let_sans_acc[C->vers[0].let] == 'a')?1:0;
+	int16_t res_o = 0;
 
     oa_accent_existing_flag = ACCENT_NOT_FOUND;
     if ( language != LANG_ENGLISH )
@@ -295,9 +295,9 @@ INT was_a = (let_sans_acc[C->vers[0].let] == 'a')?1:0;
 		}
 }
 
-static INT oa_accent_removing( cell *srC )
+static int16_t oa_accent_removing( cell *srC )
 {
-INT        new_nvers, i, ret_code;
+int16_t        new_nvers, i, ret_code;
 uchar       flag;
 version    subst_vers[MAX_VERS];
 version    *wpv;
@@ -414,8 +414,8 @@ static char vrot_small[] =
 //  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
 static void NHcell (cell *C)
 {
-    INT     i, rot;
-    INT     col,row,h,w;
+    int16_t     i, rot;
+    int16_t     col,row,h,w;
     extern  servBOX SBOX;
     s_glue  GL;
     uchar    sv [sizeof ( C-> nvers) + sizeof (C -> vers)];
@@ -484,7 +484,7 @@ NHRet:
 static void NHdiff( cell * C )
 {
 
-INT i1, i2, i3, i4, pnlH, pnlN, midw;
+int16_t i1, i2, i3, i4, pnlH, pnlN, midw;
 
    pnlH = 0;
    pnlN = 0;
@@ -525,7 +525,7 @@ extern  servBOX SBOX;
 s_glue  GL;
 uint16_t wup, wbot;
 char wc;
-INT pnl, wd, op;
+int16_t pnl, wd, op;
 
     pnl = 0;  op = 0;
     if (check_two_case (C, "GC") && tsimple(C))
@@ -581,7 +581,7 @@ INT pnl, wd, op;
 CGR_ApplayPenalty:
         pnl &= 0xfffe;                   // penalty has to be even
         if ( pnl > 250 ) pnl = 250;      // "normalize" penalty
-        cell_bonus_let ( C, wc, (INT)(-pnl) );  // apply penalty
+        cell_bonus_let ( C, wc, (int16_t)(-pnl) );  // apply penalty
         sort_vers( C );
 CGR_Ret:
       if (snap_activity('c'))
@@ -599,8 +599,8 @@ CGR_Ret:
 #define BON_TY 6
 static void TYcell (cell *C)
 {
-INT mon_T = 0;
-INT mon_Y = 0;
+int16_t mon_T = 0;
+int16_t mon_Y = 0;
     if (check_two_case (C, "TY") && tsimple(C))
     {
         snap_newcell (C);
@@ -645,7 +645,7 @@ static void TYrecog ()
 //  that it represents T or Y.
 //
 {
- INT from, to, shift, jmp;
+ int16_t from, to, shift, jmp;
  Bool rc;
 
 
@@ -700,7 +700,7 @@ TY_noshift:
 
 static void set_mem ()
 {
-    INT   i;
+    int16_t   i;
     pchar c;
 
     R    = t_raster ();
@@ -712,9 +712,9 @@ static void set_mem ()
     for (i = 0; i < NFUNC; i++, c += MAX_HOR_IL1 / 4)       peak_vect [i] = c;
 }
 
-static INT check_two_case (cell *C, pchar c)
+static int16_t check_two_case (cell *C, pchar c)
 {
-    INT     i, n;
+    int16_t     i, n;
     version *v;
 #define TWO_CASE_THRESH 140
 
@@ -735,9 +735,9 @@ static INT check_two_case (cell *C, pchar c)
 
 #include "il1tgh.c"
 
-static Bool flat_func (puchar func, INT from, INT to, INT jump)
+static Bool flat_func (puchar func, int16_t from, int16_t to, int16_t jump)
 {
-    INT i;
+    int16_t i;
 
     if ( to - from == 1 )
       if ( abs ( func[from] - func[to] ) > jump )        return FALSE;
@@ -758,9 +758,9 @@ static Bool flat_func (puchar func, INT from, INT to, INT jump)
     return TRUE;
 }
 
-static INT difference (puchar func, INT from, INT to)
+static int16_t difference (puchar func, int16_t from, int16_t to)
 {
-    INT m1,m2;
+    int16_t m1,m2;
 
     m1=gmin(func,from,to);
     m2=gmax(func,from,to);
@@ -768,13 +768,13 @@ static INT difference (puchar func, INT from, INT to)
     return m2 - m1;
 }
 
-static INT valley (puchar func, INT from, INT to, INT percent)
+static int16_t valley (puchar func, int16_t from, int16_t to, int16_t percent)
 //
 //	This procedure checks difference between minimum and maximum
 //	of function in given region.
 //
 {
-    INT lw1, s;
+    int16_t lw1, s;
 
     lw1 = line_width (func, from, to);
     s   = integral (func, from, to, lw1);
@@ -782,12 +782,12 @@ static INT valley (puchar func, INT from, INT to, INT percent)
                                                 return 1;
 }
 
-static Bool fill (puchar func, INT from, INT to, INT percent)
+static Bool fill (puchar func, int16_t from, int16_t to, int16_t percent)
 //
 //	This procedure checks whether given region is close to constant.
 //
 {
-    INT n1, n2, s;
+    int16_t n1, n2, s;
 
     n1 = gmax (func, from, to);
     n2 = gmin (func, from, to);
@@ -802,7 +802,7 @@ static void oarecog(cell *C)
 //	that it represents o and a (Avant-Garde).
 //
 {
-    INT d;
+    int16_t d;
     strcpy (recog_res, "");
     memset (peak_vect [0], 0, NFUNC * MAX_HOR_IL1 / 4);
     memset (n_peak, 0, sizeof (n_peak));
@@ -819,7 +819,7 @@ static void oarecog(cell *C)
     }
     d = 1;
     if ( fax1x2 ) d = 0;
-    if (difference (hist [4], (INT)(dy * 1 / 10), (INT)(dy * 9/10)) <= d)
+    if (difference (hist [4], (int16_t)(dy * 1 / 10), (int16_t)(dy * 9/10)) <= d)
     {
         strcat (recog_res, "a");
         oaprop = 2;
@@ -829,7 +829,7 @@ static void oarecog(cell *C)
 /*---------	Additional check for italic 'a'		-----------*/
     d=2;    if (dy >= 32) d=3;
 	    else if (dy <=16) d=1;
-    if (hist[4][dy-d-1] - hist[4][d] >=2 && increase (hist[4],d,(INT)(dy-d-1)))
+    if (hist[4][dy-d-1] - hist[4][d] >=2 && increase (hist[4],d,(int16_t)(dy-d-1)))
     {
 	strcat (recog_res, "a");
 	oaprop=9;
@@ -837,17 +837,17 @@ static void oarecog(cell *C)
 		if (hist[4][dy-d] >= hist[4][dy-d+1])		goto fin;
     }
 /*---------------*/
-    if (valley (funcs [2], (INT)(dy * 6 / 100), (INT)(dy * 94 / 100), 100))
+    if (valley (funcs [2], (int16_t)(dy * 6 / 100), (int16_t)(dy * 94 / 100), 100))
     {
         strcat (recog_res, "o");
         oaprop = 3;
         goto fin;
     }
-    if (!fill (funcs [2], (INT)(dy * 6 / 100), (INT)(dy * 3 / 10), 45))
+    if (!fill (funcs [2], (int16_t)(dy * 6 / 100), (int16_t)(dy * 3 / 10), 45))
     // funcs[2] - right abris (the distances from right side to first black point)
     // hist[4] - other right abris (the distances from left side to last black point)
     {
-	if (!increase (hist [4], (INT)(dy * 1 / 10), (INT)(dy * 9 / 10)))
+	if (!increase (hist [4], (int16_t)(dy * 1 / 10), (int16_t)(dy * 9 / 10)))
 	{
 	     strcat (recog_res, "o");
 	     oaprop = 4;
@@ -874,11 +874,11 @@ fin:;
     bon_a = 0;
     if (strlen (recog_res) > 0 && !strchr (recog_res, 'a'))
     {
-        INT lw, i1, i2;
+        int16_t lw, i1, i2;
 
-        lw = line_width (hist [0], (INT)(dy * 2 / 10), (INT)(dy * 8 / 10));
+        lw = line_width (hist [0], (int16_t)(dy * 2 / 10), (int16_t)(dy * 8 / 10));
         i1 = integral (hist [5], 0, lw, 0);
-        i2 = integral (hist [5], (INT)(dx - 1 - lw), (INT)(dx - 1), 0);
+        i2 = integral (hist [5], (int16_t)(dx - 1 - lw), (int16_t)(dx - 1), 0);
         if (i1 && i2 * 10 / i1 > 12)
         {
             strcat (recog_res, "a");
@@ -900,10 +900,10 @@ fin:;
 
 static Bool not_AvanGard_a()
  {
- INT m;
+ int16_t m;
 
- m=gmin(hist[3],(INT)(dy/3),(INT)(dy*2/3));
- if (gmax(hist[3],0,(INT)(dy/3))-m>=2 && gmax(hist[3],(INT)(dy*2/3),(INT)(dy-1))-m>=1)
+ m=gmin(hist[3],(int16_t)(dy/3),(int16_t)(dy*2/3));
+ if (gmax(hist[3],0,(int16_t)(dy/3))-m>=2 && gmax(hist[3],(int16_t)(dy*2/3),(int16_t)(dy-1))-m>=1)
   return TRUE;
  return FALSE;
  }
@@ -911,7 +911,7 @@ static Bool not_AvanGard_a()
 /***********
 static void put_two_case(cell *C, pchar pair)
 {
-    INT     i, m, n;
+    int16_t     i, m, n;
     version *v, *v1;
     version vers [16];
     pchar   c;
@@ -961,11 +961,11 @@ end:;
 
 static void make_hor_vert_ec ()
 {
-    INT  i, x, y, k;
+    int16_t  i, x, y, k;
     uchar *c;
     uchar b;
     struct statist *h;
-    INT  bnd;
+    int16_t  bnd;
 
     for (x = 0, h = hor; x < ((dx + 7) / 8) * 8; x ++, h ++)    h -> sum = 0;
     for (x = 0, h = vert; x < dy; x ++, h ++)                   h -> sum = 0;
@@ -1010,7 +1010,7 @@ static void make_hor_vert_ec ()
 
 static void make_hist_ec ()
 {
-    INT i;
+    int16_t i;
 
     for (i = 0; i < N_HIST; i ++)
     memset (hist [i], 0, MAX_HOR_IL1);
@@ -1051,7 +1051,7 @@ static void make_hist_ec ()
 
 static void make_func_ec ()
 {
-    INT i;
+    int16_t i;
 
     for (i = 0; i < MAX_NEW_FUNC; i ++)
     memset (funcs [i], 0, MAX_HOR_IL1);
@@ -1068,9 +1068,9 @@ static void make_func_ec ()
     nfunc = MIN (nfunc, MAX_NEW_FUNC);
 }
 
-static Bool middle_long_sharp_peak (INT nf, INT from, INT to)
+static Bool middle_long_sharp_peak (int16_t nf, int16_t from, int16_t to)
 {
-    INT i, i1;
+    int16_t i, i1;
 
     extremum (funcs [nf], nf, from, to,
                 line_width (funcs [nf], from, to), YES, YES);
@@ -1084,9 +1084,9 @@ static Bool middle_long_sharp_peak (INT nf, INT from, INT to)
                                                 return FALSE;
 }
 
-static Bool pure_concave (puchar f, INT from, INT to, INT jmp)
+static Bool pure_concave (puchar f, int16_t from, int16_t to, int16_t jmp)
 {
-    INT i, j, fl;
+    int16_t i, j, fl;
 
     fl = 0;
     for (i = from; i < to; i ++)
@@ -1108,9 +1108,9 @@ static Bool pure_concave (puchar f, INT from, INT to, INT jmp)
                                                 return FALSE;
 }
 
-static Bool hole_in_func (puchar f, INT from, INT to, INT jmp)
+static Bool hole_in_func (puchar f, int16_t from, int16_t to, int16_t jmp)
 {
-    INT  min;
+    int16_t  min;
     min = gmin ( f, from, to );
     if ( ( f[to] - min > jmp ) && ( f[from] - min > jmp ) )
       return TRUE;
@@ -1119,9 +1119,9 @@ static Bool hole_in_func (puchar f, INT from, INT to, INT jmp)
 }
 
 /*
-static Bool hill_in_func (puchar f, INT from, INT to, INT jmp)
+static Bool hill_in_func (puchar f, int16_t from, int16_t to, int16_t jmp)
 {
-    INT  max;
+    int16_t  max;
     max = gmax ( f, from, to );
     if ( ( max - f[to] > jmp ) && ( max - f[from]  > jmp ) )
       return TRUE;
@@ -1133,7 +1133,7 @@ static Bool hill_in_func (puchar f, INT from, INT to, INT jmp)
 #define PNL_C   80
 static void ecrecog ()
 {
-    INT n1, n2, n3, jump;
+    int16_t n1, n2, n3, jump;
 
     strcpy (recog_res, "");
     memset (peak_vect [0], 0, NFUNC * MAX_HOR_IL1 / 4);
@@ -1142,7 +1142,7 @@ static void ecrecog ()
     ecprop  = 0;
     mon_c = 0;
 
-    if (middle_long_sharp_peak (1, 0, (INT)(dy - 1)))
+    if (middle_long_sharp_peak (1, 0, (int16_t)(dy - 1)))
     {
         strcat (recog_res, "e");
         ecprop = 1;
@@ -1150,7 +1150,7 @@ static void ecrecog ()
     }
 
     jump = MAX ( dy / 10, 1 ) - 1;
-    if (pure_concave (funcs [3], (INT)(dy * 2 / 10), (INT)(dy * 8 / 10), jump))
+    if (pure_concave (funcs [3], (int16_t)(dy * 2 / 10), (int16_t)(dy * 8 / 10), jump))
     {
       for ( n3 = 0, n2 = 0, n1 = (dx>>1); n1 < dx-2; n1++ )
       {
@@ -1191,8 +1191,8 @@ static void ecrecog ()
       }
     }
 
-    n1 = gmax (funcs [3], (INT)(dy * 33 / 100), (INT)(dy * 67 / 100));
-    n2 = line_width (funcs [3], (INT)(dy * 2 / 10), (INT)(dy * 8 / 10));
+    n1 = gmax (funcs [3], (int16_t)(dy * 33 / 100), (int16_t)(dy * 67 / 100));
+    n2 = line_width (funcs [3], (int16_t)(dy * 2 / 10), (int16_t)(dy * 8 / 10));
     /** funcs[3] - right abris of the left half of rastre, i.e.
                    the distanse from last right black point to
                    the bound, staying at (dx/2 + 1) from left side. **/
@@ -1200,9 +1200,9 @@ static void ecrecog ()
     /** funcs[1] - total amount of the black points in the left half of rastre **/
     if (n1 == n2 )
     {
-        n1 = gmin( funcs [2], (INT)(dx-dx/4), (INT)(dx-1) );
+        n1 = gmin( funcs [2], (int16_t)(dx-dx/4), (int16_t)(dx-1) );
         if ( ( n2 < dx/2 ) && ( n1 > (dy/2) ) &&
-             ( funcs [1][n1] < gmax( funcs[1], (INT)(dy * 33/100), (INT)(dy * 67/100) ) ) )
+             ( funcs [1][n1] < gmax( funcs[1], (int16_t)(dy * 33/100), (int16_t)(dy * 67/100) ) ) )
         {
             strcat (recog_res, "c");
             ecprop = 333;
@@ -1295,7 +1295,7 @@ uint16_t wup, wbot;
 static void cell_versions_to_text (cell *C)
 {
     pchar t;
-    INT   i;
+    int16_t   i;
 
     t  = text_string;
     *t = 0;
@@ -1312,9 +1312,9 @@ static void cell_versions_to_text (cell *C)
 
 static Bool not_letter(cell * C)
 {
-  extern INT sMALL_SIZE;
+  extern int16_t sMALL_SIZE;
      B_LINES bl;
-     INT h;
+     int16_t h;
      if (C->h <= sMALL_SIZE)  //NB 3.4.95
           return TRUE;
      get_b_lines (C, &bl);
@@ -1383,8 +1383,8 @@ static void put_ec_case (cell *C)
 
 static void oa_accent_restoring( cell *resC )
 {
-INT i, j;
-INT recogAccent_o=0;	// 14.08.2001 E.P.
+int16_t i, j;
+int16_t recogAccent_o=0;	// 14.08.2001 E.P.
 
 version    *srcv, *resv;
     for ( resv = resC->vers, i = 0; i < resC->nvers; i++, resv++ )
@@ -1448,9 +1448,9 @@ version    *srcv, *resv;
 }
 
 /****************************************************
-static print_hist(INT dx, INT dy)
+static print_hist(int16_t dx, int16_t dy)
 {
- INT start, end, i;
+ int16_t start, end, i;
  for (; dy; dy--)
   {
    start = dx - hist[3][dy-1];

@@ -111,10 +111,10 @@ extern uchar CodePages[];
 extern uchar fon_alphabet_language[3][256];
 
 extern uchar line_alphabet;
-extern INT  line_number;
+extern int16_t  line_number;
 extern uchar line_scale;
 extern uchar line_tabcell;//OLEG
-extern INT  nIncline;   //
+extern int16_t  nIncline;   //
 ////////////
 
 static Bool32 p2_twin(uchar ch);
@@ -123,10 +123,10 @@ static int recogGlueRaster( const s_glue * gl,
 
 #define PROPMAX   25
 ///////////////
-Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT scale)
+Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, int16_t scale)
 {
  c_comp ec={0};
- INT shift=scale?scale:0;
+ int16_t shift=scale?scale:0;
  uint16_t zero=0;
 
  if( c )
@@ -281,7 +281,7 @@ int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVe
  CSTR_rast_attr  cur;
  CSTR_rast       curr;
  CCOM_comp      *cmp;
- INT             i;
+ int16_t             i;
  UniVersions     evn;
  int32_t           numCell;
 
@@ -401,7 +401,7 @@ int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVe
     }
   if( needVers && evn.lnAltCnt )
         {
-     c2->nvers=(INT)MIN(VERS_IN_CELL-1,evn.lnAltCnt);
+     c2->nvers=(int16_t)MIN(VERS_IN_CELL-1,evn.lnAltCnt);
      for(i=0;i< c2->nvers;i++)
         {
         c2->vers[i].let =evn.Alt[i].Liga; //Code;
@@ -459,8 +459,8 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->r_row = c->r_row   ;
         attr->r_col = c->r_col   ;
 
-  //attr->row=attr->r_row-(INT)((LONG)nIncline*attr->r_col/2048);
-  //attr->col=attr->r_col+(INT)((LONG)nIncline*attr->r_row/2048);
+  //attr->row=attr->r_row-(int16_t)((LONG)nIncline*attr->r_col/2048);
+  //attr->col=attr->r_col+(int16_t)((LONG)nIncline*attr->r_row/2048);
         attr->row=c->row;
         attr->col=c->col;
 
@@ -741,7 +741,7 @@ static void p2_TestAccent()
 }
 ///////////////////
 // from crit_vers in old version (Version)
-// INT crit_vers(Version v,cell * c,const s_glue * gl); // difrv
+// int16_t crit_vers(Version v,cell * c,const s_glue * gl); // difrv
 static int32_t CritVers(cell * BC,s_glue * GL,uchar let,uchar prob)
 {
 void r_criteria(cell *c, const s_glue * gl);         // difrv
@@ -763,7 +763,7 @@ cell cc=*BC;
 /////////////////////
 #define POROG_GOOD_LEO 220
 // распознать cell - по FON (+LEO)
-INT estletter(cell * BC,s_glue * GL)
+int16_t estletter(cell * BC,s_glue * GL)
 {
 RecVersions vers;
 int32_t       i;
@@ -832,7 +832,7 @@ int nClust=0;
           vers.lnAltCnt = VERS_IN_CELL -1 ;
 
 endvers:
-  BC->nvers=(INT)vers.lnAltCnt;
+  BC->nvers=(int16_t)vers.lnAltCnt;
 
   if(vers.lnAltCnt==0)
   {
@@ -954,11 +954,11 @@ void make_all_glues(void);
 
 int32_t p2_setBasLines(CSTR_line lineIn)
 {  // from Vlad version
- extern INT     bs_got;
+ extern int16_t     bs_got;
  extern Bool    line_readyBL;
  CSTR_rast_attr attr;
  CSTR_rast      rst;
- INT            i,minr=0, row;
+ int16_t            i,minr=0, row;
  CSTR_attr      lineAttr;
 
  if(!CSTR_GetLineAttr ( lineIn, &lineAttr))
@@ -968,7 +968,7 @@ int32_t p2_setBasLines(CSTR_line lineIn)
  if( lineAttr.Flags & CSTR_STR_ReadyBL )
     {
     line_readyBL=TRUE;
-	nIncline=(INT)lineAttr.incline; // Nick 30.10.2000
+	nIncline=(int16_t)lineAttr.incline; // Nick 30.10.2000
     if( lineAttr.tab_number )
         {
         for(minr=32000,rst=CSTR_GetNext(CSTR_GetFirstRaster(lineIn));rst;rst=CSTR_GetNext(rst))
@@ -976,14 +976,14 @@ int32_t p2_setBasLines(CSTR_line lineIn)
             CSTR_GetAttr(rst,&attr);
             if( attr.flg&(CSTR_f_let|CSTR_f_punct|CSTR_f_bad) )
                 {
-                row = attr.row-(INT)((LONG)nIncline*attr.col/2048);
+                row = attr.row-(int16_t)((LONG)nIncline*attr.col/2048);
                 if( minr>row )
                     minr=row;
                 }
             }
         }
     }
- minrow=(INT)lineAttr.l_row;
+ minrow=(int16_t)lineAttr.l_row;
  if( minr==32000 )
     minr=minrow;
 
@@ -1026,12 +1026,12 @@ int32_t p2_setBasLines(CSTR_line lineIn)
     bsdust_upper -= (MAX(2,(bbs3-bbs2)/7));
     bsdust_lower = bbs4 + minrow;
 
- nIncline=(INT)lineAttr.incline;
+ nIncline=(int16_t)lineAttr.incline;
 
  {
-  extern INT current_fragment;
+  extern int16_t current_fragment;
 
-  current_fragment=(INT)lineAttr.fragment;
+  current_fragment=(int16_t)lineAttr.fragment;
 //  lineout_fragment();
  }
 return 0;
@@ -2541,7 +2541,7 @@ static int addRaster(c_comp *w, uchar *raster,
  lpool_lth=*(PINT)w;
  w=(c_comp *)((PINT)w+1);
 
- lpool_lth -= sizeof(INT);
+ lpool_lth -= sizeof(int16_t);
 
  lp = (lnhead *)w;
  while ( lp->lth )
