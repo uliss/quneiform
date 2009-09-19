@@ -88,7 +88,7 @@
 extern uchar language;
 
 uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl);
-SINT RazmazHalf(uchar *bSource, uchar *bDest, SINT xbit, SINT yrow);
+int16_t RazmazHalf(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow);
 ///////////////////////
 //
 // штрафуем дальние точки
@@ -220,7 +220,7 @@ static int sig_tab[513] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 0
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 // f
 		};
 ///////////////
-SINT DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl, int xo,
+int16_t DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl, int xo,
 		int yo, int porog, int wei) {
 	int ww = wl->w, hh = wl->h;
 	pchar curr;
@@ -369,14 +369,14 @@ static int DistToWelet(puchar r,int fullByte,int w,int h,welet * wl,
 //
 // штрафуем точки cluster's
 //
-SINT DistWeletRazmaz(puchar r,int fullByte,int w,int h,welet * wl,
+int16_t DistWeletRazmaz(puchar r,int fullByte,int w,int h,welet * wl,
 		int xo,int yo, int porog,int wei)
 {
-	SINT ww=wl->w, hh=wl->h;
+	int16_t ww=wl->w, hh=wl->h;
 	pchar curr;
-	SINT i,j;
+	int16_t i,j;
 	uchar cbyte,cc;
-	SINT rbyte;
+	int16_t rbyte;
 	int dist;
 	int startx=(WR_MAX_WIDTH-w)/2;
 	int starty=(WR_MAX_HEIGHT-h)/2;
@@ -739,9 +739,9 @@ int AddTestAlt(uchar prob, int numAlt, FonTestInfo *attr, welet *wel,
 	return numAlt;
 }
 /////////////
-static SINT CheckLetter(SINT w, SINT h, uchar *buf, uchar *bufrazmaz,
+static int16_t CheckLetter(int16_t w, int16_t h, uchar *buf, uchar *bufrazmaz,
 		FONBASE *fbase, int porog, int let, FonTestInfo *attr, int16_t nInCTB) {
-	SINT dist;
+	int16_t dist;
 	int num = 0, i;
 	int numAlt = 0;
 	welet *wel;
@@ -782,8 +782,8 @@ static uchar buf[REC_MAX_RASTER_SIZE];
 static uchar bufrazmaz[REC_MAX_RASTER_SIZE];
 static uchar const mask0[8] = { 255, 128, 192, 224, 240, 248, 252, 254 };
 //////////////
-SINT RecogClu(uchar *rast, SINT xbyte, SINT xbit, SINT yrow, RECRESULT *recres,
-		SINT maxNames, welet *wl, int numWel, int porog, int nInCTB,
+int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow, RECRESULT *recres,
+		int16_t maxNames, welet *wl, int numWel, int porog, int nInCTB,
 		int16_t col, int16_t row, int32_t countRazmaz) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;
@@ -853,7 +853,7 @@ SINT RecogClu(uchar *rast, SINT xbyte, SINT xbit, SINT yrow, RECRESULT *recres,
 	return i;
 }
 ///////////////////////////
-SINT CheckClu(uchar *rast, SINT xbyte, SINT xbit, SINT yrow, FONBASE *fbase,
+int16_t CheckClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow, FONBASE *fbase,
 		int let, FonTestInfo *attr, int16_t nInCTB) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;
@@ -876,7 +876,7 @@ SINT CheckClu(uchar *rast, SINT xbyte, SINT xbit, SINT yrow, FONBASE *fbase,
 	RazmazHalf(buf,bufrazmaz,xbit,yrow);
 	else
 #endif
-	Razmaz2(buf, bufrazmaz, xbit, yrow, 0, (SINT) POROG_ANGLES);
+	Razmaz2(buf, bufrazmaz, xbit, yrow, 0, (int16_t) POROG_ANGLES);
 
 	//porog=MAX(xbit,yrow);
 	porog = MIN(50, xbit + yrow);
@@ -907,11 +907,11 @@ int CompareCluster(uchar *rast, int xbyte, int xbit, int yrow, welet *wel,
 
 #ifdef _USE_HALF_
 	if( xbit < POROG_HALF_WIDTH || yrow < POROG_HALF_HEIGHT )
-	RazmazHalf(buf,bufrazmaz,(SINT)xbit,(SINT)yrow);
+	RazmazHalf(buf,bufrazmaz,(int16_t)xbit,(int16_t)yrow);
 	else
 #endif
-	Razmaz2(buf, bufrazmaz, (SINT) xbit, (SINT) yrow, (SINT) 0,
-			(SINT) POROG_ANGLES);
+	Razmaz2(buf, bufrazmaz, (int16_t) xbit, (int16_t) yrow, (int16_t) 0,
+			(int16_t) POROG_ANGLES);
 
 	i = distOne(buf, bufrazmaz, xbit, yrow, 85, wel, movex, movey, 1);
 	return MAX(0, 255 - STRAFPOINT * i);
@@ -1097,13 +1097,13 @@ static int distOkr1(puchar r, int w, int h, welet * wl, int xo, int yo,
 //
 // штрафуем точки cluster's
 //
-SINT distOkr2(puchar r, int w, int h, welet * wl, int xo, int yo, int porog,
+int16_t distOkr2(puchar r, int w, int h, welet * wl, int xo, int yo, int porog,
 		int proc) {
-	SINT ww = wl->w, hh = wl->h;
+	int16_t ww = wl->w, hh = wl->h;
 	pchar curr;
-	SINT i, j;
+	int16_t i, j;
 	uchar cbyte, cc;
-	SINT rbyte;
+	int16_t rbyte;
 	int dist;
 	int startx = (WR_MAX_WIDTH - w) / 2;
 	int starty = (WR_MAX_HEIGHT - h) / 2;
@@ -1388,8 +1388,8 @@ static int LookBestOkr(int w, int h, uchar *buf, uchar *razmaz, int NumClus,
 }
 
 ///////////////////////
-int RecogCluOkr(uchar *rast, SINT xbyte, SINT xbit, SINT yrow,
-		RECRESULT *recres, SINT maxNames, welet *wl, int numWel, int porog,
+int RecogCluOkr(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
+		RECRESULT *recres, int16_t maxNames, welet *wl, int numWel, int porog,
 		int nInCTB, int16_t col, int16_t row, int okr, int proc) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;
@@ -1437,7 +1437,7 @@ int CompareClusterOkr(uchar *rast, int xbyte, int xbit, int yrow, welet *wel,
 		memcpy(b1, rast, rbyte);
 		b1[rbyte - 1] &= hvost;
 	}
-	Razmaz2(buf, bufrazmaz, (SINT) xbit, (SINT) yrow, 0, POROG_ANGLES);
+	Razmaz2(buf, bufrazmaz, (int16_t) xbit, (int16_t) yrow, 0, POROG_ANGLES);
 
 	i = distOneOkr(buf, bufrazmaz, xbit, yrow, 250, wel, movex, movey, okr,
 			proc);
@@ -1664,8 +1664,8 @@ static int LookBestInner(int w, int h, uchar *buf, uchar *razmaz, int NumClus,
 static int ScaleSymbol(uchar *inbuf, int fullByte, int allSizeX, int allSizeY,
 		uchar *outbuf, int newX, int newY);
 
-int RecogCluInner(uchar *rast, SINT xbyte, SINT xbit, SINT yrow,
-		RECRESULT *recres, SINT maxNames, welet *wl, int numWel, int nInCTB,
+int RecogCluInner(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
+		RECRESULT *recres, int16_t maxNames, welet *wl, int numWel, int nInCTB,
 		int16_t *col, int16_t *row) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;

@@ -112,9 +112,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "clu_lang.h"
 #include "minmax.h"
 
-SINT DistanceHausDLL(uchar  *b1,SINT xbyte1,SINT yrow1,
-						uchar  *b2,SINT xbyte2,SINT yrow2,
-						SINT porog);
+int16_t DistanceHausDLL(uchar  *b1,int16_t xbyte1,int16_t yrow1,
+						uchar  *b2,int16_t xbyte2,int16_t yrow2,
+						int16_t porog);
 static void CorrectSizes(int *minBig,int *maxBig,int *minLit,int *maxLit,int bSize,int lSize,int porogSize);
 
 // from clu_ita.c
@@ -125,7 +125,7 @@ int32_t TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
 // проверить растр на противоречие с хорошими кластерами
 //
 int TestClusterGood(  Nraster_header *rh, int testClus,int startNum,int count,int NumAll,
-					 int porog,  SINT *nClus, uchar *metkaGood,uchar *metkaValid,int nCompare);
+					 int porog,  int16_t *nClus, uchar *metkaGood,uchar *metkaValid,int nCompare);
 int TestIntersectFields(int count,FONTFIELD *f1,InfoCluster *infoC);
 
 static int AnalizeSizes(InfoCluster *infoC,int numClus,
@@ -167,15 +167,15 @@ int dist;
 
 //     if(rh[i].fat || rh[j].fat )  porog=0;
 
-	 dist=DistanceHausDLL(rh1->pHau,(SINT)(rh1->xbyte),rh1->h,
-		  rh2->pHaur,(SINT)(rh2->xbyte),
-		  (SINT)(rh2->h+1),(SINT)porog);
+	 dist=DistanceHausDLL(rh1->pHau,(int16_t)(rh1->xbyte),rh1->h,
+		  rh2->pHaur,(int16_t)(rh2->xbyte),
+		  (int16_t)(rh2->h+1),(int16_t)porog);
 
 	 if(dist <= porog ) return dist;
 
-	 dist=DistanceHausDLL(rh2->pHau,(SINT)(rh2->xbyte),rh2->h,
-		  rh1->pHaur,(SINT)(rh1->xbyte),
-		  (SINT)(rh1->h+1),(SINT)porog);
+	 dist=DistanceHausDLL(rh2->pHau,(int16_t)(rh2->xbyte),rh2->h,
+		  rh1->pHaur,(int16_t)(rh1->xbyte),
+		  (int16_t)(rh1->h+1),(int16_t)porog);
 
 	 return dist;
 }
@@ -205,7 +205,7 @@ void AddDWORDField(int i,uint32_t *fifi)
 /////////////////////////
 //
 static int GetMaxFrom0(int numSymbol,Nraster_header *rh,
-				  int clusDig,SINT *nClus,
+				  int clusDig,int16_t *nClus,
 				  int bSize,int numClus,InfoCluster *infoC,
 				  uchar *metkaGood,uchar *metkaValid)
 {
@@ -241,7 +241,7 @@ static int GetMaxFrom0(int numSymbol,Nraster_header *rh,
 static char somnitLet[]="\x8E\xA1\x87\x4F"; // ОбЗO-eng
 static char accordDig[]="0630";
 static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
-				     SINT *nClus,int numClus,InfoCluster *infoC )
+				     int16_t *nClus,int numClus,InfoCluster *infoC )
 {
  int i,j;
  int curClus;
@@ -307,7 +307,7 @@ static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
 // выбрать лучшую из 0 как букву О
 //
 static int TestO0b6(int numSymbol,Nraster_header *rh,
-				  int clusDig,int clusLet,SINT *nClus,
+				  int clusDig,int clusLet,int16_t *nClus,
 				  int bSize,int numClus,InfoCluster *infoC,
 				  uchar *metkaGood,int nameLet)
 {
@@ -363,7 +363,7 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
 }
 ///////////////////////
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
-						SINT *nClus,InfoCluster *infoC,int *countC,
+						int16_t *nClus,InfoCluster *infoC,int *countC,
 						uchar *metkaGood,uchar *metkaValid,Bool addLingvo)
 {
  int i;
@@ -467,7 +467,7 @@ static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 					uchar *metkaGood,uchar *metkaValid,
 					int isCluster,int porogSize,
 					Nraster_header *rh,int NumAll,
-					SINT *nClus)
+					int16_t *nClus)
 {
 	int i,best;
 
@@ -902,7 +902,7 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
 }
 ////////////////////////
 // получить кластеры из поля
-static int GetFieldClusters( InfoCluster *infoC, int numCluster,SINT *nClus,
+static int GetFieldClusters( InfoCluster *infoC, int numCluster,int16_t *nClus,
 							Nraster_header *rh, int numSymbol,
 					      uchar *metkaGood, 	int *maxC ,
 						  uint32_t *testField,
@@ -1139,7 +1139,7 @@ endNoFont:
 //////////////////
 
 int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
-					 SINT *nClus,uchar *metka,uchar *metkaValid,
+					 int16_t *nClus,uchar *metka,uchar *metkaValid,
 					 int maxOutFonts,uint32_t *ffFields)
 {
  int i,j;
@@ -1510,7 +1510,7 @@ fillGood:
 	// 25.10.2000
 	{
 	 int TectTablColumn(InfoCluster *infoCluster,int numCluster,int i,Nraster_header *rh,
-		 int numAll,SINT *nClus);
+		 int numAll,int16_t *nClus);
 	 for(i=0;i<numCluster;i++)
 	 {
         if( !infoCluster[i].good )
@@ -1582,7 +1582,7 @@ fillGood:
   	return countFont;
 }
 /////////////////////////
-int GetProbValid(int numSymbol,int numCluster,Nraster_header *rh,SINT *nClus,
+int GetProbValid(int numSymbol,int numCluster,Nraster_header *rh,int16_t *nClus,
 				 uchar *metkaGood,uchar *metkaValid)
 {
 int i,curClus;
@@ -1655,7 +1655,7 @@ static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
 }
 //////////////////
 int MultiFindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
-					 SINT *nClus,uchar *metka,uchar *metkaValid)
+					 int16_t *nClus,uchar *metka,uchar *metkaValid)
 {
 int i;
 int bSize;  // minimal size of big letter

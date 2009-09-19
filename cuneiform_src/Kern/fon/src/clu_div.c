@@ -76,7 +76,7 @@ extern int countCluster[256]; // how many clust
 
 Bool32 BadCluster(InfoCluster *infoC);
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
-						SINT *nClus,InfoCluster *infoC,int *countC,
+						int16_t *nClus,InfoCluster *infoC,int *countC,
 						uchar *metkaGood,uchar *metkaValid,Bool addLingvo);
 
 #define GoodCluster(infoC) (infoC.valid & LEO_VALID_LINGVO )
@@ -261,11 +261,11 @@ static Bool32 SameSizes(InfoCluster *infoC,int i,int j,
 	   return FALSE;
 }
 ///////////////////
-extern SINT DistanceHausDLL(uchar  *b1,SINT xbyte1,SINT yrow1,
-						uchar  *b2,SINT xbyte2,SINT yrow2,
-						SINT porog);
+extern int16_t DistanceHausDLL(uchar  *b1,int16_t xbyte1,int16_t yrow1,
+						uchar  *b2,int16_t xbyte2,int16_t yrow2,
+						int16_t porog);
 /*
-static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
+static int TestRaster(int num,int numSymbol,Nraster_header *rh,int16_t *nClus,
 					  int i1,int i2)
 {
  int sum1=0;
@@ -275,9 +275,9 @@ static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
 	{
 		if(nClus[i] == i1)
 		{
-			sum1+=DistanceHausDLL(rh[num].pHau,rh[num].byte1,SINT yrow1,
-						uchar  *b2,SINT xbyte2,SINT yrow2,
-						SINT porog);
+			sum1+=DistanceHausDLL(rh[num].pHau,rh[num].byte1,int16_t yrow1,
+						uchar  *b2,int16_t xbyte2,int16_t yrow2,
+						int16_t porog);
 		}
 
 	}
@@ -286,7 +286,7 @@ static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
 */
 ////////////////////////
 static int TrySubdivide(int numSymbol,Nraster_header *rh,
-			    SINT *nClus,InfoCluster *infoC,
+			    int16_t *nClus,InfoCluster *infoC,
 				int  nCluster,int numNew,
 				uint32_t *testField,uint32_t *addField,
 				int *smes,int *uniqal )
@@ -412,7 +412,7 @@ static int TrySubdivide(int numSymbol,Nraster_header *rh,
 }
 ///////////////
 
-int TryDivide(int numSymbol,Nraster_header *rh,SINT *nClus,
+int TryDivide(int numSymbol,Nraster_header *rh,int16_t *nClus,
 			  int numCluster )
 {
   int i,j;

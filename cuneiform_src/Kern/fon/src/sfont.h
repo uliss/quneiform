@@ -60,7 +60,7 @@
 #ifndef SFONT_H
 #define SFONT_H
 
-#define SINT signed short int
+#define int16_t signed short int
 #define WR_MAX_HEIGHT   64
 #define WR_MAX_WIDTH    128
 #define WR_SMALL_LET    8
@@ -95,12 +95,12 @@ typedef struct tag_welet {
 	uint16_t h; // actual width and height
 	uint32_t summa; // summa of all weighted points
 	uint16_t fill; // number of not-empty points in raster
-	SINT num; // linear number of struct in file
+	int16_t num; // linear number of struct in file
 	uint32_t fields[NFIELDDWORD]; //  30.11.98 - from which plat. fields
-	SINT sr_col;
-	SINT sr_row; // source row,col
-	SINT nInCTB; // first in CTB
-	SINT next; // next with same name
+	int16_t sr_col;
+	int16_t sr_row; // source row,col
+	int16_t nInCTB; // first in CTB
+	int16_t next; // next with same name
 	uint16_t invalid; // !=0 -> cluster glue
 	uint16_t attr;
 	/*            solid      : 1, // confirmed
@@ -128,7 +128,7 @@ typedef struct tag_raster_header {
 	uint16_t w, h; // actual width and height
 	uint16_t let; // ascii code
 	uchar code[4]; // code of first intervals
-	SINT sr_col, sr_row; // real coord of letter
+	int16_t sr_col, sr_row; // real coord of letter
 	uint16_t num; // number of cluster that was accept raster
 	uint16_t solid :1, // confirmed letter
 			:15;
@@ -143,7 +143,7 @@ typedef struct tag_clu_info {
 	uint16_t ninvalid;
 	uint16_t ntwins;
 	LONG memused; // memory were used
-	SINT rc; // return code
+	int16_t rc; // return code
 } clu_info;
 
 typedef struct tag_access_tab {
@@ -154,28 +154,28 @@ typedef struct tag_access_tab {
 #define SIGNATURE       "Fast access table2"
 	uint16_t access_tab[NCELL][ENTRIES];
 	uint16_t all_access[256];
-	SINT wlsize; // size of cluster in bytes for external utilities
+	int16_t wlsize; // size of cluster in bytes for external utilities
 	char sign[20];
 } access_tab;
 
 typedef struct tag_version {
 #define MAXVERS 8
 	uint16_t let; // letter code
-	SINT prob; // probability
-	SINT aux; // working var
+	int16_t prob; // probability
+	int16_t aux; // working var
 	uint16_t recsource :2; // Who is recognize
 #define src_letter      0
 #define src_full        1
 #define src_3x5         2
 #define src_ev          3
 	uint16_t mixp :1; // prob was fixed
-	SINT xo :2, yo :2;
+	int16_t xo :2, yo :2;
 } Version;
 
 typedef struct tag_answer {
 	Version vers[MAXVERS + 1];
 	uchar nvers;
-	SINT ret;
+	int16_t ret;
 	uint16_t recletterdone :1, // recognition method
 			recfulldone :1, // recognition method
 			recdone :1, // recognize was made
@@ -202,9 +202,9 @@ typedef struct tag_Nraster_header {
 	uint16_t let;
 	uchar *pHau; // pointer to picture
 	uchar *pHaur; // pointer to thick picture
-	SINT sr_col;
-	SINT sr_row;
-	SINT nInCTB; // number in CTB
+	int16_t sr_col;
+	int16_t sr_row;
+	int16_t nInCTB; // number in CTB
 	uint16_t nField; // field in plat
 	uint16_t num; // use to mark - if >0 - invalid, and = ClusterNumber
 	uchar solid :1, fat :1, italic :1, bold :1, serif :1, gelv :1, narrow :1,
@@ -246,12 +246,12 @@ typedef struct tagFontField {
 
 #define METKA_VALID 0x80  // get as good in font
 #define POROG_ANGLES  20           // 18 ?
-SINT Razmaz2(uchar *bSource, uchar *bDest, SINT xbit, SINT yrow, SINT porogX,
-		SINT porogY);
-SINT Razmaz2xByte(uchar *bSource, uchar *bDest, SINT xbyteAll, SINT xbit,
-		SINT yrow, SINT porogX, SINT porogY);
+int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_t porogX,
+		int16_t porogY);
+int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbit,
+		int16_t yrow, int16_t porogX, int16_t porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
-		SINT *nClus, InfoCluster *infoC, int porog);
+		int16_t *nClus, InfoCluster *infoC, int porog);
 LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
@@ -259,7 +259,7 @@ void EndNumMemory(void);
 int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus,
 		int16_t countFont, uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
-SINT Razmaz(uchar *bSource, uchar *bDest, SINT xbyte, SINT xbit, SINT yrow,
+int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_t yrow,
 		uchar bold);
 #endif
 

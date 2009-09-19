@@ -174,8 +174,6 @@ typedef const char* LPCTSTR;
 
 #endif
 
-typedef int16_t SINT;
-
 typedef LONG * PLONG;
 typedef uint32_t * PDWORD;
 

@@ -74,7 +74,7 @@ typedef struct tagFONBase
 	}
 	FONBASE;
 
-//SINT CutOffClusters(welet *ww,SINT num);
+//int16_t CutOffClusters(welet *ww,int16_t num);
 typedef struct tagRecResult
 {
    short int nClust;
@@ -86,8 +86,8 @@ RECRESULT;
 
 int AddVersion(RECRESULT *recres,uchar let,uchar rec,int nClust,
 			   int num,int maxNames);
-SINT RecogClu(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
-              RECRESULT *recResult,SINT size,
+int16_t RecogClu(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
+              RECRESULT *recResult,int16_t size,
               welet *wl, int numWelet,
               int porog,int nInCTB,int16_t col,int16_t row,int32_t countRazmaz);
 int32_t GetNearestClusters (int num, welet *wel,int numWel ,

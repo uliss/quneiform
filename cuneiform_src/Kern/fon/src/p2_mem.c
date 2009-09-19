@@ -82,13 +82,13 @@ void EndNumMemory(void)
 	numAddedMemory=0;
 }
 ///////////////
-static SINT MakeBitmapsRecRaster(Nraster_header  *rhh,
+static int16_t MakeBitmapsRecRaster(Nraster_header  *rhh,
 								 RecRaster *r)
 {
 uchar *AddBuffer(LONG sizebitmap);
 
- SINT j,i;
- SINT sx=rhh->w,sy=rhh->h,sxbyte;
+ int16_t j,i;
+ int16_t sx=rhh->w,sy=rhh->h,sxbyte;
  LONG sizebitmap;
  uchar *pic,*pp;
  int32_t wb = ((r->lnPixWidth+63)/64)*8;

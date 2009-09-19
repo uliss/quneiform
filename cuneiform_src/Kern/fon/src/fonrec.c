@@ -328,7 +328,7 @@ FON_FUNC(int32_t) FONInit(char *name)
 	for(i=0,j=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++)
 	if( wel->attr & FON_CLU_SOLID ) j=i;
 	fonbase.inBase=j+1; // not need not-solid for recognition !
-	FONCutOffClusters(fonbase.start,(SINT)fonbase.inBase);
+	FONCutOffClusters(fonbase.start,(int16_t)fonbase.inBase);
 
 	SetFirstNext();
 
@@ -531,8 +531,8 @@ FON_FUNC(int32_t) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpe
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=RecogClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-			recres,(SINT)REC_MAX_VERS, fonbase.start,fonbase.inBase,-1,
+	ret=RecogClu(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
+			recres,(int16_t)REC_MAX_VERS, fonbase.start,fonbase.inBase,-1,
 			nInCTB,col,row, countRazmaz);
 
 	if(ret < 0) return ret;
@@ -705,14 +705,14 @@ FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *attr,int
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	SINT CheckClu(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
+	int16_t CheckClu(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
 			FONBASE *fbase,int let,FonTestInfo *attr,int16_t nInCTB);
 
 	if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
 			xbit > WR_MAX_WIDTH -2 )
 	return -2;
 
-	ret=CheckClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
+	ret=CheckClu(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
 			&fonbase,let,attr,nInCTB);
 
 	return ret;
@@ -869,12 +869,12 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 //static uint16_t  (*_cmp)(puchar r,uint16_t h,uint16_t w,welet * wl,INT xo,INT yo);
 
 ///////////////////////
-SINT cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT xo, SINT yo) {
+int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, int16_t xo, int16_t yo) {
 	LONG n, ac, np;
 	pchar curr;
-	SINT i, j, jj;
+	int16_t i, j, jj;
 	uchar cbyte, cc;
-	SINT rbyte;
+	int16_t rbyte;
 	int avr;
 
 	n = ac = np = 0;
@@ -909,12 +909,12 @@ SINT cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT 
 	n *= n;
 	n /= avr;
 	ac -= n; // progressive penalty
-	return (SINT) ((ac <= 0) ? 0 : (ac * 255) / wl->summa);
+	return (int16_t) ((ac <= 0) ? 0 : (ac * 255) / wl->summa);
 }
 ///////////////////////
 // _cmp = cmpMMX  - was in Tiger
-static SINT (*_cmp)(puchar r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, SINT xo,
-		SINT yo) = cmp0;
+static int16_t (*_cmp)(puchar r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, int16_t xo,
+		int16_t yo) = cmp0;
 ///////////
 uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
 	uint16_t best, east, west, north, south, center;
@@ -1313,8 +1313,8 @@ static int DiskriminatorTest(void)
 FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
 		int32_t *recBounds)
 {
-	SINT RecogCluBound(uchar *rast,SINT xbyte,SINT xbit,SINT yyrow,uchar *names,
-			uchar *probs,SINT maxNames,welet *wl,int numWel,
+	int16_t RecogCluBound(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,uchar *names,
+			uchar *probs,int16_t maxNames,welet *wl,int numWel,
 			int *bounds,int countRazmaz);
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -1328,8 +1328,8 @@ FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=RecogCluBound(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-			names,probs,(SINT)REC_MAX_VERS, fonbase.start,fonbase.inBase,
+	ret=RecogCluBound(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
+			names,probs,(int16_t)REC_MAX_VERS, fonbase.start,fonbase.inBase,
 			recBounds, 1 );
 
 	if(ret <= 0) return 0;
@@ -1362,9 +1362,9 @@ FON_FUNC(int32_t) FONRecogKley(RecRaster *recRast,RecVersions *collection)
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=KleyRecog(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
+	ret=KleyRecog(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
 			fonbase.start,fonbase.inBase, 20, // porog
-			names,probs,(SINT)REC_MAX_VERS );
+			names,probs,(int16_t)REC_MAX_VERS );
 
 	if(ret <= 0) return 0;
 
@@ -1460,8 +1460,8 @@ FON_FUNC(int32_t) FONGetNearestClusters( RecRaster* recRast, // symbol
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=RecogClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-			recres,(SINT)nClustAltLen,
+	ret=RecogClu(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
+			recres,(int16_t)nClustAltLen,
 			fonbase.start,fonbase.inBase,
 			nDistLevel,0,-1024,-1024,1);
 
@@ -1613,8 +1613,8 @@ FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpec
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
 	int16_t col,row;
-	int RecogCluOkr(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
-			RECRESULT *recres, SINT maxNames,
+	int RecogCluOkr(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
+			RECRESULT *recres, int16_t maxNames,
 			welet *wl,int numWel,
 			int porog ,int nInCTB, int16_t col, int16_t row,
 			int okr, int proc);
@@ -1641,8 +1641,8 @@ FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpec
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=RecogCluOkr(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-			recres,(SINT)REC_MAX_VERS, fonbase.start,fonbase.inBase,-1,
+	ret=RecogCluOkr(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
+			recres,(int16_t)REC_MAX_VERS, fonbase.start,fonbase.inBase,-1,
 			nInCTB,col,row,okr,proc );
 
 	if(ret < 0) return ret;
@@ -1731,8 +1731,8 @@ FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSp
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
 	int16_t col,row;
-	int RecogCluInner(uchar *rast,SINT xbyte,SINT xbit,SINT yrow,
-			RECRESULT *recres, SINT maxNames,
+	int RecogCluInner(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
+			RECRESULT *recres, int16_t maxNames,
 			welet *wl,int numWel,
 			int nInCTB, int16_t *col, int16_t *row);
 
@@ -1758,8 +1758,8 @@ FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSp
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=RecogCluInner(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-			recres,(SINT)REC_MAX_VERS, fonbase.start,fonbase.inBase,
+	ret=RecogCluInner(recRast->Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast->lnPixHeight,
+			recres,(int16_t)REC_MAX_VERS, fonbase.start,fonbase.inBase,
 			nInCTB,&col,&row );
 
 	if(ret < 0)
