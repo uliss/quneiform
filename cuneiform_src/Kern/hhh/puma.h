@@ -285,17 +285,20 @@ DEC_FUN(Bool32, PUMA_SetSpecialProject,(uchar nSpecPrj))
 #undef DEC_FUN
 
 // Format codes
-# define PUMA_TOEDNATIVE      0
-# define PUMA_TOTEXT          0x02
-# define PUMA_TOSMARTTEXT     0x04
-# define PUMA_TORTF           0x08
-# define PUMA_TOTABLETXT      0x0100
-# define PUMA_TOTABLECSV      0x0200
-# define PUMA_TOTABLEDBF      0x0400
-# define PUMA_TOTABLEODBC     0x0800
-# define PUMA_TOTABLEWKS      0x1000
-# define PUMA_TOHTML          0x2000
-# define PUMA_TOHOCR          0x4000
+enum {
+	PUMA_TOEDNATIVE = 0,
+	PUMA_TOTEXT = 0x02,
+	PUMA_TOSMARTTEXT = 0x04,
+	PUMA_TORTF = 0x08,
+	PUMA_TOTABLETXT = 0x0100,
+	PUMA_TOTABLECSV = 0x0200,
+	PUMA_TOTABLEDBF = 0x0400,
+	PUMA_TOTABLEODBC = 0x0800,
+	PUMA_TOTABLEWKS = 0x1000,
+	PUMA_TOHTML = 0x2000,
+	PUMA_TOHOCR = 0x4000,
+};
+
 #ifdef _DEBUG
 # define PUMA_DEBUG_TOTEXT	  0x12
 #endif
