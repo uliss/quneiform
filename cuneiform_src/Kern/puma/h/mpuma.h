@@ -239,13 +239,6 @@ EXTERN _CrtMemState g_dbgMemState;
 
 #endif
 
-// Флаги обновления контейнеров
-// перехали в mpumatime.h
-//#define FLG_UPDATE_NO		0
-//#define FLG_UPDATE			(uint32_t)-1
-//#define FLG_UPDATE_CCOM		0x1
-//#define FLG_UPDATE_CPAGE	0x2
-
 EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
@@ -264,13 +257,7 @@ EXTERN PRGTIME g_PrgTime;
 // Вынес Бинаризацию наверх из PreProcessImage
 //////////////////////////////////////////////////////////Allex
 EXTERN CIMAGEBITMAPINFOHEADER info;
-//EXTERN PUMALinesBuffer        gSVLBuffer            VALM(0);
-//#define PUMA_SVL_FIRST_STEP                         0x1
-//#define PUMA_SVL_SECOND_STEP                        0x2
-//#define PUMA_SVL_THRID_STEP                         0x3
-//#define PUMAMaxNumLines                             2000
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 //functions
 void SetReturnCode_puma(uint32_t rc);
 uint32_t GetReturnCode_puma();
@@ -327,8 +314,6 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
 void SetOptionsToFRMT(void);
 Bool32 SaveToText(char * lpOutFileName, int code);
-//    Bool32  HL_TableExtract( Handle hPAGE, uint32_t type, Rect32 rect );
-//    Bool32  HL_TableExtractEx( Handle hPAGE, uint32_t perc, Rect32 rect );
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
@@ -366,14 +351,6 @@ Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,
 		Bool32 bAppend);
 uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
 		Byte * lpMem, uint32_t size);
-/*
- Bool32 ReadSVLFromPageContainer ( LinesTotalInfo * );
- Bool32 ShortVerticalLinesProcess ( uint32_t );
- Bool32 SVLFilter(LinesTotalInfo *, LinesTotalInfo *);
- Bool32 SVLComponentFilter(LineInfo *);
- Bool32 IsRectIntersect(Rect16 *, Rect16 *);
- Bool32 CompIsGood (CCOM_comp *, int32_t );
- */
 //////////////////////////////////////////////////////////////////////////////////
 
 #endif
