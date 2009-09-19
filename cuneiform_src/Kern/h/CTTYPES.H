@@ -80,14 +80,10 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
-//typedef int16_t int16_t;  _SETTYPES( int16_t )
-//typedef uint16_t uint16_t;_SETTYPES( uint16_t )
-typedef long double Float80;
-
-typedef int16_t Bool16;
-typedef int32_t Bool32;_SETTYPES( Bool32 )
 
 typedef int Bool;
+typedef int16_t Bool16;
+typedef int32_t Bool32;_SETTYPES( Bool32 )
 
 typedef unsigned long ulong;
 typedef unsigned int uint;

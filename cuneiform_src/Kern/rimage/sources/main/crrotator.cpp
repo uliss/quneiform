@@ -179,9 +179,9 @@ CRRotator::~CRRotator()
 Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum)
 {
 	Bool32  Ret = FALSE;
-	Float80   fNum    = (Float80)Num;
-	Float80   fDenum  = (Float80)Denum;
-	Float80   fG      = sqrt( fNum * fNum + fDenum * fDenum );
+	long double   fNum    = (long double)Num;
+	long double   fDenum  = (long double)Denum;
+	long double   fG      = sqrt( fNum * fNum + fDenum * fDenum );
 
 	if ( Num == 0 || Denum == 0)
 	{
@@ -497,7 +497,7 @@ void CRRotator::PrepareTables( uint32_t wMax, uint32_t wCheck)
 	int32_t  Shift;
 	int32_t  PrevS;
 	int32_t  PrevI;
-	Float80 dmTan = (mfTang > 0 ? mfTang : -mfTang);
+	long double dmTan = (mfTang > 0 ? mfTang : -mfTang);
 
 	for (PrevS = PrevI = i = 0; i < wMax; i++ )
 	{
@@ -546,9 +546,9 @@ void CRRotator::ShiftLineLA(uint32_t LocalShift, uint32_t wBytesTo )
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CRRotator::Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum)
 {
-	Float80   fNum    = (Float80)Num;
-	Float80   fDenum  = (Float80)Denum;
-	Float80   fG      = sqrt( fNum * fNum + fDenum * fDenum );
+	long double   fNum    = (long double)Num;
+	long double   fDenum  = (long double)Denum;
+	long double   fG      = sqrt( fNum * fNum + fDenum * fDenum );
 
 	mfTang =  fNum / fDenum;
 	mfCos  =  fDenum / fG;
@@ -850,12 +850,12 @@ Bool32 CRRotator::RollPoint(int32_t X, int32_t Y, int32_t * pnX, int32_t * pnY)
 {
 	if ( pnX )
 	{
-		*pnX = (int32_t)(((Float80)X * mfCos) + ((Float80)Y * mfSin));
+		*pnX = (int32_t)(((long double)X * mfCos) + ((long double)Y * mfSin));
 	}
 
 	if ( pnY )
 	{
-		*pnY = (int32_t)(((Float80)Y * mfCos) - ((Float80)X * mfSin));
+		*pnY = (int32_t)(((long double)Y * mfCos) - ((long double)X * mfSin));
 	}
 
 	return TRUE;

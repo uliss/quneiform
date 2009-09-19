@@ -124,9 +124,9 @@ protected:
 	uint32_t           AtX;
 	int32_t            VerticalShift;
 	int32_t            HorisontalShift;
-	Float80            mfCos;
-	Float80            mfSin;
-	Float80            mfTang;
+	long double            mfCos;
+	long double            mfSin;
+	long double            mfTang;
 	puchar             BufferForGray;
 	int32_t *          HShiftTable;
 	uint32_t *         VShiftTable;
