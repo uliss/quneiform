@@ -1470,7 +1470,7 @@ return;
 // knot for Alik debug. Absent pass 'j'
 Bool Alik_snap_show_raster(puchar raster,puchar raster1,puchar buf,int16_t height,
                            int16_t width,pchar product,pchar product_two,
-                           PINT penalty)
+                           pint16_t penalty)
 
 {
 return FALSE;

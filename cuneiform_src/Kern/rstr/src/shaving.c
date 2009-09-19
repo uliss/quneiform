@@ -87,7 +87,7 @@ typedef unsigned char near *	puchar;
 
 typedef signed short int		int16_t;
 typedef unsigned short int		uint16_t;
-typedef signed short int near *		PINT;
+typedef signed short int near *		pint16_t;
 typedef unsigned short int near *	PWORD;
 
 /*			Double word size data				*/

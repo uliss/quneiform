@@ -104,7 +104,7 @@ int16_t Alik_define_cut_points(
 
 {
  int16_t    hor_byte,ver_byte,nshort,CP,i,j,bl_up,bl_dw,tret_h;
- PINT   penalty,cut_points,adr_cut_points,my_penalty;
+ pint16_t   penalty,cut_points,adr_cut_points,my_penalty;
  pchar  adrw,adrw_two,product,product_two,trace,adr_raster,stek,adr_ras_two,
         SourceRaster;
  puchar  IntBuf,CountCut,UpBlackPoint;
@@ -116,7 +116,7 @@ char snap[380],*buf=snap;
  Z=Z;
  bl_up=bbs2;
  bl_dw=bbs3;
- adr_cut_points=(PINT)ForRaster3;
+ adr_cut_points=(pint16_t)ForRaster3;
  ans_ptr=ans;
  hor_byte=(dx+7)>>3;
  ver_byte=(dy+7)>>3;
@@ -127,9 +127,9 @@ char snap[380],*buf=snap;
  adr_raster=(pchar)MemForCutPoints;        /* ��� ��室�� �࠭ᯮ��஢���� ���� */
  adrw=adr_raster+CP;                /* ��� ��ࠡ�⠭�� �࠭ᯮ��஢���� ���� */
  trace=adrw+(CP>i?CP:i);            /* ��� ��室  */
- penalty=(PINT)trace+dx;            /* ��� ����� */
+ penalty=(pint16_t)trace+dx;            /* ��� ����� */
  product=(pchar)(penalty+dx);       /* ��� �ந�������� ��᫥����⥫��� �⮫�殢 */
- cut_points=(PINT)(product+dx);     /* ��� �窨 ࠧ१���� */
+ cut_points=(pint16_t)(product+dx);     /* ��� �窨 ࠧ१���� */
 
  adrw_two=(pchar)MemForCutPointsTwo;
  adr_ras_two = adrw_two+(CP>i?CP:i);
@@ -137,7 +137,7 @@ char snap[380],*buf=snap;
  UpBlackPoint= (puchar)(product_two+dx);
  CountCut    = (puchar)(UpBlackPoint+dx);
  SourceRaster= (pchar)(CountCut+dx);
- my_penalty  = (PINT)(SourceRaster+(CP>i?CP:i));
+ my_penalty  = (pint16_t)(SourceRaster+(CP>i?CP:i));
  IntBuf      = (puchar)(my_penalty+dx);
 
  CP = (dx<3||dy<3)? 0 : 1;          /* १��� �� �㤥�, �᫨ ���� ��� �� ������ �� ���ࠢ����� */
@@ -149,7 +149,7 @@ if(CP)
    memset(CountCut,0,dx);
 
    Alik_tr_bit_matr(ver_byte,dy,raster_frag,adr_raster,hor_byte,dx); /* �࠭ᯮ��஢���� ��室���� ���� */
-   memset((PINT)trace,0,sizeof(int16_t)*dx);      /* ���㫥��� ���� ���⮢�� ���ᨢ�� */
+   memset((pint16_t)trace,0,sizeof(int16_t)*dx);      /* ���㫥��� ���� ���⮢�� ���ᨢ�� */
    memset(penalty,0,sizeof(int16_t)*dx);          /* ���㫥��� ���ᨢ� ���䮢 */
    CP=Alik_del_detail(raster_frag,dx,(int16_t)(dy*hor_byte),penalty);
    if(!CP && dx>20 && dx<=128) CP=1;   //10-09-96 03:24pm  Alik  cten33.tif
@@ -175,7 +175,7 @@ if(CP)
      Alik_cut_short(adrw,adrw_two,dx,ver_byte,product,penalty,cut_points,product_two);
      nshort=*cut_points;
      Alik_cut_hole(trace,dx,cut_points,nshort,dy,product,penalty,0x00);
-     Alik_del_equal_hole(cut_points,product,(PINT)penalty,dx,dy,nshort);
+     Alik_del_equal_hole(cut_points,product,(pint16_t)penalty,dx,dy,nshort);
 
 #ifdef AlikBl
      if( db_status && snap_activity('j') && snap_activity('a'))
@@ -236,8 +236,8 @@ if(CP)
 
      if(CP)
       {
-       CP=Alik_sort(cut_points,(PINT)adr_cut_points,dx);
-       if(CP)  CP=Alik_del_doubl_cut((PINT)adr_cut_points,product,penalty,CP);
+       CP=Alik_sort(cut_points,(pint16_t)adr_cut_points,dx);
+       if(CP)  CP=Alik_del_doubl_cut((pint16_t)adr_cut_points,product,penalty,CP);
       }
      CP=MIN(STK_H-2,CP);
 
@@ -246,7 +246,7 @@ if(CP)
 
  if(CP)
   {
-   Alik_cor_pnt((PINT)adr_cut_points,penalty,cut_points,CP,dx,dy,ver_byte,(pchar)adrw,(pchar)trace);
+   Alik_cor_pnt((pint16_t)adr_cut_points,penalty,cut_points,CP,dx,dy,ver_byte,(pchar)adrw,(pchar)trace);
    Alik_form_bound(adr_raster,dx,dy,ver_byte,trace,1);
  	 stek=(pchar)(penalty+((CP+1)<<2)-(CP+1));  /* ��९��뢠�� �ࠣ����� ����� ��室� */
  	 cut_points=penalty+3*(CP-1)+1;
@@ -261,7 +261,7 @@ if(CP)
 
    for(j=CP-1,i=0; j>=0; j--,i+=2)
     {
-     ans_ptr->x   = (char)*((PINT)adr_cut_points+j);
+     ans_ptr->x   = (char)*((pint16_t)adr_cut_points+j);
      ans_ptr->h   = dy - *(trace+i);
      ans_ptr->dh  = dy+1 - *(trace+i+1)-*(trace+i);
      ans_ptr->dh  = (char)MIN(ans_ptr->dh,dy);
@@ -284,7 +284,7 @@ if(CP)
 }
 
 void Alik_new_points(int16_t *CP,struct own_cut *a,struct own_cut *ptr,int16_t dy,
-                     int16_t dx,PINT pen,pchar prod)
+                     int16_t dx,pint16_t pen,pchar prod)
 {
 int16_t i,j,count,min_pen,min_prod,real_x,Ix,IIx;
 
@@ -325,7 +325,7 @@ int16_t i,j,count,min_pen,min_prod,real_x,Ix,IIx;
  ptr->x=127;
 }
 
-void Alik_cor_height_and_var(int16_t CP,struct own_cut *ans,PINT pen,int16_t dx,
+void Alik_cor_height_and_var(int16_t CP,struct own_cut *ans,pint16_t pen,int16_t dx,
                              int16_t dy)
 {
 int16_t i,Count;

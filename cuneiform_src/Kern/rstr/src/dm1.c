@@ -113,7 +113,7 @@ static int16_t owned_dust(cell *,cell *);
 cell * finpat(cell *,s_glue *, int16_t, uchar, uchar);
 void svcell_to_cell(cell *c);
 void cell_to_svcell(cell *c);
-static int16_t rec_own(cell *,s_glue *,int16_t,int16_t,int16_t,PINT);
+static int16_t rec_own(cell *,s_glue *,int16_t,int16_t,int16_t,pint16_t);
 static int16_t forbid_stick_cut(cell *,cut_pos *,int16_t);
 
 #define TUR_PALKA_POROG 211

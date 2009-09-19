@@ -466,14 +466,14 @@ static puchar save_kit(puchar c, int16_t l)
  puchar w;
  if (ED_file_end - kit_curr - 2 < l)
 	ErrorExit (RSTR_ERR_NOPLACE);
- *(PINT) kit_curr=l; memcpy (kit_curr+2,c,l);
+ *(pint16_t) kit_curr=l; memcpy (kit_curr+2,c,l);
  w=kit_curr; kit_curr+=l+2;
  return w;
 }
 
 static void rest_kit(puchar s, puchar k)
 {
- memcpy(s,k+2,*(PINT)k);
+ memcpy(s,k+2,*(pint16_t)k);
 }
 
 static puchar comp_to_kit(MN * mn)
@@ -545,8 +545,8 @@ static void comp_from_kit(cell *c)
 	{
 		memcpy (&wcomp,w,sizeof(c_comp));
 		w = (c_comp *)((puchar)w + w->lines);
-		lpool_lth=*(PINT)w;
-		w=(c_comp *)((PINT)w+1);
+		lpool_lth=*(pint16_t)w;
+		w=(c_comp *)((pint16_t)w+1);
 		memcpy (lpool,w,lpool_lth);
 		rec_ptr=start_rec;
 	}
@@ -557,7 +557,7 @@ void online_comp(c_comp *w)
 {
  memcpy (&wcomp,w,sizeof(c_comp));
  w = (c_comp *)((puchar)w + w->lines);
- lpool_lth=*(PINT)w; w=(c_comp *)((PINT)w+1);
+ lpool_lth=*(pint16_t)w; w=(c_comp *)((pint16_t)w+1);
  memcpy (lpool,w,lpool_lth);
  rec_ptr=start_rec;
 }

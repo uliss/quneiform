@@ -169,7 +169,7 @@ Bool snap_stopcell(cell *, cell *);
 Bool snap_activity(uchar);
 Bool snap_is_marked(CSTR_line ln);
 Bool snap_show_raster(puchar, int16_t, int16_t);
-Bool Alik_snap_show_raster(puchar, puchar, puchar, int16_t, int16_t, pchar, pchar, PINT);
+Bool Alik_snap_show_raster(puchar, puchar, puchar, int16_t, int16_t, pchar, pchar, pint16_t);
 void snap_newcut(void);
 void snap_show_cuts(cell *C, struct cut_elm *cut_points);
 void snap_newpoint(int16_t i);

@@ -2538,8 +2538,8 @@ static int addRaster(c_comp *w, uchar *raster,
  int wid = bytesx<<3;
 
  w = (c_comp *)((puchar)w + w->lines);
- lpool_lth=*(PINT)w;
- w=(c_comp *)((PINT)w+1);
+ lpool_lth=*(pint16_t)w;
+ w=(c_comp *)((pint16_t)w+1);
 
  lpool_lth -= sizeof(int16_t);
 

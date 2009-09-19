@@ -165,8 +165,8 @@ static void v2_pidx_crit(CSTR_rast c) {
  {
  memcpy (&wcomp,w,sizeof(c_comp));
  w = (c_comp *)((puchar)w + w->lines);
- lpool_lth=*(PINT)w;
- w=(c_comp *)((PINT)w+1);
+ lpool_lth=*(pint16_t)w;
+ w=(c_comp *)((pint16_t)w+1);
  memcpy (lpool,w,lpool_lth);
  rec_ptr=start_rec;
  }

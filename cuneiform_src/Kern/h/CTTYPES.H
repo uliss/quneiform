@@ -91,6 +91,7 @@ typedef unsigned char uchar;
 typedef char * pchar;
 typedef unsigned char * puchar;
 typedef void * pvoid;
+typedef int16_t * pint16_t;
 
 #ifndef   FALSE
 #define FALSE               0
