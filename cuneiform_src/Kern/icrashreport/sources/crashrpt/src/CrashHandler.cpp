@@ -89,8 +89,8 @@ int32_t WINAPI CustomUnhandledExceptionFilter(PEXCEPTION_POINTERS pExInfo)
 }
 
 CCrashHandler::CCrashHandler(LPGETLOGFILE lpfn /*=NULL*/,
-                             LPCTSTR lpcszTo /*=NULL*/,
-                             LPCTSTR lpcszSubject /*=NULL*/,
+                             const char * lpcszTo /*=NULL*/,
+                             const char * lpcszSubject /*=NULL*/,
 							 bool bInstallHandler /*= true*/)
 {
    // wtl initialization stuff...
@@ -148,7 +148,7 @@ CCrashHandler::~CCrashHandler()
 
 }
 
-void CCrashHandler::AddFile(LPCTSTR lpFile, LPCTSTR lpDesc)
+void CCrashHandler::AddFile(const char * lpFile, const char * lpDesc)
 {
    // make sure the file exist
    HANDLE hFile = ::CreateFile(
@@ -243,13 +243,13 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
 		return;
 
    // add crash files to report
-   m_files[rpt.getCrashFile(dumpType)] = CString((LPCTSTR)IDS_CRASH_DUMP);
-   m_files[rpt.getCrashLog()] = CString((LPCTSTR)IDS_CRASH_LOG);
+   m_files[rpt.getCrashFile(dumpType)] = CString((const char *)IDS_CRASH_DUMP);
+   m_files[rpt.getCrashLog()] = CString((const char *)IDS_CRASH_LOG);
 
    // add symbol files to report
    for (i = 0; i < (uint)rpt.getNumSymbolFiles(); i++)
-      m_files[(LPCTSTR)rpt.getSymbolFile(i)] =
-      CString((LPCTSTR)IDS_SYMBOL_FILE);
+      m_files[(const char *)rpt.getSymbolFile(i)] =
+      CString((const char *)IDS_SYMBOL_FILE);
 
    // zip the report
    if (!zlib.Open(sTempFileName))
@@ -289,14 +289,14 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
    DeleteFile(sTempFileName);
 }
 
-Bool CCrashHandler::SaveReport(CExceptionReport&, LPCTSTR lpcszFile)
+Bool CCrashHandler::SaveReport(CExceptionReport&, const char * lpcszFile)
 {
    // let user more zipped report
    return (CopyFile(lpcszFile, CUtility::getSaveFileName(), TRUE));
 }
 
-Bool CCrashHandler::MailReport(CExceptionReport&, LPCTSTR lpcszFile,
-                               LPCTSTR lpcszEmail, LPCTSTR lpcszDesc)
+Bool CCrashHandler::MailReport(CExceptionReport&, const char * lpcszFile,
+                               const char * lpcszEmail, const char * lpcszDesc)
 {
    CMailMsg msg;
    msg

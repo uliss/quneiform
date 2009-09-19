@@ -99,7 +99,7 @@ CString IRecognition::GetUserDictName()
 	return result;
 }
 
-void IRecognition::SetUserDictName(LPCTSTR lpszNewValue)
+void IRecognition::SetUserDictName(const char * lpszNewValue)
 {
 	static uchar parms[] =
 		VTS_BSTR;
@@ -174,7 +174,7 @@ CString IRecognition::GetSerifName()
 	return result;
 }
 
-void IRecognition::SetSerifName(LPCTSTR lpszNewValue)
+void IRecognition::SetSerifName(const char * lpszNewValue)
 {
 	static uchar parms[] =
 		VTS_BSTR;
@@ -189,7 +189,7 @@ CString IRecognition::GetSansSerifName()
 	return result;
 }
 
-void IRecognition::SetSansSerifName(LPCTSTR lpszNewValue)
+void IRecognition::SetSansSerifName(const char * lpszNewValue)
 {
 	static uchar parms[] =
 		VTS_BSTR;
@@ -204,7 +204,7 @@ CString IRecognition::GetCourierName()
 	return result;
 }
 
-void IRecognition::SetCourierName(LPCTSTR lpszNewValue)
+void IRecognition::SetCourierName(const char * lpszNewValue)
 {
 	static uchar parms[] =
 		VTS_BSTR;
@@ -286,7 +286,7 @@ void IRecognition::Unload()
 	InvokeHelper(0x14, DISPATCH_METHOD, VT_EMPTY, NULL, NULL);
 }
 
-long IRecognition::RecogDIBtoFile(long hDIB, LPCTSTR lpFileName, short shFormat, short shCode)
+long IRecognition::RecogDIBtoFile(long hDIB, const char * lpFileName, short shFormat, short shCode)
 {
 	long result;
 	static uchar parms[] =
@@ -323,7 +323,7 @@ long IRecognition::RecogClipboard()
 	return result;
 }
 
-long IRecognition::XOpen(long hDIB, LPCTSTR FileName)
+long IRecognition::XOpen(long hDIB, const char * FileName)
 {
 	long result;
 	static uchar parms[] =
@@ -350,7 +350,7 @@ long IRecognition::XRecognition(long bThread, long context)
 	return result;
 }
 
-long IRecognition::XSave(LPCTSTR FileName, long Format, long Code)
+long IRecognition::XSave(const char * FileName, long Format, long Code)
 {
 	long result;
 	static uchar parms[] =
@@ -577,7 +577,7 @@ void IRecognition::SetPageSize(long width, long height)
 		 width, height);
 }
 
-void IRecognition::RenameImageFile(LPCTSTR name)
+void IRecognition::RenameImageFile(const char * name)
 {
 	static uchar parms[] =
 		VTS_BSTR;
@@ -625,7 +625,7 @@ void IRecognition::SetPreserveLineBreaks(long nNewValue)
 		 nNewValue);
 }
 
-long IRecognition::Save(long hEdPage, LPCTSTR FileName, long Format, long Code, long bAppend)
+long IRecognition::Save(long hEdPage, const char * FileName, long Format, long Code, long bAppend)
 {
 	long result;
 	static uchar parms[] =

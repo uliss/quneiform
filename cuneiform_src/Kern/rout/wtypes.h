@@ -257,7 +257,7 @@ typedef char char;
 
 typedef /* [string] */ char __RPC_FAR *char*;
 
-typedef /* [string] */ const char __RPC_FAR *LPCSTR;
+typedef /* [string] */ const char __RPC_FAR *const char *;
 
 #ifndef _WCHAR_DEFINED
 #define _WCHAR_DEFINED
@@ -266,13 +266,13 @@ typedef wchar_t WCHAR;
 typedef WCHAR TCHAR;
 
 #endif // !_WCHAR_DEFINED
-typedef /* [string] */ WCHAR __RPC_FAR *LPWSTR;
+typedef /* [string] */ WCHAR __RPC_FAR *const char *;
 
 typedef /* [string] */ TCHAR __RPC_FAR *char*;
 
 typedef /* [string] */ const WCHAR __RPC_FAR *LPCWSTR;
 
-typedef /* [string] */ const TCHAR __RPC_FAR *LPCTSTR;
+typedef /* [string] */ const TCHAR __RPC_FAR *const char *;
 
 typedef struct  tagPALETTEENTRY
     {
@@ -390,7 +390,7 @@ typedef /* [string] */ const OLECHAR __RPC_FAR *LPCOLESTR;
 
 typedef char      OLECHAR;
 typedef char*     LPOLESTR;
-typedef LPCSTR    LPCOLESTR;
+typedef const char *    LPCOLESTR;
 #define OLESTR(str) str
 #endif
 #ifndef _WINDEF_
@@ -550,7 +550,7 @@ typedef struct  _COAUTHINFO
     {
 uint32_t dwAuthnSvc;
 uint32_t dwAuthzSvc;
-    LPWSTR pwszServerPrincName;
+    const char * pwszServerPrincName;
 uint32_t dwAuthnLevel;
 uint32_t dwImpersonationLevel;
     COAUTHIDENTITY __RPC_FAR *pAuthIdentityData;

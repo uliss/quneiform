@@ -642,7 +642,7 @@ public:
 			int nOrientation, int nWeight, uchar bItalic, uchar bUnderline,
 			uchar cStrikeOut, uchar nCharSet, uchar nOutPrecision,
 			uchar nClipPrecision, uchar nQuality, uchar nPitchAndFamily,
-			LPCTSTR lpszFacename)
+			const char * lpszFacename)
 	{
 		ATLASSERT(m_hFont == NULL);
 #ifndef _WIN32_WCE
@@ -660,7 +660,7 @@ public:
 	}
 #endif // !defined(_WIN32_WCE) || (_ATL_VER >= 0x0800)
 
-	HFONT CreatePointFont(int nPointSize, LPCTSTR lpszFaceName, HDC hDC = NULL, bool bBold = false, bool bItalic = false)
+	HFONT CreatePointFont(int nPointSize, const char * lpszFaceName, HDC hDC = NULL, bool bBold = false, bool bItalic = false)
 	{
 		LOGFONT logFont = { 0 };
 		logFont.lfCharSet = DEFAULT_CHARSET;
@@ -1329,7 +1329,7 @@ public:
 		return CBitmapHandle((HBITMAP)::GetCurrentObject(m_hDC, OBJ_BITMAP));
 	}
 
-	HDC CreateDC(LPCTSTR lpszDriverName, LPCTSTR lpszDeviceName, LPCTSTR lpszOutput, const DEVMODE* lpInitData)
+	HDC CreateDC(const char * lpszDriverName, const char * lpszDeviceName, const char * lpszOutput, const DEVMODE* lpInitData)
 	{
 		ATLASSERT(m_hDC == NULL);
 		m_hDC = ::CreateDC(lpszDriverName, lpszDeviceName, lpszOutput, lpInitData);
@@ -2171,7 +2171,7 @@ public:
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)hIcon, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_ICON);
 	}
 
-	Bool DrawState(POINT pt, SIZE size, LPCTSTR lpszText, uint nFlags, Bool bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, const char * lpszText, uint nFlags, Bool bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)lpszText, (WPARAM)nTextLen, pt.x, pt.y, size.cx, size.cy, nFlags | (bPrefixText ? DST_PREFIXTEXT : DST_TEXT));
@@ -2499,7 +2499,7 @@ public:
 
 // Text Functions
 #ifndef _WIN32_WCE
-	Bool TextOut(int x, int y, LPCTSTR lpszString, int nCount = -1)
+	Bool TextOut(int x, int y, const char * lpszString, int nCount = -1)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2508,7 +2508,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	Bool ExtTextOut(int x, int y, uint nOptions, LPCRECT lpRect, LPCTSTR lpszString, uint nCount = -1, LPINT lpDxWidths = NULL)
+	Bool ExtTextOut(int x, int y, uint nOptions, LPCRECT lpRect, const char * lpszString, uint nCount = -1, LPINT lpDxWidths = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2517,7 +2517,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	SIZE TabbedTextOut(int x, int y, LPCTSTR lpszString, int nCount = -1, int nTabPositions = 0, LPINT lpnTabStopPositions = NULL, int nTabOrigin = 0)
+	SIZE TabbedTextOut(int x, int y, const char * lpszString, int nCount = -1, int nTabPositions = 0, LPINT lpnTabStopPositions = NULL, int nTabOrigin = 0)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2528,7 +2528,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	int DrawText(LPCTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat)
+	int DrawText(const char * lpstrText, int cchText, LPRECT lpRect, uint uFormat)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifndef _WIN32_WCE
@@ -2574,7 +2574,7 @@ public:
 	}
 #endif // (_WIN32_WINNT >= 0x0501)
 
-	Bool GetTextExtent(LPCTSTR lpszString, int nCount, LPSIZE lpSize) const
+	Bool GetTextExtent(const char * lpszString, int nCount, LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2582,14 +2582,14 @@ public:
 		return ::GetTextExtentPoint32(m_hDC, lpszString, nCount, lpSize);
 	}
 
-	Bool GetTextExtentExPoint(LPCTSTR lpszString, int cchString, LPSIZE lpSize, int nMaxExtent, LPINT lpnFit = NULL, LPINT alpDx = NULL)
+	Bool GetTextExtentExPoint(const char * lpszString, int cchString, LPSIZE lpSize, int nMaxExtent, LPINT lpnFit = NULL, LPINT alpDx = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextExtentExPoint(m_hDC, lpszString, cchString, nMaxExtent, lpnFit, alpDx, lpSize);
 	}
 
 #ifndef _WIN32_WCE
-	DWORD GetTabbedTextExtent(LPCTSTR lpszString, int nCount = -1, int nTabPositions = 0, LPINT lpnTabStopPositions = NULL) const
+	DWORD GetTabbedTextExtent(const char * lpszString, int nCount = -1, int nTabPositions = 0, LPINT lpnTabStopPositions = NULL) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2792,14 +2792,14 @@ public:
 
 // Printer/Device Escape Functions
 #ifndef _WIN32_WCE
-	int Escape(int nEscape, int nCount, LPCSTR lpszInData, pvoid lpOutData)
+	int Escape(int nEscape, int nCount, const char * lpszInData, pvoid lpOutData)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Escape(m_hDC, nEscape, nCount, lpszInData, lpOutData);
 	}
 #endif // !_WIN32_WCE
 
-	int Escape(int nEscape, int nInputSize, LPCSTR lpszInputData,
+	int Escape(int nEscape, int nInputSize, const char * lpszInputData,
 		int nOutputSize, char* lpszOutputData)
 	{
 		ATLASSERT(m_hDC != NULL);
@@ -2807,7 +2807,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int DrawEscape(int nEscape, int nInputSize, LPCSTR lpszInputData)
+	int DrawEscape(int nEscape, int nInputSize, const char * lpszInputData)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawEscape(m_hDC, nEscape, nInputSize, lpszInputData);
@@ -2816,7 +2816,7 @@ public:
 
 	// Escape helpers
 #if !defined(_WIN32_WCE) || ((_WIN32_WCE >= 200) && defined(StartDoc))
-	int StartDoc(LPCTSTR lpszDocName)  // old Win3.0 version
+	int StartDoc(const char * lpszDocName)  // old Win3.0 version
 	{
 		DOCINFO di = { 0 };
 		di.cbSize = sizeof(DOCINFO);
@@ -3329,7 +3329,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	DWORD GetGlyphIndices(LPCTSTR lpstr, int cch, LPWORD pgi, DWORD dwFlags) const
+	DWORD GetGlyphIndices(const char * lpstr, int cch, LPWORD pgi, DWORD dwFlags) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetGlyphIndices(m_hDC, lpstr, cch, pgi, dwFlags);
@@ -3644,7 +3644,7 @@ public:
 		ATLASSERT(m_hDC != NULL);
 	}
 
-	CEnhMetaFileDC(HDC hdcRef, LPCTSTR lpFilename, LPCRECT lpRect, LPCTSTR lpDescription)
+	CEnhMetaFileDC(HDC hdcRef, const char * lpFilename, LPCRECT lpRect, const char * lpDescription)
 	{
 		Create(hdcRef, lpFilename, lpRect, lpDescription);
 		ATLASSERT(m_hDC != NULL);
@@ -3658,7 +3658,7 @@ public:
 	}
 
 // Operations
-	void Create(HDC hdcRef, LPCTSTR lpFilename, LPCRECT lpRect, LPCTSTR lpDescription)
+	void Create(HDC hdcRef, const char * lpFilename, LPCRECT lpRect, const char * lpDescription)
 	{
 		ATLASSERT(m_hDC == NULL);
 		m_hDC = ::CreateEnhMetaFile(hdcRef, lpFilename, lpRect, lpDescription);

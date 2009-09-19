@@ -114,7 +114,7 @@ CString CUtility::getTempFileName()
 
 CString CUtility::getSaveFileName()
 {
-   CString sFilter((LPCTSTR)IDS_ZIP_FILTER);
+   CString sFilter((const char *)IDS_ZIP_FILTER);
 //   sFilter.Replace('|','\0'); - не работает из-за ошибки в WTL
    int len = sFilter.GetLength();
    char * strPtr = sFilter.GetBuffer(len);

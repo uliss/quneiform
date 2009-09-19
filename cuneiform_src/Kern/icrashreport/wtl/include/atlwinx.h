@@ -512,11 +512,11 @@ public:
 class _U_STRINGorID
 {
 public:
-	_U_STRINGorID(LPCTSTR lpString) : m_lpstr(lpString)
+	_U_STRINGorID(const char * lpString) : m_lpstr(lpString)
 	{ }
 	_U_STRINGorID(uint nID) : m_lpstr(MAKEINTRESOURCE(nID))
 	{ }
-	LPCTSTR m_lpstr;
+	const char * m_lpstr;
 };
 
 }; // namespace ATL

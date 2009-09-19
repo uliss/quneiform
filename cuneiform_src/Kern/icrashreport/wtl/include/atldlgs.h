@@ -192,10 +192,10 @@ public:
 	TCHAR m_szFileName[_MAX_PATH];     // contains full path name after return
 
 	CFileDialogImpl(Bool bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
-			LPCTSTR lpszDefExt = NULL,
-			LPCTSTR lpszFileName = NULL,
+			const char * lpszDefExt = NULL,
+			const char * lpszFileName = NULL,
 			DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-			LPCTSTR lpszFilter = NULL,
+			const char * lpszFilter = NULL,
 			HWND hWndParent = NULL)
 	{
 		memset(&m_ofn, 0, sizeof(m_ofn)); // initialize structure to 0/NULL
@@ -302,7 +302,7 @@ public:
 		return (int)GetFileDialogWindow().SendMessage(CDM_GETSPEC, nLength, (LPARAM)lpstrSpec);
 	}
 
-	void SetControlText(int nCtrlID, LPCTSTR lpstrText)
+	void SetControlText(int nCtrlID, const char * lpstrText)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -310,7 +310,7 @@ public:
 		GetFileDialogWindow().SendMessage(CDM_SETCONTROLTEXT, nCtrlID, (LPARAM)lpstrText);
 	}
 
-	void SetDefExt(LPCTSTR lpstrExt)
+	void SetDefExt(const char * lpstrExt)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -460,10 +460,10 @@ class CFileDialog : public CFileDialogImpl<CFileDialog>
 {
 public:
 	CFileDialog(Bool bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		const char * lpszDefExt = NULL,
+		const char * lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-		LPCTSTR lpszFilter = NULL,
+		const char * lpszFilter = NULL,
 		HWND hWndParent = NULL)
 		: CFileDialogImpl<CFileDialog>(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, hWndParent)
 	{ }
@@ -477,12 +477,12 @@ class CFileDialogEx : public CFileDialogImpl<CFileDialogEx>
 {
 public:
 	CFileDialogEx( // Supports only FileOpen
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		const char * lpszDefExt = NULL,
+		const char * lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 		OFN_EXFLAG ExFlags = OFN_EXFLAG_THUMBNAILVIEW,
 		OFN_SORTORDER dwSortOrder = OFN_SORTORDER_AUTO,
-		LPCTSTR lpszFilter = NULL,
+		const char * lpszFilter = NULL,
 		HWND hWndParent = NULL)
 		: CFileDialogImpl<CFileDialogEx>(TRUE, lpszDefExt, lpszFileName, dwFlags, lpszFilter, hWndParent)
 	{
@@ -515,16 +515,16 @@ template <class T>
 class ATL_NO_VTABLE CMultiFileDialogImpl : public CFileDialogImpl< T >
 {
 public:
-	mutable LPCTSTR m_pNextFile;
+	mutable const char * m_pNextFile;
 #ifndef _UNICODE
 	bool m_bIsNT;
 #endif
 
 	CMultiFileDialogImpl(
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		const char * lpszDefExt = NULL,
+		const char * lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY,
-		LPCTSTR lpszFilter = NULL,
+		const char * lpszFilter = NULL,
 		HWND hWndParent = NULL)
 		: CFileDialogImpl<T>(TRUE, lpszDefExt, lpszFileName, dwFlags, lpszFilter, hWndParent),
 		  m_pNextFile(NULL)
@@ -560,12 +560,12 @@ public:
 		if (m_ofn.lpstrFile == NULL)
 			return 0;
 
-		LPCTSTR pStr = m_ofn.lpstrFile;
+		const char * pStr = m_ofn.lpstrFile;
 		int nLength = lstrlen(pStr);
 		if (pStr[nLength + 1] == 0)
 		{
 			// The OFN buffer contains a single item so extract its path.
-			LPCTSTR pSep = _strrchr(pStr, _T('\\'));
+			const char * pSep = _strrchr(pStr, _T('\\'));
 			if (pSep != NULL)
 				nLength = (int)(DWORD_PTR)(pSep - pStr);
 		}
@@ -601,14 +601,14 @@ public:
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
 	// Get the first filename as a pointer into the buffer.
-	LPCTSTR GetFirstFileName() const
+	const char * GetFirstFileName() const
 	{
 		if (m_ofn.lpstrFile == NULL)
 			return NULL;
 
 		m_pNextFile = NULL;   // Reset internal buffer pointer
 
-		LPCTSTR pStr = m_ofn.lpstrFile;
+		const char * pStr = m_ofn.lpstrFile;
 		int nLength = lstrlen(pStr);
 		if (pStr[nLength + 1] != 0)
 		{
@@ -623,7 +623,7 @@ public:
 		else
 		{
 			// A single item was selected. Skip forward past the path.
-			LPCTSTR pSep = _strrchr(pStr, _T('\\'));
+			const char * pSep = _strrchr(pStr, _T('\\'));
 			if (pSep != NULL)
 				pStr = pSep + 1;
 		}
@@ -632,12 +632,12 @@ public:
 	}
 
 	// Get the next filename as a pointer into the buffer.
-	LPCTSTR GetNextFileName() const
+	const char * GetNextFileName() const
 	{
 		if (m_pNextFile == NULL)
 			return NULL;
 
-		LPCTSTR pStr = m_pNextFile;
+		const char * pStr = m_pNextFile;
 		// Set "m_pNextFile" to point to the next file name, or null if we
 		// have reached the last file in the list.
 		int nLength = lstrlen(pStr);
@@ -652,7 +652,7 @@ public:
 	// If the function fails, the return value is zero.
 	int GetFirstPathName(char* pBuffer, int nBufLen) const
 	{
-		LPCTSTR pStr = GetFirstFileName();
+		const char * pStr = GetFirstFileName();
 		int nLengthDir = GetDirectory(NULL, 0);
 		if((pStr == NULL) || (nLengthDir == 0))
 			return 0;
@@ -703,7 +703,7 @@ public:
 			return 0;
 
 		int nRet = 0;
-		LPCTSTR pStr = m_pNextFile;
+		const char * pStr = m_pNextFile;
 		// Does the filename contain a backslash?
 		if (_strrchr(pStr, _T('\\')) != NULL)
 		{
@@ -837,8 +837,8 @@ public:
 		// we need to add enough extra buffer space to hold its target path.
 		DWORD nExtraChars = 0;
 		bool bInsideQuotes = false;
-		LPCTSTR pAnchor = m_ofn.lpstrFile;
-		LPCTSTR pChar = m_ofn.lpstrFile;
+		const char * pAnchor = m_ofn.lpstrFile;
+		const char * pChar = m_ofn.lpstrFile;
 		for ( ; *pChar; ++pChar)
 		{
 			// Look for quotation marks.
@@ -922,10 +922,10 @@ class CMultiFileDialog : public CMultiFileDialogImpl<CMultiFileDialog>
 {
 public:
 	CMultiFileDialog(
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		const char * lpszDefExt = NULL,
+		const char * lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY,
-		LPCTSTR lpszFilter = NULL,
+		const char * lpszFilter = NULL,
 		HWND hWndParent = NULL)
 		: CMultiFileDialogImpl<CMultiFileDialog>(lpszDefExt, lpszFileName, dwFlags, lpszFilter, hWndParent)
 	{ }
@@ -990,7 +990,7 @@ public:
 	}
 
 // Operations - get file path after dialog returns
-	HRESULT GetFilePath(LPWSTR lpstrFilePath, int cchLength)
+	HRESULT GetFilePath(const char * lpstrFilePath, int cchLength)
 	{
 		T* pT = static_cast<T*>(this);
 		ATLASSERT(pT->m_spFileDlg != NULL);
@@ -1004,7 +1004,7 @@ public:
 		return hRet;
 	}
 
-	HRESULT GetFileTitle(LPWSTR lpstrFileTitle, int cchLength)
+	HRESULT GetFileTitle(const char * lpstrFileTitle, int cchLength)
 	{
 		T* pT = static_cast<T*>(this);
 		ATLASSERT(pT->m_spFileDlg != NULL);
@@ -1049,11 +1049,11 @@ public:
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
 // Helpers for IShellItem
-	static HRESULT GetFileNameFromShellItem(IShellItem* pShellItem, SIGDN type, LPWSTR lpstr, int cchLength)
+	static HRESULT GetFileNameFromShellItem(IShellItem* pShellItem, SIGDN type, const char * lpstr, int cchLength)
 	{
 		ATLASSERT(pShellItem != NULL);
 
-		LPWSTR lpstrName = NULL;
+		const char * lpstrName = NULL;
 		HRESULT hRet = pShellItem->GetDisplayName(type, &lpstrName);
 
 		if(SUCCEEDED(hRet))
@@ -1079,7 +1079,7 @@ public:
 	{
 		ATLASSERT(pShellItem != NULL);
 
-		LPWSTR lpstrName = NULL;
+		const char * lpstrName = NULL;
 		HRESULT hRet = pShellItem->GetDisplayName(type, &lpstrName);
 
 		if(SUCCEEDED(hRet))
@@ -1372,7 +1372,7 @@ class ATL_NO_VTABLE CFolderDialogImpl
 {
 public:
 	BROWSEINFO m_bi;
-	LPCTSTR m_lpstrInitialFolder;
+	const char * m_lpstrInitialFolder;
 	LPCITEMIDLIST m_pidlInitialSelection;
 	bool m_bExpandInitialSelection;
 	TCHAR m_szFolderDisplayName[MAX_PATH];
@@ -1381,7 +1381,7 @@ public:
 	HWND m_hWnd;   // used only in the callback function
 
 // Constructor
-	CFolderDialogImpl(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS) :
+	CFolderDialogImpl(HWND hWndParent = NULL, const char * lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS) :
 			m_lpstrInitialFolder(NULL), m_pidlInitialSelection(NULL), m_bExpandInitialSelection(false), m_pidlSelected(NULL), m_hWnd(NULL)
 	{
 		memset(&m_bi, 0, sizeof(m_bi)); // initialize structure to 0/NULL
@@ -1434,7 +1434,7 @@ public:
 	}
 
 	// Methods to call before DoModal
-	void SetInitialFolder(LPCTSTR lpstrInitialFolder, bool bExpand = true)
+	void SetInitialFolder(const char * lpstrInitialFolder, bool bExpand = true)
 	{
 		// lpstrInitialFolder may be a file if BIF_BROWSEINCLUDEFILES is specified
 		m_lpstrInitialFolder = lpstrInitialFolder;
@@ -1457,12 +1457,12 @@ public:
 		return pidl;
 	}
 
-	LPCTSTR GetFolderPath() const
+	const char * GetFolderPath() const
 	{
 		return m_szFolderPath;
 	}
 
-	LPCTSTR GetFolderDisplayName() const
+	const char * GetFolderDisplayName() const
 	{
 		return m_szFolderDisplayName;
 	}
@@ -1526,7 +1526,7 @@ public:
 			pT->OnSelChanged((LPITEMIDLIST)lParam);
 			break;
 		case BFFM_VALIDATEFAILED:
-			nRet = pT->OnValidateFailed((LPCTSTR)lParam);
+			nRet = pT->OnValidateFailed((const char *)lParam);
 			break;
 		case BFFM_IUNKNOWN:
 			pT->OnIUnknown((IUnknown*)lParam);
@@ -1549,7 +1549,7 @@ public:
 	{
 	}
 
-	int OnValidateFailed(LPCTSTR /*lpstrFolderPath*/)
+	int OnValidateFailed(const char * /*lpstrFolderPath*/)
 	{
 		return 1;   // 1=continue, 0=EndDialog
 	}
@@ -1571,19 +1571,19 @@ public:
 		::SendMessage(m_hWnd, BFFM_SETSELECTION, FALSE, (LPARAM)pItemIDList);
 	}
 
-	void SetSelection(LPCTSTR lpstrFolderPath)
+	void SetSelection(const char * lpstrFolderPath)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, BFFM_SETSELECTION, TRUE, (LPARAM)lpstrFolderPath);
 	}
 
-	void SetStatusText(LPCTSTR lpstrText)
+	void SetStatusText(const char * lpstrText)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, BFFM_SETSTATUSTEXT, 0, (LPARAM)lpstrText);
 	}
 
-	void SetOKText(LPCTSTR lpstrOKText)
+	void SetOKText(const char * lpstrOKText)
 	{
 #ifndef BFFM_SETOKTEXT
 		const uint BFFM_SETOKTEXT = WM_USER + 105;
@@ -1603,7 +1603,7 @@ public:
 		::SendMessage(m_hWnd, BFFM_SETEXPANDED, FALSE, (LPARAM)pItemIDList);
 	}
 
-	void SetExpanded(LPCTSTR lpstrFolderPath)
+	void SetExpanded(const char * lpstrFolderPath)
 	{
 #ifndef BFFM_SETEXPANDED
 		const uint BFFM_SETEXPANDED = WM_USER + 106;
@@ -1618,7 +1618,7 @@ public:
 class CFolderDialog : public CFolderDialogImpl<CFolderDialog>
 {
 public:
-	CFolderDialog(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS)
+	CFolderDialog(HWND hWndParent = NULL, const char * lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS)
 		: CFolderDialogImpl<CFolderDialog>(hWndParent, lpstrTitle, uFlags)
 	{ }
 };
@@ -1662,7 +1662,7 @@ public:
 	}
 
 // Implementation - try to override these, to prevent errors
-	HWND Create(HWND, ATL::_U_RECT, LPCTSTR, DWORD, DWORD, ATL::_U_MENUorID, ATOM, pvoid)
+	HWND Create(HWND, ATL::_U_RECT, const char *, DWORD, DWORD, ATL::_U_MENUorID, ATOM, pvoid)
 	{
 		ATLASSERT(FALSE);   // should not be called
 		return NULL;
@@ -1797,12 +1797,12 @@ public:
 #endif // !_WIN32_WCE
 
 	// Helpers for parsing information after successful return
-	LPCTSTR GetFaceName() const   // return the face name of the font
+	const char * GetFaceName() const   // return the face name of the font
 	{
-		return (LPCTSTR)m_cf.lpLogFont->lfFaceName;
+		return (const char *)m_cf.lpLogFont->lfFaceName;
 	}
 
-	LPCTSTR GetStyleName() const  // return the style name of the font
+	const char * GetStyleName() const  // return the style name of the font
 	{
 		return m_cf.lpszStyle;
 	}
@@ -1907,7 +1907,7 @@ public:
 #if (_RICHEDIT_VER >= 0x0200)
 			SecureHelper::strcpy_x(cf.szFaceName, _countof(cf.szFaceName), GetFaceName());
 #else // !(_RICHEDIT_VER >= 0x0200)
-			SecureHelper::strcpyA_x(cf.szFaceName, _countof(cf.szFaceName), T2A((char*)(LPCTSTR)GetFaceName()));
+			SecureHelper::strcpyA_x(cf.szFaceName, _countof(cf.szFaceName), T2A((char*)(const char *)GetFaceName()));
 #endif // !(_RICHEDIT_VER >= 0x0200)
 		}
 
@@ -2229,9 +2229,9 @@ static HDC _AtlCreateDC(HGLOBAL hDevNames, HGLOBAL hDevMode)
 	if(lpDevNames == NULL)
 		return NULL;
 
-	HDC hDC = ::CreateDC((LPCTSTR)lpDevNames + lpDevNames->wDriverOffset,
-					  (LPCTSTR)lpDevNames + lpDevNames->wDeviceOffset,
-					  (LPCTSTR)lpDevNames + lpDevNames->wOutputOffset,
+	HDC hDC = ::CreateDC((const char *)lpDevNames + lpDevNames->wDriverOffset,
+					  (const char *)lpDevNames + lpDevNames->wDeviceOffset,
+					  (const char *)lpDevNames + lpDevNames->wOutputOffset,
 					  lpDevMode);
 
 	::GlobalUnlock(hDevNames);
@@ -2356,7 +2356,7 @@ public:
 		return (LPDEVMODE)::GlobalLock(m_pd.hDevMode);
 	}
 
-	LPCTSTR GetDriverName() const   // return driver name
+	const char * GetDriverName() const   // return driver name
 	{
 		if(m_pd.hDevNames == NULL)
 			return NULL;
@@ -2365,10 +2365,10 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wDriverOffset;
+		return (const char *)lpDev + lpDev->wDriverOffset;
 	}
 
-	LPCTSTR GetDeviceName() const   // return device name
+	const char * GetDeviceName() const   // return device name
 	{
 		if(m_pd.hDevNames == NULL)
 			return NULL;
@@ -2377,10 +2377,10 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wDeviceOffset;
+		return (const char *)lpDev + lpDev->wDeviceOffset;
 	}
 
-	LPCTSTR GetPortName() const     // return output port name
+	const char * GetPortName() const     // return output port name
 	{
 		if(m_pd.hDevNames == NULL)
 			return NULL;
@@ -2389,7 +2389,7 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wOutputOffset;
+		return (const char *)lpDev + lpDev->wOutputOffset;
 	}
 
 	HDC GetPrinterDC() const        // return HDC (caller must delete)
@@ -2569,7 +2569,7 @@ public:
 		return (LPDEVMODE)::GlobalLock(m_pdex.hDevMode);
 	}
 
-	LPCTSTR GetDriverName() const   // return driver name
+	const char * GetDriverName() const   // return driver name
 	{
 		if(m_pdex.hDevNames == NULL)
 			return NULL;
@@ -2578,10 +2578,10 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wDriverOffset;
+		return (const char *)lpDev + lpDev->wDriverOffset;
 	}
 
-	LPCTSTR GetDeviceName() const   // return device name
+	const char * GetDeviceName() const   // return device name
 	{
 		if(m_pdex.hDevNames == NULL)
 			return NULL;
@@ -2590,10 +2590,10 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wDeviceOffset;
+		return (const char *)lpDev + lpDev->wDeviceOffset;
 	}
 
-	LPCTSTR GetPortName() const     // return output port name
+	const char * GetPortName() const     // return output port name
 	{
 		if(m_pdex.hDevNames == NULL)
 			return NULL;
@@ -2602,7 +2602,7 @@ public:
 		if(lpDev == NULL)
 			return NULL;
 
-		return (LPCTSTR)lpDev + lpDev->wOutputOffset;
+		return (const char *)lpDev + lpDev->wOutputOffset;
 	}
 
 	HDC GetPrinterDC() const        // return HDC (caller must delete)
@@ -2741,31 +2741,31 @@ public:
 		return (LPDEVMODE)::GlobalLock(m_psd.hDevMode);
 	}
 
-	LPCTSTR GetDriverName() const   // return driver name
+	const char * GetDriverName() const   // return driver name
 	{
 		if(m_psd.hDevNames == NULL)
 			return NULL;
 
 		LPDEVNAMES lpDev = (LPDEVNAMES)::GlobalLock(m_psd.hDevNames);
-		return (LPCTSTR)lpDev + lpDev->wDriverOffset;
+		return (const char *)lpDev + lpDev->wDriverOffset;
 	}
 
-	LPCTSTR GetDeviceName() const   // return device name
+	const char * GetDeviceName() const   // return device name
 	{
 		if(m_psd.hDevNames == NULL)
 			return NULL;
 
 		LPDEVNAMES lpDev = (LPDEVNAMES)::GlobalLock(m_psd.hDevNames);
-		return (LPCTSTR)lpDev + lpDev->wDeviceOffset;
+		return (const char *)lpDev + lpDev->wDeviceOffset;
 	}
 
-	LPCTSTR GetPortName() const     // return output port name
+	const char * GetPortName() const     // return output port name
 	{
 		if(m_psd.hDevNames == NULL)
 			return NULL;
 
 		LPDEVNAMES lpDev = (LPDEVNAMES)::GlobalLock(m_psd.hDevNames);
-		return (LPCTSTR)lpDev + lpDev->wOutputOffset;
+		return (const char *)lpDev + lpDev->wOutputOffset;
 	}
 
 	HDC CreatePrinterDC()
@@ -2904,8 +2904,8 @@ public:
 	}
 
 	HWND Create(Bool bFindDialogOnly, // TRUE for Find, FALSE for FindReplace
-			LPCTSTR lpszFindWhat,
-			LPCTSTR lpszReplaceWith = NULL,
+			const char * lpszFindWhat,
+			const char * lpszReplaceWith = NULL,
 			DWORD dwFlags = FR_DOWN,
 			HWND hWndParent = NULL)
 	{
@@ -2955,14 +2955,14 @@ public:
 
 // Operations
 	// Helpers for parsing information after successful return
-	LPCTSTR GetFindString() const    // get find string
+	const char * GetFindString() const    // get find string
 	{
-		return (LPCTSTR)m_fr.lpstrFindWhat;
+		return (const char *)m_fr.lpstrFindWhat;
 	}
 
-	LPCTSTR GetReplaceString() const // get replacement string
+	const char * GetReplaceString() const // get replacement string
 	{
-		return (LPCTSTR)m_fr.lpstrReplaceWith;
+		return (const char *)m_fr.lpstrReplaceWith;
 	}
 
 	Bool SearchDown() const          // TRUE if search down, FALSE is up
@@ -3085,8 +3085,8 @@ public:
 		m_cAllocated = 0;
 	}
 
-	void Create(bool bDlgEx, LPCTSTR lpszCaption, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle = 0, DWORD dwExStyle = 0,
-	            LPCTSTR lpstrFontName = NULL, uint16_t wFontSize = 0, uint16_t wWeight = 0, uchar bItalic = 0, uchar bCharset = 0, DWORD dwHelpID = 0,
+	void Create(bool bDlgEx, const char * lpszCaption, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle = 0, DWORD dwExStyle = 0,
+	            const char * lpstrFontName = NULL, uint16_t wFontSize = 0, uint16_t wWeight = 0, uchar bItalic = 0, uchar bCharset = 0, DWORD dwHelpID = 0,
 				ATL::_U_STRINGorID ClassName = 0U, ATL::_U_STRINGorID Menu = 0U)
 	{
 		// Should have DS_SETFONT style to set the dialog font name and size
@@ -3259,7 +3259,7 @@ protected:
 		m_pPtr += nData;
 	}
 
-	void AddString(LPCTSTR lpszStr)
+	void AddString(const char * lpszStr)
 	{
 		if (lpszStr == NULL)
 		{
@@ -3290,10 +3290,10 @@ protected:
 	{ \
 		bool bExTemplate = false; \
 		short nX = x, nY = y, nWidth = width, nHeight = height; \
-		LPCTSTR szCaption = NULL; \
+		const char * szCaption = NULL; \
 		DWORD dwStyle = WS_POPUP | WS_BORDER | WS_SYSMENU; \
 		DWORD dwExStyle = 0; \
-		LPCTSTR szFontName = NULL; \
+		const char * szFontName = NULL; \
 		uint16_t wFontSize = 0; \
 		uint16_t wWeight = 0; \
 		uchar bItalic = 0; \
@@ -3308,10 +3308,10 @@ protected:
 	{ \
 		bool bExTemplate = true; \
 		short nX = x, nY = y, nWidth = width, nHeight = height; \
-		LPCTSTR szCaption = NULL; \
+		const char * szCaption = NULL; \
 		DWORD dwStyle = WS_POPUP | WS_BORDER | WS_SYSMENU; \
 		DWORD dwExStyle = 0; \
-		LPCTSTR szFontName = NULL; \
+		const char * szFontName = NULL; \
 		uint16_t wFontSize = 0; \
 		uint16_t wWeight = 0; \
 		uchar bItalic = 0; \
@@ -3380,15 +3380,15 @@ protected:
 #define CONTROL_AUTORADIOBUTTON(text, id, x, y, width, height, style, exStyle) \
 	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_AUTORADIOBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_COMBOBOX(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_COMBOBOX, (uint16_t)id, x, y, width, height, style | CBS_DROPDOWN | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_COMBOBOX, (uint16_t)id, x, y, width, height, style | CBS_DROPDOWN | WS_TABSTOP, exStyle, (const char *)NULL, NULL, 0);
 #define CONTROL_EDITTEXT(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_EDIT, (uint16_t)id, x, y, width, height, style | ES_LEFT | WS_BORDER | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_EDIT, (uint16_t)id, x, y, width, height, style | ES_LEFT | WS_BORDER | WS_TABSTOP, exStyle, (const char *)NULL, NULL, 0);
 #define CONTROL_GROUPBOX(text, id, x, y, width, height, style, exStyle) \
 	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_GROUPBOX, exStyle, text, NULL, 0);
 #define CONTROL_LISTBOX(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_LISTBOX, (uint16_t)id, x, y, width, height, style | LBS_NOTIFY | WS_BORDER, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_LISTBOX, (uint16_t)id, x, y, width, height, style | LBS_NOTIFY | WS_BORDER, exStyle, (const char *)NULL, NULL, 0);
 #define CONTROL_SCROLLBAR(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_SCROLLBAR, (uint16_t)id, x, y, width, height, style | SBS_HORZ, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_SCROLLBAR, (uint16_t)id, x, y, width, height, style | SBS_HORZ, exStyle, (const char *)NULL, NULL, 0);
 #define CONTROL_ICON(text, id, x, y, width, height, style, exStyle) \
 	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (uint16_t)id, x, y, width, height, style | SS_ICON, exStyle, text, NULL, 0);
 #define CONTROL_CONTROL(text, id, className, style, x, y, width, height, exStyle) \
@@ -3545,7 +3545,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, PSM_SETCURSELID, 0, nPageID);
 	}
 
-	void SetTitle(LPCTSTR lpszText, uint nStyle = 0)
+	void SetTitle(const char * lpszText, uint nStyle = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((nStyle & ~PSH_PROPTITLE) == 0); // only PSH_PROPTITLE is valid
@@ -3559,7 +3559,7 @@ public:
 		return (HWND)::SendMessage(m_hWnd, PSM_GETTABCONTROL, 0, 0L);
 	}
 
-	void SetFinishText(LPCTSTR lpszText)
+	void SetFinishText(const char * lpszText)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, PSM_SETFINISHTEXT, 0, (LPARAM)lpszText);
@@ -3737,13 +3737,13 @@ public:
 		return (Bool)::SendMessage(m_hWnd, PSM_RECALCPAGESIZES, 0, 0L);
 	}
 
-	void SetHeaderTitle(int nIndex, LPCTSTR lpstrHeaderTitle)
+	void SetHeaderTitle(int nIndex, const char * lpstrHeaderTitle)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, PSM_SETHEADERTITLE, nIndex, (LPARAM)lpstrHeaderTitle);
 	}
 
-	void SetHeaderSubTitle(int nIndex, LPCTSTR lpstrHeaderSubTitle)
+	void SetHeaderSubTitle(int nIndex, const char * lpstrHeaderSubTitle)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, PSM_SETHEADERSUBTITLE, nIndex, (LPARAM)lpstrHeaderSubTitle);
@@ -3751,7 +3751,7 @@ public:
 #endif // (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(const char *, HWND, ATL::_U_RECT = NULL, const char * = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -3773,12 +3773,12 @@ public:
 	#define PROPSHEET_LINK_SIZE 128
   #endif // PROPSHEET_LINK_SIZE
 	TCHAR m_szLink[PROPSHEET_LINK_SIZE];
-	static LPCTSTR m_pszTitle;
-	static LPCTSTR m_pszLink;
+	static const char * m_pszTitle;
+	static const char * m_pszLink;
 #endif // defined(_AYGSHELL_H_) || defined(__AYGSHELL_H__)
 
 // Construction/Destruction
-	CPropertySheetImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
+	CPropertySheetImpl(ATL::_U_STRINGorID title = (const char *)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 	{
 		memset(&m_psh, 0, sizeof(PROPSHEETHEADER));
 		m_psh.dwSize = sizeof(PROPSHEETHEADER);
@@ -3968,7 +3968,7 @@ public:
 
 	}
 
-	void SetTitle(LPCTSTR lpszText, uint nStyle = 0)
+	void SetTitle(const char * lpszText, uint nStyle = 0)
 	{
 		ATLASSERT((nStyle & ~PSH_PROPTITLE) == 0);   // only PSH_PROPTITLE is valid
 		ATLASSERT(lpszText != NULL);
@@ -3988,7 +3988,7 @@ public:
 	}
 
 #if defined(_AYGSHELL_H_) || defined(__AYGSHELL_H__) // PPC specific Link field
-	void SetLinkText(LPCTSTR lpszText)
+	void SetLinkText(const char * lpszText)
 	{
 		ATLASSERT(lpszText != NULL);
 		ATLASSERT(lstrlen(lpszText) < PROPSHEET_LINK_SIZE);
@@ -4056,7 +4056,7 @@ public:
 	}
 
 #if (_WIN32_IE >= 0x0400) && !defined(_WIN32_WCE)
-	void SetHeader(LPCTSTR szbmHeader)
+	void SetHeader(const char * szbmHeader)
 	{
 		ATLASSERT(m_hWnd == NULL);   // can't do this after it's created
 
@@ -4074,7 +4074,7 @@ public:
 		m_psh.hbmHeader = hbmHeader;
 	}
 
-	void SetWatermark(LPCTSTR szbmWatermark, HPALETTE hplWatermark = NULL)
+	void SetWatermark(const char * szbmWatermark, HPALETTE hplWatermark = NULL)
 	{
 		ATLASSERT(m_hWnd == NULL);   // can't do this after it's created
 
@@ -4150,7 +4150,7 @@ LPCWSTR CPropertySheetImpl<T,TBase>::m_pszLink = NULL;
 class CPropertySheet : public CPropertySheetImpl<CPropertySheet>
 {
 public:
-	CPropertySheet(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
+	CPropertySheet(ATL::_U_STRINGorID title = (const char *)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 		: CPropertySheetImpl<CPropertySheet>(title, uStartPage, hWndParent)
 	{ }
 };
@@ -4230,7 +4230,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(const char *, HWND, ATL::_U_RECT = NULL, const char * = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -4249,7 +4249,7 @@ public:
 	operator PROPSHEETPAGE*() { return &m_psp; }
 
 // Construction
-	CPropertyPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL)
+	CPropertyPageImpl(ATL::_U_STRINGorID title = (const char *)NULL)
 	{
 		// initialize PROPSHEETPAGE struct
 		memset(&m_psp, 0, sizeof(PROPSHEETPAGE));
@@ -4327,14 +4327,14 @@ public:
 	}
 
 #if (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
-	void SetHeaderTitle(LPCTSTR lpstrHeaderTitle)
+	void SetHeaderTitle(const char * lpstrHeaderTitle)
 	{
 		ATLASSERT(m_hWnd == NULL);   // can't do this after it's created
 		m_psp.dwFlags |= PSP_USEHEADERTITLE;
 		m_psp.pszHeaderTitle = lpstrHeaderTitle;
 	}
 
-	void SetHeaderSubTitle(LPCTSTR lpstrHeaderSubTitle)
+	void SetHeaderSubTitle(const char * lpstrHeaderSubTitle)
 	{
 		ATLASSERT(m_hWnd == NULL);   // can't do this after it's created
 		m_psp.dwFlags |= PSP_USEHEADERSUBTITLE;
@@ -4659,7 +4659,7 @@ class CPropertyPage : public CPropertyPageImpl<CPropertyPage<t_wDlgTemplateID> >
 public:
 	enum { IDD = t_wDlgTemplateID };
 
-	CPropertyPage(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CPropertyPageImpl<CPropertyPage>(title)
+	CPropertyPage(ATL::_U_STRINGorID title = (const char *)NULL) : CPropertyPageImpl<CPropertyPage>(title)
 	{ }
 
 	DECLARE_EMPTY_MSG_MAP()
@@ -4682,7 +4682,7 @@ public:
 	HGLOBAL m_hDlgResSplit;
 
 // Constructor/destructor
-	CAxPropertyPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) :
+	CAxPropertyPageImpl(ATL::_U_STRINGorID title = (const char *)NULL) :
 			CPropertyPageImpl< T, TBase >(title),
 			m_hInitData(NULL), m_hDlgRes(NULL), m_hDlgResSplit(NULL)
 	{
@@ -4693,7 +4693,7 @@ public:
 		ATL::AtlAxWinInit();
 
 		HINSTANCE hInstance = ModuleHelper::GetResourceInstance();
-		LPCTSTR lpTemplateName = MAKEINTRESOURCE(pT->IDD);
+		const char * lpTemplateName = MAKEINTRESOURCE(pT->IDD);
 		HRSRC hDlg = ::FindResource(hInstance, lpTemplateName, (char*)RT_DIALOG);
 		if(hDlg != NULL)
 		{
@@ -4879,10 +4879,10 @@ public:
 							{
 								ATL::CAxWindow2 wnd;
 								// Get control caption.
-								LPWSTR pszClassName =
+								const char * pszClassName =
 									bDialogEx ?
-										(LPWSTR)(((ATL::_DialogSplitHelper::DLGITEMTEMPLATEEX*)pItem) + 1) :
-										(LPWSTR)(pItem + 1);
+										(const char *)(((ATL::_DialogSplitHelper::DLGITEMTEMPLATEEX*)pItem) + 1) :
+										(const char *)(pItem + 1);
 								// Get control rect.
 								RECT rect;
 								rect.left =
@@ -5011,7 +5011,7 @@ class CAxPropertyPage : public CAxPropertyPageImpl<CAxPropertyPage<t_wDlgTemplat
 public:
 	enum { IDD = t_wDlgTemplateID };
 
-	CAxPropertyPage(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CAxPropertyPageImpl<CAxPropertyPage>(title)
+	CAxPropertyPage(ATL::_U_STRINGorID title = (const char *)NULL) : CAxPropertyPageImpl<CAxPropertyPage>(title)
 	{ }
 
 #if (_WIN32_IE >= 0x0500) || (_ATL_VER >= 0x0700)
@@ -5166,7 +5166,7 @@ public:
 	}
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(const char *, HWND, ATL::_U_RECT = NULL, const char * = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5342,7 +5342,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(const char *, HWND, ATL::_U_RECT = NULL, const char * = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5363,7 +5363,7 @@ protected:
 	typedef CPropertyPageImpl< T, TBase > baseClass;
 
 public:
-	CWizard97PageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : baseClass(title)
+	CWizard97PageImpl(ATL::_U_STRINGorID title = (const char *)NULL) : baseClass(title)
 	{ }
 
 // Message Handling
@@ -5386,7 +5386,7 @@ protected:
 
 public:
 // Constructors
-	CWizard97ExteriorPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : baseClass(title)
+	CWizard97ExteriorPageImpl(ATL::_U_STRINGorID title = (const char *)NULL) : baseClass(title)
 	{
 		m_psp.dwFlags |= PSP_HASHELP;
 		m_psp.dwFlags |= PSP_HIDEHEADER;
@@ -5412,7 +5412,7 @@ protected:
 
 public:
 // Constructors
-	CWizard97InteriorPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : baseClass(title)
+	CWizard97InteriorPageImpl(ATL::_U_STRINGorID title = (const char *)NULL) : baseClass(title)
 	{
 		m_psp.dwFlags |= PSP_HASHELP;
 		m_psp.dwFlags &= ~PSP_HIDEHEADER;
@@ -5489,7 +5489,7 @@ class ATL_NO_VTABLE CAeroWizardFrameImpl : public CPropertySheetImpl<T, TBase >
 {
 public:
 // Constructor
-	CAeroWizardFrameImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL) :
+	CAeroWizardFrameImpl(ATL::_U_STRINGorID title = (const char *)NULL, uint uStartPage = 0, HWND hWndParent = NULL) :
 		CPropertySheetImpl<T, TBase >(title, uStartPage, hWndParent)
 	{
 		m_psh.dwFlags |= PSH_WIZARD | PSH_AEROWIZARD;
@@ -5529,7 +5529,7 @@ public:
 class CAeroWizardFrame : public CAeroWizardFrameImpl<CAeroWizardFrame>
 {
 public:
-	CAeroWizardFrame(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
+	CAeroWizardFrame(ATL::_U_STRINGorID title = (const char *)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 		: CAeroWizardFrameImpl<CAeroWizardFrame>(title, uStartPage, hWndParent)
 	{ }
 
@@ -5601,7 +5601,7 @@ template <class T, class TBase = CAeroWizardPageWindow>
 class ATL_NO_VTABLE CAeroWizardPageImpl : public CPropertyPageImpl<T, TBase >
 {
 public:
-	CAeroWizardPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CPropertyPageImpl<T, TBase >(title)
+	CAeroWizardPageImpl(ATL::_U_STRINGorID title = (const char *)NULL) : CPropertyPageImpl<T, TBase >(title)
 	{ }
 };
 
@@ -5615,7 +5615,7 @@ class CAeroWizardPage : public CAeroWizardPageImpl<CAeroWizardPage<t_wDlgTemplat
 public:
 	enum { IDD = t_wDlgTemplateID };
 
-	CAeroWizardPage(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CAeroWizardPageImpl<CAeroWizardPage>(title)
+	CAeroWizardPage(ATL::_U_STRINGorID title = (const char *)NULL) : CAeroWizardPageImpl<CAeroWizardPage>(title)
 	{ }
 
 	DECLARE_EMPTY_MSG_MAP()
@@ -5633,7 +5633,7 @@ template <class T, class TBase = CAeroWizardPageWindow>
 class ATL_NO_VTABLE CAeroWizardAxPageImpl : public CAxPropertyPageImpl< T, TBase >
 {
 public:
-	CAeroWizardAxPageImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CAxPropertyPageImpl< T, TBase >(title)
+	CAeroWizardAxPageImpl(ATL::_U_STRINGorID title = (const char *)NULL) : CAxPropertyPageImpl< T, TBase >(title)
 	{ }
 };
 
@@ -5647,7 +5647,7 @@ class CAeroWizardAxPage : public CAeroWizardAxPageImpl<CAeroWizardAxPage<t_wDlgT
 public:
 	enum { IDD = t_wDlgTemplateID };
 
-	CAeroWizardAxPage(ATL::_U_STRINGorID title = (LPCTSTR)NULL) : CAeroWizardAxPageImpl<CAeroWizardAxPage>(title)
+	CAeroWizardAxPage(ATL::_U_STRINGorID title = (const char *)NULL) : CAeroWizardAxPageImpl<CAeroWizardAxPage>(title)
 	{ }
 
 #if (_WIN32_IE >= 0x0500) || (_ATL_VER >= 0x0700)
@@ -5675,7 +5675,7 @@ public:
 
 inline int AtlTaskDialog(HWND hWndParent,
                          ATL::_U_STRINGorID WindowTitle, ATL::_U_STRINGorID MainInstructionText, ATL::_U_STRINGorID ContentText,
-                         TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons = 0U, ATL::_U_STRINGorID Icon = (LPCTSTR)NULL)
+                         TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons = 0U, ATL::_U_STRINGorID Icon = (const char *)NULL)
 {
 	int nRet = -1;
 

@@ -91,7 +91,7 @@ Bool Events::Stop()
 }
 
 
-Bool Events::Step(long lStep, LPCTSTR strName, long lPerc)
+Bool Events::Step(long lStep, const char * strName, long lPerc)
 {
 	m_dlg->m_progress.Format("%s %d%%",strName,lPerc);
     m_dlg->UpdateData(false);

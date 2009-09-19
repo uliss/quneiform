@@ -267,9 +267,9 @@ uint32_t wdCookie;
 		получаем hDIB
 		*/
 		typedef HANDLE (__cdecl *delegate_BitmapToDIB)(HBITMAP, HPALETTE);
-		typedef HANDLE (__cdecl *delegate_LoadDIB)(LPCSTR filename);
+		typedef HANDLE (__cdecl *delegate_LoadDIB)(const char * filename);
 		typedef HANDLE (__cdecl *delegate_CopyScreenToDIB)(RECT* );
-		typedef int (__cdecl *delegate_SaveDIB)(HANDLE hdib,LPCSTR filename);
+		typedef int (__cdecl *delegate_SaveDIB)(HANDLE hdib,const char * filename);
 
 		HMODULE hDibApiDll = LoadLibrary("c:\\dibapi.dll");
 

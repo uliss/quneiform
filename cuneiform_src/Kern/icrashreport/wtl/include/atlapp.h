@@ -212,7 +212,7 @@ namespace ATL
   #define lstrlenW	(int)ATL::lstrlenW
 #endif // lstrlenW
 
-inline int WINAPI lstrlenA(LPCSTR lpszString)
+inline int WINAPI lstrlenA(const char * lpszString)
 { return ATL::lstrlenA(lpszString); }
 
 #ifdef lstrcpyn
@@ -254,7 +254,7 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 #define lstrlenA (int)strlen
 
 #ifndef lstrcpyn
-  inline char* lstrcpyn(char* lpstrDest, LPCTSTR lpstrSrc, int nLength)
+  inline char* lstrcpyn(char* lpstrDest, const char * lpstrSrc, int nLength)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
@@ -266,14 +266,14 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 #endif // !lstrcpyn
 
 #ifndef lstrcpynW
-  inline LPWSTR lstrcpynW(LPWSTR lpstrDest, LPCWSTR lpstrSrc, int nLength)
+  inline const char * lstrcpynW(const char * lpstrDest, LPCWSTR lpstrSrc, int nLength)
   {
 	return lstrcpyn(lpstrDest, lpstrSrc, nLength);   // WinCE is Unicode only
   }
 #endif // !lstrcpynW
 
 #ifndef lstrcpynA
-  inline char* lstrcpynA(char* lpstrDest, LPCSTR lpstrSrc, int nLength)
+  inline char* lstrcpynA(char* lpstrDest, const char * lpstrSrc, int nLength)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
@@ -766,7 +766,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline void strcpy_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
+	inline void strcpy_x(char* lpstrDest, size_t cchDest, const char * lpstrSrc)
 	{
 #ifdef _UNICODE
 		strcpyW_x(lpstrDest, cchDest, lpstrSrc);
@@ -829,7 +829,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline errno_t strncpy_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc, size_t cchCount)
+	inline errno_t strncpy_x(char* lpstrDest, size_t cchDest, const char * lpstrSrc, size_t cchCount)
 	{
 #ifdef _UNICODE
 		return strncpyW_x(lpstrDest, cchDest, lpstrSrc, cchCount);
@@ -862,7 +862,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline void strcat_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
+	inline void strcat_x(char* lpstrDest, size_t cchDest, const char * lpstrSrc)
 	{
 #ifdef _UNICODE
 		strcatW_x(lpstrDest, cchDest, lpstrSrc);
@@ -895,7 +895,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int vsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
+	inline int vsprintf_x(char* lpstrBuff, size_t cchBuff, const char * lpstrFormat, va_list args)
 	{
 #if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
@@ -905,7 +905,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int wvsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
+	inline int wvsprintf_x(char* lpstrBuff, size_t cchBuff, const char * lpstrFormat, va_list args)
 	{
 #if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
@@ -915,7 +915,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int sprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
+	inline int sprintf_x(char* lpstrBuff, size_t cchBuff, const char * lpstrFormat, ...)
 	{
 		va_list args;
 		va_start(args, lpstrFormat);
@@ -924,7 +924,7 @@ namespace SecureHelper
 		return nRes;
 	}
 
-	inline int wsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
+	inline int wsprintf_x(char* lpstrBuff, size_t cchBuff, const char * lpstrFormat, ...)
 	{
 		va_list args;
 		va_start(args, lpstrFormat);
@@ -1576,11 +1576,11 @@ public:
 
 #if (_ATL_VER < 0x0700)
 	// search for an occurence of string p2 in string p1
-	static LPCTSTR FindOneOf(LPCTSTR p1, LPCTSTR p2)
+	static const char * FindOneOf(const char * p1, const char * p2)
 	{
 		while(p1 != NULL && *p1 != NULL)
 		{
-			LPCTSTR p = p2;
+			const char * p = p2;
 			while(p != NULL && *p != NULL)
 			{
 				if(*p1 == *p)
@@ -1649,7 +1649,7 @@ inline HRESULT AtlGetDllVersion(HINSTANCE hInstDLL, DLLVERSIONINFO* pDllVersionI
 	return (*pfnDllGetVersion)(pDllVersionInfo);
 }
 
-inline HRESULT AtlGetDllVersion(LPCTSTR lpstrDllName, DLLVERSIONINFO* pDllVersionInfo)
+inline HRESULT AtlGetDllVersion(const char * lpstrDllName, DLLVERSIONINFO* pDllVersionInfo)
 {
 	HINSTANCE hInstDLL = ::LoadLibrary(lpstrDllName);
 	if(hInstDLL == NULL)

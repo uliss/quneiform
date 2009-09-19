@@ -237,7 +237,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return (nRet == 0 || nRet == STRUNCATE);
         }
 
-        bool SetToolTipText(LPCTSTR lpstrText)
+        bool SetToolTipText(const char * lpstrText)
         {
             if(m_lpstrToolTipText != NULL)
             {
@@ -904,7 +904,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         return true;
     }
 
-    bool SetLabel(LPCTSTR lpstrLabel)
+    bool SetLabel(const char * lpstrLabel)
     {
         delete [] m_lpstrLabel;
         m_lpstrLabel = NULL;
@@ -936,7 +936,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         return true;
     }
 
-    bool SetHyperLink(LPCTSTR lpstrLink)
+    bool SetHyperLink(const char * lpstrLink)
     {
         delete [] m_lpstrHyperLink;
         m_lpstrHyperLink = NULL;
@@ -1093,7 +1093,7 @@ uint32_t dwStyle = GetStyle();
         return GetHyperLink(lpstrBuffer, nLength);
     }
 
-    bool SetToolTipText(LPCTSTR lpstrToolTipText)
+    bool SetToolTipText(const char * lpstrToolTipText)
     {
         ATLASSERT(IsCommandButton());
         return SetHyperLink(lpstrToolTipText);
@@ -1859,7 +1859,7 @@ public:
     bool m_bInUse;
 
     // Constructor/destructor
-    CWaitCursor(bool bSet = true, LPCTSTR lpstrCursor = IDC_WAIT, bool bSys = true) : m_hOldCursor(NULL), m_bInUse(false)
+    CWaitCursor(bool bSet = true, const char * lpstrCursor = IDC_WAIT, bool bSys = true) : m_hOldCursor(NULL), m_bInUse(false)
     {
         HINSTANCE hInstance = bSys ? NULL : ModuleHelper::GetResourceInstance();
         m_hWaitCursor = ::LoadCursor(hInstance, lpstrCursor);
@@ -1948,7 +1948,7 @@ public:
     }
 
     // Methods
-    HWND Create(HWND hWndParent, LPCTSTR lpstrText, DWORD dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | SBARS_SIZEGRIP, uint nID = ATL_IDW_STATUS_BAR)
+    HWND Create(HWND hWndParent, const char * lpstrText, DWORD dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | SBARS_SIZEGRIP, uint nID = ATL_IDW_STATUS_BAR)
     {
 #if (_MSC_VER >= 1300)
         return ATL::CWindowImpl< T, TBase >::Create(hWndParent, rcDefault, lpstrText, dwStyle, 0, nID);
@@ -2067,7 +2067,7 @@ public:
         return TRUE;
     }
 
-    Bool SetPaneText(int nPaneID, LPCTSTR lpstrText, int nType = 0)
+    Bool SetPaneText(int nPaneID, const char * lpstrText, int nType = 0)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2142,7 +2142,7 @@ public:
         return TRUE;
     }
 
-    Bool SetPaneTipText(int nPaneID, LPCTSTR lpstrText)
+    Bool SetPaneTipText(int nPaneID, const char * lpstrText)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2376,7 +2376,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         return (nRet == 0 || nRet == STRUNCATE);
     }
 
-    Bool SetTitle(LPCTSTR lpstrTitle)
+    Bool SetTitle(const char * lpstrTitle)
     {
         ATLASSERT(lpstrTitle != NULL);
 
@@ -2397,7 +2397,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
     }
 
     // Methods
-    HWND Create(HWND hWndParent, LPCTSTR lpstrTitle = NULL, DWORD dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+    HWND Create(HWND hWndParent, const char * lpstrTitle = NULL, DWORD dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 uint32_t dwExStyle = 0, uint nID = 0, pvoid lpCreateParam = NULL)
     {
         if(lpstrTitle != NULL)
@@ -2856,7 +2856,7 @@ public:
             long lValue;
             double dblValue;
             DECIMAL decValue;
-            LPCTSTR pszValue;
+            const char * pszValue;
         };
     };
 
@@ -3151,7 +3151,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         if((m_dwSortLVExtendedStyle & SORTLV_USESHELLBITMAPS) != 0)
         {
             bool bFree = false;
-            LPCTSTR pszModule = _T("shell32.dll");
+            const char * pszModule = _T("shell32.dll");
             HINSTANCE hShell = ::GetModuleHandle(pszModule);
 
             if (hShell == NULL)
@@ -3252,7 +3252,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         dc.SelectPen(hpenOld);
     }
 
-    double DateStrToDouble(LPCTSTR lpstr, DWORD dwFlags)
+    double DateStrToDouble(const char * lpstr, DWORD dwFlags)
     {
         ATLASSERT(lpstr != NULL);
         if(lpstr == NULL || lpstr[0] == _T('\0'))
@@ -3269,7 +3269,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return dRet;
     }
 
-    long StrToLong(LPCTSTR lpstr)
+    long StrToLong(const char * lpstr)
     {
         ATLASSERT(lpstr != NULL);
         if(lpstr == NULL || lpstr[0] == _T('\0'))
@@ -3286,7 +3286,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return lRet;
     }
 
-    double StrToDouble(LPCTSTR lpstr)
+    double StrToDouble(const char * lpstr)
     {
         ATLASSERT(lpstr != NULL);
         if(lpstr == NULL || lpstr[0] == _T('\0'))
@@ -3303,7 +3303,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return dblRet;
     }
 
-    bool StrToDecimal(LPCTSTR lpstr, DECIMAL* pDecimal)
+    bool StrToDecimal(const char * lpstr, DECIMAL* pDecimal)
     {
         ATLASSERT(lpstr != NULL);
         ATLASSERT(pDecimal != NULL);
@@ -3918,7 +3918,7 @@ public:
         return tcix.tvpage.hWnd;
     }
 
-    LPCTSTR GetPageTitle(int nPage) const
+    const char * GetPageTitle(int nPage) const
     {
         ATLASSERT(::IsWindow(m_hWnd));
         ATLASSERT(IsValidPageIndex(nPage));
@@ -3931,7 +3931,7 @@ public:
         return tcix.tvpage.lpstrTitle;
     }
 
-    bool SetPageTitle(int nPage, LPCTSTR lpstrTitle)
+    bool SetPageTitle(int nPage, const char * lpstrTitle)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         ATLASSERT(IsValidPageIndex(nPage));
@@ -4028,12 +4028,12 @@ public:
     }
 
     // Operations
-    bool AddPage(HWND hWndView, LPCTSTR lpstrTitle, int nImage = -1, pvoid pData = NULL)
+    bool AddPage(HWND hWndView, const char * lpstrTitle, int nImage = -1, pvoid pData = NULL)
     {
         return InsertPage(GetPageCount(), hWndView, lpstrTitle, nImage, pData);
     }
 
-    bool InsertPage(int nPage, HWND hWndView, LPCTSTR lpstrTitle, int nImage = -1, pvoid pData = NULL)
+    bool InsertPage(int nPage, HWND hWndView, const char * lpstrTitle, int nImage = -1, pvoid pData = NULL)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         ATLASSERT(nPage == GetPageCount() || IsValidPageIndex(nPage));
@@ -4250,14 +4250,14 @@ public:
 
             for(int i = 0; i < nMenuItemsCount; i++)
             {
-                LPCTSTR lpstrTitle = GetPageTitle(i);
+                const char * lpstrTitle = GetPageTitle(i);
                 int nLen = lstrlen(lpstrTitle);
                 CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
                 char* lpstrText = buff.Allocate(cchPrefix + nLen + 1);
                 ATLASSERT(lpstrText != NULL);
                 if(lpstrText != NULL)
                 {
-                    LPCTSTR lpstrFormat = (i < 9) ? _T("&%i %s") : _T("%i %s");
+                    const char * lpstrFormat = (i < 9) ? _T("&%i %s") : _T("%i %s");
                     SecureHelper::wsprintf_x(lpstrText, cchPrefix + nLen + 1, lpstrFormat, i + 1, lpstrTitle);
                     menu.AppendMenu(MF_STRING, ID_WINDOW_TABFIRST + i, lpstrText);
                 }
@@ -4678,8 +4678,8 @@ public:
         if(m_nActivePage != -1)
         {
             T* pT = static_cast<T*>(this);
-            LPCTSTR lpstrTitle = pT->GetPageTitle(m_nActivePage);
-            LPCTSTR lpstrDivider = pT->GetTitleDividerText();
+            const char * lpstrTitle = pT->GetPageTitle(m_nActivePage);
+            const char * lpstrDivider = pT->GetTitleDividerText();
             int cchBuffer = m_cchTitleBarLength + lstrlen(lpstrDivider) + lstrlen(m_lpstrTitleBarBase) + 1;
             CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
             char* lpstrPageTitle = buff.Allocate(cchBuffer);
@@ -4806,11 +4806,11 @@ public:
         ATLVERIFY(m_ilDrag.Add(bmp.m_hBitmap, RGB(255, 0, 255)) != -1);
     }
 
-    void ShortenTitle(LPCTSTR lpstrTitle, char* lpstrShortTitle, int cchShortTitle)
+    void ShortenTitle(const char * lpstrTitle, char* lpstrShortTitle, int cchShortTitle)
     {
         if(lstrlen(lpstrTitle) >= cchShortTitle)
         {
-            LPCTSTR lpstrEllipsis = _T("...");
+            const char * lpstrEllipsis = _T("...");
             int cchEllipsis = lstrlen(lpstrEllipsis);
             SecureHelper::strncpy_x(lpstrShortTitle, cchShortTitle, lpstrTitle, cchShortTitle - cchEllipsis - 1);
             SecureHelper::strcat_x(lpstrShortTitle, cchShortTitle, lpstrEllipsis);
@@ -4830,17 +4830,17 @@ public:
 #endif // !_WIN32_WCE
 
     // Text for menu items and title bar - override to provide different strings
-    static LPCTSTR GetEmptyListText()
+    static const char * GetEmptyListText()
     {
         return _T("(Empty)");
     }
 
-    static LPCTSTR GetWindowsMenuItemText()
+    static const char * GetWindowsMenuItemText()
     {
         return _T("&Windows...");
     }
 
-    static LPCTSTR GetTitleDividerText()
+    static const char * GetTitleDividerText()
     {
         return _T(" - ");
     }

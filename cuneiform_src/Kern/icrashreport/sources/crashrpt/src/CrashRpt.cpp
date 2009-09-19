@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace CrashHandler
 {
 
-CRASHRPTAPI pvoid Install(LPGETLOGFILE pfn, LPCTSTR lpcszTo, LPCTSTR lpcszSubject)
+CRASHRPTAPI pvoid Install(LPGETLOGFILE pfn, const char * lpcszTo, const char * lpcszSubject)
 {
    CCrashHandler *pImpl = new CCrashHandler(pfn, lpcszTo, lpcszSubject, true);
    CRASH_ASSERT(pImpl);
@@ -95,7 +95,7 @@ CRASHRPTAPI void Uninstall(pvoid lpState)
    delete pImpl;
 }
 
-CRASHRPTAPI void AddFile(pvoid lpState, LPCTSTR lpFile, LPCTSTR lpDesc)
+CRASHRPTAPI void AddFile(pvoid lpState, const char * lpFile, const char * lpDesc)
 {
    CCrashHandler *pImpl = (CCrashHandler*)lpState;
    CRASH_ASSERT(pImpl);
@@ -111,7 +111,7 @@ CRASHRPTAPI void GenerateErrorReport(pvoid lpState, PEXCEPTION_POINTERS pExInfo)
    pImpl->GenerateErrorReport(pExInfo);
 }
 
-CRASHRPTAPI void StaticGenerateErrorReport(PEXCEPTION_POINTERS pExInfo, LPGETLOGFILE pfn, LPCTSTR lpcszTo, LPCTSTR lpcszSubject)
+CRASHRPTAPI void StaticGenerateErrorReport(PEXCEPTION_POINTERS pExInfo, LPGETLOGFILE pfn, const char * lpcszTo, const char * lpcszSubject)
 {
    CCrashHandler *pImpl = new CCrashHandler(pfn, lpcszTo, lpcszSubject, false);
    CRASH_ASSERT(pImpl);

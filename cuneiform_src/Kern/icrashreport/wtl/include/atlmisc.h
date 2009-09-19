@@ -827,7 +827,7 @@ struct CStringData
 // empty string data (and locked)
 _declspec(selectany) int rgInitData[] = { -1, 0, 0, 0 };
 _declspec(selectany) CStringData* _atltmpDataNil = (CStringData*)&rgInitData;
-_declspec(selectany) LPCTSTR _atltmpPchNil = (LPCTSTR)(((uchar*)&rgInitData) + sizeof(CStringData));
+_declspec(selectany) const char * _atltmpPchNil = (const char *)(((uchar*)&rgInitData) + sizeof(CStringData));
 
 
 class CString
@@ -873,7 +873,7 @@ public:
 		}
 	}
 
-	CString(LPCTSTR lpsz)
+	CString(const char * lpsz)
 	{
 		Init();
 		if (lpsz != NULL && HIWORD(lpsz) == NULL)
@@ -894,7 +894,7 @@ public:
 	}
 
 #ifdef _UNICODE
-	CString(LPCSTR lpsz)
+	CString(const char * lpsz)
 	{
 		Init();
 #if defined(_WIN32_WCE) && (_ATL_VER >= 0x0800)
@@ -927,7 +927,7 @@ public:
 	}
 #endif // !_UNICODE
 
-	CString(LPCTSTR lpch, int nLength)
+	CString(const char * lpch, int nLength)
 	{
 		Init();
 		if (nLength != 0)
@@ -938,7 +938,7 @@ public:
 	}
 
 #ifdef _UNICODE
-	CString(LPCSTR lpsz, int nLength)
+	CString(const char * lpsz, int nLength)
 	{
 		Init();
 		if (nLength != 0)
@@ -968,7 +968,7 @@ public:
 	CString(const unsigned char* lpsz)
 	{
 		Init();
-		*this = (LPCSTR)lpsz;
+		*this = (const char *)lpsz;
 	}
 
 // Attributes & Operations
@@ -1020,7 +1020,7 @@ public:
 		m_pchData[nIndex] = ch;
 	}
 
-	operator LPCTSTR() const   // as a C string
+	operator const char *() const   // as a C string
 	{
 		return m_pchData;
 	}
@@ -1062,7 +1062,7 @@ public:
 	}
 #endif
 
-	CString& operator =(LPCTSTR lpsz)
+	CString& operator =(const char * lpsz)
 	{
 		ATLASSERT(lpsz == NULL || _IsValidString(lpsz));
 		AssignCopy(SafeStrlen(lpsz), lpsz);
@@ -1070,7 +1070,7 @@ public:
 	}
 
 #ifdef _UNICODE
-	CString& operator =(LPCSTR lpsz)
+	CString& operator =(const char * lpsz)
 	{
 #if defined(_WIN32_WCE) && (_ATL_VER >= 0x0800)
 		int nSrcLen = (lpsz != NULL) ? ATL::lstrlenA(lpsz) : 0;
@@ -1099,7 +1099,7 @@ public:
 
 	CString& operator =(const unsigned char* lpsz)
 	{
-		*this = (LPCSTR)lpsz;
+		*this = (const char *)lpsz;
 		return *this;
 	}
 
@@ -1124,7 +1124,7 @@ public:
 	}
 #endif
 
-	CString& operator +=(LPCTSTR lpsz)
+	CString& operator +=(const char * lpsz)
 	{
 		ATLASSERT(lpsz == NULL || _IsValidString(lpsz));
 		ConcatInPlace(SafeStrlen(lpsz), lpsz);
@@ -1138,16 +1138,16 @@ public:
 	friend CString __stdcall operator +(const CString& string, char ch);
 	friend CString __stdcall operator +(char ch, const CString& string);
 #endif
-	friend CString __stdcall operator +(const CString& string, LPCTSTR lpsz);
-	friend CString __stdcall operator +(LPCTSTR lpsz, const CString& string);
+	friend CString __stdcall operator +(const CString& string, const char * lpsz);
+	friend CString __stdcall operator +(const char * lpsz, const CString& string);
 
 	// string comparison
-	int Compare(LPCTSTR lpsz) const   // straight character (MBCS/Unicode aware)
+	int Compare(const char * lpsz) const   // straight character (MBCS/Unicode aware)
 	{
 		return _cstrcmp(m_pchData, lpsz);
 	}
 
-	int CompareNoCase(LPCTSTR lpsz) const   // ignore case (MBCS/Unicode aware)
+	int CompareNoCase(const char * lpsz) const   // ignore case (MBCS/Unicode aware)
 	{
 		return _cstrcmpi(m_pchData, lpsz);
 	}
@@ -1155,12 +1155,12 @@ public:
 #ifndef _WIN32_WCE
 	// CString::Collate is often slower than Compare but is MBSC/Unicode
 	//  aware as well as locale-sensitive with respect to sort order.
-	int Collate(LPCTSTR lpsz) const   // NLS aware
+	int Collate(const char * lpsz) const   // NLS aware
 	{
 		return _cstrcoll(m_pchData, lpsz);
 	}
 
-	int CollateNoCase(LPCTSTR lpsz) const   // ignore case
+	int CollateNoCase(const char * lpsz) const   // ignore case
 	{
 		return _cstrcolli(m_pchData, lpsz);
 	}
@@ -1214,13 +1214,13 @@ public:
 		return dest;
 	}
 
-	CString SpanIncluding(LPCTSTR lpszCharSet) const   // strspn equivalent
+	CString SpanIncluding(const char * lpszCharSet) const   // strspn equivalent
 	{
 		ATLASSERT(_IsValidString(lpszCharSet));
 		return Left(_cstrspn(m_pchData, lpszCharSet));
 	}
 
-	CString SpanExcluding(LPCTSTR lpszCharSet) const   // strcspn equivalent
+	CString SpanExcluding(const char * lpszCharSet) const   // strcspn equivalent
 	{
 		ATLASSERT(_IsValidString(lpszCharSet));
 		return Left(_cstrcspn(m_pchData, lpszCharSet));
@@ -1280,7 +1280,7 @@ public:
 		CopyBeforeWrite();
 
 		// find first non-space character
-		LPCTSTR lpsz = m_pchData;
+		const char * lpsz = m_pchData;
 		while (_cstrisspace(*lpsz))
 			lpsz = ::CharNext(lpsz);
 
@@ -1321,7 +1321,7 @@ public:
 	}
 
 	// remove continuous occcurrences of characters in passed string, starting from right
-	void TrimRight(LPCTSTR lpszTargetList)
+	void TrimRight(const char * lpszTargetList)
 	{
 		// find beginning of trailing matches by starting at beginning (DBCS aware)
 
@@ -1374,7 +1374,7 @@ public:
 		// find first non-matching character
 
 		CopyBeforeWrite();
-		LPCTSTR lpsz = m_pchData;
+		const char * lpsz = m_pchData;
 
 		while (chTarget == *lpsz)
 			lpsz = ::CharNext(lpsz);
@@ -1389,14 +1389,14 @@ public:
 	}
 
 	// remove continuous occcurrences of characters in passed string, starting from left
-	void TrimLeft(LPCTSTR lpszTargets)
+	void TrimLeft(const char * lpszTargets)
 	{
 		// if we're not trimming anything, we're not doing any work
 		if (SafeStrlen(lpszTargets) == 0)
 			return;
 
 		CopyBeforeWrite();
-		LPCTSTR lpsz = m_pchData;
+		const char * lpsz = m_pchData;
 
 		while (*lpsz != _T('\0'))
 		{
@@ -1452,7 +1452,7 @@ public:
 
 	// replace occurrences of substring lpszOld with lpszNew;
 	// empty lpszNew removes instances of lpszOld
-	int Replace(LPCTSTR lpszOld, LPCTSTR lpszNew)
+	int Replace(const char * lpszOld, const char * lpszNew)
 	{
 		// can't have empty or NULL lpszOld
 
@@ -1576,7 +1576,7 @@ public:
 	}
 
 	// insert substring at zero-based index; concatenates if index is past end of string
-	int Insert(int nIndex, LPCTSTR pstr)
+	int Insert(int nIndex, const char * pstr)
 	{
 		if (nIndex < 0)
 			nIndex = 0;
@@ -1640,7 +1640,7 @@ public:
 	int ReverseFind(TCHAR ch) const
 	{
 		// find last single character
-		LPCTSTR lpsz = _cstrrchr(m_pchData, (_TUCHAR)ch);
+		const char * lpsz = _cstrrchr(m_pchData, (_TUCHAR)ch);
 
 		// return -1 if not found, distance from beginning otherwise
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
@@ -1653,27 +1653,27 @@ public:
 			return -1;
 
 		// find first single character
-		LPCTSTR lpsz = _cstrchr(m_pchData + nStart, (_TUCHAR)ch);
+		const char * lpsz = _cstrchr(m_pchData + nStart, (_TUCHAR)ch);
 
 		// return -1 if not found and index otherwise
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
 	}
 
-	int FindOneOf(LPCTSTR lpszCharSet) const
+	int FindOneOf(const char * lpszCharSet) const
 	{
 		ATLASSERT(_IsValidString(lpszCharSet));
-		LPCTSTR lpsz = _cstrpbrk(m_pchData, lpszCharSet);
+		const char * lpsz = _cstrpbrk(m_pchData, lpszCharSet);
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
 	}
 
 	// look for a specific sub-string
 	// find a sub-string (like strstr)
-	int Find(LPCTSTR lpszSub) const   // like "C" strstr
+	int Find(const char * lpszSub) const   // like "C" strstr
 	{
 		return Find(lpszSub, 0);
 	}
 
-	int Find(LPCTSTR lpszSub, int nStart) const   // starting at index
+	int Find(const char * lpszSub, int nStart) const   // starting at index
 	{
 		ATLASSERT(_IsValidString(lpszSub));
 
@@ -1682,7 +1682,7 @@ public:
 			return -1;
 
 		// find first matching substring
-		LPCTSTR lpsz = _cstrstr(m_pchData + nStart, lpszSub);
+		const char * lpsz = _cstrstr(m_pchData + nStart, lpszSub);
 
 		// return -1 for not found, distance from beginning otherwise
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
@@ -1700,7 +1700,7 @@ public:
 
 	// simple formatting
 	// formatting (using wsprintf style formatting)
-	Bool __cdecl Format(LPCTSTR lpszFormat, ...)
+	Bool __cdecl Format(const char * lpszFormat, ...)
 	{
 		ATLASSERT(_IsValidString(lpszFormat));
 
@@ -1724,7 +1724,7 @@ public:
 		return bRet;
 	}
 
-	Bool FormatV(LPCTSTR lpszFormat, va_list argList)
+	Bool FormatV(const char * lpszFormat, va_list argList)
 	{
 		ATLASSERT(_IsValidString(lpszFormat));
 
@@ -1739,7 +1739,7 @@ public:
 
 		// make a guess at the maximum length of the resulting string
 		int nMaxLen = 0;
-		for (LPCTSTR lpsz = lpszFormat; *lpsz != _T('\0'); lpsz = ::CharNext(lpsz))
+		for (const char * lpsz = lpszFormat; *lpsz != _T('\0'); lpsz = ::CharNext(lpsz))
 		{
 			// handle '%' character, but watch out for '%%'
 			if (*lpsz != _T('%') || *(lpsz = ::CharNext(lpsz)) == _T('%'))
@@ -1848,7 +1848,7 @@ public:
 			// strings
 			case _T('s'):
 			{
-				LPCTSTR pstrNextArg = va_arg(argList, LPCTSTR);
+				const char * pstrNextArg = va_arg(argList, const char *);
 				if (pstrNextArg == NULL)
 				{
 					nItemLen = 6;  // "(null)"
@@ -1864,7 +1864,7 @@ public:
 			case _T('S'):
 			{
 #ifndef _UNICODE
-				LPWSTR pstrNextArg = va_arg(argList, LPWSTR);
+				const char * pstrNextArg = va_arg(argList, const char *);
 				if (pstrNextArg == NULL)
 				{
 					nItemLen = 6;  // "(null)"
@@ -1875,7 +1875,7 @@ public:
 					nItemLen = max(1, nItemLen);
 				}
 #else // _UNICODE
-				LPCSTR pstrNextArg = va_arg(argList, LPCSTR);
+				const char * pstrNextArg = va_arg(argList, const char *);
 				if (pstrNextArg == NULL)
 				{
 					nItemLen = 6; // "(null)"
@@ -1896,7 +1896,7 @@ public:
 			case _T('s') | FORCE_ANSI:
 			case _T('S') | FORCE_ANSI:
 			{
-				LPCSTR pstrNextArg = va_arg(argList, LPCSTR);
+				const char * pstrNextArg = va_arg(argList, const char *);
 				if (pstrNextArg == NULL)
 				{
 					nItemLen = 6; // "(null)"
@@ -1916,7 +1916,7 @@ public:
 			case _T('s') | FORCE_UNICODE:
 			case _T('S') | FORCE_UNICODE:
 			{
-				LPWSTR pstrNextArg = va_arg(argList, LPWSTR);
+				const char * pstrNextArg = va_arg(argList, const char *);
 				if (pstrNextArg == NULL)
 				{
 					nItemLen = 6; // "(null)"
@@ -2041,7 +2041,7 @@ public:
 
 	// formatting for localization (uses FormatMessage API)
 	// formatting (using FormatMessage style formatting)
-	Bool __cdecl FormatMessage(LPCTSTR lpszFormat, ...)
+	Bool __cdecl FormatMessage(const char * lpszFormat, ...)
 	{
 		// format message into temporary buffer lpszTemp
 		va_list argList;
@@ -2267,7 +2267,7 @@ public:
 		return GetData()->nAllocLength;
 	}
 
-	static Bool __stdcall _IsValidString(LPCTSTR lpsz, int /*nLength*/ = -1)
+	static Bool __stdcall _IsValidString(const char * lpsz, int /*nLength*/ = -1)
 	{
 		return (lpsz != NULL) ? TRUE : FALSE;
 	}
@@ -2350,7 +2350,7 @@ protected:
 	//  All routines return the new string (but as a 'const CString&' so that
 	//      assigning it again will cause a copy, eg: s1 = s2 = "hi there".
 	//
-	void AssignCopy(int nSrcLen, LPCTSTR lpszSrcData)
+	void AssignCopy(int nSrcLen, const char * lpszSrcData)
 	{
 		if(AllocBeforeWrite(nSrcLen))
 		{
@@ -2364,10 +2364,10 @@ protected:
 	// NOTE: "operator +" is done as friend functions for simplicity
 	//      There are three variants:
 	//          CString + CString
-	// and for ? = TCHAR, LPCTSTR
+	// and for ? = TCHAR, const char *
 	//          CString + ?
 	//          ? + CString
-	Bool ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data)
+	Bool ConcatCopy(int nSrc1Len, const char * lpszSrc1Data, int nSrc2Len, const char * lpszSrc2Data)
 	{
 		// -- master concatenation routine
 		// Concatenate two sources
@@ -2391,7 +2391,7 @@ protected:
 		return bRet;
 	}
 
-	void ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData)
+	void ConcatInPlace(int nSrcLen, const char * lpszSrcData)
 	{
 		//  -- the main routine for += operators
 
@@ -2466,7 +2466,7 @@ protected:
 		}
 	}
 
-	static int PASCAL SafeStrlen(LPCTSTR lpsz)
+	static int PASCAL SafeStrlen(const char * lpsz)
 	{
 		return (lpsz == NULL) ? 0 : lstrlen(lpsz);
 	}
@@ -2815,55 +2815,55 @@ protected:
 inline bool __stdcall operator ==(const CString& s1, const CString& s2)
 { return s1.Compare(s2) == 0; }
 
-inline bool __stdcall operator ==(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator ==(const CString& s1, const char * s2)
 { return s1.Compare(s2) == 0; }
 
-inline bool __stdcall operator ==(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator ==(const char * s1, const CString& s2)
 { return s2.Compare(s1) == 0; }
 
 inline bool __stdcall operator !=(const CString& s1, const CString& s2)
 { return s1.Compare(s2) != 0; }
 
-inline bool __stdcall operator !=(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator !=(const CString& s1, const char * s2)
 { return s1.Compare(s2) != 0; }
 
-inline bool __stdcall operator !=(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator !=(const char * s1, const CString& s2)
 { return s2.Compare(s1) != 0; }
 
 inline bool __stdcall operator <(const CString& s1, const CString& s2)
 { return s1.Compare(s2) < 0; }
 
-inline bool __stdcall operator <(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator <(const CString& s1, const char * s2)
 { return s1.Compare(s2) < 0; }
 
-inline bool __stdcall operator <(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator <(const char * s1, const CString& s2)
 { return s2.Compare(s1) > 0; }
 
 inline bool __stdcall operator >(const CString& s1, const CString& s2)
 { return s1.Compare(s2) > 0; }
 
-inline bool __stdcall operator >(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator >(const CString& s1, const char * s2)
 { return s1.Compare(s2) > 0; }
 
-inline bool __stdcall operator >(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator >(const char * s1, const CString& s2)
 { return s2.Compare(s1) < 0; }
 
 inline bool __stdcall operator <=(const CString& s1, const CString& s2)
 { return s1.Compare(s2) <= 0; }
 
-inline bool __stdcall operator <=(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator <=(const CString& s1, const char * s2)
 { return s1.Compare(s2) <= 0; }
 
-inline bool __stdcall operator <=(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator <=(const char * s1, const CString& s2)
 { return s2.Compare(s1) >= 0; }
 
 inline bool __stdcall operator >=(const CString& s1, const CString& s2)
 { return s1.Compare(s2) >= 0; }
 
-inline bool __stdcall operator >=(const CString& s1, LPCTSTR s2)
+inline bool __stdcall operator >=(const CString& s1, const char * s2)
 { return s1.Compare(s2) >= 0; }
 
-inline bool __stdcall operator >=(LPCTSTR s1, const CString& s2)
+inline bool __stdcall operator >=(const char * s1, const CString& s2)
 { return s2.Compare(s1) <= 0; }
 
 
@@ -2902,7 +2902,7 @@ inline CString __stdcall operator +(char ch, const CString& string)
 }
 #endif // _UNICODE
 
-inline CString __stdcall operator +(const CString& string, LPCTSTR lpsz)
+inline CString __stdcall operator +(const CString& string, const char * lpsz)
 {
 	ATLASSERT(lpsz == NULL || CString::_IsValidString(lpsz));
 	CString s;
@@ -2910,7 +2910,7 @@ inline CString __stdcall operator +(const CString& string, LPCTSTR lpsz)
 	return s;
 }
 
-inline CString __stdcall operator +(LPCTSTR lpsz, const CString& string)
+inline CString __stdcall operator +(const char * lpsz, const CString& string)
 {
 	ATLASSERT(lpsz == NULL || CString::_IsValidString(lpsz));
 	CString s;
@@ -2931,7 +2931,7 @@ inline CString __stdcall operator +(LPCTSTR lpsz, const CString& string)
 #endif
 
 // forward declaration
-inline bool AtlCompactPath(char* lpstrOut, LPCTSTR lpstrIn, int cchLen);
+inline bool AtlCompactPath(char* lpstrOut, const char * lpstrIn, int cchLen);
 
 template <class T, int t_cchItemLen = MAX_PATH, int t_nFirstID = ID_FILE_MRU_FIRST, int t_nLastID = ID_FILE_MRU_LAST>
 class CRecentDocumentListBase
@@ -3025,7 +3025,7 @@ public:
 	}
 
 // Operations
-	Bool AddToList(LPCTSTR lpstrDocName)
+	Bool AddToList(const char * lpstrDocName)
 	{
 		_DocEntry de;
 		errno_t nRet = SecureHelper::strncpy_x(de.szDocName, _countof(de.szDocName), lpstrDocName, _TRUNCATE);
@@ -3116,7 +3116,7 @@ public:
 		return bRet;
 	}
 
-	Bool ReadFromRegistry(LPCTSTR lpstrRegKey)
+	Bool ReadFromRegistry(const char * lpstrRegKey)
 	{
 		T* pT = static_cast<T*>(this);
 		ATL::CRegKey rkParent;
@@ -3168,7 +3168,7 @@ public:
 		return pT->UpdateMenu();
 	}
 
-	Bool WriteToRegistry(LPCTSTR lpstrRegKey)
+	Bool WriteToRegistry(const char * lpstrRegKey)
 	{
 		T* pT = static_cast<T*>(this);
 		pT;   // avoid level 4 warning
@@ -3283,22 +3283,22 @@ public:
 
 // Overrideables
 	// override to provide a different method of compacting document names
-	static bool CompactDocumentName(char* lpstrOut, LPCTSTR lpstrIn, int cchLen)
+	static bool CompactDocumentName(char* lpstrOut, const char * lpstrIn, int cchLen)
 	{
 		return AtlCompactPath(lpstrOut, lpstrIn, cchLen);
 	}
 
-	static LPCTSTR GetRegKeyName()
+	static const char * GetRegKeyName()
 	{
 		return _T("Recent Document List");
 	}
 
-	static LPCTSTR GetRegCountName()
+	static const char * GetRegCountName()
 	{
 		return _T("DocumentCount");
 	}
 
-	static LPCTSTR GetRegItemName()
+	static const char * GetRegItemName()
 	{
 		// Note: This string is a format string used with wsprintf().
 		// Resulting formatted string must be m_cchItemNameLen or less
@@ -3306,7 +3306,7 @@ public:
 		return _T("Document%i");
 	}
 
-	static LPCTSTR GetMRUEmptyText()
+	static const char * GetMRUEmptyText()
 	{
 		return _WTL_MRUEMPTY_TEXT;
 	}
@@ -3437,7 +3437,7 @@ public:
 		TCHAR szBuff[MAX_PATH] = { 0 };
 		if(!GetFilePath(szBuff, MAX_PATH))
 			return FALSE;
-		LPCTSTR lpstrFileURLPrefix = _T("file://");
+		const char * lpstrFileURLPrefix = _T("file://");
 		if(lstrlen(szBuff) + lstrlen(lpstrFileURLPrefix) >= cchLength)
 			return FALSE;
 		SecureHelper::strcpy_x(lpstrFileURL, cchLength, lpstrFileURLPrefix);
@@ -3630,7 +3630,7 @@ public:
 	}
 
 // Operations
-	Bool FindFile(LPCTSTR pstrName = NULL)
+	Bool FindFile(const char * pstrName = NULL)
 	{
 		Close();
 
@@ -3772,7 +3772,7 @@ inline HCURSOR AtlLoadCursor(ATL::_U_STRINGorID cursor)
 	return ::LoadCursor(ModuleHelper::GetResourceInstance(), cursor.m_lpstr);
 }
 
-inline HCURSOR AtlLoadSysCursor(LPCTSTR lpCursorName)
+inline HCURSOR AtlLoadSysCursor(const char * lpCursorName)
 {
 #if (WINVER >= 0x0500)
 	ATLASSERT(lpCursorName == IDC_ARROW || lpCursorName == IDC_IBEAM || lpCursorName == IDC_WAIT ||
@@ -3797,7 +3797,7 @@ inline HICON AtlLoadIcon(ATL::_U_STRINGorID icon)
 }
 
 #ifndef _WIN32_WCE
-inline HICON AtlLoadSysIcon(LPCTSTR lpIconName)
+inline HICON AtlLoadSysIcon(const char * lpIconName)
 {
 #if (WINVER >= 0x0600)
 	ATLASSERT(lpIconName == IDI_APPLICATION || lpIconName == IDI_ASTERISK || lpIconName == IDI_EXCLAMATION ||
@@ -3863,9 +3863,9 @@ inline int AtlLoadString(uint uID, char* lpBuffer, int nBufferMax)
 #endif // (_ATL_VER < 0x0700)
 
 #ifdef _WIN32_WCE // CE only direct access to the resource
-inline LPCTSTR AtlLoadString(uint uID)
+inline const char * AtlLoadString(uint uID)
 {
-	LPCTSTR s = (LPCTSTR)::LoadString(ModuleHelper::GetResourceInstance(), uID, NULL, 0);
+	const char * s = (const char *)::LoadString(ModuleHelper::GetResourceInstance(), uID, NULL, 0);
 #ifdef DEBUG // Check for null-termination
 	if(s != NULL)
 		// Note: RC -n <file.rc> compiles null-terminated resource strings
@@ -3949,7 +3949,7 @@ inline HPALETTE AtlGetStockPalette(int nPalette)
 // Global function for compacting a path by replacing parts with ellipsis
 
 // helper for multi-byte character sets
-inline bool _IsDBCSTrailByte(LPCTSTR lpstr, int nChar)
+inline bool _IsDBCSTrailByte(const char * lpstr, int nChar)
 {
 #ifndef _UNICODE
 	int i = nChar;
@@ -3965,13 +3965,13 @@ inline bool _IsDBCSTrailByte(LPCTSTR lpstr, int nChar)
 #endif // _UNICODE
 }
 
-inline bool AtlCompactPath(char* lpstrOut, LPCTSTR lpstrIn, int cchLen)
+inline bool AtlCompactPath(char* lpstrOut, const char * lpstrIn, int cchLen)
 {
 	ATLASSERT(lpstrOut != NULL);
 	ATLASSERT(lpstrIn != NULL);
 	ATLASSERT(cchLen > 0);
 
-	LPCTSTR szEllipsis = _T("...");
+	const char * szEllipsis = _T("...");
 	const int cchEndEllipsis = 3;
 	const int cchMidEllipsis = 4;
 
@@ -3992,8 +3992,8 @@ inline bool AtlCompactPath(char* lpstrOut, LPCTSTR lpstrIn, int cchLen)
 	}
 
 	// find the filename portion of the path
-	LPCTSTR lpstrFileName = lpstrIn;
-	for(LPCTSTR pPath = lpstrIn; *pPath; pPath = ::CharNext(pPath))
+	const char * lpstrFileName = lpstrIn;
+	for(const char * pPath = lpstrIn; *pPath; pPath = ::CharNext(pPath))
 	{
 		if((pPath[0] == _T('\\') || pPath[0] == _T(':') || pPath[0] == _T('/'))
 				&& pPath[1] && pPath[1] != _T('\\') && pPath[1] != _T('/'))

@@ -96,7 +96,7 @@ namespace WTL
 ///////////////////////////////////////////////////////////////////////////////
 // AtlMessageBox - accepts both memory and resource based strings
 
-inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uType = MB_OK | MB_ICONINFORMATION)
+inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STRINGorID title = (const char *)NULL, uint uType = MB_OK | MB_ICONINFORMATION)
 {
 	ATLASSERT(hWndOwner == NULL || ::IsWindow(hWndOwner));
 
@@ -350,13 +350,13 @@ public:
 #endif // (WINVER >= 0x0500) && !defined(_WIN32_WCE)
 
 // Menu Item Operations
-	Bool AppendMenu(uint nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool AppendMenu(uint nFlags, UINT_PTR nIDNewItem = 0, const char * lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::AppendMenu(m_hMenu, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	Bool AppendMenu(uint nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool AppendMenu(uint nFlags, HMENU hSubMenu, const char * lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -367,14 +367,14 @@ public:
 	Bool AppendMenu(uint nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return ::AppendMenu(m_hMenu, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
+		return ::AppendMenu(m_hMenu, nFlags | MF_BITMAP, nIDNewItem, (const char *)hBmp);
 	}
 
 	Bool AppendMenu(uint nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
-		return ::AppendMenu(m_hMenu, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (LPCTSTR)hBmp);
+		return ::AppendMenu(m_hMenu, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (const char *)hBmp);
 	}
 #endif // !_WIN32_WCE
 
@@ -481,13 +481,13 @@ public:
 		return CMenuHandle(::GetSubMenu(m_hMenu, nPos));
 	}
 
-	Bool InsertMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool InsertMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem = 0, const char * lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::InsertMenu(m_hMenu, nPosition, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	Bool InsertMenu(uint nPosition, uint nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool InsertMenu(uint nPosition, uint nFlags, HMENU hSubMenu, const char * lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -498,23 +498,23 @@ public:
 	Bool InsertMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return ::InsertMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
+		return ::InsertMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (const char *)hBmp);
 	}
 
 	Bool InsertMenu(uint nPosition, uint nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
-		return ::InsertMenu(m_hMenu, nPosition, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (LPCTSTR)hBmp);
+		return ::InsertMenu(m_hMenu, nPosition, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (const char *)hBmp);
 	}
 
-	Bool ModifyMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool ModifyMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem = 0, const char * lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::ModifyMenu(m_hMenu, nPosition, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	Bool ModifyMenu(uint nPosition, uint nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool ModifyMenu(uint nPosition, uint nFlags, HMENU hSubMenu, const char * lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -524,14 +524,14 @@ public:
 	Bool ModifyMenu(uint nPosition, uint nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return ::ModifyMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
+		return ::ModifyMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (const char *)hBmp);
 	}
 
 	Bool ModifyMenu(uint nPosition, uint nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
-		return ::ModifyMenu(m_hMenu, nPosition, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (LPCTSTR)hBmp);
+		return ::ModifyMenu(m_hMenu, nPosition, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (const char *)hBmp);
 	}
 #endif // !_WIN32_WCE
 
@@ -770,7 +770,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	HICON LoadOEMIcon(LPCTSTR lpstrIconName)
+	HICON LoadOEMIcon(const char * lpstrIconName)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(IsOEMIcon(lpstrIconName));
@@ -814,7 +814,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	HICON ExtractIcon(LPCTSTR lpszExeFileName, uint nIconIndex)
+	HICON ExtractIcon(const char * lpszExeFileName, uint nIconIndex)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(lpszExeFileName != NULL);
@@ -920,14 +920,14 @@ public:
 		return ::LoadIconWithScaleDown(ModuleHelper::GetResourceInstance(), T2CW(icon.m_lpstr), cx, cy, &m_hIcon);
 	}
 
-	HRESULT LoadOEMIconMetric(LPCTSTR lpstrIconName, int lims)
+	HRESULT LoadOEMIconMetric(const char * lpstrIconName, int lims)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(IsOEMIcon(lpstrIconName));
 		return ::LoadIconMetric(NULL, (LPCWSTR)lpstrIconName, lims, &m_hIcon);
 	}
 
-	HRESULT LoadOEMIconWithScaleDown(LPCTSTR lpstrIconName, int cx, int cy)
+	HRESULT LoadOEMIconWithScaleDown(const char * lpstrIconName, int cx, int cy)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(IsOEMIcon(lpstrIconName));
@@ -939,7 +939,7 @@ public:
 
 	// Helper
 #ifndef _WIN32_WCE
-	static bool IsOEMIcon(LPCTSTR lpstrIconName)
+	static bool IsOEMIcon(const char * lpstrIconName)
 	{
 #if (WINVER >= 0x0600)
 		return (lpstrIconName == IDI_APPLICATION || lpstrIconName == IDI_ASTERISK || lpstrIconName == IDI_EXCLAMATION ||
@@ -1013,7 +1013,7 @@ public:
 		return m_hCursor;
 	}
 
-	HCURSOR LoadSysCursor(LPCTSTR lpstrCursorName)
+	HCURSOR LoadSysCursor(const char * lpstrCursorName)
 	{
 		ATLASSERT(m_hCursor == NULL);
 #if (WINVER >= 0x0500)
@@ -1035,7 +1035,7 @@ public:
 	}
 
 	// deprecated
-	HCURSOR LoadOEMCursor(LPCTSTR lpstrCursorName)
+	HCURSOR LoadOEMCursor(const char * lpstrCursorName)
 	{
 		return LoadSysCursor(lpstrCursorName);
 	}
@@ -1048,7 +1048,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	HCURSOR LoadCursorFromFile(LPCTSTR pstrFilename)
+	HCURSOR LoadCursorFromFile(const char * pstrFilename)
 	{
 		ATLASSERT(m_hCursor == NULL);
 		ATLASSERT(pstrFilename != NULL);

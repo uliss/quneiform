@@ -115,16 +115,16 @@ CRASHRPTAPI
 pvoid
 Install(
    IN LPGETLOGFILE pfn OPTIONAL,                // client crash callback
-   IN LPCTSTR lpTo OPTIONAL,                    // Email:to
-   IN LPCTSTR lpSubject OPTIONAL                // Email:subject
+   IN const char * lpTo OPTIONAL,                    // Email:to
+   IN const char * lpSubject OPTIONAL                // Email:subject
    );
 
 CRASHRPTAPI
 pvoid
 Create(
    IN LPGETLOGFILE pfn OPTIONAL,                // client crash callback
-   IN LPCTSTR lpTo OPTIONAL,                    // Email:to
-   IN LPCTSTR lpSubject OPTIONAL                // Email:subject
+   IN const char * lpTo OPTIONAL,                    // Email:to
+   IN const char * lpSubject OPTIONAL                // Email:subject
    );
 
 //-----------------------------------------------------------------------------
@@ -168,8 +168,8 @@ CRASHRPTAPI
 void
 AddFile(
    IN pvoid lpState,                           // State from Install()
-   IN LPCTSTR lpFile,                           // File name
-   IN LPCTSTR lpDesc                            // File desc
+   IN const char * lpFile,                           // File name
+   IN const char * lpDesc                            // File desc
    );
 
 //-----------------------------------------------------------------------------
@@ -198,8 +198,8 @@ void
 StaticGenerateErrorReport(
    IN PEXCEPTION_POINTERS pExInfo OPTIONAL,
    IN LPGETLOGFILE pfn OPTIONAL,                // client crash callback
-   IN LPCTSTR lpTo OPTIONAL,                    // Email:to
-   IN LPCTSTR lpSubject OPTIONAL                // Email:subject
+   IN const char * lpTo OPTIONAL,                    // Email:to
+   IN const char * lpSubject OPTIONAL                // Email:subject
    );
 
 }

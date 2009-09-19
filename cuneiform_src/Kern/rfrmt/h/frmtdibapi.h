@@ -90,6 +90,6 @@ uint16_t      WINAPI  DIBNumColors (char* lpbi);
 HGLOBAL   WINAPI  CopyHandle (HGLOBAL h);
 
 //Bool       WINAPI       SaveDIB (Handle hDib, CFile& file);//!!! Art - устарело
-Bool              FrmtSaveFile(Handle hDib,  LPCTSTR lpszPathName);
+Bool              FrmtSaveFile(Handle hDib,  const char * lpszPathName);
 
 #endif //!_INC_DIBAPI

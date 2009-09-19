@@ -120,8 +120,8 @@ public:
    //
    CCrashHandler(
       LPGETLOGFILE lpfn = NULL,           // Client crash callback
-      LPCTSTR lpcszTo = NULL,             // EMail:To
-      LPCTSTR lpcszSubject = NULL,         // EMail:Subject
+      const char * lpcszTo = NULL,             // EMail:To
+      const char * lpcszSubject = NULL,         // EMail:Subject
 	  bool bInstallHandler = true			// Устаналивать ли хендлер на непойманные исключения
       );
 
@@ -158,8 +158,8 @@ public:
    //
    void
    AddFile(
-      LPCTSTR lpFile,                     // File nae
-      LPCTSTR lpDesc                      // File description
+      const char * lpFile,                     // File nae
+      const char * lpDesc                      // File description
       );
 
    //-----------------------------------------------------------------------------
@@ -201,7 +201,7 @@ protected:
    Bool
    SaveReport(
       CExceptionReport &rpt,
-      LPCTSTR lpcszFile
+      const char * lpcszFile
       );
 
    //-----------------------------------------------------------------------------
@@ -223,9 +223,9 @@ protected:
    Bool
    MailReport(
       CExceptionReport &rpt,
-      LPCTSTR lpcszFile,
-      LPCTSTR lpcszEmail,
-      LPCTSTR lpcszSubject
+      const char * lpcszFile,
+      const char * lpcszEmail,
+      const char * lpcszSubject
       );
 
    LPTOP_LEVEL_EXCEPTION_FILTER  m_oldFilter;      // previous exception filter
