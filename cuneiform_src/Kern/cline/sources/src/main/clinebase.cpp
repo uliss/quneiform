@@ -69,7 +69,6 @@
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Handle Root = NULL;
 Handle MainDebug = NULL;
-//Handle CLineDebug=NULL;
 Handle MemStat = NULL;
 
 CLINE_handle hcode;
@@ -112,8 +111,7 @@ Bool InitData(void);
 void DeleteData(void);
 
 /////////////////////////////////////////
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+Bool APIENTRY DllMain(HINSTANCE, uint32_t ul_reason_for_call, void*) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		break;
@@ -128,157 +126,216 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_Init(uint16_t wHeightCode,HANDLE hStorage)
-{
-	LDPUMA_Init(0,NULL);
+CLINE_FUNC Bool CLINE_Init(int, Handle) {
+	LDPUMA_Init(0, NULL);
 
-	pLCont=NULL;
-	pMainCont=NULL;
+	pLCont = NULL;
+	pMainCont = NULL;
 
-	size_inv=sizeof(DInterval);
-	size_event=sizeof(DEvent);
-	size_cupoint=sizeof(DCutPoint);
-	size_comp=sizeof(DComponent);
-	size_line=sizeof(DLine);
+	size_inv = sizeof(DInterval);
+	size_event = sizeof(DEvent);
+	size_cupoint = sizeof(DCutPoint);
+	size_comp = sizeof(DComponent);
+	size_line = sizeof(DLine);
 
-	size_class_inv=sizeof(CInterval);
-	size_class_event=sizeof(CEvent);
-	size_class_cupoint=sizeof(CCutPoint);
-	size_class_comp=sizeof(CComponent);
-	size_class_line=sizeof(CLine);
-	size_class_hline=sizeof(CHLine);
+	size_class_inv = sizeof(CInterval);
+	size_class_event = sizeof(CEvent);
+	size_class_cupoint = sizeof(CCutPoint);
+	size_class_comp = sizeof(CComponent);
+	size_class_line = sizeof(CLine);
+	size_class_hline = sizeof(CHLine);
 
-	_ASSERT(size_class_inv!=size_class_event && size_class_inv!=size_class_cupoint && size_class_inv!=size_class_comp && size_class_inv!=size_class_line && size_class_inv!=size_class_hline);
-	_ASSERT(size_class_event!=size_class_cupoint && size_class_event!=size_class_comp && size_class_event!=size_class_line && size_class_event!=size_class_hline);
-	_ASSERT(size_class_cupoint!=size_class_comp && size_class_cupoint!=size_class_line && size_class_cupoint!=size_class_hline);
-	_ASSERT(size_class_comp!=size_class_line && size_class_comp!=size_class_hline);
-	_ASSERT(size_class_line!=size_class_hline);
+	_ASSERT(size_class_inv != size_class_event && size_class_inv
+			!= size_class_cupoint && size_class_inv != size_class_comp
+			&& size_class_inv != size_class_line && size_class_inv
+			!= size_class_hline);
+	_ASSERT(size_class_event != size_class_cupoint && size_class_event
+			!= size_class_comp && size_class_event != size_class_line
+			&& size_class_event != size_class_hline);
+	_ASSERT(size_class_cupoint != size_class_comp && size_class_cupoint
+			!= size_class_line && size_class_cupoint != size_class_hline);
+	_ASSERT(size_class_comp != size_class_line && size_class_comp
+			!= size_class_hline);
+	_ASSERT(size_class_line != size_class_hline);
 
-	if(!InitData()) {
+	if (!InitData()) {
 		return FALSE;
 	}
 
-	int time=clock();
-	time=abs(time);
-	hcode=(CLINE_handle)time;
-	CLINE_Debug=0;
-	CLINE_Debug_2=0;
+	int time = clock();
+	time = abs(time);
+	hcode = (CLINE_handle) time;
+	CLINE_Debug = 0;
+	CLINE_Debug_2 = 0;
 
 	//    LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
 
-	LDPUMA_Registry(&Root,"Контейнер линий",NULL);
-	LDPUMA_RegistryHelp(Root,"<Ответственный тов. Степаненков> \
-                        \n Вершина отладки контейнера линий.",FALSE);
-	LDPUMA_RegVariable(Root,"CLINE_DEBUG",&CLINE_Debug,"int");
-	LDPUMA_RegVariable(Root,"CLINE_DEBUG_WEAK",&CLINE_Debug_2,"int");
+	LDPUMA_Registry(&Root, "Контейнер линий", NULL);
+	LDPUMA_RegistryHelp(
+			Root,
+			"<Ответственный тов. Степаненков> \
+                        \n Вершина отладки контейнера линий.",
+			FALSE);
+	LDPUMA_RegVariable(Root, "CLINE_DEBUG", &CLINE_Debug, "int");
+	LDPUMA_RegVariable(Root, "CLINE_DEBUG_WEAK", &CLINE_Debug_2, "int");
 
-	LDPUMA_Registry(&MemStat,"Отпись статистики по памяти",Root);
-	LDPUMA_RegistryHelp(MemStat,"Разрешить отпись статистики по памяти в файл clstat.res",FALSE);
+	LDPUMA_Registry(&MemStat, "Отпись статистики по памяти", Root);
+	LDPUMA_RegistryHelp(MemStat,
+			"Разрешить отпись статистики по памяти в файл clstat.res", FALSE);
 
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_Done()
-{
+CLINE_FUNC Bool CLINE_Done() {
 	DeleteData();
 	LDPUMA_Done();
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(uint32_t) CLINE_GetReturnCode()
-{
+CLINE_FUNC int CLINE_GetReturnCode() {
 	return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(char *) CLINE_GetReturnString(uint32_t dwError)
-{
+CLINE_FUNC char * CLINE_GetReturnString(int /*error*/) {
 	return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_GetExportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
+CLINE_FUNC Bool CLINE_GetExportData(int dwType, void * pData) {
+	Bool rc = TRUE;
 
 #define CASE_FUNCTION(a)	case CLINE_FN##a:	*(FN##a *)pData = a; break
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(CLINE_Reset);
-		CASE_FUNCTION(CLINE_CreateContainer);
-		CASE_FUNCTION(CLINE_DeleteContainer);
-		CASE_FUNCTION(CLINE_GetFirstContainer);
-		CASE_FUNCTION(CLINE_GetNextContainer);
-		CASE_FUNCTION(CLINE_GetMainContainer);
-		CASE_FUNCTION(CLINE_CleanContainer);
-		CASE_FUNCTION(CLINE_GetLineCount);
-		CASE_FUNCTION(CLINE_GetFirstLine);
-		CASE_FUNCTION(CLINE_GetNextLine);
-		CASE_FUNCTION(CLINE_AddNewLine);
-		CASE_FUNCTION(CLINE_DelLine);
-		CASE_FUNCTION(CLINE_DelAllLines);
-		CASE_FUNCTION(CLINE_GetLineData);
-		CASE_FUNCTION(CLINE_SetLineData);
-		CASE_FUNCTION(CLINE_GetEventCount);
-		CASE_FUNCTION(CLINE_GetFirstEvent);
-		CASE_FUNCTION(CLINE_GetNextEvent);
-		CASE_FUNCTION(CLINE_AddNewEvent);
-		CASE_FUNCTION(CLINE_DelEvent);
-		CASE_FUNCTION(CLINE_DelAllEvents);
-		CASE_FUNCTION(CLINE_GetEventData);
-		CASE_FUNCTION(CLINE_SetEventData);
-		CASE_FUNCTION(CLINE_GetCutPointCount);
-		CASE_FUNCTION(CLINE_GetFirstCutPoint);
-		CASE_FUNCTION(CLINE_GetNextCutPoint);
-		CASE_FUNCTION(CLINE_AddNewCutPoint);
-		CASE_FUNCTION(CLINE_DelCutPoint);
-		CASE_FUNCTION(CLINE_DelAllCutPoints);
-		CASE_FUNCTION(CLINE_GetCutPointData);
-		CASE_FUNCTION(CLINE_SetCutPointData);
-		CASE_FUNCTION(CLINE_GetCompCount);
-		CASE_FUNCTION(CLINE_GetFirstComp);
-		CASE_FUNCTION(CLINE_GetNextComp);
-		CASE_FUNCTION(CLINE_AddNewComp);
-		CASE_FUNCTION(CLINE_DelComp);
-		CASE_FUNCTION(CLINE_DelAllComps);
-		CASE_FUNCTION(CLINE_GetCompData);
-		CASE_FUNCTION(CLINE_SetCompData);
-		CASE_FUNCTION(CLINE_GetEventInvCount);
-		CASE_FUNCTION(CLINE_GetFirstEventInv);
-		CASE_FUNCTION(CLINE_GetNextEventInv);
-		CASE_FUNCTION(CLINE_AddNewEventInv);
-		CASE_FUNCTION(CLINE_DelEventInv);
-		CASE_FUNCTION(CLINE_DelAllEventInvs);
-		CASE_FUNCTION(CLINE_GetEventInvData);
-		CASE_FUNCTION(CLINE_SetEventInvData);
-		CASE_FUNCTION(CLINE_GetCutPointInvCount);
-		CASE_FUNCTION(CLINE_GetFirstCutPointInv);
-		CASE_FUNCTION(CLINE_GetNextCutPointInv);
-		CASE_FUNCTION(CLINE_AddNewCutPointInv);
-		CASE_FUNCTION(CLINE_DelCutPointInv);
-		CASE_FUNCTION(CLINE_DelAllCutPointInvs);
-		CASE_FUNCTION(CLINE_GetCutPointInvData);
-		CASE_FUNCTION(CLINE_SetCutPointInvData);
-		CASE_FUNCTION(CLINE_CopyData);
+	switch (dwType) {
+	CASE_FUNCTION(CLINE_Reset)
+		;
+	CASE_FUNCTION(CLINE_CreateContainer)
+		;
+	CASE_FUNCTION(CLINE_DeleteContainer)
+		;
+	CASE_FUNCTION(CLINE_GetFirstContainer)
+		;
+	CASE_FUNCTION(CLINE_GetNextContainer)
+		;
+	CASE_FUNCTION(CLINE_GetMainContainer)
+		;
+	CASE_FUNCTION(CLINE_CleanContainer)
+		;
+	CASE_FUNCTION(CLINE_GetLineCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstLine)
+		;
+	CASE_FUNCTION(CLINE_GetNextLine)
+		;
+	CASE_FUNCTION(CLINE_AddNewLine)
+		;
+	CASE_FUNCTION(CLINE_DelLine)
+		;
+	CASE_FUNCTION(CLINE_DelAllLines)
+		;
+	CASE_FUNCTION(CLINE_GetLineData)
+		;
+	CASE_FUNCTION(CLINE_SetLineData)
+		;
+	CASE_FUNCTION(CLINE_GetEventCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstEvent)
+		;
+	CASE_FUNCTION(CLINE_GetNextEvent)
+		;
+	CASE_FUNCTION(CLINE_AddNewEvent)
+		;
+	CASE_FUNCTION(CLINE_DelEvent)
+		;
+	CASE_FUNCTION(CLINE_DelAllEvents)
+		;
+	CASE_FUNCTION(CLINE_GetEventData)
+		;
+	CASE_FUNCTION(CLINE_SetEventData)
+		;
+	CASE_FUNCTION(CLINE_GetCutPointCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstCutPoint)
+		;
+	CASE_FUNCTION(CLINE_GetNextCutPoint)
+		;
+	CASE_FUNCTION(CLINE_AddNewCutPoint)
+		;
+	CASE_FUNCTION(CLINE_DelCutPoint)
+		;
+	CASE_FUNCTION(CLINE_DelAllCutPoints)
+		;
+	CASE_FUNCTION(CLINE_GetCutPointData)
+		;
+	CASE_FUNCTION(CLINE_SetCutPointData)
+		;
+	CASE_FUNCTION(CLINE_GetCompCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstComp)
+		;
+	CASE_FUNCTION(CLINE_GetNextComp)
+		;
+	CASE_FUNCTION(CLINE_AddNewComp)
+		;
+	CASE_FUNCTION(CLINE_DelComp)
+		;
+	CASE_FUNCTION(CLINE_DelAllComps)
+		;
+	CASE_FUNCTION(CLINE_GetCompData)
+		;
+	CASE_FUNCTION(CLINE_SetCompData)
+		;
+	CASE_FUNCTION(CLINE_GetEventInvCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstEventInv)
+		;
+	CASE_FUNCTION(CLINE_GetNextEventInv)
+		;
+	CASE_FUNCTION(CLINE_AddNewEventInv)
+		;
+	CASE_FUNCTION(CLINE_DelEventInv)
+		;
+	CASE_FUNCTION(CLINE_DelAllEventInvs)
+		;
+	CASE_FUNCTION(CLINE_GetEventInvData)
+		;
+	CASE_FUNCTION(CLINE_SetEventInvData)
+		;
+	CASE_FUNCTION(CLINE_GetCutPointInvCount)
+		;
+	CASE_FUNCTION(CLINE_GetFirstCutPointInv)
+		;
+	CASE_FUNCTION(CLINE_GetNextCutPointInv)
+		;
+	CASE_FUNCTION(CLINE_AddNewCutPointInv)
+		;
+	CASE_FUNCTION(CLINE_DelCutPointInv)
+		;
+	CASE_FUNCTION(CLINE_DelAllCutPointInvs)
+		;
+	CASE_FUNCTION(CLINE_GetCutPointInvData)
+		;
+	CASE_FUNCTION(CLINE_SetCutPointInvData)
+		;
+	CASE_FUNCTION(CLINE_CopyData)
+		;
 
-		default:
-		*(Handle *)pData = NULL;
+	default:
+		*(Handle *) pData = NULL;
 		rc = FALSE;
 	}
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_SetImportData(uint32_t dwType, void * pData)
-{
+CLINE_FUNC Bool CLINE_SetImportData(int, void *) {
 	return FALSE;
 }
 
-CLINE_FUNC(uint32_t) CLINE_SetReturnCode(uint32_t rc)
-{
-	return (uint32_t)(0);
+CLINE_FUNC int CLINE_SetReturnCode(int) {
+	return 0;
 }
 

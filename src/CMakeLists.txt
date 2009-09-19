@@ -12,6 +12,8 @@ include_directories(
 # Kern/usage
 )
 
+add_definitions("-Wall")
+
 # CMake does not currently have direct support for ImageMagick.
 include(FindPkgConfig)
 pkg_check_modules(MAGICK ImageMagick++)

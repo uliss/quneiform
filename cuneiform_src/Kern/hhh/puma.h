@@ -285,11 +285,14 @@ DEC_FUN(Bool32, PUMA_SetSpecialProject,(uchar nSpecPrj))
 #undef DEC_FUN
 
 // Format codes
-enum {
+enum PUMA_FORMATS {
 	PUMA_TOEDNATIVE = 0,
 	PUMA_TOTEXT = 0x02,
 	PUMA_TOSMARTTEXT = 0x04,
 	PUMA_TORTF = 0x08,
+#ifdef _DEBUG
+    PUMA_DEBUG_TOTEXT	 = 0x12,
+#endif
 	PUMA_TOTABLETXT = 0x0100,
 	PUMA_TOTABLECSV = 0x0200,
 	PUMA_TOTABLEDBF = 0x0400,
@@ -299,9 +302,7 @@ enum {
 	PUMA_TOHOCR = 0x4000,
 };
 
-#ifdef _DEBUG
-# define PUMA_DEBUG_TOTEXT	  0x12
-#endif
+
 
 //       Codes                                                  //
 # define PUMA_CODE_UNKNOWN    0x0000

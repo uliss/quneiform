@@ -61,25 +61,21 @@
 #include "globus.h"
 
 #ifdef __CLINE__
-#define CLINE_FUNC  FUN_EXPO
+#define CLINE_FUNC  FUN_EXPO__
 #else
-#define CLINE_FUNC  FUN_IMPO
+#define CLINE_FUNC  FUN_IMPO__
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#pragma pack (push,8)
-
-#define CLINE_MAXNAME 260
-
-CLINE_FUNC(Bool32) CLINE_Init(uint16_t wHeightCode,Handle parent);
-CLINE_FUNC(Bool32) CLINE_Done();
-CLINE_FUNC(uint32_t) CLINE_GetReturnCode();
-CLINE_FUNC(char *) CLINE_GetReturnString(uint32_t dwError);
-CLINE_FUNC(Bool32) CLINE_GetExportData(uint32_t dwType, void * pData);
-CLINE_FUNC(Bool32) CLINE_SetImportData(uint32_t dwType, void * pData);
+CLINE_FUNC Bool CLINE_Init(int HeightCode, Handle parent);
+CLINE_FUNC Bool CLINE_Done();
+CLINE_FUNC int  CLINE_GetReturnCode();
+CLINE_FUNC char * CLINE_GetReturnString(int error);
+CLINE_FUNC Bool CLINE_GetExportData(int Type, void * pData);
+CLINE_FUNC Bool CLINE_SetImportData(int, void*);
 /////////////////////////////////////////////////////////////
 
 typedef enum {
@@ -142,130 +138,71 @@ typedef enum {
 } CLINE_EXPORT_ENTRIES;
 
 /*  Описание функций  */
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c; CLINE_FUNC(a) b c
+#define DEC_FUN(a,b,c) typedef a (*FN##b)c; CLINE_FUNC a b c;
+
 DEC_FUN(void, CLINE_Reset, (void))
-;
-DEC_FUN(CLINE_handle, CLINE_CreateContainer, (Bool32 Main))
-;
+DEC_FUN(CLINE_handle, CLINE_CreateContainer, (Bool Main))
 DEC_FUN(void, CLINE_DeleteContainer, (CLINE_handle container))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstContainer, (void))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextContainer, (CLINE_handle container))
-;
 DEC_FUN(CLINE_handle, CLINE_GetMainContainer, (void))
-;
 DEC_FUN(void, CLINE_CleanContainer, (CLINE_handle container))
-;
-
 DEC_FUN(int, CLINE_GetLineCount, (CLINE_handle container))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstLine, (CLINE_handle container))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextLine, (CLINE_handle line_prev))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewLine, (CLINE_handle container))
-;
 DEC_FUN(void, CLINE_DelLine, (CLINE_handle container,CLINE_handle line))
-;
 DEC_FUN(void, CLINE_DelAllLines, (CLINE_handle container))
-;
 DEC_FUN(CPDLine, CLINE_GetLineData, (CLINE_handle line))
-;
 DEC_FUN(Bool32, CLINE_SetLineData, (CLINE_handle line,CPDLine cpdata))
-;
-
 DEC_FUN(int, CLINE_GetEventCount, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstEvent, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextEvent, (CLINE_handle event))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewEvent, (CLINE_handle line))
-;
 DEC_FUN(void, CLINE_DelEvent, (CLINE_handle line,CLINE_handle event))
-;
 DEC_FUN(void, CLINE_DelAllEvents, (CLINE_handle line))
-;
 DEC_FUN(CPDEvent, CLINE_GetEventData, (CLINE_handle event))
-;
 DEC_FUN(Bool32, CLINE_SetEventData, (CLINE_handle event,CPDEvent cpdata))
-;
 
 DEC_FUN(int, CLINE_GetCutPointCount, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstCutPoint, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextCutPoint, (CLINE_handle cupoint))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewCutPoint, (CLINE_handle line))
-;
 DEC_FUN(void, CLINE_DelCutPoint, (CLINE_handle line,CLINE_handle cupoint))
-;
 DEC_FUN(void, CLINE_DelAllCutPoints, (CLINE_handle line))
-;
 DEC_FUN(CPDCutPoint, CLINE_GetCutPointData, (CLINE_handle cupoint))
-;
 DEC_FUN(Bool32, CLINE_SetCutPointData, (CLINE_handle cupoint,CPDCutPoint cpdata))
-;
 
 DEC_FUN(int, CLINE_GetCompCount, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstComp, (CLINE_handle line))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextComp, (CLINE_handle comp))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewComp, (CLINE_handle line))
-;
 DEC_FUN(void, CLINE_DelComp, (CLINE_handle line,CLINE_handle comp))
-;
 DEC_FUN(void, CLINE_DelAllComps, (CLINE_handle line))
-;
 DEC_FUN(CPDComponent, CLINE_GetCompData, (CLINE_handle comp))
-;
 DEC_FUN(Bool32, CLINE_SetCompData, (CLINE_handle comp,CPDComponent cpdata))
-;
 
 DEC_FUN(int, CLINE_GetEventInvCount, (CLINE_handle event))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstEventInv, (CLINE_handle event))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextEventInv, (CLINE_handle inv))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewEventInv, (CLINE_handle event))
-;
 DEC_FUN(void, CLINE_DelEventInv, (CLINE_handle event,CLINE_handle inv))
-;
 DEC_FUN(void, CLINE_DelAllEventInvs, (CLINE_handle event))
-;
 DEC_FUN(CPDInterval, CLINE_GetEventInvData, (CLINE_handle inv))
-;
 DEC_FUN(Bool32, CLINE_SetEventInvData, (CLINE_handle inv,CPDInterval cpdata))
-;
 
 DEC_FUN(int, CLINE_GetCutPointInvCount, (CLINE_handle cupoint))
-;
 DEC_FUN(CLINE_handle, CLINE_GetFirstCutPointInv, (CLINE_handle cupoint))
-;
 DEC_FUN(CLINE_handle, CLINE_GetNextCutPointInv, (CLINE_handle inv))
-;
 DEC_FUN(CLINE_handle, CLINE_AddNewCutPointInv, (CLINE_handle cupoint))
-;
 DEC_FUN(void, CLINE_DelCutPointInv, (CLINE_handle cupoint,CLINE_handle inv))
-;
 DEC_FUN(void, CLINE_DelAllCutPointInvs, (CLINE_handle cupoint))
-;
 DEC_FUN(CPDInterval, CLINE_GetCutPointInvData, (CLINE_handle inv))
-;
 DEC_FUN(Bool32, CLINE_SetCutPointInvData, (CLINE_handle inv,CPDInterval cpdata))
-;
 DEC_FUN(Bool32, CLINE_MoveLine, (CLINE_handle container_to, CLINE_handle container_from, CLINE_handle line))
-;
 DEC_FUN(Bool32, CLINE_CopyData, (void* to,const void* from,int size))
-;
-#undef DEC_FUN
 
-#pragma pack (pop)
+#undef DEC_FUN
 
 #ifdef __cplusplus
 }

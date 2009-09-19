@@ -57,9 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __GLOBUS_H
 #define __GLOBUS_H
 
-
-   #include "cttypes.h"    // portable basic types
-   #include "err16.h"      // common use error values
+#include "cttypes.h"    // portable basic types
+#include "err16.h"      // common use error values
 
 /*** Modifiers ***/
    /*

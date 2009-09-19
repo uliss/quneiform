@@ -28,7 +28,7 @@ if(MSVC)
     endif()
 endif()
 
-add_definitions(-D_USE_RVERLINE_)
+add_definitions(-D_USE_RVERLINE_ -Wall -Wextra)
 
 find_package(ImageMagick COMPONENTS Magick++)
 if(ImageMagick_Magick++_FOUND)

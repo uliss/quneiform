@@ -20,6 +20,7 @@ target_link_libraries(puma
 ced
 cfio
 cimage
+cline
 cpage
 rblock
 rcorrkegl
