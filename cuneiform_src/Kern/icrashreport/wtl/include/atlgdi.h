@@ -2537,14 +2537,14 @@ public:
 		return ::DrawText(m_hDC, lpstrText, cchText, lpRect, uFormat);
 	}
 
-	int DrawText(LPTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat)
+	int DrawText(char* lpstrText, int cchText, LPRECT lpRect, uint uFormat)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawText(m_hDC, lpstrText, cchText, lpRect, uFormat);
 	}
 
 #ifndef _WIN32_WCE
-	int DrawTextEx(LPTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat, LPDRAWTEXTPARAMS lpDTParams = NULL)
+	int DrawTextEx(char* lpstrText, int cchText, LPRECT lpRect, uint uFormat, LPDRAWTEXTPARAMS lpDTParams = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawTextEx(m_hDC, lpstrText, cchText, lpRect, uFormat, lpDTParams);
@@ -2618,7 +2618,7 @@ public:
 	}
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 400)
 
-	int GetTextFace(LPTSTR lpszFacename, int nCount) const
+	int GetTextFace(char* lpszFacename, int nCount) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextFace(m_hDC, nCount, lpszFacename);
@@ -2643,7 +2643,7 @@ public:
 			return FALSE;
 
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpszText = buff.Allocate(nLen);
+		char* lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;
 
@@ -2665,7 +2665,7 @@ public:
 		if(nLen == 0)
 			return 0;
 
-		LPTSTR lpstr = strFace.GetBufferSetLength(nLen);
+		char* lpstr = strFace.GetBufferSetLength(nLen);
 		if(lpstr == NULL)
 			return 0;
 		int nRet = GetTextFace(lpstr, nLen);
@@ -2800,7 +2800,7 @@ public:
 #endif // !_WIN32_WCE
 
 	int Escape(int nEscape, int nInputSize, LPCSTR lpszInputData,
-		int nOutputSize, LPSTR lpszOutputData)
+		int nOutputSize, char* lpszOutputData)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ExtEscape(m_hDC, nEscape, nInputSize, lpszInputData, nOutputSize, lpszOutputData);
@@ -3510,7 +3510,7 @@ public:
 		return m_pBits;
 	}
 
-	LPTSTR GetEnhMetaFileDescription()
+	char* GetEnhMetaFileDescription()
 	{
 		ATLASSERT(m_hEMF != NULL);
 		uint nLen = ::GetEnhMetaFileDescription(m_hEMF, 0, NULL);
@@ -3599,7 +3599,7 @@ public:
 		return ::GetEnhMetaFileBits(m_hEMF, cbBuffer, lpbBuffer);
 	}
 
-	uint GetEnhMetaFileDescription(uint cchBuffer, LPTSTR lpszDescription) const
+	uint GetEnhMetaFileDescription(uint cchBuffer, char* lpszDescription) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		return ::GetEnhMetaFileDescription(m_hEMF, cchBuffer, lpszDescription);

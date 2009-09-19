@@ -1251,8 +1251,8 @@ public:
 		CopyBeforeWrite();
 
 		// find beginning of trailing spaces by starting at beginning (DBCS aware)
-		LPTSTR lpsz = m_pchData;
-		LPTSTR lpszLast = NULL;
+		char* lpsz = m_pchData;
+		char* lpszLast = NULL;
 		while (*lpsz != _T('\0'))
 		{
 			if (_cstrisspace(*lpsz))
@@ -1297,8 +1297,8 @@ public:
 		// by starting at beginning (DBCS aware)
 
 		CopyBeforeWrite();
-		LPTSTR lpsz = m_pchData;
-		LPTSTR lpszLast = NULL;
+		char* lpsz = m_pchData;
+		char* lpszLast = NULL;
 
 		while (*lpsz != _T('\0'))
 		{
@@ -1326,8 +1326,8 @@ public:
 		// find beginning of trailing matches by starting at beginning (DBCS aware)
 
 		CopyBeforeWrite();
-		LPTSTR lpsz = m_pchData;
-		LPTSTR lpszLast = NULL;
+		char* lpsz = m_pchData;
+		char* lpszLast = NULL;
 
 		while (*lpsz != _T('\0'))
 		{
@@ -1434,8 +1434,8 @@ public:
 		{
 			// otherwise modify each character that matches in the string
 			CopyBeforeWrite();
-			LPTSTR psz = m_pchData;
-			LPTSTR pszEnd = psz + GetData()->nDataLength;
+			char* psz = m_pchData;
+			char* pszEnd = psz + GetData()->nDataLength;
 			while (psz < pszEnd)
 			{
 				// replace instances of the specified character only
@@ -1463,9 +1463,9 @@ public:
 
 		// loop once to figure out the size of the result string
 		int nCount = 0;
-		LPTSTR lpszStart = m_pchData;
-		LPTSTR lpszEnd = m_pchData + GetData()->nDataLength;
-		LPTSTR lpszTarget = NULL;
+		char* lpszStart = m_pchData;
+		char* lpszEnd = m_pchData + GetData()->nDataLength;
+		char* lpszTarget = NULL;
 		while (lpszStart < lpszEnd)
 		{
 			while ((lpszTarget = (TCHAR*)_cstrstr(lpszStart, lpszOld)) != NULL)
@@ -1487,7 +1487,7 @@ public:
 			if (GetData()->nAllocLength < nNewLength || GetData()->nRefs > 1)
 			{
 				CStringData* pOldData = GetData();
-				LPTSTR pstr = m_pchData;
+				char* pstr = m_pchData;
 				if(!AllocBuffer(nNewLength))
 					return -1;
 				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, pOldData->nDataLength * sizeof(TCHAR));
@@ -1524,9 +1524,9 @@ public:
 	{
 		CopyBeforeWrite();
 
-		LPTSTR pstrSource = m_pchData;
-		LPTSTR pstrDest = m_pchData;
-		LPTSTR pstrEnd = m_pchData + GetData()->nDataLength;
+		char* pstrSource = m_pchData;
+		char* pstrDest = m_pchData;
+		char* pstrEnd = m_pchData + GetData()->nDataLength;
 
 		while (pstrSource < pstrEnd)
 		{
@@ -1560,7 +1560,7 @@ public:
 		if (GetData()->nAllocLength < nNewLength)
 		{
 			CStringData* pOldData = GetData();
-			LPTSTR pstr = m_pchData;
+			char* pstr = m_pchData;
 			if(!AllocBuffer(nNewLength))
 				return -1;
 			SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, (pOldData->nDataLength + 1) * sizeof(TCHAR));
@@ -1593,7 +1593,7 @@ public:
 			if (GetData()->nAllocLength < nNewLength)
 			{
 				CStringData* pOldData = GetData();
-				LPTSTR pstr = m_pchData;
+				char* pstr = m_pchData;
 				if(!AllocBuffer(nNewLength))
 					return -1;
 				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, (pOldData->nDataLength + 1) * sizeof(TCHAR));
@@ -1990,7 +1990,7 @@ public:
 						//   which means that the precision defaults to 6
 						int cchLen = max(nWidth, 312 + nPrecision + 6);
 						CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-						LPTSTR pszTemp = buff.Allocate(cchLen);
+						char* pszTemp = buff.Allocate(cchLen);
 						if(pszTemp != NULL)
 						{
 							SecureHelper::sprintf_x(pszTemp, cchLen, _T("%*.*f"), nWidth, nPrecision + 6, f);
@@ -2046,11 +2046,11 @@ public:
 		// format message into temporary buffer lpszTemp
 		va_list argList;
 		va_start(argList, lpszFormat);
-		LPTSTR lpszTemp;
+		char* lpszTemp;
 		Bool bRet = TRUE;
 
 		if (::FormatMessage(FORMAT_MESSAGE_FROM_STRING | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-				lpszFormat, 0, 0, (LPTSTR)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
+				lpszFormat, 0, 0, (char*)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
 			bRet = FALSE;
 
 		// assign lpszTemp into the resulting string and free the temporary
@@ -2071,11 +2071,11 @@ public:
 		// format message into temporary buffer lpszTemp
 		va_list argList;
 		va_start(argList, nFormatID);
-		LPTSTR lpszTemp;
+		char* lpszTemp;
 		Bool bRet = TRUE;
 
 		if (::FormatMessage(FORMAT_MESSAGE_FROM_STRING | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-				strFormat, 0, 0, (LPTSTR)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
+				strFormat, 0, 0, (char*)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
 			bRet = FALSE;
 
 		// assign lpszTemp into the resulting string and free lpszTemp
@@ -2109,7 +2109,7 @@ public:
 		do
 		{
 			nSize += 256;
-			LPTSTR lpstr = GetBuffer(nSize - 1);
+			char* lpstr = GetBuffer(nSize - 1);
 			if(lpstr == NULL)
 			{
 				nLen = 0;
@@ -2169,7 +2169,7 @@ public:
 #endif // !_ATL_NO_COM
 
 	// Access to string implementation buffer as "C" character array
-	LPTSTR GetBuffer(int nMinBufLength)
+	char* GetBuffer(int nMinBufLength)
 	{
 		ATLASSERT(nMinBufLength >= 0);
 
@@ -2207,7 +2207,7 @@ public:
 		m_pchData[nNewLength] = _T('\0');
 	}
 
-	LPTSTR GetBufferSetLength(int nNewLength)
+	char* GetBufferSetLength(int nNewLength)
 	{
 		ATLASSERT(nNewLength >= 0);
 
@@ -2236,9 +2236,9 @@ public:
 	}
 
 	// Use LockBuffer/UnlockBuffer to turn refcounting off
-	LPTSTR LockBuffer()
+	char* LockBuffer()
 	{
-		LPTSTR lpsz = GetBuffer(0);
+		char* lpsz = GetBuffer(0);
 		if(lpsz != NULL)
 			GetData()->nRefs = -1;
 		return lpsz;
@@ -2273,7 +2273,7 @@ public:
 	}
 
 protected:
-	LPTSTR m_pchData;   // pointer to ref counted string data
+	char* m_pchData;   // pointer to ref counted string data
 
 	// implementation helpers
 	CStringData* GetData() const
@@ -2471,7 +2471,7 @@ protected:
 		return (lpsz == NULL) ? 0 : lstrlen(lpsz);
 	}
 
-	static int __stdcall _LoadString(uint nID, LPTSTR lpszBuf, uint nMaxBuf)
+	static int __stdcall _LoadString(uint nID, char* lpszBuf, uint nMaxBuf)
 	{
 #ifdef _DEBUG
 		// LoadString without annoying warning from the Debug kernel if the
@@ -2931,7 +2931,7 @@ inline CString __stdcall operator +(LPCTSTR lpsz, const CString& string)
 #endif
 
 // forward declaration
-inline bool AtlCompactPath(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen);
+inline bool AtlCompactPath(char* lpstrOut, LPCTSTR lpstrIn, int cchLen);
 
 template <class T, int t_cchItemLen = MAX_PATH, int t_nFirstID = ID_FILE_MRU_FIRST, int t_nLastID = ID_FILE_MRU_LAST>
 class CRecentDocumentListBase
@@ -3058,13 +3058,13 @@ public:
 #if (_MSC_VER >= 1300)
 	__declspec(deprecated)
 #endif
-	Bool GetFromList(int /*nItemID*/, LPTSTR /*lpstrDocName*/)
+	Bool GetFromList(int /*nItemID*/, char* /*lpstrDocName*/)
 	{
 		ATLASSERT(FALSE);
 		return FALSE;
 	}
 
-	Bool GetFromList(int nItemID, LPTSTR lpstrDocName, int cchLength)
+	Bool GetFromList(int nItemID, char* lpstrDocName, int cchLength)
 	{
 		int nIndex = m_arrDocs.GetSize() - (nItemID - t_nFirstID) - 1;
 		if(nIndex < 0 || nIndex >= m_arrDocs.GetSize())
@@ -3283,7 +3283,7 @@ public:
 
 // Overrideables
 	// override to provide a different method of compacting document names
-	static bool CompactDocumentName(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen)
+	static bool CompactDocumentName(char* lpstrOut, LPCTSTR lpstrIn, int cchLen)
 	{
 		return AtlCompactPath(lpstrOut, lpstrIn, cchLen);
 	}
@@ -3363,7 +3363,7 @@ public:
 		return nFileSize.QuadPart;
 	}
 
-	Bool GetFileName(LPTSTR lpstrFileName, int cchLength) const
+	Bool GetFileName(char* lpstrFileName, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		if(lstrlen(m_fd.cFileName) >= cchLength)
@@ -3375,7 +3375,7 @@ public:
 		return m_bFound;
 	}
 
-	Bool GetFilePath(LPTSTR lpstrFilePath, int cchLength) const
+	Bool GetFilePath(char* lpstrFilePath, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3408,7 +3408,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	Bool GetFileTitle(LPTSTR lpstrFileTitle, int cchLength) const
+	Bool GetFileTitle(char* lpstrFileTitle, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3420,7 +3420,7 @@ public:
 			return FALSE;
 
 		// find the last dot
-		LPTSTR pstrDot  = (LPTSTR)_cstrrchr(szBuff, _T('.'));
+		char* pstrDot  = (char*)_cstrrchr(szBuff, _T('.'));
 		if(pstrDot != NULL)
 			*pstrDot = 0;
 
@@ -3430,7 +3430,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	Bool GetFileURL(LPTSTR lpstrFileURL, int cchLength) const
+	Bool GetFileURL(char* lpstrFileURL, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3446,7 +3446,7 @@ public:
 		return TRUE;
 	}
 
-	Bool GetRoot(LPTSTR lpstrRoot, int cchLength) const
+	Bool GetRoot(char* lpstrRoot, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		if(lstrlen(m_lpszRoot) >= cchLength)
@@ -3669,8 +3669,8 @@ public:
 		else
 		{
 			// find the last forward or backward whack
-			LPTSTR pstrBack  = (LPTSTR)_cstrrchr(m_lpszRoot, _T('\\'));
-			LPTSTR pstrFront = (LPTSTR)_cstrrchr(m_lpszRoot, _T('/'));
+			char* pstrBack  = (char*)_cstrrchr(m_lpszRoot, _T('\\'));
+			char* pstrFront = (char*)_cstrrchr(m_lpszRoot, _T('/'));
 
 			if(pstrFront != NULL || pstrBack != NULL)
 			{
@@ -3856,7 +3856,7 @@ inline HICON AtlLoadSysIconImage(ATL::_U_STRINGorID icon, uint fuLoad = LR_DEFAU
 }
 
 #if (_ATL_VER < 0x0700)
-inline int AtlLoadString(uint uID, LPTSTR lpBuffer, int nBufferMax)
+inline int AtlLoadString(uint uID, char* lpBuffer, int nBufferMax)
 {
 	return ::LoadString(_Module.GetResourceInstance(), uID, lpBuffer, nBufferMax);
 }
@@ -3880,7 +3880,7 @@ inline bool AtlLoadString(uint uID, BSTR& bstrText)
 	USES_CONVERSION;
 	ATLASSERT(bstrText == NULL);
 
-	LPTSTR lpstrText = NULL;
+	char* lpstrText = NULL;
 	int nRes = 0;
 	for(int nLen = 256; ; nLen *= 2)
 	{
@@ -3965,7 +3965,7 @@ inline bool _IsDBCSTrailByte(LPCTSTR lpstr, int nChar)
 #endif // _UNICODE
 }
 
-inline bool AtlCompactPath(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen)
+inline bool AtlCompactPath(char* lpstrOut, LPCTSTR lpstrIn, int cchLen)
 {
 	ATLASSERT(lpstrOut != NULL);
 	ATLASSERT(lpstrIn != NULL);
@@ -3985,7 +3985,7 @@ inline bool AtlCompactPath(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen)
 
 	// check if the separator is a slash or a backslash
 	TCHAR chSlash = _T('\\');
-	for(LPTSTR lpstr = (LPTSTR)lpstrIn; *lpstr != 0; lpstr = ::CharNext(lpstr))
+	for(char* lpstr = (char*)lpstrIn; *lpstr != 0; lpstr = ::CharNext(lpstr))
 	{
 		if((*lpstr == _T('/')) || (*lpstr == _T('\\')))
 			chSlash = *lpstr;

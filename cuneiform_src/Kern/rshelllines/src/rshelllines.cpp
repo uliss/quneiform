@@ -565,12 +565,12 @@ void   DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine)
 	return;
 }
 
-void CheckUnderlining(CLINE_handle hLine, DLine* pLine, LPSTR pSourceRaster)
+void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster)
 {
 	return;
 }
 
-Bool32 CompareRasterParts(CPDLine pLine, LPSTR pSourceRaster, Bool32 CheckSerif)
+Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif)
 {
     return TRUE;
 }
@@ -615,15 +615,15 @@ void   DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow)
 {
 }
 
-void   CleaningRaster(DLine* pCLine, LPSTR Buffer)
+void   CleaningRaster(DLine* pCLine, char* Buffer)
 {
 }
 
-void   DrowCleanedRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow)
+void   DrowCleanedRaster(DLine* pCLine, char* Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow)
 {
 }
 
-void   DrowVerticalLineRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow)
+void   DrowVerticalLineRaster(DLine* pCLine, char* Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow)
 {
 }
 

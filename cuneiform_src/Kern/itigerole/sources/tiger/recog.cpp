@@ -335,7 +335,7 @@ Bool _Save(void * hEdPage,char * lpFileName,long format, long code, Bool32 bAppe
 			g_strSerifName,g_strSansSerifName,g_strCourierName,
 			"","","");
 	if(rc)
-		rc = Tiger_ExtEdToText((LPSTR)g_strTempEdName,lpFileName,(short)format|(bAppend ? TIGER_APPEND:0 ),(short)code,g_btUnrecogChar);
+		rc = Tiger_ExtEdToText((char*)g_strTempEdName,lpFileName,(short)format|(bAppend ? TIGER_APPEND:0 ),(short)code,g_btUnrecogChar);
 
 
 	if(!rc)

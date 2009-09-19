@@ -192,8 +192,8 @@ Bool CMailMsg::MAPISend()
             // set from
             pRecipients[nIndex].ulReserved                 = 0;
             pRecipients[nIndex].ulRecipClass               = MAPI_ORIG;
-            pRecipients[nIndex].lpszAddress                = (LPTSTR)(LPCTSTR)m_from.begin()->first;
-            pRecipients[nIndex].lpszName                   = (LPTSTR)(LPCTSTR)m_from.begin()->second;
+            pRecipients[nIndex].lpszAddress                = (char*)(LPCTSTR)m_from.begin()->first;
+            pRecipients[nIndex].lpszName                   = (char*)(LPCTSTR)m_from.begin()->second;
             pRecipients[nIndex].ulEIDSize                  = 0;
             pRecipients[nIndex].lpEntryID                  = NULL;
             nIndex++;
@@ -204,8 +204,8 @@ Bool CMailMsg::MAPISend()
             // set to
             pRecipients[nIndex].ulReserved                 = 0;
             pRecipients[nIndex].ulRecipClass               = MAPI_TO;
-            pRecipients[nIndex].lpszAddress                = (LPTSTR)(LPCTSTR)m_to.begin()->first;
-            pRecipients[nIndex].lpszName                   = (LPTSTR)(LPCTSTR)m_to.begin()->second;
+            pRecipients[nIndex].lpszAddress                = (char*)(LPCTSTR)m_to.begin()->first;
+            pRecipients[nIndex].lpszName                   = (char*)(LPCTSTR)m_to.begin()->second;
             pRecipients[nIndex].ulEIDSize                  = 0;
             pRecipients[nIndex].lpEntryID                  = NULL;
             nIndex++;
@@ -218,8 +218,8 @@ Bool CMailMsg::MAPISend()
             {
                pRecipients[nIndex].ulReserved         = 0;
                pRecipients[nIndex].ulRecipClass       = MAPI_CC;
-               pRecipients[nIndex].lpszAddress        = (LPTSTR)(LPCTSTR)p->first;
-               pRecipients[nIndex].lpszName           = (LPTSTR)(LPCTSTR)p->second;
+               pRecipients[nIndex].lpszAddress        = (char*)(LPCTSTR)p->first;
+               pRecipients[nIndex].lpszName           = (char*)(LPCTSTR)p->second;
                pRecipients[nIndex].ulEIDSize          = 0;
                pRecipients[nIndex].lpEntryID          = NULL;
             }
@@ -232,8 +232,8 @@ Bool CMailMsg::MAPISend()
             {
                pRecipients[nIndex].ulReserved         = 0;
                pRecipients[nIndex].ulRecipClass       = MAPI_BCC;
-               pRecipients[nIndex].lpszAddress        = (LPTSTR)(LPCTSTR)p->first;
-               pRecipients[nIndex].lpszName           = (LPTSTR)(LPCTSTR)p->second;
+               pRecipients[nIndex].lpszAddress        = (char*)(LPCTSTR)p->first;
+               pRecipients[nIndex].lpszName           = (char*)(LPCTSTR)p->second;
                pRecipients[nIndex].ulEIDSize          = 0;
                pRecipients[nIndex].lpEntryID          = NULL;
             }
@@ -249,15 +249,15 @@ Bool CMailMsg::MAPISend()
             pAttachments[nIndex].ulReserved        = 0;
             pAttachments[nIndex].flFlags           = 0;
             pAttachments[nIndex].nPosition         = 0xFFFFFFFF;
-            pAttachments[nIndex].lpszPathName      = (LPTSTR)(LPCTSTR)p->first;
-            pAttachments[nIndex].lpszFileName      = (LPTSTR)(LPCTSTR)p->second;
+            pAttachments[nIndex].lpszPathName      = (char*)(LPCTSTR)p->first;
+            pAttachments[nIndex].lpszFileName      = (char*)(LPCTSTR)p->second;
             pAttachments[nIndex].lpFileType        = NULL;
          }
       }
 
       message.ulReserved                        = 0;
-      message.lpszSubject                       = (LPTSTR)(LPCTSTR)m_sSubject;
-      message.lpszNoteText                      = (LPTSTR)(LPCTSTR)m_sMessage;
+      message.lpszSubject                       = (char*)(LPCTSTR)m_sSubject;
+      message.lpszNoteText                      = (char*)(LPCTSTR)m_sMessage;
       message.lpszMessageType                   = NULL;
       message.lpszDateReceived                  = NULL;
       message.lpszConversationID                = NULL;
@@ -300,9 +300,9 @@ Bool CMailMsg::CMCSend()
       // set cc's
       for (p = m_cc.begin(); p != m_cc.end(); p++, nIndex++)
       {
-         pRecipients[nIndex].name                = (LPTSTR)(LPCTSTR)p->second;
+         pRecipients[nIndex].name                = (char*)(LPCTSTR)p->second;
          pRecipients[nIndex].name_type           = CMC_TYPE_INDIVIDUAL;
-         pRecipients[nIndex].address             = (LPTSTR)(LPCTSTR)p->first;
+         pRecipients[nIndex].address             = (char*)(LPCTSTR)p->first;
          pRecipients[nIndex].role                = CMC_ROLE_CC;
          pRecipients[nIndex].recip_flags         = 0;
          pRecipients[nIndex].recip_extensions    = NULL;
@@ -311,26 +311,26 @@ Bool CMailMsg::CMCSend()
       // set bcc
       for (p = m_bcc.begin(); p != m_bcc.end(); p++, nIndex++)
       {
-         pRecipients[nIndex].name                = (LPTSTR)(LPCTSTR)p->second;
+         pRecipients[nIndex].name                = (char*)(LPCTSTR)p->second;
          pRecipients[nIndex].name_type           = CMC_TYPE_INDIVIDUAL;
-         pRecipients[nIndex].address             = (LPTSTR)(LPCTSTR)p->first;
+         pRecipients[nIndex].address             = (char*)(LPCTSTR)p->first;
          pRecipients[nIndex].role                = CMC_ROLE_BCC;
          pRecipients[nIndex].recip_flags         = 0;
          pRecipients[nIndex].recip_extensions    = NULL;
       }
 
       // set to
-      pRecipients[nIndex].name                   = (LPTSTR)(LPCTSTR)m_to.begin()->second;
+      pRecipients[nIndex].name                   = (char*)(LPCTSTR)m_to.begin()->second;
       pRecipients[nIndex].name_type              = CMC_TYPE_INDIVIDUAL;
-      pRecipients[nIndex].address                = (LPTSTR)(LPCTSTR)m_to.begin()->first;
+      pRecipients[nIndex].address                = (char*)(LPCTSTR)m_to.begin()->first;
       pRecipients[nIndex].role                   = CMC_ROLE_TO;
       pRecipients[nIndex].recip_flags            = 0;
       pRecipients[nIndex].recip_extensions       = NULL;
 
       // set from
-      pRecipients[nIndex+1].name                 = (LPTSTR)(LPCTSTR)m_from.begin()->second;
+      pRecipients[nIndex+1].name                 = (char*)(LPCTSTR)m_from.begin()->second;
       pRecipients[nIndex+1].name_type            = CMC_TYPE_INDIVIDUAL;
-      pRecipients[nIndex+1].address              = (LPTSTR)(LPCTSTR)m_from.begin()->first;
+      pRecipients[nIndex+1].address              = (char*)(LPCTSTR)m_from.begin()->first;
       pRecipients[nIndex+1].role                 = CMC_ROLE_ORIGINATOR;
       pRecipients[nIndex+1].recip_flags          = CMC_RECIP_LAST_ELEMENT;
       pRecipients[nIndex+1].recip_extensions     = NULL;
@@ -339,9 +339,9 @@ Bool CMailMsg::CMCSend()
       for (p = m_attachments.begin(), nIndex = 0;
            p != m_attachments.end(); p++, nIndex++)
       {
-         pAttachments[nIndex].attach_title       = (LPTSTR)(LPCTSTR)p->second;
+         pAttachments[nIndex].attach_title       = (char*)(LPCTSTR)p->second;
          pAttachments[nIndex].attach_type        = NULL;
-         pAttachments[nIndex].attach_filename    = (LPTSTR)(LPCTSTR)p->first;
+         pAttachments[nIndex].attach_filename    = (char*)(LPCTSTR)p->first;
          pAttachments[nIndex].attach_flags       = 0;
          pAttachments[nIndex].attach_extensions  = NULL;
       }
@@ -349,9 +349,9 @@ Bool CMailMsg::CMCSend()
 
       message.message_reference                 = NULL;
       message.message_type                      = NULL;
-      message.subject                           = (LPTSTR)(LPCTSTR)m_sSubject;
+      message.subject                           = (char*)(LPCTSTR)m_sSubject;
       message.time_sent                         = t_now;
-      message.text_note                         = (LPTSTR)(LPCTSTR)m_sMessage;
+      message.text_note                         = (char*)(LPCTSTR)m_sMessage;
       message.recipients                        = pRecipients;
       message.attachments                       = pAttachments;
       message.message_flags                     = 0;

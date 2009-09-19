@@ -82,11 +82,11 @@ DECLARE_HANDLE(HDIB);
 
 /* Function prototypes */
 //Bool      WINAPI  CreateDIBPalette(HDIB hDIB, CPalette* cPal);//!!! Art - устарело
-LPSTR     WINAPI  FindDIBBits (LPSTR lpbi);
-uint32_t     WINAPI  DIBWidth (LPSTR lpDIB);
-uint32_t     WINAPI  DIBHeight (LPSTR lpDIB);
-uint16_t      WINAPI  PaletteSize (LPSTR lpbi);
-uint16_t      WINAPI  DIBNumColors (LPSTR lpbi);
+char*     WINAPI  FindDIBBits (char* lpbi);
+uint32_t     WINAPI  DIBWidth (char* lpDIB);
+uint32_t     WINAPI  DIBHeight (char* lpDIB);
+uint16_t      WINAPI  PaletteSize (char* lpbi);
+uint16_t      WINAPI  DIBNumColors (char* lpbi);
 HGLOBAL   WINAPI  CopyHandle (HGLOBAL h);
 
 //Bool       WINAPI       SaveDIB (Handle hDib, CFile& file);//!!! Art - устарело

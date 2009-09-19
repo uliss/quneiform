@@ -646,7 +646,7 @@ public:
 		return (int)::SendMessage(m_hWnd, LB_GETITEMRECT, nIndex, (LPARAM)lpRect);
 	}
 
-	int GetText(int nIndex, LPTSTR lpszBuffer) const
+	int GetText(int nIndex, char* lpszBuffer) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, LB_GETTEXT, nIndex, (LPARAM)lpszBuffer);
@@ -665,7 +665,7 @@ public:
 			return FALSE;
 
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpstrText = buff.Allocate(nLen + 1);
+		char* lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
 
@@ -686,7 +686,7 @@ public:
 		if(cchLen == LB_ERR)
 			return LB_ERR;
 		int nRet = LB_ERR;
-		LPTSTR lpstr = strText.GetBufferSetLength(cchLen);
+		char* lpstr = strText.GetBufferSetLength(cchLen);
 		if(lpstr != NULL)
 		{
 			nRet = GetText(nIndex, lpstr);
@@ -988,7 +988,7 @@ public:
 		return SetItemData(nIndex, (DWORD_PTR)pData);
 	}
 
-	int GetLBText(int nIndex, LPTSTR lpszText) const
+	int GetLBText(int nIndex, char* lpszText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, CB_GETLBTEXT, nIndex, (LPARAM)lpszText);
@@ -1006,7 +1006,7 @@ public:
 			return FALSE;
 
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpstrText = buff.Allocate(nLen + 1);
+		char* lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
 
@@ -1026,7 +1026,7 @@ public:
 		if(cchLen == CB_ERR)
 			return CB_ERR;
 		int nRet = CB_ERR;
-		LPTSTR lpstr = strText.GetBufferSetLength(cchLen);
+		char* lpstr = strText.GetBufferSetLength(cchLen);
 		if(lpstr != NULL)
 		{
 			nRet = GetLBText(nIndex, lpstr);
@@ -1343,13 +1343,13 @@ public:
 	}
 
 	// NOTE: first word in lpszBuffer must contain the size of the buffer!
-	int GetLine(int nIndex, LPTSTR lpszBuffer) const
+	int GetLine(int nIndex, char* lpszBuffer) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, EM_GETLINE, nIndex, (LPARAM)lpszBuffer);
 	}
 
-	int GetLine(int nIndex, LPTSTR lpszBuffer, int nMaxLength) const
+	int GetLine(int nIndex, char* lpszBuffer, int nMaxLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		*(LPWORD)lpszBuffer = (uint16_t)nMaxLength;
@@ -2265,7 +2265,7 @@ public:
 class CToolInfo : public TOOLINFO
 {
 public:
-	CToolInfo(uint nFlags, HWND hWnd, uint nIDTool = 0, LPRECT lpRect = NULL, LPTSTR lpstrText = LPSTR_TEXTCALLBACK, LPARAM lUserParam = NULL)
+	CToolInfo(uint nFlags, HWND hWnd, uint nIDTool = 0, LPRECT lpRect = NULL, char* lpstrText = LPSTR_TEXTCALLBACK, LPARAM lUserParam = NULL)
 	{
 		Init(nFlags, hWnd, nIDTool, lpRect, lpstrText, lUserParam);
 	}
@@ -2274,7 +2274,7 @@ public:
 
 	operator LPARAM() { return (LPARAM)this; }
 
-	void Init(uint nFlags, HWND hWnd, uint nIDTool = 0, LPRECT lpRect = NULL, LPTSTR lpstrText = LPSTR_TEXTCALLBACK, LPARAM lUserParam = NULL)
+	void Init(uint nFlags, HWND hWnd, uint nIDTool = 0, LPRECT lpRect = NULL, char* lpstrText = LPSTR_TEXTCALLBACK, LPARAM lUserParam = NULL)
 	{
 		ATLASSERT(::IsWindow(hWnd));
 		memset(this, 0, sizeof(TOOLINFO));
@@ -2332,7 +2332,7 @@ public:
 		::SendMessage(m_hWnd, TTM_GETTEXT, 0, (LPARAM)&lpToolInfo);
 	}
 
-	void GetText(LPTSTR lpstrText, HWND hWnd, uint nIDTool = 0) const
+	void GetText(char* lpstrText, HWND hWnd, uint nIDTool = 0) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hWnd != NULL);
@@ -2346,7 +2346,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TTM_GETTOOLINFO, 0, (LPARAM)lpToolInfo);
 	}
 
-	Bool GetToolInfo(HWND hWnd, uint nIDTool, uint* puFlags, LPRECT lpRect, LPTSTR lpstrText) const
+	Bool GetToolInfo(HWND hWnd, uint nIDTool, uint* puFlags, LPRECT lpRect, char* lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hWnd != NULL);
@@ -2506,7 +2506,7 @@ public:
 		// the toolrect and toolid must both be zero or both valid
 		ATLASSERT((lpRectTool != NULL && nIDTool != 0) || (lpRectTool == NULL && nIDTool == 0));
 
-		CToolInfo ti(0, hWnd, nIDTool, (LPRECT)lpRectTool, (LPTSTR)text.m_lpstr);
+		CToolInfo ti(0, hWnd, nIDTool, (LPRECT)lpRectTool, (char*)text.m_lpstr);
 		return (Bool)::SendMessage(m_hWnd, TTM_ADDTOOL, 0, ti);
 	}
 
@@ -2567,7 +2567,7 @@ public:
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hWnd != NULL);
 
-		CToolInfo ti(0, hWnd, nIDTool, NULL, (LPTSTR)text.m_lpstr);
+		CToolInfo ti(0, hWnd, nIDTool, NULL, (char*)text.m_lpstr);
 		::SendMessage(m_hWnd, TTM_UPDATETIPTEXT, 0, ti);
 	}
 
@@ -2923,7 +2923,7 @@ public:
 		lvi.iSubItem = nSubItem;
 		lvi.stateMask = nStateMask;
 		lvi.state = nState;
-		lvi.pszText = (LPTSTR) lpszItem;
+		lvi.pszText = (char*) lpszItem;
 		lvi.iImage = nImage;
 		lvi.lParam = lParam;
 		return (Bool)::SendMessage(m_hWnd, LVM_SETITEM, 0, (LPARAM)&lvi);
@@ -2959,7 +2959,7 @@ public:
 		LVITEM lvi = { 0 };
 		lvi.iSubItem = nSubItem;
 
-		LPTSTR lpstrText = NULL;
+		char* lpstrText = NULL;
 		int nRes = 0;
 		for(int nLen = 256; ; nLen *= 2)
 		{
@@ -3014,7 +3014,7 @@ public:
 	}
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
-	int GetItemText(int nItem, int nSubItem, LPTSTR lpszText, int nLen) const
+	int GetItemText(int nItem, int nSubItem, char* lpszText, int nLen) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		LVITEM lvi = { 0 };
@@ -3237,7 +3237,7 @@ public:
 		return (DWORD)::SendMessage(m_hWnd, LVM_SETICONSPACING, 0, MAKELPARAM(cx, cy));
 	}
 
-	int GetISearchString(LPTSTR lpstr) const
+	int GetISearchString(char* lpstr) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, LVM_GETISEARCHSTRING, 0, (LPARAM)lpstr);
@@ -3646,7 +3646,7 @@ public:
 	{
 		LVCOLUMN column = { 0 };
 		column.mask = LVCF_TEXT|LVCF_FMT;
-		column.pszText = (LPTSTR)lpszColumnHeading;
+		column.pszText = (char*)lpszColumnHeading;
 		column.fmt = nFormat;
 		if (nWidth != -1)
 		{
@@ -3684,7 +3684,7 @@ public:
 		item.mask = nMask;
 		item.iItem = nItem;
 		item.iSubItem = 0;
-		item.pszText = (LPTSTR)lpszItem;
+		item.pszText = (char*)lpszItem;
 		item.state = nState;
 		item.stateMask = nStateMask;
 		item.iImage = nImage;
@@ -3826,7 +3826,7 @@ public:
 		LVCOLUMN lvc = { 0 };
 		lvc.mask = nMask;
 		lvc.fmt = nFmt;
-		lvc.pszText = (LPTSTR)strItem;
+		lvc.pszText = (char*)strItem;
 		lvc.cx = GetStringWidth(lvc.pszText) + cxOffset;
 		if(nMask & LVCF_SUBITEM)
 			lvc.iSubItem = (nSubItem != -1) ? nSubItem : nItem;
@@ -3840,7 +3840,7 @@ public:
 		lvItem.mask = LVIF_TEXT;
 		lvItem.iItem = nItem;
 		lvItem.iSubItem = nSubItem;
-		lvItem.pszText = (LPTSTR)strItem;
+		lvItem.pszText = (char*)strItem;
 		if(nImageIndex != -1)
 		{
 			lvItem.mask |= LVIF_IMAGE;
@@ -4070,7 +4070,7 @@ public:
 		TVITEM item = { 0 };
 		item.hItem = hItem;
 		item.mask = nMask;
-		item.pszText = (LPTSTR) lpszItem;
+		item.pszText = (char*) lpszItem;
 		item.iImage = nImage;
 		item.iSelectedImage = nSelectedImage;
 		item.state = nState;
@@ -4079,7 +4079,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TVM_SETITEM, 0, (LPARAM)&item);
 	}
 
-	Bool GetItemText(HTREEITEM hItem, LPTSTR lpstrText, int nLen) const
+	Bool GetItemText(HTREEITEM hItem, char* lpstrText, int nLen) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(lpstrText != NULL);
@@ -4103,7 +4103,7 @@ public:
 		item.hItem = hItem;
 		item.mask = TVIF_TEXT;
 
-		LPTSTR lpstrText = NULL;
+		char* lpstrText = NULL;
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
@@ -4267,7 +4267,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	int GetISearchString(LPTSTR lpstr) const
+	int GetISearchString(char* lpstr) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, TVM_GETISEARCHSTRING, 0, (LPARAM)lpstr);
@@ -4458,7 +4458,7 @@ public:
 		tvis.hParent = hParent;
 		tvis.hInsertAfter = hInsertAfter;
 		tvis.item.mask = nMask;
-		tvis.item.pszText = (LPTSTR) lpszItem;
+		tvis.item.pszText = (char*) lpszItem;
 		tvis.item.iImage = nImage;
 		tvis.item.iSelectedImage = nSelectedImage;
 		tvis.item.state = nState;
@@ -4730,7 +4730,7 @@ public:
 	Bool IsNull() const { return m_hTreeItem == NULL; }
 
 	Bool GetRect(LPRECT lpRect, Bool bTextOnly) const;
-	Bool GetText(LPTSTR lpstrText, int nLen) const;
+	Bool GetText(char* lpstrText, int nLen) const;
 #ifndef _ATL_NO_COM
 	Bool GetText(BSTR& bstrText) const;
 #endif // !_ATL_NO_COM
@@ -4953,7 +4953,7 @@ public:
 		tvis.hParent = hParent;
 		tvis.hInsertAfter = hInsertAfter;
 		tvis.item.mask = nMask;
-		tvis.item.pszText = (LPTSTR) lpszItem;
+		tvis.item.pszText = (char*) lpszItem;
 		tvis.item.iImage = nImage;
 		tvis.item.iSelectedImage = nSelectedImage;
 		tvis.item.state = nState;
@@ -5091,7 +5091,7 @@ inline CTreeItemT<TBase> CTreeItemT<TBase>::GetNextSelected() const
 #endif // (_WIN32_IE >= 0x0600)
 
 template <class TBase>
-inline Bool CTreeItemT<TBase>::GetText(LPTSTR lpstrText, int nLen) const
+inline Bool CTreeItemT<TBase>::GetText(char* lpstrText, int nLen) const
 {
 	ATLASSERT(m_pTreeView != NULL);
 	return m_pTreeView->GetItemText(m_hTreeItem, lpstrText, nLen);
@@ -5259,7 +5259,7 @@ inline CTreeItemT<TBase> CTreeItemT<TBase>::_Insert(LPCTSTR lpstrItem, int nImag
 	ins.hParent = m_hTreeItem;
 	ins.hInsertAfter = hItemAfter;
 	ins.item.mask = TVIF_TEXT;
-	ins.item.pszText = (LPTSTR)lpstrItem;
+	ins.item.pszText = (char*)lpstrItem;
 	if(nImageIndex != -1)
 	{
 		ins.item.mask |= TVIF_IMAGE | TVIF_SELECTEDIMAGE;
@@ -5485,7 +5485,7 @@ public:
 		return (int)::SendMessage(m_hWnd, TB_GETBITMAP, nID, 0L);
 	}
 
-	int GetButtonText(int nID, LPTSTR lpstrText) const
+	int GetButtonText(int nID, char* lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, TB_GETBUTTONTEXT, nID, (LPARAM)lpstrText);
@@ -5630,7 +5630,7 @@ public:
 		tbbi.fsState = State;
 		tbbi.fsStyle = Style;
 		tbbi.cx = cx;
-		tbbi.pszText = (LPTSTR) lpszItem;
+		tbbi.pszText = (char*) lpszItem;
 		tbbi.lParam = lParam;
 		return (Bool)::SendMessage(m_hWnd, TB_SETBUTTONINFO, nID, (LPARAM)&tbbi);
 	}
@@ -5751,7 +5751,7 @@ public:
 #endif // (_WIN32_IE >= 0x0400)
 
 #if (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
-	int GetString(int nString, LPTSTR lpstrString, int cchMaxLen) const
+	int GetString(int nString, char* lpstrString, int cchMaxLen) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(cchMaxLen, nString), (LPARAM)lpstrString);
@@ -5766,7 +5766,7 @@ public:
 		if(nLength != -1)
 		{
 			CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-			LPTSTR lpstrText = buff.Allocate(nLength + 1);
+			char* lpstrText = buff.Allocate(nLength + 1);
 			if(lpstrText != NULL)
 			{
 				nLength = (int)::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(nLength + 1, nString), (LPARAM)lpstrText);
@@ -5789,7 +5789,7 @@ public:
 		int nLength = (int)(short)LOWORD(::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(0, nString), NULL));
 		if(nLength != -1)
 		{
-			LPTSTR lpstr = str.GetBufferSetLength(nLength + 1);
+			char* lpstr = str.GetBufferSetLength(nLength + 1);
 			if(lpstr != NULL)
 				nLength = (int)::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(nLength + 1, nString), (LPARAM)lpstr);
 			else
@@ -6117,7 +6117,7 @@ public:
 		return (int)(short)LOWORD(dwRet);
 	}
 
-	int GetText(int nPane, LPTSTR lpszText, int* pType = NULL) const
+	int GetText(int nPane, char* lpszText, int* pType = NULL) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(nPane < 256);
@@ -6139,7 +6139,7 @@ public:
 			return FALSE;
 
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpstrText = buff.Allocate(nLength + 1);
+		char* lpstrText = buff.Allocate(nLength + 1);
 		if(lpstrText == NULL)
 			return FALSE;
 
@@ -6160,7 +6160,7 @@ public:
 		if(nLength == 0)
 			return 0;
 
-		LPTSTR lpstr = strText.GetBufferSetLength(nLength);
+		char* lpstr = strText.GetBufferSetLength(nLength);
 		if(lpstr == NULL)
 			return 0;
 		return GetText(nPane, lpstr, pType);
@@ -6232,7 +6232,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, SB_SETUNICODEFORMAT, bUnicode, 0L);
 	}
 
-	void GetTipText(int nPane, LPTSTR lpstrText, int nSize) const
+	void GetTipText(int nPane, char* lpstrText, int nSize) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(nPane < 256);
@@ -6338,7 +6338,7 @@ public:
 		ATLASSERT(::IsWindow(m_hWnd));
 		TCITEM tci = { 0 };
 		tci.mask = mask;
-		tci.pszText = (LPTSTR) lpszItem;
+		tci.pszText = (char*) lpszItem;
 		tci.dwState = dwState;
 		tci.dwStateMask = dwStateMask;
 		tci.iImage = iImage;
@@ -6469,7 +6469,7 @@ public:
 		ATLASSERT(::IsWindow(m_hWnd));
 		TCITEM tci = { 0 };
 		tci.mask = mask;
-		tci.pszText = (LPTSTR) lpszItem;
+		tci.pszText = (char*) lpszItem;
 		tci.iImage = iImage;
 		tci.lParam = lParam;
 		return (int)::SendMessage(m_hWnd, TCM_INSERTITEM, nItem, (LPARAM)&tci);
@@ -6480,7 +6480,7 @@ public:
 		ATLASSERT(::IsWindow(m_hWnd));
 		TCITEM tci = { 0 };
 		tci.mask = TCIF_TEXT;
-		tci.pszText = (LPTSTR) lpszItem;
+		tci.pszText = (char*) lpszItem;
 		return (int)::SendMessage(m_hWnd, TCM_INSERTITEM, nItem, (LPARAM)&tci);
 	}
 
@@ -7353,13 +7353,13 @@ public:
 	}
 
 	// NOTE: first word in lpszBuffer must contain the size of the buffer!
-	int GetLine(int nIndex, LPTSTR lpszBuffer) const
+	int GetLine(int nIndex, char* lpszBuffer) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, EM_GETLINE, nIndex, (LPARAM)lpszBuffer);
 	}
 
-	int GetLine(int nIndex, LPTSTR lpszBuffer, int nMaxLength) const
+	int GetLine(int nIndex, char* lpszBuffer, int nMaxLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		*(LPWORD)lpszBuffer = (uint16_t)nMaxLength;
@@ -7450,14 +7450,14 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	int32_t GetSelText(LPTSTR lpstrBuff) const
+	int32_t GetSelText(char* lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int32_t)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 	// RichEdit 1.0 EM_GETSELTEXT is ANSI only
-	int32_t GetSelText(LPSTR lpstrBuff) const
+	int32_t GetSelText(char* lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int32_t)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
@@ -7476,7 +7476,7 @@ public:
 
 #if (_RICHEDIT_VER >= 0x0200)
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
+		char* lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return FALSE;
 		if(::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText) == 0)
@@ -7485,7 +7485,7 @@ public:
 		bstrText = ::SysAllocString(T2W(lpstrText));
 #else // !(_RICHEDIT_VER >= 0x0200)
 		CTempBuffer<char, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
+		char* lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return FALSE;
 		if(::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText) == 0)
@@ -7508,7 +7508,7 @@ public:
 
 #if (_RICHEDIT_VER >= 0x0200)
 		int32_t lLen = 0;
-		LPTSTR lpstrText = strText.GetBufferSetLength(cr.cpMax - cr.cpMin);
+		char* lpstrText = strText.GetBufferSetLength(cr.cpMax - cr.cpMin);
 		if(lpstrText != NULL)
 		{
 			lLen = (int32_t)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
@@ -7516,7 +7516,7 @@ public:
 		}
 #else // !(_RICHEDIT_VER >= 0x0200)
 		CTempBuffer<char, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
+		char* lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return 0;
 		int32_t lLen = (int32_t)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
@@ -7633,7 +7633,7 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	int GetTextRange(int32_t nStartChar, int32_t nEndChar, LPTSTR lpstrText) const
+	int GetTextRange(int32_t nStartChar, int32_t nEndChar, char* lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7644,7 +7644,7 @@ public:
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 
-	int GetTextRange(int32_t nStartChar, int32_t nEndChar, LPSTR lpstrText) const
+	int GetTextRange(int32_t nStartChar, int32_t nEndChar, char* lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7769,13 +7769,13 @@ public:
 		::SendMessage(m_hWnd, EM_SETPALETTE, (WPARAM)hPalette, 0L);
 	}
 
-	int GetTextEx(GETTEXTEX* pGetTextEx, LPTSTR lpstrText) const
+	int GetTextEx(GETTEXTEX* pGetTextEx, char* lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, EM_GETTEXTEX, (WPARAM)pGetTextEx, (LPARAM)lpstrText);
 	}
 
-	int GetTextEx(LPTSTR lpstrText, int nTextLen, DWORD dwFlags = GT_DEFAULT, uint uCodePage = CP_ACP, LPCSTR lpDefaultChar = NULL, LPBOOL lpUsedDefChar = NULL) const
+	int GetTextEx(char* lpstrText, int nTextLen, DWORD dwFlags = GT_DEFAULT, uint uCodePage = CP_ACP, LPCSTR lpDefaultChar = NULL, LPBOOL lpUsedDefChar = NULL) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		GETTEXTEX gte = { 0 };
@@ -8802,7 +8802,7 @@ public:
 		COMBOBOXEXITEM cbex = { 0 };
 		cbex.mask = nMask;
 		cbex.iItem = nIndex;
-		cbex.pszText = (LPTSTR) lpszItem;
+		cbex.pszText = (char*) lpszItem;
 		cbex.iImage = nImage;
 		cbex.iSelectedImage = nSelImage;
 		cbex.iIndent = iIndent;
@@ -8817,7 +8817,7 @@ public:
 		COMBOBOXEXITEM cbex = { 0 };
 		cbex.mask = CBEIF_TEXT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_INDENT | CBEIF_LPARAM;
 		cbex.iItem = nIndex;
-		cbex.pszText = (LPTSTR) lpszItem;
+		cbex.pszText = (char*) lpszItem;
 		cbex.iImage = nImage;
 		cbex.iSelectedImage = nSelImage;
 		cbex.iIndent = iIndent;
@@ -8860,7 +8860,7 @@ public:
 		COMBOBOXEXITEM cbex = { 0 };
 		cbex.mask = nMask;
 		cbex.iItem = nIndex;
-		cbex.pszText = (LPTSTR) lpszItem;
+		cbex.pszText = (char*) lpszItem;
 		cbex.iImage = nImage;
 		cbex.iSelectedImage = nSelImage;
 		cbex.iIndent = iIndent;
@@ -8869,7 +8869,7 @@ public:
 		return (int)::SendMessage(m_hWnd, CBEM_SETITEM, 0, (LPARAM)&cbex);
 	}
 
-	Bool GetItemText(int nIndex, LPTSTR lpszItem, int nLen) const
+	Bool GetItemText(int nIndex, char* lpszItem, int nLen) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(lpszItem != NULL);
@@ -8894,7 +8894,7 @@ public:
 		cbex.mask = CBEIF_TEXT;
 		cbex.iItem = nIndex;
 
-		LPTSTR lpstrText = NULL;
+		char* lpstrText = NULL;
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
@@ -9971,7 +9971,7 @@ public:
 		return CommandBar_AddButtons(m_hWnd, uNumButtons, lpButtons);
 	}
 
-	Bool AddToolTips(uint uNumToolTips, LPTSTR lpToolTips)
+	Bool AddToolTips(uint uNumToolTips, char* lpToolTips)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return CommandBar_AddToolTips(m_hWnd, uNumToolTips, lpToolTips);
@@ -9998,7 +9998,7 @@ public:
 	Bool InsertMenubarEx(ATL::_U_STRINGorID menu, uint16_t wButton)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return ::CommandBar_InsertMenubarEx(m_hWnd, ModuleHelper::GetResourceInstance(), (LPTSTR)menu.m_lpstr, wButton);
+		return ::CommandBar_InsertMenubarEx(m_hWnd, ModuleHelper::GetResourceInstance(), (char*)menu.m_lpstr, wButton);
 	}
 
 	Bool IsCommandBarMessage(LPMSG lpMsg)

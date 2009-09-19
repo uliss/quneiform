@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ALI_PR(a) (((long int)a)/16+1)*16
 #define SET_VOC_ROOT(a) a
 
-/*typedef signed char * LPSTR;*/
+/*typedef signed char * char*;*/
 /************************* Bitfield types *****************************/
 
 #define BIT_BYTE    uchar

@@ -135,10 +135,10 @@ extern "C"
 //  Load and reset TIGER.DLL and TGCALL.DLL                                 //
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_Load            (HANDLE hApplicationInstance,
-												 LPSTR lpTigerPathName);
+												 char* lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          BCR_Load              (HANDLE hApplicationInstance,
-												 LPSTR lpTigerPathName);
+												 char* lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_Unload          (void);
 //////////////////////////////////////////////////////////////////////////////
@@ -159,27 +159,27 @@ TIGERLOC(BOOL16)          Tiger_SetRecognitionOptions (uint16_t wOptions);
 # define TSRO_CUT_RIGHT_EDGE     256
 # define TSRO_PICTURES_NO        512
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_Recognition      (LPSTR lpEdFileName);
+TIGERLOC(BOOL16)          Tiger_Recognition      (char* lpEdFileName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_PageAnalysis     (void);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_FinalRecognition (LPSTR lpEdFileName);
+TIGERLOC(BOOL16)          Tiger_FinalRecognition (char* lpEdFileName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(uint16_t)            Tiger_Status           (void);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(LPSTR)           Tiger_ErrorMessage     (uint16_t wError);
+TIGERLOC(char*)           Tiger_ErrorMessage     (uint16_t wError);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_SetLanguage      (uint16_t wLanguage);
 //////////////////////////////////////////////////////////////////////////////
 //   Convertion of ED-file to text file                                     //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_EdToText        (LPSTR lpEdFileName,
-												 LPSTR lpTextFileName,
+TIGERLOC(BOOL16)          Tiger_EdToText        (char* lpEdFileName,
+												 char* lpTextFileName,
 												 uint16_t wOptions,
 												 uint16_t wBadChar);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_ExtEdToText     (LPSTR lpEdFileName,
-												 LPSTR lpTextFileName,
+TIGERLOC(BOOL16)          Tiger_ExtEdToText     (char* lpEdFileName,
+												 char* lpTextFileName,
 												 uint16_t wOptions,
 												 uint16_t wCodePage,
 												 uint16_t wBadChar);
@@ -279,14 +279,14 @@ TIGERLOC(BOOL16)   TigerLayout_EnglishBlock   (uint16_t iBlock,
 TIGERLOC(BOOL16)   TigerLayout_ExtractPicture (RECT r,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   Layout_UpdatePictures      (LPSTR lpPictures,
+TIGERLOC(BOOL16)   Layout_UpdatePictures      (char* lpPictures,
 											   uint16_t wLength);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_UpdateSheets   (uint16_t FuncNumber,
 											   LPINT16 * lplpSheets);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   Tiger_RW_Options           (uint16_t FuncNumber,
-											   LPSTR lpData);
+											   char* lpData);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_Backup         (LPBOOL16 lpbBackupStackOverflow);
 //////////////////////////////////////////////////////////////////////////////
@@ -407,7 +407,7 @@ typedef LPED_CHARACTER TIGERFAR * LPLPED_CHARACTER;
 # define TG_EDC_BIG_SUSPECT   70   // Pay attention if probability less
                                    // than this value
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_OpenEdFile      (LPSTR lpFilename);
+TIGERLOC(BOOL16)          Tiger_OpenEdFile      (char* lpFilename);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_GetEdPage       (LPED_PAGE lpEdPage);
 //////////////////////////////////////////////////////////////////////////////
@@ -428,12 +428,12 @@ TIGERLOC(BOOL16)          Tiger_CloseEdFile     (void);
 #define SIZEofBUF         (0 + 256*sizeof(int))
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)       Tiger_SetEdSaveRtfOptions(uint16_t wFrame,
-												 LPSTR lpNameSerif,
-												 LPSTR lpNameNoSerif,
-												 LPSTR lpNameMono,
-												 LPSTR lpSerif,
-												 LPSTR lpNoSerif,
-												 LPSTR lpMono);
+												 char* lpNameSerif,
+												 char* lpNameNoSerif,
+												 char* lpNameMono,
+												 char* lpSerif,
+												 char* lpNoSerif,
+												 char* lpMono);
 //////////////////////////////////////////////////////////////////////////////
 #define FUNC_SHEET_UPDATE            1
 #define FUNC_SHEET_DELETE            2

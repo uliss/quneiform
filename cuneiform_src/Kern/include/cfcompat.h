@@ -47,19 +47,19 @@
 #include<wchar.h>
 #include "compat_defs.h"
 
-CFCOMPAT_FUNC(int) LoadString(HINSTANCE hInstance, uint uID, LPTSTR lpBuffer, int nBufferMax);
+CFCOMPAT_FUNC(int) LoadString(HINSTANCE hInstance, uint uID, char* lpBuffer, int nBufferMax);
 
 CFCOMPAT_FUNC(int) CreateDirectory(const char *dir, void *dummy);
-CFCOMPAT_FUNC(uint32_t) GetTempPath(uint32_t nBufferLength, LPTSTR lpBuffer);
+CFCOMPAT_FUNC(uint32_t) GetTempPath(uint32_t nBufferLength, char* lpBuffer);
 CFCOMPAT_FUNC(int) RemoveDirectory(const char *d);
 CFCOMPAT_FUNC(void*) GlobalAlloc(uint uFlags, int dwBytes);
 CFCOMPAT_FUNC(HGLOBAL) GlobalFree(void *f);
 CFCOMPAT_FUNC(void*) GlobalReAlloc(void* hMem, int dwBytes, uint uFlags);
 CFCOMPAT_FUNC(int) GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
-		uint uUnique, LPTSTR lpTempFileName);
+		uint uUnique, char* lpTempFileName);
 CFCOMPAT_FUNC(int) GetLastError();
 
-CFCOMPAT_FUNC(uint32_t) GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, uint32_t nSize);
+CFCOMPAT_FUNC(uint32_t) GetModuleFileName(HMODULE hModule, char* lpFilename, uint32_t nSize);
 CFCOMPAT_FUNC(Bool) CloseHandle(HANDLE hObject);
 CFCOMPAT_FUNC(HANDLE) CreateFile(LPCTSTR lpFileName, uint32_t dwDesiredAccess,
 		uint32_t dwShareMode, void* lpSecurityAttributes,
@@ -73,7 +73,7 @@ CFCOMPAT_FUNC(long) _findfirst(const char *filespec, struct _finddata_t *fileinf
 CFCOMPAT_FUNC(int) _findnext(long handle, struct _finddata_t *fileinfo);
 CFCOMPAT_FUNC(long) _tell(int handle);
 
-CFCOMPAT_FUNC(Bool) GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
+CFCOMPAT_FUNC(Bool) GetComputerName(char* lpBuffer, long unsigned int *lpnSize);
 
 CFCOMPAT_FUNC(int32_t) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
 		REGSAM samDesired, PHKEY phkResult);
@@ -85,12 +85,12 @@ CFCOMPAT_FUNC(Bool) GetClientRect(HWND hWnd, LPRECT lpRect);
 CFCOMPAT_FUNC(Bool) WritePrivateProfileString(LPCTSTR lpAppName,
 		LPCTSTR lpKeyName, LPCTSTR lpString, LPCTSTR lpFileName);
 CFCOMPAT_FUNC(uint32_t) GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
-		LPCTSTR lpDefault, LPTSTR lpReturnedString, uint32_t nSize, LPCTSTR lpFileName);
+		LPCTSTR lpDefault, char* lpReturnedString, uint32_t nSize, LPCTSTR lpFileName);
 CFCOMPAT_FUNC(uint) GetPrivateProfileInt(LPCTSTR lpAppName,
 		LPCTSTR lpKeyName, int16_t nDefault, LPCTSTR lpFileName);
 
 CFCOMPAT_FUNC(int) WideCharToMultiByte(uint CodePage, uint32_t dwFlags, const wchar_t *lpWideCharStr,
-		int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
+		int cchWideChar, char* lpMultiByteStr, int cbMultiByte,
 		LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 CFCOMPAT_FUNC(Bool) ShowWindow(HWND hWnd, int nCmdShow);
@@ -123,11 +123,11 @@ CFCOMPAT_FUNC(HWND) CreateWindow(
 );
 
 CFCOMPAT_FUNC(HGDIOBJ) SelectObject(HDC hdc, HGDIOBJ hgdiobj);
-CFCOMPAT_FUNC(LPTSTR) lstrcat(LPTSTR lpString1, LPTSTR lpString2);
+CFCOMPAT_FUNC(char*) lstrcat(char* lpString1, char* lpString2);
 CFCOMPAT_FUNC(int) lstrlen(LPCTSTR lpString);
 CFCOMPAT_FUNC(int) lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2);
-CFCOMPAT_FUNC(LPTSTR) lstrcpy(LPTSTR lpString1, LPCTSTR lpString2);
-CFCOMPAT_FUNC(int) wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...);
+CFCOMPAT_FUNC(char*) lstrcpy(char* lpString1, LPCTSTR lpString2);
+CFCOMPAT_FUNC(int) wsprintf(char* lpOut, LPCTSTR lpFmt, ...);
 CFCOMPAT_FUNC(int) lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 
 CFCOMPAT_FUNC(Bool) DeleteObject(HGDIOBJ hObject);
@@ -158,7 +158,7 @@ CFCOMPAT_FUNC(HFONT) CreateFont(int nHeight, int nWidth, int nEscapement,
 		LPCTSTR lpszFace);
 CFCOMPAT_FUNC(Bool) GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize);
 CFCOMPAT_FUNC(Bool) EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam);
-CFCOMPAT_FUNC(int) GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount);
+CFCOMPAT_FUNC(int) GetWindowText(HWND hWnd, char* lpString, int nMaxCount);
 
 CFCOMPAT_FUNC(HMODULE) LoadLibrary(LPCTSTR lpFileName);
 CFCOMPAT_FUNC(Bool) FreeLibrary(HMODULE hModule);

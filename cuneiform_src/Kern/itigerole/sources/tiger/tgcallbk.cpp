@@ -204,7 +204,7 @@ return TRUE;
 }
 ////////////////////////////////////////////
 
-FNWORD Tiger_Callback_ImageRead (LPSTR lpImage, uint16_t wMaxSize)
+FNWORD Tiger_Callback_ImageRead (char* lpImage, uint16_t wMaxSize)
 {
 	 if(wMaxSize<s_ImageInfo.wImageByteWidth)
 		return 0;
@@ -227,7 +227,7 @@ FNBOOL16 Tiger_Callback_ImageClose (void)
     return (TRUE);
 }
 
-FNVOID Tiger_Callback_ReportError (uint16_t wStatus, LPSTR lpMessage)
+FNVOID Tiger_Callback_ReportError (uint16_t wStatus, char* lpMessage)
 {
     wStatus = wStatus;
 //	g_pRecognition->SetError(lpMessage);
@@ -280,7 +280,7 @@ FNBOOL16 Tiger_Callback_ProgressSetPerc (uint16_t wPercent)
 FNBOOL16 Tiger_Callback_ProgressSetStage
 (
     uint16_t wStageNumber,
-    LPSTR lpStageName,
+    char* lpStageName,
     uint16_t wVolume
 )
 {
@@ -306,14 +306,14 @@ h=h;
 return TRUE;
 }
 
-FNuint32_t Tiger_Callback_ProcessPictures(LPSTR buf, uint32_t lth)
+FNuint32_t Tiger_Callback_ProcessPictures(char* buf, uint32_t lth)
 {
 buf=buf;
 lth=lth;
 return TRUE;
 }
 
-FNBOOL Tiger_Callback_Get_One_Word (LPSTR Buffer )
+FNBOOL Tiger_Callback_Get_One_Word (char* Buffer )
 {
 	return TRUE;
 }

@@ -100,7 +100,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 {
 	ATLASSERT(hWndOwner == NULL || ::IsWindow(hWndOwner));
 
-	LPTSTR lpstrMessage = NULL;
+	char* lpstrMessage = NULL;
 	if(IS_INTRESOURCE(message.m_lpstr))
 	{
 		for(int nLen = 256; ; nLen *= 2)
@@ -121,7 +121,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 		message.m_lpstr = lpstrMessage;
 	}
 
-	LPTSTR lpstrTitle = NULL;
+	char* lpstrTitle = NULL;
 	if(IS_INTRESOURCE(title.m_lpstr) && LOWORD(title.m_lpstr) != 0)
 	{
 		for(int nLen = 256; ; nLen *= 2)
@@ -415,7 +415,7 @@ public:
 		return ::GetMenuState(m_hMenu, nID, nFlags);
 	}
 
-	int GetMenuString(uint nIDItem, LPTSTR lpString, int nMaxCount, uint nFlags) const
+	int GetMenuString(uint nIDItem, char* lpString, int nMaxCount, uint nFlags) const
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::GetMenuString(m_hMenu, nIDItem, lpString, nMaxCount, nFlags);
@@ -443,7 +443,7 @@ public:
 
 		nLen++;   // increment to include terminating NULL char
 		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
-		LPTSTR lpszText = buff.Allocate(nLen);
+		char* lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;
 
@@ -466,7 +466,7 @@ public:
 			return 0;
 
 		nLen++;   // increment to include terminating NULL char
-		LPTSTR lpstr = strText.GetBufferSetLength(nLen);
+		char* lpstr = strText.GetBufferSetLength(nLen);
 		if(lpstr == NULL)
 			return 0;
 		int nRet = GetMenuString(nIDItem, lpstr, nLen, nFlags);
@@ -822,7 +822,7 @@ public:
 		return m_hIcon;
 	}
 
-	HICON ExtractAssociatedIcon(HINSTANCE hInst, LPTSTR lpIconPath, LPWORD lpiIcon)
+	HICON ExtractAssociatedIcon(HINSTANCE hInst, char* lpIconPath, LPWORD lpiIcon)
 	{
 		ATLASSERT(m_hIcon == NULL);
 		ATLASSERT(lpIconPath != NULL);

@@ -94,10 +94,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __NT__
 TIGERLOC(BOOL16)          __Tiger_Load          (DWORD dwTigerCallBack,
-												 LPSTR lpTigerPathName);
+												 char* lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          __BCR_Load            (DWORD dwTigerCallBack,
-												 LPSTR lpTigerPathName);
+												 char* lpTigerPathName);
 #else
 //////////////////////////////////////////////////////////////////////////////
 #pragma warning ( disable : 4229 )
@@ -105,10 +105,10 @@ TIGERLOC(BOOL16)          __BCR_Load            (DWORD dwTigerCallBack,
 typedef DWORD (TIGERFUN(*)fpTiger_Callback) (uint16_t wFuncNumber, LPDWORD lpParams);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          __Tiger_Load          (fpTiger_Callback fpCallback,
-												 LPSTR lpPath);
+												 char* lpPath);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          __BCR_Load            (fpTiger_Callback fpCallback,
-												 LPSTR lpTigerPathName);
+												 char* lpTigerPathName);
 #endif
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          __Tiger_Unload        (void);

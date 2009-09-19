@@ -322,7 +322,7 @@ void ERR(int num, const char  *str)
   WAR(num,str);
   #ifdef WIN_MOD
     wsprintf(str1,"\nERR=%d %s",num,str);
-    //MessageBox((HWND) 0,str1,(LPSTR) "ERROR",MB_ICONHAND|MB_OK);
+    //MessageBox((HWND) 0,str1,(char*) "ERROR",MB_ICONHAND|MB_OK);
     #ifndef DLL_MOD
       FatalExit(num);
     #endif
@@ -335,7 +335,7 @@ void ERRO(int num,char *str)
   WAR(num,str);
   #ifdef WIN_MOD
     wsprintf(str1,"\nERR=%d %s",num,str);
-    MessageBox((HWND) 0,str1,(LPSTR) "ERROR",MB_ICONHAND|MB_OK);
+    MessageBox((HWND) 0,str1,(char*) "ERROR",MB_ICONHAND|MB_OK);
     #ifndef DLL_MOD
       FatalExit(num);
     #endif
@@ -362,7 +362,7 @@ void PutMess(int num, char *str)
   #else
     char str1[160];
     wsprintf(str1,"\n%s %d",str,num);
-    MessageBox((HWND) 0,str1,(LPSTR) "MESS",MB_ICONHAND|MB_OK);
+    MessageBox((HWND) 0,str1,(char*) "MESS",MB_ICONHAND|MB_OK);
   #endif
 }
 

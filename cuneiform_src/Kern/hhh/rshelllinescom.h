@@ -485,10 +485,10 @@ RSHELLLINES_FUNC(void)       DrawLosedVerticalLines(GLM* friendlinesmass, int Co
 RSHELLLINES_FUNC(void)       DrawBigComps(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer); //
-  Bool                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,LPSTR &pDotBuffer, int32_t *CountDotComps); //
-  void                     FindChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
-  void                     CheckChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t BegIndex,int32_t CountDots, CLINE_handle hContainer); //
-  void                     AddNewDotLines(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //
+  Bool                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,char* &pDotBuffer, int32_t *CountDotComps); //
+  void                     FindChains(Handle hCCOM, char* &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
+  void                     CheckChains(Handle hCCOM, char* &pDotBuffer, int32_t BegIndex,int32_t CountDots, CLINE_handle hContainer); //
+  void                     AddNewDotLines(Handle hCCOM, char* &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //
   void                     UnionBreakup(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer); //

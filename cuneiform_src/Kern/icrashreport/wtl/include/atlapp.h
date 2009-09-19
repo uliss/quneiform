@@ -254,12 +254,12 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 #define lstrlenA (int)strlen
 
 #ifndef lstrcpyn
-  inline LPTSTR lstrcpyn(LPTSTR lpstrDest, LPCTSTR lpstrSrc, int nLength)
+  inline char* lstrcpyn(char* lpstrDest, LPCTSTR lpstrSrc, int nLength)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
 	int nLen = min(lstrlen(lpstrSrc), nLength - 1);
-	LPTSTR lpstrRet = (LPTSTR)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(TCHAR));
+	char* lpstrRet = (char*)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(TCHAR));
 	lpstrDest[nLen] = 0;
 	return lpstrRet;
   }
@@ -273,12 +273,12 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 #endif // !lstrcpynW
 
 #ifndef lstrcpynA
-  inline LPSTR lstrcpynA(LPSTR lpstrDest, LPCSTR lpstrSrc, int nLength)
+  inline char* lstrcpynA(char* lpstrDest, LPCSTR lpstrSrc, int nLength)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
 	int nLen = min(lstrlenA(lpstrSrc), nLength - 1);
-	LPSTR lpstrRet = (LPSTR)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(char));
+	char* lpstrRet = (char*)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(char));
 	lpstrDest[nLen] = 0;
 	return lpstrRet;
   }
@@ -305,7 +305,7 @@ static CWndClassInfo& GetWndClassInfo() \
 #endif // _MAX_FNAME
 
 #if (_WIN32_WCE < 400)
-  #define MAKEINTATOM(i)  (LPTSTR)((ULONG_PTR)((uint16_t)(i)))
+  #define MAKEINTATOM(i)  (char*)((ULONG_PTR)((uint16_t)(i)))
 #endif // (_WIN32_WCE < 400)
 
 #if (_WIN32_WCE < 410)
@@ -766,7 +766,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline void strcpy_x(LPTSTR lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
+	inline void strcpy_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
 	{
 #ifdef _UNICODE
 		strcpyW_x(lpstrDest, cchDest, lpstrSrc);
@@ -829,7 +829,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline errno_t strncpy_x(LPTSTR lpstrDest, size_t cchDest, LPCTSTR lpstrSrc, size_t cchCount)
+	inline errno_t strncpy_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc, size_t cchCount)
 	{
 #ifdef _UNICODE
 		return strncpyW_x(lpstrDest, cchDest, lpstrSrc, cchCount);
@@ -862,7 +862,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline void strcat_x(LPTSTR lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
+	inline void strcat_x(char* lpstrDest, size_t cchDest, LPCTSTR lpstrSrc)
 	{
 #ifdef _UNICODE
 		strcatW_x(lpstrDest, cchDest, lpstrSrc);
@@ -895,7 +895,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int vsprintf_x(LPTSTR lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
+	inline int vsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
 	{
 #if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
@@ -905,7 +905,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int wvsprintf_x(LPTSTR lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
+	inline int wvsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
 	{
 #if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
@@ -915,7 +915,7 @@ namespace SecureHelper
 #endif
 	}
 
-	inline int sprintf_x(LPTSTR lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
+	inline int sprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
 	{
 		va_list args;
 		va_start(args, lpstrFormat);
@@ -924,7 +924,7 @@ namespace SecureHelper
 		return nRes;
 	}
 
-	inline int wsprintf_x(LPTSTR lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
+	inline int wsprintf_x(char* lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, ...)
 	{
 		va_list args;
 		va_start(args, lpstrFormat);

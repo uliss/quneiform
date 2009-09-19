@@ -1169,7 +1169,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 			return -1;
 		}
 
-		LPSTR pRaster = NULL;
+		char* pRaster = NULL;
 
 		if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
 		{
@@ -1214,7 +1214,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 		return -1;
 	}
 
-	LPSTR pRaster = NULL;
+	char* pRaster = NULL;
 
 	if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
 	{

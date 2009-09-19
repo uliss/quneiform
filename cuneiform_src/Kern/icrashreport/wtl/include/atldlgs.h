@@ -216,7 +216,7 @@ public:
 		m_ofn.lpstrFile = m_szFileName;
 		m_ofn.nMaxFile = _MAX_PATH;
 		m_ofn.lpstrDefExt = lpszDefExt;
-		m_ofn.lpstrFileTitle = (LPTSTR)m_szFileTitle;
+		m_ofn.lpstrFileTitle = (char*)m_szFileTitle;
 		m_ofn.nMaxFileTitle = _MAX_FNAME;
 #ifndef _WIN32_WCE
 		m_ofn.Flags = dwFlags | OFN_EXPLORER | OFN_ENABLEHOOK | OFN_ENABLESIZING;
@@ -270,7 +270,7 @@ public:
 		return ATL::CWindow(GetParent());
 	}
 
-	int GetFilePath(LPTSTR lpstrFilePath, int nLength) const
+	int GetFilePath(char* lpstrFilePath, int nLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -286,7 +286,7 @@ public:
 		return (int)GetFileDialogWindow().SendMessage(CDM_GETFOLDERIDLIST, nLength, (LPARAM)lpBuff);
 	}
 
-	int GetFolderPath(LPTSTR lpstrFolderPath, int nLength) const
+	int GetFolderPath(char* lpstrFolderPath, int nLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -294,7 +294,7 @@ public:
 		return (int)GetFileDialogWindow().SendMessage(CDM_GETFOLDERPATH, nLength, (LPARAM)lpstrFolderPath);
 	}
 
-	int GetSpec(LPTSTR lpstrSpec, int nLength) const
+	int GetSpec(char* lpstrSpec, int nLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -555,7 +555,7 @@ public:
 	// The function returns the number of characters copied, not including the terminating zero.
 	// If the buffer is NULL, the function returns the required size, in characters, including the terminating zero.
 	// If the function fails, the return value is zero.
-	int GetDirectory(LPTSTR pBuffer, int nBufLen) const
+	int GetDirectory(char* pBuffer, int nBufLen) const
 	{
 		if (m_ofn.lpstrFile == NULL)
 			return 0;
@@ -650,7 +650,7 @@ public:
 	// The function returns the number of characters copied, not including the terminating zero.
 	// If the buffer is NULL, the function returns the required size, in characters, including the terminating zero.
 	// If the function fails, the return value is zero.
-	int GetFirstPathName(LPTSTR pBuffer, int nBufLen) const
+	int GetFirstPathName(char* pBuffer, int nBufLen) const
 	{
 		LPCTSTR pStr = GetFirstFileName();
 		int nLengthDir = GetDirectory(NULL, 0);
@@ -697,7 +697,7 @@ public:
 	// If the buffer is NULL, the function returns the required size, in characters, including the terminating zero.
 	// If the function fails, the return value is zero.
 	// The internal position marker is moved forward only if the function succeeds and the buffer was large enough.
-	int GetNextPathName(LPTSTR pBuffer, int nBufLen) const
+	int GetNextPathName(char* pBuffer, int nBufLen) const
 	{
 		if (m_pNextFile == NULL)
 			return 0;
@@ -776,7 +776,7 @@ public:
 			}
 
 			// Allocate the new buffer.
-			LPTSTR lpstrBuff = NULL;
+			char* lpstrBuff = NULL;
 			ATLTRY(lpstrBuff = new TCHAR[dwLength]);
 			if (lpstrBuff != NULL)
 			{
@@ -1704,7 +1704,7 @@ public:
 		m_cf.lStructSize = sizeof(m_cf);
 		m_cf.hwndOwner = hWndParent;
 		m_cf.rgbColors = RGB(0, 0, 0);
-		m_cf.lpszStyle = (LPTSTR)&m_szStyleName;
+		m_cf.lpszStyle = (char*)&m_szStyleName;
 		m_cf.Flags = dwFlags | CF_ENABLEHOOK;
 		m_cf.lpfnHook = (LPCFHOOKPROC)T::HookProc;
 
@@ -1907,7 +1907,7 @@ public:
 #if (_RICHEDIT_VER >= 0x0200)
 			SecureHelper::strcpy_x(cf.szFaceName, _countof(cf.szFaceName), GetFaceName());
 #else // !(_RICHEDIT_VER >= 0x0200)
-			SecureHelper::strcpyA_x(cf.szFaceName, _countof(cf.szFaceName), T2A((LPTSTR)(LPCTSTR)GetFaceName()));
+			SecureHelper::strcpyA_x(cf.szFaceName, _countof(cf.szFaceName), T2A((char*)(LPCTSTR)GetFaceName()));
 #endif // !(_RICHEDIT_VER >= 0x0200)
 		}
 
@@ -1980,7 +1980,7 @@ public:
 #if (_RICHEDIT_VER >= 0x0200)
 			SecureHelper::strcpy_x(m_lf.lfFaceName, _countof(m_lf.lfFaceName), cf.szFaceName);
 #else // !(_RICHEDIT_VER >= 0x0200)
-			SecureHelper::strcpy_x(m_lf.lfFaceName, _countof(m_lf.lfFaceName), A2T((LPSTR)cf.szFaceName));
+			SecureHelper::strcpy_x(m_lf.lfFaceName, _countof(m_lf.lfFaceName), A2T((char*)cf.szFaceName));
 #endif // !(_RICHEDIT_VER >= 0x0200)
 		}
 		else
@@ -2890,9 +2890,9 @@ public:
 		m_fr.lStructSize = sizeof(m_fr);
 		m_fr.Flags = FR_ENABLEHOOK;
 		m_fr.lpfnHook = (LPFRHOOKPROC)T::HookProc;
-		m_fr.lpstrFindWhat = (LPTSTR)m_szFindWhat;
+		m_fr.lpstrFindWhat = (char*)m_szFindWhat;
 		m_fr.wFindWhatLen = _cchFindReplaceBuffer;
-		m_fr.lpstrReplaceWith = (LPTSTR)m_szReplaceWith;
+		m_fr.lpstrReplaceWith = (char*)m_szReplaceWith;
 		m_fr.wReplaceWithLen = _cchFindReplaceBuffer;
 	}
 
@@ -3840,14 +3840,14 @@ public:
 			case PSCB_GETTITLE :
 				if(m_pszTitle != NULL)
 				{
-					lstrcpy((LPTSTR)lParam, m_pszTitle);
+					lstrcpy((char*)lParam, m_pszTitle);
 					m_pszTitle = NULL;
 				}
 				break;
 			case PSCB_GETLINKTEXT:
 				if(m_pszLink != NULL)
 				{
-					lstrcpy((LPTSTR)lParam, m_pszLink);
+					lstrcpy((char*)lParam, m_pszLink);
 					m_pszLink = NULL;
 				}
 				break;
@@ -4694,10 +4694,10 @@ public:
 
 		HINSTANCE hInstance = ModuleHelper::GetResourceInstance();
 		LPCTSTR lpTemplateName = MAKEINTRESOURCE(pT->IDD);
-		HRSRC hDlg = ::FindResource(hInstance, lpTemplateName, (LPTSTR)RT_DIALOG);
+		HRSRC hDlg = ::FindResource(hInstance, lpTemplateName, (char*)RT_DIALOG);
 		if(hDlg != NULL)
 		{
-			HRSRC hDlgInit = ::FindResource(hInstance, lpTemplateName, (LPTSTR)_ATL_RT_DLGINIT);
+			HRSRC hDlgInit = ::FindResource(hInstance, lpTemplateName, (char*)_ATL_RT_DLGINIT);
 
 			uchar* pInitData = NULL;
 			if(hDlgInit != NULL)
@@ -4817,7 +4817,7 @@ public:
 	virtual HRESULT CreateActiveXControls(uint nID)
 	{
 		// Load dialog template and InitData
-		HRSRC hDlgInit = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (LPTSTR)_ATL_RT_DLGINIT);
+		HRSRC hDlgInit = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (char*)_ATL_RT_DLGINIT);
 		uchar* pInitData = NULL;
 		HGLOBAL hData = NULL;
 		HRESULT hr = S_OK;
@@ -4828,7 +4828,7 @@ public:
 				pInitData = (uchar*) ::LockResource(hData);
 		}
 
-		HRSRC hDlg = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (LPTSTR)RT_DIALOG);
+		HRSRC hDlg = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (char*)RT_DIALOG);
 		if (hDlg != NULL)
 		{
 			HGLOBAL hResource = ::LoadResource(ATL::_AtlBaseModule.GetResourceInstance(), hDlg);

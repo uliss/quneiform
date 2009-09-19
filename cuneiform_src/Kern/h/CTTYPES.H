@@ -166,8 +166,6 @@ typedef Bool32 (* CFTBool32_Word32)(uint32_t);
  */
 
 #ifndef WIN32
-typedef char* LPSTR;
-typedef char* LPTSTR;
 typedef const char* LPCSTR;
 typedef const char* LPCWSTR;
 typedef const char* LPCTSTR;

@@ -86,11 +86,11 @@
  *
  * Parameter:
  *
- * LPSTR lpbi       - pointer to packed-DIB memory block
+ * char* lpbi       - pointer to packed-DIB memory block
  *
  * Return Value:
  *
- * LPSTR            - pointer to the DIB bits
+ * char*            - pointer to the DIB bits
  *
  * Description:
  *
@@ -99,7 +99,7 @@
  *
  ************************************************************************/
 
-LPSTR WINAPI FindDIBBits(LPSTR lpbi) {
+char* WINAPI FindDIBBits(char* lpbi) {
 	return (lpbi + *(LPDWORD) lpbi + ::PaletteSize(lpbi));
 }
 
@@ -109,7 +109,7 @@ LPSTR WINAPI FindDIBBits(LPSTR lpbi) {
  *
  * Parameter:
  *
- * LPSTR lpbi       - pointer to packed-DIB memory block
+ * char* lpbi       - pointer to packed-DIB memory block
  *
  * Return Value:
  *
@@ -123,7 +123,7 @@ LPSTR WINAPI FindDIBBits(LPSTR lpbi) {
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBWidth(LPSTR lpDIB) {
+uint32_t WINAPI DIBWidth(char* lpDIB) {
 	LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
 	LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
 
@@ -146,7 +146,7 @@ uint32_t WINAPI DIBWidth(LPSTR lpDIB) {
  *
  * Parameter:
  *
- * LPSTR lpbi       - pointer to packed-DIB memory block
+ * char* lpbi       - pointer to packed-DIB memory block
  *
  * Return Value:
  *
@@ -160,7 +160,7 @@ uint32_t WINAPI DIBWidth(LPSTR lpDIB) {
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBHeight(LPSTR lpDIB) {
+uint32_t WINAPI DIBHeight(char* lpDIB) {
 	LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
 	LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
 
@@ -183,7 +183,7 @@ uint32_t WINAPI DIBHeight(LPSTR lpDIB) {
  *
  * Parameter:
  *
- * LPSTR lpbi       - pointer to packed-DIB memory block
+ * char* lpbi       - pointer to packed-DIB memory block
  *
  * Return Value:
  *
@@ -198,7 +198,7 @@ uint32_t WINAPI DIBHeight(LPSTR lpDIB) {
  *
  ************************************************************************/
 
-uint16_t WINAPI PaletteSize(LPSTR lpbi) {
+uint16_t WINAPI PaletteSize(char* lpbi) {
 	/* calculate the size required by the palette */
 	if (IS_WIN30_DIB(lpbi))
 		return (uint16_t)(::DIBNumColors(lpbi) * sizeof(RGBQUAD));
@@ -212,7 +212,7 @@ uint16_t WINAPI PaletteSize(LPSTR lpbi) {
  *
  * Parameter:
  *
- * LPSTR lpbi       - pointer to packed-DIB memory block
+ * char* lpbi       - pointer to packed-DIB memory block
  *
  * Return Value:
  *
@@ -227,7 +227,7 @@ uint16_t WINAPI PaletteSize(LPSTR lpbi) {
  *
  ************************************************************************/
 
-uint16_t WINAPI DIBNumColors(LPSTR lpbi) {
+uint16_t WINAPI DIBNumColors(char* lpbi) {
 	uint16_t wBitCount; // DIB bit count
 
 	/*  If this is a Windows-style DIB, the number of colors in the

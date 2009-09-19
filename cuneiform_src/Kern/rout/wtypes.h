@@ -255,7 +255,7 @@ typedef uint32_t __RPC_FAR *LPDWORD;
 #endif // !_LPDWORD_DEFINED
 typedef char char;
 
-typedef /* [string] */ char __RPC_FAR *LPSTR;
+typedef /* [string] */ char __RPC_FAR *char*;
 
 typedef /* [string] */ const char __RPC_FAR *LPCSTR;
 
@@ -268,7 +268,7 @@ typedef WCHAR TCHAR;
 #endif // !_WCHAR_DEFINED
 typedef /* [string] */ WCHAR __RPC_FAR *LPWSTR;
 
-typedef /* [string] */ TCHAR __RPC_FAR *LPTSTR;
+typedef /* [string] */ TCHAR __RPC_FAR *char*;
 
 typedef /* [string] */ const WCHAR __RPC_FAR *LPCWSTR;
 
@@ -389,7 +389,7 @@ typedef /* [string] */ const OLECHAR __RPC_FAR *LPCOLESTR;
 #else
 
 typedef char      OLECHAR;
-typedef LPSTR     LPOLESTR;
+typedef char*     LPOLESTR;
 typedef LPCSTR    LPCOLESTR;
 #define OLESTR(str) str
 #endif

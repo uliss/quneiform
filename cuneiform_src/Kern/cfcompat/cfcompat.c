@@ -95,7 +95,7 @@
 
 CFCOMPAT_FUNC(int) HFILE_ERROR;
 
-int LoadString(HINSTANCE hInstance, uint uID, LPTSTR lpBuffer, int nBufferMax) {
+int LoadString(HINSTANCE hInstance, uint uID, char* lpBuffer, int nBufferMax) {
 	return 0;
 }
 
@@ -106,7 +106,7 @@ int CreateDirectory(const char *dir, void *dummy) {
 		return FALSE;
 }
 
-uint32_t GetTempPath(uint32_t nBufferLength, LPTSTR lpBuffer) {
+uint32_t GetTempPath(uint32_t nBufferLength, char* lpBuffer) {
 	strcpy(lpBuffer, "/tmp");
 	return strlen(lpBuffer);
 }
@@ -131,7 +131,7 @@ void* GlobalReAlloc(void* hMem, int dwBytes, uint uFlags) {
 }
 
 int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString, uint uUnique,
-		LPTSTR lpTempFileName) {
+		char* lpTempFileName) {
 	return -1;
 }
 
@@ -139,7 +139,7 @@ int GetLastError() {
 	return errno;
 }
 
-uint32_t GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, uint32_t nSize) {
+uint32_t GetModuleFileName(HMODULE hModule, char* lpFilename, uint32_t nSize) {
 	lpFilename[0] = '.'; /* Currently all modules must be in the directory pumatest was run in. */
 	lpFilename[1] = '\0';
 	return 1;
@@ -171,7 +171,7 @@ long _tell(int handle) {
 	return lseek(handle, 0, SEEK_CUR);
 }
 
-Bool GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
+Bool GetComputerName(char* lpBuffer, long unsigned int *lpnSize) {
 	strncpy(lpBuffer, "CompName", *lpnSize);
 	*lpnSize = strlen(lpBuffer);
 	return TRUE;
@@ -197,7 +197,7 @@ Bool WritePrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 }
 
 uint32_t GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
-		LPCTSTR lpDefault, LPTSTR lpReturnedString, uint32_t nSize,
+		LPCTSTR lpDefault, char* lpReturnedString, uint32_t nSize,
 		LPCTSTR lpFileName) {
 	return 0;
 }
@@ -208,7 +208,7 @@ uint GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, int16_t nDefault
 }
 
 int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
-		const wchar_t *lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr,
+		const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr,
 		int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
 	return 0;
 }
@@ -285,7 +285,7 @@ HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj) {
 	return 0;
 }
 
-LPTSTR lstrcat(LPTSTR lpString1, LPTSTR lpString2) {
+char* lstrcat(char* lpString1, char* lpString2) {
 	return strcat(lpString1, lpString2);
 }
 
@@ -297,11 +297,11 @@ int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2) {
 	return strcmp(lpString1, lpString2);
 }
 
-LPTSTR lstrcpy(LPTSTR lpString1, LPCTSTR lpString2) {
+char* lstrcpy(char* lpString1, LPCTSTR lpString2) {
 	return strcpy(lpString1, lpString2);
 }
 
-int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...) {
+int wsprintf(char* lpOut, LPCTSTR lpFmt, ...) {
 	char buffer[256];
 	int ret;
 	va_list args;
@@ -427,7 +427,7 @@ Bool EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
 	return 0;
 }
 
-int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount) {
+int GetWindowText(HWND hWnd, char* lpString, int nMaxCount) {
 	return 0;
 }
 

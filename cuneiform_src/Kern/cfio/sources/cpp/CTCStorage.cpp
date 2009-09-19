@@ -136,7 +136,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 				NULL,
 				Err,                                       //GetLastError(),
 				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-				(LPTSTR) &lpMsgBuf,
+				(char*) &lpMsgBuf,
 				0,
 				NULL
 			);

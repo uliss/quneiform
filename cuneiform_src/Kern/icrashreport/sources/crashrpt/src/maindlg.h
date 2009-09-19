@@ -242,7 +242,7 @@ public:
 	   int      nEmailLen = ::GetWindowTextLength(hWndEmail);
       int      nDescLen = ::GetWindowTextLength(hWndDesc);
 
-      LPTSTR lpStr = m_sEmail.GetBufferSetLength(nEmailLen);
+      char* lpStr = m_sEmail.GetBufferSetLength(nEmailLen);
       ::GetWindowText(hWndEmail, lpStr, nEmailLen);
       m_sEmail.ReleaseBuffer();
 

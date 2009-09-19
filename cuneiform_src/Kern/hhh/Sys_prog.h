@@ -159,8 +159,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #ifndef PASCAL
 	  #define PASCAL _pascal
   #endif
-  #ifndef LPSTR
-     typedef char * LPSTR;
+  #ifndef char*
+     typedef char * char*;
   #endif
   #define MAKELONG(a,b) ((DWORD)(((uint16_t)(a)) | (((DWORD)((uint16_t)(b))) << 16)))
   #define LOWORD(l) ((uint16_t)(l))
