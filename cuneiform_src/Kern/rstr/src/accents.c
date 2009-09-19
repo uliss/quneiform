@@ -94,7 +94,7 @@ static INT acc_tild(cell *,PBYTE);
 static INT acc_macron(cell *,PBYTE);	// 17.07.2001 E.P.
 static INT acc_dot(cell *c,cell *cc);
 
-Int16 NumIntersect2(c_comp *cmp, int mHei);
+int16_t NumIntersect2(c_comp *cmp, int mHei);
 
 // 04.09.2000 E.P.
 static INT acc_double_right(cell *c,cell *cc,PBYTE r);
@@ -2329,7 +2329,7 @@ static INT acc_semicircle(cell *cc,PBYTE r)
 // how many intersections >= 2 - on height from 0 to mHei
 // return < 0 - some error
 #define MAXNUMINT 64
-Int16 NumIntersect2(c_comp *cmp, int mHei)
+int16_t NumIntersect2(c_comp *cmp, int mHei)
 {
  int      i,crow;
  lnhead   *line;
@@ -2370,7 +2370,7 @@ Int16 NumIntersect2(c_comp *cmp, int mHei)
  return i;
 }
 //**************************************************************************
-static Int16 FindAngles(cell *c, int *lUAngle, int *rUAngle,
+static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
 						int *lDAngle, int *rDAngle )
 {
  c_comp   *cmp=c->env;
@@ -2409,7 +2409,7 @@ static Int16 FindAngles(cell *c, int *lUAngle, int *rUAngle,
  return 1;
 }
 //**************************************************************************
-static Int16 Test2Cell2(cell *c1,cell *c2,
+static int16_t Test2Cell2(cell *c1,cell *c2,
 						int *lUAngle, int *rUAngle,
 						int *lDAngle, int *rDAngle )
 {

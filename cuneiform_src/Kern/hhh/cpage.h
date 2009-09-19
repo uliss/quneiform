@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpagetyps.h"
 #endif
 
-CPAGE_FUNC(Bool32) CPAGE_Init(Word16 wHeightCode,Handle hStorage);
+CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage);
 CPAGE_FUNC(Bool32) CPAGE_Done();
 CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode();
 CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError);

@@ -65,11 +65,11 @@ typedef struct tagFONBase
 	 welet *start;
 	 int   inBase;
 	 access_tab *ace;
-	 Int16 countFont;
-	 Int16 reserv;
+	 int16_t countFont;
+	 int16_t reserv;
 	 uint32_t fontFields[4][NFIELDDWORD];
 	 Bool32 isFirst;
-	 Word16 first[256];
+	 uint16_t first[256];
 	 uchar  tablColumn[32];
 	}
 	FONBASE;
@@ -89,7 +89,7 @@ int AddVersion(RECRESULT *recres,BYTE let,BYTE rec,int nClust,
 SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recResult,SINT size,
               welet *wl, int numWelet,
-              int porog,int nInCTB,Int16 col,Int16 row,int32_t countRazmaz);
+              int porog,int nInCTB,int16_t col,int16_t row,int32_t countRazmaz);
 int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	    RecVersions *collection );
 int32_t TestClustNames(welet *wel,int numWel,

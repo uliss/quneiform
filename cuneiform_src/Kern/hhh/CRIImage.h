@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 # define    RIMAGEBOOL16          Bool16
-# define    RIMAGEWORD            Word16
+# define    RIMAGEWORD            uint16_t
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef struct tag_RIMAGE_MARGINS
@@ -106,7 +106,7 @@ typedef struct tag_RIMAGE_MARGINS
 }   RIMAGEMARGINS, *PRIMAGEMARGINS, **PPRIMAGEMARGINS;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage);
+RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage);
 RIMAGE_FUNC(Bool32) RIMAGE_Done();
 RIMAGE_FUNC(Bool32) RIMAGE_Reset();
 RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode();

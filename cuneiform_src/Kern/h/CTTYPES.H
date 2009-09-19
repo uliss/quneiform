@@ -80,20 +80,21 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
-typedef int16_t Int16;  _SETTYPES( Int16 )
-typedef uint16_t Word16;_SETTYPES( Word16 )
-typedef long double Float80; _SETTYPES( Float80 )
+//typedef int16_t int16_t;  _SETTYPES( int16_t )
+//typedef uint16_t uint16_t;_SETTYPES( uint16_t )
+typedef long double Float80;
 
 typedef int16_t Bool16;
 typedef int32_t Bool32;_SETTYPES( Bool32 )
 
 typedef int Bool;
 
-typedef char * pchar;
-typedef unsigned char * puchar;
 typedef unsigned long ulong;
 typedef unsigned int uint;
 typedef unsigned char uchar;
+
+typedef char * pchar;
+typedef unsigned char * puchar;
 
 #ifndef   FALSE
 #define FALSE               0
@@ -104,7 +105,7 @@ typedef unsigned char uchar;
 
 /*** Derived types ***/
 typedef struct tagPoint16 {
-	Int16 x, y;
+	int16_t x, y;
 } Point16;
 _SETTYPES( Point16 )
 typedef struct tagPoint32 {
@@ -112,7 +113,7 @@ typedef struct tagPoint32 {
 } Point32;
 _SETTYPES( Point32 )
 typedef struct tagRect16 {
-	Int16 left, top, right, bottom;
+	int16_t left, top, right, bottom;
 } Rect16;
 _SETTYPES( Rect16 )
 typedef struct tagRect32 {

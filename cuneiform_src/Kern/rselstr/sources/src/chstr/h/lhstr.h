@@ -119,10 +119,10 @@ class CPrepHstr
   int nRc;
   Bool fl_rotate;
   int* hi;
-  Int16 phi[MAX_STR_COUNT];
+  int16_t phi[MAX_STR_COUNT];
   Rect16 unrotRc;
-  Int16* begx;
-  Int16* movey;
+  int16_t* begx;
+  int16_t* movey;
   uchar* flmovey;
 
  public:

@@ -67,20 +67,20 @@ extern  int32_t   box_number;
 
 extern uchar double_fax;
 extern uchar image_disp_mask;
-extern Word16 image_disp_end;
-extern Word16 image_disp_byte;
+extern uint16_t image_disp_end;
+extern uint16_t image_disp_byte;
 
-extern Int16 image_blth    ;  // pixels per line
-extern Int16  image_height  ;  // lines in file number
-extern Int16 image_lth     ;  // bytes per line
+extern int16_t image_blth    ;  // pixels per line
+extern int16_t  image_height  ;  // lines in file number
+extern int16_t image_lth     ;  // bytes per line
 extern uchar image_black   ;  // mask for black pixels adding
 extern uchar image_white   ;  // mask for wite pixels adding
 extern struct main_memory_str Q;
 
 void analise();
-BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, Int16 width);
+BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width);
 uint32_t progress_set_percent (uint32_t volume);
-Int16 source_read(uchar* start, uchar* ptr, uchar* end);
+int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 
 //---------------------- Internal working fields
 // TGCV static LONG progress_next;
@@ -90,10 +90,10 @@ static void enough_memory();
 static void initdsect();
 static void allocboxes();
 static void begin();
-static Word16 readline();
+static uint16_t readline();
 static void exchangelines();
 static void fax_double();
-static Int16 fax_test();
+static int16_t fax_test();
 static void emptyline();
 /*
 static MN   * Cmnstart;
@@ -166,7 +166,7 @@ static void enough_memory()
 static void initdsect()
 {
  MN *p;
- Int16 i;
+ int16_t i;
  /*memset (&Q, 0, sizeof(Q));
 
  Q.mnstart    = Cmnstart;
@@ -213,10 +213,10 @@ static void exchangelines()
  p = Q.oldline; Q.oldline = Q.newline; Q.newline = p;
 }
 
-static Word16 readline()
+static uint16_t readline()
 {
  uchar* p;
- Int16 i;
+ int16_t i;
  p =  Q.dcodeptr + image_lth;
 after_read:
  if (p + image_lth > Q.dcodeend) goto rd_source;
@@ -235,7 +235,7 @@ rd_source:
  p = Q.scan_buffer;     goto after_read;
 }
 
-static Int16 fax_test()
+static int16_t fax_test()
 {
  BWS * old, * new;
  old = Q.oldline; new = Q.newline;

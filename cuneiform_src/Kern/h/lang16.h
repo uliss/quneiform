@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __LANG16_H
 #define __LANG16_H
 
-   typedef Word16                 Lang16;  _SETTYPES( Lang16 )
+   typedef uint16_t                 Lang16;  _SETTYPES( Lang16 )
 
 #define LANG16_UNDEFINED   0
 #define LANG16_GERMAN      10

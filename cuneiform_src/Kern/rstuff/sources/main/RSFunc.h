@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "RStuff.H"
 //////////////////////////
 //общего назначения
-void SetReturnCode_rstuff(Word16);
+void SetReturnCode_rstuff(uint16_t);
 void SetReturnCode_rstuff(uint32_t);
 void DebugInit (void );
 void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);

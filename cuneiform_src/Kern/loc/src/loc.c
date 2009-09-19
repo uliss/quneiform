@@ -84,10 +84,10 @@ extern version* start_rec;   // ptr to answer
 extern uchar lpool[];
 extern uchar evline[], evline1[];
 
-extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
+extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(ExtComponent *ec, uchar *lp,Word16 lth);
+extern int32_t recog_letter_lp(ExtComponent *ec, uchar *lp,uint16_t lth);
 
 
 static void *EvnAlloc(uint32_t len) { return malloc(len); }
@@ -115,7 +115,7 @@ LOC_FUNC(void)  LOCDone(void)
 return ;
 }
 
-LOC_FUNC(Int16) LOCGetErr(void)
+LOC_FUNC(int16_t) LOCGetErr(void)
 {
 return evn_error_code;
 }
@@ -125,7 +125,7 @@ return evn_error_code;
 uchar evn_multy_lpool[6000+2];
 
 
-LOC_FUNC(MN *) LOC_CLocomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
+LOC_FUNC(MN *) LOC_CLocomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
 {
   return c_locomp (raster,bw,h,upper,left);
 }

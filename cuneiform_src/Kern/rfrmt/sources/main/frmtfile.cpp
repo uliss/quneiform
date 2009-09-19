@@ -83,13 +83,13 @@ extern std::vector<RECT>   *pInputArray;
 
 int32_t	PageIncline2048 = 2048;
 uint32_t  CountPict=0,CountTable=0;
-void    SetReturnCode_rfrmt(Word16 rc);
+void    SetReturnCode_rfrmt(uint16_t rc);
 POINT   TemplateOffset;
 
 extern "C" uint32_t   GetPictCount(void);
 extern "C" uint32_t   GetTablCount(void);
 extern  uchar       Frmt_CharSet;
-extern  Int16       CreateEmptyRtfFile(void);
+extern  int16_t       CreateEmptyRtfFile(void);
 extern  char        UnRecogSymbol;
 extern  uint32_t      FlagMode;
 extern  uint32_t      ExFlagMode;

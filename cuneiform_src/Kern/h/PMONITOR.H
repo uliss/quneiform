@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef Bool   ( *TPrgStart     )  (void);
 typedef Bool   ( *TPrgFinish    )  (void);
-typedef Bool   ( *TPrgNewStage  )  (Int16 StageId, char * szStage, Int16 stage_volume);
-typedef Bool   ( *TPrgSetPercent)  (Int16 prc);
+typedef Bool   ( *TPrgNewStage  )  (int16_t StageId, char * szStage, int16_t stage_volume);
+typedef Bool   ( *TPrgSetPercent)  (int16_t prc);
 typedef Bool   ( *TPrgMessageBox)  (char  * szMessage, uint32_t *flags); // use "wmb.h" to obtain flags
 
 typedef struct tagPrgSet
@@ -86,14 +86,14 @@ _SETTYPES(TPrgSet);
 //
 //1. Bool   ProgressStart  (void) - function starts progress monitor.
 //2. Bool   ProgressFinish (void) - .  .  .  finishes  .  .   .  .
-//3. Bool   ProgressNewStage    (Int16 StageId, char * szStage, Int16 stage_volume) -
+//3. Bool   ProgressNewStage    (int16_t StageId, char * szStage, int16_t stage_volume) -
 //            new stage beginning.
 //       Parameters:
 //          StageId     - id of new stage in termes of server states.
 //         szStage      - stage name;
 //         stage_volume - the volume of this stage in the whole process
 //                       (where the whole process is 0...100 range).
-//4. Bool   ProgressSetPercent  (Int16 prc) -sets the progress monitor to
+//4. Bool   ProgressSetPercent  (int16_t prc) -sets the progress monitor to
 //                      prc value (prc should be in 0...100 range relatively
 //                      to current stage). Actually progress monitor will
 //                      normalize this value to WholeProcessMonitor as

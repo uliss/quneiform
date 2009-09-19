@@ -149,7 +149,7 @@ enum    REXCParametrs
     // Closing of the library.
    EXC_FUNC(uint32_t) REXC_GetReturnCode(void);
    EXC_FUNC(char*)  REXC_GetReturnString(uint32_t dwError);
-   EXC_FUNC(Bool32) REXC_Init(Word16 wHeightCode, Handle hStorage);
+   EXC_FUNC(Bool32) REXC_Init(uint16_t wHeightCode, Handle hStorage);
    EXC_FUNC(void)   REXC_Done(void);
    EXC_FUNC(Bool32) REXC_GetExportData(uint32_t dwType, void * pData);
    EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData);
@@ -191,8 +191,8 @@ EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
 typedef  int32_t (*FNREXC_GetContainer)(void);
 EXC_FUNC(Handle)  REXCGetContainer(void);
 // 6    REXC_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , uchar *lp, Int16 *lp_size, Int16 *numcomp);
-EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , uchar *lp, Int16 *lp_size, Int16 *numcomp);
+typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    REXC_FNVERSION Дать версию библиотеки
 //
 //

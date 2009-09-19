@@ -93,14 +93,14 @@ uchar beg2, end1;    /* начало 2-ой, конец 1-ой ног  */
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
-Int16 dnri_hook,broken_ii=0;
+int16_t dnri_hook,broken_ii=0;
 uchar broken_flag=0;
 
 
 /* LeftDistance - расстояние до первого слева бита			*/
-Int16 LeftDistance(uchar *RASTER, Int16 NWIDTH)
+int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH)
 {
-Int16 i;
+int16_t i;
 
 for(i=0;i<NWIDTH && (*RASTER)==0;i++,RASTER++);
 
@@ -111,9 +111,9 @@ return( (i<<3)+start_pos[*RASTER] );
 }
 
 /* RightDistance -расстояние до первого справа бита			*/
-Int16 RightDistance(uchar *RASTER, Int16 NWIDTH)
+int16_t RightDistance(uchar *RASTER, int16_t NWIDTH)
 {
-Int16 i;
+int16_t i;
 
 RASTER += NWIDTH-1;
 
@@ -126,9 +126,9 @@ return( (i<<3)+last_pos[*RASTER] );
 }
 
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
-Int16 SumIntervalBits( uchar *RASTER, Int16 n1, Int16 n2)
+int16_t SumIntervalBits( uchar *RASTER, int16_t n1, int16_t n2)
 {
-Int16 i,d,l;
+int16_t i,d,l;
 
 i=n1>>3;
 l=n2>>3;
@@ -146,9 +146,9 @@ return(3*d);
 }
 
 /* SumBits - посчитать сумму бит в строке байт 				*/
-Int16 SumBits( uchar *RASTER, Int16 NWIDTH)
+int16_t SumBits( uchar *RASTER, int16_t NWIDTH)
 {
-Int16 i,s;
+int16_t i,s;
 
 for(i=s=0;i<NWIDTH;i++,RASTER++)
 	s += bit_cnt[*RASTER];
@@ -156,9 +156,9 @@ return(s);
 }
 
 /* VertSum - посчитать сумму бит в столбце  				*/
-Int16 VertSum( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
+int16_t VertSum( uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column)
 {
-Int16 i,d;
+int16_t i,d;
 uchar mask=mask_byte[Column&7];
 
 RASTER += (Column>>3);
@@ -171,9 +171,9 @@ return(d);
 
 
 /* NumHorizInterval - число интервалов в строке 			*/
-Int16 NumHorizInterval( uchar *RASTER, Int16 NWIDTH)
+int16_t NumHorizInterval( uchar *RASTER, int16_t NWIDTH)
 {
-Int16 i,d;
+int16_t i,d;
 uchar c,old;
 
 for( i=d=old=0;i<NWIDTH;i++,RASTER++)
@@ -189,9 +189,9 @@ return(d);
 }
 
 /* NumVertInterval - число интервалов в столбце 			*/
-Int16 NumVertInterval( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
+int16_t NumVertInterval( uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column)
 {
-Int16 i,d;
+int16_t i,d;
 uchar c,old,mask=mask_byte[Column&7];
 
 RASTER += (Column>>3);
@@ -211,9 +211,9 @@ return(d);
 }
 
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
-Int16 FOOT_A( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
+int16_t FOOT_A( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
 {
-Int16 i,j,k,d;
+int16_t i,j,k,d;
 uchar *p,c;
 
 d=bytlen(NWIDTH);
@@ -247,10 +247,10 @@ return(0);
 
 
 /* FOOT - вычислить число ног  						*/
-Int16 FOOT( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH,
+int16_t FOOT( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
     uchar HARD_FILTER)
 {
-Int16 i,old,d,l,k;
+int16_t i,old,d,l,k;
 uchar c,curr,first,second;
 memset(LOCAL,0,50);
 memset(LOCAL_W,0,50);
@@ -356,11 +356,11 @@ return(2);
 }
 
 /* CenterVertInterval - середина интервала в столбце 			*/
-Int16 CenterVertInterval( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column,
-      Int16 *up, Int16 *down)
+int16_t CenterVertInterval( uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column,
+      int16_t *up, int16_t *down)
 {
 uchar mask = mask_byte[Column&7], c, old;
-Int16 i,num,center,up_center;
+int16_t i,num,center,up_center;
 
 *up=*down=-1;
 RASTER += (Column>>3);
@@ -411,10 +411,10 @@ switch( num )
 return( (NHEIGHT<<1)-center);	/* удвоенное расстояние от низа растра */
 }
 
-Int16 MinMaxLeft( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
-		Int16 *Pmin, Int16 *Pmax)
+int16_t MinMaxLeft( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT,
+		int16_t *Pmin, int16_t *Pmax)
 {
-Int16 maxr=0,minr=100,r,i;
+int16_t maxr=0,minr=100,r,i;
 
 NWIDTH= bytlen(NWIDTH);
 for( i=0;i<NHEIGHT;i++,RASTER+=Wx)
@@ -432,10 +432,10 @@ return(0);
 }
 
 /* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
-Int16 MinMaxRight( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
-		Int16 *Pmin, Int16 *Pmax)
+int16_t MinMaxRight( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT,
+		int16_t *Pmin, int16_t *Pmax)
 {
-Int16 maxr=0,minr=100,r,i, end;
+int16_t maxr=0,minr=100,r,i, end;
 
 r = bytlen(NWIDTH);
 end = (r-((NWIDTH+7)/8))*8;
@@ -457,9 +457,9 @@ return(0);
 
 /* FOOT3_2 - вычислить число ног ( ожидается 3-ногая буква)     */
 /*           в верхней и нижней половинах                       */
-Int16 FOOT3_2( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
+int16_t FOOT3_2( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
 {
-Int16 i,old,du,dd;
+int16_t i,old,du,dd;
 uchar c;
 FOOT_A(RASTER,Wx,NWIDTH,(uchar)(NLENGTH/2)); /* проекция */
 
@@ -496,9 +496,9 @@ return(dd==3&&du!=3);
 }
 
 /* FOOT3 - вычислить число ног ( ожидается 3-ногая буква)     */
-Int16 FOOT3( uchar *RASTER, Int16 Wx, uchar START, uchar NWIDTH, uchar NLENGTH, Int16 SHIFT)
+int16_t FOOT3( uchar *RASTER, int16_t Wx, uchar START, uchar NWIDTH, uchar NLENGTH, int16_t SHIFT)
 {
-Int16 i,old,d;
+int16_t i,old,d;
 uchar c;
 FOOT_A(RASTER,Wx,NWIDTH,NLENGTH); /* проекция */
 
@@ -522,9 +522,9 @@ return(d);
 
 /* EndBlackInterval - номер последнего черного бита   */
 /* в первой слева пачке черных бит      */
-Int16 EndBlackInterval(uchar *RASTER, Int16 NWIDTH)
+int16_t EndBlackInterval(uchar *RASTER, int16_t NWIDTH)
 {
-Int16 i;
+int16_t i;
 
 for(i=0;i<NWIDTH && (*RASTER)==0;i++,RASTER++); /* skip white bytes    */
 
@@ -540,7 +540,7 @@ if(   i<NWIDTH-1 && ((*RASTER)&0x01)==1 && piece_cnt[*RASTER]==1 &&
 return( (i<<3)+tab_last_black_bit[*RASTER] );
 }
 
-void clear_right_bites(uchar *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT)
+void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT)
 {
 int w = NWIDTH&7, ww = (NWIDTH+7)/8, i;
 RASTER += ww;
@@ -563,9 +563,9 @@ else
 return;
 }
 
-Int16 FOOT_HEI( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
+int16_t FOOT_HEI( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
 {
-Int16 i,old,d,l,k;
+int16_t i,old,d,l,k;
 uchar c,curr,first,second;
 memset(LOCAL,0,50);
 memset(LOCAL_W,0,50);

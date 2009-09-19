@@ -1644,7 +1644,7 @@ INT dbsum(INT filter)
 
 	if(i_method != 0)
 	{
-		Int16 n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+		int16_t n1 = 0, n2 = 0, n3 = 0, n4 = 0;
 		m_attr.row = minrow;
 		m_attr.language = language; //IGOR
 
@@ -1727,7 +1727,7 @@ INT dbsum(INT filter)
 		(bbs1 != m_attr.bs1 || bbs2 != m_attr.bs2 || bbs3 != m_attr.bs3 || bbs4 != m_attr.bs4)))
 	{
 		Point16 rs, re, rsm, rem;
-		Int16 startx, endx, mc;
+		int16_t startx, endx, mc;
 		uint32_t rgb;
 		CSTR_attr line_attr;
 
@@ -1744,7 +1744,7 @@ INT dbsum(INT filter)
 		{
 			if(i_method != 1)//PUMA
 			{
-				Int16 ic = 0;
+				int16_t ic = 0;
 				rgb = wRGB(64,128,128);
 				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx)
@@ -1799,7 +1799,7 @@ INT dbsum(INT filter)
 		{
 			if(i_method != 1)//PUMA
 			{
-				Int16 ic = 0;
+				int16_t ic = 0;
 				rgb = wRGB(124,190,190);
 				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx)

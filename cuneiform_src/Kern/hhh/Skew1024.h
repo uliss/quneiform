@@ -93,10 +93,10 @@ inline Point16& Deskew( Point16& pt, int32_t skew1024)
    long dy = ( (skew1024*(long)pt.x+0x200) >> 10 );
    long ddx =( (phi_sq*(long)pt.x+0x100000) >> 21 );
    long ddy =( (phi_sq*(long)pt.y+0x100000) >> 21 );
-   pt.x -= (Int16)dx;
-   pt.x -= (Int16)ddx;
-   pt.y += (Int16)dy;
-   pt.y -= (Int16)ddy;
+   pt.x -= (int16_t)dx;
+   pt.x -= (int16_t)ddx;
+   pt.y += (int16_t)dy;
+   pt.y -= (int16_t)ddy;
    return pt;
 }
 
@@ -142,7 +142,7 @@ inline Point32& Copy(Point32& dst, Point16& src)
 
 inline Point16& Copy(Point16& dst, Point32& src)
 {
-   dst.x=(Int16)src.x; dst.y=(Int16)src.y;
+   dst.x=(int16_t)src.x; dst.y=(int16_t)src.y;
    return dst;
 }
 
@@ -154,8 +154,8 @@ inline Rect32& Copy(Rect32& dst, Rect16& src)
 }
 inline Rect16& Copy(Rect16& dst, Rect32& src)
 {
-   dst.left = (Int16)src.left; dst.right  = (Int16)src.right;
-   dst.top  = (Int16)src.top;  dst.bottom = (Int16)src.bottom;
+   dst.left = (int16_t)src.left; dst.right  = (int16_t)src.right;
+   dst.top  = (int16_t)src.top;  dst.bottom = (int16_t)src.bottom;
    return dst;
 }
 
@@ -181,8 +181,8 @@ inline Rect32& Pt2Rc(Rect32& dst, Point32& a, Point32& b )
 }
 inline Rect16& Pt2Rc(Rect16& dst, Point32& a, Point32& b )
 {
-   dst.left = (Int16)a.x; dst.right  = (Int16)b.x;
-   dst.top  = (Int16)a.y; dst.bottom = (Int16)b.y;
+   dst.left = (int16_t)a.x; dst.right  = (int16_t)b.x;
+   dst.top  = (int16_t)a.y; dst.bottom = (int16_t)b.y;
    return dst;
 }
 
@@ -261,7 +261,7 @@ inline Rect16& DeskewCenter( Rect16& rc, int32_t skew1024)
    return rc;
 }
 
-inline Rect16& Expand( Rect16& rc, Int16 delta )
+inline Rect16& Expand( Rect16& rc, int16_t delta )
 {
    rc.left -= delta; rc.top -= delta;
    rc.right+= delta; rc.bottom+= delta;

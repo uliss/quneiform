@@ -1558,7 +1558,7 @@ extern PBYTE kit_curr, kit_end;
 static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, Bool shift)
  {
  c_comp ec={0};
- Word16 zero=0;
+ uint16_t zero=0;
 
 if( !cmp )
     return;
@@ -1855,7 +1855,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
         RecRaster       rs;
         CCOM_comp      *scale_comp;
         uchar          *lpool;
-        Int16           scale=line_scale-cmp->scale;
+        int16_t           scale=line_scale-cmp->scale;
 
         if( !CCOM_GetScaleRaster(cmp, &rs,scale) )
             continue;
@@ -1865,7 +1865,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
             continue;
 
         scale_comp = CCOM_New(CSTR_GetContainer(lin) ,cmp->upper, cmp->left, cmp->w, cmp->h);
-        CCOM_Store(scale_comp,0, (Int16)((*((Int16*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
+        CCOM_Store(scale_comp,0, (int16_t)((*((int16_t*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
         if( scale_comp->w<(1<<scale) )
             scale_comp->w= 1<<scale;
         if( scale_comp->h<(1<<scale) )
@@ -2060,7 +2060,7 @@ void dust_ini(CSTR_line lin)
     RecRaster       rs;
     CCOM_comp      *scale_comp;
     uchar          *lpool;
-    Int16           scale=line_scale-cmp->scale;
+    int16_t           scale=line_scale-cmp->scale;
 
     if( !CCOM_GetScaleRaster(cmp, &rs,scale) )
         continue;
@@ -2070,7 +2070,7 @@ void dust_ini(CSTR_line lin)
         continue;
 
     scale_comp = CCOM_New(CSTR_GetContainer(lin) ,cmp->upper, cmp->left, cmp->w, cmp->h);
-    CCOM_Store(scale_comp,0, (Int16)((*((Int16*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
+    CCOM_Store(scale_comp,0, (int16_t)((*((int16_t*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
     if( scale_comp->w<(1<<scale) )
         scale_comp->w= 1<<scale;
     if( scale_comp->h<(1<<scale) )
@@ -2489,8 +2489,8 @@ CSTR_rast_attr  attr,zattr={0};
 CSTR_attr               attrlin={0};
 CSTR_rast       rst, old_rst=CSTR_GetFirstRaster(lino);
 UniVersions     uvs;
-Int16            macol,  micol,  marow,  mirow;
-Int16           rmacol, rmicol, rmarow, rmirow;
+int16_t            macol,  micol,  marow,  mirow;
+int16_t           rmacol, rmicol, rmarow, rmirow;
 int32_t           need_scale=0;
 Bool            sfr;
 if( lin )
@@ -2918,7 +2918,7 @@ Bool pass3BL(CSTR_line ln)
     cell   *c;
     BYTE    str[100];
     Bool    ret;
-	Int16   minr,maxr;
+	int16_t   minr,maxr;
 
     pass_start();
     snap_is_active();
@@ -3292,7 +3292,7 @@ return ret;
 void add_vers_underlined(void)
 {
 cell *  c;
-Word16  flg;
+uint16_t  flg;
 for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
     if( c->nvers && ((c->flg_new&CSTR_fn_under)||(c->font&c_fp_undrln)) )

@@ -139,8 +139,8 @@ void * TigerReallocateMemory(void * mem, uint32_t size) {
 }
 
 
-extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, Int16 upper,
-		Int16 left);
+extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
+		int16_t left);
 extern BYTE work_raster[], work_raster_1[];
 //extern c_comp wcomp;
 extern WORD lpool_lth;

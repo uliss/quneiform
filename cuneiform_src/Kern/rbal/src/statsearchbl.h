@@ -69,70 +69,70 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////
 typedef struct tagROW_STRUCT
 {
-	Int16 globMax;		//глобальный максимум
-	Int16 ValGM;		//значение глобального максимума
-	Int16 AltGM;		//значение альтернативы (1-я или 2-я БЛ)
+	int16_t globMax;		//глобальный максимум
+	int16_t ValGM;		//значение глобального максимума
+	int16_t AltGM;		//значение альтернативы (1-я или 2-я БЛ)
 
-	Int16 rightLocMax;
-	Int16 ValRLM;
-	Int16 AltRLM;
+	int16_t rightLocMax;
+	int16_t ValRLM;
+	int16_t AltRLM;
 	float rightCoeff;
 
-	Int16 leftLocMax;
-	Int16 ValLLM;
-	Int16 AltLLM;
+	int16_t leftLocMax;
+	int16_t ValLLM;
+	int16_t AltLLM;
 	float leftCoeff;
 
 }	ROW_STRUCT;
 
 //////
-Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1);
-Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2);
-Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2);
+int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff, int16_t fl_b2_or_b1);
+int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2);
+int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2);
 //////
 
 //////
-Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl);
+int16_t stat_Hypothesis(int32_t line_number, int16_t diff_b3_bsl);
 //////
 
 //////
-Int16 stat_Right_diff_from_max(Int16 *p_FreqArr, Int16 max_FreqArr);
-Int16  stat_Left_diff_from_max(Int16 *p_FreqArr, Int16 max_FreqArr);
+int16_t stat_Right_diff_from_max(int16_t *p_FreqArr, int16_t max_FreqArr);
+int16_t  stat_Left_diff_from_max(int16_t *p_FreqArr, int16_t max_FreqArr);
 //////
 
 //////
-void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, Int16 *pY2Arr,
-			   Int16 *pFreqY2Arr, Int16 *Ns3, Int16 *Ns4);
-void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *pY1Arr,
-			   Int16 *pY2Arr, Int16 *pFreqY1Arr, Int16 *Ns1, Int16 *Ns2);
-void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4);
+void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *pY2Arr,
+			   int16_t *pFreqY2Arr, int16_t *Ns3, int16_t *Ns4);
+void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *pY1Arr,
+			   int16_t *pY2Arr, int16_t *pFreqY1Arr, int16_t *Ns1, int16_t *Ns2);
+void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2, int16_t *Ns4);
 //////
 
 //////
 Bool               stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str);
-Bool stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3,
+Bool stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3,
 																	   ROW_STRUCT *row_str);
-Bool		  stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4,
+Bool		  stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
 																	   ROW_STRUCT *row_str);
-Bool       stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4,
+Bool       stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
 																	   ROW_STRUCT *row_str);
 //////
 
 //////
-Bool	  stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4);
-Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str);
-Bool  stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4);
+Bool	  stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4);
+int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row, ROW_STRUCT *row_str);
+Bool  stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4);
 //////
 
 //////
-void stat_FormArrays(CSTR_line line, Int16 row, Int16 *pY1Arr, Int16 *pY2Arr);
+void stat_FormArrays(CSTR_line line, int16_t row, int16_t *pY1Arr, int16_t *pY2Arr);
 Bool stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArr);
-Int16 stat_LineLength(CSTR_line line);
+int16_t stat_LineLength(CSTR_line line);
 //////
 
 //////
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
-				  Int16 *Ns1, Int16 *Ns2, Int16 *Ns3, Int16 *Ns4);
+				  int16_t *Ns1, int16_t *Ns2, int16_t *Ns3, int16_t *Ns4);
 //////
 
 #ifdef __cplusplus

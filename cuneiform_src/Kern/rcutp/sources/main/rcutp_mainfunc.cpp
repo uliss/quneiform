@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 #include "minmax.h"
 
-extern  Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
+extern  int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 extern  uchar      language;
 #ifndef max
 #define MAX(a,b)            (((a) > (b)) ? (a) : (b))

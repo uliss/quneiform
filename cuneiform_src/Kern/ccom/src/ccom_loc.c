@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static uchar make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 static Bool32 StoreOneInterval( uchar *p, int end , int len,uchar *pe)
 {
-Int16     sh;
-Word16    w;
+int16_t     sh;
+uint16_t    w;
 p = p + (end>>3);
 if( p>=pe )
     return FALSE;
@@ -72,8 +72,8 @@ return TRUE;
 }
 
 
-Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2Raster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec, Bool32 bChangeSize)
 {
     int         ww, len, i, wmax;
@@ -120,8 +120,8 @@ Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
 }
 
 
-Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec)
 {
 int         ww, len, i;
@@ -162,8 +162,8 @@ return StoreOneInterval ( &p[(h>>scale)*bw] , e , e-b,pe);
 }
 
 
-Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec,int32_t scale)
 {
 int         ww, len, i;

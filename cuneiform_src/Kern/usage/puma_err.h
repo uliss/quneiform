@@ -57,6 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 /*----------------------------------------------------------------------------*/
-void Error_MyNoMem_Code (Word16 *pCode);
-void Error_CPage_Code (Word16 *pCode);
+void Error_MyNoMem_Code (uint16_t *pCode);
+void Error_CPage_Code (uint16_t *pCode);
 /*----------------------------------------------------------------------------*/

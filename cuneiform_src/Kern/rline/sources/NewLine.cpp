@@ -1122,8 +1122,8 @@ Bool MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,Bool dotline)
 	const Point16* from=(line->poly.Vertex);
 	for(;count_poly>=0;count_poly--)
 	{
-		to[count_poly].x=(Int16)from[count_poly].x;
-		to[count_poly].y=(Int16)from[count_poly].y;
+		to[count_poly].x=(int16_t)from[count_poly].x;
+		to[count_poly].y=(int16_t)from[count_poly].y;
 	}
     data_line.ProcessingType=line->ProcessingType;
 	data_line.Qual=line->Qual;
@@ -1707,11 +1707,11 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 						if(fl_show)
 						{
 							WasKilled=TRUE;
-							start.x=(Int16)left;
-							end.x=(Int16)right;
-							start.y=(Int16)cpdata->Line.Beg_Y;
-							end.y=(Int16)cpdata->Line.End_Y;
-							LDPUMA_DrawLine(MainWindowD,&start,&end,0,RGB(255,0,0),(Int16)(-10*cpdata->Line.Wid10),117);
+							start.x=(int16_t)left;
+							end.x=(int16_t)right;
+							start.y=(int16_t)cpdata->Line.Beg_Y;
+							end.y=(int16_t)cpdata->Line.End_Y;
+							LDPUMA_DrawLine(MainWindowD,&start,&end,0,RGB(255,0,0),(int16_t)(-10*cpdata->Line.Wid10),117);
 						}
 					  }
 					}
@@ -2553,8 +2553,8 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines, CLINE_handle h
 			memcpy(&pNewExt.Line, &pLine->Line, sizeof(pNewExt.Line));
 			pNewExt.Degree = pLine->Degree;
 			pNewExt.n_event = 1;
-			pNewExt.poly.Vertex[0].x = (Int16)(pNewExt.Line.End_X - pNewExt.Line.Beg_X);
-			pNewExt.poly.Vertex[0].y = (Int16)(pNewExt.Line.End_Y - pNewExt.Line.Beg_Y);
+			pNewExt.poly.Vertex[0].x = (int16_t)(pNewExt.Line.End_X - pNewExt.Line.Beg_X);
+			pNewExt.poly.Vertex[0].y = (int16_t)(pNewExt.Line.End_Y - pNewExt.Line.Beg_Y);
 			pNewExt.LineEventsLength = (int32_t)pNewExt.poly.Vertex[0].x*(int32_t)pNewExt.poly.Vertex[0].x + (int32_t)pNewExt.poly.Vertex[0].y*(int32_t)pNewExt.poly.Vertex[0].y;
 			if (IsHor)
 			{

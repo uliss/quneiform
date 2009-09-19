@@ -64,8 +64,8 @@ struct tagChunk;  // forward definition
 
 typedef struct bw_segment
 {
- Int16 b;
- Int16 w;
+ int16_t b;
+ int16_t w;
  struct tagChunk * box;
  #define SEG_DELIM -0x7000
 } BWS;
@@ -76,10 +76,10 @@ BWS *		 	first_int;      // If != NULL structure is in use
 struct tagChunk * 	master;		// Master chunk (can be NULL)
 struct tagChunk * 	dragon;		// Chunk who is ate this chunk
 int32_t			area;		// area in pixels
-Int16			height,
+int16_t			height,
 			yline;		// y offset of chunk in letter box
-Int16			nintervals;	// number of intervals
-Word16			wide : 1,       // wide chunk
+int16_t			nintervals;	// number of intervals
+uint16_t			wide : 1,       // wide chunk
 			v_deleted : 1;  // chunk was deleted
 #define MAX_CHUNK	64
 } Chunk;
@@ -89,7 +89,7 @@ Word16			wide : 1,       // wide chunk
 typedef struct tagSegmVersion {
 uchar s;    // segment code
 #define UNREC_SEG	100
-Int16 prob; // probability
+int16_t prob; // probability
 } SegmVersion;
 
 typedef struct tagSegment {
@@ -101,8 +101,8 @@ RecVector * chunk;
 
 
 typedef struct tagSegmRec {
-Word16 segm;
-Word16 let;
+uint16_t segm;
+uint16_t let;
 uchar prob;
 #define MAX_REC_SEG		14
 } SegmRec;

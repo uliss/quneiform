@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctcclasses.h"
 //////////////////////////////////////////////////////////////////GLOBAL
 //
-extern void SetReturnCode_cfio(Word16 rc);
+extern void SetReturnCode_cfio(uint16_t rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCMemoryHeader::CTCMemoryHeader()

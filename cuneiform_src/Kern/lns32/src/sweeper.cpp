@@ -194,13 +194,13 @@ static void unpack_segments( uchar* dstprev, uchar* dst, uchar* dstnext, int32_t
 	}
 }
 
-Int16 Sweeper_ImageRead (uchar* lpImage, Word16 wMaxSize)
+int16_t Sweeper_ImageRead (uchar* lpImage, uint16_t wMaxSize)
 {
 	if (!Ready)
       return 0;
 
    int32_t max_read_rqst = BUF_LEN - 4*ImageInfo.wImageByteWidth;
-   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (uchar*)lpImage, (Word16) MIN( wMaxSize, max_read_rqst ) );
+   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (uchar*)lpImage, (uint16_t) MIN( wMaxSize, max_read_rqst ) );
 	if (size_read ==0)
 		return 0;
 	assert( size_read <= max_read_rqst );
@@ -331,7 +331,7 @@ Int16 Sweeper_ImageRead (uchar* lpImage, Word16 wMaxSize)
 	memset( LinesBuf+ImageInfo.wImageByteWidth*2, 0 , size_read + ImageInfo.wImageByteWidth );
 */
 
-	return (Int16)size_read;
+	return (int16_t)size_read;
 }
 
 Bool  Sweeper_ImageClose (void)

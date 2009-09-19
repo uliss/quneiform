@@ -139,7 +139,7 @@ static uint32_t allFields[4][NFIELDDWORD];
 static SINT keglBuffer[MAXKEGL + 1];
 ////////////////
 // ctb-functions
-int StartCTB(char *outname, CTB_handle *ccc, Int16 countFont, uint32_t *allFil);
+int StartCTB(char *outname, CTB_handle *ccc, int16_t countFont, uint32_t *allFil);
 void EndCTB(CTB_handle *ccc);
 int SaveWeletAsCTB(welet *wel, CTB_handle *ccc);
 ///////////////////
@@ -686,7 +686,7 @@ static SINT ClusterHausdorfDLL(char *NameWr, SINT porog, char *szOutName,
 	BYTE *metkaValid;
 	SINT fhSnap = -1; // 30.10.98
 	CTB_handle CTBfile, CTBsnap, *CTBpointer = NULL;
-	Int16 countFont = 0;
+	int16_t countFont = 0;
 
 	if (NameWr == NULL) {
 		if ((NumAll = (SINT) GetNumMemory()) <= 0)
@@ -1182,7 +1182,7 @@ SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
 	welBuf->sr_row = rh[fir].sr_row;
 
 	if (IsCTBBase && metkaGood) {
-		Word16 meme = METKA_VALID;
+		uint16_t meme = METKA_VALID;
 		welBuf->prob = metkaGood[clus - 1];
 		welBuf->valid = metkaValid[clus - 1] & (~meme);
 	}

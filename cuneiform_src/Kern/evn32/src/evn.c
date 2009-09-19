@@ -95,10 +95,10 @@ extern version* start_rec;   // ptr to answer
 extern uchar lpool[];
 extern uchar evline[], evline1[];
 
-extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
+extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp,Word16 lth);
+extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp,uint16_t lth);
 
 
 static void *EvnAlloc(uint32_t len) { return malloc(len); }
@@ -331,7 +331,7 @@ if( evn_active_prn )
 return ;
 }
 
-EVN_FUNC(Int16) EVNGetErr(void)
+EVN_FUNC(int16_t) EVNGetErr(void)
 {
 return evn_error_code;
 }
@@ -437,7 +437,7 @@ EVN_FUNC(uchar *)  EVNMakeLine( RecRaster   *rRaster , int32_t parm)
 {
 MN *mn=NULL;
 uchar  *lp, *lpin, *lpend=(uchar*)(evn_multy_lpool+6000);
-Word16  len,lall;
+uint16_t  len,lall;
 
 mn = c_locomp(rRaster->Raster,REC_GW_WORD8(rRaster->lnPixWidth),rRaster->lnPixHeight,0,0);
 if( parm==1 )
@@ -449,7 +449,7 @@ if( parm==1 )
         MN_to_line(mn);
         while(1){
             lpin[4] += (uchar)mn->mnupper;
-            len = *((Word16*)lpin);
+            len = *((uint16_t*)lpin);
             if( len==0 )
                 break;
             if( lp+len>=lpend )
@@ -474,7 +474,7 @@ else if( parm==0 )
             MN_to_line(mn);
             while(1)    {
                 lpin[4] += (uchar)mn->mnupper;
-                len = *((Word16*)lpin);
+                len = *((uint16_t*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -502,7 +502,7 @@ else if( parm==2 )
             MN_to_line(mn);
             while(1)    {
                 lpin[4] += (uchar)mn->mnupper;
-                len = *((Word16*)lpin);
+                len = *((uint16_t*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -518,7 +518,7 @@ else if( parm==2 )
         lp[3]=lp[2]=0;
         //lp[5]=lp[4]=0;
         lp = (uchar*)evn_multy_lpool;
-        *((Word16*)lp)=lall+2 ;
+        *((uint16_t*)lp)=lall+2 ;
         }
     else
         lp = NULL;
@@ -595,7 +595,7 @@ for(nvers1=0,i=0;i<nvers;i++)
 return nvers1;
 }
 
-EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, uchar   *lp, Word16 lth,
+EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, uchar   *lp, uint16_t lth,
                                uchar   *res    )
 {
 int32_t     nvers, i, ii;
@@ -625,7 +625,7 @@ res[ii]=0;
 return ii;
 }
 
-EVN_FUNC(MN *) EVN_CLocomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
+EVN_FUNC(MN *) EVN_CLocomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
 {
 MN *m;
 left = MAX(0,left);

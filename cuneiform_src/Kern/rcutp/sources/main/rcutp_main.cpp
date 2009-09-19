@@ -69,17 +69,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //--------------------------GLOBAL VARIABLES------------------------
-Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
+int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 uchar      language;
 
 HINSTANCE  ghInst = NULL;
-Word16     gwHeightRC = 0;
-Word16     gwLowRC = 0;
+uint16_t     gwHeightRC = 0;
+uint16_t     gwLowRC = 0;
 Handle     ghStorage = NULL;
 Handle     hDebugRoot, hDebugMy,hDebugCutP;
 
 ///////////////////////////////////////////////////////////////
-RCUTP_FUNC(Bool32) RCUTP_Init(Word16 wHeightCode,Handle hStorage)
+RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
@@ -116,7 +116,7 @@ return rc;
 //
 RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -166,12 +166,12 @@ RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode_rcutp(Word16 rc)
+void SetReturnCode_rcutp(uint16_t rc)
 {
 	gwLowRC = rc;
 }
 
-Word16 GetReturnCode_rcutp()
+uint16_t GetReturnCode_rcutp()
 {
 	return gwLowRC;
 }

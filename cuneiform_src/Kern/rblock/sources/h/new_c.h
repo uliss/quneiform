@@ -132,7 +132,7 @@ EXTERN RPIC_Comp_Rect * pBigLetters VAL1(NULL);
 EXTERN int nBigLetters  VAL1(0);
 EXTERN uint32_t nPics;
 EXTERN CCOM_comp * pPics VAL1(NULL);
-EXTERN Word16 pBlockHystogram[MaxHeightOfLetter];
+EXTERN uint16_t pBlockHystogram[MaxHeightOfLetter];
 EXTERN int my_upper, my_left, my_bottom, my_right;
 EXTERN char tmp_str[200];
 EXTERN uint32_t nComps;

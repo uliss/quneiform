@@ -88,21 +88,21 @@ extern "C" {
     typedef Bool32 (*FNPUMA_ProgressStep)( uint32_t step,const char* name, uint32_t percent );
     typedef struct
     {
-        Word16    wImageHeight;
-        Word16    wImageWidth;
-        Word16    wImageByteWidth;
-        Word16    wImageDisplacement;
-        Word16    wResolutionX;
-        Word16    wResolutionY;
+        uint16_t    wImageHeight;
+        uint16_t    wImageWidth;
+        uint16_t    wImageByteWidth;
+        uint16_t    wImageDisplacement;
+        uint16_t    wResolutionX;
+        uint16_t    wResolutionY;
         uchar     bFotoMetrics;
         uchar     bUnused;
-        Word16    wAddX;
-        Word16    wAddY;
+        uint16_t    wAddX;
+        uint16_t    wAddY;
     }
     PUMA_ImageInfo;
 
     typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
-    typedef Word16   (*PUMA_Callback_ImageRead)(pchar , Word16 );
+    typedef uint16_t   (*PUMA_Callback_ImageRead)(pchar , uint16_t );
     typedef Bool16 (*PUMA_Callback_ImageClose)(void);
 
     typedef struct
@@ -113,7 +113,7 @@ extern "C" {
     }
     PUMAIMAGECALLBACK;
 
-    typedef Bool32 (*FNInit)(Word16 wHeightCode,Handle hStorage);
+    typedef Bool32 (*FNInit)(uint16_t wHeightCode,Handle hStorage);
     typedef Bool32 (*FNDone)();
     typedef uint32_t (*FNGetReturnCode)();
     typedef char * (*FNGetReturnString)(uint32_t dwError);
@@ -241,7 +241,7 @@ extern "C" {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; PUMA_FUNC(a) b c; a L##b c
 
-    DEC_FUN(Bool32, PUMA_Init,(Word16 wHeightCode,Handle hStorage));
+    DEC_FUN(Bool32, PUMA_Init,(uint16_t wHeightCode,Handle hStorage));
     DEC_FUN(Bool32, PUMA_Done,());
     DEC_FUN(uint32_t, PUMA_GetReturnCode,());
     DEC_FUN(char *, PUMA_GetReturnString,(uint32_t dwError));

@@ -88,7 +88,7 @@ GBW_FUNC( Bool ) OpenBinarizator  (enum TBinEnum benum,
 		  short int ImageInty   // 0 - "weak", 1- "normal", 2 -"dirty"
 //#endif
 					   );
-GBW_FUNC( Word16 ) Binarize  ( puchar lpBuff, Word16 Lth);
+GBW_FUNC( uint16_t ) Binarize  ( puchar lpBuff, uint16_t Lth);
 /*
 	lpBuff - адрес, куда писать черно-белое
 	lth    - число байт
@@ -114,8 +114,8 @@ GBW_FUNC( void )   CloseBinarizator (void);
 GBW_FUNC( HGLOBAL ) GreyToMono(enum TBinEnum benum,short int ImageInty,HGLOBAL hInMemory);
 GBW_FUNC( void    ) DestroyMono(HGLOBAL hInMemory);
 
-GBW_FUNC(Word16)	Grey_open(enum TBinEnum benum,Word16 Width, Word16 Height);
-GBW_FUNC(Word16)	Grey_to(puchar pTo);
+GBW_FUNC(uint16_t)	Grey_open(enum TBinEnum benum,uint16_t Width, uint16_t Height);
+GBW_FUNC(uint16_t)	Grey_to(puchar pTo);
 GBW_FUNC(void)		Grey_from(puchar pFrom);
 GBW_FUNC(void)		Grey_close(void);
 

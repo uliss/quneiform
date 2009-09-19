@@ -76,7 +76,7 @@
 
 extern BYTE *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3;
-extern Word16 *accent_tab; // 30.08.2000 E.P.
+extern uint16_t *accent_tab; // 30.08.2000 E.P.
 
 // module diffrv.c
 void r_criteria(cell *c, const s_glue * gl);
@@ -160,7 +160,7 @@ Bool snap_show_text(PBYTE);
 Bool snap_show_text1(PBYTE);
 Bool snap_monitor(void);
 void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-		uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+		uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void snap_del_line(Handle wnd, uint32_t key);//IGOR
 Bool snap_baselines(BYTE a);//IGOR
 Bool snap_monitor_ori(CSTR_line *snap_line, int32_t nums);
@@ -694,7 +694,7 @@ void c_rastror(PBYTE, PBYTE, WORD, WORD);
 lnhead *c_boxln(MN *);
 
 // rstr_con.c
-Int16 rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
+int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
 		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
 		uchar kegl, uchar column, uchar tabno);
 void rstr_close_cont(void);

@@ -110,13 +110,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LEO_FUNC(Bool32)  LEOValidId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout);
    LEO_FUNC(Bool32)  LEORecogRestore_Char(RecVersions *resin, RecVersions *resout);
    LEO_FUNC(uchar)   LEOValidRestore_Char( RecVersions *resin,RecVersions *resout);
-   LEO_FUNC(Bool32)  LEOSetValid(Int16 id_rast,uchar code, uchar valid,uchar control);
-   LEO_FUNC(Bool32)  LEODelFinal(Int16 id_rast);
-   LEO_FUNC(Int16)   LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+   LEO_FUNC(Bool32)  LEOSetValid(int16_t id_rast,uchar code, uchar valid,uchar control);
+   LEO_FUNC(Bool32)  LEODelFinal(int16_t id_rast);
+   LEO_FUNC(int16_t)   LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
 		uchar	Prob, uchar Valid, RecVersions *Res);
    LEO_FUNC(int32_t)   LEO_GetGlobalIncline(void);
    LEO_FUNC(Bool32)  LEOPushAlphabetType(uchar alpha_type, uchar isPrint);
-   LEO_FUNC(Bool32)  LEO_ContRestoreObject( Int16       idr, RecObject *object,
+   LEO_FUNC(Bool32)  LEO_ContRestoreObject( int16_t       idr, RecObject *object,
                                             uchar *alpha, uchar *isPrint);
 //                                     id_page can be >0
 // to be deleted after implementation of LEOSetupField(), 28.02.97 20:50, VP
@@ -136,7 +136,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     // Stop function. Call after LEOInit()
    LEO_FUNC(char *) LEOGetMetName(int32_t method, char *met_name);
-   LEO_FUNC(Int16)  LEOGetErr(void);
+   LEO_FUNC(int16_t)  LEOGetErr(void);
       // Err16.h defined codes or one of the next
          #define ER_LEO_NO_ERROR       0
          #define ER_LEO_NULL_OBJECT    1
@@ -176,7 +176,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LEO_FUNC(int32_t)  LEO_GetLetStat(int32_t name,int32_t *sizes,int32_t *ocenka);
 
 
-   LEO_FUNC(Int16) LEO_GetNoCutPoint(uchar *RASTER,  Int16 WB, uchar NWIDTH, uchar NLENGTH);
+   LEO_FUNC(int16_t) LEO_GetNoCutPoint(uchar *RASTER,  int16_t WB, uchar NWIDTH, uchar NLENGTH);
    LEO_FUNC(int32_t)   LEO_Str2FldNo(int32_t  str_no);
    // convert string number to field number. -1 if bound error
    LEO_FUNC(Bool32) LEO_StoreCollection(RecVersions *ver);

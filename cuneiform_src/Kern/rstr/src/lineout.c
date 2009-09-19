@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static uchar language;
 static uchar    ed_buffer[64000], *MED_file_bound, *MED_file_end ;
 
-static void ed_write(uchar* p, Word16 size);
+static void ed_write(uchar* p, uint16_t size);
 
 void ed_init()
  {
@@ -81,24 +81,24 @@ void ed_make_word(CSTR_rast b, CSTR_rast e)
 uchar           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-Int16           k,i,n,h,wb;
+int16_t           k,i,n,h,wb;
 CSTR_rast_attr  a;
-Int16           top,bottom,left,right;
+int16_t           top,bottom,left,right;
 /*
 struct fragm_disk
 {
 uchar code;
 uchar fragm_numb;
-Word16 depth;
+uint16_t depth;
 };
 
 struct fragm_disk_descr
 {
 uchar code;
-Word16 row;
-Word16 col;
-Word16 height;
-Word16 w_width;
+uint16_t row;
+uint16_t col;
+uint16_t height;
+uint16_t w_width;
 char type;
 uchar kegl;
 uchar font;
@@ -110,11 +110,11 @@ struct sheet_disk_descr
 {
 uchar code;
 char quant_fragm;
-Word16 sheet_numb;
-Word16 descr_lth;
+uint16_t sheet_numb;
+uint16_t descr_lth;
 uchar byte_flag;
-Word16 resolution;
-Word16  incline;
+uint16_t resolution;
+uint16_t  incline;
 char tabl[13];
 };
 */
@@ -182,7 +182,7 @@ wb= (right-left-1+7)/8;
     n   =a.h;           ed_write((uchar*)&n,2);
     n   =a.w;           ed_write((uchar*)&n,2);
     // stop bitmap ref
-    n=(Int16)uni.lnAltCnt;
+    n=(int16_t)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
     for(k=i=0;k<n;)
@@ -207,7 +207,7 @@ return;
 
 //********************** ED-file management *****************************
 
-static void ed_write(uchar* p, Word16 size)
+static void ed_write(uchar* p, uint16_t size)
 {
 if (MED_file_bound -  MED_file_end < size)
     {
@@ -254,7 +254,7 @@ static CSTR_rast ed_end_word(CSTR_rast cs,uchar *str,uchar *word_len)
 {
 CSTR_rast       c=cs;
 CSTR_rast_attr  attr;
-Int16           i;
+int16_t           i;
 RecVersions     vers;
 
 CSTR_GetCollection(c,&vers);

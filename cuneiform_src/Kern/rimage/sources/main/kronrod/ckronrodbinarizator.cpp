@@ -471,7 +471,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x1()
 
 		for (j=0; j<nj; j++)
 		{
-			if ((Int16)*pkogo++>=porog_tek)
+			if ((int16_t)*pkogo++>=porog_tek)
 				b |= mask;
 			if (mask>>=1)
 				continue;
@@ -523,7 +523,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x3_MAX()
 		{
 			nL = nC;
 			nC = nR;
-			nR = (Int16) *pkogo++;
+			nR = (int16_t) *pkogo++;
 			if (nC<porog_tek)
 				goto m2;	// WHITE
 
@@ -537,7 +537,7 @@ void CKronrodBinarizator::grey_quant_KOROB_1x3_MAX()
 			delta = (nL>nR) ? (nL - nC) : (nR - nC);
 			if (delta<=0)
 				goto  m1;	// BLACK
-			if (delta > (Int16) Diapazon_16)
+			if (delta > (int16_t) Diapazon_16)
 				delta = Diapazon_16;
 			if ((nC - delta) < porog_tek)
 				goto m2;		// WHITE !!!
@@ -616,9 +616,9 @@ void CKronrodBinarizator::grey_quant_KOROB_1x5work()
 			nL = nC;
 			nC = nR;
 			nR = nRR;
-			nRR= (Int16) *pkogo++;
+			nRR= (int16_t) *pkogo++;
 
-			if (nC<(Int16)Porog_38)  goto m2;	// WHITE
+			if (nC<(int16_t)Porog_38)  goto m2;	// WHITE
 
 			nCmod = nC - Diapazon_8;
 			if ((nLL<=nCmod) && (nRR>=nCmod))  goto m1;	// BLACK
@@ -1044,7 +1044,7 @@ void CKronrodBinarizator::grey_PR_BYTE(uint32_t ibeg, uint32_t jbeg, uint32_t va
 
 			for (j=0; j<3; j++)
 			{
-				if ((Int16) (scale<<=1) < 0)
+				if ((int16_t) (scale<<=1) < 0)
 					*p |= mask;
 				if ((mask>>=1) == 0)
 				{
@@ -1265,7 +1265,7 @@ void CKronrodBinarizator::Korobs()
 	uint32_t	i2, j1, nj, j2m; /*i1,*/ 	// здддддддддддддддддддддддддддддддддддд©
 	uint32_t	j;			// Ё Current line contain a number of [)Ё
 	uint32_t	a, aaa;	// LAST for BASE// Ё intervals. Used NON-FULL reference	Ё
-	uint32_t	b, bbb;	// BASE		// Ё structure, 3 Int16's per each busy	Ё
+	uint32_t	b, bbb;	// BASE		// Ё structure, 3 int16_t's per each busy	Ё
 	uint32_t	c, ccc;	// LEFT		// Ё elemelt: [+0],[+1]	- references to	Ё
 	uint32_t	d, ddd;	// RIGHT	// Ё LAST & NEXT; [+2] - 'DOWN': if 0,	Ё
 	uint32_t	e, eee;	// NEXT		// Ё this interval is free, else it is 	Ё
@@ -1274,8 +1274,8 @@ void CKronrodBinarizator::Korobs()
 	int32_t	ai2, ei2;		// Ё simplest case - if KOROB is inter 	Ё
 	puchar	pC;			// Ё free interval. But it can be lefts	Ё
 
-	#define KRType        Int16
-	PInt16 	KR = (PInt16)pMREF;// Ё from left boundary or rights from 	Ё
+	#define KRType        int16_t
+	int16_t *	KR = (int16_t*)pMREF;// Ё from left boundary or rights from 	Ё
 	// (KOROBS REFERENCES)	// Ё right boundary of free interval...	Ё
 	// юдддддддддддддддддддддддддддддддддддды
 	/*......................................................................*/
@@ -1356,7 +1356,7 @@ m_Left_spec:			// REFERENCE for LEFT: SPECIAL CASE
 mLs1:
 	bbb = b + b + b;	// NOTA BENE:  b  can be modified !!!
 /*......................................................................*/
-	if ((Int16) i2 > KR [bbb + 2])
+	if ((int16_t) i2 > KR [bbb + 2])
 		KR [bbb + 2] = (KRType)i2;  // for all cases !
 
 	if (c==b)
@@ -1366,7 +1366,7 @@ mLs1:
 	ai2 = KR [aaa + 2];	// DOWN of a-PoluInterval [a;b)
 	if (c>a)
 	{			// case c.1 or c.2:
-	    if ((Int16)i2<=ai2)
+	    if ((int16_t)i2<=ai2)
 			goto mLs_ex;	// case c.1;
 				// case c.2:
 	    KR [aaa + 1] = (KRType)c;	//NEXT	//GLUE  a & c
@@ -1377,7 +1377,7 @@ mLs1:
 	    goto  mLs_ex;
 	}
 	// case  c.3,5  or  c.4,6:
-	if ((Int16)i2<=ai2)
+	if ((int16_t)i2<=ai2)
 	{
 		b = a;
 		goto  mLs1;
@@ -1449,7 +1449,7 @@ mrs1:
 	    goto m1;
 	}
 	// case  d.3,5  or  d.4,6:
-	if ((Int16)i2<=ei2)
+	if ((int16_t)i2<=ei2)
 	{
 		e = f;
 		goto  mrs1;
@@ -1476,7 +1476,7 @@ m1:
 	bbb = b + b + b;
 	bi2 = KR [bbb + 2];
 
-	if ((bi2!=0) && (bi2 < (Int16) Itek))
+	if ((bi2!=0) && (bi2 < (int16_t) Itek))
 		KR[bbb+2] = bi2 = 0;  // CLEAR
 
 	c = KR [bbb + 1];
@@ -2139,7 +2139,7 @@ void CKronrodBinarizator::Korob_statistic()
 				continue;	// mulT be BLACK
 			if ((nR-nC)>=16)
 				LNgrey16++;
-			if ((nR-nC) >= (Int16) Diapazon_8)
+			if ((nR-nC) >= (int16_t) Diapazon_8)
 				LNgreyD8++;
 			if ((nR-nC) >= 8)
 				LNgrey08++;
@@ -2274,7 +2274,7 @@ void CKronrodBinarizator::memory_alloc_from_body()
 			"hMBIT = %04X", hMBIT);
 		PR_END
 
-	hMREF = KRONROD_ALLOC(MaxNJ*6); //GlobalAlloc (GHND, MAX_NJ*6);		// NJ*3 Int16
+	hMREF = KRONROD_ALLOC(MaxNJ*6); //GlobalAlloc (GHND, MAX_NJ*6);		// NJ*3 int16_t
 	if (hMREF==0)
 		PR_BEG
 			"hMREF = %04X", hMREF);

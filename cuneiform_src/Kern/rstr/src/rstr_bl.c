@@ -74,11 +74,11 @@ extern BYTE fax1x2;
 extern uchar language;
 extern BYTE multy_language;
 
-extern Word16 actual_resolution;
+extern uint16_t actual_resolution;
 extern Bool   line_BL;
 extern uchar  spec_camera;
 extern uchar  no_linpen;
-extern Int16  prop_l_delta, prop_r_delta;
+extern int16_t  prop_l_delta, prop_r_delta;
 extern uchar  db_pass;
 
 extern uchar *letters_pidx_table;  // 512
@@ -836,7 +836,7 @@ static void GetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)
 	Ps  = balGlob->Ps  ;
 	Psf = balGlob->Psf ;
 
-	nIncline = (Int16)balGlob->nIncline;
+	nIncline = (int16_t)balGlob->nIncline;
 }
 /////////////////////
 static void SetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)
@@ -875,13 +875,13 @@ static void SetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)
 }
 //////////////////////
 static CSTR_head *llRaw=(CSTR_head *)NULL;
-static Word16 SetNoScaleLine(CSTR_line ln )
+static uint16_t SetNoScaleLine(CSTR_line ln )
 {
 	CSTR_attr lattr;
 	CSTR_rast rast;
 	CSTR_rast_attr attr;
 	CCOM_comp *cmp;
-	Word16 scale;
+	uint16_t scale;
 
     llRaw = (CSTR_head *)ln;
 
@@ -927,7 +927,7 @@ static Word16 SetNoScaleLine(CSTR_line ln )
 }
 ///////////////
 //////////////////////
-static Word16 RestoreScaleLine(CSTR_line ln , Word16 scale)
+static uint16_t RestoreScaleLine(CSTR_line ln , uint16_t scale)
 {
 	CSTR_attr lattr;
 	CSTR_rast rast;
@@ -984,7 +984,7 @@ void basedraft(CSTR_line ln)
  int  i;
  CSTR_rast rast;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
  Bool32 retBaseDraft;
  CSTR_attr lattr,lattr_bal;
 
@@ -1131,7 +1131,7 @@ void basefin(CSTR_line ln)
  CSTR_line line_bal=(CSTR_line)NULL;
  int  i;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
 
    lin_str = ln;
 
@@ -1182,7 +1182,7 @@ void linpos(CSTR_line ln)
  CSTR_line line_bal=(CSTR_line)NULL;
  int  i;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
 
    lin_str = ln;
 

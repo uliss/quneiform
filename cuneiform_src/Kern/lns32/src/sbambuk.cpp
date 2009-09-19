@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
    /* VERTICAL FILTRATION+SEGMENT EXTRACTION PART...*******************/
-   //   static Word16 cur_row_ = 0;
+   //   static uint16_t cur_row_ = 0;
 
    // static TBlackSeg far * v_segments_;
    //   static TBlackSeg far * cur_seg_;

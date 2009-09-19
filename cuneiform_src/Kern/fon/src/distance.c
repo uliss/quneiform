@@ -756,7 +756,7 @@ int AddTestAlt(uchar prob,int numAlt,FonTestInfo *attr,
 }
 /////////////
 static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
-		       FONBASE *fbase,int porog, int let,FonTestInfo *attr ,Int16 nInCTB)
+		       FONBASE *fbase,int porog, int let,FonTestInfo *attr ,int16_t nInCTB)
 {
  SINT dist;
  int num=0,i;
@@ -800,7 +800,7 @@ static BYTE const mask0[8]={255,128,192,224,240,248,252,254};
 SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int porog ,int nInCTB, Int16 col, Int16 row,
+              int porog ,int nInCTB, int16_t col, int16_t row,
 			  int32_t countRazmaz)
 {
  int i;
@@ -872,7 +872,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 }
 ///////////////////////////
 SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
-			  FONBASE *fbase,int let,FonTestInfo *attr,Int16 nInCTB)
+			  FONBASE *fbase,int let,FonTestInfo *attr,int16_t nInCTB)
 {
  int i;
  int rbyte=(xbit+7)>>3;
@@ -1374,7 +1374,7 @@ static int LookBestOkr(int w,int h,BYTE *buf,BYTE *razmaz,
 int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int porog ,int nInCTB, Int16 col, Int16 row,
+              int porog ,int nInCTB, int16_t col, int16_t row,
 			  int okr,int proc)
 {
  int i;
@@ -1475,7 +1475,7 @@ int dist;
 static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
 		    int NumClus, welet *wel,
             RECRESULT *recres,int maxNames,int nInCTB,
-			Int16 *col,Int16 *row)
+			int16_t *col,int16_t *row)
 {
  int i,j,k;
  int dist;
@@ -1660,7 +1660,7 @@ static int ScaleSymbol(BYTE *inbuf,int fullByte,int allSizeX, int allSizeY,BYTE 
 int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int nInCTB, Int16 *col, Int16 *row )
+              int nInCTB, int16_t *col, int16_t *row )
 {
  int i;
  int rbyte=(xbit+7)>>3;

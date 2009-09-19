@@ -93,16 +93,16 @@ extern "C"
 	extern    puchar    ED_file_start;
 	extern    puchar    ED_file_end;
 	extern    puchar    ED_out_end;
-	extern    Int16     CheckOpenBinType;
-	extern    Int16     CheckOpenTxtType;
-	extern    Int16     CheckOpenSubType;
+	extern    int16_t     CheckOpenBinType;
+	extern    int16_t     CheckOpenTxtType;
+	extern    int16_t     CheckOpenSubType;
 	// C-typef functions
 	void      SetErrorExit( pExitByCatchFunc );
-	Int16     TE_table_op(Int16, Int16, Int16, Int16);
-	Int16     TE_close(Int16);
+	int16_t     TE_table_op(int16_t, int16_t, int16_t, int16_t);
+	int16_t     TE_close(int16_t);
 	void      trees_load_rling(void);
-	Int16     text_findstat_rling(PChar8);
-	Int16     spelling(puchar, int32_t);
+	int16_t     text_findstat_rling(PChar8);
+	int16_t     spelling(puchar, int32_t);
 	void      load_user_dicts (PChar8, PChar8);
 	void      unload_user_dicts(void);
 }
@@ -142,7 +142,7 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 	// 0  - tables not found,
 	// >0 - tables available
 	int32_t iRet = -1;
-	Int16 TempFile;
+	int16_t TempFile;
 
 	if ( pDictPath != NULL )
 	{
@@ -166,9 +166,9 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
-			for ( Int16 iStream = 6; iStream < 10; iStream++ )
+			for ( int16_t iStream = 6; iStream < 10; iStream++ )
 			{
-				TempFile = TE_table_op( iStream, (Int16) wLang, (iStream == 6 ? CheckOpenBinType : CheckOpenTxtType), CheckOpenSubType);
+				TempFile = TE_table_op( iStream, (int16_t) wLang, (iStream == 6 ? CheckOpenBinType : CheckOpenTxtType), CheckOpenSubType);
 
 				if ( TempFile == -1 )
 				{

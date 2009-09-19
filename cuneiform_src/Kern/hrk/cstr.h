@@ -96,7 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypext.h"
 ///////////////////////////////AK
 
-   CSTR_FUNC(Bool32)  CSTR_Init( Word16 wHeightCode , Handle hStorage);
+   CSTR_FUNC(Bool32)  CSTR_Init( uint16_t wHeightCode , Handle hStorage);
    CSTR_FUNC(void)    CSTR_Done(void);
    CSTR_FUNC(uint32_t)  CSTR_GetReturnCode(void);
    CSTR_FUNC(char*)   CSTR_GetReturnString(uint32_t dwError);
@@ -336,8 +336,8 @@ CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( int32_t fragment_no, int32_t version
 typedef CSTR_line (*FNCSTR_GetLineNext) (CSTR_line lin, int32_t fragment_no, int32_t version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineNext (CSTR_line lin, int32_t fragment_no, int32_t version);
 // 50   CSTR_FNCLEARLINE    Удалить растры из строки
-typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin,Int16 left, Int16 right);
-CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,Int16 left, Int16 right);
+typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin,int16_t left, int16_t right);
+CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,int16_t left, int16_t right);
 // 51   CSTR_GETRASTERLINE      дать хэндл строки растра
 typedef CSTR_line  (*FNCSTR_GetRasterLine) (CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetRasterLine (CSTR_rast  curr_raster);

@@ -134,7 +134,7 @@ _asm{
 #endif
 }
 
-MMX_FUNC(void) MMX_open_image(Word16 *_EAX)
+MMX_FUNC(void) MMX_open_image(uint16_t *_EAX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -162,7 +162,7 @@ _asm{
 #endif
 }
 
-MMX_FUNC(uint32_t) MMX_scalar_sq(Word16 *_EAX,int32_t _ECX)
+MMX_FUNC(uint32_t) MMX_scalar_sq(uint16_t *_EAX,int32_t _ECX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -203,7 +203,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX)
+MMX_FUNC(void) MMX_scale( uint16_t *_EAX, int32_t _ECX, int32_t _EDX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -237,7 +237,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_binarize_16x16(Word16 *rin,uchar *rout)
+MMX_FUNC(void) MMX_binarize_16x16(uint16_t *rin,uchar *rout)
 {
 #ifdef _MSC_VER
 _asm{

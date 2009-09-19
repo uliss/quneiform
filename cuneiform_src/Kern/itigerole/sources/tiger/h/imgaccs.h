@@ -79,13 +79,13 @@ _SETTYPES(TImgRGB)
 // Export/import image descriptor.
 typedef struct tagImgInfo
 {
-    Word16  wImageHeight;            // in pixels
-    Word16  wImageWidth;             // in pixels
-    Word16  wImageByteWidth;         // in bytes
-    Word16  wImageDisplacement;      // in pixels
+    uint16_t  wImageHeight;            // in pixels
+    uint16_t  wImageWidth;             // in pixels
+    uint16_t  wImageByteWidth;         // in bytes
+    uint16_t  wImageDisplacement;      // in pixels
 
-    Word16  wResolutionX;            // in dpi
-    Word16  wResolutionY;            // in dpi
+    uint16_t  wResolutionX;            // in dpi
+    uint16_t  wResolutionY;            // in dpi
     uchar  bFotoMetrics;             // 1, if white is highest number,
                                      // 0 -if white is lowest number.
     uchar  bCompression;             // compression of delivered strips
@@ -95,8 +95,8 @@ typedef struct tagImgInfo
 #define CM_2XX             0x0080
 
 
-    Word16  wAddX;                   //  "real"  coordinates of
-    Word16  wAddY;                   //   upper-left corner (in pixels).
+    uint16_t  wAddX;                   //  "real"  coordinates of
+    uint16_t  wAddY;                   //   upper-left corner (in pixels).
 
     uchar   bSamplesPerPixel;
     uchar   bBitsPerSample;
@@ -104,7 +104,7 @@ typedef struct tagImgInfo
     uchar   LinesOrder;              // 0 - as DDB, 1 as DIB.
 #define LO_FIRSTFIRST 0
 #define LO_FIRSTLAST  1
-    Int16   PaletteSize;
+    int16_t   PaletteSize;
     TImgRGB* Palette;
 
     uchar    ByteAlign;
@@ -114,7 +114,7 @@ typedef struct tagImgInfo
 
     uchar   spare[15];   // reserved for future.
     Err16   error;
-    Int16   step;  // step of sender/receiver conversation.
+    int16_t   step;  // step of sender/receiver conversation.
 #define CS_QUEST   0x0000   // struct has no information;
                             // it should be filled.
                             //(should be set by receiver when it calls
@@ -213,7 +213,7 @@ inline   EImageType GetImageType (TImgInfo *info)
 
 typedef Bool  (*TImpImgOpen) (TImgInfo * lpImageInfo);
 typedef int32_t (*TImpImgRead) (uchar* lpImage, int32_t wMaxSize);
-typedef Int16 (*TImpImgGetBlock)(uchar* lpBuff, Int16 fstLine, Int16 nLines);
+typedef int16_t (*TImpImgGetBlock)(uchar* lpBuff, int16_t fstLine, int16_t nLines);
 typedef Bool  (*TImpImgClose)(void);
 
 //
@@ -231,7 +231,7 @@ _SETTYPES(TImgImport)
 
 typedef Bool  (*TExpImgOpen)    (TImgInfo * lpImageInfo);
 typedef int32_t (*TExpImgWrite)   (uchar* lpImage, int32_t wMaxSize);
-typedef Int16 (*TExpImgSetBlock)(uchar* lpBuff, Int16 fstLine, Int16 nLines);
+typedef int16_t (*TExpImgSetBlock)(uchar* lpBuff, int16_t fstLine, int16_t nLines);
 typedef Bool  (*TExpImgClose)   (void);
 
 //
@@ -261,18 +261,18 @@ typedef struct tagZoneFunc
 
 typedef struct tagTiger_ImageInfo
 {
-    Word16  wImageHeight;           /* Height of the image in lines       */
-    Word16  wImageWidth;            /* Width of the image in pixels       */
-    Word16  wImageByteWidth;        /* Size of the image line in bytes    */
-    Word16  wImageDisplacement;     /* Displacement of the first pixel of */
+    uint16_t  wImageHeight;           /* Height of the image in lines       */
+    uint16_t  wImageWidth;            /* Width of the image in pixels       */
+    uint16_t  wImageByteWidth;        /* Size of the image line in bytes    */
+    uint16_t  wImageDisplacement;     /* Displacement of the first pixel of */
                                     /*   image line in pixels, usually 0  */
-    Word16  wResolutionX;           /* Resolution by X-axe */
-    Word16  wResolutionY;           /* Resolution by Y-axe */
+    uint16_t  wResolutionX;           /* Resolution by X-axe */
+    uint16_t  wResolutionY;           /* Resolution by Y-axe */
     uchar   bFotoMetrics;             /* White pixel */
     uchar   bUnused;                  /* not used; for alignment purpose only */
 
-    Word16  wAddX;
-    Word16  wAddY;
+    uint16_t  wAddX;
+    uint16_t  wAddY;
 } Tiger_ImageInfo;
 
 #pragma pack()
@@ -283,16 +283,16 @@ typedef Tiger_ImageInfo* LPTIGER_IMAGEINFO;
 
 #if defined( _MSC_VER ) && ( _MSC_VER == 800 ) /* MSVC 1.5  */
   typedef Bool16 (_far _pascal _export *TImageOpen     )(Tiger_ImageInfo* lpImageInfo);
-  typedef Int16  (_far _pascal _export *TImageRead     )(uchar* lpImage, Word16 wMaxSize);
-  typedef Int16  (_far _pascal _export *TImageGetBlock )(uchar* lpBuff, Int16 fstLine, Int16 nLines);
+  typedef int16_t  (_far _pascal _export *TImageRead     )(uchar* lpImage, uint16_t wMaxSize);
+  typedef int16_t  (_far _pascal _export *TImageGetBlock )(uchar* lpBuff, int16_t fstLine, int16_t nLines);
   typedef Bool16 (_far _pascal _export *TImageClose    )(void);
 #else
 	#ifdef __cplusplus
 	extern "C"  {
 	#endif
-		typedef Int16  (*TImageGetBlock )(uchar* lpBuff, Int16 fstLine, Int16 nLines);
+		typedef int16_t  (*TImageGetBlock )(uchar* lpBuff, int16_t fstLine, int16_t nLines);
 		typedef Bool16 (*TImageOpen     )(Tiger_ImageInfo* lpImageInfo);
-		typedef Int16  (*TImageRead     )(uchar* lpImage, Word16 wMaxSize);
+		typedef int16_t  (*TImageRead     )(uchar* lpImage, uint16_t wMaxSize);
 		typedef Bool16 (*TImageClose    )(void);
 	#ifdef __cplusplus
 	}

@@ -90,11 +90,11 @@
 
 struct mn_struc {
 	void *mnfirstbox; // address of the first box
-	Int16 mncounter; // (was INT) number of living lines in the component
+	int16_t mncounter; // (was INT) number of living lines in the component
 #define mnfree  mnfirstbox      // reference to next free main number
-	Int16 mnupper; // upper bound of component
-	Int16 mnlower; // lower bound of component
-	Int16 mnboxcnt; // number of boxes in component
+	int16_t mnupper; // upper bound of component
+	int16_t mnlower; // lower bound of component
+	int16_t mnboxcnt; // number of boxes in component
 #define usual_box_count 20      // heuristic of number of lines in a letter
 #define great_box_count 200     // heuristic for number of boxes in a picture
 	uchar mnlines; // number of lines in the component
@@ -111,18 +111,18 @@ typedef struct mn_struc MN;
 struct box_struct {
 	struct box_struct *boxnext; // chain address (zero if no next box)
 	MN * boxmain; // component main number pointer
-	Word16 boxptr; // ptr to the empty place in the box
-	Int16 boxleft; // left boundary for line envelope
-	Int16 boxright; // right boundary for line envelope
-	Int16 boxey; // row of line end+1 ( if line ends within
+	uint16_t boxptr; // ptr to the empty place in the box
+	int16_t boxleft; // left boundary for line envelope
+	int16_t boxright; // right boundary for line envelope
+	int16_t boxey; // row of line end+1 ( if line ends within
 	//    box)
-	Int16 boxel; // length of the last segment (if line ends
+	int16_t boxel; // length of the last segment (if line ends
 	//    within box)
-	Int16 boxex; // coordinate of last segment end (if line
+	int16_t boxex; // coordinate of last segment end (if line
 	//    ends within box)
 	uchar boxflag; // byte for box attributes flags
 	uchar boxwf; // working flag (for picture compress)
-	Word16 boxresw; // reserved word (for *4 arround)
+	uint16_t boxresw; // reserved word (for *4 arround)
 };
 typedef struct box_struct BOX;
 
@@ -408,10 +408,10 @@ typedef struct cell_struc cell;
 
 //      line header
 struct ln_head {
-	Int16 lth; // length of one line representation
-	Int16 h; // height of line
-	Int16 row; // relative row of line start
-	Word16 flg; // flags of free beg and free end
+	int16_t lth; // length of one line representation
+	int16_t h; // height of line
+	int16_t row; // relative row of line start
+	uint16_t flg; // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02

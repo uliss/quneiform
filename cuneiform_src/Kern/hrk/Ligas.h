@@ -288,7 +288,7 @@ is_ligas_lat(let))))
 
 /****** accents ************/
 /*
-Таблица acc_tab в ACC_TABS.C теперь типа Word16, для добавления
+Таблица acc_tab в ACC_TABS.C теперь типа uint16_t, для добавления
 новых типов акцентов. См. также ACCENTS.C. 30.08.2000 E.P.
 */
 #define ACC_LEFT			1

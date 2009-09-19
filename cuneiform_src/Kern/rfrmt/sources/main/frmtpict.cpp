@@ -145,10 +145,10 @@ BYTE GetPictRect( uint32_t NumberPict , Rect16* RectPict,uint32_t* UserNumber )
 
 	if(CPAGE_PictureGetPlace (h_Page, h_Pict, 0, &Lr, &Wh))
 	{
-		RectPict->left   = (Int16)( Lr.x - TemplateOffset.x);
-		RectPict->right  = (Int16)( Lr.x - TemplateOffset.x + Wh.x );
-		RectPict->top    = (Int16)( Lr.y - TemplateOffset.y);
-		RectPict->bottom = (Int16)( Lr.y - TemplateOffset.y + Wh.y );
+		RectPict->left   = (int16_t)( Lr.x - TemplateOffset.x);
+		RectPict->right  = (int16_t)( Lr.x - TemplateOffset.x + Wh.x );
+		RectPict->top    = (int16_t)( Lr.y - TemplateOffset.y);
+		RectPict->bottom = (int16_t)( Lr.y - TemplateOffset.y + Wh.y );
 	}
 	return TRUE;
 }

@@ -101,7 +101,7 @@ static uint32_t mask_r[]={  255,    128,  192,  224,  240,  248,  252,  254, 255
 //********************* static function : ****************************
 //********************************************************************
 static int32_t  CTB_volume_true(char *file_name );
-static Bool32   CTB_type(Int16 wid, Int16 hei, Int16 dpb);
+static Bool32   CTB_type(int16_t wid, int16_t hei, int16_t dpb);
 static void     xor_lines(uchar *bin,int32_t wb,int32_t len);
 static void     xor_lines_rest(uchar *bin,int32_t wb,int32_t len,uchar mask);
 static void     xor_one_line(uchar *bin,uchar *bin1,int32_t wb);
@@ -109,8 +109,8 @@ static void     xor_one_line(uchar *bin,uchar *bin1,int32_t wb);
 //************ global functions : ************************************
 //********************************************************************
 char *  ctb_last_punct(char *word);
-Bool32  CTB_files_init(char *file_name,uchar *data,Int16 maxX,Int16 maxY,
-                    Int16 dpb,uchar signums, uchar attr_size);
+Bool32  CTB_files_init(char *file_name,uchar *data,int16_t maxX,int16_t maxY,
+                    int16_t dpb,uchar signums, uchar attr_size);
 //********************************************************************
 //************ global data : *****************************************
 //********************************************************************
@@ -121,14 +121,14 @@ CTB_FUNC(char) local_ctb_name[256] = "ct666666";
 //********************************************************************
 //***********  EXPORT functions from CTB_pack ************************
 //********************************************************************
-Int16 decLine(uchar *inB, Int16 inLen, uchar *outBuffer);
-Int16 encLine(uchar *inBuff, Int16 inLen,uchar *save_p, Int16 outLen);
-Int16 encput( uchar byt, uchar cnt,uchar *save);
+int16_t decLine(uchar *inB, int16_t inLen, uchar *outBuffer);
+int16_t encLine(uchar *inBuff, int16_t inLen,uchar *save_p, int16_t outLen);
+int16_t encput( uchar byt, uchar cnt,uchar *save);
 //********************************************************************
 //***********  EXPORT functions from CTB_cnvm ************************
 //********************************************************************
-Bool32  conv_bytes_to_bits( Int16 colors, uchar *text,uchar *bin, Int16 len);
-Bool32  conv_bits_to_bytes( Int16 colors, uchar *text,uchar *bin, Int16 len);
+Bool32  conv_bytes_to_bits( int16_t colors, uchar *text,uchar *bin, int16_t len);
+Bool32  conv_bits_to_bytes( int16_t colors, uchar *text,uchar *bin, int16_t len);
 
 //********************************************************************
 //**************** open/close CTB-files ******************************
@@ -240,7 +240,7 @@ if( HCTB.version<3 || HCTB.version>7 )
 hnd->len=(int32_t)(((long)HCTB.size_x*HCTB.size_y)/HCTB.dot_per_byte);
                       // store attributes    //
 hnd->num     = HCTB.volume>0 ? HCTB.volume : CTB_volume_true(file_name);
-hnd->type           = (Int16)CTB_type(HCTB.size_x,HCTB.size_y,HCTB.dot_per_byte);
+hnd->type           = (int16_t)CTB_type(HCTB.size_x,HCTB.size_y,HCTB.dot_per_byte);
 hnd->width          = HCTB.size_x;
 hnd->height         = HCTB.size_y;
 hnd->colors         = 1<<(8/HCTB.dot_per_byte);
@@ -319,7 +319,7 @@ if( hnd->ndx!=BAD_FOPEN )
 return;
 }
 
-CTB_FUNC(Bool32)  CTB_files_test(char *filename,Int16 maxX, Int16 maxY, Int16 dpb)
+CTB_FUNC(Bool32)  CTB_files_test(char *filename,int16_t maxX, int16_t maxY, int16_t dpb)
 {
 H_CTB_file H_CTB={{'C','T'},0,128,96,0,0,0,0,0,{0}},HCTB;
 char s[MAXPATH],file_name[MAXPATH],*p;
@@ -515,7 +515,7 @@ if( hnd->version>=6 )
                     memcpy(save_bin,&save_pack[datalen+1],len);
                     break;
             case        CTB_COMP_PCX:   // decode picture by PCX-compressing
-                    decLine(&save_pack[datalen+1],(Int16)l_seek,save_bin);
+                    decLine(&save_pack[datalen+1],(int16_t)l_seek,save_bin);
                     break;
             default:
                     ctb_err_code = CTB_ERR_UNKNOWN_PACK;
@@ -530,7 +530,7 @@ else
                     memcpy(save_bin,&save_pack[datalen],len);
                     break;
             case        CTB_COMP_PCX:   // decode picture by PCX-compressing
-                    decLine(&save_pack[datalen],(Int16)l_seek,save_bin);
+                    decLine(&save_pack[datalen],(int16_t)l_seek,save_bin);
                     break;
             default:
                     ctb_err_code = CTB_ERR_UNKNOWN_PACK;
@@ -698,10 +698,10 @@ return TRUE;
 //********************************************************************
 CTB_FUNC(Bool32)  CTB_write_mark( CTB_handle *hnd, int32_t num,uchar *bin, uchar *data , Bool32  mark)
 {
-Int16   sp,n=(Int16)hnd->len;
+int16_t   sp,n=(int16_t)hnd->len;
 FFILE   fp;
 int32_t   pos, datalen, wb;
-Int16   len;
+int16_t   len;
 uchar   w,h;
 Bool32  gray=(hnd->signums&CTB_GRAY_SCALE),
         plane=(hnd->signums&CTB_PLANE);
@@ -728,7 +728,7 @@ if( !w || !h )
 
 wb =  gray ? (((int32_t)w+7)/8)*8 : (((int32_t)w+7)/8);
 
-n = len = (Int16)(wb*(int32_t)h);
+n = len = (int16_t)(wb*(int32_t)h);
 if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) )
     {
         ctb_err_code = CTB_ERR_WRITE;
@@ -1053,7 +1053,7 @@ return TRUE;
 CTB_FUNC(Bool32)  CTB_delete( CTB_handle *hnd,int32_t num )
 {
 uchar buffer[8];
-Int16 i,n=hnd->num - 1;
+int16_t i,n=hnd->num - 1;
 
 ctb_err_code = CTB_ERR_NONE;
 if( hnd==NULL )
@@ -1067,7 +1067,7 @@ if( num<0 || num>n )
         return FALSE;
     }
 
-for(i=(Int16)num;i<n;i++)
+for(i=(int16_t)num;i<n;i++)
         {
         if( fseek(hnd->ndx,(i+1)*8,SEEK_SET) )
         {
@@ -1293,7 +1293,7 @@ else
 return;
 }
 
-static Bool32  CTB_type(Int16 wid, Int16 hei, Int16 dpb)
+static Bool32  CTB_type(int16_t wid, int16_t hei, int16_t dpb)
 {
 if( wid==128 && hei==96 && dpb==8 )
   return CTB_128_96_2;
@@ -1375,7 +1375,7 @@ return;
 char * ctb_last_punct(char *word)
 {
 char *p = word + STRLEN(word) - 1;
-Int16 i=0;
+int16_t i=0;
 
 do{
   if( *p==':' || *p=='\\' )
@@ -1387,13 +1387,13 @@ do{
 return NULL;     // i==4                         //
 }
 
-Bool32  CTB_files_init(char *filename,uchar *data,Int16 maxX, Int16 maxY,
-      Int16 dpb, uchar signums, uchar attr_size)
+Bool32  CTB_files_init(char *filename,uchar *data,int16_t maxX, int16_t maxY,
+      int16_t dpb, uchar signums, uchar attr_size)
 {
 H_CTB_file H_CTB={{'C','T'},0,0,0,0,0,0,0,0,{0}}; // signatura only //
 char s[MAXPATH],file_name[MAXPATH],*p;
 FFILE fp;
-Int16 l;
+int16_t l;
 
 strcpy(file_name,filename);
 p=ctb_last_punct(file_name);

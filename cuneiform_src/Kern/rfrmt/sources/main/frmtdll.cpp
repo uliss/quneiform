@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16     gwHeightRC = 0;
-static Word16     gwLowRC    = 0;
+static uint16_t     gwHeightRC = 0;
+static uint16_t     gwLowRC    = 0;
 static HANDLE     ghStorage  = NULL;
 static HINSTANCE  ghInst     = NULL;
 Bool32     gbBold     = TRUE;
@@ -110,7 +110,7 @@ uint32_t ul_reason_for_call,
 ///////////////////////////////////////////////////////////////
 //Handle hUseCLine;
 
-RFRMT_FUNC(Bool32) RFRMT_Init(Word16 wHeightCode,HANDLE hStorage)
+RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
  LDPUMA_Init(0,NULL);
  LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
@@ -202,7 +202,7 @@ RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode()
 //
 RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError)
 {
- Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+ uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
  static char szBuffer[512];
 
  if( dwError >> 16 != gwHeightRC)
@@ -276,12 +276,12 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
 return rc;
 }
 
-void SetReturnCode_rfrmt(Word16 rc)
+void SetReturnCode_rfrmt(uint16_t rc)
 {
  gwLowRC = rc;
 }
 
-Word16 GetReturnCode_rfrmt()
+uint16_t GetReturnCode_rfrmt()
 {
  return gwLowRC;
 }

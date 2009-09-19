@@ -672,7 +672,7 @@ switch(message)
     // MOUSE CLICKS
     case WM_LBUTTONDBLCLK:
                 { // select start cut point
-                        Point32 p = { (Word16)(lParam), (Word16)(lParam>>16)};  // vertical position of cursor  }
+                        Point32 p = { (uint16_t)(lParam), (uint16_t)(lParam>>16)};  // vertical position of cursor  }
                         p = LDPUMA_GetRasterPixel(wnd,p);
             for(ii=1,i=0;i<numpoints_show;i+=2,ii++)
                 {
@@ -693,7 +693,7 @@ switch(message)
 
     case WM_RBUTTONDBLCLK:
                 { // show one cut point
-                Point32 p = { (Word16)(lParam), (Word16)(lParam>>16)};  // vertical position of cursor  }
+                Point32 p = { (uint16_t)(lParam), (uint16_t)(lParam>>16)};  // vertical position of cursor  }
                 p = LDPUMA_GetRasterPixel(wnd,p);
                 for(ii=1,i=0;i<numpoints_show;i+=2,ii++)
                     {
@@ -1501,7 +1501,7 @@ Bool snap_baselines(BYTE a)
 	return !LDPUMA_Skip(hSnapLineBL[a - 'a']);
 }
 
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)//IGOR
+void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)//IGOR
 {
 	LDPUMA_DrawLine(wnd,start, end, skew, rgb, pen, key);
 	return;

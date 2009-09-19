@@ -705,7 +705,7 @@ memset(&fields_tab[0],0,MAX_FIELDS);
 return leo_enable_stored;
 }
 
-LEO_FUNC(Int16) LEOGetErr(void)
+LEO_FUNC(int16_t) LEOGetErr(void)
 {
 return LEO_error_code;
 }
@@ -777,9 +777,9 @@ if( no_init_prn )
     }
 
 DIFClearRightZone(object->recData.recRaster.Raster ,
-        (Int16)object->recData.recRaster.lnPixWidth,
-        (Int16)(REC_GW_WORD8(object->recData.recRaster.lnPixWidth)),
-        (Int16)object->recData.recRaster.lnPixHeight);
+        (int16_t)object->recData.recRaster.lnPixWidth,
+        (int16_t)(REC_GW_WORD8(object->recData.recRaster.lnPixWidth)),
+        (int16_t)object->recData.recRaster.lnPixHeight);
 
 leo_Snp_In_Rect=leoSnpInRect(&object->recData.rect, 0);
 if( leo_alpha_type==ALPH_ENG || leo_alpha_type==ALPH_R_E )
@@ -1398,7 +1398,7 @@ return TRUE;
 LEO_FUNC(uchar) LEOValidRestore_Char( RecVersions *resin,RecVersions *resout)
 {
 RecRaster   rr;
-Int16       idr;
+int16_t       idr;
 uchar       nLns;
 Rect16      rect;
 uchar       IsPrint;
@@ -1474,14 +1474,14 @@ return data[27]&(~LEO_CONTROL_CASE) ;
 }
 
 
-LEO_FUNC(Bool32) LEOSetValid(Int16 id_rast, uchar code, uchar valid,uchar control)
+LEO_FUNC(Bool32) LEOSetValid(int16_t id_rast, uchar code, uchar valid,uchar control)
 {
 if(!leo_enable_stored)
     return FALSE;
 return leo_cont_set_valid(LEO_CONT_STD_PAGE_ID, id_rast, stdAnsiToAscii(code), valid, control);
 }
 
-LEO_FUNC(Bool32) LEODelFinal(Int16 id_rast)
+LEO_FUNC(Bool32) LEODelFinal(int16_t id_rast)
 {
 if(!leo_enable_stored)
     return FALSE;
@@ -1569,7 +1569,7 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
 return TRUE;
 }
 
-LEO_FUNC(Int16) LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+LEO_FUNC(int16_t) LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
 		uchar	Prob, uchar Valid, RecVersions *Res)
 {
 if(!leo_enable_stored)
@@ -1583,7 +1583,7 @@ LEO_FUNC(int32_t)     LEO_GetGlobalIncline(void)
 return leo_get_global_incline();
 }
 
-LEO_FUNC(Bool32) LEO_ContRestoreObject(Int16       idr, RecObject *object,
+LEO_FUNC(Bool32) LEO_ContRestoreObject(int16_t       idr, RecObject *object,
                                             uchar *alpha, uchar *isPrint)
 {
 uchar       nLns;
@@ -1609,7 +1609,7 @@ leo_decode_to_ansi( &object->recResults );
 return TRUE;
 }
 
-LEO_FUNC(Int16) LEO_GetNoCutPoint(uchar *RASTER, Int16 WB, uchar NWIDTH, uchar NLENGTH)
+LEO_FUNC(int16_t) LEO_GetNoCutPoint(uchar *RASTER, int16_t WB, uchar NWIDTH, uchar NLENGTH)
 {
 return DIF_GetNoCutPoint(RASTER,  WB, NWIDTH, NLENGTH);
 }

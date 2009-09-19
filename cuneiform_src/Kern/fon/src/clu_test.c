@@ -612,7 +612,7 @@ uint32_t onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
 	   }
 	   else // поменяем
 		{
-          Word16 tmpInFont=fil1->inFont[j];
+          uint16_t tmpInFont=fil1->inFont[j];
 		   fil1->inFont[j]=fil2->inFont[j];
 		   fil2->inFont[j]=tmpInFont;
 		   AddCountFields(f2,cou1);

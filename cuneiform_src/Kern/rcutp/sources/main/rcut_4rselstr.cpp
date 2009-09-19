@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static int count_cut_let;
 //static PAGEINFO info = {0};
 //static char* image_name = NULL;
-static Word16 biBitCount = 0;
+static uint16_t biBitCount = 0;
 static bool env_set = false;
 static int medium_h;
 static int inf_let_w;
@@ -96,7 +96,7 @@ static Bool IfWhiteRow(RecRaster* rast,int row);
 RCUTP_FUNC(Bool32) RCUTP_RSelStr_SetEnv(/*char* szImageName,*/ int _medium_h, int _inf_let_w,
 										int _inf_dust_h, int _inf_let_h, Handle hCCOM,
 										int _sup_dust_w, int _min_cut_down_let_w,
-										int _sup_prob_w, const Word16 biBit)
+										int _sup_prob_w, const uint16_t biBit)
 {
 	if (_medium_h < 0 || _inf_let_w < 0 || _inf_dust_h < 0 || _inf_let_h < 0 ||
 		_sup_dust_w < 0 || _min_cut_down_let_w < 0 || _sup_prob_w < 0 || !hCCOM)

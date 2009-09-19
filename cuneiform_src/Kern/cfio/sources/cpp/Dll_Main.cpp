@@ -75,10 +75,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL
-void SetReturnCode_cfio(Word16 rc);
+void SetReturnCode_cfio(uint16_t rc);
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16            wHeightRC =                         0;
-static Word16            wLowRC =                            0;
+static uint16_t            wHeightRC =                         0;
+static uint16_t            wLowRC =                            0;
 static Handle            hInst =                             NULL;
 CTCControl *      Control_ctc =                           NULL;
 static int32_t             InitCount =                         0;
@@ -105,7 +105,7 @@ Bool APIENTRY DllMain( Handle hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage)
+CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -159,7 +159,7 @@ CFIO_FUNC(uint32_t) CFIO_GetReturnCode()
 //
 CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_MIN;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_MIN;
 	static char szBuffer[512];
 
 	if( dwError >> 16 != wHeightRC)
@@ -174,14 +174,14 @@ CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_cfio(Word16 rc)
+void SetReturnCode_cfio(uint16_t rc)
 {
 	if ( rc == IDS_CFIO_ERR_NO || wLowRC == IDS_CFIO_ERR_NO )
 		wLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode_cfio()
+uint16_t GetReturnCode_cfio()
 {
 	return wLowRC;
 }

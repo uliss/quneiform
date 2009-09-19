@@ -648,8 +648,8 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 //Внимание!!! Здесь не должно останавливаться
     if((*Rc).top<5) top=TRUE;
     if((*Rc).left<5) left=TRUE;
-    if((*Rc).right>(Int16)(Width)-5) right=TRUE;
-    if((*Rc).bottom>(Int16)(Height)-5) bottom=TRUE;
+    if((*Rc).right>(int16_t)(Width)-5) right=TRUE;
+    if((*Rc).bottom>(int16_t)(Height)-5) bottom=TRUE;
     k=10;
     for(i=0;i<k;i++)
     {
@@ -991,7 +991,7 @@ void NegMoveMasR(Rect16* pRc,int& nRc,int num)
 }
 
 
-Bool IsNegSize(Int16 h,Int16 w)
+Bool IsNegSize(int16_t h,int16_t w)
 {
  if( (h<inf_neg_h) || (w<inf_neg_h) ) return FALSE;
  if( (h<inf_neg_w) && (w<inf_neg_w) ) return FALSE;
@@ -1090,7 +1090,7 @@ Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	/*  1. Подготовка к запросу части изображения.  */
 	DataInto.dwHeight   = (uint32_t)(h);
 	DataInto.dwWidth    = (uint32_t)(prewide);
-	DataInto.wByteWidth = (Word16)(prewide/8);
+	DataInto.wByteWidth = (uint16_t)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
@@ -1100,7 +1100,7 @@ Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (Word16)info.BitPerPixel;
+	DataOut.byBit      = (uint16_t)info.BitPerPixel;
 	DataOut.lpData     = *ppmasp;
 
 	/*  5. Чтение части изображения.  */

@@ -64,14 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 //      Internal functions
-static void make_seg_line (uchar* raster, Int16 width);
+static void make_seg_line (uchar* raster, int16_t width);
 
 //      Internal variables
 static BWSS *bp,*bpe;
 static uchar extrcomp_flag;
 #define SEG_DELIM -0x7000
 
-BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, Int16 height, Int16 width)
+BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int16_t height, int16_t width)
 {
  bwsp->b = 0; bwsp->w = SEG_DELIM; bwsp++;
  bp = bwsp;  bpe = bwe;extrcomp_flag = 0;
@@ -79,7 +79,7 @@ BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, Int16 height, Int16 w
  return bp;
 }
 
-BWSS *extrcomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, Int16 width)
+BWSS *extrcomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int16_t width)
 {
  bp = bwsp;  bpe = bwe; extrcomp_flag = 1;
  make_seg_line(raster,width);
@@ -92,7 +92,7 @@ BWSS *extrcomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, Int16 width)
 #define commb goto comm_after_black
 #define setp(b,w) *((int*)p)=(w<<16)|b;
 #define setpo(b,w) p->b=b;p->w=w;
-static void make_seg_line(uchar* raster, Int16 width)
+static void make_seg_line(uchar* raster, int16_t width)
 {
  BWSS *p = bp;
  uchar b;
@@ -784,7 +784,7 @@ comm_after_white:
 
 }
 
-void invert_tiff (uchar* p, Word16 lth)
+void invert_tiff (uchar* p, uint16_t lth)
 {
  while (lth--) {*p = ~*p; p++;}
 }

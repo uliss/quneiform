@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "am_buff.h"
 #include "compat_defs.h"
 /*------------extern functions-----------------------------------------------*/
-void   SetReturnCode_rverline (Word16 rc);
+void   SetReturnCode_rverline (uint16_t rc);
 /*---------------------------------------------------------------------------*/
 void My_WaitUserInput (Handle myKey, Handle myWindow)
 {
@@ -177,13 +177,13 @@ void RLTDraw_O_VerifLines (void *vLti, int Code_1, int Code_2, Handle myWindow)
 	Handle myKey2;
 	pLti = (LinesTotalInfo *)vLti;
 	/*******************************************/
-	OperCode1 = AM_GetOperCode ((Word16)Code_1);
+	OperCode1 = AM_GetOperCode ((uint16_t)Code_1);
 	myKey1 = AM_GetKeyOfRule ((VL_RULES)Code_1);
 	NoSnap1 = AM_Skip (myKey1);
 	if (!NoSnap1)
 		Draw_Lines_Verif (pLti, OperCode1, myWindow, myKey1);
 	/*******************************************/
-	OperCode2 = AM_GetOperCode ((Word16)Code_2);
+	OperCode2 = AM_GetOperCode ((uint16_t)Code_2);
 	myKey2 = AM_GetKeyOfRule ((VL_RULES)Code_2);
 	NoSnap2 = AM_Skip (myKey2);
 	if (!NoSnap2)
@@ -219,7 +219,7 @@ void RLTDraw_VL_R_Zhertvy (void **vvZher, int nZher, Handle myWindow, int Code)
 	NoSnap = AM_Skip (myKey);
 	if (NoSnap)
 		return;
-	OperCode = AM_GetOperCode ((Word16)Code);
+	OperCode = AM_GetOperCode ((uint16_t)Code);
 	ColorBox = RGB(0  ,255,  0); //зеленый
 	for (i=0; i<nZher; i++)
 	{
@@ -244,7 +244,7 @@ void RLTDraw_I_PrimBoxes (Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int
 	NoSnap = AM_Skip (myKey);
 	if (NoSnap)
 		return;
-	OperCode = AM_GetOperCode ((Word16)Code);
+	OperCode = AM_GetOperCode ((uint16_t)Code);
 	for (i=0; i<nRc; i++)
 	{
 		ColorBox = RGB(0  ,  0,255); //синий
@@ -260,11 +260,11 @@ void MyErrorNoMem (const char *pStr)
 {
 	Handle myKeyErr;
 	uchar  err8;
-	Word16 Code;
+	uint16_t Code;
 	err8 = (uchar)ER_ROUGH_NORMAL;
-	Code = (Word16)(err8<<8);
+	Code = (uint16_t)(err8<<8);
 	err8 = (uchar)ER_DETAIL_NO_MEMORY;
-	Code |= (Word16)err8;
+	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);
 	if (!AM_Skip (myKeyErr))
@@ -275,11 +275,11 @@ void MyErrorNoComment (char *pStr)
 {
 	Handle myKeyErr;
 	uchar  err8;
-	Word16 Code;
+	uint16_t Code;
 	err8 = (uchar)ER_ROUGH_NORMAL;
-	Code = (Word16)(err8<<8);
+	Code = (uint16_t)(err8<<8);
 	err8 = (uchar)ER_DETAIL_NO_COMMENT;
-	Code |= (Word16)err8;
+	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);
 	if (!AM_Skip (myKeyErr))

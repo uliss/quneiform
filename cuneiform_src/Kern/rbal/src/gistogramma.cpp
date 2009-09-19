@@ -56,32 +56,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "gistogramma.h"
 
-Int16 *stat_gistoGramma(Int16 *X, Int16 n)
+int16_t *stat_gistoGramma(int16_t *X, int16_t n)
 {
 	if(X == NULL) return NULL;
 
-	Int16 xMax = X[stat_index_GlobMax(X, n, 1)];
-	Int16 xMin = X[stat_index_GlobMin(X, n)];
-	Int16   ng = xMax - xMin + 1;
+	int16_t xMax = X[stat_index_GlobMax(X, n, 1)];
+	int16_t xMin = X[stat_index_GlobMin(X, n)];
+	int16_t   ng = xMax - xMin + 1;
 
-	Int16 *G = (Int16 *) calloc(ng, sizeof(Int16));
+	int16_t *G = (int16_t *) calloc(ng, sizeof(int16_t));
 	if(G == NULL)
 		return NULL;
 
-	for(Int16 i = 0; i < n; i++)
+	for(int16_t i = 0; i < n; i++)
 	{
 		G[X[i] - xMin]++;
 	}
 	return G;
 }
 
-Int16 stat_index_LeftLocMax(Int16 *Y, Int16 k0)
+int16_t stat_index_LeftLocMax(int16_t *Y, int16_t k0)
 {
 	if(Y == NULL) return -1;
 
-	Int16 ret = -1, max = 0, iMax = 0;
+	int16_t ret = -1, max = 0, iMax = 0;
 
-	for(Int16 i = 0; i <= k0; i++)
+	for(int16_t i = 0; i <= k0; i++)
 	{
 		if(Y[i] > max)
 		{
@@ -95,15 +95,15 @@ Int16 stat_index_LeftLocMax(Int16 *Y, Int16 k0)
 	return ret;
 }
 
-Int16 stat_index_RightLocMax(Int16 *Y, Int16 k, Int16 k0)
+int16_t stat_index_RightLocMax(int16_t *Y, int16_t k, int16_t k0)
 {
 	if(Y == NULL) return -1;
 
-	Int16 ret = -1, max = 0, iMax = k0;
+	int16_t ret = -1, max = 0, iMax = k0;
 
 	if(k >= k0)
 	{
-		for(Int16 i = k0; i < k; i++)
+		for(int16_t i = k0; i < k; i++)
 		{
 			if(Y[i] >= max)
 			{
@@ -118,15 +118,15 @@ Int16 stat_index_RightLocMax(Int16 *Y, Int16 k, Int16 k0)
 	return ret;
 }
 
-Int16 stat_index_GlobMax(Int16 *Y, Int16 k, Int16 inequality)
+int16_t stat_index_GlobMax(int16_t *Y, int16_t k, int16_t inequality)
 {
 	if(Y == NULL) return -1;
 
 	if(k > 1)
 	{
-		Int16 max = Y[0], iMax = 0;
+		int16_t max = Y[0], iMax = 0;
 
-		for(Int16 i=1; i<k; i++)
+		for(int16_t i=1; i<k; i++)
 		{
 			switch(inequality)
 			{
@@ -154,15 +154,15 @@ Int16 stat_index_GlobMax(Int16 *Y, Int16 k, Int16 inequality)
 	}
 }
 
-Int16 stat_alt_indexMax(Int16 *Y, Int16 k, Int16 diff, Int16 b3)
+int16_t stat_alt_indexMax(int16_t *Y, int16_t k, int16_t diff, int16_t b3)
 {
 	if(Y == NULL) return -1;
 
 	if(k > 1)
 	{
-		Int16 max = Y[0], iMax = 0;
+		int16_t max = Y[0], iMax = 0;
 
-		for(Int16 i=1; i<k; i++)
+		for(int16_t i=1; i<k; i++)
 		{
 			if(Y[i] > max)
 			{
@@ -187,15 +187,15 @@ Int16 stat_alt_indexMax(Int16 *Y, Int16 k, Int16 diff, Int16 b3)
 	}
 }
 
-Int16 stat_index_GlobMin(Int16 *Y, Int16 k)
+int16_t stat_index_GlobMin(int16_t *Y, int16_t k)
 {
 	if(Y == NULL) return -1;
 
 	if(k > 1)
 	{
-		Int16 min = Y[0], iMin = 0;
+		int16_t min = Y[0], iMin = 0;
 
-		for(Int16 i=1; i<k; i++)
+		for(int16_t i=1; i<k; i++)
 		{
 			if(Y[i] < min)
 			{

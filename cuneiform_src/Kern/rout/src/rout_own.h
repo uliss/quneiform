@@ -149,8 +149,8 @@ EXTERN long gLine	VAL(0);	// Номер строки из __LINE
 EXTERN long gROUT_Option1	VAL(0);
 
 // Параметры инициализации и мой код ошибки
-EXTERN Word16	gwHighRC_rout	VAL(0);
-EXTERN Word16   gwLowRC_rout    VAL(0);
+EXTERN uint16_t	gwHighRC_rout	VAL(0);
+EXTERN uint16_t   gwLowRC_rout    VAL(0);
 EXTERN HANDLE   ghStorage_rout	VAL(NULL);
 EXTERN HANDLE   ghInst_rout	VAL(NULL);
 

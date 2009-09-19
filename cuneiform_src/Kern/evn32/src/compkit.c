@@ -65,7 +65,7 @@ extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
-extern Word16 lpool_lth;
+extern uint16_t lpool_lth;
 extern uchar work_raster[];
 extern version * start_rec, * rec_ptr;
 extern uchar records_change;
@@ -84,7 +84,7 @@ Bool16 boxes_account()
 {
  MN *mn;
  BOX *bp;
- Int16 left, right, n;
+ int16_t left, right, n;
  memset (&wcomp,0,sizeof(wcomp));
  mn = main_number_ptr; bp = mn->mnfirstbox;
  left = bp->boxleft; right = bp->boxright; boxchain = bp;
@@ -121,7 +121,7 @@ static void boxes_to_line()
  LNSTRT *lsp;
  interval * ip;
  BOXINT * bip;
- Int16 x, n;
+ int16_t x, n;
 
  bp = boxchain; lnp = (lnhead *)lpool; goto enter_loop;
 next_line:
@@ -164,8 +164,8 @@ uchar* make_raster()
  lnhead * lp;
  interval *ip;
  uchar *p,*pp;
- Int16 x, l, sh, h, new_h;
- Word16 w;
+ int16_t x, l, sh, h, new_h;
+ uint16_t w;
 
  memset (work_raster,0,wcomp.rw*wcomp.h);
  lp = (lnhead *)lpool;
@@ -197,8 +197,8 @@ uchar* make_extended_raster(c_comp *cp)
  lnhead * lp;
  large_interval *ip;
  uchar *p, *pp;
- Int16 x, l, sh;
- Word16 wd,w;
+ int16_t x, l, sh;
+ uint16_t wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
  lp = (lnhead *)((uchar*)cp + cp->lines + sizeof(uint32_t));
@@ -212,7 +212,7 @@ uchar* make_extended_raster(c_comp *cp)
      w = make_fill[l]; w = w << (8-sh); *p |= w & 0xff; *(p-1) |= w >> 8;
      pp += wd;
     }
-   lp = (lnhead *)((uchar*)ip - sizeof(Word16));
+   lp = (lnhead *)((uchar*)ip - sizeof(uint16_t));
   }
  return work_raster;
 }
@@ -225,7 +225,7 @@ lnhead *c_boxln(MN *mn)
  return (lnhead *)lpool;
 }
 
-Int16 MN_to_line(MN * mn)
+int16_t MN_to_line(MN * mn)
 {
  main_number_ptr = mn;
  boxes_account();
@@ -234,13 +234,13 @@ Int16 MN_to_line(MN * mn)
  return 0;
 }
 
-//void save_component(c_comp *,version *,version *,uchar*,Word16);
+//void save_component(c_comp *,version *,version *,uchar*,uint16_t);
 void save_wcomp()
 {
 // save_component(&wcomp,start_rec,rec_ptr,lpool,lpool_lth);
 }
 
-Word16 length_table[] = {0x100, 0x300, 0x700,0xf00,0x1f00,0x3f00,0x7f00,0xff00};
+uint16_t length_table[] = {0x100, 0x300, 0x700,0xf00,0x1f00,0x3f00,0x7f00,0xff00};
 
 uchar byte_seg_size[256] = {
 // 0   1    2    3    4    5    6    7    8    9    a    b    c    d    e    f
@@ -262,10 +262,10 @@ uchar byte_seg_size[256] = {
 0x44,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x55,0x00,0x00,0x00,0x66,0x00,0x77,0x88         // f
 };
 
-Word16 sort_events_vers()
+uint16_t sort_events_vers()
 {
  version * v, *a;
- Word16 n;
+ uint16_t n;
  uchar let, prob;
 
  if (records_change == 0) goto ret;

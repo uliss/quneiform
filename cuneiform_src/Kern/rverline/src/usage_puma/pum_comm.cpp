@@ -159,7 +159,7 @@ void CloseAllRes ()
 	}
 }
 /*----------------------------------------------------------------------------*/
-Bool AM_InitComm (Word16 wRltOwnCode)
+Bool AM_InitComm (uint16_t wRltOwnCode)
 {
 	int i;
 	wRltMainCode = (uint32_t)(wRltOwnCode<<16);
@@ -182,7 +182,7 @@ void AM_DoneComm ()
 	return;
 }
 /*----------------------------------------------------------------------------*/
-uint32_t AM_GetOperCode (Word16 wLocCode)
+uint32_t AM_GetOperCode (uint16_t wLocCode)
 {
 	return (wRltMainCode|(wLocCode<<16));
 }
@@ -207,12 +207,12 @@ uint32_t  AM_WaitUserInput (Handle owner, Handle wnd)
 	return LDPUMA_WaitUserInput (owner, wnd);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)
+void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)
 {
 	LDPUMA_DrawLine (wnd, start, end, skew, rgb, pen, key);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)
+void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)
 {
 	LDPUMA_DrawRect (wnd, pRc, skew, rgb, pen, key);
 }

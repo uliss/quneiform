@@ -127,7 +127,7 @@ uint32_t ul_reason_for_call,
 
 /*----------------------------------------------------------------------------*/
 
-RNEG_FUNC(Bool32) RNEG_Init(Word16 wHeightCode,Handle parent)
+RNEG_FUNC(Bool32) RNEG_Init(uint16_t wHeightCode,Handle parent)
 {
  LDPUMA_Init(0,NULL);
 

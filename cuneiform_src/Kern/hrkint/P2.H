@@ -82,11 +82,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     P2_FUNC(int32_t)  p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *P2globals);
 	P2_FUNC(int32_t)  p2_recog(RecRaster *recRast,RecVersions *vers,void *specInfo,int32_t testSelf);
 	// распознать компоненту в линейном представлении
-    P2_FUNC(int32_t)  p2_RecogCompLp(Int16 sizeLp,uchar *lp,Int16 w,Int16 h,
-					 Int16 col,Int16 row,RecVersions *vers);
+    P2_FUNC(int32_t)  p2_RecogCompLp(int16_t sizeLp,uchar *lp,int16_t w,int16_t h,
+					 int16_t col,int16_t row,RecVersions *vers);
 	P2_FUNC(int32_t)  p2_rotate(RecRaster *recRast);
 
-	P2_FUNC(Bool32) p2_Comp2Raster(Int16 sizeLP,uchar *lp,Int16 w,Int16 h,RecRaster *rec);
+	P2_FUNC(Bool32) p2_Comp2Raster(int16_t sizeLP,uchar *lp,int16_t w,int16_t h,RecRaster *rec);
 
 	P2_FUNC(void)   p2_SetShowWords(Bool32 val);
 	P2_FUNC(Bool32) p2_GetShowWords(void);

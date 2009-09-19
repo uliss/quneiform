@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "mainpic.h"
 
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
-static Word16            gwHeightRC = 0;
-static Word16            gwLowRC = 0;
+static uint16_t            gwHeightRC = 0;
+static uint16_t            gwLowRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ Bool APIENTRY DllMain( HINSTANCE hModule,
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,HANDLE hStorage)
+RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);
@@ -120,7 +120,7 @@ RPIC_FUNC(uint32_t) RPIC_GetReturnCode()
 //////////////////////////////////////////////////////////////////////////////////
 RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -184,15 +184,15 @@ return rc;
 
 void SetReturnCode_rpic(uint32_t rc)
 {
-Word16 low = (Word16)(rc &  0xFFFF);
-Word16 hei = (Word16)(rc >> 16);
+uint16_t low = (uint16_t)(rc &  0xFFFF);
+uint16_t hei = (uint16_t)(rc >> 16);
 
 	if(hei)
-		gwLowRC = (Word16)rc;
+		gwLowRC = (uint16_t)rc;
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwLowRC = (Word16)((uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO));
+			gwLowRC = (uint16_t)((uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO));
 		else
 			gwLowRC = 0;
 	}
@@ -201,8 +201,8 @@ Word16 hei = (Word16)(rc >> 16);
 uint32_t GetReturnCode_rpic()
 {
 uint32_t rc = gwLowRC;
-Word16 low = (Word16)(gwLowRC &  0xFFFF);
-Word16 hei = (Word16)(gwLowRC >> 16);
+uint16_t low = (uint16_t)(gwLowRC &  0xFFFF);
+uint16_t hei = (uint16_t)(gwLowRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;

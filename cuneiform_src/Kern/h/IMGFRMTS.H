@@ -62,10 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  General descriptor for available image disk formats.
 struct TFormatDescriptor
 {
- Int16              id;
+ int16_t              id;
  char   extentions[32];
  char	      name[32];
- Int16           flags;
+ int16_t           flags;
 
 #define   FD_READAVAIL			0x0001
 #define   FD_WRITEAVAIL			0x0002

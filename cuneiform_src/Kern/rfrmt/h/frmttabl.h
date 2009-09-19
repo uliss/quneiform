@@ -86,7 +86,7 @@ extern   uint32_t     FlagMode;
 extern   char       lpMyNameSerif[MAX_PATH];
 extern   char       lpMyNameNonSerif[MAX_PATH];
 extern   char       lpMyNameMono[MAX_PATH];
-extern   Int16      get_font_name(Int16 FontNumber);
+extern   int16_t      get_font_name(int16_t FontNumber);
 
 #ifdef __cplusplus
 	extern "C" {
@@ -206,8 +206,8 @@ public:
   void  	    ExtractWordsFromString( CSTR_line line );
   void          ExtractNextWord( CSTR_line* line );
   void	        Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          MyCorrectKegl( Int16 width );
-  Int16         GetRealSizeForKegl( char* str,Int16 FontSize,Int16 FontNumber );
+  void          MyCorrectKegl( int16_t width );
+  int16_t         GetRealSizeForKegl( char* str,int16_t FontSize,int16_t FontNumber );
 
   /*CObArray*/std::vector<CTableWord*>      m_arWords;
 

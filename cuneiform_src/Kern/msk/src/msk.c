@@ -79,18 +79,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 #include "minmax.h"
 
-Int16 err;
+int16_t err;
 static uint32_t bit_cnt_msk[66000];
-Word16 Limii;
+uint16_t Limii;
 short initiated=0;
 int nm, char_lst[16],number_lst[16],lst[16], ms[16];
 char alphabet[256];
 int is_latin;
 
-Word16 iobraz[16],iobraz1[16],iobraz2[16];
+uint16_t iobraz[16],iobraz1[16],iobraz2[16];
 uint32_t obraz[32*4];
 
-Word16 abc_n, Hnd_abc_n[11];				//всего эт-ов
+uint16_t abc_n, Hnd_abc_n[11];				//всего эт-ов
 MSK_abc_ind *abc_ind, *Hnd_abc_ind[11];
 MSK_abc *abc, *Hnd_abc[10];
 short *ptr_ind , *Hnd_ptr_ind[11];
@@ -98,8 +98,8 @@ short *ptr_ind , *Hnd_ptr_ind[11];
 /***************************************************************/
 /***************************************************************/
 /***************************************************************/
-static void MMX_setup_obraz(uint32_t *obraz, Word16 *iobraz,
-                            Word16 *iobraz2);
+static void MMX_setup_obraz(uint32_t *obraz, uint16_t *iobraz,
+                            uint16_t *iobraz2);
 
 uchar   *tmp_ptr;
 static void all_open(int32_t *image)
@@ -114,10 +114,10 @@ static void all_close(void)
     return;
 }
 
-static Bool32 all_anding(int32_t *image,Word16 *tmp,int32_t L);
-static Bool32 (*anding)(int32_t *image,Word16 *tmp,int32_t L)=all_anding;
-static void all_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2);
-static void (*setup_obraz)(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)=all_setup_obraz;
+static Bool32 all_anding(int32_t *image,uint16_t *tmp,int32_t L);
+static Bool32 (*anding)(int32_t *image,uint16_t *tmp,int32_t L)=all_anding;
+static void all_setup_obraz(uint32_t *obraz, uint16_t *iobraz, uint16_t *iobraz2);
+static void (*setup_obraz)(uint32_t *obraz, uint16_t *iobraz, uint16_t *iobraz2)=all_setup_obraz;
 static void (*proc_open)(int32_t *image)=all_open;
 static void (*proc_close)(void)=all_close;
 
@@ -132,7 +132,7 @@ int double_alphabet(int32_t i,int32_t n1)
 }
 
 
-int add_abc(short pri,Word16 iobraz[])
+int add_abc(short pri,uint16_t iobraz[])
 {
     int i,j;
     for (i=0;i<16;i++)
@@ -193,7 +193,7 @@ t   = *((int *)etalons);				\
                   ii += bit_cnt_msk[ *(image+16) & t ];		\
                     }
 
-Bool32 all_anding(int32_t *image,Word16 *etalons,int32_t L)
+Bool32 all_anding(int32_t *image,uint16_t *etalons,int32_t L)
 {
     int32_t t, ii = 0;
 
@@ -218,21 +218,21 @@ Bool32 all_anding(int32_t *image,Word16 *etalons,int32_t L)
 }
 
 
-void MMX_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)
+void MMX_setup_obraz(uint32_t *obraz, uint16_t *iobraz, uint16_t *iobraz2)
 {
-    Word16 iobraz3[16];
+    uint16_t iobraz3[16];
     int i;
 
     for (i=0;i<16;i++)
         iobraz3[i] = (~iobraz2[i])&0xFFFF;
 
-    memcpy(obraz,iobraz,sizeof(Word16)*16);
-    memcpy(obraz+8,iobraz3,sizeof(Word16)*16);
+    memcpy(obraz,iobraz,sizeof(uint16_t)*16);
+    memcpy(obraz+8,iobraz3,sizeof(uint16_t)*16);
     return;
 }
 
 
-void all_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)
+void all_setup_obraz(uint32_t *obraz, uint16_t *iobraz, uint16_t *iobraz2)
 {
     int i,j;
 
@@ -244,9 +244,9 @@ void all_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)
 }
 
 
-int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
-                 Word16 iobraz[], Word16 iobraz1[],Word16 list[],
-                 Word16 meas0[], Word16 proc)
+int det_sym_sort(short ptr_char, uint16_t pri, uint16_t abc_n1,
+                 uint16_t iobraz[], uint16_t iobraz1[],uint16_t list[],
+                 uint16_t meas0[], uint16_t proc)
 {
     int32_t	i,l,n1,m1;
     uint32_t ii,j,jj, meas[3],L, k = 0, k1,let;
@@ -311,7 +311,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
                 if (n1>0)	continue;
                 if (ii<meas[0])
                 {	meas[0]=ii;	char_lst[0]=(int)let;     //(int32_t)let;
-                    number_lst[0]=i; lst[0]= list[0]=(Word16)i;	l=1;
+                    number_lst[0]=i; lst[0]= list[0]=(uint16_t)i;	l=1;
                 }
                 if (!ii)	goto end_cykl;
             } // end of storing result
@@ -353,7 +353,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
         }
         nm=j;
 
-        meas0[0] = (Word16)meas[0];
+        meas0[0] = (uint16_t)meas[0];
         proc_close();
         return(l);
     }
@@ -436,7 +436,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
     short lett_coo[4];	// (x1,y1,x2,y2) - координаты выделенного
     //  символа(замкнутой кривой), включа
     //  касательные.
-    Word16  *buff_image;
+    uint16_t  *buff_image;
     int ii;
     uchar io_char;
 
@@ -450,10 +450,10 @@ MSK_FUNC(Bool32)  MSKRecogChar(
     lett_coo[2]=hor-1;
     lett_coo[3]=ver-1;
     hor=((hor+63)>>6)<<6;
-    buff_image=(Word16  *)(recraster->Raster);
+    buff_image=(uint16_t  *)(recraster->Raster);
 
     nm=0;
-    err=(Int16) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),
+    err=(int16_t) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),
                           buff_image, p1616, &io_char, TRUE );
 
     //Indres->lnAltCnt=nm;
@@ -480,7 +480,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
 {
     uchar*    p1616=NULL, io_char;
     short i, hor, ver, lett_coo[4];
-    Word16  *buff_image;
+    uint16_t  *buff_image;
     int let;
 
     if( MSKSetHndTab(HndTab) == -1 )
@@ -503,7 +503,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
         if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
+            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
                                   (BYTE)(0),buff_image, p1616, &io_char, TRUE );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -524,7 +524,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
 {
     uchar*    p1616=NULL, io_char;
     short i, hor, ver, lett_coo[4];
-    Word16  *buff_image;
+    uint16_t  *buff_image;
     int let;
 
     if( MSKSetHndTab(HndTab) == -1 )
@@ -547,7 +547,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
+            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
                                   (BYTE)(0),buff_image, p1616, &io_char, (uchar)((Flags&1)?FALSE:TRUE) );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -598,7 +598,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
         RecVersions *Indres           )
 {
     short hor,ver,lett_coo[4],i,err;
-    Word16  *buff_image;
+    uint16_t  *buff_image;
 
     err=0;
     hor=(short)(recraster->lnPixWidth);
@@ -610,7 +610,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
     buff_image=(Bool16  *)(recraster->Raster);
 
     nm=0;
-    err=(Int16) recindexNDX(hor,ver,lett_coo,(BYTE)(0),
+    err=(int16_t) recindexNDX(hor,ver,lett_coo,(BYTE)(0),
                             buff_image);
     if (err!=0)
         return FALSE;
@@ -637,7 +637,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
 /////////////
 int tch_in(const char *NameFile)
 {
-    Word16 num_mask,tmp;
+    uint16_t num_mask,tmp;
     int hnd,i,j;
     char NameTab[32];
 
@@ -645,10 +645,10 @@ int tch_in(const char *NameFile)
     Hnd_abc_n[initiated]=0;
     if((hnd = open_data_file(NameFile, O_RDONLY|O_BINARY)) > 0) {
         read(hnd,NameTab,32*sizeof(char));
-        read(hnd,(Word16 *)&Hnd_abc_n[initiated],sizeof(short));
-        read(hnd,(Word16 *)&num_mask,sizeof(short));
-        read(hnd,(Word16 *)&tmp,sizeof(short));
-        read(hnd,(Word16 *)&tmp,sizeof(short));
+        read(hnd,(uint16_t *)&Hnd_abc_n[initiated],sizeof(short));
+        read(hnd,(uint16_t *)&num_mask,sizeof(short));
+        read(hnd,(uint16_t *)&tmp,sizeof(short));
+        read(hnd,(uint16_t *)&tmp,sizeof(short));
     }
     else {
         fprintf(stderr, "tch_in: can't open file: \"%s\"\n", NameFile);
@@ -705,7 +705,7 @@ short recindex
          short ver,           // input
          short *lett_coo,      // input
          BYTE buff_col,      // input
-         Word16  *buff_image,    // input
+         uint16_t  *buff_image,    // input
          uchar  *p1616,
          uchar  *io_char,       // output
          uchar  enable_1
@@ -728,12 +728,12 @@ short recindexNDX
          short ver,           // input
          short *lett_coo,      // input
          BYTE buff_col,      // input
-         Word16  *buff_image    // input
+         uint16_t  *buff_image    // input
          )
 {
     unsigned short i1,i2,j1,j2,j11;
-    Word16 iob[16];
-    Word16  list[2],meas[6];
+    uint16_t iob[16];
+    uint16_t  list[2],meas[6];
     iob[0]=0;
     if( (lett_coo[0]+8>lett_coo[2] && lett_coo[1]+8>lett_coo[3]) ||
         lett_coo[2] >= hor || lett_coo[3] >= ver )
@@ -761,14 +761,14 @@ short recindexNDX
 
 #define MIN_WID_PERC  33
 #define MAX_WID_PERC 460
-int new_reco(short ptr_char, short hor,Word16  *bgf,
+int new_reco(short ptr_char, short hor,uint16_t  *bgf,
              uchar  *p1616, BYTE bgf_col, BYTE pri, short m1,
              short n1,short m2,short n2, uchar *ch, uchar enable_1)
 {
     short rt/*,i,jj*/;
-    Word16 k ;
+    uint16_t k ;
     short  k1;
-    Word16  list[2],meas[6];
+    uint16_t  list[2],meas[6];
     int32_t l1;
     rt=0;
     if  (abc_n==0 || m2<=m1+1 )	//04.02.97
@@ -838,9 +838,9 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
 /**       k0,l0,k1,l1 - line&column start&final  **/
 /**       coordinates of output matrix.          **/
 /**************************************************/
-int chn_mat(Int16 coo,Word16  *bgf,BYTE bgf_col,
-            Int16 i1,Int16 j1,Int16 i2,Int16 j2,Word16 *ss,
-            Int16 co1,Int16 k0,Int16 l0,Int16 k1,Int16 l1)
+int chn_mat(int16_t coo,uint16_t  *bgf,BYTE bgf_col,
+            int16_t i1,int16_t j1,int16_t i2,int16_t j2,uint16_t *ss,
+            int16_t co1,int16_t k0,int16_t l0,int16_t k1,int16_t l1)
 {
     int j,ii,ii1,jj;
     int co,n,m,i,k,iiold,jjold,pp;
@@ -915,7 +915,7 @@ int chn_mat1(coo,bgfff,buff_col,i1,j1,i2,j2,ss,co1,k0,l0,k1,l1)
         short coo,i1,j1,i2,j2,co1,k0,l0,k1,l1;
 unsigned short *ss;
 char buff_col;
-Word16  *bgfff;
+uint16_t  *bgfff;
 {
     int j,ii,jj,ii1,jj1,pp;
     int co,n,m,i,k,iiold,jjold;

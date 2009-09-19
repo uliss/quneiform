@@ -66,19 +66,19 @@ void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 	DirIdeal.x = (int)(.5 * (pRcRe->left + pRcRe->right + 1));
 	DirIdeal.y = pRcRe->top;
 	Deskew (DirIdeal, -Skew);
-	pRcId->top = (Int16)DirIdeal.y;
+	pRcId->top = (int16_t)DirIdeal.y;
 	DirIdeal.x = (int)(.5 * (pRcRe->left + pRcRe->right + 1));
 	DirIdeal.y = pRcRe->bottom;
 	Deskew (DirIdeal, -Skew);
-	pRcId->bottom = (Int16)DirIdeal.y;
+	pRcId->bottom = (int16_t)DirIdeal.y;
 	DirIdeal.x = pRcRe->left;
 	DirIdeal.y = (int)(.5 * (pRcRe->top + pRcRe->bottom + 1));
 	Deskew (DirIdeal, -Skew);
-	pRcId->left = (Int16)DirIdeal.x;
+	pRcId->left = (int16_t)DirIdeal.x;
 	DirIdeal.x = pRcRe->right;
 	DirIdeal.y = (int)(.5 * (pRcRe->top + pRcRe->bottom + 1));
 	Deskew (DirIdeal, -Skew);
-	pRcId->right = (Int16)DirIdeal.x;
+	pRcId->right = (int16_t)DirIdeal.x;
 }
 /*----------------------------------------------------------------------------*/
 void FindMinimIdealRegion (int nRc, int *pDo, Rect16 *pRcIdeal, Rect16 *pMIR)
@@ -253,17 +253,17 @@ Bool MakeInternalRectId (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 	Deskew (RigBot, -Skew);
 	if (Skew>=0)
 	{
-		pRcId->top    = (Int16)LefTop.y;
-		pRcId->bottom = (Int16)RigBot.y;
-		pRcId->left   = (Int16)LefBot.x;
-		pRcId->right  = (Int16)RigTop.x;
+		pRcId->top    = (int16_t)LefTop.y;
+		pRcId->bottom = (int16_t)RigBot.y;
+		pRcId->left   = (int16_t)LefBot.x;
+		pRcId->right  = (int16_t)RigTop.x;
 	}
 	else
 	{
-		pRcId->top    = (Int16)RigTop.y;
-		pRcId->bottom = (Int16)LefBot.y;
-		pRcId->left   = (Int16)LefTop.x;
-		pRcId->right  = (Int16)RigBot.x;
+		pRcId->top    = (int16_t)RigTop.y;
+		pRcId->bottom = (int16_t)LefBot.y;
+		pRcId->left   = (int16_t)LefTop.x;
+		pRcId->right  = (int16_t)RigBot.x;
 	}
 	if (pRcId->top > pRcId->bottom)
 		return FALSE;

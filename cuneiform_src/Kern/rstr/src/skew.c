@@ -93,7 +93,7 @@ static void total_skew();
 #define NRELABMIN 7
 #define NRELABMAX 30
 
-Int16 skew_corr(CSTR_line ln, INT pool_src)
+int16_t skew_corr(CSTR_line ln, INT pool_src)
  {
  INT skew_pool_n=0,inclini;
  WORD l,l1;

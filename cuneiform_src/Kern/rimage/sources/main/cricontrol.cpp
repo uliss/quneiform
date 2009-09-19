@@ -230,7 +230,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 
 	if ( !mpRotator->Rotate(mpSourceDIB, mpDestinationDIB, High, Low) )
 	{
-		Word16 wRet = GetReturnCode_rimage();
+		uint16_t wRet = GetReturnCode_rimage();
 // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
 //почему-то...
 		//		Handle hDIBtoSet;

@@ -111,7 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CFIO_MAX_OWNER         16
 #define CFIO_MAX_COMMENT       48
 ///////////////////////////////////////////////////////////////////////////////////////////////
-CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage);
+CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();
 CFIO_FUNC(uint32_t) CFIO_GetReturnCode();
 CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError);

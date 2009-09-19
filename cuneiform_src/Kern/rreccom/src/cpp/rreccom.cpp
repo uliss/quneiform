@@ -61,8 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "compat_defs.h"
 /*********************************************************************************************/
-static Word16 gwHeightRC = 0;
-Word16 gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
+static uint16_t gwHeightRC = 0;
+uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
 uchar*  lnOcrPath = NULL;
 /*********************************************************************************************/
 /*********************************************************************************************/
@@ -90,7 +90,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData)
 
 /*        CASE_DATA(RRECCOM_Word8_Matrix                     ,uchar,matrix);
         CASE_DATA(RRECCOM_Word8_Fax1x2                     ,uchar,fax1x2);
-        CASE_DATA(RRECCOM_Word16_ActualResolution  ,Word16,actual_resolution);
+        CASE_DATA(RRECCOM_Word16_ActualResolution  ,uint16_t,actual_resolution);
         case RRECCOM_FNEVNPROPERT:
             *(uint32_t*)pData =          (uint32_t)RRECCOM_SetEVNProperties;
             break;
@@ -160,7 +160,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData)
     {
 /*        CASE_DATA(RRECCOM_Word8_Matrix             ,uchar,matrix);
         CASE_DATA(RRECCOM_Word8_Fax1x2             ,uchar,fax1x2);
-    CASE_DATA(RRECCOM_Word16_ActualResolution,Word16,actual_resolution);
+    CASE_DATA(RRECCOM_Word16_ActualResolution,uint16_t,actual_resolution);
     CASE_PDATA(RRECCOM_ProgressStart,      FNRRECCOM_ProgressStart, fnProgressStart);
         CASE_PDATA(RRECCOM_ProgressStep,   FNRRECCOM_ProgressStep,  fnProgressStep);
         CASE_PDATA(RRECCOM_ProgressFinish, FNRRECCOM_ProgressFinish,fnProgressFinish);
@@ -187,7 +187,7 @@ RRECCOM_FUNC(uint32_t)   RRECCOM_GetReturnCode(void)
 /*********************************************************************************************/
 RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)((dwError & 0xFFFF) );
+	uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
     static char szBuffer[512];
 
     if (dwError >> 16 != gwHeightRC) gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
@@ -199,7 +199,7 @@ RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(uint32_t dwError)
 	return szBuffer;
 }
 /*********************************************************************************************/
-RRECCOM_FUNC(Bool32) RRECCOM_Init(Word16 wHeightCode, Handle hStorage)
+RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage)
 {
 /*
 if(Q.boxstart)

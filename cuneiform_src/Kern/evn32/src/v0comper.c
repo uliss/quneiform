@@ -100,22 +100,22 @@ extern MN *c_locomp(uchar *,int32_t,int32_t,int32_t,int32_t);
 
 static void save_rot_comp();
 static void rest_rot_comp();
-static Int16 net_comp (MN *mn);
+static int16_t net_comp (MN *mn);
 static void ev_vector_cnt();
-static Int16 seek_events(uchar* ev);
-static Int16 first_var();
-static void upper_row(Int16 row);
-static void upper_col(Int16 col);
-static void lower_row(Int16 row);
-static void lower_col(Int16 col);
+static int16_t seek_events(uchar* ev);
+static int16_t first_var();
+static void upper_row(int16_t row);
+static void upper_col(int16_t col);
+static void lower_row(int16_t row);
+static void lower_col(int16_t col);
 void ev_lang_filter();
-static Int16 is_english(uchar ch);
+static int16_t is_english(uchar ch);
 
 extern uchar ev_rt_num_ln;
-Int16 events_recog_rt()
+int16_t events_recog_rt()
 {
  MN *mn;
- Int16 n, k;
+ int16_t n, k;
  version * a,* b;
  ev_rt_num_ln = 0;
  save_rot_comp();
@@ -182,7 +182,7 @@ no_vers:
 
 static void ev_vector_cnt()
 {
- Int16 n, nd, x, y;
+ int16_t n, nd, x, y;
  uchar* ep;
  MN *mn;
  BOX *bp;
@@ -262,7 +262,7 @@ skip:		if (bp != dl_last_in_chain) {bp = bp->boxnext; goto loop;}
  evendvar = vp;
 }
 
-static void upper_row(Int16 row)
+static void upper_row(int16_t row)
 {
  if (row >= evrow_b2)
   {
@@ -282,7 +282,7 @@ static void upper_row(Int16 row)
  return;
 }
 
-static void upper_col(Int16 col)
+static void upper_col(int16_t col)
 {
  if (col >= evcol_b2)
   {
@@ -311,7 +311,7 @@ var_plus: vp->add = 1*16; (vp+1)->ln = vp->ln; vp++; return;
 var_minus: vp->add = -1*16; (vp+1)->ln = vp->ln; vp++; return;
 }
 
-static void lower_row(Int16 row)
+static void lower_row(int16_t row)
 {
  if (row >= evrow_b1)
   {
@@ -327,7 +327,7 @@ var_minus: vp->add = -1*5; (vp+1)->ln = vp->ln; vp++; return;
 
 }
 
-static void lower_col(Int16 col)
+static void lower_col(int16_t col)
 {
  if (col >= evcol_b2)
   {
@@ -358,11 +358,11 @@ var_minus: vp->add = -1; (vp+1)->ln = vp->ln; vp++; return;
 
 extern uchar tabb[], taba[];
 
-static Word16 rot(Word16 n) { return ((n<<3) + (n>>13)); }
+static uint16_t rot(uint16_t n) { return ((n<<3) + (n>>13)); }
 
-static Int16 seek_events(uchar* ep)
+static int16_t seek_events(uchar* ep)
 {
- Word16 hash,i,nl;
+ uint16_t hash,i,nl;
  uint32_t di;
  uchar* p;
  //if (db_status) snap_keep(snap_vector,ep,*ep+4);
@@ -378,7 +378,7 @@ for(i=0;i<n;i++)
  nl = *ep;
  if( !nl )	return 0; // OLEG
  hash = *(ep+3) = (tabb[nl] + taba[nl-*(ep+1)] + *(ep+2)) & 0xff;
- i = nl; p=ep+4; while (i--) hash = rot(hash) ^ (Word16)(*(p++));
+ i = nl; p=ep+4; while (i--) hash = rot(hash) ^ (uint16_t)(*(p++));
  hash = (hash & 0xff) ^ (hash >> 8);
  p = ((nl-1) * 256 + hash) * sizeof(uint32_t) + events_tree_rt;
  di = *((uint32_t *)p); if (di==0) return 0; p = events_tree_rt+di;
@@ -398,12 +398,12 @@ for(i=0;i<n;i++)
 
 static uchar var_answer[128];
 
-static Int16 first_var()
+static int16_t first_var()
 {
  VAR *p=evvars;
  uchar *ev1, *ev2;
- Word16 nl,n;
- Int16 var_answer_cnt=0;
+ uint16_t nl,n;
+ int16_t var_answer_cnt=0;
 
  if (p == evendvar) return -1;
  memcpy (evline1,evline,4);
@@ -445,10 +445,10 @@ static void rest_rot_comp()
  memcpy (&wcomp,&rot_save,sizeof(wcomp));
 }
 
-static Int16 net_comp (MN *mn)
+static int16_t net_comp (MN *mn)
 {
  BOX *bp;
- Int16 n, c;
+ int16_t n, c;
  bp = mn->mnfirstbox; n = mn->mnboxcnt; c=0;
  while (n--)
   {
@@ -498,7 +498,7 @@ void ev_lang_filter()
    rec_ptr=v2;
 }
 
-static Int16 is_english( uchar ch )
+static int16_t is_english( uchar ch )
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (ch>=ligas_beg && ch<=ligas_end && ch!=liga_exm && ch!=liga_qm ) ;

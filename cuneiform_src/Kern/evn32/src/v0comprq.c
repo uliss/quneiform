@@ -58,18 +58,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "recdefs.h"
 extern uchar lpool[];
-extern Word16 lpool_lth;
+extern uint16_t lpool_lth;
 #include<string.h>
 //#include"excdefs.h"
 #include"lang_def.h"
 #include "ligas.h"	// 04.06.2002 E.P.
 #include "ccomdefs.h"
 //------------------ FROM DIF.DLL
-extern Word16 DIF_typ_thin_stick(uchar *lin,Int16 dy,Int16 dx);
+extern uint16_t DIF_typ_thin_stick(uchar *lin,int16_t dy,int16_t dx);
 //------------------ Common working fields
 extern c_comp wcomp;
 extern uchar records_change;
-extern Int16 evfulln;
+extern int16_t evfulln;
 extern version *start_rec, *rec_ptr;
 static version records[128];
 extern uchar work_raster[];
@@ -80,13 +80,13 @@ extern  uchar language;
 #define PURE_DUST_WIDTH  3
 
 //------------------ Common functions definitions
-Word16 events_recog();
-Word16 events_recog_rt();
-Word16 sort_events_vers();
+uint16_t events_recog();
+uint16_t events_recog_rt();
+uint16_t sort_events_vers();
 void pidx_crit();
 void save_wcomp();
-//void sort_events_box(version *p, Word16 n);
-Int16 stick_w_4();
+//void sort_events_box(version *p, uint16_t n);
+int16_t stick_w_4();
 
 //------------------ Internal functions
 static void setvers (uchar* p);
@@ -150,9 +150,9 @@ void alone_comp()
 }
 
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }
-Int16 stick_w_4()
+int16_t stick_w_4()
 {
- Int16 answ;
+ int16_t answ;
  answ = DIF_typ_thin_stick(lpool,wcomp.h,wcomp.w);
  rec_ptr = start_rec;
  if (answ == 0) goto ret;
@@ -192,7 +192,7 @@ void recog_cutlong()
 extern Bool32  enable_save_stat;
 void recog_one()
 {
- Int16 nvers;
+ int16_t nvers;
 
  //// Reset	/////
  wcomp.cs = 0;
@@ -290,7 +290,7 @@ uint32_t recog_letter()
 }
 
 
-uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,Word16 lth)
+uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,uint16_t lth)
 {
 memset(&wcomp,0,sizeof(wcomp));
 wcomp.h=      ec->h;

@@ -252,7 +252,7 @@ void save_rast_vers(CSTR_rast C, SVERS *S)
  CSTR_GetCollectionUni(C,&vers);
  CSTR_GetAttr(C,&attr);
 
- S->nvers  = (Int16)vers.lnAltCnt;
+ S->nvers  = (int16_t)vers.lnAltCnt;
  S->source = attr.recsource;
  S->pos = attr.cpos;
  S->flg = (char)attr.flg;
@@ -284,7 +284,7 @@ void save_rast_vers(CSTR_rast C, SVERS *S)
 ////////////////
 Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT scale);
 ///////////////////
-INT rast_is_BOX_solid (CSTR_rast B1,Int16 scale)
+INT rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
 {
  SVERS svers;
  CCOM_comp *cmp;

@@ -75,13 +75,13 @@ const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 
 uchar alphabet[256];
 int32_t gra_type_rec = -1;
-Word16 comp_max_h, comp_max_w, comp_min_h, comp_min_w;
-Int16 MaxScale;
+uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
+int16_t MaxScale;
 uchar work_raster[max_raster];
 
 static uchar make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 
-extern Word16 gwLowRC_rrec;
+extern uint16_t gwLowRC_rrec;
 extern uchar*  lnOcrPath;
 /*********************************************************************************************/
 Bool32 rec_init(RRecComControl control, char *spath, uchar lang);
@@ -195,8 +195,8 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra)
 
 		getExtComp(&comp, &ec);
 
-		nvers = (Int16)EVNRecog_lp(&ec, comp.linerep + sizeof(Int16), comp.size_linerep - sizeof(Int16), evn_res);
-//-		nvers = (Int16)EVNRecog_lp(&comp, comp.linerep + sizeof(Int16), comp.size_linerep - sizeof(Int16), evn_res);
+		nvers = (int16_t)EVNRecog_lp(&ec, comp.linerep + sizeof(int16_t), comp.size_linerep - sizeof(int16_t), evn_res);
+//-		nvers = (int16_t)EVNRecog_lp(&comp, comp.linerep + sizeof(int16_t), comp.size_linerep - sizeof(int16_t), evn_res);
 
 //		pcomp->type |= ec.type;
 		pcomp->type = ec.type;
@@ -244,11 +244,11 @@ void make_raster(CCOM_comp* pcomp)
 	CCOM_lnhead* lp;
 	CCOM_interval* ip;
 	uchar *p, *pp;
-	Int16 x, l, sh;
-	Word16 w;
+	int16_t x, l, sh;
+	uint16_t w;
 
 	memset (work_raster, 0, pcomp->rw*pcomp->h);
-	lp = (CCOM_lnhead*)((char *)pcomp->linerep + sizeof(Int16));
+	lp = (CCOM_lnhead*)((char *)pcomp->linerep + sizeof(int16_t));
 
 	while (lp->lth)
 	{

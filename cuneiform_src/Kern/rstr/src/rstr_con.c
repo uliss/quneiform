@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctb.h"
 #include "tuner.h"
 
-extern Int16 line_number;
+extern int16_t line_number;
 extern char  local_grey_ctb[];
 extern char  local_ctb_name[];
 static CTB_handle   this_ctb={0};
@@ -74,7 +74,7 @@ static int  datalen = 38;
 static CTB_handle   this_ctb1={0};
 static int  datalen1 = 38;
 
-Int16 rstr_cont_store(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+int16_t rstr_cont_store(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
 		uchar	Prob, uchar Valid, RecVersions *v,uchar control,
         uchar   kegl,uchar column, uchar tabno)
 {
@@ -130,7 +130,7 @@ if( !ret )
     return -1;
 num = this_ctb.num;
 
-return (Int16)num;  // id_rast = last sequentaly saved raster+1
+return (int16_t)num;  // id_rast = last sequentaly saved raster+1
 #else
 ret=-1;
 num=-1;
@@ -193,7 +193,7 @@ return FALSE;
 #endif
 }
 
-Int16 rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+int16_t rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
 		uchar	Prob, uchar Valid, RecVersions *v,uchar control,
         uchar   kegl)
 {
@@ -257,7 +257,7 @@ if( !ret )
     return -1;
 num = this_ctb1.num;
 
-return (Int16)num;  // id_rast = last sequentaly saved raster+1
+return (int16_t)num;  // id_rast = last sequentaly saved raster+1
 #else
 ret=-1;
 num=-1;

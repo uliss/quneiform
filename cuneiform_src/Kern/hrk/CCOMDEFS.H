@@ -80,10 +80,10 @@ typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 
 struct _CCOM_comp
  {
- Int16 upper;                   // upper boundary of component
- Int16 left;                    // left boundary of component
- Int16 h;                       // height of component
- Int16 w;                       // width of component
+ int16_t upper;                   // upper boundary of component
+ int16_t left;                    // left boundary of component
+ int16_t h;                       // height of component
+ int16_t w;                       // width of component
 // 8
  uchar rw;                      // raster width in bytes
  uchar type;                    // recognition type :
@@ -95,8 +95,8 @@ struct _CCOM_comp
 #define CCOM_CH_GREAT     32      // great component
 #define CCOM_CH_MERGE     64      // merged components
 #define CCOM_CH_NOTLTR   128      // not letter or punctuation
- Int16 nl;                      // number of lines
- Int16        size_linerep;     // sizeof to line representation
+ int16_t nl;                      // number of lines
+ int16_t        size_linerep;     // sizeof to line representation
  uchar  *     linerep;          // linear (inteval) representation
  uchar begs;                    // number of free begins
 // 16
@@ -111,7 +111,7 @@ struct _CCOM_comp
  uchar  cs;                     // respond from events
  uchar pidx;            // proportional index (ref.)            *
  uchar reasno;           // proportional criteria messages
- Int16 numcomp;
+ int16_t numcomp;
  CCOM_USER_BLOCK   * user_block ; // user information
 // 24
 #define CCOM_USER_NO    0
@@ -131,10 +131,10 @@ typedef struct _CCOM_comp CCOM_comp;
 //	line header
 typedef struct _lnhead
  {
- Int16 lth; // length of one line representation
- Int16 h;   // height of line
- Int16 row; // relative row of line start
- Word16 flg;  // flags of free beg and free end
+ int16_t lth; // length of one line representation
+ int16_t h;   // height of line
+ int16_t row; // relative row of line start
+ uint16_t flg;  // flags of free beg and free end
 #define CCOM_l_fbeg     0x20
 #define CCOM_l_fend     0x80
 #define CCOM_l_cbeg     0x02
@@ -151,8 +151,8 @@ typedef struct _interval
 
  typedef struct _interval16
  {
- Word16 l;  // length of interval
- Word16 e;  // end of interval coordinates
+ uint16_t l;  // length of interval
+ uint16_t e;  // end of interval coordinates
  } CCOM_interval16;
 
 typedef struct _CCOM_cont

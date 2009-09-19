@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  //       #define Handle void *
 //#endif
 
-CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,Handle parent);
+CLINE_FUNC(Bool32) CLINE_Init(uint16_t wHeightCode,Handle parent);
 CLINE_FUNC(Bool32) CLINE_Done();
 CLINE_FUNC(uint32_t) CLINE_GetReturnCode();
 CLINE_FUNC(char *) CLINE_GetReturnString(uint32_t dwError);

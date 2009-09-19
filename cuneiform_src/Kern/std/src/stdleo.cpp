@@ -1460,7 +1460,7 @@ STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
 		Str[nSymb]=std_ANSI_to_ASCII[(uchar)Str[nSymb]];
 }
 
-STD_FUNC(Word16) stdAnsiToUnicode( uchar Code)
+STD_FUNC(uint16_t) stdAnsiToUnicode( uchar Code)
 {
     return    std_ANSI_to_UNICODE[Code];
 }

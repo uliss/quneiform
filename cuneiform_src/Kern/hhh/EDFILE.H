@@ -94,24 +94,24 @@ struct bit_map_ref
  {
  uchar code;
  uchar pos;
- Word16 row;
- Word16 col;
- Word16 width;
- Word16 height;
+ uint16_t row;
+ uint16_t col;
+ uint16_t width;
+ uint16_t height;
  };
 
 struct text_ref
  {                                     /* 0 - letter */
  uchar code;                            /* 1 -        */
  uchar type;                            /* 2 - word   */
- Word16 object;                           /* 3 - string */
+ uint16_t object;                           /* 3 - string */
  };
 
 struct font_kegl                       /*  1 - serific     */
  {                                     /*  2 - gelvetic    */
  uchar code;                            /*  4 - bold        */
  uchar new_kegl;                        /*  8 - light       */
- Word16 new_font;                        /* 16 - italic      */
+ uint16_t new_font;                        /* 16 - italic      */
 // uchar reserv;                          /* 32 - straight    */
  };                                    /* 64 - underlined  */
 
@@ -131,7 +131,7 @@ struct shift
  {
  uchar code;
  uchar kegl;
- Word16 clearance;                         /* value of lift or descent */
+ uint16_t clearance;                         /* value of lift or descent */
  };                                     /* lift positive            */
 					/* descent negative         */
 struct retrieve_level
@@ -165,14 +165,14 @@ struct tabl_tabul
  {
  uchar code;
  uchar lth;                              /* scale of arow               */
- Word16 arow_pos[1] ;
+ uint16_t arow_pos[1] ;
  };
 
 struct fragm_disk
  {
  uchar code;
  uchar fragm_numb;
- Word16 depth;
+ uint16_t depth;
  };
 
 struct step_back
@@ -185,14 +185,14 @@ struct line_beg
  {
  uchar code;
  uchar height;
- Word16 base_line;                         /* displacement for current         */
+ uint16_t base_line;                         /* displacement for current         */
  };                                     /*     line to upper frame of fragm */
 
 struct position
  {
  uchar code;
  uchar store;
- Word16 pos;                               /* position in line for      */
+ uint16_t pos;                               /* position in line for      */
  };                                     /*     left frame of  fragm  */
 
 struct table_conform_sizes
@@ -224,24 +224,24 @@ struct border
 #define b_vert 1	/* 2 - right                  */
 #define b_hor  4	/* 4 - top                    */
 			/* 8 - bottom                 */
-    Word16  length;        /* Length of border in pixels */
-    Word16  x,y;           /* Coordinates of line begin  */
+    uint16_t  length;        /* Length of border in pixels */
+    uint16_t  x,y;           /* Coordinates of line begin  */
     };
 
 struct table_header
     {
     uchar    code;       /* 0x17 SS_TABLE_HEADER                   */
     uchar    cols;       /* Number of columns                      */
-    Word16     lth;        /* Total length of record                 */
-    Word16     nfrag[1];    /* List of fragments in header of table   */
+    uint16_t     lth;        /* Total length of record                 */
+    uint16_t     nfrag[1];    /* List of fragments in header of table   */
     };
 
 struct list_of_fragments
     {
     uchar    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
     uchar    cols;       /* Number of columns            */
-    Word16     lth;        /* Total length of record       */
-    Word16     nfrag[1];   /* List of fragments in table   */
+    uint16_t     lth;        /* Total length of record       */
+    uint16_t     nfrag[1];   /* List of fragments in table   */
     };
 
 struct aksant
@@ -266,22 +266,22 @@ struct sheet_disk_descr
  {
  uchar code;
  char quant_fragm;
- Word16 sheet_numb;
- Word16 descr_lth;
+ uint16_t sheet_numb;
+ uint16_t descr_lth;
  uchar byte_flag;
- Word16 resolution;
- Word16  incline;
- Word16 version;
+ uint16_t resolution;
+ uint16_t  incline;
+ uint16_t version;
  char tabl[11];
  };
 
 struct fragm_disk_descr
  {
  uchar code;
- Word16 row;                             /* coordinates of left upper  */
- Word16 col;                             /* angle of fragment's frame  */
- Word16 height;                          /* height of fragment         */
- Word16 w_width;                         /* Q.w_width of fragment      */
+ uint16_t row;                             /* coordinates of left upper  */
+ uint16_t col;                             /* angle of fragment's frame  */
+ uint16_t height;                          /* height of fragment         */
+ uint16_t w_width;                         /* Q.w_width of fragment      */
  char type;
 #define FD_TYPE_TEXT 0
 #define FD_TYPE_PICT 1

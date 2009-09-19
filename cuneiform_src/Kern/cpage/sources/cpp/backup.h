@@ -89,8 +89,8 @@ public:
 // for debug functions
 #endif
 
- void   SetReturnCode_cpage(Word16 rc);
- Word16 GetReturnCode_cpage();
+ void   SetReturnCode_cpage(uint16_t rc);
+ uint16_t GetReturnCode_cpage();
 
 void DefConvertInit();
 uint32_t DefConvertBlock( uint32_t dwContext,

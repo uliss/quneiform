@@ -70,7 +70,7 @@ typedef Handle CSTR_line;
 typedef struct tagCSTR_stick
  {
  char  x,y,l,w,top,bot;
- Int16 incl;
+ int16_t incl;
  }CSTR_stick;
 
 
@@ -78,10 +78,10 @@ typedef struct strucCSTR_attr{
 
     int32_t  incline              ;   // Incline*2048 = tg
     int32_t  fragment             ;
-    Int16  col, row             ;
-    Int16  r_col, r_row     ;
-    Int16  r_hei, r_wid     ;
-    Int16  l_col, l_row     ;
+    int16_t  col, row             ;
+    int16_t  r_col, r_row     ;
+    int16_t  r_hei, r_wid     ;
+    int16_t  l_col, l_row     ;
     int32_t  wid, hei             ;
 // 32
     uint32_t Flags            ;
@@ -107,30 +107,30 @@ typedef struct strucCSTR_attr{
 #define CSTR_STR_END_POINTED     0x00040000//в конце строки имеются точки
 #define CSTR_STR_BEGIN_POINTED   0x00080000//в начале строки имеются точки
 
-    Int16  bs1, bs2, bs3, bs4;
-    Int16  Nb1, Nb2, Nb3, Nb4;
-    Int16  Nbt, bsm, Ps,  Psf;
+    int16_t  bs1, bs2, bs3, bs4;
+    int16_t  Nb1, Nb2, Nb3, Nb4;
+    int16_t  Nbt, bsm, Ps,  Psf;
     uchar  VersionName[16]  ;  // Nick 20.02.2001 from 36 vto 16
-	Int16  tab_row;           // Nick 20.02.2001
-	Int16  ref_father;  // параметры формул
-	Int16  ref_nSon;     // Nick 22.05.2001
-	Int16  ref_twin;
+	int16_t  tab_row;           // Nick 20.02.2001
+	int16_t  ref_father;  // параметры формул
+	int16_t  ref_nSon;     // Nick 22.05.2001
+	int16_t  ref_twin;
 	uchar  reserve[12];       // Nick 22.05.
-    Int16  pageSkew2048     ;
-    Int16  ResolutionY      ;
+    int16_t  pageSkew2048     ;
+    int16_t  ResolutionY      ;
 // 100
     uchar  language;
     uchar  scale;
-    Int16  l_hei, l_wid,erection;
-    Int16  agregat;
-    Int16  tab_column;
+    int16_t  l_hei, l_wid,erection;
+    int16_t  agregat;
+    int16_t  tab_column;
 // 112
     int32_t       number                      ;
     int32_t       version                     ;
 // 120
     uchar       colors[4]                   ;
 // 124
-    Int16  agregat_row;
+    int16_t  agregat_row;
     uchar  tab_number;
 	uchar  cn_weight; // due to car numbers recognition
     // align to 128 bytes
@@ -139,11 +139,11 @@ typedef struct strucCSTR_attr{
 
 
 typedef struct strucCSTR_rast_attr{
-    Int16 row;  // ideal row of cell
-    Int16 col;  // ideal collumn of cell
+    int16_t row;  // ideal row of cell
+    int16_t col;  // ideal collumn of cell
 //// 4
-    Int16 h;    // height of cell
-    Int16 w;    // width of cell
+    int16_t h;    // height of cell
+    int16_t w;    // width of cell
 //// 8
     char  bdiff;    // local base line corrective displacement
     uchar difflg;   // local correction flg
@@ -167,8 +167,8 @@ typedef struct strucCSTR_rast_attr{
 #define CSTR_bs_done    128
     uchar   accent_leader; // leader cell in farajev complex-cell
 //// 12
-    Int16 r_row;    // real row of cell
-    Int16 r_col;        // real collumn of cell
+    int16_t r_row;    // real row of cell
+    int16_t r_col;        // real collumn of cell
 //// 16
     char bas1;
     char bas2;
@@ -229,8 +229,8 @@ typedef struct strucCSTR_rast_attr{
 #define CSTR_ba_penalty     8
 #define CSTR_ba_chance      16 // one more chance for cut version
 //// 28
- Int16 left;            // left  of main part (without accent)
- Int16 right;           // right of main part (without accent)
+ int16_t left;            // left  of main part (without accent)
+ int16_t right;           // right of main part (without accent)
 //// 32
  uchar shape;
 #define CSTR_shp_cap        1
@@ -276,9 +276,9 @@ typedef struct strucCSTR_rast_attr{
 #define CSTR_fa_spell_reject    0x08    // non understand word
 #define CSTR_fa_spell_nocarrying 0x10   // save dash in carrying word
 //// 40
- Int16  stick_inc;   // inc of stick
+ int16_t  stick_inc;   // inc of stick
 #define NO_INCLINE 10000 // not init incline
- Int16  save_stick_inc;   // saved inc of stick
+ int16_t  save_stick_inc;   // saved inc of stick
 //// 44
 #define MAX_BATON 3
  CSTR_stick  save_baton[MAX_BATON]; // 8*3 bytes
@@ -295,12 +295,12 @@ typedef struct strucCSTR_rast_attr{
 //// 72
         uint32_t  RecogPass                   ;
 //// 76
-    Int16   clink               ; // link to cluster
-    Word16  clu_attr            ; // cluster attributes
+    int16_t   clink               ; // link to cluster
+    uint16_t  clu_attr            ; // cluster attributes
 //// 80
     int32_t   ColorLtr, ColorBack ; // colors of letters and background
 //// 88
-    Word16   flg;  // flag of cell
+    uint16_t   flg;  // flag of cell
 #define CSTR_f_no           0   // not init
 #define CSTR_f_let          1   // letter component
 #define CSTR_f_bad          2   // badly recognized
@@ -326,7 +326,7 @@ typedef struct strucCSTR_rast_attr{
     uchar   font_spec;
 #define CSTR_fs_none    0
 #define CSTR_fs_courier 1
-    Int16   nClust;
+    int16_t   nClust;
 //// 96
     uint32_t flg_new;
 #define CSTR_fn_shave       0x00000001 // shaved cell

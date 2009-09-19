@@ -67,22 +67,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 */
 //формирование гистограммы
-Int16 *stat_gistoGramma(Int16 *X, Int16 n);
+int16_t *stat_gistoGramma(int16_t *X, int16_t n);
 
 //возвращает индекс "главного" максимального элемента массива
-Int16 stat_index_GlobMax(Int16 *Y, Int16 k, Int16 inequality);
+int16_t stat_index_GlobMax(int16_t *Y, int16_t k, int16_t inequality);
 //уточненный поиск индекса главного" максимального элемента массива
-Int16 stat_alt_indexMax(Int16 *Y, Int16 k, Int16 diff, Int16 b3);
+int16_t stat_alt_indexMax(int16_t *Y, int16_t k, int16_t diff, int16_t b3);
 //возвращает индекс второго максимального элемента массива,
 //находящего слева от "главного"
-Int16 stat_index_LeftLocMax(Int16 *Y, Int16 k0);
+int16_t stat_index_LeftLocMax(int16_t *Y, int16_t k0);
 
 //возвращает индекс второго максимального элемента массива,
 //находящего справа от "главного"
-Int16 stat_index_RightLocMax(Int16 *Y, Int16 k, Int16 k0);
+int16_t stat_index_RightLocMax(int16_t *Y, int16_t k, int16_t k0);
 
 //возвращает индекс минимального элемента массива
-Int16 stat_index_GlobMin(Int16 *Y,Int16 k);
+int16_t stat_index_GlobMin(int16_t *Y,int16_t k);
 
 /*#ifdef __cplusplus
 	}

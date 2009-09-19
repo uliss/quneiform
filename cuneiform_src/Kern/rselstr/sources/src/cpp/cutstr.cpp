@@ -130,10 +130,10 @@ void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
 
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 	CCOM_comp * comp;
-	Int16 top = (Int16) Rc->top;
-	Int16 bottom = (Int16) Rc->bottom;
-	Int16 left = (Int16) Rc->left;
-	Int16 right = (Int16) Rc->right;
+	int16_t top = (int16_t) Rc->top;
+	int16_t bottom = (int16_t) Rc->bottom;
+	int16_t left = (int16_t) Rc->left;
+	int16_t right = (int16_t) Rc->right;
 	CCOM_USER_BLOCK ub;
 
 	for (comp = CCOM_GetFirst(hCCOM, NULL); comp; comp = CCOM_GetNext(comp,
@@ -364,7 +364,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	//  1. Подготовка к запросу части изображения.
 	DataInto.dwHeight = (uint32_t)(h);
 	DataInto.dwWidth = (uint32_t)(prewide);
-	DataInto.wByteWidth = (Word16)(prewide / 8);
+	DataInto.wByteWidth = (uint16_t)(prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
 	DataInto.MaskFlag = 0x00;
@@ -374,7 +374,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	DataOut.dwWidth = DataInto.dwWidth;
 	DataOut.dwHeight = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit = (Word16) info.BitPerPixel;
+	DataOut.byBit = (uint16_t) info.BitPerPixel;
 	DataOut.lpData = *ppmasp;
 
 	//	  5. Чтение части изображения.

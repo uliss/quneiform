@@ -110,16 +110,16 @@ static void store_colors(CSTR_line lino);
 static void *   rstr_realloc(uchar*buf,uint32_t len)    {    return realloc(buf,len);    }
 static void *   rstr_alloc(uint32_t len)    {    return calloc(len,1);    }
 static void     rstr_free(void *ptr,uint32_t len) { free(ptr);};
-static void     rstr_get_colors(Int16 row,Int16 col,Int16 w,Int16 h,
+static void     rstr_get_colors(int16_t row,int16_t col,int16_t w,int16_t h,
                                 int32_t *ColorLtr, int32_t *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
 static void * (*my_realloc)(uchar*buf,uint32_t len)=rstr_realloc;
 static void * (*my_alloc)(uint32_t len)=rstr_alloc;
 static void   (*my_free)(void *,uint32_t len)=rstr_free;
-static void   (*my_get_colors)(Int16 row,Int16 col,Int16 w,Int16 h,
+static void   (*my_get_colors)(int16_t row,int16_t col,int16_t w,int16_t h,
                                int32_t *ColorLrt, int32_t *ColorBack)=rstr_get_colors;
 static int32_t RemoveDustIfPointLine(CSTR_line lin);
 // RSTR_CON
-Int16 rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+int16_t rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
                        uchar   Prob, uchar Valid, RecVersions *v,uchar control,
                        uchar   kegl);
 Bool32 rstr_open_cont1(void);
@@ -137,7 +137,7 @@ void BaseLineStatisticInit(void);
 void set_MMX_addr(void);
 void set_all_addr(void);
 // from ERECTION.C
-extern  Int16 erection_inc;
+extern  int16_t erection_inc;
 // from Acc_tabs.c
 void    correct_let_tables(void);
 // from DFON.DLL
@@ -351,8 +351,8 @@ BYTE *  ED_file_bound,*ED_file_end;
 PBYTE   kit_curr, kit_end, kit_start;
 LONG    kit_size=65536*4;
 Bool32  kit_max_size=FALSE;
-Word16           wHeightRC      = 0;
-Word16           wLowRC         = RSTR_ERR_NO;
+uint16_t           wHeightRC      = 0;
+uint16_t           wLowRC         = RSTR_ERR_NO;
 
 #define FIELD_RESTART 1
 void ErrorExit(int Code);
@@ -693,10 +693,10 @@ RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
                      abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
                     (cpdata->Dir==LD_Horiz)  )
                 {
-                    page_lines[num_of_lines].beg.y=(Int16)(cpdata->Line.Beg_Y);
-                    page_lines[num_of_lines].beg.x=(Int16)(cpdata->Line.Beg_X);
-                    page_lines[num_of_lines].end.y=(Int16)(cpdata->Line.End_Y);
-                    page_lines[num_of_lines].end.x=(Int16)(cpdata->Line.End_X);
+                    page_lines[num_of_lines].beg.y=(int16_t)(cpdata->Line.Beg_Y);
+                    page_lines[num_of_lines].beg.x=(int16_t)(cpdata->Line.Beg_X);
+                    page_lines[num_of_lines].end.y=(int16_t)(cpdata->Line.End_Y);
+                    page_lines[num_of_lines].end.x=(int16_t)(cpdata->Line.End_X);
                     page_lines[num_of_lines].type=HOR_LN;
                     page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
                     num_of_lines++;
@@ -868,8 +868,8 @@ RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
                         (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
                          abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y))    &&
                         (cpdata->Dir==LD_Horiz)                        &&
-                        rcm_find((Int16)(cpdata->Line.Beg_X),(Int16)(cpdata->Line.Beg_Y),
-                                 (Int16)(cpdata->Line.End_X),(Int16)(cpdata->Line.End_Y)) )
+                        rcm_find((int16_t)(cpdata->Line.Beg_X),(int16_t)(cpdata->Line.Beg_Y),
+                                 (int16_t)(cpdata->Line.End_X),(int16_t)(cpdata->Line.End_Y)) )
                     {
                         CLINE_CopyData(&data,cpdata,size_line_data);
                         data.Flags |= LI_Used;
@@ -952,7 +952,7 @@ void save_to_ctb(CSTR_line lino,int32_t type)
     Rect16          rect;
     CSTR_rast_attr  attr;
     int32_t           i;
-    Int16           key;
+    int16_t           key;
     uchar           flags;
     uchar           print_type;
     CSTR_attr       lattr;
@@ -999,7 +999,7 @@ void save_to_ctb(CSTR_line lino,int32_t type)
                 }
                 ver.lnAltCnt =uni.lnAltCnt ;
 #ifdef _FON_CLU_MEMORY_
-                key = (Int16)FONStoreRaster(&rast,ver.Alt[0].Code,
+                key = (int16_t)FONStoreRaster(&rast,ver.Alt[0].Code,
                                             print_type,ver.Alt[0].Prob, flags,line_number,
                                             attr.keg,&rect, (uchar)lattr.tab_column/*, lattr.tab_number*/);
 #else
@@ -1065,7 +1065,7 @@ void save_to_ctb(CSTR_line lino,int32_t type)
     return;
 }
 
-RSTR_FUNC(void)  RSTR_Save2CTB(CSTR_line lino,int32_t type, Int16 line_num)
+RSTR_FUNC(void)  RSTR_Save2CTB(CSTR_line lino,int32_t type, int16_t line_num)
 {
     CSTR_attr attr;
 
@@ -1893,7 +1893,7 @@ void CErrorExit(int Code)
 
 
 ////// OLEG for PUMA
-RSTR_FUNC(Bool32)  RSTR_Init(Word16 wHightCode, Handle hStorage)
+RSTR_FUNC(Bool32)  RSTR_Init(uint16_t wHightCode, Handle hStorage)
 {
     wHeightRC      = wHightCode;
     wLowRC         = RSTR_ERR_NO;
@@ -1918,7 +1918,7 @@ RSTR_FUNC(uint32_t) RSTR_GetReturnCode(void)
 
 RSTR_FUNC(uchar *) RSTR_GetReturnString(uint32_t dwError)
 {
-    Word16 rc = (Word16)(dwError & 0xFFFF + RSTR_ERR_MIN);
+    uint16_t rc = (uint16_t)(dwError & 0xFFFF + RSTR_ERR_MIN);
     static uchar szBuffer[512];
 
     if( /*wLowRC==RSTR_ERR_MIN && */local_ret_error_code )
@@ -2396,7 +2396,7 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData)
     switch(dwType)
     {
         CASE_DATA(RSTR_Word8_Language           ,uchar,language);
-        CASE_DATA(RSTR_Word16_Resolution        ,Word16,actual_resolution);
+        CASE_DATA(RSTR_Word16_Resolution        ,uint16_t,actual_resolution);
         CASE_DATA(RSTR_Word8_Fax1x2                     ,uchar,fax1x2);
         CASE_DATA(RSTR_Word8_Matrix                     ,uchar,matrix);
         CASE_DATA(RSTR_Word8_P2_active          ,uchar,p2_active);
@@ -2504,7 +2504,7 @@ RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
         }
 
         break;
-        CASE_DATA( RSTR_Word16_Resolution               ,Word16,actual_resolution);
+        CASE_DATA( RSTR_Word16_Resolution               ,uint16_t,actual_resolution);
         CASE_DATA( RSTR_Word8_Fax1x2,uchar              ,fax1x2);
         CASE_DATA( RSTR_Word8_P2_disable,uchar          ,p2_disable);
         CASE_DATA( RSTR_Word8_Matrix,uchar              ,matrix);
@@ -2733,6 +2733,6 @@ static int32_t RemoveDustIfPointLine(CSTR_line lin)
 /////////////////
 RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(int32_t add)
 {
-    line_number += (Int16)add;
+    line_number += (int16_t)add;
     return TRUE;
 }

@@ -84,7 +84,7 @@ FNCPAGE_GetBlockNext GetBlockNext;
 FNCPAGE_GetBlockData GetBlockData;
 /*------------extern functions------------------------------------------------*/
 void MyErrorNoMem (const char* str);
-void   SetReturnCode_rverline (Word16 rc);
+void   SetReturnCode_rverline (uint16_t rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
@@ -256,24 +256,24 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin,CLINE_handle hCLINE,char *p
 
 		if(cpdata->Dir==LD_Horiz)
 		{
-			pLHor[count_hor].A.x=(Int16)(cpdata->Line.Beg_X);
-			pLHor[count_hor].A.y=(Int16)(cpdata->Line.Beg_Y);
-			pLHor[count_hor].B.x=(Int16)(cpdata->Line.End_X);
-			pLHor[count_hor].B.y=(Int16)(cpdata->Line.End_Y);
+			pLHor[count_hor].A.x=(int16_t)(cpdata->Line.Beg_X);
+			pLHor[count_hor].A.y=(int16_t)(cpdata->Line.Beg_Y);
+			pLHor[count_hor].B.x=(int16_t)(cpdata->Line.End_X);
+			pLHor[count_hor].B.y=(int16_t)(cpdata->Line.End_Y);
 			pLHor[count_hor].Thickness=cpdata->Line.Wid10/10;
-			pLHor[count_hor].SegCnt=(Int16)(cpdata->n_event);
+			pLHor[count_hor].SegCnt=(int16_t)(cpdata->n_event);
 			pLHor[count_hor].Quality=(cpdata->Dens*255)/100;
 			pLHor[count_hor].Flags=cpdata->Flags;
 			count_hor++;
 		}
 		else
 		{
-			pLVer[count_ver].A.x=(Int16)(cpdata->Line.Beg_X);
-			pLVer[count_ver].A.y=(Int16)(cpdata->Line.Beg_Y);
-			pLVer[count_ver].B.x=(Int16)(cpdata->Line.End_X);
-			pLVer[count_ver].B.y=(Int16)(cpdata->Line.End_Y);
+			pLVer[count_ver].A.x=(int16_t)(cpdata->Line.Beg_X);
+			pLVer[count_ver].A.y=(int16_t)(cpdata->Line.Beg_Y);
+			pLVer[count_ver].B.x=(int16_t)(cpdata->Line.End_X);
+			pLVer[count_ver].B.y=(int16_t)(cpdata->Line.End_Y);
 			pLVer[count_ver].Thickness=cpdata->Line.Wid10/10;
-			pLVer[count_ver].SegCnt=(Int16)(cpdata->n_event);
+			pLVer[count_ver].SegCnt=(int16_t)(cpdata->n_event);
 			pLVer[count_ver].Quality=(cpdata->Dens*255)/100;
 			pLVer[count_ver].Flags=cpdata->Flags;
 			count_ver++;
@@ -452,11 +452,11 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE)
 void Error_CPage (const char *str)
 {
 	uchar  err8;
-	Word16 Code;
+	uint16_t Code;
 	err8 = (uchar)ER_ROUGH_NORMAL;
-	Code = (Word16)(err8<<8);
+	Code = (uint16_t)(err8<<8);
 	err8 = (uchar)ER_DETAIL_FUNC_CPAGE;
-	Code |= (Word16)err8;
+	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	AM_Console ("RVERLINE : Ошибка чужой библиотеки - [CPAGE]%s", str);
 }
@@ -647,7 +647,7 @@ Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData)
 	/*  1. Подготовка к запросу части изображения.  */
 	DataInto.dwHeight   = (uint32_t)pTask->MyHeight;
 	DataInto.dwWidth    = pTask->MyExtrWidth;
-	DataInto.wByteWidth = (Int16)((pTask->MyExtrWidth+7)/8);//06.09.00
+	DataInto.wByteWidth = (int16_t)((pTask->MyExtrWidth+7)/8);//06.09.00
 	DataInto.dwX        = pTask->MyLeft;
 	DataInto.dwY        = pTask->MyTop;
 	DataInto.MaskFlag   = 0x00;
@@ -657,7 +657,7 @@ Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (Word16)info.BitPerPixel;
+	DataOut.byBit      = (uint16_t)info.BitPerPixel;
 	DataOut.lpData     = *ppData;
 	/*  5. Чтение части изображения.  */
 	ret = CIMAGE_GetData (Name, &DataInto, &DataOut);

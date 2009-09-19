@@ -72,14 +72,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------- component in kit --------------------------
 typedef struct tagExtComponent
 {
- Word16 size;             // size of component in bytes (head + body)
+ uint16_t size;             // size of component in bytes (head + body)
                           // NOTE: in tiger.dll - in paragraphs >=3
                           // can be used to step to next comp
  /////////////////////////////////// in image coords, not ideal
- Int16 upper;             // upper boundary of component
- Int16 left;              // left boundary of component
- Int16 h;                 // height of component
- Int16 w;                 // width of component
+ int16_t upper;             // upper boundary of component
+ int16_t left;              // left boundary of component
+ int16_t h;                 // height of component
+ int16_t w;                 // width of component
  ///////////////////////////////////////////////////////////////
  uchar rw;               // raster width in bytes  == (w+7)/8
  uchar type;             // recognition type
@@ -93,11 +93,11 @@ typedef struct tagExtComponent
 #define ch_notltr   128     // not letter or punctuation
  uchar cs;              // recognition case (see bellow)        *
  uchar pidx;            // proportional index (ref.)            *
- Int16 nvers;           // number of alternative versions, 0 - none !!
- Int16 records;         // recognition records offset, 0 - none     !!
- Int16 lines;           // ptr to line representation, 0 - never
+ int16_t nvers;           // number of alternative versions, 0 - none !!
+ int16_t records;         // recognition records offset, 0 - none     !!
+ int16_t lines;           // ptr to line representation, 0 - never
                         // p_body == (char*)p_comp + lines;
- Int16 nl;               // number of lines
+ int16_t nl;               // number of lines
  uchar begs;             // number of free begins
  uchar ends;             // number of free ends
  uchar reasno;           // proportional criteria messages
@@ -132,9 +132,9 @@ typedef struct tagExtComponent
 // dust_comp in H\struct.h OLD TIGER
 typedef struct tagExtCompDust // currently not used
 {
-  Word16 size;            // =1
-  Int16  upper;
-  Int16  left;
+  uint16_t size;            // =1
+  int16_t  upper;
+  int16_t  left;
   uchar h;               // >0
   uchar w;               // >0
   uchar raster[8];
@@ -151,12 +151,12 @@ typedef struct tagExtCompDust // currently not used
 //      line header
 typedef struct tagExtLnHead
 {
- Int16 lth;       // length of one line representation,
+ int16_t lth;       // length of one line representation,
                   // ==head+intervals size in bytes
- Int16 h;         // height of line == count of intervals
- Int16 row;       // relative row of line start
+ int16_t h;         // height of line == count of intervals
+ int16_t row;       // relative row of line start
                   // (offset in pixels from top bound of comp, 0 based)
- Word16 flg;       // flags of free beg and free end
+ uint16_t flg;       // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
@@ -181,15 +181,15 @@ typedef struct tagExtInterval
 // pool:
 // 1. if    Ex_ExtraComp pool has following structure:
 //      <ExtComponent>
-//      <unused Word16>
+//      <unused uint16_t>
 //      <ExtLnHead>, <interval[]>
 //      <ExtLnHead>, <interval[]>
 //      ......................
 //      <ExtLnHead>   // <= ln_head.lth == 0 ( terminator )
 // where:
 //       <c_comp>, <lnhead>, <interval> are structures from "struct.h"
-// count of  <lnhead>, <interval[]> pairs == c_comp->nl (Int16)
-// count of intervals == lnhead->h (Int16)
+// count of  <lnhead>, <interval[]> pairs == c_comp->nl (int16_t)
+// count of intervals == lnhead->h (int16_t)
 //
 // 2. else  array of <gcomp> structures from "struct.h"
 // size: pool size in bytes
@@ -229,20 +229,20 @@ typedef struct tagExcControl
          #define Ex_NoContainer          0x00000400
             // not used container CCOM
 
-   Word16 MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
-   Word16 MaxCompHei;  // =""= by height
-   Word16 MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
-   Word16 MinCompHei;  // =""= by width
-   Word16 MaxScale;    // if scaling > => use long intervals
+   uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
+   uint16_t MaxCompHei;  // =""= by height
+   uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
+   uint16_t MinCompHei;  // =""= by width
+   uint16_t MaxScale;    // if scaling > => use long intervals
 } ExcControl;
 
 typedef struct tagExcBox
 {
- Int16   row;       // real row of comp
- Int16   col;       // real column of  comp
- Int16   h;         // height of  comp
- Int16   w;         // width of  comp
- Word16  flag;     // some logical info
+ int16_t   row;       // real row of comp
+ int16_t   col;       // real column of  comp
+ int16_t   h;         // height of  comp
+ int16_t   w;         // width of  comp
+ uint16_t  flag;     // some logical info
  int32_t   user;     // working var for user
 } ExcBox;
 
@@ -252,8 +252,8 @@ typedef struct tagREXC_DIB
       uint32_t       biSize;
       int32_t        biWidth;
       int32_t        biHeight;
-      Word16        biPlanes;
-      Word16        biBitCount;
+      uint16_t        biPlanes;
+      uint16_t        biBitCount;
       uint32_t       biCompression;
       uint32_t       biSizeImage;
       int32_t        biXPelsPerMeter;
@@ -276,11 +276,11 @@ typedef struct tagREXC_RGBQUAD { // rgbq
 /*
 struct big_merge_struct
 {
- Int16 vh[2*RASTER_MAX_HEIGHT+2];
+ int16_t vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
- Word16 np;
- Int16 min_est;
+ uint16_t np;
+ int16_t min_est;
  CP cp[MAX_NUM_CUTPN];
 };
 

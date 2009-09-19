@@ -122,12 +122,12 @@ FONBASE *GetStaticFonbase(void) {
 static void SetFirstNext(void) {
 	int i;
 	welet *wel;
-	Word16 tek[256];
+	uint16_t tek[256];
 
 	if (fonbase.isFirst)
 		return;
 
-	memset(&fonbase.first[0], 0, 256* sizeof (Word16));
+	memset(&fonbase.first[0], 0, 256* sizeof (uint16_t));
 
 	for(i=1,wel=fonbase.start;i<=fonbase.inBase;i++,wel++)
 	{
@@ -194,8 +194,8 @@ static int CheckFileClu(char *name) {
 // return == 0 - error
 static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	uchar CTBdata[CTB_DATA_SIZE];
-	Word16 *pword16;
-	Int16 *pint16;
+	uint16_t *pword16;
+	int16_t *pint16;
 	uint32_t *pword32;
 
 	if (CTB_read(CTBhandle, num, wel->raster, CTBdata) == FALSE)
@@ -212,7 +212,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	wel->attr = CTBdata[11];
 
 	// now put words
-	pword16 = (Word16 *) (CTBdata + 12);
+	pword16 = (uint16_t *) (CTBdata + 12);
 	wel->fill = pword16[0];
 	wel->num = pword16[1];
 	wel->invalid = pword16[2];
@@ -221,7 +221,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	wel->kegl = CTBdata[19];
 
 	// now short int's
-	pint16 = (Int16 *) (CTBdata + 20);
+	pint16 = (int16_t *) (CTBdata + 20);
 	wel->sr_col = pint16[0];
 	wel->sr_row = pint16[1];
 
@@ -230,7 +230,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	wel->summa = pword32[0];
 	SetFields(wel->fields,(pword32+1));
 
-	pint16 = (Int16 *) (CTBdata + 28 + NFIELDDWORD * sizeof(uint32_t));
+	pint16 = (int16_t *) (CTBdata + 28 + NFIELDDWORD * sizeof(uint32_t));
 	wel->nInCTB = pint16[0];
 	pword32 = (uint32_t *) (pint16 + 1);
 	wel->tablColumn = pword32[0];
@@ -244,7 +244,7 @@ static int LoadCTB(char *name) {
 	welet *wel, *twel;
 	int num;
 	int i;
-	Int16 *pint16;
+	int16_t *pint16;
 	uint32_t *pword32;
 
 	// process CTB-file
@@ -283,7 +283,7 @@ static int LoadCTB(char *name) {
 
 	// now to static
 	memset(&fonbase, 0, sizeof(FONBASE));
-	pint16 = (Int16 *) (CTBdata + 6);
+	pint16 = (int16_t *) (CTBdata + 6);
 	pword32 = (uint32_t *) (CTBdata + 8);
 	fonbase.start = wel;
 	fonbase.inBase = num;
@@ -351,7 +351,7 @@ FON_FUNC(int32_t) FONInit(char *name)
 #define POROG_HEI_REJECT 3
 
 // получить поле в виде DWORD[2]
-static int32_t GetBaseField(Int16 nField, FONBASE *fbase, uint32_t *field) {
+static int32_t GetBaseField(int16_t nField, FONBASE *fbase, uint32_t *field) {
 	if (nField <= 0 || nField > MAXFIELD)
 		return 0;
 	ClearFields(field);
@@ -494,7 +494,7 @@ FON_FUNC(int32_t) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpe
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
-	Int16 col,row;
+	int16_t col,row;
 	int32_t countRazmaz;
 
 	memset(collection,0,sizeof(RecVersions));
@@ -595,7 +595,7 @@ FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,F
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
-	Int16 col,row;
+	int16_t col,row;
 
 	memset(collection,0,sizeof(RecVersions));
 
@@ -673,7 +673,7 @@ FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,F
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,Int16 col,Int16 row)
+FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,int16_t col,int16_t row)
 {
 	welet *wel;
 	int i;
@@ -700,13 +700,13 @@ FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,Int16 col,Int16 row)
 //         -1 - no such letter
 //       >=0  - how many variants
 //
-FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *attr,Int16 nInCTB)
+FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *attr,int16_t nInCTB)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
 	SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
-			FONBASE *fbase,int let,FonTestInfo *attr,Int16 nInCTB);
+			FONBASE *fbase,int let,FonTestInfo *attr,int16_t nInCTB);
 
 	if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
 			xbit > WR_MAX_WIDTH -2 )
@@ -1612,11 +1612,11 @@ FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpec
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
-	Int16 col,row;
+	int16_t col,row;
 	int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,
 			welet *wl,int numWel,
-			int porog ,int nInCTB, Int16 col, Int16 row,
+			int porog ,int nInCTB, int16_t col, int16_t row,
 			int okr, int proc);
 
 	memset(collection,0,sizeof(RecVersions));
@@ -1730,11 +1730,11 @@ FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSp
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
 	int32_t nInCTB,nField;
-	Int16 col,row;
+	int16_t col,row;
 	int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,
 			welet *wl,int numWel,
-			int nInCTB, Int16 *col, Int16 *row);
+			int nInCTB, int16_t *col, int16_t *row);
 
 	memset(collection,0,sizeof(RecVersions));
 

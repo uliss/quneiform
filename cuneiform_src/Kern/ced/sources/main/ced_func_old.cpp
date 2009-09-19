@@ -520,7 +520,7 @@ void RecreateFrames()
 		//memorize vertical lines
 		if (TRarray[i].type==SSR_FRAG_COLXW&&numOfCols!=-1)
 		{
-			borders[borNum++]=(Int16)TRarray[i].object;
+			borders[borNum++]=(int16_t)TRarray[i].object;
 		}
 		if (TRarray[i].type==SSR_FRAG_TYPE&&TRarray[i].object==TP_NEW_ROW&&inTable)
 		{

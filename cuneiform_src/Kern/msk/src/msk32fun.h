@@ -59,28 +59,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 
-int new_reco(short, short,Word16 *, uchar *, BYTE, BYTE,
+int new_reco(short, short,uint16_t *, uchar *, BYTE, BYTE,
 			 short m1,short n1,short m2,short n2, uchar *ch, uchar enable_1);
 
 short recindex(short, BYTE, short, short, short *, BYTE ,
 				unsigned short  *, BYTE *, BYTE *, uchar );
 
-int det_sym_sort(short ptr_char,Word16 pri,Word16 abc_n1,
-				 Word16 iobraz[],Word16 iobraz1[],Word16 list[],
-				Word16 meas0[],	Word16 proc);
+int det_sym_sort(short ptr_char,uint16_t pri,uint16_t abc_n1,
+				 uint16_t iobraz[],uint16_t iobraz1[],uint16_t list[],
+				uint16_t meas0[],	uint16_t proc);
 
-int chn_mat(Int16 coo,Word16  *bgf,BYTE bgf_col,
-            Int16 i1,Int16 j1,Int16 i2,Int16 j2,Word16 *ss,
-            Int16 co1,Int16 k0,Int16 l0,Int16 k1,Int16 l1);
+int chn_mat(int16_t coo,uint16_t  *bgf,BYTE bgf_col,
+            int16_t i1,int16_t j1,int16_t i2,int16_t j2,uint16_t *ss,
+            int16_t co1,int16_t k0,int16_t l0,int16_t k1,int16_t l1);
 
 int tch_in(const char *NameFile);
 
-int chn_mat1(short coo,Word16 *bgfff,char buff_col,short i1,
+int chn_mat1(short coo,uint16_t *bgfff,char buff_col,short i1,
 			 short j1,short i2,short j2,unsigned short *ss,
 			 short co1,short k0,short l0,short k1,short l1);
 
 short recindexNDX(short hor, short ver, short *lett_coo,
-				BYTE buff_col, Word16  *buff_image);
+				BYTE buff_col, uint16_t  *buff_image);
 
 short det_symn(unsigned short *, unsigned short *, unsigned short *);
 

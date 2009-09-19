@@ -85,52 +85,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	}
 
 //////////////////////Functions prototypes///////////////////////////
-Int16 set_stick_char (uchar left[], uchar right[], Int16 hooks[],
-       Int16 dy, Int16 dx, Int16 opt, Int16 wide, Int16 corr_mode,
-       Int16 skip_ul, Int16 skip_dl, Int16 skip_ur, Int16 skip_dr,
-       Int16 inc_num,
+int16_t set_stick_char (uchar left[], uchar right[], int16_t hooks[],
+       int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
+       int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
+       int16_t inc_num,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-       Int16 *l_mode, Int16 *r_mode);
-static Int16 fun_ge(uchar fun[],Int16 n, Int16 level);
-static Int16 fun_le(uchar fun[],Int16 n, Int16 level);
-static void calc_chars (STICK_CHARS *res, Int16 level, Int16 typ,
-          uchar fun[], Int16 n, Int16 skip_u, Int16 skip_d);
-static Int16 study_nose_1(uchar left[],Int16 n,Int16 level, Int16 width);
+       int16_t *l_mode, int16_t *r_mode);
+static int16_t fun_ge(uchar fun[],int16_t n, int16_t level);
+static int16_t fun_le(uchar fun[],int16_t n, int16_t level);
+static void calc_chars (STICK_CHARS *res, int16_t level, int16_t typ,
+          uchar fun[], int16_t n, int16_t skip_u, int16_t skip_d);
+static int16_t study_nose_1(uchar left[],int16_t n,int16_t level, int16_t width);
 static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
-           Int16 skip_ul,Int16 skip_dl,Int16 skip_ur,Int16 skip_dr,
-           Int16 l,Int16 r,Int16 dy,Int16 dx);
+           int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
+           int16_t l,int16_t r,int16_t dy,int16_t dx);
 static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
-           Int16 skip_ul,Int16 skip_dl,Int16 skip_ur,Int16 skip_dr,
-           Int16 l,Int16 r,Int16 dy);
-static Int16 correct_beam(STICK_CHARS *l, STICK_CHARS *r,Int16 lev,Int16 dist);
-static Int16 correct_neck(STICK_CHARS *l, STICK_CHARS *r,Int16 lev,Int16 dist);
-static void num_flag_conc (STICK_CHARS *res, Int16 width);
-static void set_near ( uchar fun[], Int16 skip_u, Int16 skip_d,
-       Int16 n_full, Int16 lev, Int16 lim[],
-       Int16 left[], Int16 right[], Int16 l_pos[], Int16 r_pos[],
-       Int16 lb_pos[], Int16 le_pos[], Int16 rb_pos[], Int16 re_pos[],
-       Int16 *sum_l_near_int, Int16 *sum_r_near_int);
-static Int16 set_flags (STICK_CHARS *res, Int16 right[], Int16 left[],
-         Int16 r_pos[], Int16 l_pos[],
-         Int16 mb_pos[], Int16 me_pos[],Int16 cb_pos[], Int16 ce_pos[],
-         Int16 sum_r, Int16 sum_l, Int16 ear);
-static Int16 compress4(Int16 v);
-static void set_long(uchar fun[],Int16 skip_u,Int16 skip_d,Int16 n,
-        Int16 lev,Int16 lim[], Int16 sl, Int16 sr,
-        Int16 left[],Int16 right[],Int16 l_pos[],Int16 r_pos[],
-              Int16 lb_pos[],Int16 le_pos[],Int16 rb_pos[],Int16 re_pos[],
-        Int16 *ll,Int16 *rr);
-static Int16 correct_two_zones(Int16 *kk,Int16 *mm,Int16 i,Int16 imax,Int16 extr_pos,
-         Int16 lim[]);
-static Int16 index_arr(Int16 v,Int16 limit[],Int16 n);
-static void find_peak_new (Int16 *ind1, Int16 *ind2, uchar fun[], Int16 nn,
-  Int16 level, Int16 sr, Int16 *extr_pos, uchar *extr_fun);
-static Int16 typ_nose_1(uchar left[],Int16 n,Int16 lim,Int16 lev);
-static Bool16 find_first_ne(uchar fun[],Int16 n,Int16 direct,Int16 level);
-static void find_conc_new (Int16 *ind1, Int16 *ind2, uchar fun[], Int16 nn,
-  Int16 level, Int16 sl, Int16 *extr_pos, uchar *extr_fun);
+           int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
+           int16_t l,int16_t r,int16_t dy);
+static int16_t correct_beam(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist);
+static int16_t correct_neck(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist);
+static void num_flag_conc (STICK_CHARS *res, int16_t width);
+static void set_near ( uchar fun[], int16_t skip_u, int16_t skip_d,
+       int16_t n_full, int16_t lev, int16_t lim[],
+       int16_t left[], int16_t right[], int16_t l_pos[], int16_t r_pos[],
+       int16_t lb_pos[], int16_t le_pos[], int16_t rb_pos[], int16_t re_pos[],
+       int16_t *sum_l_near_int, int16_t *sum_r_near_int);
+static int16_t set_flags (STICK_CHARS *res, int16_t right[], int16_t left[],
+         int16_t r_pos[], int16_t l_pos[],
+         int16_t mb_pos[], int16_t me_pos[],int16_t cb_pos[], int16_t ce_pos[],
+         int16_t sum_r, int16_t sum_l, int16_t ear);
+static int16_t compress4(int16_t v);
+static void set_long(uchar fun[],int16_t skip_u,int16_t skip_d,int16_t n,
+        int16_t lev,int16_t lim[], int16_t sl, int16_t sr,
+        int16_t left[],int16_t right[],int16_t l_pos[],int16_t r_pos[],
+              int16_t lb_pos[],int16_t le_pos[],int16_t rb_pos[],int16_t re_pos[],
+        int16_t *ll,int16_t *rr);
+static int16_t correct_two_zones(int16_t *kk,int16_t *mm,int16_t i,int16_t imax,int16_t extr_pos,
+         int16_t lim[]);
+static int16_t index_arr(int16_t v,int16_t limit[],int16_t n);
+static void find_peak_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sr, int16_t *extr_pos, uchar *extr_fun);
+static int16_t typ_nose_1(uchar left[],int16_t n,int16_t lim,int16_t lev);
+static Bool16 find_first_ne(uchar fun[],int16_t n,int16_t direct,int16_t level);
+static void find_conc_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sl, int16_t *extr_pos, uchar *extr_fun);
 ///////////////////////////////////////////////////////////////////////////
 
 static uchar tab_1[]=
@@ -147,26 +147,26 @@ static uchar tab_1[]=
 //////	12	// 9. MK: VERT FLAT NOSE (first 48, sec.12); PROBA 31.05.1993
 	};
 
-Int16 set_stick_char (uchar left[], uchar right[], Int16 hooks[],
-       Int16 dy, Int16 dx, Int16 opt, Int16 wide, Int16 corr_mode,
-       Int16 skip_ul, Int16 skip_dl, Int16 skip_ur, Int16 skip_dr,
-//////       Int16 inc,
-       Int16 inc_num,   // 10.12.1993
+int16_t set_stick_char (uchar left[], uchar right[], int16_t hooks[],
+       int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
+       int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
+//////       int16_t inc,
+       int16_t inc_num,   // 10.12.1993
 //////		   STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 //////		   STICK_SIGNUMS *signums,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-       Int16 *l_mode, Int16 *r_mode)
+       int16_t *l_mode, int16_t *r_mode)
 {
-//////Int16 l,r;
-Int16 lm, rm;
-Int16 lll_dis;
+//////int16_t l,r;
+int16_t lm, rm;
+int16_t lll_dis;
 
 memset(s, 0 , sizeof(STICK_SIGNUMS));
 rm = opt + (wide<<1) - 2;	/* right mode */
 if( rm%4 )
 	{
 	rm = ((rm>>2)<<2)+2 ;  /* step = 2 */
-	if( fun_ge(right,dy,(Int16)(rm-2))<fun_le(right,dy,(Int16)(rm+2)) )
+	if( fun_ge(right,dy,(int16_t)(rm-2))<fun_le(right,dy,(int16_t)(rm+2)) )
 		rm += 2;      /* select column (rm-2),(rm+2) */
 	else
 		rm -= 2;
@@ -181,7 +181,7 @@ if( lm%4 )
 //////	if( fun_ge(left,dy,l-2)<fun_le(left,dy,lm+2) )	// BEFORE 01.02.1993
 //mkm3 =	fun_ge(left,dy,lm-2)<<8; //////////////////////////////////////
 //mkm3 |=	fun_le(left,dy,lm+2);	/////////////////////////////////////////////
-	if( fun_ge(left,dy,(Int16)(lm-2)) <= fun_le(left,dy,(Int16)(lm+2))+1 )	// 01.02.1993
+	if( fun_ge(left,dy,(int16_t)(lm-2)) <= fun_le(left,dy,(int16_t)(lm+2))+1 )	// 01.02.1993
 		lm += 2;    /* select black column */
 	else
 		lm -= 2;
@@ -198,7 +198,7 @@ lll_dis = study_nose_1(left,dy,lm,wide);	// 01.06.1993
 s->lll_nose_1 = lll_dis >> 8;		// 00xx or 01xx => 0 or 1
 s->dis_nose_1 = lll_dis & 0xFF;
 
-s->typ_nose_1 = (uchar)typ_nose_1(left,dy,(Int16)((wide>4)?4:2),lm);
+s->typ_nose_1 = (uchar)typ_nose_1(left,dy,(int16_t)((wide>4)?4:2),lm);
 	/* typ_nose_1 - indicator normal (inc) nose 1 */
 
 l->up_hook    = (hooks[0]>1);	/* hooks-signums ex. right down : */
@@ -226,8 +226,8 @@ set_serifs (left, right, l, r,
 correct_serifs (left, right, l, r,
 		skip_ul, skip_dl, skip_ur, skip_dr, lm, rm, dy);
 
-if( !correct_beam(l,r,(Int16)(dy>9?dy/10:1),1) )
-	correct_beam (l, r,(Int16)( dy>19 ? dy/10 : 2 ), 0);
+if( !correct_beam(l,r,(int16_t)(dy>9?dy/10:1),1) )
+	correct_beam (l, r,(int16_t)( dy>19 ? dy/10 : 2 ), 0);
 
 correct_neck (l, r, 2, 0);
 
@@ -249,9 +249,9 @@ return(1);
 }
 
 
-static Int16 fun_ge(uchar fun[],Int16 n, Int16 level)
+static int16_t fun_ge(uchar fun[],int16_t n, int16_t level)
 {
-Int16 i,s,f;
+int16_t i,s,f;
 for(s=i=0;i<n;i++)
 	{
 	f=fun[i];
@@ -260,9 +260,9 @@ for(s=i=0;i<n;i++)
 return(s);
 }
 
-static Int16 fun_le(uchar fun[],Int16 n, Int16 level)
+static int16_t fun_le(uchar fun[],int16_t n, int16_t level)
 {
-Int16 i,s,f;
+int16_t i,s,f;
 for(s=i=0;i<n;i++)
 	{
 	f=fun[i];
@@ -271,14 +271,14 @@ for(s=i=0;i<n;i++)
 return(s);
 }
 
-static void calc_chars (STICK_CHARS *res, Int16 level, Int16 typ,
-          uchar fun[], Int16 n, Int16 skip_u, Int16 skip_d)
+static void calc_chars (STICK_CHARS *res, int16_t level, int16_t typ,
+          uchar fun[], int16_t n, int16_t skip_u, int16_t skip_d)
 {
 #define SIZ 6
-Int16 r, l, sr=2, sl=2, sum_r, sum_l;
-Int16 left[5],  l_pos[5], lb_pos[5], le_pos[5];
-Int16 right[5], r_pos[5], rb_pos[5], re_pos[5];
-Int16 lim[SIZ];
+int16_t r, l, sr=2, sl=2, sum_r, sum_l;
+int16_t left[5],  l_pos[5], lb_pos[5], le_pos[5];
+int16_t right[5], r_pos[5], rb_pos[5], re_pos[5];
+int16_t lim[SIZ];
 
 if( level<0 )
 	level = 0;
@@ -329,9 +329,9 @@ set_long (fun, skip_u, skip_d, n, level, lim, sl, sr,
 return;
 }
 
-static Int16 study_nose_1(uchar left[],Int16 n,Int16 level, Int16 width)
+static int16_t study_nose_1(uchar left[],int16_t n,int16_t level, int16_t width)
 {
-Int16  i = -1, ii, nn=n>>1, dis=0 ,minim, imin  ,s , lmin ;
+int16_t  i = -1, ii, nn=n>>1, dis=0 ,minim, imin  ,s , lmin ;
 
 if( level==0 )
 	return(0);						// 0000 !!!
@@ -424,10 +424,10 @@ return( dis );
 
 static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
-           Int16 skip_ul,Int16 skip_dl,Int16 skip_ur,Int16 skip_dr,
-           Int16 l,Int16 r,Int16 dy,Int16 dx)
+           int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
+           int16_t l,int16_t r,int16_t dy,int16_t dx)
 {
-Int16 l1,l2,r1,r2,dy_u=dy/6,dy_d=dy-1-dy/6,d=(dx-1)<<2;
+int16_t l1,l2,r1,r2,dy_u=dy/6,dy_d=dy-1-dy/6,d=(dx-1)<<2;
 
 r1 = MIN(r+4,d); r2 = MIN(r+8,d); /* r1-one,r2-two step in right direct */
 if( r1==r2 )
@@ -479,10 +479,10 @@ return;
 
 static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
-           Int16 skip_ul,Int16 skip_dl,Int16 skip_ur,Int16 skip_dr,
-           Int16 l,Int16 r,Int16 dy)
+           int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
+           int16_t l,int16_t r,int16_t dy)
 {
-Int16 dy_u=dy/6;
+int16_t dy_u=dy/6;
 
 /* right upper serif */
 if( left_chars->up_serif==2 && right_chars->up_serif==0 )
@@ -534,9 +534,9 @@ if( left_chars->down_serif &&
 return;
 }
 
-static Int16 correct_beam(STICK_CHARS *l, STICK_CHARS *r,Int16 lev,Int16 dist)
+static int16_t correct_beam(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist)
 {
-Int16 i,lm,rm,lmn,rmn,t,dist1=MAX(dist,1);
+int16_t i,lm,rm,lmn,rmn,t,dist1=MAX(dist,1);
 for(i=0;i<2;i++) /* study zones 0,1,2 */
 	{
 	lm  = l->mount[i];	rm  = r->mount[i];
@@ -586,9 +586,9 @@ for(i=0;i<3;i++)
 return(0);
 }
 
-static Int16 correct_neck(STICK_CHARS *l, STICK_CHARS *r,Int16 lev,Int16 dist)
+static int16_t correct_neck(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist)
 {
-Int16 i,lm,rm,lmn,rmn;
+int16_t i,lm,rm,lmn,rmn;
 for(i=0;i<2;i++) /* study zones 0,1,2 */
 	{
 	lm  = l->conc[i];	rm  = r->conc[i];
@@ -636,10 +636,10 @@ for(i=0;i<3;i++)
 return(0);
 }
 
-static void num_flag_conc (STICK_CHARS *res, Int16 width)
+static void num_flag_conc (STICK_CHARS *res, int16_t width)
 {
-Int16 i, t, sc, sf, n;
-Int16 max_flag=0;
+int16_t i, t, sc, sf, n;
+int16_t max_flag=0;
 for (sc=sf=n=i=0; i<5 ;i++)
 	{
 	if(res->mount[i]>0 )
@@ -667,20 +667,20 @@ res -> max_flag =(uchar) max_flag;	// 06.01.1994
 return;
 }
 
-static void set_near ( uchar fun[], Int16 skip_u, Int16 skip_d,
-//////       Int16 n, Int16 lev, Int16 lim[],
-       Int16 n_full, Int16 lev, Int16 lim[],
-       Int16 left[], Int16 right[], Int16 l_pos[], Int16 r_pos[],
-       Int16 lb_pos[], Int16 le_pos[], Int16 rb_pos[], Int16 re_pos[],
-       Int16 *sum_l_near_int, Int16 *sum_r_near_int)
+static void set_near ( uchar fun[], int16_t skip_u, int16_t skip_d,
+//////       int16_t n, int16_t lev, int16_t lim[],
+       int16_t n_full, int16_t lev, int16_t lim[],
+       int16_t left[], int16_t right[], int16_t l_pos[], int16_t r_pos[],
+       int16_t lb_pos[], int16_t le_pos[], int16_t rb_pos[], int16_t re_pos[],
+       int16_t *sum_l_near_int, int16_t *sum_r_near_int)
 {							// 28.01.1994
 				// NOTA BAENE: 28.01.1994 LEMAN call to OLEG;
 				// CHANGE  "n"  to  "n_full"  (BBB)
 				// and USE NOW  "nn"  ONLY!!!
 				// (TAK GOVORIL ZARATUSTRA)
-Int16 i, k, b, e, ex,  nn = n_full - skip_d;
-uchar  level=(uchar)lev, f; // NB: Int16 lev, uchar level;
-Int16 nL, nR;   // 28.01.1994 (OLD l, r);
+int16_t i, k, b, e, ex,  nn = n_full - skip_d;
+uchar  level=(uchar)lev, f; // NB: int16_t lev, uchar level;
+int16_t nL, nR;   // 28.01.1994 (OLD l, r);
 
 ///for (l=r=0,i=skip_u;i<nn;i++) //this cykl find near mounts for any interval:
 for (nL=nR=0,i=skip_u; i<nn; i++)  {			// 28.01.1994
@@ -731,12 +731,12 @@ for (nL=nR=0,i=skip_u; i<nn; i++)  {			// 28.01.1994
 return;
 }
 
-static Int16 set_flags (STICK_CHARS *res, Int16 right[], Int16 left[],
-         Int16 r_pos[], Int16 l_pos[],
-         Int16 mb_pos[], Int16 me_pos[],Int16 cb_pos[], Int16 ce_pos[],
-         Int16 sum_r, Int16 sum_l, Int16 ear)
+static int16_t set_flags (STICK_CHARS *res, int16_t right[], int16_t left[],
+         int16_t r_pos[], int16_t l_pos[],
+         int16_t mb_pos[], int16_t me_pos[],int16_t cb_pos[], int16_t ce_pos[],
+         int16_t sum_r, int16_t sum_l, int16_t ear)
 {
-Int16 i;
+int16_t i;
 
 for(i=0;i<5;i++)
 	{
@@ -757,7 +757,7 @@ res->main_ear = (uchar)ear  ;
 return(1);
 }
 
-static Int16 compress4(Int16 v)
+static int16_t compress4(int16_t v)
 {
 if ( v==0 )			// 0  1  2  3  4  5  6  7  8  9 10 11  v
 	return(0);		// 0  1  1  1  1  1  2  2  2  2  3  3  OLEG
@@ -774,13 +774,13 @@ else
 return( v );
 }
 
-static void set_long(uchar fun[],Int16 skip_u,Int16 skip_d,Int16 n,
-        Int16 lev,Int16 lim[], Int16 sl, Int16 sr,
-        Int16 left[],Int16 right[],Int16 l_pos[],Int16 r_pos[],
-              Int16 lb_pos[],Int16 le_pos[],Int16 rb_pos[],Int16 re_pos[],
-        Int16 *ll,Int16 *rr)
+static void set_long(uchar fun[],int16_t skip_u,int16_t skip_d,int16_t n,
+        int16_t lev,int16_t lim[], int16_t sl, int16_t sr,
+        int16_t left[],int16_t right[],int16_t l_pos[],int16_t r_pos[],
+              int16_t lb_pos[],int16_t le_pos[],int16_t rb_pos[],int16_t re_pos[],
+        int16_t *ll,int16_t *rr)
 {
-Int16 i,k,m,extr,imax,l,r,nn=n-skip_d;
+int16_t i,k,m,extr,imax,l,r,nn=n-skip_d;
  uchar level=(uchar)lev,f;
 for(r=l=0,i=skip_u;i<nn;i++)
 	{
@@ -834,10 +834,10 @@ for(r=l=0,i=skip_u;i<nn;i++)
 return;
 }
 
-static Int16 correct_two_zones(Int16 *kk,Int16 *mm,Int16 i,Int16 imax,Int16 extr_pos,
-         Int16 lim[])
+static int16_t correct_two_zones(int16_t *kk,int16_t *mm,int16_t i,int16_t imax,int16_t extr_pos,
+         int16_t lim[])
 {
-Int16 k=*kk, m=*mm;
+int16_t k=*kk, m=*mm;
 
 if( k==m )
 	return(1);
@@ -870,19 +870,19 @@ if( k==1 && m==3 )
 return( k==m );
 }
 
-static Int16 index_arr(Int16 v,Int16 limit[],Int16 n)
+static int16_t index_arr(int16_t v,int16_t limit[],int16_t n)
 {
-Int16 i;
+int16_t i;
 for(i=1; i<n && v>=limit[i]; i++);
 return( i-1 );
 }
 
-static void find_peak_new (Int16 *ind1, Int16 *ind2, uchar fun[], Int16 nn,
-  Int16 level, Int16 sr, Int16 *extr_pos, uchar *extr_fun) // MK NEW
+static void find_peak_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sr, int16_t *extr_pos, uchar *extr_fun) // MK NEW
 {							// 14.01.1993
-Int16 i=*ind1, extr;
+int16_t i=*ind1, extr;
 uchar  f=*extr_fun;
-///Int16  w_of_max = right0 [i] - left0 [i];  // MK 19.01.1993
+///int16_t  w_of_max = right0 [i] - left0 [i];  // MK 19.01.1993
 ///uchar f_i, w_i;
 
 	extr=*ind2=i++ ;
@@ -918,9 +918,9 @@ uchar  f=*extr_fun;
 //	return;
 }
 
-static Int16 typ_nose_1(uchar left[],Int16 n,Int16 lim,Int16 lev)
+static int16_t typ_nose_1(uchar left[],int16_t n,int16_t lim,int16_t lev)
 {                                         /* normal nose (inc+jumps) : */
-Int16  i ,jumps, ret   ;                        /*        °°             */
+int16_t  i ,jumps, ret   ;                        /*        °°             */
 for(jumps=i=0;i<n && left[i]>=left[i+1]; i++) /*       °°°             */
 	if( left[i]!=left[i+1] )              /*     °°°°°             */
 		jumps ++;                     /*    °°°°°°             */
@@ -937,9 +937,9 @@ if( ret )
 return( ret );
 }
 
-static Bool16 find_first_ne(uchar fun[],Int16 n,Int16 direct,Int16 level)
+static Bool16 find_first_ne(uchar fun[],int16_t n,int16_t direct,int16_t level)
 {
-Int16 i,ind;
+int16_t i,ind;
 uchar lev=(uchar)level;
 for(ind=i=0;i<n;i++,ind+=direct)
 	if( fun[ind]!=lev )
@@ -947,10 +947,10 @@ for(ind=i=0;i<n;i++,ind+=direct)
 return(FALSE);
 }
 
-static void find_conc_new (Int16 *ind1, Int16 *ind2, uchar fun[], Int16 nn,
-  Int16 level, Int16 sl, Int16 *extr_pos, uchar *extr_fun) // MK NEW
+static void find_conc_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sl, int16_t *extr_pos, uchar *extr_fun) // MK NEW
 {							// 14.01.1992
-Int16 i=*ind1, extr;
+int16_t i=*ind1, extr;
 uchar  f=*extr_fun;
 	extr=*ind2=i++;
 

@@ -390,7 +390,7 @@ typedef int REGSAM;
 #endif
 
 #ifndef RGB
-#define RGB(r,g,b) ((uint32_t)(((uchar)(r)|((Word16)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
+#define RGB(r,g,b) ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 #endif
 
 #ifndef GENERIC_READ

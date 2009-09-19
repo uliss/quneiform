@@ -285,13 +285,13 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount,
 		pV3Header->biWidth = Width;
 		pV3Header->biHeight = Height;
 		pV3Header->biPlanes = CTDIB_DEFAULT_PLANES;
-		pV3Header->biBitCount = (Word16) BitCount;
+		pV3Header->biBitCount = (uint16_t) BitCount;
 		pV3Header->biCompression = CTDIB_DEFAULT_COMPRESSION;
 		pV3Header->biSizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(
 				Height);
 		pV3Header->biXPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
 		pV3Header->biYPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-		pV3Header->biClrUsed = (Word16) UseColors;
+		pV3Header->biClrUsed = (uint16_t) UseColors;
 		pV3Header->biClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
 		pHeader = (PVOID) pV3Header;
 		break;
@@ -302,13 +302,13 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount,
 		pV4Header->bV4Height = Height;
 		pV4Header->bV4Width = Width;
 		pV4Header->bV4Planes = CTDIB_DEFAULT_PLANES;
-		pV4Header->bV4BitCount = (Word16) BitCount;
+		pV4Header->bV4BitCount = (uint16_t) BitCount;
 		pV4Header->bV4V4Compression = CTDIB_DEFAULT_COMPRESSION;
 		pV4Header->bV4SizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(
 				Height);
 		pV4Header->bV4XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
 		pV4Header->bV4YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-		pV4Header->bV4ClrUsed = (Word16) UseColors;
+		pV4Header->bV4ClrUsed = (uint16_t) UseColors;
 		pV4Header->bV4ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
 		pHeader = (PVOID) pV4Header;
 		break;
@@ -319,13 +319,13 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount,
 		pV5Header->bV5Height = Height;
 		pV5Header->bV5Width = Width;
 		pV5Header->bV5Planes = CTDIB_DEFAULT_PLANES;
-		pV5Header->bV5BitCount = (Word16) BitCount;
+		pV5Header->bV5BitCount = (uint16_t) BitCount;
 		pV5Header->bV5Compression = CTDIB_DEFAULT_COMPRESSION;
 		pV5Header->bV5SizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(
 				Height);
 		pV5Header->bV5XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
 		pV5Header->bV5YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-		pV5Header->bV5ClrUsed = (Word16) UseColors;
+		pV5Header->bV5ClrUsed = (uint16_t) UseColors;
 		pV5Header->bV5ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
 		pHeader = (PVOID) pV4Header;
 		break;

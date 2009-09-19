@@ -76,13 +76,13 @@
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16 gwHeightRC = 0;
-static Word16 gwLowRC = 0;
+static uint16_t gwHeightRC = 0;
+static uint16_t gwLowRC = 0;
 static Handle ghInst = NULL;
 CRLControl * Control_crl = NULL;
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode_rling(Word16 rc);
-Word16 GetReturnCode_rling();
+void SetReturnCode_rling(uint16_t rc);
+uint16_t GetReturnCode_rling();
 ///////////////////////////////////////////////////////////////////////////////////
 
 // FIXME: temp hack
@@ -109,9 +109,9 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_Init(Word16 wHeightCode,Handle hStorage)
+RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode,Handle hStorage)
 #else
-RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage)
+RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode,Handle hStorage)
 #endif
 {
 	gwHeightRC = wHeightCode;
@@ -171,7 +171,7 @@ RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError)
 RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError)
 #endif
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
 	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -251,13 +251,13 @@ RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rling(Word16 rc) {
+void SetReturnCode_rling(uint16_t rc) {
 	if (rc == IDS_RLING_ERR_NO || gwLowRC == IDS_RLING_ERR_NO)
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode_rling() {
+uint16_t GetReturnCode_rling() {
 	return gwLowRC;
 }
 //////////////////////////////////////////////////////////////////////////////////

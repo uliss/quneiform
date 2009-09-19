@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 
-RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,Handle hStorage);
+RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
 RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
 RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError);
@@ -106,10 +106,10 @@ typedef	void   (*FNRPIC_ProgressFinish)( void );
 
 struct _RPIC_Comp_Rect
 {
-	Int16 upper;                   // upper boundary of component
-	Int16 left;                    // left boundary of component
-	Int16 h;                       // height of component
-	Int16 w;                       // width of component
+	int16_t upper;                   // upper boundary of component
+	int16_t left;                    // left boundary of component
+	int16_t h;                       // height of component
+	int16_t w;                       // width of component
 };
 typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
 

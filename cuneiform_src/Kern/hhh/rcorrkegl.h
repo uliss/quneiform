@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         RCORRKEGL_Bool32_Fax100
         };
 
-RCK_FUNC(Bool32) RCORRKEGL_Init(Word16 wHeightCode,Handle hStorage);
+RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,Handle hStorage);
 RCK_FUNC(Bool32) RCORRKEGL_Done();
 RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode();
 RCK_FUNC(char *) RCORRKEGL_GetReturnString(uint32_t dwError);

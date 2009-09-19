@@ -220,9 +220,9 @@ typedef struct tagInfoCluster {
 	int32_t mw;
 	int32_t mh;
 	uint32_t fields[NFIELDDWORD];
-	Int16 count;
-	Int16 first;
-	Int16 let;
+	int16_t count;
+	int16_t first;
+	int16_t let;
 	BYTE invalid;
 	BYTE good;
 	BYTE prob;
@@ -239,9 +239,9 @@ typedef struct tagInfoCluster {
 typedef struct tagFontField {
 	uint32_t field[NFIELDDWORD];
 	uint32_t testField[NFIELDDWORD];
-	Int16 sBig;
-	Int16 sLit;
-	Word16 inFont[256];
+	int16_t sBig;
+	int16_t sLit;
+	uint16_t inFont[256];
 } FONTFIELD;
 
 #define METKA_VALID 0x80  // get as good in font
@@ -256,7 +256,7 @@ LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);
-int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus, Int16 countFont,
+int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus, int16_t countFont,
 		uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
 SINT Razmaz(BYTE *bSource, BYTE *bDest, SINT xbyte, SINT xbit, SINT yrow,

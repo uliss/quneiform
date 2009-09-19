@@ -251,7 +251,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          // ideal-to-real coords skew (Tangens/1024)
       uint32_t rgb_color,
          // rect color, use "wrgb.h" if windows.h invisible
-      Int16 pen_width,
+      int16_t pen_width,
          // positive - absolute pen width in screen pixels
          // if zero - no drawing
          // negative means: final pen width == zoom*100/(-width),

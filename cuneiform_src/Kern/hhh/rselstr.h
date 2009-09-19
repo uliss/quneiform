@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,Handle hStorage);
+RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage);
 RSELSTR_FUNC(Bool32) RSELSTR_Done();
 RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode();
 RSELSTR_FUNC(char *) RSELSTR_GetReturnString(uint32_t dwError);
@@ -122,8 +122,8 @@ typedef enum
 DEC_FUN(Bool32, RSELSTR_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
 DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage,Handle hCCOM,CHSTR_Objects* pObjects,int nObjects));
 DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc,int& nRc,int& len_mas_Rc,uchar* pRast,int DPIX,int DPIY,int str_w));
-DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp,int skew,Rect16* Rc,Int16* begx,Int16* movey,uchar* flmovey,int betw_str));
-DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew,Rect16* pRc,int nRc,Rect16 Rc,Int16* begx,Int16* movey,uchar* flmovey,int* hi));
+DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp,int skew,Rect16* Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int betw_str));
+DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew,Rect16* pRc,int nRc,Rect16 Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int* hi));
 DEC_FUN(void, RSELSTR_CleanStr, (Rect16* pN,CCOM_comp** pC,int& nN,int top,int left,int h,int w,int skew,Bool32 vertical));
 DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM,Handle hCPage,Rect16 RC,Bool32 neg,int param));
 DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE,CCOM_handle hCCOM));

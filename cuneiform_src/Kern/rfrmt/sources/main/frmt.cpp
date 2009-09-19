@@ -114,8 +114,8 @@ extern   const char*    gpCourierName;
 extern   uint32_t   CountTable;
 
 // extern functions
-void    SetReturnCode_rfrmt(Word16 rc);
-Word16  GetReturnCode_rfrmt();
+void    SetReturnCode_rfrmt(uint16_t rc);
+uint16_t  GetReturnCode_rfrmt();
 
 #ifdef alDebug
 std::vector <tagRECT>   *pInputArray;
@@ -239,7 +239,7 @@ RtfFragRect.m_Step                        = 0;
 	for( i=0;i<pInputArray->size();i++)
     {
 	    RECT rect = (*pInputArray)[i];
-	    Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+	    Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 	    LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
     }
 
@@ -250,7 +250,7 @@ RtfFragRect.m_Step                        = 0;
 	for( i=0;i<pTheGeomStep1->size();i++)
     {
 		RECT rect = (*pTheGeomStep1)[i];
-		Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+		Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 		LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
     }
 
@@ -261,7 +261,7 @@ RtfFragRect.m_Step                        = 0;
     for( i=0;i<pTheGeomStep2->size();i++)
     {
 	    RECT rect = (*pTheGeomStep2)[i];
-	    Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+	    Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 	    LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
     }
 
@@ -386,7 +386,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,uint32_t code)
    for( i=0;i<pInputArray->size();i++)
    {
 	    RECT rect = (*pInputArray)[i];
-	    Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+	    Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 	    LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
    }
 
@@ -397,7 +397,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,uint32_t code)
    for( i=0;i<pTheGeomStep1->size();i++)
    {
 		RECT rect = (*pTheGeomStep1)[i];
-		Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+		Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 		LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
    }
 
@@ -408,7 +408,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,uint32_t code)
    for( i=0;i<pTheGeomStep2->size();i++)
    {
 		RECT rect = (*pTheGeomStep2)[i];
-	    Rect16 rect16 = {(Int16)rect.left,(Int16)rect.top,(Int16)rect.right,(Int16)rect.bottom};
+	    Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
 	    LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
    }
 

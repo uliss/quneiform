@@ -109,11 +109,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 # define    RLINGBOOL16          Bool16
-# define    RLINGWORD            Word16
+# define    RLINGWORD            uint16_t
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLING__
-RLING_FUNC(Bool32) RLING_Init(Word16 wHeightCode,Handle hStorage);
+RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode,Handle hStorage);
 RLING_FUNC(Bool32) RLING_Done();
 RLING_FUNC(uint32_t) RLING_GetReturnCode();
 RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError);
@@ -122,7 +122,7 @@ RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData);
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLINGS__
-RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage);
+RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode,Handle hStorage);
 RLINGS_FUNC(Bool32) RLINGS_Done();
 RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode();
 RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError);

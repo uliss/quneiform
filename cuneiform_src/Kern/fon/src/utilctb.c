@@ -76,11 +76,11 @@ void EndCTB(CTB_handle *CTBFile)
 //	CTB_done();
 }
 /////////////////
-int StartCTB(char *outname,CTB_handle *CTBFile,Int16 countFont,
+int StartCTB(char *outname,CTB_handle *CTBFile,int16_t countFont,
 			 uint32_t *fields)
 {
 uchar CTBdata[CTB_DATA_SIZE];
-Int16  *pint16=(Int16 *)(CTBdata+6);
+int16_t  *pint16=(int16_t *)(CTBdata+6);
 uint32_t *pword32=(uint32_t *)(CTBdata+8);
 int i;
 
@@ -114,9 +114,9 @@ uchar CTBdata[CTB_DATA_SIZE];
 int fullX;
 int fullY;
 BYTE *bufCTB;
-Word16 *pword16;
+uint16_t *pword16;
 uint32_t *pword32;
-Int16  *pint16;
+int16_t  *pint16;
 static  num=0;
 int i;
 
@@ -154,7 +154,7 @@ int i;
 	CTBdata[11]=(uchar)wel->attr;   // for attributes
 
 	// now put words
-    pword16=(Word16 *)(CTBdata+12);
+    pword16=(uint16_t *)(CTBdata+12);
 	pword16[0]=wel->fill;
 	pword16[1]=wel->num;
 	pword16[2]=wel->invalid;
@@ -163,7 +163,7 @@ int i;
     CTBdata[19]=wel->kegl;
 
 	// now short int's
-	pint16=(Int16 *)(CTBdata+20);
+	pint16=(int16_t *)(CTBdata+20);
 	pint16[0]=wel->sr_col;
 	pint16[1]=wel->sr_row;
 
@@ -174,7 +174,7 @@ int i;
 	for(i=0;i<NFIELDDWORD;i++)
 	 pword32[1+i]=wel->fields[i];
 
-	pint16=(Int16 *)(CTBdata+28+NFIELDDWORD*sizeof(uint32_t));
+	pint16=(int16_t *)(CTBdata+28+NFIELDDWORD*sizeof(uint32_t));
 	pint16[0]=wel->nInCTB;
 
 	pword32=(uint32_t *)(pint16+1);
@@ -220,7 +220,7 @@ int OpenBase(char *bas)
 ///////////////
 int GetSymbolFromBase(int i,Nraster_header *rh,BYTE **pBuf)
 {
-Int16 *pint16;
+int16_t *pint16;
 
  memset(rh,0,sizeof(Nraster_header));
 
@@ -240,7 +240,7 @@ Int16 *pint16;
  rh->let=CTBdata[3]; //result_struct.let;
  rh->solid=1;
 
- pint16=(Int16 *)(CTBdata+6);
+ pint16=(int16_t *)(CTBdata+6);
  rh->sr_col=pint16[0];
  rh->sr_row=pint16[1];
 

@@ -120,7 +120,7 @@ typedef struct tagRecAlt
       uchar    CodeExt;        // for unicode
       uchar    Method;         // recognize method
       uchar    Prob;
-      Word16   Info;
+      uint16_t   Info;
    }  RecAlt;
 typedef struct tagUniAlt
    {
@@ -129,12 +129,12 @@ typedef struct tagUniAlt
       uchar    Method;         // recognize method
       uchar    Prob;
       uchar    Charset;
-      Word16   Info;
+      uint16_t   Info;
    }  UniAlt;
 
 typedef struct tagClustAlt
    {
-      Int16    nClust;         // cluster index; zero - structure is not initiated
+      int16_t    nClust;         // cluster index; zero - structure is not initiated
       uchar    nDist;          // distance
       uchar    nReserved;
    }  ClustAlt;
@@ -171,11 +171,11 @@ typedef struct tagRecData
 	uint32_t    lwStatus;
 
 	RecRaster recRaster;       // basic raster. Can be not changed
-	Word16    v3x5[16];        // normalizeted image 3x5
+	uint16_t    v3x5[16];        // normalizeted image 3x5
 	uint32_t    lwCompCnt;       // number of components, 0 - not counted
 	Rect16    rect;
   RecVector    vSticks[MAX_VECT];
-  Int16     lwSticksCnt;
+  int16_t     lwSticksCnt;
 	} RecData;
 
 typedef struct tagRecObject

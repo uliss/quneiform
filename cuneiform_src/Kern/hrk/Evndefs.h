@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct mn_struc
  {
  void *mnfirstbox; 		// address of the first box
- Int16 mncounter;     // number of living lines in the component
+ int16_t mncounter;     // number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
- Int16 mnupper;       // upper bound of component
- Int16 mnlower;       // lower bound of component
- Int16 mnboxcnt;      // number of boxes in component
+ int16_t mnupper;       // upper bound of component
+ int16_t mnlower;       // lower bound of component
+ int16_t mnboxcnt;      // number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
  uchar mnlines;                  // number of lines in the component
@@ -89,7 +89,7 @@ typedef struct mn_struc MN;
 
 struct tagLPOOL
 {
-  Word16 lpool_lth;
+  uint16_t lpool_lth;
   uchar *lpool;
 };
 typedef struct tagLPOOL LPOOL;

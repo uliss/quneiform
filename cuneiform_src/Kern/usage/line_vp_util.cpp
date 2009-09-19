@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * the next one with the same name.
  */
 #if 0
-Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
+Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode)
 {
 	Bool ret;
 	uint32_t KeyHor, KeyVer; //// а ключи надо бы запомнить!
@@ -147,7 +147,7 @@ Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 }
 #endif
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
+Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode)
 {
 	Bool ret;
 	UN_BUFF *pB;

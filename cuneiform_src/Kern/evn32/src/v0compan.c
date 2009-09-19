@@ -82,7 +82,7 @@ static void picture_process(void);
 //MN * accept_greate_picture(MN * mn);        // pic_apx.c
 
 static BWSS *op, *np;    // pointers to segment representation
-static Int16 ol,nl;       // location counters
+static int16_t ol,nl;       // location counters
 
 static void simple_cont();
 static void dead_line();
@@ -241,7 +241,7 @@ static void merge_lines()
  BOX *bp, *bpp;
  MN *mn, *mnn, *mnw;
  BOXINT *ip;
- Word16 n;
+ uint16_t n;
 
  bp = op->box; ip = (BOXINT *)((uchar*)bp + (bp->boxptr)++); ip->l = 0;
  bp->boxflag |= BOXEND;
@@ -273,7 +273,7 @@ static void dead_line()
  BOX *bp, *bpp;
  BOXINT *ip;
  MN *mn;
- Word16 lnum;
+ uint16_t lnum;
  Bool16 lcomp;
 
 //      Double Fax preprocessing
@@ -331,8 +331,8 @@ static void no_box()
  BOX *bp, *bpp, *bww;
  MN *mn, *mmax;
  LNSTRT *lp;
- Int16 left, right;
- Word16 n, i;
+ int16_t left, right;
+ uint16_t n, i;
  //     Clear references to box in the new line
  bwp = np; do bwp->box = NULL; while ((bwp++)->w > 0);
  //     Look for main number with maximal box number

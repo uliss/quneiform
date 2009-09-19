@@ -214,10 +214,10 @@ void CED_SetRawDataProc(FNRDProc proc) {
 	if (code & 0x80) {
 		//SS_EXTENTION can be either 16 or 32 bit.
 		if (*(uchar*) curr != SS_EXTENTION)
-			lth = *(PWord16)(curr + (code & 0xf));
+			lth = *(uint16_t*)(curr + (code & 0xf));
 		else {
-			if (!((*(Word16*) (curr + 1)) & 0x8000))
-				lth = *(PWord16)(curr + (code & 0xf));
+			if (!((*(uint16_t*) (curr + 1)) & 0x8000))
+				lth = *(uint16_t*)(curr + (code & 0xf));
 			else
 				lth = *(uint32_t*)(curr + (code & 0xf));
 		}

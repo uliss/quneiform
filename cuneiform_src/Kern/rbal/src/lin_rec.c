@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evn.h"
 
 //////
-extern Int16  prop_l_delta, prop_r_delta;
+extern int16_t  prop_l_delta, prop_r_delta;
 extern uchar *letters_pidx_table;
 //////////////
 // proport.c    - no more !!
@@ -227,7 +227,7 @@ INT short_recog_cell (CSTR_rast c, int line_scale)
  CSTR_rast_attr attr;
  CCOM_comp *comp;
 // ExtComponent ec;
- Int16 *pint16;
+ int16_t *pint16;
  uchar *lpool;
  UniVersions vers={0};
 
@@ -251,7 +251,7 @@ INT short_recog_cell (CSTR_rast c, int line_scale)
 */
 // n = (INT)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
 
-  pint16  = (Int16 *)comp->linerep;
+  pint16  = (int16_t *)comp->linerep;
  // *pint16 == comp->size_linerep ?????
   lpool = comp->linerep+2;
 //  n = (INT)EVNRecog_lp(&ec,lpool,*pint16,&res[0]);
@@ -286,6 +286,6 @@ INT short_recog_cell (CSTR_rast c, int line_scale)
 
   CSTR_GetCollectionUni(c,&vers);
 
- return (Int16) vers.lnAltCnt;
+ return (int16_t) vers.lnAltCnt;
 }
 ////////////////////////////

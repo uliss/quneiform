@@ -144,11 +144,11 @@ typedef struct tagRRecComControl
 #define RECOG_EVN 1 //опознание с помошью метода "Event"
 #define RECOG_GRA 2 //опознание с помошью нейросети
 
-   Word16 MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
-   Word16 MaxCompHei;  // =""= by height
-   Word16 MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
-   Word16 MinCompHei;  // =""= by width
-   Word16 MaxScale;    // if scaling > => use long intervals
+   uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
+   uint16_t MaxCompHei;  // =""= by height
+   uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
+   uint16_t MinCompHei;  // =""= by width
+   uint16_t MaxScale;    // if scaling > => use long intervals
 } RRecComControl;
 
 //   RRECCOM_FUNC(Bool32) ExtrcompInit( void);
@@ -158,7 +158,7 @@ typedef struct tagRRecComControl
     // Closing of the library.
    RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
    RRECCOM_FUNC(char*)  RRECCOM_GetReturnString(uint32_t dwError);
-   RRECCOM_FUNC(Bool32) RRECCOM_Init(Word16 wHeightCode, Handle hStorage);
+   RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage);
    RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
    RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData);
    RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
@@ -205,8 +205,8 @@ RRECCOM_FUNC(Bool32)  RRECCOMExtraDIB(ExcControl ExCW,
 typedef  int32_t (*FNRRECCOM_GetContainer)(void);
 RRECCOM_FUNC(int32_t)  RRECCOMGetContainer(void);
 // 6    RRECCOM_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , uchar *lp, Int16 *lp_size, Int16 *numcomp);
-RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , uchar *lp, Int16 *lp_size, Int16 *numcomp);
+typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    RRECCOM_FNVERSION Дать версию библиотеки
 //
 //

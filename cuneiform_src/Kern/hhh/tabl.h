@@ -307,7 +307,7 @@ typedef struct hINF_TREE
   BOUND     bnd_page,*bnd_col,**bnd_str;
   FRAME     ***sym;
   int       k_colt,**k_sym;
-  Int16  	*k_str;
+  int16_t  	*k_str;
   STAT_COL  *StatCol;
   POS_STR   **PosStr;
   char      FilePrc[255];//имя файла извлечен.компонент

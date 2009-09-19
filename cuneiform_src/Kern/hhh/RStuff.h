@@ -148,7 +148,7 @@ typedef struct tagRSCBProgressPoints
 	void *  pSetUpdate;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 ///////////////////////////////////////////////////////////////////////////////////////////
-RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage);
+RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage);
 RSTUFF_FUNC(Bool32) RSTUFF_Done();
 RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode();
 RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);

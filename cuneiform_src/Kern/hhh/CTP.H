@@ -68,12 +68,12 @@ struct ctp_hdr {
 
 struct ctp_pic_hdr {
 uint32_t	pic_size;	// in bytes
-Word16	x_off;		// in pixels
-Word16	y_off;		// in pixels
-Word16	w;		// in pixels
-Word16	h;		// in pixels
-Word16	resolution;
-Word16	bpl;		// bytes per line. Only if native format
+uint16_t	x_off;		// in pixels
+uint16_t	y_off;		// in pixels
+uint16_t	w;		// in pixels
+uint16_t	h;		// in pixels
+uint16_t	resolution;
+uint16_t	bpl;		// bytes per line. Only if native format
 uchar    bitpix;
 uchar	type;
 #define ctp_BW          0
@@ -97,15 +97,15 @@ typedef struct ctp_pic_hdr	pic_id;
 #define strip_H	16
 
 typedef struct {
-	Word16 len; // strip len in bytes
-	Word16 col; // begining of strip from strip_header.left(in bytes)
+	uint16_t len; // strip len in bytes
+	uint16_t col; // begining of strip from strip_header.left(in bytes)
 	 } strip;
 
 typedef struct {
-	Word16 top; // adjusted to strip_H bound
-	Word16 left;
-	Word16 n_strip;
-	Word16 handle;
+	uint16_t top; // adjusted to strip_H bound
+	uint16_t left;
+	uint16_t n_strip;
+	uint16_t handle;
 	 } strip_header;
 
 #endif  // _C_T_P_

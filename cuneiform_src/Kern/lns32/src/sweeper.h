@@ -76,7 +76,7 @@ void SetRomptr ( RomBubble* rptr);// ***********Rom***********
 void InitSweeperData( THVSegBambuk* sb );
 
 Bool  Sweeper_ImageOpen(Tiger_ImageInfo* lpImageInfo);
-Int16 Sweeper_ImageRead(uchar* lpImage, Word16 wMaxSize);
+int16_t Sweeper_ImageRead(uchar* lpImage, uint16_t wMaxSize);
 Bool  Sweeper_ImageClose(void);
 
 

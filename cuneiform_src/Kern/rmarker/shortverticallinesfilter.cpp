@@ -194,10 +194,10 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		   if(LTInfo->Hor.Lns)
 		   {
 		    num=LTInfo->Hor.Cnt;
-		    LTInfo->Hor.Lns[num].A.x=(Int16)(cpdata->Line.Beg_X);
-            LTInfo->Hor.Lns[num].A.y=(Int16)(cpdata->Line.Beg_Y);
-		    LTInfo->Hor.Lns[num].B.x=(Int16)(cpdata->Line.End_X);
-		    LTInfo->Hor.Lns[num].B.y=(Int16)(cpdata->Line.End_Y);
+		    LTInfo->Hor.Lns[num].A.x=(int16_t)(cpdata->Line.Beg_X);
+            LTInfo->Hor.Lns[num].A.y=(int16_t)(cpdata->Line.Beg_Y);
+		    LTInfo->Hor.Lns[num].B.x=(int16_t)(cpdata->Line.End_X);
+		    LTInfo->Hor.Lns[num].B.y=(int16_t)(cpdata->Line.End_Y);
 		    LTInfo->Hor.Lns[num].Thickness=cpdata->Line.Wid10/10;
             LTInfo->Hor.Lns[num].Flags=cpdata->Flags;
 		    (LTInfo->Hor.Cnt)++;
@@ -208,10 +208,10 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		   if(LTInfo->Ver.Lns)
 		   {
 		    num=LTInfo->Ver.Cnt;
-		    LTInfo->Ver.Lns[num].A.x=(Int16)(cpdata->Line.Beg_X);
-            LTInfo->Ver.Lns[num].A.y=(Int16)(cpdata->Line.Beg_Y);
-		    LTInfo->Ver.Lns[num].B.x=(Int16)(cpdata->Line.End_X);
-		    LTInfo->Ver.Lns[num].B.y=(Int16)(cpdata->Line.End_Y);
+		    LTInfo->Ver.Lns[num].A.x=(int16_t)(cpdata->Line.Beg_X);
+            LTInfo->Ver.Lns[num].A.y=(int16_t)(cpdata->Line.Beg_Y);
+		    LTInfo->Ver.Lns[num].B.x=(int16_t)(cpdata->Line.End_X);
+		    LTInfo->Ver.Lns[num].B.y=(int16_t)(cpdata->Line.End_Y);
 		    LTInfo->Ver.Lns[num].Thickness=cpdata->Line.Wid10/10;
             LTInfo->Ver.Lns[num].Flags=cpdata->Flags;
 		    (LTInfo->Ver.Cnt)++;
@@ -453,7 +453,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 	int32_t Filter = 0;
 	int32_t j = 0;
 	char str[255];
-	Int16 Thick = Line->Thickness / 2;
+	int16_t Thick = Line->Thickness / 2;
 	Bool32 bDieComponent = FALSE;
 
 

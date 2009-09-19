@@ -113,7 +113,7 @@ private:
 	Bool32 KronrodGreyTo(puchar pGTo);
 
 public:
-	Int16  KronrodImageRead(puchar, Int16 fstLine, Int16 nLines);
+	int16_t  KronrodImageRead(puchar, int16_t fstLine, int16_t nLines);
 	int32_t  KronrodImageRead(puchar, int32_t fstLine, int32_t nLines);
 
 private:

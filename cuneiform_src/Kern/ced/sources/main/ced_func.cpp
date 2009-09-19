@@ -754,7 +754,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	sdd.quant_fragm=1;
 	sdd.sheet_numb=page->pageNumber;
 	sdd.descr_lth=sizeof(sdd)+sizeof(fragm_disk_descr);
-	sdd.resolution=(Word16)page->dpi.cx;
+	sdd.resolution=(uint16_t)page->dpi.cx;
 	sdd.incline=page->turn;
 	sdd.version=2000;
 	if (!Write(hFile,(pchar)&sdd,sizeof(sdd))) goto ED_WRITE_END;
@@ -947,10 +947,10 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 					line->SetCurChar(chr);
 					bit_map_ref bmr;
 					bmr.code=SS_BITMAP_REF;
-					bmr.col=(Word16)chr->layout.left;
-					bmr.row=(Word16)chr->layout.top;
-					bmr.height=(Word16)(chr->layout.bottom-chr->layout.top);
-					bmr.width=Word16(chr->layout.right-chr->layout.left);
+					bmr.col=(uint16_t)chr->layout.left;
+					bmr.row=(uint16_t)chr->layout.top;
+					bmr.height=(uint16_t)(chr->layout.bottom-chr->layout.top);
+					bmr.width=uint16_t(chr->layout.right-chr->layout.left);
 					if (!Write(hFile,(pchar)(&bmr),sizeof(bmr))) goto ED_WRITE_END;
 					if(chr->fontHeight!=kegl||chr->fontAttribs!=font)
 					{

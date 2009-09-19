@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #include "ctccontrol.h"
 #include "compat_defs.h"
-void SetReturnCode_cfio(Word16 rc);
+void SetReturnCode_cfio(uint16_t rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCControl::CTCControl()

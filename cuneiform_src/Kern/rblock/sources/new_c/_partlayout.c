@@ -644,7 +644,7 @@ Bool32 BlockAnalyse()
 
 	RecRaster rec;
 	RecVersions vs;
-	Int16 Language;
+	int16_t Language;
 
 
  uint32_t i = 0;

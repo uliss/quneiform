@@ -85,7 +85,7 @@ typedef struct {
 #define IMAGE_ROTATE	8
 #define IMAGE_ORTOMOVE  16
 #define IMAGE_TURN		32
-	Word16   Images;//существующие изображения
+	uint16_t   Images;//существующие изображения
 	uint32_t	status;
 #define PINFO_USERTEMPLATE	1;	// темплейт установлен пользователем
 #define PINFO_AUTOTEMPLATE	2;	// темплейт установлен автоматически
@@ -134,7 +134,7 @@ typedef struct tagCPAGE_TABLE
 
 typedef struct tagCPAGE_PICTURE
 {
-	Word16  Number;
+	uint16_t  Number;
 	Point32 Corner[CPAGE_MAXCORNER];
 
 } CPAGE_PICTURE;

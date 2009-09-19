@@ -156,19 +156,19 @@ extern  WORD                 *CountRect;
 typedef void(*FMyDraw)(void);
 typedef struct tagSETUP_GENERATE_TREE
 {
-	Int16 size_x,size_y; //standard sizes of symbols in page
+	int16_t size_x,size_y; //standard sizes of symbols in page
 } SETUP_GENERATE_TREE;
 
-Int16   FlagOdinSectorOdnaColonka = FALSE;
-Int16   MaxLev,NumColTrue,RegimExt;
+int16_t   FlagOdinSectorOdnaColonka = FALSE;
+int16_t   MaxLev,NumColTrue,RegimExt;
 const char    *errRtf="ED_RTF";
 Rect16  *RectFragm;
 FRAME   *ArrFrm;
 
-extern  Int16 SizeYGlobUpp;
+extern  int16_t SizeYGlobUpp;
 extern  SUB_ALLOC SubZn;
-extern  Int16 MonoSpaceAllPage;
-extern  Int16 HeiStrAllPage;
+extern  int16_t MonoSpaceAllPage;
+extern  int16_t HeiStrAllPage;
 extern  uint32_t   RtfWriteMode;
 
 /*
@@ -181,41 +181,41 @@ util_spl:
 */
 extern "C" Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
 extern short __cdecl OpenFullOutTiger(FILE *FileName);
-void   show_frm(Int16 NumFragm,FRAME **frm);
+void   show_frm(int16_t NumFragm,FRAME **frm);
 Bool   Alik_sort_function( const void *a, const void *b);
 int    CalcStatTiger(void);
-Int16  GenerateTreeByFragm(Rect16 *RectFragm,Int16 NumFragm,
+int16_t  GenerateTreeByFragm(Rect16 *RectFragm,int16_t NumFragm,
 	                         SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf);
-void   GetFirstIndexFragm(Rect16 *RectFragm,Int16 NumCol,Int16 *nc,FRAME **frm);
-Int16  CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
-                          Int16 NumLH,FRAME **frm,Int16 NumFrm,INF_TREE *Inf,Int16 size_x,Int16 size_y);
-Int16  AddLine1(LINE_KNOT **Line1,Int16 *nCurr,Int16 *nMax,Int16 Coor,Int16 Thres);
-Int16  SearchColHist1(FRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
-                     Int16 reg,Int16 *k_int,Int16 **intr1,Int16 **begI,Int16 **endI,Int16 *NumMax);
-Int16  SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
-                      Int16 *k_int1,BOUND *bnd,Int16 ave_dir,Int16 ave_ort,Int16 reg,Int16 *NumMax);
+void   GetFirstIndexFragm(Rect16 *RectFragm,int16_t NumCol,int16_t *nc,FRAME **frm);
+int16_t  CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,int16_t NumLV,STRET *LineH,
+                          int16_t NumLH,FRAME **frm,int16_t NumFrm,INF_TREE *Inf,int16_t size_x,int16_t size_y);
+int16_t  AddLine1(LINE_KNOT **Line1,int16_t *nCurr,int16_t *nMax,int16_t Coor,int16_t Thres);
+int16_t  SearchColHist1(FRAME **frm,int16_t k_frm,BOUND *bnd,int16_t ave_x,int16_t ave_y,
+                     int16_t reg,int16_t *k_int,int16_t **intr1,int16_t **begI,int16_t **endI,int16_t *NumMax);
+int16_t  SearchInterval1(FRAME **frm,int16_t k_frm,int16_t **beg1,int16_t **end1,
+                      int16_t *k_int1,BOUND *bnd,int16_t ave_dir,int16_t ave_ort,int16_t reg,int16_t *NumMax);
 KNOTT* IncKnot(KNOTT *up,KNOTT *after,KNOTT **free);
-void   FillFieldKNOTT1(KNOTT *ptr,Int16 Left,Int16 Right,Int16 Top,Int16 Bottom,
-																					Int16 InBegFrm,Int16 NumFrm,Int16 InColA,
+void   FillFieldKNOTT1(KNOTT *ptr,int16_t Left,int16_t Right,int16_t Top,int16_t Bottom,
+																					int16_t InBegFrm,int16_t NumFrm,int16_t InColA,
 																					uint OrderChild,uint Type,uint AllowOCR,uint JustH,uint JustV,char *Name);
-Int16  SortHorLine1(LINE_KNOT *LineHK,Int16 NumH,LINE_KNOT *LineVK,Int16 NumV,
-                   KNOTT *Root,KNOTT ***colt1,Int16 *k_colt1,FRAME **frm);
-char   *get2_param(char *str,char *param,Int16 max_len);
-Int16  Check_IsItFalseHorLine(Int16 recalc,Int16 reg,FRAME **frm,Int16 *his,Int16 pos,Int16 len,
-																													Int16 maxh,Int16 sum,Int16 len_group,Int16 *his_first_group,
-																													Int16 *his_second_group,BOUND *bnd,Int16 k_frm);
-Int16  check_white_int(Int16 beg_white_int,Int16 end_white_int,Int16 maxh,
-           											Int16 *his_second_group);
-Int16  GetRealSize( char* str,Int16 len,Int16 FontSize ,Int16 FontNumber,Int16* strHeight);
-void   Get_all_term_fragms( KNOTT *ptr,Int16 *Colt,Int16 *iv ,Int16 NumCol,FRAME **frm);
-void   Get_all_term_fragms1( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME **frm);
-Int16  term_col_seriated(Int16* term_ind,Int16 Count_Term_Col,Int16* K_Ver_Flag_Term);
-Int16  OrderingAndRecalcCol(Int16 Nsector,Int16 Ncol,Int16 H0,Int16 L0,Int16 *W_P,Int16 *H_P,
-																											Int16 dist_col,KNOTT *pRoot,FRAME **frm,
+int16_t  SortHorLine1(LINE_KNOT *LineHK,int16_t NumH,LINE_KNOT *LineVK,int16_t NumV,
+                   KNOTT *Root,KNOTT ***colt1,int16_t *k_colt1,FRAME **frm);
+char   *get2_param(char *str,char *param,int16_t max_len);
+int16_t  Check_IsItFalseHorLine(int16_t recalc,int16_t reg,FRAME **frm,int16_t *his,int16_t pos,int16_t len,
+																													int16_t maxh,int16_t sum,int16_t len_group,int16_t *his_first_group,
+																													int16_t *his_second_group,BOUND *bnd,int16_t k_frm);
+int16_t  check_white_int(int16_t beg_white_int,int16_t end_white_int,int16_t maxh,
+           											int16_t *his_second_group);
+int16_t  GetRealSize( char* str,int16_t len,int16_t FontSize ,int16_t FontNumber,int16_t* strHeight);
+void   Get_all_term_fragms( KNOTT *ptr,int16_t *Colt,int16_t *iv ,int16_t NumCol,FRAME **frm);
+void   Get_all_term_fragms1( KNOTT* ptr,int16_t* Colt,int16_t* iv,int16_t NumCol,FRAME **frm);
+int16_t  term_col_seriated(int16_t* term_ind,int16_t Count_Term_Col,int16_t* K_Ver_Flag_Term);
+int16_t  OrderingAndRecalcCol(int16_t Nsector,int16_t Ncol,int16_t H0,int16_t L0,int16_t *W_P,int16_t *H_P,
+																											int16_t dist_col,KNOTT *pRoot,FRAME **frm,
 																											float Max_koof_for_width,float Max_koof_for_height);
-Int16  RecalcRect(Int16 L,Int16 H,Int16 *w,Int16 *h,KNOTT *ptrc,FRAME **frm,
+int16_t  RecalcRect(int16_t L,int16_t H,int16_t *w,int16_t *h,KNOTT *ptrc,FRAME **frm,
         								 float Max_koof_for_width,float Max_koof_for_height);
-Int16 GetOffsetVerticalCell(Int16 L,Int16 H,Int16 *w,Int16 *h,KNOTT *ptrc,FRAME **frm);
+int16_t GetOffsetVerticalCell(int16_t L,int16_t H,int16_t *w,int16_t *h,KNOTT *ptrc,FRAME **frm);
 void RtfUnionRect_CRect_SRect(tagRECT *s1,SRECT *s2);
 void RtfUnionRect_CRect_CRect(tagRECT *s1,tagRECT *s2);
 void RtfAssignRect_CRect_SRect(tagRECT *s1,SRECT *s2);
@@ -223,7 +223,7 @@ void RtfAssignRect_CRect_Rect16(tagRECT *s1,Rect16 *s2);
 void	RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1,tagRECT *s2);
 
-//Int16 CreateEmptyRtfFile(void);
+//int16_t CreateEmptyRtfFile(void);
 
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found=NULL;
@@ -333,7 +333,7 @@ void bound_frm(FRAME **frm,int k_frm,BOUND *bnd)
 }
 
 //==
-void TestKNOTT1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,Int16 NumFrm,Int16 NumVK,Int16 NumHK)
+void TestKNOTT1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,int16_t NumFrm,int16_t NumVK,int16_t NumHK)
 {
 	RECT r1=ptr->Rect; KNOTT *up=ptr->up;
 	if(r1.left >= r1.right || r1.top == r1.bottom ||
@@ -503,12 +503,12 @@ int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
 	//================================================================================
 	//=================================   ImageKnot1  ================================
   //================================================================================
-	void ImageKnot1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,Int16 col,
-	                Int16 line_style,Int16 fill,Int16 ColFrm,FRAME **f,Int16 NumFrm,
-									Int16 NumVK,Int16 NumHK)
+	void ImageKnot1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,int16_t col,
+	                int16_t line_style,int16_t fill,int16_t ColFrm,FRAME **f,int16_t NumFrm,
+									int16_t NumVK,int16_t NumHK)
 	{
 		RECT r,r1=ptr->Rect;
-		Int16 fl= (ColFrm != INDEF) ? 0 : 1;
+		int16_t fl= (ColFrm != INDEF) ? 0 : 1;
 
 		if(ColFrm == INDEF)
  			  ColFrm=col;
@@ -528,11 +528,11 @@ int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
 	//================================================================================
 	//=================================   ImageTree1  ================================
   //================================================================================
-	Int16 ImageTree1(KNOTT *Root,LINE_KNOT *LineVK,LINE_KNOT *LineHK,
-	  FRAME **frm,Int16 NumFrm,Int16 NumVK,Int16 NumHK)
+	int16_t ImageTree1(KNOTT *Root,LINE_KNOT *LineVK,LINE_KNOT *LineHK,
+	  FRAME **frm,int16_t NumFrm,int16_t NumVK,int16_t NumHK)
 	{
 		STACK St;
-	  Int16 DepthTree=20,col,ColFrm,i=1;
+	  int16_t DepthTree=20,col,ColFrm,i=1;
 	  KNOTT *Curr;
 	  char *err="ImageTree1";
 
@@ -552,7 +552,7 @@ int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
 			 		                 i,Curr->InBegFrm,Curr->NumFrm,Curr->InColA,Curr->OrderChild);
 		              ++i;}
 
-			ImageKnot1(Curr,LineVK,LineHK,col,(Int16)0xFFFF,_GBORDER,(Int16)-1,frm,NumFrm,NumVK,
+			ImageKnot1(Curr,LineVK,LineHK,col,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,NumVK,
 				         NumHK);
 	    Curr=NextKnot(Curr,&St);
 	    if(OverflowStack(&St))
@@ -567,16 +567,16 @@ int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
 #endif /*DRAW*/
 
 //==
-static Int16 Realloc2(KNOTT*** colt,KNOTT*** colnt,KNOTT*** colnt1,
-	Int16 **begI,Int16 **endI,Int16 **intr,Int16 nOld,Int16 nNew)
-{ Int16 oldS =nOld*sizeof(PTR),newS =nNew*sizeof(PTR),
-        oldS1=nOld*sizeof(Int16),newS1=nNew*sizeof(Int16);
+static int16_t Realloc2(KNOTT*** colt,KNOTT*** colnt,KNOTT*** colnt1,
+	int16_t **begI,int16_t **endI,int16_t **intr,int16_t nOld,int16_t nNew)
+{ int16_t oldS =nOld*sizeof(PTR),newS =nNew*sizeof(PTR),
+        oldS1=nOld*sizeof(int16_t),newS1=nNew*sizeof(int16_t);
   if((colt   && ((*colt=(KNOTT**)realloc_m(*colt,  oldS,newS))==NULL))||
      (colnt  && ((*colnt=(KNOTT**)realloc_m(*colnt, oldS,newS))==NULL))||
      (colnt1 && ((*colnt1=(KNOTT**)realloc_m(*colnt1,oldS,newS))==NULL))||
-     (begI   && ((*begI=(Int16*)realloc_m(*begI,oldS1,newS1))==NULL))||
-     (endI   && ((*endI=(Int16*)realloc_m(*endI,oldS1,newS1))==NULL))||
-     (intr   && ((*intr=(Int16*)realloc_m(*intr,oldS1,newS1))==NULL)))
+     (begI   && ((*begI=(int16_t*)realloc_m(*begI,oldS1,newS1))==NULL))||
+     (endI   && ((*endI=(int16_t*)realloc_m(*endI,oldS1,newS1))==NULL))||
+     (intr   && ((*intr=(int16_t*)realloc_m(*intr,oldS1,newS1))==NULL)))
        return NOT_ALLOC;
   return 0;
 }
@@ -588,9 +588,9 @@ void ConvertRect16ToBnd(Rect16 *r,SRECT *b)
 }
 
 #ifdef alDebug
-void show_frm(Int16 NumFragm,FRAME **frm)
+void show_frm(int16_t NumFragm,FRAME **frm)
 {
-	Int16 i;
+	int16_t i;
 
 	for(i=0; i < NumFragm; ++i)
 	{
@@ -607,11 +607,11 @@ void show_frm(Int16 NumFragm,FRAME **frm)
 //		RectFragm[NumFragm],
 //		setup - input parameters
 //	output - Inf
-Int16 GenerateTreeByFragm(Rect16 *RectFragm,Int16 NumFragm,
+int16_t GenerateTreeByFragm(Rect16 *RectFragm,int16_t NumFragm,
 	SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf)
 {
 	FRAME  **frm;
-	Int16  i,fl=0;
+	int16_t  i,fl=0;
 	BOUND  BndAll;
 
 	ArrFrm=(FRAME*) malloc(NumFragm*sizeof(FRAME));
@@ -645,7 +645,7 @@ Int16 GenerateTreeByFragm(Rect16 *RectFragm,Int16 NumFragm,
 	//--calling internal function for tree generation--
 	if(CreateTreePlainTxt1(BndAll,NULL,0,NULL,0,
      frm,NumFragm,Inf, setup->size_x, setup->size_y))
-			return (Int16)fl-200;
+			return (int16_t)fl-200;
 
 	return 0;
 }
@@ -660,18 +660,18 @@ Int16 GenerateTreeByFragm(Rect16 *RectFragm,Int16 NumFragm,
 //   Inf - результирующая структура хранения дерева колонок листа
 //Return: 0 - OK
 //====
-Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
-    Int16 NumLH,FRAME **frm,Int16 NumFrm,INF_TREE *Inf,Int16 size_x,Int16 size_y)
+int16_t CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,int16_t NumLV,STRET *LineH,
+    int16_t NumLH,FRAME **frm,int16_t NumFrm,INF_TREE *Inf,int16_t size_x,int16_t size_y)
 //====
 {
-	Int16     i,nVmax=3*MAX_COL,nHmax=3*MAX_COL,nV,nH,j;
-	Int16     nT=nVmax+1,fl,tmp,InBegFrm,NumF,ThresX,ThresY;
-	Int16     left,right,top,bottom,NumMax=3*MAX_COL,MaxOld;
-	Int16     *intr,*begI,*endI,NumT=nVmax+1;
-	Int16     k_colnt,k_colnt1,k_colt,minz;
-	Int16     fl_beg/*Признак первого расщепления на колонки*/;
-	Int16     order/*Тип искомой упорядоченности:HOR - горизонт. или VER - вертикал.*/;
-	Int16     kf,kcol,del,del1;
+	int16_t     i,nVmax=3*MAX_COL,nHmax=3*MAX_COL,nV,nH,j;
+	int16_t     nT=nVmax+1,fl,tmp,InBegFrm,NumF,ThresX,ThresY;
+	int16_t     left,right,top,bottom,NumMax=3*MAX_COL,MaxOld;
+	int16_t     *intr,*begI,*endI,NumT=nVmax+1;
+	int16_t     k_colnt,k_colnt1,k_colt,minz;
+	int16_t     fl_beg/*Признак первого расщепления на колонки*/;
+	int16_t     order/*Тип искомой упорядоченности:HOR - горизонт. или VER - вертикал.*/;
+	int16_t     kf,kcol,del,del1;
 	TREE2     Tree;
 	BOUND     bndc;
 	KNOTT     *PrevChild,*Child;
@@ -687,9 +687,9 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 	//   горизонт. и вертикал. выравнивание колонок
 	LineVK=(LINE_KNOT*)malloc((nVmax+2)*sizeof(LINE_KNOT));
 	LineHK=(LINE_KNOT*)malloc((nHmax+2)*sizeof(LINE_KNOT));
-	intr=(Int16*)malloc(NumMax*sizeof(Int16));
-	begI=(Int16*)malloc(NumMax*sizeof(Int16));
-	endI=(Int16*)malloc(NumMax*sizeof(Int16));
+	intr=(int16_t*)malloc(NumMax*sizeof(int16_t));
+	begI=(int16_t*)malloc(NumMax*sizeof(int16_t));
+	endI=(int16_t*)malloc(NumMax*sizeof(int16_t));
 	//Заносим в разграфку натурал. линии после их ортогонализации
 	//-- Замыкание системы H- и V-линий с краев по рамке листа --
 	LineVK[0].beg=BndTxt.left;
@@ -724,9 +724,9 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 	FillFieldKNOTT1(Tree.Root,0,1,0,1,0,NumFrm,IN_NO,UNSORT,ROOT,TRUE,ALG_BEG,ALG_BEG,NULL);
 	colnt[k_colnt=0]=Tree.Root; k_colt=-1;
 	fl_beg=1; order=VER;//Так удобнее для RTF-converter
-	ThresX=ThresY=(Int16)(1.5*size_y);
+	ThresX=ThresY=(int16_t)(1.5*size_y);
 
-	Int16 MaxAllowLev,flTerm;
+	int16_t MaxAllowLev,flTerm;
 	MaxAllowLev=6;
 	MaxLev=0; flTerm=FALSE;
 
@@ -859,7 +859,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 						CONS_MESS1("order == HOR");
 						minz=MIN(ThresX,del);
 						if((left= !j ? ptr->Rect.left :
-							AddLine1(&LineVK,&nV,&nVmax,(Int16)endI[j-1],minz)) < 0)
+							AddLine1(&LineVK,&nV,&nVmax,(int16_t)endI[j-1],minz)) < 0)
 						{
 							CONS_MESS9("819       left-100");
 							return left-100;
@@ -991,8 +991,8 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					{
 						if(++k_colnt1 >= NumMax)
 						{
-							Int16 old=NumMax;
-							NumMax=(Int16)(NumMax*1.5);
+							int16_t old=NumMax;
+							NumMax=(int16_t)(NumMax*1.5);
 							if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax) == NOT_ALLOC)
 		                	{
 								CONS_MESS9("976    NOT_ALLOC");
@@ -1012,8 +1012,8 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 				CONS_MESS1("beg------------------2.1");
 				if(++k_colt >= NumMax)
 				{
-					Int16 old=NumMax;
-					NumMax=(Int16)(NumMax*1.5);
+					int16_t old=NumMax;
+					NumMax=(int16_t)(NumMax*1.5);
 					if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax)
 					== NOT_ALLOC)
 					{
@@ -1059,7 +1059,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 #ifdef alDebug
 	pTheGeomStep = pTheGeomStep2;
 	for(i=0; i <= k_colt; ++i)
-    ImageKnot1(colt[i],LineVK,LineHK,14,(Int16)0xFFFF,_GBORDER,(Int16)-1,frm,NumFrm,nV,nH);
+    ImageKnot1(colt[i],LineVK,LineHK,14,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,nV,nH);
 
 	pTheGeomStep = pTheGeomStep1;
 	FlagGraphic1=1;
@@ -1084,7 +1084,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 
 	for(i=0; i <= k_colt; ++i)
 	{
-		Int16 in;
+		int16_t in;
 
 		in=colt[i]->InColA;
 		colt[i]->AllowOCR=1;
@@ -1109,10 +1109,10 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 //Обменные параметры: Line1[nCurr] - система линий
 //                    nMax - максимальное число линий
 //==
-Int16 AddLine1(LINE_KNOT **Line1,Int16 *nCurr,Int16 *nMax,Int16 Coor,Int16 Thres)
+int16_t AddLine1(LINE_KNOT **Line1,int16_t *nCurr,int16_t *nMax,int16_t Coor,int16_t Thres)
 //==
 {
-	Int16 i,fl=-1,n; LINE_KNOT *Line=*Line1;
+	int16_t i,fl=-1,n; LINE_KNOT *Line=*Line1;
 	for(i=0; i < *nCurr; ++i)
 		if(abs(Line[i].beg-Coor) < Thres)
 			return i;
@@ -1120,7 +1120,7 @@ Int16 AddLine1(LINE_KNOT **Line1,Int16 *nCurr,Int16 *nMax,Int16 Coor,Int16 Thres
 	n=*nCurr;//Add new Line
 	if(n >= *nMax) //обработка переполнение массива линий
 	{
-		*nMax=(Int16)(*nMax*1.5);
+		*nMax=(int16_t)(*nMax*1.5);
 		if((Line=(LINE_KNOT*)realloc_m(Line,n*sizeof(LINE_KNOT),*nMax*sizeof(LINE_KNOT))
 		)==NULL)
 			return NOT_ALLOC;
@@ -1147,13 +1147,13 @@ Return:
    < 0 - ERR*/
 
 //==
-Int16 SearchColHist1(FRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
-    Int16 reg,Int16 *k_int,Int16 **intr1,Int16 **begI,Int16 **endI,Int16 *NumMax)
+int16_t SearchColHist1(FRAME **frm,int16_t k_frm,BOUND *bnd,int16_t ave_x,int16_t ave_y,
+    int16_t reg,int16_t *k_int,int16_t **intr1,int16_t **begI,int16_t **endI,int16_t *NumMax)
 //==
 {
-	Int16 ave_dir,ave_ort,i,kcol,x,in,kf,fl,ki,MaxOld=*NumMax;
+	int16_t ave_dir,ave_ort,i,kcol,x,in,kf,fl,ki,MaxOld=*NumMax;
 	int k_bloc;
-	Int16 *intr=*intr1;
+	int16_t *intr=*intr1;
 	KNOT4 *Free,**knot,**beg=(KNOT4**)malloc(*NumMax*sizeof(PTR)),*ptr;
 
 	CONS_MESS3("===beg    SearchColHist1   ===");
@@ -1178,7 +1178,7 @@ Int16 SearchColHist1(FRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
 	}
 	if(MaxOld != *NumMax)
 	{
-		if((intr=(Int16*)realloc_m(intr,MaxOld*sizeof(Int16),*NumMax*sizeof(Int16)))==NULL ||
+		if((intr=(int16_t*)realloc_m(intr,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL ||
 		(beg=(KNOT4**)realloc_m(beg,MaxOld*sizeof(PTR),*NumMax*sizeof(PTR)))==NULL)
 			return NOT_ALLOC;
 	}
@@ -1251,13 +1251,13 @@ Return:
   < 0 - ERR*/
 
 //===
-Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
-    Int16 *k_int1,BOUND *bnd,Int16 ave_dir,Int16 ave_ort,Int16 reg,Int16 *NumMax)
+int16_t SearchInterval1(FRAME **frm,int16_t k_frm,int16_t **beg1,int16_t **end1,
+    int16_t *k_int1,BOUND *bnd,int16_t ave_dir,int16_t ave_ort,int16_t reg,int16_t *NumMax)
 //===
 {
-	Int16 k_int,pos,min_col,min_int,maxh,minh,midh,kstr,len,len_group,i,j;
-	Int16 beg_int,end_int,sumh,ave_h,mi,ma,Home,Fin;
-	Int16 *his,*his_first_group,*his_second_group,last_real_line,
+	int16_t k_int,pos,min_col,min_int,maxh,minh,midh,kstr,len,len_group,i,j;
+	int16_t beg_int,end_int,sumh,ave_h,mi,ma,Home,Fin;
+	int16_t *his,*his_first_group,*his_second_group,last_real_line,
 		    *Beg=*beg1,*End=*end1,tmp_pos;
 
 	//--Расчет параметров одномерной колонизации--
@@ -1287,14 +1287,14 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 	}
 
 	//Оценка числа строк(HOR)листа /ширины листа в символах(VER)
-	kstr = (Int16) (reg==HOR ? (bnd->down-bnd->up)/(2*ave_ort) :
+	kstr = (int16_t) (reg==HOR ? (bnd->down-bnd->up)/(2*ave_ort) :
                    (bnd->right-bnd->left)/(1.2*ave_ort));
   //--Вычисление профиля-гистограммы числа компонент, проецирующихся в данный пиксел--
 	len=Fin-Home+2;//длина гистограммы
 	CONS_MESS2("kstr=%d  len_hist=%d",kstr,len);
-	if( (his=(Int16*)malloc(len*sizeof(Int16))) == NULL)
+	if( (his=(int16_t*)malloc(len*sizeof(int16_t))) == NULL)
 		return NOT_ALLOC;
-	memset(his,0,len*sizeof(Int16));
+	memset(his,0,len*sizeof(int16_t));
 	--len;
 
 	if(reg==VER)
@@ -1304,9 +1304,9 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
    			CONS_MESS21("begin len_group=%d ",len_group);
 			len_group=0;
 		}
-		if((his_first_group=(Int16*)malloc((len_group+4)*sizeof(Int16))) == NULL)
+		if((his_first_group=(int16_t*)malloc((len_group+4)*sizeof(int16_t))) == NULL)
 			return NOT_ALLOC;
-		if((his_second_group=(Int16*)malloc((len_group+4)*sizeof(Int16))) == NULL)
+		if((his_second_group=(int16_t*)malloc((len_group+4)*sizeof(int16_t))) == NULL)
 			return NOT_ALLOC;
  		last_real_line=0;
 		--len_group;
@@ -1360,7 +1360,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 #endif
 	//--Поиск межколон. интервалов--
 	k_int=-1; pos=-1;
-	while((Int16)his[++pos] < minh) /*поиск I позиции текста*/
+	while((int16_t)his[++pos] < minh) /*поиск I позиции текста*/
     {
 		if(pos>=len)
 	    {
@@ -1378,7 +1378,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 
 	do
 	{ /*ищем I позицию интервала*/
-		while(pos < len-min_int-min_col && (Int16)his[++pos] > maxh);
+		while(pos < len-min_int-min_col && (int16_t)his[++pos] > maxh);
 		if(pos >= len-min_int-min_col)
 	    {
 			CONS_MESS2("!!!!!! pos >= len-min_int-min_col");
@@ -1386,7 +1386,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 		}
 		beg_int=pos;
     /*ищем последовательность не менее чем min_int высотой < maxh*/
-		while((Int16)his[++pos] <= maxh)
+		while((int16_t)his[++pos] <= maxh)
 			if(pos >= len || pos-beg_int >= min_int)
 				break;
 		if(pos - beg_int < min_int &&
@@ -1403,7 +1403,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 		CONS_MESS2("ave_h=%d",ave_h);
 		if(ave_h <= midh)/*интервал найден, ищем его конец*/
 		{
-			while((Int16)his[++pos] <= maxh)
+			while((int16_t)his[++pos] <= maxh)
 			{
 				sumh+=his[pos];
 				ave_h=sumh/(pos-beg_int+1);
@@ -1444,10 +1444,10 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 				last_real_line=end_int;
 				if(k_int > *NumMax-2)
 				{
-					Int16 MaxOld=*NumMax;
-					*NumMax=(Int16)(*NumMax*1.5);
-					if((Beg=(Int16*)realloc_m(Beg,MaxOld*sizeof(Int16),*NumMax*sizeof(Int16)))==NULL ||
-					(End=(Int16*)realloc_m(End,MaxOld*sizeof(Int16),*NumMax*sizeof(Int16)))==NULL)
+					int16_t MaxOld=*NumMax;
+					*NumMax=(int16_t)(*NumMax*1.5);
+					if((Beg=(int16_t*)realloc_m(Beg,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL ||
+					(End=(int16_t*)realloc_m(End,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL)
 					{
 						free(his);
 						if(reg==VER)
@@ -1478,12 +1478,12 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 
 //////////////        Check_IsItFalseHorLine
 ////
-Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *his,Int16 pos,
-														 Int16 len,Int16 maxh,Int16 sum,Int16 len_group,
-														 Int16 *his_first_group,
-														 Int16 *his_second_group,BOUND *bnd,Int16 k_frm)
+int16_t Check_IsItFalseHorLine(int16_t last_real_line,int16_t reg,FRAME **frm,int16_t *his,int16_t pos,
+														 int16_t len,int16_t maxh,int16_t sum,int16_t len_group,
+														 int16_t *his_first_group,
+														 int16_t *his_second_group,BOUND *bnd,int16_t k_frm)
 {
-	Int16 Home,Fin,old_pos,i,j,mi,ma,beg_white_int,end_white_int,k_frm_first,k_frm_second;
+	int16_t Home,Fin,old_pos,i,j,mi,ma,beg_white_int,end_white_int,k_frm_first,k_frm_second;
 	std::vector<tagRECT>  First_Group;
 	std::vector<tagRECT>  Second_Group;
 
@@ -1508,7 +1508,7 @@ Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *h
 	k_frm_first=First_Group.size()-1;
 	CONS_MESS2(" new_count_frm-first=%d ",k_frm_first+1);
 
-	memset(his_first_group,0,(len_group+1)*sizeof(Int16));
+	memset(his_first_group,0,(len_group+1)*sizeof(int16_t));
 	do0(i,0,k_frm_first)
 	{
 		mi=First_Group[i].left  - Home;
@@ -1524,7 +1524,7 @@ Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *h
 
 ////////////////////////// Second_Group   ////////////////////////////////////////////////
 	old_pos=pos;
-	while(pos <= len  && (Int16)his[++pos] > maxh);
+	while(pos <= len  && (int16_t)his[++pos] > maxh);
 	CONS_MESS2("Second_Group new pos = %d",pos);
 	do0(i,0,k_frm)
 	{
@@ -1539,7 +1539,7 @@ Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *h
 	k_frm_second=Second_Group.size()-1;
 	CONS_MESS2("Second_Group new_count_frm=%d ",k_frm_second+1);
 
-	memset(his_second_group,0,(len_group+1)*sizeof(Int16));
+	memset(his_second_group,0,(len_group+1)*sizeof(int16_t));
 	do0(i,0,k_frm_second)
 	{
 		mi=Second_Group[i].left -Home;
@@ -1555,15 +1555,15 @@ Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *h
 /////////  Compary white intervals //////////////////////////////
 	do0(i,0,len_group)
 	{
-		while(i<= len_group && (Int16)his_first_group[++i] <= maxh);
-		while(i<= len_group && (Int16)his_first_group[++i] >  maxh);
+		while(i<= len_group && (int16_t)his_first_group[++i] <= maxh);
+		while(i<= len_group && (int16_t)his_first_group[++i] >  maxh);
 		if(i>=len_group)
 			break;
 
-		while(i<= len_group && (Int16)his_first_group[++i] > maxh);
+		while(i<= len_group && (int16_t)his_first_group[++i] > maxh);
 		beg_white_int=i;
 		CONS_MESS2("First Group beg_white_int=%d ",i);
-		while(i<= len_group && (Int16)his_first_group[++i] <= maxh);
+		while(i<= len_group && (int16_t)his_first_group[++i] <= maxh);
 		end_white_int=i;
 		if(end_white_int>=len_group)
 			break;
@@ -1583,16 +1583,16 @@ Int16 Check_IsItFalseHorLine(Int16 last_real_line,Int16 reg,FRAME **frm,Int16 *h
 
 	do0(i,0,len_group)
 	{
-		while(i<= len_group && (Int16)his_second_group[++i] <= maxh);
-		while(i<= len_group && (Int16)his_second_group[++i] >  maxh);
+		while(i<= len_group && (int16_t)his_second_group[++i] <= maxh);
+		while(i<= len_group && (int16_t)his_second_group[++i] >  maxh);
 		if(i>=len_group)
 			break;
 
-		while(i<= len_group && (Int16)his_second_group[++i] > maxh);
+		while(i<= len_group && (int16_t)his_second_group[++i] > maxh);
 		beg_white_int=i;
 		CONS_MESS2("Second Group beg_white_int=%d ",i);
 
-		while(i<= len_group && (Int16)his_second_group[++i] <= maxh);
+		while(i<= len_group && (int16_t)his_second_group[++i] <= maxh);
 		end_white_int=i;
 		if(end_white_int>=len_group)
 			break;
@@ -1620,14 +1620,14 @@ end0:
 	return 0;
 }
 
-Int16 check_white_int(Int16 beg_white_int,Int16 end_white_int,Int16 maxh,
-											Int16 *his_second_group)
+int16_t check_white_int(int16_t beg_white_int,int16_t end_white_int,int16_t maxh,
+											int16_t *his_second_group)
 {
- Int16 i,count_white_picsels=0;
+ int16_t i,count_white_picsels=0;
 
  do0(i,beg_white_int,end_white_int)
  {
-  if((Int16)his_second_group[++i] <= maxh) ++count_white_picsels;
+  if((int16_t)his_second_group[++i] <= maxh) ++count_white_picsels;
  }
  if (count_white_picsels>=2)
 	 return 1;
@@ -1663,8 +1663,8 @@ KNOTT* IncKnot(KNOTT *up,KNOTT *after,KNOTT **free)
 	return New;
 }
 //===Заполнение полей узла KNOTT ортогонал. дерева TREE2
-void FillFieldKNOTT1(KNOTT *ptr,Int16 Left,Int16 Right,Int16 Top,Int16 Bottom,
-  Int16 InBegFrm,Int16 NumFrm,Int16 InColA,
+void FillFieldKNOTT1(KNOTT *ptr,int16_t Left,int16_t Right,int16_t Top,int16_t Bottom,
+  int16_t InBegFrm,int16_t NumFrm,int16_t InColA,
   uint OrderChild,uint Type,uint AllowOCR,uint JustH,uint JustV,char *Name)
 //==
 {
@@ -1684,29 +1684,29 @@ void FillFieldKNOTT1(KNOTT *ptr,Int16 Left,Int16 Right,Int16 Top,Int16 Bottom,
 	ptr->RefOrt=ptr->RefH=NULL; //
 }
 //==
-Int16 compINDEX_SORT1(INDEX_SORT *a,INDEX_SORT *b)
+int16_t compINDEX_SORT1(INDEX_SORT *a,INDEX_SORT *b)
 //==
 	{return (a->value >= b->value ? 1:-1);}
 //==
-Int16 compLINE_KNOT1(LINE_KNOT *a,LINE_KNOT *b)
+int16_t compLINE_KNOT1(LINE_KNOT *a,LINE_KNOT *b)
 //==
 	{return (a->beg >= b->beg ? 1:-1);}
 //сортировка H-линий дерева по вертикали
 //и попутное заполнение массива терминал. V-колонок (k_colt1 - индекс)
 //если V-линии не упорядочены, они также сортируютс
 //==
-Int16 SortHorLine1(LINE_KNOT *LineHK,Int16 NumH,LINE_KNOT *LineVK,Int16 NumV,
-    KNOTT *Root,KNOTT ***colt1,Int16 *k_colt1,FRAME **frm)
+int16_t SortHorLine1(LINE_KNOT *LineHK,int16_t NumH,LINE_KNOT *LineVK,int16_t NumV,
+    KNOTT *Root,KNOTT ***colt1,int16_t *k_colt1,FRAME **frm)
 //==
 {
 	INDEX_SORT *Ind=(INDEX_SORT *)malloc(MAX(NumH,NumV)*sizeof(INDEX_SORT));
   STAT_CELL StDefault;
-  Int16 *Index=(Int16 *)malloc(NumH*sizeof(Int16)),
-        *IndexV=(Int16 *)malloc(NumV*sizeof(Int16));
-  Int16 i,DepthTree=20,flV;
+  int16_t *Index=(int16_t *)malloc(NumH*sizeof(int16_t)),
+        *IndexV=(int16_t *)malloc(NumV*sizeof(int16_t));
+  int16_t i,DepthTree=20,flV;
   STACK St;
 	KNOTT *Curr,**colt;
-	Int16 k_colt;
+	int16_t k_colt;
 
 	StDefault.dyLow=NORM_SCAN(20);
   //--сортировка H-линий--
@@ -1777,29 +1777,29 @@ Int16 SortHorLine1(LINE_KNOT *LineHK,Int16 NumH,LINE_KNOT *LineVK,Int16 NumV,
 
 
 #define MAX_STYLE 100
-Int16  K_PointInInch=72;
+int16_t  K_PointInInch=72;
 extern float Twips;
 float HalfPoint;
 static uint cr=13,lf=10;
 #define FONT_OCR struct h_font_ocr
 #define STYLE struct h_style
 #define PARAG struct h_parag
-STYLE { Int16 Alignment;
-        Int16 IndentFirst,IndentLeft,IndentRight;
-        Int16 SpaceBefore,SpaceAfter,SpaceBetwLine;
-        Int16 Font,SizeFont;};
-PARAG { Int16 NumStyle; //Индекс в табл. стилей
-        Int16 BegStr, EndStr; //Гранич. строки абзаца
+STYLE { int16_t Alignment;
+        int16_t IndentFirst,IndentLeft,IndentRight;
+        int16_t SpaceBefore,SpaceAfter,SpaceBetwLine;
+        int16_t Font,SizeFont;};
+PARAG { int16_t NumStyle; //Индекс в табл. стилей
+        int16_t BegStr, EndStr; //Гранич. строки абзаца
         SRECT bnd;
-        Int16 MaxSize; };       //
+        int16_t MaxSize; };       //
 COLH { SRECT bnd;/*рамка объединения*/};
 FONT_OCR { char *FileBase; };
 
 //==
-Int16 CalcNumDau(KNOTT *Knot)
+int16_t CalcNumDau(KNOTT *Knot)
 //==
 {
-	Int16 n=0;
+	int16_t n=0;
 	KNOTT *ptr;
 
 	if(!Knot)
@@ -1820,12 +1820,12 @@ Int16 CalcNumDau(KNOTT *Knot)
 //  Запольнение RtfPage.
 Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 {
-	Int16  nc,ns,nw,nz,fl,i,i_ns1,i_nsb,i_nse,j,ih,iv,iv1,kp,kp1,kp2,
+	int16_t  nc,ns,nw,nz,fl,i,i_ns1,i_nsb,i_nse,j,ih,iv,iv1,kp,kp1,kp2,
 		      n_beg,dist_hor_col=240,dist_sec=360,flag_vse_term=1,OldNumCol;
-	Int16	 FlagBadColumn;
+	int16_t	 FlagBadColumn;
 	const char   *err="PageTree";
 	SRECT  bnd;
-	Int16  ***Colt,K_Sect,*K_Hor,**K_Ver_Flag_Term,**K_Ver_Add_On,**K_Ver_Offset,**K_Ver;
+	int16_t  ***Colt,K_Sect,*K_Hor,**K_Ver_Flag_Term,**K_Ver_Add_On,**K_Ver_Offset,**K_Ver;
 	COLH   **ColH,**ColH_New;
 	INF_TREE Inf;
 	FRAME **frm;
@@ -1908,7 +1908,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 		FlagOdinSectorOdnaColonka=FALSE;
 	for(i=0; i <= Inf.NumT; ++i)
 	{
-		Int16 num,inCol,nc,ns,r,l,t,b,TotalNumStr,m;
+		int16_t num,inCol,nc,ns,r,l,t,b,TotalNumStr,m;
 
 		l     = Inf.bnd_col[i].left;
 		r     = Inf.bnd_col[i].right;
@@ -1964,7 +1964,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 
 			for(j=0; j < num; ++j)
 			{
-				nc=(Int16)frm[n_beg+j]->start_pos;
+				nc=(int16_t)frm[n_beg+j]->start_pos;
 				TotalNumStr += NumStr[nc]+1;
 			}
 
@@ -1980,7 +1980,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 
 			for(j=0; j<num; ++j)
 			{
-				nc = (Int16)frm[n_beg+j]->start_pos;  //прибавить строки колонки nc к inCol
+				nc = (int16_t)frm[n_beg+j]->start_pos;  //прибавить строки колонки nc к inCol
 				if(j)
 					TitleStr[nc][0].S_Attr=1;
 			#ifdef alDebug
@@ -2037,16 +2037,16 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 			CONS_MESS4("Количество колон =%d",k_col[1]+1);
 
 			K_Sect=0;
-			K_Hor=(Int16*)malloc((K_Sect+1)*sizeof(Int16));
+			K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
 			K_Hor[0]=k_col[1];
-			K_Ver=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-			K_Ver_Flag_Term=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-			Colt=(Int16***)malloc((K_Sect+1)*sizeof(Int16**));
+			K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+			K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+			Colt=(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
 			if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
 				return NOT_ALLOC;
-			if((K_Ver[0]=(Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL||
-			   (K_Ver_Flag_Term[0]=(Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL||
-				(Colt [0]=(Int16**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
+			if((K_Ver[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
+			   (K_Ver_Flag_Term[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
+				(Colt [0]=(int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
 				return NOT_ALLOC;
 
 			for(ih=0,ptr=pRoot->down; ih <= K_Hor[0]; ++ih,ptr=ptr->next)
@@ -2065,7 +2065,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 					else
 						K_Ver[0][ih]=0;
 
-					if((Colt[0][ih]=(Int16*)malloc((K_Ver[0][ih]+1)*sizeof(Int16)))==NULL)
+					if((Colt[0][ih]=(int16_t*)malloc((K_Ver[0][ih]+1)*sizeof(int16_t)))==NULL)
 						return NOT_ALLOC;
 					Get_all_term_fragms1( ptr,Colt[0][ih],&iv,NumCol,frm );
 				#ifdef alDebug
@@ -2076,7 +2076,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 				else
 				{
 					K_Ver[0][ih]=ptr->NumFrm-1;
-					if((Colt[0][ih]=(Int16*)malloc((K_Ver[0][ih]+1)*sizeof(Int16)))==NULL)
+					if((Colt[0][ih]=(int16_t*)malloc((K_Ver[0][ih]+1)*sizeof(int16_t)))==NULL)
 						return NOT_ALLOC;
 				#ifdef alDebug
 					if(det4 && dets) ConsMess(" Выдельяем память для %d term fragm",ptr->NumFrm);
@@ -2101,7 +2101,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 								i_nse=ptr1->InBegFrm+ptr1->NumFrm;
 								for(i_nsb=ptr1->InBegFrm; i_nsb<i_nse; ++iv,++i_nsb)
 								{
-									Colt[0][ih][iv]=(Int16)frm[i_nsb]->start_pos;
+									Colt[0][ih][iv]=(int16_t)frm[i_nsb]->start_pos;
 									CONS_MESS4(" #term=%d",NumCol+1-Colt[0][ih][iv]);
 								}
 							}
@@ -2138,10 +2138,10 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 			CONS_MESS4("Количество секций =%d",k_col[1]+1);
 
 			K_Sect=k_col[1];
-			K_Hor=(Int16*)malloc((K_Sect+1)*sizeof(Int16));
-			K_Ver=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-			K_Ver_Flag_Term=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-			Colt =(Int16***)malloc((K_Sect+1)*sizeof(Int16**));
+			K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
+			K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+			K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+			Colt =(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
 			if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
    				return NOT_ALLOC;
 			//******  Цикл по секциям,внутри каждой - до 2-уровневой иерархии ***********
@@ -2154,9 +2154,9 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 				if(kp < 0)
 				{
 					K_Hor[i]=0;
-					K_Ver[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
-					K_Ver_Flag_Term[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
-					Colt[i] =(Int16**)malloc((K_Hor[i]+1)*sizeof(Int16*));
+					K_Ver[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
+					K_Ver_Flag_Term[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
+					Colt[i] =(int16_t**)malloc((K_Hor[i]+1)*sizeof(int16_t*));
 					if(K_Ver[i]==NULL||K_Ver_Flag_Term[i]==NULL||Colt[i]==NULL)
      					return NOT_ALLOC;
 
@@ -2171,7 +2171,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 						K_Ver_Flag_Term[i][0]=0;
 					}
 
-					if((Colt[i][0]=(Int16*)malloc((K_Ver[i][0]+1)*sizeof(Int16)))==NULL)
+					if((Colt[i][0]=(int16_t*)malloc((K_Ver[i][0]+1)*sizeof(int16_t)))==NULL)
 						return -3;
 
 					if(ptr->NumFrm>1 && !ptr->Type)
@@ -2181,7 +2181,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 						i_nse=ptr->InBegFrm+ptr->NumFrm;
 						for(i_ns1=0,i_nsb=ptr->InBegFrm; i_nsb<i_nse; ++i_ns1,++i_nsb)
 						{
-							Colt[i][0][i_ns1]=(Int16)frm[i_nsb]->start_pos;
+							Colt[i][0][i_ns1]=(int16_t)frm[i_nsb]->start_pos;
 							CONS_MESS4(" #term=%d",NumCol+1-Colt[i][0][i_ns1]);
 						}
 						CONS_MESS4("Колонка сложной структуры (фреймы) ");
@@ -2196,9 +2196,9 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 				else
 				{
 					K_Hor[i]=kp;
-					K_Ver[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
-					K_Ver_Flag_Term[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
-					Colt[i] =(Int16**)malloc((K_Hor[i]+1)*sizeof(Int16*));
+					K_Ver[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
+					K_Ver_Flag_Term[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
+					Colt[i] =(int16_t**)malloc((K_Hor[i]+1)*sizeof(int16_t*));
 					if(K_Ver[i]==NULL||K_Ver_Flag_Term[i]==NULL||Colt[i]==NULL)
 						return NOT_ALLOC;
 					//************  цикл по H-дочерям секции ****************************
@@ -2221,7 +2221,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 								K_Ver_Flag_Term[i][ih]=0;
 							}
 
-							if((Colt[i][ih]=(Int16*)malloc((K_Ver[i][ih]+1)*sizeof(Int16)))==NULL)
+							if((Colt[i][ih]=(int16_t*)malloc((K_Ver[i][ih]+1)*sizeof(int16_t)))==NULL)
 								return -3;
 
 							if(ptr1->NumFrm>1 && !ptr1->Type)
@@ -2231,7 +2231,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 								i_nse=ptr1->InBegFrm+ptr1->NumFrm;
 								for(i_ns1=0,i_nsb=ptr1->InBegFrm; i_nsb<i_nse; ++i_ns1,++i_nsb)
 								{
-									Colt[i][ih][i_ns1]=(Int16)frm[i_nsb]->start_pos;
+									Colt[i][ih][i_ns1]=(int16_t)frm[i_nsb]->start_pos;
 									CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][i_ns1]);
 								}
 							}
@@ -2244,7 +2244,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 						else
 						{
 							K_Ver[i][ih]=ptr1->NumFrm-1;
-							if((Colt[i][ih]=(Int16*)malloc((K_Ver[i][ih]+1)*sizeof(Int16)))==NULL)
+							if((Colt[i][ih]=(int16_t*)malloc((K_Ver[i][ih]+1)*sizeof(int16_t)))==NULL)
 								return -3;
 						#ifdef alDebug
 						 	if(det4 && dets) ConsMess(" Выдельяем память для %d term fragm",ptr1->NumFrm);
@@ -2269,7 +2269,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 										i_nse=ptr2->InBegFrm+ptr2->NumFrm;
 										for(i_nsb=ptr2->InBegFrm; i_nsb<i_nse; ++iv,++i_nsb)
 										{
-											Colt[i][ih][iv]=(Int16)frm[i_nsb]->start_pos;
+											Colt[i][ih][iv]=(int16_t)frm[i_nsb]->start_pos;
 											CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][iv]);
 
 										}
@@ -2309,20 +2309,20 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 			if(!NumCol) //090899 update
 			{
 				K_Sect=0;
-				K_Hor=(Int16*)malloc((K_Sect+1)*sizeof(Int16));
+				K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
 				K_Hor[0]=0;
-				K_Ver=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-				K_Ver_Flag_Term=(Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-				Colt=(Int16***)malloc((K_Sect+1)*sizeof(Int16**));
+				K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+				K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+				Colt=(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
 				if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
 					return NOT_ALLOC;
-  				if((K_Ver[0]=(Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL||
-					(K_Ver_Flag_Term[0]=(Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL||
-					(Colt [0]=(Int16**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
+  				if((K_Ver[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
+					(K_Ver_Flag_Term[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
+					(Colt [0]=(int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
 	 			return NOT_ALLOC;
 				K_Ver_Flag_Term[0][0]=0;
 				K_Ver[0][0]=0;
-				if((Colt[0][0]=(Int16*)malloc((K_Ver[0][0]+1)*sizeof(Int16)))==NULL)
+				if((Colt[0][0]=(int16_t*)malloc((K_Ver[0][0]+1)*sizeof(int16_t)))==NULL)
 					return NOT_ALLOC;
 				Colt[0][0][0]=0;
 			}
@@ -2331,24 +2331,24 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 BadReturn:
 				FlagBadColumn   = 1;
 				K_Sect          = 0;
-				K_Hor           = (Int16*)malloc((K_Sect+1)*sizeof(Int16));
+				K_Hor           = (int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
 				K_Hor[0]        = 0;
-				K_Ver           = (Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-				K_Ver_Flag_Term = (Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-				Colt            = (Int16***)malloc((K_Sect+1)*sizeof(Int16**));
+				K_Ver           = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+				K_Ver_Flag_Term = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+				Colt            = (int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
 
 				if( K_Hor==NULL || K_Ver_Flag_Term==NULL || K_Ver==NULL || Colt==NULL )
 					return NOT_ALLOC;
 
-  				if(( K_Ver[0]           = (Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL  ||
-						( K_Ver_Flag_Term[0] = (Int16*) malloc((K_Hor[0]+1)*sizeof(Int16)))==NULL  ||
-						( Colt [0]           = (Int16**)malloc((K_Hor[0]+1)*sizeof(PTR)))  ==NULL)
+  				if(( K_Ver[0]           = (int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL  ||
+						( K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL  ||
+						( Colt [0]           = (int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR)))  ==NULL)
 	 				return NOT_ALLOC;
 
 				K_Ver_Flag_Term[0][0]=2;
 				K_Ver[0][0]=NumCol;
 
-				if((Colt[0][0]=(Int16*)malloc((K_Ver[0][0]+1)*sizeof(Int16)))==NULL)
+				if((Colt[0][0]=(int16_t*)malloc((K_Ver[0][0]+1)*sizeof(int16_t)))==NULL)
 					return NOT_ALLOC;
 
 				do0(i,0,NumCol)
@@ -2367,10 +2367,10 @@ BadReturn:
 			do0(iv,0,K_Ver[i][ih])
 			{
 				nc=Colt[i][ih][iv];
- 				RectFragm[nc].left   = (Int16)(RectFragm[nc].left   * Twips);
-	 			RectFragm[nc].right  = (Int16)(RectFragm[nc].right  * Twips);
-		 		RectFragm[nc].top    = (Int16)(RectFragm[nc].top    * Twips);
-				RectFragm[nc].bottom = (Int16)(RectFragm[nc].bottom * Twips);
+ 				RectFragm[nc].left   = (int16_t)(RectFragm[nc].left   * Twips);
+	 			RectFragm[nc].right  = (int16_t)(RectFragm[nc].right  * Twips);
+		 		RectFragm[nc].top    = (int16_t)(RectFragm[nc].top    * Twips);
+				RectFragm[nc].bottom = (int16_t)(RectFragm[nc].bottom * Twips);
 			}
 		}
 	}
@@ -2383,8 +2383,8 @@ BadReturn:
 	if((ColH=(COLH**)malloc((K_Sect+1)*sizeof(COLH*)))==NULL)
 		return -3;
 
-	K_Ver_Add_On = (Int16**)malloc((K_Sect+1)*sizeof(Int16*));
-	K_Ver_Offset = (Int16**)malloc((K_Sect+1)*sizeof(Int16*));
+	K_Ver_Add_On = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
+	K_Ver_Offset = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
 	if(K_Ver_Add_On==NULL||K_Ver_Offset==NULL)
 		return NOT_ALLOC;
 
@@ -2392,8 +2392,8 @@ BadReturn:
 	{
 		SRECT BndTmp;
 		if((ColH[i]=(COLH*)malloc((K_Hor[i]+1)*sizeof(COLH)))==NULL)return -3;
-		K_Ver_Add_On[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
-		K_Ver_Offset[i]=(Int16*)malloc((K_Hor[i]+1)*sizeof(Int16));
+		K_Ver_Add_On[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
+		K_Ver_Offset[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
 		if(K_Ver_Add_On[i]==NULL||K_Ver_Offset[i]==NULL)
 			return NOT_ALLOC;
 
@@ -2673,7 +2673,7 @@ BadReturn:
 
 	if(FlagOdinSectorOdnaColonka)
 	{
-		Int16 tmpNumCol;
+		int16_t tmpNumCol;
 		tmpNumCol = NumCol;
 		NumCol    = OldNumCol;
 		if(NumStr)
@@ -2708,9 +2708,9 @@ BadReturn:
 	return TRUE;
 }
 
-void Get_all_term_fragms1( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME **frm)
+void Get_all_term_fragms1( KNOTT* ptr,int16_t* Colt,int16_t* iv,int16_t NumCol,FRAME **frm)
  {
-  Int16 i_nsb,i_nse;
+  int16_t i_nsb,i_nse;
 
   if(ptr->NumFrm>1 && !ptr->Type)
 		{
@@ -2721,7 +2721,7 @@ void Get_all_term_fragms1( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME *
    i_nse=ptr->InBegFrm+ptr->NumFrm;
    for(i_nsb=ptr->InBegFrm; i_nsb<i_nse; ++*iv,++i_nsb)
 			{
-    Colt[*iv]=(Int16)frm[i_nsb]->start_pos;
+    Colt[*iv]=(int16_t)frm[i_nsb]->start_pos;
 				#ifdef alDebug
      if(det4)  ConsMess(" #term=%d",NumCol+1-Colt[*iv]);
 				#endif
@@ -2736,9 +2736,9 @@ void Get_all_term_fragms1( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME *
 		}
 }
 
-void Get_all_term_fragms( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME **frm)
+void Get_all_term_fragms( KNOTT* ptr,int16_t* Colt,int16_t* iv,int16_t NumCol,FRAME **frm)
  {
- 	Int16 i,i1,i2,i3,kp,kp1,kp2,kp3,kp4;
+ 	int16_t i,i1,i2,i3,kp,kp1,kp2,kp3,kp4;
   KNOTT *ptr1,*ptr2,*ptr3,*ptr4;
 
   kp=CalcNumDau(ptr)-1;
@@ -2841,9 +2841,9 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u)
 }
 
 //==
-char *get2_param(char *str,char *param,Int16 max_len)
+char *get2_param(char *str,char *param,int16_t max_len)
 //==
-{ Int16 len;
+{ int16_t len;
   len=-1; while(str[++len]==' '); str+=len;/*Убираем пробелы слева от параметра*/
   len=-1;
   while(++len < max_len && str[len] != ' ') /*Поиск первого пробела справа*/

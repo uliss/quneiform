@@ -144,7 +144,7 @@ ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 	} ROUT_TABLE_TEXT_OPTIONS;
 //*****************************************************************
 // Точки входа в DLL имени Петра Хлебутина.
-ROUT_FUNC(Bool32) ROUT_Init(Word16 wHeightCode,Handle hStorage);
+ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode,Handle hStorage);
 ROUT_FUNC(Bool32) ROUT_Done();
 ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
 ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);

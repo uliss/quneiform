@@ -61,8 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // exteren globals
 extern CRLControl * Control_crl;
 // extern functions
-void SetReturnCode_rling(Word16 rc);
-Word16 GetReturnCode_rling();
+void SetReturnCode_rling(uint16_t rc);
+uint16_t GetReturnCode_rling();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

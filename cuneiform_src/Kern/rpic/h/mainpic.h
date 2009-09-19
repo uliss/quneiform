@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 ////////////////////////////////////////////////////////////////////////////////
 EXTERN uint32_t nComps;
-EXTERN Word16 pHystogram[MaxHeightOfLetter];
+EXTERN uint16_t pHystogram[MaxHeightOfLetter];
 EXTERN uint32_t nPics;
 EXTERN CCOM_comp * pPics;
 EXTERN uint32_t nAverageHeight;

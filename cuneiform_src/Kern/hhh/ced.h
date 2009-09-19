@@ -224,7 +224,7 @@ typedef struct edCol
 
 //#include "ced_struct.h" //Структуры, обрабатываемые CED_FormattedLoad
 
-CED_FUNC(Bool32) CED_Init(Word16 wHeightCode,Handle hStorage);
+CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,Handle hStorage);
 CED_FUNC(Bool32) CED_Done();
 CED_FUNC(uint32_t) CED_GetReturnCode();
 CED_FUNC(char *) CED_GetReturnString(uint32_t dwError);

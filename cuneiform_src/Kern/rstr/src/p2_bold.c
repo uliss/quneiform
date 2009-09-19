@@ -114,8 +114,8 @@ static uchar SetBoldByTable(int nThick, int midThick,
 typedef struct tagThick {
         CSTR_rast first;
         CSTR_rast last;
-        Int16 height;
-        Int16 thick;
+        int16_t height;
+        int16_t thick;
         uchar strih;
         uchar bold;
         uchar nLet;
@@ -123,8 +123,8 @@ typedef struct tagThick {
 } WORDThick;
 
 typedef struct tagThickColumn {
-	Word16 thick;
-	Int16 nLet;  //  also mark for first not-empty
+	uint16_t thick;
+	int16_t nLet;  //  also mark for first not-empty
 	uchar nThick;
 	uchar bold;
 	uchar minThick;
@@ -247,14 +247,14 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
 static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
 {
  uchar *pWord8;
- Int16 *pInt16;
+ int16_t *pInt16;
  int w,h;
 
    if(!comp || !comp->linerep)
          return FALSE;
 
    pWord8 = &comp->linerep[0];
-   pInt16 = (Int16*)pWord8;
+   pInt16 = (int16_t*)pWord8;
 
    w = comp->w;
    h = comp->h;
@@ -265,13 +265,13 @@ static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
         }
    *height=h;
    do  { // comps cycle
-        //ret = Linerep2Raster((CCOM_lnhead*)(pWord8+2),(Int16)((*pInt16)-2), w, h);
+        //ret = Linerep2Raster((CCOM_lnhead*)(pWord8+2),(int16_t)((*pInt16)-2), w, h);
                 FillFromLine((CCOM_lnhead*)(pWord8+2),(*pInt16)-2,thickBuf,0);
                 if( comp->numcomp <= 1)
                         break;
 
         pWord8 += *pInt16;
-        pInt16  = (Int16*)pWord8;
+        pInt16  = (int16_t*)pWord8;
 
         }
    while(  (*pInt16) > 0 );

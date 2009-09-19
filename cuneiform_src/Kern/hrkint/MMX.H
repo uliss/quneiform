@@ -79,16 +79,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // for R35.dll
 MMX_FUNC(uint32_t)    MMX_scalar(uint32_t _EAX, uint32_t _EDX);
 MMX_FUNC(uint32_t)    MMX_scalar16_(uint32_t  _EAX, uint32_t _EDX);
-MMX_FUNC(void)      MMX_open_image(Word16 *_EAX);
+MMX_FUNC(void)      MMX_open_image(uint16_t *_EAX);
 MMX_FUNC(void)      MMX_close_image(void);
-MMX_FUNC(uint32_t)    MMX_scalar_sq(Word16 *_EAX,int32_t _ECX);
-MMX_FUNC(void)      MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX);
-MMX_FUNC(void)      MMX_binarize_16x16(Word16 *rin,uchar *rout);
+MMX_FUNC(uint32_t)    MMX_scalar_sq(uint16_t *_EAX,int32_t _ECX);
+MMX_FUNC(void)      MMX_scale( uint16_t *_EAX, int32_t _ECX, int32_t _EDX);
+MMX_FUNC(void)      MMX_binarize_16x16(uint16_t *rin,uchar *rout);
 
 // for NET.dll
-MMX_FUNC(uint32_t)    MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num);
-MMX_FUNC(uint32_t)    MMX_scalar16 (Int16 * _EAX, Int16 * _EDX);
-MMX_FUNC(uint32_t)    MMX_scalar36 (Int16 * _EAX, Int16 * _EDX);
+MMX_FUNC(uint32_t)    MMX_scalarUni (int16_t * _EAX, int16_t * _EDX, int32_t num);
+MMX_FUNC(uint32_t)    MMX_scalar16 (int16_t * _EAX, int16_t * _EDX);
+MMX_FUNC(uint32_t)    MMX_scalar36 (int16_t * _EAX, int16_t * _EDX);
 
 // for  GRA.dll
 MMX_FUNC(void)      MMX_addshab_cykl(int * src, int cg, signed char * dst, int num);
@@ -96,7 +96,7 @@ MMX_FUNC(void)      MMX_addshab(int * src, int cg, signed char * dst);
 
 // for IND.dll
 MMX_FUNC(void)      MMX_ind_setup_table(uint32_t *bit_cnt0);
-MMX_FUNC(Bool32)    MMX_anding(int32_t *image,Word16 *etalons,int32_t L);
+MMX_FUNC(Bool32)    MMX_anding(int32_t *image,uint16_t *etalons,int32_t L);
 MMX_FUNC(void)      MMX_open( int32_t *image);
 MMX_FUNC(void)      MMX_close(void);
 

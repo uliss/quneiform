@@ -285,7 +285,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       int32_t pen_width,uint32_t key){;};
    static void   SnpHideRects(uint32_t key){;};
    static void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-      uint32_t rgb_color,Int16 pen_width,uint32_t key ){;};
+      uint32_t rgb_color,int16_t pen_width,uint32_t key ){;};
    static void   SnpHideLines(Handle key){;};
    static void   SnpDrawFocusRect(Rect16* rc){;};
    static uint32_t SnpSetZoneOn(Rect16*  zone_rect,
@@ -323,7 +323,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          int32_t pen_width,uint32_t key);
        void   SnpHideRects(uint32_t key);
        void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-         uint32_t rgb_color,Int16 pen_width, Handle key );
+         uint32_t rgb_color,int16_t pen_width, Handle key );
        void   SnpHideLines(Handle key);
        void   SnpDrawFocusRect(Rect16* rc);
        uint32_t SnpSetZoneOn(Rect16*  zone_rect,
@@ -366,7 +366,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       int32_t pen_width,uint32_t key);
    void   SnpHideRects(uint32_t key);
    void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-      uint32_t rgb_color, Int16 pen_width, Handle key );
+      uint32_t rgb_color, int16_t pen_width, Handle key );
    void   SnpHideLines(Handle key);
    void   SnpDrawFocusRect(Rect16* rc);
    uint32_t SnpSetZoneOn(Rect16*  zone_rect,

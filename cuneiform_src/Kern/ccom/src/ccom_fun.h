@@ -54,12 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2Raster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec, Bool32 bChangeSize);
-Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec);
-Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h, Int16 c, Int16 r,
+Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h, int16_t c, int16_t r,
                       RecRaster *rec,int32_t scale);
