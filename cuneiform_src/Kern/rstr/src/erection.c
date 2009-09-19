@@ -1432,17 +1432,17 @@ lnhead   *line;
 
 // calculating left offset of image
 min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
-for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
+for(line=(lnhead *)((pchar)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - (tab_angle[ind]-min_shift))< left_shift )
       left_shift = w;  // max left limit
 min_shift -= left_shift;
 
 // rotating during shift table
-for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),w=0;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
+for(line=(lnhead *)((pchar)c->env+c->env->lines+sizeof(INT)),w=0;
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead));
         h; h--,inter++,ind++)
     if( (inter->e-tab_angle[ind]-min_shift) > w )
       w = inter->e-tab_angle[ind]-min_shift;  // max right limit - new width
@@ -1458,17 +1458,17 @@ lnhead   *line;
 
 // calculating left offset of image
 min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
-for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
+for(line=(lnhead *)((pchar)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - (tab_angle[ind]-min_shift))< left_shift )
       left_shift = w;  // max left limit
 //min_shift -= left_shift;
 
 // rotating during shift table
-for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),w=0;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
+for(line=(lnhead *)((pchar)c->env+c->env->lines+sizeof(INT)),w=0;
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead));
         h; h--,inter++,ind++)
     if( (inter->e-tab_angle[ind]) > w )
       w = inter->e-tab_angle[ind];  // max right limit - new width
@@ -1562,7 +1562,7 @@ INT      b, l;
 
 h=line->h;
 lmax=init_max; i=0;  num_row = line->row;
-inter=(interval *)((PCHAR)line+sizeof(lnhead));
+inter=(interval *)((pchar)line+sizeof(lnhead));
 
 for( ; h ; h--,inter++,i++,num_row++)
   {
@@ -1583,8 +1583,8 @@ INT diff_left_limit_cell(cell *c, INT tab_angle[], INT init_max)
  lnhead   *line;
  INT      ll, lmax, l;
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT)),lmax=init_max;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT)),lmax=init_max;
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         {
         l = diff_left_limit_one_line(line, tab_angle, init_max);
         if( l<lmax )          lmax = l;
@@ -1624,9 +1624,9 @@ interval *inter;
 lnhead   *line;
 
 // calculating left offset of image
-for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++)
+for(line=(lnhead *)((pchar)c->env+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,inter=(interval *)((pchar)line+sizeof(lnhead)); h; h--,inter++)
       dens += inter->l;
 return dens;
 }
@@ -1714,15 +1714,15 @@ lnhead   *line;
 
 // calculating left offset of image
 for(line=(lnhead *)addr,min_shift=RASTER_MAX_WIDTH;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - tab_angle[ind]) < min_shift )
       min_shift = w;  // min dest to image from left bound
 
 // rotating during shift table
 for(line=(lnhead *)addr,w=0;
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead));
         h; h--,inter++,ind++)
       inter->e -= tab_angle[ind]+min_shift;  // max right limit - new width
 

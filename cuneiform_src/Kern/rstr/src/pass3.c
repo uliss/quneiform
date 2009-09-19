@@ -2689,7 +2689,7 @@ void accept_cell(cell *c,c_comp *cmp)
  c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
  if ((c->nvers=cmp->nvers)>0)
   {
-  memcpy(c->vers,(PCHAR)cmp+cmp->records,c->nvers*sizeof(version));
+  memcpy(c->vers,(pchar)cmp+cmp->records,c->nvers*sizeof(version));
   c->vers[c->nvers].let=0;
   c->recsource = c_rs_ev;   // events done
   c->history   = c_rs_ev;

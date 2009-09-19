@@ -232,7 +232,7 @@ INT      num_row, i, h;
 interval *inter;
 
 h=line->h;  i=0;  num_row = line->row;
-inter=(interval *)((PCHAR)line+sizeof(lnhead));
+inter=(interval *)((pchar)line+sizeof(lnhead));
 for( ; h ; h--,inter++,i++,num_row++)
   if( (i==0 && (line->flg&l_fbeg))  || (h==1 && (line->flg&l_fend)) )
     {
@@ -272,8 +272,8 @@ static void pimples_deleting(cell *c,INT direct)
  INT      ll;
  INT      cw=direct?((c->w+7)/8):((c->h+7)/8),ch=c->w;
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         pimples_deleting_one_line(line,cw,ch,direct);
 
 return;
@@ -291,7 +291,7 @@ INT      pb,pe, b,e, nb,ne;
 h=line->h;
 if( h<3 ) return;
 i=0;  num_row = line->row;
-inter=(interval *)((PCHAR)line+sizeof(lnhead));
+inter=(interval *)((pchar)line+sizeof(lnhead));
 
 inter++; num_row++;
 i++, h-=2; // skip first, last intervals on the line
@@ -349,8 +349,8 @@ static void jumps_deleting(cell *c)
  INT      ll;
  INT      cw=((c->w+7)/8),ch=c->w;
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         jumps_deleting_one_line(line,cw,ch);
 
 return;

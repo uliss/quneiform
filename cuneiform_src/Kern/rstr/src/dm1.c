@@ -137,7 +137,7 @@ INT w_to_show, h_to_show, row_to_show, col_to_show;
 
 static char log_str[256], *log_s;
 
-static void lsnap(char user,cell *C,PCHAR txt, INT p)
+static void lsnap(char user,cell *C,pchar txt, INT p)
 {
  char wrk[16];
  if (!db_status) return;
@@ -152,7 +152,7 @@ static void lsnap(char user,cell *C,PCHAR txt, INT p)
   }
 }
 
-void est_snap(char user,cell *C,PCHAR txt)
+void est_snap(char user,cell *C,pchar txt)
 {
  if (!db_status) return;
  snap_newcell(C);
@@ -2781,12 +2781,12 @@ Bool is_comma(cell *c, INT bases3)
       return FALSE;
     else
       {
-      for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT)),n=0,d=0;
-        (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+      for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT)),n=0,d=0;
+        (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
         {
         h=line->h;
         i=line->row;
-        for( inter=(interval *)((PCHAR)line+sizeof(lnhead));h;
+        for( inter=(interval *)((pchar)line+sizeof(lnhead));h;
           n++,h--,inter++,i++)
             if( inter->l!=1||(i!=0&&i!=c->h-1) ) // non pimple or middel line
               d += inter->l;

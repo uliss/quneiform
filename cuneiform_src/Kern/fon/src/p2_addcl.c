@@ -130,7 +130,7 @@ typedef struct tagSWEL
       SINT w;
       SINT h;
       uint16_t invalid;  // invalid ?
-      PCHAR raster;
+      pchar raster;
       char  wei;
       char  dist1;
       char  xcen;
@@ -168,11 +168,11 @@ SINT FindCenterRaster(BYTE *raster,SINT xbyte,SINT yrow,SINT *y);
 SINT FindCenterWel(welet *wl,SINT *y);
  // Ґбвм «Ё в®зЄЁ ў r  б а ббв®п­ЁҐ¬ > dist1
 SINT DistBitRas(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 PCHAR wr,SINT ww,SINT wh,char dist1,  // grey raster
+		 pchar wr,SINT ww,SINT wh,char dist1,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
  // Ґбвм «Ё в®зЄЁ ў wr  б ўҐб®¬ > wei ­Ґ ўе®¤пйЁҐ ў r
 SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 PCHAR wr,SINT ww,SINT wh,char wei,  // grey raster
+		 pchar wr,SINT ww,SINT wh,char wei,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
 
 
@@ -361,7 +361,7 @@ static SINT AddRaster(SWEL *sw,welet *wl)
 {
 SINT i;
 SINT w,h;
-PCHAR ras,rr;
+pchar ras,rr;
 SINT stx,sty;
 
  w=MIN(WR_MAX_WIDTH,wl->w+2);   // add two rows !!!
@@ -485,7 +485,7 @@ SINT i,j;
 }
 ////////////////
 
-static SINT GetSwel(PCHAR cluname,SINT nclus,SWEL *sw,clu_info *cin,
+static SINT GetSwel(pchar cluname,SINT nclus,SWEL *sw,clu_info *cin,
 			SINT AllCount,BYTE size)
 {
 SINT i;

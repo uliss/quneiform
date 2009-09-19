@@ -107,8 +107,8 @@ static Bool left_over(cell *b,INT limit);
 //INT text_findstat(char * word);
 //============== Local func =================
 static Bool russian_dictionary_word(cell * first, cell * last,PBYTE);
-Bool _spell(PCHAR s,BYTE lang);
-Bool _spell_agressive(PCHAR s,BYTE lang);
+Bool _spell(pchar s,BYTE lang);
+Bool _spell_agressive(pchar s,BYTE lang);
 Bool short_spell(BYTE *wrd,BYTE language, BYTE nextlet );
 extern void final_descriminate(cell *b, cell *e);
 extern void del_word_for2lang(INT left_limit,INT right_limit);
@@ -650,7 +650,7 @@ cell *c,*roll;
  return FALSE;
 }
 
-Bool _spell(PCHAR s,BYTE lang)
+Bool _spell(pchar s,BYTE lang)
 {
 
 char        w[76]="",*pw; BYTE ss;
@@ -684,7 +684,7 @@ else
 return  ret > 0;
 }
 
-Bool _spell_agressive(PCHAR s,BYTE lang)
+Bool _spell_agressive(pchar s,BYTE lang)
 {
 
 char        w[76]="",*pw; BYTE ss;

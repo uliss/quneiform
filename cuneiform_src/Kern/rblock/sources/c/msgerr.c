@@ -219,31 +219,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*============== Messages groups structure ====================	*/
 
-static PCHAR format_msg[]={msg_0_1,msg_0_2,msg_0_3,msg_0_4,msg_0_5};
-static PCHAR comp_msg[]={msg_1_1,msg_1_2,msg_1_3,msg_1_4,msg_1_5,
+static pchar format_msg[]={msg_0_1,msg_0_2,msg_0_3,msg_0_4,msg_0_5};
+static pchar comp_msg[]={msg_1_1,msg_1_2,msg_1_3,msg_1_4,msg_1_5,
 	                     msg_1_6,msg_1_7,msg_1_8,msg_1_9,msg_1_10,
 						 msg_1_11,msg_1_12,msg_1_13,msg_1_14,msg_1_15,
 						 msg_1_16,msg_1_17};
-static PCHAR image_msg[]={msg_2_1,msg_2_2,msg_2_3,msg_2_4,msg_2_5};
-static PCHAR run_msg[]={msg_3_1,msg_3_2};
-static PCHAR voc_msg[]={msg_4_1,msg_4_2,msg_4_3,msg_4_4,msg_4_5,
+static pchar image_msg[]={msg_2_1,msg_2_2,msg_2_3,msg_2_4,msg_2_5};
+static pchar run_msg[]={msg_3_1,msg_3_2};
+static pchar voc_msg[]={msg_4_1,msg_4_2,msg_4_3,msg_4_4,msg_4_5,
 			            msg_4_6,msg_4_7};
-static PCHAR rtf_msg[]={msg_6_1,msg_6_2,msg_6_3,msg_6_4,msg_6_5,
+static pchar rtf_msg[]={msg_6_1,msg_6_2,msg_6_3,msg_6_4,msg_6_5,
                         msg_6_6,msg_6_7,msg_6_8,msg_6_9,msg_6_10,
 						msg_6_11,msg_6_12,msg_6_13,msg_6_14};
-static PCHAR kernel_msg[]={msg_7_1,msg_7_2,msg_7_3,msg_7_4,msg_7_5,
+static pchar kernel_msg[]={msg_7_1,msg_7_2,msg_7_3,msg_7_4,msg_7_5,
                            msg_7_6,msg_7_7,msg_7_8,msg_7_9,msg_7_10,
 						   msg_7_11};
-static PCHAR edout_msg[]={msg_8_1,msg_8_2,msg_8_3,msg_8_4,msg_8_5};
+static pchar edout_msg[]={msg_8_1,msg_8_2,msg_8_3,msg_8_4,msg_8_5};
 
 #ifndef DEMO
-static PCHAR copyr_msg[]={
+static pchar copyr_msg[]={
 "\n\n     \n"
   };
 #endif
 
 #ifdef DEMO
-static PCHAR copyr_msg[]={
+static pchar copyr_msg[]={
 "\n\n"
   "       ████  ██████   ████           █████     ████   ██████    \n"
   "      ██       ██    ██             ██   ██   ██      ██   ██   \n"
@@ -254,7 +254,7 @@ static PCHAR copyr_msg[]={
   };
 #endif
 
-PCHAR * message_groups[]={format_msg,comp_msg,image_msg,run_msg,
+pchar * message_groups[]={format_msg,comp_msg,image_msg,run_msg,
 			voc_msg,copyr_msg,rtf_msg,kernel_msg,edout_msg};
 
 //---------------------- Errors processing ------------------
@@ -282,7 +282,7 @@ void error_exit (INT group, INT element)
 
 }
 
-void error_exit_str(INT group, INT element,PCHAR s)
+void error_exit_str(INT group, INT element,pchar s)
 {
  extern void FreeAllData(void);
 
@@ -298,9 +298,9 @@ void error_exit_asm (INT element)
 }
 
 //	External manipulation with error status
-PCHAR get_message (uint16_t code)
+pchar get_message (uint16_t code)
 {
-    PCHAR c=mess;
+    pchar c=mess;
     if (code == 0) return "OK.";
     strcpy(mess,*(message_groups [(code - 1000)/100] + code%100 - 1));  /* ptr to message */
     strcat(mess,add_mess);

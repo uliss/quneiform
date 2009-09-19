@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef signed char		char;
 typedef	unsigned char		BYTE;
-typedef signed char near *	PCHAR;
+typedef signed char near *	pchar;
 typedef unsigned char near *	PBYTE;
 
 /*			Word size data					*/
@@ -151,8 +151,8 @@ static void putch_cell                  (INT);
 static void update_screen               (void);
 static void goto_status                 (void);
 static void clear_status                (void);
-static void message                     (PCHAR);
-static void smessage                    (PCHAR, PCHAR);
+static void message                     (pchar);
+static void smessage                    (pchar, pchar);
 static void clear_buffer                (void);
 static void load_field                  (void);
 static void save_field                  (void);
@@ -171,7 +171,7 @@ static INT Guo_and_Hall_algorithm       (void);
 static INT skin                         (INT, INT);
 static INT Karzanov_and_Komissarchik_algorithm (void);
 static INT is_internal                  (INT, INT);
-static INT check_shape                  (INT, INT, PCHAR, INT);
+static INT check_shape                  (INT, INT, pchar, INT);
 static INT check_picture                (INT, INT);
 static INT Talalai_algorithm            (void);
 
@@ -280,7 +280,7 @@ static void clear_status (void)
 }
 
 
-static void message (PCHAR s)
+static void message (pchar s)
 {
     clear_status ();
     goto_status ();
@@ -288,7 +288,7 @@ static void message (PCHAR s)
 }
 
 
-static void smessage (PCHAR format, PCHAR s)
+static void smessage (pchar format, pchar s)
 {
     clear_status ();
     goto_status ();
@@ -899,7 +899,7 @@ typedef struct
       {
       INT   max_neighbors;
       INT   min_neighbors;
-      PCHAR string;
+      pchar string;
       } SHAPE;
 
 SHAPE picture_shape [] =
@@ -923,7 +923,7 @@ static INT is_internal (INT x, INT y)
 }
 
 
-static INT check_shape (INT x, INT y, PCHAR sh_string, INT offset)
+static INT check_shape (INT x, INT y, pchar sh_string, INT offset)
 {
     INT i, j;
 

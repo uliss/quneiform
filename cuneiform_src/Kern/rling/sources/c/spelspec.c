@@ -159,8 +159,8 @@ INT check_art_dict (char word[], INT * wordlth, INT * vockind)
       char                    pref;
       char                   postf;
       char  CapWord[MAX_WORD_SIZE];
- register PCHAR             body_b;
-      PCHAR                 body_e;
+ register pchar             body_b;
+      pchar                 body_e;
  register BYTE             *p;
   word[*wordlth+1]=0;
 

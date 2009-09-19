@@ -122,14 +122,14 @@ static char *legs_err[]={
 static char roof_incompl[]={"incomplete roof/floor"};
 static char roof_hole[]={"gap not in place"};
 
-void est_snap(char user,cell *C,PCHAR txt);
+void est_snap(char user,cell *C,pchar txt);
 static BYTE pen_roofm[8]={0,2,4,12,24,36,48,100};
 static BYTE pen_roofn[8]={0,2,4,12,24,36,48,100};
 static BYTE pen_iroofn[8]={0,0,0,0,12,36,48,100};
 static BYTE pen_floor[8]={0,0,0,0,12,36,48,100};
 static BYTE pen_ifloor[8]={0,2,4,12,24,36,48,100};
 static BYTE ital_un, cum_ital;
-static INT analeg(PCHAR);
+static INT analeg(pchar);
 void del_vers(cell *c, BYTE x, BYTE pen);
 
 void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)

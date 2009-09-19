@@ -445,7 +445,7 @@ static Bool compadd(cell *c)
  servBOX *s;
  indBOX *h;
  elmBOX *elm;
- extern PCHAR tableBOX;
+ extern pchar tableBOX;
  cell *cc;
  INT i,n;
  uint16_t max,prob;
@@ -673,12 +673,12 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
   if( !cmp )
      return -1;
 
-  line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((pchar)cmp+cmp->lines+sizeof(INT));
 // test all lines - fill bounds
-  for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
+  for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((pchar)line+len))
   {
   // current line
-   for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
+   for (vint=(interval *)((pchar)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
    {
 	  if( crow < 0 || crow >= c1->h )

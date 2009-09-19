@@ -85,7 +85,7 @@ void r_criteria(cell *c, const s_glue * gl);
 INT brigt(INT, INT, INT, INT);
 
 // module names.c
-PCHAR full_name(PCHAR w, PCHAR n);
+pchar full_name(pchar w, pchar n);
 
 // module kernel.c
 void correct_dir_path(PBYTE p);
@@ -126,7 +126,7 @@ void cutoffs();
 void sweeper_ini();
 uint16_t sweeper(INT);
 void sweeper_end();
-void read_comp(uint32_t, PCHAR, LONG);
+void read_comp(uint32_t, pchar, LONG);
 void comp_file_close();
 INT delgarb();
 void del_shav();
@@ -169,7 +169,7 @@ Bool snap_stopcell(cell *, cell *);
 Bool snap_activity(BYTE);
 Bool snap_is_marked(CSTR_line ln);
 Bool snap_show_raster(PBYTE, INT, INT);
-Bool Alik_snap_show_raster(PBYTE, PBYTE, PBYTE, INT, INT, PCHAR, PCHAR, PINT);
+Bool Alik_snap_show_raster(PBYTE, PBYTE, PBYTE, INT, INT, pchar, pchar, PINT);
 void snap_newcut(void);
 void snap_show_cuts(cell *C, struct cut_elm *cut_points);
 void snap_newpoint(INT i);
@@ -234,13 +234,13 @@ INT decidust(cell *);
 INT estcomp(char, cell *, SVERS *, INT, INT, INT, s_glue *, cut_pos*, cut_pos*,
 		char, char, char);
 void snBOX(cell *);
-void est_snap(char user, cell *C, PCHAR txt);
+void est_snap(char user, cell *C, pchar txt);
 void promote(BYTE, cell *, BYTE, INT);
 void collect_pat(cell *, s_glue *, cell *);
 
 // module dm2.c
 void dm2();
-void glsnap(char, cell *, PCHAR);
+void glsnap(char, cell *, pchar);
 
 // module dms.c
 void save_vers(cell *, SVERS *);
@@ -264,7 +264,7 @@ void find_path();
 // module cutpoint.c
 INT cut_points(INT, INT, PBYTE, struct cut_elm *);
 INT Alik_cut_points(INT, INT, PBYTE, struct cut_elm *, INT);
-MN* cut_rast(PBYTE, INT, INT, INT, INT, struct cut_elm *, char, char, PCHAR,
+MN* cut_rast(PBYTE, INT, INT, INT, INT, struct cut_elm *, char, char, pchar,
 		cut_pos*);
 
 // module alcutfun.c
@@ -422,7 +422,7 @@ void recover_dusts(void);
 void hide_dusts(BYTE reg);
 
 // module il1peak.c
-void extremum(PCHAR, INT, INT, INT, INT, char, char);
+void extremum(pchar, INT, INT, INT, INT, char, char);
 
 // module il1tg.c
 void il1();
@@ -553,7 +553,7 @@ void maden_comp(PBYTE, INT, INT, INT, INT);
 c_comp *get_comp(PROOT);
 void Pass2(void);
 Bool32 read_rec_file(INT seqn, PBYTE pool, PBYTE * end);
-///////////////////INT cond_open(INT seqn, PCHAR name, uint16_t b1, uint16_t b2);
+///////////////////INT cond_open(INT seqn, pchar name, uint16_t b1, uint16_t b2);
 PBYTE seq_nam(INT seqn);
 INT to_voc(void);
 void to_edp(void);

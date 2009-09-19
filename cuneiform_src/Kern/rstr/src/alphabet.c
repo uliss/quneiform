@@ -940,8 +940,8 @@ INT ll, pos_n;
 
 if( !c->env )
   return 0;
-for (pos_n=nl=0,inter_l=255,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (pos_n=nl=0,inter_l=255,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=(BYTE)line->h;
   if( nl>1 )
@@ -949,7 +949,7 @@ for (pos_n=nl=0,inter_l=255,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof
   if( h>1 )
     nl ++;
 
-  for( inter=(interval *)((PCHAR)line+sizeof(lnhead));
+  for( inter=(interval *)((pchar)line+sizeof(lnhead));
        h ;h--,inter++)        /* one line     */
 		{
     if( nl && inter_l > inter->l && h<line->h-3 && h>line->h/2 )

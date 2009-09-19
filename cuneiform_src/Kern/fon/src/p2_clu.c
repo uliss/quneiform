@@ -1701,7 +1701,7 @@ SINT SetAccessTab(SINT fh, void *buf) {
 //
 //       >=0 - number of clusters
 //
-clu_info make_font(PCHAR rname, MKFAM accept, PBYTE extern_buf, LONG size) {
+clu_info make_font(pchar rname, MKFAM accept, PBYTE extern_buf, LONG size) {
 	char szOutName[144];
 	SINT ret;
 	clu_info cin;

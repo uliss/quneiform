@@ -187,7 +187,7 @@ static void italic(cell *c)
  char font[2*NVAR];
  uint16_t i,prob[2*NVAR];
  INT nansw,maxi,maxni,l;
- extern PCHAR tableBOX;
+ extern pchar tableBOX;
  INT sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
  Bool   bad_cur_ge, disable_it=FALSE;
 
@@ -388,11 +388,11 @@ INT letincl(cell *c)
 /* printf("let=%c,h=%u,mini=%u,maxi=%u\n",let,c->h,mini,maxi);*/
  if (f&RINCL) {memset(right,0,h+h); nr=h;}
  if (f&LINCL) {for (i=0; i<h; i++) left[i]=WMAX; nl=h;}
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
   if (line->row<=maxi && line->row+line->h>mini)
    {
-   intv0=(interval *)((PCHAR)line+sizeof(lnhead));
+   intv0=(interval *)((pchar)line+sizeof(lnhead));
    intv=intv0+MAX(0,mini-line->row);
    intve=intv0+MIN(maxi+1-line->row,line->h);
 /*   printf("y=%u,h=%u,b=%u,e=%u\n",line->row,line->h,
@@ -485,13 +485,13 @@ static void serif(cell *c)
 
  H=c->h;
  let=let_sans_acc[c->vers[0].let];
- for (n1=n2=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
+ for (n1=n2=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
   {
   if (tabserif[let]&LSER && line->flg&l_fend && (h=line->h)>=5 && h>=H/4 &&
       line->row+h+2>=H && !(c->font&c_fp_it && memchr("BLb",let,3)))
    {
-   i1=(interval *)((PCHAR)line+sizeof(lnhead))+(h-3);
+   i1=(interval *)((pchar)line+sizeof(lnhead))+(h-3);
    i2=i1-(H/4-3);
    b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
    e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
@@ -502,7 +502,7 @@ static void serif(cell *c)
   if (tabserif[let]&HSER && line->flg&l_fbeg && (h=line->h)>=5 && h>=H/4 &&
       line->row<=2 && !(c->font&c_fp_it && let=='q'))
    {
-   i1=(interval *)((PCHAR)line+sizeof(lnhead));
+   i1=(interval *)((pchar)line+sizeof(lnhead));
    i2=i1+(H/4-1);
    b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
    e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
@@ -1337,8 +1337,8 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 	if ( !(c->flg & (c_f_let|c_f_bad)) )
 		continue;
 	n+=(c->env->h)*(c->env->w);
-	for( line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
+	for( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((pchar)line+line->lth))
 		{
 		for (ie=(ic=(interval *)((PBYTE)line+sizeof(lnhead)))+line->h;
 			  ic<ie; ic++)
@@ -1630,7 +1630,7 @@ static char tabmd[256]={
 static INT dens_let(cell *c)
  {
  INT d,h;
- PCHAR tab;
+ pchar tab;
  BYTE let,fnt;
  if (c->dens>100)  // 11-10-94 05:59pm Pit for debug
   return NOTAPPL;  //

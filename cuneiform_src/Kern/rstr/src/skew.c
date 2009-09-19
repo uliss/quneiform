@@ -142,7 +142,7 @@ static INT skew_pool_fill(CSTR_line ln,pairs *pool)
  com=CSTR_GetComp(rst);
  row=com->upper;
 
- //nl=(c_comp **)((PCHAR)ln+ln->dust)-&(ln->c_comp[0]);
+ //nl=(c_comp **)((pchar)ln+ln->dust)-&(ln->c_comp[0]);
  //if (nl>255) nl=255;
  for (	 p=pool,i=0; i<255 && rst; rst=CSTR_GetNext(rst))
   {

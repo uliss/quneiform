@@ -88,7 +88,7 @@ static INT GDE_KAK[13][3] = {{1,0,0} ,{4,0,0}  ,{8,0,0} ,
 			    {4,8,8},{8,4,8},{8,8,4}};
 
 INT Alik_define_cut_points(
-  PCHAR raster_frag,
+  pchar raster_frag,
   struct own_cut *ans,
   INT dx,                  /* рабочая ширина растра          */
   INT dy,                   /* рабочая высота растра          */
@@ -98,7 +98,7 @@ INT Alik_define_cut_points(
 {
  INT    hor_byte,ver_byte,nshort,CP,i,j,bl_up,bl_dw,tret_h;
  PINT   penalty,cut_points,adr_cut_points,my_penalty;
- PCHAR  adrw,adrw_two,product,product_two,trace,adr_raster,stek,adr_ras_two,
+ pchar  adrw,adrw_two,product,product_two,trace,adr_raster,stek,adr_ras_two,
         SourceRaster;
  PBYTE  IntBuf,CountCut,UpBlackPoint;
  struct own_cut *ans_ptr;
@@ -121,7 +121,7 @@ char snap[380],*buf=snap;
  adrw=adr_raster+CP;                /* под обработанный транспонированный растр */
  trace=adrw+(CP>i?CP:i);            /* под обход  */
  penalty=(PINT)trace+dx;            /* под штрафы */
- product=(PCHAR)(penalty+dx);       /* под произведения последовательных столбцов */
+ product=(pchar)(penalty+dx);       /* под произведения последовательных столбцов */
  cut_points=(PINT)(product+dx);     /* под точки разрезания */
 
  adrw_two=MemForCutPointsTwo;
@@ -129,9 +129,9 @@ char snap[380],*buf=snap;
  product_two = adr_ras_two+(CP>i?CP:i); /* под произведения последовательных столбцов слева и справа*/
  UpBlackPoint= (PBYTE)(product_two+dx);
  CountCut    = (PBYTE)(UpBlackPoint+dx);
- SourceRaster= (PCHAR)(CountCut+dx);
+ SourceRaster= (pchar)(CountCut+dx);
  my_penalty  = (PINT)(SourceRaster+(CP>i?CP:i));
- IntBuf      = (PCHAR)(my_penalty+dx);
+ IntBuf      = (pchar)(my_penalty+dx);
 
  CP = (dx<3||dy<3)? 0 : 1;          /* резать не будем, если растр мал по одному из направлений */
 
@@ -204,7 +204,7 @@ if(CP)
       {
        Alik_double_serif(cut_points,trace,product,dx,dy,bl_up,bl_dw,penalty,
                          adr_ras_two,IntBuf);
-       Alik_cut_d(trace+dx,cut_points,product,dx,dy,bl_up,bl_dw,(PCHAR)penalty);
+       Alik_cut_d(trace+dx,cut_points,product,dx,dy,bl_up,bl_dw,(pchar)penalty);
        Alik_defis(trace,cut_points,dx,dy,bl_up,bl_dw,penalty);
     if(language==LANG_ENGLISH)
        Alik_cut_l(cut_points,trace,dx,bl_dw,penalty);
@@ -239,9 +239,9 @@ if(CP)
 
  if(CP)
   {
-   Alik_cor_pnt((PINT)adr_cut_points,penalty,cut_points,CP,dx,dy,ver_byte,(PCHAR)adrw,(PCHAR)trace);
+   Alik_cor_pnt((PINT)adr_cut_points,penalty,cut_points,CP,dx,dy,ver_byte,(pchar)adrw,(pchar)trace);
    Alik_form_bound(adr_raster,dx,dy,ver_byte,trace,1);
- 	 stek=(PCHAR)(penalty+((CP+1)<<2)-(CP+1));  /* переписываем фрагменты трассы обхода */
+ 	 stek=(pchar)(penalty+((CP+1)<<2)-(CP+1));  /* переписываем фрагменты трассы обхода */
  	 cut_points=penalty+3*(CP-1)+1;
  	 for (j=CP; j>0; j--, cut_points-=4,stek++)
       {
@@ -250,7 +250,7 @@ if(CP)
        *++stek=dy-*cut_points;
        if (*stek) (*stek)--;
       }
-   trace=(PCHAR)(penalty+((CP+1)<<2)-(CP+1));
+   trace=(pchar)(penalty+((CP+1)<<2)-(CP+1));
 
    for(j=CP-1,i=0; j>=0; j--,i+=2)
     {
@@ -277,7 +277,7 @@ if(CP)
 }
 
 void Alik_new_points(INT *CP,struct own_cut *a,struct own_cut *ptr,INT dy,
-                     INT dx,PINT pen,PCHAR prod)
+                     INT dx,PINT pen,pchar prod)
 {
 INT i,j,count,min_pen,min_prod,real_x,Ix,IIx;
 

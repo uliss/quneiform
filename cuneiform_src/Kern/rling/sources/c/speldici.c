@@ -171,7 +171,7 @@ extern INT vocs_NOK;
 
 INT cond_open(INT seqn, PBYTE name, uint16_t b1, uint16_t b2);
 PBYTE seq_nam(INT seqn);
-PCHAR full_name(PBYTE w, PBYTE n);
+pchar full_name(PBYTE w, PBYTE n);
 
 /* -- Data -- */
 

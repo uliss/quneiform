@@ -70,7 +70,7 @@ void snap_clear_screen(void);
 
 extern BYTE  db_status;              // snap presence byte
 INT up_position,dw_position;
-static INT Alik_count_int_number(PCHAR Praster,INT len_row);
+static INT Alik_count_int_number(pchar Praster,INT len_row);
 
 static char table_int[256]=
        {0,1,1,1,1,2,1,1,1,2,2,2,1,2,1,1,1,2,2,2,2,3,2,2,1,2,2,2,1,2,1,1,
@@ -112,8 +112,8 @@ static char fb_table[512]=  /* Б═║╚╗Ф═ ╜╝╛╔Ю═ А═╛╝
       6,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
       5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0};
 
-void Alik_rus_bad_c(PCHAR raster_frag,PCHAR SourceRaster,INT hgt,INT rx_bite,
-                    PCHAR product,PCHAR product_two,PINT penalty,
+void Alik_rus_bad_c(pchar raster_frag,pchar SourceRaster,INT hgt,INT rx_bite,
+                    pchar product,pchar product_two,PINT penalty,
 		    PINT cut_points,PBYTE CountCut,PBYTE UpBlackPoint)
 {
 #ifdef Alikc
@@ -122,7 +122,7 @@ char snap[380],*buf=snap;
 PBYTE PtrCountCut;
 INT   i,Left,Right,CP;
 PINT  Pcut_points,Pen;
-PCHAR prod_two;
+pchar prod_two;
 
    raster_frag  = raster_frag;
    SourceRaster = SourceRaster;
@@ -186,16 +186,16 @@ INT i;
  return 1;
 }
 
-void Alik_Check_Rus_D(PCHAR raster_frag,PCHAR SourceRaster,INT dy,INT dx,
-                      PINT cut_points,PBYTE IntBuf,INT row,PCHAR product,
-		      PCHAR product_two,PINT penalty,PBYTE CountCut)
+void Alik_Check_Rus_D(pchar raster_frag,pchar SourceRaster,INT dy,INT dx,
+                      PINT cut_points,PBYTE IntBuf,INT row,pchar product,
+		      pchar product_two,PINT penalty,PBYTE CountCut)
 {
 #ifdef Alikd
 char snap[380],*buf=snap;
 #endif
 
 BYTE  SumCol=0,Col,*CurIntBuf,lb,rb,lb1,rb1,nlb,ColOst,ColOsn;
-PCHAR CurPos;
+pchar CurPos;
 INT   i,j,*CurCP,hor_byte,up_ot_bbs3=0,CP,dif;
 
 MasIntervals  MI[MAX_CUT_POINT_NUMBER];
@@ -561,12 +561,12 @@ INT begin,end;
 return;
 }
 
-void Alik_cut_short(PCHAR bufer,PCHAR bufer_two,INT ry,INT rx_bite,
-                PCHAR product,PINT penalty, PINT cut_points,PCHAR prod_two)
+void Alik_cut_short(pchar bufer,pchar bufer_two,INT ry,INT rx_bite,
+                pchar product,PINT penalty, PINT cut_points,pchar prod_two)
 {
 BYTE   flag_seredina;
 INT    i,i1,i2,Sum,SumTwo;
-PCHAR  Pproduct,PProdTwo,Pbufer,PBufTwo;
+pchar  Pproduct,PProdTwo,Pbufer,PBufTwo;
 PINT   Pcut_points;
 
    *cut_points = 0;
@@ -638,11 +638,11 @@ f4b:  i2=*penalty;
         }
 f4c:  i1--;
     }
-    *cut_points=((uint16_t)((PCHAR)Pcut_points-(PCHAR)cut_points)>>1);
+    *cut_points=((uint16_t)((pchar)Pcut_points-(pchar)cut_points)>>1);
 }
 
-void Alik_find_brus(PCHAR raster_frag,PCHAR SourceRaster,PCHAR bufer,INT ry,
-                    INT hgt,INT rx_bite,PCHAR product,PCHAR product_two,
+void Alik_find_brus(pchar raster_frag,pchar SourceRaster,pchar bufer,INT ry,
+                    INT hgt,INT rx_bite,pchar product,pchar product_two,
 		    PINT penalty,PINT cut_points,PBYTE CountCut,
 		    PBYTE UpBlackPoint)
 {
@@ -652,7 +652,7 @@ char snap[380],*buf=snap;
 BYTE CountBrus=0,Col=0,flag_point,foot_size,interval,max_h,
      flag_brus,tolshina[MaxHeightBrus],j,n;
 INT    i,min_height_t;
-PCHAR  Pproduct,Pproduct_two,Pbufer,pp,ppt;
+pchar  Pproduct,Pproduct_two,Pbufer,pp,ppt;
 PINT   Pcut_points,PPen;
 Coor_brus CB[MaxCountBrus];
 
@@ -832,7 +832,7 @@ if(CB[j+1].R<rx_bite-(MINCOL+2) &&
   *cut_points=(uint16_t)(Pcut_points-cut_points);
 }
 
-BYTE Alik_kill_right_points(INT dx,PCHAR prod,PCHAR prod2,PINT cut_points,
+BYTE Alik_kill_right_points(INT dx,pchar prod,pchar prod2,PINT cut_points,
                             INT CP)
 {
 BYTE flag_point;
@@ -880,9 +880,9 @@ INT  i,j,*Ptr;
  return flag_point;
 }
 
-INT Alik_set_position_brus(PCHAR bufer,INT hgt,INT Left,INT Right)
+INT Alik_set_position_brus(pchar bufer,INT hgt,INT Left,INT Right)
 {
-PCHAR CurPos;
+pchar CurPos;
 INT   i,ver_byte,interval,l1,r1,minl,maxl,minr,maxr,tret;
 
  tret=hgt/3;
@@ -914,9 +914,9 @@ INT   i,ver_byte,interval,l1,r1,minl,maxl,minr,maxr,tret;
  else                                                               return 0;
 }
 
-INT Alik_Check_T(PCHAR bufer,INT hgt,INT Left,INT Right)
+INT Alik_Check_T(pchar bufer,INT hgt,INT Left,INT Right)
 {
-PCHAR CurPos;
+pchar CurPos;
 INT   i,ver_byte,interval,dist,mind,maxd;
 
  ver_byte = (hgt+7)>>3;
@@ -935,9 +935,9 @@ INT   i,ver_byte,interval,dist,mind,maxd;
 }
 
 
-void Alik_cut_y(PCHAR raster_frag,PCHAR SourceRaster,PCHAR bufer,INT dy,
-                INT dx,PINT cut_points,PBYTE IntBuf,INT row,PCHAR product,
-		PCHAR product_two,PINT penalty,PBYTE CountCut)
+void Alik_cut_y(pchar raster_frag,pchar SourceRaster,pchar bufer,INT dy,
+                INT dx,PINT cut_points,PBYTE IntBuf,INT row,pchar product,
+		pchar product_two,PINT penalty,PBYTE CountCut)
 {
 #ifdef Aliky
 char snap[380],*buf=snap;
@@ -945,7 +945,7 @@ char snap[380],*buf=snap;
 
 BYTE  Col,*CurIntBuf,lb,rb,left,right,*SumStr,l_bound,r_bound,flag_near;
 char  min_prod_two;
-PCHAR CurPos,prod,prod_two;
+pchar CurPos,prod,prod_two;
 INT   i,j,k,hor_byte,ver_byte,dw_ot_bbs3=3,width_tail,*pen,*CurCP,flag_y,
       LeftDist,RightDist;
 uint16_t  min_pen;
@@ -1094,11 +1094,11 @@ for(i=0; i<len; ++i,++str)
 return Col;
 }
 
-void Alik_form_bound(PCHAR raster,uint16_t ry,uint16_t rx,uint16_t xbytes,
-                     PCHAR adr_bound,uint16_t prizn)
+void Alik_form_bound(pchar raster,uint16_t ry,uint16_t rx,uint16_t xbytes,
+                     pchar adr_bound,uint16_t prizn)
 {
  INT    i,one=1,tmp_xbytes;
- PCHAR  Praster,Praster1;
+ pchar  Praster,Praster1;
  char   c1,Ah,Al,*Ptable,crx;
 
   tmp_xbytes = xbytes;
@@ -1123,11 +1123,11 @@ void Alik_form_bound(PCHAR raster,uint16_t ry,uint16_t rx,uint16_t xbytes,
       Al=Ptable[(BYTE)Al]+Ah;
 j3b:  if(prizn != 0  && !tmp_xbytes)  Al=rx-Al;
       *adr_bound++ =Al;
-      Praster=(PCHAR)Praster1 + i*xbytes;
+      Praster=(pchar)Praster1 + i*xbytes;
      }
      if(!tmp_xbytes)  break;
      Ptable += 256;
-     Praster1 = (PCHAR)raster + xbytes-1;
+     Praster1 = (pchar)raster + xbytes-1;
      c1=(char)((-1)*((xbytes<<3)-rx+8));
      one = -1;  tmp_xbytes=0;   rx--;
    }
@@ -1135,13 +1135,13 @@ j3b:  if(prizn != 0  && !tmp_xbytes)  Al=rx-Al;
 
 /******************************************************************/
 #pragma warning( disable : 4245 )					 //AK. 07.03.97
-void  Alik_cut_hole(PCHAR trace,INT rx,PINT cut_points,INT first,INT ry,
-                    PCHAR product,PINT penalty,BYTE ind)
+void  Alik_cut_hole(pchar trace,INT rx,PINT cut_points,INT first,INT ry,
+                    pchar product,PINT penalty,BYTE ind)
 {
 INT   i;
 BYTE  HRastr;
 PINT  Pcut_points,Pcut_points1,Ppenalty,Ppenalty1;
-PCHAR Pproduct,Pproduct1,Ptrace,Ptrace1;
+pchar Pproduct,Pproduct1,Ptrace,Ptrace1;
 BYTE  Comp,AL;
 uint16_t  DX,DI,Offset,Count;
    penalty=penalty;
@@ -1149,10 +1149,10 @@ uint16_t  DX,DI,Offset,Count;
    HRastr = (BYTE)((ry*3)>>2);
 b0:
    /* АД╝Ю╛╗Ю╝╒═╚╗ ═╓Ю╔А ╓╚О ЕЮ═╜╔╜╗О Б╝Г╔╙ Ю═╖Ю╔╖═*/
-   Pcut_points=Pcut_points1=(PINT)((PCHAR)cut_points+((INT)(*cut_points)<<1));
+   Pcut_points=Pcut_points1=(PINT)((pchar)cut_points+((INT)(*cut_points)<<1));
    Ptrace = Ptrace1 = trace;
    Pproduct = Pproduct1 = product + rx-1;
-   Ppenalty = Ppenalty1 = (PINT)((PCHAR)penalty + ((INT)rx<<1));
+   Ppenalty = Ppenalty1 = (PINT)((pchar)penalty + ((INT)rx<<1));
 
    Comp = 255;  DX = 0;  Count=rx;
 b1:
@@ -1165,7 +1165,7 @@ b2:
    DX++;
    Pproduct  = Pproduct1;
    Ppenalty  = Ppenalty1;
-   Ppenalty  = (PINT)((PCHAR)Ppenalty-(DX<<1));
+   Ppenalty  = (PINT)((pchar)Ppenalty-(DX<<1));
    Pproduct -= DX;
    Ptrace1   = Ptrace;
    DI = -1;
@@ -1191,7 +1191,7 @@ while(1)
    if(--DX <= Count) break;
  }
    Ptrace = Ptrace1;
-   Offset = (INT)((PCHAR)Pcut_points - (PCHAR)Pcut_points1);
+   Offset = (INT)((pchar)Pcut_points - (pchar)Pcut_points1);
    if(Offset <= 6)  { DX=0; goto b9;}
    Pcut_points = Pcut_points1;
    Offset = (Offset>>1)-3;
@@ -1204,7 +1204,7 @@ b9:
    Comp = *(Ptrace-1);
    if(Count) goto b1;
 b10:
-   *cut_points =((uint16_t)((PCHAR)Pcut_points-(PCHAR)cut_points)>>1);
+   *cut_points =((uint16_t)((pchar)Pcut_points-(pchar)cut_points)>>1);
    if(!ind)
     {
      trace += rx;
@@ -1214,15 +1214,15 @@ b10:
     }
 }
 
-void  Alik_del_y_cut(PCHAR trace,INT rx,PINT cut_points,INT first)
+void  Alik_del_y_cut(pchar trace,INT rx,PINT cut_points,INT first)
 {
 PINT  Pcut_points,Ptr;
-PCHAR BegTrace,CurTrace,TraceEnd;
+pchar BegTrace,CurTrace,TraceEnd;
 INT   Count,i,j;
 
  if((Count=*cut_points-first)>0)
    {
-    Pcut_points =(PINT)((PCHAR)cut_points + ((first+1)<<1));
+    Pcut_points =(PINT)((pchar)cut_points + ((first+1)<<1));
     BegTrace = trace + rx - 3;
     for(i=Count; i>0; i--)
      {
@@ -1238,25 +1238,25 @@ INT   Count,i,j;
       Pcut_points--;
 end:;
      }
-   *cut_points =((uint16_t)((PCHAR)Pcut_points-(PCHAR)cut_points)>>1)-1;
+   *cut_points =((uint16_t)((pchar)Pcut_points-(pchar)cut_points)>>1)-1;
    }
 }
 
-void Alik_del_equal_hole(PINT cut_points,PCHAR product,PINT penalty,
+void Alik_del_equal_hole(PINT cut_points,pchar product,PINT penalty,
                          INT size_x,INT size_y,INT first)
 {
 PINT  CurCutPoints,LastCutPoints,FindCutPoints,last,Ppenalty;
-PCHAR Pproduct;
+pchar Pproduct;
 INT   Count,LastCount,i,NextCutPoint,cur_sdvig,abs_sdvig;
 
  if((Count = *cut_points - first) > 0)
   {
-   last = (PINT)((PCHAR)cut_points + (*cut_points<<1));
+   last = (PINT)((pchar)cut_points + (*cut_points<<1));
    LastCutPoints = cut_points;
    size_y >>=1;
    product += size_x-1;
-   penalty = (PINT)((PCHAR)penalty + (size_x<<1));
-   CurCutPoints = (PINT)((PCHAR)cut_points + (first<<1));
+   penalty = (PINT)((pchar)penalty + (size_x<<1));
+   CurCutPoints = (PINT)((pchar)cut_points + (first<<1));
    first = -1;
    while(1)
     {
@@ -1273,7 +1273,7 @@ at2:   for(i=Count; i>0; i--)
        if(first>=0)  goto at4;
 at2c:  Pproduct = product - NextCutPoint;
        cur_sdvig = -1;  abs_sdvig = 0;
-       Ppenalty = (PINT)((PCHAR)penalty - (NextCutPoint<<1));
+       Ppenalty = (PINT)((pchar)penalty - (NextCutPoint<<1));
        Count=size_y;
        while(1)
         {
@@ -1283,14 +1283,14 @@ at2c:  Pproduct = product - NextCutPoint;
           if(cur_sdvig == 1)  break;
           NextCutPoint -= MAX_SDVIG;
           Pproduct += MAX_SDVIG;
-          Ppenalty = (PINT)((PCHAR)Ppenalty + (MAX_SDVIG<<1));
+          Ppenalty = (PINT)((pchar)Ppenalty + (MAX_SDVIG<<1));
           cur_sdvig = 1;  abs_sdvig = 0;
           }
          abs_sdvig++;
          NextCutPoint -= cur_sdvig;
          *(CurCutPoints-1) = NextCutPoint;
          Pproduct += cur_sdvig;
-         Ppenalty = (PINT)((PCHAR)Ppenalty + (cur_sdvig<<1));
+         Ppenalty = (PINT)((pchar)Ppenalty + (cur_sdvig<<1));
         }
        CurCutPoints--;  //at2ab:
        FindCutPoints=CurCutPoints;
@@ -1308,7 +1308,7 @@ at4:   Count = LastCount -1;
        if(!Count) break;
       }
       CurCutPoints = LastCutPoints; //at5:
-      Count = ((uint16_t)((PCHAR)last-(PCHAR)CurCutPoints)>>1);
+      Count = ((uint16_t)((pchar)last-(pchar)CurCutPoints)>>1);
       *CurCutPoints = Count;
       if(first>=0 || Count<=1) break;
       LastCutPoints = CurCutPoints;
@@ -1317,16 +1317,16 @@ at4:   Count = LastCount -1;
   }
 }
 
-void Alik_del_3_cut(PCHAR raster,PINT cut_points,INT first,INT len_row,
+void Alik_del_3_cut(pchar raster,PINT cut_points,INT first,INT len_row,
                     INT nrow,PBYTE CountCut)
 {
 PINT   CurCutPoints,Ptr;
 INT    Count,i,j,SumCutPoints;
-PCHAR  Praster;
+pchar  Praster;
 
  if((Count = *cut_points - first) > 0)
   {
-    CurCutPoints  =(PINT)((PCHAR)cut_points + ((first+1)<<1));
+    CurCutPoints  =(PINT)((pchar)cut_points + ((first+1)<<1));
     raster += (uint16_t)len_row * (nrow-1);
     for(i=Count;i>0;i--)
      {
@@ -1343,15 +1343,15 @@ PCHAR  Praster;
       for(j=i;j>0;j--)   {*Ptr = *(Ptr+1); Ptr++;}  /*-  sdvig_cut_point -*/
       CurCutPoints--;
      }
- *cut_points =((uint16_t)((PCHAR)CurCutPoints-(PCHAR)cut_points)>>1)-1;
+ *cut_points =((uint16_t)((pchar)CurCutPoints-(pchar)cut_points)>>1)-1;
   }
 }
 
-INT Alik_count_int_number(PCHAR Praster,INT len_row)
+INT Alik_count_int_number(pchar Praster,INT len_row)
 {
 INT SumCutPoints,j;
 char   c,c1;
-PCHAR  Ptable_int;
+pchar  Ptable_int;
 
   Ptable_int = table_int;
   SumCutPoints=0; c=0;
@@ -1364,7 +1364,7 @@ PCHAR  Ptable_int;
   return SumCutPoints;
 }
 
-void Alik_CountCut(PCHAR bufer,INT dy,INT dx,PBYTE  CountCut,PBYTE IntBuf)
+void Alik_CountCut(pchar bufer,INT dy,INT dx,PBYTE  CountCut,PBYTE IntBuf)
 {
 INT    i,ver_byte;
  ver_byte=(dy+7)>>3;
@@ -1376,7 +1376,7 @@ INT    i,ver_byte;
 }
 
 //upp
-void Alik_UpBlackPoint(PCHAR bufer,INT dy,INT dx,PBYTE  UpBlackPoint)
+void Alik_UpBlackPoint(pchar bufer,INT dy,INT dx,PBYTE  UpBlackPoint)
 {
 INT    i,ver_byte;
  ver_byte=(dy+7)>>3;
@@ -1479,10 +1479,10 @@ INT hgt;
   if(dw_position) {*bl_up=up_position;  *bl_dw=dw_position; return;}
 }
 
-void Alik_correct_base_lines(PCHAR trace,INT size_x,INT size_y,INT* adr_ubl,
+void Alik_correct_base_lines(pchar trace,INT size_x,INT size_y,INT* adr_ubl,
                              INT* adr_lbl)
 {
-PCHAR PTrace,Ptr;
+pchar PTrace,Ptr;
 INT*  Adr;
 char  c,c1;
 uint16_t  CountPoints,i,Chastnoe,c2;
@@ -1516,18 +1516,18 @@ uint16_t  CountPoints,i,Chastnoe,c2;
 }
 
 
-void Alik_double_serif(PINT cut_points,PCHAR trace,PCHAR product,INT rx,
+void Alik_double_serif(PINT cut_points,pchar trace,pchar product,INT rx,
                        INT ry,INT bl_up,INT bl_dw,PINT penalty,
 		       PBYTE bufer,PBYTE IntBuf)
 {
 PINT   BegCP,CurCP,OldCP,Ppenalty;
 char   BasLin,Granisa;
 BYTE   c,c1,*CurPos,pos;
-PCHAR  PTrace,Pproduct;
+pchar  PTrace,Pproduct;
 INT    i,j,BX,tmp,ver_byte;
 
   ver_byte=(ry+7)>>3;
-  BegCP = OldCP = CurCP = (PINT)((PCHAR)cut_points + (*cut_points<<1));
+  BegCP = OldCP = CurCP = (PINT)((pchar)cut_points + (*cut_points<<1));
   PTrace = trace;
   c=(BYTE)((bl_dw-bl_up)>>1);
   bl_dw = ry-bl_dw;
@@ -1563,10 +1563,10 @@ v1a: Granisa = *(PTrace+BX) - *(PTrace+BX+1);
      goto v9a;
 v9:  if(c1==0xFE) goto v9a;
      c1=0xFE;
-     tmp=(INT)((PCHAR)OldCP-(PCHAR)CurCP);
+     tmp=(INT)((pchar)OldCP-(pchar)CurCP);
      if(tmp<-4)
       {
-       CurCP=(PINT)((PCHAR)CurCP+tmp)+1;
+       CurCP=(PINT)((pchar)CurCP+tmp)+1;
        *CurCP=(*CurCP+i+2)>>1;
 
        CurPos=bufer+(rx-i)*ver_byte;
@@ -1586,7 +1586,7 @@ v9:  if(c1==0xFE) goto v9a;
 v9b: OldCP=BegCP=CurCP;
 v9a: PTrace++;  Pproduct++;
    }
- *cut_points=((uint16_t)((PCHAR)CurCP - (PCHAR)cut_points)>>1);
+ *cut_points=((uint16_t)((pchar)CurCP - (pchar)cut_points)>>1);
 }
 
 void Alik_del_equal(PINT cut_points)
@@ -1598,7 +1598,7 @@ INT  i,j,Count,FindCP;
  if(Count>1)
   {
    CurCP=cut_points + 1;
-   LastCP=(PINT)((PCHAR)cut_points + (Count<<1));
+   LastCP=(PINT)((pchar)cut_points + (Count<<1));
    for(i=--Count;i>0;i--)
     {
      FindCP=*CurCP++;   Ptr=CurCP;
@@ -1610,14 +1610,14 @@ INT  i,j,Count,FindCP;
         if(!(--i)) goto end;
        }
     }
-end: *cut_points=((uint16_t)((PCHAR)LastCP - (PCHAR)cut_points )>>1);
+end: *cut_points=((uint16_t)((pchar)LastCP - (pchar)cut_points )>>1);
   }
 }
 
-void Alik_defis(PCHAR trace,PINT cut_points,INT size_x,INT size_y,
+void Alik_defis(pchar trace,PINT cut_points,INT size_x,INT size_y,
                 INT bl_up,INT bl_dw,PINT penalty)
 {
-PCHAR PTrace,OldTrace;
+pchar PTrace,OldTrace;
 INT   i,Count;
 char  c,c1,CTrace,cbl;
 
@@ -1646,17 +1646,17 @@ char  c,c1,CTrace,cbl;
   Count-=i;
   if((char)Count>c1)  Count=(INT)c1;
   if( Count>=DEFIS_LEN  &&
-      (*(PINT)((PCHAR)penalty+((size_x-Count)<<1))) <= NAV_BOUND)
+      (*(PINT)((pchar)penalty+((size_x-Count)<<1))) <= NAV_BOUND)
     {
      *cut_points+=1;
-     cut_points =(PINT)((PCHAR)cut_points + (*cut_points<<1));
+     cut_points =(PINT)((pchar)cut_points + (*cut_points<<1));
      *cut_points = Count;
     }
 }
 
-void Alik_cut_l(PINT cut_points,PCHAR trace,INT size_x,INT bl_dw,PINT penalty)
+void Alik_cut_l(PINT cut_points,pchar trace,INT size_x,INT bl_dw,PINT penalty)
 {
-PCHAR PTrace,CurTrace,PtrTrace;
+pchar PTrace,CurTrace,PtrTrace;
 INT   i,Count,BLine,NewPoint;
 char  c,c1;
 PINT  CurCP,LastCP,Ppenalty;
@@ -1665,8 +1665,8 @@ PINT  CurCP,LastCP,Ppenalty;
   {
    Count=*cut_points;
    CurCP=cut_points+1;
-   LastCP=(PINT)((PCHAR)cut_points + (Count<<1));
-   penalty = (PINT)((PCHAR)penalty + (size_x<<1));
+   LastCP=(PINT)((pchar)cut_points + (Count<<1));
+   penalty = (PINT)((pchar)penalty + (size_x<<1));
    PTrace=trace+size_x;
    BLine=bl_dw-OTSTUP_L;
    for(i=Count;i>0;i--)
@@ -1682,28 +1682,28 @@ ak2:  if(*--CurTrace>c)  continue;
         NewPoint=(INT)(PTrace-CurTrace)-2;
         if((*(CurCP-1)+2) < NewPoint)
          {
-          Ppenalty=(PINT)((PCHAR)penalty - (NewPoint<<1));
+          Ppenalty=(PINT)((pchar)penalty - (NewPoint<<1));
           if(*Ppenalty <= NAV_BOUND)   *++LastCP=NewPoint;
          }
         continue;
        }
      if(PtrTrace < CurTrace) goto ak2;
     }
- *cut_points=((uint16_t)((PCHAR)LastCP - (PCHAR)cut_points)>>1);
+ *cut_points=((uint16_t)((pchar)LastCP - (pchar)cut_points)>>1);
   }
 }
 
-void Alik_del_p_cut(PCHAR raster,PINT cut_points,INT size_x,INT size_y,
+void Alik_del_p_cut(pchar raster,PINT cut_points,INT size_x,INT size_y,
                     INT first,char h_row)
 {
-PCHAR  PRaster,PRasterOld,Pfb_table;
+pchar  PRaster,PRasterOld,Pfb_table;
 PINT   CurCP;
 INT    step,i,Count,CP,HgtRaster,HgtRasterOld,Sum;
 char   c,c1,flag=0;
 
  if(*cut_points!=first)
   {
-     CurCP=(PINT)((PCHAR)cut_points + ((first+1)<<1));
+     CurCP=(PINT)((pchar)cut_points + ((first+1)<<1));
      Count=*cut_points-first;  step=1;  Pfb_table=fb_table;
      PRaster=raster;   first=((size_y+7)>>3);
      raster+=(uint16_t)first*(size_x-1);  size_y=first<<3;
@@ -1742,16 +1742,16 @@ r3:  c1=*PRaster;
       }
      if(c1>h_row) goto r1b;
      c=0;flag=1;
-r6:  if(!flag) {--CurCP; *CurCP=(INT)(*((PCHAR)CurCP + (i<<1) - 2));}
+r6:  if(!flag) {--CurCP; *CurCP=(INT)(*((pchar)CurCP + (i<<1) - 2));}
      if((--i)) { Count=i; goto r1;}
-r8:  *cut_points=((uint16_t)((PCHAR)CurCP - (PCHAR)cut_points)>>1)-1;
+r8:  *cut_points=((uint16_t)((pchar)CurCP - (pchar)cut_points)>>1)-1;
   }
 }
 
-void Alik_cut_d(PCHAR dw_trace,PINT cut_points,PCHAR product,INT size_x,
-                INT size_y,INT bl_up,INT bl_dw,PCHAR penalty)
+void Alik_cut_d(pchar dw_trace,PINT cut_points,pchar product,INT size_x,
+                INT size_y,INT bl_up,INT bl_dw,pchar penalty)
 {
-PCHAR  PTrace,Ptr;
+pchar  PTrace,Ptr;
 PINT   CurCP;
 INT    i,Count,I1;
 char   c,c1,Trace,TraceOld;
@@ -1765,7 +1765,7 @@ char   c,c1,Trace,TraceOld;
     bl_up=bl_dw-bl_up-3;
     bl_dw=size_y+3;
     PTrace=dw_trace+LEFT_STEP;
-    CurCP=(PINT)((PCHAR)cut_points + (*cut_points<<1));
+    CurCP=(PINT)((pchar)cut_points + (*cut_points<<1));
     product+=size_x-1;
     penalty+=(size_x<<1);
     Count=size_x-LEFT_STEP;
@@ -1828,7 +1828,7 @@ ad4a:   TraceOld=Trace;
         break;
       }
      }
-    *cut_points=((uint16_t)((PCHAR)CurCP - (PCHAR)cut_points)>>1);
+    *cut_points=((uint16_t)((pchar)CurCP - (pchar)cut_points)>>1);
    }
 }
 
@@ -1853,7 +1853,7 @@ INT   CP,left_b,Count,i,I1;
     {
      if((CP=*CurCP++)<0)  CP=-CP;
      if(I1>CP)  continue;
-     if(I1==CP) { Count--;  I1=*((PINT)((PCHAR)CurCP+(i<<1)-4)); }
+     if(I1==CP) { Count--;  I1=*((PINT)((pchar)CurCP+(i<<1)-4)); }
      *(CurCP-1)=I1;
      I1=CP;
     }
@@ -1863,13 +1863,13 @@ INT   CP,left_b,Count,i,I1;
                      *ResP++=I1; }
    if(!(--Count))  break;
   }
-return ((INT)((PCHAR)ResP - (PCHAR)res_points)>>1);
+return ((INT)((pchar)ResP - (pchar)res_points)>>1);
 }
 
-INT Alik_search_bound_point_in_raster(PCHAR raster_tr,INT width_byte,INT nrows)
+INT Alik_search_bound_point_in_raster(pchar raster_tr,INT width_byte,INT nrows)
 {
 INT    Count,i;
-PCHAR  PRaster;
+pchar  PRaster;
 
  Count=width_byte * nrows;
  PRaster=raster_tr+Count-1;
@@ -1877,11 +1877,11 @@ PCHAR  PRaster;
  return 0;
 }
 
-void Alik_tr_bit_matr(INT byte_ver,INT size_y,PCHAR buf_in,PCHAR buf_out,
+void Alik_tr_bit_matr(INT byte_ver,INT size_y,pchar buf_in,pchar buf_out,
                       INT byte_hor,INT size_x)
 {
 INT    ByteHor,i,Count;
-PCHAR  BufOut,Ptr;
+pchar  BufOut,Ptr;
 BYTE   POutCurBit,PNextBit,CurOutByte,CountPicsel,c,c1;
 
  ByteHor=byte_hor;
@@ -1930,11 +1930,11 @@ BYTE   POutCurBit,PNextBit,CurOutByte,CountPicsel,c,c1;
 }
 
 void Alik_cor_pnt(PINT old_points,PINT new_points,PINT bufer,INT np,
-                  INT x_size,INT y_size,INT y_byte,PCHAR raster,PCHAR trace)
+                  INT x_size,INT y_size,INT y_byte,pchar raster,pchar trace)
 {
 INT   i,flag;
 PINT  POldPoints,PNewPoints,PBufer;
-PCHAR Pfb_table,Ptr,PtrOld,PTrace;
+pchar Pfb_table,Ptr,PtrOld,PTrace;
 char  Ras,c,c1,tmp;
 
  c = tmp =(BYTE) (y_size - ((y_size+7) & 0x0f8) - 8);
@@ -1977,13 +1977,13 @@ bb10: if(!(--np)) break;
  *PNewPoints=x_size;
 }
 
-INT  Alik_del_doubl_cut(PINT cut_points,PCHAR product,PINT penalty,
+INT  Alik_del_doubl_cut(PINT cut_points,pchar product,PINT penalty,
                         INT npoints)
 {
 INT   dob,i,Count,CP;
 char  c,c1;
 PINT  CurCP,PPen,Ptr;
-PCHAR PProd,PProdNew;
+pchar PProd,PProdNew;
 
  if(npoints <= 1)    return npoints;
  Count=npoints; c1=(char)npoints; --Count; PProd=product-4; CurCP=cut_points;
@@ -1998,7 +1998,7 @@ PCHAR PProd,PProdNew;
           {
            if(c < *(PProdNew+2))                                goto u2a;
 
-	   PPen=(PINT)((PCHAR)penalty + (CP=(CP<<1)));
+	   PPen=(PINT)((pchar)penalty + (CP=(CP<<1)));
            if(*PPen <= *(PPen+1))
             {
              if(*PPen < *(PPen+1) || *PProdNew < *(PProdNew+3)) goto u2a;
@@ -2017,7 +2017,7 @@ u2a:             CurCP++; dob=0;
 u3:      dob=2;
 u3a:     for(i=Count,Ptr=--CurCP;i>0;i--)
                            {*Ptr = *(Ptr+1); Ptr++;}
-         CurCP=(PINT)((PCHAR)CurCP + dob);  --c1;  continue;
+         CurCP=(PINT)((pchar)CurCP + dob);  --c1;  continue;
         }
 u1a0:  if(c != *(PProdNew+2))
         {
@@ -2046,10 +2046,10 @@ u1a1:  dob=2;
  return (INT)c1;
 }
 
-INT  Alik_del_detail(PCHAR bufer,INT rx,INT vol_raster,PINT penalty)
+INT  Alik_del_detail(pchar bufer,INT rx,INT vol_raster,PINT penalty)
 {
 PINT   WPen,WPenNew;
-PCHAR  PBuf,PBuf1,CurBound,Ptr;
+pchar  PBuf,PBuf1,CurBound,Ptr;
 char   Proxod=6,flag,ctmp,index=0;
 INT    i,ByteLenStr,BitLenStr,I2,I1;
 BYTE   c;
@@ -2061,7 +2061,7 @@ do
  if(index & 1)
   {
    flag=0;
-   WPen=(PINT)((PCHAR)WPen+((rx-2)<<1));
+   WPen=(PINT)((pchar)WPen+((rx-2)<<1));
    PBuf+=ByteLenStr-1;
    if(BitLenStr &= 7)     c=256>>BitLenStr;
    else                   c=1;

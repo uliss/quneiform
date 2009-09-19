@@ -83,7 +83,7 @@ Bool kernel_set_enable_table_recog(BYTE table_recog);
 Bool kernel_set_user_dict(BYTE *user_dict);
 
 //  Error status functions
-PCHAR get_message(uint16_t code);
+pchar get_message(uint16_t code);
 uint16_t get_error_status(void);
 Bool bool_status(void);
 void set_error_status(uint16_t group, uint16_t element);

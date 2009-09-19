@@ -190,11 +190,11 @@ void test_irish_name_cur_sym(INT Let);
 #ifdef MAIN_CONTEXT_MODULE
 static INT find_dig_chr_var ();
 static void make_dig_chr_chain ();
-static void up_substr ( PCHAR substr );
+static void up_substr ( pchar substr );
 static void up_rest_str ();
-static INT get_est_substr_in_word ( PCHAR );
+static INT get_est_substr_in_word ( pchar );
 static INT est_rest_dig ( dv *);
-static INT test_var ( PCHAR );
+static INT test_var ( pchar );
 /*****************/
 static dv * cdv, *last_dv, *last_dig_dv, *beg_dv;
 static INT best_l, num_v, admvar = 0, maxest;

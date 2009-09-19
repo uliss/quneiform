@@ -1061,15 +1061,15 @@ static INT cell_to_centers(cell *c, INT nc,
  BYTE l,r,h;
  center_interval *p_center=&center[nc];
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=(BYTE)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
 	for( ind=off_str+line->row,
-	     inter=(interval *)((PCHAR)line+sizeof(lnhead));
+	     inter=(interval *)((pchar)line+sizeof(lnhead));
 	     h ;ind++,h--,inter++)     		/* one line     */
 		{
 		BYTE inter_e = inter->e, inter_l = inter->l;
@@ -1101,13 +1101,13 @@ static INT lnhead_to_centers(lnhead *lin, INT wid,
  BYTE l,r,h;
  center_interval *p_center=&center[0];
 
-for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=(BYTE)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
-	for( ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
+	for( ind=line->row,inter=(interval *)((pchar)line+sizeof(lnhead));
 			h ;ind++,h--,inter++)     /* one line    */
 		{
 		BYTE inter_e = inter->e, inter_l = inter->l;

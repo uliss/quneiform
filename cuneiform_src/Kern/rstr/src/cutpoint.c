@@ -88,7 +88,7 @@ static void regmin(char);
 static void make_limits();
 static void findbotbnd();
 static INT bot_serif(char);
-// static INT verifh(PCHAR,char,CHAR);
+// static INT verifh(pchar,char,CHAR);
 static INT walltest(INT,INT,INT,INT,INT);
 static INT middle_puso(char);
 static INT lower_gap(char);
@@ -99,7 +99,7 @@ static INT upper_gap(char);
 // static INT lower_gap2(char);
 static void define_cat(struct extrem_elem *,char);
 static void make_func();
-static INT make_extrem(PCHAR,struct extrem_elem *);
+static INT make_extrem(pchar,struct extrem_elem *);
 static INT make_absextr(char,struct extrem_elem *);
 static void make_info();
 static char bodyes[128], cut_place[128];
@@ -1374,9 +1374,9 @@ INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
  t_line_ptr=c_boxln(t_comp_ptr);                  // box presentation of a component ->  line presentation of the component
  if ((i=(char)make_graph()) <= 0 && width<20)  return i;        // make graph of shortened lines for  turned raster
 
- //Alik_define_cut_points((PCHAR)ForRaster1,&oct[1],width,height,row);
+ //Alik_define_cut_points((pchar)ForRaster1,&oct[1],width,height,row);
  RCUTP_SetBL_for_CutPoints(minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3,language);
- RCUTP_CutPoints((PCHAR)ForRaster1, &oct[1], width, height, row);
+ RCUTP_CutPoints((pchar)ForRaster1, &oct[1], width, height, row);
 
  for (a1=&ans[1],oc1=&oct[1],n=0, a=0; n<STK_H-1; n++)
   {

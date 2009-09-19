@@ -371,12 +371,12 @@ static int dotIsGlue(cell *c)
 
 	memset (size, 0, maxH*sizeof(int));
 
-	for ( line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)  )
+	for ( line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)  )
 	{
 		start = line->row;
 
-		intval=(interval *)((PCHAR)line+sizeof(lnhead));
+		intval=(interval *)((pchar)line+sizeof(lnhead));
 		for ( i = 0; i < line->h ; i++, intval++)
 		{
 			if( start + i  >= maxH )

@@ -98,7 +98,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static int p2_checkUpperLower(void);
 
 //======== EXTERN FUNCTIONS
-Bool _spell(PCHAR s,BYTE lang);
+Bool _spell(pchar s,BYTE lang);
 void clear_cells(void);
 int cell2UniVers(UniVersions *ver, cell *c); // pass3
 int CopyVers2CSTR(RecVersions *ver, cell *c);    // pass3

@@ -957,7 +957,7 @@ static void make_dig_chr_chain() {
 	up_rest_str();
 }
 
-static void up_substr(PCHAR substr) {
+static void up_substr(pchar substr) {
 	INT wlet, n, i, shift;
 	dv *cv;
 	cell *wc;
@@ -994,7 +994,7 @@ static void up_rest_str() {
 	}
 }
 
-static INT get_est_substr_in_word(PCHAR str) {
+static INT get_est_substr_in_word(pchar str) {
 	dv *cv;
 	INT n, m, sump, lstr, shift;
 
@@ -1043,7 +1043,7 @@ static INT est_rest_dig(dv *from) {
 	ERD_Ret: return ret_est;
 }
 
-static INT test_var(PCHAR str_var) {
+static INT test_var(pchar str_var) {
 	INT rc, curest;
 
 	curest = 0;

@@ -68,7 +68,7 @@ typedef signed short int  *         _PINT;
 #define INT  _INT
 #define PINT _PINT
 typedef unsigned short int  *       PWORD;
-#define PSTR  PCHAR
+#define PSTR  pchar
 
 typedef signed long int  *          PLONG;
 */
@@ -90,7 +90,7 @@ typedef signed long int  *          PLONG;
         typedef unsigned char  *    _PBYTE;
 
         #define char  _CHAR
-        #define PCHAR _PCHAR
+        #define pchar _PCHAR
 		#define PSTR  _PCHAR
 		#define BYTE  _BYTE
         #define PBYTE _PBYTE

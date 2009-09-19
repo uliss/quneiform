@@ -76,7 +76,7 @@ Bool (*RSTR_p2_snap_activity)(BYTE a);
 Bool (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
 ///////////////
 // проверка по словарю
-Bool (*RSTR_p2_spell)(PCHAR s,BYTE lang);
+Bool (*RSTR_p2_spell)(pchar s,BYTE lang);
 
 // дополнительное распознавание (LEO)
 Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo);

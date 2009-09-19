@@ -105,9 +105,9 @@ typedef  struct{
 
 
 LONG  read_auto_tree( BYTE );
-PCHAR tree_start( INT n );
+pchar tree_start( INT n );
 INT copy_raster( PBYTE in, INT dy, INT dx,PBYTE out,INT row,INT col );
-void  errorExit( PCHAR str );
+void  errorExit( pchar str );
 INT  recog( void );
 INT  rec_without_halo( void );
 

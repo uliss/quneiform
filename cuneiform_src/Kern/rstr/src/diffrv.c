@@ -690,8 +690,8 @@ lnhead *line;
 INT l;
 uint16_t nl=0,pen=0;
 
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->h > 2 || !(line->flg & (l_fbeg | l_fend)) ) nl++;
   if( nl == 1 ) pen+=220;
    return pen;
@@ -968,8 +968,8 @@ lnhead *line;
 INT l;
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
  if( gaps > 0)
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if(!(line->flg & (l_fend | l_fbeg)) )
    if(line->h == 1) gaps--; // skip non valueble lines
    else if(line->row > c->h/2 && line->h < 3) gaps--;
@@ -987,8 +987,8 @@ uint16_t check_EK(BYTE let,cell * c)
 
  if(((c_comp*)c->env)->nl == 1) pen_K = 200;
 
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->row < c->h/3 && !(line->flg&l_fend) && line->h > c->h/4 )
      pen_E += 100;
 
@@ -1010,8 +1010,8 @@ uint16_t check_iee(cell * c,BYTE let)
   if( gaps == 0 && let == (BYTE)'ë') return 10;
   else if ( gaps == 0 && let == (BYTE)'›' ) return 60;
      // hole in top right square
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if (line->row < c->h/2 &&  line->h < c->h/4 &&
   (!(line->flg&l_fend) && !(line->flg&l_fbeg))  )
      pen += 60;
@@ -1025,8 +1025,8 @@ uint16_t check_ya( cell * c)
  INT l,suspect=0,strong=0;
  uint16_t pen=0,gaps;
    gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if ( (line->flg & (l_fbeg | l_fend)) == 0 )
    if (line->row > c->h/3) suspect++;
    else                    strong++;
@@ -1536,8 +1536,8 @@ uint16_t pen;
 if( !(c->pos_inc&erect_rot) )
    pen += check_inc_foots(c,2);
 
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   if ( line->h*3 >= c->h*2 && line->row+line->h >= c->h*2/3 ) cnt++;
   switch(cnt){
   case 0        : pen += 100;break;
@@ -1554,9 +1554,9 @@ Bool check_uple_hook_cell( cell * c )
  lnhead *line;
  INT l,h,ind,wid, av;
  interval *i;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
-   i=(interval *)((PCHAR)line+sizeof(lnhead));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
+   i=(interval *)((pchar)line+sizeof(lnhead));
    wid = i->l;
    if( line->row<2 && line->h*2<=c->h && (i->e-i->l)*4<c->w && line->h>2 &&
          (line->flg & l_fend)  )
@@ -1584,9 +1584,9 @@ Bool check_upri_hook_cell( cell * c )
  lnhead *line;
  INT l,h,ind,wid;
  interval *i;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
-   i=(interval *)((PCHAR)line+sizeof(lnhead));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
+   i=(interval *)((pchar)line+sizeof(lnhead));
    wid = i->l;
    if( line->row<2 && line->h*2<=c->h && (i->e-i->l)*4>c->w*3 && line->h>2 &&
          (line->flg & l_fend)  )
@@ -1613,10 +1613,10 @@ Bool check_dnri_hook_cell( cell * c , INT w)
  lnhead *line;
  INT l,h,ind, ri;
  interval *i;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-      (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+      (l=line->lth)>0; line=(lnhead *)((pchar)line+l))
   {
-  i=(interval *)((PCHAR)line+sizeof(lnhead));
+  i=(interval *)((pchar)line+sizeof(lnhead));
   if( line->row >= c->h/2 && line->h*3 <= c->h &&
       (line->flg & l_fbeg) && i->l <= c->w/3  )
     {
@@ -2576,9 +2576,9 @@ Bool check_bend_up( cell * c )
  lnhead *line;
  INT l;
  interval *i;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
- i=(interval *)((PCHAR)line+sizeof(lnhead));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
+ i=(interval *)((pchar)line+sizeof(lnhead));
   if( line->row > c->h/2 && line->h*4 <= c->h && i->e-i->l > 3*c->w/4 &&
       line->flg & l_fbeg )
         return TRUE;
@@ -2590,9 +2590,9 @@ Bool check_bend_dn( cell * c )
  lnhead *line;
  INT l;
  interval *i;
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
- i=(interval *)((PCHAR)line+sizeof(lnhead));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
+ i=(interval *)((pchar)line+sizeof(lnhead));
   if( line->row > 2*c->h/3 && line->h*4 <= c->h && (i->e-i->l)*2 > c->w &&
       (line->flg & l_fend || line->flg & l_fbeg) && i->l <= c->w/3 &&
       ( (line->h == 1 && i->l > 3 && line->row != c->h-1) ||
@@ -2609,13 +2609,13 @@ Bool check_bend_dn( cell * c )
  INT l,row,col,h,w,a;
  BYTE flg;
 
- for (a=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)    )
+ for (a=0,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((pchar)line+l)    )
   if ((h=line->h)<=2)
    {
    flg=line->flg;
    row=line->row;
-   intval=(interval *)((PCHAR)line+sizeof(lnhead));
+   intval=(interval *)((pchar)line+sizeof(lnhead));
    if (h==2 && flg&l_fend) {intval++; row++;}
    w=intval->l;
    col=intval->e-w;
@@ -2745,9 +2745,9 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
     corner_type(corners[0]) == CURVE &&
     corner_type(corners[2]) == CURVE
    ){ // refuse ¢ -- blood ¥ with 2 gaps
- for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
- in=(interval *)((PCHAR)line+sizeof(lnhead));
+ for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((pchar)line+l)){
+ in=(interval *)((pchar)line+sizeof(lnhead));
   if( !(line->flg & l_fbeg) && !(line->flg & l_fend) &&
      line->row > h/3 )
    for(i=0;i < line->h;i++,in++)
@@ -3019,12 +3019,12 @@ void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[])
  lnhead   *line;
  interval *inter;
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((pchar)line+ll))
 	{
 	h=line->h;
 	for( ind=off_str+line->row,
-	     inter=(interval *)((PCHAR)line+sizeof(lnhead));
+	     inter=(interval *)((pchar)line+sizeof(lnhead));
 	     h ;ind++,h--,inter++)     		/* one line     */
 		{
 		hist_d[ind] += inter->l;/* number of bits      in row */
