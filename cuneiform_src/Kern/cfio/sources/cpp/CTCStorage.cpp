@@ -143,7 +143,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 
 			// Display the string.
 			MessageBox ( NULL,
-				         ( PChar8 ) lpMsgBuf,
+				         ( char* ) lpMsgBuf,
 						 "CFIO: Storage can't create own unpack folder",
 						 MB_OK|MB_ICONINFORMATION );
 
@@ -322,7 +322,7 @@ CTCStorageHeader * CTCStorageList::GetItemHeader(Handle Storage)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCStorageList::FindStorage(PChar8 lpStorageName)
+Handle CTCStorageList::FindStorage(char* lpStorageName)
 {
 	CTCGlobalFile * pStorage;
 	CTCStorageHeader * pCurrent;

@@ -169,7 +169,7 @@ CTIImageHeader * CTIImageList::FindImage(const char *lpName, CTIImageHeader ** P
 {
 	CTIImageHeader * Current = NULL;
 	CTIImageHeader * Prev    = Begin();
-	Char8              Buff[CIMAGE_MAX_IMAGE_NAME];
+	char              Buff[CIMAGE_MAX_IMAGE_NAME];
 
 	if ( lpName != NULL && CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
 	{
@@ -286,7 +286,7 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
 	return TRUE;
 }
 
-Bool32 CTIImageList::EnableMask(const char *pName, PChar8 pType, Bool32 mEnabled)
+Bool32 CTIImageList::EnableMask(const char *pName, char* pType, Bool32 mEnabled)
 {
 	CTIImageHeader * Image = FindImage(pName);
 

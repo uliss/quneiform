@@ -276,7 +276,7 @@ CFIO_FUNC(Handle) CFIO_OpenStorage(pchar lpName, uint32_t dwTypes)
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->OpenStorage((PChar8)lpName, dwTypes);
+		return Control_ctc->OpenStorage((char*)lpName, dwTypes);
 	else
 	{
 		if (InitDone)
@@ -310,7 +310,7 @@ CFIO_FUNC(Bool32) CFIO_DeleteStorage (pchar lpName)
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->DeleteStorage((PChar8)lpName);
+		return Control_ctc->DeleteStorage((char*)lpName);
 	else
 	{
 		if (InitDone)
@@ -327,7 +327,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, pcha
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->WriteFileToStorage(hStorage, hFile, (PChar8)lpNameInStorage);
+		return Control_ctc->WriteFileToStorage(hStorage, hFile, (char*)lpNameInStorage);
 	else
 	{
 		if (InitDone)
@@ -344,7 +344,7 @@ CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, pchar lpName)
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->ReadFileFromStorage(hStorage, (PChar8)lpName);
+		return Control_ctc->ReadFileFromStorage(hStorage, (char*)lpName);
 	else
 	{
 		if (InitDone)
@@ -361,7 +361,7 @@ CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, pchar lpName, uint32_t dwFl
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->OpenFile(hStorage, (PChar8)lpName, dwFlag);
+		return Control_ctc->OpenFile(hStorage, (char*)lpName, dwFlag);
 	else
 	{
 		if (InitDone)
@@ -497,7 +497,7 @@ CFIO_FUNC(Handle) CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, char* cOw
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->Alloc(dwSize, dwFlag, (PChar8)cOwner, (PChar8)Comment);
+		return Control_ctc->Alloc(dwSize, dwFlag, (char*)cOwner, (char*)Comment);
 	else
 	{
 		if (InitDone)
@@ -582,7 +582,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToFile(Handle hMem, pchar lpName)
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->WriteMemToFile(hMem, (PChar8)lpName);
+		return Control_ctc->WriteMemToFile(hMem, (char*)lpName);
 	else
 	{
 		if (InitDone)
@@ -599,7 +599,7 @@ CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromFile(pchar lpName, Handle * phMem)
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->ReadMemFromFile((PChar8)lpName, phMem);
+		return Control_ctc->ReadMemFromFile((char*)lpName, phMem);
 	else
 	{
 		if (InitDone)
@@ -616,7 +616,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, pcha
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->WriteMemToStorage(hMem, hStorage, (PChar8)lpName);
+		return Control_ctc->WriteMemToStorage(hMem, hStorage, (char*)lpName);
 	else
 	{
 		if (InitDone)
@@ -633,7 +633,7 @@ CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromStorage(Handle hStorage, pchar lpName, Ha
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if( Control_ctc )
-		return Control_ctc->ReadMemFromStorage(hStorage, (PChar8)lpName, phMem);
+		return Control_ctc->ReadMemFromStorage(hStorage, (char*)lpName, phMem);
 	else
 	{
 		if (InitDone)

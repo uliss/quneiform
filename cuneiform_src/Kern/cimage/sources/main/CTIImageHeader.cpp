@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CTIImageHeader::CTIImageHeader()
 {
-	CIMAGE_STRING_COPY((PChar8)ImageName, "Fictiv image");
+	CIMAGE_STRING_COPY((char*)ImageName, "Fictiv image");
 	ImageInfo = (PCIMAGEBITMAPINFOHEADER)(Image = (void *)(0xffff0000));
 	ImageExternal = 1;
 	ReadMask = NULL;
@@ -80,9 +80,9 @@ CTIImageHeader::CTIImageHeader()
 CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, uint32_t wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
-		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);
+		CIMAGE_STRING_COPY((char*)ImageName, lpName);
 	else
-		CIMAGE_STRING_N_COPY((PChar8)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
+		CIMAGE_STRING_N_COPY((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
 
 	hImage = hImageHandle;
 	ImageInfo = NULL;
@@ -97,9 +97,9 @@ CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, uint32_t
 CTIImageHeader::CTIImageHeader(const char *lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, uint32_t wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
-		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);
+		CIMAGE_STRING_COPY((char*)ImageName, lpName);
 	else
-		CIMAGE_STRING_N_COPY((PChar8)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
+		CIMAGE_STRING_N_COPY((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
 
 	ImageInfo = lpInfo;
 	Image = lpImage;
@@ -135,7 +135,7 @@ Bool32 CTIImageHeader::CheckName(const char *Name)
 
 	if ( Name && Name[0] != 0 && CIMAGE_STRING_LENGHT(Name) < CIMAGE_MAX_IMAGE_NAME )
 	{
-		Check = ( CIMAGE_STRING_COMPARE(Name, (PChar8)ImageName) == 0 );
+		Check = ( CIMAGE_STRING_COMPARE(Name, (char*)ImageName) == 0 );
 	}
 
 	return Check;

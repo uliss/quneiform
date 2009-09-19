@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define     RSL_ERR_NO_MEMORY "Ошибка выделения памяти системой"
 #define RSL_ERR_NO_MEMORY 1
 #define     MAF_GALL_GPTR              0x0010
-Char8       cCommentBuffer[CFIO_MAX_COMMENT];
+char       cCommentBuffer[CFIO_MAX_COMMENT];
 
 static char *Buffer = NULL;
 static char *WorkMem = NULL;

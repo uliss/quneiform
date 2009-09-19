@@ -135,7 +135,7 @@ Bool32 InitCFIOInterface(Bool32 Status)
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #define RSTUFF
-Char8 cCommentBuffer[CFIO_MAX_COMMENT];
+char cCommentBuffer[CFIO_MAX_COMMENT];
 
 void    RSTUFFComment(const char *Comment)
 {

@@ -109,17 +109,17 @@ public:
 
 // import functions
 public:
-	Bool32 SetFolder(uint32_t wFolder, PChar8 pcBuff);
-	Bool32 GetFolder(uint32_t wFolder, PChar8 pcBuff);
+	Bool32 SetFolder(uint32_t wFolder, char* pcBuff);
+	Bool32 GetFolder(uint32_t wFolder, char* pcBuff);
 
 // import functions
 public:
-	Handle OpenStorage(PChar8 lpName, uint32_t wTypes);
+	Handle OpenStorage(char* lpName, uint32_t wTypes);
 	Bool32 CloseStorage(Handle  hStorage, uint32_t  dwFlag);
-	Bool32 DeleteStorage(PChar8 lpName);
-	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, PChar8 lpName);
-	Handle ReadFileFromStorage(Handle hStorage, PChar8 lpName);
-	Handle OpenFile(Handle hFile, PChar8 lpName, uint32_t dwFlag);
+	Bool32 DeleteStorage(char* lpName);
+	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName);
+	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
+	Handle OpenFile(Handle hFile, char* lpName, uint32_t dwFlag);
 	Bool32 CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
 	uint32_t WriteFile(Handle hFile, pchar lpData, uint32_t dwSize);
 	uint32_t ReadFromFile(Handle hFile, pchar lpData, uint32_t dwSize);
@@ -131,14 +131,14 @@ public:
 	Bool32 Free(Handle hMem);
 	pvoid Lock(Handle hMem);
 	Bool32 Unlock(Handle hMem);
-	uint32_t WriteMemToFile(Handle hMem, PChar8 lpName);
-	uint32_t ReadMemFromFile(PChar8 lpName, Handle * phMem, uint32_t wFlag = MAF_GALL_GHND);
-	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, PChar8 lpName);
-	uint32_t ReadMemFromStorage(Handle hStorage, PChar8 lpName, Handle * phMem);
+	uint32_t WriteMemToFile(Handle hMem, char* lpName);
+	uint32_t ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag = MAF_GALL_GHND);
+	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, char* lpName);
+	uint32_t ReadMemFromStorage(Handle hStorage, char* lpName, Handle * phMem);
 
 private:
 	Handle AddFileInList(CTCGlobalFile * File, uint32_t Flag, Handle Storage);
-	Handle OpenFileAndAttach(PChar8 lpNAme, uint32_t Flag, Handle Storage = NULL);
+	Handle OpenFileAndAttach(char* lpNAme, uint32_t Flag, Handle Storage = NULL);
 	Handle AllocNewMemory(uint32_t wFlag, uint32_t wSize, Bool32 Global, const char *cOwner, const char* Coment);
 	Bool32 AddNewMemoryInList( Handle hMemory, uint32_t wSize, uint32_t IsGlobal, const char *cOwner, const char *Coment);
 	Bool32 FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
@@ -166,12 +166,12 @@ private:
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
 	uint32_t DecompileStorage(Handle Storage);
 	Handle AddStorageInList(CTCGlobalFile * lpNewStorageName, uint32_t wNewFlag);
-	Handle OpenNewStorage(PChar8 lpName, uint32_t wFlag);
-	Handle OpenCompliteStorage(PChar8 lpName, uint32_t wFlag);
+	Handle OpenNewStorage(char* lpName, uint32_t wFlag);
+	Handle OpenCompliteStorage(char* lpName, uint32_t wFlag);
 	uint32_t ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, CTCGlobalFile ** pFile);
 	uint32_t ReadItemFromStorage(CTCStorageHeader * Storage, void * lpData, uint32_t wSize);
-	PChar8 MakeNameForStorage(PChar8 FileName, CTCStorageHeader * phStorage = NULL, Bool32 KeepName = FALSE);
-	PChar8 FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 FileName, uint32_t Size);
+	char* MakeNameForStorage(char* FileName, CTCStorageHeader * phStorage = NULL, Bool32 KeepName = FALSE);
+	char* FileNameToFolder(char* Buffer, char* FolderName, char* FileName, uint32_t Size);
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //

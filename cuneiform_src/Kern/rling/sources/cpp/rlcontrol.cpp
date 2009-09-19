@@ -101,9 +101,9 @@ extern "C"
 	int16_t     TE_table_op(int16_t, int16_t, int16_t, int16_t);
 	int16_t     TE_close(int16_t);
 	void      trees_load_rling(void);
-	int16_t     text_findstat_rling(PChar8);
+	int16_t     text_findstat_rling(char*);
 	int16_t     spelling(puchar, int32_t);
-	void      load_user_dicts (PChar8, PChar8);
+	void      load_user_dicts (char*, char*);
 	void      unload_user_dicts(void);
 }
 ///////////////////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ CRLControl::~CRLControl()
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
+int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, char* pDictPath)
 {
 	// -1 - invalid languge code,
 	// 0  - tables not found,
@@ -150,13 +150,13 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 
 		if ( strlen( m_LastDictonaryPath ) < 256 )
 		{
-			strcpy((PChar8)own_dir, m_LastDictonaryPath);
+			strcpy((char*)own_dir, m_LastDictonaryPath);
 			iRet = 0;
 		}
 		else
 		{
 			SetReturnCode_rling(IDS_RLING_PATH_UNVAILABLE);
-			strcpy((PChar8)own_dir, "./");
+			strcpy((char*)own_dir, "./");
 		}
 	}
 
@@ -192,7 +192,7 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
+Bool32 CRLControl::LoadDictonary(uint32_t wLang, char* pDictPath)
 {
 	Bool32 bRet = FALSE;
 
@@ -212,13 +212,13 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 
 		if ( strlen( m_LastDictonaryPath ) < 256 )
 		{
-			strcpy((PChar8)own_dir, m_LastDictonaryPath);
+			strcpy((char*)own_dir, m_LastDictonaryPath);
 			bRet = TRUE;
 		}
 		else
 		{
 			SetReturnCode_rling(IDS_RLING_PATH_UNVAILABLE);
-			strcpy((PChar8)own_dir, "./");
+			strcpy((char*)own_dir, "./");
 		}
 	}
 
@@ -254,7 +254,7 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRLControl::LoadSecDictonary(uint32_t wLang, PChar8 pDictPath)
+Bool32 CRLControl::LoadSecDictonary(uint32_t wLang, char* pDictPath)
 {
 	Bool32 bRet = FALSE;
 
@@ -298,7 +298,7 @@ Bool32 CRLControl::UnLoadSecDictonary()
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckWord(PChar8 cWord, int32_t * pOutCheck)
+Bool32 CRLControl::CheckWord(char* cWord, int32_t * pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -406,7 +406,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSiz
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckSecWord(PChar8 cWord, int32_t * pOutCheck)
+Bool32 CRLControl::CheckSecWord(char* cWord, int32_t * pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -417,7 +417,7 @@ Bool32 CRLControl::CheckSecWord(PChar8 cWord, int32_t * pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckFile(PChar8 pFile, int32_t * pCheck)
+Bool32 CRLControl::CheckFile(char* pFile, int32_t * pCheck)
 {
 	Bool32     bRet = FALSE;
 	m_LastCheck = 0;
@@ -517,7 +517,7 @@ Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, uint32_t wEDPoolS
 	return bRet;
 }
 
-Bool32 CRLControl::LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint)
+Bool32 CRLControl::LoadUserDictonary(char* pUserDictonaryList, char* pPoint)
 {
 	Bool32     bRet = FALSE;
 	////////////////////////////////////////////////////////////////
@@ -536,7 +536,7 @@ Bool32 CRLControl::LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint)
 	return bRet;
 }
 
-Bool32 CRLControl::LoadSecUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint)
+Bool32 CRLControl::LoadSecUserDictonary(char* pUserDictonaryList, char* pPoint)
 {
 	Bool32     bRet = FALSE;
 
@@ -607,7 +607,7 @@ Bool32 CRLControl::UnLoadSecUserDictonary()
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, char* CorrWord)
 {
 	Bool32 bRet = FALSE;
 	uint32_t wSizeOut;
@@ -625,7 +625,7 @@ Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguag
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, char* CorrWord)
 {
 	Bool32     bRet = FALSE;
 
@@ -636,7 +636,7 @@ Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLang
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, char* CorrWord)
 {
 	Bool32 bRet = FALSE;
 	uint32_t wSizeOut;
@@ -658,7 +658,7 @@ Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLa
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, char* CorrWord)
 {
 	Bool32     bRet = FALSE;
 

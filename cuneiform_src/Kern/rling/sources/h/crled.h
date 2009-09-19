@@ -145,7 +145,7 @@ public:
 	void * GetEdPool(void) { return (void *) mpEdBuffer; };
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
 	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
-	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
+	Bool32 ExcludeToVers(int32_t size, char* pStr);
 	Bool32 AddWord(CSTR_rast b, CSTR_rast e, puchar pLanguage);
 	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,puchar Language);
 	void   Init();

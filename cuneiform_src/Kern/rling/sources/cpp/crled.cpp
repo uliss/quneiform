@@ -280,7 +280,7 @@ void CRLEd::Write(puchar pP, uint16_t wSize)
 	mpEdFileEnd += wSize;
 }
 
-Bool32 CRLEd::ExcludeToVers(int32_t size, PChar8 pStr)
+Bool32 CRLEd::ExcludeToVers(int32_t size, char* pStr)
 {
 	uchar  *p,*pe;
 	//struct  vers_ref     vf;

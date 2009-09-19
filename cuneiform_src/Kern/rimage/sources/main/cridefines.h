@@ -59,8 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
-//# define    Char8               char
-//# define    PChar8              char *
+//# define    char               char
+//# define    char*              char *
 /*
 # define    CTIBOOL16          Bool16
 # define    CTIWORD            uint16_t

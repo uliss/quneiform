@@ -83,31 +83,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 #include <stdio.h>
 #include <stdlib.h>
-/*#include <direct.h>*/
 #include <string.h>
 //////////////////////////////////////////////////////////////////////////////////
 //
 #ifdef ASSERT
 #undef ASSERT
 #endif
-//#include <assert.h>
-//#define ASSERT(a)              a
-//////////////////////////////////////////////////////////////////////////////////
-// for provide functions for temporary file/folder names
-#ifdef pvoid
-#undef pvoid
-#endif
-//////////////////////////////////////////////////////
-typedef char        Char8, *PChar8, **PPChar8;
 ///////////////////////////////////////////////////////////////////////////////////////
-// используктся в случае
-//#define CFIO_USE_GLOBAL_MEMORY
-//#define CFIO_USE_WIN32_API
-///////////////////////////////////////////////////////////////////////////////////////
-# if defined (CFIO_USE_WIN32_API) //& defined (CFIO_USE_GLOBAL_MEMORY)
+# if defined (CFIO_USE_WIN32_API)
   #include <windows.h>
   #include <crtdbg.h>
-  //#include <afx.h>
 # endif
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -122,7 +107,7 @@ class CTCGlobalHeader
 {
 protected:
 	Handle                      hGlobalHandle;
-	PChar8                      pcMemoryBlock;
+	char*                      pcMemoryBlock;
 	CTCGlobalHeader *           pNext;
 	uint32_t                      wSize;
 	uint32_t                      wHeaderSize;
@@ -147,7 +132,7 @@ public:
 
 public:
 	Handle              SetHandle(Handle GlobalHandle)    { return (hGlobalHandle = GlobalHandle); };
-	void *              SetData(void * Data)              { return (void *)(pcMemoryBlock = (PChar8)Data); };
+	void *              SetData(void * Data)              { return (void *)(pcMemoryBlock = (char*)Data); };
 	CTCGlobalHeader *   SetNext(CTCGlobalHeader * Next)   { return (pNext = Next); };
 	uint32_t              SetSize(uint32_t Size)              { return (wSize = Size); };
 	uint32_t              SetHeaderSize(uint32_t Size)        { return (wHeaderSize = Size ); };
@@ -240,7 +225,7 @@ private:
 
 public:
 	CTCGlobalFile();
-	CTCGlobalFile(PChar8 Name, uint32_t Flag);
+	CTCGlobalFile(char* Name, uint32_t Flag);
 	~CTCGlobalFile();
 
 public:
@@ -249,15 +234,15 @@ public:
 	uint32_t              Flush();
 	uint32_t              Tell();
 	uint32_t              Seek(uint32_t Position, uint32_t Flag);
-	PChar8              GetFileName(PChar8 lpName = NULL);
+	char*              GetFileName(char* lpName = NULL);
 	uint32_t              GetFileLenght();
-	PChar8              SetFileName(PChar8 pcFileName );
+	char*              SetFileName(char* pcFileName );
 	Bool32              Close();
 
 public:
 	Handle              GetFileHandle()                 { return ((Handle)hFile); };
 	HandleFILE          GetHandle()                     { return hFile; };
-	PChar8              GetFlagString(void)             { return cFlag; };
+	char*              GetFlagString(void)             { return cFlag; };
 	Bool32              IsInString(const char* Flag );
 	uint32_t              GetFileSize();
 	uint32_t              GetHeaderSize()                 { return(sizeof(class CTCGlobalFile)); };
@@ -268,7 +253,7 @@ public:
 protected:
 	Handle              SetFileHandle(Handle NewFile)   { return( hFile = (HandleFILE)NewFile );};
 	HandleFILE          SetHandle(HandleFILE NewHandle) { return( hFile = NewHandle);};
-	Bool32              ProvideFileFolder( PChar8 lpFileFuelName );
+	Bool32              ProvideFileFolder( char* lpFileFuelName );
 
 public:
 	void                TranslateFlagToString(uint32_t Flag);

@@ -75,7 +75,7 @@ RLINGS_FUNC(int32_t) RLINGS_IsDictonaryAvailable(uint32_t wLang, pchar pPath)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->IsDictonaryAvailable( wLang, (PChar8) pPath);
+		return Control_crl->IsDictonaryAvailable( wLang, (char*) pPath);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -91,7 +91,7 @@ RLINGS_FUNC(Bool32) RLINGS_LoadDictonary(uint32_t wLang, pchar pPath)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->LoadDictonary( wLang, (PChar8) pPath);
+		return Control_crl->LoadDictonary( wLang, (char*) pPath);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -107,7 +107,7 @@ RLINGS_FUNC(Bool32) RLINGS_LoadUserDictonary(pchar pUserDictList, pchar pPath)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->LoadUserDictonary( (PChar8)pUserDictList, (PChar8)pPath);
+		return Control_crl->LoadUserDictonary( (char*)pUserDictList, (char*)pPath);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -123,7 +123,7 @@ RLINGS_FUNC(Bool32) RLINGS_LoadSecDictonary(uint32_t wLang, pchar pPath)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->LoadSecDictonary( wLang, (PChar8) pPath);
+		return Control_crl->LoadSecDictonary( wLang, (char*) pPath);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -139,7 +139,7 @@ RLINGS_FUNC(Bool32) RLINGS_LoadSecUserDictonary(pchar pUserDictList, pchar pPath
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->LoadSecUserDictonary( (PChar8)pUserDictList, (PChar8)pPath);
+		return Control_crl->LoadSecUserDictonary( (char*)pUserDictList, (char*)pPath);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -219,7 +219,7 @@ RLINGS_FUNC(Bool32) RLINGS_CheckWord(pchar pWord, int32_t * pOutCheck)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CheckWord( (PChar8)pWord, pOutCheck);
+		return Control_crl->CheckWord( (char*)pWord, pOutCheck);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -235,7 +235,7 @@ RLINGS_FUNC(Bool32) RLINGS_CheckSecWord(pchar pWord, int32_t * pOutCheck)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CheckSecWord( (PChar8)pWord, pOutCheck);
+		return Control_crl->CheckSecWord( (char*)pWord, pOutCheck);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -252,7 +252,7 @@ RLINGS_FUNC(Bool32) RLINGS_CheckFile(pchar pFile, int32_t * pOutCheck)
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CheckFile( (PChar8)pFile, pOutCheck);
+		return Control_crl->CheckFile( (char*)pFile, pOutCheck);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -301,7 +301,7 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectWord(void * Begin, void * End, uint32_t * pLan
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CorrectWord( (CSTR_rast)Begin, (CSTR_rast)End, pLanguage, (PChar8)pCorrWord);
+		return Control_crl->CorrectWord( (CSTR_rast)Begin, (CSTR_rast)End, pLanguage, (char*)pCorrWord);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -317,7 +317,7 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectSecWord(void * Begin, void * End, uint32_t * p
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CorrectSecWord( (CSTR_rast)Begin, (CSTR_rast)End, pLanguage, (PChar8)pCorrWord);
+		return Control_crl->CorrectSecWord( (CSTR_rast)Begin, (CSTR_rast)End, pLanguage, (char*)pCorrWord);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -333,7 +333,7 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectHypWord(void * BeginF, void * EndF, uint32_t *
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CorrectHypWord( (CSTR_rast)BeginF, (CSTR_rast)EndF, pLanguageF, (CSTR_rast)BeginS, (CSTR_rast)EndS, pLanguageS, (PChar8)pCorrWord);
+		return Control_crl->CorrectHypWord( (CSTR_rast)BeginF, (CSTR_rast)EndF, pLanguageF, (CSTR_rast)BeginS, (CSTR_rast)EndS, pLanguageS, (char*)pCorrWord);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -349,7 +349,7 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectSecHypWord(void * BeginF, void * EndF, uint32_
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
 
 	if ( Control_crl )
-		return Control_crl->CorrectSecHypWord( (CSTR_rast)BeginF, (CSTR_rast)EndF, pLanguageF, (CSTR_rast)BeginS, (CSTR_rast)EndS, pLanguageS, (PChar8)pCorrWord);
+		return Control_crl->CorrectSecHypWord( (CSTR_rast)BeginF, (CSTR_rast)EndF, pLanguageF, (CSTR_rast)BeginS, (CSTR_rast)EndS, pLanguageS, (char*)pCorrWord);
 
 	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;

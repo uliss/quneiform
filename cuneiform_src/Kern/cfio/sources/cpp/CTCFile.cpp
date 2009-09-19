@@ -261,7 +261,7 @@ Handle CTCFileList::GetAttachedFileHeader(Handle Storage, CTCFileHeader * File)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCFileList::FindFile(PChar8 lpFileName)
+Handle CTCFileList::FindFile(char* lpFileName)
 {
 	CTCGlobalFile * pFile;
 	CTCFileHeader * pCurrent;

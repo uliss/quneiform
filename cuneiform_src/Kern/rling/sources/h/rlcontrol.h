@@ -79,39 +79,39 @@ public:
 	Rect16 GetCorrectedRectElement(uint32_t i);
 	Bool32 CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF,
 			uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS,
-			uint32_t * pLanguageS, PChar8 CorrWord);
+			uint32_t * pLanguageS, char* CorrWord);
 	Bool32
 			CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF,
 					CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS,
-					PChar8 CorrWord);
+					char* CorrWord);
 	Bool32 CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage,
-			PChar8 CorrWord);
+			char* CorrWord);
 	Bool32 CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage,
-			PChar8 CorrWord);
+			char* CorrWord);
 	Bool32 UnLoadSecUserDictonary(void);
 	Bool32 UnLoadUserDictonary(void);
-	Bool32 LoadSecUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint);
-	Bool32 LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint);
+	Bool32 LoadSecUserDictonary(char* pUserDictonaryList, char* pPoint);
+	Bool32 LoadUserDictonary(char* pUserDictonaryList, char* pPoint);
 	Bool32 CheckSecED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize,
 			uint32_t * pwEDOutPoolSize, int32_t * pOut);
 	Bool32 CheckED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolsize,
 			uint32_t * pwEDOutPoolSize, int32_t * pOut);
-	Bool32 CheckSecWord(PChar8 cWord, int32_t * pOutCheck);
+	Bool32 CheckSecWord(char* cWord, int32_t * pOutCheck);
 	Bool32 UnLoadSecDictonary(void);
-	Bool32 LoadSecDictonary(uint32_t wLang, PChar8 pDictPath);
-	Bool32 CheckFile(PChar8 pFile, int32_t * pCheck);
+	Bool32 LoadSecDictonary(uint32_t wLang, char* pDictPath);
+	Bool32 CheckFile(char* pFile, int32_t * pCheck);
 	static void ExitByCatch(int32_t ExitCode);
-	Bool32 CheckWord(PChar8 cWord, int32_t * pOutCheck);
+	Bool32 CheckWord(char* cWord, int32_t * pOutCheck);
 	Bool32 UnLoadDictonary(void);
-	Bool32 LoadDictonary(uint32_t wLang, PChar8 pDictPath);
-	int32_t IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath);
+	Bool32 LoadDictonary(uint32_t wLang, char* pDictPath);
+	int32_t IsDictonaryAvailable(uint32_t wLang, char* pDictPath);
 
 	CRLControl();
 	virtual ~CRLControl();
 
 protected:
 	Bool32 AllocEDBuffer(void);
-	Bool32 CheckEDFile(PChar8 pEDFile);
+	Bool32 CheckEDFile(char* pEDFile);
 	void FreeEDBuffer(void);
 	void SetCodeWhenExit(int32_t Code);
 
@@ -125,16 +125,16 @@ protected:
 	uint32_t m_LastEDOutPoolSize;
 	uint32_t m_LastEDWorkPoolSize;
 	puchar m_LastEDPool;
-	//Char8   m_SecLastWord[RLING_MAX_WORD_LENGHT + 4];
+	//char   m_SecLastWord[RLING_MAX_WORD_LENGHT + 4];
 	//int32_t   m_SecLastCheck;
-	//Char8   m_SecLastDictonaryPath[512];
+	//char   m_SecLastDictonaryPath[512];
 	Handle m_SecTablePool;
 	int32_t m_SecLanguage;
 	Handle m_TablePool;
-	Char8 m_LastDictonaryPath[512];
+	char m_LastDictonaryPath[512];
 	int32_t m_Language;
 	int32_t m_LastCheck;
-	Char8 m_LastWord[RLING_MAX_WORD_LENGHT + 4];
+	char m_LastWord[RLING_MAX_WORD_LENGHT + 4];
 };
 
 #endif // !defined(_RLING_CONTROL_H_)

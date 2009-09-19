@@ -150,7 +150,7 @@ CTIControl::~CTIControl()
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
+Bool32 CTIControl::WriteCBImage(char*  lpName, CIMAGEIMAGECALLBACK Cbk )
 {
 	Handle hNewDIB;
 	Bool32 Ret;
@@ -317,7 +317,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetCBImage (PChar8  lpName, PCIMAGEIMAGECALLBACK pCbk)
+Bool32 CTIControl::GetCBImage (char*  lpName, PCIMAGEIMAGECALLBACK pCbk)
 {
 	Handle  hImage = NULL;
 
@@ -361,7 +361,7 @@ Bool32 CTIControl::GetCBImage (PChar8  lpName, PCIMAGEIMAGECALLBACK pCbk)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag)
+Bool32 CTIControl::SetDIB(char*  lpName, Handle hDIB, uint32_t wFlag)
 {
 	Handle  hImage = NULL;
 
@@ -382,7 +382,7 @@ Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetDIB(PChar8  lpName, Handle* phDIB, uint32_t wFlag)
+Bool32 CTIControl::GetDIB(char*  lpName, Handle* phDIB, uint32_t wFlag)
 {
 	Handle  hImage = NULL;  // Handle
 
@@ -417,7 +417,7 @@ Bool32 CTIControl::GetDIB(PChar8  lpName, Handle* phDIB, uint32_t wFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataOutGet lplpOut)
+Bool32 CTIControl::GetImage(char*  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataOutGet lplpOut)
 {
 	Bool32   bRet = FALSE;
 	PCTDIB   pDscDIB;
@@ -505,7 +505,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
+Bool32 CTIControl::ReplaceImage(char*  lpName, PCIMAGE_InfoDataInReplace lpIn)
 {
 	Handle         hImage = NULL;
 	void *         pImage;
@@ -566,7 +566,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetImageInfo(PChar8  lpName, PCIMAGEBITMAPINFOHEADER lpBIH)
+Bool32 CTIControl::GetImageInfo(char*  lpName, PCIMAGEBITMAPINFOHEADER lpBIH)
 {
 	Handle hImage = NULL;
 	void * pDIB;
@@ -591,7 +591,7 @@ Bool32 CTIControl::GetImageInfo(PChar8  lpName, PCIMAGEBITMAPINFOHEADER lpBIH)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::RemoveImage(PChar8  lpName)
+Bool32 CTIControl::RemoveImage(char*  lpName)
 {
 	return mlImages.DeleteImage(lpName);
 }
@@ -1080,13 +1080,13 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTIControl::CBImageRead(PChar8  lpBuff, uint32_t wMaxSize)
+uint32_t CTIControl::CBImageRead(char*  lpBuff, uint32_t wMaxSize)
 {
 	CIMAGE_InfoDataInGet   InFrame;
 	uint32_t                 LinesAtOnce;
 	uint32_t                 nOutLine;
 	uint32_t                 CopiedBytes = 0;
-	PChar8                 pNextLineInBuffer = lpBuff;
+	char*                 pNextLineInBuffer = lpBuff;
 
 #ifndef CIMAGE_CBR_ONE_LINE
 	LinesAtOnce = wMaxSize / wCBBufferSize;
@@ -1187,7 +1187,7 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::DumpToFile(PChar8 FileName, puchar pData, uint32_t Size)
+Bool32 CTIControl::DumpToFile(char* FileName, puchar pData, uint32_t Size)
 {
 	FILE * fDump;
 
@@ -1201,7 +1201,7 @@ Bool32 CTIControl::DumpToFile(PChar8 FileName, puchar pData, uint32_t Size)
 	return TRUE;
 }
 
-Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, pchar *pDIB)
+Bool32 CTIControl::GetDIBFromImage(char* lpName, PCIMAGE_InfoDataInGet lpIn, pchar *pDIB)
 {
 	Handle hImage = NULL;
 	void * pImage = NULL;
@@ -1409,27 +1409,27 @@ Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 	return TRUE;
 }
 
-Bool32 CTIControl::AddWriteRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::AddWriteRectangles(char* lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
 {
 	return AddRectsToMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::RemoveWriteRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::RemoveWriteRectangles(char* lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
 {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::AddReadRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::AddReadRectangles(char* lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
 {
 	return AddRectsToMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::RemoveReadRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::RemoveReadRectangles(char* lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
 {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, Handle* phImage)
+Bool32 CTIControl::OpenDIBFromList(char* lpName, Handle* phImage)
 {
 	mlImages.GetImage(lpName, phImage);
 	//ALLEX Mask
@@ -1462,7 +1462,7 @@ Bool32 CTIControl::OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool3
 	return bRet;
 }
 
-Bool32 CTIControl::SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType)
+Bool32 CTIControl::SetMaskToList(char* pName, PCTIMask pMask, char* pcType)
 {
 	Bool32 bRet;
 
@@ -1726,7 +1726,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	return bRet;
 }
 
-Bool32 CTIControl::EnableMask(PChar8 pcName, PChar8 pcType, Bool32 bEnable)
+Bool32 CTIControl::EnableMask(char* pcName, char* pcType, Bool32 bEnable)
 {
 	return mlImages.EnableMask(pcName, pcType, bEnable);
 }

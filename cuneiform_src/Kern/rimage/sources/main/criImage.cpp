@@ -98,7 +98,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Binarise(puchar cDIBIn, puchar cDIBOut, uint32_t wFla
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->Binarise( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
+		return Control_cri->Binarise( (char*)cDIBIn, (char*)cDIBOut, wFlag, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -110,7 +110,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Rotate(puchar cDIBIn, puchar cDIBOut, int32_t High, i
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->Rotate( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
+		return Control_cri->Rotate( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -122,7 +122,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( puchar cDIBIn, int32_t wX, int32_t wY, i
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->RotatePoint( (PChar8)cDIBIn, wX, wY, prX, prY );
+		return Control_cri->RotatePoint( (char*)cDIBIn, wX, wY, prX, prY );
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -134,7 +134,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->Roll( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
+		return Control_cri->Roll( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -146,7 +146,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Turn(puchar cDIBIn, puchar cDIBOut, uint32_t wFlag, u
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->Turn( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
+		return Control_cri->Turn( (char*)cDIBIn, (char*)cDIBOut, wFlag, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -158,7 +158,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Inverse(puchar cDIBIn, puchar cDIBOut, uint32_t UseMa
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
 	if ( Control_cri )
-		return Control_cri->Inverse( (PChar8)cDIBIn, (PChar8)cDIBOut, UseMargins);
+		return Control_cri->Inverse( (char*)cDIBIn, (char*)cDIBOut, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;

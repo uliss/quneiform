@@ -94,15 +94,15 @@ public:
 	CTCMemoryHeader();
 	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize);
 	~CTCMemoryHeader();
-	PChar8 GetOwner(void) { return mcOwner; };
-	PChar8 GetComment(void) { return mcComment; };
+	char* GetOwner(void) { return mcOwner; };
+	char* GetComment(void) { return mcComment; };
 
 public:
 	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary);
 	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CTCGlobalHeader::GetNext()); };
 private:
-	Char8 mcComment[CFIO_MAX_COMMENT];
-	Char8 mcOwner[CFIO_MAX_OWNER];
+	char mcComment[CFIO_MAX_COMMENT];
+	char mcOwner[CFIO_MAX_OWNER];
 };
 
 typedef CTCMemoryHeader *PCTCMemoryHeader, **PPCTCMemoryHeader;
@@ -224,7 +224,7 @@ public:
 	uint32_t             IncreaseContentsCounter() { return ++wContensCounter; };
 	uint32_t             DecreaseContentsCounter() { return --wContensCounter; };
 	CTCGlobalFile *    GetStorage() { return pStorageFile; };
-	PChar8             GetStorageFolder() { return pcFolder; };
+	char*             GetStorageFolder() { return pcFolder; };
 //	Handle             EnumItemContents(Handle Item = NULL);
 //	Bool32             DeleteItemFromStorage(Handle Item);
 //	Bool32             AddItemToStorage(Handle hNewItem, uint32_t wID = 0, uint32_t wNewSize = 0);
@@ -278,7 +278,7 @@ private:
 	CTCFileHeader        mfLastItem;
 
 public:
-	Handle FindFile(PChar8 lpFileName);
+	Handle FindFile(char* lpFileName);
 	CTCFileList();
 	~CTCFileList();
 
@@ -309,7 +309,7 @@ private:
 	uint32_t               wItemCounter;
 
 public:
-	Handle FindStorage(PChar8 lpName);
+	Handle FindStorage(char* lpName);
 	CTCStorageList();
 	~CTCStorageList();
 

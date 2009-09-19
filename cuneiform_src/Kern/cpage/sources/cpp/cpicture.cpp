@@ -148,7 +148,7 @@ return i;
 }
 
 CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
-									  Char8 * lpData, uint32_t * lpSize)
+									  char * lpData, uint32_t * lpSize)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -286,7 +286,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t 
 							for(i = beg_y;i<end_y;i++)
 								for(j = beg_x;j<end_x;j++)
 								{
-									*(lpData + i*sz_x + j)=(Char8)0xFF;
+									*(lpData + i*sz_x + j)=(char)0xFF;
 								}
 						}
 					}

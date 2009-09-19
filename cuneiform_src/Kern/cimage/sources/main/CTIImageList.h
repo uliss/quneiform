@@ -87,7 +87,7 @@ private:
 	CTIImageHeader * FindImage(const char *lpName, CTIImageHeader ** Prev = NULL);
 
 public:
-	Bool32 EnableMask(const char *pName, PChar8 pType, Bool32 Type);
+	Bool32 EnableMask(const char *pName, char* pType, Bool32 Type);
 	Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask);
 	Bool32 GetImageWriteMask(const char *lpNmae, PPCTIMask ppWMask, PBool32 pEnMask);
 	Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);

@@ -132,7 +132,7 @@ Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 CRIControl::Binarise(char* cDIBIn, char* cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
 	Bool32 Ret = TRUE;
 	CTBinarize bType = CTBIN_UNKNOWN;
@@ -200,7 +200,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, uint32_t wFlag, uint3
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
+Bool32 CRIControl::Rotate(char*  cDIBIn, char*  cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
 {
 	Bool32 Ret = TRUE;
 	Bool32 NoDest = FALSE;
@@ -280,7 +280,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 CRIControl::Turn(char*  cDIBIn, char*  cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
 	int32_t     NewWidth;
 	int32_t     NewHeight;
@@ -382,7 +382,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t wFlag, uint32_
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
+Bool32 CRIControl::Inverse(char*  cDIBIn, char*  cDIBOut, uint32_t UseMargins)
 {
 	Bool32    bErrors = TRUE;
 	// копируем из исходного DIB в обрабатываемый
@@ -416,7 +416,7 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять без копировыания
-Bool32 CRIControl::GetDIB(PChar8  cDIB, Handle* phDIB)
+Bool32 CRIControl::GetDIB(char*  cDIB, Handle* phDIB)
 {
 	// берем с копированием, что б маска была!
 	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, TRUE) )
@@ -428,7 +428,7 @@ Bool32 CRIControl::GetDIB(PChar8  cDIB, Handle* phDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // положить без копировыания
-Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
+Bool32 CRIControl::SetDIB(char*  cDIB, Handle hDIB)
 {
 	if ( CIMAGE_WriteDIB((puchar)cDIB, hDIB, TRUE) )
 		return TRUE;
@@ -438,7 +438,7 @@ Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // положитьь c копировыанием
-Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
+Bool32 CRIControl::WriteDIB(char*  cDIB, Handle hDIB)
 {
 	if ( CIMAGE_WriteDIB((puchar)cDIB, hDIB, FALSE) )
 		return TRUE;
@@ -448,7 +448,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять с копировыанием
-Bool32 CRIControl::ReadDIB(PChar8  cDIB, Handle* phDIB)
+Bool32 CRIControl::ReadDIB(char*  cDIB, Handle* phDIB)
 {
 	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, FALSE) )
 		return TRUE;
@@ -481,7 +481,7 @@ Bool32 CRIControl::CloseSourceDIB()
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
+Bool32 CRIControl::OpenSourceDIB(char*  cDIBName)
 {
 	Handle  hDIBIn;
 	pvoid   pDIB;
@@ -512,7 +512,7 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Создаем временный DIB куда отпишем, что получили
-Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
+Bool32 CRIControl::CloseDestinationDIB(char*  cDIBName)
 {
 	Handle hDIB = NULL;
 	pvoid  pDIB = NULL;
@@ -625,7 +625,7 @@ Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
 	return TRUE;
 }
 
-Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
+Bool32 CRIControl::OpenDestinationDIBfromSource(char*  cDIBName)
 {
 	Handle  hDIBIn;
 	pvoid   pDIB;
@@ -659,7 +659,7 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
 	return TRUE;
 }
 
-Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
+Bool32 CRIControl::SetDestinationDIBtoStorage(char*  cDIBName)
 {
 	Handle hSDIB;
 	Bool32  bErrors = TRUE;
@@ -695,7 +695,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	return bErrors;
 }
 
-Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins)
+Bool32 CRIControl::Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins)
 {
 	Bool32 Ret = TRUE;
 
@@ -750,7 +750,7 @@ Bool32 CRIControl::StartProgress()
 	return mcProgress.Start();
 }
 
-Bool32 CRIControl::RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY)
+Bool32 CRIControl::RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY)
 {
 	Bool32 bRet = FALSE;
 

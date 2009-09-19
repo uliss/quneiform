@@ -92,7 +92,7 @@ static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Char8 cCommentBuffer[CFIO_MAX_COMMENT];
+char cCommentBuffer[CFIO_MAX_COMMENT];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
 Bool32 InitCFIOInterface(Bool32 Status)

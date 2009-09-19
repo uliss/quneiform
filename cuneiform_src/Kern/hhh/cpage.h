@@ -260,7 +260,7 @@ DEC_FUN(Bool32,  CPAGE_UpdateBlocks,( Handle hPage, Handle type ));
 DEC_FUN(Handle,  CPAGE_PictureGetFirst,		(Handle hPage));
 DEC_FUN(Handle,  CPAGE_PictureGetNext,		(Handle hPage,Handle hPicture));
 DEC_FUN(Bool32,  CPAGE_PictureGetPlace,		(Handle hPage,Handle hPicture,int32_t Skew2048, Point32 * lpLr,Point32 * lpWh));
-DEC_FUN(Bool32,  CPAGE_PictureGetMask,			(Handle hPage,Handle hPicture,int32_t Skew2048,Char8 * lpData,uint32_t * lpSize));
+DEC_FUN(Bool32,  CPAGE_PictureGetMask,			(Handle hPage,Handle hPicture,int32_t Skew2048,char * lpData,uint32_t * lpSize));
 
 DEC_FUN(uint32_t,  CPAGE_GetBlockInterNum,	(Handle page,Handle block));
 DEC_FUN(void,    CPAGE_SetBlockInterNum,	(Handle page,Handle block,uint32_t inter));

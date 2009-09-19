@@ -59,16 +59,6 @@
 
 #include "globus.h"
 
-// for except collision with windows defined Char structure
-//      ansi char
-typedef char Char8;
-_SETTYPES( Char8)
-//      unicode char
-typedef unsigned short Char16;
-_SETTYPES( Char16 )
-// end of add
-
-
 #endif   // __CTTYPES_EXTEND_H
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // end of file
