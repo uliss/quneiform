@@ -81,6 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cfio.h"
 #include "resource.h"
 #include "ctcbaseclasses.h"
+#include "ctcglobalheader.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #define                 CFIO_MEMORY_GLOBAL           0x0001
@@ -88,7 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define                 CFIO_MEMORY_UNUSED           0x0004
 #define                 CFIO_MEMORY_FREE             0x0008
 
-class CTCMemoryHeader : public CTCGlobalHeader
+class CTCMemoryHeader : public CIF::CTC::GlobalHeader
 {
 public:
 	CTCMemoryHeader();
@@ -99,7 +100,7 @@ public:
 
 public:
 	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary);
-	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CTCGlobalHeader::GetNext()); };
+	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
 private:
 	char mcComment[CFIO_MAX_COMMENT];
 	char mcOwner[CFIO_MAX_OWNER];
@@ -123,7 +124,7 @@ typedef CTCMemoryHeader *PCTCMemoryHeader, **PPCTCMemoryHeader;
 #define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR
 #define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG
 #define                CFIO_FILE_SEEK_END                  CFIO_GF_SEEK_END
-class CTCFileHeader : public CTCGlobalHeader
+class CTCFileHeader : public CIF::CTC::GlobalHeader
 {
 private:
 	CTCGlobalFile *      pFile;
@@ -143,7 +144,7 @@ public:
 public:
 	Bool32              AttachToStorage(Handle Storage);
 	Bool32              DetachFromStorage();
-	CTCFileHeader *     GetNext(void) { return (CTCFileHeader *)(CTCGlobalHeader::GetNext()); };
+	CTCFileHeader *     GetNext(void) { return (CTCFileHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
 	CTCGlobalFile *     GetFile(void) { return pFile; };
 	Handle              GetAttaching(void) { return hStorage; };
 	Bool32              CanWrite(void) { return !IsFlag(CFIO_FILE_LOCKED); };
@@ -155,42 +156,7 @@ private:
 	Handle              AcceptFile(CTCGlobalFile * File) { return (pFile = File)->GetFileHandle(); };
 
 };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//   Данный класс служит для составления списка сохраненых в хранилище
-// файлов. в основном используется при записи хранилища, при открытии
-// созданного хранилища к концу работы с ним нуждается в корректировке!
-/*
-class  CTCStorageContents
-{
-private:
-	uint32_t               wContentsSize;
-	CTCStorageContents * pNext;
-	Handle               hItem;
-	uint32_t               wItemID;
-	uint32_t               wItemSize;
 
-public:
-	CTCStorageContents():wItemID(3),wItemSize(0),wContentsSize( sizeof ( class CTCStorageContents))
-	{pNext = NULL; hItem = NULL;};
-	CTCStorageContents(Handle H, uint32_t ID = 0, uint32_t Size = 0, CTCStorageContents * Next = NULL): wItemID(ID),wItemSize(Size),wContentsSize( sizeof ( class CTCStorageContents) )
-	{ hItem = H;  pNext = Next;};
-	~CTCStorageContents() {};
-
-public:
-	Handle       GetHandle() { return hItem; };
-	uint32_t       GetID()     { return wItemID; };
-    uint32_t       GetSize()   { return wItemSize; };
-	uint32_t       GetContentsSize() { return wContentsSize; };
-	CTCStorageContents * GetNext() { return pNext; };
-
-public:
-	Bool32     DeleteItemFromStorage(Handle Item);
-	void       SetHandle(Handle Item) { hItem = Item; };
-	void       SetID(uint32_t ID)     { wItemID = ID; };
-    void       SetSize(uint32_t Size)   { wItemSize = Size; };
-	void       SetNext(CTCStorageContents * Next) {  pNext = Next; };
-};
-*/
 typedef struct
 {
 	uint32_t    siHeaderSize;
@@ -200,7 +166,7 @@ typedef struct
 }   STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCStorageHeader : public CTCGlobalHeader
+class CTCStorageHeader : public CIF::CTC::GlobalHeader
 {
 private:
 	CTCGlobalFile *      pStorageFile;
@@ -219,7 +185,7 @@ public:
 	~CTCStorageHeader();
 
 public:
-	CTCStorageHeader * GetNext(void) { return (CTCStorageHeader *)(CTCGlobalHeader::GetNext()); };
+	CTCStorageHeader * GetNext(void) { return (CTCStorageHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
 	CTCGlobalFile *    GetStorageFile(void) { return pStorageFile; };
 	uint32_t             IncreaseContentsCounter() { return ++wContensCounter; };
 	uint32_t             DecreaseContentsCounter() { return --wContensCounter; };

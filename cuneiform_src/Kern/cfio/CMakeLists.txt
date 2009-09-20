@@ -7,6 +7,7 @@ sources/cpp/ctcfile.cpp
 sources/cpp/ctcmemory.cpp
 sources/cpp/ctcstorage.cpp
 sources/cpp/dll_main.cpp
+sources/cpp/ctcglobalheader.cpp
 )
 
 target_link_libraries(cfio cfcompat)

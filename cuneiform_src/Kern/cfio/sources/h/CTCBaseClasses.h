@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 //////////////////////////////////////////////////////////////////////////////////
 //                                                                              //
@@ -74,7 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "cfio.h"
@@ -84,64 +83,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//////////////////////////////////////////////////////////////////////////////////
-//
-#ifdef ASSERT
-#undef ASSERT
-#endif
 ///////////////////////////////////////////////////////////////////////////////////////
 # if defined (CFIO_USE_WIN32_API)
-  #include <windows.h>
-  #include <crtdbg.h>
+#include <windows.h>
+#include <crtdbg.h>
 # endif
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-  #define                CFIO_ALLOC(a,b)                  GlobalAlloc(a,b)
-  #define                CFIO_REALLOC(a,b,c)              GlobalRealloc(a,b,c)
-  #define                CFIO_FREE(a)                     GlobalFree(a)
-  #define                CFIO_LOCK(a)                     GlobalLock(a)
-  #define                CFIO_UNLOCK(a)                   GlobalUnlock(a)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-class CTCGlobalHeader
-{
-protected:
-	Handle                      hGlobalHandle;
-	char*                      pcMemoryBlock;
-	CTCGlobalHeader *           pNext;
-	uint32_t                      wSize;
-	uint32_t                      wHeaderSize;
-	uint32_t                      wFlag;
-
-public:
-	CTCGlobalHeader();
-	CTCGlobalHeader(Handle NewHandle,
-		            void * NewData = NULL,
-					uint32_t NewSize = 0,
-					uint32_t NewFlag = 0,
-					CTCGlobalHeader * NewNext = NULL);
-	~CTCGlobalHeader();
-
-public:
-	Handle              GetHandle(void)                   { return hGlobalHandle; };
-	void *              GetData(void)                     { return (void *)pcMemoryBlock; };
-	uint32_t              GetFlag(void)                     { return wFlag; };
-	uint32_t              GetSize(void)                     { return wSize; };
-	uint32_t              GetHeaderSize(void)               { return wHeaderSize; };
-	CTCGlobalHeader *   GetNext(void)                     { return pNext; };
-
-public:
-	Handle              SetHandle(Handle GlobalHandle)    { return (hGlobalHandle = GlobalHandle); };
-	void *              SetData(void * Data)              { return (void *)(pcMemoryBlock = (char*)Data); };
-	CTCGlobalHeader *   SetNext(CTCGlobalHeader * Next)   { return (pNext = Next); };
-	uint32_t              SetSize(uint32_t Size)              { return (wSize = Size); };
-	uint32_t              SetHeaderSize(uint32_t Size)        { return (wHeaderSize = Size ); };
-	uint32_t              SetFlag(uint32_t Flag)              { return (wFlag = Flag ); };
-	Bool32              IsFlag(uint32_t Flag)               { return (wFlag&Flag) ; };
-	Bool32              AddFlag(uint32_t Flag)              { return (IsFlag( wFlag |= Flag )); };
-	Bool32              RemoveFlag(uint32_t Flag)           { return (!IsFlag( wFlag &= ~Flag )); };
-};
-
+#define                CFIO_ALLOC(a,b)                  GlobalAlloc(a,b)
+#define                CFIO_REALLOC(a,b,c)              GlobalRealloc(a,b,c)
+#define                CFIO_FREE(a)                     GlobalFree(a)
+#define                CFIO_LOCK(a)                     GlobalLock(a)
+#define                CFIO_UNLOCK(a)                   GlobalUnlock(a)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // base operations with files and storages as files
 // storageheader and fileheader translate HandleFILE to owns Handle
@@ -194,89 +147,118 @@ public:
 #define                CFIO_GF_CCOMMIT             "c"
 #define                CFIO_GF_CNOCOMMIT           "n"
 
-struct CTC_mem_cluster
-{
-	struct CTC_mem_cluster *  mcNext;
-	Handle                    mcHandle;
-	void *                    mcPtr;
-	uint32_t                    mcSize;
-	uint32_t                    mcMemoryFlag;
-	Bool32                    mcLocked;
-	uint32_t                    mcFill;
-	uint32_t                    mcNumber;
+struct CTC_mem_cluster {
+	struct CTC_mem_cluster * mcNext;
+	Handle mcHandle;
+	void * mcPtr;
+	uint32_t mcSize;
+	uint32_t mcMemoryFlag;
+	Bool32 mcLocked;
+	uint32_t mcFill;
+	uint32_t mcNumber;
 };
 
-typedef    struct CTC_mem_cluster      CFIOMCLUSTER, *PCFIOMCLUSTER, **PPCFIOMCLUSTER;
+typedef struct CTC_mem_cluster CFIOMCLUSTER, *PCFIOMCLUSTER, **PPCFIOMCLUSTER;
 
-class CTCGlobalFile
-{
+class CTCGlobalFile {
 private:
-	HandleFILE          hFile;
-	//LPOFSTRUCT          pOpenFile;
-	char                cFileName[CFIO_MAX_PATH];
-	uint32_t              wSeeker;
-	char                cFlag[32];
-	Bool32              Deleted;
-	Bool32              InMemory;
-	Bool32              MoveToFile;
-	uint32_t              wClusterCounter;
-	uint32_t              wMemorySize;
-	CFIOMCLUSTER        mcFirst;
+	HandleFILE hFile;
+	char cFileName[CFIO_MAX_PATH];
+	uint32_t wSeeker;
+	char cFlag[32];
+	bool Deleted;
+	bool InMemory;
+	bool MoveToFile;
+	uint32_t wClusterCounter;
+	uint32_t wMemorySize;
+	CFIOMCLUSTER mcFirst;
 
 public:
 	CTCGlobalFile();
-	CTCGlobalFile(char* Name, uint32_t Flag);
+	CTCGlobalFile(const char* Name, uint32_t Flag);
 	~CTCGlobalFile();
 
 public:
-	uint32_t              Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
-	uint32_t              Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
-	uint32_t              Flush();
-	uint32_t              Tell();
-	uint32_t              Seek(uint32_t Position, uint32_t Flag);
-	char*              GetFileName(char* lpName = NULL);
-	uint32_t              GetFileLenght();
-	char*              SetFileName(char* pcFileName );
-	Bool32              Close();
+	uint32_t Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t Flush();
+	uint32_t Tell();
+	uint32_t Seek(uint32_t Position, uint32_t Flag);
+	char* GetFileName(char* lpName = NULL);
+	uint32_t GetFileLenght();
+	char* SetFileName(const char* pcFileName);
+	bool Close();
 
 public:
-	Handle              GetFileHandle()                 { return ((Handle)hFile); };
-	HandleFILE          GetHandle()                     { return hFile; };
-	char*              GetFlagString(void)             { return cFlag; };
-	Bool32              IsInString(const char* Flag );
-	uint32_t              GetFileSize();
-	uint32_t              GetHeaderSize()                 { return(sizeof(class CTCGlobalFile)); };
-	Bool32              SetDelete()                     { return ( Deleted = TRUE ); };
-	Bool32              KeepOnDisk()                    { return !( Deleted = FALSE ); };
-	Bool32              IsDeleted()                     { return ( Deleted); };
+	Handle GetFileHandle() {
+		return ((Handle) hFile);
+	}
+
+	HandleFILE GetHandle() {
+		return hFile;
+	}
+
+	char* GetFlagString(void) {
+		return cFlag;
+	}
+
+	bool IsInString(const char* Flag);
+	uint32_t GetFileSize();
+	uint32_t GetHeaderSize() {
+		return (sizeof(class CTCGlobalFile));
+	}
+
+	bool SetDelete() {
+		return (Deleted = TRUE);
+	}
+
+	bool KeepOnDisk() {
+		return !(Deleted = FALSE);
+	}
+
+	bool IsDeleted() const {
+		return (Deleted);
+	}
 
 protected:
-	Handle              SetFileHandle(Handle NewFile)   { return( hFile = (HandleFILE)NewFile );};
-	HandleFILE          SetHandle(HandleFILE NewHandle) { return( hFile = NewHandle);};
-	Bool32              ProvideFileFolder( char* lpFileFuelName );
+	Handle SetFileHandle(Handle NewFile) {
+		return (hFile = (HandleFILE) NewFile);
+	}
+
+	HandleFILE SetHandle(HandleFILE NewHandle) {
+		return (hFile = NewHandle);
+	}
+
+	bool ProvideFileFolder(const char* lpFileFuelName);
 
 public:
-	void                TranslateFlagToString(uint32_t Flag);
-	void                ClearFlagString(void);
-	void                AddFlagToString(const char*Flag);
+	void TranslateFlagToString(uint32_t Flag);
+	void ClearFlagString(void);
+	void AddFlagToString(const char*Flag);
 
 private:
-	Handle              CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	Bool32              KillLastCluster(PCFIOMCLUSTER pCluster = NULL);
-	PCFIOMCLUSTER       TakeCluster(Handle hCluster);
-	Handle              GetFirstCluster(){ return (mcFirst.mcNext)->mcHandle; };
-	Handle              GetNextCluster(Handle Cluster, PPCFIOMCLUSTER pmcCluster = NULL);
-	Handle              GetLastCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	Handle              GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	void *              GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster = NULL);
-	Bool32              ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster = NULL);
-	uint32_t              WriteToMemory(void * pData, uint32_t wDataSwze, uint32_t wDataCounter);
-	uint32_t              ReadFromMemory(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
-	Bool32              MoveFromMemory(Handle dFile);
+	Handle CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	bool KillLastCluster(PCFIOMCLUSTER pCluster = NULL);
+	PCFIOMCLUSTER TakeCluster(Handle hCluster);
+	Handle GetFirstCluster() {
+		return (mcFirst.mcNext)->mcHandle;
+	}
+
+	Handle GetNextCluster(Handle Cluster, PPCFIOMCLUSTER pmcCluster = NULL);
+	Handle GetLastCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	Handle GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	void
+			* GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+					NULL);
+	bool ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+			NULL);
+	uint32_t WriteToMemory(void * pData, uint32_t wDataSwze,
+			uint32_t wDataCounter);
+	uint32_t ReadFromMemory(void * pData, uint32_t wDataSize,
+			uint32_t wDataCounter);
+	bool MoveFromMemory(Handle dFile);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
 #endif        //_CTC_BASE_CLASSES_
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//end of file
