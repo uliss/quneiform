@@ -21,10 +21,10 @@ class GlobalFile;
 
 class StorageHeader: public GlobalHeader {
 private:
-	GlobalFile * pStorageFile;
+	GlobalFile * storage_file_;
+	int contents_counter_;
 	std::string name_;
 	std::string folder_;
-	int contents_counter_;
 
 public:
 	StorageHeader();
@@ -33,13 +33,12 @@ public:
 			std::string());
 	~StorageHeader();
 
-public:
 	StorageHeader * GetNext(void) {
 		return static_cast<StorageHeader*> (GlobalHeader::GetNext());
 	}
 
 	GlobalFile * GetStorageFile(void) {
-		return pStorageFile;
+		return storage_file_;
 	}
 
 	int IncreaseContentsCounter() {
@@ -51,7 +50,7 @@ public:
 	}
 
 	GlobalFile * GetStorage() {
-		return pStorageFile;
+		return storage_file_;
 	}
 
 	std::string GetStorageFolder() const {

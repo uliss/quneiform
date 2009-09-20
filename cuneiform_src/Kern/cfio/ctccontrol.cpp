@@ -469,7 +469,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 	switch (wFlag) {
 	case MRF_NEW_MEMORY:
 
-		MemoryList.TakeItem(hMemory, &wOldSize, &wOldFlag);
+		memory_list_.TakeItem(hMemory, &wOldSize, &wOldFlag);
 		hNewMemory = Alloc(wNewSize, (wOldFlag == TRUE ? MAF_GALL_GHND
 				: MAF_GALL_GPTR), "Realloced", "No comment");
 
@@ -498,7 +498,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 			GlobalFlag |= GMEM_DDESHARE;
 
 		{
-			MemoryHeader * Memory = MemoryList.GetItem(hMemory);
+			MemoryHeader * Memory = memory_list_.GetItem(hMemory);
 
 			if (Memory) {
 				hNewMemory = GlobalReAlloc(hMemory, wNewSize, GlobalFlag);
@@ -535,7 +535,7 @@ uint32_t CTCControl::WriteMemToFile(Handle hMem, char* lpName) {
 	pchar pMem;
 
 	if (hFile && hMem) {
-		MemoryList.TakeItem(hMem, &wMemorySize, &wMemoryFlag);
+		memory_list_.TakeItem(hMem, &wMemorySize, &wMemoryFlag);
 		Seek(hFile, 0, FS_END);
 		pMem = (pchar) Lock(hMem);
 
@@ -650,29 +650,29 @@ Handle CTCControl::AllocNewMemory(uint32_t wFlag, uint32_t wSize,
 //
 Bool32 CTCControl::AddNewMemoryInList(Handle hMemory, uint32_t wSize,
 		uint32_t IsGlobal, const char *cOwner, const char *Coment) {
-	return MemoryList.AddItem(hMemory, wSize, IsGlobal, cOwner, Coment);
+	return memory_list_.AddItem(hMemory, wSize, IsGlobal, cOwner, Coment);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::TakeMemory(Handle hMemory, uint32_t * wMemorySize,
 		uint32_t * wMemoryFlag) {
-	return MemoryList.TakeItem(hMemory, wMemorySize, wMemoryFlag);
+	return memory_list_.TakeItem(hMemory, wMemorySize, wMemoryFlag);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::GetMemory(Handle hMemory, PPMemoryHeader pHeader) {
-	*pHeader = MemoryList.GetItem(hMemory);
+	*pHeader = memory_list_.GetItem(hMemory);
 	return pHeader != NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::DeleteMemoryFromList(Handle hMemory) {
-	return MemoryList.DeleteItem(hMemory);
+	return memory_list_.DeleteItem(hMemory);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::LockatorMemoryInList(Handle hMemory, Bool32 bLock) {
-	return MemoryList.LockUnlockItem(hMemory, bLock);
+	return memory_list_.LockUnlockItem(hMemory, bLock);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //

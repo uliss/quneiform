@@ -11,7 +11,7 @@
 #include "ctcglobalfile.h"
 #include "ctccontrol.h"
 #include "compat_defs.h"
-#include "cfcompat.hpp"
+#include "cfcompat.hpp" // For MakePath
 #include "cfio.h"
 
 namespace CIF {
@@ -24,16 +24,16 @@ static char ShBuffer[CFIO_MAX_PATH + 4];
 
 StorageHeader::StorageHeader() :
 	GlobalHeader(), contents_counter_(0) {
-	pStorageFile = NULL;
+	storage_file_ = NULL;
 }
 
-StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint wNewFlag,
+StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint NewFlag,
 		const std::string& NewStorageFolder) :
-	GlobalHeader(pNewStorage, NULL, 0, wNewFlag), contents_counter_(0) {
+	GlobalHeader(pNewStorage, NULL, 0, NewFlag), contents_counter_(0) {
 	extern CTCControl * Control_ctc;
 
 	SetHandle(AcceptFile(pNewStorage));
-	SetFlag(wNewFlag);
+	SetFlag(NewFlag);
 	SetHeaderSize(sizeof(class FileHeader));
 
 	if (!NewStorageFolder.empty()) {
@@ -77,14 +77,13 @@ StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint wNewFlag,
 }
 
 StorageHeader::~StorageHeader() {
-	if (GetStorage()) {
+	if (GetStorage())
 		delete GetStorage();
-	}
 }
 
 Handle StorageHeader::AcceptFile(GlobalFile * File) {
-	pStorageFile = File;
-	return pStorageFile->GetFileHandle();
+	storage_file_ = File;
+	return storage_file_->GetFileHandle();
 }
 }
 }

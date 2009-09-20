@@ -94,36 +94,6 @@ typedef struct {
 } STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-
-class CTCMemoryList {
-private:
-	uint32_t wListSize;
-	MemoryHeader mhFirstItem;
-	MemoryHeader mhLastItem;
-	uint32_t wMemoryCounter;
-	uint32_t wItemCounter;
-
-public:
-	CTCMemoryList();
-	~CTCMemoryList();
-
-public:
-	Bool32 AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal,
-			const char *cOwner, const char *Coment);
-    MemoryHeaderPtr GetItem(Handle hMemory);
-	Bool32 LockUnlockItem(Handle hMemory, Bool32 bLock);
-	Bool32 TakeItem(Handle hMemory, uint32_t * wSize, uint32_t * wFlag);
-	Bool32 DeleteItem(Handle hMemory, uint32_t wParam = 0x0);
-
-private:
-	Bool32 KillItem(MemoryHeaderPtr pItem, MemoryHeaderPtr pPrevItem);
-	MemoryHeaderPtr pFirst();
-	MemoryHeaderPtr pLast();
-	uint32_t IncreaseMemoryCounter(uint32_t wSize);
-	uint32_t DecreaseMemoryCounter(uint32_t wSize);
-};
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 class CTCFileList {
 private:
 	uint32_t wListSize;
