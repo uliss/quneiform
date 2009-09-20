@@ -79,6 +79,7 @@
 #include "resource.h"
 #include "ctcclasses.h"
 #include "memorylist.h"
+#include "filelist.h"
 
 namespace CIF {
 namespace CTC {
@@ -87,7 +88,7 @@ class CTCControl {
 	// data members
 private:
 	MemoryList memory_list_;
-	CTCFileList FileList;
+	FileList file_list_;
 	CTCStorageList StorageList;
 	char szTempFolder[CFIO_MAX_PATH];
 	char szFileFolder[CFIO_MAX_PATH];

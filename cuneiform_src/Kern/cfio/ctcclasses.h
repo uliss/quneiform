@@ -92,51 +92,7 @@ typedef struct {
 	uint32_t siFlag;
 	char siName[CFIO_MAX_PATH];
 } STORAGEITEM;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-class CTCFileList {
-private:
-	uint32_t wListSize;
-	StorageHeader * pList;
-	uint32_t wFileCounter;
-	uint32_t wSpaceCounter;
-	FileHeader mfFirstItem;
-	FileHeader mfLastItem;
 
-public:
-	Handle FindFile(const std::string& FileName);
-	CTCFileList();
-	~CTCFileList();
-
-public:
-	Handle AddItem(GlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage);
-	Bool32 DeleteItem(Handle File, uint32_t Flag = 0);
-	Handle GetAttachedFileHeader(Handle Storage, FileHeader * File = NULL);
-	FileHeader * GetItemHeader(Handle File);
-	GlobalFile * GetItem(Handle File);
-
-private:
-	FileHeader * pLast() {
-		return &mfLastItem;
-	}
-
-	FileHeader * pFirst() {
-		return &mfFirstItem;
-	}
-
-	uint32_t IncreaseFileCounter() {
-		return ++wFileCounter;
-	}
-	uint32_t DecreaseFileCounter() {
-		return --wFileCounter;
-	}
-	uint32_t IncreaseSpaceCounter() {
-		return ++wSpaceCounter;
-	}
-	uint32_t DecreaseSpaceCounter() {
-		return --wSpaceCounter;
-	}
-};
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 class CTCStorageList {

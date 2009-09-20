@@ -11,6 +11,7 @@ add_library(cfio ${LIBTYPE}
 	ctcfileheader.cpp
 	ctcstorageheader.cpp
 	memorylist.cpp
+	filelist.cpp
 )
 
 target_link_libraries(cfio cfcompat)

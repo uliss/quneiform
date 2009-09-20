@@ -278,7 +278,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 	// берем хидер хрангилища.... или не берем, если нет
 	StorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
 	// берем хидер файла ........ или не берем, ежели нема
-	FileHeader * pFileHeader = FileList.GetItemHeader(hFile);
+	FileHeader * pFileHeader = file_list_.GetItemHeader(hFile);
 	GlobalFile * pFile;
 
 	if (pStorageHeader && pFileHeader) {
@@ -758,7 +758,7 @@ Handle CTCControl::OpenFileAndAttach(char* lpName, uint32_t Flag,
 	else
 		return NULL;
 
-	if (hOpened = FileList.FindFile(szBuffer)) {
+	if (hOpened = file_list_.FindFile(szBuffer)) {
 		szBuffer[0] = 0x0;
 		return hOpened;
 	}
@@ -777,7 +777,7 @@ Handle CTCControl::OpenFileAndAttach(char* lpName, uint32_t Flag,
 //
 Handle CTCControl::AddFileInList(GlobalFile * File, uint32_t Flag,
 		Handle Storage) {
-	Handle ret = FileList.AddItem(File, Flag, Storage);
+	Handle ret = file_list_.AddItem(File, Flag, Storage);
 	if (!ret)
 		SetReturnCode_cfio(IDS_CFIO_ERR_CANT_OPEN_FILE);
 	return ret;
@@ -785,7 +785,7 @@ Handle CTCControl::AddFileInList(GlobalFile * File, uint32_t Flag,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::DeleteFileFromList(Handle File, uint32_t Flag, Handle /*Storage*/) {
-	return FileList.DeleteItem(File, Flag);
+	return file_list_.DeleteItem(File, Flag);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -796,13 +796,13 @@ Handle CTCControl::AddStorageInList(GlobalFile * lpNewStorageName,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/, Handle /*Storage*/) {
-	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = file_list_.GetItemHeader(File);
 	GlobalFile * CurrentFile;
 
 	if (CurrentFileHeader) {
 		CurrentFileHeader->DetachFromStorage();
 		CurrentFile = CurrentFileHeader->GetFile();
-		FileList.DeleteItem(File);
+		file_list_.DeleteItem(File);
 
 		if (CurrentFile) {
 			//delete CurrentFile;        //AK   clear mistakes
@@ -816,7 +816,7 @@ Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/, Handle /*
 //
 Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 		Handle Storage) {
-	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = file_list_.GetItemHeader(File);
 
 	if (CurrentFileHeader) {
 		if (CurrentFileHeader->AttachToStorage(Storage))
@@ -827,7 +827,7 @@ Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*Flag*/) {
-	FileHeader * AttachedFile = FileList.GetItemHeader(File);
+	FileHeader * AttachedFile = file_list_.GetItemHeader(File);
 	StorageHeader * AttacherStorage = StorageList.GetItemHeader(Storage);
 
 	if (AttacherStorage && AttachedFile) {
@@ -839,7 +839,7 @@ Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*F
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCControl::WriteDataToFile(Handle File, void * lpData, uint32_t Size) {
-	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = file_list_.GetItemHeader(File);
 	GlobalFile * CurrentFile;
 	uint32_t WritedDataCount = 0;
 
@@ -857,7 +857,7 @@ uint32_t CTCControl::WriteDataToFile(Handle File, void * lpData, uint32_t Size) 
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCControl::ReadDataFromFile(Handle File, void * lpData, uint32_t Size) {
-	GlobalFile * CurrentFile = FileList.GetItem(File);
+	GlobalFile * CurrentFile = file_list_.GetItem(File);
 	uint32_t ReadedDataCount = 0;
 
 	if (CurrentFile) {
@@ -870,7 +870,7 @@ uint32_t CTCControl::ReadDataFromFile(Handle File, void * lpData, uint32_t Size)
 //
 uint32_t CTCControl::SeekFilePointer(Handle File, uint32_t Position,
 		uint32_t From) {
-	GlobalFile * CurrentFile = FileList.GetItem(File);
+	GlobalFile * CurrentFile = file_list_.GetItem(File);
 	uint32_t Seeker = 0;
 
 	if (CurrentFile) {
@@ -883,7 +883,7 @@ uint32_t CTCControl::SeekFilePointer(Handle File, uint32_t Position,
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCControl::TellFilePointer(Handle File) {
-	GlobalFile * CurrentFile = FileList.GetItem(File);
+	GlobalFile * CurrentFile = file_list_.GetItem(File);
 	uint32_t Seeker = 0;
 
 	if (CurrentFile) {
@@ -895,7 +895,7 @@ uint32_t CTCControl::TellFilePointer(Handle File) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::FlushFile(Handle File) {
-	GlobalFile * CurrentFile = FileList.GetItem(File);
+	GlobalFile * CurrentFile = file_list_.GetItem(File);
 
 	if (CurrentFile) {
 		return CurrentFile->Flush();
@@ -906,12 +906,12 @@ Bool32 CTCControl::FlushFile(Handle File) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::DeleteFileFromDisk(Handle File) {
-	GlobalFile * CurrentFile = FileList.GetItem(File);
+	GlobalFile * CurrentFile = file_list_.GetItem(File);
 
 	if (CurrentFile) {
 		CurrentFile->SetDelete();
 
-		if (FileList.DeleteItem(File)) {
+		if (file_list_.DeleteItem(File)) {
 			delete CurrentFile;
 			return TRUE;
 		}
@@ -1078,7 +1078,7 @@ Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 			(void *) StorageFolder, *FolderSize);
 
 	// собираем хранилище
-	while (pItemHeader = FileList.GetItemHeader(FileList.GetAttachedFileHeader(
+	while (pItemHeader = file_list_.GetItemHeader(file_list_.GetAttachedFileHeader(
 			Storage, (pItemHeader == NULL ? NULL : pItemHeader->GetNext())))) {
 		if (pItemHeader->CanWrite() && (Flag | CS_FILE_DELETE || Flag
 				| CS_FILE_SAVE)) {
@@ -1142,7 +1142,7 @@ uint32_t CTCControl::DecompileStorage(Handle Storage) {
 			ReadedFromStorage += ItemSize;
 			hExtractFile = AddFileInList(pExtractFile, ExtractInfo.siFlag,
 					Storage);
-			FileList.GetItemHeader(hExtractFile)->AttachToStorage(Storage);
+			file_list_.GetItemHeader(hExtractFile)->AttachToStorage(Storage);
 		} else {
 			// close file if not successful
 			delete pExtractFile;
@@ -1224,7 +1224,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 		//delete pStorage; deleted at destructor
 	}
 	// закрываем файлы прикрепленные к хранилищу
-	while (pFileHeader = FileList.GetItemHeader(FileList.GetAttachedFileHeader(
+	while (pFileHeader = file_list_.GetItemHeader(file_list_.GetAttachedFileHeader(
 			Storage/*, pFileHeader*/))) {
 		pFile = pFileHeader->GetFile();
 
@@ -1232,7 +1232,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 			pFile->SetDelete();
 		}
 
-		FileList.DeleteItem(pFileHeader->GetHandle());
+		file_list_.DeleteItem(pFileHeader->GetHandle());
 		//deleted at header destructor
 
 	}
