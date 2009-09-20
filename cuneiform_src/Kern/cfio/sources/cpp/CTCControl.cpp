@@ -497,7 +497,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 			GlobalFlag |= GMEM_DDESHARE;
 
 		{
-			CTCMemoryHeader * Memory = MemoryList.GetItem(hMemory);
+			MemoryHeader * Memory = MemoryList.GetItem(hMemory);
 
 			if (Memory) {
 				hNewMemory = GlobalReAlloc(hMemory, wNewSize, GlobalFlag);
@@ -659,7 +659,7 @@ Bool32 CTCControl::TakeMemory(Handle hMemory, uint32_t * wMemorySize,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCControl::GetMemory(Handle hMemory, PPCTCMemoryHeader pHeader) {
+Bool32 CTCControl::GetMemory(Handle hMemory, PPMemoryHeader pHeader) {
 	*pHeader = MemoryList.GetItem(hMemory);
 	return pHeader != NULL;
 }
@@ -1274,5 +1274,3 @@ Bool32 CTCControl::CloseAllStorageFile(Handle Storage, uint32_t Flag) {
 		return CloseStorageFile(Storage, Flag);
 	}
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//end of file

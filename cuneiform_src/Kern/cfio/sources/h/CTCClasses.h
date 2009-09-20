@@ -70,55 +70,18 @@
 //
 #ifndef _CTC_CLASSES_
 #define _CTC_CLASSES_
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include "cfio.h"
 #include "resource.h"
 #include "ctcglobalfile.h"
 #include "ctcglobalheader.h"
+#include "ctcmemoryheader.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
 namespace CIF {
 namespace CTC {
-#define                 CFIO_MEMORY_GLOBAL           0x0001
-#define                 CFIO_MEMORY_LOCK             0x0002
-#define                 CFIO_MEMORY_UNUSED           0x0004
-#define                 CFIO_MEMORY_FREE             0x0008
 
-class CTCMemoryHeader: public GlobalHeader {
-public:
-	CTCMemoryHeader();
-	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize);
-	~CTCMemoryHeader();
-	char* GetOwner(void) {
-		return mcOwner;
-	}
-
-	char* GetComment(void) {
-		return mcComment;
-	}
-
-public:
-	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName,
-			const char *Commentary);
-	CTCMemoryHeader * GetNext() {
-		return (CTCMemoryHeader *) (GlobalHeader::GetNext());
-	}
-	;
-private:
-	char mcComment[CFIO_MAX_COMMENT];
-	char mcOwner[CFIO_MAX_OWNER];
-};
-
-typedef CTCMemoryHeader *PCTCMemoryHeader, **PPCTCMemoryHeader;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 #define                CFIO_FILE_CREATE                    CFIO_GF_CREATE
 #define                CFIO_FILE_OPEN                      CFIO_GF_OPEN
 #define                CFIO_FILE_WRITE                     CFIO_GF_WRITE
@@ -196,7 +159,7 @@ typedef struct {
 } STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCStorageHeader: public CIF::CTC::GlobalHeader {
+class CTCStorageHeader: public GlobalHeader {
 private:
 	GlobalFile * pStorageFile;
 	char pcName[CFIO_MAX_PATH];
@@ -214,7 +177,7 @@ public:
 
 public:
 	CTCStorageHeader * GetNext(void) {
-		return (CTCStorageHeader *) (CIF::CTC::GlobalHeader::GetNext());
+		return (CTCStorageHeader *) (GlobalHeader::GetNext());
 	}
 
 	GlobalFile * GetStorageFile(void) {
@@ -251,8 +214,8 @@ private:
 class CTCMemoryList {
 private:
 	uint32_t wListSize;
-	CTCMemoryHeader mhFirstItem;
-	CTCMemoryHeader mhLastItem;
+	MemoryHeader mhFirstItem;
+	MemoryHeader mhLastItem;
 	uint32_t wMemoryCounter;
 	uint32_t wItemCounter;
 
@@ -263,15 +226,15 @@ public:
 public:
 	Bool32 AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal,
 			const char *cOwner, const char *Coment);
-	CTCMemoryHeader * GetItem(Handle hMemory);
+    MemoryHeaderPtr GetItem(Handle hMemory);
 	Bool32 LockUnlockItem(Handle hMemory, Bool32 bLock);
 	Bool32 TakeItem(Handle hMemory, uint32_t * wSize, uint32_t * wFlag);
 	Bool32 DeleteItem(Handle hMemory, uint32_t wParam = 0x0);
 
 private:
-	Bool32 KillItem(PCTCMemoryHeader pItem, PCTCMemoryHeader pPrevItem);
-	CTCMemoryHeader * pFirst();
-	CTCMemoryHeader * pLast();
+	Bool32 KillItem(MemoryHeaderPtr pItem, MemoryHeaderPtr pPrevItem);
+	MemoryHeaderPtr pFirst();
+	MemoryHeaderPtr pLast();
 	uint32_t IncreaseMemoryCounter(uint32_t wSize);
 	uint32_t DecreaseMemoryCounter(uint32_t wSize);
 };

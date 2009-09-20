@@ -134,7 +134,7 @@ private:
 	Bool32 AddNewMemoryInList( Handle hMemory, uint32_t wSize, uint32_t IsGlobal, const char *cOwner, const char *Coment);
 	Bool32 FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
 	Bool32 TakeMemory(Handle hMemory, uint32_t * wMemorySize, uint32_t * wMemoryFlag);
-	Bool32 GetMemory(Handle hMemory, PPCTCMemoryHeader pHeader);
+	Bool32 GetMemory(Handle hMemory, PPMemoryHeader pHeader);
 	Bool32 DeleteMemoryFromList(Handle hMemory);
 	pvoid LockMemory(Handle hMemory);
 	Bool32 UnlockMemory(Handle hMemory);

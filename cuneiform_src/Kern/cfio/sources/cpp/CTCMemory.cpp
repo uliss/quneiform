@@ -77,52 +77,6 @@ using namespace CIF::CTC;
 extern void SetReturnCode_cfio(uint16_t rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader::CTCMemoryHeader() :
-	GlobalHeader() {
-	mcComment[0] = mcOwner[0] = 0x0;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize) :
-	GlobalHeader(hMemory, NULL, wBlockSize) {
-	SetHeaderSize(sizeof(class CTCMemoryHeader));
-	mcComment[0] = mcOwner[0] = 0x0;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize,
-		const char *OwnerName, const char *Commentary) :
-	GlobalHeader(hMemory, NULL, wBlockSize) {
-	SetHeaderSize(sizeof(class CTCMemoryHeader));
-	mcComment[0] = mcOwner[0] = 0x0;
-
-	if (OwnerName[0] != 0x0 && CFIO_STRLEN(OwnerName) < CFIO_MAX_OWNER) {
-		CFIO_STRCPY(mcOwner, OwnerName);
-	} else {
-		strncpy(mcOwner, OwnerName, CFIO_MAX_OWNER - 1);
-	}
-
-	if (Commentary[0] != 0x0 && CFIO_STRLEN(OwnerName) < CFIO_MAX_COMMENT) {
-		CFIO_STRCPY(mcComment, Commentary);
-	} else {
-		strncpy(mcComment, Commentary, CFIO_MAX_COMMENT - 1);
-	}
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCMemoryHeader::~CTCMemoryHeader() {
-	Handle hToDelete = GetHandle();
-
-	if (hToDelete != NULL && hToDelete != FICTIV_Handle) {
-#ifdef CFIO_USE_GLOBAL_MEMORY
-		CFIO_FREE(GetHandle());
-#else
-		delete[] static_cast<char*> (hToDelete);
-#endif //CFIO_USE_GLOBAL_MEMORY
-	}
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
 CTCMemoryList::CTCMemoryList() :
 	mhFirstItem(FICTIV_Handle, 0, "CFIO", "First in list (fictiv)"),
 			mhLastItem(FICTIV_Handle, 0, "CFIO", "Last in list (fictiv)") {
@@ -158,19 +112,19 @@ uint32_t CTCMemoryList::DecreaseMemoryCounter(uint32_t wSize) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader * CTCMemoryList::pFirst() {
+MemoryHeader * CTCMemoryList::pFirst() {
 	return &mhFirstItem;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader * CTCMemoryList::pLast() {
+MemoryHeader * CTCMemoryList::pLast() {
 	return &mhLastItem;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize,
 		uint32_t wIsGlobal, const char *cOwner, const char *Coment) {
-	CTCMemoryHeader * Current, *NewBlock = NULL;
+	MemoryHeader * Current, *NewBlock = NULL;
 
 	for (Current = pFirst(); Current->GetNext() != pLast(); Current
 			= Current->GetNext()) {
@@ -179,7 +133,7 @@ Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize,
 		}
 	}
 
-	NewBlock = new CTCMemoryHeader(hMemory, wSize, cOwner, Coment);
+	NewBlock = new MemoryHeader(hMemory, wSize, cOwner, Coment);
 	NewBlock->SetNext(Current->GetNext());
 	Current->SetNext(NewBlock);
 	IncreaseMemoryCounter(NewBlock->GetSize());
@@ -196,7 +150,7 @@ Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCMemoryList::DeleteItem(Handle hMemory, uint32_t /*wParam*/) {
-	PCTCMemoryHeader Current, Last;
+	MemoryHeaderPtr Current, Last;
 	uint32_t IsOK = 0;
 
 	for (Last = Current = pFirst(); Current != pLast(); Current
@@ -213,9 +167,8 @@ Bool32 CTCMemoryList::DeleteItem(Handle hMemory, uint32_t /*wParam*/) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::KillItem(PCTCMemoryHeader pItem,
-		PCTCMemoryHeader pPrevItem) {
-	PCTCMemoryHeader pErased;
+Bool32 CTCMemoryList::KillItem(MemoryHeader * pItem, MemoryHeader * pPrevItem) {
+	MemoryHeader * pErased;
 
 	if (pItem)
 		pErased = pItem;
@@ -229,10 +182,8 @@ Bool32 CTCMemoryList::KillItem(PCTCMemoryHeader pItem,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory) {
-	CTCMemoryHeader * Current;
-
-	for (Current = pFirst(); Current != pLast(); Current = Current->GetNext()) {
+MemoryHeader * CTCMemoryList::GetItem(Handle hMemory) {
+	for (MemoryHeader * Current= pFirst(); Current != pLast(); Current = Current->GetNext()) {
 		if (!Current) {
 			SetReturnCode_cfio(IDS_CFIO_ERR_INTERNAL);
 			return NULL;
@@ -248,7 +199,7 @@ CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory) {
 //
 Bool32 CTCMemoryList::TakeItem(Handle hMemory, uint32_t * wSize,
 		uint32_t * wFlag) {
-	CTCMemoryHeader * Current = GetItem(hMemory);
+	MemoryHeader * Current = GetItem(hMemory);
 
 	if (Current) {
 		*wSize = Current->GetSize();
@@ -263,7 +214,7 @@ Bool32 CTCMemoryList::TakeItem(Handle hMemory, uint32_t * wSize,
 //////////////////////////////////////////////////////////////////////////////////
 // Add and remove Lock Flag (depend by bLock)
 Bool32 CTCMemoryList::LockUnlockItem(Handle hMemory, Bool32 bLock) {
-	CTCMemoryHeader * Current;
+	MemoryHeader * Current;
 
 	for (Current = pFirst(); Current != pLast(); Current = Current->GetNext()) {
 		if (Current->GetHandle() == hMemory) {
