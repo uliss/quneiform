@@ -86,28 +86,29 @@ public:
 	~Control();
 
 	// import functions
-	Bool32 SetFolder(uint32_t wFolder, char* pcBuff);
-	Bool32 GetFolder(uint32_t wFolder, char* pcBuff);
+	bool SetFolder(uint32_t wFolder, char* pcBuff);
+	bool GetFolder(uint32_t wFolder, char* pcBuff);
 
 	// import functions
 	Handle OpenStorage(const std::string& Name, uint Types);
 	bool CloseStorage(Handle hStorage, uint Flag);
 	bool DeleteStorage(const std::string& Name);
-	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName);
+	bool WriteFileToStorage(Handle hStorage, Handle hFile,
+			const std::string& Name);
 	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
-	Handle OpenFile(Handle hFile, char* lpName, uint32_t dwFlag);
-	Bool32 CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
+	Handle OpenFile(Handle hFile, const std::string& Name, uint Flag);
+	bool CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
 	uint32_t WriteFile(Handle hFile, pchar lpData, uint32_t dwSize);
 	uint32_t ReadFromFile(Handle hFile, pchar lpData, uint32_t dwSize);
 	uint32_t Seek(Handle hFile, uint32_t dwBytes, uint32_t dwFrom);
-	uint32_t Tell(Handle hFile);
-	Bool32 Flush(Handle hFile);
+	uint32_t Tell(Handle hFile) const;
+	bool Flush(Handle hFile);
 	Handle Alloc(uint32_t dwSize, uint32_t dwFlag, const char *cOwner,
 			const char *Coment);
 	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag);
-	Bool32 Free(Handle hMem);
-	pvoid Lock(Handle hMem);
-	Bool32 Unlock(Handle hMem);
+	bool Free(Handle hMem);
+	void * Lock(Handle hMem);
+	bool Unlock(Handle hMem);
 	uint32_t WriteMemToFile(Handle hMem, char* lpName);
 	uint32_t ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag =
 			MAF_GALL_GHND);
@@ -115,39 +116,37 @@ public:
 	uint32_t ReadMemFromStorage(Handle hStorage, char* lpName, Handle * phMem);
 
 private:
-	Handle AddFileInList(GlobalFile * File, uint32_t Flag, Handle Storage);
-	Handle
-			OpenFileAndAttach(char* lpNAme, uint32_t Flag, Handle Storage =
-					NULL);
-	Handle AllocNewMemory(uint32_t wFlag, uint32_t wSize, Bool32 Global,
-			const char *cOwner, const char* Coment);
-	Bool32 AddNewMemoryInList(Handle hMemory, uint32_t wSize,
-			uint32_t IsGlobal, const char *cOwner, const char *Coment);
-	Bool32 FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
-	Bool32 TakeMemory(Handle hMemory, uint32_t * wMemorySize,
+	Handle AddFileInList(GlobalFile * File, uint Flag, Handle Storage);
+	Handle OpenFileAndAttach(const std::string& Name, uint Flag,
+			Handle Storage = NULL);
+	Handle AllocNewMemory(uint Flag, uint Size, bool Global,
+			const std::string& Owner, const std::string& Comment);
+	bool AddNewMemoryInList(Handle hMemory, uint Size, uint32_t IsGlobal,
+			const std::string& Owner, const std::string& Comment);
+	bool FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
+	bool TakeMemory(Handle hMemory, uint32_t * wMemorySize,
 			uint32_t * wMemoryFlag);
-	Bool32 GetMemory(Handle hMemory, PPMemoryHeader pHeader);
-	Bool32 DeleteMemoryFromList(Handle hMemory);
-	pvoid LockMemory(Handle hMemory);
-	Bool32 UnlockMemory(Handle hMemory);
-	Bool32 LockatorMemoryInList(Handle hMemory, Bool32 bLock);
-	Bool32 AttachFileToStorage(Handle File, Handle Storage, uint32_t Flag);
-	Bool32 DeleteFileFromList(Handle File, uint32_t Flag, Handle Stotrage =
-			NULL);
-	Bool32 FlushFile(Handle File);
-	uint32_t TellFilePointer(Handle File);
-	Bool32 CloseFileAndAttach(Handle File, uint32_t Flag, Handle Storage);
-	Bool32 DeleteFileFromDisk(Handle File);
+	bool GetMemory(Handle hMemory, PPMemoryHeader pHeader);
+	bool DeleteMemoryFromList(Handle hMemory);
+	void * LockMemory(Handle hMemory);
+	bool UnlockMemory(Handle hMemory);
+	bool LockatorMemoryInList(Handle hMemory, Bool32 bLock);
+	bool AttachFileToStorage(Handle File, Handle Storage, uint32_t Flag);
+	bool DeleteFileFromList(Handle File, uint32_t Flag, Handle Stotrage = NULL);
+	bool FlushFile(Handle File);
+	uint32_t TellFilePointer(Handle File) const;
+	bool CloseFileAndAttach(Handle File, uint32_t Flag, Handle Storage);
+	bool DeleteFileFromDisk(Handle File);
 	uint32_t SeekFilePointer(Handle File, uint32_t Position, uint32_t From);
 	uint32_t ReadDataFromFile(Handle File, void * lpData, uint32_t Size);
 	uint32_t WriteDataToFile(Handle File, void * lpData, uint32_t Size);
-	Bool32 CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
+	bool CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
 	Handle CompliteStorage(Handle Storage, uint32_t Flag);
 	uint32_t WriteItemToStorage(StorageHeader * Storage, void * pItem,
 			uint32_t Size);
 	uint32_t WriteFileToStorage(StorageHeader * Storage, FileHeader * File);
-	Bool32 CloseStorageFile(Handle Storage, uint32_t Flag = 0);
-	Bool32 CloseAllStorageFile(Handle Storage, uint32_t Flag);
+	bool CloseStorageFile(Handle Storage, uint32_t Flag = 0);
+	bool CloseAllStorageFile(Handle Storage, uint32_t Flag);
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
 	uint32_t DecompileStorage(Handle Storage);
 	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint32_t wNewFlag);
