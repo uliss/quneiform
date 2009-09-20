@@ -19,48 +19,48 @@ class FileHeader: public GlobalHeader {
 private:
 	GlobalFile * pFile;
 	Handle hStorage;
-	uint32_t wFlag;
-	Bool32 KeepFileName;
+	uint wFlag;
+	bool KeepFileName;
 
 public:
-	Bool32 UnlockFromStorage(void);
-	Bool32 LockToStorage(void);
 	FileHeader();
-	FileHeader(GlobalFile * pNewFile, uint32_t Flag = CFIO_FILE_READ
+	FileHeader(GlobalFile * pNewFile, uint Flag = CFIO_FILE_READ
 			| CFIO_FILE_WRITE, Handle hStorage = NULL);
 	~FileHeader();
 
-public:
-	Bool32 AttachToStorage(Handle Storage);
-	Bool32 DetachFromStorage();
-	FileHeader * GetNext(void) {
-		return (FileHeader *) (GlobalHeader::GetNext());
+	bool AttachToStorage(Handle Storage);
+	bool DetachFromStorage();
+
+	FileHeader * GetNext() {
+		return static_cast<FileHeader*> (GlobalHeader::GetNext());
 	}
 
-	GlobalFile * GetFile(void) {
+	GlobalFile * GetFile() {
 		return pFile;
 	}
 
-	Handle GetAttaching(void) {
+	Handle GetAttaching() {
 		return hStorage;
 	}
 
-	Bool32 CanWrite(void) {
+	bool CanWrite() {
 		return !IsFlag(CFIO_FILE_LOCKED);
 	}
 
-	Bool32 KeepName(void) {
-		return KeepFileName = TRUE;
+	bool KeepName() {
+		return KeepFileName = true;
 	}
 
-	Bool32 BreakName(void) {
-		return !(KeepFileName = FALSE);
+	bool BreakName() {
+		return !(KeepFileName = false);
 	}
 
-	Bool32 HowName(void) {
+	bool HowName() const {
 		return KeepFileName;
 	}
 
+	bool LockToStorage();
+	bool UnlockFromStorage();
 private:
 	Handle AcceptFile(GlobalFile * File) {
 		return (pFile = File)->GetFileHandle();

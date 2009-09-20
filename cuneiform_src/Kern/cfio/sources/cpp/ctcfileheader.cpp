@@ -11,23 +11,18 @@
 namespace CIF {
 namespace CTC {
 
-//////////////////////////////////////////////////////////////////////////////////
-//
 FileHeader::FileHeader() :
 	GlobalHeader() {
 	pFile = NULL;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 FileHeader::~FileHeader() {
 	if (GetFile()) {
 		delete GetFile();
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-FileHeader::FileHeader(GlobalFile * pNewFile, uint32_t Flag,
-		Handle Storage) :
+
+FileHeader::FileHeader(GlobalFile * pNewFile, uint Flag, Handle Storage) :
 	GlobalHeader(NULL, NULL, 0) {
 	pFile = pNewFile;
 	SetHandle(AcceptFile(pNewFile));
@@ -36,35 +31,28 @@ FileHeader::FileHeader(GlobalFile * pNewFile, uint32_t Flag,
 	AttachToStorage(Storage);
 	BreakName();
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 FileHeader::DetachFromStorage() {
+
+bool FileHeader::DetachFromStorage() {
 	return ((hStorage = NULL) == NULL);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 FileHeader::AttachToStorage(Handle Storage) {
-	if (TRUE /*!IsFlag(CFIO_FILE_LOCKED)*/) {
-		hStorage = Storage;
-		return TRUE;
-	}
-	return FALSE;
+
+bool FileHeader::AttachToStorage(Handle Storage) {
+	hStorage = Storage;
+	return true;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 FileHeader::LockToStorage(void) {
+
+bool FileHeader::LockToStorage() {
 	if (CanWrite() && GetAttaching()) {
 		return AddFlag(CFIO_FILE_LOCKED);
 	}
-	return FALSE;
+	return false;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 FileHeader::UnlockFromStorage(void) {
+
+bool FileHeader::UnlockFromStorage() {
 	if (!CanWrite() && GetAttaching()) {
 		return RemoveFlag(CFIO_FILE_LOCKED);
 	}
-	return FALSE;
+	return false;
 }
 }
 }
