@@ -80,10 +80,10 @@
 namespace CIF {
 namespace CTC {
 
-class CTCControl {
+class Control {
 public:
-	CTCControl();
-	~CTCControl();
+	Control();
+	~Control();
 
 	// import functions
 	Bool32 SetFolder(uint32_t wFolder, char* pcBuff);

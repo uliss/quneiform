@@ -16,7 +16,7 @@
 namespace CIF {
 namespace CTC {
 
-extern CTCControl * Control_ctc;
+extern Control * Control_ctc;
 
 GlobalFile::GlobalFile() {
 	assert(false);

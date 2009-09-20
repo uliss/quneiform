@@ -30,7 +30,7 @@ StorageHeader::StorageHeader() :
 StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint NewFlag,
 		const std::string& NewStorageFolder) :
 	GlobalHeader(pNewStorage, NULL, 0, NewFlag), contents_counter_(0) {
-	extern CTCControl * Control_ctc;
+	extern Control * Control_ctc;
 
 	SetHandle(AcceptFile(pNewStorage));
 	SetFlag(NewFlag);

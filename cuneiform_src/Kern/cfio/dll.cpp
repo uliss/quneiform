@@ -68,7 +68,7 @@
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #define __CFIO__
-#include "ctccontrol.h"
+#include "control.h"
 #include "compat_defs.h"
 #include "resource.h"
 
@@ -83,7 +83,7 @@ static Handle hInst = NULL;
 
 namespace CIF {
 namespace CTC {
-CTCControl * Control_ctc = NULL;
+Control * Control_ctc = NULL;
 }
 }
 static int32_t InitCount = 0;
@@ -112,7 +112,7 @@ CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle /*hStorage*/)
 
 	if ( !Control_ctc )
 	{
-		Control_ctc = new CTCControl;
+		Control_ctc = new Control;
 		wHeightRC = wHeightCode;
 	}
 
