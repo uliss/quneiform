@@ -5,12 +5,12 @@
  *      Author: uliss
  */
 
-#ifndef MEMORYLIST_H_
-#define MEMORYLIST_H_
+#ifndef CIF_CTC_MEMORYLIST_H_
+#define CIF_CTC_MEMORYLIST_H_
 
 #include "cttypes.h"
 #include "ctc_def.h"
-#include "ctcmemoryheader.h"
+#include "memoryheader.h"
 
 #include <string>
 
@@ -32,8 +32,8 @@ private:
 	bool KillItem(MemoryHeaderPtr Item, MemoryHeaderPtr PrevItem);
 	MemoryHeaderPtr pFirst();
 	MemoryHeaderPtr pLast();
-	size_t IncreaseMemoryCounter(uint32_t wSize);
-	size_t DecreaseMemoryCounter(uint32_t wSize);
+	size_t IncreaseMemoryCounter(size_t Size);
+	size_t DecreaseMemoryCounter(size_t Size);
 
 	size_t list_size_;
 	MemoryHeader first_;
@@ -45,4 +45,4 @@ private:
 }
 }
 
-#endif /* MEMORYLIST_H_ */
+#endif /* CIF_CTC_MEMORYLIST_H_ */

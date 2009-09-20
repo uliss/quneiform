@@ -1,5 +1,5 @@
 /*
- * ctcstorageheader.cpp
+ * storageheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
@@ -7,9 +7,9 @@
 
 #include <cstring>
 
-#include "ctcstorageheader.h"
-#include "ctcglobalfile.h"
-#include "ctccontrol.h"
+#include "storageheader.h"
+#include "globalfile.h"
+#include "control.h"
 #include "compat_defs.h"
 #include "cfcompat.hpp" // For MakePath
 #include "cfio.h"

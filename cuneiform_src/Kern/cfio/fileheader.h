@@ -1,16 +1,16 @@
 /*
- * ctcfileheader.h
+ * fileheader.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CTCFILEHEADER_H_
-#define CTCFILEHEADER_H_
+#ifndef CIF_CTC_FILEHEADER_H_
+#define CIF_CTC_FILEHEADER_H_
 
 #include "ctc_def.h"
-#include "ctcglobalheader.h"
-#include "ctcglobalfile.h"
+#include "globalheader.h"
+#include "globalfile.h"
 
 namespace CIF {
 namespace CTC {
@@ -70,4 +70,4 @@ private:
 }
 }
 
-#endif /* CTCFILEHEADER_H_ */
+#endif /* CIF_CTC_FILEHEADER_H_ */

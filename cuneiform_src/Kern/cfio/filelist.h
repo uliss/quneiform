@@ -9,8 +9,8 @@
 #define CIF_CTC_FILELIST_H_
 
 #include "cttypes.h"
-#include "ctcfileheader.h"
-#include "ctcglobalfile.h"
+#include "fileheader.h"
+#include "globalfile.h"
 
 namespace CIF {
 namespace CTC {
@@ -38,16 +38,16 @@ private:
 		return &first_;
 	}
 
-	uint32_t IncreaseFileCounter() {
+	size_t IncreaseFileCounter() {
 		return ++file_counter_;
 	}
-	uint32_t DecreaseFileCounter() {
+	size_t DecreaseFileCounter() {
 		return --file_counter_;
 	}
-	uint32_t IncreaseSpaceCounter() {
+	size_t IncreaseSpaceCounter() {
 		return ++space_sounter_;
 	}
-	uint32_t DecreaseSpaceCounter() {
+	size_t DecreaseSpaceCounter() {
 		return --space_sounter_;
 	}
 

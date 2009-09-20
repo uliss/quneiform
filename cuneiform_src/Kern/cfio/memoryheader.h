@@ -1,15 +1,15 @@
 /*
- * ctcmemoryheader.h
+ * memoryheader.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CTCMEMORYHEADER_H_
-#define CTCMEMORYHEADER_H_
+#ifndef CIF_CTC_MEMORYHEADER_H_
+#define CIF_CTC_MEMORYHEADER_H_
 
 #include <string>
-#include "ctcglobalheader.h"
+#include "globalheader.h"
 
 namespace CIF {
 namespace CTC {
@@ -22,8 +22,8 @@ namespace CTC {
 class MemoryHeader: public GlobalHeader {
 public:
 	MemoryHeader();
-	MemoryHeader(Handle hMemory, uint32_t wBlockSize);
-	MemoryHeader(Handle hMemory, uint32_t wBlockSize, const std::string& OwnerName, const std::string& Comment);
+	MemoryHeader(Handle hMemory, size_t BlockSize);
+	MemoryHeader(Handle hMemory, size_t BlockSize, const std::string& OwnerName, const std::string& Comment);
 	~MemoryHeader();
 
 	std::string GetOwner() const {
@@ -47,4 +47,4 @@ typedef MemoryHeader ** PPMemoryHeader;
 }
 }
 
-#endif /* CTCMEMORYHEADER_H_ */
+#endif /* CIF_CTC_MEMORYHEADER_H_ */

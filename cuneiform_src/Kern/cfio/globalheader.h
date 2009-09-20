@@ -1,18 +1,17 @@
 /*
- * ctcglobalheader.h
+ * globalheader.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CTCGLOBALHEADER_H_
-#define CTCGLOBALHEADER_H_
+#ifndef CIF_CTC_GLOBALHEADER_H_
+#define CIF_CTC_GLOBALHEADER_H_
 
 #include <cstddef>
 #include "cttypes.h"
 
 namespace CIF {
-
 namespace CTC {
 
 class GlobalHeader {
@@ -94,4 +93,4 @@ protected:
 }
 }
 
-#endif /* CTCGLOBALHEADER_H_ */
+#endif /* CIF_CTC_GLOBALHEADER_H_ */

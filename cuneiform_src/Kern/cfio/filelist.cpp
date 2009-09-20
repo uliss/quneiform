@@ -6,6 +6,7 @@
  */
 
 #include "filelist.h"
+#include "storageheader.h"
 
 namespace CIF {
 namespace CTC {

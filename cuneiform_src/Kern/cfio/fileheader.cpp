@@ -1,11 +1,11 @@
 /*
- * ctcfileheader.cpp
+ * fileheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#include "ctcfileheader.h"
+#include "fileheader.h"
 #include "ctc_def.h"
 
 namespace CIF {

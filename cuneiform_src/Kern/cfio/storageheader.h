@@ -1,16 +1,16 @@
 /*
- * ctcstorageheader.h
+ * storageheader.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CTCSTORAGEHEADER_H_
-#define CTCSTORAGEHEADER_H_
+#ifndef CIF_CTC_STORAGEHEADER_H_
+#define CIF_CTC_STORAGEHEADER_H_
 
 #include <string>
 
-#include "ctcglobalheader.h"
+#include "globalheader.h"
 #include "cfio.h"
 #include "ctc_def.h"
 
@@ -63,4 +63,4 @@ private:
 }
 }
 
-#endif /* CTCSTORAGEHEADER_H_ */
+#endif /* CIF_CTC_STORAGEHEADER_H_ */

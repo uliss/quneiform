@@ -72,6 +72,7 @@
 
 #include <string>
 
+#include "cfio.h"
 #include "filelist.h"
 #include "memorylist.h"
 #include "storagelist.h"

@@ -1,12 +1,12 @@
 include_directories(BEFORE)
 
 add_library(cfio ${LIBTYPE}
-	ctccontrol.cpp
+	control.cpp
 	dll.cpp
-	globalheader.cpp
-	globalfile.cpp
 	fileheader.cpp
 	filelist.cpp
+	globalheader.cpp
+	globalfile.cpp
 	memorylist.cpp
 	memoryheader.cpp
 	storagelist.cpp

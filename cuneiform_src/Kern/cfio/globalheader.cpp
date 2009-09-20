@@ -1,11 +1,11 @@
 /*
- * ctcglobalheader.cpp
+ * globalheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#include "ctcglobalheader.h"
+#include "globalheader.h"
 
 namespace CIF {
 

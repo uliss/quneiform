@@ -1,11 +1,11 @@
 /*
- * ctcmemoryheader.cpp
+ * memoryheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#include "ctcmemoryheader.h"
+#include "memoryheader.h"
 #include "ctc_def.h"
 
 namespace CIF {

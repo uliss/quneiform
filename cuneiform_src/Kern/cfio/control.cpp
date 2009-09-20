@@ -70,10 +70,16 @@
 #ifndef _MSC_VER
 #include <unistd.h>
 #endif
-#include "ctccontrol.h"
+#include "control.h"
 #include "compat_defs.h"
-#include <cstring>
 #include "resource.h"
+#include "fileheader.h"
+#include "storageheader.h"
+#include "memoryheader.h"
+#include "memorylist.h"
+#include "storagelist.h"
+
+#include <cstring>
 
 using namespace CIF::CTC;
 
@@ -785,7 +791,7 @@ Handle CTCControl::AddFileInList(GlobalFile * File, uint32_t Flag,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCControl::DeleteFileFromList(Handle File, uint32_t Flag, Handle /*Storage*/) {
+Bool32 CTCControl::DeleteFileFromList(Handle File, uint /*Flag*/, Handle /*Storage*/) {
 	return file_list_.DeleteItem(File);
 }
 //////////////////////////////////////////////////////////////////////////////////
