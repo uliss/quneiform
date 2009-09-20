@@ -97,22 +97,22 @@ public:
 			const std::string& Name);
 	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
 	Handle OpenFile(Handle hFile, const std::string& Name, uint Flag);
-	bool CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
-	uint32_t WriteFile(Handle hFile, pchar lpData, uint32_t dwSize);
-	uint32_t ReadFromFile(Handle hFile, pchar lpData, uint32_t dwSize);
-	uint32_t Seek(Handle hFile, uint32_t dwBytes, uint32_t dwFrom);
+	bool CloseFile(Handle hFile, uint Flag, Handle hStorage = NULL);
+	uint32_t WriteFile(Handle hFile, pchar lpData, uint32_t Size);
+	uint32_t ReadFromFile(Handle hFile, pchar lpData, uint32_t Size);
+	uint32_t Seek(Handle hFile, uint32_t Bytes, uint32_t From);
 	uint32_t Tell(Handle hFile) const;
 	bool Flush(Handle hFile);
-	Handle Alloc(uint32_t dwSize, uint32_t dwFlag, const char *cOwner,
-			const char *Coment);
-	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag);
+	Handle Alloc(size_t Size, uint Flag, const std::string& Owner,
+			const std::string& Comment);
+	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint Flag);
 	bool Free(Handle hMem);
 	void * Lock(Handle hMem);
 	bool Unlock(Handle hMem);
-	uint32_t WriteMemToFile(Handle hMem, char* lpName);
-	uint32_t ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag =
+	uint32_t WriteMemToFile(Handle hMem, const std::string& Name);
+	uint32_t ReadMemFromFile(const std::string& Name, Handle * phMem, uint Flag =
 			MAF_GALL_GHND);
-	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, char* lpName);
+	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, const std::string& Name);
 	uint32_t ReadMemFromStorage(Handle hStorage, char* lpName, Handle * phMem);
 
 private:
@@ -123,7 +123,7 @@ private:
 			const std::string& Owner, const std::string& Comment);
 	bool AddNewMemoryInList(Handle hMemory, uint Size, uint32_t IsGlobal,
 			const std::string& Owner, const std::string& Comment);
-	bool FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
+	bool FreeMemory(Handle hMemory, uint Flag = 0x0);
 	bool TakeMemory(Handle hMemory, uint32_t * wMemorySize,
 			uint32_t * wMemoryFlag);
 	bool GetMemory(Handle hMemory, PPMemoryHeader pHeader);
@@ -131,17 +131,17 @@ private:
 	void * LockMemory(Handle hMemory);
 	bool UnlockMemory(Handle hMemory);
 	bool LockatorMemoryInList(Handle hMemory, Bool32 bLock);
-	bool AttachFileToStorage(Handle File, Handle Storage, uint32_t Flag);
-	bool DeleteFileFromList(Handle File, uint32_t Flag, Handle Stotrage = NULL);
+	bool AttachFileToStorage(Handle File, Handle Storage, uint Flag);
+	bool DeleteFileFromList(Handle File, uint Flag, Handle Stotrage = NULL);
 	bool FlushFile(Handle File);
 	uint32_t TellFilePointer(Handle File) const;
-	bool CloseFileAndAttach(Handle File, uint32_t Flag, Handle Storage);
+	bool CloseFileAndAttach(Handle File, uint Flag, Handle Storage);
 	bool DeleteFileFromDisk(Handle File);
 	uint32_t SeekFilePointer(Handle File, uint32_t Position, uint32_t From);
 	uint32_t ReadDataFromFile(Handle File, void * lpData, uint32_t Size);
 	uint32_t WriteDataToFile(Handle File, void * lpData, uint32_t Size);
-	bool CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
-	Handle CompliteStorage(Handle Storage, uint32_t Flag);
+	bool CloseFileAndDettach(Handle File, uint Flag, Handle Storage);
+	Handle CompliteStorage(Handle Storage, uint Flag);
 	uint32_t WriteItemToStorage(StorageHeader * Storage, void * pItem,
 			uint32_t Size);
 	uint32_t WriteFileToStorage(StorageHeader * Storage, FileHeader * File);
@@ -149,7 +149,7 @@ private:
 	bool CloseAllStorageFile(Handle Storage, uint32_t Flag);
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
 	uint32_t DecompileStorage(Handle Storage);
-	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint32_t wNewFlag);
+	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint NewFlag);
 	Handle OpenNewStorage(const std::string& Name, uint Flag);
 	Handle OpenCompliteStorage(const std::string& Name, uint Flag);
 	uint32_t ReadFileFromStorage(StorageHeader * Storage, STORAGEITEM * pInfo,

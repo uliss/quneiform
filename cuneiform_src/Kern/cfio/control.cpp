@@ -385,66 +385,66 @@ bool Control::Flush(Handle hFile) {
 	return FlushFile(hFile);
 }
 
-Handle Control::Alloc(uint32_t wSize, uint32_t wFlag, const char *cOwner,
-		const char *Coment) {
+Handle Control::Alloc(size_t Size, uint Flag, const std::string& Owner,
+		const std::string& Comment) {
 	int iTestFixed = 0;
-	Bool32 Global = FALSE;
-	uint32_t GlobalFlag = 0x0;
+	bool Global = false;
+	uint GlobalFlag = 0x0;
 
-	if (wFlag & MAF_GPTR || wFlag & MAF_GNHD) {
+	if (Flag & MAF_GPTR || Flag & MAF_GNHD) {
 		return NULL;
 	}
 
 #ifdef CFIO_USE_GLOBAL_MEMORY
-	Global = TRUE;
+	Global = true;
 #else
-	Global = FALSE;
+	Global = true;
 #endif
 
-	if (wFlag & MAF_GALL_GMEM_FIXED) {
+	if (Flag & MAF_GALL_GMEM_FIXED) {
 		GlobalFlag |= GMEM_FIXED;
 		iTestFixed = 1;
 	}
 
-	if (wFlag & MAF_GALL_GMEM_MOVEABLE && !iTestFixed)
+	if (Flag & MAF_GALL_GMEM_MOVEABLE && !iTestFixed)
 		GlobalFlag |= GMEM_MOVEABLE;
 
-	if (wFlag & MAF_GALL_GPTR)
+	if (Flag & MAF_GALL_GPTR)
 		GlobalFlag |= GPTR;
 
-	if (wFlag & MAF_GALL_GHND)
+	if (Flag & MAF_GALL_GHND)
 		GlobalFlag |= GHND;
 
-	if (wFlag & MAF_GALL_GMEM_DDESHARE)
+	if (Flag & MAF_GALL_GMEM_DDESHARE)
 		GlobalFlag |= GMEM_DDESHARE;
 
-	if (wFlag & MAF_GALL_GMEM_DISCARDABLE && iTestFixed)
+	if (Flag & MAF_GALL_GMEM_DISCARDABLE && iTestFixed)
 		GlobalFlag |= GMEM_DISCARDABLE;
 
-	if (wFlag & MAF_GALL_GMEM_LOWER)
+	if (Flag & MAF_GALL_GMEM_LOWER)
 		GlobalFlag |= GMEM_LOWER;
 
-	if (wFlag & MAF_GALL_GMEM_NOCOMPACT)
+	if (Flag & MAF_GALL_GMEM_NOCOMPACT)
 		GlobalFlag |= GMEM_NOCOMPACT;
 
-	if (wFlag & MAF_GALL_GMEM_NODISCARD)
+	if (Flag & MAF_GALL_GMEM_NODISCARD)
 		GlobalFlag |= GMEM_NODISCARD;
 
-	if (wFlag & MAF_GALL_GMEM_NOT_BANKED)
+	if (Flag & MAF_GALL_GMEM_NOT_BANKED)
 		GlobalFlag |= GMEM_NOT_BANKED;
 
-	if (wFlag & MAF_GALL_GMEM_NOTIFY)
+	if (Flag & MAF_GALL_GMEM_NOTIFY)
 		GlobalFlag |= GMEM_NOTIFY;
 
-	if (wFlag & MAF_GALL_GMEM_SHARE)
+	if (Flag & MAF_GALL_GMEM_SHARE)
 		GlobalFlag |= GMEM_SHARE;
 
-	if (wFlag & MAF_GALL_GMEM_ZEROINIT)
+	if (Flag & MAF_GALL_GMEM_ZEROINIT)
 		GlobalFlag |= GMEM_ZEROINIT;
 
-	return AllocNewMemory(GlobalFlag, wSize, Global, cOwner, Coment);
+	return AllocNewMemory(GlobalFlag, Size, Global, Owner, Comment);
 }
-//////////////////////////////////////////////////////////////////////////////////
+
 // GlobalRealloc
 Handle Control::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 	Handle hNewMemory;
@@ -511,8 +511,8 @@ bool Control::Unlock(Handle hMem) {
 	return UnlockMemory(hMem);
 }
 
-uint32_t Control::WriteMemToFile(Handle hMem, char* lpName) {
-	Handle hFile = OpenFile(NULL, lpName, OSF_WRITE);
+uint32_t Control::WriteMemToFile(Handle hMem, const std::string& Name) {
+	Handle hFile = OpenFile(NULL, Name, OSF_WRITE);
 	uint32_t wMemorySize;
 	uint32_t wMemoryFlag;
 	uint32_t Counter = 0;
@@ -535,10 +535,9 @@ uint32_t Control::WriteMemToFile(Handle hMem, char* lpName) {
 	}
 	return Counter;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag) {
-	Handle hFile = OpenFile(NULL, lpName, OSF_READ | OSF_BINARY);
+
+uint32_t Control::ReadMemFromFile(const std::string& Name, Handle * phMem, uint Flag) {
+	Handle hFile = OpenFile(NULL, Name, OSF_READ | OSF_BINARY);
 	Handle hMem;
 	pchar pMem;
 	uint32_t wFileSize;
@@ -547,7 +546,7 @@ uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag) 
 	if (hFile) {
 		wFileSize = Seek(hFile, 0, FS_END);
 		Seek(hFile, 0, FS_BEGIN);
-		hMem = Alloc(wFileSize, wFlag, "Readed from file", "lpName");
+		hMem = Alloc(wFileSize, Flag, "Readed from file", "lpName");
 		*phMem = hMem;
 
 		if (hMem) {
@@ -563,14 +562,13 @@ uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag) 
 	}
 	return Counter;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, char* lpName) {
+
+uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, const std::string& Name) {
 	Handle hFile;
-	uint32_t wData = WriteMemToFile(hMem, lpName);
+	uint32_t wData = WriteMemToFile(hMem, Name);
 
 	if (wData) {
-		hFile = OpenFile(hStorage, lpName, OSF_READ | OSF_BINARY);
+		hFile = OpenFile(hStorage, Name, OSF_READ | OSF_BINARY);
 
 		if (hFile) {
 			if (!CloseFile(hFile, CSF_SAVESTORAGE, hStorage))
@@ -581,8 +579,7 @@ uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, char* lpName) 
 	}
 	return wData;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 		Handle * phMem) {
 	char NameForStorage[CFIO_MAX_PATH];
