@@ -69,18 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////////
 # ifndef _CTC_CONTROL_HEADER_
 # define _CTC_CONTROL_HEADER_
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include <string>
 #include <cstdlib>
-
-
 
 #include "cfio.h"
 #include "resource.h"
@@ -88,14 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace CIF{
 namespace CTC{
-//////////////////////////////////////////////////////////////////////Memory alloc
-#define   ALLOC                new
-#define   FREE                 delete
-#define   PRIVATE_NEW          new
-#define   PRIVATE_DELETE       delete
-#define   GLOBAL_NEW           new
-#define   GLOBAL_DELETE        delete
-//////////////////////////////////////////////////////////////////////////////////
+
 class CTCControl
 {
 // data members
@@ -107,8 +93,6 @@ private:
 	char                       szFileFolder[CFIO_MAX_PATH];
 	char                       szStorageFolder[CFIO_MAX_PATH];
 	char                       szBuffer[CFIO_MAX_PATH];
-	//uint32_t                     wHeightRC;
-	//uint32_t                     wLowRC;
 
 public:
 	CTCControl();
@@ -180,9 +164,6 @@ private:
 	std::string MakeNameForStorage(const std::string& FileName, CTCStorageHeader * phStorage = NULL);
 	char* FileNameToFolder(char* Buffer, char* FolderName, char* FileName, uint32_t Size);
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
-
 }
 }
 #endif //_CTC_CONTROL_HEADER_
