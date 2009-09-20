@@ -13,10 +13,10 @@
 #include "compat_defs.h"
 #include "ctccontrol.h"
 
-extern CIF::CTC::CTCControl * Control_ctc;
-
 namespace CIF {
 namespace CTC {
+
+extern CTCControl * Control_ctc;
 
 GlobalFile::GlobalFile() {
 	assert(false);

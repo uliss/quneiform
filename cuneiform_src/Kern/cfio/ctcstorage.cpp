@@ -79,146 +79,6 @@ using namespace CIF::CTC;
 #include "ctcglobalfile.h"
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCStorageHeader::CTCStorageHeader() :
-	GlobalHeader() {
-	pStorageFile = NULL;
-	pcFolder[0] = 0;
-	pcName[0] = 0;
-	wContensCounter = 0;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-static char ShFolder[_MAX_PATH];
-static char ShFile[_MAX_PATH + 4];
-static char ShExtension[_MAX_PATH];
-static char ShBuffer[_MAX_PATH + 4];
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCStorageHeader::CTCStorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
-		const char *pcNewStorageFolder) :
-	GlobalHeader(pNewStorage, NULL, 0, wNewFlag)//, Contents()
-{
-	extern CTCControl * Control_ctc;
-
-	SetHandle(AcceptFile(pNewStorage));
-	SetFlag(wNewFlag);
-	SetHeaderSize(sizeof(class FileHeader));
-
-	if (pcNewStorageFolder && pcNewStorageFolder[0] != 0x0) {
-		CFIO_GETFOLDERSITEMS(pcNewStorageFolder, ShFolder, ShFile, ShExtension);
-		// берем временную директорию
-		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
-		// отписываем туда
-		CFIO_MAKEPATH(pcFolder, ShFolder, ShFile, ShExtension);
-	} else {
-		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
-		CFIO_MAKEFOLDER(ShFolder);
-		//CreateDirectory(ShFolder, NULL);
-		if (GetTempFileName(ShFolder, "STG", 0, ShFile)) {
-			unlink(ShFile);
-			CFIO_STRCPY(ShBuffer, ShFile);
-			CFIO_GETFOLDERSITEMS(ShBuffer, ShFolder, ShFile, ShExtension);
-			CFIO_MAKEPATH(pcFolder, ShFolder, ShFile, NULL);
-			//CFIO_STRCPY(pcFolder, ShFile);
-		} else {
-#ifdef _DEBUG
-			uint32_t Err = GetLastError();
-			// попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-			pvoid lpMsgBuf;
-
-			FormatMessage(
-					FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-					NULL,
-					Err, //GetLastError(),
-					MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-					(char*) &lpMsgBuf,
-					0,
-					NULL
-			);
-
-			// Display the string.
-			MessageBox ( NULL,
-					( char* ) lpMsgBuf,
-					"CFIO: Storage can't create own unpack folder",
-					MB_OK|MB_ICONINFORMATION );
-
-			// Free the buffer.
-			LocalFree( lpMsgBuf );
-			Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
-			//  кончаем пробовать №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-#endif      // _DEBUG
-			CFIO_STRCPY(pcFolder, ShFile);
-			//MAKEPATH(pcFolder,NULL,ShFolder,ShFile,ShExtension);
-		}
-	}
-	//MAKEFULLPATH(pcFolder,StorageFolder,_MAX_PATH);
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCStorageHeader::~CTCStorageHeader() {
-	if (GetStorage()) {
-		delete GetStorage();
-	}
-
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-/*
- Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, uint32_t wID, uint32_t wNewSize)
- {
- CTCStorageContents * pCurrent, * New;
-
- for ( pCurrent = &Contents; pCurrent->GetNext() != NULL; pCurrent = pCurrent->GetNext() )
- {}
-
- New      = new CTCStorageContents(hNewItem, wID, wNewSize, NULL);
- pCurrent->SetNext(New);
-
- return TRUE;
- }
- //////////////////////////////////////////////////////////////////////////////////
- //
- Bool32 CTCStorageHeader::DeleteItemFromStorage(Handle Item)
- {
- CTCStorageContents * pCurrent, * Erase;
-
- for ( pCurrent = ((Erase = &Contents)->GetNext()); pCurrent != NULL; pCurrent = pCurrent->GetNext() )
- {
- if ( pCurrent->GetHandle() == Item )
- {
- Erase->SetNext(pCurrent->GetNext());
- delete pCurrent;
- return TRUE;
- }
-
- Erase = pCurrent;
- }
- return FALSE;
- }
- //////////////////////////////////////////////////////////////////////////////////
- //
- Handle CTCStorageHeader::EnumItemContents(Handle Item)
- {
- CTCStorageContents * pCurrent;
-
- if ( Item )
- {
- for( pCurrent = Contents.GetNext(); pCurrent != NULL; pCurrent = pCurrent->GetNext() )
- {
- if ( pCurrent->GetHandle() == Item )
- if ( pCurrent->GetNext() )
- return pCurrent->GetNext()->GetHandle();
- else
- return NULL;
- }
- return NULL;
- }
-
- return Contents.GetNext()->GetHandle();
- }
- */
-//////////////////////////////////////////////////////////////////////////////////
-//
 CTCStorageList::CTCStorageList() {
 	msFirstItem.SetNext(&msLastItem);
 	msFirstItem.SetSize(0);
@@ -232,12 +92,11 @@ CTCStorageList::CTCStorageList() {
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCStorageList::~CTCStorageList() {
-
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Handle CTCStorageList::AddItem(GlobalFile * pNewStorage, uint32_t wNewFlag) {
-	CTCStorageHeader * Current, *NewBlock = NULL;
+	StorageHeader * Current, *NewBlock = NULL;
 	Handle NewHandle = pNewStorage->GetFileHandle();
 
 	if (!NewHandle)
@@ -249,7 +108,7 @@ Handle CTCStorageList::AddItem(GlobalFile * pNewStorage, uint32_t wNewFlag) {
 			return NULL;
 		}
 
-	NewBlock = new CTCStorageHeader(pNewStorage, wNewFlag, "");
+	NewBlock = new StorageHeader(pNewStorage, wNewFlag, "");
 	NewBlock->SetNext(Current->GetNext());
 	Current->SetNext(NewBlock);
 	IncreaseItemCounter();
@@ -259,7 +118,7 @@ Handle CTCStorageList::AddItem(GlobalFile * pNewStorage, uint32_t wNewFlag) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t /*Flag*/) {
-	CTCStorageHeader * Current, *Last, *EraseBlock;
+	StorageHeader * Current, *Last, *EraseBlock;
 	uint32_t IsOK = 0;
 
 	for (Last = Current = pFirst(); Current != pLast(); Current
@@ -280,7 +139,7 @@ Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t /*Flag*/) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 GlobalFile * CTCStorageList::GetItem(Handle Storage) {
-	CTCStorageHeader * pCurrent;
+	StorageHeader * pCurrent;
 	GlobalFile * pFounded = NULL;
 
 	if (pCurrent = GetItemHeader(Storage)) {
@@ -291,10 +150,8 @@ GlobalFile * CTCStorageList::GetItem(Handle Storage) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCStorageHeader * CTCStorageList::GetItemHeader(Handle Storage) {
-	CTCStorageHeader * pCurrent;
-
-	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+StorageHeader * CTCStorageList::GetItemHeader(Handle Storage) {
+	for (StorageHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
 		if (pCurrent->GetHandle() == Storage) {
 			return pCurrent;
@@ -305,7 +162,7 @@ CTCStorageHeader * CTCStorageList::GetItemHeader(Handle Storage) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 Handle CTCStorageList::FindStorage(const std::string& StorageName) {
-	for (CTCStorageHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+	for (StorageHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
 		GlobalFile * pStorage = pCurrent->GetStorage();
 

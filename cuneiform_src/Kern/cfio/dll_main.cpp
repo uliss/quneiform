@@ -68,10 +68,7 @@
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #define __CFIO__
-//#define CFIO_USE_WIN32_API
 #include "ctccontrol.h"
-//#undef CFIO_USE_WIN32_API
-
 #include "compat_defs.h"
 
 using namespace CIF::CTC;
@@ -82,13 +79,17 @@ void SetReturnCode_cfio(uint16_t rc);
 static uint16_t wHeightRC = 0;
 static uint16_t wLowRC = 0;
 static Handle hInst = NULL;
+
+namespace CIF {
+namespace CTC {
 CTCControl * Control_ctc = NULL;
+}
+}
 static int32_t InitCount = 0;
 static Bool32 InitDone = FALSE;
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-		pvoid /*lpReserved*/) {
+Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call, pvoid /*lpReserved*/) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		hInst = hModule;

@@ -127,7 +127,7 @@ private:
 class CTCFileList {
 private:
 	uint32_t wListSize;
-	CTCStorageHeader * pList;
+	StorageHeader * pList;
 	uint32_t wFileCounter;
 	uint32_t wSpaceCounter;
 	FileHeader mfFirstItem;
@@ -172,9 +172,9 @@ private:
 class CTCStorageList {
 private:
 	uint32_t wHeaderSize;
-	CTCStorageHeader msFirstItem;
-	CTCStorageHeader msLastItem;
-	CTCStorageHeader * pList;
+	StorageHeader msFirstItem;
+	StorageHeader msLastItem;
+	StorageHeader * pList;
 	uint32_t wItemCounter;
 
 public:
@@ -185,21 +185,21 @@ public:
 	Handle AddItem(GlobalFile * NewStorage, uint32_t wParametr);
 	Bool32 DeleteItem(Handle Storage, uint32_t Flag = 0);
 	GlobalFile * GetItem(Handle Storage);
-	CTCStorageHeader * GetFirstItemHeader() {
+	StorageHeader * GetFirstItemHeader() {
 		return pFirst()->GetNext();
 	}
 
-	CTCStorageHeader * GetItemHeader(Handle Storage);
+	StorageHeader * GetItemHeader(Handle Storage);
 	Bool32 IsEmpty() {
 		return wItemCounter == 0;
 	}
 
 private:
-	CTCStorageHeader * pFirst(void) {
+	StorageHeader * pFirst(void) {
 		return &msFirstItem;
 	}
 
-	CTCStorageHeader * pLast(void) {
+	StorageHeader * pLast(void) {
 		return &msLastItem;
 	}
 

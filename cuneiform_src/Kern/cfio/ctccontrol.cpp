@@ -100,8 +100,8 @@ static char SExtension[CFIO_MAX_PATH];
 static char SOut[CFIO_MAX_PATH];
 //////////////////////////////////////////////////////////////////////////////////
 //
-char* CTCControl::FileNameToFolder(char* Buffer, char* FolderName,
-		char* FileName, uint32_t Size) {
+char* CTCControl::FileNameToFolder(char* Buffer, const char * FolderName,
+		const char* FileName, uint32_t Size) {
 	char *i, *j;
 	uint32_t SizeOfFolder = CFIO_STRLEN(FolderName);
 	uint32_t SizeOfFile = CFIO_STRLEN(FileName);
@@ -124,7 +124,7 @@ char* CTCControl::FileNameToFolder(char* Buffer, char* FolderName,
 			}
 			//	FileName = FolderName;
 			//	FolderName = Buffer;
-			for (i = Buffer, j = FolderName; i < &Buffer[Shift]; *(i + Shift)
+			for (i = Buffer, j = (char*)FolderName; i < &Buffer[Shift]; *(i + Shift)
 					= *(i), *(i++) = *(j++))
 				;
 
@@ -152,7 +152,7 @@ char* CTCControl::FileNameToFolder(char* Buffer, char* FolderName,
 //////////////////////////////////////////////////////////////////////////////////
 //
 std::string CTCControl::MakeNameForStorage(const std::string& FileName,
-		CTCStorageHeader * hStorageHead) {
+		StorageHeader * hStorageHead) {
 	char* i;
 
 	if (FileName.empty())
@@ -163,7 +163,8 @@ std::string CTCControl::MakeNameForStorage(const std::string& FileName,
 
 	// копируем папку хранилища
 	if (hStorageHead) {
-		CFIO_STRCPY(szBuffer, hStorageHead->GetStorageFolder());
+		// FIXME!!! no buffer length check
+		CFIO_STRCPY(szBuffer, hStorageHead->GetStorageFolder().c_str());
 	} else {
 		GetFolder(CFIO_STORAGE_FOLDER, &szBuffer[0]);
 	}
@@ -275,7 +276,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 		char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет
-	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
+	StorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
 	// берем хидер файла ........ или не берем, ежели нема
 	FileHeader * pFileHeader = FileList.GetItemHeader(hFile);
 	GlobalFile * pFile;
@@ -299,10 +300,10 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 Handle CTCControl::ReadFileFromStorage(Handle hStorage, char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет
-	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
+	StorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
 
 	if (pStorageHeader) {
-		if (FileNameToFolder(FileName, pStorageHeader->GetStorageFolder(),
+		if (FileNameToFolder(FileName, pStorageHeader->GetStorageFolder().c_str(),
 				lpName, CFIO_MAX_PATH)) {
 			return OpenFile(NULL, FileName, OSF_READ | OSF_WRITE | OSF_BINARY);
 		}
@@ -607,10 +608,10 @@ uint32_t CTCControl::ReadMemFromStorage(Handle hStorage, char* lpName,
 	uint32_t Readed = 0;
 
 	*phMem = NULL;
-	CTCStorageHeader * hStorageHead = StorageList.GetItemHeader(hStorage);
+	StorageHeader * hStorageHead = StorageList.GetItemHeader(hStorage);
 
 	if (hStorageHead) {
-		FileNameToFolder(NameForStorage, hStorageHead->GetStorageFolder(),
+		FileNameToFolder(NameForStorage, hStorageHead->GetStorageFolder().c_str(),
 				lpName, _MAX_PATH);
 
 		Readed = ReadMemFromFile(NameForStorage, &hMem);
@@ -783,8 +784,7 @@ Handle CTCControl::AddFileInList(GlobalFile * File, uint32_t Flag,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCControl::DeleteFileFromList(Handle File, uint32_t Flag,
-		Handle /*Storage*/) {
+Bool32 CTCControl::DeleteFileFromList(Handle File, uint32_t Flag, Handle /*Storage*/) {
 	return FileList.DeleteItem(File, Flag);
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -795,8 +795,7 @@ Handle CTCControl::AddStorageInList(GlobalFile * lpNewStorageName,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/,
-		Handle /*Storage*/) {
+Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/, Handle /*Storage*/) {
 	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
 	GlobalFile * CurrentFile;
 
@@ -829,7 +828,7 @@ Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 //
 Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*Flag*/) {
 	FileHeader * AttachedFile = FileList.GetItemHeader(File);
-	CTCStorageHeader * AttacherStorage = StorageList.GetItemHeader(Storage);
+	StorageHeader * AttacherStorage = StorageList.GetItemHeader(Storage);
 
 	if (AttacherStorage && AttachedFile) {
 		return AttachedFile->AttachToStorage(Storage);
@@ -922,7 +921,7 @@ Bool32 CTCControl::DeleteFileFromDisk(Handle File) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCControl::WriteItemToStorage(CTCStorageHeader * Storage,
+uint32_t CTCControl::WriteItemToStorage(StorageHeader * Storage,
 		void * pItem, uint32_t wSize) {
 	GlobalFile * CurrentStorage = Storage->GetStorage();
 	uint32_t WritedDataCount = 0;
@@ -934,7 +933,7 @@ uint32_t CTCControl::WriteItemToStorage(CTCStorageHeader * Storage,
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCControl::ReadItemFromStorage(CTCStorageHeader * Storage,
+uint32_t CTCControl::ReadItemFromStorage(StorageHeader * Storage,
 		void * lpData, uint32_t wSize) {
 	GlobalFile * CurrentStorage = Storage->GetStorage();
 	uint32_t ReadedDataCount = 0;
@@ -950,7 +949,7 @@ uint32_t CTCControl::ReadItemFromStorage(CTCStorageHeader * Storage,
 char CopyBuffer[COPYBUFFER];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCControl::WriteFileToStorage(CTCStorageHeader * Storage,
+uint32_t CTCControl::WriteFileToStorage(StorageHeader * Storage,
 		FileHeader * File) {
 	FileHeader * pItemHeader = File;
 	GlobalFile * pItem;
@@ -965,7 +964,7 @@ uint32_t CTCControl::WriteFileToStorage(CTCStorageHeader * Storage,
 		FileSize = ItemInfo.siItemSize = pItem->GetFileSize();
 		ItemInfo.siFlag = pItemHeader->GetFlag();
 		CFIO_STRCPY(ItemInfo.siName, MakeNameForStorage(pItem->GetFileName(),
-				Storage).c_str());
+						Storage).c_str());
 
 		if (FileSize) {
 			WritedDataCount = WriteItemToStorage(Storage, &ItemInfo,
@@ -988,7 +987,7 @@ uint32_t CTCControl::WriteFileToStorage(CTCStorageHeader * Storage,
 // Storage - pointer to storage,
 // pInfo - pointer to INFO for File
 // pFile - pointer to opened new file
-uint32_t CTCControl::ReadFileFromStorage(CTCStorageHeader * Storage,
+uint32_t CTCControl::ReadFileFromStorage(StorageHeader * Storage,
 		STORAGEITEM * pInfo, GlobalFile ** pFile) {
 	STORAGEITEM ItemInfo;
 	GlobalFile * NewFile;
@@ -1004,7 +1003,7 @@ uint32_t CTCControl::ReadFileFromStorage(CTCStorageHeader * Storage,
 	FileSize = (*pInfo).siItemSize = ItemInfo.siItemSize;
 	(*pInfo).siFlag = ItemInfo.siFlag;
 	// создаем имя файла
-	FileNameToFolder(ItemInfo.siName, Storage->GetStorageFolder(),
+	FileNameToFolder(ItemInfo.siName, Storage->GetStorageFolder().c_str(),
 			ItemInfo.siName, _MAX_PATH);
 	CFIO_STRCPY(pInfo->siName, ItemInfo.siName);
 
@@ -1042,7 +1041,7 @@ uint32_t StorageFlag;
 //
 Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 	FileHeader * pItemHeader = NULL;
-	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	uint32_t ComplitedItems = 0;
 	uint32_t ComplitedSpace = 0;
@@ -1054,8 +1053,9 @@ Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 		CFIO_STRCPY(StorageName, pStorage->GetFileName().c_str());
 
 		// папочка для файликов...
+		// FIXME!!! no buffer length check
 		CFIO_STRCPY(&StorageFolder[sizeof(*FolderSize)],
-				pStorageHeader->GetStorageFolder());
+				pStorageHeader->GetStorageFolder().c_str());
 		*FolderSize = strlen(&StorageFolder[sizeof(*FolderSize)])
 				+ sizeof(*FolderSize);
 		StorageFlag = pStorageHeader->GetFlag();
@@ -1102,7 +1102,7 @@ Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 //
 uint32_t CTCControl::DecompileStorage(Handle Storage) {
 	GlobalFile * pExtractFile;
-	CTCStorageHeader * StorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * StorageHeader = StorageList.GetItemHeader(Storage);
 	GlobalFile * pStorage = StorageHeader->GetStorage();
 	STORAGEITEM ExtractInfo;
 	uint32_t StorageSize = 0;
@@ -1155,7 +1155,7 @@ uint32_t CTCControl::DecompileStorage(Handle Storage) {
 //
 Handle CTCControl::OpenCompliteStorage(char* lpName, uint32_t Flag) {
 	GlobalFile * pNewStorage = NULL;
-	CTCStorageHeader * hStorageHeader;
+	StorageHeader * hStorageHeader;
 	Handle hNewStorage;
 
 	pNewStorage = new GlobalFile(lpName, CFIO_GF_WRITE | CFIO_GF_READ
@@ -1198,15 +1198,17 @@ Handle CTCControl::OpenNewStorage(char*, uint32_t) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Закрываем хранилище (если сборка не проводилась), иначе только файлы
 Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
-	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	GlobalFile * pFile;
 	FileHeader * pFileHeader = NULL;
 	char StorageFolder[_MAX_PATH];
 
 	if (Flag & CS_FILE_DELETE) {
-		if (CFIO_STRLEN(pStorageHeader->GetStorageFolder()) < _MAX_PATH)
-			CFIO_STRCPY(StorageFolder, pStorageHeader->GetStorageFolder());
+		if (pStorageHeader->GetStorageFolder().length() < _MAX_PATH) {
+			// FIXME!!! no buffer length check
+			CFIO_STRCPY(StorageFolder, pStorageHeader->GetStorageFolder().c_str());
+		}
 	} else {
 		StorageFolder[0] = 0x0;
 	}

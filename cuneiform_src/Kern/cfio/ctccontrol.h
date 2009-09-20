@@ -150,8 +150,8 @@ private:
 	uint32_t WriteDataToFile(Handle File, void * lpData, uint32_t Size);
 	Bool32 CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
 	Handle CompliteStorage(Handle Storage, uint32_t Flag);
-	uint32_t WriteItemToStorage(CTCStorageHeader * Storage, void * pItem, uint32_t Size);
-	uint32_t WriteFileToStorage(CTCStorageHeader * Storage, FileHeader * File);
+	uint32_t WriteItemToStorage(StorageHeader * Storage, void * pItem, uint32_t Size);
+	uint32_t WriteFileToStorage(StorageHeader * Storage, FileHeader * File);
 	Bool32 CloseStorageFile(Handle Storage, uint32_t Flag = 0);
 	Bool32 CloseAllStorageFile(Handle Storage, uint32_t Flag);
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
@@ -159,10 +159,10 @@ private:
 	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint32_t wNewFlag);
 	Handle OpenNewStorage(char* lpName, uint32_t wFlag);
 	Handle OpenCompliteStorage(char* lpName, uint32_t wFlag);
-	uint32_t ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, GlobalFile ** pFile);
-	uint32_t ReadItemFromStorage(CTCStorageHeader * Storage, void * lpData, uint32_t wSize);
-	std::string MakeNameForStorage(const std::string& FileName, CTCStorageHeader * phStorage = NULL);
-	char* FileNameToFolder(char* Buffer, char* FolderName, char* FileName, uint32_t Size);
+	uint32_t ReadFileFromStorage(StorageHeader * Storage, STORAGEITEM * pInfo, GlobalFile ** pFile);
+	uint32_t ReadItemFromStorage(StorageHeader * Storage, void * lpData, uint32_t wSize);
+	std::string MakeNameForStorage(const std::string& FileName, StorageHeader * phStorage = NULL);
+	char* FileNameToFolder(char* Buffer, const char* FolderName, const char* FileName, uint32_t Size);
 };
 }
 }
