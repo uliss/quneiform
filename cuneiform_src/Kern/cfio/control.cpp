@@ -254,30 +254,27 @@ Handle Control::OpenStorage(const std::string& Name, uint Flag) {
 
 	return OpenedStorage;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 Control::CloseStorage(Handle hStorage, uint32_t wFlag) {
-	if (wFlag & CS_WITHOUT_SAVE || wFlag & CS_DELETE) {
-		if (wFlag & CS_ALL)
-			return CloseAllStorageFile(hStorage, wFlag);
+
+bool Control::CloseStorage(Handle hStorage, uint Flag) {
+	if (Flag & CS_WITHOUT_SAVE || Flag & CS_DELETE) {
+		if (Flag & CS_ALL)
+			return CloseAllStorageFile(hStorage, Flag);
 		else
-			return CloseStorageFile(hStorage, wFlag);
+			return CloseStorageFile(hStorage, Flag);
 	}
 
-	if (wFlag & CS_ALL) {
-		CompliteAllStorage(hStorage, wFlag);
-		return CloseAllStorageFile(hStorage, wFlag);
+	if (Flag & CS_ALL) {
+		CompliteAllStorage(hStorage, Flag);
+		return CloseAllStorageFile(hStorage, Flag);
 	} else {
-		return CloseStorageFile(CompliteStorage(hStorage, wFlag));
+		return CloseStorageFile(CompliteStorage(hStorage, Flag));
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 Control::DeleteStorage(char* lpName) {
-	return (unlink(lpName) == 0);
+
+bool Control::DeleteStorage(const std::string& Name) {
+	return unlink(Name.c_str()) == 0;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 Control::WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет

@@ -91,8 +91,8 @@ public:
 
 	// import functions
 	Handle OpenStorage(const std::string& Name, uint Types);
-	Bool32 CloseStorage(Handle hStorage, uint32_t dwFlag);
-	Bool32 DeleteStorage(char* lpName);
+	bool CloseStorage(Handle hStorage, uint Flag);
+	bool DeleteStorage(const std::string& Name);
 	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName);
 	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
 	Handle OpenFile(Handle hFile, char* lpName, uint32_t dwFlag);
