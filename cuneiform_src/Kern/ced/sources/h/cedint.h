@@ -62,31 +62,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __GLOBUS_H
 #include "globus.h"
 #endif
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+
 #ifdef __cplusplus
 	extern "C" {
 #endif
 
-//
 #pragma pack (push,8)
 
 #define CED_MAXNAME 260
-
-#ifndef Handle
-	#define Handle void *
-#endif
-
 #define CFIOHightCode 0x0001
 
 #include "ced.h"
 #include "ced_struct.h"
 #include "cfio.h"
-//#include "edfile.h"
 
 #ifdef _DEBUG
 #define EDASSERT(f) \
@@ -390,7 +378,7 @@ struct StrRtfColor {                       // color table in an rtf file
 
 struct StrRtfOut {                        // Rtf output file processing block
       int  output;                        // rtr output type: RTF_FILE,RTF_BUF,RTF_CB
-      HANDLE hFile;                        // stream if file is used
+      Handle hFile;                        // stream if file is used
       HGLOBAL hBuf;                       // output buffer handle if using buffer output
       uchar *buf;                     // output buffer pointer if using buffer
       long BufLen;                        // allcated length of buffer

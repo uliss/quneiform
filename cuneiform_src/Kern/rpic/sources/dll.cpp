@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
 static uint16_t            gwHeightRC = 0;
 static uint16_t            gwLowRC = 0;
-static HANDLE            ghStorage = NULL;
+static Handle            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -90,7 +90,7 @@ Bool APIENTRY DllMain( HINSTANCE hModule,
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,HANDLE hStorage)
+RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);

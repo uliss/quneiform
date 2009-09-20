@@ -729,12 +729,12 @@ void PrintPara(FILE *stream,Handle para)
 }
 #endif
 
-Bool32 WriteRemark(HANDLE hFile,int type, int object);
-Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int etraLen=0);
-Bool32 WriteFontTable(HANDLE hFile, CEDPage *page);
-Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page);
-Bool32 WritePictTable(HANDLE hFile, CEDPage* page);
-Bool32 WritePara(HANDLE hFile,CEDParagraph* hPara);
+Bool32 WriteRemark(Handle hFile,int type, int object);
+Bool32 WriteExtCode(Handle hFile,int Ecode, void* object, int lenOfObj, int etraLen=0);
+Bool32 WriteFontTable(Handle hFile, CEDPage *page);
+Bool32 WriteTiffDescr(Handle hFile, CEDPage* page);
+Bool32 WritePictTable(Handle hFile, CEDPage* page);
+Bool32 WritePara(Handle hFile,CEDParagraph* hPara);
 
 Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 {
@@ -742,7 +742,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	int fn;
 	int sec;
 	CEDChar *tmpChr;
-	HANDLE hFile=Open(0, (pchar)fileName,OSF_CREATE|OSF_BINARY|OSF_WRITE);
+	Handle hFile=Open(0, (pchar)fileName,OSF_CREATE|OSF_BINARY|OSF_WRITE);
 	if (!hFile)
 	{
 		SetReturnCode_ced(CFIO_GetReturnCode());
@@ -1012,7 +1012,7 @@ FINAL:
 	return ret;
 }
 
-Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
+Bool32 WriteFontTable(Handle hFile, CEDPage* page)
 {
 	char* ch=0;
 	//define the sum of lengths of all names of fonts
@@ -1042,7 +1042,7 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 	return TRUE;
 }
 
-Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
+Bool32 WriteTiffDescr(Handle hFile, CEDPage* page)
 {
 	originalImageDesc fond;
 	fond.height=page->sizeOfImage.cy;
@@ -1057,7 +1057,7 @@ Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
 	return TRUE;
 }
 
-Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
+Bool32 WritePictTable(Handle hFile, CEDPage* page)
 {
 	//define sum of lengths of all pictures
 	int len=0;
@@ -1090,7 +1090,7 @@ Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 	return TRUE;
 }
 
-Bool32 WritePara(HANDLE hFile,CEDParagraph* hPara)
+Bool32 WritePara(Handle hFile,CEDParagraph* hPara)
 {
 	paraParams pard;
 	if (!WriteRemark(hFile,SSR_FRAG_TYPE,hPara->alignment)) return FALSE;
@@ -1120,7 +1120,7 @@ Bool32 WritePara(HANDLE hFile,CEDParagraph* hPara)
 }
 
 //write lenOfObj+extraLen to the field corresponding to length
-Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int extraLen)
+Bool32 WriteExtCode(Handle hFile,int Ecode, void* object, int lenOfObj, int extraLen)
 {
 	if (!(Ecode&0x8000))
 	{
@@ -1143,7 +1143,7 @@ Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int extr
 	return TRUE;
 }
 
-Bool32 WriteRemark(HANDLE hFile,int type, int object)
+Bool32 WriteRemark(Handle hFile,int type, int object)
 {
 	text_ref tr;
 	tr.code=SS_REMARK;
@@ -1156,7 +1156,7 @@ Bool32 WriteRemark(HANDLE hFile,int type, int object)
 
 uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
 {
-	HANDLE PedHandle;
+	Handle PedHandle;
 	uint32_t len;
 	puchar start;
 

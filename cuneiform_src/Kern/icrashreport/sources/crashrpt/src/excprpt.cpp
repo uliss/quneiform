@@ -103,7 +103,7 @@ CString CExceptionReport::getCrashFile(DumpType dumpType)
    sFile.Format(_T("%s\\%s.dmp"), getenv("TEMP"), CUtility::getAppName());
 
    // Create the file
-   HANDLE hFile = CreateFile(
+   Handle hFile = CreateFile(
       sFile,
       GENERIC_WRITE,
       0,

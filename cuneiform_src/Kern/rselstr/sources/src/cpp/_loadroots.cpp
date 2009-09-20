@@ -383,7 +383,7 @@ ROOT   RootRecord = {0};
 int h=comp->h;
 int w=comp->w;
 
-        _ASSERT(comp);
+        assert(comp);
 
 
 		//***************Rom********************

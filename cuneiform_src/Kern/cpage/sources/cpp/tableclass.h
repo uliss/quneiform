@@ -170,16 +170,16 @@ public:
 	inline uint32_t GetNumberRow()	{ return m_lpHorLines.GetSize() - 1;};
 
 	inline TableLine & GetHLine(uint32_t nLine)	{
-		_ASSERT(nLine>=0 && nLine<m_lpHorLines.GetSize());
+		assert(nLine>=0 && nLine<m_lpHorLines.GetSize());
 		return m_lpHorLines[nLine];
 		}
 
 	inline TableLine & GetVLine(uint32_t nLine)	{
-		_ASSERT(nLine>=0 && nLine<m_lpVerLines.GetSize());
+		assert(nLine>=0 && nLine<m_lpVerLines.GetSize());
 		return m_lpVerLines[nLine];
 		}
 	inline TableCell & GetCell(Point32 pt){
-		_ASSERT(GetNumberRow()>(uint32_t)pt.y &&
+		assert(GetNumberRow()>(uint32_t)pt.y &&
 				GetNumberColumn()>(uint32_t)pt.x &&
 				pt.y>=0 &&
 				pt.x>=0);

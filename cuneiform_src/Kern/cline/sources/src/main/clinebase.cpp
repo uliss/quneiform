@@ -145,18 +145,18 @@ CLINE_FUNC Bool CLINE_Init(int, Handle) {
 	size_class_line = sizeof(CLine);
 	size_class_hline = sizeof(CHLine);
 
-	_ASSERT(size_class_inv != size_class_event && size_class_inv
+	assert(size_class_inv != size_class_event && size_class_inv
 			!= size_class_cupoint && size_class_inv != size_class_comp
 			&& size_class_inv != size_class_line && size_class_inv
 			!= size_class_hline);
-	_ASSERT(size_class_event != size_class_cupoint && size_class_event
+	assert(size_class_event != size_class_cupoint && size_class_event
 			!= size_class_comp && size_class_event != size_class_line
 			&& size_class_event != size_class_hline);
-	_ASSERT(size_class_cupoint != size_class_comp && size_class_cupoint
+	assert(size_class_cupoint != size_class_comp && size_class_cupoint
 			!= size_class_line && size_class_cupoint != size_class_hline);
-	_ASSERT(size_class_comp != size_class_line && size_class_comp
+	assert(size_class_comp != size_class_line && size_class_comp
 			!= size_class_hline);
-	_ASSERT(size_class_line != size_class_hline);
+	assert(size_class_line != size_class_hline);
 
 	if (!InitData()) {
 		return FALSE;

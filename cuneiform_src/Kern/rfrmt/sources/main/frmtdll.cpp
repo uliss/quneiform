@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t     gwHeightRC = 0;
 static uint16_t     gwLowRC    = 0;
-static HANDLE     ghStorage  = NULL;
+static Handle     ghStorage  = NULL;
 static HINSTANCE  ghInst     = NULL;
 Bool32     gbBold     = TRUE;
 Bool32     gbItalic   = TRUE;
@@ -110,7 +110,7 @@ uint32_t ul_reason_for_call,
 ///////////////////////////////////////////////////////////////
 //Handle hUseCLine;
 
-RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,HANDLE hStorage)
+RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,Handle hStorage)
 {
  LDPUMA_Init(0,NULL);
  LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);

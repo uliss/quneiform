@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "tigerdef.h"
 # include "dpuma.h"
 
-HANDLE ToMono(HANDLE hDIB);
+Handle ToMono(Handle hDIB);
 
 typedef struct
 	{
@@ -79,7 +79,7 @@ typedef struct
 
 PRGTIME g_PrgTime;
 
-static HANDLE s_hTempDIB = NULL;
+static Handle s_hTempDIB = NULL;
 static char * s_pData = NULL;
 static char * s_pDIB = NULL;
 static TIGER_IMAGEINFO s_ImageInfo;

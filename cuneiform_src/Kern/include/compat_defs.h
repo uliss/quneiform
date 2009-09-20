@@ -67,26 +67,6 @@
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
-#if WIN32
-
-#include<windows.h>
-#include"minmax.h"
-
-#ifdef _MSC_VER
-#include<crtdbg.h>
-
-#include <io.h>
-#else
-#ifndef _ASSERT
-#define _ASSERT(a) assert(a)
-#endif
-typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
-
-#endif
-
-#include "cfcompat.h"
-
-#else
 
 #include <time.h>
 #include "minmax.h"
@@ -96,10 +76,6 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifndef HANDLE
-#define HANDLE void*
 #endif
 
 #ifndef APIENTRY /* Not currently used in Linux. */
@@ -123,8 +99,6 @@ typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
 #ifndef HWND
 #define HWND void*
 #endif
-
-#define _ASSERT assert
 
 #ifndef HDC
 #define HDC int
@@ -393,7 +367,6 @@ typedef int REGSAM;
 
 #define HMENU int
 
-#include "cfcompat.h"
 /*
  * A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in random values. They are not
@@ -564,6 +537,6 @@ typedef int REGSAM;
 }
 #endif
 
-#endif /* not WIN32 */
+#include "cfcompat.h"
 
 #endif

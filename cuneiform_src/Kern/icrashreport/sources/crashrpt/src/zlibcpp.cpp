@@ -134,7 +134,7 @@ Bool CZLib::AddFile(CString f_file)
    Bool bReturn = FALSE;
 
    // Open file being added
-   HANDLE hFile = NULL;
+   Handle hFile = NULL;
    hFile = CreateFile(f_file, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
    if (hFile)
    {

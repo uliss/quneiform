@@ -526,7 +526,7 @@ Bool32 ProgressStep(uint32_t step,char*name,uint32_t percent)
 
 	uint32_t perc = g_PrgTime.dwBeg + percent*(g_PrgTime.dwEnd - g_PrgTime.dwBeg)/100;
 	rc = LDPUMA_ProgressStep(step,g_PrgTime.name,perc);
-//	_ASSERT(perc>=old);
+//	assert(perc>=old);
 	if(fnProgressStep)
 		rc &= fnProgressStep(step,g_PrgTime.name,perc);
 

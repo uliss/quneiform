@@ -55,7 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "internal.h"
-#pragma hdrstop
 
 #ifdef _MSC_VER
 #include<io.h>
@@ -65,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 
 #include "std.h"
-/*#include <io.h>*/
 #include <fcntl.h>
 #include "xpath.h"
 #include "xfindfil.h"
@@ -73,9 +71,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "win_mini.h"
 #endif
 
-#include "compat_defs.h"
-
-typedef unsigned char uchar;
 
 static int32_t _stdOpenCounter=0;
 static int32_t _stdCloseCounter=0;
@@ -313,7 +308,7 @@ STD_FUNC( Bool32 ) stdDeleteDirectory(
     {
        XPath xpDir((char*)lpDirName);
        xpDir.StripSlash();
-       if(!RemoveDirectory(xpDir))
+       if(!rmdir(xpDir))
            bDeleteOK=FALSE;
     }
 
@@ -361,7 +356,7 @@ STD_FUNC( Bool32 ) stdMoveDirectory(
 
    XPath xpDir((char*)lpDirNameSrc);
    xpDir.StripSlash();
-   if(!RemoveDirectory(xpDir))
+   if(!rmdir(xpDir))
        bMoveOK=FALSE;
    if(bMoveOK==FALSE)
        stdDeleteDirectory(xpPathDst);
@@ -541,11 +536,11 @@ STD_FUNC( int32_t ) stdCmpFileTime(
 #ifdef WIN32
     SECURITY_ATTRIBUTES stSecurityAttributes=
         {sizeof(SECURITY_ATTRIBUTES),0,TRUE};
-    HANDLE hFile1=CreateFile(
+    Handle hFile1=CreateFile(
         lpFileName1, GENERIC_READ,FILE_SHARE_READ,
         &stSecurityAttributes,OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,NULL);
-    HANDLE hFile2=CreateFile(
+    Handle hFile2=CreateFile(
         lpFileName2, GENERIC_READ,FILE_SHARE_READ,
         &stSecurityAttributes,OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,NULL);

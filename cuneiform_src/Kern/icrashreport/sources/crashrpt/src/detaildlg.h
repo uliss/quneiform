@@ -241,7 +241,7 @@ public:
       // Insert items
       //
       WIN32_FIND_DATA   findFileData   = {0};
-      HANDLE            hFind          = NULL;
+      Handle            hFind          = NULL;
       CString           sSize;
       LVITEM            lvi            = {0};
       TStrStrMap::iterator p;
@@ -417,7 +417,7 @@ uint32_t dwBytesRead                = 0;
       //
       // Display file contents in preview window
       //
-      HANDLE hFile = CreateFile(
+      Handle hFile = CreateFile(
          p->first,
          GENERIC_READ,
          FILE_SHARE_READ | FILE_SHARE_WRITE,

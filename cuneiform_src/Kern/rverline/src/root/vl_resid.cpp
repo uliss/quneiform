@@ -76,8 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* These two would be static, but they are accessed in vl_kern.cpp. */
 uint16_t      gwHeightRC_rver = 0;      // Уникальный номер библиотеки в одном сеансе
 uint16_t      gwLowRC_rver    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
-static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
-static HANDLE      ghInst     = NULL;   // Указатель на свое окно
+static Handle      ghStorage  = NULL;   // Указатель на хранилище
+static Handle      ghInst     = NULL;   // Указатель на свое окно
 static char szBuffer[512];               // Для докладов наверх
 Handle RltVertix_VL; // корневая вершина отладки для верификации линий
 /*------------extern functions------------------------------------------------*/
@@ -87,7 +87,7 @@ void   SetReturnCode_rverline (uint16_t rc);
 uint16_t GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 /*----------------------------------------------------------------------------*/
-Bool APIENTRY DllMain( HANDLE hModule,
+Bool APIENTRY DllMain( Handle hModule,
 uint32_t ul_reason_for_call,
                         pvoid lpReserved )
 {
@@ -106,7 +106,7 @@ uint32_t ul_reason_for_call,
     return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Bool32) RVERLINE_Init (uint16_t wHeightCode, HANDLE hStorage)
+RVERLINE_FUNC(Bool32) RVERLINE_Init (uint16_t wHeightCode, Handle hStorage)
 {
 	uchar err8;
 	Bool ret;

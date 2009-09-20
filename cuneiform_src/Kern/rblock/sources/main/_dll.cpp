@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t            gwHeightRC = 0;
 static uint32_t            gwRC = 0;
-static HANDLE            ghStorage = NULL;
+static Handle            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 /////////////////////////////////////////
 extern "C" {
@@ -106,7 +106,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,HANDLE hStorage)
+RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);

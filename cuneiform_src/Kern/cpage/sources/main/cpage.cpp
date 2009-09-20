@@ -226,7 +226,7 @@ CPAGE_FUNC(Handle)	CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(Type));
+	assert(CPAGE_GetNameInternalType(Type));
 #endif
 
 	Handle rc = PAGE_H(page).CreateBlock(Type ,UserNum ,Flags ,lpData , Size);
@@ -239,7 +239,7 @@ CPAGE_FUNC(Bool32) CPAGE_SetPageData(Handle page, Handle type, void * lpdata, ui
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 	Bool32 rc = PAGE_H(page).SetData( type, lpdata, size);
 	EPILOG;
@@ -252,7 +252,7 @@ CPAGE_FUNC(uint32_t) CPAGE_GetPageData(Handle page, Handle type, void * lpdata, 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 
 	DefConvertInit();
@@ -309,7 +309,7 @@ CPAGE_FUNC(Bool32)  CPAGE_SetBlockData(Handle page, Handle block, Handle Type, v
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(Type));
+	assert(CPAGE_GetNameInternalType(Type));
 #endif
 	Bool32 rc = BLOCK_H_H(page,block).SetData(Type,lpData, Size);
 	EPILOG;
@@ -321,7 +321,7 @@ CPAGE_FUNC(uint32_t)  CPAGE_GetBlockData(Handle page, Handle block, Handle Type,
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(Type));
+	assert(CPAGE_GetNameInternalType(Type));
 #endif
 	DefConvertInit();
 	uint32_t rc = BLOCK_H_H(page,block).GetData(Type, lpData, Size);
@@ -513,7 +513,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageFirst(Handle type)
 	int count = Page.GetCount();
 	int i;
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 	DefConvertInit();
 	for(i = 0;i<count;i++)
@@ -536,7 +536,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageNext(Handle page, Handle type)
 	int i;
 
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 	DefConvertInit();
 	for(i = pos; i<count && i>=0 ;i++)
@@ -558,7 +558,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetBlockFirst(Handle page, Handle type)
 	int i;
 /*
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 */
 	DefConvertInit();
@@ -582,7 +582,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetBlockNext(Handle page,Handle block, Handle type)
 	int i;
 /*
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 */
 	DefConvertInit();
@@ -659,7 +659,7 @@ CPAGE_FUNC(Bool32)  CPAGE_UpdateBlocks( Handle hPage, Handle type )
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(type));
+	assert(CPAGE_GetNameInternalType(type));
 #endif
 
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -751,7 +751,7 @@ CPAGE_FUNC(Bool32)  CPAGE_GetBlockDataPtr(Handle page, Handle block, Handle Type
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
-	_ASSERT(CPAGE_GetNameInternalType(Type));
+	assert(CPAGE_GetNameInternalType(Type));
 #endif
 	Bool32 rc = BLOCK_H_H(page,block).GetDataPtr(Type, lpData);
 	EPILOG;

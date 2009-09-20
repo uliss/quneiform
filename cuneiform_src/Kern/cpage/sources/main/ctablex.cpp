@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "backup.h"
 #include "tableclass.h"
+#include "compat_defs.h"
 
 //###########################################
 CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,int32_t Skew2048, uint32_t nVer,int32_t * lpVCor, uint32_t nHor,int32_t * lpHCor)
@@ -186,7 +187,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetSizeCell		(Handle hTable,Point32 point,Rec
   SetReturnCode_cpage(IDS_ERR_NO);
 	Rect32      rect = {0};
 
-	_ASSERT(lpRect);
+	assert(lpRect);
 	TableClass * tc = (TableClass *)hTable;
   if(tc)
   {
@@ -221,7 +222,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberBlock	(Handle hTable,Point32 point,int
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-  _ASSERT(lpNumber);
+  assert(lpNumber);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -242,7 +243,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetPhysical		(Handle hTable,Point32 point,Poi
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-  _ASSERT(lpPoint);
+  assert(lpPoint);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -260,7 +261,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberGeometry	(Handle hTable,Point32 poin
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-  _ASSERT(lpNumber);
+  assert(lpNumber);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -281,7 +282,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetGeometry		(Handle hTable,Point32 point,int
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-  _ASSERT(lpPoint);
+  assert(lpPoint);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -314,7 +315,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableIsPhysicCell	(Handle hTable,Point32 point,Bool3
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-	_ASSERT(lpIsPhysic);
+	assert(lpIsPhysic);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -332,7 +333,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableSize(Handle hTable,Rect32 * lpRect)
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-	_ASSERT(lpRect);
+	assert(lpRect);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -355,8 +356,8 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetSkew(Handle hTable,int32_t * lpNumerator,int
 	Bool32 rc = FALSE;
   SetReturnCode_cpage(IDS_ERR_NO);
 
-	_ASSERT(lpNumerator);
-	_ASSERT(lpDenominator);
+	assert(lpNumerator);
+	assert(lpDenominator);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)

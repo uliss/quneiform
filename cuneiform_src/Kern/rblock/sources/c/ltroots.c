@@ -111,16 +111,16 @@ int nRootStripsOffset;
 
 Bool RootsLoadFile (char * pFilename)
 {
-/*    typedef int HANDLE;*/
+/*    typedef int Handle;*/
 
-    HANDLE hFile;
+    Handle hFile;
     ROOT   RootRecord;
 
     RootsFreeData ();
 
-    hFile = (HANDLE)open (pFilename, O_RDONLY | O_BINARY);
+    hFile = (Handle)open (pFilename, O_RDONLY | O_BINARY);
 
-    if (hFile == (HANDLE)(-1))
+    if (hFile == (Handle)(-1))
     {
         ErrorFile ();
         return (FALSE);
@@ -269,8 +269,8 @@ void RootStripsCalculate (void)
         iStripEnd   = (pRoot -> yRow + pRoot -> nHeight - 1
                        - nRootStripsOffset)
                       / nRootStripsStep;
-		_ASSERT(nRootStrips>iStripEnd); // Piter
-		_ASSERT(nRootStrips>iStripBegin);// Piter
+		assert(nRootStrips>iStripEnd); // Piter
+		assert(nRootStrips>iStripBegin);// Piter
         for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++)
         {
             if (pRootStrips [iStrip].pBegin == NULL ||

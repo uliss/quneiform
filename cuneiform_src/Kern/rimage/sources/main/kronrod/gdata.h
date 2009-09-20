@@ -87,7 +87,7 @@ EXTERN HWND             hAppWnd;
 
 EXTERN uchar         * BufZone; // [BUFSZ];
 EXTERN uchar         * aBufPass;
-EXTERN HANDLE       hBufPass;
+EXTERN Handle       hBufPass;
 
 EXTERN  uchar         szTempTiffName [144];
 EXTERN  char         szScanFullName[144];
@@ -102,7 +102,7 @@ EXTERN  uchar         szValidNames[144];
 //EXTERN RAT     act_xr, act_yr;
 //EXTERN INT32   scan_width, scan_height;
 //EXTERN void  * _heapbase;
-//EXTERN HANDLE  hInst;
+//EXTERN Handle  hInst;
 //EXTERN char    Flag_FAX_100x200;       // (GREY-WIN.C);  sets here
 //EXTERN uchar    Flag_GREY INIT(0x55) ;        // (GREY-WIN.C)
 /*......................................................................*/

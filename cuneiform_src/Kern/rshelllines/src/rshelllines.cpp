@@ -101,23 +101,23 @@ static char *WorkMem = NULL;
 
 static uint16_t            gwHeightRC = 0;
 static uint16_t            gwLowRC = 0;
-static HANDLE            ghStorage = NULL;
+static Handle            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //DVP DLine*             tempLine;
-HANDLE			  hSkipDeleteNoiseEvents = NULL;
-HANDLE			  hPrintUnderlineTest = NULL;
-HANDLE			  hSkipCheckUnderlining = NULL;
-HANDLE			  hPrintUnderlines = NULL;
-HANDLE			  hSkipCheckRaster = NULL;
-HANDLE			  hPrintRasterCheck = NULL;
-HANDLE			  hSkipCorrectPolynomia = NULL;
-HANDLE			  hPrintCorrectPolynomia = NULL;
-HANDLE			  hSkipDelFragLines = NULL;
-HANDLE			  hPrintFragLines = NULL;
-HANDLE			  hPreRSL_Root = NULL;
-HANDLE			  hPreRSL_Control = NULL;
-HANDLE			  hPreRSL_Debug = NULL;
-HANDLE			  hDebugFragOwnerControl = NULL;
+Handle			  hSkipDeleteNoiseEvents = NULL;
+Handle			  hPrintUnderlineTest = NULL;
+Handle			  hSkipCheckUnderlining = NULL;
+Handle			  hPrintUnderlines = NULL;
+Handle			  hSkipCheckRaster = NULL;
+Handle			  hPrintRasterCheck = NULL;
+Handle			  hSkipCorrectPolynomia = NULL;
+Handle			  hPrintCorrectPolynomia = NULL;
+Handle			  hSkipDelFragLines = NULL;
+Handle			  hPrintFragLines = NULL;
+Handle			  hPreRSL_Root = NULL;
+Handle			  hPreRSL_Control = NULL;
+Handle			  hPreRSL_Debug = NULL;
+Handle			  hDebugFragOwnerControl = NULL;
 
 
 typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
@@ -158,7 +158,7 @@ typedef struct tagRSPreProcessImage
 
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
-//  Bool APIENTRY DllMain( HANDLE hModule,
+//  Bool APIENTRY DllMain( Handle hModule,
 //                         uint32_t  ul_reason_for_call,
 //                         pvoid lpReserved
 //  				  )
@@ -192,7 +192,7 @@ RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 A
 }
 
 ///////////////////////////////////////////////////////////////
-RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,HANDLE hStorage)
+RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRSL,SNAP_STUFF_RSL,NULL);

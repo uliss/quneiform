@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static HANDLE ghStorage = NULL;
+static Handle ghStorage = NULL;
 static HINSTANCE ghInst =  NULL;
 Handle Root;
 Handle VertCells=NULL;
@@ -142,7 +142,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,HANDLE hStorage)
+RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);

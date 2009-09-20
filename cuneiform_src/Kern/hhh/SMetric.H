@@ -74,12 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#pragma pack (push,8)
-
-#ifndef Handle
-        #define Handle void *
-#endif
-
 SMetric_FUNC(Bool32) SMetric_Init(uint16_t wHeightCode,Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
 SMetric_FUNC(uint32_t) SMetric_GetReturnCode();
@@ -103,9 +97,6 @@ typedef enum
 DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, int32_t *pSkew, int32_t *pSkewLocVerLin, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool CalcMuchSkew, Bool TalkMuchSkew));
 
 #undef DEC_FUN
-
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

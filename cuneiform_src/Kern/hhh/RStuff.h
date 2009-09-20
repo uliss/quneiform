@@ -86,12 +86,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#pragma pack (push,8)
-/*
-#ifndef Handle
-        #define Handle void *
-#endif
-*/
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef struct tagRSPreProcessImage
@@ -187,9 +181,6 @@ DEC_FUN(Bool32, RSNormRemoveLines,   (PRSPreProcessImage));
 DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
 DEC_FUN(Bool32, RSSetSpecPrj,          (uchar NoSpecPrj));
 #undef DEC_FUN
-
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

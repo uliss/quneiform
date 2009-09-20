@@ -101,7 +101,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
     memset(rtf,0,sizeof(struct StrRtfOut));  // initialize with zeros
 
 	//read old rtf
-	HANDLE oldRtfHndl;
+	Handle oldRtfHndl;
 	if (merge)
 	{
 		rtf->oldFileLen=MemFromFile((pchar)fileName,&oldRtfHndl);

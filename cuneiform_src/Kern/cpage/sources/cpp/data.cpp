@@ -137,7 +137,7 @@ Bool32 DATA::operator == (DATA & data)
 Bool32 DATA::Save(Handle to)
 {
 	char * lpName = CPAGE_GetNameInternalType(Type);
-	_ASSERT(lpName);
+	assert(lpName);
 	uint32_t len = strlen(lpName) + 1;
 
 	if(myWrite(to,&len,sizeof(len)) == sizeof(len) &&

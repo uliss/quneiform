@@ -414,7 +414,7 @@ static CWndClassInfo& GetWndClassInfo() \
     #define HandleToLong( h ) ((int32_t)(LONG_PTR) (h) )
   #endif
   #ifndef LongToHandle
-    #define LongToHandle( h) ((HANDLE)(LONG_PTR) (h))
+    #define LongToHandle( h) ((Handle)(LONG_PTR) (h))
   #endif
   #ifndef PtrToUlong
     #define PtrToUlong( p ) ((ulong)(ULONG_PTR) (p) )
@@ -1489,7 +1489,7 @@ public:
 class CServerAppModule : public CAppModule
 {
 public:
-	HANDLE m_hEventShutdown;
+	Handle m_hEventShutdown;
 	bool m_bActivity;
 	DWORD m_dwTimeOut;
 	DWORD m_dwPause;
@@ -1557,9 +1557,9 @@ public:
 			return false;
 		DWORD dwThreadID = 0;
 #if !defined(_ATL_MIN_CRT) && defined(_MT) && !defined(_WIN32_WCE)
-		HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, (uint (WINAPI*)(void*))MonitorProc, this, 0, (uint*)&dwThreadID);
+		Handle hThread = (Handle)_beginthreadex(NULL, 0, (uint (WINAPI*)(void*))MonitorProc, this, 0, (uint*)&dwThreadID);
 #else
-		HANDLE hThread = ::CreateThread(NULL, 0, MonitorProc, this, 0, &dwThreadID);
+		Handle hThread = ::CreateThread(NULL, 0, MonitorProc, this, 0, &dwThreadID);
 #endif
 		bool bRet = (hThread != NULL);
 		if(bRet)

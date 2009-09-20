@@ -356,7 +356,7 @@ public:
 	RDIB_FUNC(uint32_t) GetDIBSize();
 	//Get used by DIB RGB Quads memory allocation size
 	RDIB_FUNC(uint32_t) GetRGBPalleteSize(void);
-	// get HANDLE to DIB
+	// get Handle to DIB
 	RDIB_FUNC(Bool32) GetDIBHandle(Handle* phDIB);
 	// Set Handle for DIB if it not attached
 	RDIB_FUNC(Bool32) SetDIBHandle(Handle hDIB);

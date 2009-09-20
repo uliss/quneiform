@@ -91,9 +91,7 @@
 #include <malloc.h>
 #endif
 
-#include "compat_defs.h"
-
-CFCOMPAT_FUNC(int) HFILE_ERROR;
+CFCOMPAT_FUNC int HFILE_ERROR;
 
 int LoadString(HINSTANCE hInstance, uint uID, char* lpBuffer, int nBufferMax) {
 	return 0;
@@ -130,8 +128,8 @@ void* GlobalReAlloc(void* hMem, int dwBytes, uint uFlags) {
 	return realloc(hMem, dwBytes); // Should init to zero on uFlags & GMEM_ZEROINIT.
 }
 
-int GetTempFileName(const char * lpPathName, const char * lpPrefixString, uint uUnique,
-		char* lpTempFileName) {
+int GetTempFileName(const char * lpPathName, const char * lpPrefixString,
+		uint uUnique, char* lpTempFileName) {
 	return -1;
 }
 
@@ -145,14 +143,14 @@ uint32_t GetModuleFileName(HMODULE hModule, char* lpFilename, uint32_t nSize) {
 	return 1;
 }
 
-Bool CloseHandle(HANDLE hObject) {
+Bool CloseHandle(Handle hObject) {
 	return FALSE;
 }
 
-HANDLE CreateFile(const char * lpFileName, uint32_t dwDesiredAccess,
+Handle CreateFile(const char * lpFileName, uint32_t dwDesiredAccess,
 		uint32_t dwShareMode, void* lpSecurityAttributes,
 		uint32_t dwCreationDisposition, uint32_t dwFlagsAndAttributes,
-		HANDLE hTemplateFile) {
+		Handle hTemplateFile) {
 	return 0;
 }
 
@@ -182,8 +180,8 @@ int32_t RegOpenKeyEx(HKEY hKey, const char * lpSubKey, uint32_t ulOptions,
 	return 0;
 }
 
-int32_t RegQueryValueEx(HKEY hKey, const char * lpValueName, LPDWORD lpReserved,
-		LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
+int32_t RegQueryValueEx(HKEY hKey, const char * lpValueName,
+		LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
 	return 0;
 }
 
@@ -196,14 +194,14 @@ Bool WritePrivateProfileString(const char * lpAppName, const char * lpKeyName,
 	return 0;
 }
 
-uint32_t GetPrivateProfileString(const char * lpAppName, const char * lpKeyName,
-		const char * lpDefault, char* lpReturnedString, uint32_t nSize,
-		const char * lpFileName) {
+uint32_t GetPrivateProfileString(const char * lpAppName,
+		const char * lpKeyName, const char * lpDefault, char* lpReturnedString,
+		uint32_t nSize, const char * lpFileName) {
 	return 0;
 }
 
-uint GetPrivateProfileInt(const char * lpAppName, const char * lpKeyName, int16_t nDefault,
-		const char * lpFileName) {
+uint GetPrivateProfileInt(const char * lpAppName, const char * lpKeyName,
+		int16_t nDefault, const char * lpFileName) {
 	return 0;
 }
 
@@ -275,9 +273,9 @@ void strlwr(char *foo) {
 }
 #endif
 
-HWND CreateWindow(const char * lpClassName, const char * lpWindowName, uint32_t dwStyle,
-		int x, int y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu,
-		HINSTANCE hInstance, pvoid lpParam) {
+HWND CreateWindow(const char * lpClassName, const char * lpWindowName,
+		uint32_t dwStyle, int x, int y, int nWidth, int nHeight,
+		HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, pvoid lpParam) {
 	return (HWND) 55;
 }
 
@@ -325,7 +323,8 @@ HWND GetFocus() {
 	return NULL;
 }
 
-int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption, uint uType) {
+int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption,
+		uint uType) {
 	fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
 	return 0;
 }
@@ -603,35 +602,33 @@ static void build_name_estimates(const char *base_name, char *env_name,
 	}
 }
 
-CFCOMPAT_FUNC(int)
-open_data_file(const char *basename, int mode) {
+CFCOMPAT_FUNC int open_data_file(const char *basename, int mode) {
 	char ename[1024];
 	char pname[1024];
 	int i;
 
 	build_name_estimates(basename, ename, pname);
 	i = open(ename, mode);
-	if(i != -1)
-	return i;
+	if (i != -1)
+		return i;
 	return open(pname, mode);
 }
 
-CFCOMPAT_FUNC(int)
-data_file_exists(const char *basename) {
+CFCOMPAT_FUNC int data_file_exists(const char *basename) {
 	char ename[1024];
 	char pname[1024];
 
 	build_name_estimates(basename, ename, pname);
-	if(_access(ename, 0) == 0)
-	return 0;
+	if (_access(ename, 0) == 0)
+		return 0;
 	return _access(pname, 0);
 }
 
 /* Split a file name in three: path, base file name, and extension.
  * All internal file names use / as path separator, even on Windows.
  */
-CFCOMPAT_FUNC(void)
-split_path(const char *fname, char *file_path, char *basename, char *ext) {
+CFCOMPAT_FUNC void split_path(const char *fname, char *file_path,
+		char *basename, char *ext) {
 	int last_path = -1;
 	int suff = -1;
 	size_t l = strlen(fname);
@@ -643,9 +640,9 @@ split_path(const char *fname, char *file_path, char *basename, char *ext) {
 
 	for (i = 0; i < l; i++) {
 		if (fname[i] == '.')
-		suff = i;
+			suff = i;
 		if (fname[i] == '/')
-		last_path = i;
+			last_path = i;
 	}
 
 	path_end = 0;
@@ -674,25 +671,25 @@ split_path(const char *fname, char *file_path, char *basename, char *ext) {
 	ext[l - ext_start] = '\0';
 }
 
-CFCOMPAT_FUNC(void)
-make_path(char *opath, const char *dir, const char *basename, const char *ext) {
+CFCOMPAT_FUNC void make_path(char *opath, const char *dir,
+		const char *basename, const char *ext) {
 	const char dirsep = '/';
 	const char *dirseps = "/";
 	opath[0] = '\0';
 
-	if(dir) {
+	if (dir) {
 		strcat(opath, dir);
-		if(opath[strlen(opath) - 1] != dirsep) {
+		if (opath[strlen(opath) - 1] != dirsep) {
 			strcat(opath, dirseps);
 		}
 	}
 
-	if(basename)
-	strcat(opath, basename);
+	if (basename)
+		strcat(opath, basename);
 
-	if(ext) {
-		if(ext[0] != '.')
-		strcat(opath, ".");
+	if (ext) {
+		if (ext[0] != '.')
+			strcat(opath, ".");
 		strcat(opath, ext);
 	}
 }
@@ -700,8 +697,7 @@ make_path(char *opath, const char *dir, const char *basename, const char *ext) {
 /**
  * Convert backslashes to slashes. No-op on UNIX.
  */
-CFCOMPAT_FUNC(void)
-winpath_to_internal(char *p) {
+CFCOMPAT_FUNC void winpath_to_internal(char *p) {
 #if WIN32
 	int i;
 	for(i=0; p[i] != '\0'; i++) {
@@ -713,7 +709,7 @@ winpath_to_internal(char *p) {
 
 /* Get current working directory. */
 
-CFCOMPAT_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
+CFCOMPAT_FUNC unsigned int curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
 	_getcwd(buf, bsize);
 #else
@@ -745,8 +741,7 @@ create_temp_file(void) {
 
 #else
 
-CFCOMPAT_FUNC (FILE*)
-create_temp_file(void) {
+CFCOMPAT_FUNC FILE* create_temp_file(void) {
 	FILE *tmp_file;
 	int tmp_fd;
 	char* pattrn = malloc(100);
@@ -759,7 +754,7 @@ create_temp_file(void) {
 	free(pattrn);
 
 	if (tmp_fd == -1)
-	return NULL;
+		return NULL;
 
 	if (!(tmp_file = fdopen(tmp_fd, "w+b"))) {
 		return NULL;

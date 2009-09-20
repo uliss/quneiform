@@ -710,7 +710,7 @@ Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime)
 {
 ROOT   RootRecord = {0};
 
-        _ASSERT(comp);
+        assert(comp);
 
 
 		//***************Rom********************

@@ -94,7 +94,7 @@ Bool32 APIENTRY DllMain( HINSTANCE hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,HANDLE hStorage)
+CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 //define stub functions

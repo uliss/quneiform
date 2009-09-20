@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 { \
 	if (nowbyte < 0 || nowbyte >= size_pmasp) \
 	{ \
-		_ASSERT(0); \
+		assert(0); \
 		return FALSE; \
 	} \
 }
@@ -451,7 +451,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
 //		if (newnumstr < 0 || newnumstr >= my_temp_size)
 //		{
 //#ifdef _DEBUG
-//			_ASSERT(0);
+//			assert(0);
 //#endif
 //			return FALSE;
 //		}

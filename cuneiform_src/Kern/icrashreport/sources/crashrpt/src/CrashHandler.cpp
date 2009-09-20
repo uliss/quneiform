@@ -151,7 +151,7 @@ CCrashHandler::~CCrashHandler()
 void CCrashHandler::AddFile(const char * lpFile, const char * lpDesc)
 {
    // make sure the file exist
-   HANDLE hFile = ::CreateFile(
+   Handle hFile = ::CreateFile(
                      lpFile,
                      GENERIC_READ,
                      FILE_SHARE_READ | FILE_SHARE_WRITE,

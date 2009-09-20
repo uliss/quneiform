@@ -3331,7 +3331,7 @@ public:
 	WIN32_FIND_DATA m_fd;
 	TCHAR m_lpszRoot[MAX_PATH];
 	TCHAR m_chDirSeparator;
-	HANDLE m_hFind;
+	Handle m_hFind;
 	Bool m_bFound;
 
 // Constructor/destructor

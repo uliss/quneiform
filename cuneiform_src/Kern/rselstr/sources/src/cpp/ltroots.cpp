@@ -207,8 +207,8 @@ void RootStripsCalculate (void)
         iStripEnd   = (pRoot -> yRow + pRoot -> nHeight - 1
                        - nRootStripsOffset)
                       / nRootStripsStep;
-		_ASSERT(nRootStrips>iStripEnd); // Piter
-		_ASSERT(nRootStrips>iStripBegin);// Piter
+		assert(nRootStrips>iStripEnd); // Piter
+		assert(nRootStrips>iStripBegin);// Piter
         for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++)
         {
             if (pRootStrips [iStrip].pBegin == NULL ||

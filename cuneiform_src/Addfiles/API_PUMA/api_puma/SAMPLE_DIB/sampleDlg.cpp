@@ -12,7 +12,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-typedef HANDLE (*MYPROC)(HBITMAP, HPALETTE);
+typedef Handle (*MYPROC)(HBITMAP, HPALETTE);
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDlg dialog used for App About
@@ -260,16 +260,16 @@ uint32_t wdCookie;
 
 		///работа функции RecogDIBtoMemory
 
-		HANDLE hDIB = 0;
+		Handle hDIB = 0;
 		//HGLOBAL buffer = 0;
 
 		/*
 		получаем hDIB
 		*/
-		typedef HANDLE (__cdecl *delegate_BitmapToDIB)(HBITMAP, HPALETTE);
-		typedef HANDLE (__cdecl *delegate_LoadDIB)(const char * filename);
-		typedef HANDLE (__cdecl *delegate_CopyScreenToDIB)(RECT* );
-		typedef int (__cdecl *delegate_SaveDIB)(HANDLE hdib,const char * filename);
+		typedef Handle (__cdecl *delegate_BitmapToDIB)(HBITMAP, HPALETTE);
+		typedef Handle (__cdecl *delegate_LoadDIB)(const char * filename);
+		typedef Handle (__cdecl *delegate_CopyScreenToDIB)(RECT* );
+		typedef int (__cdecl *delegate_SaveDIB)(Handle hdib,const char * filename);
 
 		HMODULE hDibApiDll = LoadLibrary("c:\\dibapi.dll");
 
@@ -298,7 +298,7 @@ uint32_t wdCookie;
 			Puma.RecogDIBtoMemory(hd, &buf, format, code);
 			//Puma.RecogDIBtoFile(hd, "C:\\dtofile", format, code);
 
-			HANDLE HH = (HANDLE)buf;
+			Handle HH = (Handle)buf;
 			void* pHptr1 = GlobalLock(HH);
 			char* pBufText = static_cast<char*>(pHptr1 );
 			MessageBox(pBufText);

@@ -897,7 +897,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	HBITMAP CreateDIBSection(HDC hDC, CONST BITMAPINFO* lpbmi, uint uColorUse, VOID** ppvBits, HANDLE hSection, DWORD dwOffset)
+	HBITMAP CreateDIBSection(HDC hDC, CONST BITMAPINFO* lpbmi, uint uColorUse, VOID** ppvBits, Handle hSection, DWORD dwOffset)
 	{
 		ATLASSERT(m_hBitmap == NULL);
 		m_hBitmap = ::CreateDIBSection(hDC, lpbmi, uColorUse, ppvBits, hSection, dwOffset);

@@ -218,10 +218,10 @@ FILE	*mkFile_KOROBS_HEADS;
 FILE	*mkFile_KOROBS_BODIES;
 /*----------------------------------------------------------------------*/
 								//HANDLEs
-HANDLE	hMem08[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };	// ARRAY for 8 MEMs
-HANDLE	hMBIT=0;
-HANDLE	hMREF=0;
-HANDLE	hPPMEM=0;
+Handle	hMem08[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };	// ARRAY for 8 MEMs
+Handle	hMBIT=0;
+Handle	hMREF=0;
+Handle	hPPMEM=0;
 /*----------------------------------------------------------------------*/
 LPBYTE	pMem08 [8];	// ARRAY for 8 MEMs			//POINTERs
 LPBYTE	pMBIT, pMBIT_tek;

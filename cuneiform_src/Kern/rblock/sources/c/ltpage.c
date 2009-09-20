@@ -199,7 +199,7 @@ void PageMatrixPutRoots (void)
         // т.е., for(y=top;y<=bottom;y++,o=PAGE_MATRIX_WIDTH*y)
         {
             uchar *p;
-			_ASSERT((o + r.xRight) < PAGE_MATRIX_SIZE); // < 1024^2
+			assert((o + r.xRight) < PAGE_MATRIX_SIZE); // < 1024^2
             for (p = PageMatrix + o + r.xLeft; // start=&matrix+MaxW*y+left
                      p <= PageMatrix + o + r.xRight; //end=start+right
                          p++)

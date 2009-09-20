@@ -282,7 +282,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                RGBQUAD            Palette1;
                RGBQUAD            Palette2;
 	           uint32_t              bfSize, dwDIBSize;
-	           HANDLE             hDIB;
+	           Handle             hDIB;
 	           uchar*              pDIB;
 	           uchar*              pTmpDIB;
 	           uchar*              pTmpBuffer;

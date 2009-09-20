@@ -24,12 +24,13 @@ private:
 	GlobalFile * pStorageFile;
 	std::string name_;
 	std::string folder_;
-	uint32_t wContensCounter;
+	int contents_counter_;
 
 public:
 	StorageHeader();
-	StorageHeader(GlobalFile * pNewStorage, uint32_t Flag = CFIO_FILE_READ
-			| CFIO_FILE_WRITE, const std::string& NewStorageFolder = std::string());
+	StorageHeader(GlobalFile * pNewStorage, uint Flag = CFIO_FILE_READ
+			| CFIO_FILE_WRITE, const std::string& NewStorageFolder =
+			std::string());
 	~StorageHeader();
 
 public:
@@ -41,12 +42,12 @@ public:
 		return pStorageFile;
 	}
 
-	uint32_t IncreaseContentsCounter() {
-		return ++wContensCounter;
+	int IncreaseContentsCounter() {
+		return ++contents_counter_;
 	}
 
-	uint32_t DecreaseContentsCounter() {
-		return --wContensCounter;
+	int DecreaseContentsCounter() {
+		return --contents_counter_;
 	}
 
 	GlobalFile * GetStorage() {

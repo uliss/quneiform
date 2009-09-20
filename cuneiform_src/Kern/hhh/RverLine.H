@@ -71,13 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define RVERLINE_MAXNAME 260
-
-#ifndef Handle
-        #define Handle void *
-#endif
 
 RVERLINE_FUNC(Bool32) RVERLINE_Init(uint16_t wHeightCode,Handle hStorage);
 RVERLINE_FUNC(Bool32) RVERLINE_Done();
@@ -111,12 +105,7 @@ DEC_FUN(Bool32, RVERLINE_MarkLines, (Handle hCComp, Handle hCPage));
 typedef int  Regime_VerifyLines;
 #define    RVL_Default          0x00000000
 #define    RVL_FutuTablCorr     0x00000001
-/**  Конец описания управления верификацией линий.                               **/
 
-
-
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

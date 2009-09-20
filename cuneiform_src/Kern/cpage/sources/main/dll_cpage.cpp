@@ -67,6 +67,8 @@
 #include "backup.h"
 #include "dpuma.h"
 #include <time.h>
+#include "compat_defs.h"
+#include "cfcompat.h"
 //
 // Виртуальные функции
 //
@@ -75,7 +77,7 @@ FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static HANDLE ghStorage = NULL;
+static Handle ghStorage = NULL;
 static HINSTANCE ghInst = NULL;
 
 #ifdef DPUMA_ON
@@ -101,7 +103,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,HANDLE hStorage)
+CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 #ifdef DPUMA_ON
@@ -302,7 +304,7 @@ void ProfileEpilog(Handle prev)
 		{
 #ifdef TIMECONTROL
 			uint32_t c = clock() - s_tbeg;
-			_ASSERT(c < 99);
+			assert(c < 99);
 #endif
 			LDPUMA_Skip(prev);
 		}

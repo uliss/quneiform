@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static char				 s_szVersion[] = "Version OCR Puma "__DATE__".";
 static uint16_t            gwHeightRC = 0;
 static uint32_t            gwRC = 0;
-static HANDLE            ghStorage = NULL;
+static Handle            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 static char				 szPath[_MAX_PATH] = ".";
 static char				 szTempPath[_MAX_PATH] = ".";
@@ -122,7 +122,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-PUMA_FUNC(Bool32) PUMA_Init(uint16_t wHeightCode,HANDLE hStorage)
+PUMA_FUNC(Bool32) PUMA_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 

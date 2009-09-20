@@ -104,8 +104,8 @@ Bool   GetLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, int ColorIndex, Bool32 ForAllLines = FALSE); //
 //void DrawSeparationPoints(CLine* pCLine, Handle HndMyWindow);
 Bool   CorrectLineFragments(CLINE_handle line, DLine* pCLine); //
-HANDLE GetTransposedRaster(DLine* pCLine, char* Buffer, char** pRaster); //
-void   FreeTransposedBuffer(HANDLE hbuf, char* pRaster); //
+Handle GetTransposedRaster(DLine* pCLine, char* Buffer, char** pRaster); //
+void   FreeTransposedBuffer(Handle hbuf, char* pRaster); //
 void   DrowVerticalLineCutPoints(CLINE_handle line, Handle HndMyWindowVert); //
 void   Drow2Rects(Rect32*  rect, Rect32*  rect1); //
 void   DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine);

@@ -11,6 +11,7 @@
 #include "ctcglobalfile.h"
 #include "ctccontrol.h"
 #include "compat_defs.h"
+#include "cfcompat.hpp"
 #include "cfio.h"
 
 namespace CIF {
@@ -22,14 +23,13 @@ static char ShExtension[CFIO_MAX_PATH];
 static char ShBuffer[CFIO_MAX_PATH + 4];
 
 StorageHeader::StorageHeader() :
-	GlobalHeader() {
+	GlobalHeader(), contents_counter_(0) {
 	pStorageFile = NULL;
-	wContensCounter = 0;
 }
 
-StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
+StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint wNewFlag,
 		const std::string& NewStorageFolder) :
-	GlobalHeader(pNewStorage, NULL, 0, wNewFlag) {
+	GlobalHeader(pNewStorage, NULL, 0, wNewFlag), contents_counter_(0) {
 	extern CTCControl * Control_ctc;
 
 	SetHandle(AcceptFile(pNewStorage));
@@ -42,8 +42,7 @@ StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
 		// берем временную директорию
 		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
 		// отписываем туда
-		CFIO_MAKEPATH(ShBuffer, ShFolder, ShFile, ShExtension);
-		folder_ = ShBuffer;
+		folder_ = CIF::MakePath(ShFolder, ShFile, ShExtension);
 	} else {
 		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
 		CFIO_MAKEFOLDER(ShFolder);
@@ -52,8 +51,7 @@ StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
 			unlink(ShFile);
 			CFIO_STRCPY(ShBuffer, ShFile);
 			CFIO_GETFOLDERSITEMS(ShBuffer, ShFolder, ShFile, ShExtension);
-			CFIO_MAKEPATH(ShBuffer, ShFolder, ShFile, NULL);
-			folder_ = ShBuffer;
+			folder_ = CIF::MakePath(ShFolder, ShFile, ShExtension);
 		} else {
 #ifdef _DEBUG
 			uint32_t Err = GetLastError();
@@ -82,7 +80,6 @@ StorageHeader::~StorageHeader() {
 	if (GetStorage()) {
 		delete GetStorage();
 	}
-
 }
 
 Handle StorageHeader::AcceptFile(GlobalFile * File) {

@@ -57,9 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "g2bw.h"
 
-HANDLE ToMono(HANDLE hDIB)
+Handle ToMono(Handle hDIB)
 {
-	HANDLE rc = NULL;
+	Handle rc = NULL;
 #if defined(__TIGER__)
 	rc = GreyToMono(VIA_KRONROD,1,hDIB);
 #endif

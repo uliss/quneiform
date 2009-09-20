@@ -1119,10 +1119,10 @@ Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle 
 #ifdef _DEBUG
  if(dphNotTestAlik)
  {
- _ASSERT(data_line->Line.Beg_Y>=0&&data_line->Line.End_Y>=0);
- _ASSERT(data_line->Line.Beg_X>=0&&data_line->Line.End_X>=0);
- _ASSERT(data_line->Line.Beg_Y<num_str&&data_line->Line.End_Y<num_str);
- _ASSERT(data_line->Line.Beg_X<=endw&&data_line->Line.End_X<=endw);
+ assert(data_line->Line.Beg_Y>=0&&data_line->Line.End_Y>=0);
+ assert(data_line->Line.Beg_X>=0&&data_line->Line.End_X>=0);
+ assert(data_line->Line.Beg_Y<num_str&&data_line->Line.End_Y<num_str);
+ assert(data_line->Line.Beg_X<=endw&&data_line->Line.End_X<=endw);
  }
 #endif
 
@@ -1179,7 +1179,7 @@ Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle 
 			 pDown-=bytewide;
 
 #ifdef _DEBUG
-		 _ASSERT(pUp>=pmasp&&pDown<pmaspend);
+		 assert(pUp>=pmasp&&pDown<pmaspend);
 #endif
 /*
 		 switch(End&7)
@@ -1292,19 +1292,19 @@ Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle 
 		 pDown=p+bytewide;
 // Beg Almi 12-08-2003
 //#ifdef _DEBUG
-//		 _ASSERT(pUp>=pmasp&&pDown<pmaspend);
+//		 assert(pUp>=pmasp&&pDown<pmaspend);
 //#endif
 	if (pUp<pmasp)
 	{
 #ifdef _DEBUG
-		 _ASSERT(pUp>=pmasp);
+		 assert(pUp>=pmasp);
 #endif
 		return FALSE;
 	}
 	else
 	{
 #ifdef _DEBUG
-		 _ASSERT(pDown<pmaspend);
+		 assert(pDown<pmaspend);
 #endif
 		pDown-=bytewide;
 		if ((pDown<=pUp)||(pDown>=pmaspend))
@@ -1409,7 +1409,7 @@ Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle 
 
 		p0=pmasp+(End*bytewide+(Level>>3));
 		p=p0+(Beg-End)*bytewide;
-		_ASSERT(p0>=pmasp&&p<pmaspend);
+		assert(p0>=pmasp&&p<pmaspend);
 
 		if(!Level)
 		{
@@ -1514,7 +1514,7 @@ Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle 
 
 		 p0=pmasp+(End*bytewide+(Level>>3));
 		 p=p0+(Beg-End)*bytewide;
-		 _ASSERT(p0>=pmasp&&p<pmaspend);
+		 assert(p0>=pmasp&&p<pmaspend);
 
 		 switch(Level&7)
 		 {

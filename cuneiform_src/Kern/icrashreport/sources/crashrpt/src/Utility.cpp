@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 FILETIME CUtility::getLastWriteFileTime(CString sFile)
 {
    FILETIME          ftLocal = {0};
-   HANDLE            hFind;
+   Handle            hFind;
    WIN32_FIND_DATA   ff32;
    hFind = FindFirstFile(sFile, &ff32);
    if (INVALID_HANDLE_VALUE != hFind)

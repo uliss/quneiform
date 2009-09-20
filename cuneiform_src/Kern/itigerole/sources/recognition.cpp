@@ -629,7 +629,7 @@ STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format
 			*lphMem = (long)GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE,size+1);
 			if(*lphMem)
 			{
-			char * pData = (char *)GlobalLock((HANDLE)*lphMem);
+			char * pData = (char *)GlobalLock((Handle)*lphMem);
 				if(pData &&  fread(pData,1,size,f)==size)
 				{
 					pData[size] = '\0';
@@ -640,7 +640,7 @@ STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format
 					SetError(IDS_ERROR_FILERESULT);
 					*rc = FALSE;
 				}
-			GlobalUnlock((HANDLE)*lphMem);
+			GlobalUnlock((Handle)*lphMem);
 			}
 			else
 			{
@@ -676,14 +676,14 @@ STDMETHODIMP CRecognition::RecogClipboard(Bool *rc)
 
 	OpenClipboard(GetActiveWindow());
 
-	HANDLE hDIB = GetClipboardData(CF_DIB);
+	Handle hDIB = GetClipboardData(CF_DIB);
 	if(hDIB)
 	{
 		RecogDIBtoMemory((long)hDIB, (long *)&hMem, 2, 2,rc);
 		if(*rc)
 		{
 			EmptyClipboard();
-			*rc = SetClipboardData(CF_TEXT,(HANDLE)hMem) == (HANDLE)hMem;
+			*rc = SetClipboardData(CF_TEXT,(Handle)hMem) == (Handle)hMem;
 		}
 	}
 	else
@@ -707,7 +707,7 @@ char * _GetTempPath( void )
 	return g_strTempPath;
 }
 
-static HANDLE s_hDIB = NULL;
+static Handle s_hDIB = NULL;
 
 STDMETHODIMP CRecognition::XOpen(long hDIB, BSTR FileName, Bool *hRc)
 {
@@ -718,7 +718,7 @@ STDMETHODIMP CRecognition::XOpen(long hDIB, BSTR FileName, Bool *hRc)
 
 	EnterCriticalSection(&Critical);
 	__try{
-		s_hDIB = (HANDLE)hDIB;
+		s_hDIB = (Handle)hDIB;
 		char * pDIB = (char *)GlobalLock(s_hDIB);
 
 		LDPUMA_CreateWindow(NULL,pDIB);
@@ -763,7 +763,7 @@ STDMETHODIMP CRecognition::XClose( Bool *rc)
 
 void __cdecl RecognitionThread( void * p)
 {
-    //_ASSERT(SetThreadPriority(*rc,THREAD_PRIORITY_HIGHEST));
+    //assert(SetThreadPriority(*rc,THREAD_PRIORITY_HIGHEST));
 	EnterCriticalSection(&Critical);
 		CRecognition * pThis = (CRecognition *)p;
 		ResumeThread(pThis->hThread);

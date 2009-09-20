@@ -104,7 +104,7 @@ char * PASC malloc_m(unsigned long size)
 #ifdef WIN_MOD
 	#ifndef WIN32
 
-		HANDLE h;
+		Handle h;
 		#ifdef DEBUG_MEM
 			char *p,*err="malloc_m";
 			if (!(h=GlobalAlloc(GMEM_MOVEABLE, (long)size)))
@@ -160,7 +160,7 @@ char * PASC  halloc_m(long n, uint size)
 
   #ifdef WIN_MOD
     #ifndef WIN32
-      HANDLE h;
+      Handle h;
       if (!(h=GlobalAlloc(GHND, n * size))) return NULL;
       return GlobalLock(h);
     #else
@@ -188,13 +188,13 @@ void PASC free_m(void *ptr)
   if(ptr)
   {
     #ifndef WIN32
-      HANDLE h,h1;
+      Handle h,h1;
       #ifdef DEBUG_MEM
        while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
       #else
        GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
       #endif
-      if( h1 = (HANDLE) GlobalFree(h) )
+      if( h1 = (Handle) GlobalFree(h) )
 				ERR(1,"free_m");
     #else
       #ifdef DEBUG_MEM
@@ -227,13 +227,13 @@ void   PASC hfree_m(void *ptr)
   #ifdef WIN_MOD
     #ifndef WIN32
       if(ptr)
-      { HANDLE h,h1;
+      { Handle h,h1;
         #ifdef DEBUG_MEM
          while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
         #else
          GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
         #endif
-        if (h1 = (HANDLE) GlobalFree(h))
+        if (h1 = (Handle) GlobalFree(h))
 					ERR(1,"hfree_m");
       }
     #else
@@ -260,13 +260,13 @@ void free_c(void *ptr)
   if(ptr)
   #ifdef WIN_MOD
     #ifndef WIN32
-      { HANDLE h,h1;
+      { Handle h,h1;
         #ifdef DEBUG_MEM
          while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
         #else
          GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
         #endif
-        if( h1 = (HANDLE) GlobalFree(h) )
+        if( h1 = (Handle) GlobalFree(h) )
 					ERR(1,"free_c");
       }
     #else

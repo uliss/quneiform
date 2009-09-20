@@ -134,10 +134,10 @@ extern "C"
 //////////////////////////////////////////////////////////////////////////////
 //  Load and reset TIGER.DLL and TGCALL.DLL                                 //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_Load            (HANDLE hApplicationInstance,
+TIGERLOC(BOOL16)          Tiger_Load            (Handle hApplicationInstance,
 												 char* lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          BCR_Load              (HANDLE hApplicationInstance,
+TIGERLOC(BOOL16)          BCR_Load              (Handle hApplicationInstance,
 												 char* lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_Unload          (void);

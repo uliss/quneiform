@@ -153,9 +153,9 @@ RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32
 		  return FALSE;
 	}
   EnableDebug();
-  _ASSERT(lpNominator);
-  _ASSERT(lpDenominator);
-  _ASSERT(hCCOM);
+  assert(lpNominator);
+  assert(lpDenominator);
+  assert(hCCOM);
   CalculatePageIncline(hCCOM, lpNominator,lpDenominator);
   Close_Res_Log();
 

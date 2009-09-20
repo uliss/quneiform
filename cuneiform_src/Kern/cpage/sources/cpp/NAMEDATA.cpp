@@ -84,8 +84,8 @@ NAMEDATA::~NAMEDATA()
 
 Bool32 NAMEDATA::operator ==(NAMEDATA &nd)
 {
-	_ASSERT(nd.Name[0]);
-	_ASSERT(Name[0]);
+	assert(nd.Name[0]);
+	assert(Name[0]);
 return strcmp(nd.Name,Name)==0;
 }
 

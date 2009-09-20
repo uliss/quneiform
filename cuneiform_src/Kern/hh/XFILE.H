@@ -118,7 +118,7 @@ public:
    ~XFile(void) { Close(); };
 
 #if _MSC_VER
-   int32_t  Commit(void) { return (hnd != -1) ? FlushFileBuffers((HANDLE) _get_osfhandle(hnd)) : -1; };
+   int32_t  Commit(void) { return (hnd != -1) ? FlushFileBuffers((Handle) _get_osfhandle(hnd)) : -1; };
 #else
    int32_t  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
 #endif

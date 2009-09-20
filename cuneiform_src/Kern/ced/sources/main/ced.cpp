@@ -149,7 +149,7 @@ void CED_SetRawDataProc(FNRDProc proc) {
 /*CED_FUNC(*/uint32_t/*)*/CED_ReadED(char * file, Bool32 readFromFile,
 		uint32_t bufLen) {
 	uchar code;
-	HANDLE PedHandle;
+	Handle PedHandle;
 	uint32_t lth, ret;
 	puchar start, edscan_stop;
 

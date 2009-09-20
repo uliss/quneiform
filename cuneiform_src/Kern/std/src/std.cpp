@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "_prt.h"
 #include "xpath.h"
 #include "internal.h"
-#pragma hdrstop
 
 #include "win_mini.h"
 #include "cttypes.h"

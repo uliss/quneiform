@@ -75,7 +75,7 @@ static HWND hwndSnap = NULL;
 static char szGluName[32] = "FonGlueSnap";
 static HINSTANCE hGluInstance = NULL;
 static char recogResult[256];
-static Bool RegisterGlu(HANDLE hInstance, char* szAppName);
+static Bool RegisterGlu(Handle hInstance, char* szAppName);
 static char nameSnap[NUM_IN_SNAP + 1];
 static int probSnap[NUM_IN_SNAP + 1];
 ////////////
@@ -313,7 +313,7 @@ int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam, LPARAM lparam
 	return DefWindowProc(win, msg, wparam, lparam);
 }
 ////////////////////////
-static Bool RegisterGlu(HANDLE hInstance, char* szAppName) {
+static Bool RegisterGlu(Handle hInstance, char* szAppName) {
 	WNDCLASS WndClass;
 	Bool bSuccess;
 

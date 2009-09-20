@@ -104,8 +104,8 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetPlace(Handle hPage,Handle hPicture,int32_t S
 	Point32 lt = {0};
 	Point32 rb = {0};
 
-	_ASSERT(lpLr);
-	_ASSERT(lpWh);
+	assert(lpLr);
+	assert(lpWh);
 	if(CPAGE_GetBlockData(hPage,hPicture,TYPE_CPAGE_PICTURE,&pict,sizeof(pict))==sizeof(pict))
 	{
 		lt = pict.Corner[0];
@@ -155,7 +155,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t 
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
-	_ASSERT(lpSize);
+	assert(lpSize);
 /*
 	if(CPAGE_PictureGetPlace(hPage,hPicture,Skew2048, &lt, &wh))
 	{
@@ -188,8 +188,8 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t 
 				nMaxHor++;
 		}
 		// создадим массивы линий
-		_ASSERT(nMaxVer>1);
-		_ASSERT(nMaxHor>1);
+		assert(nMaxVer>1);
+		assert(nMaxHor>1);
 		if(nMaxVer<2 || nMaxHor<2 )
 			return FALSE;
 		lpVer = (long*)malloc(sizeof(long)*nMaxVer);
@@ -257,7 +257,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t 
 		sz_x = (lpVer[nMaxVer-1] - lpVer[0] +7)/8;
 		sz_y = lpHor[nMaxHor-1] - lpHor[0];
 
-		_ASSERT(sz_x>0 && sz_y>0);
+		assert(sz_x>0 && sz_y>0);
 		*lpSize = sz_x*sz_y;
 		rc = TRUE;
 

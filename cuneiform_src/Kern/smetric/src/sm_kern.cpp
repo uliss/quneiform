@@ -75,8 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*------------own objects----------------------------------------------------*/
 static uint16_t      gwHeightRC = 0;      // Уникальный номер библиотеки в одном сеансе
 static uint16_t      gwLowRC    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
-static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
-static HANDLE      ghInst     = NULL;   // Указатель на свое окно
+static Handle      ghStorage  = NULL;   // Указатель на хранилище
+static Handle      ghInst     = NULL;   // Указатель на свое окно
 static char szBuffer[512];               // Для докладов наверх
 /*------------own functions--------------------------------------------------*/
 void   SetReturnCode_smetric (uint16_t rc);
@@ -86,7 +86,7 @@ Bool WasInitSMetric ();
 Bool AM_InitComm (uint16_t wRltOwnCode);
 void AM_DoneComm ();
 /*---------------------------------------------------------------------------*/
-Bool APIENTRY DllMain( HANDLE hModule,
+Bool APIENTRY DllMain( Handle hModule,
 uint32_t ul_reason_for_call,
                         pvoid lpReserved )
 {
@@ -105,7 +105,7 @@ uint32_t ul_reason_for_call,
     return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Bool32) SMetric_Init (uint16_t wHeightCode, HANDLE hStorage)
+SMetric_FUNC(Bool32) SMetric_Init (uint16_t wHeightCode, Handle hStorage)
 {
 	uchar err8;
 	Bool ret;

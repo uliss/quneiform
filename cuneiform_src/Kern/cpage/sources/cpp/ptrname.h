@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "cpage.h"
 
-#ifndef _ASSERT
-#    define _ASSERT assert
-#endif // _ASSERT
+#ifndef assert
+#    define assert assert
+#endif // assert
 
 template<class TYPE> class PtrName
 {
@@ -134,7 +134,7 @@ template<class TYPE> TYPE & PtrName<TYPE>::operator[](uint32_t n)
 ///////////////////////////////////////////////////////////
 template<class TYPE> Bool32 PtrName<TYPE>::Create(size_t nItem)
 {
-	_ASSERT(nItem);
+	assert(nItem);
 	if(m_bAttach == FALSE)
 		Delete();
 
@@ -158,7 +158,7 @@ template<class TYPE> void PtrName<TYPE>::Delete()
 ///////////////////////////////////////////////////////////
 template<class TYPE> Bool32		PtrName<TYPE>::Attach(Handle hPage)
 {
-	_ASSERT(m_Ptr);
+	assert(m_Ptr);
 	Handle hBlock = CPAGE_GetBlockFirst(hPage,m_Type);
 	if(!hBlock)
 		return FALSE;

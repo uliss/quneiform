@@ -88,7 +88,7 @@ Bool32 RLINE_SubInit( void );
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
 static uint16_t            gwHeightRC = 0;
 static uint16_t            gwLowRC = 0;
-static HANDLE            ghStorage = NULL;
+static Handle            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -113,7 +113,7 @@ uint32_t ul_reason_for_call,
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,HANDLE hStorage)
+RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	Bool32 b;
 	gwHeightRC = wHeightCode;

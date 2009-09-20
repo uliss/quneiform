@@ -88,7 +88,7 @@ uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,uint32_t SizeIn,CPAGE_TA
 		for(int c_row = 0; c_row < lpDataIn->nHorLines - 1; c_row++)
 			for( int c_col = 0;c_col < lpDataIn->nVerLines - 1; c_col++)
 			{
-                _ASSERT((c_row*(lpDataIn->nVerLines - 1)+c_col)<MaxCells);
+                assert((c_row*(lpDataIn->nVerLines - 1)+c_col)<MaxCells);
 				if(c_row && lpDataIn->Cell[c_row*(lpDataIn->nVerLines - 1)+c_col].TypeBound[TABLE_CELL_TOP] & CELL_BOUND_PSEVDO)
 				{// нет горизонтального разделителя сверху
 					p = lpDataOut->cell[c_row - 1][c_col].PhCoord;
@@ -114,7 +114,7 @@ uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,uint32_t SizeIn,CPAGE_TA
 			rc = sizeof(*lpDataOut);
 	}
 	else
-		_ASSERT(FALSE);
+		assert(FALSE);
 
 	return rc;
 }

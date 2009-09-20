@@ -151,8 +151,8 @@ EXTERN long gROUT_Option1	VAL(0);
 // Параметры инициализации и мой код ошибки
 EXTERN uint16_t	gwHighRC_rout	VAL(0);
 EXTERN uint16_t   gwLowRC_rout    VAL(0);
-EXTERN HANDLE   ghStorage_rout	VAL(NULL);
-EXTERN HANDLE   ghInst_rout	VAL(NULL);
+EXTERN Handle   ghStorage_rout	VAL(NULL);
+EXTERN Handle   ghInst_rout	VAL(NULL);
 
 // Язык распознавания, см. lang_def.h
 EXTERN long gLanguage		VAL(-1);

@@ -79,7 +79,7 @@ public:
 	~CRecognition();
 // Attributes
 public:
-	HANDLE	hThread;
+	Handle	hThread;
 	DWORD	dwReturnCode;
 	Bool	bIsLoad; // Загружена ли библиотека
 	Bool	bIsOpen; // Открыто ли изображение

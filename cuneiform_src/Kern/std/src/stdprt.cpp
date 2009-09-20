@@ -269,7 +269,7 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
       return 0;
    if(!uiMesasageHandle)
       RET_FALSE;
-   HANDLE hMessageText = 0;
+   Handle hMessageText = 0;
    hMessageText = ::GlobalAlloc(GPTR,(len+1)*sizeof(char));
    pvoid lpText = ::GlobalLock(hMessageText);
    memset(lpText,0,sizeof(char)*(len+1));
@@ -888,7 +888,7 @@ static StdPrtEvent spe2= { "Файл %s распознан по форме %s", 
 /*
 Bool32 SendEvnToConsole(StdPrtEvent* pspe,va_list& List)
 {
-   if((HANDLE)(stdPrtConsole) == NULL)
+   if((Handle)(stdPrtConsole) == NULL)
       return FALSE;
 
    char buf[4097*2] = {0};
@@ -899,13 +899,13 @@ Bool32 SendEvnToConsole(StdPrtEvent* pspe,va_list& List)
    nBytesWritten=sprintf(buf,"%s\t%s",buff1,buff2);
    unsigned long nRBytesWritten = 0;
    stdPrtConsole.SendTextToConsole(buf, strlen(buf));
-   //WriteConsole((HANDLE)stdPrtConsole,buf,nBytesWritten,&nRBytesWritten,NULL);
+   //WriteConsole((Handle)stdPrtConsole,buf,nBytesWritten,&nRBytesWritten,NULL);
    return TRUE;
 };
 
 Bool32 SendEvnToConsole(char *evn_str)
 {
-   if((HANDLE)(stdPrtConsole) == NULL)
+   if((Handle)(stdPrtConsole) == NULL)
       return FALSE;
    stdPrtConsole.SendTextToConsole(evn_str, strlen(evn_str));
    //unsigned long nBytesWritten = 0;

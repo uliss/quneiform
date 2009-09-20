@@ -206,7 +206,7 @@ typedef int32_t LPARAM;
 typedef int32_t LRESULT;
 
 #endif // !_LRESULT_DEFINED
-typedef void __RPC_FAR *HANDLE;
+typedef void __RPC_FAR *Handle;
 
 typedef void __RPC_FAR *HMODULE;
 
@@ -236,7 +236,7 @@ typedef void __RPC_FAR *HKL;
 
 typedef void __RPC_FAR *HGDIOBJ;
 
-typedef HANDLE HDWP;
+typedef Handle HDWP;
 
 #ifndef _HFILE_DEFINED
 #define _HFILE_DEFINED
@@ -315,7 +315,7 @@ typedef uint32_t COLORREF;
 typedef uint32_t __RPC_FAR *LPCOLORREF;
 
 #endif // !_LPCOLORREF_DEFINED
-typedef HANDLE __RPC_FAR *LPHANDLE;
+typedef Handle __RPC_FAR *LPHANDLE;
 
 typedef struct  _RECTL
     {

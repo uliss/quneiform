@@ -271,7 +271,7 @@ uint32_t wdCookie;
     }
 
 	///преобразование в UNICODE
-	HANDLE hd_buf = GlobalAlloc(GMEM_FIXED, 128);
+	Handle hd_buf = GlobalAlloc(GMEM_FIXED, 128);
 	if ( !OpenClipboard() )
 	{
 		AfxMessageBox( "Cannot open the Clipboard" );

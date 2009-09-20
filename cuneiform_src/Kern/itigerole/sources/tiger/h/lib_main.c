@@ -137,14 +137,14 @@ fp__BCR_Load proc;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 FNBOOL16 Cards_Init
 (
-    HANDLE    wTGCALL_DLL,      // Instance of TGCALL for callback
+    Handle    wTGCALL_DLL,      // Instance of TGCALL for callback
     char*   lpPath,           // Path name
     LPDWORD lpParams,         // Parameters pass buffer
     char*   lpBuffer          // Image pass buffer
 )
 {
 typedef BOOL16  (TIGERFUN(*)lpCards_Init)
- (    HANDLE  , char*  ,    LPDWORD ,    char*   );
+ (    Handle  , char*  ,    LPDWORD ,    char*   );
 lpCards_Init proc;
 
  Init = FALSE;
@@ -851,7 +851,7 @@ return (*proc)(FuncNumber,lpData);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 Tiger_Load (HANDLE hApplicationInstance, char* lpTigerPathName)
+FNBOOL16 Tiger_Load (Handle hApplicationInstance, char* lpTigerPathName)
 {
 char TigerFileName[256];
 
@@ -884,7 +884,7 @@ char TigerFileName[256];
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 BCR_Load (HANDLE hApplicationInstance, char* lpTigerPathName)
+FNBOOL16 BCR_Load (Handle hApplicationInstance, char* lpTigerPathName)
 {
 char TigerFileName[256];
 
