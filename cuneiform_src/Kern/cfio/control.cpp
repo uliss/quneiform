@@ -351,12 +351,12 @@ bool Control::CloseFile(Handle hFile, uint Flag, Handle hStorage) {
 	return false;
 }
 
-uint32_t Control::WriteFile(Handle hFile, pchar lpData, uint32_t wSize) {
-	return WriteDataToFile(hFile, (void *) lpData, wSize);
+uint32_t Control::WriteFile(Handle hFile, char * lpData, uint32_t Size) {
+	return WriteDataToFile(hFile, lpData, Size);
 }
 
-uint32_t Control::ReadFromFile(Handle hFile, pchar lpData, uint32_t wSize) {
-	return ReadDataFromFile(hFile, (void *) lpData, wSize);
+uint32_t Control::ReadFromFile(Handle hFile, char * lpData, uint32_t Size) {
+	return ReadDataFromFile(hFile, lpData, Size);
 }
 
 uint32_t Control::Seek(Handle hFile, uint32_t wBytes, uint32_t wFrom) {

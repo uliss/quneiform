@@ -98,8 +98,8 @@ public:
 	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
 	Handle OpenFile(Handle hFile, const std::string& Name, uint Flag);
 	bool CloseFile(Handle hFile, uint Flag, Handle hStorage = NULL);
-	uint32_t WriteFile(Handle hFile, pchar lpData, uint32_t Size);
-	uint32_t ReadFromFile(Handle hFile, pchar lpData, uint32_t Size);
+	uint32_t WriteFile(Handle hFile, char * lpData, uint32_t Size);
+	uint32_t ReadFromFile(Handle hFile, char * lpData, uint32_t Size);
 	uint32_t Seek(Handle hFile, uint32_t Bytes, uint32_t From);
 	uint32_t Tell(Handle hFile) const;
 	bool Flush(Handle hFile);
