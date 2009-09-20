@@ -73,6 +73,7 @@
 #include "ctccontrol.h"
 #include "compat_defs.h"
 #include <cstring>
+#include "resource.h"
 
 using namespace CIF::CTC;
 
@@ -276,7 +277,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 		char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет
-	StorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
+	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
 	// берем хидер файла ........ или не берем, ежели нема
 	FileHeader * pFileHeader = file_list_.GetItemHeader(hFile);
 	GlobalFile * pFile;
@@ -300,7 +301,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 Handle CTCControl::ReadFileFromStorage(Handle hStorage, char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет
-	StorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
+	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
 
 	if (pStorageHeader) {
 		if (FileNameToFolder(FileName, pStorageHeader->GetStorageFolder().c_str(),
@@ -608,7 +609,7 @@ uint32_t CTCControl::ReadMemFromStorage(Handle hStorage, char* lpName,
 	uint32_t Readed = 0;
 
 	*phMem = NULL;
-	StorageHeader * hStorageHead = StorageList.GetItemHeader(hStorage);
+	StorageHeader * hStorageHead = storage_list_.GetItemHeader(hStorage);
 
 	if (hStorageHead) {
 		FileNameToFolder(NameForStorage, hStorageHead->GetStorageFolder().c_str(),
@@ -785,13 +786,13 @@ Handle CTCControl::AddFileInList(GlobalFile * File, uint32_t Flag,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::DeleteFileFromList(Handle File, uint32_t Flag, Handle /*Storage*/) {
-	return file_list_.DeleteItem(File, Flag);
+	return file_list_.DeleteItem(File);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Handle CTCControl::AddStorageInList(GlobalFile * lpNewStorageName,
 		uint32_t wNewFlag) {
-	return StorageList.AddItem(lpNewStorageName, wNewFlag);
+	return storage_list_.AddItem(lpNewStorageName, wNewFlag);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -828,7 +829,7 @@ Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 //
 Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*Flag*/) {
 	FileHeader * AttachedFile = file_list_.GetItemHeader(File);
-	StorageHeader * AttacherStorage = StorageList.GetItemHeader(Storage);
+	StorageHeader * AttacherStorage = storage_list_.GetItemHeader(Storage);
 
 	if (AttacherStorage && AttachedFile) {
 		return AttachedFile->AttachToStorage(Storage);
@@ -1041,7 +1042,7 @@ uint32_t StorageFlag;
 //
 Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 	FileHeader * pItemHeader = NULL;
-	StorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	uint32_t ComplitedItems = 0;
 	uint32_t ComplitedSpace = 0;
@@ -1062,15 +1063,15 @@ Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 
 		// удаляем
 		pStorage->SetDelete();
-		StorageList.DeleteItem(Storage);
+		storage_list_.DeleteItem(Storage);
 		//delete pStorage; // deleted at header destructor
 		// создаем новое с тем же именем
 		// GlobalFile
 		pStorage = new GlobalFile(&StorageName[0], CFIO_GF_CREATE);
 		// Handle
-		ReStorage = StorageList.AddItem(pStorage, StorageFlag);
+		ReStorage = storage_list_.AddItem(pStorage, StorageFlag);
 		// Header
-		pStorageHeader = StorageList.GetItemHeader(ReStorage);
+		pStorageHeader = storage_list_.GetItemHeader(ReStorage);
 	} else {
 		return 0;
 	}
@@ -1102,7 +1103,7 @@ Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
 //
 uint32_t CTCControl::DecompileStorage(Handle Storage) {
 	GlobalFile * pExtractFile;
-	StorageHeader * StorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * StorageHeader = storage_list_.GetItemHeader(Storage);
 	GlobalFile * pStorage = StorageHeader->GetStorage();
 	STORAGEITEM ExtractInfo;
 	uint32_t StorageSize = 0;
@@ -1163,7 +1164,7 @@ Handle CTCControl::OpenCompliteStorage(char* lpName, uint32_t Flag) {
 	hNewStorage = AddStorageInList(pNewStorage, Flag);
 
 	if (hNewStorage) {
-		hStorageHeader = StorageList.GetItemHeader(hNewStorage);
+		hStorageHeader = storage_list_.GetItemHeader(hNewStorage);
 		DecompileStorage(hNewStorage);
 		return hNewStorage;
 	} else {
@@ -1198,7 +1199,7 @@ Handle CTCControl::OpenNewStorage(char*, uint32_t) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Закрываем хранилище (если сборка не проводилась), иначе только файлы
 Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
-	StorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
+	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	GlobalFile * pFile;
 	FileHeader * pFileHeader = NULL;
@@ -1220,7 +1221,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 		if (Flag & CS_DELETE)
 			pStorage->SetDelete();
 
-		StorageList.DeleteItem(Storage);
+		storage_list_.DeleteItem(Storage);
 		//delete pStorage; deleted at destructor
 	}
 	// закрываем файлы прикрепленные к хранилищу
@@ -1247,11 +1248,11 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 uint32_t CTCControl::CompliteAllStorage(Handle Storage, uint32_t Flag) {
 	// если не указано хранилище - собираем все
 	if (Storage == NULL) {
-		while (!StorageList.IsEmpty()) {
-			CompliteStorage(StorageList.GetFirstItemHeader()->GetHandle(), Flag);
+		while (!storage_list_.IsEmpty()) {
+			CompliteStorage(storage_list_.GetFirstItemHeader()->GetHandle(), Flag);
 		}
 
-		return StorageList.IsEmpty();
+		return storage_list_.IsEmpty();
 	}
 	// если явно указано хранилище - собираем только его
 	else {
@@ -1264,12 +1265,12 @@ uint32_t CTCControl::CompliteAllStorage(Handle Storage, uint32_t Flag) {
 Bool32 CTCControl::CloseAllStorageFile(Handle Storage, uint32_t Flag) {
 	// если не указано хранилище - закрываем все
 	if (Storage == NULL) {
-		while (!StorageList.IsEmpty()) {
-			CloseStorageFile(StorageList.GetFirstItemHeader()->GetHandle(),
+		while (!storage_list_.IsEmpty()) {
+			CloseStorageFile(storage_list_.GetFirstItemHeader()->GetHandle(),
 					Flag);
 		}
 
-		return StorageList.IsEmpty();
+		return storage_list_.IsEmpty();
 	}
 	// если явно указано хранилище - закрываем только его
 	else {

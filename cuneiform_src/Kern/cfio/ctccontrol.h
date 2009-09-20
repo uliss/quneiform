@@ -70,42 +70,25 @@
 # ifndef _CTC_CONTROL_HEADER_
 # define _CTC_CONTROL_HEADER_
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 #include <string>
-#include <cstdlib>
 
-#include "cfio.h"
-#include "resource.h"
-#include "ctcclasses.h"
-#include "memorylist.h"
 #include "filelist.h"
+#include "memorylist.h"
+#include "storagelist.h"
 
 namespace CIF {
 namespace CTC {
 
 class CTCControl {
-	// data members
-private:
-	MemoryList memory_list_;
-	FileList file_list_;
-	CTCStorageList StorageList;
-	char szTempFolder[CFIO_MAX_PATH];
-	char szFileFolder[CFIO_MAX_PATH];
-	char szStorageFolder[CFIO_MAX_PATH];
-	char szBuffer[CFIO_MAX_PATH];
-
 public:
 	CTCControl();
 	~CTCControl();
 
 	// import functions
-public:
 	Bool32 SetFolder(uint32_t wFolder, char* pcBuff);
 	Bool32 GetFolder(uint32_t wFolder, char* pcBuff);
 
 	// import functions
-public:
 	Handle OpenStorage(char* lpName, uint32_t wTypes);
 	Bool32 CloseStorage(Handle hStorage, uint32_t dwFlag);
 	Bool32 DeleteStorage(char* lpName);
@@ -177,6 +160,15 @@ private:
 			StorageHeader * phStorage = NULL);
 	char* FileNameToFolder(char* Buffer, const char* FolderName,
 			const char* FileName, uint32_t Size);
+
+private:
+	MemoryList memory_list_;
+	FileList file_list_;
+	StorageList storage_list_;
+	char szTempFolder[CFIO_MAX_PATH];
+	char szFileFolder[CFIO_MAX_PATH];
+	char szStorageFolder[CFIO_MAX_PATH];
+	char szBuffer[CFIO_MAX_PATH];
 };
 }
 }

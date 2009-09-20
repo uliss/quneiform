@@ -70,6 +70,7 @@
 #define __CFIO__
 #include "ctccontrol.h"
 #include "compat_defs.h"
+#include "resource.h"
 
 using namespace CIF::CTC;
 

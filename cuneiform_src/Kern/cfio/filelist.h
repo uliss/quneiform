@@ -24,7 +24,7 @@ public:
 	~FileList();
 
 	Handle AddItem(GlobalFile * NewFile, uint NewFlag, Handle Storage);
-	Bool32 DeleteItem(Handle File, uint Flag = 0);
+	bool DeleteItem(Handle File);
 	Handle GetAttachedFileHeader(Handle Storage, FileHeader * File = NULL);
 	FileHeader * GetItemHeader(Handle File);
 	GlobalFile * GetItem(Handle File);

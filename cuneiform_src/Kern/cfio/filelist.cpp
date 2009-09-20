@@ -47,9 +47,9 @@ Handle FileList::AddItem(GlobalFile * NewFile, uint NewFlag, Handle Storage) {
 	return NewHandle;
 }
 
-Bool32 FileList::DeleteItem(Handle File, uint32_t /*Flag*/) {
+bool FileList::DeleteItem(Handle File) {
 	FileHeader * Current, *Last, *EraseBlock;
-	uint32_t IsOK = 0;
+	size_t IsOK = 0;
 
 	for (Last = Current = pFirst(); Current != pLast(); Current
 			= Current->GetNext()) {

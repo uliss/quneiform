@@ -2,16 +2,15 @@ include_directories(BEFORE)
 
 add_library(cfio ${LIBTYPE}
 	ctccontrol.cpp
-	ctcfile.cpp
-	ctcstorage.cpp
-	dll_main.cpp
-	ctcglobalheader.cpp
-	ctcglobalfile.cpp
-	ctcmemoryheader.cpp
-	ctcfileheader.cpp
-	ctcstorageheader.cpp
-	memorylist.cpp
+	dll.cpp
+	globalheader.cpp
+	globalfile.cpp
+	fileheader.cpp
 	filelist.cpp
+	memorylist.cpp
+	memoryheader.cpp
+	storagelist.cpp
+	storageheader.cpp
 )
 
 target_link_libraries(cfio cfcompat)
