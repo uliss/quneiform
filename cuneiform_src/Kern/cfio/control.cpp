@@ -131,8 +131,8 @@ char* Control::FileNameToFolder(char* Buffer, const char * FolderName,
 			}
 			//	FileName = FolderName;
 			//	FolderName = Buffer;
-			for (i = Buffer, j = (char*)FolderName; i < &Buffer[Shift]; *(i + Shift)
-					= *(i), *(i++) = *(j++))
+			for (i = Buffer, j = (char*) FolderName; i < &Buffer[Shift]; *(i
+					+ Shift) = *(i), *(i++) = *(j++))
 				;
 
 			if (*i != '\\' && *(i - 1) != '\\') {
@@ -242,15 +242,14 @@ Bool32 Control::SetFolder(uint32_t wFolder, char* pcBuff) {
 	}
 	return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Handle Control::OpenStorage(char* lpName, uint32_t wFlag) {
+
+Handle Control::OpenStorage(const std::string& Name, uint Flag) {
 	Handle OpenedStorage = NULL;
-	if (wFlag & OS_OPEN) {
-		OpenedStorage = OpenCompliteStorage(lpName, wFlag);
+	if (Flag & OS_OPEN) {
+		OpenedStorage = OpenCompliteStorage(Name, Flag);
 	} else {
-		wFlag |= OS_CREATE;
-		OpenedStorage = OpenNewStorage(lpName, wFlag);
+		Flag |= OS_CREATE;
+		OpenedStorage = OpenNewStorage(Name, Flag);
 	}
 
 	return OpenedStorage;
@@ -279,8 +278,7 @@ Bool32 Control::DeleteStorage(char* lpName) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 Control::WriteFileToStorage(Handle hStorage, Handle hFile,
-		char* lpName) {
+Bool32 Control::WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName) {
 	char FileName[CFIO_MAX_PATH];
 	// берем хидер хрангилища.... или не берем, если нет
 	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
@@ -310,8 +308,9 @@ Handle Control::ReadFileFromStorage(Handle hStorage, char* lpName) {
 	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
 
 	if (pStorageHeader) {
-		if (FileNameToFolder(FileName, pStorageHeader->GetStorageFolder().c_str(),
-				lpName, CFIO_MAX_PATH)) {
+		if (FileNameToFolder(FileName,
+				pStorageHeader->GetStorageFolder().c_str(), lpName,
+				CFIO_MAX_PATH)) {
 			return OpenFile(NULL, FileName, OSF_READ | OSF_WRITE | OSF_BINARY);
 		}
 	}
@@ -560,8 +559,7 @@ uint32_t Control::WriteMemToFile(Handle hMem, char* lpName) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem,
-		uint32_t wFlag) {
+uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem, uint32_t wFlag) {
 	Handle hFile = OpenFile(NULL, lpName, OSF_READ | OSF_BINARY);
 	Handle hMem;
 	pchar pMem;
@@ -589,12 +587,11 @@ uint32_t Control::ReadMemFromFile(char* lpName, Handle * phMem,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage,
-		char* lpName) {
-	uint32_t wData;
+uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, char* lpName) {
 	Handle hFile;
+	uint32_t wData = WriteMemToFile(hMem, lpName);
 
-	if (wData = WriteMemToFile(hMem, lpName)) {
+	if (wData) {
 		hFile = OpenFile(hStorage, lpName, OSF_READ | OSF_BINARY);
 
 		if (hFile) {
@@ -618,8 +615,8 @@ uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 	StorageHeader * hStorageHead = storage_list_.GetItemHeader(hStorage);
 
 	if (hStorageHead) {
-		FileNameToFolder(NameForStorage, hStorageHead->GetStorageFolder().c_str(),
-				lpName, _MAX_PATH);
+		FileNameToFolder(NameForStorage,
+				hStorageHead->GetStorageFolder().c_str(), lpName, _MAX_PATH);
 
 		Readed = ReadMemFromFile(NameForStorage, &hMem);
 
@@ -631,8 +628,8 @@ uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle Control::AllocNewMemory(uint32_t wFlag, uint32_t wSize,
-		Bool32 bGlobal, const char *cOwner, const char *Coment) {
+Handle Control::AllocNewMemory(uint32_t wFlag, uint32_t wSize, Bool32 bGlobal,
+		const char *cOwner, const char *Coment) {
 	Handle hNewMemory = NULL;
 
 	if (bGlobal) {
@@ -751,8 +748,7 @@ Bool32 Control::UnlockMemory(Handle hMemory) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle Control::OpenFileAndAttach(char* lpName, uint32_t Flag,
-		Handle Storage) {
+Handle Control::OpenFileAndAttach(char* lpName, uint32_t Flag, Handle Storage) {
 	GlobalFile * pNewFile = NULL;
 	Handle hOpened;
 
@@ -765,7 +761,8 @@ Handle Control::OpenFileAndAttach(char* lpName, uint32_t Flag,
 	else
 		return NULL;
 
-	if (hOpened = file_list_.FindFile(szBuffer)) {
+	hOpened = file_list_.FindFile(szBuffer);
+	if (hOpened) {
 		szBuffer[0] = 0x0;
 		return hOpened;
 	}
@@ -782,8 +779,7 @@ Handle Control::OpenFileAndAttach(char* lpName, uint32_t Flag,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle Control::AddFileInList(GlobalFile * File, uint32_t Flag,
-		Handle Storage) {
+Handle Control::AddFileInList(GlobalFile * File, uint32_t Flag, Handle Storage) {
 	Handle ret = file_list_.AddItem(File, Flag, Storage);
 	if (!ret)
 		SetReturnCode_cfio(IDS_CFIO_ERR_CANT_OPEN_FILE);
@@ -875,8 +871,7 @@ uint32_t Control::ReadDataFromFile(Handle File, void * lpData, uint32_t Size) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::SeekFilePointer(Handle File, uint32_t Position,
-		uint32_t From) {
+uint32_t Control::SeekFilePointer(Handle File, uint32_t Position, uint32_t From) {
 	GlobalFile * CurrentFile = file_list_.GetItem(File);
 	uint32_t Seeker = 0;
 
@@ -928,8 +923,8 @@ Bool32 Control::DeleteFileFromDisk(Handle File) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::WriteItemToStorage(StorageHeader * Storage,
-		void * pItem, uint32_t wSize) {
+uint32_t Control::WriteItemToStorage(StorageHeader * Storage, void * pItem,
+		uint32_t wSize) {
 	GlobalFile * CurrentStorage = Storage->GetStorage();
 	uint32_t WritedDataCount = 0;
 
@@ -940,8 +935,8 @@ uint32_t Control::WriteItemToStorage(StorageHeader * Storage,
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::ReadItemFromStorage(StorageHeader * Storage,
-		void * lpData, uint32_t wSize) {
+uint32_t Control::ReadItemFromStorage(StorageHeader * Storage, void * lpData,
+		uint32_t wSize) {
 	GlobalFile * CurrentStorage = Storage->GetStorage();
 	uint32_t ReadedDataCount = 0;
 
@@ -956,8 +951,7 @@ uint32_t Control::ReadItemFromStorage(StorageHeader * Storage,
 char CopyBuffer[COPYBUFFER];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t Control::WriteFileToStorage(StorageHeader * Storage,
-		FileHeader * File) {
+uint32_t Control::WriteFileToStorage(StorageHeader * Storage, FileHeader * File) {
 	FileHeader * pItemHeader = File;
 	GlobalFile * pItem;
 	STORAGEITEM ItemInfo;
@@ -1085,8 +1079,9 @@ Handle Control::CompliteStorage(Handle Storage, uint32_t Flag) {
 			(void *) StorageFolder, *FolderSize);
 
 	// собираем хранилище
-	while (pItemHeader = file_list_.GetItemHeader(file_list_.GetAttachedFileHeader(
-			Storage, (pItemHeader == NULL ? NULL : pItemHeader->GetNext())))) {
+	while (NULL != (pItemHeader = file_list_.GetItemHeader(
+			file_list_.GetAttachedFileHeader(Storage,
+					(pItemHeader == NULL ? NULL : pItemHeader->GetNext()))))) {
 		if (pItemHeader->CanWrite() && (Flag | CS_FILE_DELETE || Flag
 				| CS_FILE_SAVE)) {
 			pItemHeader->LockToStorage();
@@ -1098,10 +1093,6 @@ Handle Control::CompliteStorage(Handle Storage, uint32_t Flag) {
 	}
 	// вобщем бесполезная операция
 	pStorageHeader->AddFlag(CFIO_GF_COMPLITE);
-
-	// закрываем вновь созданное хранилище
-	// StorageList.DeleteItem(ReStorage);
-	// delete pStorage; // deleted at header destructor
 
 	return ReStorage;
 }
@@ -1158,14 +1149,13 @@ uint32_t Control::DecompileStorage(Handle Storage) {
 
 	return ReadedFromStorage;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Handle Control::OpenCompliteStorage(char* lpName, uint32_t Flag) {
+
+Handle Control::OpenCompliteStorage(const std::string& Name, uint Flag) {
 	GlobalFile * pNewStorage = NULL;
 	StorageHeader * hStorageHeader;
 	Handle hNewStorage;
 
-	pNewStorage = new GlobalFile(lpName, CFIO_GF_WRITE | CFIO_GF_READ
+	pNewStorage = new GlobalFile(Name, CFIO_GF_WRITE | CFIO_GF_READ
 			| CFIO_GF_BINARY);
 	hNewStorage = AddStorageInList(pNewStorage, Flag);
 
@@ -1179,7 +1169,7 @@ Handle Control::OpenCompliteStorage(char* lpName, uint32_t Flag) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Handle Control::OpenNewStorage(char*, uint32_t) {
+Handle Control::OpenNewStorage(const std::string&, uint) {
 	/* JussiP: This function is never called from within PUMA or TIGER. I disabled it
 	 * because it uses Win32 api.
 
@@ -1231,8 +1221,8 @@ Bool32 Control::CloseStorageFile(Handle Storage, uint32_t Flag) {
 		//delete pStorage; deleted at destructor
 	}
 	// закрываем файлы прикрепленные к хранилищу
-	while (pFileHeader = file_list_.GetItemHeader(file_list_.GetAttachedFileHeader(
-			Storage/*, pFileHeader*/))) {
+	while (NULL != (pFileHeader = file_list_.GetItemHeader(
+			file_list_.GetAttachedFileHeader(Storage/*, pFileHeader*/)))) {
 		pFile = pFileHeader->GetFile();
 
 		if (Flag & CS_FILE_DELETE) {
@@ -1255,7 +1245,8 @@ uint32_t Control::CompliteAllStorage(Handle Storage, uint32_t Flag) {
 	// если не указано хранилище - собираем все
 	if (Storage == NULL) {
 		while (!storage_list_.IsEmpty()) {
-			CompliteStorage(storage_list_.GetFirstItemHeader()->GetHandle(), Flag);
+			CompliteStorage(storage_list_.GetFirstItemHeader()->GetHandle(),
+					Flag);
 		}
 
 		return storage_list_.IsEmpty();

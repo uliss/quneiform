@@ -90,7 +90,7 @@ public:
 	Bool32 GetFolder(uint32_t wFolder, char* pcBuff);
 
 	// import functions
-	Handle OpenStorage(char* lpName, uint32_t wTypes);
+	Handle OpenStorage(const std::string& Name, uint Types);
 	Bool32 CloseStorage(Handle hStorage, uint32_t dwFlag);
 	Bool32 DeleteStorage(char* lpName);
 	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, char* lpName);
@@ -151,8 +151,8 @@ private:
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
 	uint32_t DecompileStorage(Handle Storage);
 	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint32_t wNewFlag);
-	Handle OpenNewStorage(char* lpName, uint32_t wFlag);
-	Handle OpenCompliteStorage(char* lpName, uint32_t wFlag);
+	Handle OpenNewStorage(const std::string& Name, uint Flag);
+	Handle OpenCompliteStorage(const std::string& Name, uint Flag);
 	uint32_t ReadFileFromStorage(StorageHeader * Storage, STORAGEITEM * pInfo,
 			GlobalFile ** pFile);
 	uint32_t ReadItemFromStorage(StorageHeader * Storage, void * lpData,
