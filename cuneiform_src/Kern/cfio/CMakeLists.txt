@@ -1,7 +1,6 @@
 include_directories(BEFORE sources/h sources/cpp)
 
 add_library(cfio ${LIBTYPE}
-sources/cpp/ctcbase.cpp
 sources/cpp/ctccontrol.cpp
 sources/cpp/ctcfile.cpp
 sources/cpp/ctcmemory.cpp
