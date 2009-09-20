@@ -79,6 +79,7 @@
 #include "ctcglobalheader.h"
 #include "ctcmemoryheader.h"
 #include "ctcfileheader.h"
+#include "ctcstorageheader.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
@@ -93,51 +94,6 @@ typedef struct {
 } STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCStorageHeader: public GlobalHeader {
-private:
-	GlobalFile * pStorageFile;
-	char pcName[CFIO_MAX_PATH];
-	char pcFolder[CFIO_MAX_PATH];
-	uint32_t wContensCounter;
-
-
-public:
-	CTCStorageHeader();
-	CTCStorageHeader(GlobalFile * pNewStorage, uint32_t Flag =
-			CFIO_FILE_READ | CFIO_FILE_WRITE, const char* pcNewStorageFolder =
-			NULL);
-	~CTCStorageHeader();
-
-public:
-	CTCStorageHeader * GetNext(void) {
-		return (CTCStorageHeader *) (GlobalHeader::GetNext());
-	}
-
-	GlobalFile * GetStorageFile(void) {
-		return pStorageFile;
-	}
-
-	uint32_t IncreaseContentsCounter() {
-		return ++wContensCounter;
-	}
-
-	uint32_t DecreaseContentsCounter() {
-		return --wContensCounter;
-	}
-
-	GlobalFile * GetStorage() {
-		return pStorageFile;
-	}
-
-	char* GetStorageFolder() {
-		return pcFolder;
-	}
-
-private:
-	Handle AcceptFile(GlobalFile * File) {
-		return (pStorageFile = File)->GetFileHandle();
-	}
-};
 
 class CTCMemoryList {
 private:
