@@ -8,7 +8,7 @@
 #ifndef CTCFILEHEADER_H_
 #define CTCFILEHEADER_H_
 
-#include "cfio.h"
+#include "ctc_def.h"
 #include "ctcglobalheader.h"
 #include "ctcglobalfile.h"
 
@@ -26,8 +26,8 @@ public:
 	Bool32 UnlockFromStorage(void);
 	Bool32 LockToStorage(void);
 	FileHeader();
-	FileHeader(GlobalFile * pNewFile, uint32_t Flag = CFIO_GF_READ
-			| CFIO_GF_WRITE, Handle hStorage = NULL);
+	FileHeader(GlobalFile * pNewFile, uint32_t Flag = CFIO_FILE_READ
+			| CFIO_FILE_WRITE, Handle hStorage = NULL);
 	~FileHeader();
 
 public:
@@ -46,7 +46,7 @@ public:
 	}
 
 	Bool32 CanWrite(void) {
-		return !IsFlag(CFIO_GF_LOCKED);
+		return !IsFlag(CFIO_FILE_LOCKED);
 	}
 
 	Bool32 KeepName(void) {
