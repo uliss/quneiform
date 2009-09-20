@@ -234,11 +234,11 @@ bool Control::SetFolder(uint32_t wFolder, char* pcBuff) {
 			break;
 
 		default:
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return false;
 	}
-	return FALSE;
+	return false;
 }
 
 Handle Control::OpenStorage(const std::string& Name, uint Flag) {
