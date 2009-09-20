@@ -74,6 +74,9 @@
 #endif
 #include "compat_defs.h"
 using namespace CIF::CTC;
+
+#include <cstring>
+#include "ctcglobalfile.h"
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCStorageHeader::CTCStorageHeader() :
@@ -91,8 +94,8 @@ static char ShExtension[_MAX_PATH];
 static char ShBuffer[_MAX_PATH + 4];
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
-		uint32_t wNewFlag, const char *pcNewStorageFolder) :
+CTCStorageHeader::CTCStorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
+		const char *pcNewStorageFolder) :
 	GlobalHeader(pNewStorage, NULL, 0, wNewFlag)//, Contents()
 {
 	extern CTCControl * Control_ctc;
@@ -233,7 +236,7 @@ CTCStorageList::~CTCStorageList() {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, uint32_t wNewFlag) {
+Handle CTCStorageList::AddItem(GlobalFile * pNewStorage, uint32_t wNewFlag) {
 	CTCStorageHeader * Current, *NewBlock = NULL;
 	Handle NewHandle = pNewStorage->GetFileHandle();
 
@@ -255,7 +258,7 @@ Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, uint32_t wNewFlag) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t Flag) {
+Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t /*Flag*/) {
 	CTCStorageHeader * Current, *Last, *EraseBlock;
 	uint32_t IsOK = 0;
 
@@ -276,9 +279,9 @@ Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t Flag) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile * CTCStorageList::GetItem(Handle Storage) {
+GlobalFile * CTCStorageList::GetItem(Handle Storage) {
 	CTCStorageHeader * pCurrent;
-	CTCGlobalFile * pFounded = NULL;
+	GlobalFile * pFounded = NULL;
 
 	if (pCurrent = GetItemHeader(Storage)) {
 		pFounded = pCurrent->GetStorageFile();
@@ -301,22 +304,14 @@ CTCStorageHeader * CTCStorageList::GetItemHeader(Handle Storage) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCStorageList::FindStorage(char* lpStorageName) {
-	CTCGlobalFile * pStorage;
-	CTCStorageHeader * pCurrent;
-
-	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+Handle CTCStorageList::FindStorage(const std::string& StorageName) {
+	for (CTCStorageHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
-		pStorage = pCurrent->GetStorage();
+		GlobalFile * pStorage = pCurrent->GetStorage();
 
-		if (pStorage)
-			if (strcmp(pStorage->GetFileName(), lpStorageName) == 0)
-				return pCurrent->GetHandle();
+		if (pStorage && (pStorage->GetFileName() == StorageName))
+			return pCurrent->GetHandle();
 	}
 	return NULL;
 
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file
-
-

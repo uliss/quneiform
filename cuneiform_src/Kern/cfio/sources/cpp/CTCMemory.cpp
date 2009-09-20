@@ -67,7 +67,10 @@
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
+#include <cstring>
+
 #include "ctcclasses.h"
+
 using namespace CIF::CTC;
 //////////////////////////////////////////////////////////////////GLOBAL
 //
@@ -192,7 +195,7 @@ Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::DeleteItem(Handle hMemory, uint32_t wParam) {
+Bool32 CTCMemoryList::DeleteItem(Handle hMemory, uint32_t /*wParam*/) {
 	PCTCMemoryHeader Current, Last;
 	uint32_t IsOK = 0;
 

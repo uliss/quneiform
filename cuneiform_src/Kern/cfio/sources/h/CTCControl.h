@@ -77,10 +77,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-#include <stdlib.h>
+#include <string>
+#include <cstdlib>
+
+
+
 #include "cfio.h"
 #include "resource.h"
 #include "ctcclasses.h"
+
+namespace CIF{
+namespace CTC{
 //////////////////////////////////////////////////////////////////////Memory alloc
 #define   ALLOC                new
 #define   FREE                 delete
@@ -137,7 +144,7 @@ public:
 	uint32_t ReadMemFromStorage(Handle hStorage, char* lpName, Handle * phMem);
 
 private:
-	Handle AddFileInList(CTCGlobalFile * File, uint32_t Flag, Handle Storage);
+	Handle AddFileInList(GlobalFile * File, uint32_t Flag, Handle Storage);
 	Handle OpenFileAndAttach(char* lpNAme, uint32_t Flag, Handle Storage = NULL);
 	Handle AllocNewMemory(uint32_t wFlag, uint32_t wSize, Bool32 Global, const char *cOwner, const char* Coment);
 	Bool32 AddNewMemoryInList( Handle hMemory, uint32_t wSize, uint32_t IsGlobal, const char *cOwner, const char *Coment);
@@ -165,16 +172,17 @@ private:
 	Bool32 CloseAllStorageFile(Handle Storage, uint32_t Flag);
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
 	uint32_t DecompileStorage(Handle Storage);
-	Handle AddStorageInList(CTCGlobalFile * lpNewStorageName, uint32_t wNewFlag);
+	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint32_t wNewFlag);
 	Handle OpenNewStorage(char* lpName, uint32_t wFlag);
 	Handle OpenCompliteStorage(char* lpName, uint32_t wFlag);
-	uint32_t ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, CTCGlobalFile ** pFile);
+	uint32_t ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, GlobalFile ** pFile);
 	uint32_t ReadItemFromStorage(CTCStorageHeader * Storage, void * lpData, uint32_t wSize);
-	char* MakeNameForStorage(char* FileName, CTCStorageHeader * phStorage = NULL, Bool32 KeepName = FALSE);
+	std::string MakeNameForStorage(const std::string& FileName, CTCStorageHeader * phStorage = NULL);
 	char* FileNameToFolder(char* Buffer, char* FolderName, char* FileName, uint32_t Size);
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //
+
+}
+}
 #endif //_CTC_CONTROL_HEADER_
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//end of file

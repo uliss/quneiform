@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 //////////////////////////////////////////////////////////////////////////////////
 //                                                                              //
@@ -75,32 +75,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "cfio.h"
 #include "resource.h"
-#include "ctcbaseclasses.h"
+#include "ctcglobalfile.h"
 #include "ctcglobalheader.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+
+namespace CIF {
+namespace CTC {
 #define                 CFIO_MEMORY_GLOBAL           0x0001
 #define                 CFIO_MEMORY_LOCK             0x0002
 #define                 CFIO_MEMORY_UNUSED           0x0004
 #define                 CFIO_MEMORY_FREE             0x0008
 
-class CTCMemoryHeader : public CIF::CTC::GlobalHeader
-{
+class CTCMemoryHeader: public GlobalHeader {
 public:
 	CTCMemoryHeader();
 	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize);
 	~CTCMemoryHeader();
-	char* GetOwner(void) { return mcOwner; };
-	char* GetComment(void) { return mcComment; };
+	char* GetOwner(void) {
+		return mcOwner;
+	}
+
+	char* GetComment(void) {
+		return mcComment;
+	}
 
 public:
-	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary);
-	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
+	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName,
+			const char *Commentary);
+	CTCMemoryHeader * GetNext() {
+		return (CTCMemoryHeader *) (GlobalHeader::GetNext());
+	}
+	;
 private:
 	char mcComment[CFIO_MAX_COMMENT];
 	char mcOwner[CFIO_MAX_OWNER];
@@ -124,79 +134,113 @@ typedef CTCMemoryHeader *PCTCMemoryHeader, **PPCTCMemoryHeader;
 #define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR
 #define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG
 #define                CFIO_FILE_SEEK_END                  CFIO_GF_SEEK_END
-class CTCFileHeader : public CIF::CTC::GlobalHeader
-{
+
+
+class CTCFileHeader: public GlobalHeader {
 private:
-	CTCGlobalFile *      pFile;
-	Handle               hStorage;
-	uint32_t               wFlag;
+	GlobalFile * pFile;
+	Handle hStorage;
+	uint32_t wFlag;
 	Bool32 KeepFileName;
 
 public:
 	Bool32 UnlockFromStorage(void);
 	Bool32 LockToStorage(void);
 	CTCFileHeader();
-	CTCFileHeader(CTCGlobalFile * pNewFile,
-		          uint32_t Flag =CFIO_FILE_READ|CFIO_FILE_WRITE,
-				  Handle hStorage = NULL);
+	CTCFileHeader(GlobalFile * pNewFile, uint32_t Flag = CFIO_FILE_READ
+			|CFIO_FILE_WRITE, Handle hStorage = NULL);
 	~CTCFileHeader();
 
 public:
-	Bool32              AttachToStorage(Handle Storage);
-	Bool32              DetachFromStorage();
-	CTCFileHeader *     GetNext(void) { return (CTCFileHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
-	CTCGlobalFile *     GetFile(void) { return pFile; };
-	Handle              GetAttaching(void) { return hStorage; };
-	Bool32              CanWrite(void) { return !IsFlag(CFIO_FILE_LOCKED); };
-	Bool32              KeepName(void) { return KeepFileName = TRUE; };
-	Bool32              BreakName(void) { return !( KeepFileName = FALSE); };
-	Bool32              HowName(void) { return KeepFileName; };
+	Bool32 AttachToStorage(Handle Storage);
+	Bool32 DetachFromStorage();
+	CTCFileHeader * GetNext(void) {
+		return (CTCFileHeader *) (GlobalHeader::GetNext());
+	}
+
+	GlobalFile * GetFile(void) {
+		return pFile;
+	}
+
+	Handle GetAttaching(void) {
+		return hStorage;
+	}
+
+	Bool32 CanWrite(void) {
+		return !IsFlag(CFIO_FILE_LOCKED);
+	}
+
+	Bool32 KeepName(void) {
+		return KeepFileName = TRUE;
+	}
+
+	Bool32 BreakName(void) {
+		return !(KeepFileName = FALSE);
+	}
+
+	Bool32 HowName(void) {
+		return KeepFileName;
+	}
 
 private:
-	Handle              AcceptFile(CTCGlobalFile * File) { return (pFile = File)->GetFileHandle(); };
-
+	Handle AcceptFile(GlobalFile * File) {
+		return (pFile = File)->GetFileHandle();
+	}
 };
 
-typedef struct
-{
-	uint32_t    siHeaderSize;
-	uint32_t    siItemSize;
-	uint32_t    siFlag;
-	char      siName[CFIO_MAX_PATH];
-}   STORAGEITEM;
+typedef struct {
+	uint32_t siHeaderSize;
+	uint32_t siItemSize;
+	uint32_t siFlag;
+	char siName[CFIO_MAX_PATH];
+} STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCStorageHeader : public CIF::CTC::GlobalHeader
-{
+class CTCStorageHeader: public CIF::CTC::GlobalHeader {
 private:
-	CTCGlobalFile *      pStorageFile;
-	char                 pcName[CFIO_MAX_PATH];
-	char                 pcFolder[CFIO_MAX_PATH];
-//	CTCStorageContents   Contents;
-	uint32_t               wContensCounter;
+	GlobalFile * pStorageFile;
+	char pcName[CFIO_MAX_PATH];
+	char pcFolder[CFIO_MAX_PATH];
+	//	CTCStorageContents   Contents;
+	uint32_t wContensCounter;
 
-//private:
 
 public:
 	CTCStorageHeader();
-	CTCStorageHeader( CTCGlobalFile * pNewStorage,
-	                  uint32_t Flag = CFIO_FILE_READ|CFIO_FILE_WRITE,
-					  const char* pcNewStorageFolder = NULL );
+	CTCStorageHeader(GlobalFile * pNewStorage, uint32_t Flag =
+			CFIO_FILE_READ | CFIO_FILE_WRITE, const char* pcNewStorageFolder =
+			NULL);
 	~CTCStorageHeader();
 
 public:
-	CTCStorageHeader * GetNext(void) { return (CTCStorageHeader *)(CIF::CTC::GlobalHeader::GetNext()); };
-	CTCGlobalFile *    GetStorageFile(void) { return pStorageFile; };
-	uint32_t             IncreaseContentsCounter() { return ++wContensCounter; };
-	uint32_t             DecreaseContentsCounter() { return --wContensCounter; };
-	CTCGlobalFile *    GetStorage() { return pStorageFile; };
-	char*             GetStorageFolder() { return pcFolder; };
-//	Handle             EnumItemContents(Handle Item = NULL);
-//	Bool32             DeleteItemFromStorage(Handle Item);
-//	Bool32             AddItemToStorage(Handle hNewItem, uint32_t wID = 0, uint32_t wNewSize = 0);
+	CTCStorageHeader * GetNext(void) {
+		return (CTCStorageHeader *) (CIF::CTC::GlobalHeader::GetNext());
+	}
+
+	GlobalFile * GetStorageFile(void) {
+		return pStorageFile;
+	}
+
+	uint32_t IncreaseContentsCounter() {
+		return ++wContensCounter;
+	}
+
+	uint32_t DecreaseContentsCounter() {
+		return --wContensCounter;
+	}
+
+	GlobalFile * GetStorage() {
+		return pStorageFile;
+	}
+
+	char* GetStorageFolder() {
+		return pcFolder;
+	}
 
 private:
-	Handle             AcceptFile(CTCGlobalFile * File) { return (pStorageFile = File)->GetFileHandle(); };
+	Handle AcceptFile(GlobalFile * File) {
+		return (pStorageFile = File)->GetFileHandle();
+	}
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -204,21 +248,21 @@ private:
 #define    FICTIV_Handle           (void *)FICTIV_BLOC
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCMemoryList
-{
+class CTCMemoryList {
 private:
-	uint32_t               wListSize;
-	CTCMemoryHeader      mhFirstItem;
-    CTCMemoryHeader      mhLastItem;
-	uint32_t               wMemoryCounter;
-	uint32_t               wItemCounter;
+	uint32_t wListSize;
+	CTCMemoryHeader mhFirstItem;
+	CTCMemoryHeader mhLastItem;
+	uint32_t wMemoryCounter;
+	uint32_t wItemCounter;
 
 public:
 	CTCMemoryList();
 	~CTCMemoryList();
 
 public:
-	Bool32 AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal, const char *cOwner, const char *Coment);
+	Bool32 AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal,
+			const char *cOwner, const char *Coment);
 	CTCMemoryHeader * GetItem(Handle hMemory);
 	Bool32 LockUnlockItem(Handle hMemory, Bool32 bLock);
 	Bool32 TakeItem(Handle hMemory, uint32_t * wSize, uint32_t * wFlag);
@@ -233,69 +277,100 @@ private:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCFileList
-{
+class CTCFileList {
 private:
-	uint32_t               wListSize;
-	CTCStorageHeader *   pList;
-	uint32_t               wFileCounter;
-	uint32_t               wSpaceCounter;
-	CTCFileHeader        mfFirstItem;
-	CTCFileHeader        mfLastItem;
+	uint32_t wListSize;
+	CTCStorageHeader * pList;
+	uint32_t wFileCounter;
+	uint32_t wSpaceCounter;
+	CTCFileHeader mfFirstItem;
+	CTCFileHeader mfLastItem;
 
 public:
-	Handle FindFile(char* lpFileName);
+	Handle FindFile(const std::string& FileName);
 	CTCFileList();
 	~CTCFileList();
 
 public:
-	Handle              AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage);
-	Bool32              DeleteItem(Handle File, uint32_t Flag = 0);
-	Handle              GetAttachedFileHeader(Handle Storage, CTCFileHeader * File = NULL);
-	CTCFileHeader *     GetItemHeader(Handle File);
-	CTCGlobalFile *     GetItem(Handle File);
+	Handle AddItem(GlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage);
+	Bool32 DeleteItem(Handle File, uint32_t Flag = 0);
+	Handle GetAttachedFileHeader(Handle Storage, CTCFileHeader * File = NULL);
+	CTCFileHeader * GetItemHeader(Handle File);
+	GlobalFile * GetItem(Handle File);
 
 private:
-	CTCFileHeader *     pLast() { return &mfLastItem; };
-	CTCFileHeader *     pFirst() { return &mfFirstItem; };
-	uint32_t              IncreaseFileCounter(void)    { return ++wFileCounter; }
-	uint32_t              DecreaseFileCounter(void)    { return --wFileCounter; }
-	uint32_t              IncreaseSpaceCounter(void)   { return ++wSpaceCounter; }
-	uint32_t              DecreaseSpaceCounter(void)   { return --wSpaceCounter; }
+	CTCFileHeader * pLast() {
+		return &mfLastItem;
+	}
+
+	CTCFileHeader * pFirst() {
+		return &mfFirstItem;
+	}
+
+	uint32_t IncreaseFileCounter(void) {
+		return ++wFileCounter;
+	}
+	uint32_t DecreaseFileCounter(void) {
+		return --wFileCounter;
+	}
+	uint32_t IncreaseSpaceCounter(void) {
+		return ++wSpaceCounter;
+	}
+	uint32_t DecreaseSpaceCounter(void) {
+		return --wSpaceCounter;
+	}
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTCStorageList
-{
+class CTCStorageList {
 private:
-	uint32_t               wHeaderSize;
-	CTCStorageHeader     msFirstItem;
-	CTCStorageHeader     msLastItem;
-	CTCStorageHeader   * pList;
-	uint32_t               wItemCounter;
+	uint32_t wHeaderSize;
+	CTCStorageHeader msFirstItem;
+	CTCStorageHeader msLastItem;
+	CTCStorageHeader * pList;
+	uint32_t wItemCounter;
 
 public:
-	Handle FindStorage(char* lpName);
 	CTCStorageList();
 	~CTCStorageList();
 
-public:
-	Handle             AddItem(CTCGlobalFile * NewStorage, uint32_t wParametr);
-	Bool32             DeleteItem(Handle Storage, uint32_t Flag = 0);
-	CTCGlobalFile *    GetItem(Handle Storage);
-	CTCStorageHeader * GetFirstItemHeader() { return pFirst()->GetNext(); };
+	Handle FindStorage(const std::string& Name);
+	Handle AddItem(GlobalFile * NewStorage, uint32_t wParametr);
+	Bool32 DeleteItem(Handle Storage, uint32_t Flag = 0);
+	GlobalFile * GetItem(Handle Storage);
+	CTCStorageHeader * GetFirstItemHeader() {
+		return pFirst()->GetNext();
+	}
+
 	CTCStorageHeader * GetItemHeader(Handle Storage);
-	Bool32             IsEmpty(){ return wItemCounter == 0; };
+	Bool32 IsEmpty() {
+		return wItemCounter == 0;
+	}
 
 private:
-	CTCStorageHeader * pFirst(void) { return &msFirstItem; };
-	CTCStorageHeader * pLast(void) { return &msLastItem; };
-	uint32_t IncreaseItemCounter(void) { return ++wItemCounter; };
-	uint32_t DecreaseItemCounter(void) { return --wItemCounter; };
-	uint32_t HowItems(void) { return wItemCounter; };
+	CTCStorageHeader * pFirst(void) {
+		return &msFirstItem;
+	}
+
+	CTCStorageHeader * pLast(void) {
+		return &msLastItem;
+	}
+
+	uint32_t IncreaseItemCounter(void) {
+		return ++wItemCounter;
+	}
+
+	uint32_t DecreaseItemCounter(void) {
+		return --wItemCounter;
+	}
+
+	uint32_t HowItems(void) {
+		return wItemCounter;
+	}
 };
+
+}
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #endif        //_CTC_CLASSES_
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//end of file

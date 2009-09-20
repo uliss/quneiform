@@ -76,14 +76,6 @@
 #include<crtdbg.h>
 
 #include <io.h>
-/*
- #define open(a, b, c) _open(a, b, c)
- #define close(a) _close(a)
- #define read(a, b, c) _read(a, b, c)
- #define write(a, b, c) _write(a, b, c)
- #define filelength(a) _filelength(a)
- #define lseek(a, b, c) _lseek(a, b, c)
- */
 #else
 #ifndef _ASSERT
 #define _ASSERT(a) assert(a)
@@ -108,14 +100,6 @@ extern "C" {
 
 #ifndef HANDLE
 #define HANDLE void*
-#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TRUE
-#define TRUE 1
 #endif
 
 #ifndef APIENTRY /* Not currently used in Linux. */
@@ -273,12 +257,6 @@ typedef struct tagLOGPALETTE {
 	PALETTEENTRY palPalEntry[1];
 } LOGPALETTE;
 
-/*
- typedef struct {
- int x;
- } HPALETTE;
- */
-
 typedef Bool(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
@@ -416,7 +394,8 @@ typedef int REGSAM;
 #define HMENU int
 
 #include "cfcompat.h"
-/* A bunch of windows DLL initialisation values. I don't know the
+/*
+ * A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in random values. They are not
  * used anyway, so no harm.
  */

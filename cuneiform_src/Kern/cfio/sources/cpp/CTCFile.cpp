@@ -69,6 +69,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 #include <string.h>
 #include "ctcclasses.h"
+#include "ctcglobalfile.h"
 
 using namespace CIF::CTC;
 //////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +87,7 @@ CTCFileHeader::~CTCFileHeader() {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCFileHeader::CTCFileHeader(CTCGlobalFile * pNewFile, uint32_t Flag,
+CTCFileHeader::CTCFileHeader(GlobalFile * pNewFile, uint32_t Flag,
 		Handle Storage) :
 	GlobalHeader(NULL, NULL, 0) {
 	pFile = pNewFile;
@@ -146,7 +147,7 @@ CTCFileList::~CTCFileList() {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag,
+Handle CTCFileList::AddItem(GlobalFile * pNewFile, uint32_t wNewFlag,
 		Handle Storage) {
 	CTCFileHeader * Current, *NewBlock = NULL;
 	Handle NewHandle = pNewFile->GetFileHandle();
@@ -169,7 +170,7 @@ Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCFileList::DeleteItem(Handle File, uint32_t Flag) {
+Bool32 CTCFileList::DeleteItem(Handle File, uint32_t /*Flag*/) {
 	CTCFileHeader * Current, *Last, *EraseBlock;
 	uint32_t IsOK = 0;
 
@@ -190,9 +191,9 @@ Bool32 CTCFileList::DeleteItem(Handle File, uint32_t Flag) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile * CTCFileList::GetItem(Handle File) {
+GlobalFile * CTCFileList::GetItem(Handle File) {
 	CTCFileHeader * pCurrent = GetItemHeader(File);
-	CTCGlobalFile * pFounded = NULL;
+	GlobalFile * pFounded = NULL;
 
 	if (pCurrent) {
 		pFounded = pCurrent->GetFile();
@@ -237,23 +238,13 @@ Handle CTCFileList::GetAttachedFileHeader(Handle Storage, CTCFileHeader * File) 
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCFileList::FindFile(char* lpFileName) {
-	CTCGlobalFile * pFile;
-	CTCFileHeader * pCurrent;
-	uint32_t wComp;
-
-	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+Handle CTCFileList::FindFile(const std::string& FileName) {
+	for (CTCFileHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
-		pFile = pCurrent->GetFile();
+		GlobalFile * pFile = pCurrent->GetFile();
 
-		if (pFile) {
-			wComp = strcmp(pFile->GetFileName(), lpFileName);
-			// Unix is case sensitive.
-			//wiComp = strcasecomp (pFile->GetFileName(), lpFileName );
-
-			if (wComp == 0)
-				return pCurrent->GetHandle();
-		}
+		if (pFile && (pFile->GetFileName() == FileName))
+			return pCurrent->GetHandle();
 	}
 	return NULL;
 }

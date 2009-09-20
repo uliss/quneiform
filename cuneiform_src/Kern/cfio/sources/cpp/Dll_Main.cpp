@@ -74,6 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
+using namespace CIF::CTC;
+
 //////////////////////////////////////////////////////////////////GLOBAL
 void SetReturnCode_cfio(uint16_t rc);
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
