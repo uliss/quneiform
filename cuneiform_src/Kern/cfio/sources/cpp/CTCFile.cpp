@@ -74,61 +74,6 @@
 using namespace CIF::CTC;
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCFileHeader::CTCFileHeader() :
-	GlobalHeader() {
-	pFile = NULL;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCFileHeader::~CTCFileHeader() {
-	if (GetFile()) {
-		delete GetFile();
-	}
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-CTCFileHeader::CTCFileHeader(GlobalFile * pNewFile, uint32_t Flag,
-		Handle Storage) :
-	GlobalHeader(NULL, NULL, 0) {
-	pFile = pNewFile;
-	SetHandle(AcceptFile(pNewFile));
-	SetFlag(Flag);
-	SetHeaderSize(sizeof(class CTCFileHeader));
-	AttachToStorage(Storage);
-	BreakName();
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CTCFileHeader::DetachFromStorage() {
-	return ((hStorage = NULL) == NULL);
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CTCFileHeader::AttachToStorage(Handle Storage) {
-	if (TRUE /*!IsFlag(CFIO_FILE_LOCKED)*/) {
-		hStorage = Storage;
-		return TRUE;
-	}
-	return FALSE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CTCFileHeader::LockToStorage(void) {
-	if (CanWrite() && GetAttaching()) {
-		return AddFlag(CFIO_FILE_LOCKED);
-	}
-	return FALSE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CTCFileHeader::UnlockFromStorage(void) {
-	if (!CanWrite() && GetAttaching()) {
-		return RemoveFlag(CFIO_FILE_LOCKED);
-	}
-	return FALSE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
 CTCFileList::CTCFileList() {
 	mfFirstItem.SetNext(&mfLastItem);
 	mfFirstItem.SetSize(0);
@@ -149,7 +94,7 @@ CTCFileList::~CTCFileList() {
 //
 Handle CTCFileList::AddItem(GlobalFile * pNewFile, uint32_t wNewFlag,
 		Handle Storage) {
-	CTCFileHeader * Current, *NewBlock = NULL;
+	FileHeader * Current, *NewBlock = NULL;
 	Handle NewHandle = pNewFile->GetFileHandle();
 
 	if (!NewHandle)
@@ -161,7 +106,7 @@ Handle CTCFileList::AddItem(GlobalFile * pNewFile, uint32_t wNewFlag,
 			return NULL;
 		}
 
-	NewBlock = new CTCFileHeader(pNewFile, wNewFlag, Storage);
+	NewBlock = new FileHeader(pNewFile, wNewFlag, Storage);
 	NewBlock->SetNext(Current->GetNext());
 	Current->SetNext(NewBlock);
 	IncreaseFileCounter();
@@ -171,7 +116,7 @@ Handle CTCFileList::AddItem(GlobalFile * pNewFile, uint32_t wNewFlag,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCFileList::DeleteItem(Handle File, uint32_t /*Flag*/) {
-	CTCFileHeader * Current, *Last, *EraseBlock;
+	FileHeader * Current, *Last, *EraseBlock;
 	uint32_t IsOK = 0;
 
 	for (Last = Current = pFirst(); Current != pLast(); Current
@@ -192,7 +137,7 @@ Bool32 CTCFileList::DeleteItem(Handle File, uint32_t /*Flag*/) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 GlobalFile * CTCFileList::GetItem(Handle File) {
-	CTCFileHeader * pCurrent = GetItemHeader(File);
+	FileHeader * pCurrent = GetItemHeader(File);
 	GlobalFile * pFounded = NULL;
 
 	if (pCurrent) {
@@ -203,8 +148,8 @@ GlobalFile * CTCFileList::GetItem(Handle File) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCFileHeader * CTCFileList::GetItemHeader(Handle File) {
-	CTCFileHeader * pCurrent;
+FileHeader * CTCFileList::GetItemHeader(Handle File) {
+	FileHeader * pCurrent;
 
 	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
@@ -217,8 +162,8 @@ CTCFileHeader * CTCFileList::GetItemHeader(Handle File) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCFileList::GetAttachedFileHeader(Handle Storage, CTCFileHeader * File) {
-	CTCFileHeader * pCurrent, *pStart;
+Handle CTCFileList::GetAttachedFileHeader(Handle Storage, FileHeader * File) {
+	FileHeader * pCurrent, *pStart;
 
 	if (File == NULL) {
 		pStart = pFirst();
@@ -239,7 +184,7 @@ Handle CTCFileList::GetAttachedFileHeader(Handle Storage, CTCFileHeader * File) 
 //////////////////////////////////////////////////////////////////////////////////
 //
 Handle CTCFileList::FindFile(const std::string& FileName) {
-	for (CTCFileHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+	for (FileHeader * pCurrent = pFirst(); pCurrent != pLast(); pCurrent
 			= pCurrent->GetNext()) {
 		GlobalFile * pFile = pCurrent->GetFile();
 

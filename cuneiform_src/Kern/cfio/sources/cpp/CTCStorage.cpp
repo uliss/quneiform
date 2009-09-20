@@ -102,7 +102,7 @@ CTCStorageHeader::CTCStorageHeader(GlobalFile * pNewStorage, uint32_t wNewFlag,
 
 	SetHandle(AcceptFile(pNewStorage));
 	SetFlag(wNewFlag);
-	SetHeaderSize(sizeof(class CTCFileHeader));
+	SetHeaderSize(sizeof(class FileHeader));
 
 	if (pcNewStorageFolder && pcNewStorageFolder[0] != 0x0) {
 		CFIO_GETFOLDERSITEMS(pcNewStorageFolder, ShFolder, ShFile, ShExtension);

@@ -73,83 +73,17 @@
 
 #include "cfio.h"
 #include "resource.h"
+
+#include "ctc_def.h"
 #include "ctcglobalfile.h"
 #include "ctcglobalheader.h"
 #include "ctcmemoryheader.h"
+#include "ctcfileheader.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
 namespace CIF {
 namespace CTC {
-
-#define                CFIO_FILE_CREATE                    CFIO_GF_CREATE
-#define                CFIO_FILE_OPEN                      CFIO_GF_OPEN
-#define                CFIO_FILE_WRITE                     CFIO_GF_WRITE
-#define                CFIO_FILE_READ                      CFIO_GF_READ
-#define                CFIO_FILE_APPEND                    CFIO_GF_APPEND
-#define                CFIO_FILE_BINARY                    CFIO_GF_BINARY
-#define                CFIO_FILE_COMMIT                    CFIO_GF_COMMIT
-#define                CFIO_FILE_EXIST                     CFIO_GF_FILE
-#define                CFIO_FILE_ATTACHED                  CFIO_GF_STORAGE
-#define                CFIO_FILE_IN_MEMORY                 CFIO_GF_IN_MEMORY
-#define                CFIO_FILE_TEMPORARY                 CFIO_GF_TEMPORARY
-#define                CFIO_FILE_LOCKED                    CFIO_GF_LOCKED
-#define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR
-#define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG
-#define                CFIO_FILE_SEEK_END                  CFIO_GF_SEEK_END
-
-
-class CTCFileHeader: public GlobalHeader {
-private:
-	GlobalFile * pFile;
-	Handle hStorage;
-	uint32_t wFlag;
-	Bool32 KeepFileName;
-
-public:
-	Bool32 UnlockFromStorage(void);
-	Bool32 LockToStorage(void);
-	CTCFileHeader();
-	CTCFileHeader(GlobalFile * pNewFile, uint32_t Flag = CFIO_FILE_READ
-			|CFIO_FILE_WRITE, Handle hStorage = NULL);
-	~CTCFileHeader();
-
-public:
-	Bool32 AttachToStorage(Handle Storage);
-	Bool32 DetachFromStorage();
-	CTCFileHeader * GetNext(void) {
-		return (CTCFileHeader *) (GlobalHeader::GetNext());
-	}
-
-	GlobalFile * GetFile(void) {
-		return pFile;
-	}
-
-	Handle GetAttaching(void) {
-		return hStorage;
-	}
-
-	Bool32 CanWrite(void) {
-		return !IsFlag(CFIO_FILE_LOCKED);
-	}
-
-	Bool32 KeepName(void) {
-		return KeepFileName = TRUE;
-	}
-
-	Bool32 BreakName(void) {
-		return !(KeepFileName = FALSE);
-	}
-
-	Bool32 HowName(void) {
-		return KeepFileName;
-	}
-
-private:
-	Handle AcceptFile(GlobalFile * File) {
-		return (pFile = File)->GetFileHandle();
-	}
-};
 
 typedef struct {
 	uint32_t siHeaderSize;
@@ -164,7 +98,6 @@ private:
 	GlobalFile * pStorageFile;
 	char pcName[CFIO_MAX_PATH];
 	char pcFolder[CFIO_MAX_PATH];
-	//	CTCStorageContents   Contents;
 	uint32_t wContensCounter;
 
 
@@ -205,12 +138,7 @@ private:
 		return (pStorageFile = File)->GetFileHandle();
 	}
 };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#define    FICTIV_BLOC             0xffffffff
-#define    FICTIV_Handle           (void *)FICTIV_BLOC
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 class CTCMemoryList {
 private:
 	uint32_t wListSize;
@@ -246,8 +174,8 @@ private:
 	CTCStorageHeader * pList;
 	uint32_t wFileCounter;
 	uint32_t wSpaceCounter;
-	CTCFileHeader mfFirstItem;
-	CTCFileHeader mfLastItem;
+	FileHeader mfFirstItem;
+	FileHeader mfLastItem;
 
 public:
 	Handle FindFile(const std::string& FileName);
@@ -257,29 +185,29 @@ public:
 public:
 	Handle AddItem(GlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage);
 	Bool32 DeleteItem(Handle File, uint32_t Flag = 0);
-	Handle GetAttachedFileHeader(Handle Storage, CTCFileHeader * File = NULL);
-	CTCFileHeader * GetItemHeader(Handle File);
+	Handle GetAttachedFileHeader(Handle Storage, FileHeader * File = NULL);
+	FileHeader * GetItemHeader(Handle File);
 	GlobalFile * GetItem(Handle File);
 
 private:
-	CTCFileHeader * pLast() {
+	FileHeader * pLast() {
 		return &mfLastItem;
 	}
 
-	CTCFileHeader * pFirst() {
+	FileHeader * pFirst() {
 		return &mfFirstItem;
 	}
 
-	uint32_t IncreaseFileCounter(void) {
+	uint32_t IncreaseFileCounter() {
 		return ++wFileCounter;
 	}
-	uint32_t DecreaseFileCounter(void) {
+	uint32_t DecreaseFileCounter() {
 		return --wFileCounter;
 	}
-	uint32_t IncreaseSpaceCounter(void) {
+	uint32_t IncreaseSpaceCounter() {
 		return ++wSpaceCounter;
 	}
-	uint32_t DecreaseSpaceCounter(void) {
+	uint32_t DecreaseSpaceCounter() {
 		return --wSpaceCounter;
 	}
 };

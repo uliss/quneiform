@@ -151,7 +151,7 @@ private:
 	Bool32 CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
 	Handle CompliteStorage(Handle Storage, uint32_t Flag);
 	uint32_t WriteItemToStorage(CTCStorageHeader * Storage, void * pItem, uint32_t Size);
-	uint32_t WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader * File);
+	uint32_t WriteFileToStorage(CTCStorageHeader * Storage, FileHeader * File);
 	Bool32 CloseStorageFile(Handle Storage, uint32_t Flag = 0);
 	Bool32 CloseAllStorageFile(Handle Storage, uint32_t Flag);
 	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);

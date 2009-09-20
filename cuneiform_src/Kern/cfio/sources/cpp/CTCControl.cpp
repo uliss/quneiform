@@ -277,7 +277,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile,
 	// берем хидер хрангилища.... или не берем, если нет
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
 	// берем хидер файла ........ или не берем, ежели нема
-	CTCFileHeader * pFileHeader = FileList.GetItemHeader(hFile);
+	FileHeader * pFileHeader = FileList.GetItemHeader(hFile);
 	GlobalFile * pFile;
 
 	if (pStorageHeader && pFileHeader) {
@@ -797,7 +797,7 @@ Handle CTCControl::AddStorageInList(GlobalFile * lpNewStorageName,
 //
 Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/,
 		Handle /*Storage*/) {
-	CTCFileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
 	GlobalFile * CurrentFile;
 
 	if (CurrentFileHeader) {
@@ -817,7 +817,7 @@ Bool32 CTCControl::CloseFileAndDettach(Handle File, uint32_t /*Flag*/,
 //
 Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 		Handle Storage) {
-	CTCFileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
 
 	if (CurrentFileHeader) {
 		if (CurrentFileHeader->AttachToStorage(Storage))
@@ -828,7 +828,7 @@ Bool32 CTCControl::CloseFileAndAttach(Handle File, uint32_t /*Flag*/,
 //////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*Flag*/) {
-	CTCFileHeader * AttachedFile = FileList.GetItemHeader(File);
+	FileHeader * AttachedFile = FileList.GetItemHeader(File);
 	CTCStorageHeader * AttacherStorage = StorageList.GetItemHeader(Storage);
 
 	if (AttacherStorage && AttachedFile) {
@@ -840,7 +840,7 @@ Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, uint32_t /*F
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCControl::WriteDataToFile(Handle File, void * lpData, uint32_t Size) {
-	CTCFileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
+	FileHeader * CurrentFileHeader = FileList.GetItemHeader(File);
 	GlobalFile * CurrentFile;
 	uint32_t WritedDataCount = 0;
 
@@ -951,8 +951,8 @@ char CopyBuffer[COPYBUFFER];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCControl::WriteFileToStorage(CTCStorageHeader * Storage,
-		CTCFileHeader * File) {
-	CTCFileHeader * pItemHeader = File;
+		FileHeader * File) {
+	FileHeader * pItemHeader = File;
 	GlobalFile * pItem;
 	STORAGEITEM ItemInfo;
 	uint32_t FileSize = 0;
@@ -1041,7 +1041,7 @@ uint32_t StorageFlag;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Handle CTCControl::CompliteStorage(Handle Storage, uint32_t Flag) {
-	CTCFileHeader * pItemHeader = NULL;
+	FileHeader * pItemHeader = NULL;
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	uint32_t ComplitedItems = 0;
@@ -1201,7 +1201,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
 	GlobalFile * pStorage;
 	GlobalFile * pFile;
-	CTCFileHeader * pFileHeader = NULL;
+	FileHeader * pFileHeader = NULL;
 	char StorageFolder[_MAX_PATH];
 
 	if (Flag & CS_FILE_DELETE) {
@@ -1231,7 +1231,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag) {
 		}
 
 		FileList.DeleteItem(pFileHeader->GetHandle());
-		//delete pFile; //deleted at header destructor
+		//deleted at header destructor
 
 	}
 

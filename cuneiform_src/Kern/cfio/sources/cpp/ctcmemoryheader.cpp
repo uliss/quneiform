@@ -6,7 +6,7 @@
  */
 
 #include "ctcmemoryheader.h"
-#include "ctcclasses.h"
+#include "ctc_def.h"
 
 namespace CIF {
 namespace CTC {
