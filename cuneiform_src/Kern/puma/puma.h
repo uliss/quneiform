@@ -222,8 +222,8 @@ bool LPUMA_GetPreserveLineBreaks(void);
 
 uint32_t LCED_DeletePage(Handle hEdPage);
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; PUMA_FUNC a b c; a L##b c;
-PUMA_FUNC bool PUMA_Init(uint wHeightCode, Handle hStorage);
-DEC_FUN(bool, PUMA_Done,())
+DEC_FUN(bool, PUMA_Init, (void))
+DEC_FUN(bool, PUMA_Done,(void))
 DEC_FUN(uint32_t, PUMA_GetReturnCode,())
 DEC_FUN(char *, PUMA_GetReturnString,(uint32_t dwError))
 DEC_FUN(bool, PUMA_GetExportData,(uint32_t dwType, void * pData))

@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <rmarker.h>
 
-#include "puma.h"
+#include "puma/puma.h"
 #include "dpuma.h"
 #include "pumadef.h"
 #include "mymem.h"

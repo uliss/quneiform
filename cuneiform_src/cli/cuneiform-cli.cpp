@@ -64,10 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<stdlib.h>
 #include<cstring>
 
-#include"cttypes.h"
-#include"puma.h"
+#include "cttypes.h"
+#include "puma/puma.h"
 #include "lang_def.h"
-#include"config.h"
+#include "config.h"
 
 using namespace std;
 
@@ -330,7 +330,7 @@ int main(int argc, char **argv) {
     if(!dib) // Error msg is already printed so just get out.
         return 1;
 
-    if(!PUMA_Init(0, 0)) {
+    if(!PUMA_Init()) {
         cerr << "PUMA_Init failed.\n";
         return 1;
     }

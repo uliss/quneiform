@@ -1,6 +1,6 @@
 #include "ocrengine.h"
-#include "puma.h"
-#include "mpuma.h"
+#include "puma/puma.h"
+#include "puma/mpuma.h"
 
 #include "paragraph.h"
 

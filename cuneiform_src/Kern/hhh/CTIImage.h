@@ -116,7 +116,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	}
 	CIMAGEIMAGECALLBACK, * PCIMAGEIMAGECALLBACK;
 #else
-	#include "puma.h"
+	#include "puma/puma.h"
 	typedef PUMA_ImageInfo CIMAGE_ImageInfo, *PCIMAGE_ImageInfo, **PPCIMAGE_ImageInfo;
 	typedef PUMA_CallBack_ImageOpen PCIMAGE_Callback_ImageOpen;
 	typedef PUMA_Callback_ImageRead PCIMAGE_Callback_ImageRead;

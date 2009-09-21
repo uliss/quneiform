@@ -270,15 +270,12 @@ private:
 	Bool32              CreatedByMe;
 
 public:
-#pragma warning( push )
-#pragma warning( disable : 4003)
 	// empty constructor
 	RDIB_FUNC()    CTDIB();
 	// constructor by Handle
 	RDIB_FUNC()    CTDIB(Handle hDIB);
 	// destructor	virtual
 	RDIB_FUNC()    ~CTDIB();
-#pragma warning( pop )
 
 public:
 	// return black pixel RGBQuad index or 00-00-00

@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // StatSearchBL.cpp : implementation file
 //
 #include <memory.h>
-/*#include <windows.h>
-#include <Winbase.h>*/
 #include <string.h>
 #include <stdlib.h>
 
@@ -77,7 +75,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <malloc.h>
 #endif
 
-//#include "puma.h"
 #include "dpuma.h"
 #include "statsearchbl.h"
 #include "gistogramma.h"

@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifndef __PUMA_H
- #include "puma.h"
+ #include "puma/puma.h"
 #endif
 
 #ifdef __RSTUFF__

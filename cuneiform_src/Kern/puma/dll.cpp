@@ -116,8 +116,8 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lp
 	return TRUE;
 }
 
-bool PUMA_Init(uint wHeightCode) {
-	gwHeightRC = wHeightCode;
+bool PUMA_Init() {
+	gwHeightRC = 0;
 
 	if (!InitMem())
 		return FALSE;
@@ -176,7 +176,7 @@ PUMA_FUNC bool PUMA_GetExportData(uint32_t dwType, void * pData) {
 	CASE_FUNCTION(PUMA_XClose)
 	CASE_FUNCTION(PUMA_XPageAnalysis)
 	CASE_FUNCTION(PUMA_XFinalRecognition)
-	//CASE_FUNCTION(PUMA_XSave)
+		//CASE_FUNCTION(PUMA_XSave)
 	CASE_FUNCTION(PUMA_EnumLanguages)
 	CASE_FUNCTION(PUMA_EnumFormats)
 	CASE_FUNCTION(PUMA_EnumCodes)

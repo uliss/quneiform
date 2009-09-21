@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include "puma.h"
+#include "puma/puma.h"
 #include "rstuff.h"
 #include "rsfunc.h"
 #include "rsglobaldata.h"
@@ -90,7 +90,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctiimage.h"
 #include "dpuma.h"
 #include "exc.h"
-#include "puma.h"
 #include "rpic.h"
 #include "rline.h"
 #include "rverline.h"
