@@ -155,7 +155,7 @@ typedef struct pictEntry
 }PICTENTRY;
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
 
-DEC_FUN(Bool32,CED_FormattedWrite,(char * fileName, CEDPage *page));
+DEC_FUN(Bool32,CED_FormattedWrite,( const char * fileName, CEDPage *page));
 DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
 

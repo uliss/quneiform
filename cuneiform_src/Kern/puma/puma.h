@@ -176,6 +176,7 @@ enum puma_format_t {
 	PUMA_TOTABLEWKS = 0x1000,
 	PUMA_TOHTML = 0x2000,
 	PUMA_TOHOCR = 0x4000,
+	PUMA_DEBUG_TOTEXT = 0x8000
 };
 
 //       Codes
@@ -246,34 +247,74 @@ void LPUMA_SetPreserveLineBreaks(bool b);
 bool LPUMA_GetPreserveLineBreaks(void);
 
 uint32_t LCED_DeletePage(Handle hEdPage);
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c; PUMA_FUNC a b c; a L##b c;
-DEC_FUN(bool, PUMA_Init, (void))
-DEC_FUN(bool, PUMA_Done,(void))
-DEC_FUN(uint32_t, PUMA_GetReturnCode,())
-DEC_FUN(char *, PUMA_GetReturnString,(uint32_t dwError))
-DEC_FUN(bool, PUMA_GetExportData,(uint32_t dwType, void * pData))
-DEC_FUN(bool, PUMA_SetImportData,(uint32_t dwType, void * pData))
+#define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
 
-DEC_FUN(bool, PUMA_XOpen, (void * pDIB, const std::string& filename))
-DEC_FUN(bool, PUMA_XClose, (void))
-DEC_FUN(bool, PUMA_XPageAnalysis, (void))
-DEC_FUN(bool, PUMA_XFinalRecognition, (void))
-DEC_FUN(bool, PUMA_XSave,(const char *, puma_format_t, puma_code_t))
-DEC_FUN(int32_t, PUMA_EnumLanguages,(int32_t nPrev ))
-DEC_FUN(int32_t, PUMA_EnumFormats,(int32_t nPrev ))
-DEC_FUN(int32_t, PUMA_EnumCodes,(int32_t format, int32_t nPrev ))
-DEC_FUN(int32_t, PUMA_EnumFormatMode,(int32_t nPrev ))
-DEC_FUN(int32_t, PUMA_EnumTable,(int32_t nPrev ))
-DEC_FUN(int32_t, PUMA_EnumPicture,(int32_t nPrev ))
-DEC_FUN(bool, PUMA_XGetRotateDIB,(void ** lpDIB, Point32 * p))
-DEC_FUN(void , PUMA_RenameImageName,(char * name))
-DEC_FUN(bool, PUMA_XSetTemplate,(Rect32 rect))
-DEC_FUN(bool, PUMA_XGetTemplate,(Rect32 *pRect))
-DEC_FUN(bool, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, puma_format_t lnFormat, puma_code_t lnCode, bool Append))
-DEC_FUN(bool, PUMA_XOpenClbk,(PUMAIMAGECALLBACK CallBack,const char * lpFileName))
-DEC_FUN(uint32_t, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size ))
-DEC_FUN(void , PUMA_GetSpecialBuffer,(char * szResult,int32_t *nResultLength))
-DEC_FUN(bool, PUMA_SetSpecialProject,(uchar nSpecPrj))
+// Module functions
+DEC_FUN(bool, Init, ())
+DEC_FUN(bool, Done, ())
+DEC_FUN(int, GetReturnCode,())
+DEC_FUN(char *, GetReturnString,(uint32_t))
+DEC_FUN(bool, GetExportData,(uint32_t, void *))
+DEC_FUN(bool, SetImportData,(uint32_t, void *))
+
+PUMA_FUNC bool PUMA_Init();
+PUMA_FUNC bool PUMA_Done();
+PUMA_FUNC int PUMA_GetReturnCode();
+PUMA_FUNC char * PUMA_GetReturnString(int Error);
+PUMA_FUNC bool PUMA_GetExportData(uint32_t, void *);
+PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
+
+//
+DEC_FUN(bool, XOpen, (void * pDIB, const std::string&))
+DEC_FUN(bool, XClose, ())
+DEC_FUN(bool, XPageAnalysis, ())
+DEC_FUN(bool, XFinalRecognition, ())
+DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
+DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool))
+DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
+DEC_FUN(bool, XOpenClbk, (PUMAIMAGECALLBACK, const char *))
+
+PUMA_FUNC bool PUMA_XOpen(void * pDIB, const std::string& filename);
+PUMA_FUNC bool PUMA_XClose();
+PUMA_FUNC bool PUMA_XPageAnalysis();
+PUMA_FUNC bool PUMA_XFinalRecognition();
+PUMA_FUNC bool PUMA_XSave(const std::string& filename, puma_format_t,
+		puma_code_t);
+PUMA_FUNC bool PUMA_Save(Handle hEdPage, const std::string& filename,
+		puma_format_t Format, puma_code_t Code, bool Append);
+PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
+		puma_code_t Code, char * lpMem, uint32_t size);
+PUMA_FUNC bool PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,
+		const char * lpFileName);
+// Enum
+DEC_FUN(int32_t, EnumLanguages,(int32_t))
+DEC_FUN(int32_t, EnumFormats,(int32_t))
+DEC_FUN(int32_t, EnumCodes,(int32_t, int32_t))
+DEC_FUN(int32_t, EnumFormatMode,(int32_t))
+DEC_FUN(int32_t, EnumTable,(int32_t))
+DEC_FUN(int32_t, EnumPicture,(int32_t))
+
+PUMA_FUNC int32_t PUMA_EnumLanguages(int32_t nPrev);
+PUMA_FUNC int32_t PUMA_EnumFormats(int32_t nPrev);
+PUMA_FUNC int32_t PUMA_EnumCodes(int32_t format, int32_t nPrev);
+PUMA_FUNC int32_t PUMA_EnumFormatMode(int32_t nPrev);
+PUMA_FUNC int32_t PUMA_EnumTable(int32_t nPrev);
+PUMA_FUNC int32_t PUMA_EnumPicture(int32_t nPrev);
+
+// misc
+DEC_FUN(bool, XGetRotateDIB,(void **, Point32*))
+DEC_FUN(void, RenameImageName,(char*))
+DEC_FUN(bool, XSetTemplate,(Rect32))
+DEC_FUN(bool, XGetTemplate,(Rect32*))
+DEC_FUN(void, GetSpecialBuffer,(char*,int32_t*))
+DEC_FUN(bool, SetSpecialProject,(uchar))
+
+PUMA_FUNC bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p);
+PUMA_FUNC void PUMA_RenameImageName(char * name);
+PUMA_FUNC bool PUMA_XSetTemplate(Rect32 rect);
+PUMA_FUNC bool PUMA_XGetTemplate(Rect32 *pRect);
+PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
+PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 
 #undef DEC_FUN
 

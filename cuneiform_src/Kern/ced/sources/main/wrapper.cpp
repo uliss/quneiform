@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 //Filename wrapper.cpp
 //Created 13.01.99 by Bozhenov Artem,(c) CT inc.
@@ -65,17 +65,17 @@ FILE *logStream;
 
 //create page
 CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dpi,int _turn,
-					  int _pageNumber,EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar, Bool32 _resizeToFit)
+		int _pageNumber,EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar, Bool32 _resizeToFit)
 {
 	if (logName[0]&&(!logStream))
-		logStream=fopen(logName,"at");
+	logStream=fopen(logName,"at");
 	else if (logStream)
-		fprintf(logStream,"ERROR: Page Was Not Deleted Properly\n");
+	fprintf(logStream,"ERROR: Page Was Not Deleted Properly\n");
 	if (logStream)
 	{
 		fprintf(logStream,"\n\nCreatePage params: %s,(%d,%d),(%d,%d),%d,%d,(%d,%d),(%d,%d,%d,%d),%c,%d\n",_imageName,_sizeOfImage.cx,_sizeOfImage.cy,_dpi.cx,_dpi.cy,_turn,
-					  _pageNumber,_sizeInTwips.cx,_sizeInTwips.cy, _pageBordersInTwips.left, _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom,
-					  _unrecogChar, _resizeToFit);
+				_pageNumber,_sizeInTwips.cx,_sizeInTwips.cy, _pageBordersInTwips.left, _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom,
+				_unrecogChar, _resizeToFit);
 		fflush(logStream);
 	}
 	CEDPage * ret=new CEDPage;
@@ -105,7 +105,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dp
 
 //create foont
 CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-				char* fontName)
+		char* fontName)
 {
 	if (logStream)
 	{
@@ -140,13 +140,13 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSi
 //create section
 
 CED_FUNC(Handle) CED_CreateSection(Handle hEdPage,EDRECT border, int colInterval, int numOfCols,
-								   EDCOL* colInfo, char sectionBreak, int width, int height,
-								   char orientation, int headerY, int footerY)
+		EDCOL* colInfo, char sectionBreak, int width, int height,
+		char orientation, int headerY, int footerY)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n", hEdPage, border.left, border.top, border.right, border.bottom,
-			colInterval, numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
+				colInterval, numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
 		fflush(logStream);
 	}
 	CEDSection *sect =((CEDPage*)hEdPage)->InsertSection();
@@ -161,9 +161,9 @@ CED_FUNC(Handle) CED_CreateSection(Handle hEdPage,EDRECT border, int colInterval
 	sect->numSnakeCols=numOfCols;
 	sect->colInfo=new EDCOL[numOfCols];
 	if (colInfo)
-		memcpy(sect->colInfo,colInfo,sizeof(EDCOL)*numOfCols);
+	memcpy(sect->colInfo,colInfo,sizeof(EDCOL)*numOfCols);
 	else
-		memset(sect->colInfo,-1,sizeof(EDCOL)*numOfCols);
+	memset(sect->colInfo,-1,sizeof(EDCOL)*numOfCols);
 	if (logStream)
 	{
 		fprintf(logStream,"CreateSection returned %x\n",sect);
@@ -207,12 +207,12 @@ CED_FUNC(Handle) CED_CreateColumn( Handle hEdSection)
 
 //create frame
 CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect,
-								 char position, int borderSpace, int dxfrtextx, int dxfrtexty)
+		char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", hEdSection,hEdColumn, rect.x, rect.y, rect.w, rect.h,
-								 position, borderSpace, dxfrtextx, dxfrtexty);
+				position, borderSpace, dxfrtextx, dxfrtexty);
 		fflush(logStream);
 	}
 	Handle ret=(Handle)(((CEDSection*)hEdSection)->CreateFrame((CEDParagraph*)hEdColumn,rect,position,borderSpace,dxfrtextx,dxfrtexty));
@@ -241,7 +241,7 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag)
 }
 
 //create table
-CED_FUNC(Handle) CED_CreateTable(  Handle hEdSection, Handle hObject)
+CED_FUNC(Handle) CED_CreateTable( Handle hEdSection, Handle hObject)
 {
 	if (logStream)
 	{
@@ -258,25 +258,25 @@ CED_FUNC(Handle) CED_CreateTable(  Handle hEdSection, Handle hObject)
 }
 
 CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable,
-	int left, int rowHeight,
-	int leftBrdrType, int leftBrdrWidth,
-	int rightBrdrType, int rightBrdrWidth,
-	int topBrdrType, int topBrdrWidth,
-	int bottomBrdrType, int bottomBrdrWidth,
-	int gaph, int position, Bool32 header)
+		int left, int rowHeight,
+		int leftBrdrType, int leftBrdrWidth,
+		int rightBrdrType, int rightBrdrWidth,
+		int topBrdrType, int topBrdrWidth,
+		int bottomBrdrType, int bottomBrdrWidth,
+		int gaph, int position, Bool32 header)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateTableRow params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdSection,hEdTable,
-		left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-		rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-		bottomBrdrWidth, gaph, position, header);
+				left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
+				rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
+				bottomBrdrWidth, gaph, position, header);
 		fflush(logStream);
 	}
 	Handle ret=(Handle)(((CEDSection*)hEdSection)->CreateTableRow((CEDParagraph*)hEdTable,
-	left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-	rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-	bottomBrdrWidth, gaph, position, header));
+					left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
+					rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
+					bottomBrdrWidth, gaph, position, header));
 
 	if (logStream)
 	{
@@ -288,18 +288,18 @@ CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable,
 
 // create table's cell
 CED_FUNC(Handle) CED_CreateCell(Handle hEdSection,Handle hEdRow, int cellX, int merging, int vertTextAlign,
-					  int leftBrdrType, int leftBrdrWidth,
-					  int rightBrdrType, int rightBrdrWidth,
-					  int topBrdrType, int topBrdrWidth,
-					  int bottomBrdrType, int bottomBrdrWidth,
-					  EDBOX layout, int shading, int color)
+		int leftBrdrType, int leftBrdrWidth,
+		int rightBrdrType, int rightBrdrWidth,
+		int topBrdrType, int topBrdrWidth,
+		int bottomBrdrType, int bottomBrdrWidth,
+		EDBOX layout, int shading, int color)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateCell params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,(%i,%i,%i,%i),%i,%i\n", hEdSection,hEdRow,
-			cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth,
-			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-			bottomBrdrWidth, layout.x, layout.y, layout.w, layout.h, shading, color);
+				cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth,
+				rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
+				bottomBrdrWidth, layout.x, layout.y, layout.w, layout.h, shading, color);
 		fflush(logStream);
 	}
 	Handle ret=(Handle)( ((CEDSection*)hEdSection) -> CreateCell((CEDParagraph*)hEdRow, cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, layout, shading, color));
@@ -329,16 +329,16 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag)
 //create paragraph
 
 CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject,
-						   int align, EDRECT indent, int UserNum,
-						   int FlagBorder, EDSIZE interval,
-						   EDBOX layout, int  color, int  shading,
-						   int spaceBetweenLines, char spcBtwLnsMult,
-						   char  keep)
+		int align, EDRECT indent, int UserNum,
+		int FlagBorder, EDSIZE interval,
+		EDBOX layout, int color, int shading,
+		int spaceBetweenLines, char spcBtwLnsMult,
+		char keep)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
-			hEdSection,hObject,align,indent.left,indent.top,indent.right,indent.bottom,UserNum,FlagBorder,interval.cx,interval.cy,layout.x,layout.y,layout.w,layout.h, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
+				hEdSection,hObject,align,indent.left,indent.top,indent.right,indent.bottom,UserNum,FlagBorder,interval.cx,interval.cy,layout.x,layout.y,layout.w,layout.h, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
 		fflush(logStream);
 	}
 	Handle ret=(Handle)(((CEDSection*)hEdSection)->CreateParagraph((CEDParagraph*)hObject,align,indent,UserNum,FlagBorder,interval,layout, color, shading, spaceBetweenLines, spcBtwLnsMult, keep));
@@ -352,17 +352,17 @@ CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject,
 
 //set boundary of paragraph
 CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
-					  int leftBrdrType, int leftBrdrWidth,
-					  int rightBrdrType, int rightBrdrWidth,
-					  int topBrdrType, int topBrdrWidth,
-					  int bottomBrdrType, int bottomBrdrWidth,int brdrBtw)
+		int leftBrdrType, int leftBrdrWidth,
+		int rightBrdrType, int rightBrdrWidth,
+		int topBrdrType, int topBrdrWidth,
+		int bottomBrdrType, int bottomBrdrWidth,int brdrBtw)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"SetParaBorders params: %x,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdParagraph,
-			leftBrdrType, leftBrdrWidth,
-			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-			bottomBrdrWidth,brdrBtw);
+				leftBrdrType, leftBrdrWidth,
+				rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
+				bottomBrdrWidth,brdrBtw);
 		fflush(logStream);
 	}
 	((CEDParagraph*)hEdParagraph)->leftBrdrType=leftBrdrType;
@@ -382,14 +382,13 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
 	return TRUE;
 }
 
-
 //create line
 CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight)
 {
 	if (logStream)
 	{
 		fprintf(logStream,"CreateLine params: %x,%i,%i\n",
-			hEdParagraph, hardBreak, defChrFontHeight);
+				hEdParagraph, hardBreak, defChrFontHeight);
 		fflush(logStream);
 	}
 	CEDLine * lin=((CEDParagraph*)hEdParagraph)->InsertLine();
@@ -408,7 +407,7 @@ CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrF
 	if (logStream)
 	{
 		fprintf(logStream,"SetLineParams params: %x,%i,%i\n",
-			hEdLine, hardBreak, defChrFontHeight);
+				hEdLine, hardBreak, defChrFontHeight);
 		fflush(logStream);
 	}
 	CEDLine * lin=((CEDLine*)hEdLine);
@@ -425,10 +424,10 @@ CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrF
 
 //create symbol
 CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout,
-								letterEx* alternatives, int fontHeight,
-								int fontNum, int fontAttribs, int fontLang,
-								int foregroundColor,
-								int backgroundColor)
+		letterEx* alternatives, int fontHeight,
+		int fontNum, int fontAttribs, int fontLang,
+		int foregroundColor,
+		int backgroundColor)
 {
 	CEDChar *chr=((CEDLine*)hEdLine)->InsertChar();
 	chr->fontHeight=fontHeight;
@@ -444,7 +443,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout,
 		while (alternatives[i].probability&1==1)
 		{
 			if(alternatives[i].alternative<' ')
-				alternatives[i].alternative=' ';
+			alternatives[i].alternative=' ';
 			i++;
 		}
 		chr->numOfAltern=i+1;
@@ -482,7 +481,7 @@ CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile,Bool32 readFromFile, uint32
 	return (Handle)CED_FormattedLoad(lpEdFile, readFromFile,bufLen);
 }
 
-CED_FUNC(Bool32) CED_WriteFormattedEd(char * lpEdFileName, Handle hEdPage)
+CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
 {
 	if (logStream)
 	{
@@ -500,45 +499,45 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(char * lpEdFileName, Handle hEdPage)
 ////////////////////////////////////////////////////////////////////////////////
 CED_FUNC(char*) CED_GetPageImageName(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->imageName;
+	return ((CEDPage*)hEdPage)->imageName;
 }
 
 CED_FUNC(EDSIZE) CED_GetPageImageSize(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->sizeOfImage;
+	return ((CEDPage*)hEdPage)->sizeOfImage;
 }
 
 CED_FUNC(EDSIZE) CED_GetPageDpi(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->dpi;
+	return ((CEDPage*)hEdPage)->dpi;
 }
 
 CED_FUNC(uint32_t) CED_GetPageTurn(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->turn;
+	return ((CEDPage*)hEdPage)->turn;
 }
 
 CED_FUNC(EDSIZE) CED_GetPageSize(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->pageSizeInTwips;
+	return ((CEDPage*)hEdPage)->pageSizeInTwips;
 }
 
 CED_FUNC(uint32_t) CED_GetPageNumber(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->pageNumber;
+	return ((CEDPage*)hEdPage)->pageNumber;
 }
 
 CED_FUNC(EDRECT) CED_GetPageBorders(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->pageBordersInTwips;
+	return ((CEDPage*)hEdPage)->pageBordersInTwips;
 }
 CED_FUNC(char) CED_GetPageUnrecogChar(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->unrecogChar;
+	return ((CEDPage*)hEdPage)->unrecogChar;
 }
 CED_FUNC(char) CED_GetPageRecogLang(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->recogLang;
+	return ((CEDPage*)hEdPage)->recogLang;
 }
 CED_FUNC(Bool32) CED_SetPageRecogLang(Handle hEdPage, char _recogLang)
 {
@@ -548,22 +547,22 @@ CED_FUNC(Bool32) CED_SetPageRecogLang(Handle hEdPage, char _recogLang)
 
 CED_FUNC(Bool32) CED_GetPageResize(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->resizeToFit;
+	return ((CEDPage*)hEdPage)->resizeToFit;
 }
 
 CED_FUNC(uint32_t) CED_GetNumberOfParagraphs(Handle hEdPage)
 {
-return ((CEDPage*)hEdPage)->GetNumberOfParagraphs();
+	return ((CEDPage*)hEdPage)->GetNumberOfParagraphs();
 }
 
 CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage,int _num)
 {
-return ((CEDPage*)hEdPage)->GetParagraph(_num);
+	return ((CEDPage*)hEdPage)->GetParagraph(_num);
 }
 
 //get font
 CED_FUNC(Bool32) CED_GetFont(Handle hEdPage,int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
-				char** fontName)
+		char** fontName)
 {
 	return ((CEDPage*)hEdPage)->GetFont(number,fontNumber,fontPitchAndFamily,fontCharset,fontName);
 }
@@ -576,22 +575,22 @@ CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage,int number, int* pictNumber, EDSI
 {
 	CEDPage * pg=(CEDPage*)hEdPage;
 	if(number>=pg->picsCreated)
-		return FALSE;
+	return FALSE;
 	pictEntry* tmp=&(pg->picsTable[number]);
 	if (pictNumber)
-		*pictNumber=tmp->pictNumber;
+	*pictNumber=tmp->pictNumber;
 	if (pictSize)
-		*pictSize=tmp->pictSize;
+	*pictSize=tmp->pictSize;
 	if(pictGoal)
-		*pictGoal=tmp->pictGoal;
+	*pictGoal=tmp->pictGoal;
 	if(pictAlign)
-		*pictAlign=tmp->pictAlign;
+	*pictAlign=tmp->pictAlign;
 	if(type)
-		*type=tmp->type;
+	*type=tmp->type;
 	if(data)
-		*data=tmp->data;
+	*data=tmp->data;
 	if(len)
-		*len=tmp->len;
+	*len=tmp->len;
 	return TRUE;
 }
 CED_FUNC(uint32_t) CED_GetNumOfPics(Handle hEdPage)
@@ -615,30 +614,30 @@ CED_FUNC(EDRECT) CED_GetSectionBorder(Handle hEdSection)
 }
 
 CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection,EDRECT* border,
-									  int* colInterval, char* sectionBreak,
-									  int* width, int* height,
-									  char* orientation, int* headerY,
-									  int* footerY)
+		int* colInterval, char* sectionBreak,
+		int* width, int* height,
+		char* orientation, int* headerY,
+		int* footerY)
 {
 	if (!hEdSection)
-		return FALSE;
+	return FALSE;
 	CEDSection *sect=(CEDSection*)hEdSection;
 	if (border)
-		memcpy(border,&(sect->borders),sizeof(EDRECT));
+	memcpy(border,&(sect->borders),sizeof(EDRECT));
 	if(colInterval)
-		(*colInterval)=sect->colInterval;
+	(*colInterval)=sect->colInterval;
 	if(sectionBreak)
-		(*sectionBreak)=sect->sectionBreak;
+	(*sectionBreak)=sect->sectionBreak;
 	if(width)
-		(*width)=sect->width;
+	(*width)=sect->width;
 	if(height)
-		(*height)=sect->height;
+	(*height)=sect->height;
 	if(orientation)
-		(*orientation)=sect->orientation;
+	(*orientation)=sect->orientation;
 	if(headerY)
-		(*headerY)=sect->headerY;
+	(*headerY)=sect->headerY;
 	if(footerY)
-		(*footerY)=sect->footerY;
+	(*footerY)=sect->footerY;
 	return TRUE;
 }
 
@@ -675,15 +674,15 @@ CED_FUNC(int32_t) CED_GetSnakeColumnSpacing(Handle hEdSection,int number)
 ///////////////////////////////////////////////////////////
 
 /*uint32_t CED_GetCountFrame(Handle hEdSection)
-{
-	return ((CEDSection*)hEdSection)->numberOfFrames;
-}
+ {
+ return ((CEDSection*)hEdSection)->numberOfFrames;
+ }
 
-Handle CED_GetFrame(Handle hEdSection,int number)
-{
-	return (Handle)(((CEDSection*)hEdSection)->GetFrame(number));
-}
-*/
+ Handle CED_GetFrame(Handle hEdSection,int number)
+ {
+ return (Handle)(((CEDSection*)hEdSection)->GetFrame(number));
+ }
+ */
 CED_FUNC(edBox) CED_GetFrameRect(Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->rec;
@@ -731,9 +730,9 @@ CED_FUNC(Bool32) CED_IsTable(Handle hObject)
 }
 
 /*CED_FUNC(Bool32) CED_IsPicture(Handle hObject)
-{
-	return FALSE;
-}*/
+ {
+ return FALSE;
+ }*/
 CED_FUNC(Bool32) CED_IsFrame(Handle hObject)
 {
 	return ((CEDParagraph*)hObject)->type==FRAME_BEGIN?TRUE:FALSE;
@@ -759,48 +758,47 @@ CED_FUNC(Handle) CED_GetTableRow(Handle hEdTable, int num)
 	return (Handle)((CEDParagraph*)hEdTable)->GetRow(num);
 }
 CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow,
-	int* left, int* rowHeight,
-	int* leftBrdrType, int* leftBrdrWidth,
-	int* rightBrdrType, int* rightBrdrWidth,
-	int* topBrdrType, int* topBrdrWidth,
-	int* bottomBrdrType, int* bottomBrdrWidth,
-	int* gaph, int* position, Bool32* header)
+		int* left, int* rowHeight,
+		int* leftBrdrType, int* leftBrdrWidth,
+		int* rightBrdrType, int* rightBrdrWidth,
+		int* topBrdrType, int* topBrdrWidth,
+		int* bottomBrdrType, int* bottomBrdrWidth,
+		int* gaph, int* position, Bool32* header)
 {
 	EDROWDESCR* td=((EDROWDESCR*)((CEDParagraph*)hEdRow)->descriptor);
 	if (!td)
-		return FALSE;
+	return FALSE;
 	if (left)
-		*left=            td->left			;
+	*left= td->left;
 	if(rowHeight)
-		*rowHeight=       td->rowHeight		;
+	*rowHeight= td->rowHeight;
 	if(leftBrdrType)
-		*leftBrdrType=    td->leftBrdrType	;
+	*leftBrdrType= td->leftBrdrType;
 	if(leftBrdrWidth)
-		*leftBrdrWidth=   td->leftBrdrWidth	;
+	*leftBrdrWidth= td->leftBrdrWidth;
 	if(rightBrdrType)
-		*rightBrdrType=   td->rightBrdrType	;
+	*rightBrdrType= td->rightBrdrType;
 	if(rightBrdrWidth)
-		*rightBrdrWidth=  td->rightBrdrWidth	;
+	*rightBrdrWidth= td->rightBrdrWidth;
 	if(topBrdrType)
-		*topBrdrType=     td->topBrdrType		;
+	*topBrdrType= td->topBrdrType;
 	if(topBrdrWidth)
-		*topBrdrWidth=    td->topBrdrWidth	;
+	*topBrdrWidth= td->topBrdrWidth;
 	if(bottomBrdrType)
-		*bottomBrdrType=  td->bottomBrdrType	;
+	*bottomBrdrType= td->bottomBrdrType;
 	if(bottomBrdrWidth)
-		*bottomBrdrWidth= td->bottomBrdrWidth	;
+	*bottomBrdrWidth= td->bottomBrdrWidth;
 	if(gaph)
-		*gaph=            td->gaph			;
+	*gaph= td->gaph;
 	if(position)
-		*position=        td->position		;
+	*position= td->position;
 	if(header)
-		*header=          td->header			;
+	*header= td->header;
 	return TRUE;
 }
 
-uint32_t CED_GetCountCell(Handle hEdRow)
-{
-	return ((EDROWDESCR*)((CEDParagraph*)hEdRow)->descriptor)->numOfCells;
+uint32_t CED_GetCountCell(Handle hEdRow) {
+	return ((EDROWDESCR*) ((CEDParagraph*) hEdRow)->descriptor)->numOfCells;
 }
 CED_FUNC(Handle) CED_GetCell(Handle hEdRow, int number)
 {
@@ -811,36 +809,36 @@ CED_FUNC(Bool32) CED_GetCellParams(Handle hEdCell, int* cellX, int* merging, int
 {
 	EDCELLDESCR* cd=((EDCELLDESCR*)((CEDParagraph*)hEdCell)->descriptor);
 	if (!cd)
-		return FALSE;
+	return FALSE;
 
 	if(cellX)
-		(*cellX)=cd->cellX;
+	(*cellX)=cd->cellX;
 	if(merging)
-		(*merging)=cd->merging;
+	(*merging)=cd->merging;
 	if(vertTextAlign)
-		(*vertTextAlign)=cd->vertTextAlign;
+	(*vertTextAlign)=cd->vertTextAlign;
 	if(leftBrdrType)
-		(*leftBrdrType)=cd->leftBrdrType;
+	(*leftBrdrType)=cd->leftBrdrType;
 	if(leftBrdrWidth)
-		(*leftBrdrWidth)=cd->leftBrdrWidth;
+	(*leftBrdrWidth)=cd->leftBrdrWidth;
 	if(rightBrdrType)
-		(*rightBrdrType)=cd->rightBrdrType;
+	(*rightBrdrType)=cd->rightBrdrType;
 	if(rightBrdrWidth)
-		(*rightBrdrWidth)=cd->rightBrdrWidth;
+	(*rightBrdrWidth)=cd->rightBrdrWidth;
 	if(topBrdrType)
-		(*topBrdrType)=cd->topBrdrType;
+	(*topBrdrType)=cd->topBrdrType;
 	if(topBrdrWidth)
-		(*topBrdrWidth)=cd->topBrdrWidth;
+	(*topBrdrWidth)=cd->topBrdrWidth;
 	if(bottomBrdrType)
-		(*bottomBrdrType)=cd->bottomBrdrType;
+	(*bottomBrdrType)=cd->bottomBrdrType;
 	if(bottomBrdrWidth)
-		(*bottomBrdrWidth)=cd->bottomBrdrWidth;
+	(*bottomBrdrWidth)=cd->bottomBrdrWidth;
 	if(layout)
-		memcpy(layout,&(cd->layout),sizeof(EDBOX));
+	memcpy(layout,&(cd->layout),sizeof(EDBOX));
 	if(shading)
-		(*shading)=cd->shading;
+	(*shading)=cd->shading;
 	if(color)
-		(*color)=cd->color;
+	(*color)=cd->color;
 	return TRUE;
 }
 
@@ -852,41 +850,40 @@ CED_FUNC(int32_t) CED_GetCellFlag (Handle hEdCell)
 CED_FUNC(uint32_t *) CED_GetTableOfCells(Handle hEdTable)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table;
 }
-
 
 CED_FUNC(int32_t *)CED_GetLinesX(Handle hEdTable)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesX;
 }
 
 CED_FUNC(int32_t *)CED_GetRowsHeights(Handle hEdTable)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesY;
 }
 
 CED_FUNC(edSize) CED_GetSize(Handle hEdTable)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (edSize)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->size;
 }
 CED_FUNC(Handle) CED_GetLogicalCell(Handle hEdTable, int number)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (Handle)((CEDParagraph*)hEdTable)->GetLogicalCell(number);
 }
 CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable)
 {
 	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
-		((CEDParagraph*)hEdTable)->CreateTableOfCells();
+	((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return ((CEDParagraph*)hEdTable)->GetCountLogicalCell();
 }
 /////////////////////////////////////////////////////////////////
@@ -925,47 +922,47 @@ CED_FUNC(EDSIZE) CED_GetInterval(Handle hEdParagraph)
 	return ((CEDParagraph*)hEdParagraph)->interval;
 }
 
-CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shading,
-						   int* spaceBetweenLines, char* spcBtwLnsMult,
-						   char*  keep)
+CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int* color, int* shading,
+		int* spaceBetweenLines, char* spcBtwLnsMult,
+		char* keep)
 {
 	if (color)
-		*color=((CEDParagraph*)hEdParagraph)->color;
+	*color=((CEDParagraph*)hEdParagraph)->color;
 	if (shading)
-		*shading=((CEDParagraph*)hEdParagraph)->shading;
+	*shading=((CEDParagraph*)hEdParagraph)->shading;
 	if (spaceBetweenLines)
-		*spaceBetweenLines=((CEDParagraph*)hEdParagraph)->spaceBetweenLines;
+	*spaceBetweenLines=((CEDParagraph*)hEdParagraph)->spaceBetweenLines;
 	if (spcBtwLnsMult)
-		*spcBtwLnsMult=((CEDParagraph*)hEdParagraph)->spcBtwLnsMult;
+	*spcBtwLnsMult=((CEDParagraph*)hEdParagraph)->spcBtwLnsMult;
 	if (keep)
-		*keep=((CEDParagraph*)hEdParagraph)->keep;
+	*keep=((CEDParagraph*)hEdParagraph)->keep;
 	return TRUE;
 }
 //obtain boundary of paragraph
 CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph,
-					  int* leftBrdrType, int* leftBrdrWidth,
-					  int* rightBrdrType, int* rightBrdrWidth,
-					  int* topBrdrType, int* topBrdrWidth,
-					  int* bottomBrdrType, int* bottomBrdrWidth,int* brdrBtw)
+		int* leftBrdrType, int* leftBrdrWidth,
+		int* rightBrdrType, int* rightBrdrWidth,
+		int* topBrdrType, int* topBrdrWidth,
+		int* bottomBrdrType, int* bottomBrdrWidth,int* brdrBtw)
 {
 	if (leftBrdrType)
-		*leftBrdrType=((CEDParagraph*)hEdParagraph)->leftBrdrType;
+	*leftBrdrType=((CEDParagraph*)hEdParagraph)->leftBrdrType;
 	if (leftBrdrWidth)
-		*leftBrdrWidth=((CEDParagraph*)hEdParagraph)->leftBrdrWidth;
+	*leftBrdrWidth=((CEDParagraph*)hEdParagraph)->leftBrdrWidth;
 	if (rightBrdrType)
-		*rightBrdrType=((CEDParagraph*)hEdParagraph)->rightBrdrType;
+	*rightBrdrType=((CEDParagraph*)hEdParagraph)->rightBrdrType;
 	if (rightBrdrWidth)
-		*rightBrdrWidth=((CEDParagraph*)hEdParagraph)->rightBrdrWidth;
+	*rightBrdrWidth=((CEDParagraph*)hEdParagraph)->rightBrdrWidth;
 	if (topBrdrType)
-		*topBrdrType=((CEDParagraph*)hEdParagraph)->topBrdrType;
+	*topBrdrType=((CEDParagraph*)hEdParagraph)->topBrdrType;
 	if (topBrdrWidth)
-		*topBrdrWidth=((CEDParagraph*)hEdParagraph)->topBrdrWidth;
+	*topBrdrWidth=((CEDParagraph*)hEdParagraph)->topBrdrWidth;
 	if (bottomBrdrType)
-		*bottomBrdrType=((CEDParagraph*)hEdParagraph)->bottomBrdrType;
+	*bottomBrdrType=((CEDParagraph*)hEdParagraph)->bottomBrdrType;
 	if (bottomBrdrWidth)
-		*bottomBrdrWidth=((CEDParagraph*)hEdParagraph)->bottomBrdrWidth;
+	*bottomBrdrWidth=((CEDParagraph*)hEdParagraph)->bottomBrdrWidth;
 	if (brdrBtw)
-		*brdrBtw=((CEDParagraph*)hEdParagraph)->brdrBtw;
+	*brdrBtw=((CEDParagraph*)hEdParagraph)->brdrBtw;
 	return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -993,7 +990,6 @@ CED_FUNC(Bool32) CED_IsPicture(Handle hEdChar)
 	int n=((CEDChar*)hEdChar)->fontNum;
 	return (n>=ED_PICT_BASE)&&(n!=0xffffffff)&&(n!=0xfffffffe);
 }
-
 
 CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar)
 {

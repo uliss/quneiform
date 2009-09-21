@@ -127,7 +127,7 @@ bool PUMA_Init() {
 	return ModulesInit((void*) ghStorage);
 }
 
-PUMA_FUNC bool PUMA_Done() {
+bool PUMA_Done() {
 	Bool32 rc = ModulesDone((void*) ghStorage);
 
 	DoneDebug();
@@ -137,11 +137,11 @@ PUMA_FUNC bool PUMA_Done() {
 	return rc;
 }
 
-PUMA_FUNC uint32_t PUMA_GetReturnCode() {
+int PUMA_GetReturnCode() {
 	return gwRC;
 }
 
-PUMA_FUNC char * PUMA_GetReturnString(uint32_t dwError) {
+char * PUMA_GetReturnString(int dwError) {
 	static char szBuffer[512];
 	uint16_t low = (uint16_t) (dwError & 0xFFFF);
 	uint16_t hei = (uint16_t) (dwError >> 16);
@@ -163,7 +163,7 @@ PUMA_FUNC char * PUMA_GetReturnString(uint32_t dwError) {
 
 }
 
-PUMA_FUNC bool PUMA_GetExportData(uint32_t dwType, void * pData) {
+bool PUMA_GetExportData(uint32_t dwType, void * pData) {
 	bool rc = true;
 
 	gwRC = 0;

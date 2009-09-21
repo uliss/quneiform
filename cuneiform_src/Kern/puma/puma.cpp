@@ -195,10 +195,6 @@ static int32_t s_ConsoleLine = 0;
 
 static bool PreOpenInitialize(const char * /*lpFileName*/) {
 	bool rc = true;
-#ifdef _DEBUG// Piter
-	if(nDebugAllocMemory>0)
-	_CrtSetBreakAlloc(nDebugAllocMemory);
-#endif// Piter
 	// Удалим предыдущие окна отладки.
 	Handle hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
 	if (hRemWnd)
@@ -223,32 +219,7 @@ static bool PreOpenInitialize(const char * /*lpFileName*/) {
 			LDPUMA_ConsoleClear(s_ConsoleLine);
 		s_ConsoleLine = LDPUMA_ConsoleGetCurLine();
 	} else {
-#ifdef _DEBUG
-		// Память не должна накапливаться. К этой точке вся память
-		// должна быть почищена!!
-		/*
-		 _CrtMemState dbgMemState,dbgMemDiff;
-		 static _CrtMemState dbgPrevMemState = {0};
-		 static bInitMemState = true;
 
-		 _CrtMemCheckpoint( &dbgMemState );
-		 if ( !bInitMemState && _CrtMemDifference( &dbgMemDiff, &dbgPrevMemState, &dbgMemState ) )
-		 {
-
-		 _CrtMemDumpAllObjectsSince(&dbgMemDiff);
-		 }
-		 dbgPrevMemState = dbgMemState;
-		 bInitMemState = false;
-		 */
-		//		_CrtDumpMemoryLeaks();
-		//_CrtMemDumpAllObjectsSince(&g_dbgMemState);
-		_CrtMemDumpAllObjectsSince(NULL);
-		//LDPUMA_Console("Press any key...\n");
-		//LDPUMA_WaitUserInput(NULL,NULL);
-		_CrtMemCheckpoint( &g_dbgMemState );
-
-		_CrtDbgReport(_CRT_WARN, NULL, 0, NULL, "OPEN FILE <%s>\n",lpFileName);
-#endif
 	}
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 	SetReturnCode_puma(IDS_ERR_NO);
@@ -345,7 +316,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	//
 	PAGEINFO PInfo;// = { 0 };
 
-	IS_VALID(p); IS_VALID(lpDIB);
+	IS_VALID(p);IS_VALID(lpDIB);
 
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
 		SetReturnCode_puma(CPAGE_GetReturnCode());
@@ -421,14 +392,6 @@ bool PUMA_XPageAnalysis() {
 	if (InitPRGTIME())
 		ProgressStart();
 
-#ifdef _DEBUG
-	_CrtMemState checkPt1;
-	_CrtMemCheckpoint( &checkPt1 );
-	_CrtMemDumpStatistics( &checkPt1 );
-	_CrtDbgReport(_CRT_WARN, NULL, 0, NULL, "WARNING: Page Analysis.\n");
-	//	_CrtMemDumpAllObjectsSince(NULL);
-#endif
-
 	rc = Layout(gpRecogDIB);
 	if (DonePRGTIME())
 		ProgressFinish();
@@ -461,13 +424,13 @@ bool PUMA_XFinalRecognition() {
 	return rc;
 }
 
-PUMA_FUNC bool PUMA_XSave(const char * OutFileName, puma_format_t Format,
+bool PUMA_XSave(const std::string& filename, puma_format_t Format,
 		puma_code_t Code) {
-	return PUMA_Save(ghEdPage, OutFileName, Format, Code, false);
+	return PUMA_Save(ghEdPage, filename, Format, Code, false);
 }
 
-bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, puma_format_t lnFormat,
-		puma_code_t lnCode, bool Append) {
+bool PUMA_Save(Handle hEdPage, const std::string& filename,
+		puma_format_t Format, puma_code_t Code, bool Append) {
 	bool rc = true;
 	Handle prevEdPage = ghEdPage;
 
@@ -484,23 +447,21 @@ bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, puma_format_t lnForma
 	if (InitPRGTIME())
 		ProgressStart();
 	if (LDPUMA_Skip(hDebugCancelFormatted)) {
-		switch (lnFormat) {
-#ifdef _DEBUG
+		switch (Format) {
 		case PUMA_DEBUG_TOTEXT:
-		rc = SaveToText((char*)lpOutFileName,lnCode);
-		break;
-#endif
+			rc = SaveToText(filename.c_str(), Code);
+			break;
 		case PUMA_TORTF:
 			if (Append)
-				rc = CED_MergeFormattedRtf(lpOutFileName, ghEdPage);
+				rc = CED_MergeFormattedRtf(filename.c_str(), ghEdPage);
 			else
-				rc = CED_WriteFormattedRtf(lpOutFileName, ghEdPage);
+				rc = CED_WriteFormattedRtf(filename.c_str(), ghEdPage);
 
 			if (!rc)
 				SetReturnCode_puma(CED_GetReturnCode());
 			break;
 		case PUMA_TOEDNATIVE:
-			rc = CED_WriteFormattedEd((char*) lpOutFileName, ghEdPage);
+			rc = CED_WriteFormattedEd(filename.c_str(), ghEdPage);
 			if (!rc)
 				SetReturnCode_puma(CED_GetReturnCode());
 			break;
@@ -510,7 +471,7 @@ bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, puma_format_t lnForma
 		case PUMA_TOTABLEDBF:
 		case PUMA_TOHTML:
 		case PUMA_TOHOCR:
-			rc = ConverROUT((char *) lpOutFileName, lnFormat, lnCode, Append);
+			rc = ConverROUT(filename.c_str(), Format, Code, Append);
 			break;
 		default:
 			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
@@ -525,9 +486,9 @@ bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, puma_format_t lnForma
 	return rc;
 }
 
-uint32_t PUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode,
+bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 		char * lpMem, uint32_t size) {
-	bool rc = 0;
+	bool rc = true;
 	Handle prevEdPage = ghEdPage;
 
 	if (hEdPage == NULL)
@@ -543,13 +504,13 @@ uint32_t PUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode,
 	if (InitPRGTIME())
 		ProgressStart();
 	if (LDPUMA_Skip(hDebugCancelFormatted)) {
-		switch (lnFormat) {
+		switch (Format) {
 		case PUMA_TOTEXT:
 		case PUMA_TOSMARTTEXT:
 		case PUMA_TOTABLETXT:
 		case PUMA_TOTABLEDBF:
 		case PUMA_TOHTML:
-			rc = ConverROUTtoMemory(hEdPage, lnFormat, lnCode, (Byte*) lpMem,
+			rc = ConverROUTtoMemory(hEdPage, Format, Code, (puchar) lpMem,
 					size);
 			break;
 		default:

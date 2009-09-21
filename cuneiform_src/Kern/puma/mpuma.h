@@ -55,7 +55,6 @@
  */
 #ifndef __MPUMA_H__
 #define __MPUMA_H__
-
 #include "resource.h"
 #include "puma.h"
 #include "dpuma.h"
@@ -85,7 +84,6 @@
 #include "rsl.h"
 #include "rreccom.h"
 #include "rcorrkegl.h"
-
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -115,7 +113,6 @@ EXTERN Bool32 gbFormat VAL(TRUE);
 // устарела см. gnFormat
 EXTERN uint32_t gnFormat VAL(1);
 EXTERN Bool32 gnPreserveLineBreaks VAL(FALSE);
-
 EXTERN uchar gnUnrecogChar VAL('~');
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
@@ -231,26 +228,10 @@ EXTERN Bool32 gneed_clean_line VAL(FALSE);
 EXTERN Bool32 gKillVSLComponents VAL(TRUE);
 EXTERN uchar gnSpecialProject VAL(0);
 //allex
-#ifdef _DEBUG
-#ifdef _MSC_VER
-#include<crtdbg.h>
-#endif
-EXTERN _CrtMemState g_dbgMemState;
-
-#endif
-
 EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
-//typedef struct
-//	{
-//	uint32_t dwBeg;   // Начало текущего диапозона
-//	uint32_t dwEnd;	// Конец
-//
-//	uint32_t dwStep;  // текущий номер шага
-//	char * name;	// текущее название шага
-//	} PRGTIME;
 EXTERN PRGTIME g_PrgTime;
 //////////////////////////////////////////////////////////////////
 // 07.07,2000 Allex
@@ -309,7 +290,7 @@ Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
 void SetOptionsToFRMT(void);
-Bool32 SaveToText(char * lpOutFileName, int code);
+Bool32 SaveToText(const char * lpOutFileName, int code);
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
@@ -332,21 +313,12 @@ Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-// Allex (перенесено в pumadef.h
-//#define NAME_IMAGE_INPUT		"Исходное изображение"
-//#define NAME_IMAGE_BINARIZE    "Бинаризованное изображение"
-//#define NAME_IMAGE_DELLINE		"Изображение со снятыми линиями"
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 Bool32 PreProcessImage();
 Bool32 BinariseImage();
-
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
-Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,
-		Bool32 bAppend);
+bool ConverROUT(const std::string& filename, puma_format_t Format,
+		puma_code_t Code, bool Append);
 uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
 		Byte * lpMem, uint32_t size);
-//////////////////////////////////////////////////////////////////////////////////
 
 #endif

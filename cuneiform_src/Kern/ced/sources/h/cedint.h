@@ -127,7 +127,7 @@ DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
 DEC_FUN(uint32_t, CED_ReadED,(char * file,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(void,CED_SetRawDataProc,(FNRDProc proc));
 DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(Bool32,CED_FormattedWrite,(char * fileName, CEDPage *page));
+DEC_FUN(Bool32,CED_FormattedWrite,(const char * fileName, CEDPage *page));
 DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
 
 #undef DEC_FUN

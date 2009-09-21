@@ -136,7 +136,6 @@ long	_EnumPictureMode(long nPrev);
 
 Bool	_Open(char * pDIB, char * FileName);
 Bool	_Close( );
-//Bool	_Recognition( );
 Bool	_Save(void * hEdPage,  char * lpFileName,long format, long code, Bool32 bAppend);
 Bool	_PageAnalysis(Bool bUpdateCPAGE );
 Bool	_FinalRecognition( );

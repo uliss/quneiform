@@ -161,13 +161,6 @@ typedef enum
 
 } ROUT_EXPORT_ENTRIES;
 
-/*
-#ifdef __ROUT__
-	#define DEC_FUN(a,b,c) typedef a (*FN##b)c; ROUT_FUNC(a) b c
-#else
-	#define DEC_FUN(a,b,c) typedef a (*FN##b)c;
-//#endif
-*/
 #define DEC_FUN(a,b,c) ROUT_FUNC(a) b c
 
 // Импорт алфавита, загруженного из REC6.DAT в SPELABC.C.
@@ -249,7 +242,7 @@ DEC_FUN(Bool32, ROUT_GetObject,
 DEC_FUN(Bool32, ROUT_SaveObject,
 		(
 		uint32_t objIndex,	// Индекс объекта начиная от 1
-		char *path,			// Путь до выходного файла
+		const char *path,			// Путь до выходного файла
 		Bool32 append		// Дополнение в конец файла
 		));
 
@@ -333,10 +326,6 @@ typedef enum
 	// ROUT_LONG_TableTextOptions = 100
 
 } ROUT_IMPORT_ENTRIES;
-
-//#define DEC_FUN(a,b,c) typedef a (*FN##b)c
-// Колбэки
-//#undef DEC_FUN
 
 //*****************************************************************
 // Коды возврата

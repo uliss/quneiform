@@ -698,7 +698,7 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page);
 Bool32 WritePictTable(Handle hFile, CEDPage* page);
 Bool32 WritePara(Handle hFile, CEDParagraph* hPara);
 
-Bool32 CED_FormattedWrite(char * fileName, CEDPage *page) {
+Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
 	int ret;
 	int fn;
 	int sec;
