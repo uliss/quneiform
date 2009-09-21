@@ -295,10 +295,6 @@ Bool32 Recognize();
 void InitDebug();
 void DoneDebug();
 
-// STATIC
-static char lang_suff[][4] = { "", "GRM", "FRN", "RUS", "SWE", "SPA", "ITA",
-		"R&E", "UKR", "SER", "CRO", "POL", "DAN", "POR", "DUT", "DIG" };
-
 // Enum.cpp
 long _EnumFormats(long prev);
 long _EnumCodes(long f, long prev);

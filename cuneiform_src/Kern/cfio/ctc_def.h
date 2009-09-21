@@ -85,7 +85,7 @@
 #define    FICTIV_Handle           (void *)FICTIV_BLOC
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 }
 }

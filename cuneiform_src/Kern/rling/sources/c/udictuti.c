@@ -257,8 +257,8 @@ Bool ispermitted (uchar a)
 /* the following function tests file <name> and returns one of the
    following conclusions:
 			 - UD_NOTEXIST   - file doesn't exist;
-			 - UD_WRONGHEAD  - file is not a CTC user dictionary;
-			 - UD_PERMITTED  - file has a CTC user dict header.
+			 - UD_WRONGHEAD  - file is not a CFIO user dictionary;
+			 - UD_PERMITTED  - file has a CFIO user dict header.
 */
 
 int16_t _IsUserDict (char * name)

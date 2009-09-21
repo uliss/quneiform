@@ -59,21 +59,19 @@
 #include "resource.h"
 #include "ced_struct.h"
 #include "cedint.h"
-//#include "mymem.h"
-//#include "edfile.h"
-//#include "edext.h"
 
 Bool32 func_char(puchar p, uint32_t lth);
 Bool32 func_spec(puchar p, uint32_t lth);
 
-FNCFIOReadMemoryFromFile MemFromFile;
-FNCFIOLockMemory Lock;
-FNCFIOUnlockMemory Unlock;
-FNCFIOFreeMemory Free;
-//FNCFIOAllocMemory					Alloc;
-FNCFIOOpenFreeFile Open;
-FNCFIOCloseFreeFile Close;
-FNCFIOWriteToFile Write;
+using namespace CIF::CFIO;
+
+//FNCFIOReadMemoryFromFile MemFromFile;
+//FNCFIOLockMemory Lock;
+//FNCFIOUnlockMemory Unlock;
+//FNCFIOFreeMemory Free;
+//FNCFIOOpenFreeFile Open;
+//FNCFIOCloseFreeFile Close;
+//FNCFIOWriteToFile Write;
 
 static unsigned char ed_table[] = { sizeof(struct bit_map_ref), /* 0  SS_BITMAP_REF         */
 sizeof(struct text_ref), /* 1  SS_TEXT_REF           */
@@ -146,21 +144,20 @@ void CED_SetRawDataProc(FNRDProc proc) {
 	RDProced = proc;
 }
 
-/*CED_FUNC(*/uint32_t/*)*/CED_ReadED(char * file, Bool32 readFromFile,
-		uint32_t bufLen) {
+uint32_t CED_ReadED(char * file, Bool32 readFromFile, uint32_t bufLen) {
 	uchar code;
 	Handle PedHandle;
 	uint32_t lth, ret;
 	puchar start, edscan_stop;
 
 	if (readFromFile) {
-		ret = MemFromFile((pchar) file, &PedHandle);
+		ret = CFIO_ReadMemoryFromFile((pchar) file, &PedHandle);
 		if (ret == 0)
 			return 0;
-		start = (puchar) Lock(PedHandle);
+		start = static_cast<uchar*> (CFIO_LockMemory(PedHandle));
 		if (!start) {
-			Unlock(PedHandle);
-			Free(PedHandle);
+			CFIO_UnlockMemory(PedHandle);
+			CFIO_FreeMemory(PedHandle);
 			return 0;
 		}
 	} else {
@@ -182,7 +179,7 @@ void CED_SetRawDataProc(FNRDProc proc) {
 		edscan_stop = start;
 		goto quit;
 
-		char_proc: if (func_char(start, (uint16_t)(curr - start)))
+		char_proc: if (func_char(start, (uint16_t) (curr - start)))
 			goto next_symb;
 		edscan_stop = start;
 		goto quit;
@@ -214,12 +211,12 @@ void CED_SetRawDataProc(FNRDProc proc) {
 	if (code & 0x80) {
 		//SS_EXTENTION can be either 16 or 32 bit.
 		if (*(uchar*) curr != SS_EXTENTION)
-			lth = *(uint16_t*)(curr + (code & 0xf));
+			lth = *(uint16_t*) (curr + (code & 0xf));
 		else {
 			if (!((*(uint16_t*) (curr + 1)) & 0x8000))
-				lth = *(uint16_t*)(curr + (code & 0xf));
+				lth = *(uint16_t*) (curr + (code & 0xf));
 			else
-				lth = *(uint32_t*)(curr + (code & 0xf));
+				lth = *(uint32_t*) (curr + (code & 0xf));
 		}
 	} else
 		lth = *(puchar)(curr + (code & 0xf));
@@ -242,8 +239,8 @@ void CED_SetRawDataProc(FNRDProc proc) {
 
 	quit: ret = (int) (edscan_stop - start);
 	if (readFromFile) {
-		Unlock(PedHandle);
-		Free(PedHandle);
+		CFIO_UnlockMemory(PedHandle);
+		CFIO_FreeMemory(PedHandle);
 	}
 	return ret;
 }
@@ -254,7 +251,7 @@ Bool32 func_char(puchar p, uint32_t lth) {
 	return TRUE;
 }
 
-Bool32 func_spec(puchar p, uint32_t lth) {
+Bool32 func_spec(puchar p, uint32_t /*lth*/) {
 
 	switch (*p) {
 	case SS_BITMAP_REF: {

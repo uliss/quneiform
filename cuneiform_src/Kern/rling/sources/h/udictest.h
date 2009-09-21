@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #define  UD_NOTEXIST   1   /* FileName doesn't exist.                      */
-#define  UD_WRONGHEAD  2   /* FileName is not CTC user dictionary.         */
-#define  UD_PERMITTED  3   /* FileName permitted as a CTC user dictionary. */
+#define  UD_WRONGHEAD  2   /* FileName is not CFIO user dictionary.         */
+#define  UD_PERMITTED  3   /* FileName permitted as a CFIO user dictionary. */
 
 #define __USERDICT_TEST_H__
 

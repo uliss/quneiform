@@ -17,7 +17,7 @@
 #include "ctc_def.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 struct CTC_mem_cluster {
 	struct CTC_mem_cluster * mcNext;

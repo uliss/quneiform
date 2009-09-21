@@ -9,7 +9,7 @@
 #include "ctc_def.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 MemoryHeader::MemoryHeader() :
 	GlobalHeader() {

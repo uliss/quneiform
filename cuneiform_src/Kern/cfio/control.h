@@ -78,7 +78,7 @@
 #include "storagelist.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 class Control {
 public:

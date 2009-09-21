@@ -15,7 +15,7 @@
 #include <string>
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 class MemoryList {
 public:

@@ -9,7 +9,7 @@
 #include "storageheader.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 FileList::FileList() {
 	first_.SetNext(&last_);

@@ -12,7 +12,7 @@
 #include "globalheader.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 #define                 CFIO_MEMORY_GLOBAL           0x0001
 #define                 CFIO_MEMORY_LOCK             0x0002

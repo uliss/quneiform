@@ -9,7 +9,7 @@
 
 namespace CIF {
 
-namespace CTC {
+namespace CFIO {
 
 GlobalHeader::GlobalHeader(Handle NewHandle, void * NewData, uint NewSize,
 		uint NewFlag, GlobalHeader * NewNext) {

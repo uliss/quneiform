@@ -13,7 +13,7 @@
 #include "globalfile.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 class StorageHeader;
 

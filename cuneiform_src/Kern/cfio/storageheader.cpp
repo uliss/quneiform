@@ -15,12 +15,12 @@
 #include "cfio.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
-static char ShFolder[CFIO_MAX_PATH];
-static char ShFile[CFIO_MAX_PATH + 4];
-static char ShExtension[CFIO_MAX_PATH];
-static char ShBuffer[CFIO_MAX_PATH + 4];
+static char ShFolder[MAX_PATH];
+static char ShFile[MAX_PATH + 4];
+static char ShExtension[MAX_PATH];
+static char ShBuffer[MAX_PATH + 4];
 
 StorageHeader::StorageHeader() :
 	GlobalHeader(), contents_counter_(0) {

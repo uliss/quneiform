@@ -12,7 +12,7 @@
 #include "cttypes.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 class GlobalHeader {
 public:

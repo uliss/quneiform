@@ -111,7 +111,7 @@ void Puma::modules_done() {
 #ifdef _USE_RMSEGMENT_
 	RMSEGMENT_Done();
 #endif
-	CFIO_Done();
+	CIF::CFIO::CFIO_Done();
 }
 
 void Puma::modules_init() {
@@ -120,8 +120,8 @@ void Puma::modules_init() {
 		if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
 			throw ModuleInitException("CLINE", CLINE_GetReturnCode());
 
-		if (!CFIO_Init(PUMA_MODULE_CFIO, NULL))
-			throw ModuleInitException("CFIO", CFIO_GetReturnCode());
+		if (!CFIO::CFIO_Init(PUMA_MODULE_CFIO, NULL))
+			throw ModuleInitException("CFIO", CFIO::CFIO_GetReturnCode());
 
 		if (!CIMAGE_Init(PUMA_MODULE_CIMAGE, NULL))
 			throw ModuleInitException("CIMAGE", CIMAGE_GetReturnCode());

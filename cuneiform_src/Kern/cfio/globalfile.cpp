@@ -14,7 +14,7 @@
 #include "control.h"
 
 namespace CIF {
-namespace CTC {
+namespace CFIO {
 
 extern Control * Control_ctc;
 
@@ -112,7 +112,7 @@ bool GlobalFile::Close() {
 		Closet = CFIO_CLOSE(GetHandle());
 	} else if (!IsDeleted()) {
 		FILE * DiskFile;
-		char DiskFileName[CFIO_MAX_PATH];
+		char DiskFileName[MAX_PATH];
 
 		// extract memory file name for disk file
 		// if present
@@ -309,7 +309,7 @@ void GlobalFile::AddFlagToString(const char * Flag) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 std::string GlobalFile::GetFileName(char * lpName) const {
-	if (lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH)
+	if (lpName && CFIO_STRLEN(lpName) <= MAX_PATH)
 		CFIO_STRCPY(lpName, file_name_.c_str());
 
 	return file_name_;
@@ -333,10 +333,10 @@ uint32_t GlobalFile::GetFileLenght() {
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-static char Folder[CFIO_MAX_PATH];
-static char File[CFIO_MAX_PATH];
-static char Extension[CFIO_MAX_PATH];
-static char Out[CFIO_MAX_PATH];
+static char Folder[MAX_PATH];
+static char File[MAX_PATH];
+static char Extension[MAX_PATH];
+static char Out[MAX_PATH];
 //////////////////////////////////////////////////////////////////////////////////
 //
 bool GlobalFile::ProvideFileFolder(const std::string& FileName) {

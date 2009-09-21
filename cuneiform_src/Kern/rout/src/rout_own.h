@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cfio.h"
 
 #include "ced.h"
-//#include "ced_struct.h"
 #include "resource.h"
 
 #include <stdio.h>
@@ -130,15 +129,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //*****************************************************************
 // Функции из CFIO
-EXTERN FNCFIOAllocMemory		CFIO_Alloc		VAL(0);
-EXTERN FNCFIOReAllocMemory		CFIO_ReAlloc	VAL(0);
-EXTERN FNCFIOLockMemory			CFIO_Lock		VAL(0);
-EXTERN FNCFIOUnlockMemory		CFIO_Unlock		VAL(0);
-EXTERN FNCFIOFreeMemory			CFIO_Free		VAL(0);
-EXTERN FNCFIOOpenFreeFile		CFIO_Open		VAL(0);
-EXTERN FNCFIOCloseFreeFile		CFIO_Close		VAL(0);
-EXTERN FNCFIOWriteToFile		CFIO_Write		VAL(0);
-EXTERN FNCFIOSeekFilePointer	CFIO_Seek		VAL(0);
+
+//EXTERN FNCFIOAllocMemory		CFIO_Alloc		VAL(0);
+//EXTERN FNCFIOReAllocMemory		CFIO_ReAlloc	VAL(0);
+//EXTERN FNCFIOLockMemory			CFIO_Lock		VAL(0);
+//EXTERN FNCFIOUnlockMemory		CFIO_Unlock		VAL(0);
+//EXTERN FNCFIOFreeMemory			CFIO_Free		VAL(0);
+//EXTERN FNCFIOOpenFreeFile		CFIO_Open		VAL(0);
+//EXTERN FNCFIOCloseFreeFile		CFIO_Close		VAL(0);
+//EXTERN FNCFIOWriteToFile		CFIO_Write		VAL(0);
+//EXTERN FNCFIOSeekFilePointer	CFIO_Seek		VAL(0);
 
 //*****************************************************************
 // Для отладочной печати

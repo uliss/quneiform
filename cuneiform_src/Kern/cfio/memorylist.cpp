@@ -8,10 +8,10 @@
 #include "memorylist.h"
 #include "resource.h"
 
-extern void SetReturnCode_cfio(uint16_t rc);
-
 namespace CIF {
-namespace CTC {
+namespace CFIO {
+
+extern void SetReturnCode_cfio(uint16_t rc);
 
 MemoryList::MemoryList() :
 	first_(FICTIV_Handle, 0, "CFIO", "First in list (fictiv)"),

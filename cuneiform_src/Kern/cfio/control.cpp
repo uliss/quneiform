@@ -67,9 +67,6 @@
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#ifndef _MSC_VER
-#include <unistd.h>
-#endif
 #include "control.h"
 #include "compat_defs.h"
 #include "resource.h"
@@ -81,32 +78,29 @@
 
 #include <cstring>
 
-using namespace CIF::CTC;
+namespace CIF {
+namespace CFIO {
 
 void SetReturnCode_cfio(uint16_t rc);
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Control::Control() {
 	char SystemTemp[_MAX_PATH];
 
-	GetTempPath(CFIO_MAX_PATH, SystemTemp);
+	GetTempPath(MAX_PATH, SystemTemp);
 	SetFolder(CFIO_TEMP_FOLDER, SystemTemp);
 	SetFolder(CFIO_FILE_FOLDER, SystemTemp);
 	CFIO_STRCAT(SystemTemp, "STORAGE\\");
 	SetFolder(CFIO_STORAGE_FOLDER, SystemTemp);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Control::~Control() {
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-static char SFolder[CFIO_MAX_PATH];
-static char SFile[CFIO_MAX_PATH];
-static char SExtension[CFIO_MAX_PATH];
-static char SOut[CFIO_MAX_PATH];
-//////////////////////////////////////////////////////////////////////////////////
-//
+
+static char SFolder[MAX_PATH];
+static char SFile[MAX_PATH];
+static char SExtension[MAX_PATH];
+static char SOut[MAX_PATH];
+
 char* Control::FileNameToFolder(char* Buffer, const char * FolderName,
 		const char* FileName, uint32_t Size) {
 	char *i, *j;
@@ -156,8 +150,7 @@ char* Control::FileNameToFolder(char* Buffer, const char * FolderName,
 	return Buffer;
 
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 std::string Control::MakeNameForStorage(const std::string& FileName,
 		StorageHeader * hStorageHead) {
 	char* i;
@@ -165,7 +158,7 @@ std::string Control::MakeNameForStorage(const std::string& FileName,
 	if (FileName.empty())
 		return std::string();
 
-	if (FileName.length() > CFIO_MAX_PATH)
+	if (FileName.length() > MAX_PATH)
 		return FileName;
 
 	// копируем папку хранилища
@@ -195,7 +188,6 @@ std::string Control::MakeNameForStorage(const std::string& FileName,
 	CFIO_MAKEPATH(SOut, NULL, SFile, SExtension);
 
 	return SOut;
-
 }
 
 bool Control::GetFolder(uint32_t wFolder, char* pcBuff) {
@@ -293,14 +285,14 @@ bool Control::WriteFileToStorage(Handle hStorage, Handle hFile,
 }
 
 Handle Control::ReadFileFromStorage(Handle hStorage, char* lpName) {
-	char FileName[CFIO_MAX_PATH];
+	char FileName[MAX_PATH];
 	// берем хидер хранилища.... или не берем, если нет
 	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
 
 	if (pStorageHeader) {
 		if (FileNameToFolder(FileName,
 				pStorageHeader->GetStorageFolder().c_str(), lpName,
-				CFIO_MAX_PATH)) {
+				MAX_PATH)) {
 			return OpenFile(NULL, FileName, OSF_READ | OSF_WRITE | OSF_BINARY);
 		}
 	}
@@ -582,7 +574,7 @@ uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, const std::str
 
 uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 		Handle * phMem) {
-	char NameForStorage[CFIO_MAX_PATH];
+	char NameForStorage[MAX_PATH];
 	Handle hMem;
 	uint32_t Readed = 0;
 
@@ -1210,4 +1202,6 @@ bool Control::CloseAllStorageFile(Handle Storage, uint32_t Flag) {
 	else {
 		return CloseStorageFile(Storage, Flag);
 	}
+}
+}
 }

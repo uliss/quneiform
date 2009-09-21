@@ -62,12 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #include "lang_def.h"
 
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
 #ifdef __CED__
   #define CED_FUNC  FUN_EXPO
 #else
@@ -420,7 +414,6 @@ typedef enum
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CED_FUNC(a) b c
-//#define DEC_FUN(a,b,c) typedef a (*FN##b)c;a b c
 
 DEC_FUN(uint32_t, CED_IsEdFile, (char * file,Bool32 readFromFile, uint32_t bufLen));
 

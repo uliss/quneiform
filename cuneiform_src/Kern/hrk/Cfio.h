@@ -75,9 +75,9 @@
 extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#define CFIO_MAX_PATH          256
-#define CFIO_MAX_OWNER         16
-#define CFIO_MAX_COMMENT       48
+#define MAX_PATH          256
+#define MAX_OWNER         16
+#define MAX_COMMENT       48
 ///////////////////////////////////////////////////////////////////////////////////////////////
 CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();

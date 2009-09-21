@@ -167,7 +167,7 @@ Bool Static_MakeHTML(
 			FontStyle(0);
 			PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"   \"http://www.w3.org/TR/html4/loose.dtd\">\n");
 			PUT_STRING("<html><head><title></title>");
-			if (gActiveCode==ROUT_CODE_UTF8) 
+			if (gActiveCode==ROUT_CODE_UTF8)
 				 PUT_STRING("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >");
 			PUT_STRING("</head><body>");
 
@@ -274,7 +274,7 @@ static Bool BeginParagraph(Handle hObject)
 
     PUT_STRING("<p");
     if (p) {
-        sprintf(buf, " align=%s", p);
+        sprintf(buf, " align=\"%s\"", p);
         PUT_STRING(buf);
     }
 
@@ -300,13 +300,13 @@ static Bool CellStart()
 		strcpy(buf,"<td>");
 
 	else if ( rowspan > 1 && colspan == 1 )
-		sprintf(buf,"<td rowspan=%d>",rowspan);
+		sprintf(buf,"<td rowspan=\"%ld\">",rowspan);
 
 	else if ( rowspan == 1 && colspan > 1 )
-		sprintf(buf,"<td colspan=%d>",colspan);
+		sprintf(buf,"<td colspan=\"%ld\">",colspan);
 
 	else // ( rowspan > 1 && colspan > 1 )
-		sprintf(buf,"<td rowspan=%d colspan=%d>",rowspan,colspan);
+		sprintf(buf,"<td rowspan=\"%ld\" colspan=\"%ld\">",rowspan,colspan);
 
 	PUT_STRING(buf);
 	return TRUE;
@@ -400,13 +400,13 @@ static Bool Picture()
 
 	// write picture to bmp file
 	if(dir[0])
-	    sprintf(absPicFileName,"%s/%s/%d.bmp", dir,
+	    sprintf(absPicFileName,"%s/%s/%ld.bmp", dir,
 	            gPageFilesFolder, gPictureNumber);
 	else
-	    sprintf(absPicFileName,"%s/%d.bmp",
+	    sprintf(absPicFileName,"%s/%ld.bmp",
 	            gPageFilesFolder, gPictureNumber);
 
-	sprintf (relPicFileName,"%s/%d.bmp",
+	sprintf (relPicFileName,"%s/%ld.bmp",
 		gPageFilesFolder, gPictureNumber);
 
 	if ( !WritePictureToBMP_File(
@@ -417,8 +417,8 @@ static Bool Picture()
 		return FALSE;
 
 	// write img html tag.
-	sprintf (buf,"<img src=%s "
-"width=%d height=%d "
+	sprintf (buf,"<img src=\"%s\" "
+"width=\"%ld\" height=\"%ld\" "
 "alt=\"%s\">",
 		relPicFileName,
 		gPictureGoal.cx * 72L / 1440L,
