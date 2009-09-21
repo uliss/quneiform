@@ -116,7 +116,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lp
 	return TRUE;
 }
 
-PUMA_FUNC bool PUMA_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
+bool PUMA_Init(uint wHeightCode) {
 	gwHeightRC = wHeightCode;
 
 	if (!InitMem())

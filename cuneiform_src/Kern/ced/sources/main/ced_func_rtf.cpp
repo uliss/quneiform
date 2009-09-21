@@ -54,6 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <string>
 #include <cstring>
 #include <cstdlib>
 #include <cctype>
@@ -663,16 +664,18 @@ Bool FlushRtfLine(struct StrRtfOut far *rtf) {
 		return TRUE; // nothing to flush
 
 	// add cr/lf to the line
-	rtf->text[rtf->TextLen] = 0xd;
-	rtf->TextLen++;
-	rtf->text[rtf->TextLen] = 0xa;
-	rtf->TextLen++;
+	//	rtf->text[rtf->TextLen] = 0xd;
+	//	rtf->TextLen++;
+	//	rtf->text[rtf->TextLen] = 0xa;
+	//	rtf->TextLen++;
+	std::string output(rtf->text, rtf->TextLen);
+	output += "\n";
 
 	if (rtf->hFile) { // write to file
-		if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, rtf->text,
-				rtf->TextLen)) {
-			return 0;
-		}
+		return fprintf((FILE*) rtf->hFile, output.c_str());
+		//		if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, rtf->text,
+		//				rtf->TextLen)) {
+		//			return 0;
 	}
 
 	rtf->TextLen = 0; // reset buffer
@@ -1989,27 +1992,27 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict) {
 	if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cx))
 		return FALSE; // write picture format
-	//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
-	//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
-	//   }
-	/*   else {
-	 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
-	 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
-	 }
-	 */
+		//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
+		//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
+		//   }
+		/*   else {
+		 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
+		 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
+		 }
+		 */
 	// write picture height
 	//   if (bmHeight>0) {
 	if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cy))
 		return FALSE; // write picture format
-	//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
-	//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
-	//   }
-	/*   else {
-	 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
-	 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
-	 }
-	 */
+		//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
+		//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
+		//   }
+		/*   else {
+		 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
+		 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
+		 }
+		 */
 
 	// write picture alignment
 	if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT,
@@ -2111,8 +2114,9 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name) {
 	if (!FlushRtfLine(rtf))
 		goto END_HDR; // flush the rtf line to the output
 
-	if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, ((char*) rtf->oldFile)
-			+ rtf->TextIndex - 1, rtf->oldFileLen - (rtf->TextIndex + 2)))
+	if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile,
+			((char*) rtf->oldFile) + rtf->TextIndex - 1, rtf->oldFileLen
+					- (rtf->TextIndex + 2)))
 		goto END_HDR;
 
 	// end the previous section
