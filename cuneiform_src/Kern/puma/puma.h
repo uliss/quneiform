@@ -163,6 +163,31 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XGetTemplate
 };
 
+// Format codes
+enum puma_format_t {
+	PUMA_TOEDNATIVE = 0,
+	PUMA_TOTEXT = 0x02,
+	PUMA_TOSMARTTEXT = 0x04,
+	PUMA_TORTF = 0x08,
+	PUMA_TOTABLETXT = 0x0100,
+	PUMA_TOTABLECSV = 0x0200,
+	PUMA_TOTABLEDBF = 0x0400,
+	PUMA_TOTABLEODBC = 0x0800,
+	PUMA_TOTABLEWKS = 0x1000,
+	PUMA_TOHTML = 0x2000,
+	PUMA_TOHOCR = 0x4000,
+};
+
+//       Codes
+enum puma_code_t {
+	PUMA_CODE_UNKNOWN = 0x0000,
+	PUMA_CODE_ASCII = 0x0001,
+	PUMA_CODE_ANSI = 0x0002,
+	PUMA_CODE_KOI8 = 0x0004,
+	PUMA_CODE_ISO = 0x0008,
+	PUMA_CODE_UTF8 = 0x0010
+};
+
 bool LPUMA_Load(char * lpPath);
 void LPUMA_Unload(void);
 
@@ -233,7 +258,7 @@ DEC_FUN(bool, PUMA_XOpen, (void * pDIB, const std::string& filename))
 DEC_FUN(bool, PUMA_XClose, (void))
 DEC_FUN(bool, PUMA_XPageAnalysis, (void))
 DEC_FUN(bool, PUMA_XFinalRecognition, (void))
-DEC_FUN(bool, PUMA_XSave,(const char *, int32_t, int32_t))
+DEC_FUN(bool, PUMA_XSave,(const char *, puma_format_t, puma_code_t))
 DEC_FUN(int32_t, PUMA_EnumLanguages,(int32_t nPrev ))
 DEC_FUN(int32_t, PUMA_EnumFormats,(int32_t nPrev ))
 DEC_FUN(int32_t, PUMA_EnumCodes,(int32_t format, int32_t nPrev ))
@@ -244,36 +269,13 @@ DEC_FUN(bool, PUMA_XGetRotateDIB,(void ** lpDIB, Point32 * p))
 DEC_FUN(void , PUMA_RenameImageName,(char * name))
 DEC_FUN(bool, PUMA_XSetTemplate,(Rect32 rect))
 DEC_FUN(bool, PUMA_XGetTemplate,(Rect32 *pRect))
-DEC_FUN(bool, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, bool Append))
+DEC_FUN(bool, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, puma_format_t lnFormat, puma_code_t lnCode, bool Append))
 DEC_FUN(bool, PUMA_XOpenClbk,(PUMAIMAGECALLBACK CallBack,const char * lpFileName))
 DEC_FUN(uint32_t, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size ))
 DEC_FUN(void , PUMA_GetSpecialBuffer,(char * szResult,int32_t *nResultLength))
 DEC_FUN(bool, PUMA_SetSpecialProject,(uchar nSpecPrj))
 
 #undef DEC_FUN
-
-// Format codes
-enum PUMA_FORMATS {
-	PUMA_TOEDNATIVE = 0,
-	PUMA_TOTEXT = 0x02,
-	PUMA_TOSMARTTEXT = 0x04,
-	PUMA_TORTF = 0x08,
-	PUMA_TOTABLETXT = 0x0100,
-	PUMA_TOTABLECSV = 0x0200,
-	PUMA_TOTABLEDBF = 0x0400,
-	PUMA_TOTABLEODBC = 0x0800,
-	PUMA_TOTABLEWKS = 0x1000,
-	PUMA_TOHTML = 0x2000,
-	PUMA_TOHOCR = 0x4000,
-};
-
-//       Codes                                                  //
-# define PUMA_CODE_UNKNOWN    0x0000
-# define PUMA_CODE_ASCII      0x0001
-# define PUMA_CODE_ANSI       0x0002
-# define PUMA_CODE_KOI8       0x0004
-# define PUMA_CODE_ISO        0x0008
-# define PUMA_CODE_UTF8       0x0010
 
 # define PUMA_FORMAT_NONE			  0x0040
 # define PUMA_FORMAT_ALL				  0x0001

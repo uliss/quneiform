@@ -345,8 +345,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	//
 	PAGEINFO PInfo;// = { 0 };
 
-	IS_VALID(p);
-	IS_VALID(lpDIB);
+	IS_VALID(p); IS_VALID(lpDIB);
 
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
 		SetReturnCode_puma(CPAGE_GetReturnCode());
@@ -462,12 +461,13 @@ bool PUMA_XFinalRecognition() {
 	return rc;
 }
 
-PUMA_FUNC bool PUMA_XSave(const char * OutFileName, int32_t lnFormat, int32_t lnCode) {
-	return PUMA_Save(ghEdPage, OutFileName, lnFormat, lnCode, false);
+PUMA_FUNC bool PUMA_XSave(const char * OutFileName, puma_format_t Format,
+		puma_code_t Code) {
+	return PUMA_Save(ghEdPage, OutFileName, Format, Code, false);
 }
 
-bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat,
-		int32_t lnCode, bool Append) {
+bool PUMA_Save(Handle hEdPage, const char * lpOutFileName, puma_format_t lnFormat,
+		puma_code_t lnCode, bool Append) {
 	bool rc = true;
 	Handle prevEdPage = ghEdPage;
 

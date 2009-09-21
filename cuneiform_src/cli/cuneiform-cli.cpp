@@ -111,7 +111,7 @@ static const langlist langs[] = {
 };
 
 struct formatlist {
-    int puma_number;
+    puma_format_t puma_number;
     const char * name;
     const char * descr;
 };
@@ -125,7 +125,7 @@ static const formatlist formats[] = {
     {PUMA_TOSMARTTEXT,  "smarttext", "plain text with TeX paragraphs"},
     {PUMA_TOTEXT,       "text",      "plain text"},
 // Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
-    {-1, NULL}
+    {(puma_format_t)-1, NULL, NULL}
 };
 
 
@@ -142,7 +142,7 @@ static string supported_formats() {
     ostringstream os;
     os << "Supported formats:\n";
     for(const formatlist * f = formats; f->puma_number >= 0; f++)
-        os << "    " << setiosflags(ios::left) << setw(12) << f->name << " " << f->descr << "\n";
+        os << "    " << left << setw(12) << f->name << " " << f->descr << "\n";
     return os.str();
 }
 
@@ -230,7 +230,7 @@ int main(int argc, char **argv) {
     Bool32 onecolumn = FALSE;
     const char *defaultnamestem = "cuneiform-out.";
     string outfilename;
-    int32_t outputformat = PUMA_TOTEXT;
+    puma_format_t outputformat = PUMA_TOTEXT;
 
     cout << "Cuneiform for Linux " << CF_VERSION << "\n";
 
@@ -255,18 +255,19 @@ int main(int argc, char **argv) {
                 return 1;
             }
         } else if(strcmp(argv[i], "-f") == 0) {
-            outputformat = -1;
             if(++i >= argc) {
                 cout << supported_formats();
                 return 1;
             }
+            bool format_set = false;
             for(int j=0; formats[j].puma_number >= 0; j++) {
                 if(strcmp(formats[j].name, argv[i]) == 0) {
                     outputformat = formats[j].puma_number;
+                    format_set = true;
                     break;
                 }
             }
-            if(outputformat == -1) {
+            if(!format_set) {
                 cerr << "Unknown format " << argv[i] << ".\n";
                 cerr << supported_formats();
                 return 1;

@@ -5,7 +5,6 @@ include_directories(
 ../cuneiform_src/Kern/hhh
 ../cuneiform_src/Kern/hdebug
 ../cuneiform_src/Kern/hrk
-../cuneiform_src/Kern/puma/h
 # Kern/hrkint
 # Kern/hrstr
 # Kern/fon/src
