@@ -1,6 +1,7 @@
 #include "puma.h"
 #include "module.h"
 
+#include "cfio/cfio.h"
 #include "mpuma.h"
 #include "cpage.h"
 #include "cline.h"

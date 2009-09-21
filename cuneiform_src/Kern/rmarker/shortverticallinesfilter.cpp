@@ -71,6 +71,7 @@
 #include "markpage.h"
 #include "linedefs.h"
 #include "cline.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 
@@ -151,25 +152,14 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image) {
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
 		PRMPreProcessImage Image) {
 	Bool32 bRet = TRUE;
-
-	// Handle         hBlockLine;
-	// Handle         hBlockLineHor;
-	// Handle         hBlockLineVer;
-	// Handle         hBlockLinePrev;
 	uint32_t nTagSize;
-	// uint32_t         nReal;
-	// uint32_t         wErr32;
 
 	nTagSize = sizeof(LinesTotalInfo);
-	uint32_t size_line_com = sizeof(LINE_COM);
 	Bool32 fl_break;
 	int num = 0;
 	int count = 0;
-	Handle hPage = Image->hCPAGE;
 	CLINE_handle hCLINE = Image->hCLINE;
 
-	//   if(!LDPUMA_Skip(hUseCLine))
-	//   {
 	CLINE_handle hline;
 	CPDLine cpdata;
 	hline = CLINE_GetFirstLine(hCLINE);
@@ -225,114 +215,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
 			break;
 	}
 	return TRUE;
-	/*   }
-	 else
-	 {
-	 LineInfo       *pLHor, *pLVer;
-	 pLHor = LTInfo->Hor.Lns;
-	 pLVer = LTInfo->Ver.Lns;
 
-	 hBlockLine = CPAGE_GetBlockFirst (Image->hCPAGE, RLINE_BLOCK_TYPE);
-	 if (!hBlockLine)
-	 {
-	 //sprintf (pStr, "Линии не выделялись.");
-	 //return RV_EMPTY;
-	 bRet =  FALSE;
-	 }
-
-	 wErr32 = CPAGE_GetReturnCode ();
-
-	 if (wErr32!=0)
-	 {
-	 //Error_CPage ("[GetBlockFirst]");
-	 bRet =  FALSE;
-	 }
-	 //берем.... что берем?
-	 if ( bRet )
-	 {
-	 nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLine, RLINE_BLOCK_TYPE, (void *)LTInfo, nTagSize);
-
-	 wErr32 = CPAGE_GetReturnCode ();
-	 }
-
-	 if ((nReal!=nTagSize)||(wErr32!=0))
-	 {
-	 //Error_CPage ("[GetBlockData]");
-	 bRet = FALSE;
-	 }
-	 if (LTInfo->Hor.Cnt + LTInfo->Ver.Cnt >= PUMAMaxNumLines)
-	 {
-	 //sprintf (pStr, "Не хватило памяти под %d линии!", LTInfo.Hor.Cnt + LTInfo.Ver.Cnt);
-	 //return RV_DOUBT;
-	 bRet = FALSE;
-	 }
-	 //  Горизонтальные линии
-	 if ( bRet && pLHor != NULL )
-	 {
-	 for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
-	 {
-	 if (i==0)
-	 hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Hor.Lns));
-	 else
-	 hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Hor.Lns));
-	 wErr32 = CPAGE_GetReturnCode ();
-	 if (wErr32!=0)
-	 {
-	 //if (i==0)
-	 //Error_CPage ("[GetBlockFirst]");
-	 //else
-	 //Error_CPage ("[GetBlockNext]");
-	 bRet = FALSE;
-	 break;
-	 }
-	 nTagSize = sizeof (LineInfo);
-	 nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (uint32_t)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
-	 wErr32 = CPAGE_GetReturnCode ();
-	 if ((nReal!=nTagSize)||(wErr32!=0))
-	 {
-	 //Error_CPage ("[GetBlockData]");
-	 bRet = FALSE;
-	 break;
-	 }
-	 hBlockLinePrev = hBlockLineHor;
-	 }
-	 }
-	 // Вертикальные линии
-	 if ( bRet && pLVer != NULL )
-	 {
-	 for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
-	 {
-	 if (i==0)
-	 hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Ver.Lns));
-	 else
-	 hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Ver.Lns));
-	 wErr32 = CPAGE_GetReturnCode ();
-	 if (wErr32!=0)
-	 {
-	 //if (i==0)
-	 //Error_CPage ("[GetBlockFirst]");
-	 //else
-	 //Error_CPage ("[GetBlockNext]");
-	 bRet = FALSE;
-	 break;
-	 }
-	 nTagSize = sizeof (LineInfo);
-	 nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (uint32_t)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
-	 wErr32 = CPAGE_GetReturnCode ();
-	 if ((nReal!=nTagSize)||(wErr32!=0))
-	 {
-	 //Error_CPage ("[GetBlockData]");
-	 bRet = FALSE;
-	 break;
-	 }
-	 hBlockLinePrev = hBlockLineVer;
-	 }
-	 }
-	 LTInfo->Hor.Lns = pLHor;
-	 LTInfo->Ver.Lns = pLVer;
-
-	 }
-	 */
 	return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -565,5 +448,3 @@ Bool32 CompIsGood(CCOM_comp * pcomp, int32_t Filter) {
 		return FALSE;
 	}
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file

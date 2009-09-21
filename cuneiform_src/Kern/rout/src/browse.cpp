@@ -91,8 +91,8 @@ Bool BrowsePage(
 		wantSkipTableCells и
 		wantSkipParagraphs
 */
-	long sections=0, columns=0, frames=0;
-	long indexSection=0, indexColumn=0, indexFrame=0;
+	long sections=0, columns=0;
+	long indexSection=0, indexColumn=0;
 
 	// Текущие объекты на всех уровнях
 	gSectionHandle = NULL;
@@ -163,31 +163,7 @@ Bool BrowsePage(
 		// Фреймы на странице отменены, теперь они принадлежат
 		// колонке и обрабатываются в функции BrowseParagraphs()
 		// -- 18.10.99 E.P.
-/*
-		// Фреймы
-		frames = CED_GetCountFrame(gSectionHandle);
-		for (indexFrame = 0; indexFrame < frames; indexFrame++)
-			{
-			gFrameHandle = CED_GetFrame(gSectionHandle,indexFrame);
 
-			// Начало фрейма
-			ASSERT(gFrameHandle);
-			gHitFrames++;
-			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_START);
-
-			// Обход абзацев, таблиц и фреймов
-			if (!BrowseParagraphs(gFrameHandle,
-							BrowseFunction,
-							wantSkipTableCells,
-							wantSkipParagraphs
-				))
-				return FALSE;
-
-			// Конец фрейма
-			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_END);
-			gFrameHandle = NULL;
-			}
-*/
 		// Конец раздела
 		BROWSE_FUNCTION(gSectionHandle,BROWSE_SECTION_END);
 		gSectionHandle = NULL;
@@ -219,8 +195,8 @@ Bool BrowseParagraphs(Handle hParentObject,
 		wantSkipTableCells и
 		wantSkipParagraphs
 */
-	long objects=0, lines=0, chars=0;
-	long indexObject=0, indexLine=0, indexChar=0;
+	long lines=0, chars=0;
+	long indexLine=0, indexChar=0;
 	Handle hObject = NULL;
 
 	gParagraphHandle = NULL;

@@ -62,7 +62,6 @@
 // dll_cpage.cpp :
 // ============================================================================
 
-/*#include <windows.h>*/
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -83,16 +82,15 @@ static HINSTANCE ghInst = NULL;
 static char szPath[_MAX_PATH] = ".";
 static char szTempPath[_MAX_PATH] = ".";
 static char szStorage[_MAX_PATH];
-/////////////////////////////////////////
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid /*lpReserved*/) {
-	char * p;
 
+Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lpReserved*/) {
+	char * p;
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		ghInst = hModule;
 		GetModuleFileName(hModule, szPath, sizeof(szPath));
-		if (p = strstr(_strupr(szPath), "PUMA.DLL"))
+		p = strstr(_strupr(szPath), "PUMA.DLL");
+		if (p)
 			*(p - 1) = 0;
 		else {
 			MessageBox(NULL, "Start folder PUMA.DLL not found!", NULL,
@@ -117,24 +115,20 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-PUMA_FUNC(Bool32) PUMA_Init(uint16_t wHeightCode,Handle /*hStorage*/)
-{
+
+PUMA_FUNC bool PUMA_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	gwHeightRC = wHeightCode;
 
-	if(!InitMem())
-	return FALSE;
+	if (!InitMem())
+		return FALSE;
 
 	InitDebug();
 
-	return ModulesInit((void*)ghStorage);
+	return ModulesInit((void*) ghStorage);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-PUMA_FUNC(Bool32) PUMA_Done()
-{
-	Bool32 rc = ModulesDone((void*)ghStorage);
+
+PUMA_FUNC bool PUMA_Done() {
+	Bool32 rc = ModulesDone((void*) ghStorage);
 
 	DoneDebug();
 
@@ -142,170 +136,157 @@ PUMA_FUNC(Bool32) PUMA_Done()
 
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-PUMA_FUNC(uint32_t) PUMA_GetReturnCode()
-{
+
+PUMA_FUNC uint32_t PUMA_GetReturnCode() {
 	return gwRC;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-PUMA_FUNC(char *) PUMA_GetReturnString(uint32_t dwError)
-{
-	static char szBuffer[512];
-	uint16_t low = (uint16_t)(dwError & 0xFFFF);
-	uint16_t hei = (uint16_t)(dwError >> 16);
 
-	if(hei == gwHeightRC)
-	{
-		if(!LoadString(ghInst,low + IDS_ERR_NO,(char *)szBuffer,sizeof(szBuffer)))
-		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
-	}
-	else
-	{
+PUMA_FUNC char * PUMA_GetReturnString(uint32_t dwError) {
+	static char szBuffer[512];
+	uint16_t low = (uint16_t) (dwError & 0xFFFF);
+	uint16_t hei = (uint16_t) (dwError >> 16);
+
+	if (hei == gwHeightRC) {
+		if (!LoadString(ghInst, low + IDS_ERR_NO, (char *) szBuffer,
+				sizeof(szBuffer)))
+			LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
+					sizeof(szBuffer));
+	} else {
 		char * p = GetModulesString(dwError);
-		if(p)
-		return p;
-		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
+		if (p)
+			return p;
+		LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
+				sizeof(szBuffer));
 	}
 
 	return szBuffer;
 
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-PUMA_FUNC(Bool32) PUMA_GetExportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
+
+PUMA_FUNC bool PUMA_GetExportData(uint32_t dwType, void * pData) {
+	bool rc = true;
 
 	gwRC = 0;
 
-#define CASE_FUNCTION(a)	case PUMA_FN##a:	*(FN##a *)pData = a; break
-#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break
+#define CASE_FUNCTION(a)	case PUMA_FN##a:	*(FN##a *)pData = a; break;
+#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(PUMA_XOpen);
-		CASE_FUNCTION(PUMA_XClose);
-		CASE_FUNCTION(PUMA_XPageAnalysis);
-		CASE_FUNCTION(PUMA_XFinalRecognition);
-		CASE_FUNCTION(PUMA_XSave);
-		CASE_FUNCTION(PUMA_EnumLanguages);
-		CASE_FUNCTION(PUMA_EnumFormats);
-		CASE_FUNCTION(PUMA_EnumCodes);
-		CASE_DATA(PUMA_Word32_Language,uint32_t,gnLanguage);
-		CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller);
-		CASE_DATA(PUMA_Bool32_OneColumn,Bool32,gbOneColumn);
-		CASE_DATA(PUMA_Bool32_Fax100,Bool32,gbFax100);
-		CASE_DATA(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix);
-		CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold);
-		CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic);
-		CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize);
-		CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat);
-		CASE_DATA(PUMA_pchar_UserDictName,const char *,gpUserDictName);
-		CASE_DATA(PUMA_pchar_SerifName,const char *,gpSerifName);
-		CASE_DATA(PUMA_pchar_SansSerifName,const char *,gpSansSerifName);
-		CASE_DATA(PUMA_pchar_CourierName,const char *,gpCourierName);
-		CASE_DATA(PUMA_Word32_Pictures,uint32_t,gnPictures);
-		CASE_DATA(PUMA_Word32_Tables,uint32_t,gnTables);
-		CASE_DATA(PUMA_pchar_Version,char *,s_szVersion);
-		CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat);
-		CASE_FUNCTION(PUMA_EnumFormatMode);
-		CASE_FUNCTION(PUMA_EnumTable);
-		CASE_FUNCTION(PUMA_EnumPicture);
-		CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar);
-		CASE_FUNCTION(PUMA_XGetRotateDIB);
-		CASE_DATA(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate);
-		CASE_FUNCTION(PUMA_RenameImageName);
-		CASE_FUNCTION(PUMA_XSetTemplate);
-		CASE_FUNCTION(PUMA_XGetTemplate);
-		CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage);
-		CASE_FUNCTION(PUMA_Save);
-		CASE_DATA(PUMA_Bool32_PreserveLineBreaks,Bool32,gnPreserveLineBreaks);
-		CASE_FUNCTION(PUMA_XOpenClbk);
-		CASE_FUNCTION(PUMA_GetSpecialBuffer);
-		CASE_FUNCTION(PUMA_SetSpecialProject);
-		case PUMA_LPPUMAENTRY_CED:
-		{
-			LPPUMAENTRY lp = (LPPUMAENTRY)pData;
-			lp->fnInit = CED_Init;
-			lp->fnDone = CED_Done;
-			lp->fnGetReturnCode = CED_GetReturnCode;
-			lp->fnGetReturnString = CED_GetReturnString;
-			lp->fnGetExportData = CED_GetExportData;
-			lp->fnSetImportData = CED_SetImportData;
-		}
-		break;
-		case PUMA_LPPUMAENTRY_ROUT:
-		{
-			LPPUMAENTRY lp = (LPPUMAENTRY)pData;
-			lp->fnInit = ROUT_Init;
-			lp->fnDone = ROUT_Done;
-			lp->fnGetReturnCode = ROUT_GetReturnCode;
-			lp->fnGetReturnString = (FNGetReturnString)ROUT_GetReturnString;
-			lp->fnGetExportData = ROUT_GetExportData;
-			lp->fnSetImportData = ROUT_SetImportData;
-		}
-		break;
-		CASE_FUNCTION(PUMA_SaveToMemory);
-		default:
-		*(Handle *)pData = NULL;
-		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
+	switch (dwType) {
+	CASE_FUNCTION(PUMA_XOpen)
+	CASE_FUNCTION(PUMA_XClose)
+	CASE_FUNCTION(PUMA_XPageAnalysis)
+	CASE_FUNCTION(PUMA_XFinalRecognition)
+	//CASE_FUNCTION(PUMA_XSave)
+	CASE_FUNCTION(PUMA_EnumLanguages)
+	CASE_FUNCTION(PUMA_EnumFormats)
+	CASE_FUNCTION(PUMA_EnumCodes)
+	CASE_FUNCTION(PUMA_EnumFormatMode)
+	CASE_FUNCTION(PUMA_EnumTable)
+	CASE_FUNCTION(PUMA_EnumPicture)
+	CASE_FUNCTION(PUMA_RenameImageName)
+	CASE_FUNCTION(PUMA_XSetTemplate)
+	CASE_FUNCTION(PUMA_XGetTemplate)
+	CASE_FUNCTION(PUMA_XGetRotateDIB)
+	CASE_FUNCTION(PUMA_Save)
+	CASE_FUNCTION(PUMA_XOpenClbk)
+	CASE_FUNCTION(PUMA_GetSpecialBuffer)
+	CASE_FUNCTION(PUMA_SetSpecialProject)
+
+	CASE_DATA(PUMA_Word32_Language,uint32_t,gnLanguage)
+	CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller)
+	CASE_DATA(PUMA_Bool32_OneColumn,Bool32,gbOneColumn)
+	CASE_DATA(PUMA_Bool32_Fax100,Bool32,gbFax100)
+	CASE_DATA(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix)
+	CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold)
+	CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic)
+	CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize)
+	CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat)
+	CASE_DATA(PUMA_pchar_UserDictName,const char *,gpUserDictName)
+	CASE_DATA(PUMA_pchar_SerifName,const char *,gpSerifName)
+	CASE_DATA(PUMA_pchar_SansSerifName,const char *,gpSansSerifName)
+	CASE_DATA(PUMA_pchar_CourierName,const char *,gpCourierName)
+	CASE_DATA(PUMA_Word32_Pictures,uint32_t,gnPictures)
+	CASE_DATA(PUMA_Word32_Tables,uint32_t,gnTables)
+	CASE_DATA(PUMA_pchar_Version,char *,s_szVersion)
+	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
+	CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar)
+	CASE_DATA(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate)
+	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
+	CASE_DATA(PUMA_Bool32_PreserveLineBreaks,Bool32,gnPreserveLineBreaks)
+
+	case PUMA_LPPUMAENTRY_CED: {
+		LPPUMAENTRY lp = (LPPUMAENTRY) pData;
+		lp->fnInit = CED_Init;
+		lp->fnDone = CED_Done;
+		lp->fnGetReturnCode = CED_GetReturnCode;
+		lp->fnGetReturnString = CED_GetReturnString;
+		lp->fnGetExportData = CED_GetExportData;
+		lp->fnSetImportData = CED_SetImportData;
 	}
-#undef CASE_FUNCTION
-#undef CASE_DATA
-
+		break;
+	case PUMA_LPPUMAENTRY_ROUT: {
+		LPPUMAENTRY lp = (LPPUMAENTRY) pData;
+		lp->fnInit = ROUT_Init;
+		lp->fnDone = ROUT_Done;
+		lp->fnGetReturnCode = ROUT_GetReturnCode;
+		lp->fnGetReturnString = (FNGetReturnString) ROUT_GetReturnString;
+		lp->fnGetExportData = ROUT_GetExportData;
+		lp->fnSetImportData = ROUT_SetImportData;
+	}
+		break;
+	CASE_FUNCTION(PUMA_SaveToMemory)
+	default:
+		*(Handle *) pData = NULL;
+		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+		return false;
+	}
 	return rc;
+#undef CASE_DATA
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-PUMA_FUNC(Bool32) PUMA_SetImportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
+bool PUMA_SetImportData(uint32_t dwType, void * pData) {
+	bool rc = true;
 
 	gwRC = 0;
 
-#define CASE_DATA(a,b,c)		case a: c = *(b *)pData; break
-#define CASE_DATAUP(a,b,c,d)	case a: if(c != *(b *)pData){c = *(b *)pData; SetUpdate(d,FLG_UPDATE_NO);}; break
-#define CASE_PDATA(a,b,c)		case a: c = (b)pData; break
+#define CASE_DATA(a,b,c)		case a: c = *(b *)pData; break;
+#define CASE_DATAUP(a,b,c,d)	case a: if(c != *(b *)pData){c = *(b *)pData; SetUpdate(d,FLG_UPDATE_NO);}; break;
+#define CASE_PDATA(a,b,c)		case a: c = (b)pData; break;
 
-	switch(dwType)
-	{
-		CASE_DATAUP(PUMA_Word32_Language,uint32_t,gnLanguage,FLG_UPDATE_CCOM);
-		CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller);
-		CASE_DATAUP(PUMA_Bool32_OneColumn,Bool32,gbOneColumn,FLG_UPDATE_CPAGE);
-		CASE_DATAUP(PUMA_Bool32_Fax100,Bool32,gbFax100,FLG_UPDATE_CCOM);
-		CASE_DATAUP(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix,FLG_UPDATE_CCOM);
-		CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold);
-		CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic);
-		CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize);
-		CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat);
-		CASE_PDATA(PUMA_pchar_UserDictName,char *,gpUserDictName);
-		CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName);
-		CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName);
-		CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName);
-		CASE_DATAUP(PUMA_Word32_Pictures,uint32_t,gnPictures,FLG_UPDATE_CPAGE);
-		CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE);
-		CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat);
-		CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar);
-		CASE_PDATA(PUMA_FNPUMA_ProgressStart, FNPUMA_ProgressStart ,fnProgressStart);
-		CASE_PDATA(PUMA_FNPUMA_ProgressFinish,FNPUMA_ProgressFinish,fnProgressFinish);
-		CASE_PDATA(PUMA_FNPUMA_ProgressStep, FNPUMA_ProgressStep ,fnProgressStep);
-		CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE);
-		CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage);
-		default:
+	switch (dwType) {
+	CASE_DATAUP(PUMA_Word32_Language,uint32_t,gnLanguage,FLG_UPDATE_CCOM)
+	CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller)
+	CASE_DATAUP(PUMA_Bool32_OneColumn,Bool32,gbOneColumn,FLG_UPDATE_CPAGE)
+	CASE_DATAUP(PUMA_Bool32_Fax100,Bool32,gbFax100,FLG_UPDATE_CCOM)
+	CASE_DATAUP(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix,FLG_UPDATE_CCOM)
+	CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold)
+	CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic)
+	CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize)
+	CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat)
+	CASE_PDATA(PUMA_pchar_UserDictName,char *,gpUserDictName)
+	CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName)
+	CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName)
+	CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName)
+	CASE_DATAUP(PUMA_Word32_Pictures,uint32_t,gnPictures,FLG_UPDATE_CPAGE)
+	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE)
+	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
+	CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar)
+	CASE_PDATA(PUMA_FNPUMA_ProgressStart, FNPUMA_ProgressStart ,fnProgressStart)
+	CASE_PDATA(PUMA_FNPUMA_ProgressFinish,FNPUMA_ProgressFinish,fnProgressFinish)
+	CASE_PDATA(PUMA_FNPUMA_ProgressStep, FNPUMA_ProgressStep ,fnProgressStep)
+	CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE)
+	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
+	default:
 		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 	// Связь с предыдущими версиями
-	switch(dwType)
-	{
-		case PUMA_Bool32_Format:
+	switch (dwType) {
+	case PUMA_Bool32_Format:
 		gnFormat = gbFormat ? gnFormat : 64;
 		break;
-		case PUMA_Word32_Format:
-		gbFormat = gnFormat==64 ? 0 : 1;
+	case PUMA_Word32_Format:
+		gbFormat = gnFormat == 64 ? 0 : 1;
 		break;
 	}
 
@@ -345,19 +326,17 @@ uint32_t GetReturnCode_puma() {
 
 	return rc;
 }
-////////////////////////////////////////////////////////////
+
 char * GetModulePath() {
 	return szPath;
 }
-////////////////////////////////////////////////////////////
+
 char * GetModuleTempPath() {
 	return szTempPath;
 }
-////////////////////////////////////////////////////////////
+
 char * GetResourceString(uint32_t id) {
 	static char szBuffer[1024] = "";
 	LoadString(ghInst, id, szBuffer, sizeof(szBuffer));
 	return szBuffer;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file

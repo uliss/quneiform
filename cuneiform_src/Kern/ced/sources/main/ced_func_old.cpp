@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
-#include "stdafx.h"
+#include <cstdlib>
+#include <cstring>
 
 #include "ced_struct.h"
 #include "cedint.h"

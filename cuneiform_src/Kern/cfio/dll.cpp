@@ -168,55 +168,55 @@ uint16_t GetReturnCode_cfio() {
 }
 
 #define CASE_FUNCTION(a)	case CFIO_FN##a:	*(FNCFIO##a *)pData = CFIO_##a; break;
-
-Bool32 CFIO_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
-
-	wLowRC = 0;
-	switch (dwType) {
-	case CFIO_PCHAR_TEMPORARY_FOLDER:
-		rc = Control_ctc->GetFolder(CFIO_TEMP_FOLDER, (char *) pData);
-		break;
-
-	case CFIO_PCHAR_STORAGE_FOLDER:
-		rc = Control_ctc->GetFolder(CFIO_FILE_FOLDER, (char *) pData);
-		break;
-
-	case CFIO_PCHAR_FILE_FOLDER:
-		rc = Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, (char *) pData);
-		break;
-
-	CASE_FUNCTION(OpenStorage)
-	CASE_FUNCTION(CloseStorage)
-	CASE_FUNCTION(DeleteStorage)
-	CASE_FUNCTION(WriteFileToStorage)
-	CASE_FUNCTION(ReadFileFromStorage)
-	CASE_FUNCTION(OpenFreeFile)
-	CASE_FUNCTION(CloseFreeFile)
-	CASE_FUNCTION(WriteToFile)
-	CASE_FUNCTION(ReadFromFile)
-	CASE_FUNCTION(SeekFilePointer)
-	CASE_FUNCTION(TellFilePointer)
-	CASE_FUNCTION(FlushFile)
-	CASE_FUNCTION(AllocMemory)
-	CASE_FUNCTION(DAllocMemory)
-	CASE_FUNCTION(ReAllocMemory)
-	CASE_FUNCTION(FreeMemory)
-	CASE_FUNCTION(LockMemory)
-	CASE_FUNCTION(UnlockMemory)
-	CASE_FUNCTION(WriteMemoryToFile)
-	CASE_FUNCTION(ReadMemoryFromFile)
-	CASE_FUNCTION(WriteMemoryToStorage)
-	CASE_FUNCTION(ReadMemoryFromStorage)
-	default:
-		*(char **) pData = NULL;
-		wLowRC = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
-	return rc;
-}
+//
+//Bool32 CFIO_GetExportData(uint32_t dwType, void * pData) {
+//	Bool32 rc = TRUE;
+//
+//	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
+//
+//	wLowRC = 0;
+//	switch (dwType) {
+//	case CFIO_PCHAR_TEMPORARY_FOLDER:
+//		rc = Control_ctc->GetFolder(CFIO_TEMP_FOLDER, (char *) pData);
+//		break;
+//
+//	case CFIO_PCHAR_STORAGE_FOLDER:
+//		rc = Control_ctc->GetFolder(CFIO_FILE_FOLDER, (char *) pData);
+//		break;
+//
+//	case CFIO_PCHAR_FILE_FOLDER:
+//		rc = Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, (char *) pData);
+//		break;
+//
+//	CASE_FUNCTION(OpenStorage)
+//	CASE_FUNCTION(CloseStorage)
+//	CASE_FUNCTION(DeleteStorage)
+//	CASE_FUNCTION(WriteFileToStorage)
+//	CASE_FUNCTION(ReadFileFromStorage)
+//	CASE_FUNCTION(OpenFreeFile)
+//	CASE_FUNCTION(CloseFreeFile)
+//	CASE_FUNCTION(WriteToFile)
+//	CASE_FUNCTION(ReadFromFile)
+//	CASE_FUNCTION(SeekFilePointer)
+//	CASE_FUNCTION(TellFilePointer)
+//	CASE_FUNCTION(FlushFile)
+//	CASE_FUNCTION(AllocMemory)
+//	CASE_FUNCTION(DAllocMemory)
+//	CASE_FUNCTION(ReAllocMemory)
+//	CASE_FUNCTION(FreeMemory)
+//	CASE_FUNCTION(LockMemory)
+//	CASE_FUNCTION(UnlockMemory)
+//	CASE_FUNCTION(WriteMemoryToFile)
+//	CASE_FUNCTION(ReadMemoryFromFile)
+//	CASE_FUNCTION(WriteMemoryToStorage)
+//	CASE_FUNCTION(ReadMemoryFromStorage)
+//	default:
+//		*(char **) pData = NULL;
+//		wLowRC = IDS_ERR_NOTIMPLEMENT;
+//		rc = FALSE;
+//	}
+//	return rc;
+//}
 
 Bool32 CFIO_SetImportData(uint32_t dwType, void * pData) {
 	uint32_t Folder;
@@ -244,11 +244,11 @@ Bool32 CFIO_SetImportData(uint32_t dwType, void * pData) {
 	return Control_ctc->SetFolder(Folder, (char *) pData);
 }
 
-Handle CFIO_OpenStorage(pchar lpName, uint32_t dwTypes) {
+Handle CFIO_OpenStorage(const char * Name, uint32_t Types) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->OpenStorage((char*) lpName, dwTypes);
+		return Control_ctc->OpenStorage(Name, Types);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
@@ -258,41 +258,40 @@ Handle CFIO_OpenStorage(pchar lpName, uint32_t dwTypes) {
 	}
 }
 
-Bool32 CFIO_CloseStorage(Handle hStorage, uint32_t dwFlag) {
+bool CFIO_CloseStorage(Handle hStorage, uint Flag) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->CloseStorage(hStorage, dwFlag);
+		return Control_ctc->CloseStorage(hStorage, Flag);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
-		return FALSE;
+		return false;
 	}
 }
 
-Bool32 CFIO_DeleteStorage(pchar lpName) {
+bool CFIO_DeleteStorage(const char *Name) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->DeleteStorage((char*) lpName);
+		return Control_ctc->DeleteStorage(Name);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
-		return FALSE;
+		return false;
 	}
 }
 
 uint32_t CFIO_WriteFileToStorage(Handle hStorage, Handle hFile,
-		pchar lpNameInStorage) {
+		const char * NameInStorage) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->WriteFileToStorage(hStorage, hFile,
-				(char*) lpNameInStorage);
+		return Control_ctc->WriteFileToStorage(hStorage, hFile, NameInStorage);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
@@ -302,11 +301,11 @@ uint32_t CFIO_WriteFileToStorage(Handle hStorage, Handle hFile,
 	}
 }
 
-Handle CFIO_ReadFileFromStorage(Handle hStorage, pchar lpName) {
+Handle CFIO_ReadFileFromStorage(Handle hStorage, char* lpName) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->ReadFileFromStorage(hStorage, (char*) lpName);
+		return Control_ctc->ReadFileFromStorage(hStorage, lpName);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
@@ -316,11 +315,11 @@ Handle CFIO_ReadFileFromStorage(Handle hStorage, pchar lpName) {
 	}
 }
 
-Handle CFIO_OpenFreeFile(Handle hStorage, const char * lpName, uint32_t dwFlag) {
+Handle CFIO_OpenFreeFile(Handle hStorage, const char * Name, uint Flag) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
-		return Control_ctc->OpenFile(hStorage, (char*) lpName, dwFlag);
+		return Control_ctc->OpenFile(hStorage, Name, Flag);
 	else {
 		if (InitDone)
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
@@ -330,7 +329,7 @@ Handle CFIO_OpenFreeFile(Handle hStorage, const char * lpName, uint32_t dwFlag) 
 	}
 }
 
-Bool32 CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag) {
+bool CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag) {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
 	if (Control_ctc)
@@ -340,7 +339,7 @@ Bool32 CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag) {
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
 			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
-		return FALSE;
+		return false;
 	}
 }
 

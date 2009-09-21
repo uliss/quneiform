@@ -54,13 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
-#include "stdafx.h"
+#include <cstring>
+#include <cstdlib>
 
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 

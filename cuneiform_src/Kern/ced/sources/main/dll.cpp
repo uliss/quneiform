@@ -61,13 +61,12 @@
 //
 // dll_cpage.cpp :
 // ============================================================================
-#include "stdafx.h"
 
 #include "resource.h"
 #include "ced_struct.h"
 #include "cedint.h"
 #include "pumadef.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 using namespace CIF::CFIO;
 
 //GLOBAL VARIABLES

@@ -55,50 +55,27 @@
  */
 
 // Для использования без CFIO.DLL
-#ifdef _NO_CFIO
-#undef _NO_CFIO
-//#define _NO_CFIO
-#endif
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//#define  CIMAGE_USE_GLOBAL_MEM
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#ifdef CIMAGE_USE_GLOBAL_MEM
-#include <windows.h>
-#endif
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+//#ifdef _NO_CFIO
+//#undef _NO_CFIO
+#define _NO_CFIO
+//#endif
+
 //
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 
-//CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, puchar, puchar) = NULL;
-static void* (*pAlloc)(uint32_t, uint32_t) = NULL;
-static void (*pFree)(void *) = NULL;
-static void* (*pLock)(void *) = NULL;
-static void (*pUnlock)(void *) = NULL;
-
 char cCommentBuffer[CIF::CFIO::CFIO_MAX_COMMENT];
-
-#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
 
 Bool32 InitCFIOInterface(Bool32 Status) {
 	Bool32 bRet = TRUE;
 
 	if (Status == TRUE) {
 		CFIO_Init(NULL, NULL);
-
-		TAKE_ENTRIE(CFIO_FNDAllocMemory, pDAlloc, bRet)
-		TAKE_ENTRIE(CFIO_FNAllocMemory, pAlloc, bRet)
-		TAKE_ENTRIE(CFIO_FNFreeMemory, pFree, bRet)
-		TAKE_ENTRIE(CFIO_FNLockMemory, pLock, bRet)
-		TAKE_ENTRIE(CFIO_FNUnlockMemory, pUnlock, bRet)
 	} else {
 		bRet = CFIO_Done();
 	}

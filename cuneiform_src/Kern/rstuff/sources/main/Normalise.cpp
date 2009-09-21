@@ -306,13 +306,11 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 {
 
 	Bool32 gbAutoRotate          = Image->gbAutoRotate;
-	puchar *gpRecogDIB           = Image->pgpRecogDIB;
 	Handle hCPAGE                = Image->hCPAGE;
 	const char * glpRecogName    = *Image->pglpRecogName;
 	PCIMAGEBITMAPINFOHEADER info = (PCIMAGEBITMAPINFOHEADER)Image->pinfo;
 	/////////////////////////////////
 	Bool32 rc = TRUE;
-	//char * lpRecogName = NULL;
 	uint32_t Angle = 0;
 
 	hWndTurn = 0;
@@ -361,74 +359,6 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 			PRGTIME prev = StorePRGTIME(65, 85);
 			rc = ExtractComponents( gbAutoRotate, NULL, (puchar)glpRecogName, Image);
 			RestorePRGTIME(prev);
-/*			if(rc && gbAutoRotate)
-			{
-				//if(!REXC_GetOrient(&ori))
-				//if(!REXC_GetOrient(&ori) && db_spec_prj!=SPEC_PRJ_GIP )
-				if(!RNORM_GetOrient(&ori, *(Image->phCCOM)) && db_spec_prj!=SPEC_PRJ_GIP )
-				{
-					SetReturnCode_rstuff(RNORM_GetReturnCode());
-					rc = FALSE;
-				}
-				else
-				{
-					//if(ori)
-					if(ori && !(db_spec_prj==SPEC_PRJ_GIP&&ori==4))
-					{
-						uint32_t dwTurn = 0;
-						switch(ori)
-						{
-						case 1:
-							Angle = 270;
-							dwTurn = RIMAGE_TURN_270;
-							break;
-						case 2:
-							Angle = 90;
-							dwTurn = RIMAGE_TURN_90;
-							break;
-						case 3:
-							Angle = 180;
-							dwTurn = RIMAGE_TURN_180;
-							break;
-						}
-
-						if( LDPUMA_Skip(Image->hDebugCancelTurn) /*umaSkipTurn()*/ /*)
-						{
-							if(!RIMAGE_Turn((puchar)glpRecogName,(puchar)PUMA_IMAGE_TURN,dwTurn,0))
-							{
-								SetReturnCode_rstuff_rstuff(RIMAGE_GetReturnCode());
-								rc = FALSE;
-							}
-							else
-							{
-
-								if(!CIMAGE_ReadDIB((puchar)PUMA_IMAGE_TURN,(Handle*)gpRecogDIB,TRUE))
-								{
-									SetReturnCode_rstuff_rstuff(CIMAGE_GetReturnCode());
-									rc = FALSE;
-								}
-								else
-								{
-									//
-									//  удалим общий контейнер
-									//
-									glpRecogName = PUMA_IMAGE_TURN;
-									hWndTurn = LDPUMA_CreateWindow(PUMA_IMAGE_TURN,(*gpRecogDIB));
-									PRGTIME prev = StorePRGTIME(85, 100);
-									rc = ExtractComponents( FALSE, NULL, (puchar)glpRecogName, Image);
-									PAGEINFO info = {0};
-		                            GetPageInfo(hCPAGE,&info);
-									info.Images|=IMAGE_TURN;
-//									strcpy((char*)info.szImageName,PUMA_IMAGE_TURN);
-		                            SetPageInfo(hCPAGE,info);
-                                    RestorePRGTIME(prev);
-								}
-							}
-						}
-					}
-				}
-			}*/
-
 			//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
 			checkResolution(*(Image->phCCOM), hCPAGE);
 			if(!ProgressStep(2,100))
@@ -474,18 +404,6 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, puchar name, PR
 {
 	Bool32 rc = TRUE;
 	ExcControl      exc = {0};
-//	RSGETMODULEPATH  pGetModulePath;
-//	RSSETUPDATE      pSetUpdate;
-//
-//	if ( ProgressPoints.pGetModulePath && ProgressPoints.pSetUpdate)
-//	{
-//		pGetModulePath = (RSGETMODULEPATH)ProgressPoints.pGetModulePath;
-//		pSetUpdate     = (RSSETUPDATE)ProgressPoints.pSetUpdate;
-//	}
-//	else
-//	{
-//		return false;
-//	}
 
     if(prev_ccom)
     {
@@ -631,210 +549,12 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 			}
 		else
 			LDPUMA_Console("Пропущен этап оценки линий.\n");
-////		if(LDPUMA_Skip(hDebugCancelVerifyLines))
-////		{
-////			Regime_VerifyLines val = gnTables ? RVL_FutuTablCorr:RVL_Default;
-////
-////			if( !RLTABLE_SetImportData(RLTABLE_DTRLTABLE_RegimeOfVerifyLines,&val)||
-////				!RLTABLE_MarkLines(hCCOM, hCPAGE))
-////			{
-////				SetReturnCode_rstuff(RLTABLE_GetReturnCode());
-////				rc = FALSE;
-////			}
-////			else
-////			{
-////				Bool32 BadScan = FALSE;
-////				int32_t  ScanQual= 0;
-////				RLTABLE_AboutLines(hCPAGE,hCCOM, &gneed_clean_line, &BadScan, &ScanQual);			}
-////				if(!gneed_clean_line)
-////					LDPUMA_Console("Предупреждение: RLTABLE_AboutLines говорит, что снимать линии не надо.\n");
-////			}
-////		else
-////			LDPUMA_Console("Пропущен этап оценки линий.\n");
 	}
 #endif //_USE_RVERLINE_
 
 	return rc;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-/*Bool32 ShortVerticalLinesProcess ( PRSPreProcessImage Image, uint32_t Step )
-{
-	Bool32 bRet = FALSE;
-
-	if ( !gLTInfo )
-		return bRet;
-
-	if ( Step == RS_SVL_FIRST_STEP )
-	{
-
-		//gLTInfo->Hor.Lns = (LineInfo *)RSTUFFAlloc(sizeof(LineInfo) * RStuffMaxNumLines * 2);
-		gLinesData.VLinefBufferA = gLTInfo->Ver.Lns = (LineInfo *)RSTUFFAlloc(sizeof(LineInfo) * RStuffMaxNumLines * 2);
-
-		if (gLTInfo->Ver.Lns != NULL )
-			bRet = TRUE;
-
-		if ( bRet )
-			bRet = ReadSVLFromPageContainer( Image, (void *)gLTInfo );
-
-	}
-
-	if ( Step == RS_SVL_SECOND_STEP )
-	{
-		LinesTotalInfo       LTInfo = {0};
-
-		//LTInfo.Hor.Lns = (LineInfo *)RSTUFFAlloc(sizeof(LineInfo) * RStuffMaxNumLines * 2);
-		gLinesData.VLinefBufferB = LTInfo.Ver.Lns = (LineInfo *)RSTUFFAlloc(sizeof(LineInfo) * RStuffMaxNumLines * 2);
-
-		if (LTInfo.Ver.Lns != NULL )
-			bRet = TRUE;
-
-		if ( bRet )
-			bRet = ReadSVLFromPageContainer( Image, (void *)&LTInfo );
-
-		//RSTUFFFree ( LTInfo.Hor.Lns );
-		RSTUFFFree ( gLinesData.VLinefBufferA );
-		//RSTUFFFree ( gLTInfo->Hor.Lns );
-		RSTUFFFree ( gLinesData.VLinefBufferB );
-	}
-
-	return bRet;
-}
-*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-/*Bool32 ReadSVLFromPageContainer ( PRSPreProcessImage Image, void * pInf )
-{
-	Bool32         bRet = TRUE;
-
-	LinesTotalInfo *LTInfo = (LinesTotalInfo *) pInf;
-	LineInfo       *pLHor, *pLVer;
-
-	Handle         hBlockLine;
-	Handle         hBlockLineHor;
-	Handle         hBlockLineVer;
-	Handle         hBlockLinePrev;
-	uint32_t         nTagSize;
-	uint32_t         nReal;
-	uint32_t         wErr32;
-
-	nTagSize = sizeof (LinesTotalInfo);
-	pLHor = LTInfo->Hor.Lns;
-	pLVer = LTInfo->Ver.Lns;
-
-	hBlockLine = CPAGE_GetBlockFirst (Image->hCPAGE, RLINE_BLOCK_TYPE);
-	if (!hBlockLine)
-	{
-		//sprintf (pStr, "Линии не выделялись.");
-		//return RV_EMPTY;
-		bRet =  FALSE;
-	}
-
-	wErr32 = CPAGE_GetReturnCode ();
-
-	if (wErr32!=0)
-	{
-		//Error_CPage ("[GetBlockFirst]");
-		bRet =  FALSE;
-	}
-	//берем.... что берем?
-	if ( bRet )
-	{
-		nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLine, RLINE_BLOCK_TYPE, (void *)LTInfo, nTagSize);
-
-		wErr32 = CPAGE_GetReturnCode ();
-	}
-
-	if ((nReal!=nTagSize)||(wErr32!=0))
-	{
-		//Error_CPage ("[GetBlockData]");
-		bRet = FALSE;
-	}
-	if (LTInfo->Hor.Cnt + LTInfo->Ver.Cnt >= RStuffMaxNumLines)
-	{
-		//sprintf (pStr, "Не хватило памяти под %d линии!", LTInfo.Hor.Cnt + LTInfo.Ver.Cnt);
-		//return RV_DOUBT;
-		bRet = FALSE;
-	}
-	if ((LTInfo->Hor.Cnt==0)&&(LTInfo->Ver.Cnt==0))
-	{
-		//sprintf (pStr, "Линии выделялись, но ни одной не выделено.");
-		//return RV_EMPTY;
-		bRet = FALSE;
-	}
-	//  Горизонтальные линии
-	if ( bRet && pLHor != NULL )
-	{
-		for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
-		{
-			if (i==0)
-				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Hor.Lns));
-			else
-				hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Hor.Lns));
-			wErr32 = CPAGE_GetReturnCode ();
-			if (wErr32!=0)
-			{
-				//if (i==0)
-					//Error_CPage ("[GetBlockFirst]");
-				//else
-					//Error_CPage ("[GetBlockNext]");
-				bRet = FALSE;
-				break;
-			}
-			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (uint32_t)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
-			wErr32 = CPAGE_GetReturnCode ();
-			if ((nReal!=nTagSize)||(wErr32!=0))
-			{
-				//Error_CPage ("[GetBlockData]");
-				bRet = FALSE;
-				break;
-			}
-			hBlockLinePrev = hBlockLineHor;
-		}
-	}
-	//  Вертикальные линии
-	if ( bRet && pLVer != NULL )
-	{
-		for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
-		{
-			if (i==0)
-				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Ver.Lns));
-			else
-				hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Ver.Lns));
-			wErr32 = CPAGE_GetReturnCode ();
-			if (wErr32!=0)
-			{
-				//if (i==0)
-					//Error_CPage ("[GetBlockFirst]");
-				//else
-					//Error_CPage ("[GetBlockNext]");
-				bRet = FALSE;
-				break;
-			}
-			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (uint32_t)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
-			wErr32 = CPAGE_GetReturnCode ();
-			if ((nReal!=nTagSize)||(wErr32!=0))
-			{
-				//Error_CPage ("[GetBlockData]");
-				bRet = FALSE;
-				break;
-			}
-			hBlockLinePrev = hBlockLineVer;
-		}
-	}
-
-	//*pHoriType = (uint32_t)LTInfo.Hor.Lns;
-	//*pVertType = (uint32_t)LTInfo.Ver.Lns;
-	//LTInfo->Hor.Lns = pLHor;
-	//LTInfo->Ver.Lns = pLVer;
-
-	return bRet;
-}
-*/
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // удаляем линии
 Bool32    KillLines(PRSPreProcessImage Image)
 {

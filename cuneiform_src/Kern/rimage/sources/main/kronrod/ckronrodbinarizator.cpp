@@ -2417,7 +2417,7 @@ uint32_t CKronrodBinarizator::mk_1235()
 	return 0;
 }
 
-void CKronrodBinarizator::mk_hist_WORD(uint32_t * Hist_WORD, puchar p, uint32_t n)
+void CKronrodBinarizator::mk_hist_WORD(uint32_t * /*Hist_WORD*/, puchar /*p*/, uint32_t /*n*/)
 {
 	return;
 }

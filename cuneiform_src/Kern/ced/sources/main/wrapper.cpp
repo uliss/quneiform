@@ -56,9 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //Filename wrapper.cpp
 //Created 13.01.99 by Bozhenov Artem,(c) CT inc.
-//#include "stdafx.h"
-#include <string.h>
-#include "stdafx.h"
+#include <cstring>
 #include "ced_struct.h"
 #include "cedint.h"
 

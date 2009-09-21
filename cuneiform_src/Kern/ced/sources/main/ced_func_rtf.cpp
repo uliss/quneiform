@@ -54,14 +54,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
-#include <ctype.h>
-#include "stdafx.h"
+#include <cstring>
+#include <cstdlib>
+#include <cctype>
 
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"
 #include "compat_defs.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 
@@ -75,21 +76,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
 	Bool ret;
 	struct StrRtfOut far *rtf = NULL;
 	struct StrRtfColor far *color = NULL;
-	//    long WriteBegRow,WriteEndRow;
-	//    LPBYTE ptr,fmt;
 	int j;
 	CEDSection* sect;
-
-	//	Bool inFrm=FALSE;
-
-	//	Bool result;
-	//    uint AllocType;
-	//    OFSTRUCT OpenBuf;
-
-	//       WriteBegRow=0;
-	//       WriteBegCol=0;
-	//       WriteEndRow=TotalLines-1;
-	//       WriteEndCol=LineLen(WriteEndRow);     // last uchar not included
 
 	// allocate space for the Strrtf info structure
 	if (NULL == (rtf = new StrRtfOut)) {

@@ -67,39 +67,20 @@
 /*-------------------------------------------------------------------------------------------------*/
 // Для использования без CFIO.DLL
 // см файл RSDefines.h
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//#define  RSTUFF_USE_GLOBAL_MEM
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#ifdef RSTUFF_USE_GLOBAL_MEM
-#include <windows.h>
-#endif
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include "resource.h"
 #include "rsdefines.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
 
-#include "cfio.h"
+#include "cfio/cfio.h"
 using namespace CIF::CFIO;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, puchar, puchar) = NULL;
-static void* (*pAlloc)(uint32_t, uint32_t) = NULL;
-static void (*pFree)(void *) = NULL;
-static void* (*pLock)(void *) = NULL;
-static void (*pUnlock)(void *) = NULL;
 
 uchar* Buffer = NULL;
 uchar* WorkMem = NULL;
 int BufferSize = 0;
 int WorkMemSize = 0;
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
+
 Bool32 InitCFIOInterface(Bool32 Status) {
 	Bool32 bRet = TRUE;
 
@@ -108,11 +89,6 @@ Bool32 InitCFIOInterface(Bool32 Status) {
 	if (Status == TRUE) {
 		CFIO_Init(NULL, NULL);
 
-		TAKE_ENTRIE(CFIO_FNDAllocMemory, pDAlloc, bRet)
-		TAKE_ENTRIE(CFIO_FNAllocMemory, pAlloc, bRet)
-		TAKE_ENTRIE(CFIO_FNFreeMemory, pFree, bRet)
-		TAKE_ENTRIE(CFIO_FNLockMemory, pLock, bRet)
-		TAKE_ENTRIE(CFIO_FNUnlockMemory, pUnlock, bRet)
 	} else {
 		bRet = CFIO_Done();
 	}
@@ -121,8 +97,6 @@ Bool32 InitCFIOInterface(Bool32 Status) {
 	return bRet;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 #define RSTUFF
 char cCommentBuffer[CFIO_MAX_COMMENT];
 
@@ -167,8 +141,7 @@ void * RSTUFFAlloc(uint32_t stAllocateBlock) {
 
 	return mem;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void RSTUFFFree(void * mem) {
 #ifdef _NO_CFIO
 
@@ -187,8 +160,7 @@ void RSTUFFFree(void * mem) {
 
 #endif
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void * RSTUFFLock(void * mem) {
 #ifdef _NO_CFIO
 
@@ -237,8 +209,7 @@ void RSTUFFUnlock(void * mem) {
 
 #endif
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Handle RSTUFFOpenSave(char * lpName) {
 	Handle rc = NULL;
 #ifdef _NO_CFIO
@@ -248,8 +219,7 @@ Handle RSTUFFOpenSave(char * lpName) {
 #endif
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Handle RSTUFFOpenRestore(char * lpName) {
 	Handle rc = NULL;
 #ifdef _NO_CFIO
@@ -259,8 +229,7 @@ Handle RSTUFFOpenRestore(char * lpName) {
 #endif
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////
-//
+
 unsigned int RSTUFFWrite(Handle h, void * lpdata, unsigned int size) {
 	uint32_t rc = 0;
 #ifdef _NO_CFIO
@@ -270,8 +239,7 @@ unsigned int RSTUFFWrite(Handle h, void * lpdata, unsigned int size) {
 #endif
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////
-//
+
 unsigned int RSTUFFRead(Handle h, void * lpdata, unsigned int size) {
 	uint32_t rc = 0;
 #ifdef _NO_CFIO
@@ -281,8 +249,7 @@ unsigned int RSTUFFRead(Handle h, void * lpdata, unsigned int size) {
 #endif
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void RSTUFFClose(Handle h) {
 #ifdef _NO_CFIO
 	fclose((FILE*)h);
@@ -316,6 +283,3 @@ void ReSetMem() {
 	WorkMem = NULL;
 	WorkMemSize = 0;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// end of file

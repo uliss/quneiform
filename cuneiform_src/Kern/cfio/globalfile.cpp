@@ -47,8 +47,7 @@ GlobalFile::GlobalFile(const std::string& Name, uint32_t Flag) {
 		wSeeker = 0;
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 GlobalFile::~GlobalFile() {
 	if (GetHandle())
 		Close();
@@ -56,8 +55,7 @@ GlobalFile::~GlobalFile() {
 	if (IsDeleted())
 		CFIO_REMOVE(file_name_.c_str());
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 bool GlobalFile::IsInString(const char * Flag) {
 	for (char * i = GetFlagString(); *i != 0x00; i++) {
 		if (*i == *Flag) {
@@ -70,8 +68,7 @@ bool GlobalFile::IsInString(const char * Flag) {
 
 	return false;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t GlobalFile::Write(void * pData, uint32_t wDataSize,
 		uint32_t wDataCounter) {
 	if (IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD)
@@ -88,8 +85,7 @@ uint32_t GlobalFile::Write(void * pData, uint32_t wDataSize,
 	}
 	return 0;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t GlobalFile::Read(void * pData, uint32_t wDataSize,
 		uint32_t wDataCounter) {
 	if (IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD)
@@ -103,8 +99,7 @@ uint32_t GlobalFile::Read(void * pData, uint32_t wDataSize,
 	}
 	return 0;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 bool GlobalFile::Close() {
 	uint32_t Closet;
 
@@ -112,15 +107,14 @@ bool GlobalFile::Close() {
 		Closet = CFIO_CLOSE(GetHandle());
 	} else if (!IsDeleted()) {
 		FILE * DiskFile;
-		char DiskFileName[MAX_PATH];
 
 		// extract memory file name for disk file
 		// if present
-		if (!GetFileName(DiskFileName).empty()) {
+		if (!file_name_.empty()) {
 			if (IsInString(CFIO_GF_CBINARY))
-				DiskFile = CFIO_OPEN(DiskFileName, "wb");
+				DiskFile = CFIO_OPEN(file_name_.c_str(), "wb");
 			else
-				DiskFile = CFIO_OPEN(DiskFileName, "w");
+				DiskFile = CFIO_OPEN(file_name_.c_str(), "w");
 			//move from memory to disk
 			MoveFromMemory(DiskFile);
 
@@ -137,7 +131,7 @@ bool GlobalFile::Close() {
 
 	return false;
 }
-//////////////////////////////////////////////////////////////////////////////////
+
 //move file from memroy to disk and delete memory copy
 bool GlobalFile::MoveFromMemory(Handle dFile) {
 	uint32_t DataLeft = wMemorySize;
@@ -168,8 +162,7 @@ bool GlobalFile::MoveFromMemory(Handle dFile) {
 
 	return true;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t GlobalFile::Seek(uint32_t Position, uint32_t Flag) {
 	int Direction;
 	uint32_t NewSeeker;
@@ -224,8 +217,7 @@ uint32_t GlobalFile::Seek(uint32_t Position, uint32_t Flag) {
 	}
 	return wSeeker;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t GlobalFile::Tell() const {
 	if (InMemory)
 		return wSeeker;
@@ -233,8 +225,7 @@ uint32_t GlobalFile::Tell() const {
 		return CFIO_TELL(const_cast<GlobalFile*> (this)->GetHandle());
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint32_t GlobalFile::Flush() {
 	if (InMemory) {
 		return 0;
@@ -242,8 +233,7 @@ uint32_t GlobalFile::Flush() {
 		return CFIO_FLUSH(GetHandle());
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 size_t GlobalFile::GetFileSize() const {
 	uint32_t CurrentPosition = Tell();
 	uint32_t Size;
@@ -256,8 +246,7 @@ size_t GlobalFile::GetFileSize() const {
 	}
 	return Size;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void GlobalFile::TranslateFlagToString(uint32_t Flag) {
 	ClearFlagString();
 
@@ -296,22 +285,16 @@ void GlobalFile::TranslateFlagToString(uint32_t Flag) {
 	if (Flag & CFIO_GF_COMMIT)
 		AddFlagToString(CFIO_GF_CCOMMIT);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void GlobalFile::ClearFlagString(void) {
 	CFIO_STRCPY(cFlag, "");
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void GlobalFile::AddFlagToString(const char * Flag) {
 	CFIO_STRCAT(cFlag, Flag);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-std::string GlobalFile::GetFileName(char * lpName) const {
-	if (lpName && CFIO_STRLEN(lpName) <= MAX_PATH)
-		CFIO_STRCPY(lpName, file_name_.c_str());
 
+std::string GlobalFile::GetFileName() const {
 	return file_name_;
 }
 
@@ -331,14 +314,12 @@ uint32_t GlobalFile::GetFileLenght() {
 		return wFileLenght;
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 static char Folder[MAX_PATH];
 static char File[MAX_PATH];
 static char Extension[MAX_PATH];
 static char Out[MAX_PATH];
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 bool GlobalFile::ProvideFileFolder(const std::string& FileName) {
 	/*
 	 * Given a filename such as "/foo/bar/baz/file.txt" creates the
@@ -357,9 +338,7 @@ bool GlobalFile::ProvideFileFolder(const std::string& FileName) {
 	CFIO_MAKEPATH(Out, Folder, File, Extension);
 	return true;
 }
-//////////////////////////////////////////////////////////////////////////////////
-/////////////////////////memory file//////////////////////////////////////////////
-//
+
 Handle GlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster) {
 	PCFIOMCLUSTER pCurrentCluster, pNewCluster;
 	// if not first
@@ -397,8 +376,7 @@ Handle GlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster) {
 	wClusterCounter++;
 	return pNewCluster->mcHandle;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 bool GlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster) {
 	PCFIOMCLUSTER pCluster, pLastCluster, pNextToDelete;
 
@@ -443,8 +421,7 @@ bool GlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster) {
 
 	return true;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 PCFIOMCLUSTER GlobalFile::TakeCluster(Handle hCluster) {
 	PCFIOMCLUSTER pCurrentCluster;
 
@@ -456,8 +433,7 @@ PCFIOMCLUSTER GlobalFile::TakeCluster(Handle hCluster) {
 	}
 	return NULL;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Handle GlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster) {
 	PCFIOMCLUSTER pLastCluster;
 
@@ -475,8 +451,7 @@ Handle GlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster) {
 
 	return pLastCluster->mcHandle;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Handle GlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster) {
 	PCFIOMCLUSTER pCluster = TakeCluster(hCluster);
 
@@ -493,8 +468,7 @@ Handle GlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster) {
 
 	return NULL;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void * GlobalFile::GetPtrToMemoryCluster(Handle hCluster,
 		PCFIOMCLUSTER pCluster) {
 	PCFIOMCLUSTER pCurrentCluster;
@@ -513,8 +487,7 @@ void * GlobalFile::GetPtrToMemoryCluster(Handle hCluster,
 	return pCurrentCluster->mcPtr;
 
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 bool GlobalFile::ClosePtrToMemoryCluster(Handle hCluster,
 		PCFIOMCLUSTER pCluster) {
 	PCFIOMCLUSTER pCurrentCluster;
@@ -533,8 +506,7 @@ bool GlobalFile::ClosePtrToMemoryCluster(Handle hCluster,
 
 	return !pCurrentCluster->mcLocked;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Handle GlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster) {
 	uint32_t FilledClusters = wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER;
 	PCFIOMCLUSTER pCluster;

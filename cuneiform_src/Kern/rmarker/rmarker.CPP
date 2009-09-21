@@ -69,6 +69,7 @@
 #include "rneg.h"
 #include "rselstr.h"
 #include "rline.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 

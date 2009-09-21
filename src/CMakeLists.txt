@@ -1,7 +1,7 @@
 include_directories(
 # ../cuneiform_src/Kern/include
 ../cuneiform_src/Kern/h
-# Kern/hh
+../cuneiform_src/Kern
 ../cuneiform_src/Kern/hhh
 ../cuneiform_src/Kern/hdebug
 ../cuneiform_src/Kern/hrk

@@ -1,4 +1,6 @@
-include_directories(Kern/include
+include_directories(
+	Kern
+	Kern/include
 Kern/h
 Kern/hh
 Kern/hhh

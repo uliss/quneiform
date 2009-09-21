@@ -63,7 +63,7 @@
 #include "mymem.h"
 #include "ccom.h"
 #include "ced.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 #include "cpage.h"
 #include "criimage.h"
 #include "cstr.h"

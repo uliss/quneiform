@@ -81,7 +81,7 @@
 #include "rsl.h"
 #include "rverline.h"
 #include "un_buff.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
 

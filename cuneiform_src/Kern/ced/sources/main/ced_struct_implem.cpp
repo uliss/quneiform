@@ -56,9 +56,8 @@
 
 //Filename ced_struct_implem.cpp
 //Created 7.12.98 by Bozhenov Artem,(c) CT inc.
-//#include "stdafx.h"
-#include <string.h>
-#include "stdafx.h"
+#include <cstring>
+#include <cstdlib>
 
 #include "ced_struct.h"
 #include "cedint.h"
@@ -78,9 +77,6 @@ CEDPage::CEDPage() {
 	extData = 0;
 	extDataLen = 0;
 	sections = 0;
-	//	paragraphs=0;
-	//	lines=0;
-	//	chars=0;
 	curSect = 0;
 	unrecogChar = 0;
 	NumberOfSections = 0;

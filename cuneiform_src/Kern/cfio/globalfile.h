@@ -57,7 +57,7 @@ public:
 	uint32_t Flush();
 	uint32_t Tell() const;
 	uint32_t Seek(uint32_t Position, uint32_t Flag);
-	std::string GetFileName(char* lpName = NULL) const;
+	std::string GetFileName() const;
 	uint32_t GetFileLenght();
 	void SetFileName(const std::string& FileName);
 	bool Close();
@@ -134,8 +134,6 @@ private:
 			uint32_t wDataCounter);
 	bool MoveFromMemory(Handle dFile);
 };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 }
 }
 

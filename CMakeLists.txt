@@ -5,6 +5,8 @@ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
+add_definitions("-g3 -fno-inline -O0")
+
 if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
    message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir, delete CMakeCache.txt from source root and try again.")
 endif()
