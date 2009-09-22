@@ -265,7 +265,7 @@ void My_SJTL_Done(void);
 #endif
 
 Bool32 ModulesInit(Handle ghStorage);
-Bool32 ModulesDone(Handle ghStorage);
+void ModulesDone();
 char * GetModulesString(uint32_t dwError);
 
 Bool32 Layout(puchar lpdata);

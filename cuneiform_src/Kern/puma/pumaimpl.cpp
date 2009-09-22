@@ -37,8 +37,7 @@ PumaImpl::PumaImpl() {
 }
 
 PumaImpl::~PumaImpl() {
-	if (!ModulesDone((void*) ghStorage))
-		cerr << "Puma done failed" << endl;
+	ModulesDone();
 	DoneDebug();
 
 	freeMainBuffer();

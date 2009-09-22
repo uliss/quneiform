@@ -188,17 +188,13 @@ Bool32 ModulesInit(Handle ghStorage) {
 	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
 		My_SJTL_open("one.frm", "one.jtl");
 	}
-	/* FIXME: could not figure out what to do with this in Linux, so disabled it.
-	 _CrtMemCheckpoint( &g_dbgMemState );
-	 */
+
 	return TRUE;
-	lError: ModulesDone(ghStorage);
+	lError: ModulesDone();
 	return FALSE;
 }
-//////////////////////////////////////////
-Bool32 ModulesDone(Handle ghStorage) {
-	Bool32 rc = TRUE;
 
+void ModulesDone() {
 	ROUT_Done();
 	CED_Done();
 	//#ifdef _DEBUG
@@ -234,9 +230,8 @@ Bool32 ModulesDone(Handle ghStorage) {
 	RMSEGMENT_Done();
 #endif //_USE_RMSEGMENT_
 	CFIO_Done();
-	return rc;
 }
-//////////////////////////////////////////
+
 #ifdef _DEBUG
 char * GetModulesString(uint32_t dwError)
 {
