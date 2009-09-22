@@ -120,10 +120,9 @@ bool PUMA_Init() {
 	gwHeightRC = 0;
 
 	if (!InitMem())
-		return FALSE;
+		return false;
 
 	InitDebug();
-
 	return ModulesInit((void*) ghStorage);
 }
 

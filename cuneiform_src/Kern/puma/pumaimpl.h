@@ -8,6 +8,7 @@
 #ifndef PUMAIMPL_H_
 #define PUMAIMPL_H_
 
+#include <string>
 #include <stdexcept>
 
 namespace CIF {
@@ -23,10 +24,13 @@ public:
 	PumaImpl();
 	~PumaImpl();
 
+	void analyze();
 	void close();
 	void open(char * dib);
 	void recognize();
+	void save(const std::string& outputFilename, int format) const;
 };
+
 }
 
 #endif /* PUMAIMPL_H_ */

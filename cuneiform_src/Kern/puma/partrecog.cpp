@@ -54,8 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 
 #include "puma.h"
 #include "mpuma.h"
@@ -489,7 +490,7 @@ Bool32 Recognize() {
 										} while (ln);
 									}
 								}
-								myFree(flagfrag);
+								free(flagfrag);
 							}
 						}
 

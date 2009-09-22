@@ -73,7 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define     WorkMemSize   180000
 
 void *	myAlloc(size_t stAllocateBlock);
-void	myFree(void * mem);
 
 Handle  myOpenSave(char * lpName);
 Handle  myOpenRestore(char * lpName);

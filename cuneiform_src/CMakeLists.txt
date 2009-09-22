@@ -15,10 +15,10 @@ Kern/usage
 # Hide non exported functions/variables
 include(CheckCCompilerFlag)
 if(CMAKE_COMPILER_IS_GNUCC AND NOT WIN32)
-    check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
-    if (HAVE_GCCVISIBILITY)
-	    add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
-    endif()
+    #check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
+    #    if (HAVE_GCCVISIBILITY)
+    #	    add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
+    #endif()
 endif()
 
 # Stop MSVC complaints about POSIX functions.
