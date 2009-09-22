@@ -54,19 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "resource.h"
 #include "mpuma.h"
-
-unsigned int myWrite(Handle h, void * lpdata, unsigned int size) {
-	return fwrite(lpdata, 1, size, (FILE*) h);
-}
-
-unsigned int myRead(Handle h, void * lpdata, unsigned int size) {
-	return fread(lpdata, 1, size, (FILE *) h);
-}
 
 static uchar* Buffer;
 static uchar* WorkMem;
@@ -82,22 +70,12 @@ void GiveWorkBuff(void **vvBuff, int *Size) {
 }
 
 bool InitMem() {
-	Buffer = NULL;
-	Buffer = static_cast<uchar*>(malloc(BufferSize));
-	if (!Buffer)
-		return false;
-	WorkMem = NULL;
-	WorkMem = static_cast<uchar*>(malloc(WorkMemSize));
-	if (!WorkMem)
-		return false;
+	Buffer = new uchar[BufferSize];
+	WorkMem = new uchar[WorkMemSize];
 	return true;
 }
 
 void DoneMem() {
-	if (Buffer)
-		free(Buffer);
-	Buffer = NULL;
-	if (WorkMem)
-		free(WorkMem);
-	WorkMem = NULL;
+	delete[] Buffer;
+	delete[] WorkMem;
 }
