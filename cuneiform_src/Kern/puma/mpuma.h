@@ -246,9 +246,6 @@ char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
-//void GiveMainBuff(void **vvBuff, int *Size);
-//void GiveWorkBuff(void **vvBuff, int *Size);
-
 //use SJTL.dll
 #ifdef __cplusplus
 extern "C" {

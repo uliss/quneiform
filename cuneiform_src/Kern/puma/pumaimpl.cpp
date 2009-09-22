@@ -8,9 +8,11 @@
 #include "pumaimpl.h"
 #include "puma.h"
 #include "mpuma.h"
+#include "pumadef.h"
 
 #include <iostream>
 #include <cassert>
+#include <cstring>
 
 using namespace std;
 
@@ -26,6 +28,68 @@ namespace CIF {
 
 unsigned char * PumaImpl::main_buffer_ = 0;
 unsigned char * PumaImpl::work_buffer_ = 0;
+
+static int32_t s_ConsoleLine = 0;
+
+bool PumaImpl::preOpenInitialize() {
+	bool rc = true;
+	// Удалим предыдущие окна отладки.
+	Handle hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
+	if (hRemWnd)
+		LDPUMA_DestroyWindow(hRemWnd);
+	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_BINARIZE);
+	if (hRemWnd)
+		LDPUMA_DestroyWindow(hRemWnd);
+	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_INPUT);
+	if (hRemWnd)
+		LDPUMA_DestroyWindow(hRemWnd);
+	hRemWnd = LDPUMA_GetWindowHandle(PUMA_IMAGE_TURN);
+	if (hRemWnd)
+		LDPUMA_DestroyWindow(hRemWnd);
+	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_ORTOMOVE);
+	if (hRemWnd)
+		LDPUMA_DestroyWindow(hRemWnd);
+
+	PumaImpl::close();
+	ResetPRGTIME();
+	if (LDPUMA_Skip(hDebugRoot)) {
+		if (s_ConsoleLine)
+			LDPUMA_ConsoleClear(s_ConsoleLine);
+		s_ConsoleLine = LDPUMA_ConsoleGetCurLine();
+	} else {
+
+	}
+	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+	SetReturnCode_puma(IDS_ERR_NO);
+	return rc;
+}
+
+bool PumaImpl::postOpenInitialize(const char * lpFileName) {
+	bool rc = true;
+	CIMAGEBITMAPINFOHEADER info;
+	if (lpFileName)
+		LDPUMA_SetFileName(NULL, lpFileName);
+	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
+		rc = false;
+	} else {
+		gRectTemplate.left = 0;
+		gRectTemplate.right = info.biWidth;
+		gRectTemplate.top = 0;
+		gRectTemplate.bottom = info.biHeight;
+	}
+	if (lpFileName) {
+		strcpy(szInputFileName, lpFileName);
+		strcpy(szLayoutFileName, lpFileName);
+		char * s = strrchr(szLayoutFileName, '.');
+		if (s)
+			*s = 0;
+		strcat(szLayoutFileName, ".bin");
+	} else
+		szInputFileName[0] = '\0';
+	hCPAGE = CreateEmptyPage();
+	return rc;
+}
 
 PumaImpl::PumaImpl() {
 	initMainBuffer();
@@ -51,8 +115,14 @@ void PumaImpl::analyze() {
 
 void PumaImpl::close() {
 	DBG("Puma close")
-	if (!PUMA_XClose())
-		throw PumaException("Puma XClose fail");
+	CLINE_Reset();
+	ClearAll();
+	// clean
+	CIMAGE_Reset();
+	CPAGE_DeleteAll();
+	RIMAGE_Reset();
+	hCPAGE = NULL;
+	gpRecogDIB = gpInputDIB = NULL;
 }
 
 void PumaImpl::freeMainBuffer() {
@@ -86,9 +156,16 @@ void PumaImpl::initWorkBuffer() {
 }
 
 void PumaImpl::open(char * dib) {
-	if (!PUMA_XOpen(dib, "none.txt"))
-		throw PumaException("Puma open failed");
 	DBG("Puma open")
+	assert(dib);
+	preOpenInitialize();
+	gpInputDIB = (unsigned char*) dib;
+	// write image
+	if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, dib, 1))
+		throw PumaException("PumaImpl::open can't write DIB");
+
+	if (!postOpenInitialize("none.txt"))
+		throw PumaException("Puma post open init failed");
 }
 
 void PumaImpl::recognize() {

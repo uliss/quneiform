@@ -35,6 +35,9 @@ public:
 	static const size_t MainBufferSize = 500000;
 	static const size_t WorkBufferSize = 180000;
 private:
+	bool preOpenInitialize();
+	bool postOpenInitialize(const char*);
+private:
 	static unsigned char * main_buffer_;
 	static unsigned char * work_buffer_;
 private:

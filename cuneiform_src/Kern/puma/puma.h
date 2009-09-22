@@ -268,8 +268,6 @@ PUMA_FUNC bool PUMA_GetExportData(uint32_t, void *);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
 //
-DEC_FUN(bool, XOpen, (void * pDIB, const std::string&))
-DEC_FUN(bool, XClose, ())
 DEC_FUN(bool, XPageAnalysis, ())
 DEC_FUN(bool, XFinalRecognition, ())
 DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
@@ -277,8 +275,6 @@ DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool
 DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
 DEC_FUN(bool, XOpenClbk, (PUMAIMAGECALLBACK, const char *))
 
-PUMA_FUNC bool PUMA_XOpen(void * pDIB, const std::string& filename);
-PUMA_FUNC bool PUMA_XClose();
 PUMA_FUNC bool PUMA_XPageAnalysis();
 PUMA_FUNC bool PUMA_XFinalRecognition();
 PUMA_FUNC bool PUMA_XSave(const std::string& filename, puma_format_t,

@@ -73,7 +73,7 @@
 #include "pumadef.h"
 #include "compat_defs.h"
 
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
+//GLOBAL VARIABLES
 static char s_szVersion[] = "Version OCR Puma "__DATE__".";
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
@@ -150,11 +150,8 @@ bool PUMA_GetExportData(uint32_t dwType, void * pData) {
 #define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break;
 
 	switch (dwType) {
-	CASE_FUNCTION(PUMA_XOpen)
-	CASE_FUNCTION(PUMA_XClose)
 	CASE_FUNCTION(PUMA_XPageAnalysis)
 	CASE_FUNCTION(PUMA_XFinalRecognition)
-		//CASE_FUNCTION(PUMA_XSave)
 	CASE_FUNCTION(PUMA_EnumLanguages)
 	CASE_FUNCTION(PUMA_EnumFormats)
 	CASE_FUNCTION(PUMA_EnumCodes)

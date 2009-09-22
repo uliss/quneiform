@@ -191,121 +191,36 @@ Bool32 PreProcessImage() {
 	return rc;
 }
 
-static int32_t s_ConsoleLine = 0;
-
-static bool PreOpenInitialize(const char * /*lpFileName*/) {
-	bool rc = true;
-	// Удалим предыдущие окна отладки.
-	Handle hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_BINARIZE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_INPUT);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(PUMA_IMAGE_TURN);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_ORTOMOVE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-
-	PUMA_XClose();
-	ResetPRGTIME();
-	if (LDPUMA_Skip(hDebugRoot)) {
-		if (s_ConsoleLine)
-			LDPUMA_ConsoleClear(s_ConsoleLine);
-		s_ConsoleLine = LDPUMA_ConsoleGetCurLine();
-	} else {
-
-	}
-	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-	SetReturnCode_puma(IDS_ERR_NO);
-	return rc;
-}
-
-static bool PostOpenInitialize(const char * lpFileName) {
-	bool rc = true;
-	CIMAGEBITMAPINFOHEADER info;
-	if (lpFileName)
-		LDPUMA_SetFileName(NULL, lpFileName);
-	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
-		rc = false;
-	} else {
-		gRectTemplate.left = 0;
-		gRectTemplate.right = info.biWidth;
-		gRectTemplate.top = 0;
-		gRectTemplate.bottom = info.biHeight;
-	}
-	if (lpFileName) {
-		strcpy(szInputFileName, lpFileName);
-		strcpy(szLayoutFileName, lpFileName);
-		char * s = strrchr(szLayoutFileName, '.');
-		if (s)
-			*s = 0;
-		strcat(szLayoutFileName, ".bin");
-	} else
-		szInputFileName[0] = '\0';
-	hCPAGE = CreateEmptyPage();
-	return rc;
-}
-
-bool PUMA_XOpen(void * pDIB, const std::string& filename) {
-	bool rc = true;
-	PreOpenInitialize(filename.c_str());
-	assert(pDIB);
-	if (pDIB == NULL) {
-		SetReturnCode_puma(IDS_ERR_IMAGE);
-		rc = false;
-	} else
-		gpInputDIB = (puchar) pDIB;
-	//
-	// Запишем изображение
-	//
-	if (rc) {
-		if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, pDIB, 1)) {
-			SetReturnCode_puma(CIMAGE_GetReturnCode());
-			rc = false;
-		}
-	}
-	if (rc)
-		rc = PostOpenInitialize(filename.c_str());
-	return rc;
-}
-
 bool PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack, const char * lpFileName) {
-	bool rc = true;
-	PUMAIMAGECALLBACK * lpCallBack = &CallBack;
-
-	PreOpenInitialize(lpFileName);
-	if (lpCallBack == NULL || lpCallBack->CIMAGE_ImageClose == NULL
-			|| lpCallBack->CIMAGE_ImageOpen == NULL
-			|| lpCallBack->CIMAGE_ImageRead == NULL) {
-		SetReturnCode_puma(IDS_ERR_IMAGE);
-		rc = false;
-	}
-	//
-	// Запишем изображение
-	//
-	if (rc) {
-		if (!CIMAGE_WriteCallbackImage((puchar) PUMA_IMAGE_USER,
-				*(CIMAGEIMAGECALLBACK*) lpCallBack)) {
-			SetReturnCode_puma(CIMAGE_GetReturnCode());
-			rc = false;
-		} else {
-			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_USER,
-					(Handle *) &gpInputDIB, 1)) {
-				SetReturnCode_puma(CIMAGE_GetReturnCode());
-				rc = false;
-			}
-		}
-	}
-	if (rc)
-		rc = PostOpenInitialize(lpFileName);
-	return rc;
+//	bool rc = true;
+//	PUMAIMAGECALLBACK * lpCallBack = &CallBack;
+//
+//	PreOpenInitialize(lpFileName);
+//	if (lpCallBack == NULL || lpCallBack->CIMAGE_ImageClose == NULL
+//			|| lpCallBack->CIMAGE_ImageOpen == NULL
+//			|| lpCallBack->CIMAGE_ImageRead == NULL) {
+//		SetReturnCode_puma(IDS_ERR_IMAGE);
+//		rc = false;
+//	}
+//	//
+//	// Запишем изображение
+//	//
+//	if (rc) {
+//		if (!CIMAGE_WriteCallbackImage((puchar) PUMA_IMAGE_USER,
+//				*(CIMAGEIMAGECALLBACK*) lpCallBack)) {
+//			SetReturnCode_puma(CIMAGE_GetReturnCode());
+//			rc = false;
+//		} else {
+//			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_USER,
+//					(Handle *) &gpInputDIB, 1)) {
+//				SetReturnCode_puma(CIMAGE_GetReturnCode());
+//				rc = false;
+//			}
+//		}
+//	}
+//	if (rc)
+//		rc = PostOpenInitialize(lpFileName);
+//	return rc;
 }
 
 bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
@@ -370,20 +285,6 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 		SetPageInfo(hCPAGE, PInfo);
 	}
 	return rc;
-}
-
-bool PUMA_XClose() {
-	CLINE_Reset();
-	ClearAll();
-	// очистим
-	// clean
-	CIMAGE_Reset();
-	CPAGE_DeleteAll();
-	RIMAGE_Reset();
-	hCPAGE = NULL;
-
-	gpRecogDIB = gpInputDIB = NULL;
-	return true;
 }
 
 bool PUMA_XPageAnalysis() {
