@@ -8,7 +8,6 @@ out.cpp
 partlayout.cpp 
 partrecog.cpp 
 snp_sjtl.c 
-mymem.cpp 
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp

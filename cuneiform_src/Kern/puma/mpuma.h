@@ -59,7 +59,6 @@
 #include "puma.h"
 #include "dpuma.h"
 #include "pumadef.h"
-#include "mymem.h"
 #include "ccom.h"
 #include "ced.h"
 #include "cfio/cfio.h"
@@ -84,6 +83,7 @@
 #include "rsl.h"
 #include "rreccom.h"
 #include "rcorrkegl.h"
+
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -246,10 +246,8 @@ char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
-bool InitMem(void);
-void DoneMem(void);
-void GiveMainBuff(void **vvBuff, int *Size);
-void GiveWorkBuff(void **vvBuff, int *Size);
+//void GiveMainBuff(void **vvBuff, int *Size);
+//void GiveWorkBuff(void **vvBuff, int *Size);
 
 //use SJTL.dll
 #ifdef __cplusplus

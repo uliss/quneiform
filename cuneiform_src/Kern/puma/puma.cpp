@@ -316,7 +316,8 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	//
 	PAGEINFO PInfo;// = { 0 };
 
-	IS_VALID(p);IS_VALID(lpDIB);
+	assert(p);
+	assert(lpDIB);
 
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
 		SetReturnCode_puma(CPAGE_GetReturnCode());
@@ -510,8 +511,9 @@ bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 		case PUMA_TOTABLETXT:
 		case PUMA_TOTABLEDBF:
 		case PUMA_TOHTML:
-			rc = ConverROUTtoMemory(hEdPage, Format, Code, (puchar) lpMem,
-					size);
+			rc
+					= ConverROUTtoMemory(hEdPage, Format, Code, (puchar) lpMem,
+							size);
 			break;
 		default:
 			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);

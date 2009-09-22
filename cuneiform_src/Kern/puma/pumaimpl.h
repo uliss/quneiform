@@ -29,6 +29,19 @@ public:
 	void open(char * dib);
 	void recognize();
 	void save(const std::string& outputFilename, int format) const;
+public:
+	static unsigned char * mainBuffer();
+	static unsigned char * workBuffer();
+	static const size_t MainBufferSize = 500000;
+	static const size_t WorkBufferSize = 180000;
+private:
+	static unsigned char * main_buffer_;
+	static unsigned char * work_buffer_;
+private:
+	static void freeMainBuffer();
+	static void freeWorkBuffer();
+	static void initMainBuffer();
+	static void initWorkBuffer();
 };
 
 }

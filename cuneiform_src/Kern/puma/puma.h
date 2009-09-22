@@ -257,15 +257,11 @@ uint32_t LCED_DeletePage(Handle hEdPage);
 #define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
 
 // Module functions
-DEC_FUN(bool, Init, ())
-DEC_FUN(bool, Done, ())
 DEC_FUN(int, GetReturnCode,())
 DEC_FUN(char *, GetReturnString,(uint32_t))
 DEC_FUN(bool, GetExportData,(uint32_t, void *))
 DEC_FUN(bool, SetImportData,(uint32_t, void *))
 
-PUMA_FUNC bool PUMA_Init();
-PUMA_FUNC bool PUMA_Done();
 PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_GetExportData(uint32_t, void *);

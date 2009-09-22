@@ -77,7 +77,6 @@
 static char s_szVersion[] = "Version OCR Puma "__DATE__".";
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static Handle ghStorage = NULL;
 static HINSTANCE ghInst = NULL;
 static char szPath[_MAX_PATH] = ".";
 static char szTempPath[_MAX_PATH] = ".";
@@ -114,26 +113,6 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lp
 	}
 
 	return TRUE;
-}
-
-bool PUMA_Init() {
-	gwHeightRC = 0;
-
-	if (!InitMem())
-		return false;
-
-	InitDebug();
-	return ModulesInit((void*) ghStorage);
-}
-
-bool PUMA_Done() {
-	Bool32 rc = ModulesDone((void*) ghStorage);
-
-	DoneDebug();
-
-	DoneMem();
-
-	return rc;
 }
 
 int PUMA_GetReturnCode() {

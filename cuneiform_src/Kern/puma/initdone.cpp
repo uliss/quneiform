@@ -183,7 +183,6 @@ Bool32 ModulesInit(Handle ghStorage) {
 	if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, ghStorage)) {
 		goto lError;
 	}
-	//#ifdef _DEBUG
 
 	My_SJTL_Init();
 	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
@@ -192,7 +191,6 @@ Bool32 ModulesInit(Handle ghStorage) {
 	/* FIXME: could not figure out what to do with this in Linux, so disabled it.
 	 _CrtMemCheckpoint( &g_dbgMemState );
 	 */
-	//#endif
 	return TRUE;
 	lError: ModulesDone(ghStorage);
 	return FALSE;
