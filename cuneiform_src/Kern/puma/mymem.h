@@ -72,12 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define     BufferSize    500000
 #define     WorkMemSize   180000
 
-void *	myAlloc(size_t stAllocateBlock);
-
-Handle  myOpenSave(char * lpName);
-Handle  myOpenRestore(char * lpName);
 unsigned int  myWrite(Handle h,void * lpdata,unsigned int size);
 unsigned int  myRead(Handle h,void * lpdata,unsigned int size);
-void    myClose(Handle h);
 
 #endif

@@ -60,34 +60,12 @@
 #include "resource.h"
 #include "mpuma.h"
 
-void * myAlloc(size_t stAllocateBlock) {
-	char * mem = NULL;
-
-	mem = (char *) malloc(stAllocateBlock);
-	if (!mem)
-		SetReturnCode_puma(IDS_ERR_NO_MEMORY);
-
-	return mem;
-}
-
-Handle myOpenSave(char * lpName) {
-	return (Handle) fopen(lpName, "wb");
-}
-
-Handle myOpenRestore(char * lpName) {
-	return (Handle) fopen(lpName, "rb");
-}
-
 unsigned int myWrite(Handle h, void * lpdata, unsigned int size) {
 	return fwrite(lpdata, 1, size, (FILE*) h);
 }
 
 unsigned int myRead(Handle h, void * lpdata, unsigned int size) {
 	return fread(lpdata, 1, size, (FILE *) h);
-}
-
-void myClose(Handle h) {
-	fclose((FILE*) h);
 }
 
 static uchar* Buffer;
@@ -103,16 +81,16 @@ void GiveWorkBuff(void **vvBuff, int *Size) {
 	*Size = WorkMemSize;
 }
 
-Bool32 InitMem() {
+bool InitMem() {
 	Buffer = NULL;
-	Buffer = (uchar*) myAlloc(BufferSize);
+	Buffer = static_cast<uchar*>(malloc(BufferSize));
 	if (!Buffer)
-		return FALSE;
+		return false;
 	WorkMem = NULL;
-	WorkMem = (uchar*) myAlloc(WorkMemSize);
+	WorkMem = static_cast<uchar*>(malloc(WorkMemSize));
 	if (!WorkMem)
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
 void DoneMem() {

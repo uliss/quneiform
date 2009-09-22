@@ -246,7 +246,7 @@ char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
-Bool32 InitMem(void);
+bool InitMem(void);
 void DoneMem(void);
 void GiveMainBuff(void **vvBuff, int *Size);
 void GiveWorkBuff(void **vvBuff, int *Size);

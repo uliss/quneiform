@@ -225,17 +225,6 @@ static Bool32 RecognizeStringsPass1(void) {
 				rc = FALSE;
 				break;
 			}
-			/*
-			 else
-			 {
-			 if( !LDPUMA_Skip(hDebugCancelStringsPass2)&&
-			 (!LDPUMA_Skip(hDebugCancelPostSpeller)||
-			 !gbSpeller) )
-			 {
-			 PrintResult(i,lin_out);
-			 }
-			 }
-			 */
 
 #ifdef _USE_REF_    // Nick 23.05.2001
 			{
@@ -455,11 +444,10 @@ Bool32 Recognize() {
 						int32_t nf = CSTR_GetMaxFragment(0), i;
 						Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 						if (hBlock) {
-							int32_t *flagfrag;
-							flagfrag = (int32_t*) myAlloc(nf * sizeof(int32_t));
+							int32_t *flagfrag = static_cast<int32_t*> (calloc(
+									1, nf * sizeof(int32_t)));
 
 							if (flagfrag) {
-								memset(flagfrag, 0, nf * sizeof(int32_t));
 								for (i = 0; hBlock && i < nf; i++) {
 									//nunfrag[i]=CPAGE_GetBlockInterNum(hCPAGE,hBlock);
 									flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE,
@@ -632,22 +620,7 @@ Bool32 Recognize() {
 										CSTR_LINVERS_MAINOUT), hCPAGE);
 							}
 						}
-						/*
-						 //
-						 // Печать строк во временный файл
-						 //
-						 Handle tmpfile=LDPUMA_FOpen(NULL,"at");
-						 char    str[1024];
-						 if( tmpfile )
-						 {
-						 for(int i=1;i<=count;i++)
-						 {
-						 CSTR_LineToTxt(CSTR_GetLineHandle(i, 1),str);
-						 LDPUMA_FPuts(tmpfile,str);
-						 }
-						 LDPUMA_FClose(tmpfile);
-						 }
-						 */
+
 						//
 						// OLEG fot Consistent
 						if (SPEC_PRJ_CONS == gnSpecialProject) {
@@ -699,8 +672,9 @@ Bool32 Recognize() {
 												8);
 										strcpy(szFileName, szInputFileName);
 										strcat(szFileName, "_tmp_.fed");
-										PUMA_Save(ghEdPage, szFileName, PUMA_TOEDNATIVE, PUMA_CODE_UNKNOWN,
-												FALSE);
+										PUMA_Save(ghEdPage, szFileName,
+												PUMA_TOEDNATIVE,
+												PUMA_CODE_UNKNOWN, FALSE);
 									}
 								}
 							} else
