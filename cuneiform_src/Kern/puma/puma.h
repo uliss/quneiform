@@ -61,12 +61,18 @@
 
 #include "globus.h"
 #include "cttypes.h"
+#include "singleton.h"
 
 #ifdef __PUMA__
 #define PUMA_FUNC  FUN_EXPO__
 #else
 #define PUMA_FUNC  FUN_IMPO__
 #endif
+
+namespace CIF {
+class PumaImpl;
+typedef Singleton<PumaImpl> Puma;
+}
 
 #define PUMA_MAXNAME 260
 

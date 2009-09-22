@@ -11,6 +11,7 @@ snp_sjtl.c
 mymem.cpp 
 puma.cpp 
 dll.cpp 
+pumaimpl.cpp
 )
 set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 
