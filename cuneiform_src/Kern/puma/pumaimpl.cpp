@@ -105,7 +105,7 @@ PumaImpl::~PumaImpl() {
 }
 
 void PumaImpl::analyze() {
-	if (!PUMA_XPageAnalysis())
+	if (!Layout(gpRecogDIB))
 		throw PumaException("Puma analyze failed");
 }
 

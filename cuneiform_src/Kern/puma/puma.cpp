@@ -255,19 +255,6 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	return rc;
 }
 
-bool PUMA_XPageAnalysis() {
-	bool rc = false;
-
-	ResetPRGTIME();
-	if (InitPRGTIME())
-		ProgressStart();
-
-	rc = Layout(gpRecogDIB);
-	if (DonePRGTIME())
-		ProgressFinish();
-	return rc;
-}
-
 bool PUMA_XFinalRecognition() {
 	bool rc = true;
 	ResetPRGTIME();
