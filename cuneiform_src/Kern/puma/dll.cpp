@@ -74,7 +74,6 @@
 #include "compat_defs.h"
 
 //GLOBAL VARIABLES
-static char s_szVersion[] = "Version OCR Puma "__DATE__".";
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 static HINSTANCE ghInst = NULL;
@@ -139,84 +138,6 @@ char * PUMA_GetReturnString(int dwError) {
 
 	return szBuffer;
 
-}
-
-bool PUMA_GetExportData(uint32_t dwType, void * pData) {
-	bool rc = true;
-
-	gwRC = 0;
-
-#define CASE_FUNCTION(a)	case PUMA_FN##a:	*(FN##a *)pData = a; break;
-#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break;
-
-	switch (dwType) {
-	CASE_FUNCTION(PUMA_XPageAnalysis)
-	CASE_FUNCTION(PUMA_XFinalRecognition)
-	CASE_FUNCTION(PUMA_EnumLanguages)
-	CASE_FUNCTION(PUMA_EnumFormats)
-	CASE_FUNCTION(PUMA_EnumCodes)
-	CASE_FUNCTION(PUMA_EnumFormatMode)
-	CASE_FUNCTION(PUMA_EnumTable)
-	CASE_FUNCTION(PUMA_EnumPicture)
-	CASE_FUNCTION(PUMA_RenameImageName)
-	CASE_FUNCTION(PUMA_XSetTemplate)
-	CASE_FUNCTION(PUMA_XGetTemplate)
-	CASE_FUNCTION(PUMA_XGetRotateDIB)
-	CASE_FUNCTION(PUMA_Save)
-	CASE_FUNCTION(PUMA_XOpenClbk)
-	CASE_FUNCTION(PUMA_GetSpecialBuffer)
-	CASE_FUNCTION(PUMA_SetSpecialProject)
-
-	CASE_DATA(PUMA_Word32_Language,uint32_t,gnLanguage)
-	CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller)
-	CASE_DATA(PUMA_Bool32_OneColumn,Bool32,gbOneColumn)
-	CASE_DATA(PUMA_Bool32_Fax100,Bool32,gbFax100)
-	CASE_DATA(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix)
-	CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold)
-	CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic)
-	CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize)
-	CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat)
-	CASE_DATA(PUMA_pchar_UserDictName,const char *,gpUserDictName)
-	CASE_DATA(PUMA_pchar_SerifName,const char *,gpSerifName)
-	CASE_DATA(PUMA_pchar_SansSerifName,const char *,gpSansSerifName)
-	CASE_DATA(PUMA_pchar_CourierName,const char *,gpCourierName)
-	CASE_DATA(PUMA_Word32_Pictures,uint32_t,gnPictures)
-	CASE_DATA(PUMA_Word32_Tables,uint32_t,gnTables)
-	CASE_DATA(PUMA_pchar_Version,char *,s_szVersion)
-	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
-	CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar)
-	CASE_DATA(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate)
-	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
-	CASE_DATA(PUMA_Bool32_PreserveLineBreaks,Bool32,gnPreserveLineBreaks)
-
-	case PUMA_LPPUMAENTRY_CED: {
-		LPPUMAENTRY lp = (LPPUMAENTRY) pData;
-		lp->fnInit = CED_Init;
-		lp->fnDone = CED_Done;
-		lp->fnGetReturnCode = CED_GetReturnCode;
-		lp->fnGetReturnString = CED_GetReturnString;
-		lp->fnGetExportData = CED_GetExportData;
-		lp->fnSetImportData = CED_SetImportData;
-	}
-		break;
-	case PUMA_LPPUMAENTRY_ROUT: {
-		LPPUMAENTRY lp = (LPPUMAENTRY) pData;
-		lp->fnInit = ROUT_Init;
-		lp->fnDone = ROUT_Done;
-		lp->fnGetReturnCode = ROUT_GetReturnCode;
-		lp->fnGetReturnString = (FNGetReturnString) ROUT_GetReturnString;
-		lp->fnGetExportData = ROUT_GetExportData;
-		lp->fnSetImportData = ROUT_SetImportData;
-	}
-		break;
-	CASE_FUNCTION(PUMA_SaveToMemory)
-	default:
-		*(Handle *) pData = NULL;
-		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		return false;
-	}
-	return rc;
-#undef CASE_DATA
 }
 
 bool PUMA_SetImportData(uint32_t dwType, void * pData) {
