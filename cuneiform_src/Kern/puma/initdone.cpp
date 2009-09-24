@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #define __FRHSTRUC_H
 
@@ -190,133 +190,11 @@ Bool32 ModulesInit(Handle ghStorage) {
 	}
 
 	return TRUE;
-	lError: ModulesDone();
+	lError:
+	//ModulesDone();
 	return FALSE;
 }
 
-void ModulesDone() {
-	ROUT_Done();
-	CED_Done();
-	//#ifdef _DEBUG
-	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
-		My_SJTL_close();
-	}
-	//#endif
-	My_SJTL_Done();
-	RCORRKEGL_Done();
-	RPIC_Done();
-	RIMAGE_Done();
-	RFRMT_Done();
-	RSL_Done();
-	REXC_Done();
-	RLINE_Done();
-	RMARKER_Done();
-	RBLOCK_Done();
-	RSELSTR_Done();
-	RSTR_Done();
-	CSTR_Done();
-	CCOM_Done();
-	CPAGE_Done();
-	CIMAGE_Done();
-	CLINE_Done();
-	RPSTR_Done();
-	RSTUFF_Done();
-	RRECCOM_Done();
-
-#ifdef _USE_RVERLINE_
-	RVERLINE_Done();
-#endif //_USE_RVERLINE_
-#ifdef _USE_RMSEGMENT_
-	RMSEGMENT_Done();
-#endif //_USE_RMSEGMENT_
-	CFIO_Done();
-}
-
-#ifdef _DEBUG
-char * GetModulesString(uint32_t dwError)
-{
-	uint16_t low = (uint16_t)(dwError & 0xFFFF);
-	uint16_t hei = (uint16_t)(dwError >> 16);
-	static char szString[512];
-	sprintf(szString,"Unknown code error 0x%X",dwError);
-
-	switch(hei)
-	{
-		case PUMA_MODULE_RSTR:
-		sprintf(szString,"RSTR: %s",RSTR_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_REXC:
-		sprintf(szString,"REXC: %s",REXC_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CCOM:
-		sprintf(szString,"CCOM: %s",CCOM_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CSTR:
-		sprintf(szString,"CSTR: %s",CSTR_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RLINE:
-		sprintf(szString,"RLINE: %s",RLINE_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CPAGE:
-		sprintf(szString,"CPAGE: %s",CPAGE_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RBLOCK:
-		sprintf(szString,"RBLOCK: %s",RBLOCK_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CFIO:
-		sprintf(szString,"CFIO: %s",CFIO_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CIMAGE:
-		sprintf(szString,"CIMAGE: %s",CIMAGE_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RFRMT:
-		sprintf(szString,"RFRMT: %s",RFRMT_GetReturnString(dwError));
-		return szString;
-
-		case PUMA_MODULE_RSL:
-		sprintf(szString,"RSL: %s",RSL_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RIMAGE:
-		sprintf(szString,"RIMAGE: %s",RIMAGE_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RPSTR:
-		sprintf(szString,"RPSTR: %s",RPSTR_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RPIC:
-		sprintf(szString,"RPIC: %s",RPIC_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_CED:
-		sprintf(szString,"CED: %s",CED_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_ROUT:
-		sprintf(szString,"ROUT: %s",ROUT_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RSTUFF:
-		sprintf(szString,"PUMA_MODULE_RSTUFF: %s",RSTUFF_GetReturnString(dwError));
-		return szString;
-
-#ifdef _USE_RVERLINE_
-		case PUMA_MODULE_RVERLINE:
-		sprintf(szString,"PUMA_MODULE_RVERLINE: %s",RVERLINE_GetReturnString(dwError));
-		return szString;
-#endif //_USE_RVERLINE_
-		case PUMA_MODULE_RRECCOM:
-		sprintf(szString,"RRECCOM: %s",RRECCOM_GetReturnString(dwError));
-		return szString;
-		case PUMA_MODULE_RCORRKEGL:
-		sprintf(szString,"RCORRKEGL: %s",RCORRKEGL_GetReturnString(dwError));
-		return szString;
-#ifdef _USE_RMSEGMENT_
-		case PUMA_MODULE_RMSEGMENT:
-		sprintf(szString,"RMSEGMENT: %s",RMSEGMENT_GetReturnString(dwError));
-		return szString;
-#endif
-	}
-	return szString;
-}
-
-#else
-//////////////////////////////////////////////////////////////////////
 char * GetModulesString(uint32_t dwError) {
 	uint16_t low = (uint16_t) (dwError & 0xFFFF);
 	uint16_t hei = (uint16_t) (dwError >> 16);
@@ -576,18 +454,6 @@ char * GetModulesString(uint32_t dwError) {
 		}
 		break;
 	case PUMA_MODULE_RANALFRM:
-		/*switch(low)
-		 {
-		 case 0	: // IDS_CIMAGE_ERR_NO	Ошибок нет.
-		 id = IDS_ERR_NO;
-		 break;
-		 case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Функция не реализована.
-		 id = IDS_ERR_NOTIMPLEMENT;
-		 break;
-		 case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	Не хватает оперативной памяти.
-		 id = IDS_ERR_NO_MEMORY;
-		 break;
-		 }*/
 		break;
 	case PUMA_MODULE_CED:
 		break;
@@ -629,4 +495,3 @@ char * GetModulesString(uint32_t dwError) {
 
 	return szString;
 }
-#endif

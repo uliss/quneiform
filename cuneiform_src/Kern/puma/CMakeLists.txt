@@ -1,7 +1,6 @@
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 common.cpp 
-debug.cpp 
 enum.cpp
 initdone.cpp 
 out.cpp 

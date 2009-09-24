@@ -37,6 +37,7 @@ public:
 private:
 	bool preOpenInitialize();
 	bool postOpenInitialize(const char*);
+	void modulesDone();
 private:
 	static unsigned char * main_buffer_;
 	static unsigned char * work_buffer_;

@@ -31,6 +31,115 @@ unsigned char * PumaImpl::work_buffer_ = 0;
 
 static int32_t s_ConsoleLine = 0;
 
+PumaImpl::PumaImpl() {
+	initMainBuffer();
+	initWorkBuffer();
+	if (!ModulesInit(ghStorage))
+		throw PumaException("Puma init failed");
+}
+
+PumaImpl::~PumaImpl() {
+	modulesDone();
+	freeMainBuffer();
+	freeWorkBuffer();
+}
+
+void PumaImpl::analyze() {
+	if (!Layout(gpRecogDIB))
+		throw PumaException("Puma analyze failed");
+}
+
+void PumaImpl::close() {
+	DBG("Puma close")
+	CLINE_Reset();
+	ClearAll();
+	// clean
+	CIMAGE_Reset();
+	CPAGE_DeleteAll();
+	RIMAGE_Reset();
+	hCPAGE = NULL;
+	gpRecogDIB = gpInputDIB = NULL;
+}
+
+void PumaImpl::freeMainBuffer() {
+	if (!main_buffer_)
+		return;
+	delete[] main_buffer_;
+	main_buffer_ = NULL;
+}
+
+void PumaImpl::freeWorkBuffer() {
+	if (!work_buffer_)
+		return;
+	delete[] work_buffer_;
+	work_buffer_ = NULL;
+}
+
+void PumaImpl::initMainBuffer() {
+	if (main_buffer_) {
+		DBG("PumaImpl: main buffer is not empty")
+		delete[] main_buffer_;
+	}
+	main_buffer_ = new unsigned char[MainBufferSize];
+}
+
+void PumaImpl::initWorkBuffer() {
+	if (work_buffer_) {
+		DBG ("PumaImpl: work buffer is not empty")
+		delete[] work_buffer_;
+	}
+	work_buffer_ = new uchar[WorkBufferSize];
+}
+
+void PumaImpl::modulesDone() {
+	ROUT_Done();
+	CED_Done();
+	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
+		My_SJTL_close();
+	}
+	My_SJTL_Done();
+	RCORRKEGL_Done();
+	RPIC_Done();
+	RIMAGE_Done();
+	RFRMT_Done();
+	RSL_Done();
+	REXC_Done();
+	RLINE_Done();
+	RMARKER_Done();
+	RBLOCK_Done();
+	RSELSTR_Done();
+	RSTR_Done();
+	CSTR_Done();
+	CCOM_Done();
+	CPAGE_Done();
+	CIMAGE_Done();
+	CLINE_Done();
+	RPSTR_Done();
+	RSTUFF_Done();
+	RRECCOM_Done();
+
+#ifdef _USE_RVERLINE_
+	RVERLINE_Done();
+#endif //_USE_RVERLINE_
+#ifdef _USE_RMSEGMENT_
+	RMSEGMENT_Done();
+#endif //_USE_RMSEGMENT_
+	CIF::CFIO::CFIO_Done();
+}
+
+void PumaImpl::open(char * dib) {
+	DBG("Puma open")
+	assert(dib);
+	preOpenInitialize();
+	gpInputDIB = (unsigned char*) dib;
+	// write image
+	if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, dib, 1))
+		throw PumaException("PumaImpl::open can't write DIB");
+
+	if (!postOpenInitialize("none.txt"))
+		throw PumaException("Puma post open init failed");
+}
+
 bool PumaImpl::preOpenInitialize() {
 	bool rc = true;
 	// Удалим предыдущие окна отладки.
@@ -89,79 +198,6 @@ bool PumaImpl::postOpenInitialize(const char * lpFileName) {
 		szInputFileName = "";
 	hCPAGE = CreateEmptyPage();
 	return rc;
-}
-
-PumaImpl::PumaImpl() {
-	initMainBuffer();
-	initWorkBuffer();
-	if (!ModulesInit((void*) ghStorage))
-		throw PumaException("Puma init failed");
-}
-
-PumaImpl::~PumaImpl() {
-	ModulesDone();
-	freeMainBuffer();
-	freeWorkBuffer();
-}
-
-void PumaImpl::analyze() {
-	if (!Layout(gpRecogDIB))
-		throw PumaException("Puma analyze failed");
-}
-
-void PumaImpl::close() {
-	DBG("Puma close")
-	CLINE_Reset();
-	ClearAll();
-	// clean
-	CIMAGE_Reset();
-	CPAGE_DeleteAll();
-	RIMAGE_Reset();
-	hCPAGE = NULL;
-	gpRecogDIB = gpInputDIB = NULL;
-}
-
-void PumaImpl::freeMainBuffer() {
-	if (!main_buffer_)
-		return;
-	delete[] main_buffer_;
-	main_buffer_ = NULL;
-}
-
-void PumaImpl::freeWorkBuffer() {
-	if (!work_buffer_)
-		return;
-	delete[] work_buffer_;
-	work_buffer_ = NULL;
-}
-
-void PumaImpl::initMainBuffer() {
-	if (main_buffer_) {
-		DBG("PumaImpl: main buffer is not empty")
-		delete[] main_buffer_;
-	}
-	main_buffer_ = new unsigned char[MainBufferSize];
-}
-
-void PumaImpl::initWorkBuffer() {
-	if (work_buffer_) {
-		DBG ("PumaImpl: work buffer is not empty")
-		delete[] work_buffer_;
-	}
-	work_buffer_ = new uchar[WorkBufferSize];
-}
-
-void PumaImpl::open(char * dib) {
-	DBG("Puma open")
-	assert(dib);
-	preOpenInitialize();
-	gpInputDIB = (unsigned char*) dib;
-	// write image
-	if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, dib, 1))
-		throw PumaException("PumaImpl::open can't write DIB");
-
-	if (!postOpenInitialize("none.txt"))
-		throw PumaException("Puma post open init failed");
 }
 
 void PumaImpl::recognize() {
