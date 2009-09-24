@@ -96,8 +96,6 @@ Bool32 Layout(puchar lpdata) {
 	RMPreProcessImage DataforRM;
 
 	PAGEINFO PInfo;// = { 0 };
-	//Bool32 rc_line = TRUE;
-	//Bool32 need_clean_line = FALSE;
 	PRGTIME prev;
 
 	ClearAll();
@@ -106,8 +104,6 @@ Bool32 Layout(puchar lpdata) {
 	size_t size_buf = CIF::PumaImpl::MainBufferSize;
 	void* MemWork = CIF::PumaImpl::workBuffer();
 	int size_work = CIF::PumaImpl::WorkBufferSize;
-//	GiveMainBuff(&MemBuf, &size_buf);
-//	GiveWorkBuff(&MemWork, &size_work);
 
 	///////////////////////////////////////////////////////////Allex
 	// Бинаризуем изображение тут
@@ -200,15 +196,8 @@ Bool32 Layout(puchar lpdata) {
 				SetReturnCode_puma(RSTUFF_GetReturnCode());
 				rc = FALSE;
 			}
-
-			//	Rect32 rect={50,100,3300,2449};
-			//			PUMA_XSetTemplate(rect);	//Paul 26-02-2002
-
-			//			PUMA_XSetTemplate(DataforRS.gRectTemplate);	//Paul 26-02-2002
 		}
 	}
-
-	//    RestorePRGTIME(prev);
 
 	// Gleb 02.11.2000
 	// Далее - разметка. Вынесена в RMARKER.DLL
@@ -280,7 +269,6 @@ Bool32 Layout(puchar lpdata) {
 			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
 					TRUE);
 		}
-		//LDPUMA_CreateWindow("Повернутое изображение",hRotateDIB);
 		LDPUMA_HandLayout(hRotateDIB, 0, &p);
 		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
 	}
