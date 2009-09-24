@@ -104,22 +104,6 @@ typedef struct {
 	PUMA_Callback_ImageClose CIMAGE_ImageClose;
 } PUMAIMAGECALLBACK;
 
-typedef Bool32 (*FNInit)(uint16_t wHeightCode, Handle hStorage);
-typedef Bool32 (*FNDone)();
-typedef uint32_t (*FNGetReturnCode)();
-typedef char* (*FNGetReturnString)(uint32_t dwError);
-typedef Bool32 (*FNGetExportData)(uint32_t dwType, void * pData);
-typedef Bool32 (*FNSetImportData)(uint32_t dwType, void * pData);
-
-typedef struct {
-	FNInit fnInit;
-	FNDone fnDone;
-	FNGetReturnCode fnGetReturnCode;
-	FNGetReturnString fnGetReturnString;
-	FNGetExportData fnGetExportData;
-	FNSetImportData fnSetImportData;
-} PUMAENTRY, *LPPUMAENTRY;
-
 enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XOpen = 1,
 	PUMA_FNPUMA_XClose,
@@ -259,12 +243,10 @@ uint32_t LCED_DeletePage(Handle hEdPage);
 // Module functions
 DEC_FUN(int, GetReturnCode,())
 DEC_FUN(char *, GetReturnString,(uint32_t))
-DEC_FUN(bool, GetExportData,(uint32_t, void *))
 DEC_FUN(bool, SetImportData,(uint32_t, void *))
 
 PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
-PUMA_FUNC bool PUMA_GetExportData(uint32_t, void *);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
 //
@@ -273,7 +255,6 @@ DEC_FUN(bool, XFinalRecognition, ())
 DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
 DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool))
 DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
-DEC_FUN(bool, XOpenClbk, (PUMAIMAGECALLBACK, const char *))
 
 PUMA_FUNC bool PUMA_XPageAnalysis();
 PUMA_FUNC bool PUMA_XFinalRecognition();
@@ -283,8 +264,13 @@ PUMA_FUNC bool PUMA_Save(Handle hEdPage, const std::string& filename,
 		puma_format_t Format, puma_code_t Code, bool Append);
 PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
 		puma_code_t Code, char * lpMem, uint32_t size);
-PUMA_FUNC bool PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,
-		const char * lpFileName);
+
+typedef struct {
+	FNPUMA_GetReturnCode fnGetReturnCode;
+	FNPUMA_GetReturnString fnGetReturnString;
+	FNPUMA_SetImportData fnSetImportData;
+} PUMAENTRY, *LPPUMAENTRY;
+
 // Enum
 DEC_FUN(int32_t, EnumLanguages,(int32_t))
 DEC_FUN(int32_t, EnumFormats,(int32_t))

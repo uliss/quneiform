@@ -191,38 +191,6 @@ Bool32 PreProcessImage() {
 	return rc;
 }
 
-bool PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack, const char * lpFileName) {
-//	bool rc = true;
-//	PUMAIMAGECALLBACK * lpCallBack = &CallBack;
-//
-//	PreOpenInitialize(lpFileName);
-//	if (lpCallBack == NULL || lpCallBack->CIMAGE_ImageClose == NULL
-//			|| lpCallBack->CIMAGE_ImageOpen == NULL
-//			|| lpCallBack->CIMAGE_ImageRead == NULL) {
-//		SetReturnCode_puma(IDS_ERR_IMAGE);
-//		rc = false;
-//	}
-//	//
-//	// Запишем изображение
-//	//
-//	if (rc) {
-//		if (!CIMAGE_WriteCallbackImage((puchar) PUMA_IMAGE_USER,
-//				*(CIMAGEIMAGECALLBACK*) lpCallBack)) {
-//			SetReturnCode_puma(CIMAGE_GetReturnCode());
-//			rc = false;
-//		} else {
-//			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_USER,
-//					(Handle *) &gpInputDIB, 1)) {
-//				SetReturnCode_puma(CIMAGE_GetReturnCode());
-//				rc = false;
-//			}
-//		}
-//	}
-//	if (rc)
-//		rc = PostOpenInitialize(lpFileName);
-//	return rc;
-}
-
 bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	bool rc = true;
 	puchar lpImage = (puchar) PUMA_IMAGE_USER;

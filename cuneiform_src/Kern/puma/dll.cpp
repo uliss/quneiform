@@ -81,39 +81,6 @@ static char szPath[_MAX_PATH] = ".";
 static char szTempPath[_MAX_PATH] = ".";
 static char szStorage[_MAX_PATH];
 
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lpReserved*/) {
-	char * p;
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		GetModuleFileName(hModule, szPath, sizeof(szPath));
-		p = strstr(_strupr(szPath), "PUMA.DLL");
-		if (p)
-			*(p - 1) = 0;
-		else {
-			MessageBox(NULL, "Start folder PUMA.DLL not found!", NULL,
-					MB_ICONSTOP);
-			return FALSE;
-		}
-		if (GetTempPath(sizeof(szTempPath), szTempPath))
-			sprintf(szStorage, szFormatStorageName, szTempPath);
-		else {
-			MessageBox(NULL, "Temporary folder PUMA.DLL not found!", NULL,
-					MB_ICONSTOP);
-			return FALSE;
-		}
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-
-	return TRUE;
-}
-
 int PUMA_GetReturnCode() {
 	return gwRC;
 }
