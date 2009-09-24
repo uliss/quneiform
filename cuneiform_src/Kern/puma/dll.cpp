@@ -80,7 +80,6 @@ static uint32_t gwRC = 0;
 static HINSTANCE ghInst = NULL;
 static char szPath[PATH_MAX] = ".";
 static char szTempPath[PATH_MAX] = ".";
-//static char szStorage[PATH_MAX];
 
 int PUMA_GetReturnCode() {
 	return gwRC;
