@@ -61,10 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // PageTree.cpp
 //
 // ============================================================================
-//#include <afxtempl.h>
-//#include <afxwin.h>
-//#include <afxcoll.h>
-#include "stdafx.h"
+
+#include "creatertf.h"
 #include <search.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aldebug.h"
 #include "cpage.h"
 #include "cpagetyps.h"
-#include "creatertf.h"
+
 #include "dpuma.h"
 
 #define MAIN

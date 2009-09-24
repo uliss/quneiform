@@ -62,6 +62,8 @@
 #include "mpuma.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
+#include "helper.h"
+
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
 
@@ -118,12 +120,12 @@ static Bool32 MakeStrings(Handle hccom, Handle hcpage) {
 static Bool32 RecognizeSetup(int language) {
 	Bool32 rc = TRUE;
 	// рапознавание строк
-	PAGEINFO info = { 0 };
+	PAGEINFO info;// = { { 0 } };
 	GetPageInfo(hCPAGE, &info);
 
 	//    FrhPageSetup setup={0};
 	//    FrhFieldSetup fsetup={0};
-	RSTR_Options opt = { 0 };
+	RSTR_Options opt;// = { { 0 } };
 
 	//    opt.setup = &fsetup;
 	opt.pageSkew2048 = info.Incline2048;//0
@@ -312,16 +314,6 @@ static Bool32 RecognizeStringsPass2() {
 			SetReturnCode_puma(RSTR_GetReturnCode());
 			break;
 		}
-		/*
-		 else
-		 {
-		 if( !LDPUMA_Skip(hDebugCancelPostSpeller)||
-		 !gbSpeller )
-		 {
-		 PrintResult(i,lin_out);
-		 }
-		 }
-		 */
 
 	}
 	LDPUMA_DestroyRasterWnd();
@@ -396,7 +388,7 @@ Bool32 Recognize() {
 	if (rc && IsUpdate(FLG_UPDATE_CCOM)) {
 		if (LDPUMA_Skip(hDebugCancelComponent)) {
 			PRGTIME prev = StorePRGTIME(0, 5);
-			PAGEINFO info = { 0 };
+			PAGEINFO info;// = { 0 };
 			if (GetPageInfo(hCPAGE, &info)) {
 				rc = ExtractComponents(FALSE, NULL, (puchar) info.szImageName);
 			} else {
@@ -449,7 +441,6 @@ Bool32 Recognize() {
 
 							if (flagfrag) {
 								for (i = 0; hBlock && i < nf; i++) {
-									//nunfrag[i]=CPAGE_GetBlockInterNum(hCPAGE,hBlock);
 									flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE,
 											hBlock);
 									hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock,
@@ -484,22 +475,16 @@ Bool32 Recognize() {
 
 					}
 					if (!LDPUMA_Skip(hDebugEnableSaveCstr1)) {
-						char szCstrFileName[260];
-						int len = strlen(szInputFileName);
-						strcpy(szCstrFileName, szInputFileName);
-						szCstrFileName[len - 4] = 0;
-						strcat(szCstrFileName, "_1.cst");
-						CSTR_SaveCont(szCstrFileName);
+						std::string CstrFileName = CIF::replaceFileExt(
+								szInputFileName, "_1.cst");
+						CSTR_SaveCont(CstrFileName.c_str());
 					}
 					rc = RecognizeStringsPass1();
 					RestorePRGTIME(prev);
 					if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
-						char szCstrFileName[260];
-						int len = strlen(szInputFileName);
-						strcpy(szCstrFileName, szInputFileName);
-						szCstrFileName[len - 4] = 0;
-						strcat(szCstrFileName, "_2.cst");
-						CSTR_SaveCont(szCstrFileName);
+						std::string CstrFileName = CIF::replaceFileExt(
+								szInputFileName, "_2.cst");
+						CSTR_SaveCont(CstrFileName.c_str());
 					}
 					if (rc) {
 						///////////////////////////////
@@ -548,12 +533,9 @@ Bool32 Recognize() {
 							LDPUMA_Console(
 									"RSTR считает, что второй проход не нужен.\n");
 						if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-							char szCstrFileName[260];
-							int len = strlen(szInputFileName);
-							strcpy(szCstrFileName, szInputFileName);
-							szCstrFileName[len - 4] = 0;
-							strcat(szCstrFileName, "_3.cst");
-							CSTR_SaveCont(szCstrFileName);
+							std::string CstrFileName = CIF::replaceFileExt(
+									szInputFileName, "_3.cst");
+							CSTR_SaveCont(CstrFileName.c_str());
 						}
 						//
 						// Дораспознаем по словарю
@@ -589,23 +571,18 @@ Bool32 Recognize() {
 						}
 						CSTR_SortFragm(1);
 						RPSTR_CorrectIncline(1);
-						//                        RPSTR_CollectCapDrops(1);
-						//#ifdef _DEBUG
+
 						if (rc && !LDPUMA_Skip(hDebugEnableSaveJtl)
-								&& szInputFileName[0]) {
-							if (My_SJTL_save(szInputFileName) == -1) {
+								&& !szInputFileName.empty()) {
+							if (My_SJTL_save(szInputFileName.c_str()) == -1) {
 								My_SJTL_open("one.frm", "one.jtl");
-								My_SJTL_save(szInputFileName);
+								My_SJTL_save(szInputFileName.c_str());
 							}
 						}
-						//#endif
 						if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-							char szCstrFileName[260];
-							int len = strlen(szInputFileName);
-							strcpy(szCstrFileName, szInputFileName);
-							szCstrFileName[len - 4] = 0;
-							strcat(szCstrFileName, "_4.cst");
-							CSTR_SaveCont(szCstrFileName);
+							std::string CstrFileName = CIF::replaceFileExt(
+									szInputFileName, "_4.cst");
+							CSTR_SaveCont(CstrFileName.c_str());
 						}
 						//
 						// Печать результатов в консоль
@@ -659,20 +636,18 @@ Bool32 Recognize() {
 									CED_DeletePage(ghEdPage);
 									ghEdPage = NULL;
 								}
-								if (!RFRMT_Formatter(szInputFileName, &ghEdPage)) {
+								if (!RFRMT_Formatter(szInputFileName.c_str(),
+										&ghEdPage)) {
 									SetReturnCode_puma(RFRMT_GetReturnCode());
 									rc = FALSE;
 								} else {
 									if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-										char szFileName[260];
-										strcpy(szFileName, szInputFileName);
-										strcat(szFileName, "_tmp_.rtf");
+										std::string fname(szInputFileName
+												+ "_tmp_.rtf");
 										SetOptionsToFRMT();
-										rc = RFRMT_SaveRtf((char*) szFileName,
-												8);
-										strcpy(szFileName, szInputFileName);
-										strcat(szFileName, "_tmp_.fed");
-										PUMA_Save(ghEdPage, szFileName,
+										rc = RFRMT_SaveRtf(fname.c_str(), 8);
+										fname = szInputFileName + "_tmp_.fed";
+										PUMA_Save(ghEdPage, fname.c_str(),
 												PUMA_TOEDNATIVE,
 												PUMA_CODE_UNKNOWN, FALSE);
 									}

@@ -420,11 +420,8 @@ int32_t PUMA_EnumPicture(int32_t nPrev) {
 	return _EnumPicture(nPrev);
 }
 
-void PUMA_RenameImageName(char * name) {
-	if (name)
-		strcpy(szInputFileName, name);
-	else
-		szInputFileName[0] = '\0';
+void PUMA_RenameImageName(const std::string& name) {
+	szInputFileName = name;
 }
 
 bool PUMA_XGetTemplate(Rect32 *pRect) {

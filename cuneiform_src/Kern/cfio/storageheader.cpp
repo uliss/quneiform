@@ -6,6 +6,7 @@
  */
 
 #include <cstring>
+#include <climits>
 
 #include "storageheader.h"
 #include "globalfile.h"
@@ -17,10 +18,10 @@
 namespace CIF {
 namespace CFIO {
 
-static char ShFolder[MAX_PATH];
-static char ShFile[MAX_PATH + 4];
-static char ShExtension[MAX_PATH];
-static char ShBuffer[MAX_PATH + 4];
+static char ShFolder[PATH_MAX];
+static char ShFile[PATH_MAX + 4];
+static char ShExtension[PATH_MAX];
+static char ShBuffer[PATH_MAX + 4];
 
 StorageHeader::StorageHeader() :
 	GlobalHeader(), contents_counter_(0) {
@@ -53,24 +54,6 @@ StorageHeader::StorageHeader(GlobalFile * pNewStorage, uint NewFlag,
 			CFIO_GETFOLDERSITEMS(ShBuffer, ShFolder, ShFile, ShExtension);
 			folder_ = CIF::MakePath(ShFolder, ShFile, ShExtension);
 		} else {
-#ifdef _DEBUG
-			uint32_t Err = GetLastError();
-			pvoid lpMsgBuf;
-
-			FormatMessage(
-					FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-					NULL,
-					Err,
-					MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-					(char*) &lpMsgBuf,
-					0,
-					NULL
-			);
-
-			fprintf(stderr, ( char* ) lpMsgBuf, "CFIO: Storage can't create own unpack folder");
-			LocalFree( lpMsgBuf );
-			Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
-#endif
 			folder_ = ShFile;
 		}
 	}

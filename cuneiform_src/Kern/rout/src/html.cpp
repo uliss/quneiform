@@ -389,7 +389,7 @@ static Bool Picture()
 	char buf[256] = "";
 	char absPicFileName[256] = "";
 	char relPicFileName[256] = "";
-	char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT];
+	char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT];
 
 	// create folder for images gPageFilesFolder.
 	if ( !CreatePageFilesFolder() )
@@ -436,7 +436,7 @@ static Bool Picture()
  */
 static Bool CreatePageFilesFolder() {
     // Создать подпапку для картинок gPageFilesFolder.
-    char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT], path[_MAX_PATH];
+    char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT], path[PATH_MAX];
 
     // Задано ли имя страницы?
     if (!gPageName[0])

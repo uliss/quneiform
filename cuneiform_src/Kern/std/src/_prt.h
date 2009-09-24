@@ -79,15 +79,15 @@ public:
 	operator FILE*(void) const {
 		return hfile;
 	}
-	;
+
 	stdPrtFILE() {
 		hfile = NULL;
 	}
-	;
+
 	stdPrtFILE(const char* opts) {
 		hfile = NULL;
-		char path_name[_MAX_PATH] = { 0 };
-		::GetModuleFileName(NULL, path_name, _MAX_PATH);
+		char path_name[PATH_MAX] = { 0 };
+		::GetModuleFileName(NULL, path_name, PATH_MAX);
 		if (path_name[0] != 0) {
 			char dir[_MAX_DIR] = { 0 };
 			char name[_MAX_FNAME] = { 0 };
@@ -100,7 +100,7 @@ public:
 			hfile = fopen((char*) xFname, opts);
 		};
 	}
-	;
+
 	stdPrtFILE(const char* name, const char* opts) {
 		XPath xstdPrtPath;
 		xstdPrtPath = stdGetHomeDirectory();
@@ -108,23 +108,23 @@ public:
 		xstdPrtPath += name;
 		hfile = fopen((char*) (xstdPrtPath), opts);
 	}
-	;
+
 	~stdPrtFILE(void) {
 		if (hfile)
 			fclose(hfile);
 	}
-	;
+
 	void Open(const char* name) {
 		if (name)
 			hfile = fopen(name, "rt");
 	}
-	;
+
 };
 
 static stdPrtFILE* theFile;//("a+");
 // table
 class CTableEvnFiller {
-	char m_szTableName[MAX_PATH];
+	char m_szTableName[PATH_MAX];
 public:
 	vector<StdPrtEvent> xsTblEventData;
 	CTableEvnFiller();
@@ -170,14 +170,13 @@ static stdPrtConsole stdPrtConsole;
 class CPrtSendEventToConsole {
 public:
 	Bool32 operator()(char* EventText) {
-		if ((Handle) (stdPrtConsole) == NULL)
+		if ((Handle)(stdPrtConsole) == NULL)
 			return TRUE;
 		if (!EventText)
 			RET_FALSE;
 		stdPrtConsole.SendTextToConsole(EventText, strlen(EventText));
 		return TRUE;
 	}
-	;
 };
 // send to file
 class CPrtSendEventToFile {
@@ -190,7 +189,7 @@ public:
 		fprintf((FILE*) (*theFile)/*theFile*/, "%s", EventText);
 		return TRUE;
 	}
-	;
+
 };
 
 class CPrtSendEventToPublic {
@@ -199,8 +198,8 @@ class CPrtSendEventToPublic {
 	bool bUse;
 public:
 	CPrtSendEventToPublic() {
-		char szString[_MAX_PATH] = { 0 };
-		int32_t size = _MAX_PATH;
+		char szString[PATH_MAX] = { 0 };
+		int32_t size = PATH_MAX;
 		bUse = false;
 		file = NULL;
 		stdGetProfileString(szString, &size, "protocol.ini", "Options", "Path",
@@ -210,13 +209,11 @@ public:
 		file_name = szString;
 		bUse = true;
 	}
-	;
 
 	~CPrtSendEventToPublic() {
 		if (file)
 			fclose(file);
 	}
-	;
 
 	Bool32 operator()(char* EventText) {
 
@@ -273,12 +270,12 @@ public:
 		m_bStart = false;
 		m_buffer_len = 0;
 	}
-	;
+
 	~CPrtTransactionBuffer() {
 		m_bStart = false;
 		m_buffer_len = 0;
 	}
-	;
+
 	bool Start();
 	bool Finish();
 	bool Rollback();
@@ -309,14 +306,14 @@ public:
 		memset(buffer, 0, sizeof(buffer));
 		m_TableEvnCreator = NULL;
 	}
-	;
+
 	~CPrtSysEventSender() {
 		if (m_TableEvnCreator) {
 			delete m_TableEvnCreator;
 			m_TableEvnCreator = NULL;
 		}
 	}
-	;
+
 	Bool32 SendSysEvent(int32_t SysEvnNo, ...); // вызов посылки сообщения
 	Bool32 SendSysEvent(int32_t SysEvnNo, va_list& List);
 	Bool32 SendEvent(StdPrtEvent* pspe); // посылка необходимых(необходимость определяется по StdPrtEvent) системных сообщений
@@ -332,7 +329,6 @@ public:
 		Bool32 res1 = EventSender.SendEvent(pspe, List);
 		return (res1 && res2);
 	}
-	;
 };
 
 typedef struct tagStdPrtEventData {

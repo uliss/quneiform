@@ -99,7 +99,7 @@ Bool32 ROUT_LoadEd(char *lpEdFile, // Имя файла или адрес в п�
 
 	// Установить имя страницы без расширения
 	if (readFromFile) {
-		char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT];
+		char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT];
 		split_path(lpEdFile, dir, name, ext);
 
 		strcpy(gPageName, dir);
@@ -606,7 +606,7 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 	 заданного индекса объекта.
 	 */
 	char suffix[40] = "", ext[5] = "";
-	static char name[_MAX_PATH] = "";
+	static char name[PATH_MAX] = "";
 
 	switch (gFormat) {
 	case ROUT_FMT_Text:
@@ -829,7 +829,7 @@ Bool32 ROUT_LoadRec6List(const char *rec6AllFilename) {
 
 	while (fgets(buf, sizeof(buf) - 1, f)) {
 		int language = -1;
-		char theName[_MAX_PATH] = "";
+		char theName[PATH_MAX] = "";
 
 		// Пустые строки и строки комментариев,
 		// начинающиеся с точки с запятой, пропускать

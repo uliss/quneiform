@@ -67,15 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef FILESTUFF_H_
 #define FILESTUFF_H_
 
-
-#ifndef _MAX_PATH
-#define _MAX_PATH 1024
-#endif
-
-#ifndef MAX_PATH
-#define MAX_PATH _MAX_PATH
-#endif
-
 #ifndef _MAX_FNAME
 #define _MAX_FNAME 32
 #endif

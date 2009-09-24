@@ -63,29 +63,30 @@
 
 #include "filestuff.h"
 #include "cfcompat.h"
+#include "limits.h"
 
-class XPath: public XText<_MAX_PATH> {
+class XPath: public XText<PATH_MAX> {
 public:
 	XPath(void) :
-		XText<_MAX_PATH> ("") {
+		XText<PATH_MAX> ("") {
 	}
 
 	XPath(const char* path) :
-		XText<_MAX_PATH> (path) {
+		XText<PATH_MAX> (path) {
 	}
 
 	XPath& operator =(const char * path) {
-		*(XText<_MAX_PATH>*) this = path;
+		*(XText<PATH_MAX>*) this = path;
 		return *this;
 	}
 
-	XPath& operator =(const XText<_MAX_PATH>& path) {
-		*(XText<_MAX_PATH>*) this = path;
+	XPath& operator =(const XText<PATH_MAX>& path) {
+		*(XText<PATH_MAX>*) this = path;
 		return *this;
 	}
 
 	XPath(const char* dir, const char* name, const char* ext) :
-		XText<_MAX_PATH> () {
+		XText<PATH_MAX> () {
 		make_path(buf, dir, name, ext);
 	}
 

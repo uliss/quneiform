@@ -59,7 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <fstream>
 #include <cstring>
-#include <time.h>
+#include <ctime>
+#include <climits>
 
 #include "stdafx.h"
 #include "linedefs.h"
@@ -1013,10 +1014,10 @@ Bool MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,Bool dotline)
  {
      outfile.open("lines.res", std::ios::out|std::ios::binary|std::ios::app);
      char* name = LDPUMA_GetFileName(NULL);
-     char szFileName[MAX_PATH];
-     for(int ff=0; ff<MAX_PATH; ff++) szFileName[ff]=0;
+     char szFileName[PATH_MAX];
+     for(int ff=0; ff<PATH_MAX; ff++) szFileName[ff]=0;
      strcpy(szFileName, name);
-     outfile.write(szFileName, MAX_PATH);
+     outfile.write(szFileName, PATH_MAX);
      buffer = new char[sizeof(int)];
      int sizes = CLINE_GetLineCount(hContainerOut);
      memcpy(buffer, &sizes, sizeof(int));
@@ -1842,10 +1843,10 @@ void PrintLines(CLINE_handle hContainer, const char* FileName)
 	if (outfile.fail()) return;
 
     char* buff = LDPUMA_GetFileName(NULL);
-    char szFileName[MAX_PATH];
-	memset(szFileName, 0, MAX_PATH);
+    char szFileName[PATH_MAX];
+	memset(szFileName, 0, PATH_MAX);
     strcpy(szFileName, buff);
-    outfile.write(szFileName, MAX_PATH);
+    outfile.write(szFileName, PATH_MAX);
 	int count = CLINE_GetLineCount(hContainer);
 	outfile.write((char*)&count, sizeof(int));
 

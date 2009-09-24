@@ -61,12 +61,9 @@
 // CreateRtf.cpp
 //
 // ============================================================================
-//#include <afxtempl.h>
-//#include <afxwin.h>
-#include <stdio.h>
-#include "stdafx.h"
-#include "globus.h"
 #include "creatertf.h"
+#include <cstdio>
+#include "globus.h"
 #include "sys_prog.h"
 #include "cpage.h"
 #include "lst3_win.h"
@@ -76,7 +73,6 @@
 #include "dpuma.h"
 #include "rtfedwrite.h"
 #include "lnsdefs.h"
-//#include "Rline.h"
 #include "linedefs.h"
 #include "normdefs.h"
 #include "cstrdefs.h"
@@ -488,7 +484,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 					pRtfChar->m_Realrect.bottom = SRect.bottom;
 
 					fread(&num, sizeof(uint16_t), 1, in);
-					assert(num<=REC_MAX_VERS);
+					assert(num <= REC_MAX_VERS);
 					pRtfChar->m_wCountAlt = MIN(num, REC_MAX_VERS);
 					for (i = 0; i < num; i++) {
 						fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);

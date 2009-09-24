@@ -79,14 +79,14 @@ bool PumaImpl::postOpenInitialize(const char * lpFileName) {
 		gRectTemplate.bottom = info.biHeight;
 	}
 	if (lpFileName) {
-		strcpy(szInputFileName, lpFileName);
+		szInputFileName = lpFileName;
 		strcpy(szLayoutFileName, lpFileName);
 		char * s = strrchr(szLayoutFileName, '.');
 		if (s)
 			*s = 0;
 		strcat(szLayoutFileName, ".bin");
 	} else
-		szInputFileName[0] = '\0';
+		szInputFileName = "";
 	hCPAGE = CreateEmptyPage();
 	return rc;
 }

@@ -62,13 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---------------------------------------------------------------------------------------------------------------*/
 
-//#include <afxtempl.h>
-//#include <afxwin.h>
+#include "creatertf.h"
 #include <stdlib.h>
-#include "stdafx.h"
 #include <cstring>
 #include "globus.h"
-#include "creatertf.h"
 #include "dpuma.h"
 
 extern float  Twips;

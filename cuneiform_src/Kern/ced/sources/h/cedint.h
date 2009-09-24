@@ -57,11 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CEDINT_H
 #define __CEDINT_H
 
-#include <stdio.h>
-
-#ifndef __GLOBUS_H
+#include <cstdio>
+#include <climits>
 #include "globus.h"
-#endif
 
 #ifdef __cplusplus
 	extern "C" {
@@ -389,13 +387,10 @@ Bool WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);
 Bool WriteRtfColor(struct StrRtfOut *rtf,Bool head = TRUE);
 
 
-extern char logName[_MAX_PATH];
+extern char logName[PATH_MAX];
 extern FILE *logStream;
 
-
-
 // error code
-
 
 #pragma pack (pop)
 

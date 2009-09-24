@@ -62,9 +62,10 @@
 // dll_cpage.cpp :
 // ============================================================================
 
-#include <string.h>
-#include <stdio.h>
-#include <time.h>
+#include <cstring>
+#include <cstdio>
+#include <ctime>
+#include <climits>
 
 #include "puma.h"
 
@@ -77,9 +78,9 @@
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 static HINSTANCE ghInst = NULL;
-static char szPath[_MAX_PATH] = ".";
-static char szTempPath[_MAX_PATH] = ".";
-static char szStorage[_MAX_PATH];
+static char szPath[PATH_MAX] = ".";
+static char szTempPath[PATH_MAX] = ".";
+//static char szStorage[PATH_MAX];
 
 int PUMA_GetReturnCode() {
 	return gwRC;

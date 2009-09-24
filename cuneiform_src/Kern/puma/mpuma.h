@@ -84,6 +84,8 @@
 #include "rreccom.h"
 #include "rcorrkegl.h"
 
+#include <string>
+
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -122,7 +124,7 @@ EXTERN const char * gpSerifName VAL("Times New Roman");
 EXTERN const char * gpSansSerifName VAL("Arial");
 EXTERN const char * gpCourierName VAL("Courier New");
 
-EXTERN char szInputFileName[260];
+EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 EXTERN Bool32 gbAutoRotate VAL(FALSE);

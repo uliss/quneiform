@@ -69,6 +69,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 #include "compat_defs.h"
 
+#include <vector>
+#include <cassert>
+#include <climits>
+
+typedef std::vector<uint16_t> vectorWord;
+
 #define TIRE                  0x97        //'-'
 
 //Fragment output types

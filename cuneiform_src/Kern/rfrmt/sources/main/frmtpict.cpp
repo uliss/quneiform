@@ -65,14 +65,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // WritePict()         - Write  Picture
 
 // ============================================================================
-//#include "afx.h"
-//#include <afxwin.h>
-#include "stdafx.h"
 
-#include <math.h>
-/*#include <io.h>
-#include <direct.h>*/
-
+#include "creatertf.h"
+#include <cmath>
 #include "cpage.h"
 #include "cpagetyps.h"
 #include "rtfedwrite.h"
@@ -95,9 +90,7 @@ extern   uint32_t FlagMode;
 extern   uint32_t RtfWriteMode;
 extern   POINT  TemplateOffset;
 
-extern	  char   RtfFileName[MAX_PATH];
-//Bool SaveMetafile(CString * str, /*CIMAGE*/BITMAPINFOHEADER * lpDIB);
-
+extern	  char   RtfFileName[PATH_MAX];
 /*
 * Dib Header Marker - used in writing DIBs to files
 */

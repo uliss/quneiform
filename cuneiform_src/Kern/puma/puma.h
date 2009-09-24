@@ -270,7 +270,6 @@ typedef struct {
 	FNPUMA_GetReturnString fnGetReturnString;
 	FNPUMA_SetImportData fnSetImportData;
 } PUMAENTRY, *LPPUMAENTRY;
-
 // Enum
 DEC_FUN(int32_t, EnumLanguages,(int32_t))
 DEC_FUN(int32_t, EnumFormats,(int32_t))
@@ -288,14 +287,14 @@ PUMA_FUNC int32_t PUMA_EnumPicture(int32_t nPrev);
 
 // misc
 DEC_FUN(bool, XGetRotateDIB,(void **, Point32*))
-DEC_FUN(void, RenameImageName,(char*))
+DEC_FUN(void, RenameImageName,(const std::string&))
 DEC_FUN(bool, XSetTemplate,(Rect32))
 DEC_FUN(bool, XGetTemplate,(Rect32*))
 DEC_FUN(void, GetSpecialBuffer,(char*,int32_t*))
 DEC_FUN(bool, SetSpecialProject,(uchar))
 
 PUMA_FUNC bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p);
-PUMA_FUNC void PUMA_RenameImageName(char * name);
+PUMA_FUNC void PUMA_RenameImageName(const std::string& name);
 PUMA_FUNC bool PUMA_XSetTemplate(Rect32 rect);
 PUMA_FUNC bool PUMA_XGetTemplate(Rect32 *pRect);
 PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);

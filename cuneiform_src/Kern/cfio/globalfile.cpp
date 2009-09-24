@@ -8,10 +8,12 @@
 #include <cassert>
 #include <cstring>
 #include <cstdio>
+#include <climits>
 
 #include "globalfile.h"
 #include "compat_defs.h"
 #include "control.h"
+
 
 namespace CIF {
 namespace CFIO {
@@ -315,10 +317,10 @@ uint32_t GlobalFile::GetFileLenght() {
 	}
 }
 
-static char Folder[MAX_PATH];
-static char File[MAX_PATH];
-static char Extension[MAX_PATH];
-static char Out[MAX_PATH];
+static char Folder[PATH_MAX];
+static char File[PATH_MAX];
+static char Extension[PATH_MAX];
+static char Out[PATH_MAX];
 
 bool GlobalFile::ProvideFileFolder(const std::string& FileName) {
 	/*

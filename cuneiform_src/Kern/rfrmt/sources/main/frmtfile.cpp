@@ -61,10 +61,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // FrmtFile.cpp
 //
 // ============================================================================
-#include <stdlib.h>
-#include "stdafx.h"
+#include "creatertf.h"
+#include <cstdlib>
 #include <cstring>
-//#include <afxtempl.h>
 #include "cpage.h"
 #include "cpagetyps.h"
 #include "cstr.h"
@@ -74,7 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aldebug.h"
 #include "dpuma.h"
 #include "resource.h"
-
 #include "minmax.h"
 
 #ifdef alDebug

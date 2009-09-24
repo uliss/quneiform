@@ -377,8 +377,8 @@ CSTR_FUNC(Bool32) CSTR_StoreCompOriginal (CSTR_rast curr_raster, CCOM_comp * com
 typedef int32_t (*FNCSTR_GetMaxFragment)(int32_t version);
 CSTR_FUNC(int32_t) CSTR_GetMaxFragment(int32_t version);
 // 63   CSTR_SAVECONT           сохранить контейнер на диске
-typedef Bool32 (*FNCSTR_SaveCont)(char *filename);
-CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename);
+typedef Bool32 (*FNCSTR_SaveCont)(const char *filename);
+CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename);
 // 64   CSTR_RESTORECONT        воостановить контейнер с диска
 typedef Bool32 (*FNCSTR_RestoreCont)(char *filename);
 CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename);

@@ -77,6 +77,7 @@
 #include "storagelist.h"
 
 #include <cstring>
+#include <climits>
 
 namespace CIF {
 namespace CFIO {
@@ -84,9 +85,9 @@ namespace CFIO {
 void SetReturnCode_cfio(uint16_t rc);
 
 Control::Control() {
-	char SystemTemp[_MAX_PATH];
+	char SystemTemp[PATH_MAX];
 
-	GetTempPath(MAX_PATH, SystemTemp);
+	GetTempPath(PATH_MAX, SystemTemp);
 	SetFolder(CFIO_TEMP_FOLDER, SystemTemp);
 	SetFolder(CFIO_FILE_FOLDER, SystemTemp);
 	CFIO_STRCAT(SystemTemp, "STORAGE\\");
@@ -96,10 +97,10 @@ Control::Control() {
 Control::~Control() {
 }
 
-static char SFolder[MAX_PATH];
-static char SFile[MAX_PATH];
-static char SExtension[MAX_PATH];
-static char SOut[MAX_PATH];
+static char SFolder[PATH_MAX];
+static char SFile[PATH_MAX];
+static char SExtension[PATH_MAX];
+static char SOut[PATH_MAX];
 
 char* Control::FileNameToFolder(char* Buffer, const char * FolderName,
 		const char* FileName, uint32_t Size) {
@@ -158,7 +159,7 @@ std::string Control::MakeNameForStorage(const std::string& FileName,
 	if (FileName.empty())
 		return std::string();
 
-	if (FileName.length() > MAX_PATH)
+	if (FileName.length() > PATH_MAX)
 		return FileName;
 
 	// копируем папку хранилища
@@ -211,7 +212,7 @@ bool Control::GetFolder(uint32_t wFolder, char* pcBuff) {
 }
 
 bool Control::SetFolder(uint32_t wFolder, char* pcBuff) {
-	if (strlen(pcBuff) < _MAX_PATH) {
+	if (strlen(pcBuff) < PATH_MAX) {
 		switch (wFolder) {
 		case CFIO_TEMP_FOLDER:
 			CFIO_STRCPY((char*) szTempFolder, pcBuff);
@@ -285,14 +286,14 @@ bool Control::WriteFileToStorage(Handle hStorage, Handle hFile,
 }
 
 Handle Control::ReadFileFromStorage(Handle hStorage, char* lpName) {
-	char FileName[MAX_PATH];
+	char FileName[PATH_MAX];
 	// берем хидер хранилища.... или не берем, если нет
 	StorageHeader * pStorageHeader = storage_list_.GetItemHeader(hStorage);
 
 	if (pStorageHeader) {
 		if (FileNameToFolder(FileName,
 				pStorageHeader->GetStorageFolder().c_str(), lpName,
-				MAX_PATH)) {
+				PATH_MAX)) {
 			return OpenFile(NULL, FileName, OSF_READ | OSF_WRITE | OSF_BINARY);
 		}
 	}
@@ -574,7 +575,7 @@ uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, const std::str
 
 uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 		Handle * phMem) {
-	char NameForStorage[MAX_PATH];
+	char NameForStorage[PATH_MAX];
 	Handle hMem;
 	uint32_t Readed = 0;
 
@@ -583,7 +584,7 @@ uint32_t Control::ReadMemFromStorage(Handle hStorage, char* lpName,
 
 	if (hStorageHead) {
 		FileNameToFolder(NameForStorage,
-				hStorageHead->GetStorageFolder().c_str(), lpName, _MAX_PATH);
+				hStorageHead->GetStorageFolder().c_str(), lpName, PATH_MAX);
 
 		Readed = ReadMemFromFile(NameForStorage, &hMem);
 
@@ -707,9 +708,9 @@ Handle Control::OpenFileAndAttach(const std::string& Name, uint Flag,
 
 	// пока не используем
 	// см так же DecompliteStorage
-	//MAKEFULLPATH(szBuffer, lpName, _MAX_PATH);
+	//MAKEFULLPATH(szBuffer, lpName, PATH_MAX);
 
-	if (Name.length() >= _MAX_PATH)
+	if (Name.length() >= PATH_MAX)
 		return NULL;
 
 	hOpened = file_list_.FindFile(Name);
@@ -936,7 +937,7 @@ uint32_t Control::ReadFileFromStorage(StorageHeader * Storage,
 	(*pInfo).siFlag = ItemInfo.siFlag;
 	// создаем имя файла
 	FileNameToFolder(ItemInfo.siName, Storage->GetStorageFolder().c_str(),
-			ItemInfo.siName, _MAX_PATH);
+			ItemInfo.siName, PATH_MAX);
 	CFIO_STRCPY(pInfo->siName, ItemInfo.siName);
 
 	if (ItemInfo.siName) {
@@ -965,8 +966,8 @@ uint32_t Control::ReadFileFromStorage(StorageHeader * Storage,
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-char StorageName[_MAX_PATH];
-char StorageFolder[_MAX_PATH + sizeof(uint32_t)];
+char StorageName[PATH_MAX];
+char StorageFolder[PATH_MAX + sizeof(uint32_t)];
 uint32_t * FolderSize = (uint32_t *) StorageFolder;
 uint32_t StorageFlag;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1107,7 +1108,7 @@ Handle Control::OpenNewStorage(const std::string&, uint) {
 	 GlobalFile * pNewStorage = NULL;
 	 Handle          hOpened;
 
-	 CFIO_MAKEFULLPATH(szBuffer, lpName,_MAX_PATH);
+	 CFIO_MAKEFULLPATH(szBuffer, lpName,PATH_MAX);
 
 	 if ( hOpened = StorageList.FindStorage(szBuffer) )
 	 return hOpened;
@@ -1130,10 +1131,10 @@ bool Control::CloseStorageFile(Handle Storage, uint32_t Flag) {
 	GlobalFile * pStorage;
 	GlobalFile * pFile;
 	FileHeader * pFileHeader = NULL;
-	char StorageFolder[_MAX_PATH];
+	char StorageFolder[PATH_MAX];
 
 	if (Flag & CS_FILE_DELETE) {
-		if (pStorageHeader->GetStorageFolder().length() < _MAX_PATH) {
+		if (pStorageHeader->GetStorageFolder().length() < PATH_MAX) {
 			// FIXME!!! no buffer length check
 			CFIO_STRCPY(StorageFolder, pStorageHeader->GetStorageFolder().c_str());
 		}

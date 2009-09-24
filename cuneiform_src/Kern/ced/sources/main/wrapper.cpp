@@ -60,7 +60,7 @@
 #include "ced_struct.h"
 #include "cedint.h"
 
-char logName[_MAX_PATH];
+char logName[PATH_MAX];
 FILE *logStream;
 
 //create page

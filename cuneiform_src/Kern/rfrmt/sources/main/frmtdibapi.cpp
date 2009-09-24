@@ -70,13 +70,11 @@
 //  CopyHandle()        - Makes a copy of the given global memory block
 //
 
-#include "stdafx.h"
 #include <cstring>
 #include "cpage.h"
 #include "cpagetyps.h"
 
 #include "frmtdibapi.h"
-/*#include <io.h>*/
 #include <errno.h>
 #include "compat_defs.h"
 

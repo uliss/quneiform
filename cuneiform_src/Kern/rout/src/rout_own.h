@@ -204,7 +204,7 @@ EXTERN char gEOL[4]             VAL2(0x0a, 0x00);
 
 // Имя страницы без расширения .tif или .fed;
 // может включать или не включать путь
-EXTERN char gPageName[_MAX_PATH] VAL("PageName");
+EXTERN char gPageName[PATH_MAX] VAL("PageName");
 
 // Загруженная страница
 EXTERN Handle gPageHandle		VAL(0);
