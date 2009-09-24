@@ -94,16 +94,12 @@ bool PumaImpl::postOpenInitialize(const char * lpFileName) {
 PumaImpl::PumaImpl() {
 	initMainBuffer();
 	initWorkBuffer();
-
-	InitDebug();
 	if (!ModulesInit((void*) ghStorage))
 		throw PumaException("Puma init failed");
 }
 
 PumaImpl::~PumaImpl() {
 	ModulesDone();
-	DoneDebug();
-
 	freeMainBuffer();
 	freeWorkBuffer();
 }
