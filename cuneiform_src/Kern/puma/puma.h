@@ -250,12 +250,10 @@ PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
 //
-DEC_FUN(bool, XFinalRecognition, ())
 DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
 DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool))
 DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
 
-PUMA_FUNC bool PUMA_XFinalRecognition();
 PUMA_FUNC bool PUMA_XSave(const std::string& filename, puma_format_t,
 		puma_code_t);
 PUMA_FUNC bool PUMA_Save(Handle hEdPage, const std::string& filename,

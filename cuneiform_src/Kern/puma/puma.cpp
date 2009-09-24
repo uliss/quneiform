@@ -255,32 +255,6 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	return rc;
 }
 
-bool PUMA_XFinalRecognition() {
-	bool rc = true;
-	ResetPRGTIME();
-	if (InitPRGTIME())
-		ProgressStart();
-	// Проверим: выделены ли фрагменты.
-	if (!CPAGE_GetCountBlock(hCPAGE) || IsUpdate(FLG_UPDATE_CPAGE)) {
-		PRGTIME prev = StorePRGTIME(0, 20);
-		rc = Layout(gpRecogDIB);
-		RestorePRGTIME(prev);
-		if (rc) {
-			PRGTIME prev = StorePRGTIME(20, 100);
-			rc = Recognize();
-			RestorePRGTIME(prev);
-		}
-	} else {
-		if (rc) {
-			rc = Recognize();
-		}
-	}
-	if (DonePRGTIME())
-		ProgressFinish();
-
-	return rc;
-}
-
 bool PUMA_XSave(const std::string& filename, puma_format_t Format,
 		puma_code_t Code) {
 	return PUMA_Save(ghEdPage, filename, Format, Code, false);

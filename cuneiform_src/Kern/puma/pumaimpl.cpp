@@ -165,8 +165,12 @@ void PumaImpl::open(char * dib) {
 }
 
 void PumaImpl::recognize() {
-	if (!PUMA_XFinalRecognition())
+	// Проверим: выделены ли фрагменты.
+	if (!CPAGE_GetCountBlock(hCPAGE) || IsUpdate(FLG_UPDATE_CPAGE))
+		analyze();
+	if (!Recognize())
 		throw PumaException("Puma recognition failed");
+
 	DBG("Puma recognize")
 }
 
