@@ -4,7 +4,6 @@ common.cpp
 enum.cpp
 initdone.cpp 
 out.cpp 
-partlayout.cpp 
 partrecog.cpp 
 snp_sjtl.c 
 puma.cpp 

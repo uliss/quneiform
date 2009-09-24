@@ -266,7 +266,6 @@ void My_SJTL_Done(void);
 Bool32 ModulesInit(Handle ghStorage);
 char * GetModulesString(uint32_t dwError);
 
-Bool32 Layout(puchar lpdata);
 Bool32 Recognize();
 
 // Enum.cpp
