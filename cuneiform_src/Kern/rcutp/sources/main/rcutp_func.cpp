@@ -1138,8 +1138,6 @@ j3b:  if(prizn != 0  && !tmp_xbytes)  Al=rx-Al;
    }
 }
 
-/******************************************************************/
-#pragma warning( disable : 4245 )					 //AK. 07.03.97
 void  Alik_cut_hole(pchar trace,int16_t rx,pint16_t cut_points,int16_t first,int16_t ry,
                     pchar product,pint16_t penalty,uchar ind)
 {

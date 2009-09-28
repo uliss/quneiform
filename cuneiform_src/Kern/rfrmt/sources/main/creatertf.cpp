@@ -212,24 +212,6 @@ CRtfPage::CRtfPage() {
 //                                 CRtfPage                                                       //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CRtfPage::~CRtfPage() {
-	/* CRtfFragment* cFrag;
-	 CRtfSector*   cSector;
-	 uint32_t wCount, i;
-
-	 wCount = m_arSectors.GetSize();
-	 for( i=0; i<wCount; i++)
-	 {
-	 cSector = (CRtfSector*)m_arSectors[i];
-	 delete cSector;
-	 }
-
-	 wCount = m_arFragments.GetSize();
-	 for( i=0; i<wCount; i++)
-	 {
-	 cFrag = (CRtfFragment*)m_arFragments[i];
-	 delete cFrag;
-	 }
-	 */
 	for (std::vector<CRtfSector*>::iterator it = m_arSectors.begin(); it
 			< m_arSectors.end(); it++)
 		delete *it;
@@ -250,7 +232,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
 	EDSIZE sizeInTwips;
 	EDSIZE dpi;
 	EDRECT pageBordersInTwips;
-	PAGEINFO PageInfo = {0};
+	PAGEINFO PageInfo;
 	Bool resizeToFit=FALSE;
 
 	Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
@@ -430,10 +412,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 		pRtfFragment->m_wType = FT_TEXT;
 
 		fread(&RectFragm, 1, sizeof(Rect16), in);
-		pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * Twips);
-		pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * Twips);
-		pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * Twips);
-		pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * Twips);
+		pRtfFragment->m_rect.left = (int32_t)(RectFragm.left * Twips);
+		pRtfFragment->m_rect.top = (int32_t)(RectFragm.top * Twips);
+		pRtfFragment->m_rect.right = (int32_t)(RectFragm.right * Twips);
+		pRtfFragment->m_rect.bottom = (int32_t)(RectFragm.bottom * Twips);
 		fread(&tmp, 2, 1, in);
 		pRtfFragment->m_wStringsCount = tmp;
 		fread(&wtmp, 4, 1, in);
@@ -4245,13 +4227,13 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
 							> SectorInfo->PaperW / 2) {
 						if (cpdata->Line.Beg_Y * Twips > Rect->top
 								&& cpdata->Line.Beg_Y * Twips < Rect->bottom) {
-							Rect->top = (int32_t) (cpdata->Line.Beg_Y * Twips);
-							Rect->bottom = (int32_t) (cpdata->Line.Beg_Y
-									* Twips + 10);
+							Rect->top = (int32_t)(cpdata->Line.Beg_Y * Twips);
+							Rect->bottom = (int32_t)(cpdata->Line.Beg_Y * Twips
+									+ 10);
 						} else {
-							Rect->top = (int32_t) (cpdata->Line.End_Y * Twips);
-							Rect->bottom = (int32_t) (cpdata->Line.End_Y
-									* Twips + 10);
+							Rect->top = (int32_t)(cpdata->Line.End_Y * Twips);
+							Rect->bottom = (int32_t)(cpdata->Line.End_Y * Twips
+									+ 10);
 						}
 						CLINE_CopyData(&data, cpdata, sizeof(DLine));
 						data.Flags |= LI_FRMT_Used;

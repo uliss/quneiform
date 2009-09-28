@@ -59,19 +59,19 @@
 
 #include "recdefs.h"
 #include "ccomdefs.h"
-#pragma pack (push,8)
+
 #define DEBUG_MODE 1
 
 #define     CSTR_VERSION_CODE  2
 
 typedef Handle CSTR_line;
 
-typedef struct tagCSTR_stick {
+struct CSTR_stick {
 	char x, y, l, w, top, bot;
 	int16_t incl;
-} CSTR_stick;
+};
 
-typedef struct strucCSTR_attr {
+struct CSTR_attr {
 
 	int32_t incline; // Incline*2048 = tg
 	int32_t fragment;
@@ -130,9 +130,9 @@ typedef struct strucCSTR_attr {
 	uchar tab_number;
 	uchar cn_weight; // due to car numbers recognition
 	// align to 128 bytes
-} CSTR_attr;
+};
 
-typedef struct strucCSTR_rast_attr {
+struct CSTR_rast_attr {
 	int16_t row; // ideal row of cell
 	int16_t col; // ideal collumn of cell
 	//// 4
@@ -344,29 +344,29 @@ typedef struct strucCSTR_rast_attr {
 	uchar bottom_accent; // need save in Rbal
 	//// 103 !
 	uchar reserve[25]; // for next special flags, aling to 128
-} CSTR_rast_attr;
+};
 
-typedef struct strucCSTR_cell {
+struct CSTR_cell {
 	CSTR_rast_attr attr;
-	struct strucCSTR_cell * next;
-	struct strucCSTR_cell * prev;
-	struct strucCSTR_cell * dup;
+	CSTR_cell * next;
+	CSTR_cell * prev;
+	CSTR_cell * dup;
 	uchar * recRaster;
 	int32_t lnPixWidth;
 	int32_t lnPixHeight;
 	CCOM_comp * env;
-	struct strucCSTR_cell * complist;
+	CSTR_cell * complist;
 	UniVersions * vers;
 	CSTR_line line_no;
-	struct strucCSTR_cell * prev_down;
+	CSTR_cell * prev_down;
 	CCOM_USER_BLOCK * user_block;
-	struct strucCSTR_cell * dupend;
-	struct strucCSTR_cell * prev_up;
-	struct strucCSTR_cell * next_up;
-	struct strucCSTR_cell * next_down;
-} CSTR_cell;
+	CSTR_cell * dupend;
+	CSTR_cell * prev_up;
+	CSTR_cell * next_up;
+	CSTR_cell * next_down;
+};
 
-typedef struct _strucCSTR_head {
+struct CSTR_head {
 	CSTR_attr attr;
 	CCOM_handle container;
 	Bool32 private_container;
@@ -378,8 +378,8 @@ typedef struct _strucCSTR_head {
 	int32_t version;
 	CSTR_cell first;
 	CSTR_cell last;
-	struct _strucCSTR_head *prev, *next, *next_fragm_line;
-} CSTR_head;
+	CSTR_head *prev, *next, *next_fragm_line;
+};
 
 #define CSTR_TYPE_IMAGE_NO  0   // no type
 #define CSTR_TYPE_IMAGE_LP  1   // linerepresentation
@@ -387,7 +387,7 @@ typedef struct _strucCSTR_head {
 #define CSTR_TYPE_IMAGE_RS1 3   // B/W bitmap aligned to 1 byte
 #ifdef DEBUG_MODE
 
-typedef struct strucCSTR_cell * CSTR_rast;
+typedef CSTR_cell * CSTR_rast;
 #else
 
 typedef int32_t CSTR_rast;
@@ -430,5 +430,4 @@ typedef int32_t CSTR_rast;
 // для базовых линий
 #define CSTR_LINVERS_BAL         8
 
-#pragma pack (pop)
 #endif

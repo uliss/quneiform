@@ -2,12 +2,12 @@ include_directories(src)
 
 add_library(rbal ${LIBTYPE}
 src/gistogramma.cpp
-src/lin_ext.c
-src/lin_rec.c
-src/linbam.c
-src/linban.c
-src/linpon.c
-src/linutil.c
+src/lin_ext.cpp
+src/lin_rec.cpp
+src/linbam.cpp
+src/linban.cpp
+src/linpon.cpp
+src/linutil.cpp
 src/statsearchbl.cpp
 )
 set_property(TARGET rbal PROPERTY COMPILE_DEFINITIONS __RBAL__)

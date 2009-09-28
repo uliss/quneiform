@@ -1,5 +1,5 @@
 add_library(r3532 ${LIBTYPE}
-src/r35.c)
+src/r35.cpp)
 
 set_property(TARGET r3532 PROPERTY COMPILE_DEFINITIONS __R35__)
 

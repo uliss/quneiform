@@ -1,59 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #define prot_size 2
 
@@ -80,10 +79,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////// #define GFfinal  128    // decision will be treated as final
 #define GFcut    64     // pattern produced by cut (not by Tiger)
 #define GFtiger  32     // pattern estimated by Tiger
-
 #define GRdust 4        // dust has been cut
 #define GRflo  8        // {0OoQD} - not to be cut
-
 #define GAtigr 1	// estimate by tiger
 #define GABOXl 2        // estimate by BOX with NO LINEAR CRIT
 #define GAbox  8        // try to take all-in-box to BOX
@@ -94,91 +91,83 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define GABOXt  128      // BOX estimate TIGR versions (not to apply full BOX)
 #define GAallest GAbox+GAsur+GAown
 
-struct andrew
- {
-// char dum[prot_size];
+struct andrew {
+	// char dum[prot_size];
 
- char a_Totalth;
- char a_bestc, a_best, a_bestx, a_bestxr, a_bestxh;
- char a_Exbn, a_Exbx, a_Exfn, a_Exhn, a_Eahn, a_Eafn;
- char a_Extrem, a_ExtreM, a_Extrex, a_ExtreX,
-      a_Exbm, a_ExbM, a_ExfM, a_Exfm, a_ExhM, a_Exhm;
- char a_Lbnd, a_lbnd, a_Rbnd, a_rbnd, a_lwpnt, a_rwpnt;
- char a_nmax1, a_nmax2, a_bsnx;
- char a_Startp, a_Endp, a_botflag;
- char a_FlM, a_Nmb, a_lastmax, a_NBmax;
- struct extrem_elem *a_extrp;
- struct extrem_elem *a_extrc;
- struct extrem_elem *a_extrn;
+	char a_Totalth;
+	char a_bestc, a_best, a_bestx, a_bestxr, a_bestxh;
+	char a_Exbn, a_Exbx, a_Exfn, a_Exhn, a_Eahn, a_Eafn;
+	char a_Extrem, a_ExtreM, a_Extrex, a_ExtreX, a_Exbm, a_ExbM, a_ExfM,
+			a_Exfm, a_ExhM, a_Exhm;
+	char a_Lbnd, a_lbnd, a_Rbnd, a_rbnd, a_lwpnt, a_rwpnt;
+	char a_nmax1, a_nmax2, a_bsnx;
+	char a_Startp, a_Endp, a_botflag;
+	char a_FlM, a_Nmb, a_lastmax, a_NBmax;
+	struct extrem_elem *a_extrp;
+	struct extrem_elem *a_extrc;
+	struct extrem_elem *a_extrn;
 
- struct info_elm a_points[MAX_HOR];
- struct extrem_elem a_Exbody[MAX_HOR/2];
- struct extrem_elem a_Exfoot[MAX_HOR/2];
- struct extrem_elem a_Exhead[MAX_HOR/2];
- char a_bodies[MAX_HOR];
- char a_footes[MAX_HOR];
- char a_heades[MAX_HOR];
- char a_linums[MAX_HOR];
- char a_linumsx[MAX_HOR];
- };
+	struct info_elm a_points[MAX_HOR];
+	struct extrem_elem a_Exbody[MAX_HOR / 2];
+	struct extrem_elem a_Exfoot[MAX_HOR / 2];
+	struct extrem_elem a_Exhead[MAX_HOR / 2];
+	char a_bodies[MAX_HOR];
+	char a_footes[MAX_HOR];
+	char a_heades[MAX_HOR];
+	char a_linums[MAX_HOR];
+	char a_linumsx[MAX_HOR];
+};
 
-struct common
- {
- char dum[prot_size];
- struct own_cut *c_odrans;
- int16_t  c_pa8;
- int16_t  c_path_lth;
- char c_S_flag;		// flag of "S"-case
- int16_t  c_s_width,c_s_width_b,c_s_height;
- int16_t  c_t_width,c_t_width_b,c_t_height;
- MN   *c_t_comp_ptr;   	// pointer to component header
- int16_t  c_t_left_shift;
- char c_cut_flag;
- char c_best_cut_point;
- lnhead *c_t_line_ptr;
- int16_t  c_max_line;
- uchar *c_s_raster;
- struct less_vertex_elem c_less_vertices[MAX_LINES];
- struct short_line_header c_lines[MAX_LINES];
- uchar c_path[MAX_LINES];
-// char dum[prot_size];
- };
+struct common {
+	char dum[prot_size];
+	struct own_cut *c_odrans;
+	int16_t c_pa8;
+	int16_t c_path_lth;
+	char c_S_flag; // flag of "S"-case
+	int16_t c_s_width, c_s_width_b, c_s_height;
+	int16_t c_t_width, c_t_width_b, c_t_height;
+	MN *c_t_comp_ptr; // pointer to component header
+	int16_t c_t_left_shift;
+	char c_cut_flag;
+	char c_best_cut_point;
+	lnhead *c_t_line_ptr;
+	int16_t c_max_line;
+	uchar *c_s_raster;
+	struct less_vertex_elem c_less_vertices[MAX_LINES];
+	struct short_line_header c_lines[MAX_LINES];
+	uchar c_path[MAX_LINES];
+	// char dum[prot_size];
+};
 
-struct edik
- {
- int16_t  e_first_line;	// number of first (shortened) line in list
- int16_t  e_n_lines;
- int16_t  e_n_verts;
- struct short_line_header *e_fl_ptr, *e_sl_ptr;
- struct segment *e_segm_ptr;
- struct vertex_header *e_vert_ptr;
- char e_meet_flag;
- char e_wr_vertex_flag;
- struct vertex_header e_verts[MAX_LINES];
- char e_adj_matrix[MAX_LINES][MAX_LINES];
- };
+struct edik {
+	int16_t e_first_line; // number of first (shortened) line in list
+	int16_t e_n_lines;
+	int16_t e_n_verts;
+	struct short_line_header *e_fl_ptr, *e_sl_ptr;
+	s_segment *e_segm_ptr;
+	struct vertex_header *e_vert_ptr;
+	char e_meet_flag;
+	char e_wr_vertex_flag;
+	struct vertex_header e_verts[MAX_LINES];
+	char e_adj_matrix[MAX_LINES][MAX_LINES];
+};
 
-union Work
- {
- struct
-  {
-  uchar w_rast[1024];
-  uchar a_sum[32];
-  char a_end[3][32], a_lth[3][32],
-       a_dif0[32], a_dif1[32], a_dif2[32];
-  char a_roof[128];
-  } ct;
+union Work {
+	struct {
+		uchar w_rast[1024];
+		uchar a_sum[32];
+		char a_end[3][32], a_lth[3][32], a_dif0[32], a_dif1[32], a_dif2[32];
+		char a_roof[128];
+	} ct;
 
- struct
-  {
-  struct common c;
-  union
-   {
-   struct edik e;
-   struct andrew a;
-   } u;
-  } cp;
- };
+	struct {
+		struct common c;
+		union {
+			struct edik e;
+			struct andrew a;
+		} u;
+	} cp;
+};
 
 extern union Work string;
 #define W string

@@ -130,7 +130,6 @@ static void rblockProgressFinish(void) {
 }
 
 Bool32 PageMarkup(PRMPreProcessImage Image) {
-
 	LDPUMA_Skip(hPrep);
 	Bool32 rc = TRUE;
 
@@ -152,7 +151,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
 	int i;
 
 	//default Image:
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	GetPageInfo(Image->hCPAGE, &info);
 	for (i = 0; i < CPAGE_MAXNAME; i++)
 		big_Image.ImageName[i] = info.szImageName[i];

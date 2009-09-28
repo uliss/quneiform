@@ -111,9 +111,9 @@ Bool32 BinariseImage() {
 				rc = FALSE;
 			} else {
 				LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE, gpRecogDIB);
-				PAGEINFO info;// = { 0 };
+				PAGEINFO info;
 				GetPageInfo(hCPAGE, &info);
-				info.Images |= IMAGE_BINARIZE;
+				info.Images |= PageInfo::IMAGE_BINARIZE;
 				SetPageInfo(hCPAGE, info);
 			}
 
@@ -166,9 +166,9 @@ Bool32 PreProcessImage() {
 	// Проинициализируем контейнер CPAGE
 	//
 	if (rc) {
-		PAGEINFO PInfo;// = { 0 };
+		PAGEINFO PInfo;
 		GetPageInfo(hCPAGE, &PInfo);
-		strcpy((char*) PInfo.szImageName, glpRecogName);
+		strcpy(PInfo.szImageName, glpRecogName);
 		PInfo.BitPerPixel = info.biBitCount;
 		PInfo.DPIX = info.biXPelsPerMeter * 254L / 10000;
 		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
@@ -249,7 +249,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 			}
 		}
 		CIMAGE_EnableMask(lpImage, (puchar) "r", true);
-		PInfo.Images |= IMAGE_ROTATE;
+		PInfo.Images |= PageInfo::IMAGE_ROTATE;
 		SetPageInfo(hCPAGE, PInfo);
 	}
 	return rc;

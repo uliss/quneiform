@@ -147,11 +147,11 @@ int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
 
 int16_t begin(uchar batch_run);
 struct segm * next_line(char tt, struct segm *cur_segm);
-void skip_letter_in_line(struct segm *segm_ptr, int16_t x);
+void skip_letter_in_line(segm *segm_ptr, int16_t x);
 void shift(char dir, int16_t v_s, struct segm *cur_segm, char *cur_symb);
-int16_t test_spare_space(struct segm * segm, int16_t need_size);
+int16_t test_spare_space(segm * segm, int16_t need_size);
 int16_t load_fragm(void);
-int16_t insert_symb(struct segm *, char *, LT *);
+int16_t insert_symb(segm *, char *, LT *);
 int16_t processEdSymb(void);
 void puff_last_segm(void);
 

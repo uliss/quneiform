@@ -62,7 +62,7 @@
 #include "cstr.h"
 
 void ClearAll(void) {
-	PAGEINFO PInfo = { 0 };
+	PAGEINFO PInfo;
 	//
 	// Сохраним последенне состояние и очистим контейнер
 	//
@@ -78,10 +78,10 @@ void ClearAll(void) {
 	CPAGE_DeleteAll();
 	hCPAGE = CreateEmptyPage();
 
-	strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
+	strcpy(PInfo.szImageName, PUMA_IMAGE_USER);
 	PInfo.Incline2048 = 0;
 	PInfo.Angle = 0;
-	PInfo.Images = IMAGE_USER;
+	PInfo.Images = PageInfo::IMAGE_USER;
 	SetPageInfo(hCPAGE, PInfo);
 
 	CCOM_DeleteAll();
@@ -93,18 +93,6 @@ void ClearAll(void) {
 	//  либо при получении нового довернутого изображения, либо при
 	//  закрытии файла
 	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
-	/*
-	 if(hCPAGE && CPAGE_GetCountBlock(hCPAGE))
-	 {
-	 CPAGE_BackUp(hCPAGE);
-	 Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,0);
-	 while(hBlock)
-	 {
-	 CPAGE_DeleteBlock(hCPAGE,hBlock);
-	 hBlock = CPAGE_GetBlockNext(hCPAGE,hBlock,0);
-	 }
-	 }
-	 */
 }
 ///////////////////////////////////////////////////////
 // Функции прогресс индикатора
@@ -331,9 +319,9 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 					(puchar) PUMA_IMAGE_DELLINE)) {
 				rc = FALSE;
 			} else {
-				PAGEINFO inf = { 0 };
+				PAGEINFO inf;
 				GetPageInfo(hCPAGE, &inf);
-				strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
+				strcpy(inf.szImageName, PUMA_IMAGE_DELLINE);
 				SetPageInfo(hCPAGE, inf);
 			}
 

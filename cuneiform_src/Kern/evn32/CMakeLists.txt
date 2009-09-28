@@ -1,16 +1,16 @@
 include_directories( BEFORE  src )
 
 add_library(evn32 ${LIBTYPE}
-src/compdata.c
-src/compkit.c
-src/evn.c
-src/locompmn.c
-src/rastror.c
-src/v0compan.c
-src/v0comper.c
-src/v0compev.c
-src/v0compgl.c
-src/v0comprq.c
+src/compdata.cpp
+src/compkit.cpp
+src/evn.cpp
+src/locompmn.cpp
+src/rastror.cpp
+src/v0compan.cpp
+src/v0comper.cpp
+src/v0compev.cpp
+src/v0compgl.cpp
+src/v0comprq.cpp
 )
 set_property(TARGET evn32 PROPERTY COMPILE_DEFINITIONS __EVN__)
 

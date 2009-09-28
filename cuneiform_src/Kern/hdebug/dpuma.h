@@ -60,12 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __GLOBUS_H
 #include "globus.h"
 #endif
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+
 #ifdef __DPUMA__
   #define DPUMA_FUNC  FUN_EXPO
 #else
@@ -203,9 +198,9 @@ DEC_FUNC(Bool16,  DPUMA_GetUserPoint,(Handle wnd,Point16 * point));
 DEC_FUNC(Bool16,  DPUMA_GetUserRect,(Handle wnd,Rect16 * rect));
 DEC_FUNC(void,  DPUMA_UpdateView,(Handle wnd));
 DEC_FUNC(void,  DPUMA_DrawRaster,(DPUMA_RecRaster * lpRaster));
-DEC_FUNC(void,  DPUMA_RasterText,(char * lpText));
+DEC_FUNC(void,  DPUMA_RasterText,(const char * lpText));
 DEC_FUNC(void,  DPUMA_ZoomToRect,(Handle wnd,Rect16 * rect));
-DEC_FUNC(void,  DPUMA_RasterHeader,(char * lpText,uint32_t num));
+DEC_FUNC(void,  DPUMA_RasterHeader,(const char * lpText,uint32_t num));
 DEC_FUNC(void,  DPUMA_DrawFocusRect,(Handle wnd,Rect16 * lpRect));
 DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner, const char * lpName,void * lpData, const char * lpType));
 DEC_FUNC(void,  DPUMA_UnregVariable,(void * lpData));

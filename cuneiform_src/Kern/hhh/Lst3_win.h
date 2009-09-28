@@ -643,7 +643,7 @@ int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del,
 #define DIST_DOT 5
 #define DIST_DIAG 6
 void bound_frm(FRAME **frm, int k_frm, BOUND* bnd);
-static int comp(TYPE *a, TYPE *b);
+//static int comp(TYPE *a, TYPE *b);
 int est_size_frm(FRAME **frm, int k_frm, int *size_x, int *size_y, int step);
 void PutUpDown(KNOT3 *beg, int reg, short up, short down);
 void GetUpDown(KNOT3 *beg, int reg, short *up, short *down);

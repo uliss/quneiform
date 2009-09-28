@@ -119,7 +119,7 @@ Bool32 leoRecogCharPRN_expert(RecRaster*  recRaster, RecVersions* over);
 
 
 // functions from module LEO_DLL.C
-void    leo_snapChar(RecVersions *ver, char *tit, int enable);
+void    leo_snapChar(RecVersions *ver, const char *tit, int enable);
 void    leo_snapChar3x5(RecVersions *ver, char *tit, int enable);
 void    leo_snapRes2Str(RecVersions *ver, char *buf);
 Bool32  leoSnpInRect( Rect16* pRect, int32_t nSkew );
@@ -127,7 +127,7 @@ Bool32  leoSnpInRect( Rect16* pRect, int32_t nSkew );
 void    leo_cuneiform(RecObject *rec);
 void    leo_SnpLog(char *tmp);
 void    leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog);
-void    leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog);
+void    leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog);
 Bool32  leo_init_prn(void);
 
 // function from module LEO_SIZE.C

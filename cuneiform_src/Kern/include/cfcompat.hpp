@@ -9,9 +9,20 @@
 #define CFCOMPAT_HPP_
 
 #include <string>
+#include <cstdlib>
 #include "globus.h"
 
 namespace CIF {
+
+template<class T>
+T * malloc(size_t n = 1) {
+	return static_cast<T*>(::malloc(n * sizeof(T)));
+}
+
+template <class T>
+T * calloc(size_t n = 1) {
+	return static_cast<T*>(::calloc(n, sizeof(T)));
+}
 
 FUN_EXPO__ std::string InstallPath();
 

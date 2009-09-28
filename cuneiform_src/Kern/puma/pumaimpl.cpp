@@ -90,7 +90,6 @@ void PumaImpl::initWorkBuffer() {
 	work_buffer_ = new uchar[WorkBufferSize];
 }
 
-
 static Bool32 rblockProgressStep(uint32_t perc) {
 	return ProgressStep(2, NULL, perc);
 }
@@ -119,7 +118,7 @@ void PumaImpl::layout() {
 	RMCBProgressPoints CBforRM;
 	RMPreProcessImage DataforRM;
 
-	PAGEINFO PInfo = { 0 };
+	PAGEINFO PInfo;
 
 	ClearAll();
 
@@ -274,7 +273,7 @@ void PumaImpl::layout() {
 					"ПРЕДУПРЕЖДЕНИЕ: <%s>.\
 	Для показа в Layout будет использовано не повернутое изображение.\n",
 					PUMA_GetReturnString(PUMA_GetReturnCode()));
-			PAGEINFO PInfo = { 0 };
+			PAGEINFO PInfo;
 			GetPageInfo(hCPAGE, &PInfo);
 			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
 					TRUE);
