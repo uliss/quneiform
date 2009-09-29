@@ -11,6 +11,7 @@
 #include "pumadef.h"
 
 #include <iostream>
+#include <cstdio>
 #include <cassert>
 #include <cstring>
 
@@ -28,20 +29,13 @@ namespace CIF {
 
 std::string szLayoutFileName("Layout.bin");
 
-unsigned char * PumaImpl::main_buffer_ = 0;
-unsigned char * PumaImpl::work_buffer_ = 0;
-
 PumaImpl::PumaImpl() {
-	initMainBuffer();
-	initWorkBuffer();
 	if (!ModulesInit(ghStorage))
 		throw PumaException("Puma init failed");
 }
 
 PumaImpl::~PumaImpl() {
 	modulesDone();
-	freeMainBuffer();
-	freeWorkBuffer();
 }
 
 void PumaImpl::analyze() {
@@ -124,36 +118,6 @@ void PumaImpl::close() {
 	gpRecogDIB = gpInputDIB = NULL;
 }
 
-void PumaImpl::freeMainBuffer() {
-	if (!main_buffer_)
-		return;
-	delete[] main_buffer_;
-	main_buffer_ = NULL;
-}
-
-void PumaImpl::freeWorkBuffer() {
-	if (!work_buffer_)
-		return;
-	delete[] work_buffer_;
-	work_buffer_ = NULL;
-}
-
-void PumaImpl::initMainBuffer() {
-	if (main_buffer_) {
-		DBG("PumaImpl: main buffer is not empty")
-		delete[] main_buffer_;
-	}
-	main_buffer_ = new unsigned char[MainBufferSize];
-}
-
-void PumaImpl::initWorkBuffer() {
-	if (work_buffer_) {
-		DBG ("PumaImpl: work buffer is not empty")
-		delete[] work_buffer_;
-	}
-	work_buffer_ = new uchar[WorkBufferSize];
-}
-
 // Allex
 // добавлены для обратной связи из RStuff
 Bool32 DPumaSkipComponent(void) {
@@ -164,8 +128,6 @@ Bool32 DPumaSkipTurn(void) {
 }
 
 void PumaImpl::layout() {
-	Bool32 rc = TRUE;
-
 	RSCBProgressPoints CBforRS;
 	RSPreProcessImage DataforRS;
 
@@ -175,178 +137,135 @@ void PumaImpl::layout() {
 	clearAll();
 	binarizeImage();
 
-	void* MemBuf = CIF::PumaImpl::mainBuffer();
-	size_t size_buf = CIF::PumaImpl::MainBufferSize;
-	void* MemWork = CIF::PumaImpl::workBuffer();
-	int size_work = CIF::PumaImpl::WorkBufferSize;
-
-	if (rc) {
-
 #define SET_CB(a,b)   a.p##b = (void*)b
-		CBforRS.pProgressStep = (void*) ProgressStepLayout;
-		CBforRS.pProgressStepLines = (void*) ProgressStepLines;
-		CBforRS.pProgressStepTables = (void*) ProgressStepTables;
-		SET_CB(CBforRS, InitPRGTIME);
-		SET_CB(CBforRS, StorePRGTIME);
-		SET_CB(CBforRS, RestorePRGTIME);
-		SET_CB(CBforRS, DonePRGTIME);
-		SET_CB(CBforRS, rexcProgressStep);
-		SET_CB(CBforRS, DPumaSkipComponent);
-		SET_CB(CBforRS, DPumaSkipTurn);
-		CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
-		SET_CB(CBforRS, GetModulePath);
-		SET_CB(CBforRS, SetUpdate);
+	CBforRS.pProgressStep = (void*) ProgressStepLayout;
+	CBforRS.pProgressStepLines = (void*) ProgressStepLines;
+	CBforRS.pProgressStepTables = (void*) ProgressStepTables;
+	SET_CB(CBforRS, InitPRGTIME);
+	SET_CB(CBforRS, StorePRGTIME);
+	SET_CB(CBforRS, RestorePRGTIME);
+	SET_CB(CBforRS, DonePRGTIME);
+	SET_CB(CBforRS, rexcProgressStep);
+	SET_CB(CBforRS, DPumaSkipComponent);
+	SET_CB(CBforRS, DPumaSkipTurn);
+	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
+	SET_CB(CBforRS, GetModulePath);
+	SET_CB(CBforRS, SetUpdate);
 
-//		SET_CB(CBforRM, ProgressStart);
-		CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
-		CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
-//		SET_CB(CBforRM, ProgressFinish);
-		SET_CB(CBforRM, InitPRGTIME);
-		SET_CB(CBforRM, StorePRGTIME);
-		SET_CB(CBforRM, RestorePRGTIME);
-		SET_CB(CBforRM, DonePRGTIME);
-		SET_CB(CBforRM, rexcProgressStep);
-		SET_CB(CBforRM, DPumaSkipComponent);
-		SET_CB(CBforRM, DPumaSkipTurn);
-		CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
-		SET_CB(CBforRM, GetModulePath);
-		SET_CB(CBforRM, SetUpdate);
+	//		SET_CB(CBforRM, ProgressStart);
+	CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
+	CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
+	//		SET_CB(CBforRM, ProgressFinish);
+	SET_CB(CBforRM, InitPRGTIME);
+	SET_CB(CBforRM, StorePRGTIME);
+	SET_CB(CBforRM, RestorePRGTIME);
+	SET_CB(CBforRM, DonePRGTIME);
+	SET_CB(CBforRM, rexcProgressStep);
+	SET_CB(CBforRM, DPumaSkipComponent);
+	SET_CB(CBforRM, DPumaSkipTurn);
+	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
+	SET_CB(CBforRM, GetModulePath);
+	SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
-		DataforRS.gbAutoRotate = gbAutoRotate;
-		DataforRS.pgpRecogDIB = &gpRecogDIB;
-		DataforRS.pinfo = &info;
-		DataforRS.hCPAGE = hCPAGE;
-		DataforRS.phCCOM = &hCCOM;
-		DataforRS.phCLINE = &hCLINE;
-		DataforRS.phLinesCCOM = &hLinesCCOM;
-		DataforRS.gnPictures = gnPictures;
-		DataforRS.gnLanguage = gnLanguage;
-		DataforRS.gbDotMatrix = gbDotMatrix;
-		DataforRS.gbFax100 = gbFax100;
-		DataforRS.pglpRecogName = &glpRecogName;
-		DataforRS.pgrc_line = &grc_line;
-		DataforRS.gnTables = gnTables;
-		DataforRS.pgnNumberTables = &gnNumberTables;
-		DataforRS.pgneed_clean_line = &gneed_clean_line;
-		DataforRS.gRectTemplate = gRectTemplate;
-		DataforRS.fnXSetTemplate = PUMA_XSetTemplate;
-		DataforRS.fnXGetTemplate = PUMA_XGetTemplate;
-		DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-		DataforRS.hDebugCancelComponent = hDebugCancelComponent;
-		DataforRS.hDebugCancelTurn = hDebugCancelTurn;
-		DataforRS.hDebugCancelAutoTemplate = hDebugCancelAutoTemplate;
-		DataforRS.hDebugCancelSearchLines = hDebugCancelSearchLines;
-		DataforRS.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-		DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-		DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-		DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-		DataforRS.szLayoutFileName = szLayoutFileName;
-		DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+	DataforRS.gbAutoRotate = gbAutoRotate;
+	DataforRS.pgpRecogDIB = &gpRecogDIB;
+	DataforRS.pinfo = &info;
+	DataforRS.hCPAGE = hCPAGE;
+	DataforRS.phCCOM = &hCCOM;
+	DataforRS.phCLINE = &hCLINE;
+	DataforRS.phLinesCCOM = &hLinesCCOM;
+	DataforRS.gnPictures = gnPictures;
+	DataforRS.gnLanguage = gnLanguage;
+	DataforRS.gbDotMatrix = gbDotMatrix;
+	DataforRS.gbFax100 = gbFax100;
+	DataforRS.pglpRecogName = &glpRecogName;
+	DataforRS.pgrc_line = &grc_line;
+	DataforRS.gnTables = gnTables;
+	DataforRS.pgnNumberTables = &gnNumberTables;
+	DataforRS.pgneed_clean_line = &gneed_clean_line;
+	DataforRS.gRectTemplate = gRectTemplate;
+	DataforRS.fnXSetTemplate = PUMA_XSetTemplate;
+	DataforRS.fnXGetTemplate = PUMA_XGetTemplate;
+	DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+	DataforRS.hDebugCancelComponent = hDebugCancelComponent;
+	DataforRS.hDebugCancelTurn = hDebugCancelTurn;
+	DataforRS.hDebugCancelAutoTemplate = hDebugCancelAutoTemplate;
+	DataforRS.hDebugCancelSearchLines = hDebugCancelSearchLines;
+	DataforRS.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
+	DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
+	DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
+	DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
+	DataforRS.szLayoutFileName = szLayoutFileName;
+	DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-		// калбэки
-		if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
-			///нормализуем - обработка, поиск картинок, поиск линий
-			rc = RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
-					size_work);
-
-			if (!rc) {
-				SetReturnCode_puma(RSTUFF_GetReturnCode());
-				rc = FALSE;
-			}
-		}
+	// калбэки
+	if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
+		///нормализуем - обработка, поиск картинок, поиск линий
+		if (!RSTUFF_RSNormalise(&DataforRS, main_buffer_.get(),
+				main_buffer_.size(), work_buffer_.get(), work_buffer_.size()))
+			throw PumaException("PumaImpl: RSTUFF_RSNormalise failed.");
 	}
 
 	// Gleb 02.11.2000
 	// Далее - разметка. Вынесена в RMARKER.DLL
-	if (rc) {
-		DataforRM.gbAutoRotate = gbAutoRotate;
-		DataforRM.pgpRecogDIB = &gpRecogDIB;
-		DataforRM.gbOneColumn = gbOneColumn;
-		DataforRM.gKillVSLComponents = gKillVSLComponents;
-		DataforRM.pinfo = &info;
-		DataforRM.hCPAGE = hCPAGE;
-		DataforRM.hCCOM = hCCOM;
-		DataforRM.hCLINE = hCLINE;
-		DataforRM.phLinesCCOM = &hLinesCCOM;
-		DataforRM.gnPictures = gnPictures;
-		DataforRM.gnLanguage = gnLanguage;
-		DataforRM.gbDotMatrix = gbDotMatrix;
-		DataforRM.gbFax100 = gbFax100;
-		DataforRM.pglpRecogName = &glpRecogName;
-		DataforRM.pgrc_line = &grc_line;
-		DataforRM.gnTables = gnTables;
-		DataforRM.pgnNumberTables = &gnNumberTables;
-		DataforRM.pgneed_clean_line = &gneed_clean_line;
-		DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-		DataforRM.hDebugCancelComponent = hDebugCancelComponent;
-		DataforRM.hDebugCancelTurn = hDebugCancelTurn;
-		DataforRM.hDebugCancelSearchLines = hDebugCancelSearchLines;
-		DataforRM.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-		DataforRM.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-		DataforRM.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-		DataforRM.hDebugCancelSearchTables = hDebugCancelSearchTables;
-		DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
-		DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-		DataforRM.hDebugHandLayout = hDebugHandLayout;
-		DataforRM.hDebugPrintBlocksCPAGE = hDebugPrintBlocksCPAGE;
-		DataforRM.hDebugSVLines = hDebugSVLines;
-		DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
-		DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-		DataforRM.szLayoutFileName = szLayoutFileName;
-		DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+	DataforRM.gbAutoRotate = gbAutoRotate;
+	DataforRM.pgpRecogDIB = &gpRecogDIB;
+	DataforRM.gbOneColumn = gbOneColumn;
+	DataforRM.gKillVSLComponents = gKillVSLComponents;
+	DataforRM.pinfo = &info;
+	DataforRM.hCPAGE = hCPAGE;
+	DataforRM.hCCOM = hCCOM;
+	DataforRM.hCLINE = hCLINE;
+	DataforRM.phLinesCCOM = &hLinesCCOM;
+	DataforRM.gnPictures = gnPictures;
+	DataforRM.gnLanguage = gnLanguage;
+	DataforRM.gbDotMatrix = gbDotMatrix;
+	DataforRM.gbFax100 = gbFax100;
+	DataforRM.pglpRecogName = &glpRecogName;
+	DataforRM.pgrc_line = &grc_line;
+	DataforRM.gnTables = gnTables;
+	DataforRM.pgnNumberTables = &gnNumberTables;
+	DataforRM.pgneed_clean_line = &gneed_clean_line;
+	DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+	DataforRM.hDebugCancelComponent = hDebugCancelComponent;
+	DataforRM.hDebugCancelTurn = hDebugCancelTurn;
+	DataforRM.hDebugCancelSearchLines = hDebugCancelSearchLines;
+	DataforRM.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
+	DataforRM.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
+	DataforRM.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
+	DataforRM.hDebugCancelSearchTables = hDebugCancelSearchTables;
+	DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
+	DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
+	DataforRM.hDebugHandLayout = hDebugHandLayout;
+	DataforRM.hDebugPrintBlocksCPAGE = hDebugPrintBlocksCPAGE;
+	DataforRM.hDebugSVLines = hDebugSVLines;
+	DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
+	DataforRM.hDebugSVLinesData = hDebugSVLinesData;
+	DataforRM.szLayoutFileName = szLayoutFileName;
+	DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-		if (RMARKER_SetImportData(0, &CBforRM)) {
-			rc = RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork,
-					size_work);
+	if (RMARKER_SetImportData(0, &CBforRM)) {
+		if (!RMARKER_PageMarkup(&DataforRM, main_buffer_.get(),
+				main_buffer_.size(), work_buffer_.get(), work_buffer_.size()))
+			throw PumaException("PumaImpl: RMARKER_PageMarkup failed");
 
-			if (!rc) {
-				SetReturnCode_puma(RMARKER_GetReturnCode());
-			} else
-				hCPAGE = DataforRM.hCPAGE; //Paul 25-01-2001
-
-		}
+		hCPAGE = DataforRM.hCPAGE;
 	}
 
-	//
-	// Запустим отладчик для редактирования Layout
-	//
-
-	if (rc && !LDPUMA_Skip(hDebugHandLayout)) {
-		// Покажем довернутое изображение
-		Handle hRotateDIB = NULL;
-		Point32 p = { 0 };
-
-		if (PUMA_XGetRotateDIB(&hRotateDIB, &p) == FALSE) {
-			LDPUMA_Console(
-					"ПРЕДУПРЕЖДЕНИЕ: <%s>.\
-	Для показа в Layout будет использовано не повернутое изображение.\n",
-					PUMA_GetReturnString(PUMA_GetReturnCode()));
-			PAGEINFO PInfo;
-			GetPageInfo(hCPAGE, &PInfo);
-			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
-					TRUE);
-		}
-		LDPUMA_HandLayout(hRotateDIB, 0, &p);
-		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
+#ifndef NDEBUG
+	fprintf(stderr, "Container CPAGE has:\n");
+	fprintf(stderr, " %-20s : %s\n", "name", "size");
+	Handle block = CPAGE_GetBlockFirst(hCPAGE, 0);
+	while (block) {
+		fprintf(stderr, " %-20s : %i\n", CPAGE_GetNameInternalType(
+				CPAGE_GetBlockType(hCPAGE, block)), CPAGE_GetBlockData(hCPAGE,
+				block, CPAGE_GetBlockType(hCPAGE, block), NULL, 0));
+		block = CPAGE_GetBlockNext(hCPAGE, block, 0);
 	}
-	//
-	if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
-		LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
-		Handle block = CPAGE_GetBlockFirst(hCPAGE, 0);
-		while (block) {
-			LDPUMA_Console("%s : %i\n", CPAGE_GetNameInternalType(
-					CPAGE_GetBlockType(hCPAGE, block)), CPAGE_GetBlockData(
-					hCPAGE, block, CPAGE_GetBlockType(hCPAGE, block), NULL, 0));
-			block = CPAGE_GetBlockNext(hCPAGE, block, 0);
-		}
-	}
+#endif
 
-	if (rc)
-		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
-
-	if (!rc)
-		throw PumaException("PUma layout failed");
+	SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::modulesDone() {
@@ -400,7 +319,6 @@ void PumaImpl::open(char * dib) {
 void PumaImpl::preOpenInitialize() {
 	PumaImpl::close();
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-	SetReturnCode_puma(IDS_ERR_NO);
 }
 
 void PumaImpl::postOpenInitialize() {
@@ -425,8 +343,6 @@ void PumaImpl::recognize() {
 		layout();
 	if (!Recognize())
 		throw PumaException("Puma recognition failed");
-
-	DBG("Puma recognize")
 }
 
 void PumaImpl::save(const std::string& filename, int Format) const {
@@ -438,15 +354,4 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 			PUMA_CODE_UTF8))
 		throw PumaException("Puma save failed");
 }
-
-unsigned char * PumaImpl::mainBuffer() {
-	assert(main_buffer_);
-	return main_buffer_;
-}
-
-unsigned char * PumaImpl::workBuffer() {
-	assert(work_buffer_);
-	return work_buffer_;
-}
-
 }

@@ -11,6 +11,8 @@
 #include <string>
 #include <stdexcept>
 
+#include "membuffer.h"
+
 namespace CIF {
 
 struct PumaException: std::runtime_error {
@@ -30,8 +32,6 @@ public:
 	void recognize();
 	void save(const std::string& outputFilename, int format) const;
 public:
-	static unsigned char * mainBuffer();
-	static unsigned char * workBuffer();
 	static const size_t MainBufferSize = 500000;
 	static const size_t WorkBufferSize = 180000;
 private:
@@ -42,13 +42,8 @@ private:
 	void preOpenInitialize();
 	void postOpenInitialize();
 private:
-	static unsigned char * main_buffer_;
-	static unsigned char * work_buffer_;
-private:
-	static void freeMainBuffer();
-	static void freeWorkBuffer();
-	static void initMainBuffer();
-	static void initWorkBuffer();
+	MemBuffer<MainBufferSize> main_buffer_;
+	MemBuffer<WorkBufferSize> work_buffer_;
 };
 
 }
