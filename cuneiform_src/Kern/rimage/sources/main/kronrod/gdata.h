@@ -92,7 +92,7 @@ EXTERN Handle       hBufPass;
 EXTERN  uchar         szTempTiffName [144];
 EXTERN  char         szScanFullName[144];
 EXTERN  char         szScanDriverName[16];
-EXTERN  char         Main_Dir_Name [128];       // H:\CUNEI  (see zB SCANTAB.C)
+//EXTERN  char         Main_Dir_Name [128];       // H:\CUNEI  (see zB SCANTAB.C)
 EXTERN  char         *MainDir;
 EXTERN  uchar         szValidNames[144];
 extern uint16_t    Itek;   /////////////////// OTLADKA ONLY

@@ -1374,14 +1374,14 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 					similar ? 'y' : 'n', aliases ? 'y' : 'n', equal ? 'y' : 'n');
 			sprintf(
 					(char*) buf2,
-					"eng : min=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
+					"eng : MIN=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
 					estat.minp, estat.maxp, estat.minup, estat.maxup,
 					estat.norec, estat.nall, estat.nh, estat.nm, estat.ns,
 					estat.var_width ? 'y' : 'n', estat.var_kegl ? 'y' : 'n',
 					estat.var_dig ? 'y' : 'n');
 			sprintf(
 					(char*) buf3,
-					"rus : min=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
+					"rus : MIN=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
 					rstat.minp, rstat.maxp, rstat.minup, rstat.maxup,
 					rstat.norec, rstat.nall, rstat.nh, rstat.nm, rstat.ns,
 					rstat.var_width ? 'y' : 'n', rstat.var_kegl ? 'y' : 'n',

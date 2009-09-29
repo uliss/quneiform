@@ -233,14 +233,14 @@ public:
 		file = fopen((char*) file_name, "at+");
 
 		if (file == NULL) {
-			stdMessageBox("Open failed", "Protocol");
+			stdMessageBox("Open failed", "Protocol", 0);
 			RET_FALSE;
 		} else {
 			int n = setvbuf(file, NULL, _IONBF, 0);
 			if (n != 0) {
 				char mess[256];
 				sprintf(mess, "setvbuf()->%d", n);
-				stdMessageBox(mess, "Protocol");
+				stdMessageBox(mess, "Protocol", 0);
 			};
 		}
 		fflush(file);

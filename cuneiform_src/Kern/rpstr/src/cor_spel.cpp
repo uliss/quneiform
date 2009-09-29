@@ -59,6 +59,7 @@
 /*                   Spelling checker for ContainerSTR              */
 /*                                                                  */
 /********************************************************************/
+#include "cfcompat.h"
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>

@@ -920,7 +920,7 @@ static  back_recog(SOBJ * obj,
  if (wt->width > wt->height)
   i = 32 - wt->height*16 / wt->width;
 /* proport.index index i calculated; it has to be in the range,            */
-/*  specified in the letter_pidx_table el(min,max), pointed by the hyp:    */
+/*  specified in the letter_pidx_table el(MIN,max), pointed by the hyp:    */
  j = hyp[0] * 2;   /* pointer to the letter_pidx_table el                  */
  if ( (i<letters_pidx_table[j]) || (i>letters_pidx_table[j+1]) )
   {
@@ -1081,11 +1081,11 @@ form_raster(SOBJ * obj, SPOS * pos)
 /****************************************************************************/
 adjust_tif(SOBJ * obj, SPOS * pos)
  {
-  uint16_t  min,max;
+  uint16_t  MIN,max;
 
-  set_tif_strip(pos->tif_ref.segm,pos->tif_ref.symb,&min,&max);
-  tif_st.shift=min;
-  tif_st.lth=(max-min+1)*Q.tif_line_lth;
+  set_tif_strip(pos->tif_ref.segm,pos->tif_ref.symb,&MIN,&max);
+  tif_st.shift=MIN;
+  tif_st.lth=(max-MIN+1)*Q.tif_line_lth;
   if (tif_st.lth > tif_st.buf_size)
    {
 #ifdef SYSPR_ERROR
@@ -1101,7 +1101,7 @@ adjust_tif(SOBJ * obj, SPOS * pos)
 /*
 									    */
 /****************************************************************************/
-void set_tif_strip(struct segm  *segm,char  *symb,int16_t*min,int16_t*max)
+void set_tif_strip(struct segm  *segm,char  *symb,int16_t*MIN,int16_t*max)
 
  {
   char  *savesymb;
@@ -1114,12 +1114,12 @@ void set_tif_strip(struct segm  *segm,char  *symb,int16_t*min,int16_t*max)
   skip_letter_in_line(segm,0);
   while (Q.ns_symb!=symb)
     next_symb(YES,YES,YES,Q.ns_segm,Q.ns_symb);
-  *min=Q.stack->map_ref.row;
-  *max=*min+Q.stack->map_ref.height;
+  *MIN=Q.stack->map_ref.row;
+  *max=*MIN+Q.stack->map_ref.height;
   while (next_symb(YES,YES,YES,Q.ns_segm,Q.ns_symb))
    {
-    if (*min > (i=Q.stack->map_ref.row))
-      *min=i;
+    if (*MIN > (i=Q.stack->map_ref.row))
+      *MIN=i;
     if (*max < (i=i+Q.stack->map_ref.height))
       *max=i;
    }

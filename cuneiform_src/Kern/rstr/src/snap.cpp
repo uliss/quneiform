@@ -80,8 +80,8 @@ static void snap_sticks(cell *, char *);
 // from module PASSE
 Bool _spell(pchar s, uchar lang);
 Bool _spell_agressive(pchar s, uchar lang);
-Bool short_spell(uchar *wrd, uchar language);
-Bool short_spell_re(uchar *wrd, uchar language);
+extern Bool short_spell(uchar *wrd, uchar language, uchar nexlet);
+extern Bool short_spell_re(uchar *wrd, uchar language);
 
 uchar mwInput[80];
 extern int16_t line_number;
@@ -490,7 +490,8 @@ static void show_spell(cell *c) {
 		strcat(buf, " n");
 
 	strcat(buf, " small : ");
-	if (short_spell((uchar*) wrd, lang))
+	// uliss added unknown parameter %-)
+	if (short_spell((uchar*) wrd, lang, '.'))
 		strcat(buf, "y ");
 	else
 		strcat(buf, " n");

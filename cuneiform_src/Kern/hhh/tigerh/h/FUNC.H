@@ -226,10 +226,6 @@ int16_t signif_line_count(cell*);
 int16_t compare_vect(v_val *, v_val *);
 int16_t cell_is_BOX_solid(cell*);
 
-// module locomp.asm
-/*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
-MN *c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
-
 // module v0compgl.asm
 void invert_tiff(puchar c, uint16_t lth);
 

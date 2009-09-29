@@ -71,6 +71,8 @@ extern uchar *EVN_GetSegmentPool(void);
 #include "diffrb.h"
 #include "p2libr.h"
 #include "status.h"
+#include "evn.h"
+#include "func.h"
 
 #include "compat_defs.h"
 
@@ -96,7 +98,6 @@ int16_t cut_by_pos_ii(s_glue * gl, uchar let);
 /*============ Export functions ==================*/
 
 segment * go_line(segment * seg_pool, uint16_t ln);
-void proc_bI(int16_t pass); // glue 'ë'
 int16_t chkquocks2(cell * c, puchar r, int16_t h, int16_t w, int16_t d);
 void c_add_raster(puchar target, int16_t wb, int16_t y, int16_t col,
 		puchar source, int16_t sh, int16_t swb);
@@ -341,7 +342,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 			cc = cp; // set main comp
 	}
 	abris_reset();
-	mn = c_locomp(_rst.raster, (int16_t) ((_rst.w + 7) >> 3), _rst.h, 0, 0);
+	mn = EVN_CLocomp(_rst.raster, (int16_t) ((_rst.w + 7) >> 3), _rst.h, 0, 0);
 	segment_pool = EVN_GetSegmentPool();
 	make_white_hist(segment_pool, _rst.h);
 	dens = internal_filling((segment*) segment_pool, _rst.h, _rst.w);
@@ -773,13 +774,13 @@ uint16_t check_xk(int16_t h, uchar let) {
 	smooth = i == smooth ? 1 : 0; // make var logical
 
 	if (pen_rk == 0) { // try to find meandr in right
-		int16_t min, max, j, pos, neg;
-		for (i = h / 5 + 1, j = 0, min = max = r_abris[h / 5]; i < h * 4 / 5; i++, j++) {
-			min = MIN(min, r_abris[i]);
+		int16_t MIN, max, j, pos, neg;
+		for (i = h / 5 + 1, j = 0, MIN = max = r_abris[h / 5]; i < h * 4 / 5; i++, j++) {
+			MIN = MIN(MIN, r_abris[i]);
 			max = MAX(max, r_abris[i]);
 			jump[j] = r_abris[i] - r_abris[i - 1];
 		}
-		if (max - min < 2) { //  may be meandr
+		if (max - MIN < 2) { //  may be meandr
 			for (i = 0, pos = 0, neg = 0; i < j; i++) { // how many peaks
 				if (jump[i] > 0)
 					pos++;
@@ -816,7 +817,7 @@ int16_t chkquocks2(cell * c, puchar rstr, int16_t h, int16_t w, int16_t d) {
 	int16_t tanx, tany, sum1, sum2;
 	MN *mn;
 	char buf[200], tmp[200];
-	mn = c_locomp(rstr, (int16_t) ((w + 7) >> 3), h, 0, 0);
+	mn = EVN_CLocomp(rstr, (int16_t) ((w + 7) >> 3), h, 0, 0);
 	if (mn) {
 		segment_pool = EVN_GetSegmentPool();
 		abris_online = TRUE;
@@ -1271,7 +1272,7 @@ uint16_t check_pl(cell * c, cell * ci, uchar let, struct rst * const rst) {
 			}
 
 			//cut  1/4  down  part  to  calculate   sticks  for  ‹  without  errors
-			mn = c_locomp(rst->raster,D_X,(int16_t)(dy-dy/4),0,0);
+			mn = EVN_CLocomp(rst->raster,D_X,(int16_t)(dy-dy/4),0,0);
 			if(mn) cc=create_cell(mn,ci,0,0);
 			//recover  after  for  not  cut  left  black  rectangle
 			for(i=0;( (i<D_X) && (i<5) );i++)
@@ -3190,7 +3191,7 @@ Bool test_I(cell *c) {
 	return (sc.vers[0].prob > 220);
 }
 
-void proc_bI(int16_t pass) {
+void proc_bI(int pass) {
 	cell * c, *clist[8];
 	uchar let;
 

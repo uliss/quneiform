@@ -935,13 +935,13 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 if(snap_activity('j'))
 			 {
 			  char tmp[256];
-              sprintf(tmp,"Column thick %d,min=%d,max=%d,bold %d",
+              sprintf(tmp,"Column thick %d,MIN=%d,max=%d,bold %d",
 				  (int)thickCol[nTabl][nCol-1].nThick,
 				  (int)thickCol[nTabl][nCol-1].minThick,
 				  (int)thickCol[nTabl][nCol-1].maxThick,
 				  (int)colBold);
               snap_show_text(tmp);
-			  sprintf(tmp,"Row thick %d,min=%d,max=%d,bold %d",
+			  sprintf(tmp,"Row thick %d,MIN=%d,max=%d,bold %d",
 				  (int)thickRow[nTabl][nRow-1].nThick,
 				  (int)thickRow[nTabl][nRow-1].minThick,
 				  (int)thickRow[nTabl][nRow-1].maxThick,

@@ -67,11 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define DPUMA_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
-
 #pragma pack (push,8)
 ////////////////////////////////////
 
@@ -475,18 +470,6 @@ DEC_FUNC(int32_t,  DPUMA_FPuts,(Handle hFile,const char * lpString));
 	#endif /* if (_WIN32_WINNT < 0x0400) */
 
 #endif
-//
-
-
-
-
-////////////////////////////////////
-
 #pragma pack (pop)
-
-#ifdef __cplusplus
-      }
-#endif
-
 
 #endif

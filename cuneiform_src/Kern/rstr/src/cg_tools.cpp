@@ -65,7 +65,7 @@
 #include "dmconst.h"
 #include "cut_glue.h"
 #include "linutil.h"
-
+#include "evn.h"
 #include "compat_defs.h"
 
 extern Bool pass4_in; //䫠�: ��ன ��室 �� ��࠭��
@@ -181,7 +181,7 @@ static cell *overlap_cell(cell *C, cell *D) {
 	if (!(P = col_to_one(list, 2)))
 		return NULL;
 	r = (uchar*) save_raster(P);
-	mn1 = c_locomp(r, (int16_t) ((P->w + 7) >> 3), P->h, P->r_row, P->r_col);
+	mn1 = EVN_CLocomp(r, (int16_t) ((P->w + 7) >> 3), P->h, P->r_row, P->r_col);
 	del_cell(P);
 	if (mn1)
 		if (!mn1->mnnext) //᪫������
@@ -481,7 +481,7 @@ void cg_show_rast(cell *C, raster *r, const char *msg, struct cut_elm *cut_list)
 
 	KIT = give_kit_addr(); //�����誠 �⥪�
 
-	if (!(mn1 = c_locomp(r->pict, (int16_t) ((r->w + 7) >> 3), r->h, r->top,
+	if (!(mn1 = EVN_CLocomp(r->pict, (int16_t) ((r->w + 7) >> 3), r->h, r->top,
 			r->left))) {
 		glsnap('a', C, "locomp error");
 		return;
@@ -600,5 +600,5 @@ void show_and_wait(const char *txt) {
 	snap_newcell(cell_f());
 	snap_monitor();
 #endif
-	const_cast<char*>(txt)[0] = '\0';
+	const_cast<char*> (txt)[0] = '\0';
 }

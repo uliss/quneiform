@@ -80,23 +80,19 @@
 
 #include "minmax.h"
 
-extern "C" Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
+extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
 		Handle* hEdTree);
-extern "C" Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage,
+extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage,
 		const char *FileNameOut);
-extern "C" Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/
+extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/
 Bool OutPutMode);
-extern "C" Bool WritePict(uint32_t IndexPict,
+extern Bool WritePict(uint32_t IndexPict,
 		RtfSectorInfo* SectorInfo/*, CString* PictString*/,
 		Bool OutPutTypeFrame);
-extern "C" {
 void
 		GetTableRect(uint32_t NumberTable, Rect16* RectTable,
 				uint32_t* UserNumber);
-}
-extern "C" {
 uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
-}
 extern void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
 extern void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
 extern void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);

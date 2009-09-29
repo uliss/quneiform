@@ -1269,7 +1269,7 @@ static int16_t chkdash(int16_t h, int16_t dp, cell *c) {
 }
 
 static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
-	uint16_t ls, i, j, k, i1, j1, k1, min, l, s, r, lu, ru, ld, rd;
+	uint16_t ls, i, j, k, i1, j1, k1, MIN, l, s, r, lu, ru, ld, rd;
 	char str[80];
 
 	if (snap_activity('e')) {
@@ -1281,7 +1281,7 @@ static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
 	{
 		if (rstr==NULL) rstr=save_raster(c);
 		ls=(c->w+7)>>3;
-		for (min=c->h+1,i1=(c->w)/2-1; i1<=(c->w)/2+1; i1++)
+		for (MIN=c->h+1,i1=(c->w)/2-1; i1<=(c->w)/2+1; i1++)
 		{
 			s=i1/8; l=128>>(i1%8);
 
@@ -1291,19 +1291,19 @@ static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
 			if ( k1 == 0 )
 			break;
 
-			if (k1-j1+1<min)
+			if (k1-j1+1<MIN)
 			{
-				min=k1-j1+1;
+				MIN=k1-j1+1;
 				i=i1; j=j1; k=k1;
 			}
 		}
 		if (snap_activity('e'))
 		{
-			sprintf(str,"height in the middle (%u) = %u",i,min);
+			sprintf(str,"height in the middle (%u) = %u",i,MIN);
 			snap_show_text(str);
 			snap_monitor();
 		}
-		if (min<c->h && 14*min<=11*((c->h)+((fax1x2)?2:0)))
+		if (MIN<c->h && 14*MIN<=11*((c->h)+((fax1x2)?2:0)))
 		{
 			j1=j; k1=k;
 			if (j) j--;

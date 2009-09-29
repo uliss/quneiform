@@ -149,7 +149,7 @@ struct own_cut {
 };
 
 struct extrem_elem {
-	char type; // +- -- max/min
+	char type; // +- -- max/MIN
 	char cat; // category
 	char beg, end; // area limits
 	char val; // etrem value

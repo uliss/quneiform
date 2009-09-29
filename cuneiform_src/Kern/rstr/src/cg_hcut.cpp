@@ -68,6 +68,7 @@
 
 #include "compat_defs.h"
 #include "minmax.h"
+#include "evn.h"
 
 int16_t gbCol1, gbCol2;
 
@@ -583,7 +584,7 @@ static Bool clip_cell(int16_t j, cell *c, int16_t b1, int16_t b2, int16_t b3,
 static int16_t create_cells(cell *whither, raster *r, cell *celist[],
 		int16_t st_inc) {
 	int16_t i;
-	MN *mn = c_locomp(r->pict, (int16_t) ((r->w + 7) >> 3), r->h, r->top,
+	MN *mn = EVN_CLocomp(r->pict, (int16_t) ((r->w + 7) >> 3), r->h, r->top,
 			r->left);
 	for (i = 0; i < MAX_SECT && mn; i++, mn = mn->mnnext) {
 		cell *c = create_my_cell(mn, whither, 0, 0);

@@ -61,6 +61,7 @@
 #include "cuthdr.h"
 #include "dmconst.h"
 #include "func.h"
+#include "evn.h"
 #include "minmax.h"
 
 static int16_t n1, n2;
@@ -194,13 +195,13 @@ MN *glue(c_comp **cp, int16_t flag_dist) {
 	/****  testcnt++; if ((testcnt & 7)==0) return NULL; ***/
 	if ((flag_dist) && (pass == 1)) {
 		if (can_glue) // was glued
-			return (c_locomp(raster, 128 / 8, 64, rastur, rastlc));
+			return EVN_CLocomp(raster, 128 / 8, 64, rastur, rastlc);
 		else {
 			pass = 2;
 			goto again;
 		}
 	}
-	return (c_locomp(raster, 128 / 8, 64, rastur, rastlc));
+	return EVN_CLocomp(raster, 128 / 8, 64, rastur, rastlc);
 }
 
 static void comptorast(c_comp *cp1) {

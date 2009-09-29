@@ -76,7 +76,7 @@ extern void SpecCompPut(MN * mn);
 void set_active_MN(MN * mnnew, MN * mnold); // pic_apx.c
 MN * accept_greate_picture(MN * mn); // pic_apx.c
 
-static BWS *op, *np; // pointers to segment representation
+static BWSS *op, *np; // pointers to segment representation
 static int16_t ol, nl; // location counters
 
 static void simple_cont();
@@ -437,7 +437,7 @@ static void dead_line() {
 }
 
 static void no_box() {
-	BWS * bwp;
+	BWSS * bwp;
 	BOX *bp, *bpp, *bww;
 	MN *mn, *mmax;
 	LNSTRT *lp;

@@ -54,8 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-//
-//////////////////////////////////////////////////////////////////////
 #include "ckronrodbinarizator.h"
 
 #include <stdlib.h>
@@ -64,11 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define far
 
-//#include <stdio.h>
-//#include "globus.h"
-//#include "CRIMemory.h"
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
 CKronrodBinarizator::CKronrodBinarizator()
 {
 	N_Bytes_per_ONE_MEM = 64000;
@@ -997,7 +990,7 @@ void CKronrodBinarizator::grey_quant_KOROB_graph_Hist()
 
 	grey_PR_BYTE (i, 16, (uchar)((Itek >> 8) & 0xFF));	// HIGH
 	grey_PR_BYTE (i, 24, (uchar)(Itek & 0xFF));	// LOW
-	grey_PR_BYTE (i, 36, Porog_08);	// min
+	grey_PR_BYTE (i, 36, Porog_08);	// MIN
 	grey_PR_BYTE (i, 48, Porog_88);	// MAX
 }
 

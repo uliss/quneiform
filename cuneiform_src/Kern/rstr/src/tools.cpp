@@ -64,12 +64,11 @@
 #include "resource.h"
 #include "ligas.h"
 #include "lang.h"
+#include "evn.h"
 #include "tuner.h"
 #include "p2libr.h"
 #include "ccomdefs.h"
 
-int32_t EVNRecog_lp(/*c_comp*/CCOM_comp *ec, uchar * lp, int16_t lth,
-		uchar *res);
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;

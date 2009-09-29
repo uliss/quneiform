@@ -5,7 +5,6 @@ src/compdata.cpp
 src/compkit.cpp
 src/loc.cpp
 src/locompmn.cpp
-src/v0compgl.cpp
 )                
 set_property(TARGET loc32 PROPERTY COMPILE_DEFINITIONS __LOC__)
 

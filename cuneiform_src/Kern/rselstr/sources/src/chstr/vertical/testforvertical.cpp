@@ -692,14 +692,14 @@ int GetMaxSize(CCOM_handle hCCOM, Rect16 Rc, int& num, Bool vert) {
 
 int GetMinCol(CCOM_comp** pC, int nN, Bool vert) {
 	int max = 0;
-	int min = 1000000;
+	int MIN = 1000000;
 	if (vert == 2) {
 		for (int i = nN - 1; i >= 0; i--) {
-			if (pC[i]->upper < min && pC[i]->w >= min_let_h && pC[i]->h
+			if (pC[i]->upper < MIN && pC[i]->w >= min_let_h && pC[i]->h
 					>= min_let_w)
-				min = pC[i]->upper;
+				MIN = pC[i]->upper;
 		}
-		return min;
+		return MIN;
 	} else {
 		for (int i = nN - 1; i >= 0; i--) {
 			if (pC[i]->upper + pC[i]->h - 1 > max && pC[i]->w >= min_let_h

@@ -56,6 +56,7 @@
 
 #include "cttypes.h"
 #include "minmax.h"
+#include "ctbdefs.h"
 
 #ifndef SFONT_H
 #define SFONT_H
@@ -246,10 +247,10 @@ typedef struct tagFontField {
 
 #define METKA_VALID 0x80  // get as good in font
 #define POROG_ANGLES  20           // 18 ?
-int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_t porogX,
-		int16_t porogY);
-int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbit,
-		int16_t yrow, int16_t porogX, int16_t porogY);
+int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow,
+		int16_t porogX, int16_t porogY);
+int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll,
+		int16_t xbit, int16_t yrow, int16_t porogX, int16_t porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		int16_t *nClus, InfoCluster *infoC, int porog);
 int32_t StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
@@ -259,7 +260,11 @@ void EndNumMemory(void);
 int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus,
 		int16_t countFont, uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
-int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_t yrow,
-		uchar bold);
+int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit,
+		int16_t yrow, uchar bold);
+uint PutSymbolRaster(uchar *pHau, char *rast, int16_t rbyte, int16_t xbits,
+		int16_t xbyte, int16_t yrow);
+int SaveCluster(int16_t fh, CTB_handle *cc, int16_t fhh, CTB_handle *ccc,
+		int16_t clus, int16_t NumAll, uchar *m1, uchar *m2);
 #endif
 

@@ -73,13 +73,12 @@
 //
 #include "evndefs.h"
 
-struct BWS {
+struct BWSS {
 	int16_t b;
 	int16_t w;
 	BOX * box;
 };
 
-typedef BWS BWSS;
 //
 //		Memory organisation
 //
@@ -101,10 +100,10 @@ struct main_memory_str {
 	//		Memory service
 	//
 	//		In _DSECT
-	BOX *boxalloc; // box free chain start
-	MN *mainalloc; // main number free chain start
-	BWS *oldline; // old line area
-	BWS *newline; // new line area
+	BOX * boxalloc; // box free chain start
+	MN * mainalloc; // main number free chain start
+	BWSS * oldline; // old line area
+	BWSS * newline; // new line area
 	//
 	puchar dcodeptr; // current decoding line offset
 	puchar dcodeend; // end of read line buffer ptr
@@ -120,22 +119,15 @@ struct main_memory_str {
 	//		Big tables size counting and its allocation
 	//
 	//
-
 	MN mnstart[SEG_MAX_NUM]; // pool of main numbers
-	BWS line1start[SEG_MAX_NUM]; // line 1
-	BWS line2start[SEG_MAX_NUM]; // line 2
+	BWSS line1start[SEG_MAX_NUM]; // line 1
+	BWSS line2start[SEG_MAX_NUM]; // line 2
 	//  Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
 	uchar scan_buffer[0x4000 + LINE_MAX_LTH]; // buffer for image reding
-	/*
-	 MN  *mnstart; // [SEG_MAX_NUM];    // pool of main numbers
-	 */
-	BOX *boxstart; // box pool
-	/*
-	 BWS *line1start; // [SEG_MAX_NUM];    // line 1
-	 BWS *line2start; //[SEG_MAX_NUM];    // line 2
-	 //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-	 uchar *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
-	 */
+	BOX * boxstart; // box pool
 };
+
+BWSS * locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int height,
+		int width);
 
 #define NET_COMPONENT 10

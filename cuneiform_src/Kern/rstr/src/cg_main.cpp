@@ -67,14 +67,13 @@
 #include "linutil.h"
 #include "status.h"
 #include "p2libr.h"
-//#include "Alik_rec.h"
+#include "evn.h"
 #include "cut_glue.h"
 #include "dpuma.h"
 
 #include "compat_defs.h"
 
 extern uchar langUkr, langSer;
-//#define  PROTOCOL
 
 #define  STRRCHR  strrchr
 #define  STRSPN   strspn
@@ -1297,7 +1296,7 @@ static cell *break_cell(cell *B) {
 
 	det_snap(B, "cell fuse");
 	rp1 = (uchar*) save_raster(B);
-	if (!(mn1 = c_locomp(rp1, (int16_t) ((B->w + 7) >> 3), B->h, B->r_row,
+	if (!(mn1 = EVN_CLocomp(rp1, (int16_t) ((B->w + 7) >> 3), B->h, B->r_row,
 			B->r_col))) {
 		det_snap(B, "locomp error");
 		return NULL;

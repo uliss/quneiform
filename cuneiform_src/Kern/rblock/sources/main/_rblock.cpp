@@ -54,7 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*#include <windows.h>*/
 #include <setjmp.h>
 #include <assert.h>
 
@@ -67,20 +66,17 @@
 #include "cline.h"
 #include "cpage.h"
 
-//# include "new_c.h"
 #include "compat_defs.h"
 ////////////// KERNEL //////////////////
 
-extern "C" {
-void PageLayout(void);
-void progress_finish(void);
-void EnableDebug(void);
+extern void PageLayout(void);
+extern void progress_finish(void);
+extern void EnableDebug(void);
 
-jmp_buf fatal_error_exit; // For error handling
-int16_t nStrings;
-CLINE_handle HCLINE = 0;
-int16_t nIncline;
-}
+extern jmp_buf fatal_error_exit; // For error handling
+extern int16_t nStrings;
+extern CLINE_handle HCLINE = 0;
+extern int16_t nIncline;
 
 Handle MainWindowD;
 

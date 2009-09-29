@@ -63,6 +63,7 @@
 #include "struct.h"
 #include "cuthdr.h"
 #include "func.h"
+#include "evn.h"
 
 cell *SHAVE_CELL;
 char *SHAVE_RASTER;
@@ -92,7 +93,7 @@ Bool boldshave(cell *C, int16_t method)
 	SHAVE_FLAGS = (char*) t_raster();
 	memset(SHAVE_FLAGS, 0, 1024);
 	shaving(method);
-	mn = c_locomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8), C->h,
+	mn = EVN_CLocomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8), C->h,
 			C->r_row, C->r_col);
 	if (!mn)
 		return 0;
@@ -360,11 +361,10 @@ static void jumps_deleting_one_line(lnhead *line, int16_t cw, int16_t ch)
 	return;
 }
 
-static void jumps_deleting(cell *c)
 //
 //  This procedure deletes pimples from image in work raster
 //
-{
+static void jumps_deleting(cell *c) {
 	lnhead *line;
 	int16_t ll;
 	int16_t cw = ((c->w + 7) / 8), ch = c->w;
@@ -376,11 +376,10 @@ static void jumps_deleting(cell *c)
 	return;
 }
 
-Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 //
 //  This procedure deletes pimples from image in cell *C.
 //
-{
+Bool pimpleshave(cell *C, int16_t shave, int16_t incline) {
 	MN *mn;
 	cell *CC, *WW;
 	int16_t bd;
@@ -400,8 +399,8 @@ Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 	df = C->difflg & 0xf0;
 	if (shave) {
 		pimples_deleting(C, 1); // modify SHAVE_RASTER
-		mn = c_locomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8), C->h,
-				C->r_row, C->r_col);
+		mn = EVN_CLocomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8),
+				C->h, C->r_row, C->r_col);
 		if (!mn)
 			return 0;
 
@@ -420,7 +419,7 @@ Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 			t_left_shift = 8 - WW->h % 8;
 		t_height = WW->w;
 		t_width_b = (WW->h + 7) / 8;
-		mn = c_locomp(t_raster(), t_width_b, t_height, 0,
+		mn = EVN_CLocomp(t_raster(), t_width_b, t_height, 0,
 				(int16_t) (-t_left_shift));
 		// extraction components from t_raster
 		if (!mn) {
@@ -430,7 +429,7 @@ Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 		CC = create_cell(mn, WW, (char) bd, df);
 		pimples_deleting(CC, 0); // modify SHAVE_RASTER
 		del_cell(CC);
-		mn = c_locomp((uchar*) SHAVE_RASTER, (int16_t) ((WW->w + 7) / 8),
+		mn = EVN_CLocomp((uchar*) SHAVE_RASTER, (int16_t) ((WW->w + 7) / 8),
 				WW->h, WW->r_row, WW->r_col);
 		del_cell(WW);
 		if (!mn)
@@ -441,8 +440,8 @@ Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 			return 0;
 		// SECOND SHAVING
 	} else { // without SHAVING : correct rotate defectes only
-		mn = c_locomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8), C->h,
-				C->r_row, C->r_col);
+		mn = EVN_CLocomp((uchar*) SHAVE_RASTER, (int16_t) ((C->w + 7) / 8),
+				C->h, C->r_row, C->r_col);
 		if (!mn)
 			return 0;
 		WW = create_cell(mn, C, (char) bd, df);
@@ -458,8 +457,6 @@ Bool pimpleshave(cell *C, int16_t shave, int16_t incline)
 	C->col = WW->col;
 	C->env = WW->env;
 	del_cell(WW);
-	// AFTER SHAVE
-
 	return 1;
 }
 

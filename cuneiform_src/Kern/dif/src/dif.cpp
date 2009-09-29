@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include<string.h>
+#include <string.h>
 #include "dif.h"
 #include "stick.h"
 extern void init_diskrim(uchar* raster,int16_t height ,int16_t width);
@@ -65,7 +65,6 @@ extern uchar   stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r,
 extern uchar lnhead_stick_center_study(lnhead *lin,int16_t dy,int16_t dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums);
-extern int32_t lnhead_stick_get_incline(lnhead *pool ,int dy, int dx );
 extern void  clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
 extern  uint16_t typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx);
 extern  int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);

@@ -487,10 +487,7 @@ void PageLayoutBlocks(Handle hCCOM) {
 	file_name = LDPUMA_GetFileName(NULL);
 	hCcom = hCCOM;
 
-	//RootsLoadFile (DEFAULT_ROOTS_FILENAME);
-	//run_options = 0;
-
-	if (ReadRoots()) {
+	if (ReadRoots(hCCOM, 0)) {
 		LayoutPart1();
 
 		LDPUMA_FPuts(resFile_pict, "  <4 Н После поворота \n");

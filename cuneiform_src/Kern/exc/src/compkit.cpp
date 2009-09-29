@@ -279,9 +279,8 @@ int16_t MN_to_line(MN * mn) {
 	return 0;
 }
 
-void save_component(c_comp *, version *, version *, uchar*, uint16_t);
 void save_wcomp() {
-	save_component(&wcomp, start_rec, rec_ptr, lpool, lpool_lth);
+	save_component((ExtComponent*) &wcomp, start_rec, rec_ptr, lpool, lpool_lth);
 }
 
 uint16_t length_table[] = { 0x100, 0x300, 0x700, 0xf00, 0x1f00, 0x3f00, 0x7f00,

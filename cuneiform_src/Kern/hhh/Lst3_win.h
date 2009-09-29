@@ -54,25 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//ifdef EXACT_REG => read_frm use cutted rect
-//#define EXACT_REG
-
 #include "sys_prog.h"
-
-/*#include <io.h>*/
 #include <sys/types.h>
 
 #include "compat_defs.h"
 #include "minmax.h"
-
-//#define TIGER_CORR
-//#define __MRK__
-//#define __DOT__
-//В этом случае формат хранения рамок: FRAME + POINT OldCoor
-//#if defined (__DOT__) || defined (__MRK__)
 #define OLD_COOR
-//#endif
-//#define BLANK
+
 #ifdef __STR_DLL__
 #define KREST
 #define PRAFAX
@@ -125,10 +113,6 @@ typedef int (*FUN_POMP)(void);
 typedef void (*FUN_MESS)(uint16_t wPar, uint32_t lPar);
 typedef int(*COMP_FUN)(void);
 typedef TYPE (*DistFrame)(FRAME*, FRAME*);
-
-#ifndef CPP
-//#define CPP
-#endif
 
 //Если установлено ID4, ID_SYM длиной 4 байта, иначе - 8
 #ifndef BLANK
@@ -296,7 +280,7 @@ PAR {
 	//Параметры алг-ма RevizRuleCol уточнения линеек строк
 	int RevizRuleDelMax;//Коридор для согласования с линейками AnalysRule
 	float RevizRuleC1;//Коэф-т при SizeLow порога высоты строки
-	float RevizRuleC2;//C2*ksym - min-число рамок в коридоре согласования
+	float RevizRuleC2;//C2*ksym - MIN-число рамок в коридоре согласования
 	float RevizRuleC3;//C3*ksym - порог числа итераций EstBndMinMax
 	int RevizRuleC4; //Мин.число рамок в коридоре сост-ти MM-оценки линеек
 	float RevizRuleK1;//Относит.порог тонкости ММ-оценки строки EstBndMinMax
@@ -376,23 +360,6 @@ typedef struct h_spec {
 } SPEC;
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
-
-#ifndef CPP
-#ifdef __cplusplus
-extern "C" {
-#endif
-#endif
-
-//typedef int(*COMP_FUN)(void);
-//typedef TYPE (*DistFrame)(FRAME*,FRAME*);
-
-#ifdef WIN32
-//#define _splitpath __splitpath
-//#define _makepath  __makepath
-//void _splitpath(const char *f,char *drive,char *dir,char *fname,char *ext);
-//void _makepath(char *f,
-//  const char *drive,const char *dir,const char *fname,const char *ext);
-#endif
 
 #define MAXFILENAME 256
 #define MAX_KNOT 15000
@@ -766,33 +733,36 @@ char *get1_param(char *str, char *param, int max_len);
 
 #ifndef MAIN
 extern PAR par;
-extern int viz,extr;
-extern long na,ko,pos1; extern FILE *fip,*out,*out_rb;
+extern int viz, extr;
+extern long na, ko, pos1;
+extern FILE *fip, *out, *out_rb;
 extern long PRSMAX;
 extern void *low; /*нижняя граница загрузки программы - для контроля*/
-extern char *s1,*s2,*s3; /*Сообщения для интерактива*/
+extern char *s1, *s2, *s3; /*Сообщения для интерактива*/
 extern char *abcd;
-extern int count,rou;
+extern int count, rou;
 extern int h_term;
 extern STAT_COL stat_col;
-extern int dx_prs,dy_prs;
-extern int k_prop,k_mono;
+extern int dx_prs, dy_prs;
+extern int k_prop, k_mono;
 extern int upi;
 extern char dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 extern char Fullpath[255];
-extern int SizeXGlob,SizeYGlob;
+extern int SizeXGlob, SizeYGlob;
 extern REFER *fiv;
-extern int NumCut; extern FRAME *Cut;
-extern int SizeX_W,SizeY_W;
-extern float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;
+extern int NumCut;
+extern FRAME *Cut;
+extern int SizeX_W, SizeY_W;
+extern float AveNumCrossCol, AveNumCross1Col, AveThickCol, AveThick1Col;
 extern int KbAll;
-extern int CountCol,Percent1,Percent2,Percent3,NumColt;
+extern int CountCol, Percent1, Percent2, Percent3, NumColt;
 extern char FileParStr[MAXFILENAME];
-extern uint16_t ScanResolution;extern float MulScanRes;
+extern uint16_t ScanResolution;
+extern float MulScanRes;
 extern int Break_on;
 extern FUN_POMP pump;
 extern FUN_MESS FunMessage;
-extern int WidthPRS,MaxShtrih;
+extern int WidthPRS, MaxShtrih;
 #else
 PAR par;
 int viz=0,extr=0;
@@ -835,17 +805,17 @@ int WidthPRS,MaxShtrih;
   d_down=abs(f1->down - f2->down);  \
   dv=abs( ( (f1->up+f1->down) - (f2->up+f2->down) )>>1 );\
   if(d_up < dv) dv=d_up; if(d_down < dv) dv=d_down;         \
-  dist=abs(max(f1->left,f2->left) - min(f1->right,f2->right));\
+  dist=abs(max(f1->left,f2->left) - MIN(f1->right,f2->right));\
   dist+=par.kv*dv; \
 } */
 #define dist_frm(f1,f2,dist) { int dv,d_up;\
   d_up=  abs(f1->up - f2->up); \
   dv=abs(f1->down - f2->down); if(d_up < dv) dv=d_up; \
-  dist=abs(max(f1->left,f2->left) - min(f1->right,f2->right));\
+  dist=abs(max(f1->left,f2->left) - MIN(f1->right,f2->right));\
   dist+=par.kv*dv; \
 }
 
-#define DIST_V(u1,d1,u2,d2) (min(d1,d2)-max(u1,u2))
+#define DIST_V(u1,d1,u2,d2) (std::min(d1,d2) - std::max(u1,u2))
 
 #define DV_FRM(a,b) DIST_V(a->up,a->down,b->up,b->down)
 
@@ -866,10 +836,10 @@ int WidthPRS,MaxShtrih;
 //Утилиты
 void tik(int k_tik);
 void init_font(void);
-void mess_f(char *s,int x,int y,int col);
-int find1_end(int left,FRAME **str,int ksym,int lev);
-int find1_beg(int right,FRAME **str,int ksym,int lev);
-void union1_frm(FRAME **frm,int k_frm,BOUND *bnd);
+void mess_f(char *s, int x, int y, int col);
+int find1_end(int left, FRAME **str, int ksym, int lev);
+int find1_beg(int right, FRAME **str, int ksym, int lev);
+void union1_frm(FRAME **frm, int k_frm, BOUND *bnd);
 
 //---------ОПИСАНИЕ ЛИНИЙ------------
 
@@ -979,19 +949,21 @@ void PASC InitEstStruct(FUN_MESS ExtFunMessage,FUN_POMP Ext_pump,
 		char **ParStruct,char **ParTabl,char **ParLine);
 void PASC CloseEstStruct(char *ParStruct,char *ParTabl,char *ParLine);
 int TestBreak(void);
-void FreeAllStruct(FRAME **frm_arr,int k_arr_frm,FRAME **frm,
-		STRET *LineV,STRET *LineH,INF_TREE *Inf);
+void FreeAllStruct(FRAME **frm_arr, int k_arr_frm, FRAME **frm, STRET *LineV,
+		STRET *LineH, INF_TREE *Inf);
 //--Индексы--
-int EstBottomStr(FRAME **f,int NumSym,int *Bottom,int dyLow,int dyUpp);
-int DetectIndice(FRAME ***sym,int *ksym,int *kstr,BOUND *bnds,int dyLow,int dyUpp);
+int EstBottomStr(FRAME **f, int NumSym, int *Bottom, int dyLow, int dyUpp);
+int DetectIndice(FRAME ***sym, int *ksym, int *kstr, BOUND *bnds, int dyLow,
+		int dyUpp);
 //--Дроби--
-int FindFractCell(FRAME ***sym,int *ksym,STAT_CELL *StatCell);
+int FindFractCell(FRAME ***sym, int *ksym, STAT_CELL *StatCell);
 //--Многоточия--
-int FindMultiPointCell(FRAME ***sym,int *ksym,int kstr,STAT_CELL *StatCell);
+int FindMultiPointCell(FRAME ***sym, int *ksym, int kstr, STAT_CELL *StatCell);
 //--Внутриячеистый фильтр--
-int FilterNoiseCell(KNOTT *Knott,STAT_CELL *StatCell,INF_CELL *InfCell,FRAME **frm);
+int FilterNoiseCell(KNOTT *Knott, STAT_CELL *StatCell, INF_CELL *InfCell,
+		FRAME **frm);
 //--
-int GetCriptDir(char *path,int len);
+int GetCriptDir(char *path, int len);
 int GetTypeDoc(void);
 #ifdef DLL_MOD
 // int WINAPI adv4prs_conv(char *prs_name,BMPL *BmpIn,int teep);
@@ -1000,7 +972,7 @@ int GetTypeDoc(void);
 #endif
 
 //=== K R E S T ===
-int EstAnglePlain(FRAME **frm,int NumFrm,float *tg_ang);
+int EstAnglePlain(FRAME **frm, int NumFrm, float *tg_ang);
 int PASC DetectStringRECT(RECT *Rect,int NumFrm,float tg_ang,
 		RECT ***StrRect1,int **NumSym1,int *NumStr1);
 //=== P R A F A X ===
@@ -1020,37 +992,23 @@ int PASC DeSkewlePlainImage(char *FileIn,char *FileOut,float tg_ang);
 #define CALL_STR 0
 #define CALL_BOX 1
 
-int init_file_prs (char *file_prs,FRAME **frm,int NumFrm,int TypeCall);
-int init_file_prs3(char *file_prs,FRAME **frm,int NumFrm,int TypeCall);
+int init_file_prs(char *file_prs, FRAME **frm, int NumFrm, int TypeCall);
+int init_file_prs3(char *file_prs, FRAME **frm, int NumFrm, int TypeCall);
 void FreePrsLine(void);
 
-int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang);
-int ProjectFrm1024(FRAME **frm,int NumFrm,int32_t Skew1024);
-int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
-		RECT *Limit,int MinVol,float MinPerc,int limDX,int limDY,
-		int *dsym,int *AveX,int *AveY);
+int ProjectFrm(FRAME **frm, int NumFrm, float tg_ang);
+int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024);
+int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
+		RECT *Limit, int MinVol, float MinPerc, int limDX, int limDY,
+		int *dsym, int *AveX, int *AveY);
 
 #pragma pack()
 
-#ifndef CPP
-#ifdef __cplusplus
-}
-#endif
-#endif
-
 #define STRUCT_INI "struct.ini"
-
-#ifdef __cplusplus
-// extern "C" {
-#endif
 
 void u4sort(void *base, int num, int width, int(*compare)());
 int clust_as(FRAME **frm, int k_frm, KNOT3 **beg_pr, TYPE dp, int size_x,
 		int size_y, BOUND *bnd, int max_cl, int *k_cl1, KNOT3 **beg_free1,
 		KNOT3 **beg_cl, TYPE(*dist_frame)(FRAME*, FRAME*), int reg);
-
-#ifdef __cplusplus
-// }
-#endif
 
 #include "undef32.h"

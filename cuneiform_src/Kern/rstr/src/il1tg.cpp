@@ -1086,9 +1086,9 @@ static Bool pure_concave(puchar f, int16_t from, int16_t to, int16_t jmp) {
 }
 
 static Bool hole_in_func(puchar f, int16_t from, int16_t to, int16_t jmp) {
-	int16_t min;
-	min = gmin(f, from, to);
-	if ((f[to] - min > jmp) && (f[from] - min > jmp))
+	int16_t MIN;
+	MIN = gmin(f, from, to);
+	if ((f[to] - MIN > jmp) && (f[from] - MIN > jmp))
 		return TRUE;
 	else
 		return FALSE;

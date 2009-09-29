@@ -5,7 +5,6 @@ src/compdata.cpp
 src/compkit.cpp
 src/evn.cpp
 src/locompmn.cpp
-src/rastror.cpp
 src/v0compan.cpp
 src/v0comper.cpp
 src/v0compev.cpp

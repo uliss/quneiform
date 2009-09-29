@@ -59,24 +59,15 @@
 #ifndef __FON_H
 #define __FON_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
-
 #include "fondefs.h"
-#ifndef __RECDEFS_H
 #include "recdefs.h"
-#endif
 #include "memfunc.h"
 
 #ifdef __FON__
 #define FON_FUNC  FUN_EXPO
 #else
 #define FON_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 // return < 0 - error
@@ -254,9 +245,4 @@ FON_FUNC(int32_t) FONGetSameClust(int32_t num,RecVersions *collect);
 #define ER_FON_READ      3
 #define ER_FON_MEMORY    4
 
-#ifdef __cplusplus
-}
 #endif
-
-#endif
-

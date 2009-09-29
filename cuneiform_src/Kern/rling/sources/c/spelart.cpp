@@ -596,7 +596,7 @@ int16_t setart (SOBJ * obj)
 	obj->part->end = obj->part_end; /* and end                               */
 	obj->part->begi = obj->part_begi;/* part beg index in obj->pos_part[]     */
 	obj->part->endi = obj->part_endi;/* and  end index in obj->pos_part[]     */
-	obj->art_minpos = MAX_VIEW_SIZE; /* curr min pos
+	obj->art_minpos = MAX_VIEW_SIZE; /* curr MIN pos
 	 in obj->pos[] to be used for artificial changes */
 	/* construct all part-positions                   */
 	for (pa1=0, pa2=0, pi1=obj->part_beg;

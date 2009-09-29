@@ -54,11 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//////////////////////////
 #include "fon.h"
 #include "sfont.h"
 #include "fonrec.h"
 #include "compat_defs.h"
+#include "cfcompat.h"
+#include "lst3_win.h"
 
 #include <cstdio>
 #include <cstdlib>

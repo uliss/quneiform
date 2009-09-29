@@ -361,8 +361,8 @@ int16_t del_squares() {
 #define min_TM_comp_h 7   // see create_new_bas()
 #define min_TM_comp_w 2   // see create_new_bas()
 #define min_TM_Ps     (min_TM_comp_h-2)   // bbs3-bbs2  see create_new_bas()
-#define NOT_SMALLEST_SIZE  12  // min Ps value for which produce make_all_glues()
-#define min_TM_box_w  12  // min allowed width of the whole TM box
+#define NOT_SMALLEST_SIZE  12  // MIN Ps value for which produce make_all_glues()
+#define min_TM_box_w  12  // MIN allowed width of the whole TM box
 #define TM_DUST_W     4  //9    // If cell is less then TM_DUST_WxTM_DUST_H
 #define TM_DUST_H     min_TM_comp_h  //9    // it is supposed to be dust.
 /* 18.4.95

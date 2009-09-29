@@ -79,14 +79,14 @@
 #include <sys/stat.h>
 #include <stdio.h>
 
-#include "cfcompat.hpp"
+#include "cfcompat.h"
 
 #ifdef _GETTIME_
 #include <time.h>
 #endif
 
-#include "fon.h"
 #include "sfont.h"
+#include "fon.h"
 #include "minmax.h"
 
 #include "compat_defs.h"
@@ -94,12 +94,7 @@
 int16_t SetAccessTab(int16_t fl, void *buf);
 int16_t CheckAccessTab(int16_t fh, void *buf);
 typedef int32_t (* MKFAM)(raster_header * rh, uint16_t nclu);
-uint16_t PutSymbolRaster(uchar *pHau, char *rast, int16_t rbyte, int16_t xbits,
-		int16_t xbyte, int16_t yrow);
-//int16_t FindDistanceWr(welet *wel,welet *outwel);
 void init11(void);
-int16_t SaveCluster(int16_t fh, int16_t clus, int16_t NumAll, uchar *m1,
-		uchar *m2);
 int32_t StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int16_t MakeClusters(int16_t fir, int16_t NumAll, int16_t CurClus,
@@ -821,7 +816,7 @@ static int16_t StartWeightedClusters(char *nameClu, puchar extern_buf,
 int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 		int16_t porog2, MKFAM accept, puchar extern_buf, int32_t size_extern,
 		clu_info *cin) {
-	int16_t i, j, k;
+	int i, j, k;
 	int16_t CurClus = 0;
 	int16_t NumAll;
 	int16_t NumClus;
@@ -877,12 +872,12 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 
 	// make bitmaps, razmaz for not-added
 	// set values from movxy to Nraster_header for added
-	i = ReadAllFromWr(NameWr, (uchar *) dist_wel, sizeof(welet), nClus, movxy,
-			NumAll, (int16_t) (NumAll / SIGNAL_ADD));
-	if (i <= 0) // read invalid
-	{
+	int rc = ReadAllFromWr(NameWr, (uchar *) dist_wel, sizeof(welet), nClus,
+			movxy, NumAll, (int16_t) (NumAll / SIGNAL_ADD));
+	// read invalid
+	if (rc <= 0) {
 		EndHausdorfDLL();
-		return i;
+		return rc;
 	}
 
 	// full memory for b/w rasters
@@ -983,11 +978,6 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 		return -10;
 	}
 
-	/*
-	 printf("Clus=%d NewSolid=%d NewGood=%d NewInvalid=%d\n",
-	 CurClus,NewSolid,NewNotInvalid,NewInvalid);
-	 */
-
 	AllCount = CurClus / SIGNAL_SAVE;
 	k = AllCount * (SIGNAL_SAVE - CurClus % SIGNAL_SAVE);
 
@@ -1017,9 +1007,7 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 						ret = -11;
 						break;
 					}
-				}
-
-				else {
+				} else {
 					if (SaveAddCluster(fh, i, IsStart[j - 1], IsAdd[j - 1],
 							welBuf, dist_wel, rh, nClus) < 0) {
 						ret = -11;
@@ -1027,14 +1015,11 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 					}
 				}
 
-			}
+			} // save new cluster
+			else if (SaveCluster(fh, NULL, 0, NULL, i, NumAll, NULL, NULL) < 0) {
+				ret = -11;
+				break;
 
-			else // save new cluster
-			{
-				if (SaveCluster(fh, i, NumAll, NULL, NULL) < 0) {
-					ret = -11;
-					break;
-				}
 			}
 
 			if (++CurCount == AllCount) {
@@ -1072,5 +1057,5 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 #endif
 	return (ret);
 }
-//////////////
+
 #endif

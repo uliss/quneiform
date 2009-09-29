@@ -60,9 +60,6 @@
 #include "struct.h"
 #include "v1comp.h"
 
-BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height,
-		int16_t width);
-
 //      Memory service
 #define MAX_BOX_NUMB            100*4
 #define MAX_INT_NUMB            32*4
@@ -72,13 +69,13 @@ static BOX * boxalloc;
 static BOX * boxallocend;
 static MN * mainalloc;
 static MN * first_dead_comp;
-static BWS * segm_repr_end;
-static BWS * op, *np;
+static BWSS * segm_repr_end;
+static BWSS * op, *np;
 static int16_t ol, nl;
 static int16_t rast_lc;
 static int16_t lineno;
 
-static BWS lines[LINE_POOL_LENGTH + 9];
+static BWSS lines[LINE_POOL_LENGTH + 9];
 static uchar boxes[BOXSIZE * MAX_BOX_NUMB];
 static MN main_numbers[MAX_INT_NUMB];
 

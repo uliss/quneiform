@@ -887,13 +887,13 @@ char  *find_byte_flag(void);
 */
   /* special position number used for to store artificialy constructed alts:*/
 #define SPEC_POS MAX_VIEW_SIZE
-  /* min difference in probabilities to consider alts to be similar: */
+  /* MIN difference in probabilities to consider alts to be similar: */
 #define MIN_DIFF_PROB 8
-  /* min prob to consider alt, pos,...  */
+  /* MIN prob to consider alt, pos,...  */
 #define PROB_MIN 100
   /* prob allowed to use the estimation of alt, pos,...  */
 #define PROB_ALLOWED 199
-  /* min prob to be sure in the back_recog result (BOX) */
+  /* MIN prob to be sure in the back_recog result (BOX) */
 #define PROB_SURE 200
   /* ...... ??       */
 #define PROB_BLUE 150
@@ -1199,9 +1199,9 @@ typedef struct objstr {
                /* T_GC   - glue-cut                                 */
     int16_t art [MAX_VIEW_SIZE]; /* artificial change identifiers               */
     int16_t artn;          /* curr index in art[artn]                           */
-    int16_t min_art;       /* curr min art id (left  bound of artbase)          */
+    int16_t min_art;       /* curr MIN art id (left  bound of artbase)          */
     int16_t max_art;       /* curr max art id (right bound of artbase)          */
-    int16_t art_minpos;    /* min pos of obj->pos[] curr used for part-changes  */
+    int16_t art_minpos;    /* MIN pos of obj->pos[] curr used for part-changes  */
 
     uchar type_orig; /* original type (context) of curr part        */
     struct wordstr * word; /* ref to current word under treatment           */
@@ -1395,9 +1395,9 @@ typedef struct partstr
 /* ====================================================================== */
 #define VMwrd_stop 61       /* negative */
 #define VMwrd_no   35       /* negative */
-#define VMwrd_min  15       /* positive - negative (min to accept)     */
+#define VMwrd_min  15       /* positive - negative (MIN to accept)     */
 #define VMwrd_sure 25       /* positive - negative (mark+mark_doubt)   */
-                /* (min to be sure if no alternative words)*/
+                /* (MIN to be sure if no alternative words)*/
 #define VMwrd_bad_alt_nmb  10  /* negative */
 #define VMwrd_low_alt_nmb   5 /*8*/  /* negative */
 #define VMwrd_voc_prob     70  /* 60*/  /* positive -- Lepik set up to 60 from 50

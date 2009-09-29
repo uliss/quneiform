@@ -1180,7 +1180,7 @@ static int16_t long_lines_ff(cell *c) {
 static int16_t upper_right_line(cell *c) {
 	lnhead *line;
 	interval *intval;
-	int16_t l, e, max, min, i;
+	int16_t l, e, max, MIN, i;
 
 	for (e = 0, line = (lnhead *) ((pchar)(c->env) + c->env->lines
 			+ sizeof(int16_t)); (l = line->lth) > 0; line
@@ -1195,13 +1195,13 @@ static int16_t upper_right_line(cell *c) {
 		if (line->h <= (c->h) / 4 && line->flg & l_fbeg && line->row <= c->h
 				/ 4) {
 			intval = (interval *) ((pchar) line + sizeof(lnhead));
-			for (max = 0, min = c->w, i = line->h; i; i--, intval++) {
+			for (max = 0, MIN = c->w, i = line->h; i; i--, intval++) {
 				if (intval->e > max)
 					max = intval->e;
-				if (intval->e - intval->l < min)
-					min = intval->e - intval->l;
+				if (intval->e - intval->l < MIN)
+					MIN = intval->e - intval->l;
 			}
-			if (max > e && min >= e - 1)
+			if (max > e && MIN >= e - 1)
 				return 1;
 		}
 	return 0;

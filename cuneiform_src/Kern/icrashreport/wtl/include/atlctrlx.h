@@ -4243,7 +4243,7 @@ public:
         {
             // Append menu items for all pages
             const int cchPrefix = 3;   // 2 digits + space
-            nMenuItemsCount = min(min(nPageCount, nMenuItemsCount), (int)m_nMenuItemsMax);
+            nMenuItemsCount = MIN(min(nPageCount, nMenuItemsCount), (int)m_nMenuItemsMax);
             ATLASSERT(nMenuItemsCount < 100);   // 2 digits only
             if(nMenuItemsCount >= 100)
                 nMenuItemsCount = 99;

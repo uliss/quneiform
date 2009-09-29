@@ -65,21 +65,19 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <fcntl.h>
-# include <stdio.h>
+#include <fcntl.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <assert.h>
 
-# include "c_memory.h"
-# include "iolib.h"
-# include "layout.h"
-# include "my_mem.h"
+#include "c_memory.h"
+#include "iolib.h"
+#include "layout.h"
+#include "my_mem.h"
 #include "compat_defs.h"
 
-# ifdef LT_STAND_ALONE
 ROOT *pRoots = NULL;
 uint32_t nRoots = 0;
-# endif
 
 ROOT *pAfterRoots;
 

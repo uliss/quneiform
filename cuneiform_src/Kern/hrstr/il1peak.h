@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define YES 1
 #define WAY_DOWN 0
 #define WAY_UP 1
-#define MIN_JUMP 30/100	         // minimal difference between max and min
+#define MIN_JUMP 30/100	         // minimal difference between max and MIN
 				 //                     for peak
 #define MIN_WIDTH_JUMP 6/100	 // ~~~~~~~~~ in % of height
 #define MAX_DIFF 20/100	         // maximal difference between top and bottom

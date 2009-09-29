@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XMACROS_H
 #define __XMACROS_H
 
-#ifdef __cplusplus
      #define Private( Type, Var )                     \
 		private:  Type  Var;                           \
 														\
@@ -77,8 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             {
                T tmp; tmp = a; a = b; b = tmp;
             }
-
-#endif
 
 #ifdef NDEBUG
    #define REPORT_LINE()

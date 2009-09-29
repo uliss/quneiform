@@ -137,34 +137,14 @@ static char image_file_status = -1;
 static uchar image_invert = 0;
 //========== Global func ==========
 void extrcomp(void);
-void save_component(ExtComponent *c, version *vs, version *ve, uchar *lp,
-		uint16_t lpl);
 void invert_tiff(uchar *p, uint16_t lth);
 void image_file_close(void);
 Bool image_file_open(void);
 int16_t source_read(uchar *start, uchar *ptr, uchar *end);
 
-//========= Import func =========
-// from GRA_REC.c
-/*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
- //--------------------------------------------------------------
- extern void     exc_ori_init(void);
- extern void     exc_ori_add(void);
- extern uchar    exc_ori_result(void);
- -*/
 // from COMPKIT.C
 extern int16_t MN_to_line(MN * mn);
-//-extern uchar * make_raster();
 // from ALPHABET.C
-/*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
- //--------------------------------------------------------------
- extern Bool16   rexc_set_alpha(uchar language, uchar *alphabet);
- extern Bool16   rexc_load_tables(uchar language);
- extern Bool16   rexc_is_language(uchar language);
- extern int32_t    rexc_gra_type_ori(uchar lang);
- extern int32_t    rexc_gra_type_rec(uchar lang);
- extern void     exc_ori_recog(RecVersions *v);
- -*/
 // from MATRIX.C
 extern int16_t matrix_read(uchar *buff, uint16_t lth);
 extern void matrix_open();
@@ -855,15 +835,10 @@ void alone_comp(void) {
 		save_gcomp(&wcomp);
 }
 
-void save_component(ExtComponent *c, version *vs, version *ve, uchar* lp,
-		uint16_t lpl) {
+extern void save_component(ExtComponent *c, version *vs, version *ve,
+		uchar* lp, uint16_t lpl) {
 	char pool[64* 1024 ];
 	char *p=pool;
-	//Bool32  mkrs=FALSE;
-			//RecVersions gravers;
-
-			//int     i,j;
-			//unsigned char evn_res[17]="",gra_res[17]="";
 #define OLEG_DEBUG3
 #ifdef OLEG_DEBUG
 			static int acc=0;
@@ -881,79 +856,18 @@ void save_component(ExtComponent *c, version *vs, version *ve, uchar* lp,
 				c->lines=0;
 				goto proc;
 			}
-			/*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
-			 //--------------------------------------------------------------
-			 if( ExControl & Ex_EvnRecog )
-			 if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
-			 {
-			 int w=c->w,h=c->h,wb=c->rw;
 
-			 if( c->scale )
-			 {
-			 c->w >>=c->scale;
-			 c->h >>=c->scale;
-			 c->rw  =(c->w+7)/8;
-			 }
-			 c->nvers=  (int16_t)EVNRecog_lp(  (ExtComponent *)c, lp, lpl, evn_res   );
-			 c->records = (int16_t)(sizeof(ExtComponent)+sizeof(uint16_t)+lpl);
-			 mkrs=FALSE;
-
-			 if( ((ExControl & Ex_NetRecog)||c->scale) &&
-			 !(c->nvers==1&&evn_res[0]=='$') )
-			 {
-			 make_raster();
-			 mkrs=TRUE;
-			 exc_ori_recog(&gravers);
-			 if( gravers.lnAltCnt && gravers.Alt[0].Prob>200 && gravers.Alt[0].Code!='~' )
-			 {
-			 gravers.lnAltCnt=MIN(gravers.lnAltCnt,8);
-			 for(j=i=0;j<16&&i<gravers.lnAltCnt;i++)
-			 {
-			 if( alphabet[ gravers.Alt[i].Code ] )
-			 {
-			 gra_res[j]=gravers.Alt[i].Code;
-			 gra_res[j+1]=gravers.Alt[i].Prob;
-			 j+=2;
-			 }
-			 }
-
-			 gra_res[j]=0;
-			 if( gra_res[0] )
-			 {
-			 c->nvers=(int16_t)j;
-			 memcpy(evn_res, gra_res,j);
-			 c->cs=255; // gra versions
-			 }
-			 }
-			 }
-			 if( ExControl & Ex_Orient )
-			 {
-			 if( !mkrs )
-			 make_raster();
-			 exc_ori_add();
-			 }
-
-			 // restore sizes
-			 c->w=w;
-			 c->h=h;
-			 c->rw=wb;
-			 }
-			 -*/
 			if( c->scale )
 			{
 				c->dens=original_density;
 				c->begends=original_begends;
 			}
-			memcpy(p,c ,sizeof(ExtComponent)); p += sizeof(ExtComponent);
-			memcpy(p,&lpl,sizeof(uint16_t)); p += sizeof(uint16_t);
+			memcpy(p,c ,sizeof(ExtComponent));
+			p += sizeof(ExtComponent);
+			memcpy(p,&lpl,sizeof(uint16_t));
+			p += sizeof(uint16_t);
 			memcpy(p,lp,lpl); p += lpl;
-			/*-
-			 if( (ExControl & Ex_EvnRecog) && c->nvers>0 )
-			 {
-			 memcpy(p,evn_res,c->nvers);
-			 p += c->nvers;
-			 }
-			 -*/
+
 			if( !(ExControl & Ex_NoContainer) )
 			push_comp_to_container((ExtComponent *)pool);
 

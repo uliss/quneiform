@@ -122,7 +122,7 @@ typedef struct prop_struct
 
 typedef struct prop_tab_el
  {  /* description of the element of the proportional table */
-  uchar min;               /* minimal proportional index */
+  uchar MIN;               /* minimal proportional index */
   uchar max;               /* maximal proportional index */
  } prop_tab_el;
 /**** Prototypes of all functions *******/

@@ -101,12 +101,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define VAL4(a,b,c,d)
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-/* FIXME: to build in MS VC++*/
-#ifdef __cplusplus
-extern "C" {
-#endif //__cplusplus
-	
 EXTERN Handle resFile_comp;
 EXTERN Handle logFile_comp;
 EXTERN Handle resFile_pict;
@@ -121,10 +115,5 @@ EXTERN CCOM_comp * pPics VAL1(NULL);
 EXTERN uint16_t pBlockHystogram[MaxHeightOfLetter];
 EXTERN uint32_t nComps;
 EXTERN Handle exthCCOM;
-#ifdef __cplusplus
-}
-#endif // __cplusplus
-////////////////////////////////////////////////////////////////////////////////
-
 
 #endif

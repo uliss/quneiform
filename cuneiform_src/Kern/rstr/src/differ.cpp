@@ -495,7 +495,7 @@ static void dif_sae(cell *c)
  {
  version *v;
  puchar r;
- int16_t l,i,i1,i2,imin,j,max,min;
+ int16_t l,i,i1,i2,imin,j,max,MIN;
 
  if (!memchr("ae",c->vers[0].let,2))
   return;
@@ -506,18 +506,18 @@ static void dif_sae(cell *c)
  l=(c->w+7)/8;
  i1=c->h/4;
  i2=c->h-1-c->h/3;
- for (max=0,min=c->w,i=i1; i<=i2; i++)
+ for (max=0,MIN=c->w,i=i1; i<=i2; i++)
   {
   for (j=c->w-1; !(r[i*l+j/8]&(128>>(j%8))); j--) ;
   if (j>max)
    max=j;
-  if (j<min)
+  if (j<MIN)
    {
-   min=j;
+   MIN=j;
    imin=i;
    }
   }
- if (max==min || imin>c->h/2)
+ if (max==MIN || imin>c->h/2)
   return;
  for (i=c->h-3; i<c->h; i++)
   {

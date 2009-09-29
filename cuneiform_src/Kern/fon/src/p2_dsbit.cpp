@@ -61,7 +61,7 @@
 
 #include "fon.h"
 #include "sfont.h"
-extern int Num11[256];
+extern const int Num11[256];
 /**************************************/
 // Bitmap distance from b1 to b2
 // black point == 1 !

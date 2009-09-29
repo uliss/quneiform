@@ -78,10 +78,6 @@
 #define RMARKER_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
@@ -154,11 +150,7 @@ typedef struct tagRMCBProgressPoints {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
 DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage,void*,int,void*,int))
-DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
+DEC_FUN(Bool32, SearchTableInZone, (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
 #undef DEC_FUN
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //

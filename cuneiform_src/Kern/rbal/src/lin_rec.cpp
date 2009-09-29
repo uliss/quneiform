@@ -65,10 +65,9 @@
 #include "leodefs.h"
 #include "evn.h"
 
-//////
 extern int16_t prop_l_delta, prop_r_delta;
 extern uchar *letters_pidx_table;
-//////////////
+
 // proport.c    - no more !!
 uint16_t el_pidx_crit(uint16_t t_let, int16_t pidx) {
 	uint16_t let;

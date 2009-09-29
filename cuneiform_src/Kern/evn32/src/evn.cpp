@@ -554,11 +554,12 @@ int32_t EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res) {
 
 MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
 		int16_t left) {
+	extern MN * c_locomp(uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 	MN *m;
 	left = MAX(0, left);
-	m = c_locomp(raster, bw, h, upper, left);
-	return m;
+	return c_locomp(raster, bw, h, upper, left);
 }
+
 extern uchar* segment_pool;
 uchar* EVN_GetSegmentPool(void) {
 	return segment_pool;

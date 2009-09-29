@@ -446,7 +446,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*    {1,8,0} ,{8,1,0} ,{8,8,0}                           */
 		/**************************************************************/
 	case 1:
-		/* есть min */
+		/* есть MIN */
 		if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3) {
 			if (ans->dh < (min_dh + 3) && ans->dh < (ans + 1)->dh)
 				return 3;
@@ -498,7 +498,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*   {1,8,8},{8,8,4},{8,1,8},{8,8,8}                 */
 		/**************************************************************/
 	case 2:
-		/* есть min */
+		/* есть MIN */
 		if (ans->dh == min_dh || (ans + 1)->dh == min_dh || (ans + 2)->dh
 				== min_dh) {
 			if (ans->dh == min_dh)
@@ -507,7 +507,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 				return 8;
 			return 7;
 		}
-		/* есть min+2 */
+		/* есть MIN+2 */
 		if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3 || (ans + 2)->dh
 				< min_dh + 3) {
 			if (ans->dh < min_dh + 3)
@@ -554,7 +554,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*внизу три коротких одинаковых*/
 		if (ans->h <= chetvert_h && (ans + 1)->h <= chetvert_h && (ans + 2)->h
 				<= chetvert_h) {
-			max_h = MAX(max(ans->h, (ans + 1)->h), max((ans + 1)->h,
+			max_h = MAX(MAX(ans->h, (ans + 1)->h), MAX((ans + 1)->h,
 					(ans + 2)->h));
 			if (ans->h == max_h)
 				return 6;

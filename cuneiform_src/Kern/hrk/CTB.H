@@ -70,16 +70,13 @@
 #define CTB_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 CTB_FUNC int32_t CTB_GetVersion(void);
 //***************** open/close function prototypes **********************
 CTB_FUNC Bool32 CTB_create(const char *file_name, uchar *data);
 CTB_FUNC Bool32 CTB_create_gray(const char *file_name, uchar *data);
 CTB_FUNC void CTB_done(void);
-CTB_FUNC Bool32 CTB_open(const char *file_name, CTB_handle *hnd, const char *attr);
+CTB_FUNC Bool32 CTB_open(const char *file_name, CTB_handle *hnd,
+		const char *attr);
 CTB_FUNC void CTB_close(CTB_handle *hnd);
 
 //***************** read function prototypes ****************************
@@ -131,10 +128,12 @@ CTB_FUNC Bool32 CTB_prot_gray_write(const char *file_name,
 		unsigned char *PROT_raster, unsigned char let, int w, int h, int align);
 //**************** CT FormReader data I/O **********************************
 CTB_FUNC int32_t CTB_AddRecRaster(const char *fname, RecRaster *r, uchar let);
-CTB_FUNC int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r, uchar *data);
+CTB_FUNC int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r,
+		uchar *data);
 CTB_FUNC Bool32 CTB_ReadRecRaster(CTB_handle *hnd, int32_t num, uchar *let,
 		RecRaster *r, uchar *data);
-CTB_FUNC Bool32 CTB_GetRecRaster(const char *fname, int32_t id_rast, RecRaster *r);
+CTB_FUNC Bool32 CTB_GetRecRaster(const char *fname, int32_t id_rast,
+		RecRaster *r);
 
 //***************** error message *****************************
 CTB_FUNC int32_t CTB_get_error(void);
@@ -157,10 +156,6 @@ CTB_FUNC char * CTB_get_error_name(char *str);
 #define CTB_ERR_WRITE           14
 #define CTB_ERR_ALIGN           15
 #define CTB_ERR_DIF_VERSION     16
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

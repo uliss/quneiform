@@ -1070,7 +1070,7 @@ static void garbage_fragments() {
 		else
 			CPAGE_SetBlockFlags(hCPAGE, rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
 
-		//min и max кегли и охватывающий прямоугольник сегмента
+		//MIN и max кегли и охватывающий прямоугольник сегмента
 		*rect = hole;
 		rsti->min_keg = 255;
 		rsti->max_keg = 0;

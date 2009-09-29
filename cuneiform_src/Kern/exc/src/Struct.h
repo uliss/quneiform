@@ -59,6 +59,7 @@
 
 #include "compat_defs.h"
 #include "evndefs.h"
+#include "excdefs.h"
 
 #define  HUGE_IMAGE
 #ifdef  HUGE_IMAGE
@@ -73,32 +74,6 @@
 #define WORLD_MIN_RESOLUTION    50
 
 #define err_pnlet(c)  ((c))->nextl=((c))->prevl=(cell*)(0xffff0000);
-// AL 900318
-//-------------------- conectivity component ---------------------
-
-//struct mn_struc {
-//public:
-//	BOX * firstBox() {
-//		return mnfirstbox;
-//	}
-//
-//	BOX * mnfirstbox; // address of the first box
-//	int16_t mncounter; // number of living lines in the component
-//#define mnfree  mnfirstbox      // reference to next free main number
-//	int16_t mnupper; // upper bound of component
-//	int16_t mnlower; // lower bound of component
-//	int16_t mnboxcnt; // number of boxes in component
-//#define usual_box_count 200     // heuristic of number of lines in a letter
-//#define great_box_count 300     // heuristic for number of boxes in a picture
-//	uchar mnlines; // number of lines in the component
-//	uchar mnbegs; // number of free line begins
-//	uchar mnends; // number of free line ends
-//	uchar mnflag; // flag byte for main number
-//#define mnpicture 1             // component is a picture
-//	mn_struc *mnnext; // address of next dead component
-//};
-//
-//typedef mn_struc MN;
 
 //------------------- The box has a header ----------------------
 
@@ -118,7 +93,6 @@ struct BOX {
 	uchar boxwf; // working flag (for picture compress)
 	uint16_t boxresw; // reserved word (for *4 arround)
 };
-
 // Values of boxflag:
 
 #define BOXMARK         1       // flag for temporary box marking
@@ -273,6 +247,9 @@ struct frame_struct {
 	POINT topleft, topright, botleft, botright;
 };
 typedef struct frame_struct FRAME;
+
+void save_component(ExtComponent *c, version *vs, version *ve, uchar *lp,
+		uint16_t lpl);
 
 #endif
 

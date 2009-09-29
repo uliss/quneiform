@@ -103,7 +103,7 @@ static int32_t GetFileLength(int32_t handle) {
 static void* (*my_alloc)(uint32_t len)=EvnAlloc;
 static void (*my_free)(void *ptr, uint32_t len)=EvnFree;
 
-Bool32 LOCInit(MemFunc* /*mem*/) {
+Bool32 LOCInit(MemFunc*) {
 	return TRUE;
 }
 
@@ -115,12 +115,12 @@ int16_t LOCGetErr(void) {
 	return evn_error_code;
 }
 
-uchar evn_multy_lpool[6000 + 2];
-
-MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
+MN * LOC_CLocomp(unsigned char * raster, int bw, int h, int16_t upper,
 		int16_t left) {
 	return c_locomp(raster, bw, h, upper, left);
 }
+
+uchar evn_multy_lpool[6000 + 2];
 extern uchar* segment_pool;
 
 uchar* LOC_GetSegmentPool(void) {

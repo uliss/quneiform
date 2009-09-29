@@ -82,7 +82,8 @@ class cls;                 \
 /*** Base types ***/
 typedef int Bool;
 typedef int16_t Bool16;
-typedef int32_t Bool32;_SETTYPES( Bool32 )
+typedef int32_t Bool32;
+_SETTYPES( Bool32 )
 
 typedef unsigned long ulong;
 typedef unsigned int uint;
@@ -140,8 +141,6 @@ typedef Bool (* FTBool_Word32)(uint32_t);
 typedef Bool16 (* FTBool16_Word32)(uint32_t);
 typedef Bool32 (* FTBool32_Word32)(uint32_t);
 
-#ifdef __cplusplus
-extern "C" {
 typedef void (* CFTVoid)(void);
 typedef void* (* CFTPVoid)(void);
 typedef Bool (* CFTBool)(void);
@@ -159,8 +158,6 @@ typedef void* (* CFTPVoid_Word32)(uint32_t);
 typedef Bool (* CFTBool_Word32)(uint32_t);
 typedef Bool16 (* CFTBool16_Word32)(uint32_t);
 typedef Bool32 (* CFTBool32_Word32)(uint32_t);
-}
-#endif   // __cplusplus
 
 /*
  * These definitions were originally scattered about the code tree.

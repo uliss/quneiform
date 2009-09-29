@@ -78,7 +78,7 @@ extern uchar image_white; // mask for wite pixels adding
 extern struct main_memory_str Q;
 
 void analise();
-BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width);
+BWSS *extrcomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int16_t width);
 uint32_t progress_set_percent(uint32_t volume);
 int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 
@@ -152,18 +152,11 @@ void extrcomp() {
 static void initdsect() {
 	MN *p;
 	int16_t i;
-	/*memset (&Q, 0, sizeof(Q));
 
-	 Q.mnstart    = Cmnstart;
-	 Q.line1start = Cline1;
-	 Q.line2start = Cline2;
-	 Q.scan_buffer = Cscan;
-	 */
 	memset(Q.mnstart, 0, sizeof(MN) * SEG_MAX_NUM);
-	memset(Q.line1start, 0, sizeof(BWS) * SEG_MAX_NUM);
-	memset(Q.line2start, 0, sizeof(BWS) * SEG_MAX_NUM);
-	/*memset (Q.scan_buffer,  0 , 0x4000 + LINE_MAX_LTH);
-	 */
+	memset(Q.line1start, 0, sizeof(BWSS) * SEG_MAX_NUM);
+	memset(Q.line2start, 0, sizeof(BWSS) * SEG_MAX_NUM);
+
 	Q.lineno = 0;
 	p = Q.mainalloc = Q.mnstart;
 	for (i = 0; i < SEG_MAX_NUM - 1; p++, i++)
@@ -194,7 +187,7 @@ static void emptyline() {
 }
 
 static void exchangelines() {
-	BWS *p;
+	BWSS *p;
 	p = Q.oldline;
 	Q.oldline = Q.newline;
 	Q.newline = p;
@@ -224,7 +217,7 @@ static uint16_t readline() {
 }
 
 static int16_t fax_test() {
-	BWS * old, *new_;
+	BWSS * old, *new_;
 	old = Q.oldline;
 	new_ = Q.newline;
 	while (1) {
@@ -238,7 +231,7 @@ static int16_t fax_test() {
 }
 
 static void fax_double() {
-	BWS * old, *new_;
+	BWSS * old, *new_;
 	exchangelines();
 	old = Q.oldline;
 	new_ = Q.newline;

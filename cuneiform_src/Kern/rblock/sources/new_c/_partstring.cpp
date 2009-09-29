@@ -99,7 +99,7 @@ void RotatePageToReal(void);
 
 /////////////////////////////////
 void PageLayoutStrings(Handle hCCOM, Handle hCPAGE) {
-	if (ReadRoots()) {
+	if (ReadRoots(hCCOM, 0)) {
 		run_options = FORCE_ONE_COLUMN;
 
 		LayoutPart1();

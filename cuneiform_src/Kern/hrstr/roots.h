@@ -139,10 +139,6 @@ public:
 	int yBottom;
 };
 
-#ifndef LT_STAND_ALONE
-#define pRoots root_file
-#endif
-
 extern ROOT *pRoots;
 extern uint32_t nRoots;
 extern int16_t nOriginalRoots;

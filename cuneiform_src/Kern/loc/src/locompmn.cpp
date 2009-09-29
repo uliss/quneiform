@@ -60,7 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "v1comp.h"
 
-BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int32_t height, int32_t width);
 MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 //      Memory service
 #define MAX_BOX_NUMB            100*2
@@ -100,31 +99,6 @@ static void new_line();
 static void new_line_cont();
 static void merge_line();
 static void dead_line();
-
-MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
-{
- lineno = upper-1; rast_lc = left;
- if (setjmp(locomp_err)) return NULL;
- segm_repr_end = locomp_seglist (raster,lines,end_line_pool,h,bw);
- locomp_begin();
- do { lineno++; analize(); } while (np != segm_repr_end);
- return first_dead_comp;
-}
-
-static void locomp_begin()
-{
- int16_t i;
- MN * mn;
- first_dead_comp = NULL;
- segm_repr_end->b = 0; (segm_repr_end++)->w = -0x7000;
- if (segm_repr_end >= end_line_pool)
-	 longjmp(locomp_err,3);
- for (i = 0, mn = mainalloc = main_numbers; i < MAX_INT_NUMB-1; i++, mn++)
-      mn->mnnext = mn+1;
- mn->mnnext = NULL; np = (op = lines) + 1;
- boxalloc = (BOX *) boxes; // Vald 06-15-96 07:06pm corr old Talalay error
- boxallocend = (BOX *)(boxes + MAX_BOX_NUMB * BOXSIZE);
-}
 
 static void analize()
 {

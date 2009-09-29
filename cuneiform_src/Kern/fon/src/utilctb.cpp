@@ -63,17 +63,16 @@
 #include "ctb.h"
 #include "sfont.h"
 #include "leo.h"
+#include "ctb.h"
 
 #define ParolBase "ClBas"
 
 static uchar UseHand = 0;
 
-/////////////////
 void EndCTB(CTB_handle *CTBFile) {
 	CTB_close(CTBFile);
-	//	CTB_done();
 }
-/////////////////
+
 int StartCTB(const char *outname, CTB_handle *CTBFile, int16_t countFont,
 		uint32_t *fields) {
 	uchar CTBdata[CTB_DATA_SIZE];
@@ -91,12 +90,10 @@ int StartCTB(const char *outname, CTB_handle *CTBFile, int16_t countFont,
 			* sizeof(uint32_t));
 
 	if (CTB_create_gray(outname, CTBdata) == FALSE) {
-		//    MessageBox(GetActiveWindow(),outname,"Error create CTB",MB_OK);
 		return -1;
 	}
 
 	if (CTB_open(outname, CTBFile, "w") == FALSE) {
-		//    MessageBox(GetActiveWindow(),outname,"Error open CTB",MB_OK);
 		return -2;
 	}
 
@@ -109,29 +106,16 @@ int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 	int fullY;
 	uchar *bufCTB;
 	uint16_t *pword16;
-	uint32_t *pword32;
+	uint32_t * pword32;
 	int16_t *pint16;
 	static int num = 0;
 	int i;
 
-	//  if( (j=write(flout,wel,sizeof(welet))) !=sizeof(welet))
-
 	fullX = 128; //((wel->w+7)>>3)<<3;
 	fullY = 64; // wel->h;
 	// FIXME (uchar*)
-	bufCTB = (uchar*)wel->raster;
-	/*
-	 allRaster=wel->raster+((WR_MAX_HEIGHT-fullY)/2)*WR_MAX_WIDTH+
-	 (WR_MAX_WIDTH-fullX)/2;
-	 startRaster=bufCTB=wel->raster;
-	 for(j=0;j< fullY;j++,allRaster+=WR_MAX_WIDTH,startRaster+=fullX)
-	 { for(k=0;k<fullX;k++)
-	 //startRaster[k]=255-allRaster[k];
-	 //  startRaster[k]=allRaster[k]>0?0:1;
-	 startRaster[k]=allRaster[k];
-	 //memset(startRaster+wel->w,0,fullX-wel->w);
-	 }
-	 */
+	bufCTB = (uchar*) wel->raster;
+
 	memset(CTBdata, 0, CTB_DATA_SIZE);
 	CTBdata[0] = CTB_OEM_CHARSET;
 	CTBdata[1] = (uchar) fullX; // 128

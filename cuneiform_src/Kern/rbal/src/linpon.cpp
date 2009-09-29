@@ -132,7 +132,7 @@ void li_snap(const char *t) {
 	if (Nb4 == -1)
 		n4 = -Ns4;
 	sprintf(ww,
-			"%s cv=%d, min=%d (%d) \nPs=%d Bs: %d %d %d %d  Nb: %d %d %d %d ",
+			"%s cv=%d, MIN=%d (%d) \nPs=%d Bs: %d %d %d %d  Nb: %d %d %d %d ",
 			t, ncut_vers, minrow, bbs0, Ps, bbs1, bbs2, bbs3, bbs4, n1, n2, n3,
 			n4);
 	glsnap('d', C, ww);
@@ -1415,7 +1415,7 @@ void gen_reset() {
 		if (mincol > wc)
 			mincol = wc;
 		if (maxcol < wc)
-			maxcol = wc; // min & max s_t_a_r_t !!!  COLs
+			maxcol = wc; // MIN & max s_t_a_r_t !!!  COLs
 
 		attr.bas_acc &= ~(CSTR_ba_chance);
 
@@ -1451,135 +1451,7 @@ void gen_reset() {
 	if (nc)
 		bbs3 = sm / nc;
 }
-/*
- //////////////
- // черновое определение БЛ
- //
- // Для новой	 версии :
- // Или 2 строки - наша новая вмеcто cell и ln - как была,
- // оттуда брать dust
- // Или специально пометить dust в ln
- // Или пересмотреть defbas()
- // Или ??
 
- void basedraft(CSTR_line ln)
- {
- char riter1, riter0;
- int16_t i;
- CSTR_rast C;
-
- //if (line_number == 0)
- if ( line_number <= 1 )
- oldPs2 = -1;
- else
- {
- oldPs2=bbs3-bbs2;
- oldPs1=bbs3-bbs1;
- oldPs4=bbs3-bbs4;
- oldn1=Nb1; oldn2=Nb2; oldn4=Nb4;
- oldmult = multi_bas;
- }
-
- #ifdef __POS_PROT__
- os2 = 0;
-
- C=cell_f();
- while ((C=C->nextl)->nextl)
- {
- if (
- (
- ((C->row==1667) && (C->col==491) && (line_number==26) ) ||
- ((C->row==59) && (C->col==139) && (line_number==1) )
- ) &&
- (C->vers[0].let=='y')
- )
- os2 = 1;
- }
- #endif
-
- lin_str = ln;
- lin_pass = 1;
- dust_in = 0;
- riter0=2;
- it_done=0;
-
- again_for_dust:
- riter0--;
- let_to_dust = 0;
- diff_curv = 0;
- change_vote=0;
- hist_done = 0;
- oNb1=oNb2=oNb3=oNb4=0;
- cells_inln = 0;
- gen_reset();
- trans_total = 0;
- fl_artifact = 0;
- ntot_old = ncut_old = nmult_old = ndead_old = nvers_old = 0;
-
- // сбор статистики, поиск БЛ
- defbas(0);
-
- bsdust_ps = Ps;
- sum_letlth = sum_cellth = 0;
- ncut_vers=ncut_cells=ntot_cells=0;
- i = bbs2 - (bbs3-bbs2)/2;
- bsdust_upper = MIN(i,bbs1) - 2 + minrow;
- if (language != LANG_ENGLISH)
- bsdust_upper -= (MAX(2,(bbs3-bbs2)/7));
- bsdust_lower = bbs4 + minrow;
-
- if (db_status)
- { char ww[128];
- sprintf(ww, "for dust: Ps=%d upper=%d lower=%d",
- bsdust_ps, bsdust_upper, bsdust_lower);
- glsnap ('d',cell_f()->next,ww);
- }
-
- riter1 = 0;
- while (riter1 < 3)
- {
- if ((forbiset) && (db_status))
- li_snap("forbid=");
- trans_total = forbiset;
- hist_done = 0;
-
- //   add dust from lin_str (riter1==0),
- //   check dust-letter
- bring_dust(riter1);
-
-
- //   if (cell_f()->nextl->next == NULL)
- if( !CSTR_GetNextRaster(cell_f(),f_letter) )
- goto drfin;  // line emptied
-
-
- // найти-уточнить наклон nIncline
- skew_corr(ln,1);  // skew_corr(ln,0); if CSTR_line
-
- C=cell_f();
- //   while (C && C->next && (C=C->next)->next != NULL)            //AK add c/g 06.03.98
- for(C=CSTR_GetNext(C);C;C=CSTR_GetNext(C))
- ideal_rc(C);
-
- if (!trans_total)
- break;
- if (riter0)
- goto again_for_dust;
-
- if (fl_artifact > 1)
- break;
-
- // уточнить БЛ
- defbas(0);
- riter1++;
- }
-
- drfin:
- if (db_status)
- li_snap("draft fin");
- bbs0 = min_crow;
- }
- */
 /****************************************************/
 void approve_bases() {
 	int16_t appr;

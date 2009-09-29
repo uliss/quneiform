@@ -758,11 +758,10 @@ int16_t if_dust(cell *C)
 	return (rb | 8);
 	return 0;
 }
-/////////////
-//////////////////////
+
 static void SetRstrGlobals(BAL_RSTR_GLOBALS *rstrGlob)
 {
-	int16_t rast_is_BOX_solid (CSTR_rast B1);
+	extern int16_t rast_is_BOX_solid (CSTR_rast B1, int16_t scale);
 
 	rstrGlob->language = language;
 	rstrGlob->line_number = line_number;

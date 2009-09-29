@@ -1047,7 +1047,7 @@ int16_t GetPsFromHeights(void) {
 	if (db_status & snap_activity_rbal(db_pass)) {
 		char buf[120];
 		sprintf(buf,
-				"Histogramms: min=%d b3=%d peak1= %d|%d peak2= %d|%d sunk=%d",
+				"Histogramms: MIN=%d b3=%d peak1= %d|%d peak2= %d|%d sunk=%d",
 				minrow, bbs3, ind1, max1, ind2, max2, n_sunk);
 		snap_show_text_rbal(buf);
 		snap_monitor_rbal();

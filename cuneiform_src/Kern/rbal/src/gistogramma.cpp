@@ -193,13 +193,13 @@ int16_t stat_index_GlobMin(int16_t *Y, int16_t k)
 
 	if(k > 1)
 	{
-		int16_t min = Y[0], iMin = 0;
+		int16_t MIN = Y[0], iMin = 0;
 
 		for(int16_t i=1; i<k; i++)
 		{
-			if(Y[i] < min)
+			if(Y[i] < MIN)
 			{
-				min  = Y[i];
+				MIN  = Y[i];
 				iMin = i;
 			}
 		}

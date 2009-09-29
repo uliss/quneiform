@@ -106,7 +106,7 @@ static uchar one_italic[] = "╒╙"; // "БЙ"
 struct B {
 	int16_t mid; // Е═Ю═╙Б╔Ю╗АБ╗╙═
 	int16_t real;
-	int16_t max, min;
+	int16_t max, MIN;
 	uint16_t n; // Г╗А╚╝ А╗╛╒╝╚╝╒
 };
 typedef struct B STAT;
@@ -141,7 +141,7 @@ void print_stat(FILE * f, STAT * stat) {
 						fprintf(f, " %3i", stat[i * 16 + j].max);
 					fprintf(f, "\nmin ");
 					for (j = 0; j < 16; j++)
-						fprintf(f, " %3i", stat[i * 16 + j].min);
+						fprintf(f, " %3i", stat[i * 16 + j].MIN);
 					fprintf(f, "  \nn   ");
 					for (j = 0; j < 16; j++)
 						fprintf(f, " %3i", stat[i * 16 + j].n);
@@ -678,7 +678,7 @@ static int16_t pitch() {
 	uchar let;
 	int16_t nl, nc, ng, n, n1, n2, h, w, ww, wmin, wmax, i, j, sp, bad, d, p,
 			mg;
-	int32_t s, min;
+	int32_t s, MIN;
 	uint16_t center[LSTRMAX], left[LSTRMAX], right[LSTRMAX];
 
 	for (nl = nc = ng = 0, c = (cell_f())->next; c->next != NULL; c = c->next)
@@ -731,13 +731,13 @@ static int16_t pitch() {
 	if (n == 1)
 		return 0;
 	h = get_size() + ((fax1x2) ? 2 : 0);
-	for (averwid = nl = 0, min = 10000, i = 1; i < n; i++) {
+	for (averwid = nl = 0, MIN = 10000, i = 1; i < n; i++) {
 		if (left[i] - right[i - 1] < h) {
 			averwid += center[i] - center[i - 1];
 			nl++;
 		}
-		if (min > center[i] - center[i - 1])
-			min = center[i] - center[i - 1];
+		if (MIN > center[i] - center[i - 1])
+			MIN = center[i] - center[i - 1];
 	}
 	if (nl > LSTRMIN || nl && 2* averwid < 5* nl * h)
 		averwid /= nl;
@@ -751,9 +751,9 @@ static int16_t pitch() {
 
 	wmin = 2* averwid / 3;
 	wmax = 3* averwid / 2;
-	if (wmax < min + 1)
-		wmax = min + 1;
-	for (p = j = bad = nl = 0, min = 1000000, w = wmin; w <= wmax; w++) {
+	if (wmax < MIN + 1)
+		wmax = MIN + 1;
+	for (p = j = bad = nl = 0, MIN = 1000000, w = wmin; w <= wmax; w++) {
 		ww = 3* w / 4;
 		for (sp = 1, n2 = n1 = 0, s = 0, i = 1; i < n; i++)
 			if (left[i] - right[i - 1] < ww) {
@@ -779,15 +779,15 @@ static int16_t pitch() {
 				sp = 1;
 		if (n2 + ng <= NTHLMAX && n1 >= LSTRMIN || !n2 && n1 >= 2) {
 			s = 1000l * s / (n1 - 1);
-			if (s <= min || w == 2* p && nl < n1 && s < 5* min / 2) {
-				min = s;
+			if (s <= MIN || w == 2* p && nl < n1 && s < 5* MIN / 2) {
+				MIN = s;
 				p = w;
 				nl = n1;
 			}
 		}
 	}
 	/* printf("p=%u,d=%u\n",p,s); scanf("%c",&i);*/
-	if (!nl || min > BND2 * h)
+	if (!nl || MIN > BND2 * h)
 		return 0;
 	if (mg) {
 		if (abs(p - total_pitch) <= 1)
@@ -801,7 +801,7 @@ static int16_t pitch() {
 		return total_pitch;
 	if (p > 2* h + ((fax1x2) ? 1 : 0))
 		return 0;
-	if (min < BNDOK * h && nl > 1 || min < BND0 * h && nl >= LSTRMIN
+	if (MIN < BNDOK * h && nl > 1 || MIN < BND0 * h && nl >= LSTRMIN
 			&& total_pitch)
 		return p;
 	if (nl < LSTRMIN && !fax1x2 || nl < LSTRMINF || nl < n / 2 || !total_pitch
@@ -812,7 +812,7 @@ static int16_t pitch() {
 				if (left[i]-right[i-1]>=3*p/4)
 				continue;
 				d=center[i]-center[i-1]-p;
-				if (d>=-DELTMAX && 700l*d*d<min)
+				if (d>=-DELTMAX && 700l*d*d<MIN)
 				{
 					if (!fax1x2 || abs(d)>1)
 					s+=d*d;
@@ -1951,8 +1951,8 @@ static int16_t dens_let(cell *c) {
 			/ (stat_tab[let].n + 1);
 	stat_tab[let].real = ((int) stat_tab[let].real * stat_tab[let].n
 			+ (int) c->dens - (int) d) / (stat_tab[let].n + 1);
-	if (stat_tab[let].min > c->dens || !stat_tab[let].min)
-		stat_tab[let].min = c->dens;
+	if (stat_tab[let].MIN > c->dens || !stat_tab[let].MIN)
+		stat_tab[let].MIN = c->dens;
 	if (stat_tab[let].max < c->dens)
 		stat_tab[let].max = c->dens;
 	stat_tab[let].n++;

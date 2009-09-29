@@ -90,7 +90,7 @@
 
 #include "minmax.h"
 
-int16_t minrow;
+//int16_t minrow;
 
 void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y2Arr,
 		int16_t *p_FreqY2Arr, int16_t *Ns3, int16_t *Ns4) {

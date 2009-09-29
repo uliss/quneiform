@@ -91,7 +91,7 @@
 #include "sfont.h"
 #include "ctb.h"
 
-#include "cfcompat.hpp"
+#include "cfcompat.h"
 #include "compat_defs.h"
 #include "minmax.h"
 #include <unistd.h>
@@ -171,8 +171,6 @@ int16_t CheckCenterSymbol(uchar *b1, int16_t xbyte, int16_t yrow, uchar *buf2,
 		uchar *tbuf, int16_t xbit2, int16_t yrow2, int16_t *sdvigx,
 		int16_t *sdvigy, int16_t sum);
 void init11(void);
-int16_t SaveCluster(int16_t fh, CTB_handle *cc, int16_t fhh, CTB_handle *ccc,
-		int16_t clus, int16_t NumAll, uchar *m1, uchar *m2);
 
 int16_t NumHauBit = 0; // number of bitmap buffers
 static uchar *BitHau[MAXHAU]; // big buffers
@@ -189,12 +187,12 @@ static uchar IsRhHauBuf = 0; // 0 - use extern buffer for rh, BitHau[0]
 // 2 - exist rh,BitHau[0]
 
 //  number of 1-s in all bytes
-const int Num11[256] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2,
-		2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3,
-		3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 1, 2,
-		2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4,
-		4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4,
-		4, 5, 4, 5, 5, 6, 4, 5, 5,
+extern const int Num11[256] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
+		1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4,
+		2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+		1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5,
+		3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+		3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5,
 		6,
 		5,
 		6,
@@ -955,11 +953,11 @@ void init11(void) {
 
 	return;
 }
-/////////////
+
 // rbyte =8*...  !!!
 // return number of black points
-uint16_t PutSymbolRaster(uchar *pHau, uchar *rast, int16_t rbyte,
-		int16_t xbits, int16_t xbyte, int16_t yrow) {
+uint PutSymbolRaster(uchar *pHau, char *rast, int16_t rbyte, int16_t xbits,
+		int16_t xbyte, int16_t yrow) {
 	int16_t i, j;
 	int16_t xb = (xbits + 7) >> 3; // actual bytes in row
 	uchar *rr;
@@ -968,7 +966,7 @@ uint16_t PutSymbolRaster(uchar *pHau, uchar *rast, int16_t rbyte,
 	uint16_t summa = 0;
 
 	for (i = 0; i < yrow; i++, rast += rbyte, pHau += xbyte) {
-		for (j = 0, rr = rast; j < xb; j++, rr += 8) {
+		for (j = 0, rr = (uchar*) rast; j < xb; j++, rr += 8) {
 			if ((num = pHau[j]) == 255) {
 				for (num = 0; num < 8; num++)
 					rr[num]++;
@@ -981,27 +979,16 @@ uint16_t PutSymbolRaster(uchar *pHau, uchar *rast, int16_t rbyte,
 				summa += num;
 				for (; num; num--, tb++)
 					rr[*tb]++;
-				/*
-				 summa+=Num11[num];
-				 if(num&128) *rr++;   rr++;
-				 if(num&64) *rr++;    rr++;
-				 if(num&32) *rr++;    rr++;
-				 if(num&16) *rr++;    rr++;
-				 if(num&8) *rr++;     rr++;
-				 if(num&4) *rr++;     rr++;
-				 if(num&2) *rr++;     rr++;
-				 if(num&1) *rr++;     rr++;
-				 */
 			}
 		}
 	}
 	return summa;
 }
-//////////////////
+
 // make, save weighted raster to file
 // use mysteck as buffer
-int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
-		CTB_handle *CTBsnap, int16_t clus, int16_t NumAll, uchar *metkaGood,
+int SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
+		CTB_handle * CTBsnap, int16_t clus, int16_t NumAll, uchar *metkaGood,
 		uchar *metkaValid) {
 	int16_t i, j;
 	uchar *rast;
@@ -1114,10 +1101,10 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 		// where put next raster ?
 		etalon = rast + sdvigy * WR_MAX_WIDTH + sdvigx;
 
-		fat = PutSymbolRaster(rh[i].pHau, etalon, WR_MAX_WIDTH, (int16_t) MIN(
-				rh[i].w, WR_MAX_WIDTH - startx - sdvigx), (int16_t) ((rh[i].w
-				>> 3) + 1), (int16_t) MIN(rh[i].h, WR_MAX_HEIGHT - starty
-				- sdvigy));
+		fat = PutSymbolRaster(rh[i].pHau, (char*) etalon, WR_MAX_WIDTH,
+				(int16_t) MIN(rh[i].w, WR_MAX_WIDTH - startx - sdvigx),
+				(int16_t) ((rh[i].w >> 3) + 1), (int16_t) MIN(rh[i].h,
+						WR_MAX_HEIGHT - starty - sdvigy));
 		welBuf->summa += fat;
 
 		AddDWORDField(rh[i].nField, fields);
@@ -1214,11 +1201,6 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 	welBuf->porog=welBuf->weight/POROG_IDEAL;
 #endif
 
-	//#ifdef _IDEAL_
-	// if(wel->weight >= POROG_IDEAL) MakeIdeal(wel,wel->weight/POROG_IDEAL);
-	// wel->fill=FindDistanceWr(wel,dist_wel);
-	//#else
-
 	for (i = 0; i < j; i++)
 		if (welBuf->raster[i])
 			welBuf->fill++;
@@ -1226,8 +1208,6 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 		if (keglBuffer[i] > keglBuffer[j])
 			j = i;
 	welBuf->kegl = (uchar) j;
-
-	//#endif
 
 	welBuf->num = clus;
 
@@ -1721,8 +1701,6 @@ clu_info make_font(pchar rname, MKFAM accept, puchar extern_buf, int32_t size) {
 	STRCPY(szOutName, rname);
 	MakRas(szOutName, "clu", 0);
 	my_percent = 0;
-	// wel=(welet *)mybuffer;
-	// dist_wel=wel+1;
 
 #ifdef _ADDCLU_
 	// if exist .clu - add to cluster

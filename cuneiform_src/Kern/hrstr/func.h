@@ -72,8 +72,6 @@
 #include "alphabet.h"
 
 /* FIXME: to compile in MS VC++ */
-#define c_locomp EVN_CLocomp
-
 extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3;
 extern uint16_t *accent_tab; // 30.08.2000 E.P.
@@ -251,7 +249,7 @@ int16_t compare_vect(v_val *, v_val *);
 int16_t cell_is_BOX_solid(cell*);
 
 // module locomp.asm
-MN* c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
+//MN* c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
 
 // module v0compgl.asm
 void invert_tiff(puchar c, uint16_t lth);
@@ -689,7 +687,7 @@ void set_page_name(puchar);
 
 void setdrmode(int16_t);
 
-void c_rastror(puchar, puchar, uint16_t, uint16_t);
+void c_rastror(unsigned char *, unsigned char *, int, int);
 
 lnhead *c_boxln(MN *);
 
@@ -711,6 +709,7 @@ _JBTYPE *Control_Point();
 
 // font_ser.c
 void serif_let();
+void proc_bI(int pass);
 
 // erect2.c
 Bool32 cstr_erection_pass2(CSTR_line lout);

@@ -74,10 +74,6 @@
 #include "cttypes.h" /* Most type definitions are here. */
 #include <errno.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifndef APIENTRY /* Not currently used in Linux. */
 #define APIENTRY
 #endif
@@ -531,10 +527,6 @@ typedef int REGSAM;
 
 #ifndef MB_ICONSTOP
 #define MB_ICONSTOP 888
-#endif
-
-#ifdef __cplusplus
-}
 #endif
 
 #include "cfcompat.h"

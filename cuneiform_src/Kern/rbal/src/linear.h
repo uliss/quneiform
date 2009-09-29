@@ -55,11 +55,11 @@
  */
 
 #define DBG 1
-//#ifdef LIN_MAIN
-//#define EXTLIN
-//#else
+#ifdef LIN_MAIN
+#define EXTLIN
+#else
 #define EXTLIN extern
-//#endif
+#endif
 
 struct bas_ln {
 	int16_t startcol, endcol, startf, endf, ncells;

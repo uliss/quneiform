@@ -70,7 +70,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "evn.h"
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
@@ -340,18 +340,8 @@ cell * erect_cell_value(cell *c, int16_t inc, int16_t shave, Bool cutting) {
 				d_x = shift_raster (raster, dy, dx, tab_angle,
 						(int16_t)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
 
-				/*
-				 if( line_number == 16 && c->col == 462)
-				 {
-				 char qq[64];
-				 MessageBox(GetActiveWindow(),itoa(dx,qq,10),"old",MB_OK);
-				 MessageBox(GetActiveWindow(),itoa(dy,qq,10),"dy",MB_OK);
-				 MessageBox(GetActiveWindow(),itoa(inc,qq,10),"inc",MB_OK);
-				 MessageBox(GetActiveWindow(),itoa(d_x,qq,10),"new",MB_OK);
-				 }
-				 */
 
-				if( (sh_mn = c_locomp (sh_raster, (int16_t)bytlen(d_x), dy, 0, 0))==NULL )
+				if( (sh_mn = EVN_CLocomp (sh_raster, (int16_t)bytlen(d_x), dy, 0, 0))==NULL )
 				return c;
 
 				for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
@@ -498,7 +488,7 @@ cell * erect_cell_table(cell *c, int16_t tab_angle[], int16_t shave,
 		d_x = shift_raster(raster, dy, dx, tab_angle, (int16_t) (MAX(
 				tab_angle[0], tab_angle[dy - 1])), sh_raster, 1);
 
-		if ((sh_mn = c_locomp(sh_raster, (int16_t) bytlen(d_x), dy, 0, 0))
+		if ((sh_mn = EVN_CLocomp(sh_raster, (int16_t) bytlen(d_x), dy, 0, 0))
 				== NULL)
 			return NULL;
 
@@ -1552,7 +1542,7 @@ cell *convert_to_cells(cell *start) {
 	cell *sh_cell, *next = start->next;
 	int16_t i;
 
-	if ((sh_mn = c_locomp(raster, (int16_t) (bytlen(start->w)), start->h, 0, 0))
+	if ((sh_mn = EVN_CLocomp(raster, (int16_t) (bytlen(start->w)), start->h, 0, 0))
 			== NULL)
 		return NULL;
 
@@ -1625,7 +1615,7 @@ void erect_shift_intervals(void *addr, int16_t h, int16_t tab_angle[]) {
 		for (h = line->h, ind = line->row, inter = (interval *) ((pchar) line
 				+ sizeof(lnhead)); h; h--, inter++, ind++)
 			if ((w = inter->e - inter->l - tab_angle[ind]) < min_shift)
-				min_shift = w; // min dest to image from left bound
+				min_shift = w; // MIN dest to image from left bound
 
 	// rotating during shift table
 	for (line = (lnhead *) addr, w = 0; (ll = line->lth) > 0; line

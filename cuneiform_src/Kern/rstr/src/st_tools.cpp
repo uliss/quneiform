@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-
+#include "evn.h"
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
@@ -850,7 +850,7 @@ uchar	cUR = (r->up_hook)   ? '~' : ' ',  dUR = r->up_serif;
 uchar	cDL = (l->down_hook) ? '_' : ' ',  dDL = l->down_serif;
 uchar	cDR = (r->down_hook) ? '_' : ' ',  dDR = r->down_serif;
 int16_t	cut_0123;
-static	char	*vars_cut_0123 [] =  {	"NO CUT",	// 0
+static	const char	*vars_cut_0123 [] =  {	"NO CUT",	// 0
 					"CUT R",	// 1
 					"CUT L",	// 2
 					"CUT L,R" };	// 3
@@ -874,7 +874,7 @@ if (db_status && (typ_snap==0 ||
 		right_mode -= off;
 		left_mode  -= off;
 		opt        -= off<<2;
-		sh_mn = c_locomp (sh_raster, (int16_t)(bytlen(d_x)), dy, 0, 0);
+		sh_mn = EVN_CLocomp(sh_raster, (int16_t)(bytlen(d_x)), dy, 0, 0);
 		sh_cell = create_cell (sh_mn, c, c->bdiff, (char)(c->difflg & 0xf0));
 
 		buf_cell = c->env;

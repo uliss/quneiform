@@ -66,7 +66,7 @@
 #include "status.h"
 #include "rcutp.h"
 #include "linear.h"
-
+#include "evn.h"
 #include "compat_defs.h"
 
 //  snap globals
@@ -276,7 +276,7 @@ static void minlincut(char arg)
 //    This procedure builds graphics and finds all reasonable cutting points.
 //
 {
-	int16_t nx, cline, min, max, svf, svn, svl, twh, tw2, tw3, is4, wdsfl,
+	int16_t nx, cline, MIN, max, svf, svn, svl, twh, tw2, tw3, is4, wdsfl,
 			lastx, lastw, curw, nfix, flgr, fldef;
 	struct info_elm *inf;
 
@@ -292,7 +292,7 @@ static void minlincut(char arg)
 	//		not later than last (projection >= 1/2 cell-height) passes by
 
 	wdsfl = svn = svl = 0;
-	min = 127;
+	MIN = 127;
 	max = 0;
 	inf = &points[1];
 	lastx = 0;
@@ -307,20 +307,20 @@ static void minlincut(char arg)
 	for (nx = 1; nx < t_height; nx++, inf++) {
 		curw = inf->sumb;
 		is4 = curw << 2;
-		if ((int16_t) min >= (int16_t) (inf->botf))
-			min = inf->botf;
+		if ((int16_t) MIN >= (int16_t) (inf->botf))
+			MIN = inf->botf;
 		if ((int16_t) max <= (int16_t) (inf->toph))
 			max = inf->toph;
 		if ((int16_t) is4 > (int16_t) t_width) {
 			wdsfl++;
 			nfix = 2;
 		} // may look at thin line
-		if (((int16_t) (max - min) > (int16_t) twh) && ((nx > (int16_t) 5)
+		if (((int16_t) (max - MIN) > (int16_t) twh) && ((nx > (int16_t) 5)
 				&& svn)) {
 			fixcut(svf, svl, svn, arg);
 			svn = 0;
 			max = 0;
-			min = 127;
+			MIN = 127;
 		}
 		if ((int16_t) lastw == (int16_t) curw)
 			continue;
@@ -358,7 +358,7 @@ static void minlincut(char arg)
 		case 0: // sum at single line
 		case 1:
 			break;
-		case 2: // min at separ. line
+		case 2: // MIN at separ. line
 			cline = linums[nx];
 			if (cline == 0)
 				break; // no ciutgraph's line here
@@ -380,7 +380,7 @@ static void minlincut(char arg)
 			wdsfl = 0;
 			svn = 0;
 			max = 0;
-			min = 127;
+			MIN = 127;
 		} else {
 			svn = nx;
 			svf = nfix;
@@ -549,7 +549,7 @@ static void regmin(char c)
 }
 
 static void make_limits() {
-	char nx, min, max, w;
+	char nx, MIN, max, w;
 
 	Exbn = (char) make_extrem(bodyes, exbody);
 	ExbM = ExtreM;
@@ -567,28 +567,28 @@ static void make_limits() {
 
 	Startp = -1;
 	Endp = -1;
-	min = 127;
+	MIN = 127;
 	max = 0;
 	for (nx = 0; nx < totalh; nx++) {
-		if (min > points[nx].botf)
-			min = points[nx].botf;
+		if (MIN > points[nx].botf)
+			MIN = points[nx].botf;
 		if (max < points[nx].toph)
 			max = points[nx].toph;
-		w = max - min;
+		w = max - MIN;
 		if (((w << 1) + w) > t_width) {
 			Startp = nx;
 			break;
 		}
 	}
 
-	min = 127;
+	MIN = 127;
 	max = 0;
 	for (nx = totalh - 1; nx >= 0; nx--) {
-		if (min > points[nx].botf)
-			min = points[nx].botf;
+		if (MIN > points[nx].botf)
+			MIN = points[nx].botf;
 		if (max < points[nx].toph)
 			max = points[nx].toph;
-		w = max - min;
+		w = max - MIN;
 		if (((w << 1) + w) > t_width) {
 			Endp = nx;
 			break;
@@ -907,7 +907,7 @@ static void lower_pen(char ret) {
 	extrn = &exhead[3];
 	for (Nmb = 2; Nmb < Exhn - 2; Nmb++, extrc++, extrp++, extrn++) {
 		if (extrc->type <= 0)
-			continue; // min
+			continue; // MIN
 		bestx = (extrc->beg + extrc->end) >> 1;
 		if ((foots[bestx] + heads[bestx]) > t_width)
 			continue; // lower case
@@ -1513,7 +1513,7 @@ int16_t cut_points(int16_t width, int16_t height, uchar *r, struct cut_elm *ans)
 	s_raster = r;
 	c_rastror(s_raster, t_raster(), s_width, s_height);
 	// turn s_raster for 90 degrees clockwise
-	t_comp_ptr = c_locomp(t_raster(), t_width_b, t_height, 0,
+	t_comp_ptr = EVN_CLocomp(t_raster(), t_width_b, t_height, 0,
 			(int16_t) (-t_left_shift));
 	// extraction components from t_raster
 	if (t_comp_ptr == NULL)
@@ -1589,7 +1589,7 @@ int16_t Alik_cut_points(int16_t width, int16_t height, uchar *r,
 
 	s_raster = r;
 	c_rastror(s_raster, t_raster(), s_width, s_height); // turn s_raster for 90 degrees clockwise
-	t_comp_ptr = c_locomp(t_raster(), t_width_b, t_height, 0,
+	t_comp_ptr = EVN_CLocomp(t_raster(), t_width_b, t_height, 0,
 			(int16_t) (-t_left_shift)); // extraction components from t_raster
 	if (t_comp_ptr == NULL)
 		return -1;
@@ -1633,7 +1633,7 @@ MN *cut_rast(puchar r, int16_t width, int16_t height, int16_t upper,
 	//  3 -  create components after all cuts made
 
 	if (flg == 3)
-		return (c_locomp(r, (int16_t) ((width + 7) >> 3), height, upper, left));
+		return EVN_CLocomp(r, (int16_t) ((width + 7) >> 3), height, upper, left);
 
 	if (flg)
 		memset(svp, 0, 16);
@@ -1810,7 +1810,7 @@ MN *cut_rast(puchar r, int16_t width, int16_t height, int16_t upper,
 	}
 
 	if (flg == 2)
-		return (c_locomp(r, (int16_t) ((width + 7) >> 3), height, upper, left));
+		return EVN_CLocomp(r, (int16_t) ((width + 7) >> 3), height, upper, left);
 
 	return NULL;
 }

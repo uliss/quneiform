@@ -61,14 +61,12 @@
 //////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
 #include <sys/stat.h>
-/* #include <io.h> */
 
 #include <stdlib.h>
 #include <setjmp.h>
 #include <assert.h>
 #include <stdio.h>
 #include <fcntl.h>
-/* #include <direct.h>*/
 #include <string.h>
 
 #include "globus.h"
@@ -257,7 +255,6 @@ static void ReRecognizeComponents() {
 str * first_string_language(void);
 str * next_string_language(void);
 
-void proc_bI(int16_t pass);
 void proc_ii(void);
 
 void save_rest_bases(int16_t mode, int16_t line_crit);

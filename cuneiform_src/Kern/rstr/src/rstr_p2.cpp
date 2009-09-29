@@ -56,6 +56,7 @@
 
 #define _USE_GLUE_BOX_
 
+#include "cfcompat.h"
 #include <stdlib.h>
 #include <sys/stat.h>
 
@@ -813,7 +814,6 @@ int16_t estletter(cell * BC, s_glue * GL) {
 // p2glob - language & s.o.
 int32_t p2_RecogCutGlu(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
 		P2GLOBALS *p2glob) {
-	void proc_bI(int32_t pass);
 	void proc_ii(void);
 	void make_all_cuts(void);
 	void make_all_glues(void);

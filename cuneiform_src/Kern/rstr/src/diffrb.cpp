@@ -63,8 +63,8 @@
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
 /* SumBits - посчитать сумму бит в строке байт 				*/
 /* VertSum - посчитать сумму бит в столбце  				*/
-/* MinMaxLeft - найти min и max расстояние на левом абрисе 		*/
-/* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
+/* MinMaxLeft - найти MIN и max расстояние на левом абрисе 		*/
+/* MinMaxRight - найти MIN и max расстояние на правом абрисе 		*/
 /* NumHorizInterval - число интервалов в строке 			*/
 /* NumVertInterval - число интервалов в столбце 			*/
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
@@ -178,7 +178,7 @@ int16_t VertSum(uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column) {
 	return (d);
 }
 
-/* MinMaxLeft - найти min и max расстояние на левом абрисе 		*/
+/* MinMaxLeft - найти MIN и max расстояние на левом абрисе 		*/
 int16_t MinMaxLeft(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT, int16_t *Pmin,
 		int16_t *Pmax) {
 	int16_t maxr = 0, minr = 100, r, i;
@@ -197,7 +197,7 @@ int16_t MinMaxLeft(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT, int16
 	return (0);
 }
 
-/* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
+/* MinMaxRight - найти MIN и max расстояние на правом абрисе 		*/
 int16_t MinMaxRight(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT, int16_t *Pmin,
 		int16_t *Pmax) {
 	int16_t maxr = 0, minr = 100, r, i;

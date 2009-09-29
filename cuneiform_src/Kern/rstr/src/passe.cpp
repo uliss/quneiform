@@ -987,7 +987,6 @@ Bool russian_word_all(uchar *wrd, uchar language, uchar nextlet) {
 	for (ii = i = 0; i < MAX_LEN_WORD - 1 && wrd[i] != '\0'; i++)
 		if (!memchr(punct_letters, wrd[i], sizeof(punct_letters))) {
 			c = to_lower(wrd[i]);
-			//strcat(w,decode_ASCII_to_[c]);
 			if (strlen((char*) w) + strlen((char*) decode_ASCII_to_[c])
 					< MAX_LEN_WORD - 1)
 				strcat((char*) w, (char*) decode_ASCII_to_[c]);

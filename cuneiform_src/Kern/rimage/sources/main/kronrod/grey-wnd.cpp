@@ -156,7 +156,7 @@ void mk_hist_WORD(uint16_t *Hist_WORD, LPBYTE p, uint16_t n);
 #define	PR_END	MessageBox (GetFocus(), buf_MKPR, 0, MB_SYSTEMMODAL); }
 /*----------------------------------------------------------------------*/
 //EXTERN:
-//extern  char    Main_Dir_Name [];   // H:\CUNEI  (see zB SCANTAB.C)
+char    Main_Dir_Name [128];   // H:\CUNEI  (see zB SCANTAB.C)
 /*----------------------------------------------------------------------*/
 //VARIABLES
 int32_t Ln_hist;
@@ -1092,7 +1092,7 @@ void grey_quant_KOROB_graph_Hist() { // 22.09.1992
 	grey_PR_BYTE(i, 16, (uchar)((Itek >> 8) & 0xFF)); // HIGH
 	grey_PR_BYTE(i, 24, (uchar)(Itek & 0xFF)); // LOW
 
-	grey_PR_BYTE(i, 36, Porog_08); // min
+	grey_PR_BYTE(i, 36, Porog_08); // MIN
 
 	grey_PR_BYTE(i, 48, Porog_88); // MAX
 }

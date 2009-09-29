@@ -102,7 +102,6 @@ static char *legs_err[] = { "ok", "1st bad", "1st uneven", "1st like \\",
 static char roof_incompl[] = { "incomplete roof/floor" };
 static char roof_hole[] = { "gap not in place" };
 
-void est_snap(char user, cell *C, pchar txt);
 static uchar pen_roofm[8] = { 0, 2, 4, 12, 24, 36, 48, 100 };
 static uchar pen_roofn[8] = { 0, 2, 4, 12, 24, 36, 48, 100 };
 static uchar pen_iroofn[8] = { 0, 0, 0, 0, 12, 36, 48, 100 };
@@ -494,7 +493,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 		sm0 = (char)leg_sumw;
 
 		// before 10/25:  leg_botw   = leg_maxpos - leg_minpos;
-		//                    uneven = max - min;
+		//                    uneven = max - MIN;
 		// after  10/25:      botw   = last + (last-1) - first - (first+1)
 		// if (leg_uneven <= 2)  return leg_midw;
 		// if ((leg_botw > 0) && fl) return (-leg_midw);  // wider at bottom
@@ -1060,8 +1059,8 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 	}
 
 static int16_t analeg(char *l) {
-	char *sp, *ep, *cp, *sp1, *ep1, min, max, w;
-	min = 127;
+	char *sp, *ep, *cp, *sp1, *ep1, MIN, max, w;
+	MIN = 127;
 	max = 0;
 	leg_sumw = 0;
 	sp = &l[shh];
@@ -1076,13 +1075,13 @@ static int16_t analeg(char *l) {
 			max = w;
 			leg_maxpos = cp - sp;
 		}
-		if (w < min) {
-			min = w;
+		if (w < MIN) {
+			MIN = w;
 			leg_minpos = cp - sp;
 		}
 	}
 
-	leg_uneven = max - min;
+	leg_uneven = max - MIN;
 	w = ehh - shh;
 	if (w <= 0) {
 		leg_uneven = leg_botw = 100;

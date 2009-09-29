@@ -59,8 +59,6 @@
 #include "struct.h"
 #include "v1comp.h"
 
-BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int32_t height,
-		int32_t width);
 MN
 		* c_locomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
 				int16_t left);

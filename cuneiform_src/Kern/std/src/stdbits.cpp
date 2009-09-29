@@ -55,7 +55,6 @@
  */
 
 #include "internal.h"
-#pragma hdrstop
 #include "std.h"
 
 /* This function transforms the black-white image into a sequence of intervals.
@@ -64,43 +63,43 @@
  Clearly, this function will not work properly if there is 64K (or more) of consecutive whites (or blacks).
  */
 
-STD_FUNC(int) stdBits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals) {
+int stdBits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals) {
 
-    /* Here, pIntervals is a pointer to the interval buffer. It should have length (in bytes) == (nByteWidth*4)*4 */
+	/* Here, pIntervals is a pointer to the interval buffer. It should have length (in bytes) == (nByteWidth*4)*4 */
 
-    int32_t* p = pIntervals;
-    uchar b = 0;
+	int32_t* p = pIntervals;
+	uchar b = 0;
 
-    *p = 0;
+	*p = 0;
 
-    bool c, current_color = 0;
-    int length;
+	bool c, current_color = 0;
+	int length;
 
-    while (nByteWidth) {
-        nByteWidth--;
+	while (nByteWidth) {
+		nByteWidth--;
 
-        length = 8;
-        b = *pBits++;
+		length = 8;
+		b = *pBits++;
 
-        while (length > 0) {
-            if (b > 127)
-                c = 1;
-            if (b < 128)
-                c = 0;
-            if (c == 0)
-                *p += 0x1;
-            if (c == 1 && current_color == 1)
-                *p += 0x10000;
-            if (c == 1 && current_color == 0)
-                *++p = 0x10000;
-            current_color = c;
-            b = (b - 128 * c) * 2;
-            length = length - 1;
-        }
+		while (length > 0) {
+			if (b > 127)
+				c = 1;
+			if (b < 128)
+				c = 0;
+			if (c == 0)
+				*p += 0x1;
+			if (c == 1 && current_color == 1)
+				*p += 0x10000;
+			if (c == 1 && current_color == 0)
+				*++p = 0x10000;
+			current_color = c;
+			b = (b - 128 * c) * 2;
+			length = length - 1;
+		}
 
-    };
+	};
 
-    if (*p & 0xffff0000)
-        p++;
-    return p - pIntervals;
+	if (*p & 0xffff0000)
+		p++;
+	return p - pIntervals;
 }

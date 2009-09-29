@@ -356,7 +356,7 @@ Bool32 CTB_create(const char *file_name, uchar *data) {
 			attr_size);
 }
 
-CTB_FUNC Bool32 CTB_create_gray(char *file_name, uchar *data) {
+Bool32 CTB_create_gray(const char *file_name, uchar *data) {
 	uchar attr_size = 32 + 2; // version 7
 	if (data && data[0])
 		attr_size = data[0];

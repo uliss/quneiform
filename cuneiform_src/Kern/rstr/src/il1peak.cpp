@@ -84,7 +84,7 @@ void extremum (pchar func, int16_t n_func, int16_t from, int16_t to, int16_t thr
 	       char f2, char fbound)
  {
  int16_t x;
- int16_t min,max;
+ int16_t MIN,max;
  int16_t n_min,n_max;
  int16_t locmin2[MAX_HOR_IL1],locmin1[MAX_HOR_IL1];
  int16_t locmax1[MAX_HOR_IL1];
@@ -100,30 +100,30 @@ void extremum (pchar func, int16_t n_func, int16_t from, int16_t to, int16_t thr
 
  Z=&string;
  width=to+1-from;
- min=gmin=10000;
+ MIN=gmin=10000;
  max=gmax=0;
  n_max=n_min=0;
  minway=WAY_UP;
  maxway=WAY_DOWN;
  for (x=from; x <= to; x++)
   {
-  if ((func[x] < min) ||
-      ((func[x] == min) && (minway == WAY_DOWN)))
+  if ((func[x] < MIN) ||
+      ((func[x] == MIN) && (minway == WAY_DOWN)))
    {
    minway=WAY_DOWN;
    locmin1[n_min]=x;
-   min=func[x];
-   if (gmin > min)
-    gmin=min;
+   MIN=func[x];
+   if (gmin > MIN)
+    gmin=MIN;
    }
   else
    {
-   if ((func[x] > min) && (minway == WAY_DOWN))
+   if ((func[x] > MIN) && (minway == WAY_DOWN))
     {
     n_min++;
     minway=WAY_UP;
     }
-   min=func[x];
+   MIN=func[x];
    }
   if ((func[x] > max) ||
       ((func[x] == max) && (maxway == WAY_UP)))

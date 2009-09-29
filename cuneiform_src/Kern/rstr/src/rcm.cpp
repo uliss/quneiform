@@ -62,6 +62,7 @@
 #endif
 #define _STORE_LETTERS1
 
+#include "cfcompat.h"
 #include <string.h>
 #include <stdlib.h>
 #include <setjmp.h>
@@ -217,7 +218,7 @@ const uchar decode_ASCII_to_[256][4] = {
 		/* f*/"\xe4", "\xe4", "\x20", "\x20", "\x20", "\xf2", "\x20", "\xe8",
 		"\xe3", "\x20", "\x20", "\x20", "\x20", "\xe0", "\x95", "\x20" /* f*/
 };
-const uchar decode_rus_ASCII_to_[256][4] = {
+uchar decode_rus_ASCII_to_[256][4] = {
 /*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
 /* 0*/"\x00", "\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08",
 		"\x09", "\x0a", "\x0b", "\x0c", "\x0d", "\x0e", "\x0f",
@@ -399,8 +400,6 @@ uint16_t wLowRC = RSTR_ERR_NO;
 void ErrorExit(int Code);
 void pass3(CSTR_line lin, CSTR_line lino);
 void correct_letters_pidx_table(void);
-//extern "C" Bool16 matrix_field();
-//extern "C" Bool16 not_matrix_field();
 
 //=============== Global data ==============
 Err16 rcmErr;

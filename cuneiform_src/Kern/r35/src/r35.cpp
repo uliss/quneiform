@@ -55,7 +55,6 @@
  */
 
 #include "compat_defs.h"
-#include "cfcompat.hpp"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
@@ -948,7 +947,7 @@ Bool32 R35Binarize(RecRaster *rRaster, uint16_t *CompImage, int32_t dx,
 	 if( CompImage[ii+j]>=lev)
 	 {
 	 if( skip_x>j )
-	 skip_x=j;  // min horizontal destination
+	 skip_x=j;  // MIN horizontal destination
 	 break;
 	 }
 	 if( skip_x==0 )
@@ -1041,7 +1040,7 @@ Bool32 R35Binarize8(RecRaster *rRaster, uchar *CompImage, int32_t dx,
 		if( CompImage[ii+j]<lev)
 		{
 			if( skip_x>j )
-			skip_x=j; // min horizontal destination
+			skip_x=j; // MIN horizontal destination
 			if( skip_x_right>dx-1-j )
 			skip_x_right=dx-1-j;
 		}

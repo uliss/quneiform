@@ -77,10 +77,6 @@
 #define CCOM_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 CCOM_FUNC(Bool32) CCOM_Init( uint16_t wHeightCode, Handle hStorage );
 CCOM_FUNC(void) CCOM_Done(void);
 CCOM_FUNC(uint32_t) CCOM_GetReturnCode(void);
@@ -261,10 +257,5 @@ typedef Bool32 (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, int16_t relleft,
 		int16_t relupper, RecRaster *rec);
 CCOM_FUNC(Bool32) CCOM_AddCompToRaster(CCOM_comp * comp, int16_t relleft, int16_t relupper, RecRaster *rec);
 // error code
-
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

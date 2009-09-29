@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
 /* SumBits - посчитать сумму бит в строке байт 				*/
 /* VertSum - посчитать сумму бит в столбце  				*/
-/* MinMaxLeft - найти min и max расстояние на левом абрисе 		*/
-/* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
+/* MinMaxLeft - найти MIN и max расстояние на левом абрисе 		*/
+/* MinMaxRight - найти MIN и max расстояние на правом абрисе 		*/
 /* NumHorizInterval - число интервалов в строке 			*/
 /* NumVertInterval - число интервалов в столбце 			*/
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
@@ -431,7 +431,7 @@ for( i=0;i<NHEIGHT;i++,RASTER+=Wx)
 return(0);
 }
 
-/* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
+/* MinMaxRight - найти MIN и max расстояние на правом абрисе 		*/
 int16_t MinMaxRight( uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT,
 		int16_t *Pmin, int16_t *Pmax)
 {

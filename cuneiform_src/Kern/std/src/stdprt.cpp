@@ -447,108 +447,92 @@ Bool32 CPrtSysEventSender::SendTimerEvent() {
 
 void CPrtSysEventSender::Destroy() {
 	if (m_TableEvnCreator) {
-		/*m_TableEvnCreator->xsTblEventData.erase(m_TableEvnCreator->xsTblEventData.begin(),
-		 m_TableEvnCreator->xsTblEventData.end());*/
 		delete m_TableEvnCreator;
 		m_TableEvnCreator = NULL;
 	}
-
 }
 
-STD_FUNC(Bool32) stdPrtStartConsole()
-{
+Bool32 stdPrtStartConsole() {
 	Bool32 res = stdPrtConsole.AllocPrtConsole();
 	return res;
 }
 
-STD_FUNC(void) stdPrtStopConsole()
-{
+void stdPrtStopConsole() {
 	stdPrtConsole.FreePrtConsole();
 }
 
-STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, ... )
-{
-	if (NULL==(FILE*)theFile)
-	RET_ZERO;
+int32_t stdPrt(StdPrtEvent* pspe, ...) {
+	if (NULL == (FILE*) theFile)
+		RET_ZERO;
 	va_list List;
 	va_start(List, pspe);
 	CPrtSendEvent Event;
-	int32_t res = Event(pspe,List);
+	int32_t res = Event(pspe, List);
 	va_end( List );
 	return res;
 }
 
 static CPrtSysEventSender SysEvent;
 
-STD_FUNC(int32_t) stdSysPrt( int32_t EvnNo, ... )
-{
-	if (NULL==(FILE*)theFile)
-	RET_ZERO;
+int32_t stdSysPrt(int32_t EvnNo, ...) {
+	if (NULL == (FILE*) theFile)
+		RET_ZERO;
 	va_list List;
 	va_start(List, EvnNo);
 	// CPrtSysEventSender Event;
-	int32_t res = SysEvent.SendSysEvent(EvnNo,List);
+	int32_t res = SysEvent.SendSysEvent(EvnNo, List);
 	va_end( List );
 	return res;
 }
 
-STD_FUNC(int32_t) stdSysPrt( int32_t EvnNo, va_list& List )
-{
-	if (NULL==(FILE*)theFile)
-	RET_ZERO;
+int32_t stdSysPrt(int32_t EvnNo, va_list& List) {
+	if (NULL == (FILE*) theFile)
+		RET_ZERO;
 	// CPrtSysEventSender Event;
-	int32_t res = SysEvent.SendSysEvent(EvnNo,List);
+	int32_t res = SysEvent.SendSysEvent(EvnNo, List);
 	return res;
 }
 
-STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, va_list& List)
-{
-	if (NULL==(FILE*)theFile)
-	RET_ZERO;
+int32_t stdPrt(StdPrtEvent* pspe, va_list& List) {
+	if (NULL == (FILE*) theFile)
+		RET_ZERO;
 	CPrtSendEvent Event;
-	int32_t res = Event(pspe,List);
+	int32_t res = Event(pspe, List);
 	return res;
 }
 
-STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id)
-{
+Bool32 stdPrtStartTransaction(char* user_name, char* prog_id) {
 	pTransactionBuffer->Start();
 	gl_iTransaction++;
-	char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-	long unsigned int sz=sizeof(comp_name);
-	GetComputerName(comp_name,&sz);
-	stdSysPrt(3,"Начало",comp_name,prog_id,user_name);
+	char comp_name[MAX_COMPUTERNAME_LENGTH + 1];
+	long unsigned int sz = sizeof(comp_name);
+	GetComputerName(comp_name, &sz);
+	stdSysPrt(3, "Начало", comp_name, prog_id, user_name);
 	return TRUE;
 }
 
-STD_FUNC(Bool32) stdPrtRollback()
-{
-	if(gl_iTransaction)
-	{
-		if(!pTransactionBuffer->Rollback())
-		RET_FALSE;
+Bool32 stdPrtRollback() {
+	if (gl_iTransaction) {
+		if (!pTransactionBuffer->Rollback())
+			RET_FALSE;
 		gl_iTransaction--;
 		return TRUE;
-	}
-	else
-	RET_FALSE;
+	} else
+		RET_FALSE;
 }
 
-STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id)
-{
-	if(gl_iTransaction)
-	{
-		char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-		long unsigned int sz=sizeof(comp_name);
-		GetComputerName(comp_name,&sz);
-		stdSysPrt(3,"Завершение",comp_name,prog_id,user_name);
-		if(!pTransactionBuffer->Finish())
-		RET_FALSE;
+Bool32 stdPrtEndTransaction(char* user_name, char* prog_id) {
+	if (gl_iTransaction) {
+		char comp_name[MAX_COMPUTERNAME_LENGTH + 1];
+		long unsigned int sz = sizeof(comp_name);
+		GetComputerName(comp_name, &sz);
+		stdSysPrt(3, "Завершение", comp_name, prog_id, user_name);
+		if (!pTransactionBuffer->Finish())
+			RET_FALSE;
 		gl_iTransaction--;
 		return TRUE;
-	}
-	else
-	RET_FALSE;
+	} else
+		RET_FALSE;
 }
 
 static char* pParamsString = NULL;
@@ -664,14 +648,12 @@ int32_t ParseEventString(char* evn_str, int32_t iEvnSize) {
 	return iEvnNo;
 }
 
-STD_FUNC(int32_t) stdPrtStartParsePrt(char *file_name)
-{
-	stdPrtFILE theParseFile(file_name,"rt");
-	if((FILE*)(theParseFile)==NULL)
-	RET_ZERO;
+int32_t stdPrtStartParsePrt(char *file_name) {
+	stdPrtFILE theParseFile(file_name, "rt");
+	if ((FILE*) (theParseFile) == NULL)
+		RET_ZERO;
 	xsParamsShift.Destroy();
-	if(pParamsString)
-	{
+	if (pParamsString) {
 		delete pParamsString;
 		pParamsString = NULL;
 		iParamsStringLen = 0;
@@ -679,11 +661,9 @@ STD_FUNC(int32_t) stdPrtStartParsePrt(char *file_name)
 	return 1;
 }
 
-STD_FUNC(int32_t) stdPrtGetNextEvent(StdPrtEvent* pspe)
-{
+int32_t stdPrtGetNextEvent(StdPrtEvent* pspe) {
 	xsParamsShift.Destroy();
-	if(pParamsString)
-	{
+	if (pParamsString) {
 		delete pParamsString;
 		pParamsString = NULL;
 		iParamsStringLen = 0;

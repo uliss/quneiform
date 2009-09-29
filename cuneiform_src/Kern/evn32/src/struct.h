@@ -205,4 +205,3 @@ struct large_int_s {
 typedef struct large_int_s large_interval;
 
 #endif
-

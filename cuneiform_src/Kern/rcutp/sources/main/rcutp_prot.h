@@ -68,17 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int16_t  Alik_define_cut_points(pchar,struct own_cut *,int16_t,int16_t,int16_t);
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
-#ifdef __cplusplus
-	}
-#endif
-
-
-//////////////////////////////////////////////////////////////////////////////////
-//
 #ifdef __RCUTP_EXTERN__
 	#define EXTERN
 	#define VAL(a) = a
@@ -88,8 +77,4 @@ int16_t  Alik_define_cut_points(pchar,struct own_cut *,int16_t,int16_t,int16_t);
 #endif
 
 
-//EXTERN Handle hDebugRoot					     VAL( NULL );
-//EXTERN Handle hDebugMy            VAL( NULL );
-//EXTERN Handle hDebugCutP          VAL( NULL );
-
-#endif // __rcutp_prot_h_
+#endif

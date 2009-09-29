@@ -55,7 +55,7 @@
  */
 
 #include "minmax.h"
-#include "cfcompat.hpp"
+#include "cfcompat.h"
 
 #define NO_SIZES0
 //
@@ -183,7 +183,6 @@ typedef struct tagLetInfo {
 } LetInfo;
 LetInfo *letInfo = NULL;
 
-//////////////////
 LEO_FUNC(void) LEO_ClearStat(void)
 {
 	memset(allHeights,0,sizeof(allHeights));
@@ -198,7 +197,7 @@ LEO_FUNC(void) LEO_ClearStat(void)
 	allSize=0;
 	allLetter=0;
 }
-////////////////////
+
 //            russian ДдЦцЩщ
 static const char *nonStandard = "\x84\xA4\x96\xE6\x99\xE9";
 

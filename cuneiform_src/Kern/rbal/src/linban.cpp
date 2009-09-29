@@ -333,7 +333,7 @@ void complete_bas(const char *txt) {
 
 	if (db_status) {
 		char ww[128];
-		sprintf(ww, "%s, mr=%d min=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
+		sprintf(ww, "%s, mr=%d MIN=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
 				txt, sum_ans, minrow, Ps, bbs1, bbs2, bbs3, bbs4, Ns1, Ns2,
 				Ns3, Ns4);
 		glsnap('d', cell_f()->next, ww);
@@ -1853,7 +1853,7 @@ int16_t dbsum(int16_t filter) {
 		if (db_status) {
 			sprintf(
 					ww + jl,
-					"summ: r=%d min=%d nc=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
+					"summ: r=%d MIN=%d nc=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
 					rz, minrow, ncbs, Ps, sbs1, sbs2, sbs3, sbs4, Ns1, Ns2,
 					Ns3, Ns4);
 			glsnap('d', cell_f()->next, ww);
@@ -1919,7 +1919,7 @@ int16_t calc_base() {
 
 				set_basarr(&all_bases[0],-32000,32000);
 				{	char ww[128];
-					sprintf(ww,"WRONG BASES, min=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
+					sprintf(ww,"WRONG BASES, MIN=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
                   minrow, Ps, bbs1, bbs2, bbs3, bbs4, Ns1, Ns2, Ns3, Ns4);
        glsnap ('d',cell_f()->next,ww);
    }
@@ -2194,36 +2194,37 @@ static int16_t doubt_bas() {
 		return 43;
 	}
 
-	if ((8* (bbs2 -bbs1)) < (bbs3-bbs2)) // upper level doubtful
-			{	all_doubts |= 128; return 218;}
+	// upper level doubtful
+	if ((8* (bbs2 -bbs1)) < (bbs3-bbs2)) {
+		all_doubts |= 128;
+		return 218;
+	}
 
-			Ps=Psf=bbs3-bbs2;
-			if (Ps <= 0)
-			{
-				Ps = 1;
-				bbs2 = bbs3-1;
-			}
-			if (fax1x2) Psf = Ps + 2;
+	Ps=Psf=bbs3-bbs2;
+	if (Ps <= 0)
+	{
+		Ps = 1;
+		bbs2 = bbs3-1;
+	}
+	if (fax1x2) Psf = Ps + 2;
 
-			if (histiter)
-			{	int16_t wd;
-				if (b12_s & 1) return 11;
-				if (b12_s & 2) return 22;
-				if (b12_s & 4) return 19;
-				if (b12_s & 8) return 29;
-				wd = minold-minrow;
+	if (histiter)
+	{	int16_t wd;
+		if (b12_s & 1) return 11;
+		if (b12_s & 2) return 22;
+		if (b12_s & 4) return 19;
+		if (b12_s & 8) return 29;
+		wd = minold-minrow;
 
-				krit_loc = abs(obs2-bbs2+wd) + abs(obs3-bbs3+wd);
-				krit_hist += krit_loc;
-				krit_loc += abs(obs1-bbs1+wd);
-				krit_loc += abs(obs4-bbs4+wd);
-				if (krit_hist > 5)
-				return 99;
-				// if (2*change_vote > cells_inln)
-				//    return 8;
-			}
-			histiter++;
-			if (krit_loc) // not stabilized
+		krit_loc = abs(obs2-bbs2+wd) + abs(obs3-bbs3+wd);
+		krit_hist += krit_loc;
+		krit_loc += abs(obs1-bbs1+wd);
+		krit_loc += abs(obs4-bbs4+wd);
+		if (krit_hist > 5)
+		return 99;
+	}
+	histiter++;
+	if (krit_loc) // not stabilized
 			{
 				obs1=bbs1; obs2=bbs2; obs3=bbs3; obs4=bbs4; oPs=Ps;
 				oNb1=Ns1; oNb2=Ns2; oNb3=Ns3; oNb4=Ns4;
