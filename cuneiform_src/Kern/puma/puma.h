@@ -75,8 +75,6 @@ class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingStatic> Puma;
 }
 
-#define PUMA_MAXNAME 260
-
 typedef void (*FNPUMA_ProgressStart)(void);
 typedef void (*FNPUMA_ProgressFinish)(void);
 typedef bool (*FNPUMA_ProgressStep)(uint32_t step, const char* name,
