@@ -271,7 +271,6 @@ long _EnumTable(long prev);
 long _EnumPicture(long prev);
 
 // common.cpp
-void ClearAll(void);
 Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
@@ -300,7 +299,6 @@ Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
 Bool32 PreProcessImage();
-Bool32 BinariseImage();
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
 bool ConverROUT(const std::string& filename, puma_format_t Format,
 		puma_code_t Code, bool Append);

@@ -56,6 +56,7 @@
 
 #define __PUMA_CPP__
 
+#include <iostream>
 #include <string>
 #include <cstring>
 #include <cstdlib>
@@ -65,74 +66,6 @@
 
 #include "mpuma.h"
 #include "compat_defs.h"
-//////////////////////////////////////////////////////////////////
-// 07.07,2000 Allex
-// Вынес Бинаризацию наверх из PreProcessImage
-//////////////////////////////////////////////////////////Allex
-//CIMAGEBITMAPINFOHEADER info;
-
-Bool32 BinariseImage() {
-	Bool32 rc = TRUE;
-
-	if (InitPRGTIME())
-		ProgressStart();
-	//
-	// Бинаризуем изображение
-	//
-	gpRecogDIB = gpInputDIB;
-	glpRecogName = PUMA_IMAGE_USER;
-
-	if (!ProgressStep(1, GetResourceString(IDS_PRG_OPEN), 10))
-		rc = FALSE;
-
-	/////////////////////////////////////////////////////Allex
-	//CIMAGEBITMAPINFOHEADER info;
-	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
-		rc = FALSE;
-	}
-
-	if (!ProgressStep(2, GetResourceString(IDS_PRG_OPEN), 100))
-		rc = FALSE;
-
-	LDPUMA_Console("The image depth is %d at this point.\n",
-			(int) info.biBitCount);
-	if (rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount > 1) {
-		PRGTIME prev = StorePRGTIME(10, 100);
-		if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER,
-				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))//RIMAGE_BINARISE_KRONROD
-		{
-			SetReturnCode_puma(RIMAGE_GetReturnCode());
-			rc = FALSE;
-		} else {
-			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_BINARIZE,
-					(Handle*) &gpRecogDIB, TRUE)) {
-				SetReturnCode_puma(CIMAGE_GetReturnCode());
-				rc = FALSE;
-			} else {
-				LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE, gpRecogDIB);
-				PAGEINFO info;
-				GetPageInfo(hCPAGE, &info);
-				info.Images |= PageInfo::IMAGE_BINARIZE;
-				SetPageInfo(hCPAGE, info);
-			}
-
-			glpRecogName = PUMA_IMAGE_BINARIZE;
-		}
-
-		RestorePRGTIME(prev);
-	} else {
-		if (rc && info.biBitCount > 1) { // Дальнейшая работа без бинаризатора невозможна !
-			SetReturnCode_puma(IDS_ERR_NOBINARIZATION);
-			rc = FALSE;
-		}
-	}
-
-	if (DonePRGTIME())
-		ProgressFinish();
-
-	return rc;
-}
 
 Bool32 PreProcessImage() {
 	Bool32 rc = TRUE;
@@ -214,7 +147,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 			if (PInfo.Incline2048 > 0) {
 				p->x = (int32_t) info.biWidth * PInfo.Incline2048 / 2048
 						* PInfo.Incline2048 / 2048;
-				p->y = (int32_t) (info.biWidth) * PInfo.Incline2048 / 2048;
+				p->y = (int32_t)(info.biWidth) * PInfo.Incline2048 / 2048;
 			} else {
 				p->x = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
 						+ (int32_t) info.biWidth * PInfo.Incline2048 / 2048

@@ -48,10 +48,74 @@ void PumaImpl::analyze() {
 	layout();
 }
 
+void PumaImpl::binarizeImage() {
+	gpRecogDIB = gpInputDIB;
+	glpRecogName = PUMA_IMAGE_USER;
+
+	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info))
+		throw PumaException("PumaImpl: Can't get image info");
+
+#ifndef NDEBUG
+	cerr << "The image depth is " << info.biBitCount << "at this point."
+			<< endl;
+#endif
+
+	if (info.biBitCount > 1) {
+		//RIMAGE_BINARISE_KRONROD
+		if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER,
+				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))
+			throw PumaException("PumaImpl: Can't binarize image");
+
+		if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_BINARIZE,
+				(Handle*) &gpRecogDIB, TRUE))
+			throw PumaException("PumaImpl: Can't read DIB");
+
+		PageInfo info;
+		GetPageInfo(hCPAGE, &info);
+		info.Images |= PageInfo::IMAGE_BINARIZE;
+		SetPageInfo(hCPAGE, info);
+		glpRecogName = PUMA_IMAGE_BINARIZE;
+	}
+}
+
+void PumaImpl::clearAll() {
+	//
+	// Сохраним последенне состояние и очистим контейнер
+	//
+	if (ghEdPage) {
+		CED_DeletePage(ghEdPage);
+		ghEdPage = NULL;
+	}
+
+	PAGEINFO PInfo;
+	if (hCPAGE)
+		GetPageInfo(hCPAGE, &PInfo);
+
+	CSTR_DeleteAll();
+	CPAGE_DeleteAll();
+	hCPAGE = CreateEmptyPage();
+
+	strcpy(PInfo.szImageName, PUMA_IMAGE_USER);
+	PInfo.Incline2048 = 0;
+	PInfo.Angle = 0;
+	PInfo.Images = PageInfo::IMAGE_USER;
+	SetPageInfo(hCPAGE, PInfo);
+
+	CCOM_DeleteAll();
+	hCCOM = NULL;
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_BINARIZE);
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_DELLINE);
+	//  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
+	//  поскольку оно отображается в интерфейсе. Его нужно удалять
+	//  либо при получении нового довернутого изображения, либо при
+	//  закрытии файла
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
+}
+
 void PumaImpl::close() {
 	DBG("Puma close")
 	CLINE_Reset();
-	ClearAll();
+	clearAll();
 	// clean
 	CIMAGE_Reset();
 	CPAGE_DeleteAll();
@@ -108,9 +172,6 @@ Bool32 DPumaSkipTurn(void) {
 
 void PumaImpl::layout() {
 	Bool32 rc = TRUE;
-	int nBlock = 0;
-	int32_t Nominator = 0; // числитель
-	int32_t Denominator = 0; // знаменатель определяемого угла поворота
 
 	RSCBProgressPoints CBforRS;
 	RSPreProcessImage DataforRS;
@@ -118,16 +179,13 @@ void PumaImpl::layout() {
 	RMCBProgressPoints CBforRM;
 	RMPreProcessImage DataforRM;
 
-	PAGEINFO PInfo;
-
-	ClearAll();
+	clearAll();
+	binarizeImage();
 
 	void* MemBuf = CIF::PumaImpl::mainBuffer();
 	size_t size_buf = CIF::PumaImpl::MainBufferSize;
 	void* MemWork = CIF::PumaImpl::workBuffer();
 	int size_work = CIF::PumaImpl::WorkBufferSize;
-
-	rc = BinariseImage();
 
 	if (rc) {
 
