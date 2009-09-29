@@ -39,6 +39,8 @@ private:
 	void clearAll();
 	void layout();
 	void modulesDone();
+	void normalize();
+	void pageMarkup();
 	void preOpenInitialize();
 	void postOpenInitialize();
 private:
