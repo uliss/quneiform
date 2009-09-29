@@ -70,6 +70,7 @@
 
 #include "globus.h"
 #include "puma/puma.h"
+#include <string>
 
 #ifdef __RSTUFF__
 #define RSTUFF_FUNC  FUN_EXPO
@@ -77,9 +78,7 @@
 #define RSTUFF_FUNC  FUN_IMPO
 #endif
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
-typedef struct tagRSPreProcessImage {
+struct RSPreProcessImage {
 	puchar *pgpRecogDIB;
 	Bool32 gbAutoRotate;
 	Bool32 gbDotMatrix;
@@ -109,10 +108,11 @@ typedef struct tagRSPreProcessImage {
 	Rect32 gRectTemplate;
 	FNPUMA_XSetTemplate fnXSetTemplate;
 	FNPUMA_XGetTemplate fnXGetTemplate;
-	char *szLayoutFileName;
-} RSPreProcessImage, *PRSPreProcessImage;
-///////////////////////////////////////////////////////////////////////////////////////////
-//
+	std::string szLayoutFileName;
+};
+
+typedef RSPreProcessImage *PRSPreProcessImage;
+
 typedef struct tagRSCBProgressPoints {
 	void * pProgressStart;
 	void * pProgressStep;

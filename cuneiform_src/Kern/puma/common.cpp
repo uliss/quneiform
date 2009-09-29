@@ -62,8 +62,7 @@
 #include "cstr.h"
 
 // Функции прогресс индикатора
-Bool32 rexcProgressStep(uint32_t step) {
-	return ProgressStep(2, NULL, step);
+Bool32 rexcProgressStep(uint32_t) {
 }
 
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
@@ -410,58 +409,36 @@ Bool32 SaveToText(const char * lpOutFileName, int code) {
 	}
 	return rc;
 }
-////////////////////////////////////////////////////////////
+
+//TODO Delete
 void ProgressStart() {
-	LDPUMA_ProgressStart();
-	if (fnProgressStart)
-		fnProgressStart();
+
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+//TODO delete
 void ProgressFinish() {
-	LDPUMA_ProgressFinish();
-	if (fnProgressFinish)
-		fnProgressFinish();
+
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+//TODO delete
 Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent) {
-	Bool32 rc = TRUE;
-	static uint32_t old = 0;
-
-	g_PrgTime.dwStep = step;
-	g_PrgTime.name = name ? name : g_PrgTime.name;
-
-	uint32_t perc = g_PrgTime.dwBeg + percent * (g_PrgTime.dwEnd
-			- g_PrgTime.dwBeg) / 100;
-	rc = LDPUMA_ProgressStep(step, g_PrgTime.name, perc);
-	//	assert(perc>=old);
-	if (fnProgressStep)
-		rc &= fnProgressStep(step, g_PrgTime.name, perc);
-
-	old = perc;
-	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+//TODO delete
 Bool32 ProgressStepLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+//TODO delete
 Bool32 ProgressStepLines(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+//TODO delete
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-//////////////////////////////////////////////////////
+//TODO delete
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_SEARCHTABLE), percent);
 }
-//////////////////////////////////////////////////////
+//TODO delete
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_AUTOLAYOUT), percent);
 }
@@ -470,8 +447,8 @@ static uint32_t bInitPrgTime = 0;
 void ResetPRGTIME() {
 	bInitPrgTime = 0;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+//TODO delete
 Bool32 DonePRGTIME() {
 	Bool32 rc = FALSE;
 	if (bInitPrgTime)
@@ -480,8 +457,8 @@ Bool32 DonePRGTIME() {
 		rc = TRUE;
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+//TODO delete
 Bool32 InitPRGTIME() {
 	Bool32 rc = FALSE;
 	if (!bInitPrgTime) {
@@ -494,8 +471,7 @@ Bool32 InitPRGTIME() {
 	bInitPrgTime++;
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+//TODO delete
 PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 	PRGTIME rc = g_PrgTime;
 
@@ -509,12 +485,12 @@ PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+//TODO delete
 void RestorePRGTIME(PRGTIME prev) {
 	g_PrgTime = prev;
 }
-/////////////////////////////////////////////////////////////////////
+
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 	Bool32 rc = FALSE;
 	CSTR_rast start = CSTR_GetFirstRaster(lout), stop =

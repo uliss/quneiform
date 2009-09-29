@@ -307,12 +307,6 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 
 	hWndTurn = 0;
 
-	if (InitPRGTIME())
-		ProgressStart();
-
-	if (!ProgressStep(1, 5))
-		rc = FALSE;
-
 	// Andrey 12.11.01
 	// Проинициализируем контейнер CPAGE
 	//
@@ -339,9 +333,6 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 	////////////////////////////////////////////////////////
 	// Выделим компоненты
 	//
-	if (!ProgressStep(2, 65))
-		rc = FALSE;
-
 	if (rc) {
 		if (LDPUMA_Skip(Image->hDebugCancelComponent)/*DPumaSkipComponent()*/) {
 			//			uchar ori;
@@ -379,9 +370,6 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 
 		SetPageInfo(hCPAGE, PInfo);
 	}
-
-	if (DonePRGTIME())
-		ProgressFinish();
 
 	return rc;
 }

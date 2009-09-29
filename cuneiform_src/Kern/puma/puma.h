@@ -75,11 +75,6 @@ class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingStatic> Puma;
 }
 
-typedef void (*FNPUMA_ProgressStart)(void);
-typedef void (*FNPUMA_ProgressFinish)(void);
-typedef bool (*FNPUMA_ProgressStep)(uint32_t step, const char* name,
-		uint32_t percent);
-
 struct PUMA_ImageInfo {
 	uint16_t wImageHeight;
 	uint16_t wImageWidth;
@@ -221,9 +216,6 @@ void LPUMA_SetFormatMode(uint32_t nNewValue);// old
 
 void LPUMA_SetUnrecogChar(uchar nChar);
 uchar LPUMA_GetUnrecogChar(void);
-
-bool LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,
-		FNPUMA_ProgressStep fnStep, FNPUMA_ProgressFinish fnFinish);
 
 void LPUMA_SetAutoRotate(bool b);
 bool LPUMA_GetAutoRotate(void);

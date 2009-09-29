@@ -200,9 +200,9 @@ DEC_FUN(Bool32,  CPAGE_SetCurrentPage,(uint32_t page))
 DEC_FUN(uint32_t,  CPAGE_GetNumberPage,( Handle hPage ))
 ;
 
-DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,char * lpName))
+DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page, const char * lpName))
 ;
-DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,char * lpName))
+DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove, const char * lpName))
 ;
 
 DEC_FUN(Handle,  CPAGE_GetPageType,(Handle hPage))

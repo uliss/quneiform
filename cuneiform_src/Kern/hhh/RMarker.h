@@ -68,9 +68,8 @@
 #ifndef __RMARKER_H
 #define __RMARKER_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
+#include <string>
 
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO
@@ -78,17 +77,14 @@
 #define RMARKER_FUNC  FUN_IMPO
 #endif
 
-///////////////////////////////////////////////////////////////////////////////////////////
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
 RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
 RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
-/////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-typedef struct tagRMPreProcessImage {
+struct RMPreProcessImage {
 	puchar *pgpRecogDIB;
 	Bool32 gbAutoRotate;
 	Bool32 gbDotMatrix;
@@ -116,7 +112,7 @@ typedef struct tagRMPreProcessImage {
 	Handle hDebugSVLinesStep;
 	Handle hDebugSVLinesData;
 	Handle hDebugEnableSearchSegment;
-	char *szLayoutFileName;
+	std::string szLayoutFileName;
 	const char ** pglpRecogName;
 	void * pinfo;
 	Handle* phLinesCCOM;
@@ -124,7 +120,9 @@ typedef struct tagRMPreProcessImage {
 	int32_t * pgnNumberTables;
 	uint32_t gnPictures;
 	Bool32* pgrc_line;
-} RMPreProcessImage, *PRMPreProcessImage;
+};
+
+typedef RMPreProcessImage *PRMPreProcessImage;
 
 typedef struct tagRMCBProgressPoints {
 	void * pProgressStart;

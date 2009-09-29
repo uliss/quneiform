@@ -83,9 +83,7 @@
 #include "rsl.h"
 #include "rreccom.h"
 #include "rcorrkegl.h"
-
 #include <string>
-
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -123,7 +121,6 @@ EXTERN const char * gpUserDictName VAL("");
 EXTERN const char * gpSerifName VAL("Times New Roman");
 EXTERN const char * gpSansSerifName VAL("Arial");
 EXTERN const char * gpCourierName VAL("Courier New");
-
 EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
@@ -214,13 +211,12 @@ EXTERN Handle hDebugPrintBlocksCPAGE VAL(NULL);
 EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
-
-EXTERN char szLayoutFileName[256] VAL("Layout.bin");
+EXTERN std::string szLayoutFileName;
 EXTERN unsigned nDebugReturnCode VAL(0);
 EXTERN unsigned nDebugAllocMemory VAL(0);
-EXTERN FNPUMA_ProgressStart fnProgressStart VAL(NULL);
-EXTERN FNPUMA_ProgressFinish fnProgressFinish VAL(NULL);
-EXTERN FNPUMA_ProgressStep fnProgressStep VAL(NULL);
+//EXTERN FNPUMA_ProgressStart fnProgressStart VAL(NULL);
+//EXTERN FNPUMA_ProgressFinish fnProgressFinish VAL(NULL);
+//EXTERN FNPUMA_ProgressStep fnProgressStep VAL(NULL);
 EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
@@ -290,9 +286,6 @@ Bool32 DonePRGTIME();
 PRGTIME StorePRGTIME(uint32_t beg, uint32_t end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 void RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 
-void ProgressStart();
-void ProgressFinish();
-Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent);
 Bool32 ProgressStepLayout(uint32_t step, uint32_t percent);
 Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent);

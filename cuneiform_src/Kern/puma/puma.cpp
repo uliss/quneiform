@@ -71,30 +71,13 @@ Bool32 PreProcessImage() {
 	Bool32 rc = TRUE;
 	uint32_t Angle = 0;
 
-	if (InitPRGTIME())
-		ProgressStart();
-
-	if (!ProgressStep(1, GetResourceString(IDS_PRG_OPEN), 5))
-		rc = FALSE;
-
 	//
 	// Выделим компоненты
 	//
-	if (!ProgressStep(2, GetResourceString(IDS_PRG_OPEN), 65))
-		rc = FALSE;
-
-	if (rc) {
-		if (LDPUMA_Skip(hDebugCancelComponent)) {
-			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName);
-			RestorePRGTIME(prev);
-
-			if (!ProgressStep(2, NULL, 100))
-				rc = FALSE;
-
-		} else
-			LDPUMA_Console("Пропущен этап выделения компонент.\n");
-	}
+	if (LDPUMA_Skip(hDebugCancelComponent))
+		rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName);
+	else
+		LDPUMA_Console("Пропущен этап выделения компонент.\n");
 	//
 	// Проинициализируем контейнер CPAGE
 	//
@@ -109,17 +92,12 @@ Bool32 PreProcessImage() {
 		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
 		PInfo.Height = info.biHeight;
 		PInfo.Width = info.biWidth;
-		//		PInfo.X = 0; Уже установлено
-		//		PInfo.Y = 0;
 		PInfo.Incline2048 = 0;
 		PInfo.Page = 1;
 		PInfo.Angle = Angle;
 
 		SetPageInfo(hCPAGE, PInfo);
 	}
-
-	if (DonePRGTIME())
-		ProgressFinish();
 
 	return rc;
 }
@@ -130,7 +108,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	//
 	// Определим угол поворота страницы
 	//
-	PAGEINFO PInfo;// = { 0 };
+	PAGEINFO PInfo;
 
 	assert(p);
 	assert(lpDIB);
@@ -208,8 +186,6 @@ bool PUMA_Save(Handle hEdPage, const std::string& filename,
 		return false;
 	}
 
-	if (InitPRGTIME())
-		ProgressStart();
 	if (LDPUMA_Skip(hDebugCancelFormatted)) {
 		switch (Format) {
 		case PUMA_DEBUG_TOTEXT:
@@ -243,8 +219,6 @@ bool PUMA_Save(Handle hEdPage, const std::string& filename,
 		}
 	}
 	LDPUMA_Skip(hDebugCancelFictive);
-	if (DonePRGTIME())
-		ProgressFinish();
 
 	ghEdPage = prevEdPage;
 	return rc;
@@ -265,8 +239,6 @@ bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 		return rc;
 	}
 
-	if (InitPRGTIME())
-		ProgressStart();
 	if (LDPUMA_Skip(hDebugCancelFormatted)) {
 		switch (Format) {
 		case PUMA_TOTEXT:
@@ -283,8 +255,6 @@ bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 		}
 	}
 	LDPUMA_Skip(hDebugCancelFictive);
-	if (DonePRGTIME())
-		ProgressFinish();
 
 	ghEdPage = prevEdPage;
 	return rc;

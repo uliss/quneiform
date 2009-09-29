@@ -39,8 +39,8 @@ private:
 	void clearAll();
 	void layout();
 	void modulesDone();
-	bool preOpenInitialize();
-	bool postOpenInitialize(const char*);
+	void preOpenInitialize();
+	void postOpenInitialize();
 private:
 	static unsigned char * main_buffer_;
 	static unsigned char * work_buffer_;

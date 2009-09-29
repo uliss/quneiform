@@ -72,16 +72,16 @@ int32_t global_buf_len = 0; // OLEG fot Consistent
 #endif
 
 static Bool32 rblockProgressStep(uint32_t perc) {
-	return ProgressStep(2, NULL, perc);
+	//	return ProgressStep(2, NULL, perc);
 }
 static void rblockProgressFinish(void) {
-	ProgressStep(2, NULL, 100);
+	//	ProgressStep(2, NULL, 100);
 }
 static Bool32 rselstrProgressStep(uint32_t perc) {
-	return ProgressStep(2, NULL, perc);
+	//	return ProgressStep(2, NULL, perc);
 }
 static void rselstrProgressFinish(void) {
-	ProgressStep(2, NULL, 100);
+	//	ProgressStep(2, NULL, 100);
 }
 
 static Bool32 MakeStrings(Handle hccom, Handle hcpage) {
@@ -91,9 +91,6 @@ static Bool32 MakeStrings(Handle hccom, Handle hcpage) {
 				(void*) rselstrProgressStep);
 		RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressFinish,
 				(void*) rselstrProgressFinish);
-
-		if (!ProgressStep(1, GetResourceString(IDS_MAKESTRING), 5))
-			rc = FALSE;
 
 		if (rc && !RSELSTR_ExtractTextStrings(hccom, hcpage)) {
 			SetReturnCode_puma(RSELSTR_GetReturnCode());
@@ -105,15 +102,11 @@ static Bool32 MakeStrings(Handle hccom, Handle hcpage) {
 		RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,
 				(void*) rblockProgressFinish);
 
-		if (!ProgressStep(1, GetResourceString(IDS_MAKESTRING), 5))
-			rc = FALSE;
-
 		if (rc && !RBLOCK_ExtractTextStrings(hccom, hcpage)) {
 			SetReturnCode_puma(RBLOCK_GetReturnCode());
 			rc = FALSE;
 		}
 	}
-	//	RSELSTR_GetObjects(hccom,hcpage);
 	return rc;
 }
 //////////////////////////////////////////
@@ -192,13 +185,9 @@ static Bool32 RecognizeStringsPass1(void) {
 		int i;
 
 		LDPUMA_StartLoop(hDebugRecognition, count);
-		if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG), 0))
-			rc = FALSE;
 
 		for (i = 1; rc && i <= count; i++) {
 			CSTR_line lin_out, lin_in;
-			if (!ProgressStep(2, NULL, i * 100 / count))
-				rc = FALSE;
 
 			LDPUMA_LoopNext(hDebugRecognition);
 			if (!LDPUMA_Skip(hDebugRecognition)) {
@@ -257,8 +246,6 @@ static Bool32 RecognizeStringsPass1(void) {
 #endif
 
 	if (rc) {
-		if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG2), 100))
-			rc = FALSE;
 		rc = RSTR_EndPage(hCPAGE);
 		if (!rc)
 			SetReturnCode_puma(RSTR_GetReturnCode());
@@ -278,13 +265,9 @@ static Bool32 RecognizeStringsPass2() {
 	int i;
 
 	LDPUMA_StartLoop(hDebugRecognition, count);
-	if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG2), 0))
-		rc = FALSE;
 
 	for (i = 1; rc && i <= count; i++) {
 		CSTR_line lin_out, lin_in;
-		if (!ProgressStep(2, NULL, i * 100 / count))
-			rc = FALSE;
 
 		LDPUMA_LoopNext(hDebugRecognition);
 		if (!LDPUMA_Skip(hDebugRecognition)) {
@@ -364,17 +347,18 @@ Bool32 Recognize() {
 		CPAGE_ClearBackUp(hCPAGE);
 #endif
 		//
-		if (!CPAGE_SavePage(hCPAGE, (char*) szLayoutFileName)) {
+		if (!CPAGE_SavePage(hCPAGE, szLayoutFileName.c_str())) {
 			SetReturnCode_puma(CPAGE_GetReturnCode());
 			return FALSE;
 		} else
-			LDPUMA_Console("Layout сохранен в файле '%s'\n", szLayoutFileName);
+			LDPUMA_Console("Layout сохранен в файле '%s'\n",
+					szLayoutFileName.c_str());
 	}
 	//
 	// Прочитаем опсиание Layout из файла.
 	//
 	if (!LDPUMA_Skip(hDebugLayoutFromFile)) {
-		hCPAGE = CPAGE_RestorePage(TRUE, (char*) szLayoutFileName);
+		hCPAGE = CPAGE_RestorePage(TRUE, szLayoutFileName.c_str());
 		if (hCPAGE == NULL) {
 			SetReturnCode_puma(CPAGE_GetReturnCode());
 			rc = FALSE;
@@ -542,9 +526,6 @@ Bool32 Recognize() {
 						//
 						CSTR_SortFragm(1);
 						RPSTR_CollectCapDrops(1);
-						if (rc)
-							rc = ProgressStep(2, GetResourceString(
-									IDS_CORRECTSPELL), 85);
 						if (rc && LDPUMA_Skip(hDebugCancelPostSpeller)
 								&& gbSpeller) {
 							if (!RPSTR_CorrectSpell(1)) {
@@ -556,9 +537,6 @@ Bool32 Recognize() {
 						// Скорректируем результат распознавани
 						//
 						CSTR_SortFragm(1);
-						if (rc)
-							rc = ProgressStep(2, GetResourceString(
-									IDS_CORRECTRESULT), 90);
 						if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
 							//							if( !RPSTR_SetImportData(RPSTR_Bool32_Fax100,&gbFax100) ||
 							//                              !RPSTR_CorrectKegl(1))
@@ -627,8 +605,6 @@ Bool32 Recognize() {
 
 						RPSTR_NormalizeVertStr();
 
-						if (!ProgressStep(2, GetResourceString(IDS_FORMAT), 95))
-							rc = FALSE;
 						if (rc) {
 							if (LDPUMA_Skip(hDebugCancelFormatted)) {
 								SetOptionsToFRMT();
@@ -664,7 +640,5 @@ Bool32 Recognize() {
 			LDPUMA_Console("Пропущен этап выделения строк.\n");
 	}
 	LDPUMA_Skip(hDebugCancelFictive);
-	if (!ProgressStep(2, NULL, 100))
-		rc = FALSE;
 	return rc;
 }

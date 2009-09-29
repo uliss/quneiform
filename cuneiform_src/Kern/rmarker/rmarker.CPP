@@ -209,8 +209,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
 	if (!ProgressStepAutoLayout(1, 40))
 		rc = FALSE;
 	if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
-		Image->hCPAGE = CPAGE_RestorePage(TRUE,
-				(pchar)(Image->szLayoutFileName));
+		Image->hCPAGE
+				= CPAGE_RestorePage(TRUE, Image->szLayoutFileName.c_str());
 		if (Image->hCPAGE == NULL) {
 			SetReturnCode_rmarker(CPAGE_GetReturnCode());
 			rc = FALSE;
