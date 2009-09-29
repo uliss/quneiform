@@ -79,7 +79,8 @@ typedef void (*FNPUMA_ProgressStart)(void);
 typedef void (*FNPUMA_ProgressFinish)(void);
 typedef bool (*FNPUMA_ProgressStep)(uint32_t step, const char* name,
 		uint32_t percent);
-typedef struct {
+
+struct PUMA_ImageInfo {
 	uint16_t wImageHeight;
 	uint16_t wImageWidth;
 	uint16_t wImageByteWidth;
@@ -90,17 +91,17 @@ typedef struct {
 	uchar bUnused;
 	uint16_t wAddX;
 	uint16_t wAddY;
-} PUMA_ImageInfo;
+};
 
 typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
 typedef uint16_t (*PUMA_Callback_ImageRead)(pchar, uint16_t);
 typedef Bool16 (*PUMA_Callback_ImageClose)(void);
 
-typedef struct {
+struct PUMAIMAGECALLBACK {
 	PUMA_Callback_ImageOpen CIMAGE_ImageOpen;
 	PUMA_Callback_ImageRead CIMAGE_ImageRead;
 	PUMA_Callback_ImageClose CIMAGE_ImageClose;
-} PUMAIMAGECALLBACK;
+};
 
 enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XOpen = 1,
@@ -296,17 +297,17 @@ PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 
 #undef DEC_FUN
 
-# define PUMA_FORMAT_NONE			  0x0040
-# define PUMA_FORMAT_ALL				  0x0001
-# define PUMA_FORMAT_ONLY_FRAME		0x0002
+#define PUMA_FORMAT_NONE			  0x0040
+#define PUMA_FORMAT_ALL				  0x0001
+#define PUMA_FORMAT_ONLY_FRAME		0x0002
 
-# define PUMA_TABLE_NONE			0
-# define PUMA_TABLE_DEFAULT			1
-# define PUMA_TABLE_ONLY_LINE		2
-# define PUMA_TABLE_ONLY_TEXT		3
-# define PUMA_TABLE_LINE_TEXT		4
+#define PUMA_TABLE_NONE			0
+#define PUMA_TABLE_DEFAULT			1
+#define PUMA_TABLE_ONLY_LINE		2
+#define PUMA_TABLE_ONLY_TEXT		3
+#define PUMA_TABLE_LINE_TEXT		4
 
-# define PUMA_PICTURE_NONE			0
-# define PUMA_PICTURE_ALL			1
+#define PUMA_PICTURE_NONE			0
+#define PUMA_PICTURE_ALL			1
 
 #endif
