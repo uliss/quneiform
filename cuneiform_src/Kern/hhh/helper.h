@@ -13,7 +13,7 @@
 
 namespace CIF {
 
-std::string replaceFileExt(const std::string& filename,
+inline std::string replaceFileExt(const std::string& filename,
 		const std::string& new_ext) {
 	return filename.substr(0, filename.rfind('.')) + new_ext;
 }

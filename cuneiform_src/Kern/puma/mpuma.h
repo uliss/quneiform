@@ -211,12 +211,8 @@ EXTERN Handle hDebugPrintBlocksCPAGE VAL(NULL);
 EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
-EXTERN std::string szLayoutFileName;
 EXTERN unsigned nDebugReturnCode VAL(0);
 EXTERN unsigned nDebugAllocMemory VAL(0);
-//EXTERN FNPUMA_ProgressStart fnProgressStart VAL(NULL);
-//EXTERN FNPUMA_ProgressFinish fnProgressFinish VAL(NULL);
-//EXTERN FNPUMA_ProgressStep fnProgressStep VAL(NULL);
 EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
@@ -253,10 +249,7 @@ int My_SJTL_mkfrm(char *frmname);
 void My_SJTL_close(void);
 void My_SJTL_Done(void);
 
-Bool32 ModulesInit(Handle ghStorage);
 char * GetModulesString(uint32_t dwError);
-
-Bool32 Recognize();
 
 // Enum.cpp
 long _EnumFormats(long prev);

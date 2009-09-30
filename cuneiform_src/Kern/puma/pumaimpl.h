@@ -37,15 +37,28 @@ public:
 private:
 	void binarizeImage();
 	void clearAll();
+	void extractComponents();
+	void extractStrings();
+	void format();
 	void layout();
+	void makeStrings();
 	void modulesDone();
+	void modulesInit();
 	void normalize();
 	void pageMarkup();
 	void preOpenInitialize();
 	void postOpenInitialize();
+	void readLayoutFromFile(const std::string& fname);
+	void recognizeSetup();
+	void recognizeStrings();
+	void recognizeStringsPass1();
+	void recognizeStringsPass2();
+	void saveLayoutToFile(const std::string& fname);
+	void specialProject();
 private:
 	MemBuffer<MainBufferSize> main_buffer_;
 	MemBuffer<WorkBufferSize> work_buffer_;
+	static std::string layout_filename_;
 };
 
 }
