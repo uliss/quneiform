@@ -249,7 +249,7 @@ int My_SJTL_mkfrm(char *frmname);
 void My_SJTL_close(void);
 void My_SJTL_Done(void);
 
-char * GetModulesString(uint32_t dwError);
+//char * GetModulesString(uint32_t dwError);
 
 // Enum.cpp
 long _EnumFormats(long prev);
