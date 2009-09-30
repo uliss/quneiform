@@ -14,6 +14,7 @@
 #include "helper.h"
 
 #include <iostream>
+#include <fstream>
 #include <cstdio>
 #include <cassert>
 #include <cstring>
@@ -100,7 +101,7 @@ void PumaImpl::binarizeImage() {
 		throw PumaException("PumaImpl: Can't get image info");
 
 #ifndef NDEBUG
-	cerr << "The image depth is " << info.biBitCount << "at this point."
+	cerr << "The image depth is " << info.biBitCount << " at this point."
 			<< endl;
 #endif
 
@@ -376,7 +377,7 @@ void PumaImpl::normalize() {
 	SET_CB(CBforRS, rexcProgressStep);
 	SET_CB(CBforRS, DPumaSkipComponent);
 	SET_CB(CBforRS, DPumaSkipTurn);
-	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
+	//	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
 	SET_CB(CBforRS, GetModulePath);
 	SET_CB(CBforRS, SetUpdate);
 #undef SET_CB
@@ -449,7 +450,7 @@ void PumaImpl::pageMarkup() {
 	SET_CB(CBforRM, rexcProgressStep);
 	SET_CB(CBforRM, DPumaSkipComponent);
 	SET_CB(CBforRM, DPumaSkipTurn);
-	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
+	//	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
 	SET_CB(CBforRM, GetModulePath);
 	SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
@@ -800,13 +801,11 @@ void PumaImpl::recognizeStringsPass2() {
 	}
 
 	if (!RSTR_NeedPass2()) {
-		//LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
 		LDPUMA_Console("RSTR thinks that second pass don't needed.\n");
 		return;
 	}
 
 	if (!LDPUMA_Skip(hDebugCancelStringsPass2)) {
-		//LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
 		LDPUMA_Console("Skipped second pass of recognition\n");
 		return;
 	}
@@ -827,20 +826,12 @@ void PumaImpl::recognizeStringsPass2() {
 		}
 
 		CSTR_line lin_out = CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT);
-		if (!lin_out) {
+		if (!lin_out)
 			continue;
-			//			SetReturnCode_puma(CSTR_GetReturnCode());
-			//			rc = FALSE;
-			//			break;
-		}
 
 		CSTR_line lin_in = CSTR_GetLineHandle(i, CSTR_LINVERS_MAIN);
-		if (!lin_in) {
+		if (!lin_in)
 			continue;
-			//			SetReturnCode_puma(CSTR_GetReturnCode());
-			//			rc = FALSE;
-			//			break;
-		}
 
 		// Recognition
 		if (!RSTR_Recog(lin_in, lin_out))
@@ -862,8 +853,7 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 	if (LDPUMA_Skip(hDebugCancelFormatted)) {
 		switch (Format) {
 		case PUMA_DEBUG_TOTEXT:
-			if (!SaveToText(filename.c_str(), PUMA_CODE_UTF8))
-				throw PumaException("PumaImpl: Save to text failed");
+			saveToText(filename);
 			break;
 		case PUMA_TORTF:
 			if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
@@ -896,6 +886,25 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
 		throw PumaException("CPAGE_SavePage failed" + fname);
 
 	LDPUMA_Console("Layout saved in file '%s'\n", fname.c_str());
+}
+
+void PumaImpl::saveToText(const std::string& filename) const {
+	ofstream of(filename.c_str());
+	if (!of)
+		throw PumaException("PumaImpl::saveToText() can't open file: "
+				+ filename);
+
+	for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
+		CSTR_line lin_out = CSTR_GetLineHandle(i, 1);
+		if (!lin_out)
+			throw PumaException("PumaImpl::saveToText() failed");
+
+		char txt[500];
+		if (CSTR_LineToTxt(lin_out, txt))
+			of << txt << endl;
+		else
+			throw PumaException("PumaImpl::saveToText() CSTR_LineToTxt failed");
+	}
 }
 
 void PumaImpl::specialProject() {

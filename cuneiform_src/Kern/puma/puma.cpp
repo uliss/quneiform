@@ -114,7 +114,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	assert(lpDIB);
 
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
-		SetReturnCode_puma(CPAGE_GetReturnCode());
+//		SetReturnCode_puma(CPAGE_GetReturnCode());
 		rc = false;
 	} else {
 		CIMAGEBITMAPINFOHEADER info;
@@ -133,7 +133,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 				p->y = 0;
 			}
 		} else {
-			SetReturnCode_puma(CIMAGE_GetReturnCode());
+//			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = false;
 		}
 	}
@@ -149,13 +149,13 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 		CIMAGE_EnableMask(lpImage, (puchar) "r", false);
 		if (!RIMAGE_Rotate(lpImage, (puchar) PUMA_IMAGE_ROTATE,
 				PInfo.Incline2048, 2048, 0)) {
-			SetReturnCode_puma(RIMAGE_GetReturnCode());
+//			SetReturnCode_puma(RIMAGE_GetReturnCode());
 			rc = false;
 		}
 
 		if (rc) {
 			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_ROTATE, lpDIB, true)) {
-				SetReturnCode_puma(CIMAGE_GetReturnCode());
+//				SetReturnCode_puma(CIMAGE_GetReturnCode());
 				rc = false;
 			}
 		}
@@ -177,7 +177,7 @@ bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 	ghEdPage = hEdPage;
 
 	if (ghEdPage == NULL) {
-		SetReturnCode_puma(IDS_ERR_PARAM);
+//		SetReturnCode_puma(IDS_ERR_PARAM);
 		return rc;
 	}
 
@@ -193,7 +193,8 @@ bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
 							size);
 			break;
 		default:
-			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+			;
+//			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		}
 	}
 	LDPUMA_Skip(hDebugCancelFictive);
@@ -242,7 +243,7 @@ bool PUMA_XSetTemplate(Rect32 rect) {
 
 	if (CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
 		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
-		PAGEINFO PInfo;// = { 0 };
+		PAGEINFO PInfo;
 
 		GetPageInfo(hCPAGE, &PInfo);
 		//		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);

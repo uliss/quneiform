@@ -234,7 +234,6 @@ EXTERN PRGTIME g_PrgTime;
 EXTERN CIMAGEBITMAPINFOHEADER info;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
-void SetReturnCode_puma(uint32_t rc);
 char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
@@ -247,8 +246,6 @@ int My_SJTL_open(const char *frmname, const char *jtlname);
 int My_SJTL_mkfrm(char *frmname);
 void My_SJTL_close(void);
 void My_SJTL_Done(void);
-
-//char * GetModulesString(uint32_t dwError);
 
 // Enum.cpp
 long _EnumFormats(long prev);
@@ -263,7 +260,6 @@ Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
 void SetOptionsToFRMT(void);
-Bool32 SaveToText(const char * lpOutFileName, int code);
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов

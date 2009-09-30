@@ -78,7 +78,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	}
 
 	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep)) {
-		SetReturnCode_puma(REXC_GetReturnCode());
+//		SetReturnCode_puma(REXC_GetReturnCode());
 		return FALSE;
 	}
 
@@ -101,7 +101,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
+//		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if (rc && !REXCExtracomp3CB(
@@ -109,14 +109,14 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 			(TImageOpen) clbk.CIMAGE_ImageOpen,
 			(TImageClose) clbk.CIMAGE_ImageClose,
 			(TImageRead) clbk.CIMAGE_ImageRead)) {
-		SetReturnCode_puma(REXC_GetReturnCode());
+//		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
 	}
 
 	if (rc) {
 		hCCOM = (Handle) REXCGetContainer();
 		if (hCCOM == 0) {
-			SetReturnCode_puma(REXC_GetReturnCode());
+//			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 
@@ -124,7 +124,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	if (rc) {
 		hCCOM = (Handle) REXCGetContainer();
 		if (hCCOM == 0) {
-			SetReturnCode_puma(REXC_GetReturnCode());
+//			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 	}
@@ -236,7 +236,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	//	 Удалим линии
 	//
 	if (rc && !RLINE_DeleteLines(hcpage, PUMA_IMAGE_DELLINE)) {
-		SetReturnCode_puma(RLINE_GetReturnCode());
+//		SetReturnCode_puma(RLINE_GetReturnCode());
 		rc = FALSE;
 	}
 	//
@@ -244,7 +244,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	//
 	if (rc && !CIMAGE_ReadDIB((puchar) PUMA_IMAGE_DELLINE, (Handle*) &hDIB,
 			TRUE)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
+//		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if (hDIB) {
@@ -276,7 +276,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 
 				hCCOM = (Handle) REXCGetContainer();
 				if (hCCOM == 0) {
-					SetReturnCode_puma(REXC_GetReturnCode());
+//					SetReturnCode_puma(REXC_GetReturnCode());
 					rc = FALSE;
 				}
 				hccom = hCCOM;
@@ -324,52 +324,6 @@ void SetOptionsToFRMT() {
 	RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
 	RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
-}
-
-Bool32 SaveToText(const char * lpOutFileName, int code) {
-	Bool32 rc = TRUE;
-	int count = CSTR_GetMaxNumber();
-
-	if (code != PUMA_CODE_ANSI) {
-		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		return FALSE;
-	}
-
-	FILE * f = fopen(lpOutFileName, "wt");
-	if (f) {
-		for (int i = 1; i <= count; i++) {
-			CSTR_line lin_out;
-			char txt[500];
-
-			lin_out = CSTR_GetLineHandle(i, 1); // OLEG
-			if (lin_out == (CSTR_line) NULL) {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-			if (CSTR_LineToTxt(lin_out, txt)) {
-				char szString[sizeof(txt)];
-				sprintf(szString, "%s\n", txt);
-				unsigned len = strlen(szString);
-				if (fwrite(szString, sizeof(char), len, f) != len) {
-					SetReturnCode_puma(IDS_ERR_FILEWRITE);
-					rc = FALSE;
-					break;
-				}
-			} else {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-		}
-		fclose(f);
-	} else {
-		SetReturnCode_puma(IDS_ERR_FILEOPEN);
-		rc = FALSE;
-	}
-	return rc;
 }
 
 //TODO Delete

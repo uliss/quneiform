@@ -72,13 +72,13 @@ bool ConverROUT(const std::string& filename, puma_format_t Format,
 			ROUT_LONG_Format, (void*) Format) || !ROUT_SetImportData(
 			ROUT_LONG_Code, (void*) Code) || !ROUT_SetImportData(
 			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar)) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
+//		SetReturnCode_puma(ROUT_GetReturnCode());
 		return false;
 	}
 	// Количество объектов
 	long countObjects = ROUT_CountObjects();
 	if (countObjects == -1) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
+//		SetReturnCode_puma(ROUT_GetReturnCode());
 		return false;
 	}
 
@@ -88,13 +88,13 @@ bool ConverROUT(const std::string& filename, puma_format_t Format,
 		if (countObjects != 1) {
 			path = ROUT_GetDefaultObjectName(objIndex);
 			if (!path.empty()) {
-				SetReturnCode_puma(ROUT_GetReturnCode());
+//				SetReturnCode_puma(ROUT_GetReturnCode());
 				return false;
 			}
 		}
 
 		if (!ROUT_SaveObject(objIndex, path.c_str(), Append)) {
-			SetReturnCode_puma(ROUT_GetReturnCode());
+//			SetReturnCode_puma(ROUT_GetReturnCode());
 			return false;
 		}
 	} // Цикл по объектам на странице
@@ -111,14 +111,14 @@ uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
 			ROUT_LONG_Format, (void*) lnFormat) || !ROUT_SetImportData(
 			ROUT_LONG_Code, (void*) lnCode) || !ROUT_SetImportData(
 			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar)) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
+//		SetReturnCode_puma(ROUT_GetReturnCode());
 		return rc;
 	}
 
 	// Количество объектов
 	long countObjects = ROUT_CountObjects();
 	if (countObjects == -1) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
+//		SetReturnCode_puma(ROUT_GetReturnCode());
 		return rc;
 	}
 	// Просмотрим размер памяти
@@ -128,7 +128,7 @@ uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
 		nSize += nCurSize;
 		if (nSize <= (long) size) {
 			if (!ROUT_GetObject(objIndex, lpMem + (nSize - nCurSize), &nCurSize)) {
-				SetReturnCode_puma(ROUT_GetReturnCode());
+//				SetReturnCode_puma(ROUT_GetReturnCode());
 				return rc;
 			}
 		}

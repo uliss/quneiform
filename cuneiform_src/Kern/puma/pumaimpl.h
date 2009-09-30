@@ -54,6 +54,7 @@ private:
 	void recognizeStringsPass1();
 	void recognizeStringsPass2();
 	void saveLayoutToFile(const std::string& fname);
+	void saveToText(const std::string& filename) const;
 	void specialProject();
 private:
 	MemBuffer<MainBufferSize> main_buffer_;
