@@ -90,14 +90,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	//exc.Control |= ( bIsRotate ? Ex_Orient : 0 );
 	if (gnPictures)
 		exc.Control |= Ex_PictureLarge;
-	/*
-	 if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)gnLanguage) )
-	 { // инициализировать распознавание по эвентам и задать алфавит
-	 SetReturnCode_puma(REXC_GetReturnCode());
-	 rc = FALSE;
-	 }
-	 else
-	 */
+
 	{
 		uchar w8 = (uchar) gbDotMatrix;
 		REXC_SetImportData(REXC_Word8_Matrix, &w8);
@@ -105,9 +98,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 		w8 = (uchar) gbFax100;
 		REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 	}
-	/*
-	 if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // поиск компонент в DIB-e
-	 */
+
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
@@ -141,7 +132,6 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // Будет перенесено в RSource.dll
 Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 	int32_t le, ri, up, dn, w, h;
@@ -178,7 +168,6 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 		return TRUE;
 	return FALSE;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
 	CCOM_comp *cur = CCOM_GetFirst(haCCOM, NULL), *curn;
@@ -200,7 +189,6 @@ Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
 	} while (cur != NULL);
 	return (over > 0);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 // авторство принадлежит AlMi
 Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) {
@@ -218,10 +206,6 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 					RVERLINE_ZHERTVY_LINIY);
 		err32 = CPAGE_GetReturnCode();
 		if (err32 != 0) {
-			//if (i==0)
-			//	Error_CPage ("[GetBlockFirst]");
-			//else
-			//	Error_CPage ("[GetBlockNext]");
 			return FALSE;
 		}
 		if (!hBlockZher)
@@ -232,7 +216,6 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 				(void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if (!nReal || (err32 != 0)) {
-			//Error_CPage ("[SetBlockData]");
 			return FALSE;
 		}
 		hBlockPrev = hBlockZher;
@@ -241,7 +224,6 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 	*nZher = i;
 	return TRUE;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	puchar hDIB = NULL;
@@ -306,26 +288,6 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 							NULL);
 
 					if (yes_victim) {
-						/*
-						 Rect16 rect1;
-						 uint32_t key = 111;
-						 for(i=0;i<nvict;i++)
-						 {
-						 exa = victim[i];
-						 rect1.top = exa->upper;
-						 rect1.left = exa->left;
-						 rect1.bottom = exa->upper+exa->h;
-						 rect1.right = exa->left+exa->w;
-						 LDPUMA_DrawRect(NULL, &rect1, 0, 23635, 1, key);
-						 }
-
-						 if(!LDPUMA_Skip(hShowCheckLetters))
-						 {
-						 LDPUMA_Console("Puma_Коробки жертв  \n");
-						 LDPUMA_WaitUserInput(NULL, NULL);
-						 LDPUMA_DeleteRects(NULL, key);
-						 }
-						 */
 						for (i = 0; i < nvict; i++) {
 							exa = victim[i];
 							if (remove_overlayed(exa, (CCOM_handle) hCCOM)) {
@@ -618,13 +580,11 @@ Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect32 rect) {
 	return RMARKER_SearchTableInZone(hPAGE, hCCOM, perc, rect);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 IsUpdate(uint32_t flg) {
 	return (g_flgUpdate & flg) > 0;
 }

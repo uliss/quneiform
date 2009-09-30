@@ -235,7 +235,6 @@ EXTERN CIMAGEBITMAPINFOHEADER info;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
 void SetReturnCode_puma(uint32_t rc);
-uint32_t GetReturnCode_puma();
 char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);

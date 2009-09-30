@@ -176,17 +176,6 @@ void SetReturnCode_puma(uint32_t rc) {
 		LDPUMA_Stop();
 }
 
-uint32_t GetReturnCode_puma() {
-	uint32_t rc = gwRC;
-	uint16_t low = (uint16_t) (gwRC & 0xFFFF);
-	uint16_t hei = (uint16_t) (gwRC >> 16);
-
-	if (hei == gwHeightRC || hei == 0)
-		rc = low + IDS_ERR_NO;
-
-	return rc;
-}
-
 char * GetModulePath() {
 	return szPath;
 }
