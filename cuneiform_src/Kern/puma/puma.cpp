@@ -141,7 +141,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	// Создадим довернутое изображение
 	//
 	if (rc) {
-		PAGEINFO PInfo;// = { 0 };
+		PAGEINFO PInfo;
 		GetPageInfo(hCPAGE, &PInfo);
 
 		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
@@ -163,64 +163,6 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 		PInfo.Images |= PageInfo::IMAGE_ROTATE;
 		SetPageInfo(hCPAGE, PInfo);
 	}
-	return rc;
-}
-
-bool PUMA_XSave(const std::string& filename, puma_format_t Format,
-		puma_code_t Code) {
-	return PUMA_Save(ghEdPage, filename, Format, Code, false);
-}
-
-bool PUMA_Save(Handle hEdPage, const std::string& filename,
-		puma_format_t Format, puma_code_t Code, bool Append) {
-	bool rc = true;
-	Handle prevEdPage = ghEdPage;
-
-	if (hEdPage == NULL)
-		hEdPage = ghEdPage;
-
-	ghEdPage = hEdPage;
-
-	if (ghEdPage == NULL) {
-		SetReturnCode_puma(IDS_ERR_PARAM);
-		return false;
-	}
-
-	if (LDPUMA_Skip(hDebugCancelFormatted)) {
-		switch (Format) {
-		case PUMA_DEBUG_TOTEXT:
-			rc = SaveToText(filename.c_str(), Code);
-			break;
-		case PUMA_TORTF:
-			if (Append)
-				rc = CED_MergeFormattedRtf(filename.c_str(), ghEdPage);
-			else
-				rc = CED_WriteFormattedRtf(filename.c_str(), ghEdPage);
-
-			if (!rc)
-				SetReturnCode_puma(CED_GetReturnCode());
-			break;
-		case PUMA_TOEDNATIVE:
-			rc = CED_WriteFormattedEd(filename.c_str(), ghEdPage);
-			if (!rc)
-				SetReturnCode_puma(CED_GetReturnCode());
-			break;
-		case PUMA_TOTEXT:
-		case PUMA_TOSMARTTEXT:
-		case PUMA_TOTABLETXT:
-		case PUMA_TOTABLEDBF:
-		case PUMA_TOHTML:
-		case PUMA_TOHOCR:
-			rc = ConverROUT(filename.c_str(), Format, Code, Append);
-			break;
-		default:
-			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-			rc = false;
-		}
-	}
-	LDPUMA_Skip(hDebugCancelFictive);
-
-	ghEdPage = prevEdPage;
 	return rc;
 }
 

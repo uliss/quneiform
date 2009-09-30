@@ -240,23 +240,17 @@ PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
-//
-DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
-DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool))
 DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
-
-PUMA_FUNC bool PUMA_XSave(const std::string& filename, puma_format_t,
-		puma_code_t);
-PUMA_FUNC bool PUMA_Save(Handle hEdPage, const std::string& filename,
-		puma_format_t Format, puma_code_t Code, bool Append);
 PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
 		puma_code_t Code, char * lpMem, uint32_t size);
 
-typedef struct {
+struct PUMAENTRY {
 	FNPUMA_GetReturnCode fnGetReturnCode;
 	FNPUMA_GetReturnString fnGetReturnString;
 	FNPUMA_SetImportData fnSetImportData;
-} PUMAENTRY, *LPPUMAENTRY;
+};
+
+typedef PUMAENTRY * LPPUMAENTRY;
 // Enum
 DEC_FUN(int32_t, EnumLanguages,(int32_t))
 DEC_FUN(int32_t, EnumFormats,(int32_t))
