@@ -2,7 +2,6 @@ add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 common.cpp 
 enum.cpp 
-out.cpp 
 partrecog.cpp 
 snp_sjtl.cpp
 puma.cpp 
