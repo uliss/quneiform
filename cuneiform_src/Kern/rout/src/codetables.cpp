@@ -785,7 +785,7 @@ for (index=0;index < gCountTigerToUserCharSet; index++ )
     // Argument is in Windows font coding.
     // Value is in DOS coding.
     // Windows -> DOS
-    ascii_cyr[ code2 ] = (Byte)code3;
+    ascii_cyr[ code2 ] = (uchar)code3;
     }
 }
 //*************************************************************************

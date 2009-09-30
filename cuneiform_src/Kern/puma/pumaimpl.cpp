@@ -842,7 +842,73 @@ void PumaImpl::recognizeStringsPass2() {
 		throw PumaException("PumaImpl: RSTR_EndPage failed");
 }
 
-void PumaImpl::save(const std::string& filename, int Format) const {
+void PumaImpl::rout(const std::string& fname, puma_format_t Format) const {
+	char name[260];
+	strncpy(name, fname.c_str(), sizeof(name) - 1);
+	char * str = strrchr(name, '.');
+	if (str)
+		*(str) = '\0';
+
+	puma_code_t Code = PUMA_CODE_UTF8;
+	if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
+			(void*) gnPreserveLineBreaks) || !ROUT_SetImportData(
+			ROUT_PCHAR_PageName, name) || !ROUT_SetImportData(
+			ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
+			ROUT_LONG_Format, (void*) Format) || !ROUT_SetImportData(
+			ROUT_LONG_Code, (void*) Code) || !ROUT_SetImportData(
+			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+		throw PumaException("PumaImpl::rout() ROUT_SetImportData failed");
+
+	long countObjects = ROUT_CountObjects();
+	if (countObjects == -1)
+		throw PumaException("PumaImpl::rout() invalid count of objects");
+
+	for (long i = 1; i <= countObjects; i++) {
+		std::string path(fname);
+		if (countObjects != 1) {
+			path = ROUT_GetDefaultObjectName(i);
+			if (!path.empty())
+				throw PumaException(
+						"PumaImpl::rout() ROUT_GetDefaultObjectName failed");
+		}
+
+		if (!ROUT_SaveObject(i, path.c_str(), FALSE))
+			throw PumaException("PumaImpl::rout() ROUT_SaveObject failed");
+	}
+}
+
+void PumaImpl::routToMemory(void * dest, size_t size, puma_format_t Format) const {
+	if (!ghEdPage)
+		throw PumaException("PumaImpl::routToMemory() failed");
+
+	puma_code_t Code = PUMA_CODE_UTF8;
+	if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
+			(void*) gnPreserveLineBreaks) || !ROUT_SetImportData(
+			ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
+			ROUT_LONG_Format, (void*) Format) || !ROUT_SetImportData(
+			ROUT_LONG_Code, (void*) Code) || !ROUT_SetImportData(
+			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+		throw PumaException(
+				"PumaImpl::routToMemory() ROUT_SetImportData failed");
+
+	long count = ROUT_CountObjects();
+	if (count == -1)
+		throw PumaException("PumaImpl::rout() invalid count of objects");
+
+	// Просмотрим размер памяти
+	size_t nSize = 0;
+	for (long i = 1; i <= count; i++) {
+		long nCurSize = ROUT_GetObjectSize(i);
+		nSize += nCurSize;
+		if (nSize <= size) {
+			if (!ROUT_GetObject(i, (uchar*) dest + (nSize - nCurSize),
+					&nCurSize))
+				throw PumaException("PumaImpl::routToMemory() failed");
+		}
+	}
+}
+
+void PumaImpl::save(const std::string& filename, puma_format_t Format) const {
 #ifndef NDEBUG
 	cerr << "Puma save to: " << filename << endl;
 #endif
@@ -850,31 +916,27 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 	if (NULL == ghEdPage)
 		throw PumaException("PumaImpl: save failed");
 
-	if (LDPUMA_Skip(hDebugCancelFormatted)) {
-		switch (Format) {
-		case PUMA_DEBUG_TOTEXT:
-			saveToText(filename);
-			break;
-		case PUMA_TORTF:
-			if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
-				throw PumaException("PumaImpl: Save to RTF failed");
-			break;
-		case PUMA_TOEDNATIVE:
-			if (!CED_WriteFormattedEd(filename.c_str(), ghEdPage))
-				throw PumaException("PumaImpl: Save to EDNATIVE failed");
-		case PUMA_TOTEXT:
-		case PUMA_TOSMARTTEXT:
-		case PUMA_TOTABLETXT:
-		case PUMA_TOTABLEDBF:
-		case PUMA_TOHTML:
-		case PUMA_TOHOCR:
-			if (!ConverROUT(filename.c_str(),
-					static_cast<puma_format_t> (Format), PUMA_CODE_UTF8, false))
-				throw PumaException("PumaImpl: Save to HOCR failed");
-			break;
-		default:
-			throw PumaException("Pumaimpl::save unknown format");
-		}
+	switch (Format) {
+	case PUMA_DEBUG_TOTEXT:
+		saveToText(filename);
+		break;
+	case PUMA_TORTF:
+		if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
+			throw PumaException("PumaImpl: Save to RTF failed");
+		break;
+	case PUMA_TOEDNATIVE:
+		if (!CED_WriteFormattedEd(filename.c_str(), ghEdPage))
+			throw PumaException("PumaImpl: Save to EDNATIVE failed");
+	case PUMA_TOTEXT:
+	case PUMA_TOSMARTTEXT:
+	case PUMA_TOTABLETXT:
+	case PUMA_TOTABLEDBF:
+	case PUMA_TOHTML:
+	case PUMA_TOHOCR:
+		rout(filename, Format);
+		break;
+	default:
+		throw PumaException("Pumaimpl::save unknown format");
 	}
 }
 
@@ -886,6 +948,20 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
 		throw PumaException("CPAGE_SavePage failed" + fname);
 
 	LDPUMA_Console("Layout saved in file '%s'\n", fname.c_str());
+}
+
+void PumaImpl::saveToMemory(void * dest, size_t size, puma_format_t Format) const {
+	switch (Format) {
+	case PUMA_TOTEXT:
+	case PUMA_TOSMARTTEXT:
+	case PUMA_TOTABLETXT:
+	case PUMA_TOTABLEDBF:
+	case PUMA_TOHTML:
+		routToMemory(dest, size, Format);
+		break;
+	default:
+		throw PumaException("PumaImpl::saveToMemory() unknown format");
+	}
 }
 
 void PumaImpl::saveToText(const std::string& filename) const {

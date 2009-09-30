@@ -112,11 +112,11 @@ Bool MakeTableText()
 		return FALSE;
 
 	// Сохранить конец памяти
-	Byte *saveMemEnd = gMemEnd;
+	uchar *saveMemEnd = gMemEnd;
 
 	// Конец оставшейся свободной памяти,
 	// предусмотреть бампер на конце
-	gMemEnd = (Byte*)gBegLineText - gBumperSize;
+	gMemEnd = (uchar*)gBegLineText - gBumperSize;
 
 	// Текущий указатель в памяти
 	gMemCur = gMemStart;
@@ -211,7 +211,7 @@ Bool TableText_Prepare()
 	long lth = 0, row = 0, col = 0, cell = 0;
 
 	// Середина свободной памяти, округленная до 8
-        gMemCur = (Byte*)((((ulong)gMemStart + (ulong)gMemEnd) >>4) <<3);
+        gMemCur = (uchar*)((((ulong)gMemStart + (ulong)gMemEnd) >>4) <<3);
 
 	// Массив дескрипторов строк текста
 	gBegLineText = (LINE_TEXT*)gMemCur;
@@ -469,7 +469,7 @@ static Bool TableText_Columns()
 */
 
 	// Справочная обхода ячеек
-	Byte sprav[10000];
+	uchar sprav[10000];
 	ASSERT(gTableCells < sizeof(sprav));
 	memset(&sprav,0,sizeof(sprav));
 

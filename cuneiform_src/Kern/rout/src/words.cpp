@@ -65,15 +65,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rout_own.h"
 
 //********************************************************************
-Bool IsLetter(Byte c)
+Bool IsLetter(uchar c)
 {
-	Byte type = gAlphabetTable[c];
+	uchar type = gAlphabetTable[c];
 
 	return (type & CASE_UPPER) ||
 		   (type & CASE_LOWER);
 }
 //********************************************************************
-Bool IsEOL(Byte c)
+Bool IsEOL(uchar c)
 {
 	return c == 0x0d ||
 		   c == 0x0a;
@@ -122,7 +122,7 @@ Bool WordsControl(
 		case BROWSE_LINE_START:
 			// Начало строки
 			{
-			Byte c = *(gMemCur-1);	// Предыдущий символ
+			uchar c = *(gMemCur-1);	// Предыдущий символ
 			if (gLastEOL &&			// Предыдущая строка
 				c &&				// Не кончается нулем
 				!IsEOL(c) &&		// Нет конца строки текста
@@ -154,7 +154,7 @@ Bool WordsControl(
 				// Дефис
 				if (gCharCode == '-')
 					{
-					Byte c = *(gMemCur-2);	// Предыдущий символ
+					uchar c = *(gMemCur-2);	// Предыдущий символ
 					if ( c == '-' )
 						{
 						// Два дефиса подряд это тире

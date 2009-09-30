@@ -68,12 +68,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static Bool TableDBF_Finish(long reason);
 static Bool MakeDbfHeader();
-static Byte DbfLanguage();
+static uchar DbfLanguage();
 
 static DBF_HEADER *dbf_header;	// Адрес заголовка
 static DBF_FIELD *dbf_fields;	// Адрес описателя поля
 static long rec_num;	// Номер текущей записи DBF-файла
-static Byte *rec_ptr;	// Адрес текущей записи
+static uchar *rec_ptr;	// Адрес текущей записи
 
 //********************************************************************
 Bool MakeTableDBF()
@@ -96,11 +96,11 @@ Bool MakeTableDBF()
 		return FALSE;
 
 	// Сохранить конец памяти
-	Byte *saveMemEnd = gMemEnd;
+	uchar *saveMemEnd = gMemEnd;
 
 	// Конец оставшейся свободной памяти,
 	// предусмотреть бампер на конце
-	gMemEnd = (Byte*)gBegLineText - gBumperSize;
+	gMemEnd = (uchar*)gBegLineText - gBumperSize;
 
 	// Текущий указатель в памяти
 	gMemCur = gMemStart;
@@ -262,7 +262,7 @@ static Bool MakeDbfHeader()
 	return TRUE;
 }
 //********************************************************************
-static Byte DbfLanguage()
+static uchar DbfLanguage()
 {
 // Код языка в заголовке DBF-файла
 

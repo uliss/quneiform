@@ -105,220 +105,190 @@ Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
 	return TRUE;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode,Handle hStorage)
-{
-	//	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
-
+Bool32 ROUT_Init(uint16_t wHighCode, Handle hStorage) {
 	gwHighRC_rout = wHighCode;
 	ghStorage_rout = hStorage;
 	gwLowRC_rout = 0;
 
 	// Собственный кусок памяти на одну страницу
-	gOwnMemory = MyAlloc(gOwnMemorySize,0);
-	if ( !gOwnMemory )
-	NO_MEMORY;
+	gOwnMemory = MyAlloc(gOwnMemorySize, 0);
+	if (!gOwnMemory)
+		NO_MEMORY;
 
-	return ROUT_GetReturnCode()==0? TRUE:FALSE;
+	return ROUT_GetReturnCode() == 0 ? TRUE : FALSE;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_Done()
-{
-	//	DEBUG_PRINT("ROUT_Done");
+Bool32 ROUT_Done() {
 	ROUT_UnloadEd();
 
 	if (gOwnMemory)
-	MyFree(gOwnMemory);
+		MyFree(gOwnMemory);
 	gOwnMemory = NULL;
 
 	return TRUE;
 }
 //********************************************************************
-ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
-{
+uint32_t ROUT_GetReturnCode() {
 	// Возвращает 0 если нет ошибки
 	// Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
 	uint32_t rc = 0;
-	if(gwLowRC_rout)
-	rc = (uint32_t)(gwHighRC_rout<<16)|(gwLowRC_rout - IDS_ERR_NO);
+	if (gwLowRC_rout)
+		rc = (uint32_t)(gwHighRC_rout << 16) | (gwLowRC_rout - IDS_ERR_NO);
 
 	return rc;
 }
 //********************************************************************
-ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError)
-{
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
+char * ROUT_GetReturnString(uint32_t dwError) {
+	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
 	static char szBuffer[512];
 
-	if( dwError >> 16 != gwHighRC_rout)
-	gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
+	if (dwError >> 16 != gwHighRC_rout)
+		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 
-	if( rc >= IDS_ERR_NO )
-	LoadString((HINSTANCE)ghInst_rout,rc,
-			(char *)szBuffer,sizeof(szBuffer));
+	if (rc >= IDS_ERR_NO)
+		LoadString((HINSTANCE) ghInst_rout, rc, (char *) szBuffer,
+				sizeof(szBuffer));
 	else
-	return NULL;
+		return NULL;
 
 	return szBuffer;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
-{
+Bool32 ROUT_GetExportData(uint32_t dwType, void * pData) {
 	// Экспорт моих функций
 	Bool32 rc = TRUE;
 
 	gwLowRC_rout = 0;
 
-	//#define CASE_FUNCTION(a) case ROUT_FN##a: *(FN##a *)pData = a; break
+	switch (dwType) {
 
-	switch(dwType)
-	{
-
-		case ROUT_LONG_TableTextOptions:
+	case ROUT_LONG_TableTextOptions:
 		*(long*) pData = gTableTextOptions;
 		break;
 
-		case ROUT_HANDLE_PageHandle:
+	case ROUT_HANDLE_PageHandle:
 		*(Handle*) pData = gPageHandle;
 		break;
 
-		default:
+	default:
 		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 
-	//#undef CASE_FUNCTION
-
 	return rc;
 }
-//********************************************************************
-ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
-{
-	// Импорт моих опций
 
-#define CASE_FUNCTION(a) case ROUT_FN##a: a=(FN##a)pData; break
+Bool32 ROUT_SetImportData(uint32_t dwType, void * pData) {
+	// Импорт моих опций
 	Bool rc = TRUE;
 
-	switch(dwType)
-	{
-		// Страница в контейнере CED
-		case ROUT_HANDLE_PageHandle:
-		gPageHandle = (Handle)pData;
+	switch (dwType) {
+	// Страница в контейнере CED
+	case ROUT_HANDLE_PageHandle:
+		gPageHandle = (Handle) pData;
 		break;
 
 		// Язык
-		case ROUT_LONG_Language:
-		SetLanguage ((long)pData);
+	case ROUT_LONG_Language:
+		SetLanguage((long) pData);
 		break;
 
 		// Формат
-		case ROUT_LONG_Format:
-		SetFormat((long)pData);
+	case ROUT_LONG_Format:
+		SetFormat((long) pData);
 		break;
 
 		// Выходная кодировка
-		case ROUT_LONG_Code:
-		SetActiveCode ((long)pData);
+	case ROUT_LONG_Code:
+		SetActiveCode((long) pData);
 		break;
 
 		// Сохранение концов строк
-		case ROUT_BOOL_PreserveLineBreaks:
-		gPreserveLineBreaks = (pData!=0);
+	case ROUT_BOOL_PreserveLineBreaks:
+		gPreserveLineBreaks = (pData != 0);
 		break;
 
 		// Нераспознанный символ
-		case ROUT_PCHAR_BAD_CHAR:
+	case ROUT_PCHAR_BAD_CHAR:
 		gBadChar = *(char*) pData;
 		break;
 
 		// Количество подстановок из REC6.DAT
-		case ROUT_LONG_CountTigerToUserCharSet:
+	case ROUT_LONG_CountTigerToUserCharSet:
 		gCountTigerToUserCharSet = (long) pData;
 		break;
 
 		// Массив подстановок [3][128] (Tiger/Windows/DOS)
-		case ROUT_PPBYTE_TigerToUserCharSet:
+	case ROUT_PPBYTE_TigerToUserCharSet:
 		gTigerToUserCharSet = (uchar**) pData;
 		break;
 
 		// Максимальное количество строк текста в одной таблице
-		case ROUT_LONG_MaxTextLinesInOneTable:
+	case ROUT_LONG_MaxTextLinesInOneTable:
 		gMaxTextLinesInOneTable = (long) pData;
 		break;
 
 		// Интервал между ячейками таблицы по вертикали
-		case ROUT_ULONG_TableTextIntervalBetweenCellsYY:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
+	case ROUT_ULONG_TableTextIntervalBetweenCellsYY: {
+		ulong ul = (ulong) pData;
+		if (ul > 100) {
+			WRONG_ARGUMENT;
+			break;
+		} else
 			gTableTextIntervalBetweenCellsYY = (ulong) pData;
-		}
+	}
 		break;
 
 		// Интервал между ячейками таблицы по горизонтали
-		case ROUT_ULONG_TableTextIntervalBetweenCellsXX:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
+	case ROUT_ULONG_TableTextIntervalBetweenCellsXX: {
+		ulong ul = (ulong) pData;
+		if (ul > 100) {
+			WRONG_ARGUMENT;
+			break;
+		} else
 			gTableTextIntervalBetweenCellsXX = (ulong) pData;
-		}
+	}
 		break;
 
 		// Смещение таблицы от начала строки
-		case ROUT_ULONG_TableTextLeftIndent:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
+	case ROUT_ULONG_TableTextLeftIndent: {
+		ulong ul = (ulong) pData;
+		if (ul > 100) {
+			WRONG_ARGUMENT;
+			break;
+		} else
 			gTableTextLeftIndent = ul;
-		}
+	}
 		break;
 
 		// Имя страницы без расширения .tif или .fed
-		case ROUT_PCHAR_PageName:
-		memset(gPageName,0,sizeof(gPageName));
-		if (pData)
-		{
-			if ( strlen((char*)pData)
-					+ 20 // Запас для суффиксов и расширения
-					>= sizeof(gPageName)
-			)
-			WRONG_ARGUMENT;
+	case ROUT_PCHAR_PageName:
+		memset(gPageName, 0, sizeof(gPageName));
+		if (pData) {
+			if (strlen((char*) pData) + 20 // Запас для суффиксов и расширения
+					>= sizeof(gPageName))
+				WRONG_ARGUMENT;
 			else
-			strcpy (gPageName, (char*)pData);
+				strcpy(gPageName, (char*) pData);
 		}
 
 		break;
 
 		// Список разделителей:
-		case ROUT_PCHAR_TableTextSeparators:
-		SetTableTextSeparators((char*)pData);
+	case ROUT_PCHAR_TableTextSeparators:
+		SetTableTextSeparators((char*) pData);
 		break;
 
 		// Опции табличного текста (экспорт-импорт выполняются
 		// по одинаковому номеру, см. enum ROUT_EXPORT_ENTRIES)
-		case ROUT_LONG_TableTextOptions:
+	case ROUT_LONG_TableTextOptions:
 		gTableTextOptions = (long) pData;
 		break;
 
-		default:
+	default:
 		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
-#undef CASE_FUNCTION
 	return rc;
 }
 
@@ -490,7 +460,7 @@ void ErrUpdateActiveAlphabet(const char *file, long line) {
 	gwLowRC_rout = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
 }
 //********************************************************************
-Bool InitMemory(Byte *memStart, long sizeMem) {
+Bool InitMemory(uchar *memStart, long sizeMem) {
 	// Отвести страховочные бамперы в начале
 	// и в конце отведенной области памяти
 	//
@@ -541,4 +511,3 @@ Bool SetTableTextSeparators(char* s) {
 
 	return TRUE;
 }
-//********************************************************************

@@ -148,32 +148,6 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XGetTemplate
 };
 
-// Format codes
-enum puma_format_t {
-	PUMA_TOEDNATIVE = 0,
-	PUMA_TOTEXT = 0x02,
-	PUMA_TOSMARTTEXT = 0x04,
-	PUMA_TORTF = 0x08,
-	PUMA_TOTABLETXT = 0x0100,
-	PUMA_TOTABLECSV = 0x0200,
-	PUMA_TOTABLEDBF = 0x0400,
-	PUMA_TOTABLEODBC = 0x0800,
-	PUMA_TOTABLEWKS = 0x1000,
-	PUMA_TOHTML = 0x2000,
-	PUMA_TOHOCR = 0x4000,
-	PUMA_DEBUG_TOTEXT = 0x8000
-};
-
-//       Codes
-enum puma_code_t {
-	PUMA_CODE_UNKNOWN = 0x0000,
-	PUMA_CODE_ASCII = 0x0001,
-	PUMA_CODE_ANSI = 0x0002,
-	PUMA_CODE_KOI8 = 0x0004,
-	PUMA_CODE_ISO = 0x0008,
-	PUMA_CODE_UTF8 = 0x0010
-};
-
 bool LPUMA_Load(char * lpPath);
 void LPUMA_Unload(void);
 
@@ -239,10 +213,6 @@ DEC_FUN(bool, SetImportData,(uint32_t, void *))
 PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
-
-DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
-PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
-		puma_code_t Code, char * lpMem, uint32_t size);
 
 struct PUMAENTRY {
 	FNPUMA_GetReturnCode fnGetReturnCode;

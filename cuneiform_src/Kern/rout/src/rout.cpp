@@ -54,8 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Rout.cpp
-
 //********************************************************************
 //
 // Rout.cpp - экспортируемые функции модуля ROUT
@@ -68,6 +66,7 @@
 #include <string.h>
 #include "stdafx.h"
 #include "rout_own.h"
+#include "cfcompat.h"
 
 static Bool Static_GetTargetObject(Handle hObject, long reason);
 static Bool Static_GetFirstTable(Handle hObject, long reason);
@@ -217,7 +216,7 @@ Bool32 ROUT_SaveObject(uint32_t objIndex, // Индекс объекта нач�
 //********************************************************************
 // Конвертирование в один формат на заданной памяти
 Bool32 ROUT_GetObject(uint32_t objIndex, // Индекс объекта начиная от 1
-		Byte *lpMem, // Адрес блока памяти ( 0 - старая память)
+		uchar *lpMem, // Адрес блока памяти ( 0 - старая память)
 		long *sizeMem // На входе: длина блока памяти
 // На выходе: длина использованной памяти
 ) {
@@ -329,7 +328,7 @@ Bool SetActiveCode(long code) {
 	UpdateActiveCodeTable();
 	return TRUE;
 }
-//********************************************************************
+
 long ROUT_ListFormats(puchar buf, ulong sizeBuf) {
 	// Получение списка поддерживаемых форматов
 	// Возвращает количество форматов или -1 при ошибке
@@ -430,8 +429,8 @@ long ROUT_ListCodes(puchar buf, ulong sizeBuf) {
 
 	return count;
 }
-//********************************************************************
-Byte ROUT_Byte(Byte c) {
+
+uchar ROUT_Byte(uchar c) {
 	// Перекодировать один байт по кодовой таблице
 	ClearError();
 
@@ -442,8 +441,8 @@ Byte ROUT_Byte(Byte c) {
 
 	return gActiveCodeTable[c];
 }
-//********************************************************************
-Bool32 ROUT_Block(Byte *lpMem, // Адрес блока памяти
+
+Bool32 ROUT_Block(uchar *lpMem, // Адрес блока памяти
 		long sizeMem // Длина блока памяти
 ) {
 	// Перекодировать блок памяти по кодовой таблице
@@ -579,7 +578,7 @@ Bool32 ROUT_SetAlphabet(uint32_t sizeAlphabet,// Количество букв
 	strcat((char*) gVowels, "^bcd^fgh^^klmn^pqrst^v^x^z");
 
 	// Заполнить позиционную таблицу
-	Byte *p = NULL;
+	uchar *p = NULL;
 
 	for (p = gUpper; *p; p++)
 		gAlphabetTable[*p] |= CASE_UPPER;
@@ -590,7 +589,7 @@ Bool32 ROUT_SetAlphabet(uint32_t sizeAlphabet,// Количество букв
 	for (p = gVowels; *p; p++)
 		gAlphabetTable[*p] |= CASE_VOWEL;
 
-	for (p = (Byte*) "0123456789"; *p; p++)
+	for (p = (uchar*) "0123456789"; *p; p++)
 		gAlphabetTable[*p] |= CASE_DIGIT;
 
 	return TRUE;
@@ -721,13 +720,13 @@ static Bool GetWorkMem() {
 	// свой кусок памяти, выделенный
 	// на ROUT_Init()
 	//
-	Byte *p = NULL;
+	uchar *p = NULL;
 	long lth = 1024 << 10; // 1M
 
-	p = (Byte*) MyAlloc(lth, 0);
+	p = (uchar*) MyAlloc(lth, 0);
 	if (!p) {
 		// Использовать собственный кусок памяти
-		p = (Byte*) gOwnMemory;
+		p = (uchar*) gOwnMemory;
 		lth = gOwnMemorySize;
 
 		DEBUG_PRINT("ROUT.CPP MyGetFreeMem: MyAlloc failed, using own memory");
@@ -760,14 +759,14 @@ static Bool FreeWorkMem() {
 uint32_t ROUT_GetObjectSize(uint32_t objIndex // Индекс объекта начиная от 1
 ) {
 	// Гадкая функция для определения длины объекта
-	Byte *p = NULL;
+	uchar *p = NULL;
 	long lth = 256 << 10; // 256K
 	long sizeMem = 0;
 
 	ClearError();
 
 	for (long attempt = 1; attempt < 3; attempt++) {
-		p = (Byte*) MyAlloc(lth, 0);
+		p = (uchar*) MyAlloc(lth, 0);
 		if (!p) {
 			NO_MEMORY;
 			return 0;

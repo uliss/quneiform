@@ -156,7 +156,7 @@ Bool NewLine()
 	// Для модуля Words.cpp
 	gCharBack = gMemCur;
 
-	Byte *p = (Byte*)gEOL;
+	uchar *p = (uchar*)gEOL;
 	while(*p)
 		*gMemCur++ = *p++;
 
@@ -174,9 +174,9 @@ Bool OneChar(Handle charHandle)
 	long codePage = GetCodePage();
 
 	// source symbol
-	Byte c1 = alt->alternative;
+	uchar c1 = alt->alternative;
 
-	Byte c2 = gActiveCodeTable[c1];
+	uchar c2 = gActiveCodeTable[c1];
 
 	// remember for the  Words.cpp module
 	gCharHandle = charHandle;
@@ -397,7 +397,7 @@ static Bool IncludeTable()
 */
 
 	// Сохранить начало памяти
-	Byte *saveMemStart = gMemStart;
+	uchar *saveMemStart = gMemStart;
 
 	// Начало оставшейся свободной памяти
 	gMemStart = gMemCur;

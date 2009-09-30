@@ -368,7 +368,7 @@ Bool BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 */
 
 	// Справочная обхода ячеек
-	Byte sprav[10000];
+	uchar sprav[10000];
 	assert(gTableCells < sizeof(sprav));
 	memset(&sprav,0,sizeof(sprav));
 
