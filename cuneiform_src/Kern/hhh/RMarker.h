@@ -78,7 +78,7 @@
 #endif
 
 RMARKER_FUNC Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
-RMARKER_FUNC Bool32 RMARKER_Done();
+RMARKER_FUNC void RMARKER_Done();
 RMARKER_FUNC uint32_t RMARKER_GetReturnCode();
 RMARKER_FUNC char * RMARKER_GetReturnString(uint32_t dwError);
 RMARKER_FUNC Bool32 RMARKER_GetExportData(uint32_t dwType, void * pData);
