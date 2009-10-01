@@ -99,14 +99,7 @@ char *leo_alpha_reg[256];
 uchar leo_current_alpha_ndx = 0;
 static int32_t fields_tab[MAX_FIELDS] = { 0 };
 static MemFunc* leo_mem;
-static void* leo_alloc(uint32_t len) {
-	return malloc(len);
-}
-static void leo_free(void *ptr, uint32_t /*len*/) {
-	free(ptr);
-}
-static void* (*my_alloc)(uint32_t len)=leo_alloc;
-static void (*my_free)(void *, uint32_t len)=leo_free;
+
 static Bool32 leo_is_load = FALSE;
 static uchar save_alpha_valid = 0, save_isPrint = 0;
 
@@ -343,14 +336,6 @@ Bool32 LEOInit(MemFunc* mem) {
 	leo_enable_fon_recog = FALSE;
 	LEO_error_code = ER_LEO_NO_ERROR;
 
-	if (mem != NULL) {
-		my_alloc = mem->alloc;
-		my_free = mem->free;
-	} else {
-		my_alloc = leo_alloc;
-		my_free = leo_free;
-	}
-
 	memset(alphabet_dig, 0, 256);
 	memset(&alphabet_dig[48], 1, 10);
 	memset(alphabet_all, 1, 256);
@@ -393,7 +378,7 @@ void LEOFreeAlphabets(void) {
 	int32_t i;
 	for (i = 0; i < 256; i++) {
 		if (leo_alpha_reg[i]) {
-			my_free(leo_alpha_reg[i], 0);
+			free(leo_alpha_reg[i]);
 			leo_alpha_reg[i] = 0;
 		}
 	}
@@ -495,7 +480,7 @@ uchar leo_register_alphabet(char alphabet[]) {
 	if (i > 255)
 		return (uchar) 0;
 	// new alphabet
-	leo_alpha_reg[i] = static_cast<char*> (my_alloc(256));
+	leo_alpha_reg[i] = static_cast<char*> (malloc(256));
 	if (!leo_alpha_reg[i])
 		return (uchar) 0;
 	memcpy(leo_alpha_reg[i], alphabet, 256);
