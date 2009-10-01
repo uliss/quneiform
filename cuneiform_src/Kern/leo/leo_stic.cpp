@@ -54,12 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <assert.h>
-#include <math.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cctype>
+#include <cassert>
+#include <cmath>
+#include <algorithm>
 
 #define ERECT_ENABLE 0
 
@@ -71,8 +72,6 @@
 #include "alphaset.h"
 #include "leo_func.h"
 
-#include "minmax.h"
-
 // extern data
 extern unsigned char alphabet[];
 extern uchar nIsPrint;
@@ -80,12 +79,9 @@ extern int32_t leo_typ_of_font;
 
 // from module LEO.C
 extern uchar leo_alpha_type, prn_roma_regim;
-
 // для осмысленности assert
 int32_t try_call_vec = 0;
-
 int32_t leo_stick_nose_1;
-
 int leo_incline = ERECT_ENABLE;
 static int leo_av_inc = 0, leo_av_inc_n = 0, leo_av_inc1 = 0,
 		leo_av_inc_n1 = 0, is_pool = 0, save_w, save_h;
@@ -97,7 +93,6 @@ static Bool32 leo_stick_thin_prop(RecRaster *r, int ang[], int num, int den);
 static Bool32 leo_stick_thin(RecRaster *r, int inc, int num, int den);
 static Bool32 leo_stick_make_tab(int inc, int h, int tab_angle[]);
 static void leo_save_rl(uint16_t *lpool);
-static uint16_t * leo_rest_rl(void);
 static int32_t leo_num_of_long_sticks(RecVector *vSticks, int Cnt, int h);
 static Bool32 leo_wide_stick(RecVector *vSticks, int Cnt, int h, int w);
 static Bool32 leo_test_inclinable(RecVersions *v);
@@ -123,8 +118,9 @@ Bool32 similar_i(RecRaster *rs) {
 			rim = ri;
 	}
 
-	return abs(i - w) <= MAX(w / 4, 2) || rim != 256 && lem != 256 && abs(i - w
-			+ rim + lem) < MAX(w / 4, 2) || i > 3 && i < h / 5; // similar to square
+	return abs(i - w) <= std::max(w / 4, 2)
+				|| (rim != 256 && lem != 256 && abs(i - w + rim + lem) < std::max(w / 4, 2))
+				|| (i > 3 && i < h / 5); // similar to square
 }
 
 Bool32 leoRecogSimpleStick(RecObject* object) {
@@ -223,10 +219,6 @@ static void leo_save_rl(uint16_t *lpool) {
 	return;
 }
 
-static uint16_t * leo_rest_rl(void) {
-	return save_pool;
-}
-
 // !!!!!!!!!!!!!!!!! USING FIXED STRUCT OF LNHEAD !!!!!!!!!
 // return : 0 - non stick
 //          1 - similar to 1 or dark handprinted stick
@@ -283,7 +275,7 @@ int32_t leo_recog_stick(uint16_t *lpool, int w, int h) {
 		lpool = lp + len / 2;
 	}
 
-	if (!nIsPrint && n_2 > 2 || n_2 > 4)
+	if ((!nIsPrint && n_2 > 2) || n_2 > 4)
 		return 0; // holes on image
 
 	for (n_0 = 0, i = 1; i < h; i++) {
@@ -296,7 +288,7 @@ int32_t leo_recog_stick(uint16_t *lpool, int w, int h) {
 		return (n_2 < 5 && n_0 < 1) ? 4 : 5; // print 1-line comp
 	}
 	// study jumps on contures
-	lim = MIN(3, MAX((w + 7) / 8, 1));
+	lim = std::min(3, std::max((w + 7) / 8, 1));
 	for (jmp = 0, ol = hist_le[1], or_ = hist_ri[1], i = 2; i <= h; i++) {
 		if (hist_le[i] > ol + 1)
 			jmp++;
@@ -341,7 +333,6 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 	slash_level = leo_current_slash_level();
 	level_1 = leo_current_1_level();
 	inc = abs(leo_get_global_incline());
-	//simple_st=0;
 	if (ret > slash_level) {
 		if (!nose_1) {
 			if (alphabet['/']) {
@@ -385,7 +376,7 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 		}
 	}
 
-	else if (ret < slash_level / 2 || inc && abs(ret - inc) < 256) {
+	else if (ret < slash_level / 2 || (inc && abs(ret - inc) < 256)) {
 		if (alphabet['I']) {
 			v->Alt[v->lnAltCnt].Code = 'I';
 			v->Alt[v->lnAltCnt].CodeExt = 0;
@@ -441,8 +432,8 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 				v->lnAltCnt++;
 			}
 		} else {
-			if (level_1 && level_1 < slash_level / 2 || !level_1 && ret
-					> slash_level * 3 / 4) {
+			if ((level_1 && level_1 < slash_level / 2)
+				|| (!level_1 && ret	> slash_level * 3 / 4)) {
 				if (alphabet['/']) {
 					v->Alt[v->lnAltCnt].Code = '/';
 					v->Alt[v->lnAltCnt].CodeExt = 0;
@@ -493,7 +484,7 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 }
 
 void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
-		int32_t nose_1) {
+		int32_t /*nose_1*/) {
 	ver->lnAltCnt = 0;
 	ver->lnAltMax = REC_MAX_VERS;
 	if (alphabet['I']) {
@@ -520,7 +511,7 @@ void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
 		}
 	}
 
-	if (alphabet['|'] || nIsPrint && alphabet[stdAnsiToAscii(((uchar) 'ы'))]) {
+	if (alphabet['|'] || (nIsPrint && alphabet[stdAnsiToAscii((uchar) 'ы')])) {
 		ver->Alt[ver->lnAltCnt].Code = '|';
 		ver->Alt[ver->lnAltCnt].CodeExt = 0;
 		ver->Alt[ver->lnAltCnt].Prob = (leo_typ_of_font & LEO_FONT_MTR) ? 255
@@ -532,8 +523,8 @@ void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
 	return;
 }
 
-void leo_set_simple_sticks_print(RecVersions *ver, unsigned char alphabet[],
-		uchar prob_stick) {
+void leo_set_simple_sticks_print(RecVersions *ver,
+		unsigned char /*alphabet*/[], uchar prob_stick) {
 	ver->lnAltCnt = 0;
 	ver->lnAltMax = REC_MAX_VERS;
 
@@ -723,7 +714,6 @@ Bool32 leo_is_stick(RecObject* object) {
 				return TRUE;
 			}
 
-			//        if( alphabet['|'] )
 			if (leo_alpha_type != ALPH_DIG) {
 				r.Alt[r.lnAltCnt].Code = '|';
 				r.Alt[r.lnAltCnt].Prob = 0;
@@ -788,11 +778,9 @@ Bool32 leo_is_stick(RecObject* object) {
 		if (rstick == 5)
 			return FALSE;
 		if (rstick == 4) {
-			//        Bool32 reg_lat=TRUE;
 			r.lnAltCnt = 0;
 			r.lnAltMax = REC_MAX_VERS;
 
-			//if( alphabet[(uchar)'|'] )
 			if (leo_alpha_type != ALPH_DIG) {
 				r.Alt[r.lnAltCnt].Code = '|';
 				r.Alt[r.lnAltCnt].CodeExt = 0;
@@ -814,27 +802,7 @@ Bool32 leo_is_stick(RecObject* object) {
 				r.Alt[r.lnAltCnt].Method = REC_METHOD_FINAL;
 				r.lnAltCnt++;
 			}
-			/*
-			 if( alphabet['l'] )
-			 {
-			 r.Alt[r.lnAltCnt].Code='l';
-			 r.Alt[r.lnAltCnt].Prob=0;
-			 r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
-			 r.Alt[r.lnAltCnt].CodeExt=0;
-			 r.lnAltCnt++;
-			 reg_lat=TRUE;
-			 }
 
-			 if( alphabet['t'] )
-			 {
-			 r.Alt[r.lnAltCnt].Code='t';
-			 r.Alt[r.lnAltCnt].Prob=0;
-			 r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
-			 r.Alt[r.lnAltCnt].CodeExt=0;
-			 r.lnAltCnt++;
-			 reg_lat=TRUE;
-			 }
-			 */
 			if (DIFStick_expert((int16_t) w, (int16_t) h, (uchar*) lpool, &r)) {
 				if (prn_roma_regim) {
 					int c = leo_exist_code(&r, '1');
@@ -842,15 +810,9 @@ Bool32 leo_is_stick(RecObject* object) {
 						r.Alt[c].Code = 'I';
 				}
 				leo_sort_vers_prob(&r);
-				/*
-				 if( reg_lat && memchr("tl",r.Alt[0].Code,2) && r.Alt[0].Prob<230 )
-				 {
-				 leo_kill(&r,"tl");
-				 leo_sort_vers_prob( &r );
-				 }
-				 */
-				if (w * 2 <= h && r.Alt[0].Prob > 200 || w < h && r.Alt[0].Prob
-						> 220) {
+
+				if ((w * 2 <= h && r.Alt[0].Prob > 200)
+						|| (w < h && r.Alt[0].Prob > 220)) {
 
 					memcpy(&object->recResults, &r, sizeof(RecVersions));
 					return TRUE;
@@ -876,18 +838,20 @@ Bool32 leo_is_stick(RecObject* object) {
 			if (object->recData.lwSticksCnt > 1) {
 				int num = leo_num_of_long_sticks(object->recData.vSticks,
 						object->recData.lwSticksCnt, h);
-				if (num > 1 || num < 1 && object->recData.lwSticksCnt > 2)
+				if (num > 1 || (num < 1 && object->recData.lwSticksCnt > 2))
 					return FALSE;
 				if (leo_wide_stick(object->recData.vSticks,
 						object->recData.lwSticksCnt, h, w))
 					return FALSE;
 			}
 			rret = (ret < 0) ? -ret : ret;
-			if (rstick == 2 && object->recData.lwSticksCnt == 1 && ret < 160
-					|| rstick == 1 && object->recData.lwSticksCnt == 1
-							&& leo_stick_nose_1 && ret < -256) {
-				if (!yx && abs(rret - (w * 2048 / h)) < 256 || yx && abs(rret
-						- (h * 2048 / w)) < 256) {
+			if ((rstick == 2 && object->recData.lwSticksCnt == 1 && ret < 160)
+					|| (rstick == 1
+							&& object->recData.lwSticksCnt == 1
+							&& leo_stick_nose_1 && ret < -256)
+					) {
+				if ((!yx && abs(rret - (w * 2048 / h)) < 256)
+						|| (yx 	&& abs(rret - (h * 2048 / w)) < 256)) {
 					leo_set_sticks_group(&ver, rret, alphabet, 1,
 							leo_stick_nose_1);
 					if (ver.lnAltCnt == 0)
