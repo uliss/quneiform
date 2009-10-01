@@ -62,12 +62,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>
+
 #include "cstr.h"
 #include "ccom.h"
 #include "crling.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "std.h"
-
 #include "rstr.h"
 #include "dpuma.h"
 
@@ -80,7 +80,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _TEST_ALTER_
 
 #include "minmax.h"
-
 #include "compat_defs.h"
 
 #define SS_NEG_HALF_SPACE 0x1e

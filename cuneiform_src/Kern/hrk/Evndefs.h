@@ -58,7 +58,7 @@
 #define __EVNDEFS_H
 
 #include "recdefs.h"
-#include "leodefs.h"
+#include "leo/leodefs.h"
 
 #define RASTER_MAX_HEIGHT	63
 #define RASTER_MAX_WIDTH	128

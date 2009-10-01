@@ -67,7 +67,8 @@
 #include <setjmp.h>
 #include <time.h>
 #include <fcntl.h>
-#include "leo.h"
+
+#include "leo/leo.h"
 #include "fon.h"
 #include "std.h"
 #include "rstr.h"

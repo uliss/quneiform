@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsadd.h"
 #include "resource.h"
 #include "lang_def.h"
-#include "leodefs.h"
+#include "leo/leodefs.h"
 #include <stdlib.h>
 #define etap_name 'g'
 #define uchar    uchar

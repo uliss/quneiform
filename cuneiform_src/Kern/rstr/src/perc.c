@@ -113,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "std.h"
 
 #include "compat_defs.h"

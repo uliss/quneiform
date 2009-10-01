@@ -58,17 +58,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  #include <stdlib.h>
  #include <sys/stat.h>
-/* #include <io.h>*/
-
- 
  #include <setjmp.h>
  #include <assert.h>
  #include <stdio.h>
  #include <fcntl.h>
-/* #include <direct.h>*/
  #include <string.h>
 
-#include  "std.h"
+#include "std.h"
 #include "globus.h"
 #include "imgaccs.h"
 #include "resource.h"
@@ -79,21 +75,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 #include "linutil.h"
 #include "p2libr.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "tm.h"
 #include "lang.h"
 #include "ccom.h"
 #include "struct.h"
-#include "cstr.h" // OLEG
+#include "cstr.h"
 #include "fon.h"
 #include "dpuma.h"
 #include "rsadd.h"
 
 #include "lang.h"
 #include "minmax.h"
-
-//#include "p2.h"
-//#include "rstr_p2.h"
 
 static int p2_checkUpperLower(void);
 

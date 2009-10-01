@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 
-#include "leo.h"
+#include "leo/leo.h"
 #include "ctb.h"
 #include "sfont.h"
 #include "fonrec.h"

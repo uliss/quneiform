@@ -60,20 +60,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
- #include <sys/stat.h>
-/* #include <io.h> */
- 
- #include <stdlib.h>
- #include <setjmp.h>
- #include <assert.h>
- #include <stdio.h>
- #include <fcntl.h>
-/* #include <direct.h>*/
- #include <string.h>
+#include <sys/stat.h>
 
- #include "globus.h"
- #include "imgaccs.h"
- #include "resource.h"
+
+#include <stdlib.h>
+#include <setjmp.h>
+#include <assert.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <string.h>
+
+#include "globus.h"
+#include "imgaccs.h"
+#include "resource.h"
 #include "func.h"
 #include "alphabet.h"
 #include "status.h"
@@ -84,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tm.h"
 #include "lang.h"
 #include "ccom.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "std.h"
 #include "rsadd.h"
 #include "cuthdr.h"

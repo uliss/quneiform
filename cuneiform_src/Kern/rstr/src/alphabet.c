@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 #include "linutil.h"
 #include "alphabet.h"
-#include "leo.h"
+#include "leo/leo.h"
 
 #include "compat_defs.h"
 

@@ -62,7 +62,7 @@
 #include "minmax.h"
 #include "ctb.h"
 #include "sfont.h"
-#include "leo.h"
+#include "leo/leo.h"
 
 #define ParolBase "ClBas"
 

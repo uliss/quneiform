@@ -62,7 +62,7 @@
 #include "cstr.h"
 #include "linear.h"
 #include "ligas.h"
-#include "leodefs.h"
+#include "leo/leodefs.h"
 #include "evn.h"
 
 //////

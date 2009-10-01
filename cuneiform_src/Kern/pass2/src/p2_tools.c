@@ -68,7 +68,7 @@
 #include "globus.h"
 #include "alphabet.h"
 #include "p2libr.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "lang_def.h"
 #include "ccom.h"
 #include "fon.h"

@@ -60,7 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define mkdir(a, b) _mkdir(a)
 #endif
 #include <sys/stat.h>
-#include "leo.h"
+
+#include "leo/leo.h"
 #include "std.h"
 #include "ctb.h"
 #include "tuner.h"

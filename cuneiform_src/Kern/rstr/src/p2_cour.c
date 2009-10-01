@@ -59,8 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
-/*#include <io.h>*/
-
 
 #include "struct.h"
 #include "status.h"
@@ -69,13 +67,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstr.h" // OLEG
 #include "fon.h"
 #include "std.h"
-//#include "linear.h"
 
 #include "msk.h"
-//#include "r35.h"
-#include "leo.h"
+#include "leo/leo.h"
 #include "ctb.h"
 #include "linutil.h"
+
 extern  char    alphabet[256];
 extern  uchar    decode_ASCII_to_[256][4];
 static  int            HndTab=0, HndTabInc=0;

@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "recdefs.h"
-#include "leodefs.h"
+#include "leo/leodefs.h"
 
 
 #endif

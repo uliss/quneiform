@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 
-#include "leo.h"
+#include "leo/leo.h"
 #include "lang_def.h"
 #include "ligas.h"
 
