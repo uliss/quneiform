@@ -59,10 +59,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "difdefs.h"
 #include "dif.h"
 #include "minmax.h"
-
 extern  uchar broken_flag;
   uchar rec5_flag=1,font_type=0,omni=1;
 int16_t  NumVertInterval(uchar *RASTER,int16_t D_X, int16_t dy, int16_t i);

@@ -54,66 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __DIF_H
-   #define __DIF_H
+#ifndef __DIFDEFS_H
+#define __DIFDEFS_H
 
-   #ifndef __GLOBUS_H
-      #include "globus.h"
-   #endif
-   #include "difdefs.h"
 
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
+#include "recdefs.h"
+#include "leo/leodefs.h"
 
-   #ifdef __DIF__
-      #define DIF_FUNC  FUN_EXPO
-   #else
-      #define DIF_FUNC  FUN_IMPO
-   #endif
-
-   #ifdef __cplusplus
-   extern "C" {
-   #endif
-
-   DIF_FUNC(Bool32)  DIFInit( RecRaster *r, Bool32 broken, Bool32 broken_II,
-                    Bool32 cut_left, Bool32 cut_right);
-      // Start Initialization; TRUE - OK
-      // for mem==NULL need used internal memory functions from DLL
-      // New call - after close library without DIFDone
-   DIF_FUNC(void)  DIFSetFont( int32_t typ_of_font);
-
-   DIF_FUNC(Bool32)  DIFSetAlphabet(
-        char*     char_tbl_put_to ); // char table[0-255]
-      // Set alphabet for recognition
-
-   DIF_FUNC(Bool32)  DIFPenaltyChar(
-      RecRaster*  raster,     // raster description
-      RecVersions* DIFres );  // acuracy
-
-  DIF_FUNC(Bool32)  DIFStick_expert(
-      int16_t dx, int16_t dy,    // raster description
-      uchar*      pool,
-      RecVersions* DIFres );  // acuracy
-
-  DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, uchar *pool);
-
-   DIF_FUNC(void)  DIFDone(void);
-      // Stop function. Call after DIFInit()
-
-   DIF_FUNC(int16_t) DIFGetErr(void);
-      // Err16.h defined codes or one of the next
-
-  DIF_FUNC(int16_t) DIFLeftDistance(uchar *RASTER, int16_t NWIDTH);
-  DIF_FUNC(int16_t) DIFRightDistance(uchar *RASTER, int16_t NWIDTH);
-  DIF_FUNC(void)  DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
-  DIF_FUNC(int16_t) DIF_GetNoCutPoint(uchar *RASTER, int16_t Wb, uchar NWIDTH, uchar NLENGTH);
-  DIF_FUNC(Bool32) DIF_SetLanguage(uchar lang);
-  DIF_FUNC(uint16_t) DIF_typ_thin_stick(uchar *lin,int16_t dy,int16_t dx);
-   #ifdef __cplusplus
-            }
-   #endif
 
 #endif
-
