@@ -54,8 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*----------------------------------------------------------------------*/
-#include "difdefs.h"
+#include "recdefs.h"
+#include "leo/leodefs.h"
+
 #ifndef D_STICK_TYPES
 #define D_STICK_TYPES
 

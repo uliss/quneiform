@@ -82,8 +82,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /************************************************************************/
 
 #include <string.h>
-#include "difdefs.h"
 
+#include "recdefs.h"
+#include "leo/leodefs.h"
 #include "diskrtab.h"       /* таблицы      */
 
 uchar BUFFER[256];   /* вертикальная проекция  */

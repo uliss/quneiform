@@ -59,7 +59,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "difdefs.h"
+
+#include "recdefs.h"
+#include "leo/leodefs.h"
 #include "dif.h"
 #include "minmax.h"
 extern  uchar broken_flag;
