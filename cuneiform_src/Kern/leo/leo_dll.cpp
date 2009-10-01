@@ -180,8 +180,10 @@ void leo_snapChar(RecVersions *ver, const char *tit, int enable) {
 						ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method,
 								title));
 			}
-			t += sprintf(t, "%c(%d,%s)", stdAsciiToAnsi(ver->Alt[i].Code),
-					ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method, title));
+			t
+					+= sprintf(t, "%c(%d,%s)",
+							stdAsciiToAnsi(ver->Alt[i].Code), ver->Alt[i].Prob,
+							LEOGetMetName(ver->Alt[i].Method, title));
 		} else
 			strcpy(buf, "-");
 		SnpLog("%s %s", tit, buf);

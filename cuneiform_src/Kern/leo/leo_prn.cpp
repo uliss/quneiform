@@ -54,10 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cctype>
 
 #define PC_TYPE 0
 
@@ -1415,10 +1415,9 @@ Bool32 leoRecogCharPRN_expert(RecRaster* recRaster, RecVersions* over) {
 			return TRUE;
 		}
 
-LEO_FUNC(Bool32) LEORecogPrnMethod( RecObject* object , int Method, int type)
-{
+LEO_FUNC Bool32 LEORecogPrnMethod(RecObject* object, int Method, int type) {
 	RecVersions ver;
-	uint16_t CompImage16x16[16*16];
+	uint16_t CompImage16x16[16* 16 ];
 
 	leo_init_prn();
 	memset(&ver,0,sizeof(RecVersions));
