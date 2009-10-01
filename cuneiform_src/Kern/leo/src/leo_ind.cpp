@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leo.h"
 #include "r35.h"
 #include "msk.h"
+#include "std.h"
 
 #include "snptools.h"
 
@@ -78,9 +79,7 @@ extern int32_t try_call_vec;
 
 static SnpTreeNode  stnNdxRecog;       // stops after ndx recog
 static SnpTreeNode  stnSnapNdxRecog;
-// functions from module MYSORT.C
-extern  void stdQsort(void *pMas,int Num, int width,
-        int (*compare)(const void *elm1,const void *elm2) );
+
 extern  Bool32  leo_init_ndx(void);
 
 static void Ind_SnpWaitUserInput(SnpTreeNode *stnCharRecog)
