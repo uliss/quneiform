@@ -345,9 +345,8 @@ void leo_over(RecVersions *ver, RecVersions *alph) {
 	return;
 }
 
-int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster *r, uchar prob_3x5,
-		uchar prob_iva) {
-
+int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster */*r*/, uchar prob_3x5,
+		uchar /*prob_iva*/) {
 	RecVersions loc;
 	loc.lnAltMax = REC_MAX_VERS;
 	loc.Alt[0].Code = Code;
@@ -358,7 +357,6 @@ int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster *r, uchar prob_3x5,
 		prob_3x5 = loc.Alt[0].Prob;
 	}
 	return prob_3x5;
-
 }
 
 int leo_expert_recog_prn(uchar Code, RecRaster *raster, uint16_t *v3x5,
@@ -705,7 +703,7 @@ int32_t leoMakePropability(RecVersions *per, RecVersions *sce,
 	return res->lnAltCnt;
 }
 
-Bool32 leoRecogCharRom(RecObject* object, int32_t erect) {
+Bool32 leoRecogCharRom(RecObject* object, int32_t /*erect*/) {
 	RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
 	int32_t num_horiz_dist, hei;
 	uint16_t CompImage16x16[16* 16 ];
