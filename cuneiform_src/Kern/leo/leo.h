@@ -59,7 +59,6 @@
 
 #include "globus.h"
 #include "leodefs.h"
-#include "recdefs.h"
 #include "memfunc.h"
 #include "snpdefs.h"
 
@@ -127,7 +126,7 @@ LEO_FUNC char * LEOGetMetName(int32_t method, char *met_name);
 LEO_FUNC int16_t LEOGetErr(void);
 
 // Err16.h defined codes or one of the next
-enum loe_error_t {
+enum leo_error_t {
 	ER_LEO_NO_ERROR = 0,
 	ER_LEO_NULL_OBJECT = 1,
 	ER_LEO_SMALL_OBJECT = 2,
@@ -166,10 +165,10 @@ LEO_FUNC int32_t LEO_GetLetStat(int32_t name, int32_t *sizes, int32_t *ocenka);
 
 LEO_FUNC int16_t LEO_GetNoCutPoint(uchar *RASTER, int16_t WB, uchar NWIDTH,
 		uchar NLENGTH);
-LEO_FUNC int32_t LEO_Str2FldNo(int32_t str_no);
 // convert string number to field number. -1 if bound error
-LEO_FUNC Bool32 LEO_StoreCollection(RecVersions *ver);
+LEO_FUNC int32_t LEO_Str2FldNo(int32_t str_no);
 // store ANSI(Windows) collection
+LEO_FUNC Bool32 LEO_StoreCollection(RecVersions *ver);
 LEO_FUNC void LEOFreeAlphabets(void);
 
 #ifdef __cplusplus
