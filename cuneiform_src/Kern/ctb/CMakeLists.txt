@@ -1,12 +1,12 @@
 add_library(ctb32 ${LIBTYPE}
-src/ctb_aln.cpp
-src/ctb_cnvm.cpp
-src/ctb_gray.cpp
-src/ctb_oper.cpp
-src/ctb_pack.cpp
-src/ctb_prot.cpp
-src/ctb_recr.cpp
-src/ctb_tool.cpp
+src/ctb_aln.c
+src/ctb_cnvm.c
+src/ctb_gray.c
+src/ctb_oper.c
+src/ctb_pack.c
+src/ctb_prot.c
+src/ctb_recr.c
+src/ctb_tool.c
 )
 set_property(TARGET ctb32 PROPERTY COMPILE_DEFINITIONS __CTB__)
 

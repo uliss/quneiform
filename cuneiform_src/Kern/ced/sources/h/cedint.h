@@ -61,6 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <climits>
 #include "globus.h"
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 #pragma pack (push,8)
 
 #define CED_MAXNAME 260
@@ -68,6 +72,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ced.h"
 #include "ced_struct.h"
+
+#ifdef _DEBUG
+#define EDASSERT(f) \
+	{if (!(f)) \
+		__asm { int 3 };}
+#else
+#define EDASSERT(f)
+#endif
+
 #include "compat_defs.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data
@@ -380,5 +393,9 @@ extern FILE *logStream;
 // error code
 
 #pragma pack (pop)
+
+#ifdef __cplusplus
+            }
+#endif
 
 #endif

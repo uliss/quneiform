@@ -1,104 +1,110 @@
 /*
- Copyright (c) 1993-2008, Cognitive Technologies
- All rights reserved.
+Copyright (c) 1993-2008, Cognitive Technologies
+All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Разрешается повторное распространение и использование как в виде исходного кода,
+так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+      * При повторном распространении исходного кода должны оставаться указанное
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
+        других материалах, поставляемых при распространении, должны сохраняться
+        указанная выше информация об авторском праве, этот список условий и
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
+        продуктов, основанных на этом ПО, без предварительного письменного
+        разрешения.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
- Redistribution and use in source and binary forms, with or without modification,
- are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 
- * Redistributions of source code must retain the above copyright notice,
- this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.
- * Neither the name of the Cognitive Technologies nor the names of its
- contributors may be used to endorse or promote products derived from this
- software without specific prior written permission.
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of the Cognitive Technologies nor the names of its
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 
 #include "rselstr.h"
 #include "puttocont.h"
 
-Bool32 RSELSTR_PutObjects(Handle hCPage, Handle hCCOM, CHSTR_Objects* pObjects,
-		int nObjects) {
-	list = NULL;
-	list = new CLhstr;
-	if (list == NULL)
-		return FALSE;
+RSELSTR_FUNC(Bool32) RSELSTR_PutObjects (Handle hCPage,Handle hCCOM,CHSTR_Objects* pObjects,int nObjects)
+{
+ list=NULL;
+ list=new CLhstr;
+ if(list==NULL)
+	 return FALSE;
 
-	PAGEINFO info;
-	GetPageInfo(hCPage, &info);
+ PAGEINFO info = {0};
+ GetPageInfo(hCPage,&info);
 
-	CHstr * string;
-	uchar * ImageName;
 
-	for (int i = 0; i < nObjects; i++) {
+ CHstr* string;
+ uchar* ImageName;
 
-		if (!(string = list->Add()))
-			continue;
+ for(int i=0;i<nObjects;i++)
+ {
 
-		ImageName = pObjects[i].ImageName;
+  if(!(string=list->Add()))
+	  continue;
 
-		string->m_num_frag = pObjects[i].block_number;
+  ImageName=pObjects[i].ImageName;
 
-		if (pObjects[i].ImageName[0] != '\0') {
-			string->ImageName = new uchar[CPAGE_MAXNAME];
-			int j;
-			for (j = 0; j < CPAGE_MAXNAME && ImageName[j] != '\0'; j++)
-				string->ImageName[j] = ImageName[j];
-			if (j < CPAGE_MAXNAME)
-				string->ImageName[j] = '\0';
-		}
-		string->vertical = pObjects[i].type_vert;
-		string->neg = pObjects[i].type_neg;
-		string->top = pObjects[i].Rc.top;
-		string->left = pObjects[i].Rc.left;
-		string->w = pObjects[i].Rc.right - pObjects[i].Rc.left + 1;
-		string->h = pObjects[i].Rc.bottom - pObjects[i].Rc.top + 1;
+  string->m_num_frag=pObjects[i].block_number;
+
+  if(pObjects[i].ImageName[0]!='\0')
+  {
+	if(string->ImageName= new uchar[CPAGE_MAXNAME] )
+	{
+	    int j;
+		for(j=0;j<CPAGE_MAXNAME&&ImageName[j]!='\0';j++)
+	        string->ImageName[j]=ImageName[j];
+		if(j<CPAGE_MAXNAME)
+            string->ImageName[j]='\0';
 	}
+  }
+  string->vertical=pObjects[i].type_vert;
+  string->neg=pObjects[i].type_neg;
+  string->top=pObjects[i].Rc.top;
+  string->left=pObjects[i].Rc.left;
+  string->w=pObjects[i].Rc.right-pObjects[i].Rc.left+1;
+  string->h=pObjects[i].Rc.bottom-pObjects[i].Rc.top+1;
+ }
 
-	GetObjects(hCCOM, hCPage);
-	delete list;
-	list = NULL;
+  GetObjects(hCCOM,hCPage);
+  delete list;
+  list=NULL;
 
-	return TRUE;
+ return TRUE;
 }
+
 

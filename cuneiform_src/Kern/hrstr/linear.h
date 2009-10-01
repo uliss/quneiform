@@ -166,7 +166,7 @@ void lpmima(int16_t);
 void bring_dust(int16_t);
 void interdif(cell *P, cell *N, cell *B1);
 void stand_bas();
-void complete_bas(const char *);
+void complete_bas(char *);
 void dbreset(int16_t);
 int16_t  fincells();
 int16_t  dbsum(int16_t filter);

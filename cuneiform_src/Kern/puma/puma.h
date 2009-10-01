@@ -75,7 +75,13 @@ class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingStatic> Puma;
 }
 
-struct PUMA_ImageInfo {
+#define PUMA_MAXNAME 260
+
+typedef void (*FNPUMA_ProgressStart)(void);
+typedef void (*FNPUMA_ProgressFinish)(void);
+typedef bool (*FNPUMA_ProgressStep)(uint32_t step, const char* name,
+		uint32_t percent);
+typedef struct {
 	uint16_t wImageHeight;
 	uint16_t wImageWidth;
 	uint16_t wImageByteWidth;
@@ -86,17 +92,17 @@ struct PUMA_ImageInfo {
 	uchar bUnused;
 	uint16_t wAddX;
 	uint16_t wAddY;
-};
+} PUMA_ImageInfo;
 
 typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
 typedef uint16_t (*PUMA_Callback_ImageRead)(pchar, uint16_t);
 typedef Bool16 (*PUMA_Callback_ImageClose)(void);
 
-struct PUMAIMAGECALLBACK {
+typedef struct {
 	PUMA_Callback_ImageOpen CIMAGE_ImageOpen;
 	PUMA_Callback_ImageRead CIMAGE_ImageRead;
 	PUMA_Callback_ImageClose CIMAGE_ImageClose;
-};
+} PUMAIMAGECALLBACK;
 
 enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XOpen = 1,
@@ -148,6 +154,32 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XGetTemplate
 };
 
+// Format codes
+enum puma_format_t {
+	PUMA_TOEDNATIVE = 0,
+	PUMA_TOTEXT = 0x02,
+	PUMA_TOSMARTTEXT = 0x04,
+	PUMA_TORTF = 0x08,
+	PUMA_TOTABLETXT = 0x0100,
+	PUMA_TOTABLECSV = 0x0200,
+	PUMA_TOTABLEDBF = 0x0400,
+	PUMA_TOTABLEODBC = 0x0800,
+	PUMA_TOTABLEWKS = 0x1000,
+	PUMA_TOHTML = 0x2000,
+	PUMA_TOHOCR = 0x4000,
+	PUMA_DEBUG_TOTEXT = 0x8000
+};
+
+//       Codes
+enum puma_code_t {
+	PUMA_CODE_UNKNOWN = 0x0000,
+	PUMA_CODE_ASCII = 0x0001,
+	PUMA_CODE_ANSI = 0x0002,
+	PUMA_CODE_KOI8 = 0x0004,
+	PUMA_CODE_ISO = 0x0008,
+	PUMA_CODE_UTF8 = 0x0010
+};
+
 bool LPUMA_Load(char * lpPath);
 void LPUMA_Unload(void);
 
@@ -191,6 +223,9 @@ void LPUMA_SetFormatMode(uint32_t nNewValue);// old
 void LPUMA_SetUnrecogChar(uchar nChar);
 uchar LPUMA_GetUnrecogChar(void);
 
+bool LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,
+		FNPUMA_ProgressStep fnStep, FNPUMA_ProgressFinish fnFinish);
+
 void LPUMA_SetAutoRotate(bool b);
 bool LPUMA_GetAutoRotate(void);
 
@@ -214,13 +249,23 @@ PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
-struct PUMAENTRY {
+//
+DEC_FUN(bool, XSave,(const std::string&, puma_format_t, puma_code_t))
+DEC_FUN(bool, Save,(Handle, const std::string&, puma_format_t, puma_code_t, bool))
+DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
+
+PUMA_FUNC bool PUMA_XSave(const std::string& filename, puma_format_t,
+		puma_code_t);
+PUMA_FUNC bool PUMA_Save(Handle hEdPage, const std::string& filename,
+		puma_format_t Format, puma_code_t Code, bool Append);
+PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
+		puma_code_t Code, char * lpMem, uint32_t size);
+
+typedef struct {
 	FNPUMA_GetReturnCode fnGetReturnCode;
 	FNPUMA_GetReturnString fnGetReturnString;
 	FNPUMA_SetImportData fnSetImportData;
-};
-
-typedef PUMAENTRY * LPPUMAENTRY;
+} PUMAENTRY, *LPPUMAENTRY;
 // Enum
 DEC_FUN(int32_t, EnumLanguages,(int32_t))
 DEC_FUN(int32_t, EnumFormats,(int32_t))
@@ -253,17 +298,17 @@ PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 
 #undef DEC_FUN
 
-#define PUMA_FORMAT_NONE			  0x0040
-#define PUMA_FORMAT_ALL				  0x0001
-#define PUMA_FORMAT_ONLY_FRAME		0x0002
+# define PUMA_FORMAT_NONE			  0x0040
+# define PUMA_FORMAT_ALL				  0x0001
+# define PUMA_FORMAT_ONLY_FRAME		0x0002
 
-#define PUMA_TABLE_NONE			0
-#define PUMA_TABLE_DEFAULT			1
-#define PUMA_TABLE_ONLY_LINE		2
-#define PUMA_TABLE_ONLY_TEXT		3
-#define PUMA_TABLE_LINE_TEXT		4
+# define PUMA_TABLE_NONE			0
+# define PUMA_TABLE_DEFAULT			1
+# define PUMA_TABLE_ONLY_LINE		2
+# define PUMA_TABLE_ONLY_TEXT		3
+# define PUMA_TABLE_LINE_TEXT		4
 
-#define PUMA_PICTURE_NONE			0
-#define PUMA_PICTURE_ALL			1
+# define PUMA_PICTURE_NONE			0
+# define PUMA_PICTURE_ALL			1
 
 #endif

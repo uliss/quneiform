@@ -67,15 +67,18 @@
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
-#include <ctime>
+
+#include <time.h>
+#include "minmax.h"
+#include "filestuff.h"
+#include "cttypes.h" /* Most type definitions are here. */
 #include <errno.h>
 
-#include "filestuff.h"
-/* Most type definitions are here. */
-#include "cttypes.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* Not currently used in Linux. */
-#ifndef APIENTRY
+#ifndef APIENTRY /* Not currently used in Linux. */
 #define APIENTRY
 #endif
 
@@ -116,12 +119,12 @@ typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
 extern int HFILE_ERROR;
 typedef int HFILE;
 
-struct RECT {
+typedef struct tagRECT {
 	int32_t left;
 	int32_t right;
 	int32_t top;
 	int32_t bottom;
-};
+} RECT;
 
 typedef RECT* LPRECT;
 typedef uint32_t COLORREF;
@@ -135,7 +138,7 @@ typedef uint32_t *LPCOLORREF;
 #define HMETAFILE void*
 #endif
 
-struct WNDCLASS {
+typedef struct {
 	char * lpszClassName;
 	HINSTANCE hInstance;
 	void * lpfnWndProc;
@@ -146,11 +149,11 @@ struct WNDCLASS {
 	char * lpszMenuName;
 	char *cbClsExtra;
 	char *cbWndExtra;
-};
+} WNDCLASS;
 
 #pragma pack(push, 2)
 
-struct BITMAPINFOHEADER {
+typedef struct tagBITMAPINFOHEADER {
 	uint32_t biSize;
 	int32_t biWidth;
 	int32_t biHeight;
@@ -162,19 +165,15 @@ struct BITMAPINFOHEADER {
 	int32_t biYPelsPerMeter;
 	uint32_t biClrUsed;
 	uint32_t biClrImportant;
-};
+} BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
-typedef BITMAPINFOHEADER * PBITMAPINFOHEADER;
-
-struct BITMAPCOREHEADER {
+typedef struct tagBITMAPCOREHEADER {
 	uint32_t bcSize;
 	uint16_t bcWidth;
 	uint16_t bcHeight;
 	uint16_t bcPlanes;
 	uint16_t bcBitCount;
-};
-
-typedef BITMAPCOREHEADER * PBITMAPCOREHEADER;
+} BITMAPCOREHEADER, *PBITMAPCOREHEADER;
 
 #pragma pack(pop)
 
@@ -187,31 +186,29 @@ struct _finddata_t {
 	char name[260];
 };
 
-struct RGBQUAD {
+typedef struct tagRGBQUAD {
 	uchar rgbBlue;
 	uchar rgbGreen;
 	uchar rgbRed;
 	uchar rgbReserved;
-};
+} RGBQUAD;
 
-struct BITMAPINFO {
+typedef struct tagBITMAPINFO {
 	BITMAPINFOHEADER bmiHeader;
 	RGBQUAD bmiColors[1];
-};
+} BITMAPINFO, *PBITMAPINFO;
 
-typedef BITMAPINFO * PBITMAPINFO;
-
-struct RGBTRIPLE {
+typedef struct tagRGBTRIPLE {
 	uchar rgbtBlue;
 	uchar rgbtGreen;
 	uchar rgbtRed;
-};
+} RGBTRIPLE;
 
 typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
 typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
-struct METAHEADER {
+typedef struct tagMETAHEADER {
 	uint16_t mtType;
 	uint16_t mtHeaderSize;
 	uint16_t mtVersion;
@@ -219,69 +216,60 @@ struct METAHEADER {
 	uint16_t mtNoObjects;
 	uint32_t mtMaxRecord;
 	uint16_t mtNoParameters;
-};
+} METAHEADER, *PMETAHEADER;
 
-typedef METAHEADER * PMETAHEADER;
-
-struct PALETTEENTRY {
+typedef struct tagPALETTEENTRY {
 	uchar peRed;
 	uchar peGreen;
 	uchar peBlue;
 	uchar peFlags;
-};
+} PALETTEENTRY;
 
-struct LOGPALETTE {
+typedef struct tagLOGPALETTE {
 	uint16_t palVersion;
 	uint16_t palNumEntries;
 	PALETTEENTRY palPalEntry[1];
-};
+} LOGPALETTE;
 
 typedef Bool(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
 
-struct PAINTSTRUCT {
+typedef struct tagPAINTSTRUCT {
 	HDC hdc;
 	Bool fErase;
 	RECT rcPaint;
 	Bool fRestore;
 	Bool fIncUpdate;
 	unsigned char rgbReserved[32];
-};
+} PAINTSTRUCT, *PPAINTSTRUCT;
 
-typedef PAINTSTRUCT * PPAINTSTRUCT;
-
-struct POINT {
+typedef struct tagPOINT {
 	int32_t x;
 	int32_t y;
-};
+} POINT, *PPOINT;
 
-typedef POINT * PPOINT;
-
-struct SIZE {
+typedef struct tagSIZE {
 	int32_t cx;
 	int32_t cy;
-};
+} SIZE;
 
 #pragma pack(push, 2)
-struct BITMAPFILEHEADER {
+typedef struct tagBITMAPFILEHEADER {
 	uint16_t bfType;
 	uint32_t bfSize;
 	uint16_t bfReserved1;
 	uint16_t bfReserved2;
 	uint32_t bfOffBits;
-};
+} BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 
-typedef BITMAPFILEHEADER * PBITMAPFILEHEADER;
 #pragma pack(pop)
 
-struct COPYDATASTRUCT {
+typedef struct tagCOPYDATASTRUCT {
 	ulong dwData;
 	uint32_t cbData;
 	pvoid lpData;
-};
-
-typedef COPYDATASTRUCT * PCOPYDATASTRUCT;
+} COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
 typedef POINT* LPPOINT;
 typedef SIZE* LPSIZE;
@@ -292,6 +280,34 @@ typedef int HFONT;
 
 typedef int * PHKEY;
 typedef int REGSAM;
+
+#ifndef _O_BINARY
+#define _O_BINARY O_BINARY
+#endif
+
+#ifndef _O_CREAT
+#define _O_CREAT O_CREAT
+#endif
+
+#ifndef _O_EXCL
+#define _O_EXCL O_EXCL
+#endif
+
+#ifndef _O_RDONLY
+#define _O_RDONLY O_RDONLY
+#endif
+
+#ifndef _O_RDWR
+#define _O_RDWR O_RDWR
+#endif
+
+#ifndef _S_IREAD
+#define _S_IREAD S_IREAD
+#endif
+
+#ifndef _S_IWRITE
+#define _S_IWRITE S_IWRITE
+#endif
 
 #ifndef WPARAM
 #define WPARAM int
@@ -515,6 +531,10 @@ typedef int REGSAM;
 
 #ifndef MB_ICONSTOP
 #define MB_ICONSTOP 888
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #include "cfcompat.h"

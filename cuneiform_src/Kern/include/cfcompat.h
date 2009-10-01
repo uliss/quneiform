@@ -30,8 +30,8 @@
 #ifndef CFCOMPAT_H_
 #define CFCOMPAT_H_
 
-#include <cstdlib>
-#include <string>
+#include <stdio.h>
+#include <wchar.h>
 
 #include "globus.h"
 #include "compat_defs.h"
@@ -40,6 +40,10 @@
 #define CFCOMPAT_FUNC  FUN_EXPO__
 #else
 #define CFCOMPAT_FUNC  FUN_IMPO__
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 CFCOMPAT_FUNC int LoadString(HINSTANCE hInstance, uint uID, char* lpBuffer,
@@ -88,7 +92,7 @@ CFCOMPAT_FUNC uint32_t GetPrivateProfileString(const char * lpAppName,
 CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * lpAppName,
 		const char * lpKeyName, int16_t nDefault, const char * lpFileName);
 
-CFCOMPAT_FUNC int WideCharToMultiByte(uint CodePage, uint dwFlags,
+CFCOMPAT_FUNC int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
 		const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr,
 		int cbMultiByte, const char * lpDefaultChar, pBool lpUsedDefaultChar);
 
@@ -184,22 +188,8 @@ CFCOMPAT_FUNC void winpath_to_internal(char *p);
 CFCOMPAT_FUNC unsigned int curr_dir(unsigned int bsize, char* buf);
 CFCOMPAT_FUNC FILE* create_temp_file(void);
 
-namespace CIF {
-
-template<class T>
-T * malloc(size_t n = 1) {
-	return static_cast<T*> (::malloc(n * sizeof(T)));
+#ifdef __cplusplus
 }
-
-template<class T>
-T * calloc(size_t n = 1) {
-	return static_cast<T*> (::calloc(n, sizeof(T)));
-}
-
-FUN_EXPO__ std::string InstallPath();
-
-FUN_EXPO__ std::string MakePath(const std::string& dir,
-		const std::string& basename, const std::string& ext = "");
-}
+#endif
 
 #endif

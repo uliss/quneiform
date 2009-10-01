@@ -85,6 +85,15 @@
 #define RSTR_FUNC  FUN_IMPO
 #endif
 
+#ifndef __cplusplus
+typedef struct tagIRstrDelta
+{
+	Rect16 dr; // bounds delta
+	Point16 dc; // centers delta
+	Point16 dhw; // height-width delta
+}IRstrDelta;
+_SETTYPES(IRstrDelta)
+#else
 class RSTR_CLASS IRstrDelta
 {
 public:
@@ -99,6 +108,10 @@ public:
 };
 _SETTYPES( IRstrDelta)
 _SETCLASS( IRstrDelta)
+#endif // __cplusplus
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct tagRSTR_info {
 	int32_t ndig, nfdig, nall, alphabet, ndollars, nplus_minus;
@@ -239,8 +252,23 @@ RSTR_FUNC(Bool32) RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
 RSTR_FUNC(void) RSTR_Save2CTB(CSTR_line lino,int32_t type, int16_t line_num);
 RSTR_FUNC(Bool32) RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
 
-_SETCLASS( IRstr)
+#ifdef __cplusplus
+}
+#endif
 
+#ifndef __cplusplus
+typedef struct tagIRstr
+{
+Rect16 rmn;
+Rect16 rmx;
+Point16 cmn;
+Point16 cmx;
+Point16 hwmn;
+Point16 hwmx;
+}IRstr;
+
+#else
+_SETCLASS( IRstr)
 class RSTR_CLASS IRstr
 {
 public:
@@ -329,5 +357,6 @@ public:
 		return Good();
 	};
 };
+#endif // __cplusplus
 _SETTYPES(IRstr)
 #endif

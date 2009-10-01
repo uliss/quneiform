@@ -61,6 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#define DEMO
 #ifdef DEMO
+  //#define uint  unsigned int
   #define KNOT struct h_knot
   KNOT { KNOT *next,*back; };
   typedef struct {int i;} PAR;

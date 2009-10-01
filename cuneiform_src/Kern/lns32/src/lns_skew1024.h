@@ -64,6 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // NOTE: POSITIVE SKEW == CLOCKWISE
 //////////////////////////////////////////////////////
 
+#ifdef __cplusplus
+
 #ifndef __SKEW1024_H
 #define __SKEW1024_H
 
@@ -538,3 +540,5 @@ inline Bool Overlap( int a1, int a2, int b1, int b2 )  // two ranges intersectio
 }
 
 #endif
+
+#endif // __cplusplus

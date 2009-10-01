@@ -84,7 +84,7 @@ extern uint32_t ZagolovokBreakingCoeff;
 # define MIN_BREAKED_BLOCK_HEIGHTES_WIDTH  4
 # define MAX_NARROW_COLUMN_DISTANCE        4
 # define MAX_BULLET_DISTANCE               8
-
+
 void BlockHorzHystogramBuild (BLOCK *p)
 {
     int *pHystogram;
@@ -100,7 +100,7 @@ void BlockHorzHystogramBuild (BLOCK *p)
     pHystogram =(int*) malloc ((nHystColumns + 1) * sizeof (int));
 
     if (pHystogram == NULL)
-        ErrorNoEnoughMemory ("in LTBREAK.C,BlockHorzHystogramBuild,part 1");
+        ErrorNoEnoughMemory ((uchar*)"in LTBREAK.C,BlockHorzHystogramBuild,part 1");
 
     memset (pHystogram, 0, (nHystColumns + 1) * sizeof (int));
 
@@ -141,7 +141,7 @@ void BlockHorzHystogramBuild (BLOCK *p)
 
     p -> pHorzHystogram = pHystogram;
 }
-
+
 void BlockCalculateBreakingParameters (BLOCK *p)
 {
     int nBlockHeights;
@@ -193,4 +193,4 @@ void BlockCalculateBreakingParameters (BLOCK *p)
     if (p -> nConditionalMinColumnWidth == 0)
         p -> nConditionalMinColumnWidth = 1;
 }
-
+

@@ -62,10 +62,8 @@
 //
 // ============================================================================
 #include "creatertf.h"
-
 #include <cstdio>
-#include <algorithm>
-
+#include "globus.h"
 #include "sys_prog.h"
 #include "cpage.h"
 #include "lst3_win.h"
@@ -80,19 +78,25 @@
 #include "cstrdefs.h"
 #include "cline.h"
 
-extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
+#include "minmax.h"
+
+extern "C" Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
 		Handle* hEdTree);
-extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage,
+extern "C" Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage,
 		const char *FileNameOut);
-extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/
+extern "C" Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/
 Bool OutPutMode);
-extern Bool WritePict(uint32_t IndexPict,
+extern "C" Bool WritePict(uint32_t IndexPict,
 		RtfSectorInfo* SectorInfo/*, CString* PictString*/,
 		Bool OutPutTypeFrame);
+extern "C" {
 void
 		GetTableRect(uint32_t NumberTable, Rect16* RectTable,
 				uint32_t* UserNumber);
+}
+extern "C" {
 uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
+}
 extern void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
 extern void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
 extern void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
@@ -208,6 +212,24 @@ CRtfPage::CRtfPage() {
 //                                 CRtfPage                                                       //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CRtfPage::~CRtfPage() {
+	/* CRtfFragment* cFrag;
+	 CRtfSector*   cSector;
+	 uint32_t wCount, i;
+
+	 wCount = m_arSectors.GetSize();
+	 for( i=0; i<wCount; i++)
+	 {
+	 cSector = (CRtfSector*)m_arSectors[i];
+	 delete cSector;
+	 }
+
+	 wCount = m_arFragments.GetSize();
+	 for( i=0; i<wCount; i++)
+	 {
+	 cFrag = (CRtfFragment*)m_arFragments[i];
+	 delete cFrag;
+	 }
+	 */
 	for (std::vector<CRtfSector*>::iterator it = m_arSectors.begin(); it
 			< m_arSectors.end(); it++)
 		delete *it;
@@ -228,7 +250,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
 	EDSIZE sizeInTwips;
 	EDSIZE dpi;
 	EDRECT pageBordersInTwips;
-	PAGEINFO PageInfo;
+	PAGEINFO PageInfo = {0};
 	Bool resizeToFit=FALSE;
 
 	Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
@@ -408,10 +430,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 		pRtfFragment->m_wType = FT_TEXT;
 
 		fread(&RectFragm, 1, sizeof(Rect16), in);
-		pRtfFragment->m_rect.left = (int32_t)(RectFragm.left * Twips);
-		pRtfFragment->m_rect.top = (int32_t)(RectFragm.top * Twips);
-		pRtfFragment->m_rect.right = (int32_t)(RectFragm.right * Twips);
-		pRtfFragment->m_rect.bottom = (int32_t)(RectFragm.bottom * Twips);
+		pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * Twips);
+		pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * Twips);
+		pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * Twips);
+		pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * Twips);
 		fread(&tmp, 2, 1, in);
 		pRtfFragment->m_wStringsCount = tmp;
 		fread(&wtmp, 4, 1, in);
@@ -463,8 +485,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 
 					fread(&num, sizeof(uint16_t), 1, in);
 					assert(num <= REC_MAX_VERS);
-					pRtfChar->m_wCountAlt = std::min(static_cast<int> (num),
-							REC_MAX_VERS);
+					pRtfChar->m_wCountAlt = MIN(num, REC_MAX_VERS);
 					for (i = 0; i < num; i++) {
 						fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
 						if (i < REC_MAX_VERS) {
@@ -559,7 +580,7 @@ void CRtfPage::AddLines(void) {
 			Rect.left = 0;
 			Rect.right = PaperW;
 			Rect.top = 0;
-			Rect.bottom = std::max(0, pRtfSector->m_rect.top);
+			Rect.bottom = MAX(0, pRtfSector->m_rect.top);
 			if (CheckLines(&Rect, FALSE, &pRtfSector->SectorInfo)) {
 				pRtfSector = *m_arSectors.insert(m_arSectors.begin() + i,
 						new CRtfSector());
@@ -569,7 +590,9 @@ void CRtfPage::AddLines(void) {
 				RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &Rect);
 				RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &Rect);
 			}
-		} else {
+		} else
+		//		if( i < CountSectors )
+		{
 			pRtfSector = m_arSectors[i - 1];
 			pRtfSector->SectorInfo.PaperW = PaperW;
 			pRtfNextSector = m_arSectors[i];
@@ -655,10 +678,10 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
 		MargB = DefMargB;
 		for (std::vector<CRtfFragment*>::iterator ppRtfFragment =
 				m_arFragments.begin(); ppRtfFragment < m_arFragments.end(); ppRtfFragment++) {
-			Width = std::max(Width, (*ppRtfFragment)->m_rect.right
+			Width = MAX(Width, (*ppRtfFragment)->m_rect.right
 					- (*ppRtfFragment)->m_rect.left);
 		}
-		PaperW = std::max(DefaultWidthPage, (int32_t)(Width/** Twips*/) + MargL
+		PaperW = MAX(DefaultWidthPage, (int32_t)(Width/** Twips*/) + MargL
 				+ MargR);
 		PaperH = DefaultHeightPage;
 	} else if ((FlagMode & USE_FRAME) || FlagBadColumn) {// Все фрагменты фреймы
@@ -668,10 +691,11 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
 
 		for (std::vector<CRtfFragment*>::iterator ppRtfFragment =
 				m_arFragments.begin(); ppRtfFragment < m_arFragments.end(); ppRtfFragment++) {
-			LeftPos = std::min(LeftPos, (*ppRtfFragment)->m_rect.left);
-			TopPos = std::min(TopPos, (*ppRtfFragment)->m_rect.top);
-			RightPos = std::max(RightPos, (*ppRtfFragment)->m_rect.right);
-			BottomPos = std::max(BottomPos, (*ppRtfFragment)->m_rect.bottom);
+			LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
+			TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
+			RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
+			BottomPos
+					= MAX(BottomPos, (int16_t)(*ppRtfFragment)->m_rect.bottom);
 		}
 
 		pRtfSector->m_rectReal.left = pRtfSector->m_rect.left = LeftPos;
@@ -689,10 +713,11 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
 
 		for (std::vector<CRtfFragment*>::iterator ppRtfFragment =
 				m_arFragments.begin(); ppRtfFragment < m_arFragments.end(); ppRtfFragment++) {
-			LeftPos = std::min(LeftPos, (*ppRtfFragment)->m_rect.left);
-			TopPos = std::min(TopPos, (*ppRtfFragment)->m_rect.top);
-			RightPos = std::max(RightPos, (*ppRtfFragment)->m_rect.right);
-			BottomPos = std::max(BottomPos, (*ppRtfFragment)->m_rect.bottom);
+			LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
+			TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
+			RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
+			BottomPos
+					= MAX(BottomPos, (int16_t)(*ppRtfFragment)->m_rect.bottom);
 		}
 
 		SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, &PaperW, &PaperH,
@@ -809,9 +834,8 @@ void CRtfPage::CorrectKegl(void) {
 					pRtfChar = pRtfWord->m_arChars[nz];
 					tmp_str[nz] = pRtfChar->m_chrVersions[0].m_bChar;
 					if (!nz)
-						pRtfChar->m_wFontPointSize = std::min(
-								static_cast<int> (pRtfChar->m_wFontPointSize),
-								MaxFontSize);
+						pRtfChar->m_wFontPointSize = MIN(
+								pRtfChar->m_wFontPointSize, MaxFontSize);
 				}
 				if (nw < CountWords - 1)
 					tmp_str[nz++] = ' ';
@@ -909,7 +933,7 @@ int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
 				}
 			} else {
 				FlagChange = 1;
-				tmpKegl = std::min(kegl->NewKegl, OldKegl);
+				tmpKegl = MIN(kegl->NewKegl, OldKegl);
 			}
 		}
 	}
@@ -924,13 +948,13 @@ int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
 				} else if (FlagPenalty && (__kegl->Count > (Count / 10))
 						&& __kegl->NewKegl < tmpKegl) {
 					tmpKegl--;
-					tmpKegl = std::max(static_cast<int> (tmpKegl), 4);
+					tmpKegl = MAX(tmpKegl, 4);
 				}
 			}
 		}
 		OldKegl = tmpKegl;
 	}
-	OldKegl = std::max(4, static_cast<int> (OldKegl));
+	OldKegl = MAX(4, OldKegl);
 	return OldKegl;
 }
 
@@ -944,7 +968,7 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
 			< arKegls.end(); kegl++) {
 		if (OldKegl == kegl->OldKegl) {
 			FlagChange = 1;
-			tmpKegl = std::min(kegl->NewKegl, tmpKegl);
+			tmpKegl = MIN(kegl->NewKegl, tmpKegl);
 		}
 	}
 
@@ -1286,7 +1310,7 @@ uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector,
 			FreePlace.bottom = pRtfFragment->m_rect.top;
 	}
 
-	FreePlaceHeight = std::max(0, FreePlace.bottom - FreePlace.top);
+	FreePlaceHeight = MAX(0, FreePlace.bottom - FreePlace.top);
 
 	return (uint16_t) FreePlaceHeight;
 }
@@ -1455,14 +1479,12 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 			if (pRtfSector->m_FlagOneString == FALSE)
 				MargL = pRtfSector->m_arRightBoundTerminalColumns[0];
 			else {
-				MargL
-						= std::min(
-								InitMargL,
-								static_cast<int> (pRtfSector->m_arRightBoundTerminalColumns[0]));
+				MargL = MIN(InitMargL,
+						pRtfSector->m_arRightBoundTerminalColumns[0]);
 				pRtfSector->SectorInfo.FlagOneString = TRUE;
 			}
 		} else
-			MargL = std::max(pRtfSector->m_rectReal.left, 0);
+			MargL = MAX(pRtfSector->m_rectReal.left, 0);
 	}
 
 	PutCom("\\margl", MargL, 0);
@@ -1478,7 +1500,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 												- 1]);
 			else
 				MargR
-						= std::min(
+						= MIN(
 								InitMargR,
 								PaperW
 										- (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns
@@ -1844,8 +1866,7 @@ void CRtfSector::FillingSectorInfo() { //~ тут происходит рабо�
 		pRtfHorizontalColumn
 				= m_arHorizontalColumns[m_arHTerminalColumnsIndex[0]];
 		if (m_FlagOneString == FALSE)
-			SectorInfo.Offset.x
-					= std::max(pRtfHorizontalColumn->m_rect.left, 0);
+			SectorInfo.Offset.x = MAX(pRtfHorizontalColumn->m_rect.left, 0);
 	}
 
 	m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
@@ -1861,7 +1882,7 @@ void CRtfSector::FillingSectorInfo() { //~ тут происходит рабо�
 				pRtfFragment = pRtfVerticalColumn->m_arFragments[i2];
 
 				//!!!Art   if(pRtfFragment->m_wType == FT_FRAME || pRtfFragment->m_wType == FT_TEXT )
-				//!!!Art   SectorInfo.Offset.y = std::min(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
+				//!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
 			}
 		}
 	}
@@ -1971,11 +1992,10 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
 		pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
 		if (pRtfVerticalColumn->m_wType == FT_TEXT
 				|| pRtfVerticalColumn->m_wType == FT_FRAME) {
-			MaxWidth = std::max(MaxWidth, pRtfVerticalColumn->m_rectReal.right
+			MaxWidth = MAX(MaxWidth, pRtfVerticalColumn->m_rectReal.right
 					- pRtfVerticalColumn->m_rectReal.left);
-			MaxHeight = std::max(MaxHeight,
-					pRtfVerticalColumn->m_rectReal.bottom
-							- pRtfVerticalColumn->m_rectReal.top);
+			MaxHeight = MAX(MaxHeight, pRtfVerticalColumn->m_rectReal.bottom
+					- pRtfVerticalColumn->m_rectReal.top);
 			pRtfVerticalColumn->m_bFlagSmall = FALSE; //в первую очередь жертвы ищутся среди малых
 		}
 	}
@@ -1998,8 +2018,8 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
 		if ((pRtfVerticalColumn->m_wType == FT_TEXT
 				|| pRtfVerticalColumn->m_wType == FT_FRAME)
 				&& pRtfVerticalColumn->m_bFlagSmall == FALSE) {
-			Left = std::min(Left, pRtfVerticalColumn->m_rectReal.left);
-			Right = std::max(Right, pRtfVerticalColumn->m_rectReal.right);
+			Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
+			Right = MAX(Right, pRtfVerticalColumn->m_rectReal.right);
 		}
 	}
 	Length = Right - Left + 2;
@@ -2077,8 +2097,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) { //~ recalculation of h
 	for (i = 0; i < m_wVerticalColumnsCount; i++) {
 		pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
 		if (pRtfVerticalColumn->m_wType == FT_TEXT) {
-			Left = std::min(Left, pRtfVerticalColumn->m_rectReal.left);
-			Right = std::max(Right, pRtfVerticalColumn->m_rectReal.right);
+			Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
+			Right = MAX(Right, pRtfVerticalColumn->m_rectReal.right);
 		}
 	}
 
@@ -2272,7 +2292,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
 	vectorWord *pGroup;
 
 	if (m_wType == HC_SingleTerminal || m_wType == HC_AllTerminal) {
-		RightBound = (uint16_t) std::max(m_rectReal.left, 0);
+		RightBound = (uint16_t) MAX(m_rectReal.left, 0);
 		WidthColumn = (uint16_t)(m_rectReal.right - m_rectReal.left);
 		arRightBoundTerminalColumns->push_back(RightBound);
 		arWidthTerminalColumns->push_back(WidthColumn);
@@ -2291,9 +2311,9 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
 				index = (*pGroup)[j];
 				pRtfVerticalColumn
 						= (CRtfVerticalColumn*) m_arVerticalColumns[index];
-				tmp = std::max(pRtfVerticalColumn->m_rectReal.left, 0);
-				RightBound = std::min(RightBound, tmp);
-				WidthColumn = std::max(WidthColumn, (uint16_t)(
+				tmp = MAX(pRtfVerticalColumn->m_rectReal.left, 0);
+				RightBound = MIN(RightBound, tmp);
+				WidthColumn = MAX(WidthColumn, (uint16_t)(
 						pRtfVerticalColumn->m_rectReal.right
 								- pRtfVerticalColumn->m_rectReal.left));
 			}
@@ -2395,7 +2415,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(
 
 		if (FlagMode & USE_FRAME_AND_COLUMN && SectorInfo->FlagOneString
 				== TRUE)
-			colw = std::max(0, SectorInfo->PaperW - (SectorInfo->MargL
+			colw = MAX(0, SectorInfo->PaperW - (SectorInfo->MargL
 					+ SectorInfo->MargR));
 		else
 			colw = m_rectReal.right - m_rectReal.left;
@@ -2505,8 +2525,8 @@ void CRtfHorizontalColumn::WriteTerminalColumns(
 					TopPositionFirstTerminalFragment
 							= pRtfVerticalColumn->m_rectReal.top;
 				}
-				Left = std::min(Left, pRtfVerticalColumn->m_rectReal.left);
-				Right = std::max(Right, pRtfVerticalColumn->m_rectReal.right);
+				Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
+				Right = MAX(Right, pRtfVerticalColumn->m_rectReal.right);
 			}
 
 			colw = Right - Left;
@@ -2572,7 +2592,7 @@ uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(
 	FreePlace.left = m_rect.left;
 	FreePlace.right = m_rect.right;
 	FreePlace.bottom = TopPosCurFragment - 1;
-	FreePlace.top = std::max(0, m_rect.top
+	FreePlace.top = MAX(0, m_rect.top
 			- SectorInfo->VerticalOffsetColumnFromSector);
 	if (FreePlace.top >= FreePlace.bottom)
 		return 0;
@@ -2591,7 +2611,7 @@ uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(
 				&& pRtfFragment->m_rect.bottom <= FreePlace.bottom)
 			FreePlace.top = pRtfFragment->m_rect.bottom;
 	}
-	FreePlaceHeight = std::max(0, FreePlace.bottom - FreePlace.top);
+	FreePlaceHeight = MAX(0, FreePlace.bottom - FreePlace.top);
 
 	return (uint16_t) FreePlaceHeight;
 }
@@ -2729,7 +2749,7 @@ void CRtfHorizontalColumn::SortFragments() {
 	 {
 	 //вычитаем 2 высоты - фикт. абзаца и разрыва
 	 //если меньше, чем высота разрава, то чтобы он не упрыгнул вниз
-	 pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)std::max(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
+	 pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)MAX(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
 	 }
 	 }
 	 */}
@@ -2958,7 +2978,7 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment,
 	BottomFree = SectorInfo->PaperH - CurrentFragment->m_rect.bottom;
 
 	LeftFreePlace.left = 0;
-	LeftFreePlace.right = std::max(0, CurrentFragment->m_rect.left - 1);
+	LeftFreePlace.right = MAX(0, CurrentFragment->m_rect.left - 1);
 	LeftFreePlace.top = CurrentFragment->m_rect.top;
 	LeftFreePlace.bottom = CurrentFragment->m_rect.bottom;
 
@@ -2970,7 +2990,7 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment,
 	TopFreePlace.left = CurrentFragment->m_rect.left;
 	TopFreePlace.right = CurrentFragment->m_rect.right;
 	TopFreePlace.top = 0;
-	TopFreePlace.bottom = std::max(0, CurrentFragment->m_rect.top - 1);
+	TopFreePlace.bottom = MAX(0, CurrentFragment->m_rect.top - 1);
 
 	BottomFreePlace.left = CurrentFragment->m_rect.left;
 	BottomFreePlace.right = CurrentFragment->m_rect.right;
@@ -2990,30 +3010,30 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment,
 		CurrentFragmentRect.bottom = pRtfFragment->m_rect.bottom;
 
 		if (IntersectRect(&RectInter, &CurrentFragmentRect, &LeftFreePlace))
-			LeftFree = std::min(LeftFree, LeftFreePlace.right
+			LeftFree = MIN(LeftFree, LeftFreePlace.right
 					- CurrentFragmentRect.right);
 
 		if (IntersectRect(&RectInter, &CurrentFragmentRect, &RightFreePlace))
-			RightFree = std::min(RightFree, CurrentFragmentRect.left
+			RightFree = MIN(RightFree, CurrentFragmentRect.left
 					- RightFreePlace.left);
 
 		if (IntersectRect(&RectInter, &CurrentFragmentRect, &TopFreePlace))
-			TopFree = std::min(TopFree, TopFreePlace.bottom
+			TopFree = MIN(TopFree, TopFreePlace.bottom
 					- CurrentFragmentRect.bottom);
 
 		if (IntersectRect(&RectInter, &CurrentFragmentRect, &BottomFreePlace))
-			BottomFree = std::min(BottomFree, CurrentFragmentRect.top
+			BottomFree = MIN(BottomFree, CurrentFragmentRect.top
 					- BottomFreePlace.top);
 	}
 
 	SectorInfo->m_rectFree.left = CurrentFragment->m_rectFree.left = (int32_t)(
-			std::max(0, LeftFree) * TwipsToEMU_Koef);
+			MAX(0, LeftFree) * TwipsToEMU_Koef);
 	SectorInfo->m_rectFree.right = CurrentFragment->m_rectFree.right
-			= (int32_t)(std::max(0, RightFree) * TwipsToEMU_Koef);
+			= (int32_t)(MAX(0, RightFree) * TwipsToEMU_Koef);
 	SectorInfo->m_rectFree.top = CurrentFragment->m_rectFree.top = (int32_t)(
-			std::max(0, TopFree) * TwipsToEMU_Koef);
+			MAX(0, TopFree) * TwipsToEMU_Koef);
 	SectorInfo->m_rectFree.bottom = CurrentFragment->m_rectFree.bottom
-			= (int32_t)(std::max(0, BottomFree) * TwipsToEMU_Koef);
+			= (int32_t)(MAX(0, BottomFree) * TwipsToEMU_Koef);
 
 }
 
@@ -3130,7 +3150,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment,
 			if (FlagMode & USE_FRAME_AND_COLUMN) {
 				if (SectorInfo->FlagOneString == TRUE) {
 					m_li = 0;
-					m_fi = std::max(0, m_rect.left - SectorInfo->MargL);
+					m_fi = MAX(0, (int16_t)(m_rect.left - SectorInfo->MargL));
 					m_ri = 0;
 				}
 			}
@@ -3748,7 +3768,7 @@ uint16_t CRtfString::get_max_font_size() {
 
 	for (nw = 0; nw < m_wWordsCount; nw++) {
 		pRtfWord = (CRtfWord*) m_arWords[nw];
-		str_max_font = std::max(str_max_font, pRtfWord->m_wRealFontPointSize);
+		str_max_font = MAX(str_max_font, pRtfWord->m_wRealFontPointSize);
 	}
 	return str_max_font;
 }
@@ -3797,16 +3817,15 @@ void CRtfWord::get_coordinates_and_probability() {
 
 	m_wcl = (int16_t) pRtfCharFirst->m_Realrect.left;
 	m_wcr = (int16_t) pRtfCharLast->m_Realrect.right;
-	m_wct = std::min((int16_t) pRtfCharFirst->m_Realrect.top,
+	m_wct = MIN((int16_t) pRtfCharFirst->m_Realrect.top,
 			(int16_t) pRtfCharLast->m_Realrect.top);
-	m_wcb = std::max((int16_t) pRtfCharFirst->m_Realrect.bottom,
+	m_wcb = MAX((int16_t) pRtfCharFirst->m_Realrect.bottom,
 			(int16_t) pRtfCharLast->m_Realrect.bottom);
 
 	for (nz = 0; nz < m_wCharsCount; nz++) {
 		pRtfChar = (CRtfChar*) m_arChars[nz];
-		m_wcp = std::min(m_wcp,
-				static_cast<short> (pRtfChar->m_chrVersions[0].m_bProbability));
-		m_wcs = std::min(m_wcs, static_cast<short> (pRtfChar->m_bFlg_spell));
+		m_wcp = MIN(m_wcp, pRtfChar->m_chrVersions[0].m_bProbability);
+		m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
 	}
 
 	if (PageInfo.Angle) {
@@ -4226,13 +4245,13 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
 							> SectorInfo->PaperW / 2) {
 						if (cpdata->Line.Beg_Y * Twips > Rect->top
 								&& cpdata->Line.Beg_Y * Twips < Rect->bottom) {
-							Rect->top = (int32_t)(cpdata->Line.Beg_Y * Twips);
-							Rect->bottom = (int32_t)(cpdata->Line.Beg_Y * Twips
-									+ 10);
+							Rect->top = (int32_t) (cpdata->Line.Beg_Y * Twips);
+							Rect->bottom = (int32_t) (cpdata->Line.Beg_Y
+									* Twips + 10);
 						} else {
-							Rect->top = (int32_t)(cpdata->Line.End_Y * Twips);
-							Rect->bottom = (int32_t)(cpdata->Line.End_Y * Twips
-									+ 10);
+							Rect->top = (int32_t) (cpdata->Line.End_Y * Twips);
+							Rect->bottom = (int32_t) (cpdata->Line.End_Y
+									* Twips + 10);
 						}
 						CLINE_CopyData(&data, cpdata, sizeof(DLine));
 						data.Flags |= LI_FRMT_Used;

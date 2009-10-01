@@ -58,17 +58,18 @@
 #define H_ccomdef_h
 
 #include "recdefs.h"
+#pragma pack (push,8)
 
 #define CCOM_VERSION_CODE   1
 #define CCOM_DUST_SIZE      8
 //-------------------- user blocks      --------------------------
-struct CCOM_USER_BLOCK {
+struct _USER_BLOCK {
 	uint32_t code;
 	int32_t size;
 	uchar * data;
-	CCOM_USER_BLOCK * next_block;
+	struct _USER_BLOCK * next_block;
 };
-
+typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 #define CCOM_UB_DENSITY     1
 #define CCOM_UB_BEGENDS     2
 #define CCOM_UB_CAPDROPLN   3
@@ -76,8 +77,7 @@ struct CCOM_USER_BLOCK {
 #define CCOM_UB_SIZELINEREP 5
 //-------------------- component in kit --------------------------
 
-class CCOM_comp {
-public:
+struct _CCOM_comp {
 	int16_t upper; // upper boundary of component
 	int16_t left; // left boundary of component
 	int16_t h; // height of component
@@ -113,10 +113,11 @@ public:
 	CCOM_USER_BLOCK * user_block; // user information
 	// 24
 #define CCOM_USER_NO    0
-	CCOM_comp * next_comp; // goto next comp from the global list
+	struct _CCOM_comp * next_comp; // goto next comp from the global list
 	RecVersions *vers; // recognition collection
 	// 32
 };
+typedef struct _CCOM_comp CCOM_comp;
 
 //-------------------- linear (interval) representation ----------------------
 
@@ -126,9 +127,7 @@ public:
 //	After last line zero word
 
 //	line header
-
-class CCOM_linerep {
-public:
+typedef struct _lnhead {
 	int16_t lth; // length of one line representation
 	int16_t h; // height of line
 	int16_t row; // relative row of line start
@@ -137,30 +136,30 @@ public:
 #define CCOM_l_fend     0x80
 #define CCOM_l_cbeg     0x02
 #define CCOM_l_cend     0x08
-};
-
-typedef CCOM_linerep CCOM_lnhead; // alias
+} CCOM_lnhead;
+typedef struct _lnhead CCOM_linerep; // alias
 
 //	one interval
-struct CCOM_interval {
+typedef struct _interval {
 	uchar l; // length of interval
 	uchar e; // end of interval coordinates
-};
+} CCOM_interval;
 
-struct CCOM_interval16 {
+typedef struct _interval16 {
 	uint16_t l; // length of interval
 	uint16_t e; // end of interval coordinates
-};
+} CCOM_interval16;
 
-struct CCOM_cont {
+typedef struct _CCOM_cont {
 	CCOM_comp * first;
 	CCOM_comp * last;
-	CCOM_cont * next;
-	CCOM_cont * prev;
+	struct _CCOM_cont * next;
+	struct _CCOM_cont * prev;
 	int32_t nall, nsmall[8];
 	Bool16 kill_dust_mode, language, style_new;
-};
+} CCOM_cont;
 
 typedef void* CCOM_handle;
+#pragma pack (pop)
 #endif
 

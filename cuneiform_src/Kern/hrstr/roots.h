@@ -95,11 +95,11 @@
 
 #define REMOVED_BLOCK_NUMBER   ((int16_t)-1)
 
+struct _Root;
+typedef struct _Root ROOT;
+typedef struct _Root *PROOT;
 
-class CCOM_comp;
-
-class ROOT {
-public:
+struct _Root {
 	int16_t yRow;
 	int16_t xColumn;
 
@@ -118,29 +118,31 @@ public:
 	uchar bReached;
 	int16_t nBlock;
 	int16_t nUserNum;
-	CCOM_comp * pComp;
+	void *pComp;
 };
 
-typedef ROOT *PROOT;
+struct _RootExt;
+typedef struct _RootExt ROOT_EXT;
+typedef struct _RootExt *PROOT_EXT;
 
-class ROOT_EXT {
-public:
+struct _RootExt {
 	uint16_t wSegmentPtr;
 	uint16_t wLength;
 };
 
-typedef ROOT_EXT *PROOT_EXT;
-
-class ROOT_RECT {
-public:
+typedef struct {
 	int xLeft;
 	int yTop;
 	int xRight;
 	int yBottom;
-};
+} ROOT_RECT;
+
+#ifndef LT_STAND_ALONE
+#define pRoots root_file
+#endif
 
 extern ROOT *pRoots;
-extern uint32_t nRoots;
+extern int16_t nRoots;
 extern int16_t nOriginalRoots;
 extern ROOT *pAfterRoots;
 extern ROOT *pAfterOriginalRoots;

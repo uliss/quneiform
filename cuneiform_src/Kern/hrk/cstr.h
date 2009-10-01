@@ -69,7 +69,10 @@
 #include "globus.h"
 #include "ccomdefs.h"
 #include "cstrdefs.h"
+
+#ifndef __RECDEFS_H
 #include "recdefs.h"
+#endif
 #include "memfunc.h"
 
 #ifdef __CSTR__
@@ -77,6 +80,12 @@
 #else
 #define CSTR_FUNC  FUN_IMPO
 #endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+///////////////////////////////AK
 
 CSTR_FUNC(Bool32) CSTR_Init( uint16_t wHeightCode , Handle hStorage);
 CSTR_FUNC(void) CSTR_Done(void);
@@ -401,5 +410,9 @@ CSTR_FUNC(int32_t) CSTR_GetLength (CSTR_line lin);
 // 73   CSTR_FNTOTXT_COORD              получить текстовый обрах строки с координатами
 typedef Bool32 (*FNCSTR_LineToTxt_Coord)(CSTR_line lin, char *txt, int32_t len);
 CSTR_FUNC(Bool32) CSTR_LineToTxt_Coord (CSTR_line lin, char *txt, int32_t len);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -54,6 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
+// ROUT_OWN.H
+
+#pragma once
+
 #include "stdafx.h"
 #include "rout.h"
 #include "cfio.h"
@@ -105,7 +110,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define PUT_SPACES(a) {if(!PutSpaces((long)a)) return FALSE;}
 
 #define WORDS_CONTROL(a) {if(!WordsControl(a)) return FALSE;}
-#define IS_LETTER(c) IsLetter((uchar)c)
+#define IS_LETTER(c) IsLetter((Byte)c)
 #define INIT_MEMORY(a,b) {if(!InitMemory(a,b)) return FALSE;}
 #define CHECK_MEMORY(a) {if(gMemCur+(a)>gMemEnd)\
 						{NO_MEMORY; return FALSE;}}
@@ -122,6 +127,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define VAL2(a,b)
 #endif
 
+//*****************************************************************
+// Функции из CFIO
+
+//EXTERN FNCFIOAllocMemory		CFIO_Alloc		VAL(0);
+//EXTERN FNCFIOReAllocMemory		CFIO_ReAlloc	VAL(0);
+//EXTERN FNCFIOLockMemory			CFIO_Lock		VAL(0);
+//EXTERN FNCFIOUnlockMemory		CFIO_Unlock		VAL(0);
+//EXTERN FNCFIOFreeMemory			CFIO_Free		VAL(0);
+//EXTERN FNCFIOOpenFreeFile		CFIO_Open		VAL(0);
+//EXTERN FNCFIOCloseFreeFile		CFIO_Close		VAL(0);
+//EXTERN FNCFIOWriteToFile		CFIO_Write		VAL(0);
+//EXTERN FNCFIOSeekFilePointer	CFIO_Seek		VAL(0);
+
+//*****************************************************************
 // Для отладочной печати
 EXTERN const char *gFile	VAL(0);	// Имя файла CPP из __FILE__
 EXTERN long gLine	VAL(0);	// Номер строки из __LINE
@@ -148,7 +167,7 @@ EXTERN long gFormat			VAL(0);
 EXTERN long gActiveCode		VAL(ROUT_CODE_ANSI);
 
 // Активная таблица перекодировки
-EXTERN uchar *gActiveCodeTable	VAL(NULL);
+EXTERN Byte *gActiveCodeTable	VAL(NULL);
 
 // Сохранять ли концы строк в текстовых форматах
 EXTERN Bool gPreserveLineBreaks VAL(FALSE);
@@ -163,9 +182,9 @@ EXTERN long gOwnMemorySize	VAL(16384);
 // Рабочая память: внешняя или своя.
 // В начале памяти и в конце отводятся бамперы для страховки.
 EXTERN long gBumperSize	VAL(16);	// Длина бампера
-EXTERN uchar *gMemStart	VAL(0);		// Начало данных
-EXTERN uchar *gMemEnd	VAL(0);		// Конец области данных
-EXTERN uchar *gMemCur	VAL(0);		// Текущий конец данных
+EXTERN Byte *gMemStart	VAL(0);		// Начало данных
+EXTERN Byte *gMemEnd	VAL(0);		// Конец области данных
+EXTERN Byte *gMemCur	VAL(0);		// Текущий конец данных
 
 // Настройка перекодировки, загружаемая из REC6.DAT
 // для Узбекского и Казахского.
@@ -246,7 +265,7 @@ EXTERN Handle gCharHandle		VAL(0);
 EXTERN Bool gEdCharHidden		VAL(FALSE);
 
 // Куда был записан символ
-EXTERN uchar *gCharBack			VAL(NULL);
+EXTERN Byte *gCharBack			VAL(NULL);
 
 // Исходный код символа
 EXTERN ulong gCharCode			VAL(0);
@@ -266,13 +285,13 @@ EXTERN Handle gTargetObjectHandle VAL(0);
 EXTERN long gSizeAlphabet		VAL(0);
 
 // Прописные (строка "АБВ...")
-EXTERN uchar gUpper[256]			VAL({0});
+EXTERN Byte gUpper[256]			VAL({0});
 
 // Строчные  (строка "абв...")
-EXTERN uchar gLower[256]			VAL({0});
+EXTERN Byte gLower[256]			VAL({0});
 
 // Гласные (строка "^...")
-EXTERN uchar gVowels[256]		VAL({0});
+EXTERN Byte gVowels[256]		VAL({0});
 
 // Склейка переносов и строк (Words.cpp):
 // Все буквы (позиционная таблица)
@@ -280,16 +299,16 @@ EXTERN uchar gVowels[256]		VAL({0});
 #define CASE_LOWER	2	// Строчная буква
 #define CASE_VOWEL	4	// Гласная буква
 #define CASE_DIGIT	8	// Цифра
-EXTERN uchar gAlphabetTable[256]	VAL({0});
+EXTERN Byte gAlphabetTable[256]	VAL({0});
 
 // Последний конец строки в текущем абзаце
-EXTERN uchar *gLastEOL			VAL(NULL);
+EXTERN Byte *gLastEOL			VAL(NULL);
 
 // Начало слова
-EXTERN uchar *gBegWord			VAL(NULL);
+EXTERN Byte *gBegWord			VAL(NULL);
 
 // Последний дефис в слове
-EXTERN uchar *gDefis				VAL(NULL);
+EXTERN Byte *gDefis				VAL(NULL);
 
 // Структуры для создания построчного представления
 // табличного текста. Модуль TableText.cpp.
@@ -297,7 +316,7 @@ EXTERN uchar *gDefis				VAL(NULL);
 // Представление одной строки текста
 typedef struct {
 	long ltext;			// Длина строки текста
-	uchar *text;			// Адрес строки текста
+	Byte *text;			// Адрес строки текста
 } LINE_TEXT;
 
 // Для упрощения распределения памяти для массива
@@ -379,7 +398,7 @@ EXTERN long gTableTextOptions		VAL(
 
 // Картинка
 EXTERN long	gPictureNumber	VAL(0);
-EXTERN uchar	*gPictureData	VAL(0);	// Адрес DIB включая заголовок
+EXTERN Byte	*gPictureData	VAL(0);	// Адрес DIB включая заголовок
 EXTERN long	gPictureLength	VAL(0);	// Длина DIB включая заголовок
 
 // Размер картинки в TIFF-файле в пикселах
@@ -431,7 +450,7 @@ void ErrLoadAlphabet(const char *file, long line);
 void ErrLoadRec6List(const char *file, long line);
 void ErrUpdateActiveAlphabet(const char *file, long line);
 
-Bool InitMemory(uchar *memStart, long sizeMem);
+Bool InitMemory(Byte *memStart, long sizeMem);
 Bool SetTableTextSeparators(char* s);
 
 //*****************************************************************
@@ -523,8 +542,8 @@ Bool PutSpaces(long lth);
 
 //*****************************************************************
 // Words.cpp
-Bool IsLetter(uchar c);
-Bool IsEOL(uchar c);
+Bool IsLetter(Byte c);
+Bool IsEOL(Byte c);
 Bool WordsControl(long reason);
 Bool WordEnd();
 
@@ -593,7 +612,7 @@ long GetPictureNumber(Handle charHandle);
 
 // Записать картинку в BMP-файл
 Bool WritePictureToBMP_File(
-				uchar *pDIB,	   // Адрес DIB включая заголовок
+				Byte *pDIB,	   // Адрес DIB включая заголовок
 				long lenDIB,   // Длина DIB включая заголовок
 				char *filename // Имя файла
 				);

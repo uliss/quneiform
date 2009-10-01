@@ -134,10 +134,13 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE)
 	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
 	CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar)
+	CASE_PDATA(PUMA_FNPUMA_ProgressStart, FNPUMA_ProgressStart ,fnProgressStart)
+	CASE_PDATA(PUMA_FNPUMA_ProgressFinish,FNPUMA_ProgressFinish,fnProgressFinish)
+	CASE_PDATA(PUMA_FNPUMA_ProgressStep, FNPUMA_ProgressStep ,fnProgressStep)
 	CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE)
 	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
 	default:
-//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 	// Связь с предыдущими версиями
@@ -152,6 +155,37 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 
 #undef CASE_DATA
 #undef CASE_PDATA
+
+	return rc;
+}
+
+void SetReturnCode_puma(uint32_t rc) {
+	uint16_t low = (uint16_t) (rc & 0xFFFF);
+	uint16_t hei = (uint16_t) (rc >> 16);
+
+	if (hei)
+		gwRC = rc;
+	else {
+		if (low >= IDS_ERR_NO)
+			gwRC = (uint32_t) (gwHeightRC << 16) | (low - IDS_ERR_NO);
+		else
+			gwRC = low;
+	}
+
+	if (low > 0 && low != IDS_ERR_NO)
+		LDPUMA_Console("%s\n", GetModulesString(gwRC));
+
+	if (gwRC == nDebugReturnCode && nDebugReturnCode)
+		LDPUMA_Stop();
+}
+
+uint32_t GetReturnCode_puma() {
+	uint32_t rc = gwRC;
+	uint16_t low = (uint16_t) (gwRC & 0xFFFF);
+	uint16_t hei = (uint16_t) (gwRC >> 16);
+
+	if (hei == gwHeightRC || hei == 0)
+		rc = low + IDS_ERR_NO;
 
 	return rc;
 }

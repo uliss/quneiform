@@ -126,6 +126,9 @@ extern uint16_t lpool_lth;
 extern uchar lpool[];
 static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
+MN * c_locomp(puchar raster, int16_t bw, int16_t h, int16_t upper, int16_t left) {
+	return LOC_CLocomp(raster, bw, h, upper, left);
+}
 
 puchar make_raster_CCOM(CCOM_comp *cmp) {
 	int16_t h, d, dd, k, i, ii;

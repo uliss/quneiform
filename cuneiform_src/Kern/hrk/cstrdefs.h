@@ -59,48 +59,19 @@
 
 #include "recdefs.h"
 #include "ccomdefs.h"
-
+#pragma pack (push,8)
 #define DEBUG_MODE 1
 
-#define CSTR_VERSION_CODE  2
+#define     CSTR_VERSION_CODE  2
 
 typedef Handle CSTR_line;
 
-struct CSTR_stick {
+typedef struct tagCSTR_stick {
 	char x, y, l, w, top, bot;
 	int16_t incl;
-};
+} CSTR_stick;
 
-enum cstr_attr_flags_t {
-	CSTR_STR_No = 0x00000000,
-	CSTR_STR_DotMatrix_RCM = 0x00000001,
-	CSTR_STR_DotMatrix_LEO = 0x00000002,
-	CSTR_STR_SCALED = 0x00000004,
-	CSTR_STR_EMPTY = 0x00000008,
-	CSTR_STR_ReadyBL = 0x00000010,
-	CSTR_STR_Digital = 0x00000020,
-	CSTR_STR_PlusMinus = 0x00000040,
-	CSTR_STR_YesNo = 0x00000080,
-	CSTR_STR_DigitalFuzzy = 0x00000100,
-	CSTR_STR_ReadyResults = 0x00000200,
-	CSTR_STR_Fax100x200 = 0x00000400,
-	CSTR_STR_Matrix = 0x00000800,
-	CSTR_STR_CapDrop = 0x00001000,
-	CSTR_STR_HandFragment = 0x00002000,
-	CSTR_STR_PointSuspension = 0x00004000,
-	CSTR_STR_NEGATIVE = 0x00008000,
-	CSTR_STR_UPDOWN = 0x00010000,
-	CSTR_STR_DOWNUP = 0x00020000,
-	//в конце строки имеются точки
-	CSTR_STR_END_POINTED = 0x00040000,
-	//в начале строки имеются точки
-	CSTR_STR_BEGIN_POINTED = 0x00080000
-};
-
-struct CSTR_attr {
-	CSTR_attr() :
-		incline(0), fragment(0) {
-	}
+typedef struct strucCSTR_attr {
 
 	int32_t incline; // Incline*2048 = tg
 	int32_t fragment;
@@ -110,8 +81,28 @@ struct CSTR_attr {
 	int16_t l_col, l_row;
 	int32_t wid, hei;
 	// 32
-	// cstr_attr_flags_t
 	uint32_t Flags;
+#define CSTR_STR_No              0x00000000
+#define CSTR_STR_DotMatrix_RCM   0x00000001
+#define CSTR_STR_DotMatrix_LEO   0x00000002
+#define CSTR_STR_SCALED          0x00000004
+#define CSTR_STR_EMPTY           0x00000008
+#define CSTR_STR_ReadyBL         0x00000010
+#define CSTR_STR_Digital         0x00000020
+#define CSTR_STR_PlusMinus       0x00000040
+#define CSTR_STR_YesNo           0x00000080
+#define CSTR_STR_DigitalFuzzy    0x00000100
+#define CSTR_STR_ReadyResults    0x00000200
+#define CSTR_STR_Fax100x200      0x00000400
+#define CSTR_STR_Matrix          0x00000800
+#define CSTR_STR_CapDrop         0x00001000
+#define CSTR_STR_HandFragment    0x00002000
+#define CSTR_STR_PointSuspension 0x00004000
+#define CSTR_STR_NEGATIVE        0x00008000
+#define CSTR_STR_UPDOWN          0x00010000
+#define CSTR_STR_DOWNUP          0x00020000
+#define CSTR_STR_END_POINTED     0x00040000//в конце строки имеются точки
+#define CSTR_STR_BEGIN_POINTED   0x00080000//в начале строки имеются точки
 	int16_t bs1, bs2, bs3, bs4;
 	int16_t Nb1, Nb2, Nb3, Nb4;
 	int16_t Nbt, bsm, Ps, Psf;
@@ -139,39 +130,9 @@ struct CSTR_attr {
 	uchar tab_number;
 	uchar cn_weight; // due to car numbers recognition
 	// align to 128 bytes
-};
+} CSTR_attr;
 
-enum cstr_font_prop_t {
-	CSTR_fp_ser = 1, // serific
-	CSTR_fp_gelv = 2, // helvetic
-	CSTR_fp_bold = 4, // bold
-	CSTR_fp_light = 8, // light
-	CSTR_fp_it = 16, // italic
-	CSTR_fp_str = 32, // stright
-	CSTR_fp_undrln = 64, // underlined
-	CSTR_fp_narrow = 128
-// user defined
-};
-
-enum cstr_baseline_t {
-	CSTR_db_b1 = 1,
-	CSTR_db_b2 = 2,
-	CSTR_db_b3 = 4,
-	CSTR_db_b4 = 8,
-	CSTR_db_down = 16, // base corrected 1 pixel down
-	CSTR_db_up = 32, // base corrected 1 pixel up
-	CSTR_db_forbid = 64, // don't take to calculate bases (abnormal pos)
-	CSTR_db_solid = 128
-// BOX_solid letter not penalized
-};
-
-struct CSTR_rast_attr {
-public:
-	// TODO init all members data
-	CSTR_rast_attr() :
-		row(0), col(0), h(0), w(0), bdiff(0), difflg(0) {
-	}
-
+typedef struct strucCSTR_rast_attr {
 	int16_t row; // ideal row of cell
 	int16_t col; // ideal collumn of cell
 	//// 4
@@ -181,7 +142,14 @@ public:
 	char bdiff; // local base line corrective displacement
 	uchar difflg; // local correction flg
 	// baseline defined by cell:
-	// cstr_baseline_t
+#define CSTR_db_b1      1
+#define CSTR_db_b2      2
+#define CSTR_db_b3      4
+#define CSTR_db_b4      8
+#define CSTR_db_down    16     // base corrected 1 pixel down
+#define CSTR_db_up      32     // base corrected 1 pixel up
+#define CSTR_db_forbid  64     // don't take to calculate bases (abnormal pos)
+#define CSTR_db_solid   128    // BOX_solid letter not penalized
 	uchar basflg;
 #define CSTR_bs_b1a     1      // agrees to be at  b1
 #define CSTR_bs_b2a     2      //                  b2
@@ -207,6 +175,7 @@ public:
 #define tenv(c)         ((c)->env && !((c)->cg_flag&c_cg_noenv))
 #define CSTR_cg_comp       4   // composed cell
 #define tsimple(c)      (tenv(c) && !((c)->cg_flag&c_cg_comp))
+	//#define c_cg_rqdot      4   // dot test needed (iIl1 in versions)
 	// 93.08.19  the flag uprazdnen
 #define CSTR_cg_cutdone     8   // verarbeitet by cut
 #define CSTR_cg_cutr        16  // cut at right side
@@ -231,8 +200,15 @@ public:
 #define CSTR_rn_pi                  4       // this is a dot of some 'i'
 	uchar keg; // kegel
 	//// 24
-	// cstr_font_prop_t
 	uchar font; // font properties
+#define CSTR_fp_ser         1       // serific
+#define CSTR_fp_gelv        2       // helvetic
+#define CSTR_fp_bold        4       // bold
+#define CSTR_fp_light       8       // light
+#define CSTR_fp_it          16      // italic
+#define CSTR_fp_str         32      // stright
+#define CSTR_fp_undrln      64      // underlined
+#define CSTR_fp_narrow      128     // user defined
 	uchar dens; // BOX - calculated density
 	uchar recsource; // who and how recognized
 #define CSTR_rs_ev          1   // events brought versions
@@ -368,80 +344,91 @@ public:
 	uchar bottom_accent; // need save in Rbal
 	//// 103 !
 	uchar reserve[25]; // for next special flags, aling to 128
-};
+} CSTR_rast_attr;
 
-struct CSTR_cell {
-	CSTR_cell() {
-	}
-
+typedef struct strucCSTR_cell {
 	CSTR_rast_attr attr;
-	CSTR_cell * next;
-	CSTR_cell * prev;
-	CSTR_cell * dup;
+	struct strucCSTR_cell * next;
+	struct strucCSTR_cell * prev;
+	struct strucCSTR_cell * dup;
 	uchar * recRaster;
 	int32_t lnPixWidth;
 	int32_t lnPixHeight;
 	CCOM_comp * env;
-	CSTR_cell * complist;
+	struct strucCSTR_cell * complist;
 	UniVersions * vers;
 	CSTR_line line_no;
-	CSTR_cell * prev_down;
+	struct strucCSTR_cell * prev_down;
 	CCOM_USER_BLOCK * user_block;
-	CSTR_cell * dupend;
-	CSTR_cell * prev_up;
-	CSTR_cell * next_up;
-	CSTR_cell * next_down;
-};
+	struct strucCSTR_cell * dupend;
+	struct strucCSTR_cell * prev_up;
+	struct strucCSTR_cell * next_up;
+	struct strucCSTR_cell * next_down;
+} CSTR_cell;
 
-enum cstr_head_prop_t {
-	CSTR_LN_NO = 0x00000000, CSTR_LN_FICT = 0x00000001
-};
-
-struct CSTR_head {
-	CSTR_head() {
-	}
-
+typedef struct _strucCSTR_head {
 	CSTR_attr attr;
 	CCOM_handle container;
 	Bool32 private_container;
-	// cstr_head_prop_t
 	uint32_t Properties;
+#define CSTR_LN_NO          0x00000000
+#define CSTR_LN_FICT        0x00000001
+
 	int32_t number;
 	int32_t version;
 	CSTR_cell first;
 	CSTR_cell last;
-	CSTR_head *prev, *next, *next_fragm_line;
-};
+	struct _strucCSTR_head *prev, *next, *next_fragm_line;
+} CSTR_head;
 
-enum cstr_image_t {
-	// no type
-	CSTR_TYPE_IMAGE_NO = 0,
-	// linerepresentation
-	CSTR_TYPE_IMAGE_LP = 1,
-	// RecRaster
-	CSTR_TYPE_IMAGE_RS = 2,
-	// B/W bitmap aligned to 1 byte
-	CSTR_TYPE_IMAGE_RS1 = 3
-};
-
+#define CSTR_TYPE_IMAGE_NO  0   // no type
+#define CSTR_TYPE_IMAGE_LP  1   // linerepresentation
+#define CSTR_TYPE_IMAGE_RS  2   // RecRaster
+#define CSTR_TYPE_IMAGE_RS1 3   // B/W bitmap aligned to 1 byte
 #ifdef DEBUG_MODE
-typedef CSTR_cell * CSTR_rast;
+
+typedef struct strucCSTR_cell * CSTR_rast;
 #else
+
 typedef int32_t CSTR_rast;
 #endif
 
+#define CSTR_ANSI_CHARSET            0
+#define CSTR_DEFAULT_CHARSET         1
+#define CSTR_SYMBOL_CHARSET          2
+#define CSTR_SHIFTJIS_CHARSET        128
+#define CSTR_HANGEUL_CHARSET         129
+#define CSTR_HANGUL_CHARSET          129
+#define CSTR_GB2312_CHARSET          134
+#define CSTR_CHINESEBIG5_CHARSET     136
+#define CSTR_OEM_CHARSET             255
+#define CSTR_JOHAB_CHARSET           130
+#define CSTR_HEBREW_CHARSET          177
+#define CSTR_ARABIC_CHARSET          178
+#define CSTR_GREEK_CHARSET           161
+#define CSTR_TURKISH_CHARSET         162
+#define CSTR_VIETNAMESE_CHARSET      163
+#define CSTR_THAI_CHARSET            222
+#define CSTR_EASTEUROPE_CHARSET      238
+#define CSTR_RUSSIAN_CHARSET         204
+
+#define MAC_CHARSET             77
+#define BALTIC_CHARSET          186
+#define TURKISH_CHARSET         162	// 31.05.2002 E.P.
+#define UZBEK_CHARSET           254
+#define KAZAH_CHARSET           253
+
 // разные версии линий
-enum cstr_linvers_t {
-	CSTR_LINVERS_MAIN = 0,
-	CSTR_LINVERS_MAINOUT = 1,
-	CSTR_LINVERS_PASS2 = 2,
-	CSTR_LINVERS_PASS2SNAP = 12,
+#define CSTR_LINVERS_MAIN        0
+#define CSTR_LINVERS_MAINOUT     1
+#define CSTR_LINVERS_PASS2       2
+#define CSTR_LINVERS_PASS2SNAP  12
 
-	CSTR_LINVERS_ENG = 3,
-	CSTR_LINVERS_ENGOUT = 4,
-	CSTR_LINVERS_SAVE = 5,
-	// для базовых линий
-	CSTR_LINVERS_BAL = 8
-};
+#define CSTR_LINVERS_ENG         3
+#define CSTR_LINVERS_ENGOUT      4
+#define CSTR_LINVERS_SAVE        5
+// для базовых линий
+#define CSTR_LINVERS_BAL         8
 
+#pragma pack (pop)
 #endif

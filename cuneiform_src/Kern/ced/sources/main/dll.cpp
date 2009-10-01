@@ -130,13 +130,13 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 
 	using namespace CIF::CFIO;
 
-	//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
-	//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
-	//	ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
-	//	ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
-	//	ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
-	//	ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
-	//	ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
+//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
+//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
+//	ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
+//	ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
+//	ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
+//	ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
+//	ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
 
 	logName[0] = 0;
 	logStream = 0;
@@ -144,242 +144,151 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	return GetReturnCode_ced() == 0 ? 1 : GetReturnCode_ced();
 }
 
-Bool32 CED_Done() {
+CED_FUNC(Bool32) CED_Done()
+{
 	return 0;
 }
 
-uint32_t CED_GetReturnCode() {
+CED_FUNC(uint32_t) CED_GetReturnCode()
+{
 	return gwRC;
 }
 
-char * CED_GetReturnString(uint32_t dwError) {
+CED_FUNC(char *) CED_GetReturnString(uint32_t dwError)
+{
 	static char szBuffer[512];
-	uint16_t low = (uint16_t) (dwError & 0xFFFF);
-	uint16_t hei = (uint16_t) (dwError >> 16);
+	uint16_t low = (uint16_t)(dwError & 0xFFFF);
+	uint16_t hei = (uint16_t)(dwError >> 16);
 
-	if (hei == gwHeightRC) {
-		if (!LoadString(ghInst, low + IDS_ERR_NO, (char *) szBuffer,
-				sizeof(szBuffer)))
-			LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
-					sizeof(szBuffer));
-	} else {
+	if(hei == gwHeightRC)
+	{
+		if(!LoadString(ghInst,low + IDS_ERR_NO,(char *)szBuffer,sizeof(szBuffer)))
+		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
+	}
+	else
+	{
 		char * p = GetModulesString(dwError);
-		if (p)
-			return p;
-		LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
-				sizeof(szBuffer));
+		if(p)
+		return p;
+		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
 	}
 
 	return szBuffer;
 }
 
-Bool32 CED_GetExportData(uint32_t dwType, void * pData) {
+CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData)
+{
 	Bool32 rc = TRUE;
 
 	gwRC = 0;
 
 #define CASE_FUNCTION(a)	case CED_FN##a:	*(FN##a *)pData = a; break
 
-	switch (dwType) {
-	CASE_FUNCTION(CED_ReadED)
-		;
-	CASE_FUNCTION(CED_FormattedLoad)
-		;
-	CASE_FUNCTION(CED_FormattedWrite)
-		;
-	CASE_FUNCTION(CED_SetRawDataProc)
-		;
-	CASE_FUNCTION(CED_DeleteTree)
-		;
-	CASE_FUNCTION(CED_CreatePage)
-		;
-	CASE_FUNCTION(CED_CreateFont)
-		;
-	CASE_FUNCTION(CED_CreatePicture)
-		;
-	CASE_FUNCTION(CED_CreateSection)
-		;
-	CASE_FUNCTION(CED_SetSectLineBetCol)
-		;
-	CASE_FUNCTION(CED_CreateFrame)
-		;
-	CASE_FUNCTION(CED_SetFrameFlag)
-		;
-	CASE_FUNCTION(CED_CreateTable)
-		;
-	CASE_FUNCTION(CED_CreateTableRow)
-		;
-	CASE_FUNCTION(CED_CreateCell)
-		;
-	CASE_FUNCTION(CED_SetCellFlag)
-		;
-	CASE_FUNCTION(CED_SetParaBorders)
-		;
-	CASE_FUNCTION(CED_SetLineParams)
-		;
-	CASE_FUNCTION(CED_DeletePage)
-		;
-	CASE_FUNCTION(CED_ReadFormattedEd)
-		;
-	CASE_FUNCTION(CED_WriteFormattedEd)
-		;
-	CASE_FUNCTION(CED_GetPageImageName)
-		;
-	CASE_FUNCTION(CED_GetPageImageSize)
-		;
-	CASE_FUNCTION(CED_GetPageDpi)
-		;
-	CASE_FUNCTION(CED_GetPageTurn)
-		;
-	CASE_FUNCTION(CED_GetPageSize)
-		;
-	CASE_FUNCTION(CED_GetPageNumber)
-		;
-	CASE_FUNCTION(CED_GetPageBorders)
-		;
-	CASE_FUNCTION(CED_GetPageResize)
-		;
-	CASE_FUNCTION(CED_GetPageUnrecogChar)
-		;
-	CASE_FUNCTION(CED_GetCountSection)
-		;
-	CASE_FUNCTION(CED_GetNumberOfParagraphs)
-		;
-	CASE_FUNCTION(CED_GetParagraph)
-		;
-	CASE_FUNCTION(CED_GetFont)
-		;
-	CASE_FUNCTION(CED_GetNumOfFonts)
-		;
-	CASE_FUNCTION(CED_GetPicture)
-		;
-	CASE_FUNCTION(CED_GetNumOfPics)
-		;
-	CASE_FUNCTION(CED_GetSection)
-		;
-	CASE_FUNCTION(CED_GetSectionBorder)
-		;
-	CASE_FUNCTION(CED_GetSectLineBetCol)
-		;
-	CASE_FUNCTION(CED_GetCountColumn)
-		;
-	CASE_FUNCTION(CED_GetNumSnakeCols)
-		;
-	CASE_FUNCTION(CED_GetColumn)
-		;
-	CASE_FUNCTION(CED_GetSnakeColumnWidth)
-		;
-	CASE_FUNCTION(CED_GetSnakeColumnSpacing)
-		;
+	switch(dwType)
+	{
+		CASE_FUNCTION(CED_ReadED);
+		CASE_FUNCTION(CED_FormattedLoad);
+		CASE_FUNCTION(CED_FormattedWrite);
+		CASE_FUNCTION(CED_SetRawDataProc);
+		CASE_FUNCTION(CED_DeleteTree);
+		CASE_FUNCTION(CED_CreatePage);
+		CASE_FUNCTION(CED_CreateFont);
+		CASE_FUNCTION(CED_CreatePicture);
+		CASE_FUNCTION(CED_CreateSection);
+		CASE_FUNCTION(CED_SetSectLineBetCol);
+		CASE_FUNCTION(CED_CreateFrame);
+		CASE_FUNCTION(CED_SetFrameFlag);
+		CASE_FUNCTION(CED_CreateTable);
+		CASE_FUNCTION(CED_CreateTableRow);
+		CASE_FUNCTION(CED_CreateCell);
+		CASE_FUNCTION(CED_SetCellFlag);
+		CASE_FUNCTION(CED_SetParaBorders);
+		CASE_FUNCTION(CED_SetLineParams);
+		CASE_FUNCTION(CED_DeletePage);
+		CASE_FUNCTION(CED_ReadFormattedEd);
+		CASE_FUNCTION(CED_WriteFormattedEd);
+		CASE_FUNCTION(CED_GetPageImageName);
+		CASE_FUNCTION(CED_GetPageImageSize);
+		CASE_FUNCTION(CED_GetPageDpi);
+		CASE_FUNCTION(CED_GetPageTurn);
+		CASE_FUNCTION(CED_GetPageSize);
+		CASE_FUNCTION(CED_GetPageNumber);
+		CASE_FUNCTION(CED_GetPageBorders);
+		CASE_FUNCTION(CED_GetPageResize);
+		CASE_FUNCTION(CED_GetPageUnrecogChar);
+		CASE_FUNCTION(CED_GetCountSection);
+		CASE_FUNCTION(CED_GetNumberOfParagraphs);
+		CASE_FUNCTION(CED_GetParagraph);
+		CASE_FUNCTION(CED_GetFont);
+		CASE_FUNCTION(CED_GetNumOfFonts);
+		CASE_FUNCTION(CED_GetPicture);
+		CASE_FUNCTION(CED_GetNumOfPics);
+		CASE_FUNCTION(CED_GetSection);
+		CASE_FUNCTION(CED_GetSectionBorder);
+		CASE_FUNCTION(CED_GetSectLineBetCol);
+		CASE_FUNCTION(CED_GetCountColumn);
+		CASE_FUNCTION(CED_GetNumSnakeCols);
+		CASE_FUNCTION(CED_GetColumn);
+		CASE_FUNCTION(CED_GetSnakeColumnWidth);
+		CASE_FUNCTION(CED_GetSnakeColumnSpacing);
 		//	CASE_FUNCTION(CED_GetCountFrame);
 		//	CASE_FUNCTION(CED_GetFrame);
-	CASE_FUNCTION(CED_GetFrameRect)
-		;
-	CASE_FUNCTION(CED_GetFramePosition)
-		;
-	CASE_FUNCTION(CED_GetFrameBorderSpace)
-		;
-	CASE_FUNCTION(CED_GetFrameDxfrtextx)
-		;
-	CASE_FUNCTION(CED_GetFrameDxfrtexty)
-		;
-	CASE_FUNCTION(CED_GetFrameFlag)
-		;
-	CASE_FUNCTION(CED_GetFirstObject)
-		;
-	CASE_FUNCTION(CED_GetNextObject)
-		;
-	CASE_FUNCTION(CED_IsTable)
-		;
-	CASE_FUNCTION(CED_IsFrame)
-		;
-	CASE_FUNCTION(CED_IsParagraph)
-		;
-	CASE_FUNCTION(CED_IsFictive)
-		;
-	CASE_FUNCTION(CED_GetCountRow)
-		;
-	CASE_FUNCTION(CED_GetTableRow)
-		;
-	CASE_FUNCTION(CED_GetTableRowParams)
-		;
-	CASE_FUNCTION(CED_GetCountCell)
-		;
-	CASE_FUNCTION(CED_GetCell)
-		;
-	CASE_FUNCTION(CED_GetCellParams)
-		;
-	CASE_FUNCTION(CED_GetCellFlag)
-		;
-	CASE_FUNCTION(CED_GetLinesX)
-		;
-	CASE_FUNCTION(CED_GetRowsHeights)
-		;
-	CASE_FUNCTION(CED_GetTableOfCells)
-		;
-	CASE_FUNCTION(CED_GetLogicalCell)
-		;
-	CASE_FUNCTION(CED_GetCountLogicalCell)
-		;
-	CASE_FUNCTION(CED_GetSize)
-		;
-	CASE_FUNCTION(CED_GetIndent)
-		;
-	CASE_FUNCTION(CED_GetAlignment)
-		;
-	CASE_FUNCTION(CED_GetLayout)
-		;
-	CASE_FUNCTION(CED_GetUserNumber)
-		;
-	CASE_FUNCTION(CED_GetInterval)
-		;
-	CASE_FUNCTION(CED_GetParaParams)
-		;
-	CASE_FUNCTION(CED_GetParaBorders)
-		;
-	CASE_FUNCTION(CED_GetCountLine)
-		;
-	CASE_FUNCTION(CED_GetLine)
-		;
-	CASE_FUNCTION(CED_GetLineHardBreak)
-		;
-	CASE_FUNCTION(CED_GetLineDefChrFontHeight)
-		;
-	CASE_FUNCTION(CED_GetCountChar)
-		;
-	CASE_FUNCTION(CED_GetChar)
-		;
-	CASE_FUNCTION(CED_IsPicture)
-		;
-	CASE_FUNCTION(CED_GetAlternatives)
-		;
-	CASE_FUNCTION(CED_GetCharFontHeight)
-		;
-	CASE_FUNCTION(CED_GetCharFontAttribs)
-		;
-	CASE_FUNCTION(CED_GetCharFontNum)
-		;
-	CASE_FUNCTION(CED_GetCharFontLang)
-		;
-	CASE_FUNCTION(CED_GetCharForegroundColor)
-		;
-	CASE_FUNCTION(CED_GetCharBackgroundColor)
-		;
-	CASE_FUNCTION(CED_IsEdFile)
-		;
-	CASE_FUNCTION(CED_GetCharLayout)
-		;
-	CASE_FUNCTION(CED_WriteFormattedRtf)
-		;
-	CASE_FUNCTION(CED_MergeFormattedRtf)
-		;
-	CASE_FUNCTION(CED_SetLogFileName)
-		;
+		CASE_FUNCTION(CED_GetFrameRect);
+		CASE_FUNCTION(CED_GetFramePosition);
+		CASE_FUNCTION(CED_GetFrameBorderSpace);
+		CASE_FUNCTION(CED_GetFrameDxfrtextx);
+		CASE_FUNCTION(CED_GetFrameDxfrtexty);
+		CASE_FUNCTION(CED_GetFrameFlag);
+		CASE_FUNCTION(CED_GetFirstObject);
+		CASE_FUNCTION(CED_GetNextObject);
+		CASE_FUNCTION(CED_IsTable);
+		CASE_FUNCTION(CED_IsFrame);
+		CASE_FUNCTION(CED_IsParagraph);
+		CASE_FUNCTION(CED_IsFictive);
+		CASE_FUNCTION(CED_GetCountRow);
+		CASE_FUNCTION(CED_GetTableRow);
+		CASE_FUNCTION(CED_GetTableRowParams);
+		CASE_FUNCTION(CED_GetCountCell);
+		CASE_FUNCTION(CED_GetCell);
+		CASE_FUNCTION(CED_GetCellParams);
+		CASE_FUNCTION(CED_GetCellFlag);
+		CASE_FUNCTION(CED_GetLinesX);
+		CASE_FUNCTION(CED_GetRowsHeights);
+		CASE_FUNCTION(CED_GetTableOfCells);
+		CASE_FUNCTION(CED_GetLogicalCell);
+		CASE_FUNCTION(CED_GetCountLogicalCell);
+		CASE_FUNCTION(CED_GetSize);
+		CASE_FUNCTION(CED_GetIndent);
+		CASE_FUNCTION(CED_GetAlignment);
+		CASE_FUNCTION(CED_GetLayout);
+		CASE_FUNCTION(CED_GetUserNumber);
+		CASE_FUNCTION(CED_GetInterval);
+		CASE_FUNCTION(CED_GetParaParams);
+		CASE_FUNCTION(CED_GetParaBorders);
+		CASE_FUNCTION(CED_GetCountLine);
+		CASE_FUNCTION(CED_GetLine);
+		CASE_FUNCTION(CED_GetLineHardBreak);
+		CASE_FUNCTION(CED_GetLineDefChrFontHeight);
+		CASE_FUNCTION(CED_GetCountChar);
+		CASE_FUNCTION(CED_GetChar);
+		CASE_FUNCTION(CED_IsPicture);
+		CASE_FUNCTION(CED_GetAlternatives);
+		CASE_FUNCTION(CED_GetCharFontHeight);
+		CASE_FUNCTION(CED_GetCharFontAttribs);
+		CASE_FUNCTION(CED_GetCharFontNum);
+		CASE_FUNCTION(CED_GetCharFontLang);
+		CASE_FUNCTION(CED_GetCharForegroundColor);
+		CASE_FUNCTION(CED_GetCharBackgroundColor);
+		CASE_FUNCTION(CED_IsEdFile);
+		CASE_FUNCTION(CED_GetCharLayout);
+		CASE_FUNCTION(CED_WriteFormattedRtf);
+		CASE_FUNCTION(CED_MergeFormattedRtf);
+		CASE_FUNCTION(CED_SetLogFileName);
 #ifdef _DEBUG
 		CASE_FUNCTION(CED_ShowTree);
 #endif
-	default:
-		*(Handle *) pData = NULL;
+		default:
+		*(Handle *)pData = NULL;
 		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
@@ -387,66 +296,41 @@ Bool32 CED_GetExportData(uint32_t dwType, void * pData) {
 	return rc;
 }
 
-Bool32 CED_SetImportData(uint32_t dwType, void * pData) {
+CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData)
+{
 #define CASE_FUNCTION(a)	case CED_FN##a:	a=(FN##a)pData; break
 	Bool32 rc = TRUE;
 	gwRC = 0;
-	switch (dwType) {
-	CASE_FUNCTION(CED_BitmapRef)
-		;
-	CASE_FUNCTION(CED_TextRef)
-		;
-	CASE_FUNCTION(CED_FontKegl)
-		;
-	CASE_FUNCTION(CED_Kegl)
-		;
-	CASE_FUNCTION(CED_Shift)
-		;
-	CASE_FUNCTION(CED_RetrieveLevel)
-		;
-	CASE_FUNCTION(CED_Underline)
-		;
-	CASE_FUNCTION(CED_DensPrint)
-		;
-	CASE_FUNCTION(CED_Tabul)
-		;
-	CASE_FUNCTION(CED_TablTabul)
-		;
-	CASE_FUNCTION(CED_SheetDiskDescr)
-		;
-	CASE_FUNCTION(CED_FragmDiskDescr)
-		;
-	CASE_FUNCTION(CED_FragmDisk)
-		;
-	CASE_FUNCTION(CED_StepBack)
-		;
-	CASE_FUNCTION(CED_LineBeg)
-		;
-	CASE_FUNCTION(CED_Position)
-		;
-	CASE_FUNCTION(CED_EdTagLanguage)
-		;
-	CASE_FUNCTION(CED_TableConformSizes)
-		;
-	CASE_FUNCTION(CED_GroupWords)
-		;
-	CASE_FUNCTION(CED_GroupSymbols)
-		;
-	CASE_FUNCTION(CED_Border)
-		;
-	CASE_FUNCTION(CED_TableHeader)
-		;
-	CASE_FUNCTION(CED_ListOfFragments)
-		;
-	CASE_FUNCTION(CED_Extention)
-		;
-	CASE_FUNCTION(CED_ExtentionNew)
-		;
-	CASE_FUNCTION(CED_Aksant)
-		;
-	CASE_FUNCTION(CED_Letter)
-		;
-	default:
+	switch(dwType)
+	{
+		CASE_FUNCTION(CED_BitmapRef);
+		CASE_FUNCTION(CED_TextRef);
+		CASE_FUNCTION(CED_FontKegl);
+		CASE_FUNCTION(CED_Kegl);
+		CASE_FUNCTION(CED_Shift);
+		CASE_FUNCTION(CED_RetrieveLevel);
+		CASE_FUNCTION(CED_Underline);
+		CASE_FUNCTION(CED_DensPrint);
+		CASE_FUNCTION(CED_Tabul);
+		CASE_FUNCTION(CED_TablTabul);
+		CASE_FUNCTION(CED_SheetDiskDescr);
+		CASE_FUNCTION(CED_FragmDiskDescr);
+		CASE_FUNCTION(CED_FragmDisk);
+		CASE_FUNCTION(CED_StepBack);
+		CASE_FUNCTION(CED_LineBeg);
+		CASE_FUNCTION(CED_Position);
+		CASE_FUNCTION(CED_EdTagLanguage);
+		CASE_FUNCTION(CED_TableConformSizes);
+		CASE_FUNCTION(CED_GroupWords);
+		CASE_FUNCTION(CED_GroupSymbols);
+		CASE_FUNCTION(CED_Border);
+		CASE_FUNCTION(CED_TableHeader);
+		CASE_FUNCTION(CED_ListOfFragments);
+		CASE_FUNCTION(CED_Extention);
+		CASE_FUNCTION(CED_ExtentionNew);
+		CASE_FUNCTION(CED_Aksant);
+		CASE_FUNCTION(CED_Letter);
+		default:
 		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
@@ -462,7 +346,7 @@ void SetReturnCode_ced(uint32_t rc) {
 		gwRC = rc;
 	else {
 		if (low >= IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
+			gwRC = (uint32_t) (gwHeightRC << 16) | (low - IDS_ERR_NO);
 		else
 			gwRC = low;
 	}

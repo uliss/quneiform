@@ -1935,7 +1935,7 @@ public:
 			{
 				nItemLen = max(nItemLen, nWidth);
 				if (nPrecision != 0)
-					nItemLen = MIN(nItemLen, nPrecision);
+					nItemLen = min(nItemLen, nPrecision);
 			}
 			else
 			{

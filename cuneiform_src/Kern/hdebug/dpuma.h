@@ -60,12 +60,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __GLOBUS_H
 #include "globus.h"
 #endif
-
+/*
+#ifndef __RECDEFS_H
+   #include "recdefs.h"
+#endif
+   #include "memfunc.h"
+*/
 #ifdef __DPUMA__
   #define DPUMA_FUNC  FUN_EXPO
 #else
   #define DPUMA_FUNC  FUN_IMPO
 #endif
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 
 #pragma pack (push,8)
 ////////////////////////////////////
@@ -193,9 +203,9 @@ DEC_FUNC(Bool16,  DPUMA_GetUserPoint,(Handle wnd,Point16 * point));
 DEC_FUNC(Bool16,  DPUMA_GetUserRect,(Handle wnd,Rect16 * rect));
 DEC_FUNC(void,  DPUMA_UpdateView,(Handle wnd));
 DEC_FUNC(void,  DPUMA_DrawRaster,(DPUMA_RecRaster * lpRaster));
-DEC_FUNC(void,  DPUMA_RasterText,(const char * lpText));
+DEC_FUNC(void,  DPUMA_RasterText,(char * lpText));
 DEC_FUNC(void,  DPUMA_ZoomToRect,(Handle wnd,Rect16 * rect));
-DEC_FUNC(void,  DPUMA_RasterHeader,(const char * lpText,uint32_t num));
+DEC_FUNC(void,  DPUMA_RasterHeader,(char * lpText,uint32_t num));
 DEC_FUNC(void,  DPUMA_DrawFocusRect,(Handle wnd,Rect16 * lpRect));
 DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner, const char * lpName,void * lpData, const char * lpType));
 DEC_FUNC(void,  DPUMA_UnregVariable,(void * lpData));
@@ -291,6 +301,31 @@ DEC_FUNC(int32_t,  DPUMA_FPuts,(Handle hFile,const char * lpString));
 	#define TA_BASELINE                  24
 	#define TA_NOUPDATECP                0
 	#define TA_UPDATECP                  1
+#endif
+#if !defined(ANSI_CHARSET)
+/* charset form WINGDI.h */
+	#define ANSI_CHARSET            0
+	#define DEFAULT_CHARSET         1
+	#define SYMBOL_CHARSET          2
+	#define SHIFTJIS_CHARSET        128
+	#define HANGEUL_CHARSET         129
+	#define HANGUL_CHARSET          129
+	#define GB2312_CHARSET          134
+	#define CHINESEBIG5_CHARSET     136
+	#define OEM_CHARSET             255
+
+	#define JOHAB_CHARSET           130
+	#define HEBREW_CHARSET          177
+	#define ARABIC_CHARSET          178
+	#define GREEK_CHARSET           161
+	#define TURKISH_CHARSET         162
+	#define VIETNAMESE_CHARSET      163
+	#define THAI_CHARSET            222
+	#define EASTEUROPE_CHARSET      238
+	#define RUSSIAN_CHARSET         204
+
+	#define MAC_CHARSET             77
+	#define BALTIC_CHARSET          186
 #endif
 
 #if !defined(VK_RETURN) // Если не определен WINUSER.H
@@ -445,6 +480,18 @@ DEC_FUNC(int32_t,  DPUMA_FPuts,(Handle hFile,const char * lpString));
 	#endif /* if (_WIN32_WINNT < 0x0400) */
 
 #endif
+//
+
+
+
+
+////////////////////////////////////
+
 #pragma pack (pop)
+
+#ifdef __cplusplus
+      }
+#endif
+
 
 #endif

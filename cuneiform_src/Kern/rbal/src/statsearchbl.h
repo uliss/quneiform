@@ -61,6 +61,10 @@
 #include "cttypes.h"
 #include "cstr.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 ///////
 typedef struct tagROW_STRUCT {
 	int16_t globMax; //глобальный максимум
@@ -133,6 +137,11 @@ int16_t stat_LineLength(CSTR_line line);
 //////
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr, int16_t *Ns1,
 		int16_t *Ns2, int16_t *Ns3, int16_t *Ns4);
+//////
+
+#ifdef __cplusplus
+}
+#endif
 
 #define	 __STAT_SEARCH_BL_H__
 #endif

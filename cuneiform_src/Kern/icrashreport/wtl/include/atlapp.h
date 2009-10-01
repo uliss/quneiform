@@ -258,7 +258,7 @@ inline int WINAPI lstrlenA(const char * lpszString)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
-	int nLen = MIN(lstrlen(lpstrSrc), nLength - 1);
+	int nLen = min(lstrlen(lpstrSrc), nLength - 1);
 	char* lpstrRet = (char*)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(TCHAR));
 	lpstrDest[nLen] = 0;
 	return lpstrRet;
@@ -277,7 +277,7 @@ inline int WINAPI lstrlenA(const char * lpszString)
   {
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
-	int nLen = MIN(lstrlenA(lpstrSrc), nLength - 1);
+	int nLen = min(lstrlenA(lpstrSrc), nLength - 1);
 	char* lpstrRet = (char*)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(char));
 	lpstrDest[nLen] = 0;
 	return lpstrRet;
@@ -787,7 +787,7 @@ namespace SecureHelper
 		}
 		else if(cchCount == _TRUNCATE)
 		{
-			cchCount = MIN(cchDest - 1, size_t(lstrlenA(lpstrSrc)));
+			cchCount = min(cchDest - 1, size_t(lstrlenA(lpstrSrc)));
 			nRet = STRUNCATE;
 		}
 		else if(cchDest <= cchCount)
@@ -814,7 +814,7 @@ namespace SecureHelper
 		}
 		else if(cchCount == _TRUNCATE)
 		{
-			cchCount = MIN(cchDest - 1, size_t(lstrlenW(lpstrSrc)));
+			cchCount = min(cchDest - 1, size_t(lstrlenW(lpstrSrc)));
 			nRet = STRUNCATE;
 		}
 		else if(cchDest <= cchCount)
@@ -1660,9 +1660,9 @@ inline HRESULT AtlGetDllVersion(const char * lpstrDllName, DLLVERSIONINFO* pDllV
 }
 
 // Common Control Versions:
-//   Win95/WinNT 4.0    maj=4 MIN=00
-//   IE 3.x     maj=4 MIN=70
-//   IE 4.0     maj=4 MIN=71
+//   Win95/WinNT 4.0    maj=4 min=00
+//   IE 3.x     maj=4 min=70
+//   IE 4.0     maj=4 min=71
 inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
 	ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
@@ -1692,10 +1692,10 @@ inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 }
 
 // Shell Versions:
-//   Win95/WinNT 4.0                    maj=4 MIN=00
-//   IE 3.x, IE 4.0 without Web Integrated Desktop  maj=4 MIN=00
-//   IE 4.0 with Web Integrated Desktop         maj=4 MIN=71
-//   IE 4.01 with Web Integrated Desktop        maj=4 MIN=72
+//   Win95/WinNT 4.0                    maj=4 min=00
+//   IE 3.x, IE 4.0 without Web Integrated Desktop  maj=4 min=00
+//   IE 4.0 with Web Integrated Desktop         maj=4 min=71
+//   IE 4.01 with Web Integrated Desktop        maj=4 min=72
 inline HRESULT AtlGetShellVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
 	ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);

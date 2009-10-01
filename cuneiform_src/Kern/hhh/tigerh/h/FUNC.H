@@ -141,7 +141,7 @@ Bool snap_init();
 Bool snap_finish();
 Bool snap_newline();
 Bool snap_newpass(uchar);
-Bool snap_show_text(const char *);
+Bool snap_show_text(puchar);
 Bool snap_show_text1(puchar);
 Bool snap_monitor();
 Bool snap_newcell(cell *);
@@ -210,13 +210,13 @@ int16_t decidust(cell *);
 int16_t estcomp(char, cell *, SVERS *, int16_t, int16_t, int16_t, s_glue *, cut_pos*, cut_pos*,
 		char, char, char);
 void snBOX(cell *);
-void est_snap(char user, cell *C, const char * txt);
+void est_snap(char user, cell *C, pchar txt);
 void promote(uchar, cell *, uchar, int16_t);
 void collect_pat(cell *, s_glue *, cell *);
 
 // module dm2.c
 void dm2();
-void glsnap(char, cell *, const char *);
+void glsnap(char, cell *, pchar);
 
 // module dms.c
 void save_vers(cell *, SVERS *);
@@ -225,6 +225,10 @@ void rest_vers(cell *, SVERS *);
 int16_t signif_line_count(cell*);
 int16_t compare_vect(v_val *, v_val *);
 int16_t cell_is_BOX_solid(cell*);
+
+// module locomp.asm
+/*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
+MN *c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
 
 // module v0compgl.asm
 void invert_tiff(puchar c, uint16_t lth);

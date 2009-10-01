@@ -74,17 +74,15 @@ extern int16_t line_number;
 
 /******* Context Internal Type Definitions: **********/
 typedef cell * pCell;
-
-struct dv {
+typedef struct din_var {
 	cell *C;
 	uchar pos; // the version number
-	uchar class_; // the kind of symbol : big, small, digit, empty and undef
+	uchar class; // the kind of symbol : big, small, digit, empty and undef
 	uchar first;
 	uchar res;
 	int16_t est; // current estimation
 	int16_t back; // refference to previous element
-}
-;
+} dv;
 /*######## Constants Defenitions : ############*/
 #define APOSTROPH       0x27
 #define NEG_HALF_SPACE  0x1e
@@ -191,11 +189,11 @@ void test_irish_name_cur_sym(int16_t Let);
 #ifdef MAIN_CONTEXT_MODULE
 static int16_t find_dig_chr_var ();
 static void make_dig_chr_chain ();
-static void up_substr ( const char * substr );
+static void up_substr ( pchar substr );
 static void up_rest_str ();
-static int16_t get_est_substr_in_word (const char  *);
+static int16_t get_est_substr_in_word ( pchar );
 static int16_t est_rest_dig ( dv *);
-static int16_t test_var ( const char * );
+static int16_t test_var ( pchar );
 /*****************/
 static dv * cdv, *last_dv, *last_dig_dv, *beg_dv;
 static int16_t best_l, num_v, admvar = 0, maxest;

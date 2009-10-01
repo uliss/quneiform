@@ -82,7 +82,6 @@
 #include "rverline.h"
 #include "un_buff.h"
 #include "cfio/cfio.h"
-#include "rstuff.h"
 
 using namespace CIF::CFIO;
 
@@ -122,19 +121,57 @@ Handle hPreRSL_Control = NULL;
 Handle hPreRSL_Debug = NULL;
 Handle hDebugFragOwnerControl = NULL;
 
-//typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
+typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
+typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
+typedef struct tagRSPreProcessImage {
+	puchar *pgpRecogDIB;
+	Bool32 gbAutoRotate;
+	Bool32 gbDotMatrix;
+	Bool32 gbFax100;
+	uint32_t gnLanguage;
+	uint32_t gnTables;
+	Handle hCPAGE;
+	Handle hDebugCancelSearchPictures;
+	Handle hDebugCancelComponent;
+	Handle hDebugCancelTurn;
+	Handle hDebugCancelSearchLines;
+	Handle hDebugCancelVerifyLines;
+	Handle hDebugCancelSearchDotLines;
+	Handle hDebugCancelRemoveLines;
+	Handle hDebugCancelSearchTables;
+	Handle hDebugCancelAutoTemplate;
+	Handle hDebugEnableSearchSegment;
+	char ** pglpRecogName;
+	Handle* phCCOM;
+	void * pinfo;
+	Handle* phLinesCCOM;
+	void * phCLINE;
+	PBool32 pgneed_clean_line;
+	int32_t * pgnNumberTables;
+	uint32_t gnPictures;
+	Bool32* pgrc_line;
+	Rect32 gRectTemplate;
+	FNPUMA_XSetTemplate fnXSetTemplate;
+	FNPUMA_XGetTemplate fnXGetTemplate;
+	char *szLayoutFileName;
+} RSPreProcessImage, *PRSPreProcessImage;
 
 Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                     FindLineFrag
-Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
-		Bool32 Is2ndPath, CLINE_handle hContainer, Bool32 IfNeedFragment,
-		Bool32 IfStraightFrag) {
+RSHELLLINES_FUNC(Bool32) FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
+		Bool32 Is2ndPath, CLINE_handle hContainer,
+		Bool32 IfNeedFragment, Bool32 IfStraightFrag)
+{
 	return TRUE;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                     FindLineAttr
-Bool32 FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr) {
+RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr)
+{
+	//SetWidth(line, pCLine);
 	return TRUE;
 }
 
@@ -200,83 +237,108 @@ void SetReturnCode_rshelllines(uint16_t rc) {
 	gwLowRC = rc;
 }
 
-Bool32 RSL_Done() {
+//////////////////////////////////////////////////////////////////////////////////
+//
+RSL_FUNC(Bool32) RSL_Done()
+{
 	LDPUMA_Done();
 	return TRUE;
 }
 
-uint32_t RSL_GetReturnCode() {
+//////////////////////////////////////////////////////////////////////////////////
+//
+RSL_FUNC(uint32_t) RSL_GetReturnCode()
+{
 	uint32_t rc = 0;
-	if ((gwLowRC - IDS_ERR_NO) > 0)
-		rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
+	if((gwLowRC - IDS_ERR_NO)>0)
+	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
 	return rc;
 }
 
-char * RSL_GetReturnString(uint32_t dwError) {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
+//////////////////////////////////////////////////////////////////////////////////
+//
+RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
+{
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static char szBuffer[512];
 
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+	if( dwError >> 16 != gwHeightRC)
+	gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	if (rc >= IDS_ERR_NO)
-		LoadString(ghInst, rc, (char *) szBuffer, sizeof(szBuffer));
+	if( rc >= IDS_ERR_NO )
+	LoadString(ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
 	else
-		return NULL;
+	return NULL;
 
 	return szBuffer;
 	return 0;
 }
 
-Bool32 RSL_GetExportData(uint32_t dwType, void * pData) {
+//////////////////////////////////////////////////////////////////////////////////
+//
+RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
+{
 	Bool32 rc = TRUE;
+
 	return rc;
 }
 
-Bool32 RSL_SetImportData(uint32_t dwType, void * pData) {
+//////////////////////////////////////////////////////////////////////////////////
+//
+RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
+{
 	Bool32 rc = RESULT;
 
 	if (dwType != RSL_HANDLE)
-		return FALSE;
+	return FALSE;
 
 	Handle* phCPage = (Handle*) pData;
 
 	RSPreProcessImage IImage;
 	PRSPreProcessImage Image = &IImage;
 
-	uint32_t nTeor = sizeof(RSPreProcessImage);
+	uint32_t nTeor = sizeof (RSPreProcessImage);
 	Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-	Handle VerifyN = CPAGE_GetBlockFirst(*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
-	uint32_t nReal = CPAGE_GetBlockData(*phCPage, VerifyN, RSL_VERLINE, Image,
-			nTeor);
+	Handle VerifyN = CPAGE_GetBlockFirst (*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
+	uint32_t nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
+	//     uint32_t err32 = CPAGE_GetReturnCode ();
+	//     if (err32)
+	//         return FALSE;
 
-	if (*Image->pgrc_line) {
-		if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {
-			Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr
-					: RVL_Default;
+	if( *Image->pgrc_line )
+	{
+		if(LDPUMA_Skip(Image->hDebugCancelVerifyLines))
+		{
+			Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr:RVL_Default;
 
-			if (!RVERLINE_SetImportData(
-					RVERLINE_DTRVERLINE_RegimeOfVerifyLines, &val)
-					|| !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE)) {
-				SetReturnCode_rshelllines((uint16_t) RVERLINE_GetReturnCode());
+			if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
+					!RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
+			{
+				SetReturnCode_rshelllines((uint16_t)RVERLINE_GetReturnCode());
 				rc = FALSE;
-			} else {
+			}
+			else
+			{
 				Bool32 BadScan = FALSE;
-				int32_t ScanQual = 0;
+				int32_t ScanQual= 0;
 				AboutLines(Image, &BadScan, &ScanQual);
 			}
 
-			if (!*Image->pgneed_clean_line)
-				LDPUMA_Console(
-						"Warning: RSL said that the lines don't need to be erased from the picture.\n");
-		} else
-			LDPUMA_Console("Missing stage of the evaluation lines.\n");
+			if(!*Image->pgneed_clean_line)
+			LDPUMA_Console("Warning: RSL said that the lines don't need to be erased from the picture.\n");
+		}
+		else
+		LDPUMA_Console("Missing stage of the evaluation lines.\n");
 	}
+
+	//CPAGE_DeleteBlock(&phCPage, VerifyN);
 
 	return rc;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+//
 void * RSLAlloc(uint32_t stAllocateBlock) {
 	char * mem = NULL;
 
@@ -460,6 +522,15 @@ static int mycompare(const void *elem1, const void *elem2) {
 	return a->Level - b->Level;
 }
 
+// struct TieComp
+// {
+// 	int32_t LeftBorder;
+// 	int32_t RightBorder;
+// 	int32_t Weight;
+// 	Bool32 IsNoiseComp;
+// 	int32_t VoteResult;
+// };
+
 void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine) {
 	return;
 }
@@ -472,11 +543,13 @@ Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif)
 	return TRUE;
 }
 
-Bool32 RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2) {
+RSHELLLINES_FUNC( Bool32) RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2)
+{
 	return TRUE;
 }
 
-Bool32 RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer) {
+RSHELLLINES_FUNC( Bool32) RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer)
+{
 	return TRUE;
 }
 
@@ -577,11 +650,13 @@ RSHELLLINES_FUNC( void) FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hC
 {
 }
 
-Bool32 CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp) {
+RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp)
+{
 	return FALSE;
 }
 
-Bool SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info) {
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
+{
 	return TRUE;
 }
 

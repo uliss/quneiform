@@ -622,8 +622,8 @@ static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
 				while ( sh != NULLBHandle )
             {
 					TBlackSeg& bs = (*sb)[sh];
-               frag_left = std::min( frag_left, bs.left );
-               frag_right = std::max( frag_right, bs.right );
+               frag_left = MIN( frag_left, bs.left );
+               frag_right = MAX( frag_right, bs.right );
                sh = bs.nLower;
             }
             hr = rb->nextMember(hr);

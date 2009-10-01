@@ -77,7 +77,7 @@ int nMinBlock;
 int nMaxBlock;
 int nCurrentBlock;
 BLOCK *pCurrentBlock;
-
+
 void BlocksAccessTableBuild (void)
 {
 uint32_t i(0);
@@ -111,7 +111,7 @@ uint32_t i(0);
     pBlockPointer =(BLOCK**) malloc (nBlocks * sizeof (BLOCK *));
 
     if (pBlockPointer == NULL)
-        ErrorNoEnoughMemory ("in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
+        ErrorNoEnoughMemory ((uchar*)"in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
 
     memset (pBlockPointer, 0, nBlocks * sizeof (BLOCK *));
 
@@ -142,7 +142,7 @@ uint32_t i(0);
 	}
 	//*******************************************************
 }
-
+
 void BlocksAccessTableFree (void)
 {
     if (pBlockPointer != NULL)

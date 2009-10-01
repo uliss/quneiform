@@ -76,8 +76,8 @@
 
 //------------------- The box has a header ----------------------
 
-struct BOX {
-	BOX * boxnext; // chain address (zero if no next box)
+struct box_struct {
+	struct box_struct *boxnext; // chain address (zero if no next box)
 	MN * boxmain; // component main number pointer
 	uint16_t boxptr; // ptr to the empty place in the box
 	int16_t boxleft; // left boundary for line envelope
@@ -92,6 +92,7 @@ struct BOX {
 	uchar boxwf; // working flag (for picture compress)
 	uint16_t boxresw; // reserved word (for *4 arround)
 };
+typedef struct box_struct BOX;
 
 // Values of boxflag:
 
@@ -205,3 +206,4 @@ struct large_int_s {
 typedef struct large_int_s large_interval;
 
 #endif
+

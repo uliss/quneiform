@@ -81,7 +81,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "ltconfig.h"
 # include "c_types.h"
 # include "lterrors.h"
-#include "hrstr/roots.h"
 # include "roots.h"
 # include "madebug.h"
 # include "struct.h"

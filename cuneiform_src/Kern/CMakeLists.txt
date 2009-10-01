@@ -1,7 +1,7 @@
 set(LIBTYPE SHARED)
 
 if(LIBTYPE STREQUAL SHARED)
-    set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.cpp)
+    set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
     message(STATUS "Adding __snp.c to individual libraries.")
     #add_library(snp SHARED hdebug/__snp.c)
     #set(SNP_LIBS snp)

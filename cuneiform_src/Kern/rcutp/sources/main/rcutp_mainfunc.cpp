@@ -77,7 +77,7 @@ extern  uchar      language;
 #define MAX(a,b)            (((a) > (b)) ? (a) : (b))
 #endif
 
-#ifndef MIN
+#ifndef min
 #define MIN(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
@@ -444,7 +444,7 @@ int16_t  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
    /*    {1,8,0} ,{8,1,0} ,{8,8,0}                           */
    /**************************************************************/
    case 1:
-	/* ���� MIN */
+	/* ���� min */
         if(ans->dh<min_dh+3 || (ans+1)->dh<min_dh+3 )
 	 {
           if(ans->dh<(min_dh+3) && ans->dh<(ans+1)->dh)  return 3;
@@ -491,14 +491,14 @@ int16_t  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
    /*   {1,8,8},{8,8,4},{8,1,8},{8,8,8}                 */
    /**************************************************************/
    case 2:
-	/* ���� MIN */
+	/* ���� min */
         if(ans->dh==min_dh || (ans+1)->dh==min_dh || (ans+2)->dh==min_dh)
 	 {
           if(ans->dh==min_dh)      return 6;
           if((ans+1)->dh==min_dh)  return 8;
           return 7;
 	 }
-	/* ���� MIN+2 */
+	/* ���� min+2 */
 	if(ans->dh<min_dh+3 || (ans+1)->dh<min_dh+3 || (ans+2)->dh<min_dh+3)
 	 {
           if(ans->dh<min_dh+3)      return 10;
@@ -538,7 +538,7 @@ int16_t  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
         /*����� �� ���⪨� ����������*/
         if(ans->h<=chetvert_h && (ans+1)->h<=chetvert_h && (ans+2)->h<=chetvert_h)
          {
-           max_h=MAX(MAX(ans->h,(ans+1)->h),std::max((ans+1)->h,(ans+2)->h));
+           max_h=MAX(MAX(ans->h,(ans+1)->h),MAX((ans+1)->h,(ans+2)->h));
            if(ans->h==max_h)      return 6;
            if((ans+1)->h==max_h)  return 8;
            else                   return 7;

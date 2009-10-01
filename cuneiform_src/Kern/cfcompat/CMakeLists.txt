@@ -1,4 +1,5 @@
 add_library(cfcompat ${LIBTYPE} 
+	cfcompat.c
 	cfcompat.cpp
 )
 

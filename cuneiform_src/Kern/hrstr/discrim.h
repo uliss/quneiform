@@ -54,9 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DISCRIM_H_
-#define DISCRIM_H_
-
 #include "cttypes.h"
 
 #define LARGE_KEGL      23      // given in pixels; >= greater 12 kegl
@@ -76,11 +73,8 @@ struct rst {
 	int w, h, u;
 };
 
-struct segment {
-	uint16_t segblack;
-	uint16_t segwhite;
+typedef struct {
+	uint16_t segblack, segwhite;
 	unsigned char * segbox;
-};
-
-#endif
+} segment;
 

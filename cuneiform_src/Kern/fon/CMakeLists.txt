@@ -1,19 +1,19 @@
 add_library(fon32 ${LIBTYPE}
-src/clu_best.cpp
-src/clu_div.cpp
-src/clu_lang.cpp
-src/clu_test.cpp
-src/cutoff.cpp
-src/dist_bou.cpp
-src/distance.cpp
-src/fon_snap.cpp
-src/fonrec.cpp
-src/p2_addcl.cpp
-src/p2_clu.cpp
-src/p2_dsbit.cpp
-src/p2_mem.cpp
-src/p2_thick.cpp
-src/utilctb.cpp
+src/clu_best.c
+src/clu_div.c
+src/clu_lang.c
+src/clu_test.c
+src/cutoff.c
+src/dist_bou.c
+src/distance.c
+src/fon_snap.c
+src/fonrec.c
+src/p2_addcl.c
+src/p2_clu.c
+src/p2_dsbit.c
+src/p2_mem.c
+src/p2_thick.c
+src/utilctb.c
 )
 set_property(TARGET fon32 PROPERTY COMPILE_DEFINITIONS __FON__)
 

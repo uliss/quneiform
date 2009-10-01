@@ -112,11 +112,11 @@ Bool MakeTableText()
 		return FALSE;
 
 	// Сохранить конец памяти
-	uchar *saveMemEnd = gMemEnd;
+	Byte *saveMemEnd = gMemEnd;
 
 	// Конец оставшейся свободной памяти,
 	// предусмотреть бампер на конце
-	gMemEnd = (uchar*)gBegLineText - gBumperSize;
+	gMemEnd = (Byte*)gBegLineText - gBumperSize;
 
 	// Текущий указатель в памяти
 	gMemCur = gMemStart;
@@ -211,7 +211,7 @@ Bool TableText_Prepare()
 	long lth = 0, row = 0, col = 0, cell = 0;
 
 	// Середина свободной памяти, округленная до 8
-        gMemCur = (uchar*)((((ulong)gMemStart + (ulong)gMemEnd) >>4) <<3);
+        gMemCur = (Byte*)((((ulong)gMemStart + (ulong)gMemEnd) >>4) <<3);
 
 	// Массив дескрипторов строк текста
 	gBegLineText = (LINE_TEXT*)gMemCur;
@@ -384,12 +384,12 @@ Bool Static_TableText_Prepare(
 
 			// Ширина колонки таблицы
 			pl = &gTableColWidths[gIndexTableCol];
-			*pl = std::max(*pl,gCellText->width);
+			*pl = MAX(*pl,gCellText->width);
 
 			// Координата низа строки таблицы для строки таблицы,
 			// в которой заканчивается текущая ячейка
 			pl = &gTableRowBottoms[BottomRow()];
-			*pl = std::max(*pl,
+			*pl = MAX(*pl,
 					gTableRowTops[gIndexTableRow] +
 						gCellText->lines);
 
@@ -437,7 +437,7 @@ static Bool LineEnd()
 
 	// Ширина ячейки
 	long *pl = &gCellText->width;
-	*pl = std::max(*pl,lth);
+	*pl = MAX(*pl,lth);
 
 	// Дописать ноль на конце строки текста
 	*gMemCur++ = 0;
@@ -469,7 +469,7 @@ static Bool TableText_Columns()
 */
 
 	// Справочная обхода ячеек
-	uchar sprav[10000];
+	Byte sprav[10000];
 	ASSERT(gTableCells < sizeof(sprav));
 	memset(&sprav,0,sizeof(sprav));
 
@@ -525,7 +525,7 @@ static Bool TableText_Columns()
 			// для самой правой колонки таблицы,
 			// в которой заканчивается текущая ячейка
 			long *pl = &gTableColRights[RightmostCol()];
-			*pl = std::max(*pl,
+			*pl = MAX(*pl,
 					gTableColLefts[gIndexTableCol] +
 						gCellText->width);
 

@@ -83,7 +83,9 @@
 #include "rsl.h"
 #include "rreccom.h"
 #include "rcorrkegl.h"
+
 #include <string>
+
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -121,6 +123,7 @@ EXTERN const char * gpUserDictName VAL("");
 EXTERN const char * gpSerifName VAL("Times New Roman");
 EXTERN const char * gpSansSerifName VAL("Arial");
 EXTERN const char * gpCourierName VAL("Courier New");
+
 EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
@@ -211,8 +214,13 @@ EXTERN Handle hDebugPrintBlocksCPAGE VAL(NULL);
 EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
+
+EXTERN char szLayoutFileName[256] VAL("Layout.bin");
 EXTERN unsigned nDebugReturnCode VAL(0);
 EXTERN unsigned nDebugAllocMemory VAL(0);
+EXTERN FNPUMA_ProgressStart fnProgressStart VAL(NULL);
+EXTERN FNPUMA_ProgressFinish fnProgressFinish VAL(NULL);
+EXTERN FNPUMA_ProgressStep fnProgressStep VAL(NULL);
 EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
@@ -234,11 +242,16 @@ EXTERN PRGTIME g_PrgTime;
 EXTERN CIMAGEBITMAPINFOHEADER info;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
+void SetReturnCode_puma(uint32_t rc);
+uint32_t GetReturnCode_puma();
 char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
 //use SJTL.dll
+#ifdef __cplusplus
+extern "C" {
+#endif
 void My_SJTL_Init(void);
 int My_SJTL_save(const char* filename);
 int My_SJTL_save_old(char *filename, CSTR_line lino, int nfield);
@@ -246,6 +259,14 @@ int My_SJTL_open(const char *frmname, const char *jtlname);
 int My_SJTL_mkfrm(char *frmname);
 void My_SJTL_close(void);
 void My_SJTL_Done(void);
+#ifdef __cplusplus
+}
+#endif
+
+Bool32 ModulesInit(Handle ghStorage);
+char * GetModulesString(uint32_t dwError);
+
+Bool32 Recognize();
 
 // Enum.cpp
 long _EnumFormats(long prev);
@@ -256,10 +277,12 @@ long _EnumTable(long prev);
 long _EnumPicture(long prev);
 
 // common.cpp
+void ClearAll(void);
 Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
 void SetOptionsToFRMT(void);
+Bool32 SaveToText(const char * lpOutFileName, int code);
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
@@ -274,12 +297,20 @@ Bool32 DonePRGTIME();
 PRGTIME StorePRGTIME(uint32_t beg, uint32_t end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 void RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 
+void ProgressStart();
+void ProgressFinish();
+Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent);
 Bool32 ProgressStepLayout(uint32_t step, uint32_t percent);
 Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
 Bool32 PreProcessImage();
+Bool32 BinariseImage();
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
+bool ConverROUT(const std::string& filename, puma_format_t Format,
+		puma_code_t Code, bool Append);
+uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
+		Byte * lpMem, uint32_t size);
 
 #endif

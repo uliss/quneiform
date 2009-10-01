@@ -56,7 +56,6 @@
 
 #define __PUMA_CPP__
 
-#include <iostream>
 #include <string>
 #include <cstring>
 #include <cstdlib>
@@ -66,25 +65,110 @@
 
 #include "mpuma.h"
 #include "compat_defs.h"
+//////////////////////////////////////////////////////////////////
+// 07.07,2000 Allex
+// Вынес Бинаризацию наверх из PreProcessImage
+//////////////////////////////////////////////////////////Allex
+//CIMAGEBITMAPINFOHEADER info;
+
+Bool32 BinariseImage() {
+	Bool32 rc = TRUE;
+
+	if (InitPRGTIME())
+		ProgressStart();
+	//
+	// Бинаризуем изображение
+	//
+	gpRecogDIB = gpInputDIB;
+	glpRecogName = PUMA_IMAGE_USER;
+
+	if (!ProgressStep(1, GetResourceString(IDS_PRG_OPEN), 10))
+		rc = FALSE;
+
+	/////////////////////////////////////////////////////Allex
+	//CIMAGEBITMAPINFOHEADER info;
+	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
+		rc = FALSE;
+	}
+
+	if (!ProgressStep(2, GetResourceString(IDS_PRG_OPEN), 100))
+		rc = FALSE;
+
+	LDPUMA_Console("The image depth is %d at this point.\n",
+			(int) info.biBitCount);
+	if (rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount > 1) {
+		PRGTIME prev = StorePRGTIME(10, 100);
+		if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER,
+				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))//RIMAGE_BINARISE_KRONROD
+		{
+			SetReturnCode_puma(RIMAGE_GetReturnCode());
+			rc = FALSE;
+		} else {
+			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_BINARIZE,
+					(Handle*) &gpRecogDIB, TRUE)) {
+				SetReturnCode_puma(CIMAGE_GetReturnCode());
+				rc = FALSE;
+			} else {
+				LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE, gpRecogDIB);
+				PAGEINFO info;// = { 0 };
+				GetPageInfo(hCPAGE, &info);
+				info.Images |= IMAGE_BINARIZE;
+				SetPageInfo(hCPAGE, info);
+			}
+
+			glpRecogName = PUMA_IMAGE_BINARIZE;
+		}
+
+		RestorePRGTIME(prev);
+	} else {
+		if (rc && info.biBitCount > 1) { // Дальнейшая работа без бинаризатора невозможна !
+			SetReturnCode_puma(IDS_ERR_NOBINARIZATION);
+			rc = FALSE;
+		}
+	}
+
+	if (DonePRGTIME())
+		ProgressFinish();
+
+	return rc;
+}
 
 Bool32 PreProcessImage() {
 	Bool32 rc = TRUE;
 	uint32_t Angle = 0;
 
+	if (InitPRGTIME())
+		ProgressStart();
+
+	if (!ProgressStep(1, GetResourceString(IDS_PRG_OPEN), 5))
+		rc = FALSE;
+
 	//
 	// Выделим компоненты
 	//
-	if (LDPUMA_Skip(hDebugCancelComponent))
-		rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName);
-	else
-		LDPUMA_Console("Пропущен этап выделения компонент.\n");
+	if (!ProgressStep(2, GetResourceString(IDS_PRG_OPEN), 65))
+		rc = FALSE;
+
+	if (rc) {
+		if (LDPUMA_Skip(hDebugCancelComponent)) {
+			PRGTIME prev = StorePRGTIME(65, 85);
+			rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName);
+			RestorePRGTIME(prev);
+
+			if (!ProgressStep(2, NULL, 100))
+				rc = FALSE;
+
+		} else
+			LDPUMA_Console("Пропущен этап выделения компонент.\n");
+	}
 	//
 	// Проинициализируем контейнер CPAGE
 	//
 	if (rc) {
-		PAGEINFO PInfo;
+		PAGEINFO PInfo;// = { 0 };
 		GetPageInfo(hCPAGE, &PInfo);
-		strcpy(PInfo.szImageName, glpRecogName);
+		strcpy((char*) PInfo.szImageName, glpRecogName);
 		PInfo.BitPerPixel = info.biBitCount;
 		PInfo.DPIX = info.biXPelsPerMeter * 254L / 10000;
 		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
@@ -92,12 +176,17 @@ Bool32 PreProcessImage() {
 		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
 		PInfo.Height = info.biHeight;
 		PInfo.Width = info.biWidth;
+		//		PInfo.X = 0; Уже установлено
+		//		PInfo.Y = 0;
 		PInfo.Incline2048 = 0;
 		PInfo.Page = 1;
 		PInfo.Angle = Angle;
 
 		SetPageInfo(hCPAGE, PInfo);
 	}
+
+	if (DonePRGTIME())
+		ProgressFinish();
 
 	return rc;
 }
@@ -108,13 +197,13 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	//
 	// Определим угол поворота страницы
 	//
-	PAGEINFO PInfo;
+	PAGEINFO PInfo;// = { 0 };
 
 	assert(p);
 	assert(lpDIB);
 
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
-//		SetReturnCode_puma(CPAGE_GetReturnCode());
+		SetReturnCode_puma(CPAGE_GetReturnCode());
 		rc = false;
 	} else {
 		CIMAGEBITMAPINFOHEADER info;
@@ -125,7 +214,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 			if (PInfo.Incline2048 > 0) {
 				p->x = (int32_t) info.biWidth * PInfo.Incline2048 / 2048
 						* PInfo.Incline2048 / 2048;
-				p->y = (int32_t)(info.biWidth) * PInfo.Incline2048 / 2048;
+				p->y = (int32_t) (info.biWidth) * PInfo.Incline2048 / 2048;
 			} else {
 				p->x = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
 						+ (int32_t) info.biWidth * PInfo.Incline2048 / 2048
@@ -133,7 +222,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 				p->y = 0;
 			}
 		} else {
-//			SetReturnCode_puma(CIMAGE_GetReturnCode());
+			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = false;
 		}
 	}
@@ -141,7 +230,7 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	// Создадим довернутое изображение
 	//
 	if (rc) {
-		PAGEINFO PInfo;
+		PAGEINFO PInfo;// = { 0 };
 		GetPageInfo(hCPAGE, &PInfo);
 
 		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
@@ -149,20 +238,122 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 		CIMAGE_EnableMask(lpImage, (puchar) "r", false);
 		if (!RIMAGE_Rotate(lpImage, (puchar) PUMA_IMAGE_ROTATE,
 				PInfo.Incline2048, 2048, 0)) {
-//			SetReturnCode_puma(RIMAGE_GetReturnCode());
+			SetReturnCode_puma(RIMAGE_GetReturnCode());
 			rc = false;
 		}
 
 		if (rc) {
 			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_ROTATE, lpDIB, true)) {
-//				SetReturnCode_puma(CIMAGE_GetReturnCode());
+				SetReturnCode_puma(CIMAGE_GetReturnCode());
 				rc = false;
 			}
 		}
 		CIMAGE_EnableMask(lpImage, (puchar) "r", true);
-		PInfo.Images |= PageInfo::IMAGE_ROTATE;
+		PInfo.Images |= IMAGE_ROTATE;
 		SetPageInfo(hCPAGE, PInfo);
 	}
+	return rc;
+}
+
+bool PUMA_XSave(const std::string& filename, puma_format_t Format,
+		puma_code_t Code) {
+	return PUMA_Save(ghEdPage, filename, Format, Code, false);
+}
+
+bool PUMA_Save(Handle hEdPage, const std::string& filename,
+		puma_format_t Format, puma_code_t Code, bool Append) {
+	bool rc = true;
+	Handle prevEdPage = ghEdPage;
+
+	if (hEdPage == NULL)
+		hEdPage = ghEdPage;
+
+	ghEdPage = hEdPage;
+
+	if (ghEdPage == NULL) {
+		SetReturnCode_puma(IDS_ERR_PARAM);
+		return false;
+	}
+
+	if (InitPRGTIME())
+		ProgressStart();
+	if (LDPUMA_Skip(hDebugCancelFormatted)) {
+		switch (Format) {
+		case PUMA_DEBUG_TOTEXT:
+			rc = SaveToText(filename.c_str(), Code);
+			break;
+		case PUMA_TORTF:
+			if (Append)
+				rc = CED_MergeFormattedRtf(filename.c_str(), ghEdPage);
+			else
+				rc = CED_WriteFormattedRtf(filename.c_str(), ghEdPage);
+
+			if (!rc)
+				SetReturnCode_puma(CED_GetReturnCode());
+			break;
+		case PUMA_TOEDNATIVE:
+			rc = CED_WriteFormattedEd(filename.c_str(), ghEdPage);
+			if (!rc)
+				SetReturnCode_puma(CED_GetReturnCode());
+			break;
+		case PUMA_TOTEXT:
+		case PUMA_TOSMARTTEXT:
+		case PUMA_TOTABLETXT:
+		case PUMA_TOTABLEDBF:
+		case PUMA_TOHTML:
+		case PUMA_TOHOCR:
+			rc = ConverROUT(filename.c_str(), Format, Code, Append);
+			break;
+		default:
+			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+			rc = false;
+		}
+	}
+	LDPUMA_Skip(hDebugCancelFictive);
+	if (DonePRGTIME())
+		ProgressFinish();
+
+	ghEdPage = prevEdPage;
+	return rc;
+}
+
+bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
+		char * lpMem, uint32_t size) {
+	bool rc = true;
+	Handle prevEdPage = ghEdPage;
+
+	if (hEdPage == NULL)
+		hEdPage = ghEdPage;
+
+	ghEdPage = hEdPage;
+
+	if (ghEdPage == NULL) {
+		SetReturnCode_puma(IDS_ERR_PARAM);
+		return rc;
+	}
+
+	if (InitPRGTIME())
+		ProgressStart();
+	if (LDPUMA_Skip(hDebugCancelFormatted)) {
+		switch (Format) {
+		case PUMA_TOTEXT:
+		case PUMA_TOSMARTTEXT:
+		case PUMA_TOTABLETXT:
+		case PUMA_TOTABLEDBF:
+		case PUMA_TOHTML:
+			rc
+					= ConverROUTtoMemory(hEdPage, Format, Code, (puchar) lpMem,
+							size);
+			break;
+		default:
+			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+		}
+	}
+	LDPUMA_Skip(hDebugCancelFictive);
+	if (DonePRGTIME())
+		ProgressFinish();
+
+	ghEdPage = prevEdPage;
 	return rc;
 }
 
@@ -206,7 +397,7 @@ bool PUMA_XSetTemplate(Rect32 rect) {
 
 	if (CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
 		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
-		PAGEINFO PInfo;
+		PAGEINFO PInfo;// = { 0 };
 
 		GetPageInfo(hCPAGE, &PInfo);
 		//		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);

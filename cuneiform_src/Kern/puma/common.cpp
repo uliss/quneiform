@@ -61,10 +61,57 @@
 #include "ccom.h"
 #include "cstr.h"
 
-// Функции прогресс индикатора
-Bool32 rexcProgressStep(uint32_t) {
-}
+void ClearAll(void) {
+	PAGEINFO PInfo = { 0 };
+	//
+	// Сохраним последенне состояние и очистим контейнер
+	//
+	if (ghEdPage) {
+		CED_DeletePage(ghEdPage);
+		ghEdPage = NULL;
+	}
 
+	if (hCPAGE)
+		GetPageInfo(hCPAGE, &PInfo);
+
+	CSTR_DeleteAll();
+	CPAGE_DeleteAll();
+	hCPAGE = CreateEmptyPage();
+
+	strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
+	PInfo.Incline2048 = 0;
+	PInfo.Angle = 0;
+	PInfo.Images = IMAGE_USER;
+	SetPageInfo(hCPAGE, PInfo);
+
+	CCOM_DeleteAll();
+	hCCOM = NULL;
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_BINARIZE);
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_DELLINE);
+	//  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
+	//  поскольку оно отображается в интерфейсе. Его нужно удалять
+	//  либо при получении нового довернутого изображения, либо при
+	//  закрытии файла
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
+	/*
+	 if(hCPAGE && CPAGE_GetCountBlock(hCPAGE))
+	 {
+	 CPAGE_BackUp(hCPAGE);
+	 Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,0);
+	 while(hBlock)
+	 {
+	 CPAGE_DeleteBlock(hCPAGE,hBlock);
+	 hBlock = CPAGE_GetBlockNext(hCPAGE,hBlock,0);
+	 }
+	 }
+	 */
+}
+///////////////////////////////////////////////////////
+// Функции прогресс индикатора
+Bool32 rexcProgressStep(uint32_t step) {
+	return ProgressStep(2, NULL, step);
+}
+///////////////////////////////////////////////////////
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	Bool32 rc = TRUE;
 	ExcControl exc = { 0 };
@@ -78,7 +125,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	}
 
 	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep)) {
-//		SetReturnCode_puma(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		return FALSE;
 	}
 
@@ -90,7 +137,14 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	//exc.Control |= ( bIsRotate ? Ex_Orient : 0 );
 	if (gnPictures)
 		exc.Control |= Ex_PictureLarge;
-
+	/*
+	 if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)gnLanguage) )
+	 { // инициализировать распознавание по эвентам и задать алфавит
+	 SetReturnCode_puma(REXC_GetReturnCode());
+	 rc = FALSE;
+	 }
+	 else
+	 */
 	{
 		uchar w8 = (uchar) gbDotMatrix;
 		REXC_SetImportData(REXC_Word8_Matrix, &w8);
@@ -98,10 +152,12 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 		w8 = (uchar) gbFax100;
 		REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 	}
-
+	/*
+	 if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // поиск компонент в DIB-e
+	 */
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-//		SetReturnCode_puma(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if (rc && !REXCExtracomp3CB(
@@ -109,14 +165,14 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 			(TImageOpen) clbk.CIMAGE_ImageOpen,
 			(TImageClose) clbk.CIMAGE_ImageClose,
 			(TImageRead) clbk.CIMAGE_ImageRead)) {
-//		SetReturnCode_puma(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
 	}
 
 	if (rc) {
 		hCCOM = (Handle) REXCGetContainer();
 		if (hCCOM == 0) {
-//			SetReturnCode_puma(REXC_GetReturnCode());
+			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 
@@ -124,7 +180,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	if (rc) {
 		hCCOM = (Handle) REXCGetContainer();
 		if (hCCOM == 0) {
-//			SetReturnCode_puma(REXC_GetReturnCode());
+			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 	}
@@ -132,6 +188,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 	return rc;
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 // Будет перенесено в RSource.dll
 Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 	int32_t le, ri, up, dn, w, h;
@@ -168,6 +225,7 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 		return TRUE;
 	return FALSE;
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
 	CCOM_comp *cur = CCOM_GetFirst(haCCOM, NULL), *curn;
@@ -189,6 +247,7 @@ Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
 	} while (cur != NULL);
 	return (over > 0);
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 // авторство принадлежит AlMi
 Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) {
@@ -206,6 +265,10 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 					RVERLINE_ZHERTVY_LINIY);
 		err32 = CPAGE_GetReturnCode();
 		if (err32 != 0) {
+			//if (i==0)
+			//	Error_CPage ("[GetBlockFirst]");
+			//else
+			//	Error_CPage ("[GetBlockNext]");
 			return FALSE;
 		}
 		if (!hBlockZher)
@@ -216,6 +279,7 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 				(void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if (!nReal || (err32 != 0)) {
+			//Error_CPage ("[SetBlockData]");
 			return FALSE;
 		}
 		hBlockPrev = hBlockZher;
@@ -224,6 +288,7 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 	*nZher = i;
 	return TRUE;
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	puchar hDIB = NULL;
@@ -236,7 +301,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	//	 Удалим линии
 	//
 	if (rc && !RLINE_DeleteLines(hcpage, PUMA_IMAGE_DELLINE)) {
-//		SetReturnCode_puma(RLINE_GetReturnCode());
+		SetReturnCode_puma(RLINE_GetReturnCode());
 		rc = FALSE;
 	}
 	//
@@ -244,7 +309,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 	//
 	if (rc && !CIMAGE_ReadDIB((puchar) PUMA_IMAGE_DELLINE, (Handle*) &hDIB,
 			TRUE)) {
-//		SetReturnCode_puma(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if (hDIB) {
@@ -266,9 +331,9 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 					(puchar) PUMA_IMAGE_DELLINE)) {
 				rc = FALSE;
 			} else {
-				PAGEINFO inf;
+				PAGEINFO inf = { 0 };
 				GetPageInfo(hCPAGE, &inf);
-				strcpy(inf.szImageName, PUMA_IMAGE_DELLINE);
+				strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
 				SetPageInfo(hCPAGE, inf);
 			}
 
@@ -276,7 +341,7 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 
 				hCCOM = (Handle) REXCGetContainer();
 				if (hCCOM == 0) {
-//					SetReturnCode_puma(REXC_GetReturnCode());
+					SetReturnCode_puma(REXC_GetReturnCode());
 					rc = FALSE;
 				}
 				hccom = hCCOM;
@@ -288,6 +353,26 @@ Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * lppDIB) {
 							NULL);
 
 					if (yes_victim) {
+						/*
+						 Rect16 rect1;
+						 uint32_t key = 111;
+						 for(i=0;i<nvict;i++)
+						 {
+						 exa = victim[i];
+						 rect1.top = exa->upper;
+						 rect1.left = exa->left;
+						 rect1.bottom = exa->upper+exa->h;
+						 rect1.right = exa->left+exa->w;
+						 LDPUMA_DrawRect(NULL, &rect1, 0, 23635, 1, key);
+						 }
+
+						 if(!LDPUMA_Skip(hShowCheckLetters))
+						 {
+						 LDPUMA_Console("Puma_Коробки жертв  \n");
+						 LDPUMA_WaitUserInput(NULL, NULL);
+						 LDPUMA_DeleteRects(NULL, key);
+						 }
+						 */
 						for (i = 0; i < nvict; i++) {
 							exa = victim[i];
 							if (remove_overlayed(exa, (CCOM_handle) hCCOM)) {
@@ -326,35 +411,103 @@ void SetOptionsToFRMT() {
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
-//TODO Delete
+Bool32 SaveToText(const char * lpOutFileName, int code) {
+	Bool32 rc = TRUE;
+	int count = CSTR_GetMaxNumber();
+
+	if (code != PUMA_CODE_ANSI) {
+		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+		return FALSE;
+	}
+
+	FILE * f = fopen(lpOutFileName, "wt");
+	if (f) {
+		for (int i = 1; i <= count; i++) {
+			CSTR_line lin_out;
+			char txt[500];
+
+			lin_out = CSTR_GetLineHandle(i, 1); // OLEG
+			if (lin_out == (CSTR_line) NULL) {
+				SetReturnCode_puma(CSTR_GetReturnCode());
+				rc = FALSE;
+				break;
+			}
+
+			if (CSTR_LineToTxt(lin_out, txt)) {
+				char szString[sizeof(txt)];
+				sprintf(szString, "%s\n", txt);
+				unsigned len = strlen(szString);
+				if (fwrite(szString, sizeof(char), len, f) != len) {
+					SetReturnCode_puma(IDS_ERR_FILEWRITE);
+					rc = FALSE;
+					break;
+				}
+			} else {
+				SetReturnCode_puma(CSTR_GetReturnCode());
+				rc = FALSE;
+				break;
+			}
+
+		}
+		fclose(f);
+	} else {
+		SetReturnCode_puma(IDS_ERR_FILEOPEN);
+		rc = FALSE;
+	}
+	return rc;
+}
+////////////////////////////////////////////////////////////
 void ProgressStart() {
-
+	LDPUMA_ProgressStart();
+	if (fnProgressStart)
+		fnProgressStart();
 }
-
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 void ProgressFinish() {
-
+	LDPUMA_ProgressFinish();
+	if (fnProgressFinish)
+		fnProgressFinish();
 }
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent) {
+	Bool32 rc = TRUE;
+	static uint32_t old = 0;
+
+	g_PrgTime.dwStep = step;
+	g_PrgTime.name = name ? name : g_PrgTime.name;
+
+	uint32_t perc = g_PrgTime.dwBeg + percent * (g_PrgTime.dwEnd
+			- g_PrgTime.dwBeg) / 100;
+	rc = LDPUMA_ProgressStep(step, g_PrgTime.name, perc);
+	//	assert(perc>=old);
+	if (fnProgressStep)
+		rc &= fnProgressStep(step, g_PrgTime.name, perc);
+
+	old = perc;
+	return rc;
 }
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 ProgressStepLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
 }
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 ProgressStepLines(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-//TODO delete
+//////////////////////////////////////////////////////
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_SEARCHTABLE), percent);
 }
-//TODO delete
+//////////////////////////////////////////////////////
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_AUTOLAYOUT), percent);
 }
@@ -363,8 +516,8 @@ static uint32_t bInitPrgTime = 0;
 void ResetPRGTIME() {
 	bInitPrgTime = 0;
 }
-
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 DonePRGTIME() {
 	Bool32 rc = FALSE;
 	if (bInitPrgTime)
@@ -373,8 +526,8 @@ Bool32 DonePRGTIME() {
 		rc = TRUE;
 	return rc;
 }
-
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 InitPRGTIME() {
 	Bool32 rc = FALSE;
 	if (!bInitPrgTime) {
@@ -387,7 +540,8 @@ Bool32 InitPRGTIME() {
 	bInitPrgTime++;
 	return rc;
 }
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 	PRGTIME rc = g_PrgTime;
 
@@ -401,19 +555,19 @@ PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 
 	return rc;
 }
-
-//TODO delete
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 void RestorePRGTIME(PRGTIME prev) {
 	g_PrgTime = prev;
 }
-
+/////////////////////////////////////////////////////////////////////
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 	Bool32 rc = FALSE;
 	CSTR_rast start = CSTR_GetFirstRaster(lout), stop =
 			CSTR_GetLastRaster(lout), c;
 	UniVersions vers;
 	CSTR_rast_attr attr;
-	CSTR_attr line_attr;
+	CSTR_attr line_attr = { 0 };
 
 	Bool32 bold = 0;
 	Bool32 italic = 0;
@@ -534,11 +688,13 @@ Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 
 	return rc;
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect32 rect) {
 	return RMARKER_SearchTableInZone(hPAGE, hCCOM, perc, rect);
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Bool32 IsUpdate(uint32_t flg) {
 	return (g_flgUpdate & flg) > 0;
 }

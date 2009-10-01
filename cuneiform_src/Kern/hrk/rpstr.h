@@ -73,7 +73,10 @@
 #include "globus.h"
 #include "ccomdefs.h"
 #include "cstrdefs.h"
+
+#ifndef __RECDEFS_H
 #include "recdefs.h"
+#endif
 #include "memfunc.h"
 
 #ifdef __RPSTR__
@@ -82,6 +85,9 @@
 #define RPSTR_FUNC  FUN_IMPO
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 RPSTR_FUNC(Bool32) RPSTR_Init( uint16_t wHeightCode , Handle hStorage);
 RPSTR_FUNC(void) RPSTR_Done(void);
@@ -129,5 +135,9 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void);
 typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, int32_t line_num,
 		CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
 RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

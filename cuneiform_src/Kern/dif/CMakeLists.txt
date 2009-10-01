@@ -1,12 +1,12 @@
 include_directories(BEFORE src)
 
 add_library(dif32 ${LIBTYPE}
-src/dif.cpp
-src/diffr.cpp
-src/diffrb.cpp
-src/sticchar.cpp
-src/sticdif.cpp
-src/stictool.cpp
+src/dif.c
+src/diffr.c
+src/diffrb.c
+src/sticchar.c
+src/sticdif.c
+src/stictool.c
 )
 set_property(TARGET dif32 PROPERTY COMPILE_DEFINITIONS __DIF__)
 

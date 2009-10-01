@@ -57,57 +57,71 @@
 #ifndef __EVN_H
 #define __EVN_H
 
+#ifndef __GLOBUS_H
 #include "globus.h"
+#endif
 #include "evndefs.h"
+#ifndef __RECDEFS_H
 #include "recdefs.h"
+#endif
 #include "memfunc.h"
 #include "ccomdefs.h"
 
 #ifdef __EVN__
-#define EVN_FUNC  FUN_EXPO__
+#define EVN_FUNC  FUN_EXPO
 #else
-#define EVN_FUNC  FUN_IMPO__
+#define EVN_FUNC  FUN_IMPO
 #endif
 
-EVN_FUNC Bool32 EVNInitHND(MemFunc* mem);
-EVN_FUNC Bool32 EVNInitPRN(MemFunc* mem);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+EVN_FUNC(Bool32) EVNInitHND( MemFunc* mem );
+EVN_FUNC(Bool32) EVNInitPRN( MemFunc* mem );
+EVN_FUNC(Bool32) EVNInit( MemFunc* mem );
 // Start Initialization; FALSE - ­Ґг¤ з 
 // for mem==NULL need used inter nal memory functions from DLL
 // New call - after close library without EVNDone
-EVN_FUNC Bool32 EVNInit(MemFunc* mem);
 
+EVN_FUNC(Bool32) EVNSetAlphabet(
+		char* char_tbl_put_to // char table[0-255]
+);
 // Set alphabet for recognition
-EVN_FUNC Bool32 EVNSetAlphabet(char* char_tbl_put_to); // char table[0-255]
 
-EVN_FUNC Bool32 EVNRecogChar(RecRaster * rRaster, RecVersions* EVNres);
-EVN_FUNC Bool32 EVNRecogCharPRN(RecRaster * rRaster, RecVersions* EVNres);
+EVN_FUNC(Bool32) EVNRecogChar( RecRaster * rRaster,
+		RecVersions* EVNres );
+EVN_FUNC(Bool32) EVNRecogCharPRN( RecRaster * rRaster,
+		RecVersions* EVNres );
 
+EVN_FUNC(void) EVNDone(void);
 // Stop function. Call after EVNInit()
-EVN_FUNC void EVNDone();
+
+EVN_FUNC(int16_t) EVNGetErr(void);
 // Err16.h defined codes or one of the next
-EVN_FUNC int16_t EVNGetErr();
+//
 
-EVN_FUNC uchar* EVNMakeLine(RecRaster *rRaster, int32_t parm);
-EVN_FUNC MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
-EVN_FUNC int32_t EVNGetNumComp(RecRaster *rRaster);
-EVN_FUNC int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn,
-		uchar *evn_rot, int32_t font);
-EVN_FUNC int32_t EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res);
-EVN_FUNC uchar* EVN_GetSegmentPool(void);
-
-EVN_FUNC Bool32 EVNInitLanguage(const char *tabevn1, const char *tabevn2,
-		uchar lang);
-EVN_FUNC Bool32 EVNSetLanguage(uchar lang);
+EVN_FUNC(uchar*) EVNMakeLine( RecRaster *rRaster,int32_t parm);
+EVN_FUNC(MN *) EVN_CLocomp (uchar* raster, int32_t bw, int32_t h,
+		int16_t upper,int16_t left);
+EVN_FUNC(int32_t) EVNGetNumComp( RecRaster *rRaster );
+EVN_FUNC(int32_t) EVNGetRepresent( RecRaster *rRaster,
+		uchar *evn, uchar *evn_rot, int32_t font );
+EVN_FUNC(int32_t) EVNRecog_lp( /* ExtComponent*/CCOM_comp *ec, uchar *lp,
+		uint16_t lth, uchar *res);
+EVN_FUNC(uchar*) EVN_GetSegmentPool(void);
+EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, uchar lang);
+EVN_FUNC(Bool32) EVNSetLanguage( uchar lang);
 
 // error code
-enum EVN_ERRORS {
-	ER_EVN_NO_ERROR = 0,
-	ER_EVN_NO_RECOG = 1,
-	ER_EVN_OPEN = 2,
-	ER_EVN_MEMORY = 3,
-	ER_EVN_READ = 4
-};
+#define ER_EVN_NO_ERROR 0
+#define ER_EVN_NO_RECOG 1
+#define ER_EVN_OPEN     2
+#define ER_EVN_MEMORY   3
+#define ER_EVN_READ     4
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

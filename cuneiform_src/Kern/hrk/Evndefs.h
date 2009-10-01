@@ -64,16 +64,9 @@
 #define RASTER_MAX_WIDTH	128
 
 //-------------------- conectivity component ---------------------
-
-struct BOX;
-
-struct MN {
-public:
-	BOX * firstBox() {
-		return mnfirstbox;
-	}
-
-	BOX * mnfirstbox; // address of the first box
+#ifndef usual_box_count
+struct mn_struc {
+	void *mnfirstbox; // address of the first box
 	int16_t mncounter; // number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
 	int16_t mnupper; // upper bound of component
@@ -86,13 +79,16 @@ public:
 	uchar mnends; // number of free line ends
 	uchar mnflag; // flag byte for main number
 #define mnpicture 1		// component is a picture
-	MN * mnnext; // address of next dead component
+	struct mn_struc *mnnext; // address of next dead component
 };
+typedef struct mn_struc MN;
+#endif
 //-------------------- lines buffer -------------------------------
 
-struct LPOOL {
+struct tagLPOOL {
 	uint16_t lpool_lth;
 	uchar *lpool;
 };
+typedef struct tagLPOOL LPOOL;
 
 #endif

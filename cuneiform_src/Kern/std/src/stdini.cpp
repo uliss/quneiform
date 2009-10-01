@@ -54,7 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "cfcompat.h"
 #include "internal.h"
 #include "std.h"
 //  Функции работы с INI-файлами

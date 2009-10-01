@@ -107,8 +107,8 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
-		int bottom, int left, int right);
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
+		int left, int right);
 Bool IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
@@ -466,8 +466,8 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 // delete[] lp;
 }
 
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
-		int bottom, int left, int right) {
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
+		int left, int right) {
 
 	Rect16 Rect;
 
@@ -641,9 +641,24 @@ void IfDifCutComp(void) {
 Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 		Bool vertical, RecRaster* rast, int min_h) {
 	int min_w, max_h, max_w;
-	PAGEINFO info;
+	// int j;
+	PAGEINFO info = { 0 };
+	// uchar Name[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 
+	// if(ImageName)
+	// {
+	//	 for (j=0; j<CPAGE_MAXNAME; j++)
+	//		Name[j] = ImageName[j];
+	// }
+	// else
+	// {
+	// for (j=0; j<CPAGE_MAXNAME; j++)
+	//		Name[j] = info.szImageName[j];
+	// }
+	// Handle lpDIB;
+	// if(!CIMAGE_ReadDIB(Name,&lpDIB,1))
+	//	 return 0;
 	ExcControl Control;
 	if (vertical) {
 		min_h = 2;
@@ -671,7 +686,24 @@ Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 	if (REXCExtra(Control, rast->Raster, bytewide, RevOv, bytewide * 8,
 			rast->lnPixHeight, (info.DPIX * 10000) / 254, (info.DPIY * 10000)
 					/ 254, 0, 0, 0, 0, fotomet)) {
-		return REXCGetContainer();
+		/* 	 //Andrey: здесь как раз и идет опознавалка
+		 RRecComControl rcontrol;
+		 rcontrol.MinCompHei=min_h;
+		 rcontrol.MinCompWid=min_w;
+		 rcontrol.MaxCompHei=rast->lnPixHeight+1;
+		 rcontrol.MaxCompWid=bytewide*8;
+		 rcontrol.MaxScale=0;
+		 rcontrol.flags = RECOG_EVN;
+
+		 Handle hCCOM = (Handle)REXCGetContainer();
+
+		 if (hCCOM)
+		 //Andrey: вообще-то так делать нельзя (в смысле передавать последними 2мя параметрами то, что передается), но пока я не знаю, как здесь получить язык распознавания, поэтому вот таким образом пропускается инициализация
+		 if (!RRECCOM_Recog(hCCOM, rcontrol, NULL, -1))
+		 LDPUMA_ConsoleN(RRECCOM_GetReturnString(RRECCOM_GetReturnCode()));
+
+		 return (int32_t)hCCOM;
+		 */return REXCGetContainer();
 	}
 	return 0;
 }

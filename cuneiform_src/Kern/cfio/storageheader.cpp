@@ -12,6 +12,7 @@
 #include "globalfile.h"
 #include "control.h"
 #include "compat_defs.h"
+#include "cfcompat.hpp" // For MakePath
 #include "cfio.h"
 
 namespace CIF {

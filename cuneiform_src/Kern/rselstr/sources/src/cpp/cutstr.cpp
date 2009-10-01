@@ -171,7 +171,7 @@ int CutStrings(POLY_* pBlock) {
 	CCOM_comp * comp;
 	CCOM_comp* prev_comp = NULL;
 
-	PAGEINFO info;
+	PAGEINFO info = { 0 };
 	GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
@@ -262,7 +262,7 @@ int GetMediumHeight(POLY_* pBlock) {
 	Point16 pLeftBottom;
 	Point16 pRightBottom;
 
-	PAGEINFO info;
+	PAGEINFO info = { 0 };
 	GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
@@ -353,7 +353,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 		prewide *= 8;
 	}
 
-	PAGEINFO info;
+	PAGEINFO info = { 0 };
 	CIMAGEInfoDataInGet DataInto = { 0 };
 	CIMAGEInfoDataOutGet DataOut = { 0 };
 

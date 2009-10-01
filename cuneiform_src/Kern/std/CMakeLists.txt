@@ -2,6 +2,8 @@ include_directories(src)
 
 add_library(std32 ${LIBTYPE}
 src/std.cpp
+#src/Std.rc
+src/stdassrt.cpp
 src/stdbits.cpp
 src/stdconsl.cpp
 src/stderror.cpp
