@@ -200,7 +200,7 @@ static uchar leo_ndx_max_prob(RecVersions *v) {
 	return prob;
 }
 
-static void leo_ndx_snapSimpleKey(char *str, SnpTreeNode *stnRecog) {
+static void leo_ndx_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
 	SnpLog("%s", str);
 	SnpLog("");
 	Ind_SnpWaitUserInput(stnRecog); // pass control to user
@@ -218,7 +218,7 @@ static void leo_ndx_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
 	return;
 }
 
-static void leo_snapNdx(RecVersions *loc, char *tit, int enable) {
+static void leo_snapNdx(RecVersions *loc, const char *tit, int enable) {
 	char buf[256], *t;
 	int i;
 
@@ -384,8 +384,8 @@ LEO_FUNC Bool32 LEO_RecogInd(RecObject* object) {
 	}
 
 	leo_ndx_DigHstToVers(Cnts, &ver);
-	if (no_vit && bad_35 || ver.lnAltCnt && let_vit && let_vit
-			!= ver.Alt[0].Code && bad_35) {
+	if ((no_vit && bad_35) || (ver.lnAltCnt && let_vit && let_vit
+			!= ver.Alt[0].Code && bad_35)) {
 		leo_ndx_monus_prob(&ver);
 		leo_snapNdx(&ver, "LEO DESCR : ", 0);
 	}

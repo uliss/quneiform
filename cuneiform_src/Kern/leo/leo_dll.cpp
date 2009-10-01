@@ -102,7 +102,7 @@ static MemFunc* leo_mem;
 static void* leo_alloc(uint32_t len) {
 	return malloc(len);
 }
-static void leo_free(void *ptr, uint32_t len) {
+static void leo_free(void *ptr, uint32_t /*len*/) {
 	free(ptr);
 }
 static void* (*my_alloc)(uint32_t len)=leo_alloc;
@@ -124,7 +124,6 @@ int nNdxWid, nNdxHei;
 Bool32 no_init_ndx = TRUE, no_init_hnd = TRUE, no_init_prn = TRUE;
 uchar nIsPrint = 0;
 static char alphabet_dig[256], alphabet_all[256];
-static Bool32 leo_enable = TRUE;
 
 // data from module leo.c
 int set_cpu = 0;
@@ -152,7 +151,7 @@ void Leo_SnpWaitUserInput(SnpTreeNode *stnCharRecog) {
 	return;
 }
 
-Bool32 leoSnpInRect(Rect16* pRect, int32_t nSkew) {
+Bool32 leoSnpInRect(Rect16* pRect, int32_t /*nSkew*/) {
 	Point16 pt;
 	if (!SnpIsActive())
 		return FALSE;
@@ -161,7 +160,7 @@ Bool32 leoSnpInRect(Rect16* pRect, int32_t nSkew) {
 	return leoInsideRect(pRect, &pt);
 }
 
-void leo_SnpLog(char *tmp) {
+void leo_SnpLog(const char *tmp) {
 	if (!SnpSkip(&stnCharRecog))
 		SnpLog(tmp);
 	return;
@@ -180,10 +179,8 @@ void leo_snapChar(RecVersions *ver, const char *tit, int enable) {
 						ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method,
 								title));
 			}
-			t
-					+= sprintf(t, "%c(%d,%s)",
-							stdAsciiToAnsi(ver->Alt[i].Code), ver->Alt[i].Prob,
-							LEOGetMetName(ver->Alt[i].Method, title));
+			t += sprintf(t, "%c(%d,%s)", stdAsciiToAnsi(ver->Alt[i].Code),
+					ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method, title));
 		} else
 			strcpy(buf, "-");
 		SnpLog("%s %s", tit, buf);
@@ -209,7 +206,7 @@ void leo_snapChar3x5(RecVersions *ver, char *tit, int enable) {
 	return;
 }
 
-void leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog) {
+void leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
 	SnpLog("%s", str);
 	SnpLog("");
 	Leo_SnpWaitUserInput(stnRecog); // pass control to user
@@ -249,7 +246,7 @@ void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
 	return;
 }
 
-void leoSetAlphabet(char alphabet[], int leo_alpha_type) {
+void leoSetAlphabet(char alphabet[], int /*leo_alpha_type*/) {
 	R35SetAlphabet(alphabet);
 	DIFSetAlphabet(alphabet);
 	MSKSetAlphabet(alphabet);
@@ -257,7 +254,6 @@ void leoSetAlphabet(char alphabet[], int leo_alpha_type) {
 	FONSetAlphabet(alphabet);
 	return;
 }
-/////////////////////////////////////////////////////////////////
 
 void LEOSetPlatform(int32_t cpu) {
 	R35SetPlatform(cpu);
@@ -939,9 +935,9 @@ static void RecVersions2data(RecVersions *ver, uchar *data) {
 }
 
 // выбор и рспознавание
-#define POROG_NICE    250
-#define VERY_GOOD_FON 245
-//////////////////
+const int POROG_NICE = 250;
+const int VERY_GOOD_FON = 245;
+
 // установить новую оценку
 static int GetNewProb(int oldRec, int newRec, int nice) {
 	int addRec = 2;
@@ -964,7 +960,7 @@ static int GetNewProb(int oldRec, int newRec, int nice) {
 
 	return MIN(254, MAX(newRec, oldRec + addRec));
 }
-///////////
+
 // надо взять иную первую альтернативу ?
 // (уже знаем, что новая - неплохая, иначе сюда и не идем)
 static Bool32 FonIsBetter(int newProb, int oldProb) {
@@ -976,7 +972,7 @@ static Bool32 FonIsBetter(int newProb, int oldProb) {
 		return TRUE;
 	return FALSE;
 }
-//////////////
+
 // Функция выбора - я пока в экспериментах менял
 // только первую альтернативу и/или оценку
 
@@ -990,7 +986,6 @@ Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew) {
 				&& verNew->Alt[0].Prob > verOld->Alt[1].Prob + 40)
 				&& FonIsBetter(verNew->Alt[0].Prob, verOld->Alt[0].Prob) // data[14]
 		) {
-			//      fprintf(basOut," NewName (prob=%d)",ver.Alt[0].Prob);
 			verOld->Alt[0] = verNew->Alt[0];
 			ret = TRUE;
 		}
@@ -1006,8 +1001,6 @@ Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew) {
 		ret = TRUE;
 	return ret;
 }
-/////////////
-
 
 Bool32 LEOFonRerecogCTB(char *CTBname) {
 	CTB_handle hnd;
@@ -1460,30 +1453,32 @@ void LEO_SetStoringMode(Bool32 Mode) {
 	return;
 }
 
-Bool32 LEORecogChar(RecObject* obj) {
+Bool32 LEORecogChar(RecObject* /*obj*/) {
 	return FALSE;
 }
 
-Bool32 LEORecogChar_expert(RecObject* object) {
+Bool32 LEORecogChar_expert(RecObject* /*object*/) {
 	return FALSE;
 }
 
-Bool32 LEORecogId_expert(int32_t id_page, RecVersions *exp) {
+Bool32 LEORecogId_expert(int32_t /*id_page*/, RecVersions */*exp*/) {
 	return FALSE;
 }
 
-Bool32 LEORecogId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout) {
+Bool32 LEORecogId_Char(int32_t /*id_page*/, RecVersions */*resin*/,
+		RecVersions */*resout*/) {
 	return FALSE;
 }
 
-Bool32 LEOValidId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout) {
+Bool32 LEOValidId_Char(int32_t /*id_page*/, RecVersions */*resin*/,
+		RecVersions */*resout*/) {
 	return FALSE;
 }
 
-Bool32 LEORecogRestore_Char(RecVersions *resin, RecVersions *resout) {
+Bool32 LEORecogRestore_Char(RecVersions */*resin*/, RecVersions */*resout*/) {
 	return FALSE;
 }
 
-Bool32 LEORecogHndMethod(RecObject* object, int Method, int gra_type) {
+Bool32 LEORecogHndMethod(RecObject* /*object*/, int /*Method*/, int /*gra_type*/) {
 	return FALSE;
 }
