@@ -70,6 +70,7 @@
 #include "std.h"
 #include "alphaset.h"
 #include "leo_func.h"
+#include "recdefs.h"
 
 #include "minmax.h"
 

@@ -75,6 +75,7 @@
 #include "ctb.h"
 #include "fon.h"
 #include "msk.h"
+#include "recdefs.h"
 
 #include "std.h"
 #include "snptools.h"
