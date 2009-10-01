@@ -97,15 +97,15 @@ static void xor_one_line(uchar *bin, uchar *bin1, int32_t wb);
 //************ global functions : ************************************
 //********************************************************************
 char * ctb_last_punct(char *word);
-Bool32 CTB_files_init(char *file_name, uchar *data, int16_t maxX, int16_t maxY,
-		int16_t dpb, uchar signums, uchar attr_size);
+Bool32 CTB_files_init(const char *file_name, uchar *data, int16_t maxX,
+		int16_t maxY, int16_t dpb, uchar signums, uchar attr_size);
 //********************************************************************
 //************ global data : *****************************************
 //********************************************************************
 int32_t ctb_err_code = CTB_ERR_NONE; // error code
 char * ctb_tmp_dir = NULL;
-CTB_FUNC(char) local_grey_ctb[256] = "page6666";
-CTB_FUNC(char) local_ctb_name[256] = "ct666666";
+CTB_FUNC char local_grey_ctb[256] = "page6666";
+CTB_FUNC char local_ctb_name[256] = "ct666666";
 //********************************************************************
 //***********  EXPORT functions from CTB_pack ************************
 //********************************************************************
@@ -182,13 +182,14 @@ char * CTB_get_error_name(char *str) {
 	return str;
 }
 
-Bool32 CTB_open(char *filename, CTB_handle *hnd, char *attr) {
+Bool32 CTB_open(const char *filename, CTB_handle *hnd, const char *attr) {
 	char lin[MAXPATH], file_name[MAXPATH], *p;
 	H_CTB_file HCTB;
 	ctb_err_code = CTB_ERR_NONE;
 	strcpy(file_name, filename);
 	p = ctb_last_punct(file_name);
-	strlwr(attr);
+	// uliss void function
+	// strlwr(attr);
 	memset(hnd, 0, sizeof(CTB_handle));
 	if (p)
 		*p = '\0';
@@ -337,7 +338,7 @@ Bool32 CTB_files_test(char *filename, int16_t maxX, int16_t maxY, int16_t dpb) {
 }
 
 // for LEM PRO 256x128x2 ONLY
-Bool32 CTB_create(char *file_name, uchar *data) {
+Bool32 CTB_create(const char *file_name, uchar *data) {
 	uchar attr_size = 32 + 2; // version 7
 
 	if (!ctb_tmp_dir) {
@@ -353,7 +354,7 @@ Bool32 CTB_create(char *file_name, uchar *data) {
 			attr_size);
 }
 
-Bool32 CTB_create_gray(char *file_name, uchar *data) {
+Bool32 CTB_create_gray(const char *file_name, uchar *data) {
 	uchar attr_size = 32 + 2; // version 7
 	if (data && data[0])
 		attr_size = data[0];
@@ -502,7 +503,7 @@ int32_t CTB_volume(CTB_handle *hnd) {
 	return hnd->num;
 }
 
-int32_t CTB_volume_all(char *filename) {
+int32_t CTB_volume_all(const char *filename) {
 	struct stat sts;
 	char lin[MAXPATH], file_name[MAXPATH], *p;
 
@@ -1212,8 +1213,8 @@ char * ctb_last_punct(char *word) {
 	return NULL; // i==4                         //
 }
 
-Bool32 CTB_files_init(char *filename, uchar *data, int16_t maxX, int16_t maxY,
-		int16_t dpb, uchar signums, uchar attr_size) {
+Bool32 CTB_files_init(const char *filename, uchar *data, int16_t maxX,
+		int16_t maxY, int16_t dpb, uchar signums, uchar attr_size) {
 	H_CTB_file H_CTB = { { 'C', 'T' }, 0, 0, 0, 0, 0, 0, 0, 0, { 0 } }; // signatura only //
 	char s[MAXPATH], file_name[MAXPATH], *p;
 	FFILE fp;

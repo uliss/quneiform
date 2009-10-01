@@ -68,11 +68,11 @@
 
 /// extern fuxntions and data
 extern char * ctb_last_punct(char *word);
-extern Bool32 CTB_files_init(char *file_name, uchar *data, int16_t maxX,
+extern Bool32 CTB_files_init(const char *file_name, uchar *data, int16_t maxX,
 		int16_t maxY, int16_t dpb, uchar signums, uchar attr_size);
 extern int32_t ctb_err_code; // error code                   //
 
-int32_t CTB_compress(char *filename) {
+int32_t CTB_compress(const char *filename) {
 	char *p, tmp_file[MAXPATH], file_name[MAXPATH];
 	CTB_handle hi, ho;
 	int32_t i, n, compress;
@@ -205,7 +205,6 @@ int32_t CTB_copy(char *new_name, char *old_name) {
 	CTB_handle hi, ho;
 	int16_t i, n;
 	uchar dst[CTB_DATA_SIZE], buffer[256* 128 + 2 + CTB_DATA_SIZE ];
-	//size_t size;
 
 	ctb_err_code = CTB_ERR_NONE;
 	p = ctb_last_punct(old_name);

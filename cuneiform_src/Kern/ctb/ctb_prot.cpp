@@ -80,7 +80,7 @@ static char buffer[PROTOCOL_BUFFER_SIZE];
 static char sdata[PROTOCOL_BUFFER_SIZE];
 static FILE *f = NULL;
 
-Bool32 CTB_prot_open(char *name) {
+Bool32 CTB_prot_open(const char *name) {
 	f = fopen(name, "rt");
 	return (f != NULL);
 }
@@ -147,7 +147,7 @@ Bool32 CTB_prot_gray_read(unsigned char *PROT_raster, unsigned char *PROT_data) 
 	return TRUE;
 }
 
-Bool32 CTB_prot_gray_write(char *file_name, unsigned char *PROT_raster,
+Bool32 CTB_prot_gray_write(const char *file_name, unsigned char *PROT_raster,
 		unsigned char let, int w, int h, int align) {
 	int wb, wb8, i, ii, j;
 	char tmp[3] = { 0 };
@@ -197,7 +197,7 @@ Bool32 CTB_prot_gray_write(char *file_name, unsigned char *PROT_raster,
 	return TRUE;
 }
 
-Bool32 CTB_prot_write(char *file_name, unsigned char *raster, int lnPixWidth,
+Bool32 CTB_prot_write(const char *file_name, unsigned char *raster, int lnPixWidth,
 		int lnPixHeight, unsigned char code, int align, unsigned char *data) {
 	short int byteLen, byteMmx, height, j, i;
 	FILE *ev = NULL;
