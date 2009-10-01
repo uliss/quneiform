@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "msk.h"
 #include "leo/leo.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "linutil.h"
 
 extern  char    alphabet[256];

@@ -72,7 +72,7 @@
 #include "r35.h"
 #include "evn.h"
 #include "dif.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "fon.h"
 #include "msk.h"
 

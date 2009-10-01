@@ -66,7 +66,7 @@
 
 #include "r35.h"
 #include "evn.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "dif.h"
 #include "fon.h"
 #include "msk.h"

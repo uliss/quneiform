@@ -83,7 +83,7 @@
 #include "fon.h"
 #include "sfont.h"
 #include "fonrec.h"
-#include "ctbdefs.h"
+#include "ctb/ctbdefs.h"
 #include "ligas.h"    // 13.09.2000
 extern uchar language;
 

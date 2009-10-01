@@ -58,7 +58,7 @@
 #include <cstdio>
 #include <cstring>
 
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "std.h"
 #include "leo.h"
 #include "leo_func.h"

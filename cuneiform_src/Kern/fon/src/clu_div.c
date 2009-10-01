@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 
 #include "leo/leo.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "sfont.h"
 #include "fonrec.h"
 #include "clu_lang.h"

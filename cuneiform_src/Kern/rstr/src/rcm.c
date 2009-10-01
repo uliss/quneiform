@@ -72,7 +72,7 @@
 #include "fon.h"
 #include "std.h"
 #include "rstr.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "cstr.h"
 #include "ccom.h"
 #include "resource.h"

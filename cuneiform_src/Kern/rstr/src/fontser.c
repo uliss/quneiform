@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "fon.h"
 #include "fondefs.h"
-#include "ctbdefs.h"
+#include "ctb/ctbdefs.h"
 #include "wrgb.h"
 #include "dpuma.h"
 #include "ligas.h"

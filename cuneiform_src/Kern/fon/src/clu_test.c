@@ -55,16 +55,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "fon.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "sfont.h"
 #include "fonrec.h"
 
 #include <memory.h>
 #include <string.h>
 #include <stdlib.h>
-/*#include <io.h>*/
 #include <fcntl.h>
-/*#include <sys\stat.h>*/
 
 Bool32 BadCluster(InfoCluster *infoC);
 

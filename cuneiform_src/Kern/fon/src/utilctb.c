@@ -60,7 +60,7 @@
 #include <string.h>
 
 #include "minmax.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "sfont.h"
 #include "leo/leo.h"
 

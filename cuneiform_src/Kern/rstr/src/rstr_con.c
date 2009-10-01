@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "leo/leo.h"
 #include "std.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 #include "tuner.h"
 
 extern int16_t line_number;

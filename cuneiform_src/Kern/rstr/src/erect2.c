@@ -62,14 +62,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include"cstr.h"
-#include"fon.h"
-#include"ctb.h"
-#include"tuner.h"
-#include"ligas.h"
-#include"status.h"		// 17.07.2001 E.P.
+#include "cstr.h"
+#include "fon.h"
+#include "ctb/ctb.h"
+#include "tuner.h"
+#include "ligas.h"
+#include "status.h"		// 17.07.2001 E.P.
 
-#include"compat_defs.h"
+#include "compat_defs.h"
 
 // SMAP.C
 extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);

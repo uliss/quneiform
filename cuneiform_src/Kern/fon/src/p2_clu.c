@@ -89,12 +89,11 @@
 #endif
 
 #include "sfont.h"
-#include "ctb.h"
+#include "ctb/ctb.h"
 
 #include "compat_defs.h"
 #include "minmax.h"
 
-//#include "frombas.h"
 int OpenBase(char *);
 void CloseBase(void);
 
