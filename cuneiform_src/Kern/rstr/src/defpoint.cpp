@@ -235,7 +235,7 @@ int16_t Alik_define_cut_points(pchar raster_frag, struct own_cut *ans,
 					CP = Alik_del_doubl_cut((pint16_t) adr_cut_points, product,
 							penalty, CP);
 			}
-			CP = MIN(STK_H - 2, CP);
+			CP = std::min(STK_H - 2, static_cast<int> (CP));
 
 		}
 		if (!CP)
@@ -262,8 +262,8 @@ int16_t Alik_define_cut_points(pchar raster_frag, struct own_cut *ans,
 				ans_ptr->x = (char)*((pint16_t)adr_cut_points+j);
 				ans_ptr->h = dy - *(trace+i);
 				ans_ptr->dh = dy+1 - *(trace+i+1)-*(trace+i);
-				ans_ptr->dh = MIN(ans_ptr->dh,dy);
-				ans_ptr->dh = MIN(ans_ptr->dh,ans_ptr->h);
+				ans_ptr->dh = std::min(static_cast<short> (ans_ptr->dh),dy);
+				ans_ptr->dh = std::min(ans_ptr->dh,ans_ptr->h);
 				if (ans_ptr->dh < tret_h) ans_ptr->var=1;
 				else ans_ptr->var=8;
 				ans_ptr++;
@@ -362,7 +362,7 @@ void Alik_set_method_for_cut_points(struct own_cut *ans, int16_t dy,
 		oct[n].var = ptr->var;
 		if (oct[n].x == 127)
 			break;
-		min_dh = MIN(min_dh, ptr->dh);
+		min_dh = std::min(min_dh, static_cast<short> (ptr->dh));
 	}
 
 	for (i = 0; i <= n; i++) {
@@ -446,7 +446,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*    {1,8,0} ,{8,1,0} ,{8,8,0}                           */
 		/**************************************************************/
 	case 1:
-		/* есть MIN */
+		/* есть std::min */
 		if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3) {
 			if (ans->dh < (min_dh + 3) && ans->dh < (ans + 1)->dh)
 				return 3;
@@ -498,7 +498,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*   {1,8,8},{8,8,4},{8,1,8},{8,8,8}                 */
 		/**************************************************************/
 	case 2:
-		/* есть MIN */
+		/* есть std::min */
 		if (ans->dh == min_dh || (ans + 1)->dh == min_dh || (ans + 2)->dh
 				== min_dh) {
 			if (ans->dh == min_dh)
@@ -507,7 +507,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 				return 8;
 			return 7;
 		}
-		/* есть MIN+2 */
+		/* есть std::min+2 */
 		if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3 || (ans + 2)->dh
 				< min_dh + 3) {
 			if (ans->dh < min_dh + 3)
@@ -554,8 +554,8 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem,
 		/*внизу три коротких одинаковых*/
 		if (ans->h <= chetvert_h && (ans + 1)->h <= chetvert_h && (ans + 2)->h
 				<= chetvert_h) {
-			max_h = MAX(MAX(ans->h, (ans + 1)->h), MAX((ans + 1)->h,
-					(ans + 2)->h));
+			max_h = std::max(std::max(ans->h, (ans + 1)->h), std::max(
+					(ans + 1)->h, (ans + 2)->h));
 			if (ans->h == max_h)
 				return 6;
 			if ((ans + 1)->h == max_h)

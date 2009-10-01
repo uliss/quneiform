@@ -184,7 +184,6 @@ Bool WritePict(uint32_t IndexPict,
 	if (GetPageInfo(h_Page, &pinfo)) {
 		CIMAGE_InfoDataInGet in = { 0 };
 		CIMAGEBITMAPINFOHEADER image_info = { 0 };
-		uint32_t nSize = 0;
 		Point32 Lr = { 0 };
 		Point32 Wh = { 0 };
 		Point32 PLr = { 0 };
@@ -204,51 +203,8 @@ Bool WritePict(uint32_t IndexPict,
 		FrameOffset = abs(WhN.x - Wh.x);
 		if (Lr.x < 0)
 			FrameOffset += abs(Lr.x);
-		/*
-		 if(CPAGE_GetBlockData(h_Page,h_Pict,TYPE_CPAGE_PICTURE,&pict,sizeof(pict))==sizeof(pict))
-		 {
-		 for(uint32_t i = 0; i<pict.Number;i++)
-		 {
-		 RtfLt.x = pict.Corner[i].x;
-		 RtfLt.y = pict.Corner[i].y;
-		 }
-		 }
-		 */
 
-		/*		if(RtfWriteMode)
-		 {
-		 if(FlagMode & USE_NONE)
-		 str.Format("\\marglsxn1800\\margrsxn1800\\margtsxn1440\\margbsxn1440\\headery1440\\footery1440\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0");
-		 else
-		 if( SectorInfo->CountFragments == 1 )
-		 {
-		 Realx = MAX(0,(int)(Lr.x*Twips));
-		 str.Format("\\marglsxn%i\\margrsxn1800\\margtsxn360\\margbsxn360\\headery360\\footery360\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0",Realx);
-		 }
-		 else
-		 if(SectorInfo->FlagInColumn==TRUE)
-		 {
-		 Realx = SectorInfo->OffsetFromColumn.x;
-		 Realy = SectorInfo->OffsetFromColumn.y;
-		 if( SectorInfo->FlagFictiveParagraph)
-		 {
-		 str.Format("\\pard\\fs6\\par\\par{\\shp{\\*\\shpinst\\shpleft%i\\shptop%i\\shpright%i\\shpbottom%i\\shpfhdr0\\shpbxcolumn\\shpbypara\\shpwr2\\shpwrk0\\shpfblwtxt1\\shpz0\\shplockanchor{\\sp{\\sn shapeType}{\\sv 75}}{\\sp{\\sn fFlipH}{\\sv 0}}{\\sp{\\sn fFlipV}{\\sv 0}}{\\sp{\\sn pib}{\\sv ",Realx,Realy,Realx + int(Wh.x*Twips),Realy + int(Wh.y*Twips));
-		 SectorInfo->FlagFictiveParagraph = FALSE;
-		 }
-		 else
-		 str.Format("\\pard\\fs6\\par{\\shp{\\*\\shpinst\\shpleft%i\\shptop%i\\shpright%i\\shpbottom%i\\shpfhdr0\\shpbxcolumn\\shpbypara\\shpwr2\\shpwrk0\\shpfblwtxt1\\shpz0\\shplockanchor{\\sp{\\sn shapeType}{\\sv 75}}{\\sp{\\sn fFlipH}{\\sv 0}}{\\sp{\\sn fFlipV}{\\sv 0}}{\\sp{\\sn pib}{\\sv ",Realx,Realy,Realx + int(Wh.x*Twips),Realy + int(Wh.y*Twips));
-		 }
-		 else
-		 {
-		 Realx = (int)(Lr.x*Twips - SectorInfo->Offset.x);
-		 Realy = (int)(Lr.y*Twips - SectorInfo->Offset.y);
-		 str.Format("{\\pard\\s0\\pvpara\\phmrg\\posx%i\\posy%i\\absh0\\absw%i\\abslock1\\dxfrtext180\\dfrmtxtx0\\dfrmtxty0\\ql\\plain\\fs6\\f3\\fs0\\fi0",
-		 Realx,Realy,(int)(MAX(0, Wh.x-FrameOffset)*Twips) );
-		 }
-
-		 //				(*PictString) += str;
-		 }
-		 */// Получим картинку из исходного изображения задав ее контур
+		// Получим картинку из исходного изображения задав ее контур
 		//определяем размер маски
 		Bool rc = TRUE;
 		pchar pOutDIB = NULL;
@@ -405,8 +361,8 @@ Bool WritePict(uint32_t IndexPict,
 						playout.y = -1;
 						playout.h = -1;
 
-						Lr.x = MAX(0,Lr.x);
-						Lr.y = MAX(0,Lr.y);
+						Lr.x = std::max(0,static_cast<int> (Lr.x));
+						Lr.y = std::max(0,static_cast<int> (Lr.y));
 
 						slayout.left = (int)(Lr.x);
 						slayout.right = (int)(Lr.x + Wh.x);
@@ -429,9 +385,9 @@ Bool WritePict(uint32_t IndexPict,
 						{
 							if(SectorInfo->FlagInColumn==TRUE)
 							{
-								EdFragmRect.x = MAX(0,SectorInfo->OffsetFromColumn.x);
-								EdFragmRect.y = MAX(0,SectorInfo->OffsetFromColumn.y);
-								EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
+								EdFragmRect.x = std::max(0,static_cast<int> (SectorInfo->OffsetFromColumn.x));
+								EdFragmRect.y = std::max(0, static_cast<int> (SectorInfo->OffsetFromColumn.y));
+								EdFragmRect.w = (int)(std::max(0, static_cast<int> (Wh.x-FrameOffset))*Twips);
 								EdFragmRect.h = (int)(Wh.y*Twips);
 								SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
 										EdFragmRect, 0x22,-1, -1, -1);
@@ -440,7 +396,7 @@ Bool WritePict(uint32_t IndexPict,
 							{
 								EdFragmRect.x = (int)(Lr.x*Twips - SectorInfo->Offset.x);
 								EdFragmRect.y = (int)(Lr.y*Twips - SectorInfo->Offset.y);
-								EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
+								EdFragmRect.w = (int)(std::max(0, static_cast<int> (Wh.x-FrameOffset))*Twips);
 								EdFragmRect.h = (int)(Wh.y*Twips);
 								SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
 										EdFragmRect, 0x22,-1, 0, 0);
@@ -473,16 +429,7 @@ Bool WritePict(uint32_t IndexPict,
 				// end piter
 			}
 		}
-		/*		if(RtfWriteMode)
-		 {
-		 if(!(FlagMode & USE_NONE) && SectorInfo->CountFragments!=1 )
-		 {
-		 (*PictString) += "\\f0\\fs6\\par}";
-		 if(SectorInfo->FlagInColumn==TRUE)
-		 (*PictString) +="}}}";
-		 }
-		 }
-		 */}
+	}
 
 #ifdef EdWrite
 	if(!RtfWriteMode)
@@ -492,171 +439,4 @@ Bool WritePict(uint32_t IndexPict,
 
 	return TRUE;
 }
-
-// Piter.
-// Сохранение изображения в метафайле
-//
-//
-static void bufcpy(char ** str, void * mem, unsigned sz) {
-	const char Hex[] = "0123456789ABCDEF";
-	unsigned char * c = (unsigned char *) mem;
-	for (unsigned i = 0; i < sz; i++, (*str) += 2) {
-		(*str)[0] = Hex[c[i] >> 4];
-		(*str)[1] = Hex[c[i] & 0x0F];
-		(*str)[2] = 0;
-	}
-}
-/*
- Bool SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
- {
- Bool rc = FALSE;
-
- #pragma pack (push,1)
- struct MF_header {
- uint16_t 	mtType;
- uint16_t 	mtHeaderSize; // in words
- uint16_t 	mtVersion;
- uint32_t	mtSize;       // in words
- uint16_t  	mtNoObjects;
- uint32_t 	mtMaxRecord;
- uint16_t	mtNoParameters;
- } hMF={1,9,0x0300,0,0,0,0};
-
- struct MF_GDI_records {
- uint32_t   rdSize;
- uint16_t    rdFunction;
- } MF_GDI;
-
- struct MF_StretchDlBitst_info {
- uint32_t	dwRop;
- uint16_t	wUsage;
- uint16_t	srcYExt;
- uint16_t	srcXExt;
- uint16_t 	srcY;
- uint16_t	srcX;
- uint16_t	dstYExt;
- uint16_t	dstXExt;
- uint16_t	dstY;
- uint16_t	dstX;
- }  MF_SI;
- #pragma pack (pop)
-
- // Заголовок картинки
- CString text;
-
- int nPalette = 0;
-
- if(lpDIB->biBitCount == 1)
- nPalette = 2;
- else if(lpDIB->biBitCount == 4)
- nPalette = 16;
- else if(lpDIB->biBitCount == 8)
- nPalette = 256;
-
- int SizePicture = sizeof(BITMAPINFOHEADER)
- + sizeof(RGBQUAD) * nPalette
- + lpDIB->biSizeImage;
-
- hMF.mtMaxRecord=
- (sizeof(MF_GDI) + sizeof(MF_SI) +
- + SizePicture)/2L;
-
- // 3. ђ §¬Ґа ¬Ґв д ©«  ў б«®ў е
- hMF.mtSize= sizeof(hMF)/2 +       // header
- sizeof(MF_GDI)/2 + 2 +// SetWindowOrg
- sizeof(MF_GDI)/2 + 2 +// SetWindowExt
- sizeof(MF_GDI)/2 + 2 +// SetTextColor
- sizeof(MF_GDI)/2 + 2 +// SetBkColor
- sizeof(MF_GDI)/2 + 1 +// StretchBltMode
- hMF.mtMaxRecord +
- sizeof(MF_GDI)/2;     // End
- //
- // Создадим буфер картинки
- //
- text.Format("{\\pict\\wmetafile8\\picw%li\\pich%li"
- "\\picwgoal%li\\pichgoal%li\\sspicalign0 ",
- (uint32_t)(175L*Twips/100*lpDIB->biWidth),
- (uint32_t)(175L*Twips/100*lpDIB->biHeight),
- (uint32_t)(Twips* lpDIB->biWidth),
- (uint32_t)(Twips* lpDIB->biHeight)
- );
-
- *strBuf = *strBuf + text;
- long OldSizestrPict = strBuf->GetLength();
- long NewSizestrPict = OldSizestrPict + hMF.mtSize * 4 + 1 + 1;
- char * strPic = strBuf->GetBuffer(NewSizestrPict);
- if(strPic)
- {
- char * str = strPic + OldSizestrPict;
-
- // header
- bufcpy(&str,&hMF,sizeof(hMF));
-
- // SetWindowOrg
- MF_GDI.rdSize=5;
- MF_GDI.rdFunction=0x20b;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- uint32_t dword=0L;
- bufcpy(&str,&dword,sizeof(dword));
- // SetWindowExt
- MF_GDI.rdSize=5;
- MF_GDI.rdFunction=0x20c;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- uint16_t word=(uint16_t)lpDIB->biHeight;
- bufcpy(&str,&word,sizeof(word));
- word=(uint16_t)lpDIB->biWidth;
- bufcpy(&str,&word,sizeof(word));
- // SetTextColor
- MF_GDI.rdSize=5;
- MF_GDI.rdFunction=0x209;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- dword=0;
- bufcpy(&str,&dword,sizeof(dword));
- // SetBkColor
- MF_GDI.rdSize=5;
- MF_GDI.rdFunction=0x201;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- dword=0x00008080;
- bufcpy(&str,&dword,sizeof(dword));
- // StretchBltMode
- MF_GDI.rdSize=4;
- MF_GDI.rdFunction=0x107;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- word=1;
- bufcpy(&str,&word,sizeof(word));
- // Picture BMP
- MF_GDI.rdSize=hMF.mtMaxRecord;
- MF_GDI.rdFunction=0xf43;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
-
- MF_SI.dwRop	=0x00cc0020L;
- MF_SI.wUsage	=0;
- MF_SI.srcYExt	=(uint16_t)lpDIB->biHeight;
- MF_SI.srcXExt	=(uint16_t)lpDIB->biWidth ;
- MF_SI.srcY	=0;
- MF_SI.srcX	=0;
- MF_SI.dstYExt	=(uint16_t)lpDIB->biHeight;
- MF_SI.dstXExt	=(uint16_t)lpDIB->biWidth ;
- MF_SI.dstY	=0;
- MF_SI.dstX	=0;
- bufcpy(&str,&MF_SI,sizeof(MF_SI));
-
- bufcpy(&str,lpDIB,SizePicture);
- // End
- MF_GDI.rdSize=3;
- MF_GDI.rdFunction=0;
- bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
- //  *(str++)='}';
- *(++str)='}';    //ALIK 22012000
- strBuf->ReleaseBuffer(NewSizestrPict);
- }
- else
- {
- *strBuf += "}";
- rc = FALSE;
- }
-
- return rc;
- }
- */
 

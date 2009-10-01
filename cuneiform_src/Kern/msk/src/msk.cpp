@@ -266,7 +266,7 @@ int det_sym_sort(short ptr_char, uint16_t pri, uint16_t abc_n1,
 					}
 					ms[n1]=ii;char_lst[n1]=let;lst[n1]=i;number_lst[n1]=i;
 					if (nm<MAX_NM) nm++;
-					L=MIN(L,(uint32_t)(ms[0]+4));
+					L=std::min(L,(uint32_t)(ms[0]+4));
 					for (m1=nm-1;m1>0;m1--)
 					if ((uint32_t)ms[m1]>=L) nm--;
 					if (n1>=nm) continue;
@@ -559,7 +559,7 @@ Bool32 MSKRecogNDX(RecRaster *recraster, // raster description
 	lett_coo[3] = ver - 1;
 	hor = ((hor + 63) >> 6) << 6;
 	// FIXME
-	buff_image = (uint16_t*)recraster->Raster;
+	buff_image = (uint16_t*) recraster->Raster;
 
 	nm = 0;
 	err = (int16_t) recindexNDX(hor, ver, lett_coo, (uchar)(0), buff_image);
@@ -914,7 +914,7 @@ int chn_mat1(short coo, uint16_t *bgfff, char buff_col, short i1, short j1,
 							jj1 = 14;
 						} else {
 							jjold++;
-							jj1 = MIN(jj - 1, jj1);
+							jj1 = std::min(jj - 1, jj1);
 						}
 					}
 					k = 1;

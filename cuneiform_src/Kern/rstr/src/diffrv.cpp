@@ -605,10 +605,10 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 		if (dd < 0) { // Bonus для 2-х палок ИНП
 			switch (dd) {
 			case -254:
-				v0->prob = MIN(254, maxprob + 4);
+				v0->prob = std::min(254, maxprob + 4);
 				break;
 			case -250:
-				v0->prob = MIN(254, maxprob + 2);
+				v0->prob = std::min(254, maxprob + 2);
 				break;
 			}
 		} else
@@ -774,13 +774,13 @@ uint16_t check_xk(int16_t h, uchar let) {
 	smooth = i == smooth ? 1 : 0; // make var logical
 
 	if (pen_rk == 0) { // try to find meandr in right
-		int16_t MIN, max, j, pos, neg;
-		for (i = h / 5 + 1, j = 0, MIN = max = r_abris[h / 5]; i < h * 4 / 5; i++, j++) {
-			MIN = MIN(MIN, r_abris[i]);
-			max = MAX(max, r_abris[i]);
+		int16_t min, max, j, pos, neg;
+		for (i = h / 5 + 1, j = 0, min = max = r_abris[h / 5]; i < h * 4 / 5; i++, j++) {
+			min = std::min(min, r_abris[i]);
+			max = std::max(max, r_abris[i]);
 			jump[j] = r_abris[i] - r_abris[i - 1];
 		}
-		if (max - MIN < 2) { //  may be meandr
+		if (max - min < 2) { //  may be meandr
 			for (i = 0, pos = 0, neg = 0; i < j; i++) { // how many peaks
 				if (jump[i] > 0)
 					pos++;
@@ -908,7 +908,7 @@ int16_t chkquocks2(cell * c, puchar rstr, int16_t h, int16_t w, int16_t d) {
 			* 3) < h1; // make var sum logical
 	strcat(buf, "\n Quockets2 ");
 	strcat(buf, sum1 && sum2 ? " Yes" : " No");
-	if (abs(h1 - h2) > MIN(h1, h2) / 2)
+	if (abs(h1 - h2) > std::min(h1, h2) / 2)
 		goto err;
 	goto snp;
 	err: strcpy(buf, "Error or no quockets");
@@ -1724,8 +1724,9 @@ Bool suspect_italic_nn(void) {
 	if (nstick == 3 && stick[0].incl + stick[1].incl + stick[2].incl <= 200)
 		return TRUE;
 	if (nstick == 2)
-		if (MIN(stick[0].incl, stick[1].incl) == 0 && MAX(stick[0].incl,
-				stick[1].incl) == 200 && MIN(stick[0].w, stick[1].w) > 2)
+		if (std::min(stick[0].incl, stick[1].incl) == 0 && std::max(
+				stick[0].incl, stick[1].incl) == 200 && std::min(stick[0].w,
+				stick[1].w) > 2)
 			return TRUE;
 	return FALSE;
 }
@@ -2014,13 +2015,14 @@ uint16_t check_III_bend(cell *c, int16_t dest_foot[]) {
 			return 80; // лапка идет донизу
 	}
 
-	if (nstick > 2 && abs(dest_foot[0] - dest_foot[1]) > 1 && MAX(dest_foot[0],
-			dest_foot[1]) * 2 > MIN(dest_foot[0], dest_foot[1]) * 3)
+	if (nstick > 2 && abs(dest_foot[0] - dest_foot[1]) > 1 && std::max(
+			dest_foot[0], dest_foot[1]) * 2 > std::min(dest_foot[0],
+			dest_foot[1]) * 3)
 		pen += 80;
 
-	for (num = i = 0; i < MIN(3, nstick); i++)
+	for (num = i = 0; i < std::min(3, static_cast<int> (nstick)); i++)
 		num += stick[i].incl;
-	num /= MIN(3, nstick);
+	num /= std::min(3, static_cast<int> (nstick));
 	w -= (h * num) / 2048;
 	for (num = j = 0, i = h - 1; i > hh; i--, j++) {
 		num += (hist_n[i] == 2);
@@ -2048,11 +2050,11 @@ uint16_t check_III(cell *c, int16_t wid_foot, int16_t dest_foot[]) {
 		if (stick[i].l * 4 <= c->h * 3)
 			pen += 40;
 
-	if (nstick > 2 && abs(dest_foot[0] - dest_foot[1]) * 3 > MAX(dest_foot[0],
-			dest_foot[1]) * 2)
+	if (nstick > 2 && abs(dest_foot[0] - dest_foot[1]) * 3 > std::max(
+			dest_foot[0], dest_foot[1]) * 2)
 		pen += 80;
 
-	wid_foot = 3* wid_foot + MIN(dest_foot[0], dest_foot[1]);
+	wid_foot = 3* wid_foot + std::min(dest_foot[0], dest_foot[1]);
 
 	for (d = s2 = ss = 0, i = dy * 3 / 8; i < h; i++) {
 		if (hist_n[i] == 3)
@@ -2064,7 +2066,7 @@ uint16_t check_III(cell *c, int16_t wid_foot, int16_t dest_foot[]) {
 	}
 
 	if (ss * 2 > s2) /* 1/8 высоты линий с несовпадающим числом интервалов */
-		pen += MIN(120, 20* ss );
+		pen += std::min(120, 20* ss );
 	if (d > 2)
 		pen += 20* d ;
 
@@ -2249,7 +2251,7 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 
 		if( i<p || hist_n[i]==1 && hist_d[i]>2*foot_wid+dest_foot-dop)
 		{
-			p = MAX(dest_foot-2,3);
+			p = std::max(dest_foot-2,3);
 			similar_n += (hist_white[i]>p);
 			for(lstairs=stair=0,old=hist_white[i],j=1;j<5;j++)
 			{
@@ -2300,7 +2302,7 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 
 		if( i>=h/2 || hist_n[i]==1 && hist_d[i]>2*foot_wid+dest_foot-dop)
 		{
-			p = MAX(dest_foot-2,3);
+			p = std::max(dest_foot-2,3);
 			similar_n += (hist_white[i]>p);
 
 			for(rstairs=stair=0,old=hist_white[i],j=1;j<5;j++)
@@ -2457,7 +2459,7 @@ uint16_t check_num_foots(int16_t nums, int16_t dy) {
 			ss++;
 
 	if (ss * 3 > s2) /* 1/3 высоты линий с несовпадающим числом интервалов */
-		dis = MIN(120, 20* ss );
+		dis = std::min(120, 20* ss );
 
 	return dis;
 }
@@ -2991,10 +2993,10 @@ struct rst create_raster(cell * c, const s_glue * gl) {
 		right = bottom = 0;
 		i = 0;
 		while ((cp = gl->complist[i++]) != NULL) {
-			left = MIN(left, cp->left);
-			upper = MIN(upper, cp->upper);
-			right = MAX(right, cp->left + cp->w);
-			bottom = MAX(bottom, cp->upper + cp->h);
+			left = std::min(left, cp->left);
+			upper = std::min(upper, cp->upper);
+			right = std::max(static_cast<int> (right), cp->left + cp->w);
+			bottom = std::max(static_cast<int> (bottom), cp->upper + cp->h);
 		}
 		i = 0;
 		_rst.h = bottom - upper;

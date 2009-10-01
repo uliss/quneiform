@@ -617,7 +617,7 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
 					- TemplateOffset.x + rast_attr.w, rast_attr.r_row
 					- TemplateOffset.y + rast_attr.h);
 
-	m_wCountAlt = MIN(vers.lnAltCnt, REC_MAX_VERS);
+	m_wCountAlt = std::min(static_cast<int> (vers.lnAltCnt), REC_MAX_VERS);
 	m_bFlg_spell = 0;
 
 	if (!vers.lnAltCnt) {

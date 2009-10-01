@@ -318,7 +318,7 @@ int16_t discrim_stick(uchar let, STICK_CHARS *l, STICK_CHARS *r,
 	if (language == LANG_RUSSIAN && langUkr)
 		if (let == 'i') {
 			if (dis > 0)
-				dis = MIN(dis, dis_i(l, r, s, 2));
+				dis = std::min(dis, dis_i(l, r, s, 2));
 		}
 
 	if (language != LANG_RUSSIAN) // FRENCH 07.12.1993:
@@ -404,7 +404,7 @@ static int16_t dis_0xBA(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 			}
 			lm = l->mount[4];
 			rm = r->mount[4];
-			t = MAX(wid / 2, 3);
+			t = std::max(wid / 2, 3);
 			if (lm > t && rm < 2) /* left long downer flag, right - small */
 				dis += tab_0xBA[2]; // 10
 			else if (lm > 1 && rm > 1) /* down serif */
@@ -434,8 +434,8 @@ static int16_t dis_0xBA(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		}
 
 		DIS_CENTER_FLAG(r, 2, wid, inc, tab_0xBA[6], tab_0xBA[7]);
-		if (l->down_serif && r->down_serif && MIN(l->mount[4], r->mount[4]) < 4
-				&& s->neck < 3) // add 25.05.1993
+		if (l->down_serif && r->down_serif
+				&& std::min(l->mount[4], r->mount[4]) < 4 && s->neck < 3) // add 25.05.1993
 			DIS_DIFFERENT_SERIFS(l, r, 4, 2, wid, tab_0xBA[13]); // *26
 
 		if (s->typ_nose_1 == 1 && s->dis_nose_1 == 0 && l->down_serif == 2
@@ -541,7 +541,7 @@ static int16_t dis_0xBA(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		dis += tab_0xBA[22]; // 50
 
 	// similar TOO int32_t 'L' (h3/32) "L. Steele"
-	if ((MIN(wid, 6) + wid + r->mount[4]) > dy) // 12.10.1993
+	if ((std::min(static_cast<int> (wid), 6) + wid + r->mount[4]) > dy) // 12.10.1993
 		dis += 100; // too int32_t right down flag		// 100
 
 	// 16.01.1994	PROBA dis/=2 for NECK==3;
@@ -598,9 +598,9 @@ static int16_t dis_i(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 
 	//////if (l->mount[0] > l->mount[4] + r->mount[4] + 2)		// 28.07.1993
 	if (l->mount[0] > // see frae7/10,  stdm11/8:		// 29.07.1993
-			////MAX ((l->mount[4] + r->mount[4] + 2), (s->stick_width + 1)))
+			////std::max((l->mount[4] + r->mount[4] + 2), (s->stick_width + 1)))
 			// 17.01.1994 frac11/15 "Writer":
-			MAX((l->mount[4] + r->mount[4] + 1), (s->stick_width + 1)))
+			std::max((l->mount[4] + r->mount[4] + 1), (s->stick_width + 1)))
 		dis += 166; // "reverse r" for "ri" -> "ii"		// 166
 	// NOTA BENE: "max" - for ZONE-3 R.DOWN, NO L.DOWN !!!
 
@@ -729,15 +729,15 @@ if ( (s->typ_nose_1==0)  &&		// 02.06.1993 PROBA:
 		dis += 20;	// PROBA-20				// 20
 
 /******************************************************************
-if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+if (r->conc[0]>=std::max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 	dis += 80;		// PROBA-80				// 80
 	***************************************************************/
 
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-////l->mount[0]>MAX(wid*2-3,5))	// first
-    l->mount[0]>MAX(wid,5))	// second
+////l->mount[0]>std::max(wid*2-3,5))	// first
+    l->mount[0]>std::max(static_cast<int> (wid),5))	// second
 //////	dis += 80;		// PROBA-80				// 80
 //////	dis += 160;		// PROBA-160				// 160
 	dis += (rmu+2)*80;	// PROBA-rmu"*80			// *80
@@ -947,13 +947,15 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += tab_l[11]; // similar 'f','1'	// 48
 
 		if ((num_l == 1) && // 09.07.1993, 12.10.1993
-				/////(rmd>MAX(wid,3)) && (l->conc[4]*2<wid))	// fraa13/10	'L' (4:5)
-				(rmd > MAX(wid, 4)) && (l->conc[4] * 2 < wid)) // stdg19/8(11) 'l' (3:4)
+				/////(rmd>std::max(wid,3)) && (l->conc[4]*2<wid))	// fraa13/10	'L' (4:5)
+				(rmd > std::max(static_cast<int> (wid), 4)) && (l->conc[4] * 2
+				< wid)) // stdg19/8(11) 'l' (3:4)
 			dis += tab_l[11]; // similar 'L'		// 48
 
 		if (num_l == 3 && lmu > 0 && s->typ_nose_1 == 1 && // OLD OLEG   &&
 				/////pitchsize==0 &&					// 25.05.1993 &&
-				((pitchsize == 0) || (l->m_pos[0] >= MAX(wid, 5) - 1)) && // 01.06.1993 &&
+				((pitchsize == 0) || (l->m_pos[0] >= std::max(
+						static_cast<int> (wid), 5) - 1)) && // 01.06.1993 &&
 				lmu >= lmd) // 31.05.1993
 			dis += tab_l[11]; // similar '1'			// 48
 
@@ -985,7 +987,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 		}
 
 		/******************************************
-		 if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+		 if (r->conc[0]>=std::max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 		 dis += 80;		// PROBA-80			// 80
 		 ***********************************/
 
@@ -1014,8 +1016,8 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 
 		if (s->cut_r && // 09.06.1993 PROBA for CUT. "The" (stdj10);
 				(r->mount[0] || r->m_meandr == 0) && !r->down_serif &&
-		////l->mount[0]>MAX(wid*2-3,5))	// first
-				l->mount[0] > MAX(wid, 5)) // second
+		////l->mount[0]>std::max(wid*2-3,5))	// first
+				l->mount[0] > std::max(static_cast<int> (wid), 5)) // second
 			//////	dis += 80;		// PROBA 80			// 80
 			//////	dis += 160;		// PROBA 160			// 160
 			dis += (rmu + 2) * 80; // PROBA rmu"*80		// *80
@@ -1077,7 +1079,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	}
 
 	// add 25.05.1993 for stdf12/11 "Given"
-	if (s->neck && l->m_pos[0] > MAX(5, s->base_2)) // ZONE-0 TOO DOWN !!!
+	if (s->neck && l->m_pos[0] > std::max(5, static_cast<int> (s->base_2))) // ZONE-0 TOO DOWN !!!
 		DIS_CENTER_FLAG(l, 0, wid, inc, tab_l[6], d_L); // 60, 12(0)
 
 	DIS_FLAGS_L_R(1, tab_l[6]); // 60, 12(0)/12(0)
@@ -1259,11 +1261,13 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += tab_l[11]; // similar 'f','1'	// 48
 
 		if ((num_l == 1) && // 09.07.1993, 12.10.1993
-				(rmd > MAX(wid, 4)) && (l->conc[4] * 2 < wid)) // stdg19/8(11) 'l' (3:4)
+				(rmd > std::max(static_cast<int> (wid), 4)) && (l->conc[4] * 2
+				< wid)) // stdg19/8(11) 'l' (3:4)
 			dis += tab_l[11]; // similar 'L'		// 48
 
 		if (num_l == 3 && lmu > 0 && s->typ_nose_1 == 1 && // OLD OLEG   &&
-				((pitchsize == 0) || (l->m_pos[0] >= MAX(wid, 5) - 1)) && // 01.06.1993 &&
+				((pitchsize == 0) || (l->m_pos[0] >= std::max(
+						static_cast<int> (wid), 5) - 1)) && // 01.06.1993 &&
 				lmu >= lmd) // 31.05.1993
 			dis += tab_l[11]; // similar '1'			// 48
 
@@ -1302,7 +1306,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 
 		if (s->cut_r && // 09.06.1993 PROBA for CUT. "The" (stdj10);
 				(r->mount[0] || r->m_meandr == 0) && !r->down_serif
-				&& l->mount[0] > MAX(wid, 5)) // second
+				&& l->mount[0] > std::max(static_cast<int> (wid), 5)) // second
 			dis += (rmu + 2) * 80; // PROBA rmu"*80		// *80
 	}
 	/*......................................................................*/
@@ -1360,7 +1364,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += 30;
 
 		if (l->conc[2] > 1 && r->conc[2] > 1 && wid < 7)
-			dis += 20* MAX (r->conc[2], l->conc[2]);
+			dis += 20* std ::max(r->conc[2], l->conc[2]);
 
 		if (l->mount[1] + l->mount[2] + r->mount[1] + r->mount[2] < 3)
 			dis += 10;
@@ -1369,7 +1373,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += 30;
 
 		if (r->mount[4]) {
-			rm = MAX(r->mount[1], r->mount[2]);
+			rm = std::max(r->mount[1], r->mount[2]);
 			if (r->mount[4] == 1) {
 				if (rm < 1)
 					dis += 80;
@@ -1385,7 +1389,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 				if (l->mount[2] < 1)
 					dis += 80;
 			} else {
-				lm = MAX(l->mount[1], l->mount[2]);
+				lm = std::max(l->mount[1], l->mount[2]);
 				if (l->mount[4] < 3 && lm < 2)
 					dis += 80;
 				if (l->mount[4] > 2 && abs(l->mount[4] - lm) > 2)

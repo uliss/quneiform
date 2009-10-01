@@ -308,7 +308,7 @@ static char quote(cell *B) {
 		if ((let1 == '>' && let2 == '>' || let1 == '<' && let2 == '<')
 				&& P->col + P->w > B->col) {
 			uchar p1 = B->vers[0].prob, p2 = P->vers[0].prob;
-			if (MAX(p1, p2) >= MINlet) {
+			if (std::max(p1, p2) >= MINlet) {
 				glsnap('a', B, "quotation");
 				return 1;
 			}

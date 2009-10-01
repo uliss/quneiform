@@ -184,7 +184,7 @@ static void MatrixUpdate
 
 	// на деле получаем VIEW_WIDTH==1500-50*2==1400 (отступ от 1500 по 50 с двух сторон),
 	// и при (nWidth==PAGE_MATRIX_WIDTH) nFactor=1400/1024 =1;
-	nFactor = MIN (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
+	nFactor = std::min (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
 
 	_setcolor (_COLOR_BACKGROUND);
 
@@ -688,7 +688,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 	nCharHeight = VIEW_HEIGHT / 10 / nScaling / 2;
 	_setcharsize (nCharHeight, nCharHeight / 2);
 
-	for (i = 0; i < nMaxValue - nMaxValue / 20; i += MAX (nMaxValue / 10, 1))
+	for (i = 0; i < nMaxValue - nMaxValue / 20; i += std::max (nMaxValue / 10, 1))
 	{
 		_moveto ((VIEW_LEFT - xLeft)/ nScaling,
 				(VIEW_BOTTOM - i * VIEW_HEIGHT / nMaxValue - yTop) / nScaling);
@@ -730,7 +730,7 @@ static void SpecialCuttingUpdate (int xLeft, int yTop, int nScaling)
 	if (nWidth == 0 || nHeight == 0)
 	return;
 
-	nFactor = MIN (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
+	nFactor = std::min (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
 
 	_setcolor (_COLOR_BLUE);
 	_rectangle
@@ -768,7 +768,7 @@ static void SB_MatrixUpdate (int xLeft, int yTop, int nScaling)
 	int nFactor;
 	ROOT *pRoot;
 
-	nFactor = MIN (VIEW_WIDTH / nSB_Width, VIEW_HEIGHT / nSB_Height);
+	nFactor = std::min (VIEW_WIDTH / nSB_Width, VIEW_HEIGHT / nSB_Height);
 
 	MatrixUpdate
 	(
@@ -861,7 +861,7 @@ static void WSB_HystogramUpdate
 	nCharHeight = VIEW_HEIGHT / 16 / nScaling / 2;
 	_setcharsize (nCharHeight, nCharHeight / 2);
 
-	for (i = 0; i < nMaxValue - nMaxValue / 32; i += MAX(nMaxValue / 16,1))
+	for (i = 0; i < nMaxValue - nMaxValue / 32; i += std::max(nMaxValue / 16,1))
 	{
 		_moveto ((VIEW_LEFT - xLeft)/ nScaling,
 				(VIEW_BOTTOM - i * VIEW_HEIGHT / nMaxValue - yTop) / nScaling);
@@ -1027,7 +1027,7 @@ static void PictureRemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 	if (pMatrix == NULL)
 	ErrorNoEnoughMemory ("in LTGRAPH.C,PictureRemovingConditionsUpdate,part 1");
 
-	nFactor = MIN (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
+	nFactor = std::min (VIEW_WIDTH / nWidth, VIEW_HEIGHT / nHeight);
 
 	for (ySrc = rDebugRect.yTop, yDst = 0;
 			ySrc <= rDebugRect.yBottom;
@@ -1106,10 +1106,10 @@ static void PictureRemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 	REAL_XY (BottomLeft.x , BottomLeft.y);
 	REAL_XY (BottomRight.x, BottomRight.y);
 
-	rReal.xLeft = MIN (TopLeft.x, BottomLeft.x);
-	rReal.yTop = MIN (TopLeft.y, TopRight.y);
-	rReal.xRight = MAX (TopRight.x, BottomRight.x);
-	rReal.yBottom = MAX (BottomLeft.y, BottomRight.y);
+	rReal.xLeft = std::min (TopLeft.x, BottomLeft.x);
+	rReal.yTop = std::min (TopLeft.y, TopRight.y);
+	rReal.xRight = std::max (TopRight.x, BottomRight.x);
+	rReal.yBottom = std::max (BottomLeft.y, BottomRight.y);
 
 	_setcolor (_COLOR_RED);
 
@@ -1307,7 +1307,7 @@ static void DD_RemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 	nBlockWidth = pDebugBlock -> Rect.xRight - pDebugBlock -> Rect.xLeft + 1;
 	nBlockHeight = pDebugBlock -> Rect.yBottom - pDebugBlock -> Rect.yTop + 1;
 
-	nFactor = MIN (VIEW_WIDTH / 2 /nBlockWidth, VIEW_HEIGHT / nBlockHeight);
+	nFactor = std::min (VIEW_WIDTH / 2 /nBlockWidth, VIEW_HEIGHT / nBlockHeight);
 
 	nMatrixWidth = rDebugRect.xRight - rDebugRect.xLeft + 1;
 	nMatrixHeight = rDebugRect.yBottom - rDebugRect.yTop + 1;
@@ -1426,7 +1426,7 @@ static void ShowBlock (int xLeft, int yTop, int nScaling)
 	nBlockWidth = pDebugBlock -> Rect.xRight - pDebugBlock -> Rect.xLeft + 1;
 	nBlockHeight = pDebugBlock -> Rect.yBottom - pDebugBlock -> Rect.yTop + 1;
 
-	nFactor = MIN (VIEW_WIDTH / 2 /nBlockWidth, VIEW_HEIGHT / nBlockHeight);
+	nFactor = std::min (VIEW_WIDTH / 2 /nBlockWidth, VIEW_HEIGHT / nBlockHeight);
 
 	LT_GraphicsClearScreen ();
 
@@ -1913,7 +1913,7 @@ static void RasterUpdate (int xLeft, int yTop, int nScaling)
 
 	LT_GraphicsClearScreen ();
 
-	nStep = MIN (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
+	nStep = std::min (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
 
 	if (nStep == 0) nStep = 1;
 
@@ -1967,7 +1967,7 @@ static void BreakingUpdate (int xLeft, int yTop, int nScaling)
 
 	LT_GraphicsClearScreen ();
 
-	nStep = MIN (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
+	nStep = std::min (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
 
 	if (nStep == 0)
 	nStep = 1;

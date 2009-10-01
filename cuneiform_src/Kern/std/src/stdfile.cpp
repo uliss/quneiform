@@ -64,10 +64,7 @@
 #include <fcntl.h>
 #include "xpath.h"
 #include "xfindfil.h"
-
-#ifdef WIN32
-#include "win_mini.h"
-#endif
+#include "xmacros.h"
 
 static int32_t _stdOpenCounter = 0;
 static int32_t _stdCloseCounter = 0;

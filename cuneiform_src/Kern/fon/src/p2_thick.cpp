@@ -63,6 +63,7 @@
 #include "fon.h"
 #include "sfont.h"
 #include <string.h>
+#include <algorithm>
 
 extern const int Num11[256];
 /**************************************/
@@ -71,7 +72,8 @@ extern const int Num11[256];
 //  � MAXSINT !
 //  ��ୠ� �窠 == 1  !!!
 //
-int16_t MoveUpDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow, uchar *bDest) {
+int16_t MoveUpDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow,
+		uchar *bDest) {
 	register int16_t i;
 	uchar *b1;
 	uchar *b2;
@@ -130,8 +132,8 @@ static Bool VeryFat(uchar *bSource, int16_t xbit, int16_t yrow, int16_t xbyte) {
 	return FALSE;
 }
 //////////////////////
-int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_t yrow,
-		uchar fat) {
+int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit,
+		int16_t yrow, uchar fat) {
 	int16_t i, j;
 	uchar mas;
 	uchar *b1;
@@ -215,13 +217,13 @@ int16_t MoveUpDownBitmap2(int16_t xbyte, int16_t yrow, uchar *bDest) {
 	return 0;
 }
 /////////////////////
-static int16_t MoveUpDownNoAngle(uchar *bSource, int16_t xbyte1, int16_t xbyte2,
-		int16_t yrow, uchar *bDest) {
+static int16_t MoveUpDownNoAngle(uchar *bSource, int16_t xbyte1,
+		int16_t xbyte2, int16_t yrow, uchar *bDest) {
 	int16_t i, j;
 	uchar *b1;
 	uchar *b2;
 	uchar stay;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
+	int16_t xbyte = std::min(xbyte1, xbyte2);
 
 	// ࠧ����� ����
 	b2 = bDest;
@@ -271,8 +273,8 @@ static int16_t MoveLeftRightBitmap2(uchar *bSource, int16_t xbyte, int16_t yrow)
 	return 0;
 }
 /***********************/
-int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_t porogX,
-		int16_t porogY) {
+int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow,
+		int16_t porogX, int16_t porogY) {
 	register int16_t i, j;
 	uchar mas;
 	uchar *b1, *b2;
@@ -317,8 +319,8 @@ int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_
 }
 //////////////////////////
 /***********************/
-int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbit,
-		int16_t yrow, int16_t porogX, int16_t porogY) {
+int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll,
+		int16_t xbit, int16_t yrow, int16_t porogX, int16_t porogY) {
 	register int16_t i, j;
 	uchar mas;
 	uchar *b1, *b2;
@@ -365,8 +367,8 @@ int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbi
 //
 // move right+down on 1 pixel
 //
-static void MoveDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow, uchar *bDest,
-		int16_t xbyte2) {
+static void MoveDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow,
+		uchar *bDest, int16_t xbyte2) {
 	int16_t i;
 	uchar *b1;
 	uchar *b2;
@@ -459,8 +461,8 @@ int16_t DistBitRas(puchar r, int16_t w, int16_t h, // b/w bitmap
 
 	dist = 0;
 	rbyte = (w + 7) >> 3;
-	lasty = MIN(h, sty + wh); // last in intersection
-	lastx = MIN(w, stx + ww);
+	lasty = std::min(static_cast<int> (h), sty + wh); // last in intersection
+	lastx = std::min(static_cast<int> (w), stx + ww);
 
 	if (sty < 0)
 		wr -= sty * ww;
@@ -549,8 +551,8 @@ int16_t DistRasBit(puchar r, int16_t w, int16_t h, // b/w bitmap
 	startx -= stx;
 	starty -= sty;
 	stx = sty = 0;
-	lastx = MIN(ww, startx + w);
-	lasty = MIN(wh, starty + h);
+	lastx = std::min(static_cast<int> (ww), startx + w);
+	lasty = std::min(static_cast<int> (wh), starty + h);
 	dist = 0;
 
 	if (starty < 0)

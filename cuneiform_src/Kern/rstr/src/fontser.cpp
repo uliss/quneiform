@@ -383,7 +383,7 @@ static cell *serif_word(cell *c) {
 	end = c;
 
 	serif = meas;
-	reliable = MAX(np, nm) >= 2* MIN (np, nm);
+	reliable = std::max(np, nm) >= 2* std ::min(np, nm);
 
 	if (!reliable && p2_active) //let's use database
 	{
@@ -428,7 +428,7 @@ static cell *serif_word(cell *c) {
 			c = c->next;
 		} while (!(c->flg & c_f_fict));
 		serif = meas;
-		reliable = MAX(np, nm) >= 2* MIN (np, nm);
+		reliable = std::max(np, nm) >= 2* std ::min(np, nm);
 	}
 
 	if (serif != 0) {
@@ -673,7 +673,7 @@ static void find_serif(cell *c, uint16_t map, int32_t *meas, int32_t *np,
 	shape = map & 3;
 	if (shape) //left-up
 	{
-		for (i = 0, sti = st; i < MIN(2, nstick); i++, sti++) //in russian 'i' left stick maybe not first
+		for (i = 0, sti = st; i < std::min(2, static_cast<int> (nstick)); i++, sti++) //in russian 'i' left stick maybe not first
 			if (sti->y + sti->l + 2 >= c->h) {
 				int16_t x = sti->x + sti->l * sti->incl / INCL_FAC - dw;
 				if (x < w3) {
@@ -714,7 +714,7 @@ static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 					0;
 			interval *intv;
 
-			i0 = MAX(i0, 0);
+			i0 = std::max(static_cast<int> (i0), 0);
 			i = h - H8 - 1; //from line top
 			if (!(intv = interval_fit(i, line, H, st)))
 				continue; //line not corresponds to stick
@@ -818,7 +818,7 @@ static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 	for (line = (lnhead *) ((pchar)(env) + env->lines + sizeof(int16_t)); line->lth
 			> 0; line = (lnhead *) ((pchar) line + line->lth))
 		if (line->flg & l_fbeg && (h = line->h) > H3 && line->row <= 2) {
-			int16_t x1, x2, i, i0 = MIN(H3, h), begl = 0, begr = 0;
+			int16_t x1, x2, i, i0 = std::min(H3, h), begl = 0, begr = 0;
 			int32_t lsum = 0, rsum = 0, imaxl = 0, vmaxl = 0, imaxr = 0, vmaxr =
 					0;
 			interval *intv;
@@ -839,7 +839,7 @@ static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 			x2 = intv->e;
 			x1 = x2 - intv->l;
 			//      i0=env->h-st->y-st->l;        //in 'p' stick not begins on top
-			i0 = MAX(line->row, env->h - st->y - st->l); //finish interval in serif search
+			i0 = std::max(static_cast<int> (line->row), env->h - st->y - st->l); //finish interval in serif search
 			i0 = i - i0; //number of intervals in serif search
 			for (i = 0; i <= i0 && shape != 0; i++, intv--)
 			//        if (intv->l<=w2 || intv->e<x1 || intv->e-intv->l>=x2)

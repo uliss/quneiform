@@ -94,7 +94,7 @@ static char at_roof[128];
 static uchar pens_leg[32] = { 100, 100, 64, 100, 100, 64, 100, 100, 64, 100,
 		100, 64, 100, 64, 64, 64, 64, 100, 100, 36 };
 static uchar pen_ne_12[] = { 0, 12, 36, 64, 96, 100, 128, 160 };
-static char *legs_err[] = { "ok", "1st bad", "1st uneven", "1st like \\",
+static const char *legs_err[] = { "ok", "1st bad", "1st uneven", "1st like \\",
 		"2nd bad", "2nd uneven", "2nd like \\", "3rd bad", "3rd uneven",
 		"3rd like \\", "1-2 bad", "1-2 uneven", "2-3 bad", "2-3 uneven",
 		"1 ne 2", "1 ne 3", "2 ne 3", "1st far", "last far", "1-2 # 2-3" };
@@ -900,7 +900,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 		if ((mr1=roof[minr1++]) != 127) break;
 		while (1)
 		if ((mr2=roof[--minr2]) != 127) break;
-		i=MIN(mr1,mr2);
+		i=std::min(mr1,mr2);
 		if (minroof <= (i+2)) goto tryu; // not too deep gap
 		if (minrx < minr4) // in left half of cell
 		{	int16_t gap_bnd_up, gap_bnd_mdl;
@@ -980,7 +980,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 		if ((mr1=roof[minr1++]) != 127) break;
 		while (1)
 		if ((mr2=roof[--minr2]) != 127) break;
-		i=MIN(mr1,mr2);
+		i=std::min(mr1,mr2);
 		if (minrx < (e0[thmdle]+3)) goto retsort; // close to left leg
 		if (minrx >= (e1[thmdle]-2)) goto retsort; // arc under leg
 		if (minroof <= (i+2)) goto retsort; // not too deep gap

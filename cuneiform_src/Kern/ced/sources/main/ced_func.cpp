@@ -784,7 +784,8 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
 			goto ED_WRITE_END;
 		if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_MCOL_BEG))
 			goto ED_WRITE_END;
-		if (!WriteRemark(hFile, SSR_FRAG_PNUM, MIN(sect->numberOfColumns, 1)))
+		if (!WriteRemark(hFile, SSR_FRAG_PNUM, std::min(
+				static_cast<int> (sect->numberOfColumns), 1)))
 			goto ED_WRITE_END;
 		//Write headers of paragraphs in rows
 		Bool32 fisrtCol = TRUE;//In order for it not to write NEW_COL in the beginning og first column
@@ -974,7 +975,8 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
 						letterEx l;
 						l.alternative = ' ';
 						l.probability = 254;
-						if (!CFIO_WriteToFile(hFile, (pchar) & l, sizeof(letterEx)))
+						if (!CFIO_WriteToFile(hFile, (pchar) & l,
+								sizeof(letterEx)))
 							goto ED_WRITE_END;
 					}
 					chr = line->NextChar(FALSE);
@@ -1044,7 +1046,8 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
 	if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(
 			page->imageName) + 1))
 		return FALSE;
-	if (!CFIO_WriteToFile(hFile, (pchar) page->imageName, strlen(page->imageName) + 1))
+	if (!CFIO_WriteToFile(hFile, (pchar) page->imageName, strlen(
+			page->imageName) + 1))
 		return FALSE;
 	return TRUE;
 }

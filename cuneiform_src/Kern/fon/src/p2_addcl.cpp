@@ -78,7 +78,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
-
+#include <algorithm> // for std::min
 #include "cfcompat.h"
 
 #ifdef _GETTIME_
@@ -87,7 +87,6 @@
 
 #include "sfont.h"
 #include "fon.h"
-#include "minmax.h"
 
 #include "compat_defs.h"
 
@@ -365,8 +364,8 @@ static int16_t AddRaster(SWEL *sw, welet *wl) {
 	pchar ras, rr;
 	int16_t stx, sty;
 
-	w = MIN(WR_MAX_WIDTH, wl->w + 2); // add two rows !!!
-	h = MIN(WR_MAX_HEIGHT, wl->h + 2);
+	w = std::min(WR_MAX_WIDTH, wl->w + 2); // add two rows !!!
+	h = std::min(WR_MAX_HEIGHT, wl->h + 2);
 
 	if ((i = AddBuffer2(w * h)) < 0)
 		return i;
@@ -688,20 +687,23 @@ int16_t SaveAddCluster(int16_t fh, int16_t clus, int16_t firCl, int16_t lastCl,
 		if (nClu[i] != clus)
 			continue;
 
-		sdvigx = MAX(0, (WR_MAX_WIDTH - (int16_t) rh[i].w) / 2 + rh[i].sr_col);
-		sdvigy = MAX(0, (WR_MAX_HEIGHT - (int16_t) rh[i].h) / 2 + rh[i].sr_row);
-		lastx = MAX(lastx, sdvigx + rh[i].w);
-		lasty = MAX(lasty, sdvigy + rh[i].h);
-		startx = MIN(startx, sdvigx);
-		starty = MIN(starty, sdvigy);
+		sdvigx = std::max(0, (WR_MAX_WIDTH - (int16_t) rh[i].w) / 2
+				+ rh[i].sr_col);
+		sdvigy = std::max(0, (WR_MAX_HEIGHT - (int16_t) rh[i].h) / 2
+				+ rh[i].sr_row);
+		lastx = std::max(static_cast<int> (lastx), sdvigx + rh[i].w);
+		lasty = std::max(static_cast<int> (lasty), sdvigy + rh[i].h);
+		startx = std::min(startx, sdvigx);
+		starty = std::min(starty, sdvigy);
 
 		// where put next raster ?
 		rast = wel->raster + sdvigy * WR_MAX_WIDTH + sdvigx;
 
 		wel->summa += PutSymbolRaster(rh[i].pHau, rast, (int16_t) WR_MAX_WIDTH,
-				(int16_t) MIN(rh[i].w, WR_MAX_WIDTH - sdvigx),
-				(int16_t) ((rh[i].w + 7) >> 3), (int16_t) MIN(rh[i].h,
-						WR_MAX_HEIGHT - sdvigy));
+				(int16_t) std::min(static_cast<int> (rh[i].w), WR_MAX_WIDTH
+						- sdvigx), (int16_t) ((rh[i].w + 7) >> 3),
+				(int16_t) std::min(static_cast<int> (rh[i].h), WR_MAX_HEIGHT
+						- sdvigy));
 		summax += rh[i].w;
 		summay += rh[i].h;
 		wei++;
@@ -720,8 +722,8 @@ int16_t SaveAddCluster(int16_t fh, int16_t clus, int16_t firCl, int16_t lastCl,
 
 	// check new center of weighted raster
 	// get new sizes:
-	lastx = MIN(lastx, WR_MAX_WIDTH) - startx;
-	lasty = MIN(lasty, WR_MAX_HEIGHT) - starty;
+	lastx = std::min(static_cast<int> (lastx), WR_MAX_WIDTH) - startx;
+	lasty = std::min(static_cast<int> (lasty), WR_MAX_HEIGHT) - starty;
 
 	MoveWeighted(wel, (int16_t) ((WR_MAX_WIDTH - lastx) / 2),
 			(int16_t) ((WR_MAX_HEIGHT - lasty) / 2), lastx, lasty, startx,
@@ -732,16 +734,9 @@ int16_t SaveAddCluster(int16_t fh, int16_t clus, int16_t firCl, int16_t lastCl,
 	wel->weight = (uchar) wei;
 	wel->porog = wel->weight / POROG_IDEAL;
 
-	//#ifdef _IDEAL_
-	// if(wel->weight >= POROG_IDEAL) MakeIdeal(wel,wel->weight/POROG_IDEAL);
-	// wel->fill=FindDistanceWr(wel,dist_wel);
-	//#else
 	for (i = 0, wel->fill = 0; i < WR_MAX_WIDTH * WR_MAX_HEIGHT; i++)
 		if (wel->raster[i])
 			wel->fill++;
-	//#endif
-
-	// wel->attr |= FON_CLU_UPDATE;
 
 	lsave: wel->num = clus;
 	if (write(fh, wel, sizeof(welet)) != sizeof(welet))
@@ -784,7 +779,7 @@ static int16_t StartWeightedClusters(char *nameClu, puchar extern_buf,
 	if (NumClus <= 0)
 		return -4;
 
-	NumClus = MIN(NumClus, MAXWELSYM);
+	NumClus = std::min(static_cast<int> (NumClus), MAXWELSYM);
 	size = StartHausdorfDLL2(NumClus, extern_buf, size_extern);
 	if (size < 0)
 		return -1;
@@ -884,7 +879,7 @@ int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog,
 	size += (uint32_t)(NumHauBit - 1) * SIZEBUF;
 
 	// compare memory for weighted rasters and b/w rasters
-	cin->memused = MAX(size, cin->memused);
+	cin->memused = std::max(size, cin->memused);
 
 #ifdef _GETTIME_
 	cl3=clock();

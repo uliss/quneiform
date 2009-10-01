@@ -1166,14 +1166,14 @@ Bool32 R35Pack_resize(RecRaster* raster, uint16_t* Image3x5, int32_t to_x,
 				if( w0>h0 )
 				{
 					memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
-					to_y = MAX((h0*to_y)/w0,1);
+					to_y = std::max((h0*to_y)/w0,1);
 					ret = r35_pack(rast, wb, 0,0, w,h, Image3x5,to_x, to_y );
 				}
 				else if( w0<h0 )
 				{
 					memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
 					swb = to_x;
-					to_x = MAX((w0*to_x)/h0,1);
+					to_x = std::max((w0*to_x)/h0,1);
 					ret = r35_pack(rast, wb, 0,0, w,h, Im16x16,to_x, to_y );
 					wb = to_x*sizeof(Image3x5[0]);
 					for(iii=ii=i=0;i<to_y;i++,ii+=to_x,iii+=swb)
@@ -1258,14 +1258,14 @@ Bool32 R35PackGray_resize(RecRaster* raster, // raster description
 		if( w0>h0 )
 		{
 			memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
-			to_y = MAX((h0*to_y)/w0,1);
+			to_y = std::max((h0*to_y)/w0,1);
 			r35_pack_gray(rast, wb, 0,0, w,h, Image3x5,to_x, to_y );
 		}
 		else if( w0<h0 )
 		{
 			memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
 			swb = to_x;
-			to_x = MAX((w0*to_x)/h0,1);
+			to_x = std::max((w0*to_x)/h0,1);
 			r35_pack_gray(rast, wb, 0,0, w,h, Im16x16,to_x, to_y );
 			wb = to_x*sizeof(Image3x5[0]);
 			for(iii=ii=i=0;i<to_y;i++,ii+=to_x,iii+=swb)
@@ -1414,7 +1414,8 @@ Bool32 R35RecogCharIm3x5_expert(uint16_t* Im3x5, // image 3x5
 	}
 
 	memset(vers, 0, sizeof(vers));
-	nvers = MIN(res->lnAltCnt, sizeof(vers) / sizeof(vers[0]));
+	nvers = std::min(res->lnAltCnt, static_cast<int> (sizeof(vers)
+			/ sizeof(vers[0])));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;
 		vers[i].prob = 0;
@@ -1449,7 +1450,8 @@ Bool32 R35RecogNdxIm3x5_expert(uint16_t* Im3x5, // image 3x5
 	}
 	memset(vers, 0, sizeof(vers));
 
-	nvers = MIN(res->lnAltCnt, sizeof(vers) / sizeof(vers[0]));
+	nvers = std::min(res->lnAltCnt, static_cast<int> (sizeof(vers)
+			/ sizeof(vers[0])));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;
 		vers[i].prob = 0;
@@ -1485,7 +1487,8 @@ Bool32 R35RecogPrintCharIm3x5_expert(uint16_t* Im3x5, RecVersions* res,
 
 	memset(vers, 0, sizeof(vers));
 
-	nvers = MIN(res->lnAltCnt, sizeof(vers) / sizeof(vers[0]));
+	nvers = std::min(res->lnAltCnt, static_cast<int> (sizeof(vers)
+			/ sizeof(vers[0])));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;
 		vers[i].prob = 0;

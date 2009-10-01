@@ -73,9 +73,6 @@
 # include "my_mem.h"
 # include "cline.h"
 
-//#include "lns.h"
-//#include "rline.h"
-
 #include "dpuma.h"
 #include "minmax.h"
 
@@ -257,8 +254,8 @@ void SeparatorsGet (void)
 						(pSeps[i].yBegin > pSeps[j].yEnd) &&
 						(uint32_t)(pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
 				{
-					pSeps[i].xBegin = MIN(pSeps[i].xBegin, pSeps[j].xBegin);
-					pSeps[i].xEnd = MAX(pSeps[i].xEnd, pSeps[j].xEnd);
+					pSeps[i].xBegin = std::min(pSeps[i].xBegin, pSeps[j].xBegin);
+					pSeps[i].xEnd = std::max(pSeps[i].xEnd, pSeps[j].xEnd);
 					pSeps[i].yBegin = pSeps[j].yBegin;
 					DeleteSeps(j);
 					j--;
@@ -271,8 +268,8 @@ void SeparatorsGet (void)
 						(pSeps[i].xBegin > pSeps[j].xEnd) &&
 						(pSeps[i].xBegin - pSeps[j].xEnd) < ABS2)
 				{
-					pSeps[i].yBegin = MIN(pSeps[i].yBegin, pSeps[j].yBegin);
-					pSeps[i].yEnd = MAX(pSeps[i].yEnd, pSeps[j].yEnd);
+					pSeps[i].yBegin = std::min(pSeps[i].yBegin, pSeps[j].yBegin);
+					pSeps[i].yEnd = std::max(pSeps[i].yEnd, pSeps[j].yEnd);
 					pSeps[i].xBegin = pSeps[j].xBegin;
 					DeleteSeps(j);
 					j--;
@@ -280,30 +277,14 @@ void SeparatorsGet (void)
 			}
 		}
 	}
-
-	/*
-	 for(i = 0; i < nSeps; i++)
-	 {
-	 color = 200;
-	 key = 111;
-	 p_start.x = pSeps[i].xBegin;
-	 p_start.y = pSeps[i].yBegin;
-	 p_end.x   = pSeps[i].xEnd;
-	 p_end.y   = pSeps[i].yEnd;
-
-	 LDPUMA_DrawLine(NULL, &p_start, &p_end, 0, color, 4, key);
-	 }
-	 */
-
-	//LDPUMA_WaitUserInput(NULL, NULL);
-
 }
 
 # else
 static int SepComp(const SEPARATOR *p, const SEPARATOR *q) //AK 04.03.97
 {
-	return (MAX(abs(q -> xEnd - q -> xBegin), abs(q -> yEnd - q -> yBegin))
-			- MAX(abs(p -> xEnd - p -> xBegin), abs(p -> yEnd - p -> yBegin)));
+	return (std::max(abs(q -> xEnd - q -> xBegin), abs(q -> yEnd - q -> yBegin))
+			- std::max(abs(p -> xEnd - p -> xBegin), abs(p -> yEnd
+					- p -> yBegin)));
 }
 
 void SeparatorsGet(void) {

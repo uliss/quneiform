@@ -408,9 +408,9 @@ static void NHcell(cell *C) {
 		GL.ncell = 1;
 		make_broken_raster(&GL, 1);
 		if (h <= 21)
-			rot = MIN(vrot_small[SBOX.dens / 2], 8);
+			rot = std::min(static_cast<int> (vrot_small[SBOX.dens / 2]), 8);
 		else
-			rot = MIN(vrot[SBOX.dens / 4], 17); // the treshold of the density
+			rot = std::min(static_cast<int> (vrot[SBOX.dens / 4]), 17); // the treshold of the density
 		if (!rot) {
 			NHdiff(C); // differ N and H by usual way
 			goto NHRet;
@@ -622,7 +622,7 @@ static void TYrecog()
 		goto TY_noshift;
 	if (dy < 20)
 		goto TY_noshift;
-	jmp = MAX(dy / 20, 1); // set admissible jump of top abris
+	jmp = std::max(dy / 20, 1); // set admissible jump of top abris
 	shift = dx >> 2; // set shift from any side 1/4 of width
 	from = shift;
 	to = dx - shift;
@@ -933,9 +933,9 @@ static Bool not_AvanGard_a() {
  }
  v -> let   = 0;                         // end flag for versions in cell
  m          = v - vers;
- m          = MIN (m, 8);
+ m          = std::min (m, 8);
  C -> nvers = m;
- memcpy (C -> vers, vers, MIN (m + 1, 8) * sizeof (*v));
+ memcpy (C -> vers, vers, std::min (m + 1, 8) * sizeof (*v));
  C -> flg   = c_f_let;
  sort_vers (C);
  end:;
@@ -1043,7 +1043,7 @@ static void make_func_ec() {
 	for (i = 0; i < dy; i++)
 		funcs[nfunc][i] = hist[4][i];
 	nfunc++;
-	nfunc = MIN(nfunc, MAX_NEW_FUNC);
+	nfunc = std::min(static_cast<int> (nfunc), MAX_NEW_FUNC);
 }
 
 static Bool middle_long_sharp_peak(int16_t nf, int16_t from, int16_t to) {
@@ -1086,9 +1086,9 @@ static Bool pure_concave(puchar f, int16_t from, int16_t to, int16_t jmp) {
 }
 
 static Bool hole_in_func(puchar f, int16_t from, int16_t to, int16_t jmp) {
-	int16_t MIN;
-	MIN = gmin(f, from, to);
-	if ((f[to] - MIN > jmp) && (f[from] - MIN > jmp))
+	int16_t min;
+	min = gmin(f, from, to);
+	if ((f[to] - min > jmp) && (f[from] - min > jmp))
 		return TRUE;
 	else
 		return FALSE;
@@ -1123,7 +1123,7 @@ static void ecrecog() {
 		goto fin;
 	}
 
-	jump = MAX(dy / 10, 1) - 1;
+	jump = std::max(dy / 10, 1) - 1;
 	if (pure_concave(funcs[3], (int16_t) (dy * 2 / 10),
 			(int16_t) (dy * 8 / 10), jump)) {
 		for (n3 = 0, n2 = 0, n1 = (dx >> 1); n1 < dx - 2; n1++) {

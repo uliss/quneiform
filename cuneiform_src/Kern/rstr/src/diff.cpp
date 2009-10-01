@@ -253,7 +253,7 @@ void criteria(cell *c) {
 		// Nick 18.06.2002
 		if (language == LANG_TURKISH && ((let = vers->let) == i_sans_accent
 				|| let == II_dot_accent) && (r = upper_right_angle(c)) > 0) {
-			vers->prob = MAX(2, vers->prob - r);
+			vers->prob = std::max(2, vers->prob - r);
 			continue;
 		}
 
@@ -450,9 +450,10 @@ cell *dot_ri(cell *c) {
 				| c->font_new) & c_fp_it) ? c->w / 3 : 5) <= c->col + c->w
 				&& (cc->col + cc->w / 2 <= c->col + c->w || (c->font
 						| c->font_new) & c_fp_it || c->save_stick_inc > 300
-						&& c->pos_inc == erect_rest) && cc->row + 4 >= MIN(
-				bl.b0, bl.b1) && cc->row + cc->h >= bl.b1 && cc->row + cc->h
-				- 2 <= bl.b2 && cc->col + cc->w / 2 >= c->col + (2* c ->w) / 3)
+						&& c->pos_inc == erect_rest) && cc->row + 4
+				>= std::min(bl.b0, bl.b1) && cc->row + cc->h >= bl.b1
+				&& cc->row + cc->h - 2 <= bl.b2 && cc->col + cc->w / 2
+				>= c->col + (2* c ->w) / 3)
 			return cc;
 	return NULL;
 }
@@ -624,7 +625,7 @@ int16_t ij_test(cell *c) {
 			if (v1->let == 'i' || v1->let == 'j' || language == LANG_TURKISH && // 31.05.2002 E.P.
 					v1->let == II_dot_accent) {
 				v2->let = v1->let;
-				v2->prob = MIN(254, v1->prob + 84);
+				v2->prob = std::min(254, v1->prob + 84);
 				v2++;
 				(c->nvers)++;
 			}
@@ -712,7 +713,7 @@ cell *dot_iUkr(cell *c) {
 		if (cc->flg & (c_f_dust + c_f_punct) && // dust
 				2* cc ->h < c->h && // not too high
 				cc->row + cc->h - 2 <= bl.b2 && // upper position
-				(cc->row + 4 >= MIN(bl.b0, bl.b1) || // not too upper
+				(cc->row + 4 >= std::min(bl.b0, bl.b1) || // not too upper
 						cc->row >= bl.b1 - bl.ps / 3)
 		/*        cc->row+cc->h<=c->row
 		 */
@@ -727,7 +728,7 @@ cell *dot_iUkr(cell *c) {
 					 cc->h<cc->w && cc->w-(cc->h+((fax1x2)?2:0))<=H/4 ||
 					 cc->h<cc->w && 3*(c->row-cc->row)>=c->h && abs(cc->w-c->w)<=1) &&
 					 cc->col+3>=c->col &&
-					 c->col+c->w/2-(cc->col+cc->w/2)<=MAX(2,c->w/4) &&
+					 c->col+c->w/2-(cc->col+cc->w/2)<=std::max(2,c->w/4) &&
 					 cc->col+cc->w-6<=c->col+c->w &&
 					 (memchr("ij",c->prevl->vers[0].let,2)==NULL ||
 					 c->prevl->col+c->prevl->w<cc->col) &&
@@ -791,7 +792,7 @@ cell *dot_ij(cell *c) {
 		if (cc->flg & (c_f_dust + c_f_punct) && // dust
 				2* cc ->h < c->h && // not too high
 				cc->row + cc->h - 2 <= bl.b2 && // upper position
-				(cc->row + 4 >= MIN(bl.b0, bl.b1) || // not too upper
+				(cc->row + 4 >= std::min(bl.b0, bl.b1) || // not too upper
 						cc->row >= bl.b1 - bl.ps / 3) && cc->row + cc->h
 				<= c->row) {
 			if (c->w > 4) // wide cell
@@ -803,22 +804,22 @@ cell *dot_ij(cell *c) {
 									: 0)) <= H / 4 || cc->h < cc->w && 3*
 							(c ->row-cc->row)>=c->h && abs(cc->w-c->w)<=1) &&
 							cc->col+3>=c->col &&
-							c->col+c->w/2-(cc->col+cc->w/2)<=MAX(2,c->w/4) &&
+							c->col+c->w/2-(cc->col+cc->w/2)<=std::max(2,c->w/4)&&
 							cc->col+cc->w-6<=c->col+c->w &&
-							(memchr("ij",( let = c->prevl->vers[0].let),2)==NULL &&
-		// Исправил || на "&& !" 08.09.2000 E.P.
-      !( language == LANG_POLISH &&
-			( let == ZZ_dot_accent || let == z_dot_accent ) ||
+					(memchr("ij",( let = c->prevl->vers[0].let),2)==NULL &&
+							// Исправил || на "&& !" 08.09.2000 E.P.
+							!( language == LANG_POLISH &&
+									( let == ZZ_dot_accent || let == z_dot_accent ) ||
 
-		 // 16.07.2001 E.P.
-		 language == LANG_LITHUANIAN &&
-			( let == EE_dot_accent || let == e_dot_accent ) ||
+									// 16.07.2001 E.P.
+									language == LANG_LITHUANIAN &&
+									( let == EE_dot_accent || let == e_dot_accent ) ||
 
-		 // 30.05.2002 E.P.
-		 language == LANG_TURKISH &&
-			let == II_dot_accent
-	   ) ||
-           c->prevl->col+c->prevl->w < cc->col) )
+									// 30.05.2002 E.P.
+									language == LANG_TURKISH &&
+									let == II_dot_accent
+							) ||
+							c->prevl->col+c->prevl->w < cc->col) )
 					{
 						csv=cc;
 						if (cc->col+cc->w/2 > c->col+c->w/2)
@@ -950,7 +951,7 @@ cell *dot_inv(cell *c) {
 							: 1) <= H / 6)
 						if (cc->col + 3 >= c->col && cc->col + cc->w - 6
 								<= c->col + c->w)
-							if (cc->row + MAX(2, cc->h / 3) >= bl.b2)
+							if (cc->row + std::max(2, cc->h / 3) >= bl.b2)
 								if (cc->row + cc->h <= bl.bm)
 									if (cc->row + cc->h < c->row)
 										return cc;
@@ -1124,63 +1125,10 @@ static int16_t long_lines_ff(cell *c) {
 	return 0;
 }
 
-/*
- static int16_t not_1(cell *c)
- {
- version *v1,*v2;
-
- if ((c->cg_flag&c_cg_cutl) && tenv(c) && ((c->env)->nl==1) &&
- !(((c->env)->stairs[3])&0x20))
- {
- if (c->vers[0].let=='1')
- {
- for (v1=c->vers; v1->let; v1++)
- if ((v1->prob-=70)<=0)
- v1->prob=2;
- }
- else
- {
- for (c->nvers=0,v1=v2=c->vers; v1->let; v1++)
- if (v1->let!='1')
- {
- v2->let=v1->let; v2->prob=v1->prob;
- v2++; (c->nvers)++;
- }
- v2->let=0;
- if (!c->nvers)
- set_bad_cell(c);
- return 1;
- }
- }
- return 0;
- }
- */
-
-/*
- static int16_t not_no(cell *c)
- {
- version *v1,*v2;
-
- if (tenv(c) && upper_right_line(c))
- {
- for (c->nvers=0,v1=v2=c->vers; v1->let; v1++)
- if (v1->let!='n' && v1->let!='o')
- {
- v2->let=v1->let; v2->prob=v1->prob;
- v2++; (c->nvers)++;
- }
- v2->let=0;
- if (!c->nvers) set_bad_cell(c);
- return 1;
- }
- return 0;
- }
- */
-
 static int16_t upper_right_line(cell *c) {
 	lnhead *line;
 	interval *intval;
-	int16_t l, e, max, MIN, i;
+	int16_t l, e, max, min, i;
 
 	for (e = 0, line = (lnhead *) ((pchar)(c->env) + c->env->lines
 			+ sizeof(int16_t)); (l = line->lth) > 0; line
@@ -1195,13 +1143,13 @@ static int16_t upper_right_line(cell *c) {
 		if (line->h <= (c->h) / 4 && line->flg & l_fbeg && line->row <= c->h
 				/ 4) {
 			intval = (interval *) ((pchar) line + sizeof(lnhead));
-			for (max = 0, MIN = c->w, i = line->h; i; i--, intval++) {
+			for (max = 0, min = c->w, i = line->h; i; i--, intval++) {
 				if (intval->e > max)
 					max = intval->e;
-				if (intval->e - intval->l < MIN)
-					MIN = intval->e - intval->l;
+				if (intval->e - intval->l < min)
+					min = intval->e - intval->l;
 			}
-			if (max > e && MIN >= e - 1)
+			if (max > e && min >= e - 1)
 				return 1;
 		}
 	return 0;
@@ -1227,7 +1175,7 @@ static int16_t upper_right_angle(cell *c) {
 	lnhead *line;
 	interval *intval;
 	int16_t l, i;
-	int maxH = MIN(MAX_UPR, c->h / 3);
+	int maxH = std::min(MAX_UPR, c->h / 3);
 	int nDuga = 0;
 	int nBigLine = 0;
 	int rBound[MAX_UPR];
@@ -1254,8 +1202,10 @@ static int16_t upper_right_angle(cell *c) {
 			if (start + i >= maxH)
 				break;
 
-			rBound[start + i] = MAX(rBound[start + i], intval->e);
-			lBound[start + i] = MIN(lBound[start + i], intval->e - intval->l);
+			rBound[start + i] = std::max(rBound[start + i],
+					static_cast<int> (intval->e));
+			lBound[start + i] = std::min(lBound[start + i], intval->e
+					- intval->l);
 		}
 	}
 
@@ -1281,7 +1231,7 @@ static int16_t upper_right_angle(cell *c) {
 	if (nDuga * 3 >= maxH)
 		return 100;
 
-	return (300* nDuga ) / MAX(1, maxH);
+	return (300* nDuga ) / std::max(1, maxH);
 	//	return 0;
 }
 /////////////
@@ -1291,7 +1241,7 @@ static int16_t upper_dot_I(cell *c) {
 	lnhead *line;
 	interval *intval;
 	int16_t l, i;
-	int maxH = MIN(MAX_UPR, c->h / 3);
+	int maxH = std::min(MAX_UPR, c->h / 3);
 	int nBigLine = 0;
 	int rBound[MAX_UPR];
 	int lBound[MAX_UPR];
@@ -1316,8 +1266,10 @@ static int16_t upper_dot_I(cell *c) {
 			if (start + i >= maxH)
 				break;
 
-			rBound[start + i] = MAX(rBound[start + i], intval->e);
-			lBound[start + i] = MIN(lBound[start + i], intval->e - intval->l);
+			rBound[start + i] = std::max(rBound[start + i],
+					static_cast<int> (intval->e));
+			lBound[start + i] = std::min(lBound[start + i], intval->e
+					- intval->l);
 		}
 	}
 

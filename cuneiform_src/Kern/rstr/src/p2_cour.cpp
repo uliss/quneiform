@@ -58,6 +58,8 @@
 #include <string.h>
 #include <memory.h>
 
+
+#include "charsets.h"
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -216,7 +218,7 @@ Bool32 TestFontCourier(void) {
 
 		if(!MSKRecogCharExp( HndTab, &recRast, &MSKres ) )
 		continue;
-		p = MAX(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
+		p = std::max(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
 		if( p> 150)
 		numCourier++;
 		nC++;
@@ -474,7 +476,7 @@ Bool32 RecogLEO(RecRaster *Rs, uchar Language, UniVersions *Us) {
 		Us->Alt[i].Code[0]=cw;
 		Us->Alt[i].Code[1]=0;
 		Us->Alt[i].Liga=c;
-		Us->Alt[i].Charset=CSTR_RUSSIAN_CHARSET;
+		Us->Alt[i].Charset = CIF::RUSSIAN_CHARSET;
 		Us->Alt[i].Method =REC_METHOD_LEO;
 		Us->Alt[i].Prob = ro.recResults.Alt[i].Prob;
 	}

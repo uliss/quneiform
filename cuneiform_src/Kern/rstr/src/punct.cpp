@@ -551,18 +551,18 @@ static cell *let_gl(cell *c1, cell *c2, cell *c3, cell *c4, B_LINES *bl) {
 		n = 2;
 	// AL make all decidions BEFORE deletion of cells
 	r = 0;
-	if (c1->row + c1->h - 1 <= bl->b2 && abs(c1->h - c1->w) <= MAX(1, bl->ps
-			/ 8) || c2->row + c2->h - 1 <= bl->b2 && abs(c2->h - c2->w) <= MAX(
-			1, bl->ps / 8) || c3 != NULL && (c3->row + c3->h - 1 <= bl->b2
-			&& abs(c3->h - c3->w) <= MAX(1, bl->ps / 8) || c4 != NULL
-			&& c4->row + c4->h - 1 <= bl->b2 && abs(c4->h - c4->w) <= MAX(1,
-			bl->ps / 8)))
+	if (c1->row + c1->h - 1 <= bl->b2 && abs(c1->h - c1->w) <= std::max(1,
+			bl->ps / 8) || c2->row + c2->h - 1 <= bl->b2 && abs(c2->h - c2->w)
+			<= std::max(1, bl->ps / 8) || c3 != NULL && (c3->row + c3->h - 1
+			<= bl->b2 && abs(c3->h - c3->w) <= std::max(1, bl->ps / 8) || c4
+			!= NULL && c4->row + c4->h - 1 <= bl->b2 && abs(c4->h - c4->w)
+			<= std::max(1, bl->ps / 8)))
 		r |= MBI;
-	if (c1->row >= bl->bm && abs(c1->h - c1->w) <= MAX(1, bl->ps / 8)
-			|| c2->row >= bl->bm && abs(c2->h - c2->w) <= MAX(1, bl->ps / 8)
-			|| c3 != NULL && (c3->row >= bl->bm && abs(c3->h - c3->w) <= MAX(1,
-					bl->ps / 8) || c4 != NULL && c4->row >= bl->bm && abs(c4->h
-					- c4->w) <= MAX(1, bl->ps / 8)))
+	if (c1->row >= bl->bm && abs(c1->h - c1->w) <= std::max(1, bl->ps / 8)
+			|| c2->row >= bl->bm && abs(c2->h - c2->w) <= std::max(1, bl->ps
+					/ 8) || c3 != NULL && (c3->row >= bl->bm && abs(c3->h
+			- c3->w) <= std::max(1, bl->ps / 8) || c4 != NULL && c4->row
+			>= bl->bm && abs(c4->h - c4->w) <= std::max(1, bl->ps / 8)))
 		r |= MBE;
 	// AL
 	// AL OK (returns new "c1")
@@ -767,7 +767,7 @@ static void quockets() {
 		h = bl.ps;
 		if (((let = c->vers[0].let) == '<' || let == '>') && c->next->flg
 				& (c_f_let | c_f_bad) && c->next->vers[0].let == let && abs(
-				c->h - c->next->h) <= (c->h + c->next->h) / 4 && MIN(c->h,
+				c->h - c->next->h) <= (c->h + c->next->h) / 4 && std::min(c->h,
 				c->next->h) <= h && c->col + c->w - c->next->col <= (c->w
 				+ c->next->w) / 3 && abs(c->row + c->h / 2 - (c->next->row
 				+ c->next->h / 2)) <= (c->h + c->next->h) / 6) {
@@ -1091,8 +1091,8 @@ static int16_t dustpos(int16_t h, cell *c)
 					= bl.b3 - (c->row + c->h)) - 1 && d > 2)
 				return 2;
 			if ((c->h <= 3 || mid < bl.b3) && (c->row + c->h - bl.b3 <= 1
-					|| c->row + c->h - bl.b3 <= MAX(7* c ->h / 24, 2) && c->row
-							+ c->h - bl.b3 <= bl.b3 - c->row - 2))
+					|| c->row + c->h - bl.b3 <= std::max(7* c ->h / 24, 2)
+							&& c->row + c->h - bl.b3 <= bl.b3 - c->row - 2))
 				return 3;
 		}
 		return 4;
@@ -1113,7 +1113,7 @@ static int16_t chkdotcom(int16_t h, int16_t dp, cell *c) {
 	y = c->h + c->w;
 	dt = cm = 0;
 	if (dp != 5 && !fax1x2 && c->h == 1 && c->w >= 3 || dp == 3 && 4* y < h
-			&& bl.b3 - (c->row + c->h) >= MAX(2, c->h))
+			&& bl.b3 - (c->row + c->h) >= std::max(2, static_cast<int> (c->h)))
 		goto ret;
 	if (dp == 5 || 5* y <= 6* h && 2* c ->w + ((c->h == 2 || dp == 3) ? 1 : 0)
 			> c->h + ((fax1x2 && c->h > 2) ? 2 : 0) && (8*
@@ -1256,8 +1256,8 @@ static int16_t chkdash(int16_t h, int16_t dp, cell *c) {
 	int16_t r;
 	char str[80];
 
-	r = (dp <= 3 && /*9*(c->h)<=4*h*/27* c ->h <= 13* h && c->w
-			>= MIN(4, h / 3) && (5* (c ->w)>=2*h || dp==2 && c->w>c->h))?1:0;
+	r = (dp <= 3 && /*9*(c->h)<=4*h*/27* c ->h <= 13* h && c->w >= std::min(4,
+			h / 3) && (5* (c ->w)>=2*h || dp==2 && c->w>c->h))?1:0;
 
 	if (snap_activity('e'))
 	{
@@ -1269,7 +1269,7 @@ static int16_t chkdash(int16_t h, int16_t dp, cell *c) {
 }
 
 static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
-	uint16_t ls, i, j, k, i1, j1, k1, MIN, l, s, r, lu, ru, ld, rd;
+	uint16_t ls, i, j, k, i1, j1, k1, min, l, s, r, lu, ru, ld, rd;
 	char str[80];
 
 	if (snap_activity('e')) {
@@ -1281,7 +1281,7 @@ static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
 	{
 		if (rstr==NULL) rstr=save_raster(c);
 		ls=(c->w+7)>>3;
-		for (MIN=c->h+1,i1=(c->w)/2-1; i1<=(c->w)/2+1; i1++)
+		for (min=c->h+1,i1=(c->w)/2-1; i1<=(c->w)/2+1; i1++)
 		{
 			s=i1/8; l=128>>(i1%8);
 
@@ -1291,19 +1291,19 @@ static int16_t chkquot(int16_t h, int16_t dp, cell *c) {
 			if ( k1 == 0 )
 			break;
 
-			if (k1-j1+1<MIN)
+			if (k1-j1+1<min)
 			{
-				MIN=k1-j1+1;
+				min=k1-j1+1;
 				i=i1; j=j1; k=k1;
 			}
 		}
 		if (snap_activity('e'))
 		{
-			sprintf(str,"height in the middle (%u) = %u",i,MIN);
+			sprintf(str,"height in the middle (%u) = %u",i,min);
 			snap_show_text(str);
 			snap_monitor();
 		}
-		if (MIN<c->h && 14*MIN<=11*((c->h)+((fax1x2)?2:0)))
+		if (min<c->h && 14*min<=11*((c->h)+((fax1x2)?2:0)))
 		{
 			j1=j; k1=k;
 			if (j) j--;
@@ -1582,10 +1582,10 @@ static int16_t chkquock(int16_t h, int16_t dp, cell *c) {
 					sl++;
 		}
 		if (sr - sl >= sr / 2 || 2* c ->h >= 3* c ->w && sr - sl >= sr / 3
-				|| c->h >= 2* c ->w && sr - sl >= MAX(3, sr / 4))
+				|| c->h >= 2* c ->w && sr - sl >= std::max(3, sr / 4))
 			r = 1;
 		else if (sl - sr >= sl / 2 || 2* c ->h >= 3* c ->w && sl - sr >= sl / 3
-				|| c->h >= 2* c ->w && sl - sr >= MAX(3, sr / 4))
+				|| c->h >= 2* c ->w && sl - sr >= std::max(3, sr / 4))
 			r = -1;
 	}
 	if (snap_activity('e')) {
@@ -1677,7 +1677,7 @@ static int16_t chkquocks(int16_t h, int16_t dp, cell *c) {
 			for (i2 = c->h - 1; !(rstr[l * i2 + j / 8] & (128 >> (j % 8))); i2--)
 				;
 			i2 = c->h - 1 - i2;
-			if (i1 && i2 && i1 + i2 >= MAX(2, c->h / 5)) {
+			if (i1 && i2 && i1 + i2 >= std::max(2, c->h / 5)) {
 				for (j1 = j; j1 >= 0 && !(rstr[l * (i1 - 1) + j1 / 8] & (128
 						>> (j1 % 8))); j1--)
 					;
@@ -1701,7 +1701,7 @@ static int16_t chkquocks(int16_t h, int16_t dp, cell *c) {
 			d = 0;
 			goto ret;
 		}
-		r = MAX(1, c->h / 6);
+		r = std::max(1, c->h / 6);
 		for (i = r, j1 = (d < 0) ? 0 : c->w - 1; !(rstr[l * i + j1 / 8] & (128
 				>> (j1 % 8))); j1 -= d)
 			;
@@ -1712,7 +1712,7 @@ static int16_t chkquocks(int16_t h, int16_t dp, cell *c) {
 			j1 = c->w - 1 - j1;
 			j2 = c->w - 1 - j2;
 		}
-		if (j1 < MIN(1, c->w / 6) || j2 < MIN(1, c->w / 6))
+		if (j1 < std::min(1, c->w / 6) || j2 < std::min(1, c->w / 6))
 			d = 0;
 	}
 	ret: if (db_status)
@@ -1789,16 +1789,16 @@ static void intval(cell *c, cell *cb) {
 			fm = 1;
 			l2 = c2->vers[0].let;
 			if ((l1 == ':' || l1 == '-' || l1 == '_') && (l2 == ':' || l2
-					== '-' || l2 == '_') && c2->col - (c1->col + c1->w) <= MAX(
-					3, h / 5) && abs(c1->row - c2->row) <= 1 && abs(c1->row
-					+ c1->h - (c2->row + c2->h)) <= 1 &&
+					== '-' || l2 == '_') && c2->col - (c1->col + c1->w)
+					<= std::max(3, h / 5) && abs(c1->row - c2->row) <= 1
+					&& abs(c1->row + c1->h - (c2->row + c2->h)) <= 1 &&
 			//!line_tabcell &&
-					(d = dustpos(h, c1)) >= 0 && d <= 3
-					&& MIN(c1->row, c2->row) > bl.b1) {
-				hh = MAX(c2->row + c2->h, c1->row + c1->h) - MIN(c2->row,
-						c1->row);
-				ww = MAX(c2->col + c2->w, c1->col + c1->w) - MIN(c2->col,
-						c1->col);
+					(d = dustpos(h, c1)) >= 0 && d <= 3 && std::min(c1->row,
+					c2->row) > bl.b1) {
+				hh = std::max(c2->row + c2->h, c1->row + c1->h) - std::min(
+						c2->row, c1->row);
+				ww = std::max(c2->col + c2->w, c1->col + c1->w) - std::min(
+						c2->col, c1->col);
 				if (ww < h || 9* hh > 2* ww || pitchsize && ww <= 3* pitchsize
 						/ 2)
 					c2->vers[0].let = '-';
@@ -1816,12 +1816,13 @@ static void intval(cell *c, cell *cb) {
 				}
 			} else {
 				if ((l1 == 0x27 || l1 == ':') && (l2 == 0x27 || l2 == ':')
-						&& MAX(c1->h, c2->h) >= h / 5 && (d = c2->col - c1->col
-						- c1->w) <= h / 2 && c1->row + c1->h > c2->row
-						&& c2->row + c2->h > c1->row && ((c3 = c2->next) == c
-						|| (l3 = c3->vers[0].let) != 0x27 && l3 != ':' || d
-						<= c3->col - c2->col - c2->w)) {
-					if (abs(c1->h - c2->h) <= MAX(2, MAX(c1->h, c2->h) / 3))
+						&& std::max(c1->h, c2->h) >= h / 5 && (d = c2->col
+						- c1->col - c1->w) <= h / 2 && c1->row + c1->h
+						> c2->row && c2->row + c2->h > c1->row && ((c3
+						= c2->next) == c || (l3 = c3->vers[0].let) != 0x27
+						&& l3 != ':' || d <= c3->col - c2->col - c2->w)) {
+					if (abs(c1->h - c2->h) <= std::max(2,
+							std::max(c1->h, c2->h) / 3))
 						c2->vers[0].let = '"';
 					else {
 						/*      if (c1->h>c2->h)
@@ -1857,12 +1858,15 @@ static void intval(cell *c, cell *cb) {
 											= (l1 == '<') ? left_quocket
 													: right_quocket;
 								else {
-									if (c1->col + MAX(3, c1->w) + ((italic
-											&& c1->row > c2->row) ? 3 : 0)
-											< c2->col || MIN(c1->row, c2->row)
-											< cbb->row - ((fax1x2) ? 3 : 2)
-													- ((pitchsize) ? 1 : 0)
-											&& MAX(c1->row, c2->row) >= bl.bm
+									if (c1->col + std::max(3,
+											static_cast<int> (c1->w))
+											+ ((italic && c1->row > c2->row) ? 3
+													: 0) < c2->col || std::min(
+											c1->row, c2->row) < cbb->row
+											- ((fax1x2) ? 3 : 2)
+											- ((pitchsize) ? 1 : 0)
+											&& std::max(c1->row, c2->row)
+													>= bl.bm
 									/*|| (d=c1->row-c2->row)<=4 && d>=-4*/) {
 										fe = 1;
 										fm = 0;
@@ -1889,7 +1893,7 @@ static void intval(cell *c, cell *cb) {
 										(abs(c1->w-c2->w)<=2 ||
 										2*c1->w<=3*c2->w && 2*c2->w<=3*c1->w) &&
 										(c1->row>=c2->row || c2->col+c2->w/2-(c1->col+c1->w/2)<=
-										MAX(2,MIN(c1->w,c2->w)/2)))
+										std::max(2,std::min(c1->w,c2->w)/2)))
 										{
 											c2->vers[0].let=':';
 											if (c1->nvers==2 || c2->nvers==2 || l1==',' || l2==',')
@@ -1927,7 +1931,7 @@ static void intval(cell *c, cell *cb) {
 												if ((l1=='-' || l1=='_' || l1=='=') &&
 												(l2=='-' || l2=='_' || l2=='='))
 												{
-													if (MAX(c1->row,c2->row)-MIN(c1->row+c1->h,c2->row+c2->h)<=h/2)
+													if (std::max(c1->row,c2->row)-std::min(c1->row+c1->h,c2->row+c2->h)<=h/2)
 													c2->vers[0].let='=';
 													else
 													c2->vers[0].let=':';
@@ -1961,7 +1965,7 @@ static void intval(cell *c, cell *cb) {
 			{
 				d=dustpos(h,c1);
 				if (!pitchsize && d==2 && c1->w<=c1->h+1 &&
-				MAX(c1->w,c1->h)>bl.ps/3 && //Oleg
+				std::max(c1->w,c1->h)>bl.ps/3 && //Oleg
 				((c3=c1->prev)->prev==NULL || c1->col-c3->col-c3->w>=h/2) &&
 				((c3=c1->next)->next==NULL || c3->col-c1->col-c1->w>=h/2))
 				{
@@ -1981,7 +1985,7 @@ static void intval(cell *c, cell *cb) {
 					{
 						if (d>2 ||
 						d==2 && c1->row+c1->h/2>bl.bm && !(c1->cg_flag&c_cg_cut) &&
-						(c1->row>bl.bm+1 || c1->row+c1->h+MAX(2,bl.ps/6)>=bl.b3) ||
+						(c1->row>bl.bm+1 || c1->row+c1->h+std::max(2,bl.ps/6)>=bl.b3) ||
 						d<2 && c1->row<bl.b2 && c1->h+((fax1x2)?2:0)>=c1->w &&
 						c1->h>=bl.ps/4)
 						{
@@ -2116,7 +2120,7 @@ static void intval(cell *c, cell *cb) {
 	c1->prev->vers[0].let!='.' &&
 	!(l1==',' && c3->next->vers[0].let=='.'))
 	{
-		if ((max=MAX(c1->h,MAX(c2->h,c3->h)))-MIN(c1->h,MIN(c2->h,c3->h))<=
+		if ((max=std::max(c1->h,std::max(c2->h,c3->h)))-std::min(c1->h,std::min(c2->h,c3->h))<=
 		(s=(c1->h+c2->h+c3->h)/6))
 		{
 			c1->vers[0].let='.';

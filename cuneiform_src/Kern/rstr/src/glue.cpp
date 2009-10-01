@@ -432,8 +432,8 @@ static int16_t glueable()
 			return (1);
 		}
 		if ((b > A) && (a < B)) {
-			gi1e = gi2e = MIN(b, B) + 1;
-			gi1l = gi2l = gi1e - MAX(a, A);
+			gi1e = gi2e = std::min(b, B) + 1;
+			gi1l = gi2l = gi1e - std::max(a, A);
 			return (1);
 		}
 		ret03: gh1 = 0;
@@ -471,8 +471,8 @@ static int16_t glueable()
 			return (1);
 		}
 		if ((b > A) && (a < B)) {
-			gi1e = MIN(b, B) + 1;
-			gi1l = gi1e - MAX(a, A);
+			gi1e = std::min(b, B) + 1;
+			gi1l = gi1e - std::max(a, A);
 			return (1);
 		}
 		ret02: gh1 = 0;

@@ -106,7 +106,7 @@ void IntervalsInit(void) {
 	if (pIntervals == NULL) {
 		// интервал -- он интервал и есть: xBegin, xEnd (и COMP*);
 		// nWidth и nHeight -- of PageMatrix;
-		pIntervals = static_cast<INTERVAL*> (malloc(MAX(nHeight, nWidth)
+		pIntervals = static_cast<INTERVAL*> (malloc(std::max(nHeight, nWidth)
 				* sizeof(INTERVAL)));
 
 		if (pIntervals == NULL)
@@ -114,8 +114,8 @@ void IntervalsInit(void) {
 	}
 
 	if (pPrevIntervals == NULL) {
-		pPrevIntervals = static_cast<INTERVAL*> (malloc(MAX(nHeight, nWidth)
-				* sizeof(INTERVAL)));
+		pPrevIntervals = static_cast<INTERVAL*> (malloc(std::max(nHeight,
+				nWidth) * sizeof(INTERVAL)));
 
 		if (pPrevIntervals == NULL)
 			ErrorNoEnoughMemory("in LTEXCOMP.C,IntervalsInit,part 2");
@@ -541,7 +541,7 @@ void CompsBuild(uchar *_pMatrix, int _nWidth, int _nHeight, int _nSize,
 	BlackMask = _BlackMask;
 
 	IntervalsInit(); // всего лишь выделение памяти
-	// на MAX(nWidth, nHeight) /интервалов/.
+	// на std::max(nWidth, nHeight) /интервалов/.
 	for (y = 0; y < nHeight; y++) {
 		IntervalsStep(y);
 	}

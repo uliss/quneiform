@@ -188,10 +188,10 @@ void StringCalculateParameters(STRING *pString) {
 			nSumBottomDispersion / (pString -> nLetters
 					- pString -> nSpecialsLetters)));
 
-	pString -> yMin = pString -> yMiddleTop - MAX(
+	pString -> yMin = pString -> yMiddleTop - std::max(
 			2 * pString -> nTopDispersion, 3 * pString -> nMiddleHeight / 4);
 
-	pString -> yMax = pString -> yMiddleBottom + MAX(2
+	pString -> yMax = pString -> yMiddleBottom + std::max(2
 			* pString -> nBottomDispersion, 3 * pString -> nMiddleHeight / 4);
 
 	bSpecialFound = FALSE;

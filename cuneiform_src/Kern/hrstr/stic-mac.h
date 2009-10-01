@@ -75,7 +75,6 @@
 #define BP 80	/* bad proportions	*/
 #define ST 80	/* similar  't'		*/
 #define BR 40	/* similar  braces	*/
-//////#define BR_i 20	/* similar  braces for case letter 'i' with point {Ь} */
 #define BR_i 0	/* similar  braces for case letter 'i' with point {Ь} */
 #define DB 70	/* auxiliary beam	*/
 /*----------------------------------------------------------------------*/
@@ -140,7 +139,7 @@
 	    L->num_concs<3                              &&		\
 	    (L->mount[2]>0||L->conc[0]>0&&L->conc[4]>0) &&		\
 	    R->mount[0]>0  && R->mount[4]>0  && R->m_meandr<4 )		\
-		dis += (tab) * MIN ((R->mount[0] + R->mount[4]), 4);	\
+		dis += (tab) * std::min ((R->mount[0] + R->mount[4]), 4);	\
 	}
 
 #define DIS_CENTER_CONCS(L,R,i,inc,t1,t2)      \

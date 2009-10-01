@@ -60,6 +60,8 @@
 #include <ctype.h>
 #include <unistd.h>
 
+#include "minmax.h"
+
 #include "leo_tune.h"
 #include "cpu.h"
 #define PC_TYPE 0
@@ -78,8 +80,6 @@
 #include "std.h"
 #include "snptools.h"
 #include "snpdefs.h"
-
-#include "minmax.h"
 
 uchar field_number = 0;
 Bool32 leo_enable_fon_recog = FALSE;
@@ -952,7 +952,7 @@ static int GetNewProb(int oldRec, int newRec, int nice) {
 
 	if (newRec > VERY_GOOD_FON) {
 		addRec = 30;
-		newRec = MAX(newRec, nice);
+		newRec = std::max(newRec, nice);
 	} else if (newRec > 240)
 		addRec = 20;
 	else if (newRec > 230)
@@ -960,7 +960,7 @@ static int GetNewProb(int oldRec, int newRec, int nice) {
 	else
 		addRec = 5;
 
-	return MIN(254, MAX(newRec, oldRec + addRec));
+	return std::min(254, std::max(newRec, oldRec + addRec));
 }
 ///////////
 // надо взять иную первую альтернативу ?
@@ -1171,7 +1171,8 @@ Bool32 LEOFonRerecogCTB(char *CTBname) {
 						if (ver.Alt[0].Prob > 240)
 							ver.Alt[0].Prob = 255;
 						else
-							ver.Alt[0].Prob = MAX(data[3], ver.Alt[0].Prob);
+							ver.Alt[0].Prob
+									= std::max(data[3], ver.Alt[0].Prob);
 						data[15] |= LEO_VALID_FONT;
 						data[27] |= LEO_CONTROL_FON_CONFIRMED;
 					} else {

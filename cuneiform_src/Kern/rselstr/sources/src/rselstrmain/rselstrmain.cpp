@@ -393,9 +393,9 @@ void file_string(STRING * s) {
 		ROOT * pRoot = NULL;
 		CCOM_comp * com = NULL;
 
-		CSTR_rast_attr attr = { 0 };
-		CSTR_rast rst = { 0 };
-		CSTR_attr lattr = { 0 };
+		CSTR_rast_attr attr;
+		CSTR_rast rst;
+		CSTR_attr lattr;
 
 		lattr.incline = nIncline; // Incline*2048 = tg
 		lattr.fragment = s->nBlock - FIRST_REGULAR_BLOCK_NUMBER;
@@ -559,7 +559,7 @@ int IsInPoly(Point16 a, void * pPoly) {
 		}
 		if ((y == a.y) && (p->com.Vertex[ind].x >= a.x))
 			Count++;
-		else if (MIN(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
+		else if (std::min(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
 			continue;
 		else {
 			double t = ((double) (a.y - p->com.Vertex[i].y)

@@ -785,9 +785,9 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 		pmax = letters_prop_table_rus[name].pmax;
 		if (LEO_GetLetStat((int32_t) let, comSizes, prob) >= 0 && comSizes[0]
 				&& comSizes[2]) { //   normal statistic                             && not empty
-			hei = MIN(comSizes[0], comSizes[2]);
-			wid = MAX(comSizes[1], comSizes[3]);
-			pr = MIN(prob[0], prob[1]); // continued after all "else"
+			hei = std::min(comSizes[0], comSizes[2]);
+			wid = std::max(comSizes[1], comSizes[3]);
+			pr = std::min(prob[0], prob[1]); // continued after all "else"
 		} else { // statistic is not ready
 			if (h > w)
 				pr = (64* w ) / h;
@@ -814,7 +814,7 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 					if (comSizes[0]) {
 						hei = comSizes[0];
 						wid = comSizes[2];
-						prop = MIN(prob[0], prob[2]);
+						prop = std::min(prob[0], prob[2]);
 
 						if (prop > 64 && hei > wid) {
 							prop = (64* wid ) / hei;
@@ -846,14 +846,14 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 				{ // all
 					hei = comSizes[0];
 					wid = comSizes[2];
-					pr = MIN( prob[0], prob[2]);
+					pr = std::min( prob[0], prob[2]);
 				}
 				else
 				{ // different Capital & Small
-					hei = MIN(comSizes[0],comSizes[1]);
-					pr = MIN( prob[0], prob[1]);
+					hei = std::min(comSizes[0],comSizes[1]);
+					pr = std::min( prob[0], prob[1]);
 					wid = comSizes[2];
-					pr = MIN( pr, prob[2]);
+					pr = std::min( pr, prob[2]);
 				}
 
 			}
@@ -909,8 +909,8 @@ uchar leo_sizes_penalty(int32_t w, int32_t h) {
 	}
 
 	if (comSizes[1]) { // different Capital & Small
-		hei = MIN(comSizes[0], comSizes[1]);
-		pr = MIN(prob[0], prob[1]);
+		hei = std::min(comSizes[0], comSizes[1]);
+		pr = std::min(prob[0], prob[1]);
 
 		if (pr >= 64) {
 			if (h * 2 <= hei)

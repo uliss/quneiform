@@ -58,6 +58,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <algorithm>
 
 #define PC_TYPE 0
 
@@ -575,7 +576,7 @@ void leo_kill_double_russian(RecVersions *ver, uchar Code1, uchar Code2) {
 	}
 
 	v.Alt[ii] = ver->Alt[i_1];
-	v.Alt[ii].Prob = MAX(ver->Alt[i_1].Prob, ver->Alt[i_2].Prob);
+	v.Alt[ii].Prob = std::max(ver->Alt[i_1].Prob, ver->Alt[i_2].Prob);
 	ii++;
 	v.lnAltCnt = ii;
 	leo_sort_vers_prob(&v);

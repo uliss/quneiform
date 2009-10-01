@@ -213,7 +213,7 @@ typedef struct int_s interval;
 	    L->num_concs<3                              &&		\
 	    (L->mount[2]>0||L->conc[0]>0&&L->conc[4]>0) &&		\
 	    R->mount[0]>0  && R->mount[4]>0  && R->m_meandr<4 )		\
-		dis += (tab) * MIN ((R->mount[0] + R->mount[4]), 4);	\
+		dis += (tab) * std::min ((R->mount[0] + R->mount[4]), 4);	\
 	}
 
 #define FOUR_CONC(l,r,tab)                                      \
@@ -299,7 +299,7 @@ typedef struct int_s interval;
 
 #define LF 80	/* long central flag	*/
 #define NF 12	/* small central flag	*/
-#define MD  4	/* MIN dis value	*/
+#define MD  4	/* std::min dis value	*/
 #define SI 20	/* similar  є		*/
 #define BP 80	/* bad proportions	*/
 #define ST 80	/* similar  't'		*/

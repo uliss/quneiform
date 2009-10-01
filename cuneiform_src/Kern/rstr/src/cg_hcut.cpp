@@ -94,7 +94,6 @@ static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag,
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag);
 static int16_t create_cells(cell *whither, raster *r, cell *celist[],
 		int16_t st_inc);
-static cell *hide(cell *c, cell **clink);
 static void restore(cell *clink, cell *wherever);
 static void del_hided(cell *clink);
 static Bool capital(uchar let);
@@ -610,7 +609,8 @@ static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag,
 		*sv_frag = c;
 		if (let_or_bad(B)) {
 			rs->nbig++;
-			rs->weight = MIN(rs->weight, B->vers[0].prob);
+			rs->weight = std::min(rs->weight,
+					static_cast<short> (B->vers[0].prob));
 		} else if (fb2 && fb3 && c->row > bl.b2 && c->row + c->h < bl.b3)
 			rs->ndust++;
 		if (n < MAX_SECT)
@@ -628,7 +628,7 @@ static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag) {
 	for (c = B; c != E; c = c->next)
 		if (let_or_bad(c)) {
 			nbig++;
-			weight = MIN(weight, c->vers[0].prob);
+			weight = std::min(weight, static_cast<short> (c->vers[0].prob));
 		} else if (fb2 && fb3 && c->row > bl.b2 && c->row + c->h < bl.b3)
 			ndust++;
 
@@ -639,14 +639,6 @@ static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag) {
 		restore(sv_frag, c);
 	} else
 		del_hided(sv_frag);
-}
-
-static cell *hide(cell *c, cell **clink) {
-	cell *cp = c->prev;
-	c->complist = (c_comp *) (*clink);
-	del_retain_cell(c);
-	*clink = c;
-	return cp;
 }
 
 static void restore(cell *clink, cell *wherever) {

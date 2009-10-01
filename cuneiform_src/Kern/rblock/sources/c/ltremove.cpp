@@ -198,13 +198,13 @@ void PrepareDebugPictureOutput (void)
 	}
 
 	rBoundary.xLeft =
-	MAX (0, rMatrix.xLeft - MAX_DISTANCE);
+	std::max (0, rMatrix.xLeft - MAX_DISTANCE);
 	rBoundary.xRight =
-	MIN (PAGE_MATRIX_WIDTH - 1, rMatrix.xRight + MAX_DISTANCE);
+	std::min (PAGE_MATRIX_WIDTH - 1, rMatrix.xRight + MAX_DISTANCE);
 	rBoundary.yTop =
-	MAX (0, rMatrix.yTop - MAX_DISTANCE);
+	std::max (0, rMatrix.yTop - MAX_DISTANCE);
 	rBoundary.yBottom =
-	MIN (PAGE_MATRIX_HEIGHT - 1, rMatrix.yBottom + MAX_DISTANCE);
+	std::min (PAGE_MATRIX_HEIGHT - 1, rMatrix.yBottom + MAX_DISTANCE);
 
 	pFirstLine = PageMatrix + (rBoundary.yTop << PAGE_MATRIX_WIDTH_SHIFT);
 	pLastLine = PageMatrix + (rBoundary.yBottom << PAGE_MATRIX_WIDTH_SHIFT);
@@ -256,17 +256,20 @@ static void CalculateDirectionsValues(BLOCK *pBlock) {
 	REAL_XY(BottomLeft.x, BottomLeft.y);
 	REAL_XY(BottomRight.x, BottomRight.y);
 
-	rReal.xLeft = MIN(TopLeft.x, BottomLeft.x);
-	rReal.yTop = MIN(TopLeft.y, TopRight.y);
-	rReal.xRight = MAX(TopRight.x, BottomRight.x);
-	rReal.yBottom = MAX(BottomLeft.y, BottomRight.y);
+	rReal.xLeft = std::min(TopLeft.x, BottomLeft.x);
+	rReal.yTop = std::min(TopLeft.y, TopRight.y);
+	rReal.xRight = std::max(TopRight.x, BottomRight.x);
+	rReal.yBottom = std::max(BottomLeft.y, BottomRight.y);
 
 	// Normalize rectangle coordinates
 
-	rReal.xLeft = MIN(MAX(rReal.xLeft, 0), PAGE_MATRIX_REAL_WIDTH - 1);
-	rReal.yTop = MIN(MAX(rReal.yTop, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
-	rReal.xRight = MIN(MAX(rReal.xRight, 0), PAGE_MATRIX_REAL_WIDTH - 1);
-	rReal.yBottom = MIN(MAX(rReal.yBottom, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
+	rReal.xLeft
+			= std::min(std::max(rReal.xLeft, 0), PAGE_MATRIX_REAL_WIDTH - 1);
+	rReal.yTop = std::min(std::max(rReal.yTop, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
+	rReal.xRight = std::min(std::max(rReal.xRight, 0), PAGE_MATRIX_REAL_WIDTH
+			- 1);
+	rReal.yBottom = std::min(std::max(rReal.yBottom, 0),
+			PAGE_MATRIX_REAL_HEIGHT - 1);
 
 	// Calculate matrix coordinates
 

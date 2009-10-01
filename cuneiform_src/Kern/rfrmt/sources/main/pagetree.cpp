@@ -62,6 +62,8 @@
 //
 // ============================================================================
 
+#include <algorithm>
+
 #include "creatertf.h"
 #include <search.h>
 #include <stdlib.h>
@@ -85,7 +87,6 @@
 #include "consmess.h"
 
 #include "decl.h"
-#include "minmax.h"
 
 #ifdef alDebug
 #define CONS_MESS1 if(det1)	ConsMess
@@ -126,10 +127,10 @@ dets =0; //tmp break points
 
 
 short FlagGraphic1=0,Graphic1Color=0;
-std::vector <tagRECT> *pTheGeomStep=NULL;
-extern std::vector <tagRECT> *pTheGeomStep1;
-extern std::vector <tagRECT> *pTheGeomStep2;
-extern std::vector <tagRECT> *pTheGeomTemp;
+std::vector <RECT> *pTheGeomStep=NULL;
+extern std::vector <RECT> *pTheGeomStep1;
+extern std::vector <RECT> *pTheGeomStep2;
+extern std::vector <RECT> *pTheGeomTemp;
 extern vectorWord *pFragRectColor;
 extern void MyDrawForDebug(void);
 extern uint16_t *CountRect;
@@ -226,12 +227,12 @@ int16_t RecalcRect(int16_t L, int16_t H, int16_t *w, int16_t *h, KNOTT *ptrc,
 		FRAME **frm, float Max_koof_for_width, float Max_koof_for_height);
 int16_t GetOffsetVerticalCell(int16_t L, int16_t H, int16_t *w, int16_t *h,
 		KNOTT *ptrc, FRAME **frm);
-void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
+void RtfUnionRect_CRect_SRect(RECT *s1, SRECT *s2);
+void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
+void RtfAssignRect_CRect_SRect(RECT *s1, SRECT *s2);
+void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
+void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
+void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found = NULL;
@@ -308,10 +309,10 @@ void bound_frm(FRAME **frm, int k_frm, BOUND *bnd) {
 	int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000, i;
 	do0(i,0,k_frm)
 	{
-		ymin=MIN(ymin,frm[i]->up);
-		ymax=MAX(ymax,frm[i]->down);
-		xmin=MIN(xmin,frm[i]->left);
-		xmax=MAX(xmax,frm[i]->right);
+		ymin=std::min(ymin,frm[i]->up);
+		ymax=std::max(ymax,frm[i]->down);
+		xmin=std::min(xmin,frm[i]->left);
+		xmax=std::max(xmax,frm[i]->right);
 	}
 	bnd->left = xmin;
 	bnd->right = xmax;
@@ -645,10 +646,13 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
 		if (dets) ConsMess("i=%d  l=%d,r=%d,u=%d,d=%d",i,
 				RectFragm[i].left,RectFragm[i].right,RectFragm[i].top,RectFragm[i].bottom);
 #endif
-		BndAll.left = MIN(BndAll.left, RectFragm[i].left);
-		BndAll.right = MAX(BndAll.right, RectFragm[i].right);
-		BndAll.up = MIN(BndAll.up, RectFragm[i].top);
-		BndAll.down = MAX(BndAll.down, RectFragm[i].bottom);
+		BndAll.left = std::min(BndAll.left,
+				static_cast<int> (RectFragm[i].left));
+		BndAll.right = std::max(BndAll.right,
+				static_cast<int> (RectFragm[i].right));
+		BndAll.up = std::min(BndAll.up, static_cast<int> (RectFragm[i].top));
+		BndAll.down = std::max(BndAll.down,
+				static_cast<int> (RectFragm[i].bottom));
 	}
 	//--calling internal function for tree generation--
 	if (CreateTreePlainTxt1(BndAll, NULL, 0, NULL, 0, frm, NumFragm, Inf,
@@ -866,7 +870,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 					{
 						CONS_MESS1("beg------------------4");
 						CONS_MESS1("order == HOR");
-						minz=MIN(ThresX,del);
+						minz=std::min(ThresX,del);
 						if((left= !j ? ptr->Rect.left :
 										AddLine1(&LineVK,&nV,&nVmax,(int16_t)endI[j-1],minz)) < 0)
 						{
@@ -883,7 +887,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 						//!!!для разновысоких колонок можно уточнять и верхи и низы!!!
 						//но тогда придется рассчитать рамки новых колонок
 						del1=b.down-b.up;
-						minz=MIN(ThresY,del1);
+						minz=std::min(ThresY,del1);
 						if((top=AddLine1(&LineHK,&nH,&nHmax,b.up,minz)) < 0)
 						{
 							CONS_MESS9("836       top-100");
@@ -900,7 +904,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 					{
 						CONS_MESS1("beg------------------5");
 						CONS_MESS1("order == VER");
-						minz=MIN(ThresY,del);
+						minz=std::min(ThresY,del);
 						if((top= !j ? ptr->Rect.top :
 										AddLine1(&LineHK,&nH,&nHmax,endI[j-1],minz)) < 0)
 						{
@@ -916,7 +920,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 						//left=ptr->Rect.left; right=ptr->Rect.right;
 						//!!!для разношироких колонок можно уточнять и боковые линии!!!
 						del1=b.right-b.left;
-						minz=MIN(ThresX,del1);
+						minz=std::min(ThresX,del1);
 						if((left=AddLine1(&LineVK,&nV,&nVmax,b.left,minz)) < 0)
 						{
 							CONS_MESS9("874       left-100");
@@ -1328,7 +1332,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 	CONS_MESS2("k_frm=%d ",k_frm+1);
 #ifdef alDebug
 			{	pTheGeomTemp->clear();
-				tagRECT rct;
+				RECT rct;
 				SetRect(&rct,bnd->left,bnd->up,bnd->right,bnd->down);
 				pTheGeomTemp->push_back(rct);
 			}
@@ -1338,7 +1342,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 			{
 #ifdef alDebug
 			{
-				tagRECT rct;
+				RECT rct;
 				SetRect(&rct,frm[i]->left,frm[i]->up,frm[i]->right,frm[i]->down);
 				pTheGeomTemp->push_back(rct);
 			}
@@ -1429,13 +1433,13 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 #ifdef alDebug
 			if(reg==VER)
 			{
-				tagRECT rct;
+				RECT rct;
 				SetRect(&rct,bnd->left,tmp_pos+Home,bnd->right,tmp_pos+Home);
 				pTheGeomTemp->push_back(rct);//~
 			}
 			else
 			{
-				tagRECT rct;
+				RECT rct;
 				SetRect(&rct,tmp_pos+Home,bnd->up,tmp_pos+Home,bnd->down);
 				pTheGeomTemp->push_back(rct);
 			}
@@ -1496,8 +1500,8 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
 		int16_t *his_second_group, BOUND *bnd, int16_t k_frm) {
 	int16_t Home, Fin, old_pos, i, j, mi, ma, beg_white_int, end_white_int,
 			k_frm_first, k_frm_second;
-	std::vector<tagRECT> First_Group;
-	std::vector<tagRECT> Second_Group;
+	std::vector<RECT> First_Group;
+	std::vector<RECT> Second_Group;
 
 	if (reg == HOR || len_group <= 0)
 		goto end1;
@@ -1513,7 +1517,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
 	{
 		if(frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up )
 		{
-			tagRECT rct;
+			RECT rct;
 			SetRect(&rct,frm[i]->left,frm[i]->up,frm[i]->right,frm[i]->down);
 			First_Group.push_back(rct);
 		}
@@ -1543,7 +1547,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
 	{
 		if(frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up )
 		{
-			tagRECT rct;
+			RECT rct;
 			SetRect(&rct,frm[i]->left,frm[i]->up,frm[i]->right,frm[i]->down);
 			Second_Group.push_back(rct);
 		}
@@ -1717,7 +1721,7 @@ int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
 		FRAME **frm)
 //==
 {
-	INDEX_SORT *Ind = (INDEX_SORT *) malloc(MAX(NumH, NumV)
+	INDEX_SORT *Ind = (INDEX_SORT *) malloc(std::max(NumH, NumV)
 			* sizeof(INDEX_SORT));
 	STAT_CELL StDefault;
 	int16_t *Index = (int16_t *) malloc(NumH * sizeof(int16_t)), *IndexV =
@@ -2514,7 +2518,7 @@ do0(iv,0,K_Ver[i][ih])
 				pRtfWord->m_arChars.push_back( new CRtfChar() );
 				pRtfChar=pRtfWord->m_arChars[nz];
 
-				pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+				pRtfChar->m_wCountAlt=std::min(static_cast<int> (Zn[nc][ns][nw][nz].Title.Z_Num_Alt),REC_MAX_VERS);
 				for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 				{
 					pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
@@ -2651,7 +2655,7 @@ do0(iv,0,K_Ver[i][ih])
 				pRtfWord->m_arChars.push_back( new CRtfChar() );
 				pRtfChar=pRtfWord->m_arChars[nz];
 
-				pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+				pRtfChar->m_wCountAlt=std::min(static_cast<int> (Zn[nc][ns][nw][nz].Title.Z_Num_Alt),REC_MAX_VERS);
 				for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 				{
 					pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
@@ -2808,42 +2812,42 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv,
 	}
 }
 
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2) {
+void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2) {
 	s1->left = s2->left;
 	s1->right = s2->right;
 	s1->top = s2->top;
 	s1->bottom = s2->bottom;
 }
 
-void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2) {
+void RtfAssignRect_CRect_SRect(RECT *s1, SRECT *s2) {
 	s1->left = s2->left;
 	s1->right = s2->right;
 	s1->top = s2->top;
 	s1->bottom = s2->bottom;
 }
 
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2) {
+void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2) {
 	s1->left = s2->left;
 	s1->right = s2->right;
 	s1->top = s2->top;
 	s1->bottom = s2->bottom;
 }
 
-void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2) {
-	s1->left = MIN(s1->left, s2->left);
-	s1->right = MAX(s1->right, s2->right);
-	s1->top = MIN(s1->top, s2->top);
-	s1->bottom = MAX(s1->bottom, s2->bottom);
+void RtfUnionRect_CRect_SRect(RECT *s1, SRECT *s2) {
+	s1->left = std::min(s1->left, s2->left);
+	s1->right = std::max(s1->right, s2->right);
+	s1->top = std::min(s1->top, s2->top);
+	s1->bottom = std::max(s1->bottom, s2->bottom);
 }
 
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2) {
-	s1->left = MIN(s1->left, s2->left);
-	s1->right = MAX(s1->right, s2->right);
-	s1->top = MIN(s1->top, s2->top);
-	s1->bottom = MAX(s1->bottom, s2->bottom);
+void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2) {
+	s1->left = std::min(s1->left, s2->left);
+	s1->right = std::max(s1->right, s2->right);
+	s1->top = std::min(s1->top, s2->top);
+	s1->bottom = std::max(s1->bottom, s2->bottom);
 }
 
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips) {
+void RtfCalcRectSizeInTwips(RECT *s1, float Twips) {
 	s1->left = (int32_t)(s1->left * Twips);
 	s1->right = (int32_t)(s1->right * Twips);
 	s1->top = (int32_t)(s1->top * Twips);
@@ -2854,10 +2858,10 @@ void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips) {
 void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u)
 //==
 {
-	u->left = MIN(s1->left, s2->left);
-	u->right = MAX(s1->right, s2->right);
-	u->top = MIN(s1->top, s2->top);
-	u->bottom = MAX(s1->bottom, s2->bottom);
+	u->left = std::min(s1->left, s2->left);
+	u->right = std::max(s1->right, s2->right);
+	u->top = std::min(s1->top, s2->top);
+	u->bottom = std::max(s1->bottom, s2->bottom);
 }
 
 //==
@@ -2923,24 +2927,24 @@ void image_rect(RECT *f,int col,int line_style,int fill)
 		pFragRectColor->push_back(Graphic1Color);
 		if(Graphic1Color==0)
 		{
-			f->left=MAX(0,f->left-12);
-			f->top=MAX(0,f->top-12);
+			f->left=std::max(0,f->left-12);
+			f->top=std::max(0,f->top-12);
 			f->right+=12;f->bottom+=12;
 		}
 		if(Graphic1Color==1)
 		{
-			f->left=MAX(0,f->left-8);
-			f->top=MAX(0,f->top-8);
+			f->left=std::max(0,f->left-8);
+			f->top=std::max(0,f->top-8);
 			f->right+=8;f->bottom+=8;
 		}
 		if(Graphic1Color==2)
 		{
-			f->left=MAX(0,f->left-4);
-			f->top=MAX(0,f->top-4);
+			f->left=std::max(0,f->left-4);
+			f->top=std::max(0,f->top-4);
 			f->right+=4;f->bottom+=4;
 		}
 	}
-	tagRECT rct;
+	RECT rct;
 	SetRect(&rct,f->left,f->top,f->right,f->bottom);
 	pTheGeomStep->push_back(rct);
 }

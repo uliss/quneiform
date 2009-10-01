@@ -54,8 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// ACC_TABS.C
-
 #include "string.h"
 #include "cttypes.h"
 #include "cstr.h"
@@ -63,6 +61,7 @@
 #include "status.h"
 #include "lang.h"
 #include "ligas.h"
+#include "charsets.h""
 
 // RCM.C
 extern uchar alpha_used_mode;
@@ -3393,7 +3392,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_NEG_HALF_SPACE], "");
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_POS_HALF_SPACE], " ");
 
-	if (CodePages[language] == CSTR_ANSI_CHARSET) {
+	if (CodePages[language] == CIF::ANSI_CHARSET) {
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fi], "fi");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fl], "fl");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_ff], "ff");
@@ -3484,7 +3483,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == CSTR_RUSSIAN_CHARSET) {
+	if (CodePages[language] == CIF::RUSSIAN_CHARSET) {
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_d], "ä");
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_g], "ä");
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_m], "ò");
@@ -3497,7 +3496,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes_rus], "„");
 	}
 
-	if (CodePages[language] == CSTR_EASTEUROPE_CHARSET) {
+	if (CodePages[language] == CIF::EASTEUROPE_CHARSET) {
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fi], "fi");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fl], "fl");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_ff], "ff");
@@ -3524,7 +3523,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == BALTIC_CHARSET) {
+	if (CodePages[language] == CIF::BALTIC_CHARSET) {
 
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "\x99");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "\xa9");
@@ -3554,7 +3553,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == TURKISH_CHARSET) {
+	if (CodePages[language] == CIF::TURKISH_CHARSET) {
 
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "\x99");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "\xa9");

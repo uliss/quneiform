@@ -113,7 +113,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y2Arr,
 	//правый максимум (относительно главного максимума)
 	int16_t right_diff = stat_Right_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 
-	right_diff = MAX(3, right_diff);
+	right_diff = std::max(3, static_cast<int> (right_diff));
 
 	int16_t rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr,
 			sz_FreqY2Arr, max_FreqY2Arr + right_diff);
@@ -136,7 +136,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y2Arr,
 
 	//левый максимум (относительно главного максимума)
 	int16_t left_diff = stat_Left_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
-	left_diff = MAX(left_diff, 3);
+	left_diff = std::max(static_cast<int> (left_diff), 3);
 
 	int16_t leftMax_FreqY2Arr = stat_index_LeftLocMax(p_FreqY2Arr,
 			max_FreqY2Arr - left_diff);
@@ -152,13 +152,13 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y2Arr,
 		//третья линия
 		p_attr->bs3 = row_str.globMax;
 		Ns3[0] = row_str.ValGM;
-		p_attr->Nb3 = (short) MIN(100, (float) 100 * row_str.ValGM
+		p_attr->Nb3 = (short) std::min(100.0f, (float) 100 * row_str.ValGM
 				/ (float) (sz_Y2Arr * Pb3));
 		//четвертая линия
 		if (row_str.rightLocMax != -1) {
 			p_attr->bs4 = row_str.rightLocMax;
 			Ns4[0] = row_str.ValRLM;
-			p_attr->Nb4 = (short) MIN(100, (float) 100 * row_str.ValRLM
+			p_attr->Nb4 = (short) std::min(100.0f, (float) 100 * row_str.ValRLM
 					/ (float) (sz_Y2Arr * Pb4));
 		} else {
 			p_attr->bs4 = -1;
@@ -170,14 +170,14 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y2Arr,
 		p_attr->bs4 = row_str.globMax;
 		;
 		Ns4[0] = row_str.ValGM;
-		p_attr->Nb4 = (short) MIN(100, (float) 100 * row_str.ValGM
+		p_attr->Nb4 = (short) std::min(100.0f, (float) 100 * row_str.ValGM
 				/ (float) (sz_Y2Arr * Pb4));
 
 		//третья линия
 		if (row_str.leftLocMax != -1) {
 			p_attr->bs3 = row_str.leftLocMax;
 			Ns3[0] = row_str.ValLLM;
-			p_attr->Nb3 = (short) MIN(100, (float) 100 * row_str.ValLLM
+			p_attr->Nb3 = (short) std::min(100.0f, (float) 100 * row_str.ValLLM
 					/ (float) (sz_Y2Arr * Pb3));
 		} else {
 			p_attr->bs3 = p_attr->bs4 - 5;
@@ -1200,7 +1200,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y1Arr,
 
 	//левый (относительно глобального) максимум
 	int16_t left_diff = stat_Left_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
-	left_diff = MAX(left_diff, 3);
+	left_diff = std::max(static_cast<int> (left_diff), 3);
 
 	int16_t leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr,
 			max_FreqY1Arr - left_diff);
@@ -1239,7 +1239,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y1Arr,
 
 	//правый максимум
 	int16_t right_diff = stat_Right_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
-	right_diff = MAX(right_diff, 3);
+	right_diff = std::max(static_cast<int> (right_diff), 3);
 
 	int16_t rightMax_FreqY1Arr = stat_index_RightLocMax(p_FreqY1Arr,
 			sz_FreqY1Arr, max_FreqY1Arr + right_diff);
@@ -1280,15 +1280,15 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y1Arr,
 		case 1:
 			p_attr->bs1 = row_str.globMax;
 			Ns1[0] = row_str.ValGM;
-			p_attr->Nb1 = (int16_t) MIN(100, (float) 100 * row_str.ValGM
-					/ (float) (sz_Y1Arr * Pb1));
+			p_attr->Nb1 = (int16_t) std::min(100.0f, (float) 100
+					* row_str.ValGM / (float) (sz_Y1Arr * Pb1));
 
 			if (row_str.ValRLM != -1 && 0.2 <= row_str.rightCoeff
 					&& row_str.rightCoeff <= 1) {
 				p_attr->bs2 = row_str.rightLocMax;
 				Ns2[0] = row_str.ValRLM;
-				p_attr->Nb2 = (int16_t) MIN(100, (float) 100 * row_str.ValRLM
-						/ (float) (sz_Y1Arr * Pb2));
+				p_attr->Nb2 = (int16_t) std::min(100.0f, (float) 100
+						* row_str.ValRLM / (float) (sz_Y1Arr * Pb2));
 			} else {
 				p_attr->bs2 = -1;
 				Ns2[0] = -1;
@@ -1300,15 +1300,15 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y1Arr,
 		default:
 			p_attr->bs2 = row_str.globMax;
 			Ns2[0] = row_str.ValGM;
-			p_attr->Nb2 = (int16_t) MIN(100, (float) 100 * row_str.ValGM
-					/ (float) (sz_Y1Arr * Pb2));
+			p_attr->Nb2 = (int16_t) std::min(100.0f, (float) 100
+					* row_str.ValGM / (float) (sz_Y1Arr * Pb2));
 
 			if (row_str.ValLLM != -1 && 0.2 <= row_str.leftCoeff
 					&& row_str.leftCoeff <= 1) {
 				p_attr->bs1 = row_str.leftLocMax;
 				Ns1[0] = row_str.ValLLM;
-				p_attr->Nb1 = (int16_t) MIN(100, (float) 100 * row_str.ValLLM
-						/ (float) (sz_Y1Arr * Pb1));
+				p_attr->Nb1 = (int16_t) std::min(100.0f, (float) 100
+						* row_str.ValLLM / (float) (sz_Y1Arr * Pb1));
 			} else {
 				p_attr->bs1 = -1;
 				Ns1[0] = -1;
@@ -1472,7 +1472,7 @@ int16_t stat_Hypothesis(int32_t line_number, int16_t diff_b3_bsl) {
 	int16_t iFound_b2 = 0, iFound_b1 = 0;
 
 	if (line_number <= CSTR_GetMaxNumber()) {
-		int32_t line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = std::max(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *) malloc((line_number
 				- line_start) * sizeof(CSTR_attr));
@@ -1531,8 +1531,8 @@ Bool stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop,
 	return TRUE;
 }
 
-void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2,
-		int16_t *Ns4) {
+void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t * /*Ns1*/,
+		int16_t * /*Ns2*/, int16_t * /*Ns4*/) {
 	if (p_attr->number < 1)
 		return;
 
@@ -1590,7 +1590,7 @@ int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2) {
 	Bool bFound_mode = FALSE;
 
 	if (line_number <= CSTR_GetMaxNumber()) {
-		int32_t line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = std::max(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *) malloc((line_number
 				- line_start) * sizeof(CSTR_attr));
@@ -1712,7 +1712,7 @@ int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2) {
 	Bool bFound_mode = FALSE;
 
 	if (line_number <= CSTR_GetMaxNumber()) {
-		int32_t line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = std::max(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *) malloc((line_number
 				- line_start) * sizeof(CSTR_attr));
@@ -1777,7 +1777,7 @@ int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff,
 	Bool bFound_mode = FALSE;
 
 	if (line_number <= CSTR_GetMaxNumber()) {
-		int32_t line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = std::max(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *) malloc((line_number
 				- line_start) * sizeof(CSTR_attr));

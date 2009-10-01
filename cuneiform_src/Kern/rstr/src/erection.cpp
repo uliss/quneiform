@@ -285,7 +285,7 @@ int16_t erect_raster_value(uchar *raster, int16_t dx, int16_t dy, int16_t inc) {
 	for (i = 0; i < dy; i++)
 		tab_angle[i] = ((long) (dy - 1 - i) * inc) / 2048;
 
-	dx = shift_raster(raster, dy, dx, tab_angle, (int16_t) (MAX(abs(
+	dx = shift_raster(raster, dy, dx, tab_angle, (int16_t) (std::max(abs(
 			tab_angle[0]), abs(tab_angle[dy - 1]))), sh_raster, inc);
 	memcpy(raster, sh_raster, dy * ((dx + 7) >> 3));
 	return dx;
@@ -325,7 +325,7 @@ cell * erect_cell_value(cell *c, int16_t inc, int16_t shave, Bool cutting) {
 			{
 				// если слишком мал буфер - уходим
 				// иначе возможен вылет и т.п.  Nick 07.04.2002
-				if( (long)dy * ( (dx + (long)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) >
+				if( (long)dy * ( (dx + (long)(std::max (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) >
 						sizeof(sh_raster)
 				)
 				return c;
@@ -338,7 +338,7 @@ cell * erect_cell_value(cell *c, int16_t inc, int16_t shave, Bool cutting) {
 				ri = diff_left_limit_cell(c, tab_angle, c->w);
 
 				d_x = shift_raster (raster, dy, dx, tab_angle,
-						(int16_t)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
+						(int16_t)(std::max (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
 
 
 				if( (sh_mn = EVN_CLocomp (sh_raster, (int16_t)bytlen(d_x), dy, 0, 0))==NULL )
@@ -485,7 +485,7 @@ cell * erect_cell_table(cell *c, int16_t tab_angle[], int16_t shave,
 	if (shave || inc) {
 		raster = save_raster(c);
 		le = diff_left_limit_rast(raster, dx, dy, tab_angle);
-		d_x = shift_raster(raster, dy, dx, tab_angle, (int16_t) (MAX(
+		d_x = shift_raster(raster, dy, dx, tab_angle, (int16_t) (std::max(
 				tab_angle[0], tab_angle[dy - 1])), sh_raster, 1);
 
 		if ((sh_mn = EVN_CLocomp(sh_raster, (int16_t) bytlen(d_x), dy, 0, 0))
@@ -810,7 +810,7 @@ Bool setup_incline_word(cell *b, cell *e, Bool calc) {
 					extr[num_extr++] = (uchar) inc;
 		}
 		if (num_extr)
-			max_incline = MAX((extr[num_extr - 1] + 1) * 16, 512);
+			max_incline = std::max((extr[num_extr - 1] + 1) * 16, 512);
 		else
 			max_incline = 512;
 		if (!num_extr) {
@@ -1083,7 +1083,7 @@ int16_t get_incline_of_word(cell *b, cell *e) {
 	if (mn == 1 && zeromn >= 1 && nIncline >= MAX_INCLINE)
 		inc = 0;
 
-	if (zeromn && zerall > MAX(all / 3, 2) && num_extr == 0 && inc
+	if (zeromn && zerall > std::max(all / 3, 2) && num_extr == 0 && inc
 			> max_incline)
 		inc = 0;
 
@@ -1338,7 +1338,7 @@ int16_t fict_shift_intervals(cell *c, int16_t tab_angle[]) {
 	lnhead *line;
 
 	// calculating left offset of image
-	min_shift = MIN(tab_angle[0], tab_angle[c->h - 1]);
+	min_shift = std::min(tab_angle[0], tab_angle[c->h - 1]);
 	for (line = (lnhead *) ((pchar) c->env + c->env->lines + sizeof(int16_t)), left_shift
 			= c->w; (ll = line->lth) > 0; line = (lnhead *) ((pchar) line + ll))
 		for (h = line->h, ind = line->row, inter = (interval *) ((pchar) line
@@ -1365,7 +1365,7 @@ int16_t fict_shift_left_intervals(cell *c, int16_t tab_angle[]) {
 	lnhead *line;
 
 	// calculating left offset of image
-	min_shift = MIN(tab_angle[0], tab_angle[c->h - 1]);
+	min_shift = std::min(tab_angle[0], tab_angle[c->h - 1]);
 	for (line = (lnhead *) ((pchar) c->env + c->env->lines + sizeof(int16_t)), left_shift
 			= c->w; (ll = line->lth) > 0; line = (lnhead *) ((pchar) line + ll))
 		for (h = line->h, ind = line->row, inter = (interval *) ((pchar) line
@@ -1615,7 +1615,7 @@ void erect_shift_intervals(void *addr, int16_t h, int16_t tab_angle[]) {
 		for (h = line->h, ind = line->row, inter = (interval *) ((pchar) line
 				+ sizeof(lnhead)); h; h--, inter++, ind++)
 			if ((w = inter->e - inter->l - tab_angle[ind]) < min_shift)
-				min_shift = w; // MIN dest to image from left bound
+				min_shift = w; // std::min dest to image from left bound
 
 	// rotating during shift table
 	for (line = (lnhead *) addr, w = 0; (ll = line->lth) > 0; line

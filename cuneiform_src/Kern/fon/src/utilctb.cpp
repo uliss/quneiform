@@ -59,6 +59,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "charsets.h"
 #include "minmax.h"
 #include "ctb.h"
 #include "sfont.h"
@@ -83,11 +84,11 @@ int StartCTB(const char *outname, CTB_handle *CTBFile, int16_t countFont,
 	memset(CTBdata, 0, CTB_DATA_SIZE);
 	memcpy(&CTBdata[1], ParolBase, 5);
 	*pint16 = countFont;
-	i = MIN(countFont, 4);
+	i = std::min(static_cast<int> (countFont), 4);
 	memcpy(pword32, fields, i * NFIELDDWORD * sizeof(uint32_t));
 
-	CTBdata[0] = MAX(8 + 4*NFIELDDWORD * sizeof(uint32_t), 34 + NFIELDDWORD
-			* sizeof(uint32_t));
+	CTBdata[0] = CIF::Max<uchar, 8 + 4*NFIELDDWORD * sizeof(uint32_t), 34
+			+ NFIELDDWORD * sizeof(uint32_t)>::value;
 
 	if (CTB_create_gray(outname, CTBdata) == FALSE) {
 		return -1;
@@ -117,7 +118,7 @@ int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 	bufCTB = (uchar*) wel->raster;
 
 	memset(CTBdata, 0, CTB_DATA_SIZE);
-	CTBdata[0] = CTB_OEM_CHARSET;
+	CTBdata[0] = CIF::OEM_CHARSET;
 	CTBdata[1] = (uchar) fullX; // 128
 	CTBdata[2] = (uchar) fullY; //  64
 	CTBdata[3] = (uchar) wel->let; // in ASCII
@@ -171,7 +172,7 @@ int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 //////////////////////
 static CTB_handle CTBfileBW;
 static unsigned char CTBima[((BASE_MAX_W + 7) / 8) * (BASE_MAX_H + 1)];
-static unsigned char CTBdata[MAX(CTB_DATA_SIZE, 36)];
+static unsigned char CTBdata[CIF::Max<size_t, CTB_DATA_SIZE, 36>::value];
 
 void CloseBase(void) {
 	CTB_close(&CTBfileBW);

@@ -89,20 +89,6 @@ extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
 extern int32_t recog_letter_lp(ExtComponent *ec, uchar *lp, uint16_t lth);
 
-static void *EvnAlloc(uint32_t len) {
-	return malloc(len);
-}
-static void EvnFree(void *ptr, uint32_t len) {
-	free(ptr);
-}
-
-static int32_t GetFileLength(int32_t handle) {
-	return filelength(handle);
-}
-
-static void* (*my_alloc)(uint32_t len)=EvnAlloc;
-static void (*my_free)(void *ptr, uint32_t len)=EvnFree;
-
 Bool32 LOCInit(MemFunc*) {
 	return TRUE;
 }

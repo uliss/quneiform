@@ -306,7 +306,7 @@ int32_t p2_testAccents(CSTR_rast first, CSTR_rast last) {
 		if (verOld.lnAltCnt <= 0)
 			porog = 180;
 		else
-			porog = MAX(180, verOld.Alt[0].Prob - 20);
+			porog = std::max(180, verOld.Alt[0].Prob - 20);
 
 		if (!rstPrev)
 			rstPrev = rst;

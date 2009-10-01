@@ -165,7 +165,6 @@ static Bool32 cstr_kill_scaled(CSTR_line ln);
 static void import_lines_features(void);
 static void courier_let(CSTR_line ln);
 static Bool del_spaces_before_carry(CSTR_line ln);
-static void pass3_Ps(CSTR_line lin);
 static void delete_far_dust(CSTR_line lin);
 static void CSTR_refresh_flags(CSTR_line ln);
 static void set_cells_language(uchar lang);
@@ -196,7 +195,7 @@ static int16_t pass3_num_killed_line() {
 }
 
 static void pass3_empty(CSTR_line lin, CSTR_line lino) {
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst = CSTR_GetNext(CSTR_GetFirstRaster(lin));
 
 	if (lin)
@@ -1760,7 +1759,8 @@ void letters_ini(CSTR_line lin, Bool enable_scaling) {
 						if (alphabet[*p] && !local_alphabet[*p]) {
 							local_alphabet[*p] = 1;
 							c2->vers[j].let = *p;
-							c2->vers[j].prob = MAX(evn.Alt[i].Prob & 254, 2);
+							c2->vers[j].prob = std::max(evn.Alt[i].Prob & 254,
+									2);
 							j++;
 							if (j == VERS_IN_CELL - 1)
 								break;
@@ -1998,7 +1998,7 @@ static void postrecog() {
 		for (i = 0; vers[i].let; i++) {
 			for (j = 0; j < c->nvers; j++)
 				if (vers[i].let == c->vers[j].let) {
-					c->vers[j].prob = MAX(vers[i].prob, c->vers[j].prob);
+					c->vers[j].prob = std::max(vers[i].prob, c->vers[j].prob);
 					break;
 				}
 			if (j == c->nvers && c->nvers < VERS_IN_CELL - 1) {
@@ -2206,14 +2206,14 @@ int cell2UniVers(UniVersions *ver, cell *c) {
 	if (lang == LANG_ENGLISH && multy_language)
 		lang = LANG_RUSENG;
 	memset(ver, 0, sizeof(RecVersions));
-	ver->lnAltCnt = MIN(c->nvers, REC_MAX_VERS);
-	ver->lnAltCnt = MAX(ver->lnAltCnt, 0);
+	ver->lnAltCnt = std::min(static_cast<int> (c->nvers), REC_MAX_VERS);
+	ver->lnAltCnt = std::max(ver->lnAltCnt, 0);
 	ver->lnAltMax = REC_MAX_VERS;
 
 	if (ver->lnAltCnt) {
 		for (i = 0; i < ver->lnAltCnt; i++) {
 			let = (int16_t) c->vers[i].let;
-			strcpy((char*)  ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
+			strcpy((char*) ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
 			ver->Alt[i].Liga = (uchar) c->vers[i].let;
 			ver->Alt[i].Prob = c->vers[i].prob;
 			switch (c->recsource & 0xef) {
@@ -2275,8 +2275,8 @@ void CSTR_kill_dusts(CSTR_line lino) {
 
 void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled) {
 	cell* c, cc;
-	CSTR_rast_attr attr, zattr = { 0 };
-	CSTR_attr attrlin = { 0 };
+	CSTR_rast_attr attr, zattr;
+	CSTR_attr attrlin;
 	CSTR_rast rst, old_rst = CSTR_GetFirstRaster(lino);
 	UniVersions uvs;
 	int16_t macol, micol, marow, mirow;
@@ -2647,7 +2647,7 @@ void import_lines_features(void) {
 	int16_t up, uploc;
 
 	for (i = 0; i < num_of_lines; i++) {
-		up = MIN(page_lines[i].beg.y, page_lines[i].end.y)
+		up = std::min(page_lines[i].beg.y, page_lines[i].end.y)
 				- page_lines[i].width / 2;
 		if (abs(up - maxrow) < 10) {
 			for (c = b; c != e; c = c->next) {
@@ -2959,7 +2959,7 @@ Bool pass2_test_alphabet(str_info *str, CSTR_line ln) {
 
 Bool add_rus_under(cell *c) {
 	Bool ret = FALSE;
-	uchar pr = (uchar)(MAX((int16_t) c->vers[0].prob - 10, 2));
+	uchar pr = (uchar)(std::max((int16_t) c->vers[0].prob - 10, 2));
 	switch (c->vers[0].let) {
 	case (uchar) 'ç':
 		if (is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
@@ -2970,7 +2970,7 @@ Bool add_rus_under(cell *c) {
 		break;
 	case (uchar) '¨':
 		add_stick_vers(c, (char) 'æ', pr);
-		add_stick_vers(c, (char) 'ã', (uchar) MAX((int16_t) pr - 10, 2));
+		add_stick_vers(c, (char) 'ã', (uchar) std::max((int16_t) pr - 10, 2));
 		ret = TRUE;
 		break;
 	case (uchar) '®':
@@ -2987,7 +2987,7 @@ Bool add_rus_under(cell *c) {
 
 Bool add_eng_under(cell *c) {
 	Bool ret = FALSE;
-	uchar pr = (uchar)(MAX((int16_t) c->vers[0].prob - 10, 2));
+	uchar pr = (uchar)(std::max((int16_t) c->vers[0].prob - 10, 2));
 	switch (c->vers[0].let) {
 	case (uchar) 'v':
 		add_stick_vers(c, (char) 'y', pr);
@@ -3043,7 +3043,7 @@ void cstr_rerecog_leo(CSTR_line ln) {
 				if (u.Alt[0].Prob > 200)
 					CSTR_StoreCollectionUni(rst, &u);
 				else if (uo.lnAltCnt && u.Alt[0].Prob > 20 + uo.Alt[0].Prob) {
-					n = MIN(REC_MAX_VERS - 1, uo.lnAltCnt);
+					n = std::min(REC_MAX_VERS - 1, uo.lnAltCnt);
 					for (i = 0; i < 1; i++)
 						u.Alt[i + 1] = uo.Alt[i];
 					u.lnAltCnt = n + 1;
@@ -3063,12 +3063,12 @@ Bool recog_minus(void) {
 	if (c->next != cell_l()) {
 		cn = c->next;
 		if ((c->flg & c_f_dust) && (cn->flg & c_f_dust) && cn->next == cell_l()) { // two dusts
-			rn = MIN(c->row, cn->row);
-			hn = MAX(c->row + c->h, cn->row + cn->h) - rn;
+			rn = std::min(c->row, cn->row);
+			hn = std::max(c->row + c->h, cn->row + cn->h) - rn;
 			con = c->col;
 			wn = cn->col + cn->w - con;
 			up = rn - minrow;
-			dn = MAX(c->row + c->h, cn->row + cn->h) - minrow;
+			dn = std::max(c->row + c->h, cn->row + cn->h) - minrow;
 			if (hn * 12 < wn * 5 && wn >= Ps / 2 && up >= bbs2 + dh && dn
 					<= bbs3 - dh) {
 				clist[0] = c;

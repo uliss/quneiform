@@ -68,15 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ced.h"
 #include "ced_struct.h"
-
-#ifdef _DEBUG
-#define EDASSERT(f) \
-	{if (!(f)) \
-		__asm { int 3 };}
-#else
-#define EDASSERT(f)
-#endif
-
 #include "compat_defs.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data

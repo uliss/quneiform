@@ -78,8 +78,6 @@
 #define CSTR_FUNC  FUN_IMPO
 #endif
 
-///////////////////////////////AK
-
 CSTR_FUNC(Bool32) CSTR_Init( uint16_t wHeightCode , Handle hStorage);
 CSTR_FUNC(void) CSTR_Done(void);
 CSTR_FUNC(uint32_t) CSTR_GetReturnCode(void);

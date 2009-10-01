@@ -70,22 +70,24 @@
 #include <cstdlib>
 #include <cctype>
 
-
 #include "ctb.h"
 #include "cfcompat.h"
+#include "charsets.h"
 
 //********************************************************************
 //*************** static data : **************************************
 //********************************************************************
 static uchar save_pack[256* 128 + 3 + CTB_DATA_SIZE ]; // global bit map buffer
-static uchar zero_data[CTB_DATA_SIZE] = { 0 }; // zero attributes              //
-static char *error_strings[] = { "Error free!", "Can't open .CTB-file",
+static uchar zero_data[CTB_DATA_SIZE] = { 0 }; // zero attributes
+
+static const char *error_strings[] = { "Error free!", "Can't open .CTB-file",
 		"Seek error", "Signature of CTB-file is bad",
 		"Header of CTB-file is bad", "Not enaugh memory!",
 		"Can't open .IND-file", "Read error", "False NDX !",
 		"Not opened descriptor", "Zero address of attributes",
 		"Can't used killed raster", "Unknown method of packing", "Write error",
 		"Align Error", "Can't saved to CTB with different version" };
+
 static uint32_t mask_r[] = { 255, 128, 192, 224, 240, 248, 252, 254, 255 };
 //                        0      1      2    3      4    5     6     7     8
 //********************************************************************
@@ -143,7 +145,7 @@ CTB_FUNC void CTB_done(void) {
 #ifdef WIN32
 extern char* mkdtemp(char*);
 
-static char* get_tmp_pattern() {
+static const char* get_tmp_pattern() {
 	const int len = GetTempPath(0, 0);
 	const char pattrn[] = "cuneiform-XXXXXX";
 	char* tmp = malloc(len + sizeof(pattrn) + 2);
@@ -152,19 +154,20 @@ static char* get_tmp_pattern() {
 	strncpy(tmp + len2 + 1, pattrn, sizeof(pattrn) + 1);
 	return tmp;
 }
-static void free_tmp_pattern(char* tmp) {
+static void free_tmp_pattern(const char* tmp) {
 	free(tmp);
 }
 #else
-static char* get_tmp_pattern() {
+static const char* get_tmp_pattern() {
 	return "/tmp/cuneiform-XXXXXXX";
 }
-static void free_tmp_pattern(char*) {
+
+static void free_tmp_pattern(const char*) {
 }
 #endif
 
 int32_t CTB_gettmpdirname(void) {
-	char* tmp = get_tmp_pattern();
+	const char * tmp = get_tmp_pattern();
 	ctb_tmp_dir = static_cast<char*> (malloc(strlen(tmp) + 1));
 	strncpy(ctb_tmp_dir, tmp, strlen(tmp) + 1);
 	ctb_tmp_dir = mkdtemp(ctb_tmp_dir);
@@ -190,7 +193,7 @@ Bool32 CTB_open(const char *filename, CTB_handle *hnd, const char *attr) {
 	ctb_err_code = CTB_ERR_NONE;
 	strcpy(file_name, filename);
 	p = ctb_last_punct(file_name);
-	strlwr((char*)attr);
+	strlwr((char*) attr);
 	memset(hnd, 0, sizeof(CTB_handle));
 	if (p)
 		*p = '\0';
@@ -220,8 +223,8 @@ Bool32 CTB_open(const char *filename, CTB_handle *hnd, const char *attr) {
 		ctb_err_code = CTB_ERR_VERS;
 		return 0;
 	}
-	hnd->len = (int32_t) (((long) HCTB.size_x * HCTB.size_y)
-			/ HCTB.dot_per_byte);
+	hnd->len
+			= (int32_t)(((long) HCTB.size_x * HCTB.size_y) / HCTB.dot_per_byte);
 	// store attributes    //
 	hnd->num = HCTB.volume > 0 ? HCTB.volume : CTB_volume_true(file_name);
 	hnd->type = (int16_t) CTB_type(HCTB.size_x, HCTB.size_y, HCTB.dot_per_byte);
@@ -450,7 +453,7 @@ int32_t CTB_read(CTB_handle *hnd, int32_t num, uchar *save_bin, uchar *data) {
 	if (data) {
 		memcpy(data, save_pack, datalen);
 		if (hnd->version < 6)
-			data[0] = CTB_OEM_CHARSET;
+			data[0] = CIF::OEM_CHARSET;
 	}
 	w = data[1];
 	h = data[2];
@@ -517,7 +520,7 @@ int32_t CTB_volume_all(const char *filename) {
 	if (STAT(lin, &sts) == -1)
 		return 0;
 
-	return (int32_t) (sts.st_size / 8);
+	return (int32_t)(sts.st_size / 8);
 }
 
 Bool32 CTB_read_global_data(CTB_handle *hnd, uchar *data) {
@@ -619,7 +622,7 @@ Bool32 CTB_read_data(CTB_handle *hnd, int32_t num, uchar *data) {
 		return FALSE;
 	}
 	if (hnd->version < 6) {
-		data[0] = CTB_OEM_CHARSET;
+		data[0] = CIF::OEM_CHARSET;
 	}
 	return TRUE;
 }
@@ -1175,7 +1178,7 @@ static int32_t CTB_volume_true(char *filename) {
 	if (STAT(lin, &sts) == -1)
 		return 0;
 
-	n = (int32_t) (sts.st_size / 8);
+	n = (int32_t)(sts.st_size / 8);
 
 	fp = fopen(lin, R_B);
 	if (fp == BAD_FOPEN)

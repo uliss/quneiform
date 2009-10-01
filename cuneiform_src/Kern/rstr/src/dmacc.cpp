@@ -193,7 +193,7 @@ int16_t try_cut_top_accent(cell *C1, B_LINES *my_bases, int16_t flag) {
 	cc = C1->col;
 	cw = C1->w;
 	ch = C1->h;
-	if (((b2 = my_bases->b2) - MAX(2, my_bases->ps / 5)) < cr)
+	if (((b2 = my_bases->b2) - std::max(2, my_bases->ps / 5)) < cr)
 		return 0;
 	b1b2 = 2;
 	dh = b2 - cr;
@@ -202,7 +202,7 @@ int16_t try_cut_top_accent(cell *C1, B_LINES *my_bases, int16_t flag) {
 	if (((b1 = my_bases->b1) -
 
 	// в балтийских языках есть низенький макрон! Nick 19.08.01
-			MAX(3, my_bases->ps / ((is_baltic_language(language)
+			std::max(3, my_bases->ps / ((is_baltic_language(language)
 					|| is_turkish_language(language) // Ради точки над I, i_sans_accent 30.05.2002 E.P.
 					) ? 5 : 4))) - ((dh <= my_bases->ps / 2) ? 1 : 0) >= cr
 			|| C1->vers[0].prob >= PROBOK && (is_cen_language(language) && // 08.09.2000 E.P.
@@ -396,12 +396,12 @@ static int16_t thinlev_top(puchar r, int16_t w, int16_t dh) {
 	int16_t l, d, i, j, s1, s2, min1, min2, i1, i2;
 
 	l = (w + 7) / 8;
-	d = MIN(2, dh / 3);
+	d = std::min(2, dh / 3);
 
 	if (dh <= 1)
 		return dh; // 20.07.97 E.P. (instead of nonsense try to cut dot)
 
-	for (min1 = min2 = w + 1, i = MAX(2, dh - d); i <= dh + d; i++) {
+	for (min1 = min2 = w + 1, i = std::max(2, dh - d); i <= dh + d; i++) {
 		for (s1 = s2 = j = 0; j < w; j++)
 			if (r[l * (i - 1) + j / 8] & (128 >> (j % 8))) {
 				s1++;
@@ -427,9 +427,9 @@ static int16_t thinlev_bot(puchar r, int16_t w, int16_t h, int16_t dh) {
 	int16_t l, d, i, j, s1, s2, min1, min2, i1, i2;
 
 	l = (w + 7) / 8;
-	d = MIN(2, dh / 3);
+	d = std::min(2, dh / 3);
 	i1 = i2 = dh; // Nick 20.06.2002
-	for (min1 = min2 = w + 1, i = MAX(2, dh - d); i <= MIN(dh + d, h / 2); /* restrict to the lower half of raster */
+	for (min1 = min2 = w + 1, i = std::max(2, dh - d); i <= std::min(dh + d, h / 2); /* restrict to the lower half of raster */
 	i++) {
 		for (s1 = s2 = j = 0; j < w; j++)
 			if (r[l * (h - i) + j / 8] & (128 >> (j % 8))) /* i-th line (1-based) from bottom */
@@ -480,13 +480,13 @@ int16_t try_cut_bot_accent(cell *C1, B_LINES *my_bases, int16_t flag) {
 	cc = C1->col;
 	cw = C1->w;
 	ch = C1->h;
-	if (((b3 = my_bases->b3) + MAX(2, my_bases->ps / 5)) > cr + ch)
+	if (((b3 = my_bases->b3) + std::max(2, my_bases->ps / 5)) > cr + ch)
 		return 0;
 
 	b1b2 = 2;
 	dh = cr + ch - b3;
 
-	if (((b1 = my_bases->b1) - MAX(3, my_bases->ps / 4)) - ((dh <= my_bases->ps
+	if (((b1 = my_bases->b1) - std::max(3, my_bases->ps / 4)) - ((dh <= my_bases->ps
 			/ 2) ? 1 : 0) >= cr)
 		b1b2 = 1;
 

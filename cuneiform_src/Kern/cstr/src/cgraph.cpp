@@ -434,8 +434,7 @@ Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out) {
 //	RETS:	TRUE	- успешно
 //			FALSE	- ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
-{
+Bool32 CSTR_SaveCont(const char *filename) {
 	int32_t i, j, count;
 	Bool32 lineFlg;
 	FILE *out;
@@ -445,7 +444,7 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
 	CSTR_line linx;
 	CGRAPH_FileData fData;
 
-	if(!(out = fopen(filename, "wb"))) {
+	if (!(out = fopen(filename, "wb"))) {
 		wLowRC = CGRAPH_ERR_OPEN;
 		return FALSE;
 	}
@@ -459,47 +458,38 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
 	fwrite(&fData, sizeof(fData), 1, out);
 	fwrite(&count, sizeof(count), 1, out);
 
-	for(i = 1; i <= count; i++)
-	{
-		for(j = 0; j < fData.MaxLineVer; j++)
-		{
+	for (i = 1; i <= count; i++) {
+		for (j = 0; j < fData.MaxLineVer; j++) {
 			fwrite(&i, sizeof(i), 1, out); //Номер строки
 			fwrite(&j, sizeof(i), 1, out); //Версия
 
-			if(!(linx = CSTR_GetLineHandle(i, j)))
-			{
+			if (!(linx = CSTR_GetLineHandle(i, j))) {
 				lineFlg = FALSE;
 				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
 				continue;
-			}
-			else
-			{
+			} else {
 				lineFlg = TRUE;
 				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
 			}
 
-			if(!(rst = CSTR_GetFirstRaster(linx)))
-			{
+			if (!(rst = CSTR_GetFirstRaster(linx))) {
 				wLowRC = CGRAPH_ERR_PARAM;
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!(CSTR_GetLineAttr(linx, &attr)))
-			{
+			if (!(CSTR_GetLineAttr(linx, &attr))) {
 				wLowRC = CGRAPH_ERR_PARAM;
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!CGRAPH_SaveCSTR(rst->next, &attr, out))
-			{
+			if (!CGRAPH_SaveCSTR(rst->next, &attr, out)) {
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!CGRAPH_SaveLoop(rst->next, &attr, out))
-			{
+			if (!CGRAPH_SaveLoop(rst->next, &attr, out)) {
 				fclose(out);
 				return FALSE;
 			}
@@ -526,8 +516,8 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in) {
 
 	CSTR_rast rst = rast, curr_rst = rast;
 	CSTR_rast beg, end;
-	CSTR_attr attr = { 0 };
-	CSTR_rast_attr rast_attr = { 0 };
+	CSTR_attr attr;
+	CSTR_rast_attr rast_attr;
 
 	UniVersions uvers = { 0 };
 	CGRAPH_Data cstr = { 0 };
@@ -673,8 +663,8 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in) {
 	int32_t i, count_rast;
 	Bool32 flg;
 	CSTR_rast rst;
-	CSTR_rast_attr rast_attr = { 0 };
-	CSTR_attr attr = { 0 };
+	CSTR_rast_attr rast_attr;
+	CSTR_attr attr;
 	UniVersions uvers = { 0 };
 	CGRAPH_Data cstr = { 0 };
 	uchar *lp = NULL;

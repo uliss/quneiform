@@ -220,24 +220,6 @@ static cell * snap_CSTR2cell(CSTR_rast rst) {
 	return NULL;
 }
 
-// из cell-a в контейнер
-static CSTR_rast snap_cell2CSTR(cell *c) {
-	CSTR_rast rst = CSTR_GetFirstRaster(snap_line);
-	CSTR_rast_attr attr;
-	int scale;
-	if (!c)
-		return (CSTR_rast) NULL;
-	scale = c->env ? c->env->scale : 0;
-	for (rst = CSTR_GetNext(rst); rst; rst = CSTR_GetNext(rst)) {
-		CSTR_GetAttr(rst, &attr);
-		if (attr.col == (c->col << scale) && attr.row == (c->row << scale)
-				&& attr.w == (c->w << scale) && attr.h == (c->h << scale)) {
-			return rst;
-		}
-	}
-	return (CSTR_rast) NULL;
-}
-
 // позиция cell-a
 static uint32_t snap_cell2pos(cell *cl) {
 	uint32_t pos;
@@ -1290,8 +1272,9 @@ void snap_show_cuts(cell *C, struct cut_elm *cut_points) {
 				cutpoints_show[numpoints_show + 1].y
 						= cutpoints_show[numpoints_show].y
 								+ (cpnt->dh ? cpnt->dh : C->h);
-				cutpoints_show[numpoints_show + 1].y = MIN(C->h,
-						cutpoints_show[numpoints_show + 1].y);
+				cutpoints_show[numpoints_show + 1].y = std::min(
+						static_cast<int> (C->h), cutpoints_show[numpoints_show
+								+ 1].y);
 			}
 			cutpoints_show[numpoints_show + 1].y--;
 			if (!cuts_point_methode) {

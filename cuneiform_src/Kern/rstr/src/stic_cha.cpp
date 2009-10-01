@@ -333,8 +333,8 @@ static void set_serifs(uchar left[], uchar right[], STICK_CHARS *left_chars,
 	int16_t l1, l2, r1, r2, dy_u = dy / 6, dy_d = dy - 1 - dy / 6, d = (dx - 1)
 			<< 2;
 
-	r1 = MIN(r + 4, d);
-	r2 = MIN(r + 8, d); /* r1-one,r2-two step in right direct */
+	r1 = std::min(r + 4, static_cast<int> (d));
+	r2 = std::min(r + 8, static_cast<int> (d)); /* r1-one,r2-two step in right direct */
 	if (r1 == r2)
 		r2 += 4; /* right mode = dx-1 */
 	/* upper right serif */
@@ -584,7 +584,8 @@ static int16_t typ_nose_1(uchar left[], int16_t n, int16_t lim, int16_t lev) { /
 /*                                                                 */
 /* out : r->f_symptom  : 0(not sign),1(bad f-abris),2(good)        */
 int16_t calc_right_f_symptom(uchar fun[], int16_t n, int16_t m) {
-	int i, l = MIN(m, 4), lev, s, n2 = n >> 1, n3 = n / 3;
+	int i, l = std::min(static_cast<int> (m), 4), lev, s, n2 = n >> 1, n3 = n
+			/ 3;
 	if (l == 0)
 		l = 1;
 	for (lev = 0; lev < l; lev++) {
@@ -629,7 +630,7 @@ int16_t calc_left_f_symptom(uchar fun[], int16_t n, int16_t nx, Bool c_ft) {
 	f = 0;
 
 	if (i < nn) {
-		if (i > MAX(n / 6 - 1, 2)) {
+		if (i > std::max(n / 6 - 1, 2)) {
 			for (f = 0; i < n && fun[i] == fun[i + 1]; i++, f++)
 				;
 			i--;
@@ -684,7 +685,8 @@ int16_t calc_left_f_symptom(uchar fun[], int16_t n, int16_t nx, Bool c_ft) {
 /* correct characteristics l , r                              */
 static int16_t correct_beam(STICK_CHARS *l, STICK_CHARS *r, int16_t lev,
 		int16_t dist) {
-	int16_t i, lm, rm, lmn, rmn, t, dist1 = MAX(dist, 1);
+	int16_t i, lm, rm, lmn, rmn, t, dist1 =
+			std::max(static_cast<int> (dist), 1);
 	for (i = 0; i < 2; i++) /* study zones 0,1,2 */
 	{
 		lm = l->mount[i];
@@ -995,11 +997,11 @@ static void set_long(uchar fun[], int16_t skip_u, int16_t skip_d, int16_t n,
 			continue;
 		if (f > level + 4)
 			find_peak_new(&i, &imax, fun, n, level, sr, &extr, &f); // MK NEW
-		/* right lane ________________________ f = MAX( fun[i] ) ______________  */
+		/* right lane ________________________ f = std::max( fun[i] ) ______________  */
 		else
 			/* f<level+4 */
 			find_conc_new(&i, &imax, fun, n, level, sl, &extr, &f); // MK NEW
-		/* left lane ___________________________ f = MAX(fun[i]) _____________ */
+		/* left lane ___________________________ f = std::max(fun[i]) _____________ */
 
 		k = index_arr(imax, lim, SIZ); /* imax -  begin interval */
 		m = index_arr(i, lim, SIZ); /* i    -  end interval   */
@@ -1365,7 +1367,7 @@ Bool sign_neck(uchar left[], uchar right[], int16_t n, int16_t base,
 			n_less++; /* num of thin rows	*/
 		if (l == mode)
 			n_eq++; /* num of rows==mode	*/
-		if (l < MAX(1, mode - 1) && f == -1)
+		if (l < std::max(1, mode - 1) && f == -1)
 			f = i; /* f = first row neck	*/
 		if (ml > l)
 			ml = l; /* minimum wide of neck	*/

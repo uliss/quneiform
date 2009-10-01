@@ -1001,8 +1001,8 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag) {
 		goto retpt;
 
 	DC = BC;
-	e3 = MAX(BC->w * LEFT_DISTANCE_MIN, 200);
-	e4 = MAX(BC->w * RIGHT_DISTANCE_MIN, 200);
+	e3 = std::max(BC->w * LEFT_DISTANCE_MIN, 200);
+	e4 = std::max(BC->w * RIGHT_DISTANCE_MIN, 200);
 	while ((DC->prev)->prev) // serach to the left
 	{
 		DC = DC->prev;

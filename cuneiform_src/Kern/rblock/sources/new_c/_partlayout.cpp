@@ -997,8 +997,7 @@ void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
 int IsInPoly(Point32 a, POLY_ * p) {
 	int i, y, n, ind;
 	int Count = 0;
-	//POLY_ *p;
-	//p = (POLY_*)pPoly;
+
 	n = p->com.count;
 	for (i = 0; i < n; i++) {
 		int j = (i + 1) % n;
@@ -1016,7 +1015,7 @@ int IsInPoly(Point32 a, POLY_ * p) {
 		}
 		if ((y == a.y) && (p->com.Vertex[ind].x >= a.x))
 			Count++;
-		else if (MIN(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
+		else if (std::min(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
 			continue;
 		else {
 			double t = ((double) (a.y - p->com.Vertex[i].y)

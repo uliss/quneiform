@@ -473,7 +473,7 @@ void setup_digital_mode(str_info *str, int16_t first_pass) {
 			break;
 
 		default:
-			if (num_dig > MAX(2, (3* num_all ) / 4) && num_let == 0 || num_dig
+			if (num_dig > std::max(2, (3* num_all ) / 4) && num_let == 0 || num_dig
 					> 0 && num_dig > num_asOne && num_bad == 0 && num_let == 0)
 				dig = 2;
 			else if (num_dig * 10 > num_all * 6 && num_all > 5 /*&& num_bad*/)
@@ -494,7 +494,7 @@ void setup_digital_mode(str_info *str, int16_t first_pass) {
 		}
 	} else if (str->alphabet == ALPHA_DIGITAL || str->alphabet
 			== ALPHA_DIGITAL_TRUE) {
-		if (num_dig >= MAX(1, num_all / 2) && num_let < MAX(1, num_all / 4)
+		if (num_dig >= std::max(1, num_all / 2) && num_let < std::max(1, num_all / 4)
 				|| num_dig > 0 && num_bad == 0 && num_let == 0) {
 			digital_mode = 2;
 			set_digital_alphabet();

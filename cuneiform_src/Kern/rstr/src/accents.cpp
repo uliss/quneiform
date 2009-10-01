@@ -306,7 +306,7 @@ int16_t bottom_accent(cell *c) {
 		}
 
 		if (v2->let) {
-			v2->prob = MIN(254, v1->prob + 84);
+			v2->prob = std::min(254, v1->prob + 84);
 			v2++;
 			n++;
 		}
@@ -624,7 +624,7 @@ int16_t accent(cell *c) {
 				case ACC_LR:
 					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
 						v2->let = EE_right_accent;
-						v2->prob = MIN(254, v1->prob + 84);
+						v2->prob = std::min(254, v1->prob + 84);
 						v2++;
 						n++;
 						v2->let = EE_left_accent;
@@ -836,7 +836,7 @@ int16_t accent(cell *c) {
 				case ACC_LR:
 					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
 						v2->let = e_right_accent;
-						v2->prob = MIN(254, v1->prob + 84);
+						v2->prob = std::min(254, v1->prob + 84);
 						v2++;
 						n++;
 						v2->let = e_left_accent;
@@ -936,12 +936,12 @@ int16_t accent(cell *c) {
 					if (n < VERS_IN_CELL - 2) {
 						// Сохранить версию 'i'
 						v2->let = 'i';
-						v2->prob = MAX(10, v1->prob - 10);
+						v2->prob = std::max(10, v1->prob - 10);
 						v2++;
 						n++;
 
 						v2->let = i_roof_accent;
-						v2->prob = MAX(10, v1->prob - 12);
+						v2->prob = std::max(10, v1->prob - 12);
 						v2++;
 						n++;
 						continue;
@@ -1142,7 +1142,7 @@ int16_t accent(cell *c) {
 						&& v1->prob < 60)
 					add_prob = 10;
 
-				v2->prob = MIN(254, v1->prob + add_prob);
+				v2->prob = std::min(254, v1->prob + add_prob);
 				v2++;
 				n++;
 			}
@@ -1200,7 +1200,7 @@ int16_t accent(cell *c) {
 			sprintf((char*) str, "macron accent");
 			break; // 19.07.2001 E.P.
 		}
-		snap_show_text((char*)str);
+		snap_show_text((char*) str);
 		snap_monitor();
 	}
 	return 1;
@@ -1296,7 +1296,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 
 	// ACC_ROOF_INF над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
 	if (language == LANG_CZECH && memchr("dt", let, 2))
-		e += MAX(2, c->w / 8);
+		e += std::max(2, c->w / 8);
 
 	for (fld = 0, cc = c->prevl->next; cc->col <= e && cc != cell_l(); cc
 			= cc->next)
@@ -1305,7 +1305,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 				8* cc ->h < 5* H && // not too big
 				(cc->row + cc->h - 1 <= c->row || // upper position
 						c->vers[i].let == 'A' && cc->row - 1 <= c->row)
-				&& (cc->row + 4 >= MIN(bl.b0, bl.b1) || // not too upper
+				&& (cc->row + 4 >= std::min(bl.b0, bl.b1) || // not too upper
 						cc->row + cc->h >= c->row - bl.ps / 4 || pitchsize
 						&& cc->row + cc->h + 3 >= bl.b1) && cc->h + cc->w
 				>= bl.ps / 5) // not too small
@@ -1337,7 +1337,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						<= 2* cc ->w) && (let != 'i' || cc->h + cc->w >= 3*
 						c ->w && cc->w >= 4) && (d = cc->col + cc->w / 2
 						- (c->col + c->w / 2)) <= (2* H ) / 5 && d >= -H / 4
-						&& -d < cc->w && 2* d <= 3* MAX (cc->h, cc->w)
+						&& -d < cc->w && 2* d <= 3* std ::max(cc->h, cc->w)
 						&& (cc->col + cc->w > c->col + c->w / 2 || (cc->cg_flag
 								& c_cg_cutacc) != c_cg_cutacc)) {
 
@@ -1497,8 +1497,9 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						if (memchr("AOao", let, 4) && 2* cc ->w >= c->w && 3*
 								cc ->h <= 2* cc ->w && 5* cc ->h <= 2* bl .ps
 								&& (d = cc->col + cc->w / 2 - (c->col + c->w
-										/ 2)) <= MAX(5, cc->w / 2) && d
-								>= -MAX(3, cc->w / 3) && acc_tild(cc, raster)) {
+										/ 2)) <= std::max(5, cc->w / 2) && d
+								>= -std::max(3, cc->w / 3) && acc_tild(cc,
+								raster)) {
 							ret = ACC_TILD;
 							goto non_zero_ret;
 						}
@@ -1551,11 +1552,10 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			if (((language == LANG_SWEDISH || language == LANG_DANISH)
 					&& (memchr("Aa", let, 2) || c->vers[1].let == 'a')
 					|| language == LANG_CZECH && memchr("Uu", let, 2) // 04.09.2000 E.P.
-			) && MIN(cc->h, cc->w) >= bl.ps / 4 && abs(cc->h - cc->w) <= MAX(2,
-					bl.ps / 7)
-					+ (((cc->cg_flag & c_cg_cutacc) == c_cg_cutacc) ? 1 : 0)
-					&& (d = cc->col + cc->w / 2 - (c->col + c->w / 2))
-							<= (2* H ) / 5 && d >= -H / 4
+			) && std::min(cc->h, cc->w) >= bl.ps / 4 && abs(cc->h - cc->w)
+					<= std::max(2, bl.ps / 7) + (((cc->cg_flag & c_cg_cutacc)
+							== c_cg_cutacc) ? 1 : 0) && (d = cc->col + cc->w
+					/ 2 - (c->col + c->w / 2)) <= (2* H ) / 5 && d >= -H / 4
 					&& acc_cir(cc, raster)) {
 				ret = ACC_CIR;
 				goto non_zero_ret;
@@ -1570,7 +1570,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					cc ->h <= 2* cc ->w : 4* cc ->h < 3* cc ->w) && (language
 					!= LANG_ESTONIAN ? 5* cc ->h <= 2* bl .ps : 7* cc ->h < 3*
 					bl .ps) && (d = cc->col + cc->w / 2 - (c->col + c->w / 2))
-					<= MAX(5, cc->w / 2) && d >= -MAX(3, cc->w / 3)
+					<= std::max(5, cc->w / 2) && d >= -std::max(3, cc->w / 3)
 					&& acc_tild(cc, raster)) {
 				ret = ACC_TILD;
 				goto non_zero_ret;
@@ -1599,8 +1599,8 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					d = cc->col + cc->w / 2 - (c->col + c->w / 2);
 
 					if (5* cc ->h <= 2* bl .ps && // Не слишком высокий
-							d <= MAX(5, cc->w / 2) && // Не слишком справа от буквы
-							d >= -MAX(3, cc->w / 3) && // Не слишком слева от буквы
+							d <= std::max(5, cc->w / 2) && // Не слишком справа от буквы
+							d >= -std::max(3, cc->w / 3) && // Не слишком слева от буквы
 							c->col + (3* c ->w) / 2 > cc->col + cc->w / 2 && // Над буквой Nick 20.08.01
 							c->col - (c->w) / 2 < cc->col + cc->w / 2 // Над буквой
 					) {
@@ -1621,7 +1621,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			if (cc->flg & (c_f_dust | c_f_punct) && // dust
 					8* cc ->h < 5* H && // not too high
 					cc->row + cc->h - ((let == 'i') ? 0 : 1) <= c->row && // upper position
-					(cc->row + 4 >= MIN(bl.b0, bl.b1) || // not too upper
+					(cc->row + 4 >= std::min(bl.b0, bl.b1) || // not too upper
 							cc->row + cc->h >= c->row - bl.ps / 4 || pitchsize
 							&& cc->row + cc->h + 3 >= bl.b1) && cc->h + cc->w
 					>= bl.ps / 4) // not too small
@@ -1630,7 +1630,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 				cc->h>=cc->w && cc->h>=4 || 3*cc->h<=2*cc->w || cc->w>=H/3) &&
 				cc->h+cc->w>=H/3 &&
 				(d=cc->col+cc->w/2-(c->col+c->w/2))<=(2*H)/5 && d>=-H/4&&
-		-d<cc->w && 2*d<=3*MAX(cc->h,cc->w) &&
+		-d<cc->w && 2*d<=3*std::max(cc->h,cc->w) &&
 				(cc->col+cc->w>c->col+c->w/2 ||
 						(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
 				)
@@ -1684,7 +1684,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 //**************************************************************************
 static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 	int16_t l, r1, r2, r3, b, s1, s2, s3, s4, s13, s24, i, j, d;
-	char *sCanHaveLRAccents = NULL; // 21.08.1997 E.P. for Polish
+	const char *sCanHaveLRAccents = NULL; // 21.08.1997 E.P. for Polish
 	int16_t nCanHaveLRAccents = 0;
 	uchar let;
 
@@ -1775,60 +1775,60 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 		if ((memchr("AEUaeu", let, 6) || c->vers[i + 1].let == 'a')
 				&& (language == LANG_FRENCH || language == LANG_ITALIAN))
 			if (let != 'i' && 2* (s13 -s24)>=s13-d ||
-			s13-s24>=MAX(3,s13/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
+			s13-s24>=std::max(3,s13/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h)||
 			4*s13>=11*s24 || 3*(s13-s24)>=s13 && s4<=1 && 6*s4<=s24)
 			return ACC_LEFT;
 			if (let!='i' && 2*(s24-s13)>=s24-d ||
-					s24-s13>=MAX(3,s24/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
-      4*s24>=11*s13 || 3*(s24-s13)>=s24 && s3<=1 && 6*s3<=s13)
-   return ACC_RIGHT;
+			s24-s13>=std::max(3,s24/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
+			4*s24>=11*s13 || 3*(s24-s13)>=s24 && s3<=1 && 6*s3<=s13)
+			return ACC_RIGHT;
 
-  if (cc->w<=cc->h/2 &&
-      (let!='i' || cc->h>=c->h/3 && 3*cc->w<=cc->h))
-   {
-   if ((memchr("AEUaeu",let,6) || c->vers[i+1].let=='a') &&
-               (language==LANG_FRENCH||language==LANG_ITALIAN))
-    return ACC_LR;
-   else
-    if (s24>=s13)
-        {
-        // Avoid mistake with Zz dot accent. 23.10.97.
-        if (!(
-				(language==LANG_POLISH && memchr("Zz",let,2) ||
+			if (cc->w<=cc->h/2 &&
+			(let!='i' || cc->h>=c->h/3 && 3*cc->w<=cc->h))
+			{
+				if ((memchr("AEUaeu",let,6) || c->vers[i+1].let=='a') &&
+				(language==LANG_FRENCH||language==LANG_ITALIAN))
+				return ACC_LR;
+				else
+				if (s24>=s13)
+				{
+					// Avoid mistake with Zz dot accent. 23.10.97.
+					if (!(
+							(language==LANG_POLISH && memchr("Zz",let,2) ||
 
-				 // And with Ee dot accent. 16.07.2001 E.P.
-			     language==LANG_LITHUANIAN && memchr("Ee",let,2) ||
+									// And with Ee dot accent. 16.07.2001 E.P.
+									language==LANG_LITHUANIAN && memchr("Ee",let,2) ||
 
-				 // And with II dot accent. 31.05.2002 E.P.
-			     language==LANG_TURKISH && let=='I'
+									// And with II dot accent. 31.05.2002 E.P.
+									language==LANG_TURKISH && let=='I'
 
-				 ) &&
-				  s24==s13 && MIN(s2,s4)<=MIN(s1,s3)
-			  )
-		   )
-            return ACC_RIGHT;
-        }
+							) &&
+							s24==s13 && std::min(s2,s4)<=std::min(s1,s3)
+					)
+					)
+					return ACC_RIGHT;
+				}
 
-   }
-   // Add chance for letters that can have ONLY right accent. 10.10.97 E.P.
-   if ( language==LANG_POLISH && memchr("SCNOscno",let,8) )
-     if ( s24>=s13 &&          // Right direction
-          cc->h>=c->h/3        // Not too small
-        )
-        return ACC_RIGHT;
+			}
+			// Add chance for letters that can have ONLY right accent. 10.10.97 E.P.
+			if ( language==LANG_POLISH && memchr("SCNOscno",let,8) )
+			if ( s24>=s13 && // Right direction
+			cc->h>=c->h/3 // Not too small
+			)
+			return ACC_RIGHT;
 
-   // Add chance for latvian 'g'. 17.07.2001 E.P.
-   if ( language==LANG_LATVIAN && let=='g' &&
-          cc->h >= c->h/4 &&        // Not too small
-		  cc->w >= c->w/4
-	  )
-        return ACC_RIGHT;
+			// Add chance for latvian 'g'. 17.07.2001 E.P.
+			if ( language==LANG_LATVIAN && let=='g' &&
+			cc->h >= c->h/4 && // Not too small
+			cc->w >= c->w/4
+			)
+			return ACC_RIGHT;
 
-  }
-			accadr1=NULL;
-			return 0;
 		}
-		//**************************************************************************
+		accadr1=NULL;
+		return 0;
+	}
+	//**************************************************************************
 static int16_t acc_roof(cell *cc, puchar r) {
 	int16_t r1, r2, r3, b, s11, s12, s21, s22, s31, s32, ss13, ss2, sp, sm, ss,
 			i, j, l;
@@ -1849,51 +1849,52 @@ static int16_t acc_roof(cell *cc, puchar r) {
 	j = j / 8;
 	for (r3 = cc->h - 1; r2 >= 0 && !(r[l * r3 + j] & b); r3--)
 		;
-	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= MIN(cc->h - 2, 2* (cc ->h)/3)&&
-     2*r2<r1+r3-2)
-	return 1;
-	if (r2==cc->h-1)
-	{	accadr1=NULL; return 0;}
-	for (s11=s12=j=0; j<cc->w/3; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s11++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s12++;
-	}
-	for (s21=s22=0,j=cc->w/3; j<cc->w-cc->w/3; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s21++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s22++;
-	}
-	for (s31=s32=0,j=cc->w-cc->w/3; j<cc->w; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s31++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s32++;
-	}
-	ss13=(cc->h/2)*(cc->w/3);
-	ss2=(cc->h/2)*(cc->w-2*(cc->w/3));
-	sp=s12+s21+s32;
-	sm=s11+s22+s31;
-	ss=2*ss13+ss2;
-	if ((5*s11>3*ss13 || 2*(ss13-s12)>ss13 ||
-			5*s31>3*ss13 || 2*(ss13-s32)>ss13 ||
-			/*5*s22>3*ss2 ||*/2*(ss2-s21)>ss2 || 5*sm>4*sp) &&
-	(2*sm>sp || 5*sm>2*ss || 5*(ss-sp)>2*ss))
-	{	accadr1=NULL; return 0;}
-	return 1;
-}
-//**************************************************************************
+	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= std::min(cc->h - 2, 2*
+			(cc ->h)/3)&&
+			2*r2<r1+r3-2)
+			return 1;
+			if (r2==cc->h-1)
+			{	accadr1=NULL; return 0;}
+			for (s11=s12=j=0; j<cc->w/3; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s11++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s12++;
+			}
+			for (s21=s22=0,j=cc->w/3; j<cc->w-cc->w/3; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s21++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s22++;
+			}
+			for (s31=s32=0,j=cc->w-cc->w/3; j<cc->w; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s31++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s32++;
+			}
+			ss13=(cc->h/2)*(cc->w/3);
+			ss2=(cc->h/2)*(cc->w-2*(cc->w/3));
+			sp=s12+s21+s32;
+			sm=s11+s22+s31;
+			ss=2*ss13+ss2;
+			if ((5*s11>3*ss13 || 2*(ss13-s12)>ss13 ||
+							5*s31>3*ss13 || 2*(ss13-s32)>ss13 ||
+							/*5*s22>3*ss2 ||*/2*(ss2-s21)>ss2 || 5*sm>4*sp) &&
+					(2*sm>sp || 5*sm>2*ss || 5*(ss-sp)>2*ss))
+			{	accadr1=NULL; return 0;}
+			return 1;
+		}
+	//**************************************************************************
 static Bool32 IsProgib(puchar r, int w, int h) {
 	int i, j;
 	int wb = (w + 7) >> 3;
@@ -1937,10 +1938,10 @@ static Bool32 IsProgib(puchar r, int w, int h) {
 		if (buffer[i] < buffer[best])
 			best = i;
 
-	if (buffer[best] * 3 < MIN(buffer[left], buffer[right]))
+	if (buffer[best] * 3 < std::min(buffer[left], buffer[right]))
 		return TRUE;
 
-	if ((buffer[best] - 1) * 2 > MIN(buffer[left], buffer[right]))
+	if ((buffer[best] - 1) * 2 > std::min(buffer[left], buffer[right]))
 		return FALSE;
 
 	for (i = best, j = 0; i >= left; i--) {
@@ -1970,7 +1971,8 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	int16_t l, d, b, j, i1, i2, r1, r2, r3, s1, s2, u;
 	uchar let1;
 
-	if (cc->row < bl.b1 - 1 && cc->row + cc->h < c->row - MAX(4, cc->h) - 1)
+	if (cc->row < bl.b1 - 1 && cc->row + cc->h < c->row - std::max(4,
+			static_cast<int> (cc->h)) - 1)
 		return 0;
 
 	if (!(language == LANG_RUSSIAN && !langUkr && !langSer)) {
@@ -2054,7 +2056,7 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	cc1=cc1->next)
 	if (cc1->flg&(c_f_dust|c_f_punct))
 	if (let!='i' || cc1->row+cc1->h<=c->row)
-	if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-MAX(4,cc1->h)-2)
+	if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-std::max(4,static_cast<int> (cc1->h))-2)
 	if (cc1->h+cc1->w>=bl.ps/5)
 	if (c->nextl->flg&c_f_fict ||
 	cc1->col+cc1->w/2<=c->nextl->col+1 ||
@@ -2065,8 +2067,8 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	let1=='j' && cc1!=dot_ij(c->nextl))
 	if (cc->cg_flag&c_cg_cutl &&
 	(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc ||
-	(r1=abs(cc->h-cc1->h))<=(s1=MAX(2,(cc->h+cc1->h+3)/6)) &&
-	(r2=abs(cc->w-cc1->w))<=(s2=MAX(2,(cc->w+cc1->w+3)/6)) &&
+	(r1=abs(cc->h-cc1->h))<=(s1=std::max(2,(cc->h+cc1->h+3)/6)) &&
+	(r2=abs(cc->w-cc1->w))<=(s2=std::max(2,(cc->w+cc1->w+3)/6)) &&
 	(r3=abs(cc->row+cc->h/2-(cc1->row+cc1->h/2)))<=s1 &&
 	r1+r2+r3<=s1+s2/2+((let=='i')?0:2))
 	if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=
@@ -2204,7 +2206,7 @@ static int16_t acc_dot(cell *c, cell *cc) {
 	if (cc->flg & (c_f_dust + c_f_punct) && // dust
 			2* cc ->h < c->h && // not too high
 			cc->row + cc->h - 2 <= bl.b2 && // upper position
-			(cc->row + 4 >= MIN(bl.b0, bl.b1) || // not too upper
+			(cc->row + 4 >= std::min(bl.b0, bl.b1) || // not too upper
 					cc->row >= bl.b1 - bl.ps / 3) && cc->row + cc->h <= c->row)
 
 		if (cc->cg_flag & c_cg_just && cc->h >= 2 && cc->w >= 2
@@ -2216,17 +2218,17 @@ static int16_t acc_dot(cell *c, cell *cc) {
 					(c ->row-cc->row)>=c->h && abs(cc->w-c->w)<=1 ||
 					cc->h>=2*cc->w ) && // Added 23.10.97
 					cc->col+3>=c->col &&
-					abs(c->col+c->w/2-(cc->col+cc->w/2))<=MAX(2,c->w/4) && // abs 18.10.97 for Z
-					cc->col+cc->w-6<=c->col+c->w &&
-					(c->prevl->col+c->prevl->w<cc->col))
-					{
-						accadr1 = cc;
-						return 1;
-					}
+					abs(c->col+c->w/2-(cc->col+cc->w/2))<=std::max(2,c->w/4) && // abs 18.10.97 for Z
+			cc->col+cc->w-6<=c->col+c->w &&
+			(c->prevl->col+c->prevl->w<cc->col))
+			{
+				accadr1 = cc;
+				return 1;
+			}
 
-					return 0;
-				}
-			//**************************************************************************
+			return 0;
+		}
+		//**************************************************************************
 int16_t find_bottom_accent(cell *c) {
 	cell *cc;
 	int16_t i, e, fld;
@@ -2374,61 +2376,62 @@ static int16_t acc_semicircle(cell *cc, puchar r) {
 	for (r3 = cc->h - 1; r2 >= 0 && !(r[l * r3 + j] & b); r3--)
 		;
 
-	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= MIN(cc->h - 2, 2* (cc ->h)/3)&&
-     2*r2<r1+r3-2)
-	return 1;
+	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= std::min(cc->h - 2, 2*
+			(cc ->h)/3)&&
+			2*r2<r1+r3-2)
+			return 1;
 
-	if (r2==cc->h-1)
-	{	accadr1=NULL; return 0;}
+			if (r2==cc->h-1)
+			{	accadr1=NULL; return 0;}
 
-	for (s11=s12=j=0; j<cc->w/3; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s11++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s12++;
-	}
-	for (s21=s22=0,j=cc->w/3; j<cc->w-cc->w/3; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s21++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s22++;
-	}
-	for (s31=s32=0,j=cc->w-cc->w/3; j<cc->w; j++)
-	{
-		for (i=0; i<cc->h/2; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s31++;
-		for (i=(cc->h+1)/2; i<cc->h; i++)
-		if (r[i*l+j/8]&(128>>(j%8)))
-		s32++;
-	}
-	ss13=(cc->h/2)*(cc->w/3);
-	ss2=(cc->h/2)*(cc->w-2*(cc->w/3));
-	sp=s12+s21+s32;
-	sm=s11+s22+s31;
-	ss=2*ss13+ss2;
+			for (s11=s12=j=0; j<cc->w/3; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s11++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s12++;
+			}
+			for (s21=s22=0,j=cc->w/3; j<cc->w-cc->w/3; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s21++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s22++;
+			}
+			for (s31=s32=0,j=cc->w-cc->w/3; j<cc->w; j++)
+			{
+				for (i=0; i<cc->h/2; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s31++;
+				for (i=(cc->h+1)/2; i<cc->h; i++)
+				if (r[i*l+j/8]&(128>>(j%8)))
+				s32++;
+			}
+			ss13=(cc->h/2)*(cc->w/3);
+			ss2=(cc->h/2)*(cc->w-2*(cc->w/3));
+			sp=s12+s21+s32;
+			sm=s11+s22+s31;
+			ss=2*ss13+ss2;
 
-	if (
-	(5*s11>3*ss13 || 2*(ss13-s12)>ss13 ||
-			5*s31>3*ss13 || 2*(ss13-s32)>ss13 ||
-			2*(ss2-s21)>ss2 || 5*sm>4*sp)
-	&&
-	(2*sm>sp || 5*sm>2*ss || 5*(ss-sp)>2*ss)
-	)
-	{	accadr1=NULL; return 0;}
+			if (
+					(5*s11>3*ss13 || 2*(ss13-s12)>ss13 ||
+							5*s31>3*ss13 || 2*(ss13-s32)>ss13 ||
+							2*(ss2-s21)>ss2 || 5*sm>4*sp)
+					&&
+					(2*sm>sp || 5*sm>2*ss || 5*(ss-sp)>2*ss)
+			)
+			{	accadr1=NULL; return 0;}
 
-	return 1;
-}
-//**************************************************************************
-// Nick 07.09.00
-// how many intersections >= 2 - on height from 0 to mHei
-// return < 0 - some error
+			return 1;
+		}
+	//**************************************************************************
+	// Nick 07.09.00
+	// how many intersections >= 2 - on height from 0 to mHei
+	// return < 0 - some error
 #define MAXNUMINT 64
 int16_t NumIntersect2(c_comp *cmp, int mHei) {
 	int i, crow;
@@ -2493,11 +2496,11 @@ static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle, int *lDAngle,
 			if (crow < 0)
 				return -2; // invalid c_comp
 
-			*lUAngle = MIN(*lUAngle, crow + vint->e - vint->l);
-			*rUAngle = MIN(*rUAngle, crow + c->w - vint->e);
+			*lUAngle = std::min(*lUAngle, crow + vint->e - vint->l);
+			*rUAngle = std::min(*rUAngle, crow + c->w - vint->e);
 
-			*lDAngle = MIN(*lDAngle, c->h - 1 - crow + vint->e - vint->l);
-			*rDAngle = MIN(*rDAngle, c->h - 1 - crow + c->w - vint->e);
+			*lDAngle = std::min(*lDAngle, c->h - 1 - crow + vint->e - vint->l);
+			*rDAngle = std::min(*rDAngle, c->h - 1 - crow + c->w - vint->e);
 		}
 	}
 
@@ -2523,10 +2526,10 @@ static int16_t Test2Cell2(cell *c1, cell *c2, int *lUAngle, int *rUAngle,
 	if (!cmp1 || !cmp2)
 		return -1;
 
-	minRow = MIN(c1->row, c2->row);
-	hei = mHei = MAX(c1->h + c1->row - minRow, c2->h + c2->row - minRow);
-	minCol = MIN(c1->col, c2->col);
-	wid = MAX(c1->w + c1->col - minCol, c2->w + c2->col - minCol);
+	minRow = std::min(c1->row, c2->row);
+	hei = mHei = std::max(c1->h + c1->row - minRow, c2->h + c2->row - minRow);
+	minCol = std::min(c1->col, c2->col);
+	wid = std::max(c1->w + c1->col - minCol, c2->w + c2->col - minCol);
 
 	if (mHei > MAXNUMINT)
 		mHei = MAXNUMINT;
@@ -2556,14 +2559,14 @@ static int16_t Test2Cell2(cell *c1, cell *c2, int *lUAngle, int *rUAngle,
 				if (crow + startRow < mHei)
 					numint[crow + startRow]++;
 
-				*lUAngle = MIN(*lUAngle, startRow + crow + startCol + vint->e
-						- vint->l);
-				*rUAngle = MIN(*rUAngle, startRow + crow + wid - vint->e
+				*lUAngle = std::min(*lUAngle, startRow + crow + startCol
+						+ vint->e - vint->l);
+				*rUAngle = std::min(*rUAngle, startRow + crow + wid - vint->e
 						- startCol);
 
-				*lDAngle = MIN(*lDAngle, hei - 1 - crow - startRow + startCol
-						+ vint->e - vint->l);
-				*rDAngle = MIN(*rDAngle, hei - 1 - crow - startRow + wid
+				*lDAngle = std::min(*lDAngle, hei - 1 - crow - startRow
+						+ startCol + vint->e - vint->l);
+				*rDAngle = std::min(*rDAngle, hei - 1 - crow - startRow + wid
 						- vint->e - startCol);
 			}
 		}
@@ -2686,16 +2689,17 @@ static int16_t acc_weak_roof(cell *cc, puchar r) {
 	j = j / 8;
 	for (r3 = cc->h - 1; r2 >= 0 && !(r[l * r3 + j] & b); r3--)
 		;
-	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= MIN(cc->h - 2, 2* (cc ->h)/3)&&
-     2*r2<r1+r3-2)
-	return 1;
-	if (r2==cc->h-1)
-	{	accadr1=NULL; return 0;}
+	if (r1 >= cc->h - 2 && r3 >= cc->h - 2 && r2 <= std::min(cc->h - 2, 2*
+			(cc ->h)/3)&&
+			2*r2<r1+r3-2)
+			return 1;
+			if (r2==cc->h-1)
+			{	accadr1=NULL; return 0;}
 
-	return 1;
-}
-//**************************************************************************/
-//Nick 20.08.01
+			return 1;
+		}
+	//**************************************************************************/
+	//Nick 20.08.01
 static Bool NotEmptyInside(puchar r, int16_t w, int16_t h) {
 	int i, j, sum, allSum;
 	int wb = (w + 7) >> 3;

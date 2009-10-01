@@ -94,7 +94,7 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
 		return FALSE;
 	ver = &cver;
 	memset(ver, 0, sizeof(UniVersions));
-	ver->lnAltCnt = MIN(REC_MAX_VERS, rver->lnAltCnt);
+	ver->lnAltCnt = std::min(REC_MAX_VERS, rver->lnAltCnt);
 	ver->lnAltMax = REC_MAX_VERS;
 
 	for (i = 0; i < ver->lnAltCnt; i++) {
@@ -141,7 +141,7 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size, int16_t w,
 		uchar *buf = &rec->Raster[line->row * ww];
 		for (inter = (CCOM_interval*) (line + 1), i = 0; i < line->h; i++, inter++, buf
 				+= ww)
-			StoreOneInterval(buf, inter->e - inter->l, MIN(w, inter->e));
+			StoreOneInterval(buf, inter->e - inter->l, std::min(w, static_cast<short> (inter->e)));
 	}
 
 	return TRUE;

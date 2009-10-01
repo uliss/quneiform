@@ -103,7 +103,7 @@ void BlocksCutPageEdges ()
         REAL_XY (x1, y1);
         REAL_XY (x2, y2);
 
-        xLeftBlockEdge = MIN (x1, x2);
+        xLeftBlockEdge = std::min(x1, x2);
 
         x1 = p -> Rect.xRight;
         y1 = p -> Rect.yTop;
@@ -113,7 +113,7 @@ void BlocksCutPageEdges ()
         REAL_XY (x1, y1);
         REAL_XY (x2, y2);
 
-        xRightBlockEdge = MAX (x1, x2);
+        xRightBlockEdge = std::max(x1, x2);
 
 	if (cut_page_left                          &&
             xLeftBlockEdge  < 32                   &&

@@ -63,6 +63,8 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>
+
+#include "charsets.h"
 #include "cstr.h"
 #include "ccom.h"
 #include "crling.h"
@@ -268,7 +270,7 @@ Bool32 correct_cstr(CSTR_rast b, CSTR_rast e, int32_t *start) {
 }
 
 Bool32 restruct_cstr(CSTR_rast b, CSTR_rast e, Bool32 cd) {
-	CSTR_rast_attr attr = { 0 }, battr;
+	CSTR_rast_attr attr, battr;
 	CSTR_rast c, cp;
 	UniVersions vrs = { 0 };
 	int32_t i, j, n, mincol, maxcol, minrow, maxrow, avwid;
@@ -994,34 +996,35 @@ int32_t size_short_language_aux(uchar language) {
 	return s;
 }
 
-static uchar CodePages[LANG_TOTAL] = { CSTR_ANSI_CHARSET, // LANG_ENGLISH		0
-		CSTR_ANSI_CHARSET, // LANG_GERMAN		1
-		CSTR_ANSI_CHARSET, // LANG_FRENCH		2
-		CSTR_RUSSIAN_CHARSET, // LANG_RUSSIAN		3
-		CSTR_ANSI_CHARSET, // LANG_SWEDISH		4
-		CSTR_ANSI_CHARSET, // LANG_SPANISH		5
-		CSTR_ANSI_CHARSET, // LANG_ITALIAN		6
-		CSTR_RUSSIAN_CHARSET, // LANG_RUSENG		7
-		CSTR_RUSSIAN_CHARSET, // LANG_UKRAINIAN	8
-		CSTR_RUSSIAN_CHARSET, // LANG_SERBIAN		9
-		CSTR_EASTEUROPE_CHARSET, // LANG_CROATIAN		10
-		CSTR_EASTEUROPE_CHARSET, // LANG_POLISH		11
-		CSTR_ANSI_CHARSET, // LANG_DANISH		12
-		CSTR_ANSI_CHARSET, // LANG_PORTUGUESE	13
-		CSTR_ANSI_CHARSET, // LANG_DUTCH		14
-		CSTR_ANSI_CHARSET, // LANG_DIG			15
-		CSTR_RUSSIAN_CHARSET, // LANG_UZBEK		16
-		CSTR_RUSSIAN_CHARSET, // LANG_KAZ			17
-		CSTR_RUSSIAN_CHARSET, // LANG_KAZ_ENG		18
-		CSTR_EASTEUROPE_CHARSET, // LANG_CZECH		19
-		CSTR_EASTEUROPE_CHARSET, // LANG_ROMAN		20
-		CSTR_EASTEUROPE_CHARSET, // LANG_HUNGAR		21
-		CSTR_RUSSIAN_CHARSET, // LANG_BULGAR		22
-		CSTR_EASTEUROPE_CHARSET, // LANG_SLOVENIAN    23
-		BALTIC_CHARSET, // LANG_LATVIAN	    24
-		BALTIC_CHARSET, // LANG_LITHUANIAN   25
-		BALTIC_CHARSET, // LANG_ESTONIAN	    26
-		TURKISH_CHARSET // LANG_TURKISH		27
+static uchar CodePages[LANG_TOTAL] = {
+		CIF::ANSI_CHARSET, // LANG_ENGLISH		0
+		CIF::ANSI_CHARSET, // LANG_GERMAN		1
+		CIF::ANSI_CHARSET, // LANG_FRENCH		2
+		CIF::RUSSIAN_CHARSET, // LANG_RUSSIAN		3
+		CIF::ANSI_CHARSET, // LANG_SWEDISH		4
+		CIF::ANSI_CHARSET, // LANG_SPANISH		5
+		CIF::ANSI_CHARSET, // LANG_ITALIAN		6
+		CIF::RUSSIAN_CHARSET, // LANG_RUSENG		7
+		CIF::RUSSIAN_CHARSET, // LANG_UKRAINIAN	8
+		CIF::RUSSIAN_CHARSET, // LANG_SERBIAN		9
+		CIF::EASTEUROPE_CHARSET, // LANG_CROATIAN		10
+		CIF::EASTEUROPE_CHARSET, // LANG_POLISH		11
+		CIF::ANSI_CHARSET, // LANG_DANISH		12
+		CIF::ANSI_CHARSET, // LANG_PORTUGUESE	13
+		CIF::ANSI_CHARSET, // LANG_DUTCH		14
+		CIF::ANSI_CHARSET, // LANG_DIG			15
+		CIF::RUSSIAN_CHARSET, // LANG_UZBEK		16
+		CIF::RUSSIAN_CHARSET, // LANG_KAZ			17
+		CIF::RUSSIAN_CHARSET, // LANG_KAZ_ENG		18
+		CIF::EASTEUROPE_CHARSET, // LANG_CZECH		19
+		CIF::EASTEUROPE_CHARSET, // LANG_ROMAN		20
+		CIF::EASTEUROPE_CHARSET, // LANG_HUNGAR		21
+		CIF::RUSSIAN_CHARSET, // LANG_BULGAR		22
+		CIF::EASTEUROPE_CHARSET, // LANG_SLOVENIAN    23
+		CIF::BALTIC_CHARSET, // LANG_LATVIAN	    24
+		CIF::BALTIC_CHARSET, // LANG_LITHUANIAN   25
+		CIF::BALTIC_CHARSET, // LANG_ESTONIAN	    26
+		CIF::TURKISH_CHARSET // LANG_TURKISH		27
 		};
 
 static int Lang_Console(const char *text, uchar lang) {
@@ -1256,7 +1259,7 @@ void rpstr_correct_ruseng(CSTR_rast beg, CSTR_rast end, uchar lang) {
 	int32_t i, n;
 	UniVersions u, u1;
 	char *arr1, *arr2, *p;
-	uchar lang1, charset = CSTR_RUSSIAN_CHARSET;
+	uchar lang1, charset = CIF::RUSSIAN_CHARSET;
 
 	if (lang == LANG_RUSSIAN) {
 		arr1 = double_rus;
@@ -2249,10 +2252,10 @@ static int32_t rpstr_test_spell_alter(CSTR_rast be, CSTR_rast en, int32_t nlim,
 // Nick 7.01.2002
 // попытка типичных для распознавания замен
 #define MAX_STANDARD 15
-static const char *standIni[MAX_STANDARD] = { "m", "m", "rn", "ri", "rri", "n", "ll",
-		"g", "g", "li", "h", "U", "Li", "nn", "nn" };
-static const char *standReplace[MAX_STANDARD] = { "rn", "rri", "m", "n", "m", "ri",
-		"g", "ll", "il", "h", "li", "Li", "U", "rm", "mr" };
+static const char *standIni[MAX_STANDARD] = { "m", "m", "rn", "ri", "rri", "n",
+		"ll", "g", "g", "li", "h", "U", "Li", "nn", "nn" };
+static const char *standReplace[MAX_STANDARD] = { "rn", "rri", "m", "n", "m",
+		"ri", "g", "ll", "il", "h", "li", "Li", "U", "rm", "mr" };
 /////////
 // найти нужное место
 static CSTR_rast rpstr_find_in_word(CSTR_rast cs, CSTR_rast ce, uchar *ewrd,
@@ -2300,7 +2303,7 @@ static CSTR_rast rpstr_find_in_word(CSTR_rast cs, CSTR_rast ce, uchar *ewrd,
 /////////////////////
 static int ReplacePartWord(CSTR_rast eng, CSTR_rast enge, char *ewrd,
 		int start, char *oldPart, char *newPart, int lang) {
-	CSTR_rast_attr attr = { 0 }, battr = { 0 };
+	CSTR_rast_attr attr, battr;
 	CSTR_rast c, cp;
 	UniVersions vers = { 0 };
 	int32_t mincol, maxcol, minrow, maxrow, avwid;
@@ -2317,8 +2320,8 @@ static int ReplacePartWord(CSTR_rast eng, CSTR_rast enge, char *ewrd,
 	minrow = mincol = mincolr = 32000;
 	maxrow = maxcol = maxcolr = -16000;
 
-	first = rpstr_find_in_word(eng, enge, (uchar*) ewrd, start, strlen(oldPart),
-			&last);
+	first = rpstr_find_in_word(eng, enge, (uchar*) ewrd, start,
+			strlen(oldPart), &last);
 	if (!first)
 		return 0;
 

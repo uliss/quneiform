@@ -64,9 +64,10 @@
 
 // проверять целиком куски (пример М - iii) а не три раза М-i
 #define _TEST_FEW_MULTI_          // 29.01.2001
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <memory.h>
+#include <algorithm>
 
 #include "ligas.h"
 #include "lang_def.h"
@@ -74,8 +75,7 @@
 #include "fon.h"
 #include "p2libr.h"
 #include "std.h"
-#include "minmax.h"
-//////////
+
 #include "p2defs.h"
 
 #include "rstr_p2.h"
@@ -285,7 +285,7 @@ static int MixedProbs(RecVersions *old, RecVersions *ver) {
 	int i, j;
 	int prob;
 	uchar used[REC_MAX_VERS];
-	int oldNum = MIN(REC_MAX_VERS, old->lnAltCnt);
+	int oldNum = std::min(REC_MAX_VERS, old->lnAltCnt);
 
 	if (oldNum <= 0)
 		return 0;
@@ -350,11 +350,12 @@ static int AddFonVersions(RecVersions *old, RecVersions *ver) {
 			continue;
 
 		if (i < old->lnAltCnt)
-			old->Alt[i].Prob = MAX(old->Alt[i].Prob, MIN(oldProb - 10,
-					ver->Alt[j].Prob));
+			old->Alt[i].Prob = std::max(old->Alt[i].Prob, std::min(
+					static_cast<uchar> (oldProb - 10), ver->Alt[j].Prob));
 		else if (old->lnAltCnt < REC_MAX_VERS) {
 			old->Alt[old->lnAltCnt] = ver->Alt[j];
-			old->Alt[old->lnAltCnt].Prob = MIN(oldProb - 10, ver->Alt[j].Prob);
+			old->Alt[old->lnAltCnt].Prob = std::min(oldProb - 10,
+					static_cast<int> (ver->Alt[j].Prob));
 			old->lnAltCnt++;
 		}
 	}
@@ -405,7 +406,7 @@ int32_t p2_leoMixture(CSTR_rast rast, RecVersions *old, RecVersions *ver,
 	// оставить первопроходные палки
 	if (StayOldPalki(old, ver, &attr)) {
 		if (old->Alt[0].Code == ver->Alt[0].Code) {
-			old->Alt[0].Prob = MAX(old->Alt[0].Prob, ver->Alt[0].Prob);
+			old->Alt[0].Prob = std::max(old->Alt[0].Prob, ver->Alt[0].Prob);
 
 			for (i = 1; i < old->lnAltCnt; i++)
 				if (old->Alt[i].Prob > 1)
@@ -524,7 +525,7 @@ int32_t p2_leoMixture(CSTR_rast rast, RecVersions *old, RecVersions *ver,
 		if (oldName == ver->Alt[0].Code) {
 			//if( ver->Alt[0].Prob>240 ) ver->Alt[0].Prob=255;
 			//else
-			ver->Alt[0].Prob = MAX(oldProb, ver->Alt[0].Prob);
+			ver->Alt[0].Prob = std::max(oldProb, ver->Alt[0].Prob);
 			i = 1;
 			//    data[15] |= LEO_VALID_FONT;
 		} else
@@ -591,7 +592,7 @@ int32_t p2_leoMixture(CSTR_rast rast, RecVersions *old, RecVersions *ver,
 						&& ver->Alt[0].Prob - 5 > ver->Alt[2].Prob)
 
 		{
-			old->Alt[0].Prob = MAX(old->Alt[0].Prob, ver->Alt[0].Prob);
+			old->Alt[0].Prob = std::max(old->Alt[0].Prob, ver->Alt[0].Prob);
 			// Nick 16.06.2001
 			for (i = 1; i < old->lnAltCnt; i++)
 				if (old->Alt[i].Prob > 1)
@@ -620,11 +621,11 @@ int32_t p2_leoMixture(CSTR_rast rast, RecVersions *old, RecVersions *ver,
 		for(i=1;i<old->lnAltCnt;i++)
 		if( old->Alt[i].Code == ver->Alt[0].Code) break;
 		if( i< old->lnAltCnt )
-		old->Alt[i].Prob=MAX(old->Alt[i].Prob,MIN(oldProb-10,ver->Alt[0].Prob));
+		old->Alt[i].Prob=std::max(old->Alt[i].Prob,std::min(oldProb-10,ver->Alt[0].Prob));
 		else if( old->lnAltCnt < REC_MAX_VERS)
 		{
 			old->Alt[old->lnAltCnt]=ver->Alt[0];
-			old->Alt[old->lnAltCnt].Prob= MIN(oldProb-10,ver->Alt[0].Prob);
+			old->Alt[old->lnAltCnt].Prob= std::min(oldProb-10,ver->Alt[0].Prob);
 			old->lnAltCnt++;
 		}
 		p2_leo_sort_vers_prob( old );
@@ -636,7 +637,7 @@ int32_t p2_leoMixture(CSTR_rast rast, RecVersions *old, RecVersions *ver,
 		}
 	}
 	else if(ver->lnAltCnt==1 || ver->Alt[0].Prob - 5 > ver->Alt[1].Prob )
-	old->Alt[0].Prob=MAX(old->Alt[0].Prob,ver->Alt[0].Prob);
+	old->Alt[0].Prob=std::max(old->Alt[0].Prob,ver->Alt[0].Prob);
 #endif
 
 	p2_StoreVersions(rast, old);
@@ -773,7 +774,7 @@ static Bool32 SpecificPalka(uchar Code) {
 }
 ////////////////
 Bool32 TestPalka(CSTR_rast leoStart, CSTR_rast leoEnd, CSTR_rast fonStart,
-		CSTR_rast fonEnd, int porog) {
+		CSTR_rast /*fonEnd*/, int porog) {
 	RecVersions vrLeo;
 	CSTR_rast_attr attr;
 	int Prob = 255;
@@ -796,7 +797,7 @@ Bool32 TestPalka(CSTR_rast leoStart, CSTR_rast leoEnd, CSTR_rast fonStart,
 		if (!IsInPalki(vrLeo.Alt[0].Code) && !SpecificPalka(vrLeo.Alt[0].Code))
 			return 0;
 
-		Prob = MIN(Prob, vrLeo.Alt[0].Prob);
+		Prob = std::min(Prob, static_cast<int> (vrLeo.Alt[0].Prob));
 		num1++;
 	}
 
@@ -854,7 +855,7 @@ Bool32 TestNewDust(CSTR_rast fonStart, CSTR_rast fonEnd, CSTR_rast leoStart,
 			return 0;
 		if (vrFon.lnAltCnt <= 0)
 			return 0;
-		Prob = MIN(Prob, vrFon.Alt[0].Prob);
+		Prob = std::min(Prob, static_cast<int> (vrFon.Alt[0].Prob));
 		num1++;
 	}
 
@@ -1027,7 +1028,8 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 			if (vrEng.lnAltCnt <= 0)
 				engProb = 0;
 			else {
-				engProb = MIN(engProb, vrEng.Alt[0].Prob);
+				engProb = std::min(engProb,
+						static_cast<int> (vrEng.Alt[0].Prob));
 				if (IsInPalki(vrEng.Alt[0].Code))
 					isPalkaEng++;
 			}
@@ -1065,7 +1067,8 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 				if (!CSTR_GetCollection(rusStart, &vrRus))
 					return -3;
 				if (vrRus.lnAltCnt > 0) {
-					rusProb = MIN(rusProb, vrRus.Alt[0].Prob);
+					rusProb = std::min(rusProb,
+							static_cast<int> (vrRus.Alt[0].Prob));
 					if (IsInPalki(vrRus.Alt[0].Code))
 						isPalkaRus++;
 				} else
@@ -1104,7 +1107,7 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 				char *qq;
 
 				if (attrEng.language == LANG_ENGLISH) {
-					if (MAX(isMultiRus, isMultiEng) <= 1 && (qq = strchr(
+					if (std::max(isMultiRus, isMultiEng) <= 1 && (qq = strchr(
 							sameEngRus, vrEng.Alt[0].Code)) != NULL
 							&& (char) vrRus.Alt[0].Code == sameRusEng[qq
 									- sameEngRus]) {
@@ -1115,7 +1118,7 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 						porog = 1;
 					}
 				} else {
-					if (MAX(isMultiRus, isMultiEng) <= 1 && (qq = strchr(
+					if (std::max(isMultiRus, isMultiEng) <= 1 && (qq = strchr(
 							sameRusEng, vrEng.Alt[0].Code)) != NULL
 							&& (char) vrRus.Alt[0].Code == sameEngRus[qq
 									- sameRusEng]) {
@@ -1147,7 +1150,7 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 						betterRealEng++;
 				}
 #ifdef _SPECTEST_
-				else if (!same && MAX(isMultiRus, isMultiEng) <= 1 && // 29.01.2001
+				else if (!same && std::max(isMultiRus, isMultiEng) <= 1 && // 29.01.2001
 						fontinfo->count[vrEng.Alt[0].Code] > 0
 						&& fontinfo->count[vrRus.Alt[0].Code] > 0
 						&& (vrEng.Alt[0].Method != REC_METHOD_FON
@@ -1203,11 +1206,11 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 		if (vrRus.lnAltCnt <= 0)
 			minrus = 0;
 		else
-			minrus = MIN(minrus, rusProb);
+			minrus = std::min(minrus, rusProb);
 		if (vrEng.lnAltCnt <= 0)
 			mineng = 0;
 		else
-			mineng = MIN(mineng, engProb);
+			mineng = std::min(mineng, engProb);
 
 		if (attrRus.col + attrRus.w <= attrEng.col + attrEng.w) {
 			// to next russian raster

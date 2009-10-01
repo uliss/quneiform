@@ -217,10 +217,10 @@ void BlockSetAverageHeight(BLOCK *p) {
 		if (p -> nRoots == 0)
 			p -> nAverageHeight = 1;
 		else
-			p -> nAverageHeight = MAX(p -> nHeightesSum / p -> nRoots, 1);
+			p -> nAverageHeight = std::max(p -> nHeightesSum / p -> nRoots, 1);
 	} else {
-		p -> nAverageHeight = MAX(p -> nHeightesSum
-				/ (p -> nRoots - p -> nDust), 1);
+		p -> nAverageHeight = std::max(p -> nHeightesSum / (p -> nRoots
+				- p -> nDust), 1);
 	}
 }
 

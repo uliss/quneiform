@@ -475,10 +475,10 @@ static Bool make_str_raster(cell *wb, cell *we, StrRaster *str_raster) {
 
 	//raster size
 	for (c = wb; c != we; c = c->next) {
-		top = MIN(top, c->r_row);
-		bottom = MAX(bottom, c->r_row + c->h);
-		left = MIN(left, c->r_col);
-		right = MAX(right, c->r_col + c->w);
+		top = std::min(top, c->r_row);
+		bottom = std::max(static_cast<int> (bottom), c->r_row + c->h);
+		left = std::min(left, c->r_col);
+		right = std::max(static_cast<int> (right), c->r_col + c->w);
 	}
 	str_raster->left = (int32_t) left;
 	str_raster->top = (int32_t) top;
@@ -590,8 +590,8 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 				dust_sect = 1;
 				mincl = maxcl = C->r_col + C->w;
 			}
-			maxcl = MAX(maxcl, C->r_col + C->w);
-			mincl = MIN(mincl, C->r_col + C->w);
+			maxcl = std::max(static_cast<int> (maxcl), C->r_col + C->w);
+			mincl = std::min(static_cast<int> (mincl), C->r_col + C->w);
 		} else //не dust
 		{
 			if (dust_sect) {
@@ -603,8 +603,8 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 					else
 						x = maxcl - rastlc;
 					close_ds(seci, seci_add, nodei, x, (int16_t) (ncut - 1));
-					//          close_ds(seci,MAX(mincl,C->r_col-1)-rastlc,ncut-1);
-					//          close_ds(seci,MIN(maxcl,C->r_col-1)-rastlc,ncut-1);
+					//          close_ds(seci,std::max(mincl,C->r_col-1)-rastlc,ncut-1);
+					//          close_ds(seci,std::min(maxcl,C->r_col-1)-rastlc,ncut-1);
 					ncut++;
 					seci++;
 					seci_add++;
@@ -629,16 +629,16 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 			{
 				//          x=((seci-1)->x+C->r_col-rastlc)>>1;
 				//          ro=middle(C)-rastlc;
-				//          (seci-1)->x=MIN(x,ro);
+				//          (seci-1)->x=std::min(x,ro);
 				if (lefter(C,(seci-1)->x+rastlc)) //перекрывается предыдущим
 				{ // "большим" - обходимся как с dust'ом
-					maxcl = MAX(maxcl, C->r_col + C->w);
+					maxcl = std::max(static_cast<int> (maxcl), C->r_col + C->w);
 					continue;
 				} else
 					(seci - 1)->x = ((seci - 1)->x + C->r_col - rastlc) >> 1;
 			} else
 				(seci - 1)->x = maxcl - rastlc;
-			maxcl = MAX(maxcl, C->r_col + C->w);
+			maxcl = std::max(static_cast<int> (maxcl), C->r_col + C->w);
 			nc = 0;
 			if (bad(C) && (C->w > (int16_t) min_cut_width || C->r_col < (seci
 					- 1)->x + rastlc || C->r_col + C->w > C->nextl->r_col) //перекрывается с соседями
@@ -701,10 +701,12 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 			} else if (!just(C))
 				save_alpha_vers(C, &seci_add->vers);//just(C) еще не распознавался
 
-		seci_add->top = MIN(seci_add->top, C->row);
-		seci_add->left = MIN(seci_add->left, C->col);
-		seci_add->bottom = MAX(seci_add->bottom, C->row + C->h);
-		seci_add->right = MAX(seci_add->right, C->col + C->w);
+		seci_add->top = std::min(seci_add->top, C->row);
+		seci_add->left = std::min(seci_add->left, C->col);
+		seci_add->bottom = std::max(static_cast<int> (seci_add->bottom), C->row
+				+ C->h);
+		seci_add->right = std::max(static_cast<int> (seci_add->right), C->col
+				+ C->w);
 
 		if (nodei->prev == 0)
 			cut_list->n |= C->cg_flag & c_cg_cutl;
@@ -762,7 +764,7 @@ static void cor_sect(cell *C, CutPoint *cut, int16_t left, int16_t down) {
 static int16_t get_points(cell *C, CutPoint *listn, int16_t nmax) {
 	struct cut_elm list0[128], *li, *le;
 	int16_t n;
-	n = get_cuts(C, list0, (int16_t) MIN(nmax, 127));
+	n = get_cuts(C, list0, (int16_t) std::min(static_cast<int> (nmax), 127));
 	for (li = list0, le = li + n; li < le; li++, listn++) {
 		listn->x = li->x;
 		listn->dh = li->dh;
@@ -834,7 +836,7 @@ static Weight match(uchar *word) {
 		if (!test_set(prev, curh, (uchar) l, RELY, rerecog, &imax, &pmax)) //first from prev
 		{
 			int32_t il = prev - 1, ir = prev + 1;
-			int32_t ile = MAX(0, il - 1), ire = MIN(ncut - 1, ir + 1);
+			int32_t ile = std::max(0, il - 1), ire = std::min(ncut - 1, ir + 1);
 			int32_t x = cut_list[prev].x;
 			while (il >= ile || ir < ire) {
 				int32_t i0;
@@ -1085,7 +1087,7 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 
 	result: ro = MAX_RO - (*p);
 	//  wt = (wp & ~0xFF) + ro;
-	//  wt = MAX(wt,wp);
+	//  wt = std::max(wt,wp);
 	wt = add_weight(&wp, (uchar) ro, nlet);
 	if (wc.meas < 0 || wc.meas > wt.meas) {
 		wc = wt;
@@ -1145,8 +1147,8 @@ static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells) 
 	int32_t beg = (int32_t) xl / 8 - 1, end = (int32_t)(xr + 7) / 8 + 1;
 	int32_t row, col;
 	MN *mn;
-	beg = MAX(0, beg);
-	end = MIN(end, wwb - 1);
+	beg = std::max(0, beg);
+	end = std::min(end, wwb - 1);
 	rwb = end - beg + 1;
 	*cells = NULL;
 
@@ -1191,7 +1193,7 @@ static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells) 
 				CI = del_cell(CI);
 			else {
 				*cells++ = CI;
-				minrow = MIN(minrow, CI->row);
+				minrow = std::min(minrow, CI->row);
 			}
 		} else
 			CI = del_cell(CI);
@@ -1294,9 +1296,9 @@ static void show_layer(uchar let, int32_t prev, int32_t imax) {
 	char msg[600], *s = msg;
 	GraphNode *layer = prev_layer;
 	int32_t i2 = imax + 3, i1, i, j, shift;
-	i2 = MIN(i2, ncut - 1);
+	i2 = std::min(i2, ncut - 1);
 	i1 = i2 - 15;
-	i1 = MAX(i1, 0);
+	i1 = std::max(i1, 0);
 
 	s += sprintf(msg, "%c %d %d\n", let, prev, imax);
 	for (i = i1; i <= i2; i++)

@@ -642,7 +642,7 @@ Bool TryCutBlockOnVertical(BLOCK *p, int bcr_cut, Bool32 SecondStage) {
 			continue;
 		}
 
-		nPointSizeDifference = MAX(nAverageHeightBefore * 1000
+		nPointSizeDifference = std::max(nAverageHeightBefore * 1000
 				/ nAverageHeightAfter, nAverageHeightAfter * 1000
 				/ nAverageHeightBefore);
 
@@ -753,7 +753,7 @@ Bool HorizontalBreakingCondition(BLOCK *p, int iBegin, int iEnd) {
 			continue;
 		}
 
-		nLength = MIN(x2, p -> Rect.xRight) - MAX(x1, p -> Rect.xLeft);
+		nLength = std::min(x2, p -> Rect.xRight) - std::max(x1, p -> Rect.xLeft);
 
 		if (nLength > (p -> Rect.xRight - p -> Rect.xLeft + 1) * 2 / 3)
 			return (TRUE);
@@ -856,7 +856,7 @@ Bool TryCutBlockOnHorizontal(BLOCK *p) {
 			continue;
 		}
 
-		nPointSizeDifference = MAX(nAverageHeightBefore * 1000
+		nPointSizeDifference = std::max(nAverageHeightBefore * 1000
 				/ nAverageHeightAfter, nAverageHeightAfter * 1000
 				/ nAverageHeightBefore);
 

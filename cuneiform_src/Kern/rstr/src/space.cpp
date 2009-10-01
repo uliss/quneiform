@@ -300,7 +300,7 @@ void space_size(int16_t h) {
 		// Nick 04.01.2002. pitchsize - стандартная ширина + пробел между символами !
 		sp = pitchsize+MAX(pitchsize/6,2)+1;
 #else
-		sp = pitchsize + MAX(pitchsize / 6, 3) + 1;
+		sp = pitchsize + std::max(pitchsize / 6, 3) + 1;
 #endif
 
 		spmin = sp - 1;
@@ -311,8 +311,8 @@ void space_size(int16_t h) {
 				break;
 		}
 		if (hist[i] <= 0 && hist[i + 1] > 0) {
-			sp = MIN(sp, i + 1);
-			spmin = MIN(spmin, sp);
+			sp = std::min(static_cast<int> (sp), i + 1);
+			spmin = std::min(spmin, sp);
 		}
 
 		gap = pitchsize / 3;
@@ -445,7 +445,8 @@ void space_size(int16_t h) {
 		if (!d) {
 			d = 1;
 			goto cntrl;
-		} else if (abs(s - (ss + d / 2)) <= MIN(s, ss + d / 2)) {
+		} else if (abs(s - (ss + d / 2)) <= std::min(static_cast<int> (s), ss
+				+ d / 2)) {
 			sv = s;
 			s = (s + ss + ((s > ss) ? d / 2 : 0) + 1) / 2;
 			d = 3;
@@ -983,7 +984,7 @@ static int16_t longtail(cell *c) {
 	r = save_raster(c);
 	l = (c->w + 7) / 8;
 	dh = c->h / 3;
-	dw = MAX(3, c->w / 6);
+	dw = std::max(3, c->w / 6);
 	for (i = 0; i < dh; i++)
 		for (j = 0; j < dw; j++)
 			if (r[i * l + j / 8] & (128 >> (j % 8)))
@@ -1197,7 +1198,7 @@ void space_cell() {
 				i -= sp / 2;
 			if (let1 == '_' || let2 == '_' || let1 == liga_bull || let2
 					== liga_bull)
-				i = MAX(i, sp);
+				i = std::max(i, sp);
 
 			if (i >= sp && i < spmax) {
 				insert_space(c1, c2, 1);
@@ -1455,7 +1456,7 @@ void cont_space() {
 							snap_monitor();
 						}
 
-						if (3*MAX(d1,d2)<2*spmin)
+						if (3*std::max(d1,d2)<2*spmin)
 						continue;
 
 						if (d1>d2)
@@ -1519,7 +1520,7 @@ void cont_space() {
 							snap_monitor();
 						}
 
-						if (2*MIN(d1,d2)>3*sp)
+						if (2*std::min(d1,d2)>3*sp)
 						continue;
 
 						if (d1<d2)

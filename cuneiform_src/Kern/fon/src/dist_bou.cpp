@@ -62,12 +62,13 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <algorithm> //for std::max
 
 #include "ligas.h"
 #include "fon.h"
 #include "sfont.h"
 #include "fonrec.h"
-#include "minmax.h"
+#include "charsets.h"
 
 uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl);
 int16_t RazmazHalf(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow);
@@ -311,8 +312,8 @@ static int DistWeletRazmazBound(puchar r, int fullByte, int w, int h,
 	if (dist > porog)
 		return dist;
 
-	lasty = MIN(starty + h, sty + hh);
-	lastx = MIN(startx + w, stx + ww);
+	lasty = std::min(starty + h, sty + hh);
+	lastx = std::min(startx + w, stx + ww);
 
 	if (starty < sty)
 		r += (sty - starty) * fullByte;
@@ -338,7 +339,7 @@ static int DistWeletRazmazBound(puchar r, int fullByte, int w, int h,
 		rr = r;
 		cbyte = *rr;
 
-		lastx = MIN(bou[i] + 1, startx + w);
+		lastx = std::min(bou[i] + 1, startx + w);
 		for (; j < lastx; j++, cc >>= 1) {
 			if (cc == 0) {
 				cc = 128;
@@ -393,7 +394,7 @@ static int distWeletBound(uchar *buf, uchar *bufraz, int w, int h, welet * wl,
 		int porog, int *bou, RECBOU *recBou, int countRazmaz) {
 	uint16_t best, east, west, north, south, center;
 	int lbest; // local best
-	int bound = 2* MIN (50, w + h);
+	int bound = 2* std ::min(50, w + h);
 	int initPorog = porog;
 
 	recBou->movx = 0;
@@ -655,7 +656,7 @@ static int FindBestClustersBound(int w, int h, uchar *buf, uchar *bufrazmaz,
 				recBou.bound[k] = 2;
 
 			recBou.name = (uchar) wel->let;
-			recBou.prob = (uchar)(MAX(0, 255 - STRAFPOINT * dist));
+			recBou.prob = (uchar)(std::max(0, 255 - STRAFPOINT * dist));
 			recBou.dist = dist;
 			recBou.num = i;
 
@@ -713,8 +714,8 @@ int16_t RecogCluBound(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yyrow,
 	// left bound
 	FillLeft(buf, rbyte, yrow, xbit, StartInRow);
 
-	//porog=MAX(xbit,yrow);
-	porog = MIN(50, xbit + yrow);
+	//porog=std::max(xbit,yrow);
+	porog = std::min(50, xbit + yrow);
 
 	if (maxNames > MAX_ALT_BOU)
 		maxNames = MAX_ALT_BOU;
@@ -850,12 +851,12 @@ static int LookLeft(int *startRow, int yrow, int bits, int height,
 
 	for (i = j - 1, j = j + 1; LRow - FRow < height;) {
 		if (i >= 0)
-			sizeup = NumInRow[i] - MAX(0, LRow - height - FirstRow[i]);
+			sizeup = NumInRow[i] - std::max(0, LRow - height - FirstRow[i]);
 		else
 			sizeup = -1;
 
 		if (j < NumStart)
-			sizedown = MIN(NumInRow[j], FRow + height - FirstRow[j]);
+			sizedown = std::min(NumInRow[j], FRow + height - FirstRow[j]);
 		else
 			sizedown = -1;
 
@@ -863,15 +864,15 @@ static int LookLeft(int *startRow, int yrow, int bits, int height,
 			break;
 
 		if (sizeup >= sizedown) {
-			FRow = MAX(FirstRow[i], LRow - height);
+			FRow = std::max(FirstRow[i], LRow - height);
 			i--;
 		} else {
-			LRow = MIN(FirstRow[j] + NumInRow[j], FRow + height);
+			LRow = std::min(FirstRow[j] + NumInRow[j], FRow + height);
 			j++;
 		}
 	}
 
-	// FRow=MIN(FRow,yrow-height);
+	// FRow=std::min(FRow,yrow-height);
 	*outHeight = LRow - FRow;
 	return FRow;
 }
@@ -1198,10 +1199,10 @@ static int GetFromStack(uchar *inBuf, int xbyte, int xbit, int yrow,
 	//int *bou;
 	int startX;
 	int outByte, outBit;
-	int maxWidth = REC_MAX_RASTER_SIZE / MAX(1, yrow);
+	int maxWidth = REC_MAX_RASTER_SIZE / std::max(1, yrow);
 
 	if (!bou) {
-		*oBit = MIN(maxWidth << 3, xbit);
+		*oBit = std::min(maxWidth << 3, xbit);
 		outByte = ((*oBit) + 7) >> 3;
 		for (; yrow > 0; yrow--, inBuf += xbyte, outBuf += outByte)
 			memcpy(outBuf, inBuf, outByte);
@@ -1321,14 +1322,8 @@ int KleyRecog(uchar *inBuf, int xbyte, int xbit, int yrow, welet *wl,
 ///////////////////
 
 #ifdef _USE_CSTR_
-
 #include "cstr.h"
-
-#ifndef WIN32
-typedef struct tagRECT {
-	int left, top, right, bottom;
-} RECT;
-#endif
+#include "cfcompat.h"
 
 // return - bytes in row
 static int GetCommonSize(CSTR_rast fir, CSTR_rast last, RECT *rect) {
@@ -1348,10 +1343,10 @@ static int GetCommonSize(CSTR_rast fir, CSTR_rast last, RECT *rect) {
 	for (fir = CSTR_GetNext(fir); fir && fir != last; fir = CSTR_GetNext(fir)) {
 		if (!CSTR_GetAttr(fir, &attr))
 			return -1;
-		rect->left = MIN(rect->left, attr.col);
-		rect->right = MAX(rect->right, attr.col + attr.w);
-		rect->top = MIN(rect->top, attr.row);
-		rect->bottom = MAX(rect->bottom, attr.row + attr.h);
+		rect->left = std::min(rect->left, static_cast<int> (attr.col));
+		rect->right = std::max(rect->right, attr.col + attr.w);
+		rect->top = std::min(rect->top, static_cast<int> (attr.row));
+		rect->bottom = std::max(rect->bottom, attr.row + attr.h);
 	}
 
 	return (rect->right - rect->left + 7) >> 3;
@@ -1528,36 +1523,36 @@ uchar decode_ASCII_to_[256][4] = {
 		/* f*/"\xe4", "\xe4", "\x20", "\x20", "\x20", "\xf2", "\x20", "\xe8",
 		"\xe3", "\x20", "\x20", "\x20", "\x20", "\xe0", "\x95", "\x20" };
 //////////////////
-uchar CodePages[LANG_TOTAL] = { CSTR_ANSI_CHARSET, // LANG_ENGLISH
-		CSTR_ANSI_CHARSET, // LANG_GERMAN
-		CSTR_ANSI_CHARSET, // LANG_FRENCH
-		CSTR_RUSSIAN_CHARSET, // LANG_RUSSIAN
-		CSTR_ANSI_CHARSET, // LANG_SWEDISH
-		CSTR_ANSI_CHARSET, // LANG_SPANISH
-		CSTR_ANSI_CHARSET, // LANG_ITALIAN
-		CSTR_RUSSIAN_CHARSET, // LANG_RUSENG
-		CSTR_RUSSIAN_CHARSET, // LANG_UKRAINIAN
-		CSTR_RUSSIAN_CHARSET, // LANG_SERBIAN
-		CSTR_EASTEUROPE_CHARSET, // LANG_CROATIAN
-		CSTR_EASTEUROPE_CHARSET, // LANG_POLISH
-		CSTR_ANSI_CHARSET, // LANG_DANISH
-		CSTR_ANSI_CHARSET, // LANG_PORTUGUESE
-		CSTR_ANSI_CHARSET, // LANG_DUTCH
-		CSTR_ANSI_CHARSET, // LANG_DIG        15
-		CSTR_RUSSIAN_CHARSET, // LANG_UZBEK	  16 // 01.09.2000 E.P.
-		CSTR_RUSSIAN_CHARSET, // LANG_KAZ	      17
-		CSTR_RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
-		CSTR_EASTEUROPE_CHARSET, // LANG_CZECH	  19
-		CSTR_EASTEUROPE_CHARSET, // LANG_ROMAN	  20
-		CSTR_EASTEUROPE_CHARSET, // LANG_HUNGAR	  21
-		CSTR_RUSSIAN_CHARSET, // LANG_BULGAR	  22
-		CSTR_EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
-		BALTIC_CHARSET, // LANG_LATVIAN	  24
-		BALTIC_CHARSET, // LANG_LITHUANIAN 25
-		BALTIC_CHARSET, // LANG_ESTONIAN	  26
-		TURKISH_CHARSET // LANG_TURKISH	  27
+uchar CodePages[LANG_TOTAL] = { CIF::ANSI_CHARSET, // LANG_ENGLISH
+		CIF::ANSI_CHARSET, // LANG_GERMAN
+		CIF::ANSI_CHARSET, // LANG_FRENCH
+		CIF::RUSSIAN_CHARSET, // LANG_RUSSIAN
+		CIF::ANSI_CHARSET, // LANG_SWEDISH
+		CIF::ANSI_CHARSET, // LANG_SPANISH
+		CIF::ANSI_CHARSET, // LANG_ITALIAN
+		CIF::RUSSIAN_CHARSET, // LANG_RUSENG
+		CIF::RUSSIAN_CHARSET, // LANG_UKRAINIAN
+		CIF::RUSSIAN_CHARSET, // LANG_SERBIAN
+		CIF::EASTEUROPE_CHARSET, // LANG_CROATIAN
+		CIF::EASTEUROPE_CHARSET, // LANG_POLISH
+		CIF::ANSI_CHARSET, // LANG_DANISH
+		CIF::ANSI_CHARSET, // LANG_PORTUGUESE
+		CIF::ANSI_CHARSET, // LANG_DUTCH
+		CIF::ANSI_CHARSET, // LANG_DIG        15
+		CIF::RUSSIAN_CHARSET, // LANG_UZBEK	  16 // 01.09.2000 E.P.
+		CIF::RUSSIAN_CHARSET, // LANG_KAZ	      17
+		CIF::RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
+		CIF::EASTEUROPE_CHARSET, // LANG_CZECH	  19
+		CIF::EASTEUROPE_CHARSET, // LANG_ROMAN	  20
+		CIF::EASTEUROPE_CHARSET, // LANG_HUNGAR	  21
+		CIF::RUSSIAN_CHARSET, // LANG_BULGAR	  22
+		CIF::EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
+		CIF::BALTIC_CHARSET, // LANG_LATVIAN	  24
+		CIF::BALTIC_CHARSET, // LANG_LITHUANIAN 25
+		CIF::BALTIC_CHARSET, // LANG_ESTONIAN	  26
+		CIF::TURKISH_CHARSET // LANG_TURKISH	  27
 		};
-//////////////////////
+
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang) {
 	int i;
 	UniVersions cver, *ver;
@@ -1570,13 +1565,13 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang) {
 		return FALSE;
 	ver = &cver;
 	memset(ver, 0, sizeof(UniVersions));
-	ver->lnAltCnt = MIN(REC_MAX_VERS, rver->lnAltCnt);
+	ver->lnAltCnt = std::min(REC_MAX_VERS, rver->lnAltCnt);
 	ver->lnAltMax = REC_MAX_VERS;
 
 	for (i = 0; i < ver->lnAltCnt; i++) {
 		let = rver->Alt[i].Code;
 		// FIXME (char*)
-		strcpy((char*)ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
+		strcpy((char*) ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
 		ver->Alt[i].Liga = let;
 		ver->Alt[i].Prob = rver->Alt[i].Prob;
 		ver->Alt[i].Method = rver->Alt[i].Method;
@@ -1593,7 +1588,7 @@ static int PutNewRasters(uchar *inBuf, int xbit, int yrow, CSTR_rast outFir,
 	int i;
 	RecRaster rec;
 	CSTR_rast rastOut = outFir;
-	CSTR_rast_attr attr = { 0 };
+	CSTR_rast_attr attr;
 	RecVersions vers;
 	RECT rect;
 	FonSpecInfo specInfo;
@@ -1788,7 +1783,6 @@ int FONRecogGlue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
 	free(inBuf);
 	return k;
 }
-////////////////
 
 #define MIN_WIDTH 8
 
@@ -1945,8 +1939,8 @@ int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
 		if (recs->vers.lnAltCnt <= 0 || recs->vers.Alt[0].Prob < porog)
 			continue;
 
-		if (better == -1 || MIN(AllRecBou[better].prob,
-				recs2[0].vers.Alt[0].Prob) < MIN(AllRecBou[i].prob,
+		if (better == -1 || std::min(AllRecBou[better].prob,
+				recs2[0].vers.Alt[0].Prob) < std::min(AllRecBou[i].prob,
 				recs->vers.Alt[0].Prob)) {
 			recs->nClust = specInfo.nClust;
 			if (better != -1)
@@ -1975,127 +1969,117 @@ int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
 	free(inBuf);
 	return k;
 }
-////////////////
-
 #endif
-///////////////////
-FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
-		CSTR_rast firOut,CSTR_rast lasOut,
-		int lang,
-		int porog, int nNaklon, int nRazmaz)
-{
-	int xbyte,xbit,yrow;
+
+int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+		CSTR_rast lasOut, int lang, int porog, int nNaklon, int nRazmaz) {
+	int xbyte, xbit, yrow;
 	int numAlt;
 	RECT wordRect;
-	CSTR_rast rst,rastOut;
+	CSTR_rast rst, rastOut;
 	CSTR_rast_attr attr;
 	RecRaster recRast;
 	RecVersions verOld;
 	FonSpecInfo specInfo;
 
 	// сделать общий растр - сначала получить размеры
-	xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
-	if( xbyte <= 0)
-	return -1;
+	xbyte = GetCommonSize(firLeo, lasLeo, &wordRect);
+	if (xbyte <= 0)
+		return -1;
 
-	xbit=wordRect.right-wordRect.left;
-	yrow=wordRect.bottom-wordRect.top;
-	if( yrow > WR_MAX_HEIGHT-2 || xbit > WR_MAX_WIDTH-2 )
-	return -11;
+	xbit = wordRect.right - wordRect.left;
+	yrow = wordRect.bottom - wordRect.top;
+	if (yrow > WR_MAX_HEIGHT - 2 || xbit > WR_MAX_WIDTH - 2)
+		return -11;
 
-	xbyte=REC_GW_WORD8(xbit);
+	xbyte = REC_GW_WORD8(xbit);
 
-	if( xbyte*yrow > REC_MAX_RASTER_SIZE )
-	return -12;
+	if (xbyte * yrow > REC_MAX_RASTER_SIZE)
+		return -12;
 
 	recRast.lnPixWidth = xbit;
 	recRast.lnPixHeight = yrow;
 	recRast.lnRasterBufSize = REC_MAX_RASTER_SIZE;
-	memset(recRast.Raster,0,xbyte*recRast.lnPixHeight);
+	memset(recRast.Raster, 0, xbyte * recRast.lnPixHeight);
 
-	if( !FillInBuf(recRast.Raster,xbyte,yrow,firLeo,lasLeo,&wordRect) )
-	{
+	if (!FillInBuf(recRast.Raster, xbyte, yrow, firLeo, lasLeo, &wordRect)) {
 		return -2;
 	}
 
 	// dont'recog by itself only!
-	CSTR_GetAttr(firOut,&attr);
-	CSTR_GetCollection(firOut,&verOld);
+	CSTR_GetAttr(firOut, &attr);
+	CSTR_GetCollection(firOut, &verOld);
 
 	// fill specInfo
-	memset(&specInfo,0,sizeof(FonSpecInfo));
+	memset(&specInfo, 0, sizeof(FonSpecInfo));
 
 	//        specInfo.nFieldRow=p2globals.line_number;
-	specInfo.col =attr.col;
-	specInfo.row =attr.row;
-	if( verOld.lnAltCnt > 0)
-	{
+	specInfo.col = attr.col;
+	specInfo.row = attr.row;
+	if (verOld.lnAltCnt > 0) {
 		specInfo.nInCTB = verOld.Alt[0].Info;
 		specInfo.nLet = verOld.Alt[0].Code;
 	}
 
-	specInfo.countRazmaz = MAX(1,nRazmaz); // was alwayes 4
+	specInfo.countRazmaz = std::max(1, nRazmaz); // was alwayes 4
 
-	numAlt=FONRecogChar(&recRast,&verOld,&specInfo);
+	numAlt = FONRecogChar(&recRast, &verOld, &specInfo);
 
-	if(IsSnap)
-	{
-		AddBitmapToSnap( recRast.Raster, xbyte<<3, yrow, verOld.Alt[0].Code,verOld.Alt[0].Prob);
+	if (IsSnap) {
+		AddBitmapToSnap(recRast.Raster, xbyte << 3, yrow, verOld.Alt[0].Code,
+				verOld.Alt[0].Prob);
 		FONShowSnap();
 	}
 
-	if( numAlt <= 0)
-	return 0;
-	if( verOld.lnAltCnt <= 0 || verOld.Alt[0].Prob < porog)
-	return 0;
+	if (numAlt <= 0)
+		return 0;
+	if (verOld.lnAltCnt <= 0 || verOld.Alt[0].Prob < porog)
+		return 0;
 
 	// уменьшим ...
 	//  for( i=0; i < verOld.lnAltCnt; i++)
-	//    verOld.Alt[i].Prob = MAX(1,verOld.Alt[i].Prob-10);
+	//    verOld.Alt[i].Prob = std::max(1,verOld.Alt[i].Prob-10);
 
 	// remove old
-	for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)
-	rst = CSTR_DelRaster(rst);
+	for (rst = CSTR_GetNext(firOut); rst && rst != lasOut;)
+		rst = CSTR_DelRaster(rst);
 
-	memset(&attr,0,sizeof(CSTR_rast_attr));
-	attr.n_baton=255; // =NO_BATONS;
+	memset(&attr, 0, sizeof(CSTR_rast_attr));
+	attr.n_baton = 255; // =NO_BATONS;
 	attr.pos_inc = 0; // =erect_no;
 
-	attr.language=(uchar)lang;
-	attr.flg =CSTR_f_let;
+	attr.language = (uchar) lang;
+	attr.flg = CSTR_f_let;
 
-	attr.w = (short)recRast.lnPixWidth;
-	attr.h = (short)recRast.lnPixHeight;
+	attr.w = (short) recRast.lnPixWidth;
+	attr.h = (short) recRast.lnPixHeight;
 
 	attr.clink = verOld.Alt[0].Prob;
 	attr.nClust = specInfo.nClust;
 	attr.recsource = CSTR_rs_bitcmp;
 	attr.RecogHistory = CSTR_hi_fon;
 
-	if( firOut == firLeo ) // from new
+	if (firOut == firLeo) // from new
 	{
 		attr.row = wordRect.top;
 		attr.col = wordRect.left;
-		attr.r_row =attr.row+(short)((int32_t)nNaklon*attr.col/2048);
-		attr.r_col =attr.col-(short)((int32_t)nNaklon*attr.row/2048);
-	}
-	else
-	{
+		attr.r_row = attr.row + (short) ((int32_t) nNaklon * attr.col / 2048);
+		attr.r_col = attr.col - (short) ((int32_t) nNaklon * attr.row / 2048);
+	} else {
 		attr.r_row = wordRect.top;
 		attr.r_col = wordRect.left;
-		attr.row =attr.r_row-(short)((int32_t)nNaklon*attr.r_col/2048);
-		attr.col =attr.r_col+(short)((int32_t)nNaklon*attr.r_row/2048);
+		attr.row = attr.r_row - (short) ((int32_t) nNaklon * attr.r_col / 2048);
+		attr.col = attr.r_col + (short) ((int32_t) nNaklon * attr.r_row / 2048);
 	}
 
 	// нельзя NewRaster - вставится после пробела,
 	// а надо до
-	if( !(rastOut=CSTR_InsertRaster (firOut)) ||
-			!CSTR_SetAttr (rastOut, &attr) ||
-			!CSTR_StoreRaster (rastOut, &recRast) || //OLEG
-			!p2_StoreVersions (rastOut, &verOld,lang)
-			//           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
+	if (!(rastOut = CSTR_InsertRaster(firOut)) || !CSTR_SetAttr(rastOut, &attr)
+			|| !CSTR_StoreRaster(rastOut, &recRast) || //OLEG
+			!p2_StoreVersions(rastOut, &verOld, lang)
+	//           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
 	)
-	return 0;
+		return 0;
 
 	// remove first old - stay only new rasters
 	CSTR_DelRaster(firOut);

@@ -765,8 +765,8 @@ int16_t same_int(CSTR_rast St, uchar dir) {
 	cur_dup = cur_ddn = 1;
 	if ((ch > 24) && (fbs & CSTR_bs_round))
 		cur_dup = 2;
-	wrk_dup = MAX(cur_dup, int_dup);
-	wrk_ddn = MAX(cur_ddn, int_ddn);
+	wrk_dup = std::max(cur_dup, int_dup);
+	wrk_ddn = std::max(cur_ddn, int_ddn);
 	if ((attr.flg & CSTR_f_let) && !(attr.difflg & 0x40)) {
 		if (int_fid & CSTR_db_b1) // large initiator
 			rb = comp_Llet(dir, St);
@@ -2086,7 +2086,7 @@ static void make_intpairs() {
 			bc->startcol = bp->startcol;
 			bc->c1 = bp->c1;
 			bc->ncells += bp->ncells;
-			bc->startf = MIN(bc->startf, bp->startf);
+			bc->startf = std::min(bc->startf, bp->startf);
 			if (intsim)
 				merge_bases(bc, bp);
 			else
@@ -2109,7 +2109,7 @@ static void make_intpairs() {
 			bc->endcol = bn->endcol;
 			bc->c2 = bn->c2;
 			bc->ncells += bn->ncells;
-			bc->endf = MAX(bc->endf, bn->endf);
+			bc->endf = std::max(bc->endf, bn->endf);
 			bs_int_no--;
 			if (intsim)
 				merge_bases(bc, bn);
@@ -2127,10 +2127,10 @@ static void make_intpairs() {
 			bp->endcol = bn->endcol;
 			bp->ncells += bn->ncells;
 			bp->ncells += bc->ncells;
-			bp->endf = MAX(bp->endf, bn->endf);
-			bp->endf = MAX(bp->endf, bc->endf);
-			bp->startf = MIN(bp->startf, bn->startf);
-			bp->startf = MIN(bp->startf, bc->startf);
+			bp->endf = std::max(bp->endf, bn->endf);
+			bp->endf = std::max(bp->endf, bc->endf);
+			bp->startf = std::min(bp->startf, bn->startf);
+			bp->startf = std::min(bp->startf, bc->startf);
 			bs_int_no -= 2;
 			bp->c2 = bn->c2; // AL 940318
 			merge_bases(bp, bn);
@@ -2143,10 +2143,10 @@ static void make_intpairs() {
 			bp->endcol = bn->endcol;
 			bp->ncells += bn->ncells;
 			bp->ncells += bc->ncells;
-			bp->endf = MAX(bp->endf, bn->endf);
-			bp->endf = MAX(bp->endf, bc->endf);
-			bp->startf = MIN(bp->startf, bn->startf);
-			bp->startf = MIN(bp->startf, bc->startf);
+			bp->endf = std::max(bp->endf, bn->endf);
+			bp->endf = std::max(bp->endf, bc->endf);
+			bp->startf = std::min(bp->startf, bn->startf);
+			bp->startf = std::min(bp->startf, bc->startf);
 			bp->c2 = bn->c2; // AL 940318
 			bs_int_no -= 2;
 			merge_bas1(bp, bn);
@@ -2157,7 +2157,7 @@ static void make_intpairs() {
 		if (int_covered(bc, bp, 0, 0)) {
 			bp->endcol = bc->endcol;
 			bp->ncells += bc->ncells;
-			bp->endf = MAX(bp->endf, bc->endf);
+			bp->endf = std::max(bp->endf, bc->endf);
 			bp->c2 = bc->c2; // AL 940318
 			bs_int_no--;
 			merge_b4(bp, bc);
@@ -2167,7 +2167,7 @@ static void make_intpairs() {
 		if (int_covered(bc, bn, 0, 0)) {
 			bn->startcol = bc->startcol;
 			bn->ncells += bc->ncells;
-			bp->startf = MIN(bp->startf, bc->startf);
+			bp->startf = std::min(bp->startf, bc->startf);
 			bn->c1 = bc->c1; // AL 940318
 			bs_int_no--;
 			merge_b4(bn, bc);
@@ -2185,7 +2185,7 @@ static void make_intpairs() {
 		bc->c2 = bn->c2;
 		bc->endcol = bn->endcol;
 		bc->ncells += bn->ncells;
-		bc->endf = MAX(bc->endf, bn->endf);
+		bc->endf = std::max(bc->endf, bn->endf);
 		merge_bases(bc, bn);
 		delete_int(bn);
 		bs_int_no--;
@@ -2197,7 +2197,7 @@ static void make_intpairs() {
 		bn->startcol = bc->startcol;
 		bn->ncells += bc->ncells;
 		bn->c1 = bc->c1;
-		bn->startf = MIN(bc->startf, bn->startf);
+		bn->startf = std::min(bc->startf, bn->startf);
 		merge_b4(bn, bc);
 		delete_int(bc);
 		bs_int_no--;
@@ -2220,7 +2220,7 @@ static void make_intpairs() {
 		bc->ncells += bp->ncells;
 		bc->startcol = bp->startcol;
 		bc->c1 = bp->c1;
-		bc->startf = MIN(bc->startf, bp->startf);
+		bc->startf = std::min(bc->startf, bp->startf);
 		merge_bases(bc, bp);
 		delete_int(bp);
 		bs_int_no--;
@@ -2231,7 +2231,7 @@ static void make_intpairs() {
 		bp->endcol = bc->endcol;
 		bp->ncells += bc->ncells;
 		bp->c2 = bc->c2;
-		bp->endf = MAX(bc->endf, bp->endf);
+		bp->endf = std::max(bc->endf, bp->endf);
 		merge_b4(bp, bc);
 		delete_int(bc);
 		bs_int_no--;
@@ -2258,7 +2258,7 @@ static void make_intpairs() {
 		{
 			if (int_similar(bc, bn)) {
 				bc->endcol = bn->endcol;
-				bc->endf = MAX(bc->endf, bn->endf);
+				bc->endf = std::max(bc->endf, bn->endf);
 				bc->c2 = bn->c2;
 				bc->ncells += bn->ncells;
 				bs_int_no--;
@@ -2268,13 +2268,13 @@ static void make_intpairs() {
 			}
 			if (bc->endf > bc->endcol) // current extendable to right
 			{
-				bc->endf = bc->endcol = MIN(bc->endf, bn->startcol);
+				bc->endf = bc->endcol = std::min(bc->endf, bn->startcol);
 				bc ->fl_ext |= 1;
 				goto again;
 			}
 			if (bn->startf < bn->startcol) // next extendable to left
 			{
-				bn->startf = bn->startcol = MAX(bn->startf, bc->endcol);
+				bn->startf = bn->startcol = std::max(bn->startf, bc->endcol);
 				bn ->fl_ext |= 2;
 				goto again;
 			}
@@ -2290,7 +2290,7 @@ static void make_intpairs() {
 	for (i = 0, bc = all_bases, bn = bc + 1; i < bs_int_no - 1; bc++, bn++, i++) {
 		if (int_similar(bc, bn)) {
 			bc->endcol = bn->endcol;
-			bc->endf = MAX(bc->endf, bn->endf);
+			bc->endf = std::max(bc->endf, bn->endf);
 			bc->c2 = bn->c2;
 			bc->ncells += bn->ncells;
 			merge_bases(bc, bn);
@@ -2300,7 +2300,7 @@ static void make_intpairs() {
 		}
 		if (int_sim_base2(bc, bn)) {
 			bc->endcol = bn->endcol;
-			bc->endf = MAX(bc->endf, bn->endf);
+			bc->endf = std::max(bc->endf, bn->endf);
 			bc->c2 = bn->c2;
 			bc->ncells += bn->ncells;
 			merge_bas1(bc, bn);
@@ -2310,7 +2310,7 @@ static void make_intpairs() {
 		}
 		if ((simfl = int_sim_base1(bc, bn)) != 0) {
 			bc->endcol = bn->endcol;
-			bc->endf = MAX(bc->endf, bn->endf);
+			bc->endf = std::max(bc->endf, bn->endf);
 			bc->c2 = bn->c2;
 			bc->ncells += bn->ncells;
 			if ((simfl == 1) && (bn->n2 >= 2)) {
@@ -2337,7 +2337,7 @@ static void make_intpairs() {
 			bn->startcol = bc->startcol;
 			bn->ncells += 1;
 			bn->c1 = bc->c1;
-			bn->startf = MIN(bc->startf, bn->startf);
+			bn->startf = std::min(bc->startf, bn->startf);
 			merge_b4(bn, bc);
 			delete_int(bc);
 			bs_int_no--;
@@ -2354,7 +2354,7 @@ static void make_intpairs() {
 			bp->endcol = bc->endcol;
 			bp->ncells += bc->ncells;
 			bp->c2 = bc->c2;
-			bp->endf = MAX(bc->endf, bp->endf);
+			bp->endf = std::max(bc->endf, bp->endf);
 			merge_b4(bp, bc);
 			delete_int(bc);
 			bs_int_no--;
@@ -2367,7 +2367,7 @@ static void make_intpairs() {
 				bp->endcol = bc->endcol;
 				bp->ncells += bc->ncells;
 				bp->c2 = bc->c2;
-				bp->endf = MAX(bc->endf, bp->endf);
+				bp->endf = std::max(bc->endf, bp->endf);
 				merge_b4(bp, bc);
 				delete_int(bc);
 				bs_int_no--;
@@ -2376,7 +2376,7 @@ static void make_intpairs() {
 				bn->startcol = bc->startcol;
 				bn->ncells += 1;
 				bn->c1 = bc->c1;
-				bn->startf = MIN(bc->startf, bn->startf);
+				bn->startf = std::min(bc->startf, bn->startf);
 				merge_b4(bn, bc);
 				delete_int(bc);
 				bs_int_no--;

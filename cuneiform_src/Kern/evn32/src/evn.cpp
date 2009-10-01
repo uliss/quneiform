@@ -323,7 +323,7 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res) {
 		MN_to_line(mn);
 	} else
 		return FALSE;
-	ev_num_ln = MIN(mn->mnlines, 15) << 4;
+	ev_num_ln = std::min(static_cast<int> (mn->mnlines), 15) << 4;
 	nvers = 0;
 	nvers = recog_letter(); // to recognize
 	for (nvers1 = 0, i = 0; i < nvers; i++)
@@ -554,9 +554,9 @@ int32_t EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res) {
 
 MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
 		int16_t left) {
-	extern MN * c_locomp(uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
-	MN *m;
-	left = MAX(0, left);
+	extern MN * c_locomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
+			int16_t left);
+	left = std::max(0, static_cast<int> (left));
 	return c_locomp(raster, bw, h, upper, left);
 }
 

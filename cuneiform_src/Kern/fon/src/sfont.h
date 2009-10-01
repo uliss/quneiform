@@ -55,7 +55,6 @@
  */
 
 #include "cttypes.h"
-#include "minmax.h"
 #include "ctbdefs.h"
 
 #ifndef SFONT_H

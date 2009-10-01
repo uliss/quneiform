@@ -896,7 +896,8 @@ Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect) {
 		int i;
 		if (!WriteRtfControl(rtf, "cols", PARAM_INT, sect->numSnakeCols))
 			return FALSE;
-		if (!WriteRtfControl(rtf, "colsx", PARAM_INT, MAX(sect->colInterval, 0)))
+		if (!WriteRtfControl(rtf, "colsx", PARAM_INT, std::max(
+				static_cast<int> (sect->colInterval), 0)))
 			return FALSE;
 		//dont write column info if first width is -1, i.e. user set different-width property
 		if (sect->colInfo && sect->colInfo[0].width >= 0)
@@ -1992,27 +1993,27 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict) {
 	if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cx))
 		return FALSE; // write picture format
-		//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
-		//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
-		//   }
-		/*   else {
-		 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
-		 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
-		 }
-		 */
+	//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
+	//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
+	//   }
+	/*   else {
+	 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
+	 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
+	 }
+	 */
 	// write picture height
 	//   if (bmHeight>0) {
 	if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cy))
 		return FALSE; // write picture format
-		//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
-		//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
-		//   }
-		/*   else {
-		 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
-		 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
-		 }
-		 */
+	//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
+	//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
+	//   }
+	/*   else {
+	 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
+	 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
+	 }
+	 */
 
 	// write picture alignment
 	if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT,

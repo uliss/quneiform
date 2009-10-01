@@ -411,7 +411,7 @@ Bool WSB_BreakBlock(BLOCK * p, WSB_POINT Point) {
 			&& pHystogram[iRSpaceEnd] == 0; iRSpaceEnd++) {
 	}
 
-	if (iRSpaceEnd - iLSpaceEnd - 1 < MAX(p -> nAverageHeight, 1))
+	if (iRSpaceEnd - iLSpaceEnd - 1 < std::max(p -> nAverageHeight, 1))
 		goto NO_BREAK;
 
 	/*
@@ -511,8 +511,8 @@ Bool WSB_CutUpperLine(BLOCK * p, WSB_POINT Point) {
 	 **  2.3. Find intersection of page and block minimum intervals
 	 **/
 
-	xLeftCorrected = MAX(Point.xBegin + xWSB_HystOffset, xLeftBlockMin);
-	xRightCorrected = MIN(Point.xEnd + xWSB_HystOffset, xRightBlockMin);
+	xLeftCorrected = std::max(Point.xBegin + xWSB_HystOffset, xLeftBlockMin);
+	xRightCorrected = std::min(Point.xEnd + xWSB_HystOffset, xRightBlockMin);
 
 	/**
 	 **  2.4. Discrimination corrected white strip

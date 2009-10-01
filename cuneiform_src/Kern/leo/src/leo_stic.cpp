@@ -54,12 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <assert.h>
-#include <math.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cctype>
+#include <cassert>
+#include <cmath>
+#include <algorithm>
 
 #define ERECT_ENABLE 0
 
@@ -70,8 +71,6 @@
 #include "std.h"
 #include "alphaset.h"
 #include "leo_func.h"
-
-#include "minmax.h"
 
 // extern data
 extern unsigned char alphabet[];
@@ -138,8 +137,8 @@ Bool32 similar_i(RecRaster *rs) {
 			rim = ri;
 	}
 
-	return abs(i - w) <= MAX(w / 4, 2) || rim != 256 && lem != 256 && abs(i - w
-			+ rim + lem) < MAX(w / 4, 2) || i > 3 && i < h / 5; // similar to square
+	return abs(i - w) <= std::max(w / 4, 2) || rim != 256 && lem != 256 && abs(
+			i - w + rim + lem) < std::max(w / 4, 2) || i > 3 && i < h / 5; // similar to square
 }
 
 Bool32 leoRecogSimpleStick(RecObject* object) {
@@ -311,7 +310,7 @@ int32_t leo_recog_stick(uint16_t *lpool, int w, int h) {
 		return (n_2 < 5 && n_0 < 1) ? 4 : 5; // print 1-line comp
 	}
 	// study jumps on contures
-	lim = MIN(3, MAX((w + 7) / 8, 1));
+	lim = std::min(3, std::max((w + 7) / 8, 1));
 	for (jmp = 0, ol = hist_le[1], or_ = hist_ri[1], i = 2; i <= h; i++) {
 		if (hist_le[i] > ol + 1)
 			jmp++;

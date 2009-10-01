@@ -58,7 +58,6 @@
 #include <sys/types.h>
 
 #include "compat_defs.h"
-#include "minmax.h"
 #define OLD_COOR
 
 #ifdef __STR_DLL__
@@ -76,9 +75,6 @@
 #define PLAIN 0
 #define NORV  1
 
-#if defined (WIN_MOD) && !defined (__MRK__) && !defined (__DOT__)
-//#include "resource.h"
-#endif
 //вариант, когда считается, что в метриках смертей стоят глубины
 //#define _DEPTH_
 
@@ -114,11 +110,6 @@ typedef void (*FUN_MESS)(uint16_t wPar, uint32_t lPar);
 typedef int(*COMP_FUN)(void);
 typedef TYPE (*DistFrame)(FRAME*, FRAME*);
 
-//Если установлено ID4, ID_SYM длиной 4 байта, иначе - 8
-#ifndef BLANK
-//#define ID4
-#endif
-
 #define ID_SYM struct h_id_sym /*Идентификатор символа*/
 
 #ifdef ID4
@@ -147,82 +138,81 @@ typedef void *** PTR3;
 #define doi(p1,p2,p3) for(p1=(int)(p2); p1>=(int)(p3); --p1)
 
 //Структура структуры в памяти
-#define PIECE  struct h_piece
-PIECE {
+struct PIECE {
 	int up, down;
 };
+
 #define POINT_H POINT *
-typedef struct hFRM_ARR {
+
+struct FRM_ARR {
 	FRAME **FrmArr, **frm;
 	int NumArr, NumFrm, AllFrm;
-} FRM_ARR;
-#define BOUND struct h_bound
-BOUND {
+};
+
+struct BOUND {
 	int left, up, right, down;
 };
-#define POS_STR struct h_pos_str
 
-POS_STR {
+struct POS_STR {
 	uint HeadLine :1, buf :15;
 };
 
-#define STAT_STR struct h_stat_str
-STAT_STR {
+struct STAT_STR {
 	int dx, dy, dsym, down_line;
 	POS_STR PosStr;
 };
-#define STAT_COL struct h_stat_col
-STAT_COL {
+
+struct STAT_COL {
 	STAT_STR *stat_str;
 	int dx_col, dy_col, dsym_col, dy_Low, dy_Upp;
 };
-#define KNOT struct h_knot
-#define KNOT2 struct h_knot2
-#define KNOT3 struct h_knot3
-#define KNOT4 struct h_knot4
-#define FRML  struct h_frml
-#define AS struct h_as
-KNOT {
+
+struct KNOT {
 	KNOT *next, *back;
 };
-KNOT2 {
+
+struct KNOT2 {
 	KNOT2 *next, *back;
 	FRAME *f;
 	TYPE dist;
 };
-KNOT3 {
+
+struct KNOT3 {
 	KNOT3 *next, *back;
 	FRAME *f;
 	int cl;
 	KNOT3 *beg;
 };
-KNOT4 {
+
+struct KNOT4 {
 	KNOT4 *next, *back;
 	FRAME *f;
 };
-FRML {
+
+struct FRML {
 	FRML *next, *back;
 	int left, up, right, down;
 };
-AS {
+
+struct AS {
 	KNOT3 ***beg_as; //Двумерный массив голов списков сегментов АС
 	KNOT3 *beg_free; //Ук-ль на голову списка свободных эл-тов списк. прост-ва
 	int kx, ky, dx, dy, xmin, ymin; //Кол-ва и размеры сегментов по осям,начало АС
 	BOUND *bnd; //Габарит. прямоугольник АС (без учета фиктив. полос)
 };
-#define REFER struct h_refer
-REFER {
+
+struct REFER {
 	uint ss;
 };
-typedef struct hTITLE_PRS {
+
+struct TITLE_PRS {
 	char Name[4], ScanResX, ScanResY, Thick, Reserv;
 	int SizeX, SizeY;
-} TITLE_PRS;
+};
 
 #pragma pack(1)
 
-#define PAR struct h_par
-PAR {
+struct PAR {
 	float ax, ay, percent_kgv;
 	int xmin_abs, ymin_abs; /*параметры filtr_size*/
 	float ax_as, ay_as; /*параметры развертки*/
@@ -293,31 +283,29 @@ PAR {
 	int AllowLine;//Включать ли поиск линий
 };
 
-#define POS_BIT struct h_pos_bit
-POS_BIT {
+struct POS_BIT {
 	uint pos1;
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS_BIT8 struct h_pos_bit8
-POS_BIT8 {
+
+struct POS_BIT8 {
 	uint pos1, pos2, pos3;
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS1_BIT struct h_pos1_bit
-POS1_BIT {
+
+struct POS1_BIT {
 	int DownL;
 	uint pos :8, cut_comp :2, buf :6;
 };
-//POS1_BIT { uint pos:8,cut_comp:2,buf:6; uint pos1; };
-#define POS_INT struct h_pos_int
-POS_INT {
+
+struct POS_INT {
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS2_BIT struct h_pos_bit2
-POS2_BIT {
+
+struct POS2_BIT {
 	uint pos1;
 	uint pos :8;
 	uint AveCrossInt :4; //Целая часть сред.сложности символа(числа пересечений)
@@ -325,8 +313,8 @@ POS2_BIT {
 };
 
 #define AVE_CROSS(arg) ((POS2_BIT*)&arg)->AveCrossInt+(((POS2_BIT*)&arg)->AveCrossFloat)/16.
-#define POS3_BIT struct h_pos_bit3
-POS3_BIT {
+
+struct POS3_BIT {
 	uint pos1;
 	uint pos :8;
 	uint NumHole :4; //Число дыр
@@ -347,17 +335,17 @@ POS3_BIT {
  узлы одного уровня могут находиться на разном расстоянии от корня);
  end - признак блокировки (1 - конец блока);
  buf - резерв */
-#define KNOTG struct h_knotg
-KNOTG {
+
+struct KNOTG {
 	KNOTG *next, *back, *up, *down;
 	FRML *f;
 	uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
 #pragma pack(2)
-typedef struct h_spec {
+struct SPEC {
 	uint reg :1, typ :4, lev :4, end :1, buf :6;
-} SPEC;
+};
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
 
@@ -504,27 +492,22 @@ extern int Esc, Enter, Del, Delete, Tab, Home, End1, Ins, Up, Down, Left,
 		ShiftRight, ShiftPgUp, ShiftPgDown;
 #endif
 #pragma pack(1)
-#define PRS_ONE1 struct h_prs_one1
-//#ifdef INTEL
 //Вариации описания pole_bit
 #ifdef PRS_T
 typedef unsigned short PRS_ONE;
 #define WIDTH_PRS 2
 #else
-#define PRS_ONE struct h_prs_one
-PRS_ONE1 {
+struct PRS_ONE1 {
 	uchar code;
 	uint16_t metri;
 };
-PRS_ONE {
+struct PRS_ONE {
 	uint typ :2, het :1, scob :1, dummi :12;
 	uchar dummi1;
 };
 #define WIDTH_PRS 3
 #endif
-//#else
 
-//#endif
 #pragma pack(2)
 /*-------------Прототипы ф-ций-------------*/
 int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
@@ -557,21 +540,15 @@ int sort_lett(int k_cl, KNOT3 **beg_free1, KNOT3 **beg_cl, COMP_FUN CompFun);
 int cut_word_unfold(int *k_cl1, KNOT3 **beg_cl);
 int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW,
 		POINT_H CentrW, long k_frmW);
-/*TYPE dist_frm(FRAME *f1,FRAME *f2);*/
-//long time(void);
 void sort_int(TYPE *a, int num, int *nodr);
 int comp1(TYPE *a, TYPE *b);
 int compF(float *a, float *b);
 int compare(TYPE *a, TYPE *b);
 int comp_long(uint32_t *a, uint32_t *b);
 
-//	void  u4sort(void *base, int  num, int  width, int  (*compare)());
-
 int search_int(int *x, int n, int a);
 #define TYPE int /*тип сортируемых данных*/
 float tg(float ang);
-//int est_struct(char *file_frm,char *file_pcx,FRAME ***frm_arr,int *k_arr_frm,
-//         FRAME ***frm1,int *k_frm1);
 int filtr_size(FRAME **frm, int *k_frm1, int *kg1, int *kv1, int *kgv1,
 		int ave_x, int ave_y);
 int ClassFrmSize(FRAME **frm, int *k_frm, int *k_small, int xmin, int ymin,
@@ -596,8 +573,6 @@ int RevizRuleCol(BOUND *bnds, FRAME ***str, int *ksym, int k_str, int DelMax);
 int ImFrmRule(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str, int in);
 #define COEFF 300
 int est_angle_word(int k_cl, KNOT3 **beg_cl, float *tg_ang);
-//int DeSkewCol(BOUND *bnd_str,FRAME ***str,int *ksym,int k_str,int del,
-//  int MaxDelh,int k);
 int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del,
 		int MaxDelh, int k, FRAME **frm, int k_frm);
 /*Кластер-анализ с использованием АС*/
@@ -610,7 +585,6 @@ int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del,
 #define DIST_DOT 5
 #define DIST_DIAG 6
 void bound_frm(FRAME **frm, int k_frm, BOUND* bnd);
-//static int comp(TYPE *a, TYPE *b);
 int est_size_frm(FRAME **frm, int k_frm, int *size_x, int *size_y, int step);
 void PutUpDown(KNOT3 *beg, int reg, short up, short down);
 void GetUpDown(KNOT3 *beg, int reg, short *up, short *down);
@@ -625,7 +599,6 @@ int statisF(float *arr, int n, float *ave, float *sig, float *med, float *mod);
 int sort_str(int k_str, KNOT3 **beg_str, FRAME **frms);
 int sort1_str(int k_str, FRAME ***str, int *ksym, FRAME **frms);
 int comp_vert(FRAME **a, FRAME **b);
-//int gen_str(KNOT3 **beg_str,int k_str,FRAME ***str,int *ksym);
 int gen_str(KNOT3 **beg_str, int k_str, FRAME ***str, int *ksym, FRAME **frm,
 		int *IndSmall, int k_frm, int k_small);
 int union_str(int *k_str1, FRAME **frms, KNOT3 **beg_str, int *ksym,
@@ -661,8 +634,6 @@ int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm,
 		int *k_frm);
 int FindCutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, int SizeY);
 int breath(int **pprs, int j, int *jj);
-//int CutVertComp(uint16_t **pprs,int *num,int up,int down,
-//    int *LineCut,int reg,int dir,int *nn_alt,int *nCurrA,int *found_max);
 int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg,
 		int dir, int *num_alt, int *nCurrA, int *found_max);
 //==Колонизация==
@@ -796,18 +767,6 @@ FUN_MESS FunMessage; //в режиме DLL вместо SendMessage
 int WidthPRS,MaxShtrih;
 #endif
 
-/*Макросы*/
-/*dv - вертикал. размер=минимуму из невязок низов,верхов и середин
- dg - горизонт. размер - расстояние между рамками по горизонтали,
- если они не перекрываются, либо размер перекрытия*/
-/*#define dist_frm(f1,f2,dist) { int dv,d_up,d_down;\
-  d_up=  abs(f1->up - f2->up); \
-  d_down=abs(f1->down - f2->down);  \
-  dv=abs( ( (f1->up+f1->down) - (f2->up+f2->down) )>>1 );\
-  if(d_up < dv) dv=d_up; if(d_down < dv) dv=d_down;         \
-  dist=abs(max(f1->left,f2->left) - MIN(f1->right,f2->right));\
-  dist+=par.kv*dv; \
-} */
 #define dist_frm(f1,f2,dist) { int dv,d_up;\
   d_up=  abs(f1->up - f2->up); \
   dv=abs(f1->down - f2->down); if(d_up < dv) dv=d_up; \
@@ -849,7 +808,6 @@ void union1_frm(FRAME **frm, int k_frm, BOUND *bnd);
 
 #ifdef MAIN5
 #include "undef32.h"
-//  #include "detlin.h"
 #include "lindefs.h"
 #include "wind32.h"
 int ReadLines(char *FileLine,LINES *Lines1,int *NumStretchAll1);
@@ -965,11 +923,6 @@ int FilterNoiseCell(KNOTT *Knott, STAT_CELL *StatCell, INF_CELL *InfCell,
 //--
 int GetCriptDir(char *path, int len);
 int GetTypeDoc(void);
-#ifdef DLL_MOD
-// int WINAPI adv4prs_conv(char *prs_name,BMPL *BmpIn,int teep);
-// int /*FAR PASCAL _export */ WINAPI _export ConvertImage(char far *infile,char far *outfile,int teepBMPHorFILE,
-//            int teep,float tg_ugol);
-#endif
 
 //=== K R E S T ===
 int EstAnglePlain(FRAME **frm, int NumFrm, float *tg_ang);

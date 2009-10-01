@@ -539,18 +539,18 @@ static void Livers(cell *NC)
 		return;
 	for (i = 0, v = NC->vers; i < NC->nvers; i++, v++) {
 		if ((kc == kt) && (v->let == 'l'))
-			v->prob = MAX(v->prob - MONUS, 10);
+			v->prob = std::max(v->prob - MONUS, 10);
 		if (kv == kt) {
 			if ((v->let == 'i') || (v->let == liga_i) || language
 					== LANG_TURKISH && // 30.05.2002 E.P.
 					(v->let == i_sans_accent || v->let == II_dot_accent))
-				v->prob = MAX(v->prob - MONUS, 10);
+				v->prob = std::max(v->prob - MONUS, 10);
 			if (v->let == 'I') {
 				if ((kt == 1) && (check_upper(W->vers[0].let)) && (word_flag
 						& UPPER))
 					continue;
 				else
-					v->prob = MAX(v->prob - MONUS, 10);
+					v->prob = std::max(v->prob - MONUS, 10);
 			}
 		}
 	}
@@ -1183,8 +1183,8 @@ static void contextNumberTable(void) {
 				numDig++;
 				if (las->vers[0].let != '$' && las->vers[0].let != '%') {
 					isDig = 1;
-					minSize = MIN(minSize, las->h);
-					maxSize = MAX(maxSize, las->h);
+					minSize = std::min(minSize, static_cast<int> (las->h));
+					maxSize = std::max(maxSize, static_cast<int> (las->h));
 				}
 			} else if (las == fir && las->vers[0].let == '-')
 				numDig++;
@@ -1193,8 +1193,8 @@ static void contextNumberTable(void) {
 						&& las->env && las->env->nl > 1)
 					isNumber = 0;
 				else {
-					minSize = MIN(minSize, las->h);
-					maxSize = MAX(maxSize, las->h);
+					minSize = std::min(minSize, static_cast<int> (las->h));
+					maxSize = std::max(maxSize, static_cast<int> (las->h));
 				}
 			} else
 				isNumber = 0;

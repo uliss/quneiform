@@ -101,13 +101,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <algorithm>
 
 #include "leo.h"
 #include "ctb.h"
 #include "sfont.h"
 #include "fonrec.h"
 #include "clu_lang.h"
-#include "minmax.h"
 
 int16_t DistanceHausDLL(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
 		int16_t xbyte2, int16_t yrow2, int16_t porog);
@@ -414,7 +414,7 @@ void GetClusterStatistic(int numSymbol, int numCluster, Nraster_header *rh,
 			if( infoC[curClus].count == 1 && infoC[curClus].let>=0 &&
 					infoC[curClus].let < 256 )
 			countC[infoC[curClus].let]++;
-			infoC[curClus].prob =MAX(infoC[curClus].prob,rh[i].prob);
+			infoC[curClus].prob = std::max(infoC[curClus].prob,rh[i].prob);
 			infoC[curClus].valid |= rh[i].valid;
 
 #ifdef _ACTIVE_LINGVO_
@@ -612,7 +612,7 @@ static int AnalyzeInfo(int numCluster, InfoCluster *infoC, uchar *metkaGood,
 		}
 
 		if (metkaValid[j] & LEO_VALID_LINGVO) {
-			metkaGood[j] = MAX(metkaGood[j], POROG_GOOD_DVA);
+			metkaGood[j] = std::max((int)metkaGood[j], POROG_GOOD_DVA);
 #ifndef _ACTIVE_LINGVO_
 			infoC[j].count+=LINGVO_COUNT; // make more
 #endif
@@ -667,7 +667,7 @@ static int AnalyzeInfo(int numCluster, InfoCluster *infoC, uchar *metkaGood,
 			sizeBig = bSize;
 			sizeLit = bSizeLeft;
 		}
-		porogSize = MAX(POROG_HEIGHT, (sizeBig - sizeLit + 1) / 2);
+		porogSize = std::max(POROG_HEIGHT, (sizeBig - sizeLit + 1) / 2);
 	}
 
 	*tipSizeBig = sizeBig;
@@ -707,7 +707,7 @@ static void AnalyzeMetki(int numCluster, InfoCluster *infoC, uchar *metkaGood,
 		}
 
 		if (metkaValid[j] & LEO_VALID_LINGVO) {
-			metkaGood[j] = MAX(metkaGood[j], POROG_GOOD_DVA);
+			metkaGood[j] = std::max((int)metkaGood[j], POROG_GOOD_DVA);
 #ifndef _ACTIVE_LINGVO_
 			infoC[j].count+=LINGVO_COUNT; // make more
 #endif
@@ -1479,7 +1479,7 @@ fillGood:
 	 }
 	}
 
-    TestIntersectFields( MIN(countFont,MAXFONT),fontField,
+    TestIntersectFields( std::min(countFont,MAXFONT),fontField,
 						 infoCluster);
 
 #endif
@@ -1528,7 +1528,7 @@ fillGood:
 			metkaValid[i] &= ~METKA_VALID;
 		else
 			metkaValid[i] |= METKA_VALID;
-		metka[i]=MAX(metka[i],infoCluster[i].prob);
+		metka[i]=std::max(metka[i],infoCluster[i].prob);
 	}
 
 	if( infoCluster!=infoClusterStat) free(infoCluster);
@@ -1587,7 +1587,7 @@ int GetProbValid(int numSymbol, int numCluster, Nraster_header *rh,
 		curClus = nClus[i] - 1;
 		if (curClus < 0 || curClus >= numCluster)
 			continue;
-		metkaGood[curClus] = MAX(metkaGood[curClus], rh[i].prob);
+		metkaGood[curClus] = std::max(metkaGood[curClus], rh[i].prob);
 		metkaValid[curClus] |= rh[i].valid;
 	}
 	return 0;
@@ -1621,7 +1621,7 @@ static int MultiAnalyzeInfo(int numCluster, InfoCluster *infoC, int *countC,
 		}
 
 		if (metkaValid[j] & LEO_VALID_LINGVO) {
-			metkaGood[j] = MAX(metkaGood[j], POROG_GOOD_DVA); // 255?
+			metkaGood[j] = std::max((int)metkaGood[j], POROG_GOOD_DVA); // 255?
 #ifndef _ACTIVE_LINGVO_
 			infoC[j].count+=LINGVO_COUNT; // make more
 #endif
@@ -1686,7 +1686,7 @@ int MultiFindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
 			metkaValid[i] &= ~METKA_VALID;
 		else
 			metkaValid[i] |= METKA_VALID;
-		metka[i] = MAX(metka[i], infoCluster[i].prob);
+		metka[i] = std::max(metka[i], infoCluster[i].prob);
 	}
 
 	if (infoCluster != infoClusterStat)
@@ -1861,7 +1861,7 @@ static int ProgibFun(int *hhh, int GreyLev, int *valProg) {
 
 	if (prommin > 0 && lefth != -1 && leftprog >= prog && hhh[GreyLev - 1]
 			- hhh[prommin] > prog) {
-		prog = MIN(leftprog, hhh[GreyLev - 1] - hhh[prommin]);
+		prog = std::min(leftprog, hhh[GreyLev - 1] - hhh[prommin]);
 		best = prommin;
 	}
 
@@ -1981,7 +1981,7 @@ static int AnalizeSizes(InfoCluster *infoC, int numClus, uchar *metka, int fir) 
 			continue;
 		if (metka[j] == 0 || infoC[j].prob < POROG_PROB_GOOD)
 			continue;
-		hei = MIN(infoC[j].mh, WR_MAX_HEIGHT - 1);
+		hei = std::min(infoC[j].mh, WR_MAX_HEIGHT - 1);
 
 		i = infoC[j].let;
 
@@ -2049,7 +2049,7 @@ static int AnalizeSizes(InfoCluster *infoC, int numClus, uchar *metka, int fir) 
 	goodBig = GetCountGood(numBig, kuBig, allBig);
 	goodLit = GetCountGood(numLit, kuLit, allLit);
 
-	return MAX(goodBig, goodLit);
+	return std::max(goodBig, goodLit);
 }
 //////////////
 static int GetNextFont(int *bSize, int *lSize, int *pSize, int *minBig,

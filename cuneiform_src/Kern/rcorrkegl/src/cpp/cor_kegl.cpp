@@ -54,9 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _MSC_VER
-#include<crtdbg.h>
-#endif
+#include <algorithm>
 
 #include <string.h>
 #include <stdlib.h>
@@ -71,7 +69,6 @@
 #include "cor_kegl.h"
 #include "garbage.h"
 #include "ligas.h"
-#include "minmax.h"
 
 #ifndef MAXINT32
 #define  MAXINT32  0x7FFFFFFF
@@ -351,11 +348,11 @@ static Bool32 get_stats() {
 				let = alt->Code[0];
 
 				//для кегл
-				attr.keg = MIN(attr.keg, MAX_KEG - 1);
+				attr.keg = std::min(static_cast<int> (attr.keg), MAX_KEG - 1);
 				if (!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt) {
 					keg = attr.kegf = attr.keg;
-					max_keg = MAX(keg, max_keg);
-					min_keg = MIN(keg, min_keg);
+					max_keg = std::max(keg, max_keg);
+					min_keg = std::min(keg, min_keg);
 					keg_stats[keg]++;
 				}
 				CSTR_SetAttr(rst, &attr);
@@ -491,7 +488,7 @@ static void get_keg_tab() {
 			rise = TRUE;
 		else if (n < prev_n) {
 			if (rise) { //найден локальный максимум
-				int32_t tol = MIN(prev_max_n, prev_n) / 3;
+				int32_t tol = std::min(prev_max_n, prev_n) / 3;
 				uint16_t *cur_max = keg_statsi - 1;
 				if (num_keg_opt > 0) //не первый кегль
 				{
@@ -602,7 +599,8 @@ static void cor_fax_fragment() { //для факсов по всему фраг�
 		keg0 = get_word_keg();
 		keg = keg_tab[keg0].keg0;
 		if (keg > 0) {
-			max_keg = MAX(max_keg, keg);
+			max_keg = std::max(static_cast<int> (max_keg),
+					static_cast<int> (keg));
 			stat[keg]++;
 		}
 	} while (next_word());
@@ -613,11 +611,13 @@ static void cor_fax_fragment() { //для факсов по всему фраг�
 			keg0 = get_word_keg();
 			keg = keg_tab[keg0].keg0;
 			keg = abs(keg);
-			max_keg = MAX(max_keg, keg);
+			max_keg = std::max(static_cast<int> (max_keg),
+					static_cast<int> (keg));
 			stat[keg]++;
 			keg = keg_tab[keg0].keg1;
 			keg = abs(keg);
-			max_keg = MAX(max_keg, keg);
+			max_keg = std::max(static_cast<int> (max_keg),
+					static_cast<int> (keg));
 			stat[keg]++;
 		} while (next_word());
 	}
@@ -1070,7 +1070,7 @@ static void garbage_fragments() {
 		else
 			CPAGE_SetBlockFlags(hCPAGE, rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
 
-		//MIN и max кегли и охватывающий прямоугольник сегмента
+		//std::min и max кегли и охватывающий прямоугольник сегмента
 		*rect = hole;
 		rsti->min_keg = 255;
 		rsti->max_keg = 0;
@@ -1097,16 +1097,18 @@ static void garbage_fragments() {
 					let = uni.Alt[0].Code[0];
 
 					if (!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt) {
-						rect->top = MIN(rect->top, attr.r_row);
-						rect->left = MIN(rect->left, attr.r_col);
-						rect->bottom = MAX(rect->bottom, attr.r_row + attr.h);
-						rect->right = MAX(rect->right, attr.r_col + attr.w);
+						rect->top = std::min(rect->top, static_cast<int> (attr.r_row));
+						rect->left = std::min(rect->left, static_cast<int> (attr.r_col));
+						rect->bottom = std::max(rect->bottom, attr.r_row
+								+ attr.h);
+						rect->right
+								= std::max(rect->right, attr.r_col + attr.w);
 
-						rsti->max_keg = MAX(attr.keg, rsti->max_keg);
-						rsti->min_keg = MIN(attr.keg, rsti->min_keg);
+						rsti->max_keg = std::max(attr.keg, rsti->max_keg);
+						rsti->min_keg = std::min(attr.keg, rsti->min_keg);
 						if (rsti->flag & RS_GOOD) {
-							max_keg = MAX(attr.keg, max_keg);
-							min_keg = MIN(attr.keg, min_keg);
+							max_keg = std::max(attr.keg, max_keg);
+							min_keg = std::min(attr.keg, min_keg);
 						}
 					}
 				}
@@ -1129,7 +1131,7 @@ static void garbage_fragments() {
 
 			cover_rect(&main_area, rect);
 			main_found = TRUE;
-			hmax = MIN(main_area.bottom, V_SIZE - 1);
+			hmax = std::min(main_area.bottom, V_SIZE - 1);
 			for (j = main_area.top; j <= hmax; j++)
 				vproj[j] = 1;
 
@@ -1197,9 +1199,9 @@ static void garbage_fragments() {
 			}
 
 			rect = &rsti->rect;
-			d = MIN(rect->bottom - rect->top, rect->right - rect->left);
-			mainsize = MIN(main_area.right - main_area.left, main_area.bottom
-					- main_area.top);
+			d = std::min(rect->bottom - rect->top, rect->right - rect->left);
+			mainsize = std::min(main_area.right - main_area.left,
+					main_area.bottom - main_area.top);
 			ingap = in_gap(rect->top, rect->bottom, vproj);
 
 			if (main_area.top - rect->bottom > d || rect->top
@@ -1229,7 +1231,7 @@ static void garbage_fragments() {
 						rsti->flag = RS_ADD;
 			} else //близко или внутри
 			{
-				int32_t size = MAX(rect->right - rect->left, rect->bottom
+				int32_t size = std::max(rect->right - rect->left, rect->bottom
 						- rect->top);
 				if (SMALL_FRAG * size > mainsize) {
 					if (rsti->min_keg >= min_keg && rsti->max_keg <= max_keg)
@@ -1266,7 +1268,7 @@ static void garbage_fragments() {
 
 			// расширение прямоугольника и коррекция проекции
 			cover_rect(&main_area, &rsti->rect);
-			hmax = MIN(main_area.bottom, V_SIZE - 1);
+			hmax = std::min(main_area.bottom, V_SIZE - 1);
 			for (j = main_area.top; j <= hmax; j++)
 				vproj[j] = 1;
 
@@ -1487,10 +1489,10 @@ static void pull_rect(Rect32 *rect, Point32 *point) {
 }
 
 static void cover_rect(Rect32 *main_area, Rect32 *rect) {
-	main_area->top = MIN(main_area->top, rect->top);
-	main_area->left = MIN(main_area->left, rect->left);
-	main_area->right = MAX(main_area->right, rect->right);
-	main_area->bottom = MAX(main_area->bottom, rect->bottom);
+	main_area->top = std::min(main_area->top, rect->top);
+	main_area->left = std::min(main_area->left, rect->left);
+	main_area->right = std::max(main_area->right, rect->right);
+	main_area->bottom = std::max(main_area->bottom, rect->bottom);
 }
 
 static int32_t rect_dist(Rect32 *main, Rect32 *test) {
@@ -1501,13 +1503,13 @@ static int32_t rect_dist(Rect32 *main, Rect32 *test) {
 	int32_t y2 = test->top - main->bottom;
 	if (x1 > 0 || x2 > 0 || y1 > 0 || y2 > 0) //не пересекаютс
 	{
-		x = MAX(x1, x2);
-		y = MAX(y1, y2);
+		x = std::max(x1, x2);
+		y = std::max(y1, y2);
 		if (x < 0)
 			return y;
 		if (y < 0)
 			return x;
-		return MIN(x, y);
+		return std::min(x, y);
 	}
 
 	//пересекаютс
@@ -1515,9 +1517,9 @@ static int32_t rect_dist(Rect32 *main, Rect32 *test) {
 	x2 = test->right - main->right;
 	y1 = main->top - test->top;
 	y2 = test->bottom - main->bottom;
-	x = MAX(x1, x2);
-	y = MAX(y1, y2);
-	x = MAX(x, y);
+	x = std::max(x1, x2);
+	y = std::max(y1, y2);
+	x = std::max(x, y);
 	return (x > 0) ? x : 0;
 }
 
@@ -1530,9 +1532,9 @@ static int32_t dist_border(Rect32 *rect) {
 	int32_t rv = MAXINT32;
 	PAGEINFO PageInfo;
 	GetPageInfo(hCPAGE, &PageInfo);
-	rv = MIN(rect->left, rect->top);
-	rv = MIN(rv, (int32_t) PageInfo.Width - rect->right);
-	rv = MIN(rv, (int32_t) PageInfo.Height - rect->bottom);
+	rv = std::min(rect->left, rect->top);
+	rv = std::min(rv, (int32_t) PageInfo.Width - rect->right);
+	rv = std::min(rv, (int32_t) PageInfo.Height - rect->bottom);
 	return rv;
 }
 
@@ -1587,7 +1589,6 @@ static void draw_keg(const char *str) {
 		int32_t n = CSTR_GetMaxNumber();
 
 		s += sprintf((char*) s, "%s\n", str);
-		//      s += sprintf(s,"Фрагменты:\n");
 
 		LDPUMA_DeleteRects(NULL, key);
 		for (i = 1; i <= n; i++) {
@@ -1605,8 +1606,8 @@ static void draw_keg(const char *str) {
 						Rect16 box;
 						int32_t keg = attr.keg;
 						uchar green;
-						//             if (j==1)  keg /= 2;
-						keg = MIN(keg, max_keg);
+
+						keg = std::min(keg, static_cast<int> (max_keg));
 						green = (uchar)(255* (max_keg -keg)/keg_range);
 
 						box.left=attr.r_col; box.right=box.left+attr.w-1;
@@ -1614,18 +1615,10 @@ static void draw_keg(const char *str) {
 						LDPUMA_DrawRect(NULL,&box,skew,wRGB(255-green,green,0),1,key);
           }
 					}
-					/*
-					 if (s<se)
-					 {
-					 CSTR_attr  l_attr;
-					 CSTR_GetLineAttr(line,&l_attr);
-					 if ((i-1)%10==0)  s += sprintf(s,"\n");
-					 s += sprintf(s," %d",l_attr.fragment);
-					 }
-					 */
+
 				}
 			}
-			//      s += sprintf(s,"\n");
+
 			for (i=1; i<=num_keg && keg_stats[i]==0; i++);
 			for (; i<=num_keg && s<se; i++)
 			if (keg_stats[i])
@@ -1681,7 +1674,7 @@ static void keg_frag_stats() {
 				CSTR_GetCollectionUni(rst, &uni);
 				if (!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt) {
 					uchar keg = attr.keg;
-					max_keg = MAX(keg, max_keg);
+					max_keg = std::max(keg, max_keg);
 					keg_stats[keg]++;
 				}
 			}
@@ -1691,15 +1684,4 @@ static void keg_frag_stats() {
 	get_keg_tab();
 	num_keg = sv_num_keg;
 }
-
-/*
- // delete all
- Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);
- while(hBlock)
- {
- Handle hNext = CPAGE_GetBlockNext(hCPAGE,hBlock,TYPE_TEXT);
- CPAGE_DeleteBlock(hCPAGE,hBlock);
- hBlock = hNext;
- }
- */
 

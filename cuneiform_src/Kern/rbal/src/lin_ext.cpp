@@ -594,10 +594,10 @@ static int basedraft(CSTR_line ln, uchar isDust) {
 	ncut_vers = ncut_cells = ntot_cells = 0;
 
 	i = bbs2 - (bbs3 - bbs2) / 2;
-	bsdust_upper = MIN(i, bbs1) - 2 + minrow;
+	bsdust_upper = std::min(i, bbs1) - 2 + minrow;
 
 	if (language != LANG_ENGLISH)
-		bsdust_upper -= (MAX(2, (bbs3 - bbs2) / 7));
+		bsdust_upper -= (std::max(2, (bbs3 - bbs2) / 7));
 	bsdust_lower = bbs4 + minrow;
 
 	if (db_status) {

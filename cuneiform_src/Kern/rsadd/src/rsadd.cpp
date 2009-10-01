@@ -296,13 +296,13 @@ static CSTR_rast rsadd_end_word(CSTR_rast cs, uchar *str, uchar *word_len,
 		if ( /*attr.w &&*/(nattr.flg & (CSTR_f_let | CSTR_f_bad | CSTR_f_punct))) {
 			int16_t dist = 16000;
 			if (attr.h)
-				dist = MIN(dist, attr.h);
+				dist = std::min(dist, attr.h);
 			if (nattr.h)
-				dist = MIN(dist, nattr.h);
+				dist = std::min(dist, nattr.h);
 			if (attr.w)
-				dist = MIN(dist, attr.w);
+				dist = std::min(dist, attr.w);
 			if (nattr.w)
-				dist = MIN(dist, nattr.w);
+				dist = std::min(dist, nattr.w);
 			if (dist != 16000 && !strchr((char*) true_terms, vers.Alt[0].Code)
 					&& nattr.col - (attr.col + attr.w) > 0 && nattr.col
 					- (attr.col + attr.w) < dist / 3)
@@ -344,10 +344,10 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol,
 		if (!(rattr.flg & CSTR_f_bad))
 			IsGood = TRUE;
 
-		rect.top = MIN(rect.top, rattr.row);
-		rect.bottom = MAX(rect.bottom, rattr.row + rattr.h);
-		rect.left = MIN(rect.left, rattr.col);
-		rect.right = MAX(rect.right, rattr.col + rattr.w);
+		rect.top = std::min(rect.top, static_cast<int> (rattr.row));
+		rect.bottom = std::max(rect.bottom, rattr.row + rattr.h);
+		rect.left = std::min(rect.left, static_cast<int> (rattr.col));
+		rect.right = std::max(rect.right, rattr.col + rattr.w);
 
 		iUp++;
 	}
@@ -364,7 +364,7 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol,
 	iUp = (rect.bottom + rect.top) / 2 - 1;
 	iDn = (rect.bottom + rect.top) / 2 + 1;
 
-	porog = MAX(3, (rect.bottom - rect.top) / 4);
+	porog = std::max(3, (rect.bottom - rect.top) / 4);
 
 	if (best) {
 
@@ -742,9 +742,9 @@ static CSTR_rast rsadd_get_left_coord(CSTR_line ln, int16_t left, int16_t right)
 		leftn = attr.col;
 		rightn = attr.col + attr.w;
 		if (rightn >= left && right >= leftn) {
-			int16_t dist = MIN(attr.h, pattr.h);
-			dist = MIN(dist, attr.w);
-			dist = MIN(dist, pattr.w);
+			int16_t dist = std::min(attr.h, pattr.h);
+			dist = std::min(dist, attr.w);
+			dist = std::min(dist, pattr.w);
 			if (!strchr((char*) true_terms, vers.Alt[0].Code)
 					&& vers.Alt[0].Code != liga_TM_usual && // Nick 12.01.2001
 					vers.Alt[0].Code != liga_CC_usual && vers.Alt[0].Code
@@ -1156,7 +1156,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 
 	// Nick 29.10.00
 	CSTR_GetLineAttr(leng, &lattr);
-	BL_small = MIN(BL_small, lattr.bs3 - lattr.bs2);
+	BL_small = std::min(BL_small, lattr.bs3 - lattr.bs2);
 
 	tables = (lattr.tab_column > 0);
 	num_word = nall = neng = 0;
@@ -1374,14 +1374,14 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 					similar ? 'y' : 'n', aliases ? 'y' : 'n', equal ? 'y' : 'n');
 			sprintf(
 					(char*) buf2,
-					"eng : MIN=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
+					"eng : min=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
 					estat.minp, estat.maxp, estat.minup, estat.maxup,
 					estat.norec, estat.nall, estat.nh, estat.nm, estat.ns,
 					estat.var_width ? 'y' : 'n', estat.var_kegl ? 'y' : 'n',
 					estat.var_dig ? 'y' : 'n');
 			sprintf(
 					(char*) buf3,
-					"rus : MIN=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
+					"rus : min=%d max=%d umin=%d umax=%d norec=%d nall=%d hei=%d mid=%d low=%d var:wid=%c keg=%c dig=%c",
 					rstat.minp, rstat.maxp, rstat.minup, rstat.maxup,
 					rstat.norec, rstat.nall, rstat.nh, rstat.nm, rstat.ns,
 					rstat.var_width ? 'y' : 'n', rstat.var_kegl ? 'y' : 'n',

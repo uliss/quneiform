@@ -57,7 +57,8 @@
 // use weighted distance
 #define _WEIDIST_
 
-#include <string.h>
+#include <cstring>
+#include <algorithm>
 
 #include "fon.h"
 #include "sfont.h"
@@ -68,8 +69,8 @@ extern const int Num11[256];
 static int16_t DistanceBitDLL(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
 		int16_t xbyte2, int16_t yrow2, int16_t porog) {
 	register int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
+	int16_t xbyte = std::min(xbyte1, xbyte2);
+	int16_t yrow = std::min(yrow1, yrow2);
 	int16_t dist;
 
 	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
@@ -114,8 +115,8 @@ static int16_t DistanceBitDLL(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b
 int16_t DistanceBitFull(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
 		int16_t xbyte2, int16_t yrow2) {
 	register int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
+	int16_t xbyte = std::min(xbyte1, xbyte2);
+	int16_t yrow = std::min(yrow1, yrow2);
 	int16_t dist;
 
 	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {

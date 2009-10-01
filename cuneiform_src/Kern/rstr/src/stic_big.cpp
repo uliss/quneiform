@@ -128,7 +128,7 @@ static uchar config_1(STICK_CHARS *l, STICK_CHARS *r);
 /*----------------------------------------------------------------------*/
 int16_t dis_F(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	int16_t dis = 0; // 12.10.1993
-	int16_t porog = MAX(s->stick_width, 4); // NB: 4 - MK VOLUNTARY
+	int16_t porog = std::max(static_cast<int> (s->stick_width), 4); // NB: 4 - MK VOLUNTARY
 	// NB: porog used 2 times !!!
 	/*......................................................................*/
 	// 03.01.1993	PROBA USE f_symptoms:
@@ -143,12 +143,12 @@ int16_t dis_F(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 		// fax50/7,14	"FileNet"(#2),"France"
 		// fax51/12	"FileNet"
 		int16_t r0 = r->mount[0], r1 = r->mount[1], r2 = r->mount[2], r01, r12;
-		r01 = MAX(r0, r1); // before 04.03.1993
-		r12 = MAX(r1, r2);
+		r01 = std::max(r0, r1); // before 04.03.1993
+		r12 = std::max(r1, r2);
 
 		if (r0 >= r1) {
 			r01 = r0;
-			r12 = MAX(r1, r2);
+			r12 = std::max(r1, r2);
 		} // 04.03.1993 PROBA
 		else {
 			r01 = r1;
@@ -171,10 +171,10 @@ int16_t dis_F(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	{ // 01.02.1993 SECOND POPYTKA:
 		int16_t porog_down;
 		if (r->mount[4] > porog) {
-			porog_down = MAX(r->mount[0], porog); // ??????
-			porog_down = MAX(r->mount[1], porog_down);
+			porog_down = std::max(static_cast<short> (r->mount[0]), porog); // ??????
+			porog_down = std::max(static_cast<short> (r->mount[1]), porog_down);
 			//////	    porog_down = MAX (r->mount[2], porog_down);		// before 9.3
-			porog_down = MAX(r->mount[2], porog_down) - 1; // from 9.3.93
+			porog_down = std::max(static_cast<short> (r->mount[2]), porog_down) - 1; // from 9.3.93
 			if (r->mount[4] >= porog_down) // STROGO fax35/30(33),/37(40)
 				dis += tab_F[5]; // for 'E' => 'F'		// 100
 		}
@@ -190,7 +190,8 @@ int16_t dis_F(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 		dis += tab_F[6]; // SHORT MIDDLE (for GLUE)	// 40
 	/*......................................................................*/
 	// 12.10.1993	PROPORTION:
-	if (MAX(r->mount[0], MAX(r->mount[1], r->mount[2])) * 6 < s->height)
+	if (std::max(r->mount[0], std::max(r->mount[1], r->mount[2])) * 6
+			< s->height)
 		dis += tab_F[5]; // TOO SHORT FLAGS		//100
 	/*......................................................................*/
 	if (l->mount[0] >= 3 && // 18.11.1993	j10/27 'P'
@@ -214,13 +215,13 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) { // 17.01.1994
 
 	lmu = l->mount[0];
 	rmu = r->mount[0];
-	max_u = MAX(lmu, rmu);
+	max_u = std::max(lmu, rmu);
 	lmd = l->mount[4];
 	rmd = r->mount[4];
-	max_d = MAX(lmd, rmd);
+	max_d = std::max(lmd, rmd);
 	/*......................................................................*/
 	if (lmu + rmu + lmd + rmd != 0) {
-		if (max_u > (MAX(max_d, 3) << 1)) // MK PROBA 18.02.1993
+		if (max_u > (std::max(static_cast<int> (max_d), 3) << 1)) // MK PROBA 18.02.1993
 			dis += 222; // 222
 
 		DIS_HALF_SERIF(l, r, 0, 1, tab_I[0]); /* test upper serif  */// 20
@@ -421,7 +422,7 @@ int16_t dis_J(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) { // 18.10.1993
 	int16_t dis = 0, t;
 	int16_t wid = s->stick_width, inc = s->inc;
 
-	t = MAX(l->mount[3], l->mount[4]);
+	t = std::max(l->mount[3], l->mount[4]);
 	if (t == 0)
 		dis += tab_J[0]; // not exist left down arc		// 100
 	else if (t * 2 < wid && r->conc[4] * 2 < wid) // 09.07.1993
@@ -489,18 +490,19 @@ int16_t dis_L(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	if (r->up_serif && !l->up_hook) // 18.11.1993: fax41/21(63) "APPLICATION"
 		DIS_DIFFERENT_SERIFS(l, r, 0, 4, wid, tab_L[2]); // *70
 
-	//////if( MAX(r->mount[3], r->mount[4])<wid )		// OLD OLEG
-	//////if (MAX(r->mount[3], r->mount[4]) < MIN(wid,8))	// 09.07.1993
-	//////if (MAX(r->mount[3], r->mount[4]) < MIN(wid,5))	// 27.07.1993 VAR-1
-	//////if (MAX(r->mount[3], r->mount[4]) < MIN(wid,5) + l->mount[4]) //VAR-2
+	//////if( std::max(r->mount[3], r->mount[4])<wid )		// OLD OLEG
+	//////if (std::max(r->mount[3], r->mount[4]) < MIN(wid,8))	// 09.07.1993
+	//////if (std::max(r->mount[3], r->mount[4]) < MIN(wid,5))	// 27.07.1993 VAR-1
+	//////if (std::max(r->mount[3], r->mount[4]) < MIN(wid,5) + l->mount[4]) //VAR-2
 	// see	fax9/21(20) "ts",  frad9/1 'L',  stdh15/1 "ti",
 	// 	g14/62(74) "Library", stdk18/8 "ARTICLES":
-	if (MAX(r->mount[3], r->mount[4]) - l->mount[4] < // 28.07.1993
+	if (std::max(r->mount[3], r->mount[4]) - l->mount[4] < // 28.07.1993
 			////MIN (wid,(s->cut_r ? 8 : 5) ) 				// VAR-1
 			////MIN (wid,((s->cut_r || s->neck>=2) ? 8 : 5)))		// VAR-2
 			////MIN (wid,5) + (s->cut_r ? 3 : 0) + s->neck)			// VAR-3
 			////MAX (wid,4) - 1 + (s->cut_r ? 2 : 0) + s->neck)		// VAR-4
-			MAX(wid, 4) - 1 + (s->cut_r ? 2 : 0) + s->neck + // 12.10.1993
+			std::max(static_cast<int> (wid), 4) - 1 + (s->cut_r ? 2 : 0)
+					+ s->neck + // 12.10.1993
 					(dy > 20 ? 1 : 0) + (l->conc[4] ? 1 : 0) &&
 	////r->mb_pos[4]*4>dy*3)	// 21.10.1993 PROBA for i5/5 "LATEST"; R.M.3-?
 			////r->mount[4]  &&  r->mb_pos[4]*4>dy*3)	// 21.10.1993, see g4/1 "1Soft"
@@ -531,7 +533,7 @@ int16_t dis_L(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	if (r->mount[4] <= wid + 1 && s->neck >= 2) // m.b. NECK=3
 		dis += tab_L[6]; // 40
 
-	if (r->conc[2] >= MAX(wid, 4) - 1) // 02.06.1993	PROBA:
+	if (r->conc[2] >= std::max(static_cast<int> (wid), 4) - 1) // 02.06.1993	PROBA:
 		//////	dis += 68;	// PROBA-68					// 68
 		dis += 80; // PROBA-80					// 80
 
@@ -553,16 +555,16 @@ int16_t dis_T(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	//////	if ( (2*MAX (tl, tr) + wid) >		// before 27.07.1993
 	//////	if ( (abs(tl-tr)*2 > wid + 1)  &&	// 27.07.1993: ASSIMETR !!!
 
-	if ((abs(tl - tr) > MAX(wid, 5) - 3) && // 28.07.1993: ASSIMETR !!!
-			(2* MAX (tl, tr) + wid) > (s->height + 2 + (s->height > 20)
+	if ((abs(tl - tr) > std::max(static_cast<int> (wid), 5) - 3) && // 28.07.1993: ASSIMETR !!!
+			(2* std ::max(tl, tr) + wid) > (s->height + 2 + (s->height > 20)
 					+ (s->height > 27) +
 			//////	      (wid>10)*4 +	// stdj1/44(45) "TAJ MAHAL" 'T'=>'Y' DEL.27.07.1993
 					(fax1x2 << 1)))
 		dis += tab_T[9]; // 100
-	else if (s->height > 25 && MAX(r->mount[0], r->mount[1]) < 3 && tl > 6)
+	else if (s->height > 25 && std::max(r->mount[0], r->mount[1]) < 3 && tl > 6)
 		dis += tab_T[9]; // 04.08.1995: ASSIMETR !!! similar 1
 
-	porog = MAX(((wid + 1) >> 1), 2); // MK 25.01.1993
+	porog = std::max(((wid + 1) >> 1), 2); // MK 25.01.1993
 	if ((s->height >= 34) && (porog < 4))
 		porog = 4; // MK 26.01.1993
 	//////	if ( (s->T_config==0) && (s->T_3==0) ) porog = 1;  // MK 01.02.1993
@@ -590,15 +592,15 @@ int16_t dis_T(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	//////DIS_DIFFERENT_SERIFS(l,r,0,4,wid,tab_T[3]);	//// UP OLD
 	DIS_DIFFERENT_SERIFS(l, r, 4, 4, wid, tab_T[3]); // DOWN		// 6
 
-	u = MAX(l->mount[0], l->mount[1]);
-	d = MAX(l->mount[3], l->mount[4]);
+	u = std::max(l->mount[0], l->mount[1]);
+	d = std::max(l->mount[3], l->mount[4]);
 	if (language == LANG_RUSSIAN && s->cut_l && abs(u - d) < 1 || language
 			== LANG_RUSSIAN && !s->cut_l && abs(u - d) < 2 || language
 			!= LANG_RUSSIAN && abs(u - d) < 2)
 		dis += tab_T[4]; /* similar 'I' */// 60
 
-	u = MAX(r->mount[0], r->mount[1]);
-	d = MAX(r->mount[3], r->mount[4]);
+	u = std::max(r->mount[0], r->mount[1]);
+	d = std::max(r->mount[3], r->mount[4]);
 	if (language == LANG_RUSSIAN && s->cut_r && abs(u - d) < 1 || language
 			== LANG_RUSSIAN && !s->cut_r && abs(u - d) < 2 || language
 			!= LANG_RUSSIAN && abs(u - d) < 2)
@@ -1117,16 +1119,16 @@ static uchar config_1(STICK_CHARS *l, STICK_CHARS *r) {
 int16_t dis_RusG(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *signums) {
 	int16_t dis = 0, u, d, t;
 
-	u = MAX(l->mount[0], l->mount[1]);
-	d = MAX(r->mount[0], r->mount[1]);
+	u = std::max(l->mount[0], l->mount[1]);
+	d = std::max(r->mount[0], r->mount[1]);
 	t = abs(u - d);
 	if (t < 2)
 		dis += 60; /* similar 'T' : upper halfserifs */
 	else if (t < 3)
 		dis += 30;
 
-	u = MAX(r->mount[0], r->mount[1]);
-	d = MAX(r->mount[3], r->mount[4]);
+	u = std::max(r->mount[0], r->mount[1]);
+	d = std::max(r->mount[3], r->mount[4]);
 	t = abs(u - d);
 	if (t < 2)
 		dis += 60; /* similar 'I' : right halfserifs */

@@ -425,7 +425,7 @@ void cuts_glues() {
 	} else
 		minw = minp;
 	//   minw=minp=my_bases.ps/10;
-	// minw=MAX(minw,1); minp=max(minp,1);
+	// minw=std::max(minw,1); minp=max(minp,1);
 
 	//уточняем оценки и расставляем точки над 'i'
 
@@ -453,7 +453,7 @@ void cuts_glues() {
 		do {
 			B = WE;
 			WE = B->next;
-			end_col = MAX(end_col, B->col + B->w);
+			end_col = std::max(static_cast<int> (end_col), B->col + B->w);
 		} while (WE->next && (WE->col - end_col) < blank);
 		WE = B;
 		sym_width = (line_sym_width) ? line_sym_width : get_sym_width3(WB, WE);
@@ -510,7 +510,7 @@ static char get_sym_width(int16_t *sw, int16_t *mw, int16_t *md) {
 		int16_t end = beg + len;
 		if (end >= MAX_COL)
 			break;
-		maxcl = MAX(maxcl, end);
+		maxcl = std::max(maxcl, end);
 		memset(proj + beg, '1', len);
 		B = B->next;
 	} while (B->next);
@@ -738,7 +738,7 @@ cell *process_word(cell *WB, cell *WE) {
 				} else
 					break;
 			E = E->next;
-			end_col = MAX(end_col, E->col + E->w);
+			end_col = std::max(static_cast<int> (end_col), E->col + E->w);
 		}
 		if (E == cell_l())
 			break; // OLEG 08 dec 99
@@ -786,9 +786,9 @@ static cell *process_frame(cell *WB, cell *WE) {
 		h2 = h1 + B->h;
 		maxcl = B->col + B->w;
 		for (n = 1; !let(E) && may_glue(E) && (E != RW); n++) {
-			h1 = MIN(h1, E->row);
-			h2 = MAX(h2, E->row + E->h);
-			maxcl = MAX(maxcl, E->col + E->w);
+			h1 = std::min(h1, E->row);
+			h2 = std::max(static_cast<int> (h2), E->row + E->h);
+			maxcl = std::max(static_cast<int> (maxcl), E->col + E->w);
 			w = maxcl - B->col;
 			E = E->next;
 		}
@@ -951,7 +951,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 					&& !is_russian_baltic_conflict(E->vers[0].let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(E->vers[0].let) // 21.05.2002 E.P.
 			) {
-				maxcl = MAX(maxcl, E->col + E->w);
+				maxcl = std::max(static_cast<int> (maxcl), E->col + E->w);
 				if (!complete_recog(E)) //по 3x5, если не распознавалась
 				{
 					let_to_bad(E);
@@ -987,7 +987,8 @@ static cell *process_frame(cell *WB, cell *WE) {
 					int16_t right_col = MININT;
 					int16_t right_col1 = MININT;
 					for (E1 = B; E1 != E; E1 = E1->next) {
-						right_col = MAX(right_col, E1->col + E1->w);
+						right_col = std::max(static_cast<int> (right_col),
+								E1->col + E1->w);
 						if (right_col - B->col > RASTER_WIDTH)
 							break;
 						right_col1 = right_col;
@@ -1037,7 +1038,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 	B = *S;
 	glsnap('a', B, "glue begin");
 
-	n = MIN(n, MAX_CELLS_IN_LIST - 1);
+	n = std::min(static_cast<int> (n), MAX_CELLS_IN_LIST - 1);
 	LB = B->prev;
 
 	//составляем список
@@ -1154,7 +1155,7 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 	glsnap('a', B, "cut/glue begin");
 
 	memset(&vers_pool.node, 0, MAX_SEG_VERS * sizeof(seg_vers *));
-	vers_list = (seg_vers*)&vers_pool.pool;
+	vers_list = (seg_vers*) &vers_pool.pool;
 
 	//наклон для всех
 
@@ -1422,8 +1423,8 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 				dust_sect = 1;
 				mincl = maxcl = C->r_col + C->w;
 			}
-			maxcl = MAX(maxcl, C->r_col + C->w);
-			mincl = MIN(mincl, C->r_col + C->w);
+			maxcl = std::max(static_cast<int> (maxcl), C->r_col + C->w);
+			mincl = std::min(static_cast<int> (mincl), C->r_col + C->w);
 		} else //не dust
 		{
 
@@ -1437,8 +1438,8 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 						x = maxcl - rastlc;
 
 					close_ds(seci, x, (int16_t) (ncut - 1));
-					//          close_ds(seci,MAX(mincl,C->r_col-1)-rastlc,ncut-1);
-					//          close_ds(seci,MIN(maxcl,C->r_col-1)-rastlc,ncut-1);
+					//          close_ds(seci,std::max(mincl,C->r_col-1)-rastlc,ncut-1);
+					//          close_ds(seci,std::min(maxcl,C->r_col-1)-rastlc,ncut-1);
 					ncut++;
 					seci++;
 
@@ -1466,10 +1467,11 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 				{
 					//          x=((seci-1)->x+C->r_col-rastlc)>>1;
 					//          ro=middle(C)-rastlc;
-					//          (seci-1)->x=MIN(x,ro);
+					//          (seci-1)->x=std::min(x,ro);
 					if (lefter(C, (seci - 1)->x + rastlc)) //перекрывается предыдущим
 					{ // "большим" - обходимся как с dust'ом
-						maxcl = MAX(maxcl, C->r_col + C->w);
+						maxcl = std::max(static_cast<int> (maxcl), C->r_col
+								+ C->w);
 						continue;
 					} else
 						(seci - 1)->x = ((seci - 1)->x + C->r_col - rastlc)
@@ -1478,7 +1480,7 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 					(seci - 1)->x = maxcl - rastlc;
 			}
 
-			maxcl = MAX(maxcl, C->r_col + C->w);
+			maxcl = std::max(static_cast<int> (maxcl), C->r_col + C->w);
 			nc = 0;
 			if (bad(C) && (C->w > cut_width || C->r_col < (seci - 1)->x
 					+ rastlc || C->r_col + C->w > C->nextl->r_col) //перекрывается с соседями
@@ -1518,7 +1520,7 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 		ncut++;
 	} else {
 		ro = maxcl - rastlc;
-		(seci - 1)->x = MIN(ro, 127);
+		(seci - 1)->x = std::min(static_cast<int> (ro), 127);
 	}
 	cut_list->x = 0; //могла испортиться при открывании или аннулировании
 	//первой dust-секции
@@ -1546,10 +1548,10 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			set_bad_vers(&seci->versm);
 		} else if (!just(C))
 			save_vers(C, &seci->versm);//just(C) еще не распознавался
-		seci->lv.v2 = MIN(seci->lv.v2, C->row);
-		seci->lv.v3 = MIN(seci->lv.v3, C->col);
-		seci->rv.v2 = MAX(seci->rv.v2, C->row + C->h);
-		seci->rv.v3 = MAX(seci->rv.v3, C->col + C->w);
+		seci->lv.v2 = std::min(seci->lv.v2, C->row);
+		seci->lv.v3 = std::min(seci->lv.v3, C->col);
+		seci->rv.v2 = std::max(static_cast<int> (seci->rv.v2), C->row + C->h);
+		seci->rv.v3 = std::max(static_cast<int> (seci->rv.v3), C->col + C->w);
 		if (seci->px == 0)
 			cut_list->gvarm |= C->cg_flag & c_cg_cutl;
 		if (i = ncut - 1)
@@ -1621,10 +1623,8 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
  (разрез фактически не производится);
  ---------------------------------------------------------------------*/
 static void fict_sect(struct cut_elm *cut, int16_t x, int16_t px) {
-	//   init_sect(cut);
-	//   cut->x=x; cut->dh=0; cut->h=0;  cut->px=px;
 	memset(cut, 0, sizeof(struct cut_elm));
-	cut->x = MIN(x, 127);
+	cut->x = std::min(static_cast<int> (x), 127);
 	cut->px = (char) px;
 	cut->lv.v2 = cut->lv.v3 = MAXINT;
 	cut->rv.v2 = cut->rv.v3 = MININT;
@@ -1712,7 +1712,7 @@ int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax) {
 	// t=clock_read();
 	// wr_prot ("time",'d',t);
 
-	N0 = MIN(N0, MAX_CUTS);
+	N0 = std::min(static_cast<int> (N0), MAX_CUTS);
 
 	//отбираем допустимые
 
@@ -2020,7 +2020,7 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 							- (cut_list + seci0->px)->x) || let1 == (uchar) '|'
 					&& let0 != (uchar) 'ь')) { //текущая versi должна быть заменена
 				int16_t width = seci->x - seci0->x;
-				width = MAX(width, my_bases.ps);
+				width = std::max(width, my_bases.ps);
 				seci->rv.v1 = norm(MAX_RO,width);
 				seci->lv.v1 = seci0->lv.v1 + seci->rv.v1;
 				if (accept_segment(C, r0, cut_list, vers_list, i0, i, 1) == 0) { //версия заменена
@@ -2068,7 +2068,8 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 #endif
 		{
 			s = msg + sprintf(msg, "measures corrected");
-			*show_dp((uchar*) s, cut_list, (int16_t) (MIN(i0 + 10, ie))) = 0;
+			*show_dp((uchar*) s, cut_list, (int16_t) (std::min(i0 + 10,
+					static_cast<int> (ie)))) = 0;
 			show_and_wait(msg);
 		}
 	return 0;
@@ -2208,7 +2209,8 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	//выделяем cell'ы из mn1
 
 	dh = select_cells(C, mn1, x1a, x0a, cut_fl, &left_list, &right_list);
-	if (x0 - x1 - 1 - MAX(seci1->rv.v3, 0) > (dh << 1) + (dh >> 2)) //слишком широкий
+	if (x0 - x1 - 1 - std::max(static_cast<int> (seci1->rv.v3), 0) > (dh << 1)
+			+ (dh >> 2)) //слишком широкий
 	{
 		for (i = 0; i < left_list.N; i++)
 			del_cell(left_list.cells[i]);
@@ -2301,7 +2303,7 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		i = i0;
 		while ((i = not_connect_sect(i1, i, cut_list)) > 0) {
 			int16_t dr = (cut_list + i)->rv.v3;
-			roi[1] = MAX(dr, 0) * 200 / my_bases.ps; //20 баллов за 1/10ps
+			roi[1] = std::max(static_cast<int> (dr), 0) * 200 / my_bases.ps; //20 баллов за 1/10ps
 		}
 	}
 
@@ -2585,7 +2587,7 @@ static int16_t select_cells(cell *C, MN *mn1, int16_t pos1, int16_t pos2,
 				del_cell(CI);
 			else {
 				right_list->cells[ri++] = CI;
-				minrow = MIN(minrow, CI->row);
+				minrow = std::min(minrow, CI->row);
 			}
 		} else
 			del_cell(CI);
@@ -2733,7 +2735,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 				break;
 			if (top.n) {
 				//меняем местами списки top и bottom
-				int16_t nd = MIN(top.n, bottom.n);
+				int16_t nd = std::min(top.n, bottom.n);
 				cell *buff[MAX_CELLS_IN_LIST];
 				memcpy(buff, org_cells + box.n, sizeof(cell *) * nd);
 				memcpy(org_cells + box.n, org_cells + box.n + top.n,
@@ -3132,7 +3134,7 @@ static int16_t horiz_proj(cell **cells, int16_t N, uchar *proj, int16_t size) {
 	//ищем верхнюю границу (смещение)
 
 	for (i = 0; i < N; i++)
-		upper = MIN(upper, (cells[i])->row);
+		upper = std::min(upper, (cells[i])->row);
 
 	//строим проекцию
 
@@ -3558,12 +3560,12 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 	i = cut_list[N - 1].px; //(N-1)-ый - фиктивный
 	while (i > 0) {
 		seci = &cut_list[i];
-		mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left, cut_list,
-				(char) i, 2, (char*) csv, &cpos);
+		mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left,
+				cut_list, (char) i, 2, (char*) csv, &cpos);
 		i = seci->px; //следующий на оптимальном пути
 	}
-	mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left, cut_list, 0, 3, (char*) csv,
-			&cpos);
+	mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left, cut_list, 0,
+			3, (char*) csv, &cpos);
 	if (!mn1)
 		return NULL;
 
@@ -3760,10 +3762,10 @@ static int16_t is_stick(cell *B) {
 		intp = (struct int_s *) (lp + 1);
 		for (j = 0; j < lp->h; j++, intp++) {
 			he = hist + (intp->e - intp->l);
-			emax = MAX(emax, intp->e);
+			emax = std::max(emax, static_cast<char> (intp->e));
 			for (hp = hist + (intp->e - 1); hp >= he; hp--) {
 				(*hp)++;
-				hmax = MAX(hmax, *hp);
+				hmax = std::max(hmax, *hp);
 			}
 		}
 		lp = (lnhead *) ((char *) lp + lp->lth);

@@ -69,6 +69,8 @@
 #include <time.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#include "charsets.h"
 #include "leo.h"
 #include "fon.h"
 #include "std.h"
@@ -265,34 +267,34 @@ uchar decode_rus_ASCII_to_[256][4] = {
 
 char alphabet[256];
 const uchar CodePages[LANG_TOTAL] = { // 29.08.2000 E.P.
-		CSTR_ANSI_CHARSET, // LANG_ENGLISH    0
-				CSTR_ANSI_CHARSET, // LANG_GERMAN     1
-				CSTR_ANSI_CHARSET, // LANG_FRENCH     2
-				CSTR_RUSSIAN_CHARSET, // LANG_RUSSIAN    3
-				CSTR_ANSI_CHARSET, // LANG_SWEDISH    4
-				CSTR_ANSI_CHARSET, // LANG_SPANISH    5
-				CSTR_ANSI_CHARSET, // LANG_ITALIAN    6
-				CSTR_RUSSIAN_CHARSET, // LANG_RUSENG     7
-				CSTR_RUSSIAN_CHARSET, // LANG_UKRAINIAN  8
-				CSTR_RUSSIAN_CHARSET, // LANG_SERBIAN    9
-				CSTR_EASTEUROPE_CHARSET, // LANG_CROATIAN   10
-				CSTR_EASTEUROPE_CHARSET, // LANG_POLISH     11
-				CSTR_ANSI_CHARSET, // LANG_DANISH     12
-				CSTR_ANSI_CHARSET, // LANG_PORTUGUESE 13
-				CSTR_ANSI_CHARSET, // LANG_DUTCH      14
-				CSTR_ANSI_CHARSET, // LANG_DIG        15
-				CSTR_RUSSIAN_CHARSET, // LANG_UZBEK	  16 // 01.09.2000 E.P.
-				CSTR_RUSSIAN_CHARSET, // LANG_KAZ	      17
-				CSTR_RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
-				CSTR_EASTEUROPE_CHARSET, // LANG_CZECH	  19
-				CSTR_EASTEUROPE_CHARSET, // LANG_ROMAN	  20
-				CSTR_EASTEUROPE_CHARSET, // LANG_HUNGAR	  21
-				CSTR_RUSSIAN_CHARSET, // LANG_BULGAR	  22
-				CSTR_EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
-				BALTIC_CHARSET, // LANG_LATVIAN	  24
-				BALTIC_CHARSET, // LANG_LITHUANIAN 25
-				BALTIC_CHARSET, // LANG_ESTONIAN	  26
-				TURKISH_CHARSET // LANG_TURKISH	  27
+		        CIF::ANSI_CHARSET, // LANG_ENGLISH    0
+		        CIF::ANSI_CHARSET, // LANG_GERMAN     1
+		        CIF::ANSI_CHARSET, // LANG_FRENCH     2
+		        CIF::RUSSIAN_CHARSET, // LANG_RUSSIAN    3
+		        CIF::ANSI_CHARSET, // LANG_SWEDISH    4
+		        CIF::ANSI_CHARSET, // LANG_SPANISH    5
+		        CIF::ANSI_CHARSET, // LANG_ITALIAN    6
+		        CIF::RUSSIAN_CHARSET, // LANG_RUSENG     7
+		        CIF::RUSSIAN_CHARSET, // LANG_UKRAINIAN  8
+		        CIF::RUSSIAN_CHARSET, // LANG_SERBIAN    9
+		        CIF::EASTEUROPE_CHARSET, // LANG_CROATIAN   10
+		        CIF::EASTEUROPE_CHARSET, // LANG_POLISH     11
+		        CIF::ANSI_CHARSET, // LANG_DANISH     12
+		        CIF::ANSI_CHARSET, // LANG_PORTUGUESE 13
+		        CIF::ANSI_CHARSET, // LANG_DUTCH      14
+		        CIF::ANSI_CHARSET, // LANG_DIG        15
+		        CIF::RUSSIAN_CHARSET, // LANG_UZBEK	  16 // 01.09.2000 E.P.
+		        CIF::RUSSIAN_CHARSET, // LANG_KAZ	      17
+		        CIF::RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
+		        CIF::EASTEUROPE_CHARSET, // LANG_CZECH	  19
+		        CIF::EASTEUROPE_CHARSET, // LANG_ROMAN	  20
+		        CIF::EASTEUROPE_CHARSET, // LANG_HUNGAR	  21
+		        CIF::RUSSIAN_CHARSET, // LANG_BULGAR	  22
+		        CIF::EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
+		        CIF::BALTIC_CHARSET, // LANG_LATVIAN	  24
+		        CIF::BALTIC_CHARSET, // LANG_LITHUANIAN 25
+		        CIF::BALTIC_CHARSET, // LANG_ESTONIAN	  26
+		        CIF::TURKISH_CHARSET // LANG_TURKISH	  27
 		};
 
 static const char *tab3x5[] = { "rec3.dat", // LANG_ENGLISH   0
@@ -1129,7 +1131,7 @@ Bool32 free_line(CSTR_line ln) {
 }
 
 static void set_empty_line(CSTR_line ln) {
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst = CSTR_GetNext(CSTR_GetFirstRaster(ln));
 
 	CSTR_GetLineAttr(ln, &attrlin);
@@ -1143,7 +1145,7 @@ static void set_empty_line(CSTR_line ln) {
 
 Bool copy_cap_drop(CSTR_line lin, CSTR_line lino) {
 	CSTR_rast ri, ro;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 	CCOM_USER_BLOCK ub;
 	CCOM_comp *ci, *co;
 	int32_t n;
@@ -1362,7 +1364,7 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
 		CSTR_line lino) {
 	int rc;
 	uchar lang = language;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 
 	local_ret_error_code = 0;
 	line_BL = FALSE;
@@ -1502,7 +1504,7 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
 //********************************************
 Bool32 RSTRRecognizePostMain(CSTR_line lin, // pointer to raw string
 		CSTR_line lino) {
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 
 	CSTR_GetLineAttr(lin, &lattr);
 
@@ -1538,7 +1540,7 @@ Bool32 RSTRRecognizePostMain(CSTR_line lin, // pointer to raw string
 Bool32 RSTRRecognizeBL(CSTR_line lin) {
 	int rc;
 	uchar lang = language;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 	Bool32 ret;
 
 	local_ret_error_code = 0;
@@ -2251,8 +2253,8 @@ Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData) {
 		else
 			tmp_gray_name++;
 
-		if (MAX(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(tmp_dir)
-				> 256) {
+		if (std::max(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(
+				tmp_dir) > 256) {
 			wLowRC = RSTR_ERR_VALUE;
 
 			return FALSE;

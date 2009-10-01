@@ -105,7 +105,6 @@ static void upper_col(int16_t col);
 static void lower_row(int16_t row);
 static void lower_col(int16_t col);
 void ev_lang_filter();
-static int16_t is_english(uchar ch);
 
 extern uchar ev_rt_num_ln;
 int16_t events_recog_rt() {
@@ -125,7 +124,7 @@ int16_t events_recog_rt() {
 			goto no_answer;
 	}
 
-	ev_rt_num_ln = MIN(mn->mnlines, 15);
+	ev_rt_num_ln = std::min(static_cast<int> (mn->mnlines), 15);
 	main_number_ptr = mn;
 	boxes_account();
 	//snap_keep(snap_rotate,NULL,0);
@@ -514,28 +513,6 @@ static int16_t net_comp(MN *mn) {
 
 void ev_lang_filter() {
 	version *v1, *v2;
-	/*
-	 uchar l;
-
-	 for (v1=v2=start_rec; v1!=rec_ptr; v1++)
-	 if( (l=v1->let) != UKR_E && l != UKR_e && l != UKR_g && l != UKR_G &&
-	 l != liga_i && !memchr("iI",l,2) )
-	 {v2->let=v1->let; v2->prob=v1->prob; v2++;}
-	 rec_ptr=v2;
-
-	 for (v1=v2=start_rec; v1!=rec_ptr; v1++)
-	 if( (l=v1->let) != SERB_HH && l != SERB_hh && l != SERB_H && l != SERB_h &&
-	 l != SERB_L && l != SERB_l && l != SERB_N && l != SERB_n &&
-	 l != SERB_U && l != SERB_u && l != SERB_J && l != SERB_j &&
-	 l != liga_j && !memchr("jJ",l,2) )
-	 {v2->let=v1->let; v2->prob=v1->prob; v2++;}
-	 rec_ptr=v2;
-
-	 for (v1=v2=start_rec; v1!=rec_ptr; v1++)
-	 if( !(is_english(v1->let) ) ) //||v1->let=='$'  ) )
-	 { v2->let=v1->let; v2->prob=v1->prob; v2++; }
-	 goto ret;
-	 */
 	for (v1 = v2 = start_rec; v1 != rec_ptr; v1++)
 		if (alphabet[v1->let]) {
 			v2->let = v1->let;
@@ -546,9 +523,4 @@ void ev_lang_filter() {
 
 	return;
 	ret: rec_ptr = v2;
-}
-
-static int16_t is_english(uchar ch) {
-	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch
-			>= ligas_beg && ch <= ligas_end && ch != liga_exm && ch != liga_qm);
 }

@@ -175,7 +175,7 @@ static int16_t check_shape                  (int16_t, int16_t, pchar, int16_t);
 static int16_t check_picture                (int16_t, int16_t);
 static int16_t Talalai_algorithm            (void);
 
-
+
 static cursor_off ()
 {
     union REGS inregs, outregs;
@@ -191,7 +191,7 @@ static cursor_off ()
     int86 (0x10, &inregs, &outregs);
 }
 
-
+
 static cursor_on ()
 {
     union REGS inregs, outregs;
@@ -202,7 +202,7 @@ static cursor_on ()
     int86 (0x10, &inregs, &outregs);
 }
 
-
+
 static int16_t symbol_to_color (int16_t c)
 {
     switch (c)
@@ -214,7 +214,7 @@ static int16_t symbol_to_color (int16_t c)
     }
 }
 
-
+
 static int16_t color_to_symbol (int16_t c)
 {
     switch (c)
@@ -225,7 +225,7 @@ static int16_t color_to_symbol (int16_t c)
     }
 }
 
-
+
 char field [FIELD_WIDTH][FIELD_HEIGHT];
 int16_t  white_color;
 
@@ -240,14 +240,14 @@ static void init_field (void)
     white_color = WHITE_COLOR;
 }
 
-
+
 static void putch_cell (int16_t color)
 {
     textbackground (color);
     putch (' ');
 }
 
-
+
 static void update_screen (void)
 {
     int16_t x, y;
@@ -264,13 +264,13 @@ static void update_screen (void)
     cursor_on ();
 }
 
-
+
 static void goto_status (void)
 {
     gotoxy (STATUS_COLUMN, STATUS_ROW);
 }
 
-
+
 static void clear_status (void)
 {
     textcolor (TEXT_COLOR);
@@ -279,7 +279,7 @@ static void clear_status (void)
     cprintf ("%*s", SCREEN_WIDTH - STATUS_COLUMN + 1, "");
 }
 
-
+
 static void message (pchar s)
 {
     clear_status ();
@@ -287,7 +287,7 @@ static void message (pchar s)
     cputs (s);
 }
 
-
+
 static void smessage (pchar format, pchar s)
 {
     clear_status ();
@@ -295,13 +295,13 @@ static void smessage (pchar format, pchar s)
     cprintf (format, s);
 }
 
-
+
 static void clear_buffer (void)
 {
     while (kbhit ()) getch ();
 }
 
-
+
 static void load_field (void)
 {
     char buffer[FILENAME_LENGTH + 3], *filename;
@@ -353,7 +353,7 @@ static void load_field (void)
     update_screen ();
 }
 
-
+
 static void save_field (void)
 {
     char buffer[FILENAME_LENGTH + 3], *filename;
@@ -411,7 +411,7 @@ struct {
 
 int16_t method_number = 0;
 
-
+
 static void update_mode_line (void)
 {
     gotoxy (MODE_COLUMN, MODE_ROW);
@@ -422,7 +422,7 @@ static void update_mode_line (void)
     cputs (method_desc [method_number].method_name);
 }
 
-
+
 static void make_thinning (void)
 {
     if (white_color == BLACK_COLOR - 1)
@@ -436,7 +436,7 @@ static void make_thinning (void)
     update_screen ();
 }
 
-
+
 static void delete_skin (void)
 {
     int16_t x, y;
@@ -450,7 +450,7 @@ static void delete_skin (void)
     update_screen ();
 }
 
-
+
 static void make_unthinning (void)
 {
     int16_t x, y;
@@ -470,7 +470,7 @@ static void make_unthinning (void)
     update_screen ();
 }
 
-
+
 static void make_new (void)
 {
     init_field ();
@@ -632,7 +632,7 @@ int16_t path_y [PATH_LEN] = { -1, -1, -1,  0,  1,  1,  1,  0 };
 
 # include <stdio.h>
 
-
+
 static int16_t  account_neighbors (int16_t x, int16_t y)
 {
     int16_t i;
@@ -692,7 +692,7 @@ static int16_t  account_neighbors (int16_t x, int16_t y)
  *     c. P4, P5, P6 are deletable
  */
 
-
+
 static int16_t account_connect4_components (int16_t x, int16_t y)
 {
     int16_t i;
@@ -718,7 +718,7 @@ static int16_t account_connect4_components (int16_t x, int16_t y)
     return (color_changes / 2);
 }
 /*
-
+
 static print_object (void)
 {
     int16_t x, y;
@@ -734,7 +734,7 @@ static print_object (void)
 }
 */
 
-
+
 static int16_t Hall_algorithm (void)
 {
     int16_t x, y;
@@ -799,22 +799,22 @@ static int16_t Hall_algorithm (void)
  *
  */
 
-
+
 static int16_t compute_condition_N (int16_t x, int16_t y)
 {
     int16_t n1 = (PP1 | PP2) + (PP3 | PP4) + (PP5 | PP6) + (PP7 | PP8);
     int16_t n2 = (PP2 | PP3) + (PP4 | PP5) + (PP6 | PP7) + (PP8 | PP1);
-    return (MIN (n1, n2));
+    return (std::min (n1, n2));
 }
 
-
+
 static int16_t compute_condition_C (int16_t x, int16_t y)
 {
     return ((~PP2 & (PP3 | PP4)) + (~PP4 & (PP5 | PP6))
 	      + (~PP6 & (PP7 | PP8)) + (~PP8 & (PP1 | PP2)));
 }
 
-
+
 static int16_t Guo_and_Hall_algorithm (void)
 {
     int16_t x, y;
@@ -859,7 +859,7 @@ static int16_t Guo_and_Hall_algorithm (void)
  *   B Y   A . K A R Z A N O V   &   E . K O M I S S A R C H I K
  */
 
-
+
 static int16_t skin (int16_t x, int16_t y)
 {
     x=y;
@@ -867,7 +867,7 @@ static int16_t skin (int16_t x, int16_t y)
     return (0);
 }
 
-
+
 int16_t Karzanov_and_Komissarchik_algorithm (void)
 {
     int16_t x, y;
@@ -916,13 +916,13 @@ SHAPE picture_shape [] =
     0, 0
 };
 
-
+
 static int16_t is_internal (int16_t x, int16_t y)
 {
     return (PP & PP2 & PP4 & PP6 & PP8);
 }
 
-
+
 static int16_t check_shape (int16_t x, int16_t y, pchar sh_string, int16_t offset)
 {
     int16_t i, j;
@@ -956,7 +956,7 @@ static int16_t check_shape (int16_t x, int16_t y, pchar sh_string, int16_t offse
     return (1);
 }
 
-
+
 static int16_t check_picture (int16_t x, int16_t y)
 {
     SHAPE *shape;
@@ -978,7 +978,7 @@ static int16_t check_picture (int16_t x, int16_t y)
     return (0);
 }
 
-
+
 static int16_t Talalai_algorithm (void)
 {
     int16_t x, y;
@@ -1002,7 +1002,7 @@ static int16_t Talalai_algorithm (void)
 }
 
 # ifndef SHV_DEBUG
-
+
 int16_t shaving (int16_t method)
 {
     switch (method)

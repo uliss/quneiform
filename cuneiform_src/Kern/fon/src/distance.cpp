@@ -71,12 +71,11 @@ const int OLEG_ACC = 0;
 #include <string.h>
 #include <fcntl.h>
 #include <stdio.h>
-
+#include <algorithm> // for std::max
 #ifdef _GETTIME_
 #include <time.h>
 #endif
 
-#include "minmax.h"
 #include "fon.h"
 #include "sfont.h"
 #include "fonrec.h"
@@ -251,8 +250,8 @@ int16_t DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl, int xo
 	if (dist > porog)
 	return dist;
 
-	lasty = MIN(starty + h, sty + hh);
-	lastx = MIN(startx + w, stx + ww);
+	lasty = std::min(starty + h, sty + hh);
+	lastx = std::min(startx + w, stx + ww);
 
 	if (starty < sty)
 	r += (sty - starty) * fullByte;
@@ -400,8 +399,8 @@ int16_t DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl,
 	if (dist > porog)
 		return dist;
 
-	lasty = MIN(starty + h, sty + hh);
-	lastx = MIN(startx + w, stx + ww);
+	lasty = std::min(starty + h, sty + hh);
+	lastx = std::min(startx + w, stx + ww);
 	if (starty < sty)
 		r += (sty - starty) * fullByte;
 
@@ -529,7 +528,7 @@ int distWelet(uchar *buf, uchar *bufraz, int w, int h, welet * wl, int porog,
 		int countRazmaz) {
 	uint16_t best, east, west, north, south, center;
 	int lbest; // local best
-	int bound = 140; //2*MIN(50,w+h);
+	int bound = 140; //2*std::min(50,w+h);
 	int initPorog = porog;
 
 	best = east = west = north = south = center = lbest = 0;
@@ -651,15 +650,15 @@ static int LookBestClusters(int w, int h, uchar *buf, uchar *bufrazmaz,
 		if (strchr(Palki, wel->let) || wel->let == liga_i || (language
 				== LANG_TURKISH && // 30.05.2002 E.P.
 				(wel->let == i_sans_accent || wel->let == II_dot_accent))) {
-			if (j * 5 > MIN(h, wel->mh))
+			if (j * 5 > std::min(h, static_cast<int> (wel->mh)))
 				continue;
 		} else {
-			if (j > 2 && j * 4 > MAX(h, wel->mh))
+			if (j > 2 && j * 4 > std::max(h, static_cast<int> (wel->mh)))
 				continue;
 		}
 
 		j = abs(wel->mw - w);
-		if (j > 3 && j * 3 >= MAX(w, wel->mw))
+		if (j > 3 && j * 3 >= std::max(w, static_cast<int> (wel->mw)))
 			continue;
 
 		dist = distWelet(buf, bufrazmaz, w, h, wel, porog + 1, countRazmaz);
@@ -773,7 +772,7 @@ static int16_t CheckLetter(int16_t w, int16_t h, uchar *buf, uchar *bufrazmaz,
 		dist = distWelet(buf, bufrazmaz, w, h, wel, porog + 1, 1);
 
 		if (dist <= porog) {
-			uchar prob = MAX(0, 255 - STRAFPOINT * dist);
+			uchar prob = std::max(0, 255 - STRAFPOINT * dist);
 			numAlt = AddTestAlt(prob, numAlt, attr, wel, i);
 		}
 
@@ -815,7 +814,7 @@ int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
 	Razmaz2(buf, bufrazmaz, xbit, yrow, 0, POROG_ANGLES);
 
 	if (porog < 0)
-		porog = MIN(50, xbit + yrow + 4);
+		porog = std::min(50, xbit + yrow + 4);
 
 	if (maxNames > MAX_ALT)
 		maxNames = MAX_ALT;
@@ -885,8 +884,8 @@ int16_t CheckClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
 #endif
 	Razmaz2(buf, bufrazmaz, xbit, yrow, 0, (int16_t) POROG_ANGLES);
 
-	//porog=MAX(xbit,yrow);
-	porog = MIN(50, xbit + yrow);
+	//porog=std::max(xbit,yrow);
+	porog = std::min(50, xbit + yrow);
 
 	i
 			= CheckLetter(xbit, yrow, buf, bufrazmaz, fbase, porog, let, attr,
@@ -921,7 +920,7 @@ int CompareCluster(uchar *rast, int xbyte, int xbit, int yrow, welet *wel,
 			(int16_t) POROG_ANGLES);
 
 	i = distOne(buf, bufrazmaz, xbit, yrow, 85, wel, movex, movey, 1);
-	return MAX(0, 255 - STRAFPOINT * i);
+	return std::max(0, 255 - STRAFPOINT * i);
 }
 ///////////////////////////
 #ifdef _TEST_ADD_FAT_
@@ -1029,7 +1028,7 @@ static int AddTestRecogCollection( uchar *rast,int xbit,int yrow,
 	}
 
 	for(i=iSame;i<num;i++)
-	recres[i].prob=MIN(recres[i].prob,recres[iSame-1].prob-1);
+	recres[i].prob=std::min(recres[i].prob,recres[iSame-1].prob-1);
 
 	return num;
 }
@@ -1139,8 +1138,8 @@ int16_t distOkr2(puchar r, int w, int h, welet * wl, int xo, int yo, int porog,
 	if (dist > porog)
 		return dist;
 
-	lasty = MIN(starty + h, sty + hh);
-	lastx = MIN(startx + w, stx + ww);
+	lasty = std::min(starty + h, sty + hh);
+	lastx = std::min(startx + w, stx + ww);
 	if (starty < sty)
 		r += (sty - starty) * rbyte;
 
@@ -1207,7 +1206,7 @@ static int distWeletOkr(uchar *buf, uchar *razmaz, int w, int h, welet * wl,
 		int porog, int okr, int proc) {
 	uint16_t best, east, west, north, south, center;
 	int lbest; // local best
-	int bound = 200; //2*MIN(50,w+h);
+	int bound = 200; //2*std::min(50,w+h);
 	int initPorog = porog;
 	int ne, es, sw, wn;
 
@@ -1367,11 +1366,11 @@ static int LookBestOkr(int w, int h, uchar *buf, uchar *razmaz, int NumClus,
 
 		// check for height likeness
 		j = abs(wel->mh - h);
-		if (j > 2 && j * 3 > MAX(h, wel->mh))
+		if (j > 2 && j * 3 > std::max(h, static_cast<int> (wel->mh)))
 			continue;
 
 		j = abs(wel->mw - w);
-		if (j > 3 && j * 3 >= MAX(w, wel->mw))
+		if (j > 3 && j * 3 >= std::max(w, static_cast<int> (wel->mw)))
 			continue;
 
 		dist = distWeletOkr(buf, razmaz, w, h, wel, porog + 1, okr, proc);
@@ -1413,7 +1412,7 @@ int RecogCluOkr(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
 
 	Razmaz2(buf, bufrazmaz, xbit, yrow, 0, POROG_ANGLES);
 
-	//porog=MAX(xbit,yrow);
+	//porog=std::max(xbit,yrow);
 	if (porog < 0)
 		porog = 200;
 
@@ -1506,7 +1505,7 @@ static int LookBestInner(int w, int h, uchar *buf, uchar *razmaz, int NumClus,
 	int stepx, stepy;
 	int lastx, lasty;
 	int brow, bcol;
-	float KOEFF = MAX(1.0f, (w * h) / 250.0f);
+	float KOEFF = std::max(1.0f, (w * h) / 250.0f);
 
 	for (i = num = 0; i < NumClus; i++, wel++) {
 		if (wel->invalid)

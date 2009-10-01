@@ -922,7 +922,7 @@ static void glue_let_bad() {
 				== (uchar) '¯' && c3 == (uchar) 'ø' && cw == (uchar) 'õ')
 			goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
 		if (((BC->recsource & c_rs_ev) == 0) || (i < 220)
-				|| (MAX(p1, p2) > 170) || ((i + i) <= (p1 + p2)))
+				|| (std::max(p1, p2) > 170) || ((i + i) <= (p1 + p2)))
 			goto unrel_rs;
 		unrel_rs: glsnap('b', BC, "unreliable or unknown result");
 
@@ -1012,9 +1012,9 @@ static void glue_dust_dust() {
 			continue;
 		if (BC->accent_leader)
 			continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
-		i = MAX(EC->r_col + EC->w, BC->r_col + BC->w) - BC->r_col;
-		j = MAX(EC->r_row + EC->h, BC->r_row + BC->h);
-		j -= MIN(EC->r_row, BC->r_row);
+		i = std::max(EC->r_col + EC->w, BC->r_col + BC->w) - BC->r_col;
+		j = std::max(EC->r_row + EC->h, BC->r_row + BC->h);
+		j -= std::min(EC->r_row, BC->r_row);
 		if (i < 10)
 			continue;
 		if (j < 10)
@@ -1183,8 +1183,8 @@ static void glue_all_dusts()
 			get_b_lines(BC,&bl);
 			f_u = bl.b1;
 			f_d = bl.b3;
-			f_l = MAX(BC->next->col,(BC->flg&c_f_fict)?0:BC->col+BC->w+2);
-			f_r = MIN(EC->prev->col+EC->prev->w,((EC->flg&c_f_fict)?10000:EC->col)-2);
+			f_l = std::max(BC->next->col,(BC->flg&c_f_fict)?0:BC->col+BC->w+2);
+			f_r = std::min(EC->prev->col+EC->prev->w,((EC->flg&c_f_fict)?10000:EC->col)-2);
 			if(f_r-f_l<pitch )
 			{
 				row = f_d; col = f_r;

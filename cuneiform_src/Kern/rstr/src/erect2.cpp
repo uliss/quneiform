@@ -151,9 +151,9 @@ static CSTR_rast erect_end_word(CSTR_rast cs, uchar *str, uchar *word_len,
 		n = CSTR_GetNext(c);
 		CSTR_GetAttr(n, &nattr);
 		if (nattr.flg & (CSTR_f_let | CSTR_f_bad | CSTR_f_punct)) {
-			int16_t dist = MIN(attr.h, nattr.h);
-			dist = MIN(dist, attr.w);
-			dist = MIN(dist, nattr.w);
+			int16_t dist = std::min(attr.h, nattr.h);
+			dist = std::min(dist, attr.w);
+			dist = std::min(dist, nattr.w);
 			if (nattr.col - (attr.col + attr.w) < dist / 3)
 				return (CSTR_rast) 0;
 		}
@@ -273,7 +273,7 @@ static Bool32 erect_rotate(CSTR_rast beg, CSTR_rast end, int16_t inc) {
 	return TRUE;
 }
 
-static Bool32 erect_clear(CSTR_rast beg, CSTR_rast end, int16_t inc) {
+static Bool32 erect_clear(CSTR_rast beg, CSTR_rast end, int16_t /*inc*/) {
 	CSTR_rast r;
 	CSTR_rast_attr a;
 	for (r = beg; r && r != end; r = CSTR_GetNext(r)) {

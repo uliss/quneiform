@@ -310,8 +310,8 @@ int CalcStatTiger(void)
 	for (nc = 0; nc <= NumCol; ++nc) {
 		int Dif_b1b2;//признак различия линеек b1 и b2
 		ThrDif_b1b2 = NORM_SCAN(3);
-		ThrDif_b1b2 = MAX(ThrDif_b1b2,
-				(StatCol[nc].dy_Upp - StatCol[nc].dy_Low) / 2);
+		ThrDif_b1b2 = std::max(ThrDif_b1b2, (StatCol[nc].dy_Upp
+				- StatCol[nc].dy_Low) / 2);
 		if ((StatCol[nc].stat_str = (STAT_STR*) malloc((NumStr[nc] + 1)
 				* sizeof(STAT_STR))) == NULL)
 			return NOT_ALLOC;
@@ -387,12 +387,12 @@ int CalcStatTiger(void)
 				{	for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
 					{	rr.left =MIN(rr.left ,Zn[nc][ns][nw][nz].Title.Z_Rect.left );
 						rr.top =MIN(rr.top ,Zn[nc][ns][nw][nz].Title.Z_Rect.top );
-						rr.right =MAX(rr.right ,Zn[nc][ns][nw][nz].Title.Z_Rect.right );
-						rr.bottom=MAX(rr.bottom,Zn[nc][ns][nw][nz].Title.Z_Rect.bottom);
+						rr.right =std::max(rr.right ,Zn[nc][ns][nw][nz].Title.Z_Rect.right );
+						rr.bottom=std::max(rr.bottom,Zn[nc][ns][nw][nz].Title.Z_Rect.bottom);
 					}
 				}
 				rr.top=MIN(rr.top,rS->top); rr.top-=30;
-				rr.bottom=MAX(rr.bottom,rS->bottom); rr.bottom+=30;
+				rr.bottom=std::max(rr.bottom,rS->bottom); rr.bottom+=30;
 				BoundsRect(0,(RECT*)&rr,0);
 				for(nw=0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw)
 				{	for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
@@ -645,7 +645,7 @@ short __cdecl OpenFullOutTiger(FILE *in)
 					//fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
 					readSRECT(&tz->Z_RealRect, in);
 
-					fread(&num, sizeof(int16_t), 1, in); tz->Z_Num_Alt=(uchar)MIN(num,REC_MAX_VERS); //NumAlt
+					fread(&num, sizeof(int16_t), 1, in); tz->Z_Num_Alt=(uchar)std::min(static_cast<int> (num),REC_MAX_VERS); //NumAlt
 					//					if(num > 1)
 					//						num = 1;
 

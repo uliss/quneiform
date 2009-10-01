@@ -276,7 +276,7 @@ static void minlincut(char arg)
 //    This procedure builds graphics and finds all reasonable cutting points.
 //
 {
-	int16_t nx, cline, MIN, max, svf, svn, svl, twh, tw2, tw3, is4, wdsfl,
+	int16_t nx, cline, min, max, svf, svn, svl, twh, tw2, tw3, is4, wdsfl,
 			lastx, lastw, curw, nfix, flgr, fldef;
 	struct info_elm *inf;
 
@@ -292,7 +292,7 @@ static void minlincut(char arg)
 	//		not later than last (projection >= 1/2 cell-height) passes by
 
 	wdsfl = svn = svl = 0;
-	MIN = 127;
+	min = 127;
 	max = 0;
 	inf = &points[1];
 	lastx = 0;
@@ -307,20 +307,20 @@ static void minlincut(char arg)
 	for (nx = 1; nx < t_height; nx++, inf++) {
 		curw = inf->sumb;
 		is4 = curw << 2;
-		if ((int16_t) MIN >= (int16_t) (inf->botf))
-			MIN = inf->botf;
+		if ((int16_t) min >= (int16_t) (inf->botf))
+			min = inf->botf;
 		if ((int16_t) max <= (int16_t) (inf->toph))
 			max = inf->toph;
 		if ((int16_t) is4 > (int16_t) t_width) {
 			wdsfl++;
 			nfix = 2;
 		} // may look at thin line
-		if (((int16_t) (max - MIN) > (int16_t) twh) && ((nx > (int16_t) 5)
+		if (((int16_t) (max - min) > (int16_t) twh) && ((nx > (int16_t) 5)
 				&& svn)) {
 			fixcut(svf, svl, svn, arg);
 			svn = 0;
 			max = 0;
-			MIN = 127;
+			min = 127;
 		}
 		if ((int16_t) lastw == (int16_t) curw)
 			continue;
@@ -358,7 +358,7 @@ static void minlincut(char arg)
 		case 0: // sum at single line
 		case 1:
 			break;
-		case 2: // MIN at separ. line
+		case 2: // std::min at separ. line
 			cline = linums[nx];
 			if (cline == 0)
 				break; // no ciutgraph's line here
@@ -380,7 +380,7 @@ static void minlincut(char arg)
 			wdsfl = 0;
 			svn = 0;
 			max = 0;
-			MIN = 127;
+			min = 127;
 		} else {
 			svn = nx;
 			svf = nfix;
@@ -549,7 +549,7 @@ static void regmin(char c)
 }
 
 static void make_limits() {
-	char nx, MIN, max, w;
+	char nx, min, max, w;
 
 	Exbn = (char) make_extrem(bodyes, exbody);
 	ExbM = ExtreM;
@@ -567,28 +567,28 @@ static void make_limits() {
 
 	Startp = -1;
 	Endp = -1;
-	MIN = 127;
+	min = 127;
 	max = 0;
 	for (nx = 0; nx < totalh; nx++) {
-		if (MIN > points[nx].botf)
-			MIN = points[nx].botf;
+		if (min > points[nx].botf)
+			min = points[nx].botf;
 		if (max < points[nx].toph)
 			max = points[nx].toph;
-		w = max - MIN;
+		w = max - min;
 		if (((w << 1) + w) > t_width) {
 			Startp = nx;
 			break;
 		}
 	}
 
-	MIN = 127;
+	min = 127;
 	max = 0;
 	for (nx = totalh - 1; nx >= 0; nx--) {
-		if (MIN > points[nx].botf)
-			MIN = points[nx].botf;
+		if (min > points[nx].botf)
+			min = points[nx].botf;
 		if (max < points[nx].toph)
 			max = points[nx].toph;
-		w = max - MIN;
+		w = max - min;
 		if (((w << 1) + w) > t_width) {
 			Endp = nx;
 			break;
@@ -638,7 +638,7 @@ static void findbotbnd() {
 		lbnd = 0;
 
 	v1 = bodyes[lwpnt];
-	lr = MAX(0, lwpnt - 4);
+	lr = std::max(0, lwpnt - 4);
 	while (lwpnt >= lr) {
 		if ((bodyes[lwpnt] << 2) < 3* v1 )
 			break; // body > 3/4 etalon
@@ -658,7 +658,7 @@ static void findbotbnd() {
 		rbnd = (char) totalh;
 
 	v1 = bodyes[rwpnt];
-	lr = MIN(rwpnt + 4, totalh);
+	lr = std::min(rwpnt + 4, static_cast<int> (totalh));
 	while (rwpnt <= lr) {
 		if ((bodyes[rwpnt] << 2) < 3* v1 )
 			break;
@@ -779,8 +779,8 @@ static int16_t walltest(int16_t flg, int16_t dn1, int16_t dn2, int16_t k1,
 	maxh = 0;
 	minf = 256;
 	wt = t_width * k1;
-	n1 = MAX(0, bestx - dn1);
-	n2 = MIN(bestx + dn2, t_height); // totalh ?
+	n1 = std::max(0, bestx - dn1);
+	n2 = std::min(bestx + dn2, static_cast<int> (t_height)); // totalh ?
 	for (nx = n1; nx < n2; nx++) {
 		if (flg) // don't cut puso beside tall wall
 		{
@@ -907,13 +907,13 @@ static void lower_pen(char ret) {
 	extrn = &exhead[3];
 	for (Nmb = 2; Nmb < Exhn - 2; Nmb++, extrc++, extrp++, extrn++) {
 		if (extrc->type <= 0)
-			continue; // MIN
+			continue; // std::min
 		bestx = (extrc->beg + extrc->end) >> 1;
 		if ((foots[bestx] + heads[bestx]) > t_width)
 			continue; // lower case
 		if ((heads[bestx] << 1) > t_width)
 			continue;
-		// MAX
+		// std::max
 		if (bestx < Startp)
 			continue;
 		if (bestx > Endp)
@@ -987,7 +987,7 @@ static void findtopbnd() {
 	return;
 
 	lrdo: ;
-	// lbnd - 1-st BIG MAX to the left of the point
+	// lbnd - 1-st BIG std::max to the left of the point
 	//   move it to left untill body (the Max) is thick enough
 	v1 = bodyes[lbnd];
 	while (lbnd >= 0) {

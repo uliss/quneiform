@@ -446,10 +446,10 @@ int16_t letincl(cell *c) {
 			> 0; line = (lnhead *) ((pchar) line + line->lth))
 		if (line->row <= maxi && line->row + line->h > mini) {
 			intv0 = (interval *) ((pchar) line + sizeof(lnhead));
-			intv = intv0 + MAX(0, mini - line->row);
-			intve = intv0 + MIN(maxi + 1 - line->row, line->h);
-			/*   printf("y=%u,h=%u,b=%u,e=%u\n",line->row,line->h,
-			 (intv-intv0)+line->row-mini,intve-intv0-1+line->row-mini);*/
+			intv = intv0 + std::max(0, mini - line->row);
+			intve = intv0 + std::min(maxi + 1 - line->row,
+					static_cast<int> (line->h));
+
 			for (i = intv - intv0 + line->row - mini; intv < intve; intv++, i++) {
 				if (f & RINCL && right[i] < intv->e - 1)
 					right[i] = intv->e - 1;
@@ -608,9 +608,9 @@ static void serif(cell *c) {
 				&& memchr("BLb", let, 3))) {
 			i1 = (interval *) ((pchar) line + sizeof(lnhead)) + (h - 3);
 			i2 = i1 - (H / 4 - 3);
-			b1 = MIN(MIN(i1->e - i1->l, (i1 + 1)->e - (i1 + 1)->l), (i1 + 2)->e
-					- (i1 + 2)->l);
-			e1 = MAX(MAX(i1->e, (i1 + 1)->e), (i1 + 2)->e);
+			b1 = std::min(std::min(i1->e - i1->l, (i1 + 1)->e - (i1 + 1)->l),
+					(i1 + 2)->e - (i1 + 2)->l);
+			e1 = std::max(std::max(i1->e, (i1 + 1)->e), (i1 + 2)->e);
 			b2 = (e2 = i2->e) - i2->l;
 			if (e1 > e2 && b1 < b2)
 				n1++;
@@ -623,9 +623,9 @@ static void serif(cell *c) {
 				== 'q')) {
 			i1 = (interval *) ((pchar) line + sizeof(lnhead));
 			i2 = i1 + (H / 4 - 1);
-			b1 = MIN(MIN(i1->e - i1->l, (i1 + 1)->e - (i1 + 1)->l), (i1 + 2)->e
-					- (i1 + 2)->l);
-			e1 = MAX(MAX(i1->e, (i1 + 1)->e), (i1 + 2)->e);
+			b1 = std::min(std::min(i1->e - i1->l, (i1 + 1)->e - (i1 + 1)->l),
+					(i1 + 2)->e - (i1 + 2)->l);
+			e1 = std::max(std::max(i1->e, (i1 + 1)->e), (i1 + 2)->e);
 			b2 = (e2 = i2->e) - i2->l;
 			if (e1 > e2 && b1 < b2)
 				n1++;
@@ -678,7 +678,7 @@ static int16_t pitch() {
 	uchar let;
 	int16_t nl, nc, ng, n, n1, n2, h, w, ww, wmin, wmax, i, j, sp, bad, d, p,
 			mg;
-	int32_t s, MIN;
+	int32_t s, min;
 	uint16_t center[LSTRMAX], left[LSTRMAX], right[LSTRMAX];
 
 	for (nl = nc = ng = 0, c = (cell_f())->next; c->next != NULL; c = c->next)
@@ -731,13 +731,13 @@ static int16_t pitch() {
 	if (n == 1)
 		return 0;
 	h = get_size() + ((fax1x2) ? 2 : 0);
-	for (averwid = nl = 0, MIN = 10000, i = 1; i < n; i++) {
+	for (averwid = nl = 0, min = 10000, i = 1; i < n; i++) {
 		if (left[i] - right[i - 1] < h) {
 			averwid += center[i] - center[i - 1];
 			nl++;
 		}
-		if (MIN > center[i] - center[i - 1])
-			MIN = center[i] - center[i - 1];
+		if (min > center[i] - center[i - 1])
+			min = center[i] - center[i - 1];
 	}
 	if (nl > LSTRMIN || nl && 2* averwid < 5* nl * h)
 		averwid /= nl;
@@ -751,9 +751,9 @@ static int16_t pitch() {
 
 	wmin = 2* averwid / 3;
 	wmax = 3* averwid / 2;
-	if (wmax < MIN + 1)
-		wmax = MIN + 1;
-	for (p = j = bad = nl = 0, MIN = 1000000, w = wmin; w <= wmax; w++) {
+	if (wmax < min + 1)
+		wmax = min + 1;
+	for (p = j = bad = nl = 0, min = 1000000, w = wmin; w <= wmax; w++) {
 		ww = 3* w / 4;
 		for (sp = 1, n2 = n1 = 0, s = 0, i = 1; i < n; i++)
 			if (left[i] - right[i - 1] < ww) {
@@ -764,7 +764,7 @@ static int16_t pitch() {
 					n1++;
 					if (!sp && bad) {
 						d = (center[i - 1] - center[j]) % w;
-						d = MIN(d, w - d);
+						d = std::min(static_cast<int> (d), w - d);
 						if (!fax1x2 || abs(d) > 1)
 							s += d * d;
 						n1++;
@@ -779,15 +779,15 @@ static int16_t pitch() {
 				sp = 1;
 		if (n2 + ng <= NTHLMAX && n1 >= LSTRMIN || !n2 && n1 >= 2) {
 			s = 1000l * s / (n1 - 1);
-			if (s <= MIN || w == 2* p && nl < n1 && s < 5* MIN / 2) {
-				MIN = s;
+			if (s <= min || w == 2* p && nl < n1 && s < 5* min / 2) {
+				min = s;
 				p = w;
 				nl = n1;
 			}
 		}
 	}
 	/* printf("p=%u,d=%u\n",p,s); scanf("%c",&i);*/
-	if (!nl || MIN > BND2 * h)
+	if (!nl || min > BND2 * h)
 		return 0;
 	if (mg) {
 		if (abs(p - total_pitch) <= 1)
@@ -801,7 +801,7 @@ static int16_t pitch() {
 		return total_pitch;
 	if (p > 2* h + ((fax1x2) ? 1 : 0))
 		return 0;
-	if (MIN < BNDOK * h && nl > 1 || MIN < BND0 * h && nl >= LSTRMIN
+	if (min < BNDOK * h && nl > 1 || min < BND0 * h && nl >= LSTRMIN
 			&& total_pitch)
 		return p;
 	if (nl < LSTRMIN && !fax1x2 || nl < LSTRMINF || nl < n / 2 || !total_pitch
@@ -812,7 +812,7 @@ static int16_t pitch() {
 				if (left[i]-right[i-1]>=3*p/4)
 				continue;
 				d=center[i]-center[i-1]-p;
-				if (d>=-DELTMAX && 700l*d*d<MIN)
+				if (d>=-DELTMAX && 700l*d*d<min)
 				{
 					if (!fax1x2 || abs(d)>1)
 					s+=d*d;
@@ -1189,8 +1189,8 @@ static void underline() {
 		ey = lines[i].end.y >> line_scale;
 		by -= (int16_t) ((int32_t) nIncline * bx / 2048);
 		ey -= (int16_t) ((int32_t) nIncline * ex / 2048);
-		if (MIN(by, ey) < bl.b3 || MAX(by, ey) > bl.b3 + bl.ps / 2 || cf->r_col
-				- bl.ps > bx || cl->r_col + cl->w + bl.ps < ex)
+		if (std::min(by, ey) < bl.b3 || std::max(by, ey) > bl.b3 + bl.ps / 2
+				|| cf->r_col - bl.ps > bx || cl->r_col + cl->w + bl.ps < ex)
 			continue;
 		for (c = (cell_f())->next; c->next != NULL; c = c->next) {
 			if ((x = c->r_col + c->w / 2) >= bx && x <= ex)

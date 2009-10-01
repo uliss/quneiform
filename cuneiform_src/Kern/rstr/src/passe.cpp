@@ -907,7 +907,7 @@ uchar small_english_str(void) {
 			m++;
 	m = n - m;
 	if (n <= 8)
-		return (m < MAX(2, n - 3) || n < 3);
+		return (m < std::max(2, n - 3) || n < 3);
 	return (m < 3);
 }
 

@@ -665,7 +665,7 @@ void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
 		if (!(Lp1->flg & l_fbeg))
 			continue;
 		hbeg = Lp1->row;
-		th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+		th = std::min(hcell + attr.h, static_cast<int> (bbs3)) - hcell; // part of cell above bs3
 		//  part of cell above bs3
 		if (5* hbeg >= 3* th )
 			continue; // line must begin above 2/5 of
@@ -796,7 +796,7 @@ void hist_top(int16_t x1, int16_t x2) {
 			if (!(Lp1->flg & l_fbeg))
 				continue; // take free begs only
 			hbeg = Lp1->row;
-			th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+			th = std::min(hcell + attr.h, static_cast<int> (bbs3)) - hcell; // part of cell above bs3
 			//  part of cell above bs3
 			if (2* hbeg >= th)
 				continue; // line must begin above 1/2 of
@@ -1297,7 +1297,7 @@ void hist_max(CSTR_rast a) {
 		if (hbeg == 0)
 			continue; // ignore upper scan lines
 
-		th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+		th = std::min(hcell + attr.h, static_cast<int> (bbs3)) - hcell; // part of cell above bs3
 
 		//  part of cell above bs3
 		if (5* hbeg >= 3* th )
@@ -1758,7 +1758,7 @@ int16_t dbsum(int16_t filter) {
 				int16_t ic = 0;
 				rgb = wRGB(64, 128, 128);
 				rs.x = startx;
-				re.x = startx + MIN(80, endx - startx);
+				re.x = startx + std::min(80, endx - startx);
 				while (rs.x <= endx && re.x <= endx) {
 					draw_puma_bl(1,3);
 					if (ic == 0) {
@@ -1779,7 +1779,7 @@ int16_t dbsum(int16_t filter) {
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + MIN(80, abs(endx - rs.x));
+					re.x = rs.x + std::min(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}
@@ -1806,7 +1806,7 @@ int16_t dbsum(int16_t filter) {
 				int16_t ic = 0;
 				rgb = wRGB(124, 190, 190);
 				rs.x = startx;
-				re.x = startx + MIN(80, endx - startx);
+				re.x = startx + std::min(80, endx - startx);
 				while (rs.x <= endx && re.x <= endx) {
 					draw_puma_bl(1,0);
 					if (ic == 0) {
@@ -1827,7 +1827,7 @@ int16_t dbsum(int16_t filter) {
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + MIN(80, abs(endx - rs.x));
+					re.x = rs.x + std::min(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}
@@ -1853,7 +1853,7 @@ int16_t dbsum(int16_t filter) {
 		if (db_status) {
 			sprintf(
 					ww + jl,
-					"summ: r=%d MIN=%d nc=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
+					"summ: r=%d std::min=%d nc=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
 					rz, minrow, ncbs, Ps, sbs1, sbs2, sbs3, sbs4, Ns1, Ns2,
 					Ns3, Ns4);
 			glsnap('d', cell_f()->next, ww);
@@ -1897,11 +1897,11 @@ int16_t calc_base() {
 	if ((lin_pass > 1) && (out_of_minmax > 2) && (3* max_height < 2*
 			(max_crow -min_crow)))
 			{
+				all_wrong:
 				CSTR_rast C;
 				CSTR_rast_attr attr;
 				int16_t top, middle;
 
-				all_wrong:
 				fl_artifact = 3;
 				bbsm = (min_crow+max_crow)/2;
 				bbs2 = bbsm - max_height/2;
@@ -1919,7 +1919,7 @@ int16_t calc_base() {
 
 				set_basarr(&all_bases[0],-32000,32000);
 				{	char ww[128];
-					sprintf(ww,"WRONG BASES, MIN=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
+					sprintf(ww,"WRONG BASES, min=%d Ps=%d Bs: %d %d %d %d, Ns: %d %d %d %d",
                   minrow, Ps, bbs1, bbs2, bbs3, bbs4, Ns1, Ns2, Ns3, Ns4);
        glsnap ('d',cell_f()->next,ww);
    }

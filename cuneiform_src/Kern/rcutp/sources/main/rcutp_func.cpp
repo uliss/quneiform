@@ -358,7 +358,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 							continue;
 					}
 					/*  ┘АБЛ АЮ╔╓╜ОО  ╚═╞╙═ └└ */
-					if (MI[i].cvl && MI[i].cvr && lb > MI[i].lb + MAX(
+					if (MI[i].cvl && MI[i].cvr && lb > MI[i].lb + std::max(
 							(MIN_OSNOV_D >> 1), (MI[i].rb - MI[i].lb) / 3)
 							&& rb < MI[i].rb - (MI[i].rb - MI[i].lb) / 3) {
 						MI[i].mb = lb + ((rb - lb) >> 1);
@@ -387,7 +387,8 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 					}
 					continue;
 					/* ╛═╙А╗╛═╚Л╜═О Х╗Ю╗╜═ ╜╝ё╗ */
-					con: MI[i].wf = MAX(MI[i].wf, rb - lb + 1);
+					con: MI[i].wf = std::max(static_cast<int> (MI[i].wf), rb
+							- lb + 1);
 				}
 			}
 
@@ -807,11 +808,11 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 
 			flag_point = (foot_size + ((interval + 1) >> 1)) / interval;
 			if (flag_point) {
-				interval = MIN(CB[j].R - CB[j].L + 1, CB[j + 1].R - CB[j + 1].L
-						+ 1);
+				interval = std::min(CB[j].R - CB[j].L + 1, CB[j + 1].R - CB[j
+						+ 1].L + 1);
 				if (CB[j].P && !CB[j + 1].P) //╚
 				{
-					n = MIN(2, CB[j].R - CB[j].L);
+					n = std::min(2, CB[j].R - CB[j].L);
 					for (; n <= CB[j].R - CB[j].L;)
 						if ((*(product_two + CB[j].R - (n + 1))
 								<= *(product_two + CB[j].R - n)) && (*(penalty
@@ -964,10 +965,10 @@ int16_t Alik_set_position_brus(pchar bufer, int16_t hgt, int16_t Left,
 		if (l1 < 0 || r1 < 0)
 			return -1;
 		if (i > 0) {
-			minl = MIN(minl, l1);
-			minr = MIN(minr, r1);
-			maxl = MAX(maxl, l1);
-			maxr = MAX(maxr, r1);
+			minl = std::min(minl, l1);
+			minr = std::min(minr, r1);
+			maxl = std::max(maxl, l1);
+			maxr = std::max(maxr, r1);
 		} else {
 			minl = maxl = l1;
 			minr = maxr = r1;
@@ -999,8 +1000,8 @@ int16_t Alik_Check_T(pchar bufer, int16_t hgt, int16_t Left, int16_t Right) {
 	for (i = 0; i <= interval; i++, CurPos += ver_byte) {
 		dist = LeftDistance((puchar) CurPos, ver_byte);
 		if (i > 0) {
-			mind = MIN(mind, dist);
-			maxd = MAX(maxd, dist);
+			mind = std::min(mind, dist);
+			maxd = std::max(maxd, dist);
 		} else
 			mind = maxd = dist;
 	}
@@ -1085,8 +1086,9 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 #endif
 			/*************     ▌╞Ю╔╓╔╚О╔╛ ╚╔╒ЦН Б╝Г╙Ц      *************/
 			if (left >= MINCOL) {
-				l_bound = MAX(0, left - 1);
-				r_bound = MAX(l_bound, right - LEFT_STEP);
+				l_bound = std::max(0, left - 1);
+				r_bound = std::max(static_cast<int> (l_bound), right
+						- LEFT_STEP);
 				pen = penalty + l_bound;
 				prod_two = product_two + l_bound;
 				prod = product + l_bound;
@@ -1097,7 +1099,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 							|| (*prod_two == min_prod_two && (uint16_t) *pen
 									< min_pen)) {
 						left = (uchar) i;
-						min_prod_two = MIN(*prod_two, *prod);
+						min_prod_two = std::min(*prod_two, *prod);
 						min_pen = (uint16_t) (*pen);
 					}
 				}
@@ -1110,8 +1112,9 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 			LeftDist = LeftDistance((puchar) CurPos, ver_byte);
 			/*************     ▌╞Ю╔╓╔╚О╔╛ ╞Ю═╒ЦН Б╝Г╙Ц      *************/
 			if (dx - right >= MINCOL) {
-				l_bound = MIN(dx, right + Y_CUT);
-				r_bound = MIN(dx, l_bound + Y_CUT + LEFT_STEP);
+				l_bound = std::min(static_cast<int> (dx), right + Y_CUT);
+				r_bound = std::min(static_cast<int> (dx), l_bound + Y_CUT
+						+ LEFT_STEP);
 				right = l_bound;
 				pen = penalty + l_bound;
 				prod_two = product_two + l_bound;
@@ -1123,7 +1126,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 							|| (*prod_two == min_prod_two && (uint16_t) *pen
 									< min_pen)) {
 						right = (uchar) i;
-						min_prod_two = MIN(*prod_two, *prod);
+						min_prod_two = std::min(*prod_two, *prod);
 						min_pen = (uint16_t) (*pen);
 					}
 					CurPos = bufer + i * ver_byte;
@@ -1274,7 +1277,7 @@ void Alik_cut_hole(pchar trace, int16_t rx, pint16_t cut_points, int16_t first,
 				Pcut_points = Pcut_points1;
 				DI = -1;
 			}
-			if (*Ppenalty <= MIN(NAV_BOUND, DI)) {
+			if (*Ppenalty <= std::min(NAV_BOUND, static_cast<int> (DI))) {
 				if (*Ppenalty < DI)
 					Pcut_points = Pcut_points1;
 				Pcut_points++;
@@ -1514,7 +1517,7 @@ int16_t Alik_up_position_double_serif(puchar bufer, int16_t dy, int16_t dx,
 	CurPos = bufer;
 	PPen = penalty;
 	ver_byte = (dy + 7) >> 3;
-	hgt_bbs = MIN(bbs3 - bbs2, hgt);
+	hgt_bbs = std::min(bbs3 - bbs2, static_cast<int> (hgt));
 	up_position = 0;
 	dw_position = 0;
 	in_up = 0;

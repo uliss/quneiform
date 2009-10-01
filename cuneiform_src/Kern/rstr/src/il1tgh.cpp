@@ -54,12 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
+
 static void comptorast (puchar raster, cell *C)
 {
     memcpy (raster, save_raster (C), ((C -> w + 7)/8) * C -> h);
 }
-
+
 static void make_hor_vert (cell *cl)
 {
     int16_t             i, y;
@@ -105,7 +105,7 @@ static void make_hor_vert (cell *cl)
         c ++;
     }
 }
-
+
 static void make_hist ()
 {
     int16_t i;
@@ -131,7 +131,7 @@ static void make_hist ()
         hist [9] [i] = hor [i]. top + 1;
     }
 }
-
+
 static void make_func ()
 {
     int16_t i, m;
@@ -149,7 +149,7 @@ static void make_func ()
     for (i = 0; i < dy; i++)    funcs [8][i] = m - hist [1][i];
     nfunc = 8;
 }
-
+
 static int16_t line_width (puchar func, int16_t beg, int16_t end)
 {
     int16_t i;
@@ -173,7 +173,7 @@ static int16_t line_width (puchar func, int16_t beg, int16_t end)
     }
     return lines_value;
 }
-
+
 static uint16_t integral (puchar func, int16_t from, int16_t to, int16_t threshold)
 {
     uint16_t  s;
@@ -181,10 +181,10 @@ static uint16_t integral (puchar func, int16_t from, int16_t to, int16_t thresho
 
     s = 0;
     for (i = from; i <= (uint32_t)to; i++)
-    s += MAX (0, func [i] - threshold);
+    s += std::max (0, func [i] - threshold);
     return s;
 }
-
+
 static int16_t gmax (puchar func, int16_t from, int16_t to)
 {
     uint16_t s;
@@ -195,7 +195,7 @@ static int16_t gmax (puchar func, int16_t from, int16_t to)
     if (func[i] > s) { s=func[i]; gmax_y=i; }
     return s;
 }
-
+
 static int16_t gmin (puchar func, int16_t from, int16_t to)
 {
     uint16_t s;
@@ -206,7 +206,7 @@ static int16_t gmin (puchar func, int16_t from, int16_t to)
     if (func[i] < s) { s=func[i]; gmin_y = i; }
     return s;
 }
-
+
 /*
 static int16_t pure_hill (puchar func, int16_t from, int16_t to)
 {
@@ -222,7 +222,7 @@ static int16_t pure_hill (puchar func, int16_t from, int16_t to)
   }
  return TRUE;
 }
-
+
 static int16_t flthll_1 ()
 //
 //	This procedure checks absence of hill on bottom one third
@@ -244,7 +244,7 @@ static int16_t flthll_1 ()
     if (!((i1 < (b1 - beg) * 6/10) && (i2 > (end - b2) * 12/10)))   return 0;
                                                                     return 1;
 }
-
+
 static int16_t flat_1()
 //
 //	This procedure checks absence of hills on top and bottom
@@ -267,7 +267,7 @@ static int16_t flat_1()
     if (gmax (hist [1], beg, end) - gmin (hist [1], beg, end) == 1) return 1;
                                                                     return 0;
 }
-
+
 static int16_t botserif (int16_t width, int16_t area)
 {
     int16_t beg, end;
@@ -285,7 +285,7 @@ static int16_t botserif (int16_t width, int16_t area)
     if (gmax (hist [1], beg, end) - lw1 >= 4)   return 1;   // 4 is something
                                                 return 0;
 }
-
+
 static int16_t topserif (int16_t width,int16_t area)
 {
     int16_t beg, end;
@@ -298,7 +298,7 @@ static int16_t topserif (int16_t width,int16_t area)
     if (i1 >= (end - beg + 1) * area / 100)         return 1;
                                                     return 0;
 }
-
+
 static int16_t toprser ()
 {
     int16_t i, i1;
@@ -312,7 +312,7 @@ static int16_t toprser ()
     if (i1)                                     return 1;
                                                 return 0;
 }
-
+
 static int16_t toplser()
 {
     int16_t i, i1;
@@ -327,19 +327,19 @@ static int16_t toplser()
                                                 return 0;
 }
 */
-
+
 static int16_t vertsym (int16_t bound)
 {
     if (gmax (funcs [3], (int16_t)(dy * 6 / 100), (int16_t)(dy * 94 / 100)) <= bound) return 1;
                                                                 return 0;
 }
-
+
 static int16_t centrsym (int16_t bound)
 {
     if (gmax (funcs [4], (int16_t)(dy * 6 / 100), (int16_t)(dy * 94 / 100)) <= bound) return 1;
                                                                 return 0;
 }
-
+
 /*
 static int16_t toplad (int16_t jump, int16_t percent)
 //
@@ -361,7 +361,7 @@ static int16_t toplad (int16_t jump, int16_t percent)
     if (s <= (end - i + 1) * m * percent / 100) return 1;
                                                 return 0;
 }
-
+
 static int16_t botlad(int16_t jump,int16_t percent)
 //
 //	This procedure checks left brim on bottom of letter.
@@ -381,7 +381,7 @@ static int16_t botlad(int16_t jump,int16_t percent)
                                                 return 0;
 }
 */
-
+
 static Bool increase (puchar f, int16_t from, int16_t to)
 {
     int16_t i;
@@ -391,7 +391,7 @@ static Bool increase (puchar f, int16_t from, int16_t to)
     if (f [from] == f [to])                     return FALSE;
                                                 return TRUE;
 }
-
+
 /*
 static Bool decrease (puchar f, int16_t from, int16_t to)
 //
@@ -406,4 +406,4 @@ static Bool decrease (puchar f, int16_t from, int16_t to)
                                                 return TRUE;
 }
 */
-
+

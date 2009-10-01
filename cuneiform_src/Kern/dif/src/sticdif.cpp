@@ -272,9 +272,9 @@ uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
 
 	num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
 	f_a = first_tg(stick_inc, num_angles, nIncline);
-	num_angles = MIN((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
-			: LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
-			/ sizeof(stick_inc[0]) - f_a - 1));
+	num_angles = std::min((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
+			: LIMIT_OF_ANGLES, static_cast<int> ((sizeof(stick_inc)
+			/ sizeof(stick_inc[0]) - f_a - 1)));
 
 	if ((ret_br = (uchar) make_center_line_dif(GL_center, (int16_t) (nc
 			- (GL_center[nc - 1].len == 1)), GL_left0, GL_right0, dy, dx,
@@ -283,16 +283,9 @@ uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
 	{
 		if (ret_br) {
 			opt = 0;
-			set_stick_char(
-					GL_left0,
-					GL_right0,
-					GL_hooks,
-					dy,
-					dx,
-					opt,
-					wide,
-					(int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])),
-					0, 0, 0, 0,
+			set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
+					(int16_t) (opt - std::min(GL_tab_angle[0], GL_tab_angle[dy
+							- 1])), 0, 0, 0, 0,
 					0, // NB: LAST ZERO PAR - inc_num (?????)
 					&left_chars, &right_chars, &signums, &left_mode,
 					&right_mode);
@@ -303,12 +296,12 @@ uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
 		/* not exist center-line       */
 	}
 
-	opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
+	opt = ((std::max(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
 	abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 	set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-			(int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-			0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
+			(int16_t) (opt - std::min(GL_tab_angle[0], GL_tab_angle[dy - 1])),
+			0, 0, 0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
 			&left_chars, &right_chars, &signums, &left_mode, &right_mode);
 	signums.incline = inc_v;
 	signums.inc = (inc_v > 256);
@@ -375,9 +368,9 @@ int lnhead_stick_get_incline(lnhead *lin, int dy, int dx) {
 
 	num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
 	f_a = first_tg(stick_inc, num_angles, nIncline);
-	num_angles = MIN((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
-			: LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
-			/ sizeof(stick_inc[0]) - f_a - 1));
+	num_angles = std::min((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
+			: LIMIT_OF_ANGLES, static_cast<int> ((sizeof(stick_inc)
+			/ sizeof(stick_inc[0]) - f_a - 1)));
 
 	if (make_center_line_dif(GL_center, (int16_t) (nc - (GL_center[nc - 1].len
 			== 1)), GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
@@ -385,12 +378,12 @@ int lnhead_stick_get_incline(lnhead *lin, int dy, int dx) {
 		return (-1); /* abnormal set of ceneters : silmular to (,) or */
 	/* not exist center-line                         */
 
-	opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
+	opt = ((std::max(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
 	abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 	set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-			(int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-			0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
+			(int16_t) (opt - std::min(GL_tab_angle[0], GL_tab_angle[dy - 1])),
+			0, 0, 0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
 			&left_chars, &right_chars, &signums, &left_mode, &right_mode);
 
 	return signums.incline;
@@ -491,7 +484,7 @@ static int16_t abris_expansion(uchar left[], uchar right[], int16_t dy,
 	int16_t i, opt;
 	int16_t k, max_negat_left = 0, max_negat_right = 0; // 09.12.1993
 
-	opt = MAX(tab_angle[0], tab_angle[dy - 1]); // NB: NO VERY GOOD !!!
+	opt = std::max(tab_angle[0], tab_angle[dy - 1]); // NB: NO VERY GOOD !!!
 	for (i = 0; i < dy; i++) { /* dilate (step=4) and shift (inc = tab_angle) */
 		if (left[i] != 0xFF) {
 			/******************************	BEFORE 09.12.1993
@@ -548,19 +541,19 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) { // 17.01.1994
 
 	lmu = l->mount[0];
 	rmu = r->mount[0];
-	max_u = MAX(lmu, rmu);
+	max_u = std::max(lmu, rmu);
 	lmd = l->mount[4];
 	rmd = r->mount[4];
-	max_d = MAX(lmd, rmd);
+	max_d = std::max(lmd, rmd);
 	/*......................................................................*/
 	if (lmu + lmd == 0 && rmu + rmd > 0 && l->conc[0] > 1 && l->conc[4] > 1)
 		dis += 50; // similar (
 	if (lmu + lmd > 0 && rmu + rmd == 0 && r->conc[0] > 1 && r->conc[4] > 1)
 		dis += 50; // similar (
 	if (lmu + rmu + lmd + rmd != 0) {
-		if (max_u > (MAX(max_d, 3) << 1)) // MK PROBA 18.02.1993
+		if (max_u > (std::max(static_cast<int> (max_d), 3) << 1)) // MK PROBA 18.02.1993
 			dis += 222; // 222
-		if (max_u > (MAX(max_d, 2) << 1) && max_d < 2) // MK PROBA 18.02.1993
+		if (max_u > (std::max(static_cast<int> (max_d), 2) << 1) && max_d < 2) // MK PROBA 18.02.1993
 			dis += 222; // 222
 
 		DIS_HALF_SERIF (l,r,0,1,tab_I[0]); /* test upper serif  */// 20
@@ -755,7 +748,7 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) { // 17.01.1994
 	if (wid * 2 + 1 >= dy && // k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 			r->conc[1] && r->conc[3] && (r->conc[1] | r->conc[3]) > 1) // all cases, exclude (1,1)
 		dis += 100; // 100
-		/*......................................................................*/
+	/*......................................................................*/
 	//////m_ex:
 	// 17.01.1994 MOVE IT TO END:
 	//	if (dis==0)  dis += mk_dis_for_liga_exm;	// (0 or 2);
@@ -835,8 +828,8 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
 		else if (s->incline > 700 && s->incline < 1000)
 			dis += 80;
 	}
-	lmu = MAX(l->mount[0], l->mount[1]);
-	rmu = MAX(r->mount[0], r->mount[1]);
+	lmu = std::max(l->mount[0], l->mount[1]);
+	rmu = std::max(r->mount[0], r->mount[1]);
 	lmd = l->mount[4];
 	rmd = r->mount[4];
 
@@ -938,20 +931,17 @@ if ( (s->typ_nose_1==0)  &&		// 02.06.1993 PROBA:
 		dis += 20;	// PROBA-20				// 20
 
 /******************************************************************
-if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+if (r->conc[0]>=std::max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 	dis += 80;		// PROBA-80				// 80
 	***************************************************************/
 
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-////l->mount[0]>MAX(wid*2-3,5))	// first
-    l->mount[0]>MAX(wid,5))	// second
-//////	dis += 80;		// PROBA-80				// 80
-//////	dis += 160;		// PROBA-160				// 160
+    l->mount[0]>std::max(static_cast<int> (wid),5))	// second
 	dis += (rmu+2)*80;	// PROBA-rmu"*80			// *80
 }
-								/*.......................................................................*/
+
 								else { /* no serifs */
 									if( l->mount[1]+l->mount[2]+l->mount[3]+
 											r->mount[1]+r->mount[2]+r->mount[3] < 2 )
@@ -1034,7 +1024,7 @@ if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
 
 								if( l->up_serif>1 && lmu<=lmd && lmu>1 && rmu<2 && rmd>1 && lmd>1 &&
 										typ_add )
-								dis += tab_1[12]; // MIN DIS for l-config			// 4
+								dis += tab_1[12]; // std::min DIS for l-config			// 4
 
 								if( s->neck>1 )
 								dis += tab_1[13]; // similar 'є'				// 20
@@ -1048,11 +1038,11 @@ if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
 								if (rmd>=2 && lmu>lmd+wid+rmd) // 17.01.1994 too long nose
 								dis += 60; // for der Laterne		// 60
 								// h15/6, i15/28 {'l} => {1}
-								if( lmu>2*MAX(lmd,rmd) && l->me_pos[0]<4 && lmu>8 && lmu==l->mount[0])
+								if( lmu>2*std::max(lmd,rmd) && l->me_pos[0]<4 && lmu>8 && lmu==l->mount[0])
 								dis += 60;
 								/*......................................................................*/
 								//////m_ex:
-								dis = MAX(dis,dis_sI);
+								dis = std::max(dis,dis_sI);
 								if(0)
 								//if( is_digital_string() )
 								//if( language==LANG_RUSSIAN )
@@ -1122,10 +1112,10 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 
 	if (sl == 1 && sr == 0 && (l->mount[0] || l->mount[1])) /* ')' */
 		dis += tab_circle_brace[2]; /* similar '1' */
-	ru = MAX(r->mount[0], r->mount[1]);
-	rd = MAX(r->mount[3], r->mount[4]);
-	lu = MAX(l->mount[0], l->mount[1]);
-	ld = MAX(l->mount[3], l->mount[4]);
+	ru = std::max(r->mount[0], r->mount[1]);
+	rd = std::max(r->mount[3], r->mount[4]);
+	lu = std::max(l->mount[0], l->mount[1]);
+	ld = std::max(l->mount[3], l->mount[4]);
 	if (typ) { // '('
 		if (!r->mount[0] && !r->mount[1] && r->mount[3] < 2 && r->mount[4] < 2)
 			dis += tab_circle_brace[2]; /* similar '1' */
@@ -1135,7 +1125,7 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 				> 2 ? 2 : 1))
 			dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 		if (!inc && r->mount[0] > 2 && r->mount[4] > 2 && abs(r->mount[0]
-				- r->mount[4]) > MIN(r->mount[0], r->mount[4]))
+				- r->mount[4]) > std::min(r->mount[0], r->mount[4]))
 			dis += tab_circle_brace[6]; /* differnets mounts  */
 		if (s->width > 6 && l->conc[0] < 2 && l->conc[1] < 2 && r->mount[0] < 2
 				&& r->mount[1] < 2)
@@ -1154,7 +1144,7 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 				> 2 ? 2 : 1))
 			dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 		if (!inc && l->mount[0] > 2 && l->mount[4] > 2 && abs(l->mount[0]
-				- l->mount[4]) > MIN(l->mount[0], l->mount[4]))
+				- l->mount[4]) > std::min(l->mount[0], l->mount[4]))
 			dis += tab_circle_brace[6]; /* differnets mounts  */
 		if (s->width > 6 && r->conc[0] < 2 && r->conc[1] < 2 && l->mount[0] < 2
 				&& l->mount[1] < 2)
@@ -1319,11 +1309,12 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += tab_l[11]; // similar 'f','1'	// 48
 
 		if ((num_l == 1) && // 09.07.1993, 12.10.1993
-				(rmd > MAX(wid, 4)) && (l->conc[4] * 2 < wid)) // stdg19/8(11) 'l' (3:4)
+				(rmd > std::max(static_cast<int> (wid), 4)) && (l->conc[4] * 2
+				< wid)) // stdg19/8(11) 'l' (3:4)
 			dis += tab_l[11]; // similar 'L'		// 48
 
 		if (num_l == 3 && lmu > 0 && s->typ_nose_1 == 1 && ((l->m_pos[0]
-				>= MAX(wid, 5) - 1)) && lmu >= lmd) // 31.05.1993
+				>= std::max(static_cast<int> (wid), 5) - 1)) && lmu >= lmd) // 31.05.1993
 			dis += tab_l[11]; // similar '1'			// 48
 
 		if (num_l == 3 && abs(s->inc_num) > 1 && s->cut_r && rmu < 2) // 10.12.1993	EDIT;
@@ -1360,7 +1351,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 
 		if (s->cut_r && // 09.06.1993 PROBA for CUT. "The" (stdj10);
 				(r->mount[0] || r->m_meandr == 0) && !r->down_serif
-				&& l->mount[0] > MAX(wid, 5)) // second
+				&& l->mount[0] > std::max(static_cast<int> (wid), 5)) // second
 			dis += (rmu + 2) * 80; // PROBA rmu"*80		// *80
 	}
 	/*......................................................................*/
@@ -1400,7 +1391,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	}
 
 	// add 25.05.1993 for stdf12/11 "Given"
-	if (s->neck && l->m_pos[0] > MAX(5, s->base_2)) // ZONE-0 TOO DOWN !!!
+	if (s->neck && l->m_pos[0] > std::max(5, static_cast<int> (s->base_2))) // ZONE-0 TOO DOWN !!!
 		DIS_CENTER_FLAG (l,0,wid,inc,tab_l[6],d_L); // 60, 12(0)
 
 	DIS_FLAGS_L_R(1,tab_l[6]); // 60, 12(0)/12(0)
@@ -1464,7 +1455,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	if (wid * 2 + 1 >= dy && // k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 			r->conc[1] && r->conc[3] && (r->conc[1] | r->conc[3]) > 1) // all cases, exclude (1,1)
 		dis += 100; // 100
-		/*......................................................................*/
+	/*......................................................................*/
 	// 17.01.1994 MOVE IT TO END:
 	//if (dis==0)  dis += mk_dis_for_liga_exm;	// (0 or 2);
 
@@ -1562,11 +1553,12 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += tab_l[11]; // similar 'f','1'	// 48
 
 		if ((num_l == 1) && // 09.07.1993, 12.10.1993
-				(rmd > MAX(wid, 4)) && (l->conc[4] * 2 < wid)) // stdg19/8(11) 'l' (3:4)
+				(rmd > std::max(static_cast<int> (wid), 4)) && (l->conc[4] * 2
+				< wid)) // stdg19/8(11) 'l' (3:4)
 			dis += tab_l[11]; // similar 'L'		// 48
 
 		if (num_l == 3 && lmu > 0 && s->typ_nose_1 == 1 && // OLD OLEG   &&
-				( /*(pitchsize==0) ||*/(l->m_pos[0] >= MAX(wid, 5) - 1)) && // 01.06.1993 &&
+				((l->m_pos[0] >= std::max(static_cast<int> (wid), 5) - 1)) && // 01.06.1993 &&
 				lmu >= lmd) // 31.05.1993
 			dis += tab_l[11]; // similar '1'			// 48
 
@@ -1605,7 +1597,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 
 		if (s->cut_r && // 09.06.1993 PROBA for CUT. "The" (stdj10);
 				(r->mount[0] || r->m_meandr == 0) && !r->down_serif
-				&& l->mount[0] > MAX(wid, 5)) // second
+				&& l->mount[0] > std::max(static_cast<int> (wid), 5)) // second
 			dis += (rmu + 2) * 80; // PROBA rmu"*80		// *80
 	}
 	/*......................................................................*/
@@ -1663,7 +1655,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += 30;
 
 		if (l->conc[2] > 1 && r->conc[2] > 1 && wid < 7)
-			dis += 20* MAX (r->conc[2], l->conc[2]);
+			dis += 20* std ::max(r->conc[2], l->conc[2]);
 
 		if (l->mount[1] + l->mount[2] + r->mount[1] + r->mount[2] < 3)
 			dis += 10;
@@ -1672,7 +1664,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += 30;
 
 		if (r->mount[4]) {
-			rm = MAX(r->mount[1], r->mount[2]);
+			rm = std::max(r->mount[1], r->mount[2]);
 			if (r->mount[4] == 1) {
 				if (rm < 1)
 					dis += 80;
@@ -1688,7 +1680,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 				if (l->mount[2] < 1)
 					dis += 80;
 			} else {
-				lm = MAX(l->mount[1], l->mount[2]);
+				lm = std::max(l->mount[1], l->mount[2]);
 				if (l->mount[4] < 3 && lm < 2)
 					dis += 80;
 				if (l->mount[4] > 2 && abs(l->mount[4] - lm) > 2)
@@ -1730,7 +1722,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 	if (wid * 2 + 1 >= dy && // k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 			r->conc[1] && r->conc[3] && (r->conc[1] | r->conc[3]) > 1) // all cases, exclude (1,1)
 		dis += 100; // 100
-		/*......................................................................*/
+	/*......................................................................*/
 	// 17.01.1994 MOVE IT TO END:
 	//if (dis==0)  dis += mk_dis_for_liga_exm;	// (0 or 2);
 
@@ -1814,9 +1806,9 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 #ifdef RUS_ENG_LANG
 			if( multy_language ) t2=4;
 #endif
-			if (s->base_2 > MAX(s->height / 6, 3) && (MAX(l->m_pos[t],
-					r->m_pos[t]) < s->base_2 - t2 || MAX(l->mb_pos[t],
-					r->mb_pos[t]) > s->base_2 + 4)) // 19.10.1993
+			if (s->base_2 > std::max(s->height / 6, 3) && (std::max(
+					l->m_pos[t], r->m_pos[t]) < s->base_2 - t2 || std::max(
+					l->mb_pos[t], r->mb_pos[t]) > s->base_2 + 4)) // 19.10.1993
 				dis += tab_t[18]; // 100
 			else {/*if (inc_num_EEM>=2  &&		// 18.11.1993 similar '7'
 			 t==0  &&			// j10/29 "08/77" first '7'
@@ -1917,11 +1909,11 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 			&& r->down_serif == 0 && t < 2)
 		dis += tab_t[15]; /* similar    ],) */// 60
 
-	//////t = MAX( l->m_pos[t], r->m_pos[t])+1;
-	tpos = MAX(l->m_pos[t], r->m_pos[t]) + 1; // 18.11.1993
+	//////t = std::max( l->m_pos[t], r->m_pos[t])+1;
+	tpos = std::max(l->m_pos[t], r->m_pos[t]) + 1; // 18.11.1993
 	if (tpos > dy >> 1)
 		dis += tab_t[13] * (tpos - (dy >> 1)); /* too low beam */// *16
-		/* ----------------- FIND f-CONFIGURATIONS ------------------- */
+	/* ----------------- FIND f-CONFIGURATIONS ------------------- */
 
 	if (t > 0 && // 18.11.1993 PROBA for f10/15 "of"
 			r->mount[0] > (wid > 2 ? 2 : 1) && l->conc[0] > 0)
@@ -1962,7 +1954,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 
 	if (s->neck >= 2) // 20.10.1993
 		dis += 20; // 20
-		/*......................................................................*/
+	/*......................................................................*/
 	// 10.01.1994	BONUS:
 	if (dis == 0 && // NO DISCRIM;
 			s->t_TOP && // t^
@@ -1971,7 +1963,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 			s->base_2mk > 0 && // BASE_2 1 or 2;
 			s->base_2mk <= 2)
 		dis = -32; // BONUS !!!!!!!!!!!!
-		/*......................................................................*/
+	/*......................................................................*/
 	return (dis);
 }
 
@@ -1999,7 +1991,7 @@ int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
 			dis += tab_sq_brace[0]; // more FALSE;    // 44
 		if (r->mb_pos[0] >= 2)
 			dis += tab_sq_brace[5]; // more FALSE   // 88
-			//////  if ((l->conc[5]) && (dy - l->cb_pos[5] >= 2)) #############
+		//////  if ((l->conc[5]) && (dy - l->cb_pos[5] >= 2)) #############
 		if ((l->conc[4]) && (dy - l->cb_pos[4] >= 2)) // 19.11.1993
 			dis += tab_sq_brace[5]; // more FALSE   // 88
 	}
@@ -2202,8 +2194,8 @@ uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx) {
 
 	num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
 	f_a = first_tg(stick_inc, num_angles, nIncline);
-	num_angles = MIN(LIMIT_OF_ANGLES, sizeof(stick_inc) / sizeof(stick_inc[0])
-			- f_a - 1);
+	num_angles = std::min(LIMIT_OF_ANGLES, static_cast<int> (sizeof(stick_inc)
+			/ sizeof(stick_inc[0]) - f_a - 1));
 
 	if (make_center_line_dif(GL_center, (int16_t) (nc - (GL_center[nc - 1].len
 			== 1)), GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
@@ -2211,12 +2203,12 @@ uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx) {
 		return (0); // abnormal set of ceneters : silmular to (,) or
 	// not exist center-line
 
-	opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
+	opt = ((std::max(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
 	abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 	set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-			(int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-			0, 0, 0, &left_chars, &right_chars, &signums, &left_mode,
+			(int16_t) (opt - std::min(GL_tab_angle[0], GL_tab_angle[dy - 1])),
+			0, 0, 0, 0, 0, &left_chars, &right_chars, &signums, &left_mode,
 			&right_mode);
 
 	ret = similar_wide_frt1(&left_chars, &right_chars);

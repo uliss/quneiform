@@ -90,7 +90,8 @@ void CopyAND(void* dst, const void* src, const unsigned short dword_cnt) {
 MEMOPS_INLINE
 void __InvertSelf(uchar* dst, const int bytes_cnt) {
 	for (int i = 0; i < bytes_cnt; i++) {
-		*dst++ = ~*dst;
+		*dst = ~*dst;
+		dst++;
 	}
 }
 

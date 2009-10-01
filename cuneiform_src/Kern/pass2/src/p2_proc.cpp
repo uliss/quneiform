@@ -278,7 +278,7 @@ static Bool32 GoodSpell(CSTR_rast first, CSTR_rast last, int minSize) {
 
 		lang = attr.language;
 		wrd[nlet++] = verOld.Alt[0].Code;
-		minProb = MIN(minProb, verOld.Alt[0].Prob);
+		minProb = std::min(minProb, verOld.Alt[0].Prob);
 		if (nlet >= MAX_LEN_WORD)
 			return FALSE;
 	}
@@ -291,7 +291,7 @@ static Bool32 GoodSpell(CSTR_rast first, CSTR_rast last, int minSize) {
 	if (nlet == minSize && minProb < 205)
 		return FALSE;
 
-	if (RSTR_p2_spell((char*)wrd, lang))
+	if (RSTR_p2_spell((char*) wrd, lang))
 		return TRUE;
 	return FALSE;
 }
@@ -1557,7 +1557,8 @@ static int32_t CheckWord(CSTR_rast first, CSTR_rast last, CSTR_line lineOut,
 			verNew = verOld;
 			//memset(&verNew,0,sizeof(verNew));
 			for (i = 0; i < verOld.lnAltCnt; i++)
-				verNew.Alt[i].Prob = MIN(verNew.Alt[i].Prob, POROG_BROKEN);
+				verNew.Alt[i].Prob = std::min(
+						static_cast<int> (verNew.Alt[i].Prob), POROG_BROKEN);
 			rast = FillAnswer(lineOut, rst, &verNew, rast);
 
 			if (p2globals.enable_smart_cut) {
@@ -1705,10 +1706,10 @@ static void AddToRect(Rect32 *rect, CSTR_rast_attr *attr, CSTR_rast first) {
 		rect->right = attr->col + attr->w;
 		rect->left = attr->col;
 	} else {
-		rect->bottom = MAX(rect->bottom, attr->row + attr->h);
-		rect->top = MIN(rect->top, attr->row);
-		rect->right = MAX(rect->right, attr->col + attr->w);
-		rect->left = MIN(rect->left, attr->col);
+		rect->bottom = std::max(rect->bottom, attr->row + attr->h);
+		rect->top = std::min(rect->top, static_cast<int> (attr->row));
+		rect->right = std::max(rect->right, attr->col + attr->w);
+		rect->left = std::min(rect->left, static_cast<int> (attr->col));
 	}
 }
 ///////////////
@@ -1721,7 +1722,7 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 	Rect32 newrect;
 	int32_t nFind;
 
-	bLeft = MAX(bLeft, rect->left - porog);
+	bLeft = std::max(bLeft, rect->left - porog);
 
 	*firOld = (CSTR_rast) NULL;
 	firNew = NULL;
@@ -1991,7 +1992,9 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 
 				if (IsKusokBroken(verOld.Alt[0].Code) || strchr(
 						(char*) bigPuncts, verOld.Alt[0].Code)) {
-					prob = MIN(prob, verOld.Alt[0].Prob);
+					prob
+							= std::min(prob,
+									static_cast<int> (verOld.Alt[0].Prob));
 					AddToRect(&rect, &attr, firstNew);
 					rst = CSTR_GetNext(rst);
 					if (RecogBrokenPalki(firstNew, rst, lineRaw, &rect,
@@ -2044,9 +2047,9 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 			if(nBrok == 1)
 			{
 				if( wasPunct == TRUE ) // Nick 09.07.2002 - for "->u,n
-				porog = MAX(POROG_2PALKI,initClink);
+				porog = std::max(POROG_2PALKI,initClink);
 				else
-				porog = MAX(POROG_BROKEN,initClink);
+				porog = std::max(POROG_BROKEN,initClink);
 			}
 			else
 			porog = POROG_BROKEN;
@@ -2057,7 +2060,7 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 				if( leftRast )
 				{
 					CSTR_GetAttr(leftRast, &leftAttr);
-					leftBou = MIN(rect.left, leftAttr.col+leftAttr.w);
+					leftBou = std::min(rect.left, leftAttr.col+leftAttr.w);
 				}
 				else
 				leftBou = rect.left-4;
@@ -2144,7 +2147,7 @@ static int RecogBrokenPalki(CSTR_rast firLeo, CSTR_rast lasLeo,
 
 	if (lasLeo) {
 		CSTR_GetAttr(lasLeo, &attr);
-		rightBou = MAX(rect->right, (rect->right + attr.col) / 2);
+		rightBou = std::max(rect->right, (rect->right + attr.col) / 2);
 	} else
 		rightBou = rect->right;
 
@@ -2204,7 +2207,7 @@ static int RerecogPalki(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw) {
 			continue;
 		}
 
-		prob = MIN(prob, verOld.Alt[0].Prob);
+		prob = std::min(prob, static_cast<int> (verOld.Alt[0].Prob));
 		AddToRect(&rect, &attr, firstNew);
 		rst = CSTR_GetNext(rst);
 		if (RecogBrokenPalki(firstNew, rst, lineRaw, &rect, language, prob))
@@ -2532,7 +2535,7 @@ static int SelectLeoFon(CSTR_rast leoStart, CSTR_rast leoEnd,
 				strong++;
 			else if (vrFon.Alt[0].Prob > TRSNOTBAD)
 				nsb++;
-			minFon = MIN(minFon, vrFon.Alt[0].Prob);
+			minFon = std::min(minFon, static_cast<int> (vrFon.Alt[0].Prob));
 		} else
 			minFon = 0;
 
@@ -2549,7 +2552,7 @@ static int SelectLeoFon(CSTR_rast leoStart, CSTR_rast leoEnd,
 				if (vrFon.lnAltCnt > 0)
 					better++;
 			} else if (vrFon.lnAltCnt > 0) {
-				minLeo = MIN(minLeo, vrLeo.Alt[0].Prob);
+				minLeo = std::min(minLeo, static_cast<int> (vrLeo.Alt[0].Prob));
 				// пунктуация лучше плохой буквы
 				if (attrFon.flg & (CSTR_f_punct)) {
 					if (vrLeo.Alt[0].Prob < POROG_PUNCT)
@@ -2757,9 +2760,9 @@ static int32_t composeWords(CSTR_rast fStart, CSTR_rast fEnd,
 				break;
 
 			if (nextLeo)
-				lRight = MAX(leoRight, attrNextLeo.col + attrNextLeo.w);
+				lRight = std::max(leoRight, attrNextLeo.col + attrNextLeo.w);
 			if (nextFon)
-				fRight = MAX(fonRight, attrNextFon.col + attrNextFon.w);
+				fRight = std::max(fonRight, attrNextFon.col + attrNextFon.w);
 
 			// кого добавить ?
 			if ((nextLeo && nextFon && (lRight < fRight || lRight == fRight
@@ -2772,7 +2775,7 @@ static int32_t composeWords(CSTR_rast fStart, CSTR_rast fEnd,
 				curLeo = nextLeo;
 				if (!CSTR_GetAttr(curLeo, &attrLeo))
 					return -3;
-				leoRight = MAX(leoRight, attrLeo.col + attrLeo.w);
+				leoRight = std::max(leoRight, attrLeo.col + attrLeo.w);
 				nextLeo = GetFirstLetter(CSTR_GetNext(curLeo), lEnd);
 			} else if ((nextLeo && nextFon && (fRight < lRight || lRight
 					== fRight && leoRight >= fonRight)) || !nextLeo) {
@@ -2782,7 +2785,7 @@ static int32_t composeWords(CSTR_rast fStart, CSTR_rast fEnd,
 				curFon = nextFon;
 				if (!CSTR_GetAttr(curFon, &attrFon))
 					return -3;
-				fonRight = MAX(fonRight, attrFon.col + attrFon.w);
+				fonRight = std::max(fonRight, attrFon.col + attrFon.w);
 				nextFon = GetFirstLetter(CSTR_GetNext(curFon), fEnd);
 			} else
 				break;

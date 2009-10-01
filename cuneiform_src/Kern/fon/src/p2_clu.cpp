@@ -90,10 +90,10 @@
 
 #include "sfont.h"
 #include "ctb.h"
+#include "minmax.h"
 
 #include "cfcompat.h"
 #include "compat_defs.h"
-#include "minmax.h"
 #include <unistd.h>
 
 int OpenBase(char *);
@@ -123,9 +123,11 @@ typedef int32_t (* MKFAM)(raster_header * rh, uint16_t nclu);
 //   (now 128*64+... > 8192)
 //
 // working buffer
-static char mybuffer[MAX(2*MAXSYM * sizeof(int16_t), MAX(2*sizeof (welet ),sizeof(access_tab)))];
+static char mybuffer[CIF::Max<size_t, 2*MAXSYM * sizeof(int16_t), CIF::Max<
+		size_t, 2* sizeof (welet ),sizeof(access_tab)>::value>::value];
+
 welet *welBuf = (welet *) mybuffer;
-welet *dist_wel = (welet *) (mybuffer + MAX(MAXSYM * sizeof(int16_t),
+welet *dist_wel = (welet *) (mybuffer + std::max(MAXSYM * sizeof(int16_t),
 		sizeof(welet))); // use as
 
 // union twins with solid? - tiger
@@ -323,8 +325,8 @@ uchar *AddBuffer(int32_t sizebitmap) {
 int16_t DistanceHausDLL(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
 		int16_t xbyte2, int16_t yrow2, int16_t porog) {
 	int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
+	int16_t xbyte = std::min(xbyte1, xbyte2);
+	int16_t yrow = std::min(yrow1, yrow2);
 	int16_t dist;
 
 	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
@@ -930,11 +932,10 @@ static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
 #endif
 	return (ret);
 }
-//////////////
-//
+
 static uchar tabl[8* 256 ];
 static uchar WasInit11 = 0;
-/////
+
 // пометить, где в байтах стоят 1
 void init11(void) {
 	int16_t i, j;
@@ -1059,8 +1060,8 @@ int SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 			fy = -1;
 		movex[j] = sdvigx;
 		movey[j] = sdvigy;
-		maxx = MAX(maxx, (int16_t) rh[i].w + sdvigx);
-		maxy = MAX(maxy, (int16_t) rh[i].h + sdvigy);
+		maxx = std::max(static_cast<int> (maxx), rh[i].w + sdvigx);
+		maxy = std::max(static_cast<int> (maxy), rh[i].h + sdvigy);
 
 		NextInClus[j - 1] = i; // pointer from previous to current
 		summax += rh[i].w;
@@ -1102,9 +1103,10 @@ int SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 		etalon = rast + sdvigy * WR_MAX_WIDTH + sdvigx;
 
 		fat = PutSymbolRaster(rh[i].pHau, (char*) etalon, WR_MAX_WIDTH,
-				(int16_t) MIN(rh[i].w, WR_MAX_WIDTH - startx - sdvigx),
-				(int16_t) ((rh[i].w >> 3) + 1), (int16_t) MIN(rh[i].h,
-						WR_MAX_HEIGHT - starty - sdvigy));
+				(int16_t) std::min(static_cast<int> (rh[i].w), WR_MAX_WIDTH
+						- startx - sdvigx), (int16_t) ((rh[i].w >> 3) + 1),
+				(int16_t) std::min(static_cast<int> (rh[i].h), WR_MAX_HEIGHT
+						- starty - sdvigy));
 		welBuf->summa += fat;
 
 		AddDWORDField(rh[i].nField, fields);
@@ -1118,7 +1120,7 @@ int SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 			nGelv++;
 		if (rh[i].narrow)
 			nArrow++;
-		keglBuffer[MIN(rh[i].kegl, MAXKEGL)]++;
+		keglBuffer[std::min(static_cast<int> (rh[i].kegl), MAXKEGL)]++;
 		if (rh[i].tablColumn && rh[i].tablColumn <= 32)
 			tablColumn |= (odin << (rh[i].tablColumn - 1));
 
@@ -1238,7 +1240,7 @@ int SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 /*************************/
 void MakRas(char *inp, char *ras, int16_t point) {
 	register int16_t i;
-	int16_t j = MIN(3, strlen(ras));
+	int16_t j = std::min(static_cast<size_t> (3), strlen(ras));
 	int16_t lens = strlen(inp);
 
 	for (i = lens - 1; i >= 0; i--) {
@@ -1364,7 +1366,7 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 					NumClus, NumAll,
 					LasIn, NumIn );
 			if(NumClus < k) // was unions
-			{	i=MAX(0,i-(k-NumClus));
+			{	i=std::max(0,i-(k-NumClus));
 				maxClusName[CurName]++;
 			}
 		}

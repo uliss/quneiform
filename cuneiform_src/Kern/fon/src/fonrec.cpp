@@ -80,7 +80,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <algorithm> // for std::min
 #include "compat_defs.h"
 
 static int recog_raster(uchar *r, uint16_t fullBytes, uint16_t w, uint16_t h,
@@ -191,7 +191,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	uint32_t * pword32;
 
 	// FIXME (uchar*)
-	if (CTB_read(CTBhandle, num, (uchar*)wel->raster, CTBdata) == FALSE)
+	if (CTB_read(CTBhandle, num, (uchar*) wel->raster, CTBdata) == FALSE)
 		return 0;
 
 	wel->let = CTBdata[3]; // in ASCII
@@ -417,7 +417,7 @@ static void SetFonFlags(FonSpecInfo *specInfo, RecVersions *collection,
 		if (!IntersectFields(nField, wel->fields))
 		// из одного шрифта ?
 		{
-			int k, all = MIN(fonbase.countFont, 4);
+			int k, all = std::min(static_cast<int> (fonbase.countFont), 4);
 			for (k = 0; k < all; k++) {
 				if (IntersectFields ( nField, fonbase.fontFields[k] )
 						&& IntersectFields ( wel->fields, fonbase.fontFields[k] ))

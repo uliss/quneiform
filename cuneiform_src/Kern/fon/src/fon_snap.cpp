@@ -64,8 +64,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <algorithm> //for std::min
 
-const int NUM_IN_SNAP = 9;     // maximal pictures in snap
+const int NUM_IN_SNAP = 9; // maximal pictures in snap
 Bool IsSnap = FALSE;
 static int InSnap = 0; // now pictures in snap
 static RecRaster *snapRaster = NULL;
@@ -210,7 +211,7 @@ static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) 
 	uchar cc;
 	uchar *buf = rr->Raster;
 
-	step = MIN(sx / wid, sy / hei);
+	step = std::min(sx / wid, sy / hei);
 	if (step < 3)
 		step = 3;
 
@@ -274,7 +275,7 @@ int32_t FONShowSnap(void) {
 
 	ReleaseDC(hwndSnap, hDC);
 	// FIXME (uchar*)
-	PutNamesSnap(InSnap, (uchar*)nameSnap, probSnap);
+	PutNamesSnap(InSnap, (uchar*) nameSnap, probSnap);
 	SetWindowText(hwndSnap, recogResult);
 	return InSnap;
 }
@@ -316,11 +317,11 @@ static Bool RegisterGlu(Handle hInstance, char* szAppName) {
 
 	WndClass.lpszClassName = szAppName;
 	WndClass.hInstance = hInstance;
-//	WndClass.lpfnWndProc = GluFonWindowProc;
+	//	WndClass.lpfnWndProc = GluFonWindowProc;
 	WndClass.style = (unsigned int) NULL;
 	WndClass.hbrBackground = GetStockObject(WHITE_BRUSH);
-//	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-//	WndClass.hIcon = LoadIcon(NULL, IDI_ASTERISK);
+	//	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	//	WndClass.hIcon = LoadIcon(NULL, IDI_ASTERISK);
 	WndClass.lpszMenuName = (char*) NULL;
 	WndClass.cbClsExtra = (int) NULL;
 	WndClass.cbWndExtra = (int) NULL;

@@ -57,6 +57,8 @@
 #include "internal.h"
 #include "std.h"
 
+#include <cstdlib>
+
 void stdGetMemInfo(StdMemInfo* pMemInf) {
 	if (pMemInf) {
 #ifdef _DEBUG

@@ -1677,8 +1677,9 @@ static Bool16 scaleMN2work_raster(MN *mn, int16_t /*upper*/, int16_t left,
 				hmin = y;
 			if (y > hmax)
 				hmax = y;
-			xBeg = MAX(xEnd - pLine -> l, 0);
-			WriteOneInterval(y, xBeg, MIN(xEnd, right), wcomp.rw, scale_2);
+			xBeg = std::max(xEnd - pLine -> l, 0);
+			WriteOneInterval(y, xBeg, std::min(xEnd, static_cast<int> (right)),
+					wcomp.rw, scale_2);
 			pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX) + sizeof(LNSTRT));
 		} else { // continue BOX
 			pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX));
@@ -1696,8 +1697,9 @@ static Bool16 scaleMN2work_raster(MN *mn, int16_t /*upper*/, int16_t left,
 				hmin = y;
 			if (y > hmax)
 				hmax = y;
-			xBeg = MAX(xEnd - pInt -> l, 0);
-			WriteOneInterval(y, xBeg, MIN(xEnd, right), wcomp.rw, scale_2);
+			xBeg = std::max(xEnd - pInt -> l, 0);
+			WriteOneInterval(y, xBeg, std::min(xEnd, static_cast<int> (right)),
+					wcomp.rw, scale_2);
 		}
 	}
 	if (hmin == 0 && hmax >= h - 1)
@@ -1878,7 +1880,7 @@ static Bool16 longMN2container(MN *mn, int16_t upper, int16_t left, int16_t w,
 					hh=1;
 					xEnd = pLine -> x-wcomp.left;
 					y0=y = pLine -> y-wcomp.upper;
-					xBeg = MAX(xEnd - pLine -> l,0);
+					xBeg = std::max(xEnd - pLine -> l,0);
 
 					CCOM_LargeNewLn(cmp,&lnh);
 					lnh->lth=0;
@@ -2009,7 +2011,7 @@ Bool16 save_picture_scale(MN *mn) {
 	else
 		scale = 1 + 8;
 	original_density = mn_sum(mn);
-	scale_2 = MAX(scale_2, scale);
+	scale_2 = std::max(scale_2, scale);
 	if (scale_2 == 0) { // normal sizes
 		if (MaxScale == 1 && (ExControl & Ex_PictureLarge)) {
 			if (ExControl & Ex_NoContainer)
@@ -2025,9 +2027,9 @@ Bool16 save_picture_scale(MN *mn) {
 		}
 		return FALSE;
 	}
-	scale_2 = MIN(scale_2, MaxScale - 1);
+	scale_2 = std::min(scale_2, MaxScale - 1);
 	scale = 1 << scale_2;
-	original_begends = (uchar)(MIN(wcomp.begs + wcomp.ends, 255));
+	original_begends = (uchar)(std::min(wcomp.begs + wcomp.ends, 255));
 	// COMPRESSION PICTURES TO comp_max_w:comp_max_h
 	sv_upper = wcomp.upper;
 	sv_left = wcomp.left;

@@ -355,7 +355,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			rastr0= rasterN + Y*D_X+(X>>3);
 			rastr = rastr0 + D_X*(dy>>2);
 			F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
-			if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+			if( F!=2 || std::min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 				if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
@@ -379,7 +379,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				if( 2*LOCAL[0]>5*LOCAL_W[0] && 2*(dx-LOCAL[1])<3*LOCAL_W[1])
             P += 2*step_diskr;
 		   if( IN_I<3 )
-			P += MIN(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
+			P += std::min(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
 		   else if( IN_I==3 && IN_equ>2 )
 			P += IN_equ*step_diskr;
 		   //if( IN_I>10 && IN_M==0 )
@@ -752,7 +752,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
        if( FOOT3_2(rastr0,D_X,(uchar)Dx,(uchar)dy) )
         P += step_diskr*3;
 		   diskr_sh = P;
-       P=MAX(P,0);
+       P=std::max(static_cast<int> (P),0);
        }
 		   else  P = diskr_sh;
 		break;
@@ -815,7 +815,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		if( diskr_i<0 )
 		{
 		F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
-		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+		if( F!=2 || std::min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
@@ -849,7 +849,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P += 8*step_diskr;
 			}
 		   if( IN_I<3 )
-			P += MIN(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
+			P += std::min(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
 		   else if( IN_I==3 && IN_equ>2 )
 			P += IN_equ*step_diskr;
       if( IN_I>=9 )
@@ -876,7 +876,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		if( diskr_n<0 )
 		{
 		F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
-		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+		if( F!=2 || std::min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
@@ -909,7 +909,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			}
 
 		   if( IN_N>3 )
-			P += MIN(IN_N * step_diskr,160)/2;
+			P += std::min(IN_N * step_diskr,160)/2;
 		   if( DiskrRight(rastr0, D_X, Dx, dy,(int16_t)(dy>22?3:2)) )
 			P += 3*step_diskr;
 		   if( omni )
@@ -1024,7 +1024,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
         }
       if( average_br_angle(rastr0,D_X,Dx,dy,0)>d_r )
         P += 4*step_diskr;
-      P=MAX(P,0);
+      P=std::max(static_cast<int> (P),0);
       diskr_tsh = P;
       }
     else  P = diskr_tsh;
@@ -1155,7 +1155,7 @@ int16_t DiskrRightTopHole(uchar *raster, int16_t D_X, int16_t hei, int16_t lim) 
 		if (i < hei / 4 && RightDistance(r, D_X) > lim)
 			pen++;
 
-	return pen > MIN(4, hei / 4);
+	return pen > std::min(4, hei / 4);
 }
 
 #ifdef UFA
@@ -1935,7 +1935,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		d_e = (s3 < p) ? p - s3 : 0;
 		if (s3 == 0 && d_e < 3)
 			d_e = 4;
-		d_c = MAX(d_c, (s3 > n) ? s3 - n + 1 : 0);
+		d_c = std::max(static_cast<int> (d_c), (s3 > n) ? s3 - n + 1 : 0);
 	}
 	return ((let == (uchar) 'е') ? d_e : d_c);
 }
@@ -2067,7 +2067,7 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 	if (up_down_serif >= 0)
 		return (up_down_serif);
 
-	l = MIN(l, dx0 - 2);
+	l = std::min(static_cast<int> (l), dx0 - 2);
 	dx = bytlen(dx);
 	for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
 			+= D_X) {
@@ -2099,7 +2099,7 @@ int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 		return (up_down_serif_B);
 
 	dx = bytlen(dx);
-	l = MIN(l, dx0 - 2);
+	l = std::min(static_cast<int> (l), dx0 - 2);
 	for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
 			+= D_X) {
 		p = NumHorizInterval(r, dx);
@@ -2272,7 +2272,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	int16_t ol=1,or_=1; /* зазор слева и справа */
 	uchar *RAST ,*R;
 
-	n4 = MAX(dy/4,(LOCAL_W[0]+LOCAL_W[1])/4);
+	n4 = std::max(dy/4,(LOCAL_W[0]+LOCAL_W[1])/4);
 	if( n4>dy/3 ) n4=dy/4;
 	n2 = dy - (n4<<1);
 	RAST = RASTR+D_X*n4;
@@ -2374,7 +2374,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		if( up_space!=-1 && down_space!=-1 )
 		{
 			IN_N=3;
-			IN_I= MIN(up_space,down_space);
+			IN_I= std::min(up_space,down_space);
 			IN_dis=1;
 			IN_equ=2;
 			return;
@@ -2425,7 +2425,7 @@ if( l_real<=1 && ((n[end1]==0&&n[end1+1]==0) || (n[beg2]==0&&n[beg2-1]==0)) )
 if( no_serific(RASTR,dy,dx,bw) )
 	{	/* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
 	int16_t nn4,nn2,h;
-	nn4 = MAX(dy>>2,(LOCAL_W[0]+LOCAL_W[1])>>1);
+	nn4 = std::max(dy>>2,(LOCAL_W[0]+LOCAL_W[1])>>1);
   if( nn4>dy/3 ) nn4=dy/4;
   nn2 = dy - (nn4<<1);
   RAST = RASTR+D_X*n4;
@@ -2627,7 +2627,7 @@ int16_t lim = (beg2-or_-end1+ol)>>1;
 for(t=0,i=end1+ol;i<=lim;i++)
 	if( n[i]>((n2-2)<<1) )
 		t++;
-	if( t>=MAX(2,(l_real>>1)) )
+	if( t>=std::max(2,(l_real>>1)) )
 	{		/* перекладина слишком высоко 			*/
 	fill_center=0;	/* коррекция штрафа за отстутствие перекладины 	*/
 	IN_N=4;

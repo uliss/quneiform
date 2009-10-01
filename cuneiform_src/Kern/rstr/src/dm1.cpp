@@ -788,7 +788,7 @@ static int16_t rec_own(cell *B1, s_glue *GL, int16_t bnd1, int16_t bnd2,
 			}
 		}
 		surbad: n4 = crepat(B1, GL, 2, sff);
-		if (n4 > MAX(n2, n3)) {
+		if (n4 > std::max(n2, n3)) {
 			n4 = crecell(B1, GL, 3);
 			if (n4 < 0)
 				goto fin;
@@ -1453,7 +1453,7 @@ void make_all_cuts()
 			B1->col = i;
 		else {
 			mrc = B1->col + B1->w;
-			i = MAX(i, mrc);
+			i = std::max(i, mrc);
 		}
 		B1 = B1->next;
 	}
@@ -1866,7 +1866,7 @@ void make_all_cuts()
 			c1 = T1->vers[0].let;
 
 			if (forbid_stick_cut(T1, &cpos1, 1) && (p1 > 70)) {
-				p1 = MAX(p1 - MONstick, 2); // near stick
+				p1 = std::max(p1 - MONstick, 2); // near stick
 				lsnap('a', T1, "SR ", p1);
 			}
 		}
@@ -1888,10 +1888,10 @@ void make_all_cuts()
 			}
 			if (CL.Nd > 1) // **************** IT WAS  > 0
 			{
-				p1 = MAX(p1 - (CL.Nd << 6) - pen_badust, 0);
+				p1 = std::max(p1 - (CL.Nd << 6) - pen_badust, 0);
 				lsnap('a', T1, "D ", p1);
 			}
-			p3 = MAX(VD0 - (CL.Nd << 6) - pen_badust, 0);
+			p3 = std::max(VD0 - (CL.Nd << 6) - pen_badust, 0);
 		} else // right part isn't dust
 		{
 			if (CL.Nd) // dusts at any side
@@ -1901,7 +1901,7 @@ void make_all_cuts()
 					if (left_dust_allowed)
 						lsnap('a', T3, "LD OK ", p1);
 					else {
-						p1 = MAX(p1 - (CL.Nd << 6) - pen_badust, 0);
+						p1 = std::max(p1 - (CL.Nd << 6) - pen_badust, 0);
 						// all penalty for dust - at 1-st part
 						lsnap('a', T1, "LD Mon ", p1);
 					}
@@ -1966,7 +1966,7 @@ void make_all_cuts()
 			cpnt1->gvarr = GL.var & 15;
 			c3 = T3->vers[0].let;
 			if (forbid_stick_cut(T3, &cpos1, 2) && (p3 > 70)) {
-				p3 = MAX(p3 - MONstick, 2); // near stick
+				p3 = std::max(p3 - MONstick, 2); // near stick
 				lsnap('a', T3, " SL ", p3);
 			}
 			if (forest(T3, p3, TRSO2)) {
@@ -1977,10 +1977,10 @@ void make_all_cuts()
 				p3 = 2;
 			savers3: memcpy(&(cpnt1->versr), &sv3, sizeof(SVERS));
 		}
-		estimrp: cpnt1->rv.v3 = MAX(p3, 2); // right part estimate
+		estimrp: cpnt1->rv.v3 = std::max(static_cast<int> (p3), 2); // right part estimate
 		cpnt1->rv.v2 = 254;
 		cpnt1->rv.v1 = 254;
-		cpnt1->lv.v3 = MAX(p1, 2); // single cut estimate
+		cpnt1->lv.v3 = std::max(static_cast<int> (p1), 2); // single cut estimate
 		cpnt1->lv.v2 = 254;
 		cpnt1->lv.v1 = 254;
 		cpnt1->px = 0; // indicate single cut
@@ -2110,14 +2110,14 @@ void make_all_cuts()
 			if (p2 > 70) {
 				if (forbid_stick_cut(T2, &cpos1, 1)) // right side
 				{
-					p2 = MAX(p2 - MONstick, 2); // near stick
+					p2 = std::max(p2 - MONstick, 2); // near stick
 					lsnap('a', T2, "SR ", p2);
 				}
 				if (p2 <= 70)
 					goto p2mdust;
 				if (forbid_stick_cut(T2, &cpos2, 2)) // lrft side
 				{
-					p2 = MAX(p2 - MONstick, 2); // near stick
+					p2 = std::max(p2 - MONstick, 2); // near stick
 					lsnap('a', T2, "SL ", p2);
 				}
 			}

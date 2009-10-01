@@ -413,7 +413,7 @@ Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 			CSTR_GetLastRaster(lout), c;
 	UniVersions vers;
 	CSTR_rast_attr attr;
-	CSTR_attr line_attr = { 0 };
+	CSTR_attr line_attr;
 
 	Bool32 bold = 0;
 	Bool32 italic = 0;

@@ -384,12 +384,12 @@ Bool Static_TableText_Prepare(
 
 			// Ширина колонки таблицы
 			pl = &gTableColWidths[gIndexTableCol];
-			*pl = MAX(*pl,gCellText->width);
+			*pl = std::max(*pl,gCellText->width);
 
 			// Координата низа строки таблицы для строки таблицы,
 			// в которой заканчивается текущая ячейка
 			pl = &gTableRowBottoms[BottomRow()];
-			*pl = MAX(*pl,
+			*pl = std::max(*pl,
 					gTableRowTops[gIndexTableRow] +
 						gCellText->lines);
 
@@ -437,7 +437,7 @@ static Bool LineEnd()
 
 	// Ширина ячейки
 	long *pl = &gCellText->width;
-	*pl = MAX(*pl,lth);
+	*pl = std::max(*pl,lth);
 
 	// Дописать ноль на конце строки текста
 	*gMemCur++ = 0;
@@ -525,7 +525,7 @@ static Bool TableText_Columns()
 			// для самой правой колонки таблицы,
 			// в которой заканчивается текущая ячейка
 			long *pl = &gTableColRights[RightmostCol()];
-			*pl = MAX(*pl,
+			*pl = std::max(*pl,
 					gTableColLefts[gIndexTableCol] +
 						gCellText->width);
 
