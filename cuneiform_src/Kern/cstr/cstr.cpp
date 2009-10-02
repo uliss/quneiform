@@ -221,7 +221,7 @@ CSTR_line CSTR_NextLine(CSTR_line start, int32_t version) {
 }
 
 CSTR_line CSTR_FirstLine(int32_t version) {
-	return CSTR_NextLine((CSTR_line) & head, version);
+	return CSTR_NextLine((CSTR_line) &head, version);
 }
 
 Bool32 cstr_copy_branch(CSTR_rast sta, CSTR_rast sto, CSTR_rast be,
@@ -488,7 +488,7 @@ CSTR_rast CSTR_GetFirstRaster(CSTR_line linel) {
 		wLowRC = CSTR_ERR_NONEXIST;
 		return (CSTR_rast) NULL;
 	}
-	return (CSTR_rast)(&line->first);
+	return (CSTR_rast) (&line->first);
 }
 
 CSTR_rast CSTR_GetLastRaster(CSTR_line linel) {
@@ -497,7 +497,7 @@ CSTR_rast CSTR_GetLastRaster(CSTR_line linel) {
 		wLowRC = CSTR_ERR_NONEXIST;
 		return (CSTR_rast) NULL;
 	}
-	return (CSTR_rast)(&line->last);
+	return (CSTR_rast) (&line->last);
 }
 
 CSTR_rast CSTR_GetNextRaster(CSTR_rast curr_raster, uint32_t type_raster) {
@@ -2094,25 +2094,4 @@ Bool32 CSTR_GetExportData(uint32_t dwType, void * pData) {
 	}
 #undef EXPORT
 	return rc;
-}
-
-Bool32 CSTR_SetImportData(uint32_t dwType, void * pData) {
-
-	wLowRC = CSTR_ERR_NO;
-	switch (dwType) {
-	//	case CSTR_FNIMP_ALLOC:
-	//		my_alloc = (void* (*)(uint32_t)) pData;
-	//		break;
-	//	case CSTR_FNIMP_REALLOC:
-	//		my_realloc = (void* (*)(void*, uint32_t)) pData;
-	//		break;
-	//	case CSTR_FNIMP_FREE:
-	//		my_free = (void(*)(void*, uint32_t)) pData;
-	//		break;
-
-	default:
-		wLowRC = CSTR_ERR_NOTIMPLEMENT;
-		return FALSE;
-	}
-	return TRUE;
 }

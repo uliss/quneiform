@@ -59,6 +59,7 @@
 
 #include "recdefs.h"
 #include "ccomdefs.h"
+
 #pragma pack (push,8)
 #define DEBUG_MODE 1
 
@@ -419,16 +420,17 @@ typedef int32_t CSTR_rast;
 #define KAZAH_CHARSET           253
 
 // разные версии линий
-#define CSTR_LINVERS_MAIN        0
-#define CSTR_LINVERS_MAINOUT     1
-#define CSTR_LINVERS_PASS2       2
-#define CSTR_LINVERS_PASS2SNAP  12
-
-#define CSTR_LINVERS_ENG         3
-#define CSTR_LINVERS_ENGOUT      4
-#define CSTR_LINVERS_SAVE        5
-// для базовых линий
-#define CSTR_LINVERS_BAL         8
+enum cstr_line_version_t {
+	CSTR_LINVERS_MAIN = 0,
+	CSTR_LINVERS_MAINOUT = 1,
+	CSTR_LINVERS_PASS2 = 2,
+	CSTR_LINVERS_PASS2SNAP = 12,
+	CSTR_LINVERS_ENG = 3,
+	CSTR_LINVERS_ENGOUT = 4,
+	CSTR_LINVERS_SAVE = 5,
+	// для базовых линий
+	CSTR_LINVERS_BAL = 8
+};
 
 #pragma pack (pop)
 #endif
