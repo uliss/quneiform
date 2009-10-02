@@ -54,15 +54,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include<stdlib.h>
-#include<string.h>
-#include<stdio.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
 
 #include "cstr.h"
 #include "ccom.h"
 #include "cgraph.h"
 
-///////////////////////////////////////////////////////////////////////////////
 #define FILE_VER 1
 #define LINE_VER 2
 #define IDTEXT_LEN 16
@@ -434,8 +433,7 @@ Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out) {
 //	RETS:	TRUE	- успешно
 //			FALSE	- ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
-{
+Bool32 CSTR_SaveCont(const char *filename) {
 	int32_t i, j, count;
 	Bool32 lineFlg;
 	FILE *out;
@@ -445,7 +443,7 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
 	CSTR_line linx;
 	CGRAPH_FileData fData;
 
-	if(!(out = fopen(filename, "wb"))) {
+	if (!(out = fopen(filename, "wb"))) {
 		wLowRC = CGRAPH_ERR_OPEN;
 		return FALSE;
 	}
@@ -459,47 +457,38 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(const char *filename)
 	fwrite(&fData, sizeof(fData), 1, out);
 	fwrite(&count, sizeof(count), 1, out);
 
-	for(i = 1; i <= count; i++)
-	{
-		for(j = 0; j < fData.MaxLineVer; j++)
-		{
+	for (i = 1; i <= count; i++) {
+		for (j = 0; j < fData.MaxLineVer; j++) {
 			fwrite(&i, sizeof(i), 1, out); //Номер строки
 			fwrite(&j, sizeof(i), 1, out); //Версия
 
-			if(!(linx = CSTR_GetLineHandle(i, j)))
-			{
+			if (!(linx = CSTR_GetLineHandle(i, j))) {
 				lineFlg = FALSE;
 				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
 				continue;
-			}
-			else
-			{
+			} else {
 				lineFlg = TRUE;
 				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
 			}
 
-			if(!(rst = CSTR_GetFirstRaster(linx)))
-			{
+			if (!(rst = CSTR_GetFirstRaster(linx))) {
 				wLowRC = CGRAPH_ERR_PARAM;
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!(CSTR_GetLineAttr(linx, &attr)))
-			{
+			if (!(CSTR_GetLineAttr(linx, &attr))) {
 				wLowRC = CGRAPH_ERR_PARAM;
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!CGRAPH_SaveCSTR(rst->next, &attr, out))
-			{
+			if (!CGRAPH_SaveCSTR(rst->next, &attr, out)) {
 				fclose(out);
 				return FALSE;
 			}
 
-			if(!CGRAPH_SaveLoop(rst->next, &attr, out))
-			{
+			if (!CGRAPH_SaveLoop(rst->next, &attr, out)) {
 				fclose(out);
 				return FALSE;
 			}
@@ -756,8 +745,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in) {
 //	RETS:	TRUE	- успешно
 //			FALSE	- ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
-{
+Bool32 CSTR_RestoreCont(char *filename) {
 	CSTR_line linx;
 	CSTR_rast rst;
 	FILE *in;
@@ -766,8 +754,7 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 	Bool32 lineFlg;
 	CGRAPH_FileData fData;
 
-	if(!(in = fopen(filename, "rb")))
-	{
+	if (!(in = fopen(filename, "rb"))) {
 		wLowRC = CGRAPH_ERR_OPEN;
 		return FALSE;
 	}
@@ -776,22 +763,18 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 	fread(&fData, sizeof(fData), 1, in);
 	fread(&count, sizeof(count), 1, in);
 
-	if(strcmp((char *)IDt, (char *)IDtext) != 0)
-	{
+	if (strcmp((char *) IDt, (char *) IDtext) != 0) {
 		fclose(in);
 		wLowRC = CGRAPH_ERR_FILE;
 		return FALSE;
 	}
 
-	for(i = 1; i <= count; i++)
-	{
-		for(j = 0; j < fData.MaxLineVer; j++)
-		{
+	for (i = 1; i <= count; i++) {
+		for (j = 0; j < fData.MaxLineVer; j++) {
 			fread(&i, sizeof(i), 1, in);
 			fread(&j, sizeof(j), 1, in);
 
-			if(!(linx = CSTR_NewLine(i, j, -1)))
-			{
+			if (!(linx = CSTR_NewLine(i, j, -1))) {
 				fclose(in);
 				wLowRC = CGRAPH_ERR_PARAM;
 				return FALSE;
@@ -799,30 +782,26 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 
 			fread(&lineFlg, sizeof(lineFlg), 1, in);
 
-			if(!lineFlg)
-			continue;
+			if (!lineFlg)
+				continue;
 
-			if(!(CGRAPH_RestoreCSTR(&linx, in)))
-			{
+			if (!(CGRAPH_RestoreCSTR(&linx, in))) {
 				fclose(in);
 				return FALSE;
 			}
 
-			if(!(rst = CSTR_GetFirstRaster(linx)))
-			{
+			if (!(rst = CSTR_GetFirstRaster(linx))) {
 				fclose(in);
 				wLowRC = CGRAPH_ERR_PARAM;
 				return FALSE;
 			}
 
-			if(!CGRAPH_RestoreLoop(rst->next, in))
-			{
+			if (!CGRAPH_RestoreLoop(rst->next, in)) {
 				fclose(in);
 				return FALSE;
 			}
 
-			if(!CSTR_PackLine(linx))
-			{
+			if (!CSTR_PackLine(linx)) {
 				fclose(in);
 				wLowRC = CGRAPH_ERR_PARAM;
 				return FALSE;
