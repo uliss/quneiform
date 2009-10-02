@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 */
 #ifndef H_ccomdef_h
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 #endif
 
 //#ifndef __EXCDEFS_H

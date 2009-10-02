@@ -58,7 +58,7 @@
 #include <cstdio>
 #include <cstring>
 
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "ccom_fun.h"
 #include "resource.h"
 

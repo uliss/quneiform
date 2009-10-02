@@ -74,7 +74,7 @@
 #include "rstr.h"
 #include "ctb/ctb.h"
 #include "cstr/cstr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "resource.h"
 #include "common.h"
 #include "lang_def.h"

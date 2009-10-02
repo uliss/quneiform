@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include  "picture.h"
 #include  "ctp.h"
-#include  "ccom.h"
+#include  "ccom/ccom.h"
 
 void  q_sort( char *, size_t, size_t,
 			  int (*)( const void *, const void * ) );

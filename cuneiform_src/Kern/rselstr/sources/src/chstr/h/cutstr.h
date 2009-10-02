@@ -59,7 +59,7 @@
 #include <time.h>
 
 #include "lhstr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "ctiimage.h"
 #include "exc.h"
 #include "recdefs.h"

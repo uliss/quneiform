@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "tm.h"
 #include "lang.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "leo/leo.h"
 #include "std.h"
 #include "rsadd.h"

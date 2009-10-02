@@ -60,7 +60,7 @@
 
 #include "c_types.h"
 #include "func.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "exc.h"
 
 #define CREATE_STATUS

@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include "rreccom.h"
 #include "evn.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "r35.h"
 #include "excdefs.h"
 #include "compat_defs.h"

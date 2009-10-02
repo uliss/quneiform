@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "tuner.h"
 #include "p2libr.h"
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 
 int32_t  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, uchar * lp, int16_t lth, uchar *res    );
 extern uchar db_status;	// snap presence byte

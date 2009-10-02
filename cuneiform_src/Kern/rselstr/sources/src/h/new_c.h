@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "layout.h"
 # include "extract.h"
 # include "kernel.h"
-# include "ccom.h"
+# include "ccom/ccom.h"
 # include "cpage.h"
 # include "newfunc.h"
 # include "exc.h"

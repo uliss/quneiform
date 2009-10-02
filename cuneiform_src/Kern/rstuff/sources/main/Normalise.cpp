@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "specprj.h"
 
 // модули
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "cpage.h"
 #include "criimage.h"
 #include "ctiimage.h"

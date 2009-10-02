@@ -59,7 +59,7 @@
 #include<string.h>
 
 #include "cstr/cstr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "resource.h"
 
 static CSTR_head head, tail;

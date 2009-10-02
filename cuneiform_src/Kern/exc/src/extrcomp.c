@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 #include "imgaccs.h"
 #include "msgerr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "tuner.h"
 #include "cpage.h"
 

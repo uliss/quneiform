@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "pumadef.h"
 #include "mainpic.h"
 #include "cpage.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "rstr.h"
 #include "rpic.h"
 

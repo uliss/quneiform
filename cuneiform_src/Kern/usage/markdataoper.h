@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "markdatadefs.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
 					   , int32_t SkewReg, char *pStr, char *pWho);

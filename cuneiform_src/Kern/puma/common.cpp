@@ -58,7 +58,7 @@
 #include <string.h>
 
 #include "mpuma.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "cstr/cstr.h"
 
 void ClearAll(void) {

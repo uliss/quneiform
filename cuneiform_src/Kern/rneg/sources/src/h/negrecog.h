@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include <windows.h>*/
 
 
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "ctiimage.h"
 #include "exc.h"
 #include "recdefs.h"

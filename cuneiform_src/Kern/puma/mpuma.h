@@ -59,7 +59,7 @@
 #include "puma.h"
 #include "dpuma.h"
 #include "pumadef.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "ced.h"
 #include "cfio/cfio.h"
 #include "cpage.h"

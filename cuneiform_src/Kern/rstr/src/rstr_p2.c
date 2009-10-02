@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leo/leo.h"
 #include "tm.h"
 #include "lang.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "struct.h"
 #include "cstr/cstr.h"
 #include "fon.h"

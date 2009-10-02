@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "kernel.h"
 # include "status.h"
 
-# include "ccom.h"
+# include "ccom/ccom.h"
 # include "newfunc.h"
 # include "cpage.h"
 # include "polyblock.h"

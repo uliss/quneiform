@@ -58,7 +58,7 @@
 #define H_cstrdef_h
 
 #include "recdefs.h"
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 
 #pragma pack (push,8)
 #define DEBUG_MODE 1

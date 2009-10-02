@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include "pumadef.h"
 #include "mymem.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "ced.h"
 #include "cfio/cfio.h"
 #include "cpage.h"

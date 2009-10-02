@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rcutp.h"
 //#include "cpage.h"
 //#include "ctiimage.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "dpuma.h"
 /*********************************************************************************************/
 static int count_cut_let;

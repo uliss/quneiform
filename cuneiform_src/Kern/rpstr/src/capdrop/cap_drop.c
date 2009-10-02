@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string.h>
 #include "cstr/cstr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "cap_drop.h"
 #include "lang_def.h"
 #define SS_NEG_HALF_SPACE 0x1e

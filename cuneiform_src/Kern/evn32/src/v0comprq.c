@@ -63,7 +63,7 @@ extern uint16_t lpool_lth;
 //#include"excdefs.h"
 #include"lang_def.h"
 #include "ligas.h"	// 04.06.2002 E.P.
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 //------------------ FROM DIF.DLL
 extern uint16_t DIF_typ_thin_stick(uchar *lin,int16_t dy,int16_t dx);
 //------------------ Common working fields

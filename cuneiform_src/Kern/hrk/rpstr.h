@@ -71,7 +71,7 @@
 #define __RPSTR_H
 
 #include "globus.h"
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 #include "cstr/cstrdefs.h"
 
 #ifndef __RECDEFS_H

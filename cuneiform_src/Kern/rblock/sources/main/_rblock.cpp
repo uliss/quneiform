@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mymem.h"
 #include "newfunc.h"
 #include "dpuma.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "cline.h"
 #include "cpage.h"
 

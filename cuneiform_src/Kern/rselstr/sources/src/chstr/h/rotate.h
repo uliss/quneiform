@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "recdefs.h"
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 
 /*----------------------------------------------------------------------------*/
 

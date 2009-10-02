@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "dpuma.h"
 #include "cline.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "pumadef.h"
 
 #include "rsl.h"

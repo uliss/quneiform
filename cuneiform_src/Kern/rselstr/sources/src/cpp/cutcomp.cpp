@@ -57,7 +57,7 @@
 #include<stdlib.h>
 
 #include "cpage.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "layout.h"
 #include "recdefs.h"
 #include "dpuma.h"

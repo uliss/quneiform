@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
    #ifndef __CCOMDEFS_H
-   #include "ccomdefs.h"
+   #include "ccom/ccomdefs.h"
    #endif
 */
 #ifdef __RRECCOM__

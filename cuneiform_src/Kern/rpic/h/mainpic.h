@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "debug.h"
 # include "rpic.h"
 # include "cpage.h"
-# include "ccom.h"
+# include "ccom/ccom.h"
 //# include "kernel.h"
 
 

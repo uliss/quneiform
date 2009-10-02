@@ -59,7 +59,7 @@
 #include <cstdio>
 
 #include "cstr/cstr.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "cgraph.h"
 
 #define FILE_VER 1

@@ -70,7 +70,7 @@
 #include "p2libr.h"
 #include "leo/leo.h"
 #include "lang_def.h"
-#include "ccom.h"
+#include "ccom/ccom.h"
 #include "fon.h"
 #include "std.h"
 

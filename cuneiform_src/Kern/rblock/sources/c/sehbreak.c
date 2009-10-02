@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include	"extract.h"
 # include	"func.h"
 # include	"struct.h"
-#include    "ccom.h"
+#include    "ccom/ccom.h"
 #include	"evn.h"
 #include	"newfunc.h"
 #include "minmax.h"

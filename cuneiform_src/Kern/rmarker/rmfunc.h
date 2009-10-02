@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include "ctiimage.h"
-#include "ccomdefs.h"
+#include "ccom/ccomdefs.h"
 #include "cpage.h"
 #include "mpumatime.h"
 
