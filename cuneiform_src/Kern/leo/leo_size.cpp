@@ -54,8 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "minmax.h"
-
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <algorithm> // for std::min/max
 #define NO_SIZES0
 //
 //  Получение размеров - стандартная высота больших.маленьких букв
@@ -150,36 +152,37 @@
 #define POROG_WIDTH  2
 #define MIN_STAT     2  // minimal need for statistic
 #define MIN_STAT_ONE 1  // need for one letter stat.
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
 #include "leo.h"
 #include "std.h"
+#include "alphaset.h"
 
 static int allHeights[MAX_HEIGHT];
 static int allWidthes[MAX_WIDTH];
 static int allCount = 0;
 static int letCount[256];
 
-// 6.10.1998 - Nick
 static int allMetka[MAX_HEIGHT];
 #define METKA_DIGIT  1
 #define METKA_LETTER 2
 #define METKA_BIG    4
 #define METKA_SMALL  8
-//
 
 #define INIT_SIZE 4096
 #define STEP_SIZE 256
 int allSize = 0;
 int allLetter = 0;
+
+static const char * UNIQ_RUS = "\x85\xa0\xa1\xa5"; // "Еабе"
+static const char * HIGH_LET = "\x90\x93\x94\xe0\xe3\xe4"; // "РУФруф"
+static const char *nonStandard = "\x84\xA4\x96\xE6\x99\xE9";// russian ДдЦцЩщ
+
 typedef struct tagLetInfo {
 	int name;
 	int width;
 	int height;
 	int cluster;
 } LetInfo;
+
 LetInfo *letInfo = NULL;
 
 void LEO_ClearStat(void) {
@@ -196,9 +199,6 @@ void LEO_ClearStat(void) {
 	allLetter=0;
 }
 
-	//            russian ДдЦцЩщ
-static const char *nonStandard = "\x84\xA4\x96\xE6\x99\xE9";
-
 int32_t LEO_AddStat(int32_t name, int32_t width, int32_t height, int32_t valid) {
 	// add only good
 	if ((valid & LEO_VALID_FINAL) == 0)
@@ -214,8 +214,8 @@ int32_t LEO_AddStat(int32_t name, int32_t width, int32_t height, int32_t valid) 
 		allCount++;
 	}
 
-	else if (name >= 'A' && name <= 'z' || name >= 128 && strchr(nonStandard,
-			name) == NULL) {
+	else if ((name >= 'A' && name <= 'z') || (name >= 128 && strchr(
+			nonStandard, name) == NULL)) {
 		allHeights[height]++;
 
 		allMetka[height] |= METKA_LETTER; // 6.10.98
@@ -228,7 +228,7 @@ int32_t LEO_AddStat(int32_t name, int32_t width, int32_t height, int32_t valid) 
 
 	return allCount;
 }
-///////////////////////////
+
 //
 //  output heights of big,small letters
 //  output width
@@ -247,55 +247,64 @@ int GetStat(int *sizes, int allCount, int *allWidthes, int *allHeights,
 	int bSizeLeft;
 	int sizeBig, sizeLit;
 
-	memset(sizes, 0, 3* sizeof (int));
-	memset(ocenka,0,3*sizeof(int));
-	if( allCount < MIN_STAT ) return allCount;
+	memset(sizes, 0, 3 * sizeof(int));
+	memset(ocenka, 0, 3 * sizeof(int));
+	if (allCount < MIN_STAT)
+		return allCount;
 
-	for(i=1,bWidth=0;i<MAX_WIDTH;i++)
-	if(allWidthes[i] > allWidthes[bWidth]) bWidth=i;
+	for (i = 1, bWidth = 0; i < MAX_WIDTH; i++)
+		if (allWidthes[i] > allWidthes[bWidth])
+			bWidth = i;
 
-	for(i=1,bSize=0;i<MAX_HEIGHT;i++)
-	if(allHeights[i] > allHeights[bSize]) bSize=i;
+	for (i = 1, bSize = 0; i < MAX_HEIGHT; i++)
+		if (allHeights[i] > allHeights[bSize])
+			bSize = i;
 
-	for(j=bSize-POROG_HEIGHT;j>1;j--) if( allHeights[j] > allHeights[j+1] )break;
-	for(bSizeLeft=j,j--;j>1;j--)
-	 if(allHeights[j] > allHeights[bSizeLeft]) bSizeLeft=j;
+	for (j = bSize - POROG_HEIGHT; j > 1; j--)
+		if (allHeights[j] > allHeights[j + 1])
+			break;
+	for (bSizeLeft = j, j--; j > 1; j--)
+		if (allHeights[j] > allHeights[bSizeLeft])
+			bSizeLeft = j;
 
-	for(j=bSize+POROG_HEIGHT;j<MAX_HEIGHT;j++) if( allHeights[j] > allHeights[j-1] ) break;
-	for(;j<MAX_HEIGHT;j++)
-	 if(allHeights[j] > allHeights[bSizeLeft]) bSizeLeft=j;
+	for (j = bSize + POROG_HEIGHT; j < MAX_HEIGHT; j++)
+		if (allHeights[j] > allHeights[j - 1])
+			break;
+	for (; j < MAX_HEIGHT; j++)
+		if (allHeights[j] > allHeights[bSizeLeft])
+			bSizeLeft = j;
 
-    sizeLit=0;
-	if( allHeights[bSizeLeft] < MIN_STAT )
-	  sizeBig=bSize ;
-	else
-	{
-     sizeBig=bSize;
-	 if(bSize < bSizeLeft &&
-        ( allMetka[bSize]& METKA_LETTER )   &&          // 6.10.98
-          (( allMetka[bSize]& METKA_DIGIT) == 0 )  // 6.10.98
-       )
-       {sizeLit=bSize;sizeBig=bSizeLeft;}
-	 else if (  bSizeLeft < bSize &&
-               ( allMetka[bSizeLeft]& METKA_LETTER ) &&        // 6.10.98
-               (( allMetka[bSizeLeft]& METKA_DIGIT) == 0 )     // 6.10.98
-             )
-      {sizeBig=bSize;sizeLit=bSizeLeft;}
+	sizeLit = 0;
+	if (allHeights[bSizeLeft] < MIN_STAT)
+		sizeBig = bSize;
+	else {
+		sizeBig = bSize;
+		if (bSize < bSizeLeft && (allMetka[bSize] & METKA_LETTER) && // 6.10.98
+				((allMetka[bSize] & METKA_DIGIT) == 0) // 6.10.98
+		) {
+			sizeLit = bSize;
+			sizeBig = bSizeLeft;
+		} else if (bSizeLeft < bSize && (allMetka[bSizeLeft] & METKA_LETTER) && // 6.10.98
+				((allMetka[bSizeLeft] & METKA_DIGIT) == 0) // 6.10.98
+		) {
+			sizeBig = bSize;
+			sizeLit = bSizeLeft;
+		}
 	}
 
-	sizes[0]=sizeBig;
-	sizes[1]=sizeLit;
-	sizes[2]=bWidth;
+	sizes[0] = sizeBig;
+	sizes[1] = sizeLit;
+	sizes[2] = bWidth;
 
-	if( sizeBig > 0)
-		ocenka[0]=((allHeights[sizeBig-1]+allHeights[sizeBig]+
-		  allHeights[sizeBig+1])*255) / allCount;
-	if( sizeLit > 0)
-		ocenka[1]=((allHeights[sizeLit-1]+allHeights[sizeLit]+
-		  allHeights[sizeLit+1])*255) / allCount;
-	if( bWidth > 0)
-		ocenka[2]=((allWidthes[bWidth-1]+allWidthes[bWidth]+
-		  allWidthes[bWidth+1])*255) / allCount;
+	if (sizeBig > 0)
+		ocenka[0] = ((allHeights[sizeBig - 1] + allHeights[sizeBig]
+				+ allHeights[sizeBig + 1]) * 255) / allCount;
+	if (sizeLit > 0)
+		ocenka[1] = ((allHeights[sizeLit - 1] + allHeights[sizeLit]
+				+ allHeights[sizeLit + 1]) * 255) / allCount;
+	if (bWidth > 0)
+		ocenka[2] = ((allWidthes[bWidth - 1] + allWidthes[bWidth]
+				+ allWidthes[bWidth + 1]) * 255) / allCount;
 	return allCount;
 }
 
@@ -308,7 +317,6 @@ int32_t LEO_AddStatLetter(int32_t name, int32_t width, int32_t height,
 
 	if (name < 0 || name > 255)
 		return 0;
-	//name = stdAnsiToAscii((uchar)name);
 	// add only good
 	if ((valid & LEO_VALID_FINAL) == 0)
 		return letCount[name];
@@ -341,9 +349,7 @@ int32_t LEO_AddStatLetter(int32_t name, int32_t width, int32_t height,
 
 	return letCount[name];
 }
-//////////////
-#define UNIQ_RUS "\x85\xa0\xa1\xa5"   // "Еабе"
-#define HIGH_LET "\x90\x93\x94\xe0\xe3\xe4"   // "РУФруф"
+
 static int ClusterAnalyze(int name, int count, int all, LetInfo *lInfo,
 		int *mysteck, int NumClus, int *size, int *ocenka) {
 	int i, j, jj;
@@ -406,7 +412,7 @@ static int ClusterAnalyze(int name, int count, int all, LetInfo *lInfo,
 		return 1;
 	}
 
-	if (hei > hh[jj] || hei == hh[jj] && wid >= ww[jj]) {
+	if (hei > hh[jj] || (hei == hh[jj] && wid >= ww[jj])) {
 		size[0] = hei;
 		size[1] = wid;
 		ocenka[0] = (mysteck[j] * 255) / count;
@@ -424,7 +430,7 @@ static int ClusterAnalyze(int name, int count, int all, LetInfo *lInfo,
 
 	return 2;
 }
-/////////////////
+
 static int ClusterSet(int name, int all, LetInfo *lInfo, int *mysteck) {
 	int i, j;
 	int IsSame, NumSame, IsNew;
@@ -486,68 +492,70 @@ static int ClusterSet(int name, int all, LetInfo *lInfo, int *mysteck) {
 
 	return CurClus + 1; // how many clusters
 }
-///////////////
+
 //
 //  sizes4 - [0]=heiBig,[1]=widBig,[2]=heiSmall,[3]=widSmall
 //
-//int GetLetStat(int name,int *sizes4,int *ocenka2)
 int32_t LEO_GetLetStat(int32_t name, int32_t *sizes4, int32_t *ocenka2) {
 	int i;
 	int *mysteck;
 
-	memset(sizes4, 0, 4* sizeof (int));
-	memset(ocenka2,0,2*sizeof(int));
+	memset(sizes4, 0, 4 * sizeof(int));
+	memset(ocenka2, 0, 2 * sizeof(int));
 
-	if( name < 0 || name > 255 ) return 0;
-	//name = stdAnsiToAscii((uchar)name);
-			//  symbols not enouph ?
-			if( letCount[name] < MIN_STAT_ONE ) return 0;
-			if( letInfo == NULL ) return 0;
+	if (name < 0 || name > 255)
+		return 0;
+	//  symbols not enouph ?
+	if (letCount[name] < MIN_STAT_ONE)
+		return 0;
+	if (letInfo == NULL)
+		return 0;
 
-			mysteck = static_cast<int*>(malloc(3*letCount[name]*sizeof(int)));
-			if(mysteck==NULL)
-			return -1;
-			// set clusters
-			i=ClusterSet(name,allLetter,letInfo,mysteck);
-			// looking for better
-			i=ClusterAnalyze(name,letCount[name],allLetter,letInfo,mysteck,
-					i,sizes4,ocenka2);
+	mysteck = static_cast<int*> (malloc(3* letCount [name] * sizeof(int)));
+	if (mysteck == NULL)
+		return -1;
+	// set clusters
+	i = ClusterSet(name, allLetter, letInfo, mysteck);
+	// looking for better
+	i = ClusterAnalyze(name, letCount[name], allLetter, letInfo, mysteck, i,
+			sizes4, ocenka2);
 
-			free(mysteck);
-			return letCount[name];
-		}
-	//////////
+	free(mysteck);
+	return letCount[name];
+}
 
-	//;*****  h>w ==> p= (64*w)/h         ******
-	//;*****  h=w ==> p=64                ******
-	//;*****  h<w ==> p=128 - (64*h)/w    ******
+//;*****  h>w ==> p= (64*w)/h         ******
+//;*****  h=w ==> p=64                ******
+//;*****  h<w ==> p=128 - (64*h)/w    ******
 typedef struct {
 	int pmin, pmax;
 } PROP_STR;
 
-static PROP_STR letters_prop_table_rus[256] = { 1, 127, 1, 127, 1, 127, 1, 127,
-		1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127,
-		1, 127, 1, 127, 1,
-		127, // 0x00
-		1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127,
-		1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, 1, 127, // 0x01
-		1, 127, 2, 34,// ! some italic
-		1, 127,// "
-		36, 72,// #
-		24, 48,// $
-		36, 80,// %
-		36, 84,// &
-		1, 127,// '
-		7, 32,// (
-		7, 32,// }
-		52, 72,// *
-		52, 76,// +
-		20, 56,// ,
-		80, 120,// -
-		32, 84,// .
-		16, 70, // 2f
-		30, 62,// 0
-		10, 52,// 1
+static PROP_STR letters_prop_table_rus[256] = { { 1, 127 }, { 1, 127 }, { 1,
+		127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1,
+		127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 },
+		{ 1, 127 },
+		{ 1, 127 }, // 0x00
+		{ 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 },
+		{ 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 },
+		{ 1, 127 }, { 1, 127 }, { 1, 127 }, { 1, 127 }, // 0x01
+		{ 1, 127 }, { 2, 34 },// ! some italic
+		{ 1, 127 },// "
+		{ 36, 72 },// #
+		{ 24, 48 },// $
+		{ 36, 80 },// %
+		{ 36, 84 },// &
+		{ 1, 127 },// '
+		{ 7, 32 },// (
+		{ 7, 32 },// }
+		{ 52, 72 },// *
+		{ 52, 76 },// +
+		{ 20, 56 },// ,
+		{ 80, 120 },// -
+		{ 32, 84 },// .
+		{ 16, 70 }, // 2f
+		{ 30, 62 },// 0
+		{ 10, 52 },// 1
 		30, 61,// 2 pape0 cursiv
 		22, 61,// 3
 		30, 61,// 4
@@ -758,11 +766,9 @@ static PROP_STR letters_prop_table_rus[256] = { 1, 127, 1, 127, 1, 127, 1, 127,
 
 int32_t leo_narrow, leo_narrow_pen;
 extern uchar leo_alpha_type;
-#include "alphaset.h"
 
 void leo_sizes_init_stat(void) {
 	leo_narrow = leo_narrow_pen = 0;
-	return;
 }
 
 uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
@@ -784,9 +790,9 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 		pmax = letters_prop_table_rus[name].pmax;
 		if (LEO_GetLetStat((int32_t) let, comSizes, prob) >= 0 && comSizes[0]
 				&& comSizes[2]) { //   normal statistic                             && not empty
-			hei = MIN(comSizes[0], comSizes[2]);
-			wid = MAX(comSizes[1], comSizes[3]);
-			pr = MIN(prob[0], prob[1]); // continued after all "else"
+			hei = std::min(comSizes[0], comSizes[2]);
+			wid = std::max(comSizes[1], comSizes[3]);
+			pr = std::min(prob[0], prob[1]); // continued after all "else"
 		} else { // statistic is not ready
 			if (h > w)
 				pr = (64* w ) / h;
@@ -813,7 +819,7 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 					if (comSizes[0]) {
 						hei = comSizes[0];
 						wid = comSizes[2];
-						prop = MIN(prob[0], prob[2]);
+						prop = std::min(prob[0], prob[2]);
 
 						if (prop > 64 && hei > wid) {
 							prop = (64* wid ) / hei;
@@ -824,73 +830,70 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h) {
 				}
 				if (pr < pmin) // было const 255,255-75 ,const 0, 60-255, const 255
 				{
-					if (leo_narrow > 5 && leo_narrow_pen > 1 || leo_narrow > 10)
+					if ((leo_narrow > 5 && leo_narrow_pen > 1) || leo_narrow
+							> 10)
 						pr = (pmin + pr) / 2;
-					return 128* (256 -(256*pr)/pmin)/256;
+					return 128 * (256 - (256 * pr) / pmin) / 256;
 					//return 255-255*((2*256*pr)/pmin-256)/256;
-						}
-						if( pr>pmax ) // стало const 255, 255-0, const 0 ,0-255, const 255
-						return 10+255*2*((256*pr)/pmax-256)/256;
-					}
 				}
+				if (pr > pmax) // стало const 255, 255-0, const 0 ,0-255, const 255
+					return 10 + 255 * 2 * ((256 * pr) / pmax - 256) / 256;
 			}
-			else
-			{ // no letter
-				LEO_GetCommonStat(comSizes,prob);
-
-				if( comSizes[0]==0 )
-				return 0; // empty stat
-
-				if( comSizes[1]==0 )
-				{ // all
-					hei = comSizes[0];
-					wid = comSizes[2];
-					pr = MIN( prob[0], prob[2]);
-				}
-				else
-				{ // different Capital & Small
-					hei = MIN(comSizes[0],comSizes[1]);
-					pr = MIN( prob[0], prob[1]);
-					wid = comSizes[2];
-					pr = MIN( pr, prob[2]);
-				}
-
-			}
-
-			if( !hei || !wid )
-			return 0;
-
-			if( hei>wid )
-			prop= (64*wid)/hei;
-			else if( hei==wid )
-			prop=64;
-			else if( hei<wid )
-			prop=128 - (64*hei)/wid;
-
-			if( h>w )
-			prp= (64*w)/h;
-			else if( h==w )
-			prp=64;
-			else if( h<w )
-			prp=128 - (64*h)/w;
-
-			if( !let && prp<79 && prp>32 || (pmax!=255 && prp>=pmin && prp<=pmax ))
-			return 0;
-
-			if( !let && prp<96 && prp>32 )
-			if( prp<62 && prop>66 || prop<62 && prp>66 )
-			return 0;
-
-			pr1 = ( abs( prp-prop )*100/prop );
-			if( pr1>100 )
-			pr1=100;
-
-			if( h>=w && prp>=pmin && prp<=pmax ||
-					h<w &&pr1<45 && !( pmax && w>wid && w*100/wid>120 && prp>pmax) )
-			return 0;
-
-			return (uchar)((pr1*255)/100); // large prop
 		}
+	} else { // no letter
+		LEO_GetCommonStat(comSizes, prob);
+
+		if (comSizes[0] == 0)
+			return 0; // empty stat
+
+		if (comSizes[1] == 0) { // all
+			hei = comSizes[0];
+			wid = comSizes[2];
+			pr = std::min(prob[0], prob[2]);
+		} else { // different Capital & Small
+			hei = std::min(comSizes[0], comSizes[1]);
+			pr = std::min(prob[0], prob[1]);
+			wid = comSizes[2];
+			pr = std::min(pr, prob[2]);
+		}
+
+	}
+
+	if (!hei || !wid)
+		return 0;
+
+	if (hei > wid)
+		prop = (64 * wid) / hei;
+	else if (hei == wid)
+		prop = 64;
+	else if (hei < wid)
+		prop = 128 - (64 * hei) / wid;
+
+	if (h > w)
+		prp = (64 * w) / h;
+	else if (h == w)
+		prp = 64;
+	else if (h < w)
+		prp = 128 - (64 * h) / w;
+
+	if ((!let && prp < 79 && prp > 32) || (pmax != 255 && prp >= pmin && prp
+			<= pmax))
+		return 0;
+
+	if (!let && prp < 96 && prp > 32)
+		if ((prp < 62 && prop > 66) || (prop < 62 && prp > 66))
+			return 0;
+
+	pr1 = (abs(prp - prop) * 100 / prop);
+	if (pr1 > 100)
+		pr1 = 100;
+
+	if (h >= w && prp >= pmin && prp <= pmax || h < w && pr1 < 45 && !(pmax
+			&& w > wid && w * 100 / wid > 120 && prp > pmax))
+		return 0;
+
+	return (uchar)((pr1 * 255) / 100); // large prop
+}
 
 uchar leo_sizes_penalty(int32_t w, int32_t h) {
 	int32_t comSizes[4], prob[4], wid, hei, pr;
@@ -908,25 +911,25 @@ uchar leo_sizes_penalty(int32_t w, int32_t h) {
 	}
 
 	if (comSizes[1]) { // different Capital & Small
-		hei = MIN(comSizes[0], comSizes[1]);
-		pr = MIN(prob[0], prob[1]);
+		hei = std::min(comSizes[0], comSizes[1]);
+		pr = std::min(prob[0], prob[1]);
 
 		if (pr >= 64) {
 			if (h * 2 <= hei)
 				return 100;
 			if (h * 4 <= hei * 3)
-				return (uchar)(100* (hei *3-4*h)/hei);
-			}
-			wid = comSizes[2];
-			if( prob[2] >=100 && pr>60 && (h*2<=hei||w*2<=wid) && h*w*4<=hei*wid*3  )
-            {
-            if( h*w*4<=hei*wid  )
-                return 100;
-            if( h*w*4<=hei*wid*3 )
-                return (uchar)(50*(hei*wid*3-4*h*w)/(hei*wid));
-            }
-        }
+				return (uchar)(100 * (hei * 3 - 4 * h) / hei);
+		}
+		wid = comSizes[2];
+		if (prob[2] >= 100 && pr > 60 && (h * 2 <= hei || w * 2 <= wid) && h
+				* w * 4 <= hei * wid * 3) {
+			if (h * w * 4 <= hei * wid)
+				return 100;
+			if (h * w * 4 <= hei * wid * 3)
+				return (uchar)(50 * (hei * wid * 3 - 4 * h * w) / (hei * wid));
+		}
+	}
 
-					return 0;
-				}
+	return 0;
+}
 
