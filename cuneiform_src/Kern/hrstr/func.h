@@ -68,7 +68,7 @@
 #include "struct.h"
 #include "extract.h"
 #include "stick.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "alphabet.h"
 
 /* FIXME: to compile in MS VC++ */

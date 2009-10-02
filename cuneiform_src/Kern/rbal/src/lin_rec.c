@@ -59,7 +59,6 @@
 #include <string.h>
 
 #include "status.h"
-#include "cstr.h"
 #include "linear.h"
 #include "ligas.h"
 #include "leo/leodefs.h"

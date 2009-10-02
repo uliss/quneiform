@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "cor_incl.h"
 Bool32  incl_test_fragment(int32_t version, int32_t fragm)
 {

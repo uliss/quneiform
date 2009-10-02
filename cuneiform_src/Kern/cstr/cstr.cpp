@@ -58,7 +58,7 @@
 #include<stdio.h>
 #include<string.h>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "resource.h"
 

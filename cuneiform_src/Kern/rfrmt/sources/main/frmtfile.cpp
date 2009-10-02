@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cstring>
 #include "cpage.h"
 #include "cpagetyps.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
 #include "polyblock.h"

@@ -66,7 +66,7 @@
 #include "rstr.h"
 #include "dpuma.h"
 #include "cpage.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "exc.h"
 #include "criimage.h"
 #include "evn.h"

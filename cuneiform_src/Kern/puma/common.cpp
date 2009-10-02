@@ -59,7 +59,7 @@
 
 #include "mpuma.h"
 #include "ccom.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 
 void ClearAll(void) {
 	PAGEINFO PInfo = { 0 };

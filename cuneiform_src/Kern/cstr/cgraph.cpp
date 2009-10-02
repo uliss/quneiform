@@ -58,7 +58,7 @@
 #include <cstring>
 #include <cstdio>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "cgraph.h"
 

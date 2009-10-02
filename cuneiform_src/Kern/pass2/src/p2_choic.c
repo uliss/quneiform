@@ -70,7 +70,7 @@
 
 #include "ligas.h"
 #include "lang_def.h"
-#include "cstr.h" // OLEG
+#include "cstr/cstr.h" // OLEG
 #include "fon.h"
 #include "p2libr.h"
 #include "std.h"

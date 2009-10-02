@@ -64,7 +64,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-#include "cstr.h" // OLEG
+#include "cstr/cstr.h"
 #include "globus.h"
 #include "alphabet.h"
 #include "p2libr.h"

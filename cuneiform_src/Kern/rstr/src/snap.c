@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "status.h"
 #include "dpuma.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ctb/ctb.h"
 #include "std.h"
 #include "resource.h"

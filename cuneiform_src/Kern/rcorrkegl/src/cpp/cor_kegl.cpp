@@ -62,7 +62,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "cpage.h"
 #include "rcorrkegl.h"
 #include "wrgb.h"

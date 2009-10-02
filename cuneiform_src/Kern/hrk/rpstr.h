@@ -72,7 +72,7 @@
 
 #include "globus.h"
 #include "ccomdefs.h"
-#include "cstrdefs.h"
+#include "cstr/cstrdefs.h"
 
 #ifndef __RECDEFS_H
 #include "recdefs.h"

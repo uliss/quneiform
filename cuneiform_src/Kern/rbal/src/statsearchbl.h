@@ -59,7 +59,7 @@
 #ifndef __STAT_SEARCH_BL_H__
 
 #include "cttypes.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 
 #ifdef __cplusplus
 extern "C" {

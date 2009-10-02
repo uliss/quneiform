@@ -70,7 +70,7 @@
 #endif
 
 #ifndef __CSTR_H
-#include "cstr.h"
+#include "cstr/cstr.h"
 #endif
 
 #ifndef __SNPDEFS_H

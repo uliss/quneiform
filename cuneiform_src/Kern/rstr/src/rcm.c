@@ -73,7 +73,7 @@
 #include "std.h"
 #include "rstr.h"
 #include "ctb/ctb.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "resource.h"
 #include "common.h"

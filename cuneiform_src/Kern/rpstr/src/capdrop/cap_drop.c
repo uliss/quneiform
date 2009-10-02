@@ -54,8 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include    <string.h>
-#include "cstr.h"
+#include <string.h>
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "cap_drop.h"
 #include "lang_def.h"

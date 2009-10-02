@@ -59,8 +59,6 @@
 #include <string.h>
 
 #include "tuner.h"
-#include "cstr.h"
-
 #include "linear.h"
 #include "linutil.h"
 #include "ligas.h"      // Pit 10-10-94 03:56pm

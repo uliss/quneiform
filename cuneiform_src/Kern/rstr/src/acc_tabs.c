@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "string.h"
 #include "cttypes.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "context.h"
 #include "status.h"
 #include "lang.h"

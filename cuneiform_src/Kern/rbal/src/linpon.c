@@ -60,7 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #include "status.h"
-#include "cstr.h"
 #include "linear.h"
 #include "ligas.h"
 #include "linutil.h"

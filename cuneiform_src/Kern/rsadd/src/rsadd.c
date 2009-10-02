@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <ctype.h>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "rsadd.h"
 #include "resource.h"
 #include "lang_def.h"

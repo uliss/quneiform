@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include <stdio.h>
  #include <string.h>
 
- #include "cstr.h"
+ #include "cstr/cstr.h"
  #include "p2.h"
 
 // распознать с разрезанием/склейкой кусок - от first до last,

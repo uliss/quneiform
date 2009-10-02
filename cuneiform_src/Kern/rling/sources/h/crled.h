@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #include "globus.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "recdefs.h"
 ////////////////////////////////////////////////////////////
 

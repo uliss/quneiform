@@ -59,7 +59,7 @@
 #include <string.h>
 
 #include "status.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "linear.h"
 #include "ligas.h"
 

@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "crling.h"
 #include "leo/leo.h"

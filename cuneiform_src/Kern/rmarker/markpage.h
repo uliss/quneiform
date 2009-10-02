@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cfio/cfio.h"
 #include "cpage.h"
 #include "criimage.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ctiimage.h"
 #include "exc.h"
 #include "rblock.h"

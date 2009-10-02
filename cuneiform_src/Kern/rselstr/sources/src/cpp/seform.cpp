@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "newfunc.h"
 
 # include "dpuma.h"
-# include "cstr.h"
+# include "cstr/cstr.h"
 
 #include "minmax.h"
 

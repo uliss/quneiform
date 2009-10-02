@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include <windows.h>*/
 #include <stddef.h>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "compat_defs.h"
 
 static HINSTANCE hSJTL = 0;

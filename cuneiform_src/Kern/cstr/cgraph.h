@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define __CGRAPH_H
 #include "recdefs.h"
 #include "ccomdefs.h"
-#include "cstrdefs.h"
+#include "cstr/cstrdefs.h"
 #include "resource.h"
 
 /* FIXME: to compile in MS VC++ */

@@ -64,7 +64,7 @@
 #include "cfio/cfio.h"
 #include "cpage.h"
 #include "criimage.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ctiimage.h"
 #include "cline.h"
 #include "exc.h"

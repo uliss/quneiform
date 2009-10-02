@@ -65,7 +65,7 @@
 #ifndef __frmtfile_h__
 #define __frmtfile_h__
 #include <stdio.h>
-#include "cstrdefs.h"
+#include "cstr/cstrdefs.h"
 
 Bool CreateInternalFileForFormatter(FILE *fpInternalFileName);
 Bool CheckComingLine(CSTR_line* Comingline);

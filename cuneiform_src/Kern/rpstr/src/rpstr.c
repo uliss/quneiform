@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<string.h>
 #include<stdlib.h>
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "ccom.h"
 #include "rpstr.h"
 #include "resource.h"

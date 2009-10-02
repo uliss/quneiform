@@ -1369,7 +1369,7 @@ int  heiY;
 
 #ifdef _USE_CSTR_
 
-#include "cstr.h"
+#include "cstr/cstr.h"
 
 #ifndef WIN32
 typedef struct tagRECT {int left,top,right,bottom;} RECT;

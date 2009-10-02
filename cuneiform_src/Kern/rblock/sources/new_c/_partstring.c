@@ -70,8 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "newfunc.h"
 # include "exc.h"
 # include "excdefs.h"
-# include "cstr.h"
-# include "cstrdefs.h"
+# include "cstr/cstr.h"
+# include "cstr/cstrdefs.h"
 # include "cpage.h"
 # include "polyblock.h"
 */

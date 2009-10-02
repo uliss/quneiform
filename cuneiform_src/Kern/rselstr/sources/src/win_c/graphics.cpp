@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "dpuma.h"
 #include "pumadef.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "cpage.h"
 
 ////////////////////////////////////////////////

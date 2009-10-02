@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "struct.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "func.h"
 
 #include "linear.h"

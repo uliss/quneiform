@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 #include "lang_def.h"
-#include "cstr.h" // OLEG
+#include "cstr/cstr.h"
 #include "fon.h"
 #include "p2libr.h"
 

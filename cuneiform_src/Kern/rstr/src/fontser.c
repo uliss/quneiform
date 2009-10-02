@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 
 #include "struct.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "func.h"
 #include "linutil.h"
 #include "fon.h"

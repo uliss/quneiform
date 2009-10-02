@@ -59,7 +59,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "cstr.h"
 #define  LIN_MAIN
 #include "linear.h"
 #include "ligas.h"

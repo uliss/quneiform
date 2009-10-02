@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /********************************************************************/
 #include <string.h>
 #include <stdio.h>
-#include "cstr.h"
+#include "cstr/cstr.h"
 
 static uchar language;
 static uchar    ed_buffer[64000], *MED_file_bound, *MED_file_end ;

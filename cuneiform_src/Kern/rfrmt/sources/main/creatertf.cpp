@@ -75,7 +75,7 @@
 #include "lnsdefs.h"
 #include "linedefs.h"
 #include "normdefs.h"
-#include "cstrdefs.h"
+#include "cstr/cstrdefs.h"
 #include "cline.h"
 
 #include "minmax.h"

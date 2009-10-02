@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "ccom.h"
 #include "struct.h"
-#include "cstr.h"
+#include "cstr/cstr.h"
 #include "fon.h"
 #include "dpuma.h"
 #include "rsadd.h"

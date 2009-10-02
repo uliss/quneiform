@@ -59,7 +59,6 @@
 #include <stdio.h>
 
 #include "status.h"
-#include "cstr.h"
 #include "linear.h"
 #include "ligas.h"
 #include "lang_def.h"	// 08.09.2000 E.P.
