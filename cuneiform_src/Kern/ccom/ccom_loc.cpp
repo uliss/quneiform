@@ -56,7 +56,7 @@
 
 #include <cstring>
 
-#include "ccom/ccom.h"
+#include "ccom.h"
 #include "ccom_fun.h"
 
 static Bool32 StoreOneInterval(uchar *p, int end, int len, uchar *pe) {
