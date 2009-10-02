@@ -383,17 +383,6 @@ extern "C" {
 #endif
 #endif
 
-//typedef int(*COMP_FUN)(void);
-//typedef TYPE (*DistFrame)(FRAME*,FRAME*);
-
-#ifdef WIN32
-//#define _splitpath __splitpath
-//#define _makepath  __makepath
-//void _splitpath(const char *f,char *drive,char *dir,char *fname,char *ext);
-//void _makepath(char *f,
-//  const char *drive,const char *dir,const char *fname,const char *ext);
-#endif
-
 #define MAXFILENAME 256
 #define MAX_KNOT 15000
 #define MAX_CLU_BS 20
@@ -538,7 +527,6 @@ extern int Esc, Enter, Del, Delete, Tab, Home, End1, Ins, Up, Down, Left,
 #endif
 #pragma pack(1)
 #define PRS_ONE1 struct h_prs_one1
-//#ifdef INTEL
 //Вариации описания pole_bit
 #ifdef PRS_T
 typedef unsigned short PRS_ONE;
@@ -555,9 +543,7 @@ PRS_ONE {
 };
 #define WIDTH_PRS 3
 #endif
-//#else
 
-//#endif
 #pragma pack(2)
 /*-------------Прототипы ф-ций-------------*/
 int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
@@ -590,21 +576,15 @@ int sort_lett(int k_cl, KNOT3 **beg_free1, KNOT3 **beg_cl, COMP_FUN CompFun);
 int cut_word_unfold(int *k_cl1, KNOT3 **beg_cl);
 int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW,
 		POINT_H CentrW, long k_frmW);
-/*TYPE dist_frm(FRAME *f1,FRAME *f2);*/
-//long time(void);
 void sort_int(TYPE *a, int num, int *nodr);
 int comp1(TYPE *a, TYPE *b);
 int compF(float *a, float *b);
 int compare(TYPE *a, TYPE *b);
 int comp_long(uint32_t *a, uint32_t *b);
 
-//	void  u4sort(void *base, int  num, int  width, int  (*compare)());
-
 int search_int(int *x, int n, int a);
 #define TYPE int /*тип сортируемых данных*/
 float tg(float ang);
-//int est_struct(char *file_frm,char *file_pcx,FRAME ***frm_arr,int *k_arr_frm,
-//         FRAME ***frm1,int *k_frm1);
 int filtr_size(FRAME **frm, int *k_frm1, int *kg1, int *kv1, int *kgv1,
 		int ave_x, int ave_y);
 int ClassFrmSize(FRAME **frm, int *k_frm, int *k_small, int xmin, int ymin,
@@ -629,8 +609,6 @@ int RevizRuleCol(BOUND *bnds, FRAME ***str, int *ksym, int k_str, int DelMax);
 int ImFrmRule(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str, int in);
 #define COEFF 300
 int est_angle_word(int k_cl, KNOT3 **beg_cl, float *tg_ang);
-//int DeSkewCol(BOUND *bnd_str,FRAME ***str,int *ksym,int k_str,int del,
-//  int MaxDelh,int k);
 int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del,
 		int MaxDelh, int k, FRAME **frm, int k_frm);
 /*Кластер-анализ с использованием АС*/
@@ -658,7 +636,6 @@ int statisF(float *arr, int n, float *ave, float *sig, float *med, float *mod);
 int sort_str(int k_str, KNOT3 **beg_str, FRAME **frms);
 int sort1_str(int k_str, FRAME ***str, int *ksym, FRAME **frms);
 int comp_vert(FRAME **a, FRAME **b);
-//int gen_str(KNOT3 **beg_str,int k_str,FRAME ***str,int *ksym);
 int gen_str(KNOT3 **beg_str, int k_str, FRAME ***str, int *ksym, FRAME **frm,
 		int *IndSmall, int k_frm, int k_small);
 int union_str(int *k_str1, FRAME **frms, KNOT3 **beg_str, int *ksym,
@@ -694,8 +671,6 @@ int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm,
 		int *k_frm);
 int FindCutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, int SizeY);
 int breath(int **pprs, int j, int *jj);
-//int CutVertComp(uint16_t **pprs,int *num,int up,int down,
-//    int *LineCut,int reg,int dir,int *nn_alt,int *nCurrA,int *found_max);
 int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg,
 		int dir, int *num_alt, int *nCurrA, int *found_max);
 //==Колонизация==
@@ -830,22 +805,15 @@ int WidthPRS,MaxShtrih;
 /*dv - вертикал. размер=минимуму из невязок низов,верхов и середин
  dg - горизонт. размер - расстояние между рамками по горизонтали,
  если они не перекрываются, либо размер перекрытия*/
-/*#define dist_frm(f1,f2,dist) { int dv,d_up,d_down;\
-  d_up=  abs(f1->up - f2->up); \
-  d_down=abs(f1->down - f2->down);  \
-  dv=abs( ( (f1->up+f1->down) - (f2->up+f2->down) )>>1 );\
-  if(d_up < dv) dv=d_up; if(d_down < dv) dv=d_down;         \
-  dist=abs(max(f1->left,f2->left) - min(f1->right,f2->right));\
-  dist+=par.kv*dv; \
-} */
+
 #define dist_frm(f1,f2,dist) { int dv,d_up;\
   d_up=  abs(f1->up - f2->up); \
   dv=abs(f1->down - f2->down); if(d_up < dv) dv=d_up; \
-  dist=abs(max(f1->left,f2->left) - min(f1->right,f2->right));\
+  dist=abs(MAX(f1->left,f2->left) - MIN(f1->right,f2->right));\
   dist+=par.kv*dv; \
 }
 
-#define DIST_V(u1,d1,u2,d2) (min(d1,d2)-max(u1,u2))
+#define DIST_V(u1,d1,u2,d2) (MIN(d1,d2)-MAX(u1,u2))
 
 #define DV_FRM(a,b) DIST_V(a->up,a->down,b->up,b->down)
 
@@ -1040,17 +1008,9 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
 
 #define STRUCT_INI "struct.ini"
 
-#ifdef __cplusplus
-// extern "C" {
-#endif
-
 void u4sort(void *base, int num, int width, int(*compare)());
 int clust_as(FRAME **frm, int k_frm, KNOT3 **beg_pr, TYPE dp, int size_x,
 		int size_y, BOUND *bnd, int max_cl, int *k_cl1, KNOT3 **beg_free1,
 		KNOT3 **beg_cl, TYPE(*dist_frame)(FRAME*, FRAME*), int reg);
-
-#ifdef __cplusplus
-// }
-#endif
 
 #include "undef32.h"

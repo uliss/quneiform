@@ -114,7 +114,7 @@ LEO_FUNC void LEOCloseCont(void);
 LEO_FUNC int32_t LEOOpenCont(void);
 LEO_FUNC void LEODone(void);
 LEO_FUNC void LEODonePass2(void);
-LEO_FUNC Bool32 LEOFonRerecogCTB(char *CTBname);
+LEO_FUNC Bool32 LEOFonRerecogCTB(const char *CTBname);
 LEO_FUNC Bool32 LEO_GetStoringMode(void);
 LEO_FUNC void LEO_SetStoringMode(Bool32 Mode);
 

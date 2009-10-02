@@ -512,7 +512,7 @@ static int16_t dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		  int16_t npoints_1_or_2)  {		// 17.01.1994
 int16_t	dis=0;
 int16_t	wid=s->stick_width, inc=s->inc;
-int16_t maxlen = MAX (MAX(l->mount[0],l->mount[4]), max(r->mount[0],l->mount[4]));
+int16_t maxlen = MAX (MAX(l->mount[0],l->mount[4]), MAX(r->mount[0],l->mount[4]));
 
 /*......................................................................*/
 				// 05.08.1993 about DOT:
@@ -605,7 +605,7 @@ int16_t	wid=s->stick_width, inc=s->inc;
 int16_t	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
 //////int16_t	d_L, d_R;	// 04.06.1993
 
-lmu = MAX(l->mount[0],l->mount[1]);  rmu = max(r->mount[0],r->mount[1]);
+lmu = MAX(l->mount[0],l->mount[1]);  rmu = MAX(r->mount[0],r->mount[1]);
 lmd = l->mount[4];  rmd = r->mount[4];
 
 /*......................................................................*/

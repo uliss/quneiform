@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "decl.h"
 
 typedef Point16 XPoint16;
-#define maxi max
-#define mini min
+#define maxi MAX
+#define mini MIN
 #define PPSArray TArray
 
 #define CONSOLE /* This can also be printf. */

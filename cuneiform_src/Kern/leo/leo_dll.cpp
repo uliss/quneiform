@@ -58,8 +58,8 @@
 #include <cstring>
 #include <cstdio>
 #include <cctype>
-
-#include "unistd.h"
+#include <unistd.h>
+#include <algorithm> // for std::min/max
 
 #include "leo_tune.h"
 #include "cpu.h"
@@ -68,19 +68,15 @@
 #include "leo.h"
 #include "alphaset.h"
 #include "leo_func.h"
-
 #include "r35.h"
 #include "evn.h"
 #include "dif.h"
 #include "ctb/ctb.h"
 #include "fon.h"
 #include "msk.h"
-
 #include "std.h"
 #include "snptools.h"
 #include "snpdefs.h"
-
-#include "minmax.h"
 
 uchar field_number = 0;
 Bool32 leo_enable_fon_recog = FALSE;
@@ -118,7 +114,7 @@ Bool32 no_init_ndx = TRUE, no_init_hnd = TRUE, no_init_prn = TRUE;
 uchar nIsPrint = 0;
 static char alphabet_dig[256], alphabet_all[256];
 
-// data from module leo.c
+// data from module leo.cpp
 int set_cpu = 0;
 extern uchar leo_alpha_type, prn_roma_regim;
 extern unsigned char alphabet[256];
@@ -141,7 +137,6 @@ void Leo_SnpWaitUserInput(SnpTreeNode *stnCharRecog) {
 	SnpWaitUserInput(stnCharRecog);
 	if ((stnCharRecog->Status & (STN_STOP | STN_DRAW)))
 		stnCharRecog->Status = sstatus;
-	return;
 }
 
 Bool32 leoSnpInRect(Rect16* pRect, int32_t /*nSkew*/) {
@@ -156,47 +151,44 @@ Bool32 leoSnpInRect(Rect16* pRect, int32_t /*nSkew*/) {
 void leo_SnpLog(const char *tmp) {
 	if (!SnpSkip(&stnCharRecog))
 		SnpLog(tmp);
-	return;
 }
 
 void leo_snapChar(RecVersions *ver, const char *tit, int enable) {
-	char buf[256], *t, title[256];
-	int i;
-
 	if (!SnpSkip(&stnCharRecog) || enable || leo_Snp_In_Rect) {
-		t = buf;
+		char buf[256], title[256];
 		if (ver->lnAltCnt) {
-
+			char *t = buf;
+			int i;
 			for (i = 0; i < ver->lnAltCnt - 1; i++) {
-				t += sprintf(t, "%c(%d,%s),", stdAsciiToAnsi(ver->Alt[i].Code),
-						ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method,
-								title));
+				t += snprintf(t, sizeof(buf), "%c(%d,%s),", stdAsciiToAnsi(
+						ver->Alt[i].Code), ver->Alt[i].Prob, LEOGetMetName(
+						ver->Alt[i].Method, title));
 			}
-			t += sprintf(t, "%c(%d,%s)", stdAsciiToAnsi(ver->Alt[i].Code),
-					ver->Alt[i].Prob, LEOGetMetName(ver->Alt[i].Method, title));
+			t += snprintf(t, sizeof(buf), "%c(%d,%s)", stdAsciiToAnsi(
+					ver->Alt[i].Code), ver->Alt[i].Prob, LEOGetMetName(
+					ver->Alt[i].Method, title));
 		} else
-			strcpy(buf, "-");
+			strncpy(buf, "-", sizeof(buf));
 		SnpLog("%s %s", tit, buf);
 	}
 	return;
 }
 
 void leo_snapChar3x5(RecVersions *ver, char *tit, int enable) {
-	char buf[256], *t;
-	int i;
 	if (!SnpSkip(&stnCharRecog) || enable || leo_Snp_In_Rect) {
-		t = buf;
+		char buf[256];
 		if (ver->lnAltCnt) {
+			char * t = buf;
+			int i;
 			for (i = 0; i < ver->lnAltCnt - 1; i++)
-				t += sprintf(t, "%c(%d,3x5,%d),", stdAsciiToAnsi(
+				t += snprintf(t, sizeof(buf), "%c(%d,3x5,%d),", stdAsciiToAnsi(
 						ver->Alt[i].Code), ver->Alt[i].Prob, ver->Alt[i].Info);
-			t += sprintf(t, "%c(%d,3x5,%d)", stdAsciiToAnsi(ver->Alt[i].Code),
-					ver->Alt[i].Prob, ver->Alt[i].Info);
+			t += snprintf(t, sizeof(buf), "%c(%d,3x5,%d)", stdAsciiToAnsi(
+					ver->Alt[i].Code), ver->Alt[i].Prob, ver->Alt[i].Info);
 		} else
-			strcpy(buf, "-");
+			strncpy(buf, "-", sizeof(buf));
 		SnpLog("%s %s", tit, buf);
 	}
-	return;
 }
 
 void leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
@@ -204,7 +196,6 @@ void leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
 	SnpLog("");
 	Leo_SnpWaitUserInput(stnRecog); // pass control to user
 	SnpHideRects((uint32_t) stnRecog);
-	return;
 }
 
 void leo_snapRes2Str(RecVersions *ver, char *buf) {
@@ -220,13 +211,11 @@ void leo_snapRes2Str(RecVersions *ver, char *buf) {
 	} else {
 		t += sprintf(t, "Nonrecog");
 	}
-	return;
 }
 
 void leo_store_for_pass2(RecObject* object, uchar let) {
 	object->recData.recRaster.Raster[REC_MAX_RASTER_SIZE - 1] = stdAnsiToAscii(
 			let);
-	return;
 }
 
 void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
@@ -236,7 +225,6 @@ void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
 			(uint32_t) stnRecog);
 
 	SnpDrawRaster(&object->recData.recRaster);
-	return;
 }
 
 void leoSetAlphabet(char alphabet[], int /*leo_alpha_type*/) {
@@ -245,14 +233,12 @@ void leoSetAlphabet(char alphabet[], int /*leo_alpha_type*/) {
 	MSKSetAlphabet(alphabet);
 	EVNSetAlphabet(alphabet);
 	FONSetAlphabet(alphabet);
-	return;
 }
 
 void LEOSetPlatform(int32_t cpu) {
 	R35SetPlatform(cpu);
 	MSKSetPlatform(cpu);
 	set_cpu = cpu ? cpu : 1;
-	return;
 }
 
 int32_t LEOGetCPU(void) {
@@ -325,13 +311,7 @@ Bool32 leo_init_ndx(void) {
 	return TRUE;
 }
 
-static Bool32 leo_init_all(void) {
-	//LEOInitPass2( ); // DEBUG mode
-	return TRUE;
-}
-
 Bool32 LEOInit(MemFunc* mem) {
-	int32_t i;
 	leo_is_load = TRUE;
 	leo_enable_fon_recog = FALSE;
 	LEO_error_code = ER_LEO_NO_ERROR;
@@ -339,7 +319,7 @@ Bool32 LEOInit(MemFunc* mem) {
 	memset(alphabet_dig, 0, 256);
 	memset(&alphabet_dig[48], 1, 10);
 	memset(alphabet_all, 1, 256);
-	for (i = 0; i < 256; i++) {
+	for (int i = 0; i < 256; i++) {
 		leo_alpha_reg[i] = 0;
 	}
 
@@ -347,14 +327,7 @@ Bool32 LEOInit(MemFunc* mem) {
 		LEOSetPlatform(LEOGetCPU());
 
 	leo_clear_stat();
-
 	leo_mem = mem;
-
-	if (!leo_init_all())
-		return FALSE;
-
-	if (access("C:\\method.txt", 0) != -1) // DEBUG
-		fp_glob = fopen("D:\\method.txt", "wb");
 	return TRUE;
 }
 
@@ -371,19 +344,16 @@ Bool32 LEOInitPass2(void) {
 
 void LEODonePass2(void) {
 	FONDone();
-	return;
 }
 
 void LEOFreeAlphabets(void) {
-	int32_t i;
-	for (i = 0; i < 256; i++) {
+	for (int i = 0; i < 256; i++) {
 		if (leo_alpha_reg[i]) {
 			free(leo_alpha_reg[i]);
 			leo_alpha_reg[i] = 0;
 		}
 	}
 	leo_alpha_count = 1;
-	return;
 }
 
 void LEODone(void) {
@@ -394,7 +364,6 @@ void LEODone(void) {
 		MSKDone();
 		EVNDone();
 		CTB_done();
-		//LEODonePass2(); // DEBUG mode
 
 		leo_close_cont();
 		LEO_ClearStat();
@@ -403,39 +372,34 @@ void LEODone(void) {
 		no_init_hnd = TRUE;
 		no_init_ndx = TRUE;
 
-		////////////////
 		leo_init_evn_hnd = leo_init_net_hnd = leo_init_r35_hnd
 				= leo_init_msk_hnd = leo_init_glu_hnd = FALSE;
-		leo_init_evn_prn = //leo_init_net_prn=
-				leo_init_r35_prn = leo_init_msk_prn = leo_init_msk_prn_mtr
-						= FALSE;
+		leo_init_evn_prn = leo_init_r35_prn = leo_init_msk_prn
+				= leo_init_msk_prn_mtr = FALSE;
 		leo_init_net_ndx = leo_init_r35_ndx = FALSE;
-		///////////////////
-
-
 	}
+
 	LEOFreeAlphabets();
 	if (fp_glob)
 		fclose(fp_glob);
-	return;
 }
 
-void LEOCloseCont(void) {
+void LEOCloseCont() {
 	leo_close_cont_temp();
-	return;
 }
 
-int32_t LEOOpenCont(void) {
+int32_t LEOOpenCont() {
 	return leo_open_cont_temp();
 }
 
 Bool32 LEOPushAlphabetType(uchar alpha_valid, uchar isPrint) {
-	char my_alpha_cap[] = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ";
-	char my_digit[] = "0123456789";
-	char my_roma[] = "VIX"; //MCD";
-	char my_alpha_cap_and_digit[] =
+	static const char my_alpha_cap[] = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ";
+	static const char my_digit[] = "0123456789";
+	static const char my_roma[] = "VIX"; //MCD";
+	static const char my_alpha_cap_and_digit[] =
 			"ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ/0123456789";
-	char *palph, al[256] = { 0 };
+	const char * palph;
+	char al[256] = { 0 };
 
 	if (save_isPrint == isPrint && save_alpha_valid == alpha_valid)
 		return TRUE;
@@ -564,11 +528,9 @@ void LEOSetFont(int32_t typ_of_font) {
 	DIFSetFont(typ_of_font);
 	if (leo_typ_of_font & LEO_FONT_MTR)
 		R35SetMTR(1);
-	return;
 }
 
 Bool32 LEOSetupPage(LeoPageSetup* ps) {
-	//static int loc_num=0;
 	// can be used filed ps->AlphaStylesTable for select recog.tables
 	leo_clear_stat();
 	LEO_ClearStat();
@@ -594,21 +556,12 @@ int16_t LEOGetErr(void) {
 
 void LEOSortVersProb(RecVersions *v) {
 	leo_sort_vers_prob(v);
-	return;
 }
 
 void LEORegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
 		__SnpToolBox *p_snp_tools // tools complect, may be NULL
 ) {
 	SnpSetTools(p_snp_tools); // may be NULL, it's OK
-#ifdef DPUMA_SNAP
-	{
-		SnpTreeNode p;
-		SnpAddNode(&p,"Ðàñïîçíàâàíèå ñòðîê...",NULL);
-		parent = (SnpTreeNode*)&p;
-	}
-	// èëè Parent = NULL, åñëè ðîäèòåëü -  êîðåíü
-#endif
 	SnpAddNode(&stnCharRecog, "Show Leo LTR Recognize results", parent);
 	SnpAddNode(&stnSnapCharRecog, "Show Leo LTR Extended Recognize results",
 			&stnCharRecog);
@@ -616,7 +569,6 @@ void LEORegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
 	SnpAddNode(&stnSnapCharProt, "Show Leo LTR Save Char to CTBase",
 			&stnCharRecog);
 }
-;
 
 char * LEOGetMetName(int32_t method, char *met_name) {
 	switch (method) {
@@ -893,30 +845,27 @@ static Bool32 leo_near_letters(RecVersions *fon, uchar leo_code) {
 }
 
 static void data2RecVersions(uchar *data, RecVersions *ver) {
-	int32_t k;
 	ver->lnAltCnt = data[16];
 	ver->Alt[0].Code = data[3];
 	ver->Alt[0].Prob = data[14];
 	ver->Alt[0].Method = data[28];
-	for (k = 1; k < ver->lnAltCnt; k++) {
+	for (int k = 1; k < ver->lnAltCnt; k++) {
 		ver->Alt[k].Code = data[17 + k * 2];
 		ver->Alt[k].Prob = data[18 + k * 2];
 		ver->Alt[k].Method = data[28 + k];
 	}
-	return;
 }
+
 static void RecVersions2data(RecVersions *ver, uchar *data) {
-	int32_t k;
 	data[16] = (uchar) ver->lnAltCnt;
 	data[3] = ver->Alt[0].Code;
 	data[14] = ver->Alt[0].Prob;
 	data[28] = ver->Alt[0].Method;
-	for (k = 1; k < ver->lnAltCnt; k++) {
+	for (int k = 1; k < ver->lnAltCnt; k++) {
 		data[17 + k * 2] = ver->Alt[k].Code;
 		data[18 + k * 2] = ver->Alt[k].Prob;
 		data[28 + k] = ver->Alt[k].Method;
 	}
-	return;
 }
 
 // âûáîð è ðñïîçíàâàíèå
@@ -935,7 +884,7 @@ static int GetNewProb(int oldRec, int newRec, int nice) {
 
 	if (newRec > VERY_GOOD_FON) {
 		addRec = 30;
-		newRec = MAX(newRec, nice);
+		newRec = std::max(newRec, nice);
 	} else if (newRec > 240)
 		addRec = 20;
 	else if (newRec > 230)
@@ -943,7 +892,7 @@ static int GetNewProb(int oldRec, int newRec, int nice) {
 	else
 		addRec = 5;
 
-	return MIN(254, MAX(newRec, oldRec + addRec));
+	return std::min(254, std::max(newRec, oldRec + addRec));
 }
 
 // íàäî âçÿòü èíóþ ïåðâóþ àëüòåðíàòèâó ?
@@ -987,7 +936,7 @@ Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew) {
 	return ret;
 }
 
-Bool32 LEOFonRerecogCTB(char *CTBname) {
+Bool32 LEOFonRerecogCTB(const char *CTBname) {
 	CTB_handle hnd;
 	int i, n, k;
 	RecRaster r;

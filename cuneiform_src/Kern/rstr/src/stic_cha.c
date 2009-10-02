@@ -334,7 +334,7 @@ static void set_serifs(uchar left[],uchar right[],
 {
 int16_t l1,l2,r1,r2,dy_u=dy/6,dy_d=dy-1-dy/6,d=(dx-1)<<2;
 
-r1 = MIN(r+4,d); r2 = min(r+8,d); /* r1-one,r2-two step in right direct */
+r1 = MIN(r+4,d); r2 = MIN(r+8,d); /* r1-one,r2-two step in right direct */
 if( r1==r2 )
 	r2 += 4; /* right mode = dx-1 */
 /* upper right serif */
@@ -358,7 +358,7 @@ else if( right[dy-1-skip_dr]>=r1 )
 	right_chars->down_serif=1;
 }
 
-l2 = MAX(l-8,0); l1 = max(l-4,0);  /* l1-one,l2-two step in left direct */
+l2 = MAX(l-8,0); l1 = MAX(l-4,0);  /* l1-one,l2-two step in left direct */
 
 /* upper left serif */
 if( left_chars->mount[0] && left_chars->m_pos[0]<dy_u )

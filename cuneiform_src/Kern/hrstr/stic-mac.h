@@ -138,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	    L->num_concs<3                              &&		\
 	    (L->mount[2]>0||L->conc[0]>0&&L->conc[4]>0) &&		\
 	    R->mount[0]>0  && R->mount[4]>0  && R->m_meandr<4 )		\
-		dis += (tab) * min ((R->mount[0] + R->mount[4]), 4);	\
+		dis += (tab) * MIN ((R->mount[0] + R->mount[4]), 4);	\
 	}
 
 
@@ -241,8 +241,8 @@ int16_t	lc=L->conc[i],	rc=R->conc[i];		\
 	{                                             \
 	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
-	m =  min(L->mount[i],R->mount[i]) ;           \
-	if( t>max(((wid)>>1),dist) || m==0 )          \
+	m =  MIN(L->mount[i],R->mount[i]) ;           \
+	if( t>MAX(((wid)>>1),dist) || m==0 )          \
 		dis += (tab)*t;                       \
 	}
 

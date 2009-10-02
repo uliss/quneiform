@@ -530,7 +530,7 @@ int16_t  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
         /*внизу три коротких одинаковых*/
         if(ans->h<=chetvert_h && (ans+1)->h<=chetvert_h && (ans+2)->h<=chetvert_h)
          {
-           max_h=MAX(max(ans->h,(ans+1)->h),max((ans+1)->h,(ans+2)->h));
+           max_h=MAX(MAX(ans->h,(ans+1)->h),MAX((ans+1)->h,(ans+2)->h));
            if(ans->h==max_h)      return 6;
            if((ans+1)->h==max_h)  return 8;
            else                   return 7;

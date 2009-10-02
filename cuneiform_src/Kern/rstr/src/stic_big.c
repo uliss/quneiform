@@ -920,7 +920,7 @@ int16_t dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *signums,
 {
 int16_t dis=0,l_beam = add_flag ? 3 : 5;
 int16_t inc = signums->inc;
-int16_t rc=MAX(r->conc[3],r->conc[4]),lc=max(l->conc[3],l->conc[4]);
+int16_t rc=MAX(r->conc[3],r->conc[4]),lc=MAX(l->conc[3],l->conc[4]);
 int16_t	s=signums->stick_width;
 int16_t L_max=s>>1;	/* 1/2 stick width */
 int16_t rmd,rmu,lmd,lmu;
@@ -983,7 +983,7 @@ if( r->mount[4]>1 && l->mount[4]==0 || l->mount[4]>1 && r->mount[4]==0)
 if( typ=='!' && r->mount[0]>5 && l->mount[0]<2 || l->mount[0]>5 && r->mount[0]<2 )
 	dis += tab_vert[3];   /* down flags */
 
-lmu = MAX(l->mount[0],l->mount[1]);  rmu = max(r->mount[0],r->mount[1]);
+lmu = MAX(l->mount[0],l->mount[1]);  rmu = MAX(r->mount[0],r->mount[1]);
 lmd = l->mount[4];  rmd = r->mount[4];
 
 if( lmu+rmu+lmd+rmd != 0 )

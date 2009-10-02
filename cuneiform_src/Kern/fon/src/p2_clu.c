@@ -120,7 +120,7 @@ typedef int32_t (* MKFAM)(raster_header * rh, uint16_t nclu);
 //   (now 128*64+... > 8192)
 //
 // working buffer
-static char mybuffer[MAX(2*MAXSYM * sizeof(int16_t), max(2*sizeof (welet ),sizeof(access_tab)))];
+static char mybuffer[MAX(2*MAXSYM * sizeof(int16_t), MAX(2*sizeof (welet ),sizeof(access_tab)))];
 welet *welBuf = (welet *) mybuffer;
 welet *dist_wel = (welet *) (mybuffer + MAX(MAXSYM * sizeof(int16_t),
 		sizeof(welet))); // use as

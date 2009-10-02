@@ -902,8 +902,8 @@ int16_t   i,ver_byte,interval,l1,r1,minl,maxl,minr,maxr,tret;
    if(l1<0 || r1<0) return -1;
    if(i>0)
     {
-     minl=MIN(minl,l1); minr=min(minr,r1);
-     maxl=MAX(maxl,l1); maxr=max(maxr,r1);
+     minl=MIN(minl,l1); minr=MIN(minr,r1);
+     maxl=MAX(maxl,l1); maxr=MAX(maxr,r1);
     }
    else
     {

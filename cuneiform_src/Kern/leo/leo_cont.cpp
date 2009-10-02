@@ -62,7 +62,7 @@
 #include "std.h"
 #include "leo.h"
 #include "leo_func.h"
-#define COLLECT_CTB1
+
 static char cont_name[256];
 static CTB_handle this_ctb = { 0 };
 
@@ -76,27 +76,18 @@ void leo_close_cont(void) {
 		memset(&this_ctb, 0, sizeof(this_ctb));
 		cont_name[0] = 0;
 	}
-
-	return;
 }
 
 void leo_close_cont_temp(void) {
 	if (this_ctb.bas) {
 		CTB_close(&this_ctb);
-#ifdef COLLECT_CTB
-		CTB_copy(".\\tmp\\tc999999",".\\tmp\\ct999999");
-#endif
 		memset(&this_ctb, 0, sizeof(this_ctb));
 	}
-
-	return;
 }
 
 int leo_open_cont_temp(void) {
-	if (!this_ctb.bas && cont_name[0]) {
+	if (!this_ctb.bas && cont_name[0])
 		return CTB_open(cont_name, &this_ctb, "w");
-	}
-
 	return 0;
 }
 
@@ -109,7 +100,7 @@ Bool32 leo_cont_new_page(int32_t id_page) {
 	}
 
 	if (id_page) {
-		sprintf(cont_name, ".\\tmp\\ct%06d", id_page);
+		snprintf(cont_name, sizeof(cont_name), ".\\tmp\\ct%06d", id_page);
 		op = CTB_create(cont_name, NULL);
 		if (op)
 			op = CTB_open(cont_name, &this_ctb, "w");
@@ -128,7 +119,7 @@ Bool32 leo_cont_new_page(int32_t id_page) {
 // save to current page = CTB_file_name
 int16_t leo_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
 		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control) {
-	int32_t num;
+	int num;
 	uchar raster[4096], data[CTB_DATA_SIZE] = { 0 };
 	int32_t wb, k;
 	Bool32 ret;
