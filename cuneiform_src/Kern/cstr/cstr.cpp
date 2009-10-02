@@ -60,7 +60,6 @@
 
 #include "cstr.h"
 #include "ccom.h"
-//#include "exc.h"
 #include "resource.h"
 
 static CSTR_head head, tail;
@@ -71,32 +70,11 @@ uint16_t wLowRC = CSTR_ERR_NO;
 static CSTR_line *FragmFirst0 = NULL, *FragmLast0 = NULL;
 static CSTR_line *FragmFirst1 = NULL, *FragmLast1 = NULL;
 static int32_t FragmMin[2], FragmMax[2];
-//int     mem=0;
-// memory funct
-static void * cstr_alloc(uint32_t len) {
-	void *ma = malloc(len);
-	if (!ma)
-		return NULL;
-	memset(ma, 0, len);
-	//mem+=len;
-	return ma;
-}
-static void cstr_free(void *ptr, uint32_t len) {
-	free(ptr);
-}
-;
-static void * cstr_realloc(void *ptr, uint32_t len) {
-	return realloc(ptr, len);
-}
-;
-static void * (*my_alloc)(uint32_t len)=cstr_alloc;
-static void (*my_free)(void *, uint32_t len)=cstr_free;
-static void * (*my_realloc)(void *, uint32_t len)=cstr_realloc;
 static Bool32 RecRaster2rst(RecRaster *recr, CSTR_cell *cell);
 /////////////////////
 // common functions
 /////////////////////
-Bool32 CSTR_Init(uint16_t wHeightCode, Handle hStorage) {
+Bool32 CSTR_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	wHeightRC = wHeightCode;
 	wLowRC = CSTR_ERR_NO;
 	num_lines = 0;
@@ -106,22 +84,22 @@ Bool32 CSTR_Init(uint16_t wHeightCode, Handle hStorage) {
 	head.next = &tail;
 	tail.prev = &head;
 	user_number = 0xFFFFFF + 1;
-	FragmFirst0 = static_cast<CSTR_line*> (my_alloc(8000 * sizeof(CSTR_line)));
+	FragmFirst0 = static_cast<CSTR_line*> (calloc(1, 8000 * sizeof(CSTR_line)));
 	if (!FragmFirst0) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
 	}
-	FragmLast0 = static_cast<CSTR_line*> (my_alloc(8000 * sizeof(CSTR_line)));
+	FragmLast0 = static_cast<CSTR_line*> (calloc(1, 8000 * sizeof(CSTR_line)));
 	if (!FragmLast0) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
 	}
-	FragmFirst1 = static_cast<CSTR_line*> (my_alloc(8000 * sizeof(CSTR_line)));
+	FragmFirst1 = static_cast<CSTR_line*> (calloc(1, 8000 * sizeof(CSTR_line)));
 	if (!FragmFirst1) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
 	}
-	FragmLast1 = static_cast<CSTR_line*> (my_alloc(8000 * sizeof(CSTR_line)));
+	FragmLast1 = static_cast<CSTR_line*> (calloc(1, 8000 * sizeof(CSTR_line)));
 	if (!FragmLast1) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
@@ -144,13 +122,12 @@ void CSTR_Done(void) {
 	wHeightRC = 0;
 	num_lines = 0;
 	user_number = 0xFFFFFF + 1;
-	my_free(FragmFirst0, 0);
-	my_free(FragmLast0, 0);
-	my_free(FragmFirst1, 0);
-	my_free(FragmLast1, 0);
+	free(FragmFirst0);
+	free(FragmLast0);
+	free(FragmFirst1);
+	free(FragmLast1);
 	FragmMin[0] = FragmMin[1] = 16000;
 	FragmMax[0] = FragmMax[1] = -1;
-	return;
 }
 
 uint32_t CSTR_GetReturnCode(void) {
@@ -167,7 +144,7 @@ char* CSTR_GetReturnString(uint32_t dwError) {
 		wLowRC = CSTR_ERR_NOTIMPLEMENT;
 
 	if (rc > 0 && rc <= CSTR_ERR_MAX - CSTR_ERR_MIN)
-		strcpy((char *) szBuffer, CSTR_error_name[rc]);
+		strncpy((char *) szBuffer, CSTR_error_name[rc], sizeof(szBuffer));
 	else
 		return NULL;
 
@@ -197,7 +174,7 @@ CSTR_line CSTR_NewLine(int32_t lineno, int32_t version, int32_t container) {
 	if (lineins == (CSTR_line) 0)
 		lineins = tail.prev;
 
-	line = static_cast<CSTR_head*> (my_alloc(sizeof(CSTR_head)));
+	line = static_cast<CSTR_head*> (calloc(1, sizeof(CSTR_head)));
 
 	if (!line) {
 		wLowRC = CSTR_ERR_NOMEMORY;
@@ -398,7 +375,7 @@ Bool32 CSTR_DeleteLine(CSTR_line lin) {
 	next = line->next;
 	prev->next = next;
 	next->prev = prev;
-	my_free(line, 0);
+	free(line);
 	return FALSE;
 }
 
@@ -455,7 +432,7 @@ static Bool32 cstr_CCOM2raster(CCOM_comp *comp, CSTR_cell *cell) {
 
 static Bool32 cstr_delete_raster(CSTR_cell *cell) {
 	if (cell->recRaster) {
-		my_free(cell->recRaster, 0);
+		free(cell->recRaster);
 		cell->recRaster = NULL;
 	}
 	return TRUE;
@@ -584,7 +561,7 @@ CSTR_rast CSTR_NewRaster(CSTR_line linel, int32_t col, int32_t row, int32_t w) {
 		start = start->prev;
 	}
 	stop = start->next;
-	cell = static_cast<CSTR_cell*> (my_alloc(sizeof(CSTR_cell)));
+	cell = static_cast<CSTR_cell*> (calloc(1, sizeof(CSTR_cell)));
 	if (!cell) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -600,7 +577,7 @@ CSTR_rast CSTR_NewRaster(CSTR_line linel, int32_t col, int32_t row, int32_t w) {
 	start->next = cell;
 	stop ->prev = cell;
 	cell->line_no = linel;
-	cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+	cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 	if (!cell->vers) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -626,8 +603,7 @@ CSTR_rast CSTR_DelRaster(CSTR_rast curr_raster) {
 	if (cell->attr.col == -16000 && (cell->attr.flg & CSTR_f_fict)) { //  fictive elm
 		return (CSTR_rast) cell->next;
 	}
-	//if( cell->next_down && cell->prev_down )
-	//        cstr_delete_branch(cell->next_down);
+
 	env = cell->env;
 	prev = cell->prev;
 	next = cell->next;
@@ -666,12 +642,12 @@ CSTR_rast CSTR_DelRaster(CSTR_rast curr_raster) {
 			prev->prev_down = cell->prev_down; // nick
 	}
 	if (cell->vers)
-		my_free(cell->vers, 0);
+		free(cell->vers);
 	if (cell->recRaster)
-		my_free(cell->recRaster, 0);
+		free(cell->recRaster);
 	if (env)
 		CCOM_Delete(((CSTR_head *) cell->line_no)->container, env);
-	my_free(cell, 0);
+	free(cell);
 
 	return (CSTR_rast) next;
 }
@@ -738,8 +714,8 @@ Bool32 CSTR_SetUserAttr(CSTR_rast raster, CCOM_USER_BLOCK *ubl) {
 		while (ub) {
 			if (ub->code == UserCode) {
 				if (ub->data && ub->size)
-					my_free(ub->data, ub->size);
-				ub->data = (uchar*) my_alloc(UserSize);
+					free(ub->data);
+				ub->data = static_cast<uchar*> (calloc(1, UserSize));
 				if (!ub->data)
 					return FALSE;
 				ub->size = UserSize;
@@ -749,12 +725,12 @@ Bool32 CSTR_SetUserAttr(CSTR_rast raster, CCOM_USER_BLOCK *ubl) {
 			ub = ub->next_block;
 		}
 	// ub==NULL
-	ub = (CCOM_USER_BLOCK*) my_alloc(sizeof(CCOM_USER_BLOCK));
+	ub = static_cast<CCOM_USER_BLOCK*> (calloc(1, sizeof(CCOM_USER_BLOCK)));
 	if (!ub) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
 	}
-	ub->data = (uchar*) my_alloc(UserSize);
+	ub->data = static_cast<uchar*> (calloc(1, UserSize));
 	if (!ub->data) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return FALSE;
@@ -781,7 +757,6 @@ Bool32 CSTR_GetUserAttr(CSTR_rast raster, CCOM_USER_BLOCK *ubl) {
 		if (ub)
 			while (ub) {
 				if (ub->code == ubl->code) {
-					ubl->data;
 					ubl->size = ub->size;
 					return TRUE;
 				}
@@ -801,10 +776,10 @@ Bool32 RecRaster2rst(RecRaster *recr, CSTR_cell *cell) {
 	n = (w + 7) / 8;
 	n8 = REC_GW_WORD8(w);
 	if (cell->recRaster) {
-		my_free(cell->recRaster, 0);
+		::free(cell->recRaster);
 		cell->recRaster = 0;
 	}
-	cell->recRaster = static_cast<uchar*> (my_alloc(h * n));
+	cell->recRaster = static_cast<uchar*> (calloc(1, h * n));
 	if (!cell->recRaster)
 		return FALSE;
 	out = &cell->recRaster[0];
@@ -1121,7 +1096,7 @@ Bool32 CSTR_StoreCollection(CSTR_rast curr_raster, RecVersions *collect) {
 		uvs.Alt[i].Info = collect->Alt[i].Info;
 	}
 	if (!cell->vers) {
-		cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+		cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 		if (!cell->vers) {
 			wLowRC = CSTR_ERR_NOMEMORY;
 			return FALSE;
@@ -1142,7 +1117,7 @@ Bool32 CSTR_StoreCollectionUni(CSTR_rast curr_raster, UniVersions *collect) {
 		return FALSE;
 	}
 	if (!cell->vers) {
-		cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+		cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 		if (!cell->vers) {
 			wLowRC = CSTR_ERR_NOMEMORY;
 			return FALSE;
@@ -1337,7 +1312,7 @@ CSTR_rast CSTR_InsertRaster(CSTR_rast curr_raster) {
 		return (CSTR_rast) NULL;
 	}
 
-	cell = static_cast<CSTR_cell*> (my_alloc(sizeof(CSTR_cell)));
+	cell = static_cast<CSTR_cell*> (calloc(1, sizeof(CSTR_cell)));
 	if (!cell) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -1355,7 +1330,7 @@ CSTR_rast CSTR_InsertRaster(CSTR_rast curr_raster) {
 		start->next_up = 0;
 	}
 	cell->line_no = start->line_no;
-	cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+	cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 	if (!cell->vers) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -1373,7 +1348,7 @@ CSTR_rast CSTR_InsertRasterDown(CSTR_rast start_raster, CSTR_rast stop_raster) {
 		return (CSTR_rast) NULL;
 	}
 
-	cell = static_cast<CSTR_cell*> (my_alloc(sizeof(CSTR_cell)));
+	cell = static_cast<CSTR_cell*> (calloc(1, sizeof(CSTR_cell)));
 	if (!cell) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -1384,7 +1359,7 @@ CSTR_rast CSTR_InsertRasterDown(CSTR_rast start_raster, CSTR_rast stop_raster) {
 	start->next_down = cell;
 	stop ->prev_down = cell;
 	cell->line_no = start->line_no;
-	cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+	cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 	if (!cell->vers) {
 		wLowRC = CSTR_ERR_NOMEMORY;
 		return (CSTR_rast) NULL;
@@ -1616,7 +1591,7 @@ Bool32 CSTR_KillImage(CSTR_rast rst) {
 	CSTR_cell *c = (CSTR_cell*) rst;
 	CCOM_Delete(((CSTR_head*) (c->line_no))->container, c->env);
 	c->lnPixHeight = c->lnPixWidth = 0;
-	my_free(c->recRaster, 0);
+	free(c->recRaster);
 	c->recRaster = 0;
 	return 0;
 }
@@ -1699,7 +1674,7 @@ Bool32 cstr_unpack_cell(CSTR_cell *cell) {
 			return FALSE;
 	}
 	if (!cell->vers) {
-		cell->vers = static_cast<UniVersions*> (my_alloc(sizeof(UniVersions)));
+		cell->vers = static_cast<UniVersions*> (calloc(1, sizeof(UniVersions)));
 	}
 	return TRUE;
 }
@@ -1711,7 +1686,7 @@ Bool32 cstr_pack_cell(CSTR_cell *cell) {
 	}
 
 	if (cell->vers && cell->vers->lnAltCnt < 1) {
-		my_free(cell->vers, 0);
+		free(cell->vers);
 		cell->vers = 0;
 	}
 	return TRUE;
@@ -2125,15 +2100,15 @@ Bool32 CSTR_SetImportData(uint32_t dwType, void * pData) {
 
 	wLowRC = CSTR_ERR_NO;
 	switch (dwType) {
-	case CSTR_FNIMP_ALLOC:
-		my_alloc = (void* (*)(uint32_t)) pData;
-		break;
-	case CSTR_FNIMP_REALLOC:
-		my_realloc = (void* (*)(void*, uint32_t)) pData;
-		break;
-	case CSTR_FNIMP_FREE:
-		my_free = (void(*)(void*, uint32_t)) pData;
-		break;
+	//	case CSTR_FNIMP_ALLOC:
+	//		my_alloc = (void* (*)(uint32_t)) pData;
+	//		break;
+	//	case CSTR_FNIMP_REALLOC:
+	//		my_realloc = (void* (*)(void*, uint32_t)) pData;
+	//		break;
+	//	case CSTR_FNIMP_FREE:
+	//		my_free = (void(*)(void*, uint32_t)) pData;
+	//		break;
 
 	default:
 		wLowRC = CSTR_ERR_NOTIMPLEMENT;
