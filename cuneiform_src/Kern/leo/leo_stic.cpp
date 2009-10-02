@@ -623,8 +623,6 @@ void FiltrateRaster(RecRaster *rin, RecRaster *rout) {
 			+= wb, pc += wb) {
 		Filtrate3Str((uint32_t*) po, (uint32_t*) pc, wb / 4);
 	}
-
-	return;
 }
 
 Bool32 leo_one_line(uint16_t*lpool) {
