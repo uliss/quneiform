@@ -54,11 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cctype>
+#include <cassert>
 
 #include "leo_tune.h"
 
@@ -87,16 +87,15 @@ static void Ind_SnpWaitUserInput(SnpTreeNode *stnCharRecog) {
 	SnpWaitUserInput(stnCharRecog);
 	if ((stnCharRecog->Status & (STN_STOP | STN_DRAW)))
 		stnCharRecog->Status = sstatus;
-	return;
 }
 
 static int32_t cmp_ndx_prob(const void *a, const void *b) {
-	return (int32_t)(((RecAlt *) b)->Prob) - (int32_t)(((RecAlt *) a)->Prob);
+	return static_cast<int32_t> (((RecAlt *) b)->Prob) - (int32_t)(
+			((RecAlt *) a)->Prob);
 }
+
 static int leo_ndx_sort_vers_prob(RecVersions *v) {
-
 	stdQsort(v->Alt, v->lnAltCnt, sizeof(RecAlt), cmp_ndx_prob);
-
 	return v->lnAltCnt;
 }
 
@@ -111,15 +110,13 @@ static Bool32 leo_ndx_small_object(RecObject *object, int wlim, int hlim) {
 }
 
 static void leo_ndx_AddDigits(int Cnts[], RecVersions *v, int min_prob) {
-	int i;
 	uchar start_let = '0';
 
-	for (i = 0; i < v->lnAltCnt; i++) {
+	for (int i = 0; i < v->lnAltCnt; i++) {
 		if (isdigit(v->Alt[i].Code))
 			if (v->Alt[i].Prob > min_prob)
 				Cnts[v->Alt[i].Code - start_let]++;
 	}
-	return;
 }
 
 static Bool32 leo_ndx_ReadyDigits(int Cnts[]) {
@@ -179,20 +176,14 @@ static int leo_ndx_DigHstToVers(int Cnts[], RecVersions *v) {
 }
 
 static void leo_ndx_monus_prob(RecVersions *ver) {
-	int i;
-
-	for (i = 0; i < ver->lnAltCnt; i++) {
+	for (int i = 0; i < ver->lnAltCnt; i++) {
 		ver->Alt[i].Prob >>= 1;
 	}
-
-	return;
 }
 
 static uchar leo_ndx_max_prob(RecVersions *v) {
-	int i;
-	uchar prob;
-
-	for (prob = i = 0; i < v->lnAltCnt && i < REC_MAX_VERS; i++) {
+	uchar prob = 0;
+	for (int i = 0; i < v->lnAltCnt && i < REC_MAX_VERS; i++) {
 		if (prob < v->Alt[i].Prob)
 			prob = v->Alt[i].Prob;
 	}
@@ -205,35 +196,31 @@ static void leo_ndx_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
 	SnpLog("");
 	Ind_SnpWaitUserInput(stnRecog); // pass control to user
 	SnpHideRects((uint32_t) stnRecog);
-	return;
 }
 
 static void leo_ndx_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
-
 	SnpDrawRect(&object->recData.rect, 0, //Skew - zero to real coords
 			wRGB(0, 0, 255), -16, // one image pixel width
 			(uint32_t) stnRecog);
 
 	SnpDrawRaster(&object->recData.recRaster);
-	return;
 }
 
 static void leo_snapNdx(RecVersions *loc, const char *tit, int enable) {
-	char buf[256], *t;
-	int i;
-
 	if (!SnpSkip(&stnNdxRecog) || enable || leo_ndx_in_rect) {
-		t = buf;
+		char buf[256];
 		if (loc->lnAltCnt) {
+			char * t = buf;
+			int i;
 			for (i = 0; i < loc->lnAltCnt - 1; i++)
-				t += sprintf(t, "%c(%d),", loc->Alt[i].Code, loc->Alt[i].Prob);
-			t += sprintf(t, "%c(%d)", loc->Alt[i].Code, loc->Alt[i].Prob);
+				t += snprintf(t, sizeof(buf), "%c(%d),", loc->Alt[i].Code,
+						loc->Alt[i].Prob);
+			t += snprintf(t, sizeof(buf), "%c(%d)", loc->Alt[i].Code,
+					loc->Alt[i].Prob);
 		} else
-			strcpy(buf, "-");
+			strncpy(buf, "-", sizeof(buf));
 		SnpLog("%s %s", tit, buf);
 	}
-
-	return;
 }
 
 static Bool leo_ndx_InsideRect(const Rect16* r, const Point16 * p) {
@@ -250,7 +237,7 @@ static Bool32 leo_ndx_SnpInRect(Rect16* pRect/*, int32_t nSkew*/) {
 	return leo_ndx_InsideRect(pRect, &pt);
 }
 
-LEO_FUNC void LEO_IndRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
+void LEO_IndRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
 		__SnpToolBox *p_snp_tools // tools complect, may be NULL
 ) {
 	SnpSetTools(p_snp_tools); // may be NULL, it's OK
@@ -259,7 +246,7 @@ LEO_FUNC void LEO_IndRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, ma
 			&stnNdxRecog);
 }
 
-LEO_FUNC Bool32 LEO_RecogInd(RecObject* object) {
+Bool32 LEO_RecogInd(RecObject* object) {
 	RecVersions ver, loc;
 
 	int Cnts[10];
@@ -302,14 +289,13 @@ LEO_FUNC Bool32 LEO_RecogInd(RecObject* object) {
 		}
 		return FALSE;
 	}
-	//
+
 	object->recResults.lnAltMax = REC_MAX_VERS;
-	//
-	if (1)
-		if (leo_ndx_in_rect) {
-			leo_ndx_snapRaster(object, &stnNdxRecog);
-			leo_ndx_snapSimpleKey("Before recog NDX", &stnNdxRecog);
-		}
+
+	if (leo_ndx_in_rect) {
+		leo_ndx_snapRaster(object, &stnNdxRecog);
+		leo_ndx_snapSimpleKey("Before recog NDX", &stnNdxRecog);
+	}
 	memset(Cnts, 0, sizeof(Cnts));
 	leo_snapNdx(&object->recResults, "LEO VIT : ", 0);
 

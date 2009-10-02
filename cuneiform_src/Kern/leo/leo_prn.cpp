@@ -91,13 +91,9 @@ extern Bool32 leo_enable_stored;
 extern int32_t leo_typ_of_font, leo_MSK_ndx[];
 
 static void leo_compress_prn(RecVersions *v) {
-	int i;
-
-	for (i = 0; i < v->lnAltCnt; i++)
+	for (int i = 0; i < v->lnAltCnt; i++)
 		if (up_of_alpha[v->Alt[i].Code])
 			v->Alt[i].Code = up_of_alpha[v->Alt[i].Code];
-
-	return;
 }
 static void leo_kill_3x5_unique(RecVersions *ver, uchar first) {
 	do {
@@ -108,14 +104,13 @@ static void leo_kill_3x5_unique(RecVersions *ver, uchar first) {
 		leo_sort_vers_prob(ver);
 	} while (first != ver->Alt[0].Code && ver->Alt[0].Prob > 1
 			&& ver->Alt[0].Method == REC_METHOD_3X5);
-	return;
 }
 
 // return : complemetary case letter if homotetical, otherwhise 0
 uchar leo_reverse_case(uchar in) {
-	uchar sr[] = "©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
-	uchar cr[] = "‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
-	uchar *p;
+	static const uchar sr[] = "©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
+	static const uchar cr[] = "‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
+	const uchar *p;
 
 	p = (uchar*) strchr((char*) sr, in);
 	if (p)
@@ -129,19 +124,16 @@ uchar leo_reverse_case(uchar in) {
 }
 
 static void leo_b6_reverse(RecVersions *ver) {
-	uchar t;
 	if (ver->lnAltCnt < 2)
 		return;
-	t = ver->Alt[1].Code;
+	uchar t = ver->Alt[1].Code;
 	ver->Alt[1].Code = ver->Alt[0].Code;
 	ver->Alt[0].Code = t;
-	return;
 }
 
 static void leo_get_stat_bnd(int32_t *b1, int32_t *b2) {
 	*b1 = 25;
 	*b2 = 35;
-	return;
 }
 
 static int32_t leo_no_hist_leader(uchar over[], RecVersions *ver) {
@@ -158,9 +150,8 @@ static int32_t leo_no_hist_leader(uchar over[], RecVersions *ver) {
 }
 
 static void leo_decode_to_roma(RecVersions *ver) {
-	int i, n;
-	n = ver->lnAltCnt;
-	for (i = 0; i < n; i++)
+	int n = ver->lnAltCnt;
+	for (int i = 0; i < n; i++) {
 		switch (ver->Alt[i].Code) {
 		case (uchar) 'Õ':
 			ver->Alt[i].Code = 'X';
@@ -174,17 +165,13 @@ static void leo_decode_to_roma(RecVersions *ver) {
 		default:
 			break;
 		}
-
-	return;
+	}
 }
 
 void leo_reduce_typefaces(RecVersions *v) {
-	int i;
-	uchar let;
-
 	if (v->lnAltCnt) {
-		for (i = 0; i < v->lnAltCnt; i++) {
-			let = stdLeoTypefaceChar(v->Alt[i].Code);
+		for (int i = 0; i < v->lnAltCnt; i++) {
+			uchar let = stdLeoTypefaceChar(v->Alt[i].Code);
 			if (alphabet[let])
 				v->Alt[i].Code = let;
 		}
@@ -192,72 +179,79 @@ void leo_reduce_typefaces(RecVersions *v) {
 
 	leo_compress_prn(v);
 	leo_compress(v);
-	return;
 }
 
-static uchar bit_cnt[] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1,
-		2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4, 2,
-		3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 1,
-		2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3,
-		4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3,
-		4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3, 3, 4, 2,
-		3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 2,
-		3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4,
-		5, 5, 6, 5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3,
-		4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5, 5, 6, 4,
-		5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8 };
+static const uchar bit_cnt[] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3,
+		4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3,
+		4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5,
+		6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4,
+		5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5,
+		6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3, 3,
+		4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5,
+		6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5,
+		6, 4, 5, 5, 6, 5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5,
+		6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5, 5,
+		6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7,
+		8 };
 
 static int32_t leo_diskr16x16_down(RecRaster *rr) {
-	int i, ii, longl, s, sc;
+	int i;
+	int sc = 0;
+	int ii = 8 * 5;
 
-	for (sc = 0, ii = 8* 5 ,i=5;i<11;i++, ii += 8 ) {sc += bit_cnt[ rr->Raster[ii] ] + bit_cnt[ rr->Raster[ii+1] ];
-}
-sc /= 6;
-sc *= 2;
-s = bit_cnt[ rr->Raster[0]&0xF0 ]+
-bit_cnt[ rr->Raster[1]&0x0F ]+
-bit_cnt[ rr->Raster[8*15+0]&0xF0 ]+
-bit_cnt[ rr->Raster[8*15+1]&0x0F ];
-if( s<5 )
-return 2;
-for(longl=0, ii=8*14,i=14;i<16;i++,ii+=8)
-{
-	s = bit_cnt[ rr->Raster[ii] ] + bit_cnt[ rr->Raster[ii+1] ];
-	if( s>=sc-1 )
-	longl++;
-}
-return longl;
+	for (i = 5; i < 11; i++, ii += 8) {
+		sc += bit_cnt[rr->Raster[ii]] + bit_cnt[rr->Raster[ii + 1]];
+	}
+
+	sc /= 6;
+	sc *= 2;
+	int s = bit_cnt[rr->Raster[0] & 0xF0] + bit_cnt[rr->Raster[1] & 0x0F]
+			+ bit_cnt[rr->Raster[8 * 15 + 0] & 0xF0] + bit_cnt[rr->Raster[8
+			* 15 + 1] & 0x0F];
+
+	if (s < 5)
+		return 2;
+
+	int longl = 0;
+	ii = 8 * 14;
+	for (i = 14; i < 16; i++, ii += 8) {
+		s = bit_cnt[rr->Raster[ii]] + bit_cnt[rr->Raster[ii + 1]];
+		if (s >= sc - 1)
+			longl++;
+	}
+	return longl;
 }
 
 static int32_t leo_diskr16x16_right_down_hole(RecRaster *rr) {
 	int i, ii, longl, sc;
 
-	for (longl = 0, ii = 8* 6 ,i=6;i<12;i++, ii += 8 ) {if( bit_cnt[ rr->Raster[ii] ] + bit_cnt[ rr->Raster[ii+1] ]>14 )
-	longl++;
-}
-if( longl<1 )
-return 0;
+	for (longl = 0, ii = 8 * 6, i = 6; i < 12; i++, ii += 8) {
+		if (bit_cnt[rr->Raster[ii]] + bit_cnt[rr->Raster[ii + 1]] > 14)
+			longl++;
+	}
+	if (longl < 1)
+		return 0;
 
-for(sc=0, ii=8*8,i=8;i<12;i++,ii+=8)
-{
-	if( !bit_cnt[ rr->Raster[ii+1] ] )
-	sc++;
-}
+	for (sc = 0, ii = 8 * 8, i = 8; i < 12; i++, ii += 8) {
+		if (!bit_cnt[rr->Raster[ii + 1]])
+			sc++;
+	}
 
-return sc;
+	return sc;
 }
 
 static int32_t leo_diskr16x16_right(RecRaster *rr) {
 	int i, ii, sc;
 
-	for (sc = 0, ii = 8* 6 ,i=6;i<12;i++, ii += 8 ) {if( !bit_cnt[ rr->Raster[ii+1] ] )
-	sc++;
+	for (sc = 0, ii = 8 * 6, i = 6; i < 12; i++, ii += 8) {
+		if (!bit_cnt[rr->Raster[ii + 1]])
+			sc++;
+	}
+
+	return sc;
 }
 
-return sc;
-}
-
-static uchar start_pos[] = { 8, 7, 6, 6, /* 2 dup (6) */
+static const uchar start_pos[] = { 8, 7, 6, 6, /* 2 dup (6) */
 5, 5, 5, 5, /* 4 dup (5) */
 4, 4, 4, 4, 4, 4, 4, 4, /* 8 dup (4) */
 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, /* 16 dup (3)*/
@@ -277,14 +271,15 @@ static uchar start_pos[] = { 8, 7, 6, 6, /* 2 dup (6) */
 static int32_t leo_diskr16x16_left(RecRaster *rr) {
 	int i, ii, sc;
 
-	for (sc = 0, ii = 8* 4 ,i=4;i<12;i++, ii += 8 ) {sc += start_pos[ rr->Raster[ii] ];
-}
-sc /= 8;
-if( sc && (!start_pos[ rr->Raster[15*8] ] ||
-				!start_pos[ rr->Raster[14*8] ] ||
-				!start_pos[ rr->Raster[13*8] ]) )
-return sc;
-return 0;
+	for (sc = 0, ii = 8 * 4, i = 4; i < 12; i++, ii += 8) {
+		sc += start_pos[rr->Raster[ii]];
+	}
+	sc /= 8;
+	if (sc && (!start_pos[rr->Raster[15* 8 ]]||
+	!start_pos[ rr->Raster[14*8] ] ||
+	!start_pos[ rr->Raster[13*8] ]) )
+	return sc;
+	return 0;
 }
 
 static int32_t leo_diskr3x5_H(int16_t *Im3x5) {
@@ -527,8 +522,8 @@ void leo_reverse_russian(RecVersions *ver, uchar Code1, uchar Code2) {
 		if (ver->Alt[i_2].Prob == ver->Alt[i_1].Prob)
 			ver->Alt[i_2].Prob--;
 	}
-	if ((i_1 == 0 && i_2 == -1 || i_2 == 0 && i_1 == -1) && ver->Alt[0].Prob
-			> 10) {
+	if (((i_1 == 0 && i_2 == -1) || (i_2 == 0 && i_1 == -1))
+			&& ver->Alt[0].Prob > 10) {
 		ver->Alt[ver->lnAltCnt] = ver->Alt[0];
 		if (i_1 == 0) {
 			ver->Alt[ver->lnAltCnt].Prob -= 10;
@@ -554,7 +549,6 @@ void leo_reverse_russian(RecVersions *ver, uchar Code1, uchar Code2) {
 		ver->Alt[1].Prob = p;
 		leo_sort_vers_prob(ver);
 	}
-	return;
 }
 
 void leo_kill_double_russian(RecVersions *ver, uchar Code1, uchar Code2) {
@@ -580,8 +574,6 @@ void leo_kill_double_russian(RecVersions *ver, uchar Code1, uchar Code2) {
 	v.lnAltCnt = ii;
 	leo_sort_vers_prob(&v);
 	*ver = v;
-
-	return;
 }
 
 uchar leo_down_prob(uchar prob, uchar dis) {
@@ -661,9 +653,9 @@ Bool32 leoRecogPrintAllChar(RecObject* object) {
 
 	if (ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob > 80
 			&& !leo_strchr_codes_ansi((uchar*) "üÜ", per.Alt[0].Code))
-		if (ver.lnAltCnt == 1 && leo_comp_codes(ver.Alt[0].Code,
-				per.Alt[0].Code) || per.Alt[0].Prob > 200 && leo_exist_code(
-				&ver, per.Alt[0].Code) != -1) {
+		if ((ver.lnAltCnt == 1 && leo_comp_codes(ver.Alt[0].Code,
+				per.Alt[0].Code)) || (per.Alt[0].Prob > 200 && leo_exist_code(
+				&ver, per.Alt[0].Code) != -1)) {
 
 			loc = ver;
 			DIFPenaltyChar(&object->recData.recRaster, &loc);
@@ -759,7 +751,7 @@ Bool32 leoRecogPrintAllChar(RecObject* object) {
 		leo_snapChar(&ver, "LEO PRN EXPERT Per+3x5+MSK : ", 0);
 	}
 
-	if (!ver.lnAltCnt || ver.lnAltCnt && ver.Alt[0].Prob < 150) { // CONSILIUM
+	if (!ver.lnAltCnt || (ver.lnAltCnt && ver.Alt[0].Prob < 150)) { // CONSILIUM
 		int32_t ind;
 		ver.lnAltCnt = 0;
 
@@ -1079,7 +1071,6 @@ void leo_smoothing16(RecRaster *rr, RecRaster *rr_sm) {
 	}
 	c = *((int16_t*)&rr->Raster[ii]);
 	memcpy(&rr_sm->Raster[ii],&c,2);
-	return;
 }
 Bool32 leoRecogPrintDotChar(RecObject* object) {
 	RecVersions ver, loc, per, tmp, msk, r35;
@@ -1415,7 +1406,7 @@ Bool32 leoRecogCharPRN_expert(RecRaster* recRaster, RecVersions* over) {
 			return TRUE;
 		}
 
-LEO_FUNC Bool32 LEORecogPrnMethod(RecObject* object, int Method, int type) {
+Bool32 LEORecogPrnMethod(RecObject* object, int Method, int type) {
 	RecVersions ver;
 	uint16_t CompImage16x16[16* 16 ];
 
@@ -1423,8 +1414,7 @@ LEO_FUNC Bool32 LEORecogPrnMethod(RecObject* object, int Method, int type) {
 	memset(&ver,0,sizeof(RecVersions));
 	ver.lnAltMax = REC_MAX_VERS;
 	ver.lnAltCnt = 0;
-	switch( Method )
-	{
+	switch( Method ) {
 		case REC_METHOD_MSK:
 		MSKRecogChar(leo_MSK_ndx[type],&object->recData.recRaster, &ver);
 		break;
