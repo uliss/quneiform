@@ -54,13 +54,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
 #include "ccom.h"
 #include "ccom_fun.h"
 #include "resource.h"
+
 // static dates
 static CCOM_cont top, tail;
 static int32_t num_containers = 0;
@@ -72,42 +73,6 @@ uint16_t wLowRC = CCOM_ERR_NO;
 
 static const char * CCOM_DAT = "ccom.dat";
 
-// memory funct
-static void * ccom_alloc(uint32_t len) {
-	void *ma = malloc(len);
-	if (!ma)
-		return NULL;
-	memset(ma, 0, len);
-	return ma;
-}
-
-static void ccom_free(void *ptr, uint32_t len) {
-	free(ptr);
-}
-
-static FILE * ccom_fopen(const char *name, const char *type) {
-	return fopen(name, type);
-}
-
-static void ccom_fclose(FILE *file) {
-	fclose(file);
-}
-
-static int ccom_fread(void *dst, int len, int num, FILE *file) {
-	return fread(dst, len, num, file);
-}
-
-static int ccom_fwrite(void *dst, int len, int num, FILE *file) {
-	return fwrite(dst, len, num, file);
-}
-
-
-static void * (*my_alloc)(uint32_t len) = ccom_alloc;
-static void (*my_free)(void *, uint32_t len) = ccom_free;
-static FILE * (*my_fopen)(const char *name, const char *type) = ccom_fopen;
-static void (*my_fclose)(FILE *file) = ccom_fclose;
-static int (*my_fread)(void *dst, int len, int num, FILE *file) = ccom_fread;
-static int (*my_fwrite)(void *dst, int len, int num, FILE *file) = ccom_fwrite;
 static Bool32 (*my_MakeLP)(RecRaster *rRaster, uchar *lp, int16_t *lp_size,
 		int16_t *numcomp)=NULL;
 
@@ -137,7 +102,7 @@ Bool32 CCOM_Init(uint16_t wHeightCode, Handle hStorage) {
 
 CCOM_handle CCOM_CreateContainer(void) {
 	CCOM_cont *new_cont, *prev = tail.prev, *next = &tail;
-	new_cont = static_cast<CCOM_cont*> (my_alloc(sizeof(CCOM_cont)));
+	new_cont = static_cast<CCOM_cont*> (calloc(1, sizeof(CCOM_cont)));
 	if (new_cont == (CCOM_cont*) NULL) {
 		wLowRC = CCOM_ERR_NOMEMORY;
 		return (CCOM_handle) NULL;
@@ -212,7 +177,6 @@ void CCOM_DeleteAll(void) {
 	// init list of containers
 	num_containers = 0;
 	user_number = 0xFFFF + 1;
-	return;
 }
 
 void CCOM_Done(void) {
@@ -228,7 +192,7 @@ uint32_t CCOM_GetReturnCode(void) {
 }
 
 char* CCOM_GetReturnString(uint32_t dwError) {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF + CCOM_ERR_MIN);
+	uint16_t rc = (uint16_t) ((dwError & 0xFFFF) + CCOM_ERR_MIN);
 	static char szBuffer[512];
 
 	if (dwError >> 16 != wHeightRC)
@@ -270,7 +234,7 @@ CCOM_comp * CCOM_New(CCOM_handle hcont, int32_t upper, int32_t left, int32_t w,
 		return FALSE;
 	}
 
-	new_comp = (CCOM_comp *) my_alloc(sizeof(CCOM_comp));
+	new_comp = static_cast<CCOM_comp*> (calloc(1, sizeof(CCOM_comp)));
 	if (!new_comp) {
 		wLowRC = CCOM_ERR_NOMEMORY;
 		return NULL;
@@ -314,8 +278,8 @@ CCOM_comp * CCOM_New(CCOM_handle hcont, int32_t upper, int32_t left, int32_t w,
 
 Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep,
 		uchar *lines, int16_t nl, uchar free_beg, uchar free_end,
-		RecVersions *vers, CCOM_USER_BLOCK *ub) {
-	CCOM_lnhead* ln;
+		RecVersions * vers, CCOM_USER_BLOCK * ub) {
+	CCOM_lnhead * ln;
 	uchar comptype;
 	int32_t size;
 	if (!comp) {
@@ -325,7 +289,8 @@ Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep,
 
 	if (size_lrep && lines > 0 && lines) {
 		comp->size_linerep = (int16_t) size_lrep;
-		comp->linerep = (uchar*) my_alloc(size_lrep + 2);
+		comp->linerep = static_cast<uchar*> (calloc(1, size_lrep + 2));
+
 		if (!comp->linerep || size_lrep == -1) // OLEG & ANTON : very large components
 			return FALSE;
 		memcpy(comp->linerep, lines, size_lrep);
@@ -364,7 +329,8 @@ Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep,
 	}
 	if (vers) {
 		if (!comp->vers && vers->lnAltCnt) {
-			comp->vers = (RecVersions*) my_alloc(sizeof(RecVersions));
+			comp->vers = static_cast<RecVersions*> (calloc(1,
+					sizeof(RecVersions)));
 			if (!comp->vers)
 				return FALSE;
 		}
@@ -416,7 +382,7 @@ Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep,
 
 	if (size_lrep && lines > 0 && lines) {
 		comp->size_linerep = (int16_t) size_lrep;
-		comp->linerep = (uchar*) my_alloc(size_lrep + 2);
+		comp->linerep = static_cast<uchar*> (calloc(1, size_lrep + 2));
 		if (!comp->linerep || size_lrep == -1) // OLEG & ANTON : very large components
 			return FALSE;
 		memcpy(comp->linerep, lines, size_lrep);
@@ -455,7 +421,8 @@ Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep,
 	}
 	if (vers) {
 		if (!comp->vers && vers->lnAltCnt) {
-			comp->vers = (RecVersions*) my_alloc(sizeof(RecVersions));
+			comp->vers = static_cast<RecVersions*> (calloc(1,
+					sizeof(RecVersions)));
 			if (!comp->vers)
 				return FALSE;
 		}
@@ -488,24 +455,24 @@ static CCOM_comp * CCOM_DeleteComp(CCOM_handle hcont, CCOM_comp * comp) {
 			cont->nsmall[sz]--;
 	}
 
-	my_free(comp->linerep, 0);
+	free(comp->linerep);
 	if (comp->vers)
-		my_free(comp->vers, 0);
+		free(comp->vers);
 	ub = comp->user_block;
 	while (ub) {
 		ubc = ub->next_block;
-		my_free(ub->data, ub->size);
-		my_free(ub, 0);
+		free(ub->data);
+		free(ub);
 		ub = ubc;
 	}
-	my_free(comp, 0);
+	free(comp);
 	return next;
 }
 
 Bool32 CCOM_Delete(CCOM_handle hcont, CCOM_comp * comp) {
 	CCOM_comp * curr;
 	CCOM_cont * cont = (CCOM_cont *) hcont;
-	//CCOM_USER_BLOCK  * ub, * ubc;
+
 	if (!comp || !cont) {
 		wLowRC = CCOM_ERR_NULL;
 		return FALSE;
@@ -530,29 +497,7 @@ Bool32 CCOM_Delete(CCOM_handle hcont, CCOM_comp * comp) {
 			cont->first = NULL;
 		curr = cont->first;
 	}
-	/*
-	 {
-	 int32_t sz=(comp->w>comp->h)?comp->w:comp->h;
-	 cont->nall--;
-	 if( sz<8 )
-	 cont->nsmall[sz]--;
-	 }
 
-
-	 my_free(comp->linerep, 0);
-	 if( comp->vers )
-	 my_free(comp->vers,0);
-	 ub = comp->user_block;
-	 while( ub )
-	 {
-	 ubc = ub->next_block;
-	 my_free( ub->data, ub->size );
-	 my_free( ub , 0);
-	 ub = ubc;
-	 }
-	 my_free(comp, 0);
-	 return TRUE;
-	 */
 	CCOM_DeleteComp(hcont, comp);
 	return TRUE;
 }
@@ -925,8 +870,8 @@ Bool32 CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK * ublock) {
 			while (ub) {
 				if (ub->code == ublock->code) {
 					if (ub->data && ub->size)
-						my_free(ub->data, ub->size);
-					ub->data = (uchar*) my_alloc(ublock->size);
+						free(ub->data);
+					ub->data = static_cast<uchar*> (calloc(1, ublock->size));
 					if (!ub->data)
 						return FALSE;
 					ub->size = ublock->size;
@@ -935,13 +880,13 @@ Bool32 CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK * ublock) {
 				}
 				ub = ub->next_block;
 			}
-		// ub==NULL
-		ub = (CCOM_USER_BLOCK*) my_alloc(sizeof(CCOM_USER_BLOCK));
+
+		ub = static_cast<CCOM_USER_BLOCK*> (calloc(1, sizeof(CCOM_USER_BLOCK)));
 		if (!ub) {
 			wLowRC = CCOM_ERR_NOMEMORY;
 			return FALSE;
 		}
-		ub->data = (uchar*) my_alloc(ublock->size);
+		ub->data = static_cast<uchar*> (calloc(1, ublock->size));
 		if (!ub->data) {
 			wLowRC = CCOM_ERR_NOMEMORY;
 			return FALSE;
@@ -994,32 +939,31 @@ int32_t CCOM_NewUserCode(void) {
 }
 
 void ccom_new_save(void) {
-	FILE *fp = my_fopen(CCOM_DAT, "wb");
-	my_fclose(fp);
-	return;
+	FILE *fp = fopen(CCOM_DAT, "wb");
+	fclose(fp);
 }
 
 Bool32 ccom_save_comp(CCOM_comp *cur) {
-	FILE *fp = my_fopen(CCOM_DAT, "wb+");
+	FILE *fp = fopen(CCOM_DAT, "wb+");
 	CCOM_USER_BLOCK *ub = cur->user_block;
 	uint32_t zub = { 0 };
 
 	if (!fp)
 		return FALSE;
-	if (my_fwrite(cur, sizeof(CCOM_comp), 1, fp) != 1)
+	if (fwrite(cur, sizeof(CCOM_comp), 1, fp) != 1)
 		return FALSE;
-	if (my_fwrite(cur->linerep, cur->size_linerep, 1, fp) != 1)
+	if (fwrite(cur->linerep, cur->size_linerep, 1, fp) != 1)
 		return FALSE;
 	while (ub) {
-		if (my_fwrite(ub, 8, 1, fp) != 1)
+		if (fwrite(ub, 8, 1, fp) != 1)
 			return FALSE;
-		if (my_fwrite(ub->data, ub->size, 1, fp) != 1)
+		if (fwrite(ub->data, ub->size, 1, fp) != 1)
 			return FALSE;
 		ub = ub->next_block;
 	}
-	if (my_fwrite(&zub, 4, 1, fp) != 1)
+	if (fwrite(&zub, 4, 1, fp) != 1)
 		return FALSE; // last zero ub
-	my_fclose(fp);
+	fclose(fp);
 	return TRUE;
 }
 
@@ -1055,20 +999,20 @@ CCOM_handle CCOM_Restore(void) {
 	hnd = CCOM_CreateContainer();
 	if (hnd == (CCOM_handle) NULL)
 		return (CCOM_handle) NULL;
-	fp = my_fopen(CCOM_DAT, "rb");
+	fp = fopen(CCOM_DAT, "rb");
 	if (!fp) {
 		wLowRC = CCOM_ERR_FILEACCESS;
 		return (CCOM_handle) NULL;
 	}
 	while (1) {
-		if (my_fread(&cur, sizeof(CCOM_comp), 1, fp) != 1)
+		if (fread(&cur, sizeof(CCOM_comp), 1, fp) != 1)
 			break; // EOF
-		cur.linerep = static_cast<uchar*> (my_alloc(cur.size_linerep));
+		cur.linerep = static_cast<uchar*> (calloc(1, cur.size_linerep));
 		if (!cur.linerep) {
 			wLowRC = CCOM_ERR_NOMEMORY;
 			return (CCOM_handle) NULL;
 		}
-		if (my_fread(cur.linerep, cur.size_linerep, 1, fp) != 1) {
+		if (fread(cur.linerep, cur.size_linerep, 1, fp) != 1) {
 			wLowRC = CCOM_ERR_FILEACCESS;
 			return (CCOM_handle) NULL;
 		}
@@ -1077,29 +1021,29 @@ CCOM_handle CCOM_Restore(void) {
 		CCOM_Store(real_comp, cur.numcomp, cur.size_linerep, cur.linerep,
 				cur.nl, cur.begs, cur.ends, cur.vers, NULL);
 		while (1) {
-			if (my_fread(&zub, 4, 1, fp) != 1) {
+			if (fread(&zub, 4, 1, fp) != 1) {
 				wLowRC = CCOM_ERR_FILEACCESS;
 				return (CCOM_handle) NULL;
 			}
 			if (zub == 0)
 				break;
-			ub = static_cast<CCOM_USER_BLOCK*> (my_alloc(
+			ub = static_cast<CCOM_USER_BLOCK*> (calloc(1,
 					sizeof(CCOM_USER_BLOCK)));
 			if (ub) {
 				wLowRC = CCOM_ERR_NOMEMORY;
 				return (CCOM_handle) NULL;
 			}
 			ub->code = zub;
-			if (my_fread(&ub->size, 4, 1, fp) != 1) {
+			if (fread(&ub->size, 4, 1, fp) != 1) {
 				wLowRC = CCOM_ERR_FILEACCESS;
 				return (CCOM_handle) NULL;
 			}
-			ub->data = static_cast<uchar*> (my_alloc(ub->size));
+			ub->data = static_cast<uchar*> (calloc(1, ub->size));
 			if (ub->data) {
 				wLowRC = CCOM_ERR_NOMEMORY;
 				return (CCOM_handle) NULL;
 			}
-			if (my_fread(ub->data, ub->size, 1, fp) != 1) {
+			if (fread(ub->data, ub->size, 1, fp) != 1) {
 				wLowRC = CCOM_ERR_FILEACCESS;
 				return (CCOM_handle) NULL;
 			}
@@ -1120,7 +1064,7 @@ CCOM_comp *CCOM_LargeNew(CCOM_handle hcont, int32_t upper, int32_t left,
 		comp->size_linerep = -1;
 	} else
 		comp->size_linerep = (int16_t) size;
-	comp->linerep = (uchar*) my_alloc(size + 4);
+	comp->linerep = static_cast<uchar*> (calloc(1, size + 4));
 	if (!comp->linerep)
 		return (CCOM_comp*) NULL;
 	*((int16_t*) comp->linerep) = comp->size_linerep;
@@ -1234,151 +1178,116 @@ Bool32 CCOM_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 	int32_t vers = CCOM_VERSION_CODE;
 
-#define EXPORT(a) *(uint32_t*)(pData)=          (uint32_t)a;
+#define EXPORT(a) *(uint32_t*)(pData)=(uint32_t)a;
 	wLowRC = CCOM_ERR_NO;
 	switch (dwType) {
 	case CCOM_FNNEW: // create new component
 		EXPORT(CCOM_New)
-		;
 		break;
 	case CCOM_FNSTORE: // write an image to the component
 		EXPORT(CCOM_Store)
-		;
 		break;
 	case CCOM_FNCOPY: // write the image of another component to this component
 		EXPORT(CCOM_Copy)
-		;
 		break;
 	case CCOM_FNDELETE: // delete a component
 		EXPORT(CCOM_Delete)
-		;
 		break;
 	case CCOM_FNGETFIRST: // get a first component from conatiner
 		EXPORT(CCOM_GetFirst)
-		;
 		break;
 	case CCOM_FNGETNEXT: // get next component (from the container)
 		EXPORT(CCOM_GetNext)
-		;
 		break;
 	case CCOM_FNGETLINE: // obtain an interval representation (interval is adjective here)
 		EXPORT(CCOM_GetLine)
-		;
 		break;
 	case CCOM_FNGETRASTER: // get raster of the component
 		EXPORT(CCOM_GetRaster)
-		;
 		break;
 	case CCOM_FNGETCOLLECTION: // get a collection of recognition
 		EXPORT(CCOM_GetCollection)
-		;
 		break;
 	case CCOM_FNGETUSERBLOCK: // get user block
 		EXPORT(CCOM_GetUserBlock)
-		;
 		break;
 	case CCOM_FNCREATECONT: // create new container
 		EXPORT(CCOM_CreateContainer)
-		;
 		break;
 	case CCOM_FNDELETECONT: // delete container
 		EXPORT(CCOM_DeleteContainer)
-		;
 		break;
 	case CCOM_FNADDLPTORS: // Add LP to raster
 		EXPORT(CCOM_AddLPToRaster)
-		;
 		break;
 	case CCOM_FNMAKELP: // Obtain an interval representation (interval is adjective here).
 		EXPORT(CCOM_MakeLP)
-		;
 		break;
 	case CCOM_FNSETUSERBLOCK: // write user block
 		EXPORT(CCOM_SetUserBlock)
-		;
 		break;
 	case CCOM_FNNEWUSERCODE: // Give a code of a free user code (senseless).
 		EXPORT(CCOM_NewUserCode)
-		;
 		break;
 	case CCOM_FNVERSION: // give version number
 		EXPORT(vers)
-		;
 		break;
 	case CCOM_FNBACKUP: // save container to disk
 		EXPORT(CCOM_Backup)
-		;
 		break;
 	case CCOM_FNRESTORE: // restore container from disk
 		EXPORT(CCOM_Restore)
-		;
 		break;
 	case CCOM_FNDELALL: // delete all containers
 		EXPORT(CCOM_DeleteAll)
-		;
 		break;
 	case CCOM_FNLARGENEW: // create new component with long intervals
 		EXPORT( CCOM_LargeNew )
-		;
 		break;
 	case CCOM_FNLARGENEWLN: // create new line with long intervals
 		EXPORT( CCOM_LargeNewLn )
-		;
 		break;
 	case CCOM_FNLARGENEWINTERVAL: // write new long interval
 		EXPORT( CCOM_LargeNewInterval )
-		;
 		break;
 	case CCOM_FNLARGECLOSE: // finish processing of the component with long intervals
 		EXPORT( CCOM_LargeClose )
-		;
 		break;
 	case CCOM_FNSETKILLEDACCESS: // mode with access to killed (no noun follows)
 		EXPORT( CCOM_SetKilledAccess )
-		;
 		break;
 	case CCOM_FNKILL: // kill without deletion
 		EXPORT( CCOM_Kill)
-		;
 		break;
 	case CCOM_FNGETEXTRASTER: // get raster of the component
 		EXPORT(CCOM_GetExtRaster)
-		;
 		break;
 	case CCOM_FNCLEARCONTAINER:
 		EXPORT( CCOM_ClearContatiner)
-		;
 		break;
 	case CCOM_FNGETSCALERASTER: // LP (interval representation) into raster with contraction (or contracted raster).
 		EXPORT(CCOM_GetScaleRaster)
-		;
 		break;
 	case CCOM_COMPRESSCONTAINER: // remove minor stuff
 		EXPORT(CCOM_CompressContatiner)
-		;
 		break;
 	case CCOM_SETLANGUAGE: // set language of container
 		EXPORT(CCOM_SetLanguage)
-		;
 		break;
 	case CCOM_GETLANGUAGE: // get language of container
 		EXPORT(CCOM_GetLanguage)
-		;
 		break;
 	case CCOM_GECONTAINERVOLUME: // number of components in container
 		EXPORT(CCOM_GetContainerVolume)
-		;
 		break;
 		//case CCOM_FNSTORELARGE:         // write an image with killed long intervals to the component
 		//	EXPORT(CCOM_StoreLarge);
 		//	break;
 	case CCOM_FNREANIMATE: // restore killed component
 		EXPORT(CCOM_Reanimate)
-		;
 		break;
 	case CCOM_FNADDCOMPTORS: // restore killed component
 		EXPORT(CCOM_AddCompToRaster)
-		;
 		break;
 
 	default:
@@ -1392,24 +1301,6 @@ Bool32 CCOM_GetExportData(uint32_t dwType, void * pData) {
 Bool32 CCOM_SetImportData(uint32_t dwType, void * pData) {
 	wLowRC = CCOM_ERR_NO;
 	switch (dwType) {
-	case CCOM_FNIMP_ALLOC:
-		my_alloc = (void*(*)(uint32_t)) pData;
-		break;
-	case CCOM_FNIMP_FREE:
-		my_free = (void(*)(void*, uint32_t)) pData;
-		break;
-	case CCOM_FNIMP_OPEN:
-		my_fopen = (FILE*(*)(const char*, const char*)) pData;
-		break;
-	case CCOM_FNIMP_CLOSE:
-		my_fclose = (void(*)(FILE*)) pData;
-		break;
-	case CCOM_FNIMP_READ:
-		my_fread = (int(*)(void*, int, int, FILE*)) pData;
-		break;
-	case CCOM_FNIMP_WRITE:
-		my_fwrite =  (int(*)(void*, int, int, FILE*)) pData;
-		break;
 	case CCOM_FNIMP_MAKELP:
 		my_MakeLP = (Bool32(*)(RecRaster*, uchar*, int16_t*, int16_t*)) pData;
 		break;
