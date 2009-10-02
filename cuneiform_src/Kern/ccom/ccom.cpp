@@ -79,7 +79,7 @@ static Bool32 (*my_MakeLP)(RecRaster *rRaster, uchar *lp, int16_t *lp_size,
 /////////////////////
 // common functions
 /////////////////////
-Bool32 CCOM_Init(uint16_t wHeightCode, Handle hStorage) {
+Bool32 CCOM_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	if (ccom_init)
 		return TRUE;
 	wHeightRC = wHeightCode;
@@ -93,9 +93,6 @@ Bool32 CCOM_Init(uint16_t wHeightCode, Handle hStorage) {
 	// init list of containers
 	num_containers = 0;
 	user_number = 0xFFFF + 1;
-	if (hStorage) { // set Storage
-
-	}
 	ccom_init = TRUE;
 	return TRUE;
 }
@@ -103,7 +100,7 @@ Bool32 CCOM_Init(uint16_t wHeightCode, Handle hStorage) {
 CCOM_handle CCOM_CreateContainer(void) {
 	CCOM_cont *new_cont, *prev = tail.prev, *next = &tail;
 	new_cont = static_cast<CCOM_cont*> (calloc(1, sizeof(CCOM_cont)));
-	if (new_cont == (CCOM_cont*) NULL) {
+	if (!new_cont) {
 		wLowRC = CCOM_ERR_NOMEMORY;
 		return (CCOM_handle) NULL;
 	}
@@ -117,13 +114,10 @@ CCOM_handle CCOM_CreateContainer(void) {
 
 	num_containers++;
 
-	{
-		int32_t i;
-		new_cont->nall = 0;
-		for (i = 0; i < 8; i++)
-			new_cont->nsmall[i] = 0;
-		new_cont->kill_dust_mode = FALSE;
-	}
+	new_cont->nall = 0;
+	for (int i = 0; i < 8; i++)
+		new_cont->nsmall[i] = 0;
+	new_cont->kill_dust_mode = FALSE;
 	new_cont->language = -1;
 	return (CCOM_handle) new_cont;
 }
@@ -182,7 +176,6 @@ void CCOM_DeleteAll(void) {
 void CCOM_Done(void) {
 	CCOM_DeleteAll();
 	ccom_init = FALSE;
-	return;
 }
 
 uint32_t CCOM_GetReturnCode(void) {
@@ -691,8 +684,6 @@ Bool32 CCOM_GetScaleRaster(CCOM_comp * comp, RecRaster *rec, int32_t scale) {
 		wLowRC = CCOM_ERR_NULL;
 		return FALSE;
 	}
-	//if( !comp->scale )
-	//    return CCOM_GetRaster(comp,rec);
 
 	if (!comp->size_linerep) {
 		wLowRC = CCOM_ERR_BADDATA;
@@ -745,8 +736,6 @@ Bool32 CCOM_AddLPToRaster(CCOM_comp * comp, RecRaster *rec) {
 		w = comp->w;
 		h = comp->h;
 		if (comp->scale) {
-			//w >>= comp->scale;
-			//h >>= comp->scale;
 			w = (w + (1 << comp->scale) - 1) >> comp->scale;
 			h = (h + (1 << comp->scale) - 1) >> comp->scale;
 		}
@@ -761,8 +750,6 @@ Bool32 CCOM_AddLPToRaster(CCOM_comp * comp, RecRaster *rec) {
 	w = comp->w;
 	h = comp->h;
 	if (comp->scale) {
-		//w >>= comp->scale;
-		//h >>= comp->scale;
 		w = (w + (1 << comp->scale) - 1) >> comp->scale;
 		h = (h + (1 << comp->scale) - 1) >> comp->scale;
 	}
@@ -797,8 +784,6 @@ Bool32 CCOM_AddCompToRaster(CCOM_comp * comp, int16_t relleft,
 		w = comp->w;
 		h = comp->h;
 		if (comp->scale) {
-			//w >>= comp->scale; // relative (scaled) width of component
-			//h >>= comp->scale;
 			w = (w + (1 << comp->scale) - 1) >> comp->scale;
 			// i.e., not a [w/2^scale], but [( w+((2^scale)-1) )/2^scale] instead.
 			// as far both width and height are not supposed to be 0.
@@ -821,8 +806,6 @@ Bool32 CCOM_AddCompToRaster(CCOM_comp * comp, int16_t relleft,
 	w = comp->w;
 	h = comp->h;
 	if (comp->scale) {
-		//w >>= comp->scale;
-		//h >>= comp->scale;
 		w = (w + (1 << comp->scale) - 1) >> comp->scale;
 		h = (h + (1 << comp->scale) - 1) >> comp->scale;
 		// exactly here we do ">>=comp->scale":
@@ -1096,7 +1079,6 @@ Bool32 CCOM_LargeNewInterval(CCOM_comp *comp, int16_t e, int16_t l) {
 void CCOM_LargeClose(CCOM_comp *comp) {
 	comp->user_block = NULL;
 	comp->type = CCOM_CH_GREAT;
-	return;
 }
 
 Bool32 CCOM_Kill(CCOM_comp *c) {
