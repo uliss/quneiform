@@ -118,9 +118,9 @@ Bool32 similar_i(RecRaster *rs) {
 			rim = ri;
 	}
 
-	return abs(i - w) <= std::max(w / 4, 2)
-				|| (rim != 256 && lem != 256 && abs(i - w + rim + lem) < std::max(w / 4, 2))
-				|| (i > 3 && i < h / 5); // similar to square
+	return abs(i - w) <= std::max(w / 4, 2) || (rim != 256 && lem != 256
+			&& abs(i - w + rim + lem) < std::max(w / 4, 2)) || (i > 3 && i < h
+			/ 5); // similar to square
 }
 
 Bool32 leoRecogSimpleStick(RecObject* object) {
@@ -150,24 +150,22 @@ Bool32 leoRecogSimpleStick(RecObject* object) {
 }
 
 Bool32 leo_stick_make_tab(int inc, int h, int tab_angle[]) {
-	int i, ainc = inc > 0 ? inc : -inc;
+	int ainc = inc > 0 ? inc : -inc;
 
 	memset(tab_angle, 0, h * sizeof(int));
 	if (((h - 1) * ainc) < 2048)
 		inc = 0;
 	if (inc == 0)
 		return FALSE; // zero skew
-	for (i = 0; i < h; i++)
+	for (int i = 0; i < h; i++)
 		tab_angle[i] = ((h - 1 - i) * inc) / 2048;
 	return TRUE; // normal skew
 }
-static int hist_wid[128], hist_le[128], hist_ri[128], hist_wi[128],
-		hist_num[128];
-static int32_t slash_level = 700;
+static int hist_le[128], hist_ri[128], hist_num[128];
 
 int32_t leo_stick_horiz_hist(int h) {
-	int s, i;
-	for (s = i = 0; i < h; i++)
+	int s = 0;
+	for (int i = 0; i < h; i++)
 		s += (hist_num[i] > 1);
 	return s;
 }
@@ -216,7 +214,6 @@ static void leo_save_rl(uint16_t *lpool) {
 		*lop++ = flg;
 		lpool = lp + len / 2;
 	}
-	return;
 }
 
 // !!!!!!!!!!!!!!!!! USING FIXED STRUCT OF LNHEAD !!!!!!!!!
@@ -227,6 +224,9 @@ static void leo_save_rl(uint16_t *lpool) {
 //          4 - fine printed stick
 //          5 - dark printed stick
 int32_t leo_recog_stick(uint16_t *lpool, int w, int h) {
+	static int hist_wid[128];
+	static int hist_wi[128];
+
 	int16_t len, hei, row, flg;
 	uchar il, ie, *loc;
 	uint16_t *lp;
@@ -325,6 +325,7 @@ int32_t leo_recog_stick(uint16_t *lpool, int w, int h) {
 
 void leo_set_sticks_group(RecVersions *v, int32_t ret,
 		unsigned char alphabet[], int32_t simple_st, int32_t nose_1) {
+	static int slash_level = 700;
 	int inc;
 	int level_1;
 
@@ -432,8 +433,8 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 				v->lnAltCnt++;
 			}
 		} else {
-			if ((level_1 && level_1 < slash_level / 2)
-				|| (!level_1 && ret	> slash_level * 3 / 4)) {
+			if ((level_1 && level_1 < slash_level / 2) || (!level_1 && ret
+					> slash_level * 3 / 4)) {
 				if (alphabet['/']) {
 					v->Alt[v->lnAltCnt].Code = '/';
 					v->Alt[v->lnAltCnt].CodeExt = 0;
@@ -480,7 +481,6 @@ void leo_set_sticks_group(RecVersions *v, int32_t ret,
 		}
 
 	}
-	return;
 }
 
 void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
@@ -519,8 +519,6 @@ void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
 		ver->Alt[ver->lnAltCnt].Method = REC_METHOD_FINAL;
 		ver->lnAltCnt++;
 	}
-
-	return;
 }
 
 void leo_set_simple_sticks_print(RecVersions *ver,
@@ -539,8 +537,6 @@ void leo_set_simple_sticks_print(RecVersions *ver,
 	ver->Alt[ver->lnAltCnt].Prob = prob_stick / 2;
 	ver->Alt[ver->lnAltCnt].Method = REC_METHOD_FINAL;
 	ver->lnAltCnt++;
-
-	return;
 }
 
 Bool32 leo_small_object(RecObject *object, int wlim, int hlim) {
@@ -556,16 +552,16 @@ Bool32 leo_small_object(RecObject *object, int wlim, int hlim) {
 }
 
 Bool32 leo_wide_object(RecObject *object) {
-	int w = object->recData.recRaster.lnPixWidth, h =
-			object->recData.recRaster.lnPixHeight;
+	int w = object->recData.recRaster.lnPixWidth;
+	int h = object->recData.recRaster.lnPixHeight;
 	if (h > w)
 		return 100;
 	return (h * 100 / w);
 }
 
 static int32_t leo_num_of_long_sticks(RecVector *vSticks, int Cnt, int h) {
-	int i, n;
-	for (n = i = 0; i < Cnt; i++)
+	int n = 0;
+	for (int i = 0; i < Cnt; i++)
 		if (vSticks[i].len * 3 > h * 2)
 			n++;
 	return n;
@@ -599,7 +595,6 @@ void leo_diskrim_stick(RecVersions *ver) {
 			leo_sort_vers_prob(ver);
 		}
 	}
-	return;
 }
 
 void leo_swap(RecAlt *Alt0, RecAlt *Alt2) {
@@ -607,14 +602,12 @@ void leo_swap(RecAlt *Alt0, RecAlt *Alt2) {
 	Alt = *Alt2;
 	*Alt2 = *Alt0;
 	*Alt0 = Alt;
-	return;
 }
 
 void Filtrate3Str(uint32_t *po, uint32_t *pc, int len32) {
-	int j;
 	uint32_t *pp = pc - len32, *pn = pc + len32;
 
-	for (j = 0; j < len32; j++)
+	for (int j = 0; j < len32; j++)
 		po[j] = pc[j] | (pp[j] & pn[j]);
 }
 
@@ -811,8 +804,8 @@ Bool32 leo_is_stick(RecObject* object) {
 				}
 				leo_sort_vers_prob(&r);
 
-				if ((w * 2 <= h && r.Alt[0].Prob > 200)
-						|| (w < h && r.Alt[0].Prob > 220)) {
+				if ((w * 2 <= h && r.Alt[0].Prob > 200) || (w < h
+						&& r.Alt[0].Prob > 220)) {
 
 					memcpy(&object->recResults, &r, sizeof(RecVersions));
 					return TRUE;
@@ -846,12 +839,10 @@ Bool32 leo_is_stick(RecObject* object) {
 			}
 			rret = (ret < 0) ? -ret : ret;
 			if ((rstick == 2 && object->recData.lwSticksCnt == 1 && ret < 160)
-					|| (rstick == 1
-							&& object->recData.lwSticksCnt == 1
-							&& leo_stick_nose_1 && ret < -256)
-					) {
-				if ((!yx && abs(rret - (w * 2048 / h)) < 256)
-						|| (yx 	&& abs(rret - (h * 2048 / w)) < 256)) {
+					|| (rstick == 1 && object->recData.lwSticksCnt == 1
+							&& leo_stick_nose_1 && ret < -256)) {
+				if ((!yx && abs(rret - (w * 2048 / h)) < 256) || (yx && abs(
+						rret - (h * 2048 / w)) < 256)) {
 					leo_set_sticks_group(&ver, rret, alphabet, 1,
 							leo_stick_nose_1);
 					if (ver.lnAltCnt == 0)
@@ -877,7 +868,7 @@ Bool32 leo_is_stick(RecObject* object) {
 }
 
 static Bool32 leo_test_inclinable(RecVersions *v) {
-	uchar inc_let[] = "1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
+	static const uchar inc_let[] = "1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
 	if (v->lnAltCnt < 1)
 		return FALSE;
 	return (memchr(inc_let, v->Alt[0].Code, sizeof(inc_let)) != NULL);
@@ -886,8 +877,6 @@ static Bool32 leo_test_inclinable(RecVersions *v) {
 void leo_setup_inc(RecObject* object) {
 	if (!leo_test_inclinable(&object->recResults))
 		return;
-
-	return;
 }
 
 static int leo_get_first_pixel(uchar *r, int d) {
@@ -1063,7 +1052,7 @@ static int32_t leo_get_incline(RecObject* object) {
 }
 
 void leo_add_inc(RecObject* object) {
-	uchar inc_let[] = "1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
+	static const uchar inc_let[] = "1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
 	RecVersions *v;
 	int inc;
 
@@ -1081,5 +1070,4 @@ void leo_add_inc(RecObject* object) {
 			leo_av_inc_n1++;
 		}
 	}
-	return;
 }
