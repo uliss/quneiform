@@ -65,7 +65,7 @@
 #define PC_TYPE 0
 
 #include "leo.h"
-#include "r35.h"
+#include "r35/r35.h"
 #include "msk/msk.h"
 #include "std.h"
 #include "snptools.h"

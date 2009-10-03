@@ -64,7 +64,7 @@
 #include "leo.h"
 #include "alphaset.h"
 
-#include "r35.h"
+#include "r35/r35.h"
 #include "evn.h"
 #include "ctb/ctb.h"
 #include "dif.h"

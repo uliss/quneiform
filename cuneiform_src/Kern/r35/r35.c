@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
-/*#include <io.h>*/
 #include <sys/stat.h>
 #include <stdio.h>
 #include <math.h>
