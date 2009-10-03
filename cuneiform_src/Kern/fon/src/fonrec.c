@@ -1268,7 +1268,7 @@ FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,R
 // test diskriminators
 #ifdef _USEDIF_
 
-#include "dif.h"
+#include "dif/dif.h"
 static int DiskriminatorTest(void)
 {
 	RecRaster myRaster;

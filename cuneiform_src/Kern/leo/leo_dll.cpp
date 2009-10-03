@@ -69,7 +69,7 @@
 #include "leo_func.h"
 #include "r35/r35.h"
 #include "evn.h"
-#include "dif.h"
+#include "dif/dif.h"
 #include "ctb/ctb.h"
 #include "fon.h"
 #include "msk/msk.h"

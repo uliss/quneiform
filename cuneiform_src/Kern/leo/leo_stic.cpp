@@ -66,7 +66,7 @@
 
 #include "evn.h"
 #include "leo.h"
-#include "dif.h"
+#include "dif/dif.h"
 #include "inc_tab.h"
 #include "std.h"
 #include "alphaset.h"
