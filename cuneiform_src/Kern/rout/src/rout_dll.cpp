@@ -143,22 +143,11 @@ ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
 
 	return rc;
 }
-//********************************************************************
-ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError)
-{
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
 
-	if( dwError >> 16 != gwHighRC_rout)
-	gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
-
-	if( rc >= IDS_ERR_NO )
-	LoadString((HINSTANCE)ghInst_rout,rc,
-			(char *)szBuffer,sizeof(szBuffer));
-	else
+char * ROUT_GetReturnString(uint32_t dwError) {
+	if (dwError >> 16 != gwHighRC_rout)
+		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 	return NULL;
-
-	return szBuffer;
 }
 //********************************************************************
 ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
@@ -337,7 +326,7 @@ Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag) {
 }
 
 Handle MyReAlloc(Handle hMem, uint32_t dwSize, uint32_t dwFlag) {
-	return GlobalReAlloc(hMem, dwSize, dwFlag);
+	return GlobalReAlloc(hMem, dwSize);
 }
 
 Handle MyLock(Handle hMem) {
@@ -349,7 +338,8 @@ Bool32 MyUnlock(Handle hMem) {
 }
 
 Bool32 MyFree(Handle hMem) {
-	return ((GlobalFree(hMem) == NULL) ? TRUE : FALSE);
+	GlobalFree(hMem);
+	return TRUE;
 }
 
 void MyDebugPrint(const char *format, ...) {

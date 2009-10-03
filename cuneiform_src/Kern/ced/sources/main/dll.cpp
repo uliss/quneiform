@@ -130,13 +130,13 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 
 	using namespace CIF::CFIO;
 
-//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
-//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
-//	ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
-//	ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
-//	ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
-//	ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
-//	ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
+	//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
+	//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
+	//	ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
+	//	ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
+	//	ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
+	//	ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
+	//	ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
 
 	logName[0] = 0;
 	logStream = 0;
@@ -154,26 +154,8 @@ CED_FUNC(uint32_t) CED_GetReturnCode()
 	return gwRC;
 }
 
-CED_FUNC(char *) CED_GetReturnString(uint32_t dwError)
-{
-	static char szBuffer[512];
-	uint16_t low = (uint16_t)(dwError & 0xFFFF);
-	uint16_t hei = (uint16_t)(dwError >> 16);
-
-	if(hei == gwHeightRC)
-	{
-		if(!LoadString(ghInst,low + IDS_ERR_NO,(char *)szBuffer,sizeof(szBuffer)))
-		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
-	}
-	else
-	{
-		char * p = GetModulesString(dwError);
-		if(p)
-		return p;
-		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
-	}
-
-	return szBuffer;
+char * CED_GetReturnString(uint32_t /*dwError*/) {
+	return 0;
 }
 
 CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData)
@@ -346,7 +328,7 @@ void SetReturnCode_ced(uint32_t rc) {
 		gwRC = rc;
 	else {
 		if (low >= IDS_ERR_NO)
-			gwRC = (uint32_t) (gwHeightRC << 16) | (low - IDS_ERR_NO);
+			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
 		else
 			gwRC = low;
 	}

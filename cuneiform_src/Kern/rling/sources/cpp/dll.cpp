@@ -166,26 +166,18 @@ RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError)
+char * RLING_GetReturnString(uint32_t dwError)
 #else
-RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError)
+char * RLINGS_GetReturnString(uint32_t dwError)
 #endif
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
-	static char szBuffer[512];
+	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_RLING_ERR_NO;
 
-	if( dwError >> 16 != gwHeightRC)
-	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
-
-	if( rc >= IDS_RLING_ERR_NO )
-	LoadString((HINSTANCE)ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
-	else
+	if (dwError >> 16 != gwHeightRC)
+		gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
 	return NULL;
-
-	return szBuffer;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 #if defined( __RLING__ )
 #define CASE_FUNCTION(a)	case RLING_FN_##a:	*(FNRLING##a *)pData = RLING_##a; break
 #else

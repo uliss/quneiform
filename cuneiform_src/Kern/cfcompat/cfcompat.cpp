@@ -65,20 +65,21 @@
 
 #ifndef WIN32
 
-/* Minimal implementations of win32-functionality.
+/*
+ * Minimal implementations of win32-functionality.
  * Eventually these should be rewritten in standard POSIX.
  *
  * At the end of the file are some helper functions, which should be used
  * on Windows too.
  */
 
-#include <errno.h>
-#include <stdlib.h>
+#include <cerrno>
+#include <cstdlib>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <dlfcn.h>
 #include <stdarg.h>
 
@@ -95,20 +96,16 @@
 
 int HFILE_ERROR;
 
-int LoadString(HINSTANCE hInstance, uint uID, char* lpBuffer, int nBufferMax) {
-	return 0;
-}
-
-int CreateDirectory(const char *dir, void *dummy) {
+Bool CreateDirectory(const char * dir) {
 	if (!mkdir(dir, 0755))
 		return TRUE;
 	else
 		return FALSE;
 }
 
-uint32_t GetTempPath(uint32_t nBufferLength, char* lpBuffer) {
-	strcpy(lpBuffer, "/tmp");
-	return strlen(lpBuffer);
+size_t GetTempPath(size_t BufferLength, char * buf) {
+	strncpy(buf, "/tmp", BufferLength - 1);
+	return strlen(buf);
 }
 
 int RemoveDirectory(const char *d) {
@@ -121,17 +118,16 @@ void* GlobalAlloc(uint uFlags, int dwBytes) {
 	return malloc(dwBytes);
 }
 
-HGLOBAL GlobalFree(void *f) {
+void GlobalFree(void *f) {
 	free(f);
-	return NULL;
 }
 
-void* GlobalReAlloc(void* hMem, int dwBytes, uint uFlags) {
-	return realloc(hMem, dwBytes); // Should init to zero on uFlags & GMEM_ZEROINIT.
+void * GlobalReAlloc(void * ptr, size_t size) {
+	return realloc(ptr, size); // Should init to zero on uFlags & GMEM_ZEROINIT.
 }
 
-int GetTempFileName(const char * lpPathName, const char * lpPrefixString,
-		uint uUnique, char* lpTempFileName) {
+int GetTempFileName(const char * /*lpPathName*/,
+		const char * /*lpPrefixString*/, uint /*uUnique*/, char* /*lpTempFileName*/) {
 	return -1;
 }
 
@@ -139,28 +135,17 @@ int GetLastError() {
 	return errno;
 }
 
-uint32_t GetModuleFileName(HMODULE hModule, char* lpFilename, uint32_t nSize) {
-	lpFilename[0] = '.'; /* Currently all modules must be in the directory pumatest was run in. */
+uint32_t GetModuleFileName(HMODULE/* hModule*/, char* lpFilename, size_t /*size*/) {
+	/* Currently all modules must be in the directory pumatest was run in. */
+	lpFilename[0] = '.';
 	lpFilename[1] = '\0';
 	return 1;
 }
 
-Bool CloseHandle(Handle hObject) {
-	return FALSE;
-}
-
-Handle CreateFile(const char * lpFileName, uint32_t dwDesiredAccess,
-		uint32_t dwShareMode, void* lpSecurityAttributes,
-		uint32_t dwCreationDisposition, uint32_t dwFlagsAndAttributes,
-		Handle hTemplateFile) {
-	return 0;
-}
-
-HWND FindWindow(const char * lpClassName, const char * lpWindowName) {
-	return 0;
-}
-
-uint RegisterWindowMessage(const char * lpString) {
+Handle CreateFile(const char * /*lpFileName*/, uint32_t /*dwDesiredAccess*/,
+		uint32_t /*dwShareMode*/, void* /*lpSecurityAttributes*/,
+		uint32_t /*dwCreationDisposition*/, uint32_t /*dwFlagsAndAttributes*/,
+		Handle /*hTemplateFile*/) {
 	return 0;
 }
 
@@ -171,48 +156,31 @@ long _tell(int handle) {
 	return lseek(handle, 0, SEEK_CUR);
 }
 
-Bool GetComputerName(char* lpBuffer, long unsigned int *lpnSize) {
-	strncpy(lpBuffer, "CompName", *lpnSize);
-	*lpnSize = strlen(lpBuffer);
+Bool GetComputerName(char * buf, size_t * size) {
+	strncpy(buf, "CompName", *size);
+	*size = strlen(buf);
 	return TRUE;
 }
 
-int32_t RegOpenKeyEx(HKEY hKey, const char * lpSubKey, uint32_t ulOptions,
-		REGSAM samDesired, PHKEY phkResult) {
+Bool WritePrivateProfileString(const char * /*lpAppName*/,
+		const char * /*lpKeyName*/, const char * /*lpString*/, const char * /*lpFileName*/) {
 	return 0;
 }
 
-int32_t RegQueryValueEx(HKEY hKey, const char * lpValueName,
-		LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
+uint GetPrivateProfileString(const char * /*lpAppName*/,
+		const char * /*lpKeyName*/, const char * /*lpDefault*/,
+		char* /*lpReturnedString*/, size_t /*nSize*/, const char * /*lpFileName*/) {
 	return 0;
 }
 
-Bool GetClientRect(HWND hWnd, LPRECT lpRect) {
-	return 0;
-}
-
-Bool WritePrivateProfileString(const char * lpAppName, const char * lpKeyName,
-		const char * lpString, const char * lpFileName) {
-	return 0;
-}
-
-uint32_t GetPrivateProfileString(const char * lpAppName,
-		const char * lpKeyName, const char * lpDefault, char* lpReturnedString,
-		uint32_t nSize, const char * lpFileName) {
-	return 0;
-}
-
-uint GetPrivateProfileInt(const char * lpAppName, const char * lpKeyName,
-		int16_t nDefault, const char * lpFileName) {
-	return 0;
+uint GetPrivateProfileInt(const char * /*lpAppName*/,
+		const char * /*lpKeyName*/, uint defaultValue, const char * /*lpFileName*/) {
+	return defaultValue;
 }
 
 int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
 		const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr,
 		int cbMultiByte, const char * lpDefaultChar, pBool lpUsedDefaultChar) {
-	return 0;
-}
-Bool ShowWindow(HWND hWnd, int nCmdShow) {
 	return 0;
 }
 
@@ -241,65 +209,27 @@ int _access(const char *filename, int mode) {
 	return stat(filename, &foo);
 }
 
-Bool SetWindowText(HWND hWnd, const char * lpString) {
-	return 0;
-}
-
-int ReleaseDC(HWND hWnd, HDC hDC) {
-	return 0;
-}
-
-Bool IsIconic(HWND hWnd) {
-	return 0;
-}
-
-HDC GetDC(HWND hWnd) {
-	return 0;
-}
-
-Bool EndPaint(HWND hWnd, ...) {
-	return 1;
-}
-
-HDC BeginPaint(HWND hwnd, ...) {
-	return 0;
-}
-
-LRESULT SendMessage(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam) {
-	return 0;
-}
-
 #ifndef __CYGWIN__
 void strlwr(char *foo) {
 	// FIXME: this is probably actually used somewhere.
 }
 #endif
 
-HWND CreateWindow(const char * lpClassName, const char * lpWindowName,
-		uint32_t dwStyle, int x, int y, int nWidth, int nHeight,
-		HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, pvoid lpParam) {
-	return (HWND) 55;
-}
-
-HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj) {
-	return 0;
-}
-
-char* lstrcat(char* lpString1, char* lpString2) {
-	return strcat(lpString1, lpString2);
-}
-
-int lstrlen(const char * lpString) {
-	return strlen(lpString);
-}
-
-int lstrcmp(const char * lpString1, const char * lpString2) {
-	return strcmp(lpString1, lpString2);
-}
-
-char* lstrcpy(char* lpString1, const char * lpString2) {
-	return strcpy(lpString1, lpString2);
-}
+//char* lstrcat(char* str1, const  char * string2) {
+//	return strcat(str1, str2);
+//}
+//
+//int lstrlen(const char * lpString) {
+//	return strlen(lpString);
+//}
+//
+//int lstrcmp(const char * lpString1, const char * lpString2) {
+//	return strcmp(lpString1, lpString2);
+//}
+//
+//char* lstrcpy(char* lpString1, const char * lpString2) {
+//	return strcpy(lpString1, lpString2);
+//}
 
 int wsprintf(char* lpOut, const char * lpFmt, ...) {
 	char buffer[256];
@@ -313,25 +243,12 @@ int wsprintf(char* lpOut, const char * lpFmt, ...) {
 	return ret;
 }
 
-int lstrcmpi(const char * lpString1, const char * lpString2) {
-	return strcasecmp(lpString1, lpString2);
-}
+//int lstrcmpi(const char * lpString1, const char * lpString2) {
+//	return strcasecmp(lpString1, lpString2);
+//}
 
-Bool DeleteObject(HGDIOBJ hObject) {
-	return 0;
-}
-
-HWND GetFocus() {
-	return NULL;
-}
-
-int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption,
-		uint uType) {
+int MessageBox(HWND /*hWnd*/, const char * lpText, const char * lpCaption, uint /*uType*/) {
 	fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
-	return 0;
-}
-
-int WINAPI GlobalSize(HGLOBAL hMem) {
 	return 0;
 }
 
@@ -343,12 +260,8 @@ Bool GlobalUnlock(HGLOBAL hMem) {
 	return 0;
 }
 
-Bool IsBadWritePtr(pvoid lp, int ucb) {
-	return 0;
-}
-
-void OutputDebugString(const char * lpOutputString) {
-
+void OutputDebugString(const char * OutputString) {
+	fputs(OutputString, stderr);
 }
 
 Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
@@ -408,74 +321,6 @@ Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
 	return 0;
 }
 
-HWND GetActiveWindow() {
-	return NULL;
-}
-
-HFONT CreateFont(int nHeight, int nWidth, int nEscapement, int nOrientation,
-		int fnWeight, uint32_t fdwItalic, uint32_t fdwUnderline,
-		uint32_t fdwStrikeOut, uint32_t fdwCharSet,
-		uint32_t fdwOutputPrecision, uint32_t fdwClipPrecision,
-		uint32_t fdwQuality, uint32_t fdwPitchAndFamily, const char * lpszFace) {
-	return 0;
-}
-
-Bool GetTextExtentPoint32(HDC hdc, const char * lpString, int c, LPSIZE lpSize) {
-	return 0;
-}
-
-Bool EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
-	return 0;
-}
-
-int GetWindowText(HWND hWnd, char* lpString, int nMaxCount) {
-	return 0;
-}
-
-HMODULE LoadLibrary(const char * lpFileName) {
-	return dlopen(lpFileName, RTLD_LAZY);
-}
-
-Bool FreeLibrary(HMODULE hModule) {
-	return dlclose(hModule);
-}
-
-void* GetProcAddress(HMODULE hModule, const char * lpProcName) {
-	return dlsym(hModule, lpProcName);
-}
-
-HGDIOBJ GetStockObject(int fnObject) {
-	return -1;
-}
-
-Bool IsWindowVisible(HWND hWnd) {
-	return 0;
-}
-
-LRESULT DefWindowProc(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam) {
-	return 0;
-}
-
-int32_t GetWindowLong(HWND hWnd, int nIndex) {
-	return 0;
-}
-
-Bool RegisterClass(const WNDCLASS *lpWndClass) {
-	return 0;
-}
-
-HMODULE GetModuleHandle(const char * lpModuleName) {
-	return NULL;
-}
-
-HICON LoadIcon(HINSTANCE hInstance, const char * lpIconName) {
-	return NULL;
-}
-
-int LoadCursor(HINSTANCE hInstance, const char * lpCursorName) {
-	return 0;
-}
-
 Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
 		int nBottomRect) {
 	return 0;
@@ -498,14 +343,12 @@ char* _strupr(char*s) {
 
 static HMODULE thismod;
 
-CFCOMPAT_FUNC(Bool)
-WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, pvoid lpvReserved) {
+Bool WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, pvoid lpvReserved) {
 	thismod = (HMODULE) hinstDLL;
 	return TRUE;
 }
 
-CFCOMPAT_FUNC(char*)
-mkdtemp(char *tmpl) {
+char* mkdtemp(char *tmpl) {
 	static const char charset[] =
 	"=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	static const unsigned int charset_len = sizeof(charset) - 1;
@@ -544,11 +387,9 @@ mkdtemp(char *tmpl) {
 #endif /* WIN32 */
 
 /* General helper functions. */
-
 static const char *separator = "/"; /* Yes, on Windows too. */
 
 #ifdef WIN32
-
 static void get_install_path(char *path) {
 	const int psize = 128;
 	char modulepath[128]; /* MSVC fails when psize is put in these brackets. */

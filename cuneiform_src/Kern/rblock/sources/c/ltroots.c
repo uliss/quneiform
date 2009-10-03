@@ -67,9 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include <fcntl.h>
-# include <stdio.h>
-/*# include <crtdbg.h>*/
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <assert.h>
 
 # include "c_memory.h"
@@ -108,7 +108,7 @@ int nRootStripsOffset;
 
 # ifdef LT_STAND_ALONE
 # define ROOTS_MEMORY_QUANTUM   1024
-
+
 Bool RootsLoadFile (char * pFilename)
 {
 /*    typedef int Handle;*/
@@ -154,7 +154,7 @@ Bool RootsLoadFile (char * pFilename)
     return (TRUE);
 }
 # endif
-
+
 void CalculatePageParameters (void)
 {
     ROOT *pRoot;
@@ -287,7 +287,7 @@ void RootStripsCalculate (void)
         }
     }
 }
-
+
 void RootStripsGetLoopParameters
 (
     int yTop,
@@ -358,7 +358,7 @@ void RootStripsGetLoopParameters
         *ppAfter = pEnd + 1;
     }
 }
-
+
 void RootsRemoveFromRulers (void)
 {
     ROOT *p;
@@ -377,7 +377,7 @@ void RootsRemoveFromRulers (void)
         }
     }
 }
-
+
 void RootsSaveNonLayoutData (void)
 {
     int i;
@@ -400,7 +400,7 @@ void RootsSaveNonLayoutData (void)
         pRootExts [i].wLength     = pRoots [i].u1.u2.wLength;
     }
 }
-
+
 void RootsRestoreNonLayoutData_ForDustAndRemoved (void)
 {
     int i;
@@ -418,7 +418,7 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved (void)
         }
     }
 }
-
+
 void RootsRestoreNonLayoutData_ForBlock (BLOCK *p)
 {
     ROOT *pRoot, *pNext;
@@ -436,7 +436,7 @@ void RootsRestoreNonLayoutData_ForBlock (BLOCK *p)
         pRoot -> u1.u2.wLength     = pRootExts [pRoot - pRoots].wLength;
     }
 }
-
+
 void RootsRestoreNonLayoutData (void)
 {
     int i;
@@ -456,7 +456,7 @@ void RootsRestoreNonLayoutData (void)
     pAfterRootExts = NULL;
     nRootExts      = 0;
 }
-
+
 void RootsFreeData (void)
 {
 # ifdef LT_STAND_ALONE

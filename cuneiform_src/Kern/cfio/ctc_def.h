@@ -50,7 +50,7 @@
 #define                CFIO_GETFOLDERSITEMS             split_path
 #define                CFIO_MAKEPATH                    make_path
 #define                CFIO_MAKEFULLPATH                _fullpath
-#define                CFIO_MAKEFOLDER(a)               CreateDirectory(a,NULL)
+#define                CFIO_MAKEFOLDER(a)               CreateDirectory(a)
 #define                CFIO_DELETEFOLDER(a)             rmdir(a)
 //     local flags
 #define                CFIO_GF_CWRITE              "w"
@@ -63,7 +63,6 @@
 #define                CFIO_GF_CBINARY             "b"
 #define                CFIO_GF_CCOMMIT             "c"
 #define                CFIO_GF_CNOCOMMIT           "n"
-
 
 #define                CFIO_FILE_CREATE                    CFIO_GF_CREATE
 #define                CFIO_FILE_OPEN                      CFIO_GF_OPEN

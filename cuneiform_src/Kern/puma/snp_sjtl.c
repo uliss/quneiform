@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*#include <windows.h>*/
 #include <stddef.h>
 
 #include "cstr/cstr.h"
@@ -74,19 +73,7 @@ static FSJTL_1 fSJTL_mkfrm = NULL;
 static FSJTL_4 fSJTL_close = NULL;
 
 void My_SJTL_Init()
-{
-	if( !hSJTL )
-       hSJTL = LoadLibrary("SJTL.DLL");
-
-	if( hSJTL )
-	{
-		fSJTL_save = (void*)GetProcAddress(hSJTL,"SJTL_save");
-		fSJTL_save_old = (void*)GetProcAddress(hSJTL,"SJTL_save_old");
-		fSJTL_open = (void*)GetProcAddress(hSJTL,"SJTL_open");
-		fSJTL_mkfrm = (void*)GetProcAddress(hSJTL,"SJTL_mkfrm");
-		fSJTL_close = (void*)GetProcAddress(hSJTL,"SJTL_close");
-	}
-}
+{}
 
 int My_SJTL_save(const char* filename)
 {
@@ -127,7 +114,4 @@ void My_SJTL_close(void)
 }
 
 void My_SJTL_Done()
-{
-	if(hSJTL)
-		FreeLibrary(hSJTL);
-}
+{}

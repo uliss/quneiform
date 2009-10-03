@@ -103,8 +103,8 @@ class CKronrodBinarizator
 #define	MAX_NI	             8192//4096
 #define	MAX_NJ	             8192//4096
 #define	MKPR	             wsprintf (mkText,	// "qwer=%d", qwer);   MMM;
-#define	MMM	                 MessageBox (GetFocus(), (char *)mkText, 0, MB_SYSTEMMODAL)
-#define	MMM_NP	             MessageBox (GetFocus(), (char *)mkText, 0, 0)
+#define	MMM	                 MessageBox (NULL, (char *)mkText, 0, MB_SYSTEMMODAL)
+#define	MMM_NP	             MessageBox (NULL, (char *)mkText, 0, 0);
 	//
 #define KRONROD_EXPORT(a)    a            //EXPORT
 #define	KEY						if (mk_Key)
@@ -113,7 +113,7 @@ class CKronrodBinarizator
 #define	PR_BEG					{ \
 									char buf_MKPR [199]; \
 									wsprintf (buf_MKPR,
-#define	PR_END						MessageBox (GetFocus(), buf_MKPR, 0, MB_SYSTEMMODAL);\
+#define	PR_END						MessageBox (NULL, buf_MKPR, 0, MB_SYSTEMMODAL);\
 								}
 	//
 private:

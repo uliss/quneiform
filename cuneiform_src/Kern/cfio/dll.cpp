@@ -144,18 +144,10 @@ uint32_t CFIO_GetReturnCode() {
 }
 
 char * CFIO_GetReturnString(uint32_t dwError) {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_MIN;
-	static char szBuffer[512];
-
 	if (dwError >> 16 != wHeightRC)
 		wLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	if (rc > IDS_ERR_MIN && rc < IDS_ERR_MAX)
-		LoadString((HINSTANCE) hInst, rc, (char *) szBuffer, sizeof(szBuffer));
-	else
-		return NULL;
-
-	return szBuffer;
+	return NULL;
 }
 
 void SetReturnCode_cfio(uint16_t rc) {

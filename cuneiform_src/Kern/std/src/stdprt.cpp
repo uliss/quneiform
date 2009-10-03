@@ -208,11 +208,8 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int /*len*/) {
 Bool32 stdPrtConsole::AllocPrtConsole() {
 	if (hConsoleOutput)
 		return TRUE;
-	hConsoleOutput = FindWindow(NULL, "PrtConsole");
 
 	bUseConsole = TRUE;
-	if (hConsoleOutput)
-		return TRUE;
 	return FALSE;
 }
 
@@ -510,51 +507,43 @@ STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, va_list& List)
 	return res;
 }
 
-STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id)
-{
+Bool32 stdPrtStartTransaction(char* user_name, char* prog_id) {
 	pTransactionBuffer->Start();
 	gl_iTransaction++;
-	char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-	long unsigned int sz=sizeof(comp_name);
-	GetComputerName(comp_name,&sz);
-	stdSysPrt(3,"Начало",comp_name,prog_id,user_name);
+	char comp_name[MAX_COMPUTERNAME_LENGTH + 1];
+	size_t sz = sizeof(comp_name);
+	GetComputerName(comp_name, &sz);
+	stdSysPrt(3, "Начало", comp_name, prog_id, user_name);
 	return TRUE;
 }
 
-STD_FUNC(Bool32) stdPrtRollback()
-{
-	if(gl_iTransaction)
-	{
-		if(!pTransactionBuffer->Rollback())
-		RET_FALSE;
+Bool32 stdPrtRollback() {
+	if (gl_iTransaction) {
+		if (!pTransactionBuffer->Rollback())
+			RET_FALSE;
 		gl_iTransaction--;
 		return TRUE;
-	}
-	else
-	RET_FALSE;
+	} else
+		RET_FALSE;
 }
 
-STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id)
-{
-	if(gl_iTransaction)
-	{
-		char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-		long unsigned int sz=sizeof(comp_name);
-		GetComputerName(comp_name,&sz);
-		stdSysPrt(3,"Завершение",comp_name,prog_id,user_name);
-		if(!pTransactionBuffer->Finish())
-		RET_FALSE;
+Bool32 stdPrtEndTransaction(char* user_name, char* prog_id) {
+	if (gl_iTransaction) {
+		char comp_name[MAX_COMPUTERNAME_LENGTH + 1];
+		size_t sz = sizeof(comp_name);
+		GetComputerName(comp_name, &sz);
+		stdSysPrt(3, "Завершение", comp_name, prog_id, user_name);
+		if (!pTransactionBuffer->Finish())
+			RET_FALSE;
 		gl_iTransaction--;
 		return TRUE;
-	}
-	else
-	RET_FALSE;
+	} else
+		RET_FALSE;
 }
 
 static char* pParamsString = NULL;
 static int iParamsStringLen = 0;
 static XStack<int> xsParamsShift;
-//vector<xsParamsShift>
 static StdPrtEvent szCurEvn = { 0 };
 typedef XStack<char> XString;
 

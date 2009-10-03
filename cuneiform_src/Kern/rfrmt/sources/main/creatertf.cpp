@@ -430,10 +430,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 		pRtfFragment->m_wType = FT_TEXT;
 
 		fread(&RectFragm, 1, sizeof(Rect16), in);
-		pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * Twips);
-		pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * Twips);
-		pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * Twips);
-		pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * Twips);
+		pRtfFragment->m_rect.left = (int32_t)(RectFragm.left * Twips);
+		pRtfFragment->m_rect.top = (int32_t)(RectFragm.top * Twips);
+		pRtfFragment->m_rect.right = (int32_t)(RectFragm.right * Twips);
+		pRtfFragment->m_rect.bottom = (int32_t)(RectFragm.bottom * Twips);
 		fread(&tmp, 2, 1, in);
 		pRtfFragment->m_wStringsCount = tmp;
 		fread(&wtmp, 4, 1, in);
@@ -3998,42 +3998,12 @@ int16_t GetRealSize(char* str, int16_t len, int16_t FontSize,
 	else
 		bItalic = FALSE;
 
-	//	CClientDC dc(AfxGetMainWnd());
-	HWND wnd = GetActiveWindow();
-	HDC dc = GetDC(wnd);
-
 	fn = get_font_name(FontNumber);
 
-	if (fn == 0) //without serif
-		testFont = CreateFont((-20) * FontSize, 0, 0, 0, n_Weight, bItalic,
-				FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
-				"Arial");
-	else if (fn == 3) //without serif
-		testFont = CreateFont((-20) * FontSize, 0, 0, 0, n_Weight, bItalic,
-				FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
-				"Arial Narrow");
-
-	else if (fn == 1) //with serif
-		testFont = CreateFont((-20) * FontSize, 0, 0, 0, n_Weight, bItalic,
-				FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_ROMAN,
-				"Times New Roman");
-	else
-		// fixed-pitch
-		testFont = CreateFont((-20) * FontSize, 0, 0, 0, n_Weight, FALSE,
-				FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-				DEFAULT_PITCH | FF_MODERN, "Courier");
-
-	HFONT pOldFont = (HFONT) SelectObject(dc, testFont);
-	//	GetTextMetrics(dc,&tm);
-	GetTextExtentPoint32(dc, str, strlen(str), &size);
+	//	TODO
+	size.cy = 0;
+	size.cx = 0;
 	*strHeight = (int16_t) size.cy;
-	SelectObject(dc, pOldFont);
-	DeleteObject(testFont);
-	ReleaseDC(wnd, dc);
 	return (int16_t) size.cx; //in twips
 }
 
@@ -4245,13 +4215,13 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
 							> SectorInfo->PaperW / 2) {
 						if (cpdata->Line.Beg_Y * Twips > Rect->top
 								&& cpdata->Line.Beg_Y * Twips < Rect->bottom) {
-							Rect->top = (int32_t) (cpdata->Line.Beg_Y * Twips);
-							Rect->bottom = (int32_t) (cpdata->Line.Beg_Y
-									* Twips + 10);
+							Rect->top = (int32_t)(cpdata->Line.Beg_Y * Twips);
+							Rect->bottom = (int32_t)(cpdata->Line.Beg_Y * Twips
+									+ 10);
 						} else {
-							Rect->top = (int32_t) (cpdata->Line.End_Y * Twips);
-							Rect->bottom = (int32_t) (cpdata->Line.End_Y
-									* Twips + 10);
+							Rect->top = (int32_t)(cpdata->Line.End_Y * Twips);
+							Rect->bottom = (int32_t)(cpdata->Line.End_Y * Twips
+									+ 10);
 						}
 						CLINE_CopyData(&data, cpdata, sizeof(DLine));
 						data.Flags |= LI_FRMT_Used;

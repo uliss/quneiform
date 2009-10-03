@@ -256,27 +256,13 @@ RSL_FUNC(uint32_t) RSL_GetReturnCode()
 	return rc;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
-{
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
+char * RSL_GetReturnString(uint32_t dwError) {
+	if (dwError >> 16 != gwHeightRC)
+		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	if( dwError >> 16 != gwHeightRC)
-	gwLowRC = IDS_ERR_NOTIMPLEMENT;
-
-	if( rc >= IDS_ERR_NO )
-	LoadString(ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
-	else
 	return NULL;
-
-	return szBuffer;
-	return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
 RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;

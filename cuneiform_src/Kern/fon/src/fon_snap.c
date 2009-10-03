@@ -62,7 +62,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-/*#include <windows.h>*/
 
 #include "compat_defs.h"
 
@@ -84,61 +83,41 @@ static int probSnap[NUM_IN_SNAP + 1];
 //
 ///////////////
 
-FON_FUNC(int32_t) FONInitSnap(Handle hwnd)
-{
-	memset(nameSnap,0,sizeof(nameSnap));
-	InSnap=0;
+int32_t FONInitSnap(Handle hwnd) {
+	memset(nameSnap, 0, sizeof(nameSnap));
+	InSnap = 0;
 
-	if(snapRaster==NULL)
-	snapRaster=(RecRaster *)malloc(NUM_IN_SNAP*sizeof(RecRaster));
-	if(!snapRaster)
-	return -1;
+	if (snapRaster == NULL)
+		snapRaster = (RecRaster *) malloc(NUM_IN_SNAP * sizeof(RecRaster));
+	if (!snapRaster)
+		return -1;
 
-	if( WasRegister == FALSE )
-	{
-		if( hwnd )
-		hGluInstance=(HINSTANCE)GetWindowLong((HWND)hwnd,GWL_HINSTANCE);
+	if (WasRegister == FALSE) {
+		if (hwnd)
+			hGluInstance = NULL;
 		else
-		hGluInstance = GetModuleHandle("Fon32.dll");
+			hGluInstance = NULL;
 
-		WasRegister=RegisterGlu(hGluInstance, szGluName);
-		if(WasRegister==FALSE)
-		return -2;
+		WasRegister = RegisterGlu(hGluInstance, szGluName);
+		if (WasRegister == FALSE)
+			return -2;
 	}
 
-	if(hwndSnap==NULL)
-	hwndSnap=CreateWindow(szGluName,"SnapFONGlue",
-			WS_OVERLAPPEDWINDOW,
-			0,300,400,300,
-			NULL, NULL,
-			hGluInstance, NULL);
-
-	if(hwndSnap && !IsWindowVisible(hwndSnap) )
-	ShowWindow(hwndSnap,TRUE);
-
-	IsSnap=TRUE;
+	IsSnap = TRUE;
 	return NUM_IN_SNAP;
 }
-//////////////////
-FON_FUNC(int32_t) FONEndSnap(void)
-{
 
-	IsSnap=FALSE;
+int32_t FONEndSnap(void) {
+
+	IsSnap = FALSE;
 	InSnap = 0;
-	if(snapRaster)
-	free(snapRaster);
-	snapRaster=NULL;
+	if (snapRaster)
+		free(snapRaster);
+	snapRaster = NULL;
 
-	if(hwndSnap)
-	{
-		SendMessage( hwndSnap, WM_DESTROY, 0, 0);
-	}
-
-	//	UnregisterClass(szGluName, hGluInstance);
-	//	WasRegister = FALSE;
 	return 1;
 }
-////////////////////
+
 int PutNamesSnap(int nvar, uchar *names, int *probs) {
 	int i;
 
@@ -233,62 +212,54 @@ static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) 
 
 	return step;
 }
-/*************************/
-FON_FUNC(int32_t) FONShowSnap(void)
-{
+
+int32_t FONShowSnap(void) {
 	RECT rect;
-	int i,j,xstart,ystart;
+	int i, j, xstart, ystart;
 	HDC hDC;
-	int numRow=1;
+	int numRow = 1;
 	int all;
 
-	if( IsSnap == FALSE) return -11;
-	if(InSnap <= 0) return 0; // nothing in snap
+	if (IsSnap == FALSE)
+		return -11;
+	if (InSnap <= 0)
+		return 0; // nothing in snap
 
-	if(hwndSnap==NULL)
-	return -3;
+	if (hwndSnap == NULL)
+		return -3;
 
-	if(IsIconic (hwndSnap )) return 0;
+	numRow = 1;
+	if (InSnap > 6)
+		numRow = 3; // make 3 rows
+	else if (InSnap > 3)
+		numRow = 2; // make 2 rows
 
-	GetClientRect(hwndSnap,&rect);
+	if (InSnap >= 3)
+		j = rect.right / 3;
+	else
+		j = rect.right / InSnap;
 
-	numRow=1;
-	if(InSnap > 6 ) numRow=3; // make 3 rows
-	else if(InSnap > 3 ) numRow=2; // make 2 rows
+	Rectangle(hDC, 0, 0, rect.right, rect.bottom);
 
-	if(InSnap >=3 ) j=rect.right/3;
-	else j=rect.right/InSnap;
-
-	hDC=GetDC(hwndSnap);
-	Rectangle(hDC,0,0,rect.right,rect.bottom);
-
-	rect.bottom /=numRow;
-	ystart=0;
-	for(all=0;numRow;numRow--,ystart+=rect.bottom)
-	{
-		for(i=xstart=0;i<3 && all< InSnap;i++,xstart+=j,all++)
-		{
-			SelectObject(hDC,GetStockObject(NULL_BRUSH));
-			Rectangle(hDC,xstart,ystart,xstart+j,ystart+rect.bottom);
-			SelectObject(hDC,GetStockObject(GRAY_BRUSH)); // can gray?
-			PutRecRaster(hDC,snapRaster+all,xstart,ystart,j,rect.bottom);
+	rect.bottom /= numRow;
+	ystart = 0;
+	for (all = 0; numRow; numRow--, ystart += rect.bottom) {
+		for (i = xstart = 0; i < 3 && all < InSnap; i++, xstart += j, all++) {
+			Rectangle(hDC, xstart, ystart, xstart + j, ystart + rect.bottom);
+			PutRecRaster(hDC, snapRaster + all, xstart, ystart, j, rect.bottom);
 		}
 	}
 
-	ReleaseDC(hwndSnap,hDC);
-	//  SetWindowText(hwndSnap,nameSnap);
-	PutNamesSnap(InSnap,nameSnap,probSnap);
-	SetWindowText(hwndSnap,recogResult);
-
-	//  ShowWindow(hwndSnap,SW_SHOWNORMAL);
+	PutNamesSnap(InSnap, nameSnap, probSnap);
 
 	return InSnap;
 }
-/////////////////
+
 /*
  * Handle messages for the application window
  */
-int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam, LPARAM lparam) {
+int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam,
+		LPARAM lparam) {
 	PAINTSTRUCT ps;
 
 	switch (msg) {
@@ -302,17 +273,15 @@ int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam, LPARAM lparam
 			FONShowSnap();
 		break;
 	case WM_PAINT:
-		BeginPaint(win, &ps);
 		if (InSnap)
 			FONShowSnap();
-		EndPaint(win, &ps);
 		return TRUE;
 	default:
 		break;
 	}
-	return DefWindowProc(win, msg, wparam, lparam);
+	return 0;
 }
-////////////////////////
+
 static Bool RegisterGlu(Handle hInstance, char* szAppName) {
 	WNDCLASS WndClass;
 	Bool bSuccess;
@@ -323,15 +292,15 @@ static Bool RegisterGlu(Handle hInstance, char* szAppName) {
 	WndClass.hInstance = hInstance;
 	WndClass.lpfnWndProc = GluFonWindowProc;
 	WndClass.style = (unsigned int) NULL;
-	WndClass.hbrBackground = GetStockObject(WHITE_BRUSH);
-	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	WndClass.hIcon = LoadIcon(NULL, IDI_ASTERISK);
+	WndClass.hbrBackground = NULL;
+	WndClass.hCursor = NULL;
+	WndClass.hIcon = NULL;
 	WndClass.lpszMenuName = (char*) NULL;
 	WndClass.cbClsExtra = (int) NULL;
 	WndClass.cbWndExtra = (int) NULL;
 
-	bSuccess = RegisterClass(&WndClass);
+	bSuccess = FALSE;
 
 	return bSuccess;
 }
-//////////////////////////
+

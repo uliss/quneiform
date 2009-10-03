@@ -54,8 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*#include <windows.h>*/
-/*#include <crtdbg.h>*/
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
@@ -69,6 +67,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 	HINSTANCE hDPuma = NULL;
 
 	static FNDPUMA_Init Init = NULL;
@@ -174,7 +173,6 @@ extern "C" {
 		return rc;
 	}
 
-	//////////////////////////////////////////////
 	Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
 	{
 		Bool32 rc = FALSE;
@@ -182,14 +180,6 @@ extern "C" {
 		_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
 				"LDPUMA_Init(%i,%x)\n",wHightCode, hStorage);
 #endif
-		hDPuma = LoadLibrary("DPUMA.DLL");
-		if(hDPuma)
-		{
-			Init = (FNDPUMA_Init)GetProcAddress(hDPuma,"DPUMA_Init");
-			Done = (FNDPUMA_Done)GetProcAddress(hDPuma,"DPUMA_Done");
-			GetExportData = (FNDPUMA_GetExportData)GetProcAddress(hDPuma,"DPUMA_GetExportData");
-			SetImportData = (FNDPUMA_SetImportData)GetProcAddress(hDPuma,"DPUMA_SetImportData"); //tanya
-		}
 		if(Init && GetExportData)
 		{
 			if(GetExportData(DPUMA_FNDPUMA_Console,&Console)&&
@@ -299,10 +289,7 @@ extern "C" {
 		if(Done)
 		rc = Done();
 		if(hDPuma)
-		{
-			FreeLibrary(hDPuma);
 			hDPuma = NULL;
-		}
 		return rc;
 	}
 	//////////////////////////////////////////////
@@ -1044,8 +1031,7 @@ extern "C" {
 		return 0;
 	}
 #endif
-	//////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////
+
 #ifdef __cplusplus
 }
 #endif

@@ -292,8 +292,7 @@ Handle Control::ReadFileFromStorage(Handle hStorage, char* lpName) {
 
 	if (pStorageHeader) {
 		if (FileNameToFolder(FileName,
-				pStorageHeader->GetStorageFolder().c_str(), lpName,
-				PATH_MAX)) {
+				pStorageHeader->GetStorageFolder().c_str(), lpName, PATH_MAX)) {
 			return OpenFile(NULL, FileName, OSF_READ | OSF_WRITE | OSF_BINARY);
 		}
 	}
@@ -482,7 +481,7 @@ Handle Control::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 			MemoryHeader * Memory = memory_list_.GetItem(hMemory);
 
 			if (Memory) {
-				hNewMemory = GlobalReAlloc(hMemory, wNewSize, GlobalFlag);
+				hNewMemory = GlobalReAlloc(hMemory, wNewSize);
 				Memory->SetHandle(hNewMemory);
 				Memory->SetSize(wNewSize);
 			}
@@ -529,7 +528,8 @@ uint32_t Control::WriteMemToFile(Handle hMem, const std::string& Name) {
 	return Counter;
 }
 
-uint32_t Control::ReadMemFromFile(const std::string& Name, Handle * phMem, uint Flag) {
+uint32_t Control::ReadMemFromFile(const std::string& Name, Handle * phMem,
+		uint Flag) {
 	Handle hFile = OpenFile(NULL, Name, OSF_READ | OSF_BINARY);
 	Handle hMem;
 	pchar pMem;
@@ -556,7 +556,8 @@ uint32_t Control::ReadMemFromFile(const std::string& Name, Handle * phMem, uint 
 	return Counter;
 }
 
-uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage, const std::string& Name) {
+uint32_t Control::WriteMemToStorage(Handle hMem, Handle hStorage,
+		const std::string& Name) {
 	Handle hFile;
 	uint32_t wData = WriteMemToFile(hMem, Name);
 

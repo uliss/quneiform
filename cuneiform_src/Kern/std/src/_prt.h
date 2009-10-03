@@ -142,25 +142,24 @@ public:
 	operator Handle(void) const {
 		return NULL;
 	}
-	;
+
 	stdPrtConsole() :
 		hConsoleOutput(0), bUseConsole(0) {
-		uiMesasageHandle = RegisterWindowMessage("SendTextToPrtConsole");
 	}
-	;
+
 	~stdPrtConsole() {
 		if (hConsoleOutput) {
 			bUseConsole = FALSE;
 			hConsoleOutput = NULL;
-		};
+		}
 	}
-	;
+
 	Bool32 AllocPrtConsole();
 	void FreePrtConsole() {
 		bUseConsole = FALSE;
 		hConsoleOutput = NULL;
 	}
-	;
+
 	Bool32 SendTextToConsole(char *text, int len);
 };
 
@@ -216,7 +215,6 @@ public:
 	}
 
 	Bool32 operator()(char* EventText) {
-
 		if (!bUse)
 			return TRUE;
 		XPath spath = file_name;
@@ -229,7 +227,6 @@ public:
 					CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 			sleep(30);
 		};
-		::CloseHandle(hnd);
 		file = fopen((char*) file_name, "at+");
 
 		if (file == NULL) {

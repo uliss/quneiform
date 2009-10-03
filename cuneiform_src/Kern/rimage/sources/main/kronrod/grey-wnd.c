@@ -148,11 +148,10 @@ void	mk_hist_WORD (uint16_t *Hist_WORD, LPBYTE p, uint16_t n);
 #define	MAX_NI	8192//4096
 #define	MAX_NJ	8192//4096
 #define	MKPR	wsprintf (mkText,	// "qwer=%d", qwer);   MMM;
-#define	MMM	MessageBox (GetFocus(), mkText, 0, MB_SYSTEMMODAL)
-#define	MMM_NP	MessageBox (GetFocus(), mkText, 0, 0)
-//#define	NEVER_MORE	if (FALSE) used #ifdef G_DEBUG instead
+#define	MMM	MessageBox (NULL, mkText, 0, MB_SYSTEMMODAL)
+#define	MMM_NP	MessageBox (NULL, mkText, 0, 0)
 #define	PR_BEG	{ char buf_MKPR [199];	wsprintf (buf_MKPR,
-#define	PR_END	MessageBox (GetFocus(), buf_MKPR, 0, MB_SYSTEMMODAL); }
+#define	PR_END	MessageBox (NULL, buf_MKPR, 0, MB_SYSTEMMODAL); }
 /*----------------------------------------------------------------------*/
 							//EXTERN:
 //extern  char    Main_Dir_Name [];   // H:\CUNEI  (see zB SCANTAB.C)

@@ -86,25 +86,7 @@ int PUMA_GetReturnCode() {
 }
 
 char * PUMA_GetReturnString(int dwError) {
-	static char szBuffer[512];
-	uint16_t low = (uint16_t) (dwError & 0xFFFF);
-	uint16_t hei = (uint16_t) (dwError >> 16);
-
-	if (hei == gwHeightRC) {
-		if (!LoadString(ghInst, low + IDS_ERR_NO, (char *) szBuffer,
-				sizeof(szBuffer)))
-			LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
-					sizeof(szBuffer));
-	} else {
-		char * p = GetModulesString(dwError);
-		if (p)
-			return p;
-		LoadString(ghInst, IDS_ERR_NOTIMPLEMENT, (char *) szBuffer,
-				sizeof(szBuffer));
-	}
-
-	return szBuffer;
-
+	return NULL;
 }
 
 bool PUMA_SetImportData(uint32_t dwType, void * pData) {
@@ -167,7 +149,7 @@ void SetReturnCode_puma(uint32_t rc) {
 		gwRC = rc;
 	else {
 		if (low >= IDS_ERR_NO)
-			gwRC = (uint32_t) (gwHeightRC << 16) | (low - IDS_ERR_NO);
+			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
 		else
 			gwRC = low;
 	}
@@ -199,7 +181,5 @@ char * GetModuleTempPath() {
 }
 
 char * GetResourceString(uint32_t id) {
-	static char szBuffer[1024] = "";
-	LoadString(ghInst, id, szBuffer, sizeof(szBuffer));
-	return szBuffer;
+	return "";
 }

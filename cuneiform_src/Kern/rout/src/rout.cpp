@@ -346,8 +346,6 @@ long ROUT_ListFormats(puchar buf, ulong sizeBuf) {
 
 #define ITEM(a) {\
     p->code = ROUT_FMT_##a;\
-              LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
-                         p->name,sizeof(p->name));\
               p++; count++;\
           }
 
@@ -380,8 +378,6 @@ long ROUT_ListCodes(puchar buf, ulong sizeBuf) {
 
 #define ITEM(a) {\
     p->code = ROUT_CODE_##a;\
-              LoadString((HINSTANCE)ghInst_rout, IDS_CODE_##a,\
-                         p->name,sizeof(p->name));\
               p++; count++;\
           }
 
@@ -974,8 +970,6 @@ long ROUT_ListAvailableFormats(puchar buf, ulong sizeBuf) {
 
 #define ITEM(a) {\
     p->code = ROUT_FMT_##a;\
-              LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
-                         p->name,sizeof(p->name));\
               p++; count++;\
           }
 

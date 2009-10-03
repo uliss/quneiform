@@ -632,17 +632,17 @@ Bool WriteRtfControl(struct StrRtfOut far *rtf, const char* control, int type,
 		return FALSE; // write prefix
 
 	//write the control text
-	if (!WriteRtfText(rtf, control, lstrlen(control)))
+	if (!WriteRtfText(rtf, control, strlen(control)))
 		return FALSE;
 
 	//write the numeric parameter
 	if (type == PARAM_INT) { // write in integer format
 		wsprintf(string, "%ld", (long) val);
-		if (!WriteRtfText(rtf, string, lstrlen(string)))
+		if (!WriteRtfText(rtf, string, strlen(string)))
 			return FALSE;
 	} else if (type == PARAM_DBL) { // write in double format
 		wsprintf(string, "%f", val);
-		if (!WriteRtfText(rtf, string, lstrlen(string)))
+		if (!WriteRtfText(rtf, string, strlen(string)))
 			return FALSE;
 	}
 
@@ -716,47 +716,47 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head) {
 
 		switch (fond.fontPitchAndFamily & 0xf0) {
 		case FF_DECORATIVE:
-			lstrcpy(family, "decor");
+			strcpy(family, "decor");
 			break;
 		case FF_DONTCARE:
-			lstrcpy(family, "nil");
+			strcpy(family, "nil");
 			break;
 		case FF_MODERN:
-			lstrcpy(family, "modern");
+			strcpy(family, "modern");
 			break;
 		case FF_ROMAN:
-			lstrcpy(family, "roman");
+			strcpy(family, "roman");
 			break;
 		case FF_SCRIPT:
-			lstrcpy(family, "script");
+			strcpy(family, "script");
 			break;
 		case FF_SWISS:
-			lstrcpy(family, "swiss");
+			strcpy(family, "swiss");
 			break;
 		}
 		if (!PutRtfChar(rtf, '\\'))
 			return FALSE; // write family control prefix
 		if (!PutRtfChar(rtf, 'f'))
 			return FALSE; // write family control
-		if (!WriteRtfText(rtf, family, lstrlen(family)))
+		if (!WriteRtfText(rtf, family, strlen(family)))
 			return FALSE; // write font family
 
 		switch (fond.fontPitchAndFamily & 0xf) {
 		case DEFAULT_PITCH:
-			lstrcpy(family, "prq0");
+			strcpy(family, "prq0");
 			break;
 		case FIXED_PITCH:
-			lstrcpy(family, "prq1");
+			strcpy(family, "prq1");
 			break;
 		case VARIABLE_PITCH:
-			lstrcpy(family, "prq2");
+			strcpy(family, "prq2");
 			break;
 		}
 		if (!PutRtfChar(rtf, '\\'))
 			return FALSE; // write family control prefix
 		if (!PutRtfChar(rtf, 'f'))
 			return FALSE; // write family control
-		if (!WriteRtfText(rtf, family, lstrlen(family)))
+		if (!WriteRtfText(rtf, family, strlen(family)))
 			return FALSE; // write font family
 
 		if (!WriteRtfControl(rtf, "fcharset", PARAM_INT, fond.fontCharset))
@@ -767,18 +767,18 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head) {
 		if (!WriteRtfText(rtf, " ", 1))
 			return FALSE;// write family delimiter
 
-		if (!WriteRtfText(rtf, ch, lstrlen(ch)))
+		if (!WriteRtfText(rtf, ch, strlen(ch)))
 			return FALSE; // write font typeface
 
 		switch (fond.fontCharset) {
 		case 204:// Cyrillic
-			if (memcmp(ch + lstrlen(ch) - strlen(" Cyr"), " Cyr",
+			if (memcmp(ch + strlen(ch) - strlen(" Cyr"), " Cyr",
 					strlen(" Cyr")) != 0)
 				if (!WriteRtfText(rtf, " Cyr", 4))
 					return FALSE;
 			break;
 		case 238:// Central Europe
-			if (memcmp(ch + lstrlen(ch) - strlen(" CE"), " CE", strlen(" CE"))
+			if (memcmp(ch + strlen(ch) - strlen(" CE"), " CE", strlen(" CE"))
 					!= 0)
 				if (!WriteRtfText(rtf, " CE", 3))
 					return FALSE;
@@ -936,7 +936,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar) {
 
 	// extract value for comparison
 	if (prevChar > 0) {
-		//       lstrcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
+		//       strcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
 		PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNum)];
 		PrevStyle = prevChar->fontAttribs;
 		PrevTextColor = prevChar->foregroundColor;
@@ -946,7 +946,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar) {
 		PrevPointSize = prevChar->fontHeight; // store as twice the point size
 		//	   PrevCharSet = 	TerFont[PrevFont].CharSet; // Piter CharSet
 	} else {
-		//       lstrcpy(PrevTypeFace,"");
+		//       strcpy(PrevTypeFace,"");
 		PrevFamily = -1;
 		PrevStyle = 0;
 		PrevTextColor = -1;
@@ -958,7 +958,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar) {
 
 		WriteRtfControl(rtf, "plain", PARAM_NONE, 0); // turnoff formatting
 	}
-	//    lstrcpy(CurTypeFace,TerFont[CurFont].TypeFace);
+	//    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
 	CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNum)];
 	CurStyle = curChar->fontAttribs;
 	CurTextColor = curChar->foregroundColor;
@@ -996,7 +996,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar) {
 	//       if (!EndRtfGroup(w,rtf)) return FALSE;        // end current field group
 	//
 	//       WriteRtfControl(w,rtf,"plain",PARAM_NONE,0);  // turnoff formatting
-	//       lstrcpy(PrevTypeFace,"");                     // force writing of font information
+	//       strcpy(PrevTypeFace,"");                     // force writing of font information
 	//       PrevFamily=FF_DONTCARE;
 	//       PrevStyle=0;
 	//       PrevTextColor=0;
@@ -1017,7 +1017,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar) {
 	//       if (!EndRtfGroup(w,rtf)) return FALSE;        // close field group
 	//
 	//       WriteRtfControl(w,rtf,"plain",PARAM_NONE,0);  // turnoff formatting
-	//       lstrcpy(PrevTypeFace,"");                     // force writing of font information
+	//       strcpy(PrevTypeFace,"");                     // force writing of font information
 	//       PrevFamily=FF_DONTCARE;
 	//       PrevStyle=0;
 	//       PrevTextColor=0;
@@ -1992,27 +1992,27 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict) {
 	if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cx))
 		return FALSE; // write picture format
-		//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
-		//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
-		//   }
-		/*   else {
-		 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
-		 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
-		 }
-		 */
+	//if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
+	//if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
+	//   }
+	/*   else {
+	 if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
+	 if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
+	 }
+	 */
 	// write picture height
 	//   if (bmHeight>0) {
 	if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT,
 			rtf->page->picsTable[pict].pictGoal.cy))
 		return FALSE; // write picture format
-		//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
-		//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
-		//   }
-		/*   else {
-		 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
-		 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
-		 }
-		 */
+	//if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
+	//if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
+	//   }
+	/*   else {
+	 if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
+	 if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
+	 }
+	 */
 
 	// write picture alignment
 	if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT,
@@ -2188,40 +2188,21 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 					rtf->table[i] = font.FontId;
 			}
 		}
-		if (lstrcmpi(rtf->CurWord, "f") != 0 || !rtf->IsControlWord)
+		if (strcasecmp(rtf->CurWord, "f") != 0 || !rtf->IsControlWord)
 			return RTF_SYNTAX_ERROR;
 		FontId = (int) (rtf->IntParam);
 
-		// get the rtf font table slot
-		/*       if (FontId<MAX_RTF_SEQ_FONTS)*/
 		CurFont = FontId; // lower numbers are stored sequentially
-		/*       else {
-		 if (MaxRtfFonts<MAX_RTF_SEQ_FONTS) CurFont=MAX_RTF_SEQ_FONTS;
-		 else for (CurFont=MAX_RTF_SEQ_FONTS;CurFont<MaxRtfFonts;CurFont++) if (!(font[CurFont].InUse)) break;
-		 }
-		 */
+
 		if (CurFont < 0/* || CurFont>=MAX_RTF_FONTS*/)
 			return RTF_SYNTAX_ERROR;
 
-		/*       if (CurFont>=MaxRtfFonts) {    // allocate
-		 int NewMaxRtfFonts=CurFont+50;
-		 if (NewMaxRtfFonts>=MAX_RTF_FONTS) NewMaxRtfFonts=MAX_RTF_FONTS-1;
-		 if (NewMaxRtfFonts<(CurFont+1))    NewMaxRtfFonts=CurFont+1;
-
-		 if (NULL==(rtf->font=(struct StrRtfFont far *)OurRealloc(rtf->font,sizeof(struct StrRtfFont)*NewMaxRtfFonts))) {
-		 PrintError(w,MSG_OUT_OF_MEM,"ReadRtfFontTable");
-		 return RTF_SYNTAX_ERROR;
-		 }
-		 FarMemSet(&(rtf->font[MaxRtfFonts]),0,sizeof(struct StrRtfFont)*(NewMaxRtfFonts-MaxRtfFonts));  // initialize with zeros
-		 MaxRtfFonts=NewMaxRtfFonts;
-		 }
-		 */
 		// initialize the rtf font table slot
 		//       font[CurFont].InUse=TRUE;
 		font.FontId = FontId;
-		if (lstrlen(font.family) > 0)
+		if (strlen(font.family) > 0)
 			font.family[0] = 0; // erase previous specifiation if any
-		if (lstrlen(font.name) > 0)
+		if (strlen(font.name) > 0)
 			font.name[0] = 0; // erase previous specifiation if any
 
 		// get font family
@@ -2233,7 +2214,7 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 				return RTF_SYNTAX_ERROR;
 			if (rtf->CurWord[0] != 'f' && rtf->CurWord[0] != 'F')
 				return RTF_SYNTAX_ERROR;
-			lstrcpy(font.family, &(rtf->CurWord[1])); //exclude first 'f' character
+			strcpy(font.family, &(rtf->CurWord[1])); //exclude first 'f' character
 			StrTrim(font.family);
 		} else
 			NameWordRead = TRUE; // first word of the font name read
@@ -2255,19 +2236,19 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 			// stas !!! it can be PANSONE!!!
 			if (rtf->WordLen == 0)
 				continue;
-			if (lstrcmpi(rtf->CurWord, "panose") == 0) {
+			if (strcasecmp(rtf->CurWord, "panose") == 0) {
 				if (!GetRtfWord(rtf))
 					return RTF_FILE_INCOMPLETE;
 				continue;
 			}
 			// Piter A
-			if (lstrcmpi(rtf->CurWord, "fcharset") == 0) {
+			if (strcasecmp(rtf->CurWord, "fcharset") == 0) {
 				font.CharSet = rtf->IntParam;
 				continue;
 			}
 
 			if (rtf->IsControlWord) {
-				if (lstrcmpi(rtf->CurWord, "falt") == 0) {
+				if (strcasecmp(rtf->CurWord, "falt") == 0) {
 					font.name[0] = 0; // alternate font name supplied
 					ExtractingName = TRUE; // retextract the name
 				}
@@ -2275,11 +2256,11 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 			}
 
 			if (ExtractingName)
-				lstrcat(font.name, rtf->CurWord);
-			WordLen = lstrlen(rtf->CurWord);
+				strcat(font.name, rtf->CurWord);
+			WordLen = strlen(rtf->CurWord);
 
 			if (WordLen > 0 && rtf->CurWord[WordLen - 1] == ';') {
-				len = lstrlen(font.name);
+				len = strlen(font.name);
 				if (ExtractingName && len > 0) {
 					font.name[len - 1] = 0; // exclude the semicolon
 					StrTrim(font.name);
@@ -2552,8 +2533,8 @@ Bool GetRtfWord(struct StrRtfOut far *rtf) {
 	rtf->WordLen = i;
 
 	// convert to double numeric
-	lstrcpy(TempString, rtf->param); // copy to data segment
-	if (lstrlen(TempString) > 0) {
+	strcpy(TempString, rtf->param); // copy to data segment
+	if (strlen(TempString) > 0) {
 		rtf->IntParam = atoi(TempString); // number in integer format
 		//       rtf->DoubleParam=strtod(TempString,NULL); // number in double format
 	} else {
@@ -2583,7 +2564,7 @@ void StrTrim(char* string) {
 void rTrim(char* string) {
 	int i, TempLen;
 
-	TempLen = lstrlen(string);
+	TempLen = strlen(string);
 	for (i = TempLen - 1; i >= 0 && string[i] == ' '; i--)
 		;
 	string[i + 1] = '\0';
@@ -2597,14 +2578,14 @@ void lTrim(char* string) {
 	int i, TempLen, BeginPoint;
 	char TempStr[MAX_WIDTH];
 
-	TempLen = lstrlen(string);
+	TempLen = strlen(string);
 	for (i = 0; i < TempLen && string[i] == ' '; i++)
 		;
 	BeginPoint = i;
 	for (i = BeginPoint; i < TempLen; i++)
 		TempStr[i - BeginPoint] = string[i];
 	TempStr[TempLen - BeginPoint] = '\0';
-	lstrcpy(string, TempStr);
+	strcpy(string, TempStr);
 }
 /*****************************************************************************
  GetRtfChar:
@@ -2886,15 +2867,15 @@ int ReadRtfColorTable(struct StrRtfOut far *rtf) {
 			green = GetGValue(color[CurColor].color);
 			blue = GetBValue(color[CurColor].color);
 
-			if (lstrcmpi(rtf->CurWord, "red") == 0)
+			if (strcasecmp(rtf->CurWord, "red") == 0)
 				red = (uchar)(rtf->IntParam);
-			else if (lstrcmpi(rtf->CurWord, "green") == 0)
+			else if (strcasecmp(rtf->CurWord, "green") == 0)
 				green = (uchar)(rtf->IntParam);
-			else if (lstrcmpi(rtf->CurWord, "blue") == 0)
+			else if (strcasecmp(rtf->CurWord, "blue") == 0)
 				blue = (uchar)(rtf->IntParam);
 			color[CurColor].color = RGB(red, green, blue); // extracted color
 		} else {
-			if (lstrcmpi(rtf->CurWord, ";") == 0)
+			if (strcasecmp(rtf->CurWord, ";") == 0)
 				CurColor++; // next color begins
 		}
 	}

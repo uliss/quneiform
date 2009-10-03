@@ -214,7 +214,6 @@ Bool32 FreeRptMap() {
 
 static Bool32 GetDlgUnitsScale(float& fXScale, float& fYScale, HWND hDlg) {
 	RECT rc = { 0 };
-	::GetClientRect(hDlg, &rc);
 	fXScale = static_cast<float> (1000.0 * (rc.right - rc.left)
 			/ RPD_DLG_DU_WIDTH);
 	fYScale = static_cast<float> (1000.0 * (rc.bottom - rc.top)

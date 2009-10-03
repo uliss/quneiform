@@ -117,12 +117,6 @@ CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage)
 	LDPUMA_RegistryHelp(hSnapTimerBeg,
 			"Эта вершина предназначена для определения времени работы контейнера."
 			,FALSE);
-	/*
-	 LDPUMA_Registry(&hSnapTimerEnd,"Время работы остальных модулей.", hSnap);
-	 LDPUMA_RegistryHelp(hSnapTimerEnd,
-	 "Эта вершина предназначена для совместной работы с вершиной 'Время работы остальных модулей'."
-	 ,FALSE);
-	 */
 #endif
 	return TRUE;
 }
@@ -146,25 +140,16 @@ CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
 
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError)
-{
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
 
-	if( dwError >> 16 != gwHeightRC)
-	gwLowRC = IDS_ERR_NOTIMPLEMENT;
+char * CPAGE_GetReturnString(uint32_t dwError) {
+	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
 
-	if( rc >= IDS_ERR_NO )
-	LoadString(ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
-	else
+	if (dwError >> 16 != gwHeightRC)
+		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+
 	return NULL;
-
-	return szBuffer;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;

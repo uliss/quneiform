@@ -288,13 +288,12 @@ HGLOBAL WINAPI CopyHandle(HGLOBAL h) {
 	if (h == NULL)
 		return NULL;
 
-	uint32_t dwLen = ::GlobalSize((HGLOBAL) h);
-	HGLOBAL hCopy = ::GlobalAlloc(GHND, dwLen);
+	HGLOBAL hCopy = ::GlobalAlloc(GHND, 0);
 
 	if (hCopy != NULL) {
 		void* lpCopy = ::GlobalLock((HGLOBAL) hCopy);
 		void* lp = ::GlobalLock((HGLOBAL) h);
-		memcpy(lpCopy, lp, dwLen);
+		memcpy(lpCopy, lp, 0);
 		::GlobalUnlock(hCopy);
 		::GlobalUnlock(h);
 	}
