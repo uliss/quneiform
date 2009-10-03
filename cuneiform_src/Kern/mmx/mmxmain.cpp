@@ -54,12 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <memory.h>
+#include <cstring>
 #include "mmx.h"
 
 uint32_t bit_cnt_mmx[256*256];
 
-MMX_FUNC(void) MMX_ind_setup_table(uint32_t *bit_cnt0) {
+void MMX_ind_setup_table(uint32_t *bit_cnt0) {
     memcpy(bit_cnt_mmx, bit_cnt0, 256*256*sizeof(uint32_t));
-    return;
 }

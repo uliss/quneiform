@@ -1,11 +1,11 @@
 include_directories(BEFORE src)
 
 add_library(mmx32 ${LIBTYPE}
-mmx_gra.c
-mmx_ind.c
-mmx_net.c
-mmx_r35.c
-mmxmain.c
+mmx_gra.cpp
+mmx_ind.cpp
+mmx_net.cpp
+mmx_r35.cpp
+mmxmain.cpp
 )
 
 set_property(TARGET mmx32 PROPERTY COMPILE_DEFINITIONS __MMX__)
