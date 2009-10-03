@@ -54,23 +54,27 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <algorithm> // for std::min/max
+
 #include "recdefs.h"
 #include "leo/leodefs.h"
 
 #ifndef D_STICK_TYPES
 #define D_STICK_TYPES
 
-#define LIMIT_HEIGHT     256
-#define LIMIT_WIDTH      64                /* N.B. LIMIT_WIDTH*4 < 256 !!! */
-#define LIMIT_CENTER     LIMIT_HEIGHT*3
-#define LIMIT_OF_ANGLES  8
-/*----------------------------------------------------------------------*/
+const int LIMIT_HEIGHT = 256;
+
+/** N.B. LIMIT_WIDTH*4 < 256 !!! */
+const int LIMIT_WIDTH = 64;
+const int LIMIT_CENTER = LIMIT_HEIGHT * 3;
+const int LIMIT_OF_ANGLES = 8;
+
 typedef struct {
 	int16_t row, /* row in c_comp */
 	col, /* column * 2  */
 	len; /* length      */
 } center_interval;
-/*----------------------------------------------------------------------*/
+
 typedef struct // l->xxx, r->xxx;
 {
 	uchar mount[5], /* max flag in any zone. 0 - no flag	*/
@@ -93,7 +97,7 @@ typedef struct // l->xxx, r->xxx;
 	max_flag, /* 06.01.1994				*/
 	main_ear; /* NOT USED in this version			*/
 } STICK_CHARS; /* left or right characteristics of stick	*/
-/*----------------------------------------------------------------------*/
+
 typedef struct // s->xxx;
 {
 	int16_t height, // height of c_comp
@@ -138,13 +142,13 @@ typedef struct // s->xxx;
 	int16_t incline; /* Normal tg(stick)*2048 + line_incline */
 } STICK_SIGNUMS; // auxiliary information for
 // stick diskrimination
-/*----------------------------------------------------------------------*/
+
 typedef struct {
 	int16_t tg; /* tg = tangens*2048  */
 	int16_t num; /* 15.11.1993 MK NEW  */
 	int16_t inc[256]; /* table of inc       */
 } INC_BASE; /* base tables of inc */
-/*----------------------------------------------------------------------*/
+
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )
 
 struct ln_head {
@@ -193,8 +197,8 @@ typedef struct int_s interval;
 	{                                             \
 	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
-	m =  MIN(L->mount[i],R->mount[i]) ;           \
-	if( t>MAX(((wid)>>1),dist) || m==0 )          \
+	m =  std::min(L->mount[i],R->mount[i]) ;           \
+	if( t>std::max(((wid)>>1),dist) || m==0 )          \
 		dis += (tab)*t;                       \
 	}
 
@@ -202,8 +206,8 @@ typedef struct int_s interval;
 	{                                             \
 	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
-	m =  MIN(L->mount[i],R->mount[i]) ;           \
-	if( t>MAX(((wid)>>1),dist) || m==0 )          \
+	m =  std::min(L->mount[i],R->mount[i]) ;           \
+	if( t>std::max(((wid)>>1),dist) || m==0 )          \
 		dis += (tab)*t;                       \
 	}
 
@@ -221,7 +225,7 @@ typedef struct int_s interval;
 	    L->num_concs<3                              &&		\
 	    (L->mount[2]>0||L->conc[0]>0&&L->conc[4]>0) &&		\
 	    R->mount[0]>0  && R->mount[4]>0  && R->m_meandr<4 )		\
-		dis += (tab) * MIN((R->mount[0] + R->mount[4]), 4);	\
+		dis += (tab) * std::min((R->mount[0] + R->mount[4]), 4);	\
 	}
 
 #define FOUR_CONC(l,r,tab)                                      \
@@ -305,15 +309,18 @@ typedef struct int_s interval;
 		DIS_CENTER_FLAG(r,i,wid,inc,t1,d_R)	\
 		}
 
-#define LF 80	/* long central flag	*/
-#define NF 12	/* small central flag	*/
-#define MD  4	/* min dis value	*/
-#define SI 20	/* similar  є		*/
-#define BP 80	/* bad proportions	*/
-#define ST 80	/* similar  't'		*/
-#define BR 40	/* similar  braces	*/
-#define BR_i 0	/* similar  braces for case letter 'i' with point {ш} */
-#define DB 70	/* auxiliary beam	*/
+enum dif_flag_t {
+	LF = 80, /* long central flag	*/
+	NF = 12, /* small central flag	*/
+	MD = 4, /* min dis value	*/
+	SI = 20, /* similar  є		*/
+	BP = 80, /* bad proportions	*/
+	ST = 80, /* similar  't'		*/
+	BR = 40, /* similar  braces	*/
+	BR_i = 0, /* similar  braces for case letter 'i' with point {ш} */
+	DB = 70
+/* auxiliary beam	*/
+};
 #endif
 
 /*----------------------------------------------------------------------*/

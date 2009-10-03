@@ -1929,13 +1929,14 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 	// NB: include THIN STICK, but EXCLUDE SOME OTHER CASES;
 
 
-	if (s->r_f_symptom == 2) // similar 'f'		// 10.02.1993
+	if (s->r_f_symptom == 2) { // similar 'f'		// 10.02.1993
 		if (r->up_serif == 2)
 			dis += tab_t[16]; // 70
 		else if (r->up_serif == 1 && s->l_f_symptom)
 			dis += tab_t[30]; // 16
 		else
 			dis += tab_t[31]; // 8
+	}
 
 	if (s->l_f_symptom == 2 && s->r_f_symptom == 2 && sign_f && r->mount[4]
 			== 0)

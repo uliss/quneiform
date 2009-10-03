@@ -59,11 +59,11 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
-
+#include <algorithm> // for std::min/max
 #include "recdefs.h"
 #include "leo/leodefs.h"
 #include "dif.h"
-#include "minmax.h"
+
 extern uchar broken_flag;
 uchar rec5_flag = 1, font_type = 0, omni = 1;
 int16_t NumVertInterval(uchar *RASTER, int16_t D_X, int16_t dy, int16_t i);
@@ -170,54 +170,16 @@ void init_diskrim(uchar * raster, int16_t height, int16_t width) {
 	uchar * r;
 
 	rotate = 0;
-	diskr_f2
-			= diskr_ii
-					= diskr_N
-							= diskr_sh
-									= diskr_g
-											= diskr_tsh
-													= diskr_ju
-															= diskr_m
-																	= diskr_ii
-																			= diskr_p
-																					= diskr_c
-																							= diskr_o
-																									= diskr_e
-																											= diskr_b
-																													= diskr_3
-																															= left_dist_big[1]
-																																	= right_dist_big[1]
-																																			= left_dist[1]
-																																					= right_dist[1]
-																																							= left_dist_big[2]
-																																									= right_dist_big[2]
-																																											= left_dist[2]
-																																													= right_dist[2]
-																																															= left_dist_big[3]
-																																																	= right_dist_big[3]
-																																																			= left_dist[3]
-																																																					= right_dist[3]
-																																																							= num_foot
-																																																									= c_or_e
-																																																											= d_c
-																																																													= d_e
-																																																															= fill_center
-																																																																	= IN_dis
-																																																																			= diskr_i
-																																																																					= diskr_n
-																																																																							= IN_equ
-																																																																									= IN_N
-																																																																											= IN_I
-																																																																													= IN_M
-																																																																															= IN_pics
-																																																																																	= up_down_serif
-																																																																																			= up_down_serif_B
-																																																																																					= IN_horiz_dis
-																																																																																							= broken_M_pen
-																																																																																									= lower_long_line
-																																																																																											= right_max
-																																																																																													= left_max
-																																																																																															= -1;
+	diskr_f2 = diskr_ii = diskr_N = -1;
+	diskr_sh = diskr_g = diskr_tsh = diskr_ju = diskr_m = diskr_ii = -1;
+	diskr_p = diskr_c = diskr_o = diskr_e = diskr_b = diskr_3 = -1;
+	left_dist_big[1] = right_dist_big[1] = left_dist[1] = right_dist[1]
+			= left_dist_big[2] = -1;
+	right_dist_big[2] = left_dist[2] = right_dist[2] = left_dist_big[3] = -1;
+	right_dist_big[3] = left_dist[3] = right_dist[3] = num_foot = c_or_e = -1;
+	d_c = d_e = fill_center = IN_dis = diskr_i = diskr_n = IN_equ = IN_N = -1;
+	IN_I = IN_M = IN_pics = up_down_serif = up_down_serif_B = IN_horiz_dis = -1;
+	broken_M_pen = lower_long_line = right_max = left_max = -1;
 	av_tl = av_bl = av_br = -1;
 	mii = -101;
 
@@ -282,7 +244,7 @@ Bool32 LeftHole(uchar *rastr, int16_t D_X, int16_t Dx, int16_t Hy) {
 /*	       >0 - decreasing code                        */
 
 int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
-		uchar cg_flag, int16_t inc) {
+		uchar /*cg_flag*/, int16_t inc) {
 	int16_t P = 0, F = 0, Dx, Hy, bw, n, r;
 	uchar *rastr, *rastr0;
 	int16_t d_l, d_r;
@@ -385,7 +347,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 			rastr0 = rasterN + Y * D_X + (X >> 3);
 			rastr = rastr0 + D_X * (dy >> 2);
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
-			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
+			if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+					< 3) {
 				if (dy > 13)
 					F = FOOT(rastr0 + 2* D_X , D_X, (uchar) Dx,
 							(uchar)(dy - 4), 0);
@@ -407,7 +370,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 						* LOCAL_W[1])
 					P += 2 * step_diskr;
 				if (IN_I < 3)
-					P += MIN(2 * (7 - IN_I + IN_equ) * step_diskr, 160) / 2;
+					P += std::min(2 * (7 - IN_I + IN_equ) * step_diskr, 160)
+							/ 2;
 				else if (IN_I == 3 && IN_equ > 2)
 					P += IN_equ * step_diskr;
 			}
@@ -433,7 +397,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 				diskr_i = P = 120;
 				break;
 			}
-			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
+			if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+					< 3) {
 				if (dy > 13)
 					F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
 							(uchar)(dy - 4), 0);
@@ -453,7 +418,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 				if (2 * LOCAL[0] > 5 * LOCAL_W[0])
 					P += 2 * step_diskr;
 				if (IN_I < 3)
-					P += MIN(2 * (7 - IN_I + IN_equ) * step_diskr, 160) / 2;
+					P += std::min(2 * (7 - IN_I + IN_equ) * step_diskr, 160)
+							/ 2;
 				else if (IN_I == 3 && IN_equ > 2)
 					P += IN_equ * step_diskr;
 			}
@@ -474,7 +440,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 	case (uchar) 'н':
 		if (diskr_n < 0) {
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
-			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
+			if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+					< 3) {
 				if (dy > 13)
 					F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
 							(uchar)(dy - 4), 0);
@@ -491,7 +458,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 				}
 
 				if (IN_N > 3)
-					P += MIN(IN_N * step_diskr, 160) / 2;
+					P += std::min(IN_N * step_diskr, 160) / 2;
 			}
 
 			if (IN_N_Bonus && broken_flag && (broken_ii || !IN_IN_Monus
@@ -591,7 +558,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 			if (FOOT3_2(rastr0, D_X, (uchar) Dx, (uchar) dy))
 				P += step_diskr * 3;
 			diskr_sh = P;
-			P = MAX(P, 0);
+			P = std::max((int) P, 0);
 		} else
 			P = diskr_sh;
 		break;
@@ -633,7 +600,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 			}
 			if (average_br_angle(rastr0, D_X, Dx, dy, 0) > d_r)
 				P += 4 * step_diskr;
-			P = MAX(P, 0);
+			P = std::max((int) P, 0);
 			diskr_tsh = P;
 		} else
 			P = diskr_tsh;
@@ -778,7 +745,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	int16_t ol = 1, or_ = 1; /* зазор слева и справа */
 	uchar * RAST, *R;
 
-	n4 = MAX(dy / 4, (LOCAL_W[0] + LOCAL_W[1]) / 4);
+	n4 = std::max(dy / 4, (LOCAL_W[0] + LOCAL_W[1]) / 4);
 	if (n4 > dy / 3)
 		n4 = dy / 4;
 	n2 = dy - (n4 << 1);
@@ -867,7 +834,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
 		if (up_space != -1 && down_space != -1) {
 			IN_N = 3;
-			IN_I = MIN(up_space, down_space);
+			IN_I = std::min(up_space, down_space);
 			IN_dis = 1;
 			IN_equ = 2;
 			return;
@@ -915,7 +882,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
 	if (no_serific(RASTR, dy, dx, bw)) { /* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
 		int16_t nn4, nn2, h;
-		nn4 = MAX(dy >> 2, (LOCAL_W[0] + LOCAL_W[1]) >> 1);
+		nn4 = std::max(dy >> 2, (LOCAL_W[0] + LOCAL_W[1]) >> 1);
 		if (nn4 > dy / 3)
 			nn4 = dy / 4;
 		nn2 = dy - (nn4 << 1);
@@ -928,7 +895,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 				n[i] += ((nn2 + nn4 - n2 - n4) << 1);
 				if (n[i] >= (nn2 << 1))
 					n[i] = 0;
-				else if (n[i] && (i != end1 || i == end1 && ol == 0) && (i
+				else if (n[i] && (i != end1 || (i == end1 && ol == 0)) && (i
 						!= beg2 || i == beg2 && or_ == 0)) {
 					mean += n[i];
 					l_real++;
@@ -1018,8 +985,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		if (hist[mean + 1] > l_real - 2)
 			mean++;
 
-		if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0)))
-			if (!fill_center && l_real <= 4 || l_real <= 3) {
+		if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0))) {
+			if ((!fill_center && l_real <= 4) || l_real <= 3) {
 				int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
 				/* поиск прыщей от 'Н' на середине высоты */
 				an[0] = n[end1];
@@ -1090,7 +1057,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					for (t = 0, i = end1 + ol; i <= lim; i++)
 						if (n[i] > ((n2 - 2) << 1))
 							t++;
-					if (t >= MAX(2, (l_real >> 1))) { /* перекладина слишком высоко 			*/
+					if (t >= std::max(2, (l_real >> 1))) { /* перекладина слишком высоко 			*/
 						fill_center = 0; /* коррекция штрафа за отстутствие перекладины 	*/
 						IN_N = 4;
 						IN_I = 1;
@@ -1107,6 +1074,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					return;
 				}
 			}
+		}
 
 		for (old = incr = decr = fine = 0, i = end1 + ol, rmin = dy, rmax = 0; i
 				<= beg2 - or_; i++)
@@ -1372,10 +1340,10 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 	if (imax > 0 && nmax == l && kmax > 1) {
 		for (i = imax; n[i] == nmax; i--)
 			;
-		h = (n[i - 1] == 0 && n[i] < 3 || n[i] < 2);
+		h = ((n[i - 1] == 0 && n[i] < 3) || n[i] < 2);
 		for (i = imax; n[i] == nmax; i++)
 			;
-		l = (n[i + 1] == 0 && n[i] < 3 || n[i] < 2);
+		l = ((n[i + 1] == 0 && n[i] < 3) || n[i] < 2);
 	} else
 		l = h = 0;
 
@@ -2300,7 +2268,7 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 	if (up_down_serif >= 0)
 		return (up_down_serif);
 
-	l = MIN(l, dx0 - 2);
+	l = std::min((int) l, dx0 - 2);
 	dx = bytlen(dx);
 	for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
 			+= D_X) {
@@ -2425,7 +2393,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		d_e = (s3 < p) ? p - s3 : 0;
 		if (s3 == 0 && d_e < 3)
 			d_e = 4;
-		d_c = MAX(d_c, (s3 > n) ? s3 - n + 1 : 0);
+		d_c = std::max((int) d_c, (s3 > n) ? s3 - n + 1 : 0);
 	}
 	return ((let == (uchar) 'е') ? d_e : d_c);
 }
@@ -2472,11 +2440,11 @@ int16_t BonusAnglesCurve(uchar *raster, int16_t D_X, int16_t hei) {
 	int pen = 0, inc;
 
 	inc = AngleTopRight(raster, D_X, hei);
-	if (inc > 3 || hei < 23 && inc > 2)
+	if (inc > 3 || (hei < 23 && inc > 2))
 		pen++;
 
 	inc = AngleBottomRight(raster, D_X, hei);
-	if (inc > 3 || hei < 23 && inc > 2)
+	if (inc > 3 || (hei < 23 && inc > 2))
 		pen++;
 
 	return pen;

@@ -63,49 +63,61 @@
 #include "memfunc.h"
 
 #ifdef __DIF__
-#define DIF_FUNC  FUN_EXPO
+#define DIF_FUNC  FUN_EXPO__
 #else
-#define DIF_FUNC  FUN_IMPO
+#define DIF_FUNC  FUN_IMPO__
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-DIF_FUNC(Bool32) DIFInit( RecRaster *r, Bool32 broken, Bool32 broken_II,
-		Bool32 cut_left, Bool32 cut_right);
 // Start Initialization; TRUE - OK
 // for mem==NULL need used internal memory functions from DLL
 // New call - after close library without DIFDone
-DIF_FUNC(void) DIFSetFont( int32_t typ_of_font);
+DIF_FUNC Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II,
+		Bool32 cut_left, Bool32 cut_right);
+DIF_FUNC void DIFSetFont(int32_t typ_of_font);
 
-DIF_FUNC(Bool32) DIFSetAlphabet(
-		char* char_tbl_put_to ); // char table[0-255]
-// Set alphabet for recognition
+/**
+ * Set alphabet for recognition
+ * @param char_tbl_put_to - char table[0-255]
+ */
+DIF_FUNC Bool32 DIFSetAlphabet(char* char_tbl_put_to);
 
-DIF_FUNC(Bool32) DIFPenaltyChar(
-		RecRaster* raster, // raster description
-		RecVersions* DIFres ); // acuracy
+/**
+ * @param raster - raster description
+ * @param DIFres - acuracy
+ */
+DIF_FUNC Bool32 DIFPenaltyChar(RecRaster* raster, RecVersions* DIFres);
 
-DIF_FUNC(Bool32) DIFStick_expert(
-		int16_t dx, int16_t dy, // raster description
-		uchar* pool,
-		RecVersions* DIFres ); // acuracy
+/**
+ * @param pool - raster description
+ * @param DIFres - acuracy
+ */
+DIF_FUNC Bool32 DIFStick_expert(int16_t dx, int16_t dy, uchar* pool,
+		RecVersions* DIFres);
 
-DIF_FUNC(int32_t) DIFGet_incline( RecRaster* r, uchar *pool);
+DIF_FUNC int32_t DIFGet_incline(RecRaster* r, uchar *pool);
 
-DIF_FUNC(void) DIFDone(void);
-// Stop function. Call after DIFInit()
+/**
+ * Stop function. Call after DIFInit()
+ */
+DIF_FUNC void DIFDone(void);
 
-DIF_FUNC(int16_t) DIFGetErr(void);
-// Err16.h defined codes or one of the next
+/**
+ * Err16.h defined codes or one of the next
+ */
+DIF_FUNC int16_t DIFGetErr(void);
 
-DIF_FUNC(int16_t) DIFLeftDistance(uchar *RASTER, int16_t NWIDTH);
-DIF_FUNC(int16_t) DIFRightDistance(uchar *RASTER, int16_t NWIDTH);
-DIF_FUNC(void) DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
-DIF_FUNC(int16_t) DIF_GetNoCutPoint(uchar *RASTER, int16_t Wb, uchar NWIDTH, uchar NLENGTH);
-DIF_FUNC(Bool32) DIF_SetLanguage(uchar lang);
-DIF_FUNC(uint16_t) DIF_typ_thin_stick(uchar *lin,int16_t dy,int16_t dx);
+DIF_FUNC int16_t DIFLeftDistance(uchar *RASTER, int16_t NWIDTH);
+DIF_FUNC int16_t DIFRightDistance(uchar *RASTER, int16_t NWIDTH);
+DIF_FUNC void DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
+		int16_t NHEIGHT);
+DIF_FUNC int16_t DIF_GetNoCutPoint(uchar *RASTER, int16_t Wb, uchar NWIDTH,
+		uchar NLENGTH);
+DIF_FUNC Bool32 DIF_SetLanguage(uchar lang);
+DIF_FUNC uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx);
 #ifdef __cplusplus
 }
 #endif
