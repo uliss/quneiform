@@ -5,7 +5,6 @@ enum.cpp
 initdone.cpp 
 out.cpp 
 partrecog.cpp 
-snp_sjtl.cpp 
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp

@@ -574,10 +574,7 @@ Bool32 Recognize() {
 
 						if (rc && !LDPUMA_Skip(hDebugEnableSaveJtl)
 								&& !szInputFileName.empty()) {
-							if (My_SJTL_save(szInputFileName.c_str()) == -1) {
-								My_SJTL_open("one.frm", "one.jtl");
-								My_SJTL_save(szInputFileName.c_str());
-							}
+
 						}
 						if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
 							std::string CstrFileName = CIF::replaceFileExt(

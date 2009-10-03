@@ -184,11 +184,6 @@ Bool32 ModulesInit(Handle ghStorage) {
 		goto lError;
 	}
 
-	My_SJTL_Init();
-	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
-		My_SJTL_open("one.frm", "one.jtl");
-	}
-
 	return TRUE;
 	lError:
 	//ModulesDone();

@@ -248,21 +248,6 @@ char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
-//use SJTL.dll
-#ifdef __cplusplus
-extern "C" {
-#endif
-void My_SJTL_Init(void);
-int My_SJTL_save(const char* filename);
-int My_SJTL_save_old(char *filename, CSTR_line lino, int nfield);
-int My_SJTL_open(const char *frmname, const char *jtlname);
-int My_SJTL_mkfrm(char *frmname);
-void My_SJTL_close(void);
-void My_SJTL_Done(void);
-#ifdef __cplusplus
-}
-#endif
-
 Bool32 ModulesInit(Handle ghStorage);
 char * GetModulesString(uint32_t dwError);
 

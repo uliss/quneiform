@@ -304,10 +304,6 @@ void PumaImpl::layout() {
 void PumaImpl::modulesDone() {
 	ROUT_Done();
 	CED_Done();
-	if (!LDPUMA_Skip(hDebugEnableSaveJtl)) {
-		My_SJTL_close();
-	}
-	My_SJTL_Done();
 	RCORRKEGL_Done();
 	RPIC_Done();
 	RIMAGE_Done();
