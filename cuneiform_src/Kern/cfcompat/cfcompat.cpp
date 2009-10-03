@@ -215,22 +215,6 @@ void strlwr(char *foo) {
 }
 #endif
 
-//char* lstrcat(char* str1, const  char * string2) {
-//	return strcat(str1, str2);
-//}
-//
-//int lstrlen(const char * lpString) {
-//	return strlen(lpString);
-//}
-//
-//int lstrcmp(const char * lpString1, const char * lpString2) {
-//	return strcmp(lpString1, lpString2);
-//}
-//
-//char* lstrcpy(char* lpString1, const char * lpString2) {
-//	return strcpy(lpString1, lpString2);
-//}
-
 int wsprintf(char* lpOut, const char * lpFmt, ...) {
 	char buffer[256];
 	int ret;
@@ -242,10 +226,6 @@ int wsprintf(char* lpOut, const char * lpFmt, ...) {
 	va_end(args);
 	return ret;
 }
-
-//int lstrcmpi(const char * lpString1, const char * lpString2) {
-//	return strcasecmp(lpString1, lpString2);
-//}
 
 int MessageBox(HWND /*hWnd*/, const char * lpText, const char * lpCaption, uint /*uType*/) {
 	fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
