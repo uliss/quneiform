@@ -71,7 +71,7 @@ static BWSS *bp,*bpe;
 static uchar extrcomp_flag;
 #define SEG_DELIM -0x7000
 
-BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int16_t height, int16_t width)
+BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int height, int width)
 {
  bwsp->b = 0; bwsp->w = SEG_DELIM; bwsp++;
  bp = bwsp;  bpe = bwe;extrcomp_flag = 0;

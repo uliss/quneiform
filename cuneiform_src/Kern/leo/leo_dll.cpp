@@ -254,7 +254,7 @@ Bool32 leo_init_prn(void) {
 		return TRUE;
 
 	if (!leo_init_evn_prn) {
-		if (EVNInitPRN(mem))
+		if (EVNInitPRN())
 			leo_init_evn_prn = TRUE;
 		else {
 			LEO_error_code = ER_LEO_NOINIT_EVN;
