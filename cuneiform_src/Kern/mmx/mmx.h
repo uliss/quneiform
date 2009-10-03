@@ -58,7 +58,7 @@
 #define __MMX_H
 
 #include "globus.h"
-#include "evndefs.h"
+#include "evn32/evndefs.h"
 #include "recdefs.h"
 #include "memfunc.h"
 

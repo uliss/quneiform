@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 
 #include "exc.h"
-#include "evn.h"
+#include "evn32/evn.h"
 #include "loc.h"
 #include "excdefs.h"
 //#include "rcutp.h"

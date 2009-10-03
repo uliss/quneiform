@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 /*
 #ifndef __EVNDEFS_H
-#include "evndefs.h"
+#include "evn32/evndefs.h"
 #endif
 */
 #ifndef H_ccomdef_h

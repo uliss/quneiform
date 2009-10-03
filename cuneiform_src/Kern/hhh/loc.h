@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifndef __GLOBUS_H
    #include "globus.h"
    #endif
-   #include "evndefs.h"
+   #include "evn32/evndefs.h"
    #include "excdefs.h"
 #ifndef __RECDEFS_H
    #include "recdefs.h"

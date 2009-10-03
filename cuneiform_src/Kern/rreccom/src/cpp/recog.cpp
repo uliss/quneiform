@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdlib.h>
 #include "rreccom.h"
-#include "evn.h"
+#include "evn32/evn.h"
 #include "ccom/ccom.h"
 #include "r35/r35.h"
 #include "excdefs.h"

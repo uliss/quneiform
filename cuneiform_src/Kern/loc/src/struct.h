@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#include "Tuner.H"
 #include "recdefs.h"
-#include "evndefs.h"
+#include "evn32/evndefs.h"
 
 #include "minmax.h"
 

@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <string.h>
 #include <fcntl.h>
-/*#include <io.h>*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "evn.h"

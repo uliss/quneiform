@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include	"func.h"
 # include	"struct.h"
 #include    "ccom/ccom.h"
-#include	"evn.h"
+#include	"evn32/evn.h"
 #include	"newfunc.h"
 #include "minmax.h"
 

@@ -65,7 +65,7 @@
 #include "alphaset.h"
 
 #include "r35/r35.h"
-#include "evn.h"
+#include "evn32/evn.h"
 #include "ctb/ctb.h"
 #include "dif/dif.h"
 #include "fon.h"

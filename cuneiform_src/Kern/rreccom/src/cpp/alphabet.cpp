@@ -59,7 +59,7 @@
 #include "cttypes.h"
 #include "lang.h"
 #include "ligas.h"
-#include "evn.h"
+#include "evn32/evn.h"
 
 #include "compat_defs.h"
 

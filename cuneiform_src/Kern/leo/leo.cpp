@@ -65,7 +65,7 @@
 #include "alphaset.h"
 
 #include "r35/r35.h"
-#include "evn.h"
+#include "evn32/evn.h"
 #include "msk/msk.h"
 #include "std.h"
 #include "leo_tune.h"

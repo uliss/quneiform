@@ -60,7 +60,7 @@
 #ifndef __GLOBUS_H
 #include "globus.h"
 #endif
-#include "evndefs.h"
+#include "evn32/evndefs.h"
 #ifndef __RECDEFS_H
 #include "recdefs.h"
 #endif

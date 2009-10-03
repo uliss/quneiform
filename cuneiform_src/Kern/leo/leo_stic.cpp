@@ -64,7 +64,7 @@
 
 #define ERECT_ENABLE 0
 
-#include "evn.h"
+#include "evn32/evn.h"
 #include "leo.h"
 #include "dif/dif.h"
 #include "inc_tab.h"
