@@ -69,7 +69,7 @@
 #include "ctb/ctb.h"
 #include "dif.h"
 #include "fon.h"
-#include "msk.h"
+#include "msk/msk.h"
 
 #include "std.h"
 #include "leo_tune.h"

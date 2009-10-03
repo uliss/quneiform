@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fon.h"
 #include "std.h"
 
-#include "msk.h"
+#include "msk/msk.h"
 #include "leo/leo.h"
 #include "ctb/ctb.h"
 #include "linutil.h"

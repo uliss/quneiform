@@ -69,7 +69,7 @@
 #include <cmath>
 
 #include "mskdef.h"
-#include "msk.h"
+#include "msk/msk.h"
 #include "mmx.h"
 #include "msk32fun.h"
 

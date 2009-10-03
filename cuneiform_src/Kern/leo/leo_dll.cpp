@@ -73,7 +73,7 @@
 #include "dif.h"
 #include "ctb/ctb.h"
 #include "fon.h"
-#include "msk.h"
+#include "msk/msk.h"
 #include "std.h"
 #include "snptools.h"
 #include "snpdefs.h"

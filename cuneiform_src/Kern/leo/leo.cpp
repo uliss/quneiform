@@ -66,7 +66,7 @@
 
 #include "r35.h"
 #include "evn.h"
-#include "msk.h"
+#include "msk/msk.h"
 #include "std.h"
 #include "leo_tune.h"
 #include "leo_func.h"

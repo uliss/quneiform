@@ -66,7 +66,7 @@
 
 #include "leo.h"
 #include "r35.h"
-#include "msk.h"
+#include "msk/msk.h"
 #include "std.h"
 #include "snptools.h"
 
