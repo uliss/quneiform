@@ -59,6 +59,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <algorithm> // for std::min/max
 
 #include <fcntl.h>
 #include <float.h>
@@ -69,12 +70,11 @@
 #include <cmath>
 
 #include "mskdef.h"
-#include "msk/msk.h"
+#include "msk.h"
 #include "mmx.h"
 #include "msk32fun.h"
 
 #include "compat_defs.h"
-#include "minmax.h"
 
 int16_t err;
 static uint32_t bit_cnt_msk[66000];
@@ -268,7 +268,7 @@ int det_sym_sort(short ptr_char, uint16_t pri, uint16_t abc_n1,
 				number_lst[n1] = i;
 				if (nm < MAX_NM)
 					nm++;
-				L = MIN(L, (uint32_t)(ms[0] + 4));
+				L = std::min(L, (uint32_t)(ms[0] + 4));
 				for (m1 = nm - 1; m1 > 0; m1--)
 					if ((uint32_t) ms[m1] >= L)
 						nm--;
@@ -918,7 +918,7 @@ int chn_mat1(short coo, uint16_t *bgfff, char buff_col, short i1, short j1,
 							jj1 = 14;
 						} else {
 							jjold++;
-							jj1 = MIN(jj - 1, jj1);
+							jj1 = std::min(jj - 1, jj1);
 						}
 					}
 					k = 1;

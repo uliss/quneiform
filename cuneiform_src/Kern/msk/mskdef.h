@@ -54,6 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef MSK_DEF_H_
+#define MSK_DEF_H_
+
 typedef struct
 {
 	unsigned short rst[16];
@@ -186,3 +189,5 @@ unsigned int i_abn1[MAX_ABC1][MAX_LIN]={
 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 32768, 32768, 0, 0, 0, 0, 32768, 0, 0, 0, 0, 0
 };
+
+#endif
