@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 #include "leo/leo.h"
 #include "std.h"
-#include "rsadd.h"
+#include "rsadd/rsadd.h"
 #include "cuthdr.h"
 #include "dpuma.h"
 #include "match_wd.h"

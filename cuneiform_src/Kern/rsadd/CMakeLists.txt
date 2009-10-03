@@ -1,6 +1,6 @@
 include_directories(BEFORE src)
 
-add_library(rsadd ${LIBTYPE} src/rsadd.c)
+add_library(rsadd ${LIBTYPE} rsadd.c)
 
 set_property(TARGET rsadd PROPERTY COMPILE_DEFINITIONS __RSADD__)
 

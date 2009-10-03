@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstr/cstr.h"
 #include "fon.h"
 #include "dpuma.h"
-#include "rsadd.h"
+#include "rsadd/rsadd.h"
 
 #include "lang.h"
 #include "minmax.h"
