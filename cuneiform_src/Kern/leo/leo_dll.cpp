@@ -60,7 +60,6 @@
 #include <cctype>
 #include <unistd.h>
 #include <algorithm> // for std::min/max
-
 #include "leo_tune.h"
 #include "cpu/cpu.h"
 #define PC_TYPE 0
@@ -264,7 +263,7 @@ Bool32 leo_init_prn(void) {
 	}
 
 	if (!leo_init_r35_prn) {
-		if (R35InitPRN(mem))
+		if (R35InitPRN())
 			leo_init_r35_prn = TRUE;
 		else {
 			LEO_error_code = ER_LEO_NOINIT_R35;
@@ -300,7 +299,7 @@ Bool32 leo_init_ndx(void) {
 	MemFunc* mem = leo_mem;
 
 	if (!leo_init_r35_ndx) {
-		if (R35InitNDX(mem))
+		if (R35InitNDX())
 			leo_init_r35_ndx = TRUE;
 		else {
 			LEO_error_code = ER_LEO_NOINIT_R35;
