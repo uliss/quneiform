@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 
 #include "r35.h"
-#include "mmx.h"
+#include "mmx/mmx.h"
 #include "std.h"
 
 #include "compat_defs.h"

@@ -71,7 +71,7 @@
 
 #include "mskdef.h"
 #include "msk.h"
-#include "mmx.h"
+#include "mmx/mmx.h"
 #include "msk32fun.h"
 
 #include "compat_defs.h"

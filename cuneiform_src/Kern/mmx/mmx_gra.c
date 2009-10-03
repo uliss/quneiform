@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include"mmx.h"
+#include "mmx.h"
 
 MMX_FUNC(void) MMX_addshab_cykl(int * src, int cg, signed char * dst, int num)
 {

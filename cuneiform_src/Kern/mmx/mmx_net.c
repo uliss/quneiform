@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include"mmx.h"
+#include "mmx.h"
 
 //       uint32_t   MMX_scalarUni (int16_t * _EAX, int16_t * _EDX, int32_t num)
 //		return  0 if num<=0
