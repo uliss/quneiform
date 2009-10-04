@@ -1,15 +1,13 @@
-include_directories(h sources/h)
-
 add_definitions(-D__CED__)
 
 add_library(ced ${LIBTYPE}
-sources/main/ced.cpp
-sources/main/ced_func.cpp
-sources/main/ced_func_old.cpp
-sources/main/ced_func_rtf.cpp
-sources/main/ced_struct_implem.cpp
-sources/main/dll.cpp
-sources/main/wrapper.cpp
+ced.cpp
+ced_func.cpp
+ced_func_old.cpp
+ced_func_rtf.cpp
+ced_struct_implem.cpp
+dll.cpp
+wrapper.cpp
 )
 
 target_link_libraries(ced cfio cfcompat)
