@@ -1,12 +1,10 @@
-include_directories(sources/src/h)
-
 add_library(cline ${LIBTYPE}
 ${SNP_SRC}
-sources/src/main/clinebase.cpp
-sources/src/cpp/clinefunc.cpp
-sources/src/main/clinemain.cpp
-sources/src/cpp/debug.cpp
-sources/src/cpp/lcline.cpp
+clinebase.cpp
+clinefunc.cpp
+clinemain.cpp
+debug.cpp
+lcline.cpp
 )
 
 set_property(TARGET cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
