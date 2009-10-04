@@ -115,7 +115,7 @@ void lpmima(int16_t);
 void bring_dust(int16_t);
 void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1);
 void stand_bas();
-void complete_bas(char *);
+void complete_bas(const char *);
 void dbreset(int16_t);
 static int16_t fincells();
 int16_t dbsum(int16_t filter);

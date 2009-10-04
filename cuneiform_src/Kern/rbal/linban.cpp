@@ -54,10 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define  MULTI
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <algorithm> // for std::min/max
+// multilanguage
+static const bool MULTI = true;
 
 #define  LIN_MAIN
 #include "linear.h"
@@ -68,8 +70,6 @@
 
 #include "wrgb.h" //IGOR
 #include "statsearchbl.h" //IGOR
-#include "minmax.h"
-
 //IGOR
 #define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
 							snap_draw_line_rbal(NULL, &rs, &re, (int16_t)nIncline/2, rgb, -100, 1##l)
@@ -284,13 +284,10 @@ int16_t obtain_diff(int16_t arg) {
 	}
 	return wl;
 }
-////////////
 
-void complete_bas(char *txt) {
+void complete_bas(const char *txt) {
 	CSTR_rast B1;
 	CSTR_rast_attr attr;
-
-	//glsnap('d',cell_f()->nextl,"to complete ");
 
 	bbs0 = min_crow;
 	Ps = Psf = bbs3 - bbs2;
@@ -301,8 +298,7 @@ void complete_bas(char *txt) {
 	if (fax1x2)
 		Psf = Ps + 3; // AL 940329  was '+2' TWO TIMES
 
-	if (!snap_baselines_rbal('a'))//IGOR
-	{//IGOR
+	if (!snap_baselines_rbal('a')) {//IGOR
 		Nb4 = Ns4;
 		if (Ns4 > 0)
 			bbs4 = (sbs4 + (Ns4 >> 1)) / Ns4;
@@ -310,7 +306,8 @@ void complete_bas(char *txt) {
 			bbs4 = (3* bbs3 - bbs2) >> 1;
 			Nb4 = -1;
 		}
-	}//IGOR
+	}
+
 	bbsm = (bbs2 + bbs3) >> 1;
 	if (bbs4 < (bbs3 + 3)) {
 		bbs4 = (3* bbs3 - bbs2) >> 1;
@@ -320,7 +317,7 @@ void complete_bas(char *txt) {
 
 	diffs_by_cells();
 	B1 = cell_f();
-	//while ((B1=B1->nextl)->nextl)
+
 	for (B1 = CSTR_GetNextRaster(B1, f_letter); B1; B1 = CSTR_GetNextRaster(B1,
 			f_letter)) {
 		CSTR_GetAttr(B1, &attr);
@@ -431,7 +428,7 @@ int16_t b1b2_byhist() {
 		iw = (i = (*bp) + (*bc) + (*bn));
 		// if ((2*Nst < i) || (3*Nst < iw)) ets = 0;
 		// ett was misplaced (to histogramm) because of diff
-		if (2* Nst < i)
+		if (2 * Nst < i)
 			ets = 0;
 	}
 	if (ett > (bbs3 - 5))
@@ -441,203 +438,226 @@ int16_t b1b2_byhist() {
 			continue;
 		if (ets && ((i > (ets - 2)) && (i < (ets + 2))))
 			continue;
-		m = *bp + 2* (* bc) + *bn;
-		if (m2 < m)
-		{	m2=m; ms2=m-*bc; lb2=i;}
+		m = *bp + 2 * (*bc) + *bn;
+		if (m2 < m) {
+			m2 = m;
+			ms2 = m - *bc;
+			lb2 = i;
+		}
 	}
 	//if( m2 < 6 ) lb2=-1; // weak peak. Valdemar 09-21-94 07:15pm
-				if (lb2 < 0) //  NO MAX obtained;
-				return 0;
-				ibeg = 1; ilim = bbs3+32-5; // search 2nd max in full area
-				if (Ns2 > 0) // bs2  obtained
+	if (lb2 < 0) //  NO MAX obtained;
+		return 0;
+	ibeg = 1;
+	ilim = bbs3 + 32 - 5; // search 2nd max in full area
+	if (Ns2 > 0) // bs2  obtained
+	{
+		int16_t it;
+		it = (sbs2 + (Ns2 >> 1)) / Ns2 + 32;
+		if (lb2 > it - 3) // lb2 --> bs2
+		{
+			fl12 = 2; // indicate main max in b2
+			ilim = lb2 - 2;
+			goto fmax2;
+		}
+	}
+	if (Ns1 > 0) {
+		int16_t it;
+		it = (sbs1 + (Ns1 >> 1)) / Ns1 + 32;
+		if (lb2 < it + 3) // lb2 --> bs1
+		{
+			fl12 = 1; // indicate main max in b1
+			ibeg = lb2 + 3;
+		}
+	}
+	fmax2:
+	// 2nd max: if before max1 - save 1st found; if after max1 - save last found
+	for (i = ibeg, bc = &lin_begs[ibeg], bp = bc - 1, bc = bp + 1, bn = bc + 1; i
+			< ilim; i++, bp++, bc++, bn++) {
+		if ((*bc < *bp) || (*bc < *bn))
+			continue;
+		// bs1 should NOT be close to bs2
+		if ((i > (lb2 - 4)) && (i < (lb2 + 4)))
+			continue;
+		if (ets && ((i > (ets - 2)) && (i < (ets + 2))))
+			continue;
+		m = *bp + 2 * (*bc) + *bn;
+		if ((m1 < m) || ((m != 0) && (m1 == m) && (i > lb2))) {
+			m1 = m;
+			ms1 = m - *bc;
+			lb1 = i;
+		}
+	}
+	if (lb1 < 0) // ONE MAX obtained
+	{
+		if (ets) // skipped 't' level ?
+		{
+			if (lb2 < ets) //  lb2 ... ets
+			{
+				if (Nst < (ms2 - 2)) // more ususal letters than 't'
 				{
-					int16_t it;
-					it = (sbs2+(Ns2>>1))/Ns2 + 32;
-					if (lb2 > it-3) // lb2 --> bs2
-					{
-						fl12 = 2; // indicate main max in b2
-						ilim = lb2-2;
-						goto fmax2;
-					}
-				}
-				if (Ns1 > 0)
+					lb1 = lb2;
+					lb2 = ets;
+					goto twomax;
+				} else
+					goto lb2tob1;
+
+			} else //   ets ... lb2
+			{
+				if (Nst < (ms2 - 2)) // more ususal letters than 't'
 				{
-					int16_t it;
-					it = (sbs1+(Ns1>>1))/Ns1 + 32;
-					if (lb2 < it+3) // lb2 --> bs1
-					{
-						fl12 = 1; // indicate main max in b1
-						ibeg = lb2+3;
-					}
-				}
-				fmax2:
-				// 2nd max: if before max1 - save 1st found; if after max1 - save last found
-				for (i=ibeg, bc = &lin_begs[ibeg], bp=bc-1, bc=bp+1, bn=bc+1; i<ilim; i++,bp++,bc++,bn++)
- {
-    if ((*bc < *bp) || (*bc < *bn)) continue;
-    // bs1 should NOT be close to bs2
-    if ( (i > (lb2-4)) && (i < (lb2+4)) )  continue;
-    if (ets && ((i > (ets-2)) && (i < (ets+2)) ))  continue;
-    m=*bp + 2*(*bc) + *bn;
-    if ((m1 < m) || ((m!=0) && (m1 == m) && (i > lb2)))
-      { m1=m; ms1=m-*bc; lb1=i; }
- }
- if (lb1 < 0)  // ONE MAX obtained
- {
-   if (ets)    // skipped 't' level ?
-   {
-     if (lb2 < ets)     //  lb2 ... ets
-     {
-       if (Nst < (ms2-2))   // more ususal letters than 't'
-         { lb1 = lb2; lb2 = ets;  goto twomax; }
-       else
-         goto lb2tob1;
+					lb1 = ets;
+					goto twomax;
+				} else
+					goto lb2tob2;
 
-     }
-     else              //   ets ... lb2
-     {
-       if (Nst < (ms2-2))   // more ususal letters than 't'
-         { lb1 = ets; goto twomax; }
-       else
-         goto lb2tob2;
+			}
+		}
+		//if (Ns1 >= Ns2)   // recall voting
+		if (Ns1 > Ns2) // recall voting
+		{
+			lb2tob1: bbs1 = lb2 - 32;
+			Nb1 = 127;
+			Nb2 = -1;
+			if (old_ok && (lin_pass > 1) && (abs(bbs1 - oldPs1) < 2))
+				bbs2 = bbs3 - oldPs2;
+			else
+				bbs2 = (bbs3 + 2 * bbs1) / 3;
+			goto rtn;
+		}
+		if (Ns2 > Ns1) // recall voting
+		{
+			lb2tob2: bbs2 = lb2 - 32;
+			Nb2 = 127;
+			Nb1 = -1;
+			if (old_ok && (lin_pass > 1) && (abs(bbs2 - oldPs2) < 2))
+				bbs1 = bbs3 - oldPs1;
+			else
+				bbs1 = bbs2 - (bbs3 - bbs2) / 2;
+			goto rtn;
+		}
+		/*****  after 931228: **  TRY to use old line's bases  *****************/
+		//if(language == LANG_RUSSIAN)         goto lb2tob2; // Valdemar
+		if ((old_ok == 0) || (lin_pass == 1))
+			goto lb2tob1;
+		try_old: Ps = oldPs2;
+		if (Ps <= 0)
+			Ps = 1;
+		if ((oldn1 != 127) && (oldn1 > Ns1)) {
+			bbs1 = bbs3 - oldPs1;
+			Ns1 = oldn1;
+			Nb1 = 127;
+		}
+		if ((oldn2 != 127) && (oldn2 > Ns2)) {
+			bbs2 = bbs3 - oldPs2;
+			Ns2 = oldn2;
+			Nb2 = 127;
+		}
+		if ((oldn4 != 127) && (oldn4 > Ns4)) {
+			bbs4 = bbs3 - oldPs4;
+			Ns4 = oldn4;
+			Nb4 = 127;
+		}
+		goto rtn;
+	}
+	//  lb2 - more powerful max; lb1 - less powerful
+	dl = lb1 - lb2;
 
-     }
-   }
-   //if (Ns1 >= Ns2)   // recall voting
-   if (Ns1 > Ns2)   // recall voting
-   {
-   lb2tob1:
-     bbs1 = lb2-32; Nb1=127; Nb2=-1;
-     if ( old_ok && (lin_pass > 1) && (abs(bbs1-oldPs1) < 2) )
-       bbs2 = bbs3-oldPs2;
-     else
-       bbs2 = (bbs3+2*bbs1)/3;
-     goto rtn;
-   }
-   if (Ns2 > Ns1)   // recall voting
-   {
-   lb2tob2:
-     bbs2 = lb2-32; Nb2=127; Nb1=-1;
-     if ( old_ok && (lin_pass > 1) && (abs(bbs2-oldPs2) < 2) )
-       bbs1 = bbs3-oldPs1;
-     else
-       bbs1 = bbs2 - (bbs3-bbs2)/2;
-     goto rtn;
-   }
-   /*****  after 931228: **  TRY to use old line's bases  *****************/
-   //if(language == LANG_RUSSIAN)         goto lb2tob2; // Valdemar
-   if ((old_ok == 0)  || (lin_pass==1)) goto lb2tob1;
- try_old:
-   Ps = oldPs2;
-   if (Ps<=0) Ps = 1;
-   if ((oldn1 != 127) && (oldn1 > Ns1))
-   { bbs1 = bbs3-oldPs1; Ns1 = oldn1; Nb1=127;}
-   if ((oldn2 != 127) && (oldn2 > Ns2))
-   { bbs2 = bbs3-oldPs2; Ns2 = oldn2; Nb2=127;}
-   if ((oldn4 != 127) && (oldn4 > Ns4))
-   { bbs4 = bbs3-oldPs4; Ns4 = oldn4; Nb4=127;}
-   goto rtn;
- }
- //  lb2 - more powerful max; lb1 - less powerful
- dl = lb1-lb2;
-   /*#ifdef UFA
-   if(language == LANG_RUSSIAN)
-   {
-   int16_t b2=MAX(lb1,lb2)-32;
-   if( b2+3 >= bbs3/2 && fl12 != 1)
-    { // one peak is a dream
-    if( lb2-32 < bbs3/4 )
-     { lb2 = -1; goto lb2tob1; }// bbs1 is a dream. Vald. for UFA
-    else
-     { lb1 = -1; goto lb2tob2; }// bbs2 is a dream. Vald. for UFA
-    }
-   }
-   #endif*/
- if (dl >= 0)   // make them sorted: lb1, lb2
- {
-   int16_t i;
-   i=lb2; lb2=lb1; lb1=i;
-   i=m2;  m2=m1;   m1=i;
- }
- if (ett)  // in presence of 't' lb1, lb2 must be properly positioned
- {
-   if (lb2 < ett)     // base 2  must be greater than 't'
-     lb2 = ett;
-   else
-   {
-     if (lb1 > ett)
-     { int16_t b2;
-       b2 = lb1;
-       lb1 = ett;
-       // where is b2: which max is greater and use proportions
-       if (m2 > 2*m1) goto twomax;               // lb2 wichtig
-       if (m1 > 2*m2) { lb2 = lb1; goto twomax; }  // (940125 was  = i ??) lb1 wichtig
-       b2x = (bbs3+2*(lb1-32))/3 + 32;
-       if (lb2 > b2x)                 // lb2 too low - take 1st max
-         lb2 = b2;
-     }
-   }
- }
- twomax:
- dl = lb2-lb1;
- if (dl < 3)     // similar bases
- {
-   if (Ns1 < 3)  // nobody wanted bs1
-     goto lb2tob2;
-   if (Ns2 < 3)  // nobody wanted bs2
-     goto lb2tob1;
-   if(old_ok) goto try_old;  // real wiederspruch !!
- }
- bbs1 = lb1-32; Nb1=127; bbs2 = lb2-32; Nb2=127;
- /*************************************************************/
- b2x = (bbs3+2*bbs1)/3;         // 940125  UNLV1009/36
- if (bbs2 > b2x)   // b2 doubtful
- { int16_t fl_ser, s_ser, ng_ser, top, dif;
-  // if (m2 <= m1)
-  // {
-  //   bbs2 = b2x; Nb2 = -1;
-  // }
-   ng_ser=0;
-   s_ser=0;
-   fl_ser=0;
+	if (dl >= 0) // make them sorted: lb1, lb2
+	{
+		int16_t i;
+		i = lb2;
+		lb2 = lb1;
+		lb1 = i;
+		i = m2;
+		m2 = m1;
+		m1 = i;
+	}
+	if (ett) // in presence of 't' lb1, lb2 must be properly positioned
+	{
+		if (lb2 < ett) // base 2  must be greater than 't'
+			lb2 = ett;
+		else {
+			if (lb1 > ett) {
+				int16_t b2;
+				b2 = lb1;
+				lb1 = ett;
+				// where is b2: which max is greater and use proportions
+				if (m2 > 2 * m1)
+					goto twomax; // lb2 wichtig
+				if (m1 > 2 * m2) {
+					lb2 = lb1;
+					goto twomax;
+				} // (940125 was  = i ??) lb1 wichtig
+				b2x = (bbs3 + 2 * (lb1 - 32)) / 3 + 32;
+				if (lb2 > b2x) // lb2 too low - take 1st max
+					lb2 = b2;
+			}
+		}
+	}
+	twomax: dl = lb2 - lb1;
+	if (dl < 3) // similar bases
+	{
+		if (Ns1 < 3) // nobody wanted bs1
+			goto lb2tob2;
+		if (Ns2 < 3) // nobody wanted bs2
+			goto lb2tob1;
+		if (old_ok)
+			goto try_old;
+		// real wiederspruch !!
+	}
+	bbs1 = lb1 - 32;
+	Nb1 = 127;
+	bbs2 = lb2 - 32;
+	Nb2 = 127;
+	/*************************************************************/
+	b2x = (bbs3 + 2 * bbs1) / 3; // 940125  UNLV1009/36
+	if (bbs2 > b2x) // b2 doubtful
+	{
+		int16_t fl_ser, s_ser, ng_ser, top, dif;
+		// if (m2 <= m1)
+		// {
+		//   bbs2 = b2x; Nb2 = -1;
+		// }
+		ng_ser = 0;
+		s_ser = 0;
+		fl_ser = 0;
 
-   cb2=cell_f();
-   //while ((cb2=cb2->nextl)->nextl)
-   for(cb2=CSTR_GetNextRaster(cb2,f_letter);cb2;
-       cb2=CSTR_GetNextRaster(cb2,f_letter) )
-   {
-     CSTR_GetAttr(cb2,&attr);
-     top=attr.row-minrow;
-     dif = attr.bdiff;
+		cb2 = cell_f();
+		//while ((cb2=cb2->nextl)->nextl)
+		for (cb2 = CSTR_GetNextRaster(cb2, f_letter); cb2; cb2
+				= CSTR_GetNextRaster(cb2, f_letter)) {
+			CSTR_GetAttr(cb2, &attr);
+			top = attr.row - minrow;
+			dif = attr.bdiff;
 
-     if (dif != 127) top -= dif;
-     if (abs(top-bbs2) < 2)    // interval of potential 'b2' letters
-     {
-       if (fl_ser==0)
-         ng_ser++;
-       fl_ser=1; s_ser++;
-     }
-     else
-       fl_ser=0;
-   }
-   if  (s_ser <= 2*ng_ser)    // intervals of 'small' seem to be 'short'
-   {
-     bbs2 = b2x; Nb2 = -1;  // make artifitial b2
-   }
- }
- /*******************************************************************/
-rtn:
- complete_bas("b1/b2 made");
- set_basarr(&all_bases[0],-32000,32000);
- return 1;
+			if (dif != 127)
+				top -= dif;
+			if (abs(top - bbs2) < 2) // interval of potential 'b2' letters
+			{
+				if (fl_ser == 0)
+					ng_ser++;
+				fl_ser = 1;
+				s_ser++;
+			} else
+				fl_ser = 0;
+		}
+		if (s_ser <= 2* ng_ser ) // intervals of 'small' seem to be 'short'
+		{
+			bbs2 = b2x;
+			Nb2 = -1; // make artifitial b2
+		}
+	}
+	/*******************************************************************/
+	rtn: complete_bas("b1/b2 made");
+	set_basarr(&all_bases[0], -32000, 32000);
+	return 1;
 }
 
-		////////////////
+////////////////
 void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
 	int16_t hcell, hbeg;
-	//lnhead *Lp1, *Lp2;
 	CCOM_lnhead *Lp1, *Lp2;
-	//c_comp *cp1;
 	CCOM_comp *cp1;
 	int16_t Lc1, lc1, rowd;
 	CSTR_rast_attr attr;
@@ -647,12 +667,11 @@ void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
 	if ((rowd = -attr.bdiff) == -127)
 		rowd = 0;
 	rowd = rowd + hcell + 32;
-	//cp1 = a->env;
 	cp1 = CSTR_GetComp(a);
 
 	Lc1 = cp1->nl; // number of lines in component
 
-	//Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+	// beginning of first line
 	Lp1 = (CCOM_lnhead *) (cp1->linerep + 2);
 	Lp2 = Lp1;
 	for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
@@ -662,7 +681,7 @@ void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
 		if (!(Lp1->flg & l_fbeg))
 			continue;
 		hbeg = Lp1->row;
-		th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+		th = std::min(hcell + attr.h, (int) bbs3) - hcell; // part of cell above bs3
 		//  part of cell above bs3
 		if (5* hbeg >= 3* th )
 			continue; // line must begin above 2/5 of
@@ -671,7 +690,7 @@ void add_hist(CSTR_rast a, int16_t flg, uchar *begs) {
 		begs[rowd + hbeg] += flg;
 	} // for all lines
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //AK! crash at memset
 void hist_bot(int16_t x1, int16_t x2) {
 	//cell      *a;
@@ -690,7 +709,6 @@ void hist_bot(int16_t x1, int16_t x2) {
 	if (hist_done & 1)
 		return;
 	hist_done |= 1;
-	//glsnap('d',cell_f()->nextl,"make bases by histogram");
 	//AK add loop memset(lin_ends,0,sizeof(lin_ends));
 	for (il = 0; il < sizeof(lin_ends); lin_ends[il++] = 0)
 		;
@@ -745,16 +763,12 @@ void hist_bot(int16_t x1, int16_t x2) {
 		} // for all lines
 	} // while letters and bads
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void hist_top(int16_t x1, int16_t x2) {
-	//cell *a;
 	CSTR_rast a;
 	CSTR_rast_attr attr;
 	int16_t hcell, hbeg;
-	//lnhead *Lp1, *Lp2;
 	CCOM_lnhead *Lp1, *Lp2;
-	//c_comp *cp1;
 	CCOM_comp *cp1;
 	int16_t Lc1, lc1, rowd;
 	int il;
@@ -771,7 +785,6 @@ void hist_top(int16_t x1, int16_t x2) {
 	for (; a; a = CSTR_GetNextRaster(a, f_letter)) {
 		cp1 = CSTR_GetComp(a);
 		CSTR_GetAttr(a, &attr);
-		//if (a->env == NULL) continue;
 		if (!cp1)
 			continue;
 		if (attr.col < x1)
@@ -782,9 +795,8 @@ void hist_top(int16_t x1, int16_t x2) {
 		if ((rowd = -attr.bdiff) == -127)
 			rowd = 0;
 		rowd = rowd + hcell + 32;
-		//cp1 = a->env;
 		Lc1 = cp1->nl; // number of lines in component
-		//Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+		// beginning of first line
 		Lp1 = (CCOM_lnhead *) (cp1->linerep + 2); // beginning of first line
 		Lp2 = Lp1;
 		for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
@@ -793,7 +805,7 @@ void hist_top(int16_t x1, int16_t x2) {
 			if (!(Lp1->flg & l_fbeg))
 				continue; // take free begs only
 			hbeg = Lp1->row;
-			th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+			th = std::min(hcell + attr.h, (int) bbs3) - hcell; // part of cell above bs3
 			//  part of cell above bs3
 			if (2* hbeg >= th)
 				continue; // line must begin above 1/2 of
@@ -844,7 +856,6 @@ void histb(int16_t x1, int16_t x2, int16_t flg, uchar *begs) {
 	memset(begs, 0, sizeof(lin_begs));
 	a = cell_f();
 	a = CSTR_GetNextRaster(a, f_letter);
-	// while ((a=a->nextl)->nextl != NULL)
 	for (; a; a = CSTR_GetNextRaster(a, f_letter)) {
 		//if (a->env == NULL) continue;
 		if (!CSTR_GetComp(a))
@@ -1072,7 +1083,6 @@ int16_t defbas(int16_t filter) {
 	return 1;
 }
 
-///////////
 void discrim_pos() {
 	CSTR_rast B1;
 	CSTR_rast_attr attr;
@@ -1286,7 +1296,7 @@ void hist_max(CSTR_rast a) {
 	Lp2 = Lp1;
 	for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
 		int16_t th;
-		//Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
+		// next line
 		Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 		if (!(Lp1->flg & l_fbeg))
 			continue;
@@ -1294,7 +1304,7 @@ void hist_max(CSTR_rast a) {
 		if (hbeg == 0)
 			continue; // ignore upper scan lines
 
-		th = MIN(hcell + attr.h, bbs3) - hcell; // part of cell above bs3
+		th = std::min(hcell + attr.h, (int) bbs3) - hcell; // part of cell above bs3
 
 		//  part of cell above bs3
 		if (5* hbeg >= 3* th )
@@ -1755,7 +1765,7 @@ int16_t dbsum(int16_t filter) {
 				int16_t ic = 0;
 				rgb = wRGB(64, 128, 128);
 				rs.x = startx;
-				re.x = startx + MIN(80, endx - startx);
+				re.x = startx + std::min(80, endx - startx);
 				while (rs.x <= endx && re.x <= endx) {
 					draw_puma_bl(1,3);
 					if (ic == 0) {
@@ -1776,7 +1786,7 @@ int16_t dbsum(int16_t filter) {
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + MIN(80, abs(endx - rs.x));
+					re.x = rs.x + std::min(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}
@@ -1803,7 +1813,7 @@ int16_t dbsum(int16_t filter) {
 				int16_t ic = 0;
 				rgb = wRGB(124, 190, 190);
 				rs.x = startx;
-				re.x = startx + MIN(80, endx - startx);
+				re.x = startx + std::min(80, endx - startx);
 				while (rs.x <= endx && re.x <= endx) {
 					draw_puma_bl(1,0);
 					if (ic == 0) {
@@ -1824,7 +1834,7 @@ int16_t dbsum(int16_t filter) {
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + MIN(80, abs(endx - rs.x));
+					re.x = rs.x + std::min(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}
