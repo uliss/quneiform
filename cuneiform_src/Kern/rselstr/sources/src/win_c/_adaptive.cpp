@@ -62,7 +62,7 @@
 #include "func.h"
 #include "ccom/ccom.h"
 #include "exc.h"
-#include "loc.h"
+#include "loc/loc.h"
 
 #define CREATE_STATUS
 #include "status.h"

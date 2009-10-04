@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "exc.h"
 #include "evn32/evn.h"
-#include "loc.h"
+#include "loc/loc.h"
 #include "excdefs.h"
 //#include "rcutp.h"
 #include "minmax.h"
