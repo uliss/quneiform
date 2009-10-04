@@ -1,11 +1,11 @@
 include_directories(BEFORE src)
 
 add_library(loc32 ${LIBTYPE}
-compdata.c
-compkit.c
-loc.c
-locompmn.c
-v0compgl.c
+compdata.cpp
+compkit.cpp
+loc.cpp
+locompmn.cpp
+v0compgl.cpp
 )                
 set_property(TARGET loc32 PROPERTY COMPILE_DEFINITIONS __LOC__)
 
