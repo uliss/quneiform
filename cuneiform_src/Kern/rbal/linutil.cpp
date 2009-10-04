@@ -510,7 +510,7 @@ int16_t setup_let_case(int16_t ckH) {
 		char buf[120];
 		sprintf(buf, "Page statistic lh=%u  caps=%u,%u lcase=%u,%u ", lh, umax,
 				uprob, lmax, lprob);
-		snap_show_text_rbal(buf);
+		snap_show_text_rbal((uchar*) buf);
 		snap_monitor_rbal();
 	}
 	return ret;
@@ -874,8 +874,8 @@ int16_t GetPsFromHeights(void) {
 	CSTR_rast_attr attr;
 	UniVersions vers;
 
-	int16_t BPs, cDefs, i, max1, max2, ind1, ind2, peak2, h_size, b_top, n_sunk,
-			b1_or_b2_rong;
+	int16_t BPs, cDefs, i, max1, max2, ind1, ind2, peak2, h_size, b_top,
+			n_sunk, b1_or_b2_rong;
 	int16_t Hh[RASTER_MAX_HEIGHT * 2] = { 0 };
 
 	HIST_STATISTIC = 0;
@@ -1047,13 +1047,11 @@ int16_t GetPsFromHeights(void) {
 		sprintf(buf,
 				"Histogramms: min=%d b3=%d peak1= %d|%d peak2= %d|%d sunk=%d",
 				minrow, bbs3, ind1, max1, ind2, max2, n_sunk);
-		snap_show_text_rbal(buf);
+		snap_show_text_rbal((uchar*) buf);
 		snap_monitor_rbal();
 	}
 	return BPs;
 }
-
-////////////////
 
 static uchar BracketsList[] = "<>()[]";
 
@@ -1068,16 +1066,14 @@ uchar BracketIn(UniVersions *v) {
 	return 0;
 }
 
-////////////
-
 int16_t def_upper_side(void) {
 	CSTR_rast c;
 	CSTR_rast_attr attr;
 	int16_t i, max, max_sn, ind, ind_sn;
 	uint16_t h_size, n_def, n_sn;
 
-	int16_t h_top[RASTER_MAX_HEIGHT * 2] = { 0 }, h_sunk[RASTER_MAX_HEIGHT * 2] = {
-			0 };
+	int16_t h_top[RASTER_MAX_HEIGHT * 2] = { 0 },
+			h_sunk[RASTER_MAX_HEIGHT * 2] = { 0 };
 
 	h_size = RASTER_MAX_HEIGHT * 2;
 

@@ -54,9 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
 #include "status.h"
 #include "cstr/cstr.h"
@@ -83,17 +83,17 @@ static uchar let_linempty[512] = { 0 };
 
 int16_t (*RSTR_skew_corr)(CSTR_line ln, int16_t pool_src) = skew_corr_stat;
 int16_t (*RSTR_rast_is_BOX_solid)(CSTR_rast B1, int16_t scale) =
-		rast_is_BOX_solid;
+rast_is_BOX_solid;
 Bool (*snap_monitor_rbal)(void) = snap_monitor_stat;
 Bool (*snap_show_text_rbal)(uchar *txt) = snap_show_text_stat;
 Bool (*snap_activity_rbal)(uchar a) = snap_activity_stat;
 Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines) =
-		snap_monitor_ori_stat; //IGOR
+snap_monitor_ori_stat; //IGOR
 Bool (*snap_is_marked_rbal)(CSTR_line ln) = snap_is_marked_stat;//IGOR
 Bool (*snap_baselines_rbal)(uchar a) = snap_baselines_stat;//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end,
 		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key) =
-		snap_draw_line_stat;//IGOR
+snap_draw_line_stat;//IGOR
 void (*snap_del_line_rbal)(Handle wnd, uint32_t key) = snap_del_line_stat;//IGOR
 
 CSTR_line lin_str = (CSTR_line) NULL;
@@ -207,7 +207,7 @@ void glsnap(char I, CSTR_rast C, char *txt) {
 
 	// snap_newcell(C);
 	if (snap_activity_rbal(I)) {
-		snap_show_text_rbal(txt);
+		snap_show_text_rbal((uchar*) txt);
 		snap_monitor_rbal();
 	}
 }
@@ -218,8 +218,8 @@ void ideal_rc(CSTR_rast c) {
 
 	CSTR_GetAttr(c, &attr);
 
-	attr.row = attr.r_row - (int16_t)((int32_t) nIncline * attr.r_col / 2048);
-	attr.col = attr.r_col + (int16_t)((int32_t) nIncline * attr.r_row / 2048);
+	attr.row = attr.r_row - (int16_t) ((int32_t) nIncline * attr.r_col / 2048);
+	attr.col = attr.r_col + (int16_t) ((int32_t) nIncline * attr.r_row / 2048);
 
 	CSTR_SetAttr(c, &attr);
 }
@@ -316,7 +316,7 @@ void promote(uchar sn, CSTR_rast cl, uchar let, int16_t delta) {
 	memset(&vers.Alt[i], 0, sizeof(UniAlt));
 	//vp1->let=let;
 	vers.Alt[i].Liga = let;
-	strcpy(vers.Alt[i].Code, decode_ASCII_to_[let]);
+	strcpy((char*) vers.Alt[i].Code, (char*) decode_ASCII_to_[let]);
 
 	pw = vers.Alt[j].Prob;
 	pwi = pw;
@@ -692,21 +692,21 @@ static void GetRstrGlobals(BAL_RSTR_GLOBALS *rstrGlob) {
 	memcpy(&decode_ASCII_to_[0][0], rstrGlob->decode_ASCII_to_, 256* 4 );
 	// [256][4]
 
-	RSTR_skew_corr = rstrGlob->skew_corr;
-	RSTR_rast_is_BOX_solid = rstrGlob->rast_is_BOX_solid;
+	RSTR_skew_corr = (int16_t(*)(void*,int16_t))rstrGlob->skew_corr;
+	RSTR_rast_is_BOX_solid = (int16_t(*)(CSTR_rast, int16_t))rstrGlob->rast_is_BOX_solid;
 
 	db_status = rstrGlob->db_status;
 	db_pass = rstrGlob->db_pass;
-	snap_monitor_rbal = rstrGlob->snap_monitor;
-	snap_activity_rbal = rstrGlob->snap_activity;
-	snap_show_text_rbal= rstrGlob->snap_show_text;
-	snap_monitor_ori_rbal= rstrGlob->snap_monitor_ori;//IGOR
-	snap_is_marked_rbal= rstrGlob->snap_is_marked; //IGOR
-	snap_baselines_rbal= rstrGlob->snap_baselines; //IGOR
-	snap_draw_line_rbal= rstrGlob->snap_draw_line; //IGOR
-	snap_del_line_rbal = rstrGlob->snap_del_line; //IGOR
+	snap_monitor_rbal = (Bool(*)())rstrGlob->snap_monitor;
+	snap_activity_rbal = (Bool(*)(uchar))rstrGlob->snap_activity;
+	snap_show_text_rbal= (Bool(*)(uchar*))rstrGlob->snap_show_text;
+	snap_monitor_ori_rbal= (Bool(*)(void**,int32_t))rstrGlob->snap_monitor_ori;//IGOR
+	snap_is_marked_rbal= (Bool(*)(void*))rstrGlob->snap_is_marked; //IGOR
+	snap_baselines_rbal= (Bool(*)(uchar))rstrGlob->snap_baselines; //IGOR
+	snap_draw_line_rbal= (void(*)(void*, Point16*, Point16*, int32_t, uint32_t,int16_t,uint32_t)) rstrGlob->snap_draw_line; //IGOR
+	snap_del_line_rbal = (void(*)(void*,uint32_t))rstrGlob->snap_del_line; //IGOR
 }
-//////////////////////
+
 static void GetBalGlobals(BAL_INOUT_GLOBALS *balGlob) {
 	all_caps = balGlob->all_caps;
 	all_diffs_made = balGlob->all_diffs_made;

@@ -64,7 +64,7 @@
 #include "lang_def.h"	// 08.09.2000 E.P.
 #include "minmax.h"
 
-extern line_BL;
+extern int line_BL;
 extern CSTR_line lin_str;
 
 static void set_basint(void);

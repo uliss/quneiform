@@ -403,8 +403,8 @@ int16_t all_b1(uchar k1, uchar k2, uchar k3, uchar k4) {
 	return 1;
 }
 int16_t b1b2_byhist() {
-	int16_t fl12, dl, i, iw, ett, ets, ibeg, ilim, m, ms1, ms2, m1, m2, lb1, lb2,
-			b2x;
+	int16_t fl12, dl, i, iw, ett, ets, ibeg, ilim, m, ms1, ms2, m1, m2, lb1,
+			lb2, b2x;
 	uchar old_ok, *bp, *bc, *bn;
 	CSTR_rast cb2;
 	CSTR_rast_attr attr;
@@ -1112,7 +1112,7 @@ void discrim_pos() {
 	}
 }
 
-int16_t smart_diff( CSTR_rast); // reject stupid diffs
+int16_t smart_diff(CSTR_rast); // reject stupid diffs
 
 
 void diffs_by_cells() {
@@ -1502,7 +1502,7 @@ void set_difflg(CSTR_rast B1, int16_t filter) {
 }
 
 uchar disable_twins; // only for russian
-void all_cell_levcut( int16_t);
+void all_cell_levcut(int16_t);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // собрать статистику для поиска БЛ
@@ -1719,7 +1719,7 @@ int16_t dbsum(int16_t filter) {
 		if (rz >= 10 && (page_stat || HIST_STATISTIC) && !draft_cut_12) { // set b1/b2 by page statistics
 			draft_cut_12 = 1;
 			disable_twins = 1; // disable all twins
-			if (draft_cut_hyps((int16_t)(rz / 10) /* == 2 ? 1 : 2*/, 0))
+			if (draft_cut_hyps((int16_t) (rz / 10) /* == 2 ? 1 : 2*/, 0))
 				goto recalc;
 		}
 		if ((draft_cut_12 || draft_cut_3) && lin_pass == 3)
@@ -1862,7 +1862,7 @@ int16_t dbsum(int16_t filter) {
 
 			sprintf(ww + jl, "%s", txt);
 
-			snap_show_text_rbal(ww);
+			snap_show_text_rbal((uchar*) ww);
 			snap_monitor_ori_rbal(&ln[0], 1);
 		}
 
