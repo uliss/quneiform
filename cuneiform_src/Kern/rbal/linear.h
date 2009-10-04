@@ -215,9 +215,9 @@ CSTR_rast cell_l(void);
 void linpos(CSTR_line ln);
 void basefin(CSTR_line ln);
 int16_t def_locbas(CSTR_rast);
-void glsnap(char I, CSTR_rast, char *txt);
+void glsnap(char I, CSTR_rast, const char *txt);
 
-void li_snap(char *t);
+void li_snap(const char *t);
 void gen_reset(void);
 
 void sort_vers(CSTR_rast c);
@@ -240,7 +240,7 @@ extern void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end,
 		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 extern void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
-extern Bool (*snap_show_text_rbal)(uchar *txt);
+extern Bool (*snap_show_text_rbal)(const uchar *txt);
 extern Bool (*snap_activity_rbal)(uchar a);
 
 // from struct.h

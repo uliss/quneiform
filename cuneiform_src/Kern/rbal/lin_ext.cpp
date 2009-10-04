@@ -76,7 +76,7 @@ static Bool snap_baselines_stat(uchar a);//IGOR
 static void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end,
 		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 static void snap_del_line_stat(Handle wnd, uint32_t key);//IGOR
-static Bool snap_show_text_stat(uchar *txt);
+static Bool snap_show_text_stat(const uchar *txt);
 static Bool snap_activity_stat(uchar a);
 
 static uchar let_linempty[512] = { 0 };
@@ -85,7 +85,7 @@ int16_t (*RSTR_skew_corr)(CSTR_line ln, int16_t pool_src) = skew_corr_stat;
 int16_t (*RSTR_rast_is_BOX_solid)(CSTR_rast B1, int16_t scale) =
 rast_is_BOX_solid;
 Bool (*snap_monitor_rbal)(void) = snap_monitor_stat;
-Bool (*snap_show_text_rbal)(uchar *txt) = snap_show_text_stat;
+Bool (*snap_show_text_rbal)(const uchar *txt) = snap_show_text_stat;
 Bool (*snap_activity_rbal)(uchar a) = snap_activity_stat;
 Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines) =
 snap_monitor_ori_stat; //IGOR
@@ -121,21 +121,17 @@ uchar *let_sans_acc = &let_linempty[0]; // [257]
 uchar *letters_pidx_table = &let_linempty[0]; // 512
 uchar decode_ASCII_to_[256][4] = { 0 };
 
-///////////////////////////////
 CSTR_rast cell_f() {
 	if (!lin_str)
 		return NULL;
-
 	return CSTR_GetFirstRaster(lin_str);
 }
-///////////
+
 CSTR_rast cell_l() {
 	if (!lin_str)
 		return NULL;
-
 	return CSTR_GetLastRaster(lin_str);
 }
-///////////
 
 ////  Tools.c
 void sort_vers(CSTR_rast c) {
@@ -175,7 +171,7 @@ void sort_vers(CSTR_rast c) {
 	if (vers.lnAltCnt <= 0)
 		set_bad_cell(c);
 }
-/////////////
+
 // Tools.c
 void set_bad_cell(CSTR_rast c) {
 	CSTR_rast_attr attr;
@@ -197,10 +193,9 @@ void set_bad_cell(CSTR_rast c) {
 	vers.lnAltMax = REC_MAX_VERS;
 	CSTR_StoreCollectionUni(c, &vers);
 }
-////////////////////////////////////////////
-//////////
+
 // dm2.c
-void glsnap(char I, CSTR_rast C, char *txt) {
+void glsnap(char I, CSTR_rast C, const char *txt) {
 
 	if (!db_status)
 		return;
@@ -223,9 +218,7 @@ void ideal_rc(CSTR_rast c) {
 
 	CSTR_SetAttr(c, &attr);
 }
-///////////////////
 
-///////////////////////////
 // dm1.c
 void promote(uchar sn, CSTR_rast cl, uchar let, int16_t delta) {
 	uchar wl, wl_sacc, let_sacc;
@@ -343,19 +336,16 @@ void promote(uchar sn, CSTR_rast cl, uchar let, int16_t delta) {
 		glsnap((char) (sn > 'a' ? sn : 'a'), cl, "insvers");
 }
 
-////////////////////////////
 // skew.c
 static int16_t skew_corr_stat(CSTR_line ln, int16_t pool_src) {
 	return (int16_t) nIncline;
 }
-////////////
-/////////////////////
+
 // dms.c
 // сделать B1->env   (и для CSTR_rast -> comp )
 static int16_t rast_is_BOX_solid(CSTR_rast B1, int16_t scale) {
 	return 0;
 }
-//////////
 
 static Bool32 CopyRasterToLine(CSTR_rast c, CSTR_line trg) {
 	CSTR_rast_attr attr;
@@ -386,7 +376,7 @@ static Bool32 CopyRasterToLine(CSTR_rast c, CSTR_line trg) {
 
 	return FALSE;
 }
-////////////////////////////
+
 // pass3.c
 #define PROPMAX   25
 void dust_ini(CSTR_line lin) {
@@ -401,85 +391,77 @@ void dust_ini(CSTR_line lin) {
 	// dust cycle
 	curr = CSTR_GetFirstRaster(lin);
 	last = CSTR_GetLastRaster(lin);
-	cmpscale = 0* ( (attr.Flags & CSTR_STR_SCALED )!=0);
+	cmpscale = 0 * ((attr.Flags & CSTR_STR_SCALED) != 0);
 
-	for (curr=CSTR_GetNextRaster (curr, CSTR_f_all); curr&&curr!=last; curr=CSTR_GetNextRaster (curr, CSTR_f_all))
- {
-  CSTR_GetAttr(curr,&cur);
-  cmp=CSTR_GetComp(curr);
+	for (curr = CSTR_GetNextRaster(curr, CSTR_f_all); curr && curr != last; curr
+			= CSTR_GetNextRaster(curr, CSTR_f_all)) {
+		CSTR_GetAttr(curr, &cur);
+		cmp = CSTR_GetComp(curr);
 
-  if( !(cur.flg&CSTR_f_dust) )
-        continue;
+		if (!(cur.flg & CSTR_f_dust))
+			continue;
 
-  if( cmp->large & CCOM_LR_TAKEN )
-          continue;
-  if( (cmp->type&CCOM_CH_GREAT) ||cmp->scale>2-1*0 )
-      continue;
-  if( (cur.w>>cmpscale) > RASTER_MAX_WIDTH ||  //???
-      (cur.h>>cmpscale) > RASTER_MAX_HEIGHT )
-      continue;
-  if( cur.h>PROPMAX*cur.w)
-          continue;
+		if (cmp->large & CCOM_LR_TAKEN)
+			continue;
+		if ((cmp->type & CCOM_CH_GREAT) || cmp->scale > 2 - 1* 0 )
+			continue;
+		if ((cur.w >> cmpscale) > RASTER_MAX_WIDTH || //???
+				(cur.h >> cmpscale) > RASTER_MAX_HEIGHT)
+			continue;
+		if (cur.h > PROPMAX * cur.w)
+			continue;
 
-  CopyRasterToLine(curr, lin_str);
- }
+		CopyRasterToLine(curr, lin_str);
+	}
 
-/*  for FUTURE...
+	/*  for FUTURE...
 
-  c1=cell_f();
-  while ((c1=c1->nextl)->nextl != NULL)
-   ij_test(c1);  // do delete/confirm i/j
-*/
+	 c1=cell_f();
+	 while ((c1=c1->nextl)->nextl != NULL)
+	 ij_test(c1);  // do delete/confirm i/j
+	 */
 
- return;
+	return;
 }
-	///////////////////////
 
 Bool snap_monitor_stat(void) {
 	return FALSE;
 }
-///////
+
 Bool snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines)//IGOR
 {
 	return FALSE;
 }
-///////
+
 Bool snap_is_marked_stat(CSTR_line ln)//IGOR
 {
 	return FALSE;
 }
-///////
+
 Bool snap_baselines_stat(uchar a)//IGOR
 {
 	return FALSE;
 }
-///////
+
 void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end,
 		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)//IGOR
 {
 	return;
 }
-///////
+
 void snap_del_line_stat(Handle wnd, uint32_t key)//IGOR
 {
 	return;
 }
-///////
-Bool snap_show_text_stat(uchar *txt) {
+
+Bool snap_show_text_stat(const uchar *txt) {
 	return FALSE;
 }
-///////
+
 Bool snap_activity_stat(uchar a) {
 	return FALSE;
 }
-///////
-/*
- Bool snap_newcell (CSTR_rast c)
- {
- return FALSE;
- }
- */
-/////////////////
+
 // old - если arg==0 - добавить мусор из строки lin_str
 // проверить/изменить метки мусор-нет
 static void test_dust(void) // int16_t arg)
@@ -501,7 +483,6 @@ static void test_dust(void) // int16_t arg)
 	glsnap('d', cell_f()->next, "discrim by dust");
 }
 
-//////////////
 // черновое определение БЛ
 //
 // Для новой	 версии :
@@ -667,7 +648,7 @@ static int basedraft(CSTR_line ln, uchar isDust) {
 
 	return 1;
 }
-//////////////////////
+
 static void GetRstrGlobals(BAL_RSTR_GLOBALS *rstrGlob) {
 	language = (uchar) rstrGlob->language;
 	line_number = (int16_t) rstrGlob->line_number;
@@ -699,7 +680,7 @@ static void GetRstrGlobals(BAL_RSTR_GLOBALS *rstrGlob) {
 	db_pass = rstrGlob->db_pass;
 	snap_monitor_rbal = (Bool(*)())rstrGlob->snap_monitor;
 	snap_activity_rbal = (Bool(*)(uchar))rstrGlob->snap_activity;
-	snap_show_text_rbal= (Bool(*)(uchar*))rstrGlob->snap_show_text;
+	snap_show_text_rbal= (Bool(*)(const uchar*))rstrGlob->snap_show_text;
 	snap_monitor_ori_rbal= (Bool(*)(void**,int32_t))rstrGlob->snap_monitor_ori;//IGOR
 	snap_is_marked_rbal= (Bool(*)(void*))rstrGlob->snap_is_marked; //IGOR
 	snap_baselines_rbal= (Bool(*)(uchar))rstrGlob->snap_baselines; //IGOR
@@ -740,7 +721,7 @@ static void GetBalGlobals(BAL_INOUT_GLOBALS *balGlob) {
 
 	nIncline = balGlob->nIncline;
 }
-/////////////////////
+
 static void SetBalGlobals(BAL_INOUT_GLOBALS *balGlob) {
 	balGlob->all_caps = all_caps;
 	balGlob->all_diffs_made = all_diffs_made;
@@ -774,7 +755,7 @@ static void SetBalGlobals(BAL_INOUT_GLOBALS *balGlob) {
 
 	balGlob->nIncline = nIncline;
 }
-//////////////////////
+
 // now - 32 bases
 static void SetBalBases(BAL_bas_ln *bal_bases) {
 	int i;
@@ -796,72 +777,45 @@ static void SetBalBases(BAL_bas_ln *bal_bases) {
 		bal_bases[i].endcol = all_bases[i].endcol;
 	}
 }
-/////////////////////
-BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, uchar isDust,
-		BAL_RSTR_GLOBALS *rstrGlob,
-		BAL_INOUT_GLOBALS *balGlob,
-		BAL_bas_ln *bal_bases)
-{
+
+Bool32 BAL_basedraft(CSTR_line ln, uchar isDust, BAL_RSTR_GLOBALS *rstrGlob,
+		BAL_INOUT_GLOBALS *balGlob, BAL_bas_ln *bal_bases) {
 	int ret;
-
 	lin_str = ln;
-
 	GetRstrGlobals(rstrGlob);
 	GetBalGlobals(balGlob);
-
 	ret = basedraft(ln, isDust);
-
 	SetBalGlobals(balGlob);
-
 	SetBalBases(bal_bases); // don't need for draft ?
-
-	return ret?TRUE:FALSE;
+	return ret ? TRUE : FALSE;
 }
-///////////////
-BAL_FUNC(Bool32) BAL_linpos(CSTR_line ln,
-		BAL_RSTR_GLOBALS *rstrGlob,
-		BAL_INOUT_GLOBALS *balGlob,
-		BAL_bas_ln *bal_bases)
-{
-	lin_str = ln;
 
+Bool32 BAL_linpos(CSTR_line ln, BAL_RSTR_GLOBALS *rstrGlob,
+		BAL_INOUT_GLOBALS *balGlob, BAL_bas_ln *bal_bases) {
+	lin_str = ln;
 	GetRstrGlobals(rstrGlob);
 	GetBalGlobals(balGlob);
-
 	linpos(ln);
-
 	SetBalGlobals(balGlob);
-
 	SetBalBases(bal_bases);
-
 	return TRUE;
 }
-///////////////
-BAL_FUNC(Bool32) BAL_basefin(CSTR_line ln,
-		BAL_RSTR_GLOBALS *rstrGlob,
-		BAL_INOUT_GLOBALS *balGlob,
-		BAL_bas_ln *bal_bases )
-{
+
+Bool32 BAL_basefin(CSTR_line ln, BAL_RSTR_GLOBALS *rstrGlob,
+		BAL_INOUT_GLOBALS *balGlob, BAL_bas_ln *bal_bases) {
 	lin_str = ln;
 
 	GetRstrGlobals(rstrGlob);
 	GetBalGlobals(balGlob);
-
-	basefin( ln );
-
+	basefin(ln);
 	SetBalGlobals(balGlob);
-
 	SetBalBases(bal_bases);
-
 	return TRUE;
 }
-///////////////
-BAL_FUNC(Bool32) BAL_StatInit(void)
-{
+
+Bool32 BAL_StatInit(void) {
 	void BaseLineStatisticInit(void);
-
 	BaseLineStatisticInit();
-
 	return TRUE;
-};
-/////////////////////////
+}
+

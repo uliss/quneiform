@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _BAL_VERSION_   // Nick 10.02.2001
 
-#include "bal.h"
+#include "rbal/bal.h"
 
 extern uchar fax1x2;
 extern uchar language;
