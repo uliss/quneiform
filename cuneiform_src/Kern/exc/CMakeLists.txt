@@ -1,14 +1,14 @@
 include_directories(BEFORE src)
 
 add_library(exc ${LIBTYPE}
-compdata.c
-compkit.c
-extrcomp.c
-locompmn.c
-matrix.c
-v0compan.c
-v0compgl.c
-v0compmn.c
+compdata.cpp
+compkit.cpp
+extrcomp.cpp
+locompmn.cpp
+matrix.cpp
+v0compan.cpp
+v0compgl.cpp
+v0compmn.cpp
 )
 set_property(TARGET exc PROPERTY COMPILE_DEFINITIONS __EXC__)
 
