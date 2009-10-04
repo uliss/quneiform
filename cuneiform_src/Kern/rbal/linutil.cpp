@@ -54,16 +54,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 
 #include "tuner.h"
 #include "linear.h"
 #include "linutil.h"
 #include "ligas.h"      // Pit 10-10-94 03:56pm
-#include "minmax.h"
-
 /*============= Func prototypes ==================*/
 
 uchar to_lower(uchar c);
@@ -76,7 +75,7 @@ int16_t twin(uchar ch);
 int16_t count_line_hi(void);
 int16_t draft_cut_hyps(int16_t bs, int16_t fl);
 
-#define MAX_HEIGHT 70  // such was...  change ?
+static const int MAX_HEIGHT = 70; // such was...  change ?
 extern uchar language;
 
 extern uchar db_status; // snap presence byte
@@ -99,11 +98,9 @@ Bool is_liga_ffl(uchar c) {
 }
 
 int16_t is_english(uchar ch) {
-	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (
-	//	   ch>=ligas_beg && ch<=ligas_end &&
-			is_liga(ch) && // 14.09.2000 E.P.
-
-					ch != liga_exm && ch != liga_qm);
+	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (is_liga(ch)
+			&& // 14.09.2000 E.P.
+			ch != liga_exm && ch != liga_qm);
 }
 
 int16_t is_serbian_special(uchar ch) {
@@ -155,7 +152,6 @@ int16_t is_hungar_special(uchar let) {
 }
 
 int16_t is_lower(uchar ch) {
-
 	if (language == LANG_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
@@ -176,6 +172,7 @@ int16_t is_lower(uchar ch) {
 		return 1;
 	return 0;
 }
+
 int16_t is_upper(uchar ch) {
 	if (language == LANG_RUSSIAN)
 		switch (fEdCode) {
@@ -225,11 +222,12 @@ static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 int16_t twin(uchar ch) {
 	if (!isletter(ch))
 		return 0;
-	if (language == LANG_RUSSIAN)
+	if (language == LANG_RUSSIAN) {
 		if (memchr(non_twin, ch, sizeof non_twin))
 			return 0;
 		else
 			return 1;
+	}
 	if (language != LANG_RUSSIAN && memchr(lat_twins, ch, sizeof lat_twins))
 		return 1;
 	return 0;
@@ -301,15 +299,13 @@ static struct {
 // не дл€ всех строк можем попадать! » тогда статистика в этих строках
 // останетс€ от прежнего файла (или нечто вообще неизвестное)
 void BaseLineStatisticInit(void) {
-	int i;
-
-	for (i = 0; i < arrnum(lht); i++)
+	for (int i = 0; i < arrnum(lht); i++)
 		memset(&lht[i], 0, sizeof(lht[0])); //init
 }
-/////////////////
+
 int16_t count_line_hi(void) {
-	int16_t d23[MAX_HEIGHT] = { 0 }, d13[MAX_HEIGHT] = { 0 }, i, max, index,
-			nbcaps = 0, nbsmall = 0;
+	int16_t d23[MAX_HEIGHT] = { 0 }, d13[MAX_HEIGHT] = { 0 }, nbcaps = 0,
+			nbsmall = 0;
 	CSTR_rast c;
 	CSTR_rast_attr attr;
 	uchar ch;
@@ -347,7 +343,8 @@ int16_t count_line_hi(void) {
 	}
 
 	// test - what we got
-	for (i = 0, max = 0, index = 0; i < sizeof(d13) / sizeof(d13[0]); i++) {
+	size_t max = 0, index = 0;
+	for (size_t i = 0, index = 0; i < sizeof(d13) / sizeof(d13[0]); i++) {
 		if (max < d13[i]) {
 			max = d13[i];
 			index = i;
@@ -357,7 +354,8 @@ int16_t count_line_hi(void) {
 	if (max > 0)
 		lht[line_number].caps = (uchar) index;
 
-	for (i = 0, max = 0, index = 0; i < sizeof(d23) / sizeof(d23[0]); i++) {
+	max = index = 0;
+	for (size_t i = 0; i < sizeof(d23) / sizeof(d23[0]); i++) {
 		if (max < d23[i]) {
 			max = d23[i];
 			index = i;
@@ -469,7 +467,8 @@ int16_t setup_let_case(int16_t ckH) {
 	int16_t uc[MAX_HEIGHT] = { 0 }, lc[MAX_HEIGHT] = { 0 };
 
 	// Nick 26.01.2000  - в таблицах могут быть очень большие номера строк!
-	int lastLineNumber = MIN(sizeof(lht) / sizeof(lht[0]), line_number);
+	int lastLineNumber = std::min(sizeof(lht) / sizeof(lht[0]),
+			(uint) line_number);
 	int firLineNumber = 1; // у нас нет линии 0
 
 	page_stat = 0;
@@ -480,8 +479,8 @@ int16_t setup_let_case(int16_t ckH) {
 		return 0;
 
 	for (i = firLineNumber; i < line_number && i < sizeof(lht) / sizeof(lht[0]); i++) {
-		uc[MIN(lht[i].caps, MAX_HEIGHT - 1)]++; /* Calc histogram */
-		lc[MIN(lht[i].lcase, MAX_HEIGHT - 1)]++; // Nick 25.05.2001
+		uc[std::min((int) lht[i].caps, MAX_HEIGHT - 1)]++; /* Calc histogram */
+		lc[std::min((int) lht[i].lcase, MAX_HEIGHT - 1)]++; // Nick 25.05.2001
 	}
 
 	umax = uc[lh] + uc[lh + 1] + uc[lh - 1] + uc[lh + 2] + uc[lh - 2];
@@ -536,11 +535,9 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 
 	if (flag) // add homotetia  versions
 	{
-		//  while ((c=c->nextl)->nextl)
 		while ((c = CSTR_GetNextRaster(c, CSTR_f_let))) {
 			CSTR_GetCollectionUni(c, &vers);
 			let = vers.Alt[0].Liga;
-			//   if(!(c->flg & CSTR_f_let) || !isletter(let))
 			if (vers.lnAltCnt <= 0 || !isletter(let))
 				continue;
 
@@ -548,8 +545,6 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 				continue;
 			let = is_lower(let) ? to_upper(let) : to_lower(let);
 			promote(0, c, let, 0); // insvers
-
-			//   c->vers[c->nvers].let=c->vers[c->nvers].prob=0;
 		}
 	}
 
@@ -557,7 +552,6 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 	if (bs == 3) // cut hyps by bb3
 	{
 		while ((c = CSTR_GetNextRaster(c, CSTR_f_let))) {
-			//   if(!(c->flg & CSTR_f_let)) continue;
 			CSTR_GetAttr(c, &attr);
 			dist = 0;
 			diff = 0;
@@ -566,7 +560,6 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 
 			CSTR_GetCollectionUni(c, &vers);
 
-			//   for (v=c->vers; (let=v->let) != 0; v++)
 			for (i = 0; i < vers.lnAltCnt; i++) {
 				dist = abs((attr.row + attr.h) - (minrow + bbs3 + diff)); // Is it far from bbs3
 				let = vers.Alt[i].Liga;
@@ -603,13 +596,10 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 
 	c = cell_f();
 	if (bs == 2) {
-		//  while ((c=c->nextl)->nextl)
 		while ((c = CSTR_GetNextRaster(c, CSTR_f_let))) {
-			// if(!(c->flg & CSTR_f_let)) continue;
 			CSTR_GetAttr(c, &attr);
 			CSTR_GetCollectionUni(c, &vers);
 
-			//   for (v=c->vers; (let=v->let) != 0; v++)
 			for (i = 0; i < vers.lnAltCnt; i++) {
 				let = vers.Alt[i].Liga;
 
@@ -638,11 +628,9 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 
 	if (bs == 1) {
 		while ((c = CSTR_GetNextRaster(c, CSTR_f_let))) {
-			// if(!(c->flg & CSTR_f_let)) continue;
 			CSTR_GetAttr(c, &attr);
 			CSTR_GetCollectionUni(c, &vers);
 
-			//   for (v=c->vers; (let=v->let) != 0; v++)
 			for (i = 0; i < vers.lnAltCnt; i++) {
 				let = vers.Alt[i].Liga;
 				ldef = let_linpos[let] >> 4;
@@ -669,12 +657,11 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag) {
 
 	return (cutting_made || gtwin);
 }
-/////////////
+
 extern uchar disable_twins;
 extern int16_t it_done;
 
 void set_rus_difflg(CSTR_rast B1, int16_t filter) {
-	//CSTR_comp *env;
 	CCOM_comp *env;
 	CSTR_rast_attr attr;
 
@@ -694,7 +681,6 @@ void set_rus_difflg(CSTR_rast B1, int16_t filter) {
 	flt = 0;
 	flnt = 0; // 't' only
 
-	//  env=B1->env;
 	env = CSTR_GetComp(B1);
 
 	cap_shape = 1; // capital in shape
@@ -702,13 +688,7 @@ void set_rus_difflg(CSTR_rast B1, int16_t filter) {
 	CSTR_GetAttr(B1, &attr);
 	CSTR_GetCollectionUni(B1, &vers);
 
-	//  for (v0=B1->vers; (let=v0->let) != 0; v0++)
 	for (i = 0; i < vers.lnAltCnt; i++) {
-		/*
-		 if( v0->prob & 1){
-		 v0->prob &= 0xfe; continue;  // clear cut flag
-		 }
-		 */
 		let = vers.Alt[i].Liga;
 
 		tbe = let_lindef[let];
@@ -805,7 +785,6 @@ void set_rus_difflg(CSTR_rast B1, int16_t filter) {
 	CSTR_SetAttr(B1, &attr);
 }
 
-///////////////
 int16_t smart_diff(CSTR_rast c) {
 	int16_t d1, d2, bm, row;
 	CSTR_rast_attr attr;
@@ -889,7 +868,6 @@ int16_t GetPsFromHeights(void) {
 		b1_or_b2_rong = FALSE;
 
 	c = cell_f();
-	//  while( (c=c->nextl)->nextl )
 	while (c = CSTR_GetNextRaster(c, f_letter)) {
 		int16_t df, sn;
 
@@ -970,12 +948,12 @@ int16_t GetPsFromHeights(void) {
 	if (max2)
 		ind2 = flood_peak(Hh, ind2);
 
-	if (max2 > 0 && (abs(ind1 - ind2) >= MIN(ind1, ind2) / 3))
+	if (max2 > 0 && (abs(ind1 - ind2) >= std::min(ind1, ind2) / 3))
 		peak2 = 1;
 
 	if (max2 > 3 && peak2) {
-		BPs = MIN(ind1, ind2);
-		bbs1 = bbs3 - MAX(ind1, ind2);
+		BPs = std::min(ind1, ind2);
+		bbs1 = bbs3 - std::max(ind1, ind2);
 		goto ret;
 	} // two peaks
 
@@ -1053,12 +1031,10 @@ int16_t GetPsFromHeights(void) {
 	return BPs;
 }
 
-static uchar BracketsList[] = "<>()[]";
+static const uchar BracketsList[] = "<>()[]";
 
 uchar BracketIn(UniVersions *v) {
-	int i;
-
-	for (i = 0; i < v->lnAltCnt; i++) {
+	for (int i = 0; i < v->lnAltCnt; i++) {
 		if (memchr(BracketsList, v->Alt[i].Liga, sizeof(BracketsList) - 1))
 			return 1;
 	}
@@ -1158,7 +1134,6 @@ int16_t def_upper_side(void) {
 
 	return (abs(ind - ind_sn) <= 3) ? bbs3 - ind : FALSE;
 }
-//////////////
 
 void tell_for_b3(int16_t hist_array[]) {
 	int16_t i;
@@ -1182,8 +1157,6 @@ void tell_for_b3(int16_t hist_array[]) {
 		stable_b3 = TRUE;
 	return;
 }
-
-///////////////
 
 int16_t flood_peak(int16_t *Hh, int16_t ind) {
 	uint16_t Num, Den, t, t1;
@@ -1215,16 +1188,11 @@ int16_t flood_peak(int16_t *Hh, int16_t ind) {
 	return ((2* Num + Den) / 2 / Den);
 }
 
-/////////
 int16_t is_cen_bottom_accent(uchar c) {
 	// ќпределение нижнего акцента 12.09.2000 E.P.
-	return (
-
-	c == AA_bottom_accent || c == a_bottom_accent || c == CC_bottom_accent || c
-			== c_bottom_accent || c == EE_bottom_accent || c == e_bottom_accent
-			|| c == SS_bottom_accent_latin || c == s_bottom_accent_latin || c
-			== TT_bottom_accent || c == t_bottom_accent ||
-
-	0);
+	return (c == AA_bottom_accent || c == a_bottom_accent || c
+			== CC_bottom_accent || c == c_bottom_accent || c
+			== EE_bottom_accent || c == e_bottom_accent || c
+			== SS_bottom_accent_latin || c == s_bottom_accent_latin || c
+			== TT_bottom_accent || c == t_bottom_accent || 0);
 }
-////////////
