@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "string.h"
 #include "cttypes.h"
+#include "charsets.h"
 #include "cstr/cstr.h"
 #include "context.h"
 #include "status.h"
@@ -2699,7 +2700,7 @@ strcpy(decode_ASCII_to_[(uchar)liga_CR     ],   "®");
 strcpy(decode_ASCII_to_[(uchar)SS_NEG_HALF_SPACE],   "");
 strcpy(decode_ASCII_to_[(uchar)SS_POS_HALF_SPACE],   " ");
 
-if( CodePages[language]==CSTR_ANSI_CHARSET    )
+if( CodePages[language]==ANSI_CHARSET    )
     {
     strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
     strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");
@@ -2792,7 +2793,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
 
     }
 
-if( CodePages[language]==CSTR_RUSSIAN_CHARSET  )
+if( CodePages[language]==RUSSIAN_CHARSET  )
     {
     strcpy(decode_ASCII_to_[(uchar)r_cu_d     ],   "ä");
     strcpy(decode_ASCII_to_[(uchar)r_cu_g     ],   "ä");
@@ -2806,7 +2807,7 @@ if( CodePages[language]==CSTR_RUSSIAN_CHARSET  )
     strcpy(decode_ASCII_to_[(uchar)low_quotes_rus  ],   "„");
     }
 
-if( CodePages[language]==CSTR_EASTEUROPE_CHARSET )
+if( CodePages[language]==EASTEUROPE_CHARSET )
     {
     strcpy(decode_ASCII_to_[(uchar)liga_fi     ],   "fi");
     strcpy(decode_ASCII_to_[(uchar)liga_fl     ],   "fl");

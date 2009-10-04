@@ -57,11 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CTBDEFS_H
 #define __CTBDEFS_H
 
-
+#include <stdio.h>
 #include "recdefs.h"
 
 #define CTB_VERSION 7
-#include <stdio.h>
+
 /***********************   header structure ****************************/
 #define CTB_DATA_SIZE    256
 

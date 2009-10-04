@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <memory.h>
 
+#include "charsets.h"
 #include "struct.h"
 #include "status.h"
 #include "func.h"
@@ -485,7 +486,7 @@ Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Us)
         Us->Alt[i].Code[0]=cw;
         Us->Alt[i].Code[1]=0;
         Us->Alt[i].Liga=c;
-        Us->Alt[i].Charset=CSTR_RUSSIAN_CHARSET;
+        Us->Alt[i].Charset=RUSSIAN_CHARSET;
         Us->Alt[i].Method =REC_METHOD_LEO;
         Us->Alt[i].Prob   = ro.recResults.Alt[i].Prob ;
     }

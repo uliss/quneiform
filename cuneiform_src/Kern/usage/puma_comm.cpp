@@ -242,21 +242,7 @@ Handle AM_GetWindowHandle (char *name)
 	return LDPUMA_GetWindowHandle (name);
 }
 /*----------------------------------------------------------------------------*/
-char * AM_GetFileName (Handle wnd)
+const char * AM_GetFileName (Handle wnd)
 {
 	return LDPUMA_GetFileName (wnd);
 }
-/*----------------------------------------------------------------------------*/
-/*void AM_Console (const char *message, ...)
-{
-	int rc = 0;
-	if (LDPUMA_Console)
-	{
-		va_list marker;
-		va_start (marker, message);
-		rc = LDPUMA_Console (message, marker);
-		va_end (marker);
-	}
-//	return rc;
-}*/
-/*----------------------------------------------------------------------------*/

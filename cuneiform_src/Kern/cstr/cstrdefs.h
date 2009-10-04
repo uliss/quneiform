@@ -394,30 +394,6 @@ typedef struct strucCSTR_cell * CSTR_rast;
 typedef int32_t CSTR_rast;
 #endif
 
-#define CSTR_ANSI_CHARSET            0
-#define CSTR_DEFAULT_CHARSET         1
-#define CSTR_SYMBOL_CHARSET          2
-#define CSTR_SHIFTJIS_CHARSET        128
-#define CSTR_HANGEUL_CHARSET         129
-#define CSTR_HANGUL_CHARSET          129
-#define CSTR_GB2312_CHARSET          134
-#define CSTR_CHINESEBIG5_CHARSET     136
-#define CSTR_OEM_CHARSET             255
-#define CSTR_JOHAB_CHARSET           130
-#define CSTR_HEBREW_CHARSET          177
-#define CSTR_ARABIC_CHARSET          178
-#define CSTR_GREEK_CHARSET           161
-#define CSTR_TURKISH_CHARSET         162
-#define CSTR_VIETNAMESE_CHARSET      163
-#define CSTR_THAI_CHARSET            222
-#define CSTR_EASTEUROPE_CHARSET      238
-#define CSTR_RUSSIAN_CHARSET         204
-
-#define MAC_CHARSET             77
-#define BALTIC_CHARSET          186
-#define TURKISH_CHARSET         162	// 31.05.2002 E.P.
-#define UZBEK_CHARSET           254
-#define KAZAH_CHARSET           253
 
 // разные версии линий
 enum cstr_line_version_t {

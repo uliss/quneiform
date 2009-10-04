@@ -98,5 +98,5 @@ Bool16 AM_Skip (Handle owner);
 #endif
 Handle AM_CreateWindow (const char *lpTitle, void *lpDib);
 Handle AM_GetWindowHandle (const char *name);
-char * AM_GetFileName (Handle wnd);
+const char * AM_GetFileName (Handle wnd);
 /*----------------------------------------------------------------------------*/
