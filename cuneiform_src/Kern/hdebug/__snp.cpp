@@ -485,7 +485,7 @@ void LDPUMA_DrawRaster(DPUMA_RecRaster * raster) {
 		DrawRaster((DPUMA_RecRaster *) raster);
 }
 
-void LDPUMA_RasterText(char * lpText) {
+void LDPUMA_RasterText(const char * lpText) {
 	if (RasterText)
 		RasterText(lpText);
 }

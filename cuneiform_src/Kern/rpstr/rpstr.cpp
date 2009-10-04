@@ -54,9 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 
 #include "cstr/cstr.h"
 #include "ccom/ccom.h"
@@ -66,7 +66,6 @@
 #include "cor_incl.h"
 #include "cap_drop.h"
 #include "ligas.h"	// 12.06.2002 E.P.
-//#include "myrpstr.h"
 
 #define  MAX_KEG    40
 #define  KEG_RANGE  34
@@ -80,7 +79,9 @@ Handle hSnapEndWord = NULL, hSnapStartWord = NULL;
 Handle hVertCompD;
 Bool32 gbFax100 = FALSE;
 Bool32 gbGarbage = TRUE;
+
 char* sp_err = "no spell errors";
+
 // from COR_SPEL.C
 Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		int32_t line_num, Bool32 disable_new_dict, Bool32 disable_check_word,
@@ -92,7 +93,7 @@ extern Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg,
 extern Bool32 rpstr_txt_spell(char * s, uchar lang);
 
 extern int Snap_Console(char *text);
-;
+
 uchar language = 3;
 
 static uchar s_lang4page = -1;
@@ -106,28 +107,9 @@ static uchar get_lang4page() {
 	return s_lang4page;
 }
 
-// memory funct
-static void * rpstr_alloc(uint32_t len) {
-	void *ma = malloc(len);
-	if (!ma)
-		return NULL;
-	memset(ma, 0, len);
-	return ma;
-}
-static void rpstr_free(void *ptr, uint32_t len) {
-	free(ptr);
-}
-;
-static void * rpstr_realloc(void *ptr, uint32_t len) {
-	return realloc(ptr, len);
-}
-;
-static void * (*my_alloc)(uint32_t len) = rpstr_alloc;
-static void (*my_free)(void *, uint32_t len) = rpstr_free;
-static void * (*my_realloc)(void *, uint32_t len) = rpstr_realloc;
-
 static void show_spell(CSTR_rast c) {
-	uchar wrd[80], buf[160], *w = wrd, lang;
+	uchar wrd[80], *w = wrd, lang;
+	char buf[160];
 	Bool32 nonrec = FALSE;
 	CSTR_rast_attr attr;
 	UniVersions uni;
@@ -149,13 +131,13 @@ static void show_spell(CSTR_rast c) {
 		if (attr.flg & CSTR_f_bad)
 			nonrec = TRUE;
 		CSTR_GetCollectionUni(c, &uni);
-		strcat(w, uni.Alt[0].Code);
+		strcat((char*) w, (char*) uni.Alt[0].Code);
 	}
 
 	strcpy(buf, "<");
-	strcat(buf, wrd);
+	strcat(buf, (char*) wrd);
 	strcat(buf, "> static : ");
-	if (rpstr_txt_spell(wrd, lang))
+	if (rpstr_txt_spell((char*) wrd, lang))
 		strcat(buf, "y");
 	else
 		strcat(buf, " n");
@@ -175,7 +157,7 @@ uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message,
 	if (!is_turkish_language(language)) // 12.06.2002 E.P.
 		language = 3;
 
-	return (uint32_t) (ret);
+	return (uint32_t)(ret);
 }
 
 /////////////////////
@@ -183,34 +165,37 @@ uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message,
 /////////////////////
 //void kegl_snap_init();
 
-RPSTR_FUNC(Bool32) RPSTR_Init( uint16_t wHeightCode , Handle hStorage)
-{
+Bool32 RPSTR_Init(uint16_t wHeightCode, Handle hStorage) {
 	wHeightRC = wHeightCode;
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
-	LDPUMA_Init(0,NULL);
+	LDPUMA_Init(0, NULL);
 	//kegl_snap_init();
-	LDPUMA_Registry(&hSnapSpell,"Словарь и постобработка",NULL);
-	LDPUMA_RegistryHelp(hSnapSpell,"Словарь",FALSE);
-	LDPUMA_Registry(&hSnapWordSpell,"Запретить проверку словами",hSnapSpell);
-	LDPUMA_Registry(&hSnapMatch,"Показать проверку словами",hSnapWordSpell);
-	LDPUMA_RegistryHelp(hSnapWordSpell,"Разрешить проверку словами",FALSE);
-	LDPUMA_Registry(&hSnapCapDrop,"Запретить обработку БУКВИЦ",hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapCapDrop,"Запретить обработку БУКВИЦ",FALSE);
+	LDPUMA_Registry(&hSnapSpell, "Словарь и постобработка", NULL);
+	LDPUMA_RegistryHelp(hSnapSpell, "Словарь", FALSE);
+	LDPUMA_Registry(&hSnapWordSpell, "Запретить проверку словами", hSnapSpell);
+	LDPUMA_Registry(&hSnapMatch, "Показать проверку словами", hSnapWordSpell);
+	LDPUMA_RegistryHelp(hSnapWordSpell, "Разрешить проверку словами", FALSE);
+	LDPUMA_Registry(&hSnapCapDrop, "Запретить обработку БУКВИЦ", hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapCapDrop, "Запретить обработку БУКВИЦ", FALSE);
 
-	LDPUMA_Registry(&hSnapEndWord,"Отменить проверку окончаний",hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapEndWord,"Разрешить или нет любые замены окончаний",FALSE);
-	LDPUMA_Registry(&hSnapStartWord,"Отменить осторожность в именах",hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapStartWord,"Обращаться или нет одинаково со всеми словами",FALSE);
+	LDPUMA_Registry(&hSnapEndWord, "Отменить проверку окончаний", hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapEndWord,
+			"Разрешить или нет любые замены окончаний", FALSE);
+	LDPUMA_Registry(&hSnapStartWord, "Отменить осторожность в именах",
+			hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapStartWord,
+			"Обращаться или нет одинаково со всеми словами", FALSE);
 
-	LDPUMA_Registry(&hVertCompD,"Прорисовка букв в вертикальных строках!",NULL);
-	LDPUMA_RegistryHelp(hVertCompD,"Разрешить прорисовку букв в вертикальных строках",FALSE);
+	LDPUMA_Registry(&hVertCompD, "Прорисовка букв в вертикальных строках!",
+			NULL);
+	LDPUMA_RegistryHelp(hVertCompD,
+			"Разрешить прорисовку букв в вертикальных строках", FALSE);
 	return TRUE;
 }
 
-RPSTR_FUNC(void) RPSTR_Done(void)
-{
+void RPSTR_Done(void) {
 	wLowRC = RPSTR_ERR_NO;
 	wHeightRC = 0;
 	snap_enable = TRUE;
@@ -219,53 +204,39 @@ RPSTR_FUNC(void) RPSTR_Done(void)
 	return;
 }
 
-RPSTR_FUNC(uint32_t) RPSTR_GetReturnCode(void)
-{
-	if( wLowRC == RPSTR_ERR_NO )
-	return 0;
-	return (wHeightRC<<16)|(wLowRC-RPSTR_ERR_MIN);
+uint32_t RPSTR_GetReturnCode(void) {
+	if (wLowRC == RPSTR_ERR_NO)
+		return 0;
+	return (wHeightRC << 16) | (wLowRC - RPSTR_ERR_MIN);
 }
 
-RPSTR_FUNC(char*) RPSTR_GetReturnString(uint32_t dwError)
-{
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF + RPSTR_ERR_MIN);
+char* RPSTR_GetReturnString(uint32_t dwError) {
+	uint16_t rc = (uint16_t) (dwError & 0xFFFF + RPSTR_ERR_MIN);
 	static char szBuffer[512];
 
-	if( dwError >> 16 != wHeightRC)
-	wLowRC = RPSTR_ERR_NOTIMPLEMENT;
+	if (dwError >> 16 != wHeightRC)
+		wLowRC = RPSTR_ERR_NOTIMPLEMENT;
 
-	if( rc > 0 && rc <= RPSTR_ERR_MAX-RPSTR_ERR_MIN )
-	strcpy((char *)szBuffer,RPSTR_error_name [rc]);
+	if (rc > 0 && rc <= RPSTR_ERR_MAX - RPSTR_ERR_MIN)
+		strcpy((char *) szBuffer, RPSTR_error_name[rc]);
 	else
-	return NULL;
+		return NULL;
 
 	return szBuffer;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_NewPage(void)
-{
+Bool32 RPSTR_NewPage(void) {
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
 	return TRUE;
 }
 
-//Bool32 CorrectKegl(int32_t version);
-
-//RPSTR_FUNC(Bool32) RPSTR_CorrectKegl(int32_t version)
-//{
-//  return CorrectKegl(version);
-//}
-
-
-RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(int32_t version)
-{
-	int32_t n=CSTR_GetMaxFragment(version),i;
-	for(i=0;i<=n;i++)
-	{
-		if( !incl_test_fragment(version,i) )
-		{
-			incl_ordering(version,i,incl_calculate(version,i));
+Bool32 RPSTR_CorrectIncline(int32_t version) {
+	int n = CSTR_GetMaxFragment(version);
+	for (int i = 0; i <= n; i++) {
+		if (!incl_test_fragment(version, i)) {
+			incl_ordering(version, i, incl_calculate(version, i));
 		}
 	}
 	return TRUE;
@@ -275,19 +246,16 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		int32_t line_num, Bool32 disable_new_dict, Bool32 disable_check_word,
 		int32_t* rf) {
 	char snapstr[256];
-	//	CSTR_attr       lattr;
 
 	exit_enable = FALSE;
 	snap_enable = TRUE;
 	skip_line = FALSE;
 
-	//    CSTR_GetLineAttr(line,&lattr);
-	//    if( !(lattr.Flags & CSTR_STR_CapDrop) )
 	if (!LDPUMA_SkipEx(hSnapSpell, TRUE, TRUE, 1) && snap_enable) {
 		sprintf(snapstr, "before spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("before spelling");
-		LDPUMA_CSTR_Monitor(hSnapSpell, line, 0, myMonitorProc);
+		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 
 		if (exit_enable) {
 			LDPUMA_DestroyRasterWnd();
@@ -297,7 +265,7 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 
 	if (!rpstr_correct_spell(line, rb, re, rf, line_num, disable_new_dict,
 			disable_check_word)) {
-		sprintf("speller error : %s ", sp_err);
+		sprintf(snapstr, "speller error : %s ", sp_err);
 		Snap_Console(snapstr);
 		LDPUMA_DestroyRasterWnd();
 		return FALSE;
@@ -306,7 +274,7 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		sprintf(snapstr, "after spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("after spelling");
-		LDPUMA_CSTR_Monitor(hSnapSpell, line, 0, myMonitorProc);
+		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 	}
 	if (exit_enable) {
 		LDPUMA_DestroyRasterWnd();
@@ -316,170 +284,106 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 	return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf)
-{
-	//	CSTR_rast re=(CSTR_rast)0;
-	//	CSTR_rast rb=(CSTR_rast)0;
-	//	int32_t rf = -1;
-	Bool32 disable_new_dict=FALSE, disable_check_word=FALSE;
+Bool32 RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re,
+		CSTR_rast* rb, int32_t* rf) {
+	Bool32 disable_new_dict = FALSE, disable_check_word = FALSE;
 
 	exit_enable = FALSE;
-	snap_enable=TRUE;
-	skip_line=FALSE;
+	snap_enable = TRUE;
+	skip_line = FALSE;
 
 	// 12.06.2002 E.P.
 	if (is_turkish_language(language))
-	disable_new_dict = TRUE;
+		disable_new_dict = TRUE;
 
-	//	if (!correct_line_spell(line, &re, &rb, line_num, disable_new_dict, disable_check_word, &rf))
-	if (!correct_line_spell(line, re, rb, line_num, disable_new_dict, disable_check_word, rf))
-	return FALSE;
-	/*
-	 if( re )
-	 {
-	 CSTR_rast_attr  attr;
-	 CSTR_GetAttr(re,&attr);
-	 attr.flg_spell |= CSTR_fa_spell_nocarrying;
-	 CSTR_SetAttr(re,&attr);
-	 }
-	 */
-	if( !LDPUMA_SkipEx(hSnapSpell,TRUE,TRUE,1) )
-	LDPUMA_DestroyRasterWnd();
-
-	return TRUE;
-}
-
-RPSTR_FUNC(Bool32) RPSTR_CorrectSpell(int32_t version)
-{
-	int32_t n, i, rf=-1;
-	CSTR_line line;
-	//char            snapstr[256];
-	CSTR_rast rb=(CSTR_rast)0, re=(CSTR_rast)0;
-	Bool32 disable_new_dict=FALSE, disable_check_word=FALSE;
-	//CSTR_attr       lattr;
-
-	exit_enable = FALSE;
-	snap_enable=TRUE;
-	skip_line=FALSE;
-	n=CSTR_GetMaxNumber ();
-
-	// 12.06.2002 E.P.
-	if (is_turkish_language(language))
-	disable_new_dict = TRUE;
-
-	LDPUMA_StartLoop( hSnapSpell, n );
-	for(i=1;i<=n;i++)
-	{
-		LDPUMA_LoopNext( hSnapSpell );
-		line = CSTR_GetLineHandle (i, version);
-		if( !line )
-		continue;
-		skip_line=FALSE;
-
-		if (!correct_line_spell(line, &re, &rb, i, disable_new_dict, disable_check_word, &rf))
+	if (!correct_line_spell(line, re, rb, line_num, disable_new_dict,
+			disable_check_word, rf))
 		return FALSE;
 
-		/*  вынесено в функцию correct_line_spell
+	if (!LDPUMA_SkipEx(hSnapSpell, TRUE, TRUE, 1))
+		LDPUMA_DestroyRasterWnd();
 
-		 CSTR_GetLineAttr(line,&lattr);
-		 //    if( !(lattr.Flags & CSTR_STR_CapDrop) )
-		 if( !LDPUMA_SkipEx(hSnapSpell,TRUE,TRUE,1) && snap_enable )
-		 {
-		 sprintf(snapstr,"before spelling line %d",i);
-		 Snap_Console(snapstr);
-		 LDPUMA_RasterText("before spelling");
-		 LDPUMA_CSTR_Monitor(hSnapSpell,line,0,myMonitorProc);
-
-		 if( exit_enable )
-		 {
-		 LDPUMA_DestroyRasterWnd();
-		 return FALSE;
-		 }
-		 }
-
-
-		 if( !rpstr_correct_spell(line,&rb,&re,&rf,i,disable_new_dict, disable_check_word) )
-		 {
-		 sprintf("speller error : %s ",sp_err);
-		 Snap_Console(snapstr);
-		 LDPUMA_DestroyRasterWnd();
-		 return FALSE;
-		 }
-		 if( !skip_line && !LDPUMA_SkipEx(hSnapSpell,TRUE,TRUE,1) && snap_enable )
-		 {
-		 sprintf(snapstr,"after spelling line %d",i);
-		 Snap_Console(snapstr);
-		 LDPUMA_RasterText("after spelling");
-		 LDPUMA_CSTR_Monitor(hSnapSpell,line,0,myMonitorProc);
-		 }
-		 if( exit_enable )
-		 {
-		 LDPUMA_DestroyRasterWnd();
-		 return FALSE;
-		 }
-		 */
-	}
-
-	if( re )
-	{
-		CSTR_rast_attr attr;
-		CSTR_GetAttr(re,&attr);
-		attr.flg_spell |= CSTR_fa_spell_nocarrying;
-		CSTR_SetAttr(re,&attr);
-	}
-	if( !LDPUMA_SkipEx(hSnapSpell,TRUE,TRUE,1) )
-	LDPUMA_DestroyRasterWnd();
 	return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(int32_t version)
-{
-	int32_t n=CSTR_GetMaxFragment(version),i;
+Bool32 RPSTR_CorrectSpell(int32_t version) {
+	int32_t n, i, rf = -1;
+	CSTR_line line;
+	CSTR_rast rb = (CSTR_rast) 0, re = (CSTR_rast) 0;
+	Bool32 disable_new_dict = FALSE, disable_check_word = FALSE;
+
+	exit_enable = FALSE;
+	snap_enable = TRUE;
+	skip_line = FALSE;
+	n = CSTR_GetMaxNumber();
+
+	// 12.06.2002 E.P.
+	if (is_turkish_language(language))
+		disable_new_dict = TRUE;
+
+	LDPUMA_StartLoop(hSnapSpell, n);
+	for (i = 1; i <= n; i++) {
+		LDPUMA_LoopNext(hSnapSpell);
+		line = CSTR_GetLineHandle(i, version);
+		if (!line)
+			continue;
+		skip_line = FALSE;
+
+		if (!correct_line_spell(line, &re, &rb, i, disable_new_dict,
+				disable_check_word, &rf))
+			return FALSE;
+	}
+
+	if (re) {
+		CSTR_rast_attr attr;
+		CSTR_GetAttr(re, &attr);
+		attr.flg_spell |= CSTR_fa_spell_nocarrying;
+		CSTR_SetAttr(re, &attr);
+	}
+	if (!LDPUMA_SkipEx(hSnapSpell, TRUE, TRUE, 1))
+		LDPUMA_DestroyRasterWnd();
+	return TRUE;
+}
+
+Bool32 RPSTR_CollectCapDrops(int32_t version) {
+	int n = CSTR_GetMaxFragment(version);
 	CSTR_line ln_cd, ln_main;
-	if( !LDPUMA_SkipEx(hSnapCapDrop,FALSE,FALSE,0) )
-	return FALSE;
-	for(i=0;i<=n;i++)
-	{
-		if( capdrop_test_fragment(version,i,&ln_cd,&ln_main) )
-		{
-			capdrop_collection(version,i,ln_cd,ln_main);
+	if (!LDPUMA_SkipEx(hSnapCapDrop, FALSE, FALSE, 0))
+		return FALSE;
+	for (int i = 0; i <= n; i++) {
+		if (capdrop_test_fragment(version, i, &ln_cd, &ln_main)) {
+			capdrop_collection(version, i, ln_cd, ln_main);
 		}
 	}
 	return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData)
-{
+Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 #define RPSTR_VERSION_CODE 1
 	int32_t vers = RPSTR_VERSION_CODE;
 #define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
 	wLowRC = RPSTR_ERR_NO;
-	switch(dwType)
-	{
-		//    case    RPSTR_FNCORRECTKEGL: //      post correction kegl
-		//        EXPORT(RPSTR_CorrectKegl );
-		//        break;
-		case RPSTR_FNNEWPAGE: //      init new page
-		EXPORT(RPSTR_NewPage);
+	switch (dwType) {
+	case RPSTR_FNNEWPAGE: //      init new page
+		EXPORT(RPSTR_NewPage)
 		break;
-		case RPSTR_FNCORRECTSPELL: //      init new page
-		EXPORT(RPSTR_CorrectSpell);
+	case RPSTR_FNCORRECTSPELL: //      init new page
+		EXPORT(RPSTR_CorrectSpell)
 		break;
-		case RPSTR_FNCORRECTLINESPELL:
-		EXPORT(RPSTR_CorrectLineSpell);
+	case RPSTR_FNCORRECTLINESPELL:
+		EXPORT(RPSTR_CorrectLineSpell)
 		break;
-		case RPSTR_FNCORRECTINCLINE:
-		EXPORT(RPSTR_CorrectIncline);
+	case RPSTR_FNCORRECTINCLINE:
+		EXPORT(RPSTR_CorrectIncline)
 		break;
-		case RPSTR_FNCOLLECTCAPDROP:
-		EXPORT( RPSTR_CollectCapDrops);
+	case RPSTR_FNCOLLECTCAPDROP:
+		EXPORT( RPSTR_CollectCapDrops)
 		break;
-		case RPSTR_FNNORMVERTSTR:
-		EXPORT( RPSTR_NormalizeVertStr);
+	case RPSTR_FNNORMVERTSTR:
+		EXPORT( RPSTR_NormalizeVertStr)
 		break;
-
-		default:
+	default:
 		wLowRC = RPSTR_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 		break;
@@ -488,35 +392,23 @@ RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData)
 	return rc;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData)
-{
+Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData) {
 
 	wLowRC = RPSTR_ERR_NO;
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break
-#define CASE_PDATA(a,b,c)	case a: c = (b)pData; break
-	switch(dwType)
-	{
-		CASE_DATA(RPSTR_Bool32_Fax100,Bool32,gbFax100);
-		case RPSTR_FNIMP_ALLOC:
-		my_alloc=pData;
-		break;
-		case RPSTR_FNIMP_REALLOC:
-		my_realloc=pData;
-		break;
-		case RPSTR_FNIMP_FREE:
-		my_free=pData;
-		break;
-
+#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break;
+#define CASE_PDATA(a,b,c)	case a: c = (b)pData; break;
+	switch (dwType) {
+	CASE_DATA(RPSTR_Bool32_Fax100,Bool32,gbFax100)
 		// 12.06.2002 E.P.
-		case RPSTR_FNIMP_LANGUAGE:
-		language=*(uchar*)pData;
+	case RPSTR_FNIMP_LANGUAGE:
+		language = *(uchar*) pData;
 		set_lang4page(language);
 		break;
 
 #undef CASE_DATA
 #undef CASE_PDATA
 
-		default:
+	default:
 		wLowRC = RPSTR_ERR_NOTIMPLEMENT;
 		return FALSE;
 	}

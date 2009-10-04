@@ -1,9 +1,9 @@
 add_library(rpstr ${LIBTYPE}
 ${SNP_SRC}
-cap_drop.c 
-cor_incl.c 
-cor_spel.c 
-rpstr.c 
+cap_drop.cpp 
+cor_incl.cpp
+cor_spel.cpp 
+rpstr.cpp 
 vertstr.cpp)
 set_property(TARGET rpstr PROPERTY COMPILE_DEFINITIONS __RPSTR__)
 

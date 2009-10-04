@@ -98,7 +98,7 @@ extern Bool32 skip_line, snap_enable;
 extern Handle hSnapSpell, hSnapMatch, hSnapEndWord, hSnapStartWord;
 extern char* sp_err;
 
-uchar language;
+extern uchar language;
 static uchar ed_buffer[32000], edo_buffer[32000], *MED_file_bound,
 		*MED_file_end;
 static RecVersions ed_vers[100];
@@ -445,7 +445,7 @@ Bool32 ed_make_word(CSTR_rast b, CSTR_rast e, uchar *language) {
 			ed_write((uchar*) &ed_vrs, sizeof(ed_vrs));
 			continue; // half spaces for spelling analisys
 		}
-		nlig = strlen(uni.Alt[0].Code);
+		nlig = strlen((char*) uni.Alt[0].Code);
 		if (uni.lnAltCnt > 1 && nlig > 1)
 			return FALSE;
 		for (nl = 0; nl < nlig; nl++) {
@@ -512,7 +512,7 @@ Bool32 ed_add_word(CSTR_rast b, CSTR_rast e, uchar *language) {
 			ed_write((uchar*) &ed_vrs, sizeof(ed_vrs));
 			continue; // half spaces for spelling analisys
 		}
-		nlig = strlen(uni.Alt[0].Code);
+		nlig = strlen((char*) uni.Alt[0].Code);
 		if (uni.lnAltCnt > 1 && nlig > 1)
 			return FALSE;
 		for (nl = 0; nl < nlig; nl++) {
@@ -567,8 +567,8 @@ static CSTR_rast rpstr_end_word(CSTR_rast cs, uchar *str, Bool32 *hsp) {
 	CSTR_GetCollectionUni(c, &vers);
 	CSTR_GetAttr(c, &attr);
 	language = attr.language;
-	strcpy(str, vers.Alt[0].Code);
-	i = strlen(vers.Alt[0].Code);
+	strcpy((char*) str, (char*) vers.Alt[0].Code);
+	i = strlen((char*) vers.Alt[0].Code);
 	do {
 		c = CSTR_GetNext(c);
 		if (!c)
@@ -577,7 +577,8 @@ static CSTR_rast rpstr_end_word(CSTR_rast cs, uchar *str, Bool32 *hsp) {
 		if (vers.lnAltCnt && memchr(ed_half_spaces, vers.Alt[0].Liga, 2)) {
 			i++;
 			*hsp = TRUE;
-			strcat(str, vers.Alt[0].Liga == SS_NEG_HALF_SPACE ? "\x1e" : "\x1f");
+			strcat((char*) str, vers.Alt[0].Liga == SS_NEG_HALF_SPACE ? "\x1e"
+					: "\x1f");
 			halfspace = TRUE; // 01.06.2001 E.P.
 			continue;
 		}
@@ -601,35 +602,35 @@ static CSTR_rast rpstr_end_word(CSTR_rast cs, uchar *str, Bool32 *hsp) {
 				break;
 		}
 
-		strcat(str, vers.Alt[0].Code);
-		i += strlen(vers.Alt[0].Code);
+		strcat((char*) str, (char*) vers.Alt[0].Code);
+		i += strlen((char*) vers.Alt[0].Code);
 		CSTR_GetAttr(c, &attr);
 		halfspace = FALSE; // 01.06.2001 E.P.
 	} while (1);
 
 	// Отрезать полупробел на конце слова. 01.06.2001 E.P.
 	if (halfspace) {
-		str[strlen(str) - 1] = 0;
+		str[strlen((char*) str) - 1] = 0;
 	}
 
 	c = c ? c : CSTR_GetLastRaster(CSTR_GetRasterLine(cs));
 	return c;
 }
 
-static rpstr_is_digital(uchar w) {
+static bool rpstr_is_digital(uchar w) {
 	return (w >= '0' && w <= '9' || strchr("~", w));
 }
 
 // for russian and english ansi codes
-static rpstr_is_upper(uchar w) {
+static bool rpstr_is_upper(uchar w) {
 	return (w >= 'A' && w <= 'Z' || w >= (uchar) 'А' && w <= (uchar) 'Я');
 }
 
-static rpstr_is_lower(uchar w) {
+static bool rpstr_is_lower(uchar w) {
 	return (w >= 'a' && w <= 'z' || w >= (uchar) 'а' && w <= (uchar) 'я');
 }
 
-static rpstr_to_upper(uchar w) {
+static bool rpstr_to_upper(uchar w) {
 	if (w >= 'a' && w <= 'z')
 		return (uchar)(w - 32);
 	if (w >= (uchar) 'а' && w <= (uchar) 'я')
@@ -637,7 +638,7 @@ static rpstr_to_upper(uchar w) {
 	return w;
 }
 
-static rpstr_to_lower(uchar w) {
+static bool rpstr_to_lower(uchar w) {
 	if (w >= 'A' && w <= 'Z')
 		return (uchar)(w + 32);
 	if (w >= (uchar) 'А' && w <= (uchar) 'Я')
@@ -789,7 +790,7 @@ Bool32 rpstr_alphabet_mixed(uchar *s) {
 }
 
 Bool32 rpstr_alphabet_check(uchar *s) {
-	int32_t n, d, r, l = strlen(s) - 1, hsp;
+	int32_t n, d, r, l = strlen((char*) s) - 1, hsp;
 	for (r = hsp = n = 0, d = 0; *s; s++, n++) {
 		if (rpstr_is_digital(*s))
 			d++;
@@ -896,10 +897,8 @@ static void rpstr_cstr2word(CSTR_rast be, CSTR_rast en, uchar *str) {
 	*str = '\0';
 	for (c = be; c && c != en; c = CSTR_GetNext(c)) {
 		CSTR_GetCollectionUni(c, &uvs);
-		strcat(str, uvs.Alt[0].Code);
+		strcat((char*) str, (char*) uvs.Alt[0].Code);
 	}
-
-	return;
 }
 
 static int32_t rpstr_cstr2uni(CSTR_rast be, CSTR_rast en, UniVersions *uv,
@@ -929,19 +928,18 @@ Bool32 rpstr_normal_spell(char *sec_wrd) {
 	int32_t Check = 0;
 	if (!language && multy_language) { // second dict
 		if (!RLING_CheckSecED((pchar) ed_buffer, (pchar) edo_buffer,
-				(uint32_t) (MED_file_end - ed_buffer), &sizeout, &Check)) {
+				(uint32_t)(MED_file_end - ed_buffer), &sizeout, &Check)) {
 			sp_err = RLING_GetReturnString(RLING_GetReturnCode());
 			return FALSE;
 		}
 	} else { // first dict
-		if (!RLING_CheckED((pchar) ed_buffer, (pchar) edo_buffer,
-				(uint32_t) (MED_file_end - ed_buffer), &sizeout, &Check)) {
+		if (!RLING_CheckED((pchar) ed_buffer, (pchar) edo_buffer, (uint32_t)(
+				MED_file_end - ed_buffer), &sizeout, &Check)) {
 			sp_err = RLING_GetReturnString(RLING_GetReturnCode());
 			return FALSE;
 		}
 	}
-	return ed_exclude_to_vers(sizeout, sec_wrd);
-	//return TRUE;
+	return ed_exclude_to_vers(sizeout, (uchar*) sec_wrd);
 }
 
 static uchar non_letters[] = "«»()\x1f\x1e,.!?";
@@ -953,8 +951,9 @@ Bool32 rpstr_get_solid(CSTR_rast rus, CSTR_rast ruse) {
 	for (r = rus; r && r != ruse; r = CSTR_GetNext(r)) {
 		CSTR_GetAttr(r, &a);
 		CSTR_GetCollectionUni(r, &u);
-		if (!(a.flg & CSTR_f_solid) && u.lnAltCnt && !strchr(non_letters,
-				u.Alt[0].Code[0]) && !strchr(ed_half_spaces, u.Alt[0].Liga))
+		if (!(a.flg & CSTR_f_solid) && u.lnAltCnt && !strchr(
+				(char*) non_letters, u.Alt[0].Code[0]) && !strchr(
+				(char*) ed_half_spaces, u.Alt[0].Liga))
 			return FALSE;
 	}
 	return TRUE;
@@ -1049,7 +1048,8 @@ int32_t uni_correct_check(CSTR_rast b, CSTR_rast e, int32_t *start) {
 		CSTR_GetCollectionUni(c, &vrs);
 		CSTR_GetAttr(c, &attr);
 		n = rejo_vers[i].lnAltCnt;
-		if (vrs.lnAltCnt && strcmp(rejo_vers[i].Alt[0].Code, vrs.Alt[0].Code)) // символ изменилс
+		if (vrs.lnAltCnt && strcmp((char*) rejo_vers[i].Alt[0].Code,
+				(char*) vrs.Alt[0].Code)) // символ изменилс
 			pen++;
 	}
 	if (nall == 1) {
@@ -1092,8 +1092,8 @@ Bool32 uni_correct_cstr(CSTR_rast b, CSTR_rast e, int32_t *start,
 				return FALSE;
 			if (vrs.lnAltCnt && (strchr("|", rejo_vers[i].Alt[0].Code[0])))
 				return FALSE;
-			if (vrs.lnAltCnt && strcmp(rejo_vers[i].Alt[0].Code,
-					vrs.Alt[0].Code) && // символ изменилс
+			if (vrs.lnAltCnt && strcmp((char*) rejo_vers[i].Alt[0].Code,
+					(char*) vrs.Alt[0].Code) && // символ изменилс
 					((attr.RecogHistory & CSTR_hi_fon) && vrs.Alt[0].Prob > 220
 							|| // символ с хороше шрифтовой оценкой
 							(attr.RecogHistory & CSTR_hi_3x5)
@@ -1137,7 +1137,8 @@ Bool32 uni_correct_cstr(CSTR_rast b, CSTR_rast e, int32_t *start,
 				vrs.Alt[0].Info = 0;
 			} else {
 				for (j = 0; j < n; j++) {
-					strcpy(vrs.Alt[j].Code, rejo_vers[i].Alt[j].Code);
+					strcpy((char*) vrs.Alt[j].Code,
+							(char*) rejo_vers[i].Alt[j].Code);
 					vrs.Alt[j].Prob = rejo_vers[i].Alt[j].Prob;
 					vrs.Alt[j].Liga = stdAnsiToAscii(
 							rejo_vers[i].Alt[j].Code[0]);
@@ -1511,10 +1512,11 @@ static char *rpstr_short_postfix[] = { "по", "в", "и", "а", "но", "ее", "По",
 		"В", "И", "А", "Но", "Ее", "Он", "он", "Не", "не", "Кто", "кто", "\0" };
 static char *rpstr_disable_words[] = { "=", "+", "-", "см", "шт", "кг", "Мб",
 		"её", "млн", "Млн", "мая", "Мая", "№", "#", "\0" };
+
 Bool32 rpstr_is_voc_word(uchar *wrd, char *voc[]) {
 	int32_t i;
 	for (i = 0; voc[i][0] != 0; i++) {
-		if (!strcasecmp(voc[i], wrd))
+		if (!strcasecmp(voc[i], (char*) wrd))
 			return TRUE;
 	}
 	return FALSE;
@@ -1558,14 +1560,13 @@ Bool32 is_first_capital(CSTR_rast eng) {
 
 uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message,
 		uint32_t wParam, uint32_t lParam);
+
 static void unis2word(UniVersions *uvs, int32_t n, uchar *str) {
 	int32_t i;
 	*str = '\0';
 	for (i = 0; i < n; i++) {
-		strcat(str, uvs[i].Alt[0].Code);
+		strcat((char*) str, (char*) uvs[i].Alt[0].Code);
 	}
-
-	return;
 }
 
 Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
@@ -1573,10 +1574,11 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 		Bool32 disable_check_word) {
 	CSTR_rast eng, enge, senge, tmp;
 	CSTR_rast_attr attr;
-	uchar ewrd[MAX_LEN_WORD + 40], pwrd[MAX_LEN_WORD + 40],
-			third_wrd[MAX_LEN_WORD + 40], sec_wrd[MAX_LEN_WORD + 40],
-			language1, snapstr[1024];
-	int32_t loc_debug = 0, loc_debug_replace = 1, chg, prevfrag = *linefrag;
+	uchar third_wrd[MAX_LEN_WORD + 40], sec_wrd[MAX_LEN_WORD + 40], language1;
+	char pwrd[MAX_LEN_WORD + 40];
+	uchar ewrd[MAX_LEN_WORD + 40];
+	char snapstr[1024];
+	int32_t loc_debug = 0, chg, prevfrag = *linefrag;
 	Bool32 snap, first, pos, cd;
 	CSTR_rast prevbeg = *addbeg, prevend = *addend;
 	CSTR_attr lattr;
@@ -1599,13 +1601,14 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 			break;
 		senge = enge = rpstr_end_word(eng, ewrd, &hsp);
 		if (ewrd[0] == '~' && rpsrt_line_breace_unknown(eng)) {
-			strcpy(pwrd, &ewrd[1]);
-			strcpy(ewrd, pwrd);
+			strcpy((char*) pwrd, (char*) &ewrd[1]);
+			strcpy((char*) ewrd, (char*) pwrd);
 			eng = CSTR_GetNext(eng);
 		}
 		tmp = CSTR_GetPrev(enge);
-		if (ewrd[strlen(ewrd) - 1] == '~' && rpsrt_line_breace_unknown(tmp)) {
-			ewrd[strlen(ewrd) - 1] = 0;
+		if (ewrd[strlen((char*) ewrd) - 1] == '~' && rpsrt_line_breace_unknown(
+				tmp)) {
+			ewrd[strlen((char*) ewrd) - 1] = 0;
 			enge = tmp;
 		}
 
@@ -1618,12 +1621,12 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 		}
 		if (first && prevbeg && prevend && lattr.fragment == prevfrag) { // текущая и предыдущая строки из одного фрагм
 			first = FALSE;
-			rpstr_cstr2word(prevbeg, prevend, pwrd);
+			rpstr_cstr2word(prevbeg, prevend, (uchar*) pwrd);
 			// pwrd - слово с пред строки
-			if (!rpstr_alphabet_check(ewrd) || !rpstr_alphabet_check(pwrd)
-					|| rpstr_is_upper(pwrd[strlen(pwrd) - 1])
-							&& rpstr_is_lower(ewrd[0]) || rpstr_is_upper(
-					ewrd[strlen(ewrd) - 1]) && rpstr_is_lower(pwrd[0])) { // одна из частей неудовлетворительна
+			if (!rpstr_alphabet_check((uchar*) ewrd) || !rpstr_alphabet_check(
+					(uchar*) pwrd) || rpstr_is_upper(pwrd[strlen((char*) pwrd)
+					- 1]) && rpstr_is_lower(ewrd[0]) || rpstr_is_upper(
+					ewrd[strlen((char*) ewrd) - 1]) && rpstr_is_lower(pwrd[0])) { // одна из частей неудовлетворительна
 				CSTR_GetAttr(prevend, &attr);
 				attr.flg_spell = CSTR_fa_spell_nocarrying;
 				CSTR_SetAttr(prevend, &attr);
@@ -1636,9 +1639,9 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 				if (strlen(pwrd) > 3)
 					sf = rpstr_txt_spell(pwrd, language);
 				else
-					sf = rpstr_is_short_prefix(pwrd);//FALSE;
-				if (strlen(ewrd) > 3)
-					ss = rpstr_txt_spell(ewrd, language);
+					sf = rpstr_is_short_prefix((uchar*) pwrd);//FALSE;
+				if (strlen((char*) ewrd) > 3)
+					ss = rpstr_txt_spell((char*) ewrd, language);
 				else
 					ss = rpstr_is_short_postfix(ewrd);//FALSE;
 				// sf(ss)- валидности частей
@@ -1647,7 +1650,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 							pwrd, ewrd);
 					Snap_Console(snapstr);
 				}
-				strcat(pwrd, ewrd);
+				strcat((char*) pwrd, (char*) ewrd);
 				// pwrd - скленное слово
 				if (rpstr_txt_spell(pwrd, language)) { // склеенное слово валидно
 					rpstr_set_spell_flag(eng, enge, CSTR_fa_spell_solid,
@@ -1705,7 +1708,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 				}
 				// спеллинг одноязычных частей в склеенном виде
 				if (language1 == language) {
-					if (!rpstr_normal_spell(sec_wrd)) // sec_wrd - txt result
+					if (!rpstr_normal_spell((char*) sec_wrd)) // sec_wrd - txt result
 					{
 						if (snap) {
 							sprintf(snapstr, "internal error! <%s>", ewrd);
@@ -1715,14 +1718,16 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 						continue; // внутренняя ошибка
 					}
 					// out ed is ready
-					chg = strcmp(pwrd, sec_wrd);
+					chg = strcmp((char*) pwrd, (char*) sec_wrd);
 					if (chg) { // была коррекци
-						int32_t phsp = rstr_hsp_num(pwrd);
-						if (strlen(pwrd) - phsp == strlen(sec_wrd)
-								- rstr_hsp_num(sec_wrd) || strlen(pwrd)
-								== strlen(sec_wrd)) {
+						int32_t phsp = rstr_hsp_num((uchar*) pwrd);
+						if (strlen((char*) pwrd) - phsp == strlen(
+								(char*) sec_wrd) - rstr_hsp_num(sec_wrd)
+								|| strlen((char*) pwrd) == strlen(
+										(char*) sec_wrd)) {
 							pos = 0;
-							if (phsp && strlen(pwrd) != strlen(sec_wrd)) {
+							if (phsp && strlen((char*) pwrd) != strlen(
+									(char*) sec_wrd)) {
 								rpstr_temporary_kill_neghalf_segment(prevbeg,
 										prevend);
 								rpstr_temporary_kill_neghalf_segment(eng, enge);
@@ -1814,7 +1819,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 			continue; // can't used spell checking
 		}
 		{
-			int32_t len = strlen(ewrd);
+			int32_t len = strlen((char*) ewrd);
 			if (len < short_word && len < short_word_aux) { // проверяем короткие слова
 				if (rpstr_disable_short_words(ewrd) || len == 1) {
 					rpstr_set_spell_flag(eng, enge, CSTR_fa_spell_none, 0);
@@ -1822,7 +1827,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 						sprintf(snapstr, "short word <%s> is skipped", ewrd);
 						Snap_Console(snapstr);
 					}
-				} else if (!rpstr_txt_spell(ewrd, language)) {
+				} else if (!rpstr_txt_spell((char*) ewrd, language)) {
 					rpstr_set_spell_flag(eng, enge, CSTR_fa_spell_reject, 0);
 					if (snap) {
 						sprintf(snapstr, "short word <%s> is reject", ewrd);
@@ -1841,7 +1846,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 			}
 
 			if (len == short_word || len == short_word_aux) { // валидируем короткие слова
-				if (rpstr_txt_spell(ewrd, language)) {
+				if (rpstr_txt_spell((char*) ewrd, language)) {
 					rpstr_set_spell_flag(eng, enge, CSTR_fa_spell_solid,
 							CSTR_f_solid);
 					if (snap) {
@@ -1870,7 +1875,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 			}
 			continue;
 		}
-		if (!rpstr_normal_spell(sec_wrd)) // sec_wrd - txt result
+		if (!rpstr_normal_spell((char*) sec_wrd)) // sec_wrd - txt result
 		{
 			if (snap) {
 				sprintf(snapstr, "internal error! <%s>", ewrd);
@@ -1880,11 +1885,11 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 		}
 		// сформирован обновленный словарём ЕД
 
-		chg = strcmp(ewrd, sec_wrd);
+		chg = strcmp((char*) ewrd, (char*) sec_wrd);
 		if (chg) { // слово изменилось
-			if (strlen(ewrd) == strlen(sec_wrd)) { // длина не изменилась
+			if (strlen((char*) ewrd) == strlen((char*) sec_wrd)) { // длина не изменилась
 				pos = 0;
-				if (strlen(ewrd) > (size_t) short_word
+				if (strlen((char*) ewrd) > (size_t) short_word
 				//&& (!is_first_capital(eng) || rec_correct_cstr(eng,enge,TRUE,TRUE))
 				) {
 					correct_cstr(eng, enge, &pos); // correct word
@@ -1892,7 +1897,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 						sprintf(snapstr, "correct  <%s>", sec_wrd);
 						Snap_Console(snapstr);
 					}
-				} else if (strlen(ewrd) == (size_t) short_word) { // short word
+				} else if (strlen((char*) ewrd) == (size_t) short_word) { // short word
 					pos = 0;
 					if (rec_correct_cstr(eng, enge, FALSE, FALSE)) {
 						correct_cstr(eng, enge, &pos); // correct word
@@ -1927,8 +1932,7 @@ Bool32 make_fictive_str(CSTR_line fln, CSTR_rast eng, CSTR_rast enge,
 		CSTR_line ln, CSTR_line lnraw) {
 	CSTR_attr lattr;
 	CSTR_rast start, stop;
-	CSTR_rast c, start_new = CSTR_GetFirstRaster(fln), stop_new =
-			CSTR_GetLastRaster(fln), cnew;
+	CSTR_rast c, start_new = CSTR_GetFirstRaster(fln), cnew;
 	CSTR_rast_attr attr;
 	RecRaster rs;
 	UniVersions vr;
@@ -2047,7 +2051,7 @@ static int rpstr_case_notequal(uchar *in, uchar *out, int32_t lenin,
 ///////////
 // проверить альтернативы
 // с кем путаются буквы
-static uchar *twinAlts[256] = { "", "", "", "", "", "", "", "", "", "", "", "",
+static const char *twinAlts[256] = { "", "", "", "", "", "", "", "", "", "", "", "",
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", //32-47
 		"", "", "", "", "", "", "", "", "", "", // 48 - 57 (0-9)
@@ -2098,7 +2102,7 @@ static Bool32 IsInAlter(uchar *Code, CSTR_rast c) {
 
 	CSTR_GetCollectionUni(c, &vers);
 
-	strcpy(&codeAlt[0], Code);
+	strcpy((char*) &codeAlt[0], (char*) Code);
 	for (i = 0; i < 4; i++) {
 		if (codeAlt[i] == 0)
 			break;
@@ -2109,25 +2113,24 @@ static Bool32 IsInAlter(uchar *Code, CSTR_rast c) {
 	}
 
 	for (i = 0; i < vers.lnAltCnt; i++) {
-		if (!strcmp(vers.Alt[i].Code, Code))
+		if (!strcmp((char*) vers.Alt[i].Code, (char*) Code))
 			return TRUE;
-		if (!strcmp(vers.Alt[i].Code, codeAlt))
+		if (!strcmp((char*) vers.Alt[i].Code, (char*) codeAlt))
 			return TRUE;
 
 		// проверим близнецов
 		if (Code[1] == 0 && vers.Alt[i].Code[1] == 0) {
-			if (strchr(twinAlts[vers.Alt[i].Code[0]], Code[0]))
+			if (strchr((char*) twinAlts[vers.Alt[i].Code[0]], Code[0]))
 				return TRUE;
-			if (strchr(twinAlts[vers.Alt[i].Code[0]], codeAlt[0]))
+			if (strchr((char*) twinAlts[vers.Alt[i].Code[0]], codeAlt[0]))
 				return TRUE;
 		}
 	}
 
 	return FALSE;
 }
-//////////////
 
-static rpstr_is_letter(uchar w) {
+static Bool rpstr_is_letter(uchar w) {
 	if (w >= 'A' && w <= 'Z' || w >= (uchar) 'А' && w <= (uchar) 'Я')
 		return TRUE;
 	if (w >= 'a' && w <= 'z' || w >= (uchar) 'а' && w <= (uchar) 'я')
@@ -2135,7 +2138,7 @@ static rpstr_is_letter(uchar w) {
 
 	return FALSE;
 }
-////////////////
+
 // проверить альтернативы словар
 // Nick 18.06.2001
 static int32_t rpstr_test_spell_alter(CSTR_rast be, CSTR_rast en, int32_t nlim,
@@ -2284,7 +2287,7 @@ static CSTR_rast rpstr_find_in_word(CSTR_rast cs, CSTR_rast ce, uchar *ewrd,
 	CSTR_rast c;
 	int16_t i;
 	UniVersions vers;
-	int allLen = strlen(ewrd), oneLen;
+	int allLen = strlen((char*) ewrd), oneLen;
 	CSTR_rast first = NULL;
 	int curLen;
 
@@ -2297,7 +2300,7 @@ static CSTR_rast rpstr_find_in_word(CSTR_rast cs, CSTR_rast ce, uchar *ewrd,
 		if (vers.lnAltCnt <= 0)
 			return NULL;
 
-		oneLen = strlen(vers.Alt[0].Code);
+		oneLen = strlen((char*) vers.Alt[0].Code);
 		if (i + oneLen > allLen)
 			return NULL;
 
@@ -2341,7 +2344,8 @@ static int ReplacePartWord(CSTR_rast eng, CSTR_rast enge, char *ewrd,
 	minrow = mincol = mincolr = 32000;
 	maxrow = maxcol = maxcolr = -16000;
 
-	first = rpstr_find_in_word(eng, enge, ewrd, start, strlen(oldPart), &last);
+	first = rpstr_find_in_word(eng, enge, (uchar*) ewrd, start,
+			strlen(oldPart), &last);
 	if (!first)
 		return 0;
 
