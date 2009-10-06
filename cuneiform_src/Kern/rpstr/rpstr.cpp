@@ -146,7 +146,6 @@ uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message,
 	int ret = 0;
 	uint32_t pos;
 	CSTR_rast r = (CSTR_rast) 0;
-	CSTR_rast_attr attr;
 
 	pos = LDPUMA_CSTR_GetPosition((uint32_t *) &r);
 
@@ -159,9 +158,8 @@ uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message,
 /////////////////////
 // common functions
 /////////////////////
-//void kegl_snap_init();
 
-Bool32 RPSTR_Init(uint16_t wHeightCode, Handle hStorage) {
+Bool32 RPSTR_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	wHeightRC = wHeightCode;
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
@@ -356,8 +354,6 @@ Bool32 RPSTR_CollectCapDrops(int32_t version) {
 
 Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
-#define RPSTR_VERSION_CODE 1
-	int32_t vers = RPSTR_VERSION_CODE;
 #define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
 	wLowRC = RPSTR_ERR_NO;
 	switch (dwType) {
