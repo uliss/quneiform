@@ -57,7 +57,7 @@
 // must accord #define _USE_DETOUCH_ in p2_proc !!!
 //#define _USE_DETOUCH_
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <sys/stat.h>
 
 #include <stdio.h>
@@ -76,11 +76,10 @@
 
 #include "p2.h"
 #include "rstr_p2.h"
-////////////
+
 extern P2GLOBALS p2globals;
 // –ади language
 #include "ligas.h"				// 01.06.2001 E.P.
-////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
 	int16_t i;
 	UniVersions cver, *ver;
@@ -99,8 +98,7 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
 
 	for (i = 0; i < ver->lnAltCnt; i++) {
 		let = rver->Alt[i].Code;
-		//strcpy(ver->Alt[i].Code , decode_ASCII_to_[let]);
-		RSTR_p2_DecodeCode(ver->Alt[i].Code, let);
+		RSTR_p2_DecodeCode((char*) ver->Alt[i].Code, let);
 		ver->Alt[i].Liga = let;
 		ver->Alt[i].Prob = rver->Alt[i].Prob;
 		ver->Alt[i].Method = rver->Alt[i].Method;
@@ -111,21 +109,18 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
 
 	return CSTR_StoreCollectionUni(rast, ver);
 }
-/////////////////
 
 static void StoreOneInterval(uchar *raster, int b, int e) {
-	int i;
-	uchar mask[] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
+	static const uchar mask[] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02,
+			0x01 };
 
 	if (b < 0)
 		b = 0;
-	for (i = b; i < e; i++) {
+	for (int i = b; i < e; i++) {
 		raster[i >> 3] |= mask[i & 7];
 	}
-
-	return;
 }
-////////////
+
 static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size, int16_t w,
 		int16_t h, RecRaster *rec) {
 	int ww, len, i;
@@ -147,7 +142,7 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size, int16_t w,
 
 	return TRUE;
 }
-///////////////
+
 // получить растр, возможно сжатый, из линейной компоненты
 //
 // Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
@@ -155,9 +150,8 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size, int16_t w,
 //   lt = *(int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
-P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,uchar *lp,int16_t w,int16_t h,
-		RecRaster *rec)
-{
+Bool32 p2_Comp2Raster(int16_t lt, uchar *lp, int16_t w, int16_t h,
+		RecRaster *rec) {
 	//int16_t  w, h;
 	//uchar  *lp;
 	//int16_t  *lt;
@@ -168,7 +162,7 @@ P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,uchar *lp,int16_t w,int16_t h,
 
 	rec->lnPixWidth = w;
 	rec->lnPixHeight = h;
-	rec->lnRasterBufSize=REC_MAX_RASTER_SIZE;
+	rec->lnRasterBufSize = REC_MAX_RASTER_SIZE;
 
 	// if( comp->scale )
 	//    {
@@ -176,21 +170,20 @@ P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,uchar *lp,int16_t w,int16_t h,
 	//    rec->lnPixHeight >>= comp->scale;
 	//    }
 
-	if( rec->lnPixWidth <= 0 ||
-			rec->lnPixHeight <= 0 )
-	return FALSE;
+	if (rec->lnPixWidth <= 0 || rec->lnPixHeight <= 0)
+		return FALSE;
 
-	memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
+	memset(rec->Raster, 0, REC_GW_WORD8(rec->lnPixWidth) * rec->lnPixHeight);
 
 	//  lp = (uchar *)(comp+1);
 	//  lt = *(int16_t*)lp;
 	//
-	w=(int16_t)rec->lnPixWidth;
-	h=(int16_t)rec->lnPixHeight;
+	w = (int16_t) rec->lnPixWidth;
+	h = (int16_t) rec->lnPixHeight;
 
 	//  do  { // comps cycle - in CCOM_GetRaster if numcomp>1
 	//          if( (*lt) <= 2 ) break;
-	ret = Lines2Raster((CCOM_lnhead*)&lp[2],(int16_t)(lt-2), w, h ,rec);
+	ret = Lines2Raster((CCOM_lnhead*) &lp[2], (int16_t) (lt - 2), w, h, rec);
 	//      lp += *lt;
 	//      lt  = (int16_t*)lp;
 	//       }
@@ -198,7 +191,7 @@ P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,uchar *lp,int16_t w,int16_t h,
 
 	return ret;
 }
-////////////
+
 static int fir1[256] = { 8, 7, 6, 6, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3,
 		3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
 		2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1,
@@ -210,7 +203,7 @@ static int fir1[256] = { 8, 7, 6, 6, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-///////////
+
 static int las1[256] = { 8, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0,
 		1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 5, 0, 1, 0, 2, 0, 1, 0, 3, 0,
 		1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 6, 0,
@@ -225,12 +218,10 @@ static int las1[256] = { 8, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0,
 		5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0,
 		3, 0, 1, 0, 2, 0, 1, 0 };
 
-//////////////////////
-///////////////////////////////////
 static void MoveWindowRow0(uchar *outrow, uchar *inrow, int SizeByte, int fir) {
 	memcpy(outrow, inrow, SizeByte);
 }
-//////////
+
 static void MoveWindowRow2(uchar *outrow, uchar *inrow, int SizeByte, int fir) {
 	int i;
 	switch (fir) {
@@ -268,7 +259,7 @@ static void MoveWindowRow2(uchar *outrow, uchar *inrow, int SizeByte, int fir) {
 
 	//  outrow[SizeByte-1] |=       (uchar)tiffWindow.maska;
 }
-///////////////
+
 void MoveWindowRow1(uchar *outrow, uchar *inrow, int SizeByte, int fir) {
 	int i;
 	SizeByte--;
@@ -314,10 +305,10 @@ void MoveWindowRow1(uchar *outrow, uchar *inrow, int SizeByte, int fir) {
 
 	//  outrow[SizeByte] |= (uchar)tiffWindow.maska;
 }
-///////////////
+
 static void (*MoveWindowRow)(uchar *orow, uchar *irow, int SizeByte, int fir);
 static uchar tmpRaster[REC_MAX_RASTER_SIZE];
-/////////////////
+
 int p2_rotateRecRaster(RecRaster *rec, int ninc) {
 	int xbyte8 = REC_GW_WORD8(rec->lnPixWidth);
 	int xbyte = (rec->lnPixWidth + 7) >> 3;
@@ -423,7 +414,7 @@ int p2_rotateRecRaster(RecRaster *rec, int ninc) {
 
 	return 1;
 }
-///////////////
+
 void p2_TextWord(CSTR_rast c, CSTR_rast stop, char *intxt, Bool ansi) {
 	CSTR_rast_attr attr;
 	UniVersions vers;
@@ -438,14 +429,14 @@ void p2_TextWord(CSTR_rast c, CSTR_rast stop, char *intxt, Bool ansi) {
 		if (!vers.lnAltCnt)
 			strcat(txt, "~");
 		else
-			strcat(txt, vers.Alt[0].Code);
+			strcat(txt, (char*) vers.Alt[0].Code);
 	}
 
 	for (txt = intxt; *txt; txt++)
 		*txt = stdAnsiToAscii(*txt);
 
 }
-//////////////////
+
 void p2_FillTxt(CSTR_line cc, char *intxt, Bool ansi) {
 	CSTR_rast first = CSTR_GetFirstRaster(cc);
 	CSTR_rast last = CSTR_GetLastRaster(cc);
@@ -453,7 +444,7 @@ void p2_FillTxt(CSTR_line cc, char *intxt, Bool ansi) {
 		return;
 	p2_TextWord(CSTR_GetNext(first), last, intxt, ansi);
 }
-//////////////////////////////
+
 int32_t p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
 		int maxTxt) {
 	CSTR_rast_attr attr;
@@ -476,7 +467,7 @@ int32_t p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
 		if (!vers.lnAltCnt)
 			strcat(txt, "~(0)");
 		else {
-			strcat(txt, vers.Alt[0].Code);
+			strcat(txt, (char*) vers.Alt[0].Code);
 			sprintf(txt + strlen(txt), "(%d)", vers.Alt[0].Prob);
 		}
 
@@ -484,7 +475,6 @@ int32_t p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
 			break;
 	}
 
-	//      if(ansi)
 	{
 		for (txt = intxt; *txt; txt++)
 			*txt = stdAnsiToAscii(*txt);
@@ -492,7 +482,7 @@ int32_t p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
 
 	return strlen(intxt);
 }
-//////////////////
+
 static uint32_t oddEvenFlag = CSTR_fn_val2odd;
 int32_t p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last) {
 	int numCell;
@@ -519,7 +509,7 @@ int32_t p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last) {
 
 	return numCell;
 }
-////////////////
+
 /* Function returns UPPER CASE variant of the letter.             */
 uchar p2_to_upperASCII(uchar c) {
 	if (c >= (uchar) 'a' && c <= (uchar) 'z')
@@ -547,7 +537,7 @@ uchar p2_to_lowerASCII(uchar c) {
 	}
 	return c;
 }
-///////////////
+
 Bool32 p2_is_lowerASCII(uchar ch) {
 
 	if (p2globals.language == LANG_RUSSIAN) {
@@ -560,7 +550,7 @@ Bool32 p2_is_lowerASCII(uchar ch) {
 		return TRUE;
 	return FALSE;
 }
-/////////////////////
+
 Bool32 p2_is_upperASCII(uchar ch) {
 	if (p2globals.language == LANG_RUSSIAN) {
 		if (ch >= (uchar) 'А' && ch <= (uchar) 'Я')
@@ -570,10 +560,10 @@ Bool32 p2_is_upperASCII(uchar ch) {
 		return 1;
 	return 0;
 }
-//////////////////
+
 static uchar rus_alias[] = "£ѓв°В8"; // "гптб¬8"
 static uchar eng_alias[] = "rnr68B";
-/////////////
+
 uchar p2_rsadd_get_alias_class(uchar let, uchar lang) {
 	uchar *fa;
 	if (lang == LANG_RUSSIAN)
@@ -583,8 +573,7 @@ uchar p2_rsadd_get_alias_class(uchar let, uchar lang) {
 	else
 		return 0;
 
-	if (strchr(fa, let))
+	if (strchr((char*) fa, let))
 		return 1;
 	return 0;
 }
-/////////////////////

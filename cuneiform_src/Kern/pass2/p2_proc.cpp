@@ -55,6 +55,7 @@
  */
 
 #include "minmax.h"
+#include "fon.h"
 
 #define GRAF
 
@@ -133,31 +134,23 @@
 #define POROG_GOOD_LEO 220   // 180 - many errors
 #define POROG_GOOD_SPEC 245  // some letters - bad leo
 #define POROG_GOOD_VERY_SPEC 252
-//#include "leo.h"
+
 static RecObject ro;
-static uchar specBadRus[] = "’х√га¬вёю“т…й к";
-static uchar specBadEng[] = "mnVvWwaBrYQ";
-static uchar specBadNon[] = "";
-static uchar *specBadLeo = specBadRus;
-static uchar specVeryBadRus[] = "ўщ";
-static uchar specVeryBadEng[] = "";
-static uchar *specVeryBadLeo = specBadNon;
+static const uchar specBadRus[] = "’х√га¬вёю“т…й к";
+static const uchar specBadEng[] = "mnVvWwaBrYQ";
+static const uchar specBadNon[] = "";
+static const uchar *specBadLeo = specBadRus;
+static const uchar specVeryBadRus[] = "ўщ";
+static const uchar specVeryBadEng[] = "";
+static const uchar *specVeryBadLeo = specBadNon;
 #endif
 //======== EXTERN FUNCTIONS
 int p2_rotateRecRaster(RecRaster *rec, int ninc);
 // p2_tools.c
 int32_t p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last);
-//======== EXTERN VARIABLES
-//extern char alphabet[256];  // rcm.c
-//extern uchar fon_alphabet_language[2][256];
-/*======= Export funcs =================*/
-//int32_t   p2_proc (CSTR_line lineDraft,CSTR_line lineOne);
-//int16_t     estletter       (cell * BC,s_glue * GL);
-// snap.c
-//extern Handle hSnapLEO;
+
 //////// local variables    //////////
 P2GLOBALS p2globals;
-//static float fallTime=0.0f;
 // из какой колонки строка
 static int p2_lineColumn = 0;
 // средний наклон текущего слова
@@ -176,9 +169,6 @@ static int prevLine = -11;
 static int prevLang = -1;
 /*======= Local funcs ==================*/
 // установить €зык
-FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
-		CSTR_rast firNew,CSTR_rast lasNew,
-		int lang, int porog, int nNaklon, int nRazmaz);
 
 static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang);
 static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
@@ -206,24 +196,20 @@ static CSTR_rast AddRastersLine(CSTR_rast fRast, CSTR_rast eRast,
 static Bool32 p2_needStop(CSTR_rast first, CSTR_rast last);
 static int mark_strong_letters(CSTR_rast fRecog, CSTR_rast lRecog,
 		CSTR_rast fRaw, CSTR_rast lRaw);
-///////////////////////////
 
 #ifdef _SAVE_IN_CTB_
 #include "ctb.h"
 static char nickName[12]="nickb00";
 #endif
 
-//////////////////////
 static char outt[1024];
 static CSTR_head *llRaw, *ll1, *ll2;
-/////////////
 
 // коды ошибок дл€ p2_proc
 #define ERR_GET_RAST -3   // получение растра и параметров
 #define ERR_GET_LINE -4   // получение параметров строки
 #define ERR_NEW_LINE -5   // создание строки
 #define ERR_NEW_RAST -6   // создание растра
-
 #define MAX_LEN_WORD  48
 static int WrdLength(CSTR_rast first, CSTR_rast last) {
 	CSTR_rast rst;
@@ -238,7 +224,7 @@ static int WrdLength(CSTR_rast first, CSTR_rast last) {
 	}
 	return nlet;
 }
-/////////////////
+
 static Bool32 GoodSpell(CSTR_rast first, CSTR_rast last, int minSize) {
 	RecVersions verOld;
 	CSTR_rast rst;
@@ -292,11 +278,11 @@ static Bool32 GoodSpell(CSTR_rast first, CSTR_rast last, int minSize) {
 	if (nlet == minSize && minProb < 205)
 		return FALSE;
 
-	if (RSTR_p2_spell(wrd, lang))
+	if (RSTR_p2_spell((char*) wrd, lang))
 		return TRUE;
 	return FALSE;
 }
-/////////////////
+
 static CSTR_rast LastRaster(CSTR_rast fir, CSTR_rast las) {
 	CSTR_rast curLeo;
 
@@ -313,7 +299,7 @@ static CSTR_rast LastRaster(CSTR_rast fir, CSTR_rast las) {
 	}
 	return fir;
 }
-//////////////////
+
 // заменить [startLeo,nextLeo) на копию [startFon,nextFon)
 // с возможным поворотом
 // возврат - новый startLeo
@@ -335,7 +321,7 @@ static CSTR_rast ReplaceWord(CSTR_rast startLeo, CSTR_rast nextLeo,
 
 	return curLeo;
 }
-/////////////////////
+
 static void ReplaceAnswer(CSTR_rast first, CSTR_rast last, CSTR_rast firstNew) {
 	CSTR_rast rst;
 	UniVersions verNew;
@@ -365,7 +351,7 @@ static void ReplaceAnswer(CSTR_rast first, CSTR_rast last, CSTR_rast firstNew) {
 	}
 
 }
-/////////////////////////////////
+
 static Bool GoodWordProb(CSTR_rast first, CSTR_rast last, int porog) {
 	CSTR_rast rst;
 	UniVersions verNew;
@@ -387,7 +373,7 @@ static Bool GoodWordProb(CSTR_rast first, CSTR_rast last, int porog) {
 
 	return TRUE;
 }
-/////////////////////////////////
+
 static int32_t p2_ShowSnap(CSTR_rast first, CSTR_rast last) {
 	CSTR_rast cur;
 
@@ -406,7 +392,7 @@ static int32_t p2_ShowSnap(CSTR_rast first, CSTR_rast last) {
 
 	return 1;
 }
-///////////////
+
 // put better/mixed variant in line first-last
 // return (new) first
 static CSTR_rast CompareRecogVersions(CSTR_rast first, CSTR_rast last,
@@ -430,9 +416,6 @@ static CSTR_rast CompareRecogVersions(CSTR_rast first, CSTR_rast last,
 			RSTR_p2_snap_show_text("End compose word.");
 		}
 	}
-
-	//  lastNew=CSTR_GetLastRaster(lineFon);
-	//  firstNew=CSTR_GetNext(firstNew);
 
 	// словарное слово не замен€ем на несловарное !
 	if (isSolid && useSpell && WrdLength(first, last) >= 3 && !GoodSpell(
@@ -465,8 +448,6 @@ static CSTR_rast CompareRecogVersions(CSTR_rast first, CSTR_rast last,
 	// смешаем результаты распознавани
 	// и запишем в lineOne - что-то из старого можем удалить
 	ret = composeWords(firstNew, lastNew, &first, last, fontinfo, broken);
-	//	  *firOld = first;
-
 	if (RSTR_p2_snap_activity('m')) {
 		//first=CSTR_GetNext(savFirst?savFirst:CSTR_GetFirstRaster(savLine));
 		p2_TextProb((CSTR_line) NULL, first, last, outt, 1000);
@@ -479,7 +460,7 @@ static CSTR_rast CompareRecogVersions(CSTR_rast first, CSTR_rast last,
 
 	return first;
 }
-////////////////
+
 // test-rerecog word [*firOld,last)
 // temporary  - put in lineFon
 // use for cut/glue - lineRaw
@@ -490,8 +471,7 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
 	CSTR_rast firstNew = CSTR_GetFirstRaster(lineFon);
 	CSTR_rast lastNew, rst;
 	uchar isSolid = 0;
-	//  CSTR_rast       savFirst;
-	//  CSTR_line       savLine;
+
 	Bool vSnap = FALSE;
 	CSTR_rast first = *firOld;
 
@@ -502,9 +482,6 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
 	// результат распознавани€ - в lineFon
 	if ((ret = CheckWord(first, last, lineFon, &isSolid)) < 0)
 		return ret;
-
-	//  savFirst=CSTR_GetPrev(first);
-	//  savLine=CSTR_GetRasterLine(first);
 
 	if ((vSnap = (RSTR_p2_snap_activity('m') && p2_needStop(first, last)))
 			|| p2_ShowWords) {
@@ -744,12 +721,12 @@ static Bool IsLeoLanguage(uchar lang) {
 
 	return FALSE;
 }
-////////////////////
+
 // букву можно распознать Ћ≈ќ ?
 static Bool32 IsLeoStandardLetter(uchar let, uchar lang) {
-	static char alpha_str[] =
+	static const char alpha_str[] =
 			"…÷” ≈Ќ√Ўў«’Џ‘џ¬јѕ–ќЋƒ∆Ёя„—ћ»“№Ѕё0123456789йцукенгшщзхъфывапролджэ€чсмитьбю#%+";
-	static char latin_str[] =
+	static const char latin_str[] =
 			"QWERTYUIOPASDFGHJKLZXCVBNM0123456789qwertyuiopasdfghjklzxcvbnm#%+";
 
 	if (lang == LANG_RUSSIAN) {
@@ -773,7 +750,7 @@ static Bool32 IsLeoStandardLetter(uchar let, uchar lang) {
 
 	return FALSE;
 }
-/////////////
+
 // установить  €зык по глобальной переменной language
 static void SetRecogAlphabet(FontInfo *fontinfo) {
 #ifdef _USE_LEO_
@@ -784,11 +761,11 @@ static void SetRecogAlphabet(FontInfo *fontinfo) {
 		if( p2_needLeo && IsLeoLanguage((uchar)p2globals.language) )
 #endif
 		{
-			static char alpha_str[] =
+			static const char alpha_str[] =
 					"…÷” ≈Ќ√Ўў«’Џ‘џ¬јѕ–ќЋƒ∆Ёя„—ћ»“№Ѕё0123456789йцукенгшщзхъфывапролджэ€чсмитьбю#%+";
-			static char latin_str[] =
+			static const char latin_str[] =
 					"QWERTYUIOPASDFGHJKLZXCVBNM0123456789qwertyuiopasdfghjklzxcvbnm#%+";
-			static char dig_str[] = "0123456789+";
+			static const char dig_str[] = "0123456789+";
 			// remove from alpha_str  - "/^()"
 
 			uchar *aa;
@@ -836,7 +813,7 @@ static void SetRecogAlphabet(FontInfo *fontinfo) {
 		}
 	}
 }
-////////////
+
 static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang)
 // установим €зык - Nick 8.01.2002
 {
@@ -849,7 +826,7 @@ static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang)
 		CSTR_SetAttr(rast, &attr);
 	}
 }
-//////////////////////
+
 // перераспознать с учетом €зыка
 static int32_t RerecogLang(CSTR_line lineRaw, CSTR_line lineFon,
 		CSTR_rast *first, CSTR_rast last, uchar lang, FontInfo *fontinfo,
@@ -869,7 +846,7 @@ static int32_t RerecogLang(CSTR_line lineRaw, CSTR_line lineFon,
 	p2globals.language = sav_lang;
 	return ret;
 }
-///////////////////////////
+
 // провер€ть корректность расстановки пробелов
 static Bool32 GoodSpace(CSTR_rast rast) {
 	CSTR_rast cur;
@@ -903,64 +880,55 @@ static Bool32 GoodSpace(CSTR_rast rast) {
 }
 ///////////////////
 //   return >= 0  - OK
-P2_FUNC(int32_t) p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *p2glob)
-{
-	//answer ans[256],nans[256];
-
-	CSTR_rast first=CSTR_GetFirstRaster(lineOne);
+int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne, P2GLOBALS *p2glob) {
+	CSTR_rast first = CSTR_GetFirstRaster(lineOne);
 	CSTR_rast last;
 	CSTR_rast firstNew; // in row lineFon
 	CSTR_rast lastNew; // in row lineFon
 	CSTR_rast_attr attr;
 	CSTR_line lineFon;
 	CSTR_attr lineAttr;
-	int32_t ret=0;
-	int32_t linVers=2;
+	int32_t ret = 0;
+	int32_t linVers = 2;
 	int32_t linNumber;
 	FontInfo fontinfo;
 	char alphaFON[256];
 	RecVersions rv; // OLEG
-	char word_limits[]="-"; // OLEG
-	int32_t retSelect=0;
-	//clock_t         cl1=clock();
+	char word_limits[] = "-"; // OLEG
+	int32_t retSelect = 0;
 
-	//return ret;
-
-	//  RSTR_p2_GetP2Globals(&p2globals);
-	memcpy(&p2globals,p2glob,sizeof(P2GLOBALS));
+	memcpy(&p2globals, p2glob, sizeof(P2GLOBALS));
 
 	linNumber = p2globals.line_number;
 
-	p2_ShowWords=FALSE; // set TRUE in snap (if need)!
-	memset(alphaFON,1,256);
+	p2_ShowWords = FALSE; // set TRUE in snap (if need)!
+	memset(alphaFON, 1, 256);
 	FONSetAlphabet(alphaFON);
 
 	// font information
 	FONFontInfo(&fontinfo);
 
-	if(!CSTR_GetLineAttr ( lineOne, &lineAttr))
-	{
-		p2_stopColumn=-1;
+	if (!CSTR_GetLineAttr(lineOne, &lineAttr)) {
+		p2_stopColumn = -1;
 		return ERR_GET_LINE;
 	}
-	if( lineAttr.Flags & CSTR_STR_SCALED)
-	p2globals.line_scale=lineAttr.scale;
+	if (lineAttr.Flags & CSTR_STR_SCALED)
+		p2globals.line_scale = lineAttr.scale;
 	else
-	p2globals.line_scale=0;
+		p2globals.line_scale = 0;
 
-	if( lineAttr.tab_number ) // OLEG
-	p2globals.line_tabcell= lineAttr.tab_number;
+	if (lineAttr.tab_number) // OLEG
+		p2globals.line_tabcell = lineAttr.tab_number;
 
 	p2globals.line_alphabet = 0;
-	p2_lineColumn=lineAttr.tab_column;
+	p2_lineColumn = lineAttr.tab_column;
 
-	if( lineAttr.Flags & CSTR_STR_Digital )
-	p2globals.line_alphabet=ALPHA_DIGITAL_TRUE;
-	else if( lineAttr.Flags & CSTR_STR_DigitalFuzzy )
-	p2globals.line_alphabet=ALPHA_DIGITAL;
+	if (lineAttr.Flags & CSTR_STR_Digital)
+		p2globals.line_alphabet = ALPHA_DIGITAL_TRUE;
+	else if (lineAttr.Flags & CSTR_STR_DigitalFuzzy)
+		p2globals.line_alphabet = ALPHA_DIGITAL;
 
 	// дл€ разрезани€ - now before p2_proc
-	//  RSTR_p2_setBasLines(lineRaw);
 
 #ifdef _SAVE_IN_CTB_
 	if(p2globals.line_number == 1)
@@ -972,212 +940,195 @@ P2_FUNC(int32_t) p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *p2glob)
 
 	// создадим рабочую строку
 	// с уникальным номером версии
-	for(linVers=CSTR_LINVERS_PASS2;linVers<CSTR_LINVERS_PASS2+60;linVers+=10)
-	{
-		lineFon=CSTR_NewLine(linNumber,linVers,-1);
-		if( lineFon) break;
-		//      uint32_t   cstrErr=CSTR_GetReturnCode();
-		//      cstrErr&=0xFFFF;
-		//      if(cstrErr!=CSTR_ERR_DOUBLICATE) break;
+	for (linVers = CSTR_LINVERS_PASS2; linVers < CSTR_LINVERS_PASS2 + 60; linVers
+			+= 10) {
+		lineFon = CSTR_NewLine(linNumber, linVers, -1);
+		if (lineFon)
+			break;
 	}
 
-	if(!lineFon)
-	{
-		p2_stopColumn=-1;
+	if (!lineFon) {
+		p2_stopColumn = -1;
 		return ERR_NEW_LINE;
 	}
 
 	// for snap
-	for(linVers=CSTR_LINVERS_PASS2SNAP;linVers<CSTR_LINVERS_PASS2SNAP+60;linVers+=10)
-	{
-		lineSnap=CSTR_NewLine(linNumber,linVers,-1);
-		if( lineSnap) break;
+	for (linVers = CSTR_LINVERS_PASS2SNAP; linVers < CSTR_LINVERS_PASS2SNAP
+			+ 60; linVers += 10) {
+		lineSnap = CSTR_NewLine(linNumber, linVers, -1);
+		if (lineSnap)
+			break;
 	}
 
 	// установим атрибуты - как у исходной
-	CSTR_SetLineAttr ( lineFon, &lineAttr);
-	if(lineSnap)
-	CSTR_SetLineAttr ( lineSnap, &lineAttr);
+	CSTR_SetLineAttr(lineFon, &lineAttr);
+	if (lineSnap)
+		CSTR_SetLineAttr(lineSnap, &lineAttr);
 
-	llRaw=(CSTR_head *)lineRaw;
-	ll1 =(CSTR_head *)lineOne;
-	ll2 =(CSTR_head *)lineFon;
+	llRaw = (CSTR_head *) lineRaw;
+	ll1 = (CSTR_head *) lineOne;
+	ll2 = (CSTR_head *) lineFon;
 
-	if( RSTR_p2_snap_activity('m') )
-	RSTR_p2_snap_monitor_ori(&lineOne,1);
+	if (RSTR_p2_snap_activity('m'))
+		RSTR_p2_snap_monitor_ori(&lineOne, 1);
 
-	firstNew=CSTR_GetFirstRaster(lineFon);
+	firstNew = CSTR_GetFirstRaster(lineFon);
 
-	if( p2globals.multy_language )
-	{
-		CSTR_rast dup=(CSTR_rast)NULL,dupend;
-		//  CSTR_rast prevFir, prevDup;
+	if (p2globals.multy_language) {
+		CSTR_rast dup = (CSTR_rast) NULL, dupend;
 		uchar lang;
 
-		if( p2globals.line_number != prevLine + 1 )
-		prevLang = -1;
+		if (p2globals.line_number != prevLine + 1)
+			prevLang = -1;
 
-		for(first=CSTR_GetNext(first);first;)
-		{
+		for (first = CSTR_GetNext(first); first;) {
 			// найдем начало варианта - не пробел или имеющий
 			// дубликат в английской строке
-			if( !CSTR_GetAttr(first,&attr) )
-			{	ret = ERR_GET_RAST;
+			if (!CSTR_GetAttr(first, &attr)) {
+				ret = ERR_GET_RAST;
 				break;
 			}
 
 #ifdef GRAF
-			dup=CSTR_GetNextDown(first);
+			dup = CSTR_GetNextDown(first);
 #else
 			dup=CSTR_GetDup(first);
 #endif
 
-			if( !dup && (attr.flg & CSTR_f_space ))
-			{
-				first=CSTR_GetNext(first);
+			if (!dup && (attr.flg & CSTR_f_space)) {
+				first = CSTR_GetNext(first);
 				continue;
 			}
 			// OLEG
-			CSTR_GetCollection(first,&rv);
-			if( rv.lnAltCnt && strchr(word_limits,rv.Alt[0].Code) )
-			{
-				first=CSTR_GetNext(first);
+			CSTR_GetCollection(first, &rv);
+			if (rv.lnAltCnt && strchr(word_limits, rv.Alt[0].Code)) {
+				first = CSTR_GetNext(first);
 				continue;
 			}
 			// OLEG
 
-			lang=attr.language;
+			lang = attr.language;
 
-			if( dup)
+			if (dup)
 #ifdef GRAF
-			dupend=CSTR_GetPrevDown(first);
+				dupend = CSTR_GetPrevDown(first);
 #else
 			dupend=CSTR_GetDupEnd(first);
 #endif
 			else
-			dupend=(CSTR_rast)NULL;
+				dupend = (CSTR_rast) NULL;
 
 			// last - первый пробел ( или конец )
-			for(last=CSTR_GetNext(first);!dupend && last; last=CSTR_GetNext(last))
-			{
-				if( dup ) // должна быть пара
+			for (last = CSTR_GetNext(first); !dupend && last; last
+					= CSTR_GetNext(last)) {
+				if (dup) // должна быть пара
 				{
 #ifdef GRAF
-					if( (dupend=CSTR_GetPrevDown(last)) != (CSTR_rast)NULL )
+					if ((dupend = CSTR_GetPrevDown(last)) != (CSTR_rast) NULL)
 #else
 					if( (dupend=CSTR_GetDupEnd(last)) != (CSTR_rast)NULL )
 #endif
 					{
-						last=CSTR_GetNext(last); // показывать после конца
+						last = CSTR_GetNext(last); // показывать после конца
 						break;
 					}
 					continue;
 				}
 
-				if( !CSTR_GetAttr(last,&attr) )
-				{	ret = ERR_GET_RAST;
+				if (!CSTR_GetAttr(last, &attr)) {
+					ret = ERR_GET_RAST;
 					break;
 				}
-				if( (attr.flg & CSTR_f_space ) &&
-						GoodSpace(last)
-				)
-				break;
+				if ((attr.flg & CSTR_f_space) && GoodSpace(last))
+					break;
 				// OLEG
-				CSTR_GetCollection(last,&rv);
-				if( rv.lnAltCnt && strchr(word_limits,rv.Alt[0].Code) )
-				break;
+				CSTR_GetCollection(last, &rv);
+				if (rv.lnAltCnt && strchr(word_limits, rv.Alt[0].Code))
+					break;
 				// OLEG
 				// если вдруг перед началом смешанного слова - нечто.
 				// Ќ≈ отбросим это нечто !?
 #ifdef GRAF
-				if( CSTR_GetNextDown(last) )
+				if (CSTR_GetNextDown(last))
 #else
-				if( CSTR_GetDup(last) )
+					if( CSTR_GetDup(last) )
 #endif
-				break;
+					break;
 			}
-			if( ret < 0) break;
+			if (ret < 0)
+				break;
 
-			if( dup && !dupend )
-			break;
+			if (dup && !dupend)
+				break;
 
 			//  средний наклон букв
-			p2_incline=0;
+			p2_incline = 0;
 
 			retSelect = 1;
 
-			if ( dup == NULL ) // один вариант €зыка
+			if (dup == NULL) // один вариант €зыка
 			{
 				p2_needLeo = 1;
-				ret = RerecogLang( lineRaw,lineFon,&first,last,lang,&fontinfo,TRUE);
+				ret = RerecogLang(lineRaw, lineFon, &first, last, lang,
+						&fontinfo, TRUE);
 				p2_needLeo = 0;
-				if(ret < 0)
-				break;
-			}
-			else // два €зыка
+				if (ret < 0)
+					break;
+			} else // два €зыка
 			{
-				int p2_selectRusEng (CSTR_rast rusStart,CSTR_rast rusEnd,
-						CSTR_rast engStart,CSTR_rast engEnd,
+				int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd,
+						CSTR_rast engStart, CSTR_rast engEnd,
 						FontInfo *fontinfo, int prevLang);
-				Bool32 spel1,spel2;
+				Bool32 spel1, spel2;
 
 				// пока не рискуем ...
 				p2_needLeo = 0; // 1 - bad results
 
-				if( RSTR_p2_snap_activity('m'))
-				RSTR_p2_snap_show_text("Rerecog - multi Language.");
+				if (RSTR_p2_snap_activity('m'))
+					RSTR_p2_snap_show_text("Rerecog - multi Language.");
 
 				//     prevFir=CSTR_GetPrevRaster(first,CSTR_f_all|CSTR_f_fict);
 				//     prevDup=CSTR_GetPrevRaster(dup,CSTR_f_all|CSTR_f_fict);
-				dupend =CSTR_GetNextRaster(dupend,CSTR_f_all|CSTR_f_fict);
+				dupend = CSTR_GetNextRaster(dupend, CSTR_f_all | CSTR_f_fict);
 
-				ret = RerecogLang( lineRaw,lineFon,&first,last,lang,&fontinfo,FALSE);
-				if(ret < 0)
-				break;
+				ret = RerecogLang(lineRaw, lineFon, &first, last, lang,
+						&fontinfo, FALSE);
+				if (ret < 0)
+					break;
 				// почистим lineFon
-				for(lastNew=CSTR_GetNext(firstNew);lastNew;lastNew=CSTR_GetNext(firstNew))
-				CSTR_DelRaster(lastNew);
-				ret = RerecogLang( lineRaw,lineFon,&dup,dupend,(uchar)(lang==LANG_RUSSIAN?LANG_ENGLISH:LANG_RUSSIAN),&fontinfo,FALSE);
-				if(ret < 0)
-				break;
+				for (lastNew = CSTR_GetNext(firstNew); lastNew; lastNew
+						= CSTR_GetNext(firstNew))
+					CSTR_DelRaster(lastNew);
+				ret = RerecogLang(lineRaw, lineFon, &dup, dupend, (uchar)(lang
+						== LANG_RUSSIAN ? LANG_ENGLISH : LANG_RUSSIAN),
+						&fontinfo, FALSE);
+				if (ret < 0)
+					break;
 
-				p2_needLeo=0;
+				p2_needLeo = 0;
 
-				//     first=CSTR_GetNext(prevFir);
-				//rsadd_study_word(first,last,&rstat);
-				//     dup=CSTR_GetNext(prevDup);
-				//rsadd_study_word(dup,dupend,&estat);
+				spel1 = GoodSpell(first, last, 4);
+				spel2 = GoodSpell(dup, dupend, 4);
 
-				spel1 = GoodSpell(first,last,4);
-				spel2 = GoodSpell(dup,dupend,4);
-
-				if( !spel1 && spel2 ||
-						spel1 == spel2 &&
-						( ((retSelect=p2_selectRusEng (first,last,dup,dupend,&fontinfo,prevLang)) == 2) ||
-								retSelect == 3 // по предыдущему
-						)
-				)
-				{
-					first = ReplaceWord(first,last,dup,dupend,0);
-					if( !first )
+				if (!spel1 && spel2 || spel1 == spel2 && (((retSelect
+						= p2_selectRusEng(first, last, dup, dupend, &fontinfo,
+								prevLang)) == 2) || retSelect == 3 // по предыдущему
+						)) {
+					first = ReplaceWord(first, last, dup, dupend, 0);
+					if (!first)
 					//!AddRastersLine(dup,dupend,prevFir,FALSE,0,0))
 					{
 						ret = -7;
 						break;
 					}
 					// remove loop
-					for(;dup && dup!=dupend;)
-					dup=CSTR_DelRaster(dup);
-				}
-				else
-				{
+					for (; dup && dup != dupend;)
+						dup = CSTR_DelRaster(dup);
+				} else {
 #ifdef GRAF
 					// nothing need !!!???
 #else
 					CSTR_SetDup(first,dup);
-					//dupend=CSTR_GetPrev(dupend);
-					//if(last) first=CSTR_GetPrev(last);
-					//else     first=CSTR_GetPrev(CSTR_GetLastRaster(lineOne));
 					CSTR_SetDupEnd(LastRaster(first,last),LastRaster(dup,dupend));
 #endif
 				}
@@ -1185,104 +1136,99 @@ P2_FUNC(int32_t) p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *p2glob)
 				// чтобы провер€ть русско-английский по F4 !
 				FONSetAlphabet(alphaFON);
 
-				if(RSTR_p2_snap_activity('m'))
-				{
-					//first=CSTR_GetNext(prevFir);
-					p2_TextProb((CSTR_line)NULL,first,last,outt, 1000);
-					strcat(outt,"- result multi");
+				if (RSTR_p2_snap_activity('m')) {
+					p2_TextProb((CSTR_line) NULL, first, last, outt, 1000);
+					strcat(outt, "- result multi");
 					RSTR_p2_snap_show_text(outt);
-					if( p2_needStop(first,last))
-					p2_ShowSnap(first,last);
+					if (p2_needStop(first, last))
+						p2_ShowSnap(first, last);
 				}
 			} // end two languages
 
-			if( !first || !CSTR_GetAttr(first,&attr) )
-			{	ret = ERR_GET_RAST;
+			if (!first || !CSTR_GetAttr(first, &attr)) {
+				ret = ERR_GET_RAST;
 				break;
 			}
 
 			// в конце строки ?
-			if(!last)
-			{
+			if (!last) {
 				prevLang = -1;
 				break;
-			}
-			else
-			{
-				CSTR_GetCollection(last,&rv);
+			} else {
+				CSTR_GetCollection(last, &rv);
 				// есть перенос ?
-				if( rv.lnAltCnt && rv.Alt[0].Code == '-' &&
-						(retSelect == 1 || retSelect == 2)
-				)
-				prevLang = attr.language;
+				if (rv.lnAltCnt && rv.Alt[0].Code == '-' && (retSelect == 1
+						|| retSelect == 2))
+					prevLang = attr.language;
 				else
-				prevLang = -1;
+					prevLang = -1;
 			}
 
 			// если dup - last может указывать не на пробел,
 			// а быть символом !
-			first=last;
-			dup=(CSTR_rast)NULL;
+			first = last;
+			dup = (CSTR_rast) NULL;
 
 			// удалим старое
-			for(lastNew=CSTR_GetNext(firstNew);lastNew;lastNew=CSTR_GetNext(firstNew) )
-			CSTR_DelRaster(lastNew);
+			for (lastNew = CSTR_GetNext(firstNew); lastNew; lastNew
+					= CSTR_GetNext(firstNew))
+				CSTR_DelRaster(lastNew);
 
 		} // loop through all words
 	}
 
 	else // один €зык
 	{
-		p2_needLeo=1;
+		p2_needLeo = 1;
 		SetRecogAlphabet(&fontinfo);
-		p2_needLeo=0;
+		p2_needLeo = 0;
 
-		for(first=CSTR_GetNext(first);first;first=CSTR_GetNext(first))
-		{ // scan all string
+		for (first = CSTR_GetNext(first); first; first = CSTR_GetNext(first)) { // scan all string
 			// search next word
-			if( !CSTR_GetAttr(first,&attr) )
-			{	ret = ERR_GET_RAST;
+			if (!CSTR_GetAttr(first, &attr)) {
+				ret = ERR_GET_RAST;
 				break;
 			}
-			if( attr.flg & CSTR_f_space ) continue;
+			if (attr.flg & CSTR_f_space)
+				continue;
 
 			// last - первый пробел ( или конец )
-			for(last=CSTR_GetNext(first);last; last=CSTR_GetNext(last))
-			{
-				if( !CSTR_GetAttr(last,&attr) )
-				{	ret = ERR_GET_RAST;
+			for (last = CSTR_GetNext(first); last; last = CSTR_GetNext(last)) {
+				if (!CSTR_GetAttr(last, &attr)) {
+					ret = ERR_GET_RAST;
 					break;
 				}
 
-				if( (attr.flg & CSTR_f_space ) &&
-						GoodSpace(last)
-				)
-				break;
+				if ((attr.flg & CSTR_f_space) && GoodSpace(last))
+					break;
 			}
-			if( ret < 0) break;
+			if (ret < 0)
+				break;
 
 			// из слова сделаем строку
-			p2_incline=0;
+			p2_incline = 0;
 
 			// протестируем слово, возможно перераспознаем
 			p2_needLeo = 1;
 			//  ret = RerecogLang( lineRaw,lineFon,first,last,language,&fontinfo,TRUE);
-			ret = p2_processWord(lineRaw, lineFon,&first, last, &fontinfo,TRUE);
-			p2_SetLanguage(first,last,(uchar)p2globals.language);
+			ret = p2_processWord(lineRaw, lineFon, &first, last, &fontinfo,
+					TRUE);
+			p2_SetLanguage(first, last, (uchar) p2globals.language);
 
 			p2_needLeo = 0;
 
-			if(ret < 0)
-			break;
+			if (ret < 0)
+				break;
 			// в конце строки ?
-			if(!last)
-			break;
-			first=last;
+			if (!last)
+				break;
+			first = last;
 
 			//  firstNew=lastNew;   // если хотим все сцепить
 			// удалим старое
-			for(lastNew=CSTR_GetNext(firstNew);lastNew;lastNew=CSTR_GetNext(firstNew) )
-			CSTR_DelRaster(lastNew);
+			for (lastNew = CSTR_GetNext(firstNew); lastNew; lastNew
+					= CSTR_GetNext(firstNew))
+				CSTR_DelRaster(lastNew);
 
 		} // loop through all words
 	}
@@ -1291,17 +1237,17 @@ P2_FUNC(int32_t) p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *p2glob)
 	prevLine = p2globals.line_number;
 
 	CSTR_DeleteLine(lineFon);
-	if(lineSnap)CSTR_DeleteLine(lineSnap);
-	lineSnap=(CSTR_line)NULL;
+	if (lineSnap)
+		CSTR_DeleteLine(lineSnap);
+	lineSnap = (CSTR_line) NULL;
 
-	p2_ShowWords=FALSE; // set TRUE in snap (if need)!
-	p2_stopColumn=-1;
+	p2_ShowWords = FALSE; // set TRUE in snap (if need)!
+	p2_stopColumn = -1;
 
-	// fallTime+=((float)(clock()-cl1))/CLOCKS_PER_SEC;
 	memcpy(p2glob, &p2globals, sizeof(P2GLOBALS));
 	return ret;
 }
-////////////////////////
+
 static CSTR_rast FillAnswer(CSTR_line lineOut, CSTR_rast rst, RecVersions *rec,
 		CSTR_rast prevRst) {
 	CSTR_rast_attr attr;
@@ -1331,29 +1277,28 @@ static CSTR_rast FillAnswer(CSTR_line lineOut, CSTR_rast rst, RecVersions *rec,
 		return NULL;
 	return rast;
 }
-//////////
-P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32_t testSelf)
-{
-	int nAlt=0;
-	FonSpecInfo *specInfo=(FonSpecInfo *)sinfo;
-	int32_t p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,int32_t testSelf);
+
+int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *sinfo,
+		int32_t testSelf) {
+	int nAlt = 0;
+	FonSpecInfo *specInfo = (FonSpecInfo *) sinfo;
+	int32_t p2_testSelf(RecRaster *recRast, RecVersions *vers,
+			FonSpecInfo *specInfo, int32_t testSelf);
 
 	// поворот к исходному положению
-	if( p2_incline != 0 )
-	p2_rotateRecRaster(recRast, -p2_incline);
+	if (p2_incline != 0)
+		p2_rotateRecRaster(recRast, -p2_incline);
 
-	if( testSelf )
-	{
-		nAlt = p2_testSelf(recRast,vers,specInfo,testSelf);
+	if (testSelf) {
+		nAlt = p2_testSelf(recRast, vers, specInfo, testSelf);
 	}
 
-	if( nAlt <= 0 )
-	nAlt=FONRecogChar(recRast,vers,specInfo);
+	if (nAlt <= 0)
+		nAlt = FONRecogChar(recRast, vers, specInfo);
 
 #ifdef _USE_LEO_
 	{
-		if( RSTR_p2_NoStopSnapLEO() )
-		{
+		if (RSTR_p2_NoStopSnapLEO()) {
 #ifdef _TEST_DIGITS_LEO_
 			if( nAlt > 0 && vers->Alt[0].Code >= '0' &&
 					vers->Alt[0].Code <= '9'
@@ -1362,9 +1307,9 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 #endif
 
 #ifdef _ALL_LEO_
-			if( p2_needLeo && ( nAlt <= 0 || vers->Alt[0].Prob < 180) &&
-					specInfo && IsLeoStandardLetter((uchar)specInfo->nLet,(uchar)p2globals.language)
-			)
+			if (p2_needLeo && (nAlt <= 0 || vers->Alt[0].Prob < 180)
+					&& specInfo && IsLeoStandardLetter((uchar) specInfo->nLet,
+					(uchar) p2globals.language))
 #else
 			if( p2_needLeo && IsLeoLanguage((uchar)p2globals.language) &&
 					( nAlt <= 0 || vers->Alt[0].Prob < 180) )
@@ -1375,41 +1320,36 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 				int porog;
 				uchar language = p2globals.language;
 
-				memset(&ro,0,sizeof(RecObject));
-				memcpy(&ro.recData.recRaster,recRast,sizeof(RecRaster));
+				memset(&ro, 0, sizeof(RecObject));
+				memcpy(&ro.recData.recRaster, recRast, sizeof(RecRaster));
 
-				ro.recData.lwStatus=0;
+				ro.recData.lwStatus = 0;
 				ADDREC_SetupPage(NULL); // LEO
 				ADDREC_Recog(&ro); // LEO
-				res=&ro.recResults;
+				res = &ro.recResults;
 
-				if( res->lnAltCnt <= 0 )
-				return nAlt;
+				if (res->lnAltCnt <= 0)
+					return nAlt;
 
 				// discrim some let
-				if( (!specInfo || !specInfo->palkiLeo) &&
-						p2globals.language != LANG_RUSSIAN &&
-						(
-								strchr("|!1li",res->Alt[0].Code) ||
-								res->Alt[0].Code == liga_i ||
-								(language == LANG_TURKISH && // 30.05.2002 E.P.
-										(res->Alt[0].Code==i_sans_accent||
-												res->Alt[0].Code==II_dot_accent
-										)
-								) ||
-								res->Alt[0].Code == liga_exm
-						)
+				if ((!specInfo || !specInfo->palkiLeo) && p2globals.language
+						!= LANG_RUSSIAN && (strchr("|!1li", res->Alt[0].Code)
+						|| res->Alt[0].Code == liga_i || (language
+						== LANG_TURKISH && // 30.05.2002 E.P.
+						(res->Alt[0].Code == i_sans_accent || res->Alt[0].Code
+								== II_dot_accent)) || res->Alt[0].Code
+						== liga_exm)
 
 				)
-				return nAlt;
+					return nAlt;
 
 #ifdef _ALL_LEO_
 
 				// не русский, не английский можем только подтвердить
-				if( !IsLeoLanguage((uchar)p2globals.language ) &&
-						stdAnsiToAscii(res->Alt[0].Code ) != (uchar)specInfo->nLet
-				)
-				return nAlt;
+				if (!IsLeoLanguage((uchar) p2globals.language)
+						&& stdAnsiToAscii(res->Alt[0].Code)
+								!= (uchar) specInfo->nLet)
+					return nAlt;
 
 #endif
 
@@ -1417,49 +1357,43 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 				// надо либо распознавать и палки -
 				// ( но в Ћ≈ќ много ошибок на палки)
 				// либо џ распознавать только ‘ќЌом
-				if( p2globals.language == LANG_RUSSIAN &&
-						strchr("№ь",res->Alt[0].Code)
-				)
-				return nAlt;
+				if (p2globals.language == LANG_RUSSIAN && strchr("№ь",
+						res->Alt[0].Code))
+					return nAlt;
 
-				if( strchr(specVeryBadLeo,res->Alt[0].Code) )
-				porog=POROG_GOOD_VERY_SPEC;
-				else if( strchr(specBadLeo,res->Alt[0].Code) )
-				porog=POROG_GOOD_SPEC;
+				if (strchr((char*) specVeryBadLeo, res->Alt[0].Code))
+					porog = POROG_GOOD_VERY_SPEC;
+				else if (strchr((char*) specBadLeo, res->Alt[0].Code))
+					porog = POROG_GOOD_SPEC;
 				else
 #endif
-				porog=POROG_GOOD_LEO;
+					porog = POROG_GOOD_LEO;
 
-				if(
-						res->Alt[0].Prob < porog ||
-						nAlt > 0 && vers->Alt[0].Prob >= res->Alt[0].Prob ||
-						res->Alt[0].Code=='|' ||
-						res->lnAltCnt > 1 && res->Alt[1].Code=='|' &&
-						res->Alt[0].Prob==res->Alt[1].Prob
-				)
-				return nAlt;
+				if (res->Alt[0].Prob < porog || nAlt > 0 && vers->Alt[0].Prob
+						>= res->Alt[0].Prob || res->Alt[0].Code == '|'
+						|| res->lnAltCnt > 1 && res->Alt[1].Code == '|'
+								&& res->Alt[0].Prob == res->Alt[1].Prob)
+					return nAlt;
 
-				for(ii=i=0;i<res->lnAltCnt;i++)
-				{
-					vers->Alt[ii]=res->Alt[i];
-					vers->Alt[ii].Code=stdAnsiToAscii(res->Alt[i].Code);
+				for (ii = i = 0; i < res->lnAltCnt; i++) {
+					vers->Alt[ii] = res->Alt[i];
+					vers->Alt[ii].Code = stdAnsiToAscii(res->Alt[i].Code);
 					// owerwrite special methods leo
-					vers->Alt[ii].Method=REC_METHOD_LEO;
+					vers->Alt[ii].Method = REC_METHOD_LEO;
 					ii++;
-					if( p2globals.language==LANG_RUSSIAN &&
-							res->Alt[i].Code >= 194 &&
-							!strchr("абе≈",res->Alt[i].Code) ||
-							p2globals.language != LANG_RUSSIAN &&
-							strchr("CcOoPpSsVvWwXxZz",res->Alt[i].Code)
-					)
-					{
-						vers->Alt[ii]=vers->Alt[ii-1];
-						vers->Alt[ii].Code=p2_is_lowerASCII(vers->Alt[ii].Code)?
-						p2_to_upperASCII(vers->Alt[ii].Code):p2_to_lowerASCII(vers->Alt[ii].Code);
+					if (p2globals.language == LANG_RUSSIAN && res->Alt[i].Code
+							>= 194 && !strchr("абе≈", res->Alt[i].Code)
+							|| p2globals.language != LANG_RUSSIAN && strchr(
+									"CcOoPpSsVvWwXxZz", res->Alt[i].Code)) {
+						vers->Alt[ii] = vers->Alt[ii - 1];
+						vers->Alt[ii].Code = p2_is_lowerASCII(
+								vers->Alt[ii].Code) ? p2_to_upperASCII(
+								vers->Alt[ii].Code) : p2_to_lowerASCII(
+								vers->Alt[ii].Code);
 						ii++;
 					}
-					if(ii >= REC_MAX_VERS-1)
-					break;
+					if (ii >= REC_MAX_VERS - 1)
+						break;
 				}
 				vers->lnAltCnt = ii;
 
@@ -1477,15 +1411,14 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 
 	return nAlt;
 }
-////////////////////
-P2_FUNC(int32_t) p2_rotate(RecRaster *recRast)
-{
-	if( p2_incline != 0 )
-	p2_rotateRecRaster(recRast, -p2_incline);
+
+int32_t p2_rotate(RecRaster *recRast) {
+	if (p2_incline != 0)
+		p2_rotateRecRaster(recRast, -p2_incline);
 
 	return p2_incline;
 }
-//////////////////
+
 static int32_t TestSolidCluster(CSTR_rast first, CSTR_rast last) {
 	RecVersions vers;
 	CSTR_rast_attr attr;
@@ -1518,9 +1451,9 @@ static int32_t TestSolidCluster(CSTR_rast first, CSTR_rast last) {
 
 	return ret; // все из хороших кластеров?
 }
-/////////////////
-static const uchar kuskiBroken[] = "1!|[]()Il<>"; //\xba\xbc"; // r
-/////////////////////
+
+static const char kuskiBroken[] = "1!|[]()Il<>"; //\xba\xbc"; // r
+
 static Bool32 IsKusokBroken(uchar Code) {
 	int32_t language = p2globals.language;
 
@@ -1535,7 +1468,7 @@ static Bool32 IsKusokBroken(uchar Code) {
 
 	return FALSE;
 }
-///////////////////
+
 // return 0 - no letters
 //        1 - all solid
 //        2 - some new
@@ -1543,7 +1476,6 @@ static Bool32 IsKusokBroken(uchar Code) {
 //        4 - try FON cut/glue
 //      < 0 - error
 //
-
 static int32_t CheckWord(CSTR_rast first, CSTR_rast last, CSTR_line lineOut,
 		uchar *isSolid) {
 	CSTR_rast rst;
@@ -1693,15 +1625,13 @@ static int32_t CheckWord(CSTR_rast first, CSTR_rast last, CSTR_line lineOut,
 
 	return ret;
 }
-///////////////////////
+
 static void MixtureAnswer(CSTR_rast first, CSTR_rast last, CSTR_rast firstNew,
 		FontInfo *fontinfo) {
 	CSTR_rast rst;
 	RecVersions verOld, verNew;
 	CSTR_rast_attr attr;
 
-	//
-	//
 	for (rst = first; rst != last; rst = CSTR_GetNext(rst), firstNew
 			= CSTR_GetNext(firstNew)) {
 		if (!CSTR_GetAttr(rst, &attr) || !CSTR_GetCollection(rst, &verOld))
@@ -1720,7 +1650,7 @@ static void MixtureAnswer(CSTR_rast first, CSTR_rast last, CSTR_rast firstNew,
 	}
 
 }
-/////////////////////////////////
+
 static void AddToRect(Rect32 *rect, CSTR_rast_attr *attr, CSTR_rast first) {
 	if (!first) {
 		rect->bottom = attr->row + attr->h;
@@ -1734,7 +1664,7 @@ static void AddToRect(Rect32 *rect, CSTR_rast_attr *attr, CSTR_rast first) {
 		rect->left = MIN(rect->left, attr->col);
 	}
 }
-///////////////
+
 // найти кусок в одной строке , соответствующий другой
 static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 		CSTR_rast *lasOld, Rect32 *rect, int32_t bLeft, int32_t bRight,
@@ -1759,8 +1689,10 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return 0;
 
 		if (naklon) {
-			attr.row = attr.r_row - (int16_t)((int32_t) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (int16_t)((int32_t) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t) ((int32_t) naklon * attr.r_col
+					/ 2048);
+			attr.col = attr.r_col + (int16_t) ((int32_t) naklon * attr.r_row
+					/ 2048);
 		}
 
 		if (attr.col < bLeft)
@@ -1797,12 +1729,13 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 	*firOld = firNew;
 	return nFind;
 }
-/////////////////////////
+
 static int RerecogInRect(Rect32 *rect, CSTR_line lineRaw, CSTR_rast firstNew,
 		CSTR_rast lastNew, int lang) {
-	FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
-			CSTR_rast firNew,CSTR_rast lasNew,
-			int lang, int porog, int nNaklon, int countRazmaz);
+	int32_t
+			FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firNew,
+					CSTR_rast lasNew, int lang, int porog, int nNaklon,
+					int countRazmaz);
 	int nOld;
 	CSTR_rast firOld, lasOld;
 	int ret;
@@ -1963,10 +1896,9 @@ static int GlueRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 
 	return nReGlue;
 }
-/////////////////////////////////
 
-static const uchar littlePuncts[] = ".,'";
-static const uchar bigPuncts[] = ":;";
+static const char littlePuncts[] = ".,'";
+static const char bigPuncts[] = ":;";
 // try rerecog broken letters
 static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 		Bool32 single) {
@@ -2046,113 +1978,99 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
 			CSTR_GetAttr(rst, &attr);
 			if (attr.clink >= TRSFINE && attr.col > rect.left + (rect.right
 					- rect.left) / 3 && (p2globals.language != LANG_TURKISH
-					|| attr.col > rect.left + (2* (rect .right-rect.left))/3
-					)
+					|| attr.col > rect.left + (2 * (rect .right - rect.left))
+							/ 3)
 
-					)
-					break;
+			)
+				break;
 
-					AddToRect(&tmpRect, &attr, firstNew );
-					if( attr.col > rect.right &&
-							tmpRect.right - tmpRect.left > tmpRect.bottom-tmpRect.top
-			  )
+			AddToRect(&tmpRect, &attr, firstNew);
+			if (attr.col > rect.right && tmpRect.right - tmpRect.left
+					> tmpRect.bottom - tmpRect.top)
 				break;
 
 			nBrok++;
 			rect = tmpRect;
 		}
 
-			if(nBrok == 1)
-			{
-				if( wasPunct == TRUE ) // Nick 09.07.2002 - for "->u,n
-				porog = MAX(POROG_2PALKI,initClink);
-				else
-				porog = MAX(POROG_BROKEN,initClink);
-			}
+		if (nBrok == 1) {
+			if (wasPunct == TRUE) // Nick 09.07.2002 - for "->u,n
+				porog = MAX(POROG_2PALKI, initClink);
 			else
+				porog = MAX(POROG_BROKEN, initClink);
+		} else
 			porog = POROG_BROKEN;
 
-			{
-				CSTR_rast leftRast=CSTR_GetPrev(firstNew);
-				CSTR_rast_attr leftAttr;
-				if( leftRast )
-				{
-					CSTR_GetAttr(leftRast, &leftAttr);
-					leftBou = MIN(rect.left, leftAttr.col+leftAttr.w);
-				}
-				else
-				leftBou = rect.left-4;
+		{
+			CSTR_rast leftRast = CSTR_GetPrev(firstNew);
+			CSTR_rast_attr leftAttr;
+			if (leftRast) {
+				CSTR_GetAttr(leftRast, &leftAttr);
+				leftBou = MIN(rect.left, leftAttr.col + leftAttr.w);
+			} else
+				leftBou = rect.left - 4;
+		}
+
+		if (rect.right - rect.left < MAX_WID_BROKEN && (rect.right - rect.left
+				+ 1) * 2 >= rect.bottom - rect.top && ((nOld = FindEqualLine(
+				lineRaw, &firOld, &lasOld, &rect, leftBou,
+				rst && rst != last ? (rect.right + attr.col) / 2 : rect.right,
+				4, p2globals.nIncline)) > 1 || nOld == 1 && single && (nBrok
+				> 1 || verOld.lnAltCnt <= 0 || wasPunct && !strchr(
+				littlePuncts, verOld.Alt[0].Code))) && FONRecogBroken(firOld,
+				lasOld, firstNew, rst, language,
+				nOld == 1 && nBrok == 1 ? porog + 15 : porog,
+				p2globals.nIncline, 4) > 0)
+			goodBrok++;
+		else {
+			int oldRight = rect.right;
+
+			// test wider raster
+			for (; rst && rst != last; rst = CSTR_GetNext(rst)) {
+				Rect32 tmpRect = rect;
+
+				CSTR_GetAttr(rst, &attr);
+				if (attr.clink >= TRSFINE)
+					break;
+
+				AddToRect(&tmpRect, &attr, firstNew);
+				if (attr.col > rect.right && (tmpRect.right - tmpRect.left) * 2
+						> (tmpRect.bottom - tmpRect.top) * 3)
+					break;
+
+				nBrok++;
+				rect = tmpRect;
 			}
 
-			if( rect.right - rect.left < MAX_WID_BROKEN &&
-					(rect.right - rect.left+1)*2 >= rect.bottom-rect.top &&
-					((nOld=FindEqualLine(lineRaw,&firOld,&lasOld,&rect, leftBou,
-											rst&&rst!=last?(rect.right+attr.col)/2:rect.right,
-											4, p2globals.nIncline)) > 1 ||
-							nOld == 1 && single &&
-							(nBrok > 1 || verOld.lnAltCnt <= 0 || wasPunct && !strchr(littlePuncts,verOld.Alt[0].Code) )
-					)
-					&&
-					FONRecogBroken( firOld,lasOld,firstNew, rst, language,
-							nOld==1&&nBrok==1?porog+15:porog, p2globals.nIncline, 4) > 0
-			)
-			goodBrok++;
-			else
-			{
-				int oldRight= rect.right;
-
-				// test wider raster
-				for(;rst && rst != last; rst=CSTR_GetNext(rst))
-				{
-					Rect32 tmpRect=rect;
-
-					CSTR_GetAttr(rst,&attr);
-					if( attr.clink >= TRSFINE )
-					break;
-
-					AddToRect(&tmpRect, &attr, firstNew );
-					if( attr.col > rect.right &&
-							(tmpRect.right - tmpRect.left)*2 > (tmpRect.bottom-tmpRect.top)*3
-					)
-					break;
-
-					nBrok++;
-					rect = tmpRect;
-				}
-
-				// not same raster & good
-				if( rect.right > oldRight &&
-						rect.right - rect.left < MAX_WID_BROKEN &&
-						(rect.right - rect.left)*2 > rect.bottom-rect.top &&
-						((nOld=FindEqualLine(lineRaw,&firOld,&lasOld,&rect,leftBou,
-												rst&&rst!=last?(rect.right+attr.col)/2:rect.right, 4, p2globals.nIncline)) > 1 ||
-								nOld == 1 && single &&
-								(nBrok > 1 || verOld.lnAltCnt <= 0 || wasPunct && !strchr(littlePuncts,verOld.Alt[0].Code) )
-						)
-						&&
-						FONRecogBroken( firOld,lasOld,firstNew, rst, language,
-								nOld==1&&nBrok==1?porog+15:porog, p2globals.nIncline, 4) > 0
-				)
+			// not same raster & good
+			if (rect.right > oldRight && rect.right - rect.left
+					< MAX_WID_BROKEN && (rect.right - rect.left) * 2
+					> rect.bottom - rect.top && ((nOld = FindEqualLine(lineRaw,
+					&firOld, &lasOld, &rect, leftBou,
+					rst && rst != last ? (rect.right + attr.col) / 2
+							: rect.right, 4, p2globals.nIncline)) > 1 || nOld
+					== 1 && single && (nBrok > 1 || verOld.lnAltCnt <= 0
+					|| wasPunct && !strchr(littlePuncts, verOld.Alt[0].Code)))
+					&& FONRecogBroken(firOld, lasOld, firstNew, rst, language,
+							nOld == 1 && nBrok == 1 ? porog + 15 : porog,
+							p2globals.nIncline, 4) > 0)
 				goodBrok++;
-				else
-				{
-					// try next symbol
-					if( rect.right - rect.left < MAX_WID_BROKEN )
-					rst=CSTR_GetNext(firstNew);
-					// else if many dust - skip
+			else {
+				// try next symbol
+				if (rect.right - rect.left < MAX_WID_BROKEN)
+					rst = CSTR_GetNext(firstNew);
+				// else if many dust - skip
 
-					if( !wasPunct || nBrok > 1 )
-					{
-						if( initClink < TRSNOTBAD )
+				if (!wasPunct || nBrok > 1) {
+					if (initClink < TRSNOTBAD)
 						badBrok++;
-					}
 				}
 			}
 		}
-
-		return goodBrok<=0?0:badBrok>0?1:2;
 	}
-	/////////////////////////////////
+
+	return goodBrok <= 0 ? 0 : badBrok > 0 ? 1 : 2;
+}
 
 static int RecogBrokenPalki(CSTR_rast firLeo, CSTR_rast lasLeo,
 		CSTR_line lineRaw, Rect32* rect, int lang, int32_t prob) {
@@ -2183,7 +2101,7 @@ static int RecogBrokenPalki(CSTR_rast firLeo, CSTR_rast lasLeo,
 
 	return 0;
 }
-////////////
+
 static int RerecogPalki(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw) {
 	CSTR_rast rst;
 	RecVersions verOld;
@@ -2236,7 +2154,7 @@ static int RerecogPalki(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw) {
 
 	return goodBrok;
 }
-//////////////////
+
 static Bool32 left(CSTR_rast curRast, int bound) {
 	int x, w;
 	CSTR_rast_attr attr;
@@ -2251,7 +2169,7 @@ static Bool32 left(CSTR_rast curRast, int bound) {
 		return TRUE;
 	return FALSE;
 }
-//////////////////
+
 static Bool32 right(CSTR_rast curRast, int bound, CSTR_rast nextRast) {
 	CSTR_rast_attr attr, attrNext;
 
@@ -2278,7 +2196,7 @@ static Bool32 right(CSTR_rast curRast, int bound, CSTR_rast nextRast) {
 
 	return FALSE;
 }
-/////////////////////////////
+
 // найти кусок в одной строке , соответствующий другой
 static void FindAccordLine(CSTR_line lineRaw, CSTR_rast *firOld,
 		CSTR_rast *lasOld, CSTR_rast first, CSTR_rast last, int32_t naklon) {
@@ -2317,8 +2235,10 @@ static void FindAccordLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return;
 		}
 		if (naklon) {
-			attr.row = attr.r_row - (int16_t)((int32_t) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (int16_t)((int32_t) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t) ((int32_t) naklon * attr.r_col
+					/ 2048);
+			attr.col = attr.r_col + (int16_t) ((int32_t) naklon * attr.r_row
+					/ 2048);
 		}
 
 		if (attr.col + attr.w - maxX >= maxX - attr.col && attr.col > minX)
@@ -2331,7 +2251,7 @@ static void FindAccordLine(CSTR_line lineRaw, CSTR_rast *firOld,
 
 	*lasOld = first;
 }
-/////////////////////////
+
 //
 // ѕоместить растры с fRast до eRast (не включа€ eRast)
 //    в строку после rastOut
@@ -2380,10 +2300,10 @@ static CSTR_rast AddRastersLine(CSTR_rast fRast, CSTR_rast eRast,
 				attr.pos_inc = CSTR_erect_no;
 			}
 			if (nNaklon) {
-				attr.row = attr.r_row - (int16_t)((int32_t) nNaklon * attr.r_col
-						/ 2048);
-				attr.col = attr.r_col + (int16_t)((int32_t) nNaklon * attr.r_row
-						/ 2048);
+				attr.row = attr.r_row - (int16_t) ((int32_t) nNaklon
+						* attr.r_col / 2048);
+				attr.col = attr.r_col + (int16_t) ((int32_t) nNaklon
+						* attr.r_row / 2048);
 			}
 
 			// нельз€ NewRaster - вставитс€ после пробела,
@@ -2402,7 +2322,6 @@ static CSTR_rast AddRastersLine(CSTR_rast fRast, CSTR_rast eRast,
 	return rastOut;
 }
 
-//////////////////////
 // не выйти за слово ! поэтому не CSTR_GetNextRaster(CSTR_f_let|CSTR_f_bad)
 static CSTR_rast GetFirstLetter(CSTR_rast leoStart, CSTR_rast leoEnd) {
 	CSTR_rast_attr attr;
@@ -2416,7 +2335,7 @@ static CSTR_rast GetFirstLetter(CSTR_rast leoStart, CSTR_rast leoEnd) {
 	}
 	return (CSTR_rast) NULL;
 }
-//////////
+
 static Bool32 SomnitelnyjRazrez(CSTR_rast_attr *attrFon, RecVersions *vrFon,
 		RecVersions *vrLeo) {
 	if (!(attrFon->cg_flag & CSTR_cg_cutl))
@@ -2449,7 +2368,7 @@ static Bool32 SomnitelnyjBlRazrez(CSTR_rast_attr *attrFon, RecVersions *vrFon,
 					let == (uchar) 'ж' && // 0xe6
 					vrLeo->Alt[0].Prob > 220);
 }
-///////////////////
+
 static Bool32 testUkrKryshki(uchar leoName, uchar fonName) {
 	if (p2globals.language == LANG_RUSSIAN && p2globals.langUkr) {
 		if (fonName == 0xa9 && (leoName == 0xda || leoName == 0xc2 || leoName
@@ -2459,7 +2378,7 @@ static Bool32 testUkrKryshki(uchar leoName, uchar fonName) {
 
 	return TRUE;
 }
-//////////////////
+
 // return 0 - leo
 //        1 - fon
 //       <0 - error
@@ -2635,7 +2554,7 @@ static int SelectLeoFon(CSTR_rast leoStart, CSTR_rast leoEnd,
 
 	return 0; // leo
 }
-//////////////////////
+
 //  remake from p2_proc.c
 static int16_t findWordBound(CSTR_rast *nextRast, CSTR_rast endRaster,
 		int bound) {
@@ -2661,7 +2580,7 @@ static int16_t findWordBound(CSTR_rast *nextRast, CSTR_rast endRaster,
 
 	return num;
 }
-//////////
+
 //
 // error codes : -1 - no memory
 //               -3 - error GetAttributes,GetCollection
@@ -2807,13 +2726,6 @@ static int32_t composeWords(CSTR_rast fStart, CSTR_rast fEnd,
 				break;
 		}
 
-		//  if(firWord) // store spaces & dust before first Letter
-		//  {
-		//      firWord=FALSE;
-		//        if( !AddRastersLine( CSTR_GetNextRaster(lStart, CSTR_f_all),startLeo, lin_out) )
-		//          return -4;
-		//  }
-
 		if (!nextFon)
 			nextFon = fEnd;
 		if (!nextLeo)
@@ -2879,27 +2791,8 @@ static int32_t composeWords(CSTR_rast fStart, CSTR_rast fEnd,
 
 	} // end for
 
-	/*
-	 if(c1->flg & (c_f_confirmed|c_f_solid)) goto cont; // already confirmed
-	 if(c2->nvers > 1 && c2->vers[0].prob - c2->vers[1].prob <= 20)
-	 mixture(c2,c1);// special case probs are very close
-
-	 if(c1->vers[0].prob > c2->vers[0].prob+30) goto cont; // nick
-
-	 if( !(c1->cg_flag & c_cg_cut) && c2->cg_flag & c_cg_cut)
-	 if( c2->cg_flag & c_cg_cutl )
-	 if( (c2->prev->flg & (c_f_punct|c_f_dust)) &&
-	 (c2->prev->cg_flag & c_cg_cutr)
-	 ) goto cont;
-	 else if( c2->cg_flag & c_cg_cutr )
-	 if( (c2->next->flg & (c_f_punct|c_f_dust)) &&
-	 (c2->next->cg_flag & c_cg_cutl)
-	 ) goto cont;
-	 */
-
 	return 1;
 }
-///////////////////////////
 
 static uchar p2_getFont(CSTR_rast first, CSTR_rast last) // OLEG
 {
@@ -2916,7 +2809,7 @@ static uchar p2_getFont(CSTR_rast first, CSTR_rast last) // OLEG
 	}
 	return font;
 }
-///////////////////////
+
 static int p2_getIncline(CSTR_rast first, CSTR_rast last) {
 	int num = 0;
 	int summa = 0;
@@ -2953,36 +2846,34 @@ static int p2_getIncline(CSTR_rast first, CSTR_rast last) {
 ///////////////
 // распознать компоненту в линейном представлении
 // возврат - номер лучшего кластера
-P2_FUNC(int32_t) p2_RecogCompLp(int16_t sizeLp,uchar *lp,int16_t w,int16_t h,
-		int16_t col,int16_t row,
-		RecVersions *vers)
-{
+int32_t p2_RecogCompLp(int16_t sizeLp, uchar *lp, int16_t w, int16_t h,
+		int16_t col, int16_t row, RecVersions *vers) {
 	int32_t i;
 	RecRaster recRast;
 	FonSpecInfo specinfo;
 
 	vers->lnAltCnt = 0;
-	if( !lp )
-	return 0;
+	if (!lp)
+		return 0;
 
 	//  if(!p2_Line2Raster( comp, &recRast) )
-	if( !p2_Comp2Raster(sizeLp,lp,w,h,&recRast))
-	return 0;
+	if (!p2_Comp2Raster(sizeLp, lp, w, h, &recRast))
+		return 0;
 
 	// поворот к исходному положению - теперь в p2_recog()
 	//  if( p2_incline != 0 )
 	//        p2_rotateRecRaster(&recRast, -p2_incline);
 
-	memset(&specinfo,0,sizeof(specinfo));
-	specinfo.col=col;
-	specinfo.row=row;
+	memset(&specinfo, 0, sizeof(specinfo));
+	specinfo.col = col;
+	specinfo.row = row;
 
 	specinfo.palkiLeo = 1;
-	i=p2_recog(&recRast,vers,&specinfo,0);
+	i = p2_recog(&recRast, vers, &specinfo, 0);
 
 	return specinfo.nClust;
 }
-////////////////////////
+
 static int32_t RecogWord(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
 		FontInfo *fontinfo, int nNaklon) {
 	int ret = 0;
@@ -3020,21 +2911,19 @@ static int32_t RecogWord(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
 
 	return ret;
 }
-/////////////
+
 void p2_init(void) {
 	return;
 }
-//////////
-P2_FUNC(void) p2_SetShowWords(Bool32 val)
-{
-	p2_ShowWords=val;
+
+void p2_SetShowWords(Bool32 val) {
+	p2_ShowWords = val;
 }
-/////////
-P2_FUNC(Bool32) p2_GetShowWords(void)
-{
+
+Bool32 p2_GetShowWords(void) {
 	return p2_ShowWords;
 }
-/////////
+
 #ifdef _SAVE_IN_CTB_
 static void p2_initCTB(char *nickName)
 {
@@ -3069,11 +2958,10 @@ static void p2_initCTB(char *nickName)
 ///////////////
 #endif
 
-P2_FUNC(void) p2_SetStopBound(int stopCol)
-{
-	p2_stopColumn=stopCol;
+void p2_SetStopBound(int stopCol) {
+	p2_stopColumn = stopCol;
 }
-/////////////////
+
 static Bool32 p2_needStop(CSTR_rast first, CSTR_rast last) {
 	CSTR_rast_attr attr;
 
@@ -3099,14 +2987,13 @@ static Bool32 p2_needStop(CSTR_rast first, CSTR_rast last) {
 	p2_stopColumn = -1;
 	return TRUE;
 }
-////////////////
-P2_FUNC(Bool32) p2_stopPlace(void)
-{
-	if( p2_stopColumn < 0)
-	return FALSE;
+
+Bool32 p2_stopPlace(void) {
+	if (p2_stopColumn < 0)
+		return FALSE;
 	return TRUE;
 }
-//////////////////
+
 #ifdef _USE_DETOUCH_
 // проставить метки в сырой строке дл€ уменьшени€
 // работы при разрезании
@@ -3164,4 +3051,4 @@ static int mark_strong_letters(CSTR_rast fRecog,CSTR_rast lRecog,CSTR_rast fRaw,
 	return marked;
 }
 #endif
-//////////////////////
+

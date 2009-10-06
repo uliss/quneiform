@@ -54,36 +54,115 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef P2_RSTR_P2_H_
-#define P2_RSTR_P2_H_
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "cstr/cstr.h"
+#include "p2.h"
 
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
-extern int (*RSTR_p2_RecogCutGlu)(CSTR_rast first, CSTR_rast last,
-		CSTR_line lineFon, P2GLOBALS *p2globals);
+int my_p2_RecogCutGlu(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
+		P2GLOBALS *p2glob) {
+	return 0;
+}
 
 // допустимые символы, перекодировка
-// по языку заполнить массив допустимых символов alphaBet[256]
-extern void (*RSTR_p2_SetP2Alphabet)(int lang, char *alphaBet);
-// по языку получить номер кодовой страницы
-extern uchar (*RSTR_p2_GetCodePage)(int lang);
-// перевести let в ANSII (возможно строку)
-extern void (*RSTR_p2_DecodeCode)(char *pCode, int let);
+void my_p2_SetP2Alphabet(int lang, char *alf) {
+	memset(alf, 0, 256);
+}
+
+uchar my_p2_GetCodePage(int lang) {
+	return 0;
+}
+
+void my_p2_DecodeCode(char *pCode, int let) {
+}
 
 // снэр
-extern Bool (*RSTR_p2_NoStopSnapLEO)(void);
-extern Bool (*RSTR_p2_snap_show_text)(const char *txt);
-extern Bool (*RSTR_p2_snap_activity)(uchar a);
-extern Bool
-		(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
+Bool my_NoStopSnapLEO(void) {
+	return FALSE;
+}
+
+Bool my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
+	return FALSE;
+}
+
+Bool my_snap_activity(uchar a) {
+	return FALSE;
+}
+
+Bool my_snap_show_text(const char * /*txt*/) {
+	return FALSE;
+}
+
+Bool mySetupField(void *letInfo, int32_t nFont, void *info) {
+	return FALSE;
+}
+
+Bool mySetupPage(void *info) {
+	return FALSE;
+}
+
+Bool mySpecRecog(RecObject *ro) {
+	return FALSE;
+}
 
 // проверка по словарю
-extern Bool (*RSTR_p2_spell)(pchar s, uchar lang);
+Bool my_p2_spell(pchar s, uchar lang) {
+	return FALSE;
+}
+
+// распознать с разрезанием/склейкой кусок - от first до last,
+// результат поместить в lineFon
+int (*RSTR_p2_RecogCutGlu)(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
+		P2GLOBALS *pglob)=
+my_p2_RecogCutGlu;
+
+// допустимые символы, перекодировка
+void (*RSTR_p2_SetP2Alphabet)(int lang, char *alf)=my_p2_SetP2Alphabet;
+uchar (*RSTR_p2_GetCodePage)(int lang)=my_p2_GetCodePage;
+void (*RSTR_p2_DecodeCode)(char *pCode, int let)=my_p2_DecodeCode;
+
+// снэр
+Bool (*RSTR_p2_NoStopSnapLEO)(void) = my_NoStopSnapLEO;
+Bool
+		(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines)=my_snap_monitor_ori;
+Bool (*RSTR_p2_snap_activity)(uchar a)=my_snap_activity;
+Bool (*RSTR_p2_snap_show_text)(const char *txt)=my_snap_show_text;
+
+// проверка по словарю
+Bool (*RSTR_p2_spell)(pchar s, uchar lang)=my_p2_spell;
 
 // дополнительное распознавание (LEO)
-extern Bool (*ADDREC_SetupField)(void *letInfo, int32_t nFont, void* fontInfo);
-extern Bool (*ADDREC_SetupPage)(void *info);
-extern Bool (*ADDREC_Recog)(RecObject* obj);
+Bool
+		(*ADDREC_SetupField)(void *letInfo, int32_t nFont, void* fontInfo) = mySetupField;
+Bool (*ADDREC_SetupPage)(void *info)=mySetupPage;
+Bool (*ADDREC_Recog)(RecObject* obj)=mySpecRecog;
 
-#endif
+void P2_SetRSTR(Handle RecogCutGlu, Handle setAlpha, Handle GetPage,
+		Handle Decode, Handle NoStopSnapLEO, Handle monitor_ori,
+		Handle activity, Handle show_text, Handle spell, Handle setupPage,
+		Handle setupField, Handle specRecog) {
+	RSTR_p2_RecogCutGlu = (int(*)(strucCSTR_cell*, strucCSTR_cell*, void*,
+			P2GLOBALS*)) RecogCutGlu;
 
+	RSTR_p2_SetP2Alphabet = (void(*)(int, char*)) setAlpha;
+	RSTR_p2_GetCodePage = (uchar(*)(int)) GetPage;
+	RSTR_p2_DecodeCode = (void(*)(char*, int)) Decode;
+
+	RSTR_p2_NoStopSnapLEO = (Bool(*)()) NoStopSnapLEO;
+	RSTR_p2_snap_monitor_ori = (Bool(*)(void**, int32_t)) monitor_ori;
+	RSTR_p2_snap_activity = (Bool(*)(uchar)) activity;
+	RSTR_p2_snap_show_text = (Bool(*)(const char*)) show_text;
+
+	RSTR_p2_spell = (Bool(*)(char*, uchar)) spell;
+
+	if (setupPage)
+		ADDREC_SetupPage = (Bool(*)(void*)) setupPage;
+	if (setupField)
+		ADDREC_SetupField = (Bool(*)(void*, int32_t, void*)) setupField;
+	if (specRecog)
+		ADDREC_Recog = (Bool(*)(RecObject*)) specRecog;
+}

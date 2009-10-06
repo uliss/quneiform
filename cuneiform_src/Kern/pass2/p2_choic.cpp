@@ -54,6 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstdlib>
+#include <cstring>
+#include <memory.h>
+
 // добавлять всегда версии ФОНа
 #define _ADD_FON_
 
@@ -64,10 +68,6 @@
 
 // проверять целиком куски (пример М - iii) а не три раза М-i
 #define _TEST_FEW_MULTI_          // 29.01.2001
-#include <stdlib.h>
-#include <string.h>
-#include <memory.h>
-
 #include "ligas.h"
 #include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
@@ -75,13 +75,12 @@
 #include "p2libr.h"
 #include "std.h"
 #include "minmax.h"
-//////////
+
 #include "p2defs.h"
 
 #include "rstr_p2.h"
-/////////////////////
+
 extern P2GLOBALS p2globals;
-//////////
 
 static int StayOldPalki(RecVersions *oldVer, RecVersions *newVer,
 		CSTR_rast_attr *attr);
@@ -126,7 +125,7 @@ Bool32 p2_leo_choise_fon_or_leo_absent(uchar p_fon, uchar p_leo) {
 
 	return FALSE; // low FON
 }
-/////////////////////////
+
 Bool32 p2_leo_choise_fon_or_leo(uchar p_fon, uchar p_leo) {
 	if (p_fon > 180) {
 		if (p_leo > 253)
@@ -145,20 +144,9 @@ Bool32 p2_leo_choise_fon_or_leo(uchar p_fon, uchar p_leo) {
 	if (p_fon >= p_leo + 5)
 		return TRUE;
 
-	/*
-	 if( p_fon > 140 )
-	 {
-	 if( p_fon > p_leo + 40)
-	 return TRUE;
-	 return FALSE;
-	 }
-
-	 if( p_fon > p_leo + 60)
-	 return TRUE;
-	 */
 	return FALSE; // low FON
 }
-////////////////////////
+
 static void leo_set_max_vers(RecVersions *v, int p) {
 	int i, n, pold;
 	if (p < 1)
@@ -174,7 +162,7 @@ static void leo_set_max_vers(RecVersions *v, int p) {
 		}
 	return;
 }
-/////////////////////
+
 static uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2) {
 	uchar *c;
 	for (c = c1; *c; c++)
@@ -182,7 +170,7 @@ static uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2) {
 			return c;
 	return NULL;
 }
-////////////////////
+
 static Bool32 leo_near_letters(RecVersions *fon, uchar leo_code) {
 	// Nick 19.06.2001
 	if (p2globals.language != LANG_RUSSIAN && p2globals.language != LANG_RUSENG)
@@ -190,24 +178,25 @@ static Bool32 leo_near_letters(RecVersions *fon, uchar leo_code) {
 
 	if (fon->lnAltCnt < 2)
 		return FALSE;
-	if (!(leo_strchr_codes_ansi("0оО", fon->Alt[0].Code)
-			&& leo_strchr_codes_ansi("0оО", leo_code) && leo_strchr_codes_ansi(
-			"0оО", fon->Alt[1].Code)) && !(leo_strchr_codes_ansi("3зЗ",
-			fon->Alt[0].Code) && leo_strchr_codes_ansi("3зЗ", leo_code)
-			&& leo_strchr_codes_ansi("3зЗ", fon->Alt[1].Code))
-			&& !(leo_strchr_codes_ansi("пПлЛ", fon->Alt[0].Code)
-					&& leo_strchr_codes_ansi("пПлЛ", leo_code)
-					&& leo_strchr_codes_ansi("пПлЛ", fon->Alt[1].Code))
-			&& !(leo_strchr_codes_ansi("иИнН", fon->Alt[0].Code)
-					&& leo_strchr_codes_ansi("иИнН", leo_code)
-					&& leo_strchr_codes_ansi("иИнН", fon->Alt[1].Code))
-			&& !(leo_strchr_codes_ansi("б6", fon->Alt[0].Code)
-					&& leo_strchr_codes_ansi("б6", leo_code)
-					&& leo_strchr_codes_ansi("б6", fon->Alt[1].Code)))
+	if (!(leo_strchr_codes_ansi((uchar*) "0оО", fon->Alt[0].Code)
+			&& leo_strchr_codes_ansi((uchar*) "0оО", leo_code)
+			&& leo_strchr_codes_ansi((uchar*) "0оО", fon->Alt[1].Code))
+			&& !(leo_strchr_codes_ansi((uchar*) "3зЗ", fon->Alt[0].Code)
+					&& leo_strchr_codes_ansi((uchar*) "3зЗ", leo_code)
+					&& leo_strchr_codes_ansi((uchar*) "3зЗ", fon->Alt[1].Code))
+			&& !(leo_strchr_codes_ansi((uchar*) "пПлЛ", fon->Alt[0].Code)
+					&& leo_strchr_codes_ansi((uchar*) "пПлЛ", leo_code)
+					&& leo_strchr_codes_ansi((uchar*) "пПлЛ", fon->Alt[1].Code))
+			&& !(leo_strchr_codes_ansi((uchar*) "иИнН", fon->Alt[0].Code)
+					&& leo_strchr_codes_ansi((uchar*) "иИнН", leo_code)
+					&& leo_strchr_codes_ansi((uchar*) "иИнН", fon->Alt[1].Code))
+			&& !(leo_strchr_codes_ansi((uchar*) "б6", fon->Alt[0].Code)
+					&& leo_strchr_codes_ansi((uchar*) "б6", leo_code)
+					&& leo_strchr_codes_ansi((uchar*) "б6", fon->Alt[1].Code)))
 		return FALSE;
 	return (fon->Alt[0].Prob - fon->Alt[1].Prob < 5);
 }
-////////////////////////
+
 static Bool32 leo_add_vers(RecVersions *dst, RecVersions *src) {
 	int i, j;
 	if (!src->lnAltCnt)
@@ -217,11 +206,11 @@ static Bool32 leo_add_vers(RecVersions *dst, RecVersions *src) {
 	dst->lnAltCnt = i;
 	return TRUE;
 }
-////////////////////
+
 static int32_t cmp_prob(const void *a, const void *b) {
-	return (int32_t) (((RecAlt *) b)->Prob) - (int32_t) (((RecAlt *) a)->Prob);
+	return (int32_t)(((RecAlt *) b)->Prob) - (int32_t)(((RecAlt *) a)->Prob);
 }
-///////////////////////
+
 int32_t p2_leo_sort_vers_prob(RecVersions *v) {
 	int i, n0, n1;
 	uchar c0, c1;
@@ -247,7 +236,7 @@ int32_t p2_leo_sort_vers_prob(RecVersions *v) {
 	}
 	return v->lnAltCnt;
 }
-////////////////////////
+
 // убрать повторы из альтернатив
 static void leo_compress(RecVersions *v) {
 	uchar alph[256];
@@ -267,7 +256,7 @@ static void leo_compress(RecVersions *v) {
 
 	return;
 }
-////////////////////////////
+
 static Bool32 IsSpecialTwins(uchar name1, uchar name2) {
 	if (p2globals.language == LANG_RUSSIAN && p2globals.langSer) {
 		// serbian 'J','j' (0xA3,0xBC in code page 1251)
@@ -277,7 +266,7 @@ static Bool32 IsSpecialTwins(uchar name1, uchar name2) {
 
 	return FALSE;
 }
-/////////////
+
 //        ASCII НПнп
 static char mixedLetters[] = "\x8d\x8f\xad\xaf";
 static int MixedProbs(RecVersions *old, RecVersions *ver) {
@@ -318,7 +307,6 @@ static int MixedProbs(RecVersions *old, RecVersions *ver) {
 
 	return 1;
 }
-///////////////////
 
 #define POROG_NICE_FON 245    // was 250
 #define POROG_NOTBAD_FON 220  // was 207
@@ -832,7 +820,7 @@ Bool32 TestPalka(CSTR_rast leoStart, CSTR_rast leoEnd, CSTR_rast fonStart,
 
 	return 0;
 }
-//////////////////
+
 Bool32 TestNewDust(CSTR_rast fonStart, CSTR_rast fonEnd, CSTR_rast leoStart,
 		int porog) {
 	RecVersions vrLeo, vrFon;
@@ -878,7 +866,7 @@ Bool32 TestNewDust(CSTR_rast fonStart, CSTR_rast fonEnd, CSTR_rast leoStart,
 
 	return 0;
 }
-//////////////////
+
 // проверка - не склеена ли старая буква с
 // прекрасной оценкой (254)
 // Если все новые - 255 и они не палки и их несколько -
@@ -929,7 +917,7 @@ Bool32 TestWideLetter(CSTR_rast fonStart, CSTR_rast fonEnd, CSTR_rast leoStart) 
 		return TRUE;
 	return FALSE;
 }
-//////////////////
+
 // TOPKXCBMETYOPAHKXCBMeyuoparxcnyopxca
 // ТОРКХСВМЕТУорАНкхсвмеуиорагхспуОРХСА
 static const char sameEngRus[] = "1234567890ABCEHKMOPTXaceopxym";
@@ -1257,7 +1245,7 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 #endif
 	return 0;
 }
-//////////////////////
+
 static Bool32 TestDobavki(uchar oldName, uchar newName) {
 	if (p2globals.language == LANG_FRENCH) {
 		if (oldName == 0xf9 && newName == 'u')
@@ -1266,4 +1254,4 @@ static Bool32 TestDobavki(uchar oldName, uchar newName) {
 
 	return FALSE;
 }
-////////////////////////
+

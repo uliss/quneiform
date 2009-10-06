@@ -54,36 +54,55 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef P2_RSTR_P2_H_
-#define P2_RSTR_P2_H_
+#ifndef __p2_H
+#define __p2_H
 
-// распознать с разрезанием/склейкой кусок - от first до last,
-// результат поместить в lineFon
-extern int (*RSTR_p2_RecogCutGlu)(CSTR_rast first, CSTR_rast last,
-		CSTR_line lineFon, P2GLOBALS *p2globals);
+#include "globus.h"
+#include "p2defs.h"
+#include "recdefs.h"
+#include "memfunc.h"
 
-// допустимые символы, перекодировка
-// по языку заполнить массив допустимых символов alphaBet[256]
-extern void (*RSTR_p2_SetP2Alphabet)(int lang, char *alphaBet);
-// по языку получить номер кодовой страницы
-extern uchar (*RSTR_p2_GetCodePage)(int lang);
-// перевести let в ANSII (возможно строку)
-extern void (*RSTR_p2_DecodeCode)(char *pCode, int let);
+#ifdef __P2__
+#define P2_FUNC  FUN_EXPO__
+#else
+#define P2_FUNC  FUN_IMPO__
+#endif
 
-// снэр
-extern Bool (*RSTR_p2_NoStopSnapLEO)(void);
-extern Bool (*RSTR_p2_snap_show_text)(const char *txt);
-extern Bool (*RSTR_p2_snap_activity)(uchar a);
-extern Bool
-		(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// проверка по словарю
-extern Bool (*RSTR_p2_spell)(pchar s, uchar lang);
+// return < 0 - error
+P2_FUNC int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne,
+		P2GLOBALS *P2globals);
+P2_FUNC int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *specInfo,
+		int32_t testSelf);
+// распознать компоненту в линейном представлении
+P2_FUNC int32_t p2_RecogCompLp(int16_t sizeLp, uchar *lp, int16_t w, int16_t h,
+		int16_t col, int16_t row, RecVersions *vers);
+P2_FUNC int32_t p2_rotate(RecRaster *recRast);
 
-// дополнительное распознавание (LEO)
-extern Bool (*ADDREC_SetupField)(void *letInfo, int32_t nFont, void* fontInfo);
-extern Bool (*ADDREC_SetupPage)(void *info);
-extern Bool (*ADDREC_Recog)(RecObject* obj);
+P2_FUNC Bool32 p2_Comp2Raster(int16_t sizeLP, uchar *lp, int16_t w, int16_t h,
+		RecRaster *rec);
+
+P2_FUNC void p2_SetShowWords(Bool32 val);
+P2_FUNC Bool32 p2_GetShowWords(void);
+P2_FUNC void p2_SetStopBound(int stopCol);
+P2_FUNC Bool32 p2_stopPlace(void);
+
+P2_FUNC void P2_SetRSTR(Handle RecogCutGlu, Handle setAlpha, Handle GetPage,
+		Handle Decode, Handle NoStopSnapLEO, Handle monitor_ori,
+		Handle activity, Handle show_text, Handle spell, Handle setupPage,
+		Handle setupField, Handle specRecog);
+
+// error code
+enum p2_error_t {
+	ER_P2_NO_ERROR = 0, ER_P2_NO_RECOG = 1, ER_P2_MEMORY = 4
+};
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

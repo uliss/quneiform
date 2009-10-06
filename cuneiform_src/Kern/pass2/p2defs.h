@@ -54,36 +54,27 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef P2_RSTR_P2_H_
-#define P2_RSTR_P2_H_
+#ifndef __P2DEFS_H
+#define __P2DEFS_H
 
-// распознать с разрезанием/склейкой кусок - от first до last,
-// результат поместить в lineFon
-extern int (*RSTR_p2_RecogCutGlu)(CSTR_rast first, CSTR_rast last,
-		CSTR_line lineFon, P2GLOBALS *p2globals);
+#include "recdefs.h"
+#include "leo/leodefs.h"
 
-// допустимые символы, перекодировка
-// по языку заполнить массив допустимых символов alphaBet[256]
-extern void (*RSTR_p2_SetP2Alphabet)(int lang, char *alphaBet);
-// по языку получить номер кодовой страницы
-extern uchar (*RSTR_p2_GetCodePage)(int lang);
-// перевести let в ANSII (возможно строку)
-extern void (*RSTR_p2_DecodeCode)(char *pCode, int let);
+typedef struct tagP2GLOBALS {
+	int language;
+	int multy_language;
+	int langUkr;
+	int langSer;
 
-// снэр
-extern Bool (*RSTR_p2_NoStopSnapLEO)(void);
-extern Bool (*RSTR_p2_snap_show_text)(const char *txt);
-extern Bool (*RSTR_p2_snap_activity)(uchar a);
-extern Bool
-		(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
+	int line_number;
+	int line_alphabet;
+	int line_scale;
+	int line_tabcell;
+	int nIncline;
 
-// проверка по словарю
-extern Bool (*RSTR_p2_spell)(pchar s, uchar lang);
-
-// дополнительное распознавание (LEO)
-extern Bool (*ADDREC_SetupField)(void *letInfo, int32_t nFont, void* fontInfo);
-extern Bool (*ADDREC_SetupPage)(void *info);
-extern Bool (*ADDREC_Recog)(RecObject* obj);
+	int cuts_point_methode;
+	int enable_smart_cut;
+	int langBul; // 13.09.2000
+} P2GLOBALS;
 
 #endif
-
