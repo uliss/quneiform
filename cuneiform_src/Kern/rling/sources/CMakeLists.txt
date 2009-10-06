@@ -1,35 +1,34 @@
 add_definitions(-DRLINGS_EXPORTS -DRLING_SECONDARY)
 
 add_library(rlings ${LIBTYPE}
-cpp/crled.cpp
-cpp/crling.cpp
-#SOURCE=.\CRLing.rc
-cpp/crlmemory.cpp
-cpp/dll.cpp
-cpp/rlcontrol.cpp
-c/rling_ma.c
-c/spel2dic.c
-c/spel2voc.c
-c/spelabc.c
-c/spelart.c
-c/spelbuf.c
-c/spelchk.c
-c/speldat1.c
-c/speldat2.c
-c/speldici.c
-c/speldict.c
-c/speldvoc.c
-c/speledf1.c
-c/speledf2.c
-c/speledio.c
-c/spelfun.c
-c/spelloop.c
-c/spelout.c
-c/spelq.c
-c/spelset.c
-c/spelspec.c
-c/udictini.c
-c/udictuti.c
+crled.cpp
+crling.cpp
+crlmemory.cpp
+dll.cpp
+rlcontrol.cpp
+rling_ma.cpp
+spel2dic.cpp
+spel2voc.cpp
+spelabc.cpp
+spelart.cpp
+spelbuf.cpp
+spelchk.cpp
+speldat1.cpp
+speldat2.cpp
+speldici.cpp
+speldict.cpp
+speldvoc.cpp
+speledf1.cpp
+speledf2.cpp
+speledio.cpp
+spelfun.cpp
+spelloop.cpp
+spelout.cpp
+spelq.cpp
+spelset.cpp
+spelspec.cpp
+udictini.cpp
+udictuti.cpp
 )
 set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 

@@ -57,6 +57,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
@@ -85,24 +86,12 @@
 #include "spelmode.h"
 
 #include "tigeremulate.h"
-/*
- #if defined(TURBO_C)
- #include "tc_types.h"
- #include <dir.h>
- #elif defined(WATCOM)
- #include "spelwatc.h"
- #elif defined(THINK_C)
- #include "spelthin.h"
- #else
- #error   NO TOOOL SPECIFIED
- #endif
- */
+
 #include <ctype.h>
 #include <time.h>
 
 #include "speldefs.h"
 #include "spelfunc.h"
-//  #include "iolib.h"        // IO stream library
 #include "lang.h"         // language trigger
 #include "compat_defs.h"
 ///////////////////////////////////////////////////////////////////////////////
@@ -144,13 +133,8 @@ extern ARTS artbase[];
 
 #endif
 
-// AK kill all stupid macros
-//#define st Q.st
-
-
 /********DEBUG*********/
 int16_t db = 187;
-/*int16_t env; */
 /* =================================================================== */
 /*                      Functions' Definition                          */
 /* =================================================================== */
@@ -158,7 +142,8 @@ int16_t db = 187;
 static int16_t batch_setup(void);
 static int16_t run_page(void);
 static int16_t ed_conv(struct dict_state *, user_voc *, int16_t);
-static int16_t anal_part_wrd(SOBJ*, LTIMG**, struct dict_state*, user_voc*, int16_t);
+static int16_t anal_part_wrd(SOBJ*, LTIMG**, struct dict_state*, user_voc*,
+		int16_t);
 
 /***********************************************************************/
 /*                                                                     */
@@ -191,7 +176,7 @@ extern uchar multy_language;
 /************************************************************************/
 int16_t spelling(uchar *beg, int32_t size) {
 	int16_t ret;
-	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = beg;
+	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = (char*) beg;
 	SPQ.end_alloc_mem = (char *) beg + size * 16;
 	SPQ.alloc_size = size;
 	ret = batch_setup();
@@ -247,10 +232,10 @@ static int16_t run_page() /* run one page */
 	obj_nmb = ed_conv(&SPQ.d_state, voc_array, real_voc_no);
 
 #ifdef  RUS_ENG_LANG
-	if (!multy_language||language!=LANG_RUSSIAN)
+	if (!multy_language || language != LANG_RUSSIAN)
 #endif
-	//Set up spelling flag
-	*find_byte_flag() |= FIR_CHECKED;
+		//Set up spelling flag
+		*find_byte_flag() |= FIR_CHECKED;
 
 	save_ed_file(0);
 	return (0);
@@ -258,50 +243,49 @@ static int16_t run_page() /* run one page */
 
 #ifdef WATCOM
 
-int32_t read_all_vfile( char *path, char *buff)
-{
+int32_t read_all_vfile(char *path, char *buff) {
 	int f;
 	int32_t lth;
 
-	f=open(path,O_RDONLY|O_BINARY,S_IREAD);
-	if(f==-1) return(-1);
-	lth=read(f,buff, filelength(f));
+	f = open(path, O_RDONLY | O_BINARY, S_IREAD);
+	if (f == -1)
+		return (-1);
+	lth = read(f, buff, filelength(f));
 	close(f);
 
-	return(lth);
+	return (lth);
 }
-int32_t write_all_vfile( char *path, char *buff,uint32_t lth)
-{
+int32_t write_all_vfile(char *path, char *buff, uint32_t lth) {
 	int16_t f;
 
-	f=open(path,O_WRONLY|O_BINARY|O_CREAT|O_TRUNC,S_IWRITE);
-	if(f==-1) return(-1);
-	lth=write(f,buff,lth);
+	f = open(path, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, S_IWRITE);
+	if (f == -1)
+		return (-1);
+	lth = write(f, buff, lth);
 	close(f);
 
-	return(lth);
+	return (lth);
 }
 
-int32_t read_all_vtab( int16_t tabn, char *buff)
-{
+int32_t read_all_vtab(int16_t tabn, char *buff) {
 	int f;
 	int32_t lth;
 
 	if (vocs_NOK)
-	return -1;
+		return -1;
 
-	f=TBOPEN((int16_t)tabn,(int16_t)language,(int16_t)(O_RDONLY|O_BINARY),(int16_t)(S_IREAD));
+	f
+			=TBOPEN((int16_t)tabn,(int16_t)language,(int16_t)(O_RDONLY|O_BINARY),(int16_t)(S_IREAD));
 
-	if(f==-1)
-	{
+	if (f == -1) {
 		vocs_NOK = vocs_NOK | (1 << tabn);
-		return(-1);
+		return (-1);
 	}
 
-	lth=TGREAD((int16_t)(f), buff, (int32_t)(TGFILELTH((int16_t)f)));
+	lth = TGREAD((int16_t)(f), buff, (int32_t)(TGFILELTH((int16_t)f)));
 	TGCLOSE((int16_t)f);
 
-	return(lth);
+	return (lth);
 }
 
 #endif  /* WATCOM */
@@ -317,7 +301,7 @@ uchar * tempword;
 #define MAX_PART_VARS 36
 int16_t part_var_counter;
 
-int16_t check_cancel( uint16_t);
+int16_t check_cancel(uint16_t);
 static int16_t obj_number, sp_n;
 //////////////////////////////////////////////////////////////////////////
 int16_t ed_conv(struct dict_state * dict, user_voc voc_array[], int16_t voc_no)
@@ -432,9 +416,9 @@ int16_t ed_conv(struct dict_state * dict, user_voc voc_array[], int16_t voc_no)
 					/*  if (obj.nmb_wrdfound)     if smth found in a regular way =>      */
 					/*    goto No_part;           then don't touch it                    */
 
-					if (partspec(&obj,part)) /* Try to apply special replacements    */
-					/* like "m"->"rn", "rn"->"m", ...       */
-					goto Start_wrd_gen; /* restart the changed part treatment   */
+					if (partspec(&obj, part)) /* Try to apply special replacements    */
+						/* like "m"->"rn", "rn"->"m", ...       */
+						goto Start_wrd_gen; /* restart the changed part treatment   */
 #endif
 
 #ifdef GLUE_CUT
@@ -443,102 +427,98 @@ int16_t ed_conv(struct dict_state * dict, user_voc voc_array[], int16_t voc_no)
 
 					if (!(obj.type_art & T_GC)) /* 1-st glue-cut of the part => :       */
 					{
-						if (!(setpart (&obj,part))) /*alloc new part buff                  */
-						break; /* buff overflowed !!!                 */
-						TPR(setpart glue == yes)
-					}
+						if (!(setpart(&obj, part))) /*alloc new part buff                  */
+							break; /* buff overflowed !!!                 */
+TPR					(setpart glue == yes)
+				}
 
-					if (partgc(&obj,part)) /* Try to apply glue-cut of the part    */
-					goto Start_wrd_gen; /* restart the changed part treatment   */
+				if (partgc(&obj,part)) /* Try to apply glue-cut of the part    */
+				goto Start_wrd_gen; /* restart the changed part treatment   */
 
-					TPR(partgc == no)
+				TPR(partgc == no)
 
-					if(!(obj.type_art&T_BRK))
-					{
-						if (!(setpart (&obj,part))) /*alloc new part buff                  */
-						break; /* buff overflowed !!!                 */
+				if(!(obj.type_art&T_BRK))
+				{
+					if (!(setpart (&obj,part))) /*alloc new part buff                  */
+					break; /* buff overflowed !!!                 */
 
-						TPR(setpart partgc = yes)
-					}
+					TPR(setpart partgc = yes)
+				}
 
-					if(!(obj.type_sp&T_BLANK))
-					{
-						if(partbrk(&obj,part))
-						goto Start_wrd_gen;
+				if(!(obj.type_sp&T_BLANK))
+				{
+					if(partbrk(&obj,part))
+					goto Start_wrd_gen;
 
-						TPR(partbrk = no)
-					}
+					TPR(partbrk = no)
+				}
 
 #endif
-					No_part: TPR(NO part)
-					obj.part_max--; /* remove the part:             */
-					continue;
-				} else
-					/* Ok - select-part :              */
-					Ok_part: {
-						TPR(OK part)
+				No_part: TPR(NO part)
+				obj.part_max--; /* remove the part:             */
+				continue;
+			} else
+			/* Ok - select-part :              */
+			Ok_part: {
+				TPR(OK part)
 
-						if (obj.part_end == obj.pos_part[obj.pos_part_nmb]) /* last part ?  */
-							if (ret = selectobj(&obj, bpart, part)) /* select best parts-chain,    */
-								goto Out_obj;
-						/*  ending with this part      */
-						ret = Ok;
-					}
-				/* change part of complex obj and restart wrd generation : */
-			} /* ==================== end of for loop ========================= */
-		} /* ==================== end of for loop ========================= */
-		Select: ret = selectopt(&obj, part);/*find opt parts-chain, no matter entire or not*/
-		TPR(selectopt)
-
-		if (ret == Ok) /* best part-chain found                            */
-			Out_obj: {
-				TPR(before outobj)
-				outobj(&obj, part); /* modify ed, if any best alts differ from originals*/
-TPR			(outobj done)
-		}
-#ifndef SECOND_PASS
-		else
-		{
-			if (ret==No) /* no good words found */
-			SetBlue:
-			{
-				TPR(setblue)
-				setobj_blue (&obj); /* the object is to be blue (not reliable) */
-				TPR(setblue done)
+				if (obj.part_end == obj.pos_part[obj.pos_part_nmb]) /* last part ?  */
+				if (ret = selectobj(&obj, bpart, part)) /* select best parts-chain,    */
+				goto Out_obj;
+				/*  ending with this part      */
+				ret = Ok;
 			}
+			/* change part of complex obj and restart wrd generation : */
+		} /* ==================== end of for loop ========================= */
+	} /* ==================== end of for loop ========================= */
+	Select: ret = selectopt(&obj, part);/*find opt parts-chain, no matter entire or not*/
+	TPR(selectopt)
+
+	if (ret == Ok) /* best part-chain found                            */
+	Out_obj: {
+		TPR(before outobj)
+		outobj(&obj, part); /* modify ed, if any best alts differ from originals*/
+		TPR (outobj done)
+	}
+#ifndef SECOND_PASS
+	else
+	{
+		if (ret==No) /* no good words found */
+		SetBlue:
+		{
+			TPR(setblue)
+			setobj_blue (&obj); /* the object is to be blue (not reliable) */
+			TPR(setblue done)
 		}
+	}
 #endif
 
 #ifdef SECOND_PASS
-		TPR(pull to stat)
-		pull_to_stat(ret,&obj,part,wrdimg,wrddef);
-		TPR(pull to stat done)
+	TPR(pull to stat)
+	pull_to_stat(ret,&obj,part,wrdimg,wrddef);
+	TPR(pull to stat done)
 #endif
-	}
-	/* ====================== end of readobj loop =========================== */
-	ret=obj.nmb;
-	/*dbg_f=fopen("dbg.dbg","a");
-	 fprintf(dbg_f,"before 2nd pass\n");
-	 fclose(dbg_f);
-	 */
-	/****************        S E C O N D     P A S S      **********************/
+}
+
+ret=obj.nmb;
+/****************        S E C O N D     P A S S      **********************/
 
 #ifdef  SECOND_PASS
 
-	while(wstack.depth>0)
-	{
-		wstack.depth--;
-		wstack.last--;
-		if((*wstack.last)->voc) continue;/* do not consider word from dictionary*/
-		SPQ.ns_segm=(*wstack.last)->segm;
-		SPQ.ns_symb=(*wstack.last)->symb;
-		obj.nmb=(*wstack.last)->nmb-1;
-		readobj(S_OLDOBJ,&obj);
-		stat_replacements(&obj);
-		setobj_blue (&obj);
-	}
+while(wstack.depth>0)
+{
+	wstack.depth--;
+	wstack.last--;
+	if((*wstack.last)->voc) continue;/* do not consider word from dictionary*/
+	SPQ.ns_segm=(*wstack.last)->segm;
+	SPQ.ns_symb=(*wstack.last)->symb;
+	obj.nmb=(*wstack.last)->nmb-1;
+	readobj(S_OLDOBJ,&obj);
+	stat_replacements(&obj);
+	setobj_blue (&obj);
+}
 #endif
-	return (ret);
+return (ret);
 }
 
 /*************************************************************************/
@@ -553,7 +533,7 @@ TPR			(outobj done)
  */
 /*************************************************************************/
 #define TEMP_PEREBOR_THRESHOLD 512
-//////////////////////////////////////////////////////////////////////////////
+
 int16_t anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
 		user_voc voc_array[], int16_t voc_no) {
 	int16_t found;
@@ -566,9 +546,6 @@ int16_t anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
 
 		if (!setwrd(obj, wrddef))
 			continue;
-
-		/* Mike */
-		/*  printf( "%s\n", obj->wordchar ); */
 
 		if (!(genwrd(obj)))
 			continue;

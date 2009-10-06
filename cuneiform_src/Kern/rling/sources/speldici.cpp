@@ -113,16 +113,7 @@
 /**************************************************************************/
 /***********      Export section.       ***********************************/
 /**************************************************************************/
-/* -- Code -- */
-
-// 08-13-93 08:13pm, Mike
-// Parameter CountryCode has been removed.
-// 12-09-93 ATAL
-// This function have tu return proper pointer, never NULL !
-void * (*my_alloc)(uint32_t len);
-void (*my_free)(void *);
 void ErrorExit(int Code);
-//uint32_t  LoadUserDict( char*, char*, uint32_t, voc_state*);
 
 uchar * load_stat_dict(char *point);
 /*---------- Updated : 04-01-93 09:46pm, Mike ------
@@ -281,8 +272,8 @@ uchar * load_stat_dict(char *point)
 	/* -- Set pointers for access procedure. -- */
 	dict->root = (uchar *) dictHdr + sizeof(TDictHeaderMask);
 	dict->tailset_root = (uchar *) dict->root + treeLength;
-	dict->vartable = (PTTailVar)((uchar *) dict->tailset_root + tailsLength);
-	dict->table = (PTShiftType)((uchar *) dict->vartable + rulesLength);
+	dict->vartable = (PTTailVar) ((uchar *) dict->tailset_root + tailsLength);
+	dict->table = (PTShiftType) ((uchar *) dict->vartable + rulesLength);
 
 	/* -- Check size corectness. -- */
 	size = treeLength + tailsLength + rulesLength + hushLength
@@ -302,9 +293,9 @@ uchar * load_stat_dict(char *point)
 
 	// Here is the new version of dictionary loading.
 
-	point = dict->root + dict->size; // temp: for return value counting.
+	point = (char*) dict->root + dict->size; // temp: for return value counting.
 
-	if ((point = load_specABC(point, language)) == NULL) {
+	if ((point = (char*) load_specABC((uchar*) point, language)) == NULL) {
 #ifdef SYSPR
 		PRINTF( "\n SPELLER: Unable to open Special voc...\n");
 #endif
@@ -320,33 +311,8 @@ uchar * load_stat_dict(char *point)
 		return (uchar *) dict;
 	}
 
-	return point;
+	return (uchar*) point;
 }
-
-/* ------------------------------------------------------------------ */
-// 08-13-93 05:37pm, Mike
-// Not needed with IOLIB.H
-//
-//int32_t read_all_voc( int16_t seqn, char *name, char  *p )
-//    /*-----------------17-02-93 02:27pm-----------------
-//     Function reads an dictionary file with name <name>
-//     or with number <seqn> into far memory location <p>.
-//     --------------------------------------------------*/
-//{
-//  int32_t l;
-//  uchar w[MAXPATH];
-//
-//  full_name( w, (puchar)name );
-//  l = read_all_file( (char *)w, p );
-//  if ( l <= 0 ) {
-//    full_name( w, (puchar)seq_nam( seqn ));
-//    l =  read_all_file( (char *)w, p );
-//  }
-//
-//  return l;
-//}
-//
-/* ------------------------------------------------------------------ */
 
 void init_stat_dict(struct dict_state * dict)
 /*-----------------17-02-93 03:21pm-----------------
@@ -365,19 +331,15 @@ void user_voc_init(void) {
 	real_voc_no = 0;
 }
 
-/* ------------------------------------------------------------------ */
 // 08-13-93 05:54pm, Mike
 // From Joe...
 
 void unload_user_dicts(void) {
-	int i;
-	for (i = 0; i < real_voc_no; i++) {
-		my_free(voc_array[i].voc.vocseg/*,0*/);
+	for (int i = 0; i < real_voc_no; i++) {
+		free(voc_array[i].voc.vocseg/*,0*/);
 	}
 	real_voc_no = 0;
 }
-
-/* ------------------------------------------------------------------ */
 
 #define VOCMEMSIZE 0x10000L     /* 64K */
 // old version : read list of vocs from disk file USER.LST
@@ -411,14 +373,14 @@ void load_user_dicts_kzl(char * list_name, char * point)
 			continue;
 		}
 
-		if ((point = my_alloc(VOCMEMSIZE)) == NULL) {
+		if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
 			errorNo = VOC_NOTLOADED;
 			break;
 		}
 
 		if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
 				== 0L) {
-			my_free(point/*, 0*/);
+			free(point);
 			errorNo = VOC_NOTLOADED;
 			break;
 		}
@@ -430,10 +392,8 @@ void load_user_dicts_kzl(char * list_name, char * point)
 	if (errorNo != 0) {
 		ErrorExit( /*ERR_voc,*/errorNo);
 	}
-
-	return;
 }
-//////////////////////////////////////////////////////////////////////////////
+
 // list_of_name if concat many vocs name, cutting '\0', last limit is "\0\0"
 /*-----------------17-02-93 03:30pm-----------------
  Function loads user's dictionaries into memory using
@@ -456,14 +416,14 @@ void load_user_dicts(char * list_of_names, char * point) {
 			continue;
 		}
 
-		if ((point = my_alloc(VOCMEMSIZE)) == NULL) {
+		if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
 			errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
 			break;
 		}
 
 		if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
 				== 0L) {
-			my_free(point /*,0*/);
+			free(point);
 			errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
 			break;
 		}
@@ -476,10 +436,7 @@ void load_user_dicts(char * list_of_names, char * point) {
 		unload_user_dicts();
 		ErrorExit(errorNo);
 	}
-
-	return;
 }
-/* ------------------------------------------------------------------ */
 
 int16_t parce_voc_list_record(char * w, char * nm, int16_t *type) {
 	*type = 0;
@@ -493,4 +450,3 @@ int16_t parce_voc_list_record(char * w, char * nm, int16_t *type) {
 	return 1;
 }
 
-/* ------------------------------------------------------------------ */

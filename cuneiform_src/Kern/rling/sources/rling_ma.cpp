@@ -58,6 +58,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include "compat_defs.h"
@@ -102,9 +103,6 @@
 //      3)      load vocabulare tables
 //      4)      call function spelling
 
-
-void * (*my_alloc)(uint32_t) = RLINGAlloc; //rling_alloc;
-void (*my_free)(void *) = RLINGFree; //rling_free;
 void user_voc_init(void);
 void GetRecFileName(int16_t tab, int16_t lang, pchar wname);
 void append_by_lang(int16_t lang, pchar src, pchar dst);
@@ -145,7 +143,8 @@ static puchar tableBOX = NULL; /* BOX table memory start */
 static uchar all_loaded = 0;
 static puchar fontBOX = NULL; /* BOX table for font  */
 static puchar omniBOX = NULL; /* BOX save table for omni  */
-static int32_t box_n = BOX_NUM0;
+static int32_t box_n = BOX_NUM0
+;
 static PROOT root_file = NULL; /* start of the root file */
 static puchar full_list[512];
 static puchar font_full_list[512];
@@ -410,18 +409,13 @@ void ed_out_write(puchar p, uint16_t size) {
 // протащено
 void trees_load_rling() {
 	// exeption
-	//////////////////////////////////////////////////////////////////////
 	// грузим только словари, память только под них
 	memory_pool = svbox_pool;
 	memory_pool_end = memory_pool + SizeTables;
 
 	reload_lang_vocs();
-
-	//      all_loaded = 1;
-
 }
-////////////////////////////////////////////////////////
-//
+
 void read_rec_file(int16_t fileno, puchar pool, puchar * end) {
 	uint32_t l;
 	int16_t h;
@@ -431,23 +425,21 @@ void read_rec_file(int16_t fileno, puchar pool, puchar * end) {
 	if (h == -1)
 		ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
 
-	l = TGREAD(h, pool, 0x100000);
+	l = TGREAD(h, (char*) pool, 0x100000);
 	TGCLOSE(h);
 	l = (l + 15) & -16;
 	*end = pool + l;
 }
-//////////////////////////////////////////////////////////////////////////////////////
+
 // протащено из filesys.c
 void reload_lang_vocs() {
-	//int32_t roots_lth;
-
 	correct_letters_pidx_table();
 	correct_let_tables();
 	vocs_NOK = 0;
 	sv_lang = language;
 
 	box_pool = svbox_pool;
-	box_pool = load_stat_dict(box_pool);
+	box_pool = load_stat_dict((char*) box_pool);
 	box_pool += (memory_pool - box_pool) & 0xf;
 	user_voc_init();
 
@@ -458,16 +450,8 @@ void reload_lang_vocs() {
 		ErrorExit(RLING_ERROR_MEMORY_FAULT);
 	// Max size for recog tables storing
 	box_pool = memory_pool + SizeTables;
-	//#undef SizeTables
-
-	//      roots_lth = box_n;
-	//      roots_lth *= BOXSIZE;
-	//      root_file = (PROOT)((puchar)box_pool + roots_lth);
-
-	//      if (memory_pool_end <= (puchar)root_file)
-	//              ErrorExit(9);
 }
-////////////////////////////////////////////////////////////////////////////////////////
+
 // протащено из acc_tabs.c
 void correct_let_tables(void) // ўл§лў Ґвбп ў д ©«Ґ EMBBOX.C: load_BOX()
 {
