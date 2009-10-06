@@ -248,11 +248,13 @@ FON_FUNC(int32_t) FONCompareClustNames(int32_t name1,int32_t name2);
 FON_FUNC(int32_t) FONGetSameClust(int32_t num,RecVersions *collect);
 
 // error code
-#define ER_FON_NO_ERROR  0
-#define ER_FON_NO_RECOG  1
-#define ER_FON_OPEN      2
-#define ER_FON_READ      3
-#define ER_FON_MEMORY    4
+enum fon_error_t {
+	ER_FON_NO_ERROR = 0,
+	ER_FON_NO_RECOG = 1,
+	ER_FON_OPEN = 2,
+	ER_FON_READ = 3,
+	ER_FON_MEMORY = 4
+};
 
 #ifdef __cplusplus
 }

@@ -64,7 +64,7 @@
 #include "sfont.h"
 #include <string.h>
 
-extern int Num11[256];
+extern const int Num11[256];
 /**************************************/
 //
 //  ���� ��⠥� - ࠧ��� ���⨭�� ������

@@ -54,18 +54,18 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "cttypes.h"
-#include "minmax.h"
-
 #ifndef SFONT_H
 #define SFONT_H
 
-#define int16_t signed short int
-#define WR_MAX_HEIGHT   64
-#define WR_MAX_WIDTH    128
-#define WR_SMALL_LET    8
+#include "cttypes.h"
+#include "minmax.h"
+#include "ctb/ctb.h"
 
-#define arrnum(a)       (sizeof(a)/sizeof(a[0]))
+enum fon_wr_limit_t {
+	WR_MAX_HEIGHT = 64, WR_MAX_WIDTH = 128, WR_SMALL_LET = 8
+};
+
+extern const int Num11[256];
 
 /*======= Data templates=============== */
 #define NFIELDDWORD 2  // сколько двойных слов для полей
@@ -80,14 +80,16 @@ void MakeDWORDField(int i, uint32_t *fifi);
 void AddDWORDField(int i, uint32_t *fifi);
 
 // маски параметров кластера
-#define FON_CLU_SOLID    1
-#define FON_CLU_ITALIC   2
-#define FON_CLU_BOLD     4
-#define FON_CLU_SERIF    8
-#define FON_CLU_GELV    16
-#define FON_CLU_NARROW  32
-#define FON_CLU_FIXED   64
-#define FON_CLU_TWIN   128
+enum fon_clu_t {
+	FON_CLU_SOLID = 1,
+	FON_CLU_ITALIC = 2,
+	FON_CLU_BOLD = 4,
+	FON_CLU_SERIF = 8,
+	FON_CLU_GELV = 16,
+	FON_CLU_NARROW = 32,
+	FON_CLU_FIXED = 64,
+	FON_CLU_TWIN = 128
+};
 
 typedef struct tag_welet {
 	char raster[WR_MAX_HEIGHT * WR_MAX_WIDTH];
@@ -246,10 +248,10 @@ typedef struct tagFontField {
 
 #define METKA_VALID 0x80  // get as good in font
 #define POROG_ANGLES  20           // 18 ?
-int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_t porogX,
-		int16_t porogY);
-int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbit,
-		int16_t yrow, int16_t porogX, int16_t porogY);
+int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow,
+		int16_t porogX, int16_t porogY);
+int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll,
+		int16_t xbit, int16_t yrow, int16_t porogX, int16_t porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		int16_t *nClus, InfoCluster *infoC, int porog);
 int32_t StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
@@ -259,7 +261,12 @@ void EndNumMemory(void);
 int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus,
 		int16_t countFont, uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
-int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_t yrow,
-		uchar bold);
+int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit,
+		int16_t yrow, uchar bold);
+uint16_t PutSymbolRaster(uchar *pHau, uchar *rast, int16_t rbyte,
+		int16_t xbits, int16_t xbyte, int16_t yrow);
+int16_t SaveCluster(int16_t fh, CTB_handle *cc, int16_t fhh, CTB_handle *ccc,
+		int16_t clus, int16_t NumAll, uchar *m1, uchar *m2);
+
 #endif
 

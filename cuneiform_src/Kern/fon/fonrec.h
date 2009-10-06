@@ -83,7 +83,6 @@ typedef struct tagRecResult
 }
 RECRESULT;
 
-
 int AddVersion(RECRESULT *recres,uchar let,uchar rec,int nClust,
 			   int num,int maxNames);
 int16_t RecogClu(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,

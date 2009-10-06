@@ -177,13 +177,13 @@ static void SetBound(welet *wel, int *bou) {
 		bou[i] = j;
 	}
 }
-/////////////////
+
 static Bool GetBounds(welet *wel, int num) {
 	int *bou;
 
 	if (AllBounds)
 		return TRUE;
-	AllBounds = malloc(WR_MAX_HEIGHT * num * sizeof(int));
+	AllBounds = static_cast<int*> (malloc(WR_MAX_HEIGHT * num * sizeof(int)));
 	if (!AllBounds)
 		return FALSE;
 
@@ -194,7 +194,6 @@ static Bool GetBounds(welet *wel, int num) {
 	return TRUE;
 }
 
-///////////////////////
 //
 // штрафуем дальние точки
 // return - сколько точек растра вылазит за серую область
@@ -609,7 +608,7 @@ static int FindBestClustersBound(int w, int h, uchar *buf, uchar *bufrazmaz,
 
 		if (abs(wel->mh - yHeight) * 4 > wel->mh)
 			continue; // check for height likeness
-			//  if( abs(wel->mw-w)*3 >= wel->mw ) continue;
+		//  if( abs(wel->mw-w)*3 >= wel->mw ) continue;
 
 		dist = distWeletBound(buf + yStart * xbyte, bufrazmaz + yStart
 				* xbyteRazmaz, w, yHeight, wel, porog + 1, bou, &recBou,
@@ -1081,7 +1080,7 @@ static int FindFirstClusterPorog(int w, int h, uchar *buf, uchar *bufrazmaz,
 
 		if (abs(wel->mh - yHeight) * 4 > wel->mh)
 			continue; // check for height likeness
-			//  if( abs(wel->mw-w)*3 >= wel->mw ) continue;
+		//  if( abs(wel->mw-w)*3 >= wel->mw ) continue;
 
 		dist = distWeletBound(buf + yStart * xbyte, bufrazmaz + yStart
 				* xbyteRazmaz, w, yHeight, wel, porog + 1, bou, &recBou, 1);
@@ -1566,7 +1565,7 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang) {
 
 	for (i = 0; i < ver->lnAltCnt; i++) {
 		let = rver->Alt[i].Code;
-		strcpy(ver->Alt[i].Code, decode_ASCII_to_[let]);
+		strcpy((char*) ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
 		ver->Alt[i].Liga = let;
 		ver->Alt[i].Prob = rver->Alt[i].Prob;
 		ver->Alt[i].Method = rver->Alt[i].Method;
@@ -1669,119 +1668,111 @@ static int PutNewRasters(uchar *inBuf, int xbit, int yrow, CSTR_rast outFir,
 
 	return i;
 }
-//////////////////
-FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
-		CSTR_rast firOut,int lang, int nNaklon)
-{
-	int startX=0,startY=0;
+
+int FONRecogGlue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+		int lang, int nNaklon) {
+	int startX = 0, startY = 0;
 	int heiY;
 	int outBou[WR_MAX_HEIGHT];
-	int startWel=0;
+	int startWel = 0;
 	int dist;
-	int outByte,outBit;
+	int outByte, outBit;
 	int k;
-	int summaErrors=0x7FFF;
+	int summaErrors = 0x7FFF;
 	FONBASE *fonbase = GetStaticFonbase();
 	welet *wl;
 	int numWel;
 	RECT wordRect;
-	uchar *inBuf=NULL;
-	int xbyte,xbit,yrow;
-	int porog=20;
+	uchar *inBuf = NULL;
+	int xbyte, xbit, yrow;
+	int porog = 20;
 
-	if(!fonbase || !fonbase->start || fonbase->inBase <=0)
-	return 0;
+	if (!fonbase || !fonbase->start || fonbase->inBase <= 0)
+		return 0;
 
-	inBestStack=0;
-	wl=fonbase->start;
-	numWel=fonbase->inBase;
+	inBestStack = 0;
+	wl = fonbase->start;
+	numWel = fonbase->inBase;
 
 	// установить правые границы кластеров - если еще не были
-	if( !GetBounds(wl,numWel))
-	return 0;
+	if (!GetBounds(wl, numWel))
+		return 0;
 
 	// сделать общий растр
-	xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
-	if( xbyte <= 0)
-	return -1;
+	xbyte = GetCommonSize(firLeo, lasLeo, &wordRect);
+	if (xbyte <= 0)
+		return -1;
 
-	yrow=wordRect.bottom-wordRect.top;
-	if( yrow > WR_MAX_HEIGHT-2)
-	return -11;
+	yrow = wordRect.bottom - wordRect.top;
+	if (yrow > WR_MAX_HEIGHT - 2)
+		return -11;
 
-	inBuf=malloc(xbyte*yrow);
-	if( !inBuf )
-	return -1;
+	inBuf = static_cast<uchar*> (malloc(xbyte * yrow));
+	if (!inBuf)
+		return -1;
 
-	xbit=wordRect.right-wordRect.left;
+	xbit = wordRect.right - wordRect.left;
 
-	if( !FillInBuf(inBuf,xbyte,yrow,firLeo,lasLeo,&wordRect) )
-	{
+	if (!FillInBuf(inBuf, xbyte, yrow, firLeo, lasLeo, &wordRect)) {
 		free(inBuf);
 		return -2;
 	}
 
-	TekInStack=0;
-	for(startWel=0;;)
-	{
-		if( TekInStack < 0)
-		break;
-		startX=GetFromStack( inBuf, xbyte, xbit, yrow,
-				buf,&outBit,
-				TekInStack?&mystack[TekInStack-1].bound[0]:NULL);
-		outByte = (outBit+7)>>3;
+	TekInStack = 0;
+	for (startWel = 0;;) {
+		if (TekInStack < 0)
+			break;
+		startX = GetFromStack(inBuf, xbyte, xbit, yrow, buf, &outBit,
+				TekInStack ? &mystack[TekInStack - 1].bound[0] : NULL);
+		outByte = (outBit + 7) >> 3;
 
 		// stay - recognize
-		if( startX + POROG_STOP < xbit)
-		{
+		if (startX + POROG_STOP < xbit) {
 
-			Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
-					(int16_t)0,(int16_t)POROG_ANGLES);
+			Razmaz2(buf, bufrazmaz, (int16_t) (outBit), (int16_t) yrow,
+					(int16_t) 0, (int16_t) POROG_ANGLES);
 
 			// left bound
-			FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
+			FillLeft(buf, outByte, yrow, outByte << 3, StartInRow);
 			// find - who less threshold
-			k= FindFirstClusterPorog(outByte<<3,yrow,
-					buf,bufrazmaz,
-					startWel, numWel, wl,
-					porog, outBou ,&dist,&startY,&heiY);
+			k = FindFirstClusterPorog(outByte << 3, yrow, buf, bufrazmaz,
+					startWel, numWel, wl, porog, outBou, &dist, &startY, &heiY);
 
-			if(IsSnap)
-			AddBitmapToSnap( buf, outByte<<3, yrow, k<0?0:wl[k].let,dist);
+			if (IsSnap)
+				AddBitmapToSnap(buf, outByte << 3, yrow, k < 0 ? 0 : wl[k].let,
+						dist);
 		}
 
 		else // все разрезали - добавим список
 		//  попробуем еще откатиться за новыми
 		//  вариантами ?
 		{
-			porog=UpdateSpisokAlter(porog,&summaErrors);
+			porog = UpdateSpisokAlter(porog, &summaErrors);
 			//if(porog==0)
 			break;
-			k=-1;
+			k = -1;
 		}
 
 		// надо вернуться ?
-		if( k < 0 )
-		{
+		if (k < 0) {
 			TekInStack--;
-			if( TekInStack < 0) break;
-			startWel=mystack[TekInStack].num+1;
-		}
-		else
-		{ // is memory in stack ?
-			if( AddToStack(wl[k].let,k,dist,startX,yrow,outBou,startY,heiY) < 0)
-			{
+			if (TekInStack < 0)
+				break;
+			startWel = mystack[TekInStack].num + 1;
+		} else { // is memory in stack ?
+			if (AddToStack(wl[k].let, k, dist, startX, yrow, outBou, startY,
+					heiY) < 0) {
 				free(inBuf);
 				return -12;
 			}
 
-			startWel=0;
+			startWel = 0;
 		}
 
 	}
 
-	k = PutNewRasters( inBuf, xbit, yrow, firOut,
-			wordRect.left,wordRect.top,lang,nNaklon,NULL,TRUE,1);
+	k = PutNewRasters(inBuf, xbit, yrow, firOut, wordRect.left, wordRect.top,
+			lang, nNaklon, NULL, TRUE, 1);
 
 	free(inBuf);
 	return k;
@@ -1793,19 +1784,16 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 ////////////////
 static RECS2 recs2[2];
 ////////////
-FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
-		CSTR_rast firOut,CSTR_rast lasOut,
-		int lang,
-		int porog, int nNaklon, int countRazmaz)
-{
-	int startX=0;
-	int outByte,outBit;
+int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+		CSTR_rast lasOut, int lang, int porog, int nNaklon, int countRazmaz) {
+	int startX = 0;
+	int outByte, outBit;
 	FONBASE *fonbase = GetStaticFonbase();
 	welet *wl;
 	int numWel;
-	uchar *inBuf=NULL;
-	int xbyte,xbit,yrow;
-	int i,j,k;
+	uchar *inBuf = NULL;
+	int xbyte, xbit, yrow;
+	int i, j, k;
 	int better;
 	int numAlt;
 	RECT wordRect;
@@ -1813,170 +1801,164 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 	CSTR_rast_attr attr;
 	RecVersions vers;
 	FonSpecInfo specInfo;
-	if(!fonbase || !fonbase->start || fonbase->inBase <=0)
-	return 0;
+	if (!fonbase || !fonbase->start || fonbase->inBase <= 0)
+		return 0;
 
-	wl=fonbase->start;
-	numWel=fonbase->inBase;
+	wl = fonbase->start;
+	numWel = fonbase->inBase;
 
 	// установить правые границы кластеров - если еще не были
-	if( !GetBounds(wl,numWel))
-	return 0;
+	if (!GetBounds(wl, numWel))
+		return 0;
 
-	inBestStack=0;
+	inBestStack = 0;
 
 	// сделать общий растр - сначала получить размеры
-	xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
-	if( xbyte <= 0)
-	return -1;
-	xbit=wordRect.right-wordRect.left;
+	xbyte = GetCommonSize(firLeo, lasLeo, &wordRect);
+	if (xbyte <= 0)
+		return -1;
+	xbit = wordRect.right - wordRect.left;
 
-	yrow=wordRect.bottom-wordRect.top;
-	if( yrow > WR_MAX_HEIGHT-2)
-	return -11;
+	yrow = wordRect.bottom - wordRect.top;
+	if (yrow > WR_MAX_HEIGHT - 2)
+		return -11;
 
-	if( xbit < 2*MIN_WIDTH || yrow < MIN_WIDTH )
-	return 0;
+	if (xbit < 2*MIN_WIDTH || yrow < MIN_WIDTH)
+		return 0;
 
-	inBuf=malloc(xbyte*yrow);
-	if( !inBuf )
-	return -1;
+	inBuf = static_cast<uchar*> (malloc(xbyte * yrow));
+	if (!inBuf)
+		return -1;
 
-	if( !FillInBuf(inBuf,xbyte,yrow,firLeo,lasLeo,&wordRect) )
-	{
+	if (!FillInBuf(inBuf, xbyte, yrow, firLeo, lasLeo, &wordRect)) {
 		free(inBuf);
 		return -2;
 	}
 
 	// copy to buf, byte bounds
-	startX=GetFromStack( inBuf, xbyte, xbit, yrow,
-			buf,&outBit,NULL);
-	outByte = (outBit+7)>>3;
+	startX = GetFromStack(inBuf, xbyte, xbit, yrow, buf, &outBit, NULL);
+	outByte = (outBit + 7) >> 3;
 
-	Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
-			(int16_t)0,(int16_t)POROG_ANGLES);
+	Razmaz2(buf, bufrazmaz, (int16_t) (outBit), (int16_t) yrow, (int16_t) 0,
+			(int16_t) POROG_ANGLES);
 
-	FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
+	FillLeft(buf, outByte, yrow, outByte << 3, StartInRow);
 
 	// dont'recog by itself only!
-	CSTR_GetAttr(firOut,&attr);
-	CSTR_GetCollection(firOut,&vers);
+	CSTR_GetAttr(firOut, &attr);
+	CSTR_GetCollection(firOut, &vers);
 
-	numAlt=FindBestClustersBound(xbit,yrow,buf,bufrazmaz,
-			numWel,(255-porog)/STRAFPOINT,fonbase->start,
-			AllRecBou,MAX_ALT_BOU,
+	numAlt = FindBestClustersBound(xbit, yrow, buf, bufrazmaz, numWel, (255
+			- porog) / STRAFPOINT, fonbase->start, AllRecBou, MAX_ALT_BOU,
 			StartInRow, attr.col, attr.row,
-			vers.lnAltCnt > 0 ? vers.Alt[0].Info:0,
-			countRazmaz);
+			vers.lnAltCnt > 0 ? vers.Alt[0].Info : 0, countRazmaz);
 
-	if(IsSnap)
-	{
-		AddBitmapToSnap( buf, outByte<<3, yrow, '#' ,numAlt);
+	if (IsSnap) {
+		AddBitmapToSnap(buf, outByte << 3, yrow, '#', numAlt);
 		//	 AddBitmapToSnap( bufrazmaz, outBit+2, yrow+2, 0 ,numAlt);
 		FONShowSnap();
 	}
 
-	if( numAlt <= 0 )
-	{
+	if (numAlt <= 0) {
 		free(inBuf);
 		return 0;
 	}
 
-	for(i=0,better=-1;i<numAlt;i++)
-	{
+	for (i = 0, better = -1; i < numAlt; i++) {
 		int nAlt;
-		int firY,lasY;
+		int firY, lasY;
 		int out8;
 		uchar *oBuf;
-		RECS2 *recs=(better==-1?recs2:recs2+1);
+		RECS2 *recs = (better == -1 ? recs2 : recs2 + 1);
 
-		startX=GetFromStack( inBuf, xbyte, xbit, yrow,
-				buf,&outBit,
+		startX = GetFromStack(inBuf, xbyte, xbit, yrow, buf, &outBit,
 				AllRecBou[i].bound);
-		outByte = (outBit+7)>>3;
+		outByte = (outBit + 7) >> 3;
 
-		if( startX + MIN_WIDTH >= xbit)
-		continue;
+		if (startX + MIN_WIDTH >= xbit)
+			continue;
 
-		if(IsSnap)
-		{
-			AddBitmapToSnap( buf, outBit, yrow, AllRecBou[i].name ,AllRecBou[i].prob);
+		if (IsSnap) {
+			AddBitmapToSnap(buf, outBit, yrow, AllRecBou[i].name,
+					AllRecBou[i].prob);
 			FONShowSnap();
 		}
 
 		// find first-last rows
-		for(j=0,oBuf=buf;j<yrow;j++,oBuf+=outByte)
-		{
-			for(k=0;k<outByte;k++)
-			if( oBuf[k] ) break;
-			if( k < outByte ) break;
+		for (j = 0, oBuf = buf; j < yrow; j++, oBuf += outByte) {
+			for (k = 0; k < outByte; k++)
+				if (oBuf[k])
+					break;
+			if (k < outByte)
+				break;
 		}
-		firY=j;
-		if(firY >= yrow)
-		continue;
+		firY = j;
+		if (firY >= yrow)
+			continue;
 
-		for(j=yrow,oBuf=buf+(yrow-1)*outByte;j>0;j--,oBuf-=outByte)
-		{
-			for(k=0;k<outByte;k++)
-			if( oBuf[k] ) break;
-			if( k < outByte ) break;
+		for (j = yrow, oBuf = buf + (yrow - 1) * outByte; j > 0; j--, oBuf
+				-= outByte) {
+			for (k = 0; k < outByte; k++)
+				if (oBuf[k])
+					break;
+			if (k < outByte)
+				break;
 		}
-		lasY=j;
+		lasY = j;
 
-		if(lasY-firY < MIN_WIDTH)
-		continue;
+		if (lasY - firY < MIN_WIDTH)
+			continue;
 
 		recs->firX = startX;
 		recs->firY = firY;
 
-		out8=REC_GW_WORD8(xbit-startX);
-		recs->rast.lnPixWidth = xbit-startX;
-		recs->rast.lnPixHeight = lasY-firY;
+		out8 = REC_GW_WORD8(xbit - startX);
+		recs->rast.lnPixWidth = xbit - startX;
+		recs->rast.lnPixHeight = lasY - firY;
 		recs->rast.lnRasterBufSize = REC_MAX_RASTER_SIZE;
-		memset(recs->rast.Raster,0,out8*recs->rast.lnPixHeight);
+		memset(recs->rast.Raster, 0, out8 * recs->rast.lnPixHeight);
 
 		{
 			uchar *iBuf = recs->rast.Raster;
-			oBuf = buf+outByte*firY;
-			for(j=recs->rast.lnPixHeight;j>0;j--,iBuf+=out8,oBuf+=outByte)
-			memcpy(iBuf,oBuf,outByte);
+			oBuf = buf + outByte * firY;
+			for (j = recs->rast.lnPixHeight; j > 0; j--, iBuf += out8, oBuf
+					+= outByte)
+				memcpy(iBuf, oBuf, outByte);
 		}
 
-		memset(&specInfo,0,sizeof(FonSpecInfo));
+		memset(&specInfo, 0, sizeof(FonSpecInfo));
 		specInfo.countRazmaz = countRazmaz;
-		nAlt=FONRecogChar(&recs->rast,&recs->vers,&specInfo);
+		nAlt = FONRecogChar(&recs->rast, &recs->vers, &specInfo);
 
-		if( nAlt <= 0)
-		continue;
-		if( recs->vers.lnAltCnt <= 0 || recs->vers.Alt[0].Prob < porog)
-		continue;
+		if (nAlt <= 0)
+			continue;
+		if (recs->vers.lnAltCnt <= 0 || recs->vers.Alt[0].Prob < porog)
+			continue;
 
-		if( better == -1 || MIN(AllRecBou[better].prob,recs2[0].vers.Alt[0].Prob) <
-				MIN(AllRecBou[i].prob,recs->vers.Alt[0].Prob) )
-		{
+		if (better == -1 || MIN(AllRecBou[better].prob,
+				recs2[0].vers.Alt[0].Prob) < MIN(AllRecBou[i].prob,
+				recs->vers.Alt[0].Prob)) {
 			recs->nClust = specInfo.nClust;
-			if( better != -1)
-			memcpy(&recs2[0],recs,sizeof(RECS2));
+			if (better != -1)
+				memcpy(&recs2[0], recs, sizeof(RECS2));
 			better = i;
 		}
 	}
 
-	if( better == -1 )
-	{
+	if (better == -1) {
 		free(inBuf);
 		return 0;
 	}
 
 	// remove old
-	for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)
-	rst = CSTR_DelRaster(rst);
+	for (rst = CSTR_GetNext(firOut); rst && rst != lasOut;)
+		rst = CSTR_DelRaster(rst);
 
 	inBestStack = 2;
 	bestStack[0] = AllRecBou[better];
 
-	k = PutNewRasters( inBuf, xbit, yrow, firOut,
-			wordRect.left, wordRect.top, lang, nNaklon,
-			recs2, firOut == firLeo, countRazmaz );
+	k = PutNewRasters(inBuf, xbit, yrow, firOut, wordRect.left, wordRect.top,
+			lang, nNaklon, recs2, firOut == firLeo, countRazmaz);
 	// remove first old - stay only new rasters
 	CSTR_DelRaster(firOut);
 
@@ -1986,124 +1968,116 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 ////////////////
 
 #endif
-///////////////////
-FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
-		CSTR_rast firOut,CSTR_rast lasOut,
-		int lang,
-		int porog, int nNaklon, int nRazmaz)
-{
-	int xbyte,xbit,yrow;
+
+int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+		CSTR_rast lasOut, int lang, int porog, int nNaklon, int nRazmaz) {
+	int xbyte, xbit, yrow;
 	int numAlt;
 	RECT wordRect;
-	CSTR_rast rst,rastOut;
+	CSTR_rast rst, rastOut;
 	CSTR_rast_attr attr;
 	RecRaster recRast;
 	RecVersions verOld;
 	FonSpecInfo specInfo;
 
 	// сделать общий растр - сначала получить размеры
-	xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
-	if( xbyte <= 0)
-	return -1;
+	xbyte = GetCommonSize(firLeo, lasLeo, &wordRect);
+	if (xbyte <= 0)
+		return -1;
 
-	xbit=wordRect.right-wordRect.left;
-	yrow=wordRect.bottom-wordRect.top;
-	if( yrow > WR_MAX_HEIGHT-2 || xbit > WR_MAX_WIDTH-2 )
-	return -11;
+	xbit = wordRect.right - wordRect.left;
+	yrow = wordRect.bottom - wordRect.top;
+	if (yrow > WR_MAX_HEIGHT - 2 || xbit > WR_MAX_WIDTH - 2)
+		return -11;
 
-	xbyte=REC_GW_WORD8(xbit);
+	xbyte = REC_GW_WORD8(xbit);
 
-	if( xbyte*yrow > REC_MAX_RASTER_SIZE )
-	return -12;
+	if (xbyte * yrow > REC_MAX_RASTER_SIZE)
+		return -12;
 
 	recRast.lnPixWidth = xbit;
 	recRast.lnPixHeight = yrow;
 	recRast.lnRasterBufSize = REC_MAX_RASTER_SIZE;
-	memset(recRast.Raster,0,xbyte*recRast.lnPixHeight);
+	memset(recRast.Raster, 0, xbyte * recRast.lnPixHeight);
 
-	if( !FillInBuf(recRast.Raster,xbyte,yrow,firLeo,lasLeo,&wordRect) )
-	{
+	if (!FillInBuf(recRast.Raster, xbyte, yrow, firLeo, lasLeo, &wordRect)) {
 		return -2;
 	}
 
 	// dont'recog by itself only!
-	CSTR_GetAttr(firOut,&attr);
-	CSTR_GetCollection(firOut,&verOld);
+	CSTR_GetAttr(firOut, &attr);
+	CSTR_GetCollection(firOut, &verOld);
 
 	// fill specInfo
-	memset(&specInfo,0,sizeof(FonSpecInfo));
+	memset(&specInfo, 0, sizeof(FonSpecInfo));
 
 	//        specInfo.nFieldRow=p2globals.line_number;
-	specInfo.col =attr.col;
-	specInfo.row =attr.row;
-	if( verOld.lnAltCnt > 0)
-	{
+	specInfo.col = attr.col;
+	specInfo.row = attr.row;
+	if (verOld.lnAltCnt > 0) {
 		specInfo.nInCTB = verOld.Alt[0].Info;
 		specInfo.nLet = verOld.Alt[0].Code;
 	}
 
-	specInfo.countRazmaz = MAX(1,nRazmaz); // was alwayes 4
+	specInfo.countRazmaz = MAX(1, nRazmaz); // was alwayes 4
 
-	numAlt=FONRecogChar(&recRast,&verOld,&specInfo);
+	numAlt = FONRecogChar(&recRast, &verOld, &specInfo);
 
-	if(IsSnap)
-	{
-		AddBitmapToSnap( recRast.Raster, xbyte<<3, yrow, verOld.Alt[0].Code,verOld.Alt[0].Prob);
+	if (IsSnap) {
+		AddBitmapToSnap(recRast.Raster, xbyte << 3, yrow, verOld.Alt[0].Code,
+				verOld.Alt[0].Prob);
 		FONShowSnap();
 	}
 
-	if( numAlt <= 0)
-	return 0;
-	if( verOld.lnAltCnt <= 0 || verOld.Alt[0].Prob < porog)
-	return 0;
+	if (numAlt <= 0)
+		return 0;
+	if (verOld.lnAltCnt <= 0 || verOld.Alt[0].Prob < porog)
+		return 0;
 
 	// уменьшим ...
 	//  for( i=0; i < verOld.lnAltCnt; i++)
 	//    verOld.Alt[i].Prob = MAX(1,verOld.Alt[i].Prob-10);
 
 	// remove old
-	for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)
-	rst = CSTR_DelRaster(rst);
+	for (rst = CSTR_GetNext(firOut); rst && rst != lasOut;)
+		rst = CSTR_DelRaster(rst);
 
-	memset(&attr,0,sizeof(CSTR_rast_attr));
-	attr.n_baton=255; // =NO_BATONS;
+	memset(&attr, 0, sizeof(CSTR_rast_attr));
+	attr.n_baton = 255; // =NO_BATONS;
 	attr.pos_inc = 0; // =erect_no;
 
-	attr.language=(uchar)lang;
-	attr.flg =CSTR_f_let;
+	attr.language = (uchar) lang;
+	attr.flg = CSTR_f_let;
 
-	attr.w = (short)recRast.lnPixWidth;
-	attr.h = (short)recRast.lnPixHeight;
+	attr.w = (short) recRast.lnPixWidth;
+	attr.h = (short) recRast.lnPixHeight;
 
 	attr.clink = verOld.Alt[0].Prob;
 	attr.nClust = specInfo.nClust;
 	attr.recsource = CSTR_rs_bitcmp;
 	attr.RecogHistory = CSTR_hi_fon;
 
-	if( firOut == firLeo ) // from new
+	if (firOut == firLeo) // from new
 	{
 		attr.row = wordRect.top;
 		attr.col = wordRect.left;
-		attr.r_row =attr.row+(short)((int32_t)nNaklon*attr.col/2048);
-		attr.r_col =attr.col-(short)((int32_t)nNaklon*attr.row/2048);
-	}
-	else
-	{
+		attr.r_row = attr.row + (short) ((int32_t) nNaklon * attr.col / 2048);
+		attr.r_col = attr.col - (short) ((int32_t) nNaklon * attr.row / 2048);
+	} else {
 		attr.r_row = wordRect.top;
 		attr.r_col = wordRect.left;
-		attr.row =attr.r_row-(short)((int32_t)nNaklon*attr.r_col/2048);
-		attr.col =attr.r_col+(short)((int32_t)nNaklon*attr.r_row/2048);
+		attr.row = attr.r_row - (short) ((int32_t) nNaklon * attr.r_col / 2048);
+		attr.col = attr.r_col + (short) ((int32_t) nNaklon * attr.r_row / 2048);
 	}
 
 	// нельзя NewRaster - вставится после пробела,
 	// а надо до
-	if( !(rastOut=CSTR_InsertRaster (firOut)) ||
-			!CSTR_SetAttr (rastOut, &attr) ||
-			!CSTR_StoreRaster (rastOut, &recRast) || //OLEG
-			!p2_StoreVersions (rastOut, &verOld,lang)
-			//           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
+	if (!(rastOut = CSTR_InsertRaster(firOut)) || !CSTR_SetAttr(rastOut, &attr)
+			|| !CSTR_StoreRaster(rastOut, &recRast) || //OLEG
+			!p2_StoreVersions(rastOut, &verOld, lang)
+	//           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
 	)
-	return 0;
+		return 0;
 
 	// remove first old - stay only new rasters
 	CSTR_DelRaster(firOut);

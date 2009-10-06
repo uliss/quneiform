@@ -140,7 +140,7 @@ int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 //////////////////////
 //
 //
-extern int Num11[256];
+extern const int Num11[256];
 //
 static int DistMoveRasters(uchar *buf,int fullByte,int w,int h,
 						   uchar *bufraz,int xbyte2,int xbit2,int yrow2,

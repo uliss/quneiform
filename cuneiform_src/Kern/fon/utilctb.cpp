@@ -56,24 +56,23 @@
 
 #define _ONLY_FINAL_
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
+#include <algorithm>
 
-#include "minmax.h"
 #include "ctb/ctb.h"
 #include "sfont.h"
 #include "leo/leo.h"
+#include "minmax.h"
 
 #define ParolBase "ClBas"
 
 static uchar UseHand = 0;
 
-/////////////////
 void EndCTB(CTB_handle *CTBFile) {
 	CTB_close(CTBFile);
-	//	CTB_done();
 }
-/////////////////
+
 int StartCTB(char *outname, CTB_handle *CTBFile, int16_t countFont,
 		uint32_t *fields) {
 	uchar CTBdata[CTB_DATA_SIZE];
@@ -87,7 +86,7 @@ int StartCTB(char *outname, CTB_handle *CTBFile, int16_t countFont,
 	i = MIN(countFont, 4);
 	memcpy(pword32, fields, i * NFIELDDWORD * sizeof(uint32_t));
 
-	CTBdata[0] = MAX(8 + 4*NFIELDDWORD * sizeof(uint32_t), 34 + NFIELDDWORD
+	CTBdata[0] = std::max(8 + 4*NFIELDDWORD * sizeof(uint32_t), 34 + NFIELDDWORD
 			* sizeof(uint32_t));
 
 	if (CTB_create_gray(outname, CTBdata) == FALSE) {
@@ -102,7 +101,7 @@ int StartCTB(char *outname, CTB_handle *CTBFile, int16_t countFont,
 
 	return 1;
 }
-/////////////////
+
 int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 	uchar CTBdata[CTB_DATA_SIZE];
 	int fullX;
@@ -111,26 +110,13 @@ int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 	uint16_t *pword16;
 	uint32_t *pword32;
 	int16_t *pint16;
-	static num = 0;
+	static int num = 0;
 	int i;
-
-	//  if( (j=write(flout,wel,sizeof(welet))) !=sizeof(welet))
 
 	fullX = 128; //((wel->w+7)>>3)<<3;
 	fullY = 64; // wel->h;
-	bufCTB = wel->raster;
-	/*
-	 allRaster=wel->raster+((WR_MAX_HEIGHT-fullY)/2)*WR_MAX_WIDTH+
-	 (WR_MAX_WIDTH-fullX)/2;
-	 startRaster=bufCTB=wel->raster;
-	 for(j=0;j< fullY;j++,allRaster+=WR_MAX_WIDTH,startRaster+=fullX)
-	 { for(k=0;k<fullX;k++)
-	 //startRaster[k]=255-allRaster[k];
-	 //  startRaster[k]=allRaster[k]>0?0:1;
-	 startRaster[k]=allRaster[k];
-	 //memset(startRaster+wel->w,0,fullX-wel->w);
-	 }
-	 */
+	bufCTB = (uchar*) wel->raster;
+
 	memset(CTBdata, 0, CTB_DATA_SIZE);
 	CTBdata[0] = CTB_OEM_CHARSET;
 	CTBdata[1] = (uchar) fullX; // 128
@@ -183,7 +169,7 @@ int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
 //
 //   input from b/w ctb-base
 //
-//////////////////////
+
 static CTB_handle CTBfileBW;
 static unsigned char CTBima[((BASE_MAX_W + 7) / 8) * (BASE_MAX_H + 1)];
 static unsigned char CTBdata[MAX(CTB_DATA_SIZE, 36)];
@@ -192,7 +178,7 @@ void CloseBase(void) {
 	CTB_close(&CTBfileBW);
 	return;
 }
-//////////////////////
+
 int OpenBase(char *bas) {
 
 	if (!CTB_open(bas, &CTBfileBW, "w"))
@@ -255,9 +241,9 @@ int GetSymbolFromBase(int i, Nraster_header *rh, uchar **pBuf) {
 	*pBuf = &CTBima[0];
 	return 1;
 }
-/////////////////////////
+
 uchar SetHand(uchar val) {
 	UseHand = val;
 	return UseHand;
 }
-////////
+

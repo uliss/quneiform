@@ -250,7 +250,7 @@ int32_t FONShowSnap(void) {
 		}
 	}
 
-	PutNamesSnap(InSnap, nameSnap, probSnap);
+	PutNamesSnap(InSnap, (uchar*) nameSnap, probSnap);
 
 	return InSnap;
 }
@@ -290,7 +290,7 @@ static Bool RegisterGlu(Handle hInstance, char* szAppName) {
 
 	WndClass.lpszClassName = szAppName;
 	WndClass.hInstance = hInstance;
-	WndClass.lpfnWndProc = GluFonWindowProc;
+	WndClass.lpfnWndProc = (void*) GluFonWindowProc;
 	WndClass.style = (unsigned int) NULL;
 	WndClass.hbrBackground = NULL;
 	WndClass.hCursor = NULL;

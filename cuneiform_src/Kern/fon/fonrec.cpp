@@ -54,6 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <unistd.h>
+
 // если кластер маленький (< POROG_WEIGHT)
 // или с плохой оценкой ( < POROG_PROB )
 // понизить оценку распознавания
@@ -167,7 +169,7 @@ static int CheckFileClu(char *name) {
 	}
 
 	lseek(fh, 0, SEEK_SET);
-	if ((mem = malloc(ln)) == NULL) {
+	if ((mem = static_cast<uchar*> (malloc(ln))) == NULL) {
 		close(fh);
 		return -2;
 	}
@@ -192,9 +194,9 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	uchar CTBdata[CTB_DATA_SIZE];
 	uint16_t *pword16;
 	int16_t *pint16;
-	uint32_t *pword32;
+	uint32_t * pword32;
 
-	if (CTB_read(CTBhandle, num, wel->raster, CTBdata) == FALSE)
+	if (CTB_read(CTBhandle, num, (uchar*) wel->raster, CTBdata) == FALSE)
 		return 0;
 
 	wel->let = CTBdata[3]; // in ASCII
@@ -241,7 +243,7 @@ static int LoadCTB(char *name) {
 	int num;
 	int i;
 	int16_t *pint16;
-	uint32_t *pword32;
+	uint32_t * pword32;
 
 	// process CTB-file
 	if (CTB_open(name, &ctbhan, "r") == FALSE) { // MessageBox(GetActiveWindow(),name,"Error open CTB-base",MB_OK);
@@ -865,7 +867,8 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 //static uint16_t  (*_cmp)(puchar r,uint16_t h,uint16_t w,welet * wl,int16_t xo,int16_t yo);
 
 ///////////////////////
-int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, int16_t xo, int16_t yo) {
+int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl,
+		int16_t xo, int16_t yo) {
 	int32_t n, ac, np;
 	pchar curr;
 	int16_t i, j, jj;
@@ -909,8 +912,8 @@ int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, in
 }
 ///////////////////////
 // _cmp = cmpMMX  - was in Tiger
-static int16_t (*_cmp)(puchar r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, int16_t xo,
-		int16_t yo) = cmp0;
+static int16_t (*_cmp)(puchar r, uint16_t fullw, uint16_t w, uint16_t h,
+		welet * wl, int16_t xo, int16_t yo) = cmp0;
 ///////////
 uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
 	uint16_t best, east, west, north, south, center;
@@ -957,17 +960,17 @@ uint16_t cmp(puchar r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
 int recogWelet(puchar r, uint16_t fullRow, uint16_t w, uint16_t h, welet * wl) {
 	if (!(wl->attr & FON_CLU_SOLID))
 		return 0; // suspect cluster
-		//   if(! can_compare(wl))          return ver; // prevent rec letter by itself
+	//   if(! can_compare(wl))          return ver; // prevent rec letter by itself
 	if (wl->invalid)
 		return 0; // suspect cluster
-		//   if(shadow_clu(wl))		  return ver; //
-		//   if( h >= WR_MAX_HEIGHT-1 ) return 0;
-		//   if( w >= WR_MAX_WIDTH-1 )  return 0;
+	//   if(shadow_clu(wl))		  return ver; //
+	//   if( h >= WR_MAX_HEIGHT-1 ) return 0;
+	//   if( w >= WR_MAX_WIDTH-1 )  return 0;
 
 	if (abs(wl->mh - h) * 5 > h)
 		return 0; // check for height likeness
-		//   if(abs(wl->w-w) >= MIN(wl->w,w)/2) return 0;
-		//   if(abs(wl->mw-w)*3 >= MIN(wl->mw,w) ) return 0;
+	//   if(abs(wl->w-w) >= MIN(wl->w,w)/2) return 0;
+	//   if(abs(wl->mw-w)*3 >= MIN(wl->mw,w) ) return 0;
 	if (abs(wl->mw - w) * 3 >= wl->mw)
 		return 0;
 
@@ -1018,8 +1021,9 @@ int AddVersion(RECRESULT *recres, uchar let, uchar rec, int nClust, int num,
 	return num;
 }
 //////////////
-int recog_raster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *fonba,
-		RECRESULT *recres, int maxNames, int inCTB, int col, int row) {
+int recog_raster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h,
+		FONBASE *fonba, RECRESULT *recres, int maxNames, int inCTB, int col,
+		int row) {
 	int i;
 	welet *wel;
 	int num = 0;
@@ -1038,7 +1042,8 @@ int recog_raster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *
 		if ((rec = recogWelet(r, fullBytes, w, h, wel)) < POROG_GOOD)
 			continue;
 
-		num = AddVersion(recres, (uchar) wel->let, (uchar) rec, i, num, maxNames);
+		num = AddVersion(recres, (uchar) wel->let, (uchar) rec, i, num,
+				maxNames);
 	}
 	return num;
 }

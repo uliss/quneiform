@@ -220,8 +220,8 @@ static int sig_tab[513] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 0
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 // f
 		};
 ///////////////
-int16_t DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl, int xo,
-		int yo, int porog, int wei) {
+int16_t DistWeletRazmaz(puchar r, int fullByte, int w, int h, welet * wl,
+		int xo, int yo, int porog, int wei) {
 	int ww = wl->w, hh = wl->h;
 	pchar curr;
 	int i, j;
@@ -782,9 +782,9 @@ static uchar buf[REC_MAX_RASTER_SIZE];
 static uchar bufrazmaz[REC_MAX_RASTER_SIZE];
 static uchar const mask0[8] = { 255, 128, 192, 224, 240, 248, 252, 254 };
 //////////////
-int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow, RECRESULT *recres,
-		int16_t maxNames, welet *wl, int numWel, int porog, int nInCTB,
-		int16_t col, int16_t row, int32_t countRazmaz) {
+int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
+		RECRESULT *recres, int16_t maxNames, welet *wl, int numWel, int porog,
+		int nInCTB, int16_t col, int16_t row, int32_t countRazmaz) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;
 	uchar *b1;
@@ -853,8 +853,8 @@ int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow, RECRESU
 	return i;
 }
 ///////////////////////////
-int16_t CheckClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow, FONBASE *fbase,
-		int let, FonTestInfo *attr, int16_t nInCTB) {
+int16_t CheckClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
+		FONBASE *fbase, int let, FonTestInfo *attr, int16_t nInCTB) {
 	int i;
 	int rbyte = (xbit + 7) >> 3;
 	uchar *b1;
@@ -1761,7 +1761,7 @@ static int ScaleSymbol(uchar *inbuf, int fullByte, int allSizeX, int allSizeY,
 		newY = REC_MAX_RASTER_SIZE / xbyte;
 
 	allSize = allSizeX * newX * allSizeY * newY;
-	tmpBufScale = realloc(tmpBufScale, allSize);
+	tmpBufScale = static_cast<uchar*> (realloc(tmpBufScale, allSize));
 
 	if (!tmpBufScale)
 		return -2;
