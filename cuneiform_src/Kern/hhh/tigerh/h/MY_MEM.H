@@ -54,41 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// 03-24-94 07:22pm, Pit
-// ЏҐаҐЈаг§Є  дг­ЄжЁ© а Ў®вл б Ї ¬пвмо
-// вҐЄбв дг­ЄжЁ© б¬. LTERRORS.C
-//
-//
 
 #define ONE_BLOCK  // ЇҐаҐеў в а Ў®вл б Ї ¬пвмо
-//#define DebugFile  // 03-17-94 02:26am,ЇҐз вм ЇаЁ ЇҐаҐеў зҐ­­®© Ї ¬пвЁ
-// ( Ћв« ¤®з­ п ЇҐз вм ў д ©« )
-//
 
 #ifdef  DebugFile
    #ifndef __KERNEL__  // ЇҐаҐ¬Ґ­­лҐ ®ЇаҐ¤Ґ«Ґ­л ў KERNEL.C
         extern char  StringError[];
         extern FILE * FileError;
    #endif
-#endif
-
-void * DebugMalloc(size_t);
-void * DebugRealloc(void *,size_t);
-void   DebugFree(void *);
-void   DebugFreeMem(void);
-long   GetMaxSizeFreeMem();
-
-#ifndef __LTERRORS__
-#ifdef ONE_BLOCK
-
-#undef malloc
-#undef realloc
-#undef free
-
-#define malloc(a)       DebugMalloc(a)
-#define calloc(a)       DebugMalloc(a)
-#define realloc(a,b)    DebugRealloc(a,b)
-#define free(a)         DebugFree(a)
-
-#endif
 #endif
