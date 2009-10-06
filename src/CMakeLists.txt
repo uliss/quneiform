@@ -1,5 +1,18 @@
 set(LIBTYPE SHARED)
 
+include_directories(
+../src
+include
+h
+hh
+hhh
+hdebug
+hrk
+hrkint
+hrstr
+usage
+)
+
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.cpp)
     message(STATUS "Adding __snp.cpp to individual libraries.")
@@ -49,6 +62,7 @@ add_subdirectory(rpic)
 add_subdirectory(rstuff)
 add_subdirectory(rmarker)
 add_subdirectory(rcorrkegl)
+add_subdirectory(cfcompat)
 
 set(RPSTR_LIBS rpstr rstr rling mmx32 pass2 rbal cline leo32 cpu32 r3532 rlings rsadd
 fon32 msk32 std32 evn32 cstr ctb32 dif32 rcutp ccom)
@@ -56,6 +70,4 @@ set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rshelllines rfrmt rselstr rblock rout rverline rimage exc ced cpage
 cimage loc32 rdib cfio)
 
-include_directories(itigerole/sources/tiger/h)
 
-add_subdirectory(cfcompat)
