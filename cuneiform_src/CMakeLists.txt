@@ -8,7 +8,6 @@ Kern/hdebug
 Kern/hrk
 Kern/hrkint
 Kern/hrstr
-Kern/fon/src
 Kern/usage
 )
 
