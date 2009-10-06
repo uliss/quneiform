@@ -1,20 +1,19 @@
 include_directories(BEFORE sources/main sources/main/deza sources/main/kronrod)
 
 add_library(rimage ${LIBTYPE}
-sources/main/deza/cdezabinarizator.cpp
-sources/main/kronrod/ckronrodbinarizator.cpp
-sources/main/kronrod/gdata.c
-sources/main/kronrod/grey-wnd.c
-sources/main/cribinarizator.cpp
-sources/main/cricontrol.cpp
-sources/main/criimage.cpp
-#sources/main/crimage.rc
-sources/main/crimemory.cpp
-sources/main/crinvertor.cpp
-sources/main/crrotator.cpp
-sources/main/crturner.cpp
-sources/main/dll.cpp
-sources/main/rprogressor.cpp
+cdezabinarizator.cpp
+ckronrodbinarizator.cpp
+gdata.c
+grey-wnd.c
+cribinarizator.cpp
+cricontrol.cpp
+criimage.cpp
+crimemory.cpp
+crinvertor.cpp
+crrotator.cpp
+crturner.cpp
+dll.cpp
+rprogressor.cpp
 )
 set_property(TARGET rimage PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
 
