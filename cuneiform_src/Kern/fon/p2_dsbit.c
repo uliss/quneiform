@@ -59,7 +59,7 @@
 
 #include <string.h>
 
-#include "fon.h"
+#include "fon/fon.h"
 #include "sfont.h"
 extern int Num11[256];
 /**************************************/

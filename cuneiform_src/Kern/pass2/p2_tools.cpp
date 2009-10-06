@@ -71,7 +71,7 @@
 #include "leo/leo.h"
 #include "lang_def.h"
 #include "ccom/ccom.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "std.h"
 
 #include "p2.h"

@@ -57,7 +57,7 @@
 #ifndef P2LIBR_H_
 #define P2LIBR_H_
 
-#include "fondefs.h"
+#include "fon/fondefs.h"
 
 // p2_tools.c
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver);

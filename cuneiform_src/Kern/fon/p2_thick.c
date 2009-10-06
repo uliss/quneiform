@@ -60,7 +60,7 @@
 #define _SPECSMALL_
 #define SMALLPOROG 18
 
-#include "fon.h"
+#include "fon/fon.h"
 #include "sfont.h"
 #include <string.h>
 

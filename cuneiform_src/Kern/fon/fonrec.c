@@ -71,7 +71,7 @@
 
 #define ParolBase "ClBas"  // in ctb - cluster
 #define POROG_GOOD 110     // if < POROG_GOOD - set unrecog
-#include "fon.h"
+#include "fon/fon.h"
 #include "ctb/ctb.h"
 #include "sfont.h"
 #include "fonrec.h"

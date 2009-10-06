@@ -61,7 +61,7 @@
 #include "minmax.h"
 #include "lang_def.h"
 #include "cstr/cstr.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "p2libr.h"
 
 // Ради language

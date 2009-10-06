@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "lang.h"
 #include "cstr/cstr.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "std.h"
 //#include "linear.h"
 #include "p2libr.h"

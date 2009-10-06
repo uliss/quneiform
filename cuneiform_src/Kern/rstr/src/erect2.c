@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #include "cstr/cstr.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "ctb/ctb.h"
 #include "tuner.h"
 #include "ligas.h"

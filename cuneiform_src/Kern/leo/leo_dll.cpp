@@ -71,7 +71,7 @@
 #include "evn32/evn.h"
 #include "dif/dif.h"
 #include "ctb/ctb.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "msk/msk.h"
 #include "std.h"
 #include "snptools.h"

@@ -72,7 +72,7 @@
 #include "cuthdr.h"
 #include "p2libr.h"
 #include "tuner.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "minmax.h"
 
 static void snap_sticks(cell *, char *);

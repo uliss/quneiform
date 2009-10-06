@@ -55,7 +55,7 @@
  */
 
 //////////////////////////
-#include "fon.h"
+#include "fon/fon.h"
 #include "sfont.h"
 #include "fonrec.h"
 

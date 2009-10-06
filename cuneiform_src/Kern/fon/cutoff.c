@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	  //  calculate distances. Now - when CutOffClusters!
 #define _L1DIST_
 
-#include "fon.h"
+#include "fon/fon.h"
 #include "sfont.h"
 #include <memory.h>
 #include <string.h>

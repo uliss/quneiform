@@ -77,7 +77,7 @@
 // and non-solid with solid
 #define _RENAME_
 ///////////////////////
-#include "fon.h"
+#include "fon/fon.h"
 
 #include <stdlib.h>
 #include <string.h>

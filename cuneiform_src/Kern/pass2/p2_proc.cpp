@@ -55,7 +55,7 @@
  */
 
 #include "minmax.h"
-#include "fon.h"
+#include "fon/fon.h"
 
 #define GRAF
 
@@ -121,7 +121,7 @@
 
 #include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
-#include "fon.h"
+#include "fon/fon.h"
 #include "std.h"
 #include "alphabet.h"
 #include "ligas.h"

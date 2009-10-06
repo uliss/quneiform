@@ -68,7 +68,7 @@
 #include "evn32/evn.h"
 #include "ctb/ctb.h"
 #include "dif/dif.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "msk/msk.h"
 
 #include "std.h"

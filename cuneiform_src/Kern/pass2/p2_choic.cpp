@@ -71,7 +71,7 @@
 #include "ligas.h"
 #include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
-#include "fon.h"
+#include "fon/fon.h"
 #include "p2libr.h"
 #include "std.h"
 #include "minmax.h"

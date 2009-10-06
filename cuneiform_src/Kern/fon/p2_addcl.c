@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include <time.h>
 #endif
 
-#include "fon.h"
+#include "fon/fon.h"
 #include "sfont.h"
 #include "minmax.h"
 

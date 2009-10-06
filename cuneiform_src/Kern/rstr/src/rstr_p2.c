@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 #include "struct.h"
 #include "cstr/cstr.h"
-#include "fon.h"
+#include "fon/fon.h"
 #include "dpuma.h"
 #include "rsadd/rsadd.h"
 

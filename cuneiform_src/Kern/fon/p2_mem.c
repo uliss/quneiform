@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 ///////////////////////
-#include "fon.h"
+#include "fon/fon.h"
 
 #include <stdlib.h>
 #include <string.h>
