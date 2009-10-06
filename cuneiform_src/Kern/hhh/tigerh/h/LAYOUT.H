@@ -655,7 +655,7 @@ void WSB_FreeData (void);
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 void LT_GraphicsOpen (void);
 void LT_GraphicsClearScreen (void);
-void LT_GraphicsTitle (char *pTitle);
+void LT_GraphicsTitle (const char *pTitle);
 int  LT_Getch (void);
 
 void LT_GraphicsRootsOutput (const char *pTitle);

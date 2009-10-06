@@ -65,16 +65,17 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <fcntl.h>
-# include <stdio.h>
-/*# include <crtdbg.h>*/
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <assert.h>
+#include <unistd.h>
 
-# include "c_memory.h"
-# include "iolib.h"
-# include "layout.h"
-# include "my_mem.h"
-
+#include "c_memory.h"
+#include "lterrors.h"
+#include "iolib.h"
+#include "layout.h"
+#include "my_mem.h"
 #include "compat_defs.h"
 
 # ifdef LT_STAND_ALONE
@@ -108,6 +109,50 @@ int nRootStripsOffset;
 # ifdef LT_STAND_ALONE
 # define ROOTS_MEMORY_QUANTUM   1024
 
+Bool RootsLoadFile (char * pFilename)
+{
+	/*    typedef int Handle;*/
+
+	Handle hFile;
+	ROOT RootRecord;
+
+	RootsFreeData ();
+
+	hFile = (Handle)open (pFilename, O_RDONLY | O_BINARY);
+
+	if (hFile == (Handle)(-1))
+	{
+		ErrorFile ();
+		return (FALSE);
+	}
+
+	while (read ((int)hFile, &RootRecord, sizeof (ROOT)) == sizeof (ROOT))
+	{
+		RootRecord.bReached = FALSE;
+
+		if (nRoots % ROOTS_MEMORY_QUANTUM == 0)
+		{
+			pRoots = static_cast<ROOT*>(realloc (pRoots,
+							(size_t) ((nRoots / ROOTS_MEMORY_QUANTUM + 1)
+									* ROOTS_MEMORY_QUANTUM * sizeof (ROOT))));
+		}
+
+		nRoots++;
+
+		if (pRoots == NULL)
+		{
+			ErrorNoEnoughMemory ("in LTROOTS.C,RootsLoadFile,part 1");
+			nRoots = 0;
+			close ((int)hFile);
+			return (FALSE);
+		}
+
+		pRoots [nRoots - 1] = RootRecord;
+	}
+
+	close ((int) hFile);
+	return (TRUE);
+}
 # endif
 
 void CalculatePageParameters(void) {
@@ -148,6 +193,16 @@ void CalculatePageParameters(void) {
 
 	nRootSpaceWidth = rRootSpace.xRight - rRootSpace.xLeft + 1;
 	nRootSpaceHeight = rRootSpace.yBottom - rRootSpace.yTop + 1;
+	/*
+	 printf ("[%d, %d]-[%d, %d] : w: %d h: %d\n",
+	 (int) rRootSpace.xLeft,
+	 (int) rRootSpace.yTop,
+	 (int) rRootSpace.xRight,
+	 (int) rRootSpace.yBottom,
+	 (int) nRootSpaceWidth,
+	 (int) nRootSpaceHeight);
+	 LT_Getch ();
+	 */
 
 	nPageHeight = nRootSpaceHeight;
 	nSuitablePageHeight = nRootSpaceHeight * 2;
@@ -156,14 +211,17 @@ void CalculatePageParameters(void) {
 
 void RootStripsCalculate(void) {
 	ROOT *pRoot;
-	int yMin, yMax;
+	int yMin, yMax; // впоследствии -- это ординаты начала
+	// и конца массива проекций всех рутов (на вертикаль)
 	int iStrip;
 	int iStripBegin;
 	int iStripEnd;
 
 	if (nRoots == 0)
-		ErrorInternal((char *) "nRoots == 0");
+		ErrorInternal("nRoots == 0");
 
+	// вычисление минимальной и максимальной ординаты
+	// коробок символов ("рутов").
 	yMin = pRoots[0].yRow;
 	yMax = pRoots[0].yRow + pRoots[0].nHeight - 1;
 
@@ -178,12 +236,17 @@ void RootStripsCalculate(void) {
 	nRootStripsOffset = yMin;
 	nRootStripsStep = 128;
 	nRootStrips = (yMax - yMin + (nRootStripsStep - 1)) / nRootStripsStep + 1;
+	// то есть nRootStrips -- это ближайшее сверху
+	// к (yMax - yMin) кратное 128; например, при совпадении
+	// yMax и yMin это просто 128 и есть
+
 	if (pRootStrips)// Piter
 	{
 		free(pRootStrips);// Piter
 		pRootStrips = NULL;// Piter
 	}// Piter
-	pRootStrips = (ROOT_STRIP*) malloc(nRootStrips * sizeof(ROOT_STRIP));
+	pRootStrips = static_cast<ROOT_STRIP*> (malloc(nRootStrips
+			* sizeof(ROOT_STRIP)));
 	if (pRootStrips == NULL)
 		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
 	memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
@@ -218,7 +281,7 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin,
 	int iStrip;
 
 	if (nRootStripsStep == 0)
-		ErrorInternal((char *) "nRootStripsStep == 0");
+		ErrorInternal("nRootStripsStep == 0");
 
 	iStripBegin = (yTop - nRootStripsOffset) / nRootStripsStep;
 
@@ -256,7 +319,7 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin,
 	}
 
 	if ((pBegin == NULL) != (pEnd == NULL))
-		ErrorInternal((char *) "(pBegin == NULL) != (pEnd == NULL)");
+		ErrorInternal("(pBegin == NULL) != (pEnd == NULL)");
 
 	if (pBegin == NULL) {
 		*ppBegin = NULL;
@@ -278,6 +341,7 @@ void RootsRemoveFromRulers(void) {
 			y = p -> yRow;
 
 			REAL_XY(x, y);
+			//          del_root (y, x, p -> nHeight, p -> nWidth);
 		}
 	}
 }
@@ -286,7 +350,7 @@ void RootsSaveNonLayoutData(void) {
 	int i;
 
 	if (pRootExts != NULL)
-		ErrorInternal((char *) "RootsSaveNonLayoutData: pRootExts != NULL");
+		ErrorInternal("RootsSaveNonLayoutData: pRootExts != NULL");
 
 	nRootExts = nRoots;
 
@@ -307,7 +371,7 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
 	int i;
 
 	if (pRootExts == NULL)
-		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
 
 	for (i = 0; i < nRootExts; i++) {
 		if (pRoots[i].nBlock == DUST_BLOCK_NUMBER || pRoots[i].nBlock
@@ -318,11 +382,27 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
 	}
 }
 
+void RootsRestoreNonLayoutData_ForBlock(BLOCK *p) {
+	ROOT *pRoot, *pNext;
+
+	if (pRootExts == NULL)
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
+
+	if (p -> pRoots == NULL)
+		return;
+
+	for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pNext) {
+		pNext = pRoot -> u1.pNext;
+		pRoot -> u1.u2.wSegmentPtr = pRootExts[pRoot - pRoots].wSegmentPtr;
+		pRoot -> u1.u2.wLength = pRootExts[pRoot - pRoots].wLength;
+	}
+}
+
 void RootsRestoreNonLayoutData(void) {
 	int i;
 
 	if (pRootExts == NULL)
-		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
 
 	for (i = 0; i < nRootExts; i++) {
 		pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;

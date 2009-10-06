@@ -64,13 +64,13 @@
  *                                                                          *
  ***************************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
-#include "c_memory.h"
-#include "extract.h"
-#include "my_mem.h"
+# include "c_memory.h"
+# include "extract.h"
+# include "my_mem.h"
 
 # define DUST_LIST_MEMORY_ALLOCATION_QUANTUM 128
 # define DUST_LIST_MEMORY_ALLOCATION_MASK    127
@@ -86,11 +86,11 @@ STRING *pStringsDownList = NULL;
 void StringPrepare(void) {
 	StringFree();
 
-	String.pLettersList = (int*) malloc(nRoots * sizeof(int));
+	String.pLettersList = static_cast<int*> (malloc(nRoots * sizeof(int)));
 	if (String.pLettersList == NULL)
 		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 1");
 
-	String.pDustList = (int*) malloc(nRoots * sizeof(int));
+	String.pDustList = static_cast<int*> (malloc(nRoots * sizeof(int)));
 	if (String.pDustList == NULL)
 		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 2");
 
@@ -138,6 +138,11 @@ Bool StringIncludes(STRING *p, STRING *q) {
 			+ 1);
 
 	if (bOptionBusinessCardsLayout) {
+		// 940223 AL   replaced by:   check SF_VERTCUT
+		//int    nPBigDistance = (p -> yMiddleBottom - p -> yMiddleTop + 1) * 6;
+		//int    nQBigDistance = (q -> yMiddleBottom - q -> yMiddleTop + 1) * 6;
+		//int    nTestDistance = MIN (nPBigDistance, nQBigDistance);
+		//int    nPQDistance = MAX (q->xLeft - p->xRight,p->xLeft - q->xRight );
 		bNotIncludes = ((q -> uFlags & SF_VERTCUT) && q -> nLetters > 0
 				&& nLettersSquare >= nStringSquare / 3) || (q -> nLetters >= 5
 				&& q -> nRecognized >= q -> nLetters / 2 && nLettersSquare
@@ -210,6 +215,19 @@ void StringRemove(STRING *p) {
 	free(p);
 }
 
+void StringRemoveFromUpDownLists(STRING *p) {
+	if (p == pStringsUpList)
+		pStringsUpList = pStringsUpList -> pDown;
+
+	if (p == pStringsDownList)
+		pStringsDownList = pStringsDownList -> pUp;
+
+	if (p -> pUp != NULL)
+		p -> pUp -> pDown = p -> pDown;
+	if (p -> pDown != NULL)
+		p -> pDown -> pUp = p -> pUp;
+}
+
 void StringAccountRectangle1(int iRoot) {
 	ROOT *pRoot = &pRoots[iRoot];
 
@@ -258,8 +276,40 @@ void StringAccountRectangle2(STRING *pString, int iRoot) {
 	}
 }
 
+void StringAccountRepresentationParameters1(int iRoot) {
+	ROOT_EXT *pExt = &pRootExts[iRoot];
+
+	if (!(String.uFlags & SF_REPRESENTATION_ACCOUNTED)) {
+		String.wFirst = pExt -> wSegmentPtr;
+		String.wLast = pExt -> wSegmentPtr + pExt-> wLength;
+		String.uFlags |= SF_REPRESENTATION_ACCOUNTED;
+	} else {
+		if (String.wFirst > pExt -> wSegmentPtr)
+			String.wFirst = pExt -> wSegmentPtr;
+
+		if (String.wLast < pExt -> wSegmentPtr + pExt -> wLength)
+			String.wLast = pExt -> wSegmentPtr + pExt -> wLength;
+	}
+}
+
+void StringAccountRepresentationParameters2(STRING *pString, int iRoot) {
+	ROOT_EXT *pExt = &pRootExts[iRoot];
+
+	if (!(pString -> uFlags & SF_REPRESENTATION_ACCOUNTED)) {
+		pString -> wFirst = pExt -> wSegmentPtr;
+		pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
+		pString -> uFlags |= SF_REPRESENTATION_ACCOUNTED;
+	} else {
+		if (pString -> wFirst > pExt -> wSegmentPtr)
+			pString -> wFirst = pExt -> wSegmentPtr;
+
+		if (pString -> wLast < pExt -> wSegmentPtr + pExt -> wLength)
+			pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
+	}
+}
+
 void StringCountRecog(STRING *q) {
-	int i, j;
+	int16_t i, j;
 	q->nRecognized = 0;
 	for (i = 0; i < q -> nLetters; i++) {
 		j = q -> pLettersList[i];
@@ -277,12 +327,32 @@ void StringAddLetter1(int iRoot) {
 	StringAccountRectangle1(iRoot);
 }
 
+void StringAddLetter2(STRING *pString, int iRoot) {
+	pString -> nLetters++;
+	pString -> pLettersList = static_cast<int*> (realloc(
+			pString -> pLettersList, pString -> nLetters));
+
+	if (pString -> pLettersList == NULL)
+		ErrorNoEnoughMemory("in SESTRING.C,StringAddLetter2 ,part 1");
+
+	pString -> pLettersList[pString -> nLetters - 1] = iRoot;
+
+	if (pRoots[iRoot].bType & ROOT_LETTER)
+		pString -> nRecognized++;
+
+	StringAccountRectangle2(pString, iRoot);
+}
+
+void StringAddDust1(int iRoot) {
+	String.pDustList[String.nDust++] = iRoot;
+}
+
 void StringAddDust2(STRING *pString, int iRoot) {
 	if ((pString -> nDust & DUST_LIST_MEMORY_ALLOCATION_MASK) == 0) {
-		pString -> pDustList = (int*) realloc(pString -> pDustList,
+		pString -> pDustList = static_cast<int*> (realloc(pString -> pDustList,
 				(size_t) ((((pString -> nDust
 						>> DUST_LIST_MEMORY_ALLOCATION_SHIFT) + 1)
-						<< DUST_LIST_MEMORY_ALLOCATION_SHIFT) * sizeof(int)));
+						<< DUST_LIST_MEMORY_ALLOCATION_SHIFT) * sizeof(int))));
 
 		if (pString -> pDustList == NULL)
 			ErrorNoEnoughMemory("in SESTRING.C,StringAddDust2,part 1");
@@ -295,14 +365,15 @@ STRING *StringAddToList(void) {
 	STRING *pNew;
 	STRING *p;
 
-	pNew = (STRING*) malloc(sizeof(STRING));
+	pNew = static_cast<STRING*> (malloc(sizeof(STRING)));
 	if (pNew == NULL)
 		ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 1");
 
 	memcpy(pNew, &String, sizeof(String));
 
 	if (String.nLetters != 0) {
-		pNew -> pLettersList = (int*) malloc(String.nLetters * sizeof(int));
+		pNew -> pLettersList = static_cast<int*> (malloc(String.nLetters
+				* sizeof(int)));
 
 		if (pNew -> pLettersList == NULL)
 			ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 2");
@@ -314,7 +385,8 @@ STRING *StringAddToList(void) {
 	}
 
 	if (String.nDust != 0) {
-		pNew -> pDustList = (int*) malloc(String.nDust * sizeof(int));
+		pNew -> pDustList = static_cast<int*> (malloc(String.nDust
+				* sizeof(int)));
 
 		if (pNew -> pDustList == NULL)
 			ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 3");
@@ -376,22 +448,23 @@ STRING *StringAddToList(void) {
 	return (pNew);
 }
 
-static int StringListCompProc(const void *p1, const void *p2) {
-	return (pRoots[*((int*) (p1))].xColumn - pRoots[*((int*) (p2))].xColumn);
+static int StringListCompProc(const int *p1, const int *p2) {
+	return (pRoots[*p1].xColumn - pRoots[*p2].xColumn);
 }
 
 void StringSortLetters(STRING *pString) {
 	q_sort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
-			StringListCompProc);
+			(int(*)(const void*, const void*)) StringListCompProc);
 }
 
 void StringSortDust(STRING *pString) {
 	q_sort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
-			StringListCompProc);
+			(int(*)(const void*, const void*)) StringListCompProc);
 }
 
 void StringOutput(void) {
 	extern void file_string(STRING * n);
+
 	String.nBlock = nCurrentBlock;
 	String.nUserNum = pCurrentBlock->nUserNum;// Piter 08-17-95 06:41pm
 	String.yBottom++;

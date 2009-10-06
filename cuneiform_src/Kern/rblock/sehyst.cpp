@@ -54,142 +54,124 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// ============================================================================
-// Written by Peter Khlebutin
-// This file creation date: 20.07.98
-//
-// dll_cpage.cpp :
-// ============================================================================
-#include <setjmp.h>
+/****************************************************************************
+ *                                                                          *
+ *                                                                          *
+ *              S T R I N G S   E X T R A C T I O N                         *
+ *                                                                          *
+ *              Written in 1991 by Yuri Panchul                             *
+ *                                                                          *
+ *              SEHYST.C - Blocks hystograms                                *
+ *                                                                          *
+ ***************************************************************************/
 
-#include "resource.h"
-#include "dpuma.h"
-#include "rblock.h"
+#include <string.h>
+#include <time.h>
+
+#include "c_memory.h"
+#include "extract.h"
+#include "lterrors.h"
+#include "my_mem.h"
 #include "newfunc.h"
-#include "kernel.h"
 
-#include "compat_defs.h"
+void BlocksHystogramsAllocate(void) {
+	BLOCK *p;
 
-//GLOBAL VARIABLES
-static uint16_t gwHeightRC = 0;
-static uint32_t gwRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
+	for (p = pBlocksList; p != NULL; p = p -> pNext) {
+		p -> nHystColumns = p -> Rect.yBottom - p -> Rect.yTop + 1;
+		p -> pHystogram = static_cast<int*> (malloc(p -> nHystColumns
+				* sizeof(int)));
 
-extern "C" {
-extern jmp_buf fatal_error_exit; // For error handling
-extern unsigned short int run_options;
-}
+		if (p -> pHystogram == NULL)
+			ErrorNoEnoughMemory("in SEHYST.C,BlocksHystogramsAllocate,part 1");
 
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
-
-Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage) {
-	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0, NULL);
-	return TRUE;
-}
-
-Bool32 RBLOCK_Done() {
-	Close_Res_Log();
-	LDPUMA_Done();
-	return TRUE;
-}
-
-uint32_t RBLOCK_GetReturnCode() {
-	return gwRC;
-}
-
-char * RBLOCK_GetReturnString(uint32_t dwError) {
-	return NULL;
-}
-
-Bool32 RBLOCK_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-#define CASE_FUNCTION(a)	case RBLOCK_FN##a:	*(FN##a *)pData = a; break;
-
-	switch (dwType) {
-	CASE_FUNCTION(RBLOCK_ExtractTextBlocks)
-	CASE_FUNCTION(RBLOCK_ExtractTextStrings)
-	CASE_FUNCTION(RBLOCK_GetAnglePage)
-	case RBLOCK_Bool32_OneColumn:
-		*(Bool32*) pData = run_options & FORCE_ONE_COLUMN ? TRUE : FALSE;
-		break;
-	default:
-		*(Handle *) pData = NULL;
-		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
-	return rc;
-}
-
-Bool32 RBLOCK_SetImportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-	gwRC = 0;
-
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break;
-#define CASE_PDATA(a,b,c)	case a: c = (b)pData; break;
-
-	switch (dwType) {
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStart, FNRBLOCK_ProgressStart ,fnProgressStart_rblock)
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStep, FNRBLOCK_ProgressStep, fnProgressStep_rblock)
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressFinish, FNRBLOCK_ProgressFinish,fnProgressFinish_rblock)
-	CASE_DATA(RBLOCK_Bool32_SearchPicture,Bool32,bSearchPicture)
-	case RBLOCK_Bool32_OneColumn:
-
-		if (*(Bool32*) pData)
-			run_options |= FORCE_ONE_COLUMN;
-		else
-			run_options &= ~FORCE_ONE_COLUMN;
-
-		break;
-	default:
-		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
-
-#undef CASE_DATA
-#undef CASE_PDATA
-
-	return rc;
-}
-
-void SetReturnCode_rblock(uint32_t rc) {
-	uint16_t low = (uint16_t) (rc & 0xFFFF);
-	uint16_t hei = (uint16_t) (rc >> 16);
-
-	if (hei)
-		gwRC = rc;
-	else {
-		if (low - IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
-		else
-			gwRC = 0;
+		memset(p -> pHystogram, 0, p -> nHystColumns * sizeof(int));
 	}
 }
 
-uint32_t GetReturnCode_rblock() {
-	uint32_t rc = gwRC;
-	uint16_t low = (uint16_t) (gwRC & 0xFFFF);
-	uint16_t hei = (uint16_t) (gwRC >> 16);
+void BlocksHystogramsBuild(void) {
+	ROOT *pRoot;
+	BLOCK *pBlock;
+	int iBegin;
+	int iEnd;
+	int i;
 
-	if (hei == gwHeightRC || hei == 0)
-		rc = low + IDS_ERR_NO;
+	BlocksHystogramsAllocate();
 
-	return rc;
+	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+		if (pRoot -> nBlock == REMOVED_BLOCK_NUMBER)
+			continue;
+
+# ifdef SE_DEBUG
+		if (pRoot -> nBlock > nBlocks)
+		ErrorInternal ("Bad number of blocks");
+# endif
+		//if (IS_LAYOUT_DUST (*pRoot) || pRoot -> nHeight <= 4)
+		//if (IS_LAYOUT_DUST (*pRoot)&& pRoot->nUserNum!=IS_IN_TABLE)
+		if (IS_LAYOUT_DUST(*pRoot))
+			continue;
+
+		pBlock = pBlockPointer[pRoot -> nBlock];
+
+		if (pBlock == NULL)
+			continue;
+
+		iBegin = pRoot -> yRow - pBlock -> Rect.yTop;
+		iEnd = (pRoot -> yRow + pRoot -> nHeight - 1) - pBlock -> Rect.yTop;
+
+		if (iBegin < 0)
+			iBegin = 0;
+		if (iEnd >= pBlock->nHystColumns)
+			iEnd = pBlock->nHystColumns - 1;
+
+		for (i = iBegin; i <= iEnd; i++)
+			pBlock -> pHystogram[i] += pRoot -> nWidth;
+	}
 }
+
+void BlockHystogramDiscountRoot(BLOCK *pBlock, ROOT *pRoot) {
+	int iBegin;
+	int iEnd;
+	int i;
+
+	iBegin = pRoot -> yRow - pBlock -> Rect.yTop;
+	iEnd = (pRoot -> yRow + pRoot -> nHeight - 1) - pBlock -> Rect.yTop;
+
+	if (iBegin < 0)
+		iBegin = 0;
+	if (iEnd >= pBlock->nHystColumns)
+		iEnd = pBlock->nHystColumns - 1;
+
+	for (i = iBegin; i <= iEnd; i++)
+		pBlock -> pHystogram[i] -= pRoot -> nWidth;
+}
+
+void BlocksHystogramsFreeData(void) {
+	BLOCK *p;
+
+	for (p = pBlocksList; p != NULL; p = p -> pNext) {
+		if (p -> pHystogram != NULL) {
+			free(p -> pHystogram);
+			p -> pHystogram = NULL;
+		}
+	}
+}
+
+# ifdef SE_DEBUG
+void BlockHystogramShow (BLOCK *pBlock)
+{
+	char szBuffer [128];
+
+	HystogramAllocateBody ();
+	nHystColumns = pBlock -> nHystColumns;
+	nHystColumnWidth = 1;
+
+	memcpy (pHystogram,
+			pBlock -> pHystogram,
+			nHystColumns * sizeof (int));
+
+	sprintf (szBuffer, "Block %d", pBlock -> nNumber);
+	LT_GraphicsHystogramOutput (szBuffer);
+	HystogramFreeData ();
+}
+# endif

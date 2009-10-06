@@ -66,11 +66,12 @@
  *                                                                          *
  ***************************************************************************/
 
-# ifndef __ERRORS_H_INCLUDE
-# define __ERRORS_H_INCLUDE
+#ifndef __ERRORS_H_INCLUDE
+#define __ERRORS_H_INCLUDE
 
-void FreeAllData(void);
+void FreeAllData();
 void ErrorNoEnoughMemory(const char * msg);
 void ErrorInternal(const char * msg);
-void ErrorFile(void);
-# endif
+void ErrorFile();
+
+#endif

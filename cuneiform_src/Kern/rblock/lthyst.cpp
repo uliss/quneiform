@@ -54,165 +54,153 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+/****************************************************************************
+ *                                                                          *
+ *                   P A G E   L A Y O U T                                  *
+ *                                                                          *
+ *              Written in 1991 by Yuri Panchul                             *
+ *                                                                          *
+ *              LTHYST.C - Working with hystogram                           *
+ *                                                                          *
+ ***************************************************************************/
 
-#include "c_types.h"
-#include "func.h"
-#include "ccom/ccom.h"
-#include "exc.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
-#define CREATE_STATUS
-#include "status.h"
+# include "c_memory.h"
+# include "layout.h"
+# include "my_mem.h"
 
-#include "dpuma.h"
-#include "newfunc.h"
+int *pHystogram = NULL;
+int *pHystVertHeightesSum = NULL;
+int *pHystHorzHeightesSum = NULL;
+int *pHystInt1 = NULL;
+int *pHystInt2 = NULL;
+int *pHystTops = NULL;
+int *pHystBottoms = NULL;
+int nHystColumns = 0;
+int nHystColumnWidth = 0;
 
-extern int16_t nIncline;
+Bool HystogramAllocateBody(void) {
+	BLOCK *p;
+	int nBlockWidth;
+	int nBlockHeight;
+	int nMaxValue;
 
-PROOT root_file = NULL;
-uint16_t run_options = 0;
+	HystogramFreeData();
+	nMaxValue = 0;
 
-/*
- void set_percentage(void)
- {
- LDPUMA_StatusLine("set_percentage(void)");
- };
+	for (p = pBlocksList; p != NULL; p = p -> pNext) {
+		nBlockWidth = p -> Rect.xRight - p -> Rect.xLeft + 1;
+		nBlockHeight = p -> Rect.yBottom - p -> Rect.yTop + 1;
 
- void progress_next_step(void)
- {
- LDPUMA_StatusLine("progress_next_step(void)");
- };
- uint32_t progress_set_step (uint32_t volume)
- {
- LDPUMA_StatusLine("progress_set_step(%lu)",volume);
- return 0;
- };
- */
-uint32_t progress_set_percent(uint32_t volume) {
-	uint32_t rc = 0;
-	if (fnProgressStep_rblock)
-		rc = !fnProgressStep_rblock(volume);
-	return rc;
-}
-;
-void progress_finish(void) {
-	if (fnProgressFinish_rblock)
-		fnProgressFinish_rblock();
-}
-;
+		if (nBlockWidth > nMaxValue)
+			nMaxValue = nBlockWidth;
 
-#undef malloc
-#undef realloc
-#undef free
-
-void Tiger_ReportError(uint16_t status, puchar message) {
-	LDPUMA_Console("Tiger_ReportError (%u,%s )", status, message);
-}
-;
-void * DebugMalloc(size_t size) {
-	char * buf = malloc(size);
-	return buf;
-}
-;
-void * DebugRealloc(void * old_blk, size_t size) {
-	char *buf = realloc(old_blk, size);
-	return buf;
-}
-;
-void DebugFree(void * p) {
-	free(p);
-}
-
-
-void * TigerAllocateMemory(uint32_t size) {
-	return DebugMalloc(size);
-}
-
-void TigerFreeMemory(void * mem) {
-	DebugFree(mem);
-}
-
-void * TigerReallocateMemory(void * mem, uint32_t size) {
-	return DebugRealloc(mem, size);
-}
-
-
-extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
-extern uchar work_raster[], work_raster_1[];
-//extern c_comp wcomp;
-extern uint16_t lpool_lth;
-extern uchar lpool[];
-//extern version * start_rec, *rec_ptr;
-static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
-static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
-
-/* LOC_CLocomp is in loc.c and calls c_locomp function
- * in locompmn.c.
- */
-/*
- MN * c_locomp (puchar raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
- {
- return LOC_CLocomp (raster, bw, h, upper, left);
- }
- */
-
-puchar make_raster_CCOM(CCOM_comp *cmp) {
-	int16_t h, d, dd, k, i, ii;
-	RecRaster rs;
-
-	memset(work_raster, 0, cmp->rw * cmp->h);
-	CCOM_GetRaster(cmp, &rs);
-	h = rs.lnPixHeight;
-	d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
-	dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
-	for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
-		memcpy(&work_raster[ii], &rs.Raster[i], dd);
+		if (nBlockHeight > nMaxValue)
+			nMaxValue = nBlockHeight;
 	}
 
-	return work_raster;
-}
+	if (nMaxValue == 0)
+		return (FALSE);
 
-puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
-	int16_t h, d, dd, k, i, ii;
-	RecRaster rs;
+	nMaxValue++;
+	pHystogram = static_cast<int*> (malloc((nMaxValue + 1) * sizeof(int)));
+	//Andrey 05.03.2003: +1 т.к. в дальнейшем будет использоваться именно до такого значения
 
-	memset(work_raster, 0, cmp->rw * cmp->h);
-	CCOM_GetExtRaster(cmp, &rs);
-	h = rs.lnPixHeight;
-	d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
-	dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
-	for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
-		memcpy(&work_raster[ii], &rs.Raster[i], dd);
+	if (pHystogram == NULL)
+		ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 1");
+
+	if (bOptionPointSizeAnalysis) {
+		pHystVertHeightesSum = static_cast<int*> (malloc(nMaxValue
+				* sizeof(int)));
+
+		if (pHystVertHeightesSum == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 2");
+
+		pHystHorzHeightesSum = static_cast<int*> (malloc(nMaxValue
+				* sizeof(int)));
+
+		if (pHystHorzHeightesSum == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 3");
+
+		pHystInt1 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+
+		if (pHystInt1 == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 4");
+
+		pHystInt2 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+
+		if (pHystInt2 == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 5");
 	}
 
-	return work_raster;
+	if (bOptionSpecialHorizontalCutting) {
+		pHystTops = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+
+		if (pHystTops == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 6");
+
+		pHystBottoms = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+
+		if (pHystBottoms == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 7");
+	}
+
+	return (TRUE);
 }
 
-void online_comp(c_comp *w) {
-	return;
+void HystogramMakeIntegral(int *pInt, int *p, int nWidth) {
+	int nSum = 0;
+	int i;
 
+	for (i = 0; i < nWidth; i++) {
+		nSum += p[i];
+		pInt[i] = nSum;
+	}
 }
 
-CCOM_comp *get_CCOM_comp(PROOT r) {
-	return (CCOM_comp *) r->pComp;
-}
+void HystogramFreeData(void) {
+	if (pHystogram != NULL) {
+		free(pHystogram);
+		pHystogram = NULL;
+	}
 
-Bool save_MN(MN *mn) {
-	extern Handle exthCCOM;
-	CCOM_comp * p = REXC_MN2CCOM((Handle) exthCCOM, (Handle) mn);
-	if (!p)
-		return FALSE;
+	if (bOptionPointSizeAnalysis) {
+		if (pHystVertHeightesSum != NULL) {
+			free(pHystVertHeightesSum);
+			pHystVertHeightesSum = NULL;
+		}
 
-	if (!AddRoot(p, FALSE))
-		return FALSE;
-	//p->u1.next = pCurrentBlock->pLetters;
-	//pCurrentBlock->pLetters = p;
-	BlockAccountRoot(pCurrentBlock, &pRoots[nRoots - 1]);
-	//pCurrentBlock = NULL;
+		if (pHystHorzHeightesSum != NULL) {
+			free(pHystHorzHeightesSum);
+			pHystHorzHeightesSum = NULL;
+		}
 
-	//return AddRoot(p); // Piter
-	return TRUE;
+		if (pHystInt1 != NULL) {
+			free(pHystInt1);
+			pHystInt1 = NULL;
+		}
+
+		if (pHystInt2 != NULL) {
+			free(pHystInt2);
+			pHystInt2 = NULL;
+		}
+	}
+
+	if (bOptionSpecialHorizontalCutting) {
+		if (pHystTops != NULL) {
+			free(pHystTops);
+			pHystTops = NULL;
+		}
+
+		if (pHystBottoms != NULL) {
+			free(pHystBottoms);
+			pHystBottoms = NULL;
+		}
+	}
+
+	nHystColumns = 0;
+	nHystColumnWidth = 0;
 }

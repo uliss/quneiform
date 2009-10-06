@@ -373,7 +373,7 @@ Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime) {
 	nRoots++;
 
 	if (pRoots == NULL) {
-		ErrorNoEnoughMemory((uchar*) "in LTROOTS.C, AddRoot");
+		ErrorNoEnoughMemory("in LTROOTS.C, AddRoot");
 		nRoots = 0;
 		return FALSE;
 	}

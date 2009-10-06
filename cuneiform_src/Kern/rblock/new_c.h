@@ -57,16 +57,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __NEW_C_H__
 #define __NEW_C_H__
 
-//#include <windows.h>
-
-//# include "iolib.h"
 # include "resource.h"
 # include "dpuma.h"
 # include "pumadef.h"
 # include "layout.h"
 # include "extract.h"
 # include "kernel.h"
-//# include "status.h"
+
 # include "ccom/ccom.h"
 # include "cpage.h"
 # include "newfunc.h"
@@ -80,7 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "rpic.h"
 # include "rstr.h"
 
-////////////////////////////////////////////////////////////////////////////////
 #define LOGFILENAME_COMP "rom_comp.log"
 #define RESFILENAME_COMP "rom_comp.res"
 #define LOGFILENAME_PICT "rom_pict.log"
@@ -119,7 +115,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define VAL4(a,b,c,d)
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
 EXTERN Handle resFile_comp;
 EXTERN Handle logFile_comp;
 EXTERN Handle resFile_pict;
@@ -137,9 +132,7 @@ EXTERN int my_upper, my_left, my_bottom, my_right;
 EXTERN char tmp_str[200];
 EXTERN uint32_t nComps;
 EXTERN uint32_t page_count VAL1(0);
-EXTERN char* file_name;
+EXTERN const char* file_name;
 EXTERN Handle exthCCOM;
-////////////////////////////////////////////////////////////////////////////////
-
 
 #endif

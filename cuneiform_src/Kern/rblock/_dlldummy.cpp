@@ -72,6 +72,7 @@
 #include "cttypes.h"
 # include "layout.h"
 # include "extract.h"
+#include "lterrors.h"
 
 #include "graphics.h"
 #include "minmax.h"
@@ -1021,7 +1022,7 @@ static void PictureRemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 
 	nWidth = rDebugRect.xRight - rDebugRect.xLeft + 1;
 	nHeight = rDebugRect.yBottom - rDebugRect.yTop + 1;
-	pMatrix = malloc (nWidth * nHeight);
+	pMatrix = static_cast<uchar*> (malloc (nWidth * nHeight));
 	memset (pMatrix, MDCF_NULL, nWidth * nHeight);
 
 	if (pMatrix == NULL)
@@ -2038,22 +2039,6 @@ void LT_GraphicsTitle (char *pTitle)
 	_settextalign (_CENTER, _HALF); // _HALF("_HALPH")==_CENTER
 	_grtext (320, 450, pTitle);
 }
-
-/* новый вариант живет в "_graphics.c";
- int LT_Getch (void)
- {
- char c;
- if((c=getch())=='d'){
- void break_point_data (char * c);
- static char stop_here_byte=0;
- static unsigned short int * stop_here_check=0;
-
- break_point_data(&stop_here_byte);
- stop_here_byte++; break_point_data(0);
- }
- return ((int)c);
- }
- */
 
 static int yCurrentTop = 0;
 static int xCurrentLeft = 0;

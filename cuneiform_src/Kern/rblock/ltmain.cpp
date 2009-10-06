@@ -73,14 +73,22 @@
 # include "extract.h"
 # include "kernel.h"
 # include "status.h"
+#include "lterrors.h"
 
 # include "dpuma.h"
+
+//#define LT_DUMP 1
+//#pragma message(__FILE__"(34): здесь закомментировать '#define LT_DUMP 1'")
 
 extern uint16_t run_options;
 
 /*********************************/
 extern Handle hPageBeforeEditing;
+extern Handle hPageMatrix;
+extern Handle hInitialBreaking;
 extern Handle hInclineCalculating;
+//Handle hBlocksAfterFirstExtraction = NULL;
+extern Handle hBlocksBreaking;
 extern Handle hBlocksGlueing;
 extern Handle hFirstDustAbsorbtion;
 extern Handle hRemoveEmptyBlocks;
@@ -134,26 +142,365 @@ static char szHelpText [] =
 char szRootsFilename [100] = DEFAULT_ROOTS_FILENAME;
 # endif
 
-
-extern void ErrorEmptyPage();
 void LT_FreeAllData(void) {
+	WSB_FreeData();
+	SmartBreakingFreeData();
 	HystogramFreeData();
+	SeparatorsFreeData();
 	BlocksFreeData();
+	InitialBreakingFreeData();
+	PageMatrixFreeData();
+	CompsFreeData();
+	IntervalsFreeData();
 	//    InclinesFreeData ();
 	RootsFreeData();
 
 # ifdef LT_DEBUG
 	LT_GraphicsClose ();
 # endif
+
+	LayoutBackupFreeData();
 }
 
 # ifdef LT_DUMP
 FILE *pfListing;
 # endif
 
-void PageStrings1(void) {
-	uint32_t i;
+void PageLayoutPart1(void) {
+	int i;
+	i = 0;
+	i = i;
+# ifdef MA_DEBUG
+	AllocationsAccountingOpen ();
+# endif
 
+# ifdef LT_DUMP
+	pfListing = fopen ("layout.dmp", "w");
+
+	if (pfListing == NULL)
+	ErrorInternal ("Can't open dump file");
+
+	fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+
+	{
+		int i;
+
+		for (i = 0; i < nRoots; i++)
+		{
+			fprintf (pfListing,
+					"x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x] %4x\n",
+					(int) pRoots [i].xColumn,
+					(int) pRoots [i].yRow,
+					(int) pRoots [i].nWidth,
+					(int) pRoots [i].nHeight,
+					(int) pRoots [i].nBlock,
+					(int) pRoots [i].nUserNum,
+					0, //(int) pRoots [i].wSegmentPtr,
+					0, //(int) pRoots [i].wLength);
+					(int) pRoots [i].bType);
+		}
+	}
+	fclose (pfListing);
+
+# endif
+
+	if (nRoots == 0)
+		//ErrorInternal ("Page is empty");
+		return;
+
+	nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel > 0)
+	if( !LDPUMA_Skip (hPageBeforeEditing) ||
+			!LDPUMA_Skip (hPageMatrix) ||
+			!LDPUMA_Skip (hInitialBreaking) ||
+			!LDPUMA_Skip (hInclineCalculating) ||
+			!LDPUMA_Skip (hBlocksBreaking) ||
+			!LDPUMA_Skip (hBlocksGlueing) ||
+			!LDPUMA_Skip (hFirstDustAbsorbtion) ||
+			!LDPUMA_Skip (hRemoveEmptyBlocks) ||
+			!LDPUMA_Skip (hSecondDustAbsorbtion))
+	{
+		LT_GraphicsOpen ();
+	}
+
+	if (bDebugTimeFlag)
+	tTimeTotal = clock ();
+# endif
+
+	RootsSaveNonLayoutData();
+	CalculatePageParameters();
+	SeparatorsGet();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if (!LDPUMA_Skip(hPageBeforeEditing))
+	LT_GraphicsRootsOutput ("Page");
+# endif
+
+	if (bOptionInitialBreakingByPageMatrix || bOptionBlocksRemovingByPageMatrix) {
+		PageMatrixBuild();
+	}
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("Page matrix");
+# endif
+
+	// выделить в матрице страницы компоненты связности;
+	// настроить в рутах поле nBlock на хранение этой
+	// полезной информации; сами компоненты связности -- не хранятся.
+	InitialBreakingProceed();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 3)
+	if (!LDPUMA_Skip(hInitialBreaking))
+	LT_GraphicsBlocksOutput ("Initial breaking");
+# endif
+
+	//    InclinesAccount ();
+	RotatePageToIdeal();
+	//    InclinesFreeData ();
+	RootStripsCalculate();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 3)
+	if(!LDPUMA_Skip(hInclineCalculating))
+	{
+		LT_GraphicsRootsOutput ("Roots after page rotation");
+		LT_GraphicsRootStripsOutput ("Root strips");
+	}
+# endif
+
+	BlocksExtract();
+	//BlockAnalyse();
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	//    LT_GraphicsBlocksOutput ("Blocks after extraction.1");
+# endif
+	/*    Pit 09-27-94 03:42pm
+	 new_picture(3,5,300,500);
+	 del_picture(0);
+	 new_picture(300,500,100,100);
+
+	 BlocksExtract ();
+
+	 # ifdef LT_DEBUG
+	 if (LT_DebugGraphicsLevel >= 2)
+	 LT_GraphicsBlocksOutput ("Blocks after extraction.2");
+	 # endif
+	 */
+	BlocksBreak();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if(!LDPUMA_Skip(hBlocksBreaking))
+	LT_GraphicsBlocksOutput ("Blocks after breaking");
+# endif
+
+	BlocksAddVirtualSeparatorsBlocks();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	//    LT_GraphicsBlocksOutput ("Blocks after adding separators");
+# endif
+
+	BlocksRemoveFrameLikeRoots();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	//    LT_GraphicsBlocksOutput ("After removing frame like roots");
+# endif
+
+	BlocksGlue();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if(!LDPUMA_Skip(hBlocksGlueing))
+	LT_GraphicsBlocksOutput ("Blocks after glueing");
+# endif
+
+	BlocksBuildEmbeddingLists();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 3)
+	//{
+	//    LT_GraphicsHighEmbeddingBlocksListOutput ("High embedding blocks list");
+	//    LT_GraphicsLowEmbeddingBlocksListOutput  ("Low embedding blocks list");
+	//}
+# endif
+
+	BlocksAbsorbDust();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if(!LDPUMA_Skip(hFirstDustAbsorbtion))
+	LT_GraphicsBlocksOutput ("After first dust absorbtion");
+# endif
+
+	PageMatrixExcludeSeparators(TRUE);
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	//    LT_GraphicsPageMatrixOutput ("Matrix after excluding separators");
+# endif
+
+	BlocksRemoveEmptyBlocks();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if(!LDPUMA_Skip(hRemoveEmptyBlocks))
+	LT_GraphicsBlocksOutput ("After removing empty blocks");
+# endif
+
+	BlocksAbsorbDust();
+	BlocksDisAbsorbBoundaryDust();
+
+# ifdef LT_DEBUG
+	//if (LT_DebugGraphicsLevel >= 2)
+	if(!LDPUMA_Skip(hSecondDustAbsorbtion))
+	LT_GraphicsBlocksOutput ("After second dust absorbtion");
+# endif
+
+	if (cut_page_left || cut_page_right) {
+		BlocksCutPageEdges();
+
+# ifdef LT_DEBUG
+		//   if (LT_DebugGraphicsLevel >= 2)
+		//       LT_GraphicsBlocksOutput ("After BlocksCutPageEdges");
+# endif
+	}
+
+	LayoutBackupFreeData();
+}
+
+void PageLayoutPart2(void) {
+	LayoutBackupFreeData();
+
+# ifdef LT_DUMP
+	fprintf (pfListing, "Blocks:\n");
+
+	{
+		BLOCK *p;
+
+		for (p = pBlocksList; p != NULL; p = p -> pNext)
+		fprintf (pfListing,
+				"[%d, %d]-[%d, %d] %d\n",
+				(int) p -> Rect.xLeft,
+				(int) p -> Rect.yTop,
+				(int) p -> Rect.xRight,
+				(int) p -> Rect.yBottom,
+				(int) p -> Type);
+	}
+# endif
+
+# ifdef LT_DEBUG
+	if (LT_DebugGraphicsLevel >= 1)
+	LT_GraphicsBlocksOutput ("Text blocks");
+# endif
+
+	BlocksBuildLeftAndRightLists();
+
+# ifdef LT_DEBUG
+	if (LT_DebugGraphicsLevel >= 3)
+	{
+		LT_GraphicsLeftBlocksListOutput ("Left blocks list");
+		LT_GraphicsRightBlocksListOutput ("Right blocks list");
+	}
+# endif
+
+	BlocksBuildTopAndBottomLists();
+
+# ifdef LT_DEBUG
+	if (LT_DebugGraphicsLevel >= 3)
+	{
+		LT_GraphicsTopBlocksListOutput ("Top blocks list");
+		LT_GraphicsBottomBlocksListOutput ("Bottom blocks list");
+	}
+# endif
+
+	/******************************** ATAL 940414 Remove couple functions calls
+	 TreeBuild ();
+
+	 # ifdef LT_DEBUG
+	 if (LT_DebugGraphicsLevel >= 3)
+	 LT_GraphicsTreeOutput ("Tree structure before edit");
+	 # endif
+
+	 TreeEdit ();
+
+	 # ifdef LT_DEBUG
+	 if (LT_DebugGraphicsLevel >= 2)
+	 LT_GraphicsTreeOutput ("Tree structure");
+	 # endif
+	 *************************************************/
+
+	TreePass();
+
+# ifdef LT_DEBUG
+	if (LT_DebugGraphicsLevel >= 2)
+	LT_GraphicsBlocksOrderOutput ("Output blocks order");
+# endif
+
+	RootsRemoveFromRulers();
+
+# ifdef LT_DEBUG
+	if (bDebugTimeFlag)
+	{
+		//      printf ("\nLayout Time : %f\n",
+		//          (double) (clock () - tTimeTotal) / CLK_TCK);
+	}
+# endif
+
+# ifdef LT_USE_STRINGS_EXTRACTION
+	StringsExtract ();
+# endif
+
+	RootsRestoreNonLayoutData();
+	LT_FreeAllData();
+
+# ifdef LT_DEBUG
+	if (bDebugTimeFlag)
+	{
+		//      tTimeTotal = clock () - tTimeTotal;
+		//      printf ("\nLayout Time : %f\n", (double) tTimeTotal / CLK_TCK);
+	}
+# endif
+
+# ifdef MA_DEBUG
+	AllocationsAccountingClose ();
+# endif
+
+# ifdef LT_DUMP
+	fprintf (pfListing, "\nAFTER LAYOUT:\n");
+	fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+
+	{
+		int i;
+
+		for (i = 0; i < nRoots; i++)
+		{
+			fprintf (pfListing,
+					"x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x]\n",
+					(int) pRoots [i].xColumn,
+					(int) pRoots [i].yRow,
+					(int) pRoots [i].nWidth,
+					(int) pRoots [i].nHeight,
+					(int) pRoots [i].nBlock,
+					(int) pRoots [i].nUserNum,
+					0, //(int) pRoots [i].wSegmentPtr,
+					0); //(int) pRoots [i].wLength);
+		}
+	}
+
+	fclose (pfListing);
+# endif
+}
+
+extern void ErrorEmptyPage();
+void PageStrings1(void) {
 # ifdef MA_DEBUG
 	AllocationsAccountingOpen ();
 # endif
@@ -179,12 +526,10 @@ void PageStrings1(void) {
 	LT_GraphicsRootsOutput ("Roots");
 # endif
 
-	//    InclinesAccount ();
 	RotatePageToIdeal();
-	//    InclinesFreeData ();
 	RootStripsCalculate();
 
-	for (i = 0; i < nRoots; i++)
+	for (int i = 0; i < nRoots; i++)
 		pRoots[i].nBlock = FIRST_REGULAR_BLOCK_NUMBER;
 
 # ifdef LT_DEBUG
@@ -221,7 +566,7 @@ void PageStrings2(void) {
 }
 
 void LayoutPart1(void) {
-	//extern SheetsCorrectRoots();
+	extern int SheetsCorrectRoots();
 # ifdef LT_DEBUG
 	switch (layout)
 	{
@@ -290,12 +635,98 @@ void LayoutPart1(void) {
 	bOptionSpecialHorizontalCutting = FALSE;
 	bOptionWhiteStripsBreaking = TRUE;
 
-	PageStrings1();
-	// ¬ аЄЁаговбп ROOTл Ї®Ї ¤ ойЁҐ ў пзҐ©ЄЁ в Ў«Ёж
+	if (bOptionForceOneColumn)
+		PageStrings1();
+	else
+		PageLayoutPart1();
+
+	// маркируются ROOTы попадающие в ячейки таблиц
+	//DDD SheetsCorrectRoots(); // Piter 08-17-95 07:29pm
 	BlocksExtract();
+	//BlockAnalyse();
+
+	// ******** temporary ***************
+	// Piter 08-28-95 05:58pm
+	// Удаление фрагментов не входящих в таблицы
+	//{
+	//    BLOCK *p;
+	//    lrep:
+	//       for (p = pBlocksList; p != NULL; p = p -> pNext)
+	//  switch(p -> nUserNum)
+	//  {
+	//  case 0:
+	//        BlockRemove (p);
+	//        goto lrep;
+	//  }
+
+	//}//**************************************
+
 }
 
 void LayoutPart2(void) {
-	PageStrings2();
+	if (bOptionForceOneColumn)
+		PageStrings2();
+	else
+		PageLayoutPart2();
 }
+/**********************************************/
+# ifdef LT_STAND_ALONE
+/*
+ void PageLayout(void);
 
+ void main (int nArgc, char **pArgv)
+ {
+ int  i;
+ int nFilesDefined = 0;
+ char *p;
+
+ for (i = 1; i < nArgc; i++)
+ {
+ if (*pArgv[i] == '-')
+ {
+ for (p = pArgv[i] + 1; *p; p++)
+ switch (*p)
+ {
+ # ifdef LT_DEBUG
+ case 'g':
+ LT_DebugGraphicsLevel++;
+ break;
+ # endif
+ case 'h':
+ printf (szHelpText);
+ exit (0);
+ # ifdef LT_DEBUG
+ case 't':
+ bDebugTimeFlag = TRUE;
+ break;
+ # endif
+ default:
+ fprintf (stderr, "Bad option: \"%s\"\n%s\n",
+ pArgv [i], szQuickHelpText);
+ exit (-1);
+ break;
+ }
+ }
+ else
+ {
+ switch (nFilesDefined)
+ {
+ case 0:
+ strcpy (szRootsFilename, pArgv [i]);
+ nFilesDefined++;
+ break;
+
+ default:
+ fprintf (stderr, "Unnecessary filename: \"%s\"\n%s\n",
+ pArgv [i], szQuickHelpText);
+ exit (-1);
+ }
+ }
+ }
+
+ RootsLoadFile (szRootsFilename);
+ PageLayout ();
+ exit (0);
+ }
+ */
+# endif

@@ -1,59 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-╨рчЁх°рхЄё  яютЄюЁэюх ЁрёяЁюёЄЁрэхэшх ш шёяюы№чютрэшх ъръ т тшфх шёїюфэюую ъюфр,
-Єръ ш т фтюшўэющ ЇюЁьх, ё шчьхэхэш ьш шыш схч, яЁш ёюсы■фхэшш ёыхфє■∙шї єёыютшщ:
+ ╨рчЁх°рхЄё  яютЄюЁэюх ЁрёяЁюёЄЁрэхэшх ш шёяюы№чютрэшх ъръ т тшфх шёїюфэюую ъюфр,
+ Єръ ш т фтюшўэющ ЇюЁьх, ё шчьхэхэш ьш шыш схч, яЁш ёюсы■фхэшш ёыхфє■∙шї єёыютшщ:
 
-      * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш шёїюфэюую ъюфр фюыцэ√ юёЄртрЄ№ё  єърчрээюх
-        т√°х єтхфюьыхэшх юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш яюёыхфє■∙шщ
-        юЄърч юЄ урЁрэЄшщ.
-      * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш фтюшўэюую ъюфр т фюъєьхэЄрЎшш ш/шыш т
-        фЁєушї ьрЄхЁшрырї, яюёЄрты хь√ї яЁш ЁрёяЁюёЄЁрэхэшш, фюыцэ√ ёюїЁрэ Є№ё 
-        єърчрээр  т√°х шэЇюЁьрЎш  юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш
-        яюёыхфє■∙шщ юЄърч юЄ урЁрэЄшщ.
-      * ═ш эрчтрэшх Cognitive Technologies, эш шьхэр хх ёюЄЁєфэшъют эх ьюуєЄ
-        с√Є№ шёяюы№чютрэ√ т ърўхёЄтх ёЁхфёЄтр яюффхЁцъш ш/шыш яЁюфтшцхэш 
-        яЁюфєъЄют, юёэютрээ√ї эр ¤Єюь ╧╬, схч яЁхфтрЁшЄхы№эюую яшё№ьхээюую
-        ЁрчЁх°хэш .
+ * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш шёїюфэюую ъюфр фюыцэ√ юёЄртрЄ№ё  єърчрээюх
+ т√°х єтхфюьыхэшх юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш яюёыхфє■∙шщ
+ юЄърч юЄ урЁрэЄшщ.
+ * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш фтюшўэюую ъюфр т фюъєьхэЄрЎшш ш/шыш т
+ фЁєушї ьрЄхЁшрырї, яюёЄрты хь√ї яЁш ЁрёяЁюёЄЁрэхэшш, фюыцэ√ ёюїЁрэ Є№ё 
+ єърчрээр  т√°х шэЇюЁьрЎш  юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш
+ яюёыхфє■∙шщ юЄърч юЄ урЁрэЄшщ.
+ * ═ш эрчтрэшх Cognitive Technologies, эш шьхэр хх ёюЄЁєфэшъют эх ьюуєЄ
+ с√Є№ шёяюы№чютрэ√ т ърўхёЄтх ёЁхфёЄтр яюффхЁцъш ш/шыш яЁюфтшцхэш 
+ яЁюфєъЄют, юёэютрээ√ї эр ¤Єюь ╧╬, схч яЁхфтрЁшЄхы№эюую яшё№ьхээюую
+ ЁрчЁх°хэш .
 
-▌╥└ ╧╨╬├╨└╠╠└ ╧╨┼─╬╤╥└┬╦┼═└ ┬╦└─┼╦▄╓└╠╚ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚/╚╦╚ ─╨╙├╚╠╚ ╦╚╓└╠╚ "╩└╩
-╬═└ ┼╤╥▄" ┴┼╟ ╩└╩╬├╬-╦╚┴╬ ┬╚─└ ├└╨└═╥╚╔, ┬█╨└╞┼══█╒ ▀┬═╬ ╚╦╚ ╧╬─╨└╟╙╠┼┬└┼╠█╒,
-┬╩╦▐╫└▀ ├└╨└═╥╚╚ ╩╬╠╠┼╨╫┼╤╩╬╔ ╓┼══╬╤╥╚ ╚ ╧╨╚├╬─═╬╤╥╚ ─╦▀ ╩╬═╩╨┼╥═╬╔ ╓┼╦╚, ═╬ ═┼
-╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚. ═╚ ┬╦└─┼╦┼╓ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚ ═╚ ╬─═╬ ─╨╙├╬┼ ╦╚╓╬, ╩╬╥╬╨╬┼
-╠╬╞┼╥ ╚╟╠┼═▀╥▄ ╚/╚╦╚ ╧╬┬╥╬╨═╬ ╨└╤╧╨╬╤╥╨└═▀╥▄ ╧╨╬├╨└╠╠╙, ═╚ ┬ ╩╬┼╠ ╤╦╙╫└┼ ═┼
-═┼╤и╥ ╬╥┬┼╥╤╥┬┼══╬╤╥╚, ┬╩╦▐╫└▀ ╦▐┴█┼ ╬┴┘╚┼, ╤╦╙╫└╔═█┼, ╤╧┼╓╚└╦▄═█┼ ╚╦╚
-╧╬╤╦┼─╬┬└┬╪╚┼ ╙┴█╥╩╚, ╤┬▀╟└══█┼ ╤ ╚╤╧╬╦▄╟╬┬└═╚┼╠ ╚╦╚ ╧╬═┼╤┼══█┼ ┬╤╦┼─╤╥┬╚┼
-═┼┬╬╟╠╬╞═╬╤╥╚ ╚╤╧╬╦▄╟╬┬└═╚▀ ╧╨╬├╨└╠╠█ (┬╩╦▐╫└▀ ╧╬╥┼╨╚ ─└══█╒, ╚╦╚ ─└══█┼,
-╤╥└┬╪╚┼ ═┼├╬─═█╠╚, ╚╦╚ ╙┴█╥╩╚ ╚/╚╦╚ ╧╬╥┼╨╚ ─╬╒╬─╬┬, ╧╬═┼╤┼══█┼ ╚╟-╟└ ─┼╔╤╥┬╚╔
-╥╨┼╥▄╚╒ ╦╚╓ ╚/╚╦╚ ╬╥╩└╟└ ╧╨╬├╨└╠╠█ ╨└┴╬╥└╥▄ ╤╬┬╠┼╤╥═╬ ╤ ─╨╙├╚╠╚ ╧╨╬├╨└╠╠└╠╚,
-═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ▌╥╚╠╚ ╤╦╙╫└▀╠╚), ═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚, ─└╞┼ ┼╤╦╚ ╥└╩╬╔
-┬╦└─┼╦┼╓ ╚╦╚ ─╨╙├╬┼ ╦╚╓╬ ┴█╦╚ ╚╟┬┼┘┼═█ ╬ ┬╬╟╠╬╞═╬╤╥╚ ╥└╩╚╒ ╙┴█╥╩╬┬ ╚ ╧╬╥┼╨▄.
+ ▌╥└ ╧╨╬├╨└╠╠└ ╧╨┼─╬╤╥└┬╦┼═└ ┬╦└─┼╦▄╓└╠╚ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚/╚╦╚ ─╨╙├╚╠╚ ╦╚╓└╠╚ "╩└╩
+ ╬═└ ┼╤╥▄" ┴┼╟ ╩└╩╬├╬-╦╚┴╬ ┬╚─└ ├└╨└═╥╚╔, ┬█╨└╞┼══█╒ ▀┬═╬ ╚╦╚ ╧╬─╨└╟╙╠┼┬└┼╠█╒,
+ ┬╩╦▐╫└▀ ├└╨└═╥╚╚ ╩╬╠╠┼╨╫┼╤╩╬╔ ╓┼══╬╤╥╚ ╚ ╧╨╚├╬─═╬╤╥╚ ─╦▀ ╩╬═╩╨┼╥═╬╔ ╓┼╦╚, ═╬ ═┼
+ ╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚. ═╚ ┬╦└─┼╦┼╓ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚ ═╚ ╬─═╬ ─╨╙├╬┼ ╦╚╓╬, ╩╬╥╬╨╬┼
+ ╠╬╞┼╥ ╚╟╠┼═▀╥▄ ╚/╚╦╚ ╧╬┬╥╬╨═╬ ╨└╤╧╨╬╤╥╨└═▀╥▄ ╧╨╬├╨└╠╠╙, ═╚ ┬ ╩╬┼╠ ╤╦╙╫└┼ ═┼
+ ═┼╤и╥ ╬╥┬┼╥╤╥┬┼══╬╤╥╚, ┬╩╦▐╫└▀ ╦▐┴█┼ ╬┴┘╚┼, ╤╦╙╫└╔═█┼, ╤╧┼╓╚└╦▄═█┼ ╚╦╚
+ ╧╬╤╦┼─╬┬└┬╪╚┼ ╙┴█╥╩╚, ╤┬▀╟└══█┼ ╤ ╚╤╧╬╦▄╟╬┬└═╚┼╠ ╚╦╚ ╧╬═┼╤┼══█┼ ┬╤╦┼─╤╥┬╚┼
+ ═┼┬╬╟╠╬╞═╬╤╥╚ ╚╤╧╬╦▄╟╬┬└═╚▀ ╧╨╬├╨└╠╠█ (┬╩╦▐╫└▀ ╧╬╥┼╨╚ ─└══█╒, ╚╦╚ ─└══█┼,
+ ╤╥└┬╪╚┼ ═┼├╬─═█╠╚, ╚╦╚ ╙┴█╥╩╚ ╚/╚╦╚ ╧╬╥┼╨╚ ─╬╒╬─╬┬, ╧╬═┼╤┼══█┼ ╚╟-╟└ ─┼╔╤╥┬╚╔
+ ╥╨┼╥▄╚╒ ╦╚╓ ╚/╚╦╚ ╬╥╩└╟└ ╧╨╬├╨└╠╠█ ╨└┴╬╥└╥▄ ╤╬┬╠┼╤╥═╬ ╤ ─╨╙├╚╠╚ ╧╨╬├╨└╠╠└╠╚,
+ ═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ▌╥╚╠╚ ╤╦╙╫└▀╠╚), ═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚, ─└╞┼ ┼╤╦╚ ╥└╩╬╔
+ ┬╦└─┼╦┼╓ ╚╦╚ ─╨╙├╬┼ ╦╚╓╬ ┴█╦╚ ╚╟┬┼┘┼═█ ╬ ┬╬╟╠╬╞═╬╤╥╚ ╥└╩╚╒ ╙┴█╥╩╬┬ ╚ ╧╬╥┼╨▄.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -219,120 +218,110 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*============== Messages groups structure ====================	*/
 
-static pchar format_msg[]={msg_0_1,msg_0_2,msg_0_3,msg_0_4,msg_0_5};
-static pchar comp_msg[]={msg_1_1,msg_1_2,msg_1_3,msg_1_4,msg_1_5,
-	                     msg_1_6,msg_1_7,msg_1_8,msg_1_9,msg_1_10,
-						 msg_1_11,msg_1_12,msg_1_13,msg_1_14,msg_1_15,
-						 msg_1_16,msg_1_17};
-static pchar image_msg[]={msg_2_1,msg_2_2,msg_2_3,msg_2_4,msg_2_5};
-static pchar run_msg[]={msg_3_1,msg_3_2};
-static pchar voc_msg[]={msg_4_1,msg_4_2,msg_4_3,msg_4_4,msg_4_5,
-			            msg_4_6,msg_4_7};
-static pchar rtf_msg[]={msg_6_1,msg_6_2,msg_6_3,msg_6_4,msg_6_5,
-                        msg_6_6,msg_6_7,msg_6_8,msg_6_9,msg_6_10,
-						msg_6_11,msg_6_12,msg_6_13,msg_6_14};
-static pchar kernel_msg[]={msg_7_1,msg_7_2,msg_7_3,msg_7_4,msg_7_5,
-                           msg_7_6,msg_7_7,msg_7_8,msg_7_9,msg_7_10,
-						   msg_7_11};
-static pchar edout_msg[]={msg_8_1,msg_8_2,msg_8_3,msg_8_4,msg_8_5};
+static const char * format_msg[] = { msg_0_1, msg_0_2, msg_0_3, msg_0_4,
+		msg_0_5 };
+static const char * comp_msg[] = { msg_1_1, msg_1_2, msg_1_3, msg_1_4, msg_1_5,
+		msg_1_6, msg_1_7, msg_1_8, msg_1_9, msg_1_10, msg_1_11, msg_1_12,
+		msg_1_13, msg_1_14, msg_1_15, msg_1_16, msg_1_17 };
+static const char
+		* image_msg[] = { msg_2_1, msg_2_2, msg_2_3, msg_2_4, msg_2_5 };
+static const char * run_msg[] = { msg_3_1, msg_3_2 };
+static const char * voc_msg[] = { msg_4_1, msg_4_2, msg_4_3, msg_4_4, msg_4_5,
+		msg_4_6, msg_4_7 };
+static const char * rtf_msg[] = { msg_6_1, msg_6_2, msg_6_3, msg_6_4, msg_6_5,
+		msg_6_6, msg_6_7, msg_6_8, msg_6_9, msg_6_10, msg_6_11, msg_6_12,
+		msg_6_13, msg_6_14 };
+static const char * kernel_msg[] = { msg_7_1, msg_7_2, msg_7_3, msg_7_4,
+		msg_7_5, msg_7_6, msg_7_7, msg_7_8, msg_7_9, msg_7_10, msg_7_11 };
+static const char
+		* edout_msg[] = { msg_8_1, msg_8_2, msg_8_3, msg_8_4, msg_8_5 };
 
 #ifndef DEMO
-static pchar copyr_msg[]={
-"\n\n     \n"
-  };
+static const char * copyr_msg[] = { "\n\n     \n" };
 #endif
 
 #ifdef DEMO
-static pchar copyr_msg[]={
-"\n\n"
-  "       ████  ██████   ████           █████     ████   ██████    \n"
-  "      ██       ██    ██             ██   ██   ██      ██   ██   \n"
-  "      ██       ██    ██             ██   ██   ██      ██████    \n"
-  "      ██       ██    ██             ██   ██   ██      ██ ██     \n"
-  "       ████    ██     ████           █████     ████   ██  ██    \n\n"
-  "                     D E M O   V E R S I O N                    \n\n\n"
-  };
+static const char * copyr_msg[]= {
+	"\n\n"
+	"       ████  ██████   ████           █████     ████   ██████    \n"
+	"      ██       ██    ██             ██   ██   ██      ██   ██   \n"
+	"      ██       ██    ██             ██   ██   ██      ██████    \n"
+	"      ██       ██    ██             ██   ██   ██      ██ ██     \n"
+	"       ████    ██     ████           █████     ████   ██  ██    \n\n"
+	"                     D E M O   V E R S I O N                    \n\n\n"
+};
 #endif
 
-pchar * message_groups[]={format_msg,comp_msg,image_msg,run_msg,
-			voc_msg,copyr_msg,rtf_msg,kernel_msg,edout_msg};
+const char ** message_groups[] = { format_msg, comp_msg, image_msg, run_msg,
+		voc_msg, copyr_msg, rtf_msg, kernel_msg, edout_msg };
 
 //---------------------- Errors processing ------------------
 extern jmp_buf fatal_error_exit;
 static uint16_t status_code = 0;
-static char mess[512],add_mess[256];
+static char mess[512], add_mess[256];
 //	Fatal error break processing
 
-static void msg_err (int16_t group, int16_t element)
-{
-    status_code = 1000 + group * 100 + element;
-    Tiger_ReportError (status_code, get_message (status_code));
+static void msg_err(int16_t group, int16_t element) {
+	status_code = 1000 + group * 100 + element;
+	Tiger_ReportError(status_code, (uchar*) get_message(status_code));
 }
 
-void error_exit (int16_t group, int16_t element)
-{
- extern void FreeAllData(void);
+void error_exit(int16_t group, int16_t element) {
+	extern void FreeAllData(void);
 
-    //MsgBox("msgerr");
-    FreeAllData();
-    add_mess[0]='\0';
-    msg_err (group,element);                    /* show message */
-    longjmp (fatal_error_exit, element);
-    //MsgBox("longjump done");
+	FreeAllData();
+	add_mess[0] = '\0';
+	msg_err(group, element); /* show message */
+	longjmp(fatal_error_exit, element);
 
 }
 
-void error_exit_str(int16_t group, int16_t element,pchar s)
-{
- extern void FreeAllData(void);
+void error_exit_str(int16_t group, int16_t element, pchar s) {
+	extern void FreeAllData(void);
 
-    FreeAllData();
-    strcpy(add_mess,s);
-    msg_err (group,element); /* show message */
-    longjmp (fatal_error_exit, element);
+	FreeAllData();
+	strcpy(add_mess, s);
+	msg_err(group, element); /* show message */
+	longjmp(fatal_error_exit, element);
 }
 
-void error_exit_asm (int16_t element)
-{
-    error_exit (ERR_comp,element);
+void error_exit_asm(int16_t element) {
+	error_exit(ERR_comp, element);
 }
 
 //	External manipulation with error status
-pchar get_message (uint16_t code)
-{
-    pchar c=mess;
-    if (code == 0) return "OK.";
-    strcpy(mess,*(message_groups [(code - 1000)/100] + code%100 - 1));  /* ptr to message */
-    strcat(mess,add_mess);
+pchar get_message(uint16_t code) {
+	pchar c = mess;
+	if (code == 0)
+		return "OK.";
+	strcpy(mess, *(message_groups[(code - 1000) / 100] + code % 100 - 1)); /* ptr to message */
+	strcat(mess, add_mess);
 #ifdef __MAC__
-// Перекодирование под Windows идет в WINCV\DLL_MAIN.c
-// тк программа под DOS и WINDOWS собирается на одной компиляции
-        {
-        extern char decode_ASCII_to_[];
-        int16_t i;
-        for(i=0;*(c+i);i++)
-                *(c+i)=decode_ASCII_to_[(uchar)(*(c+i))];
-        }
+	// Перекодирование под Windows идет в WINCV\DLL_MAIN.c
+	// тк программа под DOS и WINDOWS собирается на одной компиляции
+	{
+		extern char decode_ASCII_to_[];
+		int16_t i;
+		for(i=0;*(c+i);i++)
+		*(c+i)=decode_ASCII_to_[(uchar)(*(c+i))];
+	}
 #endif
-    return c;
+	return c;
 }
 
-uint16_t get_error_status()
-{
-    return status_code;
+uint16_t get_error_status() {
+	return status_code;
 }
 
-void clear_error_status()
-{
-    status_code = 0; add_mess[0]='\0';
+void clear_error_status() {
+	status_code = 0;
+	add_mess[0] = '\0';
 }
 
-Bool bool_status()
-{
-    return ((status_code) ? FALSE : TRUE);
+Bool bool_status() {
+	return ((status_code) ? FALSE : TRUE);
 }
 
-void set_error_status (uint16_t group, uint16_t element)
-{
-    msg_err (group, element);
+void set_error_status(uint16_t group, uint16_t element) {
+	msg_err(group, element);
 }
