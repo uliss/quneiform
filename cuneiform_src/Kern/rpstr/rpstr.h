@@ -73,28 +73,25 @@
 #include "globus.h"
 #include "ccom/ccomdefs.h"
 #include "cstr/cstrdefs.h"
-
-#ifndef __RECDEFS_H
 #include "recdefs.h"
-#endif
 #include "memfunc.h"
 
 #ifdef __RPSTR__
-#define RPSTR_FUNC  FUN_EXPO
+#define RPSTR_FUNC  FUN_EXPO__
 #else
-#define RPSTR_FUNC  FUN_IMPO
+#define RPSTR_FUNC  FUN_IMPO__
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-RPSTR_FUNC(Bool32) RPSTR_Init( uint16_t wHeightCode , Handle hStorage);
-RPSTR_FUNC(void) RPSTR_Done(void);
-RPSTR_FUNC(uint32_t) RPSTR_GetReturnCode(void);
-RPSTR_FUNC(char*) RPSTR_GetReturnString(uint32_t dwError);
-RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData);
-RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData);
+RPSTR_FUNC Bool32 RPSTR_Init( uint16_t wHeightCode , Handle hStorage);
+RPSTR_FUNC void RPSTR_Done(void);
+RPSTR_FUNC uint32_t RPSTR_GetReturnCode(void);
+RPSTR_FUNC char* RPSTR_GetReturnString(uint32_t dwError);
+RPSTR_FUNC Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData);
+RPSTR_FUNC Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData);
 
 enum RPSTRFunctionsExt {
 	RPSTR_FNNEWPAGE,
@@ -104,6 +101,7 @@ enum RPSTRFunctionsExt {
 	RPSTR_FNNORMVERTSTR,
 	RPSTR_FNCORRECTLINESPELL
 };
+
 enum RPSTRFunctionsImp {
 	RPSTR_FNIMP_ALLOC,
 	RPSTR_FNIMP_REALLOC,
@@ -118,23 +116,23 @@ enum RPSTRFunctionsImp {
 
 // 1    RPSTR_FNNEWPAGE          init new page
 typedef Bool32 (*FNRPSTR_NewPage)(void);
-RPSTR_FUNC(Bool32) RPSTR_NewPage(void);
+RPSTR_FUNC Bool32 RPSTR_NewPage(void);
 // 2    RPSTR_FNCORRECTSPELL      spelling checker
 typedef Bool32 (*FNRPSTR_CorrectSpell)(int32_t version);
-RPSTR_FUNC(Bool32) RPSTR_CorrectSpell(int32_t version);
+RPSTR_FUNC Bool32 RPSTR_CorrectSpell(int32_t version);
 // 3    RPSTR_FNCORRECTINCLINE
 typedef Bool32 (*FNRPSTR_CorrectIncline)(int32_t version);
-RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(int32_t version);
+RPSTR_FUNC Bool32 RPSTR_CorrectIncline(int32_t version);
 // 4    RPSTR_FNCOLLECTCAPDROP
 typedef Bool32 (*FNRPSTR_CollectCapDrops)(int32_t version);
-RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(int32_t version);
+RPSTR_FUNC Bool32 RPSTR_CollectCapDrops(int32_t version);
 // 5    RPSTR_FNNORMVERTSTR
 typedef void (*FNRPSTR_NormalizeVertStr)(void);
-RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void);
+RPSTR_FUNC void RPSTR_NormalizeVertStr(void);
 // 6 RPSTR_FNCORRECTLINESPELL      spelling checker for given line
 typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, int32_t line_num,
 		CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
-RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
+RPSTR_FUNC Bool32 RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
 
 #ifdef __cplusplus
 }

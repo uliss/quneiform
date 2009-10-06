@@ -58,9 +58,9 @@
 #include <cstring>
 #include <cstdlib>
 
+#include "rpstr.h"
 #include "cstr/cstr.h"
 #include "ccom/ccom.h"
-#include "rpstr.h"
 #include "resource.h"
 #include "dpuma.h"
 #include "cor_incl.h"
@@ -100,10 +100,6 @@ static uchar s_lang4page = -1;
 
 static uchar set_lang4page(const uchar lang) {
 	s_lang4page = lang;
-	return s_lang4page;
-}
-
-static uchar get_lang4page() {
 	return s_lang4page;
 }
 
