@@ -1350,25 +1350,25 @@ Bool CRtfPage::WriteHeaderRtf(void) {
 	if (!Font)
 		return FALSE;
 	for (i = 0; i < NumFont; ++i) {
-		Font[i].family = (char*) malloc(strlen_m(FontCod[i].family) + 1);
-		strcpy_m(Font[i].family, FontCod[i].family);
+		Font[i].family = (char*) malloc(strlen(FontCod[i].family) + 1);
+		strcpy(Font[i].family, FontCod[i].family);
 		switch (i) {
 		case 0:
-			Font[i].name = (char*) malloc(strlen_m(
-					(const char*) lpMyNameNonSerif) + 1);
-			strcpy_m(Font[i].name, (char*) lpMyNameNonSerif);
+			Font[i].name = (char*) malloc(
+					strlen((const char*) lpMyNameNonSerif) + 1);
+			strcpy(Font[i].name, (char*) lpMyNameNonSerif);
 			break;
 		case 1:
-			Font[i].name = (char*) malloc(strlen_m((char*) lpMyNameSerif) + 1);
-			strcpy_m(Font[i].name, (char*) lpMyNameSerif);
+			Font[i].name = (char*) malloc(strlen((char*) lpMyNameSerif) + 1);
+			strcpy(Font[i].name, (char*) lpMyNameSerif);
 			break;
 		case 2:
-			Font[i].name = (char*) malloc(strlen_m((char*) lpMyNameMono) + 1);
-			strcpy_m(Font[i].name, (char*) lpMyNameMono);
+			Font[i].name = (char*) malloc(strlen((char*) lpMyNameMono) + 1);
+			strcpy(Font[i].name, (char*) lpMyNameMono);
 			break;
 		case 3:
-			Font[i].name = (char*) malloc(strlen_m("Arial Narrow") + 1);
-			strcpy_m(Font[i].name, "Arial Narrow");
+			Font[i].name = (char*) malloc(strlen("Arial Narrow") + 1);
+			strcpy(Font[i].name, "Arial Narrow");
 			break;
 		}
 		Font[i].Italic = 0;
@@ -3909,11 +3909,11 @@ void PutCom(const char *Command, int32_t value, int16_t space)
 	int16_t i, len;
 	if (RtfWriteMode == FALSE)
 		return;
-	len = strlen_m(Command);
+	len = strlen(Command);
 	do0(i,0,len-1) PutC(Command[i]);
 	if (value >= 0) {
 		sprintf(Num, "%d", value);
-		len = strlen_m(Num);
+		len = strlen(Num);
 do0	(i,0,len-1) PutChar(Num[i]);
 }
 if(space) PutChar(' ');
@@ -3925,7 +3925,7 @@ void Put(const char *Data)
 	int16_t i, len;
 	if (RtfWriteMode == FALSE)
 		return;
-	len = strlen_m(Data);
+	len = strlen(Data);
 do0(i,0,len-1) PutC(Data[i]);
 }
 
@@ -3946,7 +3946,7 @@ void PutChar(uchar sym) {
 		sprintf(s, "%x", (uint) sym);
 		PutC('\\');
 		PutC('\'');
-		len = strlen_m(s);
+		len = strlen(s);
 do0	(i,0,len-1) PutC(s[i]);
 }
 }

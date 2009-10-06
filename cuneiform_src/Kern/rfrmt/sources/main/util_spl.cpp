@@ -218,7 +218,7 @@ int CalcStatTiger(void)
 							if (numU >= maxU) {
 								int MaxOld = maxU * sizeof(int);
 								maxU *= 2;
-								if ((Upp = (int*) realloc_m(Upp, MaxOld, maxU
+								if ((Upp = (int*) realloc(Upp, maxU
 										* sizeof(int))) == NULL)
 									return NOT_ALLOC;
 							}
@@ -228,7 +228,7 @@ int CalcStatTiger(void)
 							if (numL >= maxL) {
 								int MaxOld = maxL * sizeof(int);
 								maxL *= 2;
-								if ((Low = (int*) realloc_m(Low, MaxOld, maxL
+								if ((Low = (int*) realloc(Low, maxL
 										* sizeof(int))) == NULL)
 									return NOT_ALLOC;
 							}
@@ -254,8 +254,8 @@ int CalcStatTiger(void)
 						if (numL >= maxL) {
 							int MaxOld = maxL * sizeof(int);
 							maxL *= 2;
-							if ((Low = (int*) realloc_m(Low, MaxOld, maxL
-									* sizeof(int))) == NULL)
+							if ((Low = (int*) realloc(Low, maxL * sizeof(int)))
+									== NULL)
 								return NOT_ALLOC;
 						}
 						Low[numL++] = r->bottom - r->top;
@@ -279,8 +279,8 @@ int CalcStatTiger(void)
 								if (numU >= maxU) {
 									int MaxOld = maxU * sizeof(int);
 									maxU *= 2;
-									if ((Upp = (int*) realloc_m(Upp, MaxOld,
-											maxU * sizeof(int))) == NULL)
+									if ((Upp = (int*) realloc(Upp, maxU
+											* sizeof(int))) == NULL)
 										return NOT_ALLOC;
 								}
 								Upp[numU++] = r->bottom - r->top;
@@ -289,8 +289,8 @@ int CalcStatTiger(void)
 								if (numL >= maxL) {
 									int MaxOld = maxL * sizeof(int);
 									maxL *= 2;
-									if ((Low = (int*) realloc_m(Low, MaxOld,
-											maxL * sizeof(int))) == NULL)
+									if ((Low = (int*) realloc(Low, maxL
+											* sizeof(int))) == NULL)
 										return NOT_ALLOC;
 								}
 								Low[numL++] = r->bottom - r->top;
@@ -336,7 +336,7 @@ int CalcStatTiger(void)
 							if (numL >= maxL) {
 								int MaxOld = maxL * sizeof(int);
 								maxL *= 2;
-								if ((Low = (int*) realloc_m(Low, MaxOld, maxL
+								if ((Low = (int*) realloc(Low, maxL
 										* sizeof(int))) == NULL)
 									return NOT_ALLOC;
 							}
@@ -357,9 +357,8 @@ int CalcStatTiger(void)
 									if (numU >= maxU) {
 										int MaxOld = maxU * sizeof(int);
 										maxU *= 2;
-										if ((Upp = (int*) realloc_m(Upp,
-												MaxOld, maxU * sizeof(int)))
-												== NULL)
+										if ((Upp = (int*) realloc(Upp, maxU
+												* sizeof(int))) == NULL)
 											return NOT_ALLOC;
 									}
 									Upp[numU++] = r->top;
@@ -371,10 +370,9 @@ int CalcStatTiger(void)
 								&& (!FeatLet[a].ImUppLow || FeatLet[a].Chif)
 								&& abs(rS->left - r->top) > 1) {
 							if (numB1 >= maxB1) {
-								int MaxOld = maxB1 * sizeof(int);
 								maxB1 *= 2;
-								if ((arrB1 = (int*) realloc_m(arrB1, MaxOld,
-										maxB1 * sizeof(int))) == NULL)
+								if ((arrB1 = (int*) realloc(arrB1, maxB1
+										* sizeof(int))) == NULL)
 									return NOT_ALLOC;
 							}
 							arrB1[numB1++] = r->top;

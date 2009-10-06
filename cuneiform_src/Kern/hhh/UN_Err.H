@@ -89,4 +89,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*--------- специфику пумы надо бы убрать отсюда -----------------------------*/
 #define ER_DETAIL_FUNC_CPAGE        11   // ошибка функции из 'CPAGE'
 #define ER_DETAIL_FUNC_DPUMA        12   // ошибка функции из 'DPUMA'
-/*----------------------------------------------------------------------------*/
+

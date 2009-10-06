@@ -576,14 +576,12 @@ static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1,
 		int16_t nNew) {
 	int16_t oldS = nOld * sizeof(PTR), newS = nNew * sizeof(PTR), oldS1 = nOld
 			* sizeof(int16_t), newS1 = nNew * sizeof(int16_t);
-	if ((colt && ((*colt = (KNOTT**) realloc_m(*colt, oldS, newS)) == NULL))
-			|| (colnt && ((*colnt = (KNOTT**) realloc_m(*colnt, oldS, newS))
-					== NULL)) || (colnt1 && ((*colnt1 = (KNOTT**) realloc_m(
-			*colnt1, oldS, newS)) == NULL)) || (begI && ((*begI
-			= (int16_t*) realloc_m(*begI, oldS1, newS1)) == NULL)) || (endI
-			&& ((*endI = (int16_t*) realloc_m(*endI, oldS1, newS1)) == NULL))
-			|| (intr && ((*intr = (int16_t*) realloc_m(*intr, oldS1, newS1))
-					== NULL)))
+	if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL)) || (colnt
+			&& ((*colnt = (KNOTT**) realloc(*colnt, newS)) == NULL)) || (colnt1
+			&& ((*colnt1 = (KNOTT**) realloc(*colnt1, newS)) == NULL)) || (begI
+			&& ((*begI = (int16_t*) realloc(*begI, newS1)) == NULL)) || (endI
+			&& ((*endI = (int16_t*) realloc(*endI, newS1)) == NULL)) || (intr
+			&& ((*intr = (int16_t*) realloc(*intr, newS1)) == NULL)))
 		return NOT_ALLOC;
 	return 0;
 }
@@ -1133,8 +1131,8 @@ int16_t AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
 	if (n >= *nMax) //обработка переполнение массива линий
 	{
 		*nMax = (int16_t) (*nMax * 1.5);
-		if ((Line = (LINE_KNOT*) realloc_m(Line, n * sizeof(LINE_KNOT), *nMax
-				* sizeof(LINE_KNOT))) == NULL)
+		if ((Line = (LINE_KNOT*) realloc(Line, *nMax * sizeof(LINE_KNOT)))
+				== NULL)
 			return NOT_ALLOC;
 		*Line1 = Line;
 	}
@@ -1191,8 +1189,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
 	}
 	if(MaxOld != *NumMax)
 	{
-		if((intr=(int16_t*)realloc_m(intr,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL ||
-		(beg=(KNOT4**)realloc_m(beg,MaxOld*sizeof(PTR),*NumMax*sizeof(PTR)))==NULL)
+		if((intr=(int16_t*)realloc(intr,*NumMax*sizeof(int16_t)))==NULL ||
+		(beg=(KNOT4**)realloc(beg,*NumMax*sizeof(PTR)))==NULL)
 			return NOT_ALLOC;
 	}
 	kcol=*k_int+1;
@@ -1461,8 +1459,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 				{
 					int16_t MaxOld=*NumMax;
 					*NumMax=(int16_t)(*NumMax*1.5);
-					if((Beg=(int16_t*)realloc_m(Beg,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL ||
-							(End=(int16_t*)realloc_m(End,MaxOld*sizeof(int16_t),*NumMax*sizeof(int16_t)))==NULL)
+					if((Beg=(int16_t*)realloc(Beg,*NumMax*sizeof(int16_t)))==NULL ||
+							(End=(int16_t*)realloc(End,*NumMax*sizeof(int16_t)))==NULL)
 					{
 						free(his);
 						if(reg==VER)
