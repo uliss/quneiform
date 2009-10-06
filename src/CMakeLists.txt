@@ -1,7 +1,7 @@
 set(LIBTYPE SHARED)
 
 include_directories(
-../src
+${CMAKE_CURRENT_SOURCE_DIR}
 include
 h
 hh
