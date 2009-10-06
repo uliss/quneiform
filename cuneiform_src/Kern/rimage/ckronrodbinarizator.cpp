@@ -54,20 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//
-//////////////////////////////////////////////////////////////////////
 #include "ckronrodbinarizator.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include "compat_defs.h"
 
-#define far
-
-//#include <stdio.h>
-//#include "globus.h"
-//#include "CRIMemory.h"
-///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CKronrodBinarizator::CKronrodBinarizator() {
 	N_Bytes_per_ONE_MEM = 64000;
@@ -124,9 +116,9 @@ CKronrodBinarizator::~CKronrodBinarizator() {
 
 void CKronrodBinarizator::grey_open(uint32_t H, uint32_t N) {
 	uint32_t k;
-	/*......................................................................*/
+
 	grey_open_init_flags();
-	/*......................................................................*/
+
 	NI = H;
 	NI_1 = NI - 1;
 	NJ = N;
@@ -1033,7 +1025,7 @@ void CKronrodBinarizator::hist_add(puchar p, uint32_t N_Lines) {
 	// measure time; Example: (60-12)/39 = 1.230;
 	for (k = 0; k < n; k++)
 		Hist_WORD[*p++]++; // 60: 1.230 (TC)
-		//////	mk_hist_WORD (Hist_WORD, p, n);			// 50: 0.974 (MKASM)
+	//////	mk_hist_WORD (Hist_WORD, p, n);			// 50: 0.974 (MKASM)
 
 	for (k = 0; k < 256; k++)
 		Hist_tek[k] += Hist_WORD[k];
@@ -2115,7 +2107,7 @@ void CKronrodBinarizator::memory_allocation() {
 			pMREF = (puchar)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 			if (pMREF==NULL) PR_BEG "pMREF = NULL", k); PR_END
 
-			ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+			ppMem = (uchar * *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 			if (ppMem==NULL) PR_BEG "ppMem = NULL", k); PR_END
 			/*......................................................................*/
 			KEY
@@ -2168,8 +2160,8 @@ void CKronrodBinarizator::memory_alloc_from_body() {
 		"hMREF = %04X", hMREF);
 		PR_END
 
-		hPPMEM = KRONROD_ALLOC(MaxNI*sizeof(char**)); //GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
-		//////	hPPMEM = GlobalAlloc (GHND, NI*4);		// NI far *
+		hPPMEM = KRONROD_ALLOC(MaxNI*sizeof(char**)); //GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI  *
+		//////	hPPMEM = GlobalAlloc (GHND, NI*4);		// NI  *
 		if (hPPMEM==0)
 		PR_BEG
 		"hPPMEM = %04X", hPPMEM);
@@ -2196,7 +2188,7 @@ void CKronrodBinarizator::memory_alloc_from_body() {
 		"pMREF = NULL", k);
 		PR_END
 
-		ppMem = (uchar far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
+		ppMem = (uchar * *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
 		if (ppMem==NULL)
 		PR_BEG
 		"ppMem = NULL", k);
@@ -2247,17 +2239,14 @@ void CKronrodBinarizator::memory_free() {
 void CKronrodBinarizator::pr_ERR(pchar text) {
 	wsprintf((char *) (mkText), (char *) text);
 	MMM;
-	//////	MessageBox (GetFocus(), mkText, 0, MB_SYSTEMMODAL);
 }
 
 void CKronrodBinarizator::pr_ERR_1(pchar text, int32_t n1) {
-	//////	wsprintf (mkText, "MK GREY MESSAGE [1] %s %d", text, n1);
 	wsprintf((char *) mkText, (char *) text, n1);
 	MMM;
 }
 
 void CKronrodBinarizator::pr_ERR_2(pchar text, int32_t n1, int32_t n2) {
-	//////	wsprintf (mkText, "MK GREY MESSAGE [2] %s %d,%d", text, n1, n2);
 	wsprintf((char *) mkText, (char *) text, n1, n2);
 	MMM;
 }

@@ -69,6 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //		NOTA BENE: here (HEAD);  "CARMAN";  Itek;
 /*----------------------------------------------------------------------*/
 #ifndef __DATA_H__
+#define __DATA_H__
 
 #ifdef __DATA_C__
 #define EXTERN
@@ -79,8 +80,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #include "compat_defs.h"
-
-#define FAR
 
 EXTERN HWND             hAppWnd;
 #define BUFSZ   0x4000
@@ -96,22 +95,15 @@ EXTERN  char         Main_Dir_Name [128];       // H:\CUNEI  (see zB SCANTAB.C)
 EXTERN  char         *MainDir;
 EXTERN  uchar         szValidNames[144];
 
-//EXTERN int     cancel_done;
-//EXTERN int     x_centrum, y_centrum, brt_ans, brt_arg;
-//EXTERN long    act_w, act_h, act_x, act_y, act_br, act_inverse;
-//EXTERN RAT     act_xr, act_yr;
-//EXTERN INT32   scan_width, scan_height;
-//EXTERN void  * _heapbase;
-//EXTERN Handle  hInst;
-//EXTERN char    Flag_FAX_100x200;       // (GREY-WIN.C);  sets here
-//EXTERN uchar    Flag_GREY INIT(0x55) ;        // (GREY-WIN.C)
-/*......................................................................*/
-							// 03.08.1993 MK:
-//EXTERN int     cun_wparm;
-//EXTERN char     far *cun_lparm;
 EXTERN uint16_t    Itek;   /////////////////// OTLADKA ONLY
-//EXTERN int     brt_ans;
-//EXTERN char    auto_flag INIT(0);
 
-#define __DATA_H__
+void grey_open(uint16_t H, uint16_t N);
+void grey_open_init_flags(void);
+void grey_open_init_MEM(void);
+uint16_t grey_to(uchar *pKogo); //returns n_lines_ready
+void grey_to_memory_monitor(void);
+void grey_to_monitor_MBIT(uint16_t n_from);
+void grey_from(uchar *pKuda);
+uint16_t grey_close(void); //returns n_lines_ready
+
 #endif

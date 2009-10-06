@@ -3,8 +3,8 @@ include_directories(BEFORE sources/main sources/main/deza sources/main/kronrod)
 add_library(rimage ${LIBTYPE}
 cdezabinarizator.cpp
 ckronrodbinarizator.cpp
-gdata.c
-grey-wnd.c
+gdata.cpp
+grey-wnd.cpp
 cribinarizator.cpp
 cricontrol.cpp
 criimage.cpp
