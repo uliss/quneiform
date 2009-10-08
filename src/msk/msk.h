@@ -67,10 +67,6 @@
 #define MSK_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 MSK_FUNC void MSKSetPlatform(int32_t cpu);
 
 /**
@@ -119,10 +115,6 @@ MSK_FUNC int16_t MSKGetErr(void);
  * @param recraster - raster description
  */
 MSK_FUNC Bool32 MSKRecogNDX(RecRaster *recraster, RecVersions *Indres);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
