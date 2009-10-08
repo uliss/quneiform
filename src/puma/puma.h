@@ -62,7 +62,6 @@
 #include "globus.h"
 #include "cttypes.h"
 #include "singleton.h"
-#include "pumaimpl.h"
 
 #ifdef __PUMA__
 #define PUMA_FUNC  FUN_EXPO__
@@ -72,7 +71,7 @@
 
 namespace CIF {
 class PumaImpl;
-typedef Singleton<PumaImpl, CreateUsingStatic> Puma;
+typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
 }
 
 #define PUMA_MAXNAME 260

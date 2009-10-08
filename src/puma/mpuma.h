@@ -248,7 +248,6 @@ char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
 
-Bool32 ModulesInit(Handle ghStorage);
 char * GetModulesString(uint32_t dwError);
 
 Bool32 Recognize();
@@ -262,7 +261,6 @@ long _EnumTable(long prev);
 long _EnumPicture(long prev);
 
 // common.cpp
-void ClearAll(void);
 Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);

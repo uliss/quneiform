@@ -8,6 +8,8 @@
 #ifndef SINGLETON_H_
 #define SINGLETON_H_
 
+#include <memory>
+
 namespace CIF {
 
 template<class T>
@@ -23,8 +25,18 @@ class CreateUsingStatic {
 public:
 	static T * create() {
 		static T obj;
-		return &
-		obj;
+		return &obj;
+	}
+};
+
+template<class T>
+class CreateUsingNewSmartPtr {
+public:
+	static T * create() {
+		static std::auto_ptr<T> ptr_;
+		T * tmp = new T;
+		ptr_.reset(tmp);
+		return ptr_.get();
 	}
 };
 

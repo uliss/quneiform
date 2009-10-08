@@ -11,6 +11,10 @@
 #include <string>
 #include <stdexcept>
 
+#include "cfcompat.h"
+#include "rect.h"
+#include "memorybuffer.h"
+
 namespace CIF {
 
 struct PumaException: std::runtime_error {
@@ -24,7 +28,6 @@ public:
 	PumaImpl();
 	~PumaImpl();
 
-	void analyze();
 	void close();
 	void open(char * dib);
 	void recognize();
@@ -35,18 +38,16 @@ public:
 	static const size_t MainBufferSize = 500000;
 	static const size_t WorkBufferSize = 180000;
 private:
+	void clearAll();
 	void layout();
+	void modulesInit();
 	void modulesDone();
-	bool preOpenInitialize();
-	bool postOpenInitialize(const char*);
+	void preOpenInitialize();
+	void postOpenInitialize();
+	void setTemplate(const Rect& rect);
 private:
-	static unsigned char * main_buffer_;
-	static unsigned char * work_buffer_;
-private:
-	static void freeMainBuffer();
-	static void freeWorkBuffer();
-	static void initMainBuffer();
-	static void initWorkBuffer();
+	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
+	static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 };
 
 }

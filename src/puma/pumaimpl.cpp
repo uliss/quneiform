@@ -26,70 +26,61 @@ static Handle ghStorage = NULL;
 
 namespace CIF {
 
-unsigned char * PumaImpl::main_buffer_ = 0;
-unsigned char * PumaImpl::work_buffer_ = 0;
-
-static int32_t s_ConsoleLine = 0;
+FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
+FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() {
-	initMainBuffer();
-	initWorkBuffer();
-	if (!ModulesInit(ghStorage))
-		throw PumaException("Puma init failed");
+	modulesInit();
 }
 
 PumaImpl::~PumaImpl() {
 	modulesDone();
-	freeMainBuffer();
-	freeWorkBuffer();
 }
 
-void PumaImpl::analyze() {
-	layout();
+void PumaImpl::clearAll() {
+	// Сохраним последенне состояние и очистим контейнер
+	if (ghEdPage) {
+		CED_DeletePage(ghEdPage);
+		ghEdPage = NULL;
+	}
+
+	PAGEINFO PInfo = { 0 };
+	if (hCPAGE)
+		GetPageInfo(hCPAGE, &PInfo);
+
+	CSTR_DeleteAll();
+	CPAGE_DeleteAll();
+	hCPAGE = CreateEmptyPage();
+
+	strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
+	PInfo.Incline2048 = 0;
+	PInfo.Angle = 0;
+	PInfo.Images = IMAGE_USER;
+	SetPageInfo(hCPAGE, PInfo);
+
+	CCOM_DeleteAll();
+	hCCOM = NULL;
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_BINARIZE);
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_DELLINE);
+	//  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
+	//  поскольку оно отображается в интерфейсе. Его нужно удалять
+	//  либо при получении нового довернутого изображения, либо при
+	//  закрытии файла
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
 }
 
 void PumaImpl::close() {
 	DBG("Puma close")
 	CLINE_Reset();
-	ClearAll();
+	clearAll();
 	// clean
 	CIMAGE_Reset();
 	CPAGE_DeleteAll();
 	RIMAGE_Reset();
 	hCPAGE = NULL;
+
 	gpRecogDIB = gpInputDIB = NULL;
 }
-
-void PumaImpl::freeMainBuffer() {
-	if (!main_buffer_)
-		return;
-	delete[] main_buffer_;
-	main_buffer_ = NULL;
-}
-
-void PumaImpl::freeWorkBuffer() {
-	if (!work_buffer_)
-		return;
-	delete[] work_buffer_;
-	work_buffer_ = NULL;
-}
-
-void PumaImpl::initMainBuffer() {
-	if (main_buffer_) {
-		DBG("PumaImpl: main buffer is not empty")
-		delete[] main_buffer_;
-	}
-	main_buffer_ = new unsigned char[MainBufferSize];
-}
-
-void PumaImpl::initWorkBuffer() {
-	if (work_buffer_) {
-		DBG ("PumaImpl: work buffer is not empty")
-		delete[] work_buffer_;
-	}
-	work_buffer_ = new uchar[WorkBufferSize];
-}
-
 
 static Bool32 rblockProgressStep(uint32_t perc) {
 	return ProgressStep(2, NULL, perc);
@@ -121,7 +112,7 @@ void PumaImpl::layout() {
 
 	PAGEINFO PInfo = { 0 };
 
-	ClearAll();
+	clearAll();
 
 	void* MemBuf = CIF::PumaImpl::mainBuffer();
 	size_t size_buf = CIF::PumaImpl::MainBufferSize;
@@ -330,7 +321,91 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RMSEGMENT_
 	RMSEGMENT_Done();
 #endif //_USE_RMSEGMENT_
-	CIF::CFIO::CFIO_Done();
+	CFIO::CFIO_Done();
+}
+
+void PumaImpl::modulesInit() {
+	try {
+		// CONTEINERS
+		if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
+			throw PumaException("CLINE_Init failed.");
+		if (!CFIO::CFIO_Init(PUMA_MODULE_CFIO, NULL))
+			throw PumaException("CFIO_Init failed.");
+		if (!CIMAGE_Init(PUMA_MODULE_CIMAGE, NULL))
+			throw PumaException("CIMAGE_Init failed.");
+		//  нужна инициализация контейнера CCOM перед
+		//  вызовом поиска компонент
+		if (!CCOM_Init(PUMA_MODULE_CCOM, NULL))
+			throw PumaException("CCOM_Init failed.");
+		if (!CPAGE_Init(PUMA_MODULE_CPAGE, ghStorage))
+			throw PumaException("CPAGE_Init failed.");
+		if (!CSTR_Init(PUMA_MODULE_CSTR, ghStorage))
+			throw PumaException("CSTR_Init failed.");
+
+		// RECOGNITIONS
+		if (!REXC_Init(PUMA_MODULE_REXC, NULL)) // инициализация библиотеки поиска компонент
+			throw PumaException("REXC_Init failed.");
+
+		//	REXC_SetImportData(REXC_OcrPath, GetModulePath());
+		if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
+			throw PumaException("RLINE_Init failed.");
+
+		if (!RRECCOM_Init(PUMA_MODULE_RRECCOM, ghStorage))
+			throw PumaException("RRECCOM_Init failed.");
+
+		RRECCOM_SetImportData(RRECCOM_OcrPath, GetModulePath());
+
+		if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
+			throw PumaException("RSL_Init failed.");
+
+		if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, ghStorage))
+			throw PumaException("RSTUFF_Init failed.");
+
+		if (!RMARKER_Init(PUMA_MODULE_RBLOCK, ghStorage))
+			throw PumaException("RMARKER_Init failed.");
+
+		if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, ghStorage))
+			throw PumaException("RBLOCK_Init failed.");
+
+		if (!RSELSTR_Init(PUMA_MODULE_RBLOCK, ghStorage))
+			throw PumaException("RSELSTR_Init failed.");
+
+		RSTR_SetImportData(RSTR_OcrPath, GetModulePath());
+		RSTR_SetImportData(RSTR_pchar_temp_dir, GetModuleTempPath());
+
+		if (!RSTR_Init(PUMA_MODULE_RSTR, ghStorage))
+			throw PumaException("RSTR_Init failed.");
+		if (!RFRMT_Init(PUMA_MODULE_RFRMT, ghStorage))
+			throw PumaException("RFRMT_Init failed.");
+		if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, ghStorage))
+			throw PumaException("RIMAGE_Init failed.");
+
+		// Инициализируем виртуальные функции
+		if (!RPSTR_Init(PUMA_MODULE_RPSTR, ghStorage))
+			throw PumaException("RPSTR_Init failed.");
+		if (!RPIC_Init(PUMA_MODULE_RPIC, ghStorage))
+			throw PumaException("RPIC_Init failed.");
+		if (!CED_Init(PUMA_MODULE_CED, ghStorage))
+			throw PumaException("CED_Init failed.");
+		if (!ROUT_Init(PUMA_MODULE_ROUT, ghStorage))
+			throw PumaException("ROUT_Init failed.");
+		if (!ROUT_LoadRec6List("rec6all.dat"))
+			throw PumaException("ROUT_LoadRec6List failed.");
+
+#ifdef _USE_RVERLINE_
+		if(!RVERLINE_Init(PUMA_MODULE_RVERLINE,ghStorage))
+		throw PumaException("RVERLINE_Init failed.");
+#endif
+#ifdef _USE_RMSEGMENT_
+		if(!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT,ghStorage))
+		throw PumaException("RMSEGMENT_Init failed.");
+#endif
+		if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, ghStorage))
+			throw PumaException("CORRKEGL_Init failed.");
+	} catch (PumaException& e) {
+		modulesDone();
+		throw e;
+	}
 }
 
 void PumaImpl::open(char * dib) {
@@ -342,68 +417,24 @@ void PumaImpl::open(char * dib) {
 	if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, dib, 1))
 		throw PumaException("PumaImpl::open can't write DIB");
 
-	if (!postOpenInitialize("none.txt"))
-		throw PumaException("Puma post open init failed");
-}
-
-bool PumaImpl::preOpenInitialize() {
-	bool rc = true;
-	// Удалим предыдущие окна отладки.
-	Handle hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_BINARIZE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_INPUT);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(PUMA_IMAGE_TURN);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-	hRemWnd = LDPUMA_GetWindowHandle(NAME_IMAGE_ORTOMOVE);
-	if (hRemWnd)
-		LDPUMA_DestroyWindow(hRemWnd);
-
-	PumaImpl::close();
-	ResetPRGTIME();
-	if (LDPUMA_Skip(hDebugRoot)) {
-		if (s_ConsoleLine)
-			LDPUMA_ConsoleClear(s_ConsoleLine);
-		s_ConsoleLine = LDPUMA_ConsoleGetCurLine();
-	} else {
-
-	}
-	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-	SetReturnCode_puma(IDS_ERR_NO);
-	return rc;
-}
-
-bool PumaImpl::postOpenInitialize(const char * lpFileName) {
-	bool rc = true;
-	CIMAGEBITMAPINFOHEADER info;
-	if (lpFileName)
-		LDPUMA_SetFileName(NULL, lpFileName);
-	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
-		rc = false;
-	} else {
-		gRectTemplate.left = 0;
-		gRectTemplate.right = info.biWidth;
-		gRectTemplate.top = 0;
-		gRectTemplate.bottom = info.biHeight;
-	}
-	if (lpFileName) {
-		szInputFileName = lpFileName;
-		strcpy(szLayoutFileName, lpFileName);
-		char * s = strrchr(szLayoutFileName, '.');
-		if (s)
-			*s = 0;
-		strcat(szLayoutFileName, ".bin");
-	} else
-		szInputFileName = "";
+	postOpenInitialize();
 	hCPAGE = CreateEmptyPage();
-	return rc;
+}
+
+void PumaImpl::preOpenInitialize() {
+	PumaImpl::close();
+	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+}
+
+void PumaImpl::postOpenInitialize() {
+	LDPUMA_SetFileName(NULL, "none.txt");
+	szInputFileName = "none.bin";
+
+	CIMAGEBITMAPINFOHEADER info;
+	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info))
+		throw PumaException("CIMAGE_GetImageInfo failed");
+
+	setTemplate(Rect(Point(0, 0), info.biWidth, info.biHeight));
 }
 
 void PumaImpl::recognize() {
@@ -426,14 +457,19 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 		throw PumaException("Puma save failed");
 }
 
+void PumaImpl::setTemplate(const Rect& r) {
+	gRectTemplate.left = r.left();
+	gRectTemplate.right = r.right();
+	gRectTemplate.top = r.top();
+	gRectTemplate.bottom = r.bottom();
+}
+
 unsigned char * PumaImpl::mainBuffer() {
-	assert(main_buffer_);
-	return main_buffer_;
+	return main_buffer_.begin();
 }
 
 unsigned char * PumaImpl::workBuffer() {
-	assert(work_buffer_);
-	return work_buffer_;
+	return work_buffer_.begin();
 }
 
 }

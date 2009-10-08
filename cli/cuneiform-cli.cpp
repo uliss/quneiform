@@ -65,6 +65,7 @@
 
 #include "cttypes.h"
 #include "puma/puma.h"
+#include "puma/pumaimpl.h"
 #include "lang_def.h"
 #include "config.h"
 
@@ -324,8 +325,7 @@ int main(int argc, char **argv) {
 	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
 	Puma::instance().open(dib);
-	Puma::instance().analyze()
-;	Puma::instance().recognize();
+	Puma::instance().recognize();
 
 	/* From recogpuma.cpp
 	 PUMA_SetSpeller(g_bSpeller);

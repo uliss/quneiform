@@ -61,51 +61,6 @@
 #include "ccom/ccom.h"
 #include "cstr/cstr.h"
 
-void ClearAll(void) {
-	PAGEINFO PInfo = { 0 };
-	//
-	// Сохраним последенне состояние и очистим контейнер
-	//
-	if (ghEdPage) {
-		CED_DeletePage(ghEdPage);
-		ghEdPage = NULL;
-	}
-
-	if (hCPAGE)
-		GetPageInfo(hCPAGE, &PInfo);
-
-	CSTR_DeleteAll();
-	CPAGE_DeleteAll();
-	hCPAGE = CreateEmptyPage();
-
-	strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
-	PInfo.Incline2048 = 0;
-	PInfo.Angle = 0;
-	PInfo.Images = IMAGE_USER;
-	SetPageInfo(hCPAGE, PInfo);
-
-	CCOM_DeleteAll();
-	hCCOM = NULL;
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_BINARIZE);
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_DELLINE);
-	//  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
-	//  поскольку оно отображается в интерфейсе. Его нужно удалять
-	//  либо при получении нового довернутого изображения, либо при
-	//  закрытии файла
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
-	/*
-	 if(hCPAGE && CPAGE_GetCountBlock(hCPAGE))
-	 {
-	 CPAGE_BackUp(hCPAGE);
-	 Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,0);
-	 while(hBlock)
-	 {
-	 CPAGE_DeleteBlock(hCPAGE,hBlock);
-	 hBlock = CPAGE_GetBlockNext(hCPAGE,hBlock,0);
-	 }
-	 }
-	 */
-}
 ///////////////////////////////////////////////////////
 // Функции прогресс индикатора
 Bool32 rexcProgressStep(uint32_t step) {
