@@ -56,10 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if ( !defined ( __CRLING_HEADER_ ) & !defined ( RLING_SECONDARY ) ) | ( !defined (__CRLINGS_HEADER_) & defined(RLING_SECONDARY) )
 
-//#if _MSC_VER > 1000
-//#pragma once
-//#endif // _MSC_VER > 1000
-
 # ifdef RLING_SECONDARY
   #define __RLINGS__
   #undef  __RLING__
@@ -95,9 +91,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define RLINGS_FUNC  FUN_IMPO
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef __cplusplus
-	extern "C" {
-#endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #pragma pack (push,8)
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,11 +213,6 @@ DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(uint32_t, uint32_t *));
 //
 #pragma pack (pop)
 
-#ifdef __cplusplus
-            }
-#endif
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #endif //__CRLING_HEADER_
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file

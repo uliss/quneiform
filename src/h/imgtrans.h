@@ -59,19 +59,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "imgaccs.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 PPS_FUNC( Err16 )  ImageTransfer (
                       TImgImport *from,
                       TImgExport *to, // may be NULL
                       int32_t   buff_size
                       );
 
-#ifdef __cplusplus
-}
-#endif
 
 
 #endif // __IMGTRANS_H

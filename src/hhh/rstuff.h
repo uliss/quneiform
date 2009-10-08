@@ -68,13 +68,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RSTUFF_H
 #define __RSTUFF_H
 
-#ifndef __GLOBUS_H
  #include "globus.h"
-#endif
-
-#ifndef __PUMA_H
  #include "puma/puma.h"
-#endif
 
 #ifdef __RSTUFF__
   #define RSTUFF_FUNC  FUN_EXPO
@@ -82,12 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define RSTUFF_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-        extern "C" {
-#endif
-
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 typedef struct tagRSPreProcessImage
 {
 	puchar	*pgpRecogDIB;
@@ -158,10 +147,6 @@ typedef enum
 				RSTUFF_FN_RSSetSpecPrj
 } RSTUFF_EXPORT_ENTRIES;
 //////////////////////////////////////////////////////////////////////////////////////////////
-//typedef void   (*PRSTUFFCBPRogressStart)(void);
-//typedef Bool32 (*PRSTUFFCBPRogressStep)(uint32_t);
-//typedef void   (*PRSTUFFCBPRogressFinish)(void);
-//////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
 {
 		RSTUFF_FN_SetProgresspoints = 128,
@@ -181,9 +166,5 @@ DEC_FUN(Bool32, RSNormRemoveLines,   (PRSPreProcessImage));
 DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
 DEC_FUN(Bool32, RSSetSpecPrj,          (uchar NoSpecPrj));
 #undef DEC_FUN
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif //

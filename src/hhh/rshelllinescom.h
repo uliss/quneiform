@@ -88,27 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 
 #include "compat_defs.h"
-//#include "decl.h"
 
-//#define SecondPath       2
-//#define ThirdPath        3
-
-/*
-struct CLineImage
-{
-	int Wide;
-	int Height;
-	int bytewide;
-	uchar* lp;
-	int fl_delete;
-	uchar* pmasp;
-	int size_mas;
-	CLineImage();
-	~CLineImage();
-	int SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
-	uchar* GetPmasp(Rect32* pRc);
-};
-*/
 struct DOT_STRUCT
  {
   int32_t left;
@@ -120,18 +100,6 @@ struct DOT_STRUCT
   int32_t i_right;
   Bool  flag;
  };
-/*
-class  CSL_POLY:public CObject
-{
-public:
-  CSL_POLY(){count=4;}
- ~CSL_POLY(){}
-
- int16_t   count;
- Point32 Vertex[MaxNumber];
-};
-*/
-//extern "C" {
 
 typedef struct group_lines_mass
 {
@@ -147,141 +115,15 @@ typedef struct group_lines_mass
     int32_t         GroupVerOffset;
 } GLM;
 
-/////////////////////////////////////////////////////////////////////////////
-// Interval's class
-/*class RSHELLLINES_CLASS CInterval:public CObject
-{
-public:
-  CInterval(){}
- ~CInterval(){}
 
-  int32_t  Pos;
-  int32_t  Lent;
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// Rect32's class
-/*class RSHELLLINES_CLASS CPRect32:public CObject
-{
-public:
-  CPRect32(){m_flag=TRUE;};
- ~CPRect32(){};
-
-  Rect32  rect;
-  Bool    m_flag;
-};
-*/
-
-/////////////////////////////////////////////////////////////////////////////
-// Event's class
-/*class RSHELLLINES_CLASS CEvent:public CObject
-{
-public:
-  CEvent();
- ~CEvent();
-
-  Bool            Hori;                    //гориз.(1) или вертик.(0)
-  Bool            Increase;                //наращивать или уменьшать уровень
-  int32_t           Lev_0;                   //уровень первого интервала
-  int             Width;
-  int32_t           EventLength;
-
-  CObArray        m_arIntervals;
-
-  int             GetCountIntervals(void);
-  CInterval*      GetInterval(int i);
-  CInterval*      GetNewInterval(void);
-*/
   void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, uint32_t* LineHist, uint32_t RectBegin, uint32_t LineLength); //
-/*};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// Stripe's class
-/*class RSHELLLINES_API CStripe:public CObject
-{
-public:
-  CStripe();
- ~CStripe();
 
-  int32_t           Level;                   //уровень полосы
-
-  CObArray        m_arIntervals;
-
-  int             GetCountIntervals(void);
-  CInterval*      GetInterval(int i);
-  CInterval*      GetNewInterval(void);
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// CutPoint's class
-
-//#define DirectedUpwards       0  //defines for Direction
-//#define DirecteDownwards      1
-//#define DirectedForBothSides  2
-/*
-class RSHELLLINES_CLASS CCutPoint:public CObject
-{
-public:
-  CCutPoint();
- ~CCutPoint();
-
-  int    Direction;
-  int32_t  Level;                            //уровень полосы
-
-  CObArray        m_arIntervals;
-
-  int             GetCountIntervals(void);
-  CInterval*      GetInterval(int i);
-  CInterval*      GetNewInterval(void);
-};
-*/
 /////////////////////////////////////////////////////////////////////////////
 // Component's class
 
 #define  InitialPointHasCrossPoint  1  //defines for Component
 #define  MiddleHasCrossPoint        2
 #define  EndPointHasCrossPoint      4
-/*
-class RSHELLLINES_API CComponent:public CObject
-{
-public:
-  CComponent();
- ~CComponent();
-
-  int    CrossPointFlag;
-  int32_t  BeginPoint;
-  int32_t  EndPoint;
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// СDotLines's class
-/*class RSHELLLINES_API CDotLine:public CObject
-{
-public:
-  CDotLine();
- ~CDotLine();
-
-  CPRect32        m_LeftDot;       // левая точка
-  CPRect32        m_RightDot;      // правая точка
-  Bool            m_LeftDotState;  //FALSE-линия не имеет лев. продольжение
-  Bool            m_RightDotState; //FALSE-линия не имеет прав.продольжение
-
-  CObArray        m_arDots;        // все точки без сортировки
-  CWordArray      m_dist;          // все расстояния между точками
-
-  Bool            m_Flag;          //Если == FALSE то плохая точечная линия
-
-  int             GetCountOfDots(void);
-  CPRect32*       GetDot(int i);
-  void            AddDot(CPRect32*);
-  void            SetLeftDot(CPRect32* in_dot);
-  void            SetRightDot(CPRect32* in_dot);
-};
-*/
-// For Flags
-//#define LI_IsTrue       0x00000040 			// правильно выделенная линия
-//#define LI_IsFalse      0x00000080			// не линия
-//#define LI_Pointed      0x00001000          // точечная
 
 // For Status
 #define ST_Unknown      0x00000000 			//
@@ -291,79 +133,9 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 // Line's class
-//class CPageLines;
-/*
-class RSHELLLINES_API CLine:public CObject
-{
-public:
-  CLine();
- ~CLine();
-*/
 RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
-/*  uint32_t          Flags;                   // common use info
-  uint32_t          Tail;                    // остаток линии за таблицой
-  Point32         BeginPoint;
-  Point32         EndPoint;
-  Rect32          rect;                    // прямоугольник линии
-  Bool            ProcessingType;          // тип обработки линии(гор. или верт.)
-  int             Width;
-  int32_t           LineEventsLength;        // сумма черных точек линии
-  double          Degree;
-  int             RelationshipIndex;       // индекс коробки компонент
-  Bool            FlagCalculatedWidth;
-  Bool            FlagExtensible;
-  Bool            FlagDot;                 // устанавливается когда линия точечная
-  Bool            FlagBad;
-  Bool            FlagLongStrip;
-  int             PathNumber;              // номер прохода
-
-  NR_SimpLine     Line;                    // простейшее описание линии
-  NR_SimpLine     LineMid;                 // Средние точки линии
-  int32_t           Status;                  // история линии в программе
-  NORM_DATATYPES  Type;                    // *Unknown, *Simple, *Defis, *Pointed
-  LINE_DIR        Dir;
-  char            Qual;                    // quality (or estimation) at percents
-  char            Dens;                    // density at percents
-  void            *Specline;               // (NR_DefiLine), (NR_PoinLine)
-  CSL_POLY        poly;
-
-  CObArray        m_arStripes;             // все полосы и интервалы
-  CObArray        m_arStripesVerticalLine; // все полосы и интервалы для вертикальной линии
-//  CObArray        m_arCorrectedStripes;    // полосы и интервалы после коррекции
-  CObArray        m_arEvents;              // фрагменты
-  CObArray        m_arCutPoints;           // точки пересечения с ортогональными линиями
-  CObArray        m_arComponents;          // компоненты линии с признаками точек пересечения
-//take'em away!  CWordArray      m_arSeparationPoints;    // точки деления линии на подлинии(компоненты)
-  CWordArray      m_arFriendsIndex;        // индексы дружественных линий
-
-*/
   Bool            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
-/*  NORM_DATATYPES  GetLineNormDataTypes(void);
-
-  int             GetCountStripes(void);
-  CStripe*        GetStripe(int i);
-  CStripe*        GetNewStripe();
-
-  int             GetCountStripesVerticalLine(void);
-  CStripe*        GetStripeVerticalLine(int i);
-*/  void            GetNewStripeVerticalLine(DEvent* eventdata); //
-
-/*  int             GetCountEvents(void);
-  CEvent*         GetNewEvent();
-  CEvent*         GetEvent(int i);
-
-//  int             GetCountCorrectedStripes(void);
-//  CStripe*        GetNewCorrectedStripe();
-//  CStripe*        GetCorrectedStripe(int i);
-
-  int             GetCountCutPoints(void);
-  CCutPoint*      GetNewCutPoint();
-  CCutPoint*      GetCutPoint(int i);
-
-  int             GetCountComponents(void);
-  CComponent*     GetNewComponent();
-  CComponent*     GetComponent(int i);
-*/
+void            GetNewStripeVerticalLine(DEvent* eventdata); //
   void            SetLineProcessingType(DLine* linedata); //
   void            SetWidth(CLINE_handle line, DLine* pCLine); //
   void            SetLength(CLINE_handle line, DLine* pCLine); //
@@ -376,101 +148,17 @@ RSHELLLINES_FUNC(Bool32)          CheckSeparationPoints(CLINE_handle hLine, CLIN
   void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, int32_t IntervalBeg, int32_t IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
   void            SetDegree(DLine* line); //
   Bool            CheckPoint(CLINE_handle line, int CurPoint); //
-//  void            CheckShortVerticalLines(CPageLines* PLines);
   void            ConvertStructs(CLINE_handle line, DLine* pCLine, int32_t nIncline); //
   void            FindTailComponent(CLINE_handle line, DLine* pCLine); //
   void            GetCorrectLine_End_X(CLINE_handle line, DLine* pCLine); //
   void            GetComponentBeg_Y_End_Y(int32_t Beg, int32_t End, int32_t* Beg_X, int32_t* End_X, int32_t* Beg_Y, int32_t* End_Y, CLINE_handle hLine, Bool32 ProcessingType); //
   Bool32          IfExistCutLine(CLINE_handle hContainer, DLine* pCLine, int left,int right); //
-/*  int             SetVStripeMasMaxSize(int size);
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// CGroupOfFriendLines class
-/*class RSHELLLINES_CLASS CGroupOfFriendLines:public CObject
-{
-public:
-  CGroupOfFriendLines();
- ~CGroupOfFriendLines();
 
-  CWordArray      m_arFriendsIndex;        // индексы дружественных линий (m_arLines)
-  CWordArray      m_arCutPointsL;           // точки пересечения (left for interval)
-  CWordArray      m_arCutPointsR;           // точки пересечения (right for interval)
-  CWordArray      m_arFrequency;           // и частота
 
-  double          Degree;                  // +- 0.05
-  Bool            ProcessingType;          // тип обработки линий(гор. или верт.)
-  int             RelationshipIndex;       // индекс коробки компонент
-  uint16_t            m_top;
-  uint16_t            m_bottom;
-
-  int             GetCountOfFriendLines(void);
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// CGroupOfExtensibleLines class
-/*class RSHELLLINES_CLASS CGroupOfExtensibleLines:public CObject
-{
-public:
-  CGroupOfExtensibleLines();
- ~CGroupOfExtensibleLines();
-
-  double          Degree;                  // +- 0.05
-  Bool            ProcessingType;          // тип обработки линий(гор. или верт.)
-  CWordArray      m_arFriendsIndex;        // индексы дружественных линий (m_arLines)
-
-  int             GetCountOfExtensibleLines(void);
-};
-*/
-/////////////////////////////////////////////////////////////////////////////
-// PageLine's class
-/*class RSHELLLINES_CLASS CPageLines:public CObject
-{
-public:
-  CPageLines();
- ~CPageLines();
-
-  Bool                     FlagDot;  //Если == TRUE то проверяется точечные линии
-
-  CObArray                 m_arLines;
-  CObArray                 m_arNewDotLines;  // точечные линии собранные из коробок компонент
-  CObArray                 m_arGroupOfFriendLines;
-  CObArray                 m_arGroupOfExtensibleLines;
-  CObArray                 m_arComps;
-  CObArray                 m_arDotComps;
-  CLineImage*              m_pImage;
-
-  int                      GetCountLines(void);
-  CLine*                   GetNewLine(void);
-  CLine*                   GetLine(int i);
-
-  int                      GetCountNewDotLines(void);
-  CDotLine*                GetNewDotLine(void);
-  CDotLine*                GetDotLine(int i);
-  void                     DrowRectForChains(void);
-
-  int                      GetCountGroupOfFriendLines(void);
-  CGroupOfFriendLines*     GetNewGroupOfFriendLines(void);
-  CGroupOfFriendLines*     GetGroupOfFriendLines(int i);
-
-  int                      GetCountGroupOfExtensibleLines(void);
-  CGroupOfExtensibleLines* GetNewGroupOfExtensibleLines(void);
-  CGroupOfExtensibleLines* GetGroupOfExtensibleLines(int i);
-
-  int                      GetCountComps(void);
-  CSL_POLY*                GetNewComp(void);
-  CSL_POLY*                GetComp(int i);
-
-  int                      GetCountDotComps(void);
-  CPRect32*                GetNewDotComp(void);
-  CPRect32*                GetDotComp(int i);
-  void                     DrowRectForDotComp(void);
-*/
   Bool                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
   Bool                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
   Bool                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
   Bool                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-//  Bool                     CheckGroupsForExtensible(void);
 
 RSHELLLINES_FUNC(void)       FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
 RSHELLLINES_FUNC(void)       DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
@@ -521,5 +209,3 @@ RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hCont
 RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point = NULL);
 RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
 
-
-//}

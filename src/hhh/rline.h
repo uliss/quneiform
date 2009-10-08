@@ -59,20 +59,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
 #ifdef __RLINE__
   #define RLINE_FUNC  FUN_EXPO
 #else
   #define RLINE_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-        extern "C" {
 #endif
 
 #define __XTYPES_H
@@ -106,18 +96,7 @@ DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInPage, const char* lpOutDIB));
 DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
 DEC_FUN(Bool32,  RLINE_LinesPass2, (Handle hCCOM,void* phCLINE, Handle hCPAGE));
 DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, uchar lang));
-//DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInName , void* lpDIB, void** lpOutName));
 
-/*
-DEC_FUN();
-DEC_FUN();
-DEC_FUN();
-*/
 #undef DEC_FUN
-
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

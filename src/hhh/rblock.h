@@ -57,30 +57,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RBLOCK_H
 #define __RBLOCK_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+
 #ifdef __RBLOCK__
   #define RBLOCK_FUNC  FUN_EXPO
 #else
   #define RBLOCK_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
 
 #define RBLOCK_MAXNAME 260
-
-
 
 
 RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,Handle hStorage);
@@ -119,9 +106,5 @@ typedef	void   (*FNRBLOCK_ProgressFinish)( void );
 
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

@@ -65,19 +65,11 @@
 #   define CPU_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
  * Return type of CPU: 386, 486, 586, 686, 5860 (586+IA MMX), 6860 (686+IA MMX)
  */
 CPU_FUNC int GetCPUName();
 CPU_FUNC int Get_MMX();
 CPU_FUNC int Get_XMM();
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

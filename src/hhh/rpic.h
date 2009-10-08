@@ -57,27 +57,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RPIC_H
 #define __RPIC_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+
 #ifdef __RPIC__
   #define RPIC_FUNC  FUN_EXPO
 #else
   #define RPIC_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
-
 
 RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
@@ -85,8 +73,6 @@ RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
 RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError);
 RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData);
 RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData);
-/////////////////////////////////////////////////////////////
-
 
 typedef enum
 {
@@ -97,12 +83,6 @@ typedef enum
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RPIC_FUNC(a) b c
 DEC_FUN(Bool32, RPIC_SearchPictures,(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE));
 #undef DEC_FUN
-
-/*
-typedef void   (*FNRPIC_ProgressStart)( void );
-typedef	Bool32 (*FNRPIC_ProgressStep)(uint32_t perc);
-typedef	void   (*FNRPIC_ProgressFinish)( void );
-*/
 
 struct _RPIC_Comp_Rect
 {
@@ -115,9 +95,5 @@ typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
 
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

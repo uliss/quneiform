@@ -66,10 +66,6 @@
 #define CLINE_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 CLINE_FUNC Bool CLINE_Init(int HeightCode, Handle parent);
 CLINE_FUNC Bool CLINE_Done();
 CLINE_FUNC int  CLINE_GetReturnCode();
@@ -203,9 +199,5 @@ DEC_FUN(Bool32, CLINE_MoveLine, (CLINE_handle container_to, CLINE_handle contain
 DEC_FUN(Bool32, CLINE_CopyData, (void* to,const void* from,int size))
 
 #undef DEC_FUN
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

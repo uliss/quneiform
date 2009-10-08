@@ -78,10 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define ROUT_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
 
 #ifndef Byte
@@ -344,9 +340,5 @@ typedef enum {
 //*****************************************************************
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-	}
-#endif
 
 #endif	// __ROUT_H

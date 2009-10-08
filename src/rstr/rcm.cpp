@@ -295,7 +295,7 @@ uchar CodePages[LANG_TOTAL] = { // 29.08.2000 E.P.
 				TURKISH_CHARSET // LANG_TURKISH	  27
 		};
 
-static char *tab3x5[] = { "rec3.dat", // LANG_ENGLISH   0
+static const char *tab3x5[] = { "rec3.dat", // LANG_ENGLISH   0
 		"rec3.dat", // LANG_GERMAN    1
 		"rec3.dat", // LANG_FRENCH    2
 		"rec3rus.dat", // LANG_RUSSIAN   3
@@ -325,7 +325,7 @@ static char *tab3x5[] = { "rec3.dat", // LANG_ENGLISH   0
 		"rec3tur.dat" // LANG_TURKISH		27
 		};
 
-static char *tabevn1[] = { "rec1.dat", // LANG_ENGLISH   0
+static const char *tabevn1[] = { "rec1.dat", // LANG_ENGLISH   0
 		"rec1.dat", // LANG_GERMAN    1
 		"rec1.dat", // LANG_FRENCH    2
 		"rec1rus.dat", // LANG_RUSSIAN   3
@@ -354,7 +354,7 @@ static char *tabevn1[] = { "rec1.dat", // LANG_ENGLISH   0
 		"rec1blt.dat", // LANG_ESTONIAN	26
 		"rec1tur.dat" // LANG_TURKISH		27
 		};
-static char *tabevn2[] = { "rec2.dat", // LANG_ENGLISH   0
+static const char *tabevn2[] = { "rec2.dat", // LANG_ENGLISH   0
 		"rec2.dat", // LANG_GERMAN    1
 		"rec2.dat", // LANG_FRENCH    2
 		"rec2rus.dat", // LANG_RUSSIAN   3

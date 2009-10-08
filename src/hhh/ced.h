@@ -69,11 +69,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define FUN_IMPO_VOID  FUN_IMPO__  __FUN_IMPO
 #define FUN_EXPO_VOID  FUN_EXPO__  __FUN_EXPO
 
-
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
 
 #define CED_MAXNAME 260
@@ -504,12 +499,6 @@ DEC_FUN(void, CED_SetLogFileName,(const char * name));
 
 #undef DEC_FUN
 
-
-
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

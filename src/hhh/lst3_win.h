@@ -58,8 +58,6 @@
 //#define EXACT_REG
 
 #include "sys_prog.h"
-
-/*#include <io.h>*/
 #include <sys/types.h>
 
 #include "compat_defs.h"
@@ -377,12 +375,6 @@ typedef struct h_spec {
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
 
-#ifndef CPP
-#ifdef __cplusplus
-extern "C" {
-#endif
-#endif
-
 #define MAXFILENAME 256
 #define MAX_KNOT 15000
 #define MAX_CLU_BS 20
@@ -566,7 +558,7 @@ void RestoreOldCoorFrm(FRAME *f, FRAME *fo, float tg_ang);
 void RestoreOldCoorRect(FRAME *f, RECT *fo);
 int read_frmW(char *file_frm, POINT_H *CentrW, int *SizeX_W, int *SizeY_W,
 		long *k_frm);
-void PASC free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm);
+void free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm);
 int unfold(FRAME **frm, int k_frm, TYPE *dist1, int ave_y, BOUND *bnd);
 int clust_unfold(FRAME **frm, int k_frm, TYPE *dist, TYPE dp, int max_cl,
 		int *k_cl1, KNOT3 **beg_free1, KNOT3 **beg_cl);
@@ -998,12 +990,6 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
 		int *dsym,int *AveX,int *AveY);
 
 #pragma pack()
-
-#ifndef CPP
-#ifdef __cplusplus
-}
-#endif
-#endif
 
 #define STRUCT_INI "struct.ini"
 

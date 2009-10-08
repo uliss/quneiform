@@ -66,10 +66,6 @@
 #define DPUMA_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define  DPUMA_REC_MAX_RASTER_SIZE   4*1024  // 256*128
 typedef struct DPUMA_tagRecRaster {
 	int32_t lnPixWidth;
@@ -274,9 +270,5 @@ enum puma_align_t {
 	TA_NOUPDATECP = 0,
 	TA_UPDATECP = 1
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

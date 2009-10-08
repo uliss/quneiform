@@ -70,10 +70,6 @@
 #define CTB_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 CTB_FUNC int32_t CTB_GetVersion(void);
 //***************** open/close function prototypes **********************
 CTB_FUNC Bool32 CTB_create(const char *file_name, uchar *data);
@@ -160,10 +156,6 @@ enum ctb_error_t {
 	CTB_ERR_ALIGN = 15,
 	CTB_ERR_DIF_VERSION = 16
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

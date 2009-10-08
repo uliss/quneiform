@@ -68,18 +68,12 @@
 #ifndef __RMARKER_H
 #define __RMARKER_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO
 #else
 #define RMARKER_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -156,9 +150,5 @@ typedef struct tagRMCBProgressPoints {
 DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage,void*,int,void*,int))
 DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
 #undef DEC_FUN
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //

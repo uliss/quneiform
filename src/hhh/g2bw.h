@@ -66,11 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 enum TBinEnum {VIA_DEZA,VIA_KRONROD};
 
-
-#ifdef __cplusplus
- extern "C"
-  {
-#endif
 /*
 	ЗАМЕЧАНИЯ.
 1. Работа трио базируется на информации получаемой из структуры ImageInfo.
@@ -126,8 +121,5 @@ GBW_FUNC(void)		Grey_close(void);
 
 #endif // WIN32
 
-#ifdef __cplusplus
-};
-#endif
 
 #endif   // __G2BW_H

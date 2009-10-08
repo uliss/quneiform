@@ -69,10 +69,6 @@
 #define LOC_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 LOC_FUNC Bool32 LOCInit();
 LOC_FUNC void LOCDone();
 LOC_FUNC int16_t LOCGetErr();
@@ -89,9 +85,5 @@ enum loc_error_t {
 	ER_LOC_MEMORY = 3,
 	ER_LOC_READ = 4
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

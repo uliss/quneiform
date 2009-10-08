@@ -57,32 +57,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RCUTP_H
 #define __RCUTP_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
-/*
-#ifndef __EVNDEFS_H
-#include "evn32/evndefs.h"
-#endif
-*/
-#ifndef H_ccomdef_h
 #include "ccom/ccomdefs.h"
-#endif
-
-//#ifndef __EXCDEFS_H
-//#include "excdefs.h"
-//#endif
-
 #include "roots.h"
 
 #ifdef __RCUTP__
   #define RCUTP_FUNC  FUN_EXPO
 #else
   #define RCUTP_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-	extern "C" {
 #endif
 
 #pragma pack (push,8)
@@ -115,9 +97,5 @@ DEC_FUN(void, RCUTP_RSelStr_UnsetEnv, ());
 #undef DEC_FUN
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

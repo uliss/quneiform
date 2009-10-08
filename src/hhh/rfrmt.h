@@ -57,18 +57,12 @@
 #ifndef __RFRMT_H
 #define __RFRMT_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RFRMT__
 #define RFRMT_FUNC  FUN_EXPO
 #else
 #define RFRMT_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 #pragma pack (push,8)
@@ -101,9 +95,5 @@ DEC_FUN(Bool32, RFRMT_SaveRtf,(const char * OutputFileName, uint32_t code))
 #undef DEC_FUN
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

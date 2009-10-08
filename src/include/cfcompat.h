@@ -42,10 +42,6 @@
 #define CFCOMPAT_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 CFCOMPAT_FUNC void* GlobalAlloc(uint uFlags, int dwBytes);
 CFCOMPAT_FUNC void GlobalFree(void *f);
 CFCOMPAT_FUNC void* GlobalReAlloc(void * ptr, size_t size);
@@ -125,9 +121,5 @@ CFCOMPAT_FUNC void make_path(char *opath, const char *dir,
 CFCOMPAT_FUNC void winpath_to_internal(char *p);
 CFCOMPAT_FUNC unsigned int curr_dir(unsigned int bsize, char* buf);
 CFCOMPAT_FUNC FILE* create_temp_file(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

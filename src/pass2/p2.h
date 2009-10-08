@@ -68,10 +68,6 @@
 #define P2_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // return < 0 - error
 P2_FUNC int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne,
 		P2GLOBALS *P2globals);
@@ -99,10 +95,6 @@ P2_FUNC void P2_SetRSTR(Handle RecogCutGlu, Handle setAlpha, Handle GetPage,
 enum p2_error_t {
 	ER_P2_NO_ERROR = 0, ER_P2_NO_RECOG = 1, ER_P2_MEMORY = 4
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

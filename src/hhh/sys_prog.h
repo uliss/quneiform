@@ -115,10 +115,6 @@
 #if !defined (SYS_INTERFACE)
 #define SYS_INTERFACE
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 //------  Common functions for mrk.dll, dot.dll, ndx.dll --------
 #include "undef32.h"
 #include "globus.h"
@@ -138,10 +134,6 @@ void ERR(int num, const char *str);
 int GetERR(char *NameFunc);
 
 #include "undef32.h"
-#endif
-
-#ifdef __cplusplus
-}
 #endif
 
 #endif

@@ -73,10 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      #define VEC_FUNC  FUN_IMPO
    #endif
 
-   #ifdef __cplusplus
-   extern "C" {
-   #endif
-
    VEC_FUNC(Bool32)  VECRecogChar(
       RecRaster*  raster,     // raster description
       RecVersions* VECres );  // acuracy
@@ -94,10 +90,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ER_VEC_OPEN      3
 #define ER_VEC_READ      4
 #define ER_VEC_MEMORY  5
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif
 

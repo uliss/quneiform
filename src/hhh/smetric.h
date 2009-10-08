@@ -58,11 +58,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __SMetric_H
 	#define __SMetric_H
+
 	#include "cttypes.h"
 
-#ifndef __GLOBUS_H
 	#include "globus.h"
-#endif
 
 #ifdef __SMetric__
 	#define SMetric_FUNC  FUN_EXPO
@@ -70,9 +69,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define SMetric_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-        extern "C" {
-#endif
 
 SMetric_FUNC(Bool32) SMetric_Init(uint16_t wHeightCode,Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
@@ -97,9 +93,5 @@ typedef enum
 DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, int32_t *pSkew, int32_t *pSkewLocVerLin, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool CalcMuchSkew, Bool TalkMuchSkew));
 
 #undef DEC_FUN
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

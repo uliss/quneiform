@@ -60,18 +60,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RSL_H
 #define __RSL_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RSL__
   #define RSL_FUNC  FUN_EXPO
 #else
   #define RSL_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-	extern "C" {
 #endif
 
 #pragma pack (push,8)
@@ -84,9 +78,5 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData);
 
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

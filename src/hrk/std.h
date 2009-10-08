@@ -57,14 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __STD_H
    #define __STD_H
 
-   #ifndef __STDIO_H
       #include <stdio.h>
-      #define __STDIO_H
-   #endif
-
-   #ifndef __GLOBUS_H
       #include "globus.h"
-   #endif
 
    #ifndef STD_FUNC
       #ifdef __STD__
@@ -74,14 +68,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #endif
    #endif
 
-   #ifdef __cplusplus
-   extern "C" {
+
    #define DEFAULT_ZERO =0
    #define DEFAULT_NULL =NULL
-   #else
-   #define DEFAULT_ZERO
-   #define DEFAULT_NULL
-   #endif
 
 /////////////////////////////////
 // INITIALIZATION
@@ -395,16 +384,8 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
    // if (stdGetError())   // были зарегистрированы ошибки
    //    MyErrorProc();
 
-   STD_FUNC( Bool32 ) stdGetLastError( StdError* pse
-#ifdef __cplusplus
-	  = NULL
-#endif
-);
+   STD_FUNC( Bool32 ) stdGetLastError( StdError* pse = NULL);
    // false - количество ошибок == 0
 
-
-   #ifdef __cplusplus
-            }
-   #endif
 
 #endif

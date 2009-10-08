@@ -78,10 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __wtypes_h__
 #define __wtypes_h__
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-
 /* Forward Declarations */
 
 void __RPC_FAR * __RPC_USER MIDL_user_allocate(size_t);
@@ -1466,9 +1462,5 @@ extern RPC_IF_HANDLE __MIDL_itf_wtypes_0001_v0_0_s_ifspec;
 /* Additional Prototypes for ALL interfaces */
 
 /* end of Additional Prototypes */
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

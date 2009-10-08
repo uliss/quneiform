@@ -57,9 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RVERLINE_H
 #define __RVERLINE_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RVERLINE__
   #define RVERLINE_FUNC  FUN_EXPO
@@ -67,9 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define RVERLINE_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-        extern "C" {
-#endif
 
 #define RVERLINE_MAXNAME 260
 
@@ -105,10 +100,5 @@ DEC_FUN(Bool32, RVERLINE_MarkLines, (Handle hCComp, Handle hCPage));
 typedef int  Regime_VerifyLines;
 #define    RVL_Default          0x00000000
 #define    RVL_FutuTablCorr     0x00000001
-
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

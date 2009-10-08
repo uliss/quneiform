@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //FIELD_INFO - База данных по текущему полю. Определяется в Rcm.cpp.
 //Для использования в других файлах должна быть объявлена как
-//           extern "C" FIELD_INFO FieldInfo;
+//           extern FIELD_INFO FieldInfo;
 
 typedef uchar ALPHA_TABLE[256];
 

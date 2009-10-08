@@ -60,9 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccomdefs.h"
 #include "cpage.h"
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RSELSTR__
   #define RSELSTR_FUNC  FUN_EXPO
@@ -70,15 +68,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define RSELSTR_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
 
 #define RSELSTR_MAXNAME 260
-
-
 
 
 RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage);
@@ -136,9 +128,5 @@ typedef	void   (*FNRSELSTR_ProgressFinish)( void );
 
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

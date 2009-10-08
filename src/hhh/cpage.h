@@ -66,10 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define CPAGE_FUNC  FUN_IMPO
 #endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 #pragma pack (push,8)
 
 #define CPAGE_MAXNAME 260
@@ -84,7 +80,6 @@ CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode();
 CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError);
 CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData);
 CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData);
-/////////////////////////////////////////////////////////////
 
 typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext,
 								   Handle TypeIn ,void * lpDataIn,uint32_t SizeIn,
@@ -262,11 +257,6 @@ DEC_FUN(Bool32,  CPAGE_GetBlockDataPtr,		(Handle page, Handle block, Handle Type
 DEC_FUN(Handle,  CPAGE_GetInternalType,		(const char * name));
 DEC_FUN(char *,  CPAGE_GetNameInternalType,	(Handle type));
 
-/*
-DEC_FUN();
-DEC_FUN();
-DEC_FUN();
-*/
 
 // Виртуальные функции:
 // Они доступны только через непосредственный вызов функций
@@ -286,9 +276,5 @@ VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, uint32_t type, Rect32 re
 
 
 #pragma pack (pop)
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif

@@ -57,9 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RNEG_H
 #define __RNEG_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
 
 #ifdef __RNEG__
   #define RNEG_FUNC  FUN_EXPO
@@ -84,10 +82,6 @@ struct NegTemp
   int fl_rotate;
   int16_t phi[Max_Str_Count];
 };
-
-#ifdef __cplusplus
-        extern "C" {
-#endif
 
 RNEG_FUNC(Bool32) RNEG_Init(uint16_t wHeightCode,Handle parent);
 RNEG_FUNC(Bool32) RNEG_Done();
@@ -114,9 +108,5 @@ DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, Handle hCPage,uchar* pImageNam
 DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,uchar* pImageName,Rect16 Rc));
 
 #undef DEC_FUN
-
-#ifdef __cplusplus
-            }
-#endif
 
 #endif
