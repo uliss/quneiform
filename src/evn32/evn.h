@@ -69,10 +69,6 @@
 #define EVN_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 EVN_FUNC Bool32 EVNInitHND();
 EVN_FUNC Bool32 EVNInitPRN();
 
@@ -115,9 +111,5 @@ enum evn_error_t {
 	ER_EVN_MEMORY = 3,
 	ER_EVN_READ = 4
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
