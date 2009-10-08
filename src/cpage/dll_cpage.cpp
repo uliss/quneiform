@@ -66,7 +66,6 @@
 #include "cpage.h"
 #include "backup.h"
 #include "dpuma.h"
-#include <time.h>
 #include "compat_defs.h"
 #include "cfcompat.h"
 //
@@ -101,10 +100,8 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 	}
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage)
-{
+
+Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage) {
 	gwHeightRC = wHeightCode;
 #ifdef DPUMA_ON
 	Handle hSnap = NULL;
@@ -120,23 +117,19 @@ CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage)
 #endif
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CPAGE_FUNC(Bool32) CPAGE_Done()
-{
+
+Bool32 CPAGE_Done() {
 	Bool32 rc = CPAGE_DeleteAll();
 #ifdef DPUMA_ON
 	LDPUMA_Done();
 #endif
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
-{
+
+uint32_t CPAGE_GetReturnCode() {
 	uint32_t rc = 0;
-	if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	if ((gwLowRC - IDS_ERR_NO) > 0)
+		rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
 
 	return rc;
 }
@@ -150,93 +143,82 @@ char * CPAGE_GetReturnString(uint32_t dwError) {
 	return NULL;
 }
 
-CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
-{
+Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 
 	gwLowRC = 0;
 
-#define CASE_FUNCTION(a)	case CPAGE_FN##a:	*(FN##a *)pData = a; break
+#define CASE_FUNCTION(a)	case CPAGE_FN##a:	*(FN##a *)pData = a; break;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(CPAGE_CreatePage);
-		CASE_FUNCTION(CPAGE_DeletePage);
-		CASE_FUNCTION(CPAGE_SavePage);
-		CASE_FUNCTION(CPAGE_RestorePage);
-		CASE_FUNCTION(CPAGE_GetPageType);
-		CASE_FUNCTION(CPAGE_SetPageData);
-		CASE_FUNCTION(CPAGE_GetPageData);
-		CASE_FUNCTION(CPAGE_ClearBackUp);
-		CASE_FUNCTION(CPAGE_BackUp);
-		CASE_FUNCTION(CPAGE_Undo);
-		CASE_FUNCTION(CPAGE_Redo);
-		CASE_FUNCTION(CPAGE_GetCountPage);
-		CASE_FUNCTION(CPAGE_GetCountBlock);
-		CASE_FUNCTION(CPAGE_CreateBlock);
-		CASE_FUNCTION(CPAGE_GetBlockType);
-		CASE_FUNCTION(CPAGE_GetBlockUserNum);
-		CASE_FUNCTION(CPAGE_SetBlockUserNum);
-		CASE_FUNCTION(CPAGE_GetBlockFlags);
-		CASE_FUNCTION(CPAGE_SetBlockFlags);
-		CASE_FUNCTION(CPAGE_SetBlockData);
-		CASE_FUNCTION(CPAGE_GetBlockData);
-		CASE_FUNCTION(CPAGE_DeleteBlock);
-		CASE_FUNCTION(CPAGE_GetHandlePage);
-		CASE_FUNCTION(CPAGE_GetHandleBlock);
-		CASE_FUNCTION(CPAGE_SetConvertorPages);
-		CASE_FUNCTION(CPAGE_SetConvertorBlocks);
-		CASE_FUNCTION(CPAGE_GetUserPageType);
-		CASE_FUNCTION(CPAGE_GetUserBlockType);
-		CASE_FUNCTION(CPAGE_GetBuckUpCount);
-		CASE_FUNCTION(CPAGE_GetBuckUpHandle);
-		CASE_FUNCTION(CPAGE_GetPageFirst);
-		CASE_FUNCTION(CPAGE_GetPageNext);
-		CASE_FUNCTION(CPAGE_GetBlockFirst);
-		CASE_FUNCTION(CPAGE_GetBlockNext);
-		CASE_FUNCTION(CPAGE_DeleteAll);
-		CASE_FUNCTION(CPAGE_GetCurrentPage);
-		CASE_FUNCTION(CPAGE_SetCurrentPage);
-		CASE_FUNCTION(CPAGE_GetNumberPage);
-		CASE_FUNCTION(CPAGE_UpdateBlocks);
-		CASE_FUNCTION(CPAGE_HL_TableExtract);
-		CASE_FUNCTION(CPAGE_PictureGetFirst);
-		CASE_FUNCTION(CPAGE_PictureGetNext);
-		CASE_FUNCTION(CPAGE_PictureGetPlace);
-		CASE_FUNCTION(CPAGE_PictureGetMask);
-		CASE_FUNCTION(CPAGE_GetBlockInterNum);
-		CASE_FUNCTION(CPAGE_SetBlockInterNum);
-		CASE_FUNCTION(CPAGE_GetBlockDataPtr);
-		CASE_FUNCTION(CPAGE_GetInternalType);
-		CASE_FUNCTION(CPAGE_GetNameInternalType);
-
-		/* reserv
-		 CASE_FUNCTION();
-		 CASE_FUNCTION();
-		 CASE_FUNCTION();
-		 */
-		default:
-		*(Handle *)pData = NULL;
+	switch (dwType) {
+	CASE_FUNCTION(CPAGE_CreatePage)
+	CASE_FUNCTION(CPAGE_DeletePage)
+	CASE_FUNCTION(CPAGE_SavePage)
+	CASE_FUNCTION(CPAGE_RestorePage)
+	CASE_FUNCTION(CPAGE_GetPageType)
+	CASE_FUNCTION(CPAGE_SetPageData)
+	CASE_FUNCTION(CPAGE_GetPageData)
+	CASE_FUNCTION(CPAGE_ClearBackUp)
+	CASE_FUNCTION(CPAGE_BackUp)
+	CASE_FUNCTION(CPAGE_Undo)
+	CASE_FUNCTION(CPAGE_Redo)
+	CASE_FUNCTION(CPAGE_GetCountPage)
+	CASE_FUNCTION(CPAGE_GetCountBlock)
+	CASE_FUNCTION(CPAGE_CreateBlock)
+	CASE_FUNCTION(CPAGE_GetBlockType)
+	CASE_FUNCTION(CPAGE_GetBlockUserNum)
+	CASE_FUNCTION(CPAGE_SetBlockUserNum)
+	CASE_FUNCTION(CPAGE_GetBlockFlags)
+	CASE_FUNCTION(CPAGE_SetBlockFlags)
+	CASE_FUNCTION(CPAGE_SetBlockData)
+	CASE_FUNCTION(CPAGE_GetBlockData)
+	CASE_FUNCTION(CPAGE_DeleteBlock)
+	CASE_FUNCTION(CPAGE_GetHandlePage)
+	CASE_FUNCTION(CPAGE_GetHandleBlock)
+	CASE_FUNCTION(CPAGE_SetConvertorPages)
+	CASE_FUNCTION(CPAGE_SetConvertorBlocks)
+	CASE_FUNCTION(CPAGE_GetUserPageType)
+	CASE_FUNCTION(CPAGE_GetUserBlockType)
+	CASE_FUNCTION(CPAGE_GetBuckUpCount)
+	CASE_FUNCTION(CPAGE_GetBuckUpHandle)
+	CASE_FUNCTION(CPAGE_GetPageFirst)
+	CASE_FUNCTION(CPAGE_GetPageNext)
+	CASE_FUNCTION(CPAGE_GetBlockFirst)
+	CASE_FUNCTION(CPAGE_GetBlockNext)
+	CASE_FUNCTION(CPAGE_DeleteAll)
+	CASE_FUNCTION(CPAGE_GetCurrentPage)
+	CASE_FUNCTION(CPAGE_SetCurrentPage)
+	CASE_FUNCTION(CPAGE_GetNumberPage)
+	CASE_FUNCTION(CPAGE_UpdateBlocks)
+	CASE_FUNCTION(CPAGE_HL_TableExtract)
+	CASE_FUNCTION(CPAGE_PictureGetFirst)
+	CASE_FUNCTION(CPAGE_PictureGetNext)
+	CASE_FUNCTION(CPAGE_PictureGetPlace)
+	CASE_FUNCTION(CPAGE_PictureGetMask)
+	CASE_FUNCTION(CPAGE_GetBlockInterNum)
+	CASE_FUNCTION(CPAGE_SetBlockInterNum)
+	CASE_FUNCTION(CPAGE_GetBlockDataPtr)
+	CASE_FUNCTION(CPAGE_GetInternalType)
+	CASE_FUNCTION(CPAGE_GetNameInternalType)
+	default:
+		*(Handle *) pData = NULL;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
-{
+
+Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData) {
 	Bool rc = FALSE;
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-#define CASE_FUNCTION(a)	case CPAGE_FN##a:	a = (FN##a)pData; break
+#define CASE_FUNCTION(a)	case CPAGE_FN##a:	a = (FN##a)pData; break;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(CPAGE_HL_TableExtract);
-		default:
-		*(Handle *)pData = NULL;
+	switch (dwType) {
+	CASE_FUNCTION(CPAGE_HL_TableExtract)
+	default:
+		*(Handle *) pData = NULL;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
@@ -297,5 +279,3 @@ void ProfileEpilog(Handle prev)
 }
 #endif
 
-//////////////////////////////////////////////////////////////////////////////////
-//end of file
