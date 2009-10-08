@@ -67,7 +67,7 @@
 #include "sys_prog.h"
 #include "cpage.h"
 #include "lst3_win.h"
-#include "cfio.h"
+#include "cfio/cfio.h"
 #include "ced.h"
 #include "edfile.h"
 #include "dpuma.h"
@@ -79,6 +79,8 @@
 #include "cline.h"
 
 #include "minmax.h"
+
+using namespace CIF::CFIO;
 
 extern "C" Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
 		Handle* hEdTree);
@@ -126,18 +128,18 @@ void Cleaning_LI_FRMT_Used_Flag(void);
 float Twips;
 int16_t K_TwipsInInch = 1440;
 uint16_t FlagWriteRtfCoordinates = 1;
-char WriteRtfPageNumber[MAX_PATH] = "1";
+char WriteRtfPageNumber[CFIO_MAX_PATH] = "1";
 uchar Frmt_CharSet = (uchar) 204;
 
 extern uint32_t FlagMode;
 extern char UnRecogSymbol;
 extern uint32_t gnLanguage;
 
-extern char lpMyNameSerif[MAX_PATH];
-extern char lpMyNameNonSerif[MAX_PATH];
-extern char lpMyNameMono[MAX_PATH];
-extern char WriteRtfImageName[MAX_PATH];
-extern char RtfFileName[MAX_PATH];
+extern char lpMyNameSerif[CFIO_MAX_PATH];
+extern char lpMyNameNonSerif[CFIO_MAX_PATH];
+extern char lpMyNameMono[CFIO_MAX_PATH];
+extern char WriteRtfImageName[CFIO_MAX_PATH];
+extern char RtfFileName[CFIO_MAX_PATH];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 extern uint32_t RtfWriteMode;
@@ -289,8 +291,8 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
 void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName,
 		Handle* hEdTree) {
 #ifdef EdWrite
-	char lpEdFileName[MAX_PATH];
-	char lpEdTestFileName[MAX_PATH];
+	char lpEdFileName[CFIO_MAX_PATH];
+	char lpEdTestFileName[CFIO_MAX_PATH];
 
 	if(RtfWriteMode)
 	{

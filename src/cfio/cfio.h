@@ -111,12 +111,14 @@ enum Parameters {
 enum CFIOFolders {
 	CFIO_TEMP_FOLDER = 1, CFIO_FILE_FOLDER, CFIO_STORAGE_FOLDER
 };
+
 #define DEC_FUN(a,b,c) typedef a (*FNCFIO##b)c; CFIO_FUNC a CFIO_##b c;
 
 //Open storage
 enum OpenFlag {
 	OS_CREATE = 0x01, OS_OPEN = 0x02
 };
+
 CFIO_FUNC Handle CFIO_OpenStorage(const char * Name, uint Flags);
 
 //Close Storage
@@ -141,64 +143,75 @@ CFIO_FUNC uint32_t CFIO_WriteFileToStorage(Handle, Handle, const char * Name);
 CFIO_FUNC Handle CFIO_ReadFileFromStorage(Handle, char*);
 
 //Open file
-#define   OSF_CREATE               0x01
-#define   OSF_OPEN                 0x02
-#define   OSF_READ                 0x04
-#define   OSF_WRITE                0x08
-#define   OSF_BINARY               0x10
-#define   OSF_IN_MEMORY            0x20
-#define   OSF_TEMPORARY            0x40
+enum cfio_osf_t {
+	OSF_CREATE = 0x01,
+	OSF_OPEN = 0x02,
+	OSF_READ = 0x04,
+	OSF_WRITE = 0x08,
+	OSF_BINARY = 0x10,
+	OSF_IN_MEMORY = 0x20,
+	OSF_TEMPORARY = 0x40
+};
 
 CFIO_FUNC Handle CFIO_OpenFreeFile(Handle, const char * Name, uint Flag);
 
 //Close file
-#define   CSF_SAVEDISK             0x01
-#define   CSF_SAVESTORAGE          0x02
-#define   CSF_DELETE               0x04
-#define   CSF_WRITE                0x08
+enum cfio_csf_t {
+	CSF_SAVEDISK = 0x01,
+	CSF_SAVESTORAGE = 0x02,
+	CSF_DELETE = 0x04,
+	CSF_WRITE = 0x08
+};
+
 CFIO_FUNC bool CFIO_CloseFreeFile(Handle, uint32_t);
 
 //Write data to file
 CFIO_FUNC uint32_t CFIO_WriteToFile(Handle, char *, uint32_t);
-
 // Read data from file
 DEC_FUN(uint32_t, ReadFromFile, (Handle, char *, uint32_t))
 
 //Seek pointer
-#define   FS_END                   0x01
-#define   FS_BEGIN                 0x02
-#define   FS_CUR                   0x04
+enum cfio_fs_t {
+	FS_END = 0x01, FS_BEGIN = 0x02, FS_CUR = 0x04
+};
 DEC_FUN(uint32_t, SeekFilePointer, (Handle, uint32_t, uint32_t))
 //Tell pointer
 DEC_FUN(uint32_t, TellFilePointer, (Handle))
 //Flash data from buffer
 DEC_FUN(Bool32, FlushFile, (Handle))
 //Memory
+
 // Alloc memory
-#define   MAF_GPTR                   0x0001
-#define   MAF_GNHD                   0x0002
-#define   MAF_GALL_GMEM_FIXED        0x0004
-#define   MAF_GALL_GMEM_MOVEABLE     0x0008
-#define   MAF_GALL_GPTR              0x0010
-#define   MAF_GALL_GHND              0x0020
-#define   MAF_GALL_GMEM_DDESHARE     0x0040
-#define   MAF_GALL_GMEM_DISCARDABLE  0x0080
-#define   MAF_GALL_GMEM_LOWER        0x0100
-#define   MAF_GALL_GMEM_NOCOMPACT    0x0200
-#define   MAF_GALL_GMEM_NODISCARD    0x0400
-#define   MAF_GALL_GMEM_NOT_BANKED   0x0800
-#define   MAF_GALL_GMEM_NOTIFY       0x1000
-#define   MAF_GALL_GMEM_SHARE        0x2000
-#define   MAF_GALL_GMEM_ZEROINIT     0x4000
-#define   MAF_GALL_GMEM_RESERVED     0x8000
+enum cfio_maf_t {
+	MAF_GPTR = 0x0001,
+	MAF_GNHD = 0x0002,
+	MAF_GALL_GMEM_FIXED = 0x0004,
+	MAF_GALL_GMEM_MOVEABLE = 0x0008,
+	MAF_GALL_GPTR = 0x0010,
+	MAF_GALL_GHND = 0x0020,
+	MAF_GALL_GMEM_DDESHARE = 0x0040,
+	MAF_GALL_GMEM_DISCARDABLE = 0x0080,
+	MAF_GALL_GMEM_LOWER = 0x0100,
+	MAF_GALL_GMEM_NOCOMPACT = 0x0200,
+	MAF_GALL_GMEM_NODISCARD = 0x0400,
+	MAF_GALL_GMEM_NOT_BANKED = 0x0800,
+	MAF_GALL_GMEM_NOTIFY = 0x1000,
+	MAF_GALL_GMEM_SHARE = 0x2000,
+	MAF_GALL_GMEM_ZEROINIT = 0x4000,
+	MAF_GALL_GMEM_RESERVED = 0x8000
+};
+
+// ReAlloc memory
+enum cfio_mrc_t {
+	MRF_NEW_MEMORY = 0x0000,
+	MRF_GALL_GMEM_DISCARDABLEGPTR = 0x0001,
+	MRF_GALL_GMEM_MOVEABLE = 0x0002,
+	MRF_GALL_GMEM_NOCOMPACT = 0x0004,
+	MRF_GALL_GMEM_ZEROINIT = 0x0008
+};
+
 DEC_FUN(Handle, AllocMemory, (uint32_t, uint32_t))
 DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, const char*, const char*))
-// ReAlloc memory
-#define   MRF_NEW_MEMORY                  0x0000
-#define   MRF_GALL_GMEM_DISCARDABLEGPTR   0x0001
-#define   MRF_GALL_GMEM_MOVEABLE          0x0002
-#define   MRF_GALL_GMEM_NOCOMPACT         0x0004
-#define   MRF_GALL_GMEM_ZEROINIT          0x0008
 DEC_FUN(Handle, ReAllocMemory, (Handle, uint32_t, uint32_t))
 //Free memory
 DEC_FUN(Bool32, FreeMemory, (Handle))
@@ -214,6 +227,7 @@ DEC_FUN(uint32_t, ReadMemoryFromFile, (const char *, Handle *))
 DEC_FUN(uint32_t, WriteMemoryToStorage, (Handle, Handle, const char *))
 //Read data from storage to memory
 DEC_FUN(uint32_t, ReadMemoryFromStorage, (Handle, pchar, Handle *))
+
 #undef DEC_FUN
 
 }
