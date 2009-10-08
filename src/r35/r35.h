@@ -68,10 +68,6 @@
 #define R35_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 R35_FUNC Bool32 R35InitNDX();
 R35_FUNC Bool32 R35InitHND();
 R35_FUNC Bool32 R35InitPRN();
@@ -146,10 +142,6 @@ enum r35_err_t {
 	ER_R35_ALPHA = 8,
 	ER_R35_WRITE = 9
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
