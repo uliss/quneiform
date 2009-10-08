@@ -232,17 +232,17 @@ DEC_FUN(void, CPAGE_SetBlockInterNum, (Handle page,Handle block,uint32_t inter))
 DEC_FUN(Bool32, CPAGE_GetBlockDataPtr, (Handle page, Handle block, Handle Type, void ** lpData))
 DEC_FUN(Handle, CPAGE_GetInternalType, (const char * name))
 DEC_FUN(char *, CPAGE_GetNameInternalType, (Handle type))
+
 // Виртуальные функции:
 // Они доступны только через непосредственный вызов функций
 // CPAGE_GetExportData и CPAGE_SetImportData
 // HL означает ручной фрагментатор
 #define VRT_FUN(a,b,c) typedef a (*FN##b)c;
-//
+
 // Битовые флаги.
-//
-#define CPAGE_TABLE_DEFAULT	0x0
-#define CPAGE_TABLE_LINE	0x1
-#define CPAGE_TABLE_TEXT	0x2
+enum {
+	CPAGE_TABLE_DEFAULT = 0x0, CPAGE_TABLE_LINE = 0x1, CPAGE_TABLE_TEXT = 0x2
+};
 VRT_FUN(Bool32, CPAGE_HL_TableExtract,( Handle hPAGE, uint32_t type, Rect32 rect ))
 
 #undef DEC_FUN
