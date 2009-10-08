@@ -77,7 +77,7 @@
 #include "globus.h"
 #include "wind32.h"
 #include "aldebug.h"
-#include "decl.h"
+
 ////////////// functions, which are moved from other modules //////////////
 #ifdef alDebug
 static int dets=1;
@@ -153,7 +153,7 @@ static void readSRECT(SRECT *r, FILE *f) {
 	r->bottom = r16.bottom;
 }
 
-Bool __stdcall FindByPartOfTitle(HWND hwnd, // handle to parent window
+Bool FindByPartOfTitle(HWND hwnd, // handle to parent window
 		LPARAM lParam // application-defined value
 ) {
 	return TRUE;
@@ -478,20 +478,19 @@ extern int16_t K_TwipsInInch;
 int16_t HeiStrAllPage;
 int16_t MonoSpaceAllPage;
 
-short __cdecl OpenFullOutTiger(FILE *in)
-{
-	int nc,ns,nw,nz,k_word,k_z,i;
+short OpenFullOutTiger(FILE *in) {
+	int nc, ns, nw, nz, k_word, k_z, i;
 #ifdef alDebug
 	if(dets) {ConsMess("OpenFullOutTiger Begin ");}
 #endif
 
 	rewind(in);
 
-	fread(&ScanResolution,sizeof(uint16_t),1,in);
-	fread(&NumCol,sizeof(uint16_t),1,in);
-	fread(&NumZ,sizeof(uint16_t),1,in);
-	fread(&NumW,sizeof(uint16_t),1,in);
-	fread(&NumS,sizeof(uint16_t),1,in);
+	fread(&ScanResolution, sizeof(uint16_t), 1, in);
+	fread(&NumCol, sizeof(uint16_t), 1, in);
+	fread(&NumZ, sizeof(uint16_t), 1, in);
+	fread(&NumW, sizeof(uint16_t), 1, in);
+	fread(&NumS, sizeof(uint16_t), 1, in);
 
 #ifdef alDebug
 	if(dets) {ConsMess("OpenFullOutTiger ScanResolution=%d ",ScanResolution);}
@@ -501,26 +500,22 @@ short __cdecl OpenFullOutTiger(FILE *in)
 	if(dets) {ConsMess("OpenFullOutTiger NumS=%d ",NumS);}
 #endif
 
-	fread(&MonoSpaceAllPage,2,1,in);
-	fread(&HeiStrAllPage,2,1,in);
+	fread(&MonoSpaceAllPage, 2, 1, in);
+	fread(&HeiStrAllPage, 2, 1, in);
 
-	Twips = ((float)K_TwipsInInch)/ScanResolution;
+	Twips = ((float) K_TwipsInInch) / ScanResolution;
 	// Twips = (float)((int)(Twips+0.5));
-	if(NumCol)
-	{
-		NumStr = (int16_t*)malloc(NumCol*sizeof(int16_t));
-		StatCol = (STAT_COL*)malloc(NumCol*sizeof(STAT_COL));
-		if(NumStr==NULL||StatCol==NULL)
-		{
+	if (NumCol) {
+		NumStr = (int16_t*) malloc(NumCol * sizeof(int16_t));
+		StatCol = (STAT_COL*) malloc(NumCol * sizeof(STAT_COL));
+		if (NumStr == NULL || StatCol == NULL) {
 
 #ifdef alDebug
 			if(dets) {ConsMess("OpenFullOutTiger Memory str2367 Numstr,StatCol");}
 #endif
 			goto BadReturn;
 		}
-	}
-	else
-	{
+	} else {
 		NumStr = NULL;
 		StatCol = NULL;
 		//#ifdef alDebug
@@ -529,14 +524,13 @@ short __cdecl OpenFullOutTiger(FILE *in)
 		goto BadReturn;
 	}
 
-	BndCol = (SRECT*)malloc(NumCol * sizeof(SRECT));
-	UserNumber = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
-	FragFlag = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
+	BndCol = (SRECT*) malloc(NumCol * sizeof(SRECT));
+	UserNumber = (uint32_t*) malloc(NumCol * sizeof(uint32_t));
+	FragFlag = (uint32_t*) malloc(NumCol * sizeof(uint32_t));
 
-	RectFragm = (Rect16*)malloc(NumCol*sizeof(Rect16));
+	RectFragm = (Rect16*) malloc(NumCol * sizeof(Rect16));
 
-	if(BndCol==NULL||UserNumber==NULL||RectFragm==NULL)
-	{
+	if (BndCol == NULL || UserNumber == NULL || RectFragm == NULL) {
 #ifdef alDebug
 		if(dets) {ConsMess("OpenFullOutTiger Memory str2385 BndCol,UserNumber,RectFragm");}
 #endif
@@ -546,16 +540,15 @@ short __cdecl OpenFullOutTiger(FILE *in)
 
 	{
 		int fl; //---Calculate Common Size Section Zn---
-		long lenZn,lenWord,lenStr,NumT=NumCol;
-		if(NumT+NumS+NumW)
-		{
-			lenZn=(NumT+NumS+NumW)*sizeof(PTR)+NumZ*sizeof(ZN);
-			lenWord=(NumT+NumS)*sizeof(PTR)+NumW*sizeof(TITLE_WORD);
-			lenStr=NumT*sizeof(PTR)+NumS*sizeof(TITLE_STR);
-			if((fl=InitSubAlloc(2*(lenZn+lenWord+lenStr)+10000,&SubZn)))
+		long lenZn, lenWord, lenStr, NumT = NumCol;
+		if (NumT + NumS + NumW) {
+			lenZn = (NumT + NumS + NumW) * sizeof(PTR) + NumZ * sizeof(ZN);
+			lenWord = (NumT + NumS) * sizeof(PTR) + NumW * sizeof(TITLE_WORD);
+			lenStr = NumT * sizeof(PTR) + NumS * sizeof(TITLE_STR);
+			if ((fl = InitSubAlloc(2* (lenZn +lenWord+lenStr)+10000,&SubZn)))
 			{
 #ifdef alDebug
-				if(dets) {ConsMess("OpenFullOutTiger str2400 InitSubAlloc");}
+					if(dets) {ConsMess("OpenFullOutTiger str2400 InitSubAlloc");}
 #endif
 				goto BadReturn;
 			}
@@ -701,46 +694,6 @@ short __cdecl OpenFullOutTiger(FILE *in)
 
 }
 
-/*// !!! Art - устарело
- uchar *AnsiOem,*OemAnsi;
- void GenArrAnsiOem(void)
- { uint i;
- for(i=0; i < 256; ++i) AnsiOem[i]=OemAnsi[i]=(uchar)i;
- AnsiOem[256]=OemAnsi[256]=0;
- #ifdef WIN_MOD
- AnsiToOem((char*)&AnsiOem[1],(char*)&AnsiOem[1]);
- OemToAnsi((char*)&OemAnsi[1],(char*)&OemAnsi[1]);
- #else
- #endif
- }*/// !!! Art - устарело
-//===Коррекции Full Out
-/*
- int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
- //==
- { int fl;
- AnsiOem=(uchar*)malloc(257); OemAnsi=(uchar*)malloc(257);
- GenArrAnsiOem();
- #ifdef DRAW
- if(viz) viz=fl_cor;
- #endif
- if(fl_cor)
- {
- //if((fl=InitSpell(FilePar,3,PLAIN))!=0)
- //	return fl-50;
- //if((fl=Init_FeatLet()) != 0)
- //	return fl-100;
- }
- if((fl=OpenFullOutTiger(FileNameFul))!=0) return fl-150;
- if(fl_cor && (fl=CalcStatTiger())!=0) return fl-250;
-
- //if(fl_cor && (fl=CorrFul()) != 0) //Корректор по однородностям
- //	return fl-200;
- //Генерация выход.файла Full-формата и текста
- SaveFullOutTiger(FileNameOut);
- free(AnsiOem); free(OemAnsi);
- return 0;
- }
- */
 #endif
 
 //Освобождение памяти, захваченной под секции знакомест и колонок .ful-файла

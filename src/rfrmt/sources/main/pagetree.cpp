@@ -84,7 +84,6 @@
 #include "wind32.h"
 #include "consmess.h"
 
-#include "decl.h"
 #include "minmax.h"
 
 #ifdef alDebug
@@ -177,7 +176,7 @@ extern uint32_t RtfWriteMode;
  */
 extern "C" Bool PageTree(FILE *InFileName, CRtfPage* RtfPage,
 		const char* OutFileName);
-extern short __cdecl OpenFullOutTiger(FILE *FileName);
+extern short OpenFullOutTiger(FILE *FileName);
 void show_frm(int16_t NumFragm, FRAME **frm);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
@@ -233,11 +232,9 @@ void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
 void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
-//int16_t CreateEmptyRtfFile(void);
-
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found = NULL;
-extern "C" Bool __stdcall FindByPartOfTitle(HWND hwnd, // handle to parent window
+extern "C" Bool FindByPartOfTitle(HWND hwnd, // handle to parent window
 		LPARAM lParam) // application-defined value
 {
 	// uliss should return FALSE?
