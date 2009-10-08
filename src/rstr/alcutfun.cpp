@@ -56,15 +56,13 @@
 
 #include <stdlib.h>
 #include <string.h>
-
-#include "struct.h"
+#include "func.h"
 #include "alik_rec.h"
 #include "interval.h"
-#include "diskrtab.h"
-#include "recdefs.h"
+#include "diffrb.h"
+#include "linear.h"
 
-extern int16_t minrow, bbs1, bbs2, bbs3, bbs4, Nb1, Nb2, Nb3;
-
+#include "compat_defs.h"
 #include "minmax.h"
 
 void snap_clear_screen(void);
@@ -72,8 +70,6 @@ void snap_clear_screen(void);
 extern uchar db_status; // snap presence byte
 int16_t up_position, dw_position;
 static int16_t Alik_count_int_number(pchar Praster, int16_t len_row);
-int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
-int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
 
 static char
 		table_int[256] = { 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1,
@@ -695,7 +691,7 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 	int16_t i, min_height_t;
 	pchar Pproduct, Pproduct_two, Pbufer, pp, ppt;
 	pint16_t Pcut_points, PPen;
-	Coor_brus CB[MaxCountBrus + 1]; // +1 Nick 24.08.2002, was bug
+	Coor_brus CB[MaxCountBrus];
 
 	raster_frag = raster_frag;
 	SourceRaster = SourceRaster;
@@ -806,6 +802,7 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 
 			flag_point = (foot_size + ((interval + 1) >> 1)) / interval;
 			if (flag_point) {
+
 				interval = MIN(CB[j].R - CB[j].L + 1, CB[j + 1].R - CB[j + 1].L
 						+ 1);
 				if (CB[j].P && !CB[j + 1].P) //╚
@@ -833,45 +830,41 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 				}
 				// lett
 				else //****************   T  *****************
-				{
-					if (!CB[j].P && !CB[j + 1].P) {
-						if (!Alik_Check_T(bufer, hgt, (int16_t) (CB[j].R
-								- interval + 1), (int16_t) (CB[j + 1].L
-								+ interval - 1)))
-							continue;
-						/*
-						 if(((CB[j].R-CB[j].L)>>1)>(CB[j+1].R-CB[j+1].L))
-						 CB[j].L=CB[j].R-(CB[j+1].R-CB[j+1].L)-2;
-						 */
-						if (*(penalty + CB[j].L) == 0 && *(product_two
-								+ CB[j].L - 1) <= MaxHeightBrus)
-							--CB[j].L;
+				if (!CB[j].P && !CB[j + 1].P) {
+					if (!Alik_Check_T(bufer, hgt, (int16_t) (CB[j].R - interval
+							+ 1), (int16_t) (CB[j + 1].L + interval - 1)))
+						continue;
+					/*
+					 if(((CB[j].R-CB[j].L)>>1)>(CB[j+1].R-CB[j+1].L))
+					 CB[j].L=CB[j].R-(CB[j+1].R-CB[j+1].L)-2;
+					 */
+					if (*(penalty + CB[j].L) == 0 && *(product_two + CB[j].L
+							- 1) <= MaxHeightBrus)
+						--CB[j].L;
 
-						if (*(penalty + CB[j + 1].R) == 0)
-							++CB[j + 1].R;
+					if (*(penalty + CB[j + 1].R) == 0)
+						++CB[j + 1].R;
 
 #ifdef Alikt
-						if( db_status && snap_activity('j'))
-						{
-							buf=snap;
-							buf+=SPRINTF(buf," Б position1=%3d position2=%3d",CB[j].L,CB[j+1].R);
-							Alik_snap_show_raster(raster_frag,SourceRaster,snap,hgt,rx_bite,
-									product,product_two,penalty);
-						}
+					if( db_status && snap_activity('j'))
+					{
+						buf=snap;
+						buf+=SPRINTF(buf," Б position1=%3d position2=%3d",CB[j].L,CB[j+1].R);
+						Alik_snap_show_raster(raster_frag,SourceRaster,snap,hgt,rx_bite,
+								product,product_two,penalty);
+					}
 #endif
 
-						if (CB[j].L > MINCOL + 2 && !Alik_kill_right_points(
-								rx_bite, product, product_two, cut_points,
-								CB[j].L))
-							*++Pcut_points = rx_bite - CB[j].L;
+					if (CB[j].L > MINCOL + 2 && !Alik_kill_right_points(
+							rx_bite, product, product_two, cut_points, CB[j].L))
+						*++Pcut_points = rx_bite - CB[j].L;
 
-						if (CB[j + 1].R < rx_bite - (MINCOL + 2)
-								&& !Alik_kill_left_points(rx_bite, cut_points,
-										CB[j + 1].R))
-							*++Pcut_points = rx_bite - CB[j + 1].R;
+					if (CB[j + 1].R < rx_bite - (MINCOL + 2)
+							&& !Alik_kill_left_points(rx_bite, cut_points, CB[j
+									+ 1].R))
+						*++Pcut_points = rx_bite - CB[j + 1].R;
 
-						j++;
-					}
+					j++;
 				}
 
 			}
@@ -891,7 +884,6 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 #endif
 		*++Pcut_points = rx_bite - CB[CountBrus - 1].L - 1;
 	}
-
 	*cut_points = (uint16_t) (Pcut_points - cut_points);
 }
 
@@ -958,8 +950,8 @@ int16_t Alik_set_position_brus(pchar bufer, int16_t hgt, int16_t Left,
 	CurPos = bufer + Left * ver_byte;
 
 	for (i = 0; i <= interval; i++, CurPos += ver_byte) {
-		l1 = LeftDistance((puchar) CurPos, ver_byte);
-		r1 = RightDistance((puchar) CurPos, ver_byte);
+		l1 = LeftDistance((uchar*) CurPos, ver_byte);
+		r1 = RightDistance((uchar*) CurPos, ver_byte);
 		if (l1 < 0 || r1 < 0)
 			return -1;
 		if (i > 0) {
@@ -996,7 +988,7 @@ int16_t Alik_Check_T(pchar bufer, int16_t hgt, int16_t Left, int16_t Right) {
 	CurPos = bufer + Left * ver_byte;
 
 	for (i = 0; i <= interval; i++, CurPos += ver_byte) {
-		dist = LeftDistance((puchar) CurPos, ver_byte);
+		dist = LeftDistance((uchar*) CurPos, ver_byte);
 		if (i > 0) {
 			mind = MIN(mind, dist);
 			maxd = MAX(maxd, dist);
@@ -1106,7 +1098,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 				}
 			}
 			CurPos = bufer + left * ver_byte;
-			LeftDist = LeftDistance((puchar) CurPos, ver_byte);
+			LeftDist = LeftDistance((uchar*) CurPos, ver_byte);
 			/*************     ▌╞Ю╔╓╔╚О╔╛ ╞Ю═╒ЦН Б╝Г╙Ц      *************/
 			if (dx - right >= MINCOL) {
 				l_bound = MIN(dx, right + Y_CUT);
@@ -1126,7 +1118,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 						min_pen = (uint16_t) (*pen);
 					}
 					CurPos = bufer + i * ver_byte;
-					RightDist = LeftDistance((puchar) CurPos, ver_byte);
+					RightDist = LeftDistance((uchar*) CurPos, ver_byte);
 					if (abs(RightDist - LeftDist) <= 1)
 						flag_near++;
 					if (flag_near > 5) {
@@ -1494,7 +1486,7 @@ void Alik_UpBlackPoint(pchar bufer, int16_t dy, int16_t dx, puchar UpBlackPoint)
 	int16_t i, ver_byte;
 	ver_byte = (dy + 7) >> 3;
 	for (i = 0; i < dx; i++) {
-		*UpBlackPoint++ = (uchar) LeftDistance((puchar) bufer, ver_byte);
+		*UpBlackPoint++ = (uchar) LeftDistance((uchar*) bufer, ver_byte);
 		;
 		bufer += ver_byte;
 	}
@@ -2408,33 +2400,5 @@ int16_t Alik_del_detail(pchar bufer, int16_t rx, int16_t vol_raster,
 		}
 	} while (--Proxod);
 	return 1;
-}
-
-/* LeftDistance - Ю═ААБ╝О╜╗╔ ╓╝ ╞╔Ю╒╝ё╝ А╚╔╒═ ║╗Б═			*/
-int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH) {
-	int16_t i;
-
-	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER++)
-		;
-
-	if (i == NWIDTH)
-		return (-1);
-
-	return ((i << 3) + start_pos[*RASTER]);
-}
-
-/* RightDistance -Ю═ААБ╝О╜╗╔ ╓╝ ╞╔Ю╒╝ё╝ А╞Ю═╒═ ║╗Б═			*/
-int16_t RightDistance(uchar *RASTER, int16_t NWIDTH) {
-	int16_t i;
-
-	RASTER += NWIDTH - 1;
-
-	for (i = 0; i < NWIDTH && (*RASTER) == 0; i++, RASTER--)
-		;
-
-	if (i == NWIDTH)
-		return (-1);
-
-	return ((i << 3) + last_pos[*RASTER]);
 }
 

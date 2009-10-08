@@ -77,7 +77,7 @@ typedef cell * pCell;
 typedef struct din_var {
 	cell *C;
 	uchar pos; // the version number
-	uchar class; // the kind of symbol : big, small, digit, empty and undef
+	uchar class_; // the kind of symbol : big, small, digit, empty and undef
 	uchar first;
 	uchar res;
 	int16_t est; // current estimation

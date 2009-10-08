@@ -54,59 +54,27 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _EMBBOX_DEFINED
-#define _EMBBOX_DEFINED
+#include "cttypes.h"
 
-#define WBOX          3
-#define HBOX          5
-#define NBBOX         16 // 7
+#define LARGE_KEGL      23      // given in pixels; >= greater 12 kegl
+#define SMALL_KEGL      15      // given in pixels
+// if less than SMALL_KEGL we don't see for curve
+//#define LIMIT_KEGL      18 // if less first and last lines is valueble
+#define SERIF     128  // code of half serif
+#define CURVE     129  // code of curve
+#define NON_CURVE 130  // code of non curve
+#define UNDEF     131  // angle undefined
+#define THIN            120  // density coefficient
+#define BOLD            200  // density coefficient
+#define DUMMY_VAL	0x3333
 
-#include "cutstr.h"
-#include "struct.h"
-
-#define iFINE_CONST  4
-
-typedef struct elidx {
-	uchar ltr; // the letter
-	uchar vnum; // the number of the classes
-	uint16_t numel; // the number of the first class
-} indBOX;
-
-typedef struct eltab {
-	uchar ltr; // the letter
-	uchar fnt; // the font number
-	uint16_t list; // next of same letter
-	uint16_t bnd; // the bound of the typeface
-	uint16_t vect[15]; // the vector of the letter
-} elmBOX;
-
-struct res_recog {
-	char best_lets[NBBOX + 1]; // best letters
-	char best_font[NBBOX + 1];
-	uint16_t ibest_cosinus[NBBOX + 1]; // best cosinus
-	uint16_t icurr_cosinus;
-	uchar curr_ltr;
-	uchar curr_font;
-	char n_rsn[NBBOX + 1]; // number of letter from all same letters
+struct rst {
+	unsigned char * raster;
+	int w, h, u;
 };
 
-struct t_m_3_5 {
-	uint16_t isq_rt;
-	uint16_t vect[WBOX * HBOX];
-};
-typedef struct t_m_3_5 t_mBOX;
+typedef struct {
+	uint16_t segblack, segwhite;
+	unsigned char * segbox;
+} segment_t;
 
-struct str_servBOX {
-	int16_t up_row, left_col; // left upper corner coordinates
-	int16_t math_row, math_col; // same after deskewing
-	int16_t rast_h, rast_w; // height, width
-	char dens; // density in 1/8-ths
-	t_mBOX matrBOX;
-	t_answer best_BOX[NBBOX + 1];
-};
-typedef struct str_servBOX servBOX;
-
-#define mBOX SBOX.matrBOX.vect
-#define vmBOX SBOX->matrBOX.vect
-
-#endif

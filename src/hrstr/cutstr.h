@@ -57,6 +57,8 @@
 #ifndef CUTSTR_H_
 #define CUTSTR_H_
 
+#include "struct.h"
+
 #define MAX_CELLS_IN_LIST    8
 
 struct v_v {
@@ -99,6 +101,7 @@ typedef struct cut_position {
 	int16_t row1, row2, cuth;
 	char flag;
 } cut_pos;
+
 struct glue_struct {
 	c_comp *complist[MAX_CELLS_IN_LIST];
 	cell *celist[MAX_CELLS_IN_LIST];

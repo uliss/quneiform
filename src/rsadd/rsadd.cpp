@@ -120,20 +120,19 @@ static uchar true_terms[] = "/-\x5F";
 static Bool16 my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
 	return FALSE;
 }
-;
+
 static Bool16 my_snap_activity(uchar a) {
 	return FALSE;
 }
-;
-static Bool16 my_snap_show_text(uchar *txt) {
+
+static Bool16 my_snap_show_text(const char */*txt*/) {
 	return FALSE;
 }
-;
 
 static Bool16
 		(*snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines)=my_snap_monitor_ori;
 static Bool16 (*snap_activity)(uchar a)=my_snap_activity;
-static Bool16 (*snap_show_text)(uchar *txt)=my_snap_show_text;
+static Bool16 (*snap_show_text)(const char *)=my_snap_show_text;
 static uchar db_status = 0;
 static uchar spec_camera = 0;
 
@@ -143,7 +142,7 @@ void RSADD_SetRSTR(uchar status, uchar camera, Handle monitor_ori,
 	spec_camera = camera;
 	snap_monitor_ori = (Bool16(*)(void**, int32_t)) monitor_ori;
 	snap_activity = (Bool16(*)(uchar)) activity;
-	snap_show_text = (Bool16(*)(uchar*)) show_text;
+	snap_show_text = (Bool16(*)(const char*)) show_text;
 }
 
 extern int16_t rec_versions_triad(char *w, uchar lang);
@@ -1177,7 +1176,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 			strncpy((char*) buf, "can't find russian for ", sizeof(buf) - 1);
 			strncat((char*) buf, (char*) ewrd, sizeof(buf) - 1);
 			if (db_status && snap_activity(etap_name)) {
-				snap_show_text(buf);
+				snap_show_text((char*) buf);
 				snap_monitor_ori(sln, 2);
 			}
 			continue;
@@ -1222,7 +1221,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 				strcat((char*) buf, (char*) ewrd);
 				strcat((char*) buf, ">");
 				if (db_status && snap_activity(etap_name)) {
-					snap_show_text(buf);
+					snap_show_text((char*) buf);
 					snap_monitor_ori(sln, 2);
 				}
 				continue;
@@ -1235,7 +1234,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 			strcat((char*) buf, (char*) rwrd);
 			strcat((char*) buf, ">");
 			if (db_status && snap_activity(etap_name)) {
-				snap_show_text(buf);
+				snap_show_text((char*) buf);
 				snap_monitor_ori(sln, 2);
 			}
 			continue;
@@ -1510,10 +1509,10 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 			strcat((char*) buf, ">");
 		}
 		if (db_status && snap_activity(etap_name)) {
-			snap_show_text(buf1);
-			snap_show_text(buf2);
-			snap_show_text(buf3);
-			snap_show_text(buf);
+			snap_show_text((char*) buf1);
+			snap_show_text((char*) buf2);
+			snap_show_text((char*) buf3);
+			snap_show_text((char*) buf);
 			snap_monitor_ori(sln, 2);
 		}
 	} // enf of while( 1 )

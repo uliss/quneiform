@@ -54,6 +54,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef CUTHDR_H_
+#define CUTHDR_H_
+
+#include "embbox.h"
 
 #define prot_size 2
 
@@ -289,3 +293,4 @@ extern union Work string;
 
 static union Work *Z;
 
+#endif
