@@ -68,10 +68,6 @@
 #define DIF_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // Start Initialization; TRUE - OK
 // for mem==NULL need used internal memory functions from DLL
 // New call - after close library without DIFDone
@@ -118,9 +114,6 @@ DIF_FUNC int16_t DIF_GetNoCutPoint(uchar *RASTER, int16_t Wb, uchar NWIDTH,
 		uchar NLENGTH);
 DIF_FUNC Bool32 DIF_SetLanguage(uchar lang);
 DIF_FUNC uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx);
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
