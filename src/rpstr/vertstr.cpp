@@ -65,7 +65,7 @@
 void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 
-extern "C" Handle hVertCompD;
+extern Handle hVertCompD;
 
 void RPSTR_NormalizeVertStr(void) {
 

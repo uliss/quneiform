@@ -57,15 +57,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __GISTOGRAMMA_H__
 
 #include <stdlib.h>
-//#include <math.h>
 #include <stdio.h>
 
 #include "cttypes.h"
 
-/*#ifdef __cplusplus
-	extern "C" {
-#endif
-*/
 //формирование гистограммы
 int16_t *stat_gistoGramma(int16_t *X, int16_t n);
 
@@ -84,11 +79,7 @@ int16_t stat_index_RightLocMax(int16_t *Y, int16_t k, int16_t k0);
 //возвращает индекс минимального элемента массива
 int16_t stat_index_GlobMin(int16_t *Y,int16_t k);
 
-/*#ifdef __cplusplus
-	}
-#endif
-*/
 #define	 __GISTOGRAMMA_H__
-#endif              /* Ends #ifndef __GISTOGRAMMA_H__  */
+#endif
 
 

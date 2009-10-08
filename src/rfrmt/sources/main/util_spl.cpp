@@ -88,9 +88,6 @@ static HWND h_found = NULL;
  * so I moved them here. JussiP.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 //---Из секции колонок---
 int16_t NumCol;
 int SizeSectionCol;
@@ -135,9 +132,6 @@ uchar **ClustOCR;
 int K_Clust;//Кластеры перепутывания
 //---WORK---
 uchar buf[1024], buf1[1024];
-#ifdef __cplusplus
-}
-#endif
 /* End of things brought from ful_txt.h. */
 
 /* Rectangles are written in frmtfile.cpp and they contain 16-bit integers.

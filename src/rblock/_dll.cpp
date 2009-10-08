@@ -76,10 +76,8 @@ static uint32_t gwRC = 0;
 static Handle ghStorage = NULL;
 static HINSTANCE ghInst = NULL;
 
-extern "C" {
 extern jmp_buf fatal_error_exit; // For error handling
 extern unsigned short int run_options;
-}
 
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 		pvoid lpReserved) {

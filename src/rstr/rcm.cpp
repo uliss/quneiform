@@ -400,8 +400,6 @@ uint16_t wLowRC = RSTR_ERR_NO;
 void ErrorExit(int Code);
 void pass3(CSTR_line lin, CSTR_line lino);
 void correct_letters_pidx_table(void);
-//extern "C" Bool16 matrix_field();
-//extern "C" Bool16 not_matrix_field();
 
 //=============== Global data ==============
 Err16 rcmErr;

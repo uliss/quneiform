@@ -63,10 +63,6 @@
 
 #include "status.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define IS_IN_TABLE 111
 
 Edef Bool32 bSearchPicture VAL(FALSE);
@@ -97,7 +93,4 @@ void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
 Bool32 Open_Res_Log(void);
 Bool32 Close_Res_Log(void);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

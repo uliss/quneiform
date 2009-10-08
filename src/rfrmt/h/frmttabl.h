@@ -88,19 +88,10 @@ extern   char       lpMyNameNonSerif[MAX_PATH];
 extern   char       lpMyNameMono[MAX_PATH];
 extern   int16_t      get_font_name(int16_t FontNumber);
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
-
 uint32_t GetTablCount(void);
 void   ViewTable(void);
 void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
 Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
-//void   TablePutChar( CString* TableString, uchar sym );
-
-#ifdef __cplusplus
-	}
-#endif
 
 class CTableRow;
 class CTablePhCell;

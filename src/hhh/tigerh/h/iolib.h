@@ -76,11 +76,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef PC_TYPE
 
 #include <stdlib.h>
-/*#include <io.h>*/
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-//#include <bios.h>
 
 #define BO_CREAT      O_CREAT|O_TRUNC|O_BINARY|O_RDWR,S_IREAD|S_IWRITE
 #define BO_READ       O_RDONLY|O_BINARY
@@ -133,10 +131,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TBFOPEN     my_table_fop
 #define TGGETS      handle_fgets
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 int32_t my_filelth (int16_t);                      /* / handle    */
 int16_t  my_open    (int16_t, char *, int16_t, int16_t);    /* / stream, name, ... */
 FILE *my_fopen  (int16_t, char *, char *);      /* / stream, name, ... */
@@ -155,6 +149,3 @@ int16_t  my_table_op (int16_t, int16_t, int16_t, int16_t);      /* / table #, ..
 FILE *my_table_fop (int16_t, int16_t, char *);      /* / table #, ...          */
 char *handle_fgets ( int16_t handle, char * s, int16_t len );
 
-#ifdef __cplusplus
-}
-#endif

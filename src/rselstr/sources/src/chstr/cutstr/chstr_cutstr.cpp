@@ -703,10 +703,6 @@ void InitRc(Rect16* pRc, int nRC, CCOM_comp * pcomp) {
 #ifndef VOID
 #define VOID
 #endif
-extern "C" {
-	WINBASEAPI Bool WINAPI IsDebuggerPresent(VOID);
-}
-
 // остановка под отладчиком:
 #define DebugBreakEx()    \
 				do { if ( IsDebuggerPresent() ) \

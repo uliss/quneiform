@@ -174,7 +174,7 @@ extern uint32_t RtfWriteMode;
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-extern "C" Bool PageTree(FILE *InFileName, CRtfPage* RtfPage,
+extern Bool PageTree(FILE *InFileName, CRtfPage* RtfPage,
 		const char* OutFileName);
 extern short OpenFullOutTiger(FILE *FileName);
 void show_frm(int16_t NumFragm, FRAME **frm);
@@ -234,12 +234,6 @@ void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found = NULL;
-extern "C" Bool FindByPartOfTitle(HWND hwnd, // handle to parent window
-		LPARAM lParam) // application-defined value
-{
-	// uliss should return FALSE?
-	return TRUE;
-}
 
 int ConsMess(const char* str, ...) {
 	if (str == NULL)

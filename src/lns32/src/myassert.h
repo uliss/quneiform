@@ -74,10 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #  define WRONG() (assert(0),FALSE)
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifndef MY_DEBUG_LEVEL
    void   __assertfail( char  *__msg,
                                       char  *__cond,
@@ -85,11 +81,6 @@ extern "C" {
          	                          int __line);
 #else
    void   my_assert_fail(const char *cond, const char *__file, int __line);
-#endif
-
-
-#ifdef  __cplusplus
-}
 #endif
 
 #undef assert
