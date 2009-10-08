@@ -62,10 +62,6 @@
 #include "dpuma.h"
 #include "compat_defs.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 HINSTANCE hDPuma = NULL;
 
 static FNDPUMA_Init Init = NULL;
@@ -973,6 +969,3 @@ int SnpLog(const char * message, ...) {
 }
 #endif
 
-#ifdef __cplusplus
-}
-#endif

@@ -66,7 +66,6 @@
 
 #define NO_SNP // JussiP: I had to disable all of SNP because it caused compile errors.
 #include "cttypes.h"
-#include "ctmacros.h"
 #include "recdefs.h"
 
 #define SNP_SECTION  "Snp section"  // APPLICATION.ini std section
@@ -75,19 +74,13 @@
 // to control execution on application level:
 //
 
-#if defined( __cplusplus ) && !defined( DPUMA_SNAP)
-class SnpTreeNode
-#else
-typedef struct tagSnpTreeNode
-#endif
-{ // !!! NOTE: You should place it in static dll's data segment
+class SnpTreeNode { // !!! NOTE: You should place it in static dll's data segment
 	// !!! NOTE: Don't use SnpTreeNode fields directly
 	// (from dll code to be snapped) - use proper
 	// Snp...( node, ... ) functions instead
 
-	////////////////////////////////////////////////
 	// Public Attributes
-	CppPublic
+public:
 	uint32_t Status;
 	// zero - not active node
 #define STN_DRAW           0x00000001L  // some drawing permitted by user
@@ -104,10 +97,6 @@ typedef struct tagSnpTreeNode
 
 	uint32_t hTreeCtrl;
 	// handle of proper TreeCtrl item, don't touch!
-
-	/////////////////////////////////////////////////
-	// Node Linkage
-#if defined( __cplusplus ) && !defined( DPUMA_SNAP)
 private:
 	SnpTreeNode* Parent;
 	SnpTreeNode* Next;
@@ -125,30 +114,20 @@ public:
 	SnpTreeNode* GetParent() {
 		return Parent;
 	}
-	;
+
 	SnpTreeNode* GetNext() {
 		return Next;
 	}
-	;
+
 	SnpTreeNode* GetPrev() {
 		return Prev;
 	}
-	;
+
 	SnpTreeNode* GetFirstBaby() {
 		return FirstChild;
 	}
-	;
-#else
-	struct tagSnpTreeNode* Parent;
-	struct tagSnpTreeNode* Next;
-	struct tagSnpTreeNode* Prev;
-	struct tagSnpTreeNode* FirstChild;
-#endif
-
-	////////////////////////////////////////////////
 	// Iterability
-
-	CppPrivate
+private:
 	uint32_t IterTotal;
 	// set in dll when node is used inside loop
 	// (if count of iteration is known);
@@ -164,47 +143,36 @@ public:
 	// if nonzero - node not activated;
 	// increased by iterated parent node
 	// to temporary disable activation
-	CppPublic
+public:
 	uint32_t IterStop;
 	// normally set by user to activate
 	// node when IterStop == IterCur
 	// first iteration correspond to 1 (but not 0)
 
-
-#if defined( __cplusplus ) && !defined( DPUMA_SNAP)
 public:
 	uint32_t GetIterTotal() {
 		return IterTotal;
 	}
-	;
+
 	uint32_t GetIterCur() {
 		return IterCur;
 	}
-	;
+
 	uint32_t GetIterParent() {
 		return IterParent;
 	}
-	;
+
 	uint32_t GetIterStop() {
 		return IterStop;
 	}
-	;
+
 	friend void __SnpIterParent(SnpTreeNode* node, Bool activate);
 	friend void SnpStartLoop(SnpTreeNode* node, uint32_t iter_total);
 	friend void SnpLoopNext(SnpTreeNode* node);
 	friend Bool16 SnpSkip(SnpTreeNode* node);
-#endif
+};
 
-#if defined( __cplusplus ) && !defined( DPUMA_SNAP)
-}; // SnpTreeNode class
-#else
-}SnpTreeNode;
-#endif
-
-//////////////////////////////////////////////////////////////
 // User implemented handlers of events, called from application:
-//
-
 typedef
 void (*FTOnMouseDown)( // called when mouse clicked in zone
 		Point16* mouse_pt,
@@ -220,8 +188,6 @@ void (*FTOnMouseDown)( // called when mouse clicked in zone
 ///////////////////////////////////////////////////////////////////
 // Prototypes of callbacks, implemented on application level
 // and called from dlls:
-//
-
 typedef
 int (*FTLog)( // makes string and loggs it out
 		const char* format_string, // sprintf() like
