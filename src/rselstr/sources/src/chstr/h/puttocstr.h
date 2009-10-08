@@ -55,7 +55,6 @@
  */
 
 #include <stdio.h>
-/*#include <windows.h>*/
 #include <math.h>
 #include<time.h>
 
@@ -63,7 +62,7 @@
 #include "ccom/ccom.h"
 #include "ctiimage.h"
 #include "recdefs.h"
-#include "rstr.h"
+#include "rstr/rstr.h"
 #include "dpuma.h"
 #include "cpage.h"
 #include "cstr/cstr.h"

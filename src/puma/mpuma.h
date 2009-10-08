@@ -74,7 +74,7 @@
 #include "rout.h"
 #include "rpic.h"
 #include "rpstr/rpstr.h"
-#include "rstr.h"
+#include "rstr/rstr.h"
 #include "rstuff.h"
 #include "rverline.h"
 #include "rmarker.h"

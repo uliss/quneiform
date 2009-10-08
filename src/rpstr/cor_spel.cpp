@@ -69,7 +69,7 @@
 #include "crling.h"
 #include "leo/leo.h"
 #include "std.h"
-#include "rstr.h"
+#include "rstr/rstr.h"
 #include "dpuma.h"
 
 #pragma pack(push, 1)
