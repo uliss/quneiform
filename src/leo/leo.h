@@ -68,10 +68,6 @@
 #define LEO_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 LEO_FUNC Bool32 LEOInit(MemFunc* mem);
 LEO_FUNC Bool32 LEOInitPass2(void);
 // Start Initialization; TRUE - OK
@@ -170,10 +166,6 @@ LEO_FUNC int32_t LEO_Str2FldNo(int32_t str_no);
 // store ANSI(Windows) collection
 LEO_FUNC Bool32 LEO_StoreCollection(RecVersions *ver);
 LEO_FUNC void LEOFreeAlphabets(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
