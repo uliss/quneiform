@@ -75,10 +75,6 @@
 #define RSADD_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 enum RSADDFunctionsExt {
 	RSADD_TAKE,
 	RSADD_GETALIASES,
@@ -121,8 +117,5 @@ typedef void (*FNRSADD_SetRSTR)(uchar status, uchar camera, Handle monitor_ori,
 		Handle activity, Handle show_text);
 RSADD_FUNC void RSADD_SetRSTR(uchar status, uchar camera, Handle monitor_ori,
 		Handle activity, Handle show_text);
-#ifdef __cplusplus
-}
-#endif
 
 #endif
