@@ -68,10 +68,6 @@
 #define MMX_FUNC  FUN_IMPO__
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // for R35.dll
 MMX_FUNC uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX);
 MMX_FUNC uint32_t MMX_scalar16_(uint32_t _EAX, uint32_t _EDX);
@@ -98,9 +94,5 @@ MMX_FUNC void MMX_ind_setup_table(uint32_t *bit_cnt0);
 MMX_FUNC Bool32 MMX_anding(int32_t *image, uint16_t *etalons, int32_t L);
 MMX_FUNC void MMX_open(int32_t *image);
 MMX_FUNC void MMX_close(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
