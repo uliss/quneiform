@@ -71,8 +71,8 @@
 //
 
 #include <cstring>
-#include "cpage.h"
-#include "cpagetyps.h"
+#include "cpage/cpage.h"
+#include "cpage/cpagetyps.h"
 
 #include "frmtdibapi.h"
 #include <errno.h>
@@ -199,9 +199,9 @@ uint32_t WINAPI DIBHeight(char* lpDIB) {
 uint16_t WINAPI PaletteSize(char* lpbi) {
 	/* calculate the size required by the palette */
 	if (IS_WIN30_DIB(lpbi))
-		return (uint16_t)(::DIBNumColors(lpbi) * sizeof(RGBQUAD));
+		return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBQUAD));
 	else
-		return (uint16_t)(::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
+		return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
 }
 
 /*************************************************************************

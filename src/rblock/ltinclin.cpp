@@ -75,7 +75,7 @@
 #include "my_mem.h"
 #include "tuner.h"
 #include "sheet.h"
-#include "cpage.h" // Rom
+#include "cpage/cpage.h" // Rom
 #include "cttypes.h" // Piter
 
 extern int16_t nIncline;

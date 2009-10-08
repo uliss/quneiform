@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 /*  interface our-other  */
 #include "polyblock.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 /*  interface our-our    */
 #include "un_err.h"
 #include "un_buff.h"

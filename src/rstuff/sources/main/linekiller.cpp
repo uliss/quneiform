@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mpumatime.h"
 #include "pumadef.h"
 #include "ccom/ccom.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "rline.h"
 #include "cline.h"
 #include "linedefs.h"

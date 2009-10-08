@@ -64,8 +64,8 @@
 #include "creatertf.h"
 #include <cstdlib>
 #include <cstring>
-#include "cpage.h"
-#include "cpagetyps.h"
+#include "cpage/cpage.h"
+#include "cpage/cpagetyps.h"
 #include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"

@@ -75,7 +75,7 @@
 #include "msgerr.h"
 #include "ccom/ccom.h"
 #include "tuner.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 
 #include "exc.h"
 #include "evn32/evn.h"

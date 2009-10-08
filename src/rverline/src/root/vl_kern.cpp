@@ -63,11 +63,10 @@
 /*----------------------------------------------------------------------------*/
 
 #include <stdio.h>
-/*#include <windows.h>*/
 #include <string.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "pumadef.h"
 #include "cline.h"
 /*  interface our-my     */

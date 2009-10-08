@@ -59,7 +59,7 @@
 #include "dpuma.h"
 #include "pumadef.h"
 #include "mainpic.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "ccom/ccom.h"
 #include "rstr/rstr.h"
 #include "rpic.h"

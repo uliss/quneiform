@@ -55,10 +55,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-/*#include <windows.h>*/
 #include "recdefs.h"
 #include "ccom/ccom.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 
 #define MAX_STR_COUNT 100
 

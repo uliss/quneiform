@@ -65,7 +65,7 @@
 #include <cstdio>
 #include "globus.h"
 #include "sys_prog.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "lst3_win.h"
 #include "cfio/cfio.h"
 #include "ced.h"

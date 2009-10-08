@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kernel.h"
 
 #include "ccom/ccom.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "newfunc.h"
 #include "exc.h"
 #include "excdefs.h"

@@ -60,7 +60,7 @@
 #include <string.h>
 
 #include "ctiimage.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "lns.h"
 #include "rline.h"
 #include "dpuma.h"

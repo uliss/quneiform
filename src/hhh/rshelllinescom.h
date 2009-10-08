@@ -56,9 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // RShellLinesCom.h: interface for the ShellLine's functions.
 //
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 //
 //	Description: ShellLine's functions and classes definition
 //
@@ -84,9 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MIN_H_NO_CLEAN  10
 
 #include "cline.h"
-
-#include "cpage.h"
-
+#include "cpage/cpage.h"
 #include "compat_defs.h"
 
 struct DOT_STRUCT

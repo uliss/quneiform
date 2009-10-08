@@ -64,7 +64,7 @@
 #include "dpuma.h"
 #include "ccom/ccom.h"
 #include "cline.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 
 #include "compat_defs.h"
 ////////////// KERNEL //////////////////

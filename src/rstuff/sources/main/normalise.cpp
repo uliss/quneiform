@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // модули
 #include "ccom/ccom.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "criimage.h"
 #include "ctiimage.h"
 #include "dpuma.h"

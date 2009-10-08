@@ -68,8 +68,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "creatertf.h"
 #include <cmath>
-#include "cpage.h"
-#include "cpagetyps.h"
+#include "cpage/cpage.h"
+#include "cpage/cpagetyps.h"
 #include "rtfedwrite.h"
 #include "frmtpict.h"
 #include "dpuma.h"

@@ -63,7 +63,7 @@
 #include "ccom/ccom.h"
 #include "ccom/ccomdefs.h"
 #include "ctiimage.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "dpuma.h"
 #include "polyblock.h"
 #include "rcutp.h"

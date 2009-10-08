@@ -62,7 +62,7 @@
 #include "ccom/ccom.h"
 #include "ced.h"
 #include "cfio/cfio.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "criimage.h"
 #include "cstr/cstr.h"
 #include "ctiimage.h"

@@ -65,9 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
 
-//#include <windows.h>
-//#include "resource.h"
-//#include "dpuma.h"
 #include <stdio.h>
 #include <string.h>
 #include "rstuff.h"
@@ -78,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mpumatime.h"
 #include "pumadef.h"
 #include "ccom/ccom.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "rline.h"
 ////////////////////////////////////////////////////////////////////////////////
 // Нормализация сырья

@@ -54,18 +54,17 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include<stdlib.h>
+#include <stdlib.h>
 
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "ccom/ccom.h"
 #include "layout.h"
 #include "recdefs.h"
 #include "dpuma.h"
 #include "ctiimage.h"
 #include "exc.h"
-#include "cpagetyps.h"
+#include "cpage/cpagetyps.h"
 #include "polyblock.h"
-//#include "rreccom.h"
 
 #define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 typedef uint32_t COLORREF;

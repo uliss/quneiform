@@ -63,13 +63,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-/*#include <windows.h>*/
 #include <stdlib.h>
 #include <string.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
 #define _Not_Cpagetyps
-#include "cpage.h"
+#include "cpage/cpage.h"
 #undef _Not_Cpagetyps
 /*  interface my        */
 #include "am_err.h"

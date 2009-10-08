@@ -54,16 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _MSC_VER
-#include<crtdbg.h>
-#endif
-
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
 #include "cstr/cstr.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "rcorrkegl.h"
 #include "wrgb.h"
 #include "lst3_win.h"

@@ -62,7 +62,7 @@
 # include "extract.h"
 # include "kernel.h"
 # include "ccom/ccom.h"
-# include "cpage.h"
+# include "cpage/cpage.h"
 # include "newfunc.h"
 # include "exc.h"
 # include "excdefs.h"

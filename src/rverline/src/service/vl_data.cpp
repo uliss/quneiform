@@ -62,9 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Обмен с другими библиотеками.                               */
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
-/*#include <windows.h>*/
 /*  interface our-other  */
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "lnsdefs.h"
 #include "rline.h"
 #include "ccom/ccom.h"

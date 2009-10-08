@@ -63,7 +63,7 @@
 #include "negdefs.h"
 #include "rstr/rstr.h"
 #include "dpuma.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "cstr/cstr.h"
 #include "rselstr.h"
 

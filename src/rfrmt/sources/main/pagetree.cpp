@@ -69,8 +69,8 @@
 #include <math.h>
 #include <stdarg.h>
 #include "aldebug.h"
-#include "cpage.h"
-#include "cpagetyps.h"
+#include "cpage/cpage.h"
+#include "cpage/cpagetyps.h"
 
 #include "dpuma.h"
 

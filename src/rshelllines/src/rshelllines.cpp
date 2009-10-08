@@ -73,7 +73,7 @@
 #include "cttypes.h"
 #include "linedefs.h"
 #include "pumadef.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "ctiimage.h"
 #include "dpuma.h"
 #include "rshelllinescom.h"

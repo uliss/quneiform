@@ -69,7 +69,7 @@
 #include "rline.h"
 #include "cline.h"
 #include "ctiimage.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 #include "lns.h"
 #include "dpuma.h"
 #include "pumadef.h"

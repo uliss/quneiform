@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RSELSTR_H
 
 #include "ccom/ccomdefs.h"
-#include "cpage.h"
+#include "cpage/cpage.h"
 
 #include "globus.h"
 
