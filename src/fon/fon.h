@@ -63,31 +63,32 @@
 #include "fondefs.h"
 #include "recdefs.h"
 #include "memfunc.h"
+#include "cstr/cstr.h"
 
 #ifdef __FON__
-#define FON_FUNC  FUN_EXPO
+#define FON_FUNC  FUN_EXPO__
 #else
-#define FON_FUNC  FUN_IMPO
-#endif
-
-#ifdef __cplusplus
-extern "C" {
+#define FON_FUNC  FUN_IMPO__
 #endif
 
 // return < 0 - error
 // FonSpecInfo *fonSpecInfo может быть NULL
-FON_FUNC(int32_t) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpecInfo *fonSpecInfo);
-FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,FonSpecInfo *fonSpecInfo);
+FON_FUNC int32_t FONRecogChar(RecRaster *recRast, RecVersions *collection,
+		FonSpecInfo *fonSpecInfo);
+FON_FUNC int32_t FONRecogCharTiger(RecRaster *recRast, RecVersions *collection,
+		FonSpecInfo *fonSpecInfo);
 // okr - не штрафовать точки на расстоянии от кластера okr
 // proc - штрафовать точки кластера > (wei*proc)/100
-FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo,int32_t okr,int32_t proc);
+FON_FUNC int32_t FONRecogOkr(RecRaster *recRast, RecVersions *collection,
+		FonSpecInfo *specInfo, int32_t okr, int32_t proc);
 
 // больше штрафовать точки кластера
 // меньше - растра
-FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo);
+FON_FUNC int32_t FONRecogInner(RecRaster *recRast, RecVersions *collection,
+		FonSpecInfo *specInfo);
 
 // получить номер кластера для символа из базы
-FON_FUNC(int32_t) FONGetNumCluster(int32_t nInCTB);
+FON_FUNC int32_t FONGetNumCluster(int32_t nInCTB);
 
 // проверить растр с именем let
 // возврат  -2 - слишком большой символ
@@ -96,23 +97,23 @@ FON_FUNC(int32_t) FONGetNumCluster(int32_t nInCTB);
 //     атрибутами с непустыми оценками
 //    в testInfo - результаты
 //      атрибуты кластера Italic,Bold,Serif
-FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *testInfo,int16_t nInCTB);
-FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,uchar let,FonTestInfo *testInfo);
+FON_FUNC int32_t FONTestChar(RecRaster *recRast, uchar let,
+		FonTestInfo *testInfo, int16_t nInCTB);
+FON_FUNC int32_t FONTestCharTiger(RecRaster *recRast, uchar let,
+		FonTestInfo *testInfo);
 // оценка по кластеру  numWelet
 // movx,movy - смещение
-FON_FUNC(int32_t) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
-		int movx,int movy);
-FON_FUNC(int32_t) FONCompareOkrRasterCluster(RecRaster *recRast,int numWelet,
-		int movx,int movy,int okr,int procent,
-		int *dist1,int *dist2);
-FON_FUNC(int32_t) FONSetAlphabet(char *coll);
+FON_FUNC int32_t FONCompareRasterCluster(RecRaster *recRast, int numWelet,
+		int movx, int movy);
+FON_FUNC int32_t FONCompareOkrRasterCluster(RecRaster *recRast, int numWelet,
+		int movx, int movy, int okr, int procent, int *dist1, int *dist2);
+FON_FUNC int32_t FONSetAlphabet(char *coll);
 // выбрать кластеры для колонки
-FON_FUNC(int32_t) FONSetAlphaColumn(int32_t column,Bool32 onlyDigits);
+FON_FUNC int32_t FONSetAlphaColumn(int32_t column, Bool32 onlyDigits);
 
-FON_FUNC(int32_t) FONFontInfo(FontInfo *fontinfo);
-FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num);
+FON_FUNC int32_t FONFontInfo(FontInfo *fontinfo);
+FON_FUNC int32_t FONSizesInfo(SizesInfo *sizeinfo, int num);
 
-#include "cstr/cstr.h"
 int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
 		CSTR_rast lasOut, int lang, int porog, int nNaklon, int countRazmaz);
 int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
@@ -122,23 +123,20 @@ int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
 // return < 0 - error (no base loaded)
 //          0 - undefined
 //        > 0 - count
-FON_FUNC(int32_t) FONGetFontCount(void);
-////////////////// 29 sep 98
+FON_FUNC int32_t FONGetFontCount(void);
 //
 // if input clustinfo->let == 0 - получить информацию о кластере num
 // иначе - получить информацию о кластере с именем clustinfo->let
 // и номером >= num
-FON_FUNC(int32_t) FONGetClustInfo( ClustInfo *clustinfo,
-		int num // in range [1..FONGetClustCount(void)]
-);
-FON_FUNC(int32_t) FONGetClustCount(void); // returns count (N) => numbers [1..N] can be used as indexes
+FON_FUNC int32_t FONGetClustInfo(ClustInfo *clustinfo, int num // in range [1..FONGetClustCount(void)]
+		);
+FON_FUNC int32_t FONGetClustCount(void); // returns count (N) => numbers [1..N] can be used as indexes
 
-FON_FUNC(int32_t) FONGetNearestClusters( RecRaster* pattern, // symbol
+FON_FUNC int32_t FONGetNearestClusters(RecRaster* pattern, // symbol
 		ClustAlt result[], // result table of K nearest klusters
 		int nClustAltLen, // length of table
 		int nDistLevel // don't report about clusters with distance more than nDistLevel
-);
-////////////////////////////////////
+		);
 //
 //  Создать по кластеру черно-белый растр
 //   [in/out] name   - нужен кластер с именем *name (если name !=NULL && *name >0)
@@ -155,20 +153,21 @@ FON_FUNC(int32_t) FONGetNearestClusters( RecRaster* pattern, // symbol
 //       -21 - неверное имя    (<0 or > 255)
 //       -22 - кластер не найден (нет больше с нужным именем)
 //
-FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,RecRaster *recRast);
+FON_FUNC int32_t FONGetClusterAsBW(int32_t *name, int32_t number,
+		int32_t porog, RecRaster *recRast);
 
 // return < 0  - error	 (-1 - no memory)
 //		   == 0 no file or invalid file
 //		   > 0 O.K
 //
-FON_FUNC(int32_t) FONInit(char *);
+FON_FUNC int32_t FONInit(const char *);
 
-FON_FUNC(void) FONDone(void);
+FON_FUNC void FONDone(void);
 
 // поставить кластеру (num>=1) плохую метку
-FON_FUNC(int32_t) FONSetClusterInvalid(int32_t num);
+FON_FUNC int32_t FONSetClusterInvalid(int32_t num);
 
-FON_FUNC(int16_t) FONGetErr(void);
+FON_FUNC int16_t FONGetErr(void);
 // Err16.h defined codes or one of the next
 //
 
@@ -178,8 +177,9 @@ FON_FUNC(int16_t) FONGetErr(void);
 // возвращает номер
 // <0 - ошибка (нет памяти)
 //  0 - растр не взят по какой-то причине (плохой...)
-FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
-		uchar Prob, uchar Valid, int16_t line_number, uchar kegl,Rect16 *rect,uchar column);
+FON_FUNC int32_t FONStoreRaster(RecRaster *r, uchar let, uchar IsPrint,
+		uchar Prob, uchar Valid, int16_t line_number, uchar kegl, Rect16 *rect,
+		uchar column);
 
 //
 // return < 0 - error
@@ -214,23 +214,24 @@ FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
 
 //    default param=0
 //    accept,extern_buf, ShowProgress  may be NULL
-//  standard usage (FormReader) FONFontClusters(CTBname,cluname,NULL,NULL,0,0,NULL);
-//  standard usage (Puma) FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
-FON_FUNC(int32_t) FONFontClusters(char *CTBname,char *cluname,void *accept,uchar *extern_buf,int32_t size,
-		uint32_t param,void *ShowProgress,uchar language);
-FON_FUNC(int32_t) FONCutOffClusters(welet *ww,int16_t numWelet);
-FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,int16_t col,int16_t row);
+//  standard usage (FormReader FONFontClusters(CTBname,cluname,NULL,NULL,0,0,NULL);
+//  standard usage (Puma FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
+FON_FUNC int32_t FONFontClusters(char *CTBname, char *cluname, void *accept,
+		uchar *extern_buf, int32_t size, uint32_t param, void *ShowProgress,
+		uchar language);
+FON_FUNC int32_t FONCutOffClusters(welet *ww, int16_t numWelet);
+FON_FUNC Bool32
+		FONCheckItself(uchar let, int32_t num, int16_t col, int16_t row);
 ////////////////////
 // функции для разрезания
-FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
+FON_FUNC int32_t FONRecogCharBound(RecRaster *recRast, RecVersions *collection,
 		int32_t *recBounds);
-FON_FUNC(int32_t) FONRecogKley(RecRaster *recRast,RecVersions *collection);
+FON_FUNC int32_t FONRecogKley(RecRaster *recRast, RecVersions *collection);
 // snap for RecogKley  (unglue)
-FON_FUNC(int32_t) FONShowSnap(void);
-FON_FUNC(int32_t) FONInitSnap(Handle hhh);
-FON_FUNC(int32_t) FONEndSnap(void);
+FON_FUNC int32_t FONShowSnap(void);
+FON_FUNC int32_t FONInitSnap(Handle hhh);
+FON_FUNC int32_t FONEndSnap(void);
 
-//////////////////
 //
 //  Функции сравнения - тестирования кластеров
 //
@@ -239,13 +240,13 @@ FON_FUNC(int32_t) FONEndSnap(void);
 //  return < 0 - error
 //   else 0 - 255  (255 - the same )
 //
-FON_FUNC(int32_t) FONCompareClustNames(int32_t name1,int32_t name2);
+FON_FUNC int32_t FONCompareClustNames(int32_t name1, int32_t name2);
 //
 // найти кластеры, похожие на кластер с заданным номером
 // номера - c 1
 // записать в collect. Info - nomer кластера
 //
-FON_FUNC(int32_t) FONGetSameClust(int32_t num,RecVersions *collect);
+FON_FUNC int32_t FONGetSameClust(int32_t num, RecVersions *collect);
 
 // error code
 enum fon_error_t {
@@ -255,10 +256,6 @@ enum fon_error_t {
 	ER_FON_READ = 3,
 	ER_FON_MEMORY = 4
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
