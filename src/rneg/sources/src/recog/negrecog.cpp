@@ -56,11 +56,11 @@
 
 #include <string.h>
 #include <stdlib.h>
+
 #include "negrecog.h"
 #include "rneg.h"
-//-------------------------------------------
+#include "rstr/rstr.h"
 #include "pumadef.h"
-//-------------------------------------
 #include "compat_defs.h"
 
 extern Bool dpPrintResConsole;
@@ -246,7 +246,7 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 			int16_t Language;
 			int turn;
 
-			if (neg_str_control / 2. > inf_prob - .5) {
+			if (neg_str_control / 2.0 > inf_prob - 0.5) {
 				if (!(CCOM_GetLanguage(hNegCCOM, &Language)))
 					Language = 7;
 				for (j = 0; j < 2; j++) {
@@ -282,328 +282,255 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 									ByteWidth = (Width + 7) / 8;
 									dwDIBSize = 64 * Height;
 									bfSize = dwDIBSize
-											+ sizeof(BITMAPINFOHEADER) + 2*
-											sizeof (RGBQUAD);
+											+ sizeof(BITMAPINFOHEADER) + 2
+											* sizeof(RGBQUAD);
 
-											/////////////////  Bitmap  information header   //////////////////////////////////
-											lpBI.biSize = sizeof(BITMAPINFOHEADER);
-               lpBI.biWidth          = 64;
-               lpBI.biHeight         = Height;
-               lpBI.biPlanes         = 0x1;
-               lpBI.biBitCount       = 0x1;
-               lpBI.biCompression    = 0;
-               lpBI.biSizeImage      = dwDIBSize;
-               CIMAGE_GetImageInfo((puchar)PUMA_IMAGE_USER, &image_info);
-               lpBI.biXPelsPerMeter  = image_info.biXPelsPerMeter;
-               lpBI.biYPelsPerMeter  = image_info.biYPelsPerMeter;
-               lpBI.biClrUsed        = 0;
-               lpBI.biClrImportant   = 0;
+									/////////////////  Bitmap  information header   //////////////////////////////////
+									lpBI.biSize = sizeof(BITMAPINFOHEADER);
+									lpBI.biWidth = 64;
+									lpBI.biHeight = Height;
+									lpBI.biPlanes = 0x1;
+									lpBI.biBitCount = 0x1;
+									lpBI.biCompression = 0;
+									lpBI.biSizeImage = dwDIBSize;
+									CIMAGE_GetImageInfo(
+											(puchar) PUMA_IMAGE_USER,
+											&image_info);
+									lpBI.biXPelsPerMeter
+											= image_info.biXPelsPerMeter;
+									lpBI.biYPelsPerMeter
+											= image_info.biYPelsPerMeter;
+									lpBI.biClrUsed = 0;
+									lpBI.biClrImportant = 0;
 
-               ///////////////    Palette   ///////////////////////////////////////////////////////////
-               Palette1.rgbBlue      = 0xFF;
-               Palette1.rgbGreen     = 0xFF;
-               Palette1.rgbRed       = 0xFF;
-               Palette1.rgbReserved  = 0;
+									///////////////    Palette   ///////////////////////////////////////////////////////////
+									Palette1.rgbBlue = 0xFF;
+									Palette1.rgbGreen = 0xFF;
+									Palette1.rgbRed = 0xFF;
+									Palette1.rgbReserved = 0;
 
-               Palette2.rgbBlue      = 0;
-               Palette2.rgbGreen     = 0;
-               Palette2.rgbRed       = 0;
-               Palette2.rgbReserved  = 0;
+									Palette2.rgbBlue = 0;
+									Palette2.rgbGreen = 0;
+									Palette2.rgbRed = 0;
+									Palette2.rgbReserved = 0;
 
-               hDIB = calloc(1, bfSize);
- 	           if (hDIB != 0)
-               {
-                    pDIB = static_cast<uchar*> (hDIB);
-                    pTmpDIB = pDIB;
+									hDIB = calloc(1, bfSize);
+									if (hDIB != 0) {
+										pDIB = static_cast<uchar*> (hDIB);
+										pTmpDIB = pDIB;
 
-                    /////////  filling Dib   ///////////////////////////////////////////////////////////
+										/////////  filling Dib   ///////////////////////////////////////////////////////////
 
-                    memcpy(pTmpDIB, &lpBI, sizeof(BITMAPINFOHEADER));
-                    pTmpDIB += sizeof(BITMAPINFOHEADER);
+										memcpy(pTmpDIB, &lpBI,
+												sizeof(BITMAPINFOHEADER));
+										pTmpDIB += sizeof(BITMAPINFOHEADER);
 
-                    memcpy(pTmpDIB, &Palette1, sizeof(RGBQUAD));
-                    pTmpDIB += sizeof(RGBQUAD);
+										memcpy(pTmpDIB, &Palette1,
+												sizeof(RGBQUAD));
+										pTmpDIB += sizeof(RGBQUAD);
 
-                    memcpy(pTmpDIB, &Palette2, sizeof(RGBQUAD));
-                    pTmpDIB += sizeof(RGBQUAD);
+										memcpy(pTmpDIB, &Palette2,
+												sizeof(RGBQUAD));
+										pTmpDIB += sizeof(RGBQUAD);
 
-                    pTmpBuffer = rec.Raster;
-					uchar* pTempDib = pTmpDIB;
+										pTmpBuffer = rec.Raster;
+										uchar* pTempDib = pTmpDIB;
 
-                    for(int i=0; i<Height; i++ )
-                    {
-                        memcpy(pTmpDIB, pTmpBuffer, 8);
-                        pTmpDIB += 8;
-                        pTmpBuffer += 8;
-                    }
+										for (int i = 0; i < Height; i++) {
+											memcpy(pTmpDIB, pTmpBuffer, 8);
+											pTmpDIB += 8;
+											pTmpBuffer += 8;
+										}
 
-					TurnOverNeg(rec, pTempDib);
+										TurnOverNeg(rec, pTempDib);
 
-                    const char *pText;
-                    pText = turn ? "Component up-down" : "Component down-up";
-                    comp_window = LDPUMA_CreateWindow(pText, pDIB);
-//                    LDPUMA_WaitUserInput(hShowNegComps, comp_window);
-                    free(hDIB);
-               }
-            }
-									//----------------------------------------------------------------------
-
-									if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(1)) ) )
-									Prob[1]=0;
-									else
-									{
-										if (!turn) Prob[1]=vs[j].Alt[0].Prob;
-										prob1[turn] += NegRecControl((int)vs[j].Alt[0].Prob);
-
-										if (ShowNegByOne)
-										LDPUMA_ConsoleN("handprint symbol: %c , probability = %d", (char)vs[j].Alt[0].Code, vs[j].Alt[0].Prob);
+										const char *pText;
+										pText = turn ? "Component up-down"
+												: "Component down-up";
+										comp_window = LDPUMA_CreateWindow(
+												pText, pDIB);
+										free(hDIB);
 									}
-									//	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(2)) ) )
-									//            Prob[2]=0;
-									//	  else
-									//		  Prob[2]=vs[j].Alt[0].Prob;
-									if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(0)) ) )
-									Prob[0]=0;
-									else
-									{
-										if (!turn) Prob[0]=vs[j].Alt[0].Prob;
-										prob0[turn] += NegRecControl((int)vs[j].Alt[0].Prob);
+								}
+								//----------------------------------------------------------------------
 
-										if (ShowNegByOne)
-										LDPUMA_ConsoleN("print symbol: %c , probability = %d", (char)vs[j].Alt[0].Code, vs[j].Alt[0].Prob);
-									}
+								if (!(RSTR_RecogOneLetter_all(&rec, Alf,
+										&(vs[j]), (int32_t)(1))))
+									Prob[1] = 0;
+								else {
+									if (!turn)
+										Prob[1] = vs[j].Alt[0].Prob;
+									prob1[turn] += NegRecControl(
+											(int) vs[j].Alt[0].Prob);
 
 									if (ShowNegByOne)
-									LDPUMA_WaitUserInput(hShowNegComps, comp_window);
+										LDPUMA_ConsoleN(
+												"handprint symbol: %c , probability = %d",
+												(char) vs[j].Alt[0].Code,
+												vs[j].Alt[0].Prob);
+								}
+								//	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(2)) ) )
+								//            Prob[2]=0;
+								//	  else
+								//		  Prob[2]=vs[j].Alt[0].Prob;
+								if (!(RSTR_RecogOneLetter_all(&rec, Alf,
+										&(vs[j]), (int32_t)(0))))
+									Prob[0] = 0;
+								else {
+									if (!turn)
+										Prob[0] = vs[j].Alt[0].Prob;
+									prob0[turn] += NegRecControl(
+											(int) vs[j].Alt[0].Prob);
 
-									if (!vertical) break;
-									if (!turn) TurnRaster(&rec);
+									if (ShowNegByOne)
+										LDPUMA_ConsoleN(
+												"print symbol: %c , probability = %d",
+												(char) vs[j].Alt[0].Code,
+												vs[j].Alt[0].Prob);
 								}
 
-								vs[j].Alt[0].Prob=(uchar)( ((int)(Prob[0])+(int)(Prob[1])/*+(int)(Prob[2])*/)/2/*3*/);
+								if (ShowNegByOne)
+									LDPUMA_WaitUserInput(hShowNegComps,
+											comp_window);
 
-								/*else
-								 {
-								 vs[j].lnAltMax =uvs[j].lnAltMax;
-								 vs[j].lnAltCnt=uvs[j].lnAltCnt;
-								 for(int alt=0;alt<uvs[j].lnAltCnt;alt++)
-								 {
-								 vs[j].Alt[alt].Code=uvs[j].Alt[alt].Code[0];
-								 vs[j].Alt[alt].Prob=uvs[j].Alt[alt].Prob;
-								 }
-
-								 }*/
-
+								if (!vertical)
+									break;
+								if (!turn)
+									TurnRaster(&rec);
 							}
-							else
-							{
 
-								if( !(RSTR_RecogOneLetter (&rec, (uchar)(Language), &(vs[j])) ) )
-								vs[j].Alt[0].Prob=0;
+							vs[j].Alt[0].Prob
+									= (uchar)(
+											((int) (Prob[0]) + (int) (Prob[1])/*+(int)(Prob[2])*/)
+													/ 2/*3*/);
 
-							}
+						} else {
+
+							if (!(RSTR_RecogOneLetter(&rec, (uchar)(Language),
+									&(vs[j]))))
+								vs[j].Alt[0].Prob = 0;
+
 						}
-						else
-						vs[j].Alt[0].Prob=0;
-					}
+					} else
+						vs[j].Alt[0].Prob = 0;
 				}
+			}
 
-				if(vertical)
-				ToHoriz(pN,nN);
+			if (vertical)
+				ToHoriz(pN, nN);
 
-				medium_w=GetMediumW(pN,nN);
-				int medium_h=GetMediumH(pN,nN);
+			medium_w = GetMediumW(pN, nN);
+			int medium_h = GetMediumH(pN, nN);
 
-				uchar* result=NULL;
-				if(!(result=new uchar[nN*2]))
-				{
-					nomem=TRUE;
-					DelNegMas(&pN);
-					DelNegMas(vs);
-					DelNegMas(uvs);
-				}
-				if(nomem==TRUE)
-				continue;
-
-				len_result=0;
-				NegPutLetter(result,len_result,vs[0].Alt[0],FALSE);
-				if(neg_str_control/2.>inf_prob-.5)
-				{
-					prec=NegRecControl(vs[0].Alt[0].Prob);
-					for(j=1;j<nN;j++)
-					{
-						prec+=NegRecControl(vs[j].Alt[0].Prob);
-						/*    if( (pN[j].left-pN[j-1].right)>(medium_w/2)*3+2)
-						 {
-						 NegPutLetter(result,len_result,vs[j].Alt[0],TRUE);
-						 if( (pN[j].right-pN[j].left+1>(pN[j].bottom-pN[j].top+1)*2) && (pN[j].bottom-pN[j].top+1<medium_h/2) )
-						 result[len_result-1]='-';
-						 if( (pN[j].top<pN[j-1].top) && (pN[j].bottom-pN[j].top+1<medium_h/2) )
-						 {
-						 len_result--;
-						 if( IfExistI(vs[j-1]) )
-						 result[len_result-1]=256+'Й';
-						 }
-						 if((pN[j].bottom-pN[j].top+1<(medium_h/3)*2)&&( (result[len_result-1]=='I')||(result[len_result-1]=='|')||((result[len_result-1]=='?') && (IfExistDef(vs[j]))) ) )
-						 result[len_result-1]=',';
-						 }
-						 else
-						 {
-						 NegPutLetter(result,len_result,vs[j].Alt[0],FALSE);
-						 if( (pN[j].right-pN[j].left+1>(pN[j].bottom-pN[j].top+1)*2) && (pN[j].bottom-pN[j].top+1<medium_h/2) )
-						 result[len_result-1]='-';
-						 if( (pN[j].top<pN[j-1].top) && (pN[j].bottom-pN[j].top+1<medium_h/2) )
-						 {
-						 len_result--;
-						 if( IfExistI(vs[j-1]) )
-						 result[len_result-1]=256+'Й';
-						 }
-						 if((pN[j].bottom-pN[j].top+1<(medium_h/3)*2)&&( (result[len_result-1]=='I')||(result[len_result-1]=='|')||((result[len_result-1]=='?') && (IfExistDef(vs[j]))) ) )
-						 result[len_result-1]=',';
-						 }*/
-					}
-					r=1;
-					(now->neg).p_rec+=prec/(double)(nN);
-				}
-
-				/*   for(j=1;j<nN;j++)
-				 {
-
-				 if(result[r]!='?')
-				 {
-				 if(result[r]!=' ')
-				 {
-				 if(result[r]=='|')
-				 result[r]='I';
-				 if(Language==7)
-				 {
-				 if( ((result[r-1]==256+'ь')||(result[r-1]==256+'Ь'))&&((result[r]=='I' )||(result[r]=='i')||(result[r]=='1')||(result[r]=='l')) )
-				 {
-				 if(result[r-1]==256+'ь')
-				 result[r-1]=256+'ы';
-				 else
-				 result[r-1]=256+'Ы';
-				 NegMoveResult(result,len_result,r);
-				 r--;
-				 }
-				 if( (result[r-1]!=' ')&&(result[r-1]!='?')&&(!(IfGl(result[r-1])))&&(result[r]==256+'Д') )
-				 {
-				 if(IfExistA(vs[j]))
-				 {
-				 if(j<nN-1)
-				 {
-				 if(!(IfGl(result[r+1])))
-				 result[r]=256+'А';
-				 }
-				 else
-				 result[r]=256+'А';
-				 }
-				 }
-				 }
-
-				 if( (pN[j].right-pN[j].left+1>pN[j].bottom-pN[j].top+1) && (result[r]=='I') )
-				 result[r]='-';
-				 r++;
-
-				 }
-				 else
-				 {
-				 j--;
-				 r++;
-				 }
-				 }
-				 else
-				 r++;
-				 }
-				 */
-				//Andrey
-				(now->neg).Flags = 0;
-				if (vertical)
-				{
-					if(dpPrintResConsole)
-					{
-						LDPUMA_Console("\n down-up print:");
-						NegPrintConsol((double)prob0[0]/nN);
-						LDPUMA_Console("down-up handprint:");
-						NegPrintConsol((double)prob1[0]/nN);
-						LDPUMA_Console("up-down print:");
-						NegPrintConsol((double)prob0[1]/nN);
-						LDPUMA_Console("up-down handprint:");
-						NegPrintConsol((double)prob1[1]/nN);
-					}
-					double down_up = (prob0[0]+prob1[0])/2;
-					double up_down = (prob0[1]+prob1[1])/2;
-					(now->neg).Flags |= FlVert;
-					if (down_up > up_down) (now->neg).Flags |= FlDown2Up;
-				}
-
-				if(i==(now->neg).nRc-1)
-				{
-					if(dpPrintResConsole)
-					NegPrintConsol(pRc[0].left,pRc[(now->neg).nRc-1].top,pRc[0].right,pRc[0].bottom);
-				}
-
-				if(dpPrintResConsole)
-				NegPrintConsol(result,len_result);
-
-				if(i==0)
-				{
-					(now->neg).p_rec/=(double)((now->neg).nRc);
-					(now->neg).p_str/=(double)((now->neg).nRc);
-					(now->neg).p=((now->neg).p_rec+(now->neg).p_str)/2.;
-					if(dpPrintResConsole)
-					{
-						LDPUMA_ConsoleN("");
-						LDPUMA_Console("Негатив с вероятностью :");
-						LDPUMA_ConsoleN("");
-						LDPUMA_Console("по внутренней структуре ");
-						NegPrintConsol((now->neg).p_str);
-						LDPUMA_Console("по результатам распознования ");
-						NegPrintConsol((now->neg).p_rec);
-						LDPUMA_Console("итого ");
-						NegPrintConsol((now->neg).p);
-						LDPUMA_ConsoleN("площадь=%d",(int)((now->neg).pRc[0].right-(now->neg).pRc[0].left+1)*(int)((now->neg).pRc[0].bottom-(now->neg).pRc[(now->neg).nRc-1].top+1));
-					}
-				}
-
-				if(i==0)
-				{
-					if(dpNegResD)
-					{
-						Rect16 Rect;
-						Rect.bottom=(now->neg).pRc[0].bottom;
-						Rect.left=(now->neg).pRc[0].left;
-						Rect.right=(now->neg).pRc[0].right+1;
-						Rect.top=(now->neg).pRc[(now->neg).nRc-1].top-1;
-						LDPUMA_DrawRect (MainWindowD, &(Rect),0,RGB(0,0,255), 1,code_resd );
-						LDPUMA_WaitUserInput (NegResD,MainWindowD);
-						LDPUMA_DeleteRects (MainWindowD,code_resd);
-					}
-				}
-
+			uchar* result = NULL;
+			if (!(result = new uchar[nN * 2])) {
+				nomem = TRUE;
+				DelNegMas(&pN);
 				DelNegMas(vs);
 				DelNegMas(uvs);
-				delete[] result;
-				DelNegMas(&pN);
 			}
-			//  if((now->neg).rot.pmasp)
-			//   DeleteRotateMas(&((now->neg).rot.pmasp),&((now->neg).rot.begx),&((now->neg).rot.movey),&((now->neg).rot.flmovey),&((now->neg).rot.hi));
-			if(!(now->neg).nRc)
-			{
-				temp=now;
-				if(!temp->prev)
-				root=temp->next;
-				now=now->prev;
-				delete temp;
-				nRC--;
+			if (nomem == TRUE)
+				continue;
+
+			len_result = 0;
+			NegPutLetter(result, len_result, vs[0].Alt[0], FALSE);
+			if (neg_str_control / 2. > inf_prob - .5) {
+				prec = NegRecControl(vs[0].Alt[0].Prob);
+				for (j = 1; j < nN; j++) {
+					prec += NegRecControl(vs[j].Alt[0].Prob);
+				}
+				r = 1;
+				(now->neg).p_rec += prec / (double) (nN);
 			}
-			else
-			now=now->prev;
+
+			//Andrey
+			(now->neg).Flags = 0;
+			if (vertical) {
+				if (dpPrintResConsole) {
+					LDPUMA_Console("\n down-up print:");
+					NegPrintConsol((double) prob0[0] / nN);
+					LDPUMA_Console("down-up handprint:");
+					NegPrintConsol((double) prob1[0] / nN);
+					LDPUMA_Console("up-down print:");
+					NegPrintConsol((double) prob0[1] / nN);
+					LDPUMA_Console("up-down handprint:");
+					NegPrintConsol((double) prob1[1] / nN);
+				}
+				double down_up = (prob0[0] + prob1[0]) / 2;
+				double up_down = (prob0[1] + prob1[1]) / 2;
+				(now->neg).Flags |= FlVert;
+				if (down_up > up_down)
+					(now->neg).Flags |= FlDown2Up;
+			}
+
+			if (i == (now->neg).nRc - 1) {
+				if (dpPrintResConsole)
+					NegPrintConsol(pRc[0].left, pRc[(now->neg).nRc - 1].top,
+							pRc[0].right, pRc[0].bottom);
+			}
+
+			if (dpPrintResConsole)
+				NegPrintConsol(result, len_result);
+
+			if (i == 0) {
+				(now->neg).p_rec /= (double) ((now->neg).nRc);
+				(now->neg).p_str /= (double) ((now->neg).nRc);
+				(now->neg).p = ((now->neg).p_rec + (now->neg).p_str) / 2.;
+				if (dpPrintResConsole) {
+					LDPUMA_ConsoleN("");
+					LDPUMA_Console("Негатив с вероятностью :");
+					LDPUMA_ConsoleN("");
+					LDPUMA_Console("по внутренней структуре ");
+					NegPrintConsol((now->neg).p_str);
+					LDPUMA_Console("по результатам распознования ");
+					NegPrintConsol((now->neg).p_rec);
+					LDPUMA_Console("итого ");
+					NegPrintConsol((now->neg).p);
+					LDPUMA_ConsoleN(
+							"площадь=%d",
+							(int) ((now->neg).pRc[0].right
+									- (now->neg).pRc[0].left + 1)
+									* (int) ((now->neg).pRc[0].bottom
+											- (now->neg).pRc[(now->neg).nRc - 1].top
+											+ 1));
+				}
+			}
+
+			if (i == 0) {
+				if (dpNegResD) {
+					Rect16 Rect;
+					Rect.bottom = (now->neg).pRc[0].bottom;
+					Rect.left = (now->neg).pRc[0].left;
+					Rect.right = (now->neg).pRc[0].right + 1;
+					Rect.top = (now->neg).pRc[(now->neg).nRc - 1].top - 1;
+					LDPUMA_DrawRect(MainWindowD, &(Rect), 0, RGB(0, 0, 255), 1,
+							code_resd);
+					LDPUMA_WaitUserInput(NegResD, MainWindowD);
+					LDPUMA_DeleteRects(MainWindowD, code_resd);
+				}
+			}
+
+			DelNegMas(vs);
+			DelNegMas(uvs);
+			delete[] result;
+			DelNegMas(&pN);
 		}
-
-		(*proot)=root;
-
+		//  if((now->neg).rot.pmasp)
+		//   DeleteRotateMas(&((now->neg).rot.pmasp),&((now->neg).rot.begx),&((now->neg).rot.movey),&((now->neg).rot.flmovey),&((now->neg).rot.hi));
+		if (!(now->neg).nRc) {
+			temp = now;
+			if (!temp->prev)
+				root = temp->next;
+			now = now->prev;
+			delete temp;
+			nRC--;
+		} else
+			now = now->prev;
 	}
+
+	(*proot) = root;
+
+}
 
 int NegGetCountOfStr(Rect16* pRc, int num) {
 	int i;
