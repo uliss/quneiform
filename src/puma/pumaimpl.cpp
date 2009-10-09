@@ -389,6 +389,26 @@ void PumaImpl::extractStrings() {
 		throw PumaException("PumaImpl::extractStrings() failed");
 }
 
+void PumaImpl::formatResult() {
+	SetOptionsToFRMT();
+	if (ghEdPage) {
+		CED_DeletePage(ghEdPage);
+		ghEdPage = NULL;
+	}
+
+	if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage))
+		throw PumaException("RFRMT_Formatter failed");
+
+	if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
+		std::string fname(szInputFileName + "_tmp_.rtf");
+		SetOptionsToFRMT();
+		RFRMT_SaveRtf(fname.c_str(), 8);
+		fname = szInputFileName + "_tmp_.fed";
+		PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE, PUMA_CODE_UNKNOWN,
+				FALSE);
+	}
+}
+
 // Allex
 // добавлены для обратной связи из RStuff
 Bool32 DPumaSkipComponent(void) {
@@ -726,6 +746,11 @@ void PumaImpl::open(char * dib) {
 	hCPAGE = CreateEmptyPage();
 }
 
+void PumaImpl::normalize() {
+	//Нормализуем вертикальные строки
+	RPSTR_NormalizeVertStr();
+}
+
 void PumaImpl::pass1() {
 	if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
 		savePass1(replaceFileExt(szInputFileName, "_1.cst"));
@@ -798,6 +823,13 @@ void PumaImpl::spellCorrection() {
 void PumaImpl::preOpenInitialize() {
 	PumaImpl::close();
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+}
+
+void PumaImpl::printResult() {
+	// Печать результатов в консоль
+	int count = CSTR_GetMaxNumber();
+	for (int i = 1; i <= count; i++)
+		PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT), hCPAGE);
 }
 
 void PumaImpl::postOpenInitialize() {
@@ -896,34 +928,11 @@ void PumaImpl::recognize() {
 
 	pass1();
 	pass2();
+
 	spellCorrection();
+	recognizeCorrection();
 
-	// Скорректируем результат распознавани
-	CSTR_SortFragm(1);
-	if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
-		if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100)
-				|| !RCORRKEGL_CorrectKegl(1)) {
-			SetReturnCode_puma(RPSTR_GetReturnCode());
-			rc = FALSE;
-		}
-	}
-	CSTR_SortFragm(1);
-	RPSTR_CorrectIncline(1);
-
-	if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-				"_4.cst");
-		CSTR_SaveCont(CstrFileName.c_str());
-	}
-
-	// Печать результатов в консоль
-
-	int count = CSTR_GetMaxNumber();
-	if (LDPUMA_Skip(hDebugCancelConsoleOutputText) && LDPUMA_IsActive()) {
-		for (int i = 1; i <= count; i++) {
-			PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT), hCPAGE);
-		}
-	}
+	printResult();
 
 	// OLEG fot Consistent
 	if (SPEC_PRJ_CONS == gnSpecialProject) {
@@ -931,7 +940,7 @@ void PumaImpl::recognize() {
 		char * pb = buf;
 		global_buf_len = 0;
 		CSTR_line buf_line;
-		count = CSTR_GetMaxNumber();
+		int count = CSTR_GetMaxNumber();
 
 		for (int i = 1; i <= count; i++) {
 			buf_line = CSTR_GetLineHandle(i, 1);
@@ -946,35 +955,34 @@ void PumaImpl::recognize() {
 
 		// OLEG fot Consistent
 	}
+
+	normalize();
+
+	if (!LDPUMA_Skip(hDebugCancelFormatted)) {
+		LDPUMA_Console("Пропущен этап форматирования.\n");
+		return;
+	}
+
 	// Отформатируем результат
-	//
+	formatResult();
+}
 
-	//Нормализуем вертикальные строки
+void PumaImpl::recognizeCorrection() {
+	// Скорректируем результат распознавани
+	CSTR_SortFragm(1);
+	if (LDPUMA_Skip(hDebugCancelPostRecognition)) {
+		if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100)
+				|| !RCORRKEGL_CorrectKegl(1))
+			throw PumaException("PumaImpl::recognizeCorrection() failed");
+	}
 
-	RPSTR_NormalizeVertStr();
+	CSTR_SortFragm(1);
+	RPSTR_CorrectIncline(1);
 
-	if (rc) {
-		if (LDPUMA_Skip(hDebugCancelFormatted)) {
-			SetOptionsToFRMT();
-			if (ghEdPage) {
-				CED_DeletePage(ghEdPage);
-				ghEdPage = NULL;
-			}
-			if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage)) {
-				SetReturnCode_puma(RFRMT_GetReturnCode());
-				rc = FALSE;
-			} else {
-				if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-					std::string fname(szInputFileName + "_tmp_.rtf");
-					SetOptionsToFRMT();
-					rc = RFRMT_SaveRtf(fname.c_str(), 8);
-					fname = szInputFileName + "_tmp_.fed";
-					PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE,
-							PUMA_CODE_UNKNOWN, FALSE);
-				}
-			}
-		} else
-			LDPUMA_Console("Пропущен этап форматирования.\n");
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
+		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+				"_4.cst");
+		CSTR_SaveCont(CstrFileName.c_str());
 	}
 }
 

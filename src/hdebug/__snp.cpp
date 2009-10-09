@@ -386,12 +386,12 @@ int32_t LDPUMA_Console(const char * message, ...) {
 	}
 	return rc;
 #else
-#ifdef _DEBUG // console output only in debug mode
+#ifndef NDEBUG // console output only in debug mode
 	va_list marker;
 	va_start(marker, message);
-	vprintf(message, marker);
+	vfprintf(stderr, message, marker);
 	va_end(marker);
-#endif // _DEBUG
+#endif
 	return 1;
 #endif
 }
