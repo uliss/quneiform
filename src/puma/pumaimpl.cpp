@@ -91,65 +91,6 @@ static Bool32 RecognizeSetup(int language) {
 	return rc;
 }
 
-static Bool32 RecognizeStringsPass2() {
-	Bool32 rc = TRUE;
-	// рапознавание строк
-
-	uchar w8 = 1;
-	RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
-
-	int count = CSTR_GetMaxNumber();
-	int i;
-
-	LDPUMA_StartLoop(hDebugRecognition, count);
-	if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG2), 0))
-		rc = FALSE;
-
-	for (i = 1; rc && i <= count; i++) {
-		CSTR_line lin_out, lin_in;
-		if (!ProgressStep(2, NULL, i * 100 / count))
-			rc = FALSE;
-
-		LDPUMA_LoopNext(hDebugRecognition);
-		if (!LDPUMA_Skip(hDebugRecognition)) {
-			LDPUMA_Console("Остановились перед %i строкой.\n", i);
-			LDPUMA_Console("Нажмите любую клавишу...\n");
-			LDPUMA_WaitUserInput(hDebugRecognition, NULL);
-		}
-
-		lin_out = CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT);
-		if (lin_out == (CSTR_line) NULL) {
-			continue;
-			//			SetReturnCode_puma(CSTR_GetReturnCode());
-			//			rc = FALSE;
-			//			break;
-		}
-
-		lin_in = CSTR_GetLineHandle(i, CSTR_LINVERS_MAIN);
-		if (lin_in == (CSTR_line) NULL) {
-			continue;
-			//			SetReturnCode_puma(CSTR_GetReturnCode());
-			//			rc = FALSE;
-			//			break;
-		}
-
-		if (!RSTR_Recog(lin_in, lin_out)) // Recognition
-		{
-			SetReturnCode_puma(RSTR_GetReturnCode());
-			break;
-		}
-
-	}
-	LDPUMA_DestroyRasterWnd();
-	if (rc) {
-		rc = RSTR_EndPage(hCPAGE);
-		if (!rc)
-			SetReturnCode_puma(RSTR_GetReturnCode());
-	}
-
-	return rc;
-}
-
 double portion_of_rus_letters(CSTR_line lin_ruseng) {
 	if (!lin_ruseng)
 		return 0;
@@ -948,7 +889,26 @@ void PumaImpl::recognizePass2() {
 		return;
 	}
 
-	RecognizeStringsPass2();
+	// рапознавание строк
+	uchar w8 = 1;
+	RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
+
+	for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
+		CSTR_line lin_out = CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT);
+		if (!lin_out)
+			continue;
+
+		CSTR_line lin_in = CSTR_GetLineHandle(i, CSTR_LINVERS_MAIN);
+		if (!lin_in)
+			continue;
+
+		// Recognition
+		if (!RSTR_Recog(lin_in, lin_out))
+			throw PumaException("RSTR_Recog failed");
+	}
+
+	if (!RSTR_EndPage(hCPAGE))
+		throw PumaException("RSTR_EndPage failed");
 }
 
 void PumaImpl::recognizeSetup(int lang) {
