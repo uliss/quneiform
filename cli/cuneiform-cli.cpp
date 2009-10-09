@@ -109,7 +109,8 @@ static const formatlist formats[] = {
 		{ PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs" }, {
 				PUMA_TOTEXT, "text", "plain text" },
 		// Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
-		{ (puma_format_t) -1, NULL, NULL } };
+		{ PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes" }, {
+				(puma_format_t) -1, NULL, NULL } };
 
 static string supported_languages() {
 	ostringstream os;
