@@ -37,39 +37,6 @@ static void rselstrProgressFinish(void) {
 	ProgressStep(2, NULL, 100);
 }
 
-static Bool32 MakeStrings(Handle hccom, Handle hcpage) {
-	Bool32 rc = TRUE;
-	if (LDPUMA_Skip(hDebugStrings)) {
-		RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressStep,
-				(void*) rselstrProgressStep);
-		RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressFinish,
-				(void*) rselstrProgressFinish);
-
-		if (!ProgressStep(1, GetResourceString(IDS_MAKESTRING), 5))
-			rc = FALSE;
-
-		if (rc && !RSELSTR_ExtractTextStrings(hccom, hcpage)) {
-			SetReturnCode_puma(RSELSTR_GetReturnCode());
-			rc = FALSE;
-		}
-	} else {
-		RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep,
-				(void*) rblockProgressStep);
-		RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,
-				(void*) rblockProgressFinish);
-
-		if (!ProgressStep(1, GetResourceString(IDS_MAKESTRING), 5))
-			rc = FALSE;
-
-		if (rc && !RBLOCK_ExtractTextStrings(hccom, hcpage)) {
-			SetReturnCode_puma(RBLOCK_GetReturnCode());
-			rc = FALSE;
-		}
-	}
-	//	RSELSTR_GetObjects(hccom,hcpage);
-	return rc;
-}
-//////////////////////////////////////////
 static Bool32 RecognizeSetup(int language) {
 	Bool32 rc = TRUE;
 	// рапознавание строк
@@ -332,7 +299,9 @@ void PumaImpl::clearAll() {
 		ghEdPage = NULL;
 	}
 
-	PAGEINFO PInfo = { 0 };
+	PAGEINFO PInfo;
+	memset(&PInfo, 0, sizeof(PInfo));
+
 	if (hCPAGE)
 		GetPageInfo(hCPAGE, &PInfo);
 
@@ -380,13 +349,58 @@ void PumaImpl::extractComponents() {
 	if (!GetPageInfo(hCPAGE, &info))
 		throw PumaException("GetPageInfo failed");
 
-	if (!ExtractComponents(FALSE, NULL, (puchar) info.szImageName))
-		throw PumaException("ExtractComponents failed");
+	ExcControl exc;
+	memset(&exc, 0, sizeof(exc));
+
+	CCOM_DeleteContainer((CCOM_handle) hCCOM);
+	hCCOM = NULL;
+
+	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
+		throw PumaException("REXC_SetImportData failed");
+
+	// будет распознавания эвентами
+	exc.Control = Ex_ExtraComp | Ex_Picture;
+
+	//Andrey: orientation is obtained from new library RNORM
+	if (gnPictures)
+		exc.Control |= Ex_PictureLarge;
+
+	uchar w8 = (uchar) gbDotMatrix;
+	REXC_SetImportData(REXC_Word8_Matrix, &w8);
+
+	w8 = (uchar) gbFax100;
+	REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
+
+	CIMAGEIMAGECALLBACK clbk;
+	if (!CIMAGE_GetCallbackImage((uchar*) info.szImageName, &clbk))
+		throw PumaException("CIMAGE_GetCallbackImage failed");
+
+	if (!REXCExtracomp3CB(
+			exc, // поиск компонент by 3CallBacks
+			(TImageOpen) clbk.CIMAGE_ImageOpen,
+			(TImageClose) clbk.CIMAGE_ImageClose,
+			(TImageRead) clbk.CIMAGE_ImageRead))
+		throw PumaException("REXCExtracomp3CB failed");
+
+	hCCOM = (Handle) REXCGetContainer();
+	if (!hCCOM)
+		throw PumaException("REXCGetContainer failed");
+
+	hCCOM = (Handle) REXCGetContainer();
+	if (!hCCOM)
+		throw PumaException("REXCGetContainer failed");
+
+	SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }
 
 void PumaImpl::extractStrings() {
-	if (!MakeStrings(hCCOM, hCPAGE))
-		throw PumaException("PumaImpl::extractStrings() failed");
+	if (LDPUMA_Skip(hDebugStrings)) {
+		if (!RSELSTR_ExtractTextStrings(hCCOM, hCPAGE))
+			throw PumaException("RSELSTR_ExtractTextStrings failed");
+	} else {
+		if (!RBLOCK_ExtractTextStrings(hCCOM, hCPAGE))
+			throw PumaException("RBLOCK_ExtractTextStrings failed");
+	}
 }
 
 void PumaImpl::formatResult() {
@@ -580,7 +594,8 @@ void PumaImpl::layout() {
 					"ПРЕДУПРЕЖДЕНИЕ: <%s>.\
 	Для показа в Layout будет использовано не повернутое изображение.\n",
 					PUMA_GetReturnString(PUMA_GetReturnCode()));
-			PAGEINFO PInfo = { 0 };
+			PAGEINFO PInfo;
+			memset(&PInfo, 0, sizeof(PInfo));
 			GetPageInfo(hCPAGE, &PInfo);
 			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
 					TRUE);
@@ -868,8 +883,6 @@ void PumaImpl::recognize() {
 
 	// Получим описатель страницы
 	hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-
-	Bool rc = TRUE;
 
 	// Выделим строки
 	if (!LDPUMA_Skip(hDebugCancelStrings)) {
