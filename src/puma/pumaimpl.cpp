@@ -24,19 +24,6 @@
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
 
-static Bool32 rblockProgressStep(uint32_t perc) {
-	return ProgressStep(2, NULL, perc);
-}
-static void rblockProgressFinish(void) {
-	ProgressStep(2, NULL, 100);
-}
-static Bool32 rselstrProgressStep(uint32_t perc) {
-	return ProgressStep(2, NULL, perc);
-}
-static void rselstrProgressFinish(void) {
-	ProgressStep(2, NULL, 100);
-}
-
 static Bool32 RecognizeSetup(int language) {
 	Bool32 rc = TRUE;
 	// рапознавание строк
