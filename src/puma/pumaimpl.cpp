@@ -24,73 +24,6 @@
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
 
-static Bool32 RecognizeSetup(int language) {
-	Bool32 rc = TRUE;
-	// рапознавание строк
-	PAGEINFO info;// = { { 0 } };
-	GetPageInfo(hCPAGE, &info);
-
-	//    FrhPageSetup setup={0};
-	//    FrhFieldSetup fsetup={0};
-	RSTR_Options opt;// = { { 0 } };
-
-	//    opt.setup = &fsetup;
-	opt.pageSkew2048 = info.Incline2048;//0
-	//    setup.nResolutionY = info.DPIY;//300;
-	int32_t nResolutionY = info.DPIY;//300;
-	//    fsetup.nMaxLetWidth = 127;
-	//    fsetup.nMaxLetHeight = 64;
-	//    fsetup.wFlags = FFS_PRINTED;
-
-	opt.language = language;
-	global_buf_len = 0; // OLEG fot Consistent
-	//    if(!RSTR_NewPage(&setup,hCPAGE))
-	if (!RSTR_NewPage(nResolutionY, hCPAGE)) {
-		SetReturnCode_puma(RSTR_GetReturnCode());
-		rc = FALSE;
-	}
-
-	if (rc && !RSTR_SetOptions(&opt)) {
-		SetReturnCode_puma(RSTR_GetReturnCode());
-		rc = FALSE;
-	} else {
-		// Настройка параметров
-		uchar w8 = (uchar) gnLanguage;
-		RSTR_SetImportData(RSTR_Word8_Language, &w8);
-
-		uint16_t w16 = (uint16_t) info.DPIY;//300;
-		RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
-
-		w8 = (uchar) gbFax100;
-		RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
-
-		w8 = (uchar) gbDotMatrix;
-		RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
-
-		w8 = 0;
-		RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
-
-		w8 = 1;
-		if (!LDPUMA_Skip(hDebugCancelStringsPass2))
-			RSTR_SetImportData(RSTR_Word8_P2_disable, &w8);
-
-		w8 = (uchar) gbSpeller;
-		RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
-
-		RSTR_SetImportData(RSTR_pchar_user_dict_name, gpUserDictName);
-
-		// Передать язык в словарный контроль. 12.06.2002 E.P.
-		// причем всегда 08.02.2008 DVP
-		{
-			uchar w8 = (uchar) language;
-			RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
-			RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
-		}
-
-	}
-	return rc;
-}
-
 double portion_of_rus_letters(CSTR_line lin_ruseng) {
 	if (!lin_ruseng)
 		return 0;
@@ -317,14 +250,10 @@ void PumaImpl::layout() {
 	RMCBProgressPoints CBforRM;
 	RMPreProcessImage DataforRM;
 
-
-
 	void* MemBuf = CIF::PumaImpl::mainBuffer();
 	size_t size_buf = CIF::PumaImpl::MainBufferSize;
 	void* MemWork = CIF::PumaImpl::workBuffer();
 	int size_work = CIF::PumaImpl::WorkBufferSize;
-
-
 
 #define SET_CB(a,b)   a.p##b = (void*)b
 	SET_CB(CBforRS, ProgressStart);
@@ -923,9 +852,54 @@ void PumaImpl::recognizePass2() {
 		throw PumaException("RSTR_EndPage failed");
 }
 
-void PumaImpl::recognizeSetup(int lang) {
-	if (!RecognizeSetup(lang))
-		throw PumaException("PumaImpl::recognizeSetup() failed");
+void PumaImpl::recognizeSetup(int language) {
+	// рапознавание строк
+	PAGEINFO info;
+	GetPageInfo(hCPAGE, &info);
+	RSTR_Options opt;
+	opt.pageSkew2048 = info.Incline2048;//0
+	int32_t nResolutionY = info.DPIY;//300;
+
+	opt.language = language;
+	global_buf_len = 0; // OLEG fot Consistent
+	if (!RSTR_NewPage(nResolutionY, hCPAGE))
+		throw PumaException("RSTR_NewPage failed");
+
+	if (!RSTR_SetOptions(&opt))
+		throw PumaException("RSTR_SetOptions failed");
+
+	// Настройка параметров
+	uchar w8 = (uchar) gnLanguage;
+	RSTR_SetImportData(RSTR_Word8_Language, &w8);
+
+	uint16_t w16 = (uint16_t) info.DPIY;//300;
+	RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
+
+	w8 = (uchar) gbFax100;
+	RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
+
+	w8 = (uchar) gbDotMatrix;
+	RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
+
+	w8 = 0;
+	RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
+
+	w8 = 1;
+	if (!LDPUMA_Skip(hDebugCancelStringsPass2))
+		RSTR_SetImportData(RSTR_Word8_P2_disable, &w8);
+
+	w8 = (uchar) gbSpeller;
+	RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
+
+	RSTR_SetImportData(RSTR_pchar_user_dict_name, gpUserDictName);
+
+	// Передать язык в словарный контроль. 12.06.2002 E.P.
+	// причем всегда 08.02.2008 DVP
+	{
+		uchar w8 = (uchar) language;
+		RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
+		RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
+	}
 }
 
 void PumaImpl::save(const std::string& filename, int Format) const {
