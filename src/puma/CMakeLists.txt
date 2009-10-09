@@ -4,7 +4,6 @@ common.cpp
 enum.cpp
 initdone.cpp 
 out.cpp 
-partrecog.cpp 
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp
