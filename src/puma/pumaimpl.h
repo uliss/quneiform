@@ -46,6 +46,7 @@ private:
 	void modulesInit();
 	void modulesDone();
 	void pass1();
+	void pass2();
 	void preOpenInitialize();
 	void postOpenInitialize();
 	void recognizePass1();

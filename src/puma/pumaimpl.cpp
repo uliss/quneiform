@@ -740,6 +740,52 @@ void PumaImpl::pass1() {
 	recognizePass1();
 }
 
+void PumaImpl::pass2() {
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
+		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+				"_2.cst");
+		CSTR_SaveCont(CstrFileName.c_str());
+	}
+
+	///////////////////////////////
+	// OLEG : 01-05-18 : for GiP //
+	///////////////////////////////
+	if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage == LANG_RUSENG) {
+		int i, n;
+		double s;
+		CSTR_line lin_ruseng;
+
+		n = CSTR_GetMaxNumber();
+		for (s = 0.0, i = 1; i <= n; i++) {
+			lin_ruseng = CSTR_GetLineHandle(i, 1);
+			s += portion_of_rus_letters(lin_ruseng);
+		}
+		if (n)
+			s /= (double) n;
+		if (n && s < 0.4) {
+
+			for (i = 0; i <= n; i++) {
+				for (int j = 1; j < 10; j++) {
+					lin_ruseng = CSTR_GetLineHandle(i, j);
+					if (lin_ruseng)
+						CSTR_DeleteLine(lin_ruseng);
+				}
+			}
+			gnLanguage = LANG_ENGLISH;
+			RecognizeSetup(gnLanguage);
+			RecognizeStringsPass1();
+		}
+	}
+
+	if (RSTR_NeedPass2()) {
+		if (LDPUMA_Skip(hDebugCancelStringsPass2))
+			RecognizeStringsPass2();
+		else
+			LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
+	} else
+		LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
+}
+
 void PumaImpl::preOpenInitialize() {
 	PumaImpl::close();
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
@@ -840,157 +886,101 @@ void PumaImpl::recognize() {
 	}
 
 	pass1();
+	pass2();
 
-	if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
 		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-				"_2.cst");
+				"_3.cst");
 		CSTR_SaveCont(CstrFileName.c_str());
 	}
 
-	if (rc) {
-		///////////////////////////////
-		// OLEG : 01-05-18 : for GiP //
-		///////////////////////////////
-		if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage == LANG_RUSENG) {
-			int i, j, n;
-			double s;
-			CSTR_line lin_ruseng;
-
-			n = CSTR_GetMaxNumber();
-			for (s = 0.0, i = 1; i <= n; i++) {
-				lin_ruseng = CSTR_GetLineHandle(i, 1);
-				s += portion_of_rus_letters(lin_ruseng);
-			}
-			if (n)
-				s /= (double) n;
-			if (n && s < 0.4) {
-
-				for (i = 0; i <= n; i++) {
-					for (j = 1; j < 10; j++) {
-						lin_ruseng = CSTR_GetLineHandle(i, j);
-						if (lin_ruseng)
-							CSTR_DeleteLine(lin_ruseng);
-					}
-				}
-				gnLanguage = LANG_ENGLISH;
-				rc = RecognizeSetup(gnLanguage);
-				rc = RecognizeStringsPass1();
-			}
-		}
-		if (RSTR_NeedPass2()) {
-			if (LDPUMA_Skip(hDebugCancelStringsPass2))
-				rc = RecognizeStringsPass2();
-			else
-				LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
-		} else
-			LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
-		if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-			std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-					"_3.cst");
-			CSTR_SaveCont(CstrFileName.c_str());
-		}
-
-		// Дораспознаем по словарю
-		CSTR_SortFragm(1);
-		RPSTR_CollectCapDrops(1);
-		if (rc && LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
-			if (!RPSTR_CorrectSpell(1)) {
-				SetReturnCode_puma(RPSTR_GetReturnCode());
-				rc = FALSE;
-			}
-		}
-		//
-		// Скорректируем результат распознавани
-		//
-		CSTR_SortFragm(1);
-		if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
-			//							if( !RPSTR_SetImportData(RPSTR_Bool32_Fax100,&gbFax100) ||
-			//                              !RPSTR_CorrectKegl(1))
-			if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100)
-					|| !RCORRKEGL_CorrectKegl(1)) {
-				SetReturnCode_puma(RPSTR_GetReturnCode());
-				rc = FALSE;
-			}
-		}
-		CSTR_SortFragm(1);
-		RPSTR_CorrectIncline(1);
-
-		if (rc && !LDPUMA_Skip(hDebugEnableSaveJtl) && !szInputFileName.empty()) {
-
-		}
-		if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-			std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-					"_4.cst");
-			CSTR_SaveCont(CstrFileName.c_str());
-		}
-		//
-		// Печать результатов в консоль
-		//
-		LDPUMA_DestroyRasterWnd();
-
-		int count = CSTR_GetMaxNumber();
-		if (rc && LDPUMA_Skip(hDebugCancelConsoleOutputText)
-				&& LDPUMA_IsActive()) {
-			for (int i = 1; i <= count; i++) {
-				PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT),
-						hCPAGE);
-			}
-		}
-
-		//
-		// OLEG fot Consistent
-		if (SPEC_PRJ_CONS == gnSpecialProject) {
-			char * buf = &global_buf[0], buf_str[1024];
-			char * pb = buf;
-			global_buf_len = 0;
-			CSTR_line buf_line;
-			count = CSTR_GetMaxNumber();
-
-			for (int i = 1; i <= count; i++) {
-				buf_line = CSTR_GetLineHandle(i, 1);
-				CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
-				strcpy(pb, buf_str);
-				int len = strlen(pb);
-				pb += len + 1;
-				global_buf_len += len + 1;
-			}
-			*pb = 0;
-			global_buf_len++;
-
-			// OLEG fot Consistent
-		}
-		// Отформатируем результат
-		//
-
-		//Нормализуем вертикальные строки
-
-		RPSTR_NormalizeVertStr();
-
-		if (!ProgressStep(2, GetResourceString(IDS_FORMAT), 95))
+	// Дораспознаем по словарю
+	CSTR_SortFragm(1);
+	RPSTR_CollectCapDrops(1);
+	if (rc && LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
+		if (!RPSTR_CorrectSpell(1)) {
+			SetReturnCode_puma(RPSTR_GetReturnCode());
 			rc = FALSE;
-		if (rc) {
-			if (LDPUMA_Skip(hDebugCancelFormatted)) {
-				SetOptionsToFRMT();
-				if (ghEdPage) {
-					CED_DeletePage(ghEdPage);
-					ghEdPage = NULL;
-				}
-				if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage)) {
-					SetReturnCode_puma(RFRMT_GetReturnCode());
-					rc = FALSE;
-				} else {
-					if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-						std::string fname(szInputFileName + "_tmp_.rtf");
-						SetOptionsToFRMT();
-						rc = RFRMT_SaveRtf(fname.c_str(), 8);
-						fname = szInputFileName + "_tmp_.fed";
-						PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE,
-								PUMA_CODE_UNKNOWN, FALSE);
-					}
-				}
-			} else
-				LDPUMA_Console("Пропущен этап форматирования.\n");
 		}
+	}
+
+	// Скорректируем результат распознавани
+	CSTR_SortFragm(1);
+	if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
+		if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100)
+				|| !RCORRKEGL_CorrectKegl(1)) {
+			SetReturnCode_puma(RPSTR_GetReturnCode());
+			rc = FALSE;
+		}
+	}
+	CSTR_SortFragm(1);
+	RPSTR_CorrectIncline(1);
+
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
+		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+				"_4.cst");
+		CSTR_SaveCont(CstrFileName.c_str());
+	}
+
+	// Печать результатов в консоль
+
+	int count = CSTR_GetMaxNumber();
+	if (LDPUMA_Skip(hDebugCancelConsoleOutputText) && LDPUMA_IsActive()) {
+		for (int i = 1; i <= count; i++) {
+			PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT), hCPAGE);
+		}
+	}
+
+	// OLEG fot Consistent
+	if (SPEC_PRJ_CONS == gnSpecialProject) {
+		char * buf = &global_buf[0], buf_str[1024];
+		char * pb = buf;
+		global_buf_len = 0;
+		CSTR_line buf_line;
+		count = CSTR_GetMaxNumber();
+
+		for (int i = 1; i <= count; i++) {
+			buf_line = CSTR_GetLineHandle(i, 1);
+			CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
+			strcpy(pb, buf_str);
+			int len = strlen(pb);
+			pb += len + 1;
+			global_buf_len += len + 1;
+		}
+		*pb = 0;
+		global_buf_len++;
+
+		// OLEG fot Consistent
+	}
+	// Отформатируем результат
+	//
+
+	//Нормализуем вертикальные строки
+
+	RPSTR_NormalizeVertStr();
+
+	if (rc) {
+		if (LDPUMA_Skip(hDebugCancelFormatted)) {
+			SetOptionsToFRMT();
+			if (ghEdPage) {
+				CED_DeletePage(ghEdPage);
+				ghEdPage = NULL;
+			}
+			if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage)) {
+				SetReturnCode_puma(RFRMT_GetReturnCode());
+				rc = FALSE;
+			} else {
+				if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
+					std::string fname(szInputFileName + "_tmp_.rtf");
+					SetOptionsToFRMT();
+					rc = RFRMT_SaveRtf(fname.c_str(), 8);
+					fname = szInputFileName + "_tmp_.fed";
+					PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE,
+							PUMA_CODE_UNKNOWN, FALSE);
+				}
+			}
+		} else
+			LDPUMA_Console("Пропущен этап форматирования.\n");
 	}
 }
 
