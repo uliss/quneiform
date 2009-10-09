@@ -688,38 +688,34 @@ void PumaImpl::recognize() {
 	CSTR_SortFragm(0);
 	CSTR_line ln;
 	CSTR_attr attr;
-	int32_t nf = CSTR_GetMaxFragment(0), i;
+	int32_t nf = CSTR_GetMaxFragment(0);
 	Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 	if (hBlock) {
-		int32_t *flagfrag = static_cast<int32_t*> (calloc(1, nf
-				* sizeof(int32_t)));
+		AutoBuffer<int, InitZero> flagfrag(nf);
 
-		if (flagfrag) {
-			for (i = 0; hBlock && i < nf; i++) {
-				flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE, hBlock);
-				hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
-			}
-			for (i = 1; i <= nf; i++) {
-				ln = CSTR_FirstLineFragm(i, 0);
-				if (ln) {
-					CSTR_GetLineAttr(ln, &attr);
-					if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
-						attr.Flags |= CSTR_STR_HandFragment;
-						CSTR_SetLineAttr(ln, &attr);
-					}
-					do {
-						ln = CSTR_NextLineFragm(ln);
-						if (ln) {
-							CSTR_GetLineAttr(ln, &attr);
-							if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
-								attr.Flags |= CSTR_STR_HandFragment;
-								CSTR_SetLineAttr(ln, &attr);
-							}
-						}
-					} while (ln);
+		for (int i = 0; hBlock && i < nf; i++) {
+			flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE, hBlock);
+			hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+		}
+		for (int i = 1; i <= nf; i++) {
+			ln = CSTR_FirstLineFragm(i, 0);
+			if (ln) {
+				CSTR_GetLineAttr(ln, &attr);
+				if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
+					attr.Flags |= CSTR_STR_HandFragment;
+					CSTR_SetLineAttr(ln, &attr);
 				}
+				do {
+					ln = CSTR_NextLineFragm(ln);
+					if (ln) {
+						CSTR_GetLineAttr(ln, &attr);
+						if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
+							attr.Flags |= CSTR_STR_HandFragment;
+							CSTR_SetLineAttr(ln, &attr);
+						}
+					}
+				} while (ln);
 			}
-			free(flagfrag);
 		}
 	}
 
@@ -960,7 +956,8 @@ void PumaImpl::rout(void * dest, size_t size, int format) const {
 		long nCurSize = ROUT_GetObjectSize(objIndex);
 		nSize += nCurSize;
 		if (nSize <= (long) size) {
-			if (!ROUT_GetObject(objIndex, (uchar*) dest + (nSize - nCurSize), &nCurSize))
+			if (!ROUT_GetObject(objIndex, (uchar*) dest + (nSize - nCurSize),
+					&nCurSize))
 				throw PumaException("ROUT_GetObject failed");
 		}
 	}
