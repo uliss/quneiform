@@ -260,7 +260,6 @@ long _EnumPicture(long prev);
 // common.cpp
 Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
-Bool32 RemoveLines(Handle hccom, Handle hcpage, puchar * pDIB);
 void SetOptionsToFRMT(void);
 Bool32 SaveToText(const char * lpOutFileName, int code);
 // Функции прогресс индикатора.
