@@ -902,6 +902,42 @@ void PumaImpl::recognizeSetup(int language) {
 	}
 }
 
+void PumaImpl::rout(const std::string& filename, int Format) const {
+	char szName[260];
+	strcpy(szName, filename.c_str());
+	char * str = strrchr(szName, '.');
+	if (str)
+		*(str) = '\0';
+
+	if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
+			(void*) gnPreserveLineBreaks) || !ROUT_SetImportData(
+			ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
+			ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
+			ROUT_LONG_Format, (void*) Format) || !ROUT_SetImportData(
+			ROUT_LONG_Code, (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(
+			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+		throw PumaException("ROUT_SetImportData failed");
+
+	// Количество объектов
+	long countObjects = ROUT_CountObjects();
+	if (countObjects == -1)
+		return;
+
+	// Цикл по объектам на странице
+	for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
+		std::string path(filename);
+
+		if (countObjects != 1) {
+			path = ROUT_GetDefaultObjectName(objIndex);
+			if (!path.empty())
+				throw PumaException("ROUT_GetDefaultObjectName failed");
+		}
+
+		if (!ROUT_SaveObject(objIndex, path.c_str(), FALSE))
+			throw PumaException("ROUT_SaveObject failed");
+	}
+}
+
 void PumaImpl::save(const std::string& filename, int Format) const {
 	if (!ghEdPage)
 		throw PumaException("Puma save failed");
@@ -932,9 +968,7 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 	case PUMA_TOTABLEDBF:
 	case PUMA_TOHTML:
 	case PUMA_TOHOCR:
-		if (!ConverROUT(filename.c_str(), static_cast<puma_format_t> (Format),
-				PUMA_CODE_UTF8, false))
-			throw PumaException("Save to text format failed");
+		rout(filename, Format);
 		break;
 	default: {
 		ostringstream os;

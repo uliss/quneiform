@@ -58,6 +58,7 @@ private:
 	void recognizePass1();
 	void recognizePass2();
 	void recognizeSetup(int lang);
+	void rout(const std::string& fname, int Format) const;
 	void saveLayoutToFile(const std::string& fname);
 	void savePass1(const std::string& fname);
 	void setTemplate(const Rect& rect);
