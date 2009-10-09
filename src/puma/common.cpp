@@ -156,51 +156,6 @@ void SetOptionsToFRMT() {
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
-Bool32 SaveToText(const char * lpOutFileName, int code) {
-	Bool32 rc = TRUE;
-	int count = CSTR_GetMaxNumber();
-
-	if (code != PUMA_CODE_ANSI) {
-		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		return FALSE;
-	}
-
-	FILE * f = fopen(lpOutFileName, "wt");
-	if (f) {
-		for (int i = 1; i <= count; i++) {
-			CSTR_line lin_out;
-			char txt[500];
-
-			lin_out = CSTR_GetLineHandle(i, 1); // OLEG
-			if (lin_out == (CSTR_line) NULL) {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-			if (CSTR_LineToTxt(lin_out, txt)) {
-				char szString[sizeof(txt)];
-				sprintf(szString, "%s\n", txt);
-				unsigned len = strlen(szString);
-				if (fwrite(szString, sizeof(char), len, f) != len) {
-					SetReturnCode_puma(IDS_ERR_FILEWRITE);
-					rc = FALSE;
-					break;
-				}
-			} else {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-		}
-		fclose(f);
-	} else {
-		SetReturnCode_puma(IDS_ERR_FILEOPEN);
-		rc = FALSE;
-	}
-	return rc;
-}
 ////////////////////////////////////////////////////////////
 void ProgressStart() {
 	LDPUMA_ProgressStart();

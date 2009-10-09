@@ -261,7 +261,6 @@ long _EnumPicture(long prev);
 Bool32 rexcProgressStep(uint32_t);
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
 void SetOptionsToFRMT(void);
-Bool32 SaveToText(const char * lpOutFileName, int code);
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
