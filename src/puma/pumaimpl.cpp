@@ -263,8 +263,7 @@ void PumaImpl::formatResult() {
 		SetOptionsToFRMT();
 		RFRMT_SaveRtf(fname.c_str(), 8);
 		fname = szInputFileName + "_tmp_.fed";
-		PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE, PUMA_CODE_UNKNOWN,
-				FALSE);
+		save(fname.c_str(), PUMA_TOEDNATIVE);
 	}
 }
 
@@ -917,13 +916,45 @@ void PumaImpl::recognizeSetup(int lang) {
 }
 
 void PumaImpl::save(const std::string& filename, int Format) const {
+	if (!ghEdPage)
+		throw PumaException("Puma save failed");
+
 #ifndef NDEBUG
 	cerr << "Puma save to: " << filename << endl;
 #endif
 
-	if (!PUMA_XSave(filename, static_cast<puma_format_t> (Format),
-			PUMA_CODE_UTF8))
-		throw PumaException("Puma save failed");
+	if (!LDPUMA_Skip(hDebugCancelFormatted))
+		return;
+
+	switch (Format) {
+	case PUMA_DEBUG_TOTEXT:
+		if (!SaveToText(filename.c_str(), PUMA_CODE_UTF8))
+			throw PumaException("SaveToText failed");
+		break;
+	case PUMA_TORTF:
+		if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
+			throw PumaException("Save to RTF failed");
+		break;
+	case PUMA_TOEDNATIVE:
+		if (!CED_WriteFormattedEd(filename.c_str(), ghEdPage))
+			throw PumaException("Save to native format failed");
+		break;
+	case PUMA_TOTEXT:
+	case PUMA_TOSMARTTEXT:
+	case PUMA_TOTABLETXT:
+	case PUMA_TOTABLEDBF:
+	case PUMA_TOHTML:
+	case PUMA_TOHOCR:
+		if (!ConverROUT(filename.c_str(), static_cast<puma_format_t> (Format),
+				PUMA_CODE_UTF8, false))
+			throw PumaException("Save to text format failed");
+		break;
+	default: {
+		ostringstream os;
+		os << "Unknown output format: " << Format;
+		throw PumaException(os.str());
+	}
+	}
 }
 
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
