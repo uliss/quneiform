@@ -24,7 +24,7 @@
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
 
-double portion_of_rus_letters(CSTR_line lin_ruseng) {
+static double portion_of_rus_letters(CSTR_line lin_ruseng) {
 	if (!lin_ruseng)
 		return 0;
 	CSTR_rast_attr attr;
