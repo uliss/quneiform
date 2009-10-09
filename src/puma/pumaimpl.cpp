@@ -11,6 +11,7 @@
 #include "pumadef.h"
 
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <cassert>
 #include <cstring>
@@ -951,8 +952,7 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 
 	switch (Format) {
 	case PUMA_DEBUG_TOTEXT:
-		if (!SaveToText(filename.c_str(), PUMA_CODE_UTF8))
-			throw PumaException("SaveToText failed");
+		saveToText(filename);
 		break;
 	case PUMA_TORTF:
 		if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
@@ -989,6 +989,25 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
 
 void PumaImpl::savePass1(const std::string& fname) {
 	CSTR_SaveCont(fname.c_str());
+}
+
+void PumaImpl::saveToText(ostream& os) const {
+	for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
+		CSTR_line lin_out = CSTR_GetLineHandle(i, 1); // OLEG
+		if (!lin_out)
+			throw PumaException("CSTR_GetLineHandle failed");
+
+		char txt[500];
+		if (CSTR_LineToTxt(lin_out, txt))
+			os << txt << "\n";
+	}
+}
+
+void PumaImpl::saveToText(const std::string& filename) const {
+	ofstream of(filename.c_str());
+	if (!of)
+		return;
+	saveToText(of);
 }
 
 void PumaImpl::setTemplate(const Rect& r) {

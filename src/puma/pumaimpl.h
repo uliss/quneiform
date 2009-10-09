@@ -9,6 +9,7 @@
 #define PUMAIMPL_H_
 
 #include <string>
+#include <iosfwd>
 #include <stdexcept>
 
 #include "cfcompat.h"
@@ -62,6 +63,8 @@ private:
 	void saveLayoutToFile(const std::string& fname);
 	void savePass1(const std::string& fname);
 	void setTemplate(const Rect& rect);
+	void saveToText(std::ostream& os) const;
+	void saveToText(const std::string& filename) const;
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
 	static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
