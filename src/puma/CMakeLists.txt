@@ -3,7 +3,6 @@ ${SNP_SRC}
 common.cpp 
 enum.cpp
 initdone.cpp 
-out.cpp 
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp
