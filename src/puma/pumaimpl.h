@@ -45,10 +45,13 @@ private:
 	void loadLayouFromFile(const std::string& fname);
 	void modulesInit();
 	void modulesDone();
+	void pass1();
 	void preOpenInitialize();
 	void postOpenInitialize();
+	void recognizePass1();
 	void recognizeSetup(int lang);
 	void saveLayoutToFile(const std::string& fname);
+	void savePass1(const std::string& fname);
 	void setTemplate(const Rect& rect);
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;

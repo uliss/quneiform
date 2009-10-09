@@ -733,6 +733,13 @@ void PumaImpl::open(char * dib) {
 	hCPAGE = CreateEmptyPage();
 }
 
+void PumaImpl::pass1() {
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
+		savePass1(replaceFileExt(szInputFileName, "_1.cst"));
+
+	recognizePass1();
+}
+
 void PumaImpl::preOpenInitialize() {
 	PumaImpl::close();
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
@@ -778,224 +785,221 @@ void PumaImpl::recognize() {
 	Bool rc = TRUE;
 
 	// Выделим строки
-	if (LDPUMA_Skip(hDebugCancelStrings)) {
-		extractStrings();
+	if (!LDPUMA_Skip(hDebugCancelStrings)) {
+		LDPUMA_Console("Пропущен этап выделения строк.\n");
+		return;
+	}
 
-		// распознаем строки
-		CSTR_SortFragm(0);
-		recognizeSetup(gnLanguage);
+	extractStrings();
 
-		if (rc && LDPUMA_Skip(hDebugCancelRecognition)) {
-			CSTR_SortFragm(0);
-			CSTR_line ln;
-			CSTR_attr attr;
-			int32_t nf = CSTR_GetMaxFragment(0), i;
-			Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
-			if (hBlock) {
-				int32_t *flagfrag = static_cast<int32_t*> (calloc(1, nf
-						* sizeof(int32_t)));
+	if (!LDPUMA_Skip(hDebugCancelRecognition)) {
+		LDPUMA_Console("Пропущен этап распознавания.\n");
+		return;
+	}
 
-				if (flagfrag) {
-					for (i = 0; hBlock && i < nf; i++) {
-						flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE, hBlock);
-						hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+	// распознаем строки
+	CSTR_SortFragm(0);
+	recognizeSetup(gnLanguage);
+
+	CSTR_SortFragm(0);
+	CSTR_line ln;
+	CSTR_attr attr;
+	int32_t nf = CSTR_GetMaxFragment(0), i;
+	Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+	if (hBlock) {
+		int32_t *flagfrag = static_cast<int32_t*> (calloc(1, nf
+				* sizeof(int32_t)));
+
+		if (flagfrag) {
+			for (i = 0; hBlock && i < nf; i++) {
+				flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE, hBlock);
+				hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+			}
+			for (i = 1; i <= nf; i++) {
+				ln = CSTR_FirstLineFragm(i, 0);
+				if (ln) {
+					CSTR_GetLineAttr(ln, &attr);
+					if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
+						attr.Flags |= CSTR_STR_HandFragment;
+						CSTR_SetLineAttr(ln, &attr);
 					}
-					for (i = 1; i <= nf; i++) {
-						ln = CSTR_FirstLineFragm(i, 0);
+					do {
+						ln = CSTR_NextLineFragm(ln);
 						if (ln) {
 							CSTR_GetLineAttr(ln, &attr);
 							if (flagfrag[attr.fragment - 1] & CPAGE_BLOCK_USER) {
 								attr.Flags |= CSTR_STR_HandFragment;
 								CSTR_SetLineAttr(ln, &attr);
 							}
-							do {
-								ln = CSTR_NextLineFragm(ln);
-								if (ln) {
-									CSTR_GetLineAttr(ln, &attr);
-									if (flagfrag[attr.fragment - 1]
-											& CPAGE_BLOCK_USER) {
-										attr.Flags |= CSTR_STR_HandFragment;
-										CSTR_SetLineAttr(ln, &attr);
-									}
-								}
-							} while (ln);
 						}
-					}
-					free(flagfrag);
+					} while (ln);
 				}
 			}
+			free(flagfrag);
+		}
+	}
 
-			if (!LDPUMA_Skip(hDebugEnableSaveCstr1)) {
-				std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-						"_1.cst");
-				CSTR_SaveCont(CstrFileName.c_str());
+	pass1();
+
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
+		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+				"_2.cst");
+		CSTR_SaveCont(CstrFileName.c_str());
+	}
+
+	if (rc) {
+		///////////////////////////////
+		// OLEG : 01-05-18 : for GiP //
+		///////////////////////////////
+		if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage == LANG_RUSENG) {
+			int i, j, n;
+			double s;
+			CSTR_line lin_ruseng;
+
+			n = CSTR_GetMaxNumber();
+			for (s = 0.0, i = 1; i <= n; i++) {
+				lin_ruseng = CSTR_GetLineHandle(i, 1);
+				s += portion_of_rus_letters(lin_ruseng);
 			}
-			rc = RecognizeStringsPass1();
+			if (n)
+				s /= (double) n;
+			if (n && s < 0.4) {
 
-			if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
-				std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-						"_2.cst");
-				CSTR_SaveCont(CstrFileName.c_str());
+				for (i = 0; i <= n; i++) {
+					for (j = 1; j < 10; j++) {
+						lin_ruseng = CSTR_GetLineHandle(i, j);
+						if (lin_ruseng)
+							CSTR_DeleteLine(lin_ruseng);
+					}
+				}
+				gnLanguage = LANG_ENGLISH;
+				rc = RecognizeSetup(gnLanguage);
+				rc = RecognizeStringsPass1();
 			}
-			if (rc) {
-				///////////////////////////////
-				// OLEG : 01-05-18 : for GiP //
-				///////////////////////////////
-				if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage
-						== LANG_RUSENG) {
-					int i, j, n;
-					double s;
-					CSTR_line lin_ruseng;
-
-					n = CSTR_GetMaxNumber();
-					for (s = 0.0, i = 1; i <= n; i++) {
-						lin_ruseng = CSTR_GetLineHandle(i, 1);
-						s += portion_of_rus_letters(lin_ruseng);
-					}
-					if (n)
-						s /= (double) n;
-					if (n && s < 0.4) {
-
-						for (i = 0; i <= n; i++) {
-							for (j = 1; j < 10; j++) {
-								lin_ruseng = CSTR_GetLineHandle(i, j);
-								if (lin_ruseng)
-									CSTR_DeleteLine(lin_ruseng);
-							}
-						}
-						gnLanguage = LANG_ENGLISH;
-						rc = RecognizeSetup(gnLanguage);
-						rc = RecognizeStringsPass1();
-					}
-				}
-				if (RSTR_NeedPass2()) {
-					if (LDPUMA_Skip(hDebugCancelStringsPass2))
-						rc = RecognizeStringsPass2();
-					else
-						LDPUMA_Console(
-								"Пропущен этап второго прохода распознавания.\n");
-				} else
-					LDPUMA_Console(
-							"RSTR считает, что второй проход не нужен.\n");
-				if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-					std::string CstrFileName = CIF::replaceFileExt(
-							szInputFileName, "_3.cst");
-					CSTR_SaveCont(CstrFileName.c_str());
-				}
-
-				// Дораспознаем по словарю
-				CSTR_SortFragm(1);
-				RPSTR_CollectCapDrops(1);
-				if (rc && LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
-					if (!RPSTR_CorrectSpell(1)) {
-						SetReturnCode_puma(RPSTR_GetReturnCode());
-						rc = FALSE;
-					}
-				}
-				//
-				// Скорректируем результат распознавани
-				//
-				CSTR_SortFragm(1);
-				if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
-					//							if( !RPSTR_SetImportData(RPSTR_Bool32_Fax100,&gbFax100) ||
-					//                              !RPSTR_CorrectKegl(1))
-					if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100,
-							&gbFax100) || !RCORRKEGL_CorrectKegl(1)) {
-						SetReturnCode_puma(RPSTR_GetReturnCode());
-						rc = FALSE;
-					}
-				}
-				CSTR_SortFragm(1);
-				RPSTR_CorrectIncline(1);
-
-				if (rc && !LDPUMA_Skip(hDebugEnableSaveJtl)
-						&& !szInputFileName.empty()) {
-
-				}
-				if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-					std::string CstrFileName = CIF::replaceFileExt(
-							szInputFileName, "_4.cst");
-					CSTR_SaveCont(CstrFileName.c_str());
-				}
-				//
-				// Печать результатов в консоль
-				//
-				LDPUMA_DestroyRasterWnd();
-
-				int count = CSTR_GetMaxNumber();
-				if (rc && LDPUMA_Skip(hDebugCancelConsoleOutputText)
-						&& LDPUMA_IsActive()) {
-					for (int i = 1; i <= count; i++) {
-						PrintResult(i, CSTR_GetLineHandle(i,
-								CSTR_LINVERS_MAINOUT), hCPAGE);
-					}
-				}
-
-				//
-				// OLEG fot Consistent
-				if (SPEC_PRJ_CONS == gnSpecialProject) {
-					char * buf = &global_buf[0], buf_str[1024];
-					char * pb = buf;
-					global_buf_len = 0;
-					CSTR_line buf_line;
-					count = CSTR_GetMaxNumber();
-
-					for (int i = 1; i <= count; i++) {
-						buf_line = CSTR_GetLineHandle(i, 1);
-						CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
-						strcpy(pb, buf_str);
-						int len = strlen(pb);
-						pb += len + 1;
-						global_buf_len += len + 1;
-					}
-					*pb = 0;
-					global_buf_len++;
-
-					// OLEG fot Consistent
-				}
-				// Отформатируем результат
-				//
-
-				//Нормализуем вертикальные строки
-
-				RPSTR_NormalizeVertStr();
-
-				if (!ProgressStep(2, GetResourceString(IDS_FORMAT), 95))
-					rc = FALSE;
-				if (rc) {
-					if (LDPUMA_Skip(hDebugCancelFormatted)) {
-						SetOptionsToFRMT();
-						if (ghEdPage) {
-							CED_DeletePage(ghEdPage);
-							ghEdPage = NULL;
-						}
-						if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage)) {
-							SetReturnCode_puma(RFRMT_GetReturnCode());
-							rc = FALSE;
-						} else {
-							if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-								std::string
-										fname(szInputFileName + "_tmp_.rtf");
-								SetOptionsToFRMT();
-								rc = RFRMT_SaveRtf(fname.c_str(), 8);
-								fname = szInputFileName + "_tmp_.fed";
-								PUMA_Save(ghEdPage, fname.c_str(),
-										PUMA_TOEDNATIVE, PUMA_CODE_UNKNOWN,
-										FALSE);
-							}
-						}
-					} else
-						LDPUMA_Console("Пропущен этап форматирования.\n");
-				}
-			}
+		}
+		if (RSTR_NeedPass2()) {
+			if (LDPUMA_Skip(hDebugCancelStringsPass2))
+				rc = RecognizeStringsPass2();
+			else
+				LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
 		} else
-			LDPUMA_Console("Пропущен этап распознавания.\n");
-	} else
-		LDPUMA_Console("Пропущен этап выделения строк.\n");
+			LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
+		if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
+			std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+					"_3.cst");
+			CSTR_SaveCont(CstrFileName.c_str());
+		}
+
+		// Дораспознаем по словарю
+		CSTR_SortFragm(1);
+		RPSTR_CollectCapDrops(1);
+		if (rc && LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
+			if (!RPSTR_CorrectSpell(1)) {
+				SetReturnCode_puma(RPSTR_GetReturnCode());
+				rc = FALSE;
+			}
+		}
+		//
+		// Скорректируем результат распознавани
+		//
+		CSTR_SortFragm(1);
+		if (rc && LDPUMA_Skip(hDebugCancelPostRecognition)) {
+			//							if( !RPSTR_SetImportData(RPSTR_Bool32_Fax100,&gbFax100) ||
+			//                              !RPSTR_CorrectKegl(1))
+			if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100)
+					|| !RCORRKEGL_CorrectKegl(1)) {
+				SetReturnCode_puma(RPSTR_GetReturnCode());
+				rc = FALSE;
+			}
+		}
+		CSTR_SortFragm(1);
+		RPSTR_CorrectIncline(1);
+
+		if (rc && !LDPUMA_Skip(hDebugEnableSaveJtl) && !szInputFileName.empty()) {
+
+		}
+		if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
+			std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+					"_4.cst");
+			CSTR_SaveCont(CstrFileName.c_str());
+		}
+		//
+		// Печать результатов в консоль
+		//
+		LDPUMA_DestroyRasterWnd();
+
+		int count = CSTR_GetMaxNumber();
+		if (rc && LDPUMA_Skip(hDebugCancelConsoleOutputText)
+				&& LDPUMA_IsActive()) {
+			for (int i = 1; i <= count; i++) {
+				PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT),
+						hCPAGE);
+			}
+		}
+
+		//
+		// OLEG fot Consistent
+		if (SPEC_PRJ_CONS == gnSpecialProject) {
+			char * buf = &global_buf[0], buf_str[1024];
+			char * pb = buf;
+			global_buf_len = 0;
+			CSTR_line buf_line;
+			count = CSTR_GetMaxNumber();
+
+			for (int i = 1; i <= count; i++) {
+				buf_line = CSTR_GetLineHandle(i, 1);
+				CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
+				strcpy(pb, buf_str);
+				int len = strlen(pb);
+				pb += len + 1;
+				global_buf_len += len + 1;
+			}
+			*pb = 0;
+			global_buf_len++;
+
+			// OLEG fot Consistent
+		}
+		// Отформатируем результат
+		//
+
+		//Нормализуем вертикальные строки
+
+		RPSTR_NormalizeVertStr();
+
+		if (!ProgressStep(2, GetResourceString(IDS_FORMAT), 95))
+			rc = FALSE;
+		if (rc) {
+			if (LDPUMA_Skip(hDebugCancelFormatted)) {
+				SetOptionsToFRMT();
+				if (ghEdPage) {
+					CED_DeletePage(ghEdPage);
+					ghEdPage = NULL;
+				}
+				if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage)) {
+					SetReturnCode_puma(RFRMT_GetReturnCode());
+					rc = FALSE;
+				} else {
+					if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
+						std::string fname(szInputFileName + "_tmp_.rtf");
+						SetOptionsToFRMT();
+						rc = RFRMT_SaveRtf(fname.c_str(), 8);
+						fname = szInputFileName + "_tmp_.fed";
+						PUMA_Save(ghEdPage, fname.c_str(), PUMA_TOEDNATIVE,
+								PUMA_CODE_UNKNOWN, FALSE);
+					}
+				}
+			} else
+				LDPUMA_Console("Пропущен этап форматирования.\n");
+		}
+	}
+}
+
+void PumaImpl::recognizePass1() {
+	RecognizeStringsPass1();
 }
 
 void PumaImpl::recognizeSetup(int lang) {
-	if(!RecognizeSetup(lang))
+	if (!RecognizeSetup(lang))
 		throw PumaException("PumaImpl::recognizeSetup() failed");
 }
 
@@ -1016,6 +1020,10 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
 		os << "CPAGE_SavePage to '" << fname << "' failed.";
 		throw PumaException(os.str());
 	}
+}
+
+void PumaImpl::savePass1(const std::string& fname) {
+	CSTR_SaveCont(fname.c_str());
 }
 
 void PumaImpl::setTemplate(const Rect& r) {
