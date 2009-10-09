@@ -479,7 +479,7 @@ void PumaImpl::layout() {
 	SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
 
-void PumaImpl::loadLayouFromFile(const std::string& fname) {
+void PumaImpl::loadLayoutFromFile(const std::string& fname) {
 	hCPAGE = CPAGE_RestorePage(TRUE, fname.c_str());
 	if (hCPAGE == NULL) {
 		ostringstream os;
@@ -730,7 +730,7 @@ void PumaImpl::recognize() {
 
 	// Прочитаем описание Layout из файла.
 	if (!LDPUMA_Skip(hDebugLayoutFromFile))
-		loadLayouFromFile(szLayoutFileName);
+		loadLayoutFromFile(szLayoutFileName);
 
 	if (IsUpdate(FLG_UPDATE_CCOM))
 		extractComponents();

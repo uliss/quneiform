@@ -44,7 +44,7 @@ private:
 	void extractStrings();
 	void formatResult();
 	void layout();
-	void loadLayouFromFile(const std::string& fname);
+	void loadLayoutFromFile(const std::string& fname);
 	void modulesInit();
 	void modulesDone();
 	void normalize();
