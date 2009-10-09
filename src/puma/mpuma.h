@@ -247,10 +247,7 @@ uint32_t GetReturnCode_puma();
 char * GetModulePath();
 char * GetModuleTempPath();
 char * GetResourceString(uint32_t id);
-
 char * GetModulesString(uint32_t dwError);
-
-Bool32 Recognize();
 
 // Enum.cpp
 long _EnumFormats(long prev);

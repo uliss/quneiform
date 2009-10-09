@@ -74,8 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void *	myAlloc(size_t stAllocateBlock);
 void	myFree(void * mem);
 
-Handle  myOpenSave(char * lpName);
-Handle  myOpenRestore(char * lpName);
+Handle  myOpenSave(const char * lpName);
+Handle  myOpenRestore(const char * lpName);
 unsigned int  myWrite(Handle h,void * lpdata,unsigned int size);
 unsigned int  myRead(Handle h,void * lpdata,unsigned int size);
 void    myClose(Handle h);

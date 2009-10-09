@@ -39,11 +39,16 @@ public:
 	static const size_t WorkBufferSize = 180000;
 private:
 	void clearAll();
+	void extractComponents();
+	void extractStrings();
 	void layout();
+	void loadLayouFromFile(const std::string& fname);
 	void modulesInit();
 	void modulesDone();
 	void preOpenInitialize();
 	void postOpenInitialize();
+	void recognizeSetup(int lang);
+	void saveLayoutToFile(const std::string& fname);
 	void setTemplate(const Rect& rect);
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;

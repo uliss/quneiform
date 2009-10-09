@@ -321,11 +321,11 @@ void CPAGE_DeleteBlock(Handle page, Handle block) {
 #define VERSION_FILE            0xF002
 #define VERSION_FILE_COMPRESSED 0xF003
 
-Bool32 CPAGE_SavePage(Handle page, char * lpName) {
+Bool32 CPAGE_SavePage(Handle page, const char * lpName) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
-	Handle file = myOpenSave((char *) lpName);
+	Handle file = myOpenSave(lpName);
 
 	if (file) {
 #ifdef SAVE_COMPRESSED
@@ -359,14 +359,14 @@ Bool32 CPAGE_SavePage(Handle page, char * lpName) {
 	return rc;
 }
 
-Handle CPAGE_RestorePage(Bool32 remove, char * lpName) {
+Handle CPAGE_RestorePage(Bool32 remove, const char * lpName) {
 	PROLOG;
 	Handle rc = NULL;
 	Bool decompress = FALSE;
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
-	Handle file = myOpenRestore((char *) lpName);
+	Handle file = myOpenRestore(lpName);
 	if (file) {
 		int i;
 		int count;
