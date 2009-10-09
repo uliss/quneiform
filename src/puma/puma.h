@@ -248,10 +248,6 @@ PUMA_FUNC int PUMA_GetReturnCode();
 PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
-DEC_FUN(bool, SaveToMemory, (Handle, puma_format_t, puma_code_t, char *, uint32_t))
-PUMA_FUNC bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format,
-		puma_code_t Code, char * lpMem, uint32_t size);
-
 typedef struct {
 	FNPUMA_GetReturnCode fnGetReturnCode;
 	FNPUMA_GetReturnString fnGetReturnString;

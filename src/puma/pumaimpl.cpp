@@ -939,6 +939,33 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
 	}
 }
 
+void PumaImpl::rout(void * dest, size_t size, int format) const {
+	if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
+			(void*) gnPreserveLineBreaks) || !ROUT_SetImportData(
+			ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
+			ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(
+			ROUT_LONG_Code, (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(
+			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+		throw PumaException("ROUT_SetImportData failed");
+
+	// Количество объектов
+	long countObjects = ROUT_CountObjects();
+	if (countObjects == -1)
+		return;
+
+	// Просмотрим размер памяти
+	long nSize = 0;
+	// Цикл по объектам на странице
+	for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
+		long nCurSize = ROUT_GetObjectSize(objIndex);
+		nSize += nCurSize;
+		if (nSize <= (long) size) {
+			if (!ROUT_GetObject(objIndex, (uchar*) dest + (nSize - nCurSize), &nCurSize))
+				throw PumaException("ROUT_GetObject failed");
+		}
+	}
+}
+
 void PumaImpl::save(const std::string& filename, int Format) const {
 	if (!ghEdPage)
 		throw PumaException("Puma save failed");
@@ -975,6 +1002,24 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 		os << "Unknown output format: " << Format;
 		throw PumaException(os.str());
 	}
+	}
+}
+
+void PumaImpl::save(void * dest, size_t size, int format) const {
+	if (LDPUMA_Skip(hDebugCancelFormatted)) {
+		switch (format) {
+		case PUMA_TOTEXT:
+		case PUMA_TOSMARTTEXT:
+		case PUMA_TOTABLETXT:
+		case PUMA_TOTABLEDBF:
+		case PUMA_TOHTML:
+			rout(dest, size, format);
+		default: {
+			ostringstream os;
+			os << "Unknown output format: " << format;
+			throw PumaException(os.str());
+		}
+		}
 	}
 }
 

@@ -285,7 +285,5 @@ Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
 Bool32 PreProcessImage();
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
-uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
-		Byte * lpMem, uint32_t size);
 
 #endif

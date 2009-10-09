@@ -192,46 +192,6 @@ bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
 	return rc;
 }
 
-bool PUMA_SaveToMemory(Handle hEdPage, puma_format_t Format, puma_code_t Code,
-		char * lpMem, uint32_t size) {
-	bool rc = true;
-	Handle prevEdPage = ghEdPage;
-
-	if (hEdPage == NULL)
-		hEdPage = ghEdPage;
-
-	ghEdPage = hEdPage;
-
-	if (ghEdPage == NULL) {
-		SetReturnCode_puma(IDS_ERR_PARAM);
-		return rc;
-	}
-
-	if (InitPRGTIME())
-		ProgressStart();
-	if (LDPUMA_Skip(hDebugCancelFormatted)) {
-		switch (Format) {
-		case PUMA_TOTEXT:
-		case PUMA_TOSMARTTEXT:
-		case PUMA_TOTABLETXT:
-		case PUMA_TOTABLEDBF:
-		case PUMA_TOHTML:
-			rc
-					= ConverROUTtoMemory(hEdPage, Format, Code, (puchar) lpMem,
-							size);
-			break;
-		default:
-			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		}
-	}
-	LDPUMA_Skip(hDebugCancelFictive);
-	if (DonePRGTIME())
-		ProgressFinish();
-
-	ghEdPage = prevEdPage;
-	return rc;
-}
-
 int32_t PUMA_EnumLanguages(int32_t nPrev) {
 	return _EnumLanguage(nPrev);
 }

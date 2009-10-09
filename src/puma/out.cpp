@@ -57,37 +57,4 @@
 #include "mpuma.h"
 #include <string.h>
 
-uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode,
-		Byte * lpMem, uint32_t size) {
-	uint32_t rc = 0;
-	if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
-			(void*) gnPreserveLineBreaks) || !ROUT_SetImportData(
-			ROUT_HANDLE_PageHandle, hEd) || !ROUT_SetImportData(
-			ROUT_LONG_Format, (void*) lnFormat) || !ROUT_SetImportData(
-			ROUT_LONG_Code, (void*) lnCode) || !ROUT_SetImportData(
-			ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar)) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
-		return rc;
-	}
 
-	// Количество объектов
-	long countObjects = ROUT_CountObjects();
-	if (countObjects == -1) {
-		SetReturnCode_puma(ROUT_GetReturnCode());
-		return rc;
-	}
-	// Просмотрим размер памяти
-	long nSize = 0;
-	for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
-		long nCurSize = ROUT_GetObjectSize(objIndex);
-		nSize += nCurSize;
-		if (nSize <= (long) size) {
-			if (!ROUT_GetObject(objIndex, lpMem + (nSize - nCurSize), &nCurSize)) {
-				SetReturnCode_puma(ROUT_GetReturnCode());
-				return rc;
-			}
-		}
-	} // Цикл по объектам на странице
-	rc = nSize;
-	return rc;
-}
