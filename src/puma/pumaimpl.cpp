@@ -137,6 +137,37 @@ PumaImpl::~PumaImpl() {
 	modulesDone();
 }
 
+void PumaImpl::binarizeImage() {
+	// Бинаризуем изображение
+	gpRecogDIB = gpInputDIB;
+	glpRecogName = PUMA_IMAGE_USER;
+
+	//Allex
+	//CIMAGEBITMAPINFOHEADER info;
+	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info))
+		throw PumaException("CIMAGE_GetImageInfo failed");
+
+	LDPUMA_Console("The image depth is %d at this point.\n", info.biBitCount);
+
+	if (info.biBitCount > 1) {
+		//RIMAGE_BINARISE_KRONROD
+		if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER,
+				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))
+			throw PumaException("RIMAGE_Binarise failed");
+
+		if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_BINARIZE,
+				(Handle*) &gpRecogDIB, TRUE))
+			throw PumaException("CIMAGE_ReadDIB failed");
+
+		PAGEINFO info;
+		GetPageInfo(hCPAGE, &info);
+		info.Images |= IMAGE_BINARIZE;
+		SetPageInfo(hCPAGE, info);
+
+		glpRecogName = PUMA_IMAGE_BINARIZE;
+	}
+}
+
 void PumaImpl::clearAll() {
 	// Сохраним последенне состояние и очистим контейнер
 	if (ghEdPage) {
@@ -292,84 +323,81 @@ void PumaImpl::layout() {
 	void* MemWork = CIF::PumaImpl::workBuffer();
 	int size_work = CIF::PumaImpl::WorkBufferSize;
 
-	rc = BinariseImage();
-
-	if (rc) {
+	binarizeImage();
 
 #define SET_CB(a,b)   a.p##b = (void*)b
-		SET_CB(CBforRS, ProgressStart);
-		CBforRS.pProgressStep = (void*) ProgressStepLayout;
-		CBforRS.pProgressStepLines = (void*) ProgressStepLines;
-		CBforRS.pProgressStepTables = (void*) ProgressStepTables;
-		SET_CB(CBforRS, ProgressFinish);
-		SET_CB(CBforRS, InitPRGTIME);
-		SET_CB(CBforRS, StorePRGTIME);
-		SET_CB(CBforRS, RestorePRGTIME);
-		SET_CB(CBforRS, DonePRGTIME);
-		SET_CB(CBforRS, rexcProgressStep);
-		SET_CB(CBforRS, DPumaSkipComponent);
-		SET_CB(CBforRS, DPumaSkipTurn);
-		CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
-		SET_CB(CBforRS, GetModulePath);
-		SET_CB(CBforRS, SetUpdate);
+	SET_CB(CBforRS, ProgressStart);
+	CBforRS.pProgressStep = (void*) ProgressStepLayout;
+	CBforRS.pProgressStepLines = (void*) ProgressStepLines;
+	CBforRS.pProgressStepTables = (void*) ProgressStepTables;
+	SET_CB(CBforRS, ProgressFinish);
+	SET_CB(CBforRS, InitPRGTIME);
+	SET_CB(CBforRS, StorePRGTIME);
+	SET_CB(CBforRS, RestorePRGTIME);
+	SET_CB(CBforRS, DonePRGTIME);
+	SET_CB(CBforRS, rexcProgressStep);
+	SET_CB(CBforRS, DPumaSkipComponent);
+	SET_CB(CBforRS, DPumaSkipTurn);
+	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
+	SET_CB(CBforRS, GetModulePath);
+	SET_CB(CBforRS, SetUpdate);
 
-		SET_CB(CBforRM, ProgressStart);
-		CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
-		CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
-		SET_CB(CBforRM, ProgressFinish);
-		SET_CB(CBforRM, InitPRGTIME);
-		SET_CB(CBforRM, StorePRGTIME);
-		SET_CB(CBforRM, RestorePRGTIME);
-		SET_CB(CBforRM, DonePRGTIME);
-		SET_CB(CBforRM, rexcProgressStep);
-		SET_CB(CBforRM, DPumaSkipComponent);
-		SET_CB(CBforRM, DPumaSkipTurn);
-		CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
-		SET_CB(CBforRM, GetModulePath);
-		SET_CB(CBforRM, SetUpdate);
+	SET_CB(CBforRM, ProgressStart);
+	CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
+	CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
+	SET_CB(CBforRM, ProgressFinish);
+	SET_CB(CBforRM, InitPRGTIME);
+	SET_CB(CBforRM, StorePRGTIME);
+	SET_CB(CBforRM, RestorePRGTIME);
+	SET_CB(CBforRM, DonePRGTIME);
+	SET_CB(CBforRM, rexcProgressStep);
+	SET_CB(CBforRM, DPumaSkipComponent);
+	SET_CB(CBforRM, DPumaSkipTurn);
+	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
+	SET_CB(CBforRM, GetModulePath);
+	SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
-		DataforRS.gbAutoRotate = gbAutoRotate;
-		DataforRS.pgpRecogDIB = &gpRecogDIB;
-		DataforRS.pinfo = &info;
-		DataforRS.hCPAGE = hCPAGE;
-		DataforRS.phCCOM = &hCCOM;
-		DataforRS.phCLINE = &hCLINE;
-		DataforRS.phLinesCCOM = &hLinesCCOM;
-		DataforRS.gnPictures = gnPictures;
-		DataforRS.gnLanguage = gnLanguage;
-		DataforRS.gbDotMatrix = gbDotMatrix;
-		DataforRS.gbFax100 = gbFax100;
-		DataforRS.pglpRecogName = &glpRecogName;
-		DataforRS.pgrc_line = &grc_line;
-		DataforRS.gnTables = gnTables;
-		DataforRS.pgnNumberTables = &gnNumberTables;
-		DataforRS.pgneed_clean_line = &gneed_clean_line;
-		DataforRS.gRectTemplate = gRectTemplate;
-		DataforRS.fnXSetTemplate = PUMA_XSetTemplate;
-		DataforRS.fnXGetTemplate = PUMA_XGetTemplate;
-		DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-		DataforRS.hDebugCancelComponent = hDebugCancelComponent;
-		DataforRS.hDebugCancelTurn = hDebugCancelTurn;
-		DataforRS.hDebugCancelAutoTemplate = hDebugCancelAutoTemplate;
-		DataforRS.hDebugCancelSearchLines = hDebugCancelSearchLines;
-		DataforRS.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-		DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-		DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-		DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-		DataforRS.szLayoutFileName = szLayoutFileName;
-		DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+	DataforRS.gbAutoRotate = gbAutoRotate;
+	DataforRS.pgpRecogDIB = &gpRecogDIB;
+	DataforRS.pinfo = &info;
+	DataforRS.hCPAGE = hCPAGE;
+	DataforRS.phCCOM = &hCCOM;
+	DataforRS.phCLINE = &hCLINE;
+	DataforRS.phLinesCCOM = &hLinesCCOM;
+	DataforRS.gnPictures = gnPictures;
+	DataforRS.gnLanguage = gnLanguage;
+	DataforRS.gbDotMatrix = gbDotMatrix;
+	DataforRS.gbFax100 = gbFax100;
+	DataforRS.pglpRecogName = &glpRecogName;
+	DataforRS.pgrc_line = &grc_line;
+	DataforRS.gnTables = gnTables;
+	DataforRS.pgnNumberTables = &gnNumberTables;
+	DataforRS.pgneed_clean_line = &gneed_clean_line;
+	DataforRS.gRectTemplate = gRectTemplate;
+	DataforRS.fnXSetTemplate = PUMA_XSetTemplate;
+	DataforRS.fnXGetTemplate = PUMA_XGetTemplate;
+	DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+	DataforRS.hDebugCancelComponent = hDebugCancelComponent;
+	DataforRS.hDebugCancelTurn = hDebugCancelTurn;
+	DataforRS.hDebugCancelAutoTemplate = hDebugCancelAutoTemplate;
+	DataforRS.hDebugCancelSearchLines = hDebugCancelSearchLines;
+	DataforRS.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
+	DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
+	DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
+	DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
+	DataforRS.szLayoutFileName = szLayoutFileName;
+	DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-		// калбэки
-		if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
-			///нормализуем - обработка, поиск картинок, поиск линий
-			rc = RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
-					size_work);
+	// калбэки
+	if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
+		///нормализуем - обработка, поиск картинок, поиск линий
+		rc = RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
+				size_work);
 
-			if (!rc) {
-				SetReturnCode_puma(RSTUFF_GetReturnCode());
-				rc = FALSE;
-			}
+		if (!rc) {
+			SetReturnCode_puma(RSTUFF_GetReturnCode());
+			rc = FALSE;
 		}
 	}
 

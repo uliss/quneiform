@@ -38,6 +38,7 @@ public:
 	static const size_t MainBufferSize = 500000;
 	static const size_t WorkBufferSize = 180000;
 private:
+	void binarizeImage();
 	void clearAll();
 	void extractComponents();
 	void extractStrings();

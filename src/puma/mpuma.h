@@ -285,7 +285,6 @@ Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
 Bool32 PreProcessImage();
-Bool32 BinariseImage();
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
 bool ConverROUT(const std::string& filename, puma_format_t Format,
 		puma_code_t Code, bool Append);
