@@ -91,89 +91,6 @@ static Bool32 RecognizeSetup(int language) {
 	return rc;
 }
 
-static Bool32 RecognizeStringsPass1(void) {
-	Bool32 rc = TRUE;
-	// распознавание строк
-	if (rc) {
-		int count = CSTR_GetMaxNumber();
-		int i;
-
-		LDPUMA_StartLoop(hDebugRecognition, count);
-		if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG), 0))
-			rc = FALSE;
-
-		for (i = 1; rc && i <= count; i++) {
-			CSTR_line lin_out, lin_in;
-			if (!ProgressStep(2, NULL, i * 100 / count))
-				rc = FALSE;
-
-			LDPUMA_LoopNext(hDebugRecognition);
-			if (!LDPUMA_Skip(hDebugRecognition)) {
-				LDPUMA_Console("Остановились перед %i строкой.\n", i);
-				LDPUMA_Console("Нажмите любую клавишу...\n");
-				LDPUMA_WaitUserInput(hDebugRecognition, NULL);
-			}
-
-			lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
-			if (lin_out == (CSTR_line) NULL) {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-			lin_in = CSTR_GetLineHandle(i, CSTR_LINVERS_MAIN);
-			if (lin_in == (CSTR_line) NULL) {
-				SetReturnCode_puma(CSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-			if (!RSTR_Recog(lin_in, lin_out)) // Recognition
-			{
-				SetReturnCode_puma(RSTR_GetReturnCode());
-				rc = FALSE;
-				break;
-			}
-
-#ifdef _USE_REF_    // Nick 23.05.2001
-			{
-				int32_t numFind = 0;
-				REF_findEtaz(lin_in, lin_out, &numFind);
-				// есть формулы ?
-				if( numFind > 0 )
-				{
-					// новое число строк
-					count = CSTR_GetMaxNumber();
-
-					CSTR_DeleteLine( lin_out );
-
-					// изменить номер текущей строки
-					RSTR_ChangeLineNumber(-1);
-					// перераспознать строку
-					i--;
-				}
-			}
-#endif
-		}
-		LDPUMA_DestroyRasterWnd();
-	}
-
-#ifdef _USE_REF_    // Nick 23.05.2001
-	// попробуем найти куски формул
-	REF_unionEtaz();
-#endif
-
-	if (rc) {
-		if (!ProgressStep(2, GetResourceString(IDS_PRG_RECOG2), 100))
-			rc = FALSE;
-		rc = RSTR_EndPage(hCPAGE);
-		if (!rc)
-			SetReturnCode_puma(RSTR_GetReturnCode());
-	}
-
-	return rc;
-}
-//////////////////////////////////////////
 static Bool32 RecognizeStringsPass2() {
 	Bool32 rc = TRUE;
 	// рапознавание строк
@@ -792,8 +709,8 @@ void PumaImpl::pass2() {
 				}
 			}
 			gnLanguage = LANG_ENGLISH;
-			RecognizeSetup(gnLanguage);
-			RecognizeStringsPass1();
+			recognizeSetup(gnLanguage);
+			recognizePass1();
 		}
 	}
 
@@ -987,7 +904,45 @@ void PumaImpl::recognizeCorrection() {
 }
 
 void PumaImpl::recognizePass1() {
-	RecognizeStringsPass1();
+	// распознавание строк
+	for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
+		CSTR_line lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
+		if (!lin_out)
+			throw PumaException("CSTR_NewLine failed");
+
+		CSTR_line lin_in = CSTR_GetLineHandle(i, CSTR_LINVERS_MAIN);
+		if (!lin_in)
+			throw PumaException("CSTR_GetLineHandle failed");
+
+		// Recognition
+		if (!RSTR_Recog(lin_in, lin_out))
+			throw PumaException("RSTR_Recog failed");
+
+#ifdef _USE_REF_    // Nick 23.05.2001
+		{
+			int numFind = 0;
+			REF_findEtaz(lin_in, lin_out, &numFind);
+			// есть формулы ?
+			if( numFind > 0 ) {
+				// новое число строк
+				count = CSTR_GetMaxNumber();
+				CSTR_DeleteLine( lin_out );
+				// изменить номер текущей строки
+				RSTR_ChangeLineNumber(-1);
+				// перераспознать строку
+				i--;
+			}
+		}
+#endif
+	}
+
+#ifdef _USE_REF_    // Nick 23.05.2001
+	// попробуем найти куски формул
+	REF_unionEtaz();
+#endif
+
+	if (!RSTR_EndPage(hCPAGE))
+		throw PumaException("RSTR_EndPage failed");
 }
 
 void PumaImpl::recognizeSetup(int lang) {
