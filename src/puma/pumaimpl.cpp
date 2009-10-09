@@ -714,12 +714,9 @@ void PumaImpl::pass2() {
 		}
 	}
 
-	if (RSTR_NeedPass2()) {
-		if (LDPUMA_Skip(hDebugCancelStringsPass2))
-			RecognizeStringsPass2();
-		else
-			LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
-	} else
+	if (RSTR_NeedPass2())
+		recognizePass2();
+	else
 		LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
 }
 
@@ -943,6 +940,15 @@ void PumaImpl::recognizePass1() {
 
 	if (!RSTR_EndPage(hCPAGE))
 		throw PumaException("RSTR_EndPage failed");
+}
+
+void PumaImpl::recognizePass2() {
+	if (!LDPUMA_Skip(hDebugCancelStringsPass2)) {
+		LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
+		return;
+	}
+
+	RecognizeStringsPass2();
 }
 
 void PumaImpl::recognizeSetup(int lang) {

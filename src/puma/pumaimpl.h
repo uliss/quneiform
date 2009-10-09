@@ -55,6 +55,7 @@ private:
 	void postOpenInitialize();
 	void recognizeCorrection();
 	void recognizePass1();
+	void recognizePass2();
 	void recognizeSetup(int lang);
 	void saveLayoutToFile(const std::string& fname);
 	void savePass1(const std::string& fname);
