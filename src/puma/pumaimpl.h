@@ -47,6 +47,7 @@ private:
 	void modulesDone();
 	void pass1();
 	void pass2();
+	void spellCorrection();
 	void preOpenInitialize();
 	void postOpenInitialize();
 	void recognizePass1();

@@ -389,13 +389,6 @@ void PumaImpl::extractStrings() {
 		throw PumaException("PumaImpl::extractStrings() failed");
 }
 
-static Bool32 rblockProgressStep(uint32_t perc) {
-	return ProgressStep(2, NULL, perc);
-}
-static void rblockProgressFinish(void) {
-	ProgressStep(2, NULL, 100);
-}
-
 // Allex
 // добавлены для обратной связи из RStuff
 Bool32 DPumaSkipComponent(void) {
@@ -786,6 +779,22 @@ void PumaImpl::pass2() {
 		LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
 }
 
+void PumaImpl::spellCorrection() {
+	if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
+		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
+				"_3.cst");
+		CSTR_SaveCont(CstrFileName.c_str());
+	}
+
+	// Дораспознаем по словарю
+	CSTR_SortFragm(1);
+	RPSTR_CollectCapDrops(1);
+	if (LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
+		if (!RPSTR_CorrectSpell(1))
+			throw PumaException("RPSTR_CorrectSpell failed");
+	}
+}
+
 void PumaImpl::preOpenInitialize() {
 	PumaImpl::close();
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
@@ -887,22 +896,7 @@ void PumaImpl::recognize() {
 
 	pass1();
 	pass2();
-
-	if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-		std::string CstrFileName = CIF::replaceFileExt(szInputFileName,
-				"_3.cst");
-		CSTR_SaveCont(CstrFileName.c_str());
-	}
-
-	// Дораспознаем по словарю
-	CSTR_SortFragm(1);
-	RPSTR_CollectCapDrops(1);
-	if (rc && LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
-		if (!RPSTR_CorrectSpell(1)) {
-			SetReturnCode_puma(RPSTR_GetReturnCode());
-			rc = FALSE;
-		}
-	}
+	spellCorrection();
 
 	// Скорректируем результат распознавани
 	CSTR_SortFragm(1);
