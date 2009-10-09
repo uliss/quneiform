@@ -308,7 +308,8 @@ Bool32 DPumaSkipTurn(void) {
 }
 
 void PumaImpl::layout() {
-	Bool32 rc = TRUE;
+	clearAll();
+	binarizeImage();
 
 	RSCBProgressPoints CBforRS;
 	RSPreProcessImage DataforRS;
@@ -316,14 +317,14 @@ void PumaImpl::layout() {
 	RMCBProgressPoints CBforRM;
 	RMPreProcessImage DataforRM;
 
-	clearAll();
+
 
 	void* MemBuf = CIF::PumaImpl::mainBuffer();
 	size_t size_buf = CIF::PumaImpl::MainBufferSize;
 	void* MemWork = CIF::PumaImpl::workBuffer();
 	int size_work = CIF::PumaImpl::WorkBufferSize;
 
-	binarizeImage();
+
 
 #define SET_CB(a,b)   a.p##b = (void*)b
 	SET_CB(CBforRS, ProgressStart);
@@ -392,71 +393,59 @@ void PumaImpl::layout() {
 	// калбэки
 	if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
 		///нормализуем - обработка, поиск картинок, поиск линий
-		rc = RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
-				size_work);
-
-		if (!rc) {
-			SetReturnCode_puma(RSTUFF_GetReturnCode());
-			rc = FALSE;
-		}
+		if (!RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
+				size_work))
+			throw PumaException("RSTUFF_RSNormalise failed");
 	}
 
 	// Gleb 02.11.2000
 	// Далее - разметка. Вынесена в RMARKER.DLL
-	if (rc) {
-		DataforRM.gbAutoRotate = gbAutoRotate;
-		DataforRM.pgpRecogDIB = &gpRecogDIB;
-		DataforRM.gbOneColumn = gbOneColumn;
-		DataforRM.gKillVSLComponents = gKillVSLComponents;
-		DataforRM.pinfo = &info;
-		DataforRM.hCPAGE = hCPAGE;
-		DataforRM.hCCOM = hCCOM;
-		DataforRM.hCLINE = hCLINE;
-		DataforRM.phLinesCCOM = &hLinesCCOM;
-		DataforRM.gnPictures = gnPictures;
-		DataforRM.gnLanguage = gnLanguage;
-		DataforRM.gbDotMatrix = gbDotMatrix;
-		DataforRM.gbFax100 = gbFax100;
-		DataforRM.pglpRecogName = &glpRecogName;
-		DataforRM.pgrc_line = &grc_line;
-		DataforRM.gnTables = gnTables;
-		DataforRM.pgnNumberTables = &gnNumberTables;
-		DataforRM.pgneed_clean_line = &gneed_clean_line;
-		DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-		DataforRM.hDebugCancelComponent = hDebugCancelComponent;
-		DataforRM.hDebugCancelTurn = hDebugCancelTurn;
-		DataforRM.hDebugCancelSearchLines = hDebugCancelSearchLines;
-		DataforRM.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-		DataforRM.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-		DataforRM.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-		DataforRM.hDebugCancelSearchTables = hDebugCancelSearchTables;
-		DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
-		DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-		DataforRM.hDebugHandLayout = hDebugHandLayout;
-		DataforRM.hDebugPrintBlocksCPAGE = hDebugPrintBlocksCPAGE;
-		DataforRM.hDebugSVLines = hDebugSVLines;
-		DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
-		DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-		DataforRM.szLayoutFileName = szLayoutFileName;
-		DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+	DataforRM.gbAutoRotate = gbAutoRotate;
+	DataforRM.pgpRecogDIB = &gpRecogDIB;
+	DataforRM.gbOneColumn = gbOneColumn;
+	DataforRM.gKillVSLComponents = gKillVSLComponents;
+	DataforRM.pinfo = &info;
+	DataforRM.hCPAGE = hCPAGE;
+	DataforRM.hCCOM = hCCOM;
+	DataforRM.hCLINE = hCLINE;
+	DataforRM.phLinesCCOM = &hLinesCCOM;
+	DataforRM.gnPictures = gnPictures;
+	DataforRM.gnLanguage = gnLanguage;
+	DataforRM.gbDotMatrix = gbDotMatrix;
+	DataforRM.gbFax100 = gbFax100;
+	DataforRM.pglpRecogName = &glpRecogName;
+	DataforRM.pgrc_line = &grc_line;
+	DataforRM.gnTables = gnTables;
+	DataforRM.pgnNumberTables = &gnNumberTables;
+	DataforRM.pgneed_clean_line = &gneed_clean_line;
+	DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+	DataforRM.hDebugCancelComponent = hDebugCancelComponent;
+	DataforRM.hDebugCancelTurn = hDebugCancelTurn;
+	DataforRM.hDebugCancelSearchLines = hDebugCancelSearchLines;
+	DataforRM.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
+	DataforRM.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
+	DataforRM.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
+	DataforRM.hDebugCancelSearchTables = hDebugCancelSearchTables;
+	DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
+	DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
+	DataforRM.hDebugHandLayout = hDebugHandLayout;
+	DataforRM.hDebugPrintBlocksCPAGE = hDebugPrintBlocksCPAGE;
+	DataforRM.hDebugSVLines = hDebugSVLines;
+	DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
+	DataforRM.hDebugSVLinesData = hDebugSVLinesData;
+	DataforRM.szLayoutFileName = szLayoutFileName;
+	DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-		if (RMARKER_SetImportData(0, &CBforRM)) {
-			rc = RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork,
-					size_work);
+	if (RMARKER_SetImportData(0, &CBforRM)) {
+		if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork,
+				size_work))
+			throw PumaException("RMARKER_PageMarkup failed");
 
-			if (!rc) {
-				SetReturnCode_puma(RMARKER_GetReturnCode());
-			} else
-				hCPAGE = DataforRM.hCPAGE; //Paul 25-01-2001
-
-		}
+		hCPAGE = DataforRM.hCPAGE; //Paul 25-01-2001
 	}
 
-	//
 	// Запустим отладчик для редактирования Layout
-	//
-
-	if (rc && !LDPUMA_Skip(hDebugHandLayout)) {
+	if (!LDPUMA_Skip(hDebugHandLayout)) {
 		// Покажем довернутое изображение
 		Handle hRotateDIB = NULL;
 		Point32 p = { 0 };
@@ -487,11 +476,7 @@ void PumaImpl::layout() {
 		}
 	}
 
-	if (rc)
-		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
-
-	if (!rc)
-		throw PumaException("Puma layout failed");
+	SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::loadLayouFromFile(const std::string& fname) {
