@@ -76,12 +76,8 @@ static uint16_t gwLowRC = 0;
 static HINSTANCE ghInst = NULL;
 CTIControl * Control_cti = NULL;
 static int32_t InitCount = 0;
-/////////////////////////////////////////
-#undef APIENTRY
-#define APIENTRY
 
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+Bool DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		ghInst = hModule;
@@ -95,16 +91,12 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 	}
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
-{
+
+Bool32 CIMAGE_Init(uint16_t wHeightCode, Handle hStorage) {
 	gwHeightRC = wHeightCode;
 
-	if ( !Control_cti )
-	{
-		if ( !InitCFIOInterface(TRUE) )
-		{
+	if (!Control_cti) {
+		if (!InitCFIOInterface(TRUE)) {
 			SetReturnCode_cimage(IDS_CIMAGE_OTHER_DLL_NOT_INITIALIZED);
 			return FALSE;
 		}
@@ -112,8 +104,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
 		Control_cti = new CTIControl;
 	}
 
-	if ( Control_cti )
-	{
+	if (Control_cti) {
 		InitCount++;
 		return TRUE;
 	}
@@ -121,16 +112,12 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CIMAGE_FUNC(Bool32) CIMAGE_Done()
-{
+
+Bool32 CIMAGE_Done() {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control_cti )
-	{
-		if (--InitCount == 0)
-		{
+	if (Control_cti) {
+		if (--InitCount == 0) {
 			delete Control_cti;
 			Control_cti = NULL;
 			InitCFIOInterface(FALSE);
@@ -155,61 +142,52 @@ pchar CIMAGE_GetReturnString(uint32_t dwError) {
 	return NULL;
 }
 
-#define CASE_FUNCTION(a)	case CIMAGE_FN_##a:	*(FNCIMAGE##a *)pData = CIMAGE_##a; break
-//////////////////////////////////////////////////////////////////////////////////
-//
-CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData)
-{
+#define CASE_FUNCTION(a)	case CIMAGE_FN_##a:	*(FNCIMAGE##a *)pData = CIMAGE_##a; break;
+
+Bool32 CIMAGE_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 
 	gwLowRC = 0;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(WriteCallbackImage);
-		CASE_FUNCTION(GetCallbackImage);
-		CASE_FUNCTION(WriteDIB);
-		CASE_FUNCTION(ReadDIB);
-		CASE_FUNCTION(GetData);
-		CASE_FUNCTION(GetDIBData);
-		CASE_FUNCTION(ReplaceData);
-		CASE_FUNCTION(GetImageInfo);
-		CASE_FUNCTION(DeleteImage);
-		CASE_FUNCTION(FreeCopedDIB);
-		CASE_FUNCTION(FreeBuffers);
-		CASE_FUNCTION(Reset);
-		CASE_FUNCTION(AddReadCloseRects);
-		CASE_FUNCTION(RemoveReadCloseRects);
-		CASE_FUNCTION(AddWriteCloseRects);
-		CASE_FUNCTION(RemoveWriteCloseRects);
+	switch (dwType) {
+	CASE_FUNCTION(WriteCallbackImage)
+	CASE_FUNCTION(GetCallbackImage)
+	CASE_FUNCTION(WriteDIB)
+	CASE_FUNCTION(ReadDIB)
+	CASE_FUNCTION(GetData)
+	CASE_FUNCTION(GetDIBData)
+	CASE_FUNCTION(ReplaceData)
+	CASE_FUNCTION(GetImageInfo)
+	CASE_FUNCTION(DeleteImage)
+	CASE_FUNCTION(FreeCopedDIB)
+	CASE_FUNCTION(FreeBuffers)
+	CASE_FUNCTION(Reset)
+	CASE_FUNCTION(AddReadCloseRects)
+	CASE_FUNCTION(RemoveReadCloseRects)
+	CASE_FUNCTION(AddWriteCloseRects)
+	CASE_FUNCTION(RemoveWriteCloseRects)
 
-		default:
-		*(Handle *)pData = NULL;
+	default:
+		*(Handle *) pData = NULL;
 		gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
-{
+
+Bool32 CIMAGE_SetImportData(uint32_t dwType, void * pData) {
 	Bool rc = FALSE;
 	gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
 
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void SetReturnCode_cimage(uint16_t rc) {
 	if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
 		gwLowRC = rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint16_t GetReturnCode_cimage() {
 	return gwLowRC;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file
