@@ -154,7 +154,7 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
 				Added = TRUE;
 				break;
 			default:
-				FALSE;
+				return FALSE;
 			}
 		}
 

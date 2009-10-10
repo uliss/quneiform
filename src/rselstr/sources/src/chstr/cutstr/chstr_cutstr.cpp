@@ -640,8 +640,8 @@ Bool GetMasP(Handle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 		prewide *= 8;
 	}
 	PAGEINFO info = { 0 };
-	CIMAGEInfoDataInGet DataInto;// = {0};
-	CIMAGEInfoDataOutGet DataOut;// = {0};
+	CIMAGE_InfoDataInGet DataInto;// = {0};
+	CIMAGE_InfoDataOutGet DataOut;// = {0};
 	uchar Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;

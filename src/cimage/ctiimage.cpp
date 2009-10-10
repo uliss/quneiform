@@ -77,7 +77,7 @@ Bool32 CIMAGE_WriteCallbackImage(puchar lpName, CIMAGEIMAGECALLBACK Cbk) {
 	return FALSE;
 }
 
-Bool32 CIMAGE_GetCallbackImage(puchar lpName, PCIMAGEIMAGECALLBACK pCbk) {
+Bool32 CIMAGE_GetCallbackImage(puchar lpName, CIMAGEIMAGECALLBACK * pCbk) {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -113,8 +113,8 @@ Bool32 CIMAGE_ReadDIB(puchar lpName, Handle* lplpDIB, uint32_t wFlag) {
 	return A;
 }
 
-Bool32 CIMAGE_GetData(puchar lpName, PCIMAGE_InfoDataInGet lpIn,
-		PCIMAGE_InfoDataOutGet lpOut) {
+Bool32 CIMAGE_GetData(puchar lpName, CIMAGE_InfoDataInGet * lpIn,
+		CIMAGE_InfoDataOutGet * lpOut) {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -126,7 +126,7 @@ Bool32 CIMAGE_GetData(puchar lpName, PCIMAGE_InfoDataInGet lpIn,
 	return A;
 }
 
-Bool32 CIMAGE_GetDIBData(puchar lpName, PCIMAGE_InfoDataInGet lpIn,
+Bool32 CIMAGE_GetDIBData(puchar lpName, CIMAGE_InfoDataInGet * lpIn,
 		pchar *lpDIB) {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -139,7 +139,7 @@ Bool32 CIMAGE_GetDIBData(puchar lpName, PCIMAGE_InfoDataInGet lpIn,
 	return A;
 }
 
-Bool32 CIMAGE_ReplaceData(puchar lpName, PCIMAGE_InfoDataInReplace lpIn) {
+Bool32 CIMAGE_ReplaceData(puchar lpName, CIMAGE_InfoDataInReplace * lpIn) {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -151,7 +151,7 @@ Bool32 CIMAGE_ReplaceData(puchar lpName, PCIMAGE_InfoDataInReplace lpIn) {
 	return A;
 }
 
-Bool32 CIMAGE_GetImageInfo(puchar lpName, PCIMAGEBITMAPINFOHEADER lpBIH) {
+Bool32 CIMAGE_GetImageInfo(puchar lpName, CIMAGEBITMAPINFOHEADER * lpBIH) {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -211,7 +211,7 @@ Bool32 CIMAGE_Reset(void) {
 }
 
 Bool32 CIMAGE_AddReadCloseRects(puchar lpName, uint32_t wCount,
-		PCIMAGE_Rect pFirst) {
+		CIMAGE_Rect * pFirst) {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
 	if (Control_cti)
@@ -222,7 +222,7 @@ Bool32 CIMAGE_AddReadCloseRects(puchar lpName, uint32_t wCount,
 }
 
 Bool32 CIMAGE_RemoveReadCloseRects(puchar lpName, uint32_t wCount,
-		PCIMAGE_Rect pFirst) {
+		CIMAGE_Rect * pFirst) {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
 	if (Control_cti)
@@ -233,7 +233,7 @@ Bool32 CIMAGE_RemoveReadCloseRects(puchar lpName, uint32_t wCount,
 }
 
 Bool32 CIMAGE_AddWriteCloseRects(puchar lpName, uint32_t wCount,
-		PCIMAGE_Rect pFirst) {
+		CIMAGE_Rect * pFirst) {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
 	if (Control_cti)
@@ -244,7 +244,7 @@ Bool32 CIMAGE_AddWriteCloseRects(puchar lpName, uint32_t wCount,
 }
 
 Bool32 CIMAGE_RemoveWriteCloseRects(puchar lpName, uint32_t wCount,
-		PCIMAGE_Rect pFirst) {
+		CIMAGE_Rect * pFirst) {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
 	if (Control_cti)
@@ -266,7 +266,7 @@ Bool32 CIMAGE_EnableMask(puchar lpName, puchar lpType, Bool32 bEnabler) {
 }
 
 // For GetCBImage
-Bool16 CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo lpImageInfo) {
+Bool16 CIMAGE_Callback_ImageOpen(CIMAGE_ImageInfo * lpImageInfo) {
 	Bool16 A = FALSE;
 
 	if (!Control_cti) {
