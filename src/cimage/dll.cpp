@@ -65,32 +65,15 @@
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-
 #include "cticontrol.h"
-
 #include "compat_defs.h"
 
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
+//GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 static HINSTANCE ghInst = NULL;
 CTIControl * Control_cti = NULL;
 static int32_t InitCount = 0;
-
-Bool DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
 
 Bool32 CIMAGE_Init(uint16_t wHeightCode, Handle hStorage) {
 	gwHeightRC = wHeightCode;

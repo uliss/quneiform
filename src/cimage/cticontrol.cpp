@@ -143,7 +143,7 @@ CTIControl::~CTIControl() {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::WriteCBImage(char* lpName, CIMAGEIMAGECALLBACK Cbk) {
+Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
 	Handle hNewDIB;
 	Bool32 Ret;
 	uint32_t Readed;
@@ -298,7 +298,7 @@ Bool32 CTIControl::WriteCBImage(char* lpName, CIMAGEIMAGECALLBACK Cbk) {
 	return Ret;
 }
 
-Bool32 CTIControl::GetCBImage(char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
+Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
 	Handle hImage = NULL;
 
 	if (!pCbk) {
@@ -335,7 +335,7 @@ Bool32 CTIControl::GetCBImage(char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
 	return TRUE;
 }
 
-Bool32 CTIControl::SetDIB(char* lpName, Handle hDIB, uint32_t wFlag) {
+Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
 	Handle hImage = NULL;
 
 	if (wFlag == 0) { // создаем новую копию
@@ -350,7 +350,7 @@ Bool32 CTIControl::SetDIB(char* lpName, Handle hDIB, uint32_t wFlag) {
 	return mlImages.AddImage(lpName, hImage, wFlag);
 }
 
-Bool32 CTIControl::GetDIB(char* lpName, Handle* phDIB, uint32_t wFlag) {
+Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
 	Handle hImage = NULL; // Handle
 
 	// открываем картинку
@@ -379,7 +379,7 @@ Bool32 CTIControl::GetDIB(char* lpName, Handle* phDIB, uint32_t wFlag) {
 	return FALSE;
 }
 
-Bool32 CTIControl::GetImage(char* lpName, CIMAGE_InfoDataInGet * lpIn,
+Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 		CIMAGE_InfoDataOutGet * lplpOut) {
 	Bool32 bRet = FALSE;
 	PCTDIB pDscDIB;
@@ -460,7 +460,8 @@ Bool32 CTIControl::GetImage(char* lpName, CIMAGE_InfoDataInGet * lpIn,
 	return bRet;
 }
 
-Bool32 CTIControl::ReplaceImage(char* lpName, CIMAGE_InfoDataInReplace *lpIn) {
+Bool32 CTIControl::ReplaceImage(const char* lpName,
+		CIMAGE_InfoDataInReplace *lpIn) {
 	Handle hImage = NULL;
 	void * pImage;
 	PCTDIB pSrcDIB = NULL;
@@ -514,7 +515,8 @@ Bool32 CTIControl::ReplaceImage(char* lpName, CIMAGE_InfoDataInReplace *lpIn) {
 	return ret;
 }
 
-Bool32 CTIControl::GetImageInfo(char* lpName, CIMAGEBITMAPINFOHEADER * lpBIH) {
+Bool32 CTIControl::GetImageInfo(const char* lpName,
+		CIMAGEBITMAPINFOHEADER * lpBIH) {
 	Handle hImage = NULL;
 	void * pDIB;
 
@@ -535,7 +537,7 @@ Bool32 CTIControl::GetImageInfo(char* lpName, CIMAGEBITMAPINFOHEADER * lpBIH) {
 	return TRUE;
 }
 
-Bool32 CTIControl::RemoveImage(char* lpName) {
+Bool32 CTIControl::RemoveImage(const char* lpName) {
 	return mlImages.DeleteImage(lpName);
 }
 
@@ -963,9 +965,8 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo) {
 
 	return TRUE;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-uint32_t CTIControl::CBImageRead(char* lpBuff, uint32_t wMaxSize) {
+
+uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize) {
 	CIMAGE_InfoDataInGet InFrame;
 	uint32_t LinesAtOnce;
 	uint32_t nOutLine;
@@ -1062,7 +1063,7 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::DumpToFile(char* FileName, puchar pData, uint32_t Size) {
+Bool32 CTIControl::DumpToFile(const char* FileName, puchar pData, uint32_t Size) {
 	FILE * fDump;
 
 	fDump = fopen(FileName, "wb");
@@ -1075,8 +1076,8 @@ Bool32 CTIControl::DumpToFile(char* FileName, puchar pData, uint32_t Size) {
 	return TRUE;
 }
 
-Bool32 CTIControl::GetDIBFromImage(char* lpName, CIMAGE_InfoDataInGet * lpIn,
-		pchar *pDIB) {
+Bool32 CTIControl::GetDIBFromImage(const char* lpName,
+		CIMAGE_InfoDataInGet * lpIn, pchar *pDIB) {
 	Handle hImage = NULL;
 	void * pImage = NULL;
 	Bool32 bRet = FALSE;
@@ -1266,27 +1267,27 @@ Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB) {
 	return TRUE;
 }
 
-Bool32 CTIControl::AddWriteRectangles(char* lpName, uint32_t wNumber,
+Bool32 CTIControl::AddWriteRectangles(const char* lpName, uint32_t wNumber,
 		CIMAGE_Rect * pFirst) {
 	return AddRectsToMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::RemoveWriteRectangles(char* lpName, uint32_t wNumber,
+Bool32 CTIControl::RemoveWriteRectangles(const char* lpName, uint32_t wNumber,
 		CIMAGE_Rect * pFirst) {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::AddReadRectangles(char* lpName, uint32_t wNumber,
+Bool32 CTIControl::AddReadRectangles(const char* lpName, uint32_t wNumber,
 		CIMAGE_Rect * pFirst) {
 	return AddRectsToMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::RemoveReadRectangles(char* lpName, uint32_t wNumber,
+Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber,
 		CIMAGE_Rect * pFirst) {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::OpenDIBFromList(char* lpName, Handle* phImage) {
+Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
 	mlImages.GetImage(lpName, phImage);
 	//ALLEX Mask
 	// ошибка не тут
@@ -1318,7 +1319,8 @@ Bool32 CTIControl::OpenMaskFromList(const char *lpName, PPCTIMask ppMask,
 	return bRet;
 }
 
-Bool32 CTIControl::SetMaskToList(char* pName, PCTIMask pMask, char* pcType) {
+Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask,
+		const char* pcType) {
 	Bool32 bRet;
 
 	if (pcType[0] == 'r')
@@ -1550,16 +1552,12 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
 		CIMAGE_MEMSET( pPixB, (uchar)pcDIB->GetWhitePixel(), wSegmLenght );
 		bRet = TRUE;
 		break;
-		//wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart() + 1) * wBitCount ) / 8;
-		//wWP24 = (uchar)pcDIB->GetWhitePixel();
-		//memset( pPix, wWP24, wSegmLenght );
-		//bRet = TRUE;
-		//break;
 	}
 
 	return bRet;
 }
 
-Bool32 CTIControl::EnableMask(char* pcName, char* pcType, Bool32 bEnable) {
+Bool32 CTIControl::EnableMask(const char* pcName, const char* pcType,
+		Bool32 bEnable) {
 	return mlImages.EnableMask(pcName, pcType, bEnable);
 }

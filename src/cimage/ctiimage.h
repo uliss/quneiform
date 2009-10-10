@@ -59,12 +59,18 @@
 
 #include "globus.h"
 #include "imageinfo.h"
+#include "singleton.h"
 
 #ifdef __CIMAGE__
 #define CIMAGE_FUNC  FUN_EXPO__
 #else
 #define CIMAGE_FUNC  FUN_IMPO__
 #endif
+
+class CTIControl;
+namespace CIF {
+typedef Singleton<CTIControl> CImage;
+}
 
 enum {
 	CIMAGE_MAXNAME = 260
@@ -97,23 +103,23 @@ typedef enum {
 	CIMAGE_FN_EnableMask
 } CIMAGE_EXPORT_ENTRIES;
 #define DEC_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_FUNC a CIMAGE_##b c;
-DEC_FUN(Bool32, WriteCallbackImage, (puchar , CIMAGEIMAGECALLBACK))
-DEC_FUN(Bool32, GetCallbackImage, (puchar , CIMAGEIMAGECALLBACK*))
-DEC_FUN(Bool32, WriteDIB, (puchar , Handle, uint32_t))
-DEC_FUN(Bool32, ReadDIB, (puchar , Handle*, uint32_t))
-DEC_FUN(Bool32, GetData, (puchar , CIMAGE_InfoDataInGet*, CIMAGE_InfoDataOutGet*))
-DEC_FUN(Bool32, GetDIBData, (puchar , CIMAGE_InfoDataInGet*, pchar*))
-DEC_FUN(Bool32, ReplaceData, (puchar , CIMAGE_InfoDataInReplace*))
-DEC_FUN(Bool32, GetImageInfo, (puchar , CIMAGEBITMAPINFOHEADER*))
-DEC_FUN(Bool32, DeleteImage, (puchar ))
+DEC_FUN(Bool32, WriteCallbackImage, (const char *, CIMAGEIMAGECALLBACK))
+DEC_FUN(Bool32, GetCallbackImage, (const char * , CIMAGEIMAGECALLBACK*))
+DEC_FUN(Bool32, WriteDIB, (const char * , Handle, uint32_t))
+DEC_FUN(Bool32, ReadDIB, (const char * , Handle*, uint32_t))
+DEC_FUN(Bool32, GetData, (const char * , CIMAGE_InfoDataInGet*, CIMAGE_InfoDataOutGet*))
+DEC_FUN(Bool32, GetDIBData, (const char * , CIMAGE_InfoDataInGet*, pchar*))
+DEC_FUN(Bool32, ReplaceData, (const char * , CIMAGE_InfoDataInReplace*))
+DEC_FUN(Bool32, GetImageInfo, (const char * , CIMAGEBITMAPINFOHEADER*))
+DEC_FUN(Bool32, DeleteImage, (const char * ))
 DEC_FUN(Bool32, FreeCopedDIB, (Handle))
 DEC_FUN(Bool32, FreeBuffers, (void))
 DEC_FUN(Bool32, Reset, (void))
-DEC_FUN(Bool32, AddReadCloseRects, (puchar, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, RemoveReadCloseRects, (puchar, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, AddWriteCloseRects, (puchar, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, RemoveWriteCloseRects,(puchar, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, EnableMask, (puchar, puchar, Bool32))
+DEC_FUN(Bool32, AddReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
+DEC_FUN(Bool32, RemoveReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
+DEC_FUN(Bool32, AddWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
+DEC_FUN(Bool32, RemoveWriteCloseRects,(const char *, uint32_t, CIMAGE_Rect*))
+DEC_FUN(Bool32, EnableMask, (const char*, const char*, Bool32))
 #undef DEC_FUN
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; a CIMAGE_##b c;
 DEC_CB_FUN(Bool16, Callback_ImageOpen, (CIMAGE_ImageInfo* lpImageInfo))

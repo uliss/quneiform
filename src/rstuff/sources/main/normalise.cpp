@@ -342,11 +342,9 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 		rc = FALSE;
 
 	if (rc) {
-		if (LDPUMA_Skip(Image->hDebugCancelComponent)/*DPumaSkipComponent()*/) {
-			//			uchar ori;
+		if (LDPUMA_Skip(Image->hDebugCancelComponent)) {
 			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName,
-					Image);
+			rc = ExtractComponents(gbAutoRotate, NULL, glpRecogName, Image);
 			RestorePRGTIME(prev);
 			//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
 			checkResolution(*(Image->phCCOM), hCPAGE);
@@ -384,11 +382,10 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 
 	return rc;
 }
-//////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+
 // Выделение компонент
-Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name,
-		PRSPreProcessImage Image) {
+Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
+		const char * name, PRSPreProcessImage Image) {
 	Bool32 rc = TRUE;
 	ExcControl exc = { 0 };
 
@@ -407,23 +404,8 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name,
 
 	// будет распознавания эвентами
 	//Andrey: опознавалка вынесена в отдельный модуль RRecCom
-	exc.Control = Ex_ExtraComp | /*Ex_EvnRecog|*/Ex_Picture;
-	//exc.Control |= Ex_NetRecog;
-
-	//Andrey: orientation is obtained from new library RNORM
-	//exc.Control |= ( bIsRotate ? Ex_Orient : 0 );
-
-	//Andrey: without flag Ex_PictureLarge big comps aren't extracted which may cause loss of big negatives
-	//    if( Image->gnPictures )
+	exc.Control = Ex_ExtraComp | Ex_Picture;
 	exc.Control |= Ex_PictureLarge;
-	/*//Andrey: опознавалка вынесена в отдельный модуль RRecCom
-	 if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)Image->gnLanguage) )
-	 { // инициализировать распознавание по эвентам и задать алфавит
-	 SetReturnCode_rstuff(REXC_GetReturnCode());
-	 rc = FALSE;
-	 }
-	 else
-	 */
 	{
 		uchar w8 = (uchar) Image->gbDotMatrix;
 		REXC_SetImportData(REXC_Word8_Matrix, &w8);
@@ -432,10 +414,6 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name,
 		REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 	}
 
-	//exc.Control ^= Ex_EvnRecog;
-	/*
-	 if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // поиск компонент в DIB-e
-	 */
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
 		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
@@ -589,8 +567,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	//
 	// Получим изображение с удаленными линиями
 	//
-	if (rc && !CIMAGE_ReadDIB((puchar) PUMA_IMAGE_DELLINE, (Handle*) &hDIB,
-			TRUE)) {
+	if (rc && !CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE)) {
 		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
@@ -611,8 +588,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 				*Image->phCCOM = 0;
 			}
 
-			if (!ExtractComponents(FALSE, hLinesCCOM,
-					(puchar) PUMA_IMAGE_DELLINE, Image)) {
+			if (!ExtractComponents(FALSE, hLinesCCOM, PUMA_IMAGE_DELLINE, Image)) {
 				rc = FALSE;
 			} else {
 				PAGEINFO inf = { 0 };

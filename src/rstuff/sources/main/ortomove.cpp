@@ -90,7 +90,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 
 	Handle hCPage = Image->hCPAGE;
 	PAGEINFO info = { 0 };
-	uchar OldImage[CPAGE_MAXNAME];
+	char OldImage[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 
 	move = info.SkewLocVerLin2048;
@@ -163,9 +163,9 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 	CleanImage(pmasp, oldbytewide, num_str, (int) (olddib->GetLineWidth()));
 	CopyMove(newpmasp, pmasp, newbytewide, oldbytewide, num_str, move);
 
-	if (CIMAGE_WriteDIB((uchar*) ImageName, lpDIB, 0)) {
+	if (CIMAGE_WriteDIB(ImageName, lpDIB, 0)) {
 		BITMAPINFOHEADER * lp = NULL;
-		if (CIMAGE_ReadDIB((puchar) ImageName, (Handle*) &lp, TRUE)) {
+		if (CIMAGE_ReadDIB(ImageName, (Handle*) &lp, TRUE)) {
 			Handle hwnd = LDPUMA_CreateWindow(NAME_IMAGE_ORTOMOVE, lp);
 			info.Images |= IMAGE_ORTOMOVE;
 			strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
@@ -184,7 +184,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 		delete newdib;
 
 		//снова выделим компоненты
-		if (!ExtractComponents(FALSE, NULL, (uchar*) PUMA_IMAGE_ORTOMOVE, Image))
+		if (!ExtractComponents(FALSE, NULL, PUMA_IMAGE_ORTOMOVE, Image))
 			return FALSE;
 		//выделим линии
 		CLINE_Reset();

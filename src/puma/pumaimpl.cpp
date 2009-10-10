@@ -79,7 +79,7 @@ void PumaImpl::binarizeImage() {
 
 	//Allex
 	//CIMAGEBITMAPINFOHEADER info;
-	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info))
+	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
 	LDPUMA_Console("The image depth is %d at this point.\n", info.biBitCount);
@@ -90,8 +90,7 @@ void PumaImpl::binarizeImage() {
 				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))
 			throw PumaException("RIMAGE_Binarise failed");
 
-		if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_BINARIZE,
-				(Handle*) &gpRecogDIB, TRUE))
+		if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) &gpRecogDIB, TRUE))
 			throw PumaException("CIMAGE_ReadDIB failed");
 
 		PAGEINFO info;
@@ -128,13 +127,13 @@ void PumaImpl::clearAll() {
 
 	CCOM_DeleteAll();
 	hCCOM = NULL;
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_BINARIZE);
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_DELLINE);
+	CIMAGE_DeleteImage(PUMA_IMAGE_BINARIZE);
+	CIMAGE_DeleteImage(PUMA_IMAGE_DELLINE);
 	//  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
 	//  поскольку оно отображается в интерфейсе. Его нужно удалять
 	//  либо при получении нового довернутого изображения, либо при
 	//  закрытии файла
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_TURN);
+	CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
 void PumaImpl::close() {
@@ -183,7 +182,7 @@ void PumaImpl::extractComponents() {
 	REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 
 	CIMAGEIMAGECALLBACK clbk;
-	if (!CIMAGE_GetCallbackImage((uchar*) info.szImageName, &clbk))
+	if (!CIMAGE_GetCallbackImage(info.szImageName, &clbk))
 		throw PumaException("CIMAGE_GetCallbackImage failed");
 
 	if (!REXCExtracomp3CB(
@@ -521,7 +520,7 @@ void PumaImpl::open(char * dib) {
 	preOpenInitialize();
 	gpInputDIB = (unsigned char*) dib;
 	// write image
-	if (!CIMAGE_WriteDIB((puchar) PUMA_IMAGE_USER, dib, 1))
+	if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, dib, 1))
 		throw PumaException("PumaImpl::open can't write DIB");
 
 	postOpenInitialize();
@@ -616,7 +615,7 @@ void PumaImpl::postOpenInitialize() {
 	szInputFileName = "none.bin";
 
 	CIMAGEBITMAPINFOHEADER info;
-	if (!CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info))
+	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
 	setTemplate(Rect(Point(0, 0), info.biWidth, info.biHeight));
@@ -891,7 +890,7 @@ void PumaImpl::rotate(void * dib, Point32 * p) {
 
 	CIMAGEBITMAPINFOHEADER info;
 	if (PInfo.BitPerPixel > 1) {
-		if (!CIMAGE_GetImageInfo((uchar*) PUMA_IMAGE_BINARIZE, &info))
+		if (!CIMAGE_GetImageInfo(PUMA_IMAGE_BINARIZE, &info))
 			throw PumaException("CIMAGE_GetImageInfo failed");
 
 		if (PInfo.Incline2048 > 0) {
@@ -909,17 +908,17 @@ void PumaImpl::rotate(void * dib, Point32 * p) {
 	// Создадим довернутое изображение
 	GetPageInfo(hCPAGE, &PInfo);
 
-	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
+	CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
 
-	CIMAGE_EnableMask((puchar) PUMA_IMAGE_USER, (puchar) "r", false);
+	CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", false);
 	if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
 			PInfo.Incline2048, 2048, 0))
 		throw PumaException("RIMAGE_Rotate failed");
 
-	if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_ROTATE, (void**) dib, true))
+	if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
 		throw PumaException("CIMAGE_ReadDIB failed");
 
-	CIMAGE_EnableMask((puchar) PUMA_IMAGE_USER, (puchar) "r", true);
+	CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", true);
 	PInfo.Images |= IMAGE_ROTATE;
 	SetPageInfo(hCPAGE, PInfo);
 }

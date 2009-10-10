@@ -495,12 +495,12 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 	}
 
 	// Копируем в pImage из PInfo указатель на изображение, связанное со страницей
-	pImage = (char*) &PInfo.szImageName;
+	pImage = PInfo.szImageName;
 
 	min_h_len = (uint16_t) (PInfo.DPIX * 40 / 300);
 	min_v_len = (uint16_t) (PInfo.DPIY * 40 / 300);
 
-	if (!CIMAGE_GetCallbackImage((puchar) pImage, &cbk)) {
+	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
 		LDPUMA_Console(" Error in GetCallbackImage ");
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline(rc32);
@@ -717,7 +717,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 	min_h_len = (uint16_t) (PInfo.DPIX * 40 / 300);
 	min_v_len = (uint16_t) (PInfo.DPIY * 40 / 300);
 
-	if (!CIMAGE_GetCallbackImage((puchar) pImage, &cbk)) {
+	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
 		LDPUMA_Console(" Error in GetCallbackImage ");
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline(rc32);
@@ -847,13 +847,13 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 	cbk1.CIMAGE_ImageRead = SampleImageRead;
 	cbk1.CIMAGE_ImageClose = SampleImageClose;
 
-	if (!CIMAGE_GetCallbackImage((puchar) pImage, &cbk)) {
+	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline(rc32);
 		return FALSE;
 	}
 
-	if (!CIMAGE_WriteCallbackImage((puchar) lpOutDIB, cbk1)) {
+	if (!CIMAGE_WriteCallbackImage(lpOutDIB, cbk1)) {
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline(rc32);
 		return FALSE;
@@ -863,7 +863,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 
 	if (!LDPUMA_Skip(RLINE_ShowWithoutLines)) {
 		BITMAPINFOHEADER * lp = NULL;
-		CIMAGE_ReadDIB((puchar) PUMA_IMAGE_DELLINE, (Handle*) &lp, TRUE);
+		CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &lp, TRUE);
 		Handle hwnd = LDPUMA_CreateWindow("После снятия линий", lp);
 		LDPUMA_Console("Нажмите любую клавишу...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd);

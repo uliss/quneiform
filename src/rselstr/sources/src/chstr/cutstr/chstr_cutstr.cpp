@@ -118,7 +118,7 @@ Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 	int min_h, min_w, max_h, max_w;
 	int j;
 	PAGEINFO info = { 0 };
-	uchar Name[CPAGE_MAXNAME];
+	char Name[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 
 	if (ImageName) {
@@ -642,7 +642,7 @@ Bool GetMasP(Handle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 	PAGEINFO info = { 0 };
 	CIMAGE_InfoDataInGet DataInto;// = {0};
 	CIMAGE_InfoDataOutGet DataOut;// = {0};
-	uchar Name[CPAGE_MAXNAME];
+	char Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;
 

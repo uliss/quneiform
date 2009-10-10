@@ -111,7 +111,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	int len_hor_mas = 0;
 	int len_ver_mas = 0;
 	int add_len_mas = 50;
-	uint32_t size_lineinfo = sizeof(LineInfo);
 	if (!LDPUMA_Skip(NotKillPointed))
 		fl_not_kill_pointed = TRUE;
 	else
@@ -120,16 +119,10 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 
 	CIMAGEIMAGECALLBACK cbk;
 	CIMAGEIMAGECALLBACK cbk1;
-	//	LinesTotalInfo          lti;
-	//	LineInfo			  linfo;     // собственно, что и надо
 	PAGEINFO info = { 0 }; // Описание страницы
-	//	Handle                pBlock;
-	//	uint32_t				  size32;
 	int i;
-	//	uint32_t    HorType;
-	//    uint32_t    VerType;
 	Bool fl_cont;
-	uchar ImageName[CPAGE_MAXNAME];
+	char ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
 	GetPageInfo(hCPage, &info);
 
@@ -145,31 +138,27 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	cbk1.CIMAGE_ImageRead = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
 
-	if (!CIMAGE_WriteCallbackImage((uchar*) ImageDelLines, cbk1)) {
+	if (!CIMAGE_WriteCallbackImage(ImageDelLines, cbk1)) {
 		return FALSE;
 	}
 
 	Handle lpDIB;
-	if (!CIMAGE_ReadDIB((uchar*) ImageDelLines, &lpDIB, 1)) {
-		CIMAGE_DeleteImage((uchar*) ImageDelLines);
+	if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB, 1)) {
+		CIMAGE_DeleteImage(ImageDelLines);
 		return FALSE;
 	}
 
 	CTDIB* ctdib = new CTDIB;
 	if (!ctdib) {
-		CIMAGE_DeleteImage((uchar*) ImageDelLines);
+		CIMAGE_DeleteImage(ImageDelLines);
 		return FALSE;
 	}
 
 	ctdib->SetDIBbyPtr(lpDIB);
 	const int bytewide = ctdib->GetLineWidthInBytes();
 	int num_str = ctdib->GetLinesNumber();
-	//   int bytesize=ctdib->GetImageSizeInBytes ();
 	uchar* pmasp = (uchar*) (ctdib->GetPtrToBitFild());
-	//	uchar* pos=(uchar*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
-	//	uchar* pos2=(uchar*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
 
-	uint32_t size_line_com = sizeof(LINE_COM);
 	CLINE_handle hline;
 
 	if (LDPUMA_Skip(ObvKillLines)) {
@@ -179,8 +168,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		}
 	} else//тривиальное снятие линий
 	{
-		//	if(!LDPUMA_Skip(hUseCLine))
-		//	{
 		hline = CLINE_GetFirstLine(*pCLINE);
 		nHorLines = 0;
 		len_hor_mas = 50;
@@ -190,14 +177,14 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		if (!InitLineMas(&pHorLines, len_hor_mas)) {
 			ctdib->ResetDIB();
 			delete ctdib;
-			CIMAGE_DeleteImage((uchar*) ImageDelLines);
+			CIMAGE_DeleteImage(ImageDelLines);
 			return FALSE;
 		}
 		if (!InitLineMas(&pVerLines, len_ver_mas)) {
 			DelLineMas(pHorLines);
 			ctdib->ResetDIB();
 			delete ctdib;
-			CIMAGE_DeleteImage((uchar*) ImageDelLines);
+			CIMAGE_DeleteImage(ImageDelLines);
 			return FALSE;
 		}
 
@@ -250,151 +237,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 					hline = CLINE_GetNextLine(hline);
 			}
 		}
-		/*	}
-		 else
-		 {
-		 pBlock=NULL;
-		 pBlock = CPAGE_GetBlockFirst (hCPage, RLINE_BLOCK_TYPE );
-		 if( pBlock==NULL)
-		 {
-		 info.Images|=IMAGE_DELLINE;
-		 SetPageInfo(hCPage,info);
-		 ctdib->ResetDIB ();
-		 delete ctdib;
-		 return TRUE;
-		 }
-		 size32 = CPAGE_GetBlockData(hCPage, pBlock, RLINE_BLOCK_TYPE, &lti, sizeof(LinesTotalInfo));
-		 if (size32 != sizeof(LinesTotalInfo) )
-		 {
-		 ctdib->ResetDIB ();
-		 delete ctdib;
-		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
-		 return FALSE;
-		 }
-
-		 HorType = (uint32_t)lti.Hor.Lns;
-		 VerType = (uint32_t)lti.Ver.Lns;
-
-
-		 /////////////////////////////////////////////////////////////////////////////////////////////
-		 nHorLines=0;
-		 len_hor_mas=50;
-
-		 if(!InitLineMas(&pHorLines,len_hor_mas))
-		 {
-		 ctdib->ResetDIB ();
-		 delete ctdib;
-		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
-		 return FALSE;
-		 }
-
-		 pBlock=NULL;
-		 pBlock = CPAGE_GetBlockFirst(hCPage,HorType);
-
-		 while (pBlock)
-		 {
-		 fl_cont=FALSE;
-		 size32 = CPAGE_GetBlockData(hCPage,pBlock,HorType,&linfo,size_lineinfo);
-		 if(size32!=size_lineinfo)
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-		 }
-		 if(fl_cont)
-		 continue;
-		 if(!(linfo.Flags&LI_IsTrue)||(fl_not_kill_pointed&&(linfo.Flags&LI_Pointed)))
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-		 }
-		 if(fl_cont)
-		 continue;
-
-		 if(nHorLines>=len_hor_mas)
-		 {
-		 if(!AddLenLineMas(&pHorLines,len_hor_mas,add_len_mas))
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-		 }
-		 }
-		 if(fl_cont)
-		 continue;
-
-		 pHorLines[nHorLines].begx=linfo.A.x;
-		 pHorLines[nHorLines].begy=linfo.A.y;
-		 pHorLines[nHorLines].endx=linfo.B.x;
-		 pHorLines[nHorLines].endy=linfo.B.y;
-		 pHorLines[nHorLines].wide10=(linfo.Thickness)*10;
-		 nHorLines++;
-
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-
-		 }
-
-		 /////////////////////////////////////////////////////////////////////////////////////////////
-
-		 nVerLines=0;
-		 len_ver_mas=50;
-
-		 pBlock=NULL;
-		 pBlock = CPAGE_GetBlockFirst(hCPage,VerType);
-
-		 if(!InitLineMas(&pVerLines,len_ver_mas))
-		 {
-		 ctdib->ResetDIB ();
-		 delete ctdib;
-		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
-		 DelLineMas(pHorLines);
-		 return FALSE;
-		 }
-
-		 while (pBlock)
-		 {
-		 fl_cont=FALSE;
-		 size32 = CPAGE_GetBlockData(hCPage,pBlock,VerType,&linfo,size_lineinfo);
-		 if(size32!=size_lineinfo)
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-		 }
-		 if(fl_cont)
-		 continue;
-
-		 if(!(linfo.Flags&LI_IsTrue)||(fl_not_kill_pointed&&(linfo.Flags&LI_Pointed)))
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-		 }
-		 if(fl_cont)
-		 continue;
-
-		 if(nVerLines>=len_ver_mas)
-		 {
-		 if(!AddLenLineMas(&pVerLines,len_ver_mas,add_len_mas))
-		 {
-		 fl_cont=TRUE;
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-		 }
-		 }
-		 if(fl_cont)
-		 continue;
-
-		 pVerLines[nVerLines].begx=linfo.A.x;
-		 pVerLines[nVerLines].begy=linfo.A.y;
-		 pVerLines[nVerLines].endx=linfo.B.x;
-		 pVerLines[nVerLines].endy=linfo.B.y;
-		 pVerLines[nVerLines].wide10=(linfo.Thickness)*10;
-		 nVerLines++;
-
-		 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-
-		 }
-		 }
-		 */
-
-		/////////////////////////////////////////////////////////////////////////////////////////////
-
 
 		int time_hor = clock();
 		for (i = 0; i < nHorLines; i++) {
@@ -408,7 +250,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 						pHorLines[i].endy, pHorLines[i].wide10);
 		}
 		time_hor = clock() - time_hor;
-		//	LDPUMA_ConsoleN("Time hor=%d",time_hor);
 
 		int time_ver = clock();
 		for (i = 0; i < nVerLines; i++) {
@@ -422,7 +263,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 						pVerLines[i].endy, pVerLines[i].wide10);
 		}
 		time_ver = clock() - time_ver;
-		//	LDPUMA_ConsoleN("Time ver=%d",time_ver);
 		DelLineMas(pHorLines);
 		DelLineMas(pVerLines);
 	}//конец тривиального удаления
@@ -433,7 +273,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	info.Images |= IMAGE_DELLINE;
 	SetPageInfo(hCPage, info);
 	time = clock() - time;
-	//	LDPUMA_ConsoleN("Time work=%d",time);
 	return TRUE;
 }
 
@@ -1590,26 +1429,26 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines) {
 	CIMAGEIMAGECALLBACK cbk;
 	CIMAGEIMAGECALLBACK cbk1;
 
-	if (!CIMAGE_GetCallbackImage((uchar*) ImageDelLines, &cbk))
+	if (!CIMAGE_GetCallbackImage(ImageDelLines, &cbk))
 		return FALSE;
 
 	cbk1.CIMAGE_ImageOpen = cbk.CIMAGE_ImageOpen;
 	cbk1.CIMAGE_ImageRead = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
 
-	if (!CIMAGE_WriteCallbackImage((uchar*) ImageDelLines, cbk1)) {
+	if (!CIMAGE_WriteCallbackImage(ImageDelLines, cbk1)) {
 		return FALSE;
 	}
 
 	Handle lpDIB;
-	if (!CIMAGE_ReadDIB((uchar*) ImageDelLines, &lpDIB, 1)) {
-		CIMAGE_DeleteImage((uchar*) ImageDelLines);
+	if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB, 1)) {
+		CIMAGE_DeleteImage(ImageDelLines);
 		return FALSE;
 	}
 
 	CTDIB* ctdib = new CTDIB;
 	if (!ctdib) {
-		CIMAGE_DeleteImage((uchar*) ImageDelLines);
+		CIMAGE_DeleteImage(ImageDelLines);
 		return FALSE;
 	}
 

@@ -90,7 +90,7 @@ Bool32 PreProcessImage() {
 	if (rc) {
 		if (LDPUMA_Skip(hDebugCancelComponent)) {
 			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents(gbAutoRotate, NULL, (puchar) glpRecogName);
+			rc = ExtractComponents(gbAutoRotate, NULL, glpRecogName);
 			RestorePRGTIME(prev);
 
 			if (!ProgressStep(2, NULL, 100))
@@ -160,11 +160,11 @@ bool PUMA_XGetTemplate(Rect32 *pRect) {
 bool PUMA_XSetTemplate(Rect32 rect) {
 	Rect32 old_rect = gRectTemplate;
 	bool rc = false;
-	CIMAGEBITMAPINFOHEADER info;// = { 0 };
+	CIMAGEBITMAPINFOHEADER info;
 
-	if (CIMAGE_GetImageInfo((puchar) PUMA_IMAGE_USER, &info)) {
+	if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
 		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
-		PAGEINFO PInfo;// = { 0 };
+		PAGEINFO PInfo;
 
 		GetPageInfo(hCPAGE, &PInfo);
 		//		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
@@ -183,7 +183,7 @@ bool PUMA_XSetTemplate(Rect32 rect) {
 			SetPageInfo(hCPAGE, PInfo);
 			return true;
 		}
-		if (CIMAGE_AddReadCloseRects((puchar) PUMA_IMAGE_USER, 1, &full)) {
+		if (CIMAGE_AddReadCloseRects(PUMA_IMAGE_USER, 1, &full)) {
 			if (rect.left >= 0 && rect.top >= 0 && (rect.right - rect.left)
 					<= info.biWidth && (rect.bottom - rect.top)
 					<= info.biHeight)
@@ -191,14 +191,12 @@ bool PUMA_XSetTemplate(Rect32 rect) {
 			{
 				CIMAGE_Rect r = { rect.left, rect.top, rect.right - rect.left,
 						rect.bottom - rect.top };
-				rc = CIMAGE_RemoveReadCloseRects((puchar) PUMA_IMAGE_USER, 1,
-						&r);
+				rc = CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &r);
 				PInfo.X = rect.left;
 				PInfo.Y = rect.top;
 			} else {
 				CIMAGE_Rect r = { 0, 0, info.biWidth - 1, info.biHeight - 1 };
-				rc = CIMAGE_RemoveReadCloseRects((puchar) PUMA_IMAGE_USER, 1,
-						&r);
+				rc = CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &r);
 				PInfo.X = 0;
 				PInfo.Y = 0;
 			}

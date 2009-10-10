@@ -357,7 +357,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	CIMAGE_InfoDataInGet DataInto = { 0 };
 	CIMAGE_InfoDataOutGet DataOut = { 0 };
 
-	uchar Name[CPAGE_MAXNAME];
+	char Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;
 

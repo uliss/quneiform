@@ -167,10 +167,6 @@ Bool WritePict(uint32_t IndexPict,
 	Handle h_Page = CPAGE_GetHandlePage(NumberPage);
 	Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
 	//	CString  str;
-	/*
-	 if(RtfWriteMode)
-	 PictString->Empty();
-	 */
 	while (h_Pict) {
 		if (++PictNumber > IndexPict)
 			break;
@@ -192,8 +188,7 @@ Bool WritePict(uint32_t IndexPict,
 		Point32 WhN = { 0 };
 		uint16_t FrameOffset = 0;
 
-		if (CIMAGE_GetImageInfo((puchar) pinfo.szImageName, &image_info)
-				== FALSE)
+		if (CIMAGE_GetImageInfo(pinfo.szImageName, &image_info) == FALSE)
 			return 0;
 		CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh);
 		CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &LrN, &WhN);
@@ -204,51 +199,8 @@ Bool WritePict(uint32_t IndexPict,
 		FrameOffset = abs(WhN.x - Wh.x);
 		if (Lr.x < 0)
 			FrameOffset += abs(Lr.x);
-		/*
-		 if(CPAGE_GetBlockData(h_Page,h_Pict,TYPE_CPAGE_PICTURE,&pict,sizeof(pict))==sizeof(pict))
-		 {
-		 for(uint32_t i = 0; i<pict.Number;i++)
-		 {
-		 RtfLt.x = pict.Corner[i].x;
-		 RtfLt.y = pict.Corner[i].y;
-		 }
-		 }
-		 */
 
-		/*		if(RtfWriteMode)
-		 {
-		 if(FlagMode & USE_NONE)
-		 str.Format("\\marglsxn1800\\margrsxn1800\\margtsxn1440\\margbsxn1440\\headery1440\\footery1440\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0");
-		 else
-		 if( SectorInfo->CountFragments == 1 )
-		 {
-		 Realx = MAX(0,(int)(Lr.x*Twips));
-		 str.Format("\\marglsxn%i\\margrsxn1800\\margtsxn360\\margbsxn360\\headery360\\footery360\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0",Realx);
-		 }
-		 else
-		 if(SectorInfo->FlagInColumn==TRUE)
-		 {
-		 Realx = SectorInfo->OffsetFromColumn.x;
-		 Realy = SectorInfo->OffsetFromColumn.y;
-		 if( SectorInfo->FlagFictiveParagraph)
-		 {
-		 str.Format("\\pard\\fs6\\par\\par{\\shp{\\*\\shpinst\\shpleft%i\\shptop%i\\shpright%i\\shpbottom%i\\shpfhdr0\\shpbxcolumn\\shpbypara\\shpwr2\\shpwrk0\\shpfblwtxt1\\shpz0\\shplockanchor{\\sp{\\sn shapeType}{\\sv 75}}{\\sp{\\sn fFlipH}{\\sv 0}}{\\sp{\\sn fFlipV}{\\sv 0}}{\\sp{\\sn pib}{\\sv ",Realx,Realy,Realx + int(Wh.x*Twips),Realy + int(Wh.y*Twips));
-		 SectorInfo->FlagFictiveParagraph = FALSE;
-		 }
-		 else
-		 str.Format("\\pard\\fs6\\par{\\shp{\\*\\shpinst\\shpleft%i\\shptop%i\\shpright%i\\shpbottom%i\\shpfhdr0\\shpbxcolumn\\shpbypara\\shpwr2\\shpwrk0\\shpfblwtxt1\\shpz0\\shplockanchor{\\sp{\\sn shapeType}{\\sv 75}}{\\sp{\\sn fFlipH}{\\sv 0}}{\\sp{\\sn fFlipV}{\\sv 0}}{\\sp{\\sn pib}{\\sv ",Realx,Realy,Realx + int(Wh.x*Twips),Realy + int(Wh.y*Twips));
-		 }
-		 else
-		 {
-		 Realx = (int)(Lr.x*Twips - SectorInfo->Offset.x);
-		 Realy = (int)(Lr.y*Twips - SectorInfo->Offset.y);
-		 str.Format("{\\pard\\s0\\pvpara\\phmrg\\posx%i\\posy%i\\absh0\\absw%i\\abslock1\\dxfrtext180\\dfrmtxtx0\\dfrmtxty0\\ql\\plain\\fs6\\f3\\fs0\\fi0",
-		 Realx,Realy,(int)(MAX(0, Wh.x-FrameOffset)*Twips) );
-		 }
-
-		 //				(*PictString) += str;
-		 }
-		 */// Получим картинку из исходного изображения задав ее контур
+		// Получим картинку из исходного изображения задав ее контур
 		//определяем размер маски
 		Bool rc = TRUE;
 		pchar pOutDIB = NULL;
@@ -283,31 +235,31 @@ Bool WritePict(uint32_t IndexPict,
 			// end piter
 			LDPUMA_Skip(hTestDIBData);
 			in.MaskFlag = FALSE;
-			if (CIMAGE_GetDIBData((puchar) PUMA_IMAGE_USER, &in, &pOutDIB)) {// Соберем изображение
+			if (CIMAGE_GetDIBData(PUMA_IMAGE_USER, &in, &pOutDIB)) {// Соберем изображение
 				char szTurnName[] = "RFRMT:TurnPicture";
 				char szPictName[] = "RFRMT:Picture";
 				char szRotateName[] = "RFRMT:RotatePicture";
 				char * lpName = szPictName;
 
 				LDPUMA_Skip(hTestTurn);
-				if (CIMAGE_WriteDIB((puchar) szPictName, pOutDIB, TRUE)) {
+				if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
 					switch (pinfo.Angle) {
 					case 90:
 						rc = RIMAGE_Turn((puchar) szPictName,
 								(puchar) szTurnName, RIMAGE_TURN_90, FALSE);
-						CIMAGE_DeleteImage((puchar) lpName);
+						CIMAGE_DeleteImage(lpName);
 						lpName = szTurnName;
 						break;
 					case 180:
 						rc = RIMAGE_Turn((puchar) szPictName,
 								(puchar) szTurnName, RIMAGE_TURN_180, FALSE);
-						CIMAGE_DeleteImage((puchar) lpName);
+						CIMAGE_DeleteImage(lpName);
 						lpName = szTurnName;
 						break;
 					case 270:
 						rc = RIMAGE_Turn((puchar) szPictName,
 								(puchar) szTurnName, RIMAGE_TURN_270, FALSE);
-						CIMAGE_DeleteImage((puchar) lpName);
+						CIMAGE_DeleteImage(lpName);
 						lpName = szTurnName;
 						break;
 					}
@@ -324,7 +276,7 @@ Bool WritePict(uint32_t IndexPict,
 							RIMAGE_GetReturnCode());
 					rc = FALSE;
 				} else {
-					CIMAGE_DeleteImage((puchar) lpName);
+					CIMAGE_DeleteImage(lpName);
 					lpName = szRotateName;
 				}
 
@@ -362,7 +314,7 @@ Bool WritePict(uint32_t IndexPict,
 							*(CIMAGE_InfoDataInGet*) lpMask = in;
 							if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, lpMask
 									+ sizeof(in), &nSize)) {
-								if (!CIMAGE_GetDIBData((puchar) lpName,
+								if (!CIMAGE_GetDIBData(lpName,
 										(CIMAGE_InfoDataInGet*) lpMask,
 										&pOutDIB)) {
 									rc = FALSE;
@@ -468,21 +420,12 @@ Bool WritePict(uint32_t IndexPict,
 				}
 				// piter
 				// освобождает память переданную по pOutDIB
-				CIMAGE_DeleteImage((puchar) lpName);
+				CIMAGE_DeleteImage(lpName);
 				CIMAGE_FreeCopedDIB(pOutDIB);
 				// end piter
 			}
 		}
-		/*		if(RtfWriteMode)
-		 {
-		 if(!(FlagMode & USE_NONE) && SectorInfo->CountFragments!=1 )
-		 {
-		 (*PictString) += "\\f0\\fs6\\par}";
-		 if(SectorInfo->FlagInColumn==TRUE)
-		 (*PictString) +="}}}";
-		 }
-		 }
-		 */}
+	}
 
 #ifdef EdWrite
 	if(!RtfWriteMode)

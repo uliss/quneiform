@@ -259,7 +259,7 @@ long _EnumPicture(long prev);
 
 // common.cpp
 Bool32 rexcProgressStep(uint32_t);
-Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name);
+Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name);
 void SetOptionsToFRMT(void);
 // Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые

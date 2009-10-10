@@ -293,8 +293,7 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 									lpBI.biBitCount = 0x1;
 									lpBI.biCompression = 0;
 									lpBI.biSizeImage = dwDIBSize;
-									CIMAGE_GetImageInfo(
-											(puchar) PUMA_IMAGE_USER,
+									CIMAGE_GetImageInfo(PUMA_IMAGE_USER,
 											&image_info);
 									lpBI.biXPelsPerMeter
 											= image_info.biXPelsPerMeter;
@@ -1226,7 +1225,7 @@ Handle GetNegCCOM(Handle hCPage, Rect16* pRc, int i) {
 	int min_h, min_w, max_h, max_w;
 	ExcControl Control;
 	int j;
-	uchar Name[CPAGE_MAXNAME];
+	char Name[CPAGE_MAXNAME];
 	for (j = 0; j < CPAGE_MAXNAME; j++)
 		Name[j] = ImageName[j];
 	Handle lpDIB;

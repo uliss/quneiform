@@ -61,13 +61,13 @@
 #include "ccom/ccom.h"
 #include "cstr/cstr.h"
 
-///////////////////////////////////////////////////////
+
 // Функции прогресс индикатора
 Bool32 rexcProgressStep(uint32_t step) {
 	return ProgressStep(2, NULL, step);
 }
-///////////////////////////////////////////////////////
-Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
+
+Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name) {
 	Bool32 rc = TRUE;
 	ExcControl exc = { 0 };
 
@@ -85,21 +85,11 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 	}
 
 	// будет распознавания эвентами
-	exc.Control = Ex_ExtraComp | /*Ex_EvnRecog|*/Ex_Picture;
-	//exc.Control |= Ex_NetRecog;
+	exc.Control = Ex_ExtraComp | Ex_Picture;
 
-	//Andrey: orientation is obtained from new library RNORM
-	//exc.Control |= ( bIsRotate ? Ex_Orient : 0 );
 	if (gnPictures)
 		exc.Control |= Ex_PictureLarge;
-	/*
-	 if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)gnLanguage) )
-	 { // инициализировать распознавание по эвентам и задать алфавит
-	 SetReturnCode_puma(REXC_GetReturnCode());
-	 rc = FALSE;
-	 }
-	 else
-	 */
+
 	{
 		uchar w8 = (uchar) gbDotMatrix;
 		REXC_SetImportData(REXC_Word8_Matrix, &w8);
@@ -107,9 +97,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, puchar name) {
 		w8 = (uchar) gbFax100;
 		REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 	}
-	/*
-	 if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // поиск компонент в DIB-e
-	 */
+
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
