@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cridefines.h"
 #include "cttypes.h"
 #include "criimage.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "crinvertor.h"	// Added by ClassView
 #include "ctdib.h"	// Added by ClassView
 #include "rprogressor.h"	// Added by ClassView

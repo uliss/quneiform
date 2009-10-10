@@ -74,7 +74,7 @@
 #include "linedefs.h"
 #include "pumadef.h"
 #include "cpage/cpage.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "dpuma.h"
 #include "rshelllinescom.h"
 #include "rshelllines.h"

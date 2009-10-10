@@ -57,7 +57,7 @@
 #include <stdio.h>
 
 #include "ccom/ccom.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "negdefs.h"
 #include "rselstr.h"

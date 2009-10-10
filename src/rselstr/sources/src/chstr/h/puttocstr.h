@@ -60,7 +60,7 @@
 
 #include "lhstr.h"
 #include "ccom/ccom.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "recdefs.h"
 #include "rstr/rstr.h"
 #include "dpuma.h"

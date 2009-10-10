@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include "pumadef.h"
 #include "ctdib.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "frmtdibapi.h"
 #include "criimage.h"
 #include "sys_prog.h"

@@ -60,7 +60,7 @@
 #include "dpuma.h"
 #include "rselstr.h"
 #include "cpage/cpage.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "negdefs.h"
 #include "polyblock.h"
 #include "criimage.h"

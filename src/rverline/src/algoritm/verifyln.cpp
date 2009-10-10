@@ -63,11 +63,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-/*#include <windows.h>*/
 #include <stdlib.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 /*  interface our-my     */
 /*  interface my        */
 #include "am_err.h"

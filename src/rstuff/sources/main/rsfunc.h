@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "rsdefines.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "lnsdefs.h"
 #include "linedefs.h"
-//#include "RStuff.H"
+
 //////////////////////////
 //общего назначения
 void SetReturnCode_rstuff(uint16_t);

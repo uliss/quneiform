@@ -59,7 +59,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "cpage/cpage.h"
 #include "mpumatime.h"

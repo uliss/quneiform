@@ -66,7 +66,7 @@
 #include "linedefs.h"
 #include "lnsdefs.h"
 #include "cpage/cpage.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 
 #include "rshelllinescom.h"
 #include "rline.h"

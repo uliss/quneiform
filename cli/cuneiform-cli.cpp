@@ -55,13 +55,13 @@
 
 /* This is a simple command line program for the Puma library. */
 
-#include"ctiimage.h" // Must be first, or else you get compile errors.
-#include<iostream>
-#include<sstream>
-#include<iomanip>
-#include<stdio.h>
-#include<stdlib.h>
-#include<cstring>
+#include "cimage/ctiimage.h" // Must be first, or else you get compile errors.
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
 
 #include "cttypes.h"
 #include "puma/puma.h"

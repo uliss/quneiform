@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lnsdefs.h"
 #include "rline.h"
 #include "ccom/ccom.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "cline.h"
 /*  interface our-my     */
 #include "rverline.h"

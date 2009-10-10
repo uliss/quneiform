@@ -59,7 +59,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "lns.h"
 #include "rline.h"

@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
 #include "criimage.h"
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "dpuma.h"
 #include "exc.h"
 #include "rpic.h"

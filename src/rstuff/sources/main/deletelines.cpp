@@ -60,7 +60,7 @@
 #include <time.h>
 #include <assert.h>
 
-#include "ctiimage.h"
+#include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "lns.h"
 #include "rline.h"
