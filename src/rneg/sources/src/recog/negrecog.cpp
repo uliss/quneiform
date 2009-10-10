@@ -260,11 +260,8 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 				for (j = 0; j < nN; j++) {
 					if (NegGetRaster(hCPage, pN[j], &rec, vertical)) {
 						if (!dpRecOneLetter) {
-							//         if (vertical) TurnOverNeg(&rec);
 							for (turn = 0; turn < 2; turn++) {
-
-								//-----------------------------------------------------------
-								if (ShowNegByOne/* && vertical*/) {
+								if (ShowNegByOne) {
 									BITMAPINFOHEADER lpBI; // Pointer to DIB info structure
 									RGBQUAD Palette1;
 									RGBQUAD Palette2;
@@ -274,7 +271,7 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 									uchar* pTmpDIB;
 									uchar* pTmpBuffer;
 									uint16_t Height, Width, ByteWidth;
-									BitmapInfoHeader image_info = { 0 };
+									BitmapInfoHeader image_info;
 
 									Height = (uint16_t) rec.lnPixHeight;
 									Width = (uint16_t) rec.lnPixWidth;

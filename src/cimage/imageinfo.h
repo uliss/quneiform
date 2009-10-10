@@ -73,6 +73,13 @@ struct CIMAGE_Rect {
 };
 
 struct BitmapInfoHeader {
+public:
+	BitmapInfoHeader() :
+		biSize(0), biWidth(0), biHeight(0), biPlanes(0), biBitCount(0),
+				biCompression(0), biSizeImage(0), biXPelsPerMeter(0),
+				biYPelsPerMeter(0), biClrUsed(0), biClrImportant(0) {
+	}
+
 	uint32_t biSize;
 	int32_t biWidth;
 	int32_t biHeight;
