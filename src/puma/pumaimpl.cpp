@@ -413,7 +413,6 @@ void PumaImpl::modulesDone() {
 	CSTR_Done();
 	CCOM_Done();
 	CPAGE_Done();
-	CIMAGE_Done();
 	CLINE_Done();
 	RPSTR_Done();
 	RSTUFF_Done();
@@ -435,7 +434,7 @@ void PumaImpl::modulesInit() {
 			throw PumaException("CLINE_Init failed.");
 		if (!CFIO::CFIO_Init(PUMA_MODULE_CFIO, NULL))
 			throw PumaException("CFIO_Init failed.");
-		CIMAGE_Init(PUMA_MODULE_CIMAGE);
+		CIMAGE_Init();
 		//  нужна инициализация контейнера CCOM перед
 		//  вызовом поиска компонент
 		if (!CCOM_Init(PUMA_MODULE_CCOM, NULL))

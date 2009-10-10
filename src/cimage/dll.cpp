@@ -69,29 +69,13 @@
 #include "compat_defs.h"
 
 //GLOBAL VARIABLES
-static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static HINSTANCE ghInst = NULL;
 
-void CIMAGE_Init(uint16_t wHeightCode) {
-	gwHeightRC = wHeightCode;
+void CIMAGE_Init() {
 	CIF::CImage::instance();
 }
 
 void CIMAGE_Done() {
-}
-
-uint32_t CIMAGE_GetReturnCode() {
-	if (!gwLowRC)
-		return 0;
-	return (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_CIMAGE_ERR_NO);
-}
-
-pchar CIMAGE_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
-
-	return NULL;
 }
 
 void SetReturnCode_cimage(uint16_t rc) {

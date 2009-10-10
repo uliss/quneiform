@@ -76,8 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////////////////////////
 //общего назначения
-void SetReturnCode_rstuff(uint16_t);
-void SetReturnCode_rstuff(uint32_t);
+void SetReturnCode_rstuff(int);
 void DebugInit (void );
 void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t, uint32_t);

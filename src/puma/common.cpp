@@ -100,7 +100,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name
 
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-		SetReturnCode_puma(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(0);
 		rc = FALSE;
 	}
 	if (rc && !REXCExtracomp3CB(

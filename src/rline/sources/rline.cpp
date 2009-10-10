@@ -187,10 +187,8 @@ uint32_t rc32;
 //Almi 16.05.01
 int MinHorLenForTrue = 129;//113;//было 100
 int MinVerLenForTrue = 94;//58; //было  50
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 void SetReturnCode_rline(uint32_t);
-void SetReturnCode_rline(uint16_t);
 void CleanLineData(void* pdata, int size);
 
 Bool16 SampleImageOpen(CIMAGE_ImageInfo* lpImageInfo) {
@@ -502,8 +500,7 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 
 	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
 		LDPUMA_Console(" Error in GetCallbackImage ");
-		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode_rline(rc32);
+		SetReturnCode_rline(0);
 		return FALSE;
 	}
 
@@ -719,8 +716,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 
 	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
 		LDPUMA_Console(" Error in GetCallbackImage ");
-		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode_rline(rc32);
+		SetReturnCode_rline(0);
 		return FALSE;
 	}
 
@@ -848,14 +844,12 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 	cbk1.CIMAGE_ImageClose = SampleImageClose;
 
 	if (!CIMAGE_GetCallbackImage(pImage, &cbk)) {
-		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode_rline(rc32);
+		SetReturnCode_rline(0);
 		return FALSE;
 	}
 
 	if (!CIMAGE_WriteCallbackImage(lpOutDIB, cbk1)) {
-		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode_rline(rc32);
+		SetReturnCode_rline(0);
 		return FALSE;
 	}
 

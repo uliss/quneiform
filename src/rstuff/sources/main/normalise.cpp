@@ -170,18 +170,6 @@ Bool32 Normalise(PRSPreProcessImage Image) {
 
 	LDPUMA_Skip(hVerOrNewLine);
 
-	/*    if (rc &&
-
-	 //  В Турецком зазря удаляются точки над буквами. 02.07.2002 E.P..
-	 Image->gnLanguage != LANG_TURKISH &&
-
-	 LDPUMA_Skip(hDotLine) &&
-	 LDPUMA_Skip(Image->hDebugCancelSearchDotLines)
-	 )
-	 //    if (rc && LDPUMA_Skip(hDotLine) && LDPUMA_Skip(Image->hDebugCancelSearchDotLines))
-	 rc = SLINEDOT_SearchDotLines(*(Image->phCCOM), Image->hCPAGE, Image->phCLINE);//Almi 0822
-	 //        SLINEDOT_SearchDotLines(*(Image->phCCOM), Image->hCPAGE, Image->phCLINE);*/
-
 	if (rc)
 		rc = SearchNewLines(Image);
 
@@ -202,16 +190,9 @@ Bool32 Normalise(PRSPreProcessImage Image) {
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-
 
 Bool32 VerifyN(PRSPreProcessImage Image) {
-	Bool32 rc;
-
-	rc = VerifyLines(Image);
-
-	return rc;
+	return VerifyLines(Image);
 }
 
 Bool32 SearchNewLines(PRSPreProcessImage Image) {
@@ -416,7 +397,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
 
 	CIMAGEIMAGECALLBACK clbk;
 	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
+		SetReturnCode_rstuff(1);
 		rc = FALSE;
 	}
 	if (rc && !REXCExtracomp3CB(
@@ -568,7 +549,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	// Получим изображение с удаленными линиями
 	//
 	if (rc && !CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE)) {
-		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
+		SetReturnCode_rstuff(-1);
 		rc = FALSE;
 	}
 	if (hDIB) {

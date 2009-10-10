@@ -73,7 +73,7 @@
 #include "rsl.h"
 #define PUMA_MODULE_RSL         116
 #define RESULT                  2
-/*extern*/Bool32 gbRSLT = FALSE;
+Bool32 gbRSLT = FALSE;
 /// BogDmitry
 
 #include "compat_defs.h"
@@ -107,45 +107,37 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 	return TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,Handle hStorage)
-{
+Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
 	Bool32 b;
 	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0,NULL);
+	LDPUMA_Init(0, NULL);
 	b = RLINE_SubInit();
 	if (!b)
-	return FALSE;
+		return FALSE;
 
 	b = RSL_Init(PUMA_MODULE_RSL, hStorage);
 	if (!b)
-	return FALSE;
+		return FALSE;
 
 	if (b == RESULT)
-	gbRSLT = TRUE;
+		gbRSLT = TRUE;
 
 	return b;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RLINE_FUNC(Bool32) RLINE_Done()
-{
-	if (!RSL_Done())
-	{
+
+Bool32 RLINE_Done() {
+	if (!RSL_Done()) {
 		return FALSE;
 	}
 
 	LDPUMA_Done();
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RLINE_FUNC(uint32_t) RLINE_GetReturnCode()
-{
+
+uint32_t RLINE_GetReturnCode() {
 	uint32_t rc = 0;
-	if(gwLowRC && (gwLowRC - IDS_ERR_NO)> 0 )
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	if (gwLowRC && (gwLowRC - IDS_ERR_NO) > 0)
+		rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
 	return rc;
 }
 
@@ -156,32 +148,26 @@ char * RLINE_GetReturnString(uint32_t dwError) {
 	return NULL;
 }
 
-RLINE_FUNC(Bool32) RLINE_GetExportData(uint32_t dwType, void * pData)
-{
+Bool32 RLINE_GetExportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 
 	gwLowRC = 0;
 
-#define CASE_FUNCTION(a)	case RLINE_FN##a:	*(FN##a *)pData = a; break
-#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break
+#define CASE_FUNCTION(a)	case RLINE_FN##a:	*(FN##a *)pData = a; break;
+#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(RLINE_SearchLines);
-		CASE_FUNCTION(RLINE_DeleteLines);
-		CASE_FUNCTION(RLINE_LinesPass1);
-		CASE_FUNCTION(RLINE_LinesPass2);
-		CASE_FUNCTION(RLINE_LinesPass3);
-		CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3);
-		CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER);
-		CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER);
-		/* reserv
-		 CASE_FUNCTION();
-		 CASE_FUNCTION();
-		 CASE_FUNCTION();
-		 */
-		default:
-		*(char **)pData = NULL;
+	switch (dwType) {
+	CASE_FUNCTION(RLINE_SearchLines)
+	CASE_FUNCTION(RLINE_DeleteLines)
+	CASE_FUNCTION(RLINE_LinesPass1)
+	CASE_FUNCTION(RLINE_LinesPass2)
+	CASE_FUNCTION(RLINE_LinesPass3)
+	CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3)
+	CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER)
+	CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER)
+
+	default:
+		*(char **) pData = NULL;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
@@ -190,21 +176,18 @@ RLINE_FUNC(Bool32) RLINE_GetExportData(uint32_t dwType, void * pData)
 #undef CASE_FUNCTION
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RLINE_FUNC(Bool32) RLINE_SetImportData(uint32_t dwType, void * pData)
-{
+
+Bool32 RLINE_SetImportData(uint32_t dwType, void * pData) {
 	Bool32 rc = TRUE;
 
 	gwLowRC = 0;
 
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break
-	switch(dwType)
-	{
-		CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3);
-		CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER);
-		CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER);
-		default:
+#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break;
+	switch (dwType) {
+	CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3)
+	CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER)
+	CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER)
+	default:
 		rc = FALSE;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 	}
@@ -212,8 +195,6 @@ RLINE_FUNC(Bool32) RLINE_SetImportData(uint32_t dwType, void * pData)
 
 	return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
 
 void SetReturnCode_rline(uint32_t rc) {
 	gwHeightRC = (uint16_t) (rc >> 16);
@@ -227,5 +208,3 @@ void SetReturnCode_rline(uint16_t rc) {
 uint16_t GetReturnCode_rline() {
 	return gwLowRC;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file

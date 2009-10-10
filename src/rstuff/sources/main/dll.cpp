@@ -362,28 +362,9 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSLayout( PRSPreProcessImage Image )
 
 	return Layout(Image);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-void SetReturnCode_rstuff(uint16_t rc) {
-	if (rc == 0)
-		RC.gwRC = 0;
-	else {
-		RC.RC16.gwLowRC = rc;
-		RC.RC16.gwHeightRC = wHighErrCode;
-	}
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-void SetReturnCode_rstuff(uint32_t rc) {
+
+void SetReturnCode_rstuff(int rc) {
 	RC.gwRC = rc;
-	//	uint16_t low = (uint16_t)(rc &  0xFFFF);
-	//	uint16_t hei = (uint16_t)(rc >> 16);
-	//	if(low > 0 && low != IDS_RSTUFF_ERR_NO)
-	//		LDPUMA_Console("%s\n",GetModulesString(gwRC));
-	//
-	//	if(gwRC == nDebugReturnCode &&
-	//		nDebugReturnCode)
-	//			LDPUMA_Stop();
 }
 
 void DebugInit(void) {

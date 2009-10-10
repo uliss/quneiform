@@ -76,10 +76,7 @@ enum {
 	CIMAGE_MAXNAME = 260
 };
 
-CIMAGE_FUNC void CIMAGE_Init(uint16_t wHeightCode);
-CIMAGE_FUNC void CIMAGE_Done();
-CIMAGE_FUNC uint32_t CIMAGE_GetReturnCode();
-CIMAGE_FUNC char * CIMAGE_GetReturnString(uint32_t dwError);
+CIMAGE_FUNC void CIMAGE_Init();
 
 typedef enum {
 	CIMAGE_FN_WriteCallbackImage = 1,
