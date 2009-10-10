@@ -435,7 +435,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 				 for ( ;iY < 0; iY++, lplpOut->dwHeight++ )
 				 {
 				 // копируем полученное в lplpOut.lpData
-				 CIMAGE_MEMSET(pOutLine, WhiteBit, lplpOut->wByteWidth);
+				 memset(pOutLine, WhiteBit, lplpOut->wByteWidth);
 				 pOutLine += lplpOut->wByteWidth;
 				 }
 				 */
@@ -443,7 +443,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 
 				for (nOutLine = 0; nOutLine < lplpOut->dwHeight; nOutLine++) {
 					// копируем полученное в lplpOut.lpData
-					CIMAGE_MEMCOPY(pOutLine, pDscDIB->GetPtrToLine(nOutLine), lplpOut->wByteWidth);
+					memcpy(pOutLine, pDscDIB->GetPtrToLine(nOutLine), lplpOut->wByteWidth);
 					pOutLine += lplpOut->wByteWidth;
 				}
 
@@ -497,7 +497,7 @@ Bool32 CTIControl::ReplaceImage(const char* lpName,
 
 					for (nInLine = 0; nInLine < lpIn->dwHeight; nInLine++) {
 						// копируем полученное в lplpOut.lpData
-						CIMAGE_MEMCOPY( pSrcDIB->GetPtrToLine(nInLine), pInLine, lpIn->wByteWidth);
+						memcpy( pSrcDIB->GetPtrToLine(nInLine), pInLine, lpIn->wByteWidth);
 						pInLine += lpIn->wByteWidth;
 					}
 
@@ -531,7 +531,7 @@ Bool32 CTIControl::GetImageInfo(const char* lpName,
 
 	pDIB = CIMAGELock(hImage);
 
-	CIMAGE_MEMCOPY(lpBIH, pDIB, sizeof(CIMAGEBITMAPINFOHEADER));
+	memcpy(lpBIH, pDIB, sizeof(CIMAGEBITMAPINFOHEADER));
 
 	CIMAGEUnlock(hImage);
 	return TRUE;
@@ -575,7 +575,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
 		return FALSE;
 	}
 
-	CIMAGE_MEMCOPY(pDsc, pSrc, DIBSize);
+	memcpy(pDsc, pSrc, DIBSize);
 
 	//ALLEX Mask/////////////////////////////////////
 	// ошибка тут
@@ -1528,9 +1528,9 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
 
 		if (wLAFullBits > 0) {
 			if (wWPLA == 0)
-				CIMAGE_MEMSET(pPixB + 1, 0x00, wLAFullBits );
+				memset(pPixB + 1, 0x00, wLAFullBits );
 			else
-				CIMAGE_MEMSET(pPixB + 1, 0xff, wLAFullBits );
+				memset(pPixB + 1, 0xff, wLAFullBits );
 		}
 
 		if (wWPLA == 0) {
@@ -1549,7 +1549,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
 	case 24:
 	case 32:
 		wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart()) * wBitCount) / 8;
-		CIMAGE_MEMSET( pPixB, (uchar)pcDIB->GetWhitePixel(), wSegmLenght );
+		memset( pPixB, (uchar)pcDIB->GetWhitePixel(), wSegmLenght );
 		bRet = TRUE;
 		break;
 	}

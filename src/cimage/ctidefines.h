@@ -90,13 +90,4 @@ inline float CIMAGE_METER_TO_INCH(T a) {
 	return (a / 100) * 2.54 + 1;
 }
 
-# define    CIMAGE_STRING_LENGHT(a)         strlen(a)
-# define    CIMAGE_STRING_COPY(a,b)         strcpy(a,b)
-# define    CIMAGE_STRING_N_COPY(a,b,c)     strncpy(a,b,c)
-# define    CIMAGE_STRING_CAT(a,b)          strcat(a,b)
-# define    CIMAGE_STRING_COMPARE(a,b)      strcmp(a,b)
-# define    CIMAGE_ABS(a)                   abs(a)
-# define    CIMAGE_MEMSET(a,b,c)            memset(a,b,c)
-# define    CIMAGE_MEMCOPY(a,b,c)           memcpy(a,b,c)
-
 #endif

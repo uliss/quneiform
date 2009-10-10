@@ -67,7 +67,7 @@
 #include "ctiimageheader.h"
 
 CTIImageHeader::CTIImageHeader() {
-	CIMAGE_STRING_COPY((char*)ImageName, "Fictiv image");
+	strcpy((char*)ImageName, "Fictiv image");
 	ImageInfo = (CIMAGEBITMAPINFOHEADER*) (Image = (void *) (0xffff0000));
 	ImageExternal = 1;
 	ReadMask = NULL;
@@ -78,10 +78,10 @@ CTIImageHeader::CTIImageHeader() {
 
 CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle,
 		uint32_t wFlag) {
-	if (CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME)
-		CIMAGE_STRING_COPY((char*)ImageName, lpName);
+	if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME)
+		strcpy((char*)ImageName, lpName);
 	else
-		CIMAGE_STRING_N_COPY((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
+		strncpy((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
 
 	hImage = hImageHandle;
 	ImageInfo = NULL;
@@ -95,10 +95,10 @@ CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle,
 
 CTIImageHeader::CTIImageHeader(const char *lpName,
 		CIMAGEBITMAPINFOHEADER * lpInfo, void * lpImage, uint32_t wFlag) {
-	if (CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME)
-		CIMAGE_STRING_COPY((char*)ImageName, lpName);
+	if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME)
+		strcpy((char*)ImageName, lpName);
 	else
-		CIMAGE_STRING_N_COPY((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
+		strncpy((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
 
 	ImageInfo = lpInfo;
 	Image = lpImage;
@@ -127,9 +127,9 @@ CTIImageHeader::~CTIImageHeader() {
 Bool32 CTIImageHeader::CheckName(const char *Name) {
 	Bool32 Check = FALSE;
 
-	if (Name && Name[0] != 0 && CIMAGE_STRING_LENGHT(Name)
+	if (Name && Name[0] != 0 && strlen(Name)
 			< CIMAGE_MAX_IMAGE_NAME) {
-		Check = (CIMAGE_STRING_COMPARE(Name, (char*)ImageName) == 0);
+		Check = (strcmp(Name, (char*)ImageName) == 0);
 	}
 
 	return Check;

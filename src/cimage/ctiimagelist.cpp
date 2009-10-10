@@ -140,8 +140,8 @@ CTIImageHeader * CTIImageList::FindImage(const char *lpName,
 	CTIImageHeader * Prev = Begin();
 	char Buff[CIMAGE_MAX_IMAGE_NAME];
 
-	if (lpName != NULL && CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME) {
-		CIMAGE_STRING_COPY(Buff, lpName);
+	if (lpName != NULL && strlen(lpName) < CIMAGE_MAX_IMAGE_NAME) {
+		strcpy(Buff, lpName);
 
 		if (Buff[0] != 0x0) {
 			for (Current = Begin()->GetNext(); Current != End(); Current
