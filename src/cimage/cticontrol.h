@@ -121,6 +121,8 @@ private:
 	Bool32 DumpToFile(const char* FileName, puchar pData, uint32_t Size);
 	Bool32 CheckInData(PCTDIB pDIB, CIMAGE_InfoDataInGet* lpIn,
 			CIMAGE_InfoDataInGet* lpNewIn = NULL);
+	void init();
+	void clear();
 
 public:
 	Bool32 EnableMask(const char* pcName, const char* pcType, Bool32 bEnable);
@@ -149,7 +151,7 @@ public:
 	Bool32 CBImageClose(void);
 	uint32_t CBImageRead(char * buffer, uint32_t wMaxSize);
 	Bool32 CloseDIBFromList(PCTDIB pDIB);
-
+	void Reset();
 protected:
 	Handle mhCopyedDIB;
 	Bool32 mbWriteFlag;

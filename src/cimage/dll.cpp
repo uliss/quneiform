@@ -72,38 +72,13 @@
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 static HINSTANCE ghInst = NULL;
-CTIControl * Control_cti = NULL;
-static int32_t InitCount = 0;
 
-Bool32 CIMAGE_Init(uint16_t wHeightCode, Handle hStorage) {
+void CIMAGE_Init(uint16_t wHeightCode) {
 	gwHeightRC = wHeightCode;
-
-	if (!Control_cti) {
-		Control_cti = new CTIControl;
-	}
-
-	if (Control_cti) {
-		InitCount++;
-		return TRUE;
-	}
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	CIF::CImage::instance();
 }
 
-Bool32 CIMAGE_Done() {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti) {
-		if (--InitCount == 0) {
-			delete Control_cti;
-			Control_cti = NULL;
-		}
-		return TRUE;
-	}
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+void CIMAGE_Done() {
 }
 
 uint32_t CIMAGE_GetReturnCode() {

@@ -68,8 +68,6 @@ PumaImpl::PumaImpl() {
 
 PumaImpl::~PumaImpl() {
 	modulesDone();
-	//	CTIControl * ci = new CTIControl;
-	//	cimage_.reset(ci);
 }
 
 void PumaImpl::binarizeImage() {
@@ -437,8 +435,7 @@ void PumaImpl::modulesInit() {
 			throw PumaException("CLINE_Init failed.");
 		if (!CFIO::CFIO_Init(PUMA_MODULE_CFIO, NULL))
 			throw PumaException("CFIO_Init failed.");
-		if (!CIMAGE_Init(PUMA_MODULE_CIMAGE, NULL))
-			throw PumaException("CIMAGE_Init failed.");
+		CIMAGE_Init(PUMA_MODULE_CIMAGE);
 		//  нужна инициализация контейнера CCOM перед
 		//  вызовом поиска компонент
 		if (!CCOM_Init(PUMA_MODULE_CCOM, NULL))

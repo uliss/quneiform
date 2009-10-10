@@ -57,243 +57,95 @@
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-
-
 #include "cticontrol.h"
 
-// exteren globals
-extern CTIControl * Control_cti;
-// extern functions
-void SetReturnCode_cimage(uint16_t rc);
-uint16_t GetReturnCode_cimage();
+using namespace CIF;
 
-Bool32 CIMAGE_WriteCallbackImage(const char * lpName, CIMAGEIMAGECALLBACK Cbk) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->WriteCBImage(lpName, Cbk);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+Bool32 CIMAGE_WriteCallbackImage(const char * Name, CIMAGEIMAGECALLBACK Cbk) {
+	return CImage::instance().WriteCBImage(Name, Cbk);
 }
 
-Bool32 CIMAGE_GetCallbackImage(const char * lpName, CIMAGEIMAGECALLBACK * pCbk) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->GetCBImage(lpName, pCbk);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+Bool32 CIMAGE_GetCallbackImage(const char * Name, CIMAGEIMAGECALLBACK * pCbk) {
+	return CImage::instance().GetCBImage(Name, pCbk);
 }
 
-Bool32 CIMAGE_WriteDIB(const char * lpName, Handle lpDIB, uint32_t wFlag) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->SetDIB(lpName, lpDIB, wFlag);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+Bool32 CIMAGE_WriteDIB(const char * Name, Handle lpDIB, uint32_t wFlag) {
+	return CImage::instance().SetDIB(Name, lpDIB, wFlag);
 }
 
-Bool32 CIMAGE_ReadDIB(const char * lpName, Handle* lplpDIB, uint32_t wFlag) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->GetDIB(lpName, lplpDIB, wFlag);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+Bool32 CIMAGE_ReadDIB(const char * Name, Handle* lplpDIB, uint32_t wFlag) {
+	return CImage::instance().GetDIB(Name, lplpDIB, wFlag);
 }
 
-Bool32 CIMAGE_GetData(const char *lpName, CIMAGE_InfoDataInGet * lpIn,
+Bool32 CIMAGE_GetData(const char *Name, CIMAGE_InfoDataInGet * lpIn,
 		CIMAGE_InfoDataOutGet * lpOut) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->GetImage(lpName, lpIn, lpOut);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+	return CImage::instance().GetImage(Name, lpIn, lpOut);
 }
 
-Bool32 CIMAGE_GetDIBData(const char * lpName, CIMAGE_InfoDataInGet * lpIn,
+Bool32 CIMAGE_GetDIBData(const char * Name, CIMAGE_InfoDataInGet * lpIn,
 		pchar *lpDIB) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->GetDIBFromImage(lpName, lpIn, lpDIB);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+	return CImage::instance().GetDIBFromImage(Name, lpIn, lpDIB);
 }
 
-Bool32 CIMAGE_ReplaceData(const char * lpName, CIMAGE_InfoDataInReplace * lpIn) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->ReplaceImage(lpName, lpIn);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+Bool32 CIMAGE_ReplaceData(const char * Name, CIMAGE_InfoDataInReplace * lpIn) {
+	return CImage::instance().ReplaceImage(Name, lpIn);
 }
 
-Bool32 CIMAGE_GetImageInfo(const char * lpName, CIMAGEBITMAPINFOHEADER * lpBIH) {
-	Bool32 A = FALSE;
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		A = Control_cti->GetImageInfo(lpName, lpBIH);
-	else
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-
-	return A;
+Bool32 CIMAGE_GetImageInfo(const char * Name, CIMAGEBITMAPINFOHEADER * lpBIH) {
+	return CImage::instance().GetImageInfo(Name, lpBIH);
 }
 
-Bool32 CIMAGE_DeleteImage(const char * lpName) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->RemoveImage(lpName);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+Bool32 CIMAGE_DeleteImage(const char * Name) {
+	return CImage::instance().RemoveImage(Name);
 }
 
 Bool32 CIMAGE_FreeCopedDIB(Handle hDIB) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->FreeAlloced(hDIB);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().FreeAlloced(hDIB);
 }
 
 Bool32 CIMAGE_FreeBuffers() {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->FreeBuffers();
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	CImage::instance().FreeBuffers();
+	return TRUE;
 }
 
-Bool32 CIMAGE_Reset(void) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti) {
-		delete Control_cti;
-
-		Control_cti = new CTIControl;
-
-		if (Control_cti)
-			return TRUE;
-		return FALSE;
-	}
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+void CIMAGE_Reset(void) {
+	CImage::instance().Reset();
 }
 
-Bool32 CIMAGE_AddReadCloseRects(const char * lpName, uint32_t wCount,
+Bool32 CIMAGE_AddReadCloseRects(const char * Name, uint32_t wCount,
 		CIMAGE_Rect * pFirst) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->AddReadRectangles(lpName, wCount, pFirst);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().AddReadRectangles(Name, wCount, pFirst);
 }
 
-Bool32 CIMAGE_RemoveReadCloseRects(const char * lpName, uint32_t wCount,
+Bool32 CIMAGE_RemoveReadCloseRects(const char * Name, uint32_t wCount,
 		CIMAGE_Rect * pFirst) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->RemoveReadRectangles(lpName, wCount, pFirst);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().RemoveReadRectangles(Name, wCount, pFirst);
 }
 
-Bool32 CIMAGE_AddWriteCloseRects(const char *lpName, uint32_t wCount,
+Bool32 CIMAGE_AddWriteCloseRects(const char *Name, uint32_t wCount,
 		CIMAGE_Rect * pFirst) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->AddWriteRectangles(lpName, wCount, pFirst);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().AddWriteRectangles(Name, wCount, pFirst);
 }
 
-Bool32 CIMAGE_RemoveWriteCloseRects(const char * lpName, uint32_t wCount,
+Bool32 CIMAGE_RemoveWriteCloseRects(const char * Name, uint32_t wCount,
 		CIMAGE_Rect * pFirst) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->RemoveWriteRectangles((char*) lpName, wCount,
-				pFirst);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().RemoveWriteRectangles(Name, wCount, pFirst);
 }
 
-Bool32 CIMAGE_EnableMask(const char * lpName, const char * lpType,
+Bool32 CIMAGE_EnableMask(const char * Name, const char * lpType,
 		Bool32 bEnabler) {
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
-
-	if (Control_cti)
-		return Control_cti->EnableMask(lpName, lpType, bEnabler);
-
-	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+	return CImage::instance().EnableMask(Name, lpType, bEnabler);
 }
 
 // For GetCBImage
 Bool16 CIMAGE_Callback_ImageOpen(CIMAGE_ImageInfo * lpImageInfo) {
-	Bool16 A = FALSE;
-
-	if (!Control_cti) {
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-		return FALSE;
-	}
-
-	A = (Bool16)(Control_cti->CBImageOpen(lpImageInfo));
-
-	return A;
+	return CImage::instance().CBImageOpen(lpImageInfo);
 }
 
 uint16_t CIMAGE_Callback_ImageRead(char * lpImage, uint16_t wMaxSize) {
-	if (!Control_cti) {
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-		return 0;
-	}
-
-	return (uint16_t) (Control_cti->CBImageRead(lpImage, wMaxSize));
+	return CImage::instance().CBImageRead(lpImage, wMaxSize);
 }
 
 Bool16 CIMAGE_Callback_ImageClose(void) {
-	if (!Control_cti) {
-		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
-		return FALSE;
-	}
-
-	return (Bool16)(Control_cti->CBImageClose());
+	return CImage::instance().CBImageClose();
 }

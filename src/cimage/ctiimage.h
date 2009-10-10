@@ -76,8 +76,8 @@ enum {
 	CIMAGE_MAXNAME = 260
 };
 
-CIMAGE_FUNC Bool32 CIMAGE_Init(uint16_t wHeightCode, Handle hStorage);
-CIMAGE_FUNC Bool32 CIMAGE_Done();
+CIMAGE_FUNC void CIMAGE_Init(uint16_t wHeightCode);
+CIMAGE_FUNC void CIMAGE_Done();
 CIMAGE_FUNC uint32_t CIMAGE_GetReturnCode();
 CIMAGE_FUNC char * CIMAGE_GetReturnString(uint32_t dwError);
 CIMAGE_FUNC Bool32 CIMAGE_GetExportData(uint32_t dwType, void * pData);
@@ -114,7 +114,7 @@ DEC_FUN(Bool32, GetImageInfo, (const char * , CIMAGEBITMAPINFOHEADER*))
 DEC_FUN(Bool32, DeleteImage, (const char * ))
 DEC_FUN(Bool32, FreeCopedDIB, (Handle))
 DEC_FUN(Bool32, FreeBuffers, (void))
-DEC_FUN(Bool32, Reset, (void))
+DEC_FUN(void, Reset, (void))
 DEC_FUN(Bool32, AddReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, RemoveReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, AddWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
