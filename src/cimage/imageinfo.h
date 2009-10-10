@@ -72,7 +72,7 @@ struct CIMAGE_Rect {
 	uint32_t dwHeight;
 };
 
-struct CIMAGEBITMAPINFOHEADER {
+struct BitmapInfoHeader {
 	uint32_t biSize;
 	int32_t biWidth;
 	int32_t biHeight;

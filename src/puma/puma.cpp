@@ -69,7 +69,7 @@
 // 07.07,2000 Allex
 // Вынес Бинаризацию наверх из PreProcessImage
 //////////////////////////////////////////////////////////Allex
-//CIMAGEBITMAPINFOHEADER info;
+//BitmapInfoHeader info;
 
 Bool32 PreProcessImage() {
 	Bool32 rc = TRUE;
@@ -160,7 +160,7 @@ bool PUMA_XGetTemplate(Rect32 *pRect) {
 bool PUMA_XSetTemplate(Rect32 rect) {
 	Rect32 old_rect = gRectTemplate;
 	bool rc = false;
-	CIMAGEBITMAPINFOHEADER info;
+	BitmapInfoHeader info;
 
 	if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
 		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };

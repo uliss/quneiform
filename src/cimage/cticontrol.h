@@ -139,7 +139,7 @@ public:
 	Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
 			pchar *pDIB);
 	Bool32 RemoveImage(const char* lpName);
-	Bool32 GetImageInfo(const char* lpImage, CIMAGEBITMAPINFOHEADER * lpBIH);
+	Bool32 GetImageInfo(const char* lpImage, BitmapInfoHeader * lpBIH);
 	Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
 	Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 			CIMAGE_InfoDataOutGet * lplpOut);

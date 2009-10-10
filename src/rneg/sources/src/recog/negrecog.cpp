@@ -274,7 +274,7 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 									uchar* pTmpDIB;
 									uchar* pTmpBuffer;
 									uint16_t Height, Width, ByteWidth;
-									CIMAGEBITMAPINFOHEADER image_info = { 0 };
+									BitmapInfoHeader image_info = { 0 };
 
 									Height = (uint16_t) rec.lnPixHeight;
 									Width = (uint16_t) rec.lnPixWidth;

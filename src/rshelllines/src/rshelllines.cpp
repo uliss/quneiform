@@ -566,11 +566,11 @@ void CleaningRaster(DLine* pCLine, char* Buffer) {
 }
 
 void DrowCleanedRaster(DLine* pCLine, char* Buffer,
-		CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow) {
+		BitmapInfoHeader* image_info, Handle* HndMyWindow) {
 }
 
 void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
-		CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow) {
+		BitmapInfoHeader* image_info, Handle* HndMyWindow) {
 }
 
 void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect) {

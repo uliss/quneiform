@@ -505,7 +505,7 @@ Bool32 CTIControl::ReplaceImage(const char* lpName,
 }
 
 Bool32 CTIControl::GetImageInfo(const char* lpName,
-		CIMAGEBITMAPINFOHEADER * lpBIH) {
+		BitmapInfoHeader * lpBIH) {
 	Handle hImage = NULL;
 	void * pDIB;
 
@@ -520,7 +520,7 @@ Bool32 CTIControl::GetImageInfo(const char* lpName,
 
 	pDIB = CIMAGELock(hImage);
 
-	memcpy(lpBIH, pDIB, sizeof(CIMAGEBITMAPINFOHEADER));
+	memcpy(lpBIH, pDIB, sizeof(BitmapInfoHeader));
 
 	CIMAGEUnlock(hImage);
 	return TRUE;

@@ -70,7 +70,7 @@ class CTIImageHeader {
 private:
 	CTIImageHeader * pNext;
 	char ImageName[CIMAGE_MAX_IMAGE_NAME];
-	CIMAGEBITMAPINFOHEADER * ImageInfo;
+	BitmapInfoHeader * ImageInfo;
 	void * Image;
 	PCTIMask WriteMask;
 	PCTIMask ReadMask;
@@ -82,7 +82,7 @@ private:
 public:
 	CTIImageHeader();
 	CTIImageHeader(const char *lpName, Handle hImagehandle, uint32_t Flag);
-	CTIImageHeader(const char *lpName, CIMAGEBITMAPINFOHEADER* lpInfo,
+	CTIImageHeader(const char *lpName, BitmapInfoHeader* lpInfo,
 			void * lpImage, uint32_t wFlag);
 	~CTIImageHeader();
 public:
@@ -101,7 +101,7 @@ public:
 		return Image;
 	}
 
-	CIMAGEBITMAPINFOHEADER* GetImageInfo(void) {
+	BitmapInfoHeader* GetImageInfo(void) {
 		return ImageInfo;
 	}
 

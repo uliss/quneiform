@@ -179,7 +179,7 @@ Bool WritePict(uint32_t IndexPict,
 	PAGEINFO pinfo = { 0 };
 	if (GetPageInfo(h_Page, &pinfo)) {
 		CIMAGE_InfoDataInGet in = { 0 };
-		CIMAGEBITMAPINFOHEADER image_info = { 0 };
+		BitmapInfoHeader image_info = { 0 };
 		uint32_t nSize = 0;
 		Point32 Lr = { 0 };
 		Point32 Wh = { 0 };

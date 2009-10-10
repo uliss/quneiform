@@ -91,7 +91,7 @@ Bool32 CIMAGE_ReplaceData(const char * Name, CIMAGE_InfoDataInReplace * lpIn) {
 	return CImage::instance().ReplaceImage(Name, lpIn);
 }
 
-Bool32 CIMAGE_GetImageInfo(const char * Name, CIMAGEBITMAPINFOHEADER * lpBIH) {
+Bool32 CIMAGE_GetImageInfo(const char * Name, BitmapInfoHeader * lpBIH) {
 	return CImage::instance().GetImageInfo(Name, lpBIH);
 }
 

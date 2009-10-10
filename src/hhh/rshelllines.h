@@ -90,8 +90,8 @@ void   DrowPolynomia(DLine* pCLine); //
 //void   DrowGetCorrectedLineStripesIntervals(CLine* pCLine, Handle HndMyWindow);
 void   DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow);
 void   CleaningRaster(DLine* pCLine, char* Buffer); //
-void   DrowCleanedRaster(DLine* pCLine, char* Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow); //
-void   DrowVerticalLineRaster(DLine* pCLine, char* Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow); //
+void   DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info, Handle* HndMyWindow); //
+void   DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info, Handle* HndMyWindow); //
 void   Transpose_bit_matrixes(pchar buf_in,pchar buf_out, Rect32* rect); //
 Bool   GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar  pRaster, Bool FlagVerticalLine); //
 //Bool   GetCorrectedLineStripesIntervals(CLine* pCLine);

@@ -76,7 +76,7 @@ void PumaImpl::binarizeImage() {
 	glpRecogName = PUMA_IMAGE_USER;
 
 	//Allex
-	//CIMAGEBITMAPINFOHEADER info;
+	//BitmapInfoHeader info;
 	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
@@ -610,7 +610,7 @@ void PumaImpl::postOpenInitialize() {
 	LDPUMA_SetFileName(NULL, "none.txt");
 	szInputFileName = "none.bin";
 
-	CIMAGEBITMAPINFOHEADER info;
+	BitmapInfoHeader info;
 	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
@@ -884,7 +884,7 @@ void PumaImpl::rotate(void * dib, Point32 * p) {
 	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
 		throw PumaException("CPAGE_GetPageData failed");
 
-	CIMAGEBITMAPINFOHEADER info;
+	BitmapInfoHeader info;
 	if (PInfo.BitPerPixel > 1) {
 		if (!CIMAGE_GetImageInfo(PUMA_IMAGE_BINARIZE, &info))
 			throw PumaException("CIMAGE_GetImageInfo failed");

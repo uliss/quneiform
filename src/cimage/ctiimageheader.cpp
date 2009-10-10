@@ -59,7 +59,7 @@
 
 CTIImageHeader::CTIImageHeader() {
 	strcpy((char*)ImageName, "Fictiv image");
-	ImageInfo = (CIMAGEBITMAPINFOHEADER*) (Image = (void *) (0xffff0000));
+	ImageInfo = (BitmapInfoHeader*) (Image = (void *) (0xffff0000));
 	ImageExternal = 1;
 	ReadMask = NULL;
 	WriteMask = NULL;
@@ -85,7 +85,7 @@ CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle,
 }
 
 CTIImageHeader::CTIImageHeader(const char *lpName,
-		CIMAGEBITMAPINFOHEADER * lpInfo, void * lpImage, uint32_t wFlag) {
+		BitmapInfoHeader * lpInfo, void * lpImage, uint32_t wFlag) {
 	if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME)
 		strcpy((char*)ImageName, lpName);
 	else

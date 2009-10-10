@@ -281,7 +281,7 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 	Bool32 gbAutoRotate = Image->gbAutoRotate;
 	Handle hCPAGE = Image->hCPAGE;
 	const char * glpRecogName = *Image->pglpRecogName;
-	CIMAGEBITMAPINFOHEADER * info = (CIMAGEBITMAPINFOHEADER*) Image->pinfo;
+	BitmapInfoHeader * info = (BitmapInfoHeader*) Image->pinfo;
 	Bool32 rc = TRUE;
 	uint32_t Angle = 0;
 
