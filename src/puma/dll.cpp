@@ -85,10 +85,6 @@ int PUMA_GetReturnCode() {
 	return gwRC;
 }
 
-char * PUMA_GetReturnString(int dwError) {
-	return NULL;
-}
-
 bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 	bool rc = true;
 

@@ -245,7 +245,6 @@ DEC_FUN(char *, GetReturnString,(uint32_t))
 DEC_FUN(bool, SetImportData,(uint32_t, void *))
 
 PUMA_FUNC int PUMA_GetReturnCode();
-PUMA_FUNC char * PUMA_GetReturnString(int Error);
 PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
 
 typedef struct {

@@ -383,13 +383,13 @@ void PumaImpl::layout() {
 		if (PUMA_XGetRotateDIB(&hRotateDIB, &p) == FALSE) {
 			LDPUMA_Console(
 					"ПРЕДУПРЕЖДЕНИЕ: <%s>.\
-	Для показа в Layout будет использовано не повернутое изображение.\n",
-					PUMA_GetReturnString(PUMA_GetReturnCode()));
+	                Для показа в Layout будет использовано не повернутое изображение.\n");
 			PAGEINFO PInfo;
 			memset(&PInfo, 0, sizeof(PInfo));
 			GetPageInfo(hCPAGE, &PInfo);
 			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
 					TRUE);
+
 		}
 		LDPUMA_HandLayout(hRotateDIB, 0, &p);
 		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
