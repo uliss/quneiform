@@ -11,10 +11,13 @@
 #include <string>
 #include <iosfwd>
 #include <stdexcept>
+#include <memory>
 
 #include "cfcompat.h"
 #include "rect.h"
 #include "memorybuffer.h"
+
+class CTIControl;
 
 namespace CIF {
 
@@ -60,6 +63,7 @@ private:
 	void recognizePass1();
 	void recognizePass2();
 	void recognizeSetup(int lang);
+	void rotate(void * dib, Point32 * p);
 	void rout(const std::string& fname, int Format) const;
 	void rout(void * dest, size_t size, int format) const;
 	void saveLayoutToFile(const std::string& fname);
@@ -70,6 +74,8 @@ private:
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
 	static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
+private:
+	std::auto_ptr<CTIControl> cimage_;
 };
 
 }

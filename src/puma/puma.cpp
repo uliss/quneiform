@@ -128,70 +128,6 @@ Bool32 PreProcessImage() {
 	return rc;
 }
 
-bool PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p) {
-	bool rc = true;
-	puchar lpImage = (puchar) PUMA_IMAGE_USER;
-	//
-	// Определим угол поворота страницы
-	//
-	PAGEINFO PInfo;// = { 0 };
-
-	assert(p);
-	assert(lpDIB);
-
-	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo))) {
-		SetReturnCode_puma(CPAGE_GetReturnCode());
-		rc = false;
-	} else {
-		CIMAGEBITMAPINFOHEADER info;
-		if (PInfo.BitPerPixel > 1)
-			lpImage = (puchar) PUMA_IMAGE_BINARIZE;
-
-		if (CIMAGE_GetImageInfo(lpImage, &info)) {
-			if (PInfo.Incline2048 > 0) {
-				p->x = (int32_t) info.biWidth * PInfo.Incline2048 / 2048
-						* PInfo.Incline2048 / 2048;
-				p->y = (int32_t) (info.biWidth) * PInfo.Incline2048 / 2048;
-			} else {
-				p->x = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
-						+ (int32_t) info.biWidth * PInfo.Incline2048 / 2048
-								* PInfo.Incline2048 / 2048;
-				p->y = 0;
-			}
-		} else {
-			SetReturnCode_puma(CIMAGE_GetReturnCode());
-			rc = false;
-		}
-	}
-	//
-	// Создадим довернутое изображение
-	//
-	if (rc) {
-		PAGEINFO PInfo;// = { 0 };
-		GetPageInfo(hCPAGE, &PInfo);
-
-		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
-
-		CIMAGE_EnableMask(lpImage, (puchar) "r", false);
-		if (!RIMAGE_Rotate(lpImage, (puchar) PUMA_IMAGE_ROTATE,
-				PInfo.Incline2048, 2048, 0)) {
-			SetReturnCode_puma(RIMAGE_GetReturnCode());
-			rc = false;
-		}
-
-		if (rc) {
-			if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_ROTATE, lpDIB, true)) {
-				SetReturnCode_puma(CIMAGE_GetReturnCode());
-				rc = false;
-			}
-		}
-		CIMAGE_EnableMask(lpImage, (puchar) "r", true);
-		PInfo.Images |= IMAGE_ROTATE;
-		SetPageInfo(hCPAGE, PInfo);
-	}
-	return rc;
-}
-
 int32_t PUMA_EnumLanguages(int32_t nPrev) {
 	return _EnumLanguage(nPrev);
 }
@@ -214,10 +150,6 @@ int32_t PUMA_EnumTable(int32_t nPrev) {
 
 int32_t PUMA_EnumPicture(int32_t nPrev) {
 	return _EnumPicture(nPrev);
-}
-
-void PUMA_RenameImageName(const std::string& name) {
-	szInputFileName = name;
 }
 
 bool PUMA_XGetTemplate(Rect32 *pRect) {

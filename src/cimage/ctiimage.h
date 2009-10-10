@@ -66,8 +66,6 @@
 #define CIMAGE_FUNC  FUN_IMPO__
 #endif
 
-#define CIMAGE_CALLBACK_FUNC(a)         a
-
 enum {
 	CIMAGE_MAXNAME = 260
 };

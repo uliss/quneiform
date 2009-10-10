@@ -17,11 +17,10 @@
 #include <cstring>
 
 #include "helper.h"
-
-#include "puma.h"
-#include "mpuma.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
+#include "cimage/cticontrol.h"
+
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
 
@@ -69,6 +68,8 @@ PumaImpl::PumaImpl() {
 
 PumaImpl::~PumaImpl() {
 	modulesDone();
+	//	CTIControl * ci = new CTIControl;
+	//	cimage_.reset(ci);
 }
 
 void PumaImpl::binarizeImage() {
@@ -374,27 +375,6 @@ void PumaImpl::layout() {
 		hCPAGE = DataforRM.hCPAGE; //Paul 25-01-2001
 	}
 
-	// Запустим отладчик для редактирования Layout
-	if (!LDPUMA_Skip(hDebugHandLayout)) {
-		// Покажем довернутое изображение
-		Handle hRotateDIB = NULL;
-		Point32 p = { 0 };
-
-		if (PUMA_XGetRotateDIB(&hRotateDIB, &p) == FALSE) {
-			LDPUMA_Console(
-					"ПРЕДУПРЕЖДЕНИЕ: <%s>.\
-	                Для показа в Layout будет использовано не повернутое изображение.\n");
-			PAGEINFO PInfo;
-			memset(&PInfo, 0, sizeof(PInfo));
-			GetPageInfo(hCPAGE, &PInfo);
-			CIMAGE_ReadDIB((puchar) PInfo.szImageName, (Handle*) &hRotateDIB,
-					TRUE);
-
-		}
-		LDPUMA_HandLayout(hRotateDIB, 0, &p);
-		CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
-	}
-	//
 	if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
 		LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
 		Handle block = CPAGE_GetBlockFirst(hCPAGE, 0);
@@ -897,6 +877,51 @@ void PumaImpl::recognizeSetup(int language) {
 		RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
 		RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
 	}
+}
+
+void PumaImpl::rotate(void * dib, Point32 * p) {
+	// Определим угол поворота страницы
+	PAGEINFO PInfo;
+
+	assert(p);
+	assert(dib);
+
+	if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
+		throw PumaException("CPAGE_GetPageData failed");
+
+	CIMAGEBITMAPINFOHEADER info;
+	if (PInfo.BitPerPixel > 1) {
+		if (!CIMAGE_GetImageInfo((uchar*) PUMA_IMAGE_BINARIZE, &info))
+			throw PumaException("CIMAGE_GetImageInfo failed");
+
+		if (PInfo.Incline2048 > 0) {
+			p->x = (int32_t) info.biWidth * PInfo.Incline2048 / 2048
+					* PInfo.Incline2048 / 2048;
+			p->y = (int32_t)(info.biWidth) * PInfo.Incline2048 / 2048;
+		} else {
+			p->x = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
+					+ (int32_t) info.biWidth * PInfo.Incline2048 / 2048
+							* PInfo.Incline2048 / 2048;
+			p->y = 0;
+		}
+	}
+
+	// Создадим довернутое изображение
+	GetPageInfo(hCPAGE, &PInfo);
+
+	CIMAGE_DeleteImage((puchar) PUMA_IMAGE_ROTATE);
+
+	CIMAGE_EnableMask((puchar) PUMA_IMAGE_USER, (puchar) "r", false);
+	if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
+			PInfo.Incline2048, 2048, 0))
+		throw PumaException("RIMAGE_Rotate failed");
+
+	if (!CIMAGE_ReadDIB((puchar) PUMA_IMAGE_ROTATE, (void**) dib, true))
+		throw PumaException("CIMAGE_ReadDIB failed");
+
+	CIMAGE_EnableMask((puchar) PUMA_IMAGE_USER, (puchar) "r", true);
+	PInfo.Images |= IMAGE_ROTATE;
+	SetPageInfo(hCPAGE, PInfo);
 }
 
 void PumaImpl::rout(const std::string& filename, int Format) const {
