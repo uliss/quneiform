@@ -94,47 +94,6 @@ pchar CIMAGE_GetReturnString(uint32_t dwError) {
 	return NULL;
 }
 
-#define CASE_FUNCTION(a)	case CIMAGE_FN_##a:	*(FNCIMAGE##a *)pData = CIMAGE_##a; break;
-
-Bool32 CIMAGE_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-	gwLowRC = 0;
-
-	switch (dwType) {
-	CASE_FUNCTION(WriteCallbackImage)
-	CASE_FUNCTION(GetCallbackImage)
-	CASE_FUNCTION(WriteDIB)
-	CASE_FUNCTION(ReadDIB)
-	CASE_FUNCTION(GetData)
-	CASE_FUNCTION(GetDIBData)
-	CASE_FUNCTION(ReplaceData)
-	CASE_FUNCTION(GetImageInfo)
-	CASE_FUNCTION(DeleteImage)
-	CASE_FUNCTION(FreeCopedDIB)
-	CASE_FUNCTION(FreeBuffers)
-	CASE_FUNCTION(Reset)
-	CASE_FUNCTION(AddReadCloseRects)
-	CASE_FUNCTION(RemoveReadCloseRects)
-	CASE_FUNCTION(AddWriteCloseRects)
-	CASE_FUNCTION(RemoveWriteCloseRects)
-
-	default:
-		*(Handle *) pData = NULL;
-		gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
-
-	return rc;
-}
-
-Bool32 CIMAGE_SetImportData(uint32_t dwType, void * pData) {
-	Bool rc = FALSE;
-	gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
-
-	return rc;
-}
-
 void SetReturnCode_cimage(uint16_t rc) {
 	if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
 		gwLowRC = rc;

@@ -80,8 +80,6 @@ CIMAGE_FUNC void CIMAGE_Init(uint16_t wHeightCode);
 CIMAGE_FUNC void CIMAGE_Done();
 CIMAGE_FUNC uint32_t CIMAGE_GetReturnCode();
 CIMAGE_FUNC char * CIMAGE_GetReturnString(uint32_t dwError);
-CIMAGE_FUNC Bool32 CIMAGE_GetExportData(uint32_t dwType, void * pData);
-CIMAGE_FUNC Bool32 CIMAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
 	CIMAGE_FN_WriteCallbackImage = 1,
@@ -102,7 +100,7 @@ typedef enum {
 	CIMAGE_FN_RemoveWriteCloseRects,
 	CIMAGE_FN_EnableMask
 } CIMAGE_EXPORT_ENTRIES;
-#define DEC_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_FUNC a CIMAGE_##b c;
+#define DEC_FUN(a,b,c) CIMAGE_FUNC a CIMAGE_##b c;
 DEC_FUN(Bool32, WriteCallbackImage, (const char *, CIMAGEIMAGECALLBACK))
 DEC_FUN(Bool32, GetCallbackImage, (const char * , CIMAGEIMAGECALLBACK*))
 DEC_FUN(Bool32, WriteDIB, (const char * , Handle, uint32_t))
