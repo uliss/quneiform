@@ -54,13 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-# ifndef __CTI_CONTROL_H_
-# define __CTI_CONTROL_H_
+#ifndef __CTI_CONTROL_H_
+#define __CTI_CONTROL_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-//////////////////////////////////////////
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
@@ -175,6 +171,6 @@ protected:
 	Bool32 mCBWInProcess;
 
 };
-# endif    //__CTI_CONTROL_H_
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file
+
+#endif
+

@@ -57,6 +57,7 @@
 // CTIMask.cpp: implementation of the CTIMask class.
 
 #include "ctimask.h"
+#include "ctimemory.h"
 
 CTIMask::CTIMask() :
 	mwMaskWidth(0), mwMaskHeight(0), mwSegments(0), mcLine(0), mwLines(0) {

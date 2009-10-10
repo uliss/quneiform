@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-#include "ctimemory.h"
+
 ////////////////////////////////////////////////////////////////////////////////////
 class CTIMaskLineSegment;
 typedef   CTIMaskLineSegment         *PCTIMaskLineSegment,   **PPCTIMaskLineSegment;

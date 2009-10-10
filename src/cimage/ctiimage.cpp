@@ -57,7 +57,7 @@
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-#include "ctimemory.h"
+
 
 #include "cticontrol.h"
 

@@ -79,11 +79,6 @@ Bool32 CIMAGE_Init(uint16_t wHeightCode, Handle hStorage) {
 	gwHeightRC = wHeightCode;
 
 	if (!Control_cti) {
-		if (!InitCFIOInterface(TRUE)) {
-			SetReturnCode_cimage(IDS_CIMAGE_OTHER_DLL_NOT_INITIALIZED);
-			return FALSE;
-		}
-
 		Control_cti = new CTIControl;
 	}
 
@@ -103,7 +98,6 @@ Bool32 CIMAGE_Done() {
 		if (--InitCount == 0) {
 			delete Control_cti;
 			Control_cti = NULL;
-			InitCFIOInterface(FALSE);
 		}
 		return TRUE;
 	}

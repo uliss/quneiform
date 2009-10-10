@@ -54,39 +54,17 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Для использования без CFIO.DLL
-//#ifdef _NO_CFIO
-//#undef _NO_CFIO
-#define _NO_CFIO
-//#endif
-
-//
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
-#include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
+#include <string>
 
-char cCommentBuffer[CIF::CFIO::CFIO_MAX_COMMENT];
-
-Bool32 InitCFIOInterface(Bool32 Status) {
-	Bool32 bRet = TRUE;
-
-	if (Status == TRUE) {
-		CFIO_Init(NULL, NULL);
-	} else {
-		bRet = CFIO_Done();
-	}
-
-	return bRet;
-}
+static std::string CommentBuffer;
 
 void CIMAGEComment(const char * Comment) {
-	uint32_t Len = strlen(Comment);
-	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
-			: CFIO_MAX_COMMENT - 1));
+	CommentBuffer = Comment;
 }
 
 void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
@@ -95,143 +73,18 @@ void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
 }
 
 void * CIMAGEAlloc(uint32_t stAllocateBlock) {
-	char * mem = NULL;
-
-#ifdef _NO_CFIO
-
-#ifdef  CIMAGE_USE_GLOBAL_MEM
-
-	mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-
-#else
-
-	mem = ::new char[stAllocateBlock];
-
-#endif
-
-	if(!mem)
-	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
-#else
-	mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
-			(char*) "CImage", (char*) cCommentBuffer);
-
-	if (!mem)
-		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
-
-#endif
-
-	return mem;
+	return ::new char[stAllocateBlock];
 }
 
 void CIMAGEFree(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  CIMAGE_USE_GLOBAL_MEM
-
-	GlobalFree(mem);
-
-#else
-
-	::delete [] mem;
-
-#endif
-#else
-
-	CFIO_FreeMemory(mem);
-
-#endif
+	::delete[] mem;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void * CIMAGELock(void * mem) {
-	void * pMem;
-#ifdef _NO_CFIO
-
-#ifdef  CIMAGE_USE_GLOBAL_MEM
-
-	return GlobalLock(mem);
-
-#else
-
 	return mem;
-
-#endif
-
-#else
-
-	pMem = CFIO_LockMemory(mem);
-
-	if (pMem == NULL && mem != NULL)
-		return mem;
-
-	return pMem;
-
-#endif
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void CIMAGEUnlock(void * mem) {
-#ifdef _NO_CFIO
 
-#ifdef  CIMAGE_USE_GLOBAL_MEM
-
-	GlobalUnlock(mem);
-
-#else
-
+void CIMAGEUnlock(void *) {
 	return;
+}
 
-#endif
-
-#else
-
-	CFIO_UnlockMemory(mem);
-	return;
-
-#endif
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Handle CIMAGEOpenSave(char * lpName) {
-	Handle rc = NULL;
-#ifdef _NO_CFIO
-	rc = (Handle)fopen(lpName,"wb");
-#endif
-	return rc;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-Handle CIMAGEOpenRestore(char * lpName) {
-	Handle rc = NULL;
-#ifdef _NO_CFIO
-	rc = (Handle)fopen(lpName,"rb");
-#endif
-	return rc;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-unsigned int CIMAGEWrite(Handle h, void * lpdata, unsigned int size) {
-	uint32_t rc = 0;
-#ifdef _NO_CFIO
-	rc = fwrite(lpdata,1,size,(FILE*)h);
-#endif
-	return rc;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-unsigned int CIMAGERead(Handle h, void * lpdata, unsigned int size) {
-	uint32_t rc = 0;
-#ifdef _NO_CFIO
-	rc = fread(lpdata,1,size,(FILE *)h);
-#endif
-	return rc;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-void CIMAGEClose(Handle h) {
-#ifdef _NO_CFIO
-	fclose((FILE*)h);
-#endif
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-// end of file

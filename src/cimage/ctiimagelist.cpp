@@ -54,6 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "ctimemory.h"
 #include "ctiimagelist.h"
 
 CTIImageList::CTIImageList() {
