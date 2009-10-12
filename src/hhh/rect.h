@@ -39,19 +39,11 @@ public:
 			std::swap(pt0_, pt1_);
 	}
 
-	T& bottom() {
+	T bottom() const {
 		return pt1_.y();
 	}
 
-	const T& bottom() const {
-		return pt1_.y();
-	}
-
-	T& left() {
-		return pt0_.x();
-	}
-
-	const T& left() const {
+	T left() const {
 		return pt0_.x();
 	}
 
@@ -75,11 +67,7 @@ public:
 		return pt1_;
 	}
 
-	T& right() {
-		return pt1_.x();
-	}
-
-	const T& right() const {
+	T right() const {
 		return pt1_.x();
 	}
 
@@ -97,11 +85,7 @@ public:
 		return *this;
 	}
 
-	T& top() {
-		return pt0_.y();
-	}
-
-	const T& top() const {
+	T top() const {
 		return pt0_.y();
 	}
 
