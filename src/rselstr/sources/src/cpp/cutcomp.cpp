@@ -66,6 +66,8 @@
 #include "cpage/cpagetyps.h"
 #include "polyblock.h"
 
+using namespace CIF;
+
 #define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 typedef uint32_t COLORREF;
 
@@ -99,15 +101,15 @@ extern int inf_dust_h;
 extern uint32_t Code_UB_Kill;
 extern uint32_t Code_UB_Create;
 
-Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
-int GetLineY(Point32 beg, Point32 end, int x);
+Bool IfNeedCutComp(CCOM_comp* comp, Point beg, Point end, int& yCut);
+int GetLineY(Point beg, Point end, int x);
 Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
-		int left, int right);
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
+		int bottom, int left, int right);
 Bool IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
@@ -118,7 +120,7 @@ Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
-Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
+Bool IfNeedCutComp(CCOM_comp* comp, Point beg, Point end, int& yCut) {
 	int top = comp->upper;
 	int left = comp->left;
 	int right = left + comp->w - 1;
@@ -134,16 +136,16 @@ Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
 	if (h < inf_cut_h || h > sup_cut_h || w < inf_let_w)
 		return FALSE;
 
-	if (beg.y >= end.y) {
-		max_y = beg.y;
-		min_y = end.y;
+	if (beg.y() >= end.y()) {
+		max_y = beg.y();
+		min_y = end.y();
 	} else {
-		max_y = end.y;
-		min_y = beg.y;
+		max_y = end.y();
+		min_y = beg.y();
 	}
 
-	if ((bottom > min_y) && (top < max_y) && (medium_w >= beg.x) && (medium_w
-			<= end.x))
+	if ((bottom > min_y) && (top < max_y) && (medium_w >= beg.x()) && (medium_w
+			<= end.x()))
 		;
 	else
 		return FALSE;
@@ -171,13 +173,13 @@ Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
 
 }
 
-int GetLineY(Point32 beg, Point32 end, int x) {
-	int lenght = end.x - beg.x + 1;
-	int spusk = beg.y - end.y;
+int GetLineY(Point beg, Point end, int x) {
+	int lenght = end.x() - beg.x() + 1;
+	int spusk = beg.y() - end.y();
 
 	if (lenght <= 0)
-		return beg.y;
-	return beg.y - ((x - beg.x + 1) * spusk) / lenght;
+		return beg.y();
+	return beg.y() - ((x - beg.x() + 1) * spusk) / lenght;
 }
 
 Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
@@ -465,8 +467,8 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 // delete[] lp;
 }
 
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
-		int left, int right) {
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
+		int bottom, int left, int right) {
 
 	Rect16 Rect;
 

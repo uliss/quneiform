@@ -77,6 +77,8 @@
 #include "snptools.h"
 #include "snpdefs.h"
 
+using namespace CIF;
+
 uchar field_number = 0;
 Bool32 leo_enable_fon_recog = FALSE;
 Bool32 leo_Snp_In_Rect = FALSE;
@@ -126,8 +128,8 @@ int32_t LEO_Str2FldNo(int32_t str_no) {
 }
 
 static Bool leoInsideRect(const Rect16* r, const Point16 * p) {
-	return !((p->x < r->left) || (p->x > r->right) || (p->y < r->top) || (p->y
-			> r->bottom));
+	return !((p->x() < r->left) || (p->x() > r->right) || (p->y() < r->top)
+			|| (p->y() > r->bottom));
 }
 
 void Leo_SnpWaitUserInput(SnpTreeNode *stnCharRecog) {
@@ -510,8 +512,8 @@ Bool32 LEOSetupField(LeoFieldSetup* fs) {
 	LEOSetAlphabet((char*) fs->AlphaTable);
 	DIFSetFont(0);
 	R35SetMTR(0);
-	nNdxWid = fs->BoxSize.x;
-	nNdxHei = fs->BoxSize.y;
+	nNdxWid = fs->BoxSize.x();
+	nNdxHei = fs->BoxSize.y();
 	field_number++;
 	if (field_number < MAX_FIELDS) {
 		fields_tab[field_number] = fs->nFieldNo;

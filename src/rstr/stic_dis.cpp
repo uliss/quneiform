@@ -521,12 +521,12 @@ int16_t maxlen = MAX (MAX(l->mount[0],l->mount[4]), MAX(r->mount[0],l->mount[4])
 				// f7/7 "been" 'n'=>"ri"
 				// m15/10 "Philadelphia" first 'i' really INC
 //////if (!s->up_dot_NAVIS  &&	// NO NAVISANIE 05.08.1993
-//////if (s->up_dot_H  &&	// POINT EXIST	26.08.1993
+//////if (s->up_dot_H  &&	// Point16 EXIST	26.08.1993
 
 if (npoints_1_or_2==1  &&	// 07.12.1993: NO DISCRIM in Case "n==2"
-    s->up_dot_H  &&		// POINT EXIST	26.08.1993
+    s->up_dot_H  &&		// Point16 EXIST	26.08.1993
     !inc  &&			// I can not work with inc TODAY
-////s->up_dot_W  &&		// BBB: POINT EXIST (before 26.08.1993)
+////s->up_dot_W  &&		// BBB: Point16 EXIST (before 26.08.1993)
 ////s->up_dot_dCOL - left_mode_EEM > wid + 2)	// 05.08.1993 first PROBA
 ////(s->up_dot_dCOL - left_mode_EEM >= wid  ||	// 22.11.1993 second PROBA
 				// 22.11.1993 next PROBA:
@@ -558,7 +558,7 @@ if (l->mount[0] >	// see frae7/10,  stdm11/8:		// 29.07.1993
 
 /*......................................................................*/
 				// 17.01.1994  PROBA FOR CUTTED 'h':
-if (s->up_dot_H==0  &&		// POINT NOT EXIST
+if (s->up_dot_H==0  &&		// Point16 NOT EXIST
     inc  &&			// and INC
     (left_letter_EEM=='l' || left_letter_EEM=='/'))
 	dis += 40;		// for der Laterne;			// 40
@@ -588,7 +588,7 @@ int16_t	wid=s->stick_width, inc=s->inc;
 	l = l;	// FOR NO WARNING
 /*......................................................................*/
 				// 22.11.1993 about DOT:  COPY from dis_i:
-if (s->up_dot_H  &&		// POINT EXIST	26.08.1993
+if (s->up_dot_H  &&		// Point16 EXIST	26.08.1993
     !inc  &&			// I can not work with inc TODAY
     (s->up_dot_dCOL - left_mode_EEM >= wid + (r->mount[0] ? 1 : 0) || // RGT.
      s->up_dot_dCOL + s->up_dot_W <= left_mode_EEM))		      // LEFT

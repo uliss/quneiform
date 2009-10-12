@@ -62,6 +62,8 @@
 #include "dpuma.h"
 #include "compat_defs.h"
 
+using namespace CIF;
+
 HINSTANCE hDPuma = NULL;
 
 static FNDPUMA_Init Init = NULL;
@@ -538,12 +540,12 @@ DPUMA_Callback_WindowProc LDPUMA_SetCallbackWindowProc(Handle wnd,
 	return NULL;
 }
 
-void LDPUMA_DeviceToImage(Handle wnd, Point32 * p, uint32_t number) {
+void LDPUMA_DeviceToImage(Handle wnd, Point * p, uint32_t number) {
 	if (DeviceToImage)
 		DeviceToImage(wnd, p, number);
 }
 
-void LDPUMA_ImageToDevice(Handle wnd, Point32 * p, uint32_t number) {
+void LDPUMA_ImageToDevice(Handle wnd, Point * p, uint32_t number) {
 	if (ImageToDevice)
 		ImageToDevice(wnd, p, number);
 }
@@ -608,13 +610,13 @@ uint32_t LDPUMA_CSTR_GetLength() {
 	return rc;
 }
 
-void LDPUMA_ShowCutPoint(uint32_t number, Point32 * lppoint) {
+void LDPUMA_ShowCutPoint(uint32_t number, Point * lppoint) {
 	if (ShowCutPoint)
 		ShowCutPoint(number, lppoint);
 }
 
-Point32 LDPUMA_GetRasterPixel(Handle wnd, Point32 point) {
-	Point32 rc = { -1, -1 };
+Point LDPUMA_GetRasterPixel(Handle wnd, Point point) {
+	Point rc(-1, -1);
 	if (GetRasterPixel)
 		rc = GetRasterPixel(wnd, point);
 	return rc;
@@ -646,7 +648,7 @@ const char * LDPUMA_GetFileName(Handle wnd) {
 	return rc;
 }
 
-void * LDPUMA_HandLayout(void * lpDIB, uint32_t flags, Point32 * p) {
+void * LDPUMA_HandLayout(void * lpDIB, uint32_t flags, Point * p) {
 	void * rc = NULL;
 	if (fHandLayout)
 		rc = fHandLayout(lpDIB, flags, p);

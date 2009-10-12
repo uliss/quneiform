@@ -58,6 +58,7 @@
 #define RBAL_LINEAR_H_
 
 #include "cstr/cstr.h"
+#include "point.h"
 
 #define DBG 1
 #ifdef LIN_MAIN
@@ -65,10 +66,6 @@
 #else
 #define EXTLIN extern
 #endif
-// typedef struct bas_ln_type
-//  {int16_t startcol, endcol, startf, endf, ncells;
-//   int16_t ps, b1, b2, b3, b4, n1, n2, n3, n4; uchar fl_def, fl_ext;
-//   cell *c1, *c2, *cf1, *cf2; } bas_ln;
 
 typedef struct bas_ln_type {
 	int16_t startcol, endcol, startf, endf, ncells;
@@ -236,8 +233,9 @@ extern Bool (*snap_monitor_rbal)(void);
 extern Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 extern Bool (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 extern Bool (*snap_baselines_rbal)(uchar a);//IGOR
-extern void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end,
-		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);//IGOR
+extern void (*snap_draw_line_rbal)(Handle wnd, CIF::Point16 *start,
+		CIF::Point16 *end, int32_t skew, uint32_t rgb, int16_t pen,
+		uint32_t key);//IGOR
 extern void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
 extern Bool (*snap_show_text_rbal)(const uchar *txt);

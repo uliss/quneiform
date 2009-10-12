@@ -35,6 +35,7 @@
 
 #include "globus.h"
 #include "compat_defs.h"
+#include "point.h"
 
 #ifdef __CFCOMPAT__
 #define CFCOMPAT_FUNC  FUN_EXPO__
@@ -100,7 +101,7 @@ CFCOMPAT_FUNC Bool GlobalUnlock(HGLOBAL hMem);
 CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
 CFCOMPAT_FUNC Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight,
 		int yBottom);
-CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, POINT pt);
+CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, CIF::Point16 pt);
 CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1,
 		const RECT *lprcSrc2);
 CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,

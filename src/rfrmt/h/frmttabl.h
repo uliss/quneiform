@@ -99,10 +99,10 @@ class CTableString;
 class CTableWord;
 class CTableChar;
 
-void  GetFragmLines( int32_t m_NumberFragm , Point32* m_point );
+void  GetFragmLines( int32_t m_NumberFragm , Point* m_point );
 Bool  CheckLine( CSTR_line* Comingline );
 void  AddLetter( CSTR_rast* rast , uchar*  m_ucCode , uchar* m_ucFontNumber );
-void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point32 m_TempPhPoint,
+void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point m_TempPhPoint,
 																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
 /////////////////////////////////////////////////////////////////////////////
 //Класс для таблицы
@@ -152,7 +152,7 @@ public:
 
   CTableString* GetCurrentString( void );
   void          SetPhCellParam(Bool32 FlagTerminalPhCell, int32_t   NumberPhysicalGroup ,
-  Bool32        FlagPhisicalGroup , Point32 m_TempPhPoint      );
+  Bool32        FlagPhisicalGroup , Point m_TempPhPoint      );
   void          FillPhCell(int32_t m_FragmentNumber);
   void          Write_Header(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
   void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
@@ -164,7 +164,7 @@ public:
 
   Rect32        RectPhCell;//Здесь хранятся координаты прямоугольника - ГРАНИЦ ячейки (кажется в пикселях)
   Rect32        RectTable;
-  Point32       m_PhCellPoint;
+  Point       m_PhCellPoint;
 
   uint16_t	        m_wIndex;
   Bool32	    m_FlagTerminalPhCell;

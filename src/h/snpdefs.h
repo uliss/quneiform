@@ -175,7 +175,7 @@ public:
 // User implemented handlers of events, called from application:
 typedef
 void (*FTOnMouseDown)( // called when mouse clicked in zone
-		Point16* mouse_pt,
+		CIF::Point16* mouse_pt,
 		// in image real coords
 		Rect16* zone_rect,
 		// in image real coords
@@ -225,7 +225,7 @@ void (*FTHideRects)( // hides rects with specified key, 0-hides all
 
 typedef
 void (*FTDrawLine)( // adds line to be drawn
-		Point16* start, Point16* end,
+		CIF::Point16* start, CIF::Point16* end,
 		// in image ideal coords
 		int32_t skew,
 		// ideal-to-real coords skew (Tangens/1024)
@@ -293,7 +293,7 @@ typedef Bool16 (*FTGetUserRect)( // starts mouse rect input
 		);
 
 typedef Bool16 (*FTGetUserPoint)( // starts mouse point input
-		Point16* rect
+		CIF::Point16* rect
 // point to be returned in image real coords
 		);
 

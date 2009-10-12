@@ -68,6 +68,8 @@
 #include "polyblock.h"
 #include "rcutp.h"
 
+using namespace CIF;
+
 #define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 typedef uint32_t COLORREF;
 
@@ -201,19 +203,19 @@ int CutStrings(POLY_* pBlock) {
 		if (fl_cont)
 			continue;
 
-		pLeftTop.x = comp->left;
-		pLeftTop.y = comp->upper - 1;
-		pRightTop.x = comp->left + comp->w - 1;
-		pRightTop.y = comp->upper - 1;
-		pLeftBottom.x = comp->left;
-		pLeftBottom.y = comp->upper + comp->h - 2;
-		pRightBottom.x = comp->left + comp->w - 1;
-		pRightBottom.y = comp->upper + comp->h - 2;
+		pLeftTop.rx() =  comp->left;
+		pLeftTop.ry() = comp->upper - 1;
+		pRightTop.rx() =  comp->left + comp->w - 1;
+		pRightTop.ry() = comp->upper - 1;
+		pLeftBottom.rx() =  comp->left;
+		pLeftBottom.ry() = comp->upper + comp->h - 2;
+		pRightBottom.rx() =  comp->left + comp->w - 1;
+		pRightBottom.ry() = comp->upper + comp->h - 2;
 
-		IDEAL_XY(pLeftTop.x, pLeftTop.y);
-		IDEAL_XY(pRightTop.x, pRightTop.y);
-		IDEAL_XY(pLeftBottom.x, pLeftBottom.y);
-		IDEAL_XY(pRightBottom.x, pRightBottom.y);
+		IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
+		IDEAL_XY(pRightTop.rx(), pRightTop.ry());
+		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
+		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
 		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
 				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
@@ -271,19 +273,19 @@ int GetMediumHeight(POLY_* pBlock) {
 		if (comp->h < inf_let_h)
 			continue;
 
-		pLeftTop.x = comp->left;
-		pLeftTop.y = comp->upper - 1;
-		pRightTop.x = comp->left + comp->w - 1;
-		pRightTop.y = comp->upper - 1;
-		pLeftBottom.x = comp->left;
-		pLeftBottom.y = comp->upper + comp->h - 2;
-		pRightBottom.x = comp->left + comp->w - 1;
-		pRightBottom.y = comp->upper + comp->h - 2;
+		pLeftTop.rx() =  comp->left;
+		pLeftTop.ry() = comp->upper - 1;
+		pRightTop.rx() =  comp->left + comp->w - 1;
+		pRightTop.ry() = comp->upper - 1;
+		pLeftBottom.rx() =  comp->left;
+		pLeftBottom.ry() = comp->upper + comp->h - 2;
+		pRightBottom.rx() =  comp->left + comp->w - 1;
+		pRightBottom.ry() = comp->upper + comp->h - 2;
 
-		IDEAL_XY(pLeftTop.x, pLeftTop.y);
-		IDEAL_XY(pRightTop.x, pRightTop.y);
-		IDEAL_XY(pLeftBottom.x, pLeftBottom.y);
-		IDEAL_XY(pRightBottom.x, pRightBottom.y);
+		IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
+		IDEAL_XY(pRightTop.rx(), pRightTop.ry());
+		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
+		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
 		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
 				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
@@ -766,8 +768,8 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
 		return FALSE;
 	for (i = 0; i < len; i++) {
 		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-			dop[i].com.Vertex[j].x = (*ppRc)[i].com.Vertex[i].x;
-			dop[i].com.Vertex[j].y = (*ppRc)[i].com.Vertex[i].y;
+			dop[i].com.Vertex[j].rx() =  (*ppRc)[i].com.Vertex[i].x();
+			dop[i].com.Vertex[j].ry() = (*ppRc)[i].com.Vertex[i].y();
 		}
 	}
 
@@ -779,8 +781,8 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
 
 	for (i = 0; i < len; i++) {
 		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-			(*ppRc)[i].com.Vertex[i].x = dop[i].com.Vertex[j].x;
-			(*ppRc)[i].com.Vertex[i].y = dop[i].com.Vertex[j].y;
+			(*ppRc)[i].com.Vertex[i].rx() =  dop[i].com.Vertex[j].x();
+			(*ppRc)[i].com.Vertex[i].ry() = dop[i].com.Vertex[j].y();
 		}
 	}
 

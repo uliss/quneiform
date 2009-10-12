@@ -65,13 +65,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
-/*#include <windows.h>*/
 /*  interface our-other  */
 #include "dpuma.h"
 /*  interface my        */
 #define _AM_Comm_
 #include "am_comm.h"  // Own functions
 #include "am_err.h"
+
+using namespace CIF;
 /*------------own objects-----------------------------------------------------*/
 static uint32_t wRltMainCode;
 #define     MaxResCodes   3

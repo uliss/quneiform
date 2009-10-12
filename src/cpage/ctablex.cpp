@@ -61,6 +61,8 @@
 #include "tableclass.h"
 #include "compat_defs.h"
 
+using namespace CIF;
+
 Handle CPAGE_ExTableCreate(Handle hPage, int32_t Skew2048, uint32_t nVer,
 		int32_t * lpVCor, uint32_t nHor, int32_t * lpHCor) {
 	PROLOG;
@@ -163,7 +165,7 @@ Bool32 CPAGE_ExTableGetNumberColumn(Handle hTable, int32_t * lpNumber) {
 	return rc;
 }
 
-Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point32 point, Rect32 * lpRect) {
+Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -172,17 +174,17 @@ Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point32 point, Rect32 * lpRect)
 	assert(lpRect);
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		rect.left = tc->GetVLine(point.x);
-		rect.right = tc->GetVLine(point.x + 1);
-		rect.top = tc->GetVLine(point.y);
-		rect.bottom = tc->GetVLine(point.y + 1);
+		rect.left = tc->GetVLine(point.x());
+		rect.right = tc->GetVLine(point.x() + 1);
+		rect.top = tc->GetVLine(point.y());
+		rect.bottom = tc->GetVLine(point.y() + 1);
 		*lpRect = rect;
 		rc = TRUE;
 	}EPILOG;
 	return rc;
 }
 
-Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point32 point, Rect32 * lpRect) {
+Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -194,7 +196,7 @@ Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point32 point, Rect32 * lpRect)
 	return rc;
 }
 
-Bool32 CPAGE_ExTableGetNumberBlock(Handle hTable, Point32 point,
+Bool32 CPAGE_ExTableGetNumberBlock(Handle hTable, Point point,
 		int32_t * lpNumber) {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -204,7 +206,7 @@ Bool32 CPAGE_ExTableGetNumberBlock(Handle hTable, Point32 point,
 
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		Point32 phPoint = tc->GetCell(point);
+		Point phPoint = tc->GetCell(point).Point();
 		*lpNumber = tc->GetCell(phPoint);
 
 		rc = TRUE;
@@ -212,8 +214,8 @@ Bool32 CPAGE_ExTableGetNumberBlock(Handle hTable, Point32 point,
 	return rc;
 }
 
-Bool32 CPAGE_ExGeTableGetPhysical(Handle hTable, Point32 point,
-		Point32 * lpPoint) {
+Bool32 CPAGE_ExGeTableGetPhysical(Handle hTable, Point point,
+		Point * lpPoint) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -222,13 +224,13 @@ Bool32 CPAGE_ExGeTableGetPhysical(Handle hTable, Point32 point,
 
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		*lpPoint = tc->GetCell(point);
+		*lpPoint = tc->GetCell(point).Point();
 		rc = TRUE;
 	}EPILOG;
 	return rc;
 }
 
-Bool32 CPAGE_ExPhTableGetNumberGeometry(Handle hTable, Point32 point,
+Bool32 CPAGE_ExPhTableGetNumberGeometry(Handle hTable, Point point,
 		int32_t * lpNumber) {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -239,7 +241,7 @@ Bool32 CPAGE_ExPhTableGetNumberGeometry(Handle hTable, Point32 point,
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
 
-		Point32 PhCoord = tc->GetCell(point);
+		Point PhCoord = tc->GetCell(point).Point();
 		*lpNumber = tc->GetCell(PhCoord).GetGeCount();
 
 		rc = TRUE;
@@ -247,8 +249,8 @@ Bool32 CPAGE_ExPhTableGetNumberGeometry(Handle hTable, Point32 point,
 	return rc;
 }
 
-Bool32 CPAGE_ExPhTableGetGeometry(Handle hTable, Point32 point, int32_t count,
-		Point32 * lpPoint) {
+Bool32 CPAGE_ExPhTableGetGeometry(Handle hTable, Point point, int32_t count,
+		Point * lpPoint) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -263,7 +265,7 @@ Bool32 CPAGE_ExPhTableGetGeometry(Handle hTable, Point32 point, int32_t count,
 	return rc;
 }
 
-Bool32 CPAGE_ExPhTableSetNumberBlock(Handle hTable, Point32 point,
+Bool32 CPAGE_ExPhTableSetNumberBlock(Handle hTable, Point point,
 		int32_t number) {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -271,13 +273,13 @@ Bool32 CPAGE_ExPhTableSetNumberBlock(Handle hTable, Point32 point,
 
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		Point32 PhCoord = tc->GetCell(point);
+		Point PhCoord = tc->GetCell(point).Point();
 		tc->GetCell(PhCoord) = number;
 	}EPILOG;
 	return rc;
 }
 
-Bool32 CPAGE_ExTableIsPhysicCell(Handle hTable, Point32 point,
+Bool32 CPAGE_ExTableIsPhysicCell(Handle hTable, Point point,
 		Bool32 * lpIsPhysic) {
 	PROLOG;
 	Bool32 rc = FALSE;

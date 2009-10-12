@@ -70,15 +70,17 @@ static const bool MULTI = true;
 
 #include "wrgb.h" //IGOR
 #include "statsearchbl.h" //IGOR
+using namespace CIF;
+
 //IGOR
-#define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
+#define draw_puma_bl(n,l)	rs.ry() = re.ry() = minrow + bbs##n;	\
 							snap_draw_line_rbal(NULL, &rs, &re, (int16_t)nIncline/2, rgb, -100, 1##l)
-#define draw_stat_bl(n,l)	rs.y = re.y = minrow + m_attr.bs##n;\
+#define draw_stat_bl(n,l)	rs.ry() = re.ry() = minrow + m_attr.bs##n;\
 							snap_draw_line_rbal(NULL, &rs, &re, (int16_t)nIncline/2, rgb, -100, 2##l)
-#define draw_bl_marking(n,l)	rsm.y = rs.y - 1; rem.y = rs.y + 1;	\
+#define draw_bl_marking(n,l)	rsm.ry() = rs.ry() - 1; rem.ry() = rs.y() + 1;	\
 								for(mc = 0; mc < n; mc++)	\
 								{	\
-									rsm.x = rs.x - 1 + mc*5; rem.x = rs.x + 1 + mc*5;	\
+									rsm.rx() = rs.x() - 1 + mc*5; rem.rx() = rs.x() + 1 + mc*5;	\
 									snap_draw_line_rbal(NULL, &rsm, &rem, (int16_t)nIncline/2, rgb, -100, 1##l);\
 								}
 #define del_bl(m,l)			snap_del_line_rbal(NULL,  m##l);
@@ -1755,8 +1757,8 @@ int16_t dbsum(int16_t filter) {
 			startx = line_attr.col;
 			endx = startx + (short) line_attr.wid;
 		} else {
-			rs.x = mincol;
-			re.x = mincol + maxcol;
+			rs.rx() = mincol;
+			re.rx() = mincol + maxcol;
 		}
 
 		if (language == 3) {
@@ -1764,9 +1766,9 @@ int16_t dbsum(int16_t filter) {
 			{
 				int16_t ic = 0;
 				rgb = wRGB(64, 128, 128);
-				rs.x = startx;
-				re.x = startx + std::min(80, endx - startx);
-				while (rs.x <= endx && re.x <= endx) {
+				rs.rx() = startx;
+				re.rx() = startx + std::min(80, endx - startx);
+				while (rs.x() <= endx && re.x() <= endx) {
 					draw_puma_bl(1,3);
 					if (ic == 0) {
 						draw_bl_marking(1,3);
@@ -1785,16 +1787,16 @@ int16_t dbsum(int16_t filter) {
 							draw_bl_marking(4,3);
 						}
 					}
-					rs.x = re.x + 5;
-					re.x = rs.x + std::min(80, abs(endx - rs.x));
+					rs.rx() = re.x() + 5;
+					re.rx() = rs.x() + std::min(80, abs(endx - rs.x()));
 					ic = 1;
 				}
 			}
 
 			if (i_method != 0)//STAT
 			{
-				rs.x = startx;
-				re.x = endx;
+				rs.rx() = startx;
+				re.rx() = endx;
 				rgb = wRGB(128, 0, 128);
 				draw_stat_bl(1,3);
 				draw_bl_marking(1,3);
@@ -1812,9 +1814,9 @@ int16_t dbsum(int16_t filter) {
 			{
 				int16_t ic = 0;
 				rgb = wRGB(124, 190, 190);
-				rs.x = startx;
-				re.x = startx + std::min(80, endx - startx);
-				while (rs.x <= endx && re.x <= endx) {
+				rs.rx() = startx;
+				re.rx() = startx + std::min(80, endx - startx);
+				while (rs.x() <= endx && re.x() <= endx) {
 					draw_puma_bl(1,0);
 					if (ic == 0) {
 						draw_bl_marking(1,0);
@@ -1833,16 +1835,16 @@ int16_t dbsum(int16_t filter) {
 							draw_bl_marking(4,0);
 						}
 					}
-					rs.x = re.x + 5;
-					re.x = rs.x + std::min(80, abs(endx - rs.x));
+					rs.rx() = re.x() + 5;
+					re.rx() = rs.x() + std::min(80, abs(endx - rs.x()));
 					ic = 1;
 				}
 			}
 
 			if (i_method != 0)//STAT
 			{
-				rs.x = startx;
-				re.x = endx;
+				rs.rx() = startx;
+				re.rx() = endx;
 				rgb = wRGB(255, 0, 255);
 				draw_stat_bl(1,0);
 				draw_bl_marking(1,0);

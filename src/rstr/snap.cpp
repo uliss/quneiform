@@ -76,6 +76,8 @@
 #include "fon/fon.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 static void snap_sticks(cell *, char *);
 
 // from module PASSE
@@ -111,7 +113,7 @@ Bool snap_page_disable = FALSE;
 static uchar db_skip_client;
 static CSTR_line snap_line;
 static cell currcell;//,*db_stopcell;
-static Point32 cutpoints_show[128];
+static Point cutpoints_show[128];
 static uint32_t numpoints_show;
 static cell * cutpoints_cell = NULL;
 static int32_t select_line = 0, num_select_lines = 0;
@@ -801,8 +803,8 @@ Bool snap_is_marked(CSTR_line ln) {
 	CSTR_GetLineAttr(ln, &r);
 	if (!LDPUMA_GetUserPoint(wnd, &p))
 		return FALSE;
-	return !((p.x < r.r_col) || (p.x > r.r_col + r.r_wid) || (p.y < r.r_row)
-			|| (p.y > r.r_row + r.r_hei));
+	return !((p.x() < r.r_col) || (p.x() > r.r_col + r.r_wid) || (p.y() < r.r_row)
+			|| (p.y() > r.r_row + r.r_hei));
 }
 
 // активен ли клиент
@@ -912,23 +914,23 @@ void snap_show_cuts(cell *C, struct cut_elm *cut_points) {
 		for (numpoints_show = 0, cpnt++; cpnt->x != 127; cpnt++, numpoints_show
 				+= 2) {
 			if (cpnt->dh == 0) {
-				cutpoints_show[numpoints_show].y = 0;
-				cutpoints_show[numpoints_show + 1].y = C->h + 1;
+				cutpoints_show[numpoints_show].setY(0);
+				cutpoints_show[numpoints_show + 1].setY(C->h + 1);
 			} else {
-				cutpoints_show[numpoints_show].y = C->h - cpnt->h + 1;
-				cutpoints_show[numpoints_show + 1].y
-						= cutpoints_show[numpoints_show].y
-								+ (cpnt->dh ? cpnt->dh : C->h);
-				cutpoints_show[numpoints_show + 1].y = MIN(C->h,
-						cutpoints_show[numpoints_show + 1].y);
+				cutpoints_show[numpoints_show].setY(C->h - cpnt->h + 1);
+				cutpoints_show[numpoints_show + 1].setY(
+						cutpoints_show[numpoints_show].y()
+								+ (cpnt->dh ? cpnt->dh : C->h));
+				cutpoints_show[numpoints_show + 1].setY(MIN(C->h,
+						cutpoints_show[numpoints_show + 1].y()));
 			}
-			cutpoints_show[numpoints_show + 1].y--;
+			cutpoints_show[numpoints_show + 1].ry()--;
 			if (!cuts_point_methode) {
-				cutpoints_show[numpoints_show].y--;
-				cutpoints_show[numpoints_show + 1].y++;
+				cutpoints_show[numpoints_show].ry()--;
+				cutpoints_show[numpoints_show + 1].ry()++;
 			}
-			cutpoints_show[numpoints_show].x = cutpoints_show[numpoints_show
-					+ 1].x = cpnt->x;
+			cutpoints_show[numpoints_show].rx() = cutpoints_show[numpoints_show
+					+ 1].rx() = cpnt->x;
 		}
 		numpoints_show -= 2;
 		show_cut_points = 1;

@@ -70,6 +70,8 @@
 #include "std.h"
 #include "snptools.h"
 
+using namespace CIF;
+
 static Bool32 leo_ndx_in_rect;
 extern int LEO_error_code;
 extern int nNdxWid, nNdxHei;
@@ -224,7 +226,7 @@ static void leo_snapNdx(RecVersions *loc, const char *tit, int enable) {
 }
 
 static Bool leo_ndx_InsideRect(const Rect16* r, const Point16 * p) {
-	return !((p->x < r->left) || (p->x > r->right) || (p->y < r->top) || (p->y
+	return !((p->x() < r->left) || (p->x() > r->right) || (p->y() < r->top) || (p->y()
 			> r->bottom));
 }
 

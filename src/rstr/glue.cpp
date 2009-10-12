@@ -67,7 +67,7 @@
 
 static int16_t n1, n2;
 static int16_t h1, h2, h10, h20;
-static int16_t y1, y2;
+static int16_t y1_, y2;
 struct int_s *int1;
 struct int_s *int2;
 static lnhead *lp1;
@@ -214,7 +214,7 @@ static void comptorast(c_comp *cp1) {
 	for (lc1 = 0; lc1 < Lc1; lc1++) {
 		h1 = lp1->row + c1ur - rastur;
 		int1 = (interval *) (lp1 + 1); // ptr to current interval
-		for (y1 = 0; y1 < lp1->h; y1++, int1++, h1++)
+		for (y1_ = 0; y1_ < lp1->h; y1_++, int1++, h1++)
 			inttorast(h1, (int16_t) (int1->e + c1lc - rastlc), int1->l);
 		lp1 = (lnhead *) ((char *) lp1 + lp1->lth); // next line
 	}
@@ -227,7 +227,7 @@ static void glueline() {
 
 	n1 = lp1->h - 1;
 	h10 = h1 = lp1->row + c1ur - rastur;
-	y1 = 0;
+	y1_ = 0;
 	fgl1 = 0;
 
 	n2 = lp2->h - 1;
@@ -239,7 +239,7 @@ static void glueline() {
 	int1 = (struct int_s *) (lp1 + 1); // ptr to first interval in line
 	int2 = (struct int_s *) (lp2 + 1); // ptr to 2nd   interval in line
 	compl_:
-	//if ((y1 == n1) && (y2 == n2))
+	//if ((y1_ == n1) && (y2 == n2))
 	//  goto end;
 	glubl: if (glueable()) {
 		// take to latches
@@ -258,13 +258,13 @@ static void glueline() {
 		}
 	} else
 		gluetorast(); // glue from latches
-	if ((y1 == n1) && (y2 == n2))
+	if ((y1_ == n1) && (y2 == n2))
 		goto end;
 	// shift 1st or 2nd or both
 	if (h1 < h2) { /* left line's interval is upper than right one's */
-		if (y1 < n1) {
+		if (y1_ < n1) {
 			gosh1: h1++;
-			y1++;
+			y1_++;
 			int1++;
 			fgl1 = 0;
 			goto compl_;
@@ -290,18 +290,18 @@ static void glueline() {
 		}
 		if (fgl2)
 			goto end;
-		if (y1 < n1) {
+		if (y1_ < n1) {
 			h1++;
-			y1++;
+			y1_++;
 			int1++;
 			fgl1 = 0;
 		}
 		goto compl_;
 	}
 	// h1 == h2
-	shiftboth: if ((y1 == n1) && (y2 == n2))
+	shiftboth: if ((y1_ == n1) && (y2 == n2))
 		goto end;
-	if ((y1 < n1) && (y2 < n2)) // may shift both
+	if ((y1_ < n1) && (y2 < n2)) // may shift both
 	{
 		b = int1->e + c1lc - rastlc - 1;
 		a = b - int1->l + 1;
@@ -326,10 +326,10 @@ static void glueline() {
 				goto gosh1;
 		}
 	}
-	if (y1 < n1) // left could be shifted
+	if (y1_ < n1) // left could be shifted
 	{
 		h1++;
-		y1++;
+		y1_++;
 		int1++;
 		fgl1 = 0;
 	}

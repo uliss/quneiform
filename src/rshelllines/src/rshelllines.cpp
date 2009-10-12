@@ -84,6 +84,7 @@
 #include "cfio/cfio.h"
 
 using namespace CIF::CFIO;
+using namespace CIF;
 
 #define CRIME_CUT   50
 #define RESULT      2
@@ -93,7 +94,6 @@ using namespace CIF::CFIO;
 #define     RSL_AboutLines_SizeMyBuff    492000
 #define     RSL_AboutLines_SizeWorkMem   180000
 
-//#define     RSL_ERR_NO_MEMORY "Ошибка выделения памяти системой"
 #define RSL_ERR_NO_MEMORY 1
 #define     MAF_GALL_GPTR              0x0010
 char cCommentBuffer[CFIO_MAX_COMMENT];
@@ -539,11 +539,11 @@ RSHELLLINES_FUNC( Bool32) RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContai
 	return TRUE;
 }
 
-int SL_IsInPoly(Point32* a, CLINE_SL_POLY* p) {
+int SL_IsInPoly(Point* a, CLINE_SL_POLY* p) {
 	return 0;
 }
 
-Bool SL_IsPointInAB(Point32 *P, Point32 *A, Point32 *B) {
+Bool SL_IsPointInAB(Point *P, Point *A, Point *B) {
 	return FALSE;
 }
 

@@ -63,6 +63,8 @@
 #include "cfcompat.hpp"
 #include "cfcompat.h"
 
+using namespace CIF;
+
 #ifndef WIN32
 
 /*
@@ -252,8 +254,8 @@ Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	return TRUE;
 }
 
-Bool PtInRect(const RECT *lprc, POINT pt) {
-	if (pt.x >= lprc->left && pt.x < lprc->right && pt.y >= lprc->top && pt.y
+Bool PtInRect(const RECT *lprc, Point16 pt) {
+	if (pt.x() >= lprc->left && pt.x() < lprc->right && pt.y() >= lprc->top && pt.y()
 			< lprc->bottom)
 		return TRUE;
 	return FALSE;

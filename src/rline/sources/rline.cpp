@@ -621,10 +621,10 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 		linfo = &(lti.Hor.Lns[i]);
 		CleanLineData(&data, size_line);
 		data.ProcessingType = HorizantalLine;
-		data.Line.Beg_X = linfo->A.x;
-		data.Line.Beg_Y = linfo->A.y;
-		data.Line.End_X = linfo->B.x;
-		data.Line.End_Y = linfo->B.y;
+		data.Line.Beg_X = linfo->A.x();
+		data.Line.Beg_Y = linfo->A.y();
+		data.Line.End_X = linfo->B.x();
+		data.Line.End_Y = linfo->B.y();
 		data.Line.Wid10 = linfo->Thickness * 10;
 		data.Dens = (linfo->Quality * 100) / 255;
 		data.Flags = linfo->Flags;
@@ -646,10 +646,10 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 		linfo = &(lti.Ver.Lns[i]);
 		CleanLineData(&data, size_line);
 
-		data.Line.Beg_X = linfo->A.x;
-		data.Line.Beg_Y = linfo->A.y;
-		data.Line.End_X = linfo->B.x;
-		data.Line.End_Y = linfo->B.y;
+		data.Line.Beg_X = linfo->A.x();
+		data.Line.Beg_Y = linfo->A.y();
+		data.Line.End_X = linfo->B.x();
+		data.Line.End_Y = linfo->B.y();
 		data.Line.Wid10 = linfo->Thickness * 10;
 		data.Dens = (linfo->Quality * 100) / 255;
 		data.n_event = linfo->SegCnt;
@@ -802,10 +802,10 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 			}
 			if (cpdata->Dir == LD_Horiz) {
 				for (i = 0; i < lti2.Hor.Cnt; i++) {
-					if ((lti2.Hor.Lns[i].A.x == cpdata->Line.Beg_X)
-							&& (lti2.Hor.Lns[i].B.x == cpdata->Line.End_X)
-							&& (lti2.Hor.Lns[i].A.y == cpdata->Line.Beg_Y)
-							&& (lti2.Hor.Lns[i].B.y == cpdata->Line.End_Y)) {
+					if ((lti2.Hor.Lns[i].A.x() == cpdata->Line.Beg_X)
+							&& (lti2.Hor.Lns[i].B.x() == cpdata->Line.End_X)
+							&& (lti2.Hor.Lns[i].A.y() == cpdata->Line.Beg_Y)
+							&& (lti2.Hor.Lns[i].B.y() == cpdata->Line.End_Y)) {
 						if (cpdata->Flags & LI_NOTWHOLE) {
 							lti2.Hor.Lns[i].Anew = cpdata->lns_data.Anew;
 							lti2.Hor.Lns[i].Bnew = cpdata->lns_data.Bnew;
@@ -818,10 +818,10 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 				}
 			} else {
 				for (i = 0; i < lti2.Ver.Cnt; i++) {
-					if ((lti2.Ver.Lns[i].A.x == cpdata->Line.Beg_X)
-							&& (lti2.Ver.Lns[i].B.x == cpdata->Line.End_X)
-							&& (lti2.Ver.Lns[i].A.y == cpdata->Line.Beg_Y)
-							&& (lti2.Ver.Lns[i].B.y == cpdata->Line.End_Y)) {
+					if ((lti2.Ver.Lns[i].A.x() == cpdata->Line.Beg_X)
+							&& (lti2.Ver.Lns[i].B.x() == cpdata->Line.End_X)
+							&& (lti2.Ver.Lns[i].A.y() == cpdata->Line.Beg_Y)
+							&& (lti2.Ver.Lns[i].B.y() == cpdata->Line.End_Y)) {
 						if (cpdata->Flags & LI_NOTWHOLE) {
 							lti2.Ver.Lns[i].Anew = cpdata->lns_data.Anew;
 							lti2.Ver.Lns[i].Bnew = cpdata->lns_data.Bnew;

@@ -60,6 +60,8 @@
 #include "new_c.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 #define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 
 extern jmp_buf fatal_error_exit; // For error handling
@@ -294,14 +296,14 @@ static void LayoutFromCPAGE(Handle hCPAGE) {
 		}
 		nBlocks++;
 		for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-			pLeftTop.x = pRoot->xColumn + 1;
-			pLeftTop.y = pRoot->yRow + 1;
-			pRightTop.x = pRoot->xColumn + pRoot->nWidth - 1;
-			pRightTop.y = pRoot->yRow + 1;
-			pLeftBottom.x = pRoot->xColumn + 1;
-			pLeftBottom.y = pRoot->yRow + pRoot->nHeight - 1;
-			pRightBottom.x = pRoot->xColumn + pRoot->nWidth - 1;
-			pRightBottom.y = pRoot->yRow + pRoot->nHeight - 1;
+			pLeftTop.rx() = pRoot->xColumn + 1;
+			pLeftTop.ry() = pRoot->yRow + 1;
+			pRightTop.rx() = pRoot->xColumn + pRoot->nWidth - 1;
+			pRightTop.ry() = pRoot->yRow + 1;
+			pLeftBottom.rx() = pRoot->xColumn + 1;
+			pLeftBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
+			pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
+			pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
 			//if(IsInPoly(pLeftTop,&block) && IsInPoly(pRightBottom,&block))
 			if (IsInPoly(pLeftTop, &block) || IsInPoly(pRightTop, &block)
@@ -332,29 +334,29 @@ int IsInPoly(Point16 a, void * pPoly) {
 	n = p->com.count;
 	for (i = 0; i < n; i++) {
 		int j = (i + 1) % n;
-		if (p->com.Vertex[i].y == p->com.Vertex[j].y)
+		if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
 			continue;
-		if (p->com.Vertex[i].y > a.y && p->com.Vertex[j].y > a.y)
+		if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
 			continue;
-		if (p->com.Vertex[i].y < a.y && p->com.Vertex[j].y < a.y)
+		if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
 			continue;
-		y = p->com.Vertex[i].y;
+		y = p->com.Vertex[i].y();
 		ind = i;
-		if (p->com.Vertex[j].y > y) {
-			y = p->com.Vertex[j].y;
+		if (p->com.Vertex[j].y() > y) {
+			y = p->com.Vertex[j].y();
 			ind = j;
 		}
-		if ((y == a.y) && (p->com.Vertex[ind].x >= a.x))
+		if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
 			Count++;
-		else if (MIN(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
+		else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
 			continue;
 		else {
-			double t = ((double) (a.y - p->com.Vertex[i].y)
-					/ ((double) (p->com.Vertex[j].y
-							- (double) p->com.Vertex[i].y)));
-			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x + t
-					* ((double) p->com.Vertex[j].x
-							- (double) p->com.Vertex[i].x) >= (double) a.x)
+			double t = ((double) (a.y() - p->com.Vertex[i].y())
+					/ ((double) (p->com.Vertex[j].y()
+							- (double) p->com.Vertex[i].y())));
+			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
+					* ((double) p->com.Vertex[j].x()
+							- (double) p->com.Vertex[i].x()) >= (double) a.x())
 				Count++;
 		}
 	}

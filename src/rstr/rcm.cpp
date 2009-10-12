@@ -721,10 +721,10 @@ Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage) {
 								abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
 						(cpdata->Dir==LD_Horiz) )
 				{
-					page_lines[num_of_lines].beg.y=(int16_t)(cpdata->Line.Beg_Y);
-					page_lines[num_of_lines].beg.x=(int16_t)(cpdata->Line.Beg_X);
-					page_lines[num_of_lines].end.y=(int16_t)(cpdata->Line.End_Y);
-					page_lines[num_of_lines].end.x=(int16_t)(cpdata->Line.End_X);
+					page_lines[num_of_lines].beg.ry()=(int16_t)(cpdata->Line.Beg_Y);
+					page_lines[num_of_lines].beg.rx()=(int16_t)(cpdata->Line.Beg_X);
+					page_lines[num_of_lines].end.ry()=(int16_t)(cpdata->Line.End_Y);
+					page_lines[num_of_lines].end.rx()=(int16_t)(cpdata->Line.End_X);
 					page_lines[num_of_lines].type=HOR_LN;
 					page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
 					num_of_lines++;
@@ -732,48 +732,6 @@ Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage) {
 				hline=CLINE_GetNextLine(hline);
 			}
 		}
-		/*    }
-		 else
-		 {
-		 myBlock = CPAGE_GetBlockFirst ( myPage, RLINE_BLOCK_TYPE );
-		 while(myBlock)
-		 {
-		 size = CPAGE_GetBlockData( myPage, myBlock, RLINE_BLOCK_TYPE, &lti, sizeof(LinesTotalInfo));
-		 if ( size!=sizeof(LinesTotalInfo) )
-		 {
-		 wLowRC  = RSTR_ERR_INTERNAL;
-		 return FALSE;
-		 }
-
-		 myHor = CPAGE_GetBlockFirst ( myPage, (uint32_t)lti.Hor.Lns );
-		 while(myHor)
-		 {
-		 size = CPAGE_GetBlockData( myPage, myHor, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
-		 if ( size!=sizeof(lineinfo) )
-		 {
-		 wLowRC  = RSTR_ERR_INTERNAL;
-		 return FALSE;
-		 }
-
-		 if( (lineinfo.Flags&LI_IsTrue) &&
-		 !(lineinfo.Flags&LI_IsAtTable) &&
-		 abs(lineinfo.A.x-lineinfo.B.x)>
-		 abs(lineinfo.A.y-lineinfo.B.y) )
-		 {
-		 page_lines[num_of_lines].beg.row=lineinfo.A.y;
-		 page_lines[num_of_lines].beg.col=lineinfo.A.x;
-		 page_lines[num_of_lines].end.row=lineinfo.B.y;
-		 page_lines[num_of_lines].end.col=lineinfo.B.x;
-		 page_lines[num_of_lines].type=HOR_LN;
-		 page_lines[num_of_lines].width=lineinfo.Thickness;
-		 num_of_lines++;
-		 }
-
-		 myHor = CPAGE_GetBlockNext ( myPage,myHor, (uint32_t)lti.Hor.Lns );
-		 }
-		 myBlock = CPAGE_GetBlockNext( myPage, myBlock, RLINE_BLOCK_TYPE );
-		 }
-		 }*/
 	}
 #endif
 #ifdef _USE_DFON_
@@ -789,9 +747,9 @@ Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage) {
 static Bool rcm_find(int16_t Ax, int16_t Ay, int16_t Bx, int16_t By) {
 	int16_t i;
 	for (i = 0; i < num_of_lines; i++) {
-		if ((page_lines[i].type & UNDRLN) && page_lines[i].beg.x == Ax
-				&& page_lines[i].beg.y == Ay && page_lines[i].end.x == Bx
-				&& page_lines[i].end.y == By)
+		if ((page_lines[i].type & UNDRLN) && page_lines[i].beg.x() == Ax
+				&& page_lines[i].beg.y() == Ay && page_lines[i].end.x() == Bx
+				&& page_lines[i].end.y() == By)
 			return TRUE;
 	}
 	return FALSE;

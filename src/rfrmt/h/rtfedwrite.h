@@ -74,8 +74,8 @@
 #define TABLE_TP_CENTER        0x0008
 
 struct RtfSectorInfo {
-	POINT Offset;
-	POINT OffsetFromColumn;
+	CIF::Point16 Offset;
+	CIF::Point16 OffsetFromColumn;
 	RECT m_rectFree;
 
 	uint16_t CountFragments;

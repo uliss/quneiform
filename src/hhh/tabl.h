@@ -57,8 +57,6 @@
 #ifndef __TABL_H
 #define __TABL_H
 
-#include "wind32.h"
-
 //#define DEMO
 #ifdef DEMO
 #define KNOT struct h_knot
@@ -392,7 +390,5 @@ void TestKNOTT(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int NumFrm,
 		int NumVK, int NumHK);
 int ImageTree(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **f,
 		int NumFrm, int NumVK, int NumHK);
-
-#include "undef32.h"
 
 #endif

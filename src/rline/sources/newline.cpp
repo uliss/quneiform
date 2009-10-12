@@ -81,6 +81,8 @@
 #include "compat_defs.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 # define INCLINE_FACTOR  2048
 #define OffsetCoor 4
 
@@ -212,22 +214,16 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer);
 void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect,
 		bool is_horiz, int32_t nIncline, int32_t spread = 0);
 int32_t findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
-//Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, uint32_t* aType, uint32_t* aNumber, int32_t aCount);
-//PAGEINFO gl_page_info;
-/*----------------------------------------------------------------------------*/
 
-RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, uchar lang)
-{
-	//int32_t* a = new int32_t;
-
+Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE,
+		PBool32 pgneed_clean_line, Bool32 sdl, uchar lang) {
 	LDPUMA_Skip(Prep2);
 
-	if((!hCPage)||(!hCCOM))
-	return FALSE;
+	if ((!hCPage) || (!hCCOM))
+		return FALSE;
 
 	/// BogDmitry
-	if(gbRSLT)
-	{
+	if (gbRSLT) {
 		uint32_t type = RSL_HANDLE;
 		Handle* phCPAGE = &hCPage;
 		void* aa = (void*) phCPAGE;
@@ -236,115 +232,113 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	}
 	/// BogDmitry
 
-	PAGEINFO info = {0};
+	PAGEINFO info = { 0 };
 
-	if(!GetPageInfo(hCPage,&info)) return FALSE;
+	if (!GetPageInfo(hCPage, &info))
+		return FALSE;
 
-	MainWindowD=NULL;
-	MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
-	if(!MainWindowD)
-	MainWindowD=LDPUMA_GetWindowHandle ("Main");
+	MainWindowD = NULL;
+	MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
+	if (!MainWindowD)
+		MainWindowD = LDPUMA_GetWindowHandle("Main");
 
-	int time=clock();
-	CLINE_handle hCLINE=*((CLINE_handle*)phCLINE);
+	int time = clock();
+	CLINE_handle hCLINE = *((CLINE_handle*) phCLINE);
 	int i;
-	// LDPUMA_ConsoleN("");
-	// LDPUMA_ConsoleN("Линии 2 проход");
 
-	// CLINE_handle linecontainer = CLINE_CreateContainer(FALSE);
 	int32_t CountLines = 0;
 
-	if(!MyGetLines(/*linecontainer,hCPage,*/hCLINE, &CountLines))
-	return FALSE;
+	if (!MyGetLines(hCLINE, &CountLines))
+		return FALSE;
 
-	// LDPUMA_ConsoleN("Взятие из контейнера %d",clock()-time);
-
-	time=clock();
+	time = clock();
 
 	LDPUMA_Skip(MainWork2);
 
-	// int32_t CountLines = CLINE_GetLineCount(/*linecontainer*/hCLINE);
-
-	if(!CountLines)
-	return TRUE;
+	if (!CountLines)
+		return TRUE;
 
 	CLINE_handle* linesmass = new CLINE_handle[CountLines];
 	CLINE_handle currentline, hLinePrev = NULL, hLineNext;
-	/* for(i = 0, currentline = CLINE_GetFirstLine(linecontainer); i < CountLines; i++, currentline = CLINE_GetNextLine(currentline))
-	 linesmass[i] = currentline;
-	 */
-	for(i = 0, currentline = CLINE_GetFirstLine(hCLINE); i < CountLines; currentline = CLINE_GetNextLine(currentline))
-	{
+
+	for (i = 0, currentline = CLINE_GetFirstLine(hCLINE); i < CountLines; currentline
+			= CLINE_GetNextLine(currentline)) {
 		CPDLine pLine = CLINE_GetLineData(currentline);
-		if (!pLine) continue;
-		else if (pLine->Flags&LI_Pointed) continue;
-		else
-		{
+		if (!pLine)
+			continue;
+		else if (pLine->Flags & LI_Pointed)
+			continue;
+		else {
 			linesmass[i] = currentline;
 			i++;
 		}
 	}
 
-	currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE);
+	currentline = CLINE_GetFirstLine(hCLINE);
 	CPDLine clinedata;
 	i = 0;
 	/*****************  горизонтальные линии  ******************************/
 
-	while (currentline)
-	{
+	while (currentline) {
 		clinedata = CLINE_GetLineData(currentline);
 
-		if (!clinedata)
-		{
+		if (!clinedata) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if (clinedata->Flags&LI_Pointed)
-		{
+		if (clinedata->Flags & LI_Pointed) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
 		i++;
 
-		if (i>CountLines) break;
+		if (i > CountLines)
+			break;
 
 		//        clinedata = CLINE_GetLineData(currentline);
-		if (clinedata->Dir != LD_Horiz)
-		{
+		if (clinedata->Dir != LD_Horiz) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if ((clinedata->Line.End_X-clinedata->Line.Beg_X) >= 100)//Almi
+		if ((clinedata->Line.End_X - clinedata->Line.Beg_X) >= 100)//Almi
 		{
 			DLine* oldlinedata = new DLine;
 			memcpy(oldlinedata, clinedata, sizeof(DLine));
-			CLINE_handle hwork_line = FindLine(/*linecontainer*/hCLINE, currentline, FALSE);
-			if(hwork_line)
-			{//гнутые
+			CLINE_handle hwork_line = FindLine(/*linecontainer*/hCLINE,
+					currentline, FALSE);
+			if (hwork_line) {//гнутые
 				DLine* work_line = new DLine;
 				memcpy(work_line, clinedata, sizeof(DLine));
-				if(work_line->Line.End_X-work_line->Line.Beg_X>1000&&work_line->Line.End_X<oldlinedata->Line.End_X&&oldlinedata->Line.End_X-work_line->Line.End_X<100)
-				{
+				if (work_line->Line.End_X - work_line->Line.Beg_X > 1000
+						&& work_line->Line.End_X < oldlinedata->Line.End_X
+						&& oldlinedata->Line.End_X - work_line->Line.End_X
+								< 100) {
 					hLineNext = CLINE_GetNextLine(currentline);
-					if(hLineNext)
-					{
+					if (hLineNext) {
 						CPDLine pLineNext = CLINE_GetLineData(hLineNext);
-						if(abs(oldlinedata->Line.End_X-pLineNext->Line.End_X)<100&&((abs(oldlinedata->Line.Beg_Y-pLineNext->Line.Beg_Y)+abs(oldlinedata->Line.End_Y-pLineNext->Line.End_Y))>>1)<10)
-						work_line->Line.End_X=oldlinedata->Line.End_X;
+						if (abs(oldlinedata->Line.End_X - pLineNext->Line.End_X)
+								< 100 && ((abs(oldlinedata->Line.Beg_Y
+								- pLineNext->Line.Beg_Y)
+								+ abs(oldlinedata->Line.End_Y
+										- pLineNext->Line.End_Y)) >> 1) < 10)
+							work_line->Line.End_X = oldlinedata->Line.End_X;
 					}
-					if(hLinePrev)
-					{
+					if (hLinePrev) {
 						CPDLine pLinePrev = CLINE_GetLineData(hLinePrev);
-						if(abs(oldlinedata->Line.End_X-pLinePrev->Line.End_X)<100&&((abs(oldlinedata->Line.Beg_Y-pLinePrev->Line.Beg_Y)+abs(oldlinedata->Line.End_Y-pLinePrev->Line.End_Y))>>1)<10)
-						work_line->Line.End_X=oldlinedata->Line.End_X;
+						if (abs(oldlinedata->Line.End_X - pLinePrev->Line.End_X)
+								< 100 && ((abs(oldlinedata->Line.Beg_Y
+								- pLinePrev->Line.Beg_Y)
+								+ abs(oldlinedata->Line.End_Y
+										- pLinePrev->Line.End_Y)) >> 1) < 10)
+							work_line->Line.End_X = oldlinedata->Line.End_X;
 					}
 				}
 
 				CLINE_SetLineData(currentline, work_line);
-				linesmass[i-1] = NULL;
+				linesmass[i - 1] = NULL;
 				delete work_line;
 			}
 			/*          else
@@ -362,37 +356,33 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE);
 	i = 0;
 
-	while (currentline)
-	{
+	while (currentline) {
 		clinedata = CLINE_GetLineData(currentline);
 
-		if (!clinedata)
-		{
+		if (!clinedata) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if (clinedata->Flags&LI_Pointed)
-		{
+		if (clinedata->Flags & LI_Pointed) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
 		i++;
-		if (i>CountLines) break;
+		if (i > CountLines)
+			break;
 
 		//        clinedata = CLINE_GetLineData(currentline);
-		if (clinedata->Dir != LD_Verti)
-		{
+		if (clinedata->Dir != LD_Verti) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if ((clinedata->Line.End_Y-clinedata->Line.Beg_Y) >= 50)//Almi
+		if ((clinedata->Line.End_Y - clinedata->Line.Beg_Y) >= 50)//Almi
 		{
-			if(FindLine(/*linecontainer*/hCLINE, currentline, TRUE))
-			{
-				linesmass[i-1] = NULL;
+			if (FindLine(/*linecontainer*/hCLINE, currentline, TRUE)) {
+				linesmass[i - 1] = NULL;
 				//		DelLineMas(pLti->Hor.Lns);
 				//		DelLineMas(pLti->Ver.Lns);
 				//      return FALSE;
@@ -403,146 +393,41 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	}
 
 	/*****************  search dot lines  II проход ******************************/
-	if (sdl)
-	{
-		//        LDPUMA_Console("in \n");
+	if (sdl) {
 		FindDotLines(hCCOM, hCPage, /*linecontainer*/hCLINE);
-	}
-	else
-	{
-		/*
-		 CLine* myDotLine;
-		 //        CEvent* myDotLineEvent;
-		 //        CInterval* myDotLineEventInterval;
-		 CLINE_handle hmyDotLine = CLINE_GetFirstLine(hCLINE);
-		 while (hmyDotLine)
-		 {
-		 CPDLine myDotLineData = CLINE_GetLineData(hmyDotLine);
-		 if (!(myDotLineData->Flags&LI_Pointed))
-		 {
-		 hmyDotLine = CLINE_GetNextLine(hmyDotLine);
-		 continue;
-		 }
-		 myDotLine = new CLine;
-		 myDotLine->Flags  = myDotLineData->Flags;
-		 myDotLine->Tail = myDotLineData->Tail;
-		 myDotLine->BeginPoint.x = myDotLineData->Line.Beg_X;
-		 myDotLine->BeginPoint.y = myDotLineData->Line.Beg_Y;
-		 myDotLine->EndPoint.x = myDotLineData->Line.End_X;
-		 myDotLine->EndPoint.y = myDotLineData->Line.End_Y;
-		 myDotLine->ProcessingType = myDotLineData->ProcessingType;
-		 myDotLine->Width = myDotLineData->Line.Wid10/10;
-		 myDotLine->LineEventsLength = myDotLineData->LineEventsLength;
-		 myDotLine->Degree = myDotLineData->Degree;
-		 myDotLine->RelationshipIndex = myDotLineData->RelationshipIndex;
-		 myDotLine->FlagCalculatedWidth = myDotLineData->FlagCalculatedWidth;
-		 myDotLine->FlagExtensible = myDotLineData->FlagExtensible;
-		 myDotLine->FlagDot = myDotLineData->FlagDot;
-		 myDotLine->FlagBad = myDotLineData->FlagBad;
-		 myDotLine->Line = myDotLineData->Line;
-		 myDotLine->Status = myDotLineData->Status;
-		 myDotLine->Type = myDotLineData->Type;
-		 myDotLine->Dir = myDotLineData->Dir;
-		 myDotLine->Qual = myDotLineData->Qual;
-		 myDotLine->Dens = myDotLineData->Dens;
-
-		 myDotLine->Specline = new NR_PoinLine;
-		 NR_PoinLine*  pSpecline = (NR_PoinLine*)myDotLine->Specline;
-		 pSpecline->Lef_0 = myDotLineData->Specline.point_line.data.Lef_0;
-		 pSpecline->Top_0 = myDotLineData->Specline.point_line.data.Top_0;
-		 pSpecline->Size = myDotLineData->Specline.point_line.data.Size;
-		 pSpecline->Step1000 = myDotLineData->Specline.point_line.data.Step1000;
-		 pSpecline->nRc = myDotLineData->Specline.point_line.data.nRc;
-
-		 myDotLine->poly.count = myDotLineData->poly.count;
-		 for(int cv=0; cv<CLINE_MaxVerticsNumber; cv++)
-		 {
-		 myDotLine->poly.Vertex[cv].x = myDotLineData->poly.Vertex[cv].x;
-		 myDotLine->poly.Vertex[cv].y = myDotLineData->poly.Vertex[cv].y;
-		 }
-
-		 //-------------------------------------------------------------------------------
-		 CLINE_handle hmyDotLineEvent = CLINE_GetFirstEvent(hmyDotLine);
-		 myDotLine->m_arEvents.SetSize(0, myDotLineData->Specline.point_line.data.nRc);
-		 while (hmyDotLineEvent)
-		 {
-		 CPDEvent myDotLineEventData = CLINE_GetEventData(hmyDotLineEvent);
-		 myDotLineEvent = myDotLine->GetNewEvent();
-		 myDotLineEvent->Hori = myDotLineEventData->Hori;
-		 myDotLineEvent->Increase = myDotLineEventData->Increase;
-		 myDotLineEvent->Lev_0 = myDotLineEventData->Lev_0;
-		 myDotLineEvent->Width = myDotLineEventData->Width;
-		 myDotLineEvent->EventLength = myDotLineEventData->EventLength;
-
-		 CLINE_handle hmyDotLineEventInterval = CLINE_GetFirstEventInv(hmyDotLineEvent);
-		 myDotLineEvent->m_arIntervals.SetSize(0, myDotLineEventData->Width);
-		 while(hmyDotLineEventInterval)
-		 {
-		 CPDInterval myDotLineEventIntervalData = CLINE_GetEventInvData(hmyDotLineEventInterval);
-		 myDotLineEventInterval = myDotLineEvent->GetNewInterval();
-		 myDotLineEventInterval->Pos = myDotLineEventIntervalData->Pos;
-		 myDotLineEventInterval->Lent = myDotLineEventIntervalData->Lent;
-
-		 hmyDotLineEventInterval = CLINE_GetNextEventInv(hmyDotLineEventInterval);
-		 }
-
-		 hmyDotLineEvent = CLINE_GetNextEvent(hmyDotLineEvent);
-		 }
-		 //---------------------------------------------------------------------------------------------------
-
-		 PLines.m_arLines.Add(myDotLine);
-		 hmyDotLine = CLINE_GetNextLine(hmyDotLine);
-		 }
-		 */
 	}
 	/*****************  Добавляем короткие линии  II проход ******************************/
 	currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE);
 	i = 0;
 
-	while (currentline)
-	{
+	while (currentline) {
 		clinedata = CLINE_GetLineData(currentline);
 
-		if (!clinedata)
-		{
+		if (!clinedata) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if (clinedata->Flags&LI_Pointed)
-		{
+		if (clinedata->Flags & LI_Pointed) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
 		i++;
-		if (i>CountLines) break;
+		if (i > CountLines)
+			break;
 
-		//        clinedata = CLINE_GetLineData(currentline);
-		/*        int CountEvents = CLINE_GetEventCount(currentline);
-		 if (CountEvents>0)
-		 {
-		 currentline = CLINE_GetNextLine(currentline);
-		 continue;
-		 }
-		 */
-
-		if (!linesmass[i-1])
-		{
+		if (!linesmass[i - 1]) {
 			currentline = CLINE_GetNextLine(currentline);
 			continue;
 		}
 
-		if((((clinedata->Line.End_X-clinedata->Line.Beg_X) < 50) && clinedata->Dir==LD_Horiz) || ((abs(clinedata->Line.End_Y-clinedata->Line.Beg_Y)<100) && (clinedata->Dir==LD_Verti)))
-		{
+		if ((((clinedata->Line.End_X - clinedata->Line.Beg_X) < 50)
+				&& clinedata->Dir == LD_Horiz)
+				|| ((abs(clinedata->Line.End_Y - clinedata->Line.Beg_Y) < 100)
+						&& (clinedata->Dir == LD_Verti))) {
 			DLine* pCLine = new DLine;
 			memcpy(pCLine, clinedata, sizeof(DLine));
-			/*
-			 pCLine->Line.Beg_X = pLns->A.x;
-			 pCLine->Line.Beg_Y = pLns->A.y;
-			 pCLine->Line.End_X = pLns->B.x;
-			 pCLine->Line.End_Y = pLns->B.y;
-			 pCLine->Line.Wid10 = 10 * pLns->Thickness;*/
 			pCLine->Type = NR_DT_Unknown;
 			pCLine->Dir = LD_Unknown;
 			//            pCLine->Dens = (pLns->Quality*100)/255;
@@ -551,143 +436,113 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 			pCLine->Flags = 0;
 			////////////
 			//Almi 09.04.01
-			if (abs(pCLine->Line.End_X - pCLine->Line.Beg_X) > 2*abs(pCLine->Line.End_Y - pCLine->Line.Beg_Y))
-			pCLine->Dir = LD_Horiz;
-			else if (abs(pCLine->Line.End_Y - pCLine->Line.Beg_Y) > 2*abs(pCLine->Line.End_X - pCLine->Line.Beg_X))
-			pCLine->Dir = LD_Verti;
+			if (abs(pCLine->Line.End_X - pCLine->Line.Beg_X) > 2* abs (
+					pCLine->Line.End_Y - pCLine->Line.Beg_Y))
+				pCLine->Dir = LD_Horiz;
+			else if (abs(pCLine->Line.End_Y - pCLine->Line.Beg_Y) > 2* abs (
+					pCLine->Line.End_X - pCLine->Line.Beg_X))
+				pCLine->Dir = LD_Verti;
 			////////////
 			SetLineDegree(pCLine);
 			CLINE_SetLineData(currentline, pCLine);
-			linesmass[i-1] = NULL;
+			linesmass[i - 1] = NULL;
 			delete pCLine;
 		}
 		currentline = CLINE_GetNextLine(currentline);
 	}
 	//already added
 	/*****************  вертикальные линии    II проход ******************************/
-	/*
-	 n = pLti->Ver.Cnt;
-	 pLns = pLti->Ver.Lns;
-	 for (i=0; i<n; i++)
-	 {
-	 if((pLns->B.y-pLns->A.y) < 100)//Almi
-	 {
-	 pCLine = new CLine;
-
-	 pCLine->Line.Beg_X = pLns->A.x;
-	 pCLine->Line.Beg_Y = pLns->A.y;
-	 pCLine->Line.End_X = pLns->B.x;
-	 pCLine->Line.End_Y = pLns->B.y;
-	 pCLine->Line.Wid10 = 10 * pLns->Thickness;
-	 pCLine->Type = NR_DT_Unknown;
-	 pCLine->Dir  = LD_Unknown;
-	 pCLine->Dens = (pLns->Quality*100)/255;
-	 pCLine->Status = ST_Basil_Short;
-	 //Almi 06.04.01
-	 pCLine->Flags = 0;
-	 ////////////
-	 //Almi 09.04.01
-	 if (abs(pCLine->Line.End_Y - pCLine->Line.Beg_Y) >
-	 2*abs(pCLine->Line.End_X - pCLine->Line.Beg_X))
-	 pCLine->Dir  = LD_Verti;
-	 ////////////
-	 PLines.m_arLines.Add( pCLine );
-	 }
-	 pLns++;
-	 }
-	 */
 
 	//delete unknown lines
-	for(i = 0; i < CountLines; i++)
-	if (linesmass[i])
-	{
-		CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[i]);
-		linesmass[i] = NULL;
-	}
+	for (i = 0; i < CountLines; i++)
+		if (linesmass[i]) {
+			CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[i]);
+			linesmass[i] = NULL;
+		}
 
 	//финальный проход по всем линиям
-	const uint32_t My_False=~LI_IsTrue;
+	const uint32_t My_False = ~LI_IsTrue;
 	int32_t CountShortLines = 0;
 	uchar debug_flags = 0;
 	int32_t cross_point[MAX_CROSS_POINTS];
 	DCutPoint cut_point_obj;
 	CLINE_handle hCutPoint;
 
-	if (!LDPUMA_Skip(hDebugShortLinesPrint)) debug_flags |= 1;
+	if (!LDPUMA_Skip(hDebugShortLinesPrint))
+		debug_flags |= 1;
 
-	for(currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE); currentline; currentline = CLINE_GetNextLine(currentline))
-	{
+	for (currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE); currentline; currentline
+			= CLINE_GetNextLine(currentline)) {
 		clinedata = CLINE_GetLineData(currentline);
 
-		if (!clinedata) continue;
+		if (!clinedata)
+			continue;
 
-		if (clinedata->Flags&LI_Pointed) continue;
+		if (clinedata->Flags & LI_Pointed)
+			continue;
 
-		if(clinedata->Dir!=LD_Unknown && clinedata->Type!=NR_DT_LinePointed)
-		{
+		if (clinedata->Dir != LD_Unknown && clinedata->Type
+				!= NR_DT_LinePointed) {
 			DLine* pCLine = new DLine;
 			memcpy(pCLine, clinedata, sizeof(DLine));
-			if(clinedata->Dir==LD_Horiz)
-			{
-				if(clinedata->Line.End_X-clinedata->Line.Beg_X<MinHorLenForTrue)
-				{
-					if (RSL_VerifyShortLine(clinedata, hCCOM, &info, lang, debug_flags, cross_point))
-					{
+			if (clinedata->Dir == LD_Horiz) {
+				if (clinedata->Line.End_X - clinedata->Line.Beg_X
+						< MinHorLenForTrue) {
+					if (RSL_VerifyShortLine(clinedata, hCCOM, &info, lang,
+							debug_flags, cross_point)) {
 						pCLine->FlagBad = TRUE;
 						pCLine->Flags = LI_IsFalse;
 						pCLine->Status = ST_Bad;
-					}
-					else
-					{
-						pCLine->Flags&=My_False;
+					} else {
+						pCLine->Flags &= My_False;
 						pCLine->Status = ST_Basil_Short;
 
-						if (CLINE_GetCutPointCount(currentline)) CLINE_DelAllCutPoints(currentline);
+						if (CLINE_GetCutPointCount(currentline))
+							CLINE_DelAllCutPoints(currentline);
 
 						for (int i = 0; i < MAX_CROSS_POINTS; i++)
-						if (cross_point[i] > -1)
-						{
-							cut_point_obj.Level = cross_point[i];
-							hCutPoint = CLINE_AddNewCutPoint(currentline);
+							if (cross_point[i] > -1) {
+								cut_point_obj.Level = cross_point[i];
+								hCutPoint = CLINE_AddNewCutPoint(currentline);
 
-							if (hCutPoint) CLINE_SetCutPointData(hCutPoint, &cut_point_obj);
-						}
-						else break;//cross points array is filled consequently
+								if (hCutPoint)
+									CLINE_SetCutPointData(hCutPoint,
+											&cut_point_obj);
+							} else
+								break;//cross points array is filled consequently
 					}
 				}
-			}
-			else
-			{
-				if ((clinedata->Flags & LI_NOISE) && CountShortLines < CountLines)
-				{
+			} else {
+				if ((clinedata->Flags & LI_NOISE) && CountShortLines
+						< CountLines) {
 					linesmass[CountShortLines] = currentline;
 					CountShortLines++;
 				}
 
-				if(abs(clinedata->Line.Beg_Y-clinedata->Line.End_Y)<MinVerLenForTrue)
-				{
-					if (RSL_VerifyShortLine(clinedata, hCCOM, &info, lang, debug_flags, cross_point))
-					{
+				if (abs(clinedata->Line.Beg_Y - clinedata->Line.End_Y)
+						< MinVerLenForTrue) {
+					if (RSL_VerifyShortLine(clinedata, hCCOM, &info, lang,
+							debug_flags, cross_point)) {
 						pCLine->FlagBad = TRUE;
 						pCLine->Flags = LI_IsFalse;
 						pCLine->Status = ST_Bad;
-					}
-					else
-					{
-						pCLine->Flags&=My_False;
+					} else {
+						pCLine->Flags &= My_False;
 						pCLine->Status = ST_Basil_Short;
 
-						if (CLINE_GetCutPointCount(currentline)) CLINE_DelAllCutPoints(currentline);
+						if (CLINE_GetCutPointCount(currentline))
+							CLINE_DelAllCutPoints(currentline);
 
 						for (int i = 0; i < MAX_CROSS_POINTS; i++)
-						if (cross_point[i] > -1)
-						{
-							cut_point_obj.Level = cross_point[i];
-							hCutPoint = CLINE_AddNewCutPoint(currentline);
+							if (cross_point[i] > -1) {
+								cut_point_obj.Level = cross_point[i];
+								hCutPoint = CLINE_AddNewCutPoint(currentline);
 
-							if (hCutPoint) CLINE_SetCutPointData(hCutPoint, &cut_point_obj);
-						}
-						else break;
+								if (hCutPoint)
+									CLINE_SetCutPointData(hCutPoint,
+											&cut_point_obj);
+							} else
+								break;
 					}
 				}
 			}
@@ -698,35 +553,31 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	}
 
 	//delete short tails of vertical lines
-	if (LDPUMA_Skip(hSkipDelSmallLines))
-	{
+	if (LDPUMA_Skip(hSkipDelSmallLines)) {
 		for (int32_t it = 0; it < CountShortLines; it++)
-		CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[it]);
+			CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[it]);
 	}
 
-	if (!LDPUMA_Skip(hRLINE_CorrectDrawLines)) DrowAllLines(/*linecontainer*/hCLINE, hRLINE_CorrectDrawLines);
-	if (!LDPUMA_Skip(hRLINE_CorrectDrawFrags)) DrawFragsForAllLines(hCLINE, hRLINE_CorrectDrawFrags);
+	if (!LDPUMA_Skip(hRLINE_CorrectDrawLines))
+		DrowAllLines(/*linecontainer*/hCLINE, hRLINE_CorrectDrawLines);
+	if (!LDPUMA_Skip(hRLINE_CorrectDrawFrags))
+		DrawFragsForAllLines(hCLINE, hRLINE_CorrectDrawFrags);
 	// LDPUMA_ConsoleN("Функционирование %d",clock()-time);
-	time=clock();
+	time = clock();
 	LDPUMA_Skip(PutContainer2);
 
 	/*------------------------------------------------------------------------------*/
 	// Кладём новые линии
 
-	i=CLINE_GetLineCount(/*linecontainer*/hCLINE);
-	if(i<=0)
-	*pgneed_clean_line=FALSE;
-	else
-
-	{
-		*pgneed_clean_line=TRUE;
-		//	 if(!LDPUMA_Skip(hUseCLine))
-		//	     MyPutLines(linecontainer,hCLINE,TRUE);
-
+	i = CLINE_GetLineCount(/*linecontainer*/hCLINE);
+	if (i <= 0)
+		*pgneed_clean_line = FALSE;
+	else {
+		*pgneed_clean_line = TRUE;
 	}
 
 	if (sdl)
-	DeleteBadDotLine(hCLINE,(CCOM_handle)hCCOM,hCPage);
+		DeleteBadDotLine(hCLINE, (CCOM_handle) hCCOM, hCPage);
 
 	// LDPUMA_ConsoleN("Складка в контейнер %d",clock()-time);
 	LDPUMA_Skip(Epilog2);
@@ -740,17 +591,16 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	LDPUMA_Skip(Exit2);
 
 	if (!LDPUMA_Skip(hWriteLineInFile))
-	PrintLines(hCLINE, "lines.res");
+		PrintLines(hCLINE, "lines.res");
 
 	return TRUE;
 }
 
-RLINE_FUNC(Bool32) RLINE_LinesPass3(Handle hCPAGE,CLINE_handle hCLINE, Handle hCCOM, uchar lang)
-{
+Bool32 RLINE_LinesPass3(Handle /*hCPAGE*/, CLINE_handle/* hCLINE*/,
+		Handle /*hCCOM*/, uchar /*lang*/) {
 	return TRUE;
 }
 
-/***********************************************************************************************************/
 CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,
 		Bool vert) {
 	DLine* pCLine = new DLine;
@@ -758,19 +608,8 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,
 	CPDLine linedata = CLINE_GetLineData(processedline);
 
 	memcpy(pCLine, linedata, sizeof(DLine));
-	//     memcpy(pCLineCopy, linedata, sizeof(DLine));
-	/*
-	 pCLine->Line.Beg_X = pLns->A.x;
-	 pCLine->Line.Beg_Y = pLns->A.y;
-	 pCLine->Line.End_X = pLns->B.x;
-	 pCLine->Line.End_Y = pLns->B.y;
-	 pCLine->Line.Wid10 = 10 * pLns->Thickness;*/
 	pCLine->Type = NR_DT_Unknown;
 	pCLine->Dir = LD_Unknown;
-	/*     pCLine->Dens = (pLns->Quality*100)/255;
-	 pCLine->Flags=pLns->Flags;
-	 pCLine->PathNumber = SecondPath;
-	 */
 	CLINE_SetLineData(processedline, pCLine);
 	/*
 	 //Внимание!!!
@@ -814,18 +653,7 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,
 		return NULL;
 	} else {//take'em away!
 		Bool32 IsSeparationPoints = CheckSeparationPoints(processedline);
-		if (IsSeparationPoints && pCLine->Tail == 0) {/*
-		 for(int i=0; i<=CountSeparationPoints; i++)
-		 {
-		 pCLineNextPart = new CLine;
-
-		 pCLineNextPart->Line.Wid10 = 10 * pLns->Thickness;
-		 pCLineNextPart->Type = NR_DT_Unknown;
-		 pCLineNextPart->Dir  = LD_Unknown;
-		 pCLineNextPart->Dens = (pLns->Quality*100)/255;
-		 pCLineNextPart->Flags=pLns->Flags;
-		 pCLineNextPart->PathNumber = SecondPath;  */
-
+		if (IsSeparationPoints && pCLine->Tail == 0) {
 			if (GetNextPartOfLine(hContainer, processedline/*, pCLineCopy pPLines,pCLine, pCLineNextPart, i*/)) {
 				//             CLINE_DelLine(hContainer, processedline);
 				//}
@@ -842,18 +670,9 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,
 			return processedline;
 		}
 	}
-
 }
 
-/*********************************************************************************************************/
-Bool MyGetLines(
-/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLINE,
-		int32_t* CountLines) {
-	//	Bool fl_cont;
-
-	// if(!LDPUMA_Skip(hUseCLine))
-	// {
-
+Bool MyGetLines(CLINE_handle hCLINE, int32_t* CountLines) {
 	CLINE_handle hline = CLINE_GetFirstLine(hCLINE);
 	CPDLine cpdata;
 
@@ -875,102 +694,6 @@ Bool MyGetLines(
 			delete newlinedata;
 		}
 	}
-	/* }
-	 else
-	 {
-	 uint32_t    HorType;
-	 uint32_t    VerType;
-	 Handle    pBlock;
-	 uint32_t	  size32;
-	 uint32_t size_lineinfo=sizeof(LineInfo);
-
-	 pBlock=NULL;
-	 pBlock = CPAGE_GetBlockFirst (hCPage, RLINE_BLOCK_TYPE );
-	 if ( pBlock == NULL)
-	 return TRUE;
-
-	 size32 = CPAGE_GetBlockData(hCPage, pBlock, RLINE_BLOCK_TYPE, pLti, sizeof(LinesTotalInfo));
-	 if (size32 != sizeof(LinesTotalInfo) )
-	 return TRUE;
-
-	 HorType = (uint32_t)pLti->Hor.Lns;
-	 VerType = (uint32_t)pLti->Ver.Lns;
-
-	 pLti->Hor.Lns=NULL;
-	 pLti->Ver.Lns=NULL;
-
-	 /////////////////////////////////////////////////////////////////////////////////////////////
-	 len_hor_mas=pLti->Hor.Cnt;
-
-	 if(pLti->Hor.Cnt)
-	 {
-	 if(!InitLineMas(&(pLti->Hor.Lns),len_hor_mas))
-	 return FALSE;
-	 }
-
-	 pBlock=NULL;
-	 pBlock = CPAGE_GetBlockFirst(hCPage,HorType);
-
-	 for(int i=pLti->Hor.Cnt-1;i>=0;i--)
-	 {
-	 fl_cont=FALSE;
-	 size32 = CPAGE_GetBlockData(hCPage,pBlock,HorType,&(pLti->Hor.Lns[i]),size_lineinfo);
-	 if(size32!=size_lineinfo)
-	 {
-	 fl_cont=TRUE;
-	 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-	 }
-	 if(fl_cont)
-	 continue;
-	 //		if(!(pLti->Hor.Lns[i].Flags&LI_IsTrue))
-	 //		{
-	 //			fl_cont=TRUE;
-	 //            pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-	 //		}
-	 //		if(fl_cont)
-	 //			continue;
-
-	 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-	 }
-
-	 /////////////////////////////////////////////////////////////////////////////////////////////
-
-	 len_ver_mas=pLti->Ver.Cnt;
-
-	 pBlock=NULL;
-	 pBlock = CPAGE_GetBlockFirst(hCPage,VerType);
-
-	 if(pLti->Ver.Cnt)
-	 {
-	 if(!InitLineMas(&(pLti->Ver.Lns),len_ver_mas))
-	 {
-	 DelLineMas(pLti->Hor.Lns);
-	 return FALSE;
-	 }
-	 }
-
-	 for(i=pLti->Ver.Cnt-1;i>=0;i--)
-	 {
-	 fl_cont=FALSE;
-	 size32 = CPAGE_GetBlockData(hCPage,pBlock,VerType,&(pLti->Ver.Lns[i]),size_lineinfo);
-	 if(size32!=size_lineinfo)
-	 {
-	 fl_cont=TRUE;
-	 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-	 }
-	 if(fl_cont)
-	 continue;
-	 //		if(!(pLti->Ver.Lns[i].Flags&LI_IsTrue))
-	 //		{
-	 //			fl_cont=TRUE;
-	 //            pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
-	 //		}
-	 //		if(fl_cont)
-	 //			continue;
-
-	 pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-	 }
-	 }*/
 	return TRUE;
 }
 
@@ -1094,8 +817,7 @@ Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline) {
 		Point16* to = (data_line.poly.Vertex);
 		const Point16* from = (line->poly.Vertex);
 		for (; count_poly >= 0; count_poly--) {
-			to[count_poly].x = (int16_t) from[count_poly].x;
-			to[count_poly].y = (int16_t) from[count_poly].y;
+			to[count_poly] = from[count_poly];
 		}
 		data_line.ProcessingType = line->ProcessingType;
 		data_line.Qual = line->Qual;
@@ -1349,14 +1071,6 @@ Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline) {
 		}
 	}
 	// LDPUMA_ConsoleN("Обычные линии %d",clock()-time);
-	// time=clock();
-	/*
-	 if(f!=NULL)
-	 {
-	 fprintf(f, " %d all \n", CLINE_GetLineCount(hCLINE));
-	 fclose(f);
-	 }
-	 */
 
 	if (outfile)
 		outfile.close();
@@ -1371,228 +1085,9 @@ Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline) {
 		textfile.close();
 	}
 
-	// if (!LDPUMA_Skip(hRLINE_CorrectDrawFrags)) DrawFragsForAllLines(hContainerOut, hRLINE_CorrectDrawFrags);
-
 	return TRUE;
 }
 
-/*
- void DelLineMas(LineInfo* masp)
- {
- delete[] masp;
- }
- */
-/*
- Bool AddLenLineMas(LineInfo** ppRc,int& len,int add)
- {
- LineInfo* dop;
- int i;
- int size=sizeof((*ppRc)[0]);
- uchar* bytein;
- uchar* byteout;
- if(!(InitLineMas(&dop,len)) )
- return FALSE;
- bytein=(uchar*)(*ppRc);
- byteout=(uchar*)(dop);
- for(i=size*len;i>0;i--)
- {
- byteout=bytein;
- byteout++;
- bytein++;
- }
- DelLineMas(*ppRc);
- if(!(InitLineMas(ppRc,len+add)) )
- {
- (*ppRc)=dop;
- return FALSE;
- }
- byteout=(uchar*)(*ppRc);
- bytein=(uchar*)(dop);
- for(i=size*len;i>0;i--)
- {
- byteout=bytein;
- byteout++;
- bytein++;
- }
- len+=add;
- DelLineMas(dop);
- return TRUE;
- }
- */
-/*
- Bool MyGetLines(CPageLines* PLines,CLINE_handle hCLINE)
- {
- CLine* line;
- CEvent* event;
- CCutPoint* cupoint;
- CComponent* comp;
- CInterval* inter;
- CPDLine cpdline;
- CPDEvent cpdevent;
- CPDCutPoint cpdcupoint;
- CPDComponent cpdcomp;
- CPDInterval cpdinv;
- CLINE_handle hinv;
- CLINE_handle hevent;
- CLINE_handle hline;
- CLINE_handle hcupoint;
- CLINE_handle hcomp;
- int count_poly;
- int time=clock();
-
- //Обычные линии
- for(hline=CLINE_GetFirstLine(hCLINE);hline;hline=CLINE_GetNextLine(hline))
- {
- cpdline=CLINE_GetLineData(hline);
- if(!cpdline)
- continue;
- line=PLines->GetNewLine();
- if(!line)
- continue;
-
- line->Degree=cpdline->Degree;
- line->Dens=cpdline->Dens;
- line->Dir=cpdline->Dir;
- line->FlagBad=cpdline->FlagBad;
- line->FlagCalculatedWidth=cpdline->FlagCalculatedWidth;
- line->FlagDot=cpdline->FlagDot;
- line->FlagExtensible=cpdline->FlagExtensible;
- line->Flags=cpdline->Flags;
- line->BeginPoint.x=line->Line.Beg_X=cpdline->Line.Beg_X;
- line->BeginPoint.y=line->Line.Beg_Y=cpdline->Line.Beg_Y;
- line->EndPoint.x=line->Line.End_X=cpdline->Line.End_X;
- line->EndPoint.y=line->Line.End_Y=cpdline->Line.End_Y;
- line->Width=line->Line.Wid10=cpdline->Line.Wid10;
- line->LineEventsLength=cpdline->LineEventsLength;
- count_poly=cpdline->poly.count-1;
- if(count_poly>MaxNumber-1)
- count_poly=MaxNumber-1;
- line->poly.count=count_poly+1;
- Point32* to=(line->poly.Vertex);
- Point16* from=(Point16*)(cpdline->poly.Vertex);
- for(;count_poly>=0;count_poly--)
- {
- to[count_poly].x=from[count_poly].x;
- to[count_poly].y=from[count_poly].y;
- }
- line->ProcessingType=cpdline->ProcessingType;
- line->Qual=cpdline->Qual;
- line->rect.bottom=cpdline->rect.bottom;
- line->rect.top=cpdline->rect.top;
- line->rect.left=cpdline->rect.left;
- line->rect.right=cpdline->rect.right;
- line->RelationshipIndex=cpdline->RelationshipIndex;
- if(line->SetLineNormDataTypes(cpdline->Type))
- {
- if(cpdline->Type==NR_DT_LinePointed)
- {
- NR_PoinLine* pl_to=(NR_PoinLine*)line->Specline;
- const NR_PoinLine* pl_from=&(cpdline->Specline.point_line.data);
- pl_to->Lef_0=pl_from->Lef_0;
- pl_to->Top_0=pl_from->Top_0;
- pl_to->Size=pl_from->Size;
- pl_to->Step1000=pl_from->Step1000;
- pl_to->nRc=pl_from->nRc;
- }
- else
- {
- if(line->Type==NR_DT_LineDefis)
- {
- NR_DefiLine* dl_to=(NR_DefiLine*)line->Specline;
- const NR_DefiLine* dl_from=&(cpdline->Specline.defi_line.data);
- dl_to->Rc_0.Lef=dl_from->Rc_0.Lef;
- dl_to->Rc_0.Top=dl_from->Rc_0.Top;
- dl_to->Rc_0.Bot=dl_from->Rc_0.Bot;
- dl_to->Rc_0.Rig=dl_from->Rc_0.Rig;
- dl_to->Rc_0.Skew10=dl_from->Rc_0.Skew10;
- dl_to->Step1000=dl_from->Step1000;
- dl_to->nRc=dl_from->nRc;
- }
- }
- }
- line->Status=cpdline->Status;
- line->Tail=cpdline->Tail;
-
- //Ивенты
- for(hevent=CLINE_GetFirstEvent(hline);hevent;hevent=CLINE_GetNextEvent(hevent))
- {
- event=line->GetNewEvent();
- if(!event)
- continue;
- cpdevent=CLINE_GetEventData(hevent);
- if(!cpdevent)
- continue;
-
- event->EventLength=cpdevent->EventLength;
- event->Hori=cpdevent->Hori;
- event->Increase=cpdevent->Increase;
- event->Lev_0=cpdevent->Lev_0;
- event->Width=cpdevent->Width;
-
- //Интервалы ивентов
- for(hinv=CLINE_GetFirstEventInv(hevent);hinv;hinv=CLINE_GetNextEventInv(hinv))
- {
- inter=event->GetNewInterval();
- if(!inter)
- continue;
- cpdinv=CLINE_GetEventInvData(hinv);
- if(!cpdinv)
- continue;
-
- inter->Lent=cpdinv->Lent;
- inter->Pos=cpdinv->Pos;
- }
- }
- //Точки сечений
- for(hcupoint=CLINE_GetFirstCutPoint(hline);hcupoint;hcupoint=CLINE_GetNextCutPoint(hcupoint))
- {
- cupoint=line->GetNewCutPoint();
- if(!cupoint)
- continue;
- cpdcupoint=CLINE_GetCutPointData(hcupoint);
- if(!cpdcupoint)
- continue;
-
- cupoint->Direction=cpdcupoint->Direction;
- cupoint->Level=cpdcupoint->Level;
-
- //Интервалы точек сечений
- for(hinv=CLINE_GetFirstCutPointInv(hcupoint);hinv;hinv=CLINE_GetNextCutPointInv(hinv))
- {
- inter=cupoint->GetNewInterval();
- if(!inter)
- continue;
- cpdinv=CLINE_GetCutPointInvData(hinv);
- if(!cpdinv)
- continue;
-
- inter->Lent=cpdinv->Lent;
- inter->Pos=cpdinv->Pos;
- }
- }
-
- //Компоненты
- for(hcomp=CLINE_GetFirstComp(hline);hcomp;hcomp=CLINE_GetNextComp(hcomp))
- {
- comp=line->GetNewComponent();
- if(!comp)
- continue;
- cpdcomp=CLINE_GetCompData(hcomp);
- if(!cpdcomp)
- continue;
-
- comp->BeginPoint=cpdcomp->BeginPoint;
- comp->CrossPointFlag=cpdcomp->CrossPointFlag;
- comp->EndPoint=cpdcomp->EndPoint;
- }
- }
-
- // LDPUMA_ConsoleN("Обычные линии %d",clock()-time);
- time=clock();
-
- return TRUE;
- }
- */
 void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
 
 	int count_comp = 0;
@@ -1657,10 +1152,11 @@ void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
 									fl_break = TRUE;
 									if (fl_show) {
 										WasKilled = TRUE;
-										start.x = (int16_t) left;
-										end.x = (int16_t) right;
-										start.y = (int16_t) cpdata->Line.Beg_Y;
-										end.y = (int16_t) cpdata->Line.End_Y;
+										start.rx() = (int16_t) left;
+										end.rx() = (int16_t) right;
+										start.ry()
+												= (int16_t) cpdata->Line.Beg_Y;
+										end.ry() = (int16_t) cpdata->Line.End_Y;
 										LDPUMA_DrawLine(MainWindowD, &start,
 												&end, 0, RGB(255, 0, 0),
 												(int16_t) (-10*
@@ -1684,110 +1180,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
 	}
 
 }
-/************************************************************************************************/
-/*void DeletePLines(CPageLines* PLines)
- {
- int i, j, k, count, intervals_count;
- CLine* line;
- CStripe* stripe;
- CEvent* event;
- CCutPoint* point;
- CComponent* component;
- CInterval* interval;
 
- int lines_count = PLines->GetCountLines();
-
- for (i=0; i<lines_count; i++)
- {
- line = PLines->GetLine(0);
- count = line->GetCountStripes();
-
- for (j=0; j<count; j++)
- {
- stripe = line->GetStripe(0);
- intervals_count = stripe->GetCountIntervals();
-
- for (k=0; k<intervals_count; k++)
- {
- interval = stripe->GetInterval(0);
- stripe->m_arIntervals.RemoveAt(0);
- delete interval;
- }
-
- line->m_arStripes.RemoveAt(0);
- delete stripe;
- }
-
- count = line->GetCountStripesVerticalLine();
-
- for (j=0; j<count; j++)
- {
- stripe = line->GetStripeVerticalLine(0);
- intervals_count = stripe->GetCountIntervals();
-
- for (k=0; k<intervals_count; k++)
- {
- interval = stripe->GetInterval(0);
- stripe->m_arIntervals.RemoveAt(0);
- delete interval;
- }
-
- line->m_arStripesVerticalLine.RemoveAt(0);
- delete stripe;
- }
-
- count = line->GetCountEvents();
-
- for (j=0; j<count; j++)
- {
- event = line->GetEvent(0);
- intervals_count = event->GetCountIntervals();
-
- for (k=0; k<intervals_count; k++)
- {
- interval = event->GetInterval(0);
- event->m_arIntervals.RemoveAt(0);
- delete interval;
- }
-
- line->m_arEvents.RemoveAt(0);
- delete event;
- }
-
- count = line->GetCountCutPoints();
-
- for (j=0; j<count; j++)
- {
- point = line->GetCutPoint(0);
- intervals_count = point->GetCountIntervals();
-
- for (k=0; k<intervals_count; k++)
- {
- interval = point->GetInterval(0);
- point->m_arIntervals.RemoveAt(0);
- delete interval;
- }
-
- line->m_arCutPoints.RemoveAt(0);
- delete point;
- }
-
- count = line->GetCountComponents();
-
- for (j=0; j<count; j++)
- {
- component = line->GetComponent(0);
- line->m_arComponents.RemoveAt(0);
- delete component;
- }
-
- PLines->m_arLines.RemoveAt(0);
- delete line;
- }
- }
- */
-
-/***********************************************************************************************/
 void PrintLines(CLINE_handle hContainer, const char* FileName) {
 	std::ofstream outfile;
 	outfile.open(FileName, std::ios::out | std::ios::binary | std::ios::app);
@@ -1913,32 +1306,30 @@ static int CompareCompByUpper(const void *elem1, const void *elem2) {
 	return pcomp1->upper - pcomp2->upper;
 }
 
-/***********************************************************************************************/
-RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)
-{
-	if (!LDPUMA_Skip(hLinesPass2)) return TRUE;
+Bool32 RLINE_LinesPass2(Handle hCCOM, void* phCLINE, Handle hCPAGE) {
+	if (!LDPUMA_Skip(hLinesPass2))
+		return TRUE;
 
 	if (!hCPAGE)
-	return FALSE;
+		return FALSE;
 
-	PAGEINFO info = {0};
+	PAGEINFO info = { 0 };
 
-	if(!GetPageInfo(hCPAGE,&info))
-	return FALSE;
+	if (!GetPageInfo(hCPAGE, &info))
+		return FALSE;
 
 	Bool32 ret = TRUE;
-	CLINE_handle hCLINE=*((CLINE_handle*)phCLINE);
+	CLINE_handle hCLINE = *((CLINE_handle*) phCLINE);
 
 	if (!hCLINE)
-	return TRUE;
+		return TRUE;
 
 	const int32_t max_loop = 5;
 	int32_t i = 0;
 	int32_t nLines = CLINE_GetLineCount(hCLINE);
 	int32_t nOldLines1, nOldLines2, nOldLines3;
 
-	do
-	{
+	do {
 		i++;
 		nOldLines1 = nLines;
 
@@ -1946,26 +1337,30 @@ RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)
 
 		nOldLines2 = CLINE_GetLineCount(hCLINE);
 
-		if (ret) ret = GlueLines(hCLINE, hCCOM);
+		if (ret)
+			ret = GlueLines(hCLINE, hCCOM);
 
 		nOldLines3 = CLINE_GetLineCount(hCLINE);
 
-		if (ret)
-		{
+		if (ret) {
 			if (!LDPUMA_Skip(hShowCPLines))
-			DrowAllLines(hCLINE, hShowCPLines);
+				DrowAllLines(hCLINE, hShowCPLines);
 
 			ret = findLostLines(hCLINE, &info);
 		}
 
 		nLines = CLINE_GetLineCount(hCLINE);
 
-	}while (ret && (nOldLines1 != nLines || nOldLines2 != nLines || nOldLines3 != nLines) && i < max_loop);
+	} while (ret && (nOldLines1 != nLines || nOldLines2 != nLines || nOldLines3
+			!= nLines) && i < max_loop);
 
-	if (ret && !LDPUMA_Skip(hWriteLineInFile2)) PrintLines(hCLINE, "lines2.res");
+	if (ret && !LDPUMA_Skip(hWriteLineInFile2))
+		PrintLines(hCLINE, "lines2.res");
 
-	if (!LDPUMA_Skip(hRLINE_Pass2DrawLines)) DrowAllLines(hCLINE, hRLINE_Pass2DrawLines);
-	if (!LDPUMA_Skip(hRLINE_Pass2DrawFrags)) DrawFragsForAllLines(hCLINE, hRLINE_Pass2DrawFrags);
+	if (!LDPUMA_Skip(hRLINE_Pass2DrawLines))
+		DrowAllLines(hCLINE, hRLINE_Pass2DrawLines);
+	if (!LDPUMA_Skip(hRLINE_Pass2DrawFrags))
+		DrawFragsForAllLines(hCLINE, hRLINE_Pass2DrawFrags);
 
 	return ret;
 }
@@ -2240,62 +1635,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM) {
 			CLINE_CleanContainer(hExtContainer);
 		}
 	} while (NeedNextLoop);
-	/*
-	 for (CLINE_handle hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
-	 {
-	 pLine = CLINE_GetLineData(hLine);
-	 if (pLine)
-	 {
-	 if (pLine->Flags&LI_Pointed) continue;
 
-	 if (pLine->Dir == LD_Horiz) CountHor++;
-	 else CountVert++;
-	 }
-	 }
-
-	 hHorLines = new CLINE_handle[CountHor];
-	 hVertLines = new CLINE_handle[CountVert];
-	 CountHor = CountVert = 0;
-
-	 for (hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
-	 {
-	 pLine = CLINE_GetLineData(hLine);
-	 if (pLine)
-	 {
-	 if (pLine->Flags&LI_Pointed) continue;
-
-	 if (pLine->Dir == LD_Horiz) hHorLines[CountHor++] = hLine;
-	 else hVertLines[CountVert++] = hLine;
-	 }
-	 }
-
-	 qsort(hHorLines, CountHor, sizeof(CLINE_handle), CompareByX);
-	 qsort(hVertLines, CountVert, sizeof(CLINE_handle), CompareByY);
-
-	 CLINE_handle hExtContainer = CLINE_CreateContainer(FALSE);
-
-	 if (!FindExtLines(hHorLines, CountHor, hExtContainer, TRUE))
-	 {
-	 delete[] hHorLines;
-	 delete[] hVertLines;
-	 return FALSE;
-	 }
-	 //------------------------
-	 SetExtLines(hExtContainer, hContainer, hHorLines, CountHor);
-	 CLINE_CleanContainer(hExtContainer);
-
-	 if (!FindExtLines(hVertLines, CountVert, hExtContainer, FALSE))
-	 {
-	 delete[] hHorLines;
-	 delete[] hVertLines;
-	 return FALSE;
-	 }
-	 //------------------------
-	 SetExtLines(hExtContainer, hContainer, hVertLines, CountVert);
-
-	 delete[] hHorLines;
-	 delete[] hVertLines;
-	 */
 	if (hLinesMass)
 		delete[] hLinesMass;
 
@@ -2384,15 +1724,15 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 
 			//считаем сдвиг между линиями = расстоянию между серединой pLine и прямой, задаваемой pLineExt
 			//Vertex[0] - вектор, задающий прямую, LineEventsLength - длина вектора в квадрате
-			Point32 delta;
+			Point delta;
 
-			delta.x = pLineExt->Line.Beg_X - ((pLine->Line.Beg_X
+			delta.rx() = pLineExt->Line.Beg_X - ((pLine->Line.Beg_X
 					+ pLine->Line.End_X) >> 1);
-			delta.y = pLineExt->Line.Beg_Y - ((pLine->Line.Beg_Y
+			delta.ry() = pLineExt->Line.Beg_Y - ((pLine->Line.Beg_Y
 					+ pLine->Line.End_Y) >> 1);
 
-			int32_t temp = delta.x * (int32_t) pLineExt->poly.Vertex[0].y
-					- delta.y * (int32_t) pLineExt->poly.Vertex[0].x;
+			int32_t temp = delta.x() * (int32_t) pLineExt->poly.Vertex[0].y()
+					- delta.y() * (int32_t) pLineExt->poly.Vertex[0].x();
 			int32_t squareshift = (int32_t)(temp * ((double) temp
 					/ pLineExt->LineEventsLength));
 
@@ -2532,14 +1872,14 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 			memcpy(&pNewExt.Line, &pLine->Line, sizeof(pNewExt.Line));
 			pNewExt.Degree = pLine->Degree;
 			pNewExt.n_event = 1;
-			pNewExt.poly.Vertex[0].x = (int16_t) (pNewExt.Line.End_X
+			pNewExt.poly.Vertex[0].rx() = (int16_t) (pNewExt.Line.End_X
 					- pNewExt.Line.Beg_X);
-			pNewExt.poly.Vertex[0].y = (int16_t) (pNewExt.Line.End_Y
+			pNewExt.poly.Vertex[0].ry() = (int16_t) (pNewExt.Line.End_Y
 					- pNewExt.Line.Beg_Y);
-			pNewExt.LineEventsLength = (int32_t) pNewExt.poly.Vertex[0].x
-					* (int32_t) pNewExt.poly.Vertex[0].x
-					+ (int32_t) pNewExt.poly.Vertex[0].y
-							* (int32_t) pNewExt.poly.Vertex[0].y;
+			pNewExt.LineEventsLength = (int32_t) pNewExt.poly.Vertex[0].x()
+					* (int32_t) pNewExt.poly.Vertex[0].x()
+					+ (int32_t) pNewExt.poly.Vertex[0].y()
+							* (int32_t) pNewExt.poly.Vertex[0].y();
 			if (IsHor) {
 				pNewExt.rect.left = pLine->Line.Beg_X;
 				pNewExt.rect.top = pLine->Line.Beg_Y;
@@ -2746,21 +2086,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor,
 
 		if (tempRect.right - tempRect.left + 1 < long_line)
 			continue;
-		/*
-		 if (tempRect.left > Level1 - interval && tempRect.left < Level1 + interval)
-		 {
-		 CountAllLines++;
-		 if (tempRect.right > Level4 - interval && tempRect.right < Level4 + interval)
-		 CountVotedLines++;
 
-		 if (tempRect.right > Level2 - interval && tempRect.right < Level2 + interval)
-		 CountLines1_2++;
-		 }
-
-		 if (tempRect.left > Level3 - interval && tempRect.left < Level3 + interval &&
-		 tempRect.right > Level4 - interval && tempRect.right < Level4 + interval)
-		 CountLines3_4++;
-		 */
 		if (tempRect.left < Level1 + interval && tempRect.right > Level4
 				- interval)
 			CountVotedLines++;
@@ -2769,11 +2095,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor,
 				&& tempRect.right < Level4 + interval)
 			CountAllLines++;
 	}
-	/*
-	 if (CountVotedLines && CountAllLines - CountVotedLines < 3 ||
-	 CountLines1_2 > 1 && CountLines3_4 > 1 && abs(CountLines1_2 - CountLines3_4) < 2)
-	 return TRUE;
-	 */
+
 	if (CountVotedLines > 1 && CountVotedLines > CountAllLines)
 		return TRUE;
 
@@ -2994,37 +2316,35 @@ void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect,
 	if (!pdLine || !pRect)
 		return;
 
-	Point32 lBeg, lEnd;
+	Point lBeg, lEnd;
 
-	lBeg.x = pdLine->Beg_X;
-	lBeg.y = pdLine->Beg_Y;
-	lEnd.x = pdLine->End_X;
-	lEnd.y = pdLine->End_Y;
+	lBeg.set(pdLine->Beg_X, pdLine->Beg_Y);
+	lEnd.set(pdLine->End_X, pdLine->End_Y);
 
-	IDEAL_XY(lBeg.x, lBeg.y);
-	IDEAL_XY(lEnd.x, lEnd.y);
+	IDEAL_XY(lBeg.rx(), lBeg.ry());
+	IDEAL_XY(lEnd.rx(), lEnd.ry());
 
 	if (is_horiz) {
-		pRect->left = lBeg.x;
-		pRect->right = lEnd.x;
+		pRect->left = lBeg.x();
+		pRect->right = lEnd.x();
 
-		if (lBeg.y < lEnd.y) {
-			pRect->top = lBeg.y;
-			pRect->bottom = lEnd.y;
+		if (lBeg.y() < lEnd.y()) {
+			pRect->top = lBeg.y();
+			pRect->bottom = lEnd.y();
 		} else {
-			pRect->top = lEnd.y;
-			pRect->bottom = lBeg.y;
+			pRect->top = lEnd.y();
+			pRect->bottom = lBeg.y();
 		}
 	} else {
-		pRect->top = lBeg.y;
-		pRect->bottom = lEnd.y;
+		pRect->top = lBeg.y();
+		pRect->bottom = lEnd.y();
 
-		if (lBeg.x < lEnd.x) {
-			pRect->left = lBeg.x;
-			pRect->right = lEnd.x;
+		if (lBeg.x() < lEnd.x()) {
+			pRect->left = lBeg.x();
+			pRect->right = lEnd.x();
 		} else {
-			pRect->left = lEnd.x;
-			pRect->right = lBeg.x;
+			pRect->left = lEnd.x();
+			pRect->right = lBeg.x();
 		}
 	}
 
@@ -3035,217 +2355,3 @@ void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect,
 		pRect->bottom += spread;
 	}
 }
-/***********************************************************************************************/
-/*typedef struct tagCompressHeader
- {
- Bool16 bCompressed;
- uchar cRepeater;
- uchar reserved;
- uint32_t wCount;
- } CompressHeader;
-
- Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize)
- {
- // Заменяем группу из не менее MIN_REPEAT одинаковых символов на счетчик повторений
- #define MIN_REPEAT 2*sizeof(CompressHeader)
-
- if (Size==0)
- return FALSE;
-
- char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
- if (!newData)										  //иначе - не больше исходного
- return FALSE;
- char *lpNewData = newData;
-
- // Находим пару - обычный фрагмент и фрагмент, заполненный одинаковыми символами;
- // затем оба отписываем
- char * ordinary=lpData,	  //обычный фрагмент
- * end=ordinary+Size;
- do
- {
- uint32_t count=1;
- char * current=ordinary+1,
- * repeating=ordinary; //фрагмент, заполненный одинаковыми символами;
- while (current<end)
- {
- if (*current != *repeating)
- {
- if (current-repeating>=MIN_REPEAT)  break;
- repeating=current;
- }
- current++;
- }
- count=current-repeating;
-
- if (count<MIN_REPEAT)  //дошли до конца, а повторений мало - отвергаем
- {
- repeating += count;  count=0;
- }
- if (repeating>ordinary)  //обычный фрагмент
- {
- CompressHeader head={0};
- head.bCompressed=FALSE;
- head.wCount=repeating-ordinary;
- memcpy(lpNewData,&head,sizeof(head));    lpNewData += sizeof(head);
- memcpy(lpNewData,ordinary,head.wCount); lpNewData += head.wCount;
- }
- if (count)				 //фрагмент, заполненный символом (*repeated)
- {
- CompressHeader head={0};
- head.bCompressed=TRUE;
- head.cRepeater=*repeating;
- head.wCount=count;
- memcpy(lpNewData,&head,sizeof(head));    lpNewData += sizeof(head);
- }
- ordinary=current;
- }
- while(ordinary<end);
- *compressedData = newData;  *compressedSize = lpNewData-newData;
- return TRUE;
- }
-
- Bool32 mywrite(void* of, const void* lpdata, int32_t size)
- {
- ofstream *ofile = (ofstream*)of;
-
- if (ofile->write((char*)lpdata, size).fail())
- return FALSE;
-
- return TRUE;
- }
-
- #define VERSION_FILE            0xF002
- #define VERSION_FILE_COMPRESSED 0xF003
- #define TYPE_text				"TYPE_TEXT"
- #define TYPE_image				"TYPE_IMAGE"
- #define TYPE_page				"__PageInfo__"
- const uint32_t type_text_len = strlen(TYPE_text) + 1;
- const uint32_t type_image_len = strlen(TYPE_image) + 1;
- const uint32_t type_page_len = strlen(TYPE_page) + 1;
- const uint32_t data_size = sizeof(POLY_);
- const uint32_t page_size = sizeof(PAGEINFO);
-
- Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, uint32_t* aType, uint32_t* aNumber, int32_t aCount)
- {
- ofstream bin_file(file_name, ios::out|ios::binary);
-
- if (bin_file.fail())
- return FALSE;
-
- uint32_t vers = VERSION_FILE_COMPRESSED;
- Bool32 rc =	mywrite(&bin_file, &vers, sizeof(vers));
- int count = 1;//number of pages
- uint32_t flags = 0;
-
- if (rc)
- rc = mywrite(&bin_file, &count, sizeof(count));
-
- count = 0;//something from BACKUPPAGE
-
- if (rc)
- rc = mywrite(&bin_file, &count, sizeof(count));
-
- count = aCount;//number of blocks
-
- if (rc)
- rc = mywrite(&bin_file, &count, sizeof(count));
-
- for (int32_t i = 0; i < aCount && rc; i++)
- {//from BLOCK
- //		rc = mywrite(&bin_file, &aNumber[i], sizeof(aNumber[i]));//UserNum
- rc = mywrite(&bin_file, &flags, sizeof(flags));//UserNum
-
- if (rc)
- rc = mywrite(&bin_file, &flags, sizeof(flags));
-
- if (rc)
- {//from DATA
- if (aType[i] == 0)//text
- {
- rc = mywrite(&bin_file, &type_text_len, sizeof(type_text_len));
-
- if (rc)
- rc = mywrite(&bin_file, TYPE_text, type_text_len);
- }
- else if (aType[i] == 1)//image
- {
- rc = mywrite(&bin_file, &type_image_len, sizeof(type_image_len));
-
- if (rc)
- rc = mywrite(&bin_file, TYPE_image, type_image_len);
- }
- else rc = FALSE;
-
- if (rc)
- {
- char* compressed_data;
- uint32_t compressed_size;
-
- POLY_ block;
-
- memset(&block, 0, data_size);
-
- block.com.count = 4;
- block.com.Vertex[0].x = aRect[i].left-5;
- block.com.Vertex[0].y = aRect[i].top-5;
- block.com.Vertex[1].x = aRect[i].right+5;
- block.com.Vertex[1].y = aRect[i].top-5;
- block.com.Vertex[2].x = aRect[i].right+5;
- block.com.Vertex[2].y = aRect[i].bottom+5;
- block.com.Vertex[3].x = aRect[i].left-5;
- block.com.Vertex[3].y = aRect[i].bottom+5;
-
- rc = Compress((char*)&block, data_size, &compressed_data, &compressed_size);
-
- if (rc)
- rc = mywrite(&bin_file, &compressed_size, sizeof(compressed_size));
- else compressed_data = NULL;
-
- if (rc)
- rc = mywrite(&bin_file, compressed_data, compressed_size);
-
- if (compressed_data)
- delete compressed_data;
- }
- }
-
- if (rc)
- //			rc = mywrite(&bin_file, &aNumber[i], sizeof(aNumber[i]));//InterNum
- rc = mywrite(&bin_file, &flags, sizeof(flags));//UserNum
- }
-
- if (rc)
- rc = mywrite(&bin_file, &type_page_len, sizeof(type_page_len));
-
- if (rc)
- rc = mywrite(&bin_file, TYPE_page, type_page_len);
-
- if (rc)
- {//from PAGEINFO
- PAGEINFO info;
- char* compressed_data;
- uint32_t compressed_size;
-
- memset(&info, 0, page_size);
-
- info.Incline2048 = nIncline;
-
- rc = Compress((char*)&info, page_size, &compressed_data, &compressed_size);
-
- if (rc)
- rc = mywrite(&bin_file, &compressed_size, sizeof(compressed_size));
- else compressed_data = NULL;
-
- if (rc)
- rc = mywrite(&bin_file, compressed_data, compressed_size);
-
- if (compressed_data)
- delete compressed_data;
- }
-
- bin_file.close();
-
- return rc;
- }
- */
-/***********************************************************************************************/

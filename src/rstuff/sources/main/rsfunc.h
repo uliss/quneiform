@@ -74,6 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lnsdefs.h"
 #include "linedefs.h"
 
+using namespace CIF;
+
 //////////////////////////
 //общего назначения
 void SetReturnCode_rstuff(int);

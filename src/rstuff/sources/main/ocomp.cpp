@@ -324,7 +324,7 @@ Bool32 Ocomp::FindCavity(SmRect32 *rect)
 		}
 		prev=curr;
 	}
-	Point32 disp = {pComp->left,pComp->upper};
+	Point disp = {pComp->left,pComp->upper};
 	if (rect)	*rect = rCavRect + disp;
 	return found;
 }

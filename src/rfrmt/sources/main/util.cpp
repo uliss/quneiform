@@ -55,7 +55,8 @@
  */
 
 #include "sys_prog.h"
-#include "wind32.h"
+
+using namespace CIF;
 
 char NameFuncErr[100], Buff[60];
 short NumErr;
@@ -344,32 +345,14 @@ void PutMess(int num, char *str) {
 }
 
 //------  Common functions for mrk.dll, dot.dll, ndx.dll --------
-
-#include "undef32.h"
 #include "globus.h"
-//	#include "math.h"
 #include "memfunc.h"
-#include "wind32.h"
-/*
- //==
- void ProjectPoint(Point16 *r,float tg_ang)
- //==
- { int16_t xa,ya;
- float fi=(float)atan(tg_ang);
- float si=(float)sin(fi),co=(float)cos(fi);
- xa=r->x; ya=r->y; r->x=(int16_t)(xa*co+ya*si); r->y=(int16_t)(-xa*si+ya*co);
- }
- */
-//#undef CT_SKEW
 
 #ifdef CT_SKEW
 #include "skew1024.h"
 #endif
 
-//==
-void ProjectRect1024(Rect16 *r, int32_t Skew1024)
-//==
-{
+void ProjectRect1024(Rect16 *r, int32_t Skew1024) {
 	int xa, ya,
 #ifndef CT_SKEW
 			xc, yc,
@@ -384,10 +367,10 @@ void ProjectRect1024(Rect16 *r, int32_t Skew1024)
 		dx = xc - xa;
 		dy = yc - ya;
 #else
-		Point16 pt;
-		pt.x=xa; pt.y=ya;
-		Deskew(pt,-Skew1024);
-		dx=pt.x-xa; dy=pt.y-ya;
+		Point16 pt(xa, ya);
+		pt.deskew(-Skew1024);
+		dx=pt.x()-xa;
+		dy=pt.y()-ya;
 #endif
 		r->left += (int16_t) dx;
 		r->right += (int16_t) dx;
@@ -396,10 +379,7 @@ void ProjectRect1024(Rect16 *r, int32_t Skew1024)
 	}
 }
 
-//==
-void ProjectPoint1024(Point16 *r, int32_t Skew1024)
-//==
-{
+void ProjectPoint1024(Point16 *r, int32_t Skew1024) {
 #ifndef CT_SKEW
 	int16_t xa, ya;
 	xa = r->x;
@@ -407,92 +387,7 @@ void ProjectPoint1024(Point16 *r, int32_t Skew1024)
 	r->x = xa + (int16_t) (((int32_t) ya * Skew1024) / 1024);
 	r->y = ya - (int16_t) (((int32_t) xa * Skew1024) / 1024);
 #else
-	Deskew(*r,-Skew1024);
+	r->deskew(-Skew1024);
 #endif
 }
-
-#if defined (FIND_NDX) || defined (FIND_BOX) || defined (FIND_DOT)
-extern MemFunc mem;
-void* malloc_t(uint32_t size) {return (*mem.alloc)(size);}
-void free_t(void *ptr, uint32_t size) {(*mem.free)(ptr,size);}
-void* malloc_u(uint32_t size) {return malloc_m((uint16_t)size);}
-void free_u(void *ptr, uint32_t size) {free_m(ptr);}
-#endif
-
-#ifndef WIN_MOD
-
-/* // !!! Art - устарело
- #include <stdio.h>
- #include <string.h>
-
- //GetPrivateProfileInt & GetPrivateProfileString functions emulation
- static char *fnexts_m(FILE *File, char *buf)
- {
- char *Str=fgets(buf,255,File);
- if(Str) {
- Str[strlen(Str)-1]=0;
- }
- return Str;
- }
- static int findname(char *sect, char *key, char *res, char *name)
- {
- FILE *File;
- uchar buf03[255];
- int16_t ret=0;
-
- if((File=fopen(name,"rt")) == NULL) {
- return 0;
- }
-
- while (fnexts_m(File, (char*)buf03))
- { if (*buf03 == ';' || *buf03 == 0) {
- continue;
- }
- else if (*buf03 == '[' && buf03[strlen((char*)buf03)-1] == ']')
- {
- buf03[strlen((char*)buf03)-1] = 0;
- if (strcmpi((char*)(buf03+1), sect) == 0)
- {
- while (fnexts_m(File, (char*)buf03))
- {
- if (*buf03 == ';' || *buf03 == 0) {
- continue;
- }
- else if (*buf03 == '[') {
- break;
- }
- else if (buf03[strlen(key)] == '=')
- { buf03[strlen(key)] = 0;
- if (strcmpi((char*)buf03, key) == 0) {
- strcpy(res, (char*)buf03+strlen(key)+1);
- ret=1;
- goto EXIT;
- }
- }
- }
- ret=0;
- goto EXIT;
- }
- }
- }
- EXIT:
- fclose(File);
- return ret;
- }
- #include "undef32.h"
- int GetPrivateProfileInt(char *section, char *key, int Default, char *name)
- {
- int ret = Default;
- char buf[80];
-
- return findname(section, key, buf, name) ? atoi(buf) : ret;
- }
- int GetPrivateProfileString(char *section, char *key, char *Default,
- char *result,int maxsize, char *name)
- {
- strcpy(result, Default);
- return findname(section, key, result, name) ? 1:0;
- }
- */// !!! Art - устарело
-#endif /*WIN_MOD*/
 

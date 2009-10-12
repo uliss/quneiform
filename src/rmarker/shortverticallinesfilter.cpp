@@ -79,7 +79,6 @@ static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image) {
@@ -178,14 +177,10 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
 				if (cpdata->Dir == LD_Horiz) {
 					if (LTInfo->Hor.Lns) {
 						num = LTInfo->Hor.Cnt;
-						LTInfo->Hor.Lns[num].A.x
-								= (int16_t) (cpdata->Line.Beg_X);
-						LTInfo->Hor.Lns[num].A.y
-								= (int16_t) (cpdata->Line.Beg_Y);
-						LTInfo->Hor.Lns[num].B.x
-								= (int16_t) (cpdata->Line.End_X);
-						LTInfo->Hor.Lns[num].B.y
-								= (int16_t) (cpdata->Line.End_Y);
+						LTInfo->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
+						LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+						LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
+						LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
 						LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10
 								/ 10;
 						LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
@@ -194,14 +189,10 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
 				} else {
 					if (LTInfo->Ver.Lns) {
 						num = LTInfo->Ver.Cnt;
-						LTInfo->Ver.Lns[num].A.x
-								= (int16_t) (cpdata->Line.Beg_X);
-						LTInfo->Ver.Lns[num].A.y
-								= (int16_t) (cpdata->Line.Beg_Y);
-						LTInfo->Ver.Lns[num].B.x
-								= (int16_t) (cpdata->Line.End_X);
-						LTInfo->Ver.Lns[num].B.y
-								= (int16_t) (cpdata->Line.End_Y);
+						LTInfo->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
+						LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+						LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
+						LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
 						LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10
 								/ 10;
 						LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
@@ -218,8 +209,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
 
 	return bRet;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
 		PRMPreProcessImage Image) {
 	Bool32 rc = TRUE;
@@ -261,8 +251,8 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
 							= sprintf(
 									str,
 									"VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x",
-									LtiB->Ver.Lns[i].A.x, LtiA->Ver.Lns[i].A.y,
-									LtiB->Ver.Lns[i].B.x, LtiB->Ver.Lns[i].B.y,
+									LtiB->Ver.Lns[i].A.x(), LtiA->Ver.Lns[i].A.y(),
+									LtiB->Ver.Lns[i].B.x(), LtiB->Ver.Lns[i].B.y(),
 									LtiB->Ver.Lns[i].Thickness,
 									LtiA->Ver.Lns[i].Flags,
 									LtiB->Ver.Lns[i].Flags);
@@ -279,17 +269,17 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
 							LtiB->Ver.Lns[i].Thickness, 315);
 
 					ZoomRect.top
-							= LtiB->Ver.Lns[i].A.y <= LtiB->Ver.Lns[i].B.y ? LtiB->Ver.Lns[i].A.y
-									: LtiB->Ver.Lns[i].B.y;
-					ZoomRect.bottom = LtiB->Ver.Lns[i].A.y
-							> LtiB->Ver.Lns[i].B.y ? LtiB->Ver.Lns[i].A.y
-							: LtiB->Ver.Lns[i].B.y;
-					ZoomRect.left = LtiB->Ver.Lns[i].A.x
-							<= LtiB->Ver.Lns[i].B.x ? LtiB->Ver.Lns[i].A.x
-							: LtiB->Ver.Lns[i].B.x;
-					ZoomRect.right = LtiB->Ver.Lns[i].A.x
-							> LtiB->Ver.Lns[i].B.x ? LtiB->Ver.Lns[i].A.x
-							: LtiB->Ver.Lns[i].B.x;
+							= LtiB->Ver.Lns[i].A.y() <= LtiB->Ver.Lns[i].B.y() ? LtiB->Ver.Lns[i].A.y()
+									: LtiB->Ver.Lns[i].B.y();
+					ZoomRect.bottom = LtiB->Ver.Lns[i].A.y()
+							> LtiB->Ver.Lns[i].B.y() ? LtiB->Ver.Lns[i].A.y()
+							: LtiB->Ver.Lns[i].B.y();
+					ZoomRect.left = LtiB->Ver.Lns[i].A.x()
+							<= LtiB->Ver.Lns[i].B.x() ? LtiB->Ver.Lns[i].A.x()
+							: LtiB->Ver.Lns[i].B.x();
+					ZoomRect.right = LtiB->Ver.Lns[i].A.x()
+							> LtiB->Ver.Lns[i].B.x() ? LtiB->Ver.Lns[i].A.x()
+							: LtiB->Ver.Lns[i].B.x();
 					ZoomRect.bottom -= ((ZoomRect.top - ZoomRect.bottom) / 3)
 							>= ZoomRect.bottom ? ZoomRect.bottom
 							: ((ZoomRect.top - ZoomRect.bottom) / 3);
@@ -347,10 +337,10 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image) {
 	int16_t Thick = Line->Thickness / 2;
 	Bool32 bDieComponent = FALSE;
 
-	Rl.left = Line->A.x;
-	Rl.top = Line->A.y;
-	Rl.right = Line->B.x;
-	Rl.bottom = Line->B.y;
+	Rl.left = Line->A.x();
+	Rl.top = Line->A.y();
+	Rl.right = Line->B.x();
+	Rl.bottom = Line->B.y();
 
 	if (Rl.left <= Rl.right) {
 		Rl.left -= Thick;

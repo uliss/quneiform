@@ -62,6 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Описание главных (для алгоритмов библиотеки) типов данных. */
 /*---------------------------------------------------------------------------*/
 #include "cttypes.h"
+#include "point.h"
 /*---------------------------------------------------------------------------*/
 typedef enum
 {// четыре сектора направления линий
@@ -85,8 +86,8 @@ typedef struct tagRLT_LINEATDIR
 typedef struct tagRLT_LINE
 {
 	/*  primary values  */
-	Point16  Beg;
-	Point16  End;
+	CIF::Point16  Beg;
+	CIF::Point16  End;
 	int      Wid;
 	int16_t    nSeg;
 	uchar    Plot;

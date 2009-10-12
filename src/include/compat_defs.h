@@ -240,11 +240,6 @@ typedef struct tagPAINTSTRUCT {
 	unsigned char rgbReserved[32];
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
-typedef struct tagPOINT {
-	int32_t x;
-	int32_t y;
-} POINT, *PPOINT;
-
 typedef struct tagSIZE {
 	int32_t cx;
 	int32_t cy;
@@ -267,7 +262,6 @@ typedef struct tagCOPYDATASTRUCT {
 	pvoid lpData;
 } COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
-typedef POINT* LPPOINT;
 typedef SIZE* LPSIZE;
 
 typedef int HKEY;

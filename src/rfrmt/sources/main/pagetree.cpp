@@ -81,7 +81,6 @@
 #include "lst3_win.h"
 #include "ful_txt.h"
 #include "globus.h"
-#include "wind32.h"
 #include "consmess.h"
 
 #include "minmax.h"

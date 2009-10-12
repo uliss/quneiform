@@ -55,9 +55,6 @@
  */
 
 #define TIGER_CORR       //alik
-#ifdef _MSC_VER
-#include<crtdbg.h>
-#endif
 
 #include "lst3_win.h"
 #ifdef SPELL_NEW
@@ -75,7 +72,6 @@
 #endif
 #include "ful_txt.h"
 #include "globus.h"
-#include "wind32.h"
 #include "aldebug.h"
 
 ////////////// functions, which are moved from other modules //////////////

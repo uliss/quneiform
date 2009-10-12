@@ -97,15 +97,6 @@ typedef void * Handle;
 #define TRUE                1
 #endif
 
-/*** Derived types ***/
-typedef struct tagPoint16 {
-	int16_t x, y;
-} Point16;
-_SETTYPES( Point16 )
-typedef struct tagPoint32 {
-	int32_t x, y;
-} Point32;
-_SETTYPES( Point32 )
 typedef struct tagRect16 {
 	int16_t left, top, right, bottom;
 } Rect16;

@@ -128,7 +128,8 @@ EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 EXTERN Bool32 gbAutoRotate VAL(FALSE);
-EXTERN Point32 gPageSize VAL2(209,295);
+
+extern CIF::Point gPageSize;
 // формат А4 в миллиметрах
 EXTERN Rect32 gRectTemplate VAL4(-1,-1,-1,-1);
 

@@ -60,7 +60,7 @@
 #include "globus.h"
 
 #ifdef __RSTR__
-#define RSTR_CLASS CLA_EXPO
+#define RSTR_CLASS CLA_EXP
 #else
 #define RSTR_CLASS CLA_IMPO
 #endif
@@ -79,20 +79,21 @@
 class IRstrDelta {
 public:
 	Rect16 dr; // bounds delta
-	Point16 dc; // centers delta
-	Point16 dhw; // height-width delta
-	IRstrDelta(const Rect16 & r, const Point16 & p) :
+	CIF::Point16 dc; // centers delta
+	CIF::Point16 dhw; // height-width delta
+	IRstrDelta(const Rect16 & r, const CIF::Point16 & p) :
 		dr(r), dc(p), dhw(p) {
 	}
-	IRstrDelta(const Rect16 & r, const Point16 & p, const Point16 & hw) :
+	IRstrDelta(const Rect16 & r, const CIF::Point16 & p,
+			const CIF::Point16 & hw) :
 		dr(r), dc(p), dhw(hw) {
 	}
-	void Set(const Rect16 & r, const Point16 & p) {
+	void Set(const Rect16 & r, const CIF::Point16 & p) {
 		dr = r;
 		dc = p;
 		dhw = p;
 	}
-	void Set(const Rect16 & r, const Point16 & p, const Point16 & hw) {
+	void Set(const Rect16 & r, const CIF::Point16 & p, const CIF::Point16 & hw) {
 		dr = r;
 		dc = p;
 		dhw = hw;
@@ -237,107 +238,85 @@ RSTR_FUNC Bool32 RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
 RSTR_FUNC void RSTR_Save2CTB(CSTR_line lino, int32_t type, int16_t line_num);
 RSTR_FUNC Bool32 RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
 
-#ifndef __cplusplus
-typedef struct tagIRstr
-{
-	Rect16 rmn;
-	Rect16 rmx;
-	Point16 cmn;
-	Point16 cmx;
-	Point16 hwmn;
-	Point16 hwmx;
-}IRstr;
-
-#else
 _SETCLASS( IRstr)
-class RSTR_CLASS IRstr
-{
+class IRstr {
 public:
 	Rect16 rmn;
 	Rect16 rmx;
-	Point16 cmn;
-	Point16 cmx;
-	Point16 hwmn;
-	Point16 hwmx;
-	IRstr( const Rect16 & rc ) {Set(rc);};
-	void Set( const Rect16 & rc );
-	IRstr() {};
-	IRstr( RCIRstr rst, RCIRstrDelta rd ) {Set(rst, rd);}; // extended restriction
-	void Set( RCIRstr rst, RCIRstrDelta rd ); // extended restriction
-	Bool Check( const Rect16 & rc ) const;
-	Bool Check( const Rect16 & rc, int delta ) const;
+	CIF::Point16 cmn;
+	CIF::Point16 cmx;
+	CIF::Point16 hwmn;
+	CIF::Point16 hwmx;
+	IRstr(const Rect16 & rc) {
+		Set(rc);
+	}
 
-	void
-	Update( const Rect16 & rc, /*FrmLMask*/long this2rc );
+	void Set(const Rect16 & rc);
+	IRstr() {
+	}
 
-	void
-	Update( RCIRstr rst, /*FrmLMask*/long this2rc );
+	IRstr(RCIRstr rst, RCIRstrDelta rd) {
+		Set(rst, rd);
+	}
+	// extended restriction
+	void Set(RCIRstr rst, RCIRstrDelta rd); // extended restriction
+	Bool Check(const Rect16 & rc) const;
+	Bool Check(const Rect16 & rc, int delta) const;
 
-	void
-	UpdateC();
+	void Update(const Rect16 & rc, /*FrmLMask*/long this2rc);
 
-	void
-	UpdateHW();
+	void Update(RCIRstr rst, /*FrmLMask*/long this2rc);
 
-	void
-	UpdateLL( const Rect16 & rc, /*FrmLMask*/long this2rc, int delta=0 ); // line by line
+	void UpdateC();
 
-	void
-	SqueezeWidth( int max_width );
+	void UpdateHW();
 
-	void
-	SqueezeHeight( int max_height );
+	void UpdateLL(const Rect16 & rc, /*FrmLMask*/long this2rc, int delta = 0); // line by line
+
+	void SqueezeWidth(int max_width);
+
+	void SqueezeHeight(int max_height);
 
 	/** Self checking **/
-	Bool LRGood() const
-	{
-		return (rmx.left >= rmn.left ) &&
-		(rmx.right >= rmn.right ) &&
-		(rmx.right >= rmn.left );
-	};
-	Bool TBGood() const
-	{
-		return (rmx.top >= rmn.top ) &&
-		(rmx.bottom >= rmn.bottom ) &&
-		(rmx.bottom >= rmn.top );
-	};
-	Bool XYGood() const
-	{
-		return (cmx.x >= cmn.x) &&
-		(cmx.y >= cmn.y);
-	};
-	Bool Good() const
-	{
+	Bool LRGood() const {
+		return (rmx.left >= rmn.left) && (rmx.right >= rmn.right) && (rmx.right
+				>= rmn.left);
+	}
+
+	Bool TBGood() const {
+		return (rmx.top >= rmn.top) && (rmx.bottom >= rmn.bottom)
+				&& (rmx.bottom >= rmn.top);
+	}
+
+	Bool XYGood() const {
+		return cmx >= cmn;
+	}
+
+	Bool Good() const {
 		return LRGood() && TBGood() && XYGood();
-	};
+	}
 
-	Bool LRGood(int Delta) const
-	{
-		return (rmx.left +Delta>= rmn.left ) &&
-		(rmx.right +Delta>= rmn.right ) &&
-		(rmx.right +Delta>= rmn.left );
-	};
-	Bool TBGood(int Delta) const
-	{
-		return (rmx.top +Delta>= rmn.top ) &&
-		(rmx.bottom +Delta>= rmn.bottom ) &&
-		(rmx.bottom +Delta>= rmn.top );
-	};
-	Bool XYGood(int Delta) const
-	{
-		return (cmx.x +Delta>= cmn.x) &&
-		(cmx.y +Delta>= cmn.y);
-	};
-	Bool Good(int Delta) const
-	{
+	Bool LRGood(int Delta) const {
+		return (rmx.left + Delta >= rmn.left) && (rmx.right + Delta
+				>= rmn.right) && (rmx.right + Delta >= rmn.left);
+	}
+
+	Bool TBGood(int Delta) const {
+		return (rmx.top + Delta >= rmn.top) && (rmx.bottom + Delta
+				>= rmn.bottom) && (rmx.bottom + Delta >= rmn.top);
+	}
+
+	Bool XYGood(int Delta) const {
+		return (cmx.x() + Delta >= cmn.x()) && (cmx.y() + Delta >= cmn.y());
+	}
+
+	Bool Good(int Delta) const {
 		return LRGood(Delta) && TBGood(Delta) && XYGood(Delta);
-	};
+	}
 
-	Bool operator !() const
-	{
+	Bool operator !() const {
 		return Good();
-	};
+	}
 };
-#endif // __cplusplus
 _SETTYPES(IRstr)
 #endif

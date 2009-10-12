@@ -81,15 +81,15 @@
 #include "minmax.h"
 
 using namespace CIF::CFIO;
+using namespace CIF;
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut,
 		Handle* hEdTree);
 extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage,
 		const char *FileNameOut);
-extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/
-Bool OutPutMode);
-extern Bool WritePict(uint32_t IndexPict,
-		RtfSectorInfo* SectorInfo/*, CString* PictString*/,
+extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo,
+		Bool OutPutMode);
+extern Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo,
 		Bool OutPutTypeFrame);
 void
 		GetTableRect(uint32_t NumberTable, Rect16* RectTable,
@@ -139,7 +139,7 @@ extern char RtfFileName[CFIO_MAX_PATH];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 extern uint32_t RtfWriteMode;
-extern POINT TemplateOffset;
+extern Point16 TemplateOffset;
 
 #define  TwipsToEMU_Koef (360000 * 2.54)/1440
 
@@ -1100,7 +1100,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 	WriteSectorsHeader(0);
 	pRtfSector = (CRtfSector*) m_arSectors[0];
 	SectorInfo = &pRtfSector->SectorInfo;
-	SectorInfo->Offset.x = SectorInfo->Offset.y = 0;
+	SectorInfo->Offset.set(0, 0);
 	Put("\\pard\\fs6\\par");
 
 #ifdef EdWrite
@@ -1459,11 +1459,11 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 
 	pRtfSector = m_arSectors[i];
 	if (i > 0) //!!!Art
-		pRtfSector->SectorInfo.Offset.y = m_arSectors[i - 1]->m_rectReal.bottom
+		pRtfSector->SectorInfo.Offset.ry() = m_arSectors[i - 1]->m_rectReal.bottom
 				+ m_arSectors[i - 1]->SectorInfo.InterSectorDist;//!!!Art
 	else
 		//!!!Art
-		pRtfSector->SectorInfo.Offset.y = pRtfSector->m_rectReal.top;
+		pRtfSector->SectorInfo.Offset.ry() = pRtfSector->m_rectReal.top;
 	pRtfSector->SectorInfo.FlagOneString = FALSE;
 
 	pRtfSector->SectorInfo.PaperW = PaperW;
@@ -1515,7 +1515,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 	if (!CountHTerminalColumns && !(FlagMode & USE_FRAME))
 		Put("\\pard\\fs6\\par");
 
-	pRtfSector->SectorInfo.Offset.x = MargL;
+	pRtfSector->SectorInfo.Offset.rx() = MargL;
 
 	pRtfSector->SectorInfo.MargL = MargL;
 	pRtfSector->SectorInfo.MargR = MargR;
@@ -1627,16 +1627,12 @@ CRtfSector::CRtfSector() {
 	m_bFlagLine = FALSE;
 	m_wHorizontalColumnsCount = 0;
 	m_FlagOneString = FALSE;
-	SectorInfo.Offset.x = DefMargL / 2;
-	SectorInfo.Offset.y = 32000;
+	SectorInfo.Offset.rx() = DefMargL / 2;
+	SectorInfo.Offset.ry() = 32000;
 	SectorInfo.CountFragments = 0;
 	SectorInfo.InterSectorDist = 0;
 	SetRect(&m_rect, 32000, 32000, 0, 0);
 	SetRect(&m_rectReal, 32000, 32000, 0, 0);
-	//	m_arHorizontalColumns.RemoveAll();
-	//	m_arHTerminalColumnsIndex.RemoveAll();
-	//	m_arRightBoundTerminalColumns.RemoveAll();
-	//	m_arWidthTerminalColumns.RemoveAll();
 }
 
 CRtfSector::~CRtfSector() {
@@ -1646,7 +1642,6 @@ CRtfSector::~CRtfSector() {
 		cHorizontalColumn = m_arHorizontalColumns[i];
 		delete cHorizontalColumn;
 	}
-	//	m_arHorizontalColumns.RemoveAll();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1864,7 +1859,7 @@ void CRtfSector::FillingSectorInfo() { //~ тут происходит рабо�
 		pRtfHorizontalColumn
 				= m_arHorizontalColumns[m_arHTerminalColumnsIndex[0]];
 		if (m_FlagOneString == FALSE)
-			SectorInfo.Offset.x = MAX(pRtfHorizontalColumn->m_rect.left, 0);
+			SectorInfo.Offset.rx() = MAX(pRtfHorizontalColumn->m_rect.left, 0);
 	}
 
 	m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
@@ -2477,14 +2472,14 @@ void CRtfHorizontalColumn::WriteTerminalColumns(
 						== FT_PICTURE) && pRtfFragment->m_bFlagObjectInColumn) {//Picture,Table
 					SectorInfo->FlagInColumn = TRUE;
 					if (!SectorInfo->FlagOneString)//!!!Art
-						SectorInfo->OffsetFromColumn.x
+						SectorInfo->OffsetFromColumn.rx()
 								= pRtfFragment->m_rect.left - m_rect.left;
 					else
 						//!!!Art
-						SectorInfo->OffsetFromColumn.x
+						SectorInfo->OffsetFromColumn.rx()
 								= pRtfFragment->m_rect.left - SectorInfo->MargL;//!!!Art
 
-					SectorInfo->OffsetFromColumn.y
+					SectorInfo->OffsetFromColumn.ry()
 							= pRtfFragment->m_wOffsetFromPrevTextFragment;
 #ifdef EdWrite
 					if(!RtfWriteMode)
@@ -2622,7 +2617,7 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
 	CRtfFragment *pRtfFragment;
 	RECT CurFragmentRect;
 	int i, number, CountFragments;
-	POINT pt;
+	Point16 pt;
 
 	number = CurFragmentNumber;
 	if (m_arOrderingNumber.size())
@@ -2641,21 +2636,21 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
 
 		if (!pRtfFragment->m_wType)
 			continue;
-		pt.x = pRtfFragment->m_rect.left;
-		pt.y = pRtfFragment->m_rect.top;
+		pt.rx() = pRtfFragment->m_rect.left;
+		pt.ry() = pRtfFragment->m_rect.top;
 		if (PtInRect(&CurFragmentRect, pt))
 			return TRUE;
 
-		pt.x = pRtfFragment->m_rect.right;
+		pt.rx() = pRtfFragment->m_rect.right;
 		if (PtInRect(&CurFragmentRect, pt))
 			return TRUE;
 
-		pt.x = pRtfFragment->m_rect.left;
-		pt.y = pRtfFragment->m_rect.bottom;
+		pt.rx() = pRtfFragment->m_rect.left;
+		pt.ry() = pRtfFragment->m_rect.bottom;
 		if (PtInRect(&CurFragmentRect, pt))
 			return TRUE;
 
-		pt.x = pRtfFragment->m_rect.right;
+		pt.rx() = pRtfFragment->m_rect.right;
 		if (PtInRect(&CurFragmentRect, pt))
 			return TRUE;
 	}
@@ -4141,10 +4136,10 @@ void Rtf_CED_CreateChar(EDRECT* slayout, letterEx* Letter, CRtfChar* pRtfChar) {
 		return;
 	if (pRtfChar) {
 		int i;
-		slayout->left = pRtfChar->m_Realrect.left + TemplateOffset.x;
-		slayout->right = pRtfChar->m_Realrect.right + TemplateOffset.x;
-		slayout->top = pRtfChar->m_Realrect.top + TemplateOffset.y;
-		slayout->bottom = pRtfChar->m_Realrect.bottom + TemplateOffset.y;
+		slayout->left = pRtfChar->m_Realrect.left + TemplateOffset.x();
+		slayout->right = pRtfChar->m_Realrect.right + TemplateOffset.x();
+		slayout->top = pRtfChar->m_Realrect.top + TemplateOffset.y();
+		slayout->bottom = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
 		for (i = 0; i < pRtfChar->m_wCountAlt; i++) {
 			Letter[i].alternative = pRtfChar->m_chrVersions[i].m_bChar;
 			Letter[i].probability = pRtfChar->m_chrVersions[i].m_bProbability

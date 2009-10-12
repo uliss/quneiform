@@ -70,6 +70,7 @@
 #include "stick.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
+#include "point.h"
 
 /* FIXME: to compile in MS VC++ */
 #define c_locomp EVN_CLocomp
@@ -159,7 +160,7 @@ Bool snap_newpass(uchar);
 Bool snap_show_text(const char *);
 Bool snap_show_text1(puchar);
 Bool snap_monitor(void);
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
+void snap_draw_line(Handle wnd, CIF::Point16 *start, CIF::Point16 *end, int32_t skew,
 		uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void snap_del_line(Handle wnd, uint32_t key);//IGOR
 Bool snap_baselines(uchar a);//IGOR

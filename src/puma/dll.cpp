@@ -81,6 +81,8 @@ static HINSTANCE ghInst = NULL;
 static char szPath[PATH_MAX] = ".";
 static char szTempPath[PATH_MAX] = ".";
 
+CIF::Point gPageSize(209,295);
+
 int PUMA_GetReturnCode() {
 	return gwRC;
 }

@@ -54,11 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "wind32.h"
 #include "recdefs.h"
-
-//typedef unsigned char uchar;
-
 
 #define SUB_ZN
 #define SUB_FRM
@@ -469,22 +465,5 @@ void FreeClustOCR(void);
 void OnBreakFrm(int ExtBreak_on);
 int CorrFulCell(KNOTT **AllT, int nT, INF_TREE *Inf);
 int CorrCol5_7(int nc);
-//Изменения Ful-формата
-// 1.В заголовке файла после поля ZOffset (смещение секции знакомест)
-// добавилось поле uchar ProcSpell;//Признак обработки Spell
-// 2. После чтения OpenFul вместо поля W_Rect (8 байт) в TitleWord - другие поля
-//TITLE_WORD { uchar Z_Code; //Опознавательный код заголовка (=1)
-//             W_GEN W_Gen; //Родословная слова
-//             //SRECT W_Rect;//Рамка
-//             int NumAltSpell; //Число подсказок
-//             int PosFirstCorr;//позиция первой правки типа Ins,Del
-//             ALT_SPELL *AltSpell;//Подсказки
-//             uint16_t W_Attr; //Атрибуты слова
-//           };
-//ALT_SPELL { uchar Len; //Длина подсказки с завершающим \0 (счет - с 1)
-//            uchar Reserv;
-//            int  Penalty;//Штраф в метрнике SPELL до данной альтернативы
-//            char *Alt; //Сама альтернатива - строка в формате С
-//          };
 
-#include "undef32.h"
+

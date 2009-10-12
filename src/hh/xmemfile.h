@@ -182,8 +182,8 @@ public:
    Bool     Put( Point16& t ) { return Put( &t, sizeof(Point16) ); }
    Bool     Get( Rect32& t ) { return Get( &t, sizeof(Rect32) ); }
    Bool     Put( Rect32& t ) { return Put( &t, sizeof(Rect32) ); }
-   Bool     Get( Point32& t ) { return Get( &t, sizeof(Point32) ); }
-   Bool     Put( Point32& t ) { return Put( &t, sizeof(Point32) ); }
+   Bool     Get( Point& t ) { return Get( &t, sizeof(Point) ); }
+   Bool     Put( Point& t ) { return Put( &t, sizeof(Point) ); }
    // end optimize
 /*
    template <class T>

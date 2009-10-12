@@ -62,6 +62,7 @@
 #include "globus.h"
 #include "wrgb.h"
 #include "snpdefs.h"
+#include "point.h"
 
 /////////////////////////////////////////////////////////////////////
 // Final set of routines to be used
@@ -253,7 +254,7 @@ Bool SnpIsActive(void);
 void SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
 		int32_t pen_width,uint32_t key);
 void SnpHideRects(uint32_t key);
-void SnpDrawLine(Point16* start, Point16* end, int32_t skew,
+void SnpDrawLine(CIF::Point16* start, CIF::Point16* end, int32_t skew,
 		uint32_t rgb_color, int16_t pen_width, Handle key );
 void SnpHideLines(Handle key);
 void SnpDrawFocusRect(Rect16* rc);
@@ -269,7 +270,7 @@ Bool16 SnpGetUserString (char * static_text,
 Bool16 SnpGetUserLong(char * static_text,
 		int32_t * result_long);
 Bool16 SnpGetUserRect( Rect16* rect );
-Bool16 SnpGetUserPoint(Point16* pnt);
+Bool16 SnpGetUserPoint(CIF::Point16* pnt);
 uint32_t SnpWaitUserInput(SnpTreeNode* cur_node);
 void SnpNotifyAppl(SnpTreeNode* cur_node);
 // tree manipulation

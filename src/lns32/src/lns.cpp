@@ -62,6 +62,8 @@
 #include "sweeper.h"
 #include "hliner.h"
 
+using namespace CIF;
+
 static Err16 lnserr = ER_NONE;
 
 /// 10.02.99, VP ------- registering fragments for external usage
@@ -140,8 +142,8 @@ Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len,
 ///////////////
 #include "lns_skew1024.h"
 static Bool32 __HasCorners(LineInfo& li, LinesTotalInfo* plti, Bool32 is_hor) {
-	Rect16 rcA = { li.A.x - 8, li.A.y - 8, li.A.x + 8, li.A.y + 8 };
-	Rect16 rcB = { li.B.x - 8, li.B.y - 8, li.B.x + 8, li.B.y + 8 };
+	Rect16 rcA = { li.A.x() - 8, li.A.y() - 8, li.A.x() + 8, li.A.y() + 8 };
+	Rect16 rcB = { li.B.x() - 8, li.B.y() - 8, li.B.x() + 8, li.B.y() + 8 };
 	LnsInfoArray & ar = is_hor ? plti->Ver : plti->Hor;
 	for (int i = 0; i < ar.Cnt; i++) {
 		LineInfo& linf = ar.Lns[i];
@@ -154,7 +156,7 @@ static Bool32 __HasCorners(LineInfo& li, LinesTotalInfo* plti, Bool32 is_hor) {
 /////////////////////////////////////////////////////////
 void __RejectNearBound(LinesTotalInfo* plti) {
 	Rect32 imgrect;
-	Set(imgrect, 0, 0, plti->ImgSize.x - 1, plti->ImgSize.y - 1);
+	Set(imgrect, 0, 0, plti->ImgSize.x() - 1, plti->ImgSize.y() - 1);
 
 	int hcnt = 0, vcnt = 0;
 	ltiGetNotNoise(plti, hcnt, vcnt);
@@ -166,13 +168,13 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 			break; // keep lines, if lack
 		if (li.Flags & LI_NOISE)
 			continue;
-		Point32 Mn;
-		Mn.x = MIN(li.A.x, li.B.x);
-		Mn.y = MIN(li.A.y, li.B.y);
-		Point32 Mx;
-		Mx.x = MAX(li.A.x, li.B.x);
-		Mx.y = MAX(li.A.y, li.B.y);
-		if ((Mn.y < imgrect.top + 50) || (Mx.y > imgrect.bottom - 50)) {
+		Point Mn;
+		Mn.rx() = MIN(li.A.x(), li.B.x());
+		Mn.ry() = MIN(li.A.y(), li.B.y());
+		Point Mx;
+		Mx.rx() = MAX(li.A.x(), li.B.x());
+		Mx.ry() = MAX(li.A.y(), li.B.y());
+		if ((Mn.y() < imgrect.top + 50) || (Mx.y() > imgrect.bottom - 50)) {
 			if (!__HasCorners(li, plti, TRUE)) {
 				li.Flags |= LI_NOISE;
 				hcnt--;
@@ -180,8 +182,8 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 			};
 		};
 
-		if ((((Mn.y < imgrect.top + 100) || (Mx.y > imgrect.bottom - 100)))
-				&& ((Mn.x < imgrect.left + 50) || ((Mx.x > imgrect.right - 50)))) {
+		if ((((Mn.y() < imgrect.top + 100) || (Mx.y() > imgrect.bottom - 100)))
+				&& ((Mn.x() < imgrect.left + 50) || ((Mx.x() > imgrect.right - 50)))) {
 			if (!__HasCorners(li, plti, TRUE)) {
 				li.Flags |= LI_NOISE;
 				hcnt--;
@@ -195,21 +197,21 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 			continue;
 		if (vcnt < 5)
 			break; // keep lines, if lack
-		Point32 Mn;
-		Mn.x = MIN(li.A.x, li.B.x);
-		Mn.y = MIN(li.A.y, li.B.y);
-		Point32 Mx;
-		Mx.x = MAX(li.A.x, li.B.x);
-		Mx.y = MAX(li.A.y, li.B.y);
-		if ((Mn.x < imgrect.left + 50) || (Mx.x > imgrect.right - 50)) {
+		Point Mn;
+		Mn.rx() = MIN(li.A.x(), li.B.x());
+		Mn.ry() = MIN(li.A.y(), li.B.y());
+		Point Mx;
+		Mx.rx() = MAX(li.A.x(), li.B.x());
+		Mx.ry() = MAX(li.A.y(), li.B.y());
+		if ((Mn.x() < imgrect.left + 50) || (Mx.x() > imgrect.right - 50)) {
 			if (!__HasCorners(li, plti, FALSE)) {
 				li.Flags |= LI_NOISE;
 				vcnt--;
 				continue;
 			};
 		}
-		if ((((Mn.x < imgrect.left + 100) || (Mx.x > imgrect.right - 100)))
-				&& ((Mn.y < imgrect.top + 50) || ((Mx.y > imgrect.bottom - 50)))) {
+		if ((((Mn.x() < imgrect.left + 100) || (Mx.x() > imgrect.right - 100)))
+				&& ((Mn.y() < imgrect.top + 50) || ((Mx.y() > imgrect.bottom - 50)))) {
 			if (!__HasCorners(li, plti, FALSE)) {
 				li.Flags |= LI_NOISE;
 				vcnt--;
@@ -217,22 +219,22 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 			};
 		}
 
-		int mcx = (li.A.x + li.B.x) >> 1;
+		int mcx = (li.A.x() + li.B.x()) >> 1;
 		if (((mcx < imgrect.left + 200) || (mcx > imgrect.right - 200))
-				&& (li.B.y - li.A.y > 200) // not too short
+				&& (li.B.y() - li.A.y() > 200) // not too short
 		) { // test lines near bound for collinear neibours
 			Bool left = (mcx < imgrect.left + 200);
-			int len = li.B.y - li.A.y;
-			int ay = li.A.y + 50;
-			int by = li.B.y - 50; // shortened for normal intersection area ( > 50)
+			int len = li.B.y() - li.A.y();
+			int ay = li.A.y() + 50;
+			int by = li.B.y() - 50; // shortened for normal intersection area ( > 50)
 			for (int j = i + 1; j < plti->Ver.Cnt; j++) {
 				LineInfo & li2 = plti->Ver.Lns[j];
-				int len2 = li2.B.y - li2.A.y;
+				int len2 = li2.B.y() - li2.A.y();
 				if (len2 < 200)
 					continue; // ignore short
-				int mcx2 = (li2.A.x + li2.B.x) >> 1;
+				int mcx2 = (li2.A.x() + li2.B.x()) >> 1;
 				int xdelta = abs(mcx - mcx2);
-				if (xdelta < 16 && Overlap(ay, by, li2.A.y, li2.B.y)) {
+				if (xdelta < 16 && Overlap(ay, by, li2.A.y(), li2.B.y())) {
 					if (len < len2 * 2) { // kill first, may be keep second
 						if (!(li.Flags & LI_NOISE)) {
 							li.Flags |= LI_NOISE;
@@ -254,17 +256,6 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len, int32_t min_v_len) {
 	int32_t h, v;
 	if (ExtrLinesGetInfo(lti, min_h_len, min_v_len, h, v)) {
-		/*
-		 Bool res =  LC_Init(lti) &&
-		 //LC_CorrectSkew(lti) &&
-		 LC_MarkBadLines(lti);
-		 //assert(res);
-		 LC_Done(lti);
-		 if (!res)
-		 lnserr = ER_NOMEMORY;
-		 return res;
-		 */
-
 		__RejectNearBound(lti);
 
 		return TRUE;

@@ -69,6 +69,8 @@
 #include "ligas.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 #ifndef MAXINT32
 #define  MAXINT32  0x7FFFFFFF
 #endif
@@ -223,7 +225,7 @@ static void to_real(Rect32 *rect);
 static void to_real16(Rect16 *rect);
 
 static Handle find_hBlock(int32_t fragment);
-static void pull_rect(Rect32 *rect, Point32 *point);
+static void pull_rect(Rect32 *rect, Point *point);
 static void cover_rect(Rect32 *main_area, Rect32 *rect);
 static int32_t rect_dist(Rect32 *main, Rect32 *test);
 static int32_t dist_border(Rect32 *rect);
@@ -1403,26 +1405,26 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key) {
 	if (v == sizeof(POLY_)) {
 		//....
 		COMMON *com = &poly.com;
-		Point32 p32 = com->Vertex[0];
+		Point p32 = com->Vertex[0];
 		Point16 cv, pv, v0;
 		int32_t i;
-		v0.x = (int16_t) p32.x;
-		v0.y = (int16_t) p32.y;
+		v0.rx() = p32.x();
+		v0.ry() = p32.y();
 		cv = v0;
 		for (i = 1; i < com->count; i++) {
-			Point32 p32 = com->Vertex[i];
+			Point p32 = com->Vertex[i];
 			pv = cv;
-			cv.x = (int16_t) p32.x;
-			cv.y = (int16_t) p32.y;
+			cv.rx() = p32.x();
+			cv.ry() = p32.y();
 			LDPUMA_DrawLine(NULL, &pv, &cv, 0, color, 1, key);
 		}
 		LDPUMA_DrawLine(NULL, &v0, &cv, 0, color, 1, key);
 		if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage, FALSE, TRUE, 1)) {
-			uchar msg[80];
-			sprintf((char*) msg, "draw=%d handle=%x\n", com->number,
+			char msg[80];
+			sprintf(msg, "draw=%d handle=%x\n", com->number,
 					CPAGE_GetHandleBlock(hCPAGE, com->number));
-			LDPUMA_Console((const char*) msg);
-			LDPUMA_RasterText((char*) msg);
+			LDPUMA_Console(msg);
+			LDPUMA_RasterText(msg);
 		}
 	} else {
 		//			  ASSERT(0);
@@ -1470,16 +1472,16 @@ static Bool set_frag_ptrs(int32_t *num_frag, Handle frag_hdl[],
 	return TRUE;
 }
 
-static void pull_rect(Rect32 *rect, Point32 *point) {
-	if (point->x < rect->left)
-		rect->left = point->x;
-	else if (point->x > rect->right)
-		rect->right = point->x;
+static void pull_rect(Rect32 *rect, Point *point) {
+	if (point->x() < rect->left)
+		rect->left = point->x();
+	else if (point->x() > rect->right)
+		rect->right = point->x();
 
-	if (point->y < rect->top)
-		rect->top = point->y;
-	else if (point->y > rect->bottom)
-		rect->bottom = point->y;
+	if (point->y() < rect->top)
+		rect->top = point->y();
+	else if (point->y() > rect->bottom)
+		rect->bottom = point->y();
 }
 
 static void cover_rect(Rect32 *main_area, Rect32 *rect) {
@@ -1544,14 +1546,14 @@ static void to_real16(Rect16 *rect) {
 
 static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key) {
 	Point16 v1, v2, v3, v4;
-	v1.x = (int16_t) rect->left;
-	v1.y = (int16_t) rect->top;
-	v2.x = (int16_t) rect->right;
-	v2.y = (int16_t) rect->top;
-	v3.x = (int16_t) rect->right;
-	v3.y = (int16_t) rect->bottom;
-	v4.x = (int16_t) rect->left;
-	v4.y = (int16_t) rect->bottom;
+	v1.rx() = rect->left;
+	v1.ry() = rect->top;
+	v2.rx() = rect->right;
+	v2.ry() = rect->top;
+	v3.rx() = rect->right;
+	v3.ry() = rect->bottom;
+	v4.rx() = rect->left;
+	v4.ry() = rect->bottom;
 	LDPUMA_DrawLine(NULL, &v1, &v2, 0, color, 1, key);
 	LDPUMA_DrawLine(NULL, &v2, &v3, 0, color, 1, key);
 	LDPUMA_DrawLine(NULL, &v3, &v4, 0, color, 1, key);

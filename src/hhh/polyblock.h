@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 #include "table.h"
+#include "point.h"
 
 # define  TYPE_TEXT			CPAGE_GetInternalType("TYPE_TEXT")
 # define  TYPE_IMAGE		CPAGE_GetInternalType("TYPE_IMAGE")
@@ -124,7 +125,7 @@ typedef struct tagCommon
 	int16_t Color;
 	Bool Select;//
 	int16_t count;
-	Point32 Vertex[MaxNum];
+	CIF::Point Vertex[MaxNum];
 // Almi 18.04.00
 #define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
 #define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста

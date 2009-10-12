@@ -62,6 +62,8 @@
 # define __LOAD_ROOTS_C__
 
 # include "new_c.h"
+
+using namespace CIF;
 Bool32 NPFArbitr(CCOM_comp*, CCOM_comp*, Bool32);
 int NPFGetBD(void);
 #define NEGA   1<<14
@@ -285,10 +287,10 @@ Bool32 PicturesSecondStage(Handle hCCOM, Handle hCPAGE) {
 		}
 
 		comp = &pPics[nPics++];
-		comp->upper = block.com.Vertex[0].y;
-		comp->left = block.com.Vertex[0].x;
-		comp->w = block.com.Vertex[1].x - block.com.Vertex[0].x;
-		comp->h = block.com.Vertex[2].y - block.com.Vertex[1].y;
+		comp->upper = block.com.Vertex[0].y();
+		comp->left = block.com.Vertex[0].x();
+		comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
+		comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
 		/* У comp нету поля флагов, поэтому используем nl */
 		comp->nl = block.com.Flags;
 		if (block.orient == TYPE_DOWNUP)
@@ -381,14 +383,14 @@ Bool32 PicturesSecondStage(Handle hCCOM, Handle hCPAGE) {
 		block.com.Color = 0;
 		block.com.count = 4;
 		block.com.Flags = pPics[i].nl;
-		block.com.Vertex[0].x = pPics[i].left;
-		block.com.Vertex[0].y = pPics[i].upper;
-		block.com.Vertex[1].x = pPics[i].left + pPics[i].w;
-		block.com.Vertex[1].y = pPics[i].upper;
-		block.com.Vertex[2].x = pPics[i].left + pPics[i].w;
-		block.com.Vertex[2].y = pPics[i].upper + pPics[i].h;
-		block.com.Vertex[3].x = pPics[i].left;
-		block.com.Vertex[3].y = pPics[i].upper + pPics[i].h;
+		block.com.Vertex[0].rx() = pPics[i].left;
+		block.com.Vertex[0].ry() = pPics[i].upper;
+		block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
+		block.com.Vertex[1].ry() = pPics[i].upper;
+		block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
+		block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
+		block.com.Vertex[3].rx() = pPics[i].left;
+		block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
 		block.alphabet = 0;
 		if (pPics[i].nl & NEGA) {
 			block.negative = TYPE_NEGATIVE;
@@ -460,10 +462,10 @@ Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE) {
 		}
 
 		comp = &pPics[nPics++];
-		comp->upper = block.com.Vertex[0].y;
-		comp->left = block.com.Vertex[0].x;
-		comp->w = block.com.Vertex[1].x - block.com.Vertex[0].x;
-		comp->h = block.com.Vertex[2].y - block.com.Vertex[1].y;
+		comp->upper = block.com.Vertex[0].y();
+		comp->left = block.com.Vertex[0].x();
+		comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
+		comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
 	}
 
 	return TRUE;

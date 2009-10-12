@@ -148,8 +148,8 @@ Bool32   HLiner_AddImageLine( uchar* pLine )
 
 Bool32   _TraceLine(int i, int j, Line16& ln )
 {
-   ln.A.x = (j << 4) + 8; // 16x2
-   ln.A.y = i << 1;
+   ln.A.rx() = (j << 4) + 8; // 16x2
+   ln.A.ry() = i << 1;
 
    // trace up
    int i_top=i; int i_bot=i+1;
@@ -167,7 +167,7 @@ Bool32   _TraceLine(int i, int j, Line16& ln )
    }
 
    int ii = (i_top + i_bot) >> 1;
-   ln.A.y = i_top + i_bot; // 16x2
+   ln.A.ry() = i_top + i_bot; // 16x2
 
    int thick = 0;
    int jj = j;
@@ -183,8 +183,8 @@ Bool32   _TraceLine(int i, int j, Line16& ln )
             ii++;
          else  // line ended
          {
-            ln.B.y = ii << 1; // 16x2
-            ln.B.x = (jj << 4) - 8; // 16x2, prev cell
+            ln.B.ry() = ii << 1; // 16x2
+            ln.B.rx() = (jj << 4) - 8; // 16x2, prev cell
             break; // line stopped
          }
       };
@@ -262,7 +262,7 @@ int32_t    HLiner_Analyze(void) // returns count of extracted lines
    // now link lines from start to end
    //
    uchar* line_on = NULL;
-   Line16 ln={0};
+   Line16 ln;
    for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       uchar* line_on = GetMapLine(i);

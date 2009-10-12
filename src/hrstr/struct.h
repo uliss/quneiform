@@ -471,7 +471,7 @@ typedef struct baseline_struct B_LINES;
 #include "compat_defs.h"
 
 struct rule_struct {
-	POINT beg, end;
+	CIF::Point16 beg, end;
 	uchar width;
 	uchar type;
 #define VERT_LN  0

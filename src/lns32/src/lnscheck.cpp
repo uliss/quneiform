@@ -60,9 +60,10 @@
 #include "lnscheck.h"
 #include "lns_skew1024.h"
 
-typedef Point16 XPoint16;
-#define maxi MAX
-#define mini MIN
+#include "point.h"
+
+using namespace CIF;
+
 #define PPSArray TArray
 
 #define CONSOLE /* This can also be printf. */
@@ -74,15 +75,15 @@ typedef struct {
 	int next;
 } ADJ;
 typedef struct {
-	XPoint16 A;
-	XPoint16 B;
+	Point16 A;
+	Point16 B;
 	int C;
 } XSEGM;
 typedef struct {
-	XPoint16 LT;
-	XPoint16 RT;
-	XPoint16 LB;
-	XPoint16 RB;
+	Point16 LT;
+	Point16 RT;
+	Point16 LB;
+	Point16 RB;
 	int leftLine;
 	int rightLine;
 	int topLine;
@@ -109,10 +110,10 @@ int h1_count;
 int v1_count;
 PPSArray<XSEGM> h_lns;
 PPSArray<XSEGM> v_lns;
-static PPSArray<XPoint16> h1_lns;
-static PPSArray<XPoint16> v1_lns;
-static PPSArray<XPoint16> hlink;
-static PPSArray<XPoint16> vlink;
+static PPSArray<Point16> h1_lns;
+static PPSArray<Point16> v1_lns;
+static PPSArray<Point16> hlink;
+static PPSArray<Point16> vlink;
 static PPSArray<XSEGM> YMapping; // Ax-type of mapping object (mo), Ay-number of mo, Bx-y-coord of mo
 static PPSArray<int> YMapLnsNum;// number of a h_line having y-rank in accordance with YLnsOrder
 static PPSArray<int> YLnsOrder; // y-rank of a h_line among h_lines (ahly-rank)
@@ -125,20 +126,20 @@ static PPSArray<int> XpARank;
 static PPSArray<int> XpBRank;
 PPSArray<Bool> HMarkedNoise;
 PPSArray<Bool> VMarkedNoise;
-static PPSArray<XPoint16> StripLine;
-PPSArray<XPoint16> Hlev;
-PPSArray<XPoint16> Vlev;
+static PPSArray<Point16> StripLine;
+PPSArray<Point16> Hlev;
+PPSArray<Point16> Vlev;
 PPSArray<ADJ> ADJA;
 int D; // the distance to neglect
 int DD; // small distance (used by HBound, VBound)
 int MD;
 
 int HLength(XSEGM* S) {
-	return (((S->B).x) - ((S->A).x));
+	return (((S->B).x()) - ((S->A).x()));
 }
 
 int VLength(XSEGM* S) {
-	return (((S->B).y) - ((S->A).y));
+	return (((S->B).y()) - ((S->A).y()));
 }
 
 int HLengthCompare(const void* S1, const void* S2) {
@@ -150,60 +151,22 @@ int VLengthCompare(const void* S1, const void* S2) {
 }
 
 int MapCoord(XSEGM* S) {
-	return ((S->B).x);
+	return ((S->B).x());
 }
 
 int MappingCompare(const void* S1, const void* S2) {
 	return (MapCoord((XSEGM*) S1) - MapCoord((XSEGM*) S2));
 }
 
-int StrLCoord(XPoint16* S) {
-	return (S->y);
+int StrLCoord(Point16* S) {
+	return (S->y());
 }
 
 int StrLCompare(const void* S1, const void* S2) {
-	return (StrLCoord((XPoint16*) S1) - StrLCoord((XPoint16*) S2));
+	return (StrLCoord((Point16*) S1) - StrLCoord((Point16*) S2));
 }
 
 void Rotate(int sk) {
-	/********* 18 nov, Postnikov
-	 XPoint16 P, P1;
-	 long d;
-
-	 for(int i=0; i<h_count; i++)
-	 {
-	 P = h_lns[i].A;
-	 d = ((long)sk)*(P.y);
-	 P1.x = P.x + (d>>10);
-	 d = ((long)sk)*(P.x);
-	 P1.y = P.y - (d>>10);
-	 h_lns[i].A = P1;
-
-	 P = h_lns[i].B;
-	 d = ((long)sk)*(P.y);
-	 P1.x = P.x + (d>>10);
-	 d = ((long)sk)*(P.x);
-	 P1.y = P.y - (d>>10);
-	 h_lns[i].B = P1;
-	 };
-
-	 for(int j=0; j<v_count; j++)
-	 {
-	 P = v_lns[j].A;
-	 d = ((long)sk)*(P.y);
-	 P1.x = P.x + (d>>10);
-	 d = ((long)sk)*(P.x);
-	 P1.y = P.y - (d>>10);
-	 v_lns[j].A = P1;
-
-	 P = v_lns[j].B;
-	 d = ((long)sk)*(P.y);
-	 P1.x = P.x + (d>>10);
-	 d = ((long)sk)*(P.x);
-	 P1.y = P.y - (d>>10);
-	 v_lns[j].B = P1;
-	 };
-	 ********************************/
 	long skew = -sk;
 	for (int i = 0; i < h_count; i++) {
 		Deskew(h_lns[i].A, skew);
@@ -220,9 +183,9 @@ void CorrectDirection() {
 	for (int i = 0; i < h_count; i++) {
 		LineInfo& L = ((Lti->Hor).Lns)[i];
 		L.TmpUsage = 0;
-		if ((h_lns[i].A).x > (h_lns[i].B).x) {
+		if ((h_lns[i].A).x() > (h_lns[i].B).x()) {
 			L.TmpUsage = 1;
-			XPoint16 U = h_lns[i].B;
+			Point16 U = h_lns[i].B;
 			h_lns[i].B = h_lns[i].A;
 			h_lns[i].A = U;
 		};
@@ -230,9 +193,9 @@ void CorrectDirection() {
 	for (int j = 0; j < v_count; j++) {
 		LineInfo& L = ((Lti->Ver).Lns)[j];
 		L.TmpUsage = 0;
-		if ((v_lns[j].A).y > (v_lns[j].B).y) {
+		if ((v_lns[j].A).y() > (v_lns[j].B).y()) {
 			L.TmpUsage = 1;
-			XPoint16 U = v_lns[j].B;
+			Point16 U = v_lns[j].B;
 			v_lns[j].B = v_lns[j].A;
 			v_lns[j].A = U;
 		};
@@ -247,35 +210,29 @@ void LengthSort() {
 void InitMapping() {
 	int r, s, d;
 	for (int i = 0; i < h_count; i++) {
-		(YMapping[i].A).x = 0;
-		(YMapping[i].A).y = i;
-		(YMapping[i].B).x = (h_lns[i].A).y;
+		YMapping[i].A.set(0, i);
+		YMapping[i].B.rx() = h_lns[i].A.y();
 	};
 	for (int j = h_count; j < (h_count + v_count); j++) {
 		d = j - h_count;
 		r = h_count + (d << 1);
-		(YMapping[r].A).x = 1;
-		(YMapping[r].A).y = d;
-		(YMapping[r].B).x = (v_lns[d].A).y;
-		(YMapping[r + 1].A).x = 2;
-		(YMapping[r + 1].A).y = d;
-		(YMapping[r + 1].B).x = (v_lns[d].B).y;
+		YMapping[r].A.set(1, d);
+		YMapping[r].B.rx() = v_lns[d].A.y();
+		YMapping[r + 1].A.set(2, d);
+		YMapping[r + 1].B.rx() = v_lns[d].B.y();
 	};
 
 	for (int l = 0; l < v_count; l++) {
-		(XMapping[l].A).x = 0;
-		(XMapping[l].A).y = l;
-		(XMapping[l].B).x = (v_lns[l].A).x;
+		XMapping[l].A.set(0, l);
+		XMapping[l].B.rx() = v_lns[l].A.x();
 	};
 	for (int m = v_count; m < (v_count + h_count); m++) {
 		d = m - v_count;
 		s = v_count + (d << 1);
-		(XMapping[s].A).x = 1;
-		(XMapping[s].A).y = d;
-		(XMapping[s].B).x = (h_lns[d].A).x;
-		(XMapping[s + 1].A).x = 2;
-		(XMapping[s + 1].A).y = d;
-		(XMapping[s + 1].B).x = (h_lns[d].B).x;
+		XMapping[s].A.set(1, d);
+		XMapping[s].B.rx() = h_lns[d].A.x();
+		XMapping[s + 1].A.set(2, d);
+		XMapping[s + 1].B.rx() = h_lns[d].B.x();
 	};
 }
 
@@ -291,14 +248,13 @@ void InitMappingInverse() {
 	int m = 0;
 
 	for (int rk = 0; rk < h_count + (v_count << 1); rk++) {
-		l = (YMapping[rk].A).y;
-		switch ((YMapping[rk].A).x) {
+		l = YMapping[rk].A.y();
+		switch (YMapping[rk].A.x()) {
 		case 0: {
 			YLnsOrder[l] = m;
 			YMapLnsNum[m] = l;
 			m++;
 		}
-			;
 			break;
 
 		case 1:
@@ -307,19 +263,18 @@ void InitMappingInverse() {
 
 		case 2:
 			YpBRank[l] = m - 1;
-		};
-	};
+		}
+	}
 
 	m = 0;
 	for (int j = 0; j < v_count + (h_count << 1); j++) {
-		l = (XMapping[j].A).y;
-		switch ((XMapping[j].A).x) {
+		l = XMapping[j].A.y();
+		switch (XMapping[j].A.x()) {
 		case 0: {
 			XLnsOrder[l] = m;
 			XMapLnsNum[m] = l;
 			m++;
 		}
-			;
 			break;
 
 		case 1:
@@ -328,16 +283,16 @@ void InitMappingInverse() {
 
 		case 2:
 			XpBRank[l] = m - 1;
-		};
-	};
+		}
+	}
 }
 
-Bool IsHCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
+Bool IsHCloseCovering(Point16 S, int n) // expanding S1 covers S2
 { // where |S1|>|S2|
-	int S1Ax = (h_lns[S.x].A).x;
-	int S1Bx = (h_lns[S.y].B).x;
-	int S2Ax = (h_lns[n].A).x;
-	int S2Bx = (h_lns[n].B).x;
+	int S1Ax = h_lns[S.x()].A.x();
+	int S1Bx = h_lns[S.y()].B.x();
+	int S2Ax = h_lns[n].A.x();
+	int S2Bx = h_lns[n].B.x();
 	if ((S1Ax - D < S2Ax && S2Ax < S1Bx + D) || (S1Ax - D < S2Bx && S2Bx < S1Bx
 			+ D) || (S2Ax - D < S1Bx && S1Bx < S2Bx + D))
 		return FALSE;
@@ -349,10 +304,10 @@ Bool IsHCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
 	if ((S2Bx - S2Ax) > xlength + D)
 		return FALSE;
 
-	int S1Ay = (h_lns[S.x].A).y;
-	int S1By = (h_lns[S.y].B).y;
-	int S2Ay = (h_lns[n].A).y;
-	int S2By = (h_lns[n].B).y;
+	int S1Ay = h_lns[S.x()].A.y();
+	int S1By = h_lns[S.y()].B.y();
+	int S2Ay = h_lns[n].A.y();
+	int S2By = h_lns[n].B.y();
 
 	if (S1By < S1Ay) {
 		if ((((S2Ay < S1By + D) && (S2By < S1By + D) && (S2Ax > S1Bx))
@@ -362,16 +317,16 @@ Bool IsHCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
 		if ((((S2By < S1Ay + D) && (S2Ay < S1Ay + D) && (S2Bx < S1Ax))
 				|| ((S2Ay > S1By - D) && (S2By > S1By - D) && (S2Ax > S1Bx))))
 			return TRUE;
-	};
+	}
 	return FALSE;
 }
 
-Bool IsVCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
+Bool IsVCloseCovering(Point16 S, int n) // expanding S1 covers S2
 { // where |S1|>|S2|
-	int S1Ay = (v_lns[S.x].A).y;
-	int S1By = (v_lns[S.y].B).y;
-	int S2Ay = (v_lns[n].A).y;
-	int S2By = (v_lns[n].B).y;
+	int S1Ay = v_lns[S.x()].A.y();
+	int S1By = v_lns[S.y()].B.y();
+	int S2Ay = v_lns[n].A.y();
+	int S2By = v_lns[n].B.y();
 
 	if ((S1Ay - D < S2Ay && S2Ay < S1By + D) || (S1Ay - D < S2By && S2By < S1By
 			+ D) || (S2Ay - D < S1By && S1By < S2By + D))
@@ -384,10 +339,10 @@ Bool IsVCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
 	if ((S2By - S2Ay) > ylength + D)
 		return FALSE;
 
-	int S1Ax = (v_lns[S.x].A).x;
-	int S1Bx = (v_lns[S.y].B).x;
-	int S2Ax = (v_lns[n].A).x;
-	int S2Bx = (v_lns[n].B).x;
+	int S1Ax = v_lns[S.x()].A.x();
+	int S1Bx = v_lns[S.y()].B.x();
+	int S2Ax = v_lns[n].A.x();
+	int S2Bx = v_lns[n].B.x();
 
 	if (S1Bx < S1Ax) {
 		if ((((S2Ax < S1Bx + D) && (S2Bx < S1Bx + D) && (S2Ay > S1By))
@@ -397,29 +352,30 @@ Bool IsVCloseCovering(XPoint16 S, int n) // expanding S1 covers S2
 		if ((((S2Bx < S1Ax + D) && (S2Ax < S1Ax + D) && (S2By < S1Ay))
 				|| ((S2Ax > S1Bx - D) && (S2Bx > S1Bx - D) && (S2Ay > S1By))))
 			return TRUE;
-	};
+	}
 	return FALSE;
 }
 
 void InitMarkedNoise() {
 	for (int i = 0; i < h_count; i++) {
 		HMarkedNoise[i] = TRUE;
-	};
+	}
+
 	for (int j = 0; j < v_count; j++) {
 		VMarkedNoise[j] = TRUE;
-	};
+	}
 }
 
 Bool HExp(int& counter, int nl) {
 	int StripCount = 0;
 	int r, num;
-	XPoint16 P, SS;
+	Point16 P, SS;
 	XSEGM S;
 	int NHL = h_count - 1;
 
 	int order = YLnsOrder[nl];
-	int ycoord = (h_lns[nl].A).y;
-	int dy = (h_lns[nl].B).y - ycoord;
+	int ycoord = h_lns[nl].A.y();
+	int dy = h_lns[nl].B.y() - ycoord;
 
 	r = order;
 	while (r > 0) {
@@ -427,14 +383,14 @@ Bool HExp(int& counter, int nl) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if (((dy < 0) && ((S.A).y < ycoord + dy + dy - D)) || ((!(dy < 0))
-				&& ((S.A).y < ycoord - dy - dy - D)))
+		if (((dy < 0) && ((S.A).y() < ycoord + dy + dy - D)) || ((!(dy < 0))
+				&& ((S.A).y() < ycoord - dy - dy - D)))
 			break;
 
-		(StripLine[StripCount].x) = num;
-		(StripLine[StripCount].y) = (S.A).x;
+		StripLine[StripCount].rx() = num;
+		StripLine[StripCount].ry() = (S.A).x();
 		StripCount++;
-	};
+	}
 
 	r = order;
 	while (r < NHL) {
@@ -442,65 +398,61 @@ Bool HExp(int& counter, int nl) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if (((dy < 0) && ((S.A).y > ycoord - dy - dy + D)) || ((!(dy < 0))
-				&& ((S.A).y > ycoord + dy + dy + D)))
+		if (((dy < 0) && ((S.A).y() > ycoord - dy - dy + D)) || ((!(dy < 0))
+				&& ((S.A).y() > ycoord + dy + dy + D)))
 			break;
 
-		(StripLine[StripCount].x) = num;
-		(StripLine[StripCount].y) = (S.A).x;
+		StripLine[StripCount].rx() = num;
+		StripLine[StripCount].ry() = (S.A).x();
 		StripCount++;
-	};
+	}
 
-	(StripLine[StripCount].x) = nl;
-	(StripLine[StripCount].y) = (h_lns[nl].A).x;
+	StripLine[StripCount].rx() = nl;
+	StripLine[StripCount].ry() = h_lns[nl].A.x();
 	StripCount++;
 
 	if (StripCount > 1) {
 		::qsort(&(StripLine[0]), StripCount, sizeof(StripLine[0]), StrLCompare);
 
 		for (int i = 0; i < StripCount; i++) {
-			if ((StripLine[i].x) == nl) {
+			if (StripLine[i].x() == nl) {
 				order = i;
 				break;
-			};
-		};
+			}
+		}
 
-		h1_lns[counter].x = nl;
-		h1_lns[counter].y = nl;
-		SS.x = nl;
-		SS.y = nl;
+		h1_lns[counter].set(nl, nl);
+		SS.set(nl, nl);
 		r = order;
 		while (r > 0) {
 			r--;
-			num = StripLine[r].x;
+			num = StripLine[r].x();
 			if (IsHCloseCovering(SS, num)) {
-				SS.x = num;
+				SS.rx() = num;
 				HMarkedNoise[num] = FALSE;
-				if ((hlink[num]).x == 0) {
-					P.x = 1;
-					P.y = num;
-					hlink[StripLine[r + 1].x] = P;
-					(h1_lns[counter]).x = num;
-				};
-			};
-		};
+				if ((hlink[num]).x() == 0) {
+					P.set(1, num);
+					hlink[StripLine[r + 1].x()] = P;
+					h1_lns[counter].rx() = num;
+				}
+			}
+		}
 		r = order;
 		while (r < StripCount - 1) {
 			r++;
-			num = StripLine[r].x;
+			num = StripLine[r].x();
 			if (IsHCloseCovering(SS, num)) {
-				SS.y = num;
+				SS.ry() = num;
 				HMarkedNoise[num] = FALSE;
-				if ((hlink[num]).x == 0) {
-					P.x = 1;
-					P.y = StripLine[r - 1].x;
+				if (hlink[num].x() == 0) {
+					P.set(1, StripLine[r - 1].x());
 					hlink[num] = P;
-					(h1_lns[counter]).y = num;
-				};
-			};
-		};
+					h1_lns[counter].ry() = num;
+				}
+			}
+		}
 
-		if (!(SS.x == SS.y)) {
+		if (SS.x() != SS.y()) {
 			counter++;
 			return TRUE;
 		} else
@@ -512,13 +464,13 @@ Bool HExp(int& counter, int nl) {
 Bool VExp(int& counter, int nl) {
 	int StripCount = 0;
 	int r, num;
-	XPoint16 P, SS;
+	Point16 P, SS;
 	XSEGM S;
 	int NVL = v_count - 1;
 
 	int order = XLnsOrder[nl];
-	int xcoord = (v_lns[nl].A).x;
-	int dx = (v_lns[nl].B).x - xcoord;
+	int xcoord = v_lns[nl].A.x();
+	int dx = v_lns[nl].B.x() - xcoord;
 
 	r = order;
 	while (r > 0) {
@@ -526,14 +478,13 @@ Bool VExp(int& counter, int nl) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if (((dx < 0) && ((S.A).x < xcoord + dx + dx - D)) || ((!(dx < 0))
-				&& ((S.A).x < xcoord - dx - dx - D)))
+		if (((dx < 0) && ((S.A).x() < xcoord + dx + dx - D)) || ((!(dx < 0))
+				&& ((S.A).x() < xcoord - dx - dx - D)))
 			break;
 
-		(StripLine[StripCount].x) = num;
-		(StripLine[StripCount].y) = (S.A).y;
+		StripLine[StripCount].set(num, S.A.y());
 		StripCount++;
-	};
+	}
 
 	r = order;
 	while (r < NVL) {
@@ -541,64 +492,59 @@ Bool VExp(int& counter, int nl) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if (((dx < 0) && ((S.A).x > xcoord - dx - dx + D)) || ((!(dx < 0))
-				&& ((S.A).x > xcoord + dx + dx + D)))
+		if (((dx < 0) && ((S.A).x() > xcoord - dx - dx + D)) || ((!(dx < 0))
+				&& ((S.A).x() > xcoord + dx + dx + D)))
 			break;
 
-		(StripLine[StripCount].x) = num;
-		(StripLine[StripCount].y) = (S.A).y;
+		StripLine[StripCount].set(num, S.A.y());
 		StripCount++;
-	};
+	}
 
-	(StripLine[StripCount].x) = nl;
-	(StripLine[StripCount].y) = (v_lns[nl].A).y;
+	StripLine[StripCount].set(nl, v_lns[nl].A.y());
 	StripCount++;
 
 	if (StripCount > 1) {
 		::qsort(&(StripLine[0]), StripCount, sizeof(StripLine[0]), StrLCompare);
 
 		for (int i = 0; i < StripCount; i++) {
-			if ((StripLine[i].x) == nl) {
+			if (StripLine[i].x() == nl) {
 				order = i;
 				break;
-			};
-		};
+			}
+		}
 
-		v1_lns[counter].x = nl;
-		v1_lns[counter].y = nl;
-		SS.x = nl;
-		SS.y = nl;
+		v1_lns[counter].set(nl, nl);
+		SS.set(nl, nl);
+
 		r = order;
 		while (r > 0) {
 			r--;
-			num = StripLine[r].x;
+			num = StripLine[r].x();
 			if (IsVCloseCovering(SS, num)) {
-				SS.x = num;
+				SS.rx() = num;
 				VMarkedNoise[num] = FALSE;
-				if ((vlink[num]).x == 0) {
-					P.x = 1;
-					P.y = num;
-					vlink[StripLine[r + 1].x] = P;
-					(v1_lns[counter]).x = num;
-				};
-			};
-		};
+				if (vlink[num].x() == 0) {
+					P.set(1, num);
+					vlink[StripLine[r + 1].x()] = P;
+					v1_lns[counter].rx() = num;
+				}
+			}
+		}
 		r = order;
 		while (r < StripCount - 1) {
 			r++;
-			num = StripLine[r].x;
+			num = StripLine[r].x();
 			if (IsVCloseCovering(SS, num)) {
-				SS.y = num;
+				SS.ry() = num;
 				VMarkedNoise[num] = FALSE;
-				if ((vlink[num]).x == 0) {
-					P.x = 1;
-					P.y = StripLine[r - 1].x;
+				if (vlink[num].x() == 0) {
+					P.set(1, StripLine[r - 1].x());
 					vlink[num] = P;
-					(v1_lns[counter]).y = num;
-				};
-			};
-		};
-		if (!(SS.x == SS.y)) {
+					v1_lns[counter].ry() = num;
+				}
+			}
+		}
+		if (SS.x() != SS.y()) {
 			counter++;
 			return TRUE;
 		} else
@@ -611,11 +557,11 @@ Bool HBound(int& counter, int i) {
 	int num, dnum, numAy, numBy;
 	XSEGM S;
 	int NVL = v_count - 1;
-	int Ax = ((h_lns[i]).A).x;
-	int Ay = ((h_lns[i]).A).y;
-	int Bx = ((h_lns[i]).B).x;
-	int By = ((h_lns[i]).B).y;
-	int dx = mini(((Bx - Ax) >> 3), DD); //+((Bx-Ax)>>3);
+	int Ax = h_lns[i].A.x();
+	int Ay = h_lns[i].A.y();
+	int Bx = h_lns[i].B.x();
+	int By = h_lns[i].B.y();
+	int dx = MIN(((Bx - Ax) >> 3), DD); //+((Bx-Ax)>>3);
 
 	int L1 = Ax - dx - D;
 	int L2 = Ax + D;
@@ -627,22 +573,21 @@ Bool HBound(int& counter, int i) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if ((S.A).x < L1)
+		if (S.A.x() < L1)
 			break;
 
-		numAy = (S.A).y;
-		numBy = (S.B).y;
-		dnum = mini(((numBy - numAy) >> 3), DD);
+		numAy = S.A.y();
+		numBy = S.B.y();
+		dnum = MIN(((numBy - numAy) >> 3), DD);
 		if ((abs(Ay - numAy) < dnum + D) || (abs(Ay - numBy) < dnum + D)) {
 			if (VMarkedNoise[num]) {
 				VMarkedNoise[num] = FALSE;
-				v1_lns[counter].x = num;
-				v1_lns[counter].y = num;
+				v1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	r = rank;
 	while (r < NVL) {
@@ -650,22 +595,21 @@ Bool HBound(int& counter, int i) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if ((S.A).x > L2)
+		if (S.A.x() > L2)
 			break;
 
-		numAy = (S.A).y;
-		numBy = (S.B).y;
-		dnum = mini(((numBy - numAy) >> 3), DD);
+		numAy = S.A.y();
+		numBy = S.B.y();
+		dnum = MIN(((numBy - numAy) >> 3), DD);
 		if ((abs(Ay - numAy) < dnum + D) || (abs(Ay - numBy) < dnum + D)) {
 			if (VMarkedNoise[num]) {
 				VMarkedNoise[num] = FALSE;
-				v1_lns[counter].x = num;
-				v1_lns[counter].y = num;
+				v1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	int R1 = Bx - D;
 	int R2 = Bx + dx + D;
@@ -677,22 +621,21 @@ Bool HBound(int& counter, int i) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if ((S.A).x < R1)
+		if (S.A.x() < R1)
 			break;
 
-		numAy = (S.A).y;
-		numBy = (S.B).y;
-		dnum = mini(((numBy - numAy) >> 3), DD);
+		numAy = S.A.y();
+		numBy = S.B.y();
+		dnum = MIN(((numBy - numAy) >> 3), DD);
 		if ((abs(By - numAy) < dnum + D) || (abs(By - numBy) < dnum + D)) {
 			if (VMarkedNoise[num]) {
 				VMarkedNoise[num] = FALSE;
-				v1_lns[counter].x = num;
-				v1_lns[counter].y = num;
+				v1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	r = rank;
 	while (r < NVL) {
@@ -700,22 +643,21 @@ Bool HBound(int& counter, int i) {
 		num = XMapLnsNum[r];
 		S = v_lns[num];
 
-		if ((S.A).x > R2)
+		if (S.A.x() > R2)
 			break;
 
-		numAy = (S.A).y;
-		numBy = (S.B).y;
-		dnum = mini(((numBy - numAy) >> 3), DD);
+		numAy = S.A.y();
+		numBy = S.B.y();
+		dnum = MIN(((numBy - numAy) >> 3), DD);
 		if ((abs(By - numAy) < dnum + D) || (abs(By - numBy) < dnum + D)) {
 			if (VMarkedNoise[num]) {
 				VMarkedNoise[num] = FALSE;
-				v1_lns[counter].x = num;
-				v1_lns[counter].y = num;
+				v1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	return FALSE;
 }
@@ -724,11 +666,11 @@ Bool VBound(int& counter, int i) {
 	int num, dnum, numAx, numBx;
 	XSEGM S;
 	int NHL = h_count - 1;
-	int Ax = ((v_lns[i]).A).x;
-	int Ay = ((v_lns[i]).A).y;
-	int Bx = ((v_lns[i]).B).x;
-	int By = ((v_lns[i]).B).y;
-	int dy = mini(((By - Ay) >> 3), DD);
+	int Ax = v_lns[i].A.x();
+	int Ay = v_lns[i].A.y();
+	int Bx = v_lns[i].B.x();
+	int By = v_lns[i].B.y();
+	int dy = MIN(((By - Ay) >> 3), DD);
 
 	int L1 = Ay - dy - D;
 	int L2 = Ay + D;
@@ -740,22 +682,21 @@ Bool VBound(int& counter, int i) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if ((S.A).y < L1)
+		if (S.A.y() < L1)
 			break;
 
-		numAx = (S.A).x;
-		numBx = (S.B).x;
-		dnum = mini(((numBx - numAx) >> 3), DD);
+		numAx = S.A.x();
+		numBx = S.B.x();
+		dnum = MIN(((numBx - numAx) >> 3), DD);
 		if ((abs(Ax - numAx) < dnum + D) || (abs(Ax - numBx) < dnum + D)) {
 			if (HMarkedNoise[num]) {
 				HMarkedNoise[num] = FALSE;
-				h1_lns[counter].x = num;
-				h1_lns[counter].y = num;
+				h1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	r = rank;
 	while (r < NHL) {
@@ -763,22 +704,21 @@ Bool VBound(int& counter, int i) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if ((S.A).y > L2)
+		if (S.A.y() > L2)
 			break;
 
-		numAx = (S.A).x;
-		numBx = (S.B).x;
-		dnum = mini(((numBx - numAx) >> 3), DD);
+		numAx = S.A.x();
+		numBx = S.B.x();
+		dnum = MIN(((numBx - numAx) >> 3), DD);
 		if ((abs(Ax - numAx) < dnum + D) || (abs(Ax - numBx) < dnum + D)) {
 			if (HMarkedNoise[num]) {
 				HMarkedNoise[num] = FALSE;
-				h1_lns[counter].x = num;
-				h1_lns[counter].y = num;
+				h1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	int R1 = By - D;
 	int R2 = By + dy + D;
@@ -789,22 +729,21 @@ Bool VBound(int& counter, int i) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if ((S.A).y < R1)
+		if (S.A.y() < R1)
 			break;
 
-		numAx = (S.A).x;
-		numBx = (S.B).x;
-		dnum = mini(((numBx - numAx) >> 3), DD);
+		numAx = S.A.x();
+		numBx = S.B.x();
+		dnum = MIN(((numBx - numAx) >> 3), DD);
 		if ((abs(Bx - numAx) < dnum + D) || (abs(Bx - numBx) < dnum + D)) {
 			if (HMarkedNoise[num]) {
 				HMarkedNoise[num] = FALSE;
-				h1_lns[counter].x = num;
-				h1_lns[counter].y = num;
+				h1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	r = rank;
 	while (r < NHL) {
@@ -812,22 +751,21 @@ Bool VBound(int& counter, int i) {
 		num = YMapLnsNum[r];
 		S = h_lns[num];
 
-		if ((S.A).y > R2)
+		if (S.A.y() > R2)
 			break;
 
-		numAx = (S.A).x;
-		numBx = (S.B).x;
-		dnum = mini(((numBx - numAx) >> 3), DD);
+		numAx = S.A.x();
+		numBx = S.B.x();
+		dnum = MIN(((numBx - numAx) >> 3), DD);
 		if ((abs(Bx - numAx) < dnum + D) || (abs(Bx - numBx) < dnum + D)) {
 			if (HMarkedNoise[num]) {
 				HMarkedNoise[num] = FALSE;
-				h1_lns[counter].x = num;
-				h1_lns[counter].y = num;
+				h1_lns[counter].set(num, num);
 				counter++;
-			};
+			}
 			return TRUE;
-		};
-	};
+		}
+	}
 
 	return FALSE;
 }
@@ -843,54 +781,46 @@ void NoiseSelect() {
 			else {
 				if (HLength(&h_lns[i]) > 100) {
 					HMarkedNoise[i] = FALSE;
-					h1_lns[h1_count].x = i;
-					h1_lns[h1_count].y = i;
+					h1_lns[h1_count].set(i, i);
 					h1_count++;
-				};
-			};
-		};
-	};
+				}
+			}
+		}
+	}
 
-	int j(0);
-	for (j = 0; j < v_count; j++) {
+	for (int j = 0; j < v_count; j++) {
 		if (VMarkedNoise[j]) {
 			if (VExp(v1_count, j))
 				VMarkedNoise[j] = FALSE;
 			else {
 				if (VLength(&v_lns[j]) > 50) {
 					VMarkedNoise[j] = FALSE;
-					v1_lns[v1_count].x = j;
-					v1_lns[v1_count].y = j;
+					v1_lns[v1_count].set(j, j);
 					v1_count++;
-				};
-			};
-		};
-	};
+				}
+			}
+		}
+	}
 
 	for (int l = 0; l < h_count; l++) {
 		if (!HMarkedNoise[l])
 			continue;
 		if (HBound(v1_count, l)) {
 			HMarkedNoise[l] = FALSE;
-			h1_lns[h1_count].x = l;
-			h1_lns[h1_count].y = l;
+			h1_lns[h1_count].set(l, l);
 			h1_count++;
-		};
-	};
+		}
+	}
 
-	for (j = 0; j < v_count; j++) {
+	for (int j = 0; j < v_count; j++) {
 		if (!VMarkedNoise[j])
 			continue;
 		if (VBound(h1_count, j)) {
 			VMarkedNoise[j] = FALSE;
-			v1_lns[v1_count].x = j;
-			v1_lns[v1_count].y = j;
+			v1_lns[v1_count].set(j, j);
 			v1_count++;
-		};
-	};
-
-	//CONSOLE("exp h lines:  %d", h1_count);
-	//CONSOLE("exp v lines:  %d", v1_count);
+		}
+	}
 }
 
 //-***************** calculate the skew ******************
@@ -898,8 +828,8 @@ void NoiseSelect() {
 int SkewCalc() {
 	int dx;
 	if (h_count > 0) {
-		long Dx = ((h_lns[0].B).x) - ((h_lns[0].A).x);
-		long Dy = ((h_lns[0].B).y) - ((h_lns[0].A).y);
+		long Dx = h_lns[0].B.x() - h_lns[0].A.x();
+		long Dy = h_lns[0].B.y() - h_lns[0].A.y();
 		if (abs(Dy) < 2)
 			dx = (Dx >> 1);
 		else
@@ -907,19 +837,19 @@ int SkewCalc() {
 		for (int n = 1; n < (h_count >> 1); n++) {
 			if (HLength(&(h_lns[n])) < dx)
 				break;
-			Dx = Dx + ((h_lns[n].B).x) - ((h_lns[n].A).x);
-			Dy = Dy + ((h_lns[n].B).y) - ((h_lns[n].A).y);
+			Dx = Dx + h_lns[n].B.x() - h_lns[n].A.x();
+			Dy = Dy + h_lns[n].B.y() - h_lns[n].A.y();
 		};
-		//  int rx = (Dx>>10);
-		//  if(rx==0) skew = Dy;
-		//  else      skew = Dy/rx;
+
 		if (Dx == 0) {
 			skew = 0;
 		} else
 			skew = (Dy > 0) ? ((Dy << 10) + (Dx >> 1)) / Dx : ((Dy << 10) - (Dx
 					>> 1)) / Dx;
 	} else
-		return 0;CONSOLE
+		return 0;
+
+	CONSOLE
 	("skew:  %d", skew);
 	return skew;
 }
@@ -927,8 +857,8 @@ int SkewCalc() {
 int RectSkew() {
 	int dx, ddx, ddy;
 	if (h_count > 0) {
-		long Dx = ((h_lns[0].B).x) - ((h_lns[0].A).x);
-		long Dy = ((h_lns[0].B).y) - ((h_lns[0].A).y);
+		long Dx = h_lns[0].B.x() - h_lns[0].A.x();
+		long Dy = h_lns[0].B.y() - h_lns[0].A.y();
 		if (abs(Dy) < 2)
 			dx = (Dx >> 1);
 		else
@@ -938,17 +868,15 @@ int RectSkew() {
 		for (int n = 0; n < (h_count >> 1); n++) {
 			if (HLength(&(h_lns[n])) < dx)
 				break;
-			ddy = ((h_lns[n].B).y) - ((h_lns[n].A).y);
-			ddx = ((h_lns[n].B).x) - ((h_lns[n].A).x);
+			ddy = h_lns[n].B.y() - h_lns[n].A.y();
+			ddx = h_lns[n].B.x() - h_lns[n].A.x();
 			if ((abs(ddy) > 10) && ((ddx >> 10) > 0) && (abs(ddy / (ddx >> 10))
 					> 20))
 				continue;
 			Dx = Dx + ddx;
 			Dy = Dy + ddy;
 		};
-		//  int rx = (Dx>>10);
-		//  if(rx==0) skew = Dy;
-		//  else      skew = Dy/rx;
+
 		if (Dx == 0) {
 			skew = 0;
 		} else
@@ -960,13 +888,10 @@ int RectSkew() {
 	return skew;
 }
 
-//-************************************************
-
 void Init_hlink_vlink() {
 	for (int i = 0; i < h_count; i++) {
-		hlink[i].x = 0;
-		h1_lns[i].x = i;
-		h1_lns[i].y = i;
+		hlink[i].rx() = 0;
+		h1_lns[i].set(i, i);
 		AdjacentLst& L = (((Lti->Hor).Lns)[i]).Adj;
 		L.ltiNext = -1;
 		L.ltiPrev = -1;
@@ -974,9 +899,8 @@ void Init_hlink_vlink() {
 		L.ltiLast = -1;
 	};
 	for (int j = 0; j < v_count; j++) {
-		vlink[j].x = 0;
-		v1_lns[j].x = j;
-		v1_lns[j].y = j;
+		vlink[j].rx() = 0;
+		v1_lns[j].set(j, j);
 		AdjacentLst& L = (((Lti->Ver).Lns)[j]).Adj;
 		L.ltiNext = -1;
 		L.ltiPrev = -1;
@@ -1080,7 +1004,7 @@ Bool FillAdjacent() {
 	if ((h_count == 0) && (v_count == 0))
 		return TRUE;
 
-	Bool x = ADJA.create(maxi(h_count, v_count));
+	Bool x = ADJA.create(MAX(h_count, v_count));
 	if (!x)
 		return FALSE;
 
@@ -1092,14 +1016,14 @@ Bool FillAdjacent() {
 	};
 
 	for (i = 0; i < h1_count; i++) {
-		l = h1_lns[i].y;
-		f = h1_lns[i].x;
+		l = h1_lns[i].y();
+		f = h1_lns[i].x();
 		lC = h_lns[l].C;
 		fC = h_lns[f].C;
 
 		cur = l;
 		curC = lC;
-		Init = (hlink[cur].x);
+		Init = hlink[cur].x();
 
 		adnum = curC;
 
@@ -1110,14 +1034,14 @@ Bool FillAdjacent() {
 		ADJA[curC].first = fC; //L.ltiFirst;
 		if (Init != 0) {
 			next = cur;
-			cur = hlink[cur].y;
+			cur = hlink[cur].y();
 			curC = h_lns[cur].C;
 			//     L.ltiPrev = curC;
 			ADJA[adnum].prev = curC; //L.ltiPrev;
 			adnum = curC;
 		};
 
-		while ((hlink[cur].x) != 0) {
+		while (hlink[cur].x() != 0) {
 			//     L = (((Lti->Hor).Lns)[curC]).Adj;
 			adnum = curC;
 			//     L.ltiLast  = lC;
@@ -1127,7 +1051,7 @@ Bool FillAdjacent() {
 			//     L.ltiNext  = h_lns[next].C;
 			ADJA[adnum].next = h_lns[next].C; //L.ltiNext;
 			next = cur;
-			cur = hlink[cur].y;
+			cur = hlink[cur].y();
 			curC = h_lns[cur].C;
 			//     L.ltiPrev = curC;
 			ADJA[adnum].prev = curC; //L.ltiPrev;
@@ -1159,15 +1083,15 @@ Bool FillAdjacent() {
 		ADJA[s].next = -1;
 	};
 	for (i = 0; i < v1_count; i++) {
-		l = v1_lns[i].y;
-		f = v1_lns[i].x;
+		l = v1_lns[i].y();
+		f = v1_lns[i].x();
 		lC = v_lns[l].C;
 		fC = v_lns[f].C;
 
 		cur = l;
 		curC = v_lns[cur].C;
 		adnum = curC;
-		Init = (vlink[cur].x);
+		Init = vlink[cur].x();
 
 		//   AdjacentLst& L = (((Lti->Ver).Lns)[curC]).Adj;
 		//   L.ltiLast  = lC;
@@ -1176,25 +1100,19 @@ Bool FillAdjacent() {
 		ADJA[curC].first = fC; //L.ltiFirst;
 		if (Init != 0) {
 			next = cur;
-			cur = vlink[cur].y;
+			cur = vlink[cur].y();
 			curC = v_lns[cur].C;
 			ADJA[adnum].prev = curC;
-			//     L.ltiPrev = curC;
 		};
 
-		while ((vlink[cur].x) != 0) {
+		while (vlink[cur].x() != 0) {
 			adnum = curC;
-			//     L = (((Lti->Ver).Lns)[curC]).Adj;
-			//     L.ltiLast  = lC;
-			//     L.ltiFirst = fC;
-			//     L.ltiNext  = v_lns[next].C;
 			ADJA[adnum].last = lC; //L.ltiLast;
 			ADJA[adnum].first = fC; //L.ltiFirst;
 			ADJA[adnum].next = v_lns[next].C; //L.ltiNext;
 			next = cur;
-			cur = vlink[cur].y;
+			cur = vlink[cur].y();
 			curC = v_lns[cur].C;
-			//     L.ltiPrev = curC;
 			ADJA[adnum].prev = curC;
 		};
 
@@ -1233,10 +1151,10 @@ Bool LCEXPORT LC_Init(LinesTotalInfo* lti) {
 	if (h_count < 0 || v_count < 0)
 		return FALSE;
 
-	int hcn = maxi(h_count, 1);
-	int vcn = maxi(v_count, 1);
+	int hcn = MAX(h_count, 1);
+	int vcn = MAX(v_count, 1);
 	Bool x = YMapping.create(hcn + (vcn << 1)) && XMapping.create(vcn + (hcn
-			<< 1)) && StripLine.create(maxi(hcn, vcn)) && YpARank.create(vcn)
+			<< 1)) && StripLine.create(MAX(hcn, vcn)) && YpARank.create(vcn)
 			&& YpBRank.create(vcn) && YLnsOrder.create(hcn)
 			&& YMapLnsNum.create(hcn) && XpARank.create(hcn) && XpBRank.create(
 			hcn) && XLnsOrder.create(vcn) && XMapLnsNum.create(vcn)
@@ -1250,7 +1168,7 @@ Bool LCEXPORT LC_Init(LinesTotalInfo* lti) {
 	return x;
 }
 
-Bool LCEXPORT LC_Done(LinesTotalInfo* lti) {
+Bool LCEXPORT LC_Done(LinesTotalInfo* /*lti*/) {
 	YMapping.flush(); //      &&
 	XMapping.flush(); //      &&
 	StripLine.flush(); //     &&

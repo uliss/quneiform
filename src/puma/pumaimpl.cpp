@@ -874,7 +874,7 @@ void PumaImpl::recognizeSetup(int language) {
 	}
 }
 
-void PumaImpl::rotate(void * dib, Point32 * p) {
+void PumaImpl::rotate(void * dib, Point * p) {
 	// Определим угол поворота страницы
 	PAGEINFO PInfo;
 
@@ -890,14 +890,14 @@ void PumaImpl::rotate(void * dib, Point32 * p) {
 			throw PumaException("CIMAGE_GetImageInfo failed");
 
 		if (PInfo.Incline2048 > 0) {
-			p->x = (int32_t) info.biWidth * PInfo.Incline2048 / 2048
+			p->rx() = info.biWidth * PInfo.Incline2048 / 2048
 					* PInfo.Incline2048 / 2048;
-			p->y = (int32_t)(info.biWidth) * PInfo.Incline2048 / 2048;
+			p->ry() = info.biWidth * PInfo.Incline2048 / 2048;
 		} else {
-			p->x = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
+			p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
 					+ (int32_t) info.biWidth * PInfo.Incline2048 / 2048
 							* PInfo.Incline2048 / 2048;
-			p->y = 0;
+			p->ry() = 0;
 		}
 	}
 

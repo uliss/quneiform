@@ -8,6 +8,8 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+#include <stdint.h>
+
 namespace CIF {
 
 template<class T>
@@ -21,16 +23,51 @@ public:
 		x_(0), y_(0) {
 	}
 
-	T& x() {
-		return x_;
+	PointImpl& deskew(int skew1024) {
+		// TODO check not only 32 code
+		long phi_sq = skew1024 * skew1024;
+		long dx = (skew1024 * y_ + 0x200) >> 10;
+		long dy = (skew1024 * x_ + 0x200) >> 10;
+		long ddx = (phi_sq * x_ + 0x100000) >> 21;
+		long ddy = (phi_sq * y_ + 0x100000) >> 21;
+		x_ -= dx;
+		x_ -= ddx;
+		y_ += dy;
+		y_ -= ddy;
+		return *this;;
 	}
 
-	bool higher(const PointImpl& pt) {
-		return y_ > pt.y_;
+	PointImpl& deskew_rel(int skew1024, const PointImpl& rel) {
+		x_ -= rel.x_;
+		y_ -= rel.y_;
+		deskew(skew1024);
+		x_ += rel.x_;
+		y_ += rel.y_;
+		return *this;
 	}
 
-	bool lower(const PointImpl& pt) {
-		return y_ < pt.y_;
+	bool isNegative() const {
+		return x_ < 0 && y_ < 0;
+	}
+
+	bool isPositive() const {
+		return x_ > 0 && y_ > 0;
+	}
+
+	bool operator<(const PointImpl& pt) const {
+		return x_ < pt.x_ && y_ < pt.y_;
+	}
+
+	bool operator<=(const PointImpl& pt) const {
+		return x_ <= pt.x_ && y_ <= pt.y_;
+	}
+
+	bool operator>(const PointImpl& pt) const {
+		return x_ > pt.x_ && y_ > pt.y_;
+	}
+
+	bool operator>=(const PointImpl& pt) const {
+		return x_ >= pt.x_ && y_ >= pt.y_;
 	}
 
 	bool operator==(const PointImpl& pt) const {
@@ -69,6 +106,17 @@ public:
 		return *this;
 	}
 
+	void operator=(const PointImpl<T>& pt) {
+		x_ = pt.x_;
+		y_ = pt.y_;
+	}
+
+	template<class U>
+	void operator=(const PointImpl<U>& pt) {
+		x_ = pt.x();
+		y_ = pt.y();
+	}
+
 	void set(T x, T y) {
 		x_ = x;
 		y_ = y;
@@ -82,23 +130,50 @@ public:
 		y_ = y;
 	}
 
-	const T& x() const {
+	T& rx() {
 		return x_;
 	}
 
-	T& y() {
+	T& ry() {
 		return y_;
 	}
 
-	const T& y() const {
+	T x() const {
+		return x_;
+	}
+
+	T y() const {
 		return y_;
 	}
 private:
 	T x_, y_;
 };
 
+template<class T>
+T PointXDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+	return p0.x() - p1.x();
+}
+
+template<class T>
+T PointYDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+	return p0.y() - p1.y();
+}
+
+template<class T>
+T PointXDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+	T res = p0.x() - p1.x();
+	return res > 0 ? res : -res;
+}
+
+template<class T>
+T PointYDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+	T res = p0.y() - p1.y();
+	return res > 0 ? res : -res;
+}
+
 typedef PointImpl<int> Point;
+typedef PointImpl<int16_t> Point16;
 
 }
 
-#endif /* POINT_H_ */
+#endif

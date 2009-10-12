@@ -67,6 +67,8 @@
 
 #include "lns_skew1024.h"
 
+using namespace CIF;
+
 Bool ExtrLinesIsOk(void);
 /* Implementation ************************/
 static THVSegBambuk * hvSB = NULL;
@@ -154,18 +156,18 @@ static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt,
 	Romii = 0;
 
 	if (hor)
-		TotalLength = abs(li.lineAsIs.start.x - li.lineAsIs.end.x);
+		TotalLength = abs(li.lineAsIs.start.x() - li.lineAsIs.end.x());
 	else
-		TotalLength = abs(li.lineAsIs.start.y - li.lineAsIs.end.y);
+		TotalLength = abs(li.lineAsIs.start.y() - li.lineAsIs.end.y());
 
 	SpacesLength = TotalLength;
 	if (TotalLength <= 0)
 		return;
 	while (h != NULLBHandle) {
 		lf = (*lb)[h];
-		SpacesLength -= hor ? abs(lf.fragmentAsIs.start.x
-				- lf.fragmentAsIs.end.x) : abs(lf.fragmentAsIs.start.y
-				- lf.fragmentAsIs.end.y);
+		SpacesLength -= hor ? abs(lf.fragmentAsIs.start.x()
+				- lf.fragmentAsIs.end.x()) : abs(lf.fragmentAsIs.start.y()
+				- lf.fragmentAsIs.end.y());
 
 		SpacesLength = abs(SpacesLength);
 		Romii++;
@@ -301,21 +303,21 @@ Err16 ExtrLinesUnderTigerStatic(int32_t hor_len, int32_t ver_len,
 	/////////////////
 	/* IV. Make diff... */
 	for (i = 0; i < hLB->linesCount; i++) {
-		Point32 & p1 = hLB->linesRoot[i].lineAsIs.end;
-		p1.x += AddX;
-		p1.y += AddY;
-		Point32 & p2 = hLB->linesRoot[i].lineAsIs.start;
-		p2.x += AddX;
-		p2.y += AddY;
+		Point & p1 = hLB->linesRoot[i].lineAsIs.end;
+		p1.rx() += AddX;
+		p1.ry() += AddY;
+		Point & p2 = hLB->linesRoot[i].lineAsIs.start;
+		p2.rx() += AddX;
+		p2.ry() += AddY;
 	};
 
 	for (i = 0; i < vLB->linesCount; i++) {
-		Point32 & p1 = vLB->linesRoot[i].lineAsIs.end;
-		p1.x += AddX;
-		p1.y += AddY;
-		Point32 & p2 = vLB->linesRoot[i].lineAsIs.start;
-		p2.x += AddX;
-		p2.y += AddY;
+		Point & p1 = vLB->linesRoot[i].lineAsIs.end;
+		p1.rx() += AddX;
+		p1.ry() += AddY;
+		Point & p2 = vLB->linesRoot[i].lineAsIs.start;
+		p2.rx() += AddX;
+		p2.ry() += AddY;
 	};
 	/* IV. Send counts... */
 
@@ -346,22 +348,22 @@ Bool ExtrLinesGetCount(int32_t hor_len, int32_t ver_len, int32_t &hor_cnt,
 	hor_cnt = 0;
 	int i(0);
 	for (i = 0; i < hLB->linesCount; i++) {
-		if ((hLB->linesRoot[i].lineAsIs.end.x
-				- hLB->linesRoot[i].lineAsIs.start.x) > hor_len)
+		if ((hLB->linesRoot[i].lineAsIs.end.x()
+				- hLB->linesRoot[i].lineAsIs.start.x()) > hor_len)
 			hor_cnt++;
 	};
 	ver_cnt = 0;
 	for (i = 0; i < vLB->linesCount; i++) {
-		if ((vLB->linesRoot[i].lineAsIs.end.y
-				- vLB->linesRoot[i].lineAsIs.start.y) > ver_len)
+		if ((vLB->linesRoot[i].lineAsIs.end.y()
+				- vLB->linesRoot[i].lineAsIs.start.y()) > ver_len)
 			ver_cnt++;
 	};
 	return TRUE;
 }
 
-static void LCpy(Point16& dst, Point32& src) {
-	dst.x = (int16_t) (src.x);
-	dst.y = (int16_t) (src.y);
+static void LCpy(Point16& dst, Point& src) {
+	dst.rx() = src.x();
+	dst.ry() = src.y();
 }
 
 Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
@@ -384,8 +386,8 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 	int i(0);
 	hor_cnt = 0;
 	for (i = 0; i < hLB->linesCount; i++) {
-		if ((hLB->linesRoot[i].lineAsIs.end.x
-				- hLB->linesRoot[i].lineAsIs.start.x) > hor_len) {
+		if ((hLB->linesRoot[i].lineAsIs.end.x()
+				- hLB->linesRoot[i].lineAsIs.start.x()) > hor_len) {
 			if (hor_cnt >= lti->Hor.Cnt)
 				return WRONG();
 			LineInfo& li = lti->Hor.Lns[hor_cnt];
@@ -408,8 +410,8 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 	};
 	ver_cnt = 0;
 	for (i = 0; i < vLB->linesCount; i++) {
-		if ((vLB->linesRoot[i].lineAsIs.end.y
-				- vLB->linesRoot[i].lineAsIs.start.y) > ver_len) {
+		if ((vLB->linesRoot[i].lineAsIs.end.y()
+				- vLB->linesRoot[i].lineAsIs.start.y()) > ver_len) {
 			if (ver_cnt >= lti->Ver.Cnt)
 				return WRONG();
 			LineInfo& li = lti->Ver.Lns[ver_cnt];
@@ -431,11 +433,11 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 		};
 	};
 
-	lti->ImgResolution.y = hvSB->yres;
-	lti->ImgResolution.x = hvSB->xres;
+	lti->ImgResolution.ry() = hvSB->yres;
+	lti->ImgResolution.rx() = hvSB->xres;
 
-	lti->ImgSize.y = hvSB->height();
-	lti->ImgSize.x = hvSB->width();
+	lti->ImgSize.ry() = hvSB->height();
+	lti->ImgSize.rx() = hvSB->width();
 
 	if (hLB->averagePhi != 1. && vLB->averagePhi != 1.)
 		lti->Skew1024 = (int) (512 * (hLB->averagePhi + vLB->averagePhi));
@@ -514,44 +516,43 @@ static Bool _PreSwp(LnsInfoArray& larr, Bool hor) {
 		// if here - this is noise line; let's delete it from bambuks!
 
 		//******************Rom****************
-		int32_t RightX = larr.Lns[i].B.x; // set restrictions for case of sweeping
-		int32_t LeftX = larr.Lns[i].A.x; // not whole line; initially - full line
-		int32_t TopY = larr.Lns[i].A.y;
-		int32_t BottomY = larr.Lns[i].A.y;
+		int32_t RightX = larr.Lns[i].B.x(); // set restrictions for case of sweeping
+		int32_t LeftX = larr.Lns[i].A.x(); // not whole line; initially - full line
+		int32_t TopY = larr.Lns[i].A.y();
+		int32_t BottomY = larr.Lns[i].A.y();
 
-		if (larr.Lns[i].A.y > larr.Lns[i].B.y) {
-			BottomY = larr.Lns[i].B.y;
+		if (larr.Lns[i].A.y() > larr.Lns[i].B.y()) {
+			BottomY = larr.Lns[i].B.y();
 		} else {
-			TopY = larr.Lns[i].B.y;
+			TopY = larr.Lns[i].B.y();
 		}
 		//*************************************
 
 
 		if (larr.Lns[i].Flags & LI_NOTWHOLE) // correct restriction if not whole line should be sweeped
 		{
-			if (larr.Lns[i].Anew.x > larr.Lns[i].A.x) {
-				if (larr.Lns[i].Anew.x > larr.Lns[i].B.x)
-					larr.Lns[i].Anew.x = larr.Lns[i].A.x;
-				LeftX = larr.Lns[i].Anew.x;
+			if (larr.Lns[i].Anew.x() > larr.Lns[i].A.x()) {
+				if (larr.Lns[i].Anew.x() > larr.Lns[i].B.x())
+					larr.Lns[i].Anew.rx() = larr.Lns[i].A.x();
+				LeftX = larr.Lns[i].Anew.x();
 			}
-			if (larr.Lns[i].Anew.y > larr.Lns[i].A.y) {
-				if (larr.Lns[i].Anew.y > TopY)
-					larr.Lns[i].Anew.y = larr.Lns[i].A.y;
-				BottomY = larr.Lns[i].Anew.y;
+			if (larr.Lns[i].Anew.y() > larr.Lns[i].A.y()) {
+				if (larr.Lns[i].Anew.y() > TopY)
+					larr.Lns[i].Anew.ry() = larr.Lns[i].A.y();
+				BottomY = larr.Lns[i].Anew.y();
 			}
-			if (larr.Lns[i].Bnew.x < larr.Lns[i].B.x) {
-				if (larr.Lns[i].Bnew.x < larr.Lns[i].A.x)
-					larr.Lns[i].Bnew.x = larr.Lns[i].B.x;
-				RightX = larr.Lns[i].Bnew.x;
+			if (larr.Lns[i].Bnew.x() < larr.Lns[i].B.x()) {
+				if (larr.Lns[i].Bnew.x() < larr.Lns[i].A.x())
+					larr.Lns[i].Bnew.rx() = larr.Lns[i].B.x();
+				RightX = larr.Lns[i].Bnew.x();
 			}
-			if (larr.Lns[i].Bnew.y < larr.Lns[i].B.y) {
-				if (larr.Lns[i].Bnew.y < BottomY)
-					larr.Lns[i].Bnew.y = larr.Lns[i].B.y;
-				TopY = larr.Lns[i].Bnew.y;
+			if (larr.Lns[i].Bnew.y() < larr.Lns[i].B.y()) {
+				if (larr.Lns[i].Bnew.y() < BottomY)
+					larr.Lns[i].Bnew.ry() = larr.Lns[i].B.y();
+				TopY = larr.Lns[i].Bnew.y();
 			}
 		}
-		//*************************************
-		////////////////////
+
 		int32_t hnd = larr.Lns[i].ExtrDllHnd;
 		if (hnd >= root_len)
 			return WRONG();
@@ -596,8 +597,8 @@ static Bool _PreSwp(LnsInfoArray& larr, Bool hor) {
 			//  cos probably part of letters:
 #ifndef SHORT_FRAGMENTS_ARE_TESTED_TO_BE_NOT_PART_OF_LETTER
 			if (hor && frag_len < 50 && // short fragment
-					(lf.fragmentAsIs.end.x == li.lineAsIs.end.x // at the end of line
-							|| lf.fragmentAsIs.start.x == li.lineAsIs.start.x)) { // skip it, don't sweep.
+					(lf.fragmentAsIs.end.x() == li.lineAsIs.end.x() // at the end of line
+							|| lf.fragmentAsIs.start.x() == li.lineAsIs.start.x())) { // skip it, don't sweep.
 				h = lb->nextMember(h);
 				continue;
 			}

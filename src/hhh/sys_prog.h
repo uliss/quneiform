@@ -90,6 +90,8 @@
 #include <string.h>
 #include <fcntl.h>
 
+#include "point.h"
+
 #define PASC
 #define WINAPI
 #define CALLBACK
@@ -112,17 +114,15 @@
 #endif
 
 // --------- ђ Ў®в  б Ї ¬пвмо Ё ®Ўа Ў®вЄ  ®иЁЎ®Є. Large Model ONLY!!! ----------
-#if !defined (SYS_INTERFACE)
+#ifndef SYS_INTERFACE
 #define SYS_INTERFACE
 
 //------  Common functions for mrk.dll, dot.dll, ndx.dll --------
-#include "undef32.h"
 #include "globus.h"
-#include "wind32.h"
 
 void ProjectRect1024(Rect16 *r, int32_t Skew1024);
-void ProjectPoint1024(Point16 *r, int32_t Skew1024);
-void ProjectPoint(Point16 *r, float tg_ang);
+void ProjectPoint1024(CIF::Point16 *r, int32_t Skew1024);
+void ProjectPoint(CIF::Point16 *r, float tg_ang);
 Bool16 GetScanRes_LenPrs(char *ImageName);
 
 /* ‘®®ЎйҐ­Ёп Ё ЇаҐ¤гЇаҐ¦¤Ґ­Ёп */
@@ -133,7 +133,6 @@ void PutMess(int num, char *str), ClearERR(void),
 void ERR(int num, const char *str);
 int GetERR(char *NameFunc);
 
-#include "undef32.h"
 #endif
 
 #endif

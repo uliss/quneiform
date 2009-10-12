@@ -55,6 +55,7 @@
  */
 
 #include "linedefs.h"
+#include "point.h"
 
 #define CLINE_HorizantalLine   1
 #define CLINE_VerticalLine     0
@@ -78,7 +79,7 @@ typedef union {
 
 typedef struct SL_POLOY_struct {
 	int16_t count;
-	Point16 Vertex[CLINE_MaxVerticsNumber];
+	CIF::Point16 Vertex[CLINE_MaxVerticsNumber];
 } CLINE_SL_POLY;
 
 typedef struct Interval_Data_struct {
@@ -123,8 +124,8 @@ typedef struct Component_Data_struct {
 typedef const DComponent* CPDComponent;
 
 typedef struct Lns_Data_struct {
-	Point16 Anew;
-	Point16 Bnew;
+	CIF::Point16 Anew;
+	CIF::Point16 Bnew;
 } DLns;
 
 typedef const DLns* CPDLns;

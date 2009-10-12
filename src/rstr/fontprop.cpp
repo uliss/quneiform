@@ -1182,10 +1182,10 @@ static void underline() {
 	for (i = 0; i < nl; i++) {
 		if (lines[i].type & FRM_LN || !(lines[i].type & HOR_LN))
 			continue;
-		bx = lines[i].beg.x >> line_scale;
-		by = lines[i].beg.y >> line_scale;
-		ex = lines[i].end.x >> line_scale;
-		ey = lines[i].end.y >> line_scale;
+		bx = lines[i].beg.x() >> line_scale;
+		by = lines[i].beg.y() >> line_scale;
+		ex = lines[i].end.x() >> line_scale;
+		ey = lines[i].end.y() >> line_scale;
 		by -= (int16_t) ((int32_t) nIncline * bx / 2048);
 		ey -= (int16_t) ((int32_t) nIncline * ex / 2048);
 		if (MIN(by, ey) < bl.b3 || MAX(by, ey) > bl.b3 + bl.ps / 2 || cf->r_col

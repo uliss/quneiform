@@ -54,16 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef _MSC_VER
-#include <windows.h>
-#include <crtdbg.h>
-#else
 #include <unistd.h>
-#endif
 #include "lst3_win.h"
-
-#include "wind32.h"
-
 #include "compat_defs.h"
 
 int32_t filelength_m(FILE *stream)

@@ -1552,10 +1552,10 @@ void letters_ini(CSTR_line lin, Bool enable_scaling) {
 		if (cmp && cmp->scale) {
 			if ((cmp->type & (CCOM_CH_GREAT | CCOM_CH_DUST)) || cmp->scale > 1) {
 				if (cmp->h * 10 < cmp->w) {
-					page_lines[num_of_lines].beg.y = cmp->upper + cmp->h / 2;
-					page_lines[num_of_lines].beg.x = cmp->left;
-					page_lines[num_of_lines].end.y = cmp->upper + cmp->h / 2;
-					page_lines[num_of_lines].end.x = cmp->left + cmp->w;
+					page_lines[num_of_lines].beg.ry() = cmp->upper + cmp->h / 2;
+					page_lines[num_of_lines].beg.rx() = cmp->left;
+					page_lines[num_of_lines].end.ry() = cmp->upper + cmp->h / 2;
+					page_lines[num_of_lines].end.rx() = cmp->left + cmp->w;
 					page_lines[num_of_lines].type = HOR_LN;
 					page_lines[num_of_lines].width = (uchar) cmp->h;
 					num_of_lines++;
@@ -2220,7 +2220,7 @@ int cell2UniVers(UniVersions *ver, cell *c) {
 	if (ver->lnAltCnt) {
 		for (i = 0; i < ver->lnAltCnt; i++) {
 			let = (int16_t) c->vers[i].let;
-			strcpy((char*)ver->Alt[i].Code, (char*)decode_ASCII_to_[let]);
+			strcpy((char*) ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
 			ver->Alt[i].Liga = (uchar) c->vers[i].let;
 			ver->Alt[i].Prob = c->vers[i].prob;
 			switch (c->recsource & 0xef) {
@@ -2248,7 +2248,7 @@ int cell2UniVers(UniVersions *ver, cell *c) {
 		}
 	} else {
 		ver->Alt[0].Liga = '~';
-		strcpy((char*)ver->Alt[0].Code, "~");
+		strcpy((char*) ver->Alt[0].Code, "~");
 	}
 	if (!(c->flg & (c_f_let | c_f_bad)))
 		ver->Alt[0].Info = 0;
@@ -2575,14 +2575,14 @@ Bool del_spaces_before_carry(CSTR_line ln) {
 	uchar carry[] = "-\x5F";
 
 	CSTR_GetCollectionUni(r, &u);
-	if (!u.lnAltCnt || !strchr((char*)carry, u.Alt[0].Liga))
+	if (!u.lnAltCnt || !strchr((char*) carry, u.Alt[0].Liga))
 		return FALSE;
 	do {
 		r = CSTR_GetPrev(r);
 		if (!r)
 			break;
 		CSTR_GetCollectionUni(r, &u);
-	} while (u.lnAltCnt && strchr((char*)carry, u.Alt[0].Liga));
+	} while (u.lnAltCnt && strchr((char*) carry, u.Alt[0].Liga));
 
 	if (r)
 		l = CSTR_GetNext(r);
@@ -2654,16 +2654,16 @@ void import_lines_features(void) {
 	int16_t up, uploc;
 
 	for (i = 0; i < num_of_lines; i++) {
-		up = MIN(page_lines[i].beg.y, page_lines[i].end.y)
+		up = MIN(page_lines[i].beg.y(), page_lines[i].end.y())
 				- page_lines[i].width / 2;
 		if (abs(up - maxrow) < 10) {
 			for (c = b; c != e; c = c->next) {
-				dx = page_lines[i].end.x - page_lines[i].beg.x;
-				dy = page_lines[i].end.y - page_lines[i].beg.y;
-				if (c->r_col >= page_lines[i].beg.x && c->r_col + c->w
-						<= page_lines[i].end.x) {
-					uploc = ((c->r_col - page_lines[i].beg.x) * dy) / dx
-							+ page_lines[i].beg.y;
+				dx = page_lines[i].end.x() - page_lines[i].beg.x();
+				dy = page_lines[i].end.y() - page_lines[i].beg.y();
+				if (c->r_col >= page_lines[i].beg.x() && c->r_col + c->w
+						<= page_lines[i].end.x()) {
+					uploc = ((c->r_col - page_lines[i].beg.x()) * dy) / dx
+							+ page_lines[i].beg.y();
 					if (abs(uploc - c->r_row - c->h) < 5)
 						c->flg_new |= c_fn_under;
 				}
@@ -2781,7 +2781,8 @@ Bool pass3BL(CSTR_line ln) {
 	if (bado * 3 < badn || bado < 3 && bado * 3 <= badn)
 		ret = FALSE;
 	if (snap_activity('d')) {
-		sprintf((char*)str, "string agregat is %s", ret ? "combined" : "not combined");
+		sprintf((char*) str, "string agregat is %s", ret ? "combined"
+				: "not combined");
 		snap_show_text((char*) str);
 		snap_monitor();
 	}

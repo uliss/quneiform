@@ -66,7 +66,7 @@
 //#define TIGER_CORR
 //#define __MRK__
 //#define __DOT__
-//В этом случае формат хранения рамок: FRAME + POINT OldCoor
+//В этом случае формат хранения рамок: FRAME + Point16 OldCoor
 //#if defined (__DOT__) || defined (__MRK__)
 #define OLD_COOR
 //#endif
@@ -110,28 +110,18 @@
 //для динамич. переключения длины PRS-кода
 //#define PRS_2_3
 
-#include "wind32.h"
-
-#define FRAME struct h_frame
-FRAME {
+struct h_frame {
 	unsigned long start_pos, end_pos;
 	int left, up, right, down;
 };
-#define TYPE int /*тип расстояний между FRAME*/
+
+typedef h_frame FRAME;
+typedef int TYPE;/*тип расстояний между FRAME*/
 
 typedef int (*FUN_POMP)(void);
 typedef void (*FUN_MESS)(uint16_t wPar, uint32_t lPar);
 typedef int(*COMP_FUN)(void);
 typedef TYPE (*DistFrame)(FRAME*, FRAME*);
-
-#ifndef CPP
-//#define CPP
-#endif
-
-//Если установлено ID4, ID_SYM длиной 4 байта, иначе - 8
-#ifndef BLANK
-//#define ID4
-#endif
 
 #define ID_SYM struct h_id_sym /*Идентификатор символа*/
 
@@ -161,82 +151,79 @@ typedef void *** PTR3;
 #define doi(p1,p2,p3) for(p1=(int)(p2); p1>=(int)(p3); --p1)
 
 //Структура структуры в памяти
-#define PIECE  struct h_piece
-PIECE {
+struct PIECE {
 	int up, down;
 };
-#define POINT_H POINT *
-typedef struct hFRM_ARR {
+
+struct FRM_ARR {
 	FRAME **FrmArr, **frm;
 	int NumArr, NumFrm, AllFrm;
-} FRM_ARR;
-#define BOUND struct h_bound
-BOUND {
+};
+
+struct BOUND {
 	int left, up, right, down;
 };
-#define POS_STR struct h_pos_str
 
-POS_STR {
+struct POS_STR {
 	uint HeadLine :1, buf :15;
 };
 
-#define STAT_STR struct h_stat_str
-STAT_STR {
+struct STAT_STR {
 	int dx, dy, dsym, down_line;
 	POS_STR PosStr;
 };
-#define STAT_COL struct h_stat_col
-STAT_COL {
+
+struct STAT_COL {
 	STAT_STR *stat_str;
 	int dx_col, dy_col, dsym_col, dy_Low, dy_Upp;
 };
-#define KNOT struct h_knot
-#define KNOT2 struct h_knot2
-#define KNOT3 struct h_knot3
-#define KNOT4 struct h_knot4
-#define FRML  struct h_frml
-#define AS struct h_as
-KNOT {
+
+struct KNOT {
 	KNOT *next, *back;
 };
-KNOT2 {
+
+struct KNOT2 {
 	KNOT2 *next, *back;
 	FRAME *f;
 	TYPE dist;
 };
-KNOT3 {
+
+struct KNOT3 {
 	KNOT3 *next, *back;
 	FRAME *f;
 	int cl;
 	KNOT3 *beg;
 };
-KNOT4 {
+
+struct KNOT4 {
 	KNOT4 *next, *back;
 	FRAME *f;
 };
-FRML {
+
+struct FRML {
 	FRML *next, *back;
 	int left, up, right, down;
 };
-AS {
+
+struct AS {
 	KNOT3 ***beg_as; //Двумерный массив голов списков сегментов АС
 	KNOT3 *beg_free; //Ук-ль на голову списка свободных эл-тов списк. прост-ва
 	int kx, ky, dx, dy, xmin, ymin; //Кол-ва и размеры сегментов по осям,начало АС
 	BOUND *bnd; //Габарит. прямоугольник АС (без учета фиктив. полос)
 };
-#define REFER struct h_refer
-REFER {
+
+struct REFER {
 	uint ss;
 };
-typedef struct hTITLE_PRS {
+
+struct TITLE_PRS {
 	char Name[4], ScanResX, ScanResY, Thick, Reserv;
 	int SizeX, SizeY;
-} TITLE_PRS;
+};
 
 #pragma pack(1)
 
-#define PAR struct h_par
-PAR {
+struct PAR {
 	float ax, ay, percent_kgv;
 	int xmin_abs, ymin_abs; /*параметры filtr_size*/
 	float ax_as, ay_as; /*параметры развертки*/
@@ -307,31 +294,29 @@ PAR {
 	int AllowLine;//Включать ли поиск линий
 };
 
-#define POS_BIT struct h_pos_bit
-POS_BIT {
+struct POS_BIT {
 	uint pos1;
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS_BIT8 struct h_pos_bit8
-POS_BIT8 {
+
+struct POS_BIT8 {
 	uint pos1, pos2, pos3;
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS1_BIT struct h_pos1_bit
-POS1_BIT {
+
+struct POS1_BIT {
 	int DownL;
 	uint pos :8, cut_comp :2, buf :6;
 };
-//POS1_BIT { uint pos:8,cut_comp:2,buf:6; uint pos1; };
-#define POS_INT struct h_pos_int
-POS_INT {
+
+struct POS_INT {
 	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
 			Fract :1, MultiPoint :1;
 };
-#define POS2_BIT struct h_pos_bit2
-POS2_BIT {
+
+struct POS2_BIT {
 	uint pos1;
 	uint pos :8;
 	uint AveCrossInt :4; //Целая часть сред.сложности символа(числа пересечений)
@@ -339,8 +324,8 @@ POS2_BIT {
 };
 
 #define AVE_CROSS(arg) ((POS2_BIT*)&arg)->AveCrossInt+(((POS2_BIT*)&arg)->AveCrossFloat)/16.
-#define POS3_BIT struct h_pos_bit3
-POS3_BIT {
+
+struct POS3_BIT {
 	uint pos1;
 	uint pos :8;
 	uint NumHole :4; //Число дыр
@@ -361,17 +346,17 @@ POS3_BIT {
  узлы одного уровня могут находиться на разном расстоянии от корня);
  end - признак блокировки (1 - конец блока);
  buf - резерв */
-#define KNOTG struct h_knotg
-KNOTG {
+
+struct KNOTG {
 	KNOTG *next, *back, *up, *down;
 	FRML *f;
 	uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
 #pragma pack(2)
-typedef struct h_spec {
+struct SPEC {
 	uint reg :1, typ :4, lev :4, end :1, buf :6;
-} SPEC;
+};
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
 
@@ -394,7 +379,7 @@ typedef struct h_spec {
 #define P 0
 #define R 1
 #define S 2
-#define T 3
+//#define T 3
 #define PROP 0
 #define MONO 1
 #define SIZE_PRS_TITLE 12
@@ -412,10 +397,6 @@ typedef struct h_spec {
 #define CENTER 3
 #define PI 3.1415926
 #define PI2 1.5708
-#ifndef FALSE
-#define FALSE 0
-#define TRUE 1
-#endif
 #define COL_TXT FALSE
 #define COL_GRAPH TRUE
 #define UNDEF 2
@@ -553,12 +534,12 @@ void print_ptr_invert(KNOT *beg);
 void pr_ptr(KNOT *ptr, char *str);
 int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
 		int *k_frm);
-void GetOldCoor(FRAME *f, POINT *old);
+void GetOldCoor(FRAME *f, CIF::Point16 *old);
 void RestoreOldCoorFrm(FRAME *f, FRAME *fo, float tg_ang);
 void RestoreOldCoorRect(FRAME *f, RECT *fo);
-int read_frmW(char *file_frm, POINT_H *CentrW, int *SizeX_W, int *SizeY_W,
+int read_frmW(char *file_frm, CIF::Point** CentrW, int *SizeX_W, int *SizeY_W,
 		long *k_frm);
-void free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm);
+void free_frm(FRAME **frm_arr, int k_arr_frm, FRAME **frm);
 int unfold(FRAME **frm, int k_frm, TYPE *dist1, int ave_y, BOUND *bnd);
 int clust_unfold(FRAME **frm, int k_frm, TYPE *dist, TYPE dp, int max_cl,
 		int *k_cl1, KNOT3 **beg_free1, KNOT3 **beg_cl);
@@ -567,7 +548,7 @@ int comp_left(FRAME **a, FRAME **b);
 int sort_lett(int k_cl, KNOT3 **beg_free1, KNOT3 **beg_cl, COMP_FUN CompFun);
 int cut_word_unfold(int *k_cl1, KNOT3 **beg_cl);
 int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW,
-		POINT_H CentrW, long k_frmW);
+		CIF::Point16 CentrW, long k_frmW);
 void sort_int(TYPE *a, int num, int *nodr);
 int comp1(TYPE *a, TYPE *b);
 int compF(float *a, float *b);
@@ -650,7 +631,7 @@ int EstBndStrHist(FRAME **f, int n, BOUND *bnd, int ksym_ave, int size_x);
 int AnalysRuler(FRAME **str, int ksym, BOUND *frms, int DelMax, int DelMin,
 		int *AllU, int *AllD);
 int est_monospace(FRAME ***str, int *ksym, int k_str, int *space1);
-int DetectColGraph(POINT_H CentrW, long k_frmw, FRAME ***str, int *ksym,
+int DetectColGraph(CIF::Point16 * CentrW, long k_frmw, FRAME ***str, int *ksym,
 		int k_str, BOUND bndt, BOUND *BndStr);
 int calc_frm_str(FRAME **str, int ksym, BOUND *bnd);
 void corr_title_prs(char *file_prs_out);
@@ -732,33 +713,36 @@ char *get1_param(char *str, char *param, int max_len);
 
 #ifndef MAIN
 extern PAR par;
-extern int viz,extr;
-extern long na,ko,pos1; extern FILE *fip,*out,*out_rb;
+extern int viz, extr;
+extern long na, ko, pos1;
+extern FILE *fip, *out, *out_rb;
 extern long PRSMAX;
 extern void *low; /*нижняя граница загрузки программы - для контроля*/
-extern char *s1,*s2,*s3; /*Сообщения для интерактива*/
+extern char *s1, *s2, *s3; /*Сообщения для интерактива*/
 extern char *abcd;
-extern int count,rou;
+extern int count, rou;
 extern int h_term;
 extern STAT_COL stat_col;
-extern int dx_prs,dy_prs;
-extern int k_prop,k_mono;
+extern int dx_prs, dy_prs;
+extern int k_prop, k_mono;
 extern int upi;
 extern char dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 extern char Fullpath[255];
-extern int SizeXGlob,SizeYGlob;
+extern int SizeXGlob, SizeYGlob;
 extern REFER *fiv;
-extern int NumCut; extern FRAME *Cut;
-extern int SizeX_W,SizeY_W;
-extern float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;
+extern int NumCut;
+extern FRAME *Cut;
+extern int SizeX_W, SizeY_W;
+extern float AveNumCrossCol, AveNumCross1Col, AveThickCol, AveThick1Col;
 extern int KbAll;
-extern int CountCol,Percent1,Percent2,Percent3,NumColt;
+extern int CountCol, Percent1, Percent2, Percent3, NumColt;
 extern char FileParStr[MAXFILENAME];
-extern uint16_t ScanResolution;extern float MulScanRes;
+extern uint16_t ScanResolution;
+extern float MulScanRes;
 extern int Break_on;
 extern FUN_POMP pump;
 extern FUN_MESS FunMessage;
-extern int WidthPRS,MaxShtrih;
+extern int WidthPRS, MaxShtrih;
 #else
 PAR par;
 int viz=0,extr=0;
@@ -825,10 +809,10 @@ int WidthPRS,MaxShtrih;
 //Утилиты
 void tik(int k_tik);
 void init_font(void);
-void mess_f(char *s,int x,int y,int col);
-int find1_end(int left,FRAME **str,int ksym,int lev);
-int find1_beg(int right,FRAME **str,int ksym,int lev);
-void union1_frm(FRAME **frm,int k_frm,BOUND *bnd);
+void mess_f(char *s, int x, int y, int col);
+int find1_end(int left, FRAME **str, int ksym, int lev);
+int find1_beg(int right, FRAME **str, int ksym, int lev);
+void union1_frm(FRAME **frm, int k_frm, BOUND *bnd);
 
 //---------ОПИСАНИЕ ЛИНИЙ------------
 
@@ -837,10 +821,7 @@ void union1_frm(FRAME **frm,int k_frm,BOUND *bnd);
 #endif
 
 #ifdef MAIN5
-#include "undef32.h"
-//  #include "detlin.h"
 #include "lindefs.h"
-#include "wind32.h"
 int ReadLines(char *FileLine,LINES *Lines1,int *NumStretchAll1);
 int TestLines(LINES *Lines1);
 int EstAngleLine(LINES *Lines1,float *tg_ang1,int NumStretchAll);
@@ -922,9 +903,7 @@ int CopyBMPLMem(BMPL *BmpIn,BMPL *BmpOut);
 //пересчет к не300-dpi SCAN RESOLUTION
 #define NORM_SCAN(value) ((int)(MulScanRes*value))
 //Диагностика
-#include "undef32.h"
 #include "tabl.h"
-#include "wind32.h"
 #define NOT_ALLOC -3
 //Основная ф-ция структурайзера
 #ifndef GLOB
@@ -938,28 +917,25 @@ void PASC InitEstStruct(FUN_MESS ExtFunMessage,FUN_POMP Ext_pump,
 		char **ParStruct,char **ParTabl,char **ParLine);
 void PASC CloseEstStruct(char *ParStruct,char *ParTabl,char *ParLine);
 int TestBreak(void);
-void FreeAllStruct(FRAME **frm_arr,int k_arr_frm,FRAME **frm,
-		STRET *LineV,STRET *LineH,INF_TREE *Inf);
+void FreeAllStruct(FRAME **frm_arr, int k_arr_frm, FRAME **frm, STRET *LineV,
+		STRET *LineH, INF_TREE *Inf);
 //--Индексы--
-int EstBottomStr(FRAME **f,int NumSym,int *Bottom,int dyLow,int dyUpp);
-int DetectIndice(FRAME ***sym,int *ksym,int *kstr,BOUND *bnds,int dyLow,int dyUpp);
+int EstBottomStr(FRAME **f, int NumSym, int *Bottom, int dyLow, int dyUpp);
+int DetectIndice(FRAME ***sym, int *ksym, int *kstr, BOUND *bnds, int dyLow,
+		int dyUpp);
 //--Дроби--
-int FindFractCell(FRAME ***sym,int *ksym,STAT_CELL *StatCell);
+int FindFractCell(FRAME ***sym, int *ksym, STAT_CELL *StatCell);
 //--Многоточия--
-int FindMultiPointCell(FRAME ***sym,int *ksym,int kstr,STAT_CELL *StatCell);
+int FindMultiPointCell(FRAME ***sym, int *ksym, int kstr, STAT_CELL *StatCell);
 //--Внутриячеистый фильтр--
-int FilterNoiseCell(KNOTT *Knott,STAT_CELL *StatCell,INF_CELL *InfCell,FRAME **frm);
+int FilterNoiseCell(KNOTT *Knott, STAT_CELL *StatCell, INF_CELL *InfCell,
+		FRAME **frm);
 //--
-int GetCriptDir(char *path,int len);
+int GetCriptDir(char *path, int len);
 int GetTypeDoc(void);
-#ifdef DLL_MOD
-// int WINAPI adv4prs_conv(char *prs_name,BMPL *BmpIn,int teep);
-// int /*FAR PASCAL _export */ WINAPI _export ConvertImage(char far *infile,char far *outfile,int teepBMPHorFILE,
-//            int teep,float tg_ugol);
-#endif
 
 //=== K R E S T ===
-int EstAnglePlain(FRAME **frm,int NumFrm,float *tg_ang);
+int EstAnglePlain(FRAME **frm, int NumFrm, float *tg_ang);
 int PASC DetectStringRECT(RECT *Rect,int NumFrm,float tg_ang,
 		RECT ***StrRect1,int **NumSym1,int *NumStr1);
 //=== P R A F A X ===
@@ -979,15 +955,15 @@ int PASC DeSkewlePlainImage(char *FileIn,char *FileOut,float tg_ang);
 #define CALL_STR 0
 #define CALL_BOX 1
 
-int init_file_prs (char *file_prs,FRAME **frm,int NumFrm,int TypeCall);
-int init_file_prs3(char *file_prs,FRAME **frm,int NumFrm,int TypeCall);
+int init_file_prs(char *file_prs, FRAME **frm, int NumFrm, int TypeCall);
+int init_file_prs3(char *file_prs, FRAME **frm, int NumFrm, int TypeCall);
 void FreePrsLine(void);
 
-int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang);
-int ProjectFrm1024(FRAME **frm,int NumFrm,int32_t Skew1024);
-int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
-		RECT *Limit,int MinVol,float MinPerc,int limDX,int limDY,
-		int *dsym,int *AveX,int *AveY);
+int ProjectFrm(FRAME **frm, int NumFrm, float tg_ang);
+int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024);
+int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
+		RECT *Limit, int MinVol, float MinPerc, int limDX, int limDY,
+		int *dsym, int *AveX, int *AveY);
 
 #pragma pack()
 
@@ -998,4 +974,3 @@ int clust_as(FRAME **frm, int k_frm, KNOT3 **beg_pr, TYPE dp, int size_x,
 		int size_y, BOUND *bnd, int max_cl, int *k_cl1, KNOT3 **beg_free1,
 		KNOT3 **beg_cl, TYPE(*dist_frame)(FRAME*, FRAME*), int reg);
 
-#include "undef32.h"

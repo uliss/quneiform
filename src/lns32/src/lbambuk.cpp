@@ -61,6 +61,8 @@
 
 #include "hliner.h"
 
+using namespace CIF;
+
 int compFragLevels(const void *frag1, const void *frag2); //used by qsort()
 
 void RegisterBlackSquare(int left, int top, int right, int bottom);
@@ -156,11 +158,11 @@ void TLinesBambuk::computeHRasters(TRasterBambuk* rb, TSegBambuk* sb) {
 				frg->mainMxx = puanso.mainMxx;
 				frg->mainMyy = puanso.mainMyy;
 
-				frg->A.x = puanso.left;
-				frg->B.x = puanso.right - 1;
-				frg->A.y = (int16_t) (puanso.Yc + (puanso.left - puanso.Xc)
+				frg->A.rx() = puanso.left;
+				frg->B.rx() = puanso.right - 1;
+				frg->A.ry() = (int16_t) (puanso.Yc + (puanso.left - puanso.Xc)
 						* puanso.Phi);
-				frg->B.y = (int16_t) (puanso.Yc + (puanso.right - puanso.Xc)
+				frg->B.ry() = (int16_t) (puanso.Yc + (puanso.right - puanso.Xc)
 						* puanso.Phi);
 			}
 		}
@@ -472,12 +474,12 @@ void TLinesBambuk::computeHRasters(TRasterBambuk* rb, TSegBambuk* sb) {
 			fragment = &((*this)[frag_handle]);
 			if (frg)
 				frg->frag_handle = (short) frag_handle;
-			fragment->fragmentAsIs.start.x = puanso.left;
-			fragment->fragmentAsIs.end.x = puanso.right - 1;
-			fragment->fragmentAsIs.start.y = (int32_t)(puanso.Yc + (puanso.left
-					- puanso.Xc) * puanso.Phi);
-			fragment->fragmentAsIs.end.y = (int32_t)(puanso.Yc + (puanso.right
-					- puanso.Xc) * puanso.Phi);
+			fragment->fragmentAsIs.start.rx() = puanso.left;
+			fragment->fragmentAsIs.end.rx() = puanso.right - 1;
+			fragment->fragmentAsIs.start.ry() = (int32_t)(puanso.Yc
+					+ (puanso.left - puanso.Xc) * puanso.Phi);
+			fragment->fragmentAsIs.end.ry() = (int32_t)(puanso.Yc
+					+ (puanso.right - puanso.Xc) * puanso.Phi);
 			fragment->fragmentAsIs.width10 = (short) (puanso.aveW * 10.);
 			fragment->fragmentAsIs.flags = 0;
 			if (puanso.right - puanso.left > 64) {
@@ -515,10 +517,8 @@ void TLinesBambuk::computeHRasters(TRasterBambuk* rb, TSegBambuk* sb) {
 
 		Line16& li = *HLiner_GetLine(i);
 		fragment = &((*this)[frag_handle]);
-		fragment->fragmentAsIs.start.x = li.A.x;
-		fragment->fragmentAsIs.start.y = li.A.y;
-		fragment->fragmentAsIs.end.x = li.B.x;
-		fragment->fragmentAsIs.end.y = li.B.y;
+		fragment->fragmentAsIs.start = li.A;
+		fragment->fragmentAsIs.end = li.B;
 		fragment->fragmentAsIs.width10 = 20; //(short)(puanso.aveW * 10.);
 		fragment->fragmentAsIs.flags = LF_HLINER;
 		fragment->rasterBambukEntry = NULLBHandle;
@@ -611,11 +611,11 @@ void TLinesBambuk::computeVRasters(TRasterBambuk* rb, TSegBambuk* sb) {
 				//		      frg->relMxx  =puanso.relMxx ;//???
 				//		      frg->relMxy  =puanso.relMxy ;//???
 				//		      frg->relMyy  =puanso.relMyy ;//???
-				frg->A.y = puanso.left;
-				frg->B.y = puanso.right + 1;
-				frg->A.x = (int16_t) (puanso.Yc + (puanso.left - puanso.Xc)
+				frg->A.ry() = puanso.left;
+				frg->B.ry() = puanso.right + 1;
+				frg->A.rx() = (int16_t) (puanso.Yc + (puanso.left - puanso.Xc)
 						* puanso.Phi);
-				frg->B.x = (int16_t) (puanso.Yc + (puanso.right - puanso.Xc)
+				frg->B.rx() = (int16_t) (puanso.Yc + (puanso.right - puanso.Xc)
 						* puanso.Phi);
 			}
 		}
@@ -719,13 +719,13 @@ void TLinesBambuk::computeVRasters(TRasterBambuk* rb, TSegBambuk* sb) {
 			if (frg)
 				frg->frag_handle = (short) frag_handle;
 			////////
-			frag.fragmentAsIs.start.y = puanso.left;
-			frag.fragmentAsIs.end.y = puanso.right + 1;
-			frag.fragmentAsIs.start.x = (int32_t)(puanso.Yc + (puanso.left
-					- puanso.Xc) * puanso.Phi);
-			frag.fragmentAsIs.end.x = (int32_t)(puanso.Yc + (puanso.right
-					- puanso.Xc) * puanso.Phi);
-			frag.fragmentAsIs.width10 = (short) (puanso.aveW * 10.);
+			frag.fragmentAsIs.start.ry() = puanso.left;
+			frag.fragmentAsIs.end.ry() = puanso.right + 1;
+			frag.fragmentAsIs.start.rx() = puanso.Yc
+					+ (puanso.left - puanso.Xc) * puanso.Phi;
+			frag.fragmentAsIs.end.rx() = puanso.Yc + (puanso.right - puanso.Xc)
+					* puanso.Phi;
+			frag.fragmentAsIs.width10 = puanso.aveW * 10.0;
 			frag.fragmentAsIs.flags = 0;
 			if (puanso.right - puanso.left > 64) {
 				int len = puanso.right - puanso.left;
@@ -750,8 +750,8 @@ Bool TLinesBambuk::linkHFragments(void) {
 	double _averagePhi = averagePhi == 1. ? 0 : averagePhi;
 	for (BHandle frag = 0; frag < fragmentsCount; frag++) {
 		TLineFragment& frg = (*this)[frag];
-		frg.level = frg.fragmentAsIs.start.y
-				- (int) ((double) (frg.fragmentAsIs.start.x) * _averagePhi);
+		frg.level = frg.fragmentAsIs.start.y()
+				- (int) ((double) (frg.fragmentAsIs.start.x()) * _averagePhi);
 	};
 	// sort fragments by level
 	if (fragmentsCount > 0)
@@ -813,8 +813,8 @@ Bool TLinesBambuk::linkVFragments(void) {
 	double _averagePhi = averagePhi == 1. ? 0 : averagePhi;
 	for (BHandle frag = 0; frag < fragmentsCount; frag++) {
 		TLineFragment& frg = (*this)[frag];
-		frg.level = frg.fragmentAsIs.start.x
-				+ (int) ((double) (frg.fragmentAsIs.start.y) * _averagePhi);
+		frg.level = frg.fragmentAsIs.start.x()
+				+ (int) ((double) (frg.fragmentAsIs.start.y()) * _averagePhi);
 	};
 	// sort fragments by level
 	if (fragmentsCount > 0)
@@ -880,8 +880,8 @@ Bool has_H_linked(PLine line, PLine frag) {
 	if (line->flags & LF_DONTLINK || frag->flags & LF_DONTLINK)
 		return FALSE;
 
-	int32_t sum_len = (line->end.x - line->start.x) + (frag->end.x
-			- frag->start.x);
+	int32_t sum_len = (line->end.x() - line->start.x()) + (frag->end.x()
+			- frag->start.x());
 	int32_t gap = 0;
 
 	if (abs(line->width10 - frag->width10) > 15) // more than 1.5 pels width diff!
@@ -890,22 +890,22 @@ Bool has_H_linked(PLine line, PLine frag) {
 			return FALSE;
 	}
 
-	if (frag->start.x > line->end.x) // fragment is on right side of the line
+	if (frag->start.x() > line->end.x()) // fragment is on right side of the line
 	{
-		gap = frag->start.x - line->end.x;
+		gap = frag->start.x() - line->end.x();
 		if (gap < LINK_FRAGMENTS_GAP && (gap * LINK_FRAGMENTS_RATIO < sum_len)
-				&& (abs(frag->start.y - line->end.y) < LINK_FRAGMENTS_DELTA)) {
+				&& (abs(frag->start.y() - line->end.y()) < LINK_FRAGMENTS_DELTA)) {
 			line->end = frag->end;
 			return (TRUE);
 		};
 		return (FALSE); // else not linked
 	}
 
-	if (line->start.x > frag->end.x) // fragment is on left side of the line
+	if (line->start.x() > frag->end.x()) // fragment is on left side of the line
 	{
-		gap = line->start.x - frag->end.x;
+		gap = line->start.x() - frag->end.x();
 		if (gap < LINK_FRAGMENTS_GAP && gap * LINK_FRAGMENTS_RATIO < sum_len
-				&& abs(line->start.y - frag->end.y) < LINK_FRAGMENTS_DELTA) {
+				&& abs(line->start.y() - frag->end.y()) < LINK_FRAGMENTS_DELTA) {
 			line->start = frag->start;
 			return (TRUE);
 		};
@@ -913,9 +913,9 @@ Bool has_H_linked(PLine line, PLine frag) {
 	}
 
 	// here we have two overlapped lines...
-	Point32 *p_left, *p_right; // leftmost and rightmost points
-	Point32 *p_rest1, *p_rest2; // the rest points
-	if (line->start.x < frag->start.x) {
+	Point *p_left, *p_right; // leftmost and rightmost points
+	Point *p_rest1, *p_rest2; // the rest points
+	if (line->start.x() < frag->start.x()) {
 		p_left = &line->start;
 		p_rest1 = &frag->start;
 	} else {
@@ -923,7 +923,7 @@ Bool has_H_linked(PLine line, PLine frag) {
 		p_rest1 = &line->start;
 	}
 
-	if (line->end.x > frag->end.x) {
+	if (line->end.x() > frag->end.x()) {
 		p_right = &line->end;
 		p_rest2 = &frag->end;
 	} else {
@@ -932,28 +932,28 @@ Bool has_H_linked(PLine line, PLine frag) {
 	}
 
 	{ // test rest1
-		int x1 = p_rest1->x - p_left->x;
-		int x2 = p_right->x - p_rest1->x;
+		int x1 = p_rest1->x() - p_left->x();
+		int x2 = p_right->x() - p_rest1->x();
 
 		if (x1 + x2 == 0)
 			return (FALSE);
-		int y = (p_left->y * x2 + p_right->y * x1) / (x1 + x2);
-		if (abs(p_rest1->y - y) > 4)
+		int y = (p_left->y() * x2 + p_right->y() * x1) / (x1 + x2);
+		if (abs(p_rest1->y() - y) > 4)
 			return (FALSE); // more than 4 pixels diff
 	}
 	{ // test rest2
-		int x1 = p_rest2->x - p_left->x;
-		int x2 = p_right->x - p_rest2->x;
+		int x1 = p_rest2->x() - p_left->x();
+		int x2 = p_right->x() - p_rest2->x();
 
 		if (x1 + x2 == 0)
 			return (FALSE);
-		int y = (p_left->y * x2 + p_right->y * x1) / (x1 + x2);
-		if (abs(p_rest2->y - y) > 4)
+		int y = (p_left->y() * x2 + p_right->y() * x1) / (x1 + x2);
+		if (abs(p_rest2->y() - y) > 4)
 			return (FALSE); // more than 4 pixels diff
 	}
 
 	if (line->flags & LF_HLINER || frag->flags & LF_HLINER) {
-		if (abs(line->start.x - frag->start.x) >= 16) // diff is big
+		if (abs(line->start.x() - frag->start.x()) >= 16) // diff is big
 			line->start = *p_left; // change if diff more than 16 pels, else keep old
 		else // diff small - get from not HLiner
 		{
@@ -961,7 +961,7 @@ Bool has_H_linked(PLine line, PLine frag) {
 				line->start = frag->start;
 		}
 
-		if (abs(line->end.x - frag->end.x) >= 16) // diff is big
+		if (abs(line->end.x() - frag->end.x()) >= 16) // diff is big
 			line->end = *p_right; // change if diff more than 16 pels, else keep old
 		else // diff small - get from not HLiner
 		{
@@ -978,8 +978,8 @@ Bool has_H_linked(PLine line, PLine frag) {
 }
 
 inline int line_length(PLine line) {
-	return MAX(abs(line->end.x - line->start.x), abs(line->end.y
-			- line->start.y));
+	return MAX(abs(line->end.x() - line->start.x()), abs(line->end.y()
+			- line->start.y()));
 }
 
 Bool has_V_linked(PLine line, PLine frag) {
@@ -990,21 +990,21 @@ Bool has_V_linked(PLine line, PLine frag) {
 	if (abs(line->width10 - frag->width10) > 15) // more than 1.5 pels width diff!
 		return FALSE;
 
-	int32_t sum_len = (line->end.y - line->start.y) + (frag->end.y
-			- frag->start.y);
+	int32_t sum_len = (line->end.y() - line->start.y()) + (frag->end.y()
+			- frag->start.y());
 
-	PLine fst = frag->start.y < line->start.y ? frag : line;
-	PLine sec = frag->start.y < line->start.y ? line : frag;
+	PLine fst = frag->start.y() < line->start.y() ? frag : line;
+	PLine sec = frag->start.y() < line->start.y() ? line : frag;
 
 	int min_len = MIN(line_length(fst), line_length(sec));
 	// test delta
-	int32_t delta = abs(fst->end.x - sec->start.x);
+	int32_t delta = abs(fst->end.x() - sec->start.x());
 	int delta_limit = (min_len < 50) ? 5 : 10;
 	if (delta > delta_limit)
 		return FALSE;
 
 	// test gap
-	int32_t gap = abs(fst->end.y - sec->start.y);
+	int32_t gap = abs(fst->end.y() - sec->start.y());
 	int gap_limit = (min_len < 50) ? 15 : 30;
 
 	if (gap > gap_limit)
@@ -1013,7 +1013,7 @@ Bool has_V_linked(PLine line, PLine frag) {
 		return FALSE;
 
 	// make connection
-	if (frag->start.y < line->start.y)
+	if (frag->start.y() < line->start.y())
 		line->start = frag->start;
 	else
 		line->end = frag->end;
@@ -1030,17 +1030,17 @@ Bool has_V_linked(PLine line, PLine frag) {
 
 static TLineFragment* _curr = NULL;
 int byStartY(const void *int1, const void *int2) {
-	return _curr[*(int*) int1].fragmentAsIs.start.y
-			- _curr[*(int*) int2].fragmentAsIs.start.y;
+	return _curr[*(int*) int1].fragmentAsIs.start.y()
+			- _curr[*(int*) int2].fragmentAsIs.start.y();
 }
 
 static
 void _RegisterCheckBox(Line& left, Line& top, Line& right, Line& bottom) {
 	Rect16 rcb;
-	rcb.left = (short) ((left.start.x + left.end.x) >> 1);
-	rcb.right = (short) ((right.start.x + right.end.x) >> 1);
-	rcb.top = (short) ((top.start.y + top.end.y) >> 1);
-	rcb.bottom = (short) ((bottom.start.y + bottom.end.y) >> 1);
+	rcb.left = (short) ((left.start.x() + left.end.x()) >> 1);
+	rcb.right = (short) ((right.start.x() + right.end.x()) >> 1);
+	rcb.top = (short) ((top.start.y() + top.end.y()) >> 1);
+	rcb.bottom = (short) ((bottom.start.y() + bottom.end.y()) >> 1);
 
 	left.flags |= LF_DONTLINK;
 	right.flags |= LF_DONTLINK;
@@ -1050,25 +1050,23 @@ void _RegisterCheckBox(Line& left, Line& top, Line& right, Line& bottom) {
 	RegisterCheckBox(rcb);
 }
 
-inline Bool OutRect(Point32& pt, Rect32& rc) {
-	return (pt.x < rc.left) || (pt.x > rc.right) || (pt.y < rc.top) || (pt.y
-			> rc.bottom);
+inline Bool OutRect(Point& pt, Rect32& rc) {
+	return (pt.x() < rc.left) || (pt.x() > rc.right) || (pt.y() < rc.top)
+			|| (pt.y() > rc.bottom);
 }
 
 inline Bool OutRange(int x, int minim, int maxim) {
 	return (x < minim) || (x > maxim);
 }
 
-inline void Point2Rect(Rect32& rc, Point32& pt, int delta) {
-	rc.left = pt.x - delta;
-	rc.right = pt.x + delta;
-	rc.top = pt.y - delta;
-	rc.bottom = pt.y + delta;
+inline void Point2Rect(Rect32& rc, Point& pt, int delta) {
+	rc.left = pt.x() - delta;
+	rc.right = pt.x() + delta;
+	rc.top = pt.y() - delta;
+	rc.bottom = pt.y() + delta;
 }
 
 Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
-#if 1
-	/////////////////////////////
 	// prepeare data
 	int nv = vLB.fragmentsCount;
 	int nh = hLB.fragmentsCount;
@@ -1105,7 +1103,7 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 	for (int top_hor = 0; top_hor < nh; top_hor++) { // by all horisontal fragments,
 		// in order up to down (start.y increases)
 		Line& top = _lf_hor[hh[top_hor]].fragmentAsIs; // potential top of checkbox
-		int top_len = top.end.x - top.start.x;
+		int top_len = top.end.x() - top.start.x();
 		if (OutRange(top_len, MIN_CHBOX_SIZE, MAX_CHBOX_SIZE))
 			continue;
 
@@ -1117,7 +1115,7 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 		int zone_finish = MAX(corner0.bottom, corner1.bottom);
 
 		//// skip to start of test zone
-		while (prev_ver < nv && _lf_ver[vv[prev_ver]].fragmentAsIs.start.y
+		while (prev_ver < nv && _lf_ver[vv[prev_ver]].fragmentAsIs.start.y()
 				< zone_start)
 			prev_ver++;
 
@@ -1128,13 +1126,13 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 
 		for (int left_ver = prev_ver; left_ver < nv; left_ver++) {
 			Line& left = _lf_ver[vv[left_ver]].fragmentAsIs;
-			if (left.start.y > zone_finish)
+			if (left.start.y() > zone_finish)
 				break; // out of zone
 
 			if (OutRect(left.start, corner0))
 				continue; // no connection
 
-			int left_len = left.end.y - left.start.y;
+			int left_len = left.end.y() - left.start.y();
 			if (abs(left_len - top_len) > HV_LENGTH_DELTA)
 				continue; // diff length!
 			/////////////////////////////////////////////////////////////////////
@@ -1142,13 +1140,13 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 
 			for (int right_ver = prev_ver; right_ver < nv; right_ver++) {
 				Line& right = _lf_ver[vv[right_ver]].fragmentAsIs;
-				if (right.start.y > zone_finish)
+				if (right.start.y() > zone_finish)
 					break; // out of zone
 
 				if (OutRect(right.start, corner1))
 					continue; // no connection
 
-				int right_len = right.end.y - right.start.y;
+				int right_len = right.end.y() - right.start.y();
 				if (abs(right_len - left_len) > VV_LENGTH_DELTA)
 					continue; // diff length!
 				/////////////////////////////////////////////////////////////////////
@@ -1157,14 +1155,14 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 				Point2Rect(corner2, left.end, CORNER_DELTA);
 				Rect32 corner3;
 				Point2Rect(corner3, right.end, CORNER_DELTA);
-				int bottom_zone_finish = MAX(left.end.y, right.end.y)
+				int bottom_zone_finish = MAX(left.end.y(), right.end.y())
 						+ CORNER_DELTA;
 				for (int bottom_hor = top_hor; bottom_hor < nh; bottom_hor++) {
 					Line& bottom = _lf_hor[hh[bottom_hor]].fragmentAsIs;
-					if (bottom.start.y > bottom_zone_finish)
+					if (bottom.start.y() > bottom_zone_finish)
 						break; // out of zone
 
-					int bottom_len = bottom.end.x - bottom.start.x;
+					int bottom_len = bottom.end.x() - bottom.start.x();
 					if (abs(bottom_len - top_len) > VV_LENGTH_DELTA)
 						continue; // diff length!
 
@@ -1179,52 +1177,48 @@ Bool AnalyzeFragments(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 					_RegisterCheckBox(left, top, right, bottom);
 				}
 				/////////////////////////////////////////////////////////////////////
-			}
-			/////////////////////////////////////////////////////////////////////
+			}////
 		}
 	}
-
-#endif   //0
 	return TRUE;
 }
 
 ///////////////////////////////////////////
 // search vertical lines for letter sticks
-/*#include <windows.h> // OutputDebugString*/
 #include "lns.h"
 static LnsFrag* vfrags = NULL;
 static LnsFrag* hfrags = NULL;
 
 inline int xlevel(LnsFrag& lf1) {
-	return (lf1.A.x + lf1.B.x) >> 1;
+	return (lf1.A.x() + lf1.B.x()) >> 1;
 }
 inline int ylevel(LnsFrag& lf1) {
-	return (lf1.A.y + lf1.B.y) >> 1;
+	return (lf1.A.y() + lf1.B.y()) >> 1;
 }
 
 inline int yheight(LnsFrag& lf1) {
-	return (lf1.B.y - lf1.A.y);
+	return (lf1.B.y() - lf1.A.y());
 }
 inline int xheight(LnsFrag& lf1) {
-	return (lf1.B.x - lf1.A.x);
+	return (lf1.B.x() - lf1.A.x());
 }
 
 inline int yproj_pt(Point16& pt, int phi) // computes projection of point by angle phi to Y-axis
 {
-	return pt.y - ((phi * pt.x) >> 10);
+	return pt.y() - ((phi * pt.x()) >> 10);
 }
 
 inline int yproj_frag(LnsFrag& hor_lf, int* phi) // computes angle of fragment and it's projection to Y-axis
 {
-	*phi = ((hor_lf.B.y - hor_lf.A.y) << 10) / (hor_lf.B.x - hor_lf.A.x);
+	*phi = ((hor_lf.B.y() - hor_lf.A.y()) << 10) / (hor_lf.B.x() - hor_lf.A.x());
 	return yproj_pt(hor_lf.B, *phi);
 }
 
 static int yproject(LnsFrag& lf1, LnsFrag& lf2) {
-	assert(lf1.B.y > lf1.A.y);
-	assert(lf2.B.y > lf2.A.y); // end point has larger y coord
+	assert(lf1.B.y() > lf1.A.y());
+	assert(lf2.B.y() > lf2.A.y()); // end point has larger y coord
 
-	if (lf1.B.y < lf2.A.y || lf1.A.y > lf2.B.y) // not intersected
+	if (lf1.B.y() < lf2.A.y() || lf1.A.y() > lf2.B.y()) // not intersected
 		return 0;
 
 	int h1 = yheight(lf1);
@@ -1232,8 +1226,8 @@ static int yproject(LnsFrag& lf1, LnsFrag& lf2) {
 	int minh = MIN(h1, h2);
 	assert(minh > 0);
 
-	int a = MAX(lf1.A.y, lf2.A.y);
-	int b = MIN(lf1.B.y, lf2.B.y);
+	int a = MAX(lf1.A.y(), lf2.A.y());
+	int b = MIN(lf1.B.y(), lf2.B.y());
 
 	assert(b >= a);
 
@@ -1367,8 +1361,8 @@ Bool AnalyzeFragmentsII(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 
 		// test inside [ylev_hor - MAX_STICK_HEIGHT, ylev_hor + MAX_STICK_HEIGHT] strip
 		// <=> from vcur_start until level not too big
-		int xa = hor_lf.A.x;
-		int xb = hor_lf.B.x;
+		int xa = hor_lf.A.x();
+		int xb = hor_lf.B.x();
 		xa -= 5;
 		xb += 5;
 
@@ -1411,9 +1405,9 @@ Bool AnalyzeFragmentsII(TLinesBambuk& hLB, TLinesBambuk& vLB) {
 
 #define MIN_FREE_LINE_END 30   // 30 pels should be free from vertical sticks at the end of line
 		if (nsticks_near > 0) {
-			if (abs(hor_lf.A.x - left) < MIN_FREE_LINE_END && // both ends are not free
-					abs(hor_lf.B.x - right) < MIN_FREE_LINE_END && nstick_len
-					> hor_lf.B.x - hor_lf.A.x // sum length of intersected frags > hor len
+			if (abs(hor_lf.A.x() - left) < MIN_FREE_LINE_END && // both ends are not free
+					abs(hor_lf.B.x() - right) < MIN_FREE_LINE_END && nstick_len
+					> hor_lf.B.x() - hor_lf.A.x() // sum length of intersected frags > hor len
 			) {
 				if (hor_lf.frag_handle != -1) {
 					TLineFragment& lfrg = hLB[hor_lf.frag_handle];

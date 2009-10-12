@@ -68,6 +68,8 @@
 #endif
 #define WORLD_MIN_RESOLUTION    50
 
+#include "point.h"
+
 #define err_pnlet(c)  ((c))->nextl=((c))->prevl=(cell*)(0xffff0000);
 // AL 900318
 //-------------------- conectivity component ---------------------
@@ -242,12 +244,8 @@ struct version // versions with probabilities
 	uchar prob; // probability
 };
 
-struct POINT {
-	int16_t x, y;
-};
-
 struct rule_struct {
-	struct POINT beg, end;
+	CIF::Point16 beg, end;
 	uchar width;
 	uchar type;
 #define VERT_LN  0
@@ -258,7 +256,7 @@ struct rule_struct {
 typedef struct rule_struct STRLN;
 
 struct frame_struct {
-	struct POINT topleft, topright, botleft, botright;
+	CIF::Point16 topleft, topright, botleft, botright;
 };
 typedef struct frame_struct FRAME;
 

@@ -64,6 +64,8 @@
 #include "dpuma.h"
 #include "pumadef.h"
 
+using namespace CIF;
+
 extern void EnableDebug(void);
 
 void _setvideomode(int mode) {
@@ -136,21 +138,22 @@ void _rectangle(int t, int left, int top, int right, int bottom) {
 		LDPUMA_DrawRect(NULL, &rect, 0, swColor, -16, PUMA_MODULE_RBLOCK);
 	}
 }
-;
+
 void _getfillmask(char * OldMask) {
 }
-;
+
 void _setfillmask(char * OldMask) {
 }
-;
-static Point16 sBeg = { 0, 0 };
+
+static Point16 sBeg;
+
 void _moveto(int x, int y) {
-	sBeg.x = x;
-	sBeg.y = y;
+	sBeg.rx() = x;
+	sBeg.ry() = y;
 }
 ;
 void _lineto(int x, int y) {
-	Point16 end = { x, y };
+	Point16 end(x, y);
 	LDPUMA_DrawLine(NULL, &sBeg, &end, 0, swColor, -16, PUMA_MODULE_RBLOCK);
 	sBeg = end;
 }
@@ -217,26 +220,26 @@ void _settextalign(int right, int top) {
 		break;
 	}
 }
-;
+
 void _setcharsize(int n1, int n2) {
 }
-;
+
 void _grtext(int x, int y, const char * text) {
-	Point16 p = { x, y };
+	Point16 p(x, y);
 	LDPUMA_DrawString(NULL, &p, text, swAlign, swColor, 120/*12*/,
 			PUMA_MODULE_RBLOCK);
 }
-;
+
 unsigned _getlinestyle() {
 	return 0;
 }
-;
+
 void break_point_data(char * c) {
 }
-;
+
 void write_prot() {
 }
-;
+
 Bool snapAutofont(uchar a) {
 	a = a;
 	return TRUE;
@@ -248,5 +251,3 @@ int LT_Getch(void) {
 	EnableDebug();
 	return rc;
 }
-
-////////////////////////////////////////////////

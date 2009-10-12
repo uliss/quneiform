@@ -329,7 +329,7 @@ typedef struct  tagPOINT
     {
     int32_t x;
     int32_t y;
-    }	POINT;
+    }	Point16;
 
 typedef struct tagPOINT __RPC_FAR *PPOINT;
 
@@ -1007,7 +1007,7 @@ typedef struct  tagMSG
     WPARAM wParam;
     LPARAM lParam;
 uint32_t time;
-    POINT pt;
+    Point16 pt;
     }	MSG;
 
 typedef struct tagMSG __RPC_FAR *PMSG;

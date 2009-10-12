@@ -66,6 +66,8 @@
 #include "bal.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 extern int16_t it_done;
 static int16_t skew_corr_stat(CSTR_line ln, int16_t pool_src);
 static int16_t rast_is_BOX_solid(CSTR_rast B1, int16_t scale);

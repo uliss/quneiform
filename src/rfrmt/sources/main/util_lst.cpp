@@ -54,15 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _MSC_VER
-#include<crtdbg.h>
-#endif
-
 #include "lst3_win.h"
 #include "aldebug.h"
-
-//#include <math.h>
-#include "wind32.h"
 
 #ifdef WIN32
 #include "snptools.h"
@@ -71,6 +64,8 @@
 #ifdef alDebug
 extern short FlagGraphic1,Graphic1Color;
 #endif
+
+using namespace CIF;
 
 /*=========*/
 KNOT *inc_lst(KNOT **beg, KNOT **beg_free)
@@ -317,7 +312,7 @@ int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
 	int SizeMin, kb = KBUF - 1, kh = KHIS - 1, dx, dy, kb1, kk, SizeItem;
 
 #ifdef OLD_COOR
-	SizeItem=sizeof(FRAME)+sizeof(POINT);
+	SizeItem=sizeof(FRAME)+sizeof(Point16);
 #else
 	SizeItem = sizeof(FRAME);
 #endif
@@ -448,10 +443,8 @@ int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
 }
 //Выдача исходных коор-т old верхнего левого угла рамки f:
 //==либо из сегмент.массива рамок, либо Rotate
-//void GetOldCoor(FRAME *f, POINT *old,float tg_ang)
-void GetOldCoor(FRAME *f, POINT *old)
-//==
-{
+//void GetOldCoor(FRAME *f, Point16 *old,float tg_ang)
+void GetOldCoor(FRAME *f, Point16 *old) {
 #ifndef OLD_COOR
 	int xa, ya;
 	float fi = (float) atan(tg_ang), si = (float) sin(fi), co = (float) cos(fi);
@@ -460,28 +453,26 @@ void GetOldCoor(FRAME *f, POINT *old)
 	old->x = xa * co + ya * si;
 	old->y = -xa * si + ya * co;
 #else
-	old->x=((OLD_FRAME*)f)->oldX;
-	old->y=((OLD_FRAME*)f)->oldY;
+	old->rx()=((OLD_FRAME*)f)->oldX;
+	old->ry()=((OLD_FRAME*)f)->oldY;
 #endif
 }
 //==Восстановление старых коор-т рамки f в рамке fo
 void RestoreOldCoorFrm(FRAME *f, FRAME *fo, float tg_ang) {
-	POINT old;
+	Point16 old;
 	int dx = f->right - f->left, dy = f->down - f->up;
 
 	GetOldCoor(f, &old);
 	fo->start_pos = f->start_pos;
 	fo->end_pos = f->end_pos;
-	fo->left = old.x;
-	fo->up = old.y;
-	fo->right = old.x + dx;
-	fo->down = old.y + dy;
+	fo->left = old.x();
+	fo->up = old.y();
+	fo->right = old.x() + dx;
+	fo->down = old.y() + dy;
 }
 //==Восстановление старых коор-т рамки f в RECT fo
 //void RestoreOldCoorRect(FRAME *f,RECT *fo,float tg_ang)
 void RestoreOldCoorRect(FRAME *f, RECT *fo) {
-	//POINT old;
-	//int dx,dy;
 	int dx, dy, oldX, oldY;
 
 	dx = f->right - f->left;
@@ -490,72 +481,16 @@ void RestoreOldCoorRect(FRAME *f, RECT *fo) {
 	oldX = ((OLD_FRAME*) f)->oldX;
 	oldY = ((OLD_FRAME*) f)->oldY;
 
-	//GetOldCoor(f,&old);
-	/*
-	 fo->left  =old.x;
-	 fo->top   =old.y;
-	 fo->right =old.x+dx;
-	 fo->bottom=old.y+dy;
-	 */
 	fo->left = oldX;
 	fo->top = oldY;
 	fo->right = (oldX + dx);
 	fo->bottom = (oldY + dy);
 }
-////Чтение белых рамок и оценивание их стандартных размеров
-//#define MAX_STAT 8000
-//#define MAX_SIZE 30
-////==========
-//int read_frmW(char *file_frm,POINT_H *CentrW,int *SizeX_W,int *SizeY_W,
-//    long *k_frm)
-//{ FILE *rw; long kf,k; long ave_x,ave_y;
-//  int kb=1000,kb1,i,x,y,dx,dy,sig,med,mod,ave;
-//  STATIC POINT_H c; STATIC int *sx,*sy; STATIC FRAME *b;
-//
-//  if( (rw=fopen_m(file_frm,OF_READ)) == NULL)
-//    {*SizeX_W=0;*SizeY_W=0;*k_frm=-1;return 1;}
-//  kf= filelength_m(rw)/SIZE_FRAME_FILE;
-//  //if(kf > (long)MAX_FRAME) kf=MAX_FRAME/2-1;
-//  if((c=(POINT_H)halloc_m(kf,sizeof(POINT)))==NULL) return -3;
-//  if(kf < MAX_STAT)
-//  { sx=(int*)malloc_m((int)kf*sizeof(int));
-//    sy=(int*)malloc_m((int)kf*sizeof(int));
-//    if(sx==NULL||sy==NULL) return -3;
-//  }
-//  if((b=(FRAME*)malloc_m(kb*sizeof(FRAME)))==NULL) return -3;
-//  --kf;
-//
-//  k=-1; ave_x=ave_y=0;
-//  while(1)
-//  { if((kb1=fread_m(b,sizeof(FRAME),kb,rw)) == 0 || k >= kf)break;
-//    do0(i,0,kb1-1)
-//    { if((dx=b[i].right-b[i].left) < MAX_SIZE &&
-//         (dy=b[i].down-b[i].up) < MAX_SIZE) //Сразу отбрасываем большие белые
-//      { x=(b[i].left+b[i].right)>>1; y=(b[i].up+b[i].down)>>1;
-//        c[++k].x=x; c[k].y=y;
-//        if(kf < MAX_STAT) { sx[k]=dx; sy[k]=dy; }
-//        else { ave_x+=(long)dx; ave_y+=(long)dy; }
-//      }
-//    }
-//  }
-//  fclose_m(rw);free_m(b);
-//  if(kf < MAX_STAT)
-//  { sig=0;med=0;mod=0;statis1(sx,(int)k,&ave,&sig,&med,&mod,10);*SizeX_W=ave;
-//    sig=0;med=0;mod=0;statis1(sy,(int)k,&ave,&sig,&med,&mod,10);*SizeY_W=ave;
-//    free_m(sx);free_m(sy);
-//  }
-//  else { *SizeX_W=(int)((float)(ave_x)/(k+1)+.5);
-//         *SizeY_W=(int)((float)(ave_y)/(k+1)+.5);
-//       }
-//  *CentrW=c;*k_frm=k;
-//  return 0;
-//}
+
 /*==освобождение памяти от FRAME*/
-void PASC free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm)
-/*==*/
-{
-	free((char*)frm);
-	free_lst((KNOT**)frm_arr,k_arr_frm);
+void free_frm(FRAME **frm_arr, int k_arr_frm, FRAME **frm) {
+	free((char*) frm);
+	free_lst((KNOT**) frm_arr, k_arr_frm);
 }
 
 long time(void) {
@@ -620,16 +555,7 @@ int OverflowStack(STACK *St)
 //Параметры: Curr - текущ.узел, St - вспомогат. стек (размер = max глубине TREE)
 //После каждого вызова NextKnot проверять переполнение стека либо внутри ф-ции
 //==перейти к следующему узлу дерева (приоритет обхода - вниз, потом вправо)
-KNOTT *NextKnot(KNOTT *Curr, STACK *St)
-//==
-{
-	/*
-	 KNOTT *Next=Curr->next;
-	 if(Curr->down)        //Есть дочерние узлы, идем вниз
-	 { if(Next) PushStack(Next,St); return Curr->down; }
-	 else                  //Если есть правый сосед, идем к нему, иначе выбираем из стека
-	 return (Next) ? Next : PopStack(St);
-	 */
+KNOTT *NextKnot(KNOTT *Curr, STACK *St) {
 	KNOTT *Next = Curr->next;
 	if (Curr->down) //Есть дочерние узлы, идем вниз
 	{
@@ -740,70 +666,17 @@ void ClearSubAlloc(SUB_ALLOC *s) {
 	s->CurrPos = 0;
 }
 
-#ifdef __STR__
-
-//==Выдать путь к настроечным файлам==
-/* // !!! Art - устарело
- int GetCriptDir(char *path,int len1)
- { int len;
- //#ifdef BLANK
- #ifdef WIN_MOD
- GetPrivateProfileString("Files","BaseDir","",path,len1,"scriptum.ini");
- #endif
- len=strlen_m(path);
- if(len) {path[len]=92; path[++len]='x'; path[++len]=0;}
- return strlen_m(path);
- }
- */// !!! Art - устарело
-//==Прочитать тип документа==
-/* // !!! Art - устарело
- int GetTypeDoc(void)
- { int len;
- #if defined (WIN_MOD) && !defined (__MRK__) && !defined (__DOT__)
- char name[10],ext[5];
- if((len=GetCriptDir(Fullpath,99))==0) return -2;
- _splitpath(Fullpath,drive,dir,name,ext);
- _makepath(FileParStr,drive,dir,"struct","ini");
- return GetPrivateProfileInt("USER","TypeDoc",PLAIN,FileParStr);
- #else
- return PLAIN;
- #endif
- }
- */// !!! Art - устарело
-#endif /*__STR__ */
-
 int memmove_m(void *out, void *in, long size) {
 	memmove(out, in, (uint) size);
 	return 0;
 }
 
-/*
- //==
- int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang)
- //==
- { FRAME *f; int i;
- float fi=(float)atan(tg_ang);
- int xa,ya,xc,yc,dx,dy;
- float si=(float)sin(fi),co=(float)cos(fi);
- for(i=0; i < NumFrm; ++i)
- { f=frm[i]; xa=(f->right + f->left)>>1; ya=(f->up + f->down)>>1;
- xc=(int)(xa*co+ya*si); yc=(int)(-xa*si+ya*co);
- dx=xc-xa; dy=yc-ya;
- f->left+=dx; f->right+=dx; f->down+=dy; f->up+=dy;
- }
- return 1;
- }
- */
-//#undef CT_SKEW
 
 #ifdef CT_SKEW
 #include "skew1024.h"
 #endif
 
-//==
-int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024)
-//==
-{
+int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024){
 	FRAME *f;
 	int i;
 	int xa, ya
@@ -824,10 +697,10 @@ int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024)
 		dx = xc - xa;
 		dy = yc - ya;
 #else
-		Point16 pt;
-		pt.x=xa; pt.y=ya;
-		Deskew(pt,-Skew1024);
-		dx=pt.x-xa; dy=pt.y-ya;
+		Point16 pt(xa, ya);
+		pt.deskew(-Skew1024);
+		dx=pt.x()-xa;
+		dy=pt.y()-ya;
 #endif
 
 		f->left += dx;

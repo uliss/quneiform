@@ -63,6 +63,8 @@
 #include "backup.h"
 #include "polyblock.h"
 
+using namespace CIF;
+
 // extern functions
 Handle CPAGE_PictureGetFirst(Handle hPage) {
 	PROLOG;
@@ -82,21 +84,26 @@ Handle CPAGE_PictureGetNext(Handle hPage, Handle hPicture) {
 	return rc;
 }
 
-#define ROTATE_2048(p,a) {\
-             p.y = (int32_t) (p.y - (int32_t) p.x * a / 2048);\
-             p.x = (int32_t) (p.x + (int32_t) p.y * a / 2048);\
-		}
+template<size_t N>
+void inline Rotate(Point& p, int angle) {
+	p.rx() = p.y() - p.x() * angle / N;
+	p.ry() = p.x() + p.y() * angle / N;
+}
+
+//#define ROTATE_2048(p,a) {\
+//             p.y = (int32_t) (p.y - (int32_t) p.x * a / 2048);\
+//             p.x = (int32_t) (p.x + (int32_t) p.y * a / 2048);\
+//		}
 
 Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048,
-		Point32 * lpLr, Point32 * lpWh) {
+		Point * lpLr, Point * lpWh) {
 	PROLOG;
 	Bool32 rc = FALSE;
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 	CPAGE_PICTURE pict = { 0 };
-	Point32 lt = { 0 };
-	Point32 rb = { 0 };
+	Point lt, rb;
 
 	assert(lpLr);
 	assert(lpWh);
@@ -104,21 +111,20 @@ Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048,
 			sizeof(pict)) == sizeof(pict)) {
 		lt = pict.Corner[0];
 		rb = pict.Corner[0];
-		ROTATE_2048(lt,Skew2048);
+		Rotate<2048> (lt, Skew2048);
 		for (uint32_t i = 1; i < pict.Number; i++) {
-			ROTATE_2048(pict.Corner[i],Skew2048);
-			if (lt.x > pict.Corner[i].x)
-				lt.x = pict.Corner[i].x;
-			if (lt.y > pict.Corner[i].y)
-				lt.y = pict.Corner[i].y;
-			if (rb.x < pict.Corner[i].x)
-				rb.x = pict.Corner[i].x;
-			if (rb.y < pict.Corner[i].y)
-				rb.y = pict.Corner[i].y;
+			Rotate<2048> (pict.Corner[i], Skew2048);
+			if (lt.x() > pict.Corner[i].x())
+				lt.rx() = pict.Corner[i].x();
+			if (lt.y() > pict.Corner[i].y())
+				lt.ry() = pict.Corner[i].y();
+			if (rb.x() < pict.Corner[i].x())
+				rb.rx() = pict.Corner[i].x();
+			if (rb.y() < pict.Corner[i].y())
+				rb.ry() = pict.Corner[i].y();
 		}
 		*lpLr = lt;
-		lpWh->x = rb.x - lt.x;
-		lpWh->y = rb.y - lt.y;
+		*lpWh = rb - lt;
 		rc = TRUE;
 	}EPILOG;
 	return rc;
@@ -162,9 +168,9 @@ Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
 		// Подсчитаем число вертикальных разделителей
 		for (i = 0; i < pict.Number; i++) {
 			int ci = (i + 1) % pict.Number;
-			if (abs(pict.Corner[i].x - pict.Corner[ci].x) <= MAXDIFF)
+			if (abs(pict.Corner[i].x() - pict.Corner[ci].x()) <= MAXDIFF)
 				nMaxVer++;
-			/*else*/if (abs(pict.Corner[i].y - pict.Corner[ci].y) <= MAXDIFF)
+			if (abs(pict.Corner[i].y() - pict.Corner[ci].y()) <= MAXDIFF)
 				nMaxHor++;
 		}
 		// создадим массивы линий
@@ -179,11 +185,10 @@ Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
 			memset(lpMatrix, 0, sizeof(char) * nMaxVer * (nMaxHor - 1));
 			for (nVer = nHor = 0, i = 0; i < pict.Number; i++) {
 				int ci = (i + 1) % pict.Number;
-				if (abs(pict.Corner[i].x - pict.Corner[ci].x) <= MAXDIFF)
-					lpVer[nVer++] = pict.Corner[i].x;
-				/*else*/if (abs(pict.Corner[i].y - pict.Corner[ci].y)
-						<= MAXDIFF)
-					lpHor[nHor++] = pict.Corner[i].y;
+				if (PointXDistance(pict.Corner[i], pict.Corner[ci]) <= MAXDIFF)
+					lpVer[nVer++] = pict.Corner[i].x();
+				if (PointYDistance(pict.Corner[i], pict.Corner[ci]) <= MAXDIFF)
+					lpHor[nHor++] = pict.Corner[i].y();
 			}
 		} else {
 			SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
@@ -214,13 +219,13 @@ Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
 		// Создадим матрицу описания границ
 		for (i = 0; i < pict.Number; i++) {
 			int ci = (i + 1) % pict.Number;
-			int delta_x = pict.Corner[i].x - pict.Corner[ci].x;
-			int delta_y = pict.Corner[i].y - pict.Corner[ci].y;
-			if (abs(delta_x) <= MAXDIFF) {// вертикальная граница
+			int delta_x = PointXDistance(pict.Corner[i], pict.Corner[ci]);
+			int delta_y = PointYDelta(pict.Corner[i], pict.Corner[ci]);
+			if (delta_x <= MAXDIFF) {// вертикальная граница
 				int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
-				int x = GetIndex(lpVer, nMaxVer, pict.Corner[i].x);
-				int y1 = GetIndex(lpHor, nMaxHor, pict.Corner[i].y);
-				int y2 = GetIndex(lpHor, nMaxHor, pict.Corner[ci].y);
+				int x = GetIndex(lpVer, nMaxVer, pict.Corner[i].x());
+				int y1 = GetIndex(lpHor, nMaxHor, pict.Corner[i].y());
+				int y2 = GetIndex(lpHor, nMaxHor, pict.Corner[ci].y());
 				if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor)
 					for (int y = MIN(y1, y2); y < MAX(y1, y2); y++)
 						*(lpMatrix + x + y * nMaxVer) = sign;

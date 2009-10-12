@@ -319,14 +319,14 @@ void MySetNegative(void *vB, Handle hCPage) {
 			block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
 			block.com.count = 4;
 			block.com.Flags |= POS_NEGTABCAP;
-			block.com.Vertex[0].x = pRc[i].left;
-			block.com.Vertex[0].y = pRc[i].top;
-			block.com.Vertex[1].x = pRc[i].right;
-			block.com.Vertex[1].y = pRc[i].top;
-			block.com.Vertex[2].x = pRc[i].right;
-			block.com.Vertex[2].y = pRc[i].bottom;
-			block.com.Vertex[3].x = pRc[i].left;
-			block.com.Vertex[3].y = pRc[i].bottom;
+			block.com.Vertex[0].rx() = pRc[i].left;
+			block.com.Vertex[0].ry() = pRc[i].top;
+			block.com.Vertex[1].rx() = pRc[i].right;
+			block.com.Vertex[1].ry() = pRc[i].top;
+			block.com.Vertex[2].rx() = pRc[i].right;
+			block.com.Vertex[2].ry() = pRc[i].bottom;
+			block.com.Vertex[3].rx() = pRc[i].left;
+			block.com.Vertex[3].ry() = pRc[i].bottom;
 			CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
 		}
 	}

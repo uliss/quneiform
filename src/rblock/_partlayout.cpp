@@ -58,65 +58,19 @@
 # include <string.h>
 
 # include <stdlib.h>
-//# include "iolib.h"
-/*
- # include "layout.h"
- # include "extract.h"
- # include "kernel.h"
- # include "status.h"
 
- # include "ccom/ccom.h"
- # include "newfunc.h"
- # include "cpage.h"
- # include "polyblock.h"
- */
-/*
- # include "exc.h"
- # include "excdefs.h"
- # include "dpuma.h"
- # include "ctp.h"
- # include "pic&table.h"
- */
 # include "new_c.h"
 #include "minmax.h"
-/////////////////////////////////////
-//extern uint16_t run_options;
-//extern int nComps;
-//extern CCOM_comp *pComps;
-//extern uchar *CellsPage; // *** Rom 03-03-99
-/*
- #define ROM_TYPE_TABLE 111;
- #define BOUND 15
- #define PICS_QUANTUM 16
- #define COMPS_QUANTUM 128
- */
+
+using namespace CIF;
+
 extern Handle hNotUseAntonCross;
-static int IsInPoly(Point32 a, POLY_ * pPoly);
+static int IsInPoly(Point a, POLY_ * pPoly);
 
 Handle hCcom;
-
-////////////////////////////////////
 uint32_t NumberOfLettersInArea(Rect32 rect, int Number) {
 	uint32_t Result = 0;
 	ROOT *pRoot;
-	//int i;
-
-	/*
-	 for (i=0; i<nComps; i++)
-	 {
-	 if( (pComps[i].left > rect.right)||
-	 (pComps[i].upper > rect.bottom)||
-	 (pComps[i].left + pComps[i].w < rect.left)||
-	 (pComps[i].upper + pComps[i].h < rect.top))
-	 {
-	 continue;
-	 }
-	 else
-	 {
-	 if(pComps[i].numcomp == Number)	Result++;
-	 }
-	 }
-	 */
 
 	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
 		if ((pRoot->xColumn + pRoot->nWidth - 1 <= rect.right) && (pRoot->yRow
@@ -141,7 +95,7 @@ Bool32 DeleteVertex(POLY_ * poly, int position) {
 	return TRUE;
 }
 
-Bool32 InsertVertex(POLY_ * poly, int position, Point32 point) {
+Bool32 InsertVertex(POLY_ * poly, int position, Point point) {
 	int i;
 
 	poly->com.count++;
@@ -155,18 +109,18 @@ Bool32 InsertVertex(POLY_ * poly, int position, Point32 point) {
 
 Bool32 InsertBottom(POLY_ * rectangle, POLY_ * poly) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 1; i++) {
-		if ((poly->com.Vertex[i].x < rectangle->com.Vertex[3].x)
-				&& (poly->com.Vertex[i].y < rectangle->com.Vertex[3].y)
-				&& (poly->com.Vertex[i + 1].x > rectangle->com.Vertex[2].x)) {
-			point.x = rectangle->com.Vertex[3].x;
-			point.y = poly->com.Vertex[i].y;
+		if ((poly->com.Vertex[i].x() < rectangle->com.Vertex[3].x())
+				&& (poly->com.Vertex[i].y() < rectangle->com.Vertex[3].y())
+				&& (poly->com.Vertex[i + 1].x()> rectangle->com.Vertex[2].x())) {
+			point.rx() = rectangle->com.Vertex[3].x();
+			point.ry() = poly->com.Vertex[i].y();
 			InsertVertex(poly, i + 1, point);
 			InsertVertex(poly, i + 2, rectangle->com.Vertex[3]);
 			InsertVertex(poly, i + 3, rectangle->com.Vertex[2]);
-			point.x = rectangle->com.Vertex[2].x;
+			point.rx() = rectangle->com.Vertex[2].x();
 			InsertVertex(poly, i + 4, point);
 			return TRUE;
 		}
@@ -177,18 +131,18 @@ Bool32 InsertBottom(POLY_ * rectangle, POLY_ * poly) {
 
 Bool32 InsertTop(POLY_ * rectangle, POLY_ * poly) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 1; i++) {
-		if ((poly->com.Vertex[i].x > rectangle->com.Vertex[1].x)
-				&& (poly->com.Vertex[i].y > rectangle->com.Vertex[1].y)
-				&& (poly->com.Vertex[i + 1].x < rectangle->com.Vertex[0].x)) {
-			point.x = rectangle->com.Vertex[1].x;
-			point.y = poly->com.Vertex[i].y;
+		if ((poly->com.Vertex[i].x() > rectangle->com.Vertex[1].x())
+				&& (poly->com.Vertex[i].y() > rectangle->com.Vertex[1].y())
+				&& (poly->com.Vertex[i + 1].x() < rectangle->com.Vertex[0].x())) {
+			point.rx() = rectangle->com.Vertex[1].x();
+			point.ry() = poly->com.Vertex[i].y();
 			InsertVertex(poly, i + 1, point);
 			InsertVertex(poly, i + 2, rectangle->com.Vertex[1]);
 			InsertVertex(poly, i + 3, rectangle->com.Vertex[0]);
-			point.x = rectangle->com.Vertex[0].x;
+			point.rx() = rectangle->com.Vertex[0].x();
 			InsertVertex(poly, i + 4, point);
 			return TRUE;
 		}
@@ -199,18 +153,18 @@ Bool32 InsertTop(POLY_ * rectangle, POLY_ * poly) {
 
 Bool32 InsertLeft(POLY_ * rectangle, POLY_ * poly) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 1; i++) {
-		if ((poly->com.Vertex[i].x > rectangle->com.Vertex[0].x)
-				&& (poly->com.Vertex[i].y < rectangle->com.Vertex[0].y)
-				&& (poly->com.Vertex[i + 1].y > rectangle->com.Vertex[3].y)) {
-			point.x = poly->com.Vertex[i].x;
-			point.y = rectangle->com.Vertex[0].y;
+		if ((poly->com.Vertex[i].x() > rectangle->com.Vertex[0].x())
+				&& (poly->com.Vertex[i].y() < rectangle->com.Vertex[0].y())
+				&& (poly->com.Vertex[i + 1].y() > rectangle->com.Vertex[3].y())) {
+			point.rx() = poly->com.Vertex[i].x();
+			point.ry() = rectangle->com.Vertex[0].y();
 			InsertVertex(poly, i + 1, point);
 			InsertVertex(poly, i + 2, rectangle->com.Vertex[0]);
 			InsertVertex(poly, i + 3, rectangle->com.Vertex[3]);
-			point.y = rectangle->com.Vertex[3].y;
+			point.ry() = rectangle->com.Vertex[3].y();
 			InsertVertex(poly, i + 4, point);
 			return TRUE;
 		}
@@ -221,33 +175,33 @@ Bool32 InsertLeft(POLY_ * rectangle, POLY_ * poly) {
 
 Bool32 InsertRight(POLY_ * rectangle, POLY_ * poly) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 1; i++) {
-		if ((poly->com.Vertex[i].x < rectangle->com.Vertex[2].x)
-				&& (poly->com.Vertex[i].y > rectangle->com.Vertex[2].y)
-				&& (poly->com.Vertex[i + 1].y < rectangle->com.Vertex[1].y)) {
-			point.x = poly->com.Vertex[i].x;
-			point.y = rectangle->com.Vertex[2].y;
+		if ((poly->com.Vertex[i].x() < rectangle->com.Vertex[2].x())
+				&& (poly->com.Vertex[i].y() > rectangle->com.Vertex[2].y())
+				&& (poly->com.Vertex[i + 1].y() < rectangle->com.Vertex[1].y())) {
+			point.rx() = poly->com.Vertex[i].x();
+			point.ry() = rectangle->com.Vertex[2].y();
 			InsertVertex(poly, i + 1, point);
 			InsertVertex(poly, i + 2, rectangle->com.Vertex[2]);
 			InsertVertex(poly, i + 3, rectangle->com.Vertex[1]);
-			point.y = rectangle->com.Vertex[1].y;
+			point.ry() = rectangle->com.Vertex[1].y();
 			InsertVertex(poly, i + 4, point);
 			return TRUE;
 		}
 	}
 
-	if ((poly->com.Vertex[poly->com.count - 1].x < rectangle->com.Vertex[2].x)
-			&& (poly->com.Vertex[poly->com.count - 1].y
-					> rectangle->com.Vertex[2].y) && (poly->com.Vertex[0].y
-			< rectangle->com.Vertex[1].y)) {
-		point.x = poly->com.Vertex[poly->com.count - 1].x;
-		point.y = rectangle->com.Vertex[2].y;
+	if ((poly->com.Vertex[poly->com.count - 1].x() < rectangle->com.Vertex[2].x())
+			&& (poly->com.Vertex[poly->com.count - 1].y()
+					> rectangle->com.Vertex[2].y()) && (poly->com.Vertex[0].y()
+			< rectangle->com.Vertex[1].y())) {
+		point.rx()= poly->com.Vertex[poly->com.count - 1].x();
+		point.ry() = rectangle->com.Vertex[2].y();
 		InsertVertex(poly, i + 1, point);
 		InsertVertex(poly, i + 2, rectangle->com.Vertex[2]);
 		InsertVertex(poly, i + 3, rectangle->com.Vertex[1]);
-		point.y = rectangle->com.Vertex[1].y;
+		point.ry() = rectangle->com.Vertex[1].y();
 		InsertVertex(poly, i + 4, point);
 	}
 
@@ -272,19 +226,19 @@ Bool32 InsertRectangleInPoly(POLY_ * rectangle, POLY_ * poly) {
 
 Bool32 CrossedBy0(POLY_ * poly, POLY_ * rectangle) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 2; i++) {
-		if ((poly->com.Vertex[i].y < rectangle->com.Vertex[0].y)
-				&& (poly->com.Vertex[i + 1].x > rectangle->com.Vertex[0].x)
-				&& (poly->com.Vertex[i + 1].y > rectangle->com.Vertex[0].y)
-				&& (poly->com.Vertex[i + 2].x < rectangle->com.Vertex[0].x)) {
-			point.y = rectangle->com.Vertex[0].y;
-			point.x = poly->com.Vertex[i].x;
+		if ((poly->com.Vertex[i].y() < rectangle->com.Vertex[0].y())
+				&& (poly->com.Vertex[i + 1].x() > rectangle->com.Vertex[0].x())
+				&& (poly->com.Vertex[i + 1].y() > rectangle->com.Vertex[0].y())
+				&& (poly->com.Vertex[i + 2].x() < rectangle->com.Vertex[0].x())) {
+			point.ry() = rectangle->com.Vertex[0].y();
+			point.rx()= poly->com.Vertex[i].x();
 			InsertVertex(poly, i + 1, point);
 			poly->com.Vertex[i + 2] = rectangle->com.Vertex[0];
-			point.y = poly->com.Vertex[i + 3].y;
-			point.x = rectangle->com.Vertex[0].x;
+			point.ry() = poly->com.Vertex[i + 3].y();
+			point.rx()= rectangle->com.Vertex[0].x();
 			InsertVertex(poly, i + 3, point);
 			return TRUE;
 		}
@@ -295,36 +249,36 @@ Bool32 CrossedBy0(POLY_ * poly, POLY_ * rectangle) {
 
 Bool32 CrossedBy1(POLY_ * poly, POLY_ * rectangle) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 2; i++) { //STEPA_AM |
-		if ((poly->com.Vertex[i].x > rectangle->com.Vertex[1].x)
-				&& (poly->com.Vertex[i + 1].x < rectangle->com.Vertex[1].x)
-				&& (poly->com.Vertex[i + 1].y > rectangle->com.Vertex[1].y)
-				&& (poly->com.Vertex[i + 2].y < rectangle->com.Vertex[1].y)) {
-			point.x = rectangle->com.Vertex[1].x;
-			point.y = poly->com.Vertex[i].y;
+		if ((poly->com.Vertex[i].x() > rectangle->com.Vertex[1].x())
+				&& (poly->com.Vertex[i + 1].x() < rectangle->com.Vertex[1].x())
+				&& (poly->com.Vertex[i + 1].y() > rectangle->com.Vertex[1].y())
+				&& (poly->com.Vertex[i + 2].y() < rectangle->com.Vertex[1].y())) {
+			point.rx()= rectangle->com.Vertex[1].x();
+			point.ry() = poly->com.Vertex[i].y();
 			InsertVertex(poly, i + 1, point);
 			poly->com.Vertex[i + 2] = rectangle->com.Vertex[1];
-			point.x = poly->com.Vertex[i + 3].x;
-			point.y = rectangle->com.Vertex[1].y;
+			point.rx()= poly->com.Vertex[i + 3].x();
+			point.ry() = rectangle->com.Vertex[1].y();
 			InsertVertex(poly, i + 3, point);
 			return TRUE;
 		}
 	}
-	if ((poly->com.Vertex[poly->com.count - 2].x > rectangle->com.Vertex[1].x)
-			&& (poly->com.Vertex[poly->com.count - 1].x
-					< rectangle->com.Vertex[1].x)
-			&& (poly->com.Vertex[poly->com.count - 1].y
-					> rectangle->com.Vertex[1].y) && (poly->com.Vertex[0].y
-			< rectangle->com.Vertex[1].y)) {
-		point.x = rectangle->com.Vertex[1].x;
-		point.y = poly->com.Vertex[poly->com.count - 2].y;
+	if ((poly->com.Vertex[poly->com.count - 2].x() > rectangle->com.Vertex[1].x())
+			&& (poly->com.Vertex[poly->com.count - 1].x()
+					< rectangle->com.Vertex[1].x())
+			&& (poly->com.Vertex[poly->com.count - 1].y()
+					> rectangle->com.Vertex[1].y()) && (poly->com.Vertex[0].y()
+			< rectangle->com.Vertex[1].y())) {
+		point.rx()= rectangle->com.Vertex[1].x();
+		point.ry() = poly->com.Vertex[poly->com.count - 2].y();
 		InsertVertex(poly, poly->com.count - 1, point);
 		//poly->com.Vertex[poly->com.count-1] = rectangle->com.Vertex[1];
 		InsertVertex(poly, poly->com.count - 1, rectangle->com.Vertex[1]);
-		point.x = poly->com.Vertex[0].x;
-		point.y = rectangle->com.Vertex[1].y;
+		point.rx()= poly->com.Vertex[0].x();
+		point.ry() = rectangle->com.Vertex[1].y();
 		poly->com.Vertex[poly->com.count - 1] = point;
 		//InsertVertex(poly, poly->com.count-1, point);
 		return TRUE;
@@ -335,33 +289,33 @@ Bool32 CrossedBy1(POLY_ * poly, POLY_ * rectangle) {
 
 Bool32 CrossedBy2(POLY_ * poly, POLY_ * rectangle) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 2; i++) {
-		if ((poly->com.Vertex[i].y > rectangle->com.Vertex[2].y)
-				&& (poly->com.Vertex[i + 1].x < rectangle->com.Vertex[2].x)
-				&& (poly->com.Vertex[i + 1].y < rectangle->com.Vertex[2].y)
-				&& (poly->com.Vertex[i + 2].x > rectangle->com.Vertex[2].x)) {
-			point.y = rectangle->com.Vertex[2].y;
-			point.x = poly->com.Vertex[i].x;
+		if ((poly->com.Vertex[i].y() > rectangle->com.Vertex[2].y())
+				&& (poly->com.Vertex[i + 1].x() < rectangle->com.Vertex[2].x())
+				&& (poly->com.Vertex[i + 1].y() < rectangle->com.Vertex[2].y())
+				&& (poly->com.Vertex[i + 2].x() > rectangle->com.Vertex[2].x())) {
+			point.ry() = rectangle->com.Vertex[2].y();
+			point.rx()= poly->com.Vertex[i].x();
 			InsertVertex(poly, i + 1, point);
 			poly->com.Vertex[i + 2] = rectangle->com.Vertex[2];
-			point.y = poly->com.Vertex[i + 3].y;
-			point.x = rectangle->com.Vertex[2].x;
+			point.ry() = poly->com.Vertex[i + 3].y();
+			point.rx()= rectangle->com.Vertex[2].x();
 			InsertVertex(poly, i + 3, point);
 			return TRUE;
 		}
 	}
-	if ((poly->com.Vertex[poly->com.count - 1].y > rectangle->com.Vertex[2].y)
-			&& (poly->com.Vertex[0].x < rectangle->com.Vertex[2].x)
-			&& (poly->com.Vertex[0].y < rectangle->com.Vertex[2].y)
-			&& (poly->com.Vertex[1].x > rectangle->com.Vertex[2].x)) {
+	if ((poly->com.Vertex[poly->com.count - 1].y() > rectangle->com.Vertex[2].y())
+			&& (poly->com.Vertex[0].x() < rectangle->com.Vertex[2].x())
+			&& (poly->com.Vertex[0].y() < rectangle->com.Vertex[2].y())
+			&& (poly->com.Vertex[1].x() > rectangle->com.Vertex[2].x())) {
 		//Special case - use with cautions :)
-		point.y = poly->com.Vertex[0].y;
-		point.x = rectangle->com.Vertex[2].x;
+		point.ry() = poly->com.Vertex[0].y();
+		point.rx()= rectangle->com.Vertex[2].x();
 		InsertVertex(poly, 1, point);
-		point.y = rectangle->com.Vertex[2].y;
-		point.x = poly->com.Vertex[0].x;
+		point.ry() = rectangle->com.Vertex[2].y();
+		point.rx()= poly->com.Vertex[0].x();
 		//InsertVertex(poly, poly->com.count, point);
 		InsertVertex(poly, 1, rectangle->com.Vertex[2]);
 		poly->com.Vertex[0] = point;
@@ -375,19 +329,19 @@ Bool32 CrossedBy2(POLY_ * poly, POLY_ * rectangle) {
 
 Bool32 CrossedBy3(POLY_ * poly, POLY_ * rectangle) {
 	int i;
-	Point32 point;
+	Point point;
 
 	for (i = 0; i < poly->com.count - 2; i++) {
-		if ((poly->com.Vertex[i].x < rectangle->com.Vertex[3].x)
-				&& (poly->com.Vertex[i + 1].x > rectangle->com.Vertex[3].x)
-				&& (poly->com.Vertex[i + 1].y < rectangle->com.Vertex[3].y)
-				&& (poly->com.Vertex[i + 2].y > rectangle->com.Vertex[3].y)) {
-			point.x = rectangle->com.Vertex[3].x;
-			point.y = poly->com.Vertex[i].y;
+		if ((poly->com.Vertex[i].x() < rectangle->com.Vertex[3].x())
+				&& (poly->com.Vertex[i + 1].x() > rectangle->com.Vertex[3].x())
+				&& (poly->com.Vertex[i + 1].y() < rectangle->com.Vertex[3].y())
+				&& (poly->com.Vertex[i + 2].y() > rectangle->com.Vertex[3].y())) {
+			point.rx()= rectangle->com.Vertex[3].x();
+			point.ry() = poly->com.Vertex[i].y();
 			InsertVertex(poly, i + 1, point);
 			poly->com.Vertex[i + 2] = rectangle->com.Vertex[3];
-			point.x = poly->com.Vertex[i + 3].x;
-			point.y = rectangle->com.Vertex[3].y;
+			point.rx()= poly->com.Vertex[i + 3].x();
+			point.ry() = rectangle->com.Vertex[3].y();
 			InsertVertex(poly, i + 3, point);
 			return TRUE;
 		}
@@ -407,13 +361,13 @@ int GetPOLYHeight(POLY_* poly) {
 	if (!(poly->com.count))
 		return 0;
 
-	max_bottom = min_top = poly->com.Vertex[0].y;
+	max_bottom = min_top = poly->com.Vertex[0].y();
 	for (i = 1; i < poly->com.count; i++) {
-		if (poly->com.Vertex[i].y < min_top)
-			min_top = poly->com.Vertex[i].y;
+		if (poly->com.Vertex[i].y() < min_top)
+			min_top = poly->com.Vertex[i].y();
 		else {
-			if (poly->com.Vertex[i].y > max_bottom)
-				max_bottom = poly->com.Vertex[i].y;
+			if (poly->com.Vertex[i].y() > max_bottom)
+				max_bottom = poly->com.Vertex[i].y();
 		}
 	}
 	return max_bottom - min_top;
@@ -468,53 +422,50 @@ Bool32 PageRoatateBlocks(Handle hPage) {
 
 		if (block.com.count == 4) {
 			if (nIncline >= 0) {
-				defect = ((block.com.Vertex[1].x - block.com.Vertex[0].x)
+				defect = ((block.com.Vertex[1].x() - block.com.Vertex[0].x())
 						* nIncline) / INCLINE_FACTOR;
-				block.com.Vertex[1].y += defect;
-				block.com.Vertex[3].y -= defect;
-				defect = ((block.com.Vertex[3].y - block.com.Vertex[0].y)
+				block.com.Vertex[1].ry() += defect;
+				block.com.Vertex[3].ry() -= defect;
+				defect = ((block.com.Vertex[3].y() - block.com.Vertex[0].y())
 						* nIncline) / INCLINE_FACTOR;
-				block.com.Vertex[0].x += defect;
-				block.com.Vertex[2].x -= defect;
+				block.com.Vertex[0].rx()+= defect;
+				block.com.Vertex[2].rx()-= defect;
 			} else {
-				defect = ((block.com.Vertex[1].x - block.com.Vertex[0].x)
+				defect = ((block.com.Vertex[1].x() - block.com.Vertex[0].x())
 						* nIncline) / INCLINE_FACTOR;
-				block.com.Vertex[0].y -= defect;
-				block.com.Vertex[2].y += defect;
-				defect = ((block.com.Vertex[3].y - block.com.Vertex[0].y)
+				block.com.Vertex[0].ry() -= defect;
+				block.com.Vertex[2].ry() += defect;
+				defect = ((block.com.Vertex[3].y() - block.com.Vertex[0].y())
 						* nIncline) / INCLINE_FACTOR;
-				block.com.Vertex[1].x += defect;
-				block.com.Vertex[3].x -= defect;
+				block.com.Vertex[1].rx()+= defect;
+				block.com.Vertex[3].rx()-= defect;
 			}
 		}
-		//		if(block.negative!=TYPE_NEGATIVE)
-		//		{
+
 		for (i = 0; i < block.com.count; i++) {
-			IDEAL_XY(block.com.Vertex[i].x, block.com.Vertex[i].y);
+			IDEAL_XY(block.com.Vertex[i].rx(), block.com.Vertex[i].ry());
 		}
-		//		}
+
 		/*********************/
 
 		for (i = 0; i < block.com.count - 1; i++) {
-			//if(abs(block.com.Vertex[i].x - block.com.Vertex[i+1].x) <
-			//	abs(block.com.Vertex[i].y - block.com.Vertex[i+1].y))
 			d1 = div(i, 2);
 			if (d1.rem == 0) {
-				if (block.com.Vertex[i].y != block.com.Vertex[i + 1].y)
-					block.com.Vertex[i + 1].y = block.com.Vertex[i].y;
+				if (block.com.Vertex[i].y() != block.com.Vertex[i + 1].y())
+					block.com.Vertex[i + 1].ry() = block.com.Vertex[i].y();
 			} else {
-				if (block.com.Vertex[i].x != block.com.Vertex[i + 1].x)
-					block.com.Vertex[i].x = block.com.Vertex[i + 1].x;
+				if (block.com.Vertex[i].x() != block.com.Vertex[i + 1].x())
+					block.com.Vertex[i].rx() = block.com.Vertex[i + 1].x();
 
 			}
 		}
-		if (block.com.Vertex[0].x != block.com.Vertex[block.com.count - 1].x)
-			block.com.Vertex[block.com.count - 1].x = block.com.Vertex[0].x;
+		if (block.com.Vertex[0].x() != block.com.Vertex[block.com.count - 1].x())
+			block.com.Vertex[block.com.count - 1].rx() = block.com.Vertex[0].x();
 		/*********************/
 		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
-				block.com.Vertex[0].x, block.com.Vertex[0].y,
-				block.com.Vertex[1].x, block.com.Vertex[1].y,
-				block.com.Vertex[2].y - block.com.Vertex[1].y);
+				block.com.Vertex[0].x(), block.com.Vertex[0].y(),
+				block.com.Vertex[1].x(), block.com.Vertex[1].y(),
+				block.com.Vertex[2].y() - block.com.Vertex[1].y());
 		LDPUMA_FPuts(resFile_pict, tmp_str);
 		/*********************/
 
@@ -698,20 +649,20 @@ Bool32 OutputFragments(Handle hPage) {
 		all_polys[i].com.number = p->nNumber;//порядковый номер
 		all_polys[i].com.Color = 0;
 		all_polys[i].com.count = 4;
-		all_polys[i].com.Vertex[0].x = p->Rect.xLeft;
-		all_polys[i].com.Vertex[0].y = p->Rect.yTop;
-		all_polys[i].com.Vertex[1].x = p->Rect.xRight;
-		all_polys[i].com.Vertex[1].y = p->Rect.yTop;
-		all_polys[i].com.Vertex[2].x = p->Rect.xRight;
-		all_polys[i].com.Vertex[2].y = p->Rect.yBottom;
-		all_polys[i].com.Vertex[3].x = p->Rect.xLeft;
-		all_polys[i].com.Vertex[3].y = p->Rect.yBottom;
+		all_polys[i].com.Vertex[0].rx()= p->Rect.xLeft;
+		all_polys[i].com.Vertex[0].ry() = p->Rect.yTop;
+		all_polys[i].com.Vertex[1].rx()= p->Rect.xRight;
+		all_polys[i].com.Vertex[1].ry() = p->Rect.yTop;
+		all_polys[i].com.Vertex[2].rx()= p->Rect.xRight;
+		all_polys[i].com.Vertex[2].ry() = p->Rect.yBottom;
+		all_polys[i].com.Vertex[3].rx()= p->Rect.xLeft;
+		all_polys[i].com.Vertex[3].ry() = p->Rect.yBottom;
 		all_polys[i].alphabet = 0;
 
 		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
-				all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y,
-				all_polys[i].com.Vertex[1].x, all_polys[i].com.Vertex[1].y,
-				all_polys[i].com.Vertex[2].y - all_polys[i].com.Vertex[1].y);
+				all_polys[i].com.Vertex[0].x(), all_polys[i].com.Vertex[0].y(),
+				all_polys[i].com.Vertex[1].x(), all_polys[i].com.Vertex[1].y(),
+				all_polys[i].com.Vertex[2].y() - all_polys[i].com.Vertex[1].y());
 		LDPUMA_FPuts(resFile_blocks, tmp_str);
 
 		i++;
@@ -741,14 +692,14 @@ Bool32 OutputFragments(Handle hPage) {
 			if (pPics[j].com.count != 4)
 				continue;
 			block = pPics[j];
-			block.com.Vertex[0].x -= BOUND;
-			block.com.Vertex[0].y -= BOUND;
-			block.com.Vertex[1].x += BOUND;
-			block.com.Vertex[1].y -= BOUND;
-			block.com.Vertex[2].x += BOUND;
-			block.com.Vertex[2].y += BOUND;
-			block.com.Vertex[3].x -= BOUND;
-			block.com.Vertex[3].y += BOUND;
+			block.com.Vertex[0].rx()-= BOUND;
+			block.com.Vertex[0].ry() -= BOUND;
+			block.com.Vertex[1].rx()+= BOUND;
+			block.com.Vertex[1].ry() -= BOUND;
+			block.com.Vertex[2].rx()+= BOUND;
+			block.com.Vertex[2].ry() += BOUND;
+			block.com.Vertex[3].rx()-= BOUND;
+			block.com.Vertex[3].ry() += BOUND;
 			count = 0;
 
 			if (IsInPoly(block.com.Vertex[0], &all_polys[i]))
@@ -805,14 +756,14 @@ Bool32 OutputFragments(Handle hPage) {
 				//goto AGAIN;
 			}
 
-			block.com.Vertex[0].x -= BOUND;
-			block.com.Vertex[0].y -= BOUND;
-			block.com.Vertex[1].x += BOUND;
-			block.com.Vertex[1].y -= BOUND;
-			block.com.Vertex[2].x += BOUND;
-			block.com.Vertex[2].y += BOUND;
-			block.com.Vertex[3].x -= BOUND;
-			block.com.Vertex[3].y += BOUND;
+			block.com.Vertex[0].rx()-= BOUND;
+			block.com.Vertex[0].ry() -= BOUND;
+			block.com.Vertex[1].rx()+= BOUND;
+			block.com.Vertex[1].ry() -= BOUND;
+			block.com.Vertex[2].rx()+= BOUND;
+			block.com.Vertex[2].ry() += BOUND;
+			block.com.Vertex[3].rx()-= BOUND;
+			block.com.Vertex[3].ry() += BOUND;
 			count = 0;
 
 			if (IsInPoly(block.com.Vertex[0], &all_polys[i]))
@@ -860,14 +811,14 @@ Bool32 OutputFragments(Handle hPage) {
 		Min = 65535;
 
 		for (i = 0; i < max; i++) {
-			if ((all_polys[i].com.Vertex[0].y < Min)
-					&& (all_polys[i].com.Vertex[0].y > PrevMin)) {
-				Min = all_polys[i].com.Vertex[0].y;
+			if ((all_polys[i].com.Vertex[0].y() < Min)
+					&& (all_polys[i].com.Vertex[0].y() > PrevMin)) {
+				Min = all_polys[i].com.Vertex[0].y();
 			}
 		}
 
 		for (i = 0; i < max; i++) {
-			if (all_polys[i].com.Vertex[0].y == Min) {
+			if (all_polys[i].com.Vertex[0].ry() == Min) {
 				all_polys[i].com.number = ++BlockNumber;
 			}
 		}
@@ -884,9 +835,9 @@ Bool32 OutputFragments(Handle hPage) {
 		if (all_polys[i].com.count == 4) {
 			j++;
 			sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
-					all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y,
-					all_polys[i].com.Vertex[1].x, all_polys[i].com.Vertex[1].y,
-					all_polys[i].com.Vertex[2].y - all_polys[i].com.Vertex[1].y);
+					all_polys[i].com.Vertex[0].x(), all_polys[i].com.Vertex[0].y(),
+					all_polys[i].com.Vertex[1].x(), all_polys[i].com.Vertex[1].y(),
+					all_polys[i].com.Vertex[2].y() - all_polys[i].com.Vertex[1].y());
 			LDPUMA_FPuts(resFile_blocks, tmp_str);
 
 		}
@@ -915,14 +866,14 @@ Bool32 OutputFragments(Handle hPage) {
 		Min = 65535;
 
 		for (i = 0; i < nPics; i++) {
-			if ((pPics[i].com.Vertex[0].y < Min) && (pPics[i].com.Vertex[0].y
+			if ((pPics[i].com.Vertex[0].y() < Min) && (pPics[i].com.Vertex[0].y()
 					> PrevMin)) {
-				Min = pPics[i].com.Vertex[0].y;
+				Min = pPics[i].com.Vertex[0].y();
 			}
 		}
 
 		for (i = 0; i < nPics; i++) {
-			if (pPics[i].com.Vertex[0].y == Min) {
+			if (pPics[i].com.Vertex[0].y() == Min) {
 				pPics[i].com.number = ++BlockNumber;
 			}
 		}
@@ -934,8 +885,8 @@ Bool32 OutputFragments(Handle hPage) {
 		for (i = 0; i < nPics; i++) {
 			Same = TRUE;
 			for (j = 0; j < pPics[i].com.count; j++) {
-				if (pPics[i].com.Vertex[j].x != block.com.Vertex[j].x
-						|| pPics[i].com.Vertex[j].y != block.com.Vertex[j].y) {
+				if (pPics[i].com.Vertex[j].x() != block.com.Vertex[j].x()
+						|| pPics[i].com.Vertex[j].y() != block.com.Vertex[j].y()) {
 					Same = FALSE;
 					break;
 				}
@@ -982,36 +933,36 @@ void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
 	*lpNominator = nIncline;
 }
 
-int IsInPoly(Point32 a, POLY_ * p) {
+int IsInPoly(Point a, POLY_ * p) {
 	int i, y, n, ind;
 	int Count = 0;
 
 	n = p->com.count;
 	for (i = 0; i < n; i++) {
 		int j = (i + 1) % n;
-		if (p->com.Vertex[i].y == p->com.Vertex[j].y)
+		if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
 			continue;
-		if (p->com.Vertex[i].y > a.y && p->com.Vertex[j].y > a.y)
+		if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
 			continue;
-		if (p->com.Vertex[i].y < a.y && p->com.Vertex[j].y < a.y)
+		if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
 			continue;
-		y = p->com.Vertex[i].y;
+		y = p->com.Vertex[i].y();
 		ind = i;
-		if (p->com.Vertex[j].y > y) {
-			y = p->com.Vertex[j].y;
+		if (p->com.Vertex[j].y() > y) {
+			y = p->com.Vertex[j].y();
 			ind = j;
 		}
-		if ((y == a.y) && (p->com.Vertex[ind].x >= a.x))
+		if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
 			Count++;
-		else if (MIN(p->com.Vertex[i].y, p->com.Vertex[j].y) == a.y)
+		else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
 			continue;
 		else {
-			double t = ((double) (a.y - p->com.Vertex[i].y)
-					/ ((double) (p->com.Vertex[j].y
-							- (double) p->com.Vertex[i].y)));
-			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x + t
-					* ((double) p->com.Vertex[j].x
-							- (double) p->com.Vertex[i].x) >= (double) a.x)
+			double t = ((double) (a.y() - p->com.Vertex[i].y())
+					/ ((double) (p->com.Vertex[j].y()
+							- (double) p->com.Vertex[i].y())));
+			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
+					* ((double) p->com.Vertex[j].x()
+							- (double) p->com.Vertex[i].x()) >= (double) a.x())
 				Count++;
 		}
 	}

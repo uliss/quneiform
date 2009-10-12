@@ -623,32 +623,10 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 				common.h += pPics[i].upper - common.upper;
 				common.w += pPics[i].left - common.left;
 				pPics[i] = common;
-				/*
-				 if((pPics[i].type!=CCOM_CH_LETTER)||(pPics[j].type!=CCOM_CH_LETTER))
-				 {
-				 pPics[i].type = CCOM_CH_MERGE;
-				 }
-				 */
 				DeleteFromPics(j);
-				//j=0;
-				//i=0;
 			}
 		}
 	}
-
-	/***********************************************************************************/
-
-	/**/
-	/* rom
-	 for (i=0; i<nPics; i++)
-	 {
-	 if(pPics[i].type == CCOM_CH_LETTER)
-	 {
-	 DeleteFromPics (i);
-	 i--;
-	 }
-	 }
-	 */
 
 	LastCheck(hCCOM, hCCOM_big, hCPAGE);
 
@@ -660,13 +638,14 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 	sprintf(tmp_str, "  <4 Р %d %d %d \n", nPics, 0, 0);
 	LDPUMA_FPuts(resFile_pict, tmp_str);
 
-	int32_t min_image_width = (int32_t)(100* ( (double)(pInfo.DPIX + 1)/300));
-	int32_t min_image_height = (int32_t)(100*((double)(pInfo.DPIY + 1)/300));
+	int32_t min_image_width =
+			(int32_t)(100 * ((double) (pInfo.DPIX + 1) / 300));
+	int32_t min_image_height = (int32_t)(100
+			* ((double) (pInfo.DPIY + 1) / 300));
 
-	for(i=0;i<nPics;i++)
-	{
-		if(pPics[i].large & CCOM_LR_KILLED && !(pPics[i].large &CCOM_LR_TAKEN))
-		{
+	for (i = 0; i < nPics; i++) {
+		if (pPics[i].large & CCOM_LR_KILLED
+				&& !(pPics[i].large & CCOM_LR_TAKEN)) {
 			continue;
 		}
 		block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
@@ -674,41 +653,41 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		block.com.Color = 0;
 		block.com.count = 4;
 		block.com.Flags = 0;
-		block.com.Vertex[0].x = pPics[i].left;
-		block.com.Vertex[0].y = pPics[i].upper;
-		block.com.Vertex[1].x = pPics[i].left + pPics[i].w;
-		block.com.Vertex[1].y = pPics[i].upper;
-		block.com.Vertex[2].x = pPics[i].left + pPics[i].w;
-		block.com.Vertex[2].y = pPics[i].upper + pPics[i].h;
-		block.com.Vertex[3].x = pPics[i].left;
-		block.com.Vertex[3].y = pPics[i].upper + pPics[i].h;
+		block.com.Vertex[0].rx() = pPics[i].left;
+		block.com.Vertex[0].ry() = pPics[i].upper;
+		block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
+		block.com.Vertex[1].ry() = pPics[i].upper;
+		block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
+		block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
+		block.com.Vertex[3].rx() = pPics[i].left;
+		block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
 		block.alphabet = 0;
 
-		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
-			pPics[i].left, pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper, pPics[i].h);
-		LDPUMA_FPuts(resFile_pict,tmp_str);
+		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,
+				pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper,
+				pPics[i].h);
+		LDPUMA_FPuts(resFile_pict, tmp_str);
 
-		if(pPics[i].large & CCOM_LR_TAKEN || pPics[i].w < min_image_width && pPics[i].h < min_image_height)
-		{
-			CPAGE_CreateBlock(hCPAGE, POSSIBLE_PICTURES,0,0,&block,sizeof(POLY_));
-		}
-		else
-		{
-			CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE,0,0,&block,sizeof(POLY_));
+		if (pPics[i].large & CCOM_LR_TAKEN || pPics[i].w < min_image_width
+				&& pPics[i].h < min_image_height) {
+			CPAGE_CreateBlock(hCPAGE, POSSIBLE_PICTURES, 0, 0, &block,
+					sizeof(POLY_));
+		} else {
+			CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
 		}
 	}
 
-
 	LDPUMA_FPuts(resFile_pict, "  <4 К После первого прохода \n");
-	sprintf(tmp_str, "Amount of comps on the first step %i (tmp_comp) \n", tmp_comp);
-	LDPUMA_FPuts(logFile_comp,tmp_str);
-	sprintf(tmp_str, "Amount of pictures on the first step %i (nPics) \n", nPics);
-	LDPUMA_FPuts(logFile_comp,tmp_str);
-	LDPUMA_FPuts(logFile_comp, "*******************************************************\n");
+	sprintf(tmp_str, "Amount of comps on the first step %i (tmp_comp) \n",
+			tmp_comp);
+	LDPUMA_FPuts(logFile_comp, tmp_str);
+	sprintf(tmp_str, "Amount of pictures on the first step %i (nPics) \n",
+			nPics);
+	LDPUMA_FPuts(logFile_comp, tmp_str);
+	LDPUMA_FPuts(logFile_comp,
+			"*******************************************************\n");
 
-
-	if(pPics != NULL)
-	{
+	if (pPics != NULL) {
 		free(pPics);
 		pPics = NULL;
 	}
@@ -716,84 +695,73 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 
 	CloseLogRes();
 
+	Handle h = NULL;
 
-    Handle h = NULL;
-
-	if(!LDPUMA_Skip(hShowFirstAttempt))
-	{
-	 h=NULL;
-	 nPics = 0;
-	 for(h = CPAGE_GetBlockFirst(hCPAGE,TYPE_IMAGE);
-	 h!=NULL;
-	 h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_IMAGE))
-	 {
-	  nPics++;
-	  CPAGE_GetBlockData(hCPAGE,h,TYPE_IMAGE, &block, sizeof(block));
-       rect.left =(int16_t)(block.com.Vertex[0].x);
-	   rect.top =(int16_t)(block.com.Vertex[0].y);
-	   rect.right =(int16_t)(block.com.Vertex[1].x);
-	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
-	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
-	 }
-	 if(nPics)
-	 {
-		LDPUMA_Console("RPIC_Картинки после первого прохода \n");
-		LDPUMA_WaitUserInput(hShowFirstAttempt, MainWindowD);
-		LDPUMA_DeleteRects(MainWindowD, key);
-	 }
+	if (!LDPUMA_Skip(hShowFirstAttempt)) {
+		h = NULL;
+		nPics = 0;
+		for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_IMAGE); h != NULL; h
+				= CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE)) {
+			nPics++;
+			CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
+			rect.left = block.com.Vertex[0].x();
+			rect.top = block.com.Vertex[0].y();
+			rect.right = block.com.Vertex[1].x();
+			rect.bottom = block.com.Vertex[2].y();
+			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
+		}
+		if (nPics) {
+			LDPUMA_Console("RPIC_Картинки после первого прохода \n");
+			LDPUMA_WaitUserInput(hShowFirstAttempt, MainWindowD);
+			LDPUMA_DeleteRects(MainWindowD, key);
+		}
 	}
 
-	if(!LDPUMA_Skip(hShowPossiblePics))
-	{
-	 h=NULL;
-	 nPics = 0;
-	 for(h = CPAGE_GetBlockFirst(hCPAGE,POSSIBLE_PICTURES);
-	 h!=NULL;
-	 h = CPAGE_GetBlockNext(hCPAGE,h,POSSIBLE_PICTURES))
-	 {
-	  nPics++;
-	  CPAGE_GetBlockData(hCPAGE,h,POSSIBLE_PICTURES, &block, sizeof(block));
-       rect.left =(int16_t)(block.com.Vertex[0].x);
-	   rect.top =(int16_t)(block.com.Vertex[0].y);
-	   rect.right =(int16_t)(block.com.Vertex[1].x);
-	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
-	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
-	 }
-	 if(nPics)
-	 {
-		LDPUMA_Console("RPIC_Неуверенные картинки после первого прохода \n");
-		LDPUMA_WaitUserInput(hShowPossiblePics, MainWindowD);
-		LDPUMA_DeleteRects(MainWindowD, key);
-	 }
+	if (!LDPUMA_Skip(hShowPossiblePics)) {
+		h = NULL;
+		nPics = 0;
+		for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL; h
+				= CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES)) {
+			nPics++;
+			CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block,
+					sizeof(block));
+			rect.left = block.com.Vertex[0].x();
+			rect.top = block.com.Vertex[0].y();
+			rect.right = block.com.Vertex[1].x();
+			rect.bottom = block.com.Vertex[2].y();
+			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
+		}
+		if (nPics) {
+			LDPUMA_Console("RPIC_Неуверенные картинки после первого прохода \n");
+			LDPUMA_WaitUserInput(hShowPossiblePics, MainWindowD);
+			LDPUMA_DeleteRects(MainWindowD, key);
+		}
 	}
 
-    Handle BlockType = CPAGE_GetInternalType("pic's to letters boxes");
-    RPIC_Comp_Rect CompRect;
-    if(!LDPUMA_Skip(hShowBigLetters))
-	{
-	 h=NULL;
-	 nPics = 0;
-	 for(h = CPAGE_GetBlockFirst(hCPAGE,BlockType);
-	 h!=NULL;
-	 h = CPAGE_GetBlockNext(hCPAGE,h,BlockType))
-	 {
-	  nPics++;
-	  CPAGE_GetBlockData(hCPAGE,h,BlockType, &CompRect, sizeof(CompRect));
-       rect.left = CompRect.left;
-	   rect.top = CompRect.upper;
-	   rect.right = CompRect.left+CompRect.w-1;
-	   rect.bottom = CompRect.upper+CompRect.h-1;
-	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
-	 }
-	 if(nPics)
-	 {
-		LDPUMA_Console("RPIC_Буквицы \n");
-		LDPUMA_WaitUserInput(hShowBigLetters, MainWindowD);
-		LDPUMA_DeleteRects(MainWindowD, key);
-	 }
+	Handle BlockType = CPAGE_GetInternalType("pic's to letters boxes");
+	RPIC_Comp_Rect CompRect;
+	if (!LDPUMA_Skip(hShowBigLetters)) {
+		h = NULL;
+		nPics = 0;
+		for (h = CPAGE_GetBlockFirst(hCPAGE, BlockType); h != NULL; h
+				= CPAGE_GetBlockNext(hCPAGE, h, BlockType)) {
+			nPics++;
+			CPAGE_GetBlockData(hCPAGE, h, BlockType, &CompRect,
+					sizeof(CompRect));
+			rect.left = CompRect.left;
+			rect.top = CompRect.upper;
+			rect.right = CompRect.left + CompRect.w - 1;
+			rect.bottom = CompRect.upper + CompRect.h - 1;
+			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
+		}
+		if (nPics) {
+			LDPUMA_Console("RPIC_Буквицы \n");
+			LDPUMA_WaitUserInput(hShowBigLetters, MainWindowD);
+			LDPUMA_DeleteRects(MainWindowD, key);
+		}
 	}
 	return TRUE;
 }
 
-						///////////////////////////////////////////////////////////////////////////////
-						//end of file
+///////////////////////////////////////////////////////////////////////////////
+//end of file

@@ -82,6 +82,9 @@
 #include "un_buff.h"
 #include "line_vp_util.h" //own functions
 #include "puma_err.h"
+
+#include "skew1024.h"
+
 /*----------------------------------------------------------------------------*/
 /* JussiP: this function is never called and the signature clashes with
  * the next one with the same name.
@@ -516,14 +519,14 @@ Bool ReferForAndCountLinesVP(void *vB, void **vvData, int* pcount, Bool Hori) {
 Bool IsWarnAtLine(void *vLns, Bool Hori) {
 	LineInfo *pLns = (LineInfo *) vLns;
 	if (Hori) {
-		if (abs(pLns->A.y - pLns->B.y) > abs(pLns->A.x - pLns->B.x)) {
+		if (abs(pLns->A.y() - pLns->B.y()) > abs(pLns->A.x() - pLns->B.x())) {
 #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
 			AM_Console ("Rlt-Error-Ignore : Переданная линия не является горизонтальной! Она игнорируется.");
 #endif
 			return TRUE;
 		}
-		if (pLns->A.x > pLns->B.x) {
+		if (pLns->A.x() > pLns->B.x()) {
 #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
 			AM_Console ("Rlt-Warning-Continue : Плохо описана горизонтальная линия!");
@@ -531,14 +534,14 @@ Bool IsWarnAtLine(void *vLns, Bool Hori) {
 			return TRUE;
 		}
 	} else {
-		if (abs(pLns->A.y - pLns->B.y) < abs(pLns->A.x - pLns->B.x)) {
+		if (abs(pLns->A.y() - pLns->B.y()) < abs(pLns->A.x() - pLns->B.x())) {
 #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
 			AM_Console ("Rlt-Error-Ignore : Переданная линия не является вертикальной! Она игнорируется.");
 #endif
 			return TRUE;
 		}
-		if (pLns->A.y > pLns->B.y) {
+		if (pLns->A.y() > pLns->B.y()) {
 #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
 			AM_Console ("Rlt-Warning-Continue : Плохо описана вертикальная линия!");
@@ -617,9 +620,7 @@ void MarkTableLines(void *vLti, int *pForw, int MyMaxL) {
 		if (LineBringToTable(i + MyMaxL, pForw, MyMaxL)) {
 			pLns->Flags |= LI_IsAtTable;
 			pLns->Flags &= AntiIsNotAtTable;
-			Lent = (pLns->A.x - pLns->B.x) * (pLns->A.x - pLns->B.x);
-			Lent += (pLns->A.y - pLns->B.y) * (pLns->A.y - pLns->B.y);
-			Lent = (int) sqrt((double) Lent);
+			Lent = PointDistance(pLns->A, pLns->B);
 			/*  Короткие табличные вертикальные - настоящие!  */
 			if (Lent < 70) {
 				pLns->Flags &= AntiFalse;
@@ -638,7 +639,6 @@ void MarkTableLines(void *vHorLines, int hor_count, void *vVerLines,
 	int Lent;
 	int i;
 	DLine* pline;
-	int line_size = sizeof(DLine);
 	uint32_t AntiFalse, AntiTrue, AntiIsAtTable, AntiIsNotAtTable;
 	AntiFalse = 0xFFFFFFFF;
 	AntiFalse ^= LI_IsFalse;
@@ -683,7 +683,7 @@ void MarkTableLines(void *vHorLines, int hor_count, void *vVerLines,
 		}
 	}
 }
-/*----------------------------------------------------------------------------*/
+
 Bool LineBringToTable(int i, int *pForw, int MyMaxL) {
 	int k, l;
 	l = pForw[i];
@@ -694,4 +694,3 @@ Bool LineBringToTable(int i, int *pForw, int MyMaxL) {
 	}
 	return TRUE;
 }
-/*---------------------------------------------------------------------------*/

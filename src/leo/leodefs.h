@@ -58,6 +58,7 @@
 #define __LEODEFS_H
 
 #include "recdefs.h"
+#include "point.h"
 
 enum {
 	LEO_CONT_STD_PAGE_ID = 999999
@@ -65,8 +66,6 @@ enum {
 
 typedef struct tagLeoPageSetup {
 	uint32_t Options;
-	// #define LEO_USEHISTORY 0x00000001
-	// #define LEO_...        0x00000001
 	int32_t nResolutionX;
 	int32_t nResolutionY;
 	uchar AlphaStylesTable[256];
@@ -80,7 +79,7 @@ typedef struct tagLeoPageSetup {
 
 typedef struct tagLeoFieldSetup {
 	uint32_t nStyle;
-	Point16 BoxSize;
+	CIF::Point16 BoxSize;
 	uchar AlphaTable[256]; // AlphaTable[i]==0 <=> no such letter
 	/// multi-passing:
 	int32_t nLeoInternal; // initially set to 0; modifyed only by LEO

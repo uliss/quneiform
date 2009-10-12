@@ -75,6 +75,8 @@
 #include "resource.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 #ifdef alDebug
 extern std::vector<RECT> *pInputArray;
 #endif
@@ -82,7 +84,7 @@ extern std::vector<RECT> *pInputArray;
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
 void SetReturnCode_rfrmt(uint16_t rc);
-POINT TemplateOffset;
+Point16 TemplateOffset;
 
 extern uint32_t GetPictCount(void);
 extern uint32_t GetTablCount(void);
@@ -106,11 +108,9 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
 	GetPageInfo(hCPAGE, &PageInfo);
 
 	if (PageInfo.X && PageInfo.Y) {
-		TemplateOffset.x = PageInfo.X;
-		TemplateOffset.y = PageInfo.Y;
+		TemplateOffset.set(PageInfo.X, PageInfo.Y);
 	} else {
-		TemplateOffset.x = 0;
-		TemplateOffset.y = 0;
+		TemplateOffset.set(0, 0);
 	}
 
 	//Создание массива текстовых фрагментов
@@ -311,14 +311,14 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
 				if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
 					CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly,
 							sizeof(POLY_));
-					Fragment->m_rectFrag.left = poly.com.Vertex[0].x
-							- TemplateOffset.x;
-					Fragment->m_rectFrag.right = poly.com.Vertex[2].x
-							- TemplateOffset.x;
-					Fragment->m_rectFrag.top = poly.com.Vertex[0].y
-							- TemplateOffset.y;
-					Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y
-							- TemplateOffset.y;
+					Fragment->m_rectFrag.left = poly.com.Vertex[0].x()
+							- TemplateOffset.x();
+					Fragment->m_rectFrag.right = poly.com.Vertex[2].x()
+							- TemplateOffset.x();
+					Fragment->m_rectFrag.top = poly.com.Vertex[0].y()
+							- TemplateOffset.y();
+					Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y()
+							- TemplateOffset.y();
 				}
 				break;
 			}
@@ -384,9 +384,9 @@ void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count) {
 		return;
 	line = *Comingline;
 	CSTR_GetLineAttr(line, &line_attr);
-	SetRect(&TmpRect, line_attr.col - TemplateOffset.x, line_attr.row
-			- TemplateOffset.y, line_attr.col - TemplateOffset.x
-			+ line_attr.wid, line_attr.row - TemplateOffset.y + line_attr.hei);
+	SetRect(&TmpRect, line_attr.col - TemplateOffset.x(), line_attr.row
+			- TemplateOffset.y(), line_attr.col - TemplateOffset.x()
+			+ line_attr.wid, line_attr.row - TemplateOffset.y() + line_attr.hei);
 	UnionRect(&m_rectFrag, &m_rectFrag, &TmpRect);
 	dist = line_attr.hei / 2;
 
@@ -486,9 +486,9 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline,
 
 	SetRect(&m_rectBaseLine, line_attr.bs1, line_attr.bs2, line_attr.bs3,
 			line_attr.bs4); //don't used now
-	SetRect(&m_rectString, line_attr.col - TemplateOffset.x, line_attr.row
-			- TemplateOffset.y, line_attr.col - TemplateOffset.x
-			+ line_attr.wid, line_attr.row - TemplateOffset.y + line_attr.hei);
+	SetRect(&m_rectString, line_attr.col - TemplateOffset.x(), line_attr.row
+			- TemplateOffset.y(), line_attr.col - TemplateOffset.x()
+			+ line_attr.wid, line_attr.row - TemplateOffset.y() + line_attr.hei);
 
 #ifdef alDebug //obsolete option
 	{
@@ -608,14 +608,14 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
 	CSTR_GetCollectionUni(*rast, &vers);
 	CSTR_GetAttr(*rast, &rast_attr);
 
-	SetRect(&m_rectChar, rast_attr.col - TemplateOffset.x, rast_attr.row
-			- TemplateOffset.y, rast_attr.col - TemplateOffset.x + rast_attr.w,
-			rast_attr.row - TemplateOffset.y + rast_attr.h);
+	SetRect(&m_rectChar, rast_attr.col - TemplateOffset.x(), rast_attr.row
+			- TemplateOffset.y(), rast_attr.col - TemplateOffset.x() + rast_attr.w,
+			rast_attr.row - TemplateOffset.y() + rast_attr.h);
 
-	SetRect(&m_RealRectChar, rast_attr.r_col - TemplateOffset.x,
-			rast_attr.r_row - TemplateOffset.y, rast_attr.r_col
-					- TemplateOffset.x + rast_attr.w, rast_attr.r_row
-					- TemplateOffset.y + rast_attr.h);
+	SetRect(&m_RealRectChar, rast_attr.r_col - TemplateOffset.x(),
+			rast_attr.r_row - TemplateOffset.y(), rast_attr.r_col
+					- TemplateOffset.x() + rast_attr.w, rast_attr.r_row
+					- TemplateOffset.y() + rast_attr.h);
 
 	m_wCountAlt = MIN(vers.lnAltCnt, REC_MAX_VERS);
 	m_bFlg_spell = 0;

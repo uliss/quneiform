@@ -68,6 +68,8 @@
 #include "wrgb.h"
 #include "minmax.h"
 
+using namespace CIF;
+
 extern uchar * letters_pidx_table;
 int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax);
 int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
@@ -1193,9 +1195,9 @@ static void mw_show_rast() {
 		uint32_t key = 1;
 		for (i = 1; i < ncut - 1; i++) {
 			Point16 vh, vl;
-			vh.y = (int16_t) str_raster.top;
-			vl.y = (int16_t) (str_raster.top + str_raster.h);
-			vh.x = vl.x = (int16_t) (str_raster.left + cut_list[i].x);
+			vh.ry() = str_raster.top;
+			vl.ry() = (str_raster.top + str_raster.h);
+			vh.rx() = vl.rx() = (str_raster.left + cut_list[i].x);
 			LDPUMA_DrawLine(NULL, &vh, &vl, 0, wRGB(255, 0, 0), 1, key);
 		}
 		glsnap('a', c, "raster too big to show");

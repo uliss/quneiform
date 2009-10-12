@@ -77,6 +77,8 @@
 #include "myraster.h"
 /*  interface my-my      */
 #include "am_buff.h"
+
+using namespace CIF;
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
 FNCPAGE_GetBlockNext GetBlockNext;
@@ -246,20 +248,20 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 			continue;
 
 		if (cpdata->Dir == LD_Horiz) {
-			pLHor[count_hor].A.x = (int16_t) (cpdata->Line.Beg_X);
-			pLHor[count_hor].A.y = (int16_t) (cpdata->Line.Beg_Y);
-			pLHor[count_hor].B.x = (int16_t) (cpdata->Line.End_X);
-			pLHor[count_hor].B.y = (int16_t) (cpdata->Line.End_Y);
+			pLHor[count_hor].A.rx() = (int16_t) (cpdata->Line.Beg_X);
+			pLHor[count_hor].A.ry() = (int16_t) (cpdata->Line.Beg_Y);
+			pLHor[count_hor].B.rx() = (int16_t) (cpdata->Line.End_X);
+			pLHor[count_hor].B.ry() = (int16_t) (cpdata->Line.End_Y);
 			pLHor[count_hor].Thickness = cpdata->Line.Wid10 / 10;
 			pLHor[count_hor].SegCnt = (int16_t) (cpdata->n_event);
 			pLHor[count_hor].Quality = (cpdata->Dens * 255) / 100;
 			pLHor[count_hor].Flags = cpdata->Flags;
 			count_hor++;
 		} else {
-			pLVer[count_ver].A.x = (int16_t) (cpdata->Line.Beg_X);
-			pLVer[count_ver].A.y = (int16_t) (cpdata->Line.Beg_Y);
-			pLVer[count_ver].B.x = (int16_t) (cpdata->Line.End_X);
-			pLVer[count_ver].B.y = (int16_t) (cpdata->Line.End_Y);
+			pLVer[count_ver].A.rx() = (int16_t) (cpdata->Line.Beg_X);
+			pLVer[count_ver].A.ry() = (int16_t) (cpdata->Line.Beg_Y);
+			pLVer[count_ver].B.rx() = (int16_t) (cpdata->Line.End_X);
+			pLVer[count_ver].B.ry() = (int16_t) (cpdata->Line.End_Y);
 			pLVer[count_ver].Thickness = cpdata->Line.Wid10 / 10;
 			pLVer[count_ver].SegCnt = (int16_t) (cpdata->n_event);
 			pLVer[count_ver].Quality = (cpdata->Dens * 255) / 100;
@@ -401,10 +403,8 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, CLINE_handle hCLINE) {
 				data.Flags |= LI_IsTrue;
 				data.Type = NR_DT_LinePointed;
 			}
-			data.lns_data.Anew.x = HorLine[count_hor].Anew.x;
-			data.lns_data.Anew.y = HorLine[count_hor].Anew.y;
-			data.lns_data.Bnew.x = HorLine[count_hor].Bnew.x;
-			data.lns_data.Bnew.y = HorLine[count_hor].Bnew.y;
+			data.lns_data.Anew = HorLine[count_hor].Anew;
+			data.lns_data.Bnew = HorLine[count_hor].Bnew;
 
 			CLINE_SetLineData(hline, (CPDLine)(&data));
 			count_hor++;
@@ -414,10 +414,8 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, CLINE_handle hCLINE) {
 				data.Flags |= LI_IsTrue;
 				data.Type = NR_DT_LinePointed;
 			}
-			data.lns_data.Anew.x = VerLine[count_ver].Anew.x;
-			data.lns_data.Anew.y = VerLine[count_ver].Anew.y;
-			data.lns_data.Bnew.x = VerLine[count_ver].Bnew.x;
-			data.lns_data.Bnew.y = VerLine[count_ver].Bnew.y;
+			data.lns_data.Anew = VerLine[count_ver].Anew;
+			data.lns_data.Bnew = VerLine[count_ver].Bnew;
 
 			CLINE_SetLineData(hline, (CPDLine)(&data));
 			count_ver++;
