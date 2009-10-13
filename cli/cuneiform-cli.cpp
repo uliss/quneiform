@@ -325,11 +325,12 @@ int main(int argc, char **argv) {
 	PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
 	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
+	Puma::instance().useSpeller(true);
+
 	Puma::instance().open(dib);
 	Puma::instance().recognize();
 
 	/* From recogpuma.cpp
-	 PUMA_SetSpeller(g_bSpeller);
 	 PUMA_SetOneColumn(g_bOneColumn);
 	 PUMA_SetFax100(g_bFax100);
 	 PUMA_SetDotMatrix(g_bDotMatrix);
@@ -344,8 +345,6 @@ int main(int argc, char **argv) {
 	 PUMA_SetSerifName(g_strSerifName);
 	 PUMA_SetSansSerifName(g_strSansSerifName);
 	 PUMA_SetCourierName(g_strCourierName);
-
-	 rc = PUMA_XFinalRecognition();
 	 */
 
 	Puma::instance().save(outfilename, outputformat);

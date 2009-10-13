@@ -38,6 +38,7 @@ public:
 	void recognize();
 	void save(const std::string& outputFilename, int format) const;
 	void save(void * dest, size_t size, int format) const;
+	void useSpeller(bool value = true);
 public:
 	static unsigned char * mainBuffer();
 	static unsigned char * workBuffer();

@@ -1159,4 +1159,8 @@ unsigned char * PumaImpl::workBuffer() {
 	return work_buffer_.begin();
 }
 
+void PumaImpl::useSpeller(bool value) {
+	gbSpeller = value ? TRUE : FALSE;
+}
+
 }
