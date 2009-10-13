@@ -65,7 +65,7 @@
 #include "paraline.h"
 #include "sweeper.h"
 
-#include "lns_skew1024.h"
+#include "skew1024.h"
 
 using namespace CIF;
 
@@ -453,16 +453,16 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 	for (i = 0; i < hor_cnt; i++) {
 		LineInfo& li = lti->Hor.Lns[i];
 		li.Ar = li.A;
-		Deskew(li.Ar, skew);
+		li.Ar.deskew(skew);
 		li.Br = li.B;
-		Deskew(li.Br, skew);
+		li.Br.deskew(skew);
 	};
 	for (i = 0; i < ver_cnt; i++) {
 		LineInfo& li = lti->Ver.Lns[i];
 		li.Ar = li.A;
-		Deskew(li.Ar, skew);
+		li.Ar.deskew(skew);
 		li.Br = li.B;
-		Deskew(li.Br, skew);
+		li.Br.deskew(skew);
 	};
 
 	return TRUE;
@@ -598,7 +598,8 @@ static Bool _PreSwp(LnsInfoArray& larr, Bool hor) {
 #ifndef SHORT_FRAGMENTS_ARE_TESTED_TO_BE_NOT_PART_OF_LETTER
 			if (hor && frag_len < 50 && // short fragment
 					(lf.fragmentAsIs.end.x() == li.lineAsIs.end.x() // at the end of line
-							|| lf.fragmentAsIs.start.x() == li.lineAsIs.start.x())) { // skip it, don't sweep.
+							|| lf.fragmentAsIs.start.x()
+									== li.lineAsIs.start.x())) { // skip it, don't sweep.
 				h = lb->nextMember(h);
 				continue;
 			}
