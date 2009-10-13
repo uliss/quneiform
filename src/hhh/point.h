@@ -51,7 +51,7 @@ public:
 	}
 
 	bool isPositive() const {
-		return x_ > 0 && y_ > 0;
+		return x_ >= 0 && y_ >= 0;
 	}
 
 	bool operator<(const PointImpl& pt) const {
