@@ -1156,6 +1156,10 @@ void PumaImpl::setTemplate(const Rect& r) {
 	gRectTemplate.bottom = r.bottom();
 }
 
+void PumaImpl::setUnrecognizedChar(char ch) {
+	gnUnrecogChar = ch;
+}
+
 unsigned char * PumaImpl::mainBuffer() {
 	return main_buffer_.begin();
 }

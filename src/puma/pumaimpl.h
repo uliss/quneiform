@@ -40,6 +40,7 @@ public:
 	void save(const std::string& outputFilename, int format) const;
 	void save(void * dest, size_t size, int format) const;
 	void setLanguage(language_t language);
+	void setUnrecognizedChar(char ch);
 	void useSpeller(bool value = true);
 public:
 	static unsigned char * mainBuffer();

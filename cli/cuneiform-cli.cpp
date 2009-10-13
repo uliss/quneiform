@@ -325,6 +325,7 @@ int main(int argc, char **argv) {
 	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
 	Puma::instance().setLanguage(static_cast<language_t> (langcode));
+//	Puma::instance().setUnrecognizedChar('?');
 	Puma::instance().useSpeller(true);
 
 	Puma::instance().open(dib);
@@ -337,7 +338,6 @@ int main(int argc, char **argv) {
 	 PUMA_SetPictures(g_nPicture);
 	 PUMA_SetTables(g_nTable);
 	 PUMA_SetFormatMode(g_nFormat);
-	 PUMA_SetUnrecogChar(g_btUnrecogChar);
 	 PUMA_SetBold(g_bBold);
 	 PUMA_SetItalic(g_bItalic);
 	 PUMA_SetSize(g_bSize);
