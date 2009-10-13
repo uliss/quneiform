@@ -51,12 +51,11 @@ private:
 	void formatResult();
 	void layout();
 	void loadLayoutFromFile(const std::string& fname);
-	void modulesInit();
 	void modulesDone();
+	void modulesInit();
 	void normalize();
 	void pass1();
 	void pass2();
-	void spellCorrection();
 	void preOpenInitialize();
 	void preprocessImage();
 	void printResult(std::ostream& os);
@@ -71,9 +70,11 @@ private:
 	void rout(void * dest, size_t size, int format) const;
 	void saveLayoutToFile(const std::string& fname);
 	void savePass1(const std::string& fname);
-	void setTemplate(const Rect& rect);
 	void saveToText(std::ostream& os) const;
 	void saveToText(const std::string& filename) const;
+	void setFormatOptions();
+	void setTemplate(const Rect& rect);
+	void spellCorrection();
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
 	static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;

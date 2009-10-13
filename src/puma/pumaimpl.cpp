@@ -211,7 +211,8 @@ void PumaImpl::extractStrings() {
 }
 
 void PumaImpl::formatResult() {
-	SetOptionsToFRMT();
+	setFormatOptions();
+
 	if (ghEdPage) {
 		CED_DeletePage(ghEdPage);
 		ghEdPage = NULL;
@@ -222,7 +223,7 @@ void PumaImpl::formatResult() {
 
 	if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
 		std::string fname(szInputFileName + "_tmp_.rtf");
-		SetOptionsToFRMT();
+		setFormatOptions();
 		RFRMT_SaveRtf(fname.c_str(), 8);
 		fname = szInputFileName + "_tmp_.fed";
 		save(fname.c_str(), PUMA_TOEDNATIVE);
@@ -647,8 +648,8 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 		nFragment = -1;
 		Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, 0);
 		while (hBlock) {
-			if (CPAGE_GetBlockInterNum(hCPAGE, hBlock)
-					== (uint32_t) line_attr.fragment) {
+			if ((int) CPAGE_GetBlockInterNum(hCPAGE, hBlock)
+					== line_attr.fragment) {
 				nFragment = line_attr.fragment;
 				break;
 			}
@@ -1143,6 +1144,18 @@ void PumaImpl::saveToText(const std::string& filename) const {
 	if (!of)
 		return;
 	saveToText(of);
+}
+
+void PumaImpl::setFormatOptions() {
+	RFRMT_SetImportData(RFRMT_Bool32_Bold, &gbBold);
+	RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
+	RFRMT_SetImportData(RFRMT_Bool32_Size, &gbSize);
+	RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
+	RFRMT_SetImportData(RFRMT_char_SerifName, gpSerifName);
+	RFRMT_SetImportData(RFRMT_char_SansSerifName, gpSansSerifName);
+	RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
+	RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
+	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
 void PumaImpl::setTemplate(const Rect& r) {

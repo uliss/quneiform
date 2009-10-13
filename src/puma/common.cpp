@@ -67,18 +67,6 @@ Bool32 rexcProgressStep(uint32_t step) {
 	return ProgressStep(2, NULL, step);
 }
 
-void SetOptionsToFRMT() {
-	RFRMT_SetImportData(RFRMT_Bool32_Bold, &gbBold);
-	RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
-	RFRMT_SetImportData(RFRMT_Bool32_Size, &gbSize);
-	RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
-	RFRMT_SetImportData(RFRMT_char_SerifName, gpSerifName);
-	RFRMT_SetImportData(RFRMT_char_SansSerifName, gpSansSerifName);
-	RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
-	RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
-	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
-}
-
 void ProgressStart() {
 	LDPUMA_ProgressStart();
 	if (fnProgressStart)
