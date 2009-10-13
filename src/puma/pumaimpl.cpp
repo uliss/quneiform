@@ -75,14 +75,12 @@ void PumaImpl::binarizeImage() {
 	gpRecogDIB = gpInputDIB;
 	glpRecogName = PUMA_IMAGE_USER;
 
-	//Allex
-	//BitmapInfoHeader info;
-	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
+	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
-	LDPUMA_Console("The image depth is %d at this point.\n", info.biBitCount);
+	LDPUMA_Console("The image depth is %d at this point.\n", info_.biBitCount);
 
-	if (info.biBitCount > 1) {
+	if (info_.biBitCount > 1) {
 		//RIMAGE_BINARISE_KRONROD
 		if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER,
 				(puchar) PUMA_IMAGE_BINARIZE, 4, 0))
@@ -289,7 +287,7 @@ void PumaImpl::layout() {
 
 	DataforRS.gbAutoRotate = gbAutoRotate;
 	DataforRS.pgpRecogDIB = &gpRecogDIB;
-	DataforRS.pinfo = &info;
+	DataforRS.pinfo = &info_;
 	DataforRS.hCPAGE = hCPAGE;
 	DataforRS.phCCOM = &hCCOM;
 	DataforRS.phCLINE = &hCLINE;
@@ -332,7 +330,7 @@ void PumaImpl::layout() {
 	DataforRM.pgpRecogDIB = &gpRecogDIB;
 	DataforRM.gbOneColumn = gbOneColumn;
 	DataforRM.gKillVSLComponents = gKillVSLComponents;
-	DataforRM.pinfo = &info;
+	DataforRM.pinfo = &info_;
 	DataforRM.hCPAGE = hCPAGE;
 	DataforRM.hCCOM = hCCOM;
 	DataforRM.hCLINE = hCLINE;
@@ -599,6 +597,35 @@ void PumaImpl::preOpenInitialize() {
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::preprocessImage() {
+	uint32_t Angle = 0;
+
+	// Выделим компоненты
+	if (LDPUMA_Skip(hDebugCancelComponent))
+		extractComponents();
+	else
+		LDPUMA_Console("Пропущен этап выделения компонент.\n");
+
+	// Проинициализируем контейнер CPAGE
+	PAGEINFO PInfo;// = { 0 };
+	GetPageInfo(hCPAGE, &PInfo);
+	strcpy((char*) PInfo.szImageName, glpRecogName);
+	PInfo.BitPerPixel = info_.biBitCount;
+	PInfo.DPIX = info_.biXPelsPerMeter * 254L / 10000;
+	PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
+	PInfo.DPIY = info_.biYPelsPerMeter * 254L / 10000;
+	PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
+	PInfo.Height = info_.biHeight;
+	PInfo.Width = info_.biWidth;
+	//		PInfo.X = 0; Уже установлено
+	//		PInfo.Y = 0;
+	PInfo.Incline2048 = 0;
+	PInfo.Page = 1;
+	PInfo.Angle = Angle;
+
+	SetPageInfo(hCPAGE, PInfo);
+}
+
 void PumaImpl::printResult() {
 	// Печать результатов в консоль
 	int count = CSTR_GetMaxNumber();
@@ -610,11 +637,10 @@ void PumaImpl::postOpenInitialize() {
 	LDPUMA_SetFileName(NULL, "none.txt");
 	szInputFileName = "none.bin";
 
-	BitmapInfoHeader info;
-	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info))
+	if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
 		throw PumaException("CIMAGE_GetImageInfo failed");
 
-	setTemplate(Rect(Point(0, 0), info.biWidth, info.biHeight));
+	setTemplate(Rect(Point(0, 0), info_.biWidth, info_.biHeight));
 }
 
 void PumaImpl::recognize() {

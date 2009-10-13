@@ -240,8 +240,6 @@ EXTERN PRGTIME g_PrgTime;
 // 07.07,2000 Allex
 // Вынес Бинаризацию наверх из PreProcessImage
 //////////////////////////////////////////////////////////Allex
-EXTERN BitmapInfoHeader info;
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
 void SetReturnCode_puma(uint32_t rc);
 uint32_t GetReturnCode_puma();
@@ -284,7 +282,6 @@ Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
-Bool32 PreProcessImage();
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
 
 #endif

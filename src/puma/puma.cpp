@@ -69,64 +69,6 @@
 // 07.07,2000 Allex
 // Вынес Бинаризацию наверх из PreProcessImage
 //////////////////////////////////////////////////////////Allex
-//BitmapInfoHeader info;
-
-Bool32 PreProcessImage() {
-	Bool32 rc = TRUE;
-	uint32_t Angle = 0;
-
-	if (InitPRGTIME())
-		ProgressStart();
-
-	if (!ProgressStep(1, GetResourceString(IDS_PRG_OPEN), 5))
-		rc = FALSE;
-
-	//
-	// Выделим компоненты
-	//
-	if (!ProgressStep(2, GetResourceString(IDS_PRG_OPEN), 65))
-		rc = FALSE;
-
-	if (rc) {
-		if (LDPUMA_Skip(hDebugCancelComponent)) {
-			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents(gbAutoRotate, NULL, glpRecogName);
-			RestorePRGTIME(prev);
-
-			if (!ProgressStep(2, NULL, 100))
-				rc = FALSE;
-
-		} else
-			LDPUMA_Console("Пропущен этап выделения компонент.\n");
-	}
-	//
-	// Проинициализируем контейнер CPAGE
-	//
-	if (rc) {
-		PAGEINFO PInfo;// = { 0 };
-		GetPageInfo(hCPAGE, &PInfo);
-		strcpy((char*) PInfo.szImageName, glpRecogName);
-		PInfo.BitPerPixel = info.biBitCount;
-		PInfo.DPIX = info.biXPelsPerMeter * 254L / 10000;
-		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
-		PInfo.DPIY = info.biYPelsPerMeter * 254L / 10000;
-		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
-		PInfo.Height = info.biHeight;
-		PInfo.Width = info.biWidth;
-		//		PInfo.X = 0; Уже установлено
-		//		PInfo.Y = 0;
-		PInfo.Incline2048 = 0;
-		PInfo.Page = 1;
-		PInfo.Angle = Angle;
-
-		SetPageInfo(hCPAGE, PInfo);
-	}
-
-	if (DonePRGTIME())
-		ProgressFinish();
-
-	return rc;
-}
 
 int32_t PUMA_EnumLanguages(int32_t nPrev) {
 	return _EnumLanguage(nPrev);

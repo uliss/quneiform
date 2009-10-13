@@ -16,6 +16,7 @@
 #include "cfcompat.h"
 #include "rect.h"
 #include "memorybuffer.h"
+#include "cimage/imageinfo.h"
 
 class CTIControl;
 
@@ -57,6 +58,7 @@ private:
 	void pass2();
 	void spellCorrection();
 	void preOpenInitialize();
+	void preprocessImage();
 	void printResult();
 	void postOpenInitialize();
 	void recognizeCorrection();
@@ -76,6 +78,7 @@ private:
 	static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 private:
 	std::auto_ptr<CTIControl> cimage_;
+	BitmapInfoHeader info_;
 };
 
 }
