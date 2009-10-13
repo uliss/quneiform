@@ -324,10 +324,6 @@ int main(int argc, char **argv) {
 	Puma::instance().setOptionDotMatrix(dotmatrix);
 	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
 
-	/* From recogpuma.cpp
-	 PUMA_SetCourierName(g_strCourierName);
-	 */
-
 	//	Puma::instance().setOptionUnrecognizedChar('?');
 	//	Puma::instance().setOptionBold(true);
 	//	Puma::instance().setOptionItalic(true);
@@ -337,6 +333,7 @@ int main(int argc, char **argv) {
 	//  Puma::instance().setOptionPictures(puma_table_t mode);
 	//  Puma::instance().setOptionSerifName("Georgia");
 	//  Puma::instance().setOptionSansSerifName("Verdana");
+	//  Puma::instance().setOptionMonospaceName("Terminus");
 	Puma::instance().setOptionUseSpeller(true);
 	Puma::instance().setOptionAutoRotate(true);
 

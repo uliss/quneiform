@@ -47,6 +47,7 @@ public:
 	void setOptionFormatMode(puma_format_mode_t format);
 	void setOptionItalic(bool val);
 	void setOptionLanguage(language_t language);
+	void setOptionMonospaceName(const char * name);
 	void setOptionOneColumn(bool val);
 	void setOptionPictures(puma_picture_t type);
 	void setOptionSansSerifName(const char * name);
