@@ -324,12 +324,10 @@ int main(int argc, char **argv) {
 	Puma::instance().setOptionDotMatrix(dotmatrix);
 	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
 
-
 	/* From recogpuma.cpp
 	 PUMA_SetPictures(g_nPicture);
 	 PUMA_SetTables(g_nTable);
 	 PUMA_SetFormatMode(g_nFormat);
-	 PUMA_SetBold(g_bBold);
 	 PUMA_SetItalic(g_bItalic);
 	 PUMA_SetSize(g_bSize);
 	 PUMA_SetFormat(g_bFormat);
@@ -338,11 +336,10 @@ int main(int argc, char **argv) {
 	 PUMA_SetCourierName(g_strCourierName);
 	 */
 
-
 	//	Puma::instance().setOptionUnrecognizedChar('?');
+	//	Puma::instance().setOptionBold(true);
 	Puma::instance().setOptionUseSpeller(true);
 	Puma::instance().setOptionAutoRotate(true);
-
 
 	Puma::instance().open(dib);
 	Puma::instance().recognize();

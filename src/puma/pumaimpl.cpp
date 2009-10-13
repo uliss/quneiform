@@ -1149,6 +1149,10 @@ void PumaImpl::setOptionAutoRotate(bool val) {
 	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionBold(bool val) {
+	gbBold = val ? TRUE : FALSE;
+}
+
 void PumaImpl::setOptionDotMatrix(bool val) {
 	gbDotMatrix = val ? TRUE : FALSE;
 	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
