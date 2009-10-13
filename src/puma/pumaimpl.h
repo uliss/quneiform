@@ -43,6 +43,7 @@ public:
 	void setOptionBold(bool val);
 	void setOptionDotMatrix(bool val);
 	void setOptionFax100(bool val);
+	void setOptionItalic(bool val);
 	void setOptionLanguage(language_t language);
 	void setOptionOneColumn(bool val);
 	void setOptionUnrecognizedChar(char ch);

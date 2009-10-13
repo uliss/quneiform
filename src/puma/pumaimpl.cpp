@@ -1163,6 +1163,10 @@ void PumaImpl::setOptionFax100(bool val) {
 	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionItalic(bool val) {
+	gbItalic = val ? TRUE : FALSE;
+}
+
 void PumaImpl::setOptionLanguage(language_t lang) {
 	gnLanguage = lang;
 	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
