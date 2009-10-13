@@ -95,7 +95,6 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 #define CASE_PDATA(a,b,c)		case a: c = (b)pData; break;
 
 	switch (dwType) {
-	CASE_DATAUP(PUMA_Bool32_DotMatrix,Bool32,gbDotMatrix,FLG_UPDATE_CCOM)
 	CASE_DATA(PUMA_Bool32_Bold,Bool32,gbBold)
 	CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic)
 	CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize)

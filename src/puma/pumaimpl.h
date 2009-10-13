@@ -40,6 +40,7 @@ public:
 	void save(const std::string& outputFilename, int format) const;
 	void save(void * dest, size_t size, int format) const;
 	void setOptionAutoRotate(bool val);
+	void setOptionDotMatrix(bool val);
 	void setOptionFax100(bool val);
 	void setOptionLanguage(language_t language);
 	void setOptionOneColumn(bool val);
