@@ -1154,6 +1154,11 @@ void PumaImpl::setOptionLanguage(language_t lang) {
 	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionOneColumn(bool val) {
+	gbOneColumn = val ? TRUE : FALSE;
+	SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
+}
+
 void PumaImpl::setOptionUnrecognizedChar(char ch) {
 	gnUnrecogChar = ch;
 }

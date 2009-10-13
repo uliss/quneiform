@@ -41,6 +41,7 @@ public:
 	void save(void * dest, size_t size, int format) const;
 	void setOptionAutoRotate(bool val);
 	void setOptionLanguage(language_t language);
+	void setOptionOneColumn(bool val);
 	void setOptionUnrecognizedChar(char ch);
 	void setOptionUseSpeller(bool value = true);
 public:

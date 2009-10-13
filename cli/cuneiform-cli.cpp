@@ -322,18 +322,17 @@ int main(int argc, char **argv) {
 
 	//	PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
 	//	PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
-	//	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
 	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
 	//	Puma::instance().setOptionUnrecognizedChar('?');
 	Puma::instance().setOptionUseSpeller(true);
 	Puma::instance().setOptionAutoRotate(true);
+	Puma::instance().setOptionOneColumn(true);
 
 	Puma::instance().open(dib);
 	Puma::instance().recognize();
 
 	/* From recogpuma.cpp
-	 PUMA_SetOneColumn(g_bOneColumn);
 	 PUMA_SetFax100(g_bFax100);
 	 PUMA_SetDotMatrix(g_bDotMatrix);
 	 PUMA_SetPictures(g_nPicture);
