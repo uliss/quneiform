@@ -78,10 +78,8 @@
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 static HINSTANCE ghInst = NULL;
-static char szPath[PATH_MAX] = ".";
-static char szTempPath[PATH_MAX] = ".";
 
-CIF::Point gPageSize(209,295);
+CIF::Point gPageSize(209, 295);
 
 int PUMA_GetReturnCode() {
 	return gwRC;
@@ -117,7 +115,7 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 	CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE)
 	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
 	default:
-//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
+		//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 	// Связь с предыдущими версиями
@@ -156,11 +154,13 @@ void SetReturnCode_puma(uint32_t rc) {
 		LDPUMA_Stop();
 }
 
-char * GetModulePath() {
+const char * GetModulePath() {
+	static const char szPath[PATH_MAX] = ".";
 	return szPath;
 }
 
-char * GetModuleTempPath() {
+const char * GetModuleTempPath() {
+	static const char szTempPath[PATH_MAX] = ".";
 	return szTempPath;
 }
 

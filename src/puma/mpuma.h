@@ -234,8 +234,8 @@ Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 //functions
 void SetReturnCode_puma(uint32_t rc);
-char * GetModulePath();
-char * GetModuleTempPath();
+const char * GetModulePath();
+const char * GetModuleTempPath();
 
 // Enum.cpp
 long _EnumFormats(long prev);
