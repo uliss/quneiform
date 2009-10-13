@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsdefines.h"
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "linedefs.h"
 
 using namespace CIF;

@@ -66,7 +66,7 @@
 #include <stdlib.h>
 #include <string.h>
 /*  interface our-other  */
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #define _Not_Cpagetyps
 #include "cpage/cpage.h"
 #undef _Not_Cpagetyps

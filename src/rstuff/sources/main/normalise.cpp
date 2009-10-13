@@ -75,7 +75,7 @@
 #include "rsmemory.h"
 #include "mpumatime.h"
 #include "pumadef.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
 #include "line_vp_2_am.h"

@@ -67,7 +67,7 @@
 /*  interface our-other  */
 #include "cpage/cpage.h"
 #include "cline.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "rline.h"
 /*  interface my        */
 #include "un_err.h"

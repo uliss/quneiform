@@ -62,9 +62,9 @@
 #include "snpdefs.h"
 
 #ifdef __LNS__
-#define LNS_FUNC    FUN_EXPO
+#define LNS_FUNC    FUN_EXPO__
 #else
-#define LNS_FUNC    FUN_IMPO
+#define LNS_FUNC    FUN_IMPO__
 #endif
 
 #include "cline.h"
@@ -76,62 +76,47 @@ typedef struct tagLnsSetupStr {
 	char buffer[60]; // резерв, заполняется 0
 } LnsSetupStr;
 
-LNS_FUNC( void ) LnsPageStart( TImageAccess* img );
+LNS_FUNC void LnsPageStart(TImageAccess* img);
 
-LNS_FUNC( Bool16 ) LnsSetup( LnsSetupStr* ls ); // can call before LnsExtractLines
-
-LNS_FUNC( Bool16 ) LnsExtractLines( int32_t min_h_len,
-		int32_t min_v_len,
-		int32_t* result_h_count,
-		int32_t* result_v_count
-);
-/*   LNS_FUNC( Bool16 )          MyLnsExtractLines( int32_t   min_h_len,
- int32_t   min_v_len,
- int32_t*  result_h_count,
- int32_t*  result_v_count
- );*/
-//LNS_FUNC( Bool16 )			ExtractAllComponents( LinesTotalInfo          *lti );
-LNS_FUNC( Bool16 ) ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo *lti);
-LNS_FUNC( Bool16 ) LnsGetCount( int32_t min_h_len,
-		int32_t min_v_len,
-		int32_t* result_h_count,
-		int32_t* result_v_count
-);
+/**
+ *  can call before LnsExtractLines
+ */
+LNS_FUNC Bool16 LnsSetup(LnsSetupStr* ls);
+LNS_FUNC Bool16 LnsExtractLines(int32_t min_h_len, int32_t min_v_len,
+		int32_t* result_h_count, int32_t* result_v_count);
+LNS_FUNC Bool16 ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo *lti);
+LNS_FUNC Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len,
+		int32_t* result_h_count, int32_t* result_v_count);
 
 //.....выгрузка фрагментов..............................
-LNS_FUNC( int ) LnsGetFragCount( Bool horisontal );
-LNS_FUNC( LnsFrag* ) LnsGetFragments( Bool horisontal );
-//......................................................
+LNS_FUNC int LnsGetFragCount(Bool horisontal);
+LNS_FUNC LnsFrag* LnsGetFragments(Bool horisontal);
 
-LNS_FUNC( Bool16 ) LnsUpload( LinesTotalInfo* lti,
-		int32_t min_h_len,
-		int32_t min_v_len
-);
+LNS_FUNC Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len,
+		int32_t min_v_len);
 
-LNS_FUNC( Rect16* ) LnsGetBlackSquares( int32_t* count );
+LNS_FUNC Rect16* LnsGetBlackSquares(int32_t* count);
 // 04 dec 1998 - black squares upload
-LNS_FUNC( Rect16* ) LnsGetCheckBoxes( int32_t* count );
+LNS_FUNC Rect16* LnsGetCheckBoxes(int32_t* count);
 // 11 feb 1998 - checkboxes upload
 
-LNS_FUNC( TImageAccess* ) LnsGetSweepedImage( LinesTotalInfo* lti );
-LNS_FUNC( Err16 ) LnsGetError();
-LNS_FUNC( void ) LnsPageFinish();
+LNS_FUNC TImageAccess* LnsGetSweepedImage(LinesTotalInfo* lti);
+LNS_FUNC Err16 LnsGetError();
+LNS_FUNC void LnsPageFinish();
 
-//////////////////////////////////////////////////////////////////////
 // set-get options from lns32.ini (located at the same place as .exe)
-LNS_FUNC( void ) LnsSetSection( char* szSection ); // 63 chars max
-LNS_FUNC( uint32_t ) LnsGetProfileInt(const char* szKey, int nDefault );
-LNS_FUNC( uint32_t ) LnsGetProfileString( char* szKey,
-		char* szResult, int nResult,
+LNS_FUNC void LnsSetSection(char* szSection); // 63 chars max
+LNS_FUNC uint32_t LnsGetProfileInt(const char* szKey, int nDefault);
+LNS_FUNC uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,
 		char* szDefault// = NULL
-);
-LNS_FUNC( Bool32 ) LnsWriteProfileInt( char* szKey, int nValue );
-LNS_FUNC( Bool32 ) LnsWriteProfileString( char* szKey, char* szValue );
-//////////////////////////////////////////////////////////////////////
-LNS_FUNC( void ) LnsRegisterSnpTree(
-		SnpTreeNode* parent, // parent Snp Node, may be NULL
-		__SnpToolBox* p_snp_tools // tools complect, may be NULL
-);
+		);
+
+LNS_FUNC Bool32 LnsWriteProfileInt(char* szKey, int nValue);
+LNS_FUNC Bool32 LnsWriteProfileString(char* szKey, char* szValue);
+
+LNS_FUNC void LnsRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
+		__SnpToolBox *p_snp_tools // tools complect, may be NULL
+		);
 
 #endif
 

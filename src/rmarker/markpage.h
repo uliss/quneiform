@@ -78,7 +78,7 @@
 #include "rstuff.h"
 #include "rverline.h"
 #include "mpumatime.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "shortverticallinesfilter.h"
 #include "resource.h"
 #include "mymem.h"

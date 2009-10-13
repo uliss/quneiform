@@ -72,7 +72,7 @@
 #include "edfile.h"
 #include "dpuma.h"
 #include "rtfedwrite.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "linedefs.h"
 #include "normdefs.h"
 #include "cstr/cstrdefs.h"

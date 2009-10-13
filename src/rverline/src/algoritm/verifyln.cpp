@@ -65,7 +65,7 @@
 #include <math.h>
 #include <stdlib.h>
 /*  interface our-other  */
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "cimage/ctiimage.h"
 /*  interface our-my     */
 /*  interface my        */

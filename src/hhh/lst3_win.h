@@ -141,10 +141,8 @@ typedef void * PTR;
 typedef void ** PTR2;
 typedef void *** PTR3;
 
-#if !defined (DOS_MOD)
 #define _GFILLINTERIOR 0
 #define _GBORDER 1
-#endif
 
 #define do0(p1,p2,p3) for(p1=(int)(p2); p1<=(int)(p3); ++p1)
 #define dou(p1,p2,p3) for(p1=(p2); p1<=(p3); ++p1)

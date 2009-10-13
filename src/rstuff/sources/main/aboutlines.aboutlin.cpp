@@ -64,9 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
-/*#include <windows.h>*/
 /*  interface our-other  */
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "dpuma.h"
 #include "rsdefines.h"
 #include "rsmemory.h"

@@ -70,7 +70,7 @@
 #include "cline.h"
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
-#include "lns.h"
+#include "lns32/lns.h"
 #include "dpuma.h"
 #include "pumadef.h"
 #include "rshelllinescom.h"

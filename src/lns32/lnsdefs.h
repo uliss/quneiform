@@ -69,7 +69,6 @@ typedef struct tagLnsFrag {
 #define LF_STICK_TOP    0x0040 // there is stick at top side - may be letter
 #define LF_STICK_BOTTOM 0x0080 // there is stick at top side - may be letter
 #define LF_TEXT     0x0002 // fragment seems to be part of text (can be combined with LF_LINE)
-
 	int32_t mass; // count of filtered black pixels
 	Rect16 rc; // real image rect
 	CIF::Point16 A, B; // start and end - if ~LF_LINE - may be not linear, so...
@@ -192,9 +191,6 @@ typedef struct tagLineInfo {
 typedef struct tagLnsInfoArray {
 	LineInfo* Lns; // first line pointer
 	int32_t Cnt; // total lines count
-	//   int32_t          SumLen;         // sum lines len (excluding noise)
-	//removed   int32_t          NoiseCnt;       // count of noise lines
-	//   int32_t          ExtCnt;         // count of extended lines
 	char reserved[12];
 } LnsInfoArray;
 
@@ -220,22 +216,20 @@ typedef struct tagLinesTotalInfo {
 	uchar __buf[32];
 } LinesTotalInfo;
 
-#ifdef __cplusplus
 inline void ltiGetNotNoise(LinesTotalInfo* plti, // get
 		int& hcnt, int& vcnt // put
 ) {
-	int i;
 	hcnt = plti->Hor.Cnt;
-	for (i = 0; i < plti->Hor.Cnt; i++) {
+	for (int i = 0; i < plti->Hor.Cnt; i++) {
 		if (plti->Hor.Lns[i].Flags & LI_NOISE)
 			hcnt--;
 	}
 
 	vcnt = plti->Ver.Cnt;
-	for (i = 0; i < plti->Ver.Cnt; i++) {
+	for (int i = 0; i < plti->Ver.Cnt; i++) {
 		if (plti->Ver.Lns[i].Flags & LI_NOISE)
 			vcnt--;
 	}
 }
-#endif
+
 #endif

@@ -54,16 +54,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-# include <setjmp.h>
-# include <string.h>
-#include<math.h>
-#include<time.h>
+#include <setjmp.h>
+#include <string.h>
+#include <math.h>
+#include <time.h>
 
 #include "rselstr.h"
 
-# include "new_c.h"
+#include "new_c.h"
 #include "cline.h"
-#include "lns.h"
+#include "lns32/lns.h"
 #include "rline.h"
 
 #include "minmax.h"

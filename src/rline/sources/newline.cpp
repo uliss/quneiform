@@ -64,7 +64,7 @@
 
 #include "stdafx.h"
 #include "linedefs.h"
-#include "lnsdefs.h"
+#include "lns32/lnsdefs.h"
 #include "cpage/cpage.h"
 #include "cimage/ctiimage.h"
 
