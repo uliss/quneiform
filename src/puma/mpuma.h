@@ -256,29 +256,4 @@ long _EnumFormatMode(long prev);
 long _EnumTable(long prev);
 long _EnumPicture(long prev);
 
-// common.cpp
-Bool32 rexcProgressStep(uint32_t);
-// Функции прогресс индикатора.
-// 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
-// 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
-// 3. Перед вызовом функции надо установить диапозон прогресса для этой функции в масштабе 0 - 100
-//		Для этого надо выполнить StorePRGTIME(uint32_t beg, uint32_t end);
-// 4. После возврата из этой функции надо восстановить счетчик функцией RestorePRGTIME(PRGTIME prev)
-//		Параметром этой функции должно быть возвращаемое значение функции StorePRGTIME
-// 5. В конце функции вызвать DonePRGTIME
-void ResetPRGTIME();
-Bool32 InitPRGTIME();
-Bool32 DonePRGTIME();
-PRGTIME StorePRGTIME(uint32_t beg, uint32_t end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
-void RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
-
-void ProgressStart();
-void ProgressFinish();
-Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent);
-Bool32 ProgressStepLayout(uint32_t step, uint32_t percent);
-Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
-Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
-Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
-Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
-
 #endif

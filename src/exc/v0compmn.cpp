@@ -132,8 +132,6 @@ void extrcomp() {
 	main_loop: Q.lineno++;
 	if (readline()) {
 		analise();
-		// TGCV   if (Q.lineno >= progress_next)
-		progress_set_percent(Q.lineno);
 		goto main_loop;
 	}
 

@@ -162,8 +162,8 @@ void PumaImpl::extractComponents() {
 	CCOM_DeleteContainer((CCOM_handle) hCCOM);
 	hCCOM = NULL;
 
-	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
-		throw PumaException("REXC_SetImportData failed");
+//	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
+//		throw PumaException("REXC_SetImportData failed");
 
 	// будет распознавания эвентами
 	exc.Control = Ex_ExtraComp | Ex_Picture;
@@ -255,31 +255,31 @@ void PumaImpl::layout() {
 	int size_work = CIF::PumaImpl::WorkBufferSize;
 
 #define SET_CB(a,b)   a.p##b = (void*)b
-	SET_CB(CBforRS, ProgressStart);
-	CBforRS.pProgressStep = (void*) ProgressStepLayout;
-	CBforRS.pProgressStepLines = (void*) ProgressStepLines;
-	CBforRS.pProgressStepTables = (void*) ProgressStepTables;
-	SET_CB(CBforRS, ProgressFinish);
-	SET_CB(CBforRS, InitPRGTIME);
-	SET_CB(CBforRS, StorePRGTIME);
-	SET_CB(CBforRS, RestorePRGTIME);
-	SET_CB(CBforRS, DonePRGTIME);
-	SET_CB(CBforRS, rexcProgressStep);
+//	SET_CB(CBforRS, ProgressStart);
+//	CBforRS.pProgressStep = (void*) ProgressStepLayout;
+//	CBforRS.pProgressStepLines = (void*) ProgressStepLines;
+//	CBforRS.pProgressStepTables = (void*) ProgressStepTables;
+//	SET_CB(CBforRS, ProgressFinish);
+//	SET_CB(CBforRS, InitPRGTIME);
+//	SET_CB(CBforRS, StorePRGTIME);
+//	SET_CB(CBforRS, RestorePRGTIME);
+//	SET_CB(CBforRS, DonePRGTIME);
+//	SET_CB(CBforRS, rexcProgressStep);
 	SET_CB(CBforRS, DPumaSkipComponent);
 	SET_CB(CBforRS, DPumaSkipTurn);
 	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
 	SET_CB(CBforRS, GetModulePath);
 	SET_CB(CBforRS, SetUpdate);
 
-	SET_CB(CBforRM, ProgressStart);
-	CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
-	CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
-	SET_CB(CBforRM, ProgressFinish);
-	SET_CB(CBforRM, InitPRGTIME);
-	SET_CB(CBforRM, StorePRGTIME);
-	SET_CB(CBforRM, RestorePRGTIME);
-	SET_CB(CBforRM, DonePRGTIME);
-	SET_CB(CBforRM, rexcProgressStep);
+//	SET_CB(CBforRM, ProgressStart);
+//	CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
+//	CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
+//	SET_CB(CBforRM, ProgressFinish);
+//	SET_CB(CBforRM, InitPRGTIME);
+//	SET_CB(CBforRM, StorePRGTIME);
+//	SET_CB(CBforRM, RestorePRGTIME);
+//	SET_CB(CBforRM, DonePRGTIME);
+//	SET_CB(CBforRM, rexcProgressStep);
 	SET_CB(CBforRM, DPumaSkipComponent);
 	SET_CB(CBforRM, DPumaSkipTurn);
 	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;

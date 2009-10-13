@@ -122,13 +122,6 @@ extern Handle hEnd;
 static uint32_t gwRC = 0;
 Bool dpDebugUpDown;
 
-static Bool32 rblockProgressStep(uint32_t perc) {
-	return ProgressStepAutoLayout(2, perc);
-}
-static void rblockProgressFinish(void) {
-	ProgressStepAutoLayout(2, 100);
-}
-
 Bool32 PageMarkup(PRMPreProcessImage Image) {
 
 	LDPUMA_Skip(hPrep);
@@ -207,8 +200,6 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
 
 	LDPUMA_Skip(hBlocks);
 
-	if (!ProgressStepAutoLayout(1, 40))
-		rc = FALSE;
 	if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
 		Image->hCPAGE = CPAGE_RestorePage(TRUE,
 				(pchar)(Image->szLayoutFileName));
@@ -224,11 +215,6 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
 		if (rc) {
 			if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
 				Bool32 bEnableSearchPicture;
-				PRGTIME prev = StorePRGTIME(40, 100);
-				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep,
-						(void*) rblockProgressStep);
-				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,
-						(void*) rblockProgressFinish);
 				bEnableSearchPicture = Image->gnPictures;
 				RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture,
 						&bEnableSearchPicture);
@@ -240,14 +226,11 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
 					SetReturnCode_rmarker(RBLOCK_GetReturnCode());
 					rc = FALSE;
 				}
-				RestorePRGTIME(prev);
 
 			} else
 				LDPUMA_Console("Пропущен этап автоматического Layout.\n");
 		}
 	}
-	if (!ProgressStepAutoLayout(1, 100))
-		rc = FALSE;
 
 	CCOM_DeleteContainer(big_Image.hCCOM);
 

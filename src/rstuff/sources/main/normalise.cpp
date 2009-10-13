@@ -132,63 +132,23 @@ extern Handle hDebugPrintResolution;
 
 Bool32 AutoTemplate(PRSPreProcessImage);
 void checkResolution(Handle hCCOM, Handle hCPAGE);
-////////////////////////////////////////////////////////////////////////////////
+
 // Нормализация сырь
 // (07.07.2000) Изначально взято из puma.dll без изменений
 Bool32 Normalise(PRSPreProcessImage Image) {
-	Bool32 rc;
-
-	LDPUMA_Skip(hPrep);
-
-	rc = PreProcessImage(Image);
-
-	LDPUMA_Skip(hDebugAutoTemplate);
-
-	//	if( rc )
-	//		rc = AutoTemplate( Image );
-	//		rc = RNORM_AutoTemplate( Image );
-
-	LDPUMA_Skip(hSearchLine);
-
-	if (rc)
-		rc = SearchLines(Image);
-
-	LDPUMA_Skip(hCalcIncline);
-
-	if (rc)
-		rc = CalcIncline(Image);
-
-	LDPUMA_Skip(hOrto);
-
-	if (rc)
-		rc = OrtoMove(Image);
-
-	LDPUMA_Skip(hContBigComp);
-
-	if (rc)
-		rc = CreateContainerBigComp(Image);
-
-	LDPUMA_Skip(hVerOrNewLine);
-
-	if (rc)
-		rc = SearchNewLines(Image);
-
-	LDPUMA_Skip(hKillLine);
-
-	// снятие линий
-	if (rc)
-		rc = KillLinesN(Image);
-
-	LDPUMA_Skip(hKillLineAfter);
+	PreProcessImage(Image);
+	SearchLines(Image);
+	CalcIncline(Image);
+	OrtoMove(Image);
+	CreateContainerBigComp(Image);
+	SearchNewLines(Image);
+	KillLinesN(Image);
 
 	// убиваем остатки линии после сняти
-	if (rc && LDPUMA_Skip(Image->hDebugCancelRemoveLines))
+	if (LDPUMA_Skip(Image->hDebugCancelRemoveLines))
 		//		rc = //almi 28.11.00
 		LineKiller(Image);
-
-	LDPUMA_Skip(hEnd);
-
-	return rc;
+	return TRUE;
 }
 
 Bool32 VerifyN(PRSPreProcessImage Image) {
@@ -271,74 +231,49 @@ Bool32 KillLinesN(PRSPreProcessImage Image) {
 
 	return rc;
 }
-////////////////////////////////////////////////////////////////////////////////
+
 // Предварительная обработка
 // (07.07.2000) Изначально взято из puma.dll без изменений
 // сильно привязана к пуме
 // в начале окучиваем выделение компонент
 Bool32 PreProcessImage(PRSPreProcessImage Image) {
-
 	Bool32 gbAutoRotate = Image->gbAutoRotate;
 	Handle hCPAGE = Image->hCPAGE;
 	const char * glpRecogName = *Image->pglpRecogName;
 	BitmapInfoHeader * info = (BitmapInfoHeader*) Image->pinfo;
-	Bool32 rc = TRUE;
 	uint32_t Angle = 0;
 
 	hWndTurn = 0;
 
-	if (InitPRGTIME())
-		ProgressStart();
-
-	if (!ProgressStep(1, 5))
-		rc = FALSE;
-
 	// Andrey 12.11.01
 	// Проинициализируем контейнер CPAGE
-	//
-	if (rc) {
-		PAGEINFO PInfo = { 0 };
-		GetPageInfo(hCPAGE, &PInfo);
-		strcpy((char*) PInfo.szImageName, glpRecogName);
-		PInfo.BitPerPixel = info->biBitCount;
-		PInfo.DPIX = info->biXPelsPerMeter * 254L / 10000;
-		//		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
-		PInfo.DPIY = info->biYPelsPerMeter * 254L / 10000;
-		//		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
-		PInfo.Height = info->biHeight;
-		PInfo.Width = info->biWidth;
-		//		PInfo.X = 0; Уже установлено
-		//		PInfo.Y = 0;
-		PInfo.Incline2048 = 0;
-		PInfo.Page = 1;
-		PInfo.Angle = Angle;
+	PAGEINFO PInfo = { 0 };
+	GetPageInfo(hCPAGE, &PInfo);
+	strcpy((char*) PInfo.szImageName, glpRecogName);
+	PInfo.BitPerPixel = info->biBitCount;
+	PInfo.DPIX = info->biXPelsPerMeter * 254L / 10000;
+	//		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
+	PInfo.DPIY = info->biYPelsPerMeter * 254L / 10000;
+	//		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
+	PInfo.Height = info->biHeight;
+	PInfo.Width = info->biWidth;
+	//		PInfo.X = 0; Уже установлено
+	//		PInfo.Y = 0;
+	PInfo.Incline2048 = 0;
+	PInfo.Page = 1;
+	PInfo.Angle = Angle;
+	SetPageInfo(hCPAGE, PInfo);
 
-		SetPageInfo(hCPAGE, PInfo);
-	}
-
-	////////////////////////////////////////////////////////
 	// Выделим компоненты
-	//
-	if (!ProgressStep(2, 65))
-		rc = FALSE;
+	if (LDPUMA_Skip(Image->hDebugCancelComponent)) {
+		ExtractComponents(gbAutoRotate, NULL, glpRecogName, Image);
+		//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
+		checkResolution(*(Image->phCCOM), hCPAGE);
+	} else
+		LDPUMA_Console("Пропущен этап выделения компонент.\n");
 
-	if (rc) {
-		if (LDPUMA_Skip(Image->hDebugCancelComponent)) {
-			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents(gbAutoRotate, NULL, glpRecogName, Image);
-			RestorePRGTIME(prev);
-			//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
-			checkResolution(*(Image->phCCOM), hCPAGE);
-			if (!ProgressStep(2, 100))
-				rc = FALSE;
-
-		} else
-			LDPUMA_Console("Пропущен этап выделения компонент.\n");
-	}
-	//
 	// Переинициализируем контейнер CPAGE
-	//
-	if (rc) {
+	{
 		PAGEINFO PInfo = { 0 };
 		GetPageInfo(hCPAGE, &PInfo);
 		strcpy((char*) PInfo.szImageName, glpRecogName);
@@ -358,10 +293,7 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 		SetPageInfo(hCPAGE, PInfo);
 	}
 
-	if (DonePRGTIME())
-		ProgressFinish();
-
-	return rc;
+	return TRUE;
 }
 
 // Выделение компонент
@@ -376,11 +308,6 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
 	} else {
 		CCOM_DeleteContainer((CCOM_handle) *Image->phCCOM);
 		*Image->phCCOM = NULL;
-	}
-
-	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep)) {
-		SetReturnCode_rstuff(REXC_GetReturnCode());
-		return FALSE;
 	}
 
 	// будет распознавания эвентами
@@ -494,13 +421,9 @@ Bool32 VerifyLines(PRSPreProcessImage Image) {
 Bool32 KillLines(PRSPreProcessImage Image) {
 	Bool32 rc = TRUE;
 
-	if (!ProgressStepLines(1/*,GetResourceString(IDS_REMOVELINE)*/, 30))
-		rc = FALSE;
-
-	if (rc && *Image->pgrc_line && *Image->pgneed_clean_line) {
+	if (*Image->pgrc_line && *Image->pgneed_clean_line) {
 		if (LDPUMA_Skip(Image->hDebugCancelRemoveLines)) {
 			puchar pDIB = NULL;
-			PRGTIME prev = StorePRGTIME(30, 40);
 
 			rc = RemoveLines(Image, &pDIB);
 
@@ -508,15 +431,13 @@ Bool32 KillLines(PRSPreProcessImage Image) {
 				*Image->pgpRecogDIB = pDIB;
 				LDPUMA_CreateWindow(NAME_IMAGE_DELLINE, *Image->pgpRecogDIB);
 			}
-			RestorePRGTIME(prev);
 		} else
 			LDPUMA_Console("Пропущен этап снятия линий.\n");
 	}
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	Handle hccom = *Image->phCCOM;
 	Handle hcpage = Image->hCPAGE;

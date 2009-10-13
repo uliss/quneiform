@@ -76,16 +76,13 @@
 #define RMARKER_FUNC  FUN_IMPO
 #endif
 
-///////////////////////////////////////////////////////////////////////////////////////////
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
 RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
 RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
-/////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct tagRMPreProcessImage {
 	puchar *pgpRecogDIB;
 	Bool32 gbAutoRotate;
@@ -125,30 +122,19 @@ typedef struct tagRMPreProcessImage {
 } RMPreProcessImage, *PRMPreProcessImage;
 
 typedef struct tagRMCBProgressPoints {
-	void * pProgressStart;
-	void * pProgressStepSearchTables;
-	void * pProgressStepAutoLayout;
-	void * pProgressFinish;
-	void * pInitPRGTIME;
-	void * pStorePRGTIME;
-	void * pRestorePRGTIME;
-	void * pDonePRGTIME;
-	void * prexcProgressStep;
 	void * pDPumaSkipComponent;
 	void * pDPumaSkipTurn;
 	void * pSetReturnCode;
 	void * pGetModulePath;
 	void * pSetUpdate;
 } RMCBProgressPoints, *PRMCBProgressPoints;
-////////////////////////////////////////////////////////////////////////////////////////////////
 #define PUMA_SVL_FIRST_STEP                         0x1
 #define PUMA_SVL_SECOND_STEP                        0x2
 #define PUMA_SVL_THRID_STEP                         0x3
 #define PUMAMaxNumLines                             2000
-////////////////////////////////////////////////////////////////////////////////////////////////
 #define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
 DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage,void*,int,void*,int))
-DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
+DEC_FUN(Bool32, SearchTableInZone, (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
 #undef DEC_FUN
 
-#endif //
+#endif
