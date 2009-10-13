@@ -328,7 +328,6 @@ int main(int argc, char **argv) {
 	 PUMA_SetPictures(g_nPicture);
 	 PUMA_SetTables(g_nTable);
 	 PUMA_SetFormatMode(g_nFormat);;
-	 PUMA_SetSize(g_bSize);
 	 PUMA_SetFormat(g_bFormat);
 	 PUMA_SetSerifName(g_strSerifName);
 	 PUMA_SetSansSerifName(g_strSansSerifName);
@@ -338,6 +337,7 @@ int main(int argc, char **argv) {
 	//	Puma::instance().setOptionUnrecognizedChar('?');
 	//	Puma::instance().setOptionBold(true);
 	//	Puma::instance().setOptionItalic(true);
+	//  Puma::instance().setOptionSize(true);
 	Puma::instance().setOptionUseSpeller(true);
 	Puma::instance().setOptionAutoRotate(true);
 
