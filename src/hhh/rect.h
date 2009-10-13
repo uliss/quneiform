@@ -71,6 +71,11 @@ public:
 		return pt1_.x();
 	}
 
+	void set(const PointImpl<T>& pos, T width, T height) {
+		pt0_ = pos;
+		pt1_.set(pos.x() + width, pos.y() + height);
+	}
+
 	void setHeight(T t) {
 		pt1_.setX(pt0_.x() + t);
 	}

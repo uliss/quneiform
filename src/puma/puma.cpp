@@ -94,62 +94,6 @@ int32_t PUMA_EnumPicture(int32_t nPrev) {
 	return _EnumPicture(nPrev);
 }
 
-bool PUMA_XGetTemplate(Rect32 *pRect) {
-	*pRect = gRectTemplate;
-	return true;
-}
-
-bool PUMA_XSetTemplate(Rect32 rect) {
-	Rect32 old_rect = gRectTemplate;
-	bool rc = false;
-	BitmapInfoHeader info;
-
-	if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
-		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
-		PAGEINFO PInfo;
-
-		GetPageInfo(hCPAGE, &PInfo);
-		//		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
-		PInfo.status &= ~3;
-		if (rect.left < 0 && rect.right < 0 && rect.bottom < 0 && rect.top < 0) {
-			rect.bottom = full.dwHeight;
-			rect.left = full.dwX;
-			rect.right = full.dwWidth;
-			rect.top = full.dwY;
-		}
-
-		if (old_rect.bottom == rect.bottom && old_rect.left == rect.left
-				&& old_rect.right == rect.right && old_rect.top == rect.top) {
-			PInfo.X = rect.left;
-			PInfo.Y = rect.top;
-			SetPageInfo(hCPAGE, PInfo);
-			return true;
-		}
-		if (CIMAGE_AddReadCloseRects(PUMA_IMAGE_USER, 1, &full)) {
-			if (rect.left >= 0 && rect.top >= 0 && (rect.right - rect.left)
-					<= info.biWidth && (rect.bottom - rect.top)
-					<= info.biHeight)
-
-			{
-				CIMAGE_Rect r = { rect.left, rect.top, rect.right - rect.left,
-						rect.bottom - rect.top };
-				rc = CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &r);
-				PInfo.X = rect.left;
-				PInfo.Y = rect.top;
-			} else {
-				CIMAGE_Rect r = { 0, 0, info.biWidth - 1, info.biHeight - 1 };
-				rc = CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &r);
-				PInfo.X = 0;
-				PInfo.Y = 0;
-			}
-			SetPageInfo(hCPAGE, PInfo);
-			SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-			gRectTemplate = rect;
-		}
-	}
-	return rc;
-}
-
 //OLEG fot Consistent
 void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength) {
 	extern char global_buf[];

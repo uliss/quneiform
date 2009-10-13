@@ -512,6 +512,10 @@ void PumaImpl::normalize() {
 	RPSTR_NormalizeVertStr();
 }
 
+Rect PumaImpl::pageTemplate() const {
+	return template_;
+}
+
 void PumaImpl::pass1() {
 	if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
 		savePass1(replaceFileExt(szInputFileName, "_1.cst"));
@@ -1215,6 +1219,52 @@ void setOptionUserDictionaryName(const char * name) {
 
 void PumaImpl::setOptionUseSpeller(bool value) {
 	gbSpeller = value ? TRUE : FALSE;
+}
+
+void PumaImpl::setPageTemplate(const Rect& r) {
+	Rect32 old_rect = gRectTemplate;
+	Rect rect = r;
+
+	BitmapInfoHeader info;
+	if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
+		CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
+		PAGEINFO PInfo;
+		GetPageInfo(hCPAGE, &PInfo);
+		//		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
+		PInfo.status &= ~3;
+		if (rect.left() < 0 && rect.right() < 0 && rect.bottom() < 0
+				&& rect.top() < 0) {
+			rect.set(Point(full.dwX, full.dwY), full.dwWidth, full.dwHeight);
+		}
+
+		if (old_rect.bottom == rect.bottom() && old_rect.left == rect.left()
+				&& old_rect.right == rect.right() && old_rect.top == rect.top()) {
+			PInfo.X = rect.left();
+			PInfo.Y = rect.top();
+			SetPageInfo(hCPAGE, PInfo);
+			return;
+		}
+
+		if (CIMAGE_AddReadCloseRects(PUMA_IMAGE_USER, 1, &full)) {
+			if (rect.left() >= 0 && rect.top() >= 0 && rect.width()
+					<= info.biWidth && rect.height() <= info.biHeight) {
+				CIMAGE_Rect rtmp = { rect.left(), rect.top(), rect.width(),
+						rect.height() };
+				CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
+				PInfo.X = rect.left();
+				PInfo.Y = rect.top();
+			} else {
+				CIMAGE_Rect
+						rtmp = { 0, 0, info.biWidth - 1, info.biHeight - 1 };
+				CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
+				PInfo.X = 0;
+				PInfo.Y = 0;
+			}
+			SetPageInfo(hCPAGE, PInfo);
+			SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+			setTemplate(rect);
+		}
+	}
 }
 
 void PumaImpl::setTemplate(const Rect& r) {

@@ -37,6 +37,7 @@ public:
 
 	void close();
 	void open(char * dib);
+	Rect pageTemplate() const;
 	void recognize();
 	void save(const std::string& outputFilename, int format) const;
 	void save(void * dest, size_t size, int format) const;
@@ -57,6 +58,7 @@ public:
 	void setOptionUnrecognizedChar(char ch);
 	void setOptionUserDictionaryName(const char * name);
 	void setOptionUseSpeller(bool value = true);
+	void setPageTemplate(const Rect& r);
 public:
 	static unsigned char * mainBuffer();
 	static unsigned char * workBuffer();
@@ -102,6 +104,7 @@ private:
 private:
 	std::auto_ptr<CTIControl> cimage_;
 	BitmapInfoHeader info_;
+	Rect template_;
 };
 
 }
