@@ -61,16 +61,14 @@
 #include "extrlns.h"
 #include "sweeper.h"
 #include "hliner.h"
+#include "skew1024.h"
+/// 10.02.99, VP ------- registering fragments for external usage
+#include "frag.h"
 
 using namespace CIF;
 
 static Err16 lnserr = ER_NONE;
 
-/// 10.02.99, VP ------- registering fragments for external usage
-#include "frag.h"
-/// --------------------
-
-/////////////////////////////////////////////////
 static int nSquares = 0;
 Rect16 BlackSquares[256] = { 0 };
 
@@ -113,7 +111,6 @@ Rect16* LnsGetCheckBoxes(int32_t* count) {
 	return CheckBoxes;
 }
 
-//////////////////////////////////////////////////
 void InitLNS(TImageOpen f_op, TImageRead f_rd, TImageClose f_cl); //tgreader.cpp
 
 void LnsPageStart(TImageAccess* img) {
@@ -139,8 +136,6 @@ Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len,
 			*result_v_count);
 }
 
-///////////////
-#include "lns_skew1024.h"
 static Bool32 __HasCorners(LineInfo& li, LinesTotalInfo* plti, Bool32 is_hor) {
 	Rect16 rcA = { li.A.x() - 8, li.A.y() - 8, li.A.x() + 8, li.A.y() + 8 };
 	Rect16 rcB = { li.B.x() - 8, li.B.y() - 8, li.B.x() + 8, li.B.y() + 8 };
@@ -153,7 +148,7 @@ static Bool32 __HasCorners(LineInfo& li, LinesTotalInfo* plti, Bool32 is_hor) {
 	};
 	return FALSE;
 }
-/////////////////////////////////////////////////////////
+
 void __RejectNearBound(LinesTotalInfo* plti) {
 	Rect32 imgrect;
 	Set(imgrect, 0, 0, plti->ImgSize.x() - 1, plti->ImgSize.y() - 1);
@@ -183,7 +178,8 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 		};
 
 		if ((((Mn.y() < imgrect.top + 100) || (Mx.y() > imgrect.bottom - 100)))
-				&& ((Mn.x() < imgrect.left + 50) || ((Mx.x() > imgrect.right - 50)))) {
+				&& ((Mn.x() < imgrect.left + 50) || ((Mx.x() > imgrect.right
+						- 50)))) {
 			if (!__HasCorners(li, plti, TRUE)) {
 				li.Flags |= LI_NOISE;
 				hcnt--;
@@ -211,7 +207,8 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 			};
 		}
 		if ((((Mn.x() < imgrect.left + 100) || (Mx.x() > imgrect.right - 100)))
-				&& ((Mn.y() < imgrect.top + 50) || ((Mx.y() > imgrect.bottom - 50)))) {
+				&& ((Mn.y() < imgrect.top + 50) || ((Mx.y() > imgrect.bottom
+						- 50)))) {
 			if (!__HasCorners(li, plti, FALSE)) {
 				li.Flags |= LI_NOISE;
 				vcnt--;
@@ -252,7 +249,7 @@ void __RejectNearBound(LinesTotalInfo* plti) {
 		};
 	};
 }
-//////////////
+
 Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len, int32_t min_v_len) {
 	int32_t h, v;
 	if (ExtrLinesGetInfo(lti, min_h_len, min_v_len, h, v)) {
@@ -291,7 +288,7 @@ TImageAccess* LnsGetSweepedImage(LinesTotalInfo* lti) {
 	swpimg.f_cl = LnsImageClose;
 	return &swpimg;
 }
-/////////////////////////////////////////////////
+
 Err16 LnsGetError() {
 	return lnserr;
 }
@@ -312,7 +309,6 @@ Bool16 LnsSetup(LnsSetupStr* ls) // can call before LnsExtractLines
 
 	return TRUE;
 }
-/////////////////////////////////////////
 
 /// 10.02.99, VP ------- registering fragments for external usage
 int LnsGetFragCount(Bool horisontal) {
@@ -322,4 +318,3 @@ int LnsGetFragCount(Bool horisontal) {
 LnsFrag* LnsGetFragments(Bool horisontal) {
 	return horisontal ? Frag_HGet(0) : Frag_VGet(0);
 }
-/// --------------------

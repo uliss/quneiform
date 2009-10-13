@@ -58,8 +58,7 @@
 
 #include "fararray.h"
 #include "lnscheck.h"
-#include "lns_skew1024.h"
-
+#include "skew1024.h"
 #include "point.h"
 
 using namespace CIF;
@@ -169,14 +168,14 @@ int StrLCompare(const void* S1, const void* S2) {
 void Rotate(int sk) {
 	long skew = -sk;
 	for (int i = 0; i < h_count; i++) {
-		Deskew(h_lns[i].A, skew);
-		Deskew(h_lns[i].B, skew);
-	};
+		h_lns[i].A.deskew(skew);
+		h_lns[i].B.deskew(skew);
+	}
 
 	for (int j = 0; j < v_count; j++) {
-		Deskew(v_lns[j].A, skew);
-		Deskew(v_lns[j].B, skew);
-	};
+		v_lns[j].A.deskew(skew);
+		v_lns[j].B.deskew(skew);
+	}
 }
 
 void CorrectDirection() {
