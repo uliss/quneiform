@@ -67,71 +67,6 @@ Bool32 rexcProgressStep(uint32_t step) {
 	return ProgressStep(2, NULL, step);
 }
 
-Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name) {
-	Bool32 rc = TRUE;
-	ExcControl exc = { 0 };
-
-	if (prev_ccom) {
-		*prev_ccom = hCCOM ? hCCOM : NULL;
-		hCCOM = NULL;
-	} else {
-		CCOM_DeleteContainer((CCOM_handle) hCCOM);
-		hCCOM = NULL;
-	}
-
-	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep)) {
-		SetReturnCode_puma(REXC_GetReturnCode());
-		return FALSE;
-	}
-
-	// будет распознавания эвентами
-	exc.Control = Ex_ExtraComp | Ex_Picture;
-
-	if (gnPictures)
-		exc.Control |= Ex_PictureLarge;
-
-	{
-		uchar w8 = (uchar) gbDotMatrix;
-		REXC_SetImportData(REXC_Word8_Matrix, &w8);
-
-		w8 = (uchar) gbFax100;
-		REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
-	}
-
-	CIMAGEIMAGECALLBACK clbk;
-	if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-		SetReturnCode_puma(0);
-		rc = FALSE;
-	}
-	if (rc && !REXCExtracomp3CB(
-			exc, // поиск компонент by 3CallBacks
-			(TImageOpen) clbk.CIMAGE_ImageOpen,
-			(TImageClose) clbk.CIMAGE_ImageClose,
-			(TImageRead) clbk.CIMAGE_ImageRead)) {
-		SetReturnCode_puma(REXC_GetReturnCode());
-		rc = FALSE;
-	}
-
-	if (rc) {
-		hCCOM = (Handle) REXCGetContainer();
-		if (hCCOM == 0) {
-			SetReturnCode_puma(REXC_GetReturnCode());
-			rc = FALSE;
-		}
-
-	}
-	if (rc) {
-		hCCOM = (Handle) REXCGetContainer();
-		if (hCCOM == 0) {
-			SetReturnCode_puma(REXC_GetReturnCode());
-			rc = FALSE;
-		}
-	}
-	if (rc)
-		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
-	return rc;
-}
-
 void SetOptionsToFRMT() {
 	RFRMT_SetImportData(RFRMT_Bool32_Bold, &gbBold);
 	RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
@@ -144,21 +79,18 @@ void SetOptionsToFRMT() {
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
-////////////////////////////////////////////////////////////
 void ProgressStart() {
 	LDPUMA_ProgressStart();
 	if (fnProgressStart)
 		fnProgressStart();
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void ProgressFinish() {
 	LDPUMA_ProgressFinish();
 	if (fnProgressFinish)
 		fnProgressFinish();
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent) {
 	Bool32 rc = TRUE;
 	static uint32_t old = 0;
@@ -176,26 +108,23 @@ Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent) {
 	old = perc;
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 ProgressStepLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 ProgressStepLines(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
-//////////////////////////////////////////////////////
+
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_SEARCHTABLE), percent);
 }
-//////////////////////////////////////////////////////
+
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent) {
 	return ProgressStep(step, GetResourceString(IDS_AUTOLAYOUT), percent);
 }
@@ -204,8 +133,7 @@ static uint32_t bInitPrgTime = 0;
 void ResetPRGTIME() {
 	bInitPrgTime = 0;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 DonePRGTIME() {
 	Bool32 rc = FALSE;
 	if (bInitPrgTime)
@@ -214,8 +142,7 @@ Bool32 DonePRGTIME() {
 		rc = TRUE;
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 InitPRGTIME() {
 	Bool32 rc = FALSE;
 	if (!bInitPrgTime) {
@@ -228,8 +155,7 @@ Bool32 InitPRGTIME() {
 	bInitPrgTime++;
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 	PRGTIME rc = g_PrgTime;
 
@@ -243,12 +169,11 @@ PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 void RestorePRGTIME(PRGTIME prev) {
 	g_PrgTime = prev;
 }
-/////////////////////////////////////////////////////////////////////
+
 Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 	Bool32 rc = FALSE;
 	CSTR_rast start = CSTR_GetFirstRaster(lout), stop =
@@ -376,13 +301,11 @@ Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE) {
 
 	return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect32 rect) {
 	return RMARKER_SearchTableInZone(hPAGE, hCCOM, perc, rect);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 IsUpdate(uint32_t flg) {
 	return (g_flgUpdate & flg) > 0;
 }
