@@ -162,8 +162,8 @@ void PumaImpl::extractComponents() {
 	CCOM_DeleteContainer((CCOM_handle) hCCOM);
 	hCCOM = NULL;
 
-//	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
-//		throw PumaException("REXC_SetImportData failed");
+	//	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
+	//		throw PumaException("REXC_SetImportData failed");
 
 	// будет распознавания эвентами
 	exc.Control = Ex_ExtraComp | Ex_Picture;
@@ -255,35 +255,13 @@ void PumaImpl::layout() {
 	int size_work = CIF::PumaImpl::WorkBufferSize;
 
 #define SET_CB(a,b)   a.p##b = (void*)b
-//	SET_CB(CBforRS, ProgressStart);
-//	CBforRS.pProgressStep = (void*) ProgressStepLayout;
-//	CBforRS.pProgressStepLines = (void*) ProgressStepLines;
-//	CBforRS.pProgressStepTables = (void*) ProgressStepTables;
-//	SET_CB(CBforRS, ProgressFinish);
-//	SET_CB(CBforRS, InitPRGTIME);
-//	SET_CB(CBforRS, StorePRGTIME);
-//	SET_CB(CBforRS, RestorePRGTIME);
-//	SET_CB(CBforRS, DonePRGTIME);
-//	SET_CB(CBforRS, rexcProgressStep);
 	SET_CB(CBforRS, DPumaSkipComponent);
 	SET_CB(CBforRS, DPumaSkipTurn);
 	CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
-	SET_CB(CBforRS, GetModulePath);
 	SET_CB(CBforRS, SetUpdate);
-
-//	SET_CB(CBforRM, ProgressStart);
-//	CBforRM.pProgressStepAutoLayout = (void*) ProgressStepAutoLayout;
-//	CBforRM.pProgressStepSearchTables = (void*) ProgressStepSearchTables;
-//	SET_CB(CBforRM, ProgressFinish);
-//	SET_CB(CBforRM, InitPRGTIME);
-//	SET_CB(CBforRM, StorePRGTIME);
-//	SET_CB(CBforRM, RestorePRGTIME);
-//	SET_CB(CBforRM, DonePRGTIME);
-//	SET_CB(CBforRM, rexcProgressStep);
 	SET_CB(CBforRM, DPumaSkipComponent);
 	SET_CB(CBforRM, DPumaSkipTurn);
 	CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
-	SET_CB(CBforRM, GetModulePath);
 	SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
@@ -455,7 +433,7 @@ void PumaImpl::modulesInit() {
 		if (!RRECCOM_Init(PUMA_MODULE_RRECCOM, ghStorage))
 			throw PumaException("RRECCOM_Init failed.");
 
-		RRECCOM_SetImportData(RRECCOM_OcrPath, GetModulePath());
+		RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 
 		if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
 			throw PumaException("RSL_Init failed.");
@@ -472,8 +450,8 @@ void PumaImpl::modulesInit() {
 		if (!RSELSTR_Init(PUMA_MODULE_RBLOCK, ghStorage))
 			throw PumaException("RSELSTR_Init failed.");
 
-		RSTR_SetImportData(RSTR_OcrPath, GetModulePath());
-		RSTR_SetImportData(RSTR_pchar_temp_dir, GetModuleTempPath());
+		RSTR_SetImportData(RSTR_OcrPath, modulePath());
+		RSTR_SetImportData(RSTR_pchar_temp_dir, moduleTmpPath());
 
 		if (!RSTR_Init(PUMA_MODULE_RSTR, ghStorage))
 			throw PumaException("RSTR_Init failed.");
@@ -521,6 +499,14 @@ void PumaImpl::open(char * dib) {
 
 	postOpenInitialize();
 	hCPAGE = CreateEmptyPage();
+}
+
+const char * PumaImpl::modulePath() const {
+	return ".";
+}
+
+const char * PumaImpl::moduleTmpPath() const {
+	return ".";
 }
 
 void PumaImpl::normalize() {

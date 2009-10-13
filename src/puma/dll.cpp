@@ -153,14 +153,3 @@ void SetReturnCode_puma(uint32_t rc) {
 	if (gwRC == nDebugReturnCode && nDebugReturnCode)
 		LDPUMA_Stop();
 }
-
-const char * GetModulePath() {
-	static const char szPath[PATH_MAX] = ".";
-	return szPath;
-}
-
-const char * GetModuleTempPath() {
-	static const char szTempPath[PATH_MAX] = ".";
-	return szTempPath;
-}
-

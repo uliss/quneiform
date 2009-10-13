@@ -53,6 +53,8 @@ private:
 	void loadLayoutFromFile(const std::string& fname);
 	void modulesDone();
 	void modulesInit();
+	const char * modulePath() const;
+	const char * moduleTmpPath() const;
 	void normalize();
 	void pass1();
 	void pass2();
