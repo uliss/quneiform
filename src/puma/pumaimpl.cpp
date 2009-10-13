@@ -1186,6 +1186,10 @@ void PumaImpl::setOptionPictures(puma_picture_t type) {
 	SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionSansSerifName(const char * name) {
+	gpSansSerifName = name;
+}
+
 void PumaImpl::setOptionSerifName(const char * name) {
 	gpSerifName = name;
 }

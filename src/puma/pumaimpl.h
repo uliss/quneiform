@@ -49,6 +49,7 @@ public:
 	void setOptionLanguage(language_t language);
 	void setOptionOneColumn(bool val);
 	void setOptionPictures(puma_picture_t type);
+	void setOptionSansSerifName(const char * name);
 	void setOptionSerifName(const char * name);
 	void setOptionSize(bool val);
 	void setOptionTable(puma_table_t mode);
