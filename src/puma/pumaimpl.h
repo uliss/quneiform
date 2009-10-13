@@ -59,7 +59,8 @@ private:
 	void spellCorrection();
 	void preOpenInitialize();
 	void preprocessImage();
-	void printResult();
+	void printResult(std::ostream& os);
+	void printResultLine(std::ostream& os, size_t lineNumber);
 	void postOpenInitialize();
 	void recognizeCorrection();
 	void recognizePass1();

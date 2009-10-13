@@ -282,6 +282,5 @@ Bool32 ProgressStepLines(uint32_t step, uint32_t percent);
 Bool32 ProgressStepTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent);
 Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent);
-Bool32 PrintResult(int num, CSTR_line lout, Handle hCPAGE);
 
 #endif

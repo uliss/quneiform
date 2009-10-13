@@ -15,6 +15,7 @@
 #include <sstream>
 #include <cassert>
 #include <cstring>
+#include <iomanip>
 
 #include "helper.h"
 #include "specprj.h"
@@ -626,11 +627,57 @@ void PumaImpl::preprocessImage() {
 	SetPageInfo(hCPAGE, PInfo);
 }
 
-void PumaImpl::printResult() {
-	// Печать результатов в консоль
+void PumaImpl::printResult(std::ostream& os) {
 	int count = CSTR_GetMaxNumber();
 	for (int i = 1; i <= count; i++)
-		PrintResult(i, CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT), hCPAGE);
+		printResultLine(os, i);
+}
+
+void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
+	CSTR_line lout = CSTR_GetLineHandle(lineNumber, CSTR_LINVERS_MAINOUT);
+	CSTR_rast start = CSTR_GetFirstRaster(lout);
+	CSTR_rast stop = CSTR_GetLastRaster(lout);
+	CSTR_attr line_attr = { 0 };
+
+	static int nFragment = -1;
+
+	CSTR_GetLineAttr(lout, &line_attr);
+
+	if (line_attr.fragment != nFragment) {
+		nFragment = -1;
+		Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, 0);
+		while (hBlock) {
+			if (CPAGE_GetBlockInterNum(hCPAGE, hBlock)
+					== (uint32_t) line_attr.fragment) {
+				nFragment = line_attr.fragment;
+				break;
+			}
+			hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, 0);
+		}
+	}
+
+	os << "Fragment" << setw(2) << line_attr.fragment << " Line" << setw(3)
+			<< lineNumber << ": <";
+
+	if (start && stop) {
+		CSTR_rast_attr attr;
+		UniVersions vers;
+		CSTR_rast c = CSTR_GetNextRaster(start, CSTR_f_all);
+		for (; c && c != stop; c = CSTR_GetNextRaster(c, CSTR_f_all)) {
+			CSTR_GetAttr(c, &attr);
+			if (!(attr.flg & (CSTR_f_let | CSTR_f_punct | CSTR_f_bad
+					| CSTR_f_space | CSTR_f_solid)))
+				continue;
+			if (CSTR_GetCollectionUni(c, &vers)) {
+				if (vers.lnAltCnt)
+					os << (char*) vers.Alt[0].Code;
+				else
+					os << '~';
+			}
+		}
+	}
+
+	os << ">\n";
 }
 
 void PumaImpl::postOpenInitialize() {
@@ -726,7 +773,7 @@ void PumaImpl::recognize() {
 	spellCorrection();
 	recognizeCorrection();
 
-	printResult();
+	printResult(cerr);
 
 	// OLEG fot Consistent
 	if (SPEC_PRJ_CONS == gnSpecialProject) {
