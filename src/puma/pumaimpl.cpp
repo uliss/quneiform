@@ -637,7 +637,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 	CSTR_line lout = CSTR_GetLineHandle(lineNumber, CSTR_LINVERS_MAINOUT);
 	CSTR_rast start = CSTR_GetFirstRaster(lout);
 	CSTR_rast stop = CSTR_GetLastRaster(lout);
-	CSTR_attr line_attr = { 0 };
+	CSTR_attr line_attr;
 
 	static int nFragment = -1;
 

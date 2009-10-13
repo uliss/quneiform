@@ -195,7 +195,7 @@ static int16_t pass3_num_killed_line() {
 }
 
 static void pass3_empty(CSTR_line lin, CSTR_line lino) {
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst = CSTR_GetNext(CSTR_GetFirstRaster(lin));
 
 	if (lin)
@@ -2283,7 +2283,7 @@ void CSTR_kill_dusts(CSTR_line lino) {
 void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled) {
 	cell* c, cc;
 	CSTR_rast_attr attr, zattr = { 0 };
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst, old_rst = CSTR_GetFirstRaster(lino);
 	UniVersions uvs;
 	int16_t macol, micol, marow, mirow;

@@ -120,7 +120,7 @@ void file_string(STRING * s) {
 
 		CSTR_rast_attr attr = { 0 };
 		CSTR_rast rst = { 0 };
-		CSTR_attr lattr = { 0 };
+		CSTR_attr lattr;
 
 		lattr.incline = nIncline; // Incline*2048 = tg
 		lattr.fragment = s->nBlock - FIRST_REGULAR_BLOCK_NUMBER;

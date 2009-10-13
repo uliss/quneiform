@@ -1087,7 +1087,7 @@ Bool32 free_line(CSTR_line ln) {
 }
 
 static void set_empty_line(CSTR_line ln) {
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst = CSTR_GetNext(CSTR_GetFirstRaster(ln));
 
 	CSTR_GetLineAttr(ln, &attrlin);
@@ -1101,7 +1101,7 @@ static void set_empty_line(CSTR_line ln) {
 
 Bool copy_cap_drop(CSTR_line lin, CSTR_line lino) {
 	CSTR_rast ri, ro;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 	CCOM_USER_BLOCK ub;
 	CCOM_comp *ci, *co;
 	int32_t n;
@@ -1509,7 +1509,7 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
 		CSTR_line lino) {
 	int rc;
 	uchar lang = language;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 
 	//test_count_lines++;
 
@@ -1651,7 +1651,7 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
 //********************************************
 Bool32 RSTRRecognizePostMain(CSTR_line lin, // pointer to raw string
 		CSTR_line lino) {
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 
 	CSTR_GetLineAttr(lin, &lattr);
 
@@ -1687,7 +1687,7 @@ Bool32 RSTRRecognizePostMain(CSTR_line lin, // pointer to raw string
 Bool32 RSTRRecognizeBL(CSTR_line lin) {
 	int rc;
 	uchar lang = language;
-	CSTR_attr lattr = { 0 };
+	CSTR_attr lattr;
 	Bool32 ret;
 
 	local_ret_error_code = 0;

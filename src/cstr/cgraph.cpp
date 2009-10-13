@@ -515,7 +515,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in) {
 
 	CSTR_rast rst = rast, curr_rst = rast;
 	CSTR_rast beg, end;
-	CSTR_attr attr = { 0 };
+	CSTR_attr attr;
 	CSTR_rast_attr rast_attr = { 0 };
 
 	UniVersions uvers = { 0 };
@@ -663,7 +663,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in) {
 	Bool32 flg;
 	CSTR_rast rst;
 	CSTR_rast_attr rast_attr = { 0 };
-	CSTR_attr attr = { 0 };
+	CSTR_attr attr;
 	UniVersions uvers = { 0 };
 	CGRAPH_Data cstr = { 0 };
 	uchar *lp = NULL;

@@ -72,7 +72,18 @@ typedef struct tagCSTR_stick {
 	int16_t incl;
 } CSTR_stick;
 
-typedef struct strucCSTR_attr {
+struct CSTR_attr {
+public:
+	CSTR_attr() :
+		incline(0), fragment(0), col(0), row(0), r_col(0), r_row(0), r_hei(0),
+				r_wid(0), l_col(0), l_row(0), wid(0), hei(0), Flags(0), bs1(0),
+				bs2(0), bs3(0), bs4(0), Nb1(0), Nb2(0), Nb3(0), Nb4(0), Nbt(0),
+				bsm(0), Ps(0), Psf(0), tab_row(0), ref_father(0), ref_nSon(0),
+				ref_twin(0), pageSkew2048(0), ResolutionY(0), language(0),
+				scale(0), l_hei(0), l_wid(0), erection(0), agregat(0),
+				tab_column(0), number(0), version(0), agregat_row(0),
+				tab_number(0), cn_weight(0) {
+	}
 
 	int32_t incline; // Incline*2048 = tg
 	int32_t fragment;
@@ -131,9 +142,10 @@ typedef struct strucCSTR_attr {
 	uchar tab_number;
 	uchar cn_weight; // due to car numbers recognition
 	// align to 128 bytes
-} CSTR_attr;
+};
 
-typedef struct strucCSTR_rast_attr {
+struct CSTR_rast_attr {
+public:
 	int16_t row; // ideal row of cell
 	int16_t col; // ideal collumn of cell
 	//// 4
@@ -345,7 +357,7 @@ typedef struct strucCSTR_rast_attr {
 	uchar bottom_accent; // need save in Rbal
 	//// 103 !
 	uchar reserve[25]; // for next special flags, aling to 128
-} CSTR_rast_attr;
+};
 
 typedef struct strucCSTR_cell {
 	CSTR_rast_attr attr;
@@ -393,7 +405,6 @@ typedef struct strucCSTR_cell * CSTR_rast;
 
 typedef int32_t CSTR_rast;
 #endif
-
 
 // разные версии линий
 enum cstr_line_version_t {

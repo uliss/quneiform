@@ -506,7 +506,7 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c) {
 void p2_CellsToCSTR(CSTR_line lino) {
 	cell* c, cc;
 	CSTR_rast_attr attr;
-	CSTR_attr attrlin = { 0 };
+	CSTR_attr attrlin;
 	CSTR_rast rst, old_rst = CSTR_GetFirstRaster(lino);
 	UniVersions uvs;
 
