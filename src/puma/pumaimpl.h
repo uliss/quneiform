@@ -55,6 +55,7 @@ public:
 	void setOptionSize(bool val);
 	void setOptionTable(puma_table_t mode);
 	void setOptionUnrecognizedChar(char ch);
+	void setOptionUserDictionaryName(const char * name);
 	void setOptionUseSpeller(bool value = true);
 public:
 	static unsigned char * mainBuffer();

@@ -1211,6 +1211,10 @@ void PumaImpl::setOptionUnrecognizedChar(char ch) {
 	gnUnrecogChar = ch;
 }
 
+void setOptionUserDictionaryName(const char * name) {
+	gpUserDictName = name;
+}
+
 void PumaImpl::setOptionUseSpeller(bool value) {
 	gbSpeller = value ? TRUE : FALSE;
 }
