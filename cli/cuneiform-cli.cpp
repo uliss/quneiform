@@ -325,7 +325,6 @@ int main(int argc, char **argv) {
 	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
 
 	/* From recogpuma.cpp
-	 PUMA_SetTables(g_nTable);
 	 PUMA_SetSerifName(g_strSerifName);
 	 PUMA_SetSansSerifName(g_strSansSerifName);
 	 PUMA_SetCourierName(g_strCourierName);
@@ -336,7 +335,8 @@ int main(int argc, char **argv) {
 	//	Puma::instance().setOptionItalic(true);
 	//  Puma::instance().setOptionSize(true);
 	//  Puma::imstance().setOptionFormatMode(puma_format_mode_t t);
-	//	Puma::instance().setOptionPictures(puma_picture_t type);
+	//	Puma::instance().setOptionPictures(puma_picture_t mode);
+	//  Puma::instance().setOptionPictures(puma_table_t mode);
 	Puma::instance().setOptionUseSpeller(true);
 	Puma::instance().setOptionAutoRotate(true);
 
