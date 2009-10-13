@@ -96,7 +96,6 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 
 	switch (dwType) {
 	CASE_PDATA(PUMA_pchar_UserDictName,char *,gpUserDictName)
-	CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName)
 	CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName)
 	CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName)
 	default:

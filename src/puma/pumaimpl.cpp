@@ -1186,6 +1186,10 @@ void PumaImpl::setOptionPictures(puma_picture_t type) {
 	SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionSerifName(const char * name) {
+	gpSerifName = name;
+}
+
 void PumaImpl::setOptionSize(bool val) {
 	gbSize = val ? TRUE : FALSE;
 }
