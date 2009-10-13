@@ -62,9 +62,9 @@
 #include "point.h"
 
 #ifdef __DPUMA__
-#define DPUMA_FUNC  FUN_EXPO
+#define DPUMA_FUNC  //FUN_EXPO__
 #else
-#define DPUMA_FUNC  FUN_IMPO
+#define DPUMA_FUNC  //FUN_IMPO__
 #endif
 
 #define  DPUMA_REC_MAX_RASTER_SIZE   4*1024  // 256*128
@@ -151,13 +151,14 @@ enum DPUMA_EXPORT {
 	DPUMA_FNDPUMA_DrawLineTip,
 	DPUMA_FNDPUMA_DrawRectTip
 };
-#define DEC_FUNC(a,b,c) typedef a (*FN##b) c; DPUMA_FUNC(a) b c; a L##b c;
+#define DEC_FUNC(a,b,c) typedef a (*FN##b) c; DPUMA_FUNC a b c; a L##b c;
 #define DEC_VARG(a,b) typedef a (*FN##b)(const char * lpFormat,char * marker); \
-						DPUMA_FUNC(a) b (const char * lpFormat,char * marker); \
+						DPUMA_FUNC a b (const char * lpFormat,char * marker); \
 						a L##b (const char * lpFormat,...);
 #define DEC_VARGP(a,b,c) typedef a (*FN##b)(c,const char * lpFormat,char * marker); \
-						DPUMA_FUNC(a) b (c,const char * lpFormat,char * marker); \
+						DPUMA_FUNC a b (c,const char * lpFormat,char * marker); \
 						a L##b (c,const char * lpFormat,...);
+
 DEC_FUNC(Bool32, DPUMA_Init,(uint16_t wHightCode, Handle hStorage))
 DEC_FUNC(Bool32, DPUMA_Done,())
 DEC_FUNC(uint32_t, DPUMA_GetErrorCode,(void))
