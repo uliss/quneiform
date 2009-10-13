@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "cfcompat.h"
+#include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
 #include "cimage/imageinfo.h"
@@ -38,6 +39,7 @@ public:
 	void recognize();
 	void save(const std::string& outputFilename, int format) const;
 	void save(void * dest, size_t size, int format) const;
+	void setLanguage(language_t language);
 	void useSpeller(bool value = true);
 public:
 	static unsigned char * mainBuffer();

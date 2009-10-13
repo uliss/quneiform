@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _LANGDEF_INCLUDED_
 #define _LANGDEF_INCLUDED_
 
-enum Languages {
+enum language_t {
     LANG_ENGLISH    = 0,
     LANG_GERMAN     = 1,
     LANG_FRENCH     = 2,

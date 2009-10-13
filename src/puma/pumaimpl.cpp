@@ -1144,6 +1144,11 @@ void PumaImpl::setFormatOptions() {
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
+void PumaImpl::setLanguage(language_t lang) {
+	gnLanguage = lang;
+	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
+}
+
 void PumaImpl::setTemplate(const Rect& r) {
 	gRectTemplate.left = r.left();
 	gRectTemplate.right = r.right();
