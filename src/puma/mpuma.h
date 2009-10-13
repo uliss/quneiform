@@ -235,18 +235,11 @@ EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
-EXTERN PRGTIME g_PrgTime;
-//////////////////////////////////////////////////////////////////
-// 07.07,2000 Allex
-// Вынес Бинаризацию наверх из PreProcessImage
-//////////////////////////////////////////////////////////Allex
 //functions
 void SetReturnCode_puma(uint32_t rc);
 uint32_t GetReturnCode_puma();
 char * GetModulePath();
 char * GetModuleTempPath();
-char * GetResourceString(uint32_t id);
-char * GetModulesString(uint32_t dwError);
 
 // Enum.cpp
 long _EnumFormats(long prev);
