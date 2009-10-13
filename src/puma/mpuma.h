@@ -111,8 +111,6 @@ EXTERN Bool32 gbDotMatrix VAL(FALSE);
 EXTERN Bool32 gbBold VAL(TRUE);
 EXTERN Bool32 gbItalic VAL(TRUE);
 EXTERN Bool32 gbSize VAL(TRUE);
-EXTERN Bool32 gbFormat VAL(TRUE);
-// устарела см. gnFormat
 EXTERN uint32_t gnFormat VAL(1);
 EXTERN Bool32 gnPreserveLineBreaks VAL(FALSE);
 EXTERN uchar gnUnrecogChar VAL('~');

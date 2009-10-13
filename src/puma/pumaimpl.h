@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "cfcompat.h"
+#include "pumadef.h"
 #include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
@@ -43,6 +44,7 @@ public:
 	void setOptionBold(bool val);
 	void setOptionDotMatrix(bool val);
 	void setOptionFax100(bool val);
+	void setOptionFormatMode(puma_format_mode_t format);
 	void setOptionItalic(bool val);
 	void setOptionLanguage(language_t language);
 	void setOptionOneColumn(bool val);

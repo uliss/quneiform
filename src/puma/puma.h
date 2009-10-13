@@ -130,32 +130,6 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_XGetTemplate
 };
 
-// Format codes
-enum puma_format_t {
-	PUMA_TOEDNATIVE = 0,
-	PUMA_TOTEXT = 0x02,
-	PUMA_TOSMARTTEXT = 0x04,
-	PUMA_TORTF = 0x08,
-	PUMA_TOTABLETXT = 0x0100,
-	PUMA_TOTABLECSV = 0x0200,
-	PUMA_TOTABLEDBF = 0x0400,
-	PUMA_TOTABLEODBC = 0x0800,
-	PUMA_TOTABLEWKS = 0x1000,
-	PUMA_TOHTML = 0x2000,
-	PUMA_TOHOCR = 0x4000,
-	PUMA_DEBUG_TOTEXT = 0x8000
-};
-
-//       Codes
-enum puma_code_t {
-	PUMA_CODE_UNKNOWN = 0x0000,
-	PUMA_CODE_ASCII = 0x0001,
-	PUMA_CODE_ANSI = 0x0002,
-	PUMA_CODE_KOI8 = 0x0004,
-	PUMA_CODE_ISO = 0x0008,
-	PUMA_CODE_UTF8 = 0x0010
-};
-
 bool LPUMA_Load(char * lpPath);
 void LPUMA_Unload(void);
 
@@ -253,10 +227,6 @@ PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
 PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 
 #undef DEC_FUN
-
-# define PUMA_FORMAT_NONE			  0x0040
-# define PUMA_FORMAT_ALL				  0x0001
-# define PUMA_FORMAT_ONLY_FRAME		0x0002
 
 # define PUMA_TABLE_NONE			0
 # define PUMA_TABLE_DEFAULT			1

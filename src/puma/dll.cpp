@@ -95,26 +95,15 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 #define CASE_PDATA(a,b,c)		case a: c = (b)pData; break;
 
 	switch (dwType) {
-	CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat)
 	CASE_PDATA(PUMA_pchar_UserDictName,char *,gpUserDictName)
 	CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName)
 	CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName)
 	CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName)
 	CASE_DATAUP(PUMA_Word32_Pictures,uint32_t,gnPictures,FLG_UPDATE_CPAGE)
 	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE)
-	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
 	default:
 		//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
-	}
-	// Связь с предыдущими версиями
-	switch (dwType) {
-	case PUMA_Bool32_Format:
-		gnFormat = gbFormat ? gnFormat : 64;
-		break;
-	case PUMA_Word32_Format:
-		gbFormat = gnFormat == 64 ? 0 : 1;
-		break;
 	}
 
 #undef CASE_DATA
