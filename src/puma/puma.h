@@ -105,23 +105,13 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_EnumLanguages = 1,
 	PUMA_FNPUMA_EnumFormats,
 	PUMA_FNPUMA_EnumCodes,
-	PUMA_pchar_UserDictName,
-	PUMA_Bool32_Size,
-	PUMA_Bool32_Format,
-	PUMA_pchar_SerifName,
-	PUMA_pchar_SansSerifName,
-	PUMA_pchar_CourierName,
-	PUMA_Word32_Pictures,
-	PUMA_Word32_Tables,
 	PUMA_pchar_Version,
-	PUMA_Word32_Format,
 	PUMA_FNPUMA_EnumFormatMode,
 	PUMA_FNPUMA_EnumTable,
 	PUMA_FNPUMA_EnumPicture,
 	PUMA_Word8_Format,
 	PUMA_Point32_PageSize,
 	PUMA_FNPUMA_XSetTemplate,
-	PUMA_Handle_CurrentEdPage,
 	PUMA_Bool32_PreserveLineBreaks,
 	PUMA_LPPUMAENTRY_CED,
 	PUMA_LPPUMAENTRY_ROUT,
@@ -189,24 +179,7 @@ uint32_t LCED_DeletePage(Handle hEdPage);
 
 // Module functions
 DEC_FUN(int, GetReturnCode,())
-DEC_FUN(char *, GetReturnString,(uint32_t))
-DEC_FUN(bool, SetImportData,(uint32_t, void *))
-
 PUMA_FUNC int PUMA_GetReturnCode();
-//PUMA_FUNC bool PUMA_SetImportData(uint32_t, void *);
-
-typedef struct {
-	FNPUMA_GetReturnCode fnGetReturnCode;
-	FNPUMA_GetReturnString fnGetReturnString;
-	FNPUMA_SetImportData fnSetImportData;
-} PUMAENTRY, *LPPUMAENTRY;
-// Enum
-DEC_FUN(int32_t, EnumLanguages,(int32_t))
-DEC_FUN(int32_t, EnumFormats,(int32_t))
-DEC_FUN(int32_t, EnumCodes,(int32_t, int32_t))
-DEC_FUN(int32_t, EnumFormatMode,(int32_t))
-DEC_FUN(int32_t, EnumTable,(int32_t))
-DEC_FUN(int32_t, EnumPicture,(int32_t))
 
 PUMA_FUNC int32_t PUMA_EnumLanguages(int32_t nPrev);
 PUMA_FUNC int32_t PUMA_EnumFormats(int32_t nPrev);
@@ -214,12 +187,6 @@ PUMA_FUNC int32_t PUMA_EnumCodes(int32_t format, int32_t nPrev);
 PUMA_FUNC int32_t PUMA_EnumFormatMode(int32_t nPrev);
 PUMA_FUNC int32_t PUMA_EnumTable(int32_t nPrev);
 PUMA_FUNC int32_t PUMA_EnumPicture(int32_t nPrev);
-
-// misc
-DEC_FUN(bool, XSetTemplate,(Rect32))
-DEC_FUN(bool, XGetTemplate,(Rect32*))
-DEC_FUN(void, GetSpecialBuffer,(char*,int32_t*))
-DEC_FUN(bool, SetSpecialProject,(uchar))
 
 PUMA_FUNC bool PUMA_XSetTemplate(Rect32 rect);
 PUMA_FUNC bool PUMA_XGetTemplate(Rect32 *pRect);

@@ -282,8 +282,6 @@ void PumaImpl::layout() {
 	DataforRS.pgnNumberTables = &gnNumberTables;
 	DataforRS.pgneed_clean_line = &gneed_clean_line;
 	DataforRS.gRectTemplate = gRectTemplate;
-	DataforRS.fnXSetTemplate = PUMA_XSetTemplate;
-	DataforRS.fnXGetTemplate = PUMA_XGetTemplate;
 	DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
 	DataforRS.hDebugCancelComponent = hDebugCancelComponent;
 	DataforRS.hDebugCancelTurn = hDebugCancelTurn;

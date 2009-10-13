@@ -105,8 +105,8 @@ typedef struct tagRSPreProcessImage {
 	uint32_t gnPictures;
 	Bool32* pgrc_line;
 	Rect32 gRectTemplate;
-	FNPUMA_XSetTemplate fnXSetTemplate;
-	FNPUMA_XGetTemplate fnXGetTemplate;
+//	FNPUMA_XSetTemplate fnXSetTemplate;
+//	FNPUMA_XGetTemplate fnXGetTemplate;
 	char *szLayoutFileName;
 } RSPreProcessImage, *PRSPreProcessImage;
 
