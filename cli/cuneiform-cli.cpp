@@ -318,22 +318,14 @@ int main(int argc, char **argv) {
 		return 1;
 
 	using namespace CIF;
-	Puma::instance();
 
-	//	PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
-
-	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
-	//	Puma::instance().setOptionUnrecognizedChar('?');
-	Puma::instance().setOptionUseSpeller(true);
-	Puma::instance().setOptionAutoRotate(true);
 	Puma::instance().setOptionOneColumn(onecolumn);
 	Puma::instance().setOptionFax100(fax);
+	Puma::instance().setOptionDotMatrix(dotmatrix);
+	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
 
-	Puma::instance().open(dib);
-	Puma::instance().recognize();
 
 	/* From recogpuma.cpp
-	 PUMA_SetDotMatrix(g_bDotMatrix);
 	 PUMA_SetPictures(g_nPicture);
 	 PUMA_SetTables(g_nTable);
 	 PUMA_SetFormatMode(g_nFormat);
@@ -346,6 +338,14 @@ int main(int argc, char **argv) {
 	 PUMA_SetCourierName(g_strCourierName);
 	 */
 
+
+	//	Puma::instance().setOptionUnrecognizedChar('?');
+	Puma::instance().setOptionUseSpeller(true);
+	Puma::instance().setOptionAutoRotate(true);
+
+
+	Puma::instance().open(dib);
+	Puma::instance().recognize();
 	Puma::instance().save(outfilename, outputformat);
 	Puma::instance().close();
 
