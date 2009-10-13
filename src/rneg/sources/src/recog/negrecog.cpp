@@ -60,7 +60,7 @@
 #include "negrecog.h"
 #include "rneg.h"
 #include "rstr/rstr.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "compat_defs.h"
 
 extern Bool dpPrintResConsole;

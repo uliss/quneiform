@@ -72,7 +72,7 @@
 #include "cpage/cpage.h"
 #include "lns32/lns.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "rshelllinescom.h"
 
 #include "compat_defs.h"

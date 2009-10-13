@@ -54,12 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*#include<windows.h>*/
 #include "rmarker.h"
 #include "rmarkermem.h"
 #include "rmfunc.h"
 #include "rneg.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "dpuma.h"
 
 Handle hLayout;

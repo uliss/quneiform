@@ -65,7 +65,7 @@
 #include "resource.h"
 #include "ced_struct.h"
 #include "cedint.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "cfio/cfio.h"
 using namespace CIF::CFIO;
 

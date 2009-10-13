@@ -57,7 +57,7 @@
 #include <stdio.h>
 
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "mainpic.h"
 #include "cpage/cpage.h"
 #include "ccom/ccom.h"

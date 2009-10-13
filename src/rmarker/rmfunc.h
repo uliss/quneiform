@@ -62,7 +62,7 @@
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "cpage/cpage.h"
-#include "mpumatime.h"
+#include "puma/mpumatime.h"
 
 typedef int Bool;
 

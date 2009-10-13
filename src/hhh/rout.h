@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __ROUT_H
 
 #include "puma/puma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 
 #ifdef __ROUT__
   #define ROUT_FUNC  FUN_EXPO

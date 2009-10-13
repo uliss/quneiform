@@ -61,12 +61,11 @@
 // frmtdll.cpp :
 // ============================================================================
 
-/*#include <windows.h>*/
 #include "resource.h"
 #define __RFRMT_EXTERN__
 #include "rfrmt.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "rfrmt_prot.h"
 #include "compat_defs.h"
 

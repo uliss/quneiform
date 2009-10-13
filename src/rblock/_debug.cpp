@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "status.h"
 
 # include "dpuma.h"
-# include "pumadef.h"
+# include "puma/pumadef.h"
 
 //////////////////////////////////
 Handle hDebugLayout = NULL;

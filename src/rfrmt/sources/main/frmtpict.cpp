@@ -73,7 +73,7 @@
 #include "rtfedwrite.h"
 #include "frmtpict.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "ctdib.h"
 #include "cimage/ctiimage.h"
 #include "frmtdibapi.h"

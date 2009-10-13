@@ -72,7 +72,7 @@
 #define __RSL_EXTERN__
 #include "cttypes.h"
 #include "linedefs.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "cpage/cpage.h"
 #include "cimage/ctiimage.h"
 #include "dpuma.h"

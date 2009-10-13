@@ -64,7 +64,7 @@
 #include "rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 
 #ifdef _DEBUG
 #include <fstream>

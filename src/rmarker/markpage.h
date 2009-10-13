@@ -59,7 +59,7 @@
 #include <rmarker.h>
 #include "puma/puma.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "mymem.h"
 #include "ccom/ccom.h"
 #include "ced.h"
@@ -77,7 +77,7 @@
 #include "rstr/rstr.h"
 #include "rstuff.h"
 #include "rverline.h"
-#include "mpumatime.h"
+#include "puma/mpumatime.h"
 #include "lns32/lnsdefs.h"
 #include "shortverticallinesfilter.h"
 #include "resource.h"

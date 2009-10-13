@@ -57,7 +57,7 @@
 #define __MAINPIC_H__
 # include "resource.h"
 # include "dpuma.h"
-# include "pumadef.h"
+# include "puma/pumadef.h"
 # include "debug.h"
 # include "rpic.h"
 # include "cpage/cpage.h"

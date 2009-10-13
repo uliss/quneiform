@@ -57,7 +57,7 @@
 #define __NEW_C_H__
 # include "resource.h"
 # include "dpuma.h"
-# include "pumadef.h"
+# include "puma/pumadef.h"
 # include "layout.h"
 # include "extract.h"
 # include "kernel.h"

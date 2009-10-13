@@ -62,7 +62,7 @@
 #include "graphics.h"
 
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 
 using namespace CIF;
 

@@ -63,13 +63,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-/*#include <windows.h>*/
 /*  interface our  */
 #include "skew1024.h"
 /*  interface our-other  */
 #include "lns32/lnsdefs.h"
 # include "ccom/ccom.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 /*  interface our-my     */
 #include "rverline.h"
 /*  interface my        */

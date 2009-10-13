@@ -65,13 +65,12 @@
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
 
-/*#include <windows.h>*/
 #include "resource.h"
 #include "rstuff.h"
 #include "rsfunc.h"
 #include "rsmemory.h"
 #include "dpuma.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "smetric.h"
 
 #include "rline.h"

@@ -74,7 +74,7 @@
 #include "dpuma.h"
 #include "cline.h"
 #include "ccom/ccom.h"
-#include "pumadef.h"
+#include "puma/pumadef.h"
 
 #include "rsl.h"
 
