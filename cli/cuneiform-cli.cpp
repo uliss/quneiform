@@ -320,13 +320,14 @@ int main(int argc, char **argv) {
 	using namespace CIF;
 	Puma::instance();
 
-	PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
-	PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
-	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
+	//	PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
+	//	PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
+	//	PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
-	Puma::instance().setLanguage(static_cast<language_t> (langcode));
-//	Puma::instance().setUnrecognizedChar('?');
-	Puma::instance().useSpeller(true);
+	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
+	//	Puma::instance().setOptionUnrecognizedChar('?');
+	Puma::instance().setOptionUseSpeller(true);
+	Puma::instance().setOptionAutoRotate(true);
 
 	Puma::instance().open(dib);
 	Puma::instance().recognize();

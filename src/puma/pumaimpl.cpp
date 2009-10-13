@@ -1144,9 +1144,22 @@ void PumaImpl::setFormatOptions() {
 	RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
-void PumaImpl::setLanguage(language_t lang) {
+void PumaImpl::setOptionAutoRotate(bool val) {
+	gbAutoRotate = val ? TRUE : FALSE;
+	SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+}
+
+void PumaImpl::setOptionLanguage(language_t lang) {
 	gnLanguage = lang;
 	SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
+}
+
+void PumaImpl::setOptionUnrecognizedChar(char ch) {
+	gnUnrecogChar = ch;
+}
+
+void PumaImpl::setOptionUseSpeller(bool value) {
+	gbSpeller = value ? TRUE : FALSE;
 }
 
 void PumaImpl::setTemplate(const Rect& r) {
@@ -1156,20 +1169,12 @@ void PumaImpl::setTemplate(const Rect& r) {
 	gRectTemplate.bottom = r.bottom();
 }
 
-void PumaImpl::setUnrecognizedChar(char ch) {
-	gnUnrecogChar = ch;
-}
-
 unsigned char * PumaImpl::mainBuffer() {
 	return main_buffer_.begin();
 }
 
 unsigned char * PumaImpl::workBuffer() {
 	return work_buffer_.begin();
-}
-
-void PumaImpl::useSpeller(bool value) {
-	gbSpeller = value ? TRUE : FALSE;
 }
 
 }
