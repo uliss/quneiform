@@ -77,34 +77,11 @@
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static HINSTANCE ghInst = NULL;
 
 CIF::Point gPageSize(209, 295);
 
 int PUMA_GetReturnCode() {
 	return gwRC;
-}
-
-bool PUMA_SetImportData(uint32_t dwType, void * pData) {
-	bool rc = true;
-
-	gwRC = 0;
-
-#define CASE_DATA(a,b,c)		case a: c = *(b *)pData; break;
-#define CASE_DATAUP(a,b,c,d)	case a: if(c != *(b *)pData){c = *(b *)pData; SetUpdate(d,FLG_UPDATE_NO);}; break;
-#define CASE_PDATA(a,b,c)		case a: c = (b)pData; break;
-
-	switch (dwType) {
-	CASE_PDATA(PUMA_pchar_UserDictName,char *,gpUserDictName)
-	default:
-		//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
-
-#undef CASE_DATA
-#undef CASE_PDATA
-
-	return rc;
 }
 
 void SetReturnCode_puma(uint32_t rc) {
