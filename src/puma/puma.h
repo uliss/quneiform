@@ -102,12 +102,7 @@ typedef struct {
 } PUMAIMAGECALLBACK;
 
 enum PUMA_EXPORT_ENTRIES {
-	PUMA_FNPUMA_XOpen = 1,
-	PUMA_FNPUMA_XClose,
-	PUMA_FNPUMA_XPageAnalysis,
-	PUMA_FNPUMA_XFinalRecognition,
-	PUMA_FNPUMA_XSave,
-	PUMA_FNPUMA_EnumLanguages,
+	PUMA_FNPUMA_EnumLanguages = 1,
 	PUMA_FNPUMA_EnumFormats,
 	PUMA_FNPUMA_EnumCodes,
 	PUMA_Word32_Language,
@@ -132,20 +127,14 @@ enum PUMA_EXPORT_ENTRIES {
 	PUMA_FNPUMA_EnumPicture,
 	PUMA_Word8_Format,
 	PUMA_FNPUMA_XGetRotateDIB,
-	PUMA_FNPUMA_ProgressStart,
-	PUMA_FNPUMA_ProgressFinish,
-	PUMA_FNPUMA_ProgressStep,
 	PUMA_Bool32_AutoRotate,
 	PUMA_Point32_PageSize,
-	PUMA_FNPUMA_RenameImageName,
 	PUMA_FNPUMA_XSetTemplate,
 	PUMA_Handle_CurrentEdPage,
 	PUMA_FNPUMA_Save,
 	PUMA_Bool32_PreserveLineBreaks,
-	PUMA_FNPUMA_XOpenClbk,
 	PUMA_LPPUMAENTRY_CED,
 	PUMA_LPPUMAENTRY_ROUT,
-	PUMA_FNPUMA_SaveToMemory,
 	PUMA_FNPUMA_GetSpecialBuffer,
 	PUMA_FNPUMA_SetSpecialProject,
 	PUMA_FNPUMA_XGetTemplate
@@ -219,9 +208,6 @@ void LPUMA_SetFormatMode(uint32_t nNewValue);// old
 
 void LPUMA_SetUnrecogChar(uchar nChar);
 uchar LPUMA_GetUnrecogChar(void);
-
-bool LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,
-		FNPUMA_ProgressStep fnStep, FNPUMA_ProgressFinish fnFinish);
 
 void LPUMA_SetAutoRotate(bool b);
 bool LPUMA_GetAutoRotate(void);

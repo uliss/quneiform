@@ -114,9 +114,6 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE)
 	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat)
 	CASE_DATA(PUMA_Word8_Format,uchar,gnUnrecogChar)
-	CASE_PDATA(PUMA_FNPUMA_ProgressStart, FNPUMA_ProgressStart ,fnProgressStart)
-	CASE_PDATA(PUMA_FNPUMA_ProgressFinish,FNPUMA_ProgressFinish,fnProgressFinish)
-	CASE_PDATA(PUMA_FNPUMA_ProgressStep, FNPUMA_ProgressStep ,fnProgressStep)
 	CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE)
 	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage)
 	default:
