@@ -92,6 +92,18 @@ enum puma_format_mode_t {
 	PUMA_FORMAT_ONLY_FRAME = 0x0002
 };
 
+enum puma_table_t {
+	PUMA_TABLE_NONE = 0,
+	PUMA_TABLE_DEFAULT = 1,
+	PUMA_TABLE_ONLY_LINE = 2,
+	PUMA_TABLE_ONLY_TEXT = 3,
+	PUMA_TABLE_LINE_TEXT = 4
+};
+
+enum puma_picture_t {
+	PUMA_PICTURE_NONE = 0, PUMA_PICTURE_ALL = 1
+};
+
 // constants
 enum puma_module_t {
 	PUMA_MODULE_CCOM = 1,

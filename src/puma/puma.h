@@ -228,13 +228,4 @@ PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 
 #undef DEC_FUN
 
-# define PUMA_TABLE_NONE			0
-# define PUMA_TABLE_DEFAULT			1
-# define PUMA_TABLE_ONLY_LINE		2
-# define PUMA_TABLE_ONLY_TEXT		3
-# define PUMA_TABLE_LINE_TEXT		4
-
-# define PUMA_PICTURE_NONE			0
-# define PUMA_PICTURE_ALL			1
-
 #endif

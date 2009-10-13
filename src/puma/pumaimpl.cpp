@@ -1181,6 +1181,11 @@ void PumaImpl::setOptionOneColumn(bool val) {
 	SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionPictures(puma_picture_t type) {
+	gnPictures = type;
+	SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
+}
+
 void PumaImpl::setOptionSize(bool val) {
 	gbSize = val ? TRUE : FALSE;
 }

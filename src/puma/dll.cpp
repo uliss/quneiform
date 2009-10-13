@@ -99,7 +99,6 @@ bool PUMA_SetImportData(uint32_t dwType, void * pData) {
 	CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName)
 	CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName)
 	CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName)
-	CASE_DATAUP(PUMA_Word32_Pictures,uint32_t,gnPictures,FLG_UPDATE_CPAGE)
 	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE)
 	default:
 		//		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);

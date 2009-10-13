@@ -13,8 +13,8 @@
 #include <stdexcept>
 #include <memory>
 
-#include "cfcompat.h"
 #include "pumadef.h"
+#include "cfcompat.h"
 #include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
@@ -48,6 +48,7 @@ public:
 	void setOptionItalic(bool val);
 	void setOptionLanguage(language_t language);
 	void setOptionOneColumn(bool val);
+	void setOptionPictures(puma_picture_t type);
 	void setOptionSize(bool val);
 	void setOptionUnrecognizedChar(char ch);
 	void setOptionUseSpeller(bool value = true);
