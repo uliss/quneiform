@@ -62,6 +62,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
+#include <getopt.h>
 
 #include "cttypes.h"
 #include "puma/puma.h"
@@ -71,62 +72,151 @@
 
 using namespace std;
 
-struct langlist {
-	int puma_number;
-	const char *name;
+static const char * program_name = "";
+
+struct langlist
+{
+    language_t code;
+    const char *name;
+    const char *fullname;
 };
 
 /* Language codes according to ISO 639-2.
  */
-static const langlist langs[] = { { LANG_ENGLISH, "eng" },
-		{ LANG_GERMAN, "ger" }, { LANG_FRENCH, "fra" },
-		{ LANG_RUSSIAN, "rus" }, { LANG_SWEDISH, "swe" },
-		{ LANG_SPANISH, "spa" }, { LANG_ITALIAN, "ita" }, { LANG_RUSENG,
-				"ruseng" }, { LANG_UKRAINIAN, "ukr" }, { LANG_SERBIAN, "srp" },
-		{ LANG_CROATIAN, "hrv" }, { LANG_POLISH, "pol" },
-		{ LANG_DANISH, "dan" }, { LANG_PORTUGUESE, "por" },
-		{ LANG_DUTCH, "dut" },
-		//        {LANG_DIG,       "dig"}, // This probably means "recognize digits only".
-		//        {LANG_UZBEK,     "uzb"}, // These don't seem to have data files. Thus they are disabled.
-		//        {LANG_KAZ,       "kaz"},
-		//        {LANG_KAZ_ENG,   "kazeng"},
-		{ LANG_CZECH, "cze" }, { LANG_ROMAN, "rum" }, { LANG_HUNGAR, "hun" }, {
-				LANG_BULGAR, "bul" }, { LANG_SLOVENIAN, "slo" }, {
-				LANG_LATVIAN, "lav" }, { LANG_LITHUANIAN, "lit" }, {
-				LANG_ESTONIAN, "est" }, { LANG_TURKISH, "tur" }, { -1, NULL } };
+static const langlist langs[] = {
+//
+    { LANG_ENGLISH, "eng", "English" },
+    { LANG_GERMAN, "ger", "German" },
+    { LANG_FRENCH, "fra", "French" },
+    { LANG_RUSSIAN, "rus", "Russian" },
+    { LANG_SWEDISH, "swe", "Swedish" },
+    { LANG_SPANISH, "spa", "Spanish" },
+    { LANG_ITALIAN, "ita", "Italian" },
+    { LANG_RUSENG, "ruseng", "Russian-English" },
+    { LANG_UKRAINIAN, "ukr", "Ukrainian" },
+    { LANG_SERBIAN, "srp", "Serbian" },
+    { LANG_CROATIAN, "hrv", "Croatian" },
+    { LANG_POLISH, "pol", "Polish" },
+    { LANG_DANISH, "dan", "Danish" },
+    { LANG_PORTUGUESE, "por", "Portuguese" },
+    { LANG_DUTCH, "dut", "Dutch" },
+    { LANG_DIG, "dig", "Digits" }, // This probably means "recognize digits only".
+    //        {LANG_UZBEK,     "uzb"}, // These don't seem to have data files. Thus they are disabled.
+    //        {LANG_KAZ,       "kaz"},
+    //        {LANG_KAZ_ENG,   "kazeng"},
+    { LANG_CZECH, "cze", "Czech" },
+    { LANG_ROMAN, "rum", "Roman" },
+    { LANG_HUNGAR, "hun", "Hungarian" },
+    { LANG_BULGAR, "bul", "Bulgarian" },
+    { LANG_SLOVENIAN, "slo", "Slovenian" },
+    { LANG_LATVIAN, "lav", "Latvian" },
+    { LANG_LITHUANIAN, "lit", "Lithuanian" },
+    { LANG_ESTONIAN, "est", "Estonian" },
+    { LANG_TURKISH, "tur", "Turkish" },
+    { (language_t) - 1, NULL, NULL } };
 
-struct formatlist {
-	puma_format_t puma_number;
-	const char * name;
-	const char * descr;
+struct formatlist
+{
+    puma_format_t code;
+    const char * name;
+    const char * descr;
 };
 
 static const formatlist formats[] = {
-		// Does not work.    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
-		{ PUMA_TOHTML, "html", "HTML format" }, { PUMA_TOHOCR, "hocr",
-				"hOCR HTML format" }, { PUMA_TOEDNATIVE, "native",
-				"Cuneiform 2000 format" }, { PUMA_TORTF, "rtf", "RTF format" },
-		{ PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs" }, {
-				PUMA_TOTEXT, "text", "plain text" },
-		// Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
-		{ PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes" }, {
-				(puma_format_t) -1, NULL, NULL } };
+// Does not work.    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
+    { PUMA_TOHTML, "html", "HTML format" },
+    { PUMA_TOHOCR, "hocr", "hOCR HTML format" },
+    { PUMA_TOEDNATIVE, "native", "Cuneiform 2000 format" },
+    { PUMA_TORTF, "rtf", "RTF format" },
+    { PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs" },
+    { PUMA_TOTEXT, "text", "plain text" },
+    // Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
+    { PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes" },
+    { (puma_format_t) -1, NULL, NULL } };
 
 static string supported_languages() {
-	ostringstream os;
-	os << "Supported languages:";
-	for (const langlist *l = langs; l->puma_number >= 0; l++)
-		os << " " << l->name;
-	os << ".\n";
-	return os.str();
+    ostringstream os;
+    os << "Supported languages:\n";
+    for (const langlist *l = langs; l->code >= 0; l++)
+        os << "    " << left << setw(12) << l->name << " " << l->fullname << "\n";
+    return os.str();
 }
 
 static string supported_formats() {
-	ostringstream os;
-	os << "Supported formats:\n";
-	for (const formatlist * f = formats; f->puma_number >= 0; f++)
-		os << "    " << left << setw(12) << f->name << " " << f->descr << "\n";
-	return os.str();
+    ostringstream os;
+    os << "Supported formats:\n";
+    for (const formatlist * f = formats; f->code >= 0; f++)
+        os << "    " << left << setw(12) << f->name << " " << f->descr << "\n";
+    return os.str();
+}
+
+static string usage() {
+    ostringstream os;
+    os << "Usage: " << program_name << " [options] imagefile\n";
+    os << ""
+        "  -h   --help               Print this help message\n"
+        "  -v   --verbose            Print verbose debugging messages\n"
+        "  -V   --version            Print program version and exit\n"
+        "       --autorotate         Automatically rotate input image\n"
+        "  -f   --format   FORMAT    Sets output format\n"
+        "                              type --format help to get full list\n"
+        "  -l   --language LANGUAGE  Sets recognition language\n"
+        "                              type --language help to gel full list\n"
+        "  -o   --output   FILENAME  Sets output filename\n"
+        "       --spell              Use spell correction\n"
+        "       --onecolumn                              \n"
+        "       --dotmatix                               \n"
+        "       --fax                                    \n"
+        "       --tables   MODE\n"
+        "       --pictures MODE\n"
+        "       --monospace-name     Use specified monospace font in RTF output\n"
+        "       --serif-name         Use specified serif font in RTF output\n"
+        "       --sansserif-name     Use seecified sans-serif font in RTF output\n";
+    return os.str();
+}
+
+static puma_format_t output_format(const std::string& format) {
+    for (int i = 0; formats[i].code >= 0; i++) {
+        if (format == formats[i].name)
+            return formats[i].code;
+    }
+    return (puma_format_t) -1;
+}
+
+static language_t recognize_language(const std::string& language) {
+    for (const langlist *l = langs; l->code >= 0; l++) {
+        if (language == l->name)
+            return l->code;
+    }
+    return (language_t) - 1;
+}
+
+static string default_output_name(puma_format_t format) {
+    string result = "cuneiform-out.";
+    switch (format) {
+    case PUMA_TOHOCR:
+    case PUMA_TOHTML:
+        result += "html";
+        break;
+    case PUMA_TORTF:
+        result += "rtf";
+        break;
+    case PUMA_TOTEXT:
+    case PUMA_TOSMARTTEXT:
+    case PUMA_TOTABLETXT:
+        result += "txt";
+        break;
+    case PUMA_TOEDNATIVE:
+        result += "cf";
+        break;
+    case PUMA_TOTABLEDBF:
+        result += "dbf";
+        break;
+    default:
+        result += "buginprogram";
+        break;
+    }
+    return result;
 }
 
 /**
@@ -137,211 +227,220 @@ static char* read_file(const char *fname);
 
 #ifdef USE_MAGICK
 #include <Magick++.h>
-using namespace Magick;
 
 static char* read_file(const char *fname) {
-	Blob blob;
-	size_t data_size;
-	char *dib;
-	try {
-		Image image(fname);
-		// Write to BLOB in BMP format
-		image.write(&blob, "DIB");
-	} catch(Exception &error_) {
-		cerr << error_.what() << "\n";
-		return NULL;
-	}
-	data_size = blob.length();
-	dib = new char[data_size];
-	memcpy(dib, blob.data(), data_size);
-	return dib;
+    using namespace Magick;
+    Blob blob;
+    size_t data_size;
+    char *dib;
+    try {
+        Image image(fname);
+        // Write to BLOB in BMP format
+        image.write(&blob, "DIB");
+    }
+    catch(Exception &error_) {
+        cerr << error_.what() << "\n";
+        return NULL;
+    }
+    data_size = blob.length();
+    dib = new char[data_size];
+    memcpy(dib, blob.data(), data_size);
+    return dib;
 }
 
 #else // No ImageMagick++
 static char* read_file(const char *fname) {
-	char bmpheader[2];
-	char *dib;
-	FILE *f;
-	int32_t dibsize, offset;
+    char bmpheader[2];
+    char *dib;
+    FILE *f;
+    int32_t dibsize, offset;
 
-	f = fopen(fname, "rb");
-	if (!f) {
-		cerr << "Could not open file " << fname << ".\n";
-		return NULL;
-	}
-	fread(bmpheader, 1, 2, f);
-	if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-		cerr << fname << " is not a BMP file.\n";
-		return NULL;
-	}
-	fread(&dibsize, sizeof(int32_t), 1, f);
-	fread(bmpheader, 1, 2, f);
-	fread(bmpheader, 1, 2, f);
-	fread(&offset, sizeof(int32_t), 1, f);
+    f = fopen(fname, "rb");
+    if (!f) {
+        cerr << "Could not open file " << fname << ".\n";
+        return NULL;
+    }
+    fread(bmpheader, 1, 2, f);
+    if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
+        cerr << fname << " is not a BMP file.\n";
+        return NULL;
+    }
+    fread(&dibsize, sizeof(int32_t), 1, f);
+    fread(bmpheader, 1, 2, f);
+    fread(bmpheader, 1, 2, f);
+    fread(&offset, sizeof(int32_t), 1, f);
 
-	dibsize -= ftell(f);
-	dib = new char[dibsize];
-	fread(dib, dibsize, 1, f);
-	fclose(f);
+    dibsize -= ftell(f);
+    dib = new char[dibsize];
+    fread(dib, dibsize, 1, f);
+    fclose(f);
 
-	if (*((int32_t*) dib) != 40) {
-		cerr
-				<< "BMP is not of type \"Windows V3\", which is the only supported format.\n";
-		cerr
-				<< "Please convert your BMP to uncompressed V3 format and try again.\n";
-		delete[] dib;
-		return NULL;
-	}
+    if (*((int32_t*) dib) != 40) {
+        cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
+        delete[] dib;
+        return NULL;
+    }
 
-	if (*((int32_t*) (dib + 16)) != 0) {
-		cerr << fname
-				<< "is a compressed BMP. Only uncompressed BMP files are supported.\n";
-		cerr
-				<< "Please convert your BMP to uncompressed V3 format and try again.";
-		delete[] dib;
-		return NULL;
-	}
-	return dib;
+    if (*((int32_t*) (dib + 16)) != 0) {
+        cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.";
+        delete[] dib;
+        return NULL;
+    }
+    return dib;
 }
-
 #endif // USE_MAGICK
 int main(int argc, char **argv) {
-	char *dib;
-	const char *infilename = NULL;
-	int langcode = LANG_ENGLISH;
-	// By default recognize plain english text
-	Bool32 dotmatrix = FALSE;
-	Bool32 fax = FALSE;
-	Bool32 onecolumn = FALSE;
-	const char *defaultnamestem = "cuneiform-out.";
-	string outfilename;
-	puma_format_t outputformat = PUMA_TOTEXT;
+    program_name = argv[0];
 
-	cout << "Cuneiform for Linux " << CF_VERSION << "\n";
+    int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
+            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE;
 
-	/* Parsing command line parameters. */
-	for (int i = 1; i < argc; i++) {
-		/* Changing language. */
-		if (strcmp(argv[i], "-l") == 0) {
-			langcode = -1;
-			if (++i >= argc) {
-				cout << supported_languages();
-				return 1;
-			}
-			for (int j = 0; langs[j].puma_number >= 0; j++) {
-				if (strcmp(langs[j].name, argv[i]) == 0) {
-					langcode = langs[j].puma_number;
-					break;
-				}
-			}
-			if (langcode == -1) {
-				cerr << "Unknown language " << argv[i] << ".\n";
-				cerr << supported_languages();
-				return 1;
-			}
-		} else if (strcmp(argv[i], "-f") == 0) {
-			if (++i >= argc) {
-				cout << supported_formats();
-				return 1;
-			}
-			bool format_set = false;
-			for (int j = 0; formats[j].puma_number >= 0; j++) {
-				if (strcmp(formats[j].name, argv[i]) == 0) {
-					outputformat = formats[j].puma_number;
-					format_set = true;
-					break;
-				}
-			}
-			if (!format_set) {
-				cerr << "Unknown format " << argv[i] << ".\n";
-				cerr << supported_formats();
-				return 1;
-			}
-		} else if (strcmp(argv[i], "-o") == 0) {
-			if (++i >= argc) {
-				cerr << "Missing output file name.\n";
-				return 1;
-			}
-			outfilename = argv[i];
-		} else if (strcmp(argv[i], "--dotmatrix") == 0) {
-			dotmatrix = TRUE;
-		} else if (strcmp(argv[i], "--fax") == 0) {
-			fax = TRUE;
-		} else if (strcmp(argv[i], "--singlecolumn") == 0) {
-			onecolumn = TRUE;
-		} else {
-			/* No switches, so set input file. */
-			infilename = argv[i];
-		}
-	}
+    const char * const short_options = ":ho:vVl:f:";
+    const struct option long_options[] = {
+    //
+        { "autorotate", no_argument, &do_autorotate, 1 },//
+        { "dotmarix", no_argument, &do_dotmatrix, 1 },//
+        { "fax", no_argument, &do_fax, 1 },//
+        { "format", required_argument, NULL, 'f' },//
+        { "help", no_argument, NULL, 'h' },//
+        { "language", required_argument, NULL, 'l' },//
+        { "monospace-name", required_argument, NULL, 'x' },
+        { "output", required_argument, NULL, 'o' },//
+        { "pictures", no_argument, &do_pictures, 1 },//
+        { "sansserif-name", required_argument, NULL, 'y' },
+        { "serif-name", required_argument, NULL, 'z' },
+        { "onecolumn", no_argument, &do_singlecolumn, 1 },//
+        { "spell", no_argument, &do_speller, 1 },//
+        { "tables", required_argument, &do_tables, 1 },//
+        { "verbose", no_argument, &do_verbose, 1 },//
+        { "version", no_argument, NULL, 'V' },//
+        { NULL, 0, NULL, 0 } };
 
-	if (outfilename.empty()) {
-		outfilename = defaultnamestem;
-		switch (outputformat) {
-		case PUMA_TOHOCR:
-		case PUMA_TOHTML:
-			outfilename += "html";
-			break;
+    string outfilename, infilename, monospace, serif, sansserif;
+    puma_format_t outputformat = PUMA_TOTEXT;
+    language_t langcode = LANG_ENGLISH;
+    int code;
+    while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
+        switch (code) {
+        case 'f': {
+            if (strcmp(optarg, "help") == 0) {
+                cout << supported_formats();
+                return EXIT_SUCCESS;
+            }
 
-		case PUMA_TORTF:
-			outfilename += "rtf";
-			break;
+            puma_format_t format = output_format(optarg);
+            if (format == -1) {
+                cerr << "Unknown output format: " << optarg;
+                cerr << supported_formats();
+                return EXIT_FAILURE;
+            }
+            outputformat = format;
 
-		case PUMA_TOTEXT:
-		case PUMA_TOSMARTTEXT:
-		case PUMA_TOTABLETXT:
-			outfilename += "txt";
-			break;
+        }
+            break;
+        case 'h':
+            cout << usage();
+            return EXIT_SUCCESS;
+            break;
+        case 'l': {
+            if (strcmp(optarg, "help") == 0) {
+                cout << supported_languages();
+                return EXIT_SUCCESS;
+            }
+            language_t lang = recognize_language(optarg);
+            if (lang == -1) {
+                cerr << "Unknown language: " << optarg;
+                cerr << supported_languages();
+                return EXIT_FAILURE;
+            }
+            langcode = lang;
+        }
+            break;
+        case 'o':
+            outfilename = optarg;
+            break;
+        case 'v':
+            do_verbose = 1;
+            break;
+        case 'V':
+            cout << "Cuneiform for Linux " << CF_VERSION << "\n";
+            return EXIT_SUCCESS;
+            break;
+        case 'x':
+            monospace = optarg;
+            break;
+        case 'y':
+            sansserif = optarg;
+            break;
+        case 'z':
+            serif = optarg;
+            break;
+        case 0:
+            /*getopt_long() set option, just continue*/
+            break;
+        case ':':
+            cerr << program_name << ": option '-" << (char) optopt << "' requires an argument\n";
+            if (optopt == 'f')
+                cerr << supported_formats();
+            else if (optopt == 'l')
+                cerr << supported_languages();
 
-		case PUMA_TOEDNATIVE:
-			outfilename += "cf";
-			break;
+            return EXIT_FAILURE;
+            break;
+        case '?':
+        default:
+            cerr << program_name << ": option '-" << (char) optopt << "' is invalid: ignored\n";
+            return EXIT_FAILURE;
+            break;
+        }
+    }
 
-		case PUMA_TOTABLEDBF:
-			outfilename += "dbf";
-			break;
+    if (optind == argc) {
+        cerr << "Input file not specified\n";
+        cerr << usage();
+        return EXIT_FAILURE;
+    }
+    else
+        infilename = argv[optind];
 
-		default:
-			outfilename += "buginprogram";
-			break;
-		}
-	}
+    if (outfilename.empty())
+        outfilename = default_output_name(outputformat);
 
-	if (infilename == NULL) {
-		cout << "Usage: " << argv[0]
-				<< "[-l languagename -f format --dotmatrix --fax -o result_file] imagefile\n";
-		return 0;
-	}
+    char * dib = read_file(infilename.c_str());
+    if (!dib) // Error msg is already printed so just get out.
+        return 1;
 
-	dib = read_file(infilename);
-	if (!dib) // Error msg is already printed so just get out.
-		return 1;
+    using namespace CIF;
 
-	using namespace CIF;
+    Puma::instance().setOptionLanguage(langcode);
+    Puma::instance().setOptionOneColumn(do_singlecolumn);
+    Puma::instance().setOptionFax100(do_fax);
+    Puma::instance().setOptionDotMatrix(do_dotmatrix);
+    Puma::instance().setOptionUseSpeller(do_speller);
+    Puma::instance().setOptionAutoRotate(do_autorotate);
 
-	Puma::instance().setOptionOneColumn(onecolumn);
-	Puma::instance().setOptionFax100(fax);
-	Puma::instance().setOptionDotMatrix(dotmatrix);
-	Puma::instance().setOptionLanguage(static_cast<language_t> (langcode));
+    if (!serif.empty())
+        Puma::instance().setOptionSerifName(serif.c_str());
+    if (!sansserif.empty())
+        Puma::instance().setOptionSansSerifName(sansserif.c_str());
+    if (!monospace.empty())
+        Puma::instance().setOptionMonospaceName(monospace.c_str());
 
-	//	Puma::instance().setOptionUnrecognizedChar('?');
-	//	Puma::instance().setOptionBold(true);
-	//	Puma::instance().setOptionItalic(true);
-	//  Puma::instance().setOptionSize(true);
-	//  Puma::instance().setOptionFormatMode(puma_format_mode_t t);
-	//	Puma::instance().setOptionPictures(puma_picture_t mode);
-	//  Puma::instance().setOptionPictures(puma_table_t mode);
-	//  Puma::instance().setOptionSerifName("Georgia");
-	//  Puma::instance().setOptionSansSerifName("Verdana");
-	//  Puma::instance().setOptionMonospaceName("Terminus");
-	Puma::instance().setOptionUseSpeller(true);
-	Puma::instance().setOptionAutoRotate(true);
+    //	Puma::instance().setOptionUnrecognizedChar('?');
+    //	Puma::instance().setOptionBold(true);
+    //	Puma::instance().setOptionItalic(true);
+    //  Puma::instance().setOptionSize(true);
+    //  Puma::instance().setOptionFormatMode(puma_format_mode_t t);
+    //	Puma::instance().setOptionPictures(puma_picture_t mode);
+    //  Puma::instance().setOptionTables(puma_table_t mode);
 
-	Puma::instance().open(dib);
-	Puma::instance().recognize();
-	Puma::instance().save(outfilename, outputformat);
-	Puma::instance().close();
+    Puma::instance().open(dib);
+    Puma::instance().recognize();
+    Puma::instance().save(outfilename, outputformat);
+    Puma::instance().close();
 
-	delete[] dib;
-	return 0;
+    delete[] dib;
+    return 0;
 }
