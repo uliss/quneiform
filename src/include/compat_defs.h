@@ -240,11 +240,6 @@ typedef struct tagPAINTSTRUCT {
 	unsigned char rgbReserved[32];
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
-typedef struct tagSIZE {
-	int32_t cx;
-	int32_t cy;
-} SIZE;
-
 #pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER {
 	uint16_t bfType;
@@ -261,8 +256,6 @@ typedef struct tagCOPYDATASTRUCT {
 	uint32_t cbData;
 	pvoid lpData;
 } COPYDATASTRUCT, *PCOPYDATASTRUCT;
-
-typedef SIZE* LPSIZE;
 
 typedef int HKEY;
 

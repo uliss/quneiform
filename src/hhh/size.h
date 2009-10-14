@@ -22,6 +22,10 @@ public:
         width_(width), height_(height) {
     }
 
+    bool isValid() const {
+        return width >= 0 && height_ >= 0;
+    }
+
     T height() const {
         return height_;
     }
@@ -77,7 +81,7 @@ bool SizeContentEqual(const SizeImpl<T>& s0, const SizeImpl<U>& s1) {
     return s0.height() * s0.width() == s1.height() * s1.width();
 }
 
-typedef SizeImpl<unsigned int> Size;
+typedef SizeImpl<int> Size;
 
 }
 

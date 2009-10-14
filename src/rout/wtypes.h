@@ -325,53 +325,6 @@ typedef struct _RECTL __RPC_FAR *PRECTL;
 
 typedef struct _RECTL __RPC_FAR *LPRECTL;
 
-typedef struct  tagPOINT
-    {
-    int32_t x;
-    int32_t y;
-    }	Point16;
-
-typedef struct tagPOINT __RPC_FAR *PPOINT;
-
-typedef struct tagPOINT __RPC_FAR *LPPOINT;
-
-typedef struct  _POINTL
-    {
-    int32_t x;
-    int32_t y;
-    }	POINTL;
-
-typedef struct _POINTL __RPC_FAR *PPOINTL;
-
-#ifndef WIN16
-typedef struct  tagSIZE
-    {
-    int32_t cx;
-    int32_t cy;
-    }	SIZE;
-
-typedef struct tagSIZE __RPC_FAR *PSIZE;
-
-typedef struct tagSIZE __RPC_FAR *LPSIZE;
-
-#else // WIN16
-typedef struct tagSIZE
-{
-    int16_t cx;
-    int16_t cy;
-} SIZE, *PSIZE, *LPSIZE;
-#endif // WIN16
-typedef struct  tagSIZEL
-    {
-    int32_t cx;
-    int32_t cy;
-    }	SIZEL;
-
-typedef struct tagSIZEL __RPC_FAR *PSIZEL;
-
-typedef struct tagSIZEL __RPC_FAR *LPSIZEL;
-
-#endif  //WINAPI
 #endif  //!WIN32 && !MPPC
 #if defined(_WIN32) && !defined(OLE2ANSI)
 typedef WCHAR OLECHAR;
