@@ -66,7 +66,8 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
-                    false), language_(LANG_RUSENG) {
+                    false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
+                    PUMA_TABLE_DEFAULT) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -172,7 +173,7 @@ void PumaImpl::extractComponents() {
     exc.Control = Ex_ExtraComp | Ex_Picture;
 
     //Andrey: orientation is obtained from new library RNORM
-    if (gnPictures)
+    if (pictures_ != PUMA_PICTURE_NONE)
         exc.Control |= Ex_PictureLarge;
 
     uchar w8 = dot_matrix_ ? TRUE : FALSE;
@@ -279,13 +280,13 @@ void PumaImpl::layout() {
     DataforRS.phCCOM = &hCCOM;
     DataforRS.phCLINE = &hCLINE;
     DataforRS.phLinesCCOM = &hLinesCCOM;
-    DataforRS.gnPictures = gnPictures;
+    DataforRS.gnPictures = pictures_;
     DataforRS.gnLanguage = language_;
     DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
     DataforRS.pgrc_line = &grc_line;
-    DataforRS.gnTables = gnTables;
+    DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &gnNumberTables;
     DataforRS.pgneed_clean_line = &gneed_clean_line;
     DataforRS.gRectTemplate = rect_template_;
@@ -319,13 +320,13 @@ void PumaImpl::layout() {
     DataforRM.hCCOM = hCCOM;
     DataforRM.hCLINE = hCLINE;
     DataforRM.phLinesCCOM = &hLinesCCOM;
-    DataforRM.gnPictures = gnPictures;
+    DataforRM.gnPictures = pictures_;
     DataforRM.gnLanguage = language_;
     DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
-    DataforRM.gnTables = gnTables;
+    DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &gnNumberTables;
     DataforRM.pgneed_clean_line = &gneed_clean_line;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
@@ -1155,12 +1156,12 @@ void PumaImpl::setOptionOneColumn(bool val) {
 }
 
 void PumaImpl::setOptionPictures(puma_picture_t type) {
-    gnPictures = type;
+    pictures_ = type;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionTable(puma_table_t mode) {
-    gnTables = mode;
+    tables_ = mode;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
