@@ -66,7 +66,7 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)) {
+    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true) {
     modulesInit();
 }
 
@@ -575,10 +575,11 @@ void PumaImpl::spellCorrection() {
     // Дораспознаем по словарю
     CSTR_SortFragm(1);
     RPSTR_CollectCapDrops(1);
-    if (LDPUMA_Skip(hDebugCancelPostSpeller) && gbSpeller) {
-        if (!RPSTR_CorrectSpell(1))
-            throw PumaException("RPSTR_CorrectSpell failed");
-    }
+    if (!do_spell_corretion_)
+        return;
+
+    if (!RPSTR_CorrectSpell(1))
+        throw PumaException("RPSTR_CorrectSpell failed");
 }
 
 void PumaImpl::preOpenInitialize() {
@@ -672,7 +673,7 @@ void PumaImpl::postOpenInitialize() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-   rect_template_.set(Point(0, 0), info_.biWidth, info_.biHeight);
+    rect_template_.set(Point(0, 0), info_.biWidth, info_.biHeight);
 }
 
 void PumaImpl::recognize() {
@@ -918,7 +919,7 @@ void PumaImpl::recognizeSetup(int language) {
     if (!LDPUMA_Skip(hDebugCancelStringsPass2))
         RSTR_SetImportData(RSTR_Word8_P2_disable, &w8);
 
-    w8 = (uchar) gbSpeller;
+    w8 = do_spell_corretion_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
 
     RSTR_SetImportData(RSTR_pchar_user_dict_name, gpUserDictName);
@@ -1208,7 +1209,7 @@ void setOptionUserDictionaryName(const char * name) {
 }
 
 void PumaImpl::setOptionUseSpeller(bool value) {
-    gbSpeller = value ? TRUE : FALSE;
+    do_spell_corretion_ = value;
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {

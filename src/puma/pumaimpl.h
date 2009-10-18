@@ -104,6 +104,7 @@ private:
 	std::auto_ptr<CTIControl> cimage_;
 	BitmapInfoHeader info_;
 	Rect rect_template_;
+	bool do_spell_corretion_;
 };
 
 }
