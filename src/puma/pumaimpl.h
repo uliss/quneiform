@@ -112,6 +112,8 @@ private:
     FormatOptions format_options_;
     puma_picture_t pictures_;
     puma_table_t tables_;
+    void * input_dib_;
+    void * recog_dib_;
 };
 
 }

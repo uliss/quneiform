@@ -102,9 +102,6 @@
 #endif
 #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
-// Исходные данные, передаваемые пользователем
-EXTERN puchar gpInputDIB VAL(NULL);
-EXTERN puchar gpRecogDIB VAL(NULL);
 
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");

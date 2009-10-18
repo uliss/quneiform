@@ -67,7 +67,7 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
-                    PUMA_TABLE_DEFAULT) {
+                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -78,7 +78,7 @@ PumaImpl::~PumaImpl() {
 
 void PumaImpl::binarizeImage() {
     // Бинаризуем изображение
-    gpRecogDIB = gpInputDIB;
+    recog_dib_ = input_dib_;
     glpRecogName = PUMA_IMAGE_USER;
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
@@ -91,7 +91,7 @@ void PumaImpl::binarizeImage() {
         if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_BINARIZE, 4, 0))
             throw PumaException("RIMAGE_Binarise failed");
 
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) &gpRecogDIB, TRUE))
+        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, TRUE))
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;
@@ -147,7 +147,7 @@ void PumaImpl::close() {
     RIMAGE_Reset();
     hCPAGE = NULL;
 
-    gpRecogDIB = gpInputDIB = NULL;
+    recog_dib_ = input_dib_ = NULL;
 }
 
 void PumaImpl::extractComponents() {
@@ -165,9 +165,6 @@ void PumaImpl::extractComponents() {
 
     CCOM_DeleteContainer((CCOM_handle) hCCOM);
     hCCOM = NULL;
-
-    //	if (!REXC_SetImportData(REXC_ProgressStep, (void*) rexcProgressStep))
-    //		throw PumaException("REXC_SetImportData failed");
 
     // будет распознавания эвентами
     exc.Control = Ex_ExtraComp | Ex_Picture;
@@ -274,7 +271,7 @@ void PumaImpl::layout() {
 #undef SET_CB
 
     DataforRS.gbAutoRotate = auto_rotate_;
-    DataforRS.pgpRecogDIB = &gpRecogDIB;
+    DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = hCPAGE;
     DataforRS.phCCOM = &hCCOM;
@@ -312,7 +309,7 @@ void PumaImpl::layout() {
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
     DataforRM.gbAutoRotate = auto_rotate_;
-    DataforRM.pgpRecogDIB = &gpRecogDIB;
+    DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
     DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = gKillVSLComponents;
     DataforRM.pinfo = &info_;
@@ -497,7 +494,7 @@ void PumaImpl::open(char * dib) {
     DBG("Puma open")
     assert(dib);
     preOpenInitialize();
-    gpInputDIB = (unsigned char*) dib;
+    input_dib_ = dib;
     // write image
     if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, dib, 1))
         throw PumaException("PumaImpl::open can't write DIB");
