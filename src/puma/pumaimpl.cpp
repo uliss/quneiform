@@ -70,7 +70,7 @@ PumaImpl::PumaImpl() :
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
                     "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL),
-            unrecognized_char_('~') {
+            unrecognized_char_('~'), preserve_line_breaks_(false) {
     modulesInit();
 }
 
@@ -985,7 +985,7 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
     if (str)
         *(str) = '\0';
 
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) gnPreserveLineBreaks)
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
@@ -1013,7 +1013,7 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
 }
 
 void PumaImpl::rout(void * dest, size_t size, int format) const {
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) gnPreserveLineBreaks)
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
             (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,

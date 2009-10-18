@@ -110,6 +110,7 @@ private:
 	bool dot_matrix_;
 	bool auto_rotate_;
 	std::string user_dict_name_;
+
 	std::string serif_name_;
 	std::string sans_serif_name_;
 	std::string monospace_name_;
@@ -118,6 +119,8 @@ private:
 	bool size_;
 	puma_format_mode_t format_mode_;
 	uchar unrecognized_char_;
+
+	bool preserve_line_breaks_;
 };
 
 }

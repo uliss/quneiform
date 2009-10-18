@@ -104,7 +104,6 @@
 // global variables
 // Исходные данные, передаваемые пользователем
 EXTERN uint32_t gnLanguage VAL(7);
-EXTERN Bool32 gnPreserveLineBreaks VAL(FALSE);
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
 
