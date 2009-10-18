@@ -104,8 +104,6 @@
 // global variables
 
 // Данные образуемые в результате работы.
-EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
-EXTERN char szFormatTbl1[] VAL("%stbl1%s.dat");
 EXTERN int32_t gnNumberTables VAL(0);
 EXTERN Handle hCCOM VAL(NULL);
 EXTERN Handle hCPAGE VAL(NULL);
