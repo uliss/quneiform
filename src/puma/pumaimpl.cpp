@@ -60,8 +60,6 @@ static Handle ghStorage = NULL;
 
 namespace CIF {
 
-Point gPageSize(209, 295);
-
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 

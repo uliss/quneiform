@@ -110,9 +110,6 @@ EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 
-// формат А4 в миллиметрах
-extern CIF::Point gPageSize;
-
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
 EXTERN char szFormatTbl1[] VAL("%stbl1%s.dat");
