@@ -68,7 +68,7 @@ PumaImpl::PumaImpl() :
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
                     PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
-                    NULL), cpage_(NULL) {
+                    NULL), cpage_(NULL), lines_ccom_(NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -273,7 +273,7 @@ void PumaImpl::layout() {
     DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &hCLINE;
-    DataforRS.phLinesCCOM = &hLinesCCOM;
+    DataforRS.phLinesCCOM = &lines_ccom_;
     DataforRS.gnPictures = pictures_;
     DataforRS.gnLanguage = language_;
     DataforRS.gbDotMatrix = dot_matrix_;
@@ -313,7 +313,7 @@ void PumaImpl::layout() {
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = hCLINE;
-    DataforRM.phLinesCCOM = &hLinesCCOM;
+    DataforRM.phLinesCCOM = &lines_ccom_;
     DataforRM.gnPictures = pictures_;
     DataforRM.gnLanguage = language_;
     DataforRM.gbDotMatrix = dot_matrix_;

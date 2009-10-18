@@ -105,7 +105,6 @@
 
 // Данные образуемые в результате работы.
 EXTERN CLINE_handle hCLINE VAL(0);
-EXTERN Handle hLinesCCOM VAL(NULL);
 // компоненты с линиями
 EXTERN Handle ghEdPage VAL(NULL);
 // 1. Отладочная информаци
