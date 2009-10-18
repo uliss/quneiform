@@ -97,15 +97,6 @@ typedef void * Handle;
 #define TRUE                1
 #endif
 
-typedef struct tagRect16 {
-	int16_t left, top, right, bottom;
-} Rect16;
-_SETTYPES( Rect16 )
-typedef struct tagRect32 {
-	int32_t left, top, right, bottom;
-} Rect32;
-_SETTYPES( Rect32 )
-//////////////////////////////
 // some of generic callbacks:
 typedef void (* FTVoid)(void);
 typedef void* (* FTPVoid)(void);

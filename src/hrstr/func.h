@@ -695,7 +695,7 @@ void c_rastror(puchar, puchar, uint16_t, uint16_t);
 lnhead *c_boxln(MN *);
 
 // rstr_con.c
-int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
+int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, CIF::Rect16 *rect,
 		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
 		uchar kegl, uchar column, uchar tabno);
 void rstr_close_cont(void);

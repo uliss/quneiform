@@ -70,6 +70,7 @@
 
 #include <time.h>
 #include "minmax.h"
+#include "rect.h"
 #include "filestuff.h"
 #include "cttypes.h" /* Most type definitions are here. */
 #include <errno.h>
@@ -115,14 +116,6 @@ typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
 extern int HFILE_ERROR;
 typedef int HFILE;
 
-typedef struct tagRECT {
-	int32_t left;
-	int32_t right;
-	int32_t top;
-	int32_t bottom;
-} RECT;
-
-typedef RECT* LPRECT;
 typedef uint32_t COLORREF;
 typedef uint32_t *LPCOLORREF;
 
@@ -234,7 +227,7 @@ typedef int HPALETTE;
 typedef struct tagPAINTSTRUCT {
 	HDC hdc;
 	Bool fErase;
-	RECT rcPaint;
+	CIF::Rect rcPaint;
 	Bool fRestore;
 	Bool fIncUpdate;
 	unsigned char rgbReserved[32];

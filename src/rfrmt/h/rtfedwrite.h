@@ -76,7 +76,7 @@
 struct RtfSectorInfo {
 	CIF::Point16 Offset;
 	CIF::Point16 OffsetFromColumn;
-	RECT m_rectFree;
+	CIF::Rect m_rectFree;
 
 	uint16_t CountFragments;
 	Handle hEDPage;

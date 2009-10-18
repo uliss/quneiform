@@ -60,12 +60,13 @@
 
 #define __RPIC_CPP__
 
-/*#include <windows.h>*/
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "mainpic.h"
 #undef __RPIC_CPP__
+
+using namespace CIF;
 
 /************************* External Handles for DPUMA *************************/
 extern Handle hRectanglePictures;
@@ -388,10 +389,10 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		 */
 		if (IsNotGoodComp(pInfo, comp)) {
 			if (!LDPUMA_Skip(hShowAllCancelledGreat)) {
-				rect.left = comp->left;
-				rect.top = comp->upper;
-				rect.right = comp->left + comp->w;
-				rect.bottom = comp->upper + comp->h;
+				rect.rleft() = comp->left;
+				rect.rtop() = comp->upper;
+				rect.rright() = comp->left + comp->w;
+				rect.rbottom() = comp->upper + comp->h;
 				LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 4, key);
 			}
 			goto lNextComp_big;
@@ -419,19 +420,13 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		}
 		if ( /*comp->scale < */1)
 			goto lNextComp;
-		/*
-		 if( comp->cs == 255)
-		 {
-		 comp->type = CCOM_CH_LETTER;
-		 goto lNextComp;
-		 }
-		 */
+
 		if (IsNotGoodComp(pInfo, comp)) {
 			if (!LDPUMA_Skip(hShowAllCancelledGreat)) {
-				rect.left = comp->left;
-				rect.top = comp->upper;
-				rect.right = comp->left + comp->w;
-				rect.bottom = comp->upper + comp->h;
+				rect.rleft() = comp->left;
+				rect.rtop() = comp->upper;
+				rect.rright() = comp->left + comp->w;
+				rect.rbottom() = comp->upper + comp->h;
 				LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 4, key);
 			}
 			goto lNextComp;
@@ -529,10 +524,10 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 	key = 111;
 	if ((!LDPUMA_Skip(hShowAllGreat)) && nPics) {
 		for (i = 0; i < nPics; i++) {
-			rect.left = pPics[i].left;
-			rect.top = pPics[i].upper;
-			rect.right = pPics[i].left + pPics[i].w;
-			rect.bottom = pPics[i].upper + pPics[i].h;
+			rect.rleft() = pPics[i].left;
+			rect.rtop() = pPics[i].upper;
+			rect.rright() = pPics[i].left + pPics[i].w;
+			rect.rbottom() = pPics[i].upper + pPics[i].h;
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		LDPUMA_Console("RPIC_Рассматриваемые большие компоненты \n");
@@ -540,18 +535,9 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		LDPUMA_DeleteRects(MainWindowD, key);
 	}
 
-	//sprintf(tmp_str, "Amount of 'letters' on the first step %i (nComps)\n", nComps);
-	//LDPUMA_FPuts(logFile_comp,tmp_str);
-	//sprintf(tmp_str, "  <2 Н Страница = %d \n", page_count++);
-	//LDPUMA_FPuts(resFile_comp,tmp_str);
-
-	//char* str;
-	//str = LDPUMA_GetFileName(NULL);
-
 	LDPUMA_FPuts(resFile_comp, "  <2 Н Страница =");
 	LDPUMA_FPuts(resFile_comp, file_name);
 	LDPUMA_FPuts(resFile_comp, " \n");
-	//LDPUMA_FPuts(resFile_comp, "  <2 Н Страница \n");
 	LDPUMA_FPuts(resFile_comp, "  <3 Н Компоненты \n");
 	sprintf(tmp_str, "  <4 П Перед выделением линий \n", nComps);
 	LDPUMA_FPuts(resFile_comp, tmp_str);
@@ -704,10 +690,8 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 				= CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE)) {
 			nPics++;
 			CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+			rect.pt0() = block.com.Vertex[0];
+			rect.pt1() = block.com.Vertex[1];
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -725,10 +709,8 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 			nPics++;
 			CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block,
 					sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+			rect.pt0() = block.com.Vertex[0];
+			rect.pt1() = block.com.Vertex[1];
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -748,10 +730,10 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 			nPics++;
 			CPAGE_GetBlockData(hCPAGE, h, BlockType, &CompRect,
 					sizeof(CompRect));
-			rect.left = CompRect.left;
-			rect.top = CompRect.upper;
-			rect.right = CompRect.left + CompRect.w - 1;
-			rect.bottom = CompRect.upper + CompRect.h - 1;
+			rect.rleft() = CompRect.left;
+			rect.rtop() = CompRect.upper;
+			rect.rright() = CompRect.left + CompRect.w - 1;
+			rect.rbottom() = CompRect.upper + CompRect.h - 1;
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -763,5 +745,3 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 	return TRUE;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//end of file

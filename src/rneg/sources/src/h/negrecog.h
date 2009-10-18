@@ -67,6 +67,8 @@
 #include "cstr/cstr.h"
 #include "rselstr.h"
 
+#include "rect.h"
+
 //Настройки
 extern int min_let_h;
 extern int min_let_w;
@@ -91,49 +93,49 @@ extern Handle hShowNegComps;
 
 //My function's declarations
 
-Bool InitNegMas(Rect16**, int);
+Bool InitNegMas(CIF::Rect16**, int);
 Bool InitNegMas(RecVersions**, int);
 Bool InitNegMas(UniVersions**, int);
 Bool InitNegMas(CCOM_comp***, int);
-void DelNegMas(Rect16**);
+void DelNegMas(CIF::Rect16**);
 void DelNegMas(RecVersions*);
 void DelNegMas(UniVersions*);
 void DelNegMas(CCOM_comp**);
-Bool AddLenNegMas(Rect16**, int&, int);
+Bool AddLenNegMas(CIF::Rect16**, int&, int);
 Bool AddLenNegMas(CCOM_comp***, int&, int);
-Bool GetMasP(Handle, Rect16, uchar**);
-Bool GetMasP(Rect16*, uchar**);
-Bool NegGetRaster(Handle, Rect16, RecRaster*, Bool);
-void InitRc(Rect16*, int, CCOM_comp *);
-void PrintFrameComp(Handle, Rect16*, int);
-Handle GetNegCCOM(Handle, Rect16*, int);
+Bool GetMasP(Handle, CIF::Rect16, uchar**);
+Bool GetMasP(CIF::Rect16*, uchar**);
+Bool NegGetRaster(Handle, CIF::Rect16, RecRaster*, Bool);
+void InitRc(CIF::Rect16*, int, CCOM_comp *);
+void PrintFrameComp(Handle, CIF::Rect16*, int);
+Handle GetNegCCOM(Handle, CIF::Rect16*, int);
 void NegRecog(Handle, NegList**, int&, int);
-void NegInvert(RecRaster*, Rect16);
-void SortLetter(Rect16*, int, Bool);
-void ToHoriz(Rect16*, int);
+void NegInvert(RecRaster*, CIF::Rect16);
+void SortLetter(CIF::Rect16*, int, Bool);
+void ToHoriz(CIF::Rect16*, int);
 void NegPrintConsol(uchar*, int);
 void NegPrintConsol(double);
 void NegPrintConsol(int, int, int, int);
 void NegMoveResult(uchar*, int&, int);
-void NegMoveMas(Rect16*, int&, int);
+void NegMoveMas(CIF::Rect16*, int&, int);
 void PMoveMas(double*, int, int);
 void NegMoveMas(Rotating*, int, int);
-void NegMoveMasR(Rect16*, int&, int);
+void NegMoveMasR(CIF::Rect16*, int&, int);
 void NegPutLetter(uchar*, int&, RecAlt, Bool);
-int GetMediumW(Rect16*, int);
-int GetMediumH(Rect16*, int);
+int GetMediumW(CIF::Rect16*, int);
+int GetMediumH(CIF::Rect16*, int);
 Bool IfExistA(RecVersions);
 Bool IfGl(uchar);
 Bool IfExistDef(RecVersions);
 Bool IfExistI(RecVersions);
 Bool IfBadResult(uchar*, int);
 Bool IfNegIn(NegList*, int, int, int, int, int);
-void NegDrawRect(Handle, uint32_t, uint32_t, Rect16);
+void NegDrawRect(Handle, uint32_t, uint32_t, CIF::Rect16);
 void NegAr2(uchar*, int, int);
-double NegStrControl(Rect16*, int, Bool, Rect16*);
+double NegStrControl(CIF::Rect16*, int, Bool, CIF::Rect16*);
 double NegRecControl(int);
-int CountLetter(Rect16*, int, Bool);
-int NegGetCountOfStr(Rect16*, int);
+int CountLetter(CIF::Rect16*, int, Bool);
+int NegGetCountOfStr(CIF::Rect16*, int);
 void NegPrintInFile(FILE*, NegList*, int);
 int NegCountNumbers(int);
 void NegSetAlf(char*);

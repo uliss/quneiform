@@ -474,10 +474,10 @@ Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter) {
 	*nRC = 0;
 	GoodComp = CompIsGood(pcomp, Filter);
 	if (GoodComp) {
-		pRc[*nRC].left = pcomp->left;
-		pRc[*nRC].right = pcomp->left + pcomp->w - 1;
-		pRc[*nRC].top = pcomp->upper;
-		pRc[*nRC].bottom = pcomp->upper + pcomp->h - 1;
+		pRc[*nRC].rleft() = pcomp->left;
+		pRc[*nRC].rright() = pcomp->left + pcomp->w - 1;
+		pRc[*nRC].rtop() = pcomp->upper;
+		pRc[*nRC].rbottom() = pcomp->upper + pcomp->h - 1;
 		(*nRC)++;
 	}
 	while (1) {
@@ -491,15 +491,15 @@ Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter) {
 			MyErrorNoMem("коробки компонент");
 			return FALSE;
 		}
-		pRc[*nRC].left = pcomp->left;
-		pRc[*nRC].right = pcomp->left + pcomp->w - 1;
-		pRc[*nRC].top = pcomp->upper;
-		pRc[*nRC].bottom = pcomp->upper + pcomp->h - 1;
+		pRc[*nRC].rleft() = pcomp->left;
+		pRc[*nRC].rright() = pcomp->left + pcomp->w - 1;
+		pRc[*nRC].rtop() = pcomp->upper;
+		pRc[*nRC].rbottom() = pcomp->upper + pcomp->h - 1;
 		(*nRC)++;
 	}
 	return TRUE;
 }
-/*----------------------------------------------------------------------------*/
+
 Bool MyFormZhertvy(Handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter) {
 	CCOM_comp * pcomp;

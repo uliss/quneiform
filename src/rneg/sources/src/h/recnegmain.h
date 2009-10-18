@@ -65,6 +65,7 @@
 #include "polyblock.h"
 #include "criimage.h"
 #include "ctdib.h"
+#include "rect.h"
 
 //Параметры
 
@@ -115,20 +116,20 @@ extern Handle PrintResConsole;
 //My function's diclarations
 
 
-void DelNegMas(Rect16**);
+void DelNegMas(CIF::Rect16**);
 void NormNeg(Handle, NegList*, NegList**, int&);
 void CutNeg(Handle, NegList**, int&, int);
 void CutNegStr(Handle, NegList**, int&, int);
 Bool SearchNegBySize(CCOM_handle, Handle, NegList**, int&);
 void SearchNegByBlack(Handle, NegList**, int&);
 void NegRecog(Handle, NegList**, int&, int);
-void NegMoveMas(Rect16*, int&, int);
-void NegDrawRect(Handle, uint32_t, uint32_t, Rect16);
+void NegMoveMas(CIF::Rect16*, int&, int);
+void NegDrawRect(Handle, uint32_t, uint32_t, CIF::Rect16);
 void NegPrintInFile(FILE*, NegList*, int);
-int NegGetCountOfStr(Rect16*, int);
+int NegGetCountOfStr(CIF::Rect16*, int);
 Bool NegRotate(Handle, NegList*, int, int);
-Bool GetMasP(Handle, Rect16, uchar**);
-Bool GetMasP(Rect16*, uchar**);
+Bool GetMasP(Handle, CIF::Rect16, uchar**);
+Bool GetMasP(CIF::Rect16*, uchar**);
 void NegCopy(uchar*, uchar*, int, int);
 Bool InitRotateMas(int, int, int16_t**, int16_t**, uchar**, int**);
 void DeleteRotateMas(uchar**, int16_t**, int16_t**, uchar**, int**);

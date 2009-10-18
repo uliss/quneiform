@@ -61,6 +61,7 @@
 #include "cttypes.h"
 #include "cpagetyps.h"
 #include "point.h"
+#include "rect.h"
 
 #ifdef __CPAGE__
 #define CPAGE_FUNC  FUN_EXPO__
@@ -75,108 +76,109 @@ CPAGE_FUNC char * CPAGE_GetReturnString(uint32_t dwError);
 CPAGE_FUNC Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData);
 CPAGE_FUNC Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData);
 
-typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext, Handle TypeIn,
-		void * lpDataIn, uint32_t SizeIn, Handle TypeOut, void * LpDataOut,
-		uint32_t SizeOut);
+typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext, Handle TypeIn, void * lpDataIn,
+        uint32_t SizeIn, Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
 
-typedef struct {
-	uint32_t dwContext; // Контекст конвертора
-	CPAGE_ExtConvert fnConvertor; // Функция конвертировани
+typedef struct
+{
+    uint32_t dwContext; // Контекст конвертора
+    CPAGE_ExtConvert fnConvertor; // Функция конвертировани
 } CPAGE_CONVERTOR;
 
-enum CPAGE_EXPORT_ENTRIES {
-	CPAGE_FNCPAGE_CreatePage = 1,
-	CPAGE_FNCPAGE_DeletePage,
-	CPAGE_FNCPAGE_SavePage,
-	CPAGE_FNCPAGE_RestorePage,
-	CPAGE_FNCPAGE_GetHandlePage,
-	CPAGE_FNCPAGE_GetPageType,
-	CPAGE_FNCPAGE_SetPageData,
-	CPAGE_FNCPAGE_GetPageData,
-	CPAGE_FNCPAGE_BackUp,
-	CPAGE_FNCPAGE_Undo,
-	CPAGE_FNCPAGE_Redo,
-	CPAGE_FNCPAGE_GetCountPage,
-	CPAGE_FNCPAGE_GetCountBlock,
-	CPAGE_FNCPAGE_CreateBlock,
-	CPAGE_FNCPAGE_GetHandleBlock,
-	CPAGE_FNCPAGE_GetBlockType,
-	CPAGE_FNCPAGE_GetBlockUserNum,
-	CPAGE_FNCPAGE_SetBlockUserNum,
-	CPAGE_FNCPAGE_GetBlockFlags,
-	CPAGE_FNCPAGE_SetBlockFlags,
-	CPAGE_FNCPAGE_SetBlockData,
-	CPAGE_FNCPAGE_GetBlockData,
-	CPAGE_FNCPAGE_DeleteBlock,
-	CPAGE_FNCPAGE_SetConvertorPages,
-	CPAGE_FNCPAGE_SetConvertorBlocks,
-	CPAGE_FNCPAGE_GetUserPageType,
-	CPAGE_FNCPAGE_GetUserBlockType,
-	CPAGE_FNCPAGE_GetBuckUpCount,
-	CPAGE_FNCPAGE_GetBuckUpHandle,
-	CPAGE_FNCPAGE_GetPageFirst,
-	CPAGE_FNCPAGE_GetPageNext,
-	CPAGE_FNCPAGE_GetBlockFirst,
-	CPAGE_FNCPAGE_GetBlockNext,
-	CPAGE_FNCPAGE_DeleteAll,
-	CPAGE_FNCPAGE_GetCurrentPage,
-	CPAGE_FNCPAGE_SetCurrentPage,
-	CPAGE_FNCPAGE_GetNumberPage,
-	CPAGE_FNCPAGE_TableCreate,
-	CPAGE_FNCPAGE_TableGetFirst,
-	CPAGE_FNCPAGE_TableGetNext,
-	CPAGE_FNCPAGE_GeTableGetNumberCells,
-	CPAGE_FNCPAGE_PhTableGetNumberCells,
-	CPAGE_FNCPAGE_TableGetNumberRow,
-	CPAGE_FNCPAGE_TableGetNumberColumn,
-	CPAGE_FNCPAGE_GeTableGetSizeCell,
-	CPAGE_FNCPAGE_PhTableGetSizeCell,
-	CPAGE_FNCPAGE_TableGetNumberBlock,
-	CPAGE_FNCPAGE_GeTableGetPhysical,
-	CPAGE_FNCPAGE_PhTableGetNumberGeometry,
-	CPAGE_FNCPAGE_PhTableGetGeometry,
-	CPAGE_FNCPAGE_PhTableSetNumberBlock,
-	CPAGE_FNCPAGE_UpdateBlocks,
-	CPAGE_FNCPAGE_TableIsPhysicCell,
-	CPAGE_FNCPAGE_TableSize,
-	CPAGE_FNCPAGE_HL_TableExtract,
-	CPAGE_FNCPAGE_TableGetSkew,
-	CPAGE_FNCPAGE_PictureGetFirst,
-	CPAGE_FNCPAGE_PictureGetNext,
-	CPAGE_FNCPAGE_PictureGetPlace,
-	CPAGE_FNCPAGE_PictureGetMask,
-	CPAGE_FNCPAGE_GetBlockInterNum,
-	CPAGE_FNCPAGE_SetBlockInterNum,
-	CPAGE_FNCPAGE_GetBlockDataPtr,
-	CPAGE_FNCPAGE_GetBuckUpCurPos,
-	CPAGE_FNCPAGE_GetInternalType,
-	CPAGE_FNCPAGE_GetNameInternalType,
+enum CPAGE_EXPORT_ENTRIES
+{
+    CPAGE_FNCPAGE_CreatePage = 1,
+    CPAGE_FNCPAGE_DeletePage,
+    CPAGE_FNCPAGE_SavePage,
+    CPAGE_FNCPAGE_RestorePage,
+    CPAGE_FNCPAGE_GetHandlePage,
+    CPAGE_FNCPAGE_GetPageType,
+    CPAGE_FNCPAGE_SetPageData,
+    CPAGE_FNCPAGE_GetPageData,
+    CPAGE_FNCPAGE_BackUp,
+    CPAGE_FNCPAGE_Undo,
+    CPAGE_FNCPAGE_Redo,
+    CPAGE_FNCPAGE_GetCountPage,
+    CPAGE_FNCPAGE_GetCountBlock,
+    CPAGE_FNCPAGE_CreateBlock,
+    CPAGE_FNCPAGE_GetHandleBlock,
+    CPAGE_FNCPAGE_GetBlockType,
+    CPAGE_FNCPAGE_GetBlockUserNum,
+    CPAGE_FNCPAGE_SetBlockUserNum,
+    CPAGE_FNCPAGE_GetBlockFlags,
+    CPAGE_FNCPAGE_SetBlockFlags,
+    CPAGE_FNCPAGE_SetBlockData,
+    CPAGE_FNCPAGE_GetBlockData,
+    CPAGE_FNCPAGE_DeleteBlock,
+    CPAGE_FNCPAGE_SetConvertorPages,
+    CPAGE_FNCPAGE_SetConvertorBlocks,
+    CPAGE_FNCPAGE_GetUserPageType,
+    CPAGE_FNCPAGE_GetUserBlockType,
+    CPAGE_FNCPAGE_GetBuckUpCount,
+    CPAGE_FNCPAGE_GetBuckUpHandle,
+    CPAGE_FNCPAGE_GetPageFirst,
+    CPAGE_FNCPAGE_GetPageNext,
+    CPAGE_FNCPAGE_GetBlockFirst,
+    CPAGE_FNCPAGE_GetBlockNext,
+    CPAGE_FNCPAGE_DeleteAll,
+    CPAGE_FNCPAGE_GetCurrentPage,
+    CPAGE_FNCPAGE_SetCurrentPage,
+    CPAGE_FNCPAGE_GetNumberPage,
+    CPAGE_FNCPAGE_TableCreate,
+    CPAGE_FNCPAGE_TableGetFirst,
+    CPAGE_FNCPAGE_TableGetNext,
+    CPAGE_FNCPAGE_GeTableGetNumberCells,
+    CPAGE_FNCPAGE_PhTableGetNumberCells,
+    CPAGE_FNCPAGE_TableGetNumberRow,
+    CPAGE_FNCPAGE_TableGetNumberColumn,
+    CPAGE_FNCPAGE_GeTableGetSizeCell,
+    CPAGE_FNCPAGE_PhTableGetSizeCell,
+    CPAGE_FNCPAGE_TableGetNumberBlock,
+    CPAGE_FNCPAGE_GeTableGetPhysical,
+    CPAGE_FNCPAGE_PhTableGetNumberGeometry,
+    CPAGE_FNCPAGE_PhTableGetGeometry,
+    CPAGE_FNCPAGE_PhTableSetNumberBlock,
+    CPAGE_FNCPAGE_UpdateBlocks,
+    CPAGE_FNCPAGE_TableIsPhysicCell,
+    CPAGE_FNCPAGE_TableSize,
+    CPAGE_FNCPAGE_HL_TableExtract,
+    CPAGE_FNCPAGE_TableGetSkew,
+    CPAGE_FNCPAGE_PictureGetFirst,
+    CPAGE_FNCPAGE_PictureGetNext,
+    CPAGE_FNCPAGE_PictureGetPlace,
+    CPAGE_FNCPAGE_PictureGetMask,
+    CPAGE_FNCPAGE_GetBlockInterNum,
+    CPAGE_FNCPAGE_SetBlockInterNum,
+    CPAGE_FNCPAGE_GetBlockDataPtr,
+    CPAGE_FNCPAGE_GetBuckUpCurPos,
+    CPAGE_FNCPAGE_GetInternalType,
+    CPAGE_FNCPAGE_GetNameInternalType,
 
-	CPAGE_FNCPAGE_ExTableCreate,
-	CPAGE_FNCPAGE_ExTableDelete,
-	CPAGE_FNCPAGE_ExTableGetFirst,
-	CPAGE_FNCPAGE_ExTableGetNext,
-	CPAGE_FNCPAGE_ExGeTableGetNumberCells,
-	CPAGE_FNCPAGE_ExPhTableGetNumberCells,
-	CPAGE_FNCPAGE_ExTableGetNumberRow,
-	CPAGE_FNCPAGE_ExTableGetNumberColumn,
-	CPAGE_FNCPAGE_ExGeTableGetSizeCell,
-	CPAGE_FNCPAGE_ExPhTableGetSizeCell,
-	CPAGE_FNCPAGE_ExTableGetNumberBlock,
-	CPAGE_FNCPAGE_ExGeTableGetPhysical,
-	CPAGE_FNCPAGE_ExPhTableGetNumberGeometry,
-	CPAGE_FNCPAGE_ExPhTableGetGeometry,
-	CPAGE_FNCPAGE_ExPhTableSetNumberBlock,
-	CPAGE_FNCPAGE_ExTableIsPhysicCell,
-	CPAGE_FNCPAGE_ExTableSize,
-	CPAGE_FNCPAGE_ExTableGetSkew,
-	CPAGE_FNCPAGE_GetTableFlag,
-	CPAGE_FNCPAGE_GetTableCellFlag,
-	CPAGE_FNCPAGE_SetTableFlag,
-	CPAGE_FNCPAGE_SetTableCellFlag,
-	CPAGE_FNCPAGE_ClearBackUp, //Paul 19-01-2001
-	CPAGE_FNCPAGE_PhTableGetRect,
-	CPAGE_FNCPAGE_PhTableGetBoundType
+    CPAGE_FNCPAGE_ExTableCreate,
+    CPAGE_FNCPAGE_ExTableDelete,
+    CPAGE_FNCPAGE_ExTableGetFirst,
+    CPAGE_FNCPAGE_ExTableGetNext,
+    CPAGE_FNCPAGE_ExGeTableGetNumberCells,
+    CPAGE_FNCPAGE_ExPhTableGetNumberCells,
+    CPAGE_FNCPAGE_ExTableGetNumberRow,
+    CPAGE_FNCPAGE_ExTableGetNumberColumn,
+    CPAGE_FNCPAGE_ExGeTableGetSizeCell,
+    CPAGE_FNCPAGE_ExPhTableGetSizeCell,
+    CPAGE_FNCPAGE_ExTableGetNumberBlock,
+    CPAGE_FNCPAGE_ExGeTableGetPhysical,
+    CPAGE_FNCPAGE_ExPhTableGetNumberGeometry,
+    CPAGE_FNCPAGE_ExPhTableGetGeometry,
+    CPAGE_FNCPAGE_ExPhTableSetNumberBlock,
+    CPAGE_FNCPAGE_ExTableIsPhysicCell,
+    CPAGE_FNCPAGE_ExTableSize,
+    CPAGE_FNCPAGE_ExTableGetSkew,
+    CPAGE_FNCPAGE_GetTableFlag,
+    CPAGE_FNCPAGE_GetTableCellFlag,
+    CPAGE_FNCPAGE_SetTableFlag,
+    CPAGE_FNCPAGE_SetTableCellFlag,
+    CPAGE_FNCPAGE_ClearBackUp, //Paul 19-01-2001
+    CPAGE_FNCPAGE_PhTableGetRect,
+    CPAGE_FNCPAGE_PhTableGetBoundType
 };
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC a b c;
 DEC_FUN(Handle, CPAGE_CreatePage,(Handle Type, void * lpData, uint32_t Size))
@@ -241,10 +243,13 @@ DEC_FUN(char *, CPAGE_GetNameInternalType, (Handle type))
 #define VRT_FUN(a,b,c) typedef a (*FN##b)c;
 
 // Битовые флаги.
-enum {
-	CPAGE_TABLE_DEFAULT = 0x0, CPAGE_TABLE_LINE = 0x1, CPAGE_TABLE_TEXT = 0x2
+enum
+{
+    CPAGE_TABLE_DEFAULT = 0x0,
+    CPAGE_TABLE_LINE = 0x1,
+    CPAGE_TABLE_TEXT = 0x2
 };
-VRT_FUN(Bool32, CPAGE_HL_TableExtract,( Handle hPAGE, uint32_t type, Rect32 rect ))
+VRT_FUN(Bool32, CPAGE_HL_TableExtract,( Handle hPAGE, uint32_t type, CIF::Rect rect ))
 
 #undef DEC_FUN
 

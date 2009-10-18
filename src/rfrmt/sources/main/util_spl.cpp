@@ -74,6 +74,8 @@
 #include "globus.h"
 #include "aldebug.h"
 
+using namespace CIF;
+
 ////////////// functions, which are moved from other modules //////////////
 #ifdef alDebug
 static int dets=1;
@@ -137,10 +139,10 @@ uchar buf[1024], buf1[1024];
 static void readSRECT(SRECT *r, FILE *f) {
 	Rect16 r16;
 	fread(&r16, sizeof(Rect16), 1, f);
-	r->left = r16.left;
-	r->top = r16.top;
-	r->right = r16.right;
-	r->bottom = r16.bottom;
+	r->left = r16.left();
+	r->top = r16.top();
+	r->right = r16.right();
+	r->bottom = r16.bottom();
 }
 
 Bool FindByPartOfTitle(HWND hwnd, // handle to parent window

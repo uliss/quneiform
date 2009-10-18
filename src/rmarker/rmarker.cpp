@@ -71,9 +71,10 @@
 #include "rline.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
-
 #include "compat_defs.h"
+
+using namespace CIF::CFIO;
+using namespace CIF;
 
 # define INCLINE_FACTOR  2048
 
@@ -302,14 +303,14 @@ void MySetNegative(void *vB, Handle hCPage) {
 			block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
 			block.com.count = 4;
 			block.com.Flags |= POS_NEGTABCAP;
-			block.com.Vertex[0].rx() = pRc[i].left;
-			block.com.Vertex[0].ry() = pRc[i].top;
-			block.com.Vertex[1].rx() = pRc[i].right;
-			block.com.Vertex[1].ry() = pRc[i].top;
-			block.com.Vertex[2].rx() = pRc[i].right;
-			block.com.Vertex[2].ry() = pRc[i].bottom;
-			block.com.Vertex[3].rx() = pRc[i].left;
-			block.com.Vertex[3].ry() = pRc[i].bottom;
+			block.com.Vertex[0].rx() = pRc[i].left();
+			block.com.Vertex[0].ry() = pRc[i].top();
+			block.com.Vertex[1].rx() = pRc[i].right();
+			block.com.Vertex[1].ry() = pRc[i].top();
+			block.com.Vertex[2].rx() = pRc[i].right();
+			block.com.Vertex[2].ry() = pRc[i].bottom();
+			block.com.Vertex[3].rx() = pRc[i].left();
+			block.com.Vertex[3].ry() = pRc[i].bottom();
 			CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
 		}
 	}

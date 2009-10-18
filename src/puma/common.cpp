@@ -162,7 +162,7 @@
 //	g_PrgTime = prev;
 //}
 //
-//Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect32 rect) {
+//Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect rect) {
 //	return RMARKER_SearchTableInZone(hPAGE, hCCOM, perc, rect);
 //}
 

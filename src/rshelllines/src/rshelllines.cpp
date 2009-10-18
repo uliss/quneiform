@@ -121,8 +121,8 @@ Handle hPreRSL_Control = NULL;
 Handle hPreRSL_Debug = NULL;
 Handle hDebugFragOwnerControl = NULL;
 
-typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
-typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
+typedef Bool32 (*FNPUMA_XSetTemplate)(Rect rect);
+typedef Bool32 (*FNPUMA_XGetTemplate)(Rect *pRect);
 typedef struct tagRSPreProcessImage {
 	puchar *pgpRecogDIB;
 	Bool32 gbAutoRotate;
@@ -150,7 +150,7 @@ typedef struct tagRSPreProcessImage {
 	int32_t * pgnNumberTables;
 	uint32_t gnPictures;
 	Bool32* pgrc_line;
-	Rect32 gRectTemplate;
+	Rect gRectTemplate;
 	FNPUMA_XSetTemplate fnXSetTemplate;
 	FNPUMA_XGetTemplate fnXGetTemplate;
 	char *szLayoutFileName;
@@ -553,7 +553,7 @@ void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info) {
 void CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info) {
 }
 
-void DrowRectForRaster(Rect32* rect) {
+void DrowRectForRaster(Rect* rect) {
 }
 
 void DrowPolynomia(DLine* pCLine) {
@@ -573,7 +573,7 @@ void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
 		BitmapInfoHeader* image_info, Handle* HndMyWindow) {
 }
 
-void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect) {
+void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect* rect) {
 }
 
 Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
@@ -641,7 +641,7 @@ RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle
 	return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect* rect, uchar** ppData, PAGEINFO* page_info)
 {
 	return TRUE;
 }

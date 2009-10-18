@@ -56,7 +56,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include<time.h>
+#include <time.h>
 
 #include "lhstr.h"
 #include "ccom/ccom.h"
@@ -94,59 +94,56 @@ extern Handle Root;
 /*-------------------------------------------------------------------------------------*/
 
 void CleanCont(void);
-Bool StrGetRaster(Handle, uchar*, Rect16, CCOM_comp*, RecRaster*, Bool, Bool,
-		int);
+Bool StrGetRaster(Handle, uchar*, CIF::Rect16, CCOM_comp*, RecRaster*, Bool, Bool, int);
 void StrAr2(uchar*, int, int);
-Bool GetMasP(Handle, uchar*, Rect16, uchar**);
+Bool GetMasP(Handle, uchar*, CIF::Rect16, uchar**);
 void Invert(RecRaster*);
 int MyGetMaxFragment(int);
-void StrDrawRect(Handle, uint32_t, uint32_t, Rect16);
-void Invert(Rect16*, uchar*);
-void CopyP(Rect16*, uchar*, uchar*);
-void ToHorizont(Rect16*, uchar*, uchar*);
+void StrDrawRect(Handle, uint32_t, uint32_t, CIF::Rect16);
+void Invert(CIF::Rect16*, uchar*);
+void CopyP(CIF::Rect16*, uchar*, uchar*);
+void ToHorizont(CIF::Rect16*, uchar*, uchar*);
 Bool IfNewStr(uchar*, int, int, int, int, int&, int);
-void StrDrawRect(Handle, uint32_t, uint32_t, Rect16*, int, Bool, Rect16);
+void StrDrawRect(Handle, uint32_t, uint32_t, CIF::Rect16*, int, Bool, CIF::Rect16);
 void SortLetter(CCOM_comp** ppComp, int, Bool);
-void StrMoveMas(Rect16*, int&, int);
+void StrMoveMas(CIF::Rect16*, int&, int);
 void StrMoveMas(int*, int&, int);
 void StrMoveMas(CCOM_comp**, int&, int);
-void StrMoveMasR(Rect16*, int&, int);
-int IfStr(Rect16*, int, Bool);
-Bool GetMasP(Handle, uchar*, Rect16, uchar**);
-Handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
-Bool InitStrMas(Rect16**, int);
+void StrMoveMasR(CIF::Rect16*, int&, int);
+int IfStr(CIF::Rect16*, int, Bool);
+Bool GetMasP(Handle, uchar*, CIF::Rect16, uchar**);
+Handle GetStrCCOM(Handle, uchar*, CIF::Rect16, Bool, Bool);
+Bool InitStrMas(CIF::Rect16**, int);
 Bool InitStrMas(CCOM_comp***, int);
-void InitRc(Rect16*, int, CCOM_comp *);
-//void DelStrMas(Rect16*);
-void DelStrMas(Rect16**);
+void InitRc(CIF::Rect16*, int, CCOM_comp *);
+void DelStrMas(CIF::Rect16**);
 void DelStrMas(CCOM_comp**);
-Bool AddLenStrMas(Rect16**, int&, int);
+Bool AddLenStrMas(CIF::Rect16**, int&, int);
 Bool AddLenStrMas(CCOM_comp***, int&, int);
-Bool MyRotateImage(uchar*, uchar*, int, Rect16*, Bool, int, MATRIX*, MATRIX*);
+Bool MyRotateImage(uchar*, uchar*, int, CIF::Rect16*, Bool, int, MATRIX*, MATRIX*);
 void InitRotateImageName(uchar*, uchar*);
 void InitRotateImageName(uchar*, int);
-void GetRasterRect(uchar*, Rect16, Rect16*, CSTR_attr*, Bool);
-int GetStrScale(Rect16*, int, Bool);
-void CleanStr(Rect16*, int&, int, int, int, int, int, Bool);
-Bool InitRotateMas(Rect16, int16_t**, int16_t**, uchar**);
+void GetRasterRect(uchar*, CIF::Rect16, CIF::Rect16*, CSTR_attr*, Bool);
+int GetStrScale(CIF::Rect16*, int, Bool);
+void CleanStr(CIF::Rect16*, int&, int, int, int, int, int, Bool);
+Bool InitRotateMas(CIF::Rect16, int16_t**, int16_t**, uchar**);
 Bool InitRotateMas(int**, int);
 void DeleteRotateMas(int16_t*, int16_t*, uchar*, int*);
 Bool32 Filter(int32_t, int32_t, int32_t, int32_t);
 int GetStrW(uchar*, int, int, int, int, int&, int&);
-int GetMediumSize(CCOM_handle, Rect16, int&, Bool);
-int GetMaxSize(CCOM_handle hCCOM, Rect16 Rc, int& num, Bool vert);
-//Bool IfBadCut(Handle,Rect16*,Rect16,int,uchar*,CHstr*);
-CCOM_handle CreateContainer(Handle hCPage, CCOM_handle hCCOM_old, Rect16 Rc);
+int GetMediumSize(CCOM_handle, CIF::Rect16, int&, Bool);
+int GetMaxSize(CCOM_handle hCCOM, CIF::Rect16 Rc, int& num, Bool vert);
+CCOM_handle CreateContainer(Handle hCPage, CCOM_handle hCCOM_old, CIF::Rect16 Rc);
 int GetMinCol(CCOM_comp** pC, int nN, Bool vert);
 Bool AddToPrepList(CPrepHstr* temp);
 Bool AddToCpage(Handle hCPAGE, CPrepHstr* temp);
 Bool InitPrepList(Handle hCPAGE);
 CPrepHstr* WasAlreadyPrep(CHstr* my_str);
-void GetIdealRect(CCOM_handle HCCOM, Rect16 Rc, Rect16* Rect);
-void GetStrBounds(CCOM_handle hCCOM, Rect16* pRc, int nRc, int num, int* ptop,
-		int* pbottom, Bool vert, Rect16 Rc);
-Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp,
-		Rect16* pRc, int nRc, int param);
-Bool NotIn(CCOM_handle, Rect16 Rc, Rect16* pRc, int nRc, Bool vert, int);
-Bool NotInAll(CCOM_handle, Rect16 Rc, Rect16* pRc, int& nRc, Bool vert);
-Bool IfOneRowComp(CCOM_handle hCCOM, Rect16 Rc, Bool vert);
+void GetIdealRect(CCOM_handle HCCOM, CIF::Rect16 Rc, CIF::Rect16* Rect);
+void GetStrBounds(CCOM_handle hCCOM, CIF::Rect16* pRc, int nRc, int num, int* ptop, int* pbottom,
+        Bool vert, CIF::Rect16 Rc);
+Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp, CIF::Rect16* pRc,
+        int nRc, int param);
+Bool NotIn(CCOM_handle, CIF::Rect16 Rc, CIF::Rect16* pRc, int nRc, Bool vert, int);
+Bool NotInAll(CCOM_handle, CIF::Rect16 Rc, CIF::Rect16* pRc, int& nRc, Bool vert);
+Bool IfOneRowComp(CCOM_handle hCCOM, CIF::Rect16 Rc, Bool vert);

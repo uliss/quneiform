@@ -115,7 +115,7 @@ public:
   CTableRow*    GetCurrentTableRow( void );
   void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo,Bool OutPutMode);
 
-  Rect32        RectTable;
+  Rect        RectTable;
   std::vector<CTableRow*>/*CObArray*/	    m_arTableRows;
   uint16_t          m_wIndex;
   int32_t         m_CountRows;
@@ -162,8 +162,8 @@ public:
   std::vector<CTableString*>/*CObArray*/	    m_arStrings;
   std::vector <RECT> RectFragmentInPhCell;
 
-  Rect32        RectPhCell;//Здесь хранятся координаты прямоугольника - ГРАНИЦ ячейки (кажется в пикселях)
-  Rect32        RectTable;
+  Rect        RectPhCell;//Здесь хранятся координаты прямоугольника - ГРАНИЦ ячейки (кажется в пикселях)
+  Rect        RectTable;
   Point       m_PhCellPoint;
 
   uint16_t	        m_wIndex;

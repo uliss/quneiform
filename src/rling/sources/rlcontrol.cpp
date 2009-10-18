@@ -68,12 +68,9 @@
 #include "crling.h"
 #undef RLING_SECONDARY
 #endif
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-// для скидывания с мозгов в файл
-//#define RLING_DUMP
-#ifdef RLING_DUMP
-#include "PumaMemoryToFileDumper.h"
-#endif
+
+using namespace CIF;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -603,7 +600,7 @@ Rect16 CRLControl::GetSecCorrectedRectElement(uint32_t i) {
 	return RLINGS_GetCorrectedRectElement(i);
 #endif
 
-	Rect16 Empt = { 0, 0, 0, 0 };
+	Rect16 Empt;
 	return Empt;
 }
 

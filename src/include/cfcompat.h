@@ -99,18 +99,9 @@ CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText,
 CFCOMPAT_FUNC void * GlobalLock(HGLOBAL hMem);
 CFCOMPAT_FUNC Bool GlobalUnlock(HGLOBAL hMem);
 CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
-CFCOMPAT_FUNC Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight,
-		int yBottom);
-CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, CIF::Point16 pt);
-CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1,
-		const RECT *lprcSrc2);
-CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,
-		const RECT *lprcSrc2);
 
 CFCOMPAT_FUNC long filelength(int fd);
 CFCOMPAT_FUNC int LoadCursor(HINSTANCE hInstance, const char * lpCursorName);
-CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect,
-		int nRightRect, int nBottomRect);
 CFCOMPAT_FUNC char* _strupr(char*s);
 
 CFCOMPAT_FUNC int open_data_file(const char *basename, int mode);

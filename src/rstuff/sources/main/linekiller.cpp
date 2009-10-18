@@ -81,6 +81,8 @@
 #include "cline.h"
 #include "linedefs.h"
 
+using namespace CIF;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 LineKiller(PRSPreProcessImage Image) {
@@ -316,8 +318,8 @@ Bool32 SearchAndKill(PRSPreProcessImage Image, LinesTotalInfo *LTInfo) {
 
 		LDPUMA_DeleteLines(hLineKillerWindow, 315);
 		LDPUMA_DeleteRects(hLineKillerWindow, 316);
-		ZoomRect.top = 0;
-		ZoomRect.bottom = 0;
+		ZoomRect.setTop(0);
+		ZoomRect.setBottom(0);
 
 		//if ( bShowStepLineDebug )
 		//LDPUMA_ZoomToRect(NULL, &ZoomRect);
@@ -340,35 +342,32 @@ Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
 	Rect16 Rc;
 	Rect16 Rl;
 	int32_t nRc = 0;
-	int32_t Filter = 0;
 	int32_t j = 0;
 	char str[255];
 	int16_t Thick = (Line->Thickness / 2) + (int16_t) gKillZone;
 	Bool32 bDieComponent = FALSE;
 
-	Rl.left = Line->A.x();
-	Rl.top = Line->A.y();
-	Rl.right = Line->B.x();
-	Rl.bottom = Line->B.y();
+	Rl.pt0() = Line->A;
+	Rl.pt1() = Line->B;
 
-	if (Rl.left <= Rl.right) {
-		Rl.left -= Thick;
-		Rl.left = Rl.left < 0 ? 0 : Rl.left;
-		Rl.right += Thick;
+	if (Rl.left() <= Rl.right()) {
+		Rl.rleft() -= Thick;
+		Rl.rleft() = Rl.left() < 0 ? 0 : Rl.left();
+		Rl.rright() += Thick;
 	} else {
-		Rl.left += Thick;
-		Rl.right -= Thick;
-		Rl.right = Rl.right < 0 ? 0 : Rl.right;
+		Rl.rleft() += Thick;
+		Rl.rright() -= Thick;
+		Rl.rright() = Rl.right() < 0 ? 0 : Rl.right();
 	}
 
-	if (Rl.bottom <= Rl.top) {
-		Rl.bottom -= Thick;
-		Rl.bottom = Rl.bottom < 0 ? 0 : Rl.bottom;
-		Rl.top += Thick;
+	if (Rl.bottom() <= Rl.top()) {
+		Rl.rbottom() -= Thick;
+		Rl.rbottom() = Rl.bottom() < 0 ? 0 : Rl.bottom();
+		Rl.rtop() += Thick;
 	} else {
-		Rl.bottom += Thick;
-		Rl.top -= Thick;
-		Rl.top = Rl.top < 0 ? 0 : Rl.top;
+		Rl.rbottom() += Thick;
+		Rl.rtop() -= Thick;
+		Rl.rtop() = Rl.top() < 0 ? 0 : Rl.top();
 	}
 
 	pdeadcom = CCOM_GetFirst(*Image->phCCOM, NULL);
@@ -377,10 +376,10 @@ Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
 		GoodComp = true;//CompIsGood (pcomp, Filter);
 
 		if (GoodComp) {
-			Rc.left = pdeadcom->left;
-			Rc.right = pdeadcom->left + pdeadcom->w /*- 1*/;
-			Rc.top = pdeadcom->upper;
-			Rc.bottom = pdeadcom->upper + pdeadcom->h /*- 1*/;
+			Rc.rleft() = pdeadcom->left;
+			Rc.rright() = pdeadcom->left + pdeadcom->w /*- 1*/;
+			Rc.rtop() = pdeadcom->upper;
+			Rc.rbottom() = pdeadcom->upper + pdeadcom->h /*- 1*/;
 			nRc++;
 
 			if (IsRectIntersect(&Rl, &Rc)) {
@@ -394,7 +393,7 @@ Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
 								= sprintf(
 										str,
 										"LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >",
-										Rc.left, Rc.top, Rc.right, Rc.bottom);
+										Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
 
 						if (bDieComponent)
 							j += sprintf(str + j, " +dead+");
@@ -423,24 +422,24 @@ Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B) {
 	Bool32 rc = FALSE;
 
-	int32_t M1 = A->bottom >= A->top ? A->bottom : A->top;
-	int32_t M2 = A->right >= A->left ? A->right : A->left;
-	int32_t m1 = A->bottom >= A->top ? A->top : A->bottom;
-	int32_t m2 = A->right >= A->left ? A->left : A->right;
-	int32_t M3 = B->bottom >= B->top ? B->bottom : B->top;
-	int32_t M4 = B->right >= B->left ? B->right : B->left;
-	int32_t m3 = B->bottom >= B->top ? B->top : B->bottom;
-	int32_t m4 = B->right >= B->left ? B->left : B->right;
+	int32_t M1 = A->bottom() >= A->top() ? A->bottom() : A->top();
+	int32_t M2 = A->right() >= A->left() ? A->right() : A->left();
+	int32_t m1 = A->bottom() >= A->top() ? A->top() : A->bottom();
+	int32_t m2 = A->right() >= A->left() ? A->left() : A->right();
+	int32_t M3 = B->bottom() >= B->top() ? B->bottom() : B->top();
+	int32_t M4 = B->right() >= B->left() ? B->right() : B->left();
+	int32_t m3 = B->bottom() >= B->top() ? B->top() : B->bottom();
+	int32_t m4 = B->right() >= B->left() ? B->left() : B->right();
 
-	if ((((B->top >= m1) && (B->top <= M1)) || ((B->bottom >= m1) && (B->bottom
-			<= M1))) && (((B->left >= m2) && (B->left <= M2)) || ((B->right
-			>= m2) && (B->right <= M2)))) {
+	if ((((B->top() >= m1) && (B->top() <= M1)) || ((B->bottom() >= m1) && (B->bottom()
+			<= M1))) && (((B->left() >= m2) && (B->left() <= M2)) || ((B->right()
+			>= m2) && (B->right() <= M2)))) {
 		rc = TRUE;
 	}
 
-	if ((((A->top >= m3) && (A->top <= M3)) || ((A->bottom >= m3) && (A->bottom
-			<= M3))) && (((A->left >= m4) && (A->left <= M4)) || ((A->right
-			>= m4) && (A->right <= M4)))) {
+	if ((((A->top() >= m3) && (A->top() <= M3)) || ((A->bottom() >= m3) && (A->bottom()
+			<= M3))) && (((A->left() >= m4) && (A->left() <= M4)) || ((A->right()
+			>= m4) && (A->right() <= M4)))) {
 		rc = TRUE;
 	}
 
@@ -482,10 +481,10 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, uint32_t KillZone) {
 
 		LineType = (temp > -1) && (temp < 1) ? -1 : 1;
 
-		pPoints[3].rx() = pPoints[0].rx() = Rect->left;
-		pPoints[1].ry() = pPoints[0].ry() = Rect->top;
-		pPoints[2].rx() = pPoints[1].rx() = Rect->right;
-		pPoints[3].ry() = pPoints[2].ry() = Rect->bottom;
+		pPoints[3].rx() = pPoints[0].rx() = Rect->left();
+		pPoints[1].ry() = pPoints[0].ry() = Rect->top();
+		pPoints[2].rx() = pPoints[1].rx() = Rect->right();
+		pPoints[3].ry() = pPoints[2].ry() = Rect->bottom();
 
 		wN = wP = wZ = 0;
 
@@ -543,7 +542,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone,
 	float temp;
 	float Halfs = 1.0;
 	int32_t LineType;
-	Rect32 S;
+	CIF::Rect S;
 	uint32_t SRect;
 	uint32_t SLine;
 	int32_t iTemp;
@@ -570,72 +569,72 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone,
 	if (LineType > 0) {
 		// горизонтальные линии
 
-		S.left = Line->A.x() - KillZone;
-		S.right = Line->B.x() + KillZone;
+		S.rleft() = Line->A.x() - KillZone;
+		S.rright() = Line->B.x() + KillZone;
 
 		if (Line->A.y() > Line->B.y()) {
-			S.top = Line->B.y() - Thick;
-			S.bottom = Line->A.y() + Thick;
+			S.rtop() = Line->B.y() - Thick;
+			S.rbottom() = Line->A.y() + Thick;
 		} else {
-			//			S.bottom = Line->B.y() - Thick;
-			//			S.top = Line->A.y() + Thick;
-			S.top = Line->A.y() - Thick;
-			S.bottom = Line->B.y() + Thick; //Almi 01.12.00
+			//			S.bottom() = Line->B.y() - Thick;
+			//			S.top() = Line->A.y() + Thick;
+			S.rtop() = Line->A.y() - Thick;
+			S.rbottom() = Line->B.y() + Thick; //Almi 01.12.00
 		}
 
 		//смотрим точки пересечения компоненты с линией
-		/*		if ( !(Rect->left < S.left && Rect->right > S.left) )
+		/*		if ( !(Rect->left() < S.left && Rect->right() > S.left) )
 		 {
-		 S.left = Rect->left;
+		 S.left = Rect->left();
 		 }
 
-		 if ( !(Rect->left < S.right && Rect->right > S.right) )
+		 if ( !(Rect->left() < S.right && Rect->right() > S.right) )
 		 {
-		 S.right = Rect->right;
+		 S.right = Rect->right();
 		 }*///Всё неправильно! Almi 01.12.00
-		if (S.left <= Rect->left)
-			S.left = Rect->left;
-		if (S.right >= Rect->right)
-			S.right = Rect->right;
-		if (S.right <= S.left)
-			S.right = S.left; //End Almi
+		if (S.left() <= Rect->left())
+			S.rleft() = Rect->left();
+		if (S.right() >= Rect->right())
+			S.rright() = Rect->right();
+		if (S.right() <= S.left())
+			S.rright() = S.left(); //End Almi
 
 
-		S.bottom = S.top = B0 - (int32_t)(((float) Bs / (float) As)
-				* (float) (A0 - S.left));
+		S.rbottom() = S.rtop() = B0 - (int32_t)(((float) Bs / (float) As)
+				* (float) (A0 - S.left()));
 		iTemp = B0 - (int32_t)(((float) Bs / (float) As) * (float) (A0
-				- S.right));
+				- S.right()));
 
-		S.top = S.top < iTemp ? S.top - Thick : iTemp - Thick;
-		S.bottom = S.bottom > iTemp ? S.bottom + Thick : iTemp + Thick;
+		S.rtop() = S.rtop() < iTemp ? S.top() - Thick : iTemp - Thick;
+		S.rbottom() = S.rbottom() > iTemp ? S.bottom() + Thick : iTemp + Thick;
 
-		/*		if ( !(Rect->top <= S.top && Rect->bottom >= S.top) )
+		/*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
 		 {
-		 S.top = Rect->top;
+		 S.top() = Rect->top();
 		 Halfs = 0.5;
 		 }
 
-		 if ( !(Rect->top <= S.bottom && Rect->bottom >= S.bottom) )
+		 if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
 		 {
-		 S.bottom = Rect->bottom;
+		 S.bottom() = Rect->bottom();
 		 Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
 		 }*///Всё неправильно! Almi 01.12.00
-		if (S.top <= Rect->top)
-			S.top = Rect->top;
-		if (S.bottom >= Rect->bottom)
-			S.bottom = Rect->bottom;
-		if (S.bottom <= S.top)
-			S.bottom = S.top; //End Almi
+		if (S.top() <= Rect->top())
+			S.rtop() = Rect->top();
+		if (S.bottom() >= Rect->bottom())
+			S.rbottom() = Rect->bottom();
+		if (S.bottom() <= S.top())
+			S.rbottom() = S.top(); //End Almi
 
 		//считаем площади
-		iTemp = Rect->bottom - Rect->top;
+		iTemp = Rect->bottom() - Rect->top();
 		SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = Rect->right - Rect->left;
+		iTemp = Rect->right() - Rect->left();
 		SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
 
-		iTemp = S.bottom - S.top;
+		iTemp = S.bottom() - S.top();
 		SLine = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = S.right - S.left;
+		iTemp = S.right() - S.left();
 		SLine *= 1 + (iTemp < 0 ? -iTemp : iTemp);
 		/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
 		 SLine -= iTemp < 0 ? -iTemp : iTemp;*/
@@ -650,71 +649,71 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone,
 		}
 	} else {
 		// вертикальные линии
-		S.top = Line->A.y() - KillZone;
-		S.bottom = Line->B.y() + KillZone;
+		S.rtop() = Line->A.y() - KillZone;
+		S.rbottom() = Line->B.y() + KillZone;
 
 		if (Line->A.x() > Line->B.x()) {
-			S.left = Line->B.x() - Thick;
-			S.right = Line->A.x() + Thick;
+			S.rleft() = Line->B.x() - Thick;
+			S.rright() = Line->A.x() + Thick;
 		} else {
-			//			S.right = Line->B.x() - Thick;
-			//			S.left = Line->A.x() + Thick;
-			S.left = Line->A.x() - Thick;
-			S.right = Line->B.x() + Thick; //Almi 01.12.00
+			//			S.right() = Line->B.x() - Thick;
+			//			S.left() = Line->A.x() + Thick;
+			S.rleft() = Line->A.x() - Thick;
+			S.rright() = Line->B.x() + Thick; //Almi 01.12.00
 		}
 
 		//смотрим точки пересечения компоненты с линией
-		/*		if ( !(Rect->top <= S.top && Rect->bottom >= S.top) )
+		/*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
 		 {
-		 S.top = Rect->top;
+		 S.top() = Rect->top();
 		 }
 
-		 if ( !(Rect->top <= S.bottom && Rect->bottom >= S.bottom) )
+		 if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
 		 {
-		 S.bottom = Rect->bottom;
+		 S.bottom() = Rect->bottom();
 		 }*///Всё неправильно! Almi 01.12.00
-		if (S.top <= Rect->top)
-			S.top = Rect->top;
-		if (S.bottom >= Rect->bottom)
-			S.bottom = Rect->bottom;
-		if (S.bottom <= S.top)
-			S.bottom = S.top; //End Almi
+		if (S.top() <= Rect->top())
+			S.rtop() = Rect->top();
+		if (S.bottom() >= Rect->bottom())
+			S.rbottom() = Rect->bottom();
+		if (S.bottom() <= S.top())
+			S.rbottom() = S.top(); //End Almi
 
-		S.left = S.right = A0 - (int32_t)(((float) As / (float) Bs)
-				* (float) (B0 - S.top));
+		S.rleft() = S.rright() = A0 - (int32_t)(((float) As / (float) Bs)
+				* (float) (B0 - S.top()));
 		iTemp = A0 - (int32_t)(((float) As / (float) Bs) * (float) (B0
-				- S.bottom));
+				- S.bottom()));
 
-		S.left = S.left < iTemp ? S.left - Thick : iTemp - Thick;
-		S.right = S.right > iTemp ? S.right + Thick : iTemp + Thick;
+		S.rleft() = S.rleft() < iTemp ? S.left() - Thick : iTemp - Thick;
+		S.rright() = S.rright() > iTemp ? S.right() + Thick : iTemp + Thick;
 
-		/*		if ( !(Rect->left <= S.left && Rect->right >= S.left) )
+		/*		if ( !(Rect->left() <= S.left() && Rect->right() >= S.left()) )
 		 {
-		 S.left = Rect->left;
+		 S.left() = Rect->left();
 		 Halfs = 0.5;
 		 }
 
-		 if ( !(Rect->left <= S.right && Rect->right >= S.right) )
+		 if ( !(Rect->left() <= S.right() && Rect->right() >= S.right()) )
 		 {
-		 S.right = Rect->right;
+		 S.right() = Rect->right();
 		 Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
 		 }*///Всё неправильно! Almi 01.12.00
-		if (S.left <= Rect->left)
-			S.left = Rect->left;
-		if (S.right >= Rect->right)
-			S.right = Rect->right;
-		if (S.right <= S.left)
-			S.right = S.left; //End Almi
+		if (S.left() <= Rect->left())
+			S.rleft() = Rect->left();
+		if (S.right() >= Rect->right())
+			S.rright() = Rect->right();
+		if (S.right() <= S.left())
+			S.rright() = S.left(); //End Almi
 
 		//считаем площади
-		iTemp = Rect->right - Rect->left;
+		iTemp = Rect->right() - Rect->left();
 		SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = Rect->bottom - Rect->top;
+		iTemp = Rect->bottom() - Rect->top();
 		SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
 
-		iTemp = S.right - S.left;
+		iTemp = S.right() - S.left();
 		SLine = 1 + iTemp < 0 ? -iTemp : iTemp;
-		iTemp = 1 + S.bottom - S.top;
+		iTemp = 1 + S.bottom() - S.top();
 		SLine *= iTemp < 0 ? -iTemp : iTemp;
 		/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
 		 SLine -= iTemp < 0 ? -iTemp : iTemp;*///Almi
@@ -756,10 +755,10 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow,
 		return;
 
 	do {
-		Rc.left = pcomp->left;
-		Rc.right = pcomp->left + pcomp->w /*- 1*/;
-		Rc.top = pcomp->upper;
-		Rc.bottom = pcomp->upper + pcomp->h /*- 1*/;
+		Rc.rleft() = pcomp->left;
+		Rc.rright() = pcomp->left + pcomp->w /*- 1*/;
+		Rc.rtop() = pcomp->upper;
+		Rc.rbottom() = pcomp->upper + pcomp->h /*- 1*/;
 
 		LDPUMA_DrawRect(hWindow, &Rc, 0, Color, (int16_t) Thickness, Group);
 
@@ -767,5 +766,3 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow,
 
 	} while (pcomp != NULL);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file

@@ -202,5 +202,5 @@ RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hCont
 #define MAX_CROSS_POINTS 4
 
 RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point = NULL);
-RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info/*, BitmapInfoHeader* image_info*/); //
+RSHELLLINES_FUNC(Bool)  SL_GetRaster(CIF::Rect* rect, uchar** ppData, PAGEINFO* page_info/*, BitmapInfoHeader* image_info*/); //
 

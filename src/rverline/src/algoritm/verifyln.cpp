@@ -109,10 +109,10 @@ void New_MarkVerifiedLines(void *vLti, Handle hCPage, Rect16 *pRc,
 void ChoiseQuasiLetters(Rect16 *pRc, int *pWhatDo, int nComp) {
 	int i, h, w;
 	for (i = 0; i < nComp; i++) {
-		h = pRc[i].bottom - pRc[i].top + 1;
-		w = pRc[i].right - pRc[i].left + 1;
+		h = pRc[i].height() + 1;
+		w = pRc[i].width() + 1;
 		pWhatDo[i] = FALSE;
-		if ((pRc[i].top < 10) || (pRc[i].left < 10))
+		if ((pRc[i].top() < 10) || (pRc[i].left() < 10))
 			continue;
 		pWhatDo[i] = TRUE;
 		if ((h <= 4) && (w <= 20) && (w >= 10)) //тире

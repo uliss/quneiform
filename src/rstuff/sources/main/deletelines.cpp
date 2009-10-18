@@ -888,7 +888,7 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 	}
 
 	if (data_line->Dir == LD_Horiz) {
-		if (data_line->rect.top <= 0 || data_line->rect.bottom >= end_str) {
+		if (data_line->rect.top() <= 0 || data_line->rect.bottom() >= end_str) {
 			for (hevent = CLINE_GetFirstEvent(hline); hevent; hevent
 					= CLINE_GetNextEvent(hevent)) {
 				data_event = CLINE_GetEventData(hevent);
@@ -1238,7 +1238,7 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 			}
 		}
 	} else {
-		if (data_line->rect.left <= 0 || data_line->rect.right >= endw) {
+		if (data_line->rect.left() <= 0 || data_line->rect.right() >= endw) {
 			for (hevent = CLINE_GetFirstEvent(hline); hevent; hevent
 					= CLINE_GetNextEvent(hevent)) {
 				data_event = CLINE_GetEventData(hevent);

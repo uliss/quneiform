@@ -59,6 +59,7 @@
 
 #include "globus.h"
 #include "point.h"
+#include "rect.h"
 
 #pragma pack(1)
 
@@ -99,7 +100,7 @@ typedef struct tagRecRasterEx {
 // Black pixel is 1
 
 typedef struct tagRecBmp {
-	Rect16 Region;
+	CIF::Rect16 Region;
 	uchar * pBits;
 	int32_t nOffsetX; //this is offset of Region.left-bit
 	//relatively 0-bit 0-byte of pBits
@@ -161,7 +162,7 @@ typedef struct tagRecData {
 	RecRaster recRaster; // basic raster. Can be not changed
 	uint16_t v3x5[16]; // normalizeted image 3x5
 	uint32_t lwCompCnt; // number of components, 0 - not counted
-	Rect16 rect;
+	CIF::Rect16 rect;
 	RecVector vSticks[MAX_VECT];
 	int16_t lwSticksCnt;
 } RecData;

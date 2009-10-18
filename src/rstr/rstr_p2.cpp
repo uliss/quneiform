@@ -64,6 +64,7 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "compat_defs.h"
 #include "std.h"
 #include "globus.h"
 #include "imgaccs.h"

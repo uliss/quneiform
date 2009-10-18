@@ -54,12 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "internal.h"
-#include "std.h"
 //  Функции работы с INI-файлами
 
 #include "xpath.h"
 #include "compat_defs.h"
+#include "internal.h"
+#include "std.h"
 
 /* FIXME */
 #define itoa(a, b, c)

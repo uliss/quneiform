@@ -85,7 +85,9 @@
 
 #include "resource.h"
 
-static Rect16 merge_frame;
+using namespace CIF;
+
+static CIF::Rect16 merge_frame;
 static Bool32 is_merge_frame = FALSE;
 static CCOM_handle NumContainer = 0;
 static int32_t curr_line = 0, original_density;
@@ -1510,10 +1512,10 @@ static int32_t frame_cut(MN *mn) {
 	ncp = 0;
 	cutn = 0;
 	is_merge_frame = TRUE;
-	merge_frame.bottom = y0 + h;
-	merge_frame.left = x0;
-	merge_frame.right = x0 + xmax;
-	merge_frame.top = y0;
+	merge_frame.rbottom() = y0 + h;
+	merge_frame.rleft() = x0;
+	merge_frame.rright() = x0 + xmax;
+	merge_frame.rtop() = y0;
 	while (1) {
 		ncp = W.cp[ncp].ref;
 		xr = (ncp) ? W.cp[ncp].xl : xmax;

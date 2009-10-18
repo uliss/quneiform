@@ -64,12 +64,13 @@
 #ifndef __frmtpict_h__
 #define __frmtpict_h__
 
+#include "rect.h"
+
 extern float Twips;
 
 uint32_t GetPictCount(void);
-Bool WritePict(uint32_t IndexPict,
-		RtfSectorInfo* SectorInfo /*,  CString* PictString*/, Bool OutPutType);
-uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
+Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutType);
+uchar GetPictRect(uint32_t NumberPict, CIF::Rect16* RectPict, uint32_t* UserNumber);
 void GetBmpFileName(char* BmpFileName, char* RtfFileName, int IndexPict);
 
 #endif

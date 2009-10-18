@@ -96,7 +96,7 @@ LEO_FUNC Bool32 LEOSetValid(int16_t id_rast, uchar code, uchar valid,
 		uchar control);
 LEO_FUNC Bool32 LEODelFinal(int16_t id_rast);
 LEO_FUNC int16_t LEO_ContStore(RecRaster *r, uchar let, uchar nLns,
-		Rect16 *rect, uchar IsPrint, uchar Prob, uchar Valid, RecVersions *Res);
+		CIF::Rect16 *rect, uchar IsPrint, uchar Prob, uchar Valid, RecVersions *Res);
 LEO_FUNC int32_t LEO_GetGlobalIncline(void);
 LEO_FUNC Bool32 LEOPushAlphabetType(uchar alpha_type, uchar isPrint);
 LEO_FUNC Bool32 LEO_ContRestoreObject(int16_t idr, RecObject *object,

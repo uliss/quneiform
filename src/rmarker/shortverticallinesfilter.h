@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*-------------------------------------------------------------------------------------------------*/
 
 #include "lns32/lnsdefs.h"
+#include "rect.h"
 
 typedef struct tagPUMALinesBuffer
 {
@@ -80,6 +81,5 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image);
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image);
 Bool32 CompIsGood (CCOM_comp * pcomp, int32_t Filter);
-Bool32 IsRectIntersect(Rect16 *A, Rect16 *B);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+Bool32 IsRectIntersect(CIF::Rect16 *A, CIF::Rect16 *B);
+

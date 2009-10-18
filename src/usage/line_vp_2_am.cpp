@@ -203,8 +203,8 @@ Bool FullMyLines_Mod(void *vLns, int nLns, void *vB, int *pForw, int *SizeForw,
 	RLT_LINE *pLine;
 	Point16 LinBeg, LinEnd;
 	pB = (UN_BUFF *) vB;
-	IsLimit = ((pRcReg->left != 0) || (pRcReg->right != 0)
-			|| (pRcReg->top != 0) || (pRcReg->bottom != 0));
+	IsLimit = ((pRcReg->left() != 0) || (pRcReg->right() != 0)
+			|| (pRcReg->top() != 0) || (pRcReg->bottom() != 0));
 	pLns = (LineInfo *) vLns;
 	pLine = (RLT_LINE *) pB->vCurr;
 	nLine = 0;
@@ -272,8 +272,8 @@ Bool FullMyLines_Mod(void *vLines, int count, void *vB, int *pForw,
 	RLT_LINE *pLine;
 	Point16 LinBeg, LinEnd;
 	pB = (UN_BUFF *) vB;
-	IsLimit = ((pRcReg->left != 0) || (pRcReg->right != 0)
-			|| (pRcReg->top != 0) || (pRcReg->bottom != 0));
+	IsLimit = ((pRcReg->left() != 0) || (pRcReg->right() != 0)
+			|| (pRcReg->top() != 0) || (pRcReg->bottom() != 0));
 	pLine = (RLT_LINE *) pB->vCurr;
 	nLine = 0;
 	SizeCurr = pB->SizeCurr;

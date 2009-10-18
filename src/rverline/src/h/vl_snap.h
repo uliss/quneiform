@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*------------own functions--------------------------------------------------*/
 void RLTDraw_O_VerifLines (void *vLti, int Code1, int Code2, Handle myWindow);
 void RLTDraw_VL_R_Zhertvy (void **vvZher, int nZher, Handle myWindow, int Code);
-void RLTDraw_I_PrimBoxes (Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int Code);
+void RLTDraw_I_PrimBoxes (CIF::Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int Code);
 void RLTDrawTalk_I_PrimUkazy (void *vWhere, void *vStyle, Handle myWindow);
 void RLTDraw_D_PrimLines (void *vB, Bool RealLine, Handle myWindow);
 void RLTTalk_R_PrepSyri_AnalLine (void *vLinePool);
@@ -86,4 +86,3 @@ void MyErrorNoMem (char* str);
 void MyErrorNoComment (char* str);
 void DrawLineOfSviazka (void *vTable, int kL, Bool HoriLine, Bool OldLine, Handle myMainWindow);
 void CleanDrawingLineOfSviazka (Handle myMainWindow);
-/*---------------------------------------------------------------------------*/

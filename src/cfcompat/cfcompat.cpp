@@ -246,68 +246,6 @@ void OutputDebugString(const char * OutputString) {
 	fputs(OutputString, stderr);
 }
 
-Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
-	lprc->left = xLeft;
-	lprc->right = xRight;
-	lprc->top = yTop;
-	lprc->bottom = yBottom;
-	return TRUE;
-}
-
-Bool PtInRect(const RECT *lprc, Point16 pt) {
-	if (pt.x() >= lprc->left && pt.x() < lprc->right && pt.y() >= lprc->top && pt.y()
-			< lprc->bottom)
-		return TRUE;
-	return FALSE;
-}
-
-/* This is only called from creatertf.cpp. It does not use lprcDst at all so
- * we do not need to calculate it.
- */
-
-Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
-	if (lprcSrc1->left > lprcSrc2->right || lprcSrc1->right < lprcSrc2->left
-			|| lprcSrc1->top > lprcSrc2->bottom || lprcSrc1->bottom
-			< lprcSrc2->top)
-		return FALSE;
-	return TRUE;
-}
-
-Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
-	if (lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top
-			- lprcSrc1->bottom == 0) {
-		lprcDst->left = lprcSrc2->left;
-		lprcDst->right = lprcSrc2->right;
-		lprcDst->top = lprcSrc2->top;
-		lprcDst->bottom = lprcSrc2->bottom;
-		return TRUE;
-	}
-	if (lprcSrc2->left - lprcSrc2->right == 0 || lprcSrc2->top
-			- lprcSrc2->bottom == 0) {
-		lprcDst->left = lprcSrc1->left;
-		lprcDst->right = lprcSrc1->right;
-		lprcDst->top = lprcSrc1->top;
-		lprcDst->bottom = lprcSrc1->bottom;
-		return TRUE;
-	}
-
-	lprcDst->left = lprcSrc1->left < lprcSrc2->left ? lprcSrc1->left
-			: lprcSrc2->left;
-	lprcDst->right = lprcSrc1->right > lprcSrc2->right ? lprcSrc1->right
-			: lprcSrc2->right;
-	lprcDst->top = lprcSrc1->top < lprcSrc2->top ? lprcSrc1->top
-			: lprcSrc2->top;
-	lprcDst->bottom = lprcSrc1->bottom > lprcSrc2->bottom ? lprcSrc1->bottom
-			: lprcSrc2->bottom;
-
-	return 0;
-}
-
-Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
-		int nBottomRect) {
-	return 0;
-}
-
 /* String to uppercase. */
 
 char* _strupr(char*s) {
@@ -547,8 +485,7 @@ unsigned int curr_dir(unsigned int bsize, char* buf) {
 
 #define BUFSIZE 100
 
-CFCOMPAT_FUNC (FILE*)
-create_temp_file(void) {
+FILE* create_temp_file(void) {
 	char temppath[BUFSIZE];
 	char tempfname[BUFSIZE];
 	uint32_t retval;

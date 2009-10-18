@@ -54,12 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "internal.h"
-#pragma hdrstop
-
-#include "std.h"
 #include "cfcompat.h"
 #include "compat_defs.h"
+#include "internal.h"
+#include "std.h"
 
 /* FIXME*/
 #define lstrlenW(a) 0
@@ -1356,58 +1354,281 @@ static const char *leo_typeface_one[] = {
 /* ˇ(255,0xff) */"ˇ" };
 
 static unsigned const char std_ASCII_to_ANSI[256] = {
-/*       0    1    2    3    4    5    6    7   8    9    a    b    c    d    e    f  */
-/* 0*/0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-		0x0c, 0x0d, 0x0e, 0x0f,
-		/* 1*/0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a,
-		0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-		/* 2*/0x20, 0x21, 0x22, 0xB9, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a,
-		0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-		/* 3*/0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a,
-		0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-		/* 4*/0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a,
-		0x4b, 0x4c, 0x4d, 0x4e, 0x4f,
-		/* 5*/0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5a,
-		0x5b, 0x5c, 0x5d, 0xB9, 0x5f,
-		/* 6*/0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a,
-		0x6b, 0x6c, 0x6d, 0x6e, 0x6f,
-		/* 7*/0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a,
-		0x7b, 0x7c, 0x7d, 0x7e, 0x7f,
-		/* 8*/0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca,
-		0xcb, 0xcc, 0xcd, 0xce, 0xcf,
-		/* 9*/0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0xda,
-		0xdb, 0xdc, 0xdd, 0xde, 0xdf,
-		/* a*/0xe0, 0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xea,
-		0xeb, 0xec, 0xed, 0xee, 0xef,
-		/* b*/0xe4, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-		0x20, 0x20, 0x20, 0x20, 0x20,
-		/* c*/0xB8, 0x20, 0xbf, 0x20, 0x20, 0xaf, 0xb2, 0xa5, 0xA8, 0xba, 0x20,
-		0x20, 0xaa, 0x20, 0x20, 0x20,
-		/* d*/0x99, 0x20, 0x20, 0x20, 0x20, 0x22, 0xb4, 0xab, 0xbb, 0x20, 0xb3,
-		0x20, 0x20, 0xa9, 0xae, 0x20,
-		/* e*/0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7, 0xf8, 0xf9, 0xfa,
-		0xfb, 0xfc, 0xfd, 0xfe, 0xff,
-		/* f*/0xe4, 0xe4, 0x20, 0x20, 0x20, 0xf2, 0x20, 0xe8, 0xe3, 0x20, 0x20,
-		0x20, 0x20, 0xe0, 0x95, 0x20 };
+    /*       0    1    2    3    4    5    6    7   8    9    a    b    c    d    e    f  */
+    /* 0*/0x00,
+    0x01,
+    0x02,
+    0x03,
+    0x04,
+    0x05,
+    0x06,
+    0x07,
+    0x08,
+    0x09,
+    0x0a,
+    0x0b,
+    0x0c,
+    0x0d,
+    0x0e,
+    0x0f,
+    /* 1*/0x10,
+    0x11,
+    0x12,
+    0x13,
+    0x14,
+    0x15,
+    0x16,
+    0x17,
+    0x18,
+    0x19,
+    0x1a,
+    0x1b,
+    0x1c,
+    0x1d,
+    0x1e,
+    0x1f,
+    /* 2*/0x20,
+    0x21,
+    0x22,
+    0xB9,
+    0x24,
+    0x25,
+    0x26,
+    0x27,
+    0x28,
+    0x29,
+    0x2a,
+    0x2b,
+    0x2c,
+    0x2d,
+    0x2e,
+    0x2f,
+    /* 3*/0x30,
+    0x31,
+    0x32,
+    0x33,
+    0x34,
+    0x35,
+    0x36,
+    0x37,
+    0x38,
+    0x39,
+    0x3a,
+    0x3b,
+    0x3c,
+    0x3d,
+    0x3e,
+    0x3f,
+    /* 4*/0x40,
+    0x41,
+    0x42,
+    0x43,
+    0x44,
+    0x45,
+    0x46,
+    0x47,
+    0x48,
+    0x49,
+    0x4a,
+    0x4b,
+    0x4c,
+    0x4d,
+    0x4e,
+    0x4f,
+    /* 5*/0x50,
+    0x51,
+    0x52,
+    0x53,
+    0x54,
+    0x55,
+    0x56,
+    0x57,
+    0x58,
+    0x59,
+    0x5a,
+    0x5b,
+    0x5c,
+    0x5d,
+    0xB9,
+    0x5f,
+    /* 6*/0x60,
+    0x61,
+    0x62,
+    0x63,
+    0x64,
+    0x65,
+    0x66,
+    0x67,
+    0x68,
+    0x69,
+    0x6a,
+    0x6b,
+    0x6c,
+    0x6d,
+    0x6e,
+    0x6f,
+    /* 7*/0x70,
+    0x71,
+    0x72,
+    0x73,
+    0x74,
+    0x75,
+    0x76,
+    0x77,
+    0x78,
+    0x79,
+    0x7a,
+    0x7b,
+    0x7c,
+    0x7d,
+    0x7e,
+    0x7f,
+    /* 8*/0xc0,
+    0xc1,
+    0xc2,
+    0xc3,
+    0xc4,
+    0xc5,
+    0xc6,
+    0xc7,
+    0xc8,
+    0xc9,
+    0xca,
+    0xcb,
+    0xcc,
+    0xcd,
+    0xce,
+    0xcf,
+    /* 9*/0xd0,
+    0xd1,
+    0xd2,
+    0xd3,
+    0xd4,
+    0xd5,
+    0xd6,
+    0xd7,
+    0xd8,
+    0xd9,
+    0xda,
+    0xdb,
+    0xdc,
+    0xdd,
+    0xde,
+    0xdf,
+    /* a*/0xe0,
+    0xe1,
+    0xe2,
+    0xe3,
+    0xe4,
+    0xe5,
+    0xe6,
+    0xe7,
+    0xe8,
+    0xe9,
+    0xea,
+    0xeb,
+    0xec,
+    0xed,
+    0xee,
+    0xef,
+    /* b*/0xe4,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    /* c*/0xB8,
+    0x20,
+    0xbf,
+    0x20,
+    0x20,
+    0xaf,
+    0xb2,
+    0xa5,
+    0xA8,
+    0xba,
+    0x20,
+    0x20,
+    0xaa,
+    0x20,
+    0x20,
+    0x20,
+    /* d*/0x99,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0x22,
+    0xb4,
+    0xab,
+    0xbb,
+    0x20,
+    0xb3,
+    0x20,
+    0x20,
+    0xa9,
+    0xae,
+    0x20,
+    /* e*/0xf0,
+    0xf1,
+    0xf2,
+    0xf3,
+    0xf4,
+    0xf5,
+    0xf6,
+    0xf7,
+    0xf8,
+    0xf9,
+    0xfa,
+    0xfb,
+    0xfc,
+    0xfd,
+    0xfe,
+    0xff,
+    /* f*/0xe4,
+    0xe4,
+    0x20,
+    0x20,
+    0x20,
+    0xf2,
+    0x20,
+    0xe8,
+    0xe3,
+    0x20,
+    0x20,
+    0x20,
+    0x20,
+    0xe0,
+    0x95,
+    0x20 };
 
-static const char
-		std_ANSI_to_ASCII[257] = {
-		/*0*/"0000000000000000" // ù‚® ™Æ§Î ≠• ®ßÆ°‡†¶†Ó‚·Ô
-				/*1*/"0000000000000000" //
-					/*2*/" !\"#$%&'()*+,-./"
-					/*3*/"0123456789:;<=>?"
-					/*4*/"@ABCDEFGHIJKLMNO"
-					/*5*/"PQRSTUVWXYZ[\\]^-"
-					/*6*/"`abcdefghijklmno"
-					/*7*/"pqrstuvwxyz{|}~\x20"
-					/*8*/"\xD3\x20\x20\x20\x20\x20\x20\x20\x20\x20\xCD\x20\xCB\x20\xD2\xCA"
-					/*9*/"\xD4\x20\x20\x20\x20\xFE\x20\x20\x20\x54\xC4\x20\xC2\x20\xD1\xC1"
-					/*A*/"\x20\x20\x20\x4A\x20\xF2\x20\x20\xF0\x43\xF4\x3C\x20\xAF\x52\xF8"
-					/*B*/"\xb0\x20\xF6\xF7\xF3\x20\x20\x20\xF1\x23\xF5\x3E\x6A\x20\x20\xF9"
-					/*C*/"ÄÅÇÉÑÖÜáàâäãåçéè"
-					/*D*/"êëíìîïñóòôöõúùûü"
-					/*E*/"†°¢£§•¶ß®©™´¨≠ÆØ"
-					/*F*/"‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔ" };
+static const char std_ANSI_to_ASCII[257] = {
+/*0*/"0000000000000000" // ù‚® ™Æ§Î ≠• ®ßÆ°‡†¶†Ó‚·Ô
+    /*1*/"0000000000000000" //
+        /*2*/" !\"#$%&'()*+,-./"
+        /*3*/"0123456789:;<=>?"
+        /*4*/"@ABCDEFGHIJKLMNO"
+        /*5*/"PQRSTUVWXYZ[\\]^-"
+        /*6*/"`abcdefghijklmno"
+        /*7*/"pqrstuvwxyz{|}~\x20"
+        /*8*/"\xD3\x20\x20\x20\x20\x20\x20\x20\x20\x20\xCD\x20\xCB\x20\xD2\xCA"
+        /*9*/"\xD4\x20\x20\x20\x20\xFE\x20\x20\x20\x54\xC4\x20\xC2\x20\xD1\xC1"
+        /*A*/"\x20\x20\x20\x4A\x20\xF2\x20\x20\xF0\x43\xF4\x3C\x20\xAF\x52\xF8"
+        /*B*/"\xb0\x20\xF6\xF7\xF3\x20\x20\x20\xF1\x23\xF5\x3E\x6A\x20\x20\xF9"
+        /*C*/"ÄÅÇÉÑÖÜáàâäãåçéè"
+        /*D*/"êëíìîïñóòôöõúùûü"
+        /*E*/"†°¢£§•¶ß®©™´¨≠ÆØ"
+        /*F*/"‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔ" };
 /*
  static wchar_t std_ANSI_to_UNICODE[257]=
  L"00000000000000000000000000000000 "
@@ -1423,136 +1644,136 @@ static wchar_t std_ANSI_to_UNICODE[257];
 
 STD_FUNC(uchar) stdAsciiToAnsi( uchar Code)
 {
-	if( !Code )
-	return 0;
-	return std_ASCII_to_ANSI[Code];
+    if( !Code )
+    return 0;
+    return std_ASCII_to_ANSI[Code];
 }
 
 STD_FUNC(uchar) stdAnsiToAscii( uchar Code)
 {
-	if( !Code )
-	return 0;
-	return std_ANSI_to_ASCII[Code];
+    if( !Code )
+    return 0;
+    return std_ANSI_to_ASCII[Code];
 }
 
 STD_FUNC(void) stdStrAsciiToAnsi( char* Str)
 {
-	char* pStr=Str;
-	while(*pStr)
-	{	*pStr=std_ASCII_to_ANSI[(uchar)*pStr];
-		pStr++;
-	}
+    char* pStr=Str;
+    while(*pStr)
+    {   *pStr=std_ASCII_to_ANSI[(uchar)*pStr];
+        pStr++;
+    }
 }
 
 STD_FUNC(void) stdStrAnsiToAscii( char* Str)
 {
-	char* pStr=Str;
-	while(*pStr)
-	{	*pStr=std_ANSI_to_ASCII[(uchar)*pStr];
-		pStr++;
-	}
+    char* pStr=Str;
+    while(*pStr)
+    {   *pStr=std_ANSI_to_ASCII[(uchar)*pStr];
+        pStr++;
+    }
 }
 
 STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,int32_t nLen)
 {
-	if(nLen<=0)
-	return;
-	for(int nSymb=0;nSymb<nLen;nSymb++)
-	Str[nSymb]=std_ASCII_to_ANSI[(uchar)Str[nSymb]];
+    if(nLen<=0)
+    return;
+    for(int nSymb=0;nSymb<nLen;nSymb++)
+    Str[nSymb]=std_ASCII_to_ANSI[(uchar)Str[nSymb]];
 }
 
 STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
 {
-	if(nLen<=0)
-	return;
-	for(int nSymb=0;nSymb<nLen;nSymb++)
-	Str[nSymb]=std_ANSI_to_ASCII[(uchar)Str[nSymb]];
+    if(nLen<=0)
+    return;
+    for(int nSymb=0;nSymb<nLen;nSymb++)
+    Str[nSymb]=std_ANSI_to_ASCII[(uchar)Str[nSymb]];
 }
 
 STD_FUNC(uint16_t) stdAnsiToUnicode( uchar Code)
 {
-	return std_ANSI_to_UNICODE[Code];
+    return std_ANSI_to_UNICODE[Code];
 }
 
 STD_FUNC(void) stdStrAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi)
 {
-	const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
-	while(*pCurAnsi)
-	*pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
-	*pCurUnic=0;
+    const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
+    while(*pCurAnsi)
+    *pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
+    *pCurUnic=0;
 }
 
 STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,int32_t nLen)
 {
-	const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
-	while(*pCurAnsi && pCurAnsi-pAnsi<=nLen)
-	*pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
-	*pCurUnic=0;
+    const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
+    while(*pCurAnsi && pCurAnsi-pAnsi<=nLen)
+    *pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
+    *pCurUnic=0;
 }
 
 void stdStrUnicodeToAnsi(char* pAnsi, const wchar_t* pUnicode) {
-//	WideCharToMultiByte(CP_ACP, 0, pUnicode,
-//			lstrlenW(pUnicode), pAnsi, lstrlenW(pUnicode), NULL, NULL);
+    //	WideCharToMultiByte(CP_ACP, 0, pUnicode,
+    //			lstrlenW(pUnicode), pAnsi, lstrlenW(pUnicode), NULL, NULL);
 }
 
 STD_FUNC(Bool32) stdLeoCompareChar(uchar c1, uchar c2)
 {
-	const char *p=leo_typeface_class[c1];
-	uchar c;
-	while( *p )
-	{
-		c=(uchar)*p++;
-		if( c==c2 )
-		return TRUE;
-	}
-	return FALSE;
+    const char *p=leo_typeface_class[c1];
+    uchar c;
+    while( *p )
+    {
+        c=(uchar)*p++;
+        if( c==c2 )
+        return TRUE;
+    }
+    return FALSE;
 }
 
 STD_FUNC(uchar *) stdLeoGetTypeface(uchar c)
 {
-	return (uchar *)leo_typeface_class[c];
+    return (uchar *)leo_typeface_class[c];
 }
 
 STD_FUNC(uchar) stdLeoTypefaceChar(uchar c)
 {
-	return leo_typeface_one[c][0];
+    return leo_typeface_one[c][0];
 }
 
 STD_FUNC( int32_t ) stdLeoIsCase(uchar Code)
 {
-	return leo_case[ Code ];
+    return leo_case[ Code ];
 }
 
 STD_FUNC( uchar) stdLeoSetUpperCase(uchar Code)
 {
-	return (uchar)(leo_case_upper[ Code ]);
+    return (uchar)(leo_case_upper[ Code ]);
 }
 
 STD_FUNC( uchar) stdLeoSetLowerCase(uchar Code)
 {
-	return (uchar)(leo_case_lower[ Code ]);
+    return (uchar)(leo_case_lower[ Code ]);
 }
 
 STD_FUNC(uchar) stdUpperAscii( uchar c )
 {
-	if ( c >= (uchar)'a' && c <= (uchar)'z')
-	c = c - (uchar)'a' + (uchar)'A';
+    if ( c >= (uchar)'a' && c <= (uchar)'z')
+    c = c - (uchar)'a' + (uchar)'A';
 
-	if ( c >= (uchar)'†' && c <= (uchar)'Ø')
-	c = c - (uchar)'†' + (uchar)'Ä';
-	if ( c >= (uchar)'‡' && c <= (uchar)'Ô')
-	c = c - (uchar)'‡' + (uchar)'ê';
-	return c;
+    if ( c >= (uchar)'†' && c <= (uchar)'Ø')
+    c = c - (uchar)'†' + (uchar)'Ä';
+    if ( c >= (uchar)'‡' && c <= (uchar)'Ô')
+    c = c - (uchar)'‡' + (uchar)'ê';
+    return c;
 }
 
 /* Function returns LOWER CASE variant of the letter.             */
 STD_FUNC(uchar) stdLowerAscii(uchar c)
 {
-	if ( c >= (uchar)'A' && c <= (uchar)'Z')
-	c = c - (uchar)'A'+ (uchar)'a';
-	if ( c >= (uchar)'Ä' && c <= (uchar)'è')
-	c = c - (uchar)'Ä'+ (uchar)'†';
-	if ( c >= (uchar)'ê' && c <= (uchar)'ü')
-	c = c - (uchar)'ê'+ (uchar)'‡';
-	return c;
+    if ( c >= (uchar)'A' && c <= (uchar)'Z')
+    c = c - (uchar)'A'+ (uchar)'a';
+    if ( c >= (uchar)'Ä' && c <= (uchar)'è')
+    c = c - (uchar)'Ä'+ (uchar)'†';
+    if ( c >= (uchar)'ê' && c <= (uchar)'ü')
+    c = c - (uchar)'ê'+ (uchar)'‡';
+    return c;
 }

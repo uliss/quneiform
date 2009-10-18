@@ -69,6 +69,7 @@
 #define __RSTUFF_H
 
 #include "globus.h"
+#include "rect.h"
 #include "puma/puma.h"
 
 #ifdef __RSTUFF__
@@ -104,7 +105,7 @@ typedef struct tagRSPreProcessImage {
 	int32_t * pgnNumberTables;
 	uint32_t gnPictures;
 	Bool32* pgrc_line;
-	Rect32 gRectTemplate;
+	CIF::Rect gRectTemplate;
 //	FNPUMA_XSetTemplate fnXSetTemplate;
 //	FNPUMA_XGetTemplate fnXGetTemplate;
 	char *szLayoutFileName;

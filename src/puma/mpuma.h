@@ -127,9 +127,9 @@ EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 EXTERN Bool32 gbAutoRotate VAL(FALSE);
 
-extern CIF::Point gPageSize;
 // формат А4 в миллиметрах
-EXTERN Rect32 gRectTemplate VAL4(-1,-1,-1,-1);
+extern CIF::Point gPageSize;
+extern CIF::Rect gRectTemplate;
 
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");

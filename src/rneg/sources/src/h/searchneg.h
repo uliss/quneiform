@@ -93,37 +93,35 @@ extern NegImage* pNegImage;
 //My function's diclarations
 
 
-Bool InitNegMas(Rect16**, int);
+Bool InitNegMas(CIF::Rect16**, int);
 Bool InitNegMas(RecVersions**, int);
 Bool InitNegMas(UniVersions**, int);
 Bool InitNegMas(CCOM_comp***, int);
-void DelNegMas(Rect16**);
+void DelNegMas(CIF::Rect16**);
 void DelNegMas(RecVersions*);
 void DelNegMas(UniVersions*);
 void DelNegMas(CCOM_comp**);
-Bool AddLenNegMas(Rect16**, int&, int);
+Bool AddLenNegMas(CIF::Rect16**, int&, int);
 Bool AddLenNegMas(CCOM_comp***, int&, int);
 Bool IsNegSize(int16_t, int16_t);
 Bool IsNegBlack(Handle, NegList*);
-Bool GetMasP(Handle, Rect16, uchar**);
-Bool GetMasP(Rect16*, uchar**);
+Bool GetMasP(Handle, CIF::Rect16, uchar**);
+Bool GetMasP(CIF::Rect16*, uchar**);
 void NormNeg(Handle, NegList*, NegList**, int&);
 void CutNeg(Handle, NegList**, int&, int);
 void CutNegStr(Handle, NegList**, int&, int);
-Bool IfDrob(Handle, Rect16*, int, CCOM_comp *);
-void InitRc(Rect16*, CCOM_comp *);
+Bool IfDrob(Handle, CIF::Rect16*, int, CCOM_comp *);
+void InitRc(CIF::Rect16*, CCOM_comp *);
 Bool SearchNegBySize(CCOM_handle, Handle, NegList**, int&);
 void SearchNegByBlack(Handle, NegList**, int&);
-void NegMoveMas(Rect16*, int&, int);
+void NegMoveMas(CIF::Rect16*, int&, int);
 void PMoveMas(double*, int, int);
-void NegMoveMasR(Rect16*, int&, int);
+void NegMoveMasR(CIF::Rect16*, int&, int);
 void NegMoveMas(Rotating*, int, int);
 Bool IfNegIn(NegList*, int, int, int, int, int);
 void DeleteRotateMas(uchar**, int16_t**, int16_t**, uchar**, int**);
-void NegInvert(uchar*, Rect16);
+void NegInvert(uchar*, CIF::Rect16);
 void DelIn(Handle, NegList**, int&);
 int absolut(int);
-double NegBlack(uchar*, Rect16);
+double NegBlack(uchar*, CIF::Rect16);
 void PostRotate(NegList* now, int skew);
-
-/*----------------------------------------------------------------------------*/

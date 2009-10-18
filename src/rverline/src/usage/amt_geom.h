@@ -59,15 +59,16 @@
 
 #include "cttypes.h"
 #include "point.h"
+#include "rect.h"
 
-void RotateRect(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
-void FindMinimIdealRegion(int nRc, int *pDo, Rect16 *pRcIdeal, Rect16 *pMIR);
-Bool CanUse(CIF::Point16 *pA, CIF::Point16 *pB, int Lev, int Lev_A, int Lev_B,
-		int LimIsMax, int Near);
-Bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, Rect16 *pRc,
-		int32_t Skew, int NearHor, int NearVer);
-Bool IsRectsCross(Rect16 *pRc1, Rect16 *pRc2);
-Bool MakeInternalRectId(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
+void RotateRect(CIF::Rect16 *pRcRe, CIF::Rect16 *pRcId, int32_t Skew);
+void FindMinimIdealRegion(int nRc, int *pDo, CIF::Rect16 *pRcIdeal, CIF::Rect16 *pMIR);
+Bool CanUse(CIF::Point16 *pA, CIF::Point16 *pB, int Lev, int Lev_A, int Lev_B, int LimIsMax,
+        int Near);
+Bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, CIF::Rect16 *pRc, int32_t Skew,
+        int NearHor, int NearVer);
+Bool IsRectsCross(CIF::Rect16 *pRc1, CIF::Rect16 *pRc2);
+Bool MakeInternalRectId(CIF::Rect16 *pRcRe, CIF::Rect16 *pRcId, int32_t Skew);
 
 #endif
 

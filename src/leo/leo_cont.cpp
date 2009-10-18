@@ -63,6 +63,8 @@
 #include "leo.h"
 #include "leo_func.h"
 
+using namespace CIF;
+
 static char cont_name[256];
 static CTB_handle this_ctb = { 0 };
 
@@ -71,204 +73,204 @@ extern uchar field_number;
 extern uchar leo_current_alpha_ndx;
 
 void leo_close_cont(void) {
-	if (this_ctb.bas) {
-		CTB_close(&this_ctb);
-		memset(&this_ctb, 0, sizeof(this_ctb));
-		cont_name[0] = 0;
-	}
+    if (this_ctb.bas) {
+        CTB_close(&this_ctb);
+        memset(&this_ctb, 0, sizeof(this_ctb));
+        cont_name[0] = 0;
+    }
 }
 
 void leo_close_cont_temp(void) {
-	if (this_ctb.bas) {
-		CTB_close(&this_ctb);
-		memset(&this_ctb, 0, sizeof(this_ctb));
-	}
+    if (this_ctb.bas) {
+        CTB_close(&this_ctb);
+        memset(&this_ctb, 0, sizeof(this_ctb));
+    }
 }
 
 int leo_open_cont_temp(void) {
-	if (!this_ctb.bas && cont_name[0])
-		return CTB_open(cont_name, &this_ctb, "w");
-	return 0;
+    if (!this_ctb.bas && cont_name[0])
+        return CTB_open(cont_name, &this_ctb, "w");
+    return 0;
 }
 
 Bool32 leo_cont_new_page(int32_t id_page) {
-	Bool32 op = TRUE;
-	if (this_ctb.bas) {
-		CTB_close(&this_ctb);
-		memset(&this_ctb, 0, sizeof(this_ctb));
-		cont_name[0] = 0;
-	}
+    Bool32 op = TRUE;
+    if (this_ctb.bas) {
+        CTB_close(&this_ctb);
+        memset(&this_ctb, 0, sizeof(this_ctb));
+        cont_name[0] = 0;
+    }
 
-	if (id_page) {
-		snprintf(cont_name, sizeof(cont_name), ".\\tmp\\ct%06d", id_page);
-		op = CTB_create(cont_name, NULL);
-		if (op)
-			op = CTB_open(cont_name, &this_ctb, "w");
-	} else {
-		cont_name[0] = 0;
-	}
-	if (!op) {
-		LEO_error_code = ER_LEO_OPEN;
-		cont_name[0] = 0;
-		return FALSE;
-	}
+    if (id_page) {
+        snprintf(cont_name, sizeof(cont_name), ".\\tmp\\ct%06d", id_page);
+        op = CTB_create(cont_name, NULL);
+        if (op)
+            op = CTB_open(cont_name, &this_ctb, "w");
+    }
+    else {
+        cont_name[0] = 0;
+    }
+    if (!op) {
+        LEO_error_code = ER_LEO_OPEN;
+        cont_name[0] = 0;
+        return FALSE;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 // save to current page = CTB_file_name
-int16_t leo_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
-		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control) {
-	int num;
-	uchar raster[4096], data[CTB_DATA_SIZE] = { 0 };
-	int32_t wb, k;
-	Bool32 ret;
-	RecVersions ver;
+int16_t leo_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect, uchar IsPrint,
+        uchar Prob, uchar Valid, RecVersions *v, uchar control) {
+    int num;
+    uchar raster[4096], data[CTB_DATA_SIZE] = { 0 };
+    int32_t wb, k;
+    Bool32 ret;
+    RecVersions ver;
 
-	if (!cont_name[0] || !this_ctb.bas)
-		return 0;
-	data[0] = CTB_OEM_CHARSET;
-	data[1] = (uchar) r->lnPixWidth;
-	data[2] = (uchar) r->lnPixHeight;
-	data[3] = stdAnsiToAscii(let);
+    if (!cont_name[0] || !this_ctb.bas)
+        return 0;
+    data[0] = CTB_OEM_CHARSET;
+    data[1] = (uchar) r->lnPixWidth;
+    data[2] = (uchar) r->lnPixHeight;
+    data[3] = stdAnsiToAscii(let);
 #if CTB_VERSION==7
-	data[32] = nLns;
+    data[32] = nLns;
 #else
-	data[4] = nLns;
+    data[4] = nLns;
 #endif
-	data[5] = IsPrint;
-	memcpy(&data[6], rect, sizeof(Rect16));
-	data[14] = Prob;
-	data[15] = Valid;
-	if (v)
-		data[28] = v->Alt[0].Method;
-	if (v) {
-		ver = *v;
-		if (ver.lnAltCnt > 4)
-			ver.lnAltCnt = 4;
-		data[16] = (uchar) ver.lnAltCnt;
-		for (k = 1; k < ver.lnAltCnt; k++) {
-			data[17 + k * 2] = stdAnsiToAscii(ver.Alt[k].Code);
-			data[18 + k * 2] = ver.Alt[k].Prob;
-			data[28 + k] = ver.Alt[k].Method;
-		}
-	}
-	data[25] = field_number;
-	data[26] = leo_current_alpha_ndx;
-	data[27] = control;
-	wb = ((r->lnPixWidth + 63) / 64) * 8;
-	memcpy(raster, r->Raster, wb * r->lnPixHeight);
-	CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
-	ret = CTB_write(&this_ctb, -1, raster, data);
-	if (!ret)
-		return -1;
-	num = this_ctb.num;
+    data[5] = IsPrint;
+    memcpy(&data[6], rect, sizeof(Rect16));
+    data[14] = Prob;
+    data[15] = Valid;
+    if (v)
+        data[28] = v->Alt[0].Method;
+    if (v) {
+        ver = *v;
+        if (ver.lnAltCnt > 4)
+            ver.lnAltCnt = 4;
+        data[16] = (uchar) ver.lnAltCnt;
+        for (k = 1; k < ver.lnAltCnt; k++) {
+            data[17 + k * 2] = stdAnsiToAscii(ver.Alt[k].Code);
+            data[18 + k * 2] = ver.Alt[k].Prob;
+            data[28 + k] = ver.Alt[k].Method;
+        }
+    }
+    data[25] = field_number;
+    data[26] = leo_current_alpha_ndx;
+    data[27] = control;
+    wb = ((r->lnPixWidth + 63) / 64) * 8;
+    memcpy(raster, r->Raster, wb * r->lnPixHeight);
+    CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
+    ret = CTB_write(&this_ctb, -1, raster, data);
+    if (!ret)
+        return -1;
+    num = this_ctb.num;
 
-	return (int16_t) num; // id_rast = last sequentaly saved raster+1
+    return (int16_t) num; // id_rast = last sequentaly saved raster+1
 }
 
-Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast,
-		uchar *nLns, Rect16 *rect, uchar *IsPrint, uchar *datao) {
-	uchar raster[4096], w, h, data[CTB_DATA_SIZE];
-	int32_t wb, ww, hh;
-	Bool32 ret;
-	if (!id_page)
-		return FALSE;
+Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast, uchar *nLns, Rect16 *rect,
+        uchar *IsPrint, uchar *datao) {
+    uchar raster[4096], w, h, data[CTB_DATA_SIZE];
+    int32_t wb, ww, hh;
+    Bool32 ret;
+    if (!id_page)
+        return FALSE;
 
-	ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
-	if (!ret)
-		return FALSE;
+    ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
+    if (!ret)
+        return FALSE;
 
-	w = data[1];
-	h = data[2];
-	ww = w;
-	hh = h;
-	wb = (w + 7) / 8;
-	memcpy(r->Raster, raster, wb * hh);
-	r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
-	r->lnPixWidth = ww;
-	r->lnPixHeight = hh;
+    w = data[1];
+    h = data[2];
+    ww = w;
+    hh = h;
+    wb = (w + 7) / 8;
+    memcpy(r->Raster, raster, wb * hh);
+    r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
+    r->lnPixWidth = ww;
+    r->lnPixHeight = hh;
 #if CTB_VERSION==7
-	*nLns = data[32];
+    *nLns = data[32];
 #else
-	*nLns = data[4];
+    *nLns = data[4];
 #endif
-	*IsPrint = data[5];
-	memcpy(rect, &data[6], sizeof(Rect16));
-	if (datao)
-		memcpy(datao, data, CTB_DATA_SIZE);
-	CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
+    *IsPrint = data[5];
+    memcpy(rect, &data[6], sizeof(Rect16));
+    if (datao)
+        memcpy(datao, data, CTB_DATA_SIZE);
+    CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
 
-	return ret;
+    return ret;
 }
 
-Bool32 leo_cont_set_valid(int32_t id_page, int16_t id_rast, uchar code,
-		uchar valid, uchar control) {
-	uchar raster[4096], data[CTB_DATA_SIZE];
-	Bool32 ret;
-	if (!id_page)
-		return FALSE;
+Bool32 leo_cont_set_valid(int32_t id_page, int16_t id_rast, uchar code, uchar valid, uchar control) {
+    uchar raster[4096], data[CTB_DATA_SIZE];
+    Bool32 ret;
+    if (!id_page)
+        return FALSE;
 
-	ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
-	if (!ret)
-		return FALSE;
-	if (code && data[3] != code) {
-		data[3] = code;
-	}
-	if (valid & LEO_VALID_LINGVO) {
-		data[28] = REC_METHOD_CNT;
-	}
-	data[15] |= valid;
-	data[27] |= control;
-	CTB_write_data(&this_ctb, id_rast - 1, data);
+    ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
+    if (!ret)
+        return FALSE;
+    if (code && data[3] != code) {
+        data[3] = code;
+    }
+    if (valid & LEO_VALID_LINGVO) {
+        data[28] = REC_METHOD_CNT;
+    }
+    data[15] |= valid;
+    data[27] |= control;
+    CTB_write_data(&this_ctb, id_rast - 1, data);
 
-	return ret;
+    return ret;
 }
 
 Bool32 leo_cont_del_final(int32_t id_page, int16_t id_rast) {
-	uchar raster[4096], data[CTB_DATA_SIZE];
-	Bool32 ret;
-	if (!id_page || !id_rast)
-		return FALSE;
+    uchar raster[4096], data[CTB_DATA_SIZE];
+    Bool32 ret;
+    if (!id_page || !id_rast)
+        return FALSE;
 
-	ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
-	if (!ret)
-		return FALSE;
-	data[15] ^= LEO_VALID_FINAL;
-	CTB_write_data(&this_ctb, id_rast - 1, data);
+    ret = CTB_read(&this_ctb, id_rast - 1, raster, data);
+    if (!ret)
+        return FALSE;
+    data[15] ^= LEO_VALID_FINAL;
+    CTB_write_data(&this_ctb, id_rast - 1, data);
 
-	return ret;
+    return ret;
 }
 
 Bool32 leo_cont_store_collection(RecVersions *ver) {
-	int16_t id_rast;
-	int32_t k;
-	uchar data[CTB_DATA_SIZE] = { 0 };
+    int16_t id_rast;
+    int32_t k;
+    uchar data[CTB_DATA_SIZE] = { 0 };
 
-	if (!cont_name[0] || !this_ctb.bas || ver->lnAltCnt < 1)
-		return FALSE;
+    if (!cont_name[0] || !this_ctb.bas || ver->lnAltCnt < 1)
+        return FALSE;
 
-	id_rast = ver->Alt[0].Info;
-	if (!id_rast)
-		return FALSE;
+    id_rast = ver->Alt[0].Info;
+    if (!id_rast)
+        return FALSE;
 
-	if (!CTB_read_data(&this_ctb, id_rast - 1, data))
-		return FALSE;
+    if (!CTB_read_data(&this_ctb, id_rast - 1, data))
+        return FALSE;
 
-	data[3] = stdAnsiToAscii(ver->Alt[0].Code);
-	data[14] = ver->Alt[0].Prob;
-	data[28] = ver->Alt[0].Method;
-	if (ver->lnAltCnt > 4)
-		ver->lnAltCnt = 4;
-	data[16] = (uchar) ver->lnAltCnt;
-	for (k = 1; k < ver->lnAltCnt; k++) {
-		data[17 + k * 2] = stdAnsiToAscii(ver->Alt[k].Code);
-		data[18 + k * 2] = ver->Alt[k].Prob;
-		data[28 + k] = ver->Alt[k].Method;
-	}
+    data[3] = stdAnsiToAscii(ver->Alt[0].Code);
+    data[14] = ver->Alt[0].Prob;
+    data[28] = ver->Alt[0].Method;
+    if (ver->lnAltCnt > 4)
+        ver->lnAltCnt = 4;
+    data[16] = (uchar) ver->lnAltCnt;
+    for (k = 1; k < ver->lnAltCnt; k++) {
+        data[17 + k * 2] = stdAnsiToAscii(ver->Alt[k].Code);
+        data[18 + k * 2] = ver->Alt[k].Prob;
+        data[28 + k] = ver->Alt[k].Method;
+    }
 
-	if (!CTB_write_data(&this_ctb, id_rast - 1, data))
-		return FALSE;
+    if (!CTB_write_data(&this_ctb, id_rast - 1, data))
+        return FALSE;
 
-	return TRUE; // id_rast = last sequentaly saved raster+1
+    return TRUE; // id_rast = last sequentaly saved raster+1
 }

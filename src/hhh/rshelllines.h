@@ -86,41 +86,36 @@ int SL_IsInPoly(CIF::Point* a, CLINE_SL_POLY* p); //
 Bool SL_IsPointInAB(CIF::Point *P, CIF::Point *A, CIF::Point *B); //
 void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info); //
 void CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info); //
-void DrowRectForRaster(Rect32* rect); //
+void DrowRectForRaster(CIF::Rect* rect); //
 void DrowPolynomia(DLine* pCLine); //
 //void   DrowGetCorrectedLineStripesIntervals(CLine* pCLine, Handle HndMyWindow);
 void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow);
 void CleaningRaster(DLine* pCLine, char* Buffer); //
-void DrowCleanedRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow); //
-void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow); //
-void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect); //
-Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
-		Bool FlagVerticalLine); //
-//Bool   GetCorrectedLineStripesIntervals(CLine* pCLine);
-void FillingStripes(CLINE_handle line, int y, int16_t Count,
-		uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
+void DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+        Handle* HndMyWindow); //
+void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+        Handle* HndMyWindow); //
+void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, CIF::Rect* rect); //
+Bool
+        GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
+                Bool FlagVerticalLine); //
+void FillingStripes(CLINE_handle line, int y, int16_t Count, uint16_t* pIntervals,
+        Bool FlagVerticalLine, DLine* pCLine); //
 void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine); //
 int Bits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals); //
 void TypeIntervals(int y, int16_t Count, uint16_t* pIntervals); //
 void TypeStripe(CLINE_handle hStripe, DEvent* pStripe); //
 Bool GetLineFragments(CLINE_handle line, DLine* pCLine); //
-Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow,
-		int ColorIndex, Bool32 ForAllLines = FALSE); //
-//void DrawSeparationPoints(CLine* pCLine, Handle HndMyWindow);
+Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, int ColorIndex,
+        Bool32 ForAllLines = FALSE); //
 Bool CorrectLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle GetTransposedRaster(DLine* pCLine, char* Buffer, char** pRaster); //
 void FreeTransposedBuffer(Handle hbuf, char* pRaster); //
 void DrowVerticalLineCutPoints(CLINE_handle line, Handle HndMyWindowVert); //
-void Drow2Rects(Rect32* rect, Rect32* rect1); //
+void Drow2Rects(CIF::Rect* rect, CIF::Rect* rect1); //
 void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine);
 void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster);
-Bool32
-		CompareRasterParts(CPDLine pLine, char* pSourceRaster,
-				Bool32 CheckSerif);
-//////////////////////////////////////////////////////////////////////////////////
-//
+Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif);
 #ifdef __RSL_EXTERN__
 #define EXTERN
 #define VAL(a) = a

@@ -584,7 +584,7 @@ bool MakeDingFromLine (RLT_DINGPOOL *pDingPool, const RLT_LINEPOOL *pLinePool
 bool DelAndAddDing (RLT_DINGPOOL *pDingPool, int *pForw, int *pBack, const int MyMaxL
     , const int StepAlg, const RLT_REVIDING *pReviDing)
 {
-//    Rect32 Bound, Found;
+//    Rect Bound, Found;
     /*  Находим уверенные границы области разделителей  */
 //    FindBoundsOfDingRegion (pDingPool, &Bound, &Found);
 //    if (!(Found.left&&Found.right&&Found.top&&Found.bottom))
@@ -683,7 +683,7 @@ static bool IsParallelDing (RLT_DING *pD, int nD, int iMy, int Level)
     }
     return FALSE;
 }
-static void AddAbsendDingForBound (RLT_DINGPOOL *pDingPool, Rect32 *pB)
+static void AddAbsendDingForBound (RLT_DINGPOOL *pDingPool, Rect *pB)
 {
     Bool NoCreate = IsNearestDing (pDingPool->Vert, pDingPool->nVert, pB->left, pB->top
         , pB->bottom);

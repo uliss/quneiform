@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include "cttypes.h"
 #include "point.h"
+#include "rect.h"
 /*---------------------------------------------------------------------------*/
 typedef enum
 {// четыре сектора направления линий
@@ -127,4 +128,4 @@ typedef struct tagRLT_LINEPOOL
 /*---------------------------------------------------------------------------*/
 void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const int32_t Skew);
 RLT_LINEDIR_TYPE LineSect (const char Type);
-bool FindLinesReg ( const void *p_vB, Rect16 *pRcLin,  const int32_t SkewReg);
+bool FindLinesReg ( const void *p_vB, CIF::Rect16 *pRcLin,  const int32_t SkewReg);

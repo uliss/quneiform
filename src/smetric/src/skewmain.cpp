@@ -67,7 +67,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-/*#include <windows.h>*/
 /*  interface our-other  */
 /*  interface our  */
 #include "smetric.h"
@@ -83,6 +82,8 @@
 #include "amt_geom.h"
 /*  interface our util  */
 #include "skew1024.h"
+
+using namespace CIF;
 
 const int SMETRIC_MIN_LINE_LNG = 60; //линии с длиной < SMETRIC_MIN_LINE_LNG не учитываются при вычислении угла наклона
 static int32_t giResolX = 300;
@@ -248,13 +249,13 @@ void PrepareMyBoxes(Rect16 *pRc, int nRc, Rect16 **ppRcMy, int *nRcMy, int Size)
 	Lim = (Size * sizeof(int)) / sizeof(Rect16);
 	*nRcMy = 0;
 	for (i = 0; i < nRc; i++) {
-		if (pRc[i].right - pRc[i].left + 1 > 50)
+		if (pRc[i].width() + 1 > 50)
 			continue;
-		if (pRc[i].right - pRc[i].left + 1 < 2)
+		if (pRc[i].width() + 1 < 2)
 			continue;
-		if (pRc[i].bottom - pRc[i].top + 1 > 50)
+		if (pRc[i].height() + 1 > 50)
 			continue;
-		if (pRc[i].bottom - pRc[i].top + 1 < 13)
+		if (pRc[i].height() + 1 < 13)
 			continue;
 		if (*nRcMy >= Lim) {
 			*ppRcMy = pRc;

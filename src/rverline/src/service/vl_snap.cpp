@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "skew1024.h"
 /*  interface our-other  */
 #include "lns32/lnsdefs.h"
-# include "ccom/ccom.h"
+#include "ccom/ccom.h"
 #include "puma/pumadef.h"
 /*  interface our-my     */
 #include "rverline.h"
@@ -79,6 +79,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface my-my      */
 #include "am_buff.h"
 #include "compat_defs.h"
+
+using namespace CIF;
+
 /*------------extern functions-----------------------------------------------*/
 void   SetReturnCode_rverline (uint16_t rc);
 /*---------------------------------------------------------------------------*/
@@ -223,10 +226,10 @@ void RLTDraw_VL_R_Zhertvy (void **vvZher, int nZher, Handle myWindow, int Code)
 	for (i=0; i<nZher; i++)
 	{
 		pZher = (CCOM_comp *)vvZher[i];
-		Rc.left   = pZher->left;
-		Rc.right  = pZher->left + pZher->w - 1;
-		Rc.top    = pZher->upper;
-		Rc.bottom = pZher->upper + pZher->h - 1;
+		Rc.rleft()   = pZher->left;
+		Rc.rright()  = pZher->left + pZher->w - 1;
+		Rc.rtop()    = pZher->upper;
+		Rc.rbottom() = pZher->upper + pZher->h - 1;
 		AM_DrawRect (myWindow, &Rc, 0, ColorBox, 1, OperCode);
 	}
 	My_WaitUserInput (myKey, myWindow);
@@ -284,4 +287,3 @@ void MyErrorNoComment (char *pStr)
 	if (!AM_Skip (myKeyErr))
 		AM_ConsolN ("Rlt-Error-Stop : %s Аварийное завершение.", pStr);
 }
-/*---------------------------------------------------------------------------*/

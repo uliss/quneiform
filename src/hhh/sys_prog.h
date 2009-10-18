@@ -91,6 +91,7 @@
 #include <fcntl.h>
 
 #include "point.h"
+#include "rect.h"
 
 #define PASC
 #define WINAPI
@@ -120,7 +121,7 @@
 //------  Common functions for mrk.dll, dot.dll, ndx.dll --------
 #include "globus.h"
 
-void ProjectRect1024(Rect16 *r, int32_t Skew1024);
+void ProjectRect1024(CIF::Rect16 *r, int32_t Skew1024);
 void ProjectPoint1024(CIF::Point16 *r, int32_t Skew1024);
 void ProjectPoint(CIF::Point16 *r, float tg_ang);
 Bool16 GetScanRes_LenPrs(char *ImageName);
