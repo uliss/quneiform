@@ -177,7 +177,6 @@ EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
 EXTERN char szLayoutFileName[256] VAL("Layout.bin");
 EXTERN unsigned nDebugReturnCode VAL(0);
-EXTERN unsigned nDebugAllocMemory VAL(0);
 EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
