@@ -69,7 +69,8 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
                     "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-            bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL) {
+            bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL),
+            unrecognized_char_('~') {
     modulesInit();
 }
 
@@ -988,7 +989,7 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
-            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecognized_char_))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1015,7 +1016,8 @@ void PumaImpl::rout(void * dest, size_t size, int format) const {
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) gnPreserveLineBreaks)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
-            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,
+            (void*) &unrecognized_char_))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1133,7 +1135,7 @@ void PumaImpl::setFormatOptions() {
     RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_CourierName, monospace_name_.c_str());
-    RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
+    RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &unrecognized_char_);
     RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
 
@@ -1201,7 +1203,7 @@ void PumaImpl::setOptionTable(puma_table_t mode) {
 }
 
 void PumaImpl::setOptionUnrecognizedChar(char ch) {
-    gnUnrecogChar = ch;
+    unrecognized_char_ = ch;
 }
 
 void PumaImpl::setOptionUserDictionaryName(const char * name) {
