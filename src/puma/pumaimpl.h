@@ -111,6 +111,7 @@ private:
 	bool auto_rotate_;
 	std::string user_dict_name_;
 	std::string serif_name_;
+	std::string sans_serif_name_;
 };
 
 }
