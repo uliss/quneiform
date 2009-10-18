@@ -67,10 +67,9 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
-                    "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-            bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL),
-            unrecognized_char_('~'), preserve_line_breaks_(false), language_(LANG_RUSENG) {
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
+                    false), language_(LANG_RUSENG) {
+    format_options_.setLanguage(language_);
     modulesInit();
 }
 
@@ -214,6 +213,10 @@ void PumaImpl::extractStrings() {
         if (!RBLOCK_ExtractTextStrings(hCCOM, hCPAGE))
             throw PumaException("RBLOCK_ExtractTextStrings failed");
     }
+}
+
+FormatOptions PumaImpl::formatOptions() const {
+    return format_options_;
 }
 
 void PumaImpl::formatResult() {
@@ -985,11 +988,12 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
     if (str)
         *(str) = '\0';
 
+    char unrecog = format_options_.unrecognizedChar();
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
-            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecognized_char_))
+            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1013,11 +1017,12 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
 }
 
 void PumaImpl::rout(void * dest, size_t size, int format) const {
+    char unrecog = format_options_.unrecognizedChar();
+
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
-            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,
-            (void*) &unrecognized_char_))
+            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1128,24 +1133,16 @@ void PumaImpl::saveToText(const std::string& filename) const {
 }
 
 void PumaImpl::setFormatOptions() {
-    RFRMT_SetImportData(RFRMT_Bool32_Bold, &bold_);
-    RFRMT_SetImportData(RFRMT_Bool32_Italic, &italic_);
-    RFRMT_SetImportData(RFRMT_Bool32_Size, &size_);
-    RFRMT_SetImportData(RFRMT_Word32_Format, &format_mode_);
-    RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
-    RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
-    RFRMT_SetImportData(RFRMT_char_CourierName, monospace_name_.c_str());
-    RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &unrecognized_char_);
-    RFRMT_SetImportData(RFRMT_Word32_Language, &language_);
+    RFRMT_SetFormatOptions(format_options_);
+}
+
+void PumaImpl::setFormatOptions(const FormatOptions& opt) {
+    format_options_ = opt;
 }
 
 void PumaImpl::setOptionAutoRotate(bool val) {
     auto_rotate_ = val;
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionBold(bool val) {
-    bold_ = val;
 }
 
 void PumaImpl::setOptionDotMatrix(bool val) {
@@ -1158,21 +1155,9 @@ void PumaImpl::setOptionFax100(bool val) {
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionFormatMode(puma_format_mode_t format) {
-    format_mode_ = format;
-}
-
-void PumaImpl::setOptionItalic(bool val) {
-    italic_ = val;
-}
-
 void PumaImpl::setOptionLanguage(language_t lang) {
     language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionMonospaceName(const char * name) {
-    monospace_name_ = name;
 }
 
 void PumaImpl::setOptionOneColumn(bool val) {
@@ -1185,25 +1170,9 @@ void PumaImpl::setOptionPictures(puma_picture_t type) {
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionSansSerifName(const char * name) {
-    sans_serif_name_ = name;
-}
-
-void PumaImpl::setOptionSerifName(const char * name) {
-    serif_name_ = name;
-}
-
-void PumaImpl::setOptionSize(bool val) {
-    size_ = val;
-}
-
 void PumaImpl::setOptionTable(puma_table_t mode) {
     gnTables = mode;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionUnrecognizedChar(char ch) {
-    unrecognized_char_ = ch;
 }
 
 void PumaImpl::setOptionUserDictionaryName(const char * name) {

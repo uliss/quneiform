@@ -113,7 +113,7 @@ static const langlist langs[] = {
     { LANG_LITHUANIAN, "lit", "Lithuanian" },
     { LANG_ESTONIAN, "est", "Estonian" },
     { LANG_TURKISH, "tur", "Turkish" },
-    { (language_t) - 1, NULL, NULL } };
+    { (language_t) -1, NULL, NULL } };
 
 struct formatlist
 {
@@ -188,7 +188,7 @@ static language_t recognize_language(const std::string& language) {
         if (language == l->name)
             return l->code;
     }
-    return (language_t) - 1;
+    return (language_t) -1;
 }
 
 static string default_output_name(puma_format_t format) {
@@ -238,7 +238,7 @@ static char* read_file(const char *fname) {
         // Write to BLOB in BMP format
         image.write(&blob, "DIB");
     }
-    catch(Exception &error_) {
+    catch (Exception &error_) {
         cerr << error_.what() << "\n";
         return NULL;
     }
@@ -421,19 +421,23 @@ int main(int argc, char **argv) {
     Puma::instance().setOptionUseSpeller(do_speller);
     Puma::instance().setOptionAutoRotate(do_autorotate);
 
+    FormatOptions opt = Puma::instance().formatOptions();
     if (!serif.empty())
-        Puma::instance().setOptionSerifName(serif.c_str());
+        opt.setSerifName(serif);
     if (!sansserif.empty())
-        Puma::instance().setOptionSansSerifName(sansserif.c_str());
+        opt.setSansSerifName(sansserif);
     if (!monospace.empty())
-        Puma::instance().setOptionMonospaceName(monospace.c_str());
+        opt.setMonospaceName(monospace);
 
-    //	Puma::instance().setOptionUnrecognizedChar('?');
-    //	Puma::instance().setOptionBold(true);
-    //	Puma::instance().setOptionItalic(true);
-    //  Puma::instance().setOptionSize(true);
-    //  Puma::instance().setOptionFormatMode(puma_format_mode_t t);
-    //	Puma::instance().setOptionPictures(puma_picture_t mode);
+    //  opt.setUnrecognizedChar('?');
+    //  opt.useBold(true);
+    //  opt.useItalic(true);
+    //  opt.useFontSize(true);
+    //  opt.setFormatMode(puma_format_mode_t t);
+
+    Puma::instance().setFormatOptions(opt);
+
+    //  Puma::instance().setOptionPictures(puma_picture_t mode);
     //  Puma::instance().setOptionTables(puma_table_t mode);
 
     Puma::instance().open(dib);

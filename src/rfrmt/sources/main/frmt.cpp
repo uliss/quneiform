@@ -62,11 +62,7 @@
 //
 // ============================================================================
 
-#ifdef _MSC_VER
-#include <windows.h>
-#else
 #include <unistd.h>
-#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include "resource.h"
