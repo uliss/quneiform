@@ -107,6 +107,7 @@ private:
 	bool do_spell_corretion_;
 	bool fax100_;
 	bool one_column_;
+	bool dot_matrix_;
 };
 
 }

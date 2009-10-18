@@ -67,7 +67,7 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false) {
+            one_column_(false), dot_matrix_(false) {
     modulesInit();
 }
 
@@ -175,7 +175,7 @@ void PumaImpl::extractComponents() {
     if (gnPictures)
         exc.Control |= Ex_PictureLarge;
 
-    uchar w8 = (uchar) gbDotMatrix;
+    uchar w8 = dot_matrix_ ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
     w8 = fax100_ ? TRUE : FALSE;
@@ -277,7 +277,7 @@ void PumaImpl::layout() {
     DataforRS.phLinesCCOM = &hLinesCCOM;
     DataforRS.gnPictures = gnPictures;
     DataforRS.gnLanguage = gnLanguage;
-    DataforRS.gbDotMatrix = gbDotMatrix;
+    DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
     DataforRS.pgrc_line = &grc_line;
@@ -317,7 +317,7 @@ void PumaImpl::layout() {
     DataforRM.phLinesCCOM = &hLinesCCOM;
     DataforRM.gnPictures = gnPictures;
     DataforRM.gnLanguage = gnLanguage;
-    DataforRM.gbDotMatrix = gbDotMatrix;
+    DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
@@ -907,7 +907,7 @@ void PumaImpl::recognizeSetup(int language) {
     w8 = fax100_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
 
-    w8 = (uchar) gbDotMatrix;
+    w8 = dot_matrix_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
 
     w8 = 0;
@@ -1145,7 +1145,7 @@ void PumaImpl::setOptionBold(bool val) {
 }
 
 void PumaImpl::setOptionDotMatrix(bool val) {
-    gbDotMatrix = val ? TRUE : FALSE;
+    dot_matrix_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
