@@ -260,11 +260,9 @@ void PumaImpl::layout() {
 #define SET_CB(a,b)   a.p##b = (void*)b
     SET_CB(CBforRS, DPumaSkipComponent);
     SET_CB(CBforRS, DPumaSkipTurn);
-    CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
     SET_CB(CBforRS, SetUpdate);
     SET_CB(CBforRM, DPumaSkipComponent);
     SET_CB(CBforRM, DPumaSkipTurn);
-    CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
