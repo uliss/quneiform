@@ -104,7 +104,6 @@
 // global variables
 
 // Данные образуемые в результате работы.
-EXTERN Handle hCCOM VAL(NULL);
 EXTERN Handle hCPAGE VAL(NULL);
 EXTERN CLINE_handle hCLINE VAL(0);
 EXTERN Handle hLinesCCOM VAL(NULL);

@@ -67,7 +67,8 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
-                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0) {
+                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
+                    NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -127,7 +128,7 @@ void PumaImpl::clearAll() {
     SetPageInfo(hCPAGE, PInfo);
 
     CCOM_DeleteAll();
-    hCCOM = NULL;
+    ccom_ = NULL;
     CIMAGE_DeleteImage(PUMA_IMAGE_BINARIZE);
     CIMAGE_DeleteImage(PUMA_IMAGE_DELLINE);
     //  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
@@ -163,8 +164,8 @@ void PumaImpl::extractComponents() {
     ExcControl exc;
     memset(&exc, 0, sizeof(exc));
 
-    CCOM_DeleteContainer((CCOM_handle) hCCOM);
-    hCCOM = NULL;
+    CCOM_DeleteContainer((CCOM_handle) ccom_);
+    ccom_ = NULL;
 
     // будет распознавания эвентами
     exc.Control = Ex_ExtraComp | Ex_Picture;
@@ -189,12 +190,8 @@ void PumaImpl::extractComponents() {
             (TImageRead) clbk.CIMAGE_ImageRead))
         throw PumaException("REXCExtracomp3CB failed");
 
-    hCCOM = (Handle) REXCGetContainer();
-    if (!hCCOM)
-        throw PumaException("REXCGetContainer failed");
-
-    hCCOM = (Handle) REXCGetContainer();
-    if (!hCCOM)
+    ccom_ = (Handle) REXCGetContainer();
+    if (!ccom_)
         throw PumaException("REXCGetContainer failed");
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
@@ -202,11 +199,11 @@ void PumaImpl::extractComponents() {
 
 void PumaImpl::extractStrings() {
     if (LDPUMA_Skip(hDebugStrings)) {
-        if (!RSELSTR_ExtractTextStrings(hCCOM, hCPAGE))
+        if (!RSELSTR_ExtractTextStrings(ccom_, hCPAGE))
             throw PumaException("RSELSTR_ExtractTextStrings failed");
     }
     else {
-        if (!RBLOCK_ExtractTextStrings(hCCOM, hCPAGE))
+        if (!RBLOCK_ExtractTextStrings(ccom_, hCPAGE))
             throw PumaException("RBLOCK_ExtractTextStrings failed");
     }
 }
@@ -274,7 +271,7 @@ void PumaImpl::layout() {
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = hCPAGE;
-    DataforRS.phCCOM = &hCCOM;
+    DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &hCLINE;
     DataforRS.phLinesCCOM = &hLinesCCOM;
     DataforRS.gnPictures = pictures_;
@@ -314,7 +311,7 @@ void PumaImpl::layout() {
     DataforRM.gKillVSLComponents = gKillVSLComponents;
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = hCPAGE;
-    DataforRM.hCCOM = hCCOM;
+    DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = hCLINE;
     DataforRM.phLinesCCOM = &hLinesCCOM;
     DataforRM.gnPictures = pictures_;

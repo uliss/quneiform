@@ -115,6 +115,7 @@ private:
     void * input_dib_;
     void * recog_dib_;
     int tables_num_;
+    Handle ccom_;
 };
 
 }
