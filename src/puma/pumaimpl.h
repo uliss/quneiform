@@ -113,6 +113,9 @@ private:
 	std::string serif_name_;
 	std::string sans_serif_name_;
 	std::string monospace_name_;
+	bool bold_;
+    bool italic_;
+	bool size_;
 };
 
 }

@@ -68,7 +68,8 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
-                    "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New") {
+                    "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
+            bold_(true), italic_(true), size_(true) {
     modulesInit();
 }
 
@@ -1125,9 +1126,9 @@ void PumaImpl::saveToText(const std::string& filename) const {
 }
 
 void PumaImpl::setFormatOptions() {
-    RFRMT_SetImportData(RFRMT_Bool32_Bold, &gbBold);
-    RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
-    RFRMT_SetImportData(RFRMT_Bool32_Size, &gbSize);
+    RFRMT_SetImportData(RFRMT_Bool32_Bold, &bold_);
+    RFRMT_SetImportData(RFRMT_Bool32_Italic, &italic_);
+    RFRMT_SetImportData(RFRMT_Bool32_Size, &size_);
     RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
     RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
@@ -1142,7 +1143,7 @@ void PumaImpl::setOptionAutoRotate(bool val) {
 }
 
 void PumaImpl::setOptionBold(bool val) {
-    gbBold = val ? TRUE : FALSE;
+    bold_ = val;
 }
 
 void PumaImpl::setOptionDotMatrix(bool val) {
@@ -1160,7 +1161,7 @@ void PumaImpl::setOptionFormatMode(puma_format_mode_t format) {
 }
 
 void PumaImpl::setOptionItalic(bool val) {
-    gbItalic = val ? TRUE : FALSE;
+    italic_ = val;
 }
 
 void PumaImpl::setOptionLanguage(language_t lang) {
@@ -1191,7 +1192,7 @@ void PumaImpl::setOptionSerifName(const char * name) {
 }
 
 void PumaImpl::setOptionSize(bool val) {
-    gbSize = val ? TRUE : FALSE;
+    size_ = val;
 }
 
 void PumaImpl::setOptionTable(puma_table_t mode) {
