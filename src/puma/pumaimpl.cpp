@@ -1194,23 +1194,6 @@ void PumaImpl::setPageTemplate(const Rect& r) {
     }
 }
 
-void PumaImpl::setSpecialProject(uchar specialProject) {
-    special_project_ = specialProject;
-    RSTUFF_RSSetSpecPrj(specialProject);
-    RSTR_SetSpecPrj(specialProject);
-}
-
-void PumaImpl::specialBuffer(char * dest, size_t * length) {
-    if (length)
-        *length = special_global_buf_len_;
-    if (dest) {
-        if (special_global_buf_len_)
-            memcpy(dest, special_global_buf_, special_global_buf_len_);
-        else
-            dest[0] = '\0';
-    }
-}
-
 void PumaImpl::spellCorrection() {
     if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
         saveCSTR(3);

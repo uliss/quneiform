@@ -92,8 +92,6 @@ private:
     void saveLayoutToFile(const std::string& fname);
     void saveToText(std::ostream& os) const;
     void saveToText(const std::string& filename) const;
-    void setSpecialProject(uchar specialProject);
-    void specialBuffer(char * dest, size_t *length);
     void spellCorrection();
 private:
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
