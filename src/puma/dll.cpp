@@ -74,7 +74,4 @@
 #include "pumadef.h"
 #include "compat_defs.h"
 
-int PUMA_GetReturnCode() {
-	return 0;
-}
 

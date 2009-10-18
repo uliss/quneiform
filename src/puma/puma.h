@@ -101,34 +101,9 @@ typedef struct {
 	PUMA_Callback_ImageClose CIMAGE_ImageClose;
 } PUMAIMAGECALLBACK;
 
-enum PUMA_EXPORT_ENTRIES {
-	PUMA_FNPUMA_EnumLanguages = 1,
-	PUMA_FNPUMA_EnumFormats,
-	PUMA_FNPUMA_EnumCodes,
-	PUMA_pchar_Version,
-	PUMA_FNPUMA_EnumFormatMode,
-	PUMA_FNPUMA_EnumTable,
-	PUMA_FNPUMA_EnumPicture,
-	PUMA_Word8_Format,
-	PUMA_Point32_PageSize,
-	PUMA_FNPUMA_XSetTemplate,
-	PUMA_Bool32_PreserveLineBreaks,
-	PUMA_LPPUMAENTRY_CED,
-	PUMA_LPPUMAENTRY_ROUT,
-	PUMA_FNPUMA_GetSpecialBuffer,
-	PUMA_FNPUMA_SetSpecialProject,
-	PUMA_FNPUMA_XGetTemplate
-};
-
 #define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
-
-// Module functions
-DEC_FUN(int, GetReturnCode,())
-PUMA_FUNC int PUMA_GetReturnCode();
-
 PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
 PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
-
 #undef DEC_FUN
 
 #endif
