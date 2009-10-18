@@ -58,7 +58,7 @@
 #include "rmarkermem.h"
 #include "rmfunc.h"
 #include "rneg.h"
-#include "puma/pumadef.h"
+#include "dsnap.h"
 #include "dpuma.h"
 
 using namespace CIF;

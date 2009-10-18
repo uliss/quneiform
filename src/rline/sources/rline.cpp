@@ -74,6 +74,7 @@
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "rshelllinescom.h"
+#include "dsnap.h"
 
 #include "compat_defs.h"
 

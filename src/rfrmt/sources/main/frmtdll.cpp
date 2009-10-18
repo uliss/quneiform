@@ -69,6 +69,7 @@
 #include "puma/pumadef.h"
 #include "rfrmt_prot.h"
 #include "compat_defs.h"
+#include "dsnap.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;

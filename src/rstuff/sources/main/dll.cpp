@@ -78,7 +78,7 @@
 #define __RSTUFF_CPP__
 #include "rsglobaldata.h"
 #undef __RSTUFF_CPP__
-
+#include "dsnap.h"
 #include "compat_defs.h"
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 struct tagRC16 {

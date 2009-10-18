@@ -57,8 +57,7 @@
 #ifndef __PUMADEF_H__
 #define __PUMADEF_H__
 
-#include "lang_def.h"
-#include "dsnap.h"
+#include <climits>
 
 // Format codes
 enum puma_format_t {
@@ -136,6 +135,14 @@ enum puma_module_t {
 	PUMA_MODULE_RMSEGMENT = 120,
 	PUMA_MODULE_SSTREAK = 121,
 	PUMA_MODULE_RCORRKEGL = 122
+};
+
+// Флаги обновления контейнеров
+enum puma_update_flag_t {
+    FLG_UPDATE_NO = 0,
+    FLG_UPDATE = UINT_MAX,
+    FLG_UPDATE_CCOM = 0x1,
+    FLG_UPDATE_CPAGE = 0x2,
 };
 
 #define NAME_IMAGE_INPUT     "Original image"
