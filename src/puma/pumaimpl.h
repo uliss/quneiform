@@ -96,7 +96,6 @@ private:
 	void saveToText(std::ostream& os) const;
 	void saveToText(const std::string& filename) const;
 	void setFormatOptions();
-	void setTemplate(const Rect& rect);
 	void spellCorrection();
 private:
 	static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
@@ -104,7 +103,7 @@ private:
 private:
 	std::auto_ptr<CTIControl> cimage_;
 	BitmapInfoHeader info_;
-	Rect template_;
+	Rect rect_template_;
 };
 
 }

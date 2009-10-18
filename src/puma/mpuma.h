@@ -129,7 +129,6 @@ EXTERN Bool32 gbAutoRotate VAL(FALSE);
 
 // формат А4 в миллиметрах
 extern CIF::Point gPageSize;
-extern CIF::Rect gRectTemplate;
 
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");

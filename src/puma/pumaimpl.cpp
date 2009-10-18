@@ -61,12 +61,12 @@ static Handle ghStorage = NULL;
 namespace CIF {
 
 Point gPageSize(209, 295);
-Rect gRectTemplate(Point(-1, -1), Point(-1, -1));
 
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
-PumaImpl::PumaImpl() {
+PumaImpl::PumaImpl() :
+    rect_template_(Point(-1, -1), Point(-1, -1)) {
     modulesInit();
 }
 
@@ -283,7 +283,7 @@ void PumaImpl::layout() {
     DataforRS.gnTables = gnTables;
     DataforRS.pgnNumberTables = &gnNumberTables;
     DataforRS.pgneed_clean_line = &gneed_clean_line;
-    DataforRS.gRectTemplate = gRectTemplate;
+    DataforRS.gRectTemplate = rect_template_;
     DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRS.hDebugCancelComponent = hDebugCancelComponent;
     DataforRS.hDebugCancelTurn = hDebugCancelTurn;
@@ -514,7 +514,7 @@ void PumaImpl::normalize() {
 }
 
 Rect PumaImpl::pageTemplate() const {
-    return template_;
+    return rect_template_;
 }
 
 void PumaImpl::pass1() {
@@ -672,7 +672,7 @@ void PumaImpl::postOpenInitialize() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-    setTemplate(Rect(Point(0, 0), info_.biWidth, info_.biHeight));
+   rect_template_.set(Point(0, 0), info_.biWidth, info_.biHeight);
 }
 
 void PumaImpl::recognize() {
@@ -1212,7 +1212,7 @@ void PumaImpl::setOptionUseSpeller(bool value) {
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {
-    Rect old_rect = gRectTemplate;
+    Rect old_rect = rect_template_;
     Rect rect = r;
 
     BitmapInfoHeader info;
@@ -1249,13 +1249,9 @@ void PumaImpl::setPageTemplate(const Rect& r) {
             }
             SetPageInfo(hCPAGE, PInfo);
             SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-            setTemplate(rect);
+            rect_template_ = rect;
         }
     }
-}
-
-void PumaImpl::setTemplate(const Rect& r) {
-    gRectTemplate = r;
 }
 
 unsigned char * PumaImpl::mainBuffer() {
