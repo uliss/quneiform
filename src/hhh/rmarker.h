@@ -114,7 +114,6 @@ typedef struct tagRMPreProcessImage
     Handle hDebugSVLinesData;
     Handle hDebugEnableSearchSegment;
     char *szLayoutFileName;
-    const char ** pglpRecogName;
     void * pinfo;
     Handle* phLinesCCOM;
     PBool32 pgneed_clean_line;

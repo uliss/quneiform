@@ -81,7 +81,7 @@ PumaImpl::~PumaImpl() {
 void PumaImpl::binarizeImage() {
     // Бинаризуем изображение
     recog_dib_ = input_dib_;
-    glpRecogName = PUMA_IMAGE_USER;
+    recog_name_ = PUMA_IMAGE_USER;
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
@@ -101,7 +101,7 @@ void PumaImpl::binarizeImage() {
         info.Images |= IMAGE_BINARIZE;
         SetPageInfo(cpage_, info);
 
-        glpRecogName = PUMA_IMAGE_BINARIZE;
+        recog_name_ = PUMA_IMAGE_BINARIZE;
     }
 }
 
@@ -279,7 +279,7 @@ void PumaImpl::layout() {
     DataforRS.gnLanguage = language_;
     DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
-    DataforRS.pglpRecogName = &glpRecogName;
+    DataforRS.pglpRecogName = recog_name_.c_str();
     DataforRS.pgrc_line = &grc_line;
     DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &tables_num_;
@@ -319,7 +319,6 @@ void PumaImpl::layout() {
     DataforRM.gnLanguage = language_;
     DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
-    DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
     DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &tables_num_;
@@ -595,7 +594,7 @@ void PumaImpl::preprocessImage() {
     // Проинициализируем контейнер CPAGE
     PAGEINFO PInfo;
     GetPageInfo(cpage_, &PInfo);
-    strcpy((char*) PInfo.szImageName, glpRecogName);
+    strcpy((char*) PInfo.szImageName, recog_name_.c_str());
     PInfo.BitPerPixel = info_.biBitCount;
     PInfo.DPIX = info_.biXPelsPerMeter * 254L / 10000;
     PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;

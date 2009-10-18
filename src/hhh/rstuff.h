@@ -96,7 +96,7 @@ typedef struct tagRSPreProcessImage {
 	Handle hDebugCancelSearchTables;
 	Handle hDebugCancelAutoTemplate;
 	Handle hDebugEnableSearchSegment;
-	const char ** pglpRecogName;
+	const char * pglpRecogName;
 	Handle* phCCOM;
 	void * pinfo;
 	Handle* phLinesCCOM;
@@ -106,8 +106,6 @@ typedef struct tagRSPreProcessImage {
 	uint32_t gnPictures;
 	Bool32* pgrc_line;
 	CIF::Rect gRectTemplate;
-//	FNPUMA_XSetTemplate fnXSetTemplate;
-//	FNPUMA_XGetTemplate fnXGetTemplate;
 	char *szLayoutFileName;
 } RSPreProcessImage, *PRSPreProcessImage;
 
