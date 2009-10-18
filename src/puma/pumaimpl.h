@@ -88,11 +88,10 @@ private:
     void rotate(void * dib, Point * p);
     void rout(const std::string& fname, int Format) const;
     void rout(void * dest, size_t size, int format) const;
+    void saveCSTR(int pass);
     void saveLayoutToFile(const std::string& fname);
-    void savePass1(const std::string& fname);
     void saveToText(std::ostream& os) const;
     void saveToText(const std::string& filename) const;
-    void setFormatOptions();
     void spellCorrection();
 private:
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
@@ -106,9 +105,10 @@ private:
     bool one_column_;
     bool dot_matrix_;
     bool auto_rotate_;
-    std::string user_dict_name_;
     bool preserve_line_breaks_;
     language_t language_;
+    std::string user_dict_name_;
+    std::string input_filename_;
     FormatOptions format_options_;
 };
 

@@ -218,21 +218,21 @@ FormatOptions PumaImpl::formatOptions() const {
 }
 
 void PumaImpl::formatResult() {
-    setFormatOptions();
+    RFRMT_SetFormatOptions(format_options_);
 
     if (ghEdPage) {
         CED_DeletePage(ghEdPage);
         ghEdPage = NULL;
     }
 
-    if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage))
+    if (!RFRMT_Formatter(input_filename_.c_str(), &ghEdPage))
         throw PumaException("RFRMT_Formatter failed");
 
     if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-        std::string fname(szInputFileName + "_tmp_.rtf");
-        setFormatOptions();
+        std::string fname(input_filename_ + "_tmp_.rtf");
+        RFRMT_SetFormatOptions(format_options_);
         RFRMT_SaveRtf(fname.c_str(), 8);
-        fname = szInputFileName + "_tmp_.fed";
+        fname = input_filename_ + "_tmp_.fed";
         save(fname.c_str(), PUMA_TOEDNATIVE);
     }
 }
@@ -524,16 +524,13 @@ Rect PumaImpl::pageTemplate() const {
 
 void PumaImpl::pass1() {
     if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
-        savePass1(replaceFileExt(szInputFileName, "_1.cst"));
-
+        saveCSTR(1);
     recognizePass1();
 }
 
 void PumaImpl::pass2() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_2.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr2))
+        saveCSTR(2);
 
     ///////////////////////////////
     // OLEG : 01-05-18 : for GiP //
@@ -572,10 +569,8 @@ void PumaImpl::pass2() {
 }
 
 void PumaImpl::spellCorrection() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_3.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
+        saveCSTR(3);
 
     // Дораспознаем по словарю
     CSTR_SortFragm(1);
@@ -673,7 +668,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
 void PumaImpl::postOpenInitialize() {
     LDPUMA_SetFileName(NULL, "none.txt");
-    szInputFileName = "none.bin";
+    input_filename_ = "none.bin";
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
@@ -809,10 +804,8 @@ void PumaImpl::recognizeCorrection() {
     CSTR_SortFragm(1);
     RPSTR_CorrectIncline(1);
 
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_4.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr4))
+        saveCSTR(4);
 }
 
 void PumaImpl::recognizePass1() {
@@ -1098,6 +1091,12 @@ void PumaImpl::save(void * dest, size_t size, int format) const {
     }
 }
 
+void PumaImpl::saveCSTR(int pass) {
+    ostringstream os;
+    os << removeFileExt(input_filename_) << "_" << pass << ".cst";
+    CSTR_SaveCont(os.str().c_str());
+}
+
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
     CPAGE_ClearBackUp(hCPAGE);
     if (!CPAGE_SavePage(hCPAGE, fname.c_str())) {
@@ -1105,10 +1104,6 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
         os << "CPAGE_SavePage to '" << fname << "' failed.";
         throw PumaException(os.str());
     }
-}
-
-void PumaImpl::savePass1(const std::string& fname) {
-    CSTR_SaveCont(fname.c_str());
 }
 
 void PumaImpl::saveToText(ostream& os) const {
@@ -1128,10 +1123,6 @@ void PumaImpl::saveToText(const std::string& filename) const {
     if (!of)
         return;
     saveToText(of);
-}
-
-void PumaImpl::setFormatOptions() {
-    RFRMT_SetFormatOptions(format_options_);
 }
 
 void PumaImpl::setFormatOptions(const FormatOptions& opt) {

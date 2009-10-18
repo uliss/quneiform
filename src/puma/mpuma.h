@@ -106,7 +106,6 @@
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
 
-EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 

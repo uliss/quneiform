@@ -18,6 +18,10 @@ inline std::string replaceFileExt(const std::string& filename,
 	return filename.substr(0, filename.rfind('.')) + new_ext;
 }
 
+inline std::string removeFileExt(const std::string& filename) {
+    return filename.substr(0, filename.rfind('.'));
+}
+
 template<class T>
 std::string toString(const T& t) {
 	std::ostringstream os;
