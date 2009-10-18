@@ -181,13 +181,6 @@ uint32_t LCED_DeletePage(Handle hEdPage);
 DEC_FUN(int, GetReturnCode,())
 PUMA_FUNC int PUMA_GetReturnCode();
 
-PUMA_FUNC int32_t PUMA_EnumLanguages(int32_t nPrev);
-PUMA_FUNC int32_t PUMA_EnumFormats(int32_t nPrev);
-PUMA_FUNC int32_t PUMA_EnumCodes(int32_t format, int32_t nPrev);
-PUMA_FUNC int32_t PUMA_EnumFormatMode(int32_t nPrev);
-PUMA_FUNC int32_t PUMA_EnumTable(int32_t nPrev);
-PUMA_FUNC int32_t PUMA_EnumPicture(int32_t nPrev);
-
 PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
 PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 

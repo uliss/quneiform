@@ -109,6 +109,7 @@ private:
     language_t language_;
     std::string user_dict_name_;
     std::string input_filename_;
+    std::string layout_filename_;
     FormatOptions format_options_;
     puma_picture_t pictures_;
     puma_table_t tables_;

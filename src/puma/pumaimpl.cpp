@@ -66,9 +66,10 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
-                    false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
-                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
-                    NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL) {
+                    false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
+                    PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
+                    NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
+                    NULL), ed_page_(NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -293,7 +294,7 @@ void PumaImpl::layout() {
     DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
     DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-    DataforRS.szLayoutFileName = szLayoutFileName;
+    DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     // калбэки
@@ -338,7 +339,7 @@ void PumaImpl::layout() {
     DataforRM.hDebugSVLines = hDebugSVLines;
     DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-    DataforRM.szLayoutFileName = szLayoutFileName;
+    DataforRM.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     if (RMARKER_SetImportData(0, &CBforRM)) {
@@ -685,11 +686,11 @@ void PumaImpl::recognize() {
 
     // Сохраним описание Layout в файл.
     if (!LDPUMA_Skip(hDebugLayoutToFile))
-        saveLayoutToFile(szLayoutFileName);
+        saveLayoutToFile(layout_filename_);
 
     // Прочитаем описание Layout из файла.
     if (!LDPUMA_Skip(hDebugLayoutFromFile))
-        loadLayoutFromFile(szLayoutFileName);
+        loadLayoutFromFile(layout_filename_);
 
     if (IsUpdate(FLG_UPDATE_CCOM))
         extractComponents();

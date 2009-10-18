@@ -62,37 +62,9 @@
 #include <cassert>
 
 #include "puma.h"
-
 #include "mpuma.h"
 #include "compat_defs.h"
-//////////////////////////////////////////////////////////////////
-// 07.07,2000 Allex
-// Вынес Бинаризацию наверх из PreProcessImage
-//////////////////////////////////////////////////////////Allex
 
-int32_t PUMA_EnumLanguages(int32_t nPrev) {
-	return _EnumLanguage(nPrev);
-}
-
-int32_t PUMA_EnumFormats(int32_t nPrev) {
-	return _EnumFormats(nPrev);
-}
-
-int32_t PUMA_EnumCodes(int32_t format, int32_t nPrev) {
-	return _EnumCodes(format, nPrev);
-}
-
-int32_t PUMA_EnumFormatMode(int32_t nPrev) {
-	return _EnumFormatMode(nPrev);
-}
-
-int32_t PUMA_EnumTable(int32_t nPrev) {
-	return _EnumTable(nPrev);
-}
-
-int32_t PUMA_EnumPicture(int32_t nPrev) {
-	return _EnumPicture(nPrev);
-}
 
 //OLEG fot Consistent
 void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength) {
