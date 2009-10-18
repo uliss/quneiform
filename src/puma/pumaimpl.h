@@ -116,6 +116,7 @@ private:
     void * recog_dib_;
     int tables_num_;
     Handle ccom_;
+    Handle cpage_;
 };
 
 }

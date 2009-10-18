@@ -68,7 +68,7 @@ PumaImpl::PumaImpl() :
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
                     PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
-                    NULL) {
+                    NULL), cpage_(NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -96,9 +96,9 @@ void PumaImpl::binarizeImage() {
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;
-        GetPageInfo(hCPAGE, &info);
+        GetPageInfo(cpage_, &info);
         info.Images |= IMAGE_BINARIZE;
-        SetPageInfo(hCPAGE, info);
+        SetPageInfo(cpage_, info);
 
         glpRecogName = PUMA_IMAGE_BINARIZE;
     }
@@ -114,18 +114,18 @@ void PumaImpl::clearAll() {
     PAGEINFO PInfo;
     memset(&PInfo, 0, sizeof(PInfo));
 
-    if (hCPAGE)
-        GetPageInfo(hCPAGE, &PInfo);
+    if (cpage_)
+        GetPageInfo(cpage_, &PInfo);
 
     CSTR_DeleteAll();
     CPAGE_DeleteAll();
-    hCPAGE = CreateEmptyPage();
+    cpage_ = CreateEmptyPage();
 
     strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
     PInfo.Incline2048 = 0;
     PInfo.Angle = 0;
     PInfo.Images = IMAGE_USER;
-    SetPageInfo(hCPAGE, PInfo);
+    SetPageInfo(cpage_, PInfo);
 
     CCOM_DeleteAll();
     ccom_ = NULL;
@@ -146,8 +146,8 @@ void PumaImpl::close() {
     CIMAGE_Reset();
     CPAGE_DeleteAll();
     RIMAGE_Reset();
-    hCPAGE = NULL;
 
+    cpage_ = NULL;
     recog_dib_ = input_dib_ = NULL;
 }
 
@@ -158,7 +158,7 @@ void PumaImpl::extractComponents() {
     }
 
     PAGEINFO info;
-    if (!GetPageInfo(hCPAGE, &info))
+    if (!GetPageInfo(cpage_, &info))
         throw PumaException("GetPageInfo failed");
 
     ExcControl exc;
@@ -199,11 +199,11 @@ void PumaImpl::extractComponents() {
 
 void PumaImpl::extractStrings() {
     if (LDPUMA_Skip(hDebugStrings)) {
-        if (!RSELSTR_ExtractTextStrings(ccom_, hCPAGE))
+        if (!RSELSTR_ExtractTextStrings(ccom_, cpage_))
             throw PumaException("RSELSTR_ExtractTextStrings failed");
     }
     else {
-        if (!RBLOCK_ExtractTextStrings(ccom_, hCPAGE))
+        if (!RBLOCK_ExtractTextStrings(ccom_, cpage_))
             throw PumaException("RBLOCK_ExtractTextStrings failed");
     }
 }
@@ -270,7 +270,7 @@ void PumaImpl::layout() {
     DataforRS.gbAutoRotate = auto_rotate_;
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
-    DataforRS.hCPAGE = hCPAGE;
+    DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &hCLINE;
     DataforRS.phLinesCCOM = &hLinesCCOM;
@@ -310,7 +310,7 @@ void PumaImpl::layout() {
     DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = gKillVSLComponents;
     DataforRM.pinfo = &info_;
-    DataforRM.hCPAGE = hCPAGE;
+    DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = hCLINE;
     DataforRM.phLinesCCOM = &hLinesCCOM;
@@ -345,17 +345,17 @@ void PumaImpl::layout() {
         if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
             throw PumaException("RMARKER_PageMarkup failed");
 
-        hCPAGE = DataforRM.hCPAGE; //Paul 25-01-2001
+        cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
 
     if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
         LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
-        Handle block = CPAGE_GetBlockFirst(hCPAGE, 0);
+        Handle block = CPAGE_GetBlockFirst(cpage_, 0);
         while (block) {
             LDPUMA_Console("%s : %i\n",
-                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(hCPAGE, block)),
-                    CPAGE_GetBlockData(hCPAGE, block, CPAGE_GetBlockType(hCPAGE, block), NULL, 0));
-            block = CPAGE_GetBlockNext(hCPAGE, block, 0);
+                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)),
+                    CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
+            block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
     }
 
@@ -363,13 +363,13 @@ void PumaImpl::layout() {
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
-    hCPAGE = CPAGE_RestorePage(TRUE, fname.c_str());
-    if (hCPAGE == NULL) {
+    cpage_ = CPAGE_RestorePage(TRUE, fname.c_str());
+    if (cpage_ == NULL) {
         ostringstream os;
         os << "CPAGE_RestorePage failed from '" << fname << "'";
         throw PumaException(os.str());
     }
-    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(hCPAGE));
+    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
 }
 
 void PumaImpl::modulesDone() {
@@ -497,7 +497,7 @@ void PumaImpl::open(char * dib) {
         throw PumaException("PumaImpl::open can't write DIB");
 
     postOpenInitialize();
-    hCPAGE = CreateEmptyPage();
+    cpage_ = CreateEmptyPage();
 }
 
 const char * PumaImpl::modulePath() const {
@@ -592,8 +592,8 @@ void PumaImpl::preprocessImage() {
         LDPUMA_Console("Пропущен этап выделения компонент.\n");
 
     // Проинициализируем контейнер CPAGE
-    PAGEINFO PInfo;// = { 0 };
-    GetPageInfo(hCPAGE, &PInfo);
+    PAGEINFO PInfo;
+    GetPageInfo(cpage_, &PInfo);
     strcpy((char*) PInfo.szImageName, glpRecogName);
     PInfo.BitPerPixel = info_.biBitCount;
     PInfo.DPIX = info_.biXPelsPerMeter * 254L / 10000;
@@ -608,7 +608,7 @@ void PumaImpl::preprocessImage() {
     PInfo.Page = 1;
     PInfo.Angle = Angle;
 
-    SetPageInfo(hCPAGE, PInfo);
+    SetPageInfo(cpage_, PInfo);
 }
 
 void PumaImpl::printResult(std::ostream& os) {
@@ -629,13 +629,13 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
     if (line_attr.fragment != nFragment) {
         nFragment = -1;
-        Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, 0);
+        Handle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
         while (hBlock) {
-            if ((int) CPAGE_GetBlockInterNum(hCPAGE, hBlock) == line_attr.fragment) {
+            if ((int) CPAGE_GetBlockInterNum(cpage_, hBlock) == line_attr.fragment) {
                 nFragment = line_attr.fragment;
                 break;
             }
-            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, 0);
+            hBlock = CPAGE_GetBlockNext(cpage_, hBlock, 0);
         }
     }
 
@@ -673,15 +673,15 @@ void PumaImpl::postOpenInitialize() {
 
 void PumaImpl::recognize() {
     // Проверим: выделены ли фрагменты.
-    if (!CPAGE_GetCountBlock(hCPAGE) || IsUpdate(FLG_UPDATE_CPAGE))
+    if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
 
     DBG("Puma recognize")
 
     CSTR_DeleteAll();
 
-    if (hCPAGE)
-        CPAGE_UpdateBlocks(hCPAGE, TYPE_CPAGE_TABLE);
+    if (cpage_)
+        CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
     // Сохраним описание Layout в файл.
     if (!LDPUMA_Skip(hDebugLayoutToFile))
@@ -695,7 +695,7 @@ void PumaImpl::recognize() {
         extractComponents();
 
     // Получим описатель страницы
-    hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
 
     // Выделим строки
     if (!LDPUMA_Skip(hDebugCancelStrings)) {
@@ -718,13 +718,13 @@ void PumaImpl::recognize() {
     CSTR_line ln;
     CSTR_attr attr;
     int32_t nf = CSTR_GetMaxFragment(0);
-    Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+    Handle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
     if (hBlock) {
         AutoBuffer<int, InitZero> flagfrag(nf);
 
         for (int i = 0; hBlock && i < nf; i++) {
-            flagfrag[i] = CPAGE_GetBlockFlags(hCPAGE, hBlock);
-            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+            flagfrag[i] = CPAGE_GetBlockFlags(cpage_, hBlock);
+            hBlock = CPAGE_GetBlockNext(cpage_, hBlock, TYPE_TEXT);
         }
         for (int i = 1; i <= nf; i++) {
             ln = CSTR_FirstLineFragm(i, 0);
@@ -841,7 +841,7 @@ void PumaImpl::recognizePass1() {
     REF_unionEtaz();
 #endif
 
-    if (!RSTR_EndPage(hCPAGE))
+    if (!RSTR_EndPage(cpage_))
         throw PumaException("RSTR_EndPage failed");
 }
 
@@ -869,21 +869,21 @@ void PumaImpl::recognizePass2() {
             throw PumaException("RSTR_Recog failed");
     }
 
-    if (!RSTR_EndPage(hCPAGE))
+    if (!RSTR_EndPage(cpage_))
         throw PumaException("RSTR_EndPage failed");
 }
 
 void PumaImpl::recognizeSetup(int language) {
     // рапознавание строк
     PAGEINFO info;
-    GetPageInfo(hCPAGE, &info);
+    GetPageInfo(cpage_, &info);
     RSTR_Options opt;
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
 
     opt.language = language;
     global_buf_len = 0; // OLEG fot Consistent
-    if (!RSTR_NewPage(nResolutionY, hCPAGE))
+    if (!RSTR_NewPage(nResolutionY, cpage_))
         throw PumaException("RSTR_NewPage failed");
 
     if (!RSTR_SetOptions(&opt))
@@ -930,7 +930,7 @@ void PumaImpl::rotate(void * dib, Point * p) {
     assert(p);
     assert(dib);
 
-    if (!CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
+    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
         throw PumaException("CPAGE_GetPageData failed");
 
     BitmapInfoHeader info;
@@ -950,7 +950,7 @@ void PumaImpl::rotate(void * dib, Point * p) {
     }
 
     // Создадим довернутое изображение
-    GetPageInfo(hCPAGE, &PInfo);
+    GetPageInfo(cpage_, &PInfo);
 
     CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
 
@@ -964,7 +964,7 @@ void PumaImpl::rotate(void * dib, Point * p) {
 
     CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", true);
     PInfo.Images |= IMAGE_ROTATE;
-    SetPageInfo(hCPAGE, PInfo);
+    SetPageInfo(cpage_, PInfo);
 }
 
 void PumaImpl::rout(const std::string& filename, int Format) const {
@@ -1093,8 +1093,8 @@ void PumaImpl::saveCSTR(int pass) {
 }
 
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
-    CPAGE_ClearBackUp(hCPAGE);
-    if (!CPAGE_SavePage(hCPAGE, fname.c_str())) {
+    CPAGE_ClearBackUp(cpage_);
+    if (!CPAGE_SavePage(cpage_, fname.c_str())) {
         ostringstream os;
         os << "CPAGE_SavePage to '" << fname << "' failed.";
         throw PumaException(os.str());
@@ -1175,7 +1175,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
     if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
         CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
         PAGEINFO PInfo;
-        GetPageInfo(hCPAGE, &PInfo);
+        GetPageInfo(cpage_, &PInfo);
         //		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
         PInfo.status &= ~3;
         if (rect.left() < 0 && rect.right() < 0 && rect.bottom() < 0 && rect.top() < 0) {
@@ -1185,7 +1185,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
         if (old_rect == rect) {
             PInfo.X = rect.left();
             PInfo.Y = rect.top();
-            SetPageInfo(hCPAGE, PInfo);
+            SetPageInfo(cpage_, PInfo);
             return;
         }
 
@@ -1203,7 +1203,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
                 PInfo.X = 0;
                 PInfo.Y = 0;
             }
-            SetPageInfo(hCPAGE, PInfo);
+            SetPageInfo(cpage_, PInfo);
             SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
             rect_template_ = rect;
         }
