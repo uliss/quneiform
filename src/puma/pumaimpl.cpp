@@ -920,7 +920,7 @@ void PumaImpl::recognizeSetup(int language) {
     w8 = do_spell_corretion_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
 
-    RSTR_SetImportData(RSTR_pchar_user_dict_name, gpUserDictName);
+    RSTR_SetImportData(RSTR_pchar_user_dict_name, user_dict_name_.c_str());
 
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
@@ -1202,8 +1202,8 @@ void PumaImpl::setOptionUnrecognizedChar(char ch) {
     gnUnrecogChar = ch;
 }
 
-void setOptionUserDictionaryName(const char * name) {
-    gpUserDictName = name;
+void PumaImpl::setOptionUserDictionaryName(const char * name) {
+    user_dict_name_ = name;
 }
 
 void PumaImpl::setOptionUseSpeller(bool value) {

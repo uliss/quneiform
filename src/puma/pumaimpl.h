@@ -109,6 +109,7 @@ private:
 	bool one_column_;
 	bool dot_matrix_;
 	bool auto_rotate_;
+	std::string user_dict_name_;
 };
 
 }
