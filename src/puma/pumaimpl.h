@@ -116,6 +116,7 @@ private:
 	bool bold_;
     bool italic_;
 	bool size_;
+	puma_format_mode_t format_mode_;
 };
 
 }

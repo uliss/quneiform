@@ -69,7 +69,7 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
                     "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-            bold_(true), italic_(true), size_(true) {
+            bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL) {
     modulesInit();
 }
 
@@ -1129,7 +1129,7 @@ void PumaImpl::setFormatOptions() {
     RFRMT_SetImportData(RFRMT_Bool32_Bold, &bold_);
     RFRMT_SetImportData(RFRMT_Bool32_Italic, &italic_);
     RFRMT_SetImportData(RFRMT_Bool32_Size, &size_);
-    RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
+    RFRMT_SetImportData(RFRMT_Word32_Format, &format_mode_);
     RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_CourierName, monospace_name_.c_str());
@@ -1157,7 +1157,7 @@ void PumaImpl::setOptionFax100(bool val) {
 }
 
 void PumaImpl::setOptionFormatMode(puma_format_mode_t format) {
-    gnFormat = format;
+    format_mode_ = format;
 }
 
 void PumaImpl::setOptionItalic(bool val) {
