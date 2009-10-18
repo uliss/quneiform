@@ -113,8 +113,6 @@ EXTERN uchar gnUnrecogChar VAL('~');
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
 
-EXTERN const char * gpCourierName VAL("Courier New");
-
 EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);

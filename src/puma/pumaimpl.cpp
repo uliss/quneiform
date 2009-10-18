@@ -68,7 +68,7 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
-                    "Times New Roman"), sans_serif_name_("Arial") {
+                    "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New") {
     modulesInit();
 }
 
@@ -1131,7 +1131,7 @@ void PumaImpl::setFormatOptions() {
     RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
     RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
-    RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
+    RFRMT_SetImportData(RFRMT_char_CourierName, monospace_name_.c_str());
     RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
     RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
 }
@@ -1169,7 +1169,7 @@ void PumaImpl::setOptionLanguage(language_t lang) {
 }
 
 void PumaImpl::setOptionMonospaceName(const char * name) {
-    gpCourierName = name;
+    monospace_name_ = name;
 }
 
 void PumaImpl::setOptionOneColumn(bool val) {
