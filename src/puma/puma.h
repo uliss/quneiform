@@ -101,9 +101,4 @@ typedef struct {
 	PUMA_Callback_ImageClose CIMAGE_ImageClose;
 } PUMAIMAGECALLBACK;
 
-#define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
-PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
-PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
-#undef DEC_FUN
-
 #endif

@@ -7,6 +7,8 @@
 
 #include "pumaimpl.h"
 #include "puma.h"
+
+#define __PUMA_CPP__
 #include "mpuma.h"
 #include "pumadef.h"
 
@@ -21,9 +23,6 @@
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
 #include "cimage/cticontrol.h"
-
-char global_buf[64000]; // OLEG fot Consistent
-int32_t global_buf_len = 0; // OLEG fot Consistent
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng) {
     if (!lin_ruseng)
@@ -69,7 +68,7 @@ PumaImpl::PumaImpl() :
                     false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
                     PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                    NULL), ed_page_(NULL) {
+                    NULL), ed_page_(NULL), special_project_(0), special_global_buf_len_(0) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -528,7 +527,7 @@ void PumaImpl::pass2() {
     ///////////////////////////////
     // OLEG : 01-05-18 : for GiP //
     ///////////////////////////////
-    if (SPEC_PRJ_GIP == gnSpecialProject && language_ == LANG_RUSENG) {
+    if (SPEC_PRJ_GIP == special_project_ && language_ == LANG_RUSENG) {
         int i, n;
         double s;
         CSTR_line lin_ruseng;
@@ -559,20 +558,6 @@ void PumaImpl::pass2() {
         recognizePass2();
     else
         LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
-}
-
-void PumaImpl::spellCorrection() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
-        saveCSTR(3);
-
-    // Дораспознаем по словарю
-    CSTR_SortFragm(1);
-    RPSTR_CollectCapDrops(1);
-    if (!do_spell_corretion_)
-        return;
-
-    if (!RPSTR_CorrectSpell(1))
-        throw PumaException("RPSTR_CorrectSpell failed");
 }
 
 void PumaImpl::preOpenInitialize() {
@@ -756,10 +741,11 @@ void PumaImpl::recognize() {
     printResult(cerr);
 
     // OLEG fot Consistent
-    if (SPEC_PRJ_CONS == gnSpecialProject) {
-        char * buf = &global_buf[0], buf_str[1024];
+    if (SPEC_PRJ_CONS == special_project_) {
+        char * buf = &special_global_buf_[0];
+        char buf_str[1024];
         char * pb = buf;
-        global_buf_len = 0;
+        special_global_buf_len_ = 0;
         CSTR_line buf_line;
         int count = CSTR_GetMaxNumber();
 
@@ -769,10 +755,10 @@ void PumaImpl::recognize() {
             strcpy(pb, buf_str);
             int len = strlen(pb);
             pb += len + 1;
-            global_buf_len += len + 1;
+            special_global_buf_len_ += len + 1;
         }
         *pb = 0;
-        global_buf_len++;
+        special_global_buf_len_++;
 
         // OLEG fot Consistent
     }
@@ -880,7 +866,7 @@ void PumaImpl::recognizeSetup(int language) {
     int32_t nResolutionY = info.DPIY;//300;
 
     opt.language = language;
-    global_buf_len = 0; // OLEG fot Consistent
+    special_global_buf_len_ = 0; // OLEG fot Consistent
     if (!RSTR_NewPage(nResolutionY, cpage_))
         throw PumaException("RSTR_NewPage failed");
 
@@ -1206,6 +1192,37 @@ void PumaImpl::setPageTemplate(const Rect& r) {
             rect_template_ = rect;
         }
     }
+}
+
+void PumaImpl::setSpecialProject(uchar specialProject) {
+    special_project_ = specialProject;
+    RSTUFF_RSSetSpecPrj(specialProject);
+    RSTR_SetSpecPrj(specialProject);
+}
+
+void PumaImpl::specialBuffer(char * dest, size_t * length) {
+    if (length)
+        *length = special_global_buf_len_;
+    if (dest) {
+        if (special_global_buf_len_)
+            memcpy(dest, special_global_buf_, special_global_buf_len_);
+        else
+            dest[0] = '\0';
+    }
+}
+
+void PumaImpl::spellCorrection() {
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
+        saveCSTR(3);
+
+    // Дораспознаем по словарю
+    CSTR_SortFragm(1);
+    RPSTR_CollectCapDrops(1);
+    if (!do_spell_corretion_)
+        return;
+
+    if (!RPSTR_CorrectSpell(1))
+        throw PumaException("RPSTR_CorrectSpell failed");
 }
 
 unsigned char * PumaImpl::mainBuffer() {
