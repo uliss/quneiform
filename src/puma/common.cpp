@@ -54,17 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <string.h>
-
 #include "mpuma.h"
-#include "ccom/ccom.h"
-#include "cstr/cstr.h"
 
 Bool32 IsUpdate(uint32_t flg) {
-	return (g_flgUpdate & flg) > 0;
+    return (g_flgUpdate & flg) > 0;
 }
 
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
-	g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
+    g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
 }
