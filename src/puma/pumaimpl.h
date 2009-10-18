@@ -108,6 +108,7 @@ private:
 	bool fax100_;
 	bool one_column_;
 	bool dot_matrix_;
+	bool auto_rotate_;
 };
 
 }

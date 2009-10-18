@@ -121,7 +121,6 @@ EXTERN const char * gpCourierName VAL("Courier New");
 EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
-EXTERN Bool32 gbAutoRotate VAL(FALSE);
 
 // формат А4 в миллиметрах
 extern CIF::Point gPageSize;

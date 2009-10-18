@@ -67,7 +67,7 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false) {
+            one_column_(false), dot_matrix_(false), auto_rotate_(false) {
     modulesInit();
 }
 
@@ -268,7 +268,7 @@ void PumaImpl::layout() {
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
-    DataforRS.gbAutoRotate = gbAutoRotate;
+    DataforRS.gbAutoRotate = auto_rotate_;
     DataforRS.pgpRecogDIB = &gpRecogDIB;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = hCPAGE;
@@ -306,7 +306,7 @@ void PumaImpl::layout() {
 
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbAutoRotate = gbAutoRotate;
+    DataforRM.gbAutoRotate = auto_rotate_;
     DataforRM.pgpRecogDIB = &gpRecogDIB;
     DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = gKillVSLComponents;
@@ -1136,7 +1136,7 @@ void PumaImpl::setFormatOptions() {
 }
 
 void PumaImpl::setOptionAutoRotate(bool val) {
-    gbAutoRotate = val ? TRUE : FALSE;
+    auto_rotate_ = val;
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
