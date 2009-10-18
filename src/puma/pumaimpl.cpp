@@ -67,7 +67,8 @@ FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false) {
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
+                    "Times New Roman") {
     modulesInit();
 }
 
@@ -1128,7 +1129,7 @@ void PumaImpl::setFormatOptions() {
     RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
     RFRMT_SetImportData(RFRMT_Bool32_Size, &gbSize);
     RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
-    RFRMT_SetImportData(RFRMT_char_SerifName, gpSerifName);
+    RFRMT_SetImportData(RFRMT_char_SerifName, serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_SansSerifName, gpSansSerifName);
     RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
     RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
@@ -1186,7 +1187,7 @@ void PumaImpl::setOptionSansSerifName(const char * name) {
 }
 
 void PumaImpl::setOptionSerifName(const char * name) {
-    gpSerifName = name;
+    serif_name_ = name;
 }
 
 void PumaImpl::setOptionSize(bool val) {

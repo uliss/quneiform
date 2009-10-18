@@ -113,7 +113,6 @@ EXTERN uchar gnUnrecogChar VAL('~');
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
 
-EXTERN const char * gpSerifName VAL("Times New Roman");
 EXTERN const char * gpSansSerifName VAL("Arial");
 EXTERN const char * gpCourierName VAL("Courier New");
 

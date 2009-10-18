@@ -110,6 +110,7 @@ private:
 	bool dot_matrix_;
 	bool auto_rotate_;
 	std::string user_dict_name_;
+	std::string serif_name_;
 };
 
 }
