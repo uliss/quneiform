@@ -71,7 +71,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsdefines.h"
 #include "rsfunc.h"
 #include "rsglobaldata.h"
-#include "puma/mpumatime.h"
 #include "puma/pumadef.h"
 ////////////////////////////////////////////////////////////////////////////////
 // Нормализация сырья

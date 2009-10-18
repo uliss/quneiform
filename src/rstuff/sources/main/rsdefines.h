@@ -71,7 +71,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include "globus.h"
-#include "puma/mpumatime.h"
 #include "rstuff.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -79,8 +78,6 @@ typedef void    (*RSPROGRESSSTART)       (void);
 typedef Bool32  (*RSPROGRESSSTEP)        (uint32_t, uint32_t);
 typedef void    (*RSPROGRESSFINISH)      (void);
 typedef Bool32  (*RSINITPRGTIME)         (void);
-typedef PRGTIME (*RSSTOREPRGTIME)        (uint32_t, uint32_t);
-typedef void    (*RSRESTOREPRGTIME)      (PRGTIME);
 typedef Bool32  (*RSDONEPRGTIME)         (void);
 typedef Bool32  (*RSDPUMASKIPCOMPONENT)  (void);
 typedef Bool32  (*RSDPUMASKIPTURN)       (void);
