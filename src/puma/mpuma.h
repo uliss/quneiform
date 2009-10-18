@@ -102,11 +102,6 @@
 #endif
 #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
-
-// Данные образуемые в результате работы.
-EXTERN CLINE_handle hCLINE VAL(0);
-// компоненты с линиями
-EXTERN Handle ghEdPage VAL(NULL);
 // 1. Отладочная информаци
 EXTERN Handle hDebugRoot VAL(NULL);
 EXTERN Handle hDebugCancelStrings VAL(NULL);

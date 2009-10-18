@@ -68,7 +68,7 @@ PumaImpl::PumaImpl() :
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
                     PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
-                    NULL), cpage_(NULL), lines_ccom_(NULL) {
+                    NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -106,9 +106,9 @@ void PumaImpl::binarizeImage() {
 
 void PumaImpl::clearAll() {
     // Сохраним последенне состояние и очистим контейнер
-    if (ghEdPage) {
-        CED_DeletePage(ghEdPage);
-        ghEdPage = NULL;
+    if (ed_page_) {
+        CED_DeletePage(ed_page_);
+        ed_page_ = NULL;
     }
 
     PAGEINFO PInfo;
@@ -215,12 +215,12 @@ FormatOptions PumaImpl::formatOptions() const {
 void PumaImpl::formatResult() {
     RFRMT_SetFormatOptions(format_options_);
 
-    if (ghEdPage) {
-        CED_DeletePage(ghEdPage);
-        ghEdPage = NULL;
+    if (ed_page_) {
+        CED_DeletePage(ed_page_);
+        ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), &ghEdPage))
+    if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
         throw PumaException("RFRMT_Formatter failed");
 
     if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
@@ -272,7 +272,7 @@ void PumaImpl::layout() {
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
-    DataforRS.phCLINE = &hCLINE;
+    DataforRS.phCLINE = &cline_;
     DataforRS.phLinesCCOM = &lines_ccom_;
     DataforRS.gnPictures = pictures_;
     DataforRS.gnLanguage = language_;
@@ -312,7 +312,7 @@ void PumaImpl::layout() {
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
-    DataforRM.hCLINE = hCLINE;
+    DataforRM.hCLINE = cline_;
     DataforRM.phLinesCCOM = &lines_ccom_;
     DataforRM.gnPictures = pictures_;
     DataforRM.gnLanguage = language_;
@@ -977,7 +977,7 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
     char unrecog = format_options_.unrecognizedChar();
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
-            ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(ROUT_LONG_Format,
+            ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
             || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
@@ -1006,7 +1006,7 @@ void PumaImpl::rout(void * dest, size_t size, int format) const {
     char unrecog = format_options_.unrecognizedChar();
 
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
-            || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
+            || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
             (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
@@ -1030,7 +1030,7 @@ void PumaImpl::rout(void * dest, size_t size, int format) const {
 }
 
 void PumaImpl::save(const std::string& filename, int Format) const {
-    if (!ghEdPage)
+    if (!ed_page_)
         throw PumaException("Puma save failed");
 
 #ifndef NDEBUG
@@ -1045,11 +1045,11 @@ void PumaImpl::save(const std::string& filename, int Format) const {
         saveToText(filename);
         break;
     case PUMA_TORTF:
-        if (!CED_WriteFormattedRtf(filename.c_str(), ghEdPage))
+        if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
             throw PumaException("Save to RTF failed");
         break;
     case PUMA_TOEDNATIVE:
-        if (!CED_WriteFormattedEd(filename.c_str(), ghEdPage))
+        if (!CED_WriteFormattedEd(filename.c_str(), ed_page_))
             throw PumaException("Save to native format failed");
         break;
     case PUMA_TOTEXT:

@@ -118,6 +118,8 @@ private:
     Handle ccom_;
     Handle cpage_;
     Handle lines_ccom_;
+    Handle cline_;
+    Handle ed_page_;
 };
 
 }
