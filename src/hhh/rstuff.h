@@ -70,7 +70,6 @@
 
 #include "globus.h"
 #include "rect.h"
-#include "puma/puma.h"
 
 #ifdef __RSTUFF__
 #define RSTUFF_FUNC  FUN_EXPO

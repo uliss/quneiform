@@ -55,8 +55,7 @@
  */
 #ifndef __MPUMA_H__
 #define __MPUMA_H__
-#include "resource.h"
-#include "puma.h"
+
 #include "dpuma.h"
 #include "pumadef.h"
 #include "ccom/ccom.h"

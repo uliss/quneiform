@@ -57,7 +57,6 @@
 #define __MARK_PAGE_H__
 
 #include <rmarker.h>
-#include "puma/puma.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "mymem.h"
