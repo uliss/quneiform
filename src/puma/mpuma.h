@@ -103,7 +103,6 @@
 #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
 // Исходные данные, передаваемые пользователем
-EXTERN uint32_t gnLanguage VAL(7);
 EXTERN uint32_t gnPictures VAL(1);
 EXTERN uint32_t gnTables VAL(1);
 

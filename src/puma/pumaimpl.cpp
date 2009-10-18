@@ -70,7 +70,7 @@ PumaImpl::PumaImpl() :
             one_column_(false), dot_matrix_(false), auto_rotate_(false), serif_name_(
                     "Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             bold_(true), italic_(true), size_(true), format_mode_(PUMA_FORMAT_ALL),
-            unrecognized_char_('~'), preserve_line_breaks_(false) {
+            unrecognized_char_('~'), preserve_line_breaks_(false), language_(LANG_RUSENG) {
     modulesInit();
 }
 
@@ -279,7 +279,7 @@ void PumaImpl::layout() {
     DataforRS.phCLINE = &hCLINE;
     DataforRS.phLinesCCOM = &hLinesCCOM;
     DataforRS.gnPictures = gnPictures;
-    DataforRS.gnLanguage = gnLanguage;
+    DataforRS.gnLanguage = language_;
     DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
@@ -319,7 +319,7 @@ void PumaImpl::layout() {
     DataforRM.hCLINE = hCLINE;
     DataforRM.phLinesCCOM = &hLinesCCOM;
     DataforRM.gnPictures = gnPictures;
-    DataforRM.gnLanguage = gnLanguage;
+    DataforRM.gnLanguage = language_;
     DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
@@ -537,7 +537,7 @@ void PumaImpl::pass2() {
     ///////////////////////////////
     // OLEG : 01-05-18 : for GiP //
     ///////////////////////////////
-    if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage == LANG_RUSENG) {
+    if (SPEC_PRJ_GIP == gnSpecialProject && language_ == LANG_RUSENG) {
         int i, n;
         double s;
         CSTR_line lin_ruseng;
@@ -558,8 +558,8 @@ void PumaImpl::pass2() {
                         CSTR_DeleteLine(lin_ruseng);
                 }
             }
-            gnLanguage = LANG_ENGLISH;
-            recognizeSetup(gnLanguage);
+            language_ = LANG_ENGLISH;
+            recognizeSetup(language_);
             recognizePass1();
         }
     }
@@ -721,7 +721,7 @@ void PumaImpl::recognize() {
 
     // распознаем строки
     CSTR_SortFragm(0);
-    recognizeSetup(gnLanguage);
+    recognizeSetup(language_);
 
     CSTR_SortFragm(0);
     CSTR_line ln;
@@ -901,7 +901,7 @@ void PumaImpl::recognizeSetup(int language) {
         throw PumaException("RSTR_SetOptions failed");
 
     // Настройка параметров
-    uchar w8 = (uchar) gnLanguage;
+    uchar w8 = (uchar) language_;
     RSTR_SetImportData(RSTR_Word8_Language, &w8);
 
     uint16_t w16 = (uint16_t) info.DPIY;//300;
@@ -1136,7 +1136,7 @@ void PumaImpl::setFormatOptions() {
     RFRMT_SetImportData(RFRMT_char_SansSerifName, sans_serif_name_.c_str());
     RFRMT_SetImportData(RFRMT_char_CourierName, monospace_name_.c_str());
     RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &unrecognized_char_);
-    RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
+    RFRMT_SetImportData(RFRMT_Word32_Language, &language_);
 }
 
 void PumaImpl::setOptionAutoRotate(bool val) {
@@ -1167,7 +1167,7 @@ void PumaImpl::setOptionItalic(bool val) {
 }
 
 void PumaImpl::setOptionLanguage(language_t lang) {
-    gnLanguage = lang;
+    language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
