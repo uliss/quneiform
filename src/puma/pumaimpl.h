@@ -105,6 +105,7 @@ private:
 	BitmapInfoHeader info_;
 	Rect rect_template_;
 	bool do_spell_corretion_;
+	bool fax100_;
 };
 
 }

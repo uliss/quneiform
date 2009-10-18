@@ -105,7 +105,6 @@
 // Исходные данные, передаваемые пользователем
 EXTERN uint32_t gnLanguage VAL(7);
 EXTERN Bool32 gbOneColumn VAL(FALSE);
-EXTERN Bool32 gbFax100 VAL(FALSE);
 EXTERN Bool32 gbDotMatrix VAL(FALSE);
 EXTERN Bool32 gbBold VAL(TRUE);
 EXTERN Bool32 gbItalic VAL(TRUE);

@@ -66,7 +66,7 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true) {
+    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false) {
     modulesInit();
 }
 
@@ -177,7 +177,7 @@ void PumaImpl::extractComponents() {
     uchar w8 = (uchar) gbDotMatrix;
     REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
-    w8 = (uchar) gbFax100;
+    w8 = fax100_ ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 
     CIMAGEIMAGECALLBACK clbk;
@@ -277,7 +277,7 @@ void PumaImpl::layout() {
     DataforRS.gnPictures = gnPictures;
     DataforRS.gnLanguage = gnLanguage;
     DataforRS.gbDotMatrix = gbDotMatrix;
-    DataforRS.gbFax100 = gbFax100;
+    DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
     DataforRS.pgrc_line = &grc_line;
     DataforRS.gnTables = gnTables;
@@ -317,7 +317,7 @@ void PumaImpl::layout() {
     DataforRM.gnPictures = gnPictures;
     DataforRM.gnLanguage = gnLanguage;
     DataforRM.gbDotMatrix = gbDotMatrix;
-    DataforRM.gbFax100 = gbFax100;
+    DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
     DataforRM.gnTables = gnTables;
@@ -798,11 +798,8 @@ void PumaImpl::recognize() {
 void PumaImpl::recognizeCorrection() {
     // Скорректируем результат распознавани
     CSTR_SortFragm(1);
-    if (LDPUMA_Skip(hDebugCancelPostRecognition)) {
-        if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100) || !RCORRKEGL_CorrectKegl(
-                1))
-            throw PumaException("PumaImpl::recognizeCorrection() failed");
-    }
+    if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &fax100_) || !RCORRKEGL_CorrectKegl(1))
+        throw PumaException("PumaImpl::recognizeCorrection() failed");
 
     CSTR_SortFragm(1);
     RPSTR_CorrectIncline(1);
@@ -906,7 +903,7 @@ void PumaImpl::recognizeSetup(int language) {
     uint16_t w16 = (uint16_t) info.DPIY;//300;
     RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
 
-    w8 = (uchar) gbFax100;
+    w8 = fax100_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
 
     w8 = (uchar) gbDotMatrix;
@@ -1152,7 +1149,7 @@ void PumaImpl::setOptionDotMatrix(bool val) {
 }
 
 void PumaImpl::setOptionFax100(bool val) {
-    gbFax100 = val ? TRUE : FALSE;
+    fax100_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
