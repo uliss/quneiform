@@ -84,8 +84,6 @@
 #include "rreccom.h"
 #include "rcorrkegl.h"
 
-#include <string>
-
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN

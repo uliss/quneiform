@@ -57,17 +57,9 @@
 #ifndef __PUMA_H
 #define __PUMA_H
 
-#include <string>
-
 #include "globus.h"
 #include "cttypes.h"
 #include "singleton.h"
-
-#ifdef __PUMA__
-#define PUMA_FUNC  FUN_EXPO__
-#else
-#define PUMA_FUNC  FUN_IMPO__
-#endif
 
 namespace CIF {
 class PumaImpl;
@@ -90,15 +82,5 @@ typedef struct {
 	uint16_t wAddX;
 	uint16_t wAddY;
 } PUMA_ImageInfo;
-
-typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
-typedef uint16_t (*PUMA_Callback_ImageRead)(pchar, uint16_t);
-typedef Bool16 (*PUMA_Callback_ImageClose)(void);
-
-typedef struct {
-	PUMA_Callback_ImageOpen CIMAGE_ImageOpen;
-	PUMA_Callback_ImageRead CIMAGE_ImageRead;
-	PUMA_Callback_ImageClose CIMAGE_ImageClose;
-} PUMAIMAGECALLBACK;
 
 #endif
