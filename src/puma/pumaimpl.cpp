@@ -67,7 +67,7 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
             one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
                     false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
-                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL) {
+                    PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -284,7 +284,7 @@ void PumaImpl::layout() {
     DataforRS.pglpRecogName = &glpRecogName;
     DataforRS.pgrc_line = &grc_line;
     DataforRS.gnTables = tables_;
-    DataforRS.pgnNumberTables = &gnNumberTables;
+    DataforRS.pgnNumberTables = &tables_num_;
     DataforRS.pgneed_clean_line = &gneed_clean_line;
     DataforRS.gRectTemplate = rect_template_;
     DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
@@ -324,7 +324,7 @@ void PumaImpl::layout() {
     DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
     DataforRM.gnTables = tables_;
-    DataforRM.pgnNumberTables = &gnNumberTables;
+    DataforRM.pgnNumberTables = &tables_num_;
     DataforRM.pgneed_clean_line = &gneed_clean_line;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRM.hDebugCancelComponent = hDebugCancelComponent;

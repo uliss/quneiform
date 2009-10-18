@@ -114,6 +114,7 @@ private:
     puma_table_t tables_;
     void * input_dib_;
     void * recog_dib_;
+    int tables_num_;
 };
 
 }
