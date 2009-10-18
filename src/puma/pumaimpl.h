@@ -106,6 +106,7 @@ private:
 	Rect rect_template_;
 	bool do_spell_corretion_;
 	bool fax100_;
+	bool one_column_;
 };
 
 }

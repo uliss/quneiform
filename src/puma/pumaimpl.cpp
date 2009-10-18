@@ -66,7 +66,8 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false) {
+    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
+            one_column_(false) {
     modulesInit();
 }
 
@@ -307,7 +308,7 @@ void PumaImpl::layout() {
     // Далее - разметка. Вынесена в RMARKER.DLL
     DataforRM.gbAutoRotate = gbAutoRotate;
     DataforRM.pgpRecogDIB = &gpRecogDIB;
-    DataforRM.gbOneColumn = gbOneColumn;
+    DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = gKillVSLComponents;
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = hCPAGE;
@@ -1171,7 +1172,7 @@ void PumaImpl::setOptionMonospaceName(const char * name) {
 }
 
 void PumaImpl::setOptionOneColumn(bool val) {
-    gbOneColumn = val ? TRUE : FALSE;
+    one_column_ = val;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
