@@ -105,23 +105,24 @@ void PumaImpl::binarizeImage() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-    LDPUMA_Console("The image depth is %d at this point.\n", info_.biBitCount);
+    Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
 
-    if (info_.biBitCount > 1) {
-        //RIMAGE_BINARISE_KRONROD
-        if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_BINARIZE, 4, 0))
-            throw PumaException("RIMAGE_Binarise failed");
+    if (info_.biBitCount <= 1)
+        return;
 
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, TRUE))
-            throw PumaException("CIMAGE_ReadDIB failed");
+    //RIMAGE_BINARISE_KRONROD
+    if (!RIMAGE_Binarise((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_BINARIZE, 4, 0))
+        throw PumaException("RIMAGE_Binarise failed");
 
-        PAGEINFO info;
-        GetPageInfo(cpage_, &info);
-        info.Images |= IMAGE_BINARIZE;
-        SetPageInfo(cpage_, info);
+    if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, TRUE))
+        throw PumaException("CIMAGE_ReadDIB failed");
 
-        recog_name_ = PUMA_IMAGE_BINARIZE;
-    }
+    PAGEINFO info;
+    GetPageInfo(cpage_, &info);
+    info.Images |= IMAGE_BINARIZE;
+    SetPageInfo(cpage_, info);
+
+    recog_name_ = PUMA_IMAGE_BINARIZE;
 }
 
 void PumaImpl::clearAll() {
