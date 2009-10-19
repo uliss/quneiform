@@ -19,6 +19,7 @@
 #include "pumadef.h"
 
 #include "helper.h"
+#include "common/debug.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
 #include "cimage/cticontrol.h"
@@ -158,7 +159,7 @@ void PumaImpl::clearAll() {
 }
 
 void PumaImpl::close() {
-    DBG("Puma close")
+    Debug() << "Puma close\n";
     CLINE_Reset();
     clearAll();
     // clean
@@ -504,7 +505,8 @@ void PumaImpl::modulesInit() {
 }
 
 void PumaImpl::open(char * dib) {
-    DBG("Puma open")
+    Debug() << "Puma open\n";
+
     assert(dib);
     preOpenInitialize();
     input_dib_ = dib;
@@ -678,7 +680,7 @@ void PumaImpl::recognize() {
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
 
-    DBG("Puma recognize")
+    Debug() << "Puma recognize\n";
 
     CSTR_DeleteAll();
 

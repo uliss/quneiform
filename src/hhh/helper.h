@@ -11,12 +11,6 @@
 #include <string>
 #include <sstream>
 
-#ifndef NDEBUG
-#define DBG(msg) std::cerr << msg << std::endl;
-#else
-#define DBG(msg) ;
-#endif
-
 namespace CIF {
 
 inline std::string replaceFileExt(const std::string& filename,
