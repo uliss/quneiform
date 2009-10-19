@@ -68,7 +68,8 @@ PumaImpl::PumaImpl() :
                     false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
                     PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                    NULL), ed_page_(NULL), special_project_(0), special_global_buf_len_(0) {
+                    NULL), ed_page_(NULL), special_project_(0), special_global_buf_len_(0),
+            kill_vsl_components_(true) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -306,7 +307,7 @@ void PumaImpl::layout() {
     DataforRM.gbAutoRotate = auto_rotate_;
     DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
     DataforRM.gbOneColumn = one_column_;
-    DataforRM.gKillVSLComponents = gKillVSLComponents;
+    DataforRM.gKillVSLComponents = kill_vsl_components_;
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;

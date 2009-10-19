@@ -125,6 +125,7 @@ private:
     uchar special_project_;
     char special_global_buf_[64000];
     size_t special_global_buf_len_;
+    bool kill_vsl_components_;
 };
 
 }
