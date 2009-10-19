@@ -415,11 +415,15 @@ int main(int argc, char **argv) {
     using namespace CIF;
 
     Puma::instance().setOptionLanguage(langcode);
-    Puma::instance().setOptionOneColumn(do_singlecolumn);
-    Puma::instance().setOptionFax100(do_fax);
-    Puma::instance().setOptionDotMatrix(do_dotmatrix);
-    Puma::instance().setOptionUseSpeller(do_speller);
-    Puma::instance().setOptionAutoRotate(do_autorotate);
+
+    LayoutOptions lopt = Puma::instance().layoutOptions();
+    lopt.setOneColumn(do_singlecolumn);
+    lopt.setDotMatrix(do_dotmatrix);
+    lopt.setAutoRotate(do_autorotate);
+    //  opt.setPictures(puma_picture_t mode);
+    //  opt.setTables(puma_table_t mode);
+    //  opt.setTablesNum(int number);
+    Puma::instance().setLayoutOptions(lopt);
 
     FormatOptions opt = Puma::instance().formatOptions();
     if (!serif.empty())
@@ -437,8 +441,8 @@ int main(int argc, char **argv) {
 
     Puma::instance().setFormatOptions(opt);
 
-    //  Puma::instance().setOptionPictures(puma_picture_t mode);
-    //  Puma::instance().setOptionTables(puma_table_t mode);
+    Puma::instance().setOptionFax100(do_fax);
+    Puma::instance().setOptionUseSpeller(do_speller);
 
     Puma::instance().open(dib);
     Puma::instance().recognize();

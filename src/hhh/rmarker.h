@@ -53,7 +53,6 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 /**********  Заголовок  *******************************************************/
 /*  Автор      : Глеб Корольков					                                          */
 /*  комментарии                                                               */
@@ -67,25 +66,23 @@
 //Almi 16.06.00 //Last edit ........
 #ifndef __RMARKER_H
 #define __RMARKER_H
-
 #include "globus.h"
 #include "rect.h"
-
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO
 #else
 #define RMARKER_FUNC  FUN_IMPO
 #endif
-
-RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
+RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
 RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
 RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 
-typedef struct tagRMPreProcessImage
+class RMPreProcessImage
 {
+public:
     puchar *pgpRecogDIB;
     Bool32 gbAutoRotate;
     Bool32 gbDotMatrix;
@@ -113,14 +110,16 @@ typedef struct tagRMPreProcessImage
     Handle hDebugSVLinesStep;
     Handle hDebugSVLinesData;
     Handle hDebugEnableSearchSegment;
-    char *szLayoutFileName;
+    const char *szLayoutFileName;
     void * pinfo;
     Handle* phLinesCCOM;
     PBool32 pgneed_clean_line;
     int32_t * pgnNumberTables;
     uint32_t gnPictures;
     Bool32* pgrc_line;
-} RMPreProcessImage, *PRMPreProcessImage;
+};
+
+typedef RMPreProcessImage * PRMPreProcessImage;
 
 typedef struct tagRMCBProgressPoints
 {

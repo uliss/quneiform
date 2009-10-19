@@ -83,13 +83,10 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
-                    false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
-                    PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
-                    NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                    NULL), ed_page_(NULL), special_project_(0), special_global_buf_len_(0),
-            kill_vsl_components_(true), rc_line_(TRUE), need_clean_line_(FALSE) {
+    do_spell_corretion_(true), preserve_line_breaks_(false), fax100_(false),
+            language_(LANG_RUSENG), input_dib_(NULL), recog_dib_(NULL), ccom_(NULL), cpage_(NULL),
+            lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), special_project_(0),
+            special_global_buf_len_(0), kill_vsl_components_(true) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -193,14 +190,14 @@ void PumaImpl::extractComponents() {
     exc.Control = Ex_ExtraComp | Ex_Picture;
 
     //Andrey: orientation is obtained from new library RNORM
-    if (pictures_ != PUMA_PICTURE_NONE)
+    if (layout_options_.pictures() != PUMA_PICTURE_NONE)
         exc.Control |= Ex_PictureLarge;
 
-    uchar w8 = dot_matrix_ ? TRUE : FALSE;
+    uchar w8 = layout_options_.dotMatrix() ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
-    w8 = fax100_ ? TRUE : FALSE;
-    REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
+    uchar fax100 = fax100_ ? TRUE : FALSE;
+    REXC_SetImportData(REXC_Word8_Fax1x2, &fax100);
 
     CIMAGEIMAGECALLBACK clbk;
     if (!CIMAGE_GetCallbackImage(info.szImageName, &clbk))
@@ -274,23 +271,16 @@ void PumaImpl::layout() {
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
-    DataforRS.gbAutoRotate = auto_rotate_;
+    layout_options_.setData(DataforRS);
+    DataforRS.gbFax100 = fax100_;
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &cline_;
     DataforRS.phLinesCCOM = &lines_ccom_;
-    DataforRS.gnPictures = pictures_;
     DataforRS.gnLanguage = language_;
-    DataforRS.gbDotMatrix = dot_matrix_;
-    DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = recog_name_.c_str();
-    DataforRS.pgrc_line = &rc_line_;
-    DataforRS.gnTables = tables_;
-    DataforRS.pgnNumberTables = &tables_num_;
-    DataforRS.pgneed_clean_line = &need_clean_line_;
-    DataforRS.gRectTemplate = rect_template_;
     DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRS.hDebugCancelComponent = hDebugCancelComponent;
     DataforRS.hDebugCancelTurn = hDebugCancelTurn;
@@ -300,7 +290,6 @@ void PumaImpl::layout() {
     DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
     DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-    DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     // калбэки
@@ -310,25 +299,17 @@ void PumaImpl::layout() {
             throw PumaException("RSTUFF_RSNormalise failed");
     }
 
-    // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbAutoRotate = auto_rotate_;
+    layout_options_.setData(DataforRM);
+    DataforRM.gbFax100 = fax100_;
     DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
-    DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = kill_vsl_components_;
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = cline_;
     DataforRM.phLinesCCOM = &lines_ccom_;
-    DataforRM.gnPictures = pictures_;
     DataforRM.gnLanguage = language_;
-    DataforRM.gbDotMatrix = dot_matrix_;
-    DataforRM.gbFax100 = fax100_;
-    DataforRM.pgrc_line = &rc_line_;
-    DataforRM.gnTables = tables_;
-    DataforRM.pgnNumberTables = &tables_num_;
-    DataforRM.pgneed_clean_line = &need_clean_line_;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRM.hDebugCancelComponent = hDebugCancelComponent;
     DataforRM.hDebugCancelTurn = hDebugCancelTurn;
@@ -344,7 +325,6 @@ void PumaImpl::layout() {
     DataforRM.hDebugSVLines = hDebugSVLines;
     DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-    DataforRM.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     if (RMARKER_SetImportData(0, &CBforRM)) {
@@ -366,6 +346,10 @@ void PumaImpl::layout() {
     }
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
+}
+
+LayoutOptions PumaImpl::layoutOptions() const {
+    return layout_options_;
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
@@ -520,10 +504,6 @@ void PumaImpl::normalize() {
     RPSTR_NormalizeVertStr();
 }
 
-Rect PumaImpl::pageTemplate() const {
-    return rect_template_;
-}
-
 void PumaImpl::pass1() {
     if (Config::instance().debugHigh())
         saveCSTR(1);
@@ -632,7 +612,7 @@ void PumaImpl::postOpenInitialize() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-    rect_template_.set(Point(0, 0), info_.biWidth, info_.biHeight);
+    layout_options_.setRect(Rect(Point(0, 0), info_.biWidth, info_.biHeight));
 }
 
 void PumaImpl::recognize() {
@@ -649,11 +629,11 @@ void PumaImpl::recognize() {
 
     // Сохраним описание Layout в файл.
     if (!LDPUMA_Skip(hDebugLayoutToFile))
-        saveLayoutToFile(layout_filename_);
+        saveLayoutToFile(layout_options_.layoutFilename());
 
     // Прочитаем описание Layout из файла.
     if (!LDPUMA_Skip(hDebugLayoutFromFile))
-        loadLayoutFromFile(layout_filename_);
+        loadLayoutFromFile(layout_options_.layoutFilename());
 
     if (IsUpdate(FLG_UPDATE_CCOM))
         extractComponents();
@@ -861,11 +841,11 @@ void PumaImpl::recognizeSetup(int language) {
     uint16_t w16 = (uint16_t) info.DPIY;//300;
     RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
 
-    w8 = fax100_ ? TRUE : FALSE;
-    RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
+    uchar fax100 = fax100_ ? TRUE : FALSE;
+    RSTR_SetImportData(RSTR_Word8_Fax1x2, &fax100);
 
-    w8 = dot_matrix_ ? TRUE : FALSE;
-    RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
+    uchar dm = layout_options_.dotMatrix() ? TRUE : FALSE;
+    RSTR_SetImportData(RSTR_Word8_Matrix, &dm);
 
     w8 = 0;
     RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
@@ -1054,7 +1034,7 @@ void PumaImpl::save(void * dest, size_t size, int format) const {
 void PumaImpl::saveCSTR(int pass) {
     ostringstream os;
     os << removeFileExt(input_filename_) << "_" << pass << ".cst";
-    if(!CSTR_SaveCont(os.str().c_str()))
+    if (!CSTR_SaveCont(os.str().c_str()))
         Debug() << "Can't save container to " << os.str() << endl;
 }
 
@@ -1090,39 +1070,17 @@ void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
 }
 
-void PumaImpl::setOptionAutoRotate(bool val) {
-    auto_rotate_ = val;
-    SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionDotMatrix(bool val) {
-    dot_matrix_ = val;
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
+void PumaImpl::setLayoutOptions(const LayoutOptions& opt) {
+    layout_options_ = opt;
 }
 
 void PumaImpl::setOptionFax100(bool val) {
     fax100_ = val;
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionLanguage(language_t lang) {
     language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionOneColumn(bool val) {
-    one_column_ = val;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionPictures(puma_picture_t type) {
-    pictures_ = type;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionTable(puma_table_t mode) {
-    tables_ = mode;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionUserDictionaryName(const char * name) {
@@ -1134,7 +1092,7 @@ void PumaImpl::setOptionUseSpeller(bool value) {
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {
-    Rect old_rect = rect_template_;
+    Rect old_rect = layout_options_.rect();
     Rect rect = r;
 
     BitmapInfoHeader info;
@@ -1171,7 +1129,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
             }
             SetPageInfo(cpage_, PInfo);
             SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-            rect_template_ = rect;
+            layout_options_.setRect(rect);
         }
     }
 }

@@ -83,6 +83,7 @@
 #include "un_buff.h"
 #include "cfio/cfio.h"
 #include "dsnap.h"
+#include "rstuff.h"
 
 using namespace CIF::CFIO;
 using namespace CIF;
@@ -121,41 +122,6 @@ Handle hPreRSL_Root = NULL;
 Handle hPreRSL_Control = NULL;
 Handle hPreRSL_Debug = NULL;
 Handle hDebugFragOwnerControl = NULL;
-
-typedef Bool32 (*FNPUMA_XSetTemplate)(Rect rect);
-typedef Bool32 (*FNPUMA_XGetTemplate)(Rect *pRect);
-typedef struct tagRSPreProcessImage {
-	puchar *pgpRecogDIB;
-	Bool32 gbAutoRotate;
-	Bool32 gbDotMatrix;
-	Bool32 gbFax100;
-	uint32_t gnLanguage;
-	uint32_t gnTables;
-	Handle hCPAGE;
-	Handle hDebugCancelSearchPictures;
-	Handle hDebugCancelComponent;
-	Handle hDebugCancelTurn;
-	Handle hDebugCancelSearchLines;
-	Handle hDebugCancelVerifyLines;
-	Handle hDebugCancelSearchDotLines;
-	Handle hDebugCancelRemoveLines;
-	Handle hDebugCancelSearchTables;
-	Handle hDebugCancelAutoTemplate;
-	Handle hDebugEnableSearchSegment;
-	char ** pglpRecogName;
-	Handle* phCCOM;
-	void * pinfo;
-	Handle* phLinesCCOM;
-	void * phCLINE;
-	PBool32 pgneed_clean_line;
-	int32_t * pgnNumberTables;
-	uint32_t gnPictures;
-	Bool32* pgrc_line;
-	Rect gRectTemplate;
-	FNPUMA_XSetTemplate fnXSetTemplate;
-	FNPUMA_XGetTemplate fnXGetTemplate;
-	char *szLayoutFileName;
-} RSPreProcessImage, *PRSPreProcessImage;
 
 Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
