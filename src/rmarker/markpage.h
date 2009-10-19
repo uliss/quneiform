@@ -74,7 +74,7 @@
 #include "rout.h"
 #include "rpic.h"
 #include "rstr/rstr.h"
-#include "rstuff.h"
+#include "rstuff/rstuff.h"
 #include "rverline.h"
 #include "lns32/lnsdefs.h"
 #include "shortverticallinesfilter.h"

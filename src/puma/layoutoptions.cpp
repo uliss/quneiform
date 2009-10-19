@@ -7,7 +7,7 @@
 
 #include "layoutoptions.h"
 #include "mpuma.h"
-#include "rstuff.h"
+#include "rstuff/rstuff.h"
 #include "rmarker.h"
 
 namespace CIF {

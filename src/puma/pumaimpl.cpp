@@ -42,7 +42,7 @@
 #include "rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
-#include "rstuff.h"
+#include "rstuff/rstuff.h"
 #include "rverline.h"
 #include "rmarker.h"
 #include "rselstr.h"

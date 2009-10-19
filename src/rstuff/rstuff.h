@@ -124,15 +124,15 @@ RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);
 RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData);
 RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
-typedef enum
+enum RSTUFF_EXPORT_ENTRIES
 {
     RSTUFF_FN_RSBinarise = 1,
     RSTUFF_FN_RSNormalise,
     RSTUFF_FN_RSLayout,
     RSTUFF_FN_RSSetSpecPrj
-} RSTUFF_EXPORT_ENTRIES;
+};
 
-typedef enum
+enum RSTUFF_IMPORT_ENTRIES
 {
     RSTUFF_FN_SetProgresspoints = 128,
     RSTUFF_FN_SetProgressStart,
@@ -140,7 +140,7 @@ typedef enum
     RSTUFF_FN_SetProgressFinish,
     RSTUFF_FN_SetInitPRGTIME,
     RSTUFF_FN_SetDPumaSkipComponent
-} RSTUFF_IMPORT_ENTRIES;
+};
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FNRSTUFF##b)c; RSTUFF_FUNC(a) RSTUFF_##b c;
 DEC_FUN(Bool32, RSBinarise, (void))
