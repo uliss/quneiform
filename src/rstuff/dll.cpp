@@ -138,39 +138,6 @@ Handle hDebugPrintResolution;
 int KVO = 1;
 int move;
 
-extern uchar* Buffer;
-extern uchar* WorkMem;
-
-void RSTUFF_Init() {
-    gLTInfo = new LinesTotalInfo;
-
-    if (!SMetric_Init(0xFFFF, 0))
-        throw RStuffException("SMetric_Init failed");
-
-    if (!RLINE_Init(0, 0))
-        throw RStuffException("RLINE_Init failed");
-}
-
-void RSTUFF_Done() {
-    delete gLTInfo;
-    gLTInfo = NULL;
-
-    if (!SMetric_Done())
-        return;
-
-    if (!RLINE_Done())
-        return;
-}
-
-Bool32 RSTUFF_Reset() {
-    SetReturnCode_rstuff((uint16_t) 0);
-    return TRUE;
-}
-
-uint32_t RSTUFF_GetReturnCode() {
-    return RC.gwRC;
-}
-
 Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
     Bool rc = FALSE;
     RC.gwRC = 0;
@@ -182,36 +149,6 @@ Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
     }
 
     return rc;
-}
-
-Bool32 RSTUFF_RSBinarise(void) {
-    SetReturnCode_rstuff((uint16_t) 0);
-    return TRUE;
-}
-
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image, void* vBuff, int Size, void* vWork,
-        int SizeWork) {
-    SetReturnCode_rstuff((uint16_t) 0);
-    SetMainBuff(vBuff, Size);
-    SetWorkBuff(vWork, SizeWork);
-    Bool32 rc = Normalise(Image);
-    ReSetMem();
-    return rc;
-}
-
-Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image) {
-    SetReturnCode_rstuff((uint16_t) 0);
-    return VerifyN(Image);
-}
-
-Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage Image) {
-    SetReturnCode_rstuff((uint16_t) 0);
-    return KillLines(Image);
-}
-
-Bool32 RSTUFF_RSLayout(PRSPreProcessImage Image) {
-    SetReturnCode_rstuff((uint16_t) 0);
-    return TRUE;
 }
 
 void SetReturnCode_rstuff(int rc) {

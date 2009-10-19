@@ -142,10 +142,6 @@ typedef struct tagRSCBProgressPoints
     void * pGetModulePath;
     void * pSetUpdate;
 } RSCBProgressPoints, *PRSCBProgressPoints;
-RSTUFF_FUNC void RSTUFF_Init();
-RSTUFF_FUNC void RSTUFF_Done();
-RSTUFF_FUNC uint32_t RSTUFF_GetReturnCode();
-
 
 enum RSTUFF_IMPORT_ENTRIES
 {
