@@ -19,6 +19,7 @@
 #include "pumadef.h"
 
 #include "helper.h"
+#include "cifconfig.h"
 #include "common/debug.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
@@ -353,8 +354,8 @@ void PumaImpl::layout() {
         cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
 
-    if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
-        LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
+    if (Config::instance().debugHigh()) {
+        Debug() << "Container CPAGE contains: \n name : size\n";
         Handle block = CPAGE_GetBlockFirst(cpage_, 0);
         while (block) {
             LDPUMA_Console("%s : %i\n",
@@ -524,7 +525,7 @@ Rect PumaImpl::pageTemplate() const {
 }
 
 void PumaImpl::pass1() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
+    if (Config::instance().debugHigh())
         saveCSTR(1);
     recognizePass1();
 }
@@ -1053,7 +1054,8 @@ void PumaImpl::save(void * dest, size_t size, int format) const {
 void PumaImpl::saveCSTR(int pass) {
     ostringstream os;
     os << removeFileExt(input_filename_) << "_" << pass << ".cst";
-    CSTR_SaveCont(os.str().c_str());
+    if(!CSTR_SaveCont(os.str().c_str()))
+        Debug() << "Can't save container to " << os.str() << endl;
 }
 
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
