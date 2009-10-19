@@ -55,46 +55,16 @@
  */
 #ifndef __MPUMA_H__
 #define __MPUMA_H__
-#include "dpuma.h"
-#include "pumadef.h"
-#include "ccom/ccom.h"
-#include "ced.h"
-#include "cfio/cfio.h"
-#include "cpage/cpage.h"
-#include "criimage.h"
-#include "cstr/cstr.h"
-#include "cimage/ctiimage.h"
-#include "cline.h"
-#include "exc.h"
-#include "rblock.h"
-#include "rline.h"
-#include "rfrmt.h"
-#include "rout.h"
-#include "rpic.h"
-#include "rpstr/rpstr.h"
-#include "rstr/rstr.h"
-#include "rstuff.h"
-#include "rverline.h"
-#include "rmarker.h"
-#include "rselstr.h"
-#include "rsl.h"
-#include "rreccom.h"
-#include "rcorrkegl.h"
+#include "cttypes.h"
+
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
 #define VAL(a)		= a
-#define VALM(a)		= {a}
-#define VAL2(a,b)	= { a,b }
-#define VAL4(a,b,c,d)	= { a,b,c,d }
 #else
 #define EXTERN		extern
 #define VAL(a)
-#define VALM(a)
-#define VAL2(a,b)
-#define VAL4(a,b,c,d)
 #endif
-#define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
 // 1. Отладочная информаци
 EXTERN Handle hDebugRoot VAL(NULL);

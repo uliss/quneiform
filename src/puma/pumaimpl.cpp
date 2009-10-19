@@ -5,13 +5,6 @@
  *      Author: uliss
  */
 
-#include "pumaimpl.h"
-#include "puma.h"
-
-#define __PUMA_CPP__
-#include "mpuma.h"
-#include "pumadef.h"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -19,10 +12,41 @@
 #include <cstring>
 #include <iomanip>
 
+#include "pumaimpl.h"
+
+#define __PUMA_CPP__
+#include "mpuma.h"
+#include "pumadef.h"
+
 #include "helper.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
 #include "cimage/cticontrol.h"
+
+#include "dpuma.h"
+#include "ccom/ccom.h"
+#include "ced.h"
+#include "cfio/cfio.h"
+#include "cpage/cpage.h"
+#include "criimage.h"
+#include "cstr/cstr.h"
+#include "cimage/ctiimage.h"
+#include "cline.h"
+#include "exc.h"
+#include "rblock.h"
+#include "rline.h"
+#include "rfrmt.h"
+#include "rout.h"
+#include "rpic.h"
+#include "rpstr/rpstr.h"
+#include "rstr/rstr.h"
+#include "rstuff.h"
+#include "rverline.h"
+#include "rmarker.h"
+#include "rselstr.h"
+#include "rsl.h"
+#include "rreccom.h"
+#include "rcorrkegl.h"
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng) {
     if (!lin_ruseng)
