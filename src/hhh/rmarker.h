@@ -124,7 +124,6 @@ typedef struct tagRMPreProcessImage
 
 typedef struct tagRMCBProgressPoints
 {
-    void * pDPumaSkipComponent;
     void * pGetModulePath;
     void * pSetUpdate;
 } RMCBProgressPoints, *PRMCBProgressPoints;

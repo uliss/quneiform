@@ -74,7 +74,6 @@ Bool32 SetCBProgressPoints(void * pData) {
 
 #define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
 	SET_CB_POINTS(pPoints, SetUpdate);
-	SET_CB_POINTS(pPoints, DPumaSkipComponent);
 	SET_CB_POINTS(pPoints, GetModulePath);
 	//SET_CB_POINTS(pPoints,                   );
 #undef SET_CB_POINTS
@@ -102,7 +101,6 @@ Bool32 SetCBProgressPoints(void * pData) {
 }
 
 DEF_CB_VOID_FUNC(SetUpdate, (uint32_t flgAdd,uint32_t flgRemove),(flgAdd, flgRemove) )
-DEF_CB_FUNC(Bool32, DPumaSkipComponent, (void), (), FALSE )
 DEF_CB_FUNC(char *, GetModulePath, (void), (), NULL )
 
 #undef DEF_CB_FUNC

@@ -253,12 +253,6 @@ void PumaImpl::formatResult() {
     }
 }
 
-// Allex
-// добавлены для обратной связи из RStuff
-Bool32 DPumaSkipComponent(void) {
-    return LDPUMA_Skip(hDebugCancelComponent);
-}
-
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
@@ -275,9 +269,7 @@ void PumaImpl::layout() {
     int size_work = CIF::PumaImpl::WorkBufferSize;
 
 #define SET_CB(a,b)   a.p##b = (void*)b
-    SET_CB(CBforRS, DPumaSkipComponent);
     SET_CB(CBforRS, SetUpdate);
-    SET_CB(CBforRM, DPumaSkipComponent);
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
