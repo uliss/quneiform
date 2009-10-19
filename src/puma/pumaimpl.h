@@ -77,7 +77,6 @@ private:
     void pass1();
     void pass2();
     void preOpenInitialize();
-    void preprocessImage();
     void printResult(std::ostream& os);
     void printResultLine(std::ostream& os, size_t lineNumber);
     void postOpenInitialize();
