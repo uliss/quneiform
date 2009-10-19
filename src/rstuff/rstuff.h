@@ -145,31 +145,13 @@ typedef struct tagRSCBProgressPoints
 RSTUFF_FUNC void RSTUFF_Init();
 RSTUFF_FUNC void RSTUFF_Done();
 RSTUFF_FUNC uint32_t RSTUFF_GetReturnCode();
-RSTUFF_FUNC Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
-enum RSTUFF_EXPORT_ENTRIES
-{
-    RSTUFF_FN_RSBinarise = 1,
-    RSTUFF_FN_RSNormalise,
-    RSTUFF_FN_RSLayout,
-    RSTUFF_FN_RSSetSpecPrj
-};
 
 enum RSTUFF_IMPORT_ENTRIES
 {
-    RSTUFF_FN_SetProgresspoints = 128,
-    RSTUFF_FN_SetProgressStart,
-    RSTUFF_FN_SetProgressStep,
-    RSTUFF_FN_SetProgressFinish,
-    RSTUFF_FN_SetInitPRGTIME,
-    RSTUFF_FN_SetDPumaSkipComponent
+    RSTUFF_FN_SetProgresspoints = 128
 };
-/*  Описание функций  */
-Bool32 RSTUFF_RSBinarise();
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
-Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
-Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
-Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
-#undef DEC_FUN
+
+RSTUFF_FUNC Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData);
 
 #endif

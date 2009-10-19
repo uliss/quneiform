@@ -171,7 +171,7 @@ uint32_t RSTUFF_GetReturnCode() {
     return RC.gwRC;
 }
 
-Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData) {
+Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
     Bool rc = FALSE;
     RC.gwRC = 0;
 
@@ -179,9 +179,6 @@ Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData) {
     case RSTUFF_FN_SetProgresspoints:
         rc = SetCBProgressPoints(pData);
         break;
-    default:
-        SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NOTIMPLEMENT);
-        rc = FALSE;
     }
 
     return rc;
