@@ -145,7 +145,6 @@ typedef struct tagRSCBProgressPoints
 RSTUFF_FUNC void RSTUFF_Init();
 RSTUFF_FUNC void RSTUFF_Done();
 RSTUFF_FUNC uint32_t RSTUFF_GetReturnCode();
-RSTUFF_FUNC char * RSTUFF_GetReturnString(uint32_t dwError);
 RSTUFF_FUNC Bool32 RSTUFF_GetExportData(uint32_t dwType, void * pData);
 RSTUFF_FUNC Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 

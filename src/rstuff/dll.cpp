@@ -171,13 +171,6 @@ uint32_t RSTUFF_GetReturnCode() {
     return RC.gwRC;
 }
 
-char * RSTUFF_GetReturnString(uint32_t dwError) {
-    if (dwError >> 16 != RC.RC16.gwHeightRC)
-        RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
-
-    return NULL;
-}
-
 #define CASE_FUNCTION(a)	case RSTUFF_FN_##a:	*(FNRSTUFF##a *)pData = RSTUFF_##a; break;
 
 Bool32 RSTUFF_GetExportData(uint32_t dwType, void * pData) {
