@@ -168,8 +168,6 @@ EXTERN Handle hDebugPrintBlocksCPAGE VAL(NULL);
 EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
-EXTERN Bool32 grc_line VAL(TRUE);
-EXTERN Bool32 gneed_clean_line VAL(FALSE);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);

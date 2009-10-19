@@ -126,6 +126,8 @@ private:
     char special_global_buf_[64000];
     size_t special_global_buf_len_;
     bool kill_vsl_components_;
+    Bool32 rc_line_;
+    Bool32 need_clean_line_;
 };
 
 }
