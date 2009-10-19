@@ -39,24 +39,20 @@ public:
     };
 
     bool debugLow() const {
-        return debug() && debugLevel() >= DEBUG_LOW;
+        return debug() && (debugLevel() >= DEBUG_LOW);
     }
 
     bool debugMedium() const {
-        return debug() && debugLevel() >= DEBUG_MEDIUM;
+        return debug() && (debugLevel() >= DEBUG_MEDIUM);
     }
 
     bool debugHigh() const {
-        return debug() && debugLevel() >= DEBUG_HIGH;
+        return debug() && (debugLevel() >= DEBUG_HIGH);
     }
 
-    bool debug() const {
-        return debug_;
-    }
+    bool debug() const;
 
-    int debugLevel() const {
-        return debug_level_;
-    }
+    int debugLevel() const;
 
     void setDebug(bool value) {
         debug_ = value;
@@ -71,6 +67,14 @@ private:
     bool debug_;
     int debug_level_;
 };
+
+bool ConfigImpl::debug() const {
+    return debug_;
+}
+
+int ConfigImpl::debugLevel() const {
+    return debug_level_;
+}
 
 typedef Singleton<ConfigImpl> Config;
 

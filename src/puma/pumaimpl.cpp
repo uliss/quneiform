@@ -114,7 +114,8 @@ void PumaImpl::binarizeImage() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-    Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
+    if (Config::instance().debug())
+        Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
 
     if (info_.biBitCount <= 1)
         return;
@@ -182,11 +183,6 @@ void PumaImpl::close() {
 }
 
 void PumaImpl::extractComponents() {
-    if (!LDPUMA_Skip(hDebugCancelComponent)) {
-        LDPUMA_Console("Пропущен этап выделения компонент.\n");
-        return;
-    }
-
     PAGEINFO info;
     if (!GetPageInfo(cpage_, &info))
         throw PumaException("GetPageInfo failed");
@@ -707,7 +703,8 @@ void PumaImpl::recognize() {
     spellCorrection();
     recognizeCorrection();
 
-    printResult(cerr);
+    if (Config::instance().debugHigh())
+        printResult(cerr);
 
     // OLEG fot Consistent
     if (SPEC_PRJ_CONS == special_project_) {
