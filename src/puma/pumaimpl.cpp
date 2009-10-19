@@ -73,12 +73,6 @@ static double portion_of_rus_letters(CSTR_line lin_ruseng) {
 
 using namespace std;
 
-#ifndef NDEBUG
-#define DBG(msg) cerr << msg << endl;
-#else
-#define DBG(msg) ;
-#endif
-
 static Handle ghStorage = NULL;
 
 namespace CIF {
