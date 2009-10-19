@@ -125,7 +125,6 @@ public:
     void normalize();
     void removeLines();
     void setImageData(RSPreProcessImage& data);
-    void setSpecialProject(uchar NoSpecPrj);
     void verifyNormalization();
 private:
     RSPreProcessImage * image_;
@@ -173,7 +172,6 @@ Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork
 Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
 Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
 Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
-Bool32 RSTUFF_RSSetSpecPrj(uchar NoSpecPrj);
 #undef DEC_FUN
 
 #endif

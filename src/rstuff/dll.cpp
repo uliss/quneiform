@@ -248,8 +248,3 @@ void SetReturnCode_rstuff(int rc) {
     RC.gwRC = rc;
 }
 
-Bool32 RSTUFF_RSSetSpecPrj(uchar NoSpecPrj) {
-    db_spec_prj = NoSpecPrj;
-    return TRUE;
-}
-

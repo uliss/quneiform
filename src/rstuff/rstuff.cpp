@@ -108,7 +108,7 @@ void RStuff::normalize() {
     SearchNewLines(image_);
     KillLines(image_);
     // убиваем остатки линии после сняти
-//    LineKiller(image_);
+    LineKiller(image_);
 }
 
 void RStuff::removeLines() {
@@ -122,10 +122,6 @@ void RStuff::removeLines() {
 
 void RStuff::setImageData(RSPreProcessImage& data) {
     image_ = &data;
-}
-
-void RStuff::setSpecialProject(uchar NoSpecPrj) {
-    db_spec_prj = NoSpecPrj;
 }
 
 void RStuff::verifyNormalization() {
