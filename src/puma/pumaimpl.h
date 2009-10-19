@@ -36,6 +36,8 @@ class CTIControl;
 
 namespace CIF {
 
+class RStuff;
+
 struct PumaException: std::runtime_error
 {
     PumaException(const std::string& msg) :
@@ -106,6 +108,7 @@ private:
     static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 private:
     std::auto_ptr<CTIControl> cimage_;
+    std::auto_ptr<RStuff> rstuff_;
     BitmapInfoHeader info_;
     bool do_spell_corretion_;
     bool preserve_line_breaks_;

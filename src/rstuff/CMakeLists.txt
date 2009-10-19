@@ -2,10 +2,8 @@ add_library(rstuff ${LIBTYPE}
 ${SNP_SRC}
 aboutlines.aboutlin.cpp
 aboutlines.buffer.cpp
-binarise.cpp
 deletelines.cpp
 dll.cpp
-layout.cpp
 linekiller.cpp
 normalise.cpp
 ocomp.cpp

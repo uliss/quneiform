@@ -141,38 +141,25 @@ int move;
 extern uchar* Buffer;
 extern uchar* WorkMem;
 
-Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage) {
-    Bool32 rc = TRUE;
-    wHighErrCode = wHeightCode;
-    gLTInfo = (LinesTotalInfo*) RSTUFFAlloc(sizeof(LinesTotalInfo));
+void RSTUFF_Init() {
+    gLTInfo = new LinesTotalInfo;
 
-    if (!SMetric_Init(wHeightCode, hStorage)) {
-        return FALSE;
-    }
+    if (!SMetric_Init(0xFFFF, 0))
+        throw RStuffException("SMetric_Init failed");
 
-    rc = RLINE_Init(0, hStorage);
-
-    if (!rc) {
-        return FALSE;
-    }
-
-    if (rc == RESULT)
-        gbRSLT = TRUE;
-
-    return rc;
+    if (!RLINE_Init(0, 0))
+        throw RStuffException("RLINE_Init failed");
 }
 
-RSTUFF_FUNC(Bool32) RSTUFF_Done() {
-    if (gLTInfo)
-        RSTUFFFree(gLTInfo);
+void RSTUFF_Done() {
+    delete gLTInfo;
+    gLTInfo = NULL;
 
     if (!SMetric_Done())
-        return FALSE;
+        return;
 
     if (!RLINE_Done())
-        return FALSE;
-
-    return TRUE;
+        return;
 }
 
 Bool32 RSTUFF_Reset() {
@@ -199,9 +186,9 @@ Bool32 RSTUFF_GetExportData(uint32_t dwType, void * pData) {
     RC.gwRC = 0;
 
     switch (dwType) {
-    CASE_FUNCTION(RSBinarise)
-    CASE_FUNCTION(RSNormalise)
-    CASE_FUNCTION(RSLayout)
+//    CASE_FUNCTION(RSBinarise)
+//    CASE_FUNCTION(RSNormalise)
+//    CASE_FUNCTION(RSLayout)
     default:
         *(Handle *) pData = NULL;
         SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NOTIMPLEMENT);
@@ -229,7 +216,7 @@ Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData) {
 
 Bool32 RSTUFF_RSBinarise(void) {
     SetReturnCode_rstuff((uint16_t) 0);
-    return Binarise();
+    return TRUE;
 }
 
 Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image, void* vBuff, int Size, void* vWork,
@@ -249,12 +236,12 @@ Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image) {
 
 Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage Image) {
     SetReturnCode_rstuff((uint16_t) 0);
-    return KillLinesN(Image);
+    return KillLines(Image);
 }
 
 Bool32 RSTUFF_RSLayout(PRSPreProcessImage Image) {
     SetReturnCode_rstuff((uint16_t) 0);
-    return Layout(Image);
+    return TRUE;
 }
 
 void SetReturnCode_rstuff(int rc) {

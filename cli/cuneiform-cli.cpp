@@ -413,41 +413,46 @@ int main(int argc, char **argv) {
         return 1;
 
     using namespace CIF;
+    try {
 
-    Puma::instance().setOptionLanguage(langcode);
+        Puma::instance().setOptionLanguage(langcode);
 
-    LayoutOptions lopt = Puma::instance().layoutOptions();
-    lopt.setOneColumn(do_singlecolumn);
-    lopt.setDotMatrix(do_dotmatrix);
-    lopt.setAutoRotate(do_autorotate);
-    //  opt.setPictures(puma_picture_t mode);
-    //  opt.setTables(puma_table_t mode);
-    //  opt.setTablesNum(int number);
-    Puma::instance().setLayoutOptions(lopt);
+        LayoutOptions lopt = Puma::instance().layoutOptions();
+        lopt.setOneColumn(do_singlecolumn);
+        lopt.setDotMatrix(do_dotmatrix);
+        lopt.setAutoRotate(do_autorotate);
+        //  opt.setPictures(puma_picture_t mode);
+        //  opt.setTables(puma_table_t mode);
+        //  opt.setTablesNum(int number);
+        Puma::instance().setLayoutOptions(lopt);
 
-    FormatOptions opt = Puma::instance().formatOptions();
-    if (!serif.empty())
-        opt.setSerifName(serif);
-    if (!sansserif.empty())
-        opt.setSansSerifName(sansserif);
-    if (!monospace.empty())
-        opt.setMonospaceName(monospace);
+        FormatOptions opt = Puma::instance().formatOptions();
+        if (!serif.empty())
+            opt.setSerifName(serif);
+        if (!sansserif.empty())
+            opt.setSansSerifName(sansserif);
+        if (!monospace.empty())
+            opt.setMonospaceName(monospace);
 
-    //  opt.setUnrecognizedChar('?');
-    //  opt.useBold(true);
-    //  opt.useItalic(true);
-    //  opt.useFontSize(true);
-    //  opt.setFormatMode(puma_format_mode_t t);
+        //  opt.setUnrecognizedChar('?');
+        //  opt.useBold(true);
+        //  opt.useItalic(true);
+        //  opt.useFontSize(true);
+        //  opt.setFormatMode(puma_format_mode_t t);
 
-    Puma::instance().setFormatOptions(opt);
+        Puma::instance().setFormatOptions(opt);
 
-    Puma::instance().setOptionFax100(do_fax);
-    Puma::instance().setOptionUseSpeller(do_speller);
+        Puma::instance().setOptionFax100(do_fax);
+        Puma::instance().setOptionUseSpeller(do_speller);
 
-    Puma::instance().open(dib);
-    Puma::instance().recognize();
-    Puma::instance().save(outfilename, outputformat);
-    Puma::instance().close();
+        Puma::instance().open(dib);
+        Puma::instance().recognize();
+        Puma::instance().save(outfilename, outputformat);
+        Puma::instance().close();
+    }
+    catch (std::runtime_error& e) {
+        cerr << e.what() << endl;
+    }
 
     delete[] dib;
     return 0;

@@ -103,7 +103,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
 // 1    RRECCOM_FNRECOG   опознать компоненты
 typedef Bool32 (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control,
 		char *spath, uchar lang);
-RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
+RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang);
 //2		RRECCOM_FNRECOGCOMP опознать одну компоненту
 // 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
 typedef Bool32 (*FNRRECCOM_IsLanguage)(uchar language);

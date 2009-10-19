@@ -79,20 +79,15 @@ using namespace CIF;
 //////////////////////////
 //общего назначения
 void SetReturnCode_rstuff(int);
-void DebugInit(void);
 void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
 		uint32_t);
 
-Bool32 Binarise(void);
 Bool32 Normalise(PRSPreProcessImage);
 Bool32 VerifyN(PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
-Bool32 KillLinesN(PRSPreProcessImage);
-Bool32 Layout(PRSPreProcessImage);
-/////////////////////////////////////////////////////////////////////////////////////////////////
 // обработка сырья
 Bool32 PreProcessImage(PRSPreProcessImage);
 Bool32 CreateContainerBigComp(PRSPreProcessImage);

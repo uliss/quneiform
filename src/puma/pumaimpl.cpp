@@ -285,9 +285,10 @@ void PumaImpl::layout() {
 void PumaImpl::layoutRStuff() {
     RSCBProgressPoints CBforRS;
     CBforRS.pSetUpdate = (void*) SetUpdate;
+    if (!RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS))
+        return;
 
     RSPreProcessImage DataforRS;
-
     layout_options_.setData(DataforRS);
     DataforRS.gbFax100 = fax100_;
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
@@ -309,13 +310,9 @@ void PumaImpl::layoutRStuff() {
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-    // калбэки
-    if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
-        ///нормализуем - обработка, поиск картинок, поиск линий
-        if (!RSTUFF_RSNormalise(&DataforRS, mainBuffer(), MainBufferSize, workBuffer(),
-                WorkBufferSize))
-            throw PumaException("RSTUFF_RSNormalise failed");
-    }
+    ///нормализуем - обработка, поиск картинок, поиск линий
+    rstuff_->setImageData(DataforRS);
+    rstuff_->normalize();
 }
 
 void PumaImpl::layoutRMarker() {
@@ -394,7 +391,6 @@ void PumaImpl::modulesDone() {
     CPAGE_Done();
     CLINE_Done();
     RPSTR_Done();
-    RSTUFF_Done();
     RRECCOM_Done();
 
 #ifdef _USE_RVERLINE_
@@ -439,8 +435,7 @@ void PumaImpl::modulesInit() {
         if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
             throw PumaException("RSL_Init failed.");
 
-        if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, ghStorage))
-            throw PumaException("RSTUFF_Init failed.");
+        rstuff_.reset(new RStuff);
 
         if (!RMARKER_Init(PUMA_MODULE_RBLOCK, ghStorage))
             throw PumaException("RMARKER_Init failed.");
