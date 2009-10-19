@@ -69,6 +69,7 @@
 #define __RSTUFF_H
 
 #include "globus.h"
+#include "cttypes.h"
 #include "rect.h"
 #include "memorybuffer.h"
 #include "puma/layoutoptions.h"
@@ -78,6 +79,9 @@
 #else
 #define RSTUFF_FUNC  FUN_IMPO__
 #endif
+
+
+namespace CIF {
 
 class RSPreProcessImage
 {
@@ -114,7 +118,6 @@ public:
 
 typedef RSPreProcessImage * PRSPreProcessImage;
 
-namespace CIF {
 class RStuff
 {
 public:
@@ -135,19 +138,22 @@ private:
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
     static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 };
-}
 
-typedef struct tagRSCBProgressPoints
+struct RSCBProgressPoints
 {
     void * pGetModulePath;
     void * pSetUpdate;
-} RSCBProgressPoints, *PRSCBProgressPoints;
+};
+
+typedef RSCBProgressPoints * PRSCBProgressPoints;
 
 enum RSTUFF_IMPORT_ENTRIES
 {
     RSTUFF_FN_SetProgresspoints = 128
 };
 
-RSTUFF_FUNC Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData);
+bool RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData);
+
+}
 
 #endif

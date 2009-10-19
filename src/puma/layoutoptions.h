@@ -25,10 +25,11 @@
 #include "cttypes.h"
 #include "rect.h"
 
-class RSPreProcessImage;
 class RMPreProcessImage;
 
 namespace CIF {
+
+class RSPreProcessImage;
 
 class LayoutOptions
 {

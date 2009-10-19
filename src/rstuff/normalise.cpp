@@ -94,6 +94,8 @@
 #include "smetric.h"
 #include "rreccom.h"
 
+using namespace CIF;
+
 const int MIN_BIG_H = 30;
 const int MIN_BIG_W = 30;
 # define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")

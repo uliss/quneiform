@@ -138,17 +138,15 @@ Handle hDebugPrintResolution;
 int KVO = 1;
 int move;
 
-Bool32 RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
-    Bool rc = FALSE;
-    RC.gwRC = 0;
+namespace CIF {
 
+bool RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
     switch (dwType) {
     case RSTUFF_FN_SetProgresspoints:
-        rc = SetCBProgressPoints(pData);
-        break;
+        return SetCBProgressPoints(pData);
     }
+}
 
-    return rc;
 }
 
 void SetReturnCode_rstuff(int rc) {

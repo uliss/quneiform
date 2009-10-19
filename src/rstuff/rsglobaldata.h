@@ -89,7 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ////////////////////////////////////////////////
 
-EXTERN RSCBProgressPoints   ProgressPoints      VALM(NULL);
+EXTERN CIF::RSCBProgressPoints   ProgressPoints      VALM(NULL);
 EXTERN LinesTotalInfo       *gLTInfo            VAL(NULL);
 
 EXTERN RSLinesBuffer        gLinesData          VALM(NULL);

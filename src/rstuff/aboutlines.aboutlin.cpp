@@ -79,6 +79,8 @@
 /*  interface my-my      */
 #include "un_buff.h"
 
+using namespace CIF;
+
 static char *Buffer = NULL;/*[SizeMyBuff];*/
 static char *WorkMem = NULL;/*[SizeWorkMem];*/
 
