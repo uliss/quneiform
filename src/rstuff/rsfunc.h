@@ -83,13 +83,11 @@ void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
 		uint32_t);
 
-Bool32 Normalise(PRSPreProcessImage);
 Bool32 VerifyN(PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 // обработка сырья
-Bool32 PreProcessImage(PRSPreProcessImage);
 Bool32 CreateContainerBigComp(PRSPreProcessImage);
 Bool32 SearchNewLines(PRSPreProcessImage Image);
 Bool32 SearchLines(PRSPreProcessImage);

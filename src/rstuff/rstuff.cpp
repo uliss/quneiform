@@ -60,8 +60,11 @@
 #include "rverline.h"
 #include "smetric.h"
 #include "rline.h"
+#include "cpage/cpage.h"
+#include "ccom/ccom.h"
 
 #include "common/debug.h"
+#include "cifconfig.h"
 
 namespace CIF {
 
@@ -95,12 +98,76 @@ void RStuff::binarize() {
 
 }
 
+void RStuff::checkResolution() {
+    PAGEINFO page_info = { 0 };
+    const int min_res = 99;
+    CCOM_comp* pcomp = NULL;
+    unsigned int Masy[100], Masx[100], i, Jy_m = 0, My_m = 0, Jx_m = 0, Mx_m = 0, M_t;
+    bool flag_set = false;
+
+    if (!GetPageInfo(image_->hCPAGE, &page_info))
+        return;
+
+    if (page_info.DPIX > min_res && page_info.DPIY > min_res)
+        return;
+
+    for (i = 0; i < 100; i++)
+        Masx[i] = Masy[i] = 0;
+
+    pcomp = CCOM_GetFirst(*image_->phCCOM, NULL);
+
+    while (pcomp) {
+        if (pcomp->h > 9 && pcomp->h < 100)
+            Masy[pcomp->h]++;
+
+        if (pcomp->w > 9 && pcomp->w < 100)
+            Masx[pcomp->w]++;
+
+        pcomp = CCOM_GetNext(pcomp, NULL);
+    }
+
+    for (i = 11; i < 99; i++) {
+        M_t = Masy[i - 1] + Masy[i] + Masy[i + 1];
+
+        if (M_t > My_m) {
+            Jy_m = i;
+            My_m = M_t;
+        }
+
+        M_t = Masx[i - 1] + Masx[i] + Masx[i + 1];
+
+        if (M_t > Mx_m) {
+            Jx_m = i;
+            Mx_m = M_t;
+        }
+    }
+
+    if (Jy_m > 10 && My_m > 100 && !(page_info.DPIY * 22 < 2 * 300 * Jy_m && 2 * page_info .DPIY
+            * 22 > 300 * Jy_m)) {
+        page_info.DPIY = (300 * Jy_m + 11) / 22;
+        flag_set = true;
+    }
+
+    if (Jx_m > 10 && Mx_m > 100 && !(page_info.DPIX * 22 < 2 * 300 * Jx_m && 2 * page_info.DPIX
+            * 22 > 300 * Jx_m)) {
+        page_info.DPIX = (300 * Jx_m + 11) / 22;
+        flag_set = true;
+    }
+
+    if (flag_set) {
+        SetPageInfo(image_->hCPAGE, page_info);
+
+        if (Config::instance().debug())
+            Debug() << "New resolution: DPIX=" << page_info.DPIX << ", DPIY=" << page_info.DPIY
+                    << "\n";
+    }
+}
+
 void RStuff::layout() {
-    //    Layout(image_);
 }
 
 void RStuff::normalize() {
-    PreProcessImage(image_);
+    preProcessImage();
     SearchLines(image_);
     CalcIncline(image_);
     OrtoMove(image_);
@@ -109,6 +176,56 @@ void RStuff::normalize() {
     KillLines(image_);
     // убиваем остатки линии после сняти
     LineKiller(image_);
+}
+
+void RStuff::preProcessImage() {
+    const char * glpRecogName = image_->pglpRecogName;
+    BitmapInfoHeader * info = (BitmapInfoHeader*) image_->pinfo;
+
+    // Andrey 12.11.01
+    // Проинициализируем контейнер CPAGE
+    PAGEINFO PInfo = { 0 };
+    GetPageInfo(image_->hCPAGE, &PInfo);
+    strcpy((char*) PInfo.szImageName, glpRecogName);
+    PInfo.BitPerPixel = info->biBitCount;
+    PInfo.DPIX = info->biXPelsPerMeter * 254L / 10000;
+    //      PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
+    PInfo.DPIY = info->biYPelsPerMeter * 254L / 10000;
+    //      PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
+    PInfo.Height = info->biHeight;
+    PInfo.Width = info->biWidth;
+    //      PInfo.X = 0; Уже установлено
+    //      PInfo.Y = 0;
+    PInfo.Incline2048 = 0;
+    PInfo.Page = 1;
+    PInfo.Angle = 0;
+    SetPageInfo(image_->hCPAGE, PInfo);
+
+    // Выделим компоненты
+    ExtractComponents(image_->gbAutoRotate, NULL, glpRecogName, image_);
+    //проверим наличие разрешения и попытаемся определить по компонентам, если его нет
+    checkResolution();
+
+    // Переинициализируем контейнер CPAGE
+    {
+        PAGEINFO PInfo = { 0 };
+        GetPageInfo(image_->hCPAGE, &PInfo);
+        strcpy((char*) PInfo.szImageName, glpRecogName);
+        PInfo.BitPerPixel = info->biBitCount;
+        //      PInfo.DPIX = info->biXPelsPerMeter*254L/10000;
+        PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
+        //      PInfo.DPIY = info->biYPelsPerMeter*254L/10000;
+        PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
+        PInfo.Height = info->biHeight;
+        PInfo.Width = info->biWidth;
+        //      PInfo.X = 0; Уже установлено
+        //      PInfo.Y = 0;
+        PInfo.Incline2048 = 0;
+        PInfo.Page = 1;
+        PInfo.Angle = 0;
+
+        SetPageInfo(image_->hCPAGE, PInfo);
+    }
 }
 
 void RStuff::removeLines() {

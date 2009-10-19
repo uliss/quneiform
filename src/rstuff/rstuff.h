@@ -130,6 +130,9 @@ public:
     void setImageData(RSPreProcessImage& data);
     void verifyNormalization();
 private:
+    void checkResolution();
+    void preProcessImage();
+private:
     RSPreProcessImage * image_;
     LayoutOptions layout_opts_;
 private:
