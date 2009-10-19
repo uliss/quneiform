@@ -12,21 +12,53 @@
 
 namespace CIF {
 
-class ConfigImpl {
+class ConfigImpl
+{
 public:
-	ConfigImpl() :
-		verbose_(false) {
-	}
+    ConfigImpl() :
+        debug_(true), debug_level_(DEBUG_HIGH) {
+    }
 
-	bool verbose() const {
-		return verbose_;
-	}
+    enum debug_level_t
+    {
+        DEBUG_NONE = 0,
+        DEBUG_LOW = 2,
+        DEBUG_MEDIUM = 4,
+        DEBUG_HIGH = 8
+    };
 
-	void setVerbose(bool value) {
-		verbose_ = value;
-	}
+    bool debugLow() const {
+        return debug() && debugLevel() >= DEBUG_LOW;
+    }
+
+    bool debugMedium() const {
+        return debug() && debugLevel() >= DEBUG_MEDIUM;
+    }
+
+    bool debugHigh() const {
+        return debug() && debugLevel() >= DEBUG_HIGH;
+    }
+
+    bool debug() const {
+        return debug_;
+    }
+
+    int debugLevel() const {
+        return debug_level_;
+    }
+
+    void setDebug(bool value) {
+        debug_ = value;
+        if (!debug_)
+            debug_level_ = 0;
+    }
+
+    void setDebugLevel(int level) {
+        debug_level_ = level;
+    }
 private:
-	bool verbose_;
+    bool debug_;
+    int debug_level_;
 };
 
 typedef Singleton<ConfigImpl> Config;
