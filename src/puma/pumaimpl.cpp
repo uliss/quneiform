@@ -258,9 +258,6 @@ void PumaImpl::formatResult() {
 Bool32 DPumaSkipComponent(void) {
     return LDPUMA_Skip(hDebugCancelComponent);
 }
-Bool32 DPumaSkipTurn(void) {
-    return LDPUMA_Skip(hDebugCancelTurn);
-}
 
 void PumaImpl::layout() {
     clearAll();
@@ -279,10 +276,8 @@ void PumaImpl::layout() {
 
 #define SET_CB(a,b)   a.p##b = (void*)b
     SET_CB(CBforRS, DPumaSkipComponent);
-    SET_CB(CBforRS, DPumaSkipTurn);
     SET_CB(CBforRS, SetUpdate);
     SET_CB(CBforRM, DPumaSkipComponent);
-    SET_CB(CBforRM, DPumaSkipTurn);
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
