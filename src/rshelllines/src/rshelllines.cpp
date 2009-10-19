@@ -83,7 +83,7 @@
 #include "un_buff.h"
 #include "cfio/cfio.h"
 #include "dsnap.h"
-#include "rstuff.h"
+#include "rstuff/rstuff.h"
 
 using namespace CIF::CFIO;
 using namespace CIF;
