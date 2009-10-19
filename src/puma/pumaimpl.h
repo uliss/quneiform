@@ -64,6 +64,8 @@ private:
     void extractStrings();
     void formatResult();
     void layout();
+    void layoutRStuff();
+    void layoutRMarker();
     void loadLayoutFromFile(const std::string& fname);
     void modulesDone();
     void modulesInit();

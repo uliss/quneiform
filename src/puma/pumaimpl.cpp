@@ -254,22 +254,28 @@ void PumaImpl::formatResult() {
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
+    layoutRStuff();
+    layoutRMarker();
 
+    if (Config::instance().debugHigh()) {
+        Debug() << "Container CPAGE contains: \n name : size\n";
+        Handle block = CPAGE_GetBlockFirst(cpage_, 0);
+        while (block) {
+            LDPUMA_Console("%s : %i\n",
+                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)),
+                    CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
+            block = CPAGE_GetBlockNext(cpage_, block, 0);
+        }
+    }
+
+    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::layoutRStuff() {
     RSCBProgressPoints CBforRS;
+    CBforRS.pSetUpdate = (void*) SetUpdate;
+
     RSPreProcessImage DataforRS;
-
-    RMCBProgressPoints CBforRM;
-    RMPreProcessImage DataforRM;
-
-    void* MemBuf = CIF::PumaImpl::mainBuffer();
-    size_t size_buf = CIF::PumaImpl::MainBufferSize;
-    void* MemWork = CIF::PumaImpl::workBuffer();
-    int size_work = CIF::PumaImpl::WorkBufferSize;
-
-#define SET_CB(a,b)   a.p##b = (void*)b
-    SET_CB(CBforRS, SetUpdate);
-    SET_CB(CBforRM, SetUpdate);
-#undef SET_CB
 
     layout_options_.setData(DataforRS);
     DataforRS.gbFax100 = fax100_;
@@ -295,9 +301,17 @@ void PumaImpl::layout() {
     // калбэки
     if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
         ///нормализуем - обработка, поиск картинок, поиск линий
-        if (!RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork, size_work))
+        if (!RSTUFF_RSNormalise(&DataforRS, mainBuffer(), MainBufferSize, workBuffer(),
+                WorkBufferSize))
             throw PumaException("RSTUFF_RSNormalise failed");
     }
+}
+
+void PumaImpl::layoutRMarker() {
+    RMCBProgressPoints CBforRM;
+    CBforRM.pSetUpdate = (void*) SetUpdate;
+
+    RMPreProcessImage DataforRM;
 
     // Далее - разметка. Вынесена в RMARKER.DLL
     layout_options_.setData(DataforRM);
@@ -328,24 +342,12 @@ void PumaImpl::layout() {
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     if (RMARKER_SetImportData(0, &CBforRM)) {
-        if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
+        if (!RMARKER_PageMarkup(&DataforRM, mainBuffer(), MainBufferSize, workBuffer(),
+                WorkBufferSize))
             throw PumaException("RMARKER_PageMarkup failed");
 
         cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
-
-    if (Config::instance().debugHigh()) {
-        Debug() << "Container CPAGE contains: \n name : size\n";
-        Handle block = CPAGE_GetBlockFirst(cpage_, 0);
-        while (block) {
-            LDPUMA_Console("%s : %i\n",
-                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)),
-                    CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
-            block = CPAGE_GetBlockNext(cpage_, block, 0);
-        }
-    }
-
-    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
 
 LayoutOptions PumaImpl::layoutOptions() const {
@@ -1135,7 +1137,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
 }
 
 void PumaImpl::spellCorrection() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
+    if (Config::instance().debugHigh())
         saveCSTR(3);
 
     // Дораспознаем по словарю
