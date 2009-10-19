@@ -70,7 +70,6 @@
 #include "rsfunc.h"
 #include "rsmemory.h"
 #include "dpuma.h"
-#include "puma/pumadef.h"
 #include "smetric.h"
 
 #include "rline.h"
@@ -80,26 +79,26 @@
 #undef __RSTUFF_CPP__
 #include "dsnap.h"
 #include "compat_defs.h"
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-struct tagRC16 {
-	uint16_t gwLowRC;
-	uint16_t gwHeightRC;
+
+//GLOBAL VARIABLES
+struct tagRC16
+{
+    uint16_t gwLowRC;
+    uint16_t gwHeightRC;
 };
-union RCode {
-	tagRC16 RC16;
-	uint32_t gwRC;
+union RCode
+{
+    tagRC16 RC16;
+    uint32_t gwRC;
 };
 
-static RCode RC = { 0 };
+static RCode RC = { 0, 0 };
 static uint16_t wHighErrCode = 0;
 
 #define RESULT 2
 
 Bool32 gbRSLT = FALSE;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-static Handle ghStorage = NULL;
-static Handle ghInst = NULL;
 int32_t InitCount = 0;
 Handle ObvKillLines;
 Handle OKL;
@@ -107,7 +106,6 @@ Handle Zone;
 Handle OrtMove;
 Handle hNewLine;
 Handle hDotLine;
-//Handle hUseCLine;
 Handle hAngles;
 Handle hCalcMuchSkew;
 Handle hTalkMuchSkew;
@@ -140,355 +138,131 @@ Handle hDebugPrintResolution;
 int KVO = 1;
 int move;
 
-#undef APIENRTY
-#define APIENTRY
-
 extern uchar* Buffer;
 extern uchar* WorkMem;
-/////////////////////////////////////////
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+
+Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage) {
+    Bool32 rc = TRUE;
+    wHighErrCode = wHeightCode;
+    gLTInfo = (LinesTotalInfo*) RSTUFFAlloc(sizeof(LinesTotalInfo));
+
+    if (!SMetric_Init(wHeightCode, hStorage)) {
+        return FALSE;
+    }
+
+    rc = RLINE_Init(0, hStorage);
+
+    if (!rc) {
+        return FALSE;
+    }
+
+    if (rc == RESULT)
+        gbRSLT = TRUE;
+
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
-{
 
-	Bool32 rc = TRUE;
+RSTUFF_FUNC(Bool32) RSTUFF_Done() {
+    if (gLTInfo)
+        RSTUFFFree(gLTInfo);
 
-	wHighErrCode = wHeightCode;
+    if (!SMetric_Done())
+        return FALSE;
 
-	LDPUMA_Init(0, NULL);
-	//	Buffer=NULL;
-	//	Buffer=(uchar*)RSTUFFAlloc(BufferSize*sizeof(uchar));
-	//	if(!Buffer)
-	//		return FALSE;
-	//	WorkMem=(uchar*)RSTUFFAlloc(WorkMemSize*sizeof(uchar));
-	//	if(!WorkMem)
-	//		return FALSE;
+    if (!RLINE_Done())
+        return FALSE;
 
-	gLTInfo = (LinesTotalInfo*)RSTUFFAlloc(sizeof(LinesTotalInfo));
-
-	if(!SMetric_Init (wHeightCode, hStorage))
-	{
-		return FALSE;
-	}
-
-	/*    if (!SLINEDOT_Init(PUMA_MODULE_SLINEDOT, hStorage))
-	 {
-	 //        SetReturnCode_rstuff(SLINEDOT_GetReturnCode());
-	 return FALSE;
-	 }*/
-
-	rc = RLINE_Init(PUMA_MODULE_RLINE, hStorage);
-
-	if(!rc)
-	{
-		//        SetReturnCode_rstuff(RLINE_GetReturnCode());
-		return FALSE;
-	}
-
-	if (rc == RESULT)
-	gbRSLT = TRUE;
-
-	DebugInit();
-
-	return rc;
+    return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32)RSTUFF_Done()
-{
-	if ( gLTInfo )
-	RSTUFFFree(gLTInfo);
-	//	if ( Buffer )
-	//		RSTUFFFree(Buffer);
-	//	if ( WorkMem )
-	//		RSTUFFFree(WorkMem);
 
-	if (!SMetric_Done())
-	{
-		return FALSE;
-	}
-
-	/*    if (!SLINEDOT_Done())
-	 {
-	 return FALSE;
-	 }*/
-
-	if (!RLINE_Done())
-	{
-		return FALSE;
-	}
-
-	LDPUMA_Done();
-
-	return TRUE;
+Bool32 RSTUFF_Reset() {
+    SetReturnCode_rstuff((uint16_t) 0);
+    return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32)RSTUFF_Reset()
-{
-	SetReturnCode_rstuff((uint16_t)0);
-	return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode()
-{
-	return RC.gwRC;
+
+uint32_t RSTUFF_GetReturnCode() {
+    return RC.gwRC;
 }
 
 char * RSTUFF_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != RC.RC16.gwHeightRC)
-		RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != RC.RC16.gwHeightRC)
+        RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
 
-	return NULL;
+    return NULL;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-#define CASE_FUNCTION(a)	case RSTUFF_FN_##a:	*(FNRSTUFF##a *)pData = RSTUFF_##a; break
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
 
-	RC.gwRC = 0;
+#define CASE_FUNCTION(a)	case RSTUFF_FN_##a:	*(FNRSTUFF##a *)pData = RSTUFF_##a; break;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(RSBinarise);
-		CASE_FUNCTION(RSNormalise);
-		CASE_FUNCTION(RSLayout);
+Bool32 RSTUFF_GetExportData(uint32_t dwType, void * pData) {
+    Bool32 rc = TRUE;
 
-		default:
-		*(Handle *)pData = NULL;
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+    RC.gwRC = 0;
 
-	return rc;
+    switch (dwType) {
+    CASE_FUNCTION(RSBinarise)
+    CASE_FUNCTION(RSNormalise)
+    CASE_FUNCTION(RSLayout)
+    default:
+        *(Handle *) pData = NULL;
+        SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NOTIMPLEMENT);
+        rc = FALSE;
+    }
+
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
-{
-	Bool rc = FALSE;
-	RC.gwRC = 0;
 
-	switch(dwType)
-	{
-		case RSTUFF_FN_SetProgresspoints:
-		rc = SetCBProgressPoints( pData );
-		break;
-		//	case RSTUFF_FN_SetProgressStart:
-		//		pProgressStart = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetProgressStep:
-		//		pProgressStep = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetProgressFinish:
-		//		pProgressFinish = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetInitPRGTIME:
-		//		pInitPRGTIME = pData;
-		//		rc = TRUE;
-		//		break;
-		default:
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData) {
+    Bool rc = FALSE;
+    RC.gwRC = 0;
 
-	return rc;
+    switch (dwType) {
+    case RSTUFF_FN_SetProgresspoints:
+        rc = SetCBProgressPoints(pData);
+        break;
+    default:
+        SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NOTIMPLEMENT);
+        rc = FALSE;
+    }
+
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSBinarise( void )
-{
-	SetReturnCode_rstuff((uint16_t)0);
 
-	return Binarise();
+Bool32 RSTUFF_RSBinarise(void) {
+    SetReturnCode_rstuff((uint16_t) 0);
+    return Binarise();
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork )
-{
-	SetReturnCode_rstuff((uint16_t)0);
-	SetMainBuff(vBuff,Size);
-	SetWorkBuff(vWork,SizeWork);
-	Bool32 rc=Normalise( Image );
-	ReSetMem();
-	return rc;
 
+Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image, void* vBuff, int Size, void* vWork,
+        int SizeWork) {
+    SetReturnCode_rstuff((uint16_t) 0);
+    SetMainBuff(vBuff, Size);
+    SetWorkBuff(vWork, SizeWork);
+    Bool32 rc = Normalise(Image);
+    ReSetMem();
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSNormVerify( PRSPreProcessImage Image )
-{
-	SetReturnCode_rstuff((uint16_t)0);
 
-	return VerifyN( Image );
+Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image) {
+    SetReturnCode_rstuff((uint16_t) 0);
+    return VerifyN(Image);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
-{
-	SetReturnCode_rstuff((uint16_t)0);
 
-	return KillLinesN( Image );
+Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage Image) {
+    SetReturnCode_rstuff((uint16_t) 0);
+    return KillLinesN(Image);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSLayout( PRSPreProcessImage Image )
-{
-	SetReturnCode_rstuff((uint16_t)0);
 
-	return Layout(Image);
+Bool32 RSTUFF_RSLayout(PRSPreProcessImage Image) {
+    SetReturnCode_rstuff((uint16_t) 0);
+    return Layout(Image);
 }
 
 void SetReturnCode_rstuff(int rc) {
-	RC.gwRC = rc;
+    RC.gwRC = rc;
 }
 
-void DebugInit(void) {
-	hWndTurn = NULL;
-	LDPUMA_Registry(&hMainTime, SNAP_ROOT_MAIN_TIME_CONTROL, NULL);
-
-	LDPUMA_Registry(&hPrep, "Подготовка.", hMainTime);
-	LDPUMA_RegistryHelp(hPrep,
-			"Автоповорот.Выделение компонент.Формирование изображения.", FALSE);
-	LDPUMA_Registry(&hSearchLine, "LNS.Поиск линий.", hMainTime);
-	LDPUMA_Registry(&hCalcIncline, "Вычисление углов наклона..", hMainTime);
-	LDPUMA_Registry(&hOrto, "Ортосдвиг страницы.", hMainTime);
-	LDPUMA_Registry(&hContBigComp, "Заполнение контейнера BigComp", hMainTime);
-	LDPUMA_Registry(&hVerOrNewLine, "Верификация или второй проход.", hMainTime);
-	LDPUMA_Registry(&hKillLine, "Снятие линий.", hMainTime);
-	LDPUMA_Registry(&hPrep2, "После снятия.", hMainTime);
-	LDPUMA_RegistryHelp(hPrep2,
-			"Выделение компонент.Формирование изображения.", FALSE);
-	LDPUMA_Registry(&hKillLineAfter, "Доубитие линий.", hMainTime);
-	LDPUMA_Registry(&hEnd, "От RSTUFF до RMARKER", hMainTime);
-
-	LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL);
-
-	LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_STUFF, NULL);
-
-	LDPUMA_Registry(&hDebugPreprocess, SNAP_STUFF_BINARIZE, hDebugRoot);
-	LDPUMA_Registry(&hDebugPrintResolution, "Печать нового разрешения",
-			hDebugPreprocess);
-	LDPUMA_RegistryHelp(
-			hDebugPrintResolution,
-			"Вывести на консоль разрешение, установленноге по компонентам, в случае его отличия от исходного",
-			FALSE);
-
-	LDPUMA_Registry(&hDebugKillLines, SNAP_STUFF_KILL_LINES, hDebugRoot);
-	LDPUMA_RegistryHelp(
-			hDebugKillLines,
-			"<Ответственный: A.Коноплев> Поиск и удаление линий и прилежащих к ним компонент.",
-			FALSE);
-	LDPUMA_RegVariable(hDebugKillLines, "Убить найденышей", &gKillComponents,
-			"unsigned");
-	LDPUMA_RegVariable(hDebugKillLines, "Зона поражения (в пикселах)",
-			&gKillZone, "unsigned");
-	LDPUMA_RegVariable(hDebugKillLines, "Покрытие (0 - 255)", &gKillRate,
-			"unsigned");
-
-	LDPUMA_Registry(&hDebugKillLinesStep, SNAP_KILL_LINES_STEP, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesStep, "Пошаговый проход.", FALSE);
-
-	LDPUMA_Registry(&hDebugKillLinesData, SNAP_KILL_LINES_DATA, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData, "Сама по себе не функционирует",
-			FALSE);
-
-	LDPUMA_Registry(&hDebugKillLinesShowComponentsBefore,
-			SNAP_KILL_LINES_SHOW_BEFORE, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData,
-			"Показывает компоненты до удаления всех линий", FALSE);
-	LDPUMA_Registry(&hDebugKillLinesShowComponentsAfter,
-			SNAP_KILL_LINES_SHOW_AFTER, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData,
-			"Показывает компоненты после удаления всех линий", FALSE);
-
-	LDPUMA_Registry(&OKL, "Тривиальное удаление линий", hDebugRoot);
-	LDPUMA_RegistryHelp(
-			OKL,
-			"<Ответственный тов. Степаненков> \
-              \n Корневая вершина отладки тривиального удаления линий\
-			  Активизация вершины приведёт именно к этому способу их удаления.",
-			FALSE);
-
-	LDPUMA_Registry(&Zone, "Расширить КВО", OKL);
-	LDPUMA_RegistryHelp(Zone, "Увеличить ширину линии на 2*...", FALSE);
-	LDPUMA_RegVariable(Zone, "Height+", &KVO, "int");
-	LDPUMA_Registry(&hNotTestAlik, "Не проверять Алика", OKL);
-	LDPUMA_RegistryHelp(hNotTestAlik, "Не проверять Алика", FALSE);
-
-	//	LDPUMA_Registry(&InsideKill,"Удаление линий Алика" ,MainDebug);
-	//	LDPUMA_RegistryHelp(InsideKill,"Разрешить удаление линий Алика",FALSE);
-	LDPUMA_Registry(&NotKillPointed, "Не удалять точечные линии", MainDebug);
-	LDPUMA_RegistryHelp(NotKillPointed, "Не удалять точечные линии", FALSE);
-	LDPUMA_Registry(&OrtMove, "Этап ортогонализующего сдвига.", NULL);
-	LDPUMA_Registry(&ObvKillLines, "Тривиальное удаление линий.", MainDebug);
-	LDPUMA_RegistryHelp(ObvKillLines, "Разрешить тривиальное удаление линий.",
-			FALSE);
-
-	LDPUMA_Registry(&hDotLine, "Поиск точечных линий.", MainDebug);
-	LDPUMA_RegistryHelp(hDotLine,
-			"Включить поиск точечных линий библиотекой RShellLines", FALSE);
-
-	//    LDPUMA_RegVariable(OrtMove,"Сдвиг",&move,"int");
-
-	LDPUMA_Registry(&hNewLine, "Верификация линий.", MainDebug);
-	LDPUMA_RegistryHelp(hNewLine,
-			"Веривикация линий вместо второго прохода Алика", FALSE);
-	//	LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
-
-	LDPUMA_Registry(&hAngles, "Вычисление углов.", hDebugRoot);
-	LDPUMA_RegistryHelp(hAngles, "Вычисление углов.", FALSE);
-	LDPUMA_Registry(&hCalcMuchSkew, "Вычислить разные углы.", hAngles);
-	LDPUMA_RegistryHelp(hCalcMuchSkew, "Вычислить разные углы.", FALSE);
-	LDPUMA_Registry(&hTalkMuchSkew, "Рассказать о разных углах.", hAngles);
-	LDPUMA_RegistryHelp(hTalkMuchSkew, "Рассказать о разных углах.", FALSE);
-	/*-Andrey: moved to RNORM
-	 //-----------------------
-	 LDPUMA_Registry(&hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",hMainTime);
-	 LDPUMA_RegistryHelp(hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplate1,"Подробнее.",hDebugAutoTemplate);
-	 LDPUMA_Registry(&hAutoTemplateWrite,"Отписать в файл.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateWrite,"Отписать в файл.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateBC,"Большие компоненты.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateBC,"Большие компоненты.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateBCShow,"Прорисовка больших компонент.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateBCShow,"Прорисовка больших компонент.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateMar,"Поля.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateMar,"Поля.",FALSE);
-	 -*/
-
+Bool32 RSTUFF_RSSetSpecPrj(uchar NoSpecPrj) {
+    db_spec_prj = NoSpecPrj;
+    return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSTUFF_FUNC(Bool32) RSTUFF_RSSetSpecPrj( uchar NoSpecPrj)
-{
-	db_spec_prj = NoSpecPrj;
 
-	return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-
-//end of file
