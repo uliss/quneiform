@@ -55,7 +55,6 @@
  */
 #ifndef __MPUMA_H__
 #define __MPUMA_H__
-
 #include "dpuma.h"
 #include "pumadef.h"
 #include "ccom/ccom.h"
@@ -81,7 +80,6 @@
 #include "rsl.h"
 #include "rreccom.h"
 #include "rcorrkegl.h"
-
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
@@ -170,15 +168,11 @@ EXTERN Handle hDebugPrintBlocksCPAGE VAL(NULL);
 EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
-
 EXTERN Bool32 grc_line VAL(TRUE);
 EXTERN Bool32 gneed_clean_line VAL(FALSE);
 EXTERN Bool32 gKillVSLComponents VAL(TRUE);
-//allex
-EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
-
 
 #endif
