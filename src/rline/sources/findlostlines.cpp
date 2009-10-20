@@ -54,13 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _DEBUG
-#define SOURCE_FILE_NAME "FindLostLines.cpp"
-#endif
-/***********************************************************************************************/
 #include <cstdlib>
 #include <string.h>
-#include "stdafx.h"
 #include "rshelllines/rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"

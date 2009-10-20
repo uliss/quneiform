@@ -59,7 +59,6 @@
 // ============================================================================
 
 #include <stdlib.h>
-#include "stdafx.h"
 #include "resource.h"
 #include "rline.h"
 #include "cimage/ctiimage.h"
