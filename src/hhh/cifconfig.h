@@ -76,7 +76,7 @@ int ConfigImpl::debugLevel() const {
     return debug_level_;
 }
 
-typedef Singleton<ConfigImpl> Config;
+typedef Singleton<ConfigImpl, CreateUsingNew> Config;
 
 }
 

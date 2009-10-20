@@ -80,7 +80,6 @@
 #define RSTUFF_FUNC  FUN_IMPO__
 #endif
 
-
 namespace CIF {
 
 class RSPreProcessImage
@@ -131,7 +130,13 @@ public:
     void verifyNormalization();
 private:
     void checkResolution();
+    void ortoMove();
     void preProcessImage();
+    void searchLines();
+private:
+    static void cleanImage(uchar* pmasp, int bytewide, int num_str, int wide);
+    static void copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int oldbytewide,
+            int num_str, int move);
 private:
     RSPreProcessImage * image_;
     LayoutOptions layout_opts_;

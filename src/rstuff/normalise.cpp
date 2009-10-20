@@ -259,32 +259,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name
         SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
     return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
 
-Bool32 SearchLines(PRSPreProcessImage Image) {
-    Bool32 rc = TRUE;
-
-    if (LDPUMA_Skip(Image->hDebugCancelSearchLines)) {
-        Bool32 b32 = !Image->gbDotMatrix;
-        RLINE_SetImportData(RLINE_Bool32_NOFILLGAP3, &b32);
-        b32 = TRUE;
-        RLINE_SetImportData(RLINE_Bool32_NOHBORDER, &b32);
-        RLINE_SetImportData(RLINE_Bool32_NOVBORDER, &b32);
-
-        if (!RLINE_SearchLines(Image->hCPAGE, Image->phCLINE)) {
-            //SetReturnCode_rstuff(RLINE_GetReturnCode());
-            //rc = FALSE;
-            *Image->pgrc_line = FALSE;
-            LDPUMA_Console("ПРЕДУПРЕЖДЕНИЕ: RLINE(0x%X) %s\n", RLINE_GetReturnCode(),
-                    RLINE_GetReturnString(RLINE_GetReturnCode()));
-        }
-    }
-    else
-        LDPUMA_Console("Пропущен этап поиска линий.\n");
-    return rc;
-
-}
-//////////////////////////////////////////////////////////////////////////////////
 Bool32 VerifyLines(PRSPreProcessImage Image) {
     Bool32 rc = TRUE;
 

@@ -136,7 +136,6 @@ Handle hDebugPreprocess;
 Handle hDebugPrintResolution;
 
 int KVO = 1;
-int move;
 
 namespace CIF {
 
