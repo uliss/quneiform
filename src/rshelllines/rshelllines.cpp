@@ -55,10 +55,7 @@
  */
 
 // RShellLines.cpp: implementation of the ShellLine's functions.
-//
-//
 //	Description: ShellLine's functions implementation
-//
 //	Implemented: by B.M. Shahverdiev
 
 #include "resource.h"
@@ -99,9 +96,6 @@ static char *WorkMem = NULL;
 
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
-//DVP DLine*             tempLine;
 Handle hSkipDeleteNoiseEvents = NULL;
 Handle hPrintUnderlineTest = NULL;
 Handle hSkipCheckUnderlining = NULL;
@@ -119,202 +113,198 @@ Handle hDebugFragOwnerControl = NULL;
 
 Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                     FindLineFrag
-RSHELLLINES_FUNC(Bool32) FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
-		Bool32 Is2ndPath, CLINE_handle hContainer,
-		Bool32 IfNeedFragment, Bool32 IfStraightFrag)
-{
-	return TRUE;
+Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat, Bool32 Is2ndPath,
+        CLINE_handle hContainer, Bool32 IfNeedFragment, Bool32 IfStraightFrag) {
+    return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                     FindLineAttr
-RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr)
-{
-	//SetWidth(line, pCLine);
-	return TRUE;
+Bool32 FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr) {
+    //SetWidth(line, pCLine);
+    return TRUE;
 }
 
-///////////////////////////////////////////////////////////////
-RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,Handle hStorage)
-{
-	LDPUMA_Init(0,NULL);
-	LDPUMA_Registry(&hDebugRSL,SNAP_STUFF_RSL,NULL);
-	LDPUMA_Registry(&hPreRSL_Root, "Предварительная обработка линий", hDebugRSL);
-	LDPUMA_Registry(&hPreRSL_Debug, "Отладка работы (pre)", hPreRSL_Root);
-	LDPUMA_Registry(&hPreRSL_Control, "Контроль работы (pre)", hPreRSL_Root);
+Bool32 RSL_Init(uint16_t wHeightCode, Handle hStorage) {
+    LDPUMA_Init(0, NULL);
+    LDPUMA_Registry(&hDebugRSL, SNAP_STUFF_RSL, NULL);
+    LDPUMA_Registry(&hPreRSL_Root, "Предварительная обработка линий", hDebugRSL);
+    LDPUMA_Registry(&hPreRSL_Debug, "Отладка работы (pre)", hPreRSL_Root);
+    LDPUMA_Registry(&hPreRSL_Control, "Контроль работы (pre)", hPreRSL_Root);
 
-	LDPUMA_Registry(&hSkipCheckUnderlining, "Выключить проверку подчерков", hPreRSL_Debug);
-	LDPUMA_Registry(&hPrintUnderlineTest, "Вывод результатов проверки подчеркивания", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintUnderlineTest, "В Console печатается количество черных точек (на 1000) в верхней части растра линии", FALSE);
-	LDPUMA_Registry(&hPrintUnderlines, "Вывод координат подчерков", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintUnderlines, "В Console печатаются координаты линий, определенных как подчерки", FALSE);
+    LDPUMA_Registry(&hSkipCheckUnderlining, "Выключить проверку подчерков", hPreRSL_Debug);
+    LDPUMA_Registry(&hPrintUnderlineTest, "Вывод результатов проверки подчеркивания",
+            hPreRSL_Control);
+    LDPUMA_RegistryHelp(hPrintUnderlineTest,
+            "В Console печатается количество черных точек (на 1000) в верхней части растра линии",
+            FALSE);
+    LDPUMA_Registry(&hPrintUnderlines, "Вывод координат подчерков", hPreRSL_Control);
+    LDPUMA_RegistryHelp(hPrintUnderlines,
+            "В Console печатаются координаты линий, определенных как подчерки", FALSE);
 
-	LDPUMA_Registry(&hSkipCheckRaster, "Не проверять линии по растру", hPreRSL_Debug);
-	LDPUMA_RegistryHelp(hSkipCheckRaster, "Если выключить проверку линий по растру, могут подтвердиться линии, выделенные по жирному тексту", FALSE);
-	LDPUMA_Registry(&hPrintRasterCheck, "Вывод результатов проверки растра", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintRasterCheck, "В Console печатается количество черных точек (на 1000) в растре линии", FALSE);
+    LDPUMA_Registry(&hSkipCheckRaster, "Не проверять линии по растру", hPreRSL_Debug);
+    LDPUMA_RegistryHelp(
+            hSkipCheckRaster,
+            "Если выключить проверку линий по растру, могут подтвердиться линии, выделенные по жирному тексту",
+            FALSE);
+    LDPUMA_Registry(&hPrintRasterCheck, "Вывод результатов проверки растра", hPreRSL_Control);
+    LDPUMA_RegistryHelp(hPrintRasterCheck,
+            "В Console печатается количество черных точек (на 1000) в растре линии", FALSE);
 
-	LDPUMA_Registry(&hDebugFrag,"Поиск фрагментов линии",hDebugRSL);
-	LDPUMA_Registry(&hDebugFragOwner,"Отладка поиска фрагментов линии",hDebugFrag);
-	LDPUMA_Registry(&hDebugFragOwnerControl,"Контроль поиска фрагментов линии",hDebugFrag);
+    LDPUMA_Registry(&hDebugFrag, "Поиск фрагментов линии", hDebugRSL);
+    LDPUMA_Registry(&hDebugFragOwner, "Отладка поиска фрагментов линии", hDebugFrag);
+    LDPUMA_Registry(&hDebugFragOwnerControl, "Контроль поиска фрагментов линии", hDebugFrag);
 
-	LDPUMA_Registry(&hDebugDrowRectForRaster,"Рисуется прямоугольник линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hSkipCorrectPolynomia,"Не корректировать 4-хугольник линии",hDebugFragOwner);
-	LDPUMA_Registry(&hPrintCorrectPolynomia,"Результат проверки 4-хугольника линии",hDebugFragOwnerControl);
-	LDPUMA_RegistryHelp(hPrintCorrectPolynomia,"Вывод на консоль результатов проверки 4-хугольника линии",FALSE);
-	LDPUMA_Registry(&hDebugDrowPolynomia,"Рисуется контур линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowCleanedRaster,"Рисуется прямоугольник линии после подчистки",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowGetCorrectedLineStripesIntervals,"Рисуется интервальное представление линии",hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrowRectForRaster, "Рисуется прямоугольник линии",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hSkipCorrectPolynomia, "Не корректировать 4-хугольник линии", hDebugFragOwner);
+    LDPUMA_Registry(&hPrintCorrectPolynomia, "Результат проверки 4-хугольника линии",
+            hDebugFragOwnerControl);
+    LDPUMA_RegistryHelp(hPrintCorrectPolynomia,
+            "Вывод на консоль результатов проверки 4-хугольника линии", FALSE);
+    LDPUMA_Registry(&hDebugDrowPolynomia, "Рисуется контур линии", hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrowCleanedRaster, "Рисуется прямоугольник линии после подчистки",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrowGetCorrectedLineStripesIntervals,
+            "Рисуется интервальное представление линии", hDebugFragOwnerControl);
 
-	LDPUMA_Registry(&hDebugDrowVerticalLineRaster,"Рисуется растр вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowVerticalLineStripesIntervals,"Рисуется интервальное представление вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowVerticalLineCutPoints,"Рисуется точки пересечения вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugTypeIntervals,"Вывод на Consol координат интервалов линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugTypeStripe,"Вывод на Consol интервальное представление линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hSkipDeleteNoiseEvents, "Не выполнять удаление шумовых фрагментов", hDebugFragOwner);
-	LDPUMA_RegistryHelp(hSkipDeleteNoiseEvents, "Не удалять шумовые фрагменты", FALSE);
-	LDPUMA_Registry(&hSkipDelFragLines, "Не удалять сильно фрагментированную линии", hDebugFragOwner);
-	LDPUMA_RegistryHelp(hSkipDelFragLines, "Не удалять линии с числом фрагментов больше 5", FALSE);
-	LDPUMA_Registry(&hPrintFragLines, "Печать результатов проверки фрагментации", hDebugFragOwnerControl);
-	LDPUMA_RegistryHelp(hPrintFragLines, "Вывод на Consol результатов проверки кандидатов на удаление", FALSE);
-	LDPUMA_Registry(&hDebugDrawLineFragmentsOwnWindow,"Рисуются фрагменты линии в отдельном окне",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDroweparationPoints,"Рисуются точки деления линии в отдельном окне",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrawLineFragments,"Рисуются фрагменты линии в основном окне",hDebugFragOwnerControl);
-	LDPUMA_RegistryHelp(hDebugDrawLineFragments, "Фрагменты рисуются для каждой линии в отдельности", FALSE);
+    LDPUMA_Registry(&hDebugDrowVerticalLineRaster, "Рисуется растр вертикальной линии",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrowVerticalLineStripesIntervals,
+            "Рисуется интервальное представление вертикальной линии", hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrowVerticalLineCutPoints,
+            "Рисуется точки пересечения вертикальной линии", hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugTypeIntervals, "Вывод на Consol координат интервалов линии",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugTypeStripe, "Вывод на Consol интервальное представление линии",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hSkipDeleteNoiseEvents, "Не выполнять удаление шумовых фрагментов",
+            hDebugFragOwner);
+    LDPUMA_RegistryHelp(hSkipDeleteNoiseEvents, "Не удалять шумовые фрагменты", FALSE);
+    LDPUMA_Registry(&hSkipDelFragLines, "Не удалять сильно фрагментированную линии",
+            hDebugFragOwner);
+    LDPUMA_RegistryHelp(hSkipDelFragLines, "Не удалять линии с числом фрагментов больше 5", FALSE);
+    LDPUMA_Registry(&hPrintFragLines, "Печать результатов проверки фрагментации",
+            hDebugFragOwnerControl);
+    LDPUMA_RegistryHelp(hPrintFragLines,
+            "Вывод на Consol результатов проверки кандидатов на удаление", FALSE);
+    LDPUMA_Registry(&hDebugDrawLineFragmentsOwnWindow, "Рисуются фрагменты линии в отдельном окне",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDroweparationPoints, "Рисуются точки деления линии в отдельном окне",
+            hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrawLineFragments, "Рисуются фрагменты линии в основном окне",
+            hDebugFragOwnerControl);
+    LDPUMA_RegistryHelp(hDebugDrawLineFragments,
+            "Фрагменты рисуются для каждой линии в отдельности", FALSE);
 
-	LDPUMA_Registry(&hDebugAttr,"Поиск атрибутов линий",hDebugRSL);
-	LDPUMA_Registry(&hDebugAttrOwner,"Контроль поиска атрибутов линии",hDebugAttr);
-	LDPUMA_Registry(&hDebugTypeWidth,"Вывод на Consol ширины линии",hDebugAttrOwner);
-	LDPUMA_Registry(&hDebugTypeDegree,"Вывод на Consol угла наклона линии",hDebugAttrOwner);
+    LDPUMA_Registry(&hDebugAttr, "Поиск атрибутов линий", hDebugRSL);
+    LDPUMA_Registry(&hDebugAttrOwner, "Контроль поиска атрибутов линии", hDebugAttr);
+    LDPUMA_Registry(&hDebugTypeWidth, "Вывод на Consol ширины линии", hDebugAttrOwner);
+    LDPUMA_Registry(&hDebugTypeDegree, "Вывод на Consol угла наклона линии", hDebugAttrOwner);
 
-	gwHeightRC = wHeightCode;
+    gwHeightRC = wHeightCode;
 
-	return RESULT;
+    return RESULT;
 }
 
 void SetReturnCode_rshelllines(uint16_t rc) {
-	gwLowRC = rc;
+    gwLowRC = rc;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSL_FUNC(Bool32) RSL_Done()
-{
-	LDPUMA_Done();
-	return TRUE;
+Bool32 RSL_Done() {
+    LDPUMA_Done();
+    return TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSL_FUNC(uint32_t) RSL_GetReturnCode()
-{
-	uint32_t rc = 0;
-	if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+uint32_t RSL_GetReturnCode() {
+    uint32_t rc = 0;
+    if ((gwLowRC - IDS_ERR_NO) > 0)
+        rc = (uint32_t) (gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
 
-	return rc;
+    return rc;
 }
 
 char * RSL_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != gwHeightRC)
+        gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	return NULL;
+    return NULL;
 }
 
-RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
-
-	return rc;
+Bool32 RSL_GetExportData(uint32_t dwType, void * pData) {
+    Bool32 rc = TRUE;
+    return rc;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = RESULT;
+Bool32 RSL_SetImportData(uint32_t dwType, void * pData) {
+    Bool32 rc = RESULT;
 
-	if (dwType != RSL_HANDLE)
-	return FALSE;
+    if (dwType != RSL_HANDLE)
+        return FALSE;
 
-	Handle* phCPage = (Handle*) pData;
+    Handle* phCPage = (Handle*) pData;
 
-	RSPreProcessImage IImage;
-	PRSPreProcessImage Image = &IImage;
+    RSPreProcessImage IImage;
+    PRSPreProcessImage Image = &IImage;
 
-	uint32_t nTeor = sizeof (RSPreProcessImage);
-	Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-	Handle VerifyN = CPAGE_GetBlockFirst (*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
-	uint32_t nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
-	//     uint32_t err32 = CPAGE_GetReturnCode ();
-	//     if (err32)
-	//         return FALSE;
+    uint32_t nTeor = sizeof(RSPreProcessImage);
+    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    Handle VerifyN = CPAGE_GetBlockFirst(*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
+    uint32_t nReal = CPAGE_GetBlockData(*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
 
-	if( *Image->pgrc_line )
-	{
-		if(LDPUMA_Skip(Image->hDebugCancelVerifyLines))
-		{
-			Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr:RVL_Default;
+    if (*Image->pgrc_line) {
+        if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {
+            Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr : RVL_Default;
 
-			if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
-					!RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
-			{
-				SetReturnCode_rshelllines((uint16_t)RVERLINE_GetReturnCode());
-				rc = FALSE;
-			}
-			else
-			{
-				Bool32 BadScan = FALSE;
-				int32_t ScanQual= 0;
-				AboutLines(Image, &BadScan, &ScanQual);
-			}
+            if (!RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines, &val)
+                    || !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE)) {
+                SetReturnCode_rshelllines((uint16_t) RVERLINE_GetReturnCode());
+                rc = FALSE;
+            }
+            else {
+                Bool32 BadScan = FALSE;
+                int32_t ScanQual = 0;
+                AboutLines(Image, &BadScan, &ScanQual);
+            }
 
-			if(!*Image->pgneed_clean_line)
-			LDPUMA_Console("Warning: RSL said that the lines don't need to be erased from the picture.\n");
-		}
-		else
-		LDPUMA_Console("Missing stage of the evaluation lines.\n");
-	}
+            if (!*Image->pgneed_clean_line)
+                LDPUMA_Console(
+                        "Warning: RSL said that the lines don't need to be erased from the picture.\n");
+        }
+        else
+            LDPUMA_Console("Missing stage of the evaluation lines.\n");
+    }
 
-	//CPAGE_DeleteBlock(&phCPage, VerifyN);
-
-	return rc;
+    return rc;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
 void * RSLAlloc(uint32_t stAllocateBlock) {
-	char * mem = NULL;
+    char * mem = NULL;
 
 #ifdef _NO_CFIO
 
 #ifdef  RSL_USE_GLOBAL_MEM
 
-	mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
+    mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
 
 #else
 
-	mem = ::new char[stAllocateBlock];
-	memset(mem, 0, stAllocateBlock );
+    mem = ::new char[stAllocateBlock];
+    memset(mem, 0, stAllocateBlock );
 
 #endif
 
-	if(!mem)
-	SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
+    if(!mem)
+    SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
 #else
 
-	mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
-			(char*) "RSL", (char*) cCommentBuffer);
+    mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR, (char*) "RSL",
+            (char*) cCommentBuffer);
 
-	if (!mem)
-		SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
+    if (!mem)
+        SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
 
 #endif
 
-	return mem;
+    return mem;
 }
 
 void RSLFree(void * mem) {
@@ -322,100 +312,97 @@ void RSLFree(void * mem) {
 
 #ifdef  RSL_USE_GLOBAL_MEM
 
-	GlobalFree(mem);
+    GlobalFree(mem);
 
 #else
 
-	::delete [] mem;
+    ::delete [] mem;
 
 #endif
 #else
 
-	CFIO_FreeMemory(mem);
+    CFIO_FreeMemory(mem);
 
 #endif
 }
 
 Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual) {
-	int SizeMain, SizeWork;
+    int SizeMain, SizeWork;
 
-	UN_BUFF MainBuff = { 0 };
+    UN_BUFF MainBuff = { 0 };
 
-	void *vMain;
-	char *cWork;
-	Bool32 bRc = TRUE;
+    void *vMain;
+    char *cWork;
+    Bool32 bRc = TRUE;
 
-	//////////////////////////////////////////////////////////////////////////////////
-	Buffer = (char *) RSLAlloc(RSL_AboutLines_SizeMyBuff);
-	WorkMem = (char *) RSLAlloc(RSL_AboutLines_SizeWorkMem);
+    Buffer = (char *) RSLAlloc(RSL_AboutLines_SizeMyBuff);
+    WorkMem = (char *) RSLAlloc(RSL_AboutLines_SizeWorkMem);
 
-	if (Buffer == NULL || WorkMem == NULL) {
-		SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
-		bRc = FALSE;
-	}
+    if (Buffer == NULL || WorkMem == NULL) {
+        SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
+        bRc = FALSE;
+    }
 
-	if (bRc)
-		do {
-			//////////////////////////////////////////////////////////////////////////////////////
-			/*  1. Контроль.  */
-			if ((Image->pgneed_clean_line == NULL) && (BadScan != NULL))
-				break;
-			//return TRUE;
+    if (bRc)
+        do {
+            //////////////////////////////////////////////////////////////////////////////////////
+            /*  1. Контроль.  */
+            if ((Image->pgneed_clean_line == NULL) && (BadScan != NULL))
+                break;
+            //return TRUE;
 
-			/*  2. Инициализация.  */
-			vMain = Buffer;
-			SizeMain = RSL_AboutLines_SizeMyBuff;
-			MainBuff.vBuff = vMain;
-			MainBuff.SizeBuff = SizeMain;
-			MainBuff.vCurr = MainBuff.vBuff;
-			MainBuff.SizeCurr = MainBuff.SizeBuff;
-			cWork = WorkMem;
-			SizeWork = RSL_AboutLines_SizeWorkMem;
+            /*  2. Инициализация.  */
+            vMain = Buffer;
+            SizeMain = RSL_AboutLines_SizeMyBuff;
+            MainBuff.vBuff = vMain;
+            MainBuff.SizeBuff = SizeMain;
+            MainBuff.vCurr = MainBuff.vBuff;
+            MainBuff.SizeCurr = MainBuff.SizeBuff;
+            cWork = WorkMem;
+            SizeWork = RSL_AboutLines_SizeWorkMem;
 
-			if (Image->pgneed_clean_line != NULL) {
-				*Image->pgneed_clean_line = FALSE;
-				CLINE_handle hCLINE = *((CLINE_handle*) (Image->phCLINE));
-				Bool fl_break = FALSE;
-				for (CLINE_handle hline = CLINE_GetFirstLine(hCLINE); hline; hline
-						= CLINE_GetNextLine(hline)) {
-					CPDLine cpdata = CLINE_GetLineData(hline);
-					if (!cpdata)
-						continue;
-					if (cpdata->Flags & LI_IsTrue) {
-						*Image->pgneed_clean_line = TRUE;
-						fl_break = TRUE;
-					}
-					if (fl_break)
-						break;
-				}
-				if (1) {
-					if (*Image->pgneed_clean_line)
-						LDPUMA_ConsoleN("RSource: Нужно снять линии.");
-					else
-						LDPUMA_ConsoleN("RSource: Не надо снимать линии!");
-				}
-			}
-			//		   }
+            if (Image->pgneed_clean_line != NULL) {
+                *Image->pgneed_clean_line = FALSE;
+                CLINE_handle hCLINE = *((CLINE_handle*) (Image->phCLINE));
+                Bool fl_break = FALSE;
+                for (CLINE_handle hline = CLINE_GetFirstLine(hCLINE); hline; hline
+                        = CLINE_GetNextLine(hline)) {
+                    CPDLine cpdata = CLINE_GetLineData(hline);
+                    if (!cpdata)
+                        continue;
+                    if (cpdata->Flags & LI_IsTrue) {
+                        *Image->pgneed_clean_line = TRUE;
+                        fl_break = TRUE;
+                    }
+                    if (fl_break)
+                        break;
+                }
+                if (1) {
+                    if (*Image->pgneed_clean_line)
+                        LDPUMA_ConsoleN("RSource: Нужно снять линии.");
+                    else
+                        LDPUMA_ConsoleN("RSource: Не надо снимать линии!");
+                }
+            }
+            //		   }
 
-			if (BadScan != NULL) {
-				if (1)
-					LDPUMA_ConsoleN(
-							"RSource: Качество сканирования : не умею пока определять.");
-				*BadScan = TRUE;
-				*ScanQual = 100;
-			}
-		} while (false);
+            if (BadScan != NULL) {
+                if (1)
+                    LDPUMA_ConsoleN("RSource: Качество сканирования : не умею пока определять.");
+                *BadScan = TRUE;
+                *ScanQual = 100;
+            }
+        }
+        while (false);
 
-	RSLFree(Buffer);
-	RSLFree(WorkMem);
+    RSLFree(Buffer);
+    RSLFree(WorkMem);
 
-	return bRc;
+    return bRc;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-//
 uint16_t GetReturnCode_rshelllines() {
-	return gwLowRC;
+    return gwLowRC;
 }
 
 #define two0         1
@@ -451,61 +438,51 @@ uint16_t GetReturnCode_rshelllines() {
 #define two30        1073741824
 #define two31        2147483648
 
-struct FictInterval {
-	int32_t Level;
-	int32_t Pos;
-	int32_t End;
-	int32_t RelIndex;
+struct FictInterval
+{
+    int32_t Level;
+    int32_t Pos;
+    int32_t End;
+    int32_t RelIndex;
 };
 
 static int mycompare(const void *elem1, const void *elem2) {
 
-	FictInterval *a = (FictInterval*) elem1;
-	FictInterval *b = (FictInterval*) elem2;
+    FictInterval *a = (FictInterval*) elem1;
+    FictInterval *b = (FictInterval*) elem2;
 
-	if (a->Level == b->Level) {
-		return a->Pos - b->Pos;
-	}
-	return a->Level - b->Level;
+    if (a->Level == b->Level) {
+        return a->Pos - b->Pos;
+    }
+    return a->Level - b->Level;
 }
 
-// struct TieComp
-// {
-// 	int32_t LeftBorder;
-// 	int32_t RightBorder;
-// 	int32_t Weight;
-// 	Bool32 IsNoiseComp;
-// 	int32_t VoteResult;
-// };
-
 void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine) {
-	return;
+    return;
 }
 
 void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster) {
-	return;
+    return;
 }
 
 Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif) {
-	return TRUE;
+    return TRUE;
 }
 
-RSHELLLINES_FUNC( Bool32) RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2)
-{
-	return TRUE;
+Bool32 RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2) {
+    return TRUE;
 }
 
-RSHELLLINES_FUNC( Bool32) RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer)
-{
-	return TRUE;
+Bool32 RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer) {
+    return TRUE;
 }
 
 int SL_IsInPoly(Point* a, CLINE_SL_POLY* p) {
-	return 0;
+    return 0;
 }
 
 Bool SL_IsPointInAB(Point *P, Point *A, Point *B) {
-	return FALSE;
+    return FALSE;
 }
 
 void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info) {
@@ -526,24 +503,23 @@ void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow) {
 void CleaningRaster(DLine* pCLine, char* Buffer) {
 }
 
-void DrowCleanedRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow) {
+void DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+        Handle* HndMyWindow) {
 }
 
-void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow) {
+void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+        Handle* HndMyWindow) {
 }
 
 void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect* rect) {
 }
 
-Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
-		Bool FlagVerticalLine) {
-	return TRUE;
+Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster, Bool FlagVerticalLine) {
+    return TRUE;
 }
 
-void FillingStripes(CLINE_handle line, int y, int16_t Count,
-		uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine) {
+void FillingStripes(CLINE_handle line, int y, int16_t Count, uint16_t* pIntervals,
+        Bool FlagVerticalLine, DLine* pCLine) {
 }
 
 void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine) {
@@ -556,86 +532,72 @@ void TypeStripe(CLINE_handle hStripe, DEvent* pStripe) {
 }
 
 Bool GetLineFragments(CLINE_handle line, DLine* pCLine) {
-	return TRUE;
+    return TRUE;
 }
 
-Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow,
-		int ColorIndex, Bool32 ForAllLines)// = FALSE)
+Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, int ColorIndex,
+        Bool32 ForAllLines)// = FALSE)
 {
-	return NULL;
+    return NULL;
 }
 
-RSHELLLINES_FUNC( void) DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
-{
+void DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass) {
 }
 
-void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup,
-		int CountLines) {
+void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines) {
 }
 
-RSHELLLINES_FUNC( void) DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines)
-{
+void DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines) {
 }
 
-RSHELLLINES_FUNC( void) DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines)
-{
+void DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines) {
 }
 
-RSHELLLINES_FUNC( void) DrawBigComps(CLINE_handle hContainer)
-{
+void DrawBigComps(CLINE_handle hContainer) {
 }
 
-RSHELLLINES_FUNC( void) DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments)
-{
+void DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments) {
 }
 
-RSHELLLINES_FUNC( void) InitLine(DLine* linedata)
-{
+void InitLine(DLine* linedata) {
 }
 
-RSHELLLINES_FUNC( void) FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer)
-{
+void FindDotLines(Handle hCCOM, Handle hCPAGE, CLINE_handle hContainer) {
 }
 
-RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp)
-{
-	return FALSE;
+Bool32 CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp) {
+    return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect* rect, uchar** ppData, PAGEINFO* page_info)
-{
-	return TRUE;
+Bool SL_GetRaster(Rect* rect, uchar** ppData, PAGEINFO* page_info) {
+    return TRUE;
 }
 
-RSHELLLINES_FUNC( void) SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer)
-{
+void SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer) {
 }
 
-RSHELLLINES_FUNC(void) FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
-{
+void FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass) {
 }
 
-RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult)
-{
+void FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult) {
 }
 
-RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point)
-{
-	return 0;
+int32_t RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang,
+        uchar debug_flags, int32_t *cross_point) {
+    return 0;
 }
 
-RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine)
-{
-	return FALSE;
+Bool32 GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine) {
+    return FALSE;
 }
 
-Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer,
-		CLINE_handle* hLinesMass, int32_t CountLines) {
-	return FALSE;
+Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass,
+        int32_t CountLines) {
+    return FALSE;
 }
 
-int32_t CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor,
-		int32_t delta, Handle hDrawRaster) {
-	return 0;
+int32_t CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, int32_t delta,
+        Handle hDrawRaster) {
+    return 0;
 }
 
