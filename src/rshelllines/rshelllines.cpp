@@ -56,17 +56,11 @@
 
 // RShellLines.cpp: implementation of the ShellLine's functions.
 //
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 //
 //	Description: ShellLine's functions implementation
 //
 //	Implemented: by B.M. Shahverdiev
-//
-//
 
-#include "stdafx.h"
 #include "resource.h"
 #define __RSL__
 #define __RSL_EXTERN__
