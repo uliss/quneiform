@@ -1,11 +1,9 @@
-include_directories(BEFORE sources)
-
 add_library(rline ${LIBTYPE}
 ${SNP_SRC}
-sources/dll.cpp
-sources/findlostlines.cpp
-sources/newline.cpp
-sources/rline.cpp
+dll.cpp
+findlostlines.cpp
+newline.cpp
+rline.cpp
 )
 set_property(TARGET rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
 
