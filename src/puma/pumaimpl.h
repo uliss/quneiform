@@ -37,6 +37,7 @@ class CTIControl;
 namespace CIF {
 
 class RStuff;
+class Rsl;
 
 struct PumaException: std::runtime_error
 {
@@ -102,6 +103,7 @@ private:
     void saveLayoutToFile(const std::string& fname);
     void saveToText(std::ostream& os) const;
     void saveToText(const std::string& filename) const;
+    void setData(RSPreProcessImage& data);
     void spellCorrection();
 private:
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
@@ -109,6 +111,7 @@ private:
 private:
     std::auto_ptr<CTIControl> cimage_;
     std::auto_ptr<RStuff> rstuff_;
+    std::auto_ptr<Rsl> rsl_;
     BitmapInfoHeader info_;
     bool do_spell_corretion_;
     bool preserve_line_breaks_;

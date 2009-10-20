@@ -1,5 +1,6 @@
 add_library(rshelllines ${LIBTYPE}
 ${SNP_SRC}
+rsl.cpp
 rshelllines.cpp
 )
 set_property(TARGET rshelllines PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS__)

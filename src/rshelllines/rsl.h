@@ -54,22 +54,29 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//	Implemented: by B.M. Shahverdiev
 #ifndef __RSL_H
 #define __RSL_H
 
-#include "globus.h"
+#include "common/exception.h"
 
-#ifdef __RSL__
-#define RSL_FUNC  FUN_EXPO__
-#else
-#define RSL_FUNC  FUN_IMPO__
-#endif
+namespace CIF {
 
-RSL_FUNC Bool32 RSL_Init(uint16_t wHeightCode, Handle hStorage);
-RSL_FUNC Bool32 RSL_Done();
-RSL_FUNC uint32_t RSL_GetReturnCode();
-RSL_FUNC char * RSL_GetReturnString(uint32_t dwError);
-RSL_FUNC Bool32 RSL_SetImportData(uint32_t dwType, void * pData);
+class RSPreProcessImage;
+
+class Rsl
+{
+public:
+    Rsl();
+    ~Rsl();
+    void aboutLines();
+    void setImage(RSPreProcessImage& image);
+    void verifyNormalization();
+private:
+    RSPreProcessImage * image_;
+};
+
+typedef RuntimeExceptionImpl<Rsl> RslException;
+
+}
 
 #endif

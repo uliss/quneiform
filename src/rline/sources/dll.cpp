@@ -115,10 +115,6 @@ Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
 	if (!b)
 		return FALSE;
 
-	b = RSL_Init(PUMA_MODULE_RSL, hStorage);
-	if (!b)
-		return FALSE;
-
 	if (b == RESULT)
 		gbRSLT = TRUE;
 
@@ -126,10 +122,6 @@ Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
 }
 
 Bool32 RLINE_Done() {
-	if (!RSL_Done()) {
-		return FALSE;
-	}
-
 	LDPUMA_Done();
 	return TRUE;
 }

@@ -261,6 +261,12 @@ void PumaImpl::formatResult() {
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
+
+    RSPreProcessImage image_data;
+    setData(image_data);
+    rsl_->setImage(image_data);
+    rsl_->verifyNormalization();
+
     layoutRStuff();
     layoutRMarker();
 
@@ -285,26 +291,7 @@ void PumaImpl::layoutRStuff() {
         return;
 
     RSPreProcessImage DataforRS;
-    layout_options_.setData(DataforRS);
-    DataforRS.gbFax100 = fax100_;
-    DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
-    DataforRS.pinfo = &info_;
-    DataforRS.hCPAGE = cpage_;
-    DataforRS.phCCOM = &ccom_;
-    DataforRS.phCLINE = &cline_;
-    DataforRS.phLinesCCOM = &lines_ccom_;
-    DataforRS.gnLanguage = language_;
-    DataforRS.pglpRecogName = recog_name_.c_str();
-    DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    DataforRS.hDebugCancelComponent = hDebugCancelComponent;
-    DataforRS.hDebugCancelTurn = hDebugCancelTurn;
-    DataforRS.hDebugCancelAutoTemplate = hDebugCancelAutoTemplate;
-    DataforRS.hDebugCancelSearchLines = hDebugCancelSearchLines;
-    DataforRS.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-    DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-    DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-    DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-    DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+    setData(DataforRS);
 
     ///нормализуем - обработка, поиск картинок, поиск линий
     rstuff_->setImageData(DataforRS);
@@ -375,7 +362,6 @@ void PumaImpl::modulesDone() {
     RPIC_Done();
     RIMAGE_Done();
     RFRMT_Done();
-    RSL_Done();
     REXC_Done();
     RLINE_Done();
     RMARKER_Done();
@@ -428,9 +414,7 @@ void PumaImpl::modulesInit() {
 
         RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 
-        if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
-            throw PumaException("RSL_Init failed.");
-
+        rsl_.reset(new Rsl);
         rstuff_.reset(new RStuff);
 
         if (!RMARKER_Init(PUMA_MODULE_RBLOCK, ghStorage))
@@ -1069,6 +1053,29 @@ void PumaImpl::saveToText(const std::string& filename) const {
     if (!of)
         return;
     saveToText(of);
+}
+
+void PumaImpl::setData(RSPreProcessImage& data) {
+    layout_options_.setData(data);
+    data.gbFax100 = fax100_;
+    data.pgpRecogDIB = (uchar**) &input_dib_;
+    data.pinfo = &info_;
+    data.hCPAGE = cpage_;
+    data.phCCOM = &ccom_;
+    data.phCLINE = &cline_;
+    data.phLinesCCOM = &lines_ccom_;
+    data.gnLanguage = language_;
+    data.pglpRecogName = recog_name_.c_str();
+    data.hDebugCancelSearchPictures = 0;
+    data.hDebugCancelComponent = 0;
+    data.hDebugCancelTurn = 0;
+    data.hDebugCancelAutoTemplate = 0;
+    data.hDebugCancelSearchLines = 0;
+    data.hDebugCancelVerifyLines = 0;
+    data.hDebugCancelSearchDotLines = 0;
+    data.hDebugCancelRemoveLines = 0;
+    data.hDebugCancelSearchTables = 0;
+    data.hDebugEnableSearchSegment = 0;
 }
 
 void PumaImpl::setFormatOptions(const FormatOptions& opt) {

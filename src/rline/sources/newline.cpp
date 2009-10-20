@@ -220,7 +220,7 @@ Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE, PBool32 pgne
         uint32_t type = RSL_HANDLE;
         Handle* phCPAGE = &hCPage;
         void* aa = (void*) phCPAGE;
-        RSL_SetImportData(type, aa);
+//        RSL_SetImportData(type, aa);
         return RESULT;
     }
     /// BogDmitry

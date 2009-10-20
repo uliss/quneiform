@@ -84,15 +84,9 @@ using namespace CIF;
 #define RSL_HANDLE 1
 #define RSL_VERLINE CPAGE_GetInternalType("RVL_VERIFY")
 
-#define     RSL_AboutLines_SizeMyBuff    492000
-#define     RSL_AboutLines_SizeWorkMem   180000
-
 #define RSL_ERR_NO_MEMORY 1
 #define     MAF_GALL_GPTR              0x0010
 char cCommentBuffer[CFIO_MAX_COMMENT];
-
-static char *Buffer = NULL;
-static char *WorkMem = NULL;
 
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
@@ -111,8 +105,6 @@ Handle hPreRSL_Control = NULL;
 Handle hPreRSL_Debug = NULL;
 Handle hDebugFragOwnerControl = NULL;
 
-Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
-
 Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat, Bool32 Is2ndPath,
         CLINE_handle hContainer, Bool32 IfNeedFragment, Bool32 IfStraightFrag) {
     return TRUE;
@@ -123,320 +115,13 @@ Bool32 FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr) {
     return TRUE;
 }
 
-Bool32 RSL_Init(uint16_t wHeightCode, Handle hStorage) {
-    LDPUMA_Init(0, NULL);
-    LDPUMA_Registry(&hDebugRSL, SNAP_STUFF_RSL, NULL);
-    LDPUMA_Registry(&hPreRSL_Root, "Предварительная обработка линий", hDebugRSL);
-    LDPUMA_Registry(&hPreRSL_Debug, "Отладка работы (pre)", hPreRSL_Root);
-    LDPUMA_Registry(&hPreRSL_Control, "Контроль работы (pre)", hPreRSL_Root);
-
-    LDPUMA_Registry(&hSkipCheckUnderlining, "Выключить проверку подчерков", hPreRSL_Debug);
-    LDPUMA_Registry(&hPrintUnderlineTest, "Вывод результатов проверки подчеркивания",
-            hPreRSL_Control);
-    LDPUMA_RegistryHelp(hPrintUnderlineTest,
-            "В Console печатается количество черных точек (на 1000) в верхней части растра линии",
-            FALSE);
-    LDPUMA_Registry(&hPrintUnderlines, "Вывод координат подчерков", hPreRSL_Control);
-    LDPUMA_RegistryHelp(hPrintUnderlines,
-            "В Console печатаются координаты линий, определенных как подчерки", FALSE);
-
-    LDPUMA_Registry(&hSkipCheckRaster, "Не проверять линии по растру", hPreRSL_Debug);
-    LDPUMA_RegistryHelp(
-            hSkipCheckRaster,
-            "Если выключить проверку линий по растру, могут подтвердиться линии, выделенные по жирному тексту",
-            FALSE);
-    LDPUMA_Registry(&hPrintRasterCheck, "Вывод результатов проверки растра", hPreRSL_Control);
-    LDPUMA_RegistryHelp(hPrintRasterCheck,
-            "В Console печатается количество черных точек (на 1000) в растре линии", FALSE);
-
-    LDPUMA_Registry(&hDebugFrag, "Поиск фрагментов линии", hDebugRSL);
-    LDPUMA_Registry(&hDebugFragOwner, "Отладка поиска фрагментов линии", hDebugFrag);
-    LDPUMA_Registry(&hDebugFragOwnerControl, "Контроль поиска фрагментов линии", hDebugFrag);
-
-    LDPUMA_Registry(&hDebugDrowRectForRaster, "Рисуется прямоугольник линии",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hSkipCorrectPolynomia, "Не корректировать 4-хугольник линии", hDebugFragOwner);
-    LDPUMA_Registry(&hPrintCorrectPolynomia, "Результат проверки 4-хугольника линии",
-            hDebugFragOwnerControl);
-    LDPUMA_RegistryHelp(hPrintCorrectPolynomia,
-            "Вывод на консоль результатов проверки 4-хугольника линии", FALSE);
-    LDPUMA_Registry(&hDebugDrowPolynomia, "Рисуется контур линии", hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrowCleanedRaster, "Рисуется прямоугольник линии после подчистки",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrowGetCorrectedLineStripesIntervals,
-            "Рисуется интервальное представление линии", hDebugFragOwnerControl);
-
-    LDPUMA_Registry(&hDebugDrowVerticalLineRaster, "Рисуется растр вертикальной линии",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrowVerticalLineStripesIntervals,
-            "Рисуется интервальное представление вертикальной линии", hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrowVerticalLineCutPoints,
-            "Рисуется точки пересечения вертикальной линии", hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugTypeIntervals, "Вывод на Consol координат интервалов линии",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugTypeStripe, "Вывод на Consol интервальное представление линии",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hSkipDeleteNoiseEvents, "Не выполнять удаление шумовых фрагментов",
-            hDebugFragOwner);
-    LDPUMA_RegistryHelp(hSkipDeleteNoiseEvents, "Не удалять шумовые фрагменты", FALSE);
-    LDPUMA_Registry(&hSkipDelFragLines, "Не удалять сильно фрагментированную линии",
-            hDebugFragOwner);
-    LDPUMA_RegistryHelp(hSkipDelFragLines, "Не удалять линии с числом фрагментов больше 5", FALSE);
-    LDPUMA_Registry(&hPrintFragLines, "Печать результатов проверки фрагментации",
-            hDebugFragOwnerControl);
-    LDPUMA_RegistryHelp(hPrintFragLines,
-            "Вывод на Consol результатов проверки кандидатов на удаление", FALSE);
-    LDPUMA_Registry(&hDebugDrawLineFragmentsOwnWindow, "Рисуются фрагменты линии в отдельном окне",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDroweparationPoints, "Рисуются точки деления линии в отдельном окне",
-            hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrawLineFragments, "Рисуются фрагменты линии в основном окне",
-            hDebugFragOwnerControl);
-    LDPUMA_RegistryHelp(hDebugDrawLineFragments,
-            "Фрагменты рисуются для каждой линии в отдельности", FALSE);
-
-    LDPUMA_Registry(&hDebugAttr, "Поиск атрибутов линий", hDebugRSL);
-    LDPUMA_Registry(&hDebugAttrOwner, "Контроль поиска атрибутов линии", hDebugAttr);
-    LDPUMA_Registry(&hDebugTypeWidth, "Вывод на Consol ширины линии", hDebugAttrOwner);
-    LDPUMA_Registry(&hDebugTypeDegree, "Вывод на Consol угла наклона линии", hDebugAttrOwner);
-
-    gwHeightRC = wHeightCode;
-
-    return RESULT;
-}
-
 void SetReturnCode_rshelllines(uint16_t rc) {
     gwLowRC = rc;
-}
-
-Bool32 RSL_Done() {
-    LDPUMA_Done();
-    return TRUE;
-}
-
-uint32_t RSL_GetReturnCode() {
-    uint32_t rc = 0;
-    if ((gwLowRC - IDS_ERR_NO) > 0)
-        rc = (uint32_t) (gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
-
-    return rc;
-}
-
-char * RSL_GetReturnString(uint32_t dwError) {
-    if (dwError >> 16 != gwHeightRC)
-        gwLowRC = IDS_ERR_NOTIMPLEMENT;
-
-    return NULL;
-}
-
-Bool32 RSL_GetExportData(uint32_t dwType, void * pData) {
-    Bool32 rc = TRUE;
-    return rc;
-}
-
-Bool32 RSL_SetImportData(uint32_t dwType, void * pData) {
-    Bool32 rc = RESULT;
-
-    if (dwType != RSL_HANDLE)
-        return FALSE;
-
-    Handle* phCPage = (Handle*) pData;
-
-    RSPreProcessImage IImage;
-    PRSPreProcessImage Image = &IImage;
-
-    uint32_t nTeor = sizeof(RSPreProcessImage);
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    Handle VerifyN = CPAGE_GetBlockFirst(*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
-    uint32_t nReal = CPAGE_GetBlockData(*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
-
-    if (*Image->pgrc_line) {
-        if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {
-            Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr : RVL_Default;
-
-            if (!RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines, &val)
-                    || !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE)) {
-                SetReturnCode_rshelllines((uint16_t) RVERLINE_GetReturnCode());
-                rc = FALSE;
-            }
-            else {
-                Bool32 BadScan = FALSE;
-                int32_t ScanQual = 0;
-                AboutLines(Image, &BadScan, &ScanQual);
-            }
-
-            if (!*Image->pgneed_clean_line)
-                LDPUMA_Console(
-                        "Warning: RSL said that the lines don't need to be erased from the picture.\n");
-        }
-        else
-            LDPUMA_Console("Missing stage of the evaluation lines.\n");
-    }
-
-    return rc;
-}
-
-void * RSLAlloc(uint32_t stAllocateBlock) {
-    char * mem = NULL;
-
-#ifdef _NO_CFIO
-
-#ifdef  RSL_USE_GLOBAL_MEM
-
-    mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-
-#else
-
-    mem = ::new char[stAllocateBlock];
-    memset(mem, 0, stAllocateBlock );
-
-#endif
-
-    if(!mem)
-    SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
-#else
-
-    mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR, (char*) "RSL",
-            (char*) cCommentBuffer);
-
-    if (!mem)
-        SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
-
-#endif
-
-    return mem;
-}
-
-void RSLFree(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  RSL_USE_GLOBAL_MEM
-
-    GlobalFree(mem);
-
-#else
-
-    ::delete [] mem;
-
-#endif
-#else
-
-    CFIO_FreeMemory(mem);
-
-#endif
-}
-
-Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual) {
-    int SizeMain, SizeWork;
-
-    UN_BUFF MainBuff = { 0 };
-
-    void *vMain;
-    char *cWork;
-    Bool32 bRc = TRUE;
-
-    Buffer = (char *) RSLAlloc(RSL_AboutLines_SizeMyBuff);
-    WorkMem = (char *) RSLAlloc(RSL_AboutLines_SizeWorkMem);
-
-    if (Buffer == NULL || WorkMem == NULL) {
-        SetReturnCode_rshelllines((uint16_t) RSL_ERR_NO_MEMORY);
-        bRc = FALSE;
-    }
-
-    if (bRc)
-        do {
-            //////////////////////////////////////////////////////////////////////////////////////
-            /*  1. Контроль.  */
-            if ((Image->pgneed_clean_line == NULL) && (BadScan != NULL))
-                break;
-            //return TRUE;
-
-            /*  2. Инициализация.  */
-            vMain = Buffer;
-            SizeMain = RSL_AboutLines_SizeMyBuff;
-            MainBuff.vBuff = vMain;
-            MainBuff.SizeBuff = SizeMain;
-            MainBuff.vCurr = MainBuff.vBuff;
-            MainBuff.SizeCurr = MainBuff.SizeBuff;
-            cWork = WorkMem;
-            SizeWork = RSL_AboutLines_SizeWorkMem;
-
-            if (Image->pgneed_clean_line != NULL) {
-                *Image->pgneed_clean_line = FALSE;
-                CLINE_handle hCLINE = *((CLINE_handle*) (Image->phCLINE));
-                Bool fl_break = FALSE;
-                for (CLINE_handle hline = CLINE_GetFirstLine(hCLINE); hline; hline
-                        = CLINE_GetNextLine(hline)) {
-                    CPDLine cpdata = CLINE_GetLineData(hline);
-                    if (!cpdata)
-                        continue;
-                    if (cpdata->Flags & LI_IsTrue) {
-                        *Image->pgneed_clean_line = TRUE;
-                        fl_break = TRUE;
-                    }
-                    if (fl_break)
-                        break;
-                }
-                if (1) {
-                    if (*Image->pgneed_clean_line)
-                        LDPUMA_ConsoleN("RSource: Нужно снять линии.");
-                    else
-                        LDPUMA_ConsoleN("RSource: Не надо снимать линии!");
-                }
-            }
-            //		   }
-
-            if (BadScan != NULL) {
-                if (1)
-                    LDPUMA_ConsoleN("RSource: Качество сканирования : не умею пока определять.");
-                *BadScan = TRUE;
-                *ScanQual = 100;
-            }
-        }
-        while (false);
-
-    RSLFree(Buffer);
-    RSLFree(WorkMem);
-
-    return bRc;
 }
 
 uint16_t GetReturnCode_rshelllines() {
     return gwLowRC;
 }
-
-#define two0         1
-#define two1         2
-#define two2         4
-#define two3         8
-#define two4         16
-#define two5         32
-#define two6         64
-#define two7         128
-#define two8         256
-#define two9         512
-#define two10        1024
-#define two11        2048
-#define two12        4096
-#define two13        8192
-#define two14        16384
-#define two15        32768
-#define two16        65536
-#define two17        131072
-#define two18        262144
-#define two19        524288
-#define two20        1048576
-#define two21        2097152
-#define two22        4194304
-#define two23        8388608
-#define two24        16777216
-#define two25        33554432
-#define two26        67108864
-#define two27        134217728
-#define two28        268435456
-#define two29        536870912
-#define two30        1073741824
-#define two31        2147483648
 
 struct FictInterval
 {
@@ -445,17 +130,6 @@ struct FictInterval
     int32_t End;
     int32_t RelIndex;
 };
-
-static int mycompare(const void *elem1, const void *elem2) {
-
-    FictInterval *a = (FictInterval*) elem1;
-    FictInterval *b = (FictInterval*) elem2;
-
-    if (a->Level == b->Level) {
-        return a->Pos - b->Pos;
-    }
-    return a->Level - b->Level;
-}
 
 void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine) {
     return;
