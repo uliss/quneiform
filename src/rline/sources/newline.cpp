@@ -76,7 +76,7 @@
 #include "ccom/ccom.h"
 #include "puma/pumadef.h"
 
-#include "rsl.h"
+#include "rshelllines/rsl.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

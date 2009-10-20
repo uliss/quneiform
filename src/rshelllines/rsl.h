@@ -54,157 +54,22 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// ============================================================================
-//
-// ============================================================================
+//	Implemented: by B.M. Shahverdiev
+#ifndef __RSL_H
+#define __RSL_H
 
-#include <stdlib.h>
-#include "stdafx.h"
-#include "resource.h"
-#include "rline.h"
-#include "cimage/ctiimage.h"
-#include "cpage/cpage.h"
-#include "lns32/lns.h"
-#include "dpuma.h"
-#include "linedefs.h"
-#include "rshelllines/rshelllinescom.h"
+#include "globus.h"
 
-/// BogDmitry
-#include "rshelllines/rsl.h"
-#define PUMA_MODULE_RSL         116
-#define RESULT                  2
-Bool32 gbRSLT = FALSE;
-/// BogDmitry
+#ifdef __RSL__
+#define RSL_FUNC  FUN_EXPO__
+#else
+#define RSL_FUNC  FUN_IMPO__
+#endif
 
-#include "compat_defs.h"
+RSL_FUNC Bool32 RSL_Init(uint16_t wHeightCode, Handle hStorage);
+RSL_FUNC Bool32 RSL_Done();
+RSL_FUNC uint32_t RSL_GetReturnCode();
+RSL_FUNC char * RSL_GetReturnString(uint32_t dwError);
+RSL_FUNC Bool32 RSL_SetImportData(uint32_t dwType, void * pData);
 
-extern Bool32 gbNOFILLGAP3;
-extern Bool32 gbNOHBORDER;
-extern Bool32 gbNOVBORDER;
-
-Bool32 RLINE_SubInit(void);
-
-///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
-static uint16_t gwHeightRC = 0;
-static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
-//////////////////////////////////////////////////////////////////////////////////
-
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
-
-Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
-	Bool32 b;
-	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0, NULL);
-	b = RLINE_SubInit();
-	if (!b)
-		return FALSE;
-
-	b = RSL_Init(PUMA_MODULE_RSL, hStorage);
-	if (!b)
-		return FALSE;
-
-	if (b == RESULT)
-		gbRSLT = TRUE;
-
-	return b;
-}
-
-Bool32 RLINE_Done() {
-	if (!RSL_Done()) {
-		return FALSE;
-	}
-
-	LDPUMA_Done();
-	return TRUE;
-}
-
-uint32_t RLINE_GetReturnCode() {
-	uint32_t rc = 0;
-	if (gwLowRC && (gwLowRC - IDS_ERR_NO) > 0)
-		rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
-	return rc;
-}
-
-char * RLINE_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-
-	return NULL;
-}
-
-Bool32 RLINE_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-	gwLowRC = 0;
-
-#define CASE_FUNCTION(a)	case RLINE_FN##a:	*(FN##a *)pData = a; break;
-#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break;
-
-	switch (dwType) {
-	CASE_FUNCTION(RLINE_SearchLines)
-	CASE_FUNCTION(RLINE_DeleteLines)
-	CASE_FUNCTION(RLINE_LinesPass1)
-	CASE_FUNCTION(RLINE_LinesPass2)
-	CASE_FUNCTION(RLINE_LinesPass3)
-	CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3)
-	CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER)
-	CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER)
-
-	default:
-		*(char **) pData = NULL;
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
-
-#undef CASE_DATA
-#undef CASE_FUNCTION
-	return rc;
-}
-
-Bool32 RLINE_SetImportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-	gwLowRC = 0;
-
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break;
-	switch (dwType) {
-	CASE_DATA(RLINE_Bool32_NOFILLGAP3,Bool32,gbNOFILLGAP3)
-	CASE_DATA(RLINE_Bool32_NOHBORDER,Bool32,gbNOHBORDER)
-	CASE_DATA(RLINE_Bool32_NOVBORDER,Bool32,gbNOVBORDER)
-	default:
-		rc = FALSE;
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-	}
-#undef CASE_DATA
-
-	return rc;
-}
-
-void SetReturnCode_rline(uint32_t rc) {
-	gwHeightRC = (uint16_t) (rc >> 16);
-	gwLowRC = (uint16_t) rc;
-}
-
-void SetReturnCode_rline(uint16_t rc) {
-	gwLowRC = rc;
-}
-
-uint16_t GetReturnCode_rline() {
-	return gwLowRC;
-}
+#endif
