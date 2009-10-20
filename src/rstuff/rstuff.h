@@ -135,6 +135,7 @@ private:
     void ortoMove();
     void preProcessImage();
     void searchLines();
+    void searchNewLines();
 private:
     static void cleanImage(uchar* pmasp, int bytewide, int num_str, int wide);
     static void copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int oldbytewide,

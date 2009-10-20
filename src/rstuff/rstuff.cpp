@@ -76,6 +76,8 @@
 #include "common/debug.h"
 #include "cifconfig.h"
 
+extern Bool32 gbRSLT;
+
 namespace CIF {
 
 int move;
@@ -454,7 +456,7 @@ void RStuff::normalize() {
     calcIncline();
     ortoMove();
     createContainerBigComp();
-    SearchNewLines(image_);
+    searchNewLines();
     KillLines(image_);
     // убиваем остатки линии после сняти
     // uliss:LineKiller(image_);
@@ -623,6 +625,20 @@ void RStuff::searchLines() {
         *image_->pgrc_line = FALSE;
         Debug() << "Warning: RLINE_SearchLines failed\n";
     }
+}
+
+void RStuff::searchNewLines() {
+    Handle hSaveImage = CPAGE_CreateBlock(image_->hCPAGE, CPAGE_GetInternalType("RVL_VERIFY"), 0,
+            0, image_, sizeof(RSPreProcessImage));
+
+    if (!RLINE_LinesPass1(image_->hCPAGE, *(image_->phCCOM), image_->phCLINE,
+            image_->pgneed_clean_line, true, (uchar) image_->gnLanguage))
+        throw RStuffException("RLINE_LinesPass1() failed");
+
+    if (!gbRSLT && !RLINE_LinesPass2(*(image_->phCCOM), image_->phCLINE, image_->hCPAGE))
+        throw RStuffException("RLINE_LinesPass2() failed");
+
+    CPAGE_DeleteBlock(image_->hCPAGE, hSaveImage);
 }
 
 void RStuff::setImageData(RSPreProcessImage& data) {

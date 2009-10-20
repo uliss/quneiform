@@ -96,15 +96,6 @@
 
 using namespace CIF;
 
-struct BIG_IMAGE
-{
-    CCOM_handle hCCOM;
-    uchar ImageName[CPAGE_MAXNAME];
-};
-
-#define RSL_VERLINE CPAGE_GetInternalType("RVL_VERIFY")
-extern Bool32 gbRSLT;
-
 extern Handle ObvKillLines;
 extern Handle hNewLine;
 extern Handle NotKillPointed;
@@ -131,25 +122,6 @@ Bool32 AutoTemplate(PRSPreProcessImage);
 
 Bool32 VerifyN(PRSPreProcessImage Image) {
     return VerifyLines(Image);
-}
-
-Bool32 SearchNewLines(PRSPreProcessImage Image) {
-    Bool32 ret = TRUE;
-    bool searchlines = LDPUMA_Skip(Image->hDebugCancelSearchDotLines) && !LDPUMA_Skip(hDotLine);
-    Handle hSaveImage = CPAGE_CreateBlock(Image->hCPAGE, RSL_VERLINE, 0, 0, Image,
-            sizeof(RSPreProcessImage));
-
-    if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {
-        ret = RLINE_LinesPass1(Image->hCPAGE, *(Image->phCCOM), Image->phCLINE,
-                Image->pgneed_clean_line, searchlines, (uchar) Image->gnLanguage);
-
-        if (ret && !gbRSLT)
-            ret = RLINE_LinesPass2(*(Image->phCCOM), Image->phCLINE, Image->hCPAGE);
-    }
-
-    CPAGE_DeleteBlock(Image->hCPAGE, hSaveImage);
-
-    return ret;
 }
 
 // Выделение компонент

@@ -88,7 +88,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 // обработка сырья
-Bool32 SearchNewLines(PRSPreProcessImage Image);
 Bool32 VerifyLines(PRSPreProcessImage);
 Bool32 KillLines(PRSPreProcessImage);
 Bool32 SearchTables(PRSPreProcessImage);
