@@ -447,6 +447,16 @@ void RStuff::copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int old
     }
 }
 
+void RStuff::killLines() {
+    if (*image_->pgrc_line && *image_->pgneed_clean_line) {
+        puchar pDIB = NULL;
+        if (!RemoveLines(image_, &pDIB)) {
+            *image_->pgpRecogDIB = pDIB;
+            throw RStuffException("RStuff::killLines() failed");
+        }
+    }
+}
+
 void RStuff::layout() {
 }
 
@@ -457,7 +467,7 @@ void RStuff::normalize() {
     ortoMove();
     createContainerBigComp();
     searchNewLines();
-    KillLines(image_);
+    killLines();
     // убиваем остатки линии после сняти
     // uliss:LineKiller(image_);
 }

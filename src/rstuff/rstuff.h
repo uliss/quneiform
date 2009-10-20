@@ -132,6 +132,7 @@ private:
     void calcIncline();
     void checkResolution();
     void createContainerBigComp();
+    void killLines();
     void ortoMove();
     void preProcessImage();
     void searchLines();

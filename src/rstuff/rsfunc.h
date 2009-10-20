@@ -89,7 +89,6 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 // обработка сырья
 Bool32 VerifyLines(PRSPreProcessImage);
-Bool32 KillLines(PRSPreProcessImage);
 Bool32 SearchTables(PRSPreProcessImage);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // разметка и линии

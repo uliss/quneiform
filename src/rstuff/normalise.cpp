@@ -219,28 +219,6 @@ Bool32 VerifyLines(PRSPreProcessImage Image) {
     return rc;
 }
 
-// удаляем линии
-Bool32 KillLines(PRSPreProcessImage Image) {
-    Bool32 rc = TRUE;
-
-    if (*Image->pgrc_line && *Image->pgneed_clean_line) {
-        if (LDPUMA_Skip(Image->hDebugCancelRemoveLines)) {
-            puchar pDIB = NULL;
-
-            rc = RemoveLines(Image, &pDIB);
-
-            if (rc) {
-                *Image->pgpRecogDIB = pDIB;
-                LDPUMA_CreateWindow(NAME_IMAGE_DELLINE, *Image->pgpRecogDIB);
-            }
-        }
-        else
-            LDPUMA_Console("Пропущен этап снятия линий.\n");
-    }
-
-    return rc;
-}
-
 Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
     Handle hccom = *Image->phCCOM;
     Handle hcpage = Image->hCPAGE;
