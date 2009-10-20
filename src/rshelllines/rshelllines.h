@@ -55,27 +55,13 @@
  */
 
 // RShellLines.h: interface for the ShellLine's functions.
-//
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-//
 //	Description: ShellLine's functions definition
-//
 //	Implemented: by B.M. Shahverdiev
-//
-//
 
-#include "globus.h"
+#ifndef RSHELLLINES_H_
+#define RSHELLLINES_H_
+
 #include "point.h"
-
-#ifdef __RSHELLLINES_EXPORTS__
-#define RSHELLLINES_FUNC  FUN_EXPO
-#define RSHELLLINES_CLASS CLASS_EXPO
-#else
-#define RSHELLLINES_FUNC  FUN_IMPO
-#define RSHELLLINES_CLASS CLASS_IMPO
-#endif
 
 #define step             8
 #define SizeWhitePicsels 1
@@ -97,8 +83,7 @@ void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image
         Handle* HndMyWindow); //
 void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, CIF::Rect* rect); //
 Bool
-        GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
-                Bool FlagVerticalLine); //
+GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster, Bool FlagVerticalLine); //
 void FillingStripes(CLINE_handle line, int y, int16_t Count, uint16_t* pIntervals,
         Bool FlagVerticalLine, DLine* pCLine); //
 void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine); //
@@ -130,26 +115,21 @@ EXTERN Handle hDebugDrowPolynomia VAL( NULL );
 EXTERN Handle hDebugDrowRectForRaster VAL( NULL );
 EXTERN Handle hDebugDrowCleanedRaster VAL( NULL );
 EXTERN Handle hDebugDrowGetCorrectedLineStripesIntervals VAL( NULL );
-//EXTERN Handle hDebugDrowFriendLines                        VAL( NULL );
-//EXTERN Handle hDebugDrowGroupOfExtensibleLines             VAL( NULL );
 EXTERN Handle hDebugDroweparationPoints VAL( NULL );
-//EXTERN Handle hDebugDrawLosedVerticalLines                 VAL( NULL );
 EXTERN Handle hDebugDrowVerticalLineRaster VAL( NULL );
 EXTERN Handle hDebugDrowVerticalLineStripesIntervals VAL( NULL );
 EXTERN Handle hDebugDrowVerticalLineCutPoints VAL( NULL );
 EXTERN Handle hDebugTypeIntervals VAL( NULL );
 EXTERN Handle hDebugTypeStripe VAL( NULL );
 EXTERN Handle hDebugDrawLineFragments VAL( NULL );
-//EXTERN Handle hDebugDrawAllLineFragments                   VAL( NULL );
 EXTERN Handle hDebugDrawLineFragmentsOwnWindow VAL( NULL );
 EXTERN Handle hDebugAttr VAL( NULL );
 EXTERN Handle hDebugAttrOwner VAL( NULL );
 EXTERN Handle hDebugTypeWidth VAL( NULL );
 EXTERN Handle hDebugTypeDegree VAL( NULL );
-//EXTERN Handle hDebugDrowPass3                              VAL( NULL );
-//EXTERN Handle hDebugDrowTableZone                          VAL( NULL );
 EXTERN Handle hDebugProfileRSL VAL( NULL );
-//EXTERN Handle hDebugProfStart	      	        		   VAL( NULL );
 EXTERN Handle hDebugProfFindLineFrag VAL( NULL );
 EXTERN Handle hDebugProfEndFindLineFrag VAL( NULL );
 EXTERN Handle hDebugProfSL_GetRaster VAL( NULL );
+
+#endif
