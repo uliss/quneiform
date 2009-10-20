@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cassert>
+
 #include "rsl.h"
 #include "rstuff/rstuff.h"
 #include "cpage/cpage.h"
@@ -39,6 +41,8 @@ Rsl::~Rsl() {
 }
 
 void Rsl::aboutLines() {
+    assert(image_);
+
     UN_BUFF MainBuff;
     AutoBuffer<char> Buffer(RSL_AboutLines_SizeMyBuff);
     AutoBuffer<char> WorkMem(RSL_AboutLines_SizeWorkMem);
@@ -79,6 +83,8 @@ void Rsl::setImage(RSPreProcessImage& image) {
 }
 
 void Rsl::verifyNormalization() {
+    assert(image_);
+
     if (!(*image_->pgrc_line))
         return;
 

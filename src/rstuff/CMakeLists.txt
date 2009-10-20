@@ -1,6 +1,5 @@
 add_library(rstuff ${LIBTYPE}
 ${SNP_SRC}
-aboutlines.aboutlin.cpp
 aboutlines.buffer.cpp
 deletelines.cpp
 dll.cpp

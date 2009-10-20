@@ -26,7 +26,7 @@ namespace CIF {
 
 template<class T>
 struct InitNone {
-	static void init(void * mem, size_t size) {
+	static void init(void *, size_t) {
 	}
 };
 

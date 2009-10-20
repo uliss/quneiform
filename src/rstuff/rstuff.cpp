@@ -655,22 +655,4 @@ void RStuff::setImageData(RSPreProcessImage& data) {
     image_ = &data;
 }
 
-void RStuff::verifyNormalization() {
-    if (!(*image_->pgrc_line))
-        return;
-
-    int val = image_->gnTables ? RVL_FutuTablCorr : RVL_Default;
-
-    if (!RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines, &val)
-            || !RVERLINE_MarkLines(*image_->phCCOM, image_->hCPAGE))
-        throw RStuffException("RStuff::verifyNormalization failed");
-
-    Bool32 BadScan = FALSE;
-    int32_t ScanQual = 0;
-    AboutLines(image_, &BadScan, &ScanQual);
-
-    if (!(*image_->pgneed_clean_line))
-        Debug() << "Warning: RSTUFF said that line clean is unneeded\n";
-}
-
 }

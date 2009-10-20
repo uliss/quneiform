@@ -127,7 +127,6 @@ public:
     void normalize();
     void removeLines();
     void setImageData(RSPreProcessImage& data);
-    void verifyNormalization();
 private:
     void calcIncline();
     void checkResolution();

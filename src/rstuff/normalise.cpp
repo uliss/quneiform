@@ -120,10 +120,6 @@ extern Handle hDebugPrintResolution;
 
 Bool32 AutoTemplate(PRSPreProcessImage);
 
-Bool32 VerifyN(PRSPreProcessImage Image) {
-    return VerifyLines(Image);
-}
-
 // Выделение компонент
 Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name,
         PRSPreProcessImage Image) {
@@ -182,40 +178,6 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name
     }
     if (rc)
         SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
-    return rc;
-}
-
-Bool32 VerifyLines(PRSPreProcessImage Image) {
-    Bool32 rc = TRUE;
-
-#ifdef _USE_RVERLINE_
-    if( *Image->pgrc_line )
-    {
-        if(LDPUMA_Skip(Image->hDebugCancelVerifyLines))
-        {
-            Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr:RVL_Default;
-
-            if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
-                    !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
-            {
-                SetReturnCode_rstuff(RVERLINE_GetReturnCode());
-                rc = FALSE;
-            }
-            else
-            {
-                Bool32 BadScan = FALSE;
-                int32_t ScanQual= 0;
-                //				RVERLINE_AboutLines(Image->hCPAGE,*Image->phCCOM, Image->pgneed_clean_line, &BadScan, &ScanQual);			}
-                AboutLines(Image, &BadScan, &ScanQual);
-            }
-
-            if(!*Image->pgneed_clean_line)
-            LDPUMA_Console("Предупреждение: RSTUFF говорит, что снимать линии не надо.\n");
-        }
-        else
-        LDPUMA_Console("Пропущен этап оценки линий.\n");
-    }
-#endif //_USE_RVERLINE_
     return rc;
 }
 
