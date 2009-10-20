@@ -68,7 +68,7 @@
 #include "cpage/cpage.h"
 #include "cimage/ctiimage.h"
 
-#include "rshelllinescom.h"
+#include "rshelllines/rshelllinescom.h"
 #include "rline.h"
 
 #include "dpuma.h"

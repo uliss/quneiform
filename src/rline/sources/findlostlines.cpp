@@ -61,7 +61,7 @@
 #include <cstdlib>
 #include <string.h>
 #include "stdafx.h"
-#include "rshelllinescom.h"
+#include "rshelllines/rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"

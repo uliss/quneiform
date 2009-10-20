@@ -67,7 +67,7 @@
 #include "lns32/lns.h"
 #include "dpuma.h"
 #include "linedefs.h"
-#include "rshelllinescom.h"
+#include "rshelllines/rshelllinescom.h"
 
 /// BogDmitry
 #include "rsl.h"
