@@ -129,7 +129,9 @@ public:
     void setImageData(RSPreProcessImage& data);
     void verifyNormalization();
 private:
+    void calcIncline();
     void checkResolution();
+    void createContainerBigComp();
     void ortoMove();
     void preProcessImage();
     void searchLines();

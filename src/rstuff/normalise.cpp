@@ -96,9 +96,6 @@
 
 using namespace CIF;
 
-const int MIN_BIG_H = 30;
-const int MIN_BIG_W = 30;
-# define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")
 struct BIG_IMAGE
 {
     CCOM_handle hCCOM;
@@ -131,7 +128,6 @@ extern Handle hWndTurn;
 extern Handle hDebugPrintResolution;
 
 Bool32 AutoTemplate(PRSPreProcessImage);
-void checkResolution(Handle hCCOM, Handle hCPAGE);
 
 Bool32 VerifyN(PRSPreProcessImage Image) {
     return VerifyLines(Image);
@@ -154,49 +150,6 @@ Bool32 SearchNewLines(PRSPreProcessImage Image) {
     CPAGE_DeleteBlock(Image->hCPAGE, hSaveImage);
 
     return ret;
-}
-
-Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
-    CCOM_handle hCCOM_old = (CCOM_handle) (*(Image->phCCOM));
-    Handle hCPage = Image->hCPAGE;
-    CCOM_handle hCCOM_new = 0;
-    BIG_IMAGE big_Image;
-    PAGEINFO info = { 0 };
-    GetPageInfo(hCPage, &info);
-    int i = 0;
-
-    for (i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
-
-    hCCOM_new = CCOM_CreateContainer();
-    if (!hCCOM_new) {
-        big_Image.hCCOM = NULL;
-        return TRUE;
-    }
-
-    CCOM_comp* comp = NULL;
-    CCOM_comp* new_comp;
-    comp = CCOM_GetFirst(hCCOM_old, FALSE);
-
-    while (comp) {
-        if ((comp->h >= MIN_BIG_H) && (comp->w >= MIN_BIG_W)) {
-            new_comp = CCOM_New(hCCOM_new, comp->upper, comp->left, comp->w, comp->h);
-            if (new_comp) {
-                if (comp->size_linerep < 0)
-                    ;
-                else {
-                    if (!CCOM_Copy(new_comp, comp))
-                        CCOM_Delete(hCCOM_new, comp);
-                }
-            }
-        }
-        comp = CCOM_GetNext(comp, FALSE);
-    }
-
-    big_Image.hCCOM = hCCOM_new;
-
-    CPAGE_CreateBlock(hCPage, TYPE_BIG_COMP, 0, 0, &big_Image, sizeof(BIG_IMAGE));
-    return TRUE;
 }
 
 // Выделение компонент
@@ -587,102 +540,5 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 //{
 //	return TRUE;
 //}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CalcIncline(PRSPreProcessImage Image) {
-    int SizeWork, SizeMain;
-    char Str[256];
-    Bool ret, WasLine, ManyComp;
-    Bool CalcMuchSkew, TalkMuchSkew;
-    uint16_t Code;
-    int32_t SkewReg, Skew, SkewLocVerLin;
-    Rect16 RcReg;
-    PAGEINFO info = { 0 };
-    UN_BUFF MainBuff = { 0 };
-    void *vMain;
-    char *cWork;
-    Handle hCPage = Image->hCPAGE;
-    CLINE_handle hCLINE = *((CLINE_handle*) Image->phCLINE);
 
-    GetPageInfo(hCPage, &info);
-
-    /*  2. Инициализация.  */
-    /***  переменные  ***/
-    WasLine = 0;
-    /***  организация памяти  ***/
-    GiveMainBuff(&vMain, &SizeMain);
-    MainBuff.vBuff = vMain;
-    MainBuff.SizeBuff = SizeMain;
-    MainBuff.vCurr = MainBuff.vBuff;
-    MainBuff.SizeCurr = MainBuff.SizeBuff;
-    GiveWorkBuff(&cWork, &SizeWork);
-    /***  линии  ***/
-    //	if(!LDPUMA_Skip(hUseCLine))
-    ret = LoadLinesVP_rv(hCLINE, UN_LD_LinesVP2, &MainBuff, Str, &Code);
-    //	else
-    //	    ret = LoadLinesVP_rv (hCPage, UN_LD_LinesVP, (void *)(&MainBuff), Str, &Code);
-    if ((ret != RV_TRUE) && (ret != RV_EMPTY)) {
-        SetReturnCode_rstuff(Code);
-        return ret;
-    }
-    WasLine = (ret == RV_TRUE);
-    /***  компоненты  ***/
-    ret = LoadComps_rv(*(Image->phCCOM), (void *) (&MainBuff), Str, 0); //t-e-d
-    if (ret == RV_DOUBT) {
-        SetReturnCode_rstuff(Code);
-        CleanLastDataPart((void *) (&MainBuff));
-    }
-    ManyComp = (ret == RV_TRUE) && (MainBuff.nPartUnits[MainBuff.nPart - 1] > 10000);
-    if (ManyComp) {
-        CleanLastDataPart((void *) (&MainBuff));
-    }
-    if (ret == RV_DOUBT || ManyComp) {
-        ret = LoadComps_rv(*(Image->phCCOM), (void *) (&MainBuff), Str, 3); //t-e-d
-        if (ret == RV_DOUBT) {
-            SetReturnCode_rstuff(Code);
-            CleanLastDataPart((void *) (&MainBuff));
-        }
-    }
-    if (ret != RV_TRUE) {
-        return ret;
-    }
-
-    RcReg.rleft() = 0;
-    RcReg.rright() = (int16_t) info.Width;
-    RcReg.rtop() = 0;
-    RcReg.rbottom() = (int16_t) info.Height;
-    SkewReg = 0;
-    Bool ContWarn = 0;
-    SkewLocVerLin = 0;
-    CalcMuchSkew = (!LDPUMA_Skip(hCalcMuchSkew));
-    TalkMuchSkew = (!LDPUMA_Skip(hTalkMuchSkew));
-
-    //  5.1 Определяем угол наклона страницы (ее заполнения в целом).
-    //	if(!LDPUMA_Skip(hUseCLine))
-    ret = ConvertLinesToAM_rv(UN_LD_LinesVP2, UN_LD_LinesAM, (void *) (&MainBuff), (int *) cWork,
-            SizeWork / sizeof(int), &RcReg, SkewReg, Str, ContWarn);
-    //	else
-    //		ret = ConvertLinesToAM_rv (UN_LD_LinesVP, UN_LD_LinesAM, (void *)(&MainBuff)
-    //			,(int *)cWork, SizeWork / sizeof (int), &RcReg, SkewReg, Str, ContWarn); // f-t-e-d
-    if (ret == RV_DOUBT) {
-        SetReturnCode_rstuff(Code);
-    }
-    if (ret != RV_TRUE)
-        return ret;
-
-    SMetric_SetImportData(SMetric_ResolX, (void *) info.DPIX);
-    SMetric_SetImportData(SMetric_ResolY, (void *) info.DPIY);
-    ret = SMetric_FindMainSkew((void *) (&MainBuff), cWork, SizeWork, &Skew, &SkewLocVerLin,
-            &RcReg, SkewReg, Str, CalcMuchSkew, TalkMuchSkew);
-    if (ret != RV_TRUE)
-        return ret;
-    info.Incline2048 = Skew * 2;
-    info.SkewLocVerLin2048 = SkewLocVerLin * 2;
-    if (!CPAGE_SetPageData(Image->hCPAGE, PT_PAGEINFO, &info, sizeof(PAGEINFO))) {
-        SetReturnCode_rstuff(CPAGE_GetReturnCode());
-        return FALSE;
-    }
-
-    return TRUE;
-}
 

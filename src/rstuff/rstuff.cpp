@@ -67,6 +67,11 @@
 #include "ctdib.h"
 #include "cline.h"
 #include "compat_defs.h"
+#include "un_buff.h"
+#include "line_vp_util.h"
+#include "line_vp_2_am.h"
+#include "markdataoper.h"
+#include "un_err.h"
 
 #include "common/debug.h"
 #include "cifconfig.h"
@@ -149,6 +154,84 @@ void RStuff::cleanImage(uchar* pmasp, int bytewide, int num_str, int wide) {
     }
 }
 
+void RStuff::calcIncline() {
+    char Str[256];
+    Bool ret, ManyComp;
+    uint16_t Code;
+    int32_t SkewReg, Skew, SkewLocVerLin;
+    Rect16 RcReg;
+    PAGEINFO info;
+    UN_BUFF MainBuff = { 0 };
+    Handle hCPage = image_->hCPAGE;
+    CLINE_handle hCLINE = *((CLINE_handle*) image_->phCLINE);
+
+    GetPageInfo(hCPage, &info);
+
+    /*  2. Инициализация.  */
+    /***  переменные  ***/
+    bool WasLine = false;
+    /***  организация памяти  ***/
+    MainBuff.vBuff = main_buffer_.begin();
+    MainBuff.SizeBuff = MainBufferSize;
+    MainBuff.vCurr = MainBuff.vBuff;
+    MainBuff.SizeCurr = MainBuff.SizeBuff;
+    /***  линии  ***/
+    ret = LoadLinesVP_rv(hCLINE, UN_LD_LinesVP2, &MainBuff, Str, &Code);
+    if ((ret != RV_TRUE) && (ret != RV_EMPTY))
+        throw RStuffException("LoadLinesVP_rv failed");
+
+    WasLine = (ret == RV_TRUE);
+    /***  компоненты  ***/
+    ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 0); //t-e-d
+    if (ret == RV_DOUBT) {
+        SetReturnCode_rstuff(Code);
+        CleanLastDataPart((void *) (&MainBuff));
+    }
+    ManyComp = (ret == RV_TRUE) && (MainBuff.nPartUnits[MainBuff.nPart - 1] > 10000);
+    if (ManyComp) {
+        CleanLastDataPart((void *) (&MainBuff));
+    }
+
+    if (ret == RV_DOUBT || ManyComp) {
+        ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 3); //t-e-d
+        if (ret == RV_DOUBT) {
+            SetReturnCode_rstuff(Code);
+            CleanLastDataPart((void *) (&MainBuff));
+        }
+    }
+
+    if (ret != RV_TRUE)
+        throw RStuffException("RStuff::calcIncline()  failed", ret);
+
+    RcReg.rleft() = 0;
+    RcReg.rright() = (int16_t) info.Width;
+    RcReg.rtop() = 0;
+    RcReg.rbottom() = (int16_t) info.Height;
+    SkewReg = 0;
+    Bool ContWarn = 0;
+    SkewLocVerLin = 0;
+
+    //  5.1 Определяем угол наклона страницы (ее заполнения в целом).
+    ret = ConvertLinesToAM_rv(UN_LD_LinesVP2, UN_LD_LinesAM, (void *) (&MainBuff),
+            (int *) work_buffer_.begin(), WorkBufferSize / sizeof(int), &RcReg, SkewReg, Str,
+            ContWarn);
+    if (ret == RV_DOUBT)
+        SetReturnCode_rstuff(Code);
+    if (ret != RV_TRUE)
+        throw RStuffException("RStuff::calcIncline()  failed", ret);
+
+    SMetric_SetImportData(SMetric_ResolX, (void *) info.DPIX);
+    SMetric_SetImportData(SMetric_ResolY, (void *) info.DPIY);
+    ret = SMetric_FindMainSkew((void *) (&MainBuff), (char*) work_buffer_.begin(), WorkBufferSize,
+            &Skew, &SkewLocVerLin, &RcReg, SkewReg, Str, FALSE, FALSE);
+    if (ret != RV_TRUE)
+        throw RStuffException("RStuff::calcIncline()  failed", ret);
+    info.Incline2048 = Skew * 2;
+    info.SkewLocVerLin2048 = SkewLocVerLin * 2;
+    if (!CPAGE_SetPageData(image_->hCPAGE, PT_PAGEINFO, &info, sizeof(PAGEINFO)))
+        throw RStuffException("CPAGE_SetPageData failed");
+}
+
 void RStuff::checkResolution() {
     PAGEINFO page_info;
     const unsigned int min_res = 99;
@@ -216,6 +299,54 @@ void RStuff::checkResolution() {
             Debug() << "New resolution: DPIX=" << page_info.DPIX << ", DPIY=" << page_info.DPIY
                     << "\n";
     }
+}
+
+struct BIG_IMAGE
+{
+    CCOM_handle hCCOM;
+    uchar ImageName[CPAGE_MAXNAME];
+};
+
+void RStuff::createContainerBigComp() {
+    const int MIN_BIG_H = 30;
+    const int MIN_BIG_W = 30;
+
+    CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
+    Handle hCPage = image_->hCPAGE;
+    CCOM_handle hCCOM_new = 0;
+    BIG_IMAGE big_Image;
+    PAGEINFO info;
+    GetPageInfo(hCPage, &info);
+
+    for (int i = 0; i < CPAGE_MAXNAME; i++)
+        big_Image.ImageName[i] = info.szImageName[i];
+
+    hCCOM_new = CCOM_CreateContainer();
+    if (!hCCOM_new) {
+        big_Image.hCCOM = NULL;
+        return;
+    }
+
+    CCOM_comp* comp = NULL;
+    CCOM_comp* new_comp;
+    comp = CCOM_GetFirst(hCCOM_old, FALSE);
+
+    while (comp) {
+        if ((comp->h >= MIN_BIG_H) && (comp->w >= MIN_BIG_W)) {
+            new_comp = CCOM_New(hCCOM_new, comp->upper, comp->left, comp->w, comp->h);
+            if (new_comp) {
+                if (comp->size_linerep < 0)
+                    ;
+                else if (!CCOM_Copy(new_comp, comp))
+                    CCOM_Delete(hCCOM_new, comp);
+            }
+        }
+        comp = CCOM_GetNext(comp, FALSE);
+    }
+
+    big_Image.hCCOM = hCCOM_new;
+    CPAGE_CreateBlock(hCPage, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
+            sizeof(BIG_IMAGE));
 }
 
 void RStuff::copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int oldbytewide,
@@ -320,9 +451,9 @@ void RStuff::layout() {
 void RStuff::normalize() {
     preProcessImage();
     searchLines();
-    CalcIncline(image_);
+    calcIncline();
     ortoMove();
-    CreateContainerBigComp(image_);
+    createContainerBigComp();
     SearchNewLines(image_);
     KillLines(image_);
     // убиваем остатки линии после сняти
@@ -366,12 +497,6 @@ void RStuff::ortoMove() {
 
     std::auto_ptr<CTDIB> newdib(new CTDIB);
     int newwide = oldwide + max_move;
-    lpDIB = NULL;
-    //    if (!(newdib->SetExternals(&MyMemAlloc, &MyMemDelete, &MyMemLock, &MyMemUnLock))) {
-    //        olddib->ResetDIB();
-    //        return;
-    //    }
-
     lpDIB = newdib->CreateDIBBegin(newwide, num_str, info.BitPerPixel);
     if (!lpDIB) {
         olddib->ResetDIB();
@@ -419,8 +544,7 @@ void RStuff::ortoMove() {
         CLINE_Reset();
         searchLines();
         //найдём угол наклона
-        if (!CalcIncline(image_))
-            throw RStuffException("");
+        calcIncline();
     }
     else {
         olddib->ResetDIB();
