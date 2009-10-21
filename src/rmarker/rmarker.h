@@ -146,6 +146,8 @@ public:
     void pageMarkup();
     void setImageData(RMPreProcessImage& image);
 private:
+    void shortVerticalLinesProcess();
+private:
     RMPreProcessImage * image_;
 };
 
