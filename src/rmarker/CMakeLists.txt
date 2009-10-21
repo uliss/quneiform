@@ -3,7 +3,6 @@ ${SNP_SRC}
 bigimage.cpp
 linesbuffer.cpp
 rmarker.cpp
-shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp
 ../usage/line_am_util.cpp
 ../usage/line_vp_2_am.cpp

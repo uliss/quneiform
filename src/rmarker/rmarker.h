@@ -124,13 +124,17 @@ public:
     void pageMarkup();
     void setImageData(RMPreProcessImage& image);
 private:
+    void readSVLFromPageContainer(LinesTotalInfo * LTInfo);
     void searchNeg(const BigImage& big_image);
     void searchPictures(const BigImage& big_image);
     void shortVerticalLinesProcessPass1();
     void shortVerticalLinesProcessPass2();
+    void svlComponentFilter(LineInfo * Line);
+    void svlFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB);
 private:
     RMPreProcessImage * image_;
     LinesBuffer buffer_;
+    LinesTotalInfo * lines_total_info_;
 };
 
 typedef RuntimeExceptionImpl<RMarker> RMarkerException;

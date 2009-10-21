@@ -48,8 +48,8 @@ template<class T, class NormalizeChecker = RectCheckNone>
 class RectImpl
 {
 public:
-    RectImpl(const PointImpl<T>& pt, T height, T width) :
-        pt0_(pt), pt1_(pt + PointImpl<T> (height, width)) {
+    RectImpl(const PointImpl<T>& pt, T width, T height) :
+        pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
         NormalizeChecker::check(*this);
     }
 
@@ -120,9 +120,8 @@ public:
     }
 
     RectImpl intersected(const RectImpl& r) {
-        return RectImpl(PointImpl<T> (), PointImpl<T> ());
         return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
-                PointImpl<T> (std::max(bottom(), r.bottom()), std::max(right(), r.right())));
+                PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
     }
 
     bool isPositive() const {

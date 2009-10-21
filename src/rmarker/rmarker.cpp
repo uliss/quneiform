@@ -55,11 +55,14 @@
  */
 
 #include <cassert>
+#include <cstring>
 
+#include "cifconfig.h"
+#include "common/debug.h"
+#include "rmarker.h"
 #include "dpuma.h"
 #include "linesbuffer.h"
 #include "rblock.h"
-#include "markpage.h"
 #include "rmfunc.h"
 #include "rpic.h"
 #include "un_buff.h"
@@ -82,36 +85,34 @@ namespace CIF {
 using namespace CFIO;
 
 void MySetNegative(void *vB, Handle hCPage) {
-    int i, Ind, nRc;
-    Bool WasNegTabl;
-    Rect16 *pRc;
-    POLY_ block = { 0 };
-    UN_BUFF *pB;
-    pB = (UN_BUFF *) vB;
-    Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
-    WasNegTabl = (Ind >= 0);
-    if (WasNegTabl) {
-        nRc = pB->nPartUnits[Ind];
-        pRc = (Rect16*) pB->vPart[Ind];
-        for (i = 0; i < nRc; i++) {
-            block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
-            block.com.count = 4;
-            block.com.Flags |= POS_NEGTABCAP;
-            block.com.Vertex[0].rx() = pRc[i].left();
-            block.com.Vertex[0].ry() = pRc[i].top();
-            block.com.Vertex[1].rx() = pRc[i].right();
-            block.com.Vertex[1].ry() = pRc[i].top();
-            block.com.Vertex[2].rx() = pRc[i].right();
-            block.com.Vertex[2].ry() = pRc[i].bottom();
-            block.com.Vertex[3].rx() = pRc[i].left();
-            block.com.Vertex[3].ry() = pRc[i].bottom();
-            CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
-        }
+    int Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
+    if (Ind < 0)
+        return;
+
+    POLY_ block;
+    memset(&block, 0, sizeof(block));
+    UN_BUFF *pB = static_cast<UN_BUFF*> (vB);
+    int nRc = pB->nPartUnits[Ind];
+    Rect16 * pRc = (Rect16*) pB->vPart[Ind];
+    for (int i = 0; i < nRc; i++) {
+        block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
+        block.com.count = 4;
+        block.com.Flags |= POS_NEGTABCAP;
+        block.com.Vertex[0].rx() = pRc[i].left();
+        block.com.Vertex[0].ry() = pRc[i].top();
+        block.com.Vertex[1].rx() = pRc[i].right();
+        block.com.Vertex[1].ry() = pRc[i].top();
+        block.com.Vertex[2].rx() = pRc[i].right();
+        block.com.Vertex[2].ry() = pRc[i].bottom();
+        block.com.Vertex[3].rx() = pRc[i].left();
+        block.com.Vertex[3].ry() = pRc[i].bottom();
+        CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
     }
+
 }
 
 RMarker::RMarker() :
-    image_(NULL) {
+    image_(NULL), lines_total_info_(NULL) {
     RNEG_Init(0, NULL);
 }
 
@@ -165,6 +166,47 @@ void RMarker::pageMarkup() {
     }
 }
 
+void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
+    assert(LTInfo);
+    LTInfo->Hor.Cnt = 0;
+    LTInfo->Ver.Cnt = 0;
+
+    int count = 0;
+    CLINE_handle hline = CLINE_GetFirstLine(image_->hCLINE);
+    while (hline) {
+        CPDLine cpdata = CLINE_GetLineData(hline);
+        if (!cpdata)
+            hline = CLINE_GetNextLine(hline);
+        else {
+            if (count >= PUMAMaxNumLines)
+                break;
+            count++;
+            if (cpdata->Dir == LD_Horiz && LTInfo->Hor.Lns) {
+                int num = LTInfo->Hor.Cnt;
+                LTInfo->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
+                LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+                LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
+                LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
+                LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
+                LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
+                (LTInfo->Hor.Cnt)++;
+            }
+            else if (LTInfo->Ver.Lns) {
+                int num = LTInfo->Ver.Cnt;
+                LTInfo->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
+                LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+                LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
+                LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
+                LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
+                LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
+                (LTInfo->Ver.Cnt)++;
+            }
+
+            hline = CLINE_GetNextLine(hline);
+        }
+    }
+}
+
 void RMarker::searchNeg(const BigImage& big_image) {
     RNEG_RecogNeg(big_image.ccom(), image_->hCPAGE, big_image.imageName(), big_image.incline());
 }
@@ -191,8 +233,7 @@ void RMarker::shortVerticalLinesProcessPass1() {
                 (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
                 "SVL step I lines pool");
 
-    if (!ReadSVLFromPageContainer(buffer_.LineInfoA, image_))
-        throw RMarkerException("ReadSVLFromPageContainer failed");
+    readSVLFromPageContainer(buffer_.LineInfoB);
 }
 
 void RMarker::shortVerticalLinesProcessPass2() {
@@ -204,12 +245,101 @@ void RMarker::shortVerticalLinesProcessPass2() {
                 (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
                 "SVL step II lines pool");
 
-    if (!ReadSVLFromPageContainer(buffer_.LineInfoB, image_))
-        throw RMarkerException("ReadSVLFromPageContainer failed");
+    readSVLFromPageContainer(buffer_.LineInfoB);
 
     // обработка и удаление тут
-    if (!SVLFilter(buffer_.LineInfoA, buffer_.LineInfoB, image_))
-        throw RMarkerException("SVLFilter failed");
+    svlFilter(buffer_.LineInfoA, buffer_.LineInfoB);
+}
+
+void RMarker::svlComponentFilter(LineInfo *Line) {
+    assert(Line);
+
+    Rect16 Rl(Line->A, Line->B);
+    int nRc = 0;
+    int Thick = Line->Thickness / 2;
+    Bool32 bDieComponent = FALSE;
+
+    if (Rl.left() <= Rl.right()) {
+        Rl.rleft() -= Thick;
+        Rl.rright() += Thick;
+    }
+    else {
+        Rl.rleft() += Thick;
+        Rl.rright() -= Thick;
+    }
+
+    CCOM_comp * pcomp = CCOM_GetFirst(image_->hCCOM, NULL);
+    do {
+        Rect16 Rc(Point16(pcomp->left, pcomp->upper), pcomp->w - 1, pcomp->h - 1);
+        nRc++;
+
+        if (Rl.intersects(Rc)) {
+            if (image_->gKillVSLComponents) {
+                CCOM_comp * pdeadcom = pcomp;
+                pcomp = CCOM_GetNext(pcomp, NULL);
+                bDieComponent = CCOM_Delete(image_->hCCOM, pdeadcom);
+            }
+
+            if (Config::instance().debugHigh()) {
+                fprintf(stderr, "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >",
+                        Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
+
+                if (bDieComponent)
+                    fprintf(stderr, " +dead+");
+
+                fprintf(stderr, "\n");
+                bDieComponent = FALSE;
+            }
+        }
+
+        if (!bDieComponent)
+            pcomp = CCOM_GetNext(pcomp, NULL);
+        else
+            // Almi 18.09.00
+            bDieComponent = FALSE;
+
+    }
+    while (pcomp != NULL);
+}
+
+void RMarker::svlFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB) {
+    assert(LtiA);
+    assert(LtiB);
+
+    uint SVLCount = 0;
+    uint LinesTotalA = LtiA->Ver.Cnt;
+    uint LinesTotalB = LtiB->Ver.Cnt;
+
+    if (Config::instance().debugHigh())
+        Debug() << "VSL: before table search - " << LinesTotalA << ", after -" << LinesTotalB
+                << "\n";
+
+    for (uint i = 0; i < LinesTotalB; i++) {
+        if (LtiB->Ver.Lns[i].Flags == LtiA->Ver.Lns[i].Flags)
+            continue;
+
+        if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
+            if (Config::instance().debugHigh()) {
+                fprintf(
+                        stderr,
+                        "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x - delete\n",
+                        LtiB->Ver.Lns[i].A.x(), LtiA->Ver.Lns[i].A.y(), LtiB->Ver.Lns[i].B.x(),
+                        LtiB->Ver.Lns[i].B.y(), LtiB->Ver.Lns[i].Thickness, LtiA->Ver.Lns[i].Flags,
+                        LtiB->Ver.Lns[i].Flags);
+            }
+
+            svlComponentFilter(&LtiB->Ver.Lns[i]);
+            SVLCount++;
+        }
+
+    }
+
+    if (Config::instance().debugHigh()) {
+        if (SVLCount == 0)
+            Debug() << "VSL: Нужных изменений не найдено\n";
+        else
+            Debug() << "VSL: Найдено " << SVLCount << " линий.\n";
+    }
 }
 
 }
