@@ -151,10 +151,6 @@ Bool32 RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer) {
     return TRUE;
 }
 
-int SL_IsInPoly(Point* a, CLINE_SL_POLY* p) {
-    return 0;
-}
-
 Bool SL_IsPointInAB(Point *P, Point *A, Point *B) {
     return FALSE;
 }
