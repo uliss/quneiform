@@ -54,11 +54,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <fstream>
+#include <cassert>
+
 #define _RMARKER_CPP
 
-#include <fstream>
+#include "dpuma.h"
+#include "rblock.h"
 #include "markpage.h"
 #include "rmfunc.h"
+#include "rpic.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
 #include "line_vp_2_am.h"

@@ -66,6 +66,7 @@
 
 #include "lns32/lnsdefs.h"
 #include "rect.h"
+#include "ccom/ccomdefs.h"
 
 typedef struct tagPUMALinesBuffer
 {

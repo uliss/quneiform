@@ -2,7 +2,6 @@ add_library(rmarker ${LIBTYPE}
 ${SNP_SRC}
 dll.cpp
 rmarker.cpp
-rmarkermem.cpp
 rmtimer.cpp
 shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp

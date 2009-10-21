@@ -68,6 +68,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "ccom/ccom.h"
+#include "dpuma.h"
 #include "markpage.h"
 #include "linedefs.h"
 #include "cline.h"
@@ -140,7 +142,7 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image) {
     }
 
     if (bRet == FALSE) {
-        SetReturnCode_rmarker(IDS_ERR_INITIATED_BY_ALLEX);
+        SetReturnCode_rmarker(3000);
     }
 
     return bRet;

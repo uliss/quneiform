@@ -55,33 +55,9 @@
  */
 #ifndef __MARK_PAGE_H__
 #define __MARK_PAGE_H__
-
 #include "rmarker.h"
-#include "dpuma.h"
-#include "puma/pumadef.h"
-#include "mymem.h"
-#include "ccom/ccom.h"
-#include "ced.h"
-#include "cfio/cfio.h"
-#include "cpage/cpage.h"
-#include "criimage.h"
-#include "cstr/cstr.h"
-#include "cimage/ctiimage.h"
-#include "exc.h"
-#include "rblock.h"
-#include "rline.h"
-#include "rfrmt.h"
-#include "rout.h"
-#include "rpic.h"
-#include "rstr/rstr.h"
-#include "rstuff/rstuff.h"
-#include "rverline.h"
 #include "lns32/lnsdefs.h"
 #include "shortverticallinesfilter.h"
-#include "resource.h"
-#include "mymem.h"
-
-#define IDS_ERR_INITIATED_BY_ALLEX      2029
 #ifdef _RMARKER_CPP
 #define EXTERN
 #define VAL(a)		= a
@@ -95,7 +71,6 @@
 #define VAL2(a,b)
 #define VAL4(a,b,c,d)
 #endif
-
 EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
 EXTERN CIF::RMCBProgressPoints ProgressPoints VALM(NULL);
 EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
