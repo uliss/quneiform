@@ -73,6 +73,7 @@
 #include "rect.h"
 #include "memorybuffer.h"
 #include "puma/layoutoptions.h"
+#include "common/exception.h"
 
 #ifdef __RSTUFF__
 #define RSTUFF_FUNC  FUN_EXPO__
@@ -149,6 +150,8 @@ private:
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
     static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 };
+
+typedef RuntimeExceptionImpl<RStuff> RStuffException;
 
 struct RSCBProgressPoints
 {

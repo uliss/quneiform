@@ -93,7 +93,6 @@ union RCode
 };
 
 static RCode RC = { 0, 0 };
-static uint16_t wHighErrCode = 0;
 
 #define RESULT 2
 
@@ -144,6 +143,7 @@ bool RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
     case RSTUFF_FN_SetProgresspoints:
         return SetCBProgressPoints(pData);
     }
+    return true;
 }
 
 }
