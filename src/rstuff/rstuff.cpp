@@ -85,7 +85,8 @@ int move;
 FixedBuffer<unsigned char, RStuff::MainBufferSize> RStuff::main_buffer_;
 FixedBuffer<unsigned char, RStuff::WorkBufferSize> RStuff::work_buffer_;
 
-RStuff::RStuff() {
+RStuff::RStuff() :
+    image_(NULL) {
     gLTInfo = new LinesTotalInfo;
 
     if (!SMetric_Init(0xFFFF, 0))
