@@ -2,7 +2,6 @@ add_library(rmarker ${LIBTYPE}
 ${SNP_SRC}
 bigimage.cpp
 linesbuffer.cpp
-dll.cpp
 rmarker.cpp
 shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp
