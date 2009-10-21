@@ -54,43 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "cimage/ctiimage.h"
-#include "cpage/cpage.h"
-#include "lns32/lns.h"
-#include "rline.h"
-#include "dpuma.h"
-#include "ctdib.h"
 #include "rstuff.h"
-#include "rsfunc.h"
-#include "cfio/cfio.h"
-#include "puma/pumadef.h"
-#include "cline.h"
-
 #include "compat_defs.h"
 
 void MasCopy(uchar* oldpmasp, uchar* pmasp, int oldbytewide, int num_str) {
-	int j = oldbytewide * num_str;
-	for (int i = 0; i < j; i++)
-		oldpmasp[i] = pmasp[i];
+    int j = oldbytewide * num_str;
+    for (int i = 0; i < j; i++)
+        oldpmasp[i] = pmasp[i];
 }
 
-void* MyMemAlloc(uint32_t size) {
-	return malloc(size);
-}
-
-void MyMemDelete(void* mem) {
-	free(mem);
-}
-
-void * MyMemLock(void* mem) {
-	return mem;
-}
-
-void MyMemUnLock(void* mem) {
-	return;
-}
