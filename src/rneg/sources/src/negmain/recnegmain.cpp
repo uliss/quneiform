@@ -110,7 +110,7 @@ Bool dpRecOneLetter;
 
 NegImage* pNegImage;
 
-void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName, int skew) {
+void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, int skew) {
 
     MainWindowD = NULL;
     MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");

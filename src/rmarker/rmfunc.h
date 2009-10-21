@@ -63,20 +63,15 @@
 #include "ccom/ccomdefs.h"
 #include "cpage/cpage.h"
 
-typedef int Bool;
+namespace CIF {
+class BigImage;
+}
 
-# define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")
-struct BIG_IMAGE
-{
-    CCOM_handle hCCOM;
-    uchar ImageName[CPAGE_MAXNAME];
-};
+typedef int Bool;
 
 Bool32 SetCBProgressPoints(void *);
 uint32_t GetReturnCode_rmarker(void);
-Bool32 SearchPictures(CIF::PRMPreProcessImage, BIG_IMAGE);
-Bool32 SearchNeg(CIF::PRMPreProcessImage, BIG_IMAGE, int);
-Bool32 SearchFon(CIF::PRMPreProcessImage, BIG_IMAGE, int);
+Bool32 SearchFon(CIF::PRMPreProcessImage, const CIF::BigImage& img, int);
 void MySetNegative(void *vB, Handle hCPage);
 //
 #define DEC_CB_TYPE(a)  PF##a

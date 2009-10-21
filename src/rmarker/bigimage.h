@@ -19,11 +19,26 @@
 #ifndef BIGIMAGE_H_
 #define BIGIMAGE_H_
 
+#include "ccom/ccomdefs.h"
+#include "cpage/cpagetyps.h"
+
 namespace CIF {
 
 class BigImage
 {
+public:
+    BigImage(Handle CPage);
+    ~BigImage();
 
+    CCOM_handle ccom() const;
+    const char * imageName() const;
+    int incline() const;
+    void setCCOM(CCOM_handle ccom);
+    void setImageName(const char * name);
+private:
+    CCOM_handle ccom_;
+    char image_name_[CPAGE_MAXNAME];
+    int incline_;
 };
 }
 

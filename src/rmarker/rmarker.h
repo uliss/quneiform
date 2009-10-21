@@ -133,15 +133,10 @@ struct RMCBProgressPoints
 
 typedef RMCBProgressPoints * PRMCBProgressPoints;
 
-enum
-{
-    PUMA_SVL_FIRST_STEP = 0x1,
-    PUMA_SVL_SECOND_STEP = 0x2,
-    PUMA_SVL_THRID_STEP = 0x3
-};
-
 const int PUMAMaxNumLines = 2000;
 //Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+
+class BigImage;
 
 class RMarker
 {
@@ -151,6 +146,8 @@ public:
     void pageMarkup();
     void setImageData(RMPreProcessImage& image);
 private:
+    void searchNeg(const BigImage& big_image);
+    void searchPictures(const BigImage& big_image);
     void shortVerticalLinesProcessPass1();
     void shortVerticalLinesProcessPass2();
 private:

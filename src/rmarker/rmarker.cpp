@@ -76,6 +76,7 @@
 #include "rselstr.h"
 #include "rline.h"
 #include "cfio/cfio.h"
+#include "bigimage.h"
 
 #include "compat_defs.h"
 
@@ -121,35 +122,6 @@ void SetReturnCode_rmarker(uint32_t rc) {
 
 uint32_t GetReturnCode_rmarker(void) {
     return gwRC;
-}
-
-Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew) {
-    if (!LDPUMA_Skip(hDebugNeg))
-        return TRUE;
-
-    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
-    return TRUE;
-}
-
-Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image) {
-    Bool32 rc = TRUE;
-
-    if (!LDPUMA_Skip(hDebugPictures))
-        return TRUE;
-
-    //	rc = ProgressStep(1,/*GetResourceString(IDS_PRG_OPEN),*/10);
-
-    if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
-        if (Image->gnPictures) {
-            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
-                uint32_t RPicRetCode = RPIC_GetReturnCode();
-
-                SetReturnCode_rmarker(RPicRetCode);
-                rc = FALSE;
-            }
-        }
-    }
-    return rc;
 }
 
 int GetCountNumbers(int num) {
@@ -212,37 +184,22 @@ void RMarker::pageMarkup() {
 
     shortVerticalLinesProcessPass1();
 
-    Handle h = NULL;
-    BIG_IMAGE big_Image;
+    BigImage big_Image(image_->hCPAGE);
 
-    //default Image:
-    PAGEINFO info = { 0 };
-    GetPageInfo(image_->hCPAGE, &info);
-    for (int i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
-    big_Image.hCCOM = NULL;
-
-    h = CPAGE_GetBlockFirst(image_->hCPAGE, TYPE_BIG_COMP);
+    Handle h = CPAGE_GetBlockFirst(image_->hCPAGE, CPAGE_GetInternalType("TYPE_BIG_COMP"));
     if (h) {
-        CPAGE_GetBlockData(image_->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
+        CPAGE_GetBlockData(image_->hCPAGE, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
+                sizeof(BigImage));
         CPAGE_DeleteBlock(image_->hCPAGE, h);
     }
 
     //Поиск очевидных картинок
-    if (rc)
-        rc = SearchPictures(image_, big_Image);
-
+    searchPictures(big_Image);
     //Поиск негативов
-    if (rc)
-        rc = SearchNeg(image_, big_Image, info.Incline2048);
+    searchNeg(big_Image);
 
     //Третий проход по линиям
-    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
-            && LDPUMA_Skip(hDebugLinePass2)) {
-        if (rc)
-            RLINE_LinesPass3(image_->hCPAGE, image_->hCLINE, image_->hCCOM,
-                    (uchar) image_->gnLanguage);
-    }
+    RLINE_LinesPass3(image_->hCPAGE, image_->hCLINE, image_->hCCOM, (uchar) image_->gnLanguage);
 
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     shortVerticalLinesProcessPass2();
@@ -259,8 +216,7 @@ void RMarker::pageMarkup() {
     }
     else {
         if (rc) {
-            Bool32 bEnableSearchPicture;
-            bEnableSearchPicture = image_->gnPictures;
+            Bool32 bEnableSearchPicture = image_->gnPictures;
             RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
             RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
 
@@ -268,8 +224,19 @@ void RMarker::pageMarkup() {
                 throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
         }
     }
+}
 
-    CCOM_DeleteContainer(big_Image.hCCOM);
+void RMarker::searchNeg(const BigImage& big_image) {
+    RNEG_RecogNeg(big_image.ccom(), image_->hCPAGE, big_image.imageName(), big_image.incline());
+}
+
+void RMarker::searchPictures(const BigImage& big_image) {
+    assert(image_);
+    if (!image_->gnPictures)
+        return;
+
+    if (!RPIC_SearchPictures(image_->hCCOM, big_image.ccom(), image_->hCPAGE))
+        throw RMarkerException("RPIC_SearchPictures failed");
 }
 
 void RMarker::setImageData(RMPreProcessImage& image) {
