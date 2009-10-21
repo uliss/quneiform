@@ -92,9 +92,6 @@ RStuff::RStuff() {
         throw RStuffException("SMetric_Init failed");
     if (!RLINE_Init(0, 0))
         throw RStuffException("RLINE_Init failed");
-
-    SetMainBuff(main_buffer_.begin(), RStuff::MainBufferSize);
-    SetWorkBuff(work_buffer_.begin(), RStuff::WorkBufferSize);
 }
 
 RStuff::~RStuff() {

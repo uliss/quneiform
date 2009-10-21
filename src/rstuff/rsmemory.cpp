@@ -68,18 +68,13 @@
 // Для использования без CFIO.DLL
 // см файл RSDefines.h
 
-#include "resource.h"
+#include <string.h>
 #include "rsdefines.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
 
 #include "cfio/cfio.h"
 using namespace CIF::CFIO;
-
-uchar* Buffer = NULL;
-uchar* WorkMem = NULL;
-int BufferSize = 0;
-int WorkMemSize = 0;
 
 Bool32 InitCFIOInterface(Bool32 Status) {
     Bool32 bRet = TRUE;
@@ -92,35 +87,8 @@ Bool32 InitCFIOInterface(Bool32 Status) {
     return bRet;
 }
 
-char cCommentBuffer[CFIO_MAX_COMMENT];
-
 void RSTUFFComment(const char *Comment) {
+    static char CommentBuffer[CFIO_MAX_COMMENT];
     uint32_t Len = strlen(Comment);
-    strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1));
-}
-
-void GiveMainBuff(void **vvBuff, int *Size) {
-    *vvBuff = Buffer;
-    *Size = BufferSize;
-}
-void GiveWorkBuff(char **ccBuff, int *Size) {
-    *ccBuff = (char*) WorkMem;
-    *Size = WorkMemSize;
-}
-
-void SetMainBuff(void *vBuff, int Size) {
-    Buffer = (uchar*) vBuff;
-    BufferSize = Size;
-}
-
-void SetWorkBuff(void *vBuff, int Size) {
-    WorkMem = (uchar*) vBuff;
-    WorkMemSize = Size;
-}
-
-void ReSetMem() {
-    Buffer = NULL;
-    BufferSize = 0;
-    WorkMem = NULL;
-    WorkMemSize = 0;
+    strncpy(CommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1));
 }
