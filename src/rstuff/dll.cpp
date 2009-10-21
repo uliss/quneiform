@@ -68,7 +68,6 @@
 #include "resource.h"
 #include "rstuff.h"
 #include "rsfunc.h"
-#include "rsmemory.h"
 #include "dpuma.h"
 #include "smetric.h"
 

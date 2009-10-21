@@ -66,11 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                                                 */
 /*-------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
-/*#include <windows.h>*/
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include "rsdefines.h"
-#include "rsmemory.h"
 #include "rsfunc.h"
 #include "resource.h"
 /*  interface my         */

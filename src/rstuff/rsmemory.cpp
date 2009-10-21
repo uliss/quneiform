@@ -70,7 +70,6 @@
 
 #include <string.h>
 #include "rsdefines.h"
-#include "rsmemory.h"
 #include "rsfunc.h"
 
 #include "cfio/cfio.h"
@@ -85,10 +84,4 @@ Bool32 InitCFIOInterface(Bool32 Status) {
         bRet = CFIO_Done();
 #endif //_NO_CFIO
     return bRet;
-}
-
-void RSTUFFComment(const char *Comment) {
-    static char CommentBuffer[CFIO_MAX_COMMENT];
-    uint32_t Len = strlen(Comment);
-    strncpy(CommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1));
 }
