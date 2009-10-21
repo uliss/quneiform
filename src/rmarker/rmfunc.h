@@ -59,6 +59,8 @@
 
 #include "cttypes.h"
 
+namespace CIF {
 void MySetNegative(void *vB, Handle hCPage);
+}
 
 #endif

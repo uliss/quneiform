@@ -54,10 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <fstream>
 #include <cassert>
-
-#define _RMARKER_CPP
 
 #include "dpuma.h"
 #include "linesbuffer.h"
@@ -80,50 +77,9 @@
 
 #include "compat_defs.h"
 
-using namespace CIF::CFIO;
-using namespace CIF;
+namespace CIF {
 
-#define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")
-
-extern Handle DebugFill;
-extern Handle hVertCells;
-extern Handle hNegaCells;
-extern Handle hVertCellsAuto;
-extern Handle hNegaCellsAuto;
-extern Handle hDebugUpDown;
-extern Handle hDebugPictures;
-extern Handle hPrintFileVertCells;
-extern Handle hDebugNeg;
-extern Handle hDebugLinePass3;
-extern Handle hDebugLinePass2;
-extern Handle hDebugVerifLine;
-extern Handle hNoGiveNeg;
-extern Handle hNoSeePict;
-
-extern Handle hPrep;
-extern Handle hPicture;
-extern Handle hNegative;
-extern Handle hPrintCrossedPics;
-extern Handle hVCutInZones;
-extern Handle hSVLP;
-extern Handle hBlocks;
-extern Handle hLines3;
-extern Handle hNegaTestCells;
-extern Handle hVertTestCells;
-extern Handle hFon;
-extern Handle hEnd;
-
-static uint32_t gwRC = 0;
-Bool dpDebugUpDown;
-
-int GetCountNumbers(int num) {
-    int count = 0;
-    if (num == 0)
-        return 1;
-    for (; num > 0; num = num / 10)
-        count++;
-    return count;
-}
+using namespace CFIO;
 
 void MySetNegative(void *vB, Handle hCPage) {
     int i, Ind, nRc;
@@ -154,8 +110,6 @@ void MySetNegative(void *vB, Handle hCPage) {
     }
 }
 
-namespace CIF {
-
 RMarker::RMarker() :
     image_(NULL) {
     RNEG_Init(0, NULL);
@@ -170,14 +124,11 @@ RMarker::~RMarker() {
 void RMarker::pageMarkup() {
     assert(image_);
 
-    Bool32 rc = TRUE;
-
     buffer_.alloc();
 
     shortVerticalLinesProcessPass1();
 
     BigImage big_Image(image_->hCPAGE);
-
     Handle h = CPAGE_GetBlockFirst(image_->hCPAGE, CPAGE_GetInternalType("TYPE_BIG_COMP"));
     if (h) {
         CPAGE_GetBlockData(image_->hCPAGE, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
@@ -207,14 +158,12 @@ void RMarker::pageMarkup() {
         LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_->szLayoutFileName);
     }
     else {
-        if (rc) {
-            Bool32 bEnableSearchPicture = image_->gnPictures;
-            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
+        Bool32 bEnableSearchPicture = image_->gnPictures;
+        RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+        RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
 
-            if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
-                throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
-        }
+        if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
+            throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
     }
 }
 
