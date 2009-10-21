@@ -66,28 +66,3 @@ Bool32 SetCBProgressPoints(void * pData) {
 	return true;
 }
 
-#define DEF_CB_FUNC(a,b,c,d,e)       a b c \
-{\
-	DEC_CB_TYPE(b) pfFunc; \
-	a ret = e ; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		return pfFunc d ; \
-	} \
-	return ret; \
-}
-#define DEF_CB_VOID_FUNC(b,c,d)       void b c \
-{ \
-	DEC_CB_TYPE(b) pfFunc; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		pfFunc d; \
-	}\
-}
-
-DEF_CB_FUNC(char *, GetModulePath, (void), (), NULL )
-
-#undef DEF_CB_FUNC
-#undef DEF_CB_VOID_FUNC
