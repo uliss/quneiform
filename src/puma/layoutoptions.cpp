@@ -19,7 +19,7 @@
 #include "layoutoptions.h"
 #include "mpuma.h"
 #include "rstuff/rstuff.h"
-#include "rmarker.h"
+#include "rmarker/rmarker.h"
 
 namespace CIF {
 
