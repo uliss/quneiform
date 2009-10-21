@@ -71,24 +71,12 @@
 #include "globus.h"
 #include "rstuff.h"
 
-typedef void (*RSPROGRESSSTART)(void);
-typedef Bool32 (*RSPROGRESSSTEP)(uint32_t, uint32_t);
-typedef void (*RSPROGRESSFINISH)(void);
-typedef Bool32 (*RSINITPRGTIME)(void);
-typedef Bool32 (*RSDONEPRGTIME)(void);
-typedef Bool32 (*RSDPUMASKIPCOMPONENT)(void);
-typedef Bool32 (*RSDPUMASKIPTURN)(void);
-typedef void (*RSSETRETURNCODE32)(uint32_t);
-typedef char * (*RSGETMODULEPATH)(void);
-typedef void (*RSSETUPDATE)(uint32_t, uint32_t);
-
 const int RStuffMaxNumLines = 2000;
 const int RS_SVL_FIRST_STEP = 0x1;
 const int RS_SVL_SECOND_STEP = 0x2;
 // для модулей Михайлова
 const int RSTUFF_AboutLines_SizeMyBuff = 492000;
 const int RSTUFF_AboutLines_SizeWorkMem = 180000; //165000
-
 
 struct RSLinesBuffer
 {
@@ -97,7 +85,5 @@ struct RSLinesBuffer
     void * HLinesBufferB;
     void * VLinefBufferB;
 };
-
-typedef RSLinesBuffer * PRSLinesBuffer;
 
 #endif //_RSDEFINES_H_
