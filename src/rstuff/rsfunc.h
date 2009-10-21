@@ -66,42 +66,35 @@
 /*----------------------------------------------------------------------------*/
 #ifndef _RS_FUNC_H_
 #define _RS_FUNC_H_
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include "rsdefines.h"
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "lns32/lnsdefs.h"
 #include "linedefs.h"
 
-using namespace CIF;
-
-//////////////////////////
 //общего назначения
 void SetReturnCode_rstuff(int);
-void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
-void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
-		uint32_t);
+void DebugDPumaDrawRect(Handle, CIF::Point16 *, uint32_t, int32_t, uint32_t);
+void DebugDPumaShowComponents(CIF::PRSPreProcessImage, Handle, uint32_t, int32_t, uint32_t);
 
-Bool32 VerifyN(PRSPreProcessImage);
+Bool32 VerifyN(CIF::PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 // обработка сырья
-Bool32 SearchTables(PRSPreProcessImage);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+Bool32 SearchTables(CIF::PRSPreProcessImage);
 // разметка и линии
-Bool32 LineKiller(PRSPreProcessImage);
-Bool32 SearchAndKill(PRSPreProcessImage, LinesTotalInfo*);
-Bool32 ComponentFilter(PRSPreProcessImage, LineInfo*);
-Bool32 IsRectIntersect(Rect16*, Rect16*);
-Bool32 TuneFilter(LineInfo*, Rect16*, uint32_t, uint32_t);
-Bool32 ChekComponentAndLine(LineInfo*, Rect16*, uint32_t);
-Bool32 CheckSquare(LineInfo*, Rect16*, uint32_t, uint32_t);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 ExtractComponents(Bool32, Handle *, const char *, PRSPreProcessImage);
-Bool32 RemoveLines(PRSPreProcessImage, puchar *);
+Bool32 LineKiller(CIF::PRSPreProcessImage);
+Bool32 SearchAndKill(CIF::PRSPreProcessImage, LinesTotalInfo*);
+Bool32 ComponentFilter(CIF::PRSPreProcessImage, LineInfo*);
+Bool32 IsRectIntersect(CIF::Rect16*, CIF::Rect16*);
+Bool32 TuneFilter(LineInfo*, CIF::Rect16*, uint32_t, uint32_t);
+Bool32 ChekComponentAndLine(LineInfo*, CIF::Rect16*, uint32_t);
+Bool32 CheckSquare(LineInfo*, CIF::Rect16*, uint32_t, uint32_t);
+
+Bool32 ExtractComponents(Bool32, Handle *, const char *, CIF::PRSPreProcessImage);
+Bool32 RemoveLines(CIF::PRSPreProcessImage, puchar *);
 Bool32 MyGetZher(void **, int32_t *, int32_t, Handle);
 Bool32 remove_overlayed(CCOM_comp *, CCOM_handle);
 Bool32 comp_over(CCOM_comp *, CCOM_comp *);
@@ -109,10 +102,8 @@ Bool32 comp_over(CCOM_comp *, CCOM_comp *);
 // обработка коротких вертикальных линий
 //Bool32    ShortVerticalLinesProcess    ( PRSPreProcessImage, uint32_t );
 //Bool32    ReadSVLFromPageContainer     ( PRSPreProcessImage, void * );
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 // калбэки
 Bool32 SetCBProgressPoints(void *);
-//
 #define DEC_CB_TYPE(a)  PF##a
 #define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
 DEC_CB_FUN(Bool32, DPumaSkipComponent, (void))

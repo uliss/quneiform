@@ -69,6 +69,8 @@
 #include "rsdefines.h"
 #include "rsfunc.h"
 
+using namespace CIF;
+
 Bool32 SetCBProgressPoints(void * pData) {
 	PRSCBProgressPoints pPoints = (PRSCBProgressPoints) pData;
 
