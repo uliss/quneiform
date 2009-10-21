@@ -82,204 +82,45 @@ int BufferSize = 0;
 int WorkMemSize = 0;
 
 Bool32 InitCFIOInterface(Bool32 Status) {
-	Bool32 bRet = TRUE;
-
+    Bool32 bRet = TRUE;
 #ifndef _NO_CFIO
-
-	if (Status == TRUE) {
-		CFIO_Init(NULL, NULL);
-
-	} else {
-		bRet = CFIO_Done();
-	}
-
+    if (Status == TRUE)
+        CFIO_Init(NULL, NULL);
+    else
+        bRet = CFIO_Done();
 #endif //_NO_CFIO
-	return bRet;
+    return bRet;
 }
 
-#define RSTUFF
 char cCommentBuffer[CFIO_MAX_COMMENT];
 
 void RSTUFFComment(const char *Comment) {
-	uint32_t Len = strlen(Comment);
-	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
-			: CFIO_MAX_COMMENT - 1));
-}
-
-void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-	RSTUFFComment(Comment);
-	return RSTUFFAlloc(stAllocateBlock);
-}
-
-void * RSTUFFAlloc(uint32_t stAllocateBlock) {
-	char * mem = NULL;
-
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-	mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-
-#else
-
-	mem = ::new char[stAllocateBlock];
-	memset(mem, 0, stAllocateBlock );
-
-#endif
-
-	if(!mem)
-	SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
-#else
-
-	mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
-			(char*) "RSTUFF", (char*) cCommentBuffer);
-
-	if (!mem)
-		SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NO_MEMORY);
-
-#endif
-
-	return mem;
-}
-
-void RSTUFFFree(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-	GlobalFree(mem);
-
-#else
-
-	::delete [] mem;
-
-#endif
-#else
-
-	CFIO_FreeMemory(mem);
-
-#endif
-}
-
-void * RSTUFFLock(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-	return GlobalLock(mem);
-
-#else
-
-	return mem;
-
-#endif
-
-#else
-
-	void * pMem;
-
-	pMem = CFIO_LockMemory(mem);
-
-	if (pMem == NULL && mem != NULL)
-		return mem;
-
-	return pMem;
-
-#endif
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void RSTUFFUnlock(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-	GlobalUnlock(mem);
-
-#else
-
-	return;
-
-#endif
-
-#else
-
-	CFIO_UnlockMemory(mem);
-	return;
-
-#endif
-}
-
-Handle RSTUFFOpenSave(char * lpName) {
-	Handle rc = NULL;
-#ifdef _NO_CFIO
-	rc = (Handle)fopen(lpName,"wb");
-#else
-	rc = (Handle) fopen(lpName, "wb");
-#endif
-	return rc;
-}
-
-Handle RSTUFFOpenRestore(char * lpName) {
-	Handle rc = NULL;
-#ifdef _NO_CFIO
-	rc = (Handle)fopen(lpName,"rb");
-#else
-	rc = (Handle) fopen(lpName, "rb");
-#endif
-	return rc;
-}
-
-unsigned int RSTUFFWrite(Handle h, void * lpdata, unsigned int size) {
-	uint32_t rc = 0;
-#ifdef _NO_CFIO
-	rc = fwrite(lpdata,1,size,(FILE*)h);
-#else
-	rc = fwrite(lpdata, 1, size, (FILE*) h);
-#endif
-	return rc;
-}
-
-unsigned int RSTUFFRead(Handle h, void * lpdata, unsigned int size) {
-	uint32_t rc = 0;
-#ifdef _NO_CFIO
-	rc = fread(lpdata,1,size,(FILE *)h);
-#else
-	rc = fread(lpdata, 1, size, (FILE *) h);
-#endif
-	return rc;
-}
-
-void RSTUFFClose(Handle h) {
-#ifdef _NO_CFIO
-	fclose((FILE*)h);
-#else
-	fclose((FILE*) h);
-#endif
+    uint32_t Len = strlen(Comment);
+    strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1));
 }
 
 void GiveMainBuff(void **vvBuff, int *Size) {
-	*vvBuff = Buffer;
-	*Size = BufferSize;
+    *vvBuff = Buffer;
+    *Size = BufferSize;
 }
 void GiveWorkBuff(char **ccBuff, int *Size) {
-	*ccBuff = (char*) WorkMem;
-	*Size = WorkMemSize;
+    *ccBuff = (char*) WorkMem;
+    *Size = WorkMemSize;
 }
 
 void SetMainBuff(void *vBuff, int Size) {
-	Buffer = (uchar*) vBuff;
-	BufferSize = Size;
+    Buffer = (uchar*) vBuff;
+    BufferSize = Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size) {
-	WorkMem = (uchar*) vBuff;
-	WorkMemSize = Size;
+    WorkMem = (uchar*) vBuff;
+    WorkMemSize = Size;
 }
 
 void ReSetMem() {
-	Buffer = NULL;
-	BufferSize = 0;
-	WorkMem = NULL;
-	WorkMemSize = 0;
+    Buffer = NULL;
+    BufferSize = 0;
+    WorkMem = NULL;
+    WorkMemSize = 0;
 }

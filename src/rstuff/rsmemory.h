@@ -56,35 +56,7 @@
 
 #ifndef __CTI_MEMORY_H__
 #define __CTI_MEMORY_H__
-#undef _NO_CFIO
-
-#include <string.h>
-
-#include "rsdefines.h"
-
-#ifdef _DEBUG
-#ifndef IS_VALID
-#define IS_VALID(a) assert(_CrtIsValidPointer(a, 1, TRUE ))
-#endif
-#else
-#ifndef IS_VALID
-#define IS_VALID(a)
-#endif
-#endif
 
 void RSTUFFComment(const char * Comment);
-void * RSTUFFAlloc(uint32_t stAllocateBlock);
-void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char * Comment);
-void RSTUFFFree(void * mem);
-void * RSTUFFLock(void * mem);
-void RSTUFFUnlock(void * mem);
-
-Handle RSTUFFOpenSave(char * lpName);
-Handle RSTUFFOpenRestore(char * lpName);
-
-unsigned int RSTUFFWrite(Handle h, void * lpdata, unsigned int size);
-unsigned int RSTUFFRead(Handle h, void * lpdata, unsigned int size);
-
-void RSTUFFClose(Handle h);
 
 #endif
