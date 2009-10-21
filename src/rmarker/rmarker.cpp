@@ -113,8 +113,6 @@ void MySetNegative(void *vB, Handle hCPage) {
 RMarker::RMarker() :
     image_(NULL) {
     RNEG_Init(0, NULL);
-    // FIXME
-    remove("crossed.txt");
 }
 
 RMarker::~RMarker() {
