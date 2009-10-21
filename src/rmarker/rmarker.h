@@ -69,16 +69,17 @@
 #include "globus.h"
 #include "rect.h"
 #ifdef __RMARKER__
-#define RMARKER_FUNC  FUN_EXPO
+#define RMARKER_FUNC  FUN_EXPO__
 #else
-#define RMARKER_FUNC  FUN_IMPO
+#define RMARKER_FUNC  FUN_IMPO__
 #endif
-RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
-RMARKER_FUNC(Bool32) RMARKER_Done();
-RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
-RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
-RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
+
+RMARKER_FUNC Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
+RMARKER_FUNC Bool32 RMARKER_Done();
+RMARKER_FUNC uint32_t RMARKER_GetReturnCode();
+RMARKER_FUNC char * RMARKER_GetReturnString(uint32_t dwError);
+RMARKER_FUNC Bool32 RMARKER_GetExportData(uint32_t dwType, void * pData);
+RMARKER_FUNC Bool32 RMARKER_SetImportData(uint32_t dwType, void * pData);
 
 class RMPreProcessImage
 {
@@ -121,18 +122,23 @@ public:
 
 typedef RMPreProcessImage * PRMPreProcessImage;
 
-typedef struct tagRMCBProgressPoints
+struct RMCBProgressPoints
 {
     void * pGetModulePath;
     void * pSetUpdate;
-} RMCBProgressPoints, *PRMCBProgressPoints;
-#define PUMA_SVL_FIRST_STEP                         0x1
-#define PUMA_SVL_SECOND_STEP                        0x2
-#define PUMA_SVL_THRID_STEP                         0x3
-#define PUMAMaxNumLines                             2000
-#define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
-DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage,void*,int,void*,int))
-DEC_FUN(Bool32, SearchTableInZone, (Handle hPage,Handle hCCOM,uint32_t perc,CIF::Rect rect))
-#undef DEC_FUN
+};
+
+typedef RMCBProgressPoints * PRMCBProgressPoints;
+
+enum
+{
+    PUMA_SVL_FIRST_STEP = 0x1,
+    PUMA_SVL_SECOND_STEP = 0x2,
+    PUMA_SVL_THRID_STEP = 0x3
+};
+
+const int PUMAMaxNumLines = 2000;
+Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, CIF::Rect rect);
 
 #endif

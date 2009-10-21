@@ -122,22 +122,9 @@ Bool32 RMARKER_SetImportData(uint32_t dwType, void * pData) {
 }
 
 Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage) {
-
     LDPUMA_Init(0, NULL);
-    /*------------------------------------------------------------------------------------------*/
 
     RNEG_Init(wHeightCode, NULL);
-
-    /*------------------------------------------------------------------------------------------*/
-#ifdef _USE_RFILL_
-    if (!RFILL_Init())
-    {
-        uint32_t retCode = RFILL_GetReturnCode ();
-        char *pszMsg = RFILL_GetReturnString (retCode);
-        return FALSE;
-    }
-#endif //_USE_RFILL_
-    /*------------------------------------------------------------------------------------------*/
 
     LDPUMA_Registry(&hMainTime, SNAP_ROOT_MAIN_TIME_CONTROL, NULL);
     LDPUMA_Registry(&hPrep, "Подготовка.Верт. лин. проц.", hMainTime);
@@ -157,8 +144,6 @@ Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage) {
     LDPUMA_Registry(&hSegment, "Грубое выделение фрагментов...", hMainTime);
 
     LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL);
-
-    // LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
 
     LDPUMA_Registry(&DebugFill, "Поиск фона в таблицах", MainDebug);
     LDPUMA_RegistryHelp(DebugFill, "Активизация вершины разрешит поиск фона в таблицах.", FALSE);
@@ -212,33 +197,18 @@ Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage) {
     return TRUE;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_Done()
-{
-    /*------------------------------------------------------------------------------------------*/
-
+Bool32 RMARKER_Done() {
     RNEG_Done();
-
-    /*------------------------------------------------------------------------------------------*/
-#ifdef _USE_RFILL_
-    if (!RFILL_Done())
-    {
-        uint32_t retCode = RFILL_GetReturnCode ();
-        char *pszMsg = RFILL_GetReturnString (retCode);
-        return FALSE;
-    }
-#endif //_USE_RFILL_
-    /*------------------------------------------------------------------------------------------*/
-
     LDPUMA_Done();
     return TRUE;
 }
 
-RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError)
-{   return NULL;
+char * RMARKER_GetReturnString(uint32_t dwError) {
+    return NULL;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData)
-{   return FALSE;
+Bool32 RMARKER_GetExportData(uint32_t dwType, void * pData) {
+    return FALSE;
 }
 
 uint32_t RMARKER_GetReturnCode(void) {
