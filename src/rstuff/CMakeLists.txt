@@ -5,7 +5,6 @@ deletelines.cpp
 dll.cpp
 linekiller.cpp
 normalise.cpp
-ocomp.cpp
 ortomove.cpp
 rsmemory.cpp
 rstimer.cpp
