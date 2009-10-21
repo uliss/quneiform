@@ -66,23 +66,19 @@
 typedef int Bool;
 
 # define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")
-struct BIG_IMAGE {
-	CCOM_handle hCCOM;
-	uchar ImageName[CPAGE_MAXNAME];
+struct BIG_IMAGE
+{
+    CCOM_handle hCCOM;
+    uchar ImageName[CPAGE_MAXNAME];
 };
 
-Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
-Bool32 PageMarkup(PRMPreProcessImage Image);
+Bool32 ShortVerticalLinesProcess(uint32_t Step, CIF::PRMPreProcessImage Image);
+Bool32 PageMarkup(CIF::PRMPreProcessImage Image);
 Bool32 SetCBProgressPoints(void *);
 uint32_t GetReturnCode_rmarker(void);
-Bool32 SearchPictures(PRMPreProcessImage, BIG_IMAGE);
-Bool32 SearchNeg(PRMPreProcessImage, BIG_IMAGE, int);
-Bool32 SearchFon(PRMPreProcessImage, BIG_IMAGE, int);
-void GiveMainBuff(void **vvBuff, int *Size);
-void GiveWorkBuff(char **ccBuff, int *Size);
-void SetMainBuff(void *vBuff, int Size);
-void SetWorkBuff(void *vBuff, int Size);
-void ReSetMem(void);
+Bool32 SearchPictures(CIF::PRMPreProcessImage, BIG_IMAGE);
+Bool32 SearchNeg(CIF::PRMPreProcessImage, BIG_IMAGE, int);
+Bool32 SearchFon(CIF::PRMPreProcessImage, BIG_IMAGE, int);
 void MySetNegative(void *vB, Handle hCPage);
 //
 #define DEC_CB_TYPE(a)  PF##a

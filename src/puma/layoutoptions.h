@@ -30,6 +30,7 @@ class RMPreProcessImage;
 namespace CIF {
 
 class RSPreProcessImage;
+class RMPreProcessImage;
 
 class LayoutOptions
 {

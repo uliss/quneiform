@@ -332,11 +332,9 @@ void PumaImpl::layoutRMarker() {
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-    if (RMARKER_SetImportData(0, &CBforRM)) {
-        if (!RMARKER_PageMarkup(&DataforRM, mainBuffer(), MainBufferSize, workBuffer(),
-                WorkBufferSize))
-            throw PumaException("RMARKER_PageMarkup failed");
-
+    if (RMARKER_SetImportData(&CBforRM)) {
+        rmarker_->setImageData(DataforRM);
+        rmarker_->pageMarkup();
         cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
 }
@@ -364,7 +362,6 @@ void PumaImpl::modulesDone() {
     RFRMT_Done();
     REXC_Done();
     RLINE_Done();
-    RMARKER_Done();
     RBLOCK_Done();
     RSELSTR_Done();
     RSTR_Done();
@@ -416,9 +413,7 @@ void PumaImpl::modulesInit() {
 
         rsl_.reset(new Rsl);
         rstuff_.reset(new RStuff);
-
-        if (!RMARKER_Init(PUMA_MODULE_RBLOCK, ghStorage))
-            throw PumaException("RMARKER_Init failed.");
+        rmarker_.reset(new RMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, ghStorage))
             throw PumaException("RBLOCK_Init failed.");

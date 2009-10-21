@@ -74,12 +74,10 @@
 #define RMARKER_FUNC  FUN_IMPO__
 #endif
 
-RMARKER_FUNC Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
-RMARKER_FUNC Bool32 RMARKER_Done();
+namespace CIF {
+
 RMARKER_FUNC uint32_t RMARKER_GetReturnCode();
-RMARKER_FUNC char * RMARKER_GetReturnString(uint32_t dwError);
-RMARKER_FUNC Bool32 RMARKER_GetExportData(uint32_t dwType, void * pData);
-RMARKER_FUNC Bool32 RMARKER_SetImportData(uint32_t dwType, void * pData);
+RMARKER_FUNC Bool32 RMARKER_SetImportData(void * pData);
 
 class RMPreProcessImage
 {
@@ -138,7 +136,19 @@ enum
 };
 
 const int PUMAMaxNumLines = 2000;
-Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
-Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, CIF::Rect rect);
+//Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+
+class RMarker
+{
+public:
+    RMarker();
+    ~RMarker();
+    void pageMarkup();
+    void setImageData(RMPreProcessImage& image);
+private:
+    RMPreProcessImage * image_;
+};
+
+}
 
 #endif

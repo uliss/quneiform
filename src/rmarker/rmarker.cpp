@@ -125,194 +125,211 @@ Bool dpDebugUpDown;
 
 Bool32 PageMarkup(PRMPreProcessImage Image) {
 
-	LDPUMA_Skip(hPrep);
-	Bool32 rc = TRUE;
+    LDPUMA_Skip(hPrep);
+    Bool32 rc = TRUE;
 
-	gSVLBuffer.VLinefBufferA = NULL;
-	gSVLBuffer.VLinefBufferB = NULL;
-	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(
-			sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
-			"SVL step I lines info pool");
-	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(
-			sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
-			"SVL step II lines info pool");
+    gSVLBuffer.VLinefBufferA = NULL;
+    gSVLBuffer.VLinefBufferB = NULL;
+    gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
+            MAF_GALL_GPTR, "puma", "SVL step I lines info pool");
+    gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
+            MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
 
-	if (rc) {
-		rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
-	}
+    if (rc) {
+        rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
+    }
 
-	Handle h = NULL;
-	BIG_IMAGE big_Image;
-	int i;
+    Handle h = NULL;
+    BIG_IMAGE big_Image;
+    int i;
 
-	//default Image:
-	PAGEINFO info = { 0 };
-	GetPageInfo(Image->hCPAGE, &info);
-	for (i = 0; i < CPAGE_MAXNAME; i++)
-		big_Image.ImageName[i] = info.szImageName[i];
-	big_Image.hCCOM = NULL;
+    //default Image:
+    PAGEINFO info = { 0 };
+    GetPageInfo(Image->hCPAGE, &info);
+    for (i = 0; i < CPAGE_MAXNAME; i++)
+        big_Image.ImageName[i] = info.szImageName[i];
+    big_Image.hCCOM = NULL;
 
-	h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
-	if (h) {
-		CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image,
-				sizeof(BIG_IMAGE));
-		CPAGE_DeleteBlock(Image->hCPAGE, h);
-	}
-	//    if(big_Image.hCCOM==NULL)
-	//		big_Image.hCCOM=(CCOM_handle)(Image->hCCOM);
+    h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
+    if (h) {
+        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
+        CPAGE_DeleteBlock(Image->hCPAGE, h);
+    }
+    //    if(big_Image.hCCOM==NULL)
+    //		big_Image.hCCOM=(CCOM_handle)(Image->hCCOM);
 
-	LDPUMA_Skip(hPicture);
+    LDPUMA_Skip(hPicture);
 
-	//Поиск очевидных картинок
-	if (rc)
-		rc = SearchPictures(Image, big_Image);
+    //Поиск очевидных картинок
+    if (rc)
+        rc = SearchPictures(Image, big_Image);
 
-	LDPUMA_Skip(hNegative);
+    LDPUMA_Skip(hNegative);
 
-	//Поиск негативов
-	if (rc)
-		rc = SearchNeg(Image, big_Image, info.Incline2048);
+    //Поиск негативов
+    if (rc)
+        rc = SearchNeg(Image, big_Image, info.Incline2048);
 
-	LDPUMA_Skip(hLines3);
+    LDPUMA_Skip(hLines3);
 
-	//Третий проход по линиям
-	if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
-			&& LDPUMA_Skip(hDebugLinePass2)) {
-		if (rc)
-			RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM,
-					(uchar) Image->gnLanguage);
-	}
+    //Третий проход по линиям
+    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
+            && LDPUMA_Skip(hDebugLinePass2)) {
+        if (rc)
+            RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar) Image->gnLanguage);
+    }
 
-	LDPUMA_Skip(hSVLP);
+    LDPUMA_Skip(hSVLP);
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//
-	////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-	if (rc) {
-		rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
-	}
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //
+    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
+    if (rc) {
+        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
+    }
 
-	ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
+    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
 
-	CFIO_FreeMemory(gSVLBuffer.LineInfoA);
-	CFIO_FreeMemory(gSVLBuffer.LineInfoB);
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
+    CFIO_FreeMemory(gSVLBuffer.LineInfoA);
+    CFIO_FreeMemory(gSVLBuffer.LineInfoB);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
 
-	LDPUMA_Skip(hBlocks);
+    LDPUMA_Skip(hBlocks);
 
-	if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
-		Image->hCPAGE = CPAGE_RestorePage(TRUE,
-				(pchar)(Image->szLayoutFileName));
-		if (Image->hCPAGE == NULL) {
-			SetReturnCode_rmarker(CPAGE_GetReturnCode());
-			rc = FALSE;
-		} else {
-			CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
-			LDPUMA_Console("Layout восстановлен из файла '%s'\n",
-					Image->szLayoutFileName);
-		}
-	} else {
-		if (rc) {
-			if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
-				Bool32 bEnableSearchPicture;
-				bEnableSearchPicture = Image->gnPictures;
-				RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture,
-						&bEnableSearchPicture);
-				RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn,
-						&(Image->gbOneColumn));
+    if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
+        Image->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (Image->szLayoutFileName));
+        if (Image->hCPAGE == NULL) {
+            SetReturnCode_rmarker(CPAGE_GetReturnCode());
+            rc = FALSE;
+        }
+        else {
+            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
+            LDPUMA_Console("Layout восстановлен из файла '%s'\n", Image->szLayoutFileName);
+        }
+    }
+    else {
+        if (rc) {
+            if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
+                Bool32 bEnableSearchPicture;
+                bEnableSearchPicture = Image->gnPictures;
+                RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+                RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
 
-				if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE,
-						Image->hCLINE)) {
-					SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-					rc = FALSE;
-				}
+                if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
+                    SetReturnCode_rmarker(RBLOCK_GetReturnCode());
+                    rc = FALSE;
+                }
 
-			} else
-				LDPUMA_Console("Пропущен этап автоматического Layout.\n");
-		}
-	}
+            }
+            else
+                LDPUMA_Console("Пропущен этап автоматического Layout.\n");
+        }
+    }
 
-	CCOM_DeleteContainer(big_Image.hCCOM);
+    CCOM_DeleteContainer(big_Image.hCCOM);
 
-	LDPUMA_Skip(hEnd);
+    LDPUMA_Skip(hEnd);
 
-	return rc;
+    return rc;
 }
 
 void SetReturnCode_rmarker(uint32_t rc) {
-	gwRC = rc;
+    gwRC = rc;
 }
 
 uint32_t GetReturnCode_rmarker(void) {
-	return gwRC;
+    return gwRC;
 }
 
 Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew) {
-	if (!LDPUMA_Skip(hDebugNeg))
-		return TRUE;
+    if (!LDPUMA_Skip(hDebugNeg))
+        return TRUE;
 
-	RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
-	return TRUE;
+    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
+    return TRUE;
 }
 
 Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image) {
-	Bool32 rc = TRUE;
+    Bool32 rc = TRUE;
 
-	if (!LDPUMA_Skip(hDebugPictures))
-		return TRUE;
+    if (!LDPUMA_Skip(hDebugPictures))
+        return TRUE;
 
-	//	rc = ProgressStep(1,/*GetResourceString(IDS_PRG_OPEN),*/10);
+    //	rc = ProgressStep(1,/*GetResourceString(IDS_PRG_OPEN),*/10);
 
-	if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
-		if (Image->gnPictures) {
-			if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM,
-					Image->hCPAGE)) {
-				uint32_t RPicRetCode = RPIC_GetReturnCode();
+    if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
+        if (Image->gnPictures) {
+            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
+                uint32_t RPicRetCode = RPIC_GetReturnCode();
 
-				SetReturnCode_rmarker(RPicRetCode);
-				rc = FALSE;
-			}
-		}
-	}
-	return rc;
+                SetReturnCode_rmarker(RPicRetCode);
+                rc = FALSE;
+            }
+        }
+    }
+    return rc;
 }
 
 int GetCountNumbers(int num) {
-	int count = 0;
-	if (num == 0)
-		return 1;
-	for (; num > 0; num = num / 10)
-		count++;
-	return count;
+    int count = 0;
+    if (num == 0)
+        return 1;
+    for (; num > 0; num = num / 10)
+        count++;
+    return count;
 }
 
 void MySetNegative(void *vB, Handle hCPage) {
-	int i, Ind, nRc;
-	Bool WasNegTabl;
-	Rect16 *pRc;
-	POLY_ block = { 0 };
-	UN_BUFF *pB;
-	pB = (UN_BUFF *) vB;
-	Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
-	WasNegTabl = (Ind >= 0);
-	if (WasNegTabl) {
-		nRc = pB->nPartUnits[Ind];
-		pRc = (Rect16*) pB->vPart[Ind];
-		for (i = 0; i < nRc; i++) {
-			block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
-			block.com.count = 4;
-			block.com.Flags |= POS_NEGTABCAP;
-			block.com.Vertex[0].rx() = pRc[i].left();
-			block.com.Vertex[0].ry() = pRc[i].top();
-			block.com.Vertex[1].rx() = pRc[i].right();
-			block.com.Vertex[1].ry() = pRc[i].top();
-			block.com.Vertex[2].rx() = pRc[i].right();
-			block.com.Vertex[2].ry() = pRc[i].bottom();
-			block.com.Vertex[3].rx() = pRc[i].left();
-			block.com.Vertex[3].ry() = pRc[i].bottom();
-			CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
-		}
-	}
+    int i, Ind, nRc;
+    Bool WasNegTabl;
+    Rect16 *pRc;
+    POLY_ block = { 0 };
+    UN_BUFF *pB;
+    pB = (UN_BUFF *) vB;
+    Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
+    WasNegTabl = (Ind >= 0);
+    if (WasNegTabl) {
+        nRc = pB->nPartUnits[Ind];
+        pRc = (Rect16*) pB->vPart[Ind];
+        for (i = 0; i < nRc; i++) {
+            block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
+            block.com.count = 4;
+            block.com.Flags |= POS_NEGTABCAP;
+            block.com.Vertex[0].rx() = pRc[i].left();
+            block.com.Vertex[0].ry() = pRc[i].top();
+            block.com.Vertex[1].rx() = pRc[i].right();
+            block.com.Vertex[1].ry() = pRc[i].top();
+            block.com.Vertex[2].rx() = pRc[i].right();
+            block.com.Vertex[2].ry() = pRc[i].bottom();
+            block.com.Vertex[3].rx() = pRc[i].left();
+            block.com.Vertex[3].ry() = pRc[i].bottom();
+            CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+        }
+    }
+}
+
+namespace CIF {
+
+RMarker::RMarker() :
+    image_(NULL) {
+    RNEG_Init(0, NULL);
+    // FIXME
+    remove("crossed.txt");
+}
+
+RMarker::~RMarker() {
+    RNEG_Done();
+}
+
+void RMarker::pageMarkup() {
+    assert(image_);
+    PageMarkup(image_);
+}
+
+void RMarker::setImageData(RMPreProcessImage& image) {
+    image_ = &image;
+}
+
 }
 

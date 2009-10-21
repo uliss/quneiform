@@ -58,7 +58,7 @@
 #include "rmfunc.h"
 
 Bool32 SetCBProgressPoints(void * pData) {
-	PRMCBProgressPoints pPoints = (PRMCBProgressPoints) pData;
+	CIF::PRMCBProgressPoints pPoints = (CIF::PRMCBProgressPoints) pData;
 
 #define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
 	SET_CB_POINTS(pPoints, GetModulePath);
