@@ -71,6 +71,8 @@
 #include "rect.h"
 #include "common/exception.h"
 
+#include "linesbuffer.h"
+
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO__
 #else
@@ -151,9 +153,9 @@ public:
 private:
     void shortVerticalLinesProcessPass1();
     void shortVerticalLinesProcessPass2();
-    void shortVerticalLinesProcessPass3();
 private:
     RMPreProcessImage * image_;
+    LinesBuffer buffer_;
 };
 
 typedef RuntimeExceptionImpl<RMarker> RMarkerException;

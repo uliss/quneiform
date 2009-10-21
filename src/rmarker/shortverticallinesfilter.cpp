@@ -82,73 +82,6 @@ static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image) {
-    Bool32 bRet = FALSE;
-    Bool32 bClear = FALSE;
-
-    if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
-
-        gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
-        //gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-
-        if (gSVLBuffer.VLinefBufferA == NULL)
-            gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns
-                    = (LineInfo *) CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines),
-                            MAF_GALL_GPTR, (pchar) "puma", (pchar) "SVL step I lines pool");
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, Image);
-        bClear = bRet == FALSE;
-    }
-
-    if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
-
-        gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
-        //gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-
-        if (gSVLBuffer.VLinefBufferB == NULL)
-            gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns
-                    = (LineInfo *) CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines),
-                            MAF_GALL_GPTR, (pchar) "puma", (pchar) "SVL step II lines pool");
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, Image);
-        ////////////////
-        // обработка и удаление тут
-        if (bRet) {
-            bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, Image);
-        }
-
-        bClear = TRUE;
-    }
-
-    if (Step == PUMA_SVL_THRID_STEP) {
-        //myFree ( gSVLBuffer.HLinesBufferA );
-        //myFree ( gSVLBuffer.HLinesBufferB );
-        //myFree ( gSVLBuffer.VLinefBufferA );
-        //myFree ( gSVLBuffer.VLinefBufferB );
-        if (gSVLBuffer.VLinefBufferA != NULL) {
-            CFIO_FreeMemory(gSVLBuffer.VLinefBufferA);
-        }
-
-        if (gSVLBuffer.VLinefBufferB != NULL) {
-            CFIO_FreeMemory(gSVLBuffer.VLinefBufferB);
-        }
-
-        gSVLBuffer.VLinefBufferA = NULL;
-        gSVLBuffer.VLinefBufferB = NULL;
-
-        bRet = TRUE;
-    }
-
-    if (bRet == FALSE) {
-        SetReturnCode_rmarker(3000);
-    }
-
-    return bRet;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image) {
     Bool32 bRet = TRUE;
     uint32_t nTagSize;
@@ -408,12 +341,14 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B) {
     int32_t m4 = B->right() >= B->left() ? B->left() : B->right();
 
     if ((((B->top() >= m1) && (B->top() <= M1)) || ((B->bottom() >= m1) && (B->bottom() <= M1)))
-            && (((B->left() >= m2) && (B->left() <= M2)) || ((B->right() >= m2) && (B->right() <= M2)))) {
+            && (((B->left() >= m2) && (B->left() <= M2)) || ((B->right() >= m2) && (B->right()
+                    <= M2)))) {
         rc = TRUE;
     }
 
     if ((((A->top() >= m3) && (A->top() <= M3)) || ((A->bottom() >= m3) && (A->bottom() <= M3)))
-            && (((A->left() >= m4) && (A->left() <= M4)) || ((A->right() >= m4) && (A->right() <= M4)))) {
+            && (((A->left() >= m4) && (A->left() <= M4)) || ((A->right() >= m4) && (A->right()
+                    <= M4)))) {
         rc = TRUE;
     }
 

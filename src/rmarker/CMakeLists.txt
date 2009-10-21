@@ -1,5 +1,6 @@
 add_library(rmarker ${LIBTYPE}
 ${SNP_SRC}
+linesbuffer.cpp
 dll.cpp
 rmarker.cpp
 rmtimer.cpp

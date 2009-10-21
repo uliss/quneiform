@@ -60,6 +60,7 @@
 #define _RMARKER_CPP
 
 #include "dpuma.h"
+#include "linesbuffer.h"
 #include "rblock.h"
 #include "markpage.h"
 #include "rmfunc.h"
@@ -207,12 +208,7 @@ void RMarker::pageMarkup() {
 
     Bool32 rc = TRUE;
 
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
-            MAF_GALL_GPTR, "puma", "SVL step I lines info pool");
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
-            MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
+    buffer_.alloc();
 
     shortVerticalLinesProcessPass1();
 
@@ -251,38 +247,25 @@ void RMarker::pageMarkup() {
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     shortVerticalLinesProcessPass2();
 
-    shortVerticalLinesProcessPass3();
-
-    CFIO_FreeMemory(gSVLBuffer.LineInfoA);
-    CFIO_FreeMemory(gSVLBuffer.LineInfoB);
+    buffer_.free();
 
     if (!LDPUMA_Skip(image_->hDebugLayoutFromFile)) {
         image_->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (image_->szLayoutFileName));
-        if (image_->hCPAGE == NULL) {
-            SetReturnCode_rmarker(CPAGE_GetReturnCode());
-            rc = FALSE;
-        }
-        else {
-            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_->szLayoutFileName);
-        }
+        if (image_->hCPAGE == NULL)
+            throw RMarkerException("CPAGE_RestorePage failed");
+
+        CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_->hCPAGE));
+        LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_->szLayoutFileName);
     }
     else {
         if (rc) {
-            if (LDPUMA_Skip(image_->hDebugCancelExtractBlocks)) {
-                Bool32 bEnableSearchPicture;
-                bEnableSearchPicture = image_->gnPictures;
-                RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-                RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
+            Bool32 bEnableSearchPicture;
+            bEnableSearchPicture = image_->gnPictures;
+            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
 
-                if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE)) {
-                    SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-                    rc = FALSE;
-                }
-
-            }
-            else
-                LDPUMA_Console("Пропущен этап автоматического Layout.\n");
+            if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
+                throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
         }
     }
 
@@ -294,44 +277,33 @@ void RMarker::setImageData(RMPreProcessImage& image) {
 }
 
 void RMarker::shortVerticalLinesProcessPass1() {
-    gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
+    buffer_.HLinesBufferA = NULL;
+    buffer_.LineInfoA->Hor.Lns = NULL;
 
-    if (gSVLBuffer.VLinefBufferA == NULL)
-        gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
+    if (buffer_.VLinefBufferA == NULL)
+        buffer_.VLinefBufferA = buffer_.LineInfoA->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
                 (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
                 "SVL step I lines pool");
 
-    if (!ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, image_))
+    if (!ReadSVLFromPageContainer(buffer_.LineInfoA, image_))
         throw RMarkerException("ReadSVLFromPageContainer failed");
 }
 
 void RMarker::shortVerticalLinesProcessPass2() {
-    gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
+    buffer_.HLinesBufferB = NULL;
+    buffer_.LineInfoB->Hor.Lns = NULL;
 
-    if (gSVLBuffer.VLinefBufferB == NULL)
-        gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
+    if (buffer_.VLinefBufferB == NULL)
+        buffer_.VLinefBufferB = buffer_.LineInfoB->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
                 (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
                 "SVL step II lines pool");
 
-    if (!ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, image_))
+    if (!ReadSVLFromPageContainer(buffer_.LineInfoB, image_))
         throw RMarkerException("ReadSVLFromPageContainer failed");
 
     // обработка и удаление тут
-    if (!SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, image_))
+    if (!SVLFilter(buffer_.LineInfoA, buffer_.LineInfoB, image_))
         throw RMarkerException("SVLFilter failed");
-}
-
-void RMarker::shortVerticalLinesProcessPass3() {
-    if (gSVLBuffer.VLinefBufferA != NULL) {
-        CFIO_FreeMemory(gSVLBuffer.VLinefBufferA);
-    }
-
-    if (gSVLBuffer.VLinefBufferB != NULL) {
-        CFIO_FreeMemory(gSVLBuffer.VLinefBufferB);
-    }
-
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
 }
 
 }

@@ -68,15 +68,6 @@
 #include "rect.h"
 #include "ccom/ccomdefs.h"
 
-typedef struct tagPUMALinesBuffer
-{
-    LinesTotalInfo * LineInfoA;
-    LinesTotalInfo * LineInfoB;
-    void * HLinesBufferA;
-    void * VLinefBufferA;
-    void * HLinesBufferB;
-    void * VLinefBufferB;
-} PUMALinesBuffer, *PPUMALinesBuffer;
 
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, CIF::PRMPreProcessImage Image);
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, CIF::PRMPreProcessImage Image);

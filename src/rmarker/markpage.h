@@ -71,7 +71,7 @@
 #define VAL2(a,b)
 #define VAL4(a,b,c,d)
 #endif
-EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
+
 EXTERN CIF::RMCBProgressPoints ProgressPoints VALM(NULL);
 EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
 

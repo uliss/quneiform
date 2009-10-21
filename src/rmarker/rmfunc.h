@@ -72,7 +72,6 @@ struct BIG_IMAGE
     uchar ImageName[CPAGE_MAXNAME];
 };
 
-Bool32 ShortVerticalLinesProcess(uint32_t Step, CIF::PRMPreProcessImage Image);
 Bool32 SetCBProgressPoints(void *);
 uint32_t GetReturnCode_rmarker(void);
 Bool32 SearchPictures(CIF::PRMPreProcessImage, BIG_IMAGE);
