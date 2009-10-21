@@ -69,9 +69,9 @@
 #include "ccom/ccomdefs.h"
 
 
-Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, CIF::PRMPreProcessImage Image);
-Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, CIF::PRMPreProcessImage Image);
-Bool32 SVLComponentFilter(LineInfo *Line, CIF::PRMPreProcessImage Image);
+Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, CIF::RMPreProcessImage * Image);
+Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, CIF::RMPreProcessImage * Image);
+Bool32 SVLComponentFilter(LineInfo *Line, CIF::RMPreProcessImage * Image);
 Bool32 CompIsGood(CCOM_comp * pcomp, int32_t Filter);
 Bool32 IsRectIntersect(CIF::Rect16 *A, CIF::Rect16 *B);
 

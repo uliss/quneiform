@@ -98,14 +98,3 @@ Handle hFon;
 Handle hEnd;
 Handle hSegment;
 
-namespace CIF {
-
-Bool32 RMARKER_SetImportData(void * pData) {
-    return SetCBProgressPoints(pData);
-}
-
-uint32_t RMARKER_GetReturnCode(void) {
-    return GetReturnCode_rmarker();
-}
-
-}

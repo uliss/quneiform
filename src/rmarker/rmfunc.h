@@ -67,7 +67,6 @@ namespace CIF {
 class BigImage;
 }
 
-Bool32 SetCBProgressPoints(void *);
 uint32_t GetReturnCode_rmarker(void);
 void MySetNegative(void *vB, Handle hCPage);
 

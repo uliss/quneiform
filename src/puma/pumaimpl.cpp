@@ -299,9 +299,6 @@ void PumaImpl::layoutRStuff() {
 }
 
 void PumaImpl::layoutRMarker() {
-    RMCBProgressPoints CBforRM;
-    CBforRM.pSetUpdate = (void*) SetUpdate;
-
     RMPreProcessImage DataforRM;
 
     // Далее - разметка. Вынесена в RMARKER.DLL
@@ -332,11 +329,9 @@ void PumaImpl::layoutRMarker() {
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-    if (RMARKER_SetImportData(&CBforRM)) {
-        rmarker_->setImageData(DataforRM);
-        rmarker_->pageMarkup();
-        cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
-    }
+    rmarker_->setImageData(DataforRM);
+    rmarker_->pageMarkup();
+    cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
 }
 
 LayoutOptions PumaImpl::layoutOptions() const {

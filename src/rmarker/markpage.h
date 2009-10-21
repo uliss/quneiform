@@ -72,7 +72,6 @@
 #define VAL4(a,b,c,d)
 #endif
 
-EXTERN CIF::RMCBProgressPoints ProgressPoints VALM(NULL);
 EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
 
 void SetReturnCode_rmarker(uint32_t rc);

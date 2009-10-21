@@ -82,7 +82,7 @@ static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
-Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image) {
+Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, RMPreProcessImage * Image) {
     Bool32 bRet = TRUE;
     uint32_t nTagSize;
 
@@ -142,7 +142,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image
     return bRet;
 }
 
-Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image) {
+Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, RMPreProcessImage * Image) {
     Bool32 rc = TRUE;
     uint32_t LinesTotalA;
     uint32_t LinesTotalB;
@@ -251,7 +251,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image) {
+Bool32 SVLComponentFilter(LineInfo *Line, RMPreProcessImage * Image) {
     CCOM_comp * pcomp;
     CCOM_comp * pdeadcom;
     Bool32 GoodComp;

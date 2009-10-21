@@ -67,22 +67,11 @@
 #ifndef __RMARKER_H
 #define __RMARKER_H
 
-#include "globus.h"
 #include "rect.h"
 #include "common/exception.h"
-
 #include "linesbuffer.h"
 
-#ifdef __RMARKER__
-#define RMARKER_FUNC  FUN_EXPO__
-#else
-#define RMARKER_FUNC  FUN_IMPO__
-#endif
-
 namespace CIF {
-
-RMARKER_FUNC uint32_t RMARKER_GetReturnCode();
-RMARKER_FUNC Bool32 RMARKER_SetImportData(void * pData);
 
 class RMPreProcessImage
 {
@@ -123,18 +112,7 @@ public:
     Bool32* pgrc_line;
 };
 
-typedef RMPreProcessImage * PRMPreProcessImage;
-
-struct RMCBProgressPoints
-{
-    void * pGetModulePath;
-    void * pSetUpdate;
-};
-
-typedef RMCBProgressPoints * PRMCBProgressPoints;
-
 const int PUMAMaxNumLines = 2000;
-//Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 
 class BigImage;
 

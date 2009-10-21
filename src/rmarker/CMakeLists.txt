@@ -4,7 +4,6 @@ bigimage.cpp
 linesbuffer.cpp
 dll.cpp
 rmarker.cpp
-rmtimer.cpp
 shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp
 ../usage/line_am_util.cpp
