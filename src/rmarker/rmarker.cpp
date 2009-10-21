@@ -81,20 +81,6 @@
 using namespace CIF::CFIO;
 using namespace CIF;
 
-# define INCLINE_FACTOR  2048
-
-# define IDEAL_XY(x, y)   \
-         {\
-             y = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR);\
-             x = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);\
-         }
-
-# define REAL_XY(x, y)   \
-         {\
-             x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
-             y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
-		}
-
 #define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")
 
 extern Handle DebugFill;
@@ -160,8 +146,6 @@ Bool32 PageMarkup(PRMPreProcessImage Image) {
         CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
         CPAGE_DeleteBlock(Image->hCPAGE, h);
     }
-    //    if(big_Image.hCCOM==NULL)
-    //		big_Image.hCCOM=(CCOM_handle)(Image->hCCOM);
 
     LDPUMA_Skip(hPicture);
 
