@@ -57,20 +57,8 @@
 #ifndef _RMFUNC_H_
 #define _RMFUNC_H_
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "cimage/ctiimage.h"
-#include "ccom/ccomdefs.h"
-#include "cpage/cpage.h"
+#include "cttypes.h"
 
-namespace CIF {
-class BigImage;
-}
-
-uint32_t GetReturnCode_rmarker(void);
 void MySetNegative(void *vB, Handle hCPage);
-
-void SetUpdate(uint32_t, uint32_t);
-char *GetModulePath();
 
 #endif

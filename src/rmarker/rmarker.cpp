@@ -116,14 +116,6 @@ extern Handle hEnd;
 static uint32_t gwRC = 0;
 Bool dpDebugUpDown;
 
-void SetReturnCode_rmarker(uint32_t rc) {
-    gwRC = rc;
-}
-
-uint32_t GetReturnCode_rmarker(void) {
-    return gwRC;
-}
-
 int GetCountNumbers(int num) {
     int count = 0;
     if (num == 0)
