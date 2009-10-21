@@ -214,7 +214,7 @@ void RMarker::pageMarkup() {
     gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
             MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
 
-    shortVerticalLinesProcess();
+    shortVerticalLinesProcessPass1();
 
     Handle h = NULL;
     BIG_IMAGE big_Image;
@@ -249,11 +249,9 @@ void RMarker::pageMarkup() {
     }
 
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-    if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, image_);
-    }
+    shortVerticalLinesProcessPass2();
 
-    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_);
+    shortVerticalLinesProcessPass3();
 
     CFIO_FreeMemory(gSVLBuffer.LineInfoA);
     CFIO_FreeMemory(gSVLBuffer.LineInfoB);
@@ -295,8 +293,45 @@ void RMarker::setImageData(RMPreProcessImage& image) {
     image_ = &image;
 }
 
-void RMarker::shortVerticalLinesProcess() {
-    ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_);
+void RMarker::shortVerticalLinesProcessPass1() {
+    gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
+
+    if (gSVLBuffer.VLinefBufferA == NULL)
+        gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
+                (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
+                "SVL step I lines pool");
+
+    if (!ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, image_))
+        throw RMarkerException("ReadSVLFromPageContainer failed");
+}
+
+void RMarker::shortVerticalLinesProcessPass2() {
+    gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
+
+    if (gSVLBuffer.VLinefBufferB == NULL)
+        gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
+                (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
+                "SVL step II lines pool");
+
+    if (!ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, image_))
+        throw RMarkerException("ReadSVLFromPageContainer failed");
+
+    // обработка и удаление тут
+    if (!SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, image_))
+        throw RMarkerException("SVLFilter failed");
+}
+
+void RMarker::shortVerticalLinesProcessPass3() {
+    if (gSVLBuffer.VLinefBufferA != NULL) {
+        CFIO_FreeMemory(gSVLBuffer.VLinefBufferA);
+    }
+
+    if (gSVLBuffer.VLinefBufferB != NULL) {
+        CFIO_FreeMemory(gSVLBuffer.VLinefBufferB);
+    }
+
+    gSVLBuffer.VLinefBufferA = NULL;
+    gSVLBuffer.VLinefBufferB = NULL;
 }
 
 }

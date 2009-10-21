@@ -66,8 +66,11 @@
 //Almi 16.06.00 //Last edit ........
 #ifndef __RMARKER_H
 #define __RMARKER_H
+
 #include "globus.h"
 #include "rect.h"
+#include "common/exception.h"
+
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO__
 #else
@@ -146,10 +149,14 @@ public:
     void pageMarkup();
     void setImageData(RMPreProcessImage& image);
 private:
-    void shortVerticalLinesProcess();
+    void shortVerticalLinesProcessPass1();
+    void shortVerticalLinesProcessPass2();
+    void shortVerticalLinesProcessPass3();
 private:
     RMPreProcessImage * image_;
 };
+
+typedef RuntimeExceptionImpl<RMarker> RMarkerException;
 
 }
 
