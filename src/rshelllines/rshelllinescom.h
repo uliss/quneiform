@@ -58,6 +58,9 @@
 //	Description: ShellLine's functions and classes definition
 //	Implemented: by B.M. Shahverdiev
 
+#ifndef RSHELLLINESCOM_H_
+#define RSHELLLINESCOM_H_
+
 #include "globus.h"
 #include "cline.h"
 #include "cpage/cpage.h"
@@ -192,7 +195,7 @@ RSHELLLINES_FUNC(Bool32) FindLineFrag(CLINE_handle processedline, Bool32 OnlyPos
         Bool32 IfStraightFrag = FALSE); //
 RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr); //
 RSHELLLINES_FUNC(Bool32)
-        GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine/*, CPDLine oldlinedata*/); //
+GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine/*, CPDLine oldlinedata*/); //
 
 void AddLine2Group(GLM* hGroup, CLINE_handle hLine);
 RSHELLLINES_FUNC(void) DeleteGroup(GLM* hGroup, int CountLines);
@@ -220,3 +223,4 @@ RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEI
         uchar lang, uchar debug_flags, int32_t *cross_point = NULL);
 RSHELLLINES_FUNC(Bool) SL_GetRaster(CIF::Rect* rect, uchar** ppData, PAGEINFO* page_info);
 
+#endif

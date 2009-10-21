@@ -88,7 +88,6 @@ using namespace CIF;
 #define     MAF_GALL_GPTR              0x0010
 char cCommentBuffer[CFIO_MAX_COMMENT];
 
-static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 Handle hSkipDeleteNoiseEvents = NULL;
 Handle hPrintUnderlineTest = NULL;
@@ -149,10 +148,6 @@ Bool32 RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2) {
 
 Bool32 RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer) {
     return TRUE;
-}
-
-Bool SL_IsPointInAB(Point *P, Point *A, Point *B) {
-    return FALSE;
 }
 
 void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info) {
