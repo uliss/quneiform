@@ -148,22 +148,12 @@ void RMarker::pageMarkup() {
 
     buffer_.free();
 
-    if (!LDPUMA_Skip(image_->hDebugLayoutFromFile)) {
-        image_->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (image_->szLayoutFileName));
-        if (image_->hCPAGE == NULL)
-            throw RMarkerException("CPAGE_RestorePage failed");
+    Bool32 bEnableSearchPicture = image_->gnPictures;
+    RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
 
-        CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_->hCPAGE));
-        LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_->szLayoutFileName);
-    }
-    else {
-        Bool32 bEnableSearchPicture = image_->gnPictures;
-        RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-        RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
-
-        if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
-            throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
-    }
+    if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
+        throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
 }
 
 void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
