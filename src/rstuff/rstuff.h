@@ -125,9 +125,11 @@ public:
     RStuff();
     ~RStuff();
     void binarize();
+    void extractComponents(Handle * prev_ccom, const char * name);
     void layout();
     void normalize();
     void removeLines();
+    void removeLines(uchar ** DIB);
     void searchTables();
     void setImageData(RSPreProcessImage& data);
 private:

@@ -72,8 +72,6 @@
 #include "rstuff.h"
 
 const int RStuffMaxNumLines = 2000;
-const int RS_SVL_FIRST_STEP = 0x1;
-const int RS_SVL_SECOND_STEP = 0x2;
 // для модулей Михайлова
 const int RSTUFF_AboutLines_SizeMyBuff = 492000;
 const int RSTUFF_AboutLines_SizeWorkMem = 180000; //165000

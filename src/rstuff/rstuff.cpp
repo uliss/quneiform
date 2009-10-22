@@ -66,6 +66,7 @@
 #include "ccom/ccom.h"
 #include "ctdib.h"
 #include "cline.h"
+#include "exc.h"
 #include "compat_defs.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
@@ -73,11 +74,35 @@
 #include "markdataoper.h"
 #include "un_err.h"
 #include "rmarker/bigimage.h"
+#include "rreccom.h"
+#include "dpuma.h"
+#include "puma/pumadef.h"
 
 #include "common/debug.h"
 #include "cifconfig.h"
 
 extern Bool32 gbRSLT;
+extern Handle ObvKillLines;
+extern Handle hNewLine;
+extern Handle NotKillPointed;
+extern Handle hAngles;
+extern Handle hCalcMuchSkew;
+extern Handle hTalkMuchSkew;
+
+extern Handle hPrep;
+extern Handle hContBigComp;
+extern Handle hSearchLine;
+extern Handle hDotLine;
+extern Handle hCalcIncline;
+extern Handle hVerOrNewLine;
+extern Handle hOrto;
+extern Handle hKillLine;
+extern Handle hPrep2;
+extern Handle hKillLineAfter;
+extern Handle hEnd;
+extern Handle hDebugAutoTemplate;
+extern Handle hWndTurn;
+extern Handle hDebugPrintResolution;
 
 namespace CIF {
 
@@ -505,13 +530,59 @@ void RStuff::copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int old
     }
 }
 
+void RStuff::extractComponents(Handle * prev_ccom, const char * name) {
+    if (prev_ccom) {
+        *prev_ccom = *image_->phCCOM ? *image_->phCCOM : NULL;
+        *image_->phCCOM = NULL;
+    }
+    else {
+        CCOM_DeleteContainer((CCOM_handle) *image_->phCCOM);
+        *image_->phCCOM = NULL;
+    }
+
+    ExcControl exc;
+    memset(&exc, 0, sizeof(exc));
+
+    // будет распознавания эвентами
+    //Andrey: опознавалка вынесена в отдельный модуль RRecCom
+    exc.Control = Ex_ExtraComp | Ex_Picture;
+    exc.Control |= Ex_PictureLarge;
+    {
+        uchar w8 = (uchar) layout_opts_.dotMatrix();
+        REXC_SetImportData(REXC_Word8_Matrix, &w8);
+
+        w8 = (uchar) image_->gbFax100;
+        REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
+    }
+
+    CIMAGEIMAGECALLBACK clbk;
+    if (!CIMAGE_GetCallbackImage(name, &clbk))
+        throw RStuffException("CIMAGE_GetCallbackImage failed");
+
+    if (!REXCExtracomp3CB(
+            exc, // поиск компонент by 3CallBacks
+            (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
+            (TImageRead) clbk.CIMAGE_ImageRead))
+        throw RStuffException("CIMAGE_GetCallbackImage failed");
+
+    *image_->phCCOM = (Handle) REXCGetContainer();
+    if (*image_->phCCOM == 0)
+        throw RStuffException("REXCGetContainer failed");
+
+    RRecComControl rec_control;
+    memset(&rec_control, 0, sizeof(RRecComControl));
+    rec_control.flags = RECOG_EVN;
+
+    if (!RRECCOM_Recog(*(image_->phCCOM), rec_control, (uchar) image_->gnLanguage))
+        throw RStuffException("RRECCOM_Recog failed");
+
+    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
+}
+
 void RStuff::killLines() {
     if (*image_->pgrc_line && *image_->pgneed_clean_line) {
         puchar pDIB = NULL;
-        if (!RemoveLines(image_, &pDIB)) {
-            *image_->pgpRecogDIB = pDIB;
-            throw RStuffException("RStuff::killLines() failed");
-        }
+        removeLines(&pDIB);
     }
 }
 
@@ -612,8 +683,7 @@ void RStuff::ortoMove() {
         newdib->DestroyDIB();
 
         //снова выделим компоненты
-        if (!ExtractComponents(FALSE, NULL, PUMA_IMAGE_ORTOMOVE, image_))
-            throw RStuffException("");
+        extractComponents(NULL, PUMA_IMAGE_ORTOMOVE);
         //выделим линии
         CLINE_Reset();
         searchLines();
@@ -651,7 +721,7 @@ void RStuff::preProcessImage() {
     SetPageInfo(image_->hCPAGE, PInfo);
 
     // Выделим компоненты
-    ExtractComponents(image_->gbAutoRotate, NULL, glpRecogName, image_);
+    extractComponents(NULL, glpRecogName);
     //проверим наличие разрешения и попытаемся определить по компонентам, если его нет
     checkResolution();
 
@@ -681,9 +751,86 @@ void RStuff::removeLines() {
     if (!(*image_->pgrc_line) || !(*image_->pgneed_clean_line))
         return;
     puchar pDIB = NULL;
-    bool rc = RemoveLines(image_, &pDIB);
-    if (rc)
-        *image_->pgpRecogDIB = pDIB;
+    removeLines(&pDIB);
+    *image_->pgpRecogDIB = pDIB;
+}
+
+void RStuff::removeLines(uchar ** DIB) {
+    Handle hccom = *image_->phCCOM;
+    Handle hcpage = image_->hCPAGE;
+    Handle *hLinesCCOM = image_->phLinesCCOM;
+
+    puchar hDIB = NULL;
+    *hLinesCCOM = NULL;
+    CCOM_comp *victim[100];
+    int32_t nvict;
+    Bool32 yes_victim = FALSE;
+
+    // Удалим линии
+    if (!LDPUMA_Skip(ObvKillLines) || (LDPUMA_Skip(hNewLine) && LDPUMA_Skip(
+            image_->hDebugCancelVerifyLines)))
+        DeleteLines(hcpage, image_->phCLINE, PUMA_IMAGE_DELLINE);
+    else {
+        if (!RLINE_DeleteLines(hcpage, PUMA_IMAGE_DELLINE))
+            throw RStuffException("RLINE_DeleteLines failed");
+
+        if (LDPUMA_Skip(NotKillPointed) && LDPUMA_Skip(image_->hDebugCancelSearchDotLines))
+            DeleteDotLines(image_->phCLINE, PUMA_IMAGE_DELLINE);
+    }
+
+    // Получим изображение с удаленными линиями
+    if (!CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE))
+        throw RStuffException("CIMAGE_ReadDIB failed");
+
+    if (hDIB)
+        throw RStuffException("CIMAGE_ReadDIB failed");
+
+    // Удалим компоненты и выделим их заново.
+    *DIB = (puchar) hDIB;
+    if (CCOM_GetContainerVolume((CCOM_handle) *image_->phCCOM) < 60000 && MyGetZher(
+            (void**) victim, &nvict, 100, hcpage) && nvict)
+        yes_victim = TRUE;
+
+    if (!yes_victim) {
+        CCOM_DeleteContainer((CCOM_handle) *image_->phCCOM);
+        *image_->phCCOM = 0;
+    }
+
+    extractComponents(hLinesCCOM, PUMA_IMAGE_DELLINE);
+
+    PAGEINFO inf;
+    GetPageInfo(image_->hCPAGE, &inf);
+    strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
+    inf.Images |= IMAGE_DELLINE;
+    SetPageInfo(image_->hCPAGE, inf);
+
+    *image_->phCCOM = (Handle) REXCGetContainer();
+    if (*image_->phCCOM == 0)
+        throw RStuffException("REXCGetContainer failed");
+
+    hccom = *image_->phCCOM;
+    if (*hLinesCCOM) {
+        // Refersh CCOM
+        CCOM_comp *exa = CCOM_GetFirst((CCOM_handle) *hLinesCCOM, NULL);
+
+        if (yes_victim) {
+            for (int i = 0; i < nvict; i++) {
+                exa = victim[i];
+                if (remove_overlayed(exa, (CCOM_handle) *image_->phCCOM)) {
+                    CCOM_comp *dup = CCOM_New((CCOM_handle) *image_->phCCOM, exa->upper, exa->left,
+                            exa->w, exa->h);
+                    if (dup) {
+                        CCOM_Store(dup, 0, exa->size_linerep, exa->linerep, exa->nl, exa->begs,
+                                exa->ends, exa->vers, NULL);
+                        dup->scale = exa->scale;
+                        dup->type = exa->type;
+                        dup->cs = exa->cs;
+                    }
+                }
+            }
+        }
+        CCOM_DeleteContainer((CCOM_handle) *hLinesCCOM);
+    }
 }
 
 void RStuff::searchAndKill() {

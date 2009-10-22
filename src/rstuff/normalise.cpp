@@ -117,192 +117,6 @@ extern Handle hDebugAutoTemplate;
 extern Handle hWndTurn;
 extern Handle hDebugPrintResolution;
 
-Bool32 AutoTemplate(PRSPreProcessImage);
-
-// Выделение компонент
-Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom, const char * name,
-        PRSPreProcessImage Image) {
-    Bool32 rc = TRUE;
-    ExcControl exc = { 0 };
-
-    if (prev_ccom) {
-        *prev_ccom = *Image->phCCOM ? *Image->phCCOM : NULL;
-        *Image->phCCOM = NULL;
-    }
-    else {
-        CCOM_DeleteContainer((CCOM_handle) *Image->phCCOM);
-        *Image->phCCOM = NULL;
-    }
-
-    // будет распознавания эвентами
-    //Andrey: опознавалка вынесена в отдельный модуль RRecCom
-    exc.Control = Ex_ExtraComp | Ex_Picture;
-    exc.Control |= Ex_PictureLarge;
-    {
-        uchar w8 = (uchar) Image->gbDotMatrix;
-        REXC_SetImportData(REXC_Word8_Matrix, &w8);
-
-        w8 = (uchar) Image->gbFax100;
-        REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
-    }
-
-    CIMAGEIMAGECALLBACK clbk;
-    if (rc && !CIMAGE_GetCallbackImage(name, &clbk)) {
-        SetReturnCode_rstuff(1);
-        rc = FALSE;
-    }
-    if (rc && !REXCExtracomp3CB(
-            exc, // поиск компонент by 3CallBacks
-            (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
-            (TImageRead) clbk.CIMAGE_ImageRead)) {
-        SetReturnCode_rstuff(REXC_GetReturnCode());
-        rc = FALSE;
-    }
-
-    if (rc) {
-        *Image->phCCOM = (Handle) REXCGetContainer();
-        if (*Image->phCCOM == 0) {
-            SetReturnCode_rstuff(REXC_GetReturnCode());
-            rc = FALSE;
-        }
-
-        RRecComControl rec_control;
-        memset(&rec_control, 0, sizeof(RRecComControl));
-        rec_control.flags = RECOG_EVN;
-
-        if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, (uchar) Image->gnLanguage)) {
-            SetReturnCode_rstuff(RRECCOM_GetReturnCode());
-            rc = FALSE;
-        }
-    }
-    if (rc)
-        SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
-    return rc;
-}
-
-Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
-    Handle hccom = *Image->phCCOM;
-    Handle hcpage = Image->hCPAGE;
-    Handle *hLinesCCOM = Image->phLinesCCOM;
-
-    puchar hDIB = NULL;
-    Bool32 rc = TRUE;
-    *hLinesCCOM = NULL;
-    CCOM_comp *victim[100];
-    int32_t nvict, i;
-    Bool32 yes_victim = FALSE;
-    //
-    // Удалим линии
-    //
-    if (!LDPUMA_Skip(ObvKillLines) || (LDPUMA_Skip(hNewLine) && LDPUMA_Skip(
-            Image->hDebugCancelVerifyLines)))
-        rc = DeleteLines(hcpage, Image->phCLINE, PUMA_IMAGE_DELLINE);
-    else {
-        if (rc && !RLINE_DeleteLines(hcpage, PUMA_IMAGE_DELLINE)) {
-            SetReturnCode_rstuff(RLINE_GetReturnCode());
-            rc = FALSE;
-        }
-        if (rc && LDPUMA_Skip(NotKillPointed) && LDPUMA_Skip(Image->hDebugCancelSearchDotLines))
-            rc = DeleteDotLines(Image->phCLINE, PUMA_IMAGE_DELLINE);
-    }
-
-    LDPUMA_Skip(hPrep2);
-    //
-    // Получим изображение с удаленными линиями
-    //
-    if (rc && !CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE)) {
-        SetReturnCode_rstuff(-1);
-        rc = FALSE;
-    }
-    if (hDIB) {
-        //
-        // Удалим компоненты и выделим их заново.
-        //
-        *lppDIB = (puchar) hDIB;
-        if (rc) {
-            //if( CCOM_GetContainerVolume((CCOM_handle)*Image->phCCOM)>30000 )
-            //	CCOM_CompressContatiner((CCOM_handle)*Image->phCCOM);
-            if (CCOM_GetContainerVolume((CCOM_handle) *Image->phCCOM) < 60000 && MyGetZher(
-                    (void**) victim, &nvict, 100, hcpage) && nvict)
-                yes_victim = TRUE;
-
-            if (!yes_victim) {
-                CCOM_DeleteContainer((CCOM_handle) *Image->phCCOM);
-                *Image->phCCOM = 0;
-            }
-
-            if (!ExtractComponents(FALSE, hLinesCCOM, PUMA_IMAGE_DELLINE, Image)) {
-                rc = FALSE;
-            }
-            else {
-                PAGEINFO inf = { 0 };
-                GetPageInfo(Image->hCPAGE, &inf);
-                strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
-                inf.Images |= IMAGE_DELLINE;
-                SetPageInfo(Image->hCPAGE, inf);
-            }
-
-            if (rc) {
-
-                *Image->phCCOM = (Handle) REXCGetContainer();
-                if (*Image->phCCOM == 0) {
-                    SetReturnCode_rstuff(REXC_GetReturnCode());
-                    rc = FALSE;
-                }
-                hccom = *Image->phCCOM;
-                if (*hLinesCCOM) {
-                    //
-                    // Refersh CCOM
-                    //
-                    CCOM_comp *exa = CCOM_GetFirst((CCOM_handle) *hLinesCCOM, NULL);
-
-                    if (yes_victim) {
-                        /*
-                         Rect16 rect1;
-                         uint32_t key = 111;
-                         for(i=0;i<nvict;i++)
-                         {
-                         exa = victim[i];
-                         rect1.top = exa->upper;
-                         rect1.left = exa->left;
-                         rect1.bottom = exa->upper+exa->h;
-                         rect1.right = exa->left+exa->w;
-                         LDPUMA_DrawRect(NULL, &rect1, 0, 23635, 1, key);
-                         }
-
-                         if(!LDPUMA_Skip(hShowCheckLetters))
-                         {
-                         LDPUMA_Console("Puma_Коробки жертв  \n");
-                         LDPUMA_WaitUserInput(NULL, NULL);
-                         LDPUMA_DeleteRects(NULL, key);
-                         }
-                         */
-                        for (i = 0; i < nvict; i++) {
-                            exa = victim[i];
-                            if (remove_overlayed(exa, (CCOM_handle) *Image->phCCOM)) {
-                                CCOM_comp *dup = CCOM_New((CCOM_handle) *Image->phCCOM, exa->upper,
-                                        exa->left, exa->w, exa->h);
-                                if (dup) {
-                                    CCOM_Store(dup, 0, exa->size_linerep, exa->linerep, exa->nl,
-                                            exa->begs, exa->ends, exa->vers, NULL);
-                                    dup->scale = exa->scale;
-                                    dup->type = exa->type;
-                                    dup->cs = exa->cs;
-                                }
-                            }
-                        }
-                    }
-                    CCOM_DeleteContainer((CCOM_handle) *hLinesCCOM);
-                }
-            }
-            else
-                LDPUMA_Console("Пропущен этап выделения компонент после удаления линий.\n");
-        }
-    }
-    return rc;
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) {
     uint32_t err32, nTeor, nReal;
     Handle hBlockZher;
@@ -340,8 +154,7 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
     *nZher = i;
     return TRUE;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
     CCOM_comp *cur = CCOM_GetFirst(haCCOM, NULL), *curn;
     int32_t over = 0;
@@ -364,8 +177,7 @@ Bool32 remove_overlayed(CCOM_comp *sour, CCOM_handle haCCOM) {
 
     return (over > 0);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
     int32_t le, ri, up, dn, w, h;
 
@@ -400,10 +212,4 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
         return TRUE;
     return FALSE;
 }
-
-//Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
-//{
-//	return TRUE;
-//}
-
 
