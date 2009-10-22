@@ -112,7 +112,8 @@ void MySetNegative(void *vB, Handle hCPage) {
 }
 
 RMarker::RMarker() :
-    image_(NULL), lines_total_info_(NULL) {
+    lines_total_info_(NULL), ccom_(NULL), cline_(NULL), cpage_(NULL), one_column_(true),
+            kill_svl_components_(false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL) {
     RNEG_Init(0, NULL);
 }
 
@@ -145,8 +146,6 @@ void RMarker::setCPage(Handle cpage) {
 }
 
 void RMarker::pageMarkup() {
-    assert(image_);
-
     buffer_.alloc();
 
     shortVerticalLinesProcessPass1();
@@ -165,16 +164,16 @@ void RMarker::pageMarkup() {
     searchNeg(big_Image);
 
     //Третий проход по линиям
-    RLINE_LinesPass3(cpage_, cline_, ccom_, (uchar) image_->gnLanguage);
+    RLINE_LinesPass3(cpage_, cline_, ccom_, language_);
 
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     shortVerticalLinesProcessPass2();
 
     buffer_.free();
 
-    Bool32 bEnableSearchPicture = image_->gnPictures;
+    Bool32 bEnableSearchPicture = pictures_;
     RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
+    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &one_column_);
 
     if (!RBLOCK_ExtractTextBlocks(ccom_, cpage_, cline_))
         throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
@@ -226,16 +225,27 @@ void RMarker::searchNeg(const BigImage& big_image) {
 }
 
 void RMarker::searchPictures(const BigImage& big_image) {
-    assert(image_);
-    if (!image_->gnPictures)
+    if (pictures_ == PUMA_PICTURE_NONE)
         return;
 
     if (!RPIC_SearchPictures(ccom_, big_image.ccom(), cpage_))
         throw RMarkerException("RPIC_SearchPictures failed");
 }
 
-void RMarker::setImageData(RMPreProcessImage& image) {
-    image_ = &image;
+void RMarker::setKillSVLComponents(bool value) {
+    kill_svl_components_ = value;
+}
+
+void RMarker::setLanguage(language_t lang) {
+    language_ = lang;
+}
+
+void RMarker::setOneColumn(bool value) {
+    one_column_ = value;
+}
+
+void RMarker::setPicturesMode(puma_picture_t mode) {
+    pictures_ = mode;
 }
 
 void RMarker::shortVerticalLinesProcessPass1() {
@@ -288,7 +298,7 @@ void RMarker::svlComponentFilter(LineInfo *Line) {
         nRc++;
 
         if (Rl.intersects(Rc)) {
-            if (image_->gKillVSLComponents) {
+            if (kill_svl_components_) {
                 CCOM_comp * pdeadcom = pcomp;
                 pcomp = CCOM_GetNext(pcomp, NULL);
                 bDieComponent = CCOM_Delete(ccom_, pdeadcom);

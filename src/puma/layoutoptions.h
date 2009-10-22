@@ -30,7 +30,6 @@ class RMPreProcessImage;
 namespace CIF {
 
 class RSPreProcessImage;
-class RMPreProcessImage;
 
 class LayoutOptions
 {
@@ -39,11 +38,11 @@ public:
     bool autoRotate() const;
     bool dotMatrix() const;
     std::string layoutFilename() const;
+    bool oneColumn() const;
     puma_picture_t pictures() const;
     Rect rect() const;
     void setAutoRotate(bool val);
     void setData(RSPreProcessImage& data);
-    void setData(RMPreProcessImage& data);
     void setDotMatrix(bool val);
     void setOneColumn(bool val);
     void setPictures(puma_picture_t type);

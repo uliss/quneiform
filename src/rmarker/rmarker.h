@@ -70,44 +70,10 @@
 #include "rect.h"
 #include "common/exception.h"
 #include "linesbuffer.h"
+#include "puma/pumadef.h"
+#include "lang_def.h"
 
 namespace CIF {
-
-class RMPreProcessImage
-{
-public:
-    puchar *pgpRecogDIB;
-    Bool32 gbAutoRotate;
-    Bool32 gbDotMatrix;
-    Bool32 gbFax100;
-    Bool32 gbOneColumn;
-    Bool32 gKillVSLComponents;
-    uint32_t gnLanguage;
-    uint32_t gnTables;
-    Handle hDebugCancelSearchPictures;
-    Handle hDebugCancelComponent;
-    Handle hDebugCancelTurn;
-    Handle hDebugCancelSearchLines;
-    Handle hDebugCancelVerifyLines;
-    Handle hDebugCancelSearchDotLines;
-    Handle hDebugCancelRemoveLines;
-    Handle hDebugCancelSearchTables;
-    Handle hDebugLayoutFromFile;
-    Handle hDebugCancelExtractBlocks;
-    Handle hDebugHandLayout;
-    Handle hDebugPrintBlocksCPAGE;
-    Handle hDebugSVLines;
-    Handle hDebugSVLinesStep;
-    Handle hDebugSVLinesData;
-    Handle hDebugEnableSearchSegment;
-    const char *szLayoutFileName;
-    void * pinfo;
-    Handle* phLinesCCOM;
-    PBool32 pgneed_clean_line;
-    int32_t * pgnNumberTables;
-    uint32_t gnPictures;
-    Bool32* pgrc_line;
-};
 
 const int PUMAMaxNumLines = 2000;
 
@@ -125,7 +91,10 @@ public:
     void setCCom(Handle ccom);
     void setCLine(Handle cline);
     void setCPage(Handle cpage);
-    void setImageData(RMPreProcessImage& image);
+    void setKillSVLComponents(bool value);
+    void setLanguage(language_t lang);
+    void setOneColumn(bool value);
+    void setPicturesMode(puma_picture_t mode);
 private:
     void readSVLFromPageContainer(LinesTotalInfo * LTInfo);
     void searchNeg(const BigImage& big_image);
@@ -135,12 +104,15 @@ private:
     void svlComponentFilter(LineInfo * Line);
     void svlFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB);
 private:
-    RMPreProcessImage * image_;
     LinesBuffer buffer_;
     LinesTotalInfo * lines_total_info_;
-    Handle cpage_;
     Handle ccom_;
     Handle cline_;
+    Handle cpage_;
+    bool one_column_;
+    bool kill_svl_components_;
+    language_t language_;
+    puma_picture_t pictures_;
 };
 
 typedef RuntimeExceptionImpl<RMarker> RMarkerException;

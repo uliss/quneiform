@@ -299,37 +299,13 @@ void PumaImpl::layoutRStuff() {
 }
 
 void PumaImpl::layoutRMarker() {
-    RMPreProcessImage DataforRM;
-
-    // Далее - разметка. Вынесена в RMARKER.DLL
-    layout_options_.setData(DataforRM);
-    DataforRM.gbFax100 = fax100_;
-    DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
-    DataforRM.gKillVSLComponents = kill_vsl_components_;
-    DataforRM.pinfo = &info_;
-    DataforRM.phLinesCCOM = &lines_ccom_;
-    DataforRM.gnLanguage = language_;
-    DataforRM.hDebugCancelSearchPictures = 0;
-    DataforRM.hDebugCancelComponent = 0;
-    DataforRM.hDebugCancelTurn = 0;
-    DataforRM.hDebugCancelSearchLines = 0;
-    DataforRM.hDebugCancelVerifyLines = 0;
-    DataforRM.hDebugCancelSearchDotLines = 0;
-    DataforRM.hDebugCancelRemoveLines = 0;
-    DataforRM.hDebugCancelSearchTables = 0;
-    DataforRM.hDebugLayoutFromFile = 0;
-    DataforRM.hDebugCancelExtractBlocks = 0;
-    DataforRM.hDebugHandLayout = 0;
-    DataforRM.hDebugPrintBlocksCPAGE = 0;
-    DataforRM.hDebugSVLines = 0;
-    DataforRM.hDebugSVLinesStep = 0;
-    DataforRM.hDebugSVLinesData = 0;
-    DataforRM.hDebugEnableSearchSegment = 0;
-
     rmarker_->setCCom(ccom_);
     rmarker_->setCPage(cpage_);
     rmarker_->setCLine(cline_);
-    rmarker_->setImageData(DataforRM);
+    rmarker_->setLanguage(language_);
+    rmarker_->setOneColumn(layout_options_.oneColumn());
+    rmarker_->setPicturesMode(layout_options_.pictures());
+    rmarker_->setKillSVLComponents(kill_vsl_components_);
     rmarker_->pageMarkup();
     cpage_ = rmarker_->cPage();
 }

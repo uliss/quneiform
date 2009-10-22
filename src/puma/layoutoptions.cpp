@@ -19,7 +19,6 @@
 #include "layoutoptions.h"
 #include "mpuma.h"
 #include "rstuff/rstuff.h"
-#include "rmarker/rmarker.h"
 
 namespace CIF {
 
@@ -43,6 +42,10 @@ std::string LayoutOptions::layoutFilename() const {
     return layout_filename_;
 }
 
+bool LayoutOptions::oneColumn() const {
+    return one_column_;
+}
+
 puma_picture_t LayoutOptions::pictures() const {
     return pictures_;
 }
@@ -64,18 +67,6 @@ void LayoutOptions::setData(RSPreProcessImage& data) {
     data.pgnNumberTables = &tables_num_;
     data.pgneed_clean_line = &need_clean_line_;
     data.gRectTemplate = rect_template_;
-    data.szLayoutFileName = layout_filename_.c_str();
-}
-
-void LayoutOptions::setData(RMPreProcessImage& data) {
-    data.gbAutoRotate = auto_rotate_;
-    data.gnPictures = pictures_;
-    data.gbDotMatrix = dot_matrix_;
-    data.gbOneColumn = one_column_;
-    data.pgrc_line = &rc_line_;
-    data.gnTables = tables_;
-    data.pgnNumberTables = &tables_num_;
-    data.pgneed_clean_line = &need_clean_line_;
     data.szLayoutFileName = layout_filename_.c_str();
 }
 
