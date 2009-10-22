@@ -72,6 +72,7 @@
 #include "line_vp_2_am.h"
 #include "markdataoper.h"
 #include "un_err.h"
+#include "rmarker/bigimage.h"
 
 #include "common/debug.h"
 #include "cifconfig.h"
@@ -301,12 +302,6 @@ void RStuff::checkResolution() {
     }
 }
 
-struct BIG_IMAGE
-{
-    CCOM_handle hCCOM;
-    uchar ImageName[CPAGE_MAXNAME];
-};
-
 void RStuff::createContainerBigComp() {
     const int MIN_BIG_H = 30;
     const int MIN_BIG_W = 30;
@@ -314,16 +309,12 @@ void RStuff::createContainerBigComp() {
     CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
     Handle hCPage = image_->hCPAGE;
     CCOM_handle hCCOM_new = 0;
-    BIG_IMAGE big_Image;
-    PAGEINFO info;
-    GetPageInfo(hCPage, &info);
 
-    for (int i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
+    BigImage big_Image(hCPage);
 
     hCCOM_new = CCOM_CreateContainer();
     if (!hCCOM_new) {
-        big_Image.hCCOM = NULL;
+        big_Image.setCCOM(NULL);
         return;
     }
 
@@ -344,9 +335,9 @@ void RStuff::createContainerBigComp() {
         comp = CCOM_GetNext(comp, FALSE);
     }
 
-    big_Image.hCCOM = hCCOM_new;
+    big_Image.setCCOM(hCCOM_new);
     CPAGE_CreateBlock(hCPage, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
-            sizeof(BIG_IMAGE));
+            sizeof(BigImage));
 }
 
 void RStuff::copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int oldbytewide,
