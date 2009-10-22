@@ -162,7 +162,8 @@ void RStuff::calcIncline() {
     int32_t SkewReg, Skew, SkewLocVerLin;
     Rect16 RcReg;
     PAGEINFO info;
-    UN_BUFF MainBuff = { 0 };
+    UN_BUFF MainBuff;
+    memset(&MainBuff, 0, sizeof(MainBuff));
     Handle hCPage = image_->hCPAGE;
     CLINE_handle hCLINE = *((CLINE_handle*) image_->phCLINE);
 
@@ -638,6 +639,24 @@ void RStuff::searchNewLines() {
         throw RStuffException("RLINE_LinesPass2() failed");
 
     CPAGE_DeleteBlock(image_->hCPAGE, hSaveImage);
+}
+
+void RStuff::searchTables() {
+/*
+    if (image_->gnTables == PUMA_TABLE_NONE)
+        return;
+
+    if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_WhereMustSearchTable, NULL))
+        throw RStuffException("RLTABLE_SetImportData failed");
+
+    //// устанавливаем способ поиска
+    int HowToSearch = SST_Default;
+    if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *) (&HowToSearch)))
+        throw RStuffException("RLTABLE_SetImportData failed");
+
+    if (!RLTABLE_SearchTable(*image_->phCCOM, image_->hCPAGE, TRUE, image_->pgnNumberTables))
+        throw RStuffException("RLTABLE_SearchTable failed");
+*/
 }
 
 void RStuff::setImageData(RSPreProcessImage& data) {

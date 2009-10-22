@@ -127,6 +127,7 @@ public:
     void layout();
     void normalize();
     void removeLines();
+    void searchTables();
     void setImageData(RSPreProcessImage& data);
 private:
     void calcIncline();

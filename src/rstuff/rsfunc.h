@@ -76,12 +76,9 @@
 //общего назначения
 void SetReturnCode_rstuff(int);
 
-Bool32 VerifyN(CIF::PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
-// обработка сырья
-Bool32 SearchTables(CIF::PRSPreProcessImage);
 // разметка и линии
 Bool32 LineKiller(CIF::PRSPreProcessImage);
 Bool32 SearchAndKill(CIF::PRSPreProcessImage, LinesTotalInfo*);

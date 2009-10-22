@@ -400,53 +400,7 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
         return TRUE;
     return FALSE;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-/*
- Bool32    SearchTables( PRSPreProcessImage Image)
- {
- Bool32 rc = TRUE;
 
- if(!ProgressStepTables(1,20))
- rc = FALSE;
- if( rc && Image->gnTables != PUMA_TABLE_NONE )
- {
- if(LDPUMA_Skip(Image->hDebugCancelSearchTables))
- {
- if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_WhereMustSearchTable, NULL))
- {
- SetReturnCode_rstuff(RLTABLE_GetReturnCode());
- rc = FALSE;
- }
- else
- {
- int HowToSearch;
- ////				 устанавливаем способ поиска
- HowToSearch = SST_Default;
- if(!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *)(&HowToSearch)))
- {
- SetReturnCode_rstuff(RLTABLE_GetReturnCode());
- rc = FALSE;
- }
- else
- {
- if(!RLTABLE_SearchTable(*Image->phCCOM,Image->hCPAGE, TRUE, Image->pgnNumberTables))
- {
- SetReturnCode_rstuff(RLTABLE_GetReturnCode());
- rc = FALSE;
- }
- }
- }
- }
- else
- LDPUMA_Console("Пропущен этап поиска таблиц.\n");
- }
-
- return rc;
- }
- */
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 //Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 //{
 //	return TRUE;
