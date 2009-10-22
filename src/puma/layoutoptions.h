@@ -25,8 +25,6 @@
 #include "cttypes.h"
 #include "rect.h"
 
-class RMPreProcessImage;
-
 namespace CIF {
 
 class RSPreProcessImage;
