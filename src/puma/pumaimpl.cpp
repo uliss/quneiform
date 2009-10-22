@@ -307,9 +307,6 @@ void PumaImpl::layoutRMarker() {
     DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
     DataforRM.gKillVSLComponents = kill_vsl_components_;
     DataforRM.pinfo = &info_;
-    DataforRM.hCPAGE = cpage_;
-    DataforRM.hCCOM = ccom_;
-    DataforRM.hCLINE = cline_;
     DataforRM.phLinesCCOM = &lines_ccom_;
     DataforRM.gnLanguage = language_;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
@@ -329,9 +326,12 @@ void PumaImpl::layoutRMarker() {
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
+    rmarker_->setCCom(ccom_);
+    rmarker_->setCPage(cpage_);
+    rmarker_->setCLine(cline_);
     rmarker_->setImageData(DataforRM);
     rmarker_->pageMarkup();
-    cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
+    cpage_ = rmarker_->cPage();
 }
 
 LayoutOptions PumaImpl::layoutOptions() const {

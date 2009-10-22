@@ -120,6 +120,30 @@ RMarker::~RMarker() {
     RNEG_Done();
 }
 
+Handle RMarker::cCom() const {
+    return ccom_;
+}
+
+Handle RMarker::cLine() const {
+    return cline_;
+}
+
+Handle RMarker::cPage() const {
+    return cpage_;
+}
+
+void RMarker::setCCom(Handle ccom) {
+    ccom_ = ccom;
+}
+
+void RMarker::setCLine(Handle cline) {
+    cline_ = cline;
+}
+
+void RMarker::setCPage(Handle cpage) {
+    cpage_ = cpage;
+}
+
 void RMarker::pageMarkup() {
     assert(image_);
 
@@ -127,12 +151,12 @@ void RMarker::pageMarkup() {
 
     shortVerticalLinesProcessPass1();
 
-    BigImage big_Image(image_->hCPAGE);
-    Handle h = CPAGE_GetBlockFirst(image_->hCPAGE, CPAGE_GetInternalType("TYPE_BIG_COMP"));
+    BigImage big_Image(cpage_);
+    Handle h = CPAGE_GetBlockFirst(cpage_, CPAGE_GetInternalType("TYPE_BIG_COMP"));
     if (h) {
-        CPAGE_GetBlockData(image_->hCPAGE, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
+        CPAGE_GetBlockData(cpage_, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
                 sizeof(BigImage));
-        CPAGE_DeleteBlock(image_->hCPAGE, h);
+        CPAGE_DeleteBlock(cpage_, h);
     }
 
     //Поиск очевидных картинок
@@ -141,7 +165,7 @@ void RMarker::pageMarkup() {
     searchNeg(big_Image);
 
     //Третий проход по линиям
-    RLINE_LinesPass3(image_->hCPAGE, image_->hCLINE, image_->hCCOM, (uchar) image_->gnLanguage);
+    RLINE_LinesPass3(cpage_, cline_, ccom_, (uchar) image_->gnLanguage);
 
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     shortVerticalLinesProcessPass2();
@@ -152,7 +176,7 @@ void RMarker::pageMarkup() {
     RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
     RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_->gbOneColumn));
 
-    if (!RBLOCK_ExtractTextBlocks(image_->hCCOM, image_->hCPAGE, image_->hCLINE))
+    if (!RBLOCK_ExtractTextBlocks(ccom_, cpage_, cline_))
         throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
 }
 
@@ -162,7 +186,7 @@ void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
     LTInfo->Ver.Cnt = 0;
 
     int count = 0;
-    CLINE_handle hline = CLINE_GetFirstLine(image_->hCLINE);
+    CLINE_handle hline = CLINE_GetFirstLine(cline_);
     while (hline) {
         CPDLine cpdata = CLINE_GetLineData(hline);
         if (!cpdata)
@@ -198,7 +222,7 @@ void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
 }
 
 void RMarker::searchNeg(const BigImage& big_image) {
-    RNEG_RecogNeg(big_image.ccom(), image_->hCPAGE, big_image.imageName(), big_image.incline());
+    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), big_image.incline());
 }
 
 void RMarker::searchPictures(const BigImage& big_image) {
@@ -206,7 +230,7 @@ void RMarker::searchPictures(const BigImage& big_image) {
     if (!image_->gnPictures)
         return;
 
-    if (!RPIC_SearchPictures(image_->hCCOM, big_image.ccom(), image_->hCPAGE))
+    if (!RPIC_SearchPictures(ccom_, big_image.ccom(), cpage_))
         throw RMarkerException("RPIC_SearchPictures failed");
 }
 
@@ -258,7 +282,7 @@ void RMarker::svlComponentFilter(LineInfo *Line) {
         Rl.rright() -= Thick;
     }
 
-    CCOM_comp * pcomp = CCOM_GetFirst(image_->hCCOM, NULL);
+    CCOM_comp * pcomp = CCOM_GetFirst(ccom_, NULL);
     do {
         Rect16 Rc(Point16(pcomp->left, pcomp->upper), pcomp->w - 1, pcomp->h - 1);
         nRc++;
@@ -267,7 +291,7 @@ void RMarker::svlComponentFilter(LineInfo *Line) {
             if (image_->gKillVSLComponents) {
                 CCOM_comp * pdeadcom = pcomp;
                 pcomp = CCOM_GetNext(pcomp, NULL);
-                bDieComponent = CCOM_Delete(image_->hCCOM, pdeadcom);
+                bDieComponent = CCOM_Delete(ccom_, pdeadcom);
             }
 
             if (Config::instance().debugHigh()) {

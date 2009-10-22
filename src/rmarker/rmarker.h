@@ -84,9 +84,6 @@ public:
     Bool32 gKillVSLComponents;
     uint32_t gnLanguage;
     uint32_t gnTables;
-    Handle hCPAGE;
-    Handle hCCOM;
-    Handle hCLINE;
     Handle hDebugCancelSearchPictures;
     Handle hDebugCancelComponent;
     Handle hDebugCancelTurn;
@@ -121,7 +118,13 @@ class RMarker
 public:
     RMarker();
     ~RMarker();
+    Handle cCom() const;
+    Handle cLine() const;
+    Handle cPage() const;
     void pageMarkup();
+    void setCCom(Handle ccom);
+    void setCLine(Handle cline);
+    void setCPage(Handle cpage);
     void setImageData(RMPreProcessImage& image);
 private:
     void readSVLFromPageContainer(LinesTotalInfo * LTInfo);
@@ -135,6 +138,9 @@ private:
     RMPreProcessImage * image_;
     LinesBuffer buffer_;
     LinesTotalInfo * lines_total_info_;
+    Handle cpage_;
+    Handle ccom_;
+    Handle cline_;
 };
 
 typedef RuntimeExceptionImpl<RMarker> RMarkerException;
