@@ -74,6 +74,7 @@
 #include "memorybuffer.h"
 #include "puma/layoutoptions.h"
 #include "common/exception.h"
+#include "lns32/lnsdefs.h"
 
 #ifdef __RSTUFF__
 #define RSTUFF_FUNC  FUN_EXPO__
@@ -132,10 +133,13 @@ public:
 private:
     void calcIncline();
     void checkResolution();
+    void componentFilter(LineInfo * Line);
     void createContainerBigComp();
     void killLines();
+    void lineKiller();
     void ortoMove();
     void preProcessImage();
+    void searchAndKill();
     void searchLines();
     void searchNewLines();
 private:

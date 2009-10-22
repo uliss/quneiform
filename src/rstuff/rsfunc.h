@@ -80,10 +80,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 // разметка и линии
-Bool32 LineKiller(CIF::PRSPreProcessImage);
-Bool32 SearchAndKill(CIF::PRSPreProcessImage, LinesTotalInfo*);
-Bool32 ComponentFilter(CIF::PRSPreProcessImage, LineInfo*);
-Bool32 IsRectIntersect(CIF::Rect16*, CIF::Rect16*);
 Bool32 TuneFilter(LineInfo*, CIF::Rect16*, uint32_t, uint32_t);
 Bool32 ChekComponentAndLine(LineInfo*, CIF::Rect16*, uint32_t);
 Bool32 CheckSquare(LineInfo*, CIF::Rect16*, uint32_t, uint32_t);

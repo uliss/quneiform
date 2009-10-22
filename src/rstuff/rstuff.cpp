@@ -303,6 +303,74 @@ void RStuff::checkResolution() {
     }
 }
 
+void RStuff::componentFilter(LineInfo * Line) {
+    CCOM_comp * pcomp;
+
+    Rect16 Rc;
+    Rect16 Rl;
+    int nRc = 0;
+    int16_t Thick = (Line->Thickness / 2) + (int16_t) gKillZone;
+    Bool32 bDieComponent = FALSE;
+
+    Rl.pt0() = Line->A;
+    Rl.pt1() = Line->B;
+
+    if (Rl.left() <= Rl.right()) {
+        Rl.rleft() -= Thick;
+        Rl.rleft() = Rl.left() < 0 ? 0 : Rl.left();
+        Rl.rright() += Thick;
+    }
+    else {
+        Rl.rleft() += Thick;
+        Rl.rright() -= Thick;
+        Rl.rright() = Rl.right() < 0 ? 0 : Rl.right();
+    }
+
+    if (Rl.bottom() <= Rl.top()) {
+        Rl.rbottom() -= Thick;
+        Rl.rbottom() = Rl.bottom() < 0 ? 0 : Rl.bottom();
+        Rl.rtop() += Thick;
+    }
+    else {
+        Rl.rbottom() += Thick;
+        Rl.rtop() -= Thick;
+        Rl.rtop() = Rl.top() < 0 ? 0 : Rl.top();
+    }
+
+    CCOM_comp * pdeadcom = CCOM_GetFirst(*image_->phCCOM, NULL);
+    do {
+        pcomp = CCOM_GetNext(pdeadcom, NULL);
+        Rc.rleft() = pdeadcom->left;
+        Rc.rright() = pdeadcom->left + pdeadcom->w /*- 1*/;
+        Rc.rtop() = pdeadcom->upper;
+        Rc.rbottom() = pdeadcom->upper + pdeadcom->h /*- 1*/;
+        nRc++;
+
+        if (Rl.intersects(Rc)) {
+            if (TuneFilter(Line, &Rc, gKillZone, gKillRate)) {
+                if (gKillComponents)
+                    bDieComponent = CCOM_Delete(*image_->phCCOM, pdeadcom);
+
+                if (bShowLineDebug || bShowStepLineDebug) {
+                    fprintf(
+                            stderr,
+                            "LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >",
+                            Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
+
+                    if (bDieComponent)
+                        fprintf(stderr, " +dead+");
+
+                    fprintf(stderr, "\n");
+                    bDieComponent = FALSE;
+                }
+            }
+        }
+
+        pdeadcom = pcomp;
+    }
+    while (pcomp != NULL);
+}
+
 void RStuff::createContainerBigComp() {
     const int MIN_BIG_H = 30;
     const int MIN_BIG_W = 30;
@@ -448,6 +516,10 @@ void RStuff::killLines() {
 }
 
 void RStuff::layout() {
+}
+
+void RStuff::lineKiller() {
+    searchAndKill();
 }
 
 void RStuff::normalize() {
@@ -614,6 +686,116 @@ void RStuff::removeLines() {
         *image_->pgpRecogDIB = pDIB;
 }
 
+void RStuff::searchAndKill() {
+    Rect16 ZoomRect;
+    Point16 LinePoints[4];
+    Point16 KillPoints[4];
+    int32_t HalfThickness;
+    int32_t HalfThicknessB;
+
+    LineInfo linfo;
+    CLINE_handle* pCLINE = (CLINE_handle*) (image_->phCLINE);
+
+    int count_comp = CCOM_GetContainerVolume(*(image_->phCCOM));
+    int count_line = CLINE_GetLineCount(*pCLINE);
+    if (count_comp > 10000 || count_line > 600)
+        return;
+
+    CLINE_handle hline = CLINE_GetFirstLine(*pCLINE);
+    if (!hline)
+        return;
+
+    while (hline) {
+        CPDLine cpdata = CLINE_GetLineData(hline);
+        if (!cpdata)
+            hline = CLINE_GetNextLine(hline);
+        else {
+            if (cpdata->Dir == LD_Horiz) {
+                if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
+                    if (bShowLineDebug || bShowStepLineDebug) {
+                        HalfThickness = cpdata->Line.Wid10 / 20;
+                        HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
+
+                        LinePoints[0].rx() = cpdata->Line.Beg_X;
+                        LinePoints[0].ry() = cpdata->Line.Beg_Y - HalfThickness;
+                        LinePoints[1].rx() = cpdata->Line.End_X;
+                        LinePoints[1].ry() = cpdata->Line.End_Y - HalfThickness;
+                        LinePoints[2].rx() = cpdata->Line.End_X;
+                        LinePoints[2].ry() = cpdata->Line.End_Y + HalfThicknessB;
+                        LinePoints[3].rx() = cpdata->Line.Beg_X;
+                        LinePoints[3].ry() = cpdata->Line.Beg_Y + HalfThicknessB;
+
+                        fprintf(stderr,
+                                "LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i\n",
+                                cpdata->Line.Beg_X, cpdata->Line.Beg_Y, cpdata->Line.End_X,
+                                cpdata->Line.End_Y, cpdata->Line.Wid10 / 10);
+
+                        if (gKillZone > 0) {
+                            KillPoints[0].rx() = LinePoints[0].x() - gKillZone;
+                            KillPoints[0].ry() = LinePoints[0].y() - gKillZone;
+                            KillPoints[1].rx() = LinePoints[1].x() + gKillZone;
+                            KillPoints[1].ry() = LinePoints[1].y() - gKillZone;
+                            KillPoints[2].rx() = LinePoints[2].x() + gKillZone;
+                            KillPoints[2].ry() = LinePoints[2].y() + gKillZone;
+                            KillPoints[3].rx() = LinePoints[3].x() - gKillZone;
+                            KillPoints[3].ry() = LinePoints[3].y() + gKillZone;
+                        }
+                    }
+                    linfo.A.rx() = cpdata->Line.Beg_X;
+                    linfo.A.ry() = cpdata->Line.Beg_Y;
+                    linfo.B.rx() = cpdata->Line.End_X;
+                    linfo.B.ry() = cpdata->Line.End_Y;
+                    linfo.Thickness = cpdata->Line.Wid10 / 10;
+                    componentFilter(&linfo);
+                }
+                hline = CLINE_GetNextLine(hline);
+            }
+            else {
+                if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
+                    if (bShowLineDebug || bShowStepLineDebug) {
+                        HalfThickness = cpdata->Line.Wid10 / 20;
+                        HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
+
+                        LinePoints[0].rx() = cpdata->Line.Beg_X + HalfThicknessB;
+                        LinePoints[0].ry() = cpdata->Line.Beg_Y;
+                        LinePoints[1].rx() = cpdata->Line.End_X + HalfThicknessB;
+                        LinePoints[1].ry() = cpdata->Line.End_Y;
+                        LinePoints[2].rx() = cpdata->Line.End_X - HalfThickness;
+                        LinePoints[2].ry() = cpdata->Line.End_Y;
+                        LinePoints[3].rx() = cpdata->Line.Beg_X - HalfThickness;
+                        LinePoints[3].ry() = cpdata->Line.Beg_Y;
+
+                        fprintf(stderr,
+                                "LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i\n",
+                                cpdata->Line.Beg_X, cpdata->Line.Beg_Y, cpdata->Line.End_X,
+                                cpdata->Line.End_Y, cpdata->Line.Wid10 / 10);
+
+                        if (gKillZone > 0) {
+                            KillPoints[0].rx() = LinePoints[0].x() + gKillZone;
+                            KillPoints[0].ry() = LinePoints[0].y() - gKillZone;
+                            KillPoints[1].rx() = LinePoints[1].x() + gKillZone;
+                            KillPoints[1].ry() = LinePoints[1].y() + gKillZone;
+                            KillPoints[2].rx() = LinePoints[2].x() - gKillZone;
+                            KillPoints[2].ry() = LinePoints[2].y() + gKillZone;
+                            KillPoints[3].rx() = LinePoints[3].x() - gKillZone;
+                            KillPoints[3].ry() = LinePoints[3].y() - gKillZone;
+
+                        }
+                    }
+
+                    linfo.A.rx() = cpdata->Line.Beg_X;
+                    linfo.A.ry() = cpdata->Line.Beg_Y;
+                    linfo.B.rx() = cpdata->Line.End_X;
+                    linfo.B.ry() = cpdata->Line.End_Y;
+                    linfo.Thickness = cpdata->Line.Wid10 / 10;
+                    componentFilter(&linfo);
+                }
+                hline = CLINE_GetNextLine(hline);
+            }
+        }
+    }
+}
+
 void RStuff::searchLines() {
     Bool32 b32 = !image_->gbDotMatrix;
     RLINE_SetImportData(RLINE_Bool32_NOFILLGAP3, &b32);
@@ -642,21 +824,21 @@ void RStuff::searchNewLines() {
 }
 
 void RStuff::searchTables() {
-/*
-    if (image_->gnTables == PUMA_TABLE_NONE)
-        return;
+    /*
+     if (image_->gnTables == PUMA_TABLE_NONE)
+     return;
 
-    if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_WhereMustSearchTable, NULL))
-        throw RStuffException("RLTABLE_SetImportData failed");
+     if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_WhereMustSearchTable, NULL))
+     throw RStuffException("RLTABLE_SetImportData failed");
 
-    //// устанавливаем способ поиска
-    int HowToSearch = SST_Default;
-    if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *) (&HowToSearch)))
-        throw RStuffException("RLTABLE_SetImportData failed");
+     //// устанавливаем способ поиска
+     int HowToSearch = SST_Default;
+     if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *) (&HowToSearch)))
+     throw RStuffException("RLTABLE_SetImportData failed");
 
-    if (!RLTABLE_SearchTable(*image_->phCCOM, image_->hCPAGE, TRUE, image_->pgnNumberTables))
-        throw RStuffException("RLTABLE_SearchTable failed");
-*/
+     if (!RLTABLE_SearchTable(*image_->phCCOM, image_->hCPAGE, TRUE, image_->pgnNumberTables))
+     throw RStuffException("RLTABLE_SearchTable failed");
+     */
 }
 
 void RStuff::setImageData(RSPreProcessImage& data) {
