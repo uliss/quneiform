@@ -67,36 +67,14 @@
 #endif
 // global variables
 // 1. Отладочная информаци
-EXTERN Handle hDebugRoot VAL(NULL);
 EXTERN Handle hDebugCancelStrings VAL(NULL);
 EXTERN Handle hDebugCancelRecognition VAL(NULL);
-EXTERN Handle hDebugCancelRemoveLines VAL(NULL);
-EXTERN Handle hDebugCancelSearchLines VAL(NULL);
-EXTERN Handle hDebugCancelOrtoMove VAL(NULL);
-EXTERN Handle hDebugCancelAutoTemplate VAL(NULL);
-EXTERN Handle hDebugCancelSearchTables VAL(NULL);
-EXTERN Handle hDebugCancelVerifyLines VAL(NULL);
-EXTERN Handle hDebugCancelSearchDotLines VAL(NULL);
 EXTERN Handle hDebugCancelFormatted VAL(NULL);
-EXTERN Handle hDebugCancelBinarize VAL(NULL);
-EXTERN Handle hDebugCancelComponent VAL(NULL);
-EXTERN Handle hDebugCancelComponentSecond VAL(NULL);
-EXTERN Handle hDebugCancelExtractBlocks VAL(NULL);
 EXTERN Handle hDebugCancelStringsPass2 VAL(NULL);
-EXTERN Handle hDebugCancelStringsColor VAL(NULL);
-EXTERN Handle hDebugCancelPostRecognition VAL(NULL);
-EXTERN Handle hDebugCancelPostSpeller VAL(NULL);
-EXTERN Handle hDebugCancelSearchPictures VAL(NULL);
-EXTERN Handle hDebugCancelLinePass3 VAL(NULL);
-EXTERN Handle hDebugCancelSearchNegatives VAL(NULL);
-EXTERN Handle hDebugEnableSearchSegment VAL(NULL);
-EXTERN Handle hDebugCancelVertCells VAL(NULL);
-EXTERN Handle hDebugEnableSaveJtl VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr1 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr2 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr3 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr4 VAL(NULL);
-EXTERN Handle hDebugCPAGEStorage VAL(NULL);
 // 2.
 EXTERN Handle hDebugRootStuff VAL(NULL);
 EXTERN Handle hDebugBinarize VAL(NULL);
