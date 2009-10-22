@@ -85,683 +85,618 @@ using namespace CIF;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 LineKiller(PRSPreProcessImage Image) {
-	LinesTotalInfo LTInfo;
-	LineInfo LHorLineInfo[2];
-	LineInfo LVerLineInfo[2];
+    LinesTotalInfo LTInfo;
+    LineInfo LHorLineInfo[2];
+    LineInfo LVerLineInfo[2];
 
-	LTInfo.Hor.Lns = LHorLineInfo;
-	LTInfo.Ver.Lns = LVerLineInfo;
+    LTInfo.Hor.Lns = LHorLineInfo;
+    LTInfo.Ver.Lns = LVerLineInfo;
 
-	return SearchAndKill(Image, &LTInfo);
+    return SearchAndKill(Image, &LTInfo);
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 SearchAndKill(PRSPreProcessImage Image, LinesTotalInfo *LTInfo) {
-	Bool32 bRet = TRUE;
-	uint32_t nTagSize;
-	int32_t j;
-	char str[255];
-	Rect16 ZoomRect;
-	int32_t LineCount;
-	Point16 LinePoints[4];
-	Point16 KillPoints[4];
-	int32_t HalfThickness;
-	int32_t HalfThicknessB;
+    Bool32 bRet = TRUE;
+    uint32_t nTagSize;
+    int32_t j;
+    char str[255];
+    Rect16 ZoomRect;
+    int32_t LineCount;
+    Point16 LinePoints[4];
+    Point16 KillPoints[4];
+    int32_t HalfThickness;
+    int32_t HalfThicknessB;
 
-	nTagSize = sizeof(LinesTotalInfo);
+    nTagSize = sizeof(LinesTotalInfo);
 
-	uint32_t size_line_com = sizeof(LINE_COM);
-	Handle hCPage = Image->hCPAGE;
-	LineInfo linfo;
-	CLINE_handle* pCLINE = (CLINE_handle*) (Image->phCLINE);
+    uint32_t size_line_com = sizeof(LINE_COM);
+    Handle hCPage = Image->hCPAGE;
+    LineInfo linfo;
+    CLINE_handle* pCLINE = (CLINE_handle*) (Image->phCLINE);
 
-	int count_comp = CCOM_GetContainerVolume(*(Image->phCCOM));
-	int count_line = CLINE_GetLineCount(*pCLINE);
-	if (count_comp > 10000 || count_line > 600)
-		return TRUE;
+    int count_comp = CCOM_GetContainerVolume(*(Image->phCCOM));
+    int count_line = CLINE_GetLineCount(*pCLINE);
+    if (count_comp > 10000 || count_line > 600)
+        return TRUE;
 
-	CLINE_handle hline;
-	CPDLine cpdata;
-	LineCount = 0;
-	hline = CLINE_GetFirstLine(*pCLINE);
+    CLINE_handle hline;
+    CPDLine cpdata;
+    LineCount = 0;
+    hline = CLINE_GetFirstLine(*pCLINE);
 
-	if (!hline)
-		return TRUE;
-	hLineKillerWindow = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
+    if (!hline)
+        return TRUE;
+    hLineKillerWindow = LDPUMA_GetWindowHandle(NAME_IMAGE_DELLINE);
 
-	if (!LDPUMA_Skip(hDebugKillLines)) {
-		bShowLineDebug = TRUE;
-	} else {
-		bShowLineDebugData = bShowStepLineDebug = bShowLineDebug = FALSE;
-	}
+    if (!LDPUMA_Skip(hDebugKillLines)) {
+        bShowLineDebug = TRUE;
+    }
+    else {
+        bShowLineDebugData = bShowStepLineDebug = bShowLineDebug = FALSE;
+    }
 
-	if (!LDPUMA_Skip(hDebugKillLinesShowComponentsBefore)) {
-		DebugDPumaShowComponents(Image, hLineKillerWindow, 0xfefe00, 1, 314);
-		LDPUMA_Console(
-				"Вот, то что было сначала.. теперь нажми что нибудь и пошли дальше...\n");
-		LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
-		LDPUMA_DeleteRects(hLineKillerWindow, 314);
-	}
-	while (hline) {
-		cpdata = CLINE_GetLineData(hline);
-		if (!cpdata)
-			hline = CLINE_GetNextLine(hline);
-		else {
-			if (cpdata->Dir == LD_Horiz) {
-				if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
-					if (!LDPUMA_Skip(hDebugKillLinesStep)) {
-						bShowStepLineDebug = TRUE;
-					} else {
-						bShowStepLineDebug = FALSE;
-					}
+    if (!LDPUMA_Skip(hDebugKillLinesShowComponentsBefore)) {
+        LDPUMA_Console("Вот, то что было сначала.. теперь нажми что нибудь и пошли дальше...\n");
+        LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
+        LDPUMA_DeleteRects(hLineKillerWindow, 314);
+    }
+    while (hline) {
+        cpdata = CLINE_GetLineData(hline);
+        if (!cpdata)
+            hline = CLINE_GetNextLine(hline);
+        else {
+            if (cpdata->Dir == LD_Horiz) {
+                if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
+                    if (!LDPUMA_Skip(hDebugKillLinesStep)) {
+                        bShowStepLineDebug = TRUE;
+                    }
+                    else {
+                        bShowStepLineDebug = FALSE;
+                    }
 
-					if (!LDPUMA_Skip(hDebugKillLinesData)) {
-						bShowLineDebugData = TRUE;
-					} else {
-						bShowLineDebugData = FALSE;
-					}
+                    if (!LDPUMA_Skip(hDebugKillLinesData)) {
+                        bShowLineDebugData = TRUE;
+                    }
+                    else {
+                        bShowLineDebugData = FALSE;
+                    }
 
-					if (LineCount++ != 0 && bShowStepLineDebug) {
-						LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
-						//LDPUMA_DeleteRects(hLineKillerWindow, 316);
-					}
+                    if (LineCount++ != 0 && bShowStepLineDebug) {
+                        LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
+                        //LDPUMA_DeleteRects(hLineKillerWindow, 316);
+                    }
 
-					if (bShowLineDebug || bShowStepLineDebug) {
-						HalfThickness = cpdata->Line.Wid10 / 20;
-						HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
+                    if (bShowLineDebug || bShowStepLineDebug) {
+                        HalfThickness = cpdata->Line.Wid10 / 20;
+                        HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
 
-						LinePoints[0].rx() = cpdata->Line.Beg_X;
-						LinePoints[0].ry() = cpdata->Line.Beg_Y - HalfThickness;
-						LinePoints[1].rx() = cpdata->Line.End_X;
-						LinePoints[1].ry() = cpdata->Line.End_Y - HalfThickness;
-						LinePoints[2].rx() = cpdata->Line.End_X;
-						LinePoints[2].ry() = cpdata->Line.End_Y
-								+ HalfThicknessB;
-						LinePoints[3].rx() = cpdata->Line.Beg_X;
-						LinePoints[3].ry() = cpdata->Line.Beg_Y
-								+ HalfThicknessB;
+                        LinePoints[0].rx() = cpdata->Line.Beg_X;
+                        LinePoints[0].ry() = cpdata->Line.Beg_Y - HalfThickness;
+                        LinePoints[1].rx() = cpdata->Line.End_X;
+                        LinePoints[1].ry() = cpdata->Line.End_Y - HalfThickness;
+                        LinePoints[2].rx() = cpdata->Line.End_X;
+                        LinePoints[2].ry() = cpdata->Line.End_Y + HalfThicknessB;
+                        LinePoints[3].rx() = cpdata->Line.Beg_X;
+                        LinePoints[3].ry() = cpdata->Line.Beg_Y + HalfThicknessB;
 
-						j
-								= sprintf(
-										str,
-										"LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
-										cpdata->Line.Beg_X, cpdata->Line.Beg_Y,
-										cpdata->Line.End_X, cpdata->Line.End_Y,
-										cpdata->Line.Wid10 / 10);
+                        j = sprintf(str,
+                                "LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
+                                cpdata->Line.Beg_X, cpdata->Line.Beg_Y, cpdata->Line.End_X,
+                                cpdata->Line.End_Y, cpdata->Line.Wid10 / 10);
 
-						j += sprintf(str + j, "\n");
+                        j += sprintf(str + j, "\n");
 
-						if (bShowLineDebugData)
-							LDPUMA_Console(str);
+                        if (bShowLineDebugData)
+                            LDPUMA_Console(str);
 
-						//LDPUMA_DrawLine(hLineKillerWindow, &pLHor[1].A, &pLHor[1].B, 0/*LtiB->Skew1024*/, 0x00ff00, (pLHor[1].Thickness * (-100)), 315 );
-						DebugDPumaDrawRect(hLineKillerWindow, LinePoints,
-								0x00ff00, 1, 315);
+                        if (gKillZone > 0) {
+                            KillPoints[0].rx() = LinePoints[0].x() - gKillZone;
+                            KillPoints[0].ry() = LinePoints[0].y() - gKillZone;
+                            KillPoints[1].rx() = LinePoints[1].x() + gKillZone;
+                            KillPoints[1].ry() = LinePoints[1].y() - gKillZone;
+                            KillPoints[2].rx() = LinePoints[2].x() + gKillZone;
+                            KillPoints[2].ry() = LinePoints[2].y() + gKillZone;
+                            KillPoints[3].rx() = LinePoints[3].x() - gKillZone;
+                            KillPoints[3].ry() = LinePoints[3].y() + gKillZone;
+                        }
+                    }
+                    linfo.A.rx() = (int16_t) (cpdata->Line.Beg_X);
+                    linfo.A.ry() = (int16_t) (cpdata->Line.Beg_Y);
+                    linfo.B.rx() = (int16_t) (cpdata->Line.End_X);
+                    linfo.B.ry() = (int16_t) (cpdata->Line.End_Y);
+                    linfo.Thickness = cpdata->Line.Wid10 / 10;
+                    ComponentFilter(Image, &linfo);
+                }
+                hline = CLINE_GetNextLine(hline);
+            }
+            else {
+                if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
+                    if (!LDPUMA_Skip(hDebugKillLinesStep)) {
+                        bShowStepLineDebug = TRUE;
+                    }
+                    else {
+                        bShowStepLineDebug = FALSE;
+                    }
 
-						if (gKillZone > 0) {
-							KillPoints[0].rx() = LinePoints[0].x() - gKillZone;
-							KillPoints[0].ry() = LinePoints[0].y() - gKillZone;
-							KillPoints[1].rx() = LinePoints[1].x() + gKillZone;
-							KillPoints[1].ry() = LinePoints[1].y() - gKillZone;
-							KillPoints[2].rx() = LinePoints[2].x() + gKillZone;
-							KillPoints[2].ry() = LinePoints[2].y() + gKillZone;
-							KillPoints[3].rx() = LinePoints[3].x() - gKillZone;
-							KillPoints[3].ry() = LinePoints[3].y() + gKillZone;
+                    if (!LDPUMA_Skip(hDebugKillLinesData)) {
+                        bShowLineDebugData = TRUE;
+                    }
+                    else {
+                        bShowLineDebugData = FALSE;
+                    }
 
-							DebugDPumaDrawRect(hLineKillerWindow, KillPoints,
-									0x0fef00, -25, 315);
-						}
-					}
-					linfo.A.rx() = (int16_t) (cpdata->Line.Beg_X);
-					linfo.A.ry() = (int16_t) (cpdata->Line.Beg_Y);
-					linfo.B.rx() = (int16_t) (cpdata->Line.End_X);
-					linfo.B.ry() = (int16_t) (cpdata->Line.End_Y);
-					linfo.Thickness = cpdata->Line.Wid10 / 10;
-					ComponentFilter(Image, &linfo);
-				}
-				hline = CLINE_GetNextLine(hline);
-			} else {
-				if (gKillComponents == 2 || (cpdata->Flags & LI_IsTrue)) {
-					if (!LDPUMA_Skip(hDebugKillLinesStep)) {
-						bShowStepLineDebug = TRUE;
-					} else {
-						bShowStepLineDebug = FALSE;
-					}
+                    if (LineCount++ != 0 && bShowStepLineDebug) {
+                        LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
+                        //LDPUMA_DeleteRects(hLineKillerWindow, 316);
+                    }
 
-					if (!LDPUMA_Skip(hDebugKillLinesData)) {
-						bShowLineDebugData = TRUE;
-					} else {
-						bShowLineDebugData = FALSE;
-					}
+                    if (bShowLineDebug || bShowStepLineDebug) {
+                        HalfThickness = cpdata->Line.Wid10 / 20;
+                        HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
 
-					if (LineCount++ != 0 && bShowStepLineDebug) {
-						LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
-						//LDPUMA_DeleteRects(hLineKillerWindow, 316);
-					}
+                        LinePoints[0].rx() = (int16_t) (cpdata->Line.Beg_X)
+                                + (int16_t) HalfThicknessB;
+                        LinePoints[0].ry() = (int16_t) (cpdata->Line.Beg_Y);
+                        LinePoints[1].rx() = (int16_t) (cpdata->Line.End_X)
+                                + (int16_t) HalfThicknessB;
+                        LinePoints[1].ry() = (int16_t) (cpdata->Line.End_Y);
+                        LinePoints[2].rx() = (int16_t) (cpdata->Line.End_X)
+                                - (int16_t) HalfThickness;
+                        LinePoints[2].ry() = (int16_t) (cpdata->Line.End_Y);
+                        LinePoints[3].rx() = (int16_t) (cpdata->Line.Beg_X)
+                                - (int16_t) HalfThickness;
+                        LinePoints[3].ry() = (int16_t) (cpdata->Line.Beg_Y);
 
-					if (bShowLineDebug || bShowStepLineDebug) {
-						HalfThickness = cpdata->Line.Wid10 / 20;
-						HalfThicknessB = (cpdata->Line.Wid10 / 10 + 1) / 2;
+                        j = sprintf(str,
+                                "LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
+                                cpdata->Line.Beg_X, cpdata->Line.Beg_Y, cpdata->Line.End_X,
+                                cpdata->Line.End_Y, cpdata->Line.Wid10 / 10);
 
-						LinePoints[0].rx() = (int16_t) (cpdata->Line.Beg_X)
-								+ (int16_t) HalfThicknessB;
-						LinePoints[0].ry() = (int16_t) (cpdata->Line.Beg_Y);
-						LinePoints[1].rx() = (int16_t) (cpdata->Line.End_X)
-								+ (int16_t) HalfThicknessB;
-						LinePoints[1].ry() = (int16_t) (cpdata->Line.End_Y);
-						LinePoints[2].rx() = (int16_t) (cpdata->Line.End_X)
-								- (int16_t) HalfThickness;
-						LinePoints[2].ry() = (int16_t) (cpdata->Line.End_Y);
-						LinePoints[3].rx() = (int16_t) (cpdata->Line.Beg_X)
-								- (int16_t) HalfThickness;
-						LinePoints[3].ry() = (int16_t) (cpdata->Line.Beg_Y);
+                        j += sprintf(str + j, "\n");
 
-						j
-								= sprintf(
-										str,
-										"LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
-										cpdata->Line.Beg_X, cpdata->Line.Beg_Y,
-										cpdata->Line.End_X, cpdata->Line.End_Y,
-										cpdata->Line.Wid10 / 10);
+                        if (bShowLineDebugData)
+                            LDPUMA_Console(str);
 
-						j += sprintf(str + j, "\n");
+                        if (gKillZone > 0) {
+                            KillPoints[0].rx() = LinePoints[0].x() + (int16_t) gKillZone;
+                            KillPoints[0].ry() = LinePoints[0].y() - (int16_t) gKillZone;
+                            KillPoints[1].rx() = LinePoints[1].x() + (int16_t) gKillZone;
+                            KillPoints[1].ry() = LinePoints[1].y() + (int16_t) gKillZone;
+                            KillPoints[2].rx() = LinePoints[2].x() - (int16_t) gKillZone;
+                            KillPoints[2].ry() = LinePoints[2].y() + (int16_t) gKillZone;
+                            KillPoints[3].rx() = LinePoints[3].x() - (int16_t) gKillZone;
+                            KillPoints[3].ry() = LinePoints[3].y() - (int16_t) gKillZone;
 
-						if (bShowLineDebugData)
-							LDPUMA_Console(str);
+                        }
+                    }
 
-						//LDPUMA_DrawLine(hLineKillerWindow, &pLVer[1].A, &pLVer[1].B, 0/*LtiB->Skew1024*/, 0x00ff00, ( pLVer[1].Thickness * (-100) ), 315 );
-						DebugDPumaDrawRect(hLineKillerWindow, LinePoints,
-								0x00ff00, -25, 315);
+                    linfo.A.rx() = (int16_t) (cpdata->Line.Beg_X);
+                    linfo.A.ry() = (int16_t) (cpdata->Line.Beg_Y);
+                    linfo.B.rx() = (int16_t) (cpdata->Line.End_X);
+                    linfo.B.ry() = (int16_t) (cpdata->Line.End_Y);
+                    linfo.Thickness = cpdata->Line.Wid10 / 10;
+                    ComponentFilter(Image, &linfo);
+                }
+                hline = CLINE_GetNextLine(hline);
+            }
+        }
+    }
+    if (bShowLineDebug || bShowStepLineDebug) {
+        if (bShowStepLineDebug) {
+            LDPUMA_Console("LineKiller: Нажми на что нибудь и пойдем дальше...\n");
+            LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
+        }
 
-						if (gKillZone > 0) {
-							KillPoints[0].rx() = LinePoints[0].x()
-									+ (int16_t) gKillZone;
-							KillPoints[0].ry() = LinePoints[0].y()
-									- (int16_t) gKillZone;
-							KillPoints[1].rx() = LinePoints[1].x()
-									+ (int16_t) gKillZone;
-							KillPoints[1].ry() = LinePoints[1].y()
-									+ (int16_t) gKillZone;
-							KillPoints[2].rx() = LinePoints[2].x()
-									- (int16_t) gKillZone;
-							KillPoints[2].ry() = LinePoints[2].y()
-									+ (int16_t) gKillZone;
-							KillPoints[3].rx() = LinePoints[3].x()
-									- (int16_t) gKillZone;
-							KillPoints[3].ry() = LinePoints[3].y()
-									- (int16_t) gKillZone;
+        LDPUMA_DeleteLines(hLineKillerWindow, 315);
+        LDPUMA_DeleteRects(hLineKillerWindow, 316);
+        ZoomRect.setTop(0);
+        ZoomRect.setBottom(0);
 
-							DebugDPumaDrawRect(hLineKillerWindow, KillPoints,
-									0x00ef00, 1, 315);
-						}
-					}
-
-					linfo.A.rx() = (int16_t) (cpdata->Line.Beg_X);
-					linfo.A.ry() = (int16_t) (cpdata->Line.Beg_Y);
-					linfo.B.rx() = (int16_t) (cpdata->Line.End_X);
-					linfo.B.ry() = (int16_t) (cpdata->Line.End_Y);
-					linfo.Thickness = cpdata->Line.Wid10 / 10;
-					ComponentFilter(Image, &linfo);
-				}
-				hline = CLINE_GetNextLine(hline);
-			}
-		}
-	}
-	if (bShowLineDebug || bShowStepLineDebug) {
-		if (bShowStepLineDebug) {
-			LDPUMA_Console(
-					"LineKiller: Нажми на что нибудь и пойдем дальше...\n");
-			LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
-		}
-
-		LDPUMA_DeleteLines(hLineKillerWindow, 315);
-		LDPUMA_DeleteRects(hLineKillerWindow, 316);
-		ZoomRect.setTop(0);
-		ZoomRect.setBottom(0);
-
-		//if ( bShowStepLineDebug )
-		//LDPUMA_ZoomToRect(NULL, &ZoomRect);
-	}
-	if (!LDPUMA_Skip(hDebugKillLinesShowComponentsAfter)) {
-		DebugDPumaShowComponents(Image, hLineKillerWindow, 0xfefe00, -100, 314);
-		LDPUMA_Console(
-				"Вот, то что стало после.. теперь нажми что нибудь и пошли дальше...\n");
-		LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
-		LDPUMA_DeleteRects(hLineKillerWindow, 314);
-	}
-	return TRUE;
+    }
+    if (!LDPUMA_Skip(hDebugKillLinesShowComponentsAfter)) {
+        LDPUMA_Console("Вот, то что стало после.. теперь нажми что нибудь и пошли дальше...\n");
+        LDPUMA_WaitUserInput(NULL, hLineKillerWindow);
+        LDPUMA_DeleteRects(hLineKillerWindow, 314);
+    }
+    return TRUE;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
-	CCOM_comp * pcomp;
-	CCOM_comp * pdeadcom;
-	Bool32 GoodComp;
-	Rect16 Rc;
-	Rect16 Rl;
-	int32_t nRc = 0;
-	int32_t j = 0;
-	char str[255];
-	int16_t Thick = (Line->Thickness / 2) + (int16_t) gKillZone;
-	Bool32 bDieComponent = FALSE;
+    CCOM_comp * pcomp;
+    CCOM_comp * pdeadcom;
+    Bool32 GoodComp;
+    Rect16 Rc;
+    Rect16 Rl;
+    int32_t nRc = 0;
+    int32_t j = 0;
+    char str[255];
+    int16_t Thick = (Line->Thickness / 2) + (int16_t) gKillZone;
+    Bool32 bDieComponent = FALSE;
 
-	Rl.pt0() = Line->A;
-	Rl.pt1() = Line->B;
+    Rl.pt0() = Line->A;
+    Rl.pt1() = Line->B;
 
-	if (Rl.left() <= Rl.right()) {
-		Rl.rleft() -= Thick;
-		Rl.rleft() = Rl.left() < 0 ? 0 : Rl.left();
-		Rl.rright() += Thick;
-	} else {
-		Rl.rleft() += Thick;
-		Rl.rright() -= Thick;
-		Rl.rright() = Rl.right() < 0 ? 0 : Rl.right();
-	}
+    if (Rl.left() <= Rl.right()) {
+        Rl.rleft() -= Thick;
+        Rl.rleft() = Rl.left() < 0 ? 0 : Rl.left();
+        Rl.rright() += Thick;
+    }
+    else {
+        Rl.rleft() += Thick;
+        Rl.rright() -= Thick;
+        Rl.rright() = Rl.right() < 0 ? 0 : Rl.right();
+    }
 
-	if (Rl.bottom() <= Rl.top()) {
-		Rl.rbottom() -= Thick;
-		Rl.rbottom() = Rl.bottom() < 0 ? 0 : Rl.bottom();
-		Rl.rtop() += Thick;
-	} else {
-		Rl.rbottom() += Thick;
-		Rl.rtop() -= Thick;
-		Rl.rtop() = Rl.top() < 0 ? 0 : Rl.top();
-	}
+    if (Rl.bottom() <= Rl.top()) {
+        Rl.rbottom() -= Thick;
+        Rl.rbottom() = Rl.bottom() < 0 ? 0 : Rl.bottom();
+        Rl.rtop() += Thick;
+    }
+    else {
+        Rl.rbottom() += Thick;
+        Rl.rtop() -= Thick;
+        Rl.rtop() = Rl.top() < 0 ? 0 : Rl.top();
+    }
 
-	pdeadcom = CCOM_GetFirst(*Image->phCCOM, NULL);
-	do {
-		pcomp = CCOM_GetNext(pdeadcom, NULL);
-		GoodComp = true;//CompIsGood (pcomp, Filter);
+    pdeadcom = CCOM_GetFirst(*Image->phCCOM, NULL);
+    do {
+        pcomp = CCOM_GetNext(pdeadcom, NULL);
+        GoodComp = true;//CompIsGood (pcomp, Filter);
 
-		if (GoodComp) {
-			Rc.rleft() = pdeadcom->left;
-			Rc.rright() = pdeadcom->left + pdeadcom->w /*- 1*/;
-			Rc.rtop() = pdeadcom->upper;
-			Rc.rbottom() = pdeadcom->upper + pdeadcom->h /*- 1*/;
-			nRc++;
+        if (GoodComp) {
+            Rc.rleft() = pdeadcom->left;
+            Rc.rright() = pdeadcom->left + pdeadcom->w /*- 1*/;
+            Rc.rtop() = pdeadcom->upper;
+            Rc.rbottom() = pdeadcom->upper + pdeadcom->h /*- 1*/;
+            nRc++;
 
-			if (IsRectIntersect(&Rl, &Rc)) {
-				if (TuneFilter(Line, &Rc, gKillZone, gKillRate)) {
-					if (gKillComponents) {
-						bDieComponent = CCOM_Delete(*Image->phCCOM, pdeadcom);
-					}
+            if (IsRectIntersect(&Rl, &Rc)) {
+                if (TuneFilter(Line, &Rc, gKillZone, gKillRate)) {
+                    if (gKillComponents) {
+                        bDieComponent = CCOM_Delete(*Image->phCCOM, pdeadcom);
+                    }
 
-					if (bShowLineDebug || bShowStepLineDebug) {
-						j
-								= sprintf(
-										str,
-										"LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >",
-										Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
+                    if (bShowLineDebug || bShowStepLineDebug) {
+                        j
+                                = sprintf(
+                                        str,
+                                        "LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >",
+                                        Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
 
-						if (bDieComponent)
-							j += sprintf(str + j, " +dead+");
+                        if (bDieComponent)
+                            j += sprintf(str + j, " +dead+");
 
-						j += sprintf(str + j, "\n");
+                        j += sprintf(str + j, "\n");
 
-						if (bShowLineDebugData)
-							LDPUMA_Console(str);
+                        if (bShowLineDebugData)
+                            LDPUMA_Console(str);
 
-						LDPUMA_DrawRect(hLineKillerWindow, &Rc, 0, 0xff0000,
-								-50, 316);
-						bDieComponent = FALSE;
-					}
-				}
-			}
-		}
+                        LDPUMA_DrawRect(hLineKillerWindow, &Rc, 0, 0xff0000, -50, 316);
+                        bDieComponent = FALSE;
+                    }
+                }
+            }
+        }
 
-		pdeadcom = pcomp;
-	} while (pcomp != NULL);
+        pdeadcom = pcomp;
+    }
+    while (pcomp != NULL);
 
-	return TRUE;
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B) {
-	Bool32 rc = FALSE;
+    Bool32 rc = FALSE;
 
-	int32_t M1 = A->bottom() >= A->top() ? A->bottom() : A->top();
-	int32_t M2 = A->right() >= A->left() ? A->right() : A->left();
-	int32_t m1 = A->bottom() >= A->top() ? A->top() : A->bottom();
-	int32_t m2 = A->right() >= A->left() ? A->left() : A->right();
-	int32_t M3 = B->bottom() >= B->top() ? B->bottom() : B->top();
-	int32_t M4 = B->right() >= B->left() ? B->right() : B->left();
-	int32_t m3 = B->bottom() >= B->top() ? B->top() : B->bottom();
-	int32_t m4 = B->right() >= B->left() ? B->left() : B->right();
+    int32_t M1 = A->bottom() >= A->top() ? A->bottom() : A->top();
+    int32_t M2 = A->right() >= A->left() ? A->right() : A->left();
+    int32_t m1 = A->bottom() >= A->top() ? A->top() : A->bottom();
+    int32_t m2 = A->right() >= A->left() ? A->left() : A->right();
+    int32_t M3 = B->bottom() >= B->top() ? B->bottom() : B->top();
+    int32_t M4 = B->right() >= B->left() ? B->right() : B->left();
+    int32_t m3 = B->bottom() >= B->top() ? B->top() : B->bottom();
+    int32_t m4 = B->right() >= B->left() ? B->left() : B->right();
 
-	if ((((B->top() >= m1) && (B->top() <= M1)) || ((B->bottom() >= m1) && (B->bottom()
-			<= M1))) && (((B->left() >= m2) && (B->left() <= M2)) || ((B->right()
-			>= m2) && (B->right() <= M2)))) {
-		rc = TRUE;
-	}
+    if ((((B->top() >= m1) && (B->top() <= M1)) || ((B->bottom() >= m1) && (B->bottom() <= M1)))
+            && (((B->left() >= m2) && (B->left() <= M2)) || ((B->right() >= m2) && (B->right()
+                    <= M2)))) {
+        rc = TRUE;
+    }
 
-	if ((((A->top() >= m3) && (A->top() <= M3)) || ((A->bottom() >= m3) && (A->bottom()
-			<= M3))) && (((A->left() >= m4) && (A->left() <= M4)) || ((A->right()
-			>= m4) && (A->right() <= M4)))) {
-		rc = TRUE;
-	}
+    if ((((A->top() >= m3) && (A->top() <= M3)) || ((A->bottom() >= m3) && (A->bottom() <= M3)))
+            && (((A->left() >= m4) && (A->left() <= M4)) || ((A->right() >= m4) && (A->right()
+                    <= M4)))) {
+        rc = TRUE;
+    }
 
-	return rc;
+    return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, uint32_t KillZone,
-		uint32_t Rate) {
-	Bool32 bRet;
+Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rate) {
+    Bool32 bRet;
 
-	bRet = ChekComponentAndLine(Line, Rect, KillZone);
+    bRet = ChekComponentAndLine(Line, Rect, KillZone);
 
-	if (bRet)
-		bRet = CheckSquare(Line, Rect, KillZone, Rate);
+    if (bRet)
+        bRet = CheckSquare(Line, Rect, KillZone, Rate);
 
-	return bRet;
+    return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, uint32_t KillZone) {
-	int32_t A0, B0, A1, B1; // начало и конец линии
-	int32_t LineType; // Горизонтальная = 1 ( || > 1 ) или вертикальная = -1 ( || < 1 )
-	int32_t As, Bs, C;
-	Bool32 bRet = FALSE;
-	uint32_t wN, wP, wZ;
-	Point16 pPoints[4];
-	int32_t Zone = KillZone;
+    int32_t A0, B0, A1, B1; // начало и конец линии
+    int32_t LineType; // Горизонтальная = 1 ( || > 1 ) или вертикальная = -1 ( || < 1 )
+    int32_t As, Bs, C;
+    Bool32 bRet = FALSE;
+    uint32_t wN, wP, wZ;
+    Point16 pPoints[4];
+    int32_t Zone = KillZone;
 
-	if (Line->A.x() == Line->B.x() || Line->A.y() == Line->B.y()) {
-		bRet = TRUE;
-	}
+    if (Line->A.x() == Line->B.x() || Line->A.y() == Line->B.y()) {
+        bRet = TRUE;
+    }
 
-	if (!bRet) {
-		float temp = (float) (Line->A.x() - Line->B.x()) / (float) (Line->A.y()
-				- Line->B.y());
-		int32_t iTemp;
-		uint32_t SecondHand = 1;
+    if (!bRet) {
+        float temp = (float) (Line->A.x() - Line->B.x()) / (float) (Line->A.y() - Line->B.y());
+        int32_t iTemp;
+        uint32_t SecondHand = 1;
 
-		LineType = (temp > -1) && (temp < 1) ? -1 : 1;
+        LineType = (temp > -1) && (temp < 1) ? -1 : 1;
 
-		pPoints[3].rx() = pPoints[0].rx() = Rect->left();
-		pPoints[1].ry() = pPoints[0].ry() = Rect->top();
-		pPoints[2].rx() = pPoints[1].rx() = Rect->right();
-		pPoints[3].ry() = pPoints[2].ry() = Rect->bottom();
+        pPoints[3].rx() = pPoints[0].rx() = Rect->left();
+        pPoints[1].ry() = pPoints[0].ry() = Rect->top();
+        pPoints[2].rx() = pPoints[1].rx() = Rect->right();
+        pPoints[3].ry() = pPoints[2].ry() = Rect->bottom();
 
-		wN = wP = wZ = 0;
+        wN = wP = wZ = 0;
 
-		do {
-			switch (SecondHand) {
-			case 1:
-				Zone = -(((Line->Thickness + 1) / 2) + (int32_t) KillZone);
-				break;
-			case 0:
-				Zone = (((Line->Thickness + 1) / 2) + (int32_t) KillZone);
-				break;
-			default:
-				Zone = 0;
-			}
+        do {
+            switch (SecondHand) {
+            case 1:
+                Zone = -(((Line->Thickness + 1) / 2) + (int32_t) KillZone);
+                break;
+            case 0:
+                Zone = (((Line->Thickness + 1) / 2) + (int32_t) KillZone);
+                break;
+            default:
+                Zone = 0;
+            }
 
-			A0 = Line->A.x() + (LineType <= 0 ? Zone : 0);
-			B0 = Line->A.y() + (LineType >= 0 ? Zone : 0);
-			A1 = Line->B.x() + (LineType <= 0 ? Zone : 0);
-			B1 = Line->B.y() + (LineType >= 0 ? Zone : 0);
+            A0 = Line->A.x() + (LineType <= 0 ? Zone : 0);
+            B0 = Line->A.y() + (LineType >= 0 ? Zone : 0);
+            A1 = Line->B.x() + (LineType <= 0 ? Zone : 0);
+            B1 = Line->B.y() + (LineType >= 0 ? Zone : 0);
 
-			As = A0 - A1;
-			Bs = B0 - B1;
-			C = (B0 * As) - (A0 * Bs);
+            As = A0 - A1;
+            Bs = B0 - B1;
+            C = (B0 * As) - (A0 * Bs);
 
-			for (int32_t i = 0; i < 4; i++) {
-				iTemp = (pPoints[i].x() * Bs) - (pPoints[i].y() * As) + C;
+            for (int32_t i = 0; i < 4; i++) {
+                iTemp = (pPoints[i].x() * Bs) - (pPoints[i].y() * As) + C;
 
-				if (iTemp == 0) {
-					wZ++;
-					bRet = TRUE;
-				} else if (iTemp > 0)
-					wP++;
-				else
-					wN++;
-			}
+                if (iTemp == 0) {
+                    wZ++;
+                    bRet = TRUE;
+                }
+                else if (iTemp > 0)
+                    wP++;
+                else
+                    wN++;
+            }
 
-		} while (SecondHand-- && (bRet == FALSE));
+        }
+        while (SecondHand-- && (bRet == FALSE));
 
-		if (wP < 8 && wN < 8)
-			bRet = TRUE;
+        if (wP < 8 && wN < 8)
+            bRet = TRUE;
 
-		if (wZ != 0 && (wP == 0 || wN == 0))
-			bRet = FALSE;
+        if (wZ != 0 && (wP == 0 || wN == 0))
+            bRet = FALSE;
 
-	}
+    }
 
-	return bRet;
+    return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone,
-		uint32_t Rate) {
-	Bool32 bRet = FALSE;
+Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rate) {
+    Bool32 bRet = FALSE;
 
-	float temp;
-	float Halfs = 1.0;
-	int32_t LineType;
-	CIF::Rect S;
-	uint32_t SRect;
-	uint32_t SLine;
-	int32_t iTemp;
-	int32_t A0 = Line->A.x();
-	//	int32_t B0 = Line->B.y();
-	int32_t B0 = Line->A.y(); //Almi 30.11.00
-	int32_t As = A0 - Line->B.x();
-	int32_t Bs = B0 - Line->B.y();
-	int32_t Thick = ((Line->Thickness + 1) / 2) + KillZone;
+    float temp;
+    float Halfs = 1.0;
+    int32_t LineType;
+    CIF::Rect S;
+    uint32_t SRect;
+    uint32_t SLine;
+    int32_t iTemp;
+    int32_t A0 = Line->A.x();
+    //	int32_t B0 = Line->B.y();
+    int32_t B0 = Line->A.y(); //Almi 30.11.00
+    int32_t As = A0 - Line->B.x();
+    int32_t Bs = B0 - Line->B.y();
+    int32_t Thick = ((Line->Thickness + 1) / 2) + KillZone;
 
-	if (Rate > 255)
-		Rate = 255;
+    if (Rate > 255)
+        Rate = 255;
 
-	if (Line->A.y() == Line->B.y())
-		LineType = 1;
-	else if (Line->A.x() == Line->B.x())
-		LineType = -1;
-	else {
-		temp = (float) (Line->A.x() - Line->B.x()) / (float) (Line->A.y()
-				- Line->B.y());
-		LineType = (temp > -1) && (temp < 1) ? -1 : 1;
-	}
+    if (Line->A.y() == Line->B.y())
+        LineType = 1;
+    else if (Line->A.x() == Line->B.x())
+        LineType = -1;
+    else {
+        temp = (float) (Line->A.x() - Line->B.x()) / (float) (Line->A.y() - Line->B.y());
+        LineType = (temp > -1) && (temp < 1) ? -1 : 1;
+    }
 
-	if (LineType > 0) {
-		// горизонтальные линии
+    if (LineType > 0) {
+        // горизонтальные линии
 
-		S.rleft() = Line->A.x() - KillZone;
-		S.rright() = Line->B.x() + KillZone;
+        S.rleft() = Line->A.x() - KillZone;
+        S.rright() = Line->B.x() + KillZone;
 
-		if (Line->A.y() > Line->B.y()) {
-			S.rtop() = Line->B.y() - Thick;
-			S.rbottom() = Line->A.y() + Thick;
-		} else {
-			//			S.bottom() = Line->B.y() - Thick;
-			//			S.top() = Line->A.y() + Thick;
-			S.rtop() = Line->A.y() - Thick;
-			S.rbottom() = Line->B.y() + Thick; //Almi 01.12.00
-		}
+        if (Line->A.y() > Line->B.y()) {
+            S.rtop() = Line->B.y() - Thick;
+            S.rbottom() = Line->A.y() + Thick;
+        }
+        else {
+            //			S.bottom() = Line->B.y() - Thick;
+            //			S.top() = Line->A.y() + Thick;
+            S.rtop() = Line->A.y() - Thick;
+            S.rbottom() = Line->B.y() + Thick; //Almi 01.12.00
+        }
 
-		//смотрим точки пересечения компоненты с линией
-		/*		if ( !(Rect->left() < S.left && Rect->right() > S.left) )
-		 {
-		 S.left = Rect->left();
-		 }
+        //смотрим точки пересечения компоненты с линией
+        /*		if ( !(Rect->left() < S.left && Rect->right() > S.left) )
+         {
+         S.left = Rect->left();
+         }
 
-		 if ( !(Rect->left() < S.right && Rect->right() > S.right) )
-		 {
-		 S.right = Rect->right();
-		 }*///Всё неправильно! Almi 01.12.00
-		if (S.left() <= Rect->left())
-			S.rleft() = Rect->left();
-		if (S.right() >= Rect->right())
-			S.rright() = Rect->right();
-		if (S.right() <= S.left())
-			S.rright() = S.left(); //End Almi
+         if ( !(Rect->left() < S.right && Rect->right() > S.right) )
+         {
+         S.right = Rect->right();
+         }*///Всё неправильно! Almi 01.12.00
+        if (S.left() <= Rect->left())
+            S.rleft() = Rect->left();
+        if (S.right() >= Rect->right())
+            S.rright() = Rect->right();
+        if (S.right() <= S.left())
+            S.rright() = S.left(); //End Almi
 
 
-		S.rbottom() = S.rtop() = B0 - (int32_t)(((float) Bs / (float) As)
-				* (float) (A0 - S.left()));
-		iTemp = B0 - (int32_t)(((float) Bs / (float) As) * (float) (A0
-				- S.right()));
+        S.rbottom() = S.rtop() = B0 - (int32_t) (((float) Bs / (float) As)
+                * (float) (A0 - S.left()));
+        iTemp = B0 - (int32_t) (((float) Bs / (float) As) * (float) (A0 - S.right()));
 
-		S.rtop() = S.rtop() < iTemp ? S.top() - Thick : iTemp - Thick;
-		S.rbottom() = S.rbottom() > iTemp ? S.bottom() + Thick : iTemp + Thick;
+        S.rtop() = S.rtop() < iTemp ? S.top() - Thick : iTemp - Thick;
+        S.rbottom() = S.rbottom() > iTemp ? S.bottom() + Thick : iTemp + Thick;
 
-		/*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
-		 {
-		 S.top() = Rect->top();
-		 Halfs = 0.5;
-		 }
+        /*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
+         {
+         S.top() = Rect->top();
+         Halfs = 0.5;
+         }
 
-		 if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
-		 {
-		 S.bottom() = Rect->bottom();
-		 Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
-		 }*///Всё неправильно! Almi 01.12.00
-		if (S.top() <= Rect->top())
-			S.rtop() = Rect->top();
-		if (S.bottom() >= Rect->bottom())
-			S.rbottom() = Rect->bottom();
-		if (S.bottom() <= S.top())
-			S.rbottom() = S.top(); //End Almi
+         if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
+         {
+         S.bottom() = Rect->bottom();
+         Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
+         }*///Всё неправильно! Almi 01.12.00
+        if (S.top() <= Rect->top())
+            S.rtop() = Rect->top();
+        if (S.bottom() >= Rect->bottom())
+            S.rbottom() = Rect->bottom();
+        if (S.bottom() <= S.top())
+            S.rbottom() = S.top(); //End Almi
 
-		//считаем площади
-		iTemp = Rect->bottom() - Rect->top();
-		SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = Rect->right() - Rect->left();
-		SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
+        //считаем площади
+        iTemp = Rect->bottom() - Rect->top();
+        SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
+        iTemp = Rect->right() - Rect->left();
+        SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
 
-		iTemp = S.bottom() - S.top();
-		SLine = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = S.right() - S.left();
-		SLine *= 1 + (iTemp < 0 ? -iTemp : iTemp);
-		/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
-		 SLine -= iTemp < 0 ? -iTemp : iTemp;*/
+        iTemp = S.bottom() - S.top();
+        SLine = 1 + (iTemp < 0 ? -iTemp : iTemp);
+        iTemp = S.right() - S.left();
+        SLine *= 1 + (iTemp < 0 ? -iTemp : iTemp);
+        /*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
+         SLine -= iTemp < 0 ? -iTemp : iTemp;*/
 
-		// отношение
-		if (SLine != 0) {
-			temp = (float) SLine / (float) SRect;
-			temp *= (float) 255;
+        // отношение
+        if (SLine != 0) {
+            temp = (float) SLine / (float) SRect;
+            temp *= (float) 255;
 
-			if ((uint32_t) temp >= Rate)
-				bRet = TRUE;
-		}
-	} else {
-		// вертикальные линии
-		S.rtop() = Line->A.y() - KillZone;
-		S.rbottom() = Line->B.y() + KillZone;
+            if ((uint32_t) temp >= Rate)
+                bRet = TRUE;
+        }
+    }
+    else {
+        // вертикальные линии
+        S.rtop() = Line->A.y() - KillZone;
+        S.rbottom() = Line->B.y() + KillZone;
 
-		if (Line->A.x() > Line->B.x()) {
-			S.rleft() = Line->B.x() - Thick;
-			S.rright() = Line->A.x() + Thick;
-		} else {
-			//			S.right() = Line->B.x() - Thick;
-			//			S.left() = Line->A.x() + Thick;
-			S.rleft() = Line->A.x() - Thick;
-			S.rright() = Line->B.x() + Thick; //Almi 01.12.00
-		}
+        if (Line->A.x() > Line->B.x()) {
+            S.rleft() = Line->B.x() - Thick;
+            S.rright() = Line->A.x() + Thick;
+        }
+        else {
+            //			S.right() = Line->B.x() - Thick;
+            //			S.left() = Line->A.x() + Thick;
+            S.rleft() = Line->A.x() - Thick;
+            S.rright() = Line->B.x() + Thick; //Almi 01.12.00
+        }
 
-		//смотрим точки пересечения компоненты с линией
-		/*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
-		 {
-		 S.top() = Rect->top();
-		 }
+        //смотрим точки пересечения компоненты с линией
+        /*		if ( !(Rect->top() <= S.top() && Rect->bottom() >= S.top()) )
+         {
+         S.top() = Rect->top();
+         }
 
-		 if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
-		 {
-		 S.bottom() = Rect->bottom();
-		 }*///Всё неправильно! Almi 01.12.00
-		if (S.top() <= Rect->top())
-			S.rtop() = Rect->top();
-		if (S.bottom() >= Rect->bottom())
-			S.rbottom() = Rect->bottom();
-		if (S.bottom() <= S.top())
-			S.rbottom() = S.top(); //End Almi
+         if ( !(Rect->top() <= S.bottom() && Rect->bottom() >= S.bottom()) )
+         {
+         S.bottom() = Rect->bottom();
+         }*///Всё неправильно! Almi 01.12.00
+        if (S.top() <= Rect->top())
+            S.rtop() = Rect->top();
+        if (S.bottom() >= Rect->bottom())
+            S.rbottom() = Rect->bottom();
+        if (S.bottom() <= S.top())
+            S.rbottom() = S.top(); //End Almi
 
-		S.rleft() = S.rright() = A0 - (int32_t)(((float) As / (float) Bs)
-				* (float) (B0 - S.top()));
-		iTemp = A0 - (int32_t)(((float) As / (float) Bs) * (float) (B0
-				- S.bottom()));
+        S.rleft() = S.rright() = A0
+                - (int32_t) (((float) As / (float) Bs) * (float) (B0 - S.top()));
+        iTemp = A0 - (int32_t) (((float) As / (float) Bs) * (float) (B0 - S.bottom()));
 
-		S.rleft() = S.rleft() < iTemp ? S.left() - Thick : iTemp - Thick;
-		S.rright() = S.rright() > iTemp ? S.right() + Thick : iTemp + Thick;
+        S.rleft() = S.rleft() < iTemp ? S.left() - Thick : iTemp - Thick;
+        S.rright() = S.rright() > iTemp ? S.right() + Thick : iTemp + Thick;
 
-		/*		if ( !(Rect->left() <= S.left() && Rect->right() >= S.left()) )
-		 {
-		 S.left() = Rect->left();
-		 Halfs = 0.5;
-		 }
+        /*		if ( !(Rect->left() <= S.left() && Rect->right() >= S.left()) )
+         {
+         S.left() = Rect->left();
+         Halfs = 0.5;
+         }
 
-		 if ( !(Rect->left() <= S.right() && Rect->right() >= S.right()) )
-		 {
-		 S.right() = Rect->right();
-		 Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
-		 }*///Всё неправильно! Almi 01.12.00
-		if (S.left() <= Rect->left())
-			S.rleft() = Rect->left();
-		if (S.right() >= Rect->right())
-			S.rright() = Rect->right();
-		if (S.right() <= S.left())
-			S.rright() = S.left(); //End Almi
+         if ( !(Rect->left() <= S.right() && Rect->right() >= S.right()) )
+         {
+         S.right() = Rect->right();
+         Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
+         }*///Всё неправильно! Almi 01.12.00
+        if (S.left() <= Rect->left())
+            S.rleft() = Rect->left();
+        if (S.right() >= Rect->right())
+            S.rright() = Rect->right();
+        if (S.right() <= S.left())
+            S.rright() = S.left(); //End Almi
 
-		//считаем площади
-		iTemp = Rect->right() - Rect->left();
-		SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
-		iTemp = Rect->bottom() - Rect->top();
-		SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
+        //считаем площади
+        iTemp = Rect->right() - Rect->left();
+        SRect = 1 + (iTemp < 0 ? -iTemp : iTemp);
+        iTemp = Rect->bottom() - Rect->top();
+        SRect *= 1 + (iTemp < 0 ? -iTemp : iTemp);
 
-		iTemp = S.right() - S.left();
-		SLine = 1 + iTemp < 0 ? -iTemp : iTemp;
-		iTemp = 1 + S.bottom() - S.top();
-		SLine *= iTemp < 0 ? -iTemp : iTemp;
-		/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
-		 SLine -= iTemp < 0 ? -iTemp : iTemp;*///Almi
+        iTemp = S.right() - S.left();
+        SLine = 1 + iTemp < 0 ? -iTemp : iTemp;
+        iTemp = 1 + S.bottom() - S.top();
+        SLine *= iTemp < 0 ? -iTemp : iTemp;
+        /*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
+         SLine -= iTemp < 0 ? -iTemp : iTemp;*///Almi
 
-		// отношение
-		if (SLine != 0) {
-			temp = (float) SLine / (float) SRect;
-			temp *= (float) 255;
+        // отношение
+        if (SLine != 0) {
+            temp = (float) SLine / (float) SRect;
+            temp *= (float) 255;
 
-			if ((uint32_t) temp >= Rate)
-				bRet = TRUE;
-		}
-	}
+            if ((uint32_t) temp >= Rate)
+                bRet = TRUE;
+        }
+    }
 
-	return bRet;
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, uint32_t Color,
-		int32_t Thickness, uint32_t Group) {
-	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color,
-			(int16_t) Thickness, Group);
-	LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color,
-			(int16_t) Thickness, Group);
-	LDPUMA_DrawLine(hWindow, &Points[2], &Points[3], 0, Color,
-			(int16_t) Thickness, Group);
-	LDPUMA_DrawLine(hWindow, &Points[3], &Points[0], 0, Color,
-			(int16_t) Thickness, Group);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow,
-		uint32_t Color, int32_t Thickness, uint32_t Group) {
-	CCOM_comp * pcomp;
-	Rect16 Rc;
-
-	pcomp = CCOM_GetFirst(*Image->phCCOM, NULL);
-	if (!pcomp)
-		return;
-
-	do {
-		Rc.rleft() = pcomp->left;
-		Rc.rright() = pcomp->left + pcomp->w /*- 1*/;
-		Rc.rtop() = pcomp->upper;
-		Rc.rbottom() = pcomp->upper + pcomp->h /*- 1*/;
-
-		LDPUMA_DrawRect(hWindow, &Rc, 0, Color, (int16_t) Thickness, Group);
-
-		pcomp = CCOM_GetNext(pcomp, NULL);
-
-	} while (pcomp != NULL);
+    return bRet;
 }

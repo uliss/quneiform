@@ -75,8 +75,6 @@
 
 //общего назначения
 void SetReturnCode_rstuff(int);
-void DebugDPumaDrawRect(Handle, CIF::Point16 *, uint32_t, int32_t, uint32_t);
-void DebugDPumaShowComponents(CIF::PRSPreProcessImage, Handle, uint32_t, int32_t, uint32_t);
 
 Bool32 VerifyN(CIF::PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
@@ -99,15 +97,10 @@ Bool32 MyGetZher(void **, int32_t *, int32_t, Handle);
 Bool32 remove_overlayed(CCOM_comp *, CCOM_handle);
 Bool32 comp_over(CCOM_comp *, CCOM_comp *);
 
-// обработка коротких вертикальных линий
-//Bool32    ShortVerticalLinesProcess    ( PRSPreProcessImage, uint32_t );
-//Bool32    ReadSVLFromPageContainer     ( PRSPreProcessImage, void * );
 // калбэки
 Bool32 SetCBProgressPoints(void *);
 #define DEC_CB_TYPE(a)  PF##a
 #define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
-DEC_CB_FUN(Bool32, DPumaSkipComponent, (void))
-DEC_CB_FUN(Bool32, DPumaSkipTurn, (void))
 DEC_CB_FUN(void, SetUpdate, (uint32_t, uint32_t))
 DEC_CB_FUN(char *, GetModulePath, (void))
 #undef DEC_CB_FUN
