@@ -220,9 +220,10 @@ void PumaImpl::layout() {
     clearAll();
     binarizeImage();
 
-    RSPreProcessImage image_data;
-    setData(image_data);
-    rsl_->setImage(image_data);
+    rsl_->setCCom(&ccom_);
+    rsl_->setCLine(&cline_);
+    rsl_->setCPage(cpage_);
+    rsl_->setTableMode(layout_options_.tableMode());
     rsl_->verifyNormalization();
 
     layoutRStuff();

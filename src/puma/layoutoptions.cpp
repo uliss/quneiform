@@ -93,6 +93,10 @@ void LayoutOptions::setRect(const Rect& rect) {
     rect_template_ = rect;
 }
 
+puma_table_t LayoutOptions::tableMode() const {
+    return tables_;
+}
+
 int LayoutOptions::tablesNum() const {
     return tables_num_;
 }

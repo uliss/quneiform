@@ -46,6 +46,7 @@ public:
     void setPictures(puma_picture_t type);
     void setRect(const Rect& rect);
     void setTable(puma_table_t mode);
+    puma_table_t tableMode() const;
     int tablesNum() const;
 private:
     bool auto_rotate_;

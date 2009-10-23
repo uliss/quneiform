@@ -57,11 +57,11 @@
 #ifndef __RSL_H
 #define __RSL_H
 
+#include "cttypes.h"
+#include "puma/pumadef.h"
 #include "common/exception.h"
 
 namespace CIF {
-
-class RSPreProcessImage;
 
 class Rsl
 {
@@ -69,10 +69,17 @@ public:
     Rsl();
     ~Rsl();
     void aboutLines();
-    void setImage(RSPreProcessImage& image);
+    void setCCom(Handle * ccom);
+    void setCLine(Handle * cline);
+    void setCPage(Handle cpage);
+    void setTableMode(puma_table_t mode);
     void verifyNormalization();
 private:
-    RSPreProcessImage * image_;
+    Handle * ccom_;
+    Handle * cline_;
+    Handle cpage_;
+    bool need_clean_line_;
+    puma_table_t table_mode_;
 };
 
 typedef RuntimeExceptionImpl<Rsl> RslException;
