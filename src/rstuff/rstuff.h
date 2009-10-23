@@ -114,7 +114,6 @@ public:
     uint32_t gnPictures;
     Bool32* pgrc_line;
     CIF::Rect gRectTemplate;
-    const char *szLayoutFileName;
 };
 
 typedef RSPreProcessImage * PRSPreProcessImage;

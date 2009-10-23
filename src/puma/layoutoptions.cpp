@@ -67,7 +67,6 @@ void LayoutOptions::setData(RSPreProcessImage& data) {
     data.pgnNumberTables = &tables_num_;
     data.pgneed_clean_line = &need_clean_line_;
     data.gRectTemplate = rect_template_;
-    data.szLayoutFileName = layout_filename_.c_str();
 }
 
 void LayoutOptions::setDotMatrix(bool val) {
