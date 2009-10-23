@@ -125,7 +125,7 @@ public:
     RStuff();
     ~RStuff();
     void binarize();
-    void extractComponents(Handle * prev_ccom, const char * name);
+    void extractComponents(const char * name);
     void layout();
     void normalize();
     void removeLines();

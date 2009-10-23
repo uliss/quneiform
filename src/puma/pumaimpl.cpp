@@ -45,7 +45,6 @@
 #include "cstr/cstr.h"
 #include "cimage/ctiimage.h"
 #include "cline.h"
-#include "exc.h"
 #include "rblock.h"
 #include "rline.h"
 #include "rfrmt.h"
@@ -182,47 +181,6 @@ void PumaImpl::close() {
     recog_dib_ = input_dib_ = NULL;
 }
 
-void PumaImpl::extractComponents() {
-    PAGEINFO info;
-    if (!GetPageInfo(cpage_, &info))
-        throw PumaException("GetPageInfo failed");
-
-    ExcControl exc;
-    memset(&exc, 0, sizeof(exc));
-
-    CCOM_DeleteContainer((CCOM_handle) ccom_);
-    ccom_ = NULL;
-
-    // будет распознавания эвентами
-    exc.Control = Ex_ExtraComp | Ex_Picture;
-
-    //Andrey: orientation is obtained from new library RNORM
-    if (layout_options_.pictures() != PUMA_PICTURE_NONE)
-        exc.Control |= Ex_PictureLarge;
-
-    uchar w8 = layout_options_.dotMatrix() ? TRUE : FALSE;
-    REXC_SetImportData(REXC_Word8_Matrix, &w8);
-
-    uchar fax100 = fax100_ ? TRUE : FALSE;
-    REXC_SetImportData(REXC_Word8_Fax1x2, &fax100);
-
-    CIMAGEIMAGECALLBACK clbk;
-    if (!CIMAGE_GetCallbackImage(info.szImageName, &clbk))
-        throw PumaException("CIMAGE_GetCallbackImage failed");
-
-    if (!REXCExtracomp3CB(
-            exc, // поиск компонент by 3CallBacks
-            (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
-            (TImageRead) clbk.CIMAGE_ImageRead))
-        throw PumaException("REXCExtracomp3CB failed");
-
-    ccom_ = (Handle) REXCGetContainer();
-    if (!ccom_)
-        throw PumaException("REXCGetContainer failed");
-
-    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
-}
-
 void PumaImpl::extractStrings() {
     if (LDPUMA_Skip(hDebugStrings)) {
         if (!RSELSTR_ExtractTextStrings(ccom_, cpage_))
@@ -331,7 +289,6 @@ void PumaImpl::modulesDone() {
     RPIC_Done();
     RIMAGE_Done();
     RFRMT_Done();
-    REXC_Done();
     RLINE_Done();
     RBLOCK_Done();
     RSELSTR_Done();
@@ -368,10 +325,6 @@ void PumaImpl::modulesInit() {
             throw PumaException("CPAGE_Init failed.");
         if (!CSTR_Init(PUMA_MODULE_CSTR, ghStorage))
             throw PumaException("CSTR_Init failed.");
-
-        // RECOGNITIONS
-        if (!REXC_Init(PUMA_MODULE_REXC, NULL)) // инициализация библиотеки поиска компонент
-            throw PumaException("REXC_Init failed.");
 
         //	REXC_SetImportData(REXC_OcrPath, GetModulePath());
         if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
@@ -589,8 +542,12 @@ void PumaImpl::recognize() {
     if (!LDPUMA_Skip(hDebugLayoutFromFile))
         loadLayoutFromFile(layout_options_.layoutFilename());
 
-    if (IsUpdate(FLG_UPDATE_CCOM))
-        extractComponents();
+    if (IsUpdate(FLG_UPDATE_CCOM)) {
+        PAGEINFO info;
+        if (!GetPageInfo(cpage_, &info))
+            throw PumaException("GetPageInfo failed");
+        rstuff_->extractComponents(info.szImageName);
+    }
 
     // Получим описатель страницы
     cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());

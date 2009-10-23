@@ -119,17 +119,19 @@ RStuff::RStuff() :
         throw RStuffException("SMetric_Init failed");
     if (!RLINE_Init(0, 0))
         throw RStuffException("RLINE_Init failed");
+    // RECOGNITIONS
+    // инициализация библиотеки поиска компонент
+    if (!REXC_Init(PUMA_MODULE_REXC, NULL))
+        throw RStuffException("REXC_Init failed.");
 }
 
 RStuff::~RStuff() {
     delete gLTInfo;
     gLTInfo = NULL;
 
-    if (!SMetric_Done())
-        return;
-
-    if (!RLINE_Done())
-        return;
+    SMetric_Done();
+    RLINE_Done();
+    REXC_Done();
 }
 
 void RStuff::binarize() {
@@ -530,15 +532,9 @@ void RStuff::copyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide, int old
     }
 }
 
-void RStuff::extractComponents(Handle * prev_ccom, const char * name) {
-    if (prev_ccom) {
-        *prev_ccom = *image_->phCCOM ? *image_->phCCOM : NULL;
-        *image_->phCCOM = NULL;
-    }
-    else {
-        CCOM_DeleteContainer((CCOM_handle) *image_->phCCOM);
-        *image_->phCCOM = NULL;
-    }
+void RStuff::extractComponents(const char * name) {
+    CCOM_DeleteContainer((CCOM_handle) *image_->phCCOM);
+    *image_->phCCOM = NULL;
 
     ExcControl exc;
     memset(&exc, 0, sizeof(exc));
@@ -683,7 +679,7 @@ void RStuff::ortoMove() {
         newdib->DestroyDIB();
 
         //снова выделим компоненты
-        extractComponents(NULL, PUMA_IMAGE_ORTOMOVE);
+        extractComponents(PUMA_IMAGE_ORTOMOVE);
         //выделим линии
         CLINE_Reset();
         searchLines();
@@ -721,7 +717,7 @@ void RStuff::preProcessImage() {
     SetPageInfo(image_->hCPAGE, PInfo);
 
     // Выделим компоненты
-    extractComponents(NULL, glpRecogName);
+    extractComponents(glpRecogName);
     //проверим наличие разрешения и попытаемся определить по компонентам, если его нет
     checkResolution();
 
@@ -796,7 +792,8 @@ void RStuff::removeLines(uchar ** DIB) {
         *image_->phCCOM = 0;
     }
 
-    extractComponents(hLinesCCOM, PUMA_IMAGE_DELLINE);
+    //    hLinesCCOM,
+    extractComponents(PUMA_IMAGE_DELLINE);
 
     PAGEINFO inf;
     GetPageInfo(image_->hCPAGE, &inf);

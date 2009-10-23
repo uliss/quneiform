@@ -75,7 +75,6 @@ public:
 private:
     void binarizeImage();
     void clearAll();
-    void extractComponents();
     void extractStrings();
     void formatResult();
     void layout();
