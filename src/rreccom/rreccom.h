@@ -88,10 +88,6 @@ typedef struct tagRRecComControl {
 	uint16_t MaxScale; // if scaling > => use long intervals
 } RRecComControl;
 
-//   RRECCOM_FUNC(Bool32) ExtrcompInit( void);
-// Start initialization. TRUE if OK
-// Can new call after closing the library without ExtrcompDone
-//   RRECCOM_FUNC(void)   ExtrcompDone(void);
 // Closing of the library.
 RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
 RRECCOM_FUNC(char*) RRECCOM_GetReturnString(uint32_t dwError);

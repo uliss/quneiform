@@ -91,7 +91,7 @@
 #include "rline.h"
 #include "rverline.h"
 #include "smetric.h"
-#include "rreccom.h"
+#include "rreccom/rreccom.h"
 
 using namespace CIF;
 

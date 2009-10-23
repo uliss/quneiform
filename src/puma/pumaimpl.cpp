@@ -57,7 +57,7 @@
 #include "rmarker/rmarker.h"
 #include "rselstr.h"
 #include "rshelllines/rsl.h"
-#include "rreccom.h"
+#include "rreccom/rreccom.h"
 #include "rcorrkegl.h"
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng) {

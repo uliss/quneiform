@@ -55,13 +55,7 @@
  */
 
 //#define _USE_GRA_ 1
-/*********************************************************************************************/
-#ifdef _MSC_VER
-#include <windows.h>
-#include <direct.h>
-#else
 #include <unistd.h>
-#endif
 #include <string.h>
 #include <stdlib.h>
 #include "rreccom.h"

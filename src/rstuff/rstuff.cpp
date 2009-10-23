@@ -74,7 +74,7 @@
 #include "markdataoper.h"
 #include "un_err.h"
 #include "rmarker/bigimage.h"
-#include "rreccom.h"
+#include "rreccom/rreccom.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
 
