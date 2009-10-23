@@ -78,6 +78,7 @@ private:
     void extractStrings();
     void formatResult();
     void layout();
+    void layoutRsl();
     void layoutRStuff();
     void layoutRMarker();
     void loadLayoutFromFile(const std::string& fname);

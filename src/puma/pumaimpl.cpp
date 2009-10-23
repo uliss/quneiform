@@ -220,12 +220,7 @@ void PumaImpl::layout() {
     clearAll();
     binarizeImage();
 
-    rsl_->setCCom(&ccom_);
-    rsl_->setCLine(&cline_);
-    rsl_->setCPage(cpage_);
-    rsl_->setTableMode(layout_options_.tableMode());
-    rsl_->verifyNormalization();
-
+    layoutRsl();
     layoutRStuff();
     layoutRMarker();
 
@@ -241,6 +236,14 @@ void PumaImpl::layout() {
     }
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::layoutRsl() {
+    rsl_->setCCom(&ccom_);
+    rsl_->setCLine(&cline_);
+    rsl_->setCPage(cpage_);
+    rsl_->setTableMode(layout_options_.tableMode());
+    rsl_->verifyNormalization();
 }
 
 void PumaImpl::layoutRStuff() {
