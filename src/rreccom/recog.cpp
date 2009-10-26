@@ -64,13 +64,10 @@
 #include "excdefs.h"
 #include "compat_defs.h"
 
-const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
-
 uchar alphabet[256];
 int32_t gra_type_rec = -1;
 uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 int16_t MaxScale;
-uchar work_raster[max_raster];
 
 static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 
@@ -80,10 +77,7 @@ extern uchar* lnOcrPath;
 Bool32 rec_init(RRecComControl control, char *spath, uchar lang);
 void recog(Handle hCCOM, uint32_t flags);
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra);
-void make_raster(CCOM_comp* pcomp);
-void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec);
-
-static void align8_lines(uchar *bin, int32_t w, int32_t h);
+void getExtComp(CCOM_comp* pcomp, CCOM_comp* ec);
 
 extern Bool16 rec_is_language(uchar);
 extern Bool16 rec_set_alpha(uchar, uchar*);
@@ -221,43 +215,6 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra) {
                 pcomp->vers->Alt[vers_beg + i].Prob = 255;
                 pcomp->vers->Alt[vers_beg + i].Method = 5;
             } // event collection
-    }
-}
-
-void make_raster(CCOM_comp* pcomp) {
-    CCOM_lnhead* lp;
-    CCOM_interval* ip;
-    uchar *p, *pp;
-    int16_t x, l, sh;
-    uint16_t w;
-
-    memset(work_raster, 0, pcomp->rw * pcomp->h);
-    lp = (CCOM_lnhead*) ((char *) pcomp->linerep + sizeof(int16_t));
-
-    while (lp->lth) {
-        pp = work_raster + lp->row * pcomp->rw;
-        ip = (CCOM_interval*) &lp[1];
-
-        while (x = ip->e, (l = ip->l) != 0) {
-            p = pp + (x >> 3);
-            sh = x & 7;
-
-            while (l > 8) {
-                w = 0xff00 >> sh;
-                *p |= w & 0xff;
-                *(--p) |= w >> 8;
-                l -= 8;
-            }
-
-            w = make_fill[l];
-            w = w << (8 - sh);
-            *p |= w & 0xff;
-            *(p - 1) |= w >> 8;
-            pp += pcomp->rw;
-            ip++; //+= sizeof(CCOM_interval);
-        }
-
-        lp = (CCOM_lnhead*) (ip + 1);
     }
 }
 

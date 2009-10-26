@@ -54,12 +54,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
+#include <cstring>
 #include "rreccom.h"
 #include "resource.h"
 #include "compat_defs.h"
+#include "evn32/evn.h"
+#include "excdefs.h"
+#include "ccom/ccom.h"
+#include "alphabets/alphabetfactory.h"
 
-static uint16_t gwHeightRC = 0;
 uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
 uchar* lnOcrPath = NULL;
 
@@ -79,3 +82,192 @@ Bool32 RRECCOM_SetImportData(uint32_t dwType, const void * pData) {
 
 }
 
+namespace CIF {
+
+const char *tabevn1[LANG_TOTAL] = { "rec1.dat", // LANG_ENGLISH      0
+    "rec1.dat", // LANG_GERMAN      1
+    "rec1.dat", // LANG_FRENCH      2
+    "rec1rus.dat", // LANG_RUSSIAN      3
+    "rec1.dat", // LANG_SWEDISH     4
+    "rec1.dat", // LANG_SPANISH     5
+    "rec1.dat", // LANG_ITALIAN     6
+    "rec1r&e.dat", // LANG_RUSENG       7
+    "rec1rus.dat", // LANG_UKRAINIAN    8
+    "rec1rus.dat", // LANG_SERBIAN      9
+    "rec1cen.dat", // LANG_CROATIAN 10
+    "rec1cen.dat", // LANG_POLISH       11
+    "rec1n.dat", // LANG_DANISH     12
+    "rec1n.dat", // LANG_PORTUGUESE 13
+    "rec1n.dat", // LANG_DUTCH      14
+    "rec1.dat", // LANG_DIG         15
+    "rec1uzb.dat", // LANG_UZBEK        16  // 01.09.2000 E.P.
+    "rec1kaz.dat", // LANG_KAZ          17
+    "rec1kaz.dat", // LANG_KAZ_ENG      18
+    "rec1cen.dat", // LANG_CZECH        19
+    "rec1cen.dat", // LANG_ROMAN        20
+    "rec1cen.dat", // LANG_HUNGAR       21
+    "rec1rus.dat", // LANG_BULGAR       22
+    "rec1cen.dat", // LANG_SLOVENIAN    23
+    "rec1blt.dat", // LANG_LATVIAN      24
+    "rec1blt.dat", // LANG_LITHUANIAN  25
+    "rec1blt.dat", // LANG_ESTONIAN 26
+    "rec1tur.dat" // LANG_TURKISH       27
+        };
+
+const char *tabevn2[LANG_TOTAL] = { "rec2.dat", // LANG_ENGLISH      0
+    "rec2.dat", // LANG_GERMAN      1
+    "rec2.dat", // LANG_FRENCH      2
+    "rec2rus.dat", // LANG_RUSSIAN      3
+    "rec2.dat", // LANG_SWEDISH     4
+    "rec2.dat", // LANG_SPANISH     5
+    "rec2.dat", // LANG_ITALIAN     6
+    "rec2r&e.dat", // LANG_RUSENG       7
+    "rec2rus.dat", // LANG_UKRAINIAN    8
+    "rec2rus.dat", // LANG_SERBIAN      9
+    "rec2cen.dat", // LANG_CROATIAN 10
+    "rec2cen.dat", // LANG_POLISH       11
+    "rec2n.dat", // LANG_DANISH     12
+    "rec2n.dat", // LANG_PORTUGUESE 13
+    "rec2n.dat", // LANG_DUTCH      14
+    "rec2.dat", // LANG_DIG         15
+    "rec2uzb.dat", // LANG_UZBEK        16 // 01.09.2000 E.P.
+    "rec2kaz.dat", // LANG_KAZ          17
+    "rec2kaz.dat", // LANG_KAZ_ENG      18
+    "rec2cen.dat", // LANG_CZECH        19
+    "rec2cen.dat", // LANG_ROMAN        20
+    "rec2cen.dat", // LANG_HUNGAR       21
+    "rec2rus.dat", // LANG_BULGAR       22
+    "rec2cen.dat", // LANG_SLOVENIAN    23
+    "rec2blt.dat", // LANG_LATVIAN      24
+    "rec2blt.dat", // LANG_LITHUANIAN  25
+    "rec2blt.dat", // LANG_ESTONIAN 26
+    "rec2tur.dat" // LANG_TURKISH       27
+        };
+
+std::string RReccom::ocr_path_(".");
+
+RReccom::RReccom() :
+    language_(LANG_RUSENG) {
+    max_component_width_ = RASTER_MAX_WIDTH;
+    max_component_height_ = RASTER_MAX_HEIGHT;
+    min_component_width_ = 0;
+    min_component_height_ = 0;
+    //  for cuneiform pitures process
+    max_scale_ = 5;
+}
+
+RReccom::~RReccom() {
+}
+
+void RReccom::initAlphabet() {
+    if (language_ >= LANG_TOTAL)
+        throw RReccomException("Wrong language code: ", language_);
+}
+
+void RReccom::initData() {
+    if (!isLanguage(language_))
+        throw RReccomException("Language not exists", language_);
+
+    if (chdir(ocr_path_.c_str()) != 0)
+        throw RReccomException("Can not chdir to: " + ocr_path_);
+
+    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
+    alphabet_.reset(alphabet_ptr);
+    alphabet_->exportToTable(alphabet_tbl_);
+    EVNSetAlphabet(alphabet_tbl_);
+    loadDataTables();
+}
+
+bool RReccom::isLanguage(language_t language) {
+    if (chdir(ocr_path_.c_str()) != 0)
+        throw RReccomException("Can not chdir to: " + ocr_path_);
+
+    if (language < LANG_ENGLISH || language >= LANG_TOTAL)
+        return false;
+    if (data_file_exists(tabevn1[language]) == -1)
+        return false;
+    if (data_file_exists(tabevn2[language]) == -1)
+        return false;
+    return true;
+}
+
+void RReccom::loadDataTables() {
+    if (!EVNInitLanguage(tabevn1[language_], tabevn2[language_], language_))
+        throw RReccomException("EVNInitLanguage failed");
+}
+
+void RReccom::recognize(Handle ccom, language_t language) {
+    language_ = language;
+    initData();
+
+    CCOM_comp* pcomp = CCOM_GetFirst(ccom, NULL);
+    while (pcomp) {
+        unsigned char evn_res[17] = "";
+        int32_t nvers = 0;
+        CCOM_comp comp = *pcomp;
+        CCOM_comp ec;
+
+        comp.scale = pcomp->scale;
+        comp.w = pcomp->w;
+        comp.rw = pcomp->rw;
+        comp.h = pcomp->h;
+
+        if (comp.scale < 3 && (comp.w >> comp.scale) < max_component_width_ && (comp.h
+                >> comp.scale) < max_component_height_) {
+            if (comp.scale) {
+                comp.w >>= comp.scale;
+                comp.h >>= comp.scale;
+                comp.rw = (comp.w + 7) / 8;
+            }
+
+            memset(&ec, 0, sizeof(ExtComponent));
+
+            ec.h = comp.h;
+            ec.w = comp.w;
+            ec.rw = comp.rw;
+            ec.nl = comp.nl;
+            ec.begs = comp.begs;
+            ec.ends = comp.ends;
+            ec.scale = comp.scale;
+
+            nvers = (int16_t) EVNRecog_lp(&ec, comp.linerep + sizeof(int16_t), comp.size_linerep
+                    - sizeof(int16_t), evn_res);
+
+            pcomp->type = ec.type;
+            pcomp->cs = ec.cs;
+        }
+
+        if (nvers) {
+            if (!pcomp->vers) {
+                pcomp->vers = (RecVersions*) malloc(sizeof(RecVersions));
+                memset(pcomp->vers, 0, sizeof(RecVersions));
+            }
+
+            if (pcomp->cs == 255)
+                nvers >>= 1;
+
+            int32_t vers_beg = pcomp->vers->lnAltCnt;
+
+            if (nvers + pcomp->vers->lnAltCnt > REC_MAX_VERS)
+                nvers = REC_MAX_VERS - pcomp->vers->lnAltCnt;
+
+            pcomp->vers->lnAltCnt += nvers;
+
+            if (pcomp->cs == 255)
+                for (int i = 0; i < nvers; i++) {
+                    pcomp->vers->Alt[vers_beg + i].Code = evn_res[2 * i];
+                    pcomp->vers->Alt[vers_beg + i].Prob = evn_res[2 * i + 1];
+                    pcomp->vers->Alt[vers_beg + i].Method = 13;
+                } // network collection
+            else
+                for (int i = 0; i < nvers; i++) {
+                    pcomp->vers->Alt[vers_beg + i].Code = evn_res[i];
+                    pcomp->vers->Alt[vers_beg + i].Prob = 255;
+                    pcomp->vers->Alt[vers_beg + i].Method = 5;
+                } // event collection
+        }
+
+        pcomp = CCOM_GetNext(pcomp, NULL);
+    }
+}
+}

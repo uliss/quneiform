@@ -5,6 +5,6 @@ rreccom.cpp
 )
 set_property(TARGET rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
 
-target_link_libraries(rreccom ccom evn32 cfcompat)
+target_link_libraries(rreccom ccom evn32 cfcompat alphabets)
 
 install_dll(rreccom)
