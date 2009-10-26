@@ -302,7 +302,6 @@ void PumaImpl::modulesDone() {
     CPAGE_Done();
     CLINE_Done();
     RPSTR_Done();
-    RRECCOM_Done();
 
 #ifdef _USE_RVERLINE_
     RVERLINE_Done();
@@ -333,9 +332,6 @@ void PumaImpl::modulesInit() {
         //	REXC_SetImportData(REXC_OcrPath, GetModulePath());
         if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
             throw PumaException("RLINE_Init failed.");
-
-        if (!RRECCOM_Init(PUMA_MODULE_RRECCOM, ghStorage))
-            throw PumaException("RRECCOM_Init failed.");
 
         RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 

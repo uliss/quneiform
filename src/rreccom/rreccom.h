@@ -58,7 +58,6 @@
 #define __RRECCOM_H
 
 #include "globus.h"
-#include "recdefs.h"
 
 #ifdef __RRECCOM__
 #define RRECCOM_FUNC  FUN_EXPO
@@ -66,36 +65,29 @@
 #define RRECCOM_FUNC  FUN_IMPO
 #endif
 
-enum RRECCOMParametrs {
-	RRECCOM_OcrPath,
+enum RRECCOMParametrs
+{
+    RRECCOM_OcrPath,
 };
 
-typedef struct tagRRecComControl {
-	uint32_t flags;
+struct RRecComControl
+{
+    uint32_t flags;
 #define RECOG_EVN 1 //опознание с помошью метода "Event"
 #define RECOG_GRA 2 //опознание с помошью нейросети
-	uint16_t MaxCompWid; // if comp width > MaxCompWid => ignored; 0 - not init
-	uint16_t MaxCompHei; // =""= by height
-	uint16_t MinCompWid; // if comp width <= MinCompWid => ignored; 0 - not init
-	uint16_t MinCompHei; // =""= by width
-	uint16_t MaxScale; // if scaling > => use long intervals
-} RRecComControl;
+    uint16_t MaxCompWid; // if comp width > MaxCompWid => ignored; 0 - not init
+    uint16_t MaxCompHei; // =""= by height
+    uint16_t MinCompWid; // if comp width <= MinCompWid => ignored; 0 - not init
+    uint16_t MinCompHei; // =""= by width
+    uint16_t MaxScale; // if scaling > => use long intervals
+};
 
-// Closing of the library.
-RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
-RRECCOM_FUNC(char*) RRECCOM_GetReturnString(uint32_t dwError);
-RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage);
-RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
-RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData);
 RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
-
 // 1    RRECCOM_FNRECOG   опознать компоненты
 RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang);
-//2		RRECCOM_FNRECOGCOMP опознать одну компоненту
 // 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
 RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language);
 
-// error codes (moved 30.07.01 from "exc\src\resource.h")
 #define RRECCOM_ERR_MIN                2048
 #define RRECCOM_ERR_NO                 2048
 #define RRECCOM_ERR_NOTIMPLEMENT       2051

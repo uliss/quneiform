@@ -79,37 +79,3 @@ Bool32 RRECCOM_SetImportData(uint32_t dwType, const void * pData) {
 
 }
 
-uint32_t RRECCOM_GetReturnCode(void) {
-    if (gwLowRC_rrec == RRECCOM_ERR_NO)
-        return 0;
-
-    return (gwHeightRC << 16) | (gwLowRC_rrec - RRECCOM_ERR_MIN);
-}
-
-char* RRECCOM_GetReturnString(uint32_t dwError) {
-    uint16_t rc = (uint16_t) ((dwError & 0xFFFF));
-    static char szBuffer[512];
-
-    if (dwError >> 16 != gwHeightRC)
-        gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
-
-    if (rc > 0 && rc <= RRECCOM_ERR_MAX - RRECCOM_ERR_MIN)
-        strcpy((char *) szBuffer, RRECCOM_error_name[rc]);
-    else
-        return NULL;
-
-    return szBuffer;
-}
-
-Bool32 RRECCOM_Init(uint16_t wHeightCode, Handle hStorage) {
-    gwHeightRC = wHeightCode;
-
-    if (!gwHeightRC)
-        return FALSE;
-    return TRUE;
-}
-
-Bool32 RRECCOM_Done() {
-    return TRUE;
-}
-
