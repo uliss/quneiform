@@ -54,7 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//#define _USE_GRA_ 1
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
@@ -64,7 +63,7 @@
 #include "r35/r35.h"
 #include "excdefs.h"
 #include "compat_defs.h"
-/*********************************************************************************************/
+
 const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 
 uchar alphabet[256];
@@ -77,12 +76,11 @@ static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 
 extern uint16_t gwLowRC_rrec;
 extern uchar* lnOcrPath;
-/*********************************************************************************************/
+
 Bool32 rec_init(RRecComControl control, char *spath, uchar lang);
 void recog(Handle hCCOM, uint32_t flags);
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra);
 void make_raster(CCOM_comp* pcomp);
-//void recog_gra(RecVersions *v, CCOM_comp* pcomp);
 void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec);
 
 static void align8_lines(uchar *bin, int32_t w, int32_t h);
@@ -90,15 +88,14 @@ static void align8_lines(uchar *bin, int32_t w, int32_t h);
 extern Bool16 rec_is_language(uchar);
 extern Bool16 rec_set_alpha(uchar, uchar*);
 extern Bool16 rec_load_tables(uchar);
-//extern int32_t rec_gra_type_rec(uchar);
-/*********************************************************************************************/
-RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang) {
+
+Bool32 RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang) {
     if (!rec_init(Control, (char*) lnOcrPath, lang))
         return FALSE;
     recog(hCCOM, Control.flags);
     return TRUE;
 }
-/*********************************************************************************************/
+
 Bool32 rec_init(RRecComControl control, char *spath, uchar lang) {
     if (control.MaxCompWid > 0)
         comp_max_w = control.MaxCompWid;
@@ -147,7 +144,7 @@ Bool32 rec_init(RRecComControl control, char *spath, uchar lang) {
 
     return TRUE;
 }
-/*********************************************************************************************/
+
 void recog(Handle hCCOM, uint32_t flags) {
     CCOM_comp* pcomp;
 
@@ -160,7 +157,7 @@ void recog(Handle hCCOM, uint32_t flags) {
         pcomp = CCOM_GetNext(pcomp, NULL);
     }
 }
-/*********************************************************************************************/
+
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra) {
     unsigned char evn_res[17] = "", gra_res[17] = "";
     int32_t nvers = 0;
@@ -226,7 +223,7 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra) {
             } // event collection
     }
 }
-/*********************************************************************************************/
+
 void make_raster(CCOM_comp* pcomp) {
     CCOM_lnhead* lp;
     CCOM_interval* ip;
@@ -263,19 +260,7 @@ void make_raster(CCOM_comp* pcomp) {
         lp = (CCOM_lnhead*) (ip + 1);
     }
 }
-/*********************************************************************************************/
-static void align8_lines(uchar *bin, int32_t w, int32_t h) {
-    int i, ii, iii, wb = (w + 7) / 8, wb_new = ((w + 63) / 64) * 8;
-    uchar buf[256];
 
-    memset(buf, 0, wb_new);
-
-    for (iii = (h - 1) * wb_new, ii = (h - 1) * wb, i = 0; i < h; i++, ii -= wb, iii -= wb_new) {
-        memcpy(buf, &bin[ii], wb);
-        memcpy(&bin[iii], buf, wb_new);
-    }
-}
-/*********************************************************************************************/
 void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec) {
     memset(ec, 0, sizeof(ExtComponent));
 
@@ -287,8 +272,8 @@ void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec) {
     ec->ends = pcomp->ends;
     ec->scale = pcomp->scale;
 }
-/*********************************************************************************************/
-RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language) {
+
+Bool32 RRECCOM_IsLanguage(uchar language) {
     chdir((char*) lnOcrPath);
 
     return rec_is_language(language);

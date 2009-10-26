@@ -57,13 +57,11 @@
 #ifndef __RRECCOM_H
 #define __RRECCOM_H
 
-#include "globus.h"
-
-#ifdef __RRECCOM__
-#define RRECCOM_FUNC  FUN_EXPO
-#else
-#define RRECCOM_FUNC  FUN_IMPO
-#endif
+#include <memory>
+#include <string>
+#include "cttypes.h"
+#include "common/exception.h"
+#include "lang_def.h"
 
 enum RRECCOMParametrs
 {
@@ -82,11 +80,11 @@ struct RRecComControl
     uint16_t MaxScale; // if scaling > => use long intervals
 };
 
-RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
+Bool32 RRECCOM_SetImportData(uint32_t dwType, const void * pData);
 // 1    RRECCOM_FNRECOG   опознать компоненты
-RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang);
+Bool32 RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang);
 // 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
-RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language);
+Bool32 RRECCOM_IsLanguage(uchar language);
 
 #define RRECCOM_ERR_MIN                2048
 #define RRECCOM_ERR_NO                 2048
@@ -96,5 +94,46 @@ RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language);
 #define RRECCOM_ERR_NOSETALPHABET      2063
 #define RRECCOM_ERR_NOGRA              2064
 #define RRECCOM_ERR_MAX                2068
+
+namespace CIF {
+
+class Alphabet;
+
+class RReccom
+{
+public:
+    RReccom();
+    ~RReccom();
+
+    void recognize(Handle ccom, language_t language);
+public:
+    static bool isLanguage(language_t);
+private:
+    void initData();
+    void initAlphabet();
+    void loadDataTables();
+private:
+    language_t language_;
+    // if comp width > MaxCompWid => ignored; 0 - not init
+    uint max_component_width_;
+    // =""= by height
+    uint max_component_height_;
+    // if comp width <= MinCompWid => ignored; 0 - not init
+    uint min_component_width_;
+    // =""= by height
+    uint min_component_height_;
+    // if scaling > => use long intervals
+    uint max_scale_;
+    //
+    std::auto_ptr<Alphabet> alphabet_;
+    char alphabet_tbl_[256];
+private:
+    static std::string ocr_path_;
+    static const char * alphabet_to_lang_[LANG_TOTAL];
+};
+
+typedef RuntimeExceptionImpl<RReccom> RReccomException;
+
+}
 
 #endif // __RRECCOM_H
