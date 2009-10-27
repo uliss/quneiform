@@ -219,7 +219,7 @@ void RReccom::initData() {
     if (chdir(ocr_path_.c_str()) != 0)
         throw RReccomException("Can not chdir to: " + ocr_path_);
 
-//    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
+    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
 //    alphabet_.reset(alphabet_ptr);
 //    alphabet_->exportToTable(alphabet_tbl_);
     rec_set_alpha(language_, (uchar*)alphabet_tbl_);

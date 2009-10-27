@@ -17,13 +17,13 @@ set(CF_VERSION_PATCH "0")
 
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
-option(BUILD_TESTING "Enable CTest framework." OFF)
+#option(BUILD_TESTING "Enable CTest framework." ON)
 
-if(BUILD_TESTING)
+#if(BUILD_TESTING)
   enable_testing()
   include(CTest)
-  include(Dart)
-endif()
+#  include(Dart)
+#endif()
 
 include(install_files.cmake)
 
@@ -76,4 +76,5 @@ endif()
 add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
+add_subdirectory(tests)
 

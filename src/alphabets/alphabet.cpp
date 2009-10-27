@@ -57,13 +57,13 @@ void Alphabet::unset(size_t pos) {
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
     os << "Alphabet\n";
     os << "string: " << alphabet.chars_.to_string() << "\n";
-    os << "long:   " << alphabet.chars_.to_ulong() << "\n";
     for (size_t i = 0; i < alphabet.chars_.size(); i++) {
         if (alphabet.chars_.test(i))
             os << " " << (char) i;
         if (i && !i % 16)
             os << "\n";
     }
+    os << "\n";
     return os;
 }
 }
