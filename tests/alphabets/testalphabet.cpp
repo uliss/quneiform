@@ -42,7 +42,6 @@ void TestAlphabet::testInit() {
     delete t;
 }
 
-
 void TestAlphabet::testSet() {
     Alphabet * t = new AAlphabet;
 
@@ -54,4 +53,20 @@ void TestAlphabet::testSet() {
     CPPUNIT_ASSERT(!t->isCode('A'));
 
     delete t;
+}
+
+void TestAlphabet::testExport() {
+    Alphabet * t = new AAlphabet;
+    t->set('A');
+    t->set(255);
+
+    char * table = new char[t->size()];
+
+    t->exportToTable(table);
+    CPPUNIT_ASSERT(table[1] == 0);
+    CPPUNIT_ASSERT(table[255] == 1);
+    CPPUNIT_ASSERT(table[(int)'A'] == 1);
+
+    delete t;
+    delete[] table;
 }
