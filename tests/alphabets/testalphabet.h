@@ -25,11 +25,11 @@ class TestAlphabet: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestAlphabet);
     CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testEquality);
+    CPPUNIT_TEST(testSet);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
-    void testEquality();
+    void testSet();
 };
 
 #endif /* TESTALPHABET_H_ */

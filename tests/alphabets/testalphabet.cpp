@@ -15,21 +15,43 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-
 #include "testalphabet.h"
 #include "alphabets/alphabet.h"
 #include "alphabets/digits.h"
-
 CPPUNIT_TEST_SUITE_REGISTRATION(TestAlphabet);
 
 using namespace CIF;
 using namespace std;
 
-void TestAlphabet::testEquality() {
-
-}
+class AAlphabet: public Alphabet
+{
+public:
+    language_t language() const {
+        return LANG_TOTAL;
+    }
+};
 
 void TestAlphabet::testInit() {
-    Alphabet * a = new DigitsAlphabet;
-    cerr << *a;
+    Alphabet * t = new AAlphabet;
+
+    CPPUNIT_ASSERT_EQUAL(t->language(), LANG_TOTAL);
+    for (size_t i = 0; i < t->size(); i++) {
+        CPPUNIT_ASSERT(!t->isCode(i));
+    }
+
+    delete t;
+}
+
+
+void TestAlphabet::testSet() {
+    Alphabet * t = new AAlphabet;
+
+    CPPUNIT_ASSERT(!t->isCode('A'));
+    t->set('A');
+    CPPUNIT_ASSERT(t->isCode('A'));
+
+    t->unset('A');
+    CPPUNIT_ASSERT(!t->isCode('A'));
+
+    delete t;
 }

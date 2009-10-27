@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cassert>
+#include <iomanip>
 #include "alphabet.h"
 
 namespace CIF {
@@ -49,20 +50,35 @@ void Alphabet::set(size_t pos) {
     chars_.set(pos);
 }
 
+size_t Alphabet::size() const {
+    return chars_.size();
+}
+
 void Alphabet::unset(size_t pos) {
     assert(pos < chars_.size());
     chars_.set(pos, 0);
 }
 
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
-    os << "Alphabet\n";
-    os << "string: " << alphabet.chars_.to_string() << "\n";
+    os << "Alphabet\nCharacters: ";
     for (size_t i = 0; i < alphabet.chars_.size(); i++) {
         if (alphabet.chars_.test(i))
             os << " " << (char) i;
-        if (i && !i % 16)
-            os << "\n";
     }
+
+    os << "\n";
+
+    for (size_t i = 0; i < 16; i++)
+        os << " " << std::hex << i;
+    os << "\n";
+    std::string delim(32, '_');
+    os << " " << delim << "\n";
+    for (size_t i = 0, total = alphabet.chars_.size(); i < total; i++) {
+        os << " " << (int) alphabet.chars_.test(i);
+        if (i != 0 && (i + 1) % 16 == 0)
+            os << "| " << std::hex << ((i - 1) / 16) << "\n";
+    }
+
     os << "\n";
     return os;
 }

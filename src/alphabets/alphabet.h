@@ -36,6 +36,7 @@ public:
     bool isCode(size_t code);
     virtual language_t language() const = 0;
     void set(size_t pos);
+    size_t size() const;
     void unset(size_t pos);
 protected:
     // table[0-255]
