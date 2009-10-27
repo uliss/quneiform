@@ -1,6 +1,5 @@
 add_library(rreccom ${LIBTYPE}
 alphabet.cpp
-recog.cpp
 rreccom.cpp
 )
 set_property(TARGET rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)

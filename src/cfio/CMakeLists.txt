@@ -1,5 +1,3 @@
-include_directories(BEFORE)
-
 add_library(cfio ${LIBTYPE}
 	control.cpp
 	dll.cpp

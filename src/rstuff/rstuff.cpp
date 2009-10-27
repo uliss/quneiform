@@ -565,12 +565,8 @@ void RStuff::extractComponents(const char * name) {
     if (*image_->phCCOM == 0)
         throw RStuffException("REXCGetContainer failed");
 
-    RRecComControl rec_control;
-    memset(&rec_control, 0, sizeof(RRecComControl));
-    rec_control.flags = RECOG_EVN;
-
-    if (!RRECCOM_Recog(*(image_->phCCOM), rec_control, (uchar) image_->gnLanguage))
-        throw RStuffException("RRECCOM_Recog failed");
+    RReccom r;
+    r.recognize(*(image_->phCCOM), (language_t)image_->gnLanguage);
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }

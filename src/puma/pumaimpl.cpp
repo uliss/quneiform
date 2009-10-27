@@ -333,7 +333,9 @@ void PumaImpl::modulesInit() {
         if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
             throw PumaException("RLINE_Init failed.");
 
-        RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
+        // FIXME
+        RReccom::setOcrPath(modulePath());
+//        RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 
         rsl_.reset(new Rsl);
         rstuff_.reset(new RStuff);

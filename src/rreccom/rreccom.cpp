@@ -56,31 +56,13 @@
 
 #include <cstring>
 #include "rreccom.h"
-#include "resource.h"
 #include "compat_defs.h"
 #include "evn32/evn.h"
 #include "excdefs.h"
 #include "ccom/ccom.h"
 #include "alphabets/alphabetfactory.h"
 
-uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
-uchar* lnOcrPath = NULL;
-
-Bool32 RRECCOM_SetImportData(uint32_t dwType, const void * pData) {
-#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break;
-    gwLowRC_rrec = RRECCOM_ERR_NO;
-
-    switch (dwType) {
-    CASE_PDATA(RRECCOM_OcrPath, uchar*, lnOcrPath)
-    default:
-        gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
-        return FALSE;
-    }
-#undef CASE_PDATA
-
-    return TRUE;
-
-}
+extern Bool16 rec_set_alpha(uchar, uchar*);
 
 namespace CIF {
 
@@ -145,6 +127,7 @@ const char *tabevn2[LANG_TOTAL] = { "rec2.dat", // LANG_ENGLISH      0
         };
 
 std::string RReccom::ocr_path_(".");
+char RReccom::alphabet_tbl_[256] = {};
 
 RReccom::RReccom() :
     language_(LANG_RUSENG) {
@@ -159,6 +142,71 @@ RReccom::RReccom() :
 RReccom::~RReccom() {
 }
 
+void RReccom::eventRecognition(CCOM_comp * pcomp) {
+    CCOM_comp comp = *pcomp;
+
+    comp.scale = pcomp->scale;
+    comp.w = pcomp->w;
+    comp.rw = pcomp->rw;
+    comp.h = pcomp->h;
+
+    int nvers = 0;
+    unsigned char evn_res[17] = "";
+    if (comp.scale < 3 && (comp.w >> comp.scale) < max_component_width_ && (comp.h >> comp.scale)
+            < max_component_height_) {
+
+        if (comp.scale) {
+            comp.w >>= comp.scale;
+            comp.h >>= comp.scale;
+            comp.rw = (comp.w + 7) / 8;
+        }
+
+        CCOM_comp ec;
+        memset(&ec, 0, sizeof(CCOM_comp));
+        ec.h = pcomp->h;
+        ec.w = pcomp->w;
+        ec.rw = pcomp->rw;
+        ec.nl = pcomp->nl;
+        ec.begs = pcomp->begs;
+        ec.ends = pcomp->ends;
+        ec.scale = pcomp->scale;
+
+        nvers = EVNRecog_lp(&ec, comp.linerep + sizeof(int16_t), comp.size_linerep
+                - sizeof(int16_t), evn_res);
+        pcomp->type = ec.type;
+        pcomp->cs = ec.cs;
+    }
+
+    if (nvers) {
+        if (!pcomp->vers) {
+            pcomp->vers = static_cast<RecVersions*> (calloc(1, sizeof(RecVersions)));
+        }
+
+        if (pcomp->cs == 255)
+            nvers >>= 1;
+
+        int32_t vers_beg = pcomp->vers->lnAltCnt;
+
+        if (nvers + pcomp->vers->lnAltCnt > REC_MAX_VERS)
+            nvers = REC_MAX_VERS - pcomp->vers->lnAltCnt;
+
+        pcomp->vers->lnAltCnt += nvers;
+
+        if (pcomp->cs == 255)
+            for (int i = 0; i < nvers; i++) {
+                pcomp->vers->Alt[vers_beg + i].Code = evn_res[2 * i];
+                pcomp->vers->Alt[vers_beg + i].Prob = evn_res[2 * i + 1];
+                pcomp->vers->Alt[vers_beg + i].Method = 13;
+            } // network collection
+        else
+            for (int i = 0; i < nvers; i++) {
+                pcomp->vers->Alt[vers_beg + i].Code = evn_res[i];
+                pcomp->vers->Alt[vers_beg + i].Prob = 255;
+                pcomp->vers->Alt[vers_beg + i].Method = 5;
+            } // event collection
+    }
+}
+
 void RReccom::initAlphabet() {
     if (language_ >= LANG_TOTAL)
         throw RReccomException("Wrong language code: ", language_);
@@ -171,9 +219,10 @@ void RReccom::initData() {
     if (chdir(ocr_path_.c_str()) != 0)
         throw RReccomException("Can not chdir to: " + ocr_path_);
 
-    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
-    alphabet_.reset(alphabet_ptr);
-    alphabet_->exportToTable(alphabet_tbl_);
+//    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
+//    alphabet_.reset(alphabet_ptr);
+//    alphabet_->exportToTable(alphabet_tbl_);
+    rec_set_alpha(language_, (uchar*)alphabet_tbl_);
     EVNSetAlphabet(alphabet_tbl_);
     loadDataTables();
 }
@@ -202,72 +251,13 @@ void RReccom::recognize(Handle ccom, language_t language) {
 
     CCOM_comp* pcomp = CCOM_GetFirst(ccom, NULL);
     while (pcomp) {
-        unsigned char evn_res[17] = "";
-        int32_t nvers = 0;
-        CCOM_comp comp = *pcomp;
-        CCOM_comp ec;
-
-        comp.scale = pcomp->scale;
-        comp.w = pcomp->w;
-        comp.rw = pcomp->rw;
-        comp.h = pcomp->h;
-
-        if (comp.scale < 3 && (comp.w >> comp.scale) < max_component_width_ && (comp.h
-                >> comp.scale) < max_component_height_) {
-            if (comp.scale) {
-                comp.w >>= comp.scale;
-                comp.h >>= comp.scale;
-                comp.rw = (comp.w + 7) / 8;
-            }
-
-            memset(&ec, 0, sizeof(ExtComponent));
-
-            ec.h = comp.h;
-            ec.w = comp.w;
-            ec.rw = comp.rw;
-            ec.nl = comp.nl;
-            ec.begs = comp.begs;
-            ec.ends = comp.ends;
-            ec.scale = comp.scale;
-
-            nvers = (int16_t) EVNRecog_lp(&ec, comp.linerep + sizeof(int16_t), comp.size_linerep
-                    - sizeof(int16_t), evn_res);
-
-            pcomp->type = ec.type;
-            pcomp->cs = ec.cs;
-        }
-
-        if (nvers) {
-            if (!pcomp->vers) {
-                pcomp->vers = (RecVersions*) malloc(sizeof(RecVersions));
-                memset(pcomp->vers, 0, sizeof(RecVersions));
-            }
-
-            if (pcomp->cs == 255)
-                nvers >>= 1;
-
-            int32_t vers_beg = pcomp->vers->lnAltCnt;
-
-            if (nvers + pcomp->vers->lnAltCnt > REC_MAX_VERS)
-                nvers = REC_MAX_VERS - pcomp->vers->lnAltCnt;
-
-            pcomp->vers->lnAltCnt += nvers;
-
-            if (pcomp->cs == 255)
-                for (int i = 0; i < nvers; i++) {
-                    pcomp->vers->Alt[vers_beg + i].Code = evn_res[2 * i];
-                    pcomp->vers->Alt[vers_beg + i].Prob = evn_res[2 * i + 1];
-                    pcomp->vers->Alt[vers_beg + i].Method = 13;
-                } // network collection
-            else
-                for (int i = 0; i < nvers; i++) {
-                    pcomp->vers->Alt[vers_beg + i].Code = evn_res[i];
-                    pcomp->vers->Alt[vers_beg + i].Prob = 255;
-                    pcomp->vers->Alt[vers_beg + i].Method = 5;
-                } // event collection
-        }
-
+        eventRecognition(pcomp);
         pcomp = CCOM_GetNext(pcomp, NULL);
     }
 }
+
+void RReccom::setOcrPath(const std::string& path) {
+    ocr_path_ = path;
+}
+
 }

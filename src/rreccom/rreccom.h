@@ -63,37 +63,7 @@
 #include "common/exception.h"
 #include "lang_def.h"
 
-enum RRECCOMParametrs
-{
-    RRECCOM_OcrPath,
-};
-
-struct RRecComControl
-{
-    uint32_t flags;
-#define RECOG_EVN 1 //опознание с помошью метода "Event"
-#define RECOG_GRA 2 //опознание с помошью нейросети
-    uint16_t MaxCompWid; // if comp width > MaxCompWid => ignored; 0 - not init
-    uint16_t MaxCompHei; // =""= by height
-    uint16_t MinCompWid; // if comp width <= MinCompWid => ignored; 0 - not init
-    uint16_t MinCompHei; // =""= by width
-    uint16_t MaxScale; // if scaling > => use long intervals
-};
-
-Bool32 RRECCOM_SetImportData(uint32_t dwType, const void * pData);
-// 1    RRECCOM_FNRECOG   опознать компоненты
-Bool32 RRECCOM_Recog(Handle hCCOM, RRecComControl Control, uchar lang);
-// 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
-Bool32 RRECCOM_IsLanguage(uchar language);
-
-#define RRECCOM_ERR_MIN                2048
-#define RRECCOM_ERR_NO                 2048
-#define RRECCOM_ERR_NOTIMPLEMENT       2051
-#define RRECCOM_ERR_NOINITEV           2058
-#define RRECCOM_ERR_NOLANGUAGE         2062
-#define RRECCOM_ERR_NOSETALPHABET      2063
-#define RRECCOM_ERR_NOGRA              2064
-#define RRECCOM_ERR_MAX                2068
+struct CCOM_comp;
 
 namespace CIF {
 
@@ -108,7 +78,9 @@ public:
     void recognize(Handle ccom, language_t language);
 public:
     static bool isLanguage(language_t);
+    static void setOcrPath(const std::string& path);
 private:
+    void eventRecognition(CCOM_comp * comp);
     void initData();
     void initAlphabet();
     void loadDataTables();
@@ -126,9 +98,9 @@ private:
     uint max_scale_;
     //
     std::auto_ptr<Alphabet> alphabet_;
-    char alphabet_tbl_[256];
 private:
     static std::string ocr_path_;
+    static char alphabet_tbl_[256];
     static const char * alphabet_to_lang_[LANG_TOTAL];
 };
 
