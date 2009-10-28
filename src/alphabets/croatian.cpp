@@ -32,16 +32,16 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_CROATIA
 namespace CIF {
 
 CroatianAlphabet::CroatianAlphabet() {
-    set(CROAT_D);
-    set(CROAT_d);
-    set(CROAT_SR);
-    set(CROAT_sr);
-    set(CROAT_CA);
-    set(CROAT_ca);
-    set(CROAT_ZR);
-    set(CROAT_zr);
-    set(CROAT_CR);
-    set(CROAT_cr);
+    addSymbol(CROAT_D);
+    addSymbol(CROAT_d);
+    addSymbol(CROAT_SR);
+    addSymbol(CROAT_sr);
+    addSymbol(CROAT_CA);
+    addSymbol(CROAT_ca);
+    addSymbol(CROAT_ZR);
+    addSymbol(CROAT_zr);
+    addSymbol(CROAT_CR);
+    addSymbol(CROAT_cr);
 }
 
 }

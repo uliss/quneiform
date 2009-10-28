@@ -58,16 +58,16 @@ EnglishAlphabet::EnglishAlphabet() :
     static const char * latin =
             "!#$%&()-./:;<=>?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}";
 
-    for (const char * c = latin; c; c++)
-        set(*c);
+    for (const char * c = latin; *c; c++)
+        addSymbol(*c);
 
     // uliss. in what code page this is????
     for (int i = '\xB0'; i <= '\xBD'; i++)
-        set(i);
+        addSymbol(i);
 
-    set('\xD5');
-    set('\xD7');
-    set('\xD8');
+    addSymbol('\xD5');
+    addSymbol('\xD7');
+    addSymbol('\xD8');
 }
 
 }

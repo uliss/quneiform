@@ -32,27 +32,27 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_ITALIAN
 namespace CIF {
 
 ItalianAlphabet::ItalianAlphabet() {
-    set(AA_left_accent);
-    set(EE_left_accent);
-    set(EE_right_accent);
-    set(II_left_accent);
-    set(II_right_accent);
-    set(II_roof_accent);
-    set(OO_left_accent);
-    set(OO_right_accent);
-    set(UU_left_accent);
-    set(UU_right_accent);
+    addSymbol(AA_left_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(II_left_accent);
+    addSymbol(II_right_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(OO_left_accent);
+    addSymbol(OO_right_accent);
+    addSymbol(UU_left_accent);
+    addSymbol(UU_right_accent);
 
-    set(a_left_accent);
-    set(e_left_accent);
-    set(e_right_accent);
-    set(i_left_accent);
-    set(i_right_accent);
-    set(i_roof_accent);
-    set(o_left_accent);
-    set(o_right_accent);
-    set(u_left_accent);
-    set(u_right_accent);
+    addSymbol(a_left_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(i_left_accent);
+    addSymbol(i_right_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(o_left_accent);
+    addSymbol(o_right_accent);
+    addSymbol(u_left_accent);
+    addSymbol(u_right_accent);
 }
 
 }

@@ -33,16 +33,16 @@ namespace CIF {
 
 RomanAlphabet::RomanAlphabet() {
     const int language = LANG_ROMAN;
-    set(AA_semicircle);
-    set(a_semicircle);
-    set(AA_roof_accent);
-    set(a_roof_accent);
-    set(II_roof_accent);
-    set(i_roof_accent);
-    set(SS_bottom_accent);
-    set(s_bottom_accent);
-    set(TT_bottom_accent);
-    set(t_bottom_accent);
+    addSymbol(AA_semicircle);
+    addSymbol(a_semicircle);
+    addSymbol(AA_roof_accent);
+    addSymbol(a_roof_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(SS_bottom_accent);
+    addSymbol(s_bottom_accent);
+    addSymbol(TT_bottom_accent);
+    addSymbol(t_bottom_accent);
 }
 
 }

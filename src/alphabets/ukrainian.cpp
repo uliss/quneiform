@@ -33,17 +33,17 @@ namespace CIF {
 
 UkrainianAlphabet::UkrainianAlphabet() {
     const language_t language = LANG_UKRAINIAN;
-    set('I');
-    set('i');
-    set(UKR_I);
-    set(UKR_i);
-    set(UKR_II);
-    set(UKR_ii);
-    set(UKR_E);
-    set(UKR_e);
-    set(UKR_G);
-    set(UKR_g);
-    set(liga_i);
+    addSymbol('I');
+    addSymbol('i');
+    addSymbol(UKR_I);
+    addSymbol(UKR_i);
+    addSymbol(UKR_II);
+    addSymbol(UKR_ii);
+    addSymbol(UKR_E);
+    addSymbol(UKR_e);
+    addSymbol(UKR_G);
+    addSymbol(UKR_g);
+    addSymbol(liga_i);
 }
 
 }

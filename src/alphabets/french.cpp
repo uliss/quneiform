@@ -31,38 +31,37 @@ const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_FR
 namespace CIF {
 
 FrenchAlphabet::FrenchAlphabet() {
-    set( AA_left_accent);
-    set( AA_roof_accent);
-    set( CC_bottom_accent);
-    set( EE_left_accent);
-    set( EE_right_accent);
-    set( EE_roof_accent);
-    set( EE_2dot_accent);
-    set( II_roof_accent);
-    set( II_2dot_accent);
-    set( OO_roof_accent);
-    set( OE_cap_deaf_sound);
-    set( AE_cap_deaf_sound);
-    set( UU_left_accent);
-    set( UU_roof_accent);
-    set( UU_2dot_accent);
+    addSymbol(AA_left_accent);
+    addSymbol(AA_roof_accent);
+    addSymbol(CC_bottom_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(EE_roof_accent);
+    addSymbol(EE_2dot_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(II_2dot_accent);
+    addSymbol(OO_roof_accent);
+    addSymbol(OE_cap_deaf_sound);
+    addSymbol(AE_cap_deaf_sound);
+    addSymbol(UU_left_accent);
+    addSymbol(UU_roof_accent);
+    addSymbol(UU_2dot_accent);
 
-    set( a_left_accent);
-    set( a_roof_accent);
-    set( c_bottom_accent);
-    set( e_left_accent);
-    set( e_right_accent);
-    set( e_roof_accent);
-    set( e_2dot_accent);
-    set( i_roof_accent);
-    set( i_2dot_accent);
-    set( o_roof_accent);
-    set( oe_deaf_sound);
-    set( ae_deaf_sound);
-    set( u_left_accent);
-    set( u_roof_accent);
-    set( u_2dot_accent);
-
+    addSymbol(a_left_accent);
+    addSymbol(a_roof_accent);
+    addSymbol(c_bottom_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(e_roof_accent);
+    addSymbol(e_2dot_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(i_2dot_accent);
+    addSymbol(o_roof_accent);
+    addSymbol(oe_deaf_sound);
+    addSymbol(ae_deaf_sound);
+    addSymbol(u_left_accent);
+    addSymbol(u_roof_accent);
+    addSymbol(u_2dot_accent);
 }
 
 }

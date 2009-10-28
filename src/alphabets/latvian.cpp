@@ -32,37 +32,37 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_LATVIAN
 namespace CIF {
 
 LatvianAlphabet::LatvianAlphabet() {
-    set(AA_macron);
-    set(a_macron);
-    set(CC_inv_roof);
-    set(c_inv_roof);
-    set(EE_macron);
-    set(e_macron);
-    set(GG_bottom_accent);
-    set(LATVIAN_g);
-    set(II_macron);
-    set(i_macron);
-    set(KK_bottom_accent);
-    set(k_bottom_accent);
-    set(LL_bottom_accent);
-    set(l_bottom_accent);
-    set(NN_bottom_accent);
-    set(n_bottom_accent);
-    set(SS_inv_roof_baltic);
-    set(s_inv_roof_baltic);
-    set(UU_macron);
-    set(u_macron);
-    set(ZZ_inv_roof_baltic);
-    set(z_inv_roof_baltic);
+    addSymbol(AA_macron);
+    addSymbol(a_macron);
+    addSymbol(CC_inv_roof);
+    addSymbol(c_inv_roof);
+    addSymbol(EE_macron);
+    addSymbol(e_macron);
+    addSymbol(GG_bottom_accent);
+    addSymbol(LATVIAN_g);
+    addSymbol(II_macron);
+    addSymbol(i_macron);
+    addSymbol(KK_bottom_accent);
+    addSymbol(k_bottom_accent);
+    addSymbol(LL_bottom_accent);
+    addSymbol(l_bottom_accent);
+    addSymbol(NN_bottom_accent);
+    addSymbol(n_bottom_accent);
+    addSymbol(SS_inv_roof_baltic);
+    addSymbol(s_inv_roof_baltic);
+    addSymbol(UU_macron);
+    addSymbol(u_macron);
+    addSymbol(ZZ_inv_roof_baltic);
+    addSymbol(z_inv_roof_baltic);
 
-    unset('Q');
-    unset('q');
-    unset('W');
-    unset('w');
-    unset('X');
-    unset('x');
-    unset('Y');
-    unset('y');
+    removeSymbol('Q');
+    removeSymbol('q');
+    removeSymbol('W');
+    removeSymbol('w');
+    removeSymbol('X');
+    removeSymbol('x');
+    removeSymbol('Y');
+    removeSymbol('y');
 }
 
 }

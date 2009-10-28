@@ -29,6 +29,10 @@ public:
     language_t language() const {
         return LANG_TOTAL;
     }
+
+    void import(const char * tbl) {
+        initFromTable(tbl);
+    }
 };
 
 void TestAlphabet::testInit() {
@@ -46,10 +50,10 @@ void TestAlphabet::testSet() {
     Alphabet * t = new AAlphabet;
 
     CPPUNIT_ASSERT(!t->isCode('A'));
-    t->set('A');
+    t->addSymbol('A');
     CPPUNIT_ASSERT(t->isCode('A'));
 
-    t->unset('A');
+    t->removeSymbol('A');
     CPPUNIT_ASSERT(!t->isCode('A'));
 
     delete t;
@@ -57,8 +61,8 @@ void TestAlphabet::testSet() {
 
 void TestAlphabet::testExport() {
     Alphabet * t = new AAlphabet;
-    t->set('A');
-    t->set(255);
+    t->addSymbol('A');
+    t->addSymbol(255);
 
     char * table = new char[t->size()];
 
@@ -69,4 +73,10 @@ void TestAlphabet::testExport() {
 
     delete t;
     delete[] table;
+}
+
+void TestAlphabet::testDigits() {
+    Alphabet * t = new DigitsAlphabet;
+    CPPUNIT_ASSERT_EQUAL(t->toString(), std::string("#0123456789"));
+    delete t;
 }

@@ -25,14 +25,14 @@ BalticAlphabet::BalticAlphabet() {
     // WWindows cp-1257
     // it's only a var for marcores
     const int language = LANG_ESTONIAN;
-    set(low_quotes);
-    set(liga_exm);
-    set(liga_i);
-    set(right_quocket);
-    set(liga_TM);
-    set(liga_CC);
-    set(liga_CR);
-    set(liga_bull_baltic);
+    addSymbol(low_quotes);
+    addSymbol(liga_exm);
+    addSymbol(liga_i);
+    addSymbol(right_quocket);
+    addSymbol(liga_TM);
+    addSymbol(liga_CC);
+    addSymbol(liga_CR);
+    addSymbol(liga_bull_baltic);
 }
 
 }

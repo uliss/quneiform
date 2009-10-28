@@ -31,13 +31,48 @@ class Alphabet
 public:
     Alphabet();
     virtual ~Alphabet();
-    // table[0-255]
+
+    /**
+     * Adds symbol in alphabet
+     * @param pos
+     */
+    void addSymbol(size_t code);
+
+    /**
+     * Exports alphabet to table, that have to be char array[0-alphabet_size]
+     * Existed symbol exported as 1, non-existent as 0 at array position == symbol code
+     */
     void exportToTable(char * table);
+
+    /**
+     * Checks if symbol with given code exists in alphabet
+     * @param code symbol
+     * @return true if exists
+     */
     bool isCode(size_t code);
+
+    /**
+     * Returns alphabet language
+     */
     virtual language_t language() const = 0;
-    void set(size_t pos);
+
+    /**
+     * Removes symbol from alphabet with given code
+     * @param code
+     */
+    void removeSymbol(size_t code);
+
+    /**
+     * Returns size of alphabet table
+     * @return
+     */
     size_t size() const;
-    void unset(size_t pos);
+
+    /**
+     * Returns all alphabet characters as string
+     * @return
+     */
+    std::string toString() const;
 protected:
     // table[0-255]
     void initFromTable(const char * bits);

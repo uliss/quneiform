@@ -32,36 +32,36 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_CZECH, 
 namespace CIF {
 
 CzechAlphabet::CzechAlphabet() {
-    set(AA_right_accent);
-    set(a_right_accent);
-    set(CC_inv_roof);
-    set(c_inv_roof);
-    set(DD_inv_roof);
-    set(d_inv_roof);
-    set(EE_right_accent);
-    set(e_right_accent);
-    set(EE_inv_roof);
-    set(e_inv_roof);
-    set(II_right_accent);
-    set(i_right_accent);
-    set(NN_inv_roof);
-    set(n_inv_roof);
-    set(OO_right_accent);
-    set(o_right_accent);
-    set(RR_inv_roof);
-    set(r_inv_roof);
-    set(SS_inv_roof_latin);
-    set(s_inv_roof_latin);
-    set(TT_inv_roof);
-    set(t_inv_roof);
-    set(UU_right_accent);
-    set(u_right_accent);
-    set(UU_circle_accent);
-    set(u_circle_accent);
-    set(YY_right_accent);
-    set(y_right_accent);
-    set(ZZ_inv_roof_latin);
-    set(z_inv_roof_latin);
+    addSymbol(AA_right_accent);
+    addSymbol(a_right_accent);
+    addSymbol(CC_inv_roof);
+    addSymbol(c_inv_roof);
+    addSymbol(DD_inv_roof);
+    addSymbol(d_inv_roof);
+    addSymbol(EE_right_accent);
+    addSymbol(e_right_accent);
+    addSymbol(EE_inv_roof);
+    addSymbol(e_inv_roof);
+    addSymbol(II_right_accent);
+    addSymbol(i_right_accent);
+    addSymbol(NN_inv_roof);
+    addSymbol(n_inv_roof);
+    addSymbol(OO_right_accent);
+    addSymbol(o_right_accent);
+    addSymbol(RR_inv_roof);
+    addSymbol(r_inv_roof);
+    addSymbol(SS_inv_roof_latin);
+    addSymbol(s_inv_roof_latin);
+    addSymbol(TT_inv_roof);
+    addSymbol(t_inv_roof);
+    addSymbol(UU_right_accent);
+    addSymbol(u_right_accent);
+    addSymbol(UU_circle_accent);
+    addSymbol(u_circle_accent);
+    addSymbol(YY_right_accent);
+    addSymbol(y_right_accent);
+    addSymbol(ZZ_inv_roof_latin);
+    addSymbol(z_inv_roof_latin);
 
 }
 

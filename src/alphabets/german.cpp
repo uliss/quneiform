@@ -31,13 +31,13 @@ const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_GE
 namespace CIF {
 
 GermanAlphabet::GermanAlphabet() {
-    set( AA_2dot_accent);
-    set( a_2dot_accent);
-    set( UU_2dot_accent);
-    set( u_2dot_accent);
-    set( OO_2dot_accent);
-    set( o_2dot_accent);
-    set(0xDF); // ??? small S-cet
+    addSymbol(AA_2dot_accent);
+    addSymbol(a_2dot_accent);
+    addSymbol(UU_2dot_accent);
+    addSymbol(u_2dot_accent);
+    addSymbol(OO_2dot_accent);
+    addSymbol(o_2dot_accent);
+    addSymbol(0xDF); // ??? small S-cet
 }
 
 }

@@ -33,31 +33,31 @@ namespace CIF {
 
 LithuanianAlphabet::LithuanianAlphabet() {
     const int language = LANG_LITHUANIAN;
-    set(AA_bottom_accent);
-    set(a_bottom_accent);
-    set(CC_inv_roof);
-    set(c_inv_roof);
-    set(EE_bottom_accent);
-    set(e_bottom_accent);
-    set(EE_dot_accent);
-    set(e_dot_accent);
-    set(II_bottom_accent);
-    set(i_bottom_accent);
-    set(SS_inv_roof_baltic);
-    set(s_inv_roof_baltic);
-    set(UU_bottom_accent);
-    set(u_bottom_accent);
-    set(UU_macron);
-    set(u_macron);
-    set(ZZ_inv_roof_baltic);
-    set(z_inv_roof_baltic);
+    addSymbol(AA_bottom_accent);
+    addSymbol(a_bottom_accent);
+    addSymbol(CC_inv_roof);
+    addSymbol(c_inv_roof);
+    addSymbol(EE_bottom_accent);
+    addSymbol(e_bottom_accent);
+    addSymbol(EE_dot_accent);
+    addSymbol(e_dot_accent);
+    addSymbol(II_bottom_accent);
+    addSymbol(i_bottom_accent);
+    addSymbol(SS_inv_roof_baltic);
+    addSymbol(s_inv_roof_baltic);
+    addSymbol(UU_bottom_accent);
+    addSymbol(u_bottom_accent);
+    addSymbol(UU_macron);
+    addSymbol(u_macron);
+    addSymbol(ZZ_inv_roof_baltic);
+    addSymbol(z_inv_roof_baltic);
 
-    unset('Q');
-    unset('q');
-    unset('W');
-    unset('w');
-    unset('X');
-    unset('x');
+    removeSymbol('Q');
+    removeSymbol('q');
+    removeSymbol('W');
+    removeSymbol('w');
+    removeSymbol('X');
+    removeSymbol('x');
 }
 
 }

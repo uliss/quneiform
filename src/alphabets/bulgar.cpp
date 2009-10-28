@@ -33,12 +33,12 @@ namespace CIF {
 
 BulgarAlphabet::BulgarAlphabet() {
     // В Болгарском нет трех русских букв
-    unset(r_EE_2dot);
-    unset(r_e_2dot);
-    unset('\xDB'); // Ы in cp1251
-    unset('\xFB'); // ы
-    unset('\xDD'); // Э in cp1251
-    unset('\xFD'); // '
+    removeSymbol(r_EE_2dot);
+    removeSymbol(r_e_2dot);
+    removeSymbol('\xDB'); // Ы in cp1251
+    removeSymbol('\xFB'); // ы
+    removeSymbol('\xDD'); // Э in cp1251
+    removeSymbol('\xFD'); // '
 }
 
 }

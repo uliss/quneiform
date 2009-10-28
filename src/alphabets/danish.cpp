@@ -32,13 +32,13 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_DANISH,
 namespace CIF {
 
 Danish::Danish() {
-    set(AE_cap_deaf_sound);
-    set(AA_circle_accent);
-    set(OO_crossed);
+    addSymbol(AE_cap_deaf_sound);
+    addSymbol(AA_circle_accent);
+    addSymbol(OO_crossed);
 
-    set(ae_deaf_sound);
-    set(a_circle_accent);
-    set(o_crossed);
+    addSymbol(ae_deaf_sound);
+    addSymbol(a_circle_accent);
+    addSymbol(o_crossed);
 }
 
 }

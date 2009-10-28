@@ -31,21 +31,21 @@ const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_SE
 namespace CIF {
 
 SerbianAlphabet::SerbianAlphabet() {
-    set(SERB_HH);
-    set(SERB_hh);
-    set(SERB_L);
-    set(SERB_l);
-    set(SERB_N);
-    set(SERB_n);
-    set(SERB_H);
-    set(SERB_h);
-    set(SERB_U);
-    set(SERB_u);
-    set(SERB_J);
-    set(SERB_j);
-    set('J');
-    set('j');
-    set(liga_j);
+    addSymbol(SERB_HH);
+    addSymbol(SERB_hh);
+    addSymbol(SERB_L);
+    addSymbol(SERB_l);
+    addSymbol(SERB_N);
+    addSymbol(SERB_n);
+    addSymbol(SERB_H);
+    addSymbol(SERB_h);
+    addSymbol(SERB_U);
+    addSymbol(SERB_u);
+    addSymbol(SERB_J);
+    addSymbol(SERB_j);
+    addSymbol('J');
+    addSymbol('j');
+    addSymbol(liga_j);
 
 }
 

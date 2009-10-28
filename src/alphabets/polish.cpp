@@ -31,22 +31,22 @@ const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_PO
 namespace CIF {
 
 PolishAlphabet::PolishAlphabet() {
-    set(POLISH_SS);
-    set(POLISH_s);
-    set(POLISH_ZZR);
-    set(POLISH_zr);
-    set(POLISH_ZZD);
-    set(POLISH_zd);
-    set(POLISH_CC);
-    set(POLISH_c);
-    set(POLISH_EE);
-    set(POLISH_e);
-    set(POLISH_NN);
-    set(POLISH_n);
-    set(POLISH_OO);
-    set(POLISH_o);
-    set(POLISH_LL);
-    set(POLISH_l);
+    addSymbol(POLISH_SS);
+    addSymbol(POLISH_s);
+    addSymbol(POLISH_ZZR);
+    addSymbol(POLISH_zr);
+    addSymbol(POLISH_ZZD);
+    addSymbol(POLISH_zd);
+    addSymbol(POLISH_CC);
+    addSymbol(POLISH_c);
+    addSymbol(POLISH_EE);
+    addSymbol(POLISH_e);
+    addSymbol(POLISH_NN);
+    addSymbol(POLISH_n);
+    addSymbol(POLISH_OO);
+    addSymbol(POLISH_o);
+    addSymbol(POLISH_LL);
+    addSymbol(POLISH_l);
 }
 
 }

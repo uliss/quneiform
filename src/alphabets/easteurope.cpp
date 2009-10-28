@@ -45,11 +45,11 @@ EastEuropeAlphabet::EastEuropeAlphabet() {
 
     initFromTable(alph_ce);
     const int language = LANG_CZECH;
-    set(liga_exm);
-    set(liga_inv_exm);
-    set(right_quocket);
-    set(liga_CC);
-    set(liga_CR);
+    addSymbol(liga_exm);
+    addSymbol(liga_inv_exm);
+    addSymbol(right_quocket);
+    addSymbol(liga_CC);
+    addSymbol(liga_CR);
 }
 
 }

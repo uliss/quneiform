@@ -56,17 +56,17 @@ RussianEnglishAlphabet::RussianEnglishAlphabet() {
 
     const static language_t language = LANG_RUSSIAN;
 
-    set(r_cu_d);
-    set(r_cu_g);
-    set(r_cu_m);
-    set(r_cu_u);
-    set(r_cu_z);
-    set(r_cu_a);
+    addSymbol(r_cu_d);
+    addSymbol(r_cu_g);
+    addSymbol(r_cu_m);
+    addSymbol(r_cu_u);
+    addSymbol(r_cu_z);
+    addSymbol(r_cu_a);
 
-    set(liga_exm);
-    set(liga_qm);
-    set(liga_uperc);
-    set(liga_lperc);
+    addSymbol(liga_exm);
+    addSymbol(liga_qm);
+    addSymbol(liga_uperc);
+    addSymbol(liga_lperc);
 }
 
 

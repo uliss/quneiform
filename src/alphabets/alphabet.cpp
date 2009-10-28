@@ -18,6 +18,7 @@
 
 #include <cassert>
 #include <iomanip>
+#include <sstream>
 #include "alphabet.h"
 
 namespace CIF {
@@ -45,7 +46,7 @@ bool Alphabet::isCode(size_t code) {
     return chars_.test(code);
 }
 
-void Alphabet::set(size_t pos) {
+void Alphabet::addSymbol(size_t pos) {
     assert(pos < chars_.size());
     chars_.set(pos);
 }
@@ -54,19 +55,23 @@ size_t Alphabet::size() const {
     return chars_.size();
 }
 
-void Alphabet::unset(size_t pos) {
+void Alphabet::removeSymbol(size_t pos) {
     assert(pos < chars_.size());
     chars_.set(pos, 0);
 }
 
-std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
-    os << "Alphabet\nCharacters: ";
-    for (size_t i = 0; i < alphabet.chars_.size(); i++) {
-        if (alphabet.chars_.test(i))
-            os << " " << (char) i;
+std::string Alphabet::toString() const {
+    std::ostringstream os;
+    for (size_t i = 0; i < chars_.size(); i++) {
+        if (chars_.test(i))
+            os << (char) i;
     }
+    return os.str();
+}
 
-    os << "\n";
+std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
+    os << "Alphabet\n";
+    os << "Characters: " << alphabet.toString() << "\n";
 
     for (size_t i = 0; i < 16; i++)
         os << " " << std::hex << i;

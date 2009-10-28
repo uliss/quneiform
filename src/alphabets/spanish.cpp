@@ -31,21 +31,21 @@ const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_SP
 namespace CIF {
 
 SpanishAlphabet::SpanishAlphabet() {
-    set(AA_right_accent);
-    set(EE_right_accent);
-    set(II_right_accent);
-    set(OO_right_accent);
-    set(UU_right_accent);
-    set(UU_2dot_accent);
-    set(NN_tild_accent);
+    addSymbol(AA_right_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(II_right_accent);
+    addSymbol(OO_right_accent);
+    addSymbol(UU_right_accent);
+    addSymbol(UU_2dot_accent);
+    addSymbol(NN_tild_accent);
 
-    set(a_right_accent);
-    set(e_right_accent);
-    set(i_right_accent);
-    set(o_right_accent);
-    set(u_right_accent);
-    set(u_2dot_accent);
-    set(n_tild_accent);
+    addSymbol(a_right_accent);
+    addSymbol(e_right_accent);
+    addSymbol(i_right_accent);
+    addSymbol(o_right_accent);
+    addSymbol(u_right_accent);
+    addSymbol(u_2dot_accent);
+    addSymbol(n_tild_accent);
 }
 
 }

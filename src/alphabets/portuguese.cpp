@@ -32,39 +32,39 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_PORTUGU
 namespace CIF {
 
 PortugueseAlphabet::PortugueseAlphabet() {
-    set(AA_left_accent);
-    set(AA_right_accent);
-    set(AA_tild_accent);
-    set(AA_roof_accent);
-    set(CC_bottom_accent);
-    set(EE_left_accent);
-    set(EE_right_accent);
-    set(EE_2dot_accent);
-    set(EE_roof_accent);
-    set(OO_left_accent);
-    set(OO_right_accent);
-    set(OO_tild_accent);
-    set(OO_roof_accent);
-    set(II_right_accent);
-    set(II_2dot_accent);
-    set(UU_roof_accent);
+    addSymbol(AA_left_accent);
+    addSymbol(AA_right_accent);
+    addSymbol(AA_tild_accent);
+    addSymbol(AA_roof_accent);
+    addSymbol(CC_bottom_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(EE_2dot_accent);
+    addSymbol(EE_roof_accent);
+    addSymbol(OO_left_accent);
+    addSymbol(OO_right_accent);
+    addSymbol(OO_tild_accent);
+    addSymbol(OO_roof_accent);
+    addSymbol(II_right_accent);
+    addSymbol(II_2dot_accent);
+    addSymbol(UU_roof_accent);
 
-    set(a_left_accent);
-    set(a_right_accent);
-    set(a_tild_accent);
-    set(a_roof_accent);
-    set(c_bottom_accent);
-    set(e_left_accent);
-    set(e_right_accent);
-    set(e_2dot_accent);
-    set(e_roof_accent);
-    set(o_left_accent);
-    set(o_right_accent);
-    set(o_tild_accent);
-    set(o_roof_accent);
-    set(i_right_accent);
-    set(i_2dot_accent);
-    set(u_roof_accent);
+    addSymbol(a_left_accent);
+    addSymbol(a_right_accent);
+    addSymbol(a_tild_accent);
+    addSymbol(a_roof_accent);
+    addSymbol(c_bottom_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(e_2dot_accent);
+    addSymbol(e_roof_accent);
+    addSymbol(o_left_accent);
+    addSymbol(o_right_accent);
+    addSymbol(o_tild_accent);
+    addSymbol(o_roof_accent);
+    addSymbol(i_right_accent);
+    addSymbol(i_2dot_accent);
+    addSymbol(u_roof_accent);
 }
 
 }

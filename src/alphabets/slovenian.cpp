@@ -32,12 +32,12 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_SLOVENI
 namespace CIF {
 
 SlovenianAlphabet::SlovenianAlphabet() {
-    set(CC_inv_roof);
-    set(c_inv_roof);
-    set(SS_inv_roof_latin);
-    set(s_inv_roof_latin);
-    set(ZZ_inv_roof_latin);
-    set(z_inv_roof_latin);
+    addSymbol(CC_inv_roof);
+    addSymbol(c_inv_roof);
+    addSymbol(SS_inv_roof_latin);
+    addSymbol(s_inv_roof_latin);
+    addSymbol(ZZ_inv_roof_latin);
+    addSymbol(z_inv_roof_latin);
 }
 
 }

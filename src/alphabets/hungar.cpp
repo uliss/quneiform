@@ -32,18 +32,18 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_HUNGAR,
 namespace CIF {
 
 HungarAlphabet::HungarAlphabet() {
-    set(AA_right_accent);
-    set(a_right_accent);
-    set(EE_right_accent);
-    set(e_right_accent);
-    set(II_right_accent);
-    set(i_right_accent);
-    set(OO_right_accent);
-    set(o_right_accent);
-    set(OO_2dot_accent);
-    set(o_2dot_accent);
-    set(OO_double_right);
-    set(o_double_right);
+    addSymbol(AA_right_accent);
+    addSymbol(a_right_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(e_right_accent);
+    addSymbol(II_right_accent);
+    addSymbol(i_right_accent);
+    addSymbol(OO_right_accent);
+    addSymbol(o_right_accent);
+    addSymbol(OO_2dot_accent);
+    addSymbol(o_2dot_accent);
+    addSymbol(OO_double_right);
+    addSymbol(o_double_right);
 }
 
 }

@@ -32,29 +32,29 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_ESTONIA
 namespace CIF {
 
 EstonianAlphabet::EstonianAlphabet() {
-    set(AA_2dot_accent);
-    set(a_2dot_accent);
-    set(OO_tild_accent);
-    set(o_tild_accent);
-    set(OO_2dot_accent);
-    set(o_2dot_accent);
-    set(SS_inv_roof_baltic);
-    set(s_inv_roof_baltic);
-    set(UU_2dot_accent);
-    set(u_2dot_accent);
-    set(ZZ_inv_roof_baltic);
-    set(z_inv_roof_baltic);
+    addSymbol(AA_2dot_accent);
+    addSymbol(a_2dot_accent);
+    addSymbol(OO_tild_accent);
+    addSymbol(o_tild_accent);
+    addSymbol(OO_2dot_accent);
+    addSymbol(o_2dot_accent);
+    addSymbol(SS_inv_roof_baltic);
+    addSymbol(s_inv_roof_baltic);
+    addSymbol(UU_2dot_accent);
+    addSymbol(u_2dot_accent);
+    addSymbol(ZZ_inv_roof_baltic);
+    addSymbol(z_inv_roof_baltic);
 
-    unset('C');
-    unset('c');
-    unset('Q');
-    unset('q');
-    unset('W');
-    unset('w');
-    unset('X');
-    unset('x');
-    unset('Y');
-    unset('y');
+    removeSymbol('C');
+    removeSymbol('c');
+    removeSymbol('Q');
+    removeSymbol('q');
+    removeSymbol('W');
+    removeSymbol('w');
+    removeSymbol('X');
+    removeSymbol('x');
+    removeSymbol('Y');
+    removeSymbol('y');
 }
 
 }

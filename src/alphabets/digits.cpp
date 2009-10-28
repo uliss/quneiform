@@ -33,7 +33,7 @@ namespace CIF {
 DigitsAlphabet::DigitsAlphabet() {
     static const char * digits = "#0123456789";
     for (const char * c = digits; *c; c++)
-        set(*c);
+        addSymbol(*c);
 }
 
 }

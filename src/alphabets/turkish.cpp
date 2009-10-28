@@ -33,24 +33,24 @@ namespace CIF {
 
 TurkishAlphabet::TurkishAlphabet() {
     // Турецкие лиги, отличные от западноевропейских
-    set(liga_TM_turkish);
-    set(liga_CC_turkish);
-    set(liga_CR_turkish);
-    set(liga_bull_turkish);
+    addSymbol(liga_TM_turkish);
+    addSymbol(liga_CC_turkish);
+    addSymbol(liga_CR_turkish);
+    addSymbol(liga_bull_turkish);
 
     // Турецкие буквы, отличные от западноевропейских
-    set(GG_semicircle);
-    set(g_semicircle);
-    set(II_dot_accent);
-    set(i_sans_accent);
-    set(SS_bottom_accent_turkish);
-    set(s_bottom_accent_turkish);
-    unset('Q');
-    unset('q');
-    unset('W');
-    unset('w');
-    unset('X');
-    unset('x');
+    addSymbol(GG_semicircle);
+    addSymbol(g_semicircle);
+    addSymbol(II_dot_accent);
+    addSymbol(i_sans_accent);
+    addSymbol(SS_bottom_accent_turkish);
+    addSymbol(s_bottom_accent_turkish);
+    removeSymbol('Q');
+    removeSymbol('q');
+    removeSymbol('W');
+    removeSymbol('w');
+    removeSymbol('X');
+    removeSymbol('x');
 }
 
 }
