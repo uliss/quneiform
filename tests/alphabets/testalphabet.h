@@ -27,12 +27,14 @@ class TestAlphabet: public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSet);
     CPPUNIT_TEST(testExport);
+    CPPUNIT_TEST(testImport);
     CPPUNIT_TEST(testDigits);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSet();
     void testExport();
+    void testImport();
     void testDigits();
 };
 

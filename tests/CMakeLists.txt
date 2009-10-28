@@ -6,6 +6,7 @@ include_directories(../src/hrk)
 add_executable(test_alphabets
 alphabets/test_alphabets.cpp
 alphabets/testalphabet.cpp
+alphabets/testalphabetfactory.cpp
 )
 
 
