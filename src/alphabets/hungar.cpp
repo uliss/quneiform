@@ -46,4 +46,8 @@ HungarAlphabet::HungarAlphabet() {
     addSymbol(o_double_right);
 }
 
+language_t HungarAlphabet::language() const {
+    return LANG_HUNGAR;
+}
+
 }

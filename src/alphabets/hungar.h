@@ -27,9 +27,7 @@ class HungarAlphabet: public EastEuropeAlphabet
 {
 public:
     HungarAlphabet();
-    language_t language() const {
-        return LANG_HUNGAR;
-    }
+    language_t language() const;
 };
 
 }

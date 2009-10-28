@@ -7,6 +7,7 @@ croatian.cpp
 czech.cpp
 danish.cpp
 digits.cpp
+dutch.cpp
 easteurope.cpp
 english.cpp
 estonian.cpp
@@ -14,6 +15,8 @@ french.cpp
 german.cpp
 hungar.cpp
 italian.cpp
+kazakh.cpp
+kazakhenglish.cpp
 latvian.cpp
 lithuanian.cpp
 polish.cpp
@@ -27,6 +30,7 @@ spanish.cpp
 swedish.cpp
 turkish.cpp
 ukrainian.cpp
+uzbek.cpp
 )
 
 install_dll(alphabets)

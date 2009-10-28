@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::SpanishAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new SpanishAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_SPANISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_SPANISH, create);
 }
 
 namespace CIF {
@@ -46,6 +47,10 @@ SpanishAlphabet::SpanishAlphabet() {
     addSymbol(u_right_accent);
     addSymbol(u_2dot_accent);
     addSymbol(n_tild_accent);
+}
+
+language_t SpanishAlphabet::language() const {
+    return LANG_SPANISH;
 }
 
 }

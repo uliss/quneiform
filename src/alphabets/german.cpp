@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::GermanAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new GermanAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_GERMAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_GERMAN, create);
 }
 
 namespace CIF {
@@ -38,6 +39,10 @@ GermanAlphabet::GermanAlphabet() {
     addSymbol(OO_2dot_accent);
     addSymbol(o_2dot_accent);
     addSymbol(0xDF); // ??? small S-cet
+}
+
+language_t GermanAlphabet::language() const {
+    return LANG_GERMAN;
 }
 
 }

@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::RussianAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new RussianAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_RUSSIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_RUSSIAN, create);
 }
 
 namespace CIF {
@@ -67,6 +68,10 @@ RussianAlphabet::RussianAlphabet() {
     addSymbol(liga_qm);
     addSymbol(liga_uperc);
     addSymbol(liga_lperc);
+}
+
+language_t RussianAlphabet::language() const {
+    return LANG_RUSSIAN;
 }
 
 }

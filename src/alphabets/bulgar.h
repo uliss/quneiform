@@ -27,9 +27,7 @@ class BulgarAlphabet: public RussianAlphabet
 {
 public:
     BulgarAlphabet();
-    language_t language() const {
-        return LANG_BULGAR;
-    }
+    language_t language() const;
 };
 
 }

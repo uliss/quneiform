@@ -35,10 +35,14 @@ BulgarAlphabet::BulgarAlphabet() {
     // В Болгарском нет трех русских букв
     removeSymbol(r_EE_2dot);
     removeSymbol(r_e_2dot);
-    removeSymbol('\xDB'); // Ы in cp1251
-    removeSymbol('\xFB'); // ы
-    removeSymbol('\xDD'); // Э in cp1251
-    removeSymbol('\xFD'); // '
+    removeSymbol(0xDB); // Ы in cp1251
+    removeSymbol(0xFB); // ы
+    removeSymbol(0xDD); // Э in cp1251
+    removeSymbol(0xFD); // э
+}
+
+language_t BulgarAlphabet::language() const {
+    return LANG_BULGAR;
 }
 
 }

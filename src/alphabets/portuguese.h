@@ -27,9 +27,7 @@ class PortugueseAlphabet: public CIF::EnglishAlphabet
 {
 public:
     PortugueseAlphabet();
-    language_t language() const {
-        return LANG_PORTUGUESE;
-    }
+    language_t language() const;
 };
 
 }

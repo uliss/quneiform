@@ -36,4 +36,8 @@ DigitsAlphabet::DigitsAlphabet() {
         addSymbol(*c);
 }
 
+language_t DigitsAlphabet::language() const {
+    return LANG_DIG;
+}
+
 }

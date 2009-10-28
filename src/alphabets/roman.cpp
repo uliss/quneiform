@@ -45,4 +45,8 @@ RomanAlphabet::RomanAlphabet() {
     addSymbol(t_bottom_accent);
 }
 
+language_t RomanAlphabet::language() const {
+    return LANG_ROMAN;
+}
+
 }

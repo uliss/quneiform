@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::SerbianAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new SerbianAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_SERBIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_SERBIAN, create);
 }
 
 namespace CIF {
@@ -46,7 +47,10 @@ SerbianAlphabet::SerbianAlphabet() {
     addSymbol('J');
     addSymbol('j');
     addSymbol(liga_j);
+}
 
+language_t SerbianAlphabet::language() const {
+    return LANG_SERBIAN;
 }
 
 }

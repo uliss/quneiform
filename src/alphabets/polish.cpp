@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::PolishAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new PolishAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_POLISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_POLISH, create);
 }
 
 namespace CIF {
@@ -47,6 +48,10 @@ PolishAlphabet::PolishAlphabet() {
     addSymbol(POLISH_o);
     addSymbol(POLISH_LL);
     addSymbol(POLISH_l);
+}
+
+language_t PolishAlphabet::language() const {
+    return LANG_POLISH;
 }
 
 }

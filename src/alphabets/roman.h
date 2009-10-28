@@ -27,9 +27,7 @@ class RomanAlphabet: public EastEuropeAlphabet
 {
 public:
     RomanAlphabet();
-    language_t language() const {
-        return LANG_ROMAN;
-    }
+    language_t language() const;
 };
 
 }

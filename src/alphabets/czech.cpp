@@ -62,7 +62,10 @@ CzechAlphabet::CzechAlphabet() {
     addSymbol(y_right_accent);
     addSymbol(ZZ_inv_roof_latin);
     addSymbol(z_inv_roof_latin);
+}
 
+language_t CzechAlphabet::language() const {
+    return LANG_CZECH;
 }
 
 }

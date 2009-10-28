@@ -40,4 +40,8 @@ SlovenianAlphabet::SlovenianAlphabet() {
     addSymbol(z_inv_roof_latin);
 }
 
+language_t SlovenianAlphabet::language() const {
+    return LANG_SLOVENIAN;
+}
+
 }

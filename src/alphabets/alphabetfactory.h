@@ -37,6 +37,8 @@ private:
     typedef std::map<language_t, alphabetCreate> AlphabetMap;
     AlphabetMap alpha_map_;
     AlphabetFactory();
+    AlphabetFactory(const AlphabetFactory&);
+    void operator=(const AlphabetFactory&);
 };
 
 }

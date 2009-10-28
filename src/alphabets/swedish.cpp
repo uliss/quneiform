@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::SwedishAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new SwedishAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_SWEDISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_SWEDISH, create);
 }
 
 namespace CIF {
@@ -38,6 +39,10 @@ SwedishAlphabet::SwedishAlphabet() {
     addSymbol(a_2dot_accent);
     addSymbol(o_2dot_accent);
     addSymbol(a_circle_accent);
+}
+
+language_t SwedishAlphabet::language() const {
+    return LANG_SWEDISH;
 }
 
 }

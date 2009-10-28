@@ -55,4 +55,8 @@ ItalianAlphabet::ItalianAlphabet() {
     addSymbol(u_right_accent);
 }
 
+language_t ItalianAlphabet::language() const {
+    return LANG_ITALIAN;
+}
+
 }

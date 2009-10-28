@@ -57,4 +57,8 @@ EstonianAlphabet::EstonianAlphabet() {
     removeSymbol('y');
 }
 
+language_t EstonianAlphabet::language() const {
+    return LANG_ESTONIAN;
+}
+
 }

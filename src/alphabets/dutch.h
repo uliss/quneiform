@@ -23,10 +23,11 @@
 
 namespace CIF {
 
-class Dutch: public EnglishAlphabet
+class DutchAlphabet: public EnglishAlphabet
 {
 public:
-    Dutch();
+    DutchAlphabet();
+    language_t language() const;
 };
 
 }

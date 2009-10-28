@@ -16,20 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef POLISH_H_
-#define POLISH_H_
+#include "uzbek.h"
+#include "alphabetfactory.h"
 
-#include "easteurope.h"
+namespace {
+using namespace CIF;
+Alphabet * create() {
+    return new UzbekAlphabet;
+}
+
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_UZBEK, create);
+}
 
 namespace CIF {
 
-class PolishAlphabet: public EastEuropeAlphabet
-{
-public:
-    PolishAlphabet();
-    language_t language() const;
-};
+UzbekAlphabet::UzbekAlphabet() {
 
 }
 
-#endif /* POLISH_H_ */
+language_t UzbekAlphabet::language() const {
+    return LANG_UZBEK;
+}
+
+}
+

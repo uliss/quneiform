@@ -27,9 +27,7 @@ class FrenchAlphabet: public EnglishAlphabet
 {
 public:
     FrenchAlphabet();
-    language_t language() const {
-        return LANG_FRENCH;
-    }
+    language_t language() const;
 };
 
 }

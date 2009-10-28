@@ -36,8 +36,7 @@ Alphabet * AlphabetFactory::make(language_t language) {
     if (alpha_map_.end() == it)
         throw AlphabetException("Unregistered language type", language);
 
-//    return it->second();
-    return NULL;
+    return it->second();
 }
 
 bool AlphabetFactory::registerCreator(language_t language, alphabetCreate creator) {

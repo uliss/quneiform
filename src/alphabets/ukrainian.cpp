@@ -22,11 +22,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::UkrainianAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new UkrainianAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_UKRAINIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_UKRAINIAN, create);
 }
 
 namespace CIF {
@@ -44,6 +45,10 @@ UkrainianAlphabet::UkrainianAlphabet() {
     addSymbol(UKR_G);
     addSymbol(UKR_g);
     addSymbol(liga_i);
+}
+
+language_t UkrainianAlphabet::language() const {
+    return LANG_UKRAINIAN;
 }
 
 }

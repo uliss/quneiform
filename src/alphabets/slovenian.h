@@ -27,9 +27,7 @@ class SlovenianAlphabet: public EastEuropeAlphabet
 {
 public:
     SlovenianAlphabet();
-    language_t language() const {
-        return LANG_SLOVENIAN;
-    }
+    language_t language() const;
 };
 
 }

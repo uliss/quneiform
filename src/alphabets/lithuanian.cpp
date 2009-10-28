@@ -60,4 +60,8 @@ LithuanianAlphabet::LithuanianAlphabet() {
     removeSymbol('x');
 }
 
+language_t LithuanianAlphabet::language() const {
+    return LANG_LITHUANIAN;
+}
+
 }

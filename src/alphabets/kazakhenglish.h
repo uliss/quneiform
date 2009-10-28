@@ -16,20 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef POLISH_H_
-#define POLISH_H_
+#ifndef KAZAKHENGLISH_H_
+#define KAZAKHENGLISH_H_
 
-#include "easteurope.h"
+#include "russianenglish.h"
 
 namespace CIF {
 
-class PolishAlphabet: public EastEuropeAlphabet
+class KazakhEnglishAlphabet: public RussianEnglishAlphabet
 {
 public:
-    PolishAlphabet();
+    KazakhEnglishAlphabet();
     language_t language() const;
 };
 
 }
 
-#endif /* POLISH_H_ */
+#endif /* KAZAKHENGLISH_H_ */

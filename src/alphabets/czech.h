@@ -27,9 +27,7 @@ class CzechAlphabet: public EastEuropeAlphabet
 {
 public:
     CzechAlphabet();
-    language_t language() const {
-        return LANG_CZECH;
-    }
+    language_t language() const;
 };
 
 }

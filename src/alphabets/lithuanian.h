@@ -27,9 +27,7 @@ class LithuanianAlphabet: public BalticAlphabet
 {
 public:
     LithuanianAlphabet();
-    language_t language() const  {
-        return LANG_LITHUANIAN;
-    }
+    language_t language() const;
 };
 
 }

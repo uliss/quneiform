@@ -23,13 +23,11 @@
 
 namespace CIF {
 
-class Danish: public EnglishAlphabet
+class DanishAlphabet: public EnglishAlphabet
 {
 public:
-    Danish();
-    language_t language() const {
-        return LANG_DANISH;
-    }
+    DanishAlphabet();
+    language_t language() const;
 };
 
 }

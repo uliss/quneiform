@@ -21,11 +21,12 @@
 #include "ligas.h"
 
 namespace {
-CIF::Alphabet * create() {
-    return new CIF::FrenchAlphabet;
+using namespace CIF;
+Alphabet * create() {
+    return new FrenchAlphabet;
 }
 
-const bool registered = CIF::AlphabetFactory::instance().registerCreator(LANG_FRENCH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_FRENCH, create);
 }
 
 namespace CIF {
@@ -62,6 +63,10 @@ FrenchAlphabet::FrenchAlphabet() {
     addSymbol(u_left_accent);
     addSymbol(u_roof_accent);
     addSymbol(u_2dot_accent);
+}
+
+language_t FrenchAlphabet::language() const {
+    return LANG_FRENCH;
 }
 
 }

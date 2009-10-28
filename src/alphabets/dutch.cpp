@@ -23,7 +23,7 @@
 namespace {
 using namespace CIF;
 Alphabet * create() {
-    return new Dutch;
+    return new DutchAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_DUTCH, create);
@@ -31,36 +31,40 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_DUTCH, 
 
 namespace CIF {
 
-Dutch::Dutch() {
-    set(AA_left_accent);
-    set(AA_2dot_accent);
-    set(AA_roof_accent);
-    set(CC_bottom_accent);
-    set(EE_left_accent);
-    set(EE_right_accent);
-    set(EE_2dot_accent);
-    set(EE_roof_accent);
-    set(OO_2dot_accent);
-    set(NN_tild_accent);
-    set(II_roof_accent);
-    set(II_2dot_accent);
-    set(UU_roof_accent);
-    set(UU_2dot_accent);
+DutchAlphabet::DutchAlphabet() {
+    addSymbol(AA_left_accent);
+    addSymbol(AA_2dot_accent);
+    addSymbol(AA_roof_accent);
+    addSymbol(CC_bottom_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(EE_2dot_accent);
+    addSymbol(EE_roof_accent);
+    addSymbol(OO_2dot_accent);
+    addSymbol(NN_tild_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(II_2dot_accent);
+    addSymbol(UU_roof_accent);
+    addSymbol(UU_2dot_accent);
 
-    set(a_left_accent);
-    set(a_2dot_accent);
-    set(a_roof_accent);
-    set(c_bottom_accent);
-    set(e_left_accent);
-    set(e_right_accent);
-    set(e_2dot_accent);
-    set(e_roof_accent);
-    set(o_2dot_accent);
-    set(n_tild_accent);
-    set(i_roof_accent);
-    set(i_2dot_accent);
-    set(u_roof_accent);
-    set(u_2dot_accent);
+    addSymbol(a_left_accent);
+    addSymbol(a_2dot_accent);
+    addSymbol(a_roof_accent);
+    addSymbol(c_bottom_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(e_2dot_accent);
+    addSymbol(e_roof_accent);
+    addSymbol(o_2dot_accent);
+    addSymbol(n_tild_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(i_2dot_accent);
+    addSymbol(u_roof_accent);
+    addSymbol(u_2dot_accent);
+}
+
+language_t DutchAlphabet::language() const {
+    return LANG_DUTCH;
 }
 
 }

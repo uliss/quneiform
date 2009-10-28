@@ -27,9 +27,7 @@ class CroatianAlphabet: public EastEuropeAlphabet
 {
 public:
     CroatianAlphabet();
-    language_t language() const {
-        return LANG_CROATIAN;
-    }
+    language_t language() const;
 };
 
 }

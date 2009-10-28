@@ -62,12 +62,17 @@ EnglishAlphabet::EnglishAlphabet() :
         addSymbol(*c);
 
     // uliss. in what code page this is????
-    for (int i = '\xB0'; i <= '\xBD'; i++)
+    for (int i = 0xB0; i <= 0xBD; i++)
         addSymbol(i);
 
-    addSymbol('\xD5');
-    addSymbol('\xD7');
-    addSymbol('\xD8');
+
+    addSymbol(0xD5);
+    addSymbol(0xD7);
+    addSymbol(0xD8);
+}
+
+language_t EnglishAlphabet::language() const {
+    return LANG_ENGLISH;
 }
 
 }

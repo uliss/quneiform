@@ -44,4 +44,8 @@ CroatianAlphabet::CroatianAlphabet() {
     addSymbol(CROAT_cr);
 }
 
+language_t CroatianAlphabet::language() const {
+    return LANG_CROATIAN;
+}
+
 }

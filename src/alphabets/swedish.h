@@ -27,9 +27,7 @@ class SwedishAlphabet: public EnglishAlphabet
 {
 public:
     SwedishAlphabet();
-    language_t language() const {
-        return LANG_SWEDISH;
-    }
+    language_t language() const;
 };
 
 }

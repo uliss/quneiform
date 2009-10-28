@@ -53,4 +53,8 @@ TurkishAlphabet::TurkishAlphabet() {
     removeSymbol('x');
 }
 
+language_t TurkishAlphabet::language() const {
+    return LANG_TURKISH;
+}
+
 }

@@ -65,4 +65,8 @@ LatvianAlphabet::LatvianAlphabet() {
     removeSymbol('y');
 }
 
+language_t LatvianAlphabet::language() const {
+    return LANG_LATVIAN;
+}
+
 }

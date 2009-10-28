@@ -27,9 +27,7 @@ class DigitsAlphabet: public Alphabet
 {
 public:
     DigitsAlphabet();
-    language_t language() const {
-        return LANG_DIG;
-    }
+    language_t language() const;
 };
 }
 

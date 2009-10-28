@@ -67,4 +67,8 @@ PortugueseAlphabet::PortugueseAlphabet() {
     addSymbol(u_roof_accent);
 }
 
+language_t PortugueseAlphabet::language() const {
+    return LANG_PORTUGUESE;
+}
+
 }
