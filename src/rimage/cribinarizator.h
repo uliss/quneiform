@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /////////////////////////
 #include "globus.h"
-#include "ctdib.h"	// Added by ClassView
+#include "rdib/ctdib.h"	// Added by ClassView
 #include "rprogressor.h"	// Added by ClassView
 #include "cdezabinarizator.h"
 //#include "CKronrodBinarizator.h"

@@ -64,7 +64,7 @@
 #include "rline.h"
 #include "cpage/cpage.h"
 #include "ccom/ccom.h"
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "cline.h"
 #include "exc.h"
 #include "compat_defs.h"

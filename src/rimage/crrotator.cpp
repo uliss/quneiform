@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <stdlib.h>
 
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "crrotator.h"
 #include "crimemory.h"
 #include "resource.h"
