@@ -48,7 +48,7 @@
 #include "rblock.h"
 #include "rline.h"
 #include "rfrmt.h"
-#include "rout.h"
+#include "rout/rout.h"
 #include "rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"

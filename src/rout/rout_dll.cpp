@@ -64,19 +64,12 @@
 // This file creation date: 18.05.99
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
-#include <stdafx.h>
 
 #define __ROUT_DLL__	// Только в этом модуле, перед rout_own.h
 #include "rout_own.h"
 
 #include "resource.h"
-
-#ifdef _MSC_VER
-#include <crtdbg.h>
-#include <io.h>
-#else
 #include <unistd.h>
-#endif
 
 #include <stdio.h>
 #include <string.h>
