@@ -61,7 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //********************************************************************
 
 #include <string.h>
-#include "stdafx.h"
 #include "rout_own.h"
 
 #include "compat_defs.h"

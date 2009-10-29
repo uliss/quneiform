@@ -60,7 +60,6 @@
 //********************************************************************
 
 #include <string.h>
-#include "stdafx.h"
 #include "rout_own.h"
 #include "ligas.h"	// Теперь в HHH 01.09.2000 E.P.
 static Bool Static_MakeText(Handle hObject, long reason);

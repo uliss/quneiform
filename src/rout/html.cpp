@@ -65,7 +65,6 @@
 //********************************************************************
 
 #include <string.h>
-#include "stdafx.h"
 #include "rout_own.h"
 #include "compat_defs.h"
 
