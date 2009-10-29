@@ -69,6 +69,6 @@ set(RPSTR_LIBS rpstr rstr rling mmx32 pass2 rbal cline leo32 cpu32 r3532 rlings 
 fon32 msk32 std32 evn32 cstr ctb32 dif32 rcutp ccom)
 set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rshelllines rfrmt rselstr rblock rout rverline rimage exc ced cpage
-cimage loc32 rdib cfio)
+cimage loc32 rdib cfio alphabets)
 
 

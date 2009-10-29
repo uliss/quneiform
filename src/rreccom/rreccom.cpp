@@ -61,8 +61,7 @@
 #include "excdefs.h"
 #include "ccom/ccom.h"
 #include "alphabets/alphabetfactory.h"
-
-extern Bool16 rec_set_alpha(uchar, uchar*);
+#include "alphabets/digits.h"
 
 namespace CIF {
 
@@ -127,7 +126,7 @@ const char *tabevn2[LANG_TOTAL] = { "rec2.dat", // LANG_ENGLISH      0
         };
 
 std::string RReccom::ocr_path_(".");
-char RReccom::alphabet_tbl_[256] = {};
+char RReccom::alphabet_tbl_[256] = { };
 
 RReccom::RReccom() :
     language_(LANG_RUSENG) {
@@ -219,10 +218,10 @@ void RReccom::initData() {
     if (chdir(ocr_path_.c_str()) != 0)
         throw RReccomException("Can not chdir to: " + ocr_path_);
 
-    Alphabet * alphabet_ptr = AlphabetFactory::instance().make(language_);
-//    alphabet_.reset(alphabet_ptr);
-//    alphabet_->exportToTable(alphabet_tbl_);
-    rec_set_alpha(language_, (uchar*)alphabet_tbl_);
+    Alphabet * alph = AlphabetFactory::instance().make(language_);
+    alph->exportToTable(alphabet_tbl_);
+    delete alph;
+
     EVNSetAlphabet(alphabet_tbl_);
     loadDataTables();
 }

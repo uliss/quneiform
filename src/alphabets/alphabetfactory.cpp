@@ -23,12 +23,16 @@
 
 namespace CIF {
 
+AlphabetFactory * AlphabetFactory::instance_ = 0;
+
 AlphabetFactory::AlphabetFactory() {
 }
 
 AlphabetFactory& AlphabetFactory::instance() {
-    static AlphabetFactory instance_;
-    return instance_;
+    if (!instance_) {
+        instance_ = new AlphabetFactory;
+    }
+    return *instance_;
 }
 
 Alphabet * AlphabetFactory::make(language_t language) {

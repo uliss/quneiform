@@ -39,6 +39,7 @@ private:
     AlphabetFactory();
     AlphabetFactory(const AlphabetFactory&);
     void operator=(const AlphabetFactory&);
+    static AlphabetFactory * instance_;
 };
 
 }

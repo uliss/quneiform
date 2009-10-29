@@ -11,5 +11,5 @@ include_directories(
 )
 
 add_executable(cuneiform cuneiform-cli.cpp)
-target_link_libraries(cuneiform puma ${cli_ext_libs} ${DL_LIB})
+target_link_libraries(cuneiform puma ${cli_ext_libs} ${DL_LIB} alphabets)
 install_exe(cuneiform)

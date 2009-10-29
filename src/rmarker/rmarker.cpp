@@ -115,7 +115,7 @@ RMarker::RMarker() :
     lines_total_info_(NULL), ccom_(NULL), cline_(NULL), cpage_(NULL), one_column_(true),
             kill_svl_components_(false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL) {
     RNEG_Init(0, NULL);
-}
+;}
 
 RMarker::~RMarker() {
     RNEG_Done();
