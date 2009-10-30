@@ -404,15 +404,15 @@ void RStuff::createContainerBigComp() {
 
     CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
     Handle hCPage = image_->hCPAGE;
-    CCOM_handle hCCOM_new = 0;
+//    CCOM_handle hCCOM_new = 0;
 
     BigImage big_Image(hCPage);
 
-    hCCOM_new = CCOM_CreateContainer();
-    if (!hCCOM_new) {
-        big_Image.setCCOM(NULL);
-        return;
-    }
+//    hCCOM_new = CCOM_CreateContainer();
+//    if (!hCCOM_new) {
+//        big_Image.setCCOM(NULL);
+//        return;
+//    }
 
     CCOM_comp* comp = NULL;
     CCOM_comp* new_comp;
@@ -420,18 +420,18 @@ void RStuff::createContainerBigComp() {
 
     while (comp) {
         if ((comp->h >= MIN_BIG_H) && (comp->w >= MIN_BIG_W)) {
-            new_comp = CCOM_New(hCCOM_new, comp->upper, comp->left, comp->w, comp->h);
+            new_comp = CCOM_New(big_Image.ccom(), comp->upper, comp->left, comp->w, comp->h);
             if (new_comp) {
                 if (comp->size_linerep < 0)
                     ;
                 else if (!CCOM_Copy(new_comp, comp))
-                    CCOM_Delete(hCCOM_new, comp);
+                    CCOM_Delete(big_Image.ccom(), comp);
             }
         }
         comp = CCOM_GetNext(comp, FALSE);
     }
 
-    big_Image.setCCOM(hCCOM_new);
+//    big_Image.setCCOM(hCCOM_new);
     CPAGE_CreateBlock(hCPage, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
             sizeof(BigImage));
 }
@@ -566,7 +566,7 @@ void RStuff::extractComponents(const char * name) {
         throw RStuffException("REXCGetContainer failed");
 
     RReccom r;
-    r.recognize(*(image_->phCCOM), (language_t)image_->gnLanguage);
+    r.recognize(*(image_->phCCOM), (language_t) image_->gnLanguage);
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }

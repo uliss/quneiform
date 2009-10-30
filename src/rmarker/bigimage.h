@@ -33,7 +33,7 @@ public:
     CCOM_handle ccom() const;
     const char * imageName() const;
     int incline() const;
-    void setCCOM(CCOM_handle ccom);
+    void setCCOM(Handle ccom);
     void setImageName(const char * name);
 private:
     CCOM_handle ccom_;

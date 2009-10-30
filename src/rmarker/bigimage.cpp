@@ -29,6 +29,7 @@ BigImage::BigImage(Handle CPage) :
     GetPageInfo(CPage, &info);
     setImageName(info.szImageName);
     incline_ = info.Incline2048;
+    ccom_ = CCOM_CreateContainer();
 }
 
 BigImage::~BigImage() {
@@ -49,6 +50,8 @@ int BigImage::incline() const {
 }
 
 void BigImage::setCCOM(CCOM_handle ccom) {
+    if (ccom_)
+        CCOM_DeleteContainer(ccom_);
     ccom_ = ccom;
 }
 
