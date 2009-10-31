@@ -62,6 +62,7 @@
 #include "cedpage.h"
 #include "cedsection.h"
 #include "cedparagraph.h"
+#include "cedline.h"
 
 using namespace CIF;
 

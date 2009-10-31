@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "cedparagraph.h"
+#include "cedline.h"
 
 namespace CIF {
 

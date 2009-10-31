@@ -19,6 +19,7 @@
 #include "cedpage.h"
 #include "cedsection.h"
 #include "cedparagraph.h"
+#include "cedline.h"
 #include "cedint.h"
 #include "resource.h"
 
