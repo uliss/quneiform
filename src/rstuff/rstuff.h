@@ -82,10 +82,8 @@ class RSPreProcessImage
 {
 public:
     puchar *pgpRecogDIB;
-    Bool32 gbAutoRotate;
     Bool32 gbDotMatrix;
     Bool32 gbFax100;
-    uint32_t gnTables;
     Handle hCPAGE;
     Handle hDebugCancelSearchPictures;
     Handle hDebugCancelComponent;
