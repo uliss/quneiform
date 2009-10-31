@@ -71,8 +71,12 @@
 #define		TAB_BEGIN		(5|FICTIVE)
 #define		TAB_CELL_BEGIN	(6|FICTIVE)
 #define		TAB_END			(7|FICTIVE)
-#define		TAB_ROW_BEGIN	(8|FICTIVE)
+#define		TAB_ROW_BEGIN	(8|FICTIVE)\
+
+namespace CIF {
 class CEDPage;
+}
+
 class CEDSection;
 class CEDParagraph;
 class CEDLine;
@@ -151,94 +155,11 @@ typedef struct pictEntry
     void* data;
 } PICTENTRY;
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
-DEC_FUN(Bool32,CED_FormattedWrite,( const char * fileName, CEDPage *page));
-DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
+DEC_FUN(Bool32,CED_FormattedWrite,(const char * fileName, CIF::CEDPage *page));
+DEC_FUN(CIF::CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
+DEC_FUN(void,CED_DeleteTree,(CIF::CEDPage * pg));
 
 #undef DEC_FUN
-
-class CED_FUNC(CEDPage)
-{
-public:
-
-    //picture data
-    EDSIZE sizeOfImage; // The size of the original image in pixels
-    EDSIZE dpi; //scanner resolution for this picture
-    int turn; // Tangent angle on the vertical images * 2048
-    char* imageName; // Filename image. If the path is not specified, is searched in one
-    // Directory with the file ed
-
-    int pageNumber; // Number of Pages (= 0 not in batch mode)
-    EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
-    EDRECT pageBordersInTwips;
-    char unrecogChar;
-    char recogLang;
-    Bool32 resizeToFit;
-
-    int fontsUsed; //РљThe number of fonts used in table
-    int fontsCreated; //РљThe number of fonts created in the table
-    fontEntry* fontTable; // Pointer to the table fonts
-    int picsUsed; //РљNumber of images used in table
-    int picsCreated; //РљNumber of images created in the table
-    pictEntry* picsTable; // pointer to a table of images
-
-    char * extData; // Data cat. will be recorded in the file after the title
-    int extDataLen; // Its size
-
-    CEDPage();
-    ~CEDPage();
-
-    Bool32 FormattedWriteRtf(const char * fileName);
-
-    CEDSection * GetSection(int _num);
-    CEDParagraph * GetParagraph(int _num);
-    CEDLine * GetLine(int _num);
-    CEDChar * GetChar(int _num);
-
-    Bool32 GoToNextSection();
-    Bool32 GoToNextParagraph(Bool32 NonFictiveOnly);
-    Bool32 GoToNextLine();
-    Bool32 GoToNextChar();
-
-    int GetNumberOfSections();
-    int GetNumberOfParagraphs();
-    int GetNumberOfLines();
-    int GetNumberOfChars();
-
-    Bool32
-            CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-                    char* fontName);
-    Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
-            char** fontName);
-
-    int GetFontByNum(uchar fontNumber);
-
-    Bool32 CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type,
-            void * data, int len);
-
-    CEDSection * InsertSection(); //inserts new section after current one. inserted one becomes current
-    //sets pointer to the inserted one
-    //	CEDSection * DeleteSection(Bool32 _deleteSubItems);	//deletes current section. previous one becomes current
-    //return it
-    //_deleteSubItems - either delete all daughter elements or attach it to previous object
-    CEDSection * SetCurSection(CEDSection* _sect);//sets new value of current section
-    CEDSection * SetCurSection(int _number);//sets new value of current section
-
-    CEDSection * GetCurSection(); //returns current section
-    int GetNumOfCurSection(); //returns current section
-
-    CEDSection * NextSection(); //returns next section, 0 if last
-    CEDSection * PrevSection(); //return previous section, 0 if first
-
-    int NumberOfSections, NumberOfParagraphs, NumberOfLines, NumberOfChars;
-
-    CEDSection * sections; //connected list of sections
-    //	CEDParagraph * paragraphs;	//connected list of paragraphs
-    //	CEDLine * lines;
-    //	CEDChar * chars;
-
-    CEDSection * curSect; //current section
-};
 
 class CED_FUNC(CEDSection)
 {
@@ -312,7 +233,7 @@ public:
     CEDSection * prev, *next; //pointer to neibor elements in connected list
     int internalNumber; //number of paragraph from start of the file
 
-    friend class CEDPage;
+    friend class CIF::CEDPage;
 };
 
 class CED_FUNC(CEDParagraph)
@@ -383,7 +304,7 @@ public:
     int internalNumber; //number of paragraph from start of file
     int parentNumber; //number of parent in file
     friend class CEDSection;
-    friend class CEDPage;
+    friend class CIF::CEDPage;
 };
 
 class CED_FUNC(CEDLine)
@@ -444,10 +365,9 @@ public:
     ~CEDChar();
     CEDChar * prev, *next; //pointer to neibor elements in connected list
 protected:
-    //	int internalNumber;			//number of lines from start of file
     int parentNumber; //number of parent in a file
     friend class CEDLine;
-    friend class CEDPage;
+    friend class CIF::CEDPage;
     friend void FormattedTR(const text_ref* pt);
     friend void StripLines();
 };

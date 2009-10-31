@@ -62,6 +62,10 @@
 #include <climits>
 #include "globus.h"
 
+namespace CIF {
+class CEDPage;
+}
+
 #pragma pack (push,8)
 
 #define CED_MAXNAME 260
@@ -109,13 +113,13 @@ DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives))
 #define DEC_FUN(a,b,c) a b c
 DEC_FUN(uint32_t, CED_ReadED,(char * file,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(void,CED_SetRawDataProc,(FNRDProc proc));
-DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(Bool32,CED_FormattedWrite,(const char * fileName, CEDPage *page));
-DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
+DEC_FUN(CIF::CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
+DEC_FUN(Bool32,CED_FormattedWrite,(const char * fileName, CIF::CEDPage *page));
+DEC_FUN(void,CED_DeleteTree,(CIF::CEDPage * pg));
 
 #undef DEC_FUN
 
-CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen);
+CIF::CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen);
 
 #pragma pack(1)
 struct pageDescr
@@ -301,7 +305,7 @@ struct StrRtfOut
     Bool RtfInTable;
     Bool RtfInFrame;
     Bool wrtFrmSz;
-    CEDPage * page;
+    CIF::CEDPage * page;
     Bool reset;
     CEDParagraph* PrevPfmt;
     CEDParagraph* frm;
