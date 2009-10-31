@@ -553,9 +553,8 @@ void RecreateFrames() {
 				& TP_BRACKET) == 0)) {
 			edSize sz;
 			edBox bx;
-			EDRECT rct;
+			CIF::Rect rct(CIF::Point(-1, -1), CIF::Point(-1, -1));
 			int j;
-			rct.left = rct.right = rct.top = -1;
 			sz.cx = sz.cy = -1;
 			bx.h = bx.w = bx.x = bx.y = -1;
 			for (j = i; j < TRPosition && TRarray[j].type != SSR_FRAG_X; j++)
@@ -597,13 +596,13 @@ void RecreateFrames() {
 	int inc = 0;
 	int fn = array[0].frameNum;
 	CEDParagraph * par = mainPage->GetParagraph(array[0].frameNum);
-	par->indent.left = par->indent.top = (array[0].x - par->layout.x) * 1440
+	par->indent.rleft() = par->indent.rtop() = (array[0].x - par->layout.x) * 1440
 			/ mainPage->dpi.cx;
 	for (i = 0; i < arPosition; i++) {
 		if (array[i].frameNum != fn) {
 			fn = array[i].frameNum;
 			par = mainPage->GetParagraph(array[i].frameNum + inc);
-			par->indent.left = par->indent.top = (array[i].x - par->layout.x)
+			par->indent.rleft() = par->indent.rtop() = (array[i].x - par->layout.x)
 					* 1440 / mainPage->dpi.cx;
 		}
 		if (array[i].ParaBegin) {
@@ -611,7 +610,7 @@ void RecreateFrames() {
 			mainPage->SetCurSection(par->parentNumber)->SetCurParagraph(par);
 			par = mainPage->GetCurSection()->InsertParagraph(FALSE);
 			par->lines = par->curLine = array[i].line;
-			par->indent.top = array[i].ident * 1440 / mainPage->dpi.cx;
+			par->indent.rtop() = array[i].ident * 1440 / mainPage->dpi.cx;
 			//			par->indent.left=(array[i].x-par->layout.x)*1440/mainPage->dpi;
 			inc++;
 		}

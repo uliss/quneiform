@@ -228,9 +228,9 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
 		hPara->interval.cx = pard->spaceBefore;
 		hPara->interval.cy = pard->spaceAfter;
 		hPara->alignment = pard->alignment;
-		hPara->indent.top = pard->firstIndent;
-		hPara->indent.left = pard->leftIndent;
-		hPara->indent.right = pard->rightIndent;
+		hPara->indent.rtop() = pard->firstIndent;
+		hPara->indent.rleft() = pard->leftIndent;
+		hPara->indent.rright() = pard->rightIndent;
 		hPara->keep = pard->keep;
 		hPara->shading = (signed short) pard->shading;
 		hPara->spaceBetweenLines = pard->spaceBetweenLines;
@@ -1092,9 +1092,9 @@ Bool32 WritePara(Handle hFile, CEDParagraph* hPara) {
 	pard.spaceBefore = hPara->interval.cx;
 	pard.spaceAfter = hPara->interval.cy;
 	pard.alignment = hPara->alignment;
-	pard.firstIndent = hPara->indent.top;
-	pard.leftIndent = hPara->indent.left;
-	pard.rightIndent = hPara->indent.right;
+	pard.firstIndent = hPara->indent.top();
+	pard.leftIndent = hPara->indent.left();
+	pard.rightIndent = hPara->indent.right();
 	pard.keep = hPara->keep;
 	pard.shading = hPara->shading;
 	pard.spaceBetweenLines = hPara->spaceBetweenLines;

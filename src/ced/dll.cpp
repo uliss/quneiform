@@ -67,7 +67,6 @@
 #include "cedint.h"
 #include "puma/pumadef.h"
 #include "cfio/cfio.h"
-using namespace CIF::CFIO;
 
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
@@ -75,286 +74,387 @@ static uint32_t gwRC = 0;
 static HINSTANCE ghInst = NULL;
 
 Bool32 APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid /*lpReserved*/) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+    switch (ul_reason_for_call) {
+    case DLL_PROCESS_ATTACH:
+        ghInst = hModule;
+        break;
+    case DLL_THREAD_ATTACH:
+        break;
+    case DLL_THREAD_DETACH:
+        break;
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
 }
 
 Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
-	gwHeightRC = wHeightCode;
-	//define stub functions
+    gwHeightRC = wHeightCode;
+    //define stub functions
 #define DEC_FUN(a,b,c)  b=My##b
 
-	DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt));
-	DEC_FUN(void, CED_TextRef,(const text_ref* pt));
-	DEC_FUN(void, CED_FontKegl,(const font_kegl *pt));
-	DEC_FUN(void, CED_Kegl,(const kegl* pt));
-	DEC_FUN(void, CED_Shift,(const shift* pt));
-	DEC_FUN(void, CED_RetrieveLevel,(const retrieve_level* pt));
-	DEC_FUN(void, CED_Underline,(const underline* pt));
-	DEC_FUN(void, CED_DensPrint,(const dens_print* pt));
-	DEC_FUN(void, CED_Tabul,(const tabul* pt));
-	DEC_FUN(void, CED_TablTabul,(const tabl_tabul* pt));
-	DEC_FUN(void, CED_SheetDiskDescr,(const sheet_disk_descr* pt));
-	DEC_FUN(void, CED_FragmDiskDescr,(const fragm_disk_descr* pt));
-	DEC_FUN(void, CED_FragmDisk,(const fragm_disk* pt));
-	DEC_FUN(void, CED_StepBack,(const step_back* pt));
-	DEC_FUN(void, CED_LineBeg,(const line_beg* pt));
-	DEC_FUN(void, CED_Position,(const position* pt));
-	DEC_FUN(void, CED_EdTagLanguage,(const EdTagLanguage* pt));
-	DEC_FUN(void, CED_TableConformSizes,(const table_conform_sizes* pt));
-	DEC_FUN(void, CED_GroupWords,(const group_words* pt));
-	DEC_FUN(void, CED_GroupSymbols,(const group_symbols* pt));
-	DEC_FUN(void, CED_Border,(const border* pt));
-	DEC_FUN(void, CED_TableHeader,(const table_header* pt));
-	DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt));
-	DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
-	DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
-	DEC_FUN(void, CED_Aksant,(const aksant* pt));
-	DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
+    DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt));
+    DEC_FUN(void, CED_TextRef,(const text_ref* pt));
+    DEC_FUN(void, CED_FontKegl,(const font_kegl *pt));
+    DEC_FUN(void, CED_Kegl,(const kegl* pt));
+    DEC_FUN(void, CED_Shift,(const shift* pt));
+    DEC_FUN(void, CED_RetrieveLevel,(const retrieve_level* pt));
+    DEC_FUN(void, CED_Underline,(const underline* pt));
+    DEC_FUN(void, CED_DensPrint,(const dens_print* pt));
+    DEC_FUN(void, CED_Tabul,(const tabul* pt));
+    DEC_FUN(void, CED_TablTabul,(const tabl_tabul* pt));
+    DEC_FUN(void, CED_SheetDiskDescr,(const sheet_disk_descr* pt));
+    DEC_FUN(void, CED_FragmDiskDescr,(const fragm_disk_descr* pt));
+    DEC_FUN(void, CED_FragmDisk,(const fragm_disk* pt));
+    DEC_FUN(void, CED_StepBack,(const step_back* pt));
+    DEC_FUN(void, CED_LineBeg,(const line_beg* pt));
+    DEC_FUN(void, CED_Position,(const position* pt));
+    DEC_FUN(void, CED_EdTagLanguage,(const EdTagLanguage* pt));
+    DEC_FUN(void, CED_TableConformSizes,(const table_conform_sizes* pt));
+    DEC_FUN(void, CED_GroupWords,(const group_words* pt));
+    DEC_FUN(void, CED_GroupSymbols,(const group_symbols* pt));
+    DEC_FUN(void, CED_Border,(const border* pt));
+    DEC_FUN(void, CED_TableHeader,(const table_header* pt));
+    DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt));
+    DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
+    DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
+    DEC_FUN(void, CED_Aksant,(const aksant* pt));
+    DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
 
 #undef DEC_FUN
 
-	/// ????
-#define	ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
-		SetReturnCode_ced((uint16_t)CFIO_GetReturnCode());
+    logName[0] = 0;
+    logStream = 0;
 
-	using namespace CIF::CFIO;
-
-	//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
-	//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
-	//	ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
-	//	ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
-	//	ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
-	//	ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
-	//	ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
-
-	logName[0] = 0;
-	logStream = 0;
-
-	return GetReturnCode_ced() == 0 ? 1 : GetReturnCode_ced();
+    return GetReturnCode_ced() == 0 ? 1 : GetReturnCode_ced();
 }
 
-CED_FUNC(Bool32) CED_Done()
-{
-	return 0;
+Bool32 CED_Done() {
+    return 0;
 }
 
-CED_FUNC(uint32_t) CED_GetReturnCode()
-{
-	return gwRC;
+uint32_t CED_GetReturnCode() {
+    return gwRC;
 }
 
 char * CED_GetReturnString(uint32_t /*dwError*/) {
-	return 0;
+    return 0;
 }
 
-CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData)
-{
-	Bool32 rc = TRUE;
+Bool32 CED_GetExportData(uint32_t dwType, void * pData) {
+    Bool32 rc = TRUE;
 
-	gwRC = 0;
+    gwRC = 0;
 
 #define CASE_FUNCTION(a)	case CED_FN##a:	*(FN##a *)pData = a; break
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(CED_ReadED);
-		CASE_FUNCTION(CED_FormattedLoad);
-		CASE_FUNCTION(CED_FormattedWrite);
-		CASE_FUNCTION(CED_SetRawDataProc);
-		CASE_FUNCTION(CED_DeleteTree);
-		CASE_FUNCTION(CED_CreatePage);
-		CASE_FUNCTION(CED_CreateFont);
-		CASE_FUNCTION(CED_CreatePicture);
-		CASE_FUNCTION(CED_CreateSection);
-		CASE_FUNCTION(CED_SetSectLineBetCol);
-		CASE_FUNCTION(CED_CreateFrame);
-		CASE_FUNCTION(CED_SetFrameFlag);
-		CASE_FUNCTION(CED_CreateTable);
-		CASE_FUNCTION(CED_CreateTableRow);
-		CASE_FUNCTION(CED_CreateCell);
-		CASE_FUNCTION(CED_SetCellFlag);
-		CASE_FUNCTION(CED_SetParaBorders);
-		CASE_FUNCTION(CED_SetLineParams);
-		CASE_FUNCTION(CED_DeletePage);
-		CASE_FUNCTION(CED_ReadFormattedEd);
-		CASE_FUNCTION(CED_WriteFormattedEd);
-		CASE_FUNCTION(CED_GetPageImageName);
-		CASE_FUNCTION(CED_GetPageImageSize);
-		CASE_FUNCTION(CED_GetPageDpi);
-		CASE_FUNCTION(CED_GetPageTurn);
-		CASE_FUNCTION(CED_GetPageSize);
-		CASE_FUNCTION(CED_GetPageNumber);
-		CASE_FUNCTION(CED_GetPageBorders);
-		CASE_FUNCTION(CED_GetPageResize);
-		CASE_FUNCTION(CED_GetPageUnrecogChar);
-		CASE_FUNCTION(CED_GetCountSection);
-		CASE_FUNCTION(CED_GetNumberOfParagraphs);
-		CASE_FUNCTION(CED_GetParagraph);
-		CASE_FUNCTION(CED_GetFont);
-		CASE_FUNCTION(CED_GetNumOfFonts);
-		CASE_FUNCTION(CED_GetPicture);
-		CASE_FUNCTION(CED_GetNumOfPics);
-		CASE_FUNCTION(CED_GetSection);
-		CASE_FUNCTION(CED_GetSectionBorder);
-		CASE_FUNCTION(CED_GetSectLineBetCol);
-		CASE_FUNCTION(CED_GetCountColumn);
-		CASE_FUNCTION(CED_GetNumSnakeCols);
-		CASE_FUNCTION(CED_GetColumn);
-		CASE_FUNCTION(CED_GetSnakeColumnWidth);
-		CASE_FUNCTION(CED_GetSnakeColumnSpacing);
-		//	CASE_FUNCTION(CED_GetCountFrame);
-		//	CASE_FUNCTION(CED_GetFrame);
-		CASE_FUNCTION(CED_GetFrameRect);
-		CASE_FUNCTION(CED_GetFramePosition);
-		CASE_FUNCTION(CED_GetFrameBorderSpace);
-		CASE_FUNCTION(CED_GetFrameDxfrtextx);
-		CASE_FUNCTION(CED_GetFrameDxfrtexty);
-		CASE_FUNCTION(CED_GetFrameFlag);
-		CASE_FUNCTION(CED_GetFirstObject);
-		CASE_FUNCTION(CED_GetNextObject);
-		CASE_FUNCTION(CED_IsTable);
-		CASE_FUNCTION(CED_IsFrame);
-		CASE_FUNCTION(CED_IsParagraph);
-		CASE_FUNCTION(CED_IsFictive);
-		CASE_FUNCTION(CED_GetCountRow);
-		CASE_FUNCTION(CED_GetTableRow);
-		CASE_FUNCTION(CED_GetTableRowParams);
-		CASE_FUNCTION(CED_GetCountCell);
-		CASE_FUNCTION(CED_GetCell);
-		CASE_FUNCTION(CED_GetCellParams);
-		CASE_FUNCTION(CED_GetCellFlag);
-		CASE_FUNCTION(CED_GetLinesX);
-		CASE_FUNCTION(CED_GetRowsHeights);
-		CASE_FUNCTION(CED_GetTableOfCells);
-		CASE_FUNCTION(CED_GetLogicalCell);
-		CASE_FUNCTION(CED_GetCountLogicalCell);
-		CASE_FUNCTION(CED_GetSize);
-		CASE_FUNCTION(CED_GetIndent);
-		CASE_FUNCTION(CED_GetAlignment);
-		CASE_FUNCTION(CED_GetLayout);
-		CASE_FUNCTION(CED_GetUserNumber);
-		CASE_FUNCTION(CED_GetInterval);
-		CASE_FUNCTION(CED_GetParaParams);
-		CASE_FUNCTION(CED_GetParaBorders);
-		CASE_FUNCTION(CED_GetCountLine);
-		CASE_FUNCTION(CED_GetLine);
-		CASE_FUNCTION(CED_GetLineHardBreak);
-		CASE_FUNCTION(CED_GetLineDefChrFontHeight);
-		CASE_FUNCTION(CED_GetCountChar);
-		CASE_FUNCTION(CED_GetChar);
-		CASE_FUNCTION(CED_IsPicture);
-		CASE_FUNCTION(CED_GetAlternatives);
-		CASE_FUNCTION(CED_GetCharFontHeight);
-		CASE_FUNCTION(CED_GetCharFontAttribs);
-		CASE_FUNCTION(CED_GetCharFontNum);
-		CASE_FUNCTION(CED_GetCharFontLang);
-		CASE_FUNCTION(CED_GetCharForegroundColor);
-		CASE_FUNCTION(CED_GetCharBackgroundColor);
-		CASE_FUNCTION(CED_IsEdFile);
-		CASE_FUNCTION(CED_GetCharLayout);
-		CASE_FUNCTION(CED_WriteFormattedRtf);
-		CASE_FUNCTION(CED_MergeFormattedRtf);
-		CASE_FUNCTION(CED_SetLogFileName);
+    switch (dwType) {
+    CASE_FUNCTION(CED_ReadED)
+        ;
+    CASE_FUNCTION(CED_FormattedLoad)
+        ;
+    CASE_FUNCTION(CED_FormattedWrite)
+        ;
+    CASE_FUNCTION(CED_SetRawDataProc)
+        ;
+    CASE_FUNCTION(CED_DeleteTree)
+        ;
+    CASE_FUNCTION(CED_CreatePage)
+        ;
+    CASE_FUNCTION(CED_CreateFont)
+        ;
+    CASE_FUNCTION(CED_CreatePicture)
+        ;
+    CASE_FUNCTION(CED_CreateSection)
+        ;
+    CASE_FUNCTION(CED_SetSectLineBetCol)
+        ;
+    CASE_FUNCTION(CED_CreateFrame)
+        ;
+    CASE_FUNCTION(CED_SetFrameFlag)
+        ;
+    CASE_FUNCTION(CED_CreateTable)
+        ;
+    CASE_FUNCTION(CED_CreateTableRow)
+        ;
+    CASE_FUNCTION(CED_CreateCell)
+        ;
+    CASE_FUNCTION(CED_SetCellFlag)
+        ;
+    CASE_FUNCTION(CED_SetParaBorders)
+        ;
+    CASE_FUNCTION(CED_SetLineParams)
+        ;
+    CASE_FUNCTION(CED_DeletePage)
+        ;
+    CASE_FUNCTION(CED_ReadFormattedEd)
+        ;
+    CASE_FUNCTION(CED_WriteFormattedEd)
+        ;
+    CASE_FUNCTION(CED_GetPageImageName)
+        ;
+    CASE_FUNCTION(CED_GetPageImageSize)
+        ;
+    CASE_FUNCTION(CED_GetPageDpi)
+        ;
+    CASE_FUNCTION(CED_GetPageTurn)
+        ;
+    CASE_FUNCTION(CED_GetPageSize)
+        ;
+    CASE_FUNCTION(CED_GetPageNumber)
+        ;
+    CASE_FUNCTION(CED_GetPageBorders)
+        ;
+    CASE_FUNCTION(CED_GetPageResize)
+        ;
+    CASE_FUNCTION(CED_GetPageUnrecogChar)
+        ;
+    CASE_FUNCTION(CED_GetCountSection)
+        ;
+    CASE_FUNCTION(CED_GetNumberOfParagraphs)
+        ;
+    CASE_FUNCTION(CED_GetParagraph)
+        ;
+    CASE_FUNCTION(CED_GetFont)
+        ;
+    CASE_FUNCTION(CED_GetNumOfFonts)
+        ;
+    CASE_FUNCTION(CED_GetPicture)
+        ;
+    CASE_FUNCTION(CED_GetNumOfPics)
+        ;
+    CASE_FUNCTION(CED_GetSection)
+        ;
+    CASE_FUNCTION(CED_GetSectionBorder)
+        ;
+    CASE_FUNCTION(CED_GetSectLineBetCol)
+        ;
+    CASE_FUNCTION(CED_GetCountColumn)
+        ;
+    CASE_FUNCTION(CED_GetNumSnakeCols)
+        ;
+    CASE_FUNCTION(CED_GetColumn)
+        ;
+    CASE_FUNCTION(CED_GetSnakeColumnWidth)
+        ;
+    CASE_FUNCTION(CED_GetSnakeColumnSpacing)
+        ;
+        //	CASE_FUNCTION(CED_GetCountFrame);
+        //	CASE_FUNCTION(CED_GetFrame);
+    CASE_FUNCTION(CED_GetFrameRect)
+        ;
+    CASE_FUNCTION(CED_GetFramePosition)
+        ;
+    CASE_FUNCTION(CED_GetFrameBorderSpace)
+        ;
+    CASE_FUNCTION(CED_GetFrameDxfrtextx)
+        ;
+    CASE_FUNCTION(CED_GetFrameDxfrtexty)
+        ;
+    CASE_FUNCTION(CED_GetFrameFlag)
+        ;
+    CASE_FUNCTION(CED_GetFirstObject)
+        ;
+    CASE_FUNCTION(CED_GetNextObject)
+        ;
+    CASE_FUNCTION(CED_IsTable)
+        ;
+    CASE_FUNCTION(CED_IsFrame)
+        ;
+    CASE_FUNCTION(CED_IsParagraph)
+        ;
+    CASE_FUNCTION(CED_IsFictive)
+        ;
+    CASE_FUNCTION(CED_GetCountRow)
+        ;
+    CASE_FUNCTION(CED_GetTableRow)
+        ;
+    CASE_FUNCTION(CED_GetTableRowParams)
+        ;
+    CASE_FUNCTION(CED_GetCountCell)
+        ;
+    CASE_FUNCTION(CED_GetCell)
+        ;
+    CASE_FUNCTION(CED_GetCellParams)
+        ;
+    CASE_FUNCTION(CED_GetCellFlag)
+        ;
+    CASE_FUNCTION(CED_GetLinesX)
+        ;
+    CASE_FUNCTION(CED_GetRowsHeights)
+        ;
+    CASE_FUNCTION(CED_GetTableOfCells)
+        ;
+    CASE_FUNCTION(CED_GetLogicalCell)
+        ;
+    CASE_FUNCTION(CED_GetCountLogicalCell)
+        ;
+    CASE_FUNCTION(CED_GetSize)
+        ;
+    CASE_FUNCTION(CED_GetIndent)
+        ;
+    CASE_FUNCTION(CED_GetAlignment)
+        ;
+    CASE_FUNCTION(CED_GetLayout)
+        ;
+    CASE_FUNCTION(CED_GetUserNumber)
+        ;
+    CASE_FUNCTION(CED_GetInterval)
+        ;
+    CASE_FUNCTION(CED_GetParaParams)
+        ;
+    CASE_FUNCTION(CED_GetParaBorders)
+        ;
+    CASE_FUNCTION(CED_GetCountLine)
+        ;
+    CASE_FUNCTION(CED_GetLine)
+        ;
+    CASE_FUNCTION(CED_GetLineHardBreak)
+        ;
+    CASE_FUNCTION(CED_GetLineDefChrFontHeight)
+        ;
+    CASE_FUNCTION(CED_GetCountChar)
+        ;
+    CASE_FUNCTION(CED_GetChar)
+        ;
+    CASE_FUNCTION(CED_IsPicture)
+        ;
+    CASE_FUNCTION(CED_GetAlternatives)
+        ;
+    CASE_FUNCTION(CED_GetCharFontHeight)
+        ;
+    CASE_FUNCTION(CED_GetCharFontAttribs)
+        ;
+    CASE_FUNCTION(CED_GetCharFontNum)
+        ;
+    CASE_FUNCTION(CED_GetCharFontLang)
+        ;
+    CASE_FUNCTION(CED_GetCharForegroundColor)
+        ;
+    CASE_FUNCTION(CED_GetCharBackgroundColor)
+        ;
+    CASE_FUNCTION(CED_IsEdFile)
+        ;
+    CASE_FUNCTION(CED_GetCharLayout)
+        ;
+    CASE_FUNCTION(CED_WriteFormattedRtf)
+        ;
+    CASE_FUNCTION(CED_SetLogFileName)
+        ;
 #ifdef _DEBUG
-		CASE_FUNCTION(CED_ShowTree);
+        CASE_FUNCTION(CED_ShowTree);
 #endif
-		default:
-		*(Handle *)pData = NULL;
-		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+    default:
+        *(Handle *) pData = NULL;
+        SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
+        rc = FALSE;
+    }
 #undef CASE_FUNCTION
-	return rc;
+    return rc;
 }
 
-CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData)
-{
+Bool32 CED_SetImportData(uint32_t dwType, void * pData) {
 #define CASE_FUNCTION(a)	case CED_FN##a:	a=(FN##a)pData; break
-	Bool32 rc = TRUE;
-	gwRC = 0;
-	switch(dwType)
-	{
-		CASE_FUNCTION(CED_BitmapRef);
-		CASE_FUNCTION(CED_TextRef);
-		CASE_FUNCTION(CED_FontKegl);
-		CASE_FUNCTION(CED_Kegl);
-		CASE_FUNCTION(CED_Shift);
-		CASE_FUNCTION(CED_RetrieveLevel);
-		CASE_FUNCTION(CED_Underline);
-		CASE_FUNCTION(CED_DensPrint);
-		CASE_FUNCTION(CED_Tabul);
-		CASE_FUNCTION(CED_TablTabul);
-		CASE_FUNCTION(CED_SheetDiskDescr);
-		CASE_FUNCTION(CED_FragmDiskDescr);
-		CASE_FUNCTION(CED_FragmDisk);
-		CASE_FUNCTION(CED_StepBack);
-		CASE_FUNCTION(CED_LineBeg);
-		CASE_FUNCTION(CED_Position);
-		CASE_FUNCTION(CED_EdTagLanguage);
-		CASE_FUNCTION(CED_TableConformSizes);
-		CASE_FUNCTION(CED_GroupWords);
-		CASE_FUNCTION(CED_GroupSymbols);
-		CASE_FUNCTION(CED_Border);
-		CASE_FUNCTION(CED_TableHeader);
-		CASE_FUNCTION(CED_ListOfFragments);
-		CASE_FUNCTION(CED_Extention);
-		CASE_FUNCTION(CED_ExtentionNew);
-		CASE_FUNCTION(CED_Aksant);
-		CASE_FUNCTION(CED_Letter);
-		default:
-		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+    Bool32 rc = TRUE;
+    gwRC = 0;
+    switch (dwType) {
+    CASE_FUNCTION(CED_BitmapRef)
+        ;
+    CASE_FUNCTION(CED_TextRef)
+        ;
+    CASE_FUNCTION(CED_FontKegl)
+        ;
+    CASE_FUNCTION(CED_Kegl)
+        ;
+    CASE_FUNCTION(CED_Shift)
+        ;
+    CASE_FUNCTION(CED_RetrieveLevel)
+        ;
+    CASE_FUNCTION(CED_Underline)
+        ;
+    CASE_FUNCTION(CED_DensPrint)
+        ;
+    CASE_FUNCTION(CED_Tabul)
+        ;
+    CASE_FUNCTION(CED_TablTabul)
+        ;
+    CASE_FUNCTION(CED_SheetDiskDescr)
+        ;
+    CASE_FUNCTION(CED_FragmDiskDescr)
+        ;
+    CASE_FUNCTION(CED_FragmDisk)
+        ;
+    CASE_FUNCTION(CED_StepBack)
+        ;
+    CASE_FUNCTION(CED_LineBeg)
+        ;
+    CASE_FUNCTION(CED_Position)
+        ;
+    CASE_FUNCTION(CED_EdTagLanguage)
+        ;
+    CASE_FUNCTION(CED_TableConformSizes)
+        ;
+    CASE_FUNCTION(CED_GroupWords)
+        ;
+    CASE_FUNCTION(CED_GroupSymbols)
+        ;
+    CASE_FUNCTION(CED_Border)
+        ;
+    CASE_FUNCTION(CED_TableHeader)
+        ;
+    CASE_FUNCTION(CED_ListOfFragments)
+        ;
+    CASE_FUNCTION(CED_Extention)
+        ;
+    CASE_FUNCTION(CED_ExtentionNew)
+        ;
+    CASE_FUNCTION(CED_Aksant)
+        ;
+    CASE_FUNCTION(CED_Letter)
+        ;
+    default:
+        SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
+        rc = FALSE;
+    }
 #undef CASE_FUNCTION
-	return rc;
+    return rc;
 }
 
 void SetReturnCode_ced(uint32_t rc) {
-	uint16_t low = (uint16_t) (rc & 0xFFFF);
-	uint16_t hei = (uint16_t) (rc >> 16);
+    uint16_t low = (uint16_t) (rc & 0xFFFF);
+    uint16_t hei = (uint16_t) (rc >> 16);
 
-	if (hei)
-		gwRC = rc;
-	else {
-		if (low >= IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
-		else
-			gwRC = low;
-	}
+    if (hei)
+        gwRC = rc;
+    else {
+        if (low >= IDS_ERR_NO)
+            gwRC = (uint32_t) (gwHeightRC << 16) | (low - IDS_ERR_NO);
+        else
+            gwRC = low;
+    }
 
 }
 
 uint32_t GetReturnCode_ced() {
-	uint32_t rc = gwRC;
-	uint16_t low = (uint16_t) (gwRC & 0xFFFF);
-	uint16_t hei = (uint16_t) (gwRC >> 16);
+    uint32_t rc = gwRC;
+    uint16_t low = (uint16_t) (gwRC & 0xFFFF);
+    uint16_t hei = (uint16_t) (gwRC >> 16);
 
-	if (hei == gwHeightRC || hei == 0)
-		rc = low + IDS_ERR_NO;
+    if (hei == gwHeightRC || hei == 0)
+        rc = low + IDS_ERR_NO;
 
-	return rc;
+    return rc;
 }
 
 char * GetModulesString(uint32_t dwError) {
-	uint16_t hei = (uint16_t) (dwError >> 16);
-	static char szString[512];
-	sprintf(szString, "Unknown code error 0x%X", dwError);
+    uint16_t hei = (uint16_t) (dwError >> 16);
+    static char szString[512];
+    sprintf(szString, "Unknown code error 0x%X", dwError);
 
-	switch (hei) {
-	case PUMA_MODULE_CFIO:
-		sprintf(szString, "%s", CFIO_GetReturnString(dwError));
-		return szString;
-	}
-	return szString;
+    switch (hei) {
+    case PUMA_MODULE_CFIO:
+        sprintf(szString, "%s", CIF::CFIO::CFIO_GetReturnString(dwError));
+        return szString;
+    }
+    return szString;
 }

@@ -763,7 +763,7 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX,
 }
 
 CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align,
-		EDRECT indent, int UserNum, int FlagBorder, EDSIZE interval,
+		const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
 		edBox layout, int color, int shading, int spaceBetweenLines,
 		char spcBtwLnsMult, char keep) {
 	if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN
@@ -908,7 +908,6 @@ CEDParagraph::CEDParagraph() {
 	type = 0;
 	alignment = 0;
 	layout.x = layout.w = layout.y = layout.h = 0;
-	indent.left = indent.bottom = indent.right = indent.top = 0;
 	userNumber = 0;
 	border = 0;
 	interval.cx = interval.cy = 0;
