@@ -96,14 +96,6 @@ STD_FUNC( void ) stdSetOutputFile( FILE* hfile );
 #endif
 #endif
 
-// malloc() -free()
-STD_FUNC( void* ) stdMalloc( int32_t size );
-STD_FUNC( void* ) stdRealloc( void* old_ptr, int32_t new_size, int32_t old_size );
-STD_FUNC( void ) stdFree( void* ptr );
-STD_FUNC( void ) stdFreeX( void** pptr );
-// smart version of free: checks *ptr,
-// if it not NULL calls stdFree, then set *pptr to = NULL
-
 typedef struct tagStdMemInfo
 {
     int32_t nMallocCnt;
@@ -111,13 +103,6 @@ typedef struct tagStdMemInfo
     int32_t nReallocCnt;
     char reserved[244];
 } StdMemInfo;
-
-STD_FUNC( void ) stdGetMemInfo( StdMemInfo* pMemInf );
-// debug purpose function - if _DEBUG not defined, returned values are 0
-
-STD_FUNC( void* ) stdMemcpy( void* dest , void* src , int32_t copy_count );
-// in 32-bit - falls to memcpy,
-// in 16-bit - takes care about 64k segments bounds
 
 STD_FUNC( int32_t ) stdOpen( const char *filename, int32_t oflag, int32_t pmode DEFAULT_ZERO );
 STD_FUNC( int32_t ) stdTell( int32_t handle );

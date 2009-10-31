@@ -125,7 +125,7 @@ public:
         if (size != Volume || (Data == NULL)) {
             Destroy();
             if (size > 0)
-                Data = stdMalloc(size);
+                Data = malloc(size);
             Volume = size;
         }
         return ((Volume > 0) == (Data != NULL)); // !!*this
@@ -133,13 +133,13 @@ public:
 
     void Destroy(void) {
         if (Data != NULL)
-            stdFree(Data);
+            free(Data);
         Data = NULL;
         Volume = 0;
     }
 
     Bool Realloc(int32_t new_size) {
-        void* p = stdRealloc(Data, new_size, Volume);
+        void* p = realloc(Data, new_size);
         if (new_size && p == NULL) // failure
             RETFALSE;
         Data = p;

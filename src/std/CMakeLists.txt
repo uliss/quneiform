@@ -9,7 +9,6 @@ src/stdfile.cpp
 src/stdiface.cpp
 src/stdini.cpp
 src/stdleo.cpp
-src/stdmem.cpp
 src/stdprop.cpp
 src/stdprt.cpp
 src/stdsort.cpp
