@@ -112,7 +112,7 @@ FixedBuffer<unsigned char, RStuff::MainBufferSize> RStuff::main_buffer_;
 FixedBuffer<unsigned char, RStuff::WorkBufferSize> RStuff::work_buffer_;
 
 RStuff::RStuff() :
-    image_(NULL) {
+    image_(NULL), language_(LANG_RUSENG) {
     gLTInfo = new LinesTotalInfo;
 
     if (!SMetric_Init(0xFFFF, 0))
@@ -404,15 +404,15 @@ void RStuff::createContainerBigComp() {
 
     CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
     Handle hCPage = image_->hCPAGE;
-//    CCOM_handle hCCOM_new = 0;
+    //    CCOM_handle hCCOM_new = 0;
 
     BigImage big_Image(hCPage);
 
-//    hCCOM_new = CCOM_CreateContainer();
-//    if (!hCCOM_new) {
-//        big_Image.setCCOM(NULL);
-//        return;
-//    }
+    //    hCCOM_new = CCOM_CreateContainer();
+    //    if (!hCCOM_new) {
+    //        big_Image.setCCOM(NULL);
+    //        return;
+    //    }
 
     CCOM_comp* comp = NULL;
     CCOM_comp* new_comp;
@@ -431,7 +431,7 @@ void RStuff::createContainerBigComp() {
         comp = CCOM_GetNext(comp, FALSE);
     }
 
-//    big_Image.setCCOM(hCCOM_new);
+    //    big_Image.setCCOM(hCCOM_new);
     CPAGE_CreateBlock(hCPage, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
             sizeof(BigImage));
 }
@@ -566,7 +566,7 @@ void RStuff::extractComponents(const char * name) {
         throw RStuffException("REXCGetContainer failed");
 
     RReccom r;
-    r.recognize(*(image_->phCCOM), (language_t) image_->gnLanguage);
+    r.recognize(*(image_->phCCOM), language_);
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }
@@ -576,6 +576,10 @@ void RStuff::killLines() {
         puchar pDIB = NULL;
         removeLines(&pDIB);
     }
+}
+
+language_t RStuff::language() const {
+    return language_;
 }
 
 void RStuff::layout() {
@@ -954,7 +958,7 @@ void RStuff::searchNewLines() {
             0, image_, sizeof(RSPreProcessImage));
 
     if (!RLINE_LinesPass1(image_->hCPAGE, *(image_->phCCOM), image_->phCLINE,
-            image_->pgneed_clean_line, true, (uchar) image_->gnLanguage))
+            image_->pgneed_clean_line, true, language_))
         throw RStuffException("RLINE_LinesPass1() failed");
 
     if (!gbRSLT && !RLINE_LinesPass2(*(image_->phCCOM), image_->phCLINE, image_->hCPAGE))
@@ -983,6 +987,10 @@ void RStuff::searchTables() {
 
 void RStuff::setImageData(RSPreProcessImage& data) {
     image_ = &data;
+}
+
+void RStuff::setLanguage(language_t lang) {
+    language_ = lang;
 }
 
 }

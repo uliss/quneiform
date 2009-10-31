@@ -68,19 +68,13 @@
 #ifndef __RSTUFF_H
 #define __RSTUFF_H
 
-#include "globus.h"
 #include "cttypes.h"
+#include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
 #include "puma/layoutoptions.h"
 #include "common/exception.h"
 #include "lns32/lnsdefs.h"
-
-#ifdef __RSTUFF__
-#define RSTUFF_FUNC  FUN_EXPO__
-#else
-#define RSTUFF_FUNC  FUN_IMPO__
-#endif
 
 namespace CIF {
 
@@ -91,7 +85,6 @@ public:
     Bool32 gbAutoRotate;
     Bool32 gbDotMatrix;
     Bool32 gbFax100;
-    uint32_t gnLanguage;
     uint32_t gnTables;
     Handle hCPAGE;
     Handle hDebugCancelSearchPictures;
@@ -125,12 +118,14 @@ public:
     ~RStuff();
     void binarize();
     void extractComponents(const char * name);
+    language_t language() const;
     void layout();
     void normalize();
     void removeLines();
     void removeLines(uchar ** DIB);
     void searchTables();
     void setImageData(RSPreProcessImage& data);
+    void setLanguage(language_t lang);
 private:
     void calcIncline();
     void checkResolution();
@@ -150,6 +145,7 @@ private:
 private:
     RSPreProcessImage * image_;
     LayoutOptions layout_opts_;
+    language_t language_;
 private:
     static const size_t MainBufferSize = 500000;
     static const size_t WorkBufferSize = 180000;
