@@ -112,7 +112,7 @@ FixedBuffer<unsigned char, RStuff::MainBufferSize> RStuff::main_buffer_;
 FixedBuffer<unsigned char, RStuff::WorkBufferSize> RStuff::work_buffer_;
 
 RStuff::RStuff() :
-    image_(NULL), language_(LANG_RUSENG) {
+    image_(NULL), language_(LANG_RUSENG), cpage_(NULL) {
     gLTInfo = new LinesTotalInfo;
 
     if (!SMetric_Init(0xFFFF, 0))
@@ -191,10 +191,9 @@ void RStuff::calcIncline() {
     PAGEINFO info;
     UN_BUFF MainBuff;
     memset(&MainBuff, 0, sizeof(MainBuff));
-    Handle hCPage = image_->hCPAGE;
     CLINE_handle hCLINE = *((CLINE_handle*) image_->phCLINE);
 
-    GetPageInfo(hCPage, &info);
+    GetPageInfo(cpage_, &info);
 
     /*  2. Инициализация.  */
     /***  переменные  ***/
@@ -257,7 +256,7 @@ void RStuff::calcIncline() {
         throw RStuffException("RStuff::calcIncline()  failed", ret);
     info.Incline2048 = Skew * 2;
     info.SkewLocVerLin2048 = SkewLocVerLin * 2;
-    if (!CPAGE_SetPageData(image_->hCPAGE, PT_PAGEINFO, &info, sizeof(PAGEINFO)))
+    if (!CPAGE_SetPageData(cpage_, PT_PAGEINFO, &info, sizeof(PAGEINFO)))
         throw RStuffException("CPAGE_SetPageData failed");
 }
 
@@ -266,7 +265,7 @@ void RStuff::checkResolution() {
     const unsigned int min_res = 99;
     CCOM_comp* pcomp = NULL;
 
-    if (!GetPageInfo(image_->hCPAGE, &page_info))
+    if (!GetPageInfo(cpage_, &page_info))
         return;
 
     if (page_info.DPIX > min_res && page_info.DPIY > min_res)
@@ -322,7 +321,7 @@ void RStuff::checkResolution() {
     }
 
     if (flag_set) {
-        SetPageInfo(image_->hCPAGE, page_info);
+        SetPageInfo(cpage_, page_info);
 
         if (Config::instance().debug())
             Debug() << "New resolution: DPIX=" << page_info.DPIX << ", DPIY=" << page_info.DPIY
@@ -398,21 +397,17 @@ void RStuff::componentFilter(LineInfo * Line) {
     while (pcomp != NULL);
 }
 
+Handle RStuff::cpage() const {
+    return cpage_;
+}
+
 void RStuff::createContainerBigComp() {
     const int MIN_BIG_H = 30;
     const int MIN_BIG_W = 30;
 
     CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
-    Handle hCPage = image_->hCPAGE;
-    //    CCOM_handle hCCOM_new = 0;
 
-    BigImage big_Image(hCPage);
-
-    //    hCCOM_new = CCOM_CreateContainer();
-    //    if (!hCCOM_new) {
-    //        big_Image.setCCOM(NULL);
-    //        return;
-    //    }
+    BigImage big_Image(cpage_);
 
     CCOM_comp* comp = NULL;
     CCOM_comp* new_comp;
@@ -431,8 +426,7 @@ void RStuff::createContainerBigComp() {
         comp = CCOM_GetNext(comp, FALSE);
     }
 
-    //    big_Image.setCCOM(hCCOM_new);
-    CPAGE_CreateBlock(hCPage, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
+    CPAGE_CreateBlock(cpage_, CPAGE_GetInternalType("TYPE_BIG_COMP"), 0, 0, &big_Image,
             sizeof(BigImage));
 }
 
@@ -602,10 +596,9 @@ void RStuff::normalize() {
 }
 
 void RStuff::ortoMove() {
-    Handle hCPage = image_->hCPAGE;
     PAGEINFO info;
     char OldImage[CPAGE_MAXNAME];
-    GetPageInfo(hCPage, &info);
+    GetPageInfo(cpage_, &info);
 
     move = info.SkewLocVerLin2048;
     if (!move)
@@ -667,7 +660,7 @@ void RStuff::ortoMove() {
         if (CIMAGE_ReadDIB(ImageName, (Handle*) &lp, TRUE)) {
             info.Images |= IMAGE_ORTOMOVE;
             strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
-            SetPageInfo(hCPage, info);
+            SetPageInfo(cpage_, info);
         }
         else {
             olddib->ResetDIB();
@@ -699,8 +692,8 @@ void RStuff::preProcessImage() {
 
     // Andrey 12.11.01
     // Проинициализируем контейнер CPAGE
-    PAGEINFO PInfo;// = { 0 };
-    GetPageInfo(image_->hCPAGE, &PInfo);
+    PAGEINFO PInfo;
+    GetPageInfo(cpage_, &PInfo);
     strcpy((char*) PInfo.szImageName, glpRecogName);
     PInfo.BitPerPixel = info->biBitCount;
     PInfo.DPIX = info->biXPelsPerMeter * 254L / 10000;
@@ -714,7 +707,7 @@ void RStuff::preProcessImage() {
     PInfo.Incline2048 = 0;
     PInfo.Page = 1;
     PInfo.Angle = 0;
-    SetPageInfo(image_->hCPAGE, PInfo);
+    SetPageInfo(cpage_, PInfo);
 
     // Выделим компоненты
     extractComponents(glpRecogName);
@@ -724,7 +717,7 @@ void RStuff::preProcessImage() {
     // Переинициализируем контейнер CPAGE
     {
         PAGEINFO PInfo;// = { 0 };
-        GetPageInfo(image_->hCPAGE, &PInfo);
+        GetPageInfo(cpage_, &PInfo);
         strcpy((char*) PInfo.szImageName, glpRecogName);
         PInfo.BitPerPixel = info->biBitCount;
         //      PInfo.DPIX = info->biXPelsPerMeter*254L/10000;
@@ -739,7 +732,7 @@ void RStuff::preProcessImage() {
         PInfo.Page = 1;
         PInfo.Angle = 0;
 
-        SetPageInfo(image_->hCPAGE, PInfo);
+        SetPageInfo(cpage_, PInfo);
     }
 }
 
@@ -753,7 +746,6 @@ void RStuff::removeLines() {
 
 void RStuff::removeLines(uchar ** DIB) {
     Handle hccom = *image_->phCCOM;
-    Handle hcpage = image_->hCPAGE;
     Handle *hLinesCCOM = image_->phLinesCCOM;
 
     puchar hDIB = NULL;
@@ -765,9 +757,9 @@ void RStuff::removeLines(uchar ** DIB) {
     // Удалим линии
     if (!LDPUMA_Skip(ObvKillLines) || (LDPUMA_Skip(hNewLine) && LDPUMA_Skip(
             image_->hDebugCancelVerifyLines)))
-        DeleteLines(hcpage, image_->phCLINE, PUMA_IMAGE_DELLINE);
+        DeleteLines(cpage_, image_->phCLINE, PUMA_IMAGE_DELLINE);
     else {
-        if (!RLINE_DeleteLines(hcpage, PUMA_IMAGE_DELLINE))
+        if (!RLINE_DeleteLines(cpage_, PUMA_IMAGE_DELLINE))
             throw RStuffException("RLINE_DeleteLines failed");
 
         if (LDPUMA_Skip(NotKillPointed) && LDPUMA_Skip(image_->hDebugCancelSearchDotLines))
@@ -784,7 +776,7 @@ void RStuff::removeLines(uchar ** DIB) {
     // Удалим компоненты и выделим их заново.
     *DIB = (puchar) hDIB;
     if (CCOM_GetContainerVolume((CCOM_handle) *image_->phCCOM) < 60000 && MyGetZher(
-            (void**) victim, &nvict, 100, hcpage) && nvict)
+            (void**) victim, &nvict, 100, cpage_) && nvict)
         yes_victim = TRUE;
 
     if (!yes_victim) {
@@ -792,14 +784,13 @@ void RStuff::removeLines(uchar ** DIB) {
         *image_->phCCOM = 0;
     }
 
-    //    hLinesCCOM,
     extractComponents(PUMA_IMAGE_DELLINE);
 
     PAGEINFO inf;
-    GetPageInfo(image_->hCPAGE, &inf);
+    GetPageInfo(cpage_, &inf);
     strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
     inf.Images |= IMAGE_DELLINE;
-    SetPageInfo(image_->hCPAGE, inf);
+    SetPageInfo(cpage_, inf);
 
     *image_->phCCOM = (Handle) REXCGetContainer();
     if (*image_->phCCOM == 0)
@@ -947,24 +938,24 @@ void RStuff::searchLines() {
     RLINE_SetImportData(RLINE_Bool32_NOHBORDER, &b32);
     RLINE_SetImportData(RLINE_Bool32_NOVBORDER, &b32);
 
-    if (!RLINE_SearchLines(image_->hCPAGE, image_->phCLINE)) {
+    if (!RLINE_SearchLines(cpage_, image_->phCLINE)) {
         *image_->pgrc_line = FALSE;
         Debug() << "Warning: RLINE_SearchLines failed\n";
     }
 }
 
 void RStuff::searchNewLines() {
-    Handle hSaveImage = CPAGE_CreateBlock(image_->hCPAGE, CPAGE_GetInternalType("RVL_VERIFY"), 0,
-            0, image_, sizeof(RSPreProcessImage));
+    Handle hSaveImage = CPAGE_CreateBlock(cpage_, CPAGE_GetInternalType("RVL_VERIFY"), 0, 0,
+            image_, sizeof(RSPreProcessImage));
 
-    if (!RLINE_LinesPass1(image_->hCPAGE, *(image_->phCCOM), image_->phCLINE,
-            image_->pgneed_clean_line, true, language_))
+    if (!RLINE_LinesPass1(cpage_, *(image_->phCCOM), image_->phCLINE, image_->pgneed_clean_line,
+            true, language_))
         throw RStuffException("RLINE_LinesPass1() failed");
 
-    if (!gbRSLT && !RLINE_LinesPass2(*(image_->phCCOM), image_->phCLINE, image_->hCPAGE))
+    if (!gbRSLT && !RLINE_LinesPass2(*(image_->phCCOM), image_->phCLINE, cpage_))
         throw RStuffException("RLINE_LinesPass2() failed");
 
-    CPAGE_DeleteBlock(image_->hCPAGE, hSaveImage);
+    CPAGE_DeleteBlock(cpage_, hSaveImage);
 }
 
 void RStuff::searchTables() {
@@ -983,6 +974,10 @@ void RStuff::searchTables() {
      if (!RLTABLE_SearchTable(*image_->phCCOM, image_->hCPAGE, TRUE, image_->pgnNumberTables))
      throw RStuffException("RLTABLE_SearchTable failed");
      */
+}
+
+void RStuff::setCPage(Handle cpage) {
+    cpage_ = cpage;
 }
 
 void RStuff::setImageData(RSPreProcessImage& data) {

@@ -256,6 +256,7 @@ void PumaImpl::layoutRStuff() {
     setData(DataforRS);
 
     ///нормализуем - обработка, поиск картинок, поиск линий
+    rstuff_->setCPage(cpage_);
     rstuff_->setLanguage(language_);
     rstuff_->setImageData(DataforRS);
     rstuff_->normalize();
@@ -336,7 +337,7 @@ void PumaImpl::modulesInit() {
 
         // FIXME
         RReccom::setOcrPath(modulePath());
-//        RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
+        //        RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 
         rsl_.reset(new Rsl);
         rstuff_.reset(new RStuff);
@@ -986,11 +987,10 @@ void PumaImpl::setData(RSPreProcessImage& data) {
     data.gbFax100 = fax100_;
     data.pgpRecogDIB = (uchar**) &input_dib_;
     data.pinfo = &info_;
-    data.hCPAGE = cpage_;
     data.phCCOM = &ccom_;
     data.phCLINE = &cline_;
     data.phLinesCCOM = &lines_ccom_;
-//    data.gnLanguage = language_;
+    //    data.gnLanguage = language_;
     data.pglpRecogName = recog_name_.c_str();
     data.hDebugCancelSearchPictures = 0;
     data.hDebugCancelComponent = 0;

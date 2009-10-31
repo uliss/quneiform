@@ -84,7 +84,6 @@ public:
     puchar *pgpRecogDIB;
     Bool32 gbDotMatrix;
     Bool32 gbFax100;
-    Handle hCPAGE;
     Handle hDebugCancelSearchPictures;
     Handle hDebugCancelComponent;
     Handle hDebugCancelTurn;
@@ -115,6 +114,7 @@ public:
     RStuff();
     ~RStuff();
     void binarize();
+    Handle cpage() const;
     void extractComponents(const char * name);
     language_t language() const;
     void layout();
@@ -122,6 +122,7 @@ public:
     void removeLines();
     void removeLines(uchar ** DIB);
     void searchTables();
+    void setCPage(Handle cpage);
     void setImageData(RSPreProcessImage& data);
     void setLanguage(language_t lang);
 private:
@@ -144,6 +145,7 @@ private:
     RSPreProcessImage * image_;
     LayoutOptions layout_opts_;
     language_t language_;
+    Handle cpage_;
 private:
     static const size_t MainBufferSize = 500000;
     static const size_t WorkBufferSize = 180000;
