@@ -61,6 +61,7 @@
 #include "cedint.h"
 #include "cedpage.h"
 #include "cedsection.h"
+#include "cedparagraph.h"
 
 using namespace CIF;
 

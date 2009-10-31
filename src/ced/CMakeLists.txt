@@ -4,6 +4,7 @@ add_library(ced ${LIBTYPE}
 ced.cpp
 cedpage.cpp
 cedsection.cpp
+cedparagraph.cpp
 ced_func.cpp
 ced_func_old.cpp
 ced_func_rtf.cpp

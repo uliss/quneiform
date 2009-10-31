@@ -17,11 +17,11 @@
  ***************************************************************************/
 
 #include "cedsection.h"
+#include "cedparagraph.h"
 
 namespace CIF {
 CEDSection::CEDSection() {
-    numberOfColumns/*=numberOfFrames*/= 0;
-    //  pColSize=0;
+    numberOfColumns = 0;
     borders.top = borders.bottom = borders.right = borders.left = 0;
     sectionBreak = 0;
     width = 0;
@@ -38,24 +38,14 @@ CEDSection::CEDSection() {
     curPara = 0;
     internalNumber = 0;
     prev = next = 0;
-    /*framesEnd=framesBeg=framesCur=*/columnsBeg = columnsEnd = columnsCur = 0;
+    columnsBeg = columnsEnd = columnsCur = 0;
 }
 
 CEDSection::~CEDSection() {
-    /*  curPara=paragraphs;
-     CEDParagraph * qq;
-     while (curPara)
-     {
-     qq=curPara->next;
-     delete curPara;
-     curPara=qq;
-     }
-     */}
+}
 
 CEDParagraph * CEDSection::CreateColumn() {
     if (!columnsBeg) {
-        //      if (framesEnd)
-        //          SetCurParagraph(framesEnd);
         //start column
         CEDParagraph * para = InsertParagraph();
         columnsBeg = para;
@@ -94,17 +84,6 @@ CEDParagraph * CEDSection::GetColumn(int _num) {
     return para;
 }
 
-/*CEDParagraph * CEDSection::GetFrame( int _num)
- {
- if (_num>numberOfFrames)
- return 0;
- CEDParagraph *para=framesBeg;
- for (int i=0;i<_num;i++)
- para=(CEDParagraph*)((EDFRAMEDESCR*)para->descriptor)->next;
- return para;
- }
-
- */
 CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position,
         int borderSpace, int dxfrtextx, int dxfrtexty) {
     if (hObject->type != COLUMN_BEGIN) {
@@ -131,8 +110,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
         else
             return 0;
     }
-    //      if (columnsEnd)
-    //          SetCurParagraph(columnsEnd);
+
     //start frame
     CEDParagraph * para = InsertParagraph();
     para->type = FRAME_BEGIN;
@@ -149,20 +127,9 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
     para->descriptor = framinf;
     //finish frame
     CEDParagraph * para1 = InsertParagraph();
-    //      framesEnd=para1;
     para1->type = FRAME_END;
     ((EDFRAMEDESCR *) (para->descriptor))->last = para1;
-    SetCurParagraph(para/*framesBeg*/);
-    //      framesCur=framesBeg;
-    /*  if(!framesBeg)
-     {
-     framesBeg=para;
-     }
-     else
-     {
-     ((EDFRAMEDESCR*)(framesCur->descriptor))->nextFrame=para;
-     }
-     numberOfFrames++;*/
+    SetCurParagraph(para);
     return curPara;
 }
 
@@ -183,17 +150,7 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject) {
     if (colde->next)
         SetCurParagraph((CEDParagraph *) (colde->next));
     else {
-        //      switch(hObject->type)
-        //      {
-        /*      case FRAME_BEGIN:
-         SetCurParagraph(framesEnd);
-         break;
-         *///       case COLUMN_BEGIN:
-        //          SetCurParagraph(columnsEnd);
-        //          break;
-        //      default:
         return 0;
-        //      }
     }
     CEDParagraph *para = InsertParagraph(FALSE);
     CEDParagraph *para1 = InsertParagraph();
@@ -208,17 +165,6 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject) {
     td->cur = para;
     td->numOfRows = 0;
     td->table = 0;
-    //  td->size=sz;
-    //  td->linesX=(int*)malloc(sizeof(int)*(sz.cx+1));
-    //  td->linesY=(int*)malloc(sizeof(int)*(sz.cy+1));
-    //  memcpy(td->linesX,cx,(sz.cx+1)*sizeof(int));
-    //  memcpy(td->linesY,cy,(sz.cy+1)*sizeof(int));
-    //  td->table=(int*)malloc(sizeof(int)*sz.cx*sz.cy);
-    //  memcpy(td->table,table,sz.cy*sz.cx*sizeof(int));
-    //  td->horShow=(int*)malloc(sizeof(int)*(sz.cy+1));
-    //  memcpy(td->horShow,bHorShow,(sz.cy+1)*sizeof(int));
-    //  td->verShow=(int*)malloc(sizeof(int)*(sz.cx+1));
-    //  memcpy(td->verShow,bHorShow,(sz.cx+1)*sizeof(int));
     SetCurParagraph(para);
     return curPara;
 }
@@ -285,32 +231,6 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable, int left, int r
 
     return para;
 }
-/*
- CEDParagraph * CEDSection::ReCreateTable(CEDParagraph * hTable,EDSIZE sz, int * cx,int * cy, int * table,
- Bool32 * bHorShow,Bool32 * bVerShow)
- {
-
- EDTABDESCR * td=(EDTABDESCR *)hTable->descriptor;
- free(td->linesX);
- free(td->linesY);
- free(td->table);
- free(td->horShow);
- free(td->verShow);
- td->size=sz;
- td->linesX=(int*)malloc(sizeof(int)*(sz.cx+1));
- td->linesY=(int*)malloc(sizeof(int)*(sz.cy+1));
- memcpy(td->linesX,cx,(sz.cx+1)*sizeof(int));
- memcpy(td->linesY,cy,(sz.cy+1)*sizeof(int));
- td->table=(int*)malloc(sizeof(int)*sz.cx*sz.cy);
- memcpy(td->table,table,sz.cy*sz.cx*sizeof(int));
- td->horShow=(int*)malloc(sizeof(int)*(sz.cy+1));
- memcpy(td->horShow,bHorShow,(sz.cy+1)*sizeof(int));
- td->verShow=(int*)malloc(sizeof(int)*(sz.cx+1));
- memcpy(td->verShow,bHorShow,(sz.cx+1)*sizeof(int));
- SetCurParagraph(hTable);
- return curPara;
- }
- */
 
 CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging,
         int vertTextAlign, int leftBrdrType, int leftBrdrWidth, int rightBrdrType,
@@ -375,19 +295,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align,
     if (colde->next)
         SetCurParagraph((CEDParagraph *) (colde->next));
     else {
-        //      switch(hObject->type)
-        //      {
-        /*
-         case FRAME_BEGIN:
-         SetCurParagraph(framesEnd);
-         break;
-         */
-        //      case COLUMN_BEGIN:
-        //          SetCurParagraph(columnsEnd);
-        //          break;
-        //      default:
         return 0;
-        //      }
     }
     CEDParagraph *para = InsertParagraph(FALSE);
     para->alignment = align;
@@ -421,8 +329,6 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
     }
     else {
         paragraphs = para;
-        //      if(internalNumber!=0)
-        //      {
         CEDSection *ww = prev;
         while (ww && !ww->paragraphs)
             ww = ww->prev;
@@ -446,7 +352,6 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
                 qq = qq->next;
             }
         }
-        //      }
     }
     curPara = para;
     return para;

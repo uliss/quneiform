@@ -18,6 +18,7 @@
 
 #include "cedpage.h"
 #include "cedsection.h"
+#include "cedparagraph.h"
 #include "cedint.h"
 #include "resource.h"
 

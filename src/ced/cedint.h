@@ -65,6 +65,7 @@
 namespace CIF {
 class CEDPage;
 class CEDSection;
+class CEDParagraph;
 }
 
 #pragma pack (push,8)
@@ -308,8 +309,8 @@ struct StrRtfOut
     Bool wrtFrmSz;
     CIF::CEDPage * page;
     Bool reset;
-    CEDParagraph* PrevPfmt;
-    CEDParagraph* frm;
+    CIF::CEDParagraph* PrevPfmt;
+    CIF::CEDParagraph* frm;
     CEDChar PrevChar;
     char * oldFile; //data from file we write
     int oldFileLen; //their length
@@ -369,19 +370,19 @@ Bool WriteRtfMargin(StrRtfOut *rtf);
 Bool WriteRtfSection(StrRtfOut *rtf, CIF::CEDSection* sect);
 Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar);
 Bool EndRtfGroup(StrRtfOut *rtf);
-Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPfmt);
+Bool WriteRtfParaFmt(StrRtfOut *rtf, CIF::CEDParagraph* NewPfmt, CIF::CEDParagraph* PrevPfmt);
 Bool FlushRtfLine(StrRtfOut *rtf);
 Bool PutRtfChar(StrRtfOut *rtf, uchar CurChar);
 Bool WriteRtfText(StrRtfOut *rtf, const char* text, int TextLen);
-Bool WriteRtfRow(StrRtfOut *rtf, CEDParagraph* NewCell, CEDParagraph * prevRow);
-Bool WriteRtfCell(StrRtfOut *rtf, CEDParagraph* NewCell);
+Bool WriteRtfRow(StrRtfOut *rtf, CIF::CEDParagraph* NewCell, CIF::CEDParagraph * prevRow);
+Bool WriteRtfCell(StrRtfOut *rtf, CIF::CEDParagraph* NewCell);
 
-Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk);
-Bool WriteFrmPos(StrRtfOut *rtf, CEDParagraph* frm, Bool writeWidth);
+Bool WriteRtfPara(StrRtfOut *rtf, CIF::CEDParagraph* p, Bool brk);
+Bool WriteFrmPos(StrRtfOut *rtf, CIF::CEDParagraph* frm, Bool writeWidth);
 Bool WriteRtfDIB(StrRtfOut *rtf, int pict);
 Bool PutRtfHexChar(StrRtfOut *rtf, uchar CurChar);
 Bool WriteRtfMetafile(StrRtfOut *rtf, int pict);
-Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para);
+Bool WriteRtfParaBorder(StrRtfOut *rtf, CIF::CEDParagraph * para);
 Bool WriteRtfColor(StrRtfOut *rtf, Bool head = TRUE);
 
 extern char logName[PATH_MAX];
