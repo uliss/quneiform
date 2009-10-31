@@ -101,9 +101,7 @@ public:
     void * phCLINE;
     PBool32 pgneed_clean_line;
     int32_t * pgnNumberTables;
-    uint32_t gnPictures;
     Bool32* pgrc_line;
-    CIF::Rect gRectTemplate;
 };
 
 typedef RSPreProcessImage * PRSPreProcessImage;

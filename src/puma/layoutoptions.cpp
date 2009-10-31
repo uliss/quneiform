@@ -59,12 +59,10 @@ void LayoutOptions::setAutoRotate(bool val) {
 }
 
 void LayoutOptions::setData(RSPreProcessImage& data) {
-    data.gnPictures = pictures_;
     data.gbDotMatrix = dot_matrix_;
     data.pgrc_line = &rc_line_;
     data.pgnNumberTables = &tables_num_;
     data.pgneed_clean_line = &need_clean_line_;
-    data.gRectTemplate = rect_template_;
 }
 
 void LayoutOptions::setDotMatrix(bool val) {
