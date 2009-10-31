@@ -62,19 +62,5 @@
 #include "ced_struct.h"
 #include "cedint.h"
 
-CEDChar::CEDChar() {
-	layout.top = layout.bottom = layout.left = layout.right = 0;
-	fontHeight = fontNum = fontAttribs = fontNum = fontLang = 0;
-	foregroundColor = backgroundColor = 0;
-	alternatives = 0;
-	numOfAltern = 0;
-	extData = 0;
-	extDataLen = 0;
-	//	internalNumber=0;
-	parentNumber = 0;
-	prev = next = 0;
-}
 
-CEDChar::~CEDChar() {
-}
 

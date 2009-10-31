@@ -2,6 +2,7 @@ add_definitions(-D__CED__)
 
 add_library(ced ${LIBTYPE}
 ced.cpp
+cedchar.cpp
 cedline.cpp
 cedpage.cpp
 cedparagraph.cpp

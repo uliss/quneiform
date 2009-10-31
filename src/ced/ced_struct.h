@@ -78,10 +78,8 @@ class CEDPage;
 class CEDSection;
 class CEDParagraph;
 class CEDLine;
-}
-
-
 class CEDChar;
+}
 
 //all structures of ed... first field of Descr  is CEDParagraph* next, (in order to go along them
 
@@ -161,30 +159,5 @@ DEC_FUN(CIF::CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32
 DEC_FUN(void,CED_DeleteTree,(CIF::CEDPage * pg));
 
 #undef DEC_FUN
-
-class CED_FUNC(CEDChar)
-{
-public:
-    edRect layout; //layout of symbol in input image (in pixel)
-    int fontHeight, fontAttribs; //font parameters
-    int fontNum;
-    int fontLang;
-    int foregroundColor;
-    int backgroundColor;
-    letterEx * alternatives; //array of alternatives
-    int numOfAltern;
-    char * extData; //data to be written in file after header
-    int extDataLen; //their length
-
-    CEDChar();
-    ~CEDChar();
-    CEDChar * prev, *next; //pointer to neibor elements in connected list
-protected:
-    int parentNumber; //number of parent in a file
-    friend class CIF::CEDLine;
-    friend class CIF::CEDPage;
-    friend void FormattedTR(const text_ref* pt);
-    friend void StripLines();
-};
 
 #endif// _CED_STRUCT_

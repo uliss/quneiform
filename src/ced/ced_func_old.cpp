@@ -63,6 +63,7 @@
 #include "cedsection.h"
 #include "cedparagraph.h"
 #include "cedline.h"
+#include "cedchar.h"
 
 using namespace CIF;
 
@@ -123,8 +124,6 @@ static char * verInfo;
 static text_ref * TRarray;//put all text_ref-s here
 static int TRPosition, TRLen;//position and length in array
 
-
-//static void ExtDataProc(uchar* _ptr, uint32_t lth);
 void FormattedSDD(const sheet_disk_descr* pt);
 void FormattedFDD(const fragm_disk_descr* pt);
 void FormattedTR(const text_ref* pt);
@@ -222,65 +221,6 @@ void FormattedTR(const text_ref* pt) {
 	TRPosition++;
 
 	switch (pt->type) {
-	/*	case SSR_FRAG_TYPE:
-	 level=2;
-	 {
-	 if(pt->object==TP_MCOL_BEG||pt->object==TP_MCOL_END)
-	 {
-	 if(mainPage->GetCurSection()&&
-	 mainPage->GetCurSection()->numberOfColumns==1&&
-	 mainPage->GetCurSection()->GetColumn(0)->GetFirstObject()==0)
-	 break;
-	 (mainPage->InsertSection())->CreateColumn(0,0);
-	 break;
-	 }
-	 if (pt->object==TP_NEW_COL)
-	 {
-	 if (mainPage->GetCurSection())
-	 mainPage->GetCurSection()->CreateColumn(0,0);
-	 break;
-	 }
-	 if(mainPage->GetSection(0)==0)
-	 (mainPage->InsertSection())->CreateColumn(0,0);;
-	 mainPage->GetCurSection()->InsertParagraph();
-	 if (pt->object&(TP_LEFT_ALLIGN|TP_RIGHT_ALLIGN|TP_CENTER))
-	 mainPage->GetCurSection()->GetCurParagraph()->alignment=pt->object;
-	 break;
-
-	 }
-	 case SSR_FRAG_PNUM:
-	 level=2;
-	 //		mainPage->GetCurSection()->numberOfColumns=pt->object-1;
-	 break;
-	 case SSR_FRAG_N:
-	 level=2;
-	 mainPage->GetCurSection()->GetCurParagraph()->userNumber=pt->object;
-	 break;
-	 case SSR_FRAG_X:
-	 level=2;
-	 mainPage->GetCurSection()->GetCurParagraph()->layout.x=pt->object;
-	 break;
-	 case SSR_FRAG_W:
-	 level=2;
-	 mainPage->GetCurSection()->GetCurParagraph()->layout.w=pt->object;
-	 break;
-	 case SSR_FRAG_Y:
-	 level=2;
-	 mainPage->GetCurSection()->GetCurParagraph()->layout.y=pt->object;
-	 break;
-	 case SSR_FRAG_H:
-	 level=2;
-	 mainPage->GetCurSection()->GetCurParagraph()->layout.h=pt->object;
-	 break;
-
-	 case SSR_LINE_INDENT:
-	 mainPage->GetCurSection()->GetCurParagraph()->ident.top=pt->object;
-	 break;
-
-	 case SSR_FRAG_END:
-	 mainPage->SetCurSection(0);
-	 mainPage->GetCurSection()->SetCurParagraph(0);
-	 */
 	case SSR_LINE_NUMBER:
 		if (arPosition == arLen) {
 			lin * qq = new lin[arLen + 1000];

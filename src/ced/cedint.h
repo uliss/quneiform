@@ -62,10 +62,13 @@
 #include <climits>
 #include "globus.h"
 
+#include "cedchar.h"
+
 namespace CIF {
 class CEDPage;
 class CEDSection;
 class CEDParagraph;
+class CEDChar;
 }
 
 #pragma pack (push,8)
@@ -311,7 +314,7 @@ struct StrRtfOut
     Bool reset;
     CIF::CEDParagraph* PrevPfmt;
     CIF::CEDParagraph* frm;
-    CEDChar PrevChar;
+    CIF::CEDChar PrevChar;
     char * oldFile; //data from file we write
     int oldFileLen; //their length
     int * table; //table of correspondence between fonts of old and new rtf
@@ -368,7 +371,7 @@ Bool WriteRtfControl(StrRtfOut *rtf, const char* control, int type, double val);
 Bool WriteRtfFont(StrRtfOut *rtf, Bool head);
 Bool WriteRtfMargin(StrRtfOut *rtf);
 Bool WriteRtfSection(StrRtfOut *rtf, CIF::CEDSection* sect);
-Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar);
+Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar);
 Bool EndRtfGroup(StrRtfOut *rtf);
 Bool WriteRtfParaFmt(StrRtfOut *rtf, CIF::CEDParagraph* NewPfmt, CIF::CEDParagraph* PrevPfmt);
 Bool FlushRtfLine(StrRtfOut *rtf);

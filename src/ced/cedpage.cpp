@@ -20,6 +20,7 @@
 #include "cedsection.h"
 #include "cedparagraph.h"
 #include "cedline.h"
+#include "cedchar.h"
 #include "cedint.h"
 #include "resource.h"
 

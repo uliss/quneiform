@@ -25,6 +25,7 @@ namespace CIF {
 
 class CEDSection;
 class CEDLine;
+class CEDChar;
 
 class CEDPage
 {
