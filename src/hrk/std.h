@@ -96,13 +96,6 @@ STD_FUNC( void ) stdSetOutputFile( FILE* hfile );
 #endif
 #endif
 
-////////////////////////////////////
-// assert() redefinition
-#ifndef STD_NO_ASSERT_REDEFINITION
-STD_FUNC( void ) stdAssert(const char * cond, const char *__file,int __line);
-#endif
-
-//////////////////////////////////
 // malloc() -free()
 STD_FUNC( void* ) stdMalloc( int32_t size );
 STD_FUNC( void* ) stdRealloc( void* old_ptr, int32_t new_size, int32_t old_size );

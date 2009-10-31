@@ -85,11 +85,6 @@ typedef struct edBox
 	int x,w,y,h;
 }EDBOX;
 
-typedef struct edPoint
-{
-	int x,y;
-} EDPOINT;
-
 typedef struct edSize
 {
 	int32_t cx,cy;
