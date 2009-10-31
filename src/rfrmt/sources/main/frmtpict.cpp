@@ -79,7 +79,7 @@
 #include "frmtdibapi.h"
 #include "criimage.h"
 #include "sys_prog.h"
-#include "ced.h"
+#include "ced/ced.h"
 #include "rfrmt_prot.h"
 
 #include "minmax.h"

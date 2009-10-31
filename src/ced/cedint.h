@@ -70,76 +70,41 @@
 #include "ced.h"
 #include "ced_struct.h"
 
-#ifdef _DEBUG
-#define EDASSERT(f) \
-	{if (!(f)) \
-		__asm { int 3 };}
-#else
-#define EDASSERT(f)
-#endif
-
 #include "compat_defs.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data
 void SetReturnCode_ced(uint32_t rc);//set error code
 uint32_t GetReturnCode_ced();
 
-#define DEC_FUN(a,b,c) a My##b c;a MyRawData##b c;extern FN##b b
+#define DEC_FUN(a,b,c) a My##b c;a MyRawData##b c;extern FN##b b;
 
 DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt))
-;
 DEC_FUN(void, CED_TextRef,(const text_ref* pt))
-;
 DEC_FUN(void, CED_FontKegl,(const font_kegl *pt))
-;
 DEC_FUN(void, CED_Kegl,(const kegl* pt))
-;
 DEC_FUN(void, CED_Shift,(const shift* pt))
-;
 DEC_FUN(void, CED_RetrieveLevel,(const retrieve_level* pt))
-;
 DEC_FUN(void, CED_Underline,(const underline* pt))
-;
 DEC_FUN(void, CED_DensPrint,(const dens_print* pt))
-;
 DEC_FUN(void, CED_Tabul,(const tabul* pt))
-;
 DEC_FUN(void, CED_TablTabul,(const tabl_tabul* pt))
-;
 DEC_FUN(void, CED_SheetDiskDescr,(const sheet_disk_descr* pt))
-;
 DEC_FUN(void, CED_FragmDiskDescr,(const fragm_disk_descr* pt))
-;
 DEC_FUN(void, CED_FragmDisk,(const fragm_disk* pt))
-;
 DEC_FUN(void, CED_StepBack,(const step_back* pt))
-;
 DEC_FUN(void, CED_LineBeg,(const line_beg* pt))
-;
 DEC_FUN(void, CED_Position,(const position* pt))
-;
 DEC_FUN(void, CED_EdTagLanguage,(const EdTagLanguage* pt))
-;
 DEC_FUN(void, CED_TableConformSizes,(const table_conform_sizes* pt))
-;
 DEC_FUN(void, CED_GroupWords,(const group_words* pt))
-;
 DEC_FUN(void, CED_GroupSymbols,(const group_symbols* pt))
-;
 DEC_FUN(void, CED_Border,(const border* pt))
-;
 DEC_FUN(void, CED_TableHeader,(const table_header* pt))
-;
 DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt))
-;
 DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt))
-;
 DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt))
-;
 DEC_FUN(void, CED_Aksant,(const aksant* pt))
-;
 DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives))
-;
 #undef DEC_FUN
 #define DEC_FUN(a,b,c) a b c
 DEC_FUN(uint32_t, CED_ReadED,(char * file,Bool32 readFromFile, uint32_t bufLen));
@@ -371,7 +336,6 @@ struct StrRtfOut
 
 struct StrRtfFont
 { // font table in an rtf file
-//      Bool InUse;                         // TRUE when the slot is in use
     int FontId; // font id
     char family[32]; // font family
     char name[32]; // font name
@@ -393,31 +357,27 @@ struct StrRtfFont
 #define ROFLAG_IGNORE_SLASH   0x2      // do not treat backslash as a special character
 #define ROFLAG_IN_SUPSCR      0x4      // in superscript group
 #define ROFLAG_IN_SUBSCR      0x8      // in subscript group
-Bool BeginRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
-Bool
-WriteRtfControl(/*PTERWND w,*/struct StrRtfOut *rtf, const char* control, int type, double val);
-Bool WriteRtfFont(struct StrRtfOut *rtf, Bool head);
-Bool WriteRtfMargin(/*PTERWND w,*/struct StrRtfOut *rtf);
-Bool WriteRtfSection(/*PTERWND w,*/struct StrRtfOut *rtf, CEDSection* sect);
-Bool WriteRtfCharFmt(/*PTERWND w,*/struct StrRtfOut *rtf, CEDChar* curChar);
-Bool EndRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
-Bool
-        WriteRtfParaFmt(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewPfmt,
-                CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/);
-Bool FlushRtfLine(/*PTERWND w,*/struct StrRtfOut *rtf);
-Bool PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf, uchar CurChar);
-Bool WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf, const char* text, int TextLen);
-Bool
-WriteRtfRow(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell, CEDParagraph * prevRow);
-Bool WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
+Bool BeginRtfGroup(StrRtfOut *rtf);
+Bool WriteRtfControl(StrRtfOut *rtf, const char* control, int type, double val);
+Bool WriteRtfFont(StrRtfOut *rtf, Bool head);
+Bool WriteRtfMargin(StrRtfOut *rtf);
+Bool WriteRtfSection(StrRtfOut *rtf, CEDSection* sect);
+Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar);
+Bool EndRtfGroup(StrRtfOut *rtf);
+Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPfmt);
+Bool FlushRtfLine(StrRtfOut *rtf);
+Bool PutRtfChar(StrRtfOut *rtf, uchar CurChar);
+Bool WriteRtfText(StrRtfOut *rtf, const char* text, int TextLen);
+Bool WriteRtfRow(StrRtfOut *rtf, CEDParagraph* NewCell, CEDParagraph * prevRow);
+Bool WriteRtfCell(StrRtfOut *rtf, CEDParagraph* NewCell);
 
-Bool WriteRtfPara(struct StrRtfOut *rtf, CEDParagraph* p, Bool brk);
-Bool WriteFrmPos(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* frm, Bool writeWidth);
-Bool WriteRtfDIB(/*PTERWND w,*/struct StrRtfOut *rtf, int pict);
-Bool PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf, uchar CurChar);
-Bool WriteRtfMetafile(/*PTERWND w,*/struct StrRtfOut *rtf, int pict);
-Bool WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);
-Bool WriteRtfColor(struct StrRtfOut *rtf, Bool head = TRUE);
+Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk);
+Bool WriteFrmPos(StrRtfOut *rtf, CEDParagraph* frm, Bool writeWidth);
+Bool WriteRtfDIB(StrRtfOut *rtf, int pict);
+Bool PutRtfHexChar(StrRtfOut *rtf, uchar CurChar);
+Bool WriteRtfMetafile(StrRtfOut *rtf, int pict);
+Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para);
+Bool WriteRtfColor(StrRtfOut *rtf, Bool head = TRUE);
 
 extern char logName[PATH_MAX];
 extern FILE *logStream;
