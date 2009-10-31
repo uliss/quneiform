@@ -541,7 +541,7 @@ void RStuff::extractComponents(const char * name) {
         uchar w8 = (uchar) layout_opts_.dotMatrix();
         REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
-        w8 = (uchar) image_->gbFax100;
+        w8 = (uchar) fax100_;
         REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
     }
 
@@ -932,7 +932,7 @@ void RStuff::searchAndKill() {
 }
 
 void RStuff::searchLines() {
-    Bool32 b32 = !image_->gbDotMatrix;
+    Bool b32 = !dot_matrix_;
     RLINE_SetImportData(RLINE_Bool32_NOFILLGAP3, &b32);
     b32 = TRUE;
     RLINE_SetImportData(RLINE_Bool32_NOHBORDER, &b32);
@@ -978,6 +978,14 @@ void RStuff::searchTables() {
 
 void RStuff::setCPage(Handle cpage) {
     cpage_ = cpage;
+}
+
+void RStuff::setDotMatrix(bool value) {
+    dot_matrix_ = value;
+}
+
+void RStuff::setFax100(bool value) {
+    fax100_ = value;
 }
 
 void RStuff::setImageData(RSPreProcessImage& data) {

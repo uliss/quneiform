@@ -82,8 +82,6 @@ class RSPreProcessImage
 {
 public:
     puchar *pgpRecogDIB;
-    Bool32 gbDotMatrix;
-    Bool32 gbFax100;
     Handle hDebugCancelSearchPictures;
     Handle hDebugCancelComponent;
     Handle hDebugCancelTurn;
@@ -121,6 +119,8 @@ public:
     void removeLines(uchar ** DIB);
     void searchTables();
     void setCPage(Handle cpage);
+    void setDotMatrix(bool value);
+    void setFax100(bool value);
     void setImageData(RSPreProcessImage& data);
     void setLanguage(language_t lang);
 private:
@@ -144,6 +144,8 @@ private:
     LayoutOptions layout_opts_;
     language_t language_;
     Handle cpage_;
+    bool dot_matrix_;
+    bool fax100_;
 private:
     static const size_t MainBufferSize = 500000;
     static const size_t WorkBufferSize = 180000;

@@ -256,6 +256,8 @@ void PumaImpl::layoutRStuff() {
     setData(DataforRS);
 
     ///нормализуем - обработка, поиск картинок, поиск линий
+    rstuff_->setDotMatrix(layout_options_.dotMatrix());
+    rstuff_->setFax100(fax100_);
     rstuff_->setCPage(cpage_);
     rstuff_->setLanguage(language_);
     rstuff_->setImageData(DataforRS);
@@ -984,13 +986,11 @@ void PumaImpl::saveToText(const std::string& filename) const {
 
 void PumaImpl::setData(RSPreProcessImage& data) {
     layout_options_.setData(data);
-    data.gbFax100 = fax100_;
     data.pgpRecogDIB = (uchar**) &input_dib_;
     data.pinfo = &info_;
     data.phCCOM = &ccom_;
     data.phCLINE = &cline_;
     data.phLinesCCOM = &lines_ccom_;
-    //    data.gnLanguage = language_;
     data.pglpRecogName = recog_name_.c_str();
     data.hDebugCancelSearchPictures = 0;
     data.hDebugCancelComponent = 0;
