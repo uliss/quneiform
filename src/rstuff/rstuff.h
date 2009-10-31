@@ -72,7 +72,6 @@
 #include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
-#include "puma/layoutoptions.h"
 #include "common/exception.h"
 #include "lns32/lnsdefs.h"
 
@@ -141,7 +140,6 @@ private:
             int num_str, int move);
 private:
     RSPreProcessImage * image_;
-    LayoutOptions layout_opts_;
     language_t language_;
     Handle cpage_;
     bool dot_matrix_;

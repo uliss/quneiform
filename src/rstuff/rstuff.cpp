@@ -538,10 +538,10 @@ void RStuff::extractComponents(const char * name) {
     exc.Control = Ex_ExtraComp | Ex_Picture;
     exc.Control |= Ex_PictureLarge;
     {
-        uchar w8 = (uchar) layout_opts_.dotMatrix();
+        uchar w8 = dot_matrix_;
         REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
-        w8 = (uchar) fax100_;
+        w8 = fax100_;
         REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
     }
 
