@@ -60,6 +60,7 @@
 #include "ced_struct.h"
 #include "cedint.h"
 #include "cedpage.h"
+#include "cedsection.h"
 
 using namespace CIF;
 

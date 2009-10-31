@@ -23,6 +23,8 @@
 
 namespace CIF {
 
+class CEDSection;
+
 class CEDPage
 {
 public:

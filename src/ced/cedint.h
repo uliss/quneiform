@@ -64,6 +64,7 @@
 
 namespace CIF {
 class CEDPage;
+class CEDSection;
 }
 
 #pragma pack (push,8)
@@ -365,7 +366,7 @@ Bool BeginRtfGroup(StrRtfOut *rtf);
 Bool WriteRtfControl(StrRtfOut *rtf, const char* control, int type, double val);
 Bool WriteRtfFont(StrRtfOut *rtf, Bool head);
 Bool WriteRtfMargin(StrRtfOut *rtf);
-Bool WriteRtfSection(StrRtfOut *rtf, CEDSection* sect);
+Bool WriteRtfSection(StrRtfOut *rtf, CIF::CEDSection* sect);
 Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar);
 Bool EndRtfGroup(StrRtfOut *rtf);
 Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPfmt);

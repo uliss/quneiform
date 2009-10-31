@@ -60,6 +60,7 @@
 #include "ced_struct.h"
 #include "cedint.h"
 #include "cedpage.h"
+#include "cedsection.h"
 
 #include "resource.h"
 #include "cfio/cfio.h"
@@ -191,7 +192,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
          break;
          }
          */case EDEXT_SECTION: {
-        CEDSection * sect = mainPage->InsertSection();
+        CIF::CEDSection * sect = mainPage->InsertSection();
         sectParams1* sp = (sectParams1*) ptExt;
         sect->borders.bottom = sp->bottomMargin;
         sect->borders.top = sp->topMargin;
@@ -526,7 +527,7 @@ void RepairStructure() {
             break;
         }
         case COLUMN_BEGIN: {
-            CEDSection * sec = mainPage->GetSection(hPara->parentNumber);
+            CIF::CEDSection * sec = mainPage->GetSection(hPara->parentNumber);
             if (colBeg) {
                 EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
                 cd->next = hPara;
@@ -745,7 +746,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
         goto ED_WRITE_END;
     //Write descriptions of sections and paragraphs.
     for (sec = 0; sec < page->GetNumberOfSections(); sec++) {
-        CEDSection * sect = page->GetSection(sec);
+        CIF::CEDSection * sect = page->GetSection(sec);
         int i;
         sectParams1 sp;
         sp.bottomMargin = sect->borders.bottom;

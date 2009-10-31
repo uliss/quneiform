@@ -62,8 +62,11 @@
 #include "ced_struct.h"
 #include "cedint.h"
 #include "cedpage.h"
+#include "cedsection.h"
 #include "resource.h"
 #include "compat_defs.h"
+
+using namespace CIF;
 
 #define MAX_LEN 500
 #define TextDefBkColor	RGB(255,255,255)
