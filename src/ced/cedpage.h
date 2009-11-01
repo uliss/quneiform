@@ -22,6 +22,7 @@
 #include <string>
 #include "ced_struct.h"
 #include "size.h"
+#include "common/exception.h"
 
 namespace CIF {
 
@@ -70,7 +71,7 @@ public:
     int GetNumberOfLines();
     int GetNumberOfChars();
 
-    Bool CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, char* fontName);
+    Bool CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, const char* fontName);
     Bool GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset,
             char** fontName);
 
@@ -120,6 +121,8 @@ private:
     // Filename image. If the path is not specified, is searched in one ed directory
     std::string image_filename_;
 };
+
+typedef RuntimeExceptionImpl<CEDPage> CEDPageException;
 
 }
 

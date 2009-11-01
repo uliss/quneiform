@@ -81,6 +81,7 @@ Handle CED_CreatePage(char * _imageName, const Size& _sizeOfImage, const Resolut
     CEDPage * ret = new CEDPage;
     ret->setImageFilename(_imageName);
     ret->setImageSize(_sizeOfImage);
+    ret->setDpi(_dpi);
     ret->turn = _turn;
     ret->pageNumber = _pageNumber;
     ret->pageSizeInTwips = _sizeInTwips;

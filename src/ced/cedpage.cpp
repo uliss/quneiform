@@ -129,13 +129,13 @@ CEDSection * CEDPage::InsertSection() {
     return sect;
 }
 
-CEDSection * CEDPage::SetCurSection(CEDSection* _sect) {
-    return curSect = _sect;
+CEDSection * CEDPage::SetCurSection(CEDSection* sect) {
+    return curSect = sect;
 }
 
-CEDSection * CEDPage::SetCurSection(int _number) {
+CEDSection * CEDPage::SetCurSection(int number) {
     CEDSection* sect;
-    for (sect = sections; sect && sect->internalNumber != _number; sect = sect->next)
+    for (sect = sections; sect && sect->internalNumber != number; sect = sect->next)
         ;
     curSect = sect;
     return sect;
@@ -157,27 +157,27 @@ CEDSection * CEDPage::PrevSection() {
     return curSect->prev;
 }
 
-CEDSection * CEDPage::GetSection(int _num) {
+CEDSection * CEDPage::GetSection(int num) {
     CEDSection* ss;
-    for (ss = sections; ss && ss->internalNumber != _num; ss = ss->next)
+    for (ss = sections; ss && ss->internalNumber != num; ss = ss->next)
         ;
     return ss;
 }
-CEDParagraph * CEDPage::GetParagraph(int _num) {
+CEDParagraph * CEDPage::GetParagraph(int num) {
     CEDSection * qq = sections;
     while (qq && !qq->paragraphs)
         qq = qq->next;
     CEDParagraph* ss;
-    for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != _num; ss = ss->next)
+    for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != num; ss = ss->next)
         ;
     return ss;
 }
-CEDLine * CEDPage::GetLine(int _num) {
+CEDLine * CEDPage::GetLine(int num) {
     CEDParagraph *qq = GetParagraph(0);
     while (qq && !qq->lines)
         qq = qq->next;
     CEDLine* ss;
-    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber != _num; ss = ss->next)
+    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber != num; ss = ss->next)
         ;
     return ss;
 }
@@ -291,12 +291,9 @@ int CEDPage::GetNumberOfChars() {
 }
 
 Bool CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-        char* fontName) {
+        const char* fontName) {
     if (fontsUsed >= fontsCreated) {
-        fontEntry* tmp;
-        tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
-        if (!tmp)
-            return FALSE;
+        fontEntry* tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
         if (fontTable) {
             memcpy(tmp, fontTable, sizeof(fontEntry) * fontsCreated);
             delete[] fontTable;
@@ -370,18 +367,14 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     Bool ret;
     StrRtfOut *rtf = NULL;
     StrRtfColor *color = NULL;
-    int j;
     CEDSection* sect;
 
-    // allocate space for the Strrtf info structure
     rtf = new StrRtfOut;
 
     //open new rtf
     rtf->hFile = fopen(fileName, "wb");
-    if (!rtf->hFile) {
-        SetReturnCode_ced(0);
-        return FALSE;
-    }
+    if (!rtf->hFile)
+        throw CEDPageException(std::string("Can't open file: ") + fileName);
 
     // initialize global variables
     rtf->RtfInHdrFtr = 0;
@@ -422,7 +415,6 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     if (!WriteRtfColor(rtf))
         goto WRITE_END;
     //write the color table
-    //    if (!WriteRtfStylesheet(w,rtf)) goto WRITE_END; //write the color table
     if (!WriteRtfMargin(rtf))
         goto WRITE_END;
     //write default margin and paper information
@@ -434,7 +426,6 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     for (; sect > 0; sect = sect->next) {
         if (!WriteRtfSection(rtf, sect))
             goto WRITE_END; //write section properties
-        //  int sectNum=0;
         for (int colNum = 0; colNum < sect->numberOfColumns; colNum++) {
             CEDParagraph* col = sect->GetColumn(colNum);
 
@@ -559,7 +550,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     }
 
     // end all open groups
-    for (j = rtf->GroupLevel; j > 0; j--)
+    for (int j = rtf->GroupLevel; j > 0; j--)
         if (!EndRtfGroup(rtf))
             goto WRITE_END;
 
