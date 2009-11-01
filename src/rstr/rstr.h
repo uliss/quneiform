@@ -235,7 +235,6 @@ RSTR_FUNC Bool32 RSTR_SetSpecPrj(uchar nSpecPrj);
 RSTR_FUNC Bool32 RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
 RSTR_FUNC void RSTR_Save2CTB(CSTR_line lino, int32_t type, int16_t line_num);
 RSTR_FUNC Bool32 RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
-
 _SETCLASS( IRstr)
 class IRstr
 {
@@ -288,7 +287,7 @@ public:
     }
 
     Bool XYGood() const {
-        return cmx >= cmn;
+        return cmx.x() >= cmn.x() && cmx.y() >= cmn.y();
     }
 
     Bool Good() const {

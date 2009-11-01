@@ -24,162 +24,167 @@
 namespace CIF {
 
 template<class T>
-class PointImpl {
+class PointImpl
+{
 public:
-	PointImpl(T x, T y) :
-		x_(x), y_(y) {
-	}
+    PointImpl(T x, T y) :
+        x_(x), y_(y) {
+    }
 
-	PointImpl() :
-		x_(0), y_(0) {
-	}
+    PointImpl() :
+        x_(0), y_(0) {
+    }
 
-	PointImpl& deskew(int skew1024) {
-		// TODO check not only 32 code
-		long phi_sq = skew1024 * skew1024;
-		long dx = (skew1024 * y_ + 0x200) >> 10;
-		long dy = (skew1024 * x_ + 0x200) >> 10;
-		long ddx = (phi_sq * x_ + 0x100000) >> 21;
-		long ddy = (phi_sq * y_ + 0x100000) >> 21;
-		x_ -= dx;
-		x_ -= ddx;
-		y_ += dy;
-		y_ -= ddy;
-		return *this;;
-	}
+    PointImpl& deskew(int skew1024) {
+        // TODO check not only 32 code
+        long phi_sq = skew1024 * skew1024;
+        long dx = (skew1024 * y_ + 0x200) >> 10;
+        long dy = (skew1024 * x_ + 0x200) >> 10;
+        long ddx = (phi_sq * x_ + 0x100000) >> 21;
+        long ddy = (phi_sq * y_ + 0x100000) >> 21;
+        x_ -= dx;
+        x_ -= ddx;
+        y_ += dy;
+        y_ -= ddy;
+        return *this;;
+    }
 
-	PointImpl& deskew_rel(int skew1024, const PointImpl& rel) {
-		x_ -= rel.x_;
-		y_ -= rel.y_;
-		deskew(skew1024);
-		x_ += rel.x_;
-		y_ += rel.y_;
-		return *this;
-	}
+    PointImpl& deskew_rel(int skew1024, const PointImpl& rel) {
+        x_ -= rel.x_;
+        y_ -= rel.y_;
+        deskew(skew1024);
+        x_ += rel.x_;
+        y_ += rel.y_;
+        return *this;
+    }
 
-	bool isNegative() const {
-		return x_ < 0 && y_ < 0;
-	}
+    bool isNegative() const {
+        return x_ < 0 && y_ < 0;
+    }
 
-	bool isPositive() const {
-		return x_ >= 0 && y_ >= 0;
-	}
+    bool operator==(const PointImpl& pt) const {
+        return x_ == pt.x_ && y_ == pt.y_;
+    }
 
-	bool operator<(const PointImpl& pt) const {
-		return x_ < pt.x_ && y_ < pt.y_;
-	}
+    bool operator!=(const PointImpl& pt) const {
+        return x_ != pt.x_ || y_ != pt.y_;
+    }
 
-	bool operator<=(const PointImpl& pt) const {
-		return x_ <= pt.x_ && y_ <= pt.y_;
-	}
+    PointImpl operator+(const PointImpl& pt) const {
+        return PointImpl(x_ + pt.x_, y_ + pt.y_);
+    }
 
-	bool operator>(const PointImpl& pt) const {
-		return x_ > pt.x_ && y_ > pt.y_;
-	}
+    PointImpl operator-(const PointImpl& pt) const {
+        return PointImpl(x_ - pt.x_, y_ - pt.y_);
+    }
 
-	bool operator>=(const PointImpl& pt) const {
-		return x_ >= pt.x_ && y_ >= pt.y_;
-	}
+    PointImpl& operator+=(const PointImpl& pt) {
+        x_ += pt.x_;
+        y_ += pt.y_;
+        return *this;
+    }
 
-	bool operator==(const PointImpl& pt) const {
-		return x_ == pt.x_ && y_ == pt.y_;
-	}
+    PointImpl& operator-=(const PointImpl& pt) {
+        x_ -= pt.x_;
+        y_ -= pt.y_;
+        return *this;
+    }
 
-	PointImpl operator+(const PointImpl& pt) const {
-		return PointImpl(x_ + pt.x_, y_ + pt.y_);
-	}
+    PointImpl& operator+=(T offset) {
+        x_ += offset;
+        y_ += offset;
+        return *this;
+    }
 
-	PointImpl operator-(const PointImpl& pt) const {
-		return PointImpl(x_ - pt.x_, y_ - pt.y_);
-	}
+    PointImpl& operator-=(T offset) {
+        x_ -= offset;
+        y_ -= offset;
+        return *this;
+    }
 
-	PointImpl& operator+=(const PointImpl& pt) {
-		x_ += pt.x_;
-		y_ += pt.y_;
-		return *this;
-	}
+    void operator=(const PointImpl<T>& pt) {
+        x_ = pt.x_;
+        y_ = pt.y_;
+    }
 
-	PointImpl& operator-=(const PointImpl& pt) {
-		x_ -= pt.x_;
-		y_ -= pt.y_;
-		return *this;
-	}
+    template<class U>
+    void operator=(const PointImpl<U>& pt) {
+        x_ = pt.x();
+        y_ = pt.y();
+    }
 
-	PointImpl& operator+=(T offset) {
-		x_ += offset;
-		y_ += offset;
-		return *this;
-	}
+    void set(T x, T y) {
+        x_ = x;
+        y_ = y;
+    }
 
-	PointImpl& operator-=(T offset) {
-		x_ -= offset;
-		y_ -= offset;
-		return *this;
-	}
+    void setX(T x) {
+        x_ = x;
+    }
 
-	void operator=(const PointImpl<T>& pt) {
-		x_ = pt.x_;
-		y_ = pt.y_;
-	}
+    void setY(T y) {
+        y_ = y;
+    }
 
-	template<class U>
-	void operator=(const PointImpl<U>& pt) {
-		x_ = pt.x();
-		y_ = pt.y();
-	}
+    T& rx() {
+        return x_;
+    }
 
-	void set(T x, T y) {
-		x_ = x;
-		y_ = y;
-	}
+    T& ry() {
+        return y_;
+    }
 
-	void setX(T x) {
-		x_ = x;
-	}
+    T x() const {
+        return x_;
+    }
 
-	void setY(T y) {
-		y_ = y;
-	}
-
-	T& rx() {
-		return x_;
-	}
-
-	T& ry() {
-		return y_;
-	}
-
-	T x() const {
-		return x_;
-	}
-
-	T y() const {
-		return y_;
-	}
+    T y() const {
+        return y_;
+    }
 private:
-	T x_, y_;
+    T x_, y_;
 };
 
 template<class T>
 T PointXDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
-	return p0.x() - p1.x();
+    return p0.x() - p1.x();
 }
 
 template<class T>
 T PointYDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
-	return p0.y() - p1.y();
+    return p0.y() - p1.y();
 }
 
 template<class T>
 T PointXDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
-	T res = p0.x() - p1.x();
-	return res > 0 ? res : -res;
+    T res = p0.x() - p1.x();
+    return res > 0 ? res : -res;
 }
 
 template<class T>
 T PointYDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
-	T res = p0.y() - p1.y();
-	return res > 0 ? res : -res;
+    T res = p0.y() - p1.y();
+    return res > 0 ? res : -res;
+}
+
+template<class T>
+PointImpl<T> highest(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+    return p0.y() < p1.y() ? p0 : p1;
+}
+
+template<class T>
+PointImpl<T> leftmost(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+    return p0.x() < p1.x() ? p0 : p1;
+}
+
+template<class T>
+PointImpl<T> lowest(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+    return p0.y() > p1.y() ? p0 : p1;
+}
+
+template<class T>
+PointImpl<T> rightmost(PointImpl<T>& p0, PointImpl<T>& p1) {
+    return p0.x() > p1.x() ? p0 : p1;
 }
 
 typedef PointImpl<int> Point;

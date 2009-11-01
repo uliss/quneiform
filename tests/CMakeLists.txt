@@ -9,9 +9,14 @@ alphabets/testalphabet.cpp
 alphabets/testalphabetfactory.cpp
 )
 
-
+add_executable(test_common
+common/test_common.cpp
+common/testpoint.cpp
+)
 
 target_link_libraries(test_alphabets alphabets cppunit)
+target_link_libraries(test_common cppunit)
 
-ADD_TEST(test_alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
+ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
+ADD_TEST(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
 
