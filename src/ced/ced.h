@@ -189,7 +189,6 @@ CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,Handle hStorage);
 CED_FUNC(Bool32) CED_Done();
 CED_FUNC(uint32_t) CED_GetReturnCode();
 CED_FUNC(char *) CED_GetReturnString(uint32_t dwError);
-CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData);
 CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData);
 char * GetModulesString(uint32_t dwError);
 /////////////////////////////////////////////////////////////
