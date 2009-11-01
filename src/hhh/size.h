@@ -79,6 +79,11 @@ public:
         width_ = w;
     }
 
+    void set(T width, T height) {
+        height_ = height;
+        width_ = width;
+    }
+
     T width() const {
         return width_;
     }

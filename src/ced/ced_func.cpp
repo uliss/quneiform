@@ -173,8 +173,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     }
     case EDEXT_TIFF_DESC: {
         originalImageDesc* fond = (originalImageDesc*) ptExt;
-        mainPage->sizeOfImage.cy = fond->height;
-        mainPage->sizeOfImage.cx = fond->width;
+        mainPage->setImageSize(fond->size);
         mainPage->pageNumber = fond->pageNum;
         mainPage->turn = fond->inclune;
         mainPage->dpi.cx = fond->resolutionX;
@@ -183,17 +182,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
         break;
     }
-        /*	case EDEXT_PICS:
-         {
-         pictDescr *picd=(pictDescr *)ptExt;
-         while((char*)picd-(char*)ptExt<pt->length-sizeof(edExtention))
-         {
-         mainPage->CreatePicture(picd->pictNumber, picd->pictSize, picd->pictGoal, picd->pictAlign, picd->type, (char*)picd+sizeof(pictDescr),picd->len);
-         picd=(pictDescr *)(char*)picd+picd->size;
-         }
-         break;
-         }
-         */case EDEXT_SECTION: {
+    case EDEXT_SECTION: {
         CIF::CEDSection * sect = mainPage->InsertSection();
         sectParams1* sp = (sectParams1*) ptExt;
         sect->borders.bottom = sp->bottomMargin;
@@ -1027,8 +1016,7 @@ Bool32 WriteFontTable(Handle hFile, CEDPage* page) {
 
 Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     originalImageDesc fond;
-    fond.height = page->sizeOfImage.cy;
-    fond.width = page->sizeOfImage.cx;
+    fond.size = page->imageSize();
     fond.pageNum = page->pageNumber;
     fond.inclune = page->turn;
     fond.resolutionX = (uint16_t) page->dpi.cx;

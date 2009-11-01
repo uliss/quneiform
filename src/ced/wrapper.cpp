@@ -88,8 +88,7 @@ Handle CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _dpi, int _
     }
     CEDPage * ret = new CEDPage;
     ret->imageName = strdup(_imageName);
-    ret->sizeOfImage.cx = _sizeOfImage.cx;
-    ret->sizeOfImage.cy = _sizeOfImage.cy;
+    ret->setImageSize(Size(_sizeOfImage.cx, _sizeOfImage.cy));
     ret->dpi.cx = _dpi.cx;
     ret->dpi.cy = _dpi.cy;
     ret->turn = _turn;
@@ -456,8 +455,8 @@ char* CED_GetPageImageName(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->imageName;
 }
 
-EDSIZE CED_GetPageImageSize(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->sizeOfImage;
+Size CED_GetPageImageSize(Handle hEdPage) {
+    return ((CEDPage*) hEdPage)->imageSize();
 }
 
 EDSIZE CED_GetPageDpi(Handle hEdPage) {

@@ -20,6 +20,7 @@
 #define PAGE_H_
 
 #include "ced_struct.h"
+#include "size.h"
 
 namespace CIF {
 
@@ -31,7 +32,6 @@ class CEDPage
 {
 public:
     //picture data
-    EDSIZE sizeOfImage; // The size of the original image in pixels
     EDSIZE dpi; //scanner resolution for this picture
     int turn; // Tangent angle on the vertical images * 2048
     char* imageName; // Filename image. If the path is not specified, is searched in one
@@ -99,6 +99,16 @@ public:
 
     CEDSection * sections; //connected list of sections
     CEDSection * curSect; //current section
+
+
+    /**
+     * Returns size of the original image in pixels
+     */
+    Size imageSize() const;
+    void setImageSize(const Size& sz);
+
+private:
+    Size image_size_;
 };
 
 }

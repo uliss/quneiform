@@ -167,8 +167,7 @@ struct originalImageDesc
     uint16_t resolutionY;
     uint16_t inclune;
     uint16_t pageNum;
-    uint32_t width;
-    uint32_t height;
+    CIF::Size size;
     uchar unrecogSymbol;
 };
 

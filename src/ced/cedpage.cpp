@@ -35,7 +35,6 @@ const int MAX_RTF_COLORS = 200;
 namespace CIF {
 
 CEDPage::CEDPage() {
-    sizeOfImage.cx = sizeOfImage.cy = 0;
     dpi.cx = dpi.cy = 0;
     turn = 0;
     imageName = 0;
@@ -592,6 +591,14 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
         delete[] color; // free the rtf color table
 
     return ret;
+}
+
+Size CEDPage::imageSize() const {
+    return image_size_;
+}
+
+void CEDPage::setImageSize(const Size& sz) {
+    image_size_ = sz;
 }
 
 }
