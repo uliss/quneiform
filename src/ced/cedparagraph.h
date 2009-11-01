@@ -35,7 +35,7 @@ public:
     Rect indent; // Indentation: left = left, right = width, top = red.line (in twip)
     int userNumber; // ID number, the user at the stage of fragmentation
     int border; //  frame around abzattsa
-    EDSIZE interval; //  cx-upper indentation, cy-bottom
+    Point interval; //  cx-upper indentation, cy-bottom
 
     edBox layout; //  Location paragraph on page
     int color;

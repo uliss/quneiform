@@ -135,7 +135,7 @@ void ExtDataProc(uchar* /*_ptr*/, uint /*lth*/) {
 }
 
 void NewFormattedSDD(const sheet_disk_descr* pt) {
-    mainPage->dpi.cx = mainPage->dpi.cy = pt->resolution;
+    mainPage->setDpi(Resolution(pt->resolution, pt->resolution));
     mainPage->pageNumber = pt->sheet_numb;
     mainPage->turn = pt->incline;
     mainPage->NumberOfParagraphs = pt->quant_fragm;
@@ -159,12 +159,8 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     }
     case EDEXT_BORDERS: {
         pageDescr* pd = (pageDescr*) ptExt;
-        mainPage->pageSizeInTwips.cx = pd->paperw;
-        mainPage->pageSizeInTwips.cy = pd->paperh;
-        mainPage->pageBordersInTwips.top = pd->margt;
-        mainPage->pageBordersInTwips.left = pd->margl;
-        mainPage->pageBordersInTwips.bottom = pd->margb;
-        mainPage->pageBordersInTwips.right = pd->margr;
+        mainPage->pageSizeInTwips = pd->paper_size;
+        mainPage->pageBordersInTwips = pd->margins;
         mainPage->resizeToFit = pd->resizeToFit;
         //for backward compatibility
         if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length - sizeof(edExtention))
@@ -176,8 +172,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         mainPage->setImageSize(fond->size);
         mainPage->pageNumber = fond->pageNum;
         mainPage->turn = fond->inclune;
-        mainPage->dpi.cx = fond->resolutionX;
-        mainPage->dpi.cy = fond->resolutionY;
+        mainPage->setDpi(fond->resolution);
         mainPage->unrecogChar = fond->unrecogSymbol;
         mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
         break;
@@ -185,11 +180,8 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     case EDEXT_SECTION: {
         CIF::CEDSection * sect = mainPage->InsertSection();
         sectParams1* sp = (sectParams1*) ptExt;
-        sect->borders.bottom = sp->bottomMargin;
-        sect->borders.top = sp->topMargin;
-        sect->borders.left = sp->leftMargin;
-        sect->borders.right = sp->rightMargin;
-        sect->numberOfColumns = 0;//  sp->columns		;
+        sect->borders = sp->margins;
+        sect->numberOfColumns = 0;
         sect->colInterval = sp->colInterval;
         sect->numSnakeCols = sp->numSnakeCols;
         sect->colInfo = new EDCOL[sect->numSnakeCols];
@@ -219,8 +211,8 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         paraParams * pard = (paraParams *) ptExt;
         CEDParagraph* hPara = mainPage->GetCurSection()->GetCurParagraph();
         hPara->color = (signed short) pard->color;
-        hPara->interval.cx = pard->spaceBefore;
-        hPara->interval.cy = pard->spaceAfter;
+        hPara->interval.rx() = pard->spaceBefore;
+        hPara->interval.ry() = pard->spaceAfter;
         hPara->alignment = pard->alignment;
         hPara->indent.rtop() = pard->firstIndent;
         hPara->indent.rleft() = pard->leftIndent;
@@ -414,22 +406,12 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     if (!curEdLine)
         return;
     CEDLine *lin = curEdLine;
-    /*	if(!mainPage->GetCurSection())
-     mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
-     CEDLine * lin=mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
-     if (!lin)
-     lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
-     */
     CEDChar *chr = lin->InsertChar();
     letterEx * lpData = new letterEx[alternatives];
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
-    chr->alternatives = /*(letter*)*/lpData;
+    chr->alternatives = lpData;
     chr->numOfAltern = alternatives;
-    chr->layout.left = refBox.x;
-    chr->layout.top = refBox.y;
-    chr->layout.right = refBox.x + refBox.w;
-    chr->layout.bottom = refBox.y + refBox.h;
-    //	memcpy(&(chr->layout),&refBox,sizeof(edBox));
+    chr->layout.set(Point(refBox.x, refBox.y), refBox.w, refBox.h);
     chr->fontHeight = kegl;
     chr->fontAttribs = font;
     chr->fontNum = fontNum;
@@ -700,9 +682,13 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
     sdd.quant_fragm = 1;
     sdd.sheet_numb = page->pageNumber;
     sdd.descr_lth = sizeof(sdd) + sizeof(fragm_disk_descr);
-    sdd.resolution = (uint16_t) page->dpi.cx;
+    sdd.resolution = page->dpi().x();
     sdd.incline = page->turn;
     sdd.version = 2000;
+
+    //Write the boundaries of the page
+    pageDescr pd;
+
     if (!CFIO_WriteToFile(hFile, (pchar) &sdd, sizeof(sdd)))
         goto ED_WRITE_END;
     fragm_disk_descr fdd;
@@ -717,14 +703,9 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
     //Write table of fonts
     if (!WriteFontTable(hFile, page))
         goto ED_WRITE_END;
-    //Write the boundaries of the page
-    pageDescr pd;
-    pd.paperw = page->pageSizeInTwips.cx;
-    pd.paperh = page->pageSizeInTwips.cy;
-    pd.margt = page->pageBordersInTwips.top;
-    pd.margl = page->pageBordersInTwips.left;
-    pd.margb = page->pageBordersInTwips.bottom;
-    pd.margr = page->pageBordersInTwips.right;
+
+    pd.paper_size = page->pageSizeInTwips;
+    pd.margins = page->pageBordersInTwips;
     pd.resizeToFit = uchar(page->resizeToFit);
     pd.recogLang = page->recogLang;
     if (!WriteExtCode(hFile, EDEXT_BORDERS, &pd, sizeof(pd)))
@@ -740,10 +721,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
         CIF::CEDSection * sect = page->GetSection(sec);
         int i;
         sectParams1 sp;
-        sp.bottomMargin = sect->borders.bottom;
-        sp.topMargin = sect->borders.top;
-        sp.leftMargin = sect->borders.left;
-        sp.rightMargin = sect->borders.right;
+        sp.margins = sect->borders;
         sp.columns = sect->numberOfColumns;
         sp.colInterval = sect->colInterval;
         sp.numSnakeCols = sect->numSnakeCols;
@@ -908,7 +886,6 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
     CEDLine *line;
     if (line = page->GetLine(0)) {
         do {
-            //CFIO_WriteToFile(hFile,(char*)&lb,sizeof(lb));
             if (!WriteRemark(hFile, SSR_LINE_FN, line->parentNumber))
                 goto ED_WRITE_END;
             if (line->SetCurChar(0)) {
@@ -917,10 +894,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page) {
                     line->SetCurChar(chr);
                     bit_map_ref bmr;
                     bmr.code = SS_BITMAP_REF;
-                    bmr.col = (uint16_t) chr->layout.left;
-                    bmr.row = (uint16_t) chr->layout.top;
-                    bmr.height = (uint16_t) (chr->layout.bottom - chr->layout.top);
-                    bmr.width = uint16_t(chr->layout.right - chr->layout.left);
+                    bmr.col = chr->layout.left();
+                    bmr.row = chr->layout.top();
+                    bmr.height = chr->layout.height();
+                    bmr.width = chr->layout.width();
                     if (!CFIO_WriteToFile(hFile, (pchar) (&bmr), sizeof(bmr)))
                         goto ED_WRITE_END;
                     if (chr->fontHeight != kegl || chr->fontAttribs != font) {
@@ -1019,8 +996,7 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     fond.size = page->imageSize();
     fond.pageNum = page->pageNumber;
     fond.inclune = page->turn;
-    fond.resolutionX = (uint16_t) page->dpi.cx;
-    fond.resolutionY = (uint16_t) page->dpi.cy;
+    fond.resolution = page->dpi();
     fond.unrecogSymbol = page->unrecogChar;
     if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(page->imageName) + 1))
         return FALSE;
@@ -1044,11 +1020,9 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page) {
     pictDescr picd;
     for (q = 0; q < page->picsUsed; q++) {
         picd.pictAlign = page->picsTable[q].pictAlign;
-        picd.pictGoal.cx = page->picsTable[q].pictGoal.cx;
-        picd.pictGoal.cy = page->picsTable[q].pictGoal.cy;
+        picd.pictGoal = page->picsTable[q].pictGoal;
         picd.pictNumber = page->picsTable[q].pictNumber;
-        picd.pictSize.cx = page->picsTable[q].pictSize.cx;
-        picd.pictSize.cy = page->picsTable[q].pictSize.cy;
+        picd.pictSize = page->picsTable[q].pictSize;
         picd.len = page->picsTable[q].len;
         picd.type = page->picsTable[q].type;
         picd.size = page->picsTable[q].len + sizeof(picd);
@@ -1067,8 +1041,8 @@ Bool32 WritePara(Handle hFile, CEDParagraph* hPara) {
     if (!WriteRemark(hFile, SSR_FRAG_TYPE, hPara->alignment))
         return FALSE;
     pard.color = hPara->color;
-    pard.spaceBefore = hPara->interval.cx;
-    pard.spaceAfter = hPara->interval.cy;
+    pard.spaceBefore = hPara->interval.x();
+    pard.spaceAfter = hPara->interval.y();
     pard.alignment = hPara->alignment;
     pard.firstIndent = hPara->indent.top();
     pard.leftIndent = hPara->indent.left();

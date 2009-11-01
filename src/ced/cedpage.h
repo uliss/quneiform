@@ -32,14 +32,13 @@ class CEDPage
 {
 public:
     //picture data
-    EDSIZE dpi; //scanner resolution for this picture
     int turn; // Tangent angle on the vertical images * 2048
     char* imageName; // Filename image. If the path is not specified, is searched in one
     // Directory with the file ed
 
     int pageNumber; // Number of Pages (= 0 not in batch mode)
-    EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
-    EDRECT pageBordersInTwips;
+    Size pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
+    Rect pageBordersInTwips;
     char unrecogChar;
     char recogLang;
     Bool resizeToFit;
@@ -80,12 +79,11 @@ public:
 
     int GetFontByNum(uchar fontNumber);
 
-    Bool CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type,
-            void * data, int len);
+    Bool CreatePicture(int pictNumber, const Size& pictSize, const Size& pictGoal, int pictAlign,
+            int type, void * data, int len);
 
     CEDSection * InsertSection(); //inserts new section after current one. inserted one becomes current
     //sets pointer to the inserted one
-    //_deleteSubItems - either delete all daughter elements or attach it to previous object
     CEDSection * SetCurSection(CEDSection* _sect);//sets new value of current section
     CEDSection * SetCurSection(int _number);//sets new value of current section
 
@@ -100,15 +98,22 @@ public:
     CEDSection * sections; //connected list of sections
     CEDSection * curSect; //current section
 
+    /**
+     * scanner resolution for this picture
+     */
+    Resolution dpi() const;
 
     /**
      * Returns size of the original image in pixels
      */
     Size imageSize() const;
+
+    void setDpi(const Resolution& dpi);
     void setImageSize(const Size& sz);
 
 private:
     Size image_size_;
+    Resolution dpi_;
 };
 
 }

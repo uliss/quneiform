@@ -215,36 +215,31 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
         return;
 #ifdef EdWrite
     int PageNumber;
-    EDSIZE sizeOfImage;
-    EDSIZE sizeInTwips;
-    EDSIZE dpi;
-    EDRECT pageBordersInTwips;
-    PAGEINFO PageInfo = { 0 };
+    Size sizeOfImage;
+    Size sizeInTwips;
+    Resolution dpi;
+    Rect pageBordersInTwips;
+    PAGEINFO PageInfo;// = { 0 };
     Bool resizeToFit = FALSE;
 
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE,&PageInfo);
     PageNumber = atoi((char*) WriteRtfPageNumber);
-    sizeOfImage.cx = (int32_t) PageInfo.Width;
-    sizeOfImage.cy = (int32_t) PageInfo.Height;
-    sizeInTwips.cx = PaperW;
-    sizeInTwips.cy = PaperH;
-    dpi.cx = (int32_t) PageInfo.DPIX;
-    dpi.cy = (int32_t) PageInfo.DPIY;
+    sizeOfImage.set(PageInfo.Width, PageInfo.Height);
+    sizeInTwips.setWidth(PaperW);
+    sizeInTwips.setHeight(PaperH);
+    dpi.rx() = (int32_t) PageInfo.DPIX;
+    dpi.ry() = (int32_t) PageInfo.DPIY;
 
-    pageBordersInTwips.left = MargL;
-    pageBordersInTwips.top = MargT;
-    pageBordersInTwips.right = MargR;
-    pageBordersInTwips.bottom = MargB;
+    pageBordersInTwips.rleft() = MargL;
+    pageBordersInTwips.rtop() = MargT;
+    pageBordersInTwips.rright() = MargR;
+    pageBordersInTwips.rbottom() = MargB;
 
     if (FlagMode & /*==*/USE_NONE) //VMK1
         resizeToFit = FALSE;
     else
         resizeToFit = TRUE;
-
-#ifdef _DEBUG
-    //	CED_SetLogFileName("ced.log");
-#endif
 
     m_hED = CED_CreatePage((char*) WriteRtfImageName, sizeOfImage, dpi, (int) PageInfo.Incline2048,
             PageNumber, sizeInTwips, pageBordersInTwips, UnRecogSymbol, resizeToFit);
@@ -1042,8 +1037,8 @@ Bool CRtfPage::Write_USE_FRAME() {
     Handle hParagraph = NULL;
     Handle hString = NULL;
     int align;
-    CIF::Rect indent;
-    EDSIZE interval;
+    Rect indent;
+    Size interval;
     EDBOX playout;
 #endif
 
@@ -1058,8 +1053,6 @@ Bool CRtfPage::Write_USE_FRAME() {
 
 #ifdef EdWrite
     if (!RtfWriteMode && CountFragments) {
-        interval.cx = 0;
-        interval.cy = 0;
         playout.x = -1;
         playout.w = -1;
         playout.y = -1;
@@ -1379,7 +1372,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 #ifdef EdWrite
     int j;
     int EDCountHTerminalColumns;
-    EDRECT border;
+    CIF::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
 #endif
 
@@ -1454,10 +1447,10 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         return;
 
 #ifdef EdWrite
-    border.left = MargL;
-    border.right = MargR;
-    border.top = MargT;
-    border.bottom = MargB;
+    border.rleft() = MargL;
+    border.rright() = MargR;
+    border.rtop() = MargT;
+    border.rbottom() = MargB;
 
     if (FlagMode & USE_FRAME_AND_COLUMN)
         pRtfSector->SectorInfo.userNum = -1;
@@ -1594,7 +1587,7 @@ Bool CRtfSector::Write(void) {
     Handle hParagraph = NULL;
     Handle hString = NULL;
     EDBOX playout;
-    EDSIZE interval;
+    Size interval;
     int align;
 #endif
 
@@ -1617,8 +1610,7 @@ Bool CRtfSector::Write(void) {
         return TRUE;
 
 #ifdef EdWrite
-    interval.cx = 0;
-    interval.cy = SectorInfo.InterSectorDist;
+    interval.set(0, SectorInfo.InterSectorDist);
     playout.x = -1;
     playout.w = -1;
     playout.y = -1;
@@ -2653,7 +2645,7 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
     Handle hParagraph = NULL;
     Handle hString = NULL;
     int align;
-    EDSIZE interval;
+    Size interval;
     EDBOX playout;
 #endif
 
@@ -2664,8 +2656,6 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
             fri = 1;
 #ifdef EdWrite
             if (!RtfWriteMode) {
-                interval.cx = 0;
-                interval.cy = 0;
                 playout.x = -1;
                 playout.w = -1;
                 playout.y = -1;
@@ -3167,16 +3157,12 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #ifdef EdWrite
                         if (!RtfWriteMode) {
                             if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop) {
-                                slayout.rleft() = 0;
-                                slayout.rright() = 0;
-                                slayout.rtop() = 0;
-                                slayout.rbottom() = 0;
+                                slayout = Rect();
                                 EDBOX playout__ = { 0, 0, 0, 0 };
                                 Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
                                         SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
                                 CED_SetFrameFlag(hObject__, ED_DROPCAP);
-                                EDSIZE interval__ = { 0, 0 };
-                                //							if(m_Flag & CSTR_STR_NEGATIVE) //nega
+                                Size interval__;
                                 if (pRtfString->S_Flags & CSTR_STR_NEGATIVE) //NEGA_STR
                                     shading = 10000;
                                 Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
@@ -3190,7 +3176,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         -1, -1);
 
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                        SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
+                                        SectorInfo, m_wvid_parag, pRtfString->S_Flags,
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right()
                                                 - m_rectReal.left()); //NEGA_STR
 #ifdef CHEREDOV
@@ -3233,7 +3219,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
                                         SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
                                 CED_SetFrameFlag(hObject__, ED_DROPCAP);
-                                EDSIZE interval__ = { 0, 0 };
+                                Size interval__;
                                 Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
                                         hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
                                         playout__, -1, -1, -1, -1, FALSE);
@@ -3956,13 +3942,12 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
         int LengthStringInTwips, int LengthFragmInTwips) {
 
     EDBOX playout;
-    EDSIZE interval;
+    Size interval;
     int align;
     int shad = -1;
 
-    CIF::Rect indent(CIF::Point(LeftIndent, FirstIndent), CIF::Point(RightIndent, 0));
-    interval.cx = IntervalBefore;
-    interval.cy = 0;
+    Rect indent(Point(LeftIndent, FirstIndent), Point(RightIndent, 0));
+    interval.set(IntervalBefore, 0);
     playout.x = -1;
     playout.w = -1;
     playout.y = -1;
@@ -3988,10 +3973,7 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
     if (m_Flag & CSTR_STR_NEGATIVE) {//nega
         align = TP_CENTER;
         shad = 10000;
-        //#ifdef VMK002
         if ((m_Flag & CSTR_STR_UPDOWN) || (m_Flag & CSTR_STR_DOWNUP)) {
-            //			int addIndent =  SectorInfo->PaperW - SectorInfo->MargL - SectorInfo->MargR -
-            //				             LenthStringInTwips - indent.left - indent.right;
             int addIndent = LengthFragmInTwips - LengthStringInTwips;
             if (addIndent > 0) {
                 addIndent = (int) (.9 * addIndent);
@@ -4000,7 +3982,6 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
                 indent.setTop(0);
             }
         }
-        //#endif
     }
     return CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align, indent,
             SectorInfo->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);

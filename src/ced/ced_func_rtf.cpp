@@ -403,27 +403,26 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
  Write default document margins
  ******************************************************************************/
 Bool WriteRtfMargin(StrRtfOut *rtf) {
-    //    float PaperHeight,PaperWidth;
     CIF::CEDPage * page = rtf->page;
 
-    if (page->pageSizeInTwips.cx >= 0)
-        if (!WriteRtfControl(rtf, "paperw", PARAM_INT, page->pageSizeInTwips.cx))
+    if (page->pageSizeInTwips.width() >= 0)
+        if (!WriteRtfControl(rtf, "paperw", PARAM_INT, page->pageSizeInTwips.width()))
             return FALSE;
-    if (page->pageSizeInTwips.cy >= 0)
-        if (!WriteRtfControl(rtf, "paperh", PARAM_INT, page->pageSizeInTwips.cy))
+    if (page->pageSizeInTwips.height() >= 0)
+        if (!WriteRtfControl(rtf, "paperh", PARAM_INT, page->pageSizeInTwips.height()))
             return FALSE;
 
-    if (page->pageBordersInTwips.left >= 0)
-        if (!WriteRtfControl(rtf, "margl", PARAM_INT, page->pageBordersInTwips.left))
+    if (page->pageBordersInTwips.left() >= 0)
+        if (!WriteRtfControl(rtf, "margl", PARAM_INT, page->pageBordersInTwips.left()))
             return FALSE;
-    if (page->pageBordersInTwips.right >= 0)
-        if (!WriteRtfControl(rtf, "margr", PARAM_INT, page->pageBordersInTwips.right))
+    if (page->pageBordersInTwips.right() >= 0)
+        if (!WriteRtfControl(rtf, "margr", PARAM_INT, page->pageBordersInTwips.right()))
             return FALSE;
-    if (page->pageBordersInTwips.top >= 0)
-        if (!WriteRtfControl(rtf, "margt", PARAM_INT, page->pageBordersInTwips.top))
+    if (page->pageBordersInTwips.top() >= 0)
+        if (!WriteRtfControl(rtf, "margt", PARAM_INT, page->pageBordersInTwips.top()))
             return FALSE;
-    if (page->pageBordersInTwips.bottom >= 0)
-        if (!WriteRtfControl(rtf, "margb", PARAM_INT, page->pageBordersInTwips.bottom))
+    if (page->pageBordersInTwips.bottom() >= 0)
+        if (!WriteRtfControl(rtf, "margb", PARAM_INT, page->pageBordersInTwips.bottom()))
             return FALSE;
 
     return TRUE;
@@ -451,17 +450,17 @@ Bool WriteRtfSection(StrRtfOut *rtf, CEDSection* sect) {
             return FALSE;
 
     // write margins
-    if (sect->borders.left >= 0)
-        if (!WriteRtfControl(rtf, "marglsxn", PARAM_INT, sect->borders.left))
+    if (sect->borders.left() >= 0)
+        if (!WriteRtfControl(rtf, "marglsxn", PARAM_INT, sect->borders.left()))
             return FALSE;
-    if (sect->borders.right >= 0)
-        if (!WriteRtfControl(rtf, "margrsxn", PARAM_INT, sect->borders.right))
+    if (sect->borders.right() >= 0)
+        if (!WriteRtfControl(rtf, "margrsxn", PARAM_INT, sect->borders.right()))
             return FALSE;
-    if (sect->borders.top >= 0)
-        if (!WriteRtfControl(rtf, "margtsxn", PARAM_INT, sect->borders.top))
+    if (sect->borders.top() >= 0)
+        if (!WriteRtfControl(rtf, "margtsxn", PARAM_INT, sect->borders.top()))
             return FALSE;
-    if (sect->borders.bottom >= 0)
-        if (!WriteRtfControl(rtf, "margbsxn", PARAM_INT, sect->borders.bottom))
+    if (sect->borders.bottom() >= 0)
+        if (!WriteRtfControl(rtf, "margbsxn", PARAM_INT, sect->borders.bottom()))
             return FALSE;
 
     if (sect->headerY >= 0)
@@ -719,8 +718,8 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
         PrevFirstIndent = PrevPfmt->indent.top();
         PrevShading = PrevPfmt->shading;
 
-        PrevSpaceBefore = PrevPfmt->interval.cx;
-        PrevSpaceAfter = PrevPfmt->interval.cy;
+        PrevSpaceBefore = PrevPfmt->interval.x();
+        PrevSpaceAfter = PrevPfmt->interval.y();
         PrevSpaceBetween = PrevPfmt->spaceBetweenLines;
         PrevSpaceBetweenMult = PrevPfmt->spcBtwLnsMult;
         PrevAlignment = PrevPfmt->alignment;
@@ -739,8 +738,8 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     CurRightIndent = NewPfmt->indent.right();
     CurFirstIndent = NewPfmt->indent.top();
     CurShading = NewPfmt->shading;
-    CurSpaceBefore = NewPfmt->interval.cx;
-    CurSpaceAfter = NewPfmt->interval.cy;
+    CurSpaceBefore = NewPfmt->interval.x();
+    CurSpaceAfter = NewPfmt->interval.y();
     CurSpaceBetween = NewPfmt->spaceBetweenLines;
     CurSpaceBetweenMult = NewPfmt->spcBtwLnsMult;
     CurAlignment = NewPfmt->alignment;
@@ -1198,8 +1197,8 @@ Bool WriteRtfDIB(StrRtfOut *rtf, int pict) {
     LPBITMAPINFO pInfo;
 
     // get picture height/width
-    height = rtf->page->picsTable[pict].pictGoal.cy; // picture height in pointsize
-    width = rtf->page->picsTable[pict].pictGoal.cx; // picture width in pointsize
+    height = rtf->page->picsTable[pict].pictGoal.height(); // picture height in pointsize
+    width = rtf->page->picsTable[pict].pictGoal.width(); // picture width in pointsize
     pInfo = (LPBITMAPINFO) rtf->page->picsTable[pict].data;
 
     width_bytes = ((width * pInfo->bmiHeader.biBitCount + 31) / 32) * 4;
@@ -1220,9 +1219,9 @@ Bool WriteRtfDIB(StrRtfOut *rtf, int pict) {
 
 
     // write picture height/width in HIMETRIC
-    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.cx))
+    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.width()))
         return FALSE; // write picture format
-    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.cy))
+    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.height()))
         return FALSE; // write picture format
 
     // write picture height/width in twips
@@ -1289,14 +1288,9 @@ Bool PutRtfHexChar(StrRtfOut *rtf, uchar CurChar) {
  Write the metafile group and picture data for the specified picture.
  ******************************************************************************/
 Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
-    long l;//,bmHeight,bmWidth;
-    //   HGLOBAL hMem;
+    long l;
     uchar *pMem;
     Bool result = TRUE;
-
-    // get picture height/width
-    //   bmHeight=ScrToTwipsY(TerFont[pict].bmHeight);  // picture height in twips
-    //   bmWidth=ScrToTwipsX(TerFont[pict].bmWidth);    // picture width in twips
 
     if (!BeginRtfGroup(rtf))
         return FALSE; // begin current picture
@@ -1305,41 +1299,18 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
     if (!WriteRtfControl(rtf, "wmetafile", PARAM_INT, 8))
         return FALSE; // write picture format
 
-    // write picture height/width in HIMETRIC
-    //   if (!WriteRtfControl(rtf,"picw",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cx)*8.3))/*((bmWidth*2500)/1440) ))*/ return FALSE;  // write picture format
-    //   if (!WriteRtfControl(rtf,"pich",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cy)*8.3))/*((bmHeight*2500)/1440) ))*/ return FALSE;  // write picture format
-    //this seems to be more or less correct
     if (!WriteRtfControl(rtf, "picw", PARAM_INT,
-            ((double) (rtf->page->picsTable[pict].pictGoal.cx)) * 1.7641))
+            ((double) (rtf->page->picsTable[pict].pictGoal.width())) * 1.7641))
         return FALSE; // write picture format
     if (!WriteRtfControl(rtf, "pich", PARAM_INT,
-            ((double) (rtf->page->picsTable[pict].pictGoal.cy)) * 1.7641))
+            ((double) (rtf->page->picsTable[pict].pictGoal.height())) * 1.7641))
         return FALSE; // write picture format
 
-    // write picture width
-    //   if (bmWidth>0) {
-    if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.cx))
+    if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.width()))
         return FALSE; // write picture format
-    //if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
-    //if (!WriteRtfControl(w,rtf,"picscalex",PARAM_INT,(int)(((long)TerFont[pict].PictWidth*100*20)/bmWidth))) return FALSE;
-    //   }
-    /*   else {
-     if (!WriteRtfControl(rtf,"picwgoal",PARAM_INT,(int)(TerFont[pict].PictWidth*20) )) return FALSE;  // write picture format
-     if (!WriteRtfControl(rtf,"picscalex",PARAM_INT,100)) return FALSE;  // write picture format
-     }
-     */
-    // write picture height
-    //   if (bmHeight>0) {
-    if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.cy))
+
+    if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.height()))
         return FALSE; // write picture format
-    //if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
-    //if (!WriteRtfControl(w,rtf,"picscaley",PARAM_INT,(int)(((long)TerFont[pict].PictHeight*100*20)/bmHeight))) return FALSE;
-    //   }
-    /*   else {
-     if (!WriteRtfControl(rtf,"pichgoal",PARAM_INT,(int)(TerFont[pict].PictHeight*20))) return FALSE;  // write picture format
-     if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
-     }
-     */
 
     // write picture alignment
     if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT, rtf->page->picsTable[pict].pictAlign))
@@ -1354,12 +1325,6 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
         if (!result)
             break;
     }
-
-    // recreate the metafile, this calls unlocks and releases the buffer
-    //   GlobalUnlock(hMem);
-    //   if ( NULL==(TerFont[pict].hMeta=TerSetMetaFileBits(hMem)) ){
-    //      return PrintError(w,MSG_ERR_META_RECREATE,"WriteRtfMetafile");
-    //   }
 
     if (!EndRtfGroup(rtf))
         return FALSE; // end current picture

@@ -70,35 +70,21 @@ char logName[PATH_MAX];
 FILE *logStream;
 
 //create page
-Handle CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _dpi, int _turn,
-        int _pageNumber, EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar,
-        Bool32 _resizeToFit) {
+Handle CED_CreatePage(char * _imageName, const Size& _sizeOfImage, const Resolution& _dpi,
+        int _turn, int _pageNumber, const Size& _sizeInTwips, const Rect& _pageBordersInTwips,
+        char _unrecogChar, Bool32 _resizeToFit) {
     if (logName[0] && (!logStream))
         logStream = fopen(logName, "at");
     else if (logStream)
         fprintf(logStream, "ERROR: Page Was Not Deleted Properly\n");
-    if (logStream) {
-        fprintf(logStream,
-                "\n\nCreatePage params: %s,(%d,%d),(%d,%d),%d,%d,(%d,%d),(%d,%d,%d,%d),%c,%d\n",
-                _imageName, _sizeOfImage.cx, _sizeOfImage.cy, _dpi.cx, _dpi.cy, _turn, _pageNumber,
-                _sizeInTwips.cx, _sizeInTwips.cy, _pageBordersInTwips.left,
-                _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom,
-                _unrecogChar, _resizeToFit);
-        fflush(logStream);
-    }
+
     CEDPage * ret = new CEDPage;
     ret->imageName = strdup(_imageName);
-    ret->setImageSize(Size(_sizeOfImage.cx, _sizeOfImage.cy));
-    ret->dpi.cx = _dpi.cx;
-    ret->dpi.cy = _dpi.cy;
+    ret->setImageSize(_sizeOfImage);
     ret->turn = _turn;
     ret->pageNumber = _pageNumber;
-    ret->pageSizeInTwips.cx = _sizeInTwips.cx;
-    ret->pageSizeInTwips.cy = _sizeInTwips.cy;
-    ret->pageBordersInTwips.bottom = _pageBordersInTwips.bottom;
-    ret->pageBordersInTwips.top = _pageBordersInTwips.top;
-    ret->pageBordersInTwips.left = _pageBordersInTwips.left;
-    ret->pageBordersInTwips.right = _pageBordersInTwips.right;
+    ret->pageSizeInTwips = _sizeInTwips;
+    ret->pageBordersInTwips = _pageBordersInTwips;
     ret->unrecogChar = _unrecogChar;
     ret->resizeToFit = _resizeToFit;
     ret->recogLang = LANG_RUSENG;
@@ -112,49 +98,24 @@ Handle CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _dpi, int _
 //create foont
 Bool32 CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily,
         uchar fontCharset, char* fontName) {
-    if (logStream) {
-        fprintf(logStream, "CreateFont params: %x,%hd,%hd,%hd,%s\n", hEdPage, fontNumber,
-                fontPitchAndFamily, fontCharset, fontName);
-        fflush(logStream);
-    }
     Bool ret = ((CEDPage*) hEdPage)->CreateFont(fontNumber, fontPitchAndFamily, fontCharset,
             fontName);
-    if (logStream) {
-        fprintf(logStream, "CreateFont returned %i\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
-Bool32 CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSize, EDSIZE pictGoal,
-        int pictAlign, int type, void * data, int len) {
-    if (logStream) {
-        fprintf(logStream, "CreatePicture params: %x,%i,(%i,%i),(%i,%i),%i,%i,%x,%i\n", hEdPage,
-                pictNumber, pictSize.cx, pictSize.cy, pictGoal.cx, pictGoal.cy, pictAlign, type,
-                data, len);
-        fflush(logStream);
-    }
+Bool32 CED_CreatePicture(Handle hEdPage, int pictNumber, const Size& pictSize,
+        const Size& pictGoal, int pictAlign, int type, void * data, int len) {
     Bool ret = ((CEDPage*) hEdPage)->CreatePicture(pictNumber, pictSize, pictGoal, pictAlign, type,
             data, len);
-    if (logStream) {
-        fprintf(logStream, "CreatePicture returned %i\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 //create section
 
-Handle CED_CreateSection(Handle hEdPage, EDRECT border, int colInterval, int numOfCols,
+Handle CED_CreateSection(Handle hEdPage, const Rect& border, int colInterval, int numOfCols,
         EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY,
         int footerY) {
-    if (logStream) {
-        fprintf(logStream, "CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n",
-                hEdPage, border.left, border.top, border.right, border.bottom, colInterval,
-                numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
-        fflush(logStream);
-    }
     CEDSection *sect = ((CEDPage*) hEdPage)->InsertSection();
-    memcpy(&(sect->borders), &border, sizeof(border));
+    sect->borders = border;
     sect->colInterval = colInterval;
     sect->sectionBreak = sectionBreak;
     sect->width = width;
@@ -168,82 +129,36 @@ Handle CED_CreateSection(Handle hEdPage, EDRECT border, int colInterval, int num
         memcpy(sect->colInfo, colInfo, sizeof(EDCOL) * numOfCols);
     else
         memset(sect->colInfo, -1, sizeof(EDCOL) * numOfCols);
-    if (logStream) {
-        fprintf(logStream, "CreateSection returned %x\n", sect);
-        fflush(logStream);
-    }
     return (Handle) sect;
 }
 
 Bool32 CED_SetSectLineBetCol(Handle hEdSection, Bool32 lineBetCol) {
-    if (logStream) {
-        fprintf(logStream, "SetSectLineBetCol params: %x,%i\n", hEdSection, lineBetCol);
-        fflush(logStream);
-    }
     ((CEDSection*) hEdSection)->lineBetCol = lineBetCol;
-    if (logStream) {
-        fprintf(logStream, "SetSectLineBetCol returned %i\n", TRUE);
-        fflush(logStream);
-    }
     return TRUE;
 }
 
 //create column
 Handle CED_CreateColumn(Handle hEdSection) {
-    if (logStream) {
-        fprintf(logStream, "CreateColumn params: %x\n", hEdSection);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateColumn());
-    if (logStream) {
-        fprintf(logStream, "CreateColumn returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
 //create frame
 Handle CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, char position,
         int borderSpace, int dxfrtextx, int dxfrtexty) {
-    if (logStream) {
-        fprintf(logStream, "CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", hEdSection,
-                hEdColumn, rect.x, rect.y, rect.w, rect.h, position, borderSpace, dxfrtextx,
-                dxfrtexty);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateFrame((CEDParagraph*) hEdColumn, rect,
             position, borderSpace, dxfrtextx, dxfrtexty));
-    if (logStream) {
-        fprintf(logStream, "CreateFrame returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
 Bool32 CED_SetFrameFlag(Handle hEdFrame, int flag) {
-    if (logStream) {
-        fprintf(logStream, "SetFrameFlag params: %x,%x\n", hEdFrame, flag);
-        fflush(logStream);
-    }
     ((EDFRAMEDESCR *) (((CEDParagraph*) hEdFrame)->descriptor))->flag = flag;
-    if (logStream) {
-        fprintf(logStream, "SetFrameFlag returned %i\n", TRUE);
-        fflush(logStream);
-    }
     return TRUE;
 }
 
 //create table
 Handle CED_CreateTable(Handle hEdSection, Handle hObject) {
-    if (logStream) {
-        fprintf(logStream, "CreateTable params: %x,%x\n", hEdSection, hObject);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateTable((CEDParagraph*) hObject));
-    if (logStream) {
-        fprintf(logStream, "CreateTable returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
@@ -251,21 +166,9 @@ Handle CED_CreateTableRow(Handle hEdSection, Handle hEdTable, int left, int rowH
         int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
         int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph,
         int position, Bool32 header) {
-    if (logStream) {
-        fprintf(logStream, "CreateTableRow params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i\n",
-                hEdSection, hEdTable, left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-                rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, gaph,
-                position, header);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateTableRow((CEDParagraph*) hEdTable,
             left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth,
             topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, gaph, position, header));
-
-    if (logStream) {
-        fprintf(logStream, "CreateTableRow returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
@@ -274,57 +177,24 @@ Handle CED_CreateCell(Handle hEdSection, Handle hEdRow, int cellX, int merging, 
         int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
         int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, EDBOX layout,
         int shading, int color) {
-    if (logStream) {
-        fprintf(logStream,
-                "CreateCell params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,(%i,%i,%i,%i),%i,%i\n",
-                hEdSection, hEdRow, cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth,
-                rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-                bottomBrdrWidth, layout.x, layout.y, layout.w, layout.h, shading, color);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection) -> CreateCell((CEDParagraph*) hEdRow, cellX,
             merging, vertTextAlign, leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth,
             topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, layout, shading, color));
-    if (logStream) {
-        fprintf(logStream, "CreateCell returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
 Bool32 CED_SetCellFlag(Handle hEdCell, int flag) {
-    if (logStream) {
-        fprintf(logStream, "SetCellFlag params: %x,%x\n", hEdCell, flag);
-        fflush(logStream);
-    }
     ((EDCELLDESCR *) (((CEDParagraph*) hEdCell)->descriptor))->flag = flag;
-    if (logStream) {
-        fprintf(logStream, "SetCellFlag returned %i\n", TRUE);
-        fflush(logStream);
-    }
     return TRUE;
 }
 //create paragraph
 
 Handle CED_CreateParagraph(Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent,
-        int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int color, int shading,
+        int UserNum, int FlagBorder, const Size& interval, EDBOX layout, int color, int shading,
         int spaceBetweenLines, char spcBtwLnsMult, char keep) {
-    if (logStream) {
-        fprintf(
-                logStream,
-                "CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
-                hEdSection, hObject, align, indent.left(), indent.top(), indent.right(),
-                indent.bottom(), UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y,
-                layout.w, layout.h, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
-        fflush(logStream);
-    }
     Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateParagraph((CEDParagraph*) hObject,
             align, indent, UserNum, FlagBorder, interval, layout, color, shading,
             spaceBetweenLines, spcBtwLnsMult, keep));
-    if (logStream) {
-        fprintf(logStream, "CreateParagraph returned %x\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
 
@@ -332,12 +202,6 @@ Handle CED_CreateParagraph(Handle hEdSection, Handle hObject, int align, const C
 Bool32 CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth,
         int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth,
         int bottomBrdrType, int bottomBrdrWidth, int brdrBtw) {
-    if (logStream) {
-        fprintf(logStream, "SetParaBorders params: %x,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdParagraph,
-                leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth, topBrdrType,
-                topBrdrWidth, bottomBrdrType, bottomBrdrWidth, brdrBtw);
-        fflush(logStream);
-    }
     ((CEDParagraph*) hEdParagraph)->leftBrdrType = leftBrdrType;
     ((CEDParagraph*) hEdParagraph)->leftBrdrWidth = leftBrdrWidth;
     ((CEDParagraph*) hEdParagraph)->rightBrdrType = rightBrdrType;
@@ -347,44 +211,23 @@ Bool32 CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int leftBrdrWid
     ((CEDParagraph*) hEdParagraph)->bottomBrdrType = bottomBrdrType;
     ((CEDParagraph*) hEdParagraph)->bottomBrdrWidth = bottomBrdrWidth;
     ((CEDParagraph*) hEdParagraph)->brdrBtw = brdrBtw;
-    if (logStream) {
-        fprintf(logStream, "SetParaBorders returned %i\n", TRUE);
-        fflush(logStream);
-    }
     return TRUE;
 }
 
 //create line
 Handle CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight) {
-    if (logStream) {
-        fprintf(logStream, "CreateLine params: %x,%i,%i\n", hEdParagraph, hardBreak,
-                defChrFontHeight);
-        fflush(logStream);
-    }
     CEDLine * lin = ((CEDParagraph*) hEdParagraph)->InsertLine();
     lin->hardBreak = hardBreak;
     lin->defChrFontHeight = defChrFontHeight;
-    if (logStream) {
-        fprintf(logStream, "CreateLine returned %x\n", lin);
-        fflush(logStream);
-    }
     return (Handle) lin;
 }
 
 Bool32 CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrFontHeight) {
-    if (logStream) {
-        fprintf(logStream, "SetLineParams params: %x,%i,%i\n", hEdLine, hardBreak, defChrFontHeight);
-        fflush(logStream);
-    }
     CEDLine * lin = ((CEDLine*) hEdLine);
     if (!lin)
         return FALSE;
     lin->hardBreak = hardBreak;
     lin->defChrFontHeight = defChrFontHeight;
-    if (logStream) {
-        fprintf(logStream, "SetLineParams returned %i\n", TRUE);
-        fflush(logStream);
-    }
     return TRUE;
 }
 
@@ -399,9 +242,10 @@ Handle CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alterna
     chr->foregroundColor = foregroundColor;
     chr->backgroundColor = backgroundColor;
     chr->fontLang = fontLang;
-    memcpy(&(chr->layout), &layout, sizeof(layout));
-    int i = 0;
+    chr->layout = layout;
+
     if (alternatives != 0) {
+        int i = 0;
         while (alternatives[i].probability & 1 == 1) {
             if (alternatives[i].alternative < ' ')
                 alternatives[i].alternative = ' ';
@@ -417,7 +261,7 @@ Handle CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alterna
         chr->alternatives[0].alternative = ' ';
         chr->alternatives[0].probability = 254;
     }
-    memcpy(&(chr->layout), &layout, sizeof(layout));
+    chr->layout = layout;
     return (Handle) chr;
 
 }
@@ -425,11 +269,6 @@ Handle CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alterna
 //delete all
 void CED_DeletePage(Handle hEdPage) {
     delete (CEDPage*) hEdPage;
-    if (logStream) {
-        fprintf(logStream, "DeletePage params %x\n", hEdPage);
-        fclose(logStream);
-        logStream = 0;
-    }
 }
 
 //get description of page
@@ -439,18 +278,10 @@ Handle CED_ReadFormattedEd(char * lpEdFile, Bool32 readFromFile, uint32_t bufLen
 }
 
 Bool32 CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage) {
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedEd params: %s,%x\n", lpEdFileName, hEdPage);
-        fflush(logStream);
-    }
     Bool32 ret = CED_FormattedWrite(lpEdFileName, (CEDPage*) hEdPage);
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedEd returned %i\n", ret);
-        fflush(logStream);
-    }
     return ret;
 }
-////////////////////////////////////////////////////////////////////////////////
+
 char* CED_GetPageImageName(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->imageName;
 }
@@ -459,15 +290,15 @@ Size CED_GetPageImageSize(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->imageSize();
 }
 
-EDSIZE CED_GetPageDpi(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->dpi;
+Resolution CED_GetPageDpi(Handle hEdPage) {
+    return ((CEDPage*) hEdPage)->dpi();
 }
 
 uint32_t CED_GetPageTurn(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->turn;
 }
 
-EDSIZE CED_GetPageSize(Handle hEdPage) {
+Size CED_GetPageSize(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->pageSizeInTwips;
 }
 
@@ -475,7 +306,7 @@ uint32_t CED_GetPageNumber(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->pageNumber;
 }
 
-EDRECT CED_GetPageBorders(Handle hEdPage) {
+Rect CED_GetPageBorders(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->pageBordersInTwips;
 }
 char CED_GetPageUnrecogChar(Handle hEdPage) {
@@ -511,8 +342,8 @@ uint32_t CED_GetNumOfFonts(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->fontsUsed;
 }
 
-Bool32 CED_GetPicture(Handle hEdPage, int number, int* pictNumber, EDSIZE* pictSize,
-        EDSIZE* pictGoal, int* pictAlign, int* type, void ** data, int* len) {
+Bool32 CED_GetPicture(Handle hEdPage, int number, int* pictNumber, Size * pictSize,
+        Size * pictGoal, int* pictAlign, int* type, void ** data, int* len) {
     CEDPage * pg = (CEDPage*) hEdPage;
     if (number >= pg->picsCreated)
         return FALSE;
@@ -536,7 +367,7 @@ Bool32 CED_GetPicture(Handle hEdPage, int number, int* pictNumber, EDSIZE* pictS
 uint32_t CED_GetNumOfPics(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->picsUsed;
 }
-////////////////////////////////////////////////////////////////////////////////////////
+
 uint32_t CED_GetCountSection(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->GetNumberOfSections();
 }
@@ -545,17 +376,17 @@ Handle CED_GetSection(Handle hEdPage, uint32_t number) {
     return (Handle) ((CEDPage*) hEdPage)->GetSection(number);
 }
 
-EDRECT CED_GetSectionBorder(Handle hEdSection) {
+Rect CED_GetSectionBorder(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->borders;
 }
 
-Bool32 CED_GetSectionParams(Handle hEdSection, EDRECT* border, int* colInterval,
-        char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY) {
+Bool32 CED_GetSectionParams(Handle hEdSection, Rect * border, int* colInterval, char* sectionBreak,
+        int* width, int* height, char* orientation, int* headerY, int* footerY) {
     if (!hEdSection)
         return FALSE;
     CEDSection *sect = (CEDSection*) hEdSection;
     if (border)
-        memcpy(border, &(sect->borders), sizeof(EDRECT));
+        *border = sect->borders;
     if (colInterval)
         (*colInterval) = sect->colInterval;
     if (sectionBreak)
@@ -577,7 +408,6 @@ Bool32 CED_GetSectLineBetCol(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->lineBetCol;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 uint32_t CED_GetCountColumn(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->numberOfColumns;
 }
@@ -597,18 +427,7 @@ int32_t CED_GetSnakeColumnWidth(Handle hEdSection, int number) {
 int32_t CED_GetSnakeColumnSpacing(Handle hEdSection, int number) {
     return ((CEDSection*) hEdSection)->colInfo[number].space;
 }
-///////////////////////////////////////////////////////////
 
-/*uint32_t CED_GetCountFrame(Handle hEdSection)
- {
- return ((CEDSection*)hEdSection)->numberOfFrames;
- }
-
- Handle CED_GetFrame(Handle hEdSection,int number)
- {
- return (Handle)(((CEDSection*)hEdSection)->GetFrame(number));
- }
- */
 edBox CED_GetFrameRect(Handle hEdFrame) {
     return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->rec;
 }
@@ -633,7 +452,6 @@ int32_t CED_GetFrameFlag(Handle hEdFrame) {
     return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->flag;
 }
 
-///////////////////////////////////////////////////////////////
 Handle CED_GetFirstObject(Handle hObject) {
     return (Handle) ((CEDParagraph*) hObject)->GetFirstObject();
 }
@@ -646,10 +464,6 @@ Bool32 CED_IsTable(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == TAB_BEGIN ? TRUE : FALSE;
 }
 
-/*Bool32 CED_IsPicture(Handle hObject)
- {
- return FALSE;
- }*/
 Bool32 CED_IsFrame(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == FRAME_BEGIN ? TRUE : FALSE;
 }
@@ -773,10 +587,10 @@ int32_t *CED_GetRowsHeights(Handle hEdTable) {
     return (int32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->linesY;
 }
 
-edSize CED_GetSize(Handle hEdTable) {
+Size CED_GetSize(Handle hEdTable) {
     if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-    return (edSize) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->size;
+    return ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->size;
 }
 Handle CED_GetLogicalCell(Handle hEdTable, int number) {
     if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
@@ -788,7 +602,7 @@ int CED_GetCountLogicalCell(Handle hEdTable) {
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
     return ((CEDParagraph*) hEdTable)->GetCountLogicalCell();
 }
-/////////////////////////////////////////////////////////////////
+
 uint32_t CED_GetCountLine(Handle hEdParagraph) {
     return ((CEDParagraph*) hEdParagraph)->GetCountLine();
 }
@@ -813,7 +627,7 @@ uint32_t CED_GetUserNumber(Handle hEdParagraph) {
     return ((CEDParagraph*) hEdParagraph)->userNumber;
 }
 
-EDSIZE CED_GetInterval(Handle hEdParagraph) {
+Point CED_GetInterval(Handle hEdParagraph) {
     return ((CEDParagraph*) hEdParagraph)->interval;
 }
 
@@ -855,7 +669,7 @@ Bool32 CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int* leftBrdrW
         *brdrBtw = ((CEDParagraph*) hEdParagraph)->brdrBtw;
     return TRUE;
 }
-////////////////////////////////////////////////////////////////////////////////////
+
 Bool32 CED_GetLineHardBreak(Handle hEdLine) {
     return ((CEDLine*) hEdLine)->hardBreak;
 }
@@ -892,7 +706,7 @@ int32_t CED_GetCharFontNum(Handle hEdChar) {
     return ((CEDChar*) hEdChar)->fontNum;
 }
 
-EDRECT CED_GetCharLayout(Handle hEdChar) {
+Rect CED_GetCharLayout(Handle hEdChar) {
     return ((CEDChar*) hEdChar)->layout;
 }
 int32_t CED_GetCharForegroundColor(Handle hEdChar) {

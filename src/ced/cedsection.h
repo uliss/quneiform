@@ -20,6 +20,7 @@
 #define CEDSECTION_H_
 
 #include "cedint.h"
+#include "rect.h"
 
 namespace CIF {
 
@@ -29,7 +30,7 @@ class CEDSection
 {
 public:
     int numberOfColumns; // The number of columns in the section (n pieces)
-    EDRECT borders; // padding from the edge of paper
+    Rect borders; // padding from the edge of paper
     int colInterval;
     char sectionBreak;
     int width;
@@ -46,13 +47,11 @@ public:
     CEDParagraph * CreateColumn();
     CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
             int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
-    CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, const CIF::Rect& indent,
-            int UserNum, int FlagBorder, EDSIZE interval, edBox layout, int color, int shading,
-            int spaceBetweenLines, char spcBtwLnsMult, char keep);
+    CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
+            int UserNum, int FlagBorder, const Size& interval, edBox layout, int color,
+            int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
     CEDParagraph * CreateTable(CEDParagraph * hObject);
-    //  CEDParagraph * ReCreateTable(CEDParagraph * hTable,EDSIZE sz, int * cx,int * cy, int * table,
-    //                 Bool32 * bHorShow,Bool32 * bVerShow);
     CEDParagraph * CreateTableRow(CEDParagraph * hTable, int left, int rowHeight, int leftBrdrType,
             int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType,
             int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph, int position,

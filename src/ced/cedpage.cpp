@@ -35,13 +35,9 @@ const int MAX_RTF_COLORS = 200;
 namespace CIF {
 
 CEDPage::CEDPage() {
-    dpi.cx = dpi.cy = 0;
     turn = 0;
     imageName = 0;
     pageNumber = 0;
-    pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
-    pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
-            = pageBordersInTwips.right = 0;
     extData = 0;
     extDataLen = 0;
     sections = 0;
@@ -347,8 +343,8 @@ int CEDPage::GetFontByNum(uchar fontNumber) {
     return 0;
 }
 
-Bool CEDPage::CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign,
-        int type, void * data, int len) {
+Bool CEDPage::CreatePicture(int pictNumber, const Size& pictSize, const Size& pictGoal,
+        int pictAlign, int type, void * data, int len) {
     if (picsUsed >= picsCreated) {
         pictEntry* tmp;
         tmp = new pictEntry[picsCreated + PICS_STEPPING];
@@ -593,12 +589,20 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     return ret;
 }
 
+Resolution CEDPage::dpi() const {
+    return dpi_;
+}
+
 Size CEDPage::imageSize() const {
     return image_size_;
 }
 
 void CEDPage::setImageSize(const Size& sz) {
     image_size_ = sz;
+}
+
+void CEDPage::setDpi(const Resolution& dpi) {
+    dpi_ = dpi;
 }
 
 }

@@ -20,6 +20,7 @@
 #define CEDCHAR_H_
 
 #include "ced_struct.h"
+#include "rect.h"
 
 void FormattedTR(const text_ref* pt);
 void StripLines();
@@ -32,7 +33,7 @@ class CEDParagraph;
 class CEDChar
 {
 public:
-    edRect layout; //layout of symbol in input image (in pixel)
+    Rect layout; //layout of symbol in input image (in pixel)
     int fontHeight, fontAttribs; //font parameters
     int fontNum;
     int fontLang;

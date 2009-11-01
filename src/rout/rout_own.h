@@ -276,9 +276,10 @@ EXTERN Byte *gDefis VAL(NULL);
 // табличного текста. Модуль TableText.cpp.
 
 // Представление одной строки текста
-typedef struct {
-	long ltext; // Длина строки текста
-	Byte *text; // Адрес строки текста
+typedef struct
+{
+    long ltext; // Длина строки текста
+    Byte *text; // Адрес строки текста
 } LINE_TEXT;
 
 // Для упрощения распределения памяти для массива
@@ -291,13 +292,14 @@ EXTERN LINE_TEXT *gCurLineText VAL(NULL);
 EXTERN LINE_TEXT *gEndLineText VAL(NULL);
 
 // Построчное представление текста в одной ячейке таблицы:
-typedef struct {
-	long lines; // Количество строк текста в ячейке
-	long width; // Ширина ячейки ( = максимальная длина
-	// строк текста в ячейке )
-	LINE_TEXT *line; // Информация о строках текста в ячейке
-	long row; // В какой строке таблицы начинается ячейка
-	long col; // В какой колонке таблицы начинается ячейка
+typedef struct
+{
+    long lines; // Количество строк текста в ячейке
+    long width; // Ширина ячейки ( = максимальная длина
+    // строк текста в ячейке )
+    LINE_TEXT *line; // Информация о строках текста в ячейке
+    long row; // В какой строке таблицы начинается ячейка
+    long col; // В какой колонке таблицы начинается ячейка
 } CELL_TEXT;
 // Табличный текст, разложенный построчно по ячейкам:
 EXTERN CELL_TEXT *gTableText VAL(NULL);
@@ -351,9 +353,9 @@ EXTERN char gTableTextSeparators[8] VAL("");
 
 // Опции табличного текста
 EXTERN long gTableTextOptions VAL(
-		ROUT_TABLE_TEXT_INCLUDED |
-		ROUT_TABLE_TEXT_ALIGN_COLUMNS |
-		0);
+        ROUT_TABLE_TEXT_INCLUDED |
+        ROUT_TABLE_TEXT_ALIGN_COLUMNS |
+        0);
 
 // Картинка
 EXTERN long gPictureNumber VAL(0);
@@ -362,9 +364,9 @@ EXTERN Byte *gPictureData VAL(0);
 EXTERN long gPictureLength VAL(0);
 // Длина DIB включая заголовок
 // Размер картинки в TIFF-файле в пикселах
-EXTERN EDSIZE gPictureSize VAL( {0});
+EXTERN CIF::Size gPictureSize;
 // Размер картинки на экране в twips
-EXTERN EDSIZE gPictureGoal VAL( {0});
+EXTERN CIF::Size gPictureGoal;
 
 // Имя подпапки для картинок "<page>_files". Путь не включается.
 EXTERN char gPageFilesFolder[256] VAL("");
@@ -424,11 +426,11 @@ long BrowseTables(ulong targetIndex);
 // Browse.cpp
 // Функция, вызываемая при обходе страницы для каждого объекта
 typedef Bool (*FNROUT_BrowseFunction)(Handle hObject, long reason // См. enum BROWSE_REASON
-		);
+        );
 
 // Обход страницы
 Bool BrowsePage(FNROUT_BrowseFunction BrowseFunction, Bool wantSkipTableCells,
-		Bool wantSkipParagraphs);
+        Bool wantSkipParagraphs);
 
 // Обход ячеек таблицы
 Bool BrowseCells(FNROUT_BrowseFunction BrowseFunction);
@@ -439,40 +441,41 @@ Bool BrowseTable(FNROUT_BrowseFunction BrowseFunction);
 
 // Обход абзацев, таблиц и фреймов
 // в родительском объекте (колонке, фрейме, ячейке)
-Bool BrowseParagraphs(Handle hParentObject,
-		FNROUT_BrowseFunction BrowseFunction, Bool wantSkipTableCells,
-		Bool wantSkipParagraphs);
+Bool BrowseParagraphs(Handle hParentObject, FNROUT_BrowseFunction BrowseFunction,
+        Bool wantSkipTableCells, Bool wantSkipParagraphs);
 
-typedef enum {
-	BROWSE_PAGE_START = 1, BROWSE_PAGE_END, // 2
+typedef enum
+{
+    BROWSE_PAGE_START = 1,
+    BROWSE_PAGE_END, // 2
 
-	BROWSE_SECTION_START, // 3
-	BROWSE_SECTION_END, // 4
+    BROWSE_SECTION_START, // 3
+    BROWSE_SECTION_END, // 4
 
-	BROWSE_COLUMN_START, // 5
-	BROWSE_COLUMN_END, // 6
+    BROWSE_COLUMN_START, // 5
+    BROWSE_COLUMN_END, // 6
 
-	BROWSE_FRAME_START, // 7
-	BROWSE_FRAME_END, // 8
+    BROWSE_FRAME_START, // 7
+    BROWSE_FRAME_END, // 8
 
-	BROWSE_TABLE_START, // 9
-	BROWSE_TABLE_END, // 10
+    BROWSE_TABLE_START, // 9
+    BROWSE_TABLE_END, // 10
 
-	BROWSE_ROW_START, // 11
-	BROWSE_ROW_END, // 12
+    BROWSE_ROW_START, // 11
+    BROWSE_ROW_END, // 12
 
-	BROWSE_CELL_START, // 13
-	BROWSE_CELL_END, // 14
+    BROWSE_CELL_START, // 13
+    BROWSE_CELL_END, // 14
 
-	BROWSE_PARAGRAPH_START, // 15
-	BROWSE_PARAGRAPH_END, // 16
+    BROWSE_PARAGRAPH_START, // 15
+    BROWSE_PARAGRAPH_END, // 16
 
-	BROWSE_LINE_START, // 17
-	BROWSE_LINE_END, // 18
+    BROWSE_LINE_START, // 17
+    BROWSE_LINE_END, // 18
 
-	BROWSE_CHAR, // 19
+    BROWSE_CHAR, // 19
 
-	BROWSE_PICTURE
+    BROWSE_PICTURE
 // 20
 
 } BROWSE_REASON;
@@ -521,18 +524,19 @@ Bool TableText_Prepare();
 Bool TableText_Delete();
 
 // Обход построчного представления таблицы:
-typedef enum {
-	BROWSE_TABLE_TEXT_TABLE_START = 1,
-	BROWSE_TABLE_TEXT_TABLE_END,
-	BROWSE_TABLE_TEXT_RECORD_START,
-	BROWSE_TABLE_TEXT_RECORD_END,
-	BROWSE_TABLE_TEXT_STRING
+typedef enum
+{
+    BROWSE_TABLE_TEXT_TABLE_START = 1,
+    BROWSE_TABLE_TEXT_TABLE_END,
+    BROWSE_TABLE_TEXT_RECORD_START,
+    BROWSE_TABLE_TEXT_RECORD_END,
+    BROWSE_TABLE_TEXT_STRING
 } BROWSE_TABLE_TEXT_REASON;
 
 // Функция, вызываемая при обходе построчного
 // представления таблицы
 typedef Bool (*FNROUT_BrowseTableTextFunction)(long reason // См. enum BROWSE_TABLE_TEXT_REASON
-		);
+        );
 
 Bool BrowseTableText(FNROUT_BrowseTableTextFunction BrowseTableTextFunction);
 
@@ -548,7 +552,7 @@ long GetPictureNumber(Handle charHandle);
 
 // Записать картинку в BMP-файл
 Bool WritePictureToBMP_File(Byte *pDIB, // Адрес DIB включая заголовок
-		long lenDIB, // Длина DIB включая заголовок
-		char *filename // Имя файла
-		);
+        long lenDIB, // Длина DIB включая заголовок
+        char *filename // Имя файла
+        );
 

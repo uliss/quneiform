@@ -147,15 +147,15 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     LDPUMA_Skip(hTest);
 
 #ifdef EdWrite
-    Handle hParagraph=NULL;
-    Handle hString=NULL;
+    Handle hParagraph = NULL;
+    Handle hString = NULL;
 
-    EDSIZE pictSize;
-    EDSIZE pictGoal;
-    CIF::Rect indent;
+    Size pictSize;
+    Size pictGoal;
+    Rect indent;
     EDBOX playout;
-    CIF::Rect slayout;
-    EDSIZE interval;
+    Rect slayout;
+    Size interval;
     EDBOX EdFragmRect;
     letterEx Letter;
     Handle hPrevObject;
@@ -164,7 +164,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
     Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
-    //	CString  str;
     while (h_Pict) {
         if (++PictNumber > IndexPict)
             break;
@@ -174,11 +173,10 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     if (!h_Pict)
         return 0;
 
-    PAGEINFO pinfo = { 0 };
+    PAGEINFO pinfo;
     if (GetPageInfo(h_Page, &pinfo)) {
         CIMAGE_InfoDataInGet in = { 0 };
         BitmapInfoHeader image_info;
-        uint32_t nSize = 0;
         Point Lr;
         Point Wh;
         Point PLr;
@@ -334,20 +332,16 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                         PCTDIB pTmpDIB = new CTDIB;
                         pTmpDIB->SetDIBbyPtr(pOutDIB);
 
-                        pictSize.cx = Wh.x();
-                        pictSize.cy = Wh.y();
-                        pictGoal.cx = (uint32_t)(Twips* pTmpDIB->GetLineWidth());
-                        pictGoal.cy = (uint32_t)(Twips* pTmpDIB->GetLinesNumber());
+                        pictSize.setWidth(Wh.x());
+                        pictSize.setHeight(Wh.y());
+                        pictGoal.setWidth(Twips * pTmpDIB->GetLineWidth());
+                        pictGoal.setHeight(Twips * pTmpDIB->GetLinesNumber());
 
                         int32_t iDIBSize = pTmpDIB->GetDIBSize();
                         delete pTmpDIB;
 
-                        indent.rleft() = 0;
-                        indent.rright() = 0;
-                        indent.rtop() = 0;
-                        indent.rbottom() = 0;
-                        interval.cx = 0;
-                        interval.cy = 0;
+                        indent = Rect();
+                        interval = Size();
                         playout.x = -1;
                         playout.w = -1;
                         playout.y = -1;
@@ -363,50 +357,48 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
                         hPrevObject = SectorInfo->hObject;
 
-                        if(SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph))
-                        {
-                            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1, indent,
-                                    SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-                            hString = CED_CreateLine(hParagraph, 0,6);
+                        if (SectorInfo->FlagInColumn || (OutPutTypeFrame
+                                && SectorInfo->FlagFictiveParagraph)) {
+                            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector,
+                                    SectorInfo->hColumn, -1, indent, SectorInfo->userNum, -1,
+                                    interval, playout, -1, -1, -1, -1, FALSE);
+                            hString = CED_CreateLine(hParagraph, 0, 6);
                             SectorInfo->FlagFictiveParagraph = FALSE;
                         }
 
-                        if( FlagMode & USE_NONE || SectorInfo->CountFragments==1 )
-                        SectorInfo->hObject = SectorInfo->hColumn;
-                        else
-                        {
-                            if(SectorInfo->FlagInColumn==TRUE)
-                            {
+                        if (FlagMode & USE_NONE || SectorInfo->CountFragments == 1)
+                            SectorInfo->hObject = SectorInfo->hColumn;
+                        else {
+                            if (SectorInfo->FlagInColumn == TRUE) {
                                 EdFragmRect.x = MAX(0,SectorInfo->OffsetFromColumn.x());
                                 EdFragmRect.y = MAX(0,SectorInfo->OffsetFromColumn.y());
-                                EdFragmRect.w = MAX(0, Wh.x()-FrameOffset)*Twips;
-                                EdFragmRect.h = Wh.y()*Twips;
-                                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
-                                        EdFragmRect, 0x22,-1, -1, -1);
+                                EdFragmRect.w = MAX(0, Wh.x()-FrameOffset) * Twips;
+                                EdFragmRect.h = Wh.y() * Twips;
+                                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
+                                        SectorInfo->hColumn, EdFragmRect, 0x22, -1, -1, -1);
                             }
-                            else
-                            {
-                                EdFragmRect.x = Lr.x()*Twips - SectorInfo->Offset.x();
-                                EdFragmRect.y = Lr.y()*Twips - SectorInfo->Offset.y();
-                                EdFragmRect.w = MAX(0, Wh.x()-FrameOffset)*Twips;
-                                EdFragmRect.h = Wh.y()*Twips;
-                                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
-                                        EdFragmRect, 0x22,-1, 0, 0);
+                            else {
+                                EdFragmRect.x = Lr.x() * Twips - SectorInfo->Offset.x();
+                                EdFragmRect.y = Lr.y() * Twips - SectorInfo->Offset.y();
+                                EdFragmRect.w = MAX(0, Wh.x()-FrameOffset) * Twips;
+                                EdFragmRect.h = Wh.y() * Twips;
+                                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
+                                        SectorInfo->hColumn, EdFragmRect, 0x22, -1, 0, 0);
                             }
                         }
 
-                        hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1, indent,
-                                SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-                        hString = CED_CreateLine(hParagraph, 0,6);
+                        hParagraph = CED_CreateParagraph(SectorInfo->hEDSector,
+                                SectorInfo->hObject, -1, indent, SectorInfo->userNum, -1, interval,
+                                playout, -1, -1, -1, -1, FALSE);
+                        hString = CED_CreateLine(hParagraph, 0, 6);
 
                         Letter.alternative = ' ';
                         Letter.probability = 0;
-                        CED_CreateChar(hString, slayout, &Letter, 12,
-                                ED_PICT_BASE + (int)IndexPict, -1, -1, -1, -1);
+                        CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE
+                                + (int) IndexPict, -1, -1, -1, -1);
 
-                        if( !CED_CreatePicture(SectorInfo->hEDPage, (int)IndexPict, pictSize,
-                                        pictGoal, ED_ALIGN_MIDDLE, 1, pOutDIB, (int)iDIBSize) )
-                        {
+                        if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize,
+                                pictGoal, ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {
                             SectorInfo->hObject = hPrevObject;
                             return FALSE;
                         }
@@ -424,8 +416,8 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     }
 
 #ifdef EdWrite
-    if(!RtfWriteMode)
-    SectorInfo->hObject = hPrevObject;
+    if (!RtfWriteMode)
+        SectorInfo->hObject = hPrevObject;
 #endif
     LDPUMA_Skip(hTestEnd);
 

@@ -104,8 +104,9 @@ typedef struct edTabDescr
     CIF::CEDParagraph* next, *last, *cur;
     int numOfRows;
     int *table, *linesX, *linesY;
-    edSize size;
+    CIF::Size size;
 } EDTABDESCR;
+
 typedef struct edCellDescr
 {
     CIF::CEDParagraph* next;
@@ -146,18 +147,16 @@ typedef struct fontEntry
 typedef struct pictEntry
 {
     uint16_t pictNumber;
-    EDSIZE pictSize;
-    EDSIZE pictGoal;
+    CIF::Size pictSize;
+    CIF::Size pictGoal;
     uchar pictAlign;
     uchar type;
     uint32_t len;
     void* data;
 } PICTENTRY;
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c
-DEC_FUN(Bool32,CED_FormattedWrite,(const char * fileName, CIF::CEDPage *page));
-DEC_FUN(CIF::CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(void,CED_DeleteTree,(CIF::CEDPage * pg));
 
-#undef DEC_FUN
+Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page);
+CIF::CEDPage* CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen);
+void CED_DeleteTree(CIF::CEDPage * pg);
 
 #endif// _CED_STRUCT_

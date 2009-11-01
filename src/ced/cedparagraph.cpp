@@ -27,7 +27,6 @@ CEDParagraph::CEDParagraph() {
     layout.x = layout.w = layout.y = layout.h = 0;
     userNumber = 0;
     border = 0;
-    interval.cx = interval.cy = 0;
     descriptor = 0;
     leftBrdrType = 0;
     rightBrdrType = 0;
@@ -152,13 +151,14 @@ CEDParagraph* CEDParagraph::GetNextObject() {
     if (type == FRAME_BEGIN)
         ret = (((edFrameDescr*) descriptor)->last)->next;
     //if this is a start of table/frame
-    if (ret)
+    if (ret) {
         //if it is last in column or frame
         if (ret->type == LAST_IN_COLUMN || ret->type == COLUMN_BEGIN || ret->type == FRAME_END)
             return 0;
         //if it is not last
         else
             return ret;
+    }
     //if there is next frame, which is simple one/table/frame --- return it
     if (next && ((next->type & FICTIVE) == 0 || next->type == TAB_BEGIN || next->type
             == FRAME_BEGIN))
@@ -205,7 +205,8 @@ void CEDParagraph::CreateTableOfCells() {
     int cx, cy;
     EDTABDESCR* tabDescriptor = (EDTABDESCR*) descriptor;
     //count horizontal lines
-    cy = tabDescriptor->size.cy = tabDescriptor->numOfRows;
+    cy = tabDescriptor->numOfRows;
+    tabDescriptor->size.setHeight(cy);
     tabDescriptor->linesY = new int[cy + 1];
     tabDescriptor->linesY[0] = 0;
     int r;
@@ -255,7 +256,7 @@ void CEDParagraph::CreateTableOfCells() {
     //add number of dublicating cells
     for (i = 0; i < n + 1; i++)
         cx += x[i].count - 1;
-    tabDescriptor->size.cx = cx;
+    tabDescriptor->size.setWidth(cx);
     //memorize
     int * linesX = tabDescriptor->linesX = new int[cx + 1];
     int j = 0;
@@ -307,8 +308,8 @@ void CEDParagraph::CreateTableOfCells() {
 }
 
 CEDParagraph* CEDParagraph::GetLogicalCell(int number) {
-    int cx = ((EDTABDESCR*) descriptor)->size.cx;
-    int cy = ((EDTABDESCR*) descriptor)->size.cy;
+    int cx = ((EDTABDESCR*) descriptor)->size.width();
+    int cy = ((EDTABDESCR*) descriptor)->size.height();
     int* table = ((EDTABDESCR*) descriptor)->table;
     int i;
     for (i = 0; i < cx * cy; i++)
@@ -333,8 +334,8 @@ CEDParagraph* CEDParagraph::GetLogicalCell(int number) {
 
 int CEDParagraph::GetCountLogicalCell() {
     int i = 0;
-    int cx = ((EDTABDESCR*) descriptor)->size.cx;
-    int cy = ((EDTABDESCR*) descriptor)->size.cy;
+    int cx = ((EDTABDESCR*) descriptor)->size.width();
+    int cy = ((EDTABDESCR*) descriptor)->size.height();
     int* table = ((EDTABDESCR*) descriptor)->table;
     for (int q = 0; q < cx * cy; q++)
         if (i < table[q])

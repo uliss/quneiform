@@ -129,12 +129,8 @@ CIF::CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLe
 #pragma pack(1)
 struct pageDescr
 {
-    uint32_t paperw;
-    uint32_t paperh;
-    uint32_t margl;
-    uint32_t margr;
-    uint32_t margt;
-    uint32_t margb;
+    CIF::Size paper_size;
+    CIF::Rect margins;
     uchar resizeToFit;
     uchar recogLang;
 };
@@ -153,8 +149,8 @@ struct pictDescr
 {
     uint32_t size;
     uint16_t pictNumber;
-    EDSIZE pictSize;
-    EDSIZE pictGoal;
+    CIF::Size pictSize;
+    CIF::Size pictGoal;
     uchar pictAlign;
     uchar type;
     uint32_t len;
@@ -163,8 +159,7 @@ struct pictDescr
 #pragma pack(1)
 struct originalImageDesc
 {
-    uint16_t resolutionX;
-    uint16_t resolutionY;
+    CIF::Resolution resolution;
     uint16_t inclune;
     uint16_t pageNum;
     CIF::Size size;
@@ -174,10 +169,7 @@ struct originalImageDesc
 #pragma pack(1)
 struct sectParams1
 {
-    uint32_t topMargin;
-    uint32_t bottomMargin;
-    uint32_t leftMargin;
-    uint32_t rightMargin;
+    CIF::Rect margins;
     uchar columns;
     uchar numSnakeCols;
     uint32_t colInterval;

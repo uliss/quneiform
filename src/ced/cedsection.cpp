@@ -22,7 +22,6 @@
 namespace CIF {
 CEDSection::CEDSection() {
     numberOfColumns = 0;
-    borders.top = borders.bottom = borders.right = borders.left = 0;
     sectionBreak = 0;
     width = 0;
     height = 0;
@@ -275,7 +274,7 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging
 }
 
 CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align,
-        const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, edBox layout,
+        const CIF::Rect& indent, int UserNum, int FlagBorder, const Size& interval, edBox layout,
         int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type
             != COLUMN_BEGIN) {
