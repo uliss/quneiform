@@ -16,27 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TOSTRING_H_
-#define TOSTRING_H_
+#ifndef TESTRECT_H_
+#define TESTRECT_H_
 
-#include <iostream>
-#include "point.h"
-#include "rect.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF {
+class TestRect: public CppUnit::TestFixture
+{
+CPPUNIT_TEST_SUITE(TestRect);
+        CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+};
 
-template<class T>
-std::ostream& operator<<(std::ostream& os, const PointImpl<T>& point) {
-    os << "Point(" << point.x() << "," << point.y() << ")";
-    return os;
-}
-
-template<class T>
-std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect) {
-    os << "Rect(" << rect.pt0() << ", " << rect.pt1() << ")" << " width:" << rect.width() << "; height:" << rect.height();
-    return os;
-}
-
-}
-
-#endif /* TOSTRING_H_ */
+#endif /* TESTPOINT_H_ */

@@ -12,6 +12,7 @@ alphabets/testalphabetfactory.cpp
 add_executable(test_common
 common/test_common.cpp
 common/testpoint.cpp
+common/testrect.cpp
 )
 
 target_link_libraries(test_alphabets alphabets cppunit)

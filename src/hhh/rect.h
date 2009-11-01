@@ -153,6 +153,14 @@ public:
         return pt0_.x();
     }
 
+    PointImpl<T> leftBottom() const {
+        return PointImpl<T>(left(), bottom());
+    }
+
+    PointImpl<T> leftTop() const {
+        return pt0_;
+    }
+
     template<class U>
     void operator=(const RectImpl<U>& rect) {
         pt0_ = rect.pt0();
@@ -175,7 +183,7 @@ public:
     }
 
     T perimeter() const {
-        return width() + height();
+        return (width() + height()) * 2;
     }
 
     PointImpl<T>& pt0() {
@@ -196,6 +204,14 @@ public:
 
     T right() const {
         return pt1_.x();
+    }
+
+    PointImpl<T> rightBottom() const {
+        return pt1_;
+    }
+
+    PointImpl<T> rightTop() const {
+        return PointImpl<T>(right(), top());
     }
 
     T& rbottom() {
