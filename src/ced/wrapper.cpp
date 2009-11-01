@@ -79,7 +79,7 @@ Handle CED_CreatePage(char * _imageName, const Size& _sizeOfImage, const Resolut
         fprintf(logStream, "ERROR: Page Was Not Deleted Properly\n");
 
     CEDPage * ret = new CEDPage;
-    ret->imageName = strdup(_imageName);
+    ret->setImageFilename(_imageName);
     ret->setImageSize(_sizeOfImage);
     ret->turn = _turn;
     ret->pageNumber = _pageNumber;
@@ -88,10 +88,6 @@ Handle CED_CreatePage(char * _imageName, const Size& _sizeOfImage, const Resolut
     ret->unrecogChar = _unrecogChar;
     ret->resizeToFit = _resizeToFit;
     ret->recogLang = LANG_RUSENG;
-    if (logStream) {
-        fprintf(logStream, "CreatePage returned %x\n", ret);
-        fflush(logStream);
-    }
     return (Handle) ret;
 }
 
@@ -280,10 +276,6 @@ Handle CED_ReadFormattedEd(char * lpEdFile, Bool32 readFromFile, uint32_t bufLen
 Bool32 CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage) {
     Bool32 ret = CED_FormattedWrite(lpEdFileName, (CEDPage*) hEdPage);
     return ret;
-}
-
-char* CED_GetPageImageName(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->imageName;
 }
 
 Size CED_GetPageImageSize(Handle hEdPage) {

@@ -397,7 +397,6 @@ Bool32 CED_SetCellFlag(Handle hEdCell, int flag);
 void CED_DeletePage(Handle hEdPage);
 Handle CED_ReadFormattedEd(char * lpEdFile, Bool32 readFromFile, uint32_t bufLen);
 Bool32 CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage);
-char* CED_GetPageImageName(Handle hEdPage);
 CIF::Size CED_GetPageImageSize(Handle hEdPage);
 CIF::Resolution CED_GetPageDpi(Handle hEdPage);
 uint32_t CED_GetPageTurn(Handle hEdPage);

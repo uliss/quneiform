@@ -174,7 +174,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         mainPage->turn = fond->inclune;
         mainPage->setDpi(fond->resolution);
         mainPage->unrecogChar = fond->unrecogSymbol;
-        mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
+        mainPage->setImageFilename(((char*) ptExt + sizeof(originalImageDesc)));
         break;
     }
     case EDEXT_SECTION: {
@@ -998,9 +998,10 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     fond.inclune = page->turn;
     fond.resolution = page->dpi();
     fond.unrecogSymbol = page->unrecogChar;
-    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(page->imageName) + 1))
+    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), page->imageFilename().size() + 1))
         return FALSE;
-    if (!CFIO_WriteToFile(hFile, (pchar) page->imageName, strlen(page->imageName) + 1))
+    if (!CFIO_WriteToFile(hFile, (char*) page->imageFilename().c_str(),
+            page->imageFilename().size() + 1))
         return FALSE;
     return TRUE;
 }

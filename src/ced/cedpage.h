@@ -19,6 +19,7 @@
 #ifndef PAGE_H_
 #define PAGE_H_
 
+#include <string>
 #include "ced_struct.h"
 #include "size.h"
 
@@ -31,11 +32,7 @@ class CEDChar;
 class CEDPage
 {
 public:
-    //picture data
     int turn; // Tangent angle on the vertical images * 2048
-    char* imageName; // Filename image. If the path is not specified, is searched in one
-    // Directory with the file ed
-
     int pageNumber; // Number of Pages (= 0 not in batch mode)
     Size pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
     Rect pageBordersInTwips;
@@ -104,16 +101,24 @@ public:
     Resolution dpi() const;
 
     /**
+     * @return Filename image
+     */
+    std::string imageFilename() const;
+
+    /**
      * Returns size of the original image in pixels
      */
     Size imageSize() const;
 
     void setDpi(const Resolution& dpi);
+    void setImageFilename(const std::string& filename);
     void setImageSize(const Size& sz);
 
 private:
     Size image_size_;
     Resolution dpi_;
+    // Filename image. If the path is not specified, is searched in one ed directory
+    std::string image_filename_;
 };
 
 }

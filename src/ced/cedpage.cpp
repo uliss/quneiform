@@ -36,7 +36,6 @@ namespace CIF {
 
 CEDPage::CEDPage() {
     turn = 0;
-    imageName = 0;
     pageNumber = 0;
     extData = 0;
     extDataLen = 0;
@@ -101,18 +100,14 @@ CEDPage::~CEDPage() {
         se1 = se;
     }
     //delete font table
-    int i;
-    for (i = 0; i < fontsUsed; i++)
+    for (int i = 0; i < fontsUsed; i++)
         free(fontTable[i].fontName);
     delete[] fontTable;
 
     //delete picture table
-    for (i = 0; i < picsUsed; i++)
+    for (int i = 0; i < picsUsed; i++)
         free(picsTable[i].data);
     delete[] picsTable;
-
-    if (imageName)
-        free(imageName);
 }
 
 CEDSection * CEDPage::InsertSection() {
@@ -593,8 +588,16 @@ Resolution CEDPage::dpi() const {
     return dpi_;
 }
 
+std::string CEDPage::imageFilename() const {
+    return image_filename_;
+}
+
 Size CEDPage::imageSize() const {
     return image_size_;
+}
+
+void CEDPage::setImageFilename(const std::string& filename) {
+    image_filename_ = filename;
 }
 
 void CEDPage::setImageSize(const Size& sz) {
