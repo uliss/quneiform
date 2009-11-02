@@ -31,6 +31,7 @@
 #include "rect.h"
 #include "memorybuffer.h"
 #include "cimage/imageinfo.h"
+#include "lang_def.h"
 
 class CTIControl;
 
@@ -96,7 +97,7 @@ private:
     void recognizeCorrection();
     void recognizePass1();
     void recognizePass2();
-    void recognizeSetup(int lang);
+    void recognizeSetup();
     void rotate(void * dib, Point * p);
     void rout(const std::string& fname, int Format) const;
     void rout(void * dest, size_t size, int format) const;

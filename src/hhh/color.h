@@ -22,49 +22,89 @@
 namespace CIF {
 
 template<class T>
-class ColorImpl {
-	ColorImpl(T red, T green, T blue) :
-		r_(red), g_(green), b_(blue), a_(0) {
-	}
+class ColorImpl
+{
+public:
+    ColorImpl(T red, T green, T blue) :
+        r_(red), g_(green), b_(blue), a_(0) {
+    }
 
-	T alpha() const {
-		return a_;
-	}
+    ColorImpl() :
+        r_(0), g_(0), b_(0), a_(0) {
+    }
 
-	T blue() const {
-		return b_;
-	}
+    explicit ColorImpl(T gray) :
+        r_(gray), g_(gray), b_(gray), a_(0) {
+    }
 
-	T gray() const {
-		return (b_ + g_ + r_) / 3;
-	}
+    T alpha() const {
+        return a_;
+    }
 
-	T green() const {
-		return g_;
-	}
+    T blue() const {
+        return b_;
+    }
 
-	T red() const {
-		return r_;
-	}
+    int get() const;
 
-	void setAlpha(T a) {
-		a_ = a;
-	}
+    T gray() const {
+        return (b_ + g_ + r_) / 3;
+    }
 
-	void setBlue(T b) {
-		b_ = b;
-	}
+    T green() const {
+        return g_;
+    }
 
-	void setGreen(T g) {
-		g_ = g;
-	}
+    bool operator==(const ColorImpl<T>& c) const {
+        return r_ == c.r_ && g_ == c.g_ && b_ == c.b_ && a_ == c.a_;
+    }
 
-	void setRed(T r) {
-		r_ = r;
-	}
+    bool operator!=(const ColorImpl<T>& c) const {
+        return r_ != c.r_ || g_ != c.g_ || b_ != c.b_ || a_ != c.a_;
+    }
+
+    T red() const {
+        return r_;
+    }
+
+    void set(T r, T g, T b) {
+        r_ = r;
+        g_ = g;
+        b_ = b;
+    }
+
+    void setAlpha(T a) {
+        a_ = a;
+    }
+
+    void setBlue(T b) {
+        b_ = b;
+    }
+
+    void setGreen(T g) {
+        g_ = g;
+    }
+
+    void setRed(T r) {
+        r_ = r;
+    }
 private:
-	T r_, g_, b_, a_;
+    T r_, g_, b_, a_;
+public:
+    static ColorImpl<T> black;
+    static ColorImpl<T> white;
 };
+
+template<class T>
+ColorImpl<T> ColorImpl<T>::black;
+
+template<class T>
+ColorImpl<T> ColorImpl<T>::white(255, 255, 255);
+
+template<>
+inline int ColorImpl<unsigned char>::get() const {
+    return b_ | (g_ << 8) | (r_ << 16);
+}
 
 typedef ColorImpl<unsigned char> Color;
 }

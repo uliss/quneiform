@@ -63,6 +63,7 @@
 #include "globus.h"
 
 #include "cedchar.h"
+#include "color.h"
 
 namespace CIF {
 class CEDPage;
@@ -268,18 +269,13 @@ struct paraParams
 struct charParams
 {
     uint32_t fontNumber;
-    uint32_t foregroundColor;
-    uint32_t backgroundColor;
+    CIF::Color foregroundColor;
+    CIF::Color backgroundColor;
 };
 #pragma pack()
 
 #define MAX_WIDTH 300
 #define MAX_RTF_GROUPS     50
-
-struct StrRtfColor
-{ // color table in an rtf file
-    COLORREF color; // color
-};
 
 struct StrRtfOut
 { // Rtf output file processing block
@@ -293,7 +289,7 @@ struct StrRtfOut
     int TextLen; // length of the text in the 'text' buffer
     Bool SpacePending; // TRUE if space needs to be written out after the last control
     Bool WritingControl; // TRUE when writing a control word
-    struct StrRtfColor *color; // rtf color table pointer
+    CIF::Color *color; // rtf color table pointer
     int TotalColors; // total colors in the color table
     int GroupLevel;
     uint flags; // ROFLAG_ flags

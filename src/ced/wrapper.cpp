@@ -230,8 +230,8 @@ Bool32 CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrFontHeight)
 
 //create symbol
 Handle CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alternatives,
-        int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor,
-        int backgroundColor) {
+        int fontHeight, int fontNum, int fontAttribs, int fontLang, const Color& foregroundColor,
+        const Color& backgroundColor) {
     CEDChar *chr = ((CEDLine*) hEdLine)->InsertChar();
     chr->fontHeight = fontHeight;
     chr->fontNum = fontNum;
@@ -702,13 +702,7 @@ int32_t CED_GetCharFontNum(Handle hEdChar) {
 Rect CED_GetCharLayout(Handle hEdChar) {
     return ((CEDChar*) hEdChar)->layout;
 }
-int32_t CED_GetCharForegroundColor(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->foregroundColor;
-}
 
-int32_t CED_GetCharBackgroundColor(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->backgroundColor;
-}
 int32_t CED_GetCharFontLang(Handle hEdChar) {
     return ((CEDChar*) hEdChar)->fontLang;
 }

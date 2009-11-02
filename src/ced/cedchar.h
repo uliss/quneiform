@@ -21,6 +21,7 @@
 
 #include "ced_struct.h"
 #include "rect.h"
+#include "color.h"
 
 void FormattedTR(const text_ref* pt);
 void StripLines();
@@ -37,8 +38,8 @@ public:
     int fontHeight, fontAttribs; //font parameters
     int fontNum;
     int fontLang;
-    int foregroundColor;
-    int backgroundColor;
+    Color foregroundColor;
+    Color backgroundColor;
     letterEx * alternatives; //array of alternatives
     int numOfAltern;
     char * extData; //data to be written in file after header

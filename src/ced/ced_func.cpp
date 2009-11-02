@@ -75,7 +75,8 @@ static CEDPage * mainPage;
 static CEDLine * curEdLine;
 static edBox refBox;
 static int font, kegl, lang;
-static int foregroundColor, backgroundColor, fontNum;
+static Color foregroundColor, backgroundColor;
+static int fontNum;
 static char * verInfo;
 
 static void ExtDataProc(uchar* _ptr, uint32_t lth);
@@ -98,16 +99,13 @@ void RepairStructure();
 
 CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen) {
     CED_SetRawDataProc(ExtDataProc);
-    if (CED_IsEdFile(file, readFromFile, bufLen) == 96) {
+    if (CED_IsEdFile(file, readFromFile, bufLen) == 96)
         return 0;
-        //		return Formattedload_96(char * file,Bool32 readFromFile, uint32_t bufLen);
-    }
     else if (CED_IsEdFile(file, readFromFile, bufLen) != 2000)
         return 0;
+
     CED_SheetDiskDescr = NewFormattedSDD;
     CED_TextRef = NewFormattedTR;
-    //	CED_FragmDiskDescr=FormattedFDD;
-    //	CED_FragmDisk=NewFormattedFD;
     CED_LineBeg = NewFormattedLB;
     CED_Letter = NewFormattedL;
     CED_BitmapRef = NewFormattedBMR;
@@ -118,7 +116,7 @@ CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen) {
     mainPage = new (CEDPage);
     refBox.x = refBox.y = refBox.h = refBox.w = 0;
     font = kegl = lang = -1;
-    foregroundColor = backgroundColor = fontNum = -1;
+    fontNum = -1;
     verInfo = 0;
     CED_ReadED(file, readFromFile, bufLen);
     if (verInfo && strcmp(verInfo, "CuneiForm2000 file format") == 0) {
@@ -314,8 +312,8 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         if (unsigned((uchar*) (&(chp->backgroundColor)) - ((uchar*) chp)) < pt->length
                 - sizeof(edExtention))
             backgroundColor = chp->backgroundColor;
-        else
-            backgroundColor = -1;
+//        else
+//            backgroundColor = -1;
         break;
     }
     }

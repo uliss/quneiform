@@ -22,7 +22,7 @@
 #include "cedline.h"
 #include "cedchar.h"
 #include "cedint.h"
-#include "resource.h"
+//#include "resource.h"
 
 #include <cstring>
 
@@ -366,7 +366,7 @@ Bool CEDPage::CreatePicture(int pictNumber, const Size& pictSize, const Size& pi
 Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     Bool ret;
     StrRtfOut *rtf = NULL;
-    StrRtfColor *color = NULL;
+    Color * color = NULL;
     CEDSection* sect;
 
     rtf = new StrRtfOut;
@@ -383,17 +383,14 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
 
     rtf->PrevChar.fontHeight = 24;
     rtf->PrevChar.fontNum = -1;
-    rtf->PrevChar.foregroundColor = -1;
-    rtf->PrevChar.backgroundColor = -1;
+//    rtf->PrevChar.foregroundColor = -1;
+//    rtf->PrevChar.backgroundColor = -1;
 
     rtf->table = new int[rtf->page->fontsUsed];
     memset(rtf->table, -1, sizeof(int) * rtf->page->fontsUsed);
 
     // allocate color table
-    if (NULL == (color = rtf->color = new StrRtfColor[MAX_RTF_COLORS])) {
-        return 0;
-    }
-    memset(color, 0, sizeof(struct StrRtfColor) * MAX_RTF_COLORS); // initialize with zeros
+    rtf->color = new Color[MAX_RTF_COLORS];
 
     // write the rtf header
     if (!BeginRtfGroup(rtf))
@@ -555,7 +552,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
             goto WRITE_END;
 
     ret = TRUE;
-    SetReturnCode_ced(IDS_ERR_NO);
+    SetReturnCode_ced(0);
     goto FINAL;
     WRITE_END: SetReturnCode_ced(1);
     ret = FALSE;

@@ -71,8 +71,8 @@
 
 using namespace CIF;
 
-#define MAX_LEN 500
-#define TextDefBkColor	RGB(255,255,255)
+const int MAX_LEN = 500;
+const Color TextDefBkColor(255, 255, 255);
 const int MAX_RTF_COLORS = 200;
 
 char* GetLiteralBorderType(int type);
@@ -511,10 +511,10 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
     uint CurStyle, PrevStyle;
     int CurPointSize, PrevPointSize;
     Bool result;
-    COLORREF PrevTextColor, CurTextColor;
-    COLORREF PrevTextBkColor, CurTextBkColor;
+    Color PrevTextColor, CurTextColor;
+    Color PrevTextBkColor, CurTextBkColor;
 
-    CEDChar* prevChar = &(rtf->PrevChar);//curChar->prev;
+    CEDChar* prevChar = &(rtf->PrevChar);
     if (curChar == 0)
         return TRUE;
 
@@ -529,13 +529,13 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
     else {
         PrevFamily = -1;
         PrevStyle = 0;
-        PrevTextColor = -1;
-        PrevTextBkColor = -1;
+        //        PrevTextColor = -1;
+        //        PrevTextBkColor = -1;
         PrevPointSize = 0;
 
         WriteRtfControl(rtf, "plain", PARAM_NONE, 0); // turnoff formatting
     }
-    //    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
+
     CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNum)];
     CurStyle = curChar->fontAttribs;
     CurTextColor = curChar->foregroundColor;
@@ -563,9 +563,8 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
             return FALSE; // end the group
 
     // check for default properties
-    if (CurFamily == 0 && CurPointSize == 24 && (CurTextColor == 0 || CurTextColor == -1)
-            && (CurTextBkColor == TextDefBkColor || CurTextBkColor == -1) && CurStyle
-    /*&(~((uint)(FNOTEALL)))*/== 0) { // Piter CharSet
+    if (CurFamily == 0 && CurPointSize == 24 && (CurTextColor.get() == 0) && (CurTextBkColor
+            == TextDefBkColor || CurTextBkColor.get() == 0) && CurStyle == 0) { // Piter CharSet
         if (!WriteRtfControl(rtf, "plain", PARAM_NONE, 0))
             return FALSE;
         return WriteRtfControl(rtf, "fs", PARAM_INT, CurPointSize); // other RTF reader may interpret different default pointsize on 'plain', so write here
@@ -578,10 +577,10 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
     }
 
     //write foreground color
-    if (CurTextColor != PrevTextColor/* && CurTextColor != RGB( 0, 128, 0) && CurTextBkColor != RGB( 192, 192, 192 )*/) {
+    if (CurTextColor != PrevTextColor) {
         int i;
         for (i = 0; i < rtf->TotalColors; i++)
-            if (rtf->color[i].color == CurTextColor)
+            if (rtf->color[i] == CurTextColor)
                 break;
         if (i == rtf->TotalColors)
             i = 0;
@@ -590,10 +589,10 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
     }
 
     //write background color
-    if (CurTextBkColor != PrevTextBkColor/* && CurTextColor != RGB( 0, 128, 0) && CurTextBkColor != RGB( 192, 192, 192 )*/) {
+    if (CurTextBkColor != PrevTextBkColor) {
         int i;
         for (i = 0; i < rtf->TotalColors; i++)
-            if (rtf->color[i].color == CurTextBkColor)
+            if (rtf->color[i] == CurTextBkColor)
                 break;
         if (i == rtf->TotalColors)
             i = 0;
@@ -605,9 +604,6 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CEDChar* curChar) {
     if (CurPointSize != PrevPointSize)
         if (!WriteRtfControl(rtf, "fs", PARAM_INT, CurPointSize))
             return FALSE; // write point size
-
-    //write style
-    //    if (CurStyle==PrevStyle) goto SKIP_STYLES;  // no change to style
 
     if ((CurStyle & ED_BOLD) != (PrevStyle & ED_BOLD)) { // process bold
         if (CurStyle & ED_BOLD)
@@ -1722,7 +1718,6 @@ Bool GetRtfWord(StrRtfOut *rtf) {
     }
 
     if (i == 0) {
-        // wsprintf(NULL,rtf->CurWord,"Cannot understand this RTF control word!",MB_OK);
         rtf->eof = TRUE;
         return FALSE;
     }
@@ -1737,15 +1732,10 @@ Bool GetRtfWord(StrRtfOut *rtf) {
     strcpy(TempString, rtf->param); // copy to data segment
     if (strlen(TempString) > 0) {
         rtf->IntParam = atoi(TempString); // number in integer format
-        //       rtf->DoubleParam=strtod(TempString,NULL); // number in double format
     }
     else {
         rtf->IntParam = 1; // a TRUE value
-        //       rtf->DoubleParam=1;
     }
-
-    // increment number of control words in the group
-    //    (rtf->group[rtf->GroupLevel].ControlCount)++;
 
     return TRUE;
 }
@@ -1800,58 +1790,31 @@ Bool GetRtfChar(StrRtfOut *rtf) {
     if (rtf->StackLen > 0) {
         rtf->StackLen--;
         rtf->CurChar = rtf->stack[rtf->StackLen];
-        //       rtf->FilePos++;       // advance file position
         return TRUE;
     }
 
     // read from the file
     rtf->eof = FALSE;
-    //    if (rtf->hFile) {
     if (rtf->TextIndex < rtf->oldFileLen) { // read from the temporary buffer
         rtf->CurChar = rtf->oldFile[rtf->TextIndex];
         (rtf->TextIndex)++;
-        //          rtf->FilePos++;    // advance file position
         return TRUE;
     }
-
-    // read more characters from the file
-    //       rtf->TextLen=_lread(rtf->hFile,rtf->text,MAX_WIDTH);
-    //       if (rtf->TextLen==HFILE_ERROR) return PrintError(w,MSG_ERR_FILE_READ,"RTF input file.");
-
-    //       if (rtf->TextLen==0)
     else {
         rtf->eof = TRUE;
         return FALSE; // end of file
     }
-    /*\       rtf->TextIndex=0;
-
-     rtf->CurChar=rtf->text[rtf->TextIndex];
-     (rtf->TextIndex)++;
-     rtf->FilePos++;      // advance file position
-     return TRUE;
-     }
-     else {              // read from the buffer
-     if (rtf->BufLen>=0 && rtf->BufIndex>=rtf->BufLen) {
-     rtf->eof=TRUE;
-     return FALSE; // end of buffer
-     }
-     rtf->CurChar=rtf->buf[rtf->BufIndex];
-     (rtf->BufIndex)++;
-     rtf->FilePos++;  // advance file position
-     return TRUE;
-     }
-     */}
+}
 /*****************************************************************************
  PushRtfChar:
  Push the lastly read character onto stack.
  ******************************************************************************/
 Bool PushRtfChar(StrRtfOut *rtf) {
     if (rtf->StackLen >= MAX_WIDTH)
-        return FALSE;//PrintError(w,MSG_OUT_OF_CHAR_STACK,"PushRtfChar");
+        return FALSE;
 
     rtf->stack[rtf->StackLen] = rtf->CurChar;
     (rtf->StackLen)++;
-    //    rtf->FilePos--;  // decrement file position
     return TRUE;
 }
 
@@ -1873,9 +1836,7 @@ Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para) {
         else if (!WriteRtfControl(rtf, "brdrw", PARAM_INT, 4))
             return FALSE;
 
-        //       if (CurFlags&PARA_BOX_DOUBLE && !WriteRtfControl(w,rtf,"brdrdb",PARAM_NONE,0)) return FALSE;
-        if (/*!(CurFlags&PARA_BOX_DOUBLE) &&*/!WriteRtfControl(rtf, GetLiteralBorderType(
-                para->leftBrdrType), PARAM_NONE, 0))
+        if (!WriteRtfControl(rtf, GetLiteralBorderType(para->leftBrdrType), PARAM_NONE, 0))
             return FALSE;
     }
     else {
@@ -1939,14 +1900,13 @@ Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para) {
  Fill the RTF color table and write the color table to the rtf output device.
  ******************************************************************************/
 Bool WriteRtfColor(StrRtfOut *rtf, Bool head) {
-    int i, j, TotalColors;
-    uchar red, green, blue;
-    struct StrRtfColor *color;
+    int j, TotalColors;
+    // Fill the rtf color table
+    Color * color = rtf->color;
+    //    color[0].color = -1; // default color
+
     int oldColors = rtf->TotalColors;
 
-    // Fill the rtf color table
-    color = rtf->color;
-    color[0].color = -1; // default color
     if (head)
         TotalColors = 1;
     else
@@ -1956,43 +1916,24 @@ Bool WriteRtfColor(StrRtfOut *rtf, Bool head) {
     for (CEDChar * ch = rtf->page->GetChar(0); ch; ch = ch->next) {
         // fill the text foreground color
         for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->foregroundColor == (int) color[j].color)
+            if (ch->foregroundColor == color[j])
                 break; // color found
         }
         if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->foregroundColor;
+            color[TotalColors] = ch->foregroundColor;
             TotalColors++;
         }
         // fill the text background color
         for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->backgroundColor == (int) color[j].color)
+            if (ch->backgroundColor == color[j])
                 break; // color found
         }
         if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->backgroundColor;
+            color[TotalColors] = ch->backgroundColor;
             TotalColors++;
         }
     }
-    // scan the stylesheet table
-    /*    for (i=0;i<TotalSID;i++) {
-     // fill the text foreground color
-     for (j=0;j<TotalColors;j++) {                        // scan the color table
-     if (StyleId[i].TextColor==color[j].color) break;  // color found
-     }
-     if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
-     color[TotalColors].color=StyleId[i].TextColor;
-     TotalColors++;
-     }
-     // fill the text foreground color
-     for (j=0;j<TotalColors;j++) {                         // scan the color table
-     if (StyleId[i].TextBkColor==color[j].color) break; // color found
-     }
-     if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
-     color[TotalColors].color=StyleId[i].TextBkColor;
-     TotalColors++;
-     }
-     }
-     */
+
     rtf->TotalColors = TotalColors; // total number of colors in the table
 
     // write the color table
@@ -2001,28 +1942,23 @@ Bool WriteRtfColor(StrRtfOut *rtf, Bool head) {
             return FALSE; // begin color group
         if (!WriteRtfControl(rtf, "colortbl", PARAM_NONE, 0))
             return FALSE;
-        //		if (!WriteRtfText(rtf,";",1)) return FALSE; // write the default color
+        // write the default color
     }
-    for (i = oldColors; i < TotalColors; i++) { // write colors from the font table
-        if (color[i].color != -1) {
-            red = GetRValue(color[i].color);
-            green = GetGValue(color[i].color);
-            blue = GetBValue(color[i].color);
-
-            if (!WriteRtfControl(rtf, "red", PARAM_INT, red))
-                return FALSE;
-            if (!WriteRtfControl(rtf, "green", PARAM_INT, green))
-                return FALSE;
-            if (!WriteRtfControl(rtf, "blue", PARAM_INT, blue))
-                return FALSE;
-        }
+    for (int i = oldColors; i < TotalColors; i++) { // write colors from the font table
+        //        if (color[i].color != -1) {
+        if (!WriteRtfControl(rtf, "red", PARAM_INT, color[i].red()))
+            return FALSE;
+        if (!WriteRtfControl(rtf, "green", PARAM_INT, color[i].green()))
+            return FALSE;
+        if (!WriteRtfControl(rtf, "blue", PARAM_INT, color[i].blue()))
+            return FALSE;
+        //        }
         if (!WriteRtfText(rtf, ";", 1))
             return FALSE; // write the delimiter
     }
 
-    if (head)
-        if (!EndRtfGroup(rtf))
-            return FALSE; // end color group
+    if (head && !EndRtfGroup(rtf))
+        return FALSE; // end color group
 
     return TRUE;
 }
@@ -2034,16 +1970,13 @@ Bool WriteRtfColor(StrRtfOut *rtf, Bool head) {
  ******************************************************************************/
 
 int ReadRtfColorTable(StrRtfOut *rtf) {
-    struct StrRtfColor *color;
-    int i, CurColor = 0, ControlGroupLevel = 0;
-    uchar red, green, blue;
+    Color *color = rtf->color;
+    int CurColor = 0, ControlGroupLevel = 0;
 
-    color = rtf->color;
-    for (i = 0; i < MAX_RTF_COLORS; i++)
-        color->color = -1; // initialize colors
+    //    for (i = 0; i < MAX_RTF_COLORS; i++)
+    //        color->color = -1; // initialize colors
 
     ControlGroupLevel = rtf->GroupLevel = 2;
-    //    rtf->IgnoreCrLfInControlWord=TRUE;     // ignore cr/lf in control word
 
     while (TRUE) {
         // get color number
@@ -2062,25 +1995,18 @@ int ReadRtfColorTable(StrRtfOut *rtf) {
         }
 
         if (rtf->IsControlWord) { // extract color component
-            red = GetRValue(color[CurColor].color); // break existing color components
-            green = GetGValue(color[CurColor].color);
-            blue = GetBValue(color[CurColor].color);
-
             if (strcasecmp(rtf->CurWord, "red") == 0)
-                red = (uchar) (rtf->IntParam);
+                color[CurColor].setRed(rtf->IntParam);
             else if (strcasecmp(rtf->CurWord, "green") == 0)
-                green = (uchar) (rtf->IntParam);
+                color[CurColor].setGreen(rtf->IntParam);
             else if (strcasecmp(rtf->CurWord, "blue") == 0)
-                blue = (uchar) (rtf->IntParam);
-            color[CurColor].color = RGB(red, green, blue); // extracted color
+                color[CurColor].setBlue(rtf->IntParam);
         }
         else {
             if (strcasecmp(rtf->CurWord, ";") == 0)
                 CurColor++; // next color begins
         }
     }
-
-    //    rtf->IgnoreCrLfInControlWord=FALSE;       // reset this flag
 
     return 0; // successful
 }

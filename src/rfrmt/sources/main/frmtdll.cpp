@@ -236,7 +236,6 @@ void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
     gbItalic = opts.isItalicUsed();
     gbSize = opts.isFontSizeUsed();
     UnRecogSymbol = (char) opts.unrecognizedChar();
-    gnLanguage = opts.language();
     gnFormat = opts.formatMode();
 
     serif = opts.serifName();
@@ -245,6 +244,10 @@ void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
     gpSansSerifName = sans.c_str();
     mono = opts.monospaceName();
     gpCourierName = mono.c_str();
+}
+
+void RFRMT_SetLanguage(language_t language) {
+    gnLanguage = language;
 }
 
 RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData) {

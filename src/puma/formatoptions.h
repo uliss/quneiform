@@ -24,7 +24,6 @@
 #include <cstddef>
 
 #include "pumadef.h"
-#include "lang_def.h"
 
 namespace CIF {
 
@@ -38,12 +37,10 @@ public:
     bool isBoldUsed() const;
     bool isFontSizeUsed() const;
     bool isItalicUsed() const;
-    language_t language() const;
     std::string monospaceName() const;
     std::string sansSerifName() const;
     std::string serifName() const;
     void setFormatMode(puma_format_mode_t format);
-    void setLanguage(language_t lang);
     void setMonospaceName(const std::string& name);
     void setSansSerifName(const std::string& name);
     void setSerifName(const std::string& name);
@@ -62,7 +59,6 @@ private:
     bool use_font_size_;
     puma_format_mode_t format_mode_;
     wchar_t unrecognized_char_;
-    language_t language_;
 };
 
 std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);

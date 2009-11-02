@@ -25,7 +25,7 @@ namespace CIF {
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             use_bold_(true), use_italic_(true), use_font_size_(true),
-            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANG_RUSENG) {
+            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~') {
 }
 
 FormatOptions::~FormatOptions() {
@@ -47,10 +47,6 @@ bool FormatOptions::isItalicUsed() const {
     return use_italic_;
 }
 
-language_t FormatOptions::language() const {
-    return language_;
-}
-
 std::string FormatOptions::monospaceName() const {
     return monospace_name_;
 }
@@ -63,12 +59,8 @@ std::string FormatOptions::serifName() const {
     return serif_name_;
 }
 
-void FormatOptions:: setFormatMode(puma_format_mode_t format) {
+void FormatOptions::setFormatMode(puma_format_mode_t format) {
     format_mode_ = format;
-}
-
-void FormatOptions::setLanguage(language_t lang) {
-    language_ = lang;
 }
 
 void FormatOptions::setMonospaceName(const std::string & name) {

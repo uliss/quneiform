@@ -56,6 +56,7 @@
 #ifndef __RFRMT_H
 #define __RFRMT_H
 #include "globus.h"
+#include "lang_def.h"
 #ifdef __RFRMT__
 #define RFRMT_FUNC  FUN_EXPO
 #else
@@ -75,6 +76,7 @@ class FormatOptions;
 }
 
 void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
+void RFRMT_SetLanguage(language_t language);
 
 typedef enum
 {

@@ -97,7 +97,6 @@ PumaImpl::PumaImpl() :
             language_(LANG_RUSENG), input_dib_(NULL), recog_dib_(NULL), ccom_(NULL), cpage_(NULL),
             lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), special_project_(0),
             special_global_buf_len_(0), kill_vsl_components_(true) {
-    format_options_.setLanguage(language_);
     modulesInit();
 }
 
@@ -198,6 +197,7 @@ FormatOptions PumaImpl::formatOptions() const {
 
 void PumaImpl::formatResult() {
     RFRMT_SetFormatOptions(format_options_);
+    RFRMT_SetLanguage(language_);
 
     if (ed_page_) {
         CED_DeletePage(ed_page_);
@@ -452,7 +452,7 @@ void PumaImpl::pass2() {
                 }
             }
             language_ = LANG_ENGLISH;
-            recognizeSetup(language_);
+            recognizeSetup();
             recognizePass1();
         }
     }
@@ -573,7 +573,7 @@ void PumaImpl::recognize() {
 
     // распознаем строки
     CSTR_SortFragm(0);
-    recognizeSetup(language_);
+    recognizeSetup();
 
     CSTR_SortFragm(0);
     CSTR_line ln;
@@ -736,7 +736,7 @@ void PumaImpl::recognizePass2() {
         throw PumaException("RSTR_EndPage failed");
 }
 
-void PumaImpl::recognizeSetup(int language) {
+void PumaImpl::recognizeSetup() {
     // рапознавание строк
     PAGEINFO info;
     GetPageInfo(cpage_, &info);
@@ -744,7 +744,8 @@ void PumaImpl::recognizeSetup(int language) {
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
 
-    opt.language = language;
+    opt.language = language_;
+    opt.Alphabet = 0;
     special_global_buf_len_ = 0; // OLEG fot Consistent
     if (!RSTR_NewPage(nResolutionY, cpage_))
         throw PumaException("RSTR_NewPage failed");
@@ -780,7 +781,7 @@ void PumaImpl::recognizeSetup(int language) {
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
     {
-        uchar w8 = (uchar) language;
+        uchar w8 = (uchar) language_;
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }

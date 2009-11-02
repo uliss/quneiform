@@ -142,8 +142,6 @@ uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber) {
 Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame) {
     uint32_t PictNumber = 0;
     Point RtfLt;
-    CPAGE_PICTURE pict = { 0 };
-
     LDPUMA_Skip(hTest);
 
 #ifdef EdWrite
@@ -395,7 +393,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                         Letter.alternative = ' ';
                         Letter.probability = 0;
                         CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE
-                                + (int) IndexPict, -1, -1, -1, -1);
+                                + (int) IndexPict, -1, -1, Color::black, Color::white);
 
                         if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize,
                                 pictGoal, ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {

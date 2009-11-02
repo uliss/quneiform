@@ -18,6 +18,7 @@
 #include "testalphabet.h"
 #include "alphabets/alphabet.h"
 #include "alphabets/digits.h"
+#include "alphabets/english.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestAlphabet);
 
 using namespace CIF;
@@ -58,6 +59,10 @@ void TestAlphabet::testSet() {
     t->removeSymbol('A');
     CPPUNIT_ASSERT(!t->isCode('A'));
 
+    delete t;
+
+    t = new EnglishAlphabet;
+    cerr << *t;
     delete t;
 }
 

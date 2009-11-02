@@ -60,6 +60,7 @@
 #include "globus.h"
 #include "lang_def.h"
 #include "rect.h"
+#include "color.h"
 
 #ifdef __CED__
 #define CED_FUNC  FUN_EXPO
@@ -160,7 +161,7 @@ typedef struct edCol
 #define ED_BRDR_DOTTED	3
 #define ED_BRDR_DASHED	4
 #define ED_BRDR_DOUBLE	5
-//#include "ced_struct.h" //Структуры, обрабатываемые CED_FormattedLoad
+
 CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode, Handle hStorage);
 CED_FUNC(Bool32) CED_Done();
 CED_FUNC(uint32_t) CED_GetReturnCode();
@@ -379,8 +380,8 @@ Bool32 CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int leftBrdrWid
 Handle CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight);
 Bool32 CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrFontHeight);
 Handle CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, LETTER* alternatives,
-        int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor,
-        int backgroundColor);
+        int fontHeight, int fontNum, int fontAttribs, int fontLang, const CIF::Color& foregroundColor,
+        const CIF::Color& backgroundColor);
 Handle CED_CreateFrame(Handle hEdSection, Handle hEdColumn, EDBOX rect, char position,
         int borderSpace, int dxfrtextx, int dxfrtexty);
 Bool32 CED_SetFrameFlag(Handle hEdFrame, int flag);
@@ -478,8 +479,6 @@ int32_t CED_GetCharFontAttribs(Handle hEdChar);
 int32_t CED_GetCharFontNum(Handle hEdChar);
 CIF::Rect CED_GetCharLayout(Handle hEdChar);
 int32_t CED_GetCharFontLang(Handle hEdChar);
-int32_t CED_GetCharBackgroundColor(Handle hEdChar);
-int32_t CED_GetCharForegroundColor(Handle hEdChar);
 Bool32 CED_WriteFormattedRtf(const char * fileName, Handle hEdPage);
 #ifdef _DEBUG
 void CED_ShowTree(char * name, Handle hEdPage);

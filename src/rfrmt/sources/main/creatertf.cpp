@@ -3173,7 +3173,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Rtf_CED_CreateChar(slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
-                                        -1, -1);
+                                        Color::black, Color::white);
 
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag, pRtfString->S_Flags,
@@ -3196,7 +3196,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Rtf_CED_CreateChar(slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
-                                        -1, -1);
+                                        Color::black, Color::white);
                             }
                         }
 #endif
@@ -3227,7 +3227,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Rtf_CED_CreateChar(slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
-                                        -1, -1);
+                                        Color::black, Color::white);
 
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
@@ -3250,7 +3250,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Rtf_CED_CreateChar(slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
-                                        -1, -1);
+                                        Color::black, Color::white);
                             }
                         }
 #endif
@@ -3265,8 +3265,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             EDFontAttribs = EDFontAttribs | 0x02;
                             Rtf_CED_CreateChar(slayout, Letter, pRtfChar);
                             CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage, -1,
-                                    -1);
+                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
+                                    Color::black, Color::white);
                         }
 #endif
                     }
@@ -3284,11 +3284,11 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
                     if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                         CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
-                                EDFontAttribs, -1, -1, -1);
+                                EDFontAttribs, -1, Color::black, Color::white);
                     else
                         CED_CreateChar(hString, slayout, Letter,
                                 (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
-                                EDFontAttribs, -1, -1, -1);
+                                EDFontAttribs, -1, Color::black, Color::white);
 #endif
                 }
 #endif
@@ -3307,11 +3307,11 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #else
                     if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                         CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
-                                EDFontAttribs, -1, -1, -1);
+                                EDFontAttribs, -1, Color::black, Color::white);
                     else
                         CED_CreateChar(hString, slayout, Letter,
                                 (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
-                                EDFontAttribs, -1, -1, -1);
+                                EDFontAttribs, -1, Color::black, Color::white);
 #endif
                 }
 #endif
