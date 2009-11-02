@@ -23,13 +23,9 @@
 
 namespace CIF {
 
-BigImage::BigImage(Handle CPage) :
+BigImage::BigImage() :
     ccom_(NULL) {
-    PAGEINFO info;
-    GetPageInfo(CPage, &info);
-    setImageName(info.szImageName);
-    incline_ = info.Incline2048;
-    ccom_ = CCOM_CreateContainer();
+    memset(image_name_, 0, CPAGE_MAXNAME);
 }
 
 BigImage::~BigImage() {
@@ -45,9 +41,6 @@ const char * BigImage::imageName() const {
     return image_name_;
 }
 
-int BigImage::incline() const {
-    return incline_;
-}
 
 void BigImage::setCCOM(CCOM_handle ccom) {
     if (ccom_)

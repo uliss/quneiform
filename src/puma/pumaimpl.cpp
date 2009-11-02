@@ -168,7 +168,6 @@ void PumaImpl::clearAll() {
 }
 
 void PumaImpl::close() {
-    Debug() << "Puma close\n";
     CLINE_Reset();
     clearAll();
     // clean
@@ -391,8 +390,6 @@ void PumaImpl::modulesInit() {
 }
 
 void PumaImpl::open(char * dib) {
-    Debug() << "Puma open\n";
-
     assert(dib);
     preOpenInitialize();
     input_dib_ = dib;

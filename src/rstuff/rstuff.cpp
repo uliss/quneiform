@@ -407,7 +407,7 @@ void RStuff::createContainerBigComp() {
 
     CCOM_handle hCCOM_old = (CCOM_handle) (*(image_->phCCOM));
 
-    BigImage big_Image(cpage_);
+    BigImage big_Image;
 
     CCOM_comp* comp = NULL;
     CCOM_comp* new_comp;
@@ -770,7 +770,7 @@ void RStuff::removeLines(uchar ** DIB) {
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE))
         throw RStuffException("CIMAGE_ReadDIB failed");
 
-    if (hDIB)
+    if (!hDIB)
         throw RStuffException("CIMAGE_ReadDIB failed");
 
     // Удалим компоненты и выделим их заново.

@@ -414,7 +414,7 @@ int main(int argc, char **argv) {
         return 1;
 
     using namespace CIF;
-    try {
+//    try {
 
         if (do_verbose == 1) {
             Config::instance().setDebug(true);
@@ -457,10 +457,10 @@ int main(int argc, char **argv) {
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();
-    }
-    catch (std::runtime_error& e) {
-        cerr << e.what() << endl;
-    }
+//    }
+//    catch (std::runtime_error& e) {
+//        cerr << e.what() << endl;
+//    }
 
     delete[] dib;
     return 0;

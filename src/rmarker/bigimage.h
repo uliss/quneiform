@@ -27,18 +27,16 @@ namespace CIF {
 class BigImage
 {
 public:
-    BigImage(Handle CPage);
+    BigImage();
     ~BigImage();
 
     CCOM_handle ccom() const;
     const char * imageName() const;
-    int incline() const;
     void setCCOM(Handle ccom);
     void setImageName(const char * name);
 private:
     CCOM_handle ccom_;
     char image_name_[CPAGE_MAXNAME];
-    int incline_;
 };
 }
 

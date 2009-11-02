@@ -115,7 +115,8 @@ RMarker::RMarker() :
     lines_total_info_(NULL), ccom_(NULL), cline_(NULL), cpage_(NULL), one_column_(true),
             kill_svl_components_(false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL) {
     RNEG_Init(0, NULL);
-;}
+    ;
+}
 
 RMarker::~RMarker() {
     RNEG_Done();
@@ -150,13 +151,15 @@ void RMarker::pageMarkup() {
 
     shortVerticalLinesProcessPass1();
 
-    BigImage big_Image(cpage_);
+    BigImage big_Image;
     Handle h = CPAGE_GetBlockFirst(cpage_, CPAGE_GetInternalType("TYPE_BIG_COMP"));
     if (h) {
         CPAGE_GetBlockData(cpage_, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
                 sizeof(BigImage));
         CPAGE_DeleteBlock(cpage_, h);
     }
+
+    big_Image.setCCOM(CCOM_CreateContainer());
 
     //Поиск очевидных картинок
     searchPictures(big_Image);
@@ -221,7 +224,10 @@ void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
 }
 
 void RMarker::searchNeg(const BigImage& big_image) {
-    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), big_image.incline());
+    PAGEINFO info;
+    GetPageInfo(cpage_, &info);
+    int incline = info.Incline2048;
+    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), incline);
 }
 
 void RMarker::searchPictures(const BigImage& big_image) {
