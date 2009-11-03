@@ -5,7 +5,7 @@ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
-add_definitions("-g3 -fno-inline -O0 -D_USE_RVERLINE_ -Wall -Wextra")
+add_definitions("-g3 -fno-inline -O0 -D_USE_RVERLINE_ -Wall -Wextra -fvisibility=default")
 
 if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
    message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir, delete CMakeCache.txt from source root and try again.")
@@ -17,24 +17,7 @@ set(CF_VERSION_PATCH "0")
 
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
-#option(BUILD_TESTING "Enable CTest framework." ON)
-
-#if(BUILD_TESTING)
-  enable_testing()
-  include(CTest)
-#  include(Dart)
-#endif()
-
 include(install_files.cmake)
-
-# Hide non exported functions/variables
-include(CheckCCompilerFlag)
-if(CMAKE_COMPILER_IS_GNUCC AND NOT WIN32)
-    #check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
-    #    if (HAVE_GCCVISIBILITY)
-    #	    add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
-    #endif()
-endif()
 
 # Stop MSVC complaints about POSIX functions.
 if(MSVC)

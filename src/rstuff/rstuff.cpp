@@ -553,7 +553,7 @@ void RStuff::extractComponents(const char * name) {
             exc, // поиск компонент by 3CallBacks
             (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
             (TImageRead) clbk.CIMAGE_ImageRead))
-        throw RStuffException("CIMAGE_GetCallbackImage failed");
+        throw RStuffException("ERROR: Can't extract components from given image");
 
     *image_->phCCOM = (Handle) REXCGetContainer();
     if (*image_->phCCOM == 0)

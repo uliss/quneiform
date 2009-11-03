@@ -72,8 +72,8 @@
 #include "lang_def.h"
 #include "rect.h"
 #include "memorybuffer.h"
-#include "common/exception.h"
 #include "lns32/lnsdefs.h"
+#include "common/exception.h"
 
 namespace CIF {
 
@@ -122,6 +122,7 @@ public:
     void setFax100(bool value);
     void setImageData(RSPreProcessImage& data);
     void setLanguage(language_t lang);
+
 private:
     void calcIncline();
     void checkResolution();

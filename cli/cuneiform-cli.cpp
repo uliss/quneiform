@@ -413,8 +413,10 @@ int main(int argc, char **argv) {
     if (!dib) // Error msg is already printed so just get out.
         return 1;
 
+    int ret = 0;
+
     using namespace CIF;
-//    try {
+    try {
 
         if (do_verbose == 1) {
             Config::instance().setDebug(true);
@@ -457,11 +459,12 @@ int main(int argc, char **argv) {
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();
-//    }
-//    catch (std::runtime_error& e) {
-//        cerr << e.what() << endl;
-//    }
+    }
+    catch (std::runtime_error& e) {
+        cerr << e.what() << endl;
+        ret = 1;
+    }
 
     delete[] dib;
-    return 0;
+    return ret;
 }
