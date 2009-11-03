@@ -57,7 +57,7 @@
 #include <cassert>
 #include <cstring>
 
-#include "cifconfig.h"
+#include "common/cifconfig.h"
 #include "common/debug.h"
 #include "rmarker.h"
 #include "dpuma.h"

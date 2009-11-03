@@ -30,7 +30,7 @@
 #include "pumadef.h"
 
 #include "helper.h"
-#include "cifconfig.h"
+#include "common/cifconfig.h"
 #include "common/debug.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
@@ -530,8 +530,6 @@ void PumaImpl::recognize() {
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
 
-    Debug() << "Puma recognize\n";
-
     CSTR_DeleteAll();
 
     if (cpage_)
@@ -894,12 +892,8 @@ void PumaImpl::save(const std::string& filename, int Format) const {
     if (!ed_page_)
         throw PumaException("Puma save failed");
 
-#ifndef NDEBUG
-    cerr << "Puma save to: " << filename << endl;
-#endif
-
-    if (!LDPUMA_Skip(hDebugCancelFormatted))
-        return;
+    if (Config::instance().debug())
+        Debug() << "Puma save to: " << filename << endl;
 
     switch (Format) {
     case PUMA_DEBUG_TOTEXT:
@@ -930,20 +924,18 @@ void PumaImpl::save(const std::string& filename, int Format) const {
 }
 
 void PumaImpl::save(void * dest, size_t size, int format) const {
-    if (LDPUMA_Skip(hDebugCancelFormatted)) {
-        switch (format) {
-        case PUMA_TOTEXT:
-        case PUMA_TOSMARTTEXT:
-        case PUMA_TOTABLETXT:
-        case PUMA_TOTABLEDBF:
-        case PUMA_TOHTML:
-            rout(dest, size, format);
-        default: {
-            ostringstream os;
-            os << "Unknown output format: " << format;
-            throw PumaException(os.str());
-        }
-        }
+    switch (format) {
+    case PUMA_TOTEXT:
+    case PUMA_TOSMARTTEXT:
+    case PUMA_TOTABLETXT:
+    case PUMA_TOTABLEDBF:
+    case PUMA_TOHTML:
+        rout(dest, size, format);
+    default: {
+        ostringstream os;
+        os << "Unknown output format: " << format;
+        throw PumaException(os.str());
+    }
     }
 }
 

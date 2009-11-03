@@ -25,16 +25,24 @@
 
 namespace CIF {
 
-template<bool>
 class DebugImpl
 {
 public:
-    DebugImpl() {
+    DebugImpl() :
+        null_(0) {
+#ifndef NDEBUG
         os_ = &std::cerr;
+#else
+        os_ = &null_;
+#endif
     }
 
     ~DebugImpl() {
         os_->flush();
+    }
+
+    std::ostream& null() {
+        return null_;
     }
 
     template<class T>
@@ -49,18 +57,11 @@ public:
     }
 private:
     std::ostream * os_;
+    std::ostream null_;
 };
 
-template<>
-template<class T>
-std::ostream& DebugImpl<false>::operator<<(const T&) {
-    return *os_;
-}
-
-typedef DebugImpl<true> DebugImplSelected;
-
-inline DebugImplSelected& Debug() {
-    return Singleton<DebugImplSelected>::instance();
+inline DebugImpl& Debug() {
+    return Singleton<DebugImpl>::instance();
 }
 
 }

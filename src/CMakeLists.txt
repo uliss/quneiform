@@ -19,6 +19,7 @@ if(LIBTYPE STREQUAL SHARED)
 endif()
 
 add_subdirectory(alphabets)
+add_subdirectory(common)
 add_subdirectory(ccom)
 add_subdirectory(cstr)
 add_subdirectory(rstr)

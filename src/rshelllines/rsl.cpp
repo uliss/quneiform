@@ -19,7 +19,7 @@
 #include <cassert>
 
 #include "rsl.h"
-#include "cifconfig.h"
+#include "common/cifconfig.h"
 #include "cpage/cpage.h"
 #include "common/debug.h"
 #include "memorybuffer.h"

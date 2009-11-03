@@ -69,7 +69,7 @@
 #include "puma/pumaimpl.h"
 #include "lang_def.h"
 #include "config.h"
-#include "cifconfig.h"
+#include "common/cifconfig.h"
 
 using namespace std;
 
@@ -417,13 +417,13 @@ int main(int argc, char **argv) {
 
     using namespace CIF;
     try {
-
         if (do_verbose == 1) {
             Config::instance().setDebug(true);
             Config::instance().setDebugLevel(100);
         }
-        else
+        else {
             Config::instance().setDebug(false);
+        }
 
         Puma::instance().setOptionLanguage(langcode);
 

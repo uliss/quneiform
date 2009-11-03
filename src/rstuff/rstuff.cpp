@@ -79,7 +79,7 @@
 #include "puma/pumadef.h"
 
 #include "common/debug.h"
-#include "cifconfig.h"
+#include "common/cifconfig.h"
 
 extern Bool32 gbRSLT;
 extern Handle ObvKillLines;

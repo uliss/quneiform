@@ -19,17 +19,12 @@
 #ifndef CIFCONFIG_H_
 #define CIFCONFIG_H_
 
-#include "singleton.h"
-
 namespace CIF {
 
-class ConfigImpl
+class Config
 {
+    Config();
 public:
-    ConfigImpl() :
-        debug_(true), debug_level_(DEBUG_HIGH) {
-    }
-
     enum debug_level_t
     {
         DEBUG_NONE = 0,
@@ -38,45 +33,19 @@ public:
         DEBUG_HIGH = 8
     };
 
-    bool debugLow() const {
-        return debug() && (debugLevel() >= DEBUG_LOW);
-    }
-
-    bool debugMedium() const {
-        return debug() && (debugLevel() >= DEBUG_MEDIUM);
-    }
-
-    bool debugHigh() const {
-        return debug() && (debugLevel() >= DEBUG_HIGH);
-    }
-
-    bool debug() const;
+    static Config& instance();
 
     int debugLevel() const;
-
-    void setDebug(bool value) {
-        debug_ = value;
-        if (!debug_)
-            debug_level_ = 0;
-    }
-
-    void setDebugLevel(int level) {
-        debug_level_ = level;
-    }
+    bool debugLow() const;
+    bool debugMedium() const;
+    bool debugHigh() const;
+    bool debug() const;
+    void setDebug(bool value);
+    void setDebugLevel(int level);
 private:
     bool debug_;
     int debug_level_;
 };
-
-bool ConfigImpl::debug() const {
-    return debug_;
-}
-
-int ConfigImpl::debugLevel() const {
-    return debug_level_;
-}
-
-typedef Singleton<ConfigImpl, CreateUsingNew> Config;
 
 }
 
