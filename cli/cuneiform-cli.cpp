@@ -237,7 +237,9 @@ static char* read_file(const char *fname) {
     try {
         Image image(fname);
         // Write to BLOB in BMP format
-        image.write(&blob, "DIB");
+        image.type(TrueColorType);
+        image.magick("DIB");
+        image.write(&blob);
     }
     catch (Exception &error_) {
         cerr << error_.what() << "\n";
