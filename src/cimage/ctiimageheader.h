@@ -68,74 +68,62 @@ class CTIImageHeader
 public:
     CTIImageHeader();
     CTIImageHeader(const std::string& Name, Handle hImagehandle, uint32_t Flag);
-    CTIImageHeader(const std::string& Name, BitmapInfoHeader* lpInfo, void * lpImage,
-            uint32_t wFlag);
     ~CTIImageHeader();
 public:
     Bool EnableMask(const char *cMaskType, Bool mEnabled);
     Bool IsMaskEnabled(const char *MaskType);
 
-    CTIImageHeader * GetNext(void) {
-        return pNext;
+    CTIImageHeader * GetNext() {
+        return next_;
     }
 
     CTIImageHeader * SetNext(CTIImageHeader * pSet) {
-        return (pNext = pSet);
-    }
-
-    void * GetImage(void) {
-        return Image;
-    }
-
-    BitmapInfoHeader* GetImageInfo(void) {
-        return ImageInfo;
+        return (next_ = pSet);
     }
 
     std::string ImageName() const {
         return image_name_;
     }
 
-    Bool IsExtImage(void) {
+    Bool IsExtImage() const {
         return !IsIntImage();
     }
 
-    Bool IsIntImage(void) {
-        return (ImageExternal == 0);
+    Bool IsIntImage() const {
+        return (image_external_ == 0);
     }
 
-    Handle GetImageHandle(void) {
-        return hImage;
+    Handle GetImageHandle() const {
+        return image_;
     }
 
-    Handle SetImageHandle(Handle NewHandle) {
-        return (hImage = NewHandle);
+    void SetImageHandle(Handle NewHandle) {
+        image_ = NewHandle;
     }
 
     Bool SetWriteMask(PCTIMask WMask) {
-        return ((WriteMask = WMask) != NULL);
+        return ((write_mask_ = WMask) != NULL);
     }
 
     PCTIMask GetWriteMask(void) {
-        return WriteMask;
+        return write_mask_;
     }
 
     Bool SetReadMask(PCTIMask RMask) {
-        return ((ReadMask = RMask) != NULL);
+        return ((read_mask_ = RMask) != NULL);
     }
 
-    PCTIMask GetReadMask(void) {
-        return ReadMask;
+    PCTIMask GetReadMask() {
+        return read_mask_;
     }
 private:
-    CTIImageHeader * pNext;
+    CTIImageHeader * next_;
+    PCTIMask write_mask_;
+    PCTIMask read_mask_;
+    Bool image_external_;
+    Bool enable_read_mask_;
+    Bool enable_write_mask_;
+    Handle image_;
     std::string image_name_;
-    BitmapInfoHeader * ImageInfo;
-    void * Image;
-    PCTIMask WriteMask;
-    PCTIMask ReadMask;
-    Bool ImageExternal;
-    Bool mbEnableReadMask;
-    Bool mbEnableWriteMask;
-    Handle hImage;
 };
 #endif

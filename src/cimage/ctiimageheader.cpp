@@ -59,57 +59,43 @@
 
 CTIImageHeader::CTIImageHeader() :
     image_name_("Fictiv image") {
-    ImageInfo = (BitmapInfoHeader*) (Image = (void *) (0xffff0000));
-    ImageExternal = 1;
-    ReadMask = NULL;
-    WriteMask = NULL;
-    mbEnableReadMask = TRUE;
-    mbEnableWriteMask = TRUE;
+    image_external_ = 1;
+    read_mask_ = NULL;
+    write_mask_ = NULL;
+    enable_read_mask_ = TRUE;
+    enable_write_mask_ = TRUE;
+    image_ = NULL;
 }
 
-CTIImageHeader::CTIImageHeader(const std::string& Name, Handle hImageHandle, uint32_t wFlag) :
+CTIImageHeader::CTIImageHeader(const std::string& Name, Handle ImageHandle, uint32_t Flag) :
     image_name_(Name) {
-    hImage = hImageHandle;
-    ImageInfo = NULL;
-    Image = NULL;
-    ImageExternal = wFlag;
-    ReadMask = NULL;
-    WriteMask = NULL;
-    mbEnableReadMask = TRUE;
-    mbEnableWriteMask = TRUE;
-}
-
-CTIImageHeader::CTIImageHeader(const std::string& Name, BitmapInfoHeader * lpInfo, void * lpImage,
-        uint32_t wFlag) :
-    image_name_(Name) {
-    ImageInfo = lpInfo;
-    Image = lpImage;
-    ImageExternal = wFlag;
-    ReadMask = NULL;
-    WriteMask = NULL;
-    mbEnableReadMask = TRUE;
-    mbEnableWriteMask = TRUE;
+    image_ = ImageHandle;
+    image_external_ = Flag;
+    read_mask_ = NULL;
+    write_mask_ = NULL;
+    enable_read_mask_ = TRUE;
+    enable_write_mask_ = TRUE;
 }
 
 CTIImageHeader::~CTIImageHeader() {
     if (IsIntImage())
         CIMAGEFree(GetImageHandle());
 
-    if (ReadMask)
-        delete ReadMask;
+    if (read_mask_)
+        delete read_mask_;
 
-    if (WriteMask)
-        delete WriteMask;
+    if (write_mask_)
+        delete write_mask_;
 }
 
-Bool CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled) {
+Bool CTIImageHeader::EnableMask(const char *cMaskType, Bool Enabled) {
     if (cMaskType[0] == 'w') {
-        mbEnableWriteMask = mEnabled;
+        enable_write_mask_ = Enabled;
         return TRUE;
     }
 
     if (cMaskType[0] == 'r') {
-        mbEnableReadMask = mEnabled;
+        enable_read_mask_ = Enabled;
         return TRUE;
     }
 
@@ -118,10 +104,10 @@ Bool CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled) {
 
 Bool CTIImageHeader::IsMaskEnabled(const char *cMaskType) {
     if (cMaskType[0] == 'w')
-        return mbEnableWriteMask;
+        return enable_write_mask_;
 
     if (cMaskType[0] == 'r')
-        return mbEnableReadMask;
+        return enable_read_mask_;
 
     return FALSE;
 }
