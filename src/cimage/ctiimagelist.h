@@ -57,47 +57,34 @@
 #ifndef __CTI_LIST_H_
 #define __CTI_LIST_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-#include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 
+#include <vector>
+#include <string>
 
-#include "ctiimageheader.h"
+class CTIImageHeader;
+class CTIMask;
 
-class CTIImageList {
-private:
-	CTIImageHeader mhFirst;
-	CTIImageHeader mhLast;
+class CTIImageList
+{
 public:
-	Bool32 DeleteImage(const char * lpName);
-	Bool32 GetImage(const char *lpName, Handle* phDIB);
-	Bool32 AddImage(const char *lpName, Handle hDIB, uint32_t wFlag);
-	Bool32 FindHandle(Handle hImage);
-	CTIImageList();
-	~CTIImageList();
-
+    CTIImageList();
+    ~CTIImageList();
+    Bool32 DeleteImage(const char * lpName);
+    Bool32 GetImage(const char *lpName, Handle* phDIB);
+    Bool32 AddImage(const char *lpName, Handle hDIB, uint32_t wFlag);
+    Bool32 FindHandle(Handle hImage);
+    Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);
+    Bool32 GetImageReadMask(const char *lpName, CTIMask ** ppMask, PBool32 pEnMask);
+    Bool32 GetImageWriteMask(const char *lpNmae, CTIMask ** ppWMask, PBool32 pEnMask);
+    Bool32 SetImageReadMask(const char *lpName, CTIMask * pAMask);
+    Bool32 SetImageWriteMask(const char *lpName, CTIMask * pWMask);
 private:
-	CTIImageHeader * Begin(void) {
-		return &mhFirst;
-	}
-
-	CTIImageHeader * End(void) {
-		return &mhLast;
-	}
-
-	CTIImageHeader * FindImage(const char *lpName, CTIImageHeader ** Prev =
-			NULL);
-public:
-	Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);
-	Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask,
-			PBool32 pEnMask);
-	Bool32 GetImageWriteMask(const char *lpNmae, PPCTIMask ppWMask,
-			PBool32 pEnMask);
-	Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);
-	Bool32 SetImageWriteMask(const char *lpName, PCTIMask pWMask);
+    typedef std::vector<CTIImageHeader*> Container;
+    Container::iterator findImage(const std::string& Name);
+private:
+    Container images_;
 };
 
 #endif
