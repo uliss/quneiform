@@ -57,97 +57,72 @@
 #include "ctimemory.h"
 #include "ctiimageheader.h"
 
-CTIImageHeader::CTIImageHeader() {
-	strcpy((char*)ImageName, "Fictiv image");
-	ImageInfo = (BitmapInfoHeader*) (Image = (void *) (0xffff0000));
-	ImageExternal = 1;
-	ReadMask = NULL;
-	WriteMask = NULL;
-	mbEnableReadMask = TRUE;
-	mbEnableWriteMask = TRUE;
+CTIImageHeader::CTIImageHeader() :
+    image_name_("Fictiv image") {
+    ImageInfo = (BitmapInfoHeader*) (Image = (void *) (0xffff0000));
+    ImageExternal = 1;
+    ReadMask = NULL;
+    WriteMask = NULL;
+    mbEnableReadMask = TRUE;
+    mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle,
-		uint32_t wFlag) {
-	if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME)
-		strcpy((char*)ImageName, lpName);
-	else
-		strncpy((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
-
-	hImage = hImageHandle;
-	ImageInfo = NULL;
-	Image = NULL;
-	ImageExternal = wFlag;
-	ReadMask = NULL;
-	WriteMask = NULL;
-	mbEnableReadMask = TRUE;
-	mbEnableWriteMask = TRUE;
+CTIImageHeader::CTIImageHeader(const std::string& Name, Handle hImageHandle, uint32_t wFlag) :
+    image_name_(Name) {
+    hImage = hImageHandle;
+    ImageInfo = NULL;
+    Image = NULL;
+    ImageExternal = wFlag;
+    ReadMask = NULL;
+    WriteMask = NULL;
+    mbEnableReadMask = TRUE;
+    mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(const char *lpName,
-		BitmapInfoHeader * lpInfo, void * lpImage, uint32_t wFlag) {
-	if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME)
-		strcpy((char*)ImageName, lpName);
-	else
-		strncpy((char*)ImageName, lpName, CIMAGE_MAX_IMAGE_NAME);
-
-	ImageInfo = lpInfo;
-	Image = lpImage;
-	ImageExternal = wFlag;
-	ReadMask = NULL;
-	WriteMask = NULL;
-	mbEnableReadMask = TRUE;
-	mbEnableWriteMask = TRUE;
+CTIImageHeader::CTIImageHeader(const std::string& Name, BitmapInfoHeader * lpInfo, void * lpImage,
+        uint32_t wFlag) :
+    image_name_(Name) {
+    ImageInfo = lpInfo;
+    Image = lpImage;
+    ImageExternal = wFlag;
+    ReadMask = NULL;
+    WriteMask = NULL;
+    mbEnableReadMask = TRUE;
+    mbEnableWriteMask = TRUE;
 }
 
 CTIImageHeader::~CTIImageHeader() {
-	if (IsIntImage()) {
-		CIMAGEFree(GetImageHandle());
-	}
+    if (IsIntImage())
+        CIMAGEFree(GetImageHandle());
 
-	if (ReadMask) {
-		delete ReadMask;
-	}
+    if (ReadMask)
+        delete ReadMask;
 
-	if (WriteMask) {
-		delete WriteMask;
-	}
-
+    if (WriteMask)
+        delete WriteMask;
 }
 
-Bool32 CTIImageHeader::CheckName(const char *Name) {
-	Bool32 Check = FALSE;
+Bool CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled) {
+    if (cMaskType[0] == 'w') {
+        mbEnableWriteMask = mEnabled;
+        return TRUE;
+    }
 
-	if (Name && Name[0] != 0 && strlen(Name)
-			< CIMAGE_MAX_IMAGE_NAME) {
-		Check = (strcmp(Name, (char*)ImageName) == 0);
-	}
+    if (cMaskType[0] == 'r') {
+        mbEnableReadMask = mEnabled;
+        return TRUE;
+    }
 
-	return Check;
+    return FALSE;
 }
 
-Bool32 CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled) {
-	if (cMaskType[0] == 'w') {
-		mbEnableWriteMask = mEnabled;
-		return TRUE;
-	}
+Bool CTIImageHeader::IsMaskEnabled(const char *cMaskType) {
+    if (cMaskType[0] == 'w')
+        return mbEnableWriteMask;
 
-	if (cMaskType[0] == 'r') {
-		mbEnableReadMask = mEnabled;
-		return TRUE;
-	}
+    if (cMaskType[0] == 'r')
+        return mbEnableReadMask;
 
-	return FALSE;
+    return FALSE;
 }
 
-Bool32 CTIImageHeader::IsMaskEnabled(const char *cMaskType) {
-	if (cMaskType[0] == 'w')
-		return mbEnableWriteMask;
-
-	if (cMaskType[0] == 'r')
-		return mbEnableReadMask;
-
-	return FALSE;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file

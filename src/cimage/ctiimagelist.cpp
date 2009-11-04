@@ -147,7 +147,7 @@ CTIImageHeader * CTIImageList::FindImage(const char *lpName,
 		if (Buff[0] != 0x0) {
 			for (Current = Begin()->GetNext(); Current != End(); Current
 					= Current->GetNext()) {
-				if (Current->CheckName(Buff))
+				if (Current->ImageName() == Buff)
 					break;
 
 				Prev = Current;
