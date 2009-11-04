@@ -62,6 +62,7 @@
 
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 class CTIImageHeader;
 class CTIMask;
@@ -71,15 +72,31 @@ class CTIImageList
 public:
     CTIImageList();
     ~CTIImageList();
-    Bool32 DeleteImage(const char * lpName);
-    Bool32 GetImage(const char *lpName, Handle* phDIB);
-    Bool32 AddImage(const char *lpName, Handle hDIB, uint32_t wFlag);
-    Bool32 FindHandle(Handle hImage);
-    Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);
-    Bool32 GetImageReadMask(const char *lpName, CTIMask ** ppMask, PBool32 pEnMask);
-    Bool32 GetImageWriteMask(const char *lpNmae, CTIMask ** ppWMask, PBool32 pEnMask);
-    Bool32 SetImageReadMask(const char *lpName, CTIMask * pAMask);
-    Bool32 SetImageWriteMask(const char *lpName, CTIMask * pWMask);
+
+    /**
+     * Adds image to image list.
+     * @param Name - name of image
+     * @param hDIB - pointer to image dib
+     * @param Flag
+     * @throw Exception if bad parameters given
+     */
+    void AddImage(const std::string& Name, Handle hDIB, uint32_t Flag);
+
+    /**
+     * Removed image from list
+     * @param Name - name of image
+     * @return @b false if image not found - otherwise @b true
+     */
+    bool DeleteImage(const std::string& Name);
+
+    bool EnableMask(const std::string& Name, const char* pType, Bool Type);
+    bool FindHandle(Handle hImage);
+    bool GetImage(const std::string& Name, Handle* phDIB);
+    bool GetImageReadMask(const std::string& Name, CTIMask ** ppMask, PBool32 pEnMask);
+    bool GetImageWriteMask(const std::string& Name, CTIMask ** ppWMask, PBool32 pEnMask);
+    bool SetImageReadMask(const std::string& Name, CTIMask * pAMask);
+    bool SetImageWriteMask(const std::string& Name, CTIMask * pWMask);
+    typedef std::runtime_error Exception;
 private:
     typedef std::vector<CTIImageHeader*> Container;
     Container::iterator findImage(const std::string& Name);

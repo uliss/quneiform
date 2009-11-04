@@ -334,7 +334,8 @@ Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
 		hImage = hDIB;
 	}
 
-	return mlImages.AddImage(lpName, hImage, wFlag);
+	mlImages.AddImage(lpName, hImage, wFlag);
+	return TRUE;
 }
 
 Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {

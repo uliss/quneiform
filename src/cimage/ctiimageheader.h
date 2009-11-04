@@ -73,14 +73,6 @@ public:
     Bool EnableMask(const char *cMaskType, Bool mEnabled);
     Bool IsMaskEnabled(const char *MaskType);
 
-    CTIImageHeader * GetNext() {
-        return next_;
-    }
-
-    CTIImageHeader * SetNext(CTIImageHeader * pSet) {
-        return (next_ = pSet);
-    }
-
     std::string ImageName() const {
         return image_name_;
     }
@@ -117,7 +109,6 @@ public:
         return read_mask_;
     }
 private:
-    CTIImageHeader * next_;
     PCTIMask write_mask_;
     PCTIMask read_mask_;
     Bool image_external_;

@@ -70,103 +70,95 @@ CTIImageList::CTIImageList() {
 }
 
 CTIImageList::~CTIImageList() {
-    remove_if(images_.begin(), images_.end(), bind2nd(ptr_fun(NameCompare), ""));
 }
 
 CTIImageList::Container::iterator CTIImageList::findImage(const std::string& Name) {
     return find_if(images_.begin(), images_.end(), bind2nd(ptr_fun(NameCompare), Name));
 }
 
-Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag) {
-    DeleteImage(lpName);
+void CTIImageList::AddImage(const std::string& Name, Handle hDIB, uint32_t Flag) {
+    if (Name.empty())
+        throw Exception("CTIImageList::AddImage: empty image name");
 
-    if (lpName == NULL && lpName[0] == 0x0) {
-        SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
-        return FALSE;
-    }
+    if (!hDIB)
+        throw Exception("CTIImageList::AddImage: invalid image info");
 
-    if (hDIB == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_INFO);
-        return FALSE;
-    }
-
-    CTIImageHeader * NewImage = new CTIImageHeader(lpName, hDIB, wFlag);
+    DeleteImage(Name);
+    CTIImageHeader * NewImage = new CTIImageHeader(Name, hDIB, Flag);
     images_.push_back(NewImage);
-
-    return TRUE;
 }
 
-Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB) {
-    Container::iterator it = findImage(lpName);
+bool CTIImageList::DeleteImage(const std::string& Name) {
+    Container::iterator it = findImage(Name);
     if (it == images_.end())
-        return FALSE;
-
-    *phDIB = (*it)->GetImageHandle();
-    return TRUE;
-}
-
-Bool32 CTIImageList::DeleteImage(const char *lpName) {
-    Container::iterator it = findImage(lpName);
-    if (it == images_.end())
-        return FALSE;
+        return false;
     delete *it;
     images_.erase(it);
-    return TRUE;
+    return true;
 }
 
-Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask) {
-    Container::iterator it = findImage(lpName);
+bool CTIImageList::EnableMask(const std::string& Name, const char* pType, Bool Enabled) {
+    Container::iterator it = findImage(Name);
     if (it == images_.end())
-        return FALSE;
-    (*it)->SetWriteMask(pWMask);
-    return TRUE;
+        return false;
+
+    return (*it)->EnableMask(pType, Enabled);
 }
 
-Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask) {
-    Container::iterator it = findImage(lpName);
-    if (it == images_.end())
-        return FALSE;
-    (*it)->SetReadMask(pAMask);
-    return TRUE;
+bool CTIImageList::FindHandle(Handle hImage) {
+    if (!hImage)
+        return false;
+
+    for (Container::iterator it = images_.begin(), end = images_.end(); it != end; ++it) {
+        if ((*it)->GetImageHandle() == hImage)
+            return true;
+    }
+
+    return false;
 }
 
-Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PBool32 pEnMask) {
-    Container::iterator it = findImage(lpName);
+bool CTIImageList::GetImage(const std::string& Name, Handle* phDIB) {
+    Container::iterator it = findImage(Name);
     if (it == images_.end())
-        return FALSE;
+        return false;
+
+    *phDIB = (*it)->GetImageHandle();
+    return true;
+}
+
+bool CTIImageList::GetImageReadMask(const std::string& Name, PPCTIMask ppMask, PBool32 pEnMask) {
+    Container::iterator it = findImage(Name);
+    if (it == images_.end())
+        return false;
+
+    *ppMask = (*it)->GetReadMask();
+    *pEnMask = (*it)->IsMaskEnabled("r");
+    return true;
+}
+
+bool CTIImageList::GetImageWriteMask(const std::string& Name, PPCTIMask ppWMask, PBool32 pEnMask) {
+    Container::iterator it = findImage(Name);
+    if (it == images_.end())
+        return false;
 
     *ppWMask = (*it)->GetWriteMask();
     *pEnMask = (*it)->IsMaskEnabled("w");
 
-    return TRUE;
+    return true;
 }
 
-Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask) {
-    Container::iterator it = findImage(lpName);
+bool CTIImageList::SetImageReadMask(const std::string& Name, PCTIMask pAMask) {
+    Container::iterator it = findImage(Name);
     if (it == images_.end())
-        return FALSE;
-
-    *ppMask = (*it)->GetReadMask();
-    *pEnMask = (*it)->IsMaskEnabled("r");
-    return TRUE;
+        return false;
+    (*it)->SetReadMask(pAMask);
+    return true;
 }
 
-Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEnabled) {
-    Container::iterator it = findImage(pName);
+bool CTIImageList::SetImageWriteMask(const std::string& Name, PCTIMask pWMask) {
+    Container::iterator it = findImage(Name);
     if (it == images_.end())
-        return FALSE;
-
-    return (*it)->EnableMask(pType, mEnabled);
-}
-
-Bool32 CTIImageList::FindHandle(Handle hImage) {
-    if (!hImage)
-        return FALSE;
-
-    for (Container::iterator it = images_.begin(), end = images_.end(); it != end; ++it) {
-        if ((*it)->GetImageHandle() == hImage)
-            return TRUE;
-    }
-
-    return FALSE;
+        return false;
+    (*it)->SetWriteMask(pWMask);
+    return true;
 }
