@@ -66,42 +66,43 @@
 class CTIMaskLine
 {
 public:
-    Bool32 IsSegmentOnLine(CTIMaskLineSegment * pSegm) {
-        return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t) length_
-                && pSegm->GetEnd() <= (int32_t) length_);
+    Bool32 IsSegmentOnLine(const CTIMaskLineSegment& Segm) const {
+        return (Segm.GetStart() >= 0 && Segm.GetStart() <= static_cast<int> (length_)
+                && Segm.GetEnd() <= static_cast<int> (length_));
     }
 
     Bool32 RemoveSegment(CTIMaskLineSegment * pSegm);
     Bool32 AddSegment(CTIMaskLineSegment * pSegm);
+
     CTIMaskLine * GetNext() {
         return next_;
     }
 
-    void SetNext(CTIMaskLine *  pLine) {
+    void SetNext(CTIMaskLine * pLine) {
         next_ = pLine;
     }
 
-    uint32_t SetLineNumber(uint32_t nLine) {
-        return line_ = nLine;
+    void SetLineNumber(unsigned int Line) {
+        line_ = Line;
     }
 
-    uint32_t GetLineNumber(void) {
+    int GetLineNumber() const {
         return line_;
     }
 
-    uint32_t GetSegmentsNumber(void) {
+    uint GetSegmentsNumber() const {
         return segments_;
     }
 
-    Bool32 IsLine(uint32_t nLine) {
-        return ((int32_t) nLine == line_);
+    bool IsLine(int Line) const {
+        return Line == line_;
     }
 
     Bool32 GetLeftIntersection(CTIMaskLineSegment * pcSegm);
 
 public:
     CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm,
-            CTIMaskLine *  pcNextLine);
+            CTIMaskLine * pcNextLine);
     CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm);
     CTIMaskLine(uint32_t Lenght, CTIMaskLineSegment * pSegm);
     CTIMaskLine(uint32_t Lenght);
@@ -109,12 +110,12 @@ public:
     virtual ~CTIMaskLine();
 
 private:
-    uint32_t length_;
-    uint32_t segments_;
-    CTIMaskLine *  next_;
-    int32_t line_;
+    uint length_;
+    uint segments_;
+    CTIMaskLine * next_;
+    int line_;
     CTIMaskLineSegment first_;
-    Bool32 CheckSegments(void);
+    bool CheckSegments() const;
 };
 
 #endif

@@ -103,7 +103,7 @@ Bool32 CTIMaskLine::AddSegment(CTIMaskLineSegment * pSegm) {
     Bool32 Added = FALSE;
     Bool32 Check = FALSE;
 
-    if (IsSegmentOnLine(pSegm)) {
+    if (IsSegmentOnLine(*pSegm)) {
         pL = pS;
 
         while (pS && !Added) {
@@ -154,7 +154,7 @@ Bool32 CTIMaskLine::RemoveSegment(CTIMaskLineSegment * pSegm) {
     Bool32 Remed = FALSE;
 
     if (segments_) {
-        if (IsSegmentOnLine(pSegm)) {
+        if (IsSegmentOnLine(*pSegm)) {
             while (pS && !Remed) {
                 switch (pS->IsIntersectWith(*pSegm)) {
                 // pSegm равен pS
@@ -234,7 +234,7 @@ Bool32 CTIMaskLine::GetLeftIntersection(CTIMaskLineSegment * pcSegm) {
     return bInt;
 }
 
-Bool32 CTIMaskLine::CheckSegments() {
-    return TRUE;
+bool CTIMaskLine::CheckSegments() const {
+    return true;
 }
 
