@@ -1393,7 +1393,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
     uint32_t wXb, wXe;
     uint32_t wYb, wYe;
     uint32_t wSegmentsOnLine;
-    PCTIMaskLine pcMaskLine;
+    CTIMaskLine *  pcMaskLine;
 
     if (!pDIB)
         return FALSE;

@@ -62,37 +62,31 @@
 #include "resource.h"
 
 CTIMaskLine::CTIMaskLine() :
-    mwLenght(0), mwSegments(0), mpNext(NULL), mwLine(-1) {
+    length_(0), segments_(0), next_(NULL), line_(-1) {
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght) :
-    mwLenght(Lenght), mwSegments(0), mpNext(NULL), mwLine(-1) {
+    length_(Lenght), segments_(0), next_(NULL), line_(-1) {
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, CTIMaskLineSegment * pSegm) :
-    mwLenght(Lenght),
-    //mcFirst(pSegm),
-            mwSegments(0), mpNext(NULL), mwLine(-1) {
+    length_(Lenght), segments_(0), next_(NULL), line_(-1) {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm) :
-    mwLenght(Lenght),
-    //mcFirst(pSegm),
-            mwSegments(0), mpNext(NULL), mwLine(nLine) {
+    length_(Lenght), segments_(0), next_(NULL), line_(nLine) {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm,
-        PCTIMaskLine pcNextLine) :
-    mwLenght(Lenght),
-    //mcFirst(pSegm),
-            mwSegments(0), mpNext(pcNextLine), mwLine(nLine) {
+        CTIMaskLine * pcNextLine) :
+    length_(Lenght), segments_(0), next_(pcNextLine), line_(nLine) {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::~CTIMaskLine() {
-    CTIMaskLineSegment * pS = mcFirst.GetNext();
+    CTIMaskLineSegment * pS = first_.GetNext();
     CTIMaskLineSegment * pD;
 
     while (pS) {
@@ -103,7 +97,7 @@ CTIMaskLine::~CTIMaskLine() {
 }
 
 Bool32 CTIMaskLine::AddSegment(CTIMaskLineSegment * pSegm) {
-    CTIMaskLineSegment * pS = &mcFirst;
+    CTIMaskLineSegment * pS = &first_;
     CTIMaskLineSegment * pL;
     Bool32 bRet = FALSE;
     Bool32 Added = FALSE;
@@ -141,7 +135,7 @@ Bool32 CTIMaskLine::AddSegment(CTIMaskLineSegment * pSegm) {
             pS = pL->GetNext();
             pL->SetNext(new CTIMaskLineSegment(pSegm->GetStart(), pSegm->GetEnd()));
             (pL->GetNext())->SetNext(pS);
-            mwSegments++;
+            segments_++;
             bRet = TRUE;
         }
 
@@ -155,11 +149,11 @@ Bool32 CTIMaskLine::AddSegment(CTIMaskLineSegment * pSegm) {
 }
 
 Bool32 CTIMaskLine::RemoveSegment(CTIMaskLineSegment * pSegm) {
-    CTIMaskLineSegment * pPS = &mcFirst;
+    CTIMaskLineSegment * pPS = &first_;
     CTIMaskLineSegment * pS = pPS->GetNext();
     Bool32 Remed = FALSE;
 
-    if (mwSegments) {
+    if (segments_) {
         if (IsSegmentOnLine(pSegm)) {
             while (pS && !Remed) {
                 switch (pS->IsIntersectWith(*pSegm)) {
@@ -168,14 +162,14 @@ Bool32 CTIMaskLine::RemoveSegment(CTIMaskLineSegment * pSegm) {
                     pPS->SetNext(pS->GetNext());
                     delete pS;
                     Remed = TRUE;
-                    mwSegments--;
+                    segments_--;
                     pS = pPS->GetNext();
                     break;
                     // pSegm перекывает pS
                 case CTIMaskLineSegment::CTIMLSEGMINTERSECTOVER:
                     pPS->SetNext(pS->GetNext());
                     delete pS;
-                    mwSegments--;
+                    segments_--;
                     pS = pPS->GetNext();
                     break;
                     // pSegm перекывает правую часть pS
@@ -196,7 +190,7 @@ Bool32 CTIMaskLine::RemoveSegment(CTIMaskLineSegment * pSegm) {
                     pS->CutLeftTo(*pSegm);
                     pS = (pPS = pS)->GetNext();
                     pS->CutRightTo(*pSegm);
-                    mwSegments++;
+                    segments_++;
                     pPS = pPS->GetNext();
                     pS = pPS->GetNext();
                     break;
@@ -220,7 +214,7 @@ Bool32 CTIMaskLine::RemoveSegment(CTIMaskLineSegment * pSegm) {
 }
 
 Bool32 CTIMaskLine::GetLeftIntersection(CTIMaskLineSegment * pcSegm) {
-    CTIMaskLineSegment * pL = mcFirst.GetNext();
+    CTIMaskLineSegment * pL = first_.GetNext();
     uint32_t wItype;
     Bool32 bInt = FALSE;
 

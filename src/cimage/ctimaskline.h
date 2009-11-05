@@ -63,60 +63,57 @@
 #include "ctiimage.h"
 #include "ctimasklinesegment.h"
 
-class CTIMaskLine;
-typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
 class CTIMaskLine
 {
 public:
     Bool32 IsSegmentOnLine(CTIMaskLineSegment * pSegm) {
-        return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t) mwLenght
-                && pSegm->GetEnd() <= (int32_t) mwLenght);
+        return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t) length_
+                && pSegm->GetEnd() <= (int32_t) length_);
     }
 
     Bool32 RemoveSegment(CTIMaskLineSegment * pSegm);
     Bool32 AddSegment(CTIMaskLineSegment * pSegm);
-    PCTIMaskLine GetNext() {
-        return mpNext;
+    CTIMaskLine * GetNext() {
+        return next_;
     }
 
-    void SetNext(PCTIMaskLine pLine) {
-        mpNext = pLine;
+    void SetNext(CTIMaskLine *  pLine) {
+        next_ = pLine;
     }
 
     uint32_t SetLineNumber(uint32_t nLine) {
-        return mwLine = nLine;
+        return line_ = nLine;
     }
 
     uint32_t GetLineNumber(void) {
-        return mwLine;
+        return line_;
     }
 
     uint32_t GetSegmentsNumber(void) {
-        return mwSegments;
+        return segments_;
     }
 
     Bool32 IsLine(uint32_t nLine) {
-        return ((int32_t) nLine == mwLine);
+        return ((int32_t) nLine == line_);
     }
 
     Bool32 GetLeftIntersection(CTIMaskLineSegment * pcSegm);
 
 public:
     CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm,
-            PCTIMaskLine pcNextLine);
+            CTIMaskLine *  pcNextLine);
     CTIMaskLine(uint32_t Lenght, uint32_t nLine, CTIMaskLineSegment * pSegm);
     CTIMaskLine(uint32_t Lenght, CTIMaskLineSegment * pSegm);
     CTIMaskLine(uint32_t Lenght);
     CTIMaskLine();
     virtual ~CTIMaskLine();
 
-protected:
-    uint32_t mwLenght;
-    uint32_t mwSegments;
-    PCTIMaskLine mpNext;
-    int32_t mwLine;
-    CTIMaskLineSegment mcFirst;
 private:
+    uint32_t length_;
+    uint32_t segments_;
+    CTIMaskLine *  next_;
+    int32_t line_;
+    CTIMaskLineSegment first_;
     Bool32 CheckSegments(void);
 };
 
