@@ -236,8 +236,14 @@ static char* read_file(const char *fname) {
     char *dib;
     try {
         Image image(fname);
+        switch (image.type()) {
+        case BilevelType:
+        case TrueColorType:
+            break;
+        default:
+            image.type(TrueColorType);
+        }
         // Write to BLOB in BMP format
-        image.type(TrueColorType);
         image.magick("DIB");
         image.write(&blob);
     }
