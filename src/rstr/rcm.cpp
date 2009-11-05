@@ -829,7 +829,7 @@ uchar * ForRaster2;
 uchar * ForRaster3;
 uchar * ED_file_bound, *ED_file_end;
 puchar kit_curr, kit_end, kit_start;
-int32_t kit_size = 65536* 4 ;
+int32_t kit_size = 65536 * 4;
 Bool32 kit_max_size = FALSE;
 uint16_t wHeightRC = 0;
 uint16_t wLowRC = RSTR_ERR_NO;
@@ -850,7 +850,7 @@ Bool pass4_in;
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
-uchar work_raster[2048* 4 ], work_raster_1[2048*4];
+uchar work_raster[2048 * 4], work_raster_1[2048 * 4];
 //uchar language; // setup in RSTR_SetOptions
 FIELD_INFO FieldInfo;
 Bool FirstField;
@@ -955,16 +955,15 @@ Bool32 RSTR_IsLanguage(uchar language) {
             return FALSE;
     }
 #ifdef     _USE_SPELLING_
-    if( language==LANG_RUSENG )
-    {
-        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (pchar)lnOcrLingPath)<1 ||
-                RLING_IsDictonaryAvailable( LANG_ENGLISH , (pchar)lnOcrLingPath)<1)
-        return FALSE;
+    if (language == LANG_RUSENG) {
+        if (RLING_IsDictonaryAvailable(LANG_RUSSIAN, (pchar) lnOcrLingPath) < 1
+                || RLING_IsDictonaryAvailable(LANG_ENGLISH, (pchar) lnOcrLingPath) < 1)
+            return FALSE;
     }
     else //if( language!=LANG_DIG )
     {
-        if( RLING_IsDictonaryAvailable( language , (pchar)lnOcrLingPath)<1 )
-        return FALSE;
+        if (RLING_IsDictonaryAvailable(language, (pchar) lnOcrLingPath) < 1)
+            return FALSE;
     }
 #endif
     return TRUE;
@@ -982,7 +981,7 @@ static void SetAlphabet(char char_tbl_put_to[] // char string
     for (c = (char *) char_tbl_put_to; *c != 0; c++) {
         digital &= ((*c) & 0xE0) == 0x20 || (*c) == '\\' || (*c) == '_' || (*c) == ' ';
         Punct |= strchr("\"*+-.,:;=<>„«»", *c) != NULL;
-        FieldInfo.AlphaTable[(uchar)(*c)] = 1;
+        FieldInfo.AlphaTable[(uchar) (*c)] = 1;
     }
     if (digital)
         FieldInfo.Style |= FIS_DIGIT;
@@ -1047,7 +1046,7 @@ Bool32 RSTRInit(MemFunc* mem) {
         fprintf(stderr, "RSTR_ERR_NOMEMORY");
         return FALSE;
     }
-    memory_pool_end = (puchar)(memory_pool + memory_length);
+    memory_pool_end = (puchar) (memory_pool + memory_length);
     tableBOX = memory_pool;
     cell_f()->next = cell_l();
     cell_f()->nextl = cell_l();
@@ -1055,24 +1054,23 @@ Bool32 RSTRInit(MemFunc* mem) {
     cell_l()->prevl = cell_f();
 #ifdef _USE_FON_
     // готовый шрифт
-    if( FONInit(local_grey_ctb)<0 ) {
+    if (FONInit(local_grey_ctb) < 0) {
         //ErrorExit(RSTR_ERR_INTERNAL);
         //return FALSE;
     }
 #endif
     chdir((char*) lnOcrPath);
 #ifdef     _USE_SPELLING_
-    if (!RLING_Init( 102, NULL ))
-    {
+    if (!RLING_Init(102, NULL)) {
         wLowRC = RSTR_ERR_NOINITRSTR;
-        local_ret_error_code=RLING_GetReturnCode();
-        local_ret_error_str =(fun_error)RLING_GetReturnString;
+        local_ret_error_code = RLING_GetReturnCode();
+        local_ret_error_str = (fun_error) RLING_GetReturnString;
         fprintf(stderr, "RLING - RSTR_ERR_NOINITRSTR\n");
         return FALSE;
     }
 #endif
 #ifdef _USE_LEO_
-    if( !LEOInit(0) ) {
+    if (!LEOInit(0)) {
         wLowRC = RSTR_ERR_NOINITRSTR;
         fprintf(stderr, "LEO - RSTR_ERR_NOINITRSTR\n");
         return FALSE;
@@ -1080,7 +1078,7 @@ Bool32 RSTRInit(MemFunc* mem) {
     LEOSetPlatform(LEOGetCPU());
 #endif
 #ifdef _USE_MSK_
-    if( !p2_msk_init() ) {
+    if (!p2_msk_init()) {
         wLowRC = RSTR_ERR_NOINITRSTR;
         fprintf(stderr, "MSK - RSTR_ERR_NOINITRSTR\n");
         return FALSE;
@@ -1120,52 +1118,44 @@ Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage) {
     Flag_Courier = FALSE;
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-    if( !rstr_open_cont() )
-    {
+    if (!rstr_open_cont()) {
         wLowRC = RSTR_ERR_INTERNAL;
         return FALSE;
     }
 #endif
 #endif
 #ifdef _USE_CPAGE_
-    if( myPage )
-    {
-        CLINE_handle hCLINE=CLINE_GetMainContainer();
+    if (myPage) {
+        CLINE_handle hCLINE = CLINE_GetMainContainer();
 
         //	if(!LDPUMA_Skip(hUseCLine))
         //    {
         CLINE_handle hline;
         CPDLine cpdata;
-        hline=CLINE_GetFirstLine(hCLINE);
-        if(!hline)
-        return TRUE;
-        while(hline)
-        {
-            if(num_of_lines>=MAX_LINE_COUNT) // Anton 29.05.2001
-            break;
-            cpdata=CLINE_GetLineData(hline);
-            if(!cpdata)
-            {
+        hline = CLINE_GetFirstLine(hCLINE);
+        if (!hline)
+            return TRUE;
+        while (hline) {
+            if (num_of_lines >= MAX_LINE_COUNT) // Anton 29.05.2001
+                break;
+            cpdata = CLINE_GetLineData(hline);
+            if (!cpdata) {
                 wLowRC = RSTR_ERR_INTERNAL;
                 return FALSE;
             }
-            else
-            {
-                if( (cpdata->Flags & LI_IsTrue) &&
-                        !(cpdata->Flags & LI_IsAtTable) &&
-                        (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
-                                abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
-                        (cpdata->Dir==LD_Horiz) )
-                {
-                    page_lines[num_of_lines].beg.ry()=(int16_t)(cpdata->Line.Beg_Y);
-                    page_lines[num_of_lines].beg.rx()=(int16_t)(cpdata->Line.Beg_X);
-                    page_lines[num_of_lines].end.ry()=(int16_t)(cpdata->Line.End_Y);
-                    page_lines[num_of_lines].end.rx()=(int16_t)(cpdata->Line.End_X);
-                    page_lines[num_of_lines].type=HOR_LN;
-                    page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
+            else {
+                if ((cpdata->Flags & LI_IsTrue) && !(cpdata->Flags & LI_IsAtTable) && (abs(
+                        cpdata->Line.Beg_X - cpdata->Line.End_X) > abs(cpdata->Line.Beg_Y
+                        - cpdata->Line.End_Y)) && (cpdata->Dir == LD_Horiz)) {
+                    page_lines[num_of_lines].beg.ry() = (int16_t) (cpdata->Line.Beg_Y);
+                    page_lines[num_of_lines].beg.rx() = (int16_t) (cpdata->Line.Beg_X);
+                    page_lines[num_of_lines].end.ry() = (int16_t) (cpdata->Line.End_Y);
+                    page_lines[num_of_lines].end.rx() = (int16_t) (cpdata->Line.End_X);
+                    page_lines[num_of_lines].type = HOR_LN;
+                    page_lines[num_of_lines].width = cpdata->Line.Wid10 / 10;
                     num_of_lines++;
                 }
-                hline=CLINE_GetNextLine(hline);
+                hline = CLINE_GetNextLine(hline);
             }
         }
     }
@@ -1204,8 +1194,8 @@ Bool32 RSTR_EndPage(Handle myPage) {
     if (p2_active == 0) {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-        if( !p2_disable )
-        rstr_close_cont();
+        if (!p2_disable)
+            rstr_close_cont();
 #endif
 #endif
         enable_pass2 = TRUE;
@@ -1221,10 +1211,9 @@ Bool32 RSTR_EndPage(Handle myPage) {
                 return TRUE;
             }
 #else
-            if( FONFontClusters(local_ctb_name,local_grey_ctb,
-                            NULL,NULL,0,FONCLU_MultiFontRow,NULL,lang)<=0 )
-            {
-                enable_pass2=FALSE;
+            if (FONFontClusters(local_ctb_name, local_grey_ctb, NULL, NULL, 0, FONCLU_MultiFontRow,
+                    NULL, lang) <= 0) {
+                enable_pass2 = FALSE;
                 wLowRC = RSTR_ERR_INTERNAL;
                 return TRUE;
             }
@@ -1234,13 +1223,12 @@ Bool32 RSTR_EndPage(Handle myPage) {
         erect_set_global();
         if (!p2_disable) {
 #ifdef _USE_FON_
-            if( FONInit(local_grey_ctb)<=0 )
-            {
-                ErrorExit(RSTR_ERR_INTERNAL);
+            if (FONInit(local_grey_ctb) <= 0) {
+                ErrorExit( RSTR_ERR_INTERNAL);
                 return TRUE;
             }
             // Nick test Couruier font
-            Flag_Courier=TestFontCourier();
+            Flag_Courier = TestFontCourier();
             TestFontProtocol();
             { // Nick & Oleg - test clusters LEO
                 int32_t TestFontClusters(void); // p2_cour.c
@@ -1251,43 +1239,36 @@ Bool32 RSTR_EndPage(Handle myPage) {
         }
         p2_BoldInit(1);
 #ifdef _USE_CPAGE_
-        if( myPage )
-        {
-            uint32_t size_line_com=sizeof(LINE_COM);
-            int size_line_data=sizeof(DLine);
-            CLINE_handle hCLINE=CLINE_GetMainContainer();
+        if (myPage) {
+            uint32_t size_line_com = sizeof(LINE_COM);
+            int size_line_data = sizeof(DLine);
+            CLINE_handle hCLINE = CLINE_GetMainContainer();
 
             //	if(!LDPUMA_Skip(hUseCLine))
             //    {
             CLINE_handle hline;
             CPDLine cpdata;
             DLine data;
-            hline=CLINE_GetFirstLine(hCLINE);
-            if(!hline)
-            return TRUE;
-            while(hline)
-            {
-                cpdata=CLINE_GetLineData(hline);
-                if(!cpdata)
-                {
+            hline = CLINE_GetFirstLine(hCLINE);
+            if (!hline)
+                return TRUE;
+            while (hline) {
+                cpdata = CLINE_GetLineData(hline);
+                if (!cpdata) {
                     wLowRC = RSTR_ERR_INTERNAL;
                     return FALSE;
                 }
-                else
-                {
-                    if( (cpdata->Flags & LI_IsTrue) &&
-                            !(cpdata->Flags & LI_IsAtTable) &&
-                            (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
-                                    abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
-                            (cpdata->Dir==LD_Horiz) &&
-                            rcm_find((int16_t)(cpdata->Line.Beg_X),(int16_t)(cpdata->Line.Beg_Y),
-                                    (int16_t)(cpdata->Line.End_X),(int16_t)(cpdata->Line.End_Y)) )
-                    {
-                        CLINE_CopyData(&data,cpdata,size_line_data);
+                else {
+                    if ((cpdata->Flags & LI_IsTrue) && !(cpdata->Flags & LI_IsAtTable) && (abs(
+                            cpdata->Line.Beg_X - cpdata->Line.End_X) > abs(cpdata->Line.Beg_Y
+                            - cpdata->Line.End_Y)) && (cpdata->Dir == LD_Horiz) && rcm_find(
+                            (int16_t) (cpdata->Line.Beg_X), (int16_t) (cpdata->Line.Beg_Y),
+                            (int16_t) (cpdata->Line.End_X), (int16_t) (cpdata->Line.End_Y))) {
+                        CLINE_CopyData(&data, cpdata, size_line_data);
                         data.Flags |= LI_Used;
-                        CLINE_SetLineData(hline,(CPDLine)(&data));
+                        CLINE_SetLineData(hline, (CPDLine) (&data));
                     }
-                    hline=CLINE_GetNextLine(hline);
+                    hline = CLINE_GetNextLine(hline);
                 }
             }
             /*    }
@@ -1354,7 +1335,7 @@ void save_to_ctb(CSTR_line lino, int32_t type) {
 #ifdef _USE_CTB_
     CSTR_rast rst;
     RecVersions ver;
-    RecAlt Zero= {0};
+    RecAlt Zero = { 0 };
     UniVersions uni;
     RecRaster rast;
     Rect16 rect;
@@ -1365,98 +1346,84 @@ void save_to_ctb(CSTR_line lino, int32_t type) {
     uchar print_type;
     CSTR_attr lattr;
 
-    CSTR_GetLineAttr(lino,&lattr);
-    if( type==0 )
-    {
-        for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
-        {
-            if( CSTR_GetCollectionUni(rst,&uni) &&
-                    CSTR_GetAttr(rst,&attr) &&
-                    uni.lnAltCnt &&
-                    !(line_tabcell && uni.lnAltCnt && uni.Alt[0].Liga==liga_exm) &&
-                    CSTR_GetImage(rst,(uchar*)&rast,CSTR_TYPE_IMAGE_RS ) &&
-                    (attr.flg&(CSTR_f_let)) &&
-                    !(attr.dlang_dup&(CSTR_fd_equal|CSTR_fd_alias)) )
-            {
+    CSTR_GetLineAttr(lino, &lattr);
+    if (type == 0) {
+        for (rst = CSTR_GetNext(CSTR_GetFirstRaster(lino)); rst; rst = CSTR_GetNext(rst)) {
+            if (CSTR_GetCollectionUni(rst, &uni) && CSTR_GetAttr(rst, &attr) && uni.lnAltCnt
+                    && !(line_tabcell && uni.lnAltCnt && uni.Alt[0].Liga == liga_exm)
+                    && CSTR_GetImage(rst, (uchar*) &rast, CSTR_TYPE_IMAGE_RS) && (attr.flg
+                    & (CSTR_f_let)) && !(attr.dlang_dup & (CSTR_fd_equal | CSTR_fd_alias))) {
                 rect.setTop(attr.row);
-                rect.setBottom(attr.row+attr.h);
+                rect.setBottom(attr.row + attr.h);
                 rect.setLeft(attr.col);
-                rect.setRight(attr.col+attr.w);
-                flags=LEO_VALID_FINAL;
-                if( attr.flg & CSTR_f_solid )
-                flags|=LEO_VALID_LINGVO;
-                if( line_alphabet==ALPHA_DIGITAL_TRUE )
-                flags|=LEO_VALID_DIGIT;
+                rect.setRight(attr.col + attr.w);
+                flags = LEO_VALID_FINAL;
+                if (attr.flg & CSTR_f_solid)
+                    flags |= LEO_VALID_LINGVO;
+                if (line_alphabet == ALPHA_DIGITAL_TRUE)
+                    flags |= LEO_VALID_DIGIT;
                 print_type = CTB_PRINT_FONT;
-                if( attr.font & CSTR_fp_ser )
-                print_type |= CTB_PRINT_SERIFIC;
-                if( attr.font & CSTR_fp_it )
-                print_type |= CTB_PRINT_ITALIC;
-                if( attr.font & CSTR_fp_bold )
-                print_type |= CTB_PRINT_BOLD;
-                if( attr.font & CSTR_fp_gelv )
-                print_type |= CTB_PRINT_GELV;
-                if( attr.font & CSTR_fp_narrow )
-                print_type |= CTB_PRINT_NARROW;
-                for(i=0;i<uni.lnAltCnt;i++)
-                {
+                if (attr.font & CSTR_fp_ser)
+                    print_type |= CTB_PRINT_SERIFIC;
+                if (attr.font & CSTR_fp_it)
+                    print_type |= CTB_PRINT_ITALIC;
+                if (attr.font & CSTR_fp_bold)
+                    print_type |= CTB_PRINT_BOLD;
+                if (attr.font & CSTR_fp_gelv)
+                    print_type |= CTB_PRINT_GELV;
+                if (attr.font & CSTR_fp_narrow)
+                    print_type |= CTB_PRINT_NARROW;
+                for (i = 0; i < uni.lnAltCnt; i++) {
                     ver.Alt[i] = Zero;
                     ver.Alt[i].Code = uni.Alt[i].Liga;
                     ver.Alt[i].Method = uni.Alt[i].Method;
                     ver.Alt[i].Prob = uni.Alt[i].Prob;
                 }
-                ver.lnAltCnt =uni.lnAltCnt;
+                ver.lnAltCnt = uni.lnAltCnt;
 #ifdef _FON_CLU_MEMORY_
                 key = (int16_t)FONStoreRaster(&rast,ver.Alt[0].Code,
                         print_type,ver.Alt[0].Prob, flags,line_number,
                         attr.keg,&rect, (uchar)lattr.tab_column/*, lattr.tab_number*/);
 #else
-                key=rstr_cont_store(&rast,ver.Alt[0].Code,
-                        0, &rect, print_type,ver.Alt[0].Prob, flags, &ver, 0,
-                        attr.keg, (uchar)lattr.tab_column, lattr.tab_number);
+                key = rstr_cont_store(&rast, ver.Alt[0].Code, 0, &rect, print_type,
+                        ver.Alt[0].Prob, flags, &ver, 0, attr.keg, (uchar) lattr.tab_column,
+                        lattr.tab_number);
 #endif
 
-                if( key>0 )
-                {
-                    for(i=0;i<uni.lnAltCnt;i++)
-                    {
-                        uni.Alt[i].Info =key;
+                if (key > 0) {
+                    for (i = 0; i < uni.lnAltCnt; i++) {
+                        uni.Alt[i].Info = key;
                     }
-                    CSTR_StoreCollectionUni(rst,&uni);
+                    CSTR_StoreCollectionUni(rst, &uni);
                 }
             }
         }
     } // end of type==0
 
-    else
-    { // start of type==1
-        for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
-        {
+    else { // start of type==1
+        for (rst = CSTR_GetNext(CSTR_GetFirstRaster(lino)); rst; rst = CSTR_GetNext(rst)) {
 #ifdef _STORE_LETTERS
             rstr_open_cont1();
 #endif
-            if( CSTR_GetCollection(rst,&ver) &&
-                    CSTR_GetAttr(rst,&attr) &&
-                    ver.lnAltCnt &&
-                    CSTR_GetImage(rst,(uchar*)&rast,CSTR_TYPE_IMAGE_RS ) &&
-                    (attr.flg&(CSTR_f_let)) )
-            {
+            if (CSTR_GetCollection(rst, &ver) && CSTR_GetAttr(rst, &attr) && ver.lnAltCnt
+                    && CSTR_GetImage(rst, (uchar*) &rast, CSTR_TYPE_IMAGE_RS) && (attr.flg
+                    & (CSTR_f_let))) {
                 rect.setTop(attr.row);
-                rect.setBottom(attr.row+attr.h);
+                rect.setBottom(attr.row + attr.h);
                 rect.setLeft(attr.col);
-                rect.setRight(attr.col+attr.w);
-                flags=LEO_VALID_FINAL;
-                if( attr.flg & CSTR_f_solid )
-                flags|=LEO_VALID_LINGVO;
+                rect.setRight(attr.col + attr.w);
+                flags = LEO_VALID_FINAL;
+                if (attr.flg & CSTR_f_solid)
+                    flags |= LEO_VALID_LINGVO;
                 print_type = CTB_PRINT_FONT;
-                if( attr.font & CSTR_fp_ser )
-                print_type |= CTB_PRINT_SERIFIC;
-                if( attr.font & CSTR_fp_it )
-                print_type |= CTB_PRINT_ITALIC;
-                if( attr.font & CSTR_fp_bold )
-                print_type |= CTB_PRINT_BOLD;
-                if( attr.font & CSTR_fp_gelv )
-                print_type |= CTB_PRINT_GELV;
+                if (attr.font & CSTR_fp_ser)
+                    print_type |= CTB_PRINT_SERIFIC;
+                if (attr.font & CSTR_fp_it)
+                    print_type |= CTB_PRINT_ITALIC;
+                if (attr.font & CSTR_fp_bold)
+                    print_type |= CTB_PRINT_BOLD;
+                if (attr.font & CSTR_fp_gelv)
+                    print_type |= CTB_PRINT_GELV;
 
 #ifdef _STORE_LETTERS
                 rstr_cont_store1(&rast,ver.Alt[0].Code,
@@ -1994,7 +1961,7 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
     }
     if (p2_active) {
         if (stop_user)
-            ErrorExit(RSTR_ERR_USERBREAK);
+            ErrorExit( RSTR_ERR_USERBREAK);
     }
     stop_user = FALSE;
     kit_curr = kit_start;
@@ -2085,8 +2052,7 @@ Bool32 RSTRRecognizePostMain(CSTR_line lin, // pointer to raw string
 
     if (!p2_disable) {
 #ifdef _USE_FON_
-        if( !p2_active )
-        {
+        if (!p2_active) {
             CSTR_ligas(lino);
         }
 #endif
@@ -2268,13 +2234,12 @@ Bool32 Reload_lang_vocs(uchar lang) {
     //if( lang==LANG_DIG )
     //    return TRUE;
     RLING_UnloadDictonary();
-    if( lang == LANG_RUSENG )
-    lang = LANG_RUSSIAN;
-    if ( !RLING_LoadDictonary( lang , (pchar)lnOcrLingPath) )
-    {
+    if (lang == LANG_RUSENG)
+        lang = LANG_RUSSIAN;
+    if (!RLING_LoadDictonary(lang, (pchar) lnOcrLingPath)) {
         wLowRC = RSTR_ERR_NOINITRSTR;
-        local_ret_error_code=RLING_GetReturnCode();
-        local_ret_error_str =(fun_error)RLING_GetReturnString;
+        local_ret_error_code = RLING_GetReturnCode();
+        local_ret_error_str = (fun_error) RLING_GetReturnString;
         return FALSE;
     }
 #endif
@@ -2286,13 +2251,11 @@ Bool32 Reload_lang_vocs_aux(uchar language) {
     //if( language==LANG_DIG )
     //    return TRUE;
     RLING_UnloadSecDictonary();
-    if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
-    {
-        if ( !RLING_LoadSecDictonary( language , (pchar)lnOcrLingPath) )
-        {
+    if (language == LANG_RUSSIAN || language == LANG_ENGLISH) {
+        if (!RLING_LoadSecDictonary(language, (pchar) lnOcrLingPath)) {
             wLowRC = RSTR_ERR_NOINITRSTR;
-            local_ret_error_code=RLING_GetReturnCode();
-            local_ret_error_str =(fun_error)RLING_GetReturnString;
+            local_ret_error_code = RLING_GetReturnCode();
+            local_ret_error_str = (fun_error) RLING_GetReturnString;
             return FALSE;
         }
     }
@@ -2687,7 +2650,6 @@ Bool32 RSTR_GetExportData(uint32_t dwType, void * pData) {
         break;
     case REXC_FNRSTR_ISLANGUAGE: // возможен ли язык
         EXPORT(RSTR_IsLanguage)
-        ;
         break;
     case RSTR_FNSTRENDPAGE: //  конец распознавания списка строк
         EXPORT(RSTR_EndPage)
@@ -2776,7 +2738,12 @@ Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData) {
     CASE_DATA( RSTR_Word8_Spell_check,uchar ,spell_check)
     CASE_DATA( RSTR_Word8_spec_camera,uchar ,spec_camera)
     CASE_DATA( RSTR_Word8_spec_nolinpen,uchar ,no_linpen)
-    CASE_ADATA(RSTR_pchar_user_dict_name ,user_dict_name)
+
+    case RSTR_pchar_user_dict_name:
+        strcpy(user_dict_name, (char *) pData);
+        RLING_LoadUserDictonary(user_dict_name, "");
+        break;
+
     case RSTR_OcrPath:
         strcpy((char*) lnOcrPath, (char *) pData);
         strcpy((char*) lnOcrLingPath, (char *) pData);
@@ -2888,11 +2855,11 @@ void store_colors(CSTR_line lino) {
 int16_t text_findstat(char * w) {
 #ifdef     _USE_SPELLING_
     int32_t Check = 0;
-    if( strlen(w)>32 )
-    return 0;
-    if( !RLING_CheckWord((pchar)w, &Check) )
-    return 0;
-    return (int16_t)Check;
+    if (strlen(w) > 32)
+        return 0;
+    if (!RLING_CheckWord((pchar) w, &Check))
+        return 0;
+    return (int16_t) Check;
 #else
     return 0;
 #endif
@@ -2901,11 +2868,11 @@ int16_t text_findstat(char * w) {
 int16_t text_findstat_aux(char * w) {
 #ifdef     _USE_SPELLING_
     int32_t Check = 0;
-    if( strlen(w)>32 )
-    return 0;
-    if( !RLING_CheckSecWord((pchar)w, &Check) )
-    return 0;
-    return (int16_t)Check;
+    if (strlen(w) > 32)
+        return 0;
+    if (!RLING_CheckSecWord((pchar) w, &Check))
+        return 0;
+    return (int16_t) Check;
 #else
     return 0;
 #endif
