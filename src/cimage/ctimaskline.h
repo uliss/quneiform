@@ -67,8 +67,8 @@ class CTIMaskLine
 {
 public:
     Bool32 IsSegmentOnLine(const CTIMaskLineSegment& Segm) const {
-        return (Segm.GetStart() >= 0 && Segm.GetStart() <= static_cast<int> (length_)
-                && Segm.GetEnd() <= static_cast<int> (length_));
+        return (Segm.start() >= 0 && Segm.start() <= static_cast<int> (length_)
+                && Segm.end() <= static_cast<int> (length_));
     }
 
     Bool32 RemoveSegment(CTIMaskLineSegment * pSegm);

@@ -72,76 +72,76 @@ public:
 
     enum Intersection
     {
-        CTIMLSEGMINTERSECTIN = 1,
-        CTIMLSEGMINTERSECTLEFT = 2,
-        CTIMLSEGMINTERSECTRIGHT = 3,
-        CTIMLSEGMINTERSECTOVER = 4,
-        CTIMLSEGMINTERSECTEQUAL = 5,
-        CTIMLSEGMINTERSECTFULLLEFT = 6,
-        CTIMLSEGMINTERSECTFULLRIGHT = 7
+        INTERSECT_IN = 1,
+        INTERSECT_LEFT = 2,
+        INTERSECT_RIGHT = 3,
+        INTERSECT_OVER = 4,
+        INTERSECT_EQUAL = 5,
+        INTERSECT_FULL_LEFT = 6,
+        INTERSECT_FULL_RIGHT = 7
     };
 
     enum PointPosition
     {
-        CTIMLSEGMPOINTRIGHT = 1,
-        CTIMLSEGMPOINTLEF = -1,
-        CTIMLSEGMPOINTIN = 0
+        POINT_RIGHT = 1,
+        POINT_LEFT = -1,
+        POINT_IN = 0
     };
 
-    void SetNext(CTIMaskLineSegment * pNext) {
-        mpNext = pNext;
+    void setNext(CTIMaskLineSegment * pNext) {
+        next_ = pNext;
     }
 
-    CTIMaskLineSegment * GetNext() {
-        return mpNext;
+    CTIMaskLineSegment * next() {
+        return next_;
     }
 
-    int GetStart() const {
-        return mwStart;
+    int start() const {
+        return start_;
     }
 
-    int GetEnd() const {
-        return mwEnd;
+    int end() const {
+        return end_;
     }
 
-    bool IsPointInSegment(int X) const {
-        return (X >= mwStart && X <= mwEnd);
+    bool isPointInSegment(int X) const {
+        return X >= start_ && X <= end_;
     }
 
-    bool CutRightTo(const CTIMaskLineSegment& pSegm);
+    bool cutRightTo(const CTIMaskLineSegment& pSegm);
 
     /**
      * обрезать с конца
      */
-    bool CutLeftTo(const CTIMaskLineSegment& pSegm);
+    bool cutLeftTo(const CTIMaskLineSegment& pSegm);
 
     /**
      * обрезать с начала
      */
-    bool AddWith(const CTIMaskLineSegment& pSegm);
+    bool addWith(const CTIMaskLineSegment& pSegm);
 
     /**
      * пересечение данного сегмента с аргументом
      */
-    bool IntersectWith(const CTIMaskLineSegment& Segm);
+    bool intersectWith(const CTIMaskLineSegment& Segm);
 
     /**
      * положение данного сегмента относительно аргумента
      */
-    Intersection IsIntersectWith(const CTIMaskLineSegment& Segm) const;
+    Intersection isIntersectWith(const CTIMaskLineSegment& Segm) const;
 
     /**
      * равенство сегментов
      */
     bool operator==(const CTIMaskLineSegment& Segm) const {
-        return mwEnd == Segm.mwEnd && mwStart == Segm.mwStart;
+        return end_ == Segm.end_ && start_ == Segm.start_;
     }
 
-    PointPosition GetPointDirect(unsigned int X) const;
+    PointPosition pointPosition(unsigned int X) const;
 private:
-    CTIMaskLineSegment * mpNext;
-    int mwStart;
-    int mwEnd;
+    CTIMaskLineSegment * next_;
+    int start_;
+    int end_;
 };
 
 #endif

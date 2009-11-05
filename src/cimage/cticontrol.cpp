@@ -1420,7 +1420,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
                         CTIMaskLineSegment Segm(wX, wXe);
 
                         if (pcMaskLine->GetLeftIntersection(&Segm)) {
-                            wX = Segm.GetEnd() + 1;
+                            wX = Segm.end() + 1;
                             if (!ApplayMaskToDIBLine(pDIB, &Segm, wY, wAtX, wAtY)) {
                                 SetReturnCode_cimage(IDS_CIMAGE_UNABLE_APPLAY_MASK);
                                 return FALSE;
@@ -1451,14 +1451,14 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, CTIMaskLineSegment * pSegm,
     uint32_t wLAEndPos;
     int32_t wLAFullBits;
 
-    if ((pSegm->GetStart() > (int32_t) (pcDIB->GetLineWidth() + wAtX)) || (pSegm->GetEnd()
+    if ((pSegm->start() > (int32_t) (pcDIB->GetLineWidth() + wAtX)) || (pSegm->end()
             > (int32_t) (pcDIB->GetLineWidth() + wAtX))
             || (wLine >= pcDIB->GetLinesNumber() + wAtY))
         return FALSE;
 
     wBitCount = pcDIB->GetPixelSize();
-    wXe = pSegm->GetEnd() - wAtX;
-    wXb = pSegm->GetStart() - wAtX;
+    wXe = pSegm->end() - wAtX;
+    wXb = pSegm->start() - wAtX;
     wY = wLine - wAtY;
 
     // проверяем на соответствие с картинкой
@@ -1505,7 +1505,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, CTIMaskLineSegment * pSegm,
     case 16:
     case 24:
     case 32:
-        wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart()) * wBitCount) / 8;
+        wSegmLenght = ((pSegm->end() - pSegm->start()) * wBitCount) / 8;
         memset(pPixB, (uchar) pcDIB->GetWhitePixel(), wSegmLenght);
         bRet = TRUE;
         break;
