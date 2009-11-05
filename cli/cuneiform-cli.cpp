@@ -63,6 +63,8 @@
 #include <stdlib.h>
 #include <cstring>
 #include <getopt.h>
+#include <Magick++.h>
+#include <boost/scoped_array.hpp>
 
 #include "cttypes.h"
 #include "puma/puma.h"
@@ -224,11 +226,6 @@ static string default_output_name(puma_format_t format) {
  * Read file and return it as a BMP DIB entity. On failure write an error
  * and return NULL. Caller delete[]'s the returned result.
  */
-static char* read_file(const char *fname);
-
-#ifdef USE_MAGICK
-#include <Magick++.h>
-
 static char* read_file(const char *fname) {
     using namespace Magick;
     Blob blob;
@@ -243,6 +240,8 @@ static char* read_file(const char *fname) {
         default:
             image.type(TrueColorType);
         }
+        if (CIF::Config::instance().debugHigh())
+            image.verbose(true);
         // Write to BLOB in BMP format
         image.magick("DIB");
         image.write(&blob);
@@ -257,49 +256,6 @@ static char* read_file(const char *fname) {
     return dib;
 }
 
-#else // No ImageMagick++
-static char* read_file(const char *fname) {
-    char bmpheader[2];
-    char *dib;
-    FILE *f;
-    int32_t dibsize, offset;
-
-    f = fopen(fname, "rb");
-    if (!f) {
-        cerr << "Could not open file " << fname << ".\n";
-        return NULL;
-    }
-    fread(bmpheader, 1, 2, f);
-    if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-        cerr << fname << " is not a BMP file.\n";
-        return NULL;
-    }
-    fread(&dibsize, sizeof(int32_t), 1, f);
-    fread(bmpheader, 1, 2, f);
-    fread(bmpheader, 1, 2, f);
-    fread(&offset, sizeof(int32_t), 1, f);
-
-    dibsize -= ftell(f);
-    dib = new char[dibsize];
-    fread(dib, dibsize, 1, f);
-    fclose(f);
-
-    if (*((int32_t*) dib) != 40) {
-        cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
-        cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
-        delete[] dib;
-        return NULL;
-    }
-
-    if (*((int32_t*) (dib + 16)) != 0) {
-        cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
-        cerr << "Please convert your BMP to uncompressed V3 format and try again.";
-        delete[] dib;
-        return NULL;
-    }
-    return dib;
-}
-#endif // USE_MAGICK
 int main(int argc, char **argv) {
     program_name = argv[0];
 
@@ -417,12 +373,6 @@ int main(int argc, char **argv) {
     if (outfilename.empty())
         outfilename = default_output_name(outputformat);
 
-    char * dib = read_file(infilename.c_str());
-    if (!dib) // Error msg is already printed so just get out.
-        return 1;
-
-    int ret = 0;
-
     using namespace CIF;
     try {
         if (do_verbose == 1) {
@@ -432,6 +382,10 @@ int main(int argc, char **argv) {
         else {
             Config::instance().setDebug(false);
         }
+
+        boost::scoped_array<char> dib(read_file(infilename.c_str()));
+        if (!dib)
+            return EXIT_FAILURE;
 
         Puma::instance().setOptionLanguage(langcode);
 
@@ -463,16 +417,13 @@ int main(int argc, char **argv) {
         Puma::instance().setOptionFax100(do_fax);
         Puma::instance().setOptionUseSpeller(do_speller);
 
-        Puma::instance().open(dib);
+        Puma::instance().open(dib.get());
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();
     }
     catch (std::runtime_error& e) {
         cerr << e.what() << endl;
-        ret = 1;
+        return EXIT_FAILURE;
     }
-
-    delete[] dib;
-    return ret;
 }

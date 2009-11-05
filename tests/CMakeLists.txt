@@ -3,6 +3,9 @@ include_directories(../src/hhh)
 include_directories(../src/include)
 include_directories(../src/hrk)
 
+INCLUDE(FindPkgConfig)
+PKG_CHECK_MODULES(CPPUNIT REQUIRED cppunit)
+
 add_executable(test_alphabets
 alphabets/test_alphabets.cpp
 alphabets/testalphabet.cpp
