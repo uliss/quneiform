@@ -92,7 +92,7 @@ public:
 	~CTIControl();
 
 private:
-	Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
+	Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, CTIMaskLineSegment *  pSegm,
 			uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
 	Bool32 ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX = 0,
 			uint32_t wAtY = 0);
