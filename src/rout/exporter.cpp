@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <fstream>
+#include <cstdlib>
 
 #include "exporter.h"
 
@@ -25,13 +26,38 @@ using namespace std;
 namespace CIF {
 
 Exporter::Exporter() {
+    autoDetectOutputEncoding();
 }
 
 Exporter::Exporter(const FormatOptions& opts) :
     format_options_(opts) {
+    autoDetectOutputEncoding();
 }
 
 Exporter::~Exporter() {
+}
+
+void Exporter::autoDetectOutputEncoding() {
+    std::string locale = ::getenv("LC_ALL");
+    if (locale.empty())
+        locale = ::getenv("LANG");
+    if (locale.empty()) {
+        output_encoding_ = "UTF-8";
+        return;
+    }
+    size_t dot_pos = locale.find('.', 0);
+    // TODO check this. uliss
+    if (dot_pos == std::string::npos) {
+        output_encoding_ = "UTF-8";
+        return;
+    }
+    output_encoding_ = locale.substr(dot_pos + 1);
+}
+
+bool Exporter::encodeNeeded() const {
+    if (output_encoding_.empty() || input_encoding_.empty())
+        return false;
+    return output_encoding_ == input_encoding_ ? false : true;
 }
 
 void Exporter::exportTo(const std::string& filename) {
@@ -50,8 +76,23 @@ FormatOptions Exporter::formatOptions() const {
     return format_options_;
 }
 
+std::string Exporter::inputEncoding() const {
+    return input_encoding_;
+}
+
 void Exporter::setFormatOptions(const FormatOptions& opts) {
     format_options_ = opts;
+}
+
+std::string Exporter::outputEncoding() const {
+    return output_encoding_;
+}
+
+void Exporter::setInputEncoding(const std::string& enc) {
+    input_encoding_ = enc;
+}
+void Exporter::setOutputEncoding(const std::string& enc) {
+    output_encoding_ = enc;
 }
 
 }

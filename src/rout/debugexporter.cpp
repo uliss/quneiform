@@ -18,25 +18,32 @@
 
 #include "debugexporter.h"
 #include "cstr/cstr.h"
+#include "common/iconv.h"
 
 namespace CIF {
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :
     Exporter(opts) {
-
+    // FIXME!
+    setInputEncoding("CP1251");
 }
 
 DebugExporter::~DebugExporter() {
 }
 
 void DebugExporter::exportPage(std::ostream& os) {
+    Iconv converter(inputEncoding(), outputEncoding());
+    bool do_encode = encodeNeeded();
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1);
         if (!lin_out)
             throw Exception("CSTR_GetLineHandle failed");
 
-        os << CSTR_LineToTxt(lin_out, formatOptions().unrecognizedChar());
-        if(formatOptions().preserveLineBreaks())
+        if (do_encode)
+            os << converter.convert(CSTR_LineToTxt(lin_out, formatOptions().unrecognizedChar()));
+        else
+            os << CSTR_LineToTxt(lin_out, formatOptions().unrecognizedChar());
+        if (formatOptions().preserveLineBreaks())
             os << "\n";
     }
 }

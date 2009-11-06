@@ -16,43 +16,32 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTER_H_
-#define EXPORTER_H_
+#ifndef ICONV_H_
+#define ICONV_H_
 
-#include <iostream>
 #include <string>
 #include <stdexcept>
-
-#include "puma/formatoptions.h"
+#include <iconv.h>
 
 namespace CIF {
 
-class Exporter
+class Iconv
 {
 public:
-    Exporter();
-    Exporter(const FormatOptions& opts);
-    virtual ~Exporter();
+    Iconv();
+    Iconv(const std::string &from, const std::string &to);
+    ~Iconv();
 
     typedef std::runtime_error Exception;
 
-    virtual bool encodeNeeded() const;
-    void exportTo(const std::string& filename);
-    void exportTo(std::ostream& os);
-    FormatOptions formatOptions() const;
-    std::string inputEncoding() const;
-    std::string outputEncoding() const;
-    void setFormatOptions(const FormatOptions& opts);
-    void setInputEncoding(const std::string& enc);
-    void setOutputEncoding(const std::string& enc);
+    bool close();
+    size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
+    std::string convert(const std::string& src);
+    bool open(const std::string &from, const std::string &to);
 private:
-    virtual void exportPage(std::ostream& os) = 0;
-    void autoDetectOutputEncoding();
-    FormatOptions format_options_;
-    std::string input_encoding_;
-    std::string output_encoding_;
+    iconv_t iconv_;
 };
 
 }
 
-#endif /* EXPORTER_H_ */
+#endif /* ICONV_H_ */
