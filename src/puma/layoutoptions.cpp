@@ -16,6 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <iomanip>
+
+#include "common/tostring.h"
 #include "layoutoptions.h"
 #include "mpuma.h"
 #include "rstuff/rstuff.h"
@@ -94,6 +97,17 @@ puma_table_t LayoutOptions::tableMode() const {
 
 int LayoutOptions::tablesNum() const {
     return tables_num_;
+}
+
+std::ostream& operator<<(std::ostream& os, const LayoutOptions& opts) {
+    os << "Layout options:\n"
+            << std::boolalpha
+            << "  One Column:    " << opts.oneColumn() << "\n"
+            << "  Dot Matrix:    " << opts.dotMatrix() << "\n"
+            << "  Auto Rotate:   " << opts.autoRotate() << "\n"
+            << "  Tables number: " << opts.tablesNum() << "\n"
+            << "  Geometry:      " << opts.rect() << "\n";
+    return os;
 }
 
 }

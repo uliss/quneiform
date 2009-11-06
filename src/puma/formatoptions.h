@@ -38,10 +38,12 @@ public:
     bool isFontSizeUsed() const;
     bool isItalicUsed() const;
     std::string monospaceName() const;
+    bool preserveLineBreaks() const;
     std::string sansSerifName() const;
     std::string serifName() const;
     void setFormatMode(puma_format_mode_t format);
     void setMonospaceName(const std::string& name);
+    void setPreserveLineBreaks(bool value);
     void setSansSerifName(const std::string& name);
     void setSerifName(const std::string& name);
     void setUnrecognizedChar(wchar_t ch);
@@ -57,6 +59,7 @@ private:
     bool use_bold_;
     bool use_italic_;
     bool use_font_size_;
+    bool preserve_line_breaks_;
     puma_format_mode_t format_mode_;
     wchar_t unrecognized_char_;
 };

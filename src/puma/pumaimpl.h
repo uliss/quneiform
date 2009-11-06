@@ -23,6 +23,7 @@
 #include <iosfwd>
 #include <stdexcept>
 #include <memory>
+#include <set>
 
 #include "pumadef.h"
 #include "cfcompat.h"
@@ -54,11 +55,13 @@ public:
     PumaImpl();
     ~PumaImpl();
 
+    void addUserDictionary(const std::string& name);
     void close();
     FormatOptions formatOptions() const;
     LayoutOptions layoutOptions() const;
     void open(char * dib);
     void recognize();
+    void removeUserDictionary(const std::string& name);
     void save(const std::string& outputFilename, int format) const;
     void save(void * dest, size_t size, int format) const;
     void setFormatOptions(const FormatOptions& opt);
@@ -74,6 +77,7 @@ public:
     static const size_t MainBufferSize = 500000;
     static const size_t WorkBufferSize = 180000;
 private:
+    void addUserDictionary_(const std::string& name);
     void binarizeImage();
     void clearAll();
     void extractStrings();
@@ -91,6 +95,7 @@ private:
     void pass1();
     void pass2();
     void preOpenInitialize();
+    void printRecognizeOptions() const;
     void printResult(std::ostream& os);
     void printResultLine(std::ostream& os, size_t lineNumber);
     void postOpenInitialize();
@@ -116,11 +121,9 @@ private:
     std::auto_ptr<Rsl> rsl_;
     std::auto_ptr<RMarker> rmarker_;
     BitmapInfoHeader info_;
-    bool do_spell_corretion_;
-    bool preserve_line_breaks_;
+    bool do_spell_correction_;
     bool fax100_;
     language_t language_;
-    std::string user_dict_name_;
     std::string input_filename_;
     std::string recog_name_;
     FormatOptions format_options_;
@@ -136,6 +139,9 @@ private:
     char special_global_buf_[64000];
     size_t special_global_buf_len_;
     bool kill_vsl_components_;
+    std::string user_dict_name_;
+    typedef std::set<std::string> DictContainer;
+    DictContainer user_dict_;
 };
 
 }

@@ -24,7 +24,7 @@ namespace CIF {
 
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-            use_bold_(true), use_italic_(true), use_font_size_(true),
+            use_bold_(false), use_italic_(false), use_font_size_(false), preserve_line_breaks_(false),
             format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~') {
 }
 
@@ -51,6 +51,10 @@ std::string FormatOptions::monospaceName() const {
     return monospace_name_;
 }
 
+bool FormatOptions::preserveLineBreaks() const {
+    return preserve_line_breaks_;
+}
+
 std::string FormatOptions::sansSerifName() const {
     return sans_serif_name_;
 }
@@ -65,6 +69,10 @@ void FormatOptions::setFormatMode(puma_format_mode_t format) {
 
 void FormatOptions::setMonospaceName(const std::string & name) {
     monospace_name_ = name;
+}
+
+void FormatOptions::setPreserveLineBreaks(bool value) {
+    preserve_line_breaks_ = value;
 }
 
 void FormatOptions::setSansSerifName(const std::string & name) {
@@ -103,13 +111,14 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
     using namespace std;
 
     os << "FormatOptions:\n";
-    os << setw(20) << "   SerifName:" << fmt.serifName() << "\n";
-    os << setw(20) << "   SansSerifName:" << fmt.sansSerifName() << "\n";
-    os << setw(20) << "   Monospace Name:" << fmt.monospaceName() << "\n";
-    os << setw(20) << "   Use bold:" << fmt.isBoldUsed() << "\n";
-    os << setw(20) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
-    os << setw(20) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
-    os << setw(20) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
+    os << "  SerifName:         " << fmt.serifName() << "\n";
+    os << "  SansSerifName:     " << fmt.sansSerifName() << "\n";
+    os << "  Monospace Name:    " << fmt.monospaceName() << "\n";
+    os << "  Use bold:          " << fmt.isBoldUsed() << "\n";
+    os << "  Use Italic:        " << fmt.isItalicUsed() << "\n";
+    os << "  Use font size:     " << fmt.isFontSizeUsed() << "\n";
+    os << "  Unrecognized char: '" << (char) (fmt.unrecognizedChar()) << "'\n";
+    os << "  Line breaks:       " << boolalpha << fmt.preserveLineBreaks() << "\n";
     return os;
 }
 

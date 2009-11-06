@@ -20,6 +20,7 @@
 #define LAYOUTOPTIONS_H_
 
 #include <string>
+#include <iostream>
 
 #include "pumadef.h"
 #include "cttypes.h"
@@ -60,6 +61,8 @@ private:
     Bool32 rc_line_;
     Bool32 need_clean_line_;
 };
+
+std::ostream& operator<<(std::ostream& os, const LayoutOptions& opts);
 
 }
 

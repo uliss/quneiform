@@ -93,15 +93,39 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    do_spell_corretion_(true), preserve_line_breaks_(false), fax100_(false),
-            language_(LANG_RUSENG), input_dib_(NULL), recog_dib_(NULL), ccom_(NULL), cpage_(NULL),
-            lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), special_project_(0),
-            special_global_buf_len_(0), kill_vsl_components_(true) {
+    do_spell_correction_(true), fax100_(false), language_(LANG_RUSENG), input_dib_(NULL),
+            recog_dib_(NULL), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(
+                    NULL), special_project_(0), special_global_buf_len_(0), kill_vsl_components_(
+                    true) {
     modulesInit();
 }
 
 PumaImpl::~PumaImpl() {
     modulesDone();
+}
+
+void PumaImpl::addUserDictionary_(const std::string& name) {
+    if (name.empty())
+        return;
+    user_dict_.insert(name);
+}
+
+void PumaImpl::addUserDictionary(const std::string& name) {
+    const char DictionarySeparator = ',';
+    if (name.find(DictionarySeparator) == string::npos)
+        addUserDictionary_(name);
+    else {
+        size_t pos = 0, last_comma = 0;
+        for (size_t i = 0; i < name.size(); i++) {
+            if (name[i] == DictionarySeparator) {
+                addUserDictionary_(name.substr(pos, i - pos));
+                pos = i + 1;
+                last_comma = i;
+            }
+        }
+        if (last_comma)
+            addUserDictionary_(name.substr(last_comma + 1));
+    }
 }
 
 void PumaImpl::binarizeImage() {
@@ -465,6 +489,20 @@ void PumaImpl::preOpenInitialize() {
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::printRecognizeOptions() const {
+    Debug() << "############################\n" << "CuneiForm Recognize options:\n"
+            << "  Language:      " << language_ << "\n" << boolalpha << "  Fax:           "
+            << fax100_ << "\n" << "  Use speller:   " << do_spell_correction_ << "\n"
+            << layout_options_ << format_options_;
+    if (!user_dict_.empty()) {
+        Debug() << "User dictionaries: ";
+        for (DictContainer::iterator it = user_dict_.begin(), end = user_dict_.end(); it != end; ++it)
+            Debug() << *it << " ";
+        Debug() << "\n";
+    }
+    Debug() << "############################\n";
+}
+
 void PumaImpl::printResult(std::ostream& os) {
     int count = CSTR_GetMaxNumber();
     for (int i = 1; i <= count; i++)
@@ -526,6 +564,9 @@ void PumaImpl::postOpenInitialize() {
 }
 
 void PumaImpl::recognize() {
+    if (Config::instance().debug())
+        printRecognizeOptions();
+
     // Проверим: выделены ли фрагменты.
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
@@ -768,9 +809,14 @@ void PumaImpl::recognizeSetup() {
     if (!LDPUMA_Skip(hDebugCancelStringsPass2))
         RSTR_SetImportData(RSTR_Word8_P2_disable, &w8);
 
-    w8 = do_spell_corretion_ ? TRUE : FALSE;
+    w8 = do_spell_correction_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
 
+    std::ostringstream os;
+    for (DictContainer::iterator it = user_dict_.begin(), end = user_dict_.end(); it != end; ++it)
+        os << *it << std::ends;
+    os << std::ends;
+    user_dict_name_ = os.str();
     RSTR_SetImportData(RSTR_pchar_user_dict_name, user_dict_name_.c_str());
 
     // Передать язык в словарный контроль. 12.06.2002 E.P.
@@ -780,6 +826,10 @@ void PumaImpl::recognizeSetup() {
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
+}
+
+void PumaImpl::removeUserDictionary(const std::string& name) {
+    user_dict_.erase(name);
 }
 
 void PumaImpl::rotate(void * dib, Point * p) {
@@ -833,8 +883,9 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
     if (str)
         *(str) = '\0';
 
+    Bool line_breaks = format_options_.preserveLineBreaks();
     char unrecog = format_options_.unrecognizedChar();
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) line_breaks)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
@@ -863,8 +914,8 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
 
 void PumaImpl::rout(void * dest, size_t size, int format) const {
     char unrecog = format_options_.unrecognizedChar();
-
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
+    Bool line_breaks = format_options_.preserveLineBreaks();
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) line_breaks)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
             (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
@@ -1016,7 +1067,7 @@ void PumaImpl::setOptionUserDictionaryName(const char * name) {
 }
 
 void PumaImpl::setOptionUseSpeller(bool value) {
-    do_spell_corretion_ = value;
+    do_spell_correction_ = value;
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {
@@ -1069,7 +1120,7 @@ void PumaImpl::spellCorrection() {
     // Дораспознаем по словарю
     CSTR_SortFragm(1);
     RPSTR_CollectCapDrops(1);
-    if (!do_spell_corretion_)
+    if (!do_spell_correction_)
         return;
 
     if (!RPSTR_CorrectSpell(1))

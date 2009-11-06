@@ -175,24 +175,27 @@ static string usage() {
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os << ""
-        "  -h   --help               Print this help message\n"
-        "  -v   --verbose            Print verbose debugging messages\n"
-        "  -V   --version            Print program version and exit\n"
-        "       --autorotate         Automatically rotate input image\n"
-        "  -f   --format   FORMAT    Sets output format\n"
-        "                              type --format help to get full list\n"
-        "  -l   --language LANGUAGE  Sets recognition language\n"
-        "                              type --language help to gel full list\n"
-        "  -o   --output   FILENAME  Sets output filename\n"
-        "       --spell              Use spell correction\n"
-        "       --onecolumn                              \n"
-        "       --dotmatix                               \n"
-        "       --fax                                    \n"
+        "  -h   --help                   Print this help message\n"
+        "  -v   --verbose                Print verbose debugging messages\n"
+        "  -V   --version                Print program version and exit\n"
+        "       --autorotate             Automatically rotate input image\n"
+        "  -f   --format   FORMAT        Sets output format\n"
+        "                                   type --format help to get full list\n"
+        "  -l   --language LANGUAGE      Sets recognition language\n"
+        "                                   type --language help to gel full list\n"
+        "  -o   --output   FILENAME      Sets output filename\n"
+        "       --spell                  Use spell correction\n"
+        "       --onecolumn              Use one column layout\n"
+        "       --dotmatrix                               \n"
+        "       --fax                                     \n"
         "       --tables   MODE\n"
         "       --pictures MODE\n"
-        "       --monospace-name     Use specified monospace font in RTF output\n"
-        "       --serif-name         Use specified serif font in RTF output\n"
-        "       --sansserif-name     Use seecified sans-serif font in RTF output\n";
+        "       --preserve-line-breaks                  \n"
+        "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
+        "                                    Default is '~'.\n"
+        "       --monospace-name         Use specified monospace font in RTF output\n"
+        "       --serif-name             Use specified serif font in RTF output\n"
+        "       --sansserif-name         Use seecified sans-serif font in RTF output\n";
     return os.str();
 }
 
@@ -276,15 +279,19 @@ static char* read_file(const char *fname) {
 
 int main(int argc, char **argv) {
     program_name = argv[0];
+    std::string dictionaries;
+    char unrecognized_char = 0;
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
-            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE;
+            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE,
+            preserve_line_breaks = FALSE;
 
-    const char * const short_options = ":ho:vVl:f:";
+    const char * const short_options = ":ho:vVl:f:d:u:";
     const struct option long_options[] = {
     //
         { "autorotate", no_argument, &do_autorotate, 1 },//
-        { "dotmarix", no_argument, &do_dotmatrix, 1 },//
+        { "dictionary", required_argument, NULL, 'd' }, //
+        { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
         { "fax", no_argument, &do_fax, 1 },//
         { "format", required_argument, NULL, 'f' },//
         { "help", no_argument, NULL, 'h' },//
@@ -292,11 +299,13 @@ int main(int argc, char **argv) {
         { "monospace-name", required_argument, NULL, 'x' },
         { "output", required_argument, NULL, 'o' },//
         { "pictures", no_argument, &do_pictures, 1 },//
+        { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
         { "sansserif-name", required_argument, NULL, 'y' },
         { "serif-name", required_argument, NULL, 'z' },
         { "onecolumn", no_argument, &do_singlecolumn, 1 },//
         { "spell", no_argument, &do_speller, 1 },//
         { "tables", required_argument, &do_tables, 1 },//
+        { "unrecognized", required_argument, NULL, 'u' },//
         { "verbose", no_argument, &do_verbose, 1 },//
         { "version", no_argument, NULL, 'V' },//
         { NULL, 0, NULL, 0 } };
@@ -307,6 +316,9 @@ int main(int argc, char **argv) {
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (code) {
+        case 'd':
+            dictionaries = optarg;
+            break;
         case 'f': {
             if (strcmp(optarg, "help") == 0) {
                 cout << supported_formats();
@@ -343,6 +355,9 @@ int main(int argc, char **argv) {
             break;
         case 'o':
             outfilename = optarg;
+            break;
+        case 'u':
+            unrecognized_char = optarg[0];
             break;
         case 'v':
             do_verbose = 1;
@@ -405,6 +420,7 @@ int main(int argc, char **argv) {
         if (!dib)
             return EXIT_FAILURE;
 
+        Puma::instance().addUserDictionary(dictionaries);
         Puma::instance().setOptionLanguage(langcode);
 
         LayoutOptions lopt = Puma::instance().layoutOptions();
@@ -424,11 +440,13 @@ int main(int argc, char **argv) {
         if (!monospace.empty())
             opt.setMonospaceName(monospace);
 
-        //  opt.setUnrecognizedChar('?');
         //  opt.useBold(true);
         //  opt.useItalic(true);
         //  opt.useFontSize(true);
         //  opt.setFormatMode(puma_format_mode_t t);
+        opt.setPreserveLineBreaks(preserve_line_breaks);
+        if (unrecognized_char)
+            opt.setUnrecognizedChar(unrecognized_char);
 
         Puma::instance().setFormatOptions(opt);
 
