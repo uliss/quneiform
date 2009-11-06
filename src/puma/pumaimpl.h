@@ -30,7 +30,6 @@
 #include "formatoptions.h"
 #include "layoutoptions.h"
 #include "rect.h"
-#include "memorybuffer.h"
 #include "cimage/imageinfo.h"
 #include "lang_def.h"
 
@@ -71,11 +70,6 @@ public:
     void setOptionUserDictionaryName(const char * name);
     void setOptionUseSpeller(bool value = true);
     void setPageTemplate(const Rect& r);
-public:
-    static unsigned char * mainBuffer();
-    static unsigned char * workBuffer();
-    static const size_t MainBufferSize = 500000;
-    static const size_t WorkBufferSize = 180000;
 private:
     void addUserDictionary_(const std::string& name);
     void binarizeImage();
@@ -112,9 +106,6 @@ private:
     void saveToText(const std::string& filename) const;
     void setData(RSPreProcessImage& data);
     void spellCorrection();
-private:
-    static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
-    static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
 private:
     std::auto_ptr<CTIControl> cimage_;
     std::auto_ptr<RStuff> rstuff_;

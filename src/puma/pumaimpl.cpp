@@ -89,9 +89,6 @@ static Handle ghStorage = NULL;
 
 namespace CIF {
 
-FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
-FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
-
 PumaImpl::PumaImpl() :
     do_spell_correction_(true), fax100_(false), language_(LANG_RUSENG), input_dib_(NULL),
             recog_dib_(NULL), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(
@@ -1125,14 +1122,6 @@ void PumaImpl::spellCorrection() {
 
     if (!RPSTR_CorrectSpell(1))
         throw PumaException("RPSTR_CorrectSpell failed");
-}
-
-unsigned char * PumaImpl::mainBuffer() {
-    return main_buffer_.begin();
-}
-
-unsigned char * PumaImpl::workBuffer() {
-    return work_buffer_.begin();
 }
 
 }
