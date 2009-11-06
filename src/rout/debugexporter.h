@@ -29,7 +29,7 @@ public:
     DebugExporter(const FormatOptions& opts);
     ~DebugExporter();
 private:
-    void exportPage(std::ostream& os);
+    void doExport(std::ostream& os);
 };
 
 }

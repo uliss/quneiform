@@ -31,7 +31,7 @@ DebugExporter::DebugExporter(const FormatOptions& opts) :
 DebugExporter::~DebugExporter() {
 }
 
-void DebugExporter::exportPage(std::ostream& os) {
+void DebugExporter::doExport(std::ostream& os) {
     Iconv converter(inputEncoding(), outputEncoding());
     bool do_encode = encodeNeeded();
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {

@@ -62,7 +62,6 @@ public:
     void recognize();
     void removeUserDictionary(const std::string& name);
     void save(const std::string& outputFilename, int format) const;
-    void save(void * dest, size_t size, int format) const;
     void setFormatOptions(const FormatOptions& opt);
     void setLayoutOptions(const LayoutOptions& opt);
     void setOptionFax100(bool val);
@@ -98,7 +97,6 @@ private:
     void recognizePass2();
     void recognizeSetup();
     void rotate(void * dib, Point * p);
-    void rout(const std::string& fname, int Format) const;
     void rout(void * dest, size_t size, int format) const;
     void saveCSTR(int pass);
     void saveLayoutToFile(const std::string& fname);

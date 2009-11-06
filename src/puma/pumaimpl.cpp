@@ -49,7 +49,7 @@
 #include "rline.h"
 #include "rfrmt.h"
 #include "rout/rout.h"
-#include "rout/debugexporter.h"
+#include "rout/exporterfactory.h"
 #include "rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
@@ -874,42 +874,6 @@ void PumaImpl::rotate(void * dib, Point * p) {
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::rout(const std::string& filename, int Format) const {
-    char szName[260];
-    strcpy(szName, filename.c_str());
-    char * str = strrchr(szName, '.');
-    if (str)
-        *(str) = '\0';
-
-    Bool line_breaks = format_options_.preserveLineBreaks();
-    char unrecog = format_options_.unrecognizedChar();
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) line_breaks)
-            || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
-            ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
-            (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
-            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
-        throw PumaException("ROUT_SetImportData failed");
-
-    // Количество объектов
-    long countObjects = ROUT_CountObjects();
-    if (countObjects == -1)
-        return;
-
-    // Цикл по объектам на странице
-    for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
-        std::string path(filename);
-
-        if (countObjects != 1) {
-            path = ROUT_GetDefaultObjectName(objIndex);
-            if (!path.empty())
-                throw PumaException("ROUT_GetDefaultObjectName failed");
-        }
-
-        if (!ROUT_SaveObject(objIndex, path.c_str(), FALSE))
-            throw PumaException("ROUT_SaveObject failed");
-    }
-}
-
 void PumaImpl::rout(void * dest, size_t size, int format) const {
     char unrecog = format_options_.unrecognizedChar();
     Bool line_breaks = format_options_.preserveLineBreaks();
@@ -944,50 +908,11 @@ void PumaImpl::save(const std::string& filename, int Format) const {
     if (Config::instance().debug())
         Debug() << "Puma save to: " << filename << endl;
 
-    switch (Format) {
-    case PUMA_DEBUG_TOTEXT: {
-        DebugExporter exp(format_options_);
-        exp.exportTo(filename);
-    }
-        break;
-    case PUMA_TORTF:
-        if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
-            throw PumaException("Save to RTF failed");
-        break;
-    case PUMA_TOEDNATIVE:
-        if (!CED_WriteFormattedEd(filename.c_str(), ed_page_))
-            throw PumaException("Save to native format failed");
-        break;
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-    case PUMA_TOTABLEDBF:
-    case PUMA_TOHTML:
-    case PUMA_TOHOCR:
-        rout(filename, Format);
-        break;
-    default: {
-        ostringstream os;
-        os << "Unknown output format: " << Format;
-        throw PumaException(os.str());
-    }
-    }
-}
-
-void PumaImpl::save(void * dest, size_t size, int format) const {
-    switch (format) {
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-    case PUMA_TOTABLEDBF:
-    case PUMA_TOHTML:
-        rout(dest, size, format);
-    default: {
-        ostringstream os;
-        os << "Unknown output format: " << format;
-        throw PumaException(os.str());
-    }
-    }
+    ExporterFactory::instance().setPage(ed_page_);
+    ExporterFactory::instance().setFormatOptions(format_options_);
+    Exporter * exp = ExporterFactory::instance().make(Format);
+    exp->exportTo(filename);
+    delete exp;
 }
 
 void PumaImpl::saveCSTR(int pass) {

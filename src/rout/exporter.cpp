@@ -69,7 +69,7 @@ void Exporter::exportTo(const std::string& filename) {
 }
 
 void Exporter::exportTo(std::ostream& os) {
-    exportPage(os);
+    doExport(os);
 }
 
 FormatOptions Exporter::formatOptions() const {

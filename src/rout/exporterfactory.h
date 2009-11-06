@@ -16,43 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTER_H_
-#define EXPORTER_H_
+#ifndef EXPORTERFACTORY_H_
+#define EXPORTERFACTORY_H_
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
-
+#include "cttypes.h"
+#include "singleton.h"
 #include "puma/formatoptions.h"
+#include "exporter.h"
+
+#include <stdexcept>
 
 namespace CIF {
 
-class Exporter
+class ExporterFactoryImpl
 {
 public:
-    Exporter();
-    Exporter(const FormatOptions& opts);
-    virtual ~Exporter();
+    ExporterFactoryImpl();
+    ~ExporterFactoryImpl();
+    Exporter * make(int format);
+    void setFormatOptions(const FormatOptions& opts);
+    void setPage(Handle page);
 
     typedef std::runtime_error Exception;
-
-    virtual bool encodeNeeded() const;
-    virtual void exportTo(const std::string& filename);
-    void exportTo(std::ostream& os);
-    FormatOptions formatOptions() const;
-    std::string inputEncoding() const;
-    std::string outputEncoding() const;
-    void setFormatOptions(const FormatOptions& opts);
-    void setInputEncoding(const std::string& enc);
-    void setOutputEncoding(const std::string& enc);
 private:
-    virtual void doExport(std::ostream& os) = 0;
-    void autoDetectOutputEncoding();
+    Handle page_;
     FormatOptions format_options_;
-    std::string input_encoding_;
-    std::string output_encoding_;
 };
+
+typedef Singleton<ExporterFactoryImpl> ExporterFactory;
 
 }
 
-#endif /* EXPORTER_H_ */
+#endif /* EXPORTERFACTORY_H_ */
