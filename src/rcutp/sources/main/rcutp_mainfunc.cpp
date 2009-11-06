@@ -191,7 +191,7 @@ if(CP)
      buf+=sprintf(buf,"bl_up=%2d,bl_dw=%2d   ",bl_up,bl_dw);
 #endif
      Alik_my_correct_base_lines(&bl_up,&bl_dw,dy,dx,row,(puchar)adr_ras_two,
-                                (PWORD)penalty,IntBuf);
+                                (uint16_t*)penalty,IntBuf);
 #ifdef AlikBl
      buf+=sprintf(buf,"bl_up=%2d,bl_dw=%2d   ",bl_up,bl_dw);
 #endif

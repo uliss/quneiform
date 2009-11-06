@@ -1864,8 +1864,8 @@ void CKronrodBinarizator::Korob_calc_porog_x_y() {
 
 	m_Verblud:
 	//			6/8   -
-	//			    /	\
-	//			  /   B	  \
+	/*			    /	\   */
+	/*			  /   B	  \ */
 	//			/   A	C   - -  4/8
 	//		      /   9	  D
 	// 3/8	- - - - - - /   8	    E F
@@ -1951,7 +1951,7 @@ void CKronrodBinarizator::Korob_Files_Write() {
 			/*......................................................................*/
 			for (i=Korob_i1; i<=Korob_i2; i++)
 			{
-				memcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj); ///
+				memcpy ((puchar) buf_B, ppMem [i] + Korob_j1, Korob_nj); ///
 				n = fwrite (buf_B, 1, Korob_nj, mkFile_KOROBS_BODIES);
 				if (n!=Korob_nj)
 				PR_BEG

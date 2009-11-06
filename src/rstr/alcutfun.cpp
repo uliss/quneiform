@@ -1496,9 +1496,9 @@ void Alik_UpBlackPoint(pchar bufer, int16_t dy, int16_t dx, puchar UpBlackPoint)
 #define SERIF_POGRESHNOST_IN  4
 
 int16_t Alik_up_position_double_serif(puchar bufer, int16_t dy, int16_t dx,
-		PWORD penalty, puchar IntBuf, int16_t hgt) {
+		uint16_t * penalty, puchar IntBuf, int16_t hgt) {
 	int16_t i, ver_byte, pos, hgt_bbs;
-	PWORD PPen;
+	uint16_t * PPen;
 	uchar I_begin, I_end, II_begin, II_end, in_up, in_dw, out_up, out_dw;
 	puchar CurPos;
 
@@ -1554,7 +1554,7 @@ int16_t Alik_up_position_double_serif(puchar bufer, int16_t dy, int16_t dx,
 
 #define POGRESHNOST 3
 void Alik_my_correct_base_lines(pint16_t bl_up, pint16_t bl_dw, int16_t dy,
-		int16_t dx, int16_t row, puchar bufer, PWORD penalty, puchar IntBuf) {
+		int16_t dx, int16_t row, puchar bufer, uint16_t * penalty, puchar IntBuf) {
 	int16_t hgt;
 	up_position = 0;
 	dw_position = 0;

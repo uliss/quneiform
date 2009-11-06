@@ -77,8 +77,8 @@ static uchar scsweep[512];
 static uchar work_state = 0;
 static uint32_t offset;
 
-static void stat_garb(PWORD);
-static uint16_t delete_(PWORD);
+static void stat_garb(uint16_t *);
+static uint16_t delete_(uint16_t *);
 static uint16_t to_file();
 static void open_comp_file();
 static void write_comp(pchar, int32_t);

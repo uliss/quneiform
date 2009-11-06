@@ -88,7 +88,7 @@ void grey_quant_KOROB_graph_Hist(void);
 void grey_quant_KOROB_PR_Factor(void);
 void grey_PR_BYTE(uint16_t ibeg, uint16_t jbeg, uint16_t value);
 
-void hist_add(LPBYTE p, uint16_t N_Lines); // PART-2: grey-kor.c
+void hist_add(puchar p, uint16_t N_Lines); // PART-2: grey-kor.c
 void hist_glad_8_121(void);
 void hist_MIN_MAX(void);
 void Korobs_init(void);
@@ -119,7 +119,7 @@ void pr_MES_3(const char *text, int16_t n1, int16_t n2, int16_t n3);
 //......................................................................//
 // MKASM.ASM  PROGRAMS:
 uint16_t mk_1235(void);
-void mk_hist_WORD(uint16_t *Hist_WORD, LPBYTE p, uint16_t n);
+void mk_hist_WORD(uint16_t *Hist_WORD, puchar p, uint16_t n);
 
 //DEFINES
 #define	KEY		if (mk_Key)
@@ -185,7 +185,6 @@ char mkText[199]; //ARRAYs
 int32_t Hist_tek[256], Hist_glad[256];
 /*----------------------------------------------------------------------*/
 FILE *mkFile_GREY_INI; // FILES
-//////FILE	*mkFile_TEMP_IMG;	// defete 02.09.1992
 FILE *mkFile_KOROBS_HEADS;
 FILE *mkFile_KOROBS_BODIES;
 /*----------------------------------------------------------------------*/
@@ -195,10 +194,10 @@ Handle hMBIT = 0;
 Handle hMREF = 0;
 Handle hPPMEM = 0;
 /*----------------------------------------------------------------------*/
-LPBYTE pMem08[8]; // ARRAY for 8 MEMs			//POINTERs
-LPBYTE pMBIT, pMBIT_tek;
-LPBYTE pMREF; // for KOROBS REFERENCES
-LPBYTE pMem_TEK, pMem_kuda;
+puchar pMem08[8]; // ARRAY for 8 MEMs			//POINTERs
+puchar pMBIT, pMBIT_tek;
+puchar pMREF; // for KOROBS REFERENCES
+puchar pMem_TEK, pMem_kuda;
 uchar ** ppMem; //Array of FAR Pointers
 /*----------------------------------------------------------------------*/
 // KOROB VARIABLES
@@ -654,8 +653,8 @@ void grey_quant_KOROB_1x1() { // 29.08.1992
 	uint16_t j, j1, nj, j7;
 	int16_t porog_tek;
 	uchar b, mask_left, mask;
-	LPBYTE pkuda_beg, pkuda;
-	LPBYTE pkogo;
+	puchar pkuda_beg, pkuda;
+	puchar pkogo;
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -696,8 +695,8 @@ void grey_quant_KOROB_1x3_MAX() { // 14.09.1992
 	int16_t porog_tek, porog_max, delta;
 	int16_t nL, nC, nR;
 	uchar b, mask_left, mask;
-	LPBYTE pkuda_beg, pkuda;
-	LPBYTE pkogo;
+	puchar pkuda_beg, pkuda;
+	puchar pkogo;
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -761,8 +760,8 @@ void grey_quant_KOROB_1x5work() { // 03.11.1992
 	int16_t porog_tek;
 	int16_t nLL, nL, nC, nR, nRR, nCmod;
 	uchar b, mask_left, mask;
-	LPBYTE pkuda_beg, pkuda;
-	LPBYTE pkogo;
+	puchar pkuda_beg, pkuda;
+	puchar pkogo;
 
 	if (Korob_nj < 5)
 		return; // BBB
@@ -872,8 +871,8 @@ void grey_quant_KOROB_3x3() { // 29.08.1992
 	uchar b, mask_left, mask;
 	uchar here_Laplas, here_Plan, here_Hor, here_Vert;
 	int32_t L_kp_D8;
-	LPBYTE pkuda_beg, pkuda;
-	LPBYTE pU, pC, pD; // Up, Centre, Down
+	puchar pkuda_beg, pkuda;
+	puchar pU, pC, pD; // Up, Centre, Down
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -1060,8 +1059,8 @@ void grey_quant_KOROB_3x3_VERB() { // 25.09.1992
 	int16_t nDL, nD, nDR;
 	int16_t lapl;
 	uchar b, mask_left, mask;
-	LPBYTE pkuda_beg, pkuda;
-	LPBYTE pU, pC, pD; // Up, Centre, Down
+	puchar pkuda_beg, pkuda;
+	puchar pU, pC, pD; // Up, Centre, Down
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -1144,7 +1143,7 @@ void grey_quant_KOROB_draw_RAMKA() { // 29.08.1992
 	uint16_t i, i1, i2;
 	uint16_t j, j1, nj, j2;
 	uchar mask, mask_L, mask_R;
-	LPBYTE pU, pD, pL, pR; // Up, Down, Left, Right
+	puchar pU, pD, pL, pR; // Up, Down, Left, Right
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -1217,7 +1216,7 @@ void grey_PR_BYTE(uint16_t ibeg, uint16_t jbeg, uint16_t value) { // 22.09.1992
 	uint16_t i, j, k;
 	uint16_t cifra, scale;
 	uchar mask;
-	LPBYTE p;
+	puchar p;
 	/*......................................................................*/
 	cifra = value / 16;
 	for (k = 0; k < 2; k++) {
@@ -1254,7 +1253,7 @@ void grey_PR_BYTE(uint16_t ibeg, uint16_t jbeg, uint16_t value) { // 22.09.1992
 // 27.10.1992	use const 16 (instead old 32) in hist_MIN_MAX for LEFT MAX
 // 28.10.1992	RIKOH: Experiments with  memory_alloc_from_body ();
 /*----------------------------------------------------------------------*/
-void hist_add(LPBYTE p, uint16_t N_Lines); // PART-2: grey-kor.c
+void hist_add(puchar p, uint16_t N_Lines); // PART-2: grey-kor.c
 void hist_glad_8_121(void);
 void hist_MIN_MAX(void);
 void Korobs_init(void);
@@ -1283,7 +1282,7 @@ void pr_MES_1(char *text, int16_t n1);
 void pr_MES_2(char *text, int16_t n1, int16_t n2);
 void pr_MES_3(char *text, int16_t n1, int16_t n2, int16_t n3);
 /*----------------------------------------------------------------------*/
-void hist_add(LPBYTE p, uint16_t N_Lines) { // 01.09.1992
+void hist_add(puchar p, uint16_t N_Lines) { // 01.09.1992
 	uint16_t k, n;
 	uint16_t Hist_WORD[256];
 
@@ -1491,7 +1490,7 @@ void Korobs() { // 23.10.1992
 	uint16_t f, fff; // NEXT for NEXT// Ё the number of last busy line.	Ё
 	uint16_t b_old; // Ё    New KOROB included to it. The	Ё
 	int16_t ai2, ei2; // Ё simplest case - if KOROB is inter 	Ё
-	LPBYTE pC; // Ё free interval. But it can be lefts	Ё
+	puchar pC; // Ё free interval. But it can be lefts	Ё
 	int16_t *KR = (int16_t *) pMREF;// Ё from left boundary or rights from 	Ё
 	// (KOROBS REFERENCES)	// Ё right boundary of free interval...	Ё
 	// юдддддддддддддддддддддддддддддддддддды
@@ -1898,7 +1897,7 @@ void Korob_calc_Factor() { // 07.09.1992
 	uint16_t i1, i2, j1, nj, nj_1;
 	uint16_t i, j;
 	uchar por_tek;
-	LPBYTE pU, pC, pD; /* Up, Centre, Down */
+	puchar pU, pC, pD; /* Up, Centre, Down */
 
 	i1 = Korob_i1;
 	j1 = Korob_j1;
@@ -2162,7 +2161,7 @@ void Korob_Files_Write() { // 06.10.1992
 
 	buf_H[4] = Korob_Factor + (Korob_porog << 8);
 	buf_H[5] = Porog_08 + (Porog_88 << 8);
-	*(LPLONG)(buf_H + 6) = Korob_Files_Address;
+	*(int32_t*)(buf_H + 6) = Korob_Files_Address;
 
 	Korob_Files_Address += (int32_t) ni * Korob_nj;
 
@@ -2174,7 +2173,7 @@ void Korob_Files_Write() { // 06.10.1992
 	}
 	/*......................................................................*/
 	for (i = Korob_i1; i <= Korob_i2; i++) {
-		memcpy((LPBYTE) buf_B, ppMem[i] + Korob_j1, Korob_nj); ///
+		memcpy((puchar) buf_B, ppMem[i] + Korob_j1, Korob_nj); ///
 		n = fwrite(buf_B, 1, Korob_nj, mkFile_KOROBS_BODIES);
 		if (n != Korob_nj) {
 			char buf_MKPR[199];
@@ -2213,7 +2212,7 @@ void Korob_statistic() { // 11.09.1992
 	uint16_t i, j;
 	int16_t nC, nL, nR;
 	int16_t por_tek;
-	LPBYTE pC;
+	puchar pC;
 	/*......................................................................*/
 	LS_Korobs += (Korob_i2 - Korob_i1 + 1) * (int32_t) Korob_nj;
 	LSH_Korobs += (Korob_i2 - Korob_i1 + 1);

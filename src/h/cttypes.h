@@ -59,16 +59,15 @@
 
 #include <stdint.h>
 
-/*** _SETTYPES() ***/
 #undef _SETTYPES
-#define _SETTYPES( name )                       \
-typedef const name         C##name;         \
-        typedef name            *  P##name;         \
-        typedef const name      *  PC##name;        \
-        typedef name            &  R##name;         \
+#define _SETTYPES( name )                     \
+typedef const name         C##name;           \
+        typedef name            *  P##name;   \
+        typedef const name      *  PC##name;  \
+        typedef name            &  R##name;   \
         typedef const name      &  RC##name;
 
-#define _SETCLASS( cls )       \
+#define _SETCLASS( cls )   \
 class cls;                 \
         _SETTYPES( cls )
 
@@ -77,6 +76,8 @@ typedef int Bool;
 typedef int16_t Bool16;
 typedef int32_t Bool32;
 _SETTYPES( Bool32 )
+
+typedef unsigned char Byte;
 
 typedef unsigned long ulong;
 typedef unsigned int uint;
@@ -90,60 +91,11 @@ typedef int16_t * pint16_t;
 
 typedef void * Handle;
 
-#ifndef   FALSE
-#define FALSE               0
+#ifndef FALSE
+#define FALSE 0
 #endif
-#ifndef   TRUE
-#define TRUE                1
+#ifndef TRUE
+#define TRUE  1
 #endif
-
-// some of generic callbacks:
-typedef void (* FTVoid)(void);
-typedef void* (* FTPVoid)(void);
-typedef Bool (* FTBool)(void);
-typedef Bool16 (* FTBool16)(void);
-typedef Bool32 (* FTBool32)(void);
-
-typedef void (* FTVoid_PVoid)(void*);
-typedef void* (* FTPVoid_PVoid)(void*);
-typedef Bool (* FTBool_PVoid)(void*);
-typedef Bool16 (* FTBool16_PVoid)(void*);
-typedef Bool32 (* FTBool32_PVoid)(void*);
-
-typedef void (* FTVoid_Word32)(uint32_t);
-typedef void* (* FTPVoid_Word32)(uint32_t);
-typedef Bool (* FTBool_Word32)(uint32_t);
-typedef Bool16 (* FTBool16_Word32)(uint32_t);
-typedef Bool32 (* FTBool32_Word32)(uint32_t);
-
-typedef void (* CFTVoid)(void);
-typedef void* (* CFTPVoid)(void);
-typedef Bool (* CFTBool)(void);
-typedef Bool16 (* CFTBool16)(void);
-typedef Bool32 (* CFTBool32)(void);
-
-typedef void (* CFTVoid_PVoid)(void*);
-typedef void* (* CFTPVoid_PVoid)(void*);
-typedef Bool (* CFTBool_PVoid)(void*);
-typedef Bool16 (* CFTBool16_PVoid)(void*);
-typedef Bool32 (* CFTBool32_PVoid)(void*);
-
-typedef void (* CFTVoid_Word32)(uint32_t);
-typedef void* (* CFTPVoid_Word32)(uint32_t);
-typedef Bool (* CFTBool_Word32)(uint32_t);
-typedef Bool16 (* CFTBool16_Word32)(uint32_t);
-typedef Bool32 (* CFTBool32_Word32)(uint32_t);
-
-/*
- * These definitions were originally scattered about the code tree.
- * Consolidating them all here.
- */
-typedef int32_t * PLONG;
-typedef uint32_t * PDWORD;
-typedef uint16_t * PWORD;
-
-typedef uchar* LPBYTE;
-typedef uint32_t * LPDWORD;
-typedef int32_t* LPLONG;
 
 #endif   // __CTTYPES_H

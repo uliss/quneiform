@@ -54,8 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Rout.cpp
-
 //********************************************************************
 //
 // Rout.cpp - экспортируемые функции модуля ROUT
@@ -82,8 +80,7 @@ Bool32 ROUT_LoadEd(char *lpEdFile, // Имя файла или адрес в п�
 		uint32_t bufLen // Длина (только при readFromFile=FALSE)
 ) {
 	// Загрузка ED-файла.
-	// Параметры как в CED_ReadFormattedEd.
-	//DEBUG_PRINT("ROUT_LoadEd");
+	// Параметры как в CED_ReadFormattedEd.;
 	ClearError();
 
 	gPageHandle = CED_ReadFormattedEd(lpEdFile, readFromFile, bufLen);
@@ -105,13 +102,11 @@ Bool32 ROUT_LoadEd(char *lpEdFile, // Имя файла или адрес в п�
 		strcat(gPageName, name);
 	}
 
-	//DEBUG_PRINT("ROUT_LoadEd successful");
 	return TRUE;
 }
 //********************************************************************
 Bool32 ROUT_UnloadEd(void) {
 	// Выгрузка ED-файла
-	//	DEBUG_PRINT("ROUT_UnloadEd");
 	ClearError();
 
 	// Страница была загружена мной?
@@ -131,7 +126,6 @@ Bool32 ROUT_SaveObject(uint32_t objIndex, // Индекс объекта нач�
 		Bool32 append // Дополнение в конец файла
 ) {
 	// Конвертирование в один формат и запись в файл
-	//	DEBUG_PRINT("ROUT_OneFile");
 	ClearError();
 
 	// Загружена ли страница
@@ -220,7 +214,6 @@ Bool32 ROUT_GetObject(uint32_t objIndex, // Индекс объекта начи
 		long *sizeMem // На входе: длина блока памяти
 // На выходе: длина использованной памяти
 ) {
-	//	DEBUG_PRINT("ROUT_OneFormat");
 	ClearError();
 
 	// Загружена ли страница

@@ -69,7 +69,7 @@ DECLARE_HANDLE(HDIB);
 
 /* DIB Macros*/
 
-#define IS_WIN30_DIB(lpbi)  ((*(LPDWORD)(lpbi)) == sizeof(BITMAPINFOHEADER))
+#define IS_WIN30_DIB(lpbi)  ((*(uint32_t*)(lpbi)) == sizeof(BITMAPINFOHEADER))
 #define RECTWIDTH(lpRect)     ((lpRect)->right - (lpRect)->left)
 #define RECTHEIGHT(lpRect)    ((lpRect)->bottom - (lpRect)->top)
 

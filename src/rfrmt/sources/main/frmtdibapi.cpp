@@ -98,7 +98,7 @@
  ************************************************************************/
 
 char* WINAPI FindDIBBits(char* lpbi) {
-	return (lpbi + *(LPDWORD) lpbi + ::PaletteSize(lpbi));
+	return (lpbi + *(uint32_t*) lpbi + ::PaletteSize(lpbi));
 }
 
 /*************************************************************************
