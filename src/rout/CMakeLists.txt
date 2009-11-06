@@ -1,6 +1,8 @@
 add_library(rout ${LIBTYPE}
 browse.cpp
 codetables.cpp
+debugexporter.cpp
+exporter.cpp
 html.cpp
 pictures.cpp
 rout.cpp

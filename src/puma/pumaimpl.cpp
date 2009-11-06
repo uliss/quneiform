@@ -49,6 +49,7 @@
 #include "rline.h"
 #include "rfrmt.h"
 #include "rout/rout.h"
+#include "rout/debugexporter.h"
 #include "rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
@@ -944,8 +945,10 @@ void PumaImpl::save(const std::string& filename, int Format) const {
         Debug() << "Puma save to: " << filename << endl;
 
     switch (Format) {
-    case PUMA_DEBUG_TOTEXT:
-        saveToText(filename);
+    case PUMA_DEBUG_TOTEXT: {
+        DebugExporter exp(format_options_);
+        exp.exportTo(filename);
+    }
         break;
     case PUMA_TORTF:
         if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
@@ -1001,25 +1004,6 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
         os << "CPAGE_SavePage to '" << fname << "' failed.";
         throw PumaException(os.str());
     }
-}
-
-void PumaImpl::saveToText(ostream& os) const {
-    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
-        CSTR_line lin_out = CSTR_GetLineHandle(i, 1); // OLEG
-        if (!lin_out)
-            throw PumaException("CSTR_GetLineHandle failed");
-
-        char txt[500];
-        if (CSTR_LineToTxt(lin_out, txt))
-            os << txt << "\n";
-    }
-}
-
-void PumaImpl::saveToText(const std::string& filename) const {
-    ofstream of(filename.c_str());
-    if (!of)
-        return;
-    saveToText(of);
 }
 
 void PumaImpl::setData(RSPreProcessImage& data) {

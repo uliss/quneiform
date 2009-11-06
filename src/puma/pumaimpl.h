@@ -102,8 +102,6 @@ private:
     void rout(void * dest, size_t size, int format) const;
     void saveCSTR(int pass);
     void saveLayoutToFile(const std::string& fname);
-    void saveToText(std::ostream& os) const;
-    void saveToText(const std::string& filename) const;
     void setData(RSPreProcessImage& data);
     void spellCorrection();
 private:
