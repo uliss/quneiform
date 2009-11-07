@@ -62,7 +62,7 @@
 
 using namespace std;
 
-bool NameCompare(CTIImageHeader * image, const std::string& Name) {
+bool NameCompare(CTIImageHeader * image, const char * Name) {
     return image->ImageName() == Name;
 }
 
@@ -73,7 +73,7 @@ CTIImageList::~CTIImageList() {
 }
 
 CTIImageList::Container::iterator CTIImageList::findImage(const std::string& Name) {
-    return find_if(images_.begin(), images_.end(), bind2nd(ptr_fun(NameCompare), Name));
+    return find_if(images_.begin(), images_.end(), bind2nd(ptr_fun(NameCompare), Name.c_str()));
 }
 
 void CTIImageList::AddImage(const std::string& Name, Handle hDIB, uint32_t Flag) {
