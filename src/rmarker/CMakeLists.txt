@@ -1,5 +1,4 @@
 add_library(rmarker ${LIBTYPE}
-${SNP_SRC}
 bigimage.cpp
 linesbuffer.cpp
 rmarker.cpp
