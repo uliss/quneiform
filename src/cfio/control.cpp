@@ -440,7 +440,7 @@ Handle Control::Alloc(size_t Size, uint Flag, const std::string& Owner,
 // GlobalRealloc
 Handle Control::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 	Handle hNewMemory;
-	uint32_t wOldSize = 0;
+	size_t wOldSize = 0;
 	uint32_t wOldFlag = 0;
 	uint32_t GlobalFlag = 0;
 	void * Sorc;
@@ -505,7 +505,7 @@ bool Control::Unlock(Handle hMem) {
 
 uint32_t Control::WriteMemToFile(Handle hMem, const std::string& Name) {
 	Handle hFile = OpenFile(NULL, Name, OSF_WRITE);
-	uint32_t wMemorySize;
+	size_t wMemorySize;
 	uint32_t wMemoryFlag;
 	uint32_t Counter = 0;
 	pchar pMem;
@@ -624,9 +624,9 @@ bool Control::AddNewMemoryInList(Handle hMemory, uint Size, uint32_t IsGlobal,
 	return memory_list_.AddItem(hMemory, Size, IsGlobal, Owner, Comment);
 }
 
-bool Control::TakeMemory(Handle hMemory, uint32_t * wMemorySize,
-		uint32_t * wMemoryFlag) {
-	return memory_list_.TakeItem(hMemory, wMemorySize, wMemoryFlag);
+bool Control::TakeMemory(Handle hMemory, size_t * MemorySize,
+		uint32_t * MemoryFlag) {
+	return memory_list_.TakeItem(hMemory, MemorySize, MemoryFlag);
 }
 
 bool Control::GetMemory(Handle hMemory, PPMemoryHeader pHeader) {
@@ -644,13 +644,12 @@ bool Control::LockatorMemoryInList(Handle hMemory, Bool32 bLock) {
 
 bool Control::FreeMemory(Handle hMemory, uint32_t /*wFlag*/) {
 	uint32_t wMemoryStatus;
-	uint32_t wMemorySize;
+	size_t wMemorySize;
 
 	if (TakeMemory(hMemory, &wMemorySize, &wMemoryStatus)) {
 		// delete header from list
 		if (DeleteMemoryFromList(hMemory)) {
 			//now memory free at MemoryHeader destructor
-			//if ( !GlobalFree(hMemory) )
 			return TRUE;
 		}
 	}
@@ -659,7 +658,7 @@ bool Control::FreeMemory(Handle hMemory, uint32_t /*wFlag*/) {
 
 void * Control::LockMemory(Handle hMemory) {
 	uint32_t wMemoryStatus;
-	uint32_t wMemorySize;
+	size_t wMemorySize;
 	pvoid pMemory = NULL;
 	// ну , тут осталось немного. отписывать адрес в память,
 	// но пока тут падает, а так как глобальная память не используется, то и
@@ -685,7 +684,7 @@ void * Control::LockMemory(Handle hMemory) {
 
 bool Control::UnlockMemory(Handle hMemory) {
 	uint32_t wMemoryStatus;
-	uint32_t wMemorySize;
+	size_t wMemorySize;
 	Bool bUnlock = false;
 
 	if (TakeMemory(hMemory, &wMemorySize, &wMemoryStatus)) {

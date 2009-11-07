@@ -677,8 +677,6 @@ Bool snap_monitor(void) {
 
 	//
 	snap_monitor_calls++;
-	stop_number = LDPUMA_CSTR_Monitor(hnd, (uint32_t) snap_line, stop_number,
-			myMonitorProc);
 	snap_monitor_calls--;
 	//
 	CSTR_DeleteLine(snap_line);
@@ -727,8 +725,6 @@ Bool snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
 	//
 
 	new_snap: snap_continue = FALSE;
-	stop_number = LDPUMA_CSTR_Monitor(hnd, (uint32_t) snap_line[select_line],
-			stop_number, myMonitorProc/*Ori*/);
 	if (snap_continue) {
 		stop_number = 0;
 		goto new_snap;

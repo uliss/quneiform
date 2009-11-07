@@ -196,7 +196,6 @@ static void leo_ndx_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
     SnpLog("%s", str);
     SnpLog("");
     Ind_SnpWaitUserInput(stnRecog); // pass control to user
-    SnpHideRects((uint32_t) stnRecog);
 }
 
 static void leo_ndx_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
@@ -300,7 +299,6 @@ Bool32 LEO_RecogInd(RecObject* object) {
             SnpLog("%s", "MAX VITA");
             SnpLog("");
             Ind_SnpWaitUserInput(&stnNdxRecog); // pass control to user
-            SnpHideRects((uint32_t) & stnNdxRecog);
         }
         return TRUE;
     }
@@ -319,7 +317,6 @@ Bool32 LEO_RecogInd(RecObject* object) {
                 leo_ndx_snapRaster(object, &stnNdxRecog);
                 SnpLog("%s", "");
                 Ind_SnpWaitUserInput(&stnNdxRecog); // pass control to user
-                SnpHideRects((uint32_t) & stnNdxRecog);
             }
 
             return TRUE;
@@ -392,7 +389,6 @@ Bool32 LEO_RecogInd(RecObject* object) {
             Ind_SnpWaitUserInput(&stnSnapNdxRecog); // pass control to user
             stnSnapNdxRecog.Status &= ~(STN_DRAW | STN_STOP);
         }
-        SnpHideRects((uint32_t) & stnNdxRecog);
     }
     leo_ndx_in_rect = FALSE;
     return TRUE;

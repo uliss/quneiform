@@ -65,116 +65,114 @@ static const int SS_NEG_HALF_SPACE = 0x1E;
 static const int SS_POS_HALF_SPACE = 0x1F;
 
 CSTR_line capdrop_get_main(CSTR_line ln, CSTR_line linef) {
-	CCOM_comp *cmp = 0;
-	CSTR_rast rst = 0;
-	CCOM_USER_BLOCK ub;
-	int num_ln, i;
-	CSTR_line line;
+    CCOM_comp *cmp = 0;
+    CSTR_rast rst = 0;
+    CCOM_USER_BLOCK ub;
+    int num_ln, i;
+    CSTR_line line;
 
-	rst = CSTR_GetNext(CSTR_GetFirstRaster(ln));
-	if (rst)
-		cmp = CSTR_GetComp(rst);
-	if (cmp) {
-		ub.code = CCOM_UB_CAPDROPLN;
-		if (CCOM_GetUserBlock(cmp, &ub) && ub.size == sizeof(num_ln)) {
-			memcpy(&num_ln, ub.data, ub.size);
-			if (num_ln >= 0) {
-				for (line = linef, i = 0; line; i++, line = CSTR_NextLineFragm(
-						line)) {
-					if (i == num_ln)
-						break;
-				}
-			} else {
-				for (line = linef, i = 0; line; i++, line = CSTR_NextLineFragm(
-						line)) {
-					if ((int) line != num_ln)
-						break;
-				}
-			}
-			return line;
-		}
-	}
-	return (CSTR_line) 0;
+    rst = CSTR_GetNext(CSTR_GetFirstRaster(ln));
+    if (rst)
+        cmp = CSTR_GetComp(rst);
+    if (cmp) {
+        ub.code = CCOM_UB_CAPDROPLN;
+        if (CCOM_GetUserBlock(cmp, &ub) && ub.size == sizeof(num_ln)) {
+            memcpy(&num_ln, ub.data, ub.size);
+            if (num_ln >= 0) {
+                for (line = linef, i = 0; line; i++, line = CSTR_NextLineFragm(line)) {
+                    if (i == num_ln)
+                        break;
+                }
+            }
+            else {
+                for (line = linef, i = 0; line; i++, line = CSTR_NextLineFragm(line)) {
+                    if (reinterpret_cast<size_t> (line) != num_ln)
+                        break;
+                }
+            }
+            return line;
+        }
+    }
+    return (CSTR_line) 0;
 }
 
-Bool32 capdrop_test_fragment(int32_t version, int32_t fragm, CSTR_line *ln_cd,
-		CSTR_line *ln_main) {
-	CSTR_line line, linef;
-	CSTR_attr attr;
+Bool32 capdrop_test_fragment(int32_t version, int32_t fragm, CSTR_line *ln_cd, CSTR_line *ln_main) {
+    CSTR_line line, linef;
+    CSTR_attr attr;
 
-	linef = line = CSTR_FirstLineFragm(fragm, version);
-	CSTR_GetLineAttr(line, &attr);
-	if (attr.Flags & CSTR_STR_CapDrop) {
-		*ln_cd = line;
-		*ln_main = capdrop_get_main(line, linef);
-		if (!(*ln_main))
-			*ln_main = linef;
-		return TRUE;
-	}
-	do {
-		line = CSTR_NextLineFragm(line);
-		if (line) {
-			CSTR_GetLineAttr(line, &attr);
-			if (attr.Flags & CSTR_STR_CapDrop) {
-				*ln_cd = line;
-				*ln_main = capdrop_get_main(line, linef);
-				if (!(*ln_main))
-					*ln_main = linef;
-				return TRUE;
-			}
-		}
-	} while (line);
-	return FALSE;
+    linef = line = CSTR_FirstLineFragm(fragm, version);
+    CSTR_GetLineAttr(line, &attr);
+    if (attr.Flags & CSTR_STR_CapDrop) {
+        *ln_cd = line;
+        *ln_main = capdrop_get_main(line, linef);
+        if (!(*ln_main))
+            *ln_main = linef;
+        return TRUE;
+    }
+    do {
+        line = CSTR_NextLineFragm(line);
+        if (line) {
+            CSTR_GetLineAttr(line, &attr);
+            if (attr.Flags & CSTR_STR_CapDrop) {
+                *ln_cd = line;
+                *ln_main = capdrop_get_main(line, linef);
+                if (!(*ln_main))
+                    *ln_main = linef;
+                return TRUE;
+            }
+        }
+    }
+    while (line);
+    return FALSE;
 }
 
 uchar eng_let[] = "ETYOPAHKXCBM";
 uchar rus_let[] = "ЕТУОРАНКХСВМ";
 uchar rus_let_ascii[] = "…’“ЋђЂЌЉ•‘‚Њ";
-void capdrop_collection(int32_t version, int32_t i, CSTR_line ln_cd,
-		CSTR_line ln_main) {
-	CSTR_rast mrst, crst;
-	CSTR_rast_attr attr;
-	CSTR_attr lattr;
-	CCOM_comp * comp;
-	RecRaster rs;
-	UniVersions uvr;
+void capdrop_collection(int32_t version, int32_t i, CSTR_line ln_cd, CSTR_line ln_main) {
+    CSTR_rast mrst, crst;
+    CSTR_rast_attr attr;
+    CSTR_attr lattr;
+    CCOM_comp * comp;
+    RecRaster rs;
+    UniVersions uvr;
 
-	crst = CSTR_GetNext(CSTR_GetFirstRaster(ln_cd));
-	if (crst) {
-		mrst = CSTR_GetFirstRaster(ln_main); // fict
-		CSTR_GetLineAttr(ln_main, &lattr);
-		mrst = CSTR_InsertRaster(mrst);
-		if (mrst) {
-			CSTR_GetAttr(crst, &attr);
-			if (CSTR_GetImage(crst, (uchar *) (&rs), CSTR_TYPE_IMAGE_RS)) {
-				CSTR_GetCollectionUni(crst, &uvr);
-				comp = CSTR_GetComp(crst);
-				// store CapDrop to main line
-				CSTR_SetAttr(mrst, &attr);
-				CSTR_StoreCollectionUni(mrst, &uvr);
-				CSTR_StoreRaster(mrst, &rs);
-				CSTR_StoreScale(mrst, comp->scale);
+    crst = CSTR_GetNext(CSTR_GetFirstRaster(ln_cd));
+    if (crst) {
+        mrst = CSTR_GetFirstRaster(ln_main); // fict
+        CSTR_GetLineAttr(ln_main, &lattr);
+        mrst = CSTR_InsertRaster(mrst);
+        if (mrst) {
+            CSTR_GetAttr(crst, &attr);
+            if (CSTR_GetImage(crst, (uchar *) (&rs), CSTR_TYPE_IMAGE_RS)) {
+                CSTR_GetCollectionUni(crst, &uvr);
+                comp = CSTR_GetComp(crst);
+                // store CapDrop to main line
+                CSTR_SetAttr(mrst, &attr);
+                CSTR_StoreCollectionUni(mrst, &uvr);
+                CSTR_StoreRaster(mrst, &rs);
+                CSTR_StoreScale(mrst, comp->scale);
 
-				mrst = CSTR_InsertRaster(mrst);
-				uvr.lnAltCnt = 1;
-				uvr.Alt[0].Code[0] = 0;
-				uvr.Alt[0].Liga = SS_POS_HALF_SPACE;
-				uvr.Alt[0].Prob = 150;
-				CSTR_StoreCollectionUni(mrst, &uvr);
-				CSTR_GetAttr(mrst, &attr);
-				attr.flg |= CSTR_f_space;
-				CSTR_SetAttr(mrst, &attr);
-				// signing main line
-				lattr.Flags |= CSTR_STR_CapDrop;
-				CSTR_SetLineAttr(ln_main, &lattr);
-				// clear alone CapDrop
-				CSTR_ClearLine(ln_cd, -16000, 32000);
-				CSTR_GetLineAttr(ln_cd, &lattr);
-				lattr.Flags -= CSTR_STR_CapDrop;
-				CSTR_SetLineAttr(ln_cd, &lattr);
-			}
-		}
-	}
+                mrst = CSTR_InsertRaster(mrst);
+                uvr.lnAltCnt = 1;
+                uvr.Alt[0].Code[0] = 0;
+                uvr.Alt[0].Liga = SS_POS_HALF_SPACE;
+                uvr.Alt[0].Prob = 150;
+                CSTR_StoreCollectionUni(mrst, &uvr);
+                CSTR_GetAttr(mrst, &attr);
+                attr.flg |= CSTR_f_space;
+                CSTR_SetAttr(mrst, &attr);
+                // signing main line
+                lattr.Flags |= CSTR_STR_CapDrop;
+                CSTR_SetLineAttr(ln_main, &lattr);
+                // clear alone CapDrop
+                CSTR_ClearLine(ln_cd, -16000, 32000);
+                CSTR_GetLineAttr(ln_cd, &lattr);
+                lattr.Flags -= CSTR_STR_CapDrop;
+                CSTR_SetLineAttr(ln_cd, &lattr);
+            }
+        }
+    }
 
-	return;
+    return;
 }

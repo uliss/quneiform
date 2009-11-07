@@ -115,7 +115,6 @@ static FNDPUMA_ConsoleGetCurLine fConsoleGetCurLine = NULL;
 static FNDPUMA_SetFileName fSetFileName = NULL;
 static FNDPUMA_FOpen fFOpen = NULL;
 static FNDPUMA_FClose fFClose = NULL;
-static FNDPUMA_FPrintf1024 fFPrintf1024 = NULL;
 static FNDPUMA_FPuts fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
@@ -166,7 +165,8 @@ void LDPUMA_MessageBoxOk(const char * message, ...) {
     if (MessageBoxOk) {
         va_list marker;
         va_start( marker, message);
-        MessageBoxOk(message, marker);
+        fputs("MessageBox: ", stderr);
+        vfprintf(stderr, message, marker);
         va_end(marker);
     }
 }
@@ -401,24 +401,6 @@ void LDPUMA_DestroyHistogramm(Handle hDlg) {
         fDestroyHistogramm(hDlg);
 }
 
-Handle LDPUMA_TimeStamp(const char * name, Handle hTimer) {
-    time_t ltime = 0;
-    int clock1 = 0;
-    if (LDPUMA_IsActive()) {
-        time(&ltime);
-        clock1 = clock();
-        if (name == NULL)
-            name = "Time stamp";
-        if (hTimer == NULL)
-            LDPUMA_Console("%s : %s\n", name, asctime(localtime(&ltime)));
-        else {
-            int clockprev = (int) hTimer;
-            LDPUMA_Console("%s : %i msec.\n", name, clock1 - clockprev);
-        }
-    }
-    return (Handle) clock1;
-}
-
 Handle LDPUMA_GetWindowHandle(const char * name) {
     Handle rc = NULL;
     if (fGetWindowHandle)
@@ -463,17 +445,6 @@ Handle LDPUMA_FOpen(const char * lpName, const char * lpMode) {
 void LDPUMA_FClose(Handle hFile) {
     if (fFClose && hFile)
         fFClose(hFile);
-}
-
-int32_t LDPUMA_FPrintf1024(Handle hFile, const char * lpFormat, ...) {
-    int32_t rc = 0;
-    if (fFPrintf1024 && hFile) {
-        va_list marker;
-        va_start( marker, lpFormat);
-        rc = fFPrintf1024(hFile, lpFormat, marker);
-        va_end(marker);
-    }
-    return rc;
 }
 
 int32_t LDPUMA_FPuts(Handle hFile, const char * lpString) {
@@ -534,11 +505,6 @@ void SnpZoomToRect(Rect16 * lpRect) {
 void SnpRasterHeader(char * lpText, uint32_t num) {
 }
 
-void SnpDrawLine(Point16* start, Point16* end, int32_t skew, uint32_t rgb_color, int16_t pen_width,
-        Handle key) {
-    LDPUMA_DrawLine(NULL, start, end, skew, rgb_color, pen_width, (uint32_t) key);
-}
-
 void SnpHideLines(Handle key) {
 }
 
@@ -554,9 +520,6 @@ int SnpLog(const char * message, ...) {
 
 Bool SnpIsActive(void) {
     return LDPUMA_IsActive();
-}
-
-void SnpHideRects(uint32_t key) {
 }
 
 uint32_t SnpSetZoneOn(Rect16* zone_rect, uint32_t rgb_color, char* status_line_comment,

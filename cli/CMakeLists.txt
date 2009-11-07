@@ -1,3 +1,5 @@
+FIND_PACKAGE(Boost REQUIRED)
+
 include_directories(
 ../src
 ../src/h
@@ -8,9 +10,8 @@ include_directories(
 ../src/hrkint
 ../src/hrstr
 ../src/usage
+${Boost_INCLUDE_DIR}
 )
-
-FIND_PACKAGE(Boost REQUIRED)
 
 add_executable(cuneiform cuneiform-cli.cpp)
 target_link_libraries(cuneiform puma ${cli_ext_libs} ${DL_LIB} alphabets)

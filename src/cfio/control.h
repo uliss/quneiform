@@ -124,7 +124,7 @@ private:
 	bool AddNewMemoryInList(Handle hMemory, uint Size, uint32_t IsGlobal,
 			const std::string& Owner, const std::string& Comment);
 	bool FreeMemory(Handle hMemory, uint Flag = 0x0);
-	bool TakeMemory(Handle hMemory, uint32_t * wMemorySize,
+	bool TakeMemory(Handle hMemory, size_t * wMemorySize,
 			uint32_t * wMemoryFlag);
 	bool GetMemory(Handle hMemory, PPMemoryHeader pHeader);
 	bool DeleteMemoryFromList(Handle hMemory);

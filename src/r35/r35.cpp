@@ -1261,7 +1261,7 @@ Bool32 R35RecogCharIm3x5_expert(uint16_t* Im3x5, // image 3x5
 	}
 
 	memset(vers, 0, sizeof(vers));
-	nvers = std::min(static_cast<uint> (res->lnAltCnt), sizeof(vers)
+	nvers = std::min(static_cast<size_t> (res->lnAltCnt), sizeof(vers)
 			/ sizeof(vers[0]));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;
@@ -1297,7 +1297,7 @@ Bool32 R35RecogNdxIm3x5_expert(uint16_t* Im3x5, // image 3x5
 	}
 	memset(vers, 0, sizeof(vers));
 
-	nvers = std::min(static_cast<uint> (res->lnAltCnt), sizeof(vers)
+	nvers = std::min(static_cast<size_t> (res->lnAltCnt), sizeof(vers)
 			/ sizeof(vers[0]));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;
@@ -1334,7 +1334,7 @@ Bool32 R35RecogPrintCharIm3x5_expert(uint16_t* Im3x5, RecVersions* res,
 
 	memset(vers, 0, sizeof(vers));
 
-	nvers = std::min(static_cast<uint> (res->lnAltCnt), sizeof(vers)
+	nvers = std::min(static_cast<size_t> (res->lnAltCnt), sizeof(vers)
 			/ sizeof(vers[0]));
 	for (i = 0; i < nvers; i++) {
 		vers[i].let = res->Alt[i].Code;

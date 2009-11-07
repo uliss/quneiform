@@ -190,7 +190,6 @@ void leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
     SnpLog("%s", str);
     SnpLog("");
     Leo_SnpWaitUserInput(stnRecog); // pass control to user
-    SnpHideRects((uint32_t) stnRecog);
 }
 
 void leo_snapRes2Str(RecVersions *ver, char *buf) {
@@ -755,7 +754,6 @@ Bool32 LEORecogPrintChar(RecObject* object) {
         SnpLog("LEO PRN LTR : %s", buf);
         SnpLog("%s", "");
         Leo_SnpWaitUserInput(&stnCharRecog);
-        SnpHideRects((uint32_t) & stnCharRecog);
     }
 
     if (!SnpSkip(&stnSnapCharProt)) {
@@ -1199,7 +1197,6 @@ uchar LEOValidRestore_Char(RecVersions *resin, RecVersions *resout) {
         SnpLog("LEO PRN RERECOG FNT LTR (num=%d): %s", idr - 1, buf);
         SnpLog("%s", "");
         Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-        SnpHideRects((uint32_t) & stnCharRecog);
     }
     return data[27] & (~LEO_CONTROL_CASE);
 }
@@ -1235,7 +1232,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
             SnpDrawRaster(&object->recData.recRaster);
             SnpLog("%s", "TOO SMALL RASTER");
             Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-            SnpHideRects((uint32_t) & stnCharRecog);
         }
         return FALSE;
     }
@@ -1245,7 +1241,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
             SnpDrawRaster(&object->recData.recRaster);
             SnpLog("%s", "TOO BIG RASTER");
             Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-            SnpHideRects((uint32_t) & stnCharRecog);
         }
 
         return FALSE;
@@ -1265,7 +1260,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
         SnpLog("EXPERT PRN LTR : %s", buf);
         SnpLog("%s", "");
         Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-        SnpHideRects((uint32_t) & stnCharRecog);
     }
 
     return TRUE;

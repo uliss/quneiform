@@ -1927,8 +1927,8 @@ void dust_ini(CSTR_line lin) {
   c2->env->large |= ch_taken;
   c2->reasno=0;
   c2->bdiff=(char)(obtain_diff(c2->col));
-  c2->dupstart=(int32_t)CSTR_GetDup(curr);
-  c2->dupend  =(int32_t)CSTR_GetDupEnd(curr);
+  c2->dupstart = CSTR_GetDup(curr);
+  c2->dupend = CSTR_GetDupEnd(curr);
 
   c2->flg_new |= c_fn_taken; // Nick 13.02.2001
 

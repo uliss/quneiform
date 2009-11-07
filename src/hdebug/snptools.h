@@ -214,9 +214,6 @@ void SnpSetTools(__SnpToolBox* tools);
 Bool SnpIsActive(void);
 
 int SnpLog(const char* s, ...);
-void SnpHideRects(uint32_t key);
-void SnpDrawLine(Point16* start, Point16* end, int32_t skew, uint32_t rgb_color, int16_t pen_width,
-        Handle key);
 void SnpHideLines(Handle key);
 void SnpDrawFocusRect(Rect16* rc);
 uint32_t SnpSetZoneOn(Rect16* zone_rect, uint32_t rgb_color, char* status_line_comment,

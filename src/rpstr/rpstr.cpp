@@ -245,7 +245,6 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		sprintf(snapstr, "before spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("before spelling");
-		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 
 		if (exit_enable) {
 			LDPUMA_DestroyRasterWnd();
@@ -264,7 +263,6 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		sprintf(snapstr, "after spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("after spelling");
-		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 	}
 	if (exit_enable) {
 		LDPUMA_DestroyRasterWnd();
@@ -346,38 +344,6 @@ Bool32 RPSTR_CollectCapDrops(int32_t version) {
 		}
 	}
 	return TRUE;
-}
-
-Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
-	wLowRC = RPSTR_ERR_NO;
-	switch (dwType) {
-	case RPSTR_FNNEWPAGE: //      init new page
-		EXPORT(RPSTR_NewPage)
-		break;
-	case RPSTR_FNCORRECTSPELL: //      init new page
-		EXPORT(RPSTR_CorrectSpell)
-		break;
-	case RPSTR_FNCORRECTLINESPELL:
-		EXPORT(RPSTR_CorrectLineSpell)
-		break;
-	case RPSTR_FNCORRECTINCLINE:
-		EXPORT(RPSTR_CorrectIncline)
-		break;
-	case RPSTR_FNCOLLECTCAPDROP:
-		EXPORT( RPSTR_CollectCapDrops)
-		break;
-	case RPSTR_FNNORMVERTSTR:
-		EXPORT( RPSTR_NormalizeVertStr)
-		break;
-	default:
-		wLowRC = RPSTR_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-		break;
-	}
-#undef EXPORT
-	return rc;
 }
 
 Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData) {

@@ -227,7 +227,6 @@ DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, uint32_t size, int32_t * 
 DEC_FUNC(void, DPUMA_AddPointToHistogramm,(Handle hDlg, uint32_t point))
 DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, uint32_t * lpCurpos))
 DEC_FUNC(void, DPUMA_DestroyHistogramm,(Handle hDlg))
-DEC_FUNC(Handle, DPUMA_TimeStamp,(const char * name,Handle hTimer))
 DEC_FUNC(Handle, DPUMA_GetWindowHandle,(const char * name))
 DEC_FUNC(Handle, DPUMA_GetPrevSkipOwner,())
 DEC_FUNC(int32_t, DPUMA_AllocHook,( int32_t allocType, Handle userData, uint32_t size, uint32_t prevSize,
@@ -237,7 +236,6 @@ DEC_FUNC(int32_t, DPUMA_ConsoleGetCurLine,())
 DEC_FUNC(Bool32, DPUMA_SetFileName,(Handle wnd, const char * lpName))
 DEC_FUNC(Handle, DPUMA_FOpen,(const char * lpName,const char * lpMode))
 DEC_FUNC(void, DPUMA_FClose,(Handle hFile))
-DEC_VARGP(int32_t, DPUMA_FPrintf1024,Handle hFile)
 DEC_FUNC(int32_t, DPUMA_FPuts,(Handle hFile,const char * lpString))
 
 #undef DEC_FUNC
