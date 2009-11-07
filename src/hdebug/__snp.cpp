@@ -94,10 +94,7 @@ static FNDPUMA_ShowCutPoint ShowCutPoint = NULL;
 static FNDPUMA_GetRasterPixel GetRasterPixel = NULL;
 static FNDPUMA_CSTR_Update cstr_Update = NULL;
 static FNDPUMA_SkipEx SkipEx = NULL;
-static FNDPUMA_OpenFile fOpenFile = NULL;
 static FNDPUMA_GetFileName fGetFileName = NULL;
-static FNDPUMA_HandLayout fHandLayout = NULL;
-static FNDPUMA_LockImage fLockImage = NULL;
 static FNDPUMA_RegistryHelp RegistryHelp = NULL;
 static FNDPUMA_SaveFile fSaveFile = NULL;
 static FNDPUMA_ProgressStart fProgressStart = NULL;
@@ -307,33 +304,10 @@ Bool32 LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, int32_t nSign) 
     return rc;
 }
 
-Bool32 LDPUMA_OpenFile(Handle wnd, char * name) {
-    Bool32 rc = FALSE;
-    if (fOpenFile)
-        rc = fOpenFile(wnd, name);
-    return rc;
-}
-
 const char * LDPUMA_GetFileName(Handle wnd) {
     const char * rc = "";
     if (fGetFileName)
         rc = fGetFileName(wnd);
-    return rc;
-}
-
-void * LDPUMA_HandLayout(void * lpDIB, uint32_t flags, Point * p) {
-    void * rc = NULL;
-    if (fHandLayout)
-        rc = fHandLayout(lpDIB, flags, p);
-    return rc;
-}
-
-Bool32 LDPUMA_LockImage(Handle wnd, Bool32 bLock) {
-    Bool32 rc = FALSE;
-
-    if (fLockImage)
-        rc = fLockImage(wnd, bLock);
-
     return rc;
 }
 
