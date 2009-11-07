@@ -253,8 +253,6 @@ Bool32 CorrectKegl(int32_t ver) {
     draw_keg("by fragments");
     rtf_correct();
 
-    LDPUMA_DeleteRects(NULL, key);
-
     if (gbGarbage) {
         if (!fr_ovf)
             garbage_fragments();
@@ -262,7 +260,6 @@ Bool32 CorrectKegl(int32_t ver) {
             LDPUMA_Console("Мусор не чищен: много фраментов\n");
     }
 
-    LDPUMA_DeleteRects(NULL, key);
     return TRUE;
 
 }
@@ -302,8 +299,6 @@ static Bool32 get_stats() {
         if (exit_enable)
             return FALSE;
 
-        //    if (!LDPUMA_SkipEx(hSnapMain,TRUE,FALSE,1))
-        //      LDPUMA_CSTR_Monitor(hSnapMain,line,0,myMonitorProc);
         if (line) {
             CSTR_attr l_attr;
             int32_t nf;
@@ -326,10 +321,7 @@ static Bool32 get_stats() {
             frag_size[j]++;
             if (j > num_frag && num_frag < FRAG_PAGE)
                 num_frag++;
-            /*
-             frag_lines[j][frag_size[j]]=i;
-             if (frag_size[j]<LINE_PAGE-1)  frag_size[j]++;
-             */
+
             j--;
             fsti = font_stat + j;
             rsti = recstat + j;
@@ -426,12 +418,12 @@ static Bool32 get_stats() {
 
         //определяем серифность, где есть уверенность
         if (fsti->straight > 3 && fsti->straight > fsti->italic / 3)
-            if (fsti->st_ser > 2* fsti ->st_gelv) {
+            if (fsti->st_ser > 2 * fsti ->st_gelv) {
                 *ffi = CSTR_fp_ser;
                 if (fsti->st_ser >= 10)
                     ser_fr++;
             }
-            else if (fsti->st_gelv > 2* fsti ->st_ser) {
+            else if (fsti->st_gelv > 2 * fsti ->st_ser) {
                 *ffi = CSTR_fp_gelv;
                 if (fsti->st_gelv >= 10)
                     gelv_fr++;
@@ -463,7 +455,7 @@ static void get_keg_tab() {
     uchar rely1, rely2, extend2;
     KegTabElement *keg_tabi;
     Bool rise = TRUE;
-    uchar temp_tab[3*KEG_PAGE]; //таблица из num_keg_opt кеглей
+    uchar temp_tab[3 * KEG_PAGE]; //таблица из num_keg_opt кеглей
     //структура temp_tab:
     //  0 - размер кегл
     //  1 - граница области неопределенности
@@ -491,7 +483,7 @@ static void get_keg_tab() {
                 {
                     Bool rely_bound = FALSE;
                     int32_t dk = cur_max - prev_max;
-                    if (min_n < tol && (!gbFax100 || dk > 4) && 10* dk >= cur_max - keg_stats) //надежная граница
+                    if (min_n < tol && (!gbFax100 || dk > 4) && 10 * dk >= cur_max - keg_stats) //надежная граница
                     {
                         uint16_t * j;
                         for (j = prev_max; j < cur_min && *j >= tol; j++)
@@ -501,70 +493,82 @@ static void get_keg_tab() {
                             ;
                         *tab++ = j - keg_stats;
                         *tab++ = cur_max - keg_stats;
-                        if (2* tol > 3* (2 -*(tab-2)-*(tab-3)))
-                        {
-                            rely_bound=TRUE;
-                            prev_max=cur_max; prev_max_n=prev_n;
+                        if (2 * tol > 3 * (2 - *(tab - 2) - *(tab - 3))) {
+                            rely_bound = TRUE;
+                            prev_max = cur_max;
+                            prev_max_n = prev_n;
                             num_keg_opt++;
                         }
                         else
-                        tab -= 3;
+                            tab -= 3;
                     }
-                    if (!rely_bound)
-                    {
-                        if (cur_max-prev_max>3 && 8*(cur_max-prev_max)>cur_max-keg_stats) //большой разброс - надо разделить
-                                {
-                                    *tab++=cur_min-keg_stats;
-                                    *tab++=cur_min-keg_stats;
-                                    *tab++=cur_max-keg_stats;
-                                    prev_max=cur_max; prev_max_n=prev_n;
-                                    num_keg_opt++;
-                                }
-                                else
-                                if (prev_n>prev_max_n) //тот же кегль, заменяем размер
-                                {
-                                    *(tab-1)=cur_max-keg_stats;
-                                    prev_max=cur_max; prev_max_n=prev_n;
-                                }
-                            }
-                        }
-                        else
+                    if (!rely_bound) {
+                        if (cur_max - prev_max > 3 && 8 * (cur_max - prev_max) > cur_max
+                                - keg_stats) //большой разброс - надо разделить
                         {
-                            *tab++=cur_max-keg_stats;
-                            prev_max=cur_max; prev_max_n=prev_n;
-                            num_keg_opt=1;
+                            *tab++ = cur_min - keg_stats;
+                            *tab++ = cur_min - keg_stats;
+                            *tab++ = cur_max - keg_stats;
+                            prev_max = cur_max;
+                            prev_max_n = prev_n;
+                            num_keg_opt++;
+                        }
+                        else if (prev_n > prev_max_n) //тот же кегль, заменяем размер
+                        {
+                            *(tab - 1) = cur_max - keg_stats;
+                            prev_max = cur_max;
+                            prev_max_n = prev_n;
                         }
                     }
-                    min_n=n; cur_min=keg_statsi; rise=FALSE;
                 }
-                prev_n=n;
+                else {
+                    *tab++ = cur_max - keg_stats;
+                    prev_max = cur_max;
+                    prev_max_n = prev_n;
+                    num_keg_opt = 1;
+                }
             }
-            *tab++=MAX_KEG; *tab++=MAX_KEG;
-
-            j=1; tab=temp_tab;
-            rely1=0;
-            for (i=1; i<=num_keg_opt; i++,tab += 3)
-            {
-                int32_t tol=(char)(keg_stats[*tab])/3;
-                int32_t keg=0,n=0,k;
-                rely2=*(tab+1)-1; extend2=*(tab+2); keg_tabi=keg_tab+j;
-                for (k=rely1,keg_statsi=keg_stats+k; k<=rely2; k++,keg_statsi++)
-                if (*keg_statsi>=tol) {n += *keg_statsi; keg += *keg_statsi*k;}
-                //    if (n>0)  keg=keg*2/n;  //размер шрифта от верха заглавной до низа опущенной
-                if (n>0) keg=(keg+n/2)/n;
-                for (; j<rely1; j++,keg_tabi++) keg_tabi->keg1=-(char)keg;
-                for (; j<=rely2; j++,keg_tabi++) keg_tabi->keg0= (char)keg;
-                for (; j<=extend2; j++,keg_tabi++) keg_tabi->keg0=-(char)keg;
-                rely1=extend2+1; j=rely2+1;
-            }
+            min_n = n;
+            cur_min = keg_statsi;
+            rise = FALSE;
         }
+        prev_n = n;
+    }
+    *tab++ = MAX_KEG;
+    *tab++ = MAX_KEG;
+
+    j = 1;
+    tab = temp_tab;
+    rely1 = 0;
+    for (i = 1; i <= num_keg_opt; i++, tab += 3) {
+        int32_t tol = (char) (keg_stats[*tab]) / 3;
+        int32_t keg = 0, n = 0, k;
+        rely2 = *(tab + 1) - 1;
+        extend2 = *(tab + 2);
+        keg_tabi = keg_tab + j;
+        for (k = rely1, keg_statsi = keg_stats + k; k <= rely2; k++, keg_statsi++)
+            if (*keg_statsi >= tol) {
+                n += *keg_statsi;
+                keg += *keg_statsi * k;
+            }
+        //    if (n>0)  keg=keg*2/n;  //размер шрифта от верха заглавной до низа опущенной
+        if (n > 0)
+            keg = (keg + n / 2) / n;
+        for (; j < rely1; j++, keg_tabi++)
+            keg_tabi->keg1 = -(char) keg;
+        for (; j <= rely2; j++, keg_tabi++)
+            keg_tabi->keg0 = (char) keg;
+        for (; j <= extend2; j++, keg_tabi++)
+            keg_tabi->keg0 = -(char) keg;
+        rely1 = extend2 + 1;
+        j = rely2 + 1;
+    }
+}
 
 static Bool make_correct()
 //проставляет кегль для надежного слова (опорный) и далее влево и вправо,
 // пока в вариантах есть опорный
 {
-    LDPUMA_DeleteRects(NULL, key);
-
     for (cur_fragment = fragments, cur_font = fragfont; cur_fragment < fragments_end; cur_fragment
             += (*cur_fragment) + 1, cur_font++)
         cor_cur_fragment();
@@ -581,7 +585,7 @@ static void cor_cur_fragment() {
 
 static void cor_fax_fragment() { //для факсов по всему фрагменту устанавливается единый кегль
     PageWord beg;
-    uchar stat[2*MAX_KEG + 2] = { 0 }, max_keg = 0, opt_keg = 0;
+    uchar stat[2 * MAX_KEG + 2] = { 0 }, max_keg = 0, opt_keg = 0;
     uchar keg0;
     char keg;
     int32_t i, max_n = 0;
@@ -673,20 +677,7 @@ static void cor_gen_fragment() {
 
         if (keg < 0) //надежных нет - оставляем, как есть
             break;
-        /*
-         if (keg<0)    //оставляем, как есть, только масштабирование
-         {
-         set_cur_word(&fin);
-         do
-         {
-         keg0=2*get_word_keg();
-         set_word_keg(keg0);
-         mark_word(RGB(0,0,0));
-         }
-         while (next_word());
-         break;
-         }
-         */
+
         rely = get_cur_word();
         keg0 = keg;
         set_word_keg(keg0);
@@ -960,7 +951,7 @@ static Bool rtf_correct()
     //  Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE, &PageInfo);
     dpi = (uint16_t) PageInfo.DPIY; //разрешение сканера по вертикали
-    dpi2 = 2* dpi ;
+    dpi2 = 2 * dpi;
 
     n = CSTR_GetMaxNumber();
     for (i = 1; i <= n; i++) {
@@ -973,7 +964,7 @@ static Bool rtf_correct()
             for (; rst; rst = CSTR_GetNext(rst)) {
                 uchar keg;
                 CSTR_GetAttr(rst, &attr);
-                keg = (uchar)((attr.keg * 2* 72 + dpi / 2) / dpi); //размер шрифта от верха заглавной до низа опущенной в пунктах (1/72 дюйма)
+                keg = (uchar) ((attr.keg * 2 * 72 + dpi / 2) / dpi); //размер шрифта от верха заглавной до низа опущенной в пунктах (1/72 дюйма)
                 //        keg = (uchar)((attr.keg*72+dpi/2)/dpi);
                 /*
                  if (keg>=12)
@@ -1035,8 +1026,6 @@ static void garbage_fragments() {
 
     if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage, FALSE, TRUE, 1)) {
         draw_fragments(wRGB(255, 0, 255));
-        //    if (line)  LDPUMA_CSTR_Monitor(hSnapGarbage,line,0,myMonitorProc);
-        LDPUMA_DeleteLines(NULL, key);
     }
 
     //маркировка хороших фрагментов и охватывающий прямоугольник
@@ -1287,19 +1276,14 @@ static void garbage_fragments() {
     }
 
     if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage, FALSE, TRUE, 1)) {
-        LDPUMA_DeleteRects(NULL, key);
         draw_fragments(wRGB(0, 0, 0));
         line = CSTR_GetLineHandle(1, version);
-        //    if (line)  LDPUMA_CSTR_Monitor(hSnapGarbage,line,0,myMonitorProc);
-        LDPUMA_DeleteRects(NULL, key);
     }
 
 }
 
 static Bool in_gap(int32_t top, int32_t bottom, uchar *proj) {
     int32_t i = (top + bottom) / 2;
-
-    //  return proj[i]==0;
 
     for (i = top; i <= bottom; i++)
         if (proj[i] != 0)
@@ -1532,7 +1516,6 @@ static void draw_keg(const char *str) {
 
         s += sprintf((char*) s, "%s\n", str);
 
-        LDPUMA_DeleteRects(NULL, key);
         for (i = 1; i <= n; i++) {
             CSTR_line line = CSTR_GetLineHandle(i, version);
             if (line) {
@@ -1550,7 +1533,7 @@ static void draw_keg(const char *str) {
                         uchar green;
                         //             if (j==1)  keg /= 2;
                         keg = MIN(keg, max_keg);
-                        green = (uchar)(255 * (max_keg - keg) / keg_range);
+                        green = (uchar) (255 * (max_keg - keg) / keg_range);
 
                         box.rleft() = attr.r_col;
                         box.rright() = box.left() + attr.w - 1;
@@ -1627,15 +1610,3 @@ static void keg_frag_stats() {
     get_keg_tab();
     num_keg = sv_num_keg;
 }
-
-/*
- // delete all
- Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);
- while(hBlock)
- {
- Handle hNext = CPAGE_GetBlockNext(hCPAGE,hBlock,TYPE_TEXT);
- CPAGE_DeleteBlock(hCPAGE,hBlock);
- hBlock = hNext;
- }
- */
-

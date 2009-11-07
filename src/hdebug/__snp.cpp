@@ -66,9 +66,6 @@ using namespace CIF;
 
 HINSTANCE hDPuma = NULL;
 
-static FNDPUMA_CreateSnap CreateSnap = NULL;
-static FNDPUMA_DestroySnap DestroySnap = NULL;
-static FNDPUMA_Stop Stop = NULL;
 static FNDPUMA_IsActive IsActive = NULL;
 static FNDPUMA_Registry Registry = NULL;
 static FNDPUMA_Skip Skip = NULL;
@@ -79,28 +76,13 @@ static FNDPUMA_MessageBoxOk MessageBoxOk = NULL;
 static FNDPUMA_WaitUserInput WaitUserInput = NULL;
 static FNDPUMA_DrawLine DrawLine = NULL;
 static FNDPUMA_DrawRect DrawRect = NULL;
-static FNDPUMA_DrawLineTip DrawLineTip = NULL;
-static FNDPUMA_DrawRectTip DrawRectTip = NULL;
-static FNDPUMA_DeleteRects DeleteRects = NULL;
-static FNDPUMA_DeleteLines DeleteLines = NULL;
-static FNDPUMA_GetUserPoint GetUserPoint = NULL;
-static FNDPUMA_GetUserRect GetUserRect = NULL;
-static FNDPUMA_UpdateView UpdateView = NULL;
 static FNDPUMA_DrawRaster DrawRaster = NULL;
 static FNDPUMA_RasterText RasterText = NULL;
-static FNDPUMA_ZoomToRect ZoomToRect = NULL;
-static FNDPUMA_RasterHeader RasterHeader = NULL;
-static FNDPUMA_DrawFocusRect fnDrawFocusRect = NULL;
 static FNDPUMA_RegVariable RegVariable = NULL;
 static FNDPUMA_UnregVariable UnregVariable = NULL;
 static FNDPUMA_GetDIBptr GetDIBptr = NULL;
 static FNDPUMA_DrawString DrawString = NULL;
 static FNDPUMA_DeleteStrings DeleteStrings = NULL;
-static FNDPUMA_SetCallbackWindowProc SetCallbackWindowProc = NULL;
-static FNDPUMA_DeviceToImage DeviceToImage = NULL;
-static FNDPUMA_ImageToDevice ImageToDevice = NULL;
-static FNDPUMA_SetCallbackMainFrameWindowProc SetCallbackMainFrameWindowProc = NULL;
-static FNDPUMA_DestroyWindow fDestroyWindow = NULL;
 static FNDPUMA_SendWindow SendWindow = NULL;
 static FNDPUMA_SendMainWnd SendMainWnd = NULL;
 static FNDPUMA_CSTR_Monitor cstr_Monitor = NULL;
@@ -138,23 +120,6 @@ static FNDPUMA_FPuts fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
 
-void LDPUMA_DestroySnap() {
-    if (DestroySnap)
-        DestroySnap();
-}
-
-uint32_t LDPUMA_CreateSnap() {
-    uint32_t rc = 0;
-    if (CreateSnap)
-        rc = CreateSnap();
-    return rc;
-}
-
-void LDPUMA_Stop() {
-    if (Stop)
-        Stop();
-}
-
 Handle LDPUMA_CreateWindow(const char * lpName, void * lpDIB) {
     if (fCreateWindow)
         return fCreateWindow(lpName, lpDIB);
@@ -171,37 +136,10 @@ void LDPUMA_DrawRect(Handle wnd, Rect16* rc, int32_t skew, uint32_t rgb_color, i
         DrawRect(wnd, rc, skew, rgb_color, (int16_t) pen_width, key);
 }
 
-void LDPUMA_DrawRectTip(Handle wnd, Rect16* rc, int32_t skew, uint32_t rgb_color,
-        int16_t pen_width, uint32_t key, const char* pTip) {
-    if (DrawRectTip)
-        DrawRectTip(wnd, rc, skew, rgb_color, (int16_t) pen_width, key, pTip);
-}
-
-void LDPUMA_DeleteRects(Handle wnd, uint32_t key) {
-    if (DeleteRects)
-        DeleteRects(wnd, key);
-}
-
 void LDPUMA_DrawLine(Handle wnd, Point16* start, Point16* end, int32_t skew, uint32_t rgb_color,
         int16_t pen_width, uint32_t key) {
     if (DrawLine)
         DrawLine(wnd, start, end, skew, rgb_color, pen_width, key);
-}
-
-void LDPUMA_DrawLineTip(Handle wnd, Point16* start, Point16* end, int32_t skew, uint32_t rgb_color,
-        int16_t pen_width, uint32_t key, const char* pTip) {
-    if (DrawLineTip)
-        DrawLineTip(wnd, start, end, skew, rgb_color, pen_width, key, pTip);
-}
-
-void LDPUMA_DeleteLines(Handle wnd, uint32_t key) {
-    if (DeleteLines)
-        DeleteLines(wnd, key);
-}
-
-void LDPUMA_UpdateView(Handle wnd) {
-    if (UpdateView)
-        UpdateView(wnd);
 }
 
 void LDPUMA_Console(const char * message, ...) {
@@ -231,20 +169,6 @@ void LDPUMA_MessageBoxOk(const char * message, ...) {
         MessageBoxOk(message, marker);
         va_end(marker);
     }
-}
-
-Bool16 LDPUMA_GetUserRect(Handle wnd, Rect16* rect) {
-    Bool16 rc = FALSE;
-    if (GetUserRect)
-        rc = GetUserRect(wnd, rect);
-    return rc;
-}
-
-Bool16 LDPUMA_GetUserPoint(Handle wnd, Point16* pnt) {
-    Bool16 rc = FALSE;
-    if (GetUserPoint)
-        rc = GetUserPoint(wnd, pnt);
-    return rc;
 }
 
 uint32_t LDPUMA_WaitUserInput(Handle cur_node, Handle wnd) {
@@ -283,21 +207,6 @@ void LDPUMA_RasterText(const char * lpText) {
         RasterText(lpText);
 }
 
-void LDPUMA_ZoomToRect(Handle wnd, Rect16 * lpRect) {
-    if (ZoomToRect)
-        ZoomToRect(wnd, lpRect);
-}
-
-void LDPUMA_RasterHeader(char * lpText, uint32_t num) {
-    if (RasterHeader)
-        RasterHeader(lpText, num);
-}
-
-void LDPUMA_DrawFocusRect(Handle wnd, Rect16* rc) {
-    if (fnDrawFocusRect)
-        fnDrawFocusRect(wnd, rc);
-}
-
 Bool32 LDPUMA_RegVariable(Handle owner, const char * lpText, void * lpData, const char * lpType) {
     Bool rc = FALSE;
     if (RegVariable)
@@ -325,33 +234,6 @@ void LDPUMA_DrawString(Handle wnd, Point16* start, const char * string, int32_t 
 void LDPUMA_DeleteStrings(Handle wnd, uint32_t key) {
     if (DeleteStrings)
         DeleteStrings(wnd, key);
-}
-
-DPUMA_Callback_WindowProc LDPUMA_SetCallbackWindowProc(Handle wnd, DPUMA_Callback_WindowProc func) {
-    if (SetCallbackWindowProc)
-        return SetCallbackWindowProc(wnd, func);
-    return NULL;
-}
-
-void LDPUMA_DeviceToImage(Handle wnd, Point * p, uint32_t number) {
-    if (DeviceToImage)
-        DeviceToImage(wnd, p, number);
-}
-
-void LDPUMA_ImageToDevice(Handle wnd, Point * p, uint32_t number) {
-    if (ImageToDevice)
-        ImageToDevice(wnd, p, number);
-}
-
-DPUMA_Callback_WindowProc LDPUMA_SetCallbackMainFrameWindowProc(DPUMA_Callback_WindowProc func) {
-    if (SetCallbackMainFrameWindowProc)
-        return SetCallbackMainFrameWindowProc(func);
-    return NULL;
-}
-
-void LDPUMA_DestroyWindow(Handle wnd) {
-    if (fDestroyWindow)
-        fDestroyWindow(wnd);
 }
 
 uint32_t LDPUMA_SendWindow(Handle wnd, uint32_t message, uint32_t wParam, uint32_t lParam) {
@@ -609,14 +491,13 @@ void SnpSetTools(__SnpToolBox* tools)
 }
 
 void SnpDrawFocusRect(Rect16* rc) {
-    LDPUMA_DrawFocusRect(NULL, rc);
 }
 
 Bool16 SnpGetUserRect(Rect16* rect) {
-    return LDPUMA_GetUserRect(NULL, rect);
+    return TRUE;
 }
 Bool16 SnpGetUserPoint(Point16* pnt) {
-    return LDPUMA_GetUserPoint(NULL, pnt);
+    return TRUE;
 }
 
 uint32_t SnpWaitUserInput(SnpTreeNode* cur_node) {
@@ -648,11 +529,9 @@ void SnpRasterText(char * lpText) {
 }
 
 void SnpZoomToRect(Rect16 * lpRect) {
-    LDPUMA_ZoomToRect(NULL, lpRect);
 }
 
 void SnpRasterHeader(char * lpText, uint32_t num) {
-    LDPUMA_RasterHeader(lpText, num);
 }
 
 void SnpDrawLine(Point16* start, Point16* end, int32_t skew, uint32_t rgb_color, int16_t pen_width,
@@ -661,11 +540,9 @@ void SnpDrawLine(Point16* start, Point16* end, int32_t skew, uint32_t rgb_color,
 }
 
 void SnpHideLines(Handle key) {
-    LDPUMA_DeleteLines(NULL, (uint32_t) key);
 }
 
 void SnpUpdateViews(void) {
-    LDPUMA_UpdateView(NULL);
 }
 
 int SnpLog(const char * message, ...) {
@@ -680,7 +557,6 @@ Bool SnpIsActive(void) {
 }
 
 void SnpHideRects(uint32_t key) {
-    LDPUMA_DeleteRects(NULL, key);
 }
 
 uint32_t SnpSetZoneOn(Rect16* zone_rect, uint32_t rgb_color, char* status_line_comment,

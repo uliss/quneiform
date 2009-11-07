@@ -548,7 +548,6 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage) {
                     StrDrawRect(MainWindowD, code_strd, RGB(0, 0, 255), pRc, nRc, my_str->vertical,
                             Rc);
                     LDPUMA_WaitUserInput(StrD, MainWindowD);
-                    LDPUMA_DeleteRects(MainWindowD, code_strd);
                 }
             }
         }
@@ -559,7 +558,6 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage) {
                         StrDrawRect(MainWindowD, code_strd, RGB(0, 0, 255), &(pRc[i]), 1,
                                 my_str->vertical, Rc);
                         LDPUMA_WaitUserInput(StrD, MainWindowD);
-                        LDPUMA_DeleteRects(MainWindowD, code_strd);
                     }
                 }
             }
@@ -573,7 +571,6 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage) {
     }
 
     CleanCont();
-    // LDPUMA_ConsoleN("Time work CHSTR=%d",clock()-TIME);
     return TRUE;
 }
 

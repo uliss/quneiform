@@ -110,7 +110,7 @@ Bool dpRecOneLetter;
 
 NegImage* pNegImage;
 
-void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, int skew) {
+void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, const char* pImageName, int skew) {
 
     MainWindowD = NULL;
     MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
@@ -210,8 +210,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("По размерам");
                 LDPUMA_WaitUserInput(NegSearchSizeD, MainWindowD);
-                if (LDPUMA_Skip(NegSearchSizeDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_sersized);
             }
         }
     }
@@ -283,8 +281,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("Нормализованные");
                 LDPUMA_WaitUserInput(NegNormD, MainWindowD);
-                if (LDPUMA_Skip(NegNormDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_normd);
             }
         }
     }
@@ -339,8 +335,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("Разрезанные");
                 LDPUMA_WaitUserInput(NegCutD, MainWindowD);
-                if (LDPUMA_Skip(NegCutDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_cutd);
             }
         }
 
@@ -359,7 +353,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
         while (now) {
             h = (now->neg).pRc[0].bottom() - (now->neg).pRc[(now->neg).nRc - 1].top() + 1;
             w = (now->neg).pRc[0].right() - (now->neg).pRc[0].left() + 1;
-            if (((h < 2* w ) && (w < 2* h )) || ((h * w) > sup_square)) {
+            if (((h < 2 * w) && (w < 2 * h)) || ((h * w) > sup_square)) {
                 temp = now;
                 if (!temp->prev)
                     root = temp->next;
@@ -386,8 +380,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("Окончательная прорисовка");
                 LDPUMA_WaitUserInput(NegSizeD, MainWindowD);
-                if (LDPUMA_Skip(NegSizeDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_sized);
             }
         }
 
@@ -413,8 +405,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("Отсеянные по цветовой гамме");
                 LDPUMA_WaitUserInput(NegColorD, MainWindowD);
-                if (LDPUMA_Skip(NegColorDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_colord);
             }
         }
     }
@@ -436,8 +426,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,  const char* pImageName, in
                 }
                 LDPUMA_ConsoleN("Разрезанные на строки");
                 LDPUMA_WaitUserInput(NegCutStrD, MainWindowD);
-                if (LDPUMA_Skip(NegCutStrDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_cutstrd);
             }
         }
 
@@ -902,7 +890,8 @@ void UnRotateNeg(NegList* root, int& skew) {
          */
         if (nIncline >= 0) {
             for (int i = 0; i < now->neg.nRc; i++) {
-                now->neg.pRc[i].rtop() += (int16_t) ((int) (now->neg.pRc[i].left()) * nIncline / 2048);
+                now->neg.pRc[i].rtop() += (int16_t) ((int) (now->neg.pRc[i].left()) * nIncline
+                        / 2048);
                 now->neg.pRc[i].rbottom() += (int16_t) ((int) (now->neg.pRc[i].right()) * nIncline
                         / 2048);
                 now->neg.pRc[i].rleft() -= pNegImage->rotate.begx[now->neg.pRc[i].top()];

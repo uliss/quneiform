@@ -201,7 +201,6 @@ void PageLayoutStrings(Handle hCCOM, Handle hCPAGE) {
         if (!LDPUMA_Skip(hShowString)) {
             LDPUMA_Console("Нажмите любую клавишу...");
             LDPUMA_WaitUserInput(NULL, NULL);
-            LDPUMA_DeleteRects(NULL, PUMA_MODULE_RBLOCK);
         }
     }
 }
@@ -748,7 +747,6 @@ void SomeDraw() {
         }
         if (fl_exist) {
             LDPUMA_WaitUserInput(hStrPointedD, MainWindowD);
-            LDPUMA_DeleteRects(MainWindowD, 117);
         }
     }
 }

@@ -217,12 +217,10 @@ void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, int16_t 
 /*----------------------------------------------------------------------------*/
 void  AM_DeleteLines (Handle wnd, uint32_t key)
 {
-	LDPUMA_DeleteLines (wnd, key);
 }
 /*----------------------------------------------------------------------------*/
 void  AM_DeleteRects (Handle wnd, uint32_t key)
 {
-	LDPUMA_DeleteRects (wnd, key);
 }
 /*----------------------------------------------------------------------------*/
 Bool16 AM_Skip (Handle owner)

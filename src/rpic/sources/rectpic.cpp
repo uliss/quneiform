@@ -202,7 +202,6 @@ if(!LDPUMA_Skip(hShowCheckLetters))
 {
     LDPUMA_Console("RPIC_Анализ на заголовки  \n");
     LDPUMA_WaitUserInput(hShowCheckLetters, MainWindowD);
-    LDPUMA_DeleteRects(MainWindowD, key);
 }
 
 return TRUE;

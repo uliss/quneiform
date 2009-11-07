@@ -446,7 +446,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 	if (!LDPUMA_Skip(hShowAllCancelledGreat)) {
 		LDPUMA_Console("RPIC_Отмененные большие компоненты \n");
 		LDPUMA_WaitUserInput(hShowAllCancelledGreat, MainWindowD);
-		LDPUMA_DeleteRects(MainWindowD, key);
 	}
 
 	if (!nComps) // OLEG
@@ -532,7 +531,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		}
 		LDPUMA_Console("RPIC_Рассматриваемые большие компоненты \n");
 		LDPUMA_WaitUserInput(hShowAllGreat, MainWindowD);
-		LDPUMA_DeleteRects(MainWindowD, key);
 	}
 
 	LDPUMA_FPuts(resFile_comp, "  <2 Н Страница =");
@@ -697,7 +695,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		if (nPics) {
 			LDPUMA_Console("RPIC_Картинки после первого прохода \n");
 			LDPUMA_WaitUserInput(hShowFirstAttempt, MainWindowD);
-			LDPUMA_DeleteRects(MainWindowD, key);
 		}
 	}
 
@@ -716,7 +713,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		if (nPics) {
 			LDPUMA_Console("RPIC_Неуверенные картинки после первого прохода \n");
 			LDPUMA_WaitUserInput(hShowPossiblePics, MainWindowD);
-			LDPUMA_DeleteRects(MainWindowD, key);
 		}
 	}
 
@@ -739,7 +735,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
 		if (nPics) {
 			LDPUMA_Console("RPIC_Буквицы \n");
 			LDPUMA_WaitUserInput(hShowBigLetters, MainWindowD);
-			LDPUMA_DeleteRects(MainWindowD, key);
 		}
 	}
 	return TRUE;

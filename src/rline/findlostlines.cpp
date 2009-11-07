@@ -532,7 +532,6 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const in
 
     if (bshowcp) {
         LDPUMA_WaitUserInput(hShowCP, hWnd);
-        LDPUMA_DeleteRects(hWnd, 1);
     }
 
     //analysing cross points
@@ -800,7 +799,6 @@ Bool32 extractLines(const FLLData *work_data, Point *aCP, const int32_t nCP,
 
                 if (was_drawn) {
                     LDPUMA_WaitUserInput(hShowCheckedRects, work_data->hWnd);
-                    LDPUMA_DeleteRects(work_data->hWnd, 2);
                 }
 
                 if (bPrintCR)

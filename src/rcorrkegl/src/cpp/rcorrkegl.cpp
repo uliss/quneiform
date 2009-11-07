@@ -58,10 +58,8 @@
 //
 
 #include <string.h>
-#include "stdafx.h"
 #include "rcorrkegl.h"
 #include "resource.h"
-#include "dpuma.h"
 #include "compat_defs.h"
 
 Bool32 CorrectKegl(int32_t version);

@@ -72,10 +72,7 @@ void _setvideomode(int mode) {
 }
 
 void _clearscreen(int mode) {
-    LDPUMA_DeleteRects(NULL, PUMA_MODULE_RBLOCK);
-    LDPUMA_DeleteLines(NULL, PUMA_MODULE_RBLOCK);
     LDPUMA_DeleteStrings(NULL, PUMA_MODULE_RBLOCK);
-    //LDPUMA_UpdateView(NULL);
 }
 
 static uint32_t swColor = 0;

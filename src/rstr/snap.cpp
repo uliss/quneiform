@@ -799,8 +799,6 @@ Bool snap_is_marked(CSTR_line ln) {
 	if (!wnd)
 		return FALSE;
 	CSTR_GetLineAttr(ln, &r);
-	if (!LDPUMA_GetUserPoint(wnd, &p))
-		return FALSE;
 	return !((p.x() < r.r_col) || (p.x() > r.r_col + r.r_wid) || (p.y() < r.r_row)
 			|| (p.y() > r.r_row + r.r_hei));
 }
@@ -1030,7 +1028,6 @@ void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 }
 
 void snap_del_line(Handle wnd, uint32_t key) {
-	LDPUMA_DeleteLines(wnd, key);
 	return;
 }
 //IGOR

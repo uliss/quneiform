@@ -599,7 +599,6 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 		if (lti.Hor.Cnt || lti.Ver.Cnt) {
 			LDPUMA_Console("Нажмите любую клавишу...\n");
 			LDPUMA_WaitUserInput(RLINE_ShowLines, draw_window);
-			LDPUMA_DeleteLines(draw_window, 512);
 		}
 	}
 

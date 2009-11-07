@@ -1146,7 +1146,6 @@ void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
 
     if (fl_show && WasKilled) {
         LDPUMA_WaitUserInput(hDotKilledD, MainWindowD);
-        LDPUMA_DeleteLines(MainWindowD, 117);
     }
 
 }

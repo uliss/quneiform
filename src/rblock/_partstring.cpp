@@ -90,7 +90,6 @@ void PageLayoutStrings(Handle hCCOM, Handle hCPAGE) {
         if (!LDPUMA_Skip(hShowString)) {
             LDPUMA_Console("Нажмите любую клавишу...");
             LDPUMA_WaitUserInput(NULL, NULL);
-            LDPUMA_DeleteRects(NULL, PUMA_MODULE_RBLOCK);
         }
         //free (CellsPage); // *** Rom 03-03-99
         //CellsPage = NULL; // *** Rom 03-03-99

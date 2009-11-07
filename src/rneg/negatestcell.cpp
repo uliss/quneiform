@@ -200,8 +200,6 @@ Bool32 RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
                 }
                 LDPUMA_ConsoleN("Нормализованные");
                 LDPUMA_WaitUserInput(NegNormD, MainWindowD);
-                if (LDPUMA_Skip(NegNormDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_normd);
             }
         }
     }
@@ -254,8 +252,6 @@ Bool32 RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
                 }
                 LDPUMA_ConsoleN("Разрезанные");
                 LDPUMA_WaitUserInput(NegCutD, MainWindowD);
-                if (LDPUMA_Skip(NegCutDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_cutd);
             }
         }
 
@@ -300,8 +296,6 @@ Bool32 RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
                 }
                 LDPUMA_ConsoleN("Окончательная прорисовка");
                 LDPUMA_WaitUserInput(NegSizeD, MainWindowD);
-                if (LDPUMA_Skip(NegSizeDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_sized);
             }
         }
 
@@ -327,8 +321,6 @@ Bool32 RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
                 }
                 LDPUMA_ConsoleN("Отсеянные по цветовой гамме");
                 LDPUMA_WaitUserInput(NegColorD, MainWindowD);
-                if (LDPUMA_Skip(NegColorDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_colord);
             }
         }
     }
@@ -350,8 +342,6 @@ Bool32 RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
                 }
                 LDPUMA_ConsoleN("Разрезанные на строки");
                 LDPUMA_WaitUserInput(NegCutStrD, MainWindowD);
-                if (LDPUMA_Skip(NegCutStrDC))
-                    LDPUMA_DeleteRects(MainWindowD, code_cutstrd);
             }
         }
 

@@ -704,5 +704,4 @@ void DrawComps(Handle hCCOM) {
                 comp->left, comp->left + comp->w - 1);
 
     LDPUMA_WaitUserInput(hDrawComp, MainWindowD);
-    LDPUMA_DeleteRects(MainWindowD, 117);
 }

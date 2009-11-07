@@ -1201,7 +1201,6 @@ static void mw_show_rast() {
 			LDPUMA_DrawLine(NULL, &vh, &vl, 0, wRGB(255, 0, 0), 1, key);
 		}
 		glsnap('a', c, "raster too big to show");
-		LDPUMA_DeleteLines(NULL, key);
 		return;
 	}
 
