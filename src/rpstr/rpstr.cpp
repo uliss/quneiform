@@ -73,7 +73,6 @@ uint16_t wHeightRC = 0;
 uint16_t wLowRC = RPSTR_ERR_NO;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE, skip_line = FALSE;
-;
 Handle hSnapSpell = 0, hSnapWordSpell = 0, hSnapMatch = 0, hSnapCapDrop = 0;
 Handle hSnapEndWord = NULL, hSnapStartWord = NULL;
 Handle hVertCompD;

@@ -880,7 +880,6 @@ void set_active_MN(MN * mnnew, MN * mnold) {
 void tech_picture(MN *mn) {
 	mn = mn;
 }
-;
 
 //=========== Local funcs ==========
 
@@ -1036,23 +1035,16 @@ Bool32 REXC_GetExportData(uint32_t dwType, void * pData) {
 }
 
 Bool32 REXC_SetImportData(uint32_t dwType, void * pData) {
-#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
-#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
+#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break;
+#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break;
 	wLowRC = REXC_ERR_NO;
 	switch (dwType) {
 	CASE_DATA(REXC_Word8_Matrix ,uchar,matrix)
-		;
 	CASE_DATA(REXC_Word8_Fax1x2 ,uchar,fax1x2)
-		;
 	CASE_DATA(REXC_Word16_ActualResolution,uint16_t,actual_resolution)
-		;
 	CASE_PDATA(REXC_ProgressStart, FNREXC_ProgressStart, fnProgressStart_exc)
-		;
 	CASE_PDATA(REXC_ProgressStep, FNREXC_ProgressStep, fnProgressStep_exc)
-		;
 	CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish_exc)
-		;
-		//    CASE_PDATA(REXC_OcrPath,    uchar*, lnOcrPath);
 	default:
 		wLowRC = REXC_ERR_NOTIMPLEMENT;
 		return FALSE;

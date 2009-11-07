@@ -248,7 +248,6 @@ void file_string(STRING * s) {
     }
 
 }
-;
 /////////////////////////////////////
 
 static void LayoutFromCPAGE(Handle hCPAGE) {

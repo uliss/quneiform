@@ -2065,5 +2065,4 @@ int16_t SearchObjezd(int16_t x, // column number where cutting is going.
 	}
 	return 0;
 }
-;
 

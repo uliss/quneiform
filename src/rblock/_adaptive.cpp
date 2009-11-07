@@ -80,7 +80,7 @@ uint32_t progress_set_percent(uint32_t volume) {
 		rc = !fnProgressStep_rblock(volume);
 	return rc;
 }
-;
+
 void progress_finish(void) {
 	if (fnProgressFinish_rblock)
 		fnProgressFinish_rblock();

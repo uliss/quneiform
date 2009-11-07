@@ -151,16 +151,16 @@ void _moveto(int x, int y) {
     sBeg.rx() = x;
     sBeg.ry() = y;
 }
-;
+
 void _lineto(int x, int y) {
     Point16 end(x, y);
     LDPUMA_DrawLine(NULL, &sBeg, &end, 0, swColor, -16, PUMA_MODULE_RBLOCK);
     sBeg = end;
 }
-;
+
 void _setlinestyle(int style) {
 }
-;
+
 
 #ifndef WIN32
 typedef struct tagBITMAPINFOHEADER
@@ -186,7 +186,6 @@ void _gettextsettings(struct textsettings *ts) {
         ts->width = lp->biWidth;
     }
 }
-;
 
 static uint32_t swAlign = 0;
 void _settextalign(int right, int top) {

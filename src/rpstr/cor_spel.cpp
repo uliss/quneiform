@@ -104,7 +104,6 @@ static RecVersions ed_vers[100];
 static UniVersions rej_vers[100], rejo_vers[100];
 static Rect16 ed_rect[100];
 static int32_t ed_nvers, nrej_vers, nrejo_vers;
-;
 
 struct vers_ref ed_vrs;
 struct bit_map_ref bmr;
