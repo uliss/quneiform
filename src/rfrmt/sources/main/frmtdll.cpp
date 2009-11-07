@@ -108,7 +108,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid lpRe
 //Handle hUseCLine;
 
 RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode, Handle hStorage) {
-    LDPUMA_Init(0, NULL);
+//    LDPUMA_Init(0, NULL);
     LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_CONVERTERS, NULL);
     LDPUMA_Registry(&hDebugMy, "Отладка форматирования", hDebugRoot);
 
@@ -170,9 +170,6 @@ RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode, Handle hStorage) {
     LDPUMA_Registry(&hTestEnd, "В конце функции", hTest);
     LDPUMA_Registry(&hTestDeleteImage, "Удаление временных изображений", hTest);
 
-    // LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
-
-
     gwHeightRC = wHeightCode;
 
     return TRUE;
@@ -180,7 +177,6 @@ RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode, Handle hStorage) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 RFRMT_FUNC(Bool32) RFRMT_Done() {
-    LDPUMA_Done();
     return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////

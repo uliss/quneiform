@@ -175,15 +175,13 @@ void reset_snap(void) {
 	LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[3], NULL);
 	return;
 }
+
 static int Lang_Console(char *text, uchar lang) {
 	char buf[1024];
-	//LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
-	//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   uint32_t textcolor,
-	//      int charset,    char * name )
-	LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[lang], NULL);//"Courier New" ) ;
 	strcpy(buf, text);
 	strcat(buf, "\n");
-	return LDPUMA_Console(buf);
+	LDPUMA_Console(buf);
+	return 1;
 }
 
 static int Snap_Console(char *text) {
@@ -258,7 +256,7 @@ Bool snap_init(void) {
 	if (init)
 		return TRUE;
 	init = TRUE;
-	LDPUMA_Init(0, NULL);
+//	LDPUMA_Init(0, NULL);
 	//LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
 
 	LDPUMA_Registry(&hSnapMain, "Распознавание строк...", NULL);

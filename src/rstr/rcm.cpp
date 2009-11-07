@@ -2149,7 +2149,6 @@ void RSTRDone(void) {
     DFON_Done();
     FONEndSnap();
 #endif
-    LDPUMA_Done();
     my_free(CellsPage_rstr, 0);
     my_free(kit_start, 0);
     my_free(memory_pool, 0);

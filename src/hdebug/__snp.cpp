@@ -66,15 +66,8 @@ using namespace CIF;
 
 HINSTANCE hDPuma = NULL;
 
-static FNDPUMA_Init Init = NULL;
-static FNDPUMA_Done Done = NULL;
-static FNDPUMA_SetImportData SetImportData = NULL;
-static FNDPUMA_GetExportData GetExportData = NULL;
-
 static FNDPUMA_CreateSnap CreateSnap = NULL;
 static FNDPUMA_DestroySnap DestroySnap = NULL;
-static FNDPUMA_Console Console = NULL;
-static FNDPUMA_StatusLine StatusLine = NULL;
 static FNDPUMA_Stop Stop = NULL;
 static FNDPUMA_IsActive IsActive = NULL;
 static FNDPUMA_Registry Registry = NULL;
@@ -83,7 +76,6 @@ static FNDPUMA_StartLoop StartLoop = NULL;
 static FNDPUMA_LoopNext LoopNext = NULL;
 static FNDPUMA_CreateWindow fCreateWindow = NULL;
 static FNDPUMA_MessageBoxOk MessageBoxOk = NULL;
-static FNDPUMA_MessageBoxYesNo MessageBoxYesNo = NULL;
 static FNDPUMA_WaitUserInput WaitUserInput = NULL;
 static FNDPUMA_DrawLine DrawLine = NULL;
 static FNDPUMA_DrawRect DrawRect = NULL;
@@ -148,155 +140,13 @@ static FNDPUMA_FPuts fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
 
-static int __DPUMA__AllocHook__(int allocType, void *userData, size_t size, int blockType,
-        long requestNumber, const char *filename, int lineNumber) {
-    uint32_t prevSize = 0;
-    int rc = PrevAllocHook(allocType, userData, size, blockType, requestNumber, filename,
-            lineNumber);
-    if (fAllocHook && rc > 0) // Если rc меньше нуля, тогда мы уже работали
-    {
-#ifdef _DEBUG
-        if(userData)
-        prevSize = _msize_dbg(userData,blockType);
-#endif
-        if (LDPUMA_IsActive())
-            rc = fAllocHook(allocType, userData, size, prevSize, blockType, requestNumber,
-                    (puchar) filename, lineNumber);
-    }
-    return rc;
-}
-
-Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage) {
-    Bool32 rc = FALSE;
-#ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
-            "LDPUMA_Init(%i,%x)\n",wHightCode, hStorage);
-#endif
-    if (Init && GetExportData) {
-        if (GetExportData(DPUMA_FNDPUMA_Console, &Console) && GetExportData(
-                DPUMA_FNDPUMA_CreateSnap, &CreateSnap) && GetExportData(DPUMA_FNDPUMA_DestroySnap,
-                &DestroySnap) && GetExportData(DPUMA_FNDPUMA_Stop, &Stop) && GetExportData(
-                DPUMA_FNDPUMA_IsActive, &IsActive) && GetExportData(DPUMA_FNDPUMA_StatusLine,
-                &StatusLine) && GetExportData(DPUMA_FNDPUMA_Registry, &Registry) && GetExportData(
-                DPUMA_FNDPUMA_Skip, &Skip) && GetExportData(DPUMA_FNDPUMA_StartLoop, &StartLoop)
-                && GetExportData(DPUMA_FNDPUMA_LoopNext, &LoopNext) && GetExportData(
-                DPUMA_FNDPUMA_CreateWindow, &fCreateWindow) && GetExportData(
-                DPUMA_FNDPUMA_MessageBoxOk, &MessageBoxOk) && GetExportData(
-                DPUMA_FNDPUMA_MessageBoxYesNo, &MessageBoxYesNo) && GetExportData(
-                DPUMA_FNDPUMA_WaitUserInput, &WaitUserInput) && GetExportData(
-                DPUMA_FNDPUMA_DrawLine, &DrawLine) && GetExportData(DPUMA_FNDPUMA_DrawRect,
-                &DrawRect) && GetExportData(DPUMA_FNDPUMA_DrawLineTip, &DrawLineTip)
-                && GetExportData(DPUMA_FNDPUMA_DrawRectTip, &DrawRectTip) && GetExportData(
-                DPUMA_FNDPUMA_DeleteRects, &DeleteRects) && GetExportData(
-                DPUMA_FNDPUMA_DeleteLines, &DeleteLines) && GetExportData(
-                DPUMA_FNDPUMA_GetUserPoint, &GetUserPoint) && GetExportData(
-                DPUMA_FNDPUMA_GetUserRect, &GetUserRect) && GetExportData(DPUMA_FNDPUMA_UpdateView,
-                &UpdateView) && GetExportData(DPUMA_FNDPUMA_DrawRaster, &DrawRaster)
-                && GetExportData(DPUMA_FNDPUMA_ZoomToRect, &ZoomToRect) && GetExportData(
-                DPUMA_FNDPUMA_RasterHeader, &RasterHeader) && GetExportData(
-                DPUMA_FNDPUMA_DrawFocusRect, &fnDrawFocusRect) && GetExportData(
-                DPUMA_FNDPUMA_RegVariable, &RegVariable) && GetExportData(
-                DPUMA_FNDPUMA_UnregVariable, &UnregVariable) && GetExportData(
-                DPUMA_FNDPUMA_GetDIBptr, &GetDIBptr) && GetExportData(DPUMA_FNDPUMA_DrawString,
-                &DrawString) && GetExportData(DPUMA_FNDPUMA_DeleteStrings, &DeleteStrings)
-                && GetExportData(DPUMA_FNDPUMA_SetCallbackWindowProc, &SetCallbackWindowProc)
-                && GetExportData(DPUMA_FNDPUMA_DeviceToImage, &DeviceToImage) && GetExportData(
-                DPUMA_FNDPUMA_ImageToDevice, &ImageToDevice) && GetExportData(
-                DPUMA_FNDPUMA_SetCallbackMainFrameWindowProc, &SetCallbackMainFrameWindowProc)
-                && GetExportData(DPUMA_FNDPUMA_DestroyWindow, &fDestroyWindow) && GetExportData(
-                DPUMA_FNDPUMA_SendWindow, &SendWindow) && GetExportData(DPUMA_FNDPUMA_SendMainWnd,
-                &SendMainWnd) && GetExportData(DPUMA_FNDPUMA_CSTR_Monitor, &cstr_Monitor)
-                && GetExportData(DPUMA_FNDPUMA_CSTR_GetPosition, &cstr_GetPosition)
-                && GetExportData(DPUMA_FNDPUMA_CSTR_SetPosition, &cstr_SetPosition)
-                && GetExportData(DPUMA_FNDPUMA_DestroyRasterWnd, &DestroyRasterWnd)
-                && GetExportData(DPUMA_FNDPUMA_CSTR_GetLength, &cstr_GetLength) && GetExportData(
-                DPUMA_FNDPUMA_ShowCutPoint, &ShowCutPoint) && GetExportData(
-                DPUMA_FNDPUMA_GetRasterPixel, &GetRasterPixel) && GetExportData(
-                DPUMA_FNDPUMA_CSTR_Update, &cstr_Update) && GetExportData(DPUMA_FNDPUMA_SkipEx,
-                &SkipEx) && GetExportData(DPUMA_FNDPUMA_OpenFile, &fOpenFile) && GetExportData(
-                DPUMA_FNDPUMA_GetFileName, &fGetFileName) && GetExportData(
-                DPUMA_FNDPUMA_HandLayout, &fHandLayout) && GetExportData(DPUMA_FNDPUMA_LockImage,
-                &fLockImage) && GetExportData(DPUMA_FNDPUMA_RegistryHelp, &RegistryHelp)
-                && GetExportData(DPUMA_FNDPUMA_SaveFile, &fSaveFile) && GetExportData(
-                DPUMA_FNDPUMA_ProgressStart, &fProgressStart) && GetExportData(
-                DPUMA_FNDPUMA_ProgressFinish, &fProgressFinish) && GetExportData(
-                DPUMA_FNDPUMA_ProgressStep, &fProgressStep) && GetExportData(
-                DPUMA_FNDPUMA_SetConsoleProperty, &fSetConsoleProperty) && GetExportData(
-                DPUMA_FNDPUMA_CreateHistogramm, &fCreateHistogramm) && GetExportData(
-                DPUMA_FNDPUMA_AddPointToHistogramm, &fAddPointToHistogramm) && GetExportData(
-                DPUMA_FNDPUMA_DoHistogramm, &fDoHistogramm) && GetExportData(
-                DPUMA_FNDPUMA_DestroyHistogramm, &fDestroyHistogramm) && GetExportData(
-                DPUMA_FNDPUMA_GetWindowHandle, &fGetWindowHandle) && GetExportData(
-                DPUMA_FNDPUMA_GetPrevSkipOwner, &fGetPrevSkipOwner) && GetExportData(
-                DPUMA_FNDPUMA_AllocHook, &fAllocHook) && GetExportData(DPUMA_FNDPUMA_ConsoleClear,
-                &fConsoleClear) && GetExportData(DPUMA_FNDPUMA_ConsoleGetCurLine,
-                &fConsoleGetCurLine) && GetExportData(DPUMA_FNDPUMA_SetFileName, &fSetFileName)
-                && GetExportData(DPUMA_FNDPUMA_FOpen, &fFOpen) && GetExportData(
-                DPUMA_FNDPUMA_FClose, &fFClose) && GetExportData(DPUMA_FNDPUMA_FPrintf1024,
-                &fFPrintf1024) && GetExportData(DPUMA_FNDPUMA_FPuts, &fFPuts) && GetExportData(
-                DPUMA_FNDPUMA_RasterText, &RasterText) && SetImportData != NULL/*tanya*/
-        ) {
-            rc = Init(wHightCode, hStorage);
-            if (rc) {
-#ifdef _DEBUG
-                // На случай, если вызывается не один раз.
-                _CRT_ALLOC_HOOK pHook = _CrtSetAllocHook(__DPUMA__AllocHook__);
-                if(__DPUMA__AllocHook__ != pHook)
-                PrevAllocHook = pHook;
-#endif
-                fCreateWindow("Main", NULL);
-                LDPUMA_Registry(&hWriteFile, "Выполнять отладочную запись в файл.", NULL);
-                LDPUMA_RegistryHelp(hWriteFile, "Разрешает отладочную запись функциями DPUMA.",
-                        FALSE);
-            }
-        }
-    }
-    return rc;
-}
-
-Bool32 LDPUMA_Done() {
-    Bool32 rc = FALSE;
-#ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
-            "LDPUMA_Done()\n");
-    if(PrevAllocHook)
-    _CrtSetAllocHook(PrevAllocHook);
-#endif
-
-    if (Done)
-        rc = Done();
-    if (hDPuma)
-        hDPuma = NULL;
-    return rc;
-}
-
-Bool32 LDPUMA_SetImportData(uint32_t wType, void * pData) {
-    if (SetImportData)
-        return SetImportData(wType, pData);
-    return FALSE;
-}
-
-Bool32 LDPUMA_GetExportData(uint32_t wType, void * pData) {
-    if (GetExportData)
-        return GetExportData(wType, pData);
-    return FALSE;
-}
-
 void LDPUMA_DestroySnap() {
-#ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
-            "LDPUMA_DestroySnap()\n");
-#endif
     if (DestroySnap)
         DestroySnap();
 }
 
 uint32_t LDPUMA_CreateSnap() {
     uint32_t rc = 0;
-#ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
-            "LDPUMA_CreateSnap()\n");
-#endif
     if (CreateSnap)
         rc = CreateSnap();
     return rc;
@@ -356,46 +206,24 @@ void LDPUMA_UpdateView(Handle wnd) {
         UpdateView(wnd);
 }
 
-int32_t LDPUMA_Console(const char * message, ...) {
-#ifdef WIN32
-    int rc = 0;
-    if(Console)
-    {
-        va_list marker;
-        va_start( marker, message);
-        rc = Console(message,marker);
-        va_end(marker);
-    }
-    return rc;
-#else
-#ifndef NDEBUG // console output only in debug mode
+void LDPUMA_Console(const char * message, ...) {
+    // console output only in debug mode
+#ifndef NDEBUG
     va_list marker;
     va_start(marker, message);
     vfprintf(stderr, message, marker);
     va_end(marker);
 #endif
-    return 1;
-#endif
-}
-int32_t LDPUMA_ConsoleN(const char * message, ...) {
-    int32_t rc = 0;
-    if (Console) {
-        va_list marker;
-        va_start( marker, message);
-        rc = Console(message, marker);
-        va_end(marker);
-        LDPUMA_Console("\n");
-    }
-    return rc;
 }
 
-void LDPUMA_StatusLine(const char * message, ...) {
-    if (StatusLine) {
-        va_list marker;
-        va_start( marker, message);
-        StatusLine(message, marker);
-        va_end(marker);
-    }
+void LDPUMA_ConsoleN(const char * message, ...) {
+#ifndef NDEBUG
+    va_list marker;
+    va_start( marker, message);
+    vfprintf(stderr, message, marker);
+    va_end(marker);
+    LDPUMA_Console("\n");
+#endif
 }
 
 void LDPUMA_MessageBoxOk(const char * message, ...) {
@@ -405,17 +233,6 @@ void LDPUMA_MessageBoxOk(const char * message, ...) {
         MessageBoxOk(message, marker);
         va_end(marker);
     }
-}
-
-Bool16 LDPUMA_MessageBoxYesNo(const char * message, ...) {
-    Bool16 rc = FALSE;
-    if (MessageBoxYesNo) {
-        va_list marker;
-        va_start( marker, message);
-        rc = MessageBoxYesNo(message, marker);
-        va_end(marker);
-    }
-    return rc;
 }
 
 Bool16 LDPUMA_GetUserRect(Handle wnd, Rect16* rect) {
@@ -791,19 +608,10 @@ int32_t LDPUMA_FPuts(Handle hFile, const char * lpString) {
 
 void SnpSetTools(__SnpToolBox* tools)
 {
-    LDPUMA_Init(0,NULL);
 }
 
 void SnpDrawFocusRect(Rect16* rc) {
     LDPUMA_DrawFocusRect(NULL, rc);
-}
-
-Bool16 SnpGetUserLong(char * static_text, int32_t * result_long) {
-    return LDPUMA_MessageBoxYesNo(static_text);
-}
-
-Bool16 SnpGetUserString(char * static_text, char * result_string, uint32_t result_string_length) {
-    return LDPUMA_MessageBoxYesNo(static_text);
 }
 
 Bool16 SnpGetUserRect(Rect16* rect) {
@@ -863,39 +671,14 @@ void SnpUpdateViews(void) {
 }
 
 int SnpLog(const char * message, ...) {
-    int rc = 0;
-    if (Console) {
-        va_list marker;
-        va_start( marker, message);
-        rc = Console(message, marker);
-        va_end(marker);
-    }
-    return rc;
-}
-
-void SnpStatusLine(const char * message, ...) {
-    if (StatusLine) {
-        va_list marker;
-        va_start( marker, message);
-        StatusLine(message, marker);
-        va_end(marker);
-    }
-}
-
-void SnpMessBoxOk(char * message) {
-    LDPUMA_MessageBoxOk(message);
-}
-
-Bool16 SnpMessBoxYesNo(char * message) {
-    return LDPUMA_MessageBoxYesNo(message);
+    va_list marker;
+    va_start( marker, message);
+    vfprintf(stderr, message, marker);
+    va_end(marker);
 }
 
 Bool SnpIsActive(void) {
     return LDPUMA_IsActive();
-}
-
-void SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color, int32_t pen_width, uint32_t key) {
-    LDPUMA_DrawRect(NULL, rc, skew, rgb_color, (int16_t) pen_width, key);
 }
 
 void SnpHideRects(uint32_t key) {
@@ -918,7 +701,7 @@ void __SnpIterParent(SnpTreeNode* node, Bool activate) {
     ;
 }
 #else
-int SnpLog(const char * message, ...) {
+int SnpLog(const char * /*message*/, ...) {
     return 0;
 }
 #endif

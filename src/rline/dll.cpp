@@ -109,7 +109,6 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
 	Bool32 b;
 	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0, NULL);
 	b = RLINE_SubInit();
 	if (!b)
 		return FALSE;
@@ -121,7 +120,6 @@ Bool32 RLINE_Init(uint16_t wHeightCode, Handle hStorage) {
 }
 
 Bool32 RLINE_Done() {
-	LDPUMA_Done();
 	return TRUE;
 }
 

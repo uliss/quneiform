@@ -127,7 +127,7 @@ Bool APIENTRY DllMain(HINSTANCE, uint32_t ul_reason_for_call, void*) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 CLINE_FUNC Bool CLINE_Init(int, Handle) {
-	LDPUMA_Init(0, NULL);
+//	LDPUMA_Init(0, NULL);
 
 	pLCont = NULL;
 	pMainCont = NULL;
@@ -189,7 +189,6 @@ CLINE_FUNC Bool CLINE_Init(int, Handle) {
 //
 CLINE_FUNC Bool CLINE_Done() {
 	DeleteData();
-	LDPUMA_Done();
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////

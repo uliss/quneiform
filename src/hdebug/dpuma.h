@@ -161,12 +161,8 @@ enum DPUMA_EXPORT
 #define DEC_VARGP(a,b,c) typedef a (*FN##b)(c,const char * lpFormat,char * marker); \
 						DPUMA_FUNC a b (c,const char * lpFormat,char * marker); \
 						a L##b (c,const char * lpFormat,...);
-DEC_FUNC(Bool32, DPUMA_Init,(uint16_t wHightCode, Handle hStorage))
-DEC_FUNC(Bool32, DPUMA_Done,())
 DEC_FUNC(uint32_t, DPUMA_GetErrorCode,(void))
 DEC_FUNC(char *, DPUMA_GetErrorString,(uint32_t wError))
-DEC_FUNC(Bool32, DPUMA_SetImportData,(uint32_t wType, void * pData))
-DEC_FUNC(Bool32, DPUMA_GetExportData,(uint32_t wType, void * pData))
 DEC_FUNC(uint32_t, DPUMA_CreateSnap,())
 DEC_FUNC(void, DPUMA_DestroySnap,())
 DEC_FUNC(void, DPUMA_Stop,())
@@ -200,10 +196,8 @@ DEC_FUNC(void, DPUMA_DrawLineTip,(Handle wnd,CIF::Point16 * start, CIF::Point16 
 DEC_FUNC(void, DPUMA_DrawRectTip,(Handle wnd,CIF::Rect16 * rect, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key, const char *pTip))
 
 DEC_VARG(void, DPUMA_MessageBoxOk)
-DEC_VARG(void, DPUMA_StatusLine)
-DEC_VARG(Bool16, DPUMA_MessageBoxYesNo)
-DEC_VARG(int32_t, DPUMA_Console)
-DEC_VARG(int32_t, DPUMA_ConsoleN)
+DEC_VARG(void, DPUMA_Console)
+DEC_VARG(void, DPUMA_ConsoleN)
 
 /* callback functions */
 typedef uint32_t (*DPUMA_Callback_WindowProc)(Handle wnd, Handle hWnd, uint32_t message,

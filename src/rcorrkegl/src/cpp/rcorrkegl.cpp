@@ -86,15 +86,12 @@ RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,Handle hStorage)
 	exit_enable = FALSE;
 
 	kegl_snap_init();
-	LDPUMA_Init(0,NULL);
 
 	return TRUE;
 }
 
 RCK_FUNC(Bool32) RCORRKEGL_Done()
 {
-	LDPUMA_Done();
-
 	return TRUE;
 }
 

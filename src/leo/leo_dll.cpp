@@ -214,11 +214,6 @@ void leo_store_for_pass2(RecObject* object, uchar let) {
 }
 
 void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
-
-    SnpDrawRect(&object->recData.rect, 0, //Skew - zero to real coords
-            wRGB(0, 0, 255), -16, // one image pixel width
-            (uint32_t) stnRecog);
-
     SnpDrawRaster(&object->recData.recRaster);
 }
 
@@ -952,9 +947,8 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
             if (data[5] == 0 && (data[15] & LEO_VALID_DIGIT)) {
                 data2RecVersions(data, &old);
                 if (old.lnAltCnt && old.Alt[0].Prob >= 250) {
-                    if (/*!SnpSkip(&stnReRecog)||*/local_snap) {
+                    if (local_snap) {
                         leo_snapChar(&old, "PASS1.51 NICE LEO COLLECTION : ", TRUE);
-                        SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                         SnpDrawRaster(&r);
                         Leo_SnpWaitUserInput(&stnReRecog);
                     }
@@ -962,7 +956,6 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
                 }
                 if (!SnpSkip(&stnReRecog) || local_snap) {
                     leo_snapChar(&old, "PASS1.51 LEO COLLECTION : ", TRUE);
-                    SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                     SnpDrawRaster(&r);
                     Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -985,14 +978,12 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
                     CTB_write_data(&hnd, i, data);
                     if (!SnpSkip(&stnReRecog) || local_snap) {
                         leo_snapChar(&old, "PASS1.51 FNT RERECOG DIGITAL HAND : ", TRUE);
-                        SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                         SnpDrawRaster(&r);
                         Leo_SnpWaitUserInput(&stnReRecog);
                     }
                 }
                 else if (!SnpSkip(&stnReRecog) || local_snap) {
                     leo_snapChar(&ver, "PASS1.51 FNT UNKNOWN CASE FOR DIGITAL HAND : ", TRUE);
-                    SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                     SnpDrawRaster(&r);
                     Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -1002,7 +993,6 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
                 data2RecVersions(data, &old);
                 if (!SnpSkip(&stnReRecog) || local_snap) {
                     leo_snapChar(&old, "PASS1.5 LEO COLLECTION : ", TRUE);
-                    SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                     SnpDrawRaster(&r);
                     Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -1025,7 +1015,6 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
 
                 if (!SnpSkip(&stnReRecog) || local_snap) {
                     leo_snapChar(&ver, "PASS1.5 FNT COLLECTION : ", TRUE);
-                    SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                     SnpDrawRaster(&r);
                     Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -1097,14 +1086,13 @@ Bool32 LEOFonRerecogCTB(const char *CTBname) {
                             leo_snapChar(&ver, "PASS1.5 FNT+LEO CONFIRMING : ", TRUE);
                         else
                             leo_snapChar(&ver, "PASS1.5 FNT+LEO CHANGING : ", TRUE);
-                        SnpDrawRect(&r16, 0, wRGB(0, 0, 255), -16, (uint32_t) & stnReRecog);
                         SnpDrawRaster(&r);
                         Leo_SnpWaitUserInput(&stnReRecog);
                     }
                     RecVersions2data(&ver, data);
                 }
-                else if (data[14] > 253 && ver.lnAltCnt && //leo_comp_codes(ver.Alt[0].Code,data[3]) )
-                        ver.Alt[0].Code == data[3] && // LEO[0]==FON[0]
+                else if (data[14] > 253 && ver.lnAltCnt &&
+                        ver.Alt[0].Code == data[3] &&
                         !(ver.lnAltCnt > 1 && ver.Alt[0].Prob - ver.Alt[1].Prob < 15)) {
                     data[14] = 255;
                     data[15] |= LEO_VALID_FONT;
@@ -1244,10 +1232,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
     if (object->recData.recRaster.lnPixWidth < 5 || object->recData.recRaster.lnPixHeight < 5) {
         LEO_error_code = ER_LEO_SMALL_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-
-            SnpDrawRect(&object->recData.rect, 0, //Skew - zero to real coords
-                    wRGB(255, 0, 0), -16, // one image pixel width
-                    (uint32_t) & stnCharRecog);
             SnpDrawRaster(&object->recData.recRaster);
             SnpLog("%s", "TOO SMALL RASTER");
             Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
@@ -1258,10 +1242,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
     if (object->recData.recRaster.lnPixWidth > 150 || object->recData.recRaster.lnPixHeight > 150) {
         LEO_error_code = ER_LEO_LARGE_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-
-            SnpDrawRect(&object->recData.rect, 0, //Skew - zero to real coords
-                    wRGB(255, 0, 0), -16, // one image pixel width
-                    (uint32_t) & stnCharRecog);
             SnpDrawRaster(&object->recData.recRaster);
             SnpLog("%s", "TOO BIG RASTER");
             Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user

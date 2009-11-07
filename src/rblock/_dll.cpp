@@ -96,13 +96,11 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid lpRe
 
 Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage) {
     gwHeightRC = wHeightCode;
-    LDPUMA_Init(0, NULL);
     return TRUE;
 }
 
 Bool32 RBLOCK_Done() {
     Close_Res_Log();
-    LDPUMA_Done();
     return TRUE;
 }
 

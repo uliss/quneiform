@@ -1020,10 +1020,10 @@ static uchar CodePages[LANG_TOTAL] = { ANSI_CHARSET, // LANG_ENGLISH		0
 
 static int Lang_Console(char *text, uchar lang) {
     char buf[1024];
-    LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[lang], NULL);
     strcpy(buf, text);
     strcat(buf, "\n");
-    return LDPUMA_Console(buf);
+    LDPUMA_Console(buf);
+    return 1;
 }
 
 int Snap_Console(char *text) {

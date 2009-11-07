@@ -163,8 +163,6 @@ Bool32 RPSTR_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
-	LDPUMA_Init(0, NULL);
-	//kegl_snap_init();
 	LDPUMA_Registry(&hSnapSpell, "Словарь и постобработка", NULL);
 	LDPUMA_RegistryHelp(hSnapSpell, "Словарь", FALSE);
 	LDPUMA_Registry(&hSnapWordSpell, "Запретить проверку словами", hSnapSpell);
@@ -193,7 +191,6 @@ void RPSTR_Done(void) {
 	wHeightRC = 0;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
-	LDPUMA_Done();
 	return;
 }
 

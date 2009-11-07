@@ -81,7 +81,6 @@ Handle hDebugRoot, hDebugMy, hDebugCutP;
 ///////////////////////////////////////////////////////////////
 RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
 {
-	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
 	LDPUMA_Registry(&hDebugMy,"Отладка точек разрезания",hDebugRoot);
 
@@ -97,7 +96,6 @@ RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
 //
 RCUTP_FUNC(Bool32) RCUTP_Done()
 {
-	LDPUMA_Done();
 	return TRUE;
 }
 

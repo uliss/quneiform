@@ -200,10 +200,6 @@ static void leo_ndx_snapSimpleKey(const char *str, SnpTreeNode *stnRecog) {
 }
 
 static void leo_ndx_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
-    SnpDrawRect(&object->recData.rect, 0, //Skew - zero to real coords
-            wRGB(0, 0, 255), -16, // one image pixel width
-            (uint32_t) stnRecog);
-
     SnpDrawRaster(&object->recData.recRaster);
 }
 

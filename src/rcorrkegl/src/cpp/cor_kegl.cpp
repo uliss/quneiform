@@ -188,7 +188,8 @@ static RecStat recstat[FRAG_PAGE];
 static PageWord cur_word;
 
 int Snap_Console(const char *text) {
-    return LDPUMA_Console(text);
+    LDPUMA_Console(text);
+    return 1;
 }
 
 static Bool32 get_stats();

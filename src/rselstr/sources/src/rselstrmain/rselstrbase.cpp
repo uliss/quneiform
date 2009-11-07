@@ -146,12 +146,6 @@ uint32_t ul_reason_for_call,
 RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0,NULL);
-/*------------------------------------------------------------------------------------------*/
-
-//	CHSTR_Init(wHeightCode,NULL);
-
-/*------------------------------------------------------------------------------------------*/
 
     LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
     LDPUMA_Registry(&MainTime,SNAP_ROOT_MAIN_TIME_CONTROL,NULL);
@@ -159,18 +153,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)
     LDPUMA_Registry(&RselstrTime,"Выделение строк..",MainTime);
 	LDPUMA_Registry(&hExit,"От RSELSTR до распознавания",MainTime);
 
-
-//	LDPUMA_Registry(&hVertCellsWork,"Обработка вертикальных ячеек таблиц",MainDebug);
-//    LDPUMA_RegistryHelp(hVertCellsWork,"Активизация вершины разрешит обработку вертикальных ячеек таблиц.",FALSE);
-
-//	LDPUMA_Registry(&hNegaCellsWork,"Обработка негативных ячеек таблиц",MainDebug);
-//    LDPUMA_RegistryHelp(hNegaCellsWork,"Активизация вершины разрешит обработку негативных ячеек таблиц.",FALSE);
-
 	LDPUMA_Registry(&hDebugCutStr,"Резка слипшихся компонент повсеместно",MainDebug);
 	LDPUMA_RegistryHelp(hDebugCutStr,"Разрешить резку слипшихся компонент повсеместно",FALSE);
-
-//	LDPUMA_Registry(&hStrPointed,"Проставка флагов точечных линий на строки",MainDebug);
-//    LDPUMA_RegistryHelp(hStrPointed,"Активизация вершины разрешит проставку флагов точечных линий на строки.",FALSE);
 
 
 	LDPUMA_Registry(&Root,SNAP_ROOT_STRINGS,NULL);
@@ -232,15 +216,9 @@ RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)
 
     LDPUMA_Registry(&hDrawComp,"Прорисовка компонент !!!",Root);
 	LDPUMA_RegistryHelp(hDrawComp,"Прорисовка компонент.",FALSE);
-
-
-//	LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
-
  list=NULL;
  prelist=NULL;
 
-// list=new CLhstr;
-// prelist=new CLPrepHstr;
 
  LDPUMA_Registry (&Root_CHSTR,"Выделитель строк в нестандартных объектах", Root);
  const char *pText;
@@ -292,16 +270,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)
 //
 RSELSTR_FUNC(Bool32) RSELSTR_Done()
 {
-
-/*------------------------------------------------------------------------------------------*/
-
-//	CHSTR_Done();
-
-/*------------------------------------------------------------------------------------------*/
 	delete list;
 	delete prelist;
-
-	LDPUMA_Done();
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////

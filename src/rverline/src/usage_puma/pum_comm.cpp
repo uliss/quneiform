@@ -164,7 +164,6 @@ Bool AM_InitComm (uint16_t wRltOwnCode)
 {
 	int i;
 	wRltMainCode = (uint32_t)(wRltOwnCode<<16);
-	LDPUMA_Init(0,NULL);
 	AM_Console = (FN_AM_Console)LDPUMA_Console;
 	AM_ConsolN = (FN_AM_Console)LDPUMA_ConsoleN;
 	AM_MessageBoxOk = LDPUMA_MessageBoxOk;
@@ -178,8 +177,6 @@ Bool AM_InitComm (uint16_t wRltOwnCode)
 /*----------------------------------------------------------------------------*/
 void AM_DoneComm ()
 {
-	Bool ret;
-	ret = LDPUMA_Done();
 	return;
 }
 /*----------------------------------------------------------------------------*/
