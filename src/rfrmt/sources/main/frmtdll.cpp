@@ -104,72 +104,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call, pvoid lpRe
     return TRUE;
 }
 
-///////////////////////////////////////////////////////////////
-//Handle hUseCLine;
-
 RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode, Handle hStorage) {
-//    LDPUMA_Init(0, NULL);
-    LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_CONVERTERS, NULL);
-    LDPUMA_Registry(&hDebugMy, "Отладка форматирования", hDebugRoot);
-
-    LDPUMA_Registry(&hDebugKegl, "Кегль не изменять", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugKegl,
-            "Эта опция предназначена для корректировки размера кегля при форматировании", FALSE);
-
-    LDPUMA_Registry(&hDebugFrame, "Все фрагменты фреймы", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugFrame, "Эта опция предназначена для форматирования фреймами", FALSE);
-
-    LDPUMA_Registry(&hDebugAlign, "Отладка выравнивания параграфа", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugAlign, "Отладка выравнивания параграфа", FALSE);
-
-    LDPUMA_Registry(&hDebugLineTransfer, "Строки не переносить", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugLineTransfer, "Строки не переносить", FALSE);
-
-    LDPUMA_Registry(&hDebugProfile, "Оценка времени работы.", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugProfile, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfStart, "Начало работы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfStart, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfTable, "Таблица", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfTable, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfCell, "Ячейки", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfCell, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfTmp, "Tmp", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfTmp, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfEndTable, "Конец таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfEndTable, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfWrite, "Запись таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWrite, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfWriteRow, "Запись строки таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteRow, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfWriteCell, "Запись ячейки таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteCell, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfWriteChar, "Запись символа", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteChar, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hDebugProfEnd, "Конец работы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfEnd, "Оценка времени работы.", FALSE);
-
-    LDPUMA_Registry(&hTest, "Тест памяти записи картинок", hDebugMy);
-    LDPUMA_Registry(&hTestDIBData, "Получить исходную картинку", hTest);
-
-    LDPUMA_Registry(&hTestTurn, "Поворота на 90\180", hTest);
-    LDPUMA_Registry(&hTestRotate, "Доворота на малый угол", hTest);
-
-    LDPUMA_Registry(&hTestWriteMetafile, "Запись в метафайл", hTest);
-    LDPUMA_Registry(&hTestGetMaskDIB, "Получения маскированного DIB", hTest);
-
-    LDPUMA_Registry(&hTestWriteED, "Запись в ED", hTest);
-    LDPUMA_Registry(&hTestEnd, "В конце функции", hTest);
-    LDPUMA_Registry(&hTestDeleteImage, "Удаление временных изображений", hTest);
-
     gwHeightRC = wHeightCode;
 
     return TRUE;

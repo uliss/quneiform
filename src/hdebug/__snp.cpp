@@ -67,19 +67,15 @@ using namespace CIF;
 HINSTANCE hDPuma = NULL;
 
 static FNDPUMA_IsActive IsActive = NULL;
-static FNDPUMA_Registry Registry = NULL;
 static FNDPUMA_Skip Skip = NULL;
 static FNDPUMA_StartLoop StartLoop = NULL;
 static FNDPUMA_LoopNext LoopNext = NULL;
-static FNDPUMA_CreateWindow fCreateWindow = NULL;
 static FNDPUMA_MessageBoxOk MessageBoxOk = NULL;
 static FNDPUMA_WaitUserInput WaitUserInput = NULL;
 static FNDPUMA_DrawLine DrawLine = NULL;
 static FNDPUMA_DrawRect DrawRect = NULL;
 static FNDPUMA_DrawRaster DrawRaster = NULL;
 static FNDPUMA_RasterText RasterText = NULL;
-static FNDPUMA_RegVariable RegVariable = NULL;
-static FNDPUMA_UnregVariable UnregVariable = NULL;
 static FNDPUMA_GetDIBptr GetDIBptr = NULL;
 static FNDPUMA_DrawString DrawString = NULL;
 static FNDPUMA_DeleteStrings DeleteStrings = NULL;
@@ -95,32 +91,14 @@ static FNDPUMA_GetRasterPixel GetRasterPixel = NULL;
 static FNDPUMA_CSTR_Update cstr_Update = NULL;
 static FNDPUMA_SkipEx SkipEx = NULL;
 static FNDPUMA_GetFileName fGetFileName = NULL;
-static FNDPUMA_RegistryHelp RegistryHelp = NULL;
 static FNDPUMA_SaveFile fSaveFile = NULL;
-static FNDPUMA_ProgressStart fProgressStart = NULL;
-static FNDPUMA_ProgressFinish fProgressFinish = NULL;
-static FNDPUMA_ProgressStep fProgressStep = NULL;
-static FNDPUMA_SetConsoleProperty fSetConsoleProperty = NULL;
-static FNDPUMA_CreateHistogramm fCreateHistogramm = NULL;
-static FNDPUMA_AddPointToHistogramm fAddPointToHistogramm = NULL;
-static FNDPUMA_DoHistogramm fDoHistogramm = NULL;
-static FNDPUMA_DestroyHistogramm fDestroyHistogramm = NULL;
 static FNDPUMA_GetWindowHandle fGetWindowHandle = NULL;
 static FNDPUMA_GetPrevSkipOwner fGetPrevSkipOwner = NULL;
-static FNDPUMA_ConsoleClear fConsoleClear = NULL;
-static FNDPUMA_ConsoleGetCurLine fConsoleGetCurLine = NULL;
-static FNDPUMA_SetFileName fSetFileName = NULL;
 static FNDPUMA_FOpen fFOpen = NULL;
 static FNDPUMA_FClose fFClose = NULL;
 static FNDPUMA_FPuts fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
-
-Handle LDPUMA_CreateWindow(const char * lpName, void * lpDIB) {
-    if (fCreateWindow)
-        return fCreateWindow(lpName, lpDIB);
-    return NULL;
-}
 
 Bool32 LDPUMA_IsActive(void) {
     return IsActive ? IsActive() : FALSE;
@@ -175,11 +153,6 @@ uint32_t LDPUMA_WaitUserInput(Handle cur_node, Handle wnd) {
     return rc;
 }
 
-void LDPUMA_Registry(Handle node, const char * name, Handle parent) {
-    if (Registry)
-        Registry(node, name, parent);
-}
-
 void LDPUMA_StartLoop(Handle node, uint32_t iter_total) {
     if (StartLoop)
         StartLoop(node, iter_total);
@@ -202,18 +175,6 @@ void LDPUMA_DrawRaster(DPUMA_RecRaster * raster) {
 void LDPUMA_RasterText(const char * lpText) {
     if (RasterText)
         RasterText(lpText);
-}
-
-Bool32 LDPUMA_RegVariable(Handle owner, const char * lpText, void * lpData, const char * lpType) {
-    Bool rc = FALSE;
-    if (RegVariable)
-        rc = RegVariable(owner, lpText, lpData, lpType);
-    return rc;
-}
-
-void LDPUMA_UnregVariable(void * lpData) {
-    if (UnregVariable)
-        UnregVariable(lpData);
 }
 
 void * LDPUMA_GetDIBptr(Handle wnd) {
@@ -311,68 +272,11 @@ const char * LDPUMA_GetFileName(Handle wnd) {
     return rc;
 }
 
-void LDPUMA_RegistryHelp(Handle owner, const char * lpstrHelp, Bool32 bAppend) {
-    if (RegistryHelp)
-        RegistryHelp(owner, lpstrHelp, bAppend);
-}
-
 Bool32 LDPUMA_SaveFile(void * lpDIB, char * lpFileName, uint32_t nFormat) {
     Bool32 rc = FALSE;
     if (fSaveFile)
         rc = fSaveFile(lpDIB, lpFileName, nFormat);
     return rc;
-}
-
-void LDPUMA_ProgressStart(void) {
-    if (fProgressStart)
-        fProgressStart();
-}
-
-void LDPUMA_ProgressFinish(void) {
-    if (fProgressFinish)
-        fProgressFinish();
-}
-
-Bool32 LDPUMA_ProgressStep(uint32_t step, const char * name, uint32_t percent) {
-    Bool32 rc = TRUE;
-    if (fProgressStep)
-        rc = fProgressStep(step, name, percent);
-    return rc;
-}
-
-Bool32 LDPUMA_SetConsoleProperty(Bool32 bold, Bool32 italic, Bool32 strikeout, Bool32 underline,
-        int32_t height, int32_t offset, uint32_t textcolor, int32_t charset, const char * name) {
-    Bool32 rc = TRUE;
-
-    if (fSetConsoleProperty)
-        rc = fSetConsoleProperty(bold, italic, strikeout, underline, height, offset, textcolor,
-                charset, name);
-
-    return rc;
-}
-
-Handle LDPUMA_CreateHistogramm(const char * name, uint32_t size, int32_t * lpVal) {
-    Handle rc = NULL;
-    if (fCreateHistogramm)
-        rc = fCreateHistogramm(name, size, lpVal);
-    return rc;
-}
-
-void LDPUMA_AddPointToHistogramm(Handle hDlg, uint32_t point) {
-    if (fAddPointToHistogramm)
-        fAddPointToHistogramm(hDlg, point);
-}
-
-Bool32 LDPUMA_DoHistogramm(Handle hDlg, uint32_t * lpCurpos) {
-    Bool32 rc = FALSE;
-    if (fDoHistogramm)
-        rc = fDoHistogramm(hDlg, lpCurpos);
-    return rc;
-}
-
-void LDPUMA_DestroyHistogramm(Handle hDlg) {
-    if (fDestroyHistogramm)
-        fDestroyHistogramm(hDlg);
 }
 
 Handle LDPUMA_GetWindowHandle(const char * name) {
@@ -386,25 +290,6 @@ Handle LDPUMA_GetPrevSkipOwner() {
     Handle rc = NULL;
     if (fGetPrevSkipOwner)
         rc = fGetPrevSkipOwner();
-    return rc;
-}
-
-void LDPUMA_ConsoleClear(int32_t beforeline) {
-    if (fConsoleClear)
-        fConsoleClear(beforeline);
-}
-
-int32_t LDPUMA_ConsoleGetCurLine() {
-    int32_t rc = -1;
-    if (fConsoleGetCurLine)
-        rc = fConsoleGetCurLine();
-    return rc;
-}
-
-Bool32 LDPUMA_SetFileName(Handle wnd, const char * lpName) {
-    Bool32 rc = FALSE;
-    if (fSetFileName)
-        rc = fSetFileName(wnd, lpName);
     return rc;
 }
 
@@ -450,7 +335,6 @@ uint32_t SnpWaitUserInput(SnpTreeNode* cur_node) {
 }
 
 void SnpAddNode(SnpTreeNode * node, const char * name, SnpTreeNode * parent) {
-    LDPUMA_Registry(node, name, parent ? *(Handle *) parent : NULL);
 }
 
 void SnpStartLoop(SnpTreeNode* node, uint32_t iter_total) {

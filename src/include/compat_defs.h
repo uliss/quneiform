@@ -67,7 +67,6 @@
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
-
 #include <time.h>
 #include "minmax.h"
 #include "rect.h"
@@ -75,187 +74,169 @@
 #include "cttypes.h" /* Most type definitions are here. */
 #include <errno.h>
 
-#ifndef APIENTRY /* Not currently used in Linux. */
-#define APIENTRY
-#endif
-
 typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
-
-#ifndef HINSTANCE
-#define HINSTANCE void*
-#endif
-
-#ifndef HMODULE
-#define HMODULE void*
-#endif
-
-#ifndef HICON
-#define HICON void*
-#endif
-
-#ifndef HWND
-#define HWND void*
-#endif
-
-#ifndef HDC
-#define HDC int
-#endif
-
-#ifndef HGDIOBJ
-#define HGDIOBJ int
-#endif
 
 #ifndef DECLARE_HANDLE
 #define DECLARE_HANDLE(a)
+#endif
+
+extern int HFILE_ERROR;
+
+#ifdef WIN32
+#include <windows.h>
+#else
+
+#define GetGValue(rgb) ((unsigned char) (((uint16_t) (rgb)) >> 8))
+#define GetBValue(rgb) ((unsigned char) ((rgb) >> 16))
+#define GetRValue(rgb) ((unsigned char) (rgb))
+
+typedef void *HMETAFILE;
+typedef void *HMODULE;
+typedef void *HGLOBAL;
+typedef void *HINSTANCE;
+typedef void *HICON;
+typedef void *HWND;
+typedef int HDC;
+typedef int HGDIOBJ;
+typedef int HFILE;
+typedef int HKEY;
+typedef int HFONT;
+typedef int *PHKEY;
+typedef int REGSAM;
+typedef uint32_t COLORREF;
+typedef uint32_t *LPCOLORREF;
+
+#ifndef APIENTRY /* Not currently used in Linux. */
+#define APIENTRY
 #endif
 
 #ifndef WINAPI
 #define WINAPI
 #endif
 
-extern int HFILE_ERROR;
-typedef int HFILE;
-
-typedef uint32_t COLORREF;
-typedef uint32_t *LPCOLORREF;
-
-#ifndef HGLOBAL
-#define HGLOBAL void*
-#endif
-
-#ifndef HMETAFILE
-#define HMETAFILE void*
-#endif
-
-typedef struct {
-	char * lpszClassName;
-	HINSTANCE hInstance;
-	void * lpfnWndProc;
-	unsigned int style;
-	int hbrBackground;
-	int hCursor;
-	int hIcon;
-	char * lpszMenuName;
-	char *cbClsExtra;
-	char *cbWndExtra;
-} WNDCLASS;
-
 #pragma pack(push, 2)
 
-typedef struct tagBITMAPINFOHEADER {
-	uint32_t biSize;
-	int32_t biWidth;
-	int32_t biHeight;
-	uint16_t biPlanes;
-	uint16_t biBitCount;
-	uint32_t biCompression;
-	uint32_t biSizeImage;
-	int32_t biXPelsPerMeter;
-	int32_t biYPelsPerMeter;
-	uint32_t biClrUsed;
-	uint32_t biClrImportant;
+typedef struct tagBITMAPINFOHEADER
+{
+    uint32_t biSize;
+    int32_t biWidth;
+    int32_t biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    int32_t biXPelsPerMeter;
+    int32_t biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
-typedef struct tagBITMAPCOREHEADER {
-	uint32_t bcSize;
-	uint16_t bcWidth;
-	uint16_t bcHeight;
-	uint16_t bcPlanes;
-	uint16_t bcBitCount;
+typedef struct tagBITMAPCOREHEADER
+{
+    uint32_t bcSize;
+    uint16_t bcWidth;
+    uint16_t bcHeight;
+    uint16_t bcPlanes;
+    uint16_t bcBitCount;
 } BITMAPCOREHEADER, *PBITMAPCOREHEADER;
 
 #pragma pack(pop)
 
-struct _finddata_t {
-	unsigned attrib;
-	time_t time_create; /*-1forFATfilesystems*/
-	time_t time_access; /*-1forFATfilesystems */
-	time_t time_write;
-	unsigned int size;
-	char name[260];
+struct _finddata_t
+{
+    unsigned attrib;
+    time_t time_create; /*-1forFATfilesystems*/
+    time_t time_access; /*-1forFATfilesystems */
+    time_t time_write;
+    unsigned int size;
+    char name[260];
 };
 
-typedef struct tagRGBQUAD {
-	uchar rgbBlue;
-	uchar rgbGreen;
-	uchar rgbRed;
-	uchar rgbReserved;
+typedef struct tagRGBQUAD
+{
+    uchar rgbBlue;
+    uchar rgbGreen;
+    uchar rgbRed;
+    uchar rgbReserved;
 } RGBQUAD;
 
-typedef struct tagBITMAPINFO {
-	BITMAPINFOHEADER bmiHeader;
-	RGBQUAD bmiColors[1];
+typedef struct tagBITMAPINFO
+{
+    BITMAPINFOHEADER bmiHeader;
+    RGBQUAD bmiColors[1];
 } BITMAPINFO, *PBITMAPINFO;
 
-typedef struct tagRGBTRIPLE {
-	uchar rgbtBlue;
-	uchar rgbtGreen;
-	uchar rgbtRed;
+typedef struct tagRGBTRIPLE
+{
+    uchar rgbtBlue;
+    uchar rgbtGreen;
+    uchar rgbtRed;
 } RGBTRIPLE;
 
 typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
 typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
-typedef struct tagMETAHEADER {
-	uint16_t mtType;
-	uint16_t mtHeaderSize;
-	uint16_t mtVersion;
-	uint32_t mtSize;
-	uint16_t mtNoObjects;
-	uint32_t mtMaxRecord;
-	uint16_t mtNoParameters;
+typedef struct tagMETAHEADER
+{
+    uint16_t mtType;
+    uint16_t mtHeaderSize;
+    uint16_t mtVersion;
+    uint32_t mtSize;
+    uint16_t mtNoObjects;
+    uint32_t mtMaxRecord;
+    uint16_t mtNoParameters;
 } METAHEADER, *PMETAHEADER;
 
-typedef struct tagPALETTEENTRY {
-	uchar peRed;
-	uchar peGreen;
-	uchar peBlue;
-	uchar peFlags;
+typedef struct tagPALETTEENTRY
+{
+    uchar peRed;
+    uchar peGreen;
+    uchar peBlue;
+    uchar peFlags;
 } PALETTEENTRY;
 
-typedef struct tagLOGPALETTE {
-	uint16_t palVersion;
-	uint16_t palNumEntries;
-	PALETTEENTRY palPalEntry[1];
+typedef struct tagLOGPALETTE
+{
+    uint16_t palVersion;
+    uint16_t palNumEntries;
+    PALETTEENTRY palPalEntry[1];
 } LOGPALETTE;
 
 typedef Bool(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
 
-typedef struct tagPAINTSTRUCT {
-	HDC hdc;
-	Bool fErase;
-	CIF::Rect rcPaint;
-	Bool fRestore;
-	Bool fIncUpdate;
-	unsigned char rgbReserved[32];
+typedef struct tagPAINTSTRUCT
+{
+    HDC hdc;
+    Bool fErase;
+    CIF::Rect rcPaint;
+    Bool fRestore;
+    Bool fIncUpdate;
+    unsigned char rgbReserved[32];
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
 #pragma pack(push, 2)
-typedef struct tagBITMAPFILEHEADER {
-	uint16_t bfType;
-	uint32_t bfSize;
-	uint16_t bfReserved1;
-	uint16_t bfReserved2;
-	uint32_t bfOffBits;
+typedef struct tagBITMAPFILEHEADER
+{
+    uint16_t bfType;
+    uint32_t bfSize;
+    uint16_t bfReserved1;
+    uint16_t bfReserved2;
+    uint32_t bfOffBits;
 } BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 
 #pragma pack(pop)
 
-typedef struct tagCOPYDATASTRUCT {
-	ulong dwData;
-	uint32_t cbData;
-	pvoid lpData;
+typedef struct tagCOPYDATASTRUCT
+{
+    ulong dwData;
+    uint32_t cbData;
+    pvoid lpData;
 } COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
-typedef int HKEY;
-
-typedef int HFONT;
-
-typedef int * PHKEY;
-typedef int REGSAM;
+#endif
 
 #ifndef _O_BINARY
 #define _O_BINARY O_BINARY

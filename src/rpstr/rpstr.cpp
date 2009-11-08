@@ -163,26 +163,6 @@ Bool32 RPSTR_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
-	LDPUMA_Registry(&hSnapSpell, "Словарь и постобработка", NULL);
-	LDPUMA_RegistryHelp(hSnapSpell, "Словарь", FALSE);
-	LDPUMA_Registry(&hSnapWordSpell, "Запретить проверку словами", hSnapSpell);
-	LDPUMA_Registry(&hSnapMatch, "Показать проверку словами", hSnapWordSpell);
-	LDPUMA_RegistryHelp(hSnapWordSpell, "Разрешить проверку словами", FALSE);
-	LDPUMA_Registry(&hSnapCapDrop, "Запретить обработку БУКВИЦ", hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapCapDrop, "Запретить обработку БУКВИЦ", FALSE);
-
-	LDPUMA_Registry(&hSnapEndWord, "Отменить проверку окончаний", hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapEndWord,
-			"Разрешить или нет любые замены окончаний", FALSE);
-	LDPUMA_Registry(&hSnapStartWord, "Отменить осторожность в именах",
-			hSnapSpell);
-	LDPUMA_RegistryHelp(hSnapStartWord,
-			"Обращаться или нет одинаково со всеми словами", FALSE);
-
-	LDPUMA_Registry(&hVertCompD, "Прорисовка букв в вертикальных строках!",
-			NULL);
-	LDPUMA_RegistryHelp(hVertCompD,
-			"Разрешить прорисовку букв в вертикальных строках", FALSE);
 	return TRUE;
 }
 

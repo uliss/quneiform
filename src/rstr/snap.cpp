@@ -172,8 +172,6 @@ extern Handle hSnapBLcut;
 static Bool internal_skip[sizeof(snap_pass) / sizeof(snap_pass[0])];
 
 void reset_snap(void) {
-	LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[3], NULL);
-	return;
 }
 
 static int Lang_Console(char *text, uchar lang) {
@@ -256,39 +254,6 @@ Bool snap_init(void) {
 	if (init)
 		return TRUE;
 	init = TRUE;
-//	LDPUMA_Init(0, NULL);
-	//LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
-
-	LDPUMA_Registry(&hSnapMain, "Распознавание строк...", NULL);
-	for (i = 0; snap_pass[i][0]; i++) {
-		LDPUMA_Registry(&hSnapPass[i], (char*) snap_pass[i], hSnapMain);
-		LDPUMA_RegistryHelp(hSnapPass[i], snap_pass_help[i], FALSE);
-	}
-	LDPUMA_Registry(&hSnapMainFict, "Fictive points...", hSnapMain);
-	for (i = 0; i < 5; i++) {
-		LDPUMA_Registry(&hSnapFict[i], (char*) snap_fict[i], hSnapMainFict);
-		LDPUMA_RegistryHelp(hSnapFict[i], snap_fict_help[i], FALSE);
-	}
-	LDPUMA_Registry(&hSnapBLcut, "Запретить разрезание по базам", hSnapMain);
-	LDPUMA_Registry(&hSnapLEO, "Запретить ЛЕО", hSnapMain);
-	LDPUMA_Registry(&hSnapSerifTrace, "Serif Dispaly", hSnapPass['k' - 'a']);
-	LDPUMA_RegistryHelp(hSnapSerifTrace, "Draw rectangles", FALSE);
-	//IGOR
-	for (i = 0; snap_bl[i][0]; i++) {
-		LDPUMA_Registry(&hSnapLineBL[i], (char*) snap_bl[i], hSnapPass['d'
-				- 'a']);
-		LDPUMA_RegistryHelp(hSnapLineBL[i], snap_bl_help[i], FALSE);
-	}
-	//IGOR
-	LDPUMA_RegVariable(hSnapMain, "Трассировка", &db_trace_flag, "char");
-#ifdef MATCH_WORD
-	LDPUMA_RegVariable(hSnapMain,"Наложение слова",mwInput,"char *");
-#endif
-	LDPUMA_Registry(&hSnapSmartCut,
-			"Запретить кластерное разрезание/склеивание на 2-ом проходе",
-			hSnapMain);
-	LDPUMA_RegistryHelp(hSnapSmartCut,
-			"Запретить кластерное разрезание/склеивание на 2-ом проходе", FALSE);
 	snap_page_disable = snap_disable = db_skip_client = FALSE;
 	memset(internal_skip, TRUE, snap_clients * sizeof(Bool));
 	exit_enable = FALSE;

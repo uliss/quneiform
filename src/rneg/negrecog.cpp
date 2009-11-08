@@ -326,13 +326,12 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 
                                         const char *pText;
                                         pText = turn ? "Component up-down" : "Component down-up";
-                                        comp_window = LDPUMA_CreateWindow(pText, pDIB);
                                         free(hDIB);
                                     }
                                 }
                                 //----------------------------------------------------------------------
 
-                                if (!(RSTR_RecogOneLetter_all(&rec, Alf, &(vs[j]), (int32_t)(1))))
+                                if (!(RSTR_RecogOneLetter_all(&rec, Alf, &(vs[j]), (int32_t) (1))))
                                     Prob[1] = 0;
                                 else {
                                     if (!turn)
@@ -343,11 +342,8 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
                                         LDPUMA_ConsoleN("handprint symbol: %c , probability = %d",
                                                 (char) vs[j].Alt[0].Code, vs[j].Alt[0].Prob);
                                 }
-                                //	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(2)) ) )
-                                //            Prob[2]=0;
-                                //	  else
-                                //		  Prob[2]=vs[j].Alt[0].Prob;
-                                if (!(RSTR_RecogOneLetter_all(&rec, Alf, &(vs[j]), (int32_t)(0))))
+
+                                if (!(RSTR_RecogOneLetter_all(&rec, Alf, &(vs[j]), (int32_t) (0))))
                                     Prob[0] = 0;
                                 else {
                                     if (!turn)
@@ -369,14 +365,13 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
                             }
 
                             vs[j].Alt[0].Prob
-                                    = (uchar)(
-                                            ((int) (Prob[0]) + (int) (Prob[1])/*+(int)(Prob[2])*/)
-                                                    / 2/*3*/);
+                                    = (uchar) (((int) (Prob[0]) + (int) (Prob[1])/*+(int)(Prob[2])*/)
+                                            / 2/*3*/);
 
                         }
                         else {
 
-                            if (!(RSTR_RecogOneLetter(&rec, (uchar)(Language), &(vs[j]))))
+                            if (!(RSTR_RecogOneLetter(&rec, (uchar) (Language), &(vs[j]))))
                                 vs[j].Alt[0].Prob = 0;
 
                         }
@@ -702,7 +697,7 @@ void NegPrintConsol(double p) {
         return;
     }
     i = (int) (p * 100.);
-    if ((int) (p * 1000.) - 10* i > 4)
+    if ((int) (p * 1000.) - 10 * i > 4)
         i++;
     LDPUMA_ConsoleN("%d%%", i);
 }
@@ -795,7 +790,7 @@ Bool NegGetRaster(Handle hCPage, Rect16 N, RecRaster* rec, Bool vert) {
     uchar* pin;
     uchar* pfrom;
     uchar* pend;
-    if (((8* h > REC_MAX_RASTER_SIZE) && (!vert)) || ((8* w > REC_MAX_RASTER_SIZE) && vert))
+    if (((8 * h > REC_MAX_RASTER_SIZE) && (!vert)) || ((8 * w > REC_MAX_RASTER_SIZE) && vert))
         return FALSE;
     if (!vert) {
         pin = (*rec).Raster;
@@ -1319,7 +1314,7 @@ void NegPrintInFile(FILE* f, NegList* root, int nRC) {
         else
             fprintf(f, "horizont ");
         k = (int) ((root->neg).p * 100.);
-        if ((int) ((root->neg).p * 1000.) - 10* k > 4)
+        if ((int) ((root->neg).p * 1000.) - 10 * k > 4)
             k++;
         fprintf(f, "%d%%\n", k);
         root = root->next;

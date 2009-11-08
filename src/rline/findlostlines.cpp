@@ -292,9 +292,6 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info) {
                 if (!fll_data.hWnd)
                     fll_data.hWnd = LDPUMA_GetWindowHandle(PUMA_IMAGE_TURN);
 
-                if (!fll_data.hWnd)
-                    fll_data.hWnd = LDPUMA_CreateWindow(NULL, NULL);
-
                 if ((info->Angle == 90) || (info->Angle == 270)) {
                     fll_data.page_beg_y = info->X;
                     fll_data.page_beg_x = info->Y;

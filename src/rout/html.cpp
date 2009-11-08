@@ -125,7 +125,8 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         r = CED_GetCharLayout(hObject);
         // Записать символ
         if (r.left() != -1 && hocrmode) {
-            sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left(), r.top(), r.right(), r.bottom());
+            sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left(), r.top(), r.right(),
+                    r.bottom());
             PUT_STRING(buf);
         }
 
@@ -430,11 +431,8 @@ static Bool CreatePageFilesFolder() {
     else
         sprintf(path, "%s", gPageFilesFolder);
     if (CreateDirectory(&path[0]) == FALSE) {
-        uint32_t err = GetLastError();
-        if (err != ERROR_ALREADY_EXISTS) {
-            DEBUG_PRINT("CreatePageFilesFolder error = %d", err);
-            return FALSE;
-        }
+        DEBUG_PRINT("CreatePageFilesFolder error");
+        return FALSE;
     }
 
     return TRUE;

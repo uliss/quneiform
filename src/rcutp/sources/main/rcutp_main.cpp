@@ -81,14 +81,7 @@ Handle hDebugRoot, hDebugMy, hDebugCutP;
 ///////////////////////////////////////////////////////////////
 RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
 {
-	LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
-	LDPUMA_Registry(&hDebugMy,"Отладка точек разрезания",hDebugRoot);
-
-	LDPUMA_Registry(&hDebugCutP,"Просмотр точек разрезания",hDebugMy);
-	LDPUMA_RegistryHelp(hDebugCutP,"Эта опция предназначена для вывода точек разрезания",FALSE);
-
 	gwHeightRC = wHeightCode;
-
 	return TRUE;
 }
 

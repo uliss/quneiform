@@ -99,10 +99,6 @@ int32_t FONInitSnap(Handle hwnd) {
             hGluInstance = NULL;
         else
             hGluInstance = NULL;
-
-        WasRegister = RegisterGlu(hGluInstance, szGluName);
-        if (WasRegister == FALSE)
-            return -2;
     }
 
     IsSnap = TRUE;
@@ -276,26 +272,3 @@ int32_t GluFonWindowProc(HWND win, uint msg, WPARAM wparam, LPARAM lparam) {
     }
     return 0;
 }
-
-static Bool RegisterGlu(Handle hInstance, char* szAppName) {
-    WNDCLASS WndClass;
-    Bool bSuccess;
-
-    memset(&WndClass, 0, sizeof(WNDCLASS));
-
-    WndClass.lpszClassName = szAppName;
-    WndClass.hInstance = hInstance;
-    WndClass.lpfnWndProc = (void*) GluFonWindowProc;
-    WndClass.style = (unsigned int) NULL;
-    WndClass.hbrBackground = NULL;
-    WndClass.hCursor = NULL;
-    WndClass.hIcon = NULL;
-    WndClass.lpszMenuName = (char*) NULL;
-    WndClass.cbClsExtra = (int) NULL;
-    WndClass.cbWndExtra = (int) NULL;
-
-    bSuccess = FALSE;
-
-    return bSuccess;
-}
-

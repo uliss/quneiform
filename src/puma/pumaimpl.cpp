@@ -552,7 +552,6 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 }
 
 void PumaImpl::postOpenInitialize() {
-    LDPUMA_SetFileName(NULL, "none.txt");
     input_filename_ = "none.bin";
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))

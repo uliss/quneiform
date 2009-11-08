@@ -93,12 +93,7 @@ static void SetFullName(char* szFullFileName, const char* szIniFileName,
 Bool32 stdGetProfileString(char* szString, int32_t* nStrLen,
 		const char* szIniFileName, const char* szSection, const char* szKey,
 		int32_t nFlags, const char* pszStrDefault) {
-	char szFullFileName[PATH_MAX] = { 0 };
-	SetFullName(szFullFileName, szIniFileName, nFlags);
-	if (GetPrivateProfileString(szSection, szKey, pszStrDefault, szString,
-			*nStrLen, szFullFileName) == (uint32_t) (*nStrLen - 1))
-		return FALSE;
-	return TRUE;
+    return FALSE;
 }
 
 int32_t stdGetProfileInt(const char* szIniFileName, const char* szSection,

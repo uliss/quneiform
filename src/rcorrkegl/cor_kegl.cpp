@@ -1557,17 +1557,6 @@ static void draw_keg(const char *str) {
 }
 
 void kegl_snap_init() {
-    LDPUMA_Registry(&hSnapMain, "Коррекция кегля...", NULL);
-    LDPUMA_RegistryHelp(hSnapMain, "Коррекция кегля...", FALSE);
-    LDPUMA_Registry(&hSnapEndPage, "Конец страницы", hSnapMain);
-    LDPUMA_RegistryHelp(hSnapEndPage, "Конец страницы", FALSE);
-    //  LDPUMA_Registry(&hSnapTable,"Единый кегль в таблице",hSnapMain);
-    LDPUMA_Registry(&hSnapGarbage, "Удаление мусора", NULL);
-    LDPUMA_Registry(&hSnapGarbageLine, "Просмотр строк", hSnapGarbage);
-    LDPUMA_RegistryHelp(hSnapGarbage, "Удаление мусора", FALSE);
-    LDPUMA_RegistryHelp(hSnapGarbageLine, "Остановка на каждой строке фрагмента", FALSE);
-    LDPUMA_RegVariable(hSnapGarbage, "Чистить мусор", &gbGarbage, "long");
-    LDPUMA_RegVariable(hSnapMain, "Факс", &gbFax100, "long");
 }
 
 static void kegl_by_frag() {

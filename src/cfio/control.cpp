@@ -481,7 +481,7 @@ Handle Control::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag) {
 			MemoryHeader * Memory = memory_list_.GetItem(hMemory);
 
 			if (Memory) {
-				hNewMemory = GlobalReAlloc(hMemory, wNewSize);
+				hNewMemory = realloc(hMemory, wNewSize);
 				Memory->SetHandle(hNewMemory);
 				Memory->SetSize(wNewSize);
 			}
@@ -613,7 +613,7 @@ Handle Control::AllocNewMemory(uint Flag, uint Size, bool Global,
 			return hNewMemory;
 		else
 			//or free back
-			GlobalFree(hNewMemory);
+			free(hNewMemory);
 	}
 
 	return NULL;

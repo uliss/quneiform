@@ -286,9 +286,6 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName,uint32_t code)
 	FlagMode = 0;
 	ExFlagMode = FALSE;
 	RtfWriteMode = TRUE;
-	if(!LDPUMA_Skip(hDebugMy)) {
-		hDbgWnd = LDPUMA_CreateWindow("Форматирование",LDPUMA_GetDIBptr(NULL));
-	}
 
 	strcpy( (char*)RtfFileName, lpOutputFileName );
 

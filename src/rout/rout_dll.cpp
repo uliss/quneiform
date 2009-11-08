@@ -241,20 +241,20 @@ Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag) {
     return GlobalAlloc(dwFlag, dwSize);
 }
 
-Handle MyReAlloc(Handle hMem, uint32_t dwSize, uint32_t dwFlag) {
-    return GlobalReAlloc(hMem, dwSize);
+Handle MyReAlloc(Handle Mem, uint32_t Size) {
+    return realloc(Mem, Size);
 }
 
-Handle MyLock(Handle hMem) {
-    return GlobalLock(hMem);
+Handle MyLock(Handle Mem) {
+    return GlobalLock(Mem);
 }
 
 Bool32 MyUnlock(Handle hMem) {
     return GlobalUnlock(hMem);
 }
 
-Bool32 MyFree(Handle hMem) {
-    GlobalFree(hMem);
+Bool32 MyFree(Handle Mem) {
+    free(Mem);
     return TRUE;
 }
 
