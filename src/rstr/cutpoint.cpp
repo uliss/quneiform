@@ -65,7 +65,7 @@
 #include "func.h"
 #include "alik_rec.h"
 #include "status.h"
-#include "rcutp.h"
+#include "rcutp/rcutp.h"
 #include "linear.h"
 
 #include "compat_defs.h"

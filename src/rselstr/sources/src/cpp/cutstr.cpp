@@ -66,7 +66,7 @@
 #include "cpage/cpage.h"
 #include "dpuma.h"
 #include "polyblock.h"
-#include "rcutp.h"
+#include "rcutp/rcutp.h"
 
 using namespace CIF;
 
