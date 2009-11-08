@@ -62,9 +62,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-//#include "compat_defs.h"
-
 #include <string.h>
 
 #include "globus.h"
@@ -142,7 +139,6 @@ static uchar image_invert = 0;
 void extrcomp(void);
 void save_component(ExtComponent *c, version *vs, version *ve, uchar *lp,
 		uint16_t lpl);
-void invert_tiff(uchar *p, uint16_t lth);
 void image_file_close(void);
 Bool image_file_open(void);
 int16_t source_read(uchar *start, uchar *ptr, uchar *end);

@@ -81,7 +81,10 @@ struct bw_segment
 typedef struct bw_segment BWS;
 typedef struct bw_segment BWSS;
 
-BWSS * locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int height, int width);
+BWS * locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int height, int width);
+BWS * extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int width);
+void make_seg_line(uchar* raster, int width);
+void invert_tiff(puchar c, uint lth);
 
 //
 //		Memory organisation

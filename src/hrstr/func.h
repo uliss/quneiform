@@ -254,9 +254,6 @@ int16_t cell_is_BOX_solid(cell*);
 // module locomp.asm
 extern MN* c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
 
-// module v0compgl.asm
-void invert_tiff(puchar c, uint16_t lth);
-
 // module cutgraph.c
 int16_t make_graph();
 void excl_connect();
