@@ -61,8 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "v1comp.h"
 
-BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t width);
-
 //      Memory service
 #define MAX_BOX_NUMB            100*4
 #define MAX_INT_NUMB            32*4

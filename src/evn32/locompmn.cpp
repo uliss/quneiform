@@ -60,9 +60,6 @@
 #include "struct.h"
 #include "v1comp.h"
 
-BWSS * locomp_seglist(uchar * raster, BWSS *bwsp, BWSS * bwe, int height,
-		int width);
-
 MN * c_locomp(uchar* raster, int bw, int h, int upper, int left);
 //      Memory service
 

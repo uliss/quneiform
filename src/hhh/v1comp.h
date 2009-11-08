@@ -71,14 +71,18 @@
 //
 //===========================================================================
 //
-struct bw_segment {
-	int16_t b;
-	int16_t w;
-	BOX * box;
+struct bw_segment
+{
+    int16_t b;
+    int16_t w;
+    BOX * box;
 };
 
 typedef struct bw_segment BWS;
 typedef struct bw_segment BWSS;
+
+BWSS * locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int height, int width);
+
 //
 //		Memory organisation
 //
@@ -95,34 +99,35 @@ typedef struct bw_segment BWSS;
 //		Main memory segment structure
 //
 //
-struct main_memory_str {
-	//		Memory service
-	//
-	//		In _DSECT
-	BOX *boxalloc; // box free chain start
-	MN *mainalloc; // main number free chain start
-	BWS *oldline; // old line area
-	BWS *newline; // new line area
-	//
-	puchar dcodeptr; // current decoding line offset
-	puchar dcodeend; // end of read line buffer ptr
-	//								lth=12
-	//		Line service
-	//
-	uint16_t dotlength; // number of dots in the line
-	uint16_t bytelength; // length of the line in bytes
-	uint16_t lineno; // line counter
-	uint16_t reserv_v1comp; // arround byte
-	//								lth=7
-	//
-	//		Big tables size counting and its allocation
-	//
-	MN mnstart[SEG_MAX_NUM]; // pool of main numbers
-	BWS line1start[SEG_MAX_NUM]; // line 1
-	BWS line2start[SEG_MAX_NUM]; // line 2
-	//  Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-	uchar scan_buffer[0x4000 + LINE_MAX_LTH]; // buffer for image reding
-	BOX *boxstart; // box pool
+struct main_memory_str
+{
+    //		Memory service
+    //
+    //		In _DSECT
+    BOX *boxalloc; // box free chain start
+    MN *mainalloc; // main number free chain start
+    BWS *oldline; // old line area
+    BWS *newline; // new line area
+    //
+    puchar dcodeptr; // current decoding line offset
+    puchar dcodeend; // end of read line buffer ptr
+    //								lth=12
+    //		Line service
+    //
+    uint16_t dotlength; // number of dots in the line
+    uint16_t bytelength; // length of the line in bytes
+    uint16_t lineno; // line counter
+    uint16_t reserv_v1comp; // arround byte
+    //								lth=7
+    //
+    //		Big tables size counting and its allocation
+    //
+    MN mnstart[SEG_MAX_NUM]; // pool of main numbers
+    BWS line1start[SEG_MAX_NUM]; // line 1
+    BWS line2start[SEG_MAX_NUM]; // line 2
+    //  Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
+    uchar scan_buffer[0x4000 + LINE_MAX_LTH]; // buffer for image reding
+    BOX *boxstart; // box pool
 };
 
 #define NET_COMPONENT 10
