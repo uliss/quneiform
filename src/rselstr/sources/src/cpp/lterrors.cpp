@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
- òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,
+ ï¿½ï¿½ï¿½ ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
 
- * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
- âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
- îòêàç îò ãàðàíòèé.
- * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
- äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
- óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
- ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
- * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
- áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
- ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
- ðàçðåøåíèÿ.
+ * ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+ * ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+ * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Cognitive Technologies, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
- ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
- ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
- ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
- ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
- ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
- ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
- ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
- ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
- ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
- ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
- ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
- ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+ ï¿½ï¿½Ñ¨ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½), ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -131,6 +131,140 @@ void ErrorEmptyPage (void)
 	longjmp (fatal_error_exit, -1);
 	//    exit (-1);
 }
+
+
+void DebugFree(void * blk) {
+    Memory * Block;
+
+    if (lout_memory == NULL)
+        ErrorInternal("Free:ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½!");
+    if (blk == NULL)
+        ErrorInternal("ï¿½ï¿½ï¿½ï¿½âª  ï¿½á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ à §ï¿½ï¿½é¥­ï¿½ï¿½ !");
+    if ((Block = FindMem(blk)) == NULL) {
+        //ErrorInternal("ï¿½á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ !");
+        return;
+    }
+    //ï¿½á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    Block->id = MEMFREE;
+    SizeFree += Block->size;
+#ifdef DebugFile
+    if(FileError) {
+        fprintf(FileError,"\nFree \t= %8li\tRunning \t= %li\tAll %li",
+                (long)Block->size,
+                SizeAllocate-SizeFree,
+                SizeMemory);
+    }
+#endif
+}
+
+void * DebugRealloc(void * old_blk, size_t size) {
+    void * new_blk;
+    Memory * Block;
+
+    if (lout_memory == NULL)
+        ErrorInternal("Realloc:ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½!");
+    if (size == 0)
+        return NULL;
+    if (old_blk == NULL) {
+        new_blk = DebugMalloc(size);
+        return new_blk;
+    }
+
+    if ((Block = FindMem(old_blk)) == NULL)
+        ErrorInternal("\nï¿½ï¿½å®¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ REALLOC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
+
+    if (Block->size <= size + sizeof(Memory)) {
+        // ï¿½à¥¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ à §ï¿½ï¿½à®¢
+        new_blk = DebugMalloc(size);
+
+        if (new_blk != NULL && old_blk != NULL)
+            memcpy(new_blk, old_blk, (Block->size <= size ? Block->size : size));
+
+        if (old_blk != NULL)
+            DebugFree(old_blk);
+    } else {
+        // ï¿½à¥¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ à §ï¿½ï¿½à®¢
+        Memory * NewBlock = (Memory *) ((char *) Block + size + sizeof(Memory));
+        NewBlock->id = MEMFREE;
+        NewBlock->size = Block->size - (size + sizeof(Memory));
+
+        SizeFree += NewBlock->size;
+
+        Block->size = size;
+        new_blk = old_blk;
+#ifdef DebugFile
+        if(FileError) {
+            fprintf(FileError,"\nRealloc \t= %8li\tRunning \t= %li\tAll %li",
+                    (long)Block->size,
+                    SizeAllocate-SizeFree,
+                    SizeMemory);
+        }
+#endif
+
+    }
+
+    return new_blk;
+}
+
+void * DebugMalloc(size_t size) {
+    void * memvoid;
+    int idblock;
+    long sizeblock;
+    Memory * Block;
+    Memory * NextBlock;
+
+    if (lout_memory == NULL)
+        ErrorInternal("Malloc:ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½!");
+    if (size == 0)
+        return NULL;
+
+    JoinEmptyBlocks();
+
+    // ï¿½ï¿½ï¿½ï¿½ á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
+            +SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
+            + Block->size)) {
+        idblock = Block->id;
+        sizeblock = Block->size;
+
+        NextBlock = Block;
+
+        if (idblock == MEMEND || idblock == MEMFREE) {
+            if (sizeblock >= size + sizeof(Memory)) {
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¥¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Block->id = MEMMALLOC;
+                Block->size = size;
+                memvoid = (void *) ((char *) Block + sizeof(Memory));
+                // á®§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Block = (Memory *) ((char *) Block + size + sizeof(Memory));
+                Block->id = idblock;
+                Block->size = sizeblock - (size + sizeof(Memory));
+                if (idblock == MEMEND)
+                    SizeMemory = (long) ((char *) Block - lout_memory);
+                goto YES;
+            } else {
+                if (idblock == MEMEND)
+                    return NULL; //  ErrorNoEnoughMemory("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¯ ï¿½ï¿½...");
+            }
+        } // if ...
+    }// for ...
+
+    ErrorNoEnoughMemory("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½áª¥ á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...");
+    return NULL;
+
+    YES:
+#ifdef DebugFile
+    SizeAllocate+=size;
+    if(FileError) {
+        fprintf(FileError,"\nMalloc \t= %8li\tRunning \t= %li\tAll %li",
+                (long)size,
+                SizeAllocate-SizeFree,
+                SizeMemory);
+    }
+#endif
+    return memvoid;
+}
+
 # else
 
 # include "msgerr.h"
@@ -144,36 +278,36 @@ void ErrorEmptyPage (void)
 #define sizeof(a) ((long)sizeof(a))
 
 #ifdef DebugFile
-//  03-24-94 06:30pm,Pit ¯à¨ ¢ª«îç¥­¨¨ DebugFile:
-//      1. ‚ë¢®¤¨âáï ®â« ¤®ç­ ï ¨­ä®à¬ æ¨ï ¢ ä ©« FileError
-extern char StringError[]; // ¢à¥¬¥­­ ï áâà®ª  ¤«ï á®®¡é¥­¨©
-extern FILE * FileError; // ä ©« ¤«ï á®®¡é¥­¨©
-char * TemporaleString[80]; // ¢à¥¬¥­­ ï áâà®ª  ¤«ï á®®¡é¥­¨©
+//  03-24-94 06:30pm,Pit ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ç¥­ï¿½ï¿½ DebugFile:
+//      1. ï¿½ë¢®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½â« ï¿½ï¿½ç­ ï¿½ ï¿½ï¿½ï¿½à¬ ï¿½ï¿½ ï¿½ ä ©ï¿½ FileError
+extern char StringError[]; // ï¿½à¥¬ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½à®ªï¿½ ï¿½ï¿½ï¿½ á®®ï¿½é¥­ï¿½ï¿½
+extern FILE * FileError; // ä ©ï¿½ ï¿½ï¿½ï¿½ á®®ï¿½é¥­ï¿½ï¿½
+char * TemporaleString[80]; // ï¿½à¥¬ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½à®ªï¿½ ï¿½ï¿½ï¿½ á®®ï¿½é¥­ï¿½ï¿½
 #endif
 
 struct MemAllocate {
-#define MEMFREE         0x00   // ¯ ¬ïâì á¢®¡®¤­ 
-#define MEMMALLOC       0x01   // ¯ ¬ïâì ®â¢¥¤¥­  ¯à¨ malloc
-#define MEMEND          0x04   // ª®¤ ¯®á«¥¤­¥£® ¡«®ª 
-	char id; // ®¯¨á â¥«ì ¡«®ª  á¬.¢ëè¥
-	long size; // à §¬¥à ¡«®ª 
+#define MEMFREE         0x00   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ á¢®ï¿½ï¿½ï¿½ï¿½ï¿½
+#define MEMMALLOC       0x01   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½â¢¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ malloc
+#define MEMEND          0x04   // ï¿½ï¿½ï¿½ ï¿½ï¿½á«¥ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+	char id; // ï¿½ï¿½ï¿½ï¿½â¥«ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½.ï¿½ï¿½ï¿½
+	long size; // à §ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 typedef struct MemAllocate Memory;
 
-char * lout_memory = NULL; //  ¤à¥á ­ ç «  ¡ãä¥à 
+char * lout_memory = NULL; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ç «ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-#define SizeBuffer      (2048*1024L)// à §¬¥à Ž ¯®¤ à ¡®âã á® áâà®ª ¬¨
-static long SizeAllocate = 0; // ç¨á«® à §¬¥é¥­­ëå ¡ ©â
-static long SizeFree = 0; // ç¨á«® ®á¢®¡®¦¤¥­­ëå ¡ ©â
-static long SizeMemory = 0; // à §¬¥à § ­ïâ®© ªãç¨
+#define SizeBuffer      (2048*1024L)// à §ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ à ¡ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½à®ªï¿½ï¿½ï¿½
+static long SizeAllocate = 0; // ï¿½á«® à §ï¿½ï¿½é¥­ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+static long SizeFree = 0; // ï¿½á«® ï¿½á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+static long SizeMemory = 0; // à §ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½â®© ï¿½ï¿½ï¿½
 
 static void JoinEmptyBlocks() {
 	Memory * Block;
 	Memory * NextBlock;
 
 	if (lout_memory == NULL)
-		ErrorInternal("Malloc:Šãç¨ ¥é¥ ­¥â!");
-	// “ªàã¯­¥­¨¥ ¯ãáâëå ¡«®ª®¢
+		ErrorInternal("Malloc:ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½!");
+	// ï¿½ï¿½ï¿½ã¯­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
 			= (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
 
@@ -194,77 +328,19 @@ static void JoinEmptyBlocks() {
 
 }
 
-void * DebugMalloc(size_t size) {
-	void * memvoid;
-	int idblock;
-	long sizeblock;
-	Memory * Block;
-	Memory * NextBlock;
-
-	if (lout_memory == NULL)
-		ErrorInternal("Malloc:Šãç¨ ¥é¥ ­¥â!");
-	if (size == 0)
-		return NULL;
-
-	JoinEmptyBlocks();
-
-	// ¯®¨áª á¢®¡®¤­®£® ¬¥áâ 
-	for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
-			+SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
-			+ Block->size)) {
-		idblock = Block->id;
-		sizeblock = Block->size;
-
-		NextBlock = Block;
-
-		if (idblock == MEMEND || idblock == MEMFREE) {
-			if (sizeblock >= size + sizeof(Memory)) {
-				// § ¯®«­ï¥¬ ­ ©¤¥­­ë© á¢®¡®¤­ë© ¡«®ª
-				Block->id = MEMMALLOC;
-				Block->size = size;
-				memvoid = (void *) ((char *) Block + sizeof(Memory));
-				// á®§¤ ¥¬ ­®¢ë© á¢®¡®¤­ë© ¡«®ª
-				Block = (Memory *) ((char *) Block + size + sizeof(Memory));
-				Block->id = idblock;
-				Block->size = sizeblock - (size + sizeof(Memory));
-				if (idblock == MEMEND)
-					SizeMemory = (long) ((char *) Block - lout_memory);
-				goto YES;
-			} else {
-				if (idblock == MEMEND)
-					return NULL; //  ErrorNoEnoughMemory("‚áï ¯ ¬ïâì ¨áç¥à¯ ­ ...");
-			}
-		} // if ...
-	}// for ...
-
-	ErrorNoEnoughMemory("‘¡®© ¯à¨ ¯®¨áª¥ á¢®¡®¤­®£® ¬¥áâ ...");
-	return NULL;
-
-	YES:
-#ifdef DebugFile
-	SizeAllocate+=size;
-	if(FileError) {
-		fprintf(FileError,"\nMalloc \t= %8li\tRunning \t= %li\tAll %li",
-				(long)size,
-				SizeAllocate-SizeFree,
-				SizeMemory);
-	}
-#endif
-	return memvoid;
-}
-// ¯®¨áª ã¦¥ à §¬¥é¥­­®£® ¡«®ª 
+// ï¿½ï¿½ï¿½ï¿½ ã¦¥ à §ï¿½ï¿½é¥­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 Memory * FindMem(void * blk) {
 	Memory * Block;
 	for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
 			= (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
 #ifdef DebugFile
 		if((char *)Block>(lout_memory+SizeBuffer))
-		ErrorInternal("\n‘¡®© ¯ ¬ïâ¨ ¯à¨ ¯®¨áª¥ ¡«®ª ...");
+		ErrorInternal("\nï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½áª¥ ï¿½ï¿½ï¿½ï¿½ï¿½...");
 #endif
 		if (blk == ((char *) Block + sizeof(Memory))) {
 #ifdef DebugFile
 			if(Block->id==MEMFREE)
-			fprintf(FileError,"\n ©¤¥­ ®á¢®¡®¦¤¥­­ë© ¡«®ª...");
+			fprintf(FileError,"\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½á¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...");
 #endif
 			return Block;
 		} // if(blk...
@@ -272,78 +348,6 @@ Memory * FindMem(void * blk) {
 	return NULL;
 }
 
-void DebugFree(void * blk) {
-	Memory * Block;
-
-	if (lout_memory == NULL)
-		ErrorInternal("Free:Šãç¨ ¥é¥ ­¥â!");
-	if (blk == NULL)
-		ErrorInternal("®¯ëâª  ®á¢®¡®¤¨âì ¯ ¬ïâì ¤® ¥¥ à §¬¥é¥­¨ï !");
-	if ((Block = FindMem(blk)) == NULL) {
-		//ErrorInternal("Žá¢®¡®¦¤ ¥¬ ï ¯ ¬ïâì ­¥ ­ ©¤¥­  !");
-		return;
-	}
-	//®á¢®¡®¦¤¥­¨¥ ¡«®ª 
-	Block->id = MEMFREE;
-	SizeFree += Block->size;
-#ifdef DebugFile
-	if(FileError) {
-		fprintf(FileError,"\nFree \t= %8li\tRunning \t= %li\tAll %li",
-				(long)Block->size,
-				SizeAllocate-SizeFree,
-				SizeMemory);
-	}
-#endif
-}
-
-void * DebugRealloc(void * old_blk, size_t size) {
-	void * new_blk;
-	Memory * Block;
-
-	if (lout_memory == NULL)
-		ErrorInternal("Realloc:Šãç¨ ¥é¥ ­¥â!");
-	if (size == 0)
-		return NULL;
-	if (old_blk == NULL) {
-		new_blk = DebugMalloc(size);
-		return new_blk;
-	}
-
-	if ((Block = FindMem(old_blk)) == NULL)
-		ErrorInternal("\nˆáå®¤­ë© ¡ãä¥à ¤«ï REALLOC ­¥ ­ ©¤¥­!");
-
-	if (Block->size <= size + sizeof(Memory)) {
-		// âà¥¡ã¥âáï ¡«®ª ¡®«ìè¨å à §¬¥à®¢
-		new_blk = DebugMalloc(size);
-
-		if (new_blk != NULL && old_blk != NULL)
-			memcpy(new_blk, old_blk, (Block->size <= size ? Block->size : size));
-
-		if (old_blk != NULL)
-			DebugFree(old_blk);
-	} else {
-		// âà¥¡ã¥âáï ¡«®ª ¬¥­ìè¨å à §¬¥à®¢
-		Memory * NewBlock = (Memory *) ((char *) Block + size + sizeof(Memory));
-		NewBlock->id = MEMFREE;
-		NewBlock->size = Block->size - (size + sizeof(Memory));
-
-		SizeFree += NewBlock->size;
-
-		Block->size = size;
-		new_blk = old_blk;
-#ifdef DebugFile
-		if(FileError) {
-			fprintf(FileError,"\nRealloc \t= %8li\tRunning \t= %li\tAll %li",
-					(long)Block->size,
-					SizeAllocate-SizeFree,
-					SizeMemory);
-		}
-#endif
-
-	}
-
-	return new_blk;
-}
 
 void ErrorNoEnoughMemory(const char * message) {
 	message = message;

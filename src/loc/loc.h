@@ -59,7 +59,6 @@
 
 #include "globus.h"
 #include "evn32/evndefs.h"
-#include "excdefs.h"
 #include "recdefs.h"
 #include "memfunc.h"
 

@@ -104,13 +104,13 @@ Bool boxes_account() {
 	wcomp.begs = mn->mnbegs;
 	wcomp.ends = mn->mnends;
 
-	if (mn->mnflag & mnpicture)
+	if (mn->mnflag & MN::mnpicture)
 		return FALSE;
 	if ((wcomp.w > RASTER_MAX_WIDTH) || (wcomp.h > RASTER_MAX_HEIGHT))
 		return FALSE;
-	if (mn->mnboxcnt > great_box_count)
+	if (mn->mnboxcnt > MN::great_box_count)
 		return FALSE;
-	if (wcomp.nl < usual_box_count)
+	if (wcomp.nl < MN::usual_box_count)
 		return TRUE;
 
 	for (bp = boxchain, n = 0; bp; bp = bp->boxnext) {
@@ -123,7 +123,7 @@ Bool boxes_account() {
 		if ((bp->boxflag & (BOXFREEBEG + BOXFREEEND - BOXBEG - BOXEND)) == 0)
 			n++;
 	}
-	if (n >= usual_box_count)
+	if (n >= MN::usual_box_count)
 		return FALSE;
 	else
 		return TRUE;

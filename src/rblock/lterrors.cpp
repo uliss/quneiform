@@ -69,9 +69,10 @@
  ***************************************************************************/
 #define __LTERRORS__
 
-# include <setjmp.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 # include "resource.h"
 # include "newfunc.h"
@@ -80,62 +81,37 @@
 # include "layout.h"
 # include "extract.h"
 
-# include "my_mem.h"
 # include "glalloc.h"
 # include "dpuma.h"
 
 extern jmp_buf fatal_error_exit;
 
 void FreeAllData(void) {
-	SE_FreeAllData();
-	LT_FreeAllData();
+    SE_FreeAllData();
+    LT_FreeAllData();
 
 # ifdef MA_DEBUG
-	AllocationsAccountingClose ();
+    AllocationsAccountingClose();
 # endif
 }
 
-# ifdef LT_STAND_ALONE
-void ErrorNoEnoughMemory (const char * message)
-{
-	LDPUMA_Console ("No enough memory - press any key\nMESSAGE:%s",message);
-	//    LT_Getch ();
-	FreeAllData ();
-	SetReturnCode_rblock(IDS_ERR_NO_MEMORY);
-	longjmp (fatal_error_exit, -1);
-	//    exit (-1);
+void ErrorNoEnoughMemory(const char * message) {
+    LDPUMA_Console("No enough memory - press any key\nMESSAGE:%s", message);
+    //    LT_Getch ();
+    FreeAllData();
+    SetReturnCode_rblock(IDS_ERR_NO_MEMORY);
+    longjmp(fatal_error_exit, -1);
+    //    exit (-1);
 }
 
-void ErrorInternal (const char * s)
-{
-	LDPUMA_Console ("Internal error: %s - press any key\n", s);
-	//    LT_Getch ();
-	FreeAllData ();
-	SetReturnCode_rblock(IDS_ERR_INTERNAL);
-	longjmp (fatal_error_exit, -1);
-	//    exit (-1);
+void ErrorInternal(const char * s) {
+    LDPUMA_Console("Internal error: %s - press any key\n", s);
+    //    LT_Getch ();
+    FreeAllData();
+    SetReturnCode_rblock(IDS_ERR_INTERNAL);
+    longjmp(fatal_error_exit, -1);
+    //    exit (-1);
 }
-
-void ErrorEmptyPage (void)
-{
-	LDPUMA_Console ("Internal error: page is empty - press any key\n");
-	//    LT_Getch ();
-	FreeAllData ();
-	SetReturnCode_rblock(IDS_ERR_EMPTYPAGE);
-	longjmp (fatal_error_exit, -1);
-	//    exit (-1);
-}
-
-void ErrorFile (void)
-{
-	LDPUMA_Console ( "File error - press any key\n");
-	//    LT_Getch ();
-	FreeAllData ();
-	SetReturnCode_rblock(IDS_ERR_INTERNAL);
-	longjmp (fatal_error_exit, -1);
-	//    exit (-1);
-}
-# else
 
 # include "msgerr.h"
 
@@ -155,12 +131,13 @@ extern FILE * FileError; // 䠩� ��� ᮮ�饭��
 char * TemporaleString[80]; // �६����� ��ப� ��� ᮮ�饭��
 #endif
 
-struct MemAllocate {
+struct MemAllocate
+{
 #define MEMFREE         0x00   // ������ ᢮�����
 #define MEMMALLOC       0x01   // ������ �⢥���� �� malloc
 #define MEMEND          0x04   // ��� ��᫥����� �����
-	char id; // ����⥫� ����� �.���
-	long size; // ࠧ��� �����
+    char id; // ����⥫� ����� �.���
+    long size; // ࠧ��� �����
 };
 typedef struct MemAllocate Memory;
 
@@ -174,290 +151,288 @@ static long SizeMemory = 0; // ࠧ��� ����⮩ ���
 #ifdef DebugFile
 void PrintBlocks()
 {
-	Memory * Block;
-	for(Block=(Memory *)lout_memory;Block->id!=MEMEND;
-			Block=(Memory *)((char *)Block+Block->size+sizeof(Memory)))
-	fprintf(FileError,"\n%i %li",Block->id,Block->size);
+    Memory * Block;
+    for(Block=(Memory *)lout_memory;Block->id!=MEMEND;
+            Block=(Memory *)((char *)Block+Block->size+sizeof(Memory)))
+    fprintf(FileError,"\n%i %li",Block->id,Block->size);
 }
 #endif
 
 int SetupMemoryLayout() {
 #ifdef ONE_BLOCK
 
-	Memory * Block;
+    Memory * Block;
 
-	if(lout_memory==NULL) {
-		//        if((lout_memory=malloc(SizeBuffer))==NULL) return 1;
-		if((lout_memory=TigerAllocateMemory(SizeBuffer))==NULL) return 1;
-	}
-	Block=(Memory *)lout_memory;
-	Block->id=MEMEND;
-	Block->size=SizeBuffer-sizeof(Memory); // �ᥣ� ����� � ����稨
-	SizeAllocate=0; // �᫮ ࠧ��饭��� ����
-	SizeFree =0; // �᫮ �᢮��������� ����
+    if(lout_memory==NULL) {
+        //        if((lout_memory=malloc(SizeBuffer))==NULL) return 1;
+        if((lout_memory=TigerAllocateMemory(SizeBuffer))==NULL) return 1;
+    }
+    Block=(Memory *)lout_memory;
+    Block->id=MEMEND;
+    Block->size=SizeBuffer-sizeof(Memory); // �ᥣ� ����� � ����稨
+    SizeAllocate=0; // �᫮ ࠧ��饭��� ����
+    SizeFree =0; // �᫮ �᢮��������� ����
 
 #endif
 
-	return 0;
+    return 0;
 }
 
 void ClearLayoutMemory() {
-	if (lout_memory)
-	//	{ free(lout_memory); lout_memory=NULL;}
-	{
-		TigerFreeMemory(lout_memory);
-		lout_memory = NULL;
-	}
+    if (lout_memory)
+    //	{ free(lout_memory); lout_memory=NULL;}
+    {
+        TigerFreeMemory(lout_memory);
+        lout_memory = NULL;
+    }
 }
 
 static void JoinEmptyBlocks() {
-	//long     sizeblock;
-	Memory * Block;
-	Memory * NextBlock;
+    //long     sizeblock;
+    Memory * Block;
+    Memory * NextBlock;
 
-	if (lout_memory == NULL)
-		ErrorInternal("Malloc:��� �� ���!");
-	// ���㯭���� ������ ������
-	for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
-			= (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
+    if (lout_memory == NULL)
+        ErrorInternal("Malloc:��� �� ���!");
+    // ���㯭���� ������ ������
+    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block = (Memory *) ((char *) Block
+            + Block->size + sizeof(Memory))) {
 
-		NextBlock = (Memory *) ((char *) Block + Block->size + sizeof(Memory));
-		toNextBlock: if (Block->id == MEMFREE && (NextBlock->id == MEMFREE
-				|| NextBlock->id == MEMEND)) {
-			Block->id = NextBlock->id;
-			Block->size += NextBlock->size + sizeof(Memory);
-			if (Block->id == MEMEND) {
-				SizeMemory = (long) ((char *) Block - lout_memory);
-				break;
-			}
-			NextBlock = (Memory *) ((char *) NextBlock + NextBlock->size
-					+sizeof(Memory));
-			goto toNextBlock;
-		}
-	}
+        NextBlock = (Memory *) ((char *) Block + Block->size + sizeof(Memory));
+        toNextBlock: if (Block->id == MEMFREE && (NextBlock->id == MEMFREE || NextBlock->id
+                == MEMEND)) {
+            Block->id = NextBlock->id;
+            Block->size += NextBlock->size + sizeof(Memory);
+            if (Block->id == MEMEND) {
+                SizeMemory = (long) ((char *) Block - lout_memory);
+                break;
+            }
+            NextBlock = (Memory *) ((char *) NextBlock + NextBlock->size + sizeof(Memory));
+            goto toNextBlock;
+        }
+    }
 
 }
 
 void * DebugMalloc(size_t size) {
-	void * memvoid;
-	int idblock;
-	long sizeblock;
-	Memory * Block;
-	Memory * NextBlock;
+    void * memvoid;
+    int idblock;
+    long sizeblock;
+    Memory * Block;
+    Memory * NextBlock;
 
-	if (lout_memory == NULL)
-		ErrorInternal("Malloc:��� �� ���!");
-	if (size == 0)
-		return NULL;
+    if (lout_memory == NULL)
+        ErrorInternal("Malloc:��� �� ���!");
+    if (size == 0)
+        return NULL;
 
-	JoinEmptyBlocks();
+    JoinEmptyBlocks();
 
-	// ���� ᢮������� ����
-	for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
-			+SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
-			+ Block->size)) {
-		idblock = Block->id;
-		sizeblock = Block->size;
+    // ���� ᢮������� ����
+    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
+            = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
+        idblock = Block->id;
+        sizeblock = Block->size;
 
-		NextBlock = Block;
+        NextBlock = Block;
 
-		if (idblock == MEMEND || idblock == MEMFREE) {
-			if (sizeblock >= size + sizeof(Memory)) {
-				// ������塞 �������� ᢮����� ����
-				Block->id = MEMMALLOC;
-				Block->size = size;
-				memvoid = (void *) ((char *) Block + sizeof(Memory));
-				// ᮧ���� ���� ᢮����� ����
-				Block = (Memory *) ((char *) Block + size + sizeof(Memory));
-				Block->id = idblock;
-				Block->size = sizeblock - (size + sizeof(Memory));
-				if (idblock == MEMEND)
-					SizeMemory = (long) ((char *) Block - lout_memory);
-				goto YES;
-			} else {
-				if (idblock == MEMEND)
-					return NULL; //  ErrorNoEnoughMemory("��� ������ ���௠��...");
-			}
-		} // if ...
-	}// for ...
+        if (idblock == MEMEND || idblock == MEMFREE) {
+            if (sizeblock >= size + sizeof(Memory)) {
+                // ������塞 �������� ᢮����� ����
+                Block->id = MEMMALLOC;
+                Block->size = size;
+                memvoid = (void *) ((char *) Block + sizeof(Memory));
+                // ᮧ���� ���� ᢮����� ����
+                Block = (Memory *) ((char *) Block + size + sizeof(Memory));
+                Block->id = idblock;
+                Block->size = sizeblock - (size + sizeof(Memory));
+                if (idblock == MEMEND)
+                    SizeMemory = (long) ((char *) Block - lout_memory);
+                goto YES;
+            }
+            else {
+                if (idblock == MEMEND)
+                    return NULL; //  ErrorNoEnoughMemory("��� ������ ���௠��...");
+            }
+        } // if ...
+    }// for ...
 
-	ErrorNoEnoughMemory("���� �� ���᪥ ᢮������� ����...");
-	return NULL;
+    ErrorNoEnoughMemory("���� �� ���᪥ ᢮������� ����...");
+    return NULL;
 
-	YES:
+    YES:
 #ifdef DebugFile
-	SizeAllocate+=size;
-	if(FileError) {
-		fprintf(FileError,"\nMalloc \t= %8li\tRunning \t= %li\tAll %li",
-				(long)size,
-				SizeAllocate-SizeFree,
-				SizeMemory);
-	}
+    SizeAllocate+=size;
+    if(FileError) {
+        fprintf(FileError,"\nMalloc \t= %8li\tRunning \t= %li\tAll %li",
+                (long)size,
+                SizeAllocate-SizeFree,
+                SizeMemory);
+    }
 #endif
-	return memvoid;
+    return memvoid;
 }
 // ���� 㦥 ࠧ��饭���� �����
 Memory * FindMem(void * blk) {
-	Memory * Block;
-	for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
-			= (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
+    Memory * Block;
+    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block = (Memory *) ((char *) Block
+            + Block->size + sizeof(Memory))) {
 #ifdef DebugFile
-		if((char *)Block>(lout_memory+SizeBuffer))
-		ErrorInternal("\n���� ����� �� ���᪥ �����...");
+        if((char *)Block>(lout_memory+SizeBuffer))
+        ErrorInternal("\n���� ����� �� ���᪥ �����...");
 #endif
-		if (blk == ((char *) Block + sizeof(Memory))) {
+        if (blk == ((char *) Block + sizeof(Memory))) {
 #ifdef DebugFile
-			if(Block->id==MEMFREE)
-			fprintf(FileError,"\n������ �᢮�������� ����...");
+            if(Block->id==MEMFREE)
+            fprintf(FileError,"\n������ �᢮�������� ����...");
 #endif
-			return Block;
-		} // if(blk...
-	}// for(...
-	return NULL;
+            return Block;
+        } // if(blk...
+    }// for(...
+    return NULL;
 }
 
 void DebugFree(void * blk) {
-	Memory * Block;
+    Memory * Block;
 
-	if (lout_memory == NULL)
-		ErrorInternal("Free:��� �� ���!");
-	if (blk == NULL)
-		ErrorInternal("����⪠ �᢮������ ������ �� �� ࠧ��饭�� !");
-	if ((Block = FindMem(blk)) == NULL) {
-		//ErrorInternal("�᢮��������� ������ �� ������� !");
-		return;
-	}
-	//�᢮�������� �����
-	Block->id = MEMFREE;
-	SizeFree += Block->size;
+    if (lout_memory == NULL)
+        ErrorInternal("Free:��� �� ���!");
+    if (blk == NULL)
+        ErrorInternal("����⪠ �᢮������ ������ �� �� ࠧ��饭�� !");
+    if ((Block = FindMem(blk)) == NULL) {
+        //ErrorInternal("�᢮��������� ������ �� ������� !");
+        return;
+    }
+    //�᢮�������� �����
+    Block->id = MEMFREE;
+    SizeFree += Block->size;
 #ifdef DebugFile
-	if(FileError) {
-		fprintf(FileError,"\nFree \t= %8li\tRunning \t= %li\tAll %li",
-				(long)Block->size,
-				SizeAllocate-SizeFree,
-				SizeMemory);
-	}
+    if(FileError) {
+        fprintf(FileError,"\nFree \t= %8li\tRunning \t= %li\tAll %li",
+                (long)Block->size,
+                SizeAllocate-SizeFree,
+                SizeMemory);
+    }
 #endif
 }
 
 void * DebugRealloc(void * old_blk, size_t size) {
-	void * new_blk;
-	Memory * Block;
+    void * new_blk;
+    Memory * Block;
 
-	if (lout_memory == NULL)
-		ErrorInternal("Realloc:��� �� ���!");
-	if (size == 0)
-		return NULL;
-	if (old_blk == NULL) {
-		new_blk = DebugMalloc(size);
-		return new_blk;
-	}
+    if (lout_memory == NULL)
+        ErrorInternal("Realloc:��� �� ���!");
+    if (size == 0)
+        return NULL;
+    if (old_blk == NULL) {
+        new_blk = DebugMalloc(size);
+        return new_blk;
+    }
 
-	if ((Block = FindMem(old_blk)) == NULL)
-		ErrorInternal("\n��室�� ���� ��� REALLOC �� ������!");
+    if ((Block = FindMem(old_blk)) == NULL)
+        ErrorInternal("\n��室�� ���� ��� REALLOC �� ������!");
 
-	if (Block->size <= size + sizeof(Memory)) {
-		// �ॡ���� ���� ������ ࠧ��஢
-		new_blk = DebugMalloc(size);
+    if (Block->size <= size + sizeof(Memory)) {
+        // �ॡ���� ���� ������ ࠧ��஢
+        new_blk = DebugMalloc(size);
 
-		if (new_blk != NULL && old_blk != NULL)
-			memcpy(new_blk, old_blk, (Block->size <= size ? Block->size : size));
+        if (new_blk != NULL && old_blk != NULL)
+            memcpy(new_blk, old_blk, (Block->size <= size ? Block->size : size));
 
-		if (old_blk != NULL)
-			DebugFree(old_blk);
-	} else {
-		// �ॡ���� ���� ������ ࠧ��஢
-		Memory * NewBlock = (Memory *) ((char *) Block + size + sizeof(Memory));
-		NewBlock->id = MEMFREE;
-		NewBlock->size = Block->size - (size + sizeof(Memory));
+        if (old_blk != NULL)
+            DebugFree(old_blk);
+    }
+    else {
+        // �ॡ���� ���� ������ ࠧ��஢
+        Memory * NewBlock = (Memory *) ((char *) Block + size + sizeof(Memory));
+        NewBlock->id = MEMFREE;
+        NewBlock->size = Block->size - (size + sizeof(Memory));
 
-		SizeFree += NewBlock->size;
+        SizeFree += NewBlock->size;
 
-		Block->size = size;
-		new_blk = old_blk;
+        Block->size = size;
+        new_blk = old_blk;
 #ifdef DebugFile
-		if(FileError) {
-			fprintf(FileError,"\nRealloc \t= %8li\tRunning \t= %li\tAll %li",
-					(long)Block->size,
-					SizeAllocate-SizeFree,
-					SizeMemory);
-		}
+        if(FileError) {
+            fprintf(FileError,"\nRealloc \t= %8li\tRunning \t= %li\tAll %li",
+                    (long)Block->size,
+                    SizeAllocate-SizeFree,
+                    SizeMemory);
+        }
 #endif
 
-	}
+    }
 
-	return new_blk;
+    return new_blk;
 }
 
 void ErrorNoEnoughMemory(puchar message) {
 
-	message = message;
-	FreeAllData();
+    message = message;
+    FreeAllData();
 #ifdef DebugFile
 
-	fprintf(FileError,"\nMESSAGE:%s",message);
-	fprintf(FileError,"\n%s\n%s",TemporaleString,StringError);
+    fprintf(FileError,"\nMESSAGE:%s",message);
+    fprintf(FileError,"\n%s\n%s",TemporaleString,StringError);
 
-	fclose(FileError);
+    fclose(FileError);
 #endif
-	error_exit(ERR_comp, ERROR_NO_ENOUGH_MEMORY);
+    error_exit(ERR_comp, ERROR_NO_ENOUGH_MEMORY);
 }
 
 void ErrorInternal(char * s) {
 
-	s = s;
-	FreeAllData();
+    s = s;
+    FreeAllData();
 #ifdef DebugFile
 
-	fprintf(FileError,"\n%s",s);
+    fprintf(FileError,"\n%s",s);
 
-	fclose(FileError);
+    fclose(FileError);
 #endif
-	error_exit(ERR_comp, ERROR_INTERNAL);
+    error_exit(ERR_comp, ERROR_INTERNAL);
 }
 
 void ErrorEmptyPage(void) {
-	FreeAllData();
+    FreeAllData();
 #ifdef DebugFile
 
-	fprintf(FileError,"\nPage is empty");
+    fprintf(FileError,"\nPage is empty");
 
-	fclose(FileError);
+    fclose(FileError);
 #endif
-	error_exit(ERR_comp, ERROR_EMPTY);
+    error_exit(ERR_comp, ERROR_EMPTY);
 }
 
 void ErrorFile(void) {
-	FreeAllData();
-	error_exit(ERR_comp, ERROR_FILE);
+    FreeAllData();
+    error_exit(ERR_comp, ERROR_FILE);
 }
 
 long GetMaxSizeFreeMem() {
-	int idblock;
-	long sizeblock;
-	long MaxSizeBlock;
-	Memory * Block;
+    int idblock;
+    long sizeblock;
+    long MaxSizeBlock;
+    Memory * Block;
 
-	if (lout_memory == NULL)
-		ErrorInternal("Malloc:��� �� ���!");
+    if (lout_memory == NULL)
+        ErrorInternal("Malloc:��� �� ���!");
 
-	JoinEmptyBlocks();
+    JoinEmptyBlocks();
 
-	MaxSizeBlock = 0L;
+    MaxSizeBlock = 0L;
 
-	// ���� ᢮������� ����
-	for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
-			+SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
-			+ Block->size)) {
-		idblock = Block->id;
-		sizeblock = Block->size;
+    // ���� ᢮������� ����
+    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
+            = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
+        idblock = Block->id;
+        sizeblock = Block->size;
 
-		if ((idblock == MEMEND || idblock == MEMFREE) && sizeblock
-				> MaxSizeBlock)
-			MaxSizeBlock = sizeblock;
+        if ((idblock == MEMEND || idblock == MEMFREE) && sizeblock > MaxSizeBlock)
+            MaxSizeBlock = sizeblock;
 
-	}// for ...
+    }// for ...
 
-	return MaxSizeBlock;
+    return MaxSizeBlock;
 }
-#endif
+//#endif

@@ -1220,7 +1220,7 @@ static int16_t many_legs(s_glue *GL) {
 	char n1, h1, h2;
 	uchar *wb;
 	int16_t nc, Lc1, lc1, nleg;
-	struct comp_struc *cp1;
+	c_comp *cp1;
 	int16_t bm;
 
 	nc = 0;

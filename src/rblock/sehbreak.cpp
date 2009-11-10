@@ -73,6 +73,7 @@
 #include	"evn32/evn.h"
 #include	"newfunc.h"
 #include "minmax.h"
+#include <cstring>
 
 #include "new_c.h" /* FIXME: to build in MS VC++ */
 

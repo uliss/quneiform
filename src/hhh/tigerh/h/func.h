@@ -63,9 +63,12 @@
 #ifndef KERNEL_H_INCLUDE
 #define KERNEL_H_INCLUDE
 
-#include "struct.h"
 #include "extract.h"
 #include "stick.h"
+//#include "hrstr/ccomp.h"
+//#include "hrstr/mn.h"
+//#include "hrstr/cell.h"
+#include "cutstr.h"
 
 extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3, *accent_tab;

@@ -58,7 +58,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "c_types.h"
 #include "func.h"
 #include "ccom/ccom.h"
 #include "exc.h"
@@ -139,6 +138,8 @@ void online_comp(c_comp *w) {
 CCOM_comp *get_CCOM_comp(PROOT r) {
 	return (CCOM_comp *) r->pComp;
 }
+
+extern Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 
 Bool save_MN(MN *mn) {
 	extern Handle exthCCOM;

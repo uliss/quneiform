@@ -72,6 +72,7 @@
 # include "func.h"
 # include "my_mem.h"
 # include "newfunc.h"
+#include "ccom/ccom.h"
 
 # include "dpuma.h"
 # include "cstr/cstr.h"

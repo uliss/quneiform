@@ -121,245 +121,239 @@ void recog_one();
 #define cs_comma_dot		38	// determined as comma or dot by
 // comma_dot criterium
 
-static uchar v_dash_defis[] = { ch_punct, cs_dash_defis_size, 0 };
-static uchar v_side_punct[] = { ch_punct, cs_punct_sw_size, 0 };
-static uchar v_up_punct[] = { ch_punct, cs_punct_up_size, 0 };
-static uchar v_sq_punct[] = { ch_punct, cs_punct_sq_size, 0 };
-//static uchar v_small_stick[] = {ch_letter,cs_stick_by_size,
-//		'l','i','I','!','j','f','t',0};
-//static uchar v_stick_by_size[] = {ch_letter,cs_stick_by_size,
-//		'l','i','I','!','j',0};
-//static uchar v_temp_one_line[] = {ch_stick,cs_one_line_ltr,0};
-//static uchar v_comma_dot[] = {ch_punct,cs_comma_dot,0};
+static uchar v_dash_defis[] = { c_comp::ch_punct, cs_dash_defis_size, 0 };
+static uchar v_side_punct[] = { c_comp::ch_punct, cs_punct_sw_size, 0 };
+static uchar v_up_punct[] = { c_comp::ch_punct, cs_punct_up_size, 0 };
+static uchar v_sq_punct[] = { c_comp::ch_punct, cs_punct_sq_size, 0 };
 
 static uint32_t check_iIl1(); // 04.06.2002 E.P.
 static uint32_t check_letter(uchar let); // 18.06.2002 E.P.
 
 
 void recog_save_maden() {
-	start_rec = rec_ptr = records;
-	wcomp.large = ch_underlined;
-	save_wcomp();
+    start_rec = rec_ptr = records;
+    wcomp.large = ch_underlined;
+    save_wcomp();
 }
 
 void alone_comp() {
-	recog_one();
-	save_wcomp();
+    recog_one();
+    save_wcomp();
 }
 
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }
 int16_t stick_w_4() {
-	int16_t answ;
-	answ = DIF_typ_thin_stick(lpool, wcomp.h, wcomp.w);
-	rec_ptr = start_rec;
-	if (answ == 0)
-		goto ret;
-	s_ans('!');
-	if ((answ & 0xC0) == 0x80)
-		s_ans('1');
-	if (language == LANG_RUSSIAN) {
-		s_ans('|');
-		goto ret;
-	}
-	if ((answ & 0x03) == 0x02)
-		s_ans('f');
-	if ((answ & 0x0C) == 0x08)
-		s_ans('r');
-	if ((answ & 0x30) == 0x20)
-		s_ans('t');
+    int16_t answ;
+    answ = DIF_typ_thin_stick(lpool, wcomp.h, wcomp.w);
+    rec_ptr = start_rec;
+    if (answ == 0)
+        goto ret;
+    s_ans('!');
+    if ((answ & 0xC0) == 0x80)
+        s_ans('1');
+    if (language == LANG_RUSSIAN) {
+        s_ans('|');
+        goto ret;
+    }
+    if ((answ & 0x03) == 0x02)
+        s_ans('f');
+    if ((answ & 0x0C) == 0x08)
+        s_ans('r');
+    if ((answ & 0x30) == 0x20)
+        s_ans('t');
 
-	if (language == LANG_POLISH)
-		if ((answ & 0x300) == 0x300)
-			s_ans(0xB3 ); // POLISH_l;
+    if (language == LANG_POLISH)
+        if ((answ & 0x300) == 0x300)
+            s_ans(0xB3 ); // POLISH_l;
 
-	if (rec_ptr - start_rec < 7)
-		s_ans('j');
-	s_ans('l');
-	s_ans('i');
-	s_ans('I');
+    if (rec_ptr - start_rec < 7)
+        s_ans('j');
+    s_ans('l');
+    s_ans('i');
+    s_ans('I');
 
-	// Добавление турецких палок. 04.06.2002 E.P.
-	if (language == LANG_TURKISH) {
-		// 18.06.2002 E.P.
-		if (!check_letter(i_sans_accent))
-			s_ans(i_sans_accent);
+    // Добавление турецких палок. 04.06.2002 E.P.
+    if (language == LANG_TURKISH) {
+        // 18.06.2002 E.P.
+        if (!check_letter(i_sans_accent))
+            s_ans(i_sans_accent);
 
-		if (!check_letter(II_dot_accent))
+        if (!check_letter(II_dot_accent))
 
-			s_ans(II_dot_accent);
-	}
+            s_ans(II_dot_accent);
+    }
 
-	ret: return (wcomp.nvers = rec_ptr - start_rec);
+    ret: return (wcomp.nvers = rec_ptr - start_rec);
 }
 
 void recog_cutlong() {
-	recog_one();
+    recog_one();
 }
 extern Bool32 enable_save_stat;
 void recog_one() {
-	int16_t nvers;
+    int16_t nvers;
 
-	//// Reset	/////
-	wcomp.cs = 0;
-	wcomp.nvers = 0;
-	records_change = 0;
-	wcomp.reasno = 0;
-	wcomp.large = 0;
-	// wcomp.scale = 0;
-	start_rec = rec_ptr = records;
+    //// Reset	/////
+    wcomp.cs = 0;
+    wcomp.nvers = 0;
+    records_change = 0;
+    wcomp.reasno = 0;
+    wcomp.large = 0;
+    // wcomp.scale = 0;
+    start_rec = rec_ptr = records;
 
-	// Size of component analysis
+    // Size of component analysis
 
-	if ((wcomp.h <= PURE_DUST_HEIGHT) && (wcomp.w <= PURE_DUST_WIDTH)) {
-		wcomp.type = ch_perfect + ch_dust;
-		wcomp.cs = cs_3_3;
-		return;
-	}
-	if (wcomp.h == wcomp.w) {
-		if (wcomp.h <= SMALL_SIZE) {
-			setvers(v_sq_punct);
-			return;
-		}
-		goto usual;
-	}
-	if (wcomp.h < wcomp.w) {
-		if (wcomp.w <= SMALL_SIZE) {
-			setvers(v_side_punct);
-			return;
-		}
-		if (wcomp.w * 2 >= wcomp.h * 5) {
-			if (wcomp.h <= SMALL_SIZE) {
-				setvers(v_dash_defis);
-				return;
-			} else {
-				wcomp.type = ch_merge;
-				wcomp.cs = cs_net_cut;
-				return;
-			}
-		}
-		goto usual;
-	} else {
-		if (wcomp.h <= SMALL_SIZE) {
-			setvers(v_up_punct);
-			return;
-		}
-		if (wcomp.w > 4)
-			goto usual;
-		wcomp.type = ch_letter;
-		wcomp.cs = cs_stick_by_size;
-		stick_w_4();
-		goto no_sort;
-	}
+    if ((wcomp.h <= PURE_DUST_HEIGHT) && (wcomp.w <= PURE_DUST_WIDTH)) {
+        wcomp.type = c_comp::ch_perfect + c_comp::ch_dust;
+        wcomp.cs = cs_3_3;
+        return;
+    }
+    if (wcomp.h == wcomp.w) {
+        if (wcomp.h <= SMALL_SIZE) {
+            setvers(v_sq_punct);
+            return;
+        }
+        goto usual;
+    }
+    if (wcomp.h < wcomp.w) {
+        if (wcomp.w <= SMALL_SIZE) {
+            setvers(v_side_punct);
+            return;
+        }
+        if (wcomp.w * 2 >= wcomp.h * 5) {
+            if (wcomp.h <= SMALL_SIZE) {
+                setvers(v_dash_defis);
+                return;
+            }
+            else {
+                wcomp.type = c_comp::ch_merge;
+                wcomp.cs = cs_net_cut;
+                return;
+            }
+        }
+        goto usual;
+    }
+    else {
+        if (wcomp.h <= SMALL_SIZE) {
+            setvers(v_up_punct);
+            return;
+        }
+        if (wcomp.w > 4)
+            goto usual;
+        wcomp.type = c_comp::ch_letter;
+        wcomp.cs = cs_stick_by_size;
+        stick_w_4();
+        goto no_sort;
+    }
 
-	// Component recognition
-	usual: nvers = events_recog();
-	if (!enable_save_stat && nvers <= 0)
-		goto not_letter;
+    // Component recognition
+    usual: nvers = events_recog();
+    if (!enable_save_stat && nvers <= 0)
+        goto not_letter;
 
-	nvers = events_recog_rt();
+    nvers = events_recog_rt();
 
-	if (!enable_save_stat && nvers <= 0)
-		goto not_letter;
-	if (nvers == 1)
-		goto perfect_letter;
+    if (!enable_save_stat && nvers <= 0)
+        goto not_letter;
+    if (nvers == 1)
+        goto perfect_letter;
 
-	// Добавление турецких палок. 04.06.2002 E.P.
-	if (language == LANG_TURKISH && nvers < VERS_IN_CELL - 2 && check_iIl1()
-			>= 3) {
-		// 18.06.2002 E.P.
-		if (!check_letter(i_sans_accent)) {
-			s_ans(i_sans_accent);
-			nvers++;
-		}
+    // Добавление турецких палок. 04.06.2002 E.P.
+    if (language == LANG_TURKISH && nvers < VERS_IN_CELL - 2 && check_iIl1() >= 3) {
+        // 18.06.2002 E.P.
+        if (!check_letter(i_sans_accent)) {
+            s_ans(i_sans_accent);
+            nvers++;
+        }
 
-		if (!check_letter(II_dot_accent)) {
-			s_ans(II_dot_accent);
-			nvers++;
-		}
-	}
+        if (!check_letter(II_dot_accent)) {
+            s_ans(II_dot_accent);
+            nvers++;
+        }
+    }
 
-	wcomp.type = ch_letter;
-	wcomp.cs = cs_mult_ev;
-	wcomp.nvers = nvers;
+    wcomp.type = c_comp::ch_letter;
+    wcomp.cs = cs_mult_ev;
+    wcomp.nvers = nvers;
 
-	criteria:
+    criteria:
 
-	no_sort: if (wcomp.nvers < 16)
-		return;
-	// sort_events_box (start_rec,wcomp.nvers);
-	wcomp.nvers = 15;
-	rec_ptr = start_rec + 15;
-	return;
+    no_sort: if (wcomp.nvers < 16)
+        return;
+    // sort_events_box (start_rec,wcomp.nvers);
+    wcomp.nvers = 15;
+    rec_ptr = start_rec + 15;
+    return;
 
-	perfect_letter: wcomp.type = ch_letter + ch_perfect;
-	wcomp.cs = cs_letter_ev;
-	wcomp.nvers = nvers;
-	goto criteria;
+    perfect_letter: wcomp.type = c_comp::ch_letter + c_comp::ch_perfect;
+    wcomp.cs = cs_letter_ev;
+    wcomp.nvers = nvers;
+    goto criteria;
 
-	not_letter: wcomp.type = ch_merge;
-	wcomp.cs = cs_net_cut;
-	return;
+    not_letter: wcomp.type = c_comp::ch_merge;
+    wcomp.cs = cs_net_cut;
+    return;
 }
 
 static void setvers(uchar* p) {
-	version *v = start_rec;
-	wcomp.type = *p++;
-	wcomp.cs = *p++;
-	while (*p) {
-		v->let = *p++;
-		(v++)->prob = 254;
-	}
-	wcomp.nvers = (rec_ptr = v) - start_rec;
+    version *v = start_rec;
+    wcomp.type = *p++;
+    wcomp.cs = *p++;
+    while (*p) {
+        v->let = *p++;
+        (v++)->prob = 254;
+    }
+    wcomp.nvers = (rec_ptr = v) - start_rec;
 }
 
 uint32_t recog_letter() {
-	recog_one();
-	return wcomp.nvers;
+    recog_one();
+    return wcomp.nvers;
 }
 
-uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,
-		uint16_t lth) {
-	memset(&wcomp, 0, sizeof(wcomp));
-	wcomp.h = ec->h;
-	wcomp.w = ec->w;
-	wcomp.rw = ec->rw;
+uint32_t recog_letter_lp(CCOM_comp *ec, uchar * lp, uint16_t lth) {
+    memset(&wcomp, 0, sizeof(wcomp));
+    wcomp.h = ec->h;
+    wcomp.w = ec->w;
+    wcomp.rw = ec->rw;
 
-	wcomp.nl = ec->nl;
-	wcomp.begs = ec->begs;
-	wcomp.ends = ec->ends;
-	wcomp.scale = ec->scale;
+    wcomp.nl = ec->nl;
+    wcomp.begs = ec->begs;
+    wcomp.ends = ec->ends;
+    wcomp.scale = ec->scale;
 
-	lpool_lth = lth;
-	memcpy(lpool, lp, lth);
-	recog_one();
-	return wcomp.nvers;
+    lpool_lth = lth;
+    memcpy(lpool, lp, lth);
+    recog_one();
+    return wcomp.nvers;
 }
 
 uint32_t check_iIl1() {
-	// Выдает количество палочных версий iIl1
-	version *p = start_rec;
-	long n = 0;
+    // Выдает количество палочных версий iIl1
+    version *p = start_rec;
+    long n = 0;
 
-	while (p < rec_ptr) {
-		if (strchr("iIl1", p->let))
-			n++;
+    while (p < rec_ptr) {
+        if (strchr("iIl1", p->let))
+            n++;
 
-		p++;
-	}
+        p++;
+    }
 
-	return n;
+    return n;
 }
 
 uint32_t check_letter(uchar let) {
-	// Проверяет наличие версии. 18.06.2002 E.P.
-	version *p = start_rec;
+    // Проверяет наличие версии. 18.06.2002 E.P.
+    version *p = start_rec;
 
-	while (p < rec_ptr) {
-		if (p->let == let)
-			return 1;
+    while (p < rec_ptr) {
+        if (p->let == let)
+            return 1;
 
-		p++;
-	}
+        p++;
+    }
 
-	return 0;
+    return 0;
 }

@@ -71,7 +71,6 @@
 # include "c_memory.h"
 # include "layout.h"
 # include "lang.h"
-# include "my_mem.h"
 
 #include "dpuma.h" //George, 12.11.01 (dd.mm.yy)
 #include "minmax.h"

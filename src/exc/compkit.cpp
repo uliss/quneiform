@@ -107,7 +107,7 @@ Bool16 boxes_account() {
 	wcomp.begs = mn->mnbegs;
 	wcomp.ends = mn->mnends;
 
-	if (mn->mnflag & mnpicture)
+	if (mn->mnflag & MN::mnpicture)
 		return FALSE;
 
 	if ((wcomp.w >= comp_max_w) || (wcomp.h >= comp_max_h))
@@ -115,9 +115,9 @@ Bool16 boxes_account() {
 	if ((wcomp.w <= comp_min_w) || (wcomp.h <= comp_min_h))
 		return FALSE; // check size
 
-	if (mn->mnboxcnt > great_box_count)
+	if (mn->mnboxcnt > MN::great_box_count)
 		return FALSE;
-	if (wcomp.nl < usual_box_count)
+	if (wcomp.nl < MN::usual_box_count)
 		return TRUE;
 
 	for (bp = boxchain, n = 0; bp; bp = bp->boxnext) {
@@ -130,7 +130,7 @@ Bool16 boxes_account() {
 		if ((bp->boxflag & (BOXFREEBEG + BOXFREEEND - BOXBEG - BOXEND)) == 0)
 			n++;
 	}
-	if (n >= usual_box_count)
+	if (n >= MN::usual_box_count)
 		return FALSE;
 	else
 		return TRUE;
@@ -468,7 +468,7 @@ int16_t read_dust_comp(dust_comp *cp, uchar *p) {
 	uchar b;
 	lp = (lnhead *) p;
 	lp->row = 0;
-	lp->flg = l_fbeg + l_fend;
+	lp->flg = lnhead::l_fbeg + lnhead::l_fend;
 	n = lp->h = cp->h;
 	lp->lth = lth = sizeof(lnhead) + (n + 1) * sizeof(interval);
 	ip = (interval *) (lp + 1);

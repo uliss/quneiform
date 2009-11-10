@@ -1481,7 +1481,7 @@ static void accept_Cell(cell *c, CSTR_rast_attr *rst, CCOM_comp *cmp,
 	c->bas_acc = 0;
 	DeskewCell(c, cmp, nIncline, shift);
 	set_bad_cell(c);
-	if (cmp->type == ch_great)
+	if (cmp->type == c_comp::ch_great)
 		c->env = 0;
 
 	return;
@@ -2482,7 +2482,7 @@ void accept_cell(cell *c, c_comp *cmp) {
 		c->history = c_rs_ev;
 	} else
 		set_bad_cell(c);
-	if (cmp->type == ch_great)
+	if (cmp->type == c_comp::ch_great)
 		c->env = 0;
 }
 

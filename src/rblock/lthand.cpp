@@ -67,9 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include "layout.h"
-# include "status.h"
-# include "my_mem.h"
+#include "layout.h"
+#include "status.h"
 #include "minmax.h"
 
 # define xLastImagePixel  (image_blth - 1)

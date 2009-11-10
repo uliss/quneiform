@@ -151,24 +151,6 @@ typedef struct {
 
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )
 
-struct ln_head {
-	int16_t lth; // length of one line representation
-	int16_t h; // height of line
-	int16_t row; // relative row of line start
-	uint16_t flg; // flags of free beg and free end
-#define l_fbeg		0x20
-#define l_fend		0x80
-#define l_cbeg          0x02
-#define l_cend          0x08
-};
-typedef struct ln_head lnhead;
-
-struct int_s {
-	uchar l; // length of interval
-	uchar e; // end of interval coordinates
-};
-typedef struct int_s interval;
-
 #define DIS_CENTER_FLAG(U,i,width,inc,t1,t2)             \
   { int16_t t,dist=1;                                  \
 	t = U->mount[i];                                 \

@@ -59,7 +59,6 @@
 
 #include "globus.h"
 #include "rblock.h"
-#include "c_types.h"
 
 #include "status.h"
 

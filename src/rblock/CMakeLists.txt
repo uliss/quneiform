@@ -1,8 +1,7 @@
-include_directories(BEFORE 
-sources/h 
-sources/main 
+include_directories(
+../hhh/tigerh/h
 ../hhh/tigerh
-../hhh/tigerh/h)
+)
 
 add_library(rblock ${LIBTYPE}
 ${SNP_SRC}

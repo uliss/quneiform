@@ -1019,7 +1019,7 @@ static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 
     for (line = (lnhead *) ((pchar)(env) + env->lines + sizeof(int16_t)); line->lth > 0; line
             = (lnhead *) ((pchar) line + line->lth))
-        if (line->flg & l_fend && (h = line->h) > H3 && line->row + h + 2 >= H) {
+        if (line->flg & lnhead::l_fend && (h = line->h) > H3 && line->row + h + 2 >= H) {
             int16_t x1, x2, i, i0 = h - H3 - 1, in, begl = 0, begr = 0;
             int32_t lsum = 0, rsum = 0, imaxl = 0, vmaxl = 0, imaxr = 0, vmaxr = 0;
             interval *intv;
@@ -1127,7 +1127,7 @@ static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 
     for (line = (lnhead *) ((pchar)(env) + env->lines + sizeof(int16_t)); line->lth > 0; line
             = (lnhead *) ((pchar) line + line->lth))
-        if (line->flg & l_fbeg && (h = line->h) > H3 && line->row <= 2) {
+        if (line->flg & lnhead::l_fbeg && (h = line->h) > H3 && line->row <= 2) {
             int16_t x1, x2, i, i0 = MIN(H3, h), begl = 0, begr = 0;
             int32_t lsum = 0, rsum = 0, imaxl = 0, vmaxl = 0, imaxr = 0, vmaxr = 0;
             interval *intv;

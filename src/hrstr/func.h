@@ -65,12 +65,13 @@
 
 #include <setjmp.h>
 
-#include "struct.h"
 #include "extract.h"
 #include "stick.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
 #include "point.h"
+#include "cutstr.h"
+#include "embbox.h"
 
 /* FIXME: to compile in MS VC++ */
 #define c_locomp EVN_CLocomp

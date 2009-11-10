@@ -520,7 +520,7 @@ uint16_t push_comp_to_container(ExtComponent * g) {
 				g->scale ? ublock : NULL);
 		curr_comp->scale = g->scale;
 		curr_comp->type = g->type;
-		if (g->type == ch_great && !vers.lnAltCnt) // non dust
+		if (g->type == ExtComponent::ch_great && !vers.lnAltCnt) // non dust
 			curr_comp->type = CCOM_CH_GREAT;
 		curr_comp->cs = g->cs;
 	}
@@ -1478,7 +1478,7 @@ static int32_t frame_cut(MN *mn) {
 }
 
 void picture_process(MN *mn) {
-	if ((mn->mnflag & mnpicture) || (ExControl & Ex_DisableCut) || (wcomp.h
+	if ((mn->mnflag & MN::mnpicture) || (ExControl & Ex_DisableCut) || (wcomp.h
 			< comp_max_h && wcomp.w > 2* comp_max_w )) // fotograph ?
 	{ // old loop of Vald
 		tech_pict: tech_picture(mn);
@@ -1616,7 +1616,7 @@ static Bool store_MN(MN *locmn, int16_t upper, int16_t left, int16_t w,
 	MN_to_line(locmn);
 
 	wcomp.scale = scale_2;
-	wcomp.type = ch_great;
+	wcomp.type = ExtComponent::ch_great;
 	// restore old sizes
 	wcomp.upper = upper;
 	wcomp.left = left;

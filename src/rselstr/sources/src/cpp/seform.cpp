@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <stdlib.h>
 # include "extract.h"
-# include "func.h"
+# include "hrstr/func.h"
 # include "my_mem.h"
 # include "newfunc.h"
 

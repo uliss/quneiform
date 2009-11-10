@@ -83,6 +83,8 @@ ROOT *pRoots = NULL;
 uint32_t nRoots = 0;
 # endif
 
+int16_t nRoots = 0;
+
 ROOT *pAfterRoots;
 
 int16_t nOriginalRoots;

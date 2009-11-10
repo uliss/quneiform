@@ -290,7 +290,7 @@ int16_t rast_is_BOX_solid(CSTR_rast B1, int16_t scale) {
 	if (!cmp || (attr.cg_flag & CSTR_cg_noenv))
 		return 0;
 
-	if (cmp->type == ch_great)
+	if (cmp->type == c_comp::ch_great)
 		return 0;
 
 	SBOX.best_BOX[0].ltr = 0;

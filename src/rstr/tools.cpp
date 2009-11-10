@@ -480,7 +480,7 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c) {
 		lth = sizeof(c_comp) + lpool_lth;
 		if (ED_file_end - kit_curr < lth)
 			ErrorExit(RSTR_ERR_NOPLACE);
-		wcomp.type = ch_punct;
+		wcomp.type = c_comp::ch_punct;
 		wcomp.records = 0;
 		wcomp.lines = sizeof(c_comp);
 		memcpy(kit_curr, &wcomp, sizeof(c_comp));
@@ -713,9 +713,9 @@ c_comp *compose_comp(int16_t n, c_comp **c) {
 				ln->row += du;
 				lth = ln->lth;
 				if (!j)
-					ln->flg |= l_cbeg;
+					ln->flg |= lnhead::l_cbeg;
 				if (j == nl - 1)
-					ln->flg |= l_cend;
+					ln->flg |= lnhead::l_cend;
 				for (intv = (interval *) ((puchar) ln + sizeof(lnhead)); intv->l; intv++)
 					intv->e += dl;
 			}

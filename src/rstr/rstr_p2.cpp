@@ -128,7 +128,7 @@ Bool32 p2_accept_Cell(cell *c, CSTR_rast_attr *rst, CCOM_comp *cmp,
 	if (!cmp)
 		return FALSE;
 
-	if (cmp->type != ch_great) {
+	if (cmp->type != c_comp::ch_great) {
 		ec.size = sizeof(c_comp) + cmp->size_linerep + 2;
 		if (kit_curr + ec.size >= kit_end) {
 			// ErrorExit(RSTR_ERR_NOPLACE); - // Nick 03.04.2002
@@ -339,7 +339,7 @@ int32_t p2_Cstr2Cell(CSTR_line lin, CSTR_rast first, CSTR_rast last,
 		}
 
 		// проверим - есть ли место !
-		if (cmp && cmp->type != ch_great) {
+		if (cmp && cmp->type != c_comp::ch_great) {
 			// Nick 03.04.2002 если нет памяти
 			if (kit_curr + sizeof(c_comp) + cmp->size_linerep + 2 >= kit_end)
 				break;

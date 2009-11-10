@@ -54,6 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "cutstr.h"
+
 #define AlikBrusOn
 #define AlikcOn
 #define AliktOn

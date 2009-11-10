@@ -64,18 +64,18 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <string.h>
-# include <time.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
-# include "iolib.h"
-# include "layout.h"
-# include "extract.h"
-# include "kernel.h"
-# include "status.h"
+//# include "iolib.h"
+#include "layout.h"
+#include "extract.h"
+#include "kernel.h"
+#include "status.h"
 #include "lterrors.h"
 
-# include "dpuma.h"
+#include "dpuma.h"
 
 //#define LT_DUMP 1
 //#pragma message(__FILE__"(34): здесь закомментировать '#define LT_DUMP 1'")
@@ -87,7 +87,6 @@ extern Handle hPageBeforeEditing;
 extern Handle hPageMatrix;
 extern Handle hInitialBreaking;
 extern Handle hInclineCalculating;
-//Handle hBlocksAfterFirstExtraction = NULL;
 extern Handle hBlocksBreaking;
 extern Handle hBlocksGlueing;
 extern Handle hFirstDustAbsorbtion;
@@ -564,6 +563,8 @@ void PageStrings2(void) {
 	AllocationsAccountingClose ();
 # endif
 }
+
+extern int MA_DebugLevel;
 
 void LayoutPart1(void) {
 	extern int SheetsCorrectRoots();

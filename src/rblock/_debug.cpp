@@ -87,6 +87,7 @@ Handle hNotUseAntonCross = NULL;
 Handle hSetTrivAverHeight = NULL;//George, 12.11.01 (dd.mm.yy)
 
 uint32_t ZagolovokBreakingCoeff = 3;
+extern int MA_DebugLevel;
 
 void InitDebug() {
     layout = 0;

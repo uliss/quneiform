@@ -71,7 +71,6 @@
 # include "c_memory.h"
 # include "layout.h"
 # include "func.h"
-# include "my_mem.h"
 #include "lterrors.h"
 
 # include "dpuma.h"
