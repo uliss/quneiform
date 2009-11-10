@@ -249,9 +249,9 @@ void PumaImpl::layout() {
         Debug() << "Container CPAGE contains: \n name : size\n";
         Handle block = CPAGE_GetBlockFirst(cpage_, 0);
         while (block) {
-            LDPUMA_Console("%s : %i\n",
-                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)),
-                    CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
+            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)) << " : "
+                    << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
+                    << "\n";
             block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
     }

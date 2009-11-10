@@ -65,11 +65,12 @@ void Rsl::aboutLines() {
         }
     }
 
-    if (Config::instance().debugHigh())
-        Debug() << need_clean_line_
-                ? "RSource: Нужно снять линии.\n"
-                : "RSource: Не надо снимать линии!\n";
-
+    if (Config::instance().debugHigh()) {
+        if (need_clean_line_)
+            Debug() << "RSource: Нужно снять линии.\n";
+        else
+            Debug() << "RSource: Не надо снимать линии!\n";
+    }
 }
 
 void Rsl::setCCom(Handle * ccom) {
