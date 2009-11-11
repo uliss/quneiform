@@ -71,39 +71,25 @@
 
 using namespace CIF;
 
-Bool32 SetCBProgressPoints(void * pData) {
-	PRSCBProgressPoints pPoints = (PRSCBProgressPoints) pData;
+//Bool32 SetCBProgressPoints(void * pData) {
+//    PRSCBProgressPoints pPoints = (PRSCBProgressPoints) pData;
+//
+//#define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
+//    SET_CB_POINTS(pPoints, SetUpdate);
+//#undef SET_CB_POINTS
+//    return true;
+//}
+//
+//#define DEF_CB_VOID_FUNC(b,c,d)       void b c \
+//{ \
+//	DEC_CB_TYPE(b) pfFunc; \
+//	if ( ProgressPoints.p##b ) \
+//	{ \
+//		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
+//		pfFunc d; \
+//	}\
+//}
+//
+//DEF_CB_VOID_FUNC(SetUpdate, (uint32_t flgAdd,uint32_t flgRemove),(flgAdd, flgRemove) )
 
-#define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
-	SET_CB_POINTS(pPoints, SetUpdate);
-	SET_CB_POINTS(pPoints, GetModulePath);
-	//SET_CB_POINTS(pPoints,                   );
-#undef SET_CB_POINTS
-	return true;
-}
-#define DEF_CB_FUNC(a,b,c,d,e)       a b c \
-{\
-	DEC_CB_TYPE(b) pfFunc; \
-	a ret = e ; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		return pfFunc d ; \
-	} \
-	return ret; \
-}
-#define DEF_CB_VOID_FUNC(b,c,d)       void b c \
-{ \
-	DEC_CB_TYPE(b) pfFunc; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		pfFunc d; \
-	}\
-}
-
-DEF_CB_VOID_FUNC(SetUpdate, (uint32_t flgAdd,uint32_t flgRemove),(flgAdd, flgRemove) )
-DEF_CB_FUNC(char *, GetModulePath, (void), (), NULL )
-
-#undef DEF_CB_FUNC
 #undef DEF_CB_VOID_FUNC

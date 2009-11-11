@@ -85,10 +85,6 @@ Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
 	SetReturnCode_rblock(IDS_ERR_NO);
 	Open_Res_Log();
 
-	MainWindowD = NULL;
-	MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
-	if (!MainWindowD)
-		MainWindowD = LDPUMA_GetWindowHandle("Main");
 	HCLINE = hCLINE;
 
 	PAGEINFO info = { 0 };

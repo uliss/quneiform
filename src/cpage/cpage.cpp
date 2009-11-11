@@ -197,9 +197,7 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 
-//#ifdef _DEBUG
 	assert(CPAGE_GetNameInternalType(Type));
-//#endif
 
 	Handle rc = PAGE_H(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
 	EPILOG;

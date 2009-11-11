@@ -268,10 +268,7 @@ void PumaImpl::layoutRsl() {
 }
 
 void PumaImpl::layoutRStuff() {
-    RSCBProgressPoints CBforRS;
-    CBforRS.pSetUpdate = (void*) SetUpdate;
-    if (!RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS))
-        return;
+    RStuff::setUpdate = SetUpdate;
 
     RSPreProcessImage DataforRS;
     setData(DataforRS);

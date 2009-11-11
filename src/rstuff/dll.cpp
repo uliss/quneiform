@@ -134,20 +134,3 @@ Handle hDebugPreprocess;
 Handle hDebugPrintResolution;
 
 int KVO = 1;
-
-namespace CIF {
-
-bool RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData) {
-    switch (dwType) {
-    case RSTUFF_FN_SetProgresspoints:
-        return SetCBProgressPoints(pData);
-    }
-    return true;
-}
-
-}
-
-void SetReturnCode_rstuff(int rc) {
-    RC.gwRC = rc;
-}
-

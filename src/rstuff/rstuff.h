@@ -68,6 +68,7 @@
 #ifndef __RSTUFF_H
 #define __RSTUFF_H
 
+#include <boost/function.hpp>
 #include "cttypes.h"
 #include "lang_def.h"
 #include "rect.h"
@@ -150,24 +151,12 @@ private:
     static const size_t WorkBufferSize = 180000;
     static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
     static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
+public:
+    typedef boost::function<void (uint32_t, uint32_t)> UpdateCallback;
+    static UpdateCallback setUpdate;
 };
 
 typedef RuntimeExceptionImpl<RStuff> RStuffException;
-
-struct RSCBProgressPoints
-{
-    void * pGetModulePath;
-    void * pSetUpdate;
-};
-
-typedef RSCBProgressPoints * PRSCBProgressPoints;
-
-enum RSTUFF_IMPORT_ENTRIES
-{
-    RSTUFF_FN_SetProgresspoints = 128
-};
-
-bool RSTUFF_SetImportData(RSTUFF_IMPORT_ENTRIES dwType, void * pData);
 
 }
 

@@ -111,6 +111,8 @@ int move;
 FixedBuffer<unsigned char, RStuff::MainBufferSize> RStuff::main_buffer_;
 FixedBuffer<unsigned char, RStuff::WorkBufferSize> RStuff::work_buffer_;
 
+RStuff::UpdateCallback RStuff::setUpdate;
+
 RStuff::RStuff() :
     image_(NULL), language_(LANG_RUSENG), cpage_(NULL) {
     gLTInfo = new LinesTotalInfo;
@@ -212,7 +214,7 @@ void RStuff::calcIncline() {
     /***  компоненты  ***/
     ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 0); //t-e-d
     if (ret == RV_DOUBT) {
-        SetReturnCode_rstuff(Code);
+//        SetReturnCode_rstuff(Code);
         CleanLastDataPart((void *) (&MainBuff));
     }
     ManyComp = (ret == RV_TRUE) && (MainBuff.nPartUnits[MainBuff.nPart - 1] > 10000);
@@ -223,7 +225,7 @@ void RStuff::calcIncline() {
     if (ret == RV_DOUBT || ManyComp) {
         ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 3); //t-e-d
         if (ret == RV_DOUBT) {
-            SetReturnCode_rstuff(Code);
+//            SetReturnCode_rstuff(Code);
             CleanLastDataPart((void *) (&MainBuff));
         }
     }
@@ -244,7 +246,7 @@ void RStuff::calcIncline() {
             (int *) work_buffer_.begin(), WorkBufferSize / sizeof(int), &RcReg, SkewReg, Str,
             ContWarn);
     if (ret == RV_DOUBT)
-        SetReturnCode_rstuff(Code);
+//        SetReturnCode_rstuff(Code);
     if (ret != RV_TRUE)
         throw RStuffException("RStuff::calcIncline()  failed", ret);
 
@@ -562,7 +564,7 @@ void RStuff::extractComponents(const char * name) {
     RReccom r;
     r.recognize(*(image_->phCCOM), language_);
 
-    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
+    setUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }
 
 void RStuff::killLines() {

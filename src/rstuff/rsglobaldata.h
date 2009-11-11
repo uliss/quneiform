@@ -77,7 +77,6 @@
 #define VAL(a)
 #define VALM(a)
 #endif
-EXTERN CIF::RSCBProgressPoints ProgressPoints VALM(NULL);
 EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
 EXTERN RSLinesBuffer gLinesData VALM(NULL);
 EXTERN uint32_t gKillComponents VAL(1);
