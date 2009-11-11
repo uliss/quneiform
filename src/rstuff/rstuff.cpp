@@ -214,7 +214,6 @@ void RStuff::calcIncline() {
     /***  компоненты  ***/
     ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 0); //t-e-d
     if (ret == RV_DOUBT) {
-//        SetReturnCode_rstuff(Code);
         CleanLastDataPart((void *) (&MainBuff));
     }
     ManyComp = (ret == RV_TRUE) && (MainBuff.nPartUnits[MainBuff.nPart - 1] > 10000);
@@ -225,7 +224,6 @@ void RStuff::calcIncline() {
     if (ret == RV_DOUBT || ManyComp) {
         ret = LoadComps_rv(*(image_->phCCOM), (void *) (&MainBuff), Str, 3); //t-e-d
         if (ret == RV_DOUBT) {
-//            SetReturnCode_rstuff(Code);
             CleanLastDataPart((void *) (&MainBuff));
         }
     }
@@ -245,8 +243,6 @@ void RStuff::calcIncline() {
     ret = ConvertLinesToAM_rv(UN_LD_LinesVP2, UN_LD_LinesAM, (void *) (&MainBuff),
             (int *) work_buffer_.begin(), WorkBufferSize / sizeof(int), &RcReg, SkewReg, Str,
             ContWarn);
-    if (ret == RV_DOUBT)
-//        SetReturnCode_rstuff(Code);
     if (ret != RV_TRUE)
         throw RStuffException("RStuff::calcIncline()  failed", ret);
 

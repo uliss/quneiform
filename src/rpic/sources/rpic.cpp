@@ -321,9 +321,6 @@ Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
         pHystogram[i] = 0;
     }
 
-    LDPUMA_FPuts(logFile_comp, "*******************************************************\n");
-    LDPUMA_FPuts(logFile_comp, "new_file \n");
-
     if ((pInfo.Angle == 90) || (pInfo.Angle == 270)) {
         uint32_t tmp;
         tmp = pInfo.Width;

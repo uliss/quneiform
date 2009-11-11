@@ -111,12 +111,6 @@ Bool dpRecOneLetter;
 NegImage* pNegImage;
 
 void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, const char* pImageName, int skew) {
-
-    MainWindowD = NULL;
-    MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
-    if (!MainWindowD)
-        MainWindowD = LDPUMA_GetWindowHandle("Main");
-
     dpTime = !LDPUMA_Skip(hTime);
     dpPrintResConsole = !LDPUMA_Skip(PrintResConsole);
     dpNegResD = !LDPUMA_Skip(NegResD);

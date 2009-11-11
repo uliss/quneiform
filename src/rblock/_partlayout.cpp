@@ -614,7 +614,6 @@ Bool32 OutputFragments(Handle hPage) {
     LDPUMA_FPuts(resFile_blocks, file_name);
     LDPUMA_FPuts(resFile_blocks, " \n");
     LDPUMA_FPuts(resFile_blocks, "  <3 Н Фрагменты \n");
-    //LDPUMA_FPuts(resFile_blocks, "  <4 Н Перед обработкой пересечений \n");
     LDPUMA_FPuts(resFile_blocks, "  <4 Н Результат работы старого фрагментатора \n");
 
     BlocksExtract(); // inserted by Rom to remove NULL-sized blocks
@@ -641,7 +640,6 @@ Bool32 OutputFragments(Handle hPage) {
         }
 
         all_polys[i].com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
-        //all_polys[i].com.number = ++count;//порядковый номер
         all_polys[i].com.number = p->nNumber;//порядковый номер
         all_polys[i].com.Color = 0;
         all_polys[i].com.count = 4;

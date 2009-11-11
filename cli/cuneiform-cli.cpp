@@ -189,7 +189,8 @@ static string usage() {
         "       --dotmatrix                               \n"
         "       --fax                                     \n"
         "       --tables   MODE\n"
-        "       --pictures MODE\n"
+        "       --pictures               Search pictures\n"
+        "       --nopictures             Do not search pictures\n"
         "       --preserve-line-breaks                  \n"
         "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
         "                                    Default is '~'.\n"
@@ -297,6 +298,7 @@ int main(int argc, char **argv) {
         { "help", no_argument, NULL, 'h' },//
         { "language", required_argument, NULL, 'l' },//
         { "monospace-name", required_argument, NULL, 'x' },
+        { "nopictures", no_argument, &do_pictures, 0 },//
         { "output", required_argument, NULL, 'o' },//
         { "pictures", no_argument, &do_pictures, 1 },//
         { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
@@ -427,7 +429,10 @@ int main(int argc, char **argv) {
         lopt.setOneColumn(do_singlecolumn);
         lopt.setDotMatrix(do_dotmatrix);
         lopt.setAutoRotate(do_autorotate);
-        //  opt.setPictures(puma_picture_t mode);
+        if (do_pictures)
+            lopt.setPictures(PUMA_PICTURE_ALL);
+        else
+            lopt.setPictures(PUMA_PICTURE_NONE);
         //  opt.setTables(puma_table_t mode);
         //  opt.setTablesNum(int number);
         Puma::instance().setLayoutOptions(lopt);

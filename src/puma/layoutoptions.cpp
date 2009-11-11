@@ -103,10 +103,12 @@ std::ostream& operator<<(std::ostream& os, const LayoutOptions& opts) {
     os << "Layout options:\n"
             << std::boolalpha
             << "  One Column:    " << opts.oneColumn() << "\n"
+            << "  Pictures:      " << opts.pictures() << "\n"
             << "  Dot Matrix:    " << opts.dotMatrix() << "\n"
             << "  Auto Rotate:   " << opts.autoRotate() << "\n"
             << "  Tables number: " << opts.tablesNum() << "\n"
             << "  Geometry:      " << opts.rect() << "\n";
+
     return os;
 }
 

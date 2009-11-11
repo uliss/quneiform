@@ -226,13 +226,15 @@ void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
 void RMarker::searchNeg(const BigImage& big_image) {
     PAGEINFO info;
     GetPageInfo(cpage_, &info);
-    int incline = info.Incline2048;
-    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), incline);
+    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), info.Incline2048);
 }
 
 void RMarker::searchPictures(const BigImage& big_image) {
-    if (pictures_ == PUMA_PICTURE_NONE)
+    if (pictures_ == PUMA_PICTURE_NONE) {
+        if(Config::instance().debug())
+            Debug() << "Skipping picture search\n";
         return;
+    }
 
     if (!RPIC_SearchPictures(ccom_, big_image.ccom(), cpage_))
         throw RMarkerException("RPIC_SearchPictures failed");
