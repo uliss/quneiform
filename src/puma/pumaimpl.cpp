@@ -502,8 +502,7 @@ void PumaImpl::printRecognizeOptions() const {
 }
 
 void PumaImpl::printResult(std::ostream& os) {
-    int count = CSTR_GetMaxNumber();
-    for (int i = 1; i <= count; i++)
+    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
         printResultLine(os, i);
 }
 
@@ -611,7 +610,7 @@ void PumaImpl::recognize() {
     CSTR_SortFragm(0);
     CSTR_line ln;
     CSTR_attr attr;
-    int32_t nf = CSTR_GetMaxFragment(0);
+    int nf = CSTR_GetMaxFragment(0);
     Handle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
     if (hBlock) {
         AutoBuffer<int, InitZero> flagfrag(nf);
@@ -681,7 +680,6 @@ void PumaImpl::recognize() {
         LDPUMA_Console("Пропущен этап форматирования.\n");
         return;
     }
-
     // Отформатируем результат
     formatResult();
 }

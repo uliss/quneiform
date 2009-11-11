@@ -57,13 +57,14 @@
 #include "cticontrol.h"
 #include "ctimemory.h"
 #include "dpuma.h"
+#include "common/debug.h"
 
 CTIControl::CTIControl() {
     init();
 }
 
 void CTIControl::init() {
-    mbSourceDIBCopy = FALSE;
+    mbSourceDIBCopy = false;
     hCBImage = NULL;
     pCBImage = NULL;
     pCBBuffer = NULL;
@@ -285,7 +286,7 @@ Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
         return FALSE;
     }
 
-    if (!GetDIB(lpName, &hImage, TRUE)) {
+    if (!GetDIB(lpName, &hImage, true)) {
         return FALSE;
     }
 
@@ -332,7 +333,7 @@ Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
     return TRUE;
 }
 
-Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
+Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, bool noCopy) {
     Handle hImage = NULL; // Handle
 
     // открываем картинку
@@ -346,7 +347,7 @@ Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
             || !OpenMaskFromList(lpName, &mpcSrcDIBWriteMask, &mbEnableDIBWriteMask, "w"))
         return FALSE;
 
-    mbSourceDIBCopy = (wFlag == 0);
+    mbSourceDIBCopy = !noCopy;
     if (mbSourceDIBCopy) { // создаем новую копию
         if (CopyDIB(hImage, phDIB)) {
             return TRUE;
@@ -447,7 +448,7 @@ Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lp
     PCTDIB pDscDIB = NULL;
     Bool32 ret = TRUE;
 
-    if (!GetDIB(lpName, &hImage, TRUE)) {
+    if (!GetDIB(lpName, &hImage, true)) {
         return FALSE;
 
     }
@@ -500,7 +501,7 @@ Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH) {
         return FALSE;
     }
 
-    if (!GetDIB(lpName, &hImage, TRUE)) {
+    if (!GetDIB(lpName, &hImage, true)) {
         return FALSE;
     }
 
@@ -1060,9 +1061,8 @@ Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lp
 
     // при первом вызове
     //берем указатель на картинку
-    if (!GetDIB(lpName, &hImage, TRUE)) {
+    if (!GetDIB(lpName, &hImage, false)) {
         return bRet;
-
     }
 
     pImage = CIMAGELock(hImage);
@@ -1251,7 +1251,9 @@ Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber, CI
 }
 
 Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
-    mlImages.GetImage(lpName, phImage);
+    if(!mlImages.GetImage(lpName, phImage))
+        std::cerr << "Image not found: " << lpName << std::endl;
+
     //ALLEX Mask
     // ошибка не тут
     OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");

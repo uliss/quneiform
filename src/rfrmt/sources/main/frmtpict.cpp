@@ -236,6 +236,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                 char * lpName = szPictName;
 
                 LDPUMA_Skip(hTestTurn);
+//                assert(pOutDIB);
                 if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
                     switch (pinfo.Angle) {
                     case 90:

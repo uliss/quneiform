@@ -143,7 +143,7 @@ public:
 	Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
 	Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 			CIMAGE_InfoDataOutGet * lplpOut);
-	Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
+	Bool32 GetDIB(const char* lpName, Handle* phDIB, bool noCopy = true);
 	Bool32 SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag = 0);
 	Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
 	Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
@@ -161,7 +161,7 @@ protected:
 	uchar mwLABlackRightMask[8];
 	uchar mwLABlackLeftMask[8];
 	uchar mwIndexMask[8];
-	Bool32 mbSourceDIBCopy;
+	bool mbSourceDIBCopy;
 	PCTIMask mpcSrcDIBReadMask;
 	PCTIMask mpcSrcDIBWriteMask;
 	Bool32 mbEnableDIBReadMask;

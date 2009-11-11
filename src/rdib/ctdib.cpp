@@ -631,7 +631,7 @@ uint32_t CTDIB::GetPixelShiftInByte(uint32_t dwX) {
 }
 
 Bool32 CTDIB::IsExternalsSets() {
-    return (pExternalAlloc && pExternalFree && pExternalLock && pExternalUnlock) != NULL;
+    return pExternalAlloc && pExternalFree && pExternalLock && pExternalUnlock;
 }
 
 Bool32 CTDIB::GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad) {
