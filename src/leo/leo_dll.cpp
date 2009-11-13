@@ -210,10 +210,7 @@ void leo_store_for_pass2(RecObject* object, uchar let) {
     object->recData.recRaster.Raster[REC_MAX_RASTER_SIZE - 1] = stdAnsiToAscii(let);
 }
 
-void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog) {
-}
-
-void leoSetAlphabet(char alphabet[], int /*leo_alpha_type*/) {
+void leoSetAlphabet(char alphabet[]) {
     R35SetAlphabet(alphabet);
     DIFSetAlphabet(alphabet);
     MSKSetAlphabet(alphabet);
@@ -283,8 +280,6 @@ Bool32 leo_init_prn(void) {
 }
 
 Bool32 leo_init_ndx(void) {
-    MemFunc* mem = leo_mem;
-
     if (!leo_init_r35_ndx) {
         if (R35InitNDX())
             leo_init_r35_ndx = TRUE;
@@ -481,7 +476,7 @@ Bool32 LEOSetAlphabet(char ansi_letters[]) // char table[0-255]
     if (nIsPrint)
         alphabet[0] = 1;
 
-    leoSetAlphabet((char*) alphabet, leo_alpha_type);
+    leoSetAlphabet((char*) alphabet);
     LEOSetFont(prn_roma_regim ? LEO_FONT_TW : LEO_FONT_NONE); // Moscow Pension Tested
     return TRUE;
 }
@@ -610,7 +605,6 @@ Bool32 LEORecogPrintChar(RecObject* object) {
     if (pen_prop > 50) {
         LEO_error_code = ER_LEO_SMALL_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-            leo_snapRaster(object, &stnCharRecog);
             leo_snapSimpleKey("TOO WIDE KILL ", &stnCharRecog);
         }
         return FALSE;
@@ -629,7 +623,6 @@ Bool32 LEORecogPrintChar(RecObject* object) {
     if (leo_small_object(object, small_wid, small_wid)) {
         LEO_error_code = ER_LEO_SMALL_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-            leo_snapRaster(object, &stnCharRecog);
             leo_snapSimpleKey("TOO SMALL RASTER", &stnCharRecog);
         }
         return FALSE;
@@ -641,7 +634,6 @@ Bool32 LEORecogPrintChar(RecObject* object) {
             && object->recData.recRaster.lnPixHeight > 10)) {
         LEO_error_code = ER_LEO_SMALL_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-            leo_snapRaster(object, &stnCharRecog);
             leo_snapSimpleKey("TOO SMALL RASTER", &stnCharRecog);
         }
         return FALSE;
@@ -649,14 +641,12 @@ Bool32 LEORecogPrintChar(RecObject* object) {
     if (leo_big_object(object, 150, 150)) {
         LEO_error_code = ER_LEO_LARGE_OBJECT;
         if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect) {
-            leo_snapRaster(object, &stnCharRecog);
             leo_snapSimpleKey("TOO BIG RASTER", &stnCharRecog);
         }
         return FALSE;
     }
     if (1)
         if (leo_Snp_In_Rect) {
-            leo_snapRaster(object, &stnCharRecog);
             leo_snapSimpleKey("Before recog", &stnCharRecog);
         }
 
@@ -747,7 +737,6 @@ Bool32 LEORecogPrintChar(RecObject* object) {
         memcpy(&ver, &object->recResults, sizeof(RecVersions));
         leo_snapRes2Str(&ver, buf);
 
-        leo_snapRaster(object, &stnCharRecog);
         SnpLog("LEO PRN LTR : %s", buf);
         SnpLog("%s", "");
         Leo_SnpWaitUserInput(&stnCharRecog);
@@ -1181,7 +1170,6 @@ uchar LEOValidRestore_Char(RecVersions *resin, RecVersions *resout) {
             object.recData.recRaster.Raster[REC_MAX_RASTER_SIZE - 1] = stdAnsiToAscii(
                     object.recResults.Alt[0].Code);
 
-        leo_snapRaster(&object, &stnCharRecog);
         leo_store_for_pass2(&object, (uchar) (ver.lnAltCnt ? ver.Alt[0].Code : (uchar) '0'));
         SnpLog("LEO PRN RERECOG FNT LTR (num=%d): %s", idr - 1, buf);
         SnpLog("%s", "");
@@ -1243,7 +1231,6 @@ Bool32 LEORecogCharPRN_expert(RecObject* object) {
         memcpy(&ver, &object->recResults, sizeof(RecVersions));
         leo_snapRes2Str(&ver, buf);
 
-        leo_snapRaster(object, &stnCharRecog);
         SnpLog("EXPERT PRN LTR : %s", buf);
         SnpLog("%s", "");
         Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user

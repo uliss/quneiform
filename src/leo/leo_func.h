@@ -125,7 +125,6 @@ Bool32 leoSnpInRect(CIF::Rect16* pRect, int32_t nSkew);
 
 void leo_cuneiform(RecObject *rec);
 void leo_SnpLog(const char *tmp);
-void leo_snapRaster(RecObject* object, SnpTreeNode *stnRecog);
 void leo_snapSimpleKey(const char *str, SnpTreeNode *stnRecog);
 Bool32 leo_init_prn(void);
 
