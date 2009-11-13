@@ -73,18 +73,14 @@ static int InSnap = 0; // now pictures in snap
 static RecRaster *snapRaster = NULL;
 static Bool WasRegister = FALSE;
 static HWND hwndSnap = NULL;
-static char szGluName[32] = "FonGlueSnap";
 static HINSTANCE hGluInstance = NULL;
 static char recogResult[256];
-static Bool RegisterGlu(Handle hInstance, char* szAppName);
 static char nameSnap[NUM_IN_SNAP + 1];
 static int probSnap[NUM_IN_SNAP + 1];
-////////////
+
 //
 //  return -1  - no memory
 //
-///////////////
-
 int32_t FONInitSnap(Handle hwnd) {
     memset(nameSnap, 0, sizeof(nameSnap));
     InSnap = 0;
@@ -124,7 +120,7 @@ int PutNamesSnap(int nvar, uchar *names, int *probs) {
         sprintf(recogResult + strlen(recogResult), "%c(%d) ", names[i], (int) probs[i]);
     return 1;
 }
-/////////////////////////
+
 int AddRasterToSnap(RecRaster *rr, int num) {
     if (num < 0)
         num = InSnap;
@@ -139,7 +135,7 @@ int AddRasterToSnap(RecRaster *rr, int num) {
     InSnap++;
     return 1;
 }
-//////////////
+
 int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
     int bytesx = ((xbit + 63) / 64) * 8;
     int xbyte = (xbit + 7) >> 3;
@@ -151,7 +147,6 @@ int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
 
     if (InSnap >= NUM_IN_SNAP)
         InSnap = 0;
-    //return -10;
 
     if (name <= 0) {
         nameSnap[InSnap] = '~';
@@ -182,9 +177,8 @@ int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
     InSnap++;
     return 1;
 }
-//////////////
 // rr-> at position fx,fy, size sx,sy
-static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) {
+static int PutRecRaster(RecRaster *rr, int fx, int fy, int sx, int sy) {
     int i, j;
     int wid = rr->lnPixWidth;
     int hei = rr->lnPixHeight;
@@ -211,7 +205,6 @@ static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) 
 int32_t FONShowSnap(void) {
     Rect rect;
     int i, j, xstart, ystart;
-    HDC hDC;
     int numRow = 1;
     int all;
 
@@ -238,7 +231,7 @@ int32_t FONShowSnap(void) {
     ystart = 0;
     for (all = 0; numRow; numRow--, ystart += rect.bottom()) {
         for (i = xstart = 0; i < 3 && all < InSnap; i++, xstart += j, all++) {
-            PutRecRaster(hDC, snapRaster + all, xstart, ystart, j, rect.bottom());
+            PutRecRaster(snapRaster + all, xstart, ystart, j, rect.bottom());
         }
     }
 
@@ -250,12 +243,9 @@ int32_t FONShowSnap(void) {
 /*
  * Handle messages for the application window
  */
-int32_t GluFonWindowProc(HWND win, uint msg, WPARAM wparam, LPARAM lparam) {
-    PAINTSTRUCT ps;
-
+int32_t GluFonWindowProc(uint msg) {
     switch (msg) {
     case WM_DESTROY:
-        //FONEndSnap();
         hwndSnap = NULL;
         IsSnap = FALSE;
         break;
