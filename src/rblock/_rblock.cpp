@@ -87,7 +87,7 @@ Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
 
 	HCLINE = hCLINE;
 
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	if (GetPageInfo(hCPAGE, &info))
 		nIncline = info.Incline2048;
 	else
@@ -106,8 +106,7 @@ Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
 	return TRUE;
 }
 
-////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
+Bool32 RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 {
 	SetReturnCode_rblock(IDS_ERR_NO);
 	Open_Res_Log();
@@ -125,8 +124,8 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 
 	return TRUE;
 }
-////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
+
+Bool32 RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
 {
 	Bool32 rc = TRUE;
 	SetReturnCode_rblock(IDS_ERR_NO);
@@ -141,7 +140,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32
 	assert(lpNominator);
 	assert(lpDenominator);
 	assert(hCCOM);
-	CalculatePageIncline(hCCOM, lpNominator,lpDenominator);
+	CalculatePageIncline(lpNominator,lpDenominator);
 	Close_Res_Log();
 
 	return rc;

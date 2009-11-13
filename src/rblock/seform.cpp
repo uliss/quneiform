@@ -82,261 +82,256 @@
 int nCurrentFillingRoots;
 
 Bool32 StringsUpdatedByBukvica() {
-	STRING* p;
-	int nString;
+    STRING* p;
+    int nString;
 
-	for (nString = 0, p = pStringsUpList; p != NULL; p = p -> pDown, nString++) {
-		if ((p->nLetters == 1) && ((&pRoots[p -> pLettersList[0]])->nHeight
-				> 64)) {
-			int data = 0;
-			CCOM_USER_BLOCK uBlock;
+    for (nString = 0, p = pStringsUpList; p != NULL; p = p -> pDown, nString++) {
+        if ((p->nLetters == 1) && ((&pRoots[p -> pLettersList[0]])->nHeight > 64)) {
+            int data = 0;
+            CCOM_USER_BLOCK uBlock;
 
-			uBlock.code = CCOM_UB_CAPDROPLN;
-			uBlock.data = (uchar*) &data;
+            uBlock.code = CCOM_UB_CAPDROPLN;
+            uBlock.data = (uchar*) &data;
 
-			if ((p->pUp != NULL) || (p->pDown != NULL)) {
-				if (p->pUp == NULL) {
-					*(int*) uBlock.data = nString + 1;
-				} else {
-					if (p->pDown == NULL) {
-						*(int*) uBlock.data = nString - 1;
-					} else {
-						if (abs(p->pUp->yTop - p->yTop) <= abs(p->pDown->yTop
-								- p->yTop)) {
-							*(int*) uBlock.data = nString - 1;
-						} else {
-							*(int*) uBlock.data = nString + 1;
-						}
-					}
-				}
-				p->uFlags += CSTR_STR_CapDrop;
-			}
+            if ((p->pUp != NULL) || (p->pDown != NULL)) {
+                if (p->pUp == NULL) {
+                    *(int*) uBlock.data = nString + 1;
+                }
+                else {
+                    if (p->pDown == NULL) {
+                        *(int*) uBlock.data = nString - 1;
+                    }
+                    else {
+                        if (abs(p->pUp->yTop - p->yTop) <= abs(p->pDown->yTop - p->yTop)) {
+                            *(int*) uBlock.data = nString - 1;
+                        }
+                        else {
+                            *(int*) uBlock.data = nString + 1;
+                        }
+                    }
+                }
+                p->uFlags += CSTR_STR_CapDrop;
+            }
 
-			uBlock.size = sizeof(data);
-			CCOM_SetUserBlock(
-					(CCOM_comp*) (pRoots[p -> pLettersList[0]]).pComp, &uBlock);
+            uBlock.size = sizeof(data);
+            CCOM_SetUserBlock((CCOM_comp*) (pRoots[p -> pLettersList[0]]).pComp, &uBlock);
 
-		}
-	}
+        }
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 void StringCalculateParameters(STRING *pString) {
-	int i;
-	ROOT *pRoot;
-	int nSumHeight;
-	int ySumTop;
-	int nSumTopDispersion;
-	int nSumBottomDispersion;
-	Bool bSpecialFound;
+    int i;
+    ROOT *pRoot;
+    int nSumHeight;
+    int ySumTop;
+    int nSumTopDispersion;
+    int nSumBottomDispersion;
+    Bool bSpecialFound;
 
-	pString -> language = pCurrentBlock -> language; // Pit 02-??-94
+    pString -> language = pCurrentBlock -> language; // Pit 02-??-94
 
-	if (pString -> nLetters == 0) {
-		pString -> nMiddleHeight = 0;
-		pString -> yMiddleTop = 0;
-		pString -> yMiddleBottom = 0;
-		pString -> nTopDispersion = 0;
-		pString -> nBottomDispersion = 0;
-		pString -> yMin = 0;
-		pString -> yMax = 0;
-		return;
-	}
+    if (pString -> nLetters == 0) {
+        pString -> nMiddleHeight = 0;
+        pString -> yMiddleTop = 0;
+        pString -> yMiddleBottom = 0;
+        pString -> nTopDispersion = 0;
+        pString -> nBottomDispersion = 0;
+        pString -> yMin = 0;
+        pString -> yMax = 0;
+        return;
+    }
 
-	pString -> nSpecialsLetters = 0;
+    pString -> nSpecialsLetters = 0;
 
-	AGAIN: nSumHeight = 0;
-	ySumTop = 0;
+    AGAIN: nSumHeight = 0;
+    ySumTop = 0;
 
-	for (i = 0; i < pString -> nLetters; i++) {
-		pRoot = pRoots + pString -> pLettersList[i];
+    for (i = 0; i < pString -> nLetters; i++) {
+        pRoot = pRoots + pString -> pLettersList[i];
 
-		if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
-			continue;
+        if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
+            continue;
 
-		nSumHeight += pRoot -> nHeight;
-		ySumTop += pRoot -> yRow;
-	}
+        nSumHeight += pRoot -> nHeight;
+        ySumTop += pRoot -> yRow;
+    }
 
-	pString -> nMiddleHeight = nSumHeight / (pString -> nLetters
-			- pString -> nSpecialsLetters);
-	pString -> yMiddleTop = ySumTop / (pString -> nLetters
-			- pString -> nSpecialsLetters);
-	pString -> yMiddleBottom = (ySumTop + nSumHeight) / (pString -> nLetters
-			- pString -> nSpecialsLetters);
-	pString -> yMiddleLine = (pString -> yMiddleTop + pString -> yMiddleBottom)
-			/ 2;
+    pString -> nMiddleHeight = nSumHeight / (pString -> nLetters - pString -> nSpecialsLetters);
+    pString -> yMiddleTop = ySumTop / (pString -> nLetters - pString -> nSpecialsLetters);
+    pString -> yMiddleBottom = (ySumTop + nSumHeight) / (pString -> nLetters
+            - pString -> nSpecialsLetters);
+    pString -> yMiddleLine = (pString -> yMiddleTop + pString -> yMiddleBottom) / 2;
 
-	nSumTopDispersion = 0;
-	nSumBottomDispersion = 0;
+    nSumTopDispersion = 0;
+    nSumBottomDispersion = 0;
 
-	for (i = 0; i < pString -> nLetters; i++) {
-		pRoot = pRoots + pString -> pLettersList[i];
+    for (i = 0; i < pString -> nLetters; i++) {
+        pRoot = pRoots + pString -> pLettersList[i];
 
-		if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
-			continue;
+        if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
+            continue;
 
-		nSumTopDispersion += (pRoot -> yRow - pString -> yMiddleTop)
-				* (pRoot -> yRow - pString -> yMiddleTop);
+        nSumTopDispersion += (pRoot -> yRow - pString -> yMiddleTop) * (pRoot -> yRow
+                - pString -> yMiddleTop);
 
-		nSumBottomDispersion += (pRoot -> yRow + pRoot -> nHeight
-				- pString -> yMiddleBottom) * (pRoot -> yRow + pRoot -> nHeight
-				- pString -> yMiddleBottom);
-	}
+        nSumBottomDispersion += (pRoot -> yRow + pRoot -> nHeight - pString -> yMiddleBottom)
+                * (pRoot -> yRow + pRoot -> nHeight - pString -> yMiddleBottom);
+    }
 
-	pString -> nTopDispersion = (int) long_sqrt((int32_t)(nSumTopDispersion
-			/ (pString -> nLetters - pString -> nSpecialsLetters)));
+    pString -> nTopDispersion = (int) long_sqrt((int32_t) (nSumTopDispersion / (pString -> nLetters
+            - pString -> nSpecialsLetters)));
 
-	pString -> nBottomDispersion = (int) long_sqrt((int32_t)(
-			nSumBottomDispersion / (pString -> nLetters
-					- pString -> nSpecialsLetters)));
+    pString -> nBottomDispersion = (int) long_sqrt((int32_t) (nSumBottomDispersion
+            / (pString -> nLetters - pString -> nSpecialsLetters)));
 
-	pString -> yMin = pString -> yMiddleTop - MAX(
-			2 * pString -> nTopDispersion, 3 * pString -> nMiddleHeight / 4);
+    pString -> yMin = pString -> yMiddleTop - MAX(
+            2 * pString -> nTopDispersion, 3 * pString -> nMiddleHeight / 4);
 
-	pString -> yMax = pString -> yMiddleBottom + MAX(2
-			* pString -> nBottomDispersion, 3 * pString -> nMiddleHeight / 4);
+    pString -> yMax = pString -> yMiddleBottom + MAX(2
+            * pString -> nBottomDispersion, 3 * pString -> nMiddleHeight / 4);
 
-	bSpecialFound = FALSE;
+    bSpecialFound = FALSE;
 
-	for (i = 0; i < pString -> nLetters; i++) {
-		pRoot = pRoots + pString -> pLettersList[i];
+    for (i = 0; i < pString -> nLetters; i++) {
+        pRoot = pRoots + pString -> pLettersList[i];
 
-		if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
-			continue;
+        if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
+            continue;
 
-		if (pRoot -> yRow > pString -> yMiddleLine || pRoot -> yRow
-				+ pRoot -> nHeight - 1 < pString -> yMiddleLine) {
-			pRoot -> bType |= ROOT_SPECIAL_DUST;
-			bSpecialFound = TRUE;
-			pString -> nSpecialsLetters++;
-		} else if (pRoot -> yRow < pString -> yMin || pRoot -> yRow
-				+ pRoot -> nHeight - 1 > pString -> yMax) {
-			pRoot -> bType |= ROOT_SPECIAL_LETTER;
-			bSpecialFound = TRUE;
-			pString -> nSpecialsLetters++;
-		}
+        if (pRoot -> yRow > pString -> yMiddleLine || pRoot -> yRow + pRoot -> nHeight - 1
+                < pString -> yMiddleLine) {
+            pRoot -> bType |= ROOT_SPECIAL_DUST;
+            bSpecialFound = TRUE;
+            pString -> nSpecialsLetters++;
+        }
+        else if (pRoot -> yRow < pString -> yMin || pRoot -> yRow + pRoot -> nHeight - 1
+                > pString -> yMax) {
+            pRoot -> bType |= ROOT_SPECIAL_LETTER;
+            bSpecialFound = TRUE;
+            pString -> nSpecialsLetters++;
+        }
 
-	}
+    }
 
-	if (!bSpecialFound)
-		return;
+    if (!bSpecialFound)
+        return;
 
-	if (pString -> nSpecialsLetters == pString -> nLetters) {
-		for (i = 0; i < pString -> nLetters; i++) {
-			pRoot = pRoots + pString -> pLettersList[i];
+    if (pString -> nSpecialsLetters == pString -> nLetters) {
+        for (i = 0; i < pString -> nLetters; i++) {
+            pRoot = pRoots + pString -> pLettersList[i];
 
-			if (pRoot -> bType & ROOT_SPECIAL_LETTER) {
-				pRoot -> bType &= ~(ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST);
-				pString -> nSpecialsLetters--;
-			}
-		}
-	}
+            if (pRoot -> bType & ROOT_SPECIAL_LETTER) {
+                pRoot -> bType &= ~(ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST);
+                pString -> nSpecialsLetters--;
+            }
+        }
+    }
 
-	if (pString -> nSpecialsLetters == pString -> nLetters)
-		return; // Piter 22.02.00
-	//        ErrorInternal ("Strange statistics in StringCalculateParameters");
+    if (pString -> nSpecialsLetters == pString -> nLetters)
+        return; // Piter 22.02.00
+    //        ErrorInternal ("Strange statistics in StringCalculateParameters");
 
-	goto AGAIN;
+    goto AGAIN;
 }
 
 void StringsFill(void) {
-	ROOT *pRoot;
-	int iMax;
-	int i;
-	int y;
-	Bool CorrectHist = FALSE;
+    ROOT *pRoot;
+    int iMax;
+    int i;
+    int y;
+    Bool CorrectHist = FALSE;
 
-	for (;;) {
+    for (;;) {
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 4)
-		BlockHystogramShow (pCurrentBlock);
+        if (SE_DebugGraphicsLevel >= 4)
+            BlockHystogramShow(pCurrentBlock);
 # endif
 
-		iMax = 0;
+        iMax = 0;
 
-		for (i = 0; i < pCurrentBlock -> nHystColumns; i++) {
-			if (pCurrentBlock -> pHystogram[i]
-					> pCurrentBlock -> pHystogram[iMax]) {
-				iMax = i;
-			}
-		}
+        for (i = 0; i < pCurrentBlock -> nHystColumns; i++) {
+            if (pCurrentBlock -> pHystogram[i] > pCurrentBlock -> pHystogram[iMax]) {
+                iMax = i;
+            }
+        }
 
-		if (pCurrentBlock -> pHystogram[iMax] == 0)
-			break;
+        if (pCurrentBlock -> pHystogram[iMax] == 0)
+            break;
 
-		y = pCurrentBlock -> Rect.yTop + iMax;
+        y = pCurrentBlock -> Rect.top() + iMax;
 
-		StringNewDescriptor();
+        StringNewDescriptor();
 
-		for (CorrectHist = FALSE, pRoot = pCurrentBlock -> pRoots; pRoot
-				!= NULL; pRoot = pRoot -> u1.pNext) {
-			if (pRoot -> bType & ROOT_USED)
-				continue;
+        for (CorrectHist = FALSE, pRoot = pCurrentBlock -> pRoots; pRoot != NULL; pRoot
+                = pRoot -> u1.pNext) {
+            if (pRoot -> bType & ROOT_USED)
+                continue;
 
-			//if (IS_LAYOUT_DUST (*pRoot) || pRoot -> nHeight <= 4)
-			//if (IS_LAYOUT_DUST (*pRoot) && pRoot->nUserNum!=IS_IN_TABLE)
-			if (IS_LAYOUT_DUST(*pRoot))
-				continue;
+            if (IS_LAYOUT_DUST(*pRoot))
+                continue;
 
-			if (pRoot -> yRow <= y && pRoot -> yRow + pRoot -> nHeight >= y) {
+            if (pRoot -> yRow <= y && pRoot -> yRow + pRoot -> nHeight >= y) {
 
-				StringAddLetter1(pRoot - pRoots);
-				pRoot -> bType |= ROOT_USED;
+                StringAddLetter1(pRoot - pRoots);
+                pRoot -> bType |= ROOT_USED;
 
-				BlockHystogramDiscountRoot(pCurrentBlock, pRoot);
-				CorrectHist = TRUE;
-			}
-		}
-		if (!CorrectHist) // Oleg & Pit : зацикливание UPIC31
-			break;
-		StringCalculateParameters(&String);
+                BlockHystogramDiscountRoot(pCurrentBlock, pRoot);
+                CorrectHist = TRUE;
+            }
+        }
+        if (!CorrectHist) // Oleg & Pit : зацикливание UPIC31
+            break;
+        StringCalculateParameters(&String);
 
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 4)
-		LT_GraphicsCurrentStringOutput ("Current string");
+        if (SE_DebugGraphicsLevel >= 4)
+            LT_GraphicsCurrentStringOutput("Current string");
 # endif
-		StringSortLetters(&String);
-		StringAddToList();
+        StringSortLetters(&String);
+        StringAddToList();
 
-		nCurrentFillingRoots += String.nLetters;
-		progress_set_percent(nCurrentFillingRoots * 100 / nRoots);
-	}
+        nCurrentFillingRoots += String.nLetters;
+        progress_set_percent(nCurrentFillingRoots * 100 / nRoots);
+    }
 }
 
 void StringsListEdit(void) {
-	STRING *p, *q;
+    STRING *p, *q;
 
-	AGAIN_P: for (p = pStringsList; p != NULL; p = p -> pNext) {
-		if (p->nUserNum != IS_IN_TABLE) {
-			if (p -> nRecognized == 0 && p -> yBottom - p -> yTop + 1
-					< pCurrentBlock -> nAverageHeight) {
-				if (p == pStringsList) {
-					StringRemove(p);
-					goto AGAIN_P;
-				} else if (p == pStringsListEnd) {
-					StringRemove(p);
-					break;
-				} else {
-					p = p -> pPrev;
-					StringRemove(p -> pNext);
-				}
-			}
-		}
+    AGAIN_P: for (p = pStringsList; p != NULL; p = p -> pNext) {
+        if (p->nUserNum != IS_IN_TABLE) {
+            if (p -> nRecognized == 0 && p -> yBottom - p -> yTop + 1
+                    < pCurrentBlock -> nAverageHeight) {
+                if (p == pStringsList) {
+                    StringRemove(p);
+                    goto AGAIN_P;
+                }
+                else if (p == pStringsListEnd) {
+                    StringRemove(p);
+                    break;
+                }
+                else {
+                    p = p -> pPrev;
+                    StringRemove(p -> pNext);
+                }
+            }
+        }
 
-		AGAIN_Q: for (q = p -> pNext; q != NULL; q = q -> pNext) {
-			if (StringIncludes(p, q)) {
-				if (q -> xLeft < p -> xLeft)
-					p -> xLeft = q -> xLeft;
+        AGAIN_Q: for (q = p -> pNext; q != NULL; q = q -> pNext) {
+            if (StringIncludes(p, q)) {
+                if (q -> xLeft < p -> xLeft)
+                    p -> xLeft = q -> xLeft;
 
-				if (q -> xRight > q -> xRight)
-					p -> xRight = q -> xRight;
-				StringRemove(q);
-				goto AGAIN_Q;
-			}
-		}
-	}
+                if (q -> xRight > q -> xRight)
+                    p -> xRight = q -> xRight;
+                StringRemove(q);
+                goto AGAIN_Q;
+            }
+        }
+    }
 }
 
 static int nStripHeight;
@@ -345,204 +340,195 @@ static int nDustLeft, nDustRight;
 static int nDustGap;
 
 static Bool PassForDust(STRING *pString, ROOT *pRootsBegin, ROOT *pRootsAfter) {
-	Bool bStripWasExpanded = FALSE;
-	ROOT *pRoot;
+    Bool bStripWasExpanded = FALSE;
+    ROOT *pRoot;
 
-	for (pRoot = pRootsBegin; pRoot < pRootsAfter; pRoot++) {
-		if (pRoot -> nBlock != nCurrentBlock && pRoot -> nBlock != 0) {
-			continue;
-		}
+    for (pRoot = pRootsBegin; pRoot < pRootsAfter; pRoot++) {
+        if (pRoot -> nBlock != nCurrentBlock && pRoot -> nBlock != 0) {
+            continue;
+        }
 
-		if ((pRoot -> bType & ROOT_USED) || (pRoot -> bType
-				& ROOT_SPECIAL_LETTER) || pRoot -> yRow > nDustLower
-				|| pRoot -> yRow + pRoot -> nHeight - 1 < nDustUpper) {
-			continue;
-		}
+        if ((pRoot -> bType & ROOT_USED) || (pRoot -> bType & ROOT_SPECIAL_LETTER) || pRoot -> yRow
+                > nDustLower || pRoot -> yRow + pRoot -> nHeight - 1 < nDustUpper) {
+            continue;
+        }
 
-		if (pRoot -> xColumn < nDustLeft) {
-			if (nDustLeft - (pRoot -> xColumn + pRoot -> nWidth) >= nDustGap) {
-				continue;
-			}
+        if (pRoot -> xColumn < nDustLeft) {
+            if (nDustLeft - (pRoot -> xColumn + pRoot -> nWidth) >= nDustGap) {
+                continue;
+            }
 
-			nDustLeft = pRoot -> xColumn;
-			bStripWasExpanded = TRUE;
-		}
+            nDustLeft = pRoot -> xColumn;
+            bStripWasExpanded = TRUE;
+        }
 
-		if (pRoot -> xColumn + pRoot -> nWidth - 1 > nDustRight) {
-			if (pRoot -> xColumn - nDustRight >= nDustGap) {
-				continue;
-			}
+        if (pRoot -> xColumn + pRoot -> nWidth - 1 > nDustRight) {
+            if (pRoot -> xColumn - nDustRight >= nDustGap) {
+                continue;
+            }
 
-			nDustRight = pRoot -> xColumn + pRoot -> nWidth - 1;
-			bStripWasExpanded = TRUE;
-		}
+            nDustRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+            bStripWasExpanded = TRUE;
+        }
 
-		pRoot -> bType |= ROOT_USED;
-		StringAddDust2(pString, pRoot - pRoots);
-	}
+        pRoot -> bType |= ROOT_USED;
+        StringAddDust2(pString, pRoot - pRoots);
+    }
 
-	return (bStripWasExpanded);
+    return (bStripWasExpanded);
 }
 
 void StringDustAccount(STRING *pString) {
-	int i;
-	ROOT *pLocalRootsBegin, *pLocalRootsAfter;
-	Bool bExpanded1, bExpanded2;
+    int i;
+    ROOT *pLocalRootsBegin, *pLocalRootsAfter;
+    Bool bExpanded1, bExpanded2;
 
-	nStripHeight = pString -> yBottom - pString -> yTop + 1;
-	nDustUpper = pString -> yTop - nStripHeight / 2;
-	nDustLower = pString -> yBottom + nStripHeight / 2;
-	nDustLeft = pString -> xLeft;
-	nDustRight = pString -> xRight;
-	nDustGap = nDustLower - nDustUpper + 1;
+    nStripHeight = pString -> yBottom - pString -> yTop + 1;
+    nDustUpper = pString -> yTop - nStripHeight / 2;
+    nDustLower = pString -> yBottom + nStripHeight / 2;
+    nDustLeft = pString -> xLeft;
+    nDustRight = pString -> xRight;
+    nDustGap = nDustLower - nDustUpper + 1;
 
-	RootStripsGetLoopParameters(nDustUpper, nDustLower, &pLocalRootsBegin,
-			&pLocalRootsAfter);
+    RootStripsGetLoopParameters(nDustUpper, nDustLower, &pLocalRootsBegin, &pLocalRootsAfter);
 
-	if (pLocalRootsBegin == NULL)
-		return;
+    if (pLocalRootsBegin == NULL)
+        return;
 
-	do {
-		bExpanded1 = PassForDust(pString, pLocalRootsBegin, pLocalRootsAfter);
-		bExpanded2 = PassForDust(pString, pAfterOriginalRoots, pAfterRoots);
-	} while (bExpanded1 || bExpanded2);
+    do {
+        bExpanded1 = PassForDust(pString, pLocalRootsBegin, pLocalRootsAfter);
+        bExpanded2 = PassForDust(pString, pAfterOriginalRoots, pAfterRoots);
+    }
+    while (bExpanded1 || bExpanded2);
 
-	for (i = 0; i < pString -> nDust; i++)
-		pRoots[pString -> pDustList[i]].bType &= ~ROOT_USED;
+    for (i = 0; i < pString -> nDust; i++)
+        pRoots[pString -> pDustList[i]].bType &= ~ROOT_USED;
 
-	StringSortDust(pString);
+    StringSortDust(pString);
 }
 
 void StringsDustAccount(void) {
-	STRING *pString;
+    STRING *pString;
 
-	for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
-		/*  STDD19 !!!
-		 if (! (pString -> uFlags & SF_SPECIAL))
-		 StringDustAccount (pString);
-		 */
-		StringDustAccount(pString);
-	}
+    for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
+        StringDustAccount(pString);
+    }
 }
 
 Bool StringIsTrash(STRING *pString) {
-	int nBigDust;
-	int nBigDustHeight;
-	int i;
-	ROOT *pRoot;
+    int nBigDust;
+    int nBigDustHeight;
+    int i;
+    ROOT *pRoot;
 
-	if (pString -> nDust < pString -> nLetters)
-		return (FALSE);
+    if (pString -> nDust < pString -> nLetters)
+        return (FALSE);
 
-	nBigDust = 0;
-	nBigDustHeight = pString -> nMiddleHeight / 2;
+    nBigDust = 0;
+    nBigDustHeight = pString -> nMiddleHeight / 2;
 
-	for (i = 0; i < pString -> nDust; i++) {
-		pRoot = &pRoots[pString -> pDustList[i]];
+    for (i = 0; i < pString -> nDust; i++) {
+        pRoot = &pRoots[pString -> pDustList[i]];
 
-		if (pRoot -> nHeight >= nBigDustHeight && pRoot -> xColumn
-				<= pString -> xRight && pRoot -> xColumn + pRoot -> nWidth - 1
-				>= pString -> xLeft) {
-			nBigDust++;
-		}
-	}
-	/* STDG20 */
-	return (pString -> nLetters < 30 && nBigDust > pString -> nLetters
-			|| nBigDust > 2 * pString -> nLetters);
+        if (pRoot -> nHeight >= nBigDustHeight && pRoot -> xColumn <= pString -> xRight
+                && pRoot -> xColumn + pRoot -> nWidth - 1 >= pString -> xLeft) {
+            nBigDust++;
+        }
+    }
+    /* STDG20 */
+    return (pString -> nLetters < 30 && nBigDust > pString -> nLetters || nBigDust > 2
+            * pString -> nLetters);
 }
 
 void StringsRemoveTrash(void) {
-	STRING *pString;
-	STRING *pNext;
+    STRING *pString;
+    STRING *pNext;
 
-	pString = pStringsList;
+    pString = pStringsList;
 
-	while (pString != NULL) {
-		pNext = pString -> pNext;
+    while (pString != NULL) {
+        pNext = pString -> pNext;
 
-		if (StringIsTrash(pString))
-			StringRemove(pString);
+        if (StringIsTrash(pString))
+            StringRemove(pString);
 
-		pString = pNext;
-	}
+        pString = pNext;
+    }
 }
 
 void StringsForming(void) {
 # ifdef SE_DEBUG
-	if (pCurrentBlock -> pHystogram == NULL ||
-			pCurrentBlock -> nHystColumns == 0)
-	{
-		ErrorInternal ("Empty hystogram");
-	}
+    if (pCurrentBlock -> pHystogram == NULL || pCurrentBlock -> nHystColumns == 0) {
+        ErrorInternal("Empty hystogram");
+    }
 # endif
 
-	StringPrepare();
-	StringsFill();
-	//RootsRestoreNonLayoutData_ForBlock (pCurrentBlock);
+    StringPrepare();
+    StringsFill();
+    //RootsRestoreNonLayoutData_ForBlock (pCurrentBlock);
 
-	if (bOptionBusinessCardsLayout) {
-		StringFree();
-		StringsBreakOnVertical();
-		StringPrepare();
+    if (bOptionBusinessCardsLayout) {
+        StringFree();
+        StringsBreakOnVertical();
+        StringPrepare();
 
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 1)
-		LT_GraphicsStringsOutput ("After breaking on vertical");
+        if (SE_DebugGraphicsLevel >= 1)
+            LT_GraphicsStringsOutput("After breaking on vertical");
 # endif
-	}
+    }
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 2)
-	LT_GraphicsStringsOutput ("Before edit");
+    if (SE_DebugGraphicsLevel >= 2)
+        LT_GraphicsStringsOutput("Before edit");
 # endif
 
-	StringsListEdit();
+    StringsListEdit();
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 2)
-	LT_GraphicsStringsOutput ("After edit");
+    if (SE_DebugGraphicsLevel >= 2)
+        LT_GraphicsStringsOutput("After edit");
 # endif
 
-	StringsProcessSpecials();
+    StringsProcessSpecials();
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 2)
-	LT_GraphicsStringsOutput ("After processing specials");
+    if (SE_DebugGraphicsLevel >= 2)
+        LT_GraphicsStringsOutput("After processing specials");
 # endif
 
-	StringsDustAccount();
+    StringsDustAccount();
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 1)
-	LT_GraphicsStringsOutput ("After dust accounting");
+    if (SE_DebugGraphicsLevel >= 1)
+        LT_GraphicsStringsOutput("After dust accounting");
 # endif
 
-	StringFree();
+    StringFree();
 
-	if (!bOptionBusinessCardsLayout) {
-		StringsBreakOnVertical();
+    if (!bOptionBusinessCardsLayout) {
+        StringsBreakOnVertical();
 
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 1)
-		LT_GraphicsStringsOutput ("After breaking on vertical");
+        if (SE_DebugGraphicsLevel >= 1)
+            LT_GraphicsStringsOutput("After breaking on vertical");
 # endif
-	}
+    }
 
-	StringsRemoveTrash();
+    StringsRemoveTrash();
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 1)
-	LT_GraphicsStringsOutput ("After removing trash strings");
+    if (SE_DebugGraphicsLevel >= 1)
+        LT_GraphicsStringsOutput("After removing trash strings");
 
-	if (SE_DebugGraphicsLevel >= 3)
-	{
-		LT_GraphicsStringsForwardOrderOutput ("Forward strings order");
-		LT_GraphicsStringsBackwardOrderOutput ("Backward strings order");
-		LT_GraphicsStringsUpOrderOutput ("Up strings order");
-		LT_GraphicsStringsDownOrderOutput ("Down strings order");
-	}
+    if (SE_DebugGraphicsLevel >= 3) {
+        LT_GraphicsStringsForwardOrderOutput("Forward strings order");
+        LT_GraphicsStringsBackwardOrderOutput("Backward strings order");
+        LT_GraphicsStringsUpOrderOutput("Up strings order");
+        LT_GraphicsStringsDownOrderOutput("Down strings order");
+    }
 # endif
 
-	StringsUpdatedByBukvica();
-	StringsListOutput();
+    StringsUpdatedByBukvica();
+    StringsListOutput();
 }

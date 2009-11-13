@@ -91,8 +91,8 @@ Bool HystogramAllocateBody(void) {
     nMaxValue = 0;
 
     for (p = pBlocksList; p != NULL; p = p -> pNext) {
-        nBlockWidth = p -> Rect.xRight - p -> Rect.xLeft + 1;
-        nBlockHeight = p -> Rect.yBottom - p -> Rect.yTop + 1;
+        nBlockWidth = p -> Rect.width() + 1;
+        nBlockHeight = p -> Rect.height() + 1;
 
         if (nBlockWidth > nMaxValue)
             nMaxValue = nBlockWidth;

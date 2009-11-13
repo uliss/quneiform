@@ -79,14 +79,14 @@ void BlocksHystogramsAllocate(void) {
 	BLOCK *p;
 
 	for (p = pBlocksList; p != NULL; p = p -> pNext) {
-		p -> nHystColumns = p -> Rect.yBottom - p -> Rect.yTop + 1;
-		p -> pHystogram = static_cast<int*> (malloc(p -> nHystColumns
+		p->nHystColumns = p->Rect.height() + 1;
+		p->pHystogram = static_cast<int*> (malloc(p->nHystColumns
 				* sizeof(int)));
 
-		if (p -> pHystogram == NULL)
+		if (p->pHystogram == NULL)
 			ErrorNoEnoughMemory("in SEHYST.C,BlocksHystogramsAllocate,part 1");
 
-		memset(p -> pHystogram, 0, p -> nHystColumns * sizeof(int));
+		memset(p->pHystogram, 0, p->nHystColumns * sizeof(int));
 	}
 }
 
@@ -100,25 +100,23 @@ void BlocksHystogramsBuild(void) {
 	BlocksHystogramsAllocate();
 
 	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-		if (pRoot -> nBlock == REMOVED_BLOCK_NUMBER)
+		if (pRoot->nBlock == REMOVED_BLOCK_NUMBER)
 			continue;
 
 # ifdef SE_DEBUG
-		if (pRoot -> nBlock > nBlocks)
+		if (pRoot->nBlock > nBlocks)
 		ErrorInternal ("Bad number of blocks");
 # endif
-		//if (IS_LAYOUT_DUST (*pRoot) || pRoot -> nHeight <= 4)
-		//if (IS_LAYOUT_DUST (*pRoot)&& pRoot->nUserNum!=IS_IN_TABLE)
 		if (IS_LAYOUT_DUST(*pRoot))
 			continue;
 
-		pBlock = pBlockPointer[pRoot -> nBlock];
+		pBlock = pBlockPointer[pRoot->nBlock];
 
 		if (pBlock == NULL)
 			continue;
 
-		iBegin = pRoot -> yRow - pBlock -> Rect.yTop;
-		iEnd = (pRoot -> yRow + pRoot -> nHeight - 1) - pBlock -> Rect.yTop;
+		iBegin = pRoot->yRow - pBlock->Rect.top();
+		iEnd = (pRoot->yRow + pRoot->nHeight - 1) - pBlock->Rect.top();
 
 		if (iBegin < 0)
 			iBegin = 0;
@@ -126,7 +124,7 @@ void BlocksHystogramsBuild(void) {
 			iEnd = pBlock->nHystColumns - 1;
 
 		for (i = iBegin; i <= iEnd; i++)
-			pBlock -> pHystogram[i] += pRoot -> nWidth;
+			pBlock->pHystogram[i] += pRoot->nWidth;
 	}
 }
 
@@ -135,8 +133,8 @@ void BlockHystogramDiscountRoot(BLOCK *pBlock, ROOT *pRoot) {
 	int iEnd;
 	int i;
 
-	iBegin = pRoot -> yRow - pBlock -> Rect.yTop;
-	iEnd = (pRoot -> yRow + pRoot -> nHeight - 1) - pBlock -> Rect.yTop;
+	iBegin = pRoot->yRow - pBlock->Rect.top();
+	iEnd = (pRoot->yRow + pRoot->nHeight - 1) - pBlock->Rect.top();
 
 	if (iBegin < 0)
 		iBegin = 0;
@@ -144,16 +142,16 @@ void BlockHystogramDiscountRoot(BLOCK *pBlock, ROOT *pRoot) {
 		iEnd = pBlock->nHystColumns - 1;
 
 	for (i = iBegin; i <= iEnd; i++)
-		pBlock -> pHystogram[i] -= pRoot -> nWidth;
+		pBlock->pHystogram[i] -= pRoot->nWidth;
 }
 
 void BlocksHystogramsFreeData(void) {
 	BLOCK *p;
 
-	for (p = pBlocksList; p != NULL; p = p -> pNext) {
-		if (p -> pHystogram != NULL) {
-			free(p -> pHystogram);
-			p -> pHystogram = NULL;
+	for (p = pBlocksList; p != NULL; p = p->pNext) {
+		if (p->pHystogram != NULL) {
+			free(p->pHystogram);
+			p->pHystogram = NULL;
 		}
 	}
 }
@@ -164,14 +162,14 @@ void BlockHystogramShow (BLOCK *pBlock)
 	char szBuffer [128];
 
 	HystogramAllocateBody ();
-	nHystColumns = pBlock -> nHystColumns;
+	nHystColumns = pBlock->nHystColumns;
 	nHystColumnWidth = 1;
 
 	memcpy (pHystogram,
-			pBlock -> pHystogram,
+			pBlock->pHystogram,
 			nHystColumns * sizeof (int));
 
-	sprintf (szBuffer, "Block %d", pBlock -> nNumber);
+	sprintf(szBuffer, "Block %d", pBlock->nNumber);
 	LT_GraphicsHystogramOutput (szBuffer);
 	HystogramFreeData ();
 }

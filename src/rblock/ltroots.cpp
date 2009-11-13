@@ -96,7 +96,7 @@ int nRootExts = 0;
 
 int nRootSpaceWidth;
 int nRootSpaceHeight;
-RECTANGLE rRootSpace;
+CIF::Rect rRootSpace;
 
 int nPageHeight;
 int nSuitablePageHeight;
@@ -128,7 +128,7 @@ Bool RootsLoadFile(char * pFilename) {
 
         if (nRoots % ROOTS_MEMORY_QUANTUM == 0) {
             pRoots = static_cast<ROOT*> (realloc(pRoots, (size_t) ((nRoots / ROOTS_MEMORY_QUANTUM
-                    + 1) * ROOTS_MEMORY_QUANTUM * sizeof(ROOT))));
+                                            + 1) * ROOTS_MEMORY_QUANTUM * sizeof(ROOT))));
         }
 
         nRoots++;
@@ -157,46 +157,36 @@ void CalculatePageParameters(void) {
     pAfterOriginalRoots = pAfterRoots;
 
     if (nRoots == 0) {
-        rRootSpace.xLeft = 0;
-        rRootSpace.yTop = 0;
-        rRootSpace.xRight = -1;
-        rRootSpace.yBottom = -1;
+        rRootSpace.rleft() = 0;
+        rRootSpace.rtop() = 0;
+        rRootSpace.rright() = -1;
+        rRootSpace.rbottom() = -1;
     }
     else {
-        rRootSpace.xLeft = pRoots[0].xColumn;
-        rRootSpace.yTop = pRoots[0].yRow;
-        rRootSpace.xRight = pRoots[0].xColumn + pRoots[0].nWidth - 1;
-        rRootSpace.yBottom = pRoots[0].yRow + pRoots[0].nHeight - 1;
+        rRootSpace.rleft() = pRoots[0].xColumn;
+        rRootSpace.rtop() = pRoots[0].yRow;
+        rRootSpace.rright() = pRoots[0].xColumn + pRoots[0].nWidth - 1;
+        rRootSpace.rbottom() = pRoots[0].yRow + pRoots[0].nHeight - 1;
     }
 
     for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
         pRoot -> bReached = FALSE;
 
-        if (rRootSpace.xLeft > pRoot -> xColumn)
-            rRootSpace.xLeft = pRoot -> xColumn;
+        if (rRootSpace.left() > pRoot -> xColumn)
+            rRootSpace.rleft() = pRoot -> xColumn;
 
-        if (rRootSpace.yTop > pRoot -> yRow)
-            rRootSpace.yTop = pRoot -> yRow;
+        if (rRootSpace.top() > pRoot -> yRow)
+            rRootSpace.rtop() = pRoot -> yRow;
 
-        if (rRootSpace.xRight < pRoot -> xColumn + pRoots -> nWidth - 1)
-            rRootSpace.xRight = pRoot -> xColumn + pRoots -> nWidth - 1;
+        if (rRootSpace.right() < pRoot -> xColumn + pRoots -> nWidth - 1)
+            rRootSpace.rright() = pRoot -> xColumn + pRoots -> nWidth - 1;
 
-        if (rRootSpace.yBottom < pRoot -> yRow + pRoots -> nHeight - 1)
-            rRootSpace.yBottom = pRoot -> yRow + pRoots -> nHeight - 1;
+        if (rRootSpace.bottom() < pRoot -> yRow + pRoots -> nHeight - 1)
+            rRootSpace.rbottom() = pRoot -> yRow + pRoots -> nHeight - 1;
     }
 
-    nRootSpaceWidth = rRootSpace.xRight - rRootSpace.xLeft + 1;
-    nRootSpaceHeight = rRootSpace.yBottom - rRootSpace.yTop + 1;
-    /*
-     printf ("[%d, %d]-[%d, %d] : w: %d h: %d\n",
-     (int) rRootSpace.xLeft,
-     (int) rRootSpace.yTop,
-     (int) rRootSpace.xRight,
-     (int) rRootSpace.yBottom,
-     (int) nRootSpaceWidth,
-     (int) nRootSpaceHeight);
-     LT_Getch ();
-     */
+    nRootSpaceWidth = rRootSpace.width() + 1;
+    nRootSpaceHeight = rRootSpace.height() + 1;
 
     nPageHeight = nRootSpaceHeight;
     nSuitablePageHeight = nRootSpaceHeight * 2;
@@ -332,7 +322,6 @@ void RootsRemoveFromRulers(void) {
             y = p -> yRow;
 
             REAL_XY(x, y);
-            //          del_root (y, x, p -> nHeight, p -> nWidth);
         }
     }
 }

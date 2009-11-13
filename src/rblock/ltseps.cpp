@@ -88,77 +88,63 @@ SEPARATOR *pSeps = NULL;
 int nSeps = 0;
 
 # ifndef LT_STAND_ALONE
-Bool32 DeleteSeps (int n)
-{
+Bool32 DeleteSeps(int n) {
     int32_t i;
 
-    for (i = n; i < nSeps-1; i++)
-    {
-        pSeps[i] = pSeps[i+1];
+    for (i = n; i < nSeps - 1; i++) {
+        pSeps[i] = pSeps[i + 1];
     }
     nSeps--;
 
     return TRUE;
 }
 
-void SeparatorsGet (void)
-{
+void SeparatorsGet(void) {
 #define ABS1 10
 #define ABS2 40
-
-    //int nl;
     PAGEINFO pInfo;
-    //	LineInfo			  lInfo;
-    //	LinesTotalInfo        lti;
-    //	Handle                pBlock;
     Handle pPage;
-    //	uint32_t				  HorType;
-    //	uint32_t				  VerType;
     uint32_t ResolutionCoeff;
-    uint32_t i,j;
+    uint32_t i, j;
 
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
+    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     Handle hBlock;
-    //	Point16 p_start, p_end;
     uint32_t key;
     uint32_t color;
 
     int32_t nPics;
     POLY_ *pPics;
 
-    uint32_t size_line_com=sizeof(LINE_COM);
     CLINE_handle hline;
     extern CLINE_handle HCLINE;
 
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
-    CPAGE_GetPageData( pPage, PT_PAGEINFO, (void*)&pInfo, sizeof(pInfo));
-    ResolutionCoeff = pInfo.DPIY/2;
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    CPAGE_GetPageData(pPage, PT_PAGEINFO, (void*) &pInfo, sizeof(pInfo));
+    ResolutionCoeff = pInfo.DPIY / 2;
 
-    SeparatorsFreeData ();
+    SeparatorsFreeData();
 
     hline = CLINE_GetFirstLine(HCLINE);
-    if(!hline)
-    return;
-    while(hline)
-    {
-        CPDLine cpdata=CLINE_GetLineData(hline);
-        if(!cpdata)
-        hline=CLINE_GetNextLine(hline);
-        else
-        {
+    if (!hline)
+        return;
+    while (hline) {
+        CPDLine cpdata = CLINE_GetLineData(hline);
+        if (!cpdata)
+            hline = CLINE_GetNextLine(hline);
+        else {
             nSeps++;
-            pSeps = static_cast<SEPARATOR*>(realloc (pSeps, nSeps*sizeof(SEPARATOR)));
+            pSeps = static_cast<SEPARATOR*> (realloc(pSeps, nSeps * sizeof(SEPARATOR)));
 
-            pSeps [nSeps-1].xBegin = cpdata->Line.Beg_X;
-            pSeps [nSeps-1].yBegin = cpdata->Line.Beg_Y;
-            pSeps [nSeps-1].xEnd = cpdata->Line.End_X;
-            pSeps [nSeps-1].yEnd = cpdata->Line.End_Y;
-            pSeps [nSeps-1].nWidth = cpdata->Line.Wid10/10;
-            if(cpdata->Dir==LD_Horiz)
-            pSeps [nSeps-1].Type = SEP_HORZ;
+            pSeps[nSeps - 1].xBegin = cpdata->Line.Beg_X;
+            pSeps[nSeps - 1].yBegin = cpdata->Line.Beg_Y;
+            pSeps[nSeps - 1].xEnd = cpdata->Line.End_X;
+            pSeps[nSeps - 1].yEnd = cpdata->Line.End_Y;
+            pSeps[nSeps - 1].nWidth = cpdata->Line.Wid10 / 10;
+            if (cpdata->Dir == LD_Horiz)
+                pSeps[nSeps - 1].Type = SEP_HORZ;
             else
-            pSeps [nSeps-1].Type = SEP_VERT;
-            hline=CLINE_GetNextLine(hline);
+                pSeps[nSeps - 1].Type = SEP_VERT;
+            hline = CLINE_GetNextLine(hline);
         }
     }
 
@@ -166,20 +152,15 @@ void SeparatorsGet (void)
     key = 111;
 
     /* Deleting short separators */
-    for(i = 0; i < nSeps; i++)
-    {
-        if(pSeps [i].Type == SEP_VERT)
-        {
-            if(pSeps[i].yEnd - pSeps[i].yBegin < ResolutionCoeff)
-            {
+    for (i = 0; i < nSeps; i++) {
+        if (pSeps[i].Type == SEP_VERT) {
+            if (pSeps[i].yEnd - pSeps[i].yBegin < ResolutionCoeff) {
                 DeleteSeps(i);
                 i--;
             }
         }
-        else
-        {
-            if(pSeps[i].xEnd - pSeps[i].xBegin < ResolutionCoeff)
-            {
+        else {
+            if (pSeps[i].xEnd - pSeps[i].xBegin < ResolutionCoeff) {
                 DeleteSeps(i);
                 i--;
             }
@@ -192,53 +173,40 @@ void SeparatorsGet (void)
 
 # define PICS_QUANTUM			128
 
-    for(hBlock = CPAGE_GetBlockFirst(hPage,TYPE_IMAGE);
-            hBlock!=NULL;
-            hBlock = CPAGE_GetBlockNext(hPage,hBlock,TYPE_IMAGE))
-    {
-        if (nPics % PICS_QUANTUM == 0)
-        {
-            pPics = static_cast<POLY_*>(realloc (pPics,
-                            (size_t) ((nPics / PICS_QUANTUM + 1)
-                                    * PICS_QUANTUM * sizeof (POLY_))));
+    for (hBlock = CPAGE_GetBlockFirst(hPage, TYPE_IMAGE); hBlock != NULL; hBlock
+            = CPAGE_GetBlockNext(hPage, hBlock, TYPE_IMAGE)) {
+        if (nPics % PICS_QUANTUM == 0) {
+            pPics = static_cast<POLY_*> (realloc(pPics, (size_t) ((nPics / PICS_QUANTUM + 1)
+                    * PICS_QUANTUM * sizeof(POLY_))));
         }
-        CPAGE_GetBlockData(hPage,hBlock,TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
+        CPAGE_GetBlockData(hPage, hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
     }
 
-    for (i = 0; i < nPics; i++)
-    {
-        for (j = 0; j < nSeps; j++)
-        {
-            if( (pSeps[j].xBegin > pPics[i].com.Vertex[0].x()-10) &&
-                    (pSeps[j].yBegin > pPics[i].com.Vertex[0].y()-10) &&
-                    (pSeps[j].xEnd < pPics[i].com.Vertex[1].x()+10) &&
-                    (pSeps[j].yEnd < pPics[i].com.Vertex[2].y()+10))
-            {
+    for (i = 0; i < nPics; i++) {
+        for (j = 0; j < nSeps; j++) {
+            if ((pSeps[j].xBegin > pPics[i].com.Vertex[0].x() - 10) && (pSeps[j].yBegin
+                    > pPics[i].com.Vertex[0].y() - 10) && (pSeps[j].xEnd
+                    < pPics[i].com.Vertex[1].x() + 10) && (pSeps[j].yEnd
+                    < pPics[i].com.Vertex[2].y() + 10)) {
                 DeleteSeps(j);
                 j--;
             }
         }
     }
 
-    if (pPics != NULL)
-    {
-        free (pPics);
+    if (pPics != NULL) {
+        free(pPics);
         pPics = NULL;
     }
     nPics = 0;
 
     /* Удаление близколежащих сепараторов */
-    for (i = 0; i < nSeps; i++)
-    {
-        for (j = 0; j < nSeps; j++)
-        {
-            if(pSeps [i].Type == SEP_VERT && pSeps [j].Type == SEP_VERT)
-            {
-                if((uint32_t)(abs(pSeps[i].xBegin - pSeps[j].xEnd ) < ResolutionCoeff/2) &&
-                        (uint32_t)(abs(pSeps[i].xEnd - pSeps[j].xBegin) < ResolutionCoeff/2) &&
-                        (pSeps[i].yBegin < pSeps[j].yBegin) &&
-                        (pSeps[i].yEnd > pSeps[j].yEnd))
-                {
+    for (i = 0; i < nSeps; i++) {
+        for (j = 0; j < nSeps; j++) {
+            if (pSeps[i].Type == SEP_VERT && pSeps[j].Type == SEP_VERT) {
+                if ((uint32_t) (abs(pSeps[i].xBegin - pSeps[j].xEnd) < ResolutionCoeff / 2)
+                        && (uint32_t) (abs(pSeps[i].xEnd - pSeps[j].xBegin) < ResolutionCoeff / 2)
+                        && (pSeps[i].yBegin < pSeps[j].yBegin) && (pSeps[i].yEnd > pSeps[j].yEnd)) {
                     DeleteSeps(j);
                     j--;
                 }
@@ -247,16 +215,12 @@ void SeparatorsGet (void)
     }
 
     /* Объединение сепараторов */
-    for (i = 0; i < nSeps; i++)
-    {
-        for (j = 0; j < nSeps; j++)
-        {
-            if(pSeps [i].Type == SEP_VERT && pSeps [j].Type == SEP_VERT)
-            {
-                if((abs(pSeps[i].xBegin - pSeps[j].xEnd) < ABS1) &&
-                        (pSeps[i].yBegin > pSeps[j].yEnd) &&
-                        (uint32_t)(pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
-                {
+    for (i = 0; i < nSeps; i++) {
+        for (j = 0; j < nSeps; j++) {
+            if (pSeps[i].Type == SEP_VERT && pSeps[j].Type == SEP_VERT) {
+                if ((abs(pSeps[i].xBegin - pSeps[j].xEnd) < ABS1) && (pSeps[i].yBegin
+                        > pSeps[j].yEnd) && (uint32_t) (pSeps[i].yBegin - pSeps[j].yEnd)
+                        < ResolutionCoeff / 2) {
                     pSeps[i].xBegin = MIN(pSeps[i].xBegin, pSeps[j].xBegin);
                     pSeps[i].xEnd = MAX(pSeps[i].xEnd, pSeps[j].xEnd);
                     pSeps[i].yBegin = pSeps[j].yBegin;
@@ -265,12 +229,9 @@ void SeparatorsGet (void)
                 }
             }
 
-            if(pSeps [i].Type == SEP_HORZ && pSeps [j].Type == SEP_HORZ)
-            {
-                if((abs(pSeps[i].yBegin - pSeps[j].yEnd) < ABS1) &&
-                        (pSeps[i].xBegin > pSeps[j].xEnd) &&
-                        (pSeps[i].xBegin - pSeps[j].xEnd) < ABS2)
-                {
+            if (pSeps[i].Type == SEP_HORZ && pSeps[j].Type == SEP_HORZ) {
+                if ((abs(pSeps[i].yBegin - pSeps[j].yEnd) < ABS1) && (pSeps[i].xBegin
+                        > pSeps[j].xEnd) && (pSeps[i].xBegin - pSeps[j].xEnd) < ABS2) {
                     pSeps[i].yBegin = MIN(pSeps[i].yBegin, pSeps[j].yBegin);
                     pSeps[i].yEnd = MAX(pSeps[i].yEnd, pSeps[j].yEnd);
                     pSeps[i].xBegin = pSeps[j].xBegin;
@@ -312,13 +273,13 @@ void SeparatorsGet(void) {
 
     SeparatorsFreeData();
     if (nl == 0)
-        return;
+    return;
 
     nSeps = nf + nl;
     pSeps = (SEPARATOR*) malloc(nSeps * sizeof(SEPARATOR));
 
     if (pSeps == NULL)
-        ErrorNoEnoughMemory("in LTSEPS.C,SeparatorsGet,part 1");
+    ErrorNoEnoughMemory("in LTSEPS.C,SeparatorsGet,part 1");
 
     for (i = 0, j = 0; i < nf; i++, j++) {
         pSeps[j].Type = SEP_RECT;
@@ -332,13 +293,13 @@ void SeparatorsGet(void) {
 
     for (i = 0; i < nl; i++, j++) {
         if (lines[i].type & UNDRLN)
-            pSeps[j].Type = SEP_NULL;
+        pSeps[j].Type = SEP_NULL;
         else if (lines[i].type & VERT_LN)
-            pSeps[j].Type = SEP_VERT;
+        pSeps[j].Type = SEP_VERT;
         else if (lines[i].type & HOR_LN)
-            pSeps[j].Type = SEP_HORZ;
+        pSeps[j].Type = SEP_HORZ;
         else
-            pSeps[j].Type = SEP_NULL;
+        pSeps[j].Type = SEP_NULL;
 
         pSeps[j].uFlags = lines[i].type & FRM_LN ? SEPF_IS_PART : SEPF_NULL;
 
@@ -379,10 +340,10 @@ void BlocksAddVirtualSeparatorsBlocks(void) {
         p = BlocksAddDescriptor();
         p -> nNumber = ++nNextBlockNumber;
         p -> Type = BlockType;
-        p -> Rect.xLeft = pSeps[i].xBegin;
-        p -> Rect.yTop = pSeps[i].yBegin;
-        p -> Rect.xRight = pSeps[i].xEnd;
-        p -> Rect.yBottom = pSeps[i].yEnd;
+        p -> Rect.rleft() = pSeps[i].xBegin;
+        p -> Rect.rtop() = pSeps[i].yBegin;
+        p -> Rect.rright() = pSeps[i].xEnd;
+        p -> Rect.rbottom() = pSeps[i].yEnd;
     }
 }
 

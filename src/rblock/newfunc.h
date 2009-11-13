@@ -86,7 +86,7 @@ uint32_t GetReturnCode_rblock(void);
 char * GetModulesString(uint32_t dwError);
 
 Bool32 OutputFragments(Handle hPage);
-void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
+void CalculatePageIncline(int32_t * lpNominator,
 		int32_t * lpDenominator);
 
 Bool32 Open_Res_Log(void);
