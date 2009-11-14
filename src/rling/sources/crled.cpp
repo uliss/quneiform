@@ -332,7 +332,7 @@ Rect16 CRLEd::GetRectElement(uint32_t i) {
 }
 
 RecVersions CRLEd::GetVersElement(uint32_t i, uint32_t * wNVers) {
-    RecVersions Out;
+    RecVersions Out = { 0, 0, 0 };
 
     if (mbReadyToAdd)
         if (i < CRL_ED_VERS_ARRAY_SIZE) {

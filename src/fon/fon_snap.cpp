@@ -113,10 +113,8 @@ int32_t FONEndSnap(void) {
 }
 
 int PutNamesSnap(int nvar, uchar *names, int *probs) {
-    int i;
-
     memset(recogResult, 0, sizeof(recogResult));
-    for (i = 0; i < nvar; i++)
+    for (int i = 0; i < nvar; i++)
         sprintf(recogResult + strlen(recogResult), "%c(%d) ", names[i], (int) probs[i]);
     return 1;
 }
@@ -179,20 +177,17 @@ int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
 }
 // rr-> at position fx,fy, size sx,sy
 static int PutRecRaster(RecRaster *rr, int fx, int fy, int sx, int sy) {
-    int i, j;
     int wid = rr->lnPixWidth;
     int hei = rr->lnPixHeight;
     int xbyte = ((wid + 63) / 64) * 8;
-    int step, x, y;
-    uchar cc;
     uchar *buf = rr->Raster;
 
-    step = MIN(sx / wid, sy / hei);
+    int step = MIN(sx / wid, sy / hei);
     if (step < 3)
         step = 3;
 
-    for (i = 0, y = fy; i < hei; i++, buf += xbyte, y += step) {
-        for (j = 0, x = fx, cc = 128; j < wid; j++, x += step) {
+    for (int i = 0, y = fy; i < hei; i++, buf += xbyte, y += step) {
+        for (int j = 0, x = fx, cc = 128; j < wid; j++, x += step) {
             cc >>= 1;
             if (cc == 0)
                 cc = 128;

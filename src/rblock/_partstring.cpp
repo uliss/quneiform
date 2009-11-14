@@ -62,8 +62,6 @@
 
 using namespace CIF;
 
-#define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
-
 extern jmp_buf fatal_error_exit; // For error handling
 extern int16_t nStrings;
 extern uint16_t run_options;
@@ -74,25 +72,15 @@ extern Handle hShowCells;
 static void LayoutFromCPAGE(Handle hCPAGE);
 static int IsInPoly(Point16 a, void * pPoly);
 
-// Piter /////////////////////////////////////
 void RotatePageToIdeal(void);
 void RotatePageToReal(void);
 
 void PageLayoutStrings(Handle hCCOM, Handle hCPAGE) {
     if (ReadRoots(hCCOM, FALSE)) {
         run_options = FORCE_ONE_COLUMN;
-
         LayoutPart1();
-
         LayoutFromCPAGE(hCPAGE);
-
         LayoutPart2();
-        if (!LDPUMA_Skip(hShowString)) {
-            LDPUMA_Console("Нажмите любую клавишу...");
-            LDPUMA_WaitUserInput(NULL, NULL);
-        }
-        //free (CellsPage); // *** Rom 03-03-99
-        //CellsPage = NULL; // *** Rom 03-03-99
     }
 }
 
@@ -103,9 +91,6 @@ void file_string(STRING * s) {
     Bool32 filtr = FALSE;
 
     nStrings++;
-
-    if (!LDPUMA_Skip(hShowString))
-        LDPUMA_DrawRect(NULL, &r, nIncline / 2, __RGB__(0,127,0), 1, PUMA_MODULE_RBLOCK);
 
     lin_in = CSTR_NewLine(nStrings, 0, -1);
     if (lin_in == (CSTR_line) NULL) {
@@ -169,7 +154,7 @@ void file_string(STRING * s) {
                     if (com->left >= ri) {
                         nri++;
                         if (right.left() > com1.left)
-                            right.rleft() = com1.left;
+                            right.setLeft(com1.left);
                         if (right.right() < com1.left + com->w)
                             right.rright() = com1.left + com1.w;
                         if (right.top() > com1.upper)
@@ -243,11 +228,9 @@ void file_string(STRING * s) {
             }
         }
         CSTR_PackLine(lin_in);
-        //		LDPUMA_CSTR_Monitor(NULL,lin_in,0,myMonitorProc);
     }
 
 }
-/////////////////////////////////////
 
 static void LayoutFromCPAGE(Handle hCPAGE) {
     Handle h = NULL;
@@ -257,8 +240,7 @@ static void LayoutFromCPAGE(Handle hCPAGE) {
     ROOT * pRoot = NULL;
     uint32_t BlockNumber;
     // piter 08.07.99
-    PAGEINFO PInfo = { 0 };
-
+    PAGEINFO PInfo;
     RotatePageToReal();
 
     if (CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
@@ -275,8 +257,6 @@ static void LayoutFromCPAGE(Handle hCPAGE) {
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
-        //BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
         if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
             SetReturnCode_rblock(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
@@ -292,14 +272,12 @@ static void LayoutFromCPAGE(Handle hCPAGE) {
             pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
             pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
-            //if(IsInPoly(pLeftTop,&block) && IsInPoly(pRightBottom,&block))
             if (IsInPoly(pLeftTop, &block) || IsInPoly(pRightTop, &block) || IsInPoly(pLeftBottom,
                     &block) || IsInPoly(pRightBottom, &block)) {
                 pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
                 pRoot->nUserNum = BlockNumber;
             }
         }
-        //CPAGE_SetBlockUserNum(hCPAGE,h,BlockNumber);// Piter 030399
         CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
         BlockNumber++;
     }
@@ -311,7 +289,7 @@ static void LayoutFromCPAGE(Handle hCPAGE) {
 
     BlocksExtract();
 }
-////////////////////////////////////////
+
 int IsInPoly(Point16 a, void * pPoly) {
     int i, y, n, ind;
     int Count = 0;

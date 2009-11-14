@@ -370,10 +370,11 @@ void SnpUpdateViews(void) {
 }
 
 int SnpLog(const char * message, ...) {
-    va_list marker;
-    va_start( marker, message);
-    vfprintf(stderr, message, marker);
-    va_end(marker);
+    // uliss
+//    va_list marker;
+//    va_start( marker, message);
+//    vfprintf(stderr, message, marker);
+//    va_end(marker);
 }
 
 Bool SnpIsActive(void) {

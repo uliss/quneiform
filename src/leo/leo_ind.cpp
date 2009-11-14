@@ -224,7 +224,7 @@ static Bool32 leo_ndx_SnpInRect(Rect16* pRect/*, int32_t nSkew*/) {
         return FALSE;
     if (!SnpGetUserPoint(&pt))
         return FALSE;
-    return pRect->contains(pt);
+    return pRect->contains(pt, false);
 }
 
 void LEO_IndRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL

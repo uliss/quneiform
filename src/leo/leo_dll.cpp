@@ -61,6 +61,7 @@
 #include <unistd.h>
 #include <algorithm> // for std::min/max
 #include "common/debug.h"
+#include "common/cifconfig.h"
 
 #include "leo_tune.h"
 #include "cpu/cpu.h"
@@ -138,12 +139,12 @@ void Leo_SnpWaitUserInput(SnpTreeNode *stnCharRecog) {
 
 Bool32 leoSnpInRect(Rect16* pRect, int32_t /*nSkew*/) {
     Point16 pt;
-    return FALSE;
-    return pRect->contains(pt, true);
+    return pRect->contains(pt, false);
 }
 
 void leo_SnpLog(const char *tmp) {
-    CIF::Debug() << tmp;
+    if (Config::instance().debugHigh())
+        CIF::Debug() << tmp;
 }
 
 void leo_snapChar(RecVersions *ver, const char *tit, int enable) {

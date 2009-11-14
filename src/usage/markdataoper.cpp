@@ -196,10 +196,10 @@ Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
 		return FALSE;
 	if (pPict->com.Vertex[0].y() >= pPict->com.Vertex[3].y())
 		return FALSE;
-	pCurr->rleft() = (int16_t) pPict->com.Vertex[0].x();
-	pCurr->rright() = (int16_t) pPict->com.Vertex[1].x();
-	pCurr->rtop() = (int16_t) pPict->com.Vertex[0].y();
-	pCurr->rbottom() = (int16_t) pPict->com.Vertex[3].y();
+	pCurr->rleft() = pPict->com.Vertex[0].x();
+	pCurr->rright() = pPict->com.Vertex[1].x();
+	pCurr->rtop() = pPict->com.Vertex[0].y();
+	pCurr->rbottom() = pPict->com.Vertex[3].y();
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/

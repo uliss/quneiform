@@ -63,4 +63,13 @@ void TestRect::testInit() {
     CPPUNIT_ASSERT_EQUAL(r1.leftBottom(), Point(10, 55));
     CPPUNIT_ASSERT_EQUAL(r1.rightBottom(), Point(40, 55));
 
+    r1.rleft() += 1;
+    r1.rtop() += 1;
+    r1.rright() += 1;
+    r1.rbottom() += 1;
+    CPPUNIT_ASSERT_EQUAL(r1.left(), 11);
+    CPPUNIT_ASSERT_EQUAL(r1.top(), 16);
+    CPPUNIT_ASSERT_EQUAL(r1.right(), 41);
+    CPPUNIT_ASSERT_EQUAL(r1.bottom(), 56);
+
 }

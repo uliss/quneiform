@@ -98,14 +98,10 @@ void MySetNegative(void *vB, Handle hCPage) {
         block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
         block.com.count = 4;
         block.com.Flags |= POS_NEGTABCAP;
-        block.com.Vertex[0].rx() = pRc[i].left();
-        block.com.Vertex[0].ry() = pRc[i].top();
-        block.com.Vertex[1].rx() = pRc[i].right();
-        block.com.Vertex[1].ry() = pRc[i].top();
-        block.com.Vertex[2].rx() = pRc[i].right();
-        block.com.Vertex[2].ry() = pRc[i].bottom();
-        block.com.Vertex[3].rx() = pRc[i].left();
-        block.com.Vertex[3].ry() = pRc[i].bottom();
+        block.com.Vertex[0] = pRc[i].leftTop();
+        block.com.Vertex[1] = pRc[i].rightTop();
+        block.com.Vertex[2] = pRc[i].rightBottom();
+        block.com.Vertex[3] = pRc[i].leftBottom();
         CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
     }
 
@@ -115,7 +111,6 @@ RMarker::RMarker() :
     lines_total_info_(NULL), ccom_(NULL), cline_(NULL), cpage_(NULL), one_column_(true),
             kill_svl_components_(false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL) {
     RNEG_Init(0, NULL);
-    ;
 }
 
 RMarker::~RMarker() {
