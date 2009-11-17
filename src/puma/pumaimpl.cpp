@@ -47,7 +47,7 @@
 #include "cline.h"
 #include "rblock.h"
 #include "rline.h"
-#include "rfrmt.h"
+#include "rfrmt/rfrmt.h"
 #include "rout/rout.h"
 #include "rout/exporterfactory.h"
 #include "rpic.h"
