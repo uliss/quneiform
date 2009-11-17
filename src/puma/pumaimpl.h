@@ -40,6 +40,7 @@ namespace CIF {
 class RStuff;
 class Rsl;
 class RMarker;
+class RFrmt;
 
 struct PumaException: std::runtime_error
 {
@@ -106,6 +107,7 @@ private:
     std::auto_ptr<CTIControl> cimage_;
     std::auto_ptr<RStuff> rstuff_;
     std::auto_ptr<Rsl> rsl_;
+    std::auto_ptr<RFrmt> rfrmt_;
     std::auto_ptr<RMarker> rmarker_;
     BitmapInfoHeader info_;
     bool do_spell_correction_;

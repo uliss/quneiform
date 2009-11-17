@@ -69,87 +69,11 @@
 #include "recdefs.h"
 #include "edfile.h"
 #include "compat_defs.h"
+#include "rfrmtdef.h"
 
 #include <vector>
 
 typedef std::vector<uint16_t> vectorWord;
-
-const char TIRE = 0x97; //'-'
-
-enum rfrmt_fragment_output_t
-{
-    //Fragment output types
-    FOT_SINGLE = 0,
-    FOT_FRAME = 1,
-    FOT_SINGLE_IN_COLUMN = 2
-};
-
-//Fragment types
-enum rfrmt_fragment_t
-{
-    FT_TEXT = 0,
-    FT_FRAME = 1,
-    FT_TABLE = 2,
-    FT_PICTURE = 3
-};
-
-//HorizontalColumn types
-enum
-{
-    HC_SingleTerminal = 0,
-    HC_AllTerminal = 1,
-    HC_FrameAndColumn = 2,
-    HC_AllFrame = 3,
-    HC_ONLY_PICTURE_TABLE = 4
-};
-
-const int MaxFontSize = 72;
-const int DefFontSize = 24;
-const size_t MAX_BUFFER_SIZE = 2048;
-const int ChangedKeglSize = 6;
-
-//       wFont bits
-enum
-{
-    TG_EDW_SERIF = 1, //сериф.
-    TG_EDW_GELV = 2, //без сериф.
-    TG_EDW_BOLD = 4,
-    TG_EDW_ITALIC = 16,
-    TG_EDW_UNDERLINE = 64,
-    TG_EDW_NARROW = 128, // user defined
-    NOBOLD = 0x0004,
-    NOCURSIV = 0x0008,
-    NOSIZE = 0x0020
-};
-
-// Formatting Mode
-enum rfrmt_mode_t
-{
-    USE_NONE = 0x0040, // no formatting
-    USE_FRAME_AND_COLUMN = 0x0001, // use columns & frames
-    USE_FRAME = 0x0002
-// use only frames
-};
-
-// Size A4
-const int DefaultWidthPage = 11906;
-const int DefaultHeightPage = 16838;
-
-const int DefMargL = 1800; // Left   margin in twips    (the default is 1800).
-const int DefMargR = 1800; // Right  margin in twips    (the default is 1800).
-const int DefMargT = 1440; // Top    margin in twips    (the default is 1440).
-const int DefMargB = 1440; // Bottom margin in twips    (the default is 1440).
-
-enum rfrmt_align_t
-{
-    RTF_TP_LEFT_ALLIGN = 0, //- выравниваение по левому краю
-    RTF_TP_RIGHT_ALLIGN = 1,//- выравнивание по правому краю
-    RTF_TP_LEFT_AND_RIGHT_ALLIGN = 2, //- выравнивание по ширине
-    RTF_TP_CENTER = 3, //- выравнивание по центру
-    RTF_TP_ONE = 4, //- каждая строка состоит из одного слова, выравнивание левому краю
-    RTF_TP_TYPE_LINE = 5
-//- список
-};
 
 class CRtfSector;
 class CRtfFragment;
@@ -191,8 +115,6 @@ typedef struct RTFLETTER
     unsigned char probability;
 } RTF_LETTER;
 
-const float TwipsToEMU_Koef = (360000 * 2.54) / 1440;
-const int K_TwipsInInch = 1440;
 extern uint32_t FlagMode;
 extern uint32_t RtfWriteMode;
 extern CIF::Point16 TemplateOffset;
@@ -204,6 +126,7 @@ void Rtf_CED_CreateChar(CIF::Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar
 void RtfCalcRectSizeInTwips(CIF::Rect *s1, float Twips);
 int16_t get_font_name(int16_t FontNumber);
 Bool CheckLines(CIF::Rect* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
+Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
 int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
 int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,

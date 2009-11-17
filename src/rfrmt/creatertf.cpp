@@ -87,7 +87,6 @@
 using namespace CIF::CFIO;
 using namespace CIF;
 
-extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
 extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
 extern Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);

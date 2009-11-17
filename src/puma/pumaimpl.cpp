@@ -217,22 +217,20 @@ FormatOptions PumaImpl::formatOptions() const {
 }
 
 void PumaImpl::formatResult() {
-    RFRMT_SetFormatOptions(format_options_);
-    RFRMT_SetLanguage(language_);
+    rfrmt_->setLanguage(language_);
+    rfrmt_->setFormatOptions(format_options_);
 
     if (ed_page_) {
         CED_DeletePage(ed_page_);
         ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
-        throw PumaException("RFRMT_Formatter failed");
+    rfrmt_->format(input_filename_, &ed_page_);
 
-    if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-        std::string fname(input_filename_ + "_tmp_.rtf");
-        RFRMT_SetFormatOptions(format_options_);
-        RFRMT_SaveRtf(fname.c_str(), 8);
-        fname = input_filename_ + "_tmp_.fed";
+    if (Config::instance().debugDump()) {
+        rfrmt_->setFormatOptions(format_options_);
+        rfrmt_->saveRtf(input_filename_ + "_tmp_.rtf");
+        std::string fname = input_filename_ + "_tmp_.fed";
         save(fname.c_str(), PUMA_TOEDNATIVE);
     }
 }
@@ -314,7 +312,6 @@ void PumaImpl::modulesDone() {
     RCORRKEGL_Done();
     RPIC_Done();
     RIMAGE_Done();
-    RFRMT_Done();
     RLINE_Done();
     RBLOCK_Done();
     RSELSTR_Done();
@@ -362,6 +359,7 @@ void PumaImpl::modulesInit() {
         rsl_.reset(new Rsl);
         rstuff_.reset(new RStuff);
         rmarker_.reset(new RMarker);
+        rfrmt_.reset(new RFrmt);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, ghStorage))
             throw PumaException("RBLOCK_Init failed.");
@@ -374,8 +372,6 @@ void PumaImpl::modulesInit() {
 
         if (!RSTR_Init(PUMA_MODULE_RSTR, ghStorage))
             throw PumaException("RSTR_Init failed.");
-        if (!RFRMT_Init(PUMA_MODULE_RFRMT, ghStorage))
-            throw PumaException("RFRMT_Init failed.");
         if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, ghStorage))
             throw PumaException("RIMAGE_Init failed.");
 

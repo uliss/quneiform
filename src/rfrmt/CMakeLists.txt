@@ -10,6 +10,7 @@ crtfverticalcolumn.cpp
 crtfpage.cpp
 creatertf.cpp
 frmt.cpp
+rfrmt.cpp
 frmtallignment.cpp
 frmtdibapi.cpp
 frmtdll.cpp
