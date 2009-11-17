@@ -21,11 +21,15 @@
 namespace CIF {
 
 Config::Config() :
-    debug_(true), debug_level_(DEBUG_HIGH) {
+    debug_(true), dump_(false), debug_level_(DEBUG_HIGH) {
 }
 
 bool Config::debug() const {
     return debug_;
+}
+
+bool Config::debugDump() const {
+    return debug() && dump_;
 }
 
 int Config::debugLevel() const {

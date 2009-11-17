@@ -35,6 +35,7 @@ public:
 
     static Config& instance();
 
+    bool debugDump() const;
     int debugLevel() const;
     bool debugLow() const;
     bool debugMedium() const;
@@ -44,6 +45,7 @@ public:
     void setDebugLevel(int level);
 private:
     bool debug_;
+    bool dump_;
     int debug_level_;
 };
 
