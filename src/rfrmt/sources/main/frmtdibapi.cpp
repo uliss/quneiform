@@ -97,8 +97,8 @@
  *
  ************************************************************************/
 
-char* WINAPI FindDIBBits(char* lpbi) {
-	return (lpbi + *(uint32_t*) lpbi + ::PaletteSize(lpbi));
+char* FindDIBBits(char* lpbi) {
+    return (lpbi + *(uint32_t*) lpbi + ::PaletteSize(lpbi));
 }
 
 /*************************************************************************
@@ -121,21 +121,21 @@ char* WINAPI FindDIBBits(char* lpbi) {
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBWidth(char* lpDIB) {
-	LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
-	LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
+uint32_t DIBWidth(char* lpDIB) {
+    LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
+    LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
 
-	/* point to the header (whether Win 3.0 and old) */
+    /* point to the header (whether Win 3.0 and old) */
 
-	lpbmi = (LPBITMAPINFOHEADER) lpDIB;
-	lpbmc = (LPBITMAPCOREHEADER) lpDIB;
+    lpbmi = (LPBITMAPINFOHEADER) lpDIB;
+    lpbmc = (LPBITMAPCOREHEADER) lpDIB;
 
-	/* return the DIB width if it is a Win 3.0 DIB */
-	if (IS_WIN30_DIB(lpDIB))
-		return lpbmi->biWidth;
-	else
-		/* it is an other-style DIB, so return its width */
-		return (uint32_t) lpbmc->bcWidth;
+    /* return the DIB width if it is a Win 3.0 DIB */
+    if (IS_WIN30_DIB(lpDIB))
+        return lpbmi->biWidth;
+    else
+        /* it is an other-style DIB, so return its width */
+        return (uint32_t) lpbmc->bcWidth;
 }
 
 /*************************************************************************
@@ -158,21 +158,21 @@ uint32_t WINAPI DIBWidth(char* lpDIB) {
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBHeight(char* lpDIB) {
-	LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
-	LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
+uint32_t DIBHeight(char* lpDIB) {
+    LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
+    LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
 
-	/* point to the header (whether old or Win 3.0 */
+    /* point to the header (whether old or Win 3.0 */
 
-	lpbmi = (LPBITMAPINFOHEADER) lpDIB;
-	lpbmc = (LPBITMAPCOREHEADER) lpDIB;
+    lpbmi = (LPBITMAPINFOHEADER) lpDIB;
+    lpbmc = (LPBITMAPCOREHEADER) lpDIB;
 
-	/* return the DIB height if it is a Win 3.0 DIB */
-	if (IS_WIN30_DIB(lpDIB))
-		return lpbmi->biHeight;
-	else
-		/* it is an other-style DIB, so return its height */
-		return (uint32_t) lpbmc->bcHeight;
+    /* return the DIB height if it is a Win 3.0 DIB */
+    if (IS_WIN30_DIB(lpDIB))
+        return lpbmi->biHeight;
+    else
+        /* it is an other-style DIB, so return its height */
+        return (uint32_t) lpbmc->bcHeight;
 }
 
 /*************************************************************************
@@ -196,12 +196,12 @@ uint32_t WINAPI DIBHeight(char* lpDIB) {
  *
  ************************************************************************/
 
-uint16_t WINAPI PaletteSize(char* lpbi) {
-	/* calculate the size required by the palette */
-	if (IS_WIN30_DIB(lpbi))
-		return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBQUAD));
-	else
-		return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
+uint16_t PaletteSize(char* lpbi) {
+    /* calculate the size required by the palette */
+    if (IS_WIN30_DIB(lpbi))
+        return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBQUAD));
+    else
+        return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
 }
 
 /*************************************************************************
@@ -225,45 +225,45 @@ uint16_t WINAPI PaletteSize(char* lpbi) {
  *
  ************************************************************************/
 
-uint16_t WINAPI DIBNumColors(char* lpbi) {
-	uint16_t wBitCount; // DIB bit count
+uint16_t DIBNumColors(char* lpbi) {
+    uint16_t wBitCount; // DIB bit count
 
-	/*  If this is a Windows-style DIB, the number of colors in the
-	 *  color table can be less than the number of bits per pixel
-	 *  allows for (i.e. lpbi->biClrUsed can be set to some value).
-	 *  If this is the case, return the appropriate value.
-	 */
+    /*  If this is a Windows-style DIB, the number of colors in the
+     *  color table can be less than the number of bits per pixel
+     *  allows for (i.e. lpbi->biClrUsed can be set to some value).
+     *  If this is the case, return the appropriate value.
+     */
 
-	if (IS_WIN30_DIB(lpbi)) {
-		uint32_t dwClrUsed;
+    if (IS_WIN30_DIB(lpbi)) {
+        uint32_t dwClrUsed;
 
-		dwClrUsed = ((LPBITMAPINFOHEADER) lpbi)->biClrUsed;
-		if (dwClrUsed != 0)
-			return (uint16_t) dwClrUsed;
-	}
+        dwClrUsed = ((LPBITMAPINFOHEADER) lpbi)->biClrUsed;
+        if (dwClrUsed != 0)
+            return (uint16_t) dwClrUsed;
+    }
 
-	/*  Calculate the number of colors in the color table based on
-	 *  the number of bits per pixel for the DIB.
-	 */
-	if (IS_WIN30_DIB(lpbi))
-		wBitCount = ((LPBITMAPINFOHEADER) lpbi)->biBitCount;
-	else
-		wBitCount = ((LPBITMAPCOREHEADER) lpbi)->bcBitCount;
+    /*  Calculate the number of colors in the color table based on
+     *  the number of bits per pixel for the DIB.
+     */
+    if (IS_WIN30_DIB(lpbi))
+        wBitCount = ((LPBITMAPINFOHEADER) lpbi)->biBitCount;
+    else
+        wBitCount = ((LPBITMAPCOREHEADER) lpbi)->bcBitCount;
 
-	/* return number of colors based on bits per pixel */
-	switch (wBitCount) {
-	case 1:
-		return 2;
+    /* return number of colors based on bits per pixel */
+    switch (wBitCount) {
+    case 1:
+        return 2;
 
-	case 4:
-		return 16;
+    case 4:
+        return 16;
 
-	case 8:
-		return 256;
+    case 8:
+        return 256;
 
-	default:
-		return 0;
-	}
+    default:
+        return 0;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -284,19 +284,19 @@ uint16_t WINAPI DIBNumColors(char* lpbi) {
 //
 //---------------------------------------------------------------------
 
-HGLOBAL WINAPI CopyHandle(HGLOBAL h) {
-	if (h == NULL)
-		return NULL;
+HGLOBAL CopyHandle(HGLOBAL h) {
+    if (h == NULL)
+        return NULL;
 
-	HGLOBAL hCopy = ::GlobalAlloc(GHND, 0);
+    HGLOBAL hCopy = ::GlobalAlloc(GHND, 0);
 
-	if (hCopy != NULL) {
-		void* lpCopy = ::GlobalLock((HGLOBAL) hCopy);
-		void* lp = ::GlobalLock((HGLOBAL) h);
-		memcpy(lpCopy, lp, 0);
-		::GlobalUnlock(hCopy);
-		::GlobalUnlock(h);
-	}
+    if (hCopy != NULL) {
+        void* lpCopy = ::GlobalLock((HGLOBAL) hCopy);
+        void* lp = ::GlobalLock((HGLOBAL) h);
+        memcpy(lpCopy, lp, 0);
+        ::GlobalUnlock(hCopy);
+        ::GlobalUnlock(h);
+    }
 
-	return hCopy;
+    return hCopy;
 }

@@ -73,6 +73,7 @@
 #include "ful_txt.h"
 #include "globus.h"
 #include "aldebug.h"
+#include "creatertf.h"
 
 using namespace CIF;
 
@@ -80,7 +81,6 @@ using namespace CIF;
 #ifdef alDebug
 static int dets=1;
 #endif
-static HWND h_found = NULL;
 
 /* These were in ful_txt.h. That caused missing symbols
  * so I moved them here. JussiP.
@@ -466,7 +466,6 @@ int CalcStatTiger(void)
 
 extern Rect16 *RectFragm;
 extern float Twips;
-extern int16_t K_TwipsInInch;
 int16_t HeiStrAllPage;
 int16_t MonoSpaceAllPage;
 

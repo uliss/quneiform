@@ -65,15 +65,12 @@
 #ifndef __frmtfile_h__
 #define __frmtfile_h__
 #include <stdio.h>
+#include "rect.h"
 #include "cstr/cstrdefs.h"
 
 Bool CreateInternalFileForFormatter(FILE *fpInternalFileName);
 Bool CheckComingLine(CSTR_line* Comingline);
 Bool CheckLineForFilling(CSTR_line* Comingline);
-
-//Bool CheckRect(InternalRect* Inner);
-
-/////////////////////////////////////////////////////////////////////////////
 
 class CFragment;
 class CFString;
@@ -98,13 +95,10 @@ typedef struct tagInternalRect
     int16_t bottom;
 } InternalRect;
 
-void VCopyRect(InternalRect* InnerR, CIF::Rect* OuterR);
+void VCopyRect(InternalRect* InnerR, CIF::Rect * OuterR);
 Bool CheckRect(InternalRect* Inner);
 
-/////////////////////////////////////////////////////////////////////////////
-// Page class
-
-class CFPage //: public CObject
+class CFPage
 {
 public:
     CFPage();
@@ -118,20 +112,16 @@ public:
     void AddString(CSTR_line* line);
     Bool Write();
 
-    /*CDWordArray*/
     std::vector<uint32_t> FragmentsArray;
     PageElementCount Count;
     uint16_t m_wDpi;
-    std::vector<CFragment*>/*CObArray*/m_arFrags;
+    std::vector<CFragment*> m_arFrags;
     int m_nIndex;
     int m_nCurFragNumber;
     int m_nPrevFragNumber;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// Fragment class
-
-class CFragment//:public CObject
+class CFragment
 {
 public:
     CFragment();
@@ -143,7 +133,6 @@ public:
     Bool Write();
 
     uint16_t m_wStringsCount;
-    /*CObArray*/
     std::vector<CFString*> m_arStrings;
     uint16_t m_wIndex;
     CIF::Rect m_rectFrag;
@@ -152,10 +141,7 @@ public:
     uint32_t m_Flags;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// String class
-
-class CFString//:public CObject
+class CFString
 {
 public:
     CFString();
@@ -168,7 +154,6 @@ public:
     Bool Write();
 
     uint16_t m_wWordsCount;
-    /*CObArray*/
     std::vector<CWord*> m_arWords;
     uint16_t m_wIndex;
     CFragment* m_Frag;
@@ -178,10 +163,7 @@ public:
     uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// Word class
-
-class CWord//:public CObject
+class CWord
 {
 public:
     CWord();
@@ -192,7 +174,6 @@ public:
     void AddLetter2Word(CSTR_rast* rast, PageElementCount* Count, Bool* FlagCapDrop);
     Bool Write();
 
-    /*CObArray*/
     std::vector<CChar*> m_arChars;
     uint16_t m_wCharsCount;
     uint16_t m_wIndex;
@@ -202,10 +183,7 @@ public:
     uint16_t m_wFontPointSize;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// Char class
-
-class CChar//:public CObject
+class CChar
 {
 public:
     CChar();

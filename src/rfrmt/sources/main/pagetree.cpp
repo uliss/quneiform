@@ -62,19 +62,26 @@
 //
 // ============================================================================
 
-#include "creatertf.h"
 #include <search.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdarg.h>
+
+#include "creatertf.h"
 #include "aldebug.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
+#include "crtfchar.h"
+#include "crtffragment.h"
+#include "crtfpage.h"
+#include "crtfsector.h"
+#include "crtfstring.h"
+#include "crtfverticalcolumn.h"
+#include "crtfhorizontalcolumn.h"
+#include "crtfword.h"
 
 #include "dpuma.h"
-
-using namespace CIF;
 
 #define MAIN
 #define ZAGL
@@ -82,10 +89,11 @@ using namespace CIF;
 
 #include "lst3_win.h"
 #include "ful_txt.h"
-#include "globus.h"
 #include "consmess.h"
 
 #include "minmax.h"
+
+using namespace CIF;
 
 #ifdef alDebug
 #define CONS_MESS1 if(det1)	ConsMess
@@ -191,9 +199,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
         int16_t reg, int16_t *k_int, int16_t **intr1, int16_t **begI, int16_t **endI,
         int16_t *NumMax);
 int16_t
-        SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1,
-                int16_t *k_int1, BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg,
-                int16_t *NumMax);
+SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1, int16_t *k_int1,
+        BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg, int16_t *NumMax);
 KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free);
 void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top, int16_t Bottom,
         int16_t InBegFrm, int16_t NumFrm, int16_t InColA, uint OrderChild, uint Type,
@@ -219,8 +226,11 @@ int16_t RecalcRect(int16_t L, int16_t H, int16_t *w, int16_t *h, KNOTT *ptrc, FR
 int16_t GetOffsetVerticalCell(int16_t L, int16_t H, int16_t *w, int16_t *h, KNOTT *ptrc,
         FRAME **frm);
 void RtfUnionRect_CRect_SRect(Rect *s1, SRECT *s2);
+void RtfUnionRect_CRect_CRect(Rect *s1, Rect *s2);
 void RtfAssignRect_CRect_SRect(Rect *s1, SRECT *s2);
+void RtfAssignRect_CRect_Rect16(Rect *s1, Rect16 *s2);
 void RtfCalcRectSizeInTwips(Rect *s1, float Twips);
+void RtfAssignRect_CRect_CRect(Rect *s1, Rect *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found = NULL;
@@ -252,26 +262,52 @@ Bool Alik_sort_function(const void *a, const void *b) {
 //==
 int MaxArr(int *x, int n, int *PosExtr) {
     int i, in = 0;
-    do0(i,1,n) if(x[i] > x[in]) in=i;
+    do0(i,1,n)
+        if (x[i] > x[in])
+            in = i;
     *PosExtr = in;
     return x[in];
 }
 //==
 int MinArr(int *x, int n, int *PosExtr) {
     int i, in = 0;
-    do0(i,1,n) if(x[i] < x[in]) in=i;
+    do0(i,1,n)
+        if (x[i] < x[in])
+            in = i;
     *PosExtr = in;
     return x[in];
 }
 
+//==
+/* // !!! Art - устарело
+ int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
+ //если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]
+ { int i; long ave=0,sig=0,work;
+
+ u4sort(arr,n+1,sizeof(TYPE),(COMP_FUN)comp1); //медиана
+ if(regim) //обрезаем края выборки
+ { int beg=n/regim; if((n-=2*beg)<0){n+=2*beg;goto m1;}
+ if(beg) do0(i,0,n) arr[i]=arr[i+beg];
+ }
+ m1: *med=arr[n>>1];
+ do0(i,0,n) ave+=arr[i]; ave/=(long)(n+1);
+ do0(i,0,n)
+ { work=arr[i]-ave;
+ sig+=work*work;
+ }
+ sig=(long)sqrt(sig/(float)(n+1));
+ *ave1=(TYPE)ave; *sig1=(TYPE)sig;
+ return 0;
+ }
+ */// !!! Art - устарело
+//==
 void bound_frm(FRAME **frm, int k_frm, BOUND *bnd) {
     int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000, i;
-    do0(i,0,k_frm)
-    {
-        ymin=MIN(ymin,frm[i]->up);
-        ymax=MAX(ymax,frm[i]->down);
-        xmin=MIN(xmin,frm[i]->left);
-        xmax=MAX(xmax,frm[i]->right);
+    do0(i,0,k_frm) {
+        ymin = MIN(ymin,frm[i]->up);
+        ymax = MAX(ymax,frm[i]->down);
+        xmin = MIN(xmin,frm[i]->left);
+        xmax = MAX(xmax,frm[i]->right);
     }
     bnd->left = xmin;
     bnd->right = xmax;
@@ -279,7 +315,6 @@ void bound_frm(FRAME **frm, int k_frm, BOUND *bnd) {
     bnd->down = ymax;
 }
 
-//==
 void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t NumFrm, int16_t NumVK,
         int16_t NumHK) {
     Rect r1 = ptr->Rect;
@@ -303,11 +338,10 @@ uchar Get1Alt(ZN *z, int na) {
         return z->Alt[na].a_Code;
 }
 
-//==
 int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim) {
     return n > 0 ? statis1(arr, n - 1, ave, sig, med, mod, regim) : -1;
 }
-//==
+
 int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim)
 /*если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]*/
 {
@@ -319,24 +353,29 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int 
         if (regim) /*обрезаем края выборки*/
         {
             int beg = n / regim;
-            if ((n -= 2* beg ) < 0) {
-                n += 2* beg ;
+            if ((n -= 2 * beg) < 0) {
+                n += 2 * beg;
                 goto m1;
             }
-if        (beg) do0(i,0,n)
-        arr[i]=arr[i+beg];
+            if (beg)
+                do0(i,0,n)
+                    arr[i] = arr[i + beg];
+        }
+        m1: *med = arr[n >> 1];
     }
-    m1: *med=arr[n>>1];
-}
-do0(i,0,n) ave+=arr[i]; ave/=(long)(n+1);
-if(*sig1)
-{
     do0(i,0,n)
-    {   work=arr[i]-ave; sig+=work*work;}
-    sig=(long)/*(float)*/sqrt(sig/(float)(n+1)); *sig1=(TYPE)sig;
-}
-*ave1=(TYPE)ave;
-return 0;
+        ave += arr[i];
+    ave /= (long) (n + 1);
+    if (*sig1) {
+        do0(i,0,n) {
+            work = arr[i] - ave;
+            sig += work * work;
+        }
+        sig = (long) /*(float)*/sqrt(sig / (float) (n + 1));
+        *sig1 = (TYPE) sig;
+    }
+    *ave1 = (TYPE) ave;
+    return 0;
 }
 
 //== SizeWin - ширина окна при наложении гистограммы(if =1 => стандарт.гистограмма)
@@ -357,50 +396,45 @@ int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod) {
     memset(his, 0, num * sizeof(int));
     if (SizeWin == 1) //стандарт.гистограмма
     {
-do0    (i,0,n)
-    ++his[arr[i]-mi];
-}
-else if(SizeWin > 1) //огрубление гистограммы
-{
-    if(SizeWin > 2)
-    return -1; //!пока!
-    do0(i,0,n)
-    {
-        ++his[arr[i]-mi];
-        ++his[arr[i]-mi+1];
+        do0 (i,0,n)
+            ++his[arr[i] - mi];
     }
-}
-else
-return -1;
-if(mod)
-{
-    do0(i,0,ki)
-    if(modd < his[i])
+    else if (SizeWin > 1) //огрубление гистограммы
     {
-        modd=his[i];
-        nmax=i;
+        if (SizeWin > 2)
+            return -1; //!пока!
+        do0(i,0,n) {
+            ++his[arr[i] - mi];
+            ++his[arr[i] - mi + 1];
+        }
     }
-    *mod=nmax+mi;
-    *NumMod=his[nmax];
-}
-if(med)
-{
-    do0(i,0,ki)
-    if((sum+=his[i]) >= k)
-    {
-        medd=mi+i;
-        break;
+    else
+        return -1;
+    if (mod) {
+        do0(i,0,ki)
+            if (modd < his[i]) {
+                modd = his[i];
+                nmax = i;
+            }
+        *mod = nmax + mi;
+        *NumMod = his[nmax];
     }
-    *med=medd;
-}
-free(his);
-return 0;
+    if (med) {
+        do0(i,0,ki)
+            if ((sum += his[i]) >= k) {
+                medd = mi + i;
+                break;
+            }
+        *med = medd;
+    }
+    free(his);
+    return 0;
 }
 
 //Память под beg_as[][] захват-тся внутри, память под списк.пр-во KNOT3 снаружи
 //==Генерация плоской АС на двусвязных списках
 int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, int value, AS *As,
-        Rect rect) {
+        Rect Rect) {
     int xmin, xmax, ymin, ymax, kx, ky, nx, ny, i, delx, dely;
     KNOT3 ***beg, *ptr;
     FRAME *f;
@@ -419,45 +453,52 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, i
     ymax = ymin + (ky + 1) * dy;
     if ((beg = (KNOT3***) malloc((ky + 1) * sizeof(KNOT3**))) == NULL)
         return -3;
-
-    do0(i,0,ky)
-    {
-        if((beg[i]=(KNOT3**)malloc((kx+1)*sizeof(KNOT3*)))==NULL)
-        return NOT_ALLOC;
-        memset(beg[i],0,(kx+1)*sizeof(PTR));
+    do0(i,0,ky) {
+        if ((beg[i] = (KNOT3**) malloc((kx + 1) * sizeof(KNOT3*))) == NULL)
+            return NOT_ALLOC;
+        memset(beg[i], 0, (kx + 1) * sizeof(PTR));
     }
     if (value != INDEF)//заполнение ассоциат. стр-ры
     {
-do0    (i,0,k_frm)
-    {   f=frm[i];
-        ny=(((f->up + f->down ) >>1)-ymin)/dy;
-        nx=(((f->left+ f->right) >>1)-xmin)/dx;
-        if(ny < 0 || nx < 0 || ny > ky || nx > kx)
-        return -1;
-        if( (ptr=(KNOT3*)inc_lst((KNOT**)&beg[ny][nx],(KNOT**)&beg_free))==NULL)
-        return -4;
-        ptr->f=f; ptr->cl=value;
+        do0 (i,0,k_frm) {
+            f = frm[i];
+            ny = (((f->up + f->down) >> 1) - ymin) / dy;
+            nx = (((f->left + f->right) >> 1) - xmin) / dx;
+            if (ny < 0 || nx < 0 || ny > ky || nx > kx)
+                return -1;
+            if ((ptr = (KNOT3*) inc_lst((KNOT**) &beg[ny][nx], (KNOT**) &beg_free)) == NULL)
+                return -4;
+            ptr->f = f;
+            ptr->cl = value;
 #if defined (__MRK__) || defined (__DOT__)
-        ptr->beg=NULL;
+            ptr->beg=NULL;
 #endif
+        }
     }
-}
-else
-{
-    do0(i,0,k_frm)
-    {   f=frm[i];
-        ny=(((f->up + f->down ) >>1)-ymin)/dy;
-        nx=(((f->left+ f->right) >>1)-xmin)/dx;
-        if( (ptr=(KNOT3*)inc_lst((KNOT**)&beg[ny][nx],(KNOT**)&beg_free))==NULL)return -4;
-        ptr->f=f; delx=f->right-f->left; dely=f->down-f->up;
-        ptr->cl= (delx >= rect.left() && delx <= rect.right() &&
-                dely >= rect.top() && dely <= rect.bottom()) ? 1 : value;
+    else {
+        do0(i,0,k_frm) {
+            f = frm[i];
+            ny = (((f->up + f->down) >> 1) - ymin) / dy;
+            nx = (((f->left + f->right) >> 1) - xmin) / dx;
+            if ((ptr = (KNOT3*) inc_lst((KNOT**) &beg[ny][nx], (KNOT**) &beg_free)) == NULL)
+                return -4;
+            ptr->f = f;
+            delx = f->right - f->left;
+            dely = f->down - f->up;
+            ptr->cl = (delx >= Rect.left() && delx <= Rect.right() && dely >= Rect.top() && dely
+                    <= Rect.bottom()) ? 1 : value;
+        }
     }
-}
-As->bnd=bnd;As->kx=kx;As->ky=ky;As->dx=dx;As->dy=dy;
-As->beg_free=beg_free;As->beg_as=beg;
-As->xmin=xmin; As->ymin=ymin;
-return 0;
+    As->bnd = bnd;
+    As->kx = kx;
+    As->ky = ky;
+    As->dx = dx;
+    As->dy = dy;
+    As->beg_free = beg_free;
+    As->beg_as = beg;
+    As->xmin = xmin;
+    As->ymin = ymin;
+    return 0;
 }
 
 #ifdef alDebug
@@ -466,24 +507,24 @@ return 0;
 //=================================   ImageKnot1  ================================
 //================================================================================
 void ImageKnot1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,int16_t col,
-    int16_t line_style,int16_t fill,int16_t ColFrm,FRAME **f,int16_t NumFrm,
-    int16_t NumVK,int16_t NumHK)
+        int16_t line_style,int16_t fill,int16_t ColFrm,FRAME **f,int16_t NumFrm,
+        int16_t NumVK,int16_t NumHK)
 {
-Rect r,r1=ptr->Rect;
-int16_t fl= (ColFrm != INDEF) ? 0 : 1;
+    Rect r,r1=ptr->Rect;
+    int16_t fl= (ColFrm != INDEF) ? 0 : 1;
 
-if(ColFrm == INDEF)
-ColFrm=col;
-r.left=LineVK[r1.left].beg;
-r.right=LineVK[r1.right].beg;
-r.top=LineHK[r1.top].beg;
-r.bottom=LineHK[r1.bottom].beg;
-image_rect(&r,col,line_style,fill);
-if(ColFrm>=0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0)
-{
-    TestKNOTT1(ptr,LineVK,LineHK,NumFrm,NumVK,NumHK);
-    image_frame(&f[ptr->InBegFrm],ptr->NumFrm-1,0,line_style,fill);
-}
+    if(ColFrm == INDEF)
+    ColFrm=col;
+    r.left=LineVK[r1.left].beg;
+    r.right=LineVK[r1.right].beg;
+    r.top=LineHK[r1.top].beg;
+    r.bottom=LineHK[r1.bottom].beg;
+    image_rect(&r,col,line_style,fill);
+    if(ColFrm>=0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0)
+    {
+        TestKNOTT1(ptr,LineVK,LineHK,NumFrm,NumVK,NumHK);
+        image_frame(&f[ptr->InBegFrm],ptr->NumFrm-1,0,line_style,fill);
+    }
 }
 
 //проход по дереву с отображением
@@ -491,41 +532,41 @@ if(ColFrm>=0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0)
 //=================================   ImageTree1  ================================
 //================================================================================
 int16_t ImageTree1(KNOTT *Root,LINE_KNOT *LineVK,LINE_KNOT *LineHK,
-    FRAME **frm,int16_t NumFrm,int16_t NumVK,int16_t NumHK)
+        FRAME **frm,int16_t NumFrm,int16_t NumVK,int16_t NumHK)
 {
-STACK St;
-int16_t DepthTree=20,col,ColFrm,i=1;
-KNOTT *Curr;
-char *err="ImageTree1";
+    STACK St;
+    int16_t DepthTree=20,col,ColFrm,i=1;
+    KNOTT *Curr;
+    char *err="ImageTree1";
 
-if(NewStack(DepthTree,&St))
-return NOT_ALLOC;
-Curr=Root;
-col=0;
-
-while(Curr != NULL)
-{   if(++col > 15)
-    col=1;
-    ColFrm=col;
-    //ImageKnot1(Curr,LineVK,LineHK,col,0xFFFF,_GBORDER,ColFrm,frm,NumFrm,NumVK,NumHK);
-    //--Рисуем по перекрестным ссылкам терминал. H-графы,списки их V-ссылок и им обратные
-    //if(Curr->InBegFrm == IN_NO && Curr->down == NULL) //Терм. H-узел
-    if(det10) {ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d",
-                i,Curr->InBegFrm,Curr->NumFrm,Curr->InColA,Curr->OrderChild);
-        ++i;}
-
-    ImageKnot1(Curr,LineVK,LineHK,col,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,NumVK,
-            NumHK);
-    Curr=NextKnot(Curr,&St);
-    if(OverflowStack(&St))
+    if(NewStack(DepthTree,&St))
     return NOT_ALLOC;
-}
-DelStack(&St);
-return 0;
+    Curr=Root;
+    col=0;
+
+    while(Curr != NULL)
+    {   if(++col > 15)
+        col=1;
+        ColFrm=col;
+        //ImageKnot1(Curr,LineVK,LineHK,col,0xFFFF,_GBORDER,ColFrm,frm,NumFrm,NumVK,NumHK);
+        //--Рисуем по перекрестным ссылкам терминал. H-графы,списки их V-ссылок и им обратные
+        //if(Curr->InBegFrm == IN_NO && Curr->down == NULL) //Терм. H-узел
+        if(det10) {ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d",
+                    i,Curr->InBegFrm,Curr->NumFrm,Curr->InColA,Curr->OrderChild);
+            ++i;}
+
+        ImageKnot1(Curr,LineVK,LineHK,col,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,NumVK,
+                NumHK);
+        Curr=NextKnot(Curr,&St);
+        if(OverflowStack(&St))
+        return NOT_ALLOC;
+    }
+    DelStack(&St);
+    return 0;
 }
 
 void init_font(void)
-{;}
+{   ;}
 #endif /*DRAW*/
 
 //==
@@ -542,12 +583,11 @@ static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1, int16_t 
     return 0;
 }
 
-//==
 void ConvertRect16ToBnd(Rect16 *r, SRECT *b) {
-    b->left = r->left();
-    b->right = r->right();
-    b->top = r->top();
-    b->bottom = r->bottom();
+    b->left = r->rleft();
+    b->right = r->rright();
+    b->top = r->rtop();
+    b->bottom = r->rbottom();
 }
 
 #ifdef alDebug
@@ -628,9 +668,9 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *Li
         FRAME **frm, int16_t NumFrm, INF_TREE *Inf, int16_t size_x, int16_t size_y)
 //====
 {
-    int16_t i, nVmax = 3* MAX_COL , nHmax = 3* MAX_COL , nV, nH, j;
+    int16_t i, nVmax = 3 * MAX_COL, nHmax = 3 * MAX_COL, nV, nH, j;
     int16_t nT = nVmax + 1, fl, tmp, InBegFrm, NumF, ThresX, ThresY;
-    int16_t left, right, top, bottom, NumMax = 3* MAX_COL , MaxOld;
+    int16_t left, right, top, bottom, NumMax = 3 * MAX_COL, MaxOld;
     int16_t *intr, *begI, *endI, NumT = nVmax + 1;
     int16_t k_colnt, k_colnt1, k_colt, minz;
     int16_t fl_beg/*Признак первого расщепления на колонки*/;
@@ -642,7 +682,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *Li
     KNOTT **colt, **colnt, **colnt1, *ptr;
     LINE_KNOT *LineVK, *LineHK;
     STAT_CELL *StatCell = (STAT_CELL*) malloc(sizeof(STAT_CELL));
-    const char*err = "CreateTreePlainTxt1";
+    const char * err = "CreateTreePlainTxt1";
 
     CONS_MESS1("===  CreateTreePlainTxt1  === ");
 
@@ -1586,9 +1626,9 @@ int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int, int16_t ma
         int16_t *his_second_group) {
     int16_t i, count_white_picsels = 0;
 
-    do0(i,beg_white_int,end_white_int)
-    {
-        if((int16_t)his_second_group[++i] <= maxh) ++count_white_picsels;
+    do0(i,beg_white_int,end_white_int) {
+        if ((int16_t) his_second_group[++i] <= maxh)
+            ++count_white_picsels;
     }
     if (count_white_picsels >= 2)
         return 1;
@@ -2352,10 +2392,10 @@ do0(ih,0,K_Hor[i])
 do0(iv,0,K_Ver[i][ih])
 {
     nc=Colt[i][ih][iv];
-    RectFragm[nc].rleft() = RectFragm[nc].left() * Twips;
-    RectFragm[nc].rright() = RectFragm[nc].right() * Twips;
-    RectFragm[nc].rtop() = RectFragm[nc].top() * Twips;
-    RectFragm[nc].rbottom() = RectFragm[nc].bottom() * Twips;
+    RectFragm[nc].rleft() = (int16_t)(RectFragm[nc].left() * Twips);
+    RectFragm[nc].rright() = (int16_t)(RectFragm[nc].right() * Twips);
+    RectFragm[nc].rtop() = (int16_t)(RectFragm[nc].top() * Twips);
+    RectFragm[nc].rbottom() = (int16_t)(RectFragm[nc].bottom() * Twips);
 }
 }
 }
@@ -2518,12 +2558,12 @@ pRtfSector->m_arHorizontalColumns.push_back( new CRtfHorizontalColumn() );
 pRtfHorizontalColumn = pRtfSector->m_arHorizontalColumns[ih];
 
 RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
-pRtfSector->m_rectReal |= pRtfHorizontalColumn->m_rectReal;
-RtfPage->m_rectReal |= pRtfSector->m_rectReal;
+RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
+RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);
 
 RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
-pRtfSector->m_rect|=pRtfHorizontalColumn->m_rect;
-RtfPage->m_rect|=pRtfSector->m_rect;
+RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
+RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
 
 pRtfHorizontalColumn->m_wVerticalColumnsCount = K_Ver[i][ih];
 pRtfHorizontalColumn->m_wType = K_Ver_Flag_Term[i][ih];
@@ -2544,11 +2584,11 @@ do0(iv,0,K_Ver[i][ih])
     pRtfVerticalColumn->m_arFragments.push_back( new CRtfFragment() );
     pRtfFragment=pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
     pRtfFragment->m_wType = FT_TEXT;
-    pRtfVerticalColumn->m_rect = RectFragm[nc];
-    pRtfVerticalColumn->m_rectReal = RectFragm[nc];
+    RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
+    RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
 
-    pRtfFragment->m_rect=RectFragm[nc];
-    pRtfFragment->m_rectReal = RectFragm[nc];
+    RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
+    RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
 
     pRtfFragment->m_wStringsCount = NumStr[nc]+1;
     pRtfFragment->m_Flag = FragFlag[nc]; //nega
@@ -2750,11 +2790,19 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol,
     }
 }
 
+void RtfAssignRect_CRect_Rect16(Rect *s1, Rect16 *s2) {
+    *s1 = *s2;
+}
+
 void RtfAssignRect_CRect_SRect(Rect *s1, SRECT *s2) {
     s1->rleft() = s2->left;
     s1->rright() = s2->right;
     s1->rtop() = s2->top;
     s1->rbottom() = s2->bottom;
+}
+
+void RtfAssignRect_CRect_CRect(Rect *s1, Rect *s2) {
+    *s1 = *s2;
 }
 
 void RtfUnionRect_CRect_SRect(Rect *s1, SRECT *s2) {
@@ -2764,11 +2812,15 @@ void RtfUnionRect_CRect_SRect(Rect *s1, SRECT *s2) {
     s1->rbottom() = MAX(s1->bottom(), s2->bottom);
 }
 
+void RtfUnionRect_CRect_CRect(Rect *s1, Rect *s2) {
+    *s1 |= *s2;
+}
+
 void RtfCalcRectSizeInTwips(Rect *s1, float Twips) {
-    s1->rleft() = s1->left() * Twips;
-    s1->rright() = s1->right() * Twips;
-    s1->rtop() = s1->top() * Twips;
-    s1->rbottom() = s1->bottom() * Twips;
+    s1->rleft() *= Twips;
+    s1->rright() *= Twips;
+    s1->rtop() *= Twips;
+    s1->rbottom() *= Twips;
 }
 
 //==Объединение пары рамок

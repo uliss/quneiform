@@ -61,9 +61,12 @@
 // FrmtFile.cpp
 //
 // ============================================================================
-#include "creatertf.h"
+
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
+
+#include "creatertf.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
 #include "cstr/cstr.h"
@@ -78,7 +81,7 @@
 using namespace CIF;
 
 #ifdef alDebug
-extern std::vector<CIF::Rect> *pInputArray;
+extern std::vector<RECT> *pInputArray;
 #endif
 
 int32_t PageIncline2048 = 2048;
@@ -321,8 +324,6 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
     m_nPrevFragNumber = m_nCurFragNumber;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                    CFPage::AddString
 void CFPage::AddString(CSTR_line* Comingline) {
     CFragment* Fragment;
     Fragment = (CFragment*) m_arFrags[Count.Frags - 1];
@@ -330,8 +331,6 @@ void CFPage::AddString(CSTR_line* Comingline) {
     Fragment->AddString(Comingline, &Count);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                    CFPage::Write
 Bool CFPage::Write() {
     for (CFragment* pFrag = GetFirstFrag(); pFrag != NULL; pFrag = GetNextFrag()) {
         assert(pFrag);
@@ -340,12 +339,9 @@ Bool CFPage::Write() {
     return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CFragment class implementation
 CFragment::CFragment() {
     m_Flags = 0;
     m_wStringsCount = 0;
-    m_rectFrag = Rect();
 }
 
 CFragment::~CFragment() {
@@ -357,14 +353,12 @@ CFragment::~CFragment() {
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                    CFragment::AddString
 void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count) {
     CFPage Page;
     CSTR_line line;
     CSTR_attr line_attr;
     CFString* String;
-    CIF::Rect TmpRect, *PrevStringRect;
+    Rect TmpRect, *PrevStringRect;
     uchar Flag_Continuation_Strings = FALSE;
     uchar dist;
 
@@ -372,11 +366,9 @@ void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count) {
         return;
     line = *Comingline;
     CSTR_GetLineAttr(line, &line_attr);
-    TmpRect.setTopLeft(
-            Point(line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y()));
-    TmpRect.setBottomRight(Point(line_attr.col - TemplateOffset.x() + line_attr.wid, line_attr.row
-            - TemplateOffset.y() + line_attr.hei));
-    m_rectFrag = m_rectFrag.united(TmpRect);
+    TmpRect.set(Point(line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y()),
+            line_attr.wid, line_attr.hei);
+    m_rectFrag |= TmpRect;
     dist = line_attr.hei / 2;
 
     if (m_wStringsCount > 0) {
@@ -400,8 +392,6 @@ void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count) {
     String->ExtractWordsFromString(Comingline, Count);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                    CheckLineForFilling
 Bool CheckLineForFilling(CSTR_line* Comingline) {
     CSTR_line line;
     CSTR_rast rast;
@@ -432,8 +422,6 @@ Bool CFragment::Write() {
     return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CFString class implementation
 CFString::CFString() {
     m_wWordsCount = 0;
 }
@@ -447,8 +435,6 @@ CFString::~CFString() {
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CFString::ExtractWordsFromString
 void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* Count) {
     CSTR_rast_attr rast_attr;
     CSTR_rast rast;
@@ -472,12 +458,11 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* C
 
     m_rectBaseLine.set(Point(line_attr.bs1, line_attr.bs2), Point(line_attr.bs3, line_attr.bs4)); //don't used now
     m_rectString.set(Point(line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y()),
-            Point(line_attr.col - TemplateOffset.x() + line_attr.wid, line_attr.row
-                    - TemplateOffset.y() + line_attr.hei));
+            line_attr.wid, line_attr.hei);
 
 #ifdef alDebug //obsolete option
     {
-        CIF::Rect rect;
+        Rect rect;
         SetRect(&rect,line_attr.col, line_attr.row,
                 line_attr.col + line_attr.wid,
                 line_attr.row + line_attr.hei);
@@ -537,8 +522,6 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* C
         Count->Strings--;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CWord class implementation
 CWord::CWord() {
     m_wCharsCount = 0;
 }
@@ -552,8 +535,6 @@ CWord::~CWord() {
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CWord::AddLetter2Word
 void CWord::AddLetter2Word(CSTR_rast* rast, PageElementCount* Count, Bool* FlagCapDrop) {
     CChar* CurrentChar;
     UniVersions vers;
@@ -572,16 +553,12 @@ void CWord::AddLetter2Word(CSTR_rast* rast, PageElementCount* Count, Bool* FlagC
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CChar class implementation
 CChar::CChar() {
 }
 
 CChar::~CChar() {
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CChar::AddingLetter
 void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
     CSTR_rast_attr rast_attr;
     UniVersions vers;
@@ -590,12 +567,10 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
     CSTR_GetAttr(*rast, &rast_attr);
 
     m_rectChar.set(Point(rast_attr.col - TemplateOffset.x(), rast_attr.row - TemplateOffset.y()),
-            Point(rast_attr.col - TemplateOffset.x() + rast_attr.w, rast_attr.row
-                    - TemplateOffset.y() + rast_attr.h));
+            rast_attr.w, rast_attr.h);
 
     m_RealRectChar.set(Point(rast_attr.r_col - TemplateOffset.x(), rast_attr.r_row
-            - TemplateOffset.y()), Point(rast_attr.r_col - TemplateOffset.x() + rast_attr.w,
-            rast_attr.r_row - TemplateOffset.y() + rast_attr.h));
+            - TemplateOffset.y()), rast_attr.w, rast_attr.h);
 
     m_wCountAlt = MIN(vers.lnAltCnt, REC_MAX_VERS);
     m_bFlg_spell = 0;
@@ -636,15 +611,13 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
         m_bFlg_cup_drop = FALSE;
 }
 
-void VCopyRect(InternalRect* Inner, CIF::Rect* Outer) {
+void VCopyRect(InternalRect* Inner, Rect* Outer) {
     Inner->top = (uint16_t) Outer->top();
     Inner->bottom = (uint16_t) Outer->bottom();
     Inner->left = (uint16_t) Outer->left();
     Inner->right = (uint16_t) Outer->right();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CheckRect
 Bool CheckRect(InternalRect* Inner) {
     char str[500];
 
@@ -660,8 +633,6 @@ Bool CheckRect(InternalRect* Inner) {
     return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CheckComingLine
 Bool CheckComingLine(CSTR_line* Comingline) {
     CSTR_rast rast;
     CSTR_line line;

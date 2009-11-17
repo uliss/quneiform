@@ -29,6 +29,10 @@ public:
         r_(red), g_(green), b_(blue), a_(0) {
     }
 
+    ColorImpl(T red, T green, T blue, T alpha) :
+        r_(red), g_(green), b_(blue), a_(alpha) {
+    }
+
     ColorImpl() :
         r_(0), g_(0), b_(0), a_(0) {
     }
@@ -93,6 +97,7 @@ private:
 public:
     static ColorImpl<T> black;
     static ColorImpl<T> white;
+    static ColorImpl<T> undefined;
 };
 
 template<class T>
@@ -100,6 +105,9 @@ ColorImpl<T> ColorImpl<T>::black;
 
 template<class T>
 ColorImpl<T> ColorImpl<T>::white(255, 255, 255);
+
+template<class T>
+ColorImpl<T> ColorImpl<T>::undefined(255, 255, 255, 255);
 
 template<>
 inline int ColorImpl<unsigned char>::get() const {

@@ -4,6 +4,14 @@ sources/main)
 
 add_library(rfrmt ${LIBTYPE}
 ${SNP_SRC}
+sources/main/crtfchar.cpp
+sources/main/crtfword.cpp
+sources/main/crtfstring.cpp
+sources/main/crtffragment.cpp
+sources/main/crtfsector.cpp
+sources/main/crtfhorizontalcolumn.cpp
+sources/main/crtfverticalcolumn.cpp
+sources/main/crtfpage.cpp
 sources/main/creatertf.cpp
 sources/main/frmt.cpp
 sources/main/frmtallignment.cpp

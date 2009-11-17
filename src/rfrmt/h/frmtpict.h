@@ -64,8 +64,6 @@
 #ifndef __frmtpict_h__
 #define __frmtpict_h__
 
-#include "rect.h"
-
 extern float Twips;
 
 uint32_t GetPictCount(void);

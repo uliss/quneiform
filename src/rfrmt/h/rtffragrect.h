@@ -60,32 +60,30 @@
 //
 // RtfFragRect.h : header file
 // ============================================================================
-/////////////////////////////////////////////////////////////////////////////
-// CRtfFragRect document
+
+#include <vector>
 
 #include "compat_defs.h"
-#include <vector>
 #include "creatertf.h"
+#include "rect.h"
 
 #define GLOBAL_DEBUG_AND_DRAWON
 
-class CRtfFragRect
-{
-
+class CRtfFragRect {
 public:
-    CRtfFragRect() {
-    }
-    ~CRtfFragRect() {
-    }
+	CRtfFragRect() {
+	}
+	~CRtfFragRect() {
+	}
 
-    std::vector<CIF::Rect> m_arInputFragRect;
-    std::vector<CIF::Rect> m_arGeomFragRectStep1;
-    std::vector<CIF::Rect> m_arGeomFragRectStep2;
-    std::vector<CIF::Rect> m_arGeomFragRectTemp;
-    vectorWord m_arGeomFragRectColor;
-    uint16_t m_wFragCount;
-    uint16_t m_nIndex;
-    uint16_t m_Cycle;
-    uint16_t m_Step;
-    uint16_t m_GeomFragCountRect;
+	std::vector<CIF::Rect> m_arInputFragRect;
+	std::vector<CIF::Rect> m_arGeomFragRectStep1;
+	std::vector<CIF::Rect> m_arGeomFragRectStep2;
+	std::vector<CIF::Rect> m_arGeomFragRectTemp;
+	vectorWord m_arGeomFragRectColor;
+	uint16_t m_wFragCount;
+	uint16_t m_nIndex;
+	uint16_t m_Cycle;
+	uint16_t m_Step;
+	uint16_t m_GeomFragCountRect;
 };
