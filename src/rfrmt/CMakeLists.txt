@@ -16,7 +16,6 @@ frmtdll.cpp
 frmtfile.cpp
 frmtpict.cpp
 int_file.cpp
-mymem.cpp
 pagetree.cpp
 sort_int.cpp
 util.cpp

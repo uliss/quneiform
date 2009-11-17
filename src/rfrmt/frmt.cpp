@@ -62,24 +62,21 @@
 //
 // ============================================================================
 
-#ifdef _MSC_VER
-#include <windows.h>
-#else
 #include <unistd.h>
-#endif
-#include <stdlib.h>
-#include <stdio.h>
-#include "resource.h"
-#include "rfrmt.h"
-#include "mymem.h"
-#include "rtffragrect.h"
-#include "dpuma.h"
-#include "aldebug.h"
-#include "rfrmt_prot.h"
+#include <cstdlib>
+#include <cstdio>
 #include <cstring>
 #include <cassert>
 #include <vector>
 #include <climits>
+
+#include "resource.h"
+#include "rfrmt.h"
+#include "rtffragrect.h"
+#include "dpuma.h"
+#include "aldebug.h"
+#include "rfrmt_prot.h"
+
 
 #define  USE_NONE             0x0040   // no formatting
 #define  USE_FRAME_AND_COLUMN 0x0001   // use columns & frames
