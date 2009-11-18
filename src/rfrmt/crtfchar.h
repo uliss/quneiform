@@ -37,12 +37,12 @@ public:
     CIF::Rect ideal_rect_;
     CIF::Rect real_rect_;
     uchar language_;
-    uchar m_bFlg_spell;
-    uchar m_bFlg_spell_nocarrying;
-    uchar m_bFlg_cup_drop;
-    uint16_t m_wCountAlt;
-    uint16_t m_wFontNumber;
-    uint16_t m_wFontPointSize;
+    uchar flag_spell;
+    uchar flag_spell_nocarrying;
+    uchar flag_cup_drop;
+    uint16_t countAlt;
+    uint16_t fontNumber;
+    uint16_t fontPointSize;
 };
 
 #endif /* CRTFCHAR_H_ */

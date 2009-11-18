@@ -169,7 +169,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 
                     fread(&num, sizeof(uint16_t), 1, in);
                     assert(num <= REC_MAX_VERS);
-                    pRtfChar->m_wCountAlt = MIN(num, REC_MAX_VERS);
+                    pRtfChar->countAlt = MIN(num, REC_MAX_VERS);
                     for (i = 0; i < num; i++) {
                         fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
                         if (i < REC_MAX_VERS) {
@@ -179,12 +179,12 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     }
                     fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
                     pRtfChar->language_ = alt2.language;
-                    pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
-                    pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
-                    pRtfChar->m_bFlg_spell = alt2.spell;
+                    pRtfChar->flag_spell_nocarrying = alt2.spellnocarrying;
+                    pRtfChar->flag_cup_drop = alt2.FlagCapDrop;
+                    pRtfChar->flag_spell = alt2.spell;
 
-                    pRtfChar->m_wFontNumber = pRtfWord->m_wFontNumber;
-                    pRtfChar->m_wFontPointSize = pRtfWord->m_wIdealFontPointSize;
+                    pRtfChar->fontNumber = pRtfWord->m_wFontNumber;
+                    pRtfChar->fontPointSize = pRtfWord->m_wIdealFontPointSize;
                 }
             }
         }
@@ -590,7 +590,7 @@ void CRtfPage::CorrectKegl(void) {
                     pRtfChar = pRtfWord->m_arChars[nz];
                     tmp_str[nz] = pRtfChar->versions[0].char_;
                     if (!nz)
-                        pRtfChar->m_wFontPointSize = MIN(pRtfChar->m_wFontPointSize, MaxFontSize);
+                        pRtfChar->fontPointSize = MIN(pRtfChar->fontPointSize, MaxFontSize);
                 }
                 if (nw < CountWords - 1)
                     tmp_str[nz++] = ' ';
@@ -607,9 +607,9 @@ void CRtfPage::CorrectKegl(void) {
 
             LenghtStr = (int16_t) (pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left());
             // adjust kegl to the text line real width (Microsoft function)
-            Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->m_wFontPointSize,
-                    pFirstChar->m_wFontNumber);
-            AddNewKegl(pLastChar->m_wFontPointSize, Real_Size_Kegl);
+            Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->fontPointSize,
+                    pFirstChar->fontNumber);
+            AddNewKegl(pLastChar->fontPointSize, Real_Size_Kegl);
             delete[] TmpString;
         }
     }

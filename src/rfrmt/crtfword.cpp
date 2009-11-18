@@ -62,7 +62,7 @@ void CRtfWord::get_coordinates_and_probability() {
     for (nz = 0; nz < m_wCharsCount; nz++) {
         pRtfChar = m_arChars[nz];
         m_wcp = std::min((int) m_wcp, (int) pRtfChar->versions[0].probability_);
-        m_wcs = std::min((int) m_wcs, (int) pRtfChar->m_bFlg_spell);
+        m_wcs = std::min((int) m_wcs, (int) pRtfChar->flag_spell);
     }
 
     if (PageInfo.Angle) {

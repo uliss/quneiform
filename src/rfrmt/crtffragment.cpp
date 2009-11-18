@@ -37,7 +37,7 @@ extern Bool32 FlagLineTransfer;
 void WriteCupDrop(CRtfChar* pRtfChar, int16_t font) {
     Put("{\\pard\\fs6\\par}");
     Put("{\\pard\\plain\\slmult0\\keepn\\widctlpar\\pvpara\\dropcapli3\\dropcapt1\\cgrid{");
-    PutCom("\\fs", pRtfChar->m_wFontPointSize * 2, 1);
+    PutCom("\\fs", pRtfChar->fontPointSize * 2, 1);
     PutCom("\\f", font, 1);
     PutCom("\\dn", 9, 1);
     PutCom("\\lang", 1024, 1);
@@ -109,10 +109,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         pRtfString = (CRtfString*) m_arStrings[ns];
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
         pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
-        if (pRtfChar->m_bFlg_cup_drop == TRUE) //заносим буквицы во frame
+        if (pRtfChar->flag_cup_drop == TRUE) //заносим буквицы во frame
         {
             if ((FlagMode & USE_FRAME) || OutPutType)
-                pRtfChar->m_bFlg_cup_drop = FALSE;
+                pRtfChar->flag_cup_drop = FALSE;
             else
                 pRtfString->m_wFlagBeginParagraph = TRUE;
         }
@@ -184,7 +184,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!colWidth)
                     colWidth = m_rectReal.right() - m_rectReal.left();
 
-                if (!pRtfChar->m_bFlg_cup_drop)
+                if (!pRtfChar->flag_cup_drop)
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
                             m_wvid_parag, /*m_Flag*/pRtfString->S_Flags,
                             pRtfString->m_LengthStringInTwips, colWidth); //NEGA_STR
@@ -194,7 +194,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         }
 
 #ifdef EdWrite
-        if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
+        if (!RtfWriteMode && !pRtfChar->flag_cup_drop) {
 
 #ifdef CHEREDOV
             hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->m_wRealFontPointSize-1)*2));
@@ -287,14 +287,14 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!pRtfWord->m_wcs)
                     pRtfChar->versions[0].probability_ = 0;
 
-                if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                if (nw == 0 && nz == 0 && pRtfChar->flag_cup_drop)
 #ifdef CHEREDOV
-                    EDFontPointSize = (int)((pRtfChar->m_wFontPointSize-1)*2);
+                    EDFontPointSize = (int)((pRtfChar->fontPointSize-1)*2);
 #else
                     if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                         EDFontPointSize = DefFontSize;
                     else
-                        EDFontPointSize = (int) (pRtfChar->m_wFontPointSize * 2);
+                        EDFontPointSize = (int) (pRtfChar->fontPointSize * 2);
 #endif
                 else
 #ifdef CHEREDOV
@@ -316,7 +316,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                     if (pRtfString->m_bLineTransfer == TRUE) {
 #ifdef EdWrite
                         if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop) {
+                            if (nw == 0 && nz == 0 && pRtfChar->flag_cup_drop) {
                                 slayout.rleft() = 0;
                                 slayout.rright() = 0;
                                 slayout.rtop() = 0;
@@ -363,17 +363,17 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             }
                         }
 #endif
-                        if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                        if (nw == 0 && nz == 0 && pRtfChar->flag_cup_drop)
                             WriteCupDrop(pRtfChar, tmp_font_name);
                         else
                             PutChar(pRtfChar->versions[0].char_);
                     }
                     else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
                             == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
-                            && pRtfChar->m_bFlg_spell_nocarrying)) {
+                            && pRtfChar->flag_spell_nocarrying)) {
 #ifdef EdWrite
                         if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop) {
+                            if (nw == 0 && nz == 0 && pRtfChar->flag_cup_drop) {
                                 slayout.rleft() = 0;
                                 slayout.rright() = 0;
                                 slayout.rtop() = 0;
@@ -417,7 +417,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             }
                         }
 #endif
-                        if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                        if (nw == 0 && nz == 0 && pRtfChar->flag_cup_drop)
                             WriteCupDrop(pRtfChar, tmp_font_name);
                         else
                             PutChar(pRtfChar->versions[0].char_);
@@ -438,7 +438,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             //--- Конец цикла по буквам
             if (nw < CountWords - 1) {
 #ifdef EdWrite
-                if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
+                if (!RtfWriteMode && !pRtfChar->flag_cup_drop) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
                     CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->m_wRealFontPointSize-1)*2), (int)tmp_font_name,
@@ -455,7 +455,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 }
 #endif
-                if (!pRtfChar->m_bFlg_cup_drop)
+                if (!pRtfChar->flag_cup_drop)
                     PutChar(' '); //InterWord Space
             }
             else if ((ns < m_wStringsCount - 1) && (nw == CountWords - 1) && (m_wvid_parag
@@ -750,7 +750,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->ideal_rect_.left());
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->ideal_rect_.right());
 
-        if (pRtfCharLast->versions[0].char_ == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
+        if (pRtfCharLast->versions[0].char_ == '-' && pRtfCharLast->flag_spell_nocarrying)
             pRtfString->m_FlagCarry = TRUE;
     }
 
@@ -1566,7 +1566,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
             pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
             CountChars = pRtfWord->m_wCharsCount;
             pRtfChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
-            if (pRtfChar->versions[0].char_ == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
+            if (pRtfChar->versions[0].char_ == '-' && pRtfChar->flag_spell_nocarrying) {
                 if (pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment)
                     pRtfString->m_wFlagBeginParagraph = FALSE;
                 else if (pRtfStringPrev->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN

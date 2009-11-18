@@ -117,7 +117,7 @@ uint16_t CRtfString::GetRealStringSize(void) {
     pRtfWord = (CRtfWord*) m_arWords[0];
     pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
 
-    RealSize = GetRealSize(pRtfWord->m_wRealFontPointSize, pRtfChar->m_wFontNumber, &strHeight);
+    RealSize = GetRealSize(pRtfWord->m_wRealFontPointSize, pRtfChar->fontNumber, &strHeight);
     return RealSize;
 }
 
