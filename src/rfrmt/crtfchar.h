@@ -26,11 +26,6 @@
 class CRtfChar
 {
 public:
-    CRtfChar() {
-    }
-    ~CRtfChar() {
-    }
-
     struct
     {
         uchar m_bChar;
@@ -46,7 +41,6 @@ public:
     uint16_t m_wCountAlt;
     uint16_t m_wFontNumber;
     uint16_t m_wFontPointSize;
-    uint16_t m_wIndex;
 };
 
 #endif /* CRTFCHAR_H_ */
