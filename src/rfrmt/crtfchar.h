@@ -31,8 +31,6 @@ public:
     ~CRtfChar() {
     }
 
-    Bool Write();
-
     struct
     {
         uchar m_bChar;
@@ -41,7 +39,7 @@ public:
 
     CIF::Rect m_Idealrect;
     CIF::Rect m_Realrect;
-    uchar m_blanguage;
+    uchar language_;
     uchar m_bFlg_spell;
     uchar m_bFlg_spell_nocarrying;
     uchar m_bFlg_cup_drop;

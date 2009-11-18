@@ -2508,7 +2508,7 @@ do0(iv,0,K_Ver[i][ih])
                 }
                 pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
                 pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
-                pRtfChar->m_blanguage = Zn[nc][ns][nw][nz].Alt[0].a_language;
+                pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
                 pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                 pRtfChar->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                 pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
@@ -2645,7 +2645,7 @@ do0(iv,0,K_Ver[i][ih])
                 }
                 pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
                 pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
-                pRtfChar->m_blanguage = Zn[nc][ns][nw][nz].Alt[0].a_language;
+                pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
                 pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                 pRtfChar->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                 pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;

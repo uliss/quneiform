@@ -22,6 +22,7 @@
 #include "cpage/cpage.h"
 
 CRtfWord::CRtfWord() {
+    m_wCharsCount = 0;
 }
 
 CRtfWord::~CRtfWord() {
