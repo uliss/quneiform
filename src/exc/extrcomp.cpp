@@ -897,76 +897,17 @@ Bool32 REXC_GetInvertion(uchar * inv) {
     return TRUE;
 }
 
-Bool32 REXC_GetExportData(uint32_t dwType, void *pData) {
-#define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
-    Bool32 rc = TRUE;
-
-    wLowRC = REXC_ERR_NO;
-    switch (dwType) {
-    CASE_DATA (REXC_Word8_Matrix, uchar, matrix)
-        ;
-    CASE_DATA (REXC_Word8_Fax1x2, uchar, fax1x2)
-        ;
-    CASE_DATA (REXC_Word16_ActualResolution, uint16_t, actual_resolution)
-        ;
-
-    case REXC_FNEXTRACOMP:
-        *(uint32_t *) pData = (uint32_t) REXCExtracomp;
-        break;
-    case REXC_FNEXTRA:
-        *(uint32_t *) pData = (uint32_t) REXCExtra;
-        break;
-    case REXC_FNEXTRADIB:
-        *(uint32_t *) pData = (uint32_t) REXCExtraDIB;
-        break;
-
-    case REXC_FNGETCONTAINER:
-        *(uint32_t *) pData = (uint32_t) REXCGetContainer;
-        break;
-
-    case REXC_FNGETLENEREP:
-        *(uint32_t *) pData = (uint32_t) REXCMakeLP;
-        break;
-    case REXC_FNVERSION:
-        *(uint32_t *) pData = (uint32_t) REXC_VERSION_CODE;
-        break;
-
-    case REXC_FNMN2CCOM:
-        *(uint32_t *) pData = (uint32_t) REXC_MN2CCOM;
-        break;
-    case REXC_FNGETINVERTION:
-        *(uint32_t *) pData = (uint32_t) REXC_GetInvertion;
-        break;
-
-    case REXC_FNEXTRACOMP3CB:
-        *(uint32_t *) pData = (uint32_t) REXCExtracomp3CB;
-        break;
-
-    default:
-        wLowRC = REXC_ERR_NOTIMPLEMENT;
-        rc = FALSE;
-    }
-#undef CASE_DATA
-    return rc;
-}
-
 Bool32 REXC_SetImportData(uint32_t dwType, void *pData) {
-#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
-#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
+#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break;
+#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break;
     wLowRC = REXC_ERR_NO;
     switch (dwType) {
     CASE_DATA (REXC_Word8_Matrix, uchar, matrix)
-        ;
     CASE_DATA (REXC_Word8_Fax1x2, uchar, fax1x2)
-        ;
     CASE_DATA (REXC_Word16_ActualResolution, uint16_t, actual_resolution)
-        ;
     CASE_PDATA (REXC_ProgressStart, FNREXC_ProgressStart, fnProgressStart_exc)
-        ;
     CASE_PDATA (REXC_ProgressStep, FNREXC_ProgressStep, fnProgressStep_exc)
-        ;
     CASE_PDATA (REXC_ProgressFinish, FNREXC_ProgressFinish, fnProgressFinish_exc)
-        ;
 
     default:
         wLowRC = REXC_ERR_NOTIMPLEMENT;

@@ -55,8 +55,9 @@
  */
 
 #include <setjmp.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
+#include <cstdio>
 
 #include "new_c.h"
 #include "rect.h"
