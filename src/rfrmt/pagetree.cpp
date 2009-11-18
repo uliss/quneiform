@@ -2503,8 +2503,8 @@ do0(iv,0,K_Ver[i][ih])
                 pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
                 for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
                 {
-                    pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                    pRtfChar->m_chrVersions[alt].m_bProbability = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                    pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
+                    pRtfChar->versions[alt].probability_ = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
                 }
                 pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
                 pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
@@ -2513,8 +2513,8 @@ do0(iv,0,K_Ver[i][ih])
                 pRtfChar->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                 pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
-                RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
+                RtfAssignRect_CRect_SRect( &pRtfChar->real_rect_, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
+                RtfAssignRect_CRect_SRect( &pRtfChar->ideal_rect_, &Zn[nc][ns][nw][nz].Title.Z_Rect );
             }//char end
         }//word end
     }//str end
@@ -2640,8 +2640,8 @@ do0(iv,0,K_Ver[i][ih])
                 pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
                 for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
                 {
-                    pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                    pRtfChar->m_chrVersions[alt].m_bProbability = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                    pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
+                    pRtfChar->versions[alt].probability_ = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
                 }
                 pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
                 pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
@@ -2650,8 +2650,8 @@ do0(iv,0,K_Ver[i][ih])
                 pRtfChar->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                 pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
-                RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
+                RtfAssignRect_CRect_SRect( &pRtfChar->real_rect_, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
+                RtfAssignRect_CRect_SRect( &pRtfChar->ideal_rect_, &Zn[nc][ns][nw][nz].Title.Z_Rect );
             }
         }//word end
     }//str end

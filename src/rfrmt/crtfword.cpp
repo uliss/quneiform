@@ -53,15 +53,15 @@ void CRtfWord::get_coordinates_and_probability() {
     pRtfCharFirst = m_arChars.front();
     pRtfCharLast = m_arChars.back();
 
-    m_wcl = pRtfCharFirst->m_Realrect.left();
-    m_wcr = pRtfCharLast->m_Realrect.right();
-    m_wct = std::min(pRtfCharFirst->m_Realrect.top(), pRtfCharLast->m_Realrect.top());
-    m_wcb = std::max(pRtfCharFirst->m_Realrect.bottom(), pRtfCharLast->m_Realrect.bottom());
+    m_wcl = pRtfCharFirst->real_rect_.left();
+    m_wcr = pRtfCharLast->real_rect_.right();
+    m_wct = std::min(pRtfCharFirst->real_rect_.top(), pRtfCharLast->real_rect_.top());
+    m_wcb = std::max(pRtfCharFirst->real_rect_.bottom(), pRtfCharLast->real_rect_.bottom());
 
     m_wCharsCount = m_arChars.size();
     for (nz = 0; nz < m_wCharsCount; nz++) {
         pRtfChar = m_arChars[nz];
-        m_wcp = std::min((int) m_wcp, (int) pRtfChar->m_chrVersions[0].m_bProbability);
+        m_wcp = std::min((int) m_wcp, (int) pRtfChar->versions[0].probability_);
         m_wcs = std::min((int) m_wcs, (int) pRtfChar->m_bFlg_spell);
     }
 

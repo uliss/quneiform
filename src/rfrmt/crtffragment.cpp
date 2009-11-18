@@ -41,7 +41,7 @@ void WriteCupDrop(CRtfChar* pRtfChar, int16_t font) {
     PutCom("\\f", font, 1);
     PutCom("\\dn", 9, 1);
     PutCom("\\lang", 1024, 1);
-    PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+    PutChar(pRtfChar->versions[0].char_);
     Put("\\par}}");
 }
 
@@ -285,7 +285,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 pRtfChar = (CRtfChar*) pRtfWord->m_arChars[nz];
 #ifdef EdWrite
                 if (!pRtfWord->m_wcs)
-                    pRtfChar->m_chrVersions[0].m_bProbability = 0;
+                    pRtfChar->versions[0].probability_ = 0;
 
                 if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
 #ifdef CHEREDOV
@@ -309,10 +309,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 flag_end_word_with_hiphen = 0;
                 if (nw == (CountWords - 1) && nz == (CountChars - 1)
-                        && pRtfChar->m_chrVersions[0].m_bChar == '-')
+                        && pRtfChar->versions[0].char_ == '-')
                     flag_end_word_with_hiphen = 1;
 
-                if (pRtfChar->m_chrVersions[0].m_bChar) {
+                if (pRtfChar->versions[0].char_) {
                     if (pRtfString->m_bLineTransfer == TRUE) {
 #ifdef EdWrite
                         if (!RtfWriteMode) {
@@ -366,7 +366,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                         if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
                             WriteCupDrop(pRtfChar, tmp_font_name);
                         else
-                            PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+                            PutChar(pRtfChar->versions[0].char_);
                     }
                     else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
                             == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
@@ -420,7 +420,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                         if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
                             WriteCupDrop(pRtfChar, tmp_font_name);
                         else
-                            PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+                            PutChar(pRtfChar->versions[0].char_);
                     }
                     else {
 #ifdef EdWrite
@@ -737,20 +737,20 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
         pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
-        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfString->m_FirstChar = pRtfCharFirst->versions[0].char_;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = (CRtfChar*) pRtfWord->m_arChars[pRtfWord->m_wCharsCount - 1];
-        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LastChar = pRtfCharLast->versions[0].char_;
 
-        pRtfString->m_LeftBorder = pRtfCharFirst->m_Idealrect.left();
-        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right();
+        pRtfString->m_LeftBorder = pRtfCharFirst->ideal_rect_.left();
+        pRtfString->m_RightBorder = pRtfCharLast->ideal_rect_.right();
 
         CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
-        m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->m_Idealrect.left());
-        m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->m_Idealrect.right());
+        m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->ideal_rect_.left());
+        m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->ideal_rect_.right());
 
-        if (pRtfCharLast->m_chrVersions[0].m_bChar == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
+        if (pRtfCharLast->versions[0].char_ == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
             pRtfString->m_FlagCarry = TRUE;
     }
 
@@ -1402,11 +1402,11 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
                 pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[0];
                 pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
-                top = pRtfCharFirst->m_Idealrect.bottom();
+                top = pRtfCharFirst->ideal_rect_.bottom();
 
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
                 pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
-                bottom = pRtfCharFirst->m_Idealrect.top();
+                bottom = pRtfCharFirst->ideal_rect_.top();
                 pRtfString->m_wSpaceBefore = (uint16_t) (bottom - top);
             }
             pRtfString->m_wFlagBeginParagraph = TRUE;
@@ -1416,17 +1416,17 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
         pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
-        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfString->m_FirstChar = pRtfCharFirst->versions[0].char_;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = (CRtfChar*) pRtfWord->m_arChars[pRtfWord->m_wCharsCount - 1];
-        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LastChar = pRtfCharLast->versions[0].char_;
 
-        pRtfString->m_LeftBorder = pRtfCharFirst->m_Idealrect.left();
-        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right();
+        pRtfString->m_LeftBorder = pRtfCharFirst->ideal_rect_.left();
+        pRtfString->m_RightBorder = pRtfCharLast->ideal_rect_.right();
 
-        m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->m_Idealrect.left());
-        m_r_fragmentLocal = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->m_Idealrect.right());
+        m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->ideal_rect_.left());
+        m_r_fragmentLocal = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->ideal_rect_.right());
 
     }
 
@@ -1515,7 +1515,7 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
         WCountChars = pRtfWord->m_wCharsCount;
         for (int j = 0; j < WCountChars; j++) {
             pRtfChar = (CRtfChar*) pRtfWord->m_arChars[j];
-            (*LengthChars) += MAX(0, pRtfChar->m_Idealrect.right() - pRtfChar->m_Idealrect.left());
+            (*LengthChars) += MAX(0, pRtfChar->ideal_rect_.right() - pRtfChar->ideal_rect_.left());
             (*CountChars)++;
         }
     }
@@ -1566,7 +1566,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
             pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
             CountChars = pRtfWord->m_wCharsCount;
             pRtfChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
-            if (pRtfChar->m_chrVersions[0].m_bChar == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
+            if (pRtfChar->versions[0].char_ == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
                 if (pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment)
                     pRtfString->m_wFlagBeginParagraph = FALSE;
                 else if (pRtfStringPrev->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN
@@ -1853,7 +1853,7 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
 
             pRtfCharPrev = (CRtfChar*) pRtfWordPrev->m_arChars[CountCharInPrevWord - 1];
             pRtfCharCur = (CRtfChar*) pRtfWordCur->m_arChars[0];
-            if ((pRtfCharCur->m_Idealrect.left() - pRtfCharPrev->m_Idealrect.right()) > 2 * m_max_dist)
+            if ((pRtfCharCur->ideal_rect_.left() - pRtfCharPrev->ideal_rect_.right()) > 2 * m_max_dist)
                 FlagBigSpase = 1;
         }
     }
@@ -1921,7 +1921,7 @@ void CRtfFragment::PrintTheResult(const char* header_str) {
      if(!i2)
      str+=' ';
      pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[i2];
-     str+=pRtfCharFirst->m_chrVersions[0].m_bChar;
+     str+=pRtfCharFirst->versions[0].char_;
      }
      }
      str+='\n';

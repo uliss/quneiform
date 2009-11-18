@@ -26,14 +26,16 @@
 class CRtfChar
 {
 public:
-    struct
+    struct Versions
     {
-        uchar m_bChar;
-        uchar m_bProbability;
-    } m_chrVersions[REC_MAX_VERS];//!!! Art
+        uchar char_;
+        uchar probability_;
+    };
 
-    CIF::Rect m_Idealrect;
-    CIF::Rect m_Realrect;
+    Versions versions[REC_MAX_VERS];//!!! Art
+
+    CIF::Rect ideal_rect_;
+    CIF::Rect real_rect_;
     uchar language_;
     uchar m_bFlg_spell;
     uchar m_bFlg_spell_nocarrying;

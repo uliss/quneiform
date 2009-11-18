@@ -89,7 +89,7 @@ int16_t CRtfString::GetStringSizeInTwips() {
     CountChars = pRtfWord->m_wCharsCount;
     pLastChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
     int16_t LenghtStr =
-            (int16_t) ((pLastChar->m_Idealrect.right() - pFirstChar->m_Idealrect.left()) * Twips);
+            (int16_t) ((pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left()) * Twips);
     return LenghtStr;
 }
 
@@ -107,7 +107,7 @@ uint16_t CRtfString::GetRealStringSize(void) {
         CountChars = pRtfWord->m_wCharsCount;
         for (int nz = 0; nz < CountChars; nz++) {
             pRtfChar = (CRtfChar*) pRtfWord->m_arChars[nz];
-            tmp_str[index++] = pRtfChar->m_chrVersions[0].m_bChar;
+            tmp_str[index++] = pRtfChar->versions[0].char_;
 
         }
         tmp_str[index++] = ' ';

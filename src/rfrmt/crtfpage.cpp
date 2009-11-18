@@ -155,17 +155,17 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 
                     pRtfChar = pRtfWord->GetNextChar();
                     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                    pRtfChar->m_Idealrect.rleft() = SRect.left();
-                    pRtfChar->m_Idealrect.rtop() = SRect.top();
-                    pRtfChar->m_Idealrect.rright() = SRect.right();
-                    pRtfChar->m_Idealrect.rbottom() = SRect.bottom();
+                    pRtfChar->ideal_rect_.rleft() = SRect.left();
+                    pRtfChar->ideal_rect_.rtop() = SRect.top();
+                    pRtfChar->ideal_rect_.rright() = SRect.right();
+                    pRtfChar->ideal_rect_.rbottom() = SRect.bottom();
 
                     fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-                    pRtfChar->m_Realrect.rleft() = SRect.left();
-                    pRtfChar->m_Realrect.rtop() = SRect.top();
-                    pRtfChar->m_Realrect.rright() = SRect.right();
+                    pRtfChar->real_rect_.rleft() = SRect.left();
+                    pRtfChar->real_rect_.rtop() = SRect.top();
+                    pRtfChar->real_rect_.rright() = SRect.right();
 
-                    pRtfChar->m_Realrect.rbottom() = SRect.bottom();
+                    pRtfChar->real_rect_.rbottom() = SRect.bottom();
 
                     fread(&num, sizeof(uint16_t), 1, in);
                     assert(num <= REC_MAX_VERS);
@@ -173,8 +173,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     for (i = 0; i < num; i++) {
                         fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
                         if (i < REC_MAX_VERS) {
-                            pRtfChar->m_chrVersions[i].m_bChar = alt1.let;
-                            pRtfChar->m_chrVersions[i].m_bProbability = alt1.prob;
+                            pRtfChar->versions[i].char_ = alt1.let;
+                            pRtfChar->versions[i].probability_ = alt1.prob;
                         }
                     }
                     fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
@@ -588,7 +588,7 @@ void CRtfPage::CorrectKegl(void) {
                 CountChars = pRtfWord->m_wCharsCount;
                 for (nz = 0; nz < CountChars; nz++) {
                     pRtfChar = pRtfWord->m_arChars[nz];
-                    tmp_str[nz] = pRtfChar->m_chrVersions[0].m_bChar;
+                    tmp_str[nz] = pRtfChar->versions[0].char_;
                     if (!nz)
                         pRtfChar->m_wFontPointSize = MIN(pRtfChar->m_wFontPointSize, MaxFontSize);
                 }
@@ -605,7 +605,7 @@ void CRtfPage::CorrectKegl(void) {
             CountChars = pRtfWord->m_wCharsCount;
             pLastChar = pRtfWord->m_arChars[CountChars - 1];
 
-            LenghtStr = (int16_t) (pLastChar->m_Idealrect.right() - pFirstChar->m_Idealrect.left());
+            LenghtStr = (int16_t) (pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left());
             // adjust kegl to the text line real width (Microsoft function)
             Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->m_wFontPointSize,
                     pFirstChar->m_wFontNumber);

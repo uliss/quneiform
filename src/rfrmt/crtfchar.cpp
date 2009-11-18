@@ -27,13 +27,13 @@ void Rtf_CED_CreateChar(Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar) {
         return;
     if (pRtfChar) {
         int i;
-        slayout->rleft() = pRtfChar->m_Realrect.left() + TemplateOffset.x();
-        slayout->rright() = pRtfChar->m_Realrect.right() + TemplateOffset.x();
-        slayout->rtop() = pRtfChar->m_Realrect.top() + TemplateOffset.y();
-        slayout->rbottom() = pRtfChar->m_Realrect.bottom() + TemplateOffset.y();
+        slayout->rleft() = pRtfChar->real_rect_.left() + TemplateOffset.x();
+        slayout->rright() = pRtfChar->real_rect_.right() + TemplateOffset.x();
+        slayout->rtop() = pRtfChar->real_rect_.top() + TemplateOffset.y();
+        slayout->rbottom() = pRtfChar->real_rect_.bottom() + TemplateOffset.y();
         for (i = 0; i < pRtfChar->m_wCountAlt; i++) {
-            Letter[i].alternative = pRtfChar->m_chrVersions[i].m_bChar;
-            Letter[i].probability = pRtfChar->m_chrVersions[i].m_bProbability | 1;
+            Letter[i].alternative = pRtfChar->versions[i].char_;
+            Letter[i].probability = pRtfChar->versions[i].probability_ | 1;
         }
         Letter[i - 1].probability &= 0xFE;
     }
