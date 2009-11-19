@@ -785,7 +785,7 @@ void CRtfHorizontalColumn::SortFragments() {
      {
      //вычитаем 2 высоты - фикт. абзаца и разрыва
      //если меньше, чем высота разрава, то чтобы он не упрыгнул вниз
-     pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)MAX(brkHeight,pRtfFragment->m_rect.top() - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
+     pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)MAX(brkHeight,pRtfFragment->rect.top() - pRtfFragmentFirst->rect.bottom-brkHeight-parHeight);
      }
      }
      */

@@ -24,8 +24,6 @@
 #include "cttypes.h"
 #include "crtfchar.h"
 
-class CRtfString;
-
 class CRtfWord
 {
 public:
@@ -34,16 +32,12 @@ public:
 
     CRtfChar* GetFirstChar();
     CRtfChar* GetNextChar();
-    Bool Write();
-    void get_coordinates_and_probability(void);
+    void getCoordinatesAndProbability(void);
 
     typedef std::vector<CRtfChar*> vectorChar;
-    vectorChar m_arChars;
+    vectorChar chars;
 
-
-    uint16_t m_wIndex;
-    CRtfString* m_String;
-    CIF::Rect m_rect;
+    CIF::Rect rect;
 
     int16_t m_wcl;
     int16_t m_wct;
@@ -51,11 +45,11 @@ public:
     int16_t m_wcb;
     int16_t m_wcs;
     int16_t m_wcp;
-    int16_t m_wCharsCount;
+    int16_t chars_count;
 
-    uint16_t m_wFontNumber;
-    uint16_t m_wIdealFontPointSize;
-    uint16_t m_wRealFontPointSize;
+    uint16_t font_number;
+    uint16_t ideal_font_point_size;
+    uint16_t real_font_point_size;
 };
 
 #endif /* CRTFWORD_H_ */

@@ -2491,14 +2491,14 @@ do0(iv,0,K_Ver[i][ih])
             pRtfString->m_arWords.push_back( new CRtfWord() );
             index_word = pRtfString->m_arWords.size();
             pRtfWord=pRtfString->m_arWords[index_word-1];
-            pRtfWord->m_wCharsCount = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
-            pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-            pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+            pRtfWord->chars_count = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
+            pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+            pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
 
             do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
             { //char begin
-                pRtfWord->m_arChars.push_back( new CRtfChar() );
-                pRtfChar=pRtfWord->m_arChars[nz];
+                pRtfWord->chars.push_back( new CRtfChar() );
+                pRtfChar=pRtfWord->chars[nz];
 
                 pRtfChar->countAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
                 for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
@@ -2623,19 +2623,19 @@ do0(iv,0,K_Ver[i][ih])
             index_word = pRtfString->m_arWords.size();
             pRtfWord=pRtfString->m_arWords[index_word-1];
 
-            pRtfWord->m_wCharsCount = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
-            pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-            pRtfWord->m_wIdealFontPointSize= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+            pRtfWord->chars_count = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
+            pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+            pRtfWord->ideal_font_point_size= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
             if(NumStr[nc]==0 && TitleStr[nc][ns].S_Gen.S_NumWord==1)
-            pRtfWord->m_wRealFontPointSize = RtfPage->GetMinKegl(pRtfWord->m_wIdealFontPointSize);
+            pRtfWord->real_font_point_size = RtfPage->GetMinKegl(pRtfWord->ideal_font_point_size);
             else
-            pRtfWord->m_wRealFontPointSize = RtfPage->GetNewKegl(pRtfWord->m_wIdealFontPointSize);
+            pRtfWord->real_font_point_size = RtfPage->GetNewKegl(pRtfWord->ideal_font_point_size);
 
             do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
             {
-                pRtfWord->m_arChars.push_back( new CRtfChar() );
-                pRtfChar=pRtfWord->m_arChars[nz];
+                pRtfWord->chars.push_back( new CRtfChar() );
+                pRtfChar=pRtfWord->chars[nz];
 
                 pRtfChar->countAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
                 for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)

@@ -21,21 +21,21 @@
 #include "crtfword.h"
 #include "cpage/cpage.h"
 
-CRtfWord::CRtfWord() {
-    m_wCharsCount = 0;
+CRtfWord::CRtfWord() :
+    chars_count(0) {
 }
 
 CRtfWord::~CRtfWord() {
-    for (vectorChar::iterator it = m_arChars.begin(), end = m_arChars.end(); it != end; ++it)
+    for (vectorChar::iterator it = chars.begin(), end = chars.end(); it != end; ++it)
         delete *it;
 }
 
 CRtfChar* CRtfWord::GetNextChar() {
-    m_arChars.push_back(new CRtfChar());
-    return m_arChars.back();
+    chars.push_back(new CRtfChar());
+    return chars.back();
 }
 
-void CRtfWord::get_coordinates_and_probability() {
+void CRtfWord::getCoordinatesAndProbability() {
     int16_t nz;
     int16_t t, l, b, r;
 
@@ -50,17 +50,17 @@ void CRtfWord::get_coordinates_and_probability() {
     m_wcs = 1;
     m_wcp = 254;
 
-    pRtfCharFirst = m_arChars.front();
-    pRtfCharLast = m_arChars.back();
+    pRtfCharFirst = chars.front();
+    pRtfCharLast = chars.back();
 
     m_wcl = pRtfCharFirst->real_rect_.left();
     m_wcr = pRtfCharLast->real_rect_.right();
     m_wct = std::min(pRtfCharFirst->real_rect_.top(), pRtfCharLast->real_rect_.top());
     m_wcb = std::max(pRtfCharFirst->real_rect_.bottom(), pRtfCharLast->real_rect_.bottom());
 
-    m_wCharsCount = m_arChars.size();
-    for (nz = 0; nz < m_wCharsCount; nz++) {
-        pRtfChar = m_arChars[nz];
+    chars_count = chars.size();
+    for (nz = 0; nz < chars_count; nz++) {
+        pRtfChar = chars[nz];
         m_wcp = std::min((int) m_wcp, (int) pRtfChar->versions[0].probability_);
         m_wcs = std::min((int) m_wcs, (int) pRtfChar->flag_spell);
     }

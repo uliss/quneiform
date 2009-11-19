@@ -242,7 +242,7 @@ void CRtfSector::FillingSectorInfo() { //~ тут происходит рабо�
                 pRtfFragment = pRtfVerticalColumn->m_arFragments[i2];
 
                 //!!!Art   if(pRtfFragment->m_wType == FT_FRAME || pRtfFragment->m_wType == FT_TEXT )
-                //!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top());
+                //!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->rect.top());
             }
         }
     }

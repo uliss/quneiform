@@ -134,13 +134,13 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
             for (nw = 0; nw < pRtfString->m_wWordsCount; ++nw) {
                 pRtfWord = pRtfString->GetNextWord();
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wCharsCount = tmp;
+                pRtfWord->chars_count = tmp;
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wFontNumber = (uint16_t) tmp;
+                pRtfWord->font_number = (uint16_t) tmp;
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wIdealFontPointSize = (uint16_t) tmp;
+                pRtfWord->ideal_font_point_size = (uint16_t) tmp;
 
-                for (nz = 0; nz < pRtfWord->m_wCharsCount; ++nz) {
+                for (nz = 0; nz < pRtfWord->chars_count; ++nz) {
                     uint16_t num;
 #pragma pack(1)
                     struct ALT_TIGER1
@@ -183,8 +183,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     pRtfChar->flag_cup_drop = alt2.FlagCapDrop;
                     pRtfChar->flag_spell = alt2.spell;
 
-                    pRtfChar->fontNumber = pRtfWord->m_wFontNumber;
-                    pRtfChar->fontPointSize = pRtfWord->m_wIdealFontPointSize;
+                    pRtfChar->fontNumber = pRtfWord->font_number;
+                    pRtfChar->fontPointSize = pRtfWord->ideal_font_point_size;
                 }
             }
         }
@@ -576,7 +576,7 @@ void CRtfPage::CorrectKegl(void) {
             //Считаем длину получившейся строки
             int len = 0;
             for (int w = 0; w < CountWords; w++)
-                len += pRtfString->m_arWords[w]->m_wCharsCount + 1;
+                len += pRtfString->m_arWords[w]->chars_count + 1;
             //Выделяем буфер под неё
             char* TmpString = new char[len + 1];
             TmpString[0] = 0;
@@ -585,9 +585,9 @@ void CRtfPage::CorrectKegl(void) {
             for (int nw = 0; nw < CountWords; nw++) {
                 int nz;
                 pRtfWord = pRtfString->m_arWords[nw];
-                CountChars = pRtfWord->m_wCharsCount;
+                CountChars = pRtfWord->chars_count;
                 for (nz = 0; nz < CountChars; nz++) {
-                    pRtfChar = pRtfWord->m_arChars[nz];
+                    pRtfChar = pRtfWord->chars[nz];
                     tmp_str[nz] = pRtfChar->versions[0].char_;
                     if (!nz)
                         pRtfChar->fontPointSize = MIN(pRtfChar->fontPointSize, MaxFontSize);
@@ -600,10 +600,10 @@ void CRtfPage::CorrectKegl(void) {
             }
 
             pRtfWord = pRtfString->m_arWords.front();
-            pFirstChar = pRtfWord->m_arChars.front();
+            pFirstChar = pRtfWord->chars.front();
             pRtfWord = pRtfString->m_arWords[CountWords - 1];
-            CountChars = pRtfWord->m_wCharsCount;
-            pLastChar = pRtfWord->m_arChars[CountChars - 1];
+            CountChars = pRtfWord->chars_count;
+            pLastChar = pRtfWord->chars[CountChars - 1];
 
             LenghtStr = (int16_t) (pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left());
             // adjust kegl to the text line real width (Microsoft function)
@@ -637,9 +637,9 @@ void CRtfPage::ChangeKegl(void) {
             for (int nw = 0; nw < CountWords; nw++) {
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
                 if (CountStrings == 1)
-                    pRtfWord->m_wRealFontPointSize = GetMinKegl(pRtfWord->m_wIdealFontPointSize);
+                    pRtfWord->real_font_point_size = GetMinKegl(pRtfWord->ideal_font_point_size);
                 else
-                    pRtfWord->m_wRealFontPointSize = GetNewKegl(pRtfWord->m_wIdealFontPointSize);
+                    pRtfWord->real_font_point_size = GetNewKegl(pRtfWord->ideal_font_point_size);
             }
         }
     }

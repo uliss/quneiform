@@ -108,7 +108,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     for (int ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-        pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+        pRtfChar = (CRtfChar*) pRtfWord->chars[0];
         if (pRtfChar->flag_cup_drop == TRUE) //заносим буквицы во frame
         {
             if ((FlagMode & USE_FRAME) || OutPutType)
@@ -146,7 +146,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             if (!RtfWriteMode && OutPutType)
                 m_sb = 0;
 #endif
-            m_wprev_font_size = pRtfWord->m_wRealFontPointSize;
+            m_wprev_font_size = pRtfWord->real_font_point_size;
 
             if (FlagMode & USE_FRAME_AND_COLUMN) {
                 if (SectorInfo->FlagOneString == TRUE) {
@@ -159,7 +159,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #ifdef EdWrite
             if (!RtfWriteMode) {
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-                pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+                pRtfChar = (CRtfChar*) pRtfWord->chars[0];
 
                 int colWidth = 0;
 
@@ -197,14 +197,14 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         if (!RtfWriteMode && !pRtfChar->flag_cup_drop) {
 
 #ifdef CHEREDOV
-            hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->m_wRealFontPointSize-1)*2));
+            hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->real_font_point_size-1)*2));
 #else
             if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME)) {
                 hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, DefFontSize); //line is text line
             }
             else {
                 hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer,
-                        (int) (pRtfWord->m_wRealFontPointSize * 2));
+                        (int) (pRtfWord->real_font_point_size * 2));
             }
 #endif
         }
@@ -214,10 +214,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         CountWords = pRtfString->m_wWordsCount;
         for (int nw = 0; nw < CountWords; nw++) {
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
-            pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+            pRtfChar = (CRtfChar*) pRtfWord->chars[0];
             Put("{");
 
-            tmp_font_name = get_font_name(pRtfWord->m_wFontNumber);
+            tmp_font_name = get_font_name(pRtfWord->font_number);
             if (m_wprev_font_name != tmp_font_name) {
                 switch (tmp_font_name) {
                 case 0:
@@ -243,19 +243,19 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             EDFontAttribs = 0;
 #endif
 
-            if (pRtfWord->m_wFontNumber & TG_EDW_UNDERLINE) {
+            if (pRtfWord->font_number & TG_EDW_UNDERLINE) {
                 Put("\\ul");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_UNDERLINE;
 #endif
             }
-            if (!(FlagMode & NOBOLD) && (pRtfWord->m_wFontNumber & TG_EDW_BOLD)) {
+            if (!(FlagMode & NOBOLD) && (pRtfWord->font_number & TG_EDW_BOLD)) {
                 Put("\\b");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_BOLD;
 #endif
             }
-            if (!(FlagMode & NOCURSIV) && (pRtfWord->m_wFontNumber & TG_EDW_ITALIC)) {
+            if (!(FlagMode & NOCURSIV) && (pRtfWord->font_number & TG_EDW_ITALIC)) {
                 Put("\\i");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_ITALIC;
@@ -266,9 +266,9 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                 PutCom("\\fs", DefFontSize, 1);
             else
-                PutCom("\\fs", pRtfWord->m_wRealFontPointSize * 2, 1);
+                PutCom("\\fs", pRtfWord->real_font_point_size * 2, 1);
             flag_end_word_with_hiphen = 0;
-            pRtfWord->get_coordinates_and_probability();
+            pRtfWord->getCoordinatesAndProbability();
             Put("{");
             PutCom("\\wcl", pRtfWord->m_wcl, 0);
             PutCom("\\wcr", pRtfWord->m_wcr, 0);
@@ -280,9 +280,9 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             Put("{");
             //--- Цикл по буквам
 
-            CountChars = pRtfWord->m_wCharsCount;
+            CountChars = pRtfWord->chars_count;
             for (int nz = 0; nz < CountChars; nz++) {
-                pRtfChar = (CRtfChar*) pRtfWord->m_arChars[nz];
+                pRtfChar = (CRtfChar*) pRtfWord->chars[nz];
 #ifdef EdWrite
                 if (!pRtfWord->m_wcs)
                     pRtfChar->versions[0].probability_ = 0;
@@ -298,12 +298,12 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 else
 #ifdef CHEREDOV
-                EDFontPointSize = (int)((pRtfWord->m_wRealFontPointSize-1)*2);
+                EDFontPointSize = (int)((pRtfWord->real_font_point_size-1)*2);
 #else
                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                     EDFontPointSize = DefFontSize;
                 else
-                    EDFontPointSize = (int) (pRtfWord->m_wRealFontPointSize * 2);
+                    EDFontPointSize = (int) (pRtfWord->real_font_point_size * 2);
 #endif
 
 #endif
@@ -343,7 +343,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right()
                                                 - m_rectReal.left()); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->m_wRealFontPointSize-1)*2));
+                                hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->real_font_point_size-1)*2));
 #else
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                                     hString = CED_CreateLine(hParagraph,
@@ -351,7 +351,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 else
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->m_bLineTransfer,
-                                            (int) (pRtfWord->m_wRealFontPointSize * 2));
+                                            (int) (pRtfWord->real_font_point_size * 2));
 #endif
 
                             }
@@ -397,7 +397,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right()
                                                 - m_rectReal.left()); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->m_wRealFontPointSize-1)*2));
+                                hString = CED_CreateLine(hParagraph,pRtfString->m_bLineTransfer,(int)((pRtfWord->real_font_point_size-1)*2));
 #else
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                                     hString = CED_CreateLine(hParagraph,
@@ -405,7 +405,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 else
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->m_bLineTransfer,
-                                            (int) (pRtfWord->m_wRealFontPointSize * 2));
+                                            (int) (pRtfWord->real_font_point_size * 2));
 #endif
 
                             }
@@ -441,7 +441,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!RtfWriteMode && !pRtfChar->flag_cup_drop) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
-                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->m_wRealFontPointSize-1)*2), (int)tmp_font_name,
+                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_point_size-1)*2), (int)tmp_font_name,
                             EDFontAttribs, -1, -1, -1);
 #else
 
@@ -450,7 +450,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 EDFontAttribs, -1, Color::undefined, Color::undefined);
                     else
                         CED_CreateChar(hString, slayout, Letter,
-                                (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
+                                (int) (pRtfWord->real_font_point_size * 2), (int) tmp_font_name,
                                 EDFontAttribs, -1, Color::undefined, Color::undefined);
 #endif
                 }
@@ -465,7 +465,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!RtfWriteMode) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
-                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->m_wRealFontPointSize-1)*2), (int)tmp_font_name,
+                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_point_size-1)*2), (int)tmp_font_name,
                             EDFontAttribs, -1, -1, -1);
 #else
                     if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
@@ -473,7 +473,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 EDFontAttribs, -1, Color::undefined, Color::undefined);
                     else
                         CED_CreateChar(hString, slayout, Letter,
-                                (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
+                                (int) (pRtfWord->real_font_point_size * 2), (int) tmp_font_name,
                                 EDFontAttribs, -1, Color::undefined, Color::undefined);
 #endif
                 }
@@ -511,26 +511,26 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     CountWords = pRtfString->m_wWordsCount;
 
     if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
-        if (pRtfWord->m_wRealFontPointSize >= 14)
+        if (pRtfWord->real_font_point_size >= 14)
             PenaltyForCheredov = 4;
-        else if (pRtfWord->m_wRealFontPointSize < 14 && pRtfWord->m_wRealFontPointSize > 10)
+        else if (pRtfWord->real_font_point_size < 14 && pRtfWord->real_font_point_size > 10)
             PenaltyForCheredov = 2;
-        else if (pRtfWord->m_wRealFontPointSize < 10 && pRtfWord->m_wRealFontPointSize > 5)
+        else if (pRtfWord->real_font_point_size < 10 && pRtfWord->real_font_point_size > 5)
             PenaltyForCheredov = 1;
     }
 
     for (int nw = 0; nw < CountWords; nw++) {
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
-        if (pRtfWord->m_wRealFontPointSize > 5)
-            pRtfWord->m_wRealFontPointSize -= PenaltyForCheredov;
+        if (pRtfWord->real_font_point_size > 5)
+            pRtfWord->real_font_point_size -= PenaltyForCheredov;
     }
 
-    m_wprev_font_name = get_font_name(pRtfWord->m_wFontNumber);
-    m_wprev_Underline = pRtfWord->m_wFontNumber & TG_EDW_UNDERLINE;
-    m_wprev_Bold = pRtfWord->m_wFontNumber & TG_EDW_BOLD;
-    m_wprev_Italic = pRtfWord->m_wFontNumber & TG_EDW_ITALIC;
+    m_wprev_font_name = get_font_name(pRtfWord->font_number);
+    m_wprev_Underline = pRtfWord->font_number & TG_EDW_UNDERLINE;
+    m_wprev_Bold = pRtfWord->font_number & TG_EDW_BOLD;
+    m_wprev_Italic = pRtfWord->font_number & TG_EDW_ITALIC;
     m_wprev_lang = 1024;
-    m_wprev_font_size = pRtfWord->m_wRealFontPointSize;
+    m_wprev_font_size = pRtfWord->real_font_point_size;
 
     SetFragmentAlignment(SectorInfo);
 }
@@ -736,11 +736,11 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
             pRtfString->m_wSpaceBefore = 0;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-        pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
+        pRtfCharFirst = (CRtfChar*) pRtfWord->chars[0];
         pRtfString->m_FirstChar = pRtfCharFirst->versions[0].char_;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
-        pRtfCharLast = (CRtfChar*) pRtfWord->m_arChars[pRtfWord->m_wCharsCount - 1];
+        pRtfCharLast = (CRtfChar*) pRtfWord->chars[pRtfWord->chars_count - 1];
         pRtfString->m_LastChar = pRtfCharLast->versions[0].char_;
 
         pRtfString->m_LeftBorder = pRtfCharFirst->ideal_rect_.left();
@@ -1401,11 +1401,11 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
                 pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
 
                 pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[0];
-                pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
+                pRtfCharFirst = (CRtfChar*) pRtfWord->chars[0];
                 top = pRtfCharFirst->ideal_rect_.bottom();
 
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-                pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
+                pRtfCharFirst = (CRtfChar*) pRtfWord->chars[0];
                 bottom = pRtfCharFirst->ideal_rect_.top();
                 pRtfString->m_wSpaceBefore = (uint16_t) (bottom - top);
             }
@@ -1415,11 +1415,11 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
             pRtfString->m_wSpaceBefore = 0;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-        pRtfCharFirst = (CRtfChar*) pRtfWord->m_arChars[0];
+        pRtfCharFirst = (CRtfChar*) pRtfWord->chars[0];
         pRtfString->m_FirstChar = pRtfCharFirst->versions[0].char_;
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
-        pRtfCharLast = (CRtfChar*) pRtfWord->m_arChars[pRtfWord->m_wCharsCount - 1];
+        pRtfCharLast = (CRtfChar*) pRtfWord->chars[pRtfWord->chars_count - 1];
         pRtfString->m_LastChar = pRtfCharLast->versions[0].char_;
 
         pRtfString->m_LeftBorder = pRtfCharFirst->ideal_rect_.left();
@@ -1512,9 +1512,9 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
     CountWords = pRtfString->m_wWordsCount;
     for (int i = 0; i < CountWords; i++) {
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[i];
-        WCountChars = pRtfWord->m_wCharsCount;
+        WCountChars = pRtfWord->chars_count;
         for (int j = 0; j < WCountChars; j++) {
-            pRtfChar = (CRtfChar*) pRtfWord->m_arChars[j];
+            pRtfChar = (CRtfChar*) pRtfWord->chars[j];
             (*LengthChars) += MAX(0, pRtfChar->ideal_rect_.right() - pRtfChar->ideal_rect_.left());
             (*CountChars)++;
         }
@@ -1550,8 +1550,8 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         pRtfWordPrev = (CRtfWord*) pRtfStringPrev->m_arWords[0];
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
 
-        if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->m_wRealFontPointSize
-                - pRtfWordPrev->m_wRealFontPointSize) > 1) {
+        if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->real_font_point_size
+                - pRtfWordPrev->real_font_point_size) > 1) {
             pRtfStringPrev->m_bLineTransfer = FALSE;
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
@@ -1564,8 +1564,8 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         if (pRtfString->m_wFlagBeginParagraph == TRUE) {
             CountWords = pRtfStringPrev->m_wWordsCount;
             pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
-            CountChars = pRtfWord->m_wCharsCount;
-            pRtfChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
+            CountChars = pRtfWord->chars_count;
+            pRtfChar = (CRtfChar*) pRtfWord->chars[CountChars - 1];
             if (pRtfChar->versions[0].char_ == '-' && pRtfChar->flag_spell_nocarrying) {
                 if (pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment)
                     pRtfString->m_wFlagBeginParagraph = FALSE;
@@ -1849,10 +1849,10 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
             pRtfWordPrev = (CRtfWord*) pRtfString->m_arWords[i - 1];
             pRtfWordCur = (CRtfWord*) pRtfString->m_arWords[i];
 
-            CountCharInPrevWord = pRtfWordPrev->m_wCharsCount;
+            CountCharInPrevWord = pRtfWordPrev->chars_count;
 
-            pRtfCharPrev = (CRtfChar*) pRtfWordPrev->m_arChars[CountCharInPrevWord - 1];
-            pRtfCharCur = (CRtfChar*) pRtfWordCur->m_arChars[0];
+            pRtfCharPrev = (CRtfChar*) pRtfWordPrev->chars[CountCharInPrevWord - 1];
+            pRtfCharCur = (CRtfChar*) pRtfWordCur->chars[0];
             if ((pRtfCharCur->ideal_rect_.left() - pRtfCharPrev->ideal_rect_.right()) > 2 * m_max_dist)
                 FlagBigSpase = 1;
         }
@@ -1915,12 +1915,12 @@ void CRtfFragment::PrintTheResult(const char* header_str) {
      for(int i1=0; i1<CountWord; i1++)
      {
      pRtfWord  = pRtfString->m_arWords[i1];
-     CountChar = pRtfWord->m_wCharsCount;
+     CountChar = pRtfWord->chars_count;
      for(int i2=0; i2<CountChar; i2++)
      {
      if(!i2)
      str+=' ';
-     pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[i2];
+     pRtfCharFirst = (CRtfChar*)pRtfWord->chars[i2];
      str+=pRtfCharFirst->versions[0].char_;
      }
      }
