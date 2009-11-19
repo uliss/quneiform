@@ -31,4 +31,7 @@ void TestCRtfChar::testInit() {
     CPPUNIT_ASSERT_EQUAL(layout, Rect(Point(-1, -1), Point(-1, -1)));
     CPPUNIT_ASSERT_EQUAL(lt.alternative, (uchar)' ');
     CPPUNIT_ASSERT_EQUAL(lt.probability, (uchar)0);
+
+    Rtf_CED_CreateChar(&layout, &lt, &ch);
+    CPPUNIT_ASSERT_EQUAL(layout, Rect());
 }

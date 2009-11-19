@@ -22,18 +22,20 @@
 #include "cttypes.h"
 #include "rect.h"
 #include "recdefs.h"
-#include <boost/array.hpp>
+#include "memorybuffer.h"
 
 class CRtfChar
 {
 public:
+    CRtfChar();
+
     struct Versions
     {
         uchar char_;
         uchar probability_;
     };
 
-    boost::array<Versions, REC_MAX_VERS> versions;
+    CIF::FixedBuffer<Versions, REC_MAX_VERS> versions;
 
     CIF::Rect ideal_rect_;
     CIF::Rect real_rect_;

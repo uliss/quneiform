@@ -22,6 +22,11 @@
 
 using namespace CIF;
 
+CRtfChar::CRtfChar() :
+    countAlt(0) {
+
+}
+
 void Rtf_CED_CreateChar(Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar) {
     if (RtfWriteMode)
         return;
