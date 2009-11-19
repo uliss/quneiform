@@ -42,6 +42,7 @@ public:
     bool debugHigh() const;
     bool debug() const;
     void setDebug(bool value);
+    void setDebugDump(bool value);
     void setDebugLevel(int level);
 private:
     bool debug_;

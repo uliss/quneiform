@@ -15,55 +15,20 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+#include "testcrtfchar.h"
+#include "rfrmt/crtfchar.h"
+#include "rfrmt/creatertf.h"
+#include "common/tostring.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfChar);
 
-#include "cifconfig.h"
+using namespace CIF;
 
-namespace CIF {
-
-Config::Config() :
-    debug_(true), dump_(false), debug_level_(DEBUG_HIGH) {
-}
-
-bool Config::debug() const {
-    return debug_;
-}
-
-bool Config::debugDump() const {
-    return debug() && dump_;
-}
-
-int Config::debugLevel() const {
-    return debug_level_;
-}
-
-bool Config::debugLow() const {
-    return debug() && (debugLevel() >= DEBUG_LOW);
-}
-
-bool Config::debugMedium() const {
-    return debug() && (debugLevel() >= DEBUG_MEDIUM);
-}
-
-bool Config::debugHigh() const {
-    return debug() && (debugLevel() >= DEBUG_HIGH);
-}
-
-void Config::setDebug(bool value) {
-    debug_ = value;
-    if (!debug_)
-        debug_level_ = 0;
-}
-
-void Config::setDebugDump(bool value) {
-    dump_= value;
-}
-
-void Config::setDebugLevel(int level) {
-    debug_level_ = level;
-}
-
-Config& Config::instance() {
-    static Config config;
-    return config;
-}
+void TestCRtfChar::testInit() {
+    CRtfChar ch;
+    LETTER lt;
+    CIF::Rect layout(Point(), 100, 20);
+    Rtf_CED_CreateChar(&layout, &lt, NULL);
+    CPPUNIT_ASSERT_EQUAL(layout, Rect(Point(-1, -1), Point(-1, -1)));
+    CPPUNIT_ASSERT_EQUAL(lt.alternative, (uchar)' ');
+    CPPUNIT_ASSERT_EQUAL(lt.probability, (uchar)0);
 }

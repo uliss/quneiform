@@ -230,8 +230,8 @@ void PumaImpl::formatResult() {
     if (Config::instance().debugDump()) {
         rfrmt_->setFormatOptions(format_options_);
         rfrmt_->saveRtf(input_filename_ + "_tmp_.rtf");
-        std::string fname = input_filename_ + "_tmp_.fed";
-        save(fname.c_str(), PUMA_TOEDNATIVE);
+        //        std::string fname = input_filename_ + "_tmp_.fed";
+        //        save(fname.c_str(), PUMA_TOEDNATIVE);
     }
 }
 
@@ -430,13 +430,13 @@ void PumaImpl::normalize() {
 }
 
 void PumaImpl::pass1() {
-    if (Config::instance().debugHigh())
+    if (Config::instance().debugDump())
         saveCSTR(1);
     recognizePass1();
 }
 
 void PumaImpl::pass2() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr2))
+    if (Config::instance().debugDump())
         saveCSTR(2);
 
     ///////////////////////////////
@@ -566,11 +566,11 @@ void PumaImpl::recognize() {
         CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
     // Сохраним описание Layout в файл.
-    if (!LDPUMA_Skip(hDebugLayoutToFile))
+    if (Config::instance().debugDump())
         saveLayoutToFile(layout_options_.layoutFilename());
 
     // Прочитаем описание Layout из файла.
-    if (!LDPUMA_Skip(hDebugLayoutFromFile))
+    if (Config::instance().debugDump())
         loadLayoutFromFile(layout_options_.layoutFilename());
 
     if (IsUpdate(FLG_UPDATE_CCOM)) {
@@ -686,7 +686,7 @@ void PumaImpl::recognizeCorrection() {
     CSTR_SortFragm(1);
     RPSTR_CorrectIncline(1);
 
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr4))
+    if (Config::instance().debugDump())
         saveCSTR(4);
 }
 
@@ -1010,7 +1010,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
 }
 
 void PumaImpl::spellCorrection() {
-    if (Config::instance().debugHigh())
+    if (Config::instance().debugDump())
         saveCSTR(3);
 
     // Дораспознаем по словарю

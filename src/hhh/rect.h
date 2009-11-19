@@ -154,11 +154,17 @@ public:
     }
 
     PointImpl<T> leftBottom() const {
-        return PointImpl<T>(left(), bottom());
+        return PointImpl<T> (left(), bottom());
     }
 
     PointImpl<T> leftTop() const {
         return pt0_;
+    }
+
+    template<class U>
+    void moveBy(const PointImpl<U>& pt) {
+        pt0_ += pt;
+        pt1_ += pt;
     }
 
     template<class U>
@@ -211,7 +217,7 @@ public:
     }
 
     PointImpl<T> rightTop() const {
-        return PointImpl<T>(right(), top());
+        return PointImpl<T> (right(), top());
     }
 
     T& rbottom() {

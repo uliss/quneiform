@@ -22,6 +22,7 @@
 #include "cttypes.h"
 #include "rect.h"
 #include "recdefs.h"
+#include <boost/array.hpp>
 
 class CRtfChar
 {
@@ -32,7 +33,7 @@ public:
         uchar probability_;
     };
 
-    Versions versions[REC_MAX_VERS];//!!! Art
+    boost::array<Versions, REC_MAX_VERS> versions;
 
     CIF::Rect ideal_rect_;
     CIF::Rect real_rect_;

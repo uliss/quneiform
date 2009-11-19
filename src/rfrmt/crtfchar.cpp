@@ -26,16 +26,15 @@ void Rtf_CED_CreateChar(Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar) {
     if (RtfWriteMode)
         return;
     if (pRtfChar) {
-        int i;
-        slayout->rleft() = pRtfChar->real_rect_.left() + TemplateOffset.x();
-        slayout->rright() = pRtfChar->real_rect_.right() + TemplateOffset.x();
-        slayout->rtop() = pRtfChar->real_rect_.top() + TemplateOffset.y();
-        slayout->rbottom() = pRtfChar->real_rect_.bottom() + TemplateOffset.y();
-        for (i = 0; i < pRtfChar->countAlt; i++) {
+        *slayout = pRtfChar->real_rect_;
+        slayout->moveBy(TemplateOffset);
+        for (int i = 0; i < pRtfChar->countAlt; i++) {
             Letter[i].alternative = pRtfChar->versions[i].char_;
             Letter[i].probability = pRtfChar->versions[i].probability_ | 1;
+            if (i == (pRtfChar->countAlt - 1))
+                Letter[i].probability &= 0xFE;
         }
-        Letter[i - 1].probability &= 0xFE;
+
     }
     else {
         *slayout = Rect(Point(-1, -1), Point(-1, -1));

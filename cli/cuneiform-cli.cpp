@@ -178,6 +178,8 @@ static string usage() {
         "  -h   --help                   Print this help message\n"
         "  -v   --verbose                Print verbose debugging messages\n"
         "  -V   --version                Print program version and exit\n"
+        "       --debug-dump             Dumps various temporary recognition data\n"
+        "                                   to current directory\n"
         "       --autorotate             Automatically rotate input image\n"
         "  -f   --format   FORMAT        Sets output format\n"
         "                                   type --format help to get full list\n"
@@ -285,12 +287,13 @@ int main(int argc, char **argv) {
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE;
+            preserve_line_breaks = FALSE, do_dump = FALSE;
 
     const char * const short_options = ":ho:vVl:f:d:u:";
     const struct option long_options[] = {
     //
         { "autorotate", no_argument, &do_autorotate, 1 },//
+        { "debug-dump", no_argument, &do_dump, 1 },//
         { "dictionary", required_argument, NULL, 'd' }, //
         { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
         { "fax", no_argument, &do_fax, 1 },//
@@ -416,6 +419,11 @@ int main(int argc, char **argv) {
         }
         else {
             Config::instance().setDebug(false);
+        }
+
+        if (do_dump) {
+            Config::instance().setDebug(true);
+            Config::instance().setDebugDump(true);
         }
 
         boost::scoped_array<char> dib(read_file(infilename.c_str()));

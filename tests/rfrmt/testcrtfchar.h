@@ -16,54 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "cifconfig.h"
+#ifndef TESTCRTFHAR_H_
+#define TESTCRTFHAR_H_
 
-namespace CIF {
+#include <cppunit/extensions/HelperMacros.h>
 
-Config::Config() :
-    debug_(true), dump_(false), debug_level_(DEBUG_HIGH) {
-}
+class TestCRtfChar: public CppUnit::TestFixture
+{
+    CPPUNIT_TEST_SUITE(TestCRtfChar);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+};
 
-bool Config::debug() const {
-    return debug_;
-}
-
-bool Config::debugDump() const {
-    return debug() && dump_;
-}
-
-int Config::debugLevel() const {
-    return debug_level_;
-}
-
-bool Config::debugLow() const {
-    return debug() && (debugLevel() >= DEBUG_LOW);
-}
-
-bool Config::debugMedium() const {
-    return debug() && (debugLevel() >= DEBUG_MEDIUM);
-}
-
-bool Config::debugHigh() const {
-    return debug() && (debugLevel() >= DEBUG_HIGH);
-}
-
-void Config::setDebug(bool value) {
-    debug_ = value;
-    if (!debug_)
-        debug_level_ = 0;
-}
-
-void Config::setDebugDump(bool value) {
-    dump_= value;
-}
-
-void Config::setDebugLevel(int level) {
-    debug_level_ = level;
-}
-
-Config& Config::instance() {
-    static Config config;
-    return config;
-}
-}
+#endif /* TESTCRTFHAR_H_ */

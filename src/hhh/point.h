@@ -78,15 +78,17 @@ public:
         return PointImpl(x_ - pt.x_, y_ - pt.y_);
     }
 
-    PointImpl& operator+=(const PointImpl& pt) {
-        x_ += pt.x_;
-        y_ += pt.y_;
+    template<class U>
+    PointImpl& operator+=(const PointImpl<U>& pt) {
+        x_ += pt.x();
+        y_ += pt.y();
         return *this;
     }
 
-    PointImpl& operator-=(const PointImpl& pt) {
-        x_ -= pt.x_;
-        y_ -= pt.y_;
+    template<class U>
+    PointImpl& operator-=(const PointImpl<U>& pt) {
+        x_ -= pt.x();
+        y_ -= pt.y();
         return *this;
     }
 
