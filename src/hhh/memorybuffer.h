@@ -91,7 +91,7 @@ public:
 	}
 
 	T * end() {
-		return &buf_[N];
+		return buf_ + N;
 	}
 
 	void clear() {
@@ -112,7 +112,7 @@ public:
 		return N;
 	}
 private:
-	T buf_[N + 1];
+	T buf_[N];
 };
 }
 
