@@ -2466,25 +2466,24 @@ do0(iv,0,K_Ver[i][ih])
     RtfPage->Count.RtfTextFragments++;
     j = RtfPage->m_arFragments.size();
     pRtfFragment = RtfPage->m_arFragments[j-1];
-    pRtfFragment->strings_count = NumStr[nc]+1;
+    int strings_count = NumStr[nc]+1;
     pRtfFragment->m_wType = FT_TEXT;
     pRtfFragment->m_rect = RectFragm[nc];
     pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
 
-    do0(ns,0,NumStr[nc])
-    { //str. begin
+    for(ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
         if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
-        continue;
+            continue;
+
         pRtfFragment->strings.push_back( new CRtfString() );
 
-        pRtfString=pRtfFragment->strings[ns];
+        pRtfString = pRtfFragment->strings[ns];
         //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
         pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
         for (nw= 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
-            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
+            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
                 continue;
-            }
 
             pRtfString->words.push_back(new CRtfWord);
             pRtfWord=pRtfString->words.back();
@@ -2585,16 +2584,15 @@ do0(iv,0,K_Ver[i][ih])
     RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
     RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
 
-    pRtfFragment->strings_count = NumStr[nc]+1;
+    int strings_count = NumStr[nc]+1;
     pRtfFragment->m_Flag = FragFlag[nc]; //nega
 
-    do0(ns,0,NumStr[nc])
-    { //str. begin
+    for(ns = 0; ns <= NumStr[nc]; ++ns)    { //str. begin
         if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
-        continue;
+            continue;
 
         pRtfFragment->strings.push_back( new CRtfString() );
-        pRtfString=pRtfFragment->strings[ns];
+        pRtfString = pRtfFragment->strings[ns];
 
         if(TitleStr[nc][ns].S_Attr)
         {
@@ -2602,7 +2600,7 @@ do0(iv,0,K_Ver[i][ih])
             pRtfString->attr=TRUE;
         }
         else
-            pRtfString->attr=FALSE;
+        pRtfString->attr=FALSE;
 
         pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 

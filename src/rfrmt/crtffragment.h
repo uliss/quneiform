@@ -38,7 +38,6 @@ public:
     CRtfString* GetNextString();
     void InitFragment(RtfSectorInfo* SectorInfo);
     void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
-    void new_paragraph(Bool OutPutType);
     Bool FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
     Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
     Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
@@ -86,8 +85,6 @@ public:
 
     typedef std::vector<CRtfString*> VectorString;
     VectorString strings;
-
-    uint16_t strings_count;
     CIF::Rect m_rect;
     CIF::Rect m_rectReal;
     CIF::Rect m_rectFree;
@@ -153,6 +150,8 @@ public:
     uchar m_FlagRight;
     uchar m_FlagBigSpace;
     uint32_t m_Flag;
+private:
+    void NewParagraph(Bool OutPutType);
 };
 
 #endif /* CRTFFRAGMENT_H_ */
