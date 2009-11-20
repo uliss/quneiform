@@ -33,9 +33,7 @@ public:
     CRtfString();
     ~CRtfString();
 
-    CRtfWord* GetFirstWord(void);
     CRtfWord* GetNextWord(void);
-    Bool Write(void);
     uint16_t get_max_font_size(void);
     int16_t GetStringSizeInTwips(void);
     uint16_t GetRealStringSize(void);
@@ -43,8 +41,6 @@ public:
     std::vector<CRtfWord*> m_arWords;
 
     uint16_t m_wWordsCount;
-    uint16_t m_wIndex;
-    CRtfFragment* m_Frag;
     CIF::Rect m_rect;
     uint16_t m_wType;
 
