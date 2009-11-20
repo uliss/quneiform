@@ -134,13 +134,13 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
             for (nw = 0; nw < pRtfString->m_wWordsCount; ++nw) {
                 pRtfWord = pRtfString->GetNextWord();
                 fread(&tmp, 2, 1, in);
-                pRtfWord->chars_count = tmp;
+                int chars_count = tmp;
                 fread(&tmp, 2, 1, in);
                 pRtfWord->font_number = (uint16_t) tmp;
                 fread(&tmp, 2, 1, in);
                 pRtfWord->ideal_font_point_size = (uint16_t) tmp;
 
-                for (nz = 0; nz < pRtfWord->chars_count; ++nz) {
+                for (nz = 0; nz < chars_count; ++nz) {
                     uint16_t num;
 #pragma pack(1)
                     struct ALT_TIGER1
@@ -153,9 +153,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     } alt2;
 #pragma pack()
 
-                    pRtfChar = pRtfWord->GetNextChar();
+                    pRtfChar = new CRtfChar;
+                    pRtfWord->chars.push_back(pRtfChar);
                     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                    pRtfChar->ideal_rect_= SRect;
+                    pRtfChar->ideal_rect_ = SRect;
                     fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
                     pRtfChar->real_rect_ = SRect;
 
@@ -568,7 +569,7 @@ void CRtfPage::CorrectKegl(void) {
             //Считаем длину получившейся строки
             int len = 0;
             for (int w = 0; w < CountWords; w++)
-                len += pRtfString->m_arWords[w]->chars_count + 1;
+                len += pRtfString->m_arWords[w]->chars.size() + 1;
             //Выделяем буфер под неё
             char* TmpString = new char[len + 1];
             TmpString[0] = 0;
@@ -577,7 +578,7 @@ void CRtfPage::CorrectKegl(void) {
             for (int nw = 0; nw < CountWords; nw++) {
                 int nz;
                 pRtfWord = pRtfString->m_arWords[nw];
-                CountChars = pRtfWord->chars_count;
+                CountChars = pRtfWord->chars.size();
                 for (nz = 0; nz < CountChars; nz++) {
                     pRtfChar = pRtfWord->chars[nz];
                     tmp_str[nz] = pRtfChar->versions[0].char_;
@@ -594,7 +595,7 @@ void CRtfPage::CorrectKegl(void) {
             pRtfWord = pRtfString->m_arWords.front();
             pFirstChar = pRtfWord->chars.front();
             pRtfWord = pRtfString->m_arWords[CountWords - 1];
-            CountChars = pRtfWord->chars_count;
+            CountChars = pRtfWord->chars.size();
             pLastChar = pRtfWord->chars[CountChars - 1];
 
             LenghtStr = (int16_t) (pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left());

@@ -30,8 +30,6 @@ public:
     CRtfWord();
     ~CRtfWord();
 
-    CRtfChar* GetFirstChar();
-    CRtfChar* GetNextChar();
     void getCoordinatesAndProbability(void);
 
     typedef std::vector<CRtfChar*> vectorChar;
@@ -45,7 +43,6 @@ public:
     int16_t m_wcb;
     uchar m_wcs;
     uchar m_wcp;
-    int16_t chars_count;
 
     uint16_t font_number;
     uint16_t ideal_font_point_size;

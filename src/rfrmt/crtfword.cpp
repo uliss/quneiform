@@ -21,18 +21,12 @@
 #include "crtfword.h"
 #include "cpage/cpage.h"
 
-CRtfWord::CRtfWord() :
-    chars_count(0) {
+CRtfWord::CRtfWord() {
 }
 
 CRtfWord::~CRtfWord() {
     for (vectorChar::iterator it = chars.begin(), end = chars.end(); it != end; ++it)
         delete *it;
-}
-
-CRtfChar* CRtfWord::GetNextChar() {
-    chars.push_back(new CRtfChar());
-    return chars.back();
 }
 
 void CRtfWord::calcCoordinates() {
@@ -86,8 +80,7 @@ void CRtfWord::getCoordinatesAndProbability() {
     m_wcs = 1;
     m_wcp = 254;
 
-    chars_count = chars.size();
-    for (int nz = 0; nz < chars_count; nz++) {
+    for (int nz = 0, size = chars.size(); nz < size; nz++) {
         m_wcp = std::min(m_wcp, chars[nz]->versions[0].probability_);
         m_wcs = std::min(m_wcs, chars[nz]->flag_spell);
     }

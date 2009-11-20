@@ -2491,12 +2491,10 @@ do0(iv,0,K_Ver[i][ih])
             pRtfString->m_arWords.push_back( new CRtfWord() );
             index_word = pRtfString->m_arWords.size();
             pRtfWord=pRtfString->m_arWords[index_word-1];
-            pRtfWord->chars_count = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
             pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
 
-            do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
-            { //char begin
+            for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
                 pRtfWord->chars.push_back( new CRtfChar() );
                 pRtfChar=pRtfWord->chars[nz];
 
@@ -2623,7 +2621,6 @@ do0(iv,0,K_Ver[i][ih])
             index_word = pRtfString->m_arWords.size();
             pRtfWord=pRtfString->m_arWords[index_word-1];
 
-            pRtfWord->chars_count = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
             pRtfWord->ideal_font_point_size= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
@@ -2632,8 +2629,7 @@ do0(iv,0,K_Ver[i][ih])
             else
             pRtfWord->real_font_point_size = RtfPage->GetNewKegl(pRtfWord->ideal_font_point_size);
 
-            do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
-            {
+            for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
                 pRtfWord->chars.push_back( new CRtfChar() );
                 pRtfChar=pRtfWord->chars[nz];
 
