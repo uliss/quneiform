@@ -40,7 +40,7 @@ public:
     void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
     Bool FWriteText(RtfSectorInfo* SectorInfo, Bool OutPutType);
     Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
-    Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
+    Bool FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
     Bool ProcessingUseNoneMode(void);
     void Init(RtfSectorInfo* SectorInfo);

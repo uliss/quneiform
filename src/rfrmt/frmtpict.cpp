@@ -421,15 +421,3 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
     return TRUE;
 }
-
-// Piter.
-// Сохранение изображения в метафайле
-static void bufcpy(char ** str, void * mem, unsigned sz) {
-    const char Hex[] = "0123456789ABCDEF";
-    unsigned char * c = (unsigned char *) mem;
-    for (unsigned i = 0; i < sz; i++, (*str) += 2) {
-        (*str)[0] = Hex[c[i] >> 4];
-        (*str)[1] = Hex[c[i] & 0x0F];
-        (*str)[2] = 0;
-    }
-}
