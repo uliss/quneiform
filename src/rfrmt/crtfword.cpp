@@ -35,60 +35,60 @@ CRtfChar* CRtfWord::GetNextChar() {
     return chars.back();
 }
 
-void CRtfWord::getCoordinatesAndProbability() {
-    int16_t nz;
-    int16_t t, l, b, r;
-
-    CRtfChar *pRtfChar, *pRtfCharFirst, *pRtfCharLast;
-    PAGEINFO PageInfo;
-
-    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
+void CRtfWord::calcCoordinates() {
+    assert(chars.size() >= 1);
+    CRtfChar * pRtfCharFirst = chars.front();
+    CRtfChar * pRtfCharLast = chars.back();
 
     m_wcl = m_wct = 32000;
     m_wcr = m_wcb = 0;
-    m_wcs = 1;
-    m_wcp = 254;
-
-    pRtfCharFirst = chars.front();
-    pRtfCharLast = chars.back();
 
     m_wcl = pRtfCharFirst->real_rect_.left();
     m_wcr = pRtfCharLast->real_rect_.right();
     m_wct = std::min(pRtfCharFirst->real_rect_.top(), pRtfCharLast->real_rect_.top());
     m_wcb = std::max(pRtfCharFirst->real_rect_.bottom(), pRtfCharLast->real_rect_.bottom());
 
-    chars_count = chars.size();
-    for (nz = 0; nz < chars_count; nz++) {
-        pRtfChar = chars[nz];
-        m_wcp = std::min((int) m_wcp, (int) pRtfChar->versions[0].probability_);
-        m_wcs = std::min((int) m_wcs, (int) pRtfChar->flag_spell);
-    }
+    PAGEINFO PageInfo;
+    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    GetPageInfo(hCPAGE, &PageInfo);
 
     if (PageInfo.Angle) {
-        t = m_wct;
-        r = m_wcr;
-        b = m_wcb;
-        l = m_wcl;
+        int t = m_wct;
+        int r = m_wcr;
+        int b = m_wcb;
+        int l = m_wcl;
         if (PageInfo.Angle == 90) //270
         {
             m_wcl = t;
             m_wcr = b;
-            m_wct = (int16_t) PageInfo.Height - r;
-            m_wcb = (int16_t) PageInfo.Height - l;
+            m_wct = PageInfo.Height - r;
+            m_wcb = PageInfo.Height - l;
         }
         else if (PageInfo.Angle == 270) //90
         {
-            m_wcl = (int16_t) PageInfo.Width - b;
-            m_wcr = (int16_t) PageInfo.Width - t;
+            m_wcl = PageInfo.Width - b;
+            m_wcr = PageInfo.Width - t;
             m_wct = l;
             m_wcb = r;
         }
         else if (PageInfo.Angle == 180) {
-            m_wcl = (int16_t) PageInfo.Width - r;
-            m_wcr = (int16_t) PageInfo.Width - l;
-            m_wct = (int16_t) PageInfo.Height - b;
-            m_wcb = (int16_t) PageInfo.Height - t;
+            m_wcl = PageInfo.Width - r;
+            m_wcr = PageInfo.Width - l;
+            m_wct = PageInfo.Height - b;
+            m_wcb = PageInfo.Height - t;
         }
+    }
+}
+
+void CRtfWord::getCoordinatesAndProbability() {
+    calcCoordinates();
+
+    m_wcs = 1;
+    m_wcp = 254;
+
+    chars_count = chars.size();
+    for (int nz = 0; nz < chars_count; nz++) {
+        m_wcp = std::min(m_wcp, chars[nz]->versions[0].probability_);
+        m_wcs = std::min(m_wcs, chars[nz]->flag_spell);
     }
 }

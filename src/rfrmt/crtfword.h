@@ -43,13 +43,15 @@ public:
     int16_t m_wct;
     int16_t m_wcr;
     int16_t m_wcb;
-    int16_t m_wcs;
-    int16_t m_wcp;
+    uchar m_wcs;
+    uchar m_wcp;
     int16_t chars_count;
 
     uint16_t font_number;
     uint16_t ideal_font_point_size;
     uint16_t real_font_point_size;
+private:
+    void calcCoordinates();
 };
 
 #endif /* CRTFWORD_H_ */

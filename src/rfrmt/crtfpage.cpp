@@ -155,17 +155,9 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 
                     pRtfChar = pRtfWord->GetNextChar();
                     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                    pRtfChar->ideal_rect_.rleft() = SRect.left();
-                    pRtfChar->ideal_rect_.rtop() = SRect.top();
-                    pRtfChar->ideal_rect_.rright() = SRect.right();
-                    pRtfChar->ideal_rect_.rbottom() = SRect.bottom();
-
+                    pRtfChar->ideal_rect_= SRect;
                     fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-                    pRtfChar->real_rect_.rleft() = SRect.left();
-                    pRtfChar->real_rect_.rtop() = SRect.top();
-                    pRtfChar->real_rect_.rright() = SRect.right();
-
-                    pRtfChar->real_rect_.rbottom() = SRect.bottom();
+                    pRtfChar->real_rect_ = SRect;
 
                     fread(&num, sizeof(uint16_t), 1, in);
                     assert(num <= REC_MAX_VERS);
