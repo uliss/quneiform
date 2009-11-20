@@ -76,14 +76,10 @@
 #include "dpuma.h"
 #include "aldebug.h"
 #include "rfrmt_prot.h"
+#include "common/debug.h"
+#include "common/tostring.h"
 
-
-#define  USE_NONE             0x0040   // no formatting
-#define  USE_FRAME_AND_COLUMN 0x0001   // use columns & frames
-#define  USE_FRAME            0x0002   // use only frames
-#define  NOBOLD               0x0004
-#define  NOCURSIV             0x0008
-#define  NOSIZE               0x0020
+using namespace CIF;
 
 uint32_t FlagMode;
 uint32_t ExFlagMode;
@@ -113,16 +109,15 @@ void SetReturnCode_rfrmt(uint16_t rc);
 uint16_t GetReturnCode_rfrmt();
 
 #ifdef alDebug
-std::vector <tagRECT> *pInputArray;
-std::vector <tagRECT> *pTheGeomStep1;
-std::vector <tagRECT> *pTheGeomStep2;
-std::vector <tagRECT> *pTheGeomTemp;
+std::vector<Rect> *pInputArray;
+std::vector<Rect> *pTheGeomStep1;
+std::vector<Rect> *pTheGeomStep2;
+std::vector<Rect> *pTheGeomTemp;
 vectorWord *pFragRectColor;
 uint16_t *CountRect;
 uint16_t Draw_Step;
 uint16_t Draw_Cycle;
 #endif
-///////////////////////////////////////////////////////////////
 
 Handle hDbgWnd = NULL;
 extern Handle hDebugMy;
@@ -135,289 +130,252 @@ extern Handle hDebugAlign;
 #define New On
 Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
 #ifdef New
-	FILE *fpInternalFile = create_temp_file();
-	if (fpInternalFile == NULL) {
-		assert ("Could not create tmpfile\n");
-	}
+    FILE *fpInternalFile = create_temp_file();
+    if (fpInternalFile == NULL) {
+        assert ("Could not create tmpfile\n");
+    }
 
-	LDPUMA_Skip(hDebugProfStart);
+    LDPUMA_Skip(hDebugProfStart);
 
-	FlagMode = 0;
-	ExFlagMode = FALSE;
+    FlagMode = 0;
+    ExFlagMode = FALSE;
 
-	RtfWriteMode = FALSE;
-	strcpy((char*) WriteRtfImageName, lpInputImageName);
+    RtfWriteMode = FALSE;
+    strcpy((char*) WriteRtfImageName, lpInputImageName);
 
 #ifdef alDebug
-	CRtfFragRect RtfFragRect;
-	RtfFragRect.m_arInputFragRect.clear();
-	RtfFragRect.m_arGeomFragRectStep1.clear();
-	RtfFragRect.m_arGeomFragRectStep2.clear();
-	RtfFragRect.m_arGeomFragRectTemp.clear();
-	RtfFragRect.m_arGeomFragRectColor.clear();
-	RtfFragRect.m_GeomFragCountRect = 0;
-	RtfFragRect.m_Cycle = 0;
-	RtfFragRect.m_Step = 0;
+    CRtfFragRect RtfFragRect;
+    RtfFragRect.m_arInputFragRect.clear();
+    RtfFragRect.m_arGeomFragRectStep1.clear();
+    RtfFragRect.m_arGeomFragRectStep2.clear();
+    RtfFragRect.m_arGeomFragRectTemp.clear();
+    RtfFragRect.m_arGeomFragRectColor.clear();
+    RtfFragRect.m_GeomFragCountRect = 0;
+    RtfFragRect.m_Cycle = 0;
+    RtfFragRect.m_Step = 0;
 
 #ifdef GLOBAL_DEBUG_AND_DRAW
-	RtfFragRect.m_Cycle = 1;
+    RtfFragRect.m_Cycle = 1;
 #else
-	RtfFragRect.m_Cycle = 0;
+    RtfFragRect.m_Cycle = 0;
 #endif
 
-	pInputArray = &RtfFragRect.m_arInputFragRect;
-	pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
-	pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
-	pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
-	pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
-	CountRect = &RtfFragRect.m_GeomFragCountRect;
-	Draw_Step = RtfFragRect.m_Step;
-	Draw_Cycle = RtfFragRect.m_Cycle;
+    pInputArray = &RtfFragRect.m_arInputFragRect;
+    pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
+    pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
+    pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
+    pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
+    CountRect = &RtfFragRect.m_GeomFragCountRect;
+    Draw_Step = RtfFragRect.m_Step;
+    Draw_Cycle = RtfFragRect.m_Cycle;
 #endif
 
-	SetReturnCode_rfrmt(IDS_ERR_NO);
-	if (CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
-		fclose(fpInternalFile);
-		return FALSE;
-	}
+    SetReturnCode_rfrmt(IDS_ERR_NO);
+    if (CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
+        fclose(fpInternalFile);
+        return FALSE;
+    }
 
-	if (!gbBold)
-		FlagMode |= NOBOLD;
-	if (!gbItalic)
-		FlagMode |= NOCURSIV;
-	if (!gbSize)
-		FlagMode |= NOSIZE;
+    if (!gbBold)
+        FlagMode |= NOBOLD;
+    if (!gbItalic)
+        FlagMode |= NOCURSIV;
+    if (!gbSize)
+        FlagMode |= NOSIZE;
 
-	if (!LDPUMA_Skip(hDebugFrame))
-		FlagMode |= USE_FRAME;
-	else if (gnFormat == 1 && ExFlagMode == FALSE)
-		FlagMode |= USE_FRAME_AND_COLUMN;
-	else
-		FlagMode |= USE_NONE;
+    if (!LDPUMA_Skip(hDebugFrame))
+        FlagMode |= USE_FRAME;
+    else if (gnFormat == 1 && ExFlagMode == FALSE)
+        FlagMode |= USE_FRAME_AND_COLUMN;
+    else
+        FlagMode |= USE_NONE;
 
-	strcpy((char*) lpMyNameSerif, gpSerifName);
-	strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
-	strcpy((char*) lpMyNameMono, gpCourierName);
+    strcpy((char*) lpMyNameSerif, gpSerifName);
+    strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
+    strcpy((char*) lpMyNameMono, gpCourierName);
 
-	FlagChangeSizeKegl = TRUE;
-	if (!LDPUMA_Skip(hDebugKegl))
-		FlagChangeSizeKegl = FALSE;
-	else
-		FlagChangeSizeKegl = TRUE;
+    FlagChangeSizeKegl = TRUE;
+    if (!LDPUMA_Skip(hDebugKegl))
+        FlagChangeSizeKegl = FALSE;
+    else
+        FlagChangeSizeKegl = TRUE;
 
-	FlagLineTransfer = FALSE;
-	if (!LDPUMA_Skip(hDebugLineTransfer))
-		FlagLineTransfer = TRUE;
-	else
-		FlagLineTransfer = FALSE;
+    FlagLineTransfer = FALSE;
+    if (!LDPUMA_Skip(hDebugLineTransfer))
+        FlagLineTransfer = TRUE;
+    else
+        FlagLineTransfer = FALSE;
 
-	FlagDebugAlign = FALSE;
-	if (!LDPUMA_Skip(hDebugAlign))
-		FlagDebugAlign = TRUE;
-	else
-		FlagDebugAlign = FALSE;
+    FlagDebugAlign = FALSE;
+    if (!LDPUMA_Skip(hDebugAlign))
+        FlagDebugAlign = TRUE;
+    else
+        FlagDebugAlign = FALSE;
 
-	if (!FullRtf(fpInternalFile, NULL, PtrEdTree)) {
-		fclose(fpInternalFile);
-		return FALSE;
-	}
+    if (!FullRtf(fpInternalFile, NULL, PtrEdTree)) {
+        fclose(fpInternalFile);
+        return FALSE;
+    }
 
-	if (fclose(fpInternalFile) != 0) {
-		char ch[500];
-		sprintf(ch, "File %s cannot be closed\n", fpInternalFile);
-		assert (ch);
-	}
+    fclose(fpInternalFile);
 
 #ifdef alDebug
-	if(!LDPUMA_Skip(hDebugMy)) {
-		int i;
-		for( i=0;i<pInputArray->size();i++)
-		{
-			RECT rect = (*pInputArray)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+    if (!LDPUMA_Skip(hDebugMy)) {
+        for (uint i = 0; i < pInputArray->size(); i++) {
+            Debug() << pInputArray->at(i) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pInputArray");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
+        LDPUMA_Console("Press any key...pInputArray");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
 
-		for( i=0;i<pTheGeomStep1->size();i++)
-		{
-			RECT rect = (*pTheGeomStep1)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+        for (uint i = 0; i < pTheGeomStep1->size(); i++) {
+            Debug() << pTheGeomStep1->at(i) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pTheGeomStep1");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
+        LDPUMA_Console("Press any key...pTheGeomStep1");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
 
-		for( i=0;i<pTheGeomStep2->size();i++)
-		{
-			RECT rect = (*pTheGeomStep2)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+        for (uint i = 0; i < pTheGeomStep2->size(); i++) {
+            Debug() << pTheGeomStep2->at(i) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pTheGeomStep2");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
-
-	}
+        LDPUMA_Console("Press any key...pTheGeomStep2");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
+    }
 #endif
 
-	LDPUMA_Skip(hDebugProfEnd);
-	return TRUE;
+    LDPUMA_Skip(hDebugProfEnd);
+    return TRUE;
 #else
-	strcpy(WriteRtfImageName,lpInputImageName);
-	return TRUE;
+    strcpy(WriteRtfImageName,lpInputImageName);
+    return TRUE;
 #endif
 }
 
-Bool32 RFRMT_SaveRtf(const char* lpOutputFileName,uint32_t code)
-{
-	FILE *fpInternalFile = create_temp_file();
-	if ( fpInternalFile == NULL) {
-		assert ("Could not create tmpfile\n");
-	}
+Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
+    FILE *fpInternalFile = create_temp_file();
+    if (fpInternalFile == NULL) {
+        assert ("Could not create tmpfile\n");
+    }
 
-	LDPUMA_Skip(hDebugProfStart);
+    LDPUMA_Skip(hDebugProfStart);
 
-	FlagMode = 0;
-	ExFlagMode = FALSE;
-	RtfWriteMode = TRUE;
+    FlagMode = 0;
+    ExFlagMode = FALSE;
+    RtfWriteMode = TRUE;
 
-	strcpy( (char*)RtfFileName, lpOutputFileName );
+    strcpy((char*) RtfFileName, lpOutputFileName);
 
 #ifdef alDebug
-	CRtfFragRect RtfFragRect;
-	RtfFragRect.m_arInputFragRect.clear();
-	RtfFragRect.m_arGeomFragRectStep1.clear();
-	RtfFragRect.m_arGeomFragRectStep2.clear();
-	RtfFragRect.m_arGeomFragRectTemp.clear();
-	RtfFragRect.m_arGeomFragRectColor.clear();
-	RtfFragRect.m_GeomFragCountRect = 0;
-	RtfFragRect.m_Cycle = 0;
-	RtfFragRect.m_Step = 0;
+    CRtfFragRect RtfFragRect;
+    RtfFragRect.m_arInputFragRect.clear();
+    RtfFragRect.m_arGeomFragRectStep1.clear();
+    RtfFragRect.m_arGeomFragRectStep2.clear();
+    RtfFragRect.m_arGeomFragRectTemp.clear();
+    RtfFragRect.m_arGeomFragRectColor.clear();
+    RtfFragRect.m_GeomFragCountRect = 0;
+    RtfFragRect.m_Cycle = 0;
+    RtfFragRect.m_Step = 0;
 
 #ifdef GLOBAL_DEBUG_AND_DRAW
-	RtfFragRect.m_Cycle = 1;
+    RtfFragRect.m_Cycle = 1;
 #else
-	RtfFragRect.m_Cycle = 0;
+    RtfFragRect.m_Cycle = 0;
 #endif
 
-	pInputArray = &RtfFragRect.m_arInputFragRect;
-	pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
-	pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
-	pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
-	pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
-	CountRect = &RtfFragRect.m_GeomFragCountRect;
-	Draw_Step = RtfFragRect.m_Step;
-	Draw_Cycle = RtfFragRect.m_Cycle;
+    pInputArray = &RtfFragRect.m_arInputFragRect;
+    pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
+    pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
+    pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
+    pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
+    CountRect = &RtfFragRect.m_GeomFragCountRect;
+    Draw_Step = RtfFragRect.m_Step;
+    Draw_Cycle = RtfFragRect.m_Cycle;
 #endif
 
-	SetReturnCode_rfrmt(IDS_ERR_NO);
-	if(CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
-		LDPUMA_Skip(hDebugProfEnd);
-		fclose(fpInternalFile);
-		return FALSE;
-	}
+    SetReturnCode_rfrmt(IDS_ERR_NO);
+    if (CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
+        LDPUMA_Skip(hDebugProfEnd);
+        fclose(fpInternalFile);
+        return FALSE;
+    }
 
-	if( !gbBold ) FlagMode |= NOBOLD;
-	if( !gbItalic ) FlagMode |= NOCURSIV;
-	if( !gbSize ) FlagMode |= NOSIZE;
+    if (!gbBold)
+        FlagMode |= NOBOLD;
+    if (!gbItalic)
+        FlagMode |= NOCURSIV;
+    if (!gbSize)
+        FlagMode |= NOSIZE;
 
-	if(!LDPUMA_Skip(hDebugFrame))
-	FlagMode |= USE_FRAME;
-	else
-	if( gnFormat==1 && ExFlagMode==FALSE)
-	FlagMode |= USE_FRAME_AND_COLUMN;
-	else
-	FlagMode |= USE_NONE;
+    if (!LDPUMA_Skip(hDebugFrame))
+        FlagMode |= USE_FRAME;
+    else if (gnFormat == 1 && ExFlagMode == FALSE)
+        FlagMode |= USE_FRAME_AND_COLUMN;
+    else
+        FlagMode |= USE_NONE;
 
-	strcpy( (char*)lpMyNameSerif , gpSerifName );
-	strcpy( (char*)lpMyNameNonSerif , gpSansSerifName );
-	strcpy( (char*)lpMyNameMono , gpCourierName );
+    strcpy((char*) lpMyNameSerif, gpSerifName);
+    strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
+    strcpy((char*) lpMyNameMono, gpCourierName);
 
-	FlagChangeSizeKegl=TRUE;
-	if(!LDPUMA_Skip(hDebugKegl))
-	FlagChangeSizeKegl=FALSE;
-	else
-	FlagChangeSizeKegl=TRUE;
+    FlagChangeSizeKegl = TRUE;
+    if (!LDPUMA_Skip(hDebugKegl))
+        FlagChangeSizeKegl = FALSE;
+    else
+        FlagChangeSizeKegl = TRUE;
 
-	FlagLineTransfer=FALSE;
-	if(!LDPUMA_Skip(hDebugLineTransfer))
-	FlagLineTransfer=TRUE;
-	else
-	FlagLineTransfer=FALSE;
+    FlagLineTransfer = FALSE;
+    if (!LDPUMA_Skip(hDebugLineTransfer))
+        FlagLineTransfer = TRUE;
+    else
+        FlagLineTransfer = FALSE;
 
-	FlagDebugAlign=FALSE;
-	if(!LDPUMA_Skip(hDebugAlign))
-	FlagDebugAlign=TRUE;
-	else
-	FlagDebugAlign=FALSE;
+    FlagDebugAlign = FALSE;
+    if (!LDPUMA_Skip(hDebugAlign))
+        FlagDebugAlign = TRUE;
+    else
+        FlagDebugAlign = FALSE;
 
-	if(!FullRtf(fpInternalFile,lpOutputFileName,NULL) ) {
-		LDPUMA_Skip(hDebugProfEnd);
-		fclose(fpInternalFile);
-		return FALSE;
-	}
+    if (!FullRtf(fpInternalFile, lpOutputFileName, NULL)) {
+        LDPUMA_Skip(hDebugProfEnd);
+        fclose(fpInternalFile);
+        return FALSE;
+    }
 
-	if (fclose(fpInternalFile) != 0)
-	{
-		char ch[500];
-		sprintf(ch,"File %s cannot be closed\n",fpInternalFile);
-		assert (ch);
-	}
+    fclose(fpInternalFile);
 
 #ifdef alDebug
-	if(!LDPUMA_Skip(hDebugMy)) {
-		int i;
-		for( i=0;i<pInputArray->size();i++)
-		{
-			RECT rect = (*pInputArray)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+    if (!LDPUMA_Skip(hDebugMy)) {
+        for (uint i = 0; i < pInputArray->size(); i++) {
+            Debug() << pInputArray->at(i) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pInputArray");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
+        LDPUMA_Console("Press any key...pInputArray");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
 
-		for( i=0;i<pTheGeomStep1->size();i++)
-		{
-			RECT rect = (*pTheGeomStep1)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+        for (uint i = 0; i < pTheGeomStep1->size(); i++) {
+            Debug() << pTheGeomStep1->at(1) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pTheGeomStep1");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
+        LDPUMA_Console("Press any key...pTheGeomStep1");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
 
-		for( i=0;i<pTheGeomStep2->size();i++)
-		{
-			RECT rect = (*pTheGeomStep2)[i];
-			Rect16 rect16 = {(int16_t)rect.left,(int16_t)rect.top,(int16_t)rect.right,(int16_t)rect.bottom};
-			LDPUMA_DrawRect(hDbgWnd,&rect16, 0, RGB(0,127,0),1,(uint32_t)hDbgWnd);
-		}
+        for (uint i = 0; i < pTheGeomStep2->size(); i++) {
+            Debug() << pTheGeomStep2->at(1) << "\n";
+        }
 
-		LDPUMA_Console("Press any key...pTheGeomStep2");
-		LDPUMA_WaitUserInput(hDebugMy,hDbgWnd);
-		LDPUMA_DeleteRects(hDbgWnd,(uint32_t)hDbgWnd);
-
-	}
+        LDPUMA_Console("Press any key...pTheGeomStep2");
+        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
+    }
 #endif
 
-	LDPUMA_Skip(hDebugProfEnd);
-	return TRUE;
+    LDPUMA_Skip(hDebugProfEnd);
+    return TRUE;
 }
 
 #ifdef alDebug
-void MyDrawForDebug(void)
-{
-	Draw_Step=3;
-	Draw_Cycle=0;
+void MyDrawForDebug(void) {
+    Draw_Step = 3;
+    Draw_Cycle = 0;
 }
 #endif

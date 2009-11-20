@@ -37,7 +37,7 @@ void Rtf_CED_CreateChar(Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar) {
             Letter[i].alternative = pRtfChar->versions[i].char_;
             Letter[i].probability = pRtfChar->versions[i].probability_ | 1;
             if (i == (pRtfChar->countAlt - 1))
-                Letter[i].probability &= 0xFE;
+                Letter[i].probability = '\xFE';
         }
 
     }

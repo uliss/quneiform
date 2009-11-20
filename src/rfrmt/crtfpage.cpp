@@ -112,10 +112,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         pRtfFragment->m_wType = FT_TEXT;
 
         fread(&RectFragm, 1, sizeof(Rect16), in);
-        pRtfFragment->m_rect.rleft() = (int32_t) (RectFragm.left() * Twips);
-        pRtfFragment->m_rect.rtop() = (int32_t) (RectFragm.top() * Twips);
-        pRtfFragment->m_rect.rright() = (int32_t) (RectFragm.right() * Twips);
-        pRtfFragment->m_rect.rbottom() = (int32_t) (RectFragm.bottom() * Twips);
+        pRtfFragment->m_rect.rleft() = RectFragm.left() * Twips;
+        pRtfFragment->m_rect.rtop() = RectFragm.top() * Twips;
+        pRtfFragment->m_rect.rright() = RectFragm.right() * Twips;
+        pRtfFragment->m_rect.rbottom() = RectFragm.bottom() * Twips;
         fread(&tmp, 2, 1, in);
         int strings_count = tmp;
         fread(&wtmp, 4, 1, in);
@@ -765,9 +765,9 @@ Bool CRtfPage::Write_USE_NONE() {
     CRtfFragment *pRtfFragment;
     CRtfSector *pRtfSector;
 
-    int16_t CountSectors = Count.RtfFrameTextFragments + Count.RtfTextFragments
+    int CountSectors = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
-    for (int16_t i = 0; i < CountSectors; i++) {
+    for (int i = 0; i < CountSectors; i++) {
         m_nCurSectorNumber = i;
         InGroupNumber = i;
         NumberCurrentFragment = GetFlagAndNumberFragment(&FragmentType, &InGroupNumber);
@@ -789,7 +789,7 @@ Bool CRtfPage::Write_USE_NONE() {
             PutCom("\\colno", 1, 0);
             PutCom("\\colw", PaperW, 0);
             pRtfFragment->pRtfParent = this;
-            pRtfFragment->FWriteText(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
+            pRtfFragment->FWriteText(&pRtfSector->SectorInfo, FOT_SINGLE);
         }
     }
     Put("}");
@@ -815,7 +815,7 @@ Bool CRtfPage::Write_USE_FRAME() {
     EDBOX playout;
 #endif
 
-    int16_t CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
+    int CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
 
     WriteSectorsHeader(0);
@@ -844,8 +844,8 @@ Bool CRtfPage::Write_USE_FRAME() {
     }
 #endif
 
-    for (int16_t i = 0; i < CountFragments; i++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[i];
+    for (int i = 0; i < CountFragments; i++) {
+        pRtfFragment = m_arFragments[i];
 
         if (pRtfFragment->m_wType == FT_TABLE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments);
@@ -882,7 +882,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 
             SectorInfo->FlagOverLayed = FALSE;
             pRtfFragment->pRtfParent = this;
-            pRtfFragment->FWriteText(i, SectorInfo, FOT_FRAME);
+            pRtfFragment->FWriteText(SectorInfo, FOT_FRAME);
             Put("}");
         }
     }

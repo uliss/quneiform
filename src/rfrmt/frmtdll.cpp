@@ -70,7 +70,6 @@
 #include "compat_defs.h"
 #include "puma/formatoptions.h"
 
-static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 
 void SetReturnCode_rfrmt(uint16_t rc) {

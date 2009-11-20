@@ -171,8 +171,7 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
     return TRUE;
 }
 
-int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize,
-        int16_t FontNumber) {
+int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize, int16_t FontNumber) {
     char* sz;
     uint16_t PenaltyKeglForString = 0;
     int16_t strHeight;
@@ -180,20 +179,16 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize,
 
     int len = strlen(str);
     if (FontPointSize > 30) //~ в больших кеглях большая ошибка в Microsoft function
-        //		*str +="     ";
         len += 5;
     else if (FontPointSize > 20)
         len++;
-    //		*str +=" ";
 
     if (!(FlagMode & NOBOLD) && ((char) FontNumber & TG_EDW_BOLD))
         koef = float(4. / 5.);
 
     sz = new char[len + 1];
-    //	if( str->GetLength() < MAX_BUFFER_SIZE )
     strcpy(sz, str);
-    //	else
-    //		return FALSE;
+
     //Заполняем хвост строки пробелами
     memset(sz + strlen(str), ' ', len - strlen(str));
     sz[len] = 0;
@@ -201,9 +196,9 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize,
     if (FontPointSize > ChangedKeglSize) {
         int Count = FontPointSize - ChangedKeglSize;
         for (int i = 0; i < Count; i++) {
-            int16_t RealSize = GetRealSize(sz, strlen(sz), FontPointSize, FontNumber, &strHeight);
-            if (RealSize > (int16_t) (width * Twips * koef)) //криретий окончания итераций- чтобы все символы влезли в строку по ширине
-            {
+            int RealSize = GetRealSize(sz, strlen(sz), FontPointSize, FontNumber, &strHeight);
+            //критерий окончания итераций- чтобы все символы влезли в строку по ширине
+            if (RealSize > (width * Twips * koef)) {
                 PenaltyKeglForString++;
                 FontPointSize--;
             }
@@ -217,17 +212,17 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize,
 
 //==Command - сама команда, value - числовой аргумент (-1 - нет)
 void PutCom(const char *Command, int32_t value, int16_t space) {
-    char Num[10];
-    int16_t i, len;
     if (RtfWriteMode == FALSE)
         return;
-    len = strlen(Command);
-    do0(i,0,len-1)
+    size_t len = strlen(Command);
+    for (uint i = 0; i < len; ++i)
         PutC(Command[i]);
+
+    char Num[10];
     if (value >= 0) {
         sprintf(Num, "%d", value);
         len = strlen(Num);
-        do0 (i,0,len-1)
+        for (uint i = 0; i <= len; ++i)
             PutChar(Num[i]);
     }
     if (space)
@@ -235,33 +230,31 @@ void PutCom(const char *Command, int32_t value, int16_t space) {
 }
 
 void Put(const char *Data) {
-    int16_t i, len;
     if (RtfWriteMode == FALSE)
         return;
-    len = strlen(Data);
-    do0(i,0,len-1)
+    size_t len = strlen(Data);
+    for (uint i = 0; i < len; ++i)
         PutC(Data[i]);
 }
 
 void PutChar(uchar sym) {
-    char s[10];
-    int16_t i, len;
     if (RtfWriteMode == FALSE)
         return;
     if (sym == '{' || sym == '}')
         return;
-    if ((uint) sym < (uint) 0xC0 || sym == '}') {
+    if (sym < 0xC0 || sym == '}') {
         if (sym == '\\')
             PutC(sym);
         PutC(sym);
     }
     else //Cyrillic
     {
+        char s[10];
         sprintf(s, "%x", (uint) sym);
         PutC('\\');
         PutC('\'');
-        len = strlen(s);
-        do0 (i,0,len-1)
+        size_t len = strlen(s);
+        for (uint i = 0; i < len; ++i)
             PutC(s[i]);
     }
 }
@@ -477,7 +470,7 @@ Bool CheckLines(Rect* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
                             && cpdata->Line.End_X * Twips < Rect->right() && VCentre
                             > cpdata->Line.Beg_Y * Twips && VCentre < cpdata->Line.End_Y * Twips
                             && abs(cpdata->Line.Beg_Y - cpdata->Line.End_Y) * Twips
-                                    > (Rect->bottom() - Rect->top()) / 2)
+                                    > Rect->height() / 2)
                         return TRUE;
                 }
                 else {//Hor

@@ -23,7 +23,7 @@
 
 namespace CIF {
 
-const char TIRE = 0x97; //'-'
+const char TIRE = '\x97'; //'-'
 
 enum rfrmt_fragment_output_t
 {

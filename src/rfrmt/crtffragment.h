@@ -38,7 +38,7 @@ public:
     CRtfString* GetNextString();
     void InitFragment(RtfSectorInfo* SectorInfo);
     void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
-    Bool FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
+    Bool FWriteText(RtfSectorInfo* SectorInfo, Bool OutPutType);
     Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
     Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 

@@ -78,13 +78,10 @@ CRtfString* CRtfFragment::GetNextString() {
     return strings.back();
 }
 
-Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *SectorInfo,
-        Bool OutPutType) {
+Bool CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
     CRtfWord* pRtfWord;
     CRtfString* pRtfString;
     CRtfChar* pRtfChar;
-    uint16_t CountWords;
-    uint16_t CountChars;
     int16_t flag_end_word_with_hiphen;
     int16_t tmp_font_name;
     Bool boPrevNega, boNega;
@@ -102,7 +99,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
     //--- Цикл по строкам
     boPrevNega = false; //NEGA_STR
-    for (int ns = 0; ns < strings.size(); ns++) {
+    for (uint ns = 0; ns < strings.size(); ns++) {
         pRtfString = strings[ns];
         pRtfWord = pRtfString->words[0];
         pRtfChar = pRtfWord->chars[0];
@@ -148,7 +145,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             if (FlagMode & USE_FRAME_AND_COLUMN) {
                 if (SectorInfo->FlagOneString == TRUE) {
                     m_li = 0;
-                    m_fi = MAX(0, (int16_t) (m_rect.left() - SectorInfo->MargL));
+                    m_fi = MAX(0, m_rect.left() - SectorInfo->MargL);
                     m_ri = 0;
                 }
             }
@@ -207,10 +204,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
 
         //--- Цикл по словам
-        CountWords = pRtfString->words.size();
-        for (int nw = 0; nw < CountWords; nw++) {
-            pRtfWord = (CRtfWord*) pRtfString->words[nw];
-            pRtfChar = (CRtfChar*) pRtfWord->chars[0];
+        size_t CountWords = pRtfString->words.size();
+        for (uint nw = 0; nw < CountWords; nw++) {
+            pRtfWord = pRtfString->words[nw];
+            pRtfChar = pRtfWord->chars[0];
             Put("{");
 
             tmp_font_name = get_font_name(pRtfWord->font_number);
@@ -276,8 +273,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             Put("{");
             //--- Цикл по буквам
 
-            CountChars = pRtfWord->chars.size();
-            for (int nz = 0; nz < CountChars; nz++) {
+            size_t CountChars = pRtfWord->chars.size();
+            for (uint nz = 0; nz < CountChars; nz++) {
                 pRtfChar = (CRtfChar*) pRtfWord->chars[nz];
 #ifdef EdWrite
                 if (!pRtfWord->m_wcs)
@@ -812,15 +809,14 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
     if (!(SectorInfo->FlagOverLayed))
         return FALSE;
 
-    int ns(0);
-    for (ns = 0; ns < strings.size(); ns++) {
+    for (uint ns = 0; ns < strings.size(); ns++) {
         pRtfString = strings[ns];
         pRtfString->alignment = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
         pRtfString->flag_begin_paragraph = FALSE;
         pRtfString->right_indent = 0;
     }
 
-    for (ns = 0; ns < strings.size(); ns++) {
+    for (uint ns = 0; ns < strings.size(); ns++) {
         pRtfString = strings[ns];
 
         if (ns == 0) {

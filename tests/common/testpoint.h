@@ -23,13 +23,15 @@
 
 class TestPoint: public CppUnit::TestFixture
 {
-CPPUNIT_TEST_SUITE(TestPoint);
-        CPPUNIT_TEST(testInit);
-        CPPUNIT_TEST(testCompare);
+    CPPUNIT_TEST_SUITE(TestPoint);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testCompare);
+    CPPUNIT_TEST(testOverflow);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testCompare();
+    void testOverflow();
 };
 
 #endif /* TESTPOINT_H_ */

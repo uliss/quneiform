@@ -106,38 +106,38 @@ using namespace CIF;
 #define CONS_MESS21 if(det21)	ConsMess
 #define CONS_MESS22 if(det22)	ConsMess
 #define CONS_MESS23 if(det23)	ConsMess
-int det0 =1, //draw step
-det1 =0, //common
-det2 =0, //search_interval
-det3 =0, //SearchColHist
-det4 =0, //geometry rtf
-det5 =0, //write rtf
-det6 =0, //sort && show fragm
-det7 =0, //print string
-det8 =0, //font
-det9 =0, //bad return
-det10=0, //ierarxiya colonok
-det11=0, //Get_all_term_fragms
-det12=0, //calculate ideal size of fragms
-det13=0, //Size page
-det14=0, //control frame
-det15=0, //frame_coor
-det16=0, //ordering and recalc colons
-det17=0, //indent
-det18=0, //межстрочное растояние
-det19=0, //отладка ошибок
-det20=0, //отладка realese version
-det21=0, //отладка realese version
-det22=0, //отладка realese version--memory
-det23=1, //отладка realese version only name file
-dets =0; //tmp break points
+int det0 = 0, //draw step
+        det1 = 1, //common
+        det2 = 1, //search_interval
+        det3 = 1, //SearchColHist
+        det4 = 0, //geometry rtf
+        det5 = 0, //write rtf
+        det6 = 1, //sort && show fragm
+        det7 = 1, //print string
+        det8 = 0, //font
+        det9 = 0, //bad return
+        det10 = 1, //ierarxiya colonok
+        det11 = 0, //Get_all_term_fragms
+        det12 = 0, //calculate ideal size of fragms
+        det13 = 0, //Size page
+        det14 = 0, //control frame
+        det15 = 0, //frame_coor
+        det16 = 0, //ordering and recalc colons
+        det17 = 0, //indent
+        det18 = 0, //межстрочное растояние
+        det19 = 0, //отладка ошибок
+        det20 = 0, //отладка realese version
+        det21 = 0, //отладка realese version
+        det22 = 0, //отладка realese version--memory
+        det23 = 1, //отладка realese version only name file
+        dets = 0; //tmp break points
 
 
-short FlagGraphic1=0,Graphic1Color=0;
-std::vector <tagRECT> *pTheGeomStep=NULL;
-extern std::vector <tagRECT> *pTheGeomStep1;
-extern std::vector <tagRECT> *pTheGeomStep2;
-extern std::vector <tagRECT> *pTheGeomTemp;
+short FlagGraphic1 = 0, Graphic1Color = 0;
+std::vector<Rect> *pTheGeomStep = NULL;
+extern std::vector<Rect> *pTheGeomStep1;
+extern std::vector<Rect> *pTheGeomStep2;
+extern std::vector<Rect> *pTheGeomTemp;
 extern vectorWord *pFragRectColor;
 extern void MyDrawForDebug(void);
 extern uint16_t *CountRect;
@@ -278,29 +278,6 @@ int MinArr(int *x, int n, int *PosExtr) {
     return x[in];
 }
 
-//==
-/* // !!! Art - устарело
- int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
- //если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]
- { int i; long ave=0,sig=0,work;
-
- u4sort(arr,n+1,sizeof(TYPE),(COMP_FUN)comp1); //медиана
- if(regim) //обрезаем края выборки
- { int beg=n/regim; if((n-=2*beg)<0){n+=2*beg;goto m1;}
- if(beg) do0(i,0,n) arr[i]=arr[i+beg];
- }
- m1: *med=arr[n>>1];
- do0(i,0,n) ave+=arr[i]; ave/=(long)(n+1);
- do0(i,0,n)
- { work=arr[i]-ave;
- sig+=work*work;
- }
- sig=(long)sqrt(sig/(float)(n+1));
- *ave1=(TYPE)ave; *sig1=(TYPE)sig;
- return 0;
- }
- */// !!! Art - устарело
-//==
 void bound_frm(FRAME **frm, int k_frm, BOUND *bnd) {
     int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000, i;
     do0(i,0,k_frm) {
@@ -506,24 +483,22 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, i
 //================================================================================
 //=================================   ImageKnot1  ================================
 //================================================================================
-void ImageKnot1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,int16_t col,
-        int16_t line_style,int16_t fill,int16_t ColFrm,FRAME **f,int16_t NumFrm,
-        int16_t NumVK,int16_t NumHK)
-{
-    Rect r,r1=ptr->Rect;
-    int16_t fl= (ColFrm != INDEF) ? 0 : 1;
+void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col, int16_t line_style,
+        int16_t fill, int16_t ColFrm, FRAME **f, int16_t NumFrm, int16_t NumVK, int16_t NumHK) {
+    Rect r;
+    Rect r1 = ptr->Rect;
+    int16_t fl = (ColFrm != INDEF) ? 0 : 1;
 
-    if(ColFrm == INDEF)
-    ColFrm=col;
-    r.left=LineVK[r1.left].beg;
-    r.right=LineVK[r1.right].beg;
-    r.top=LineHK[r1.top].beg;
-    r.bottom=LineHK[r1.bottom].beg;
-    image_rect(&r,col,line_style,fill);
-    if(ColFrm>=0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0)
-    {
-        TestKNOTT1(ptr,LineVK,LineHK,NumFrm,NumVK,NumHK);
-        image_frame(&f[ptr->InBegFrm],ptr->NumFrm-1,0,line_style,fill);
+    if (ColFrm == INDEF)
+        ColFrm = col;
+    r.rleft() = LineVK[r1.left()].beg;
+    r.rright() = LineVK[r1.right()].beg;
+    r.rtop() = LineHK[r1.top()].beg;
+    r.rbottom() = LineHK[r1.bottom()].beg;
+    image_rect(&r, col, line_style, fill);
+    if (ColFrm >= 0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0) {
+        TestKNOTT1(ptr, LineVK, LineHK, NumFrm, NumVK, NumHK);
+        image_frame(&f[ptr->InBegFrm], ptr->NumFrm - 1, 0, line_style, fill);
     }
 }
 
@@ -531,49 +506,50 @@ void ImageKnot1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,int16_t col,
 //================================================================================
 //=================================   ImageTree1  ================================
 //================================================================================
-int16_t ImageTree1(KNOTT *Root,LINE_KNOT *LineVK,LINE_KNOT *LineHK,
-        FRAME **frm,int16_t NumFrm,int16_t NumVK,int16_t NumHK)
-{
+int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **frm, int16_t NumFrm,
+        int16_t NumVK, int16_t NumHK) {
     STACK St;
-    int16_t DepthTree=20,col,ColFrm,i=1;
+    int16_t DepthTree = 20, col, ColFrm, i = 1;
     KNOTT *Curr;
-    char *err="ImageTree1";
+    char *err = "ImageTree1";
 
-    if(NewStack(DepthTree,&St))
-    return NOT_ALLOC;
-    Curr=Root;
-    col=0;
+    if (NewStack(DepthTree, &St))
+        return NOT_ALLOC;
+    Curr = Root;
+    col = 0;
 
-    while(Curr != NULL)
-    {   if(++col > 15)
-        col=1;
-        ColFrm=col;
+    while (Curr != NULL) {
+        if (++col > 15)
+            col = 1;
+        ColFrm = col;
         //ImageKnot1(Curr,LineVK,LineHK,col,0xFFFF,_GBORDER,ColFrm,frm,NumFrm,NumVK,NumHK);
         //--Рисуем по перекрестным ссылкам терминал. H-графы,списки их V-ссылок и им обратные
         //if(Curr->InBegFrm == IN_NO && Curr->down == NULL) //Терм. H-узел
-        if(det10) {ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d",
-                    i,Curr->InBegFrm,Curr->NumFrm,Curr->InColA,Curr->OrderChild);
-            ++i;}
+        if (det10) {
+            ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d", i,
+                    Curr->InBegFrm, Curr->NumFrm, Curr->InColA, Curr->OrderChild);
+            ++i;
+        }
 
-        ImageKnot1(Curr,LineVK,LineHK,col,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,NumVK,
-                NumHK);
-        Curr=NextKnot(Curr,&St);
-        if(OverflowStack(&St))
-        return NOT_ALLOC;
+        ImageKnot1(Curr, LineVK, LineHK, col, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
+                NumFrm, NumVK, NumHK);
+        Curr = NextKnot(Curr, &St);
+        if (OverflowStack(&St))
+            return NOT_ALLOC;
     }
     DelStack(&St);
     return 0;
 }
 
-void init_font(void)
-{   ;}
+void init_font(void) {
+    ;
+}
 #endif /*DRAW*/
 
 //==
 static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1, int16_t **begI,
         int16_t **endI, int16_t **intr, int16_t nOld, int16_t nNew) {
-    int16_t oldS = nOld * sizeof(PTR), newS = nNew * sizeof(PTR), oldS1 = nOld * sizeof(int16_t),
-            newS1 = nNew * sizeof(int16_t);
+    int16_t oldS = nOld * sizeof(PTR), newS = nNew * sizeof(PTR), newS1 = nNew * sizeof(int16_t);
     if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL)) || (colnt && ((*colnt
             = (KNOTT**) realloc(*colnt, newS)) == NULL)) || (colnt1 && ((*colnt1
             = (KNOTT**) realloc(*colnt1, newS)) == NULL)) || (begI && ((*begI = (int16_t*) realloc(
@@ -591,15 +567,13 @@ void ConvertRect16ToBnd(Rect16 *r, SRECT *b) {
 }
 
 #ifdef alDebug
-void show_frm(int16_t NumFragm,FRAME **frm)
-{
+void show_frm(int16_t NumFragm, FRAME **frm) {
     int16_t i;
 
-    for(i=0; i < NumFragm; ++i)
-    {
-        if(det6 || det17)
-        ConsMess(" i=%d start_pos=%d l=%d r=%d t=%d b=%d",i,frm[i]->start_pos,
-                frm[i]->left,frm[i]->right,frm[i]->up,frm[i]->down);
+    for (i = 0; i < NumFragm; ++i) {
+        if (det6 || det17)
+            ConsMess(" i=%d start_pos=%d l=%d r=%d t=%d b=%d", i, frm[i]->start_pos, frm[i]->left,
+                    frm[i]->right, frm[i]->up, frm[i]->down);
     }
 }
 #endif
@@ -638,8 +612,9 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm, SETUP_GENERATE_
         ArrFrm[i].up = RectFragm[i].top();
         ArrFrm[i].down = RectFragm[i].bottom();
 #ifdef alDebug
-        if (dets) ConsMess("i=%d  l=%d,r=%d,u=%d,d=%d",i,
-                RectFragm[i].left,RectFragm[i].right,RectFragm[i].top,RectFragm[i].bottom);
+        if (dets)
+            ConsMess("i=%d  l=%d,r=%d,u=%d,d=%d", i, RectFragm[i].left(), RectFragm[i].right(),
+                    RectFragm[i].top(), RectFragm[i].bottom());
 #endif
         BndAll.left = MIN(BndAll.left, RectFragm[i].left());
         BndAll.right = MAX(BndAll.right, RectFragm[i].right());
@@ -649,7 +624,7 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm, SETUP_GENERATE_
     //--calling internal function for tree generation--
     if (CreateTreePlainTxt1(BndAll, NULL, 0, NULL, 0, frm, NumFragm, Inf, setup->size_x,
             setup->size_y))
-        return (int16_t) fl - 200;
+        return fl - 200;
 
     return 0;
 }
@@ -687,432 +662,403 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *Li
     CONS_MESS1("===  CreateTreePlainTxt1  === ");
 
     //LineVK, LineHK - виртуальные либо натуральные линии разграфки,
-            //   сепарирующие найденные колонки, с помощью этих линий производитс
-            //   горизонт. и вертикал. выравнивание колонок
-            LineVK=(LINE_KNOT*)malloc((nVmax+2)*sizeof(LINE_KNOT));
-            LineHK=(LINE_KNOT*)malloc((nHmax+2)*sizeof(LINE_KNOT));
-            intr=(int16_t*)malloc(NumMax*sizeof(int16_t));
-            begI=(int16_t*)malloc(NumMax*sizeof(int16_t));
-            endI=(int16_t*)malloc(NumMax*sizeof(int16_t));
-            //Заносим в разграфку натурал. линии после их ортогонализации
-            //-- Замыкание системы H- и V-линий с краев по рамке листа --
-            LineVK[0].beg=BndTxt.left;
-            LineVK[1].beg=BndTxt.right;
-            LineHK[0].beg=BndTxt.up;
-            LineHK[1].beg=BndTxt.down;
-            LineVK[0].Thick=LineVK[1].Thick=LineHK[0].Thick=LineHK[1].Thick=0;
-            LineVK[0].TypeLine=LineVK[1].TypeLine=LineHK[0].TypeLine=LineHK[1].TypeLine=HIDDEN_LINE;
-            nV=nH=2;
+    //   сепарирующие найденные колонки, с помощью этих линий производитс
+    //   горизонт. и вертикал. выравнивание колонок
+    LineVK = (LINE_KNOT*) malloc((nVmax + 2) * sizeof(LINE_KNOT));
+    LineHK = (LINE_KNOT*) malloc((nHmax + 2) * sizeof(LINE_KNOT));
+    intr = (int16_t*) malloc(NumMax * sizeof(int16_t));
+    begI = (int16_t*) malloc(NumMax * sizeof(int16_t));
+    endI = (int16_t*) malloc(NumMax * sizeof(int16_t));
+    //Заносим в разграфку натурал. линии после их ортогонализации
+    //-- Замыкание системы H- и V-линий с краев по рамке листа --
+    LineVK[0].beg = BndTxt.left;
+    LineVK[1].beg = BndTxt.right;
+    LineHK[0].beg = BndTxt.up;
+    LineHK[1].beg = BndTxt.down;
+    LineVK[0].Thick = LineVK[1].Thick = LineHK[0].Thick = LineHK[1].Thick = 0;
+    LineVK[0].TypeLine = LineVK[1].TypeLine = LineHK[0].TypeLine = LineHK[1].TypeLine = HIDDEN_LINE;
+    nV = nH = 2;
 
-            colt= (KNOTT**)malloc(NumMax*sizeof(PTR));
-            colnt= (KNOTT**)malloc(NumMax*sizeof(PTR));
-            colnt1=(KNOTT**)malloc(NumMax*sizeof(PTR));
-            if(colt==NULL||colnt==NULL||colnt1==NULL)
-            {
-                CONS_MESS9("NOT_ALLOC 609");
+    colt = (KNOTT**) malloc(NumMax * sizeof(PTR));
+    colnt = (KNOTT**) malloc(NumMax * sizeof(PTR));
+    colnt1 = (KNOTT**) malloc(NumMax * sizeof(PTR));
+    if (colt == NULL || colnt == NULL || colnt1 == NULL) {
+        CONS_MESS9("NOT_ALLOC 609");
+        return NOT_ALLOC;
+    }
+    //--Создание спискового простр-ва и корня дерева--
+    Tree.NumKnot = NumMax * 2;
+    Tree.NumSeg = -1;
+    if ((fl
+            = init_lst(&Tree.ArrSeg, &Tree.NumSeg, Tree.NumKnot, (KNOT**) &Tree.free, sizeof(KNOTT)))
+            != 0) {
+        CONS_MESS9("NOT_ALLOC 618");
+        return -90 - fl;
+    }
+    if ((Tree.Root = IncKnot(NULL, NULL, &Tree.free)) == NULL) {
+        CONS_MESS9("NOT_ALLOC 624");
+        return -6;
+    }
+    FillFieldKNOTT1(Tree.Root, 0, 1, 0, 1, 0, NumFrm, IN_NO, UNSORT, ROOT, TRUE, ALG_BEG, ALG_BEG,
+            NULL);
+    colnt[k_colnt = 0] = Tree.Root;
+    k_colt = -1;
+    fl_beg = 1;
+    order = VER;//Так удобнее для RTF-converter
+    ThresX = ThresY = (int16_t) (1.5 * size_y);
+
+    int16_t MaxAllowLev, flTerm;
+    MaxAllowLev = 6;
+    MaxLev = 0;
+    flTerm = FALSE;
+
+    //вначале считаем, что все фрагменты образуют одну колонку,
+    //внешний цикл колонизации - на каждой итерации MaxLev производитс
+    //попытка разделить те узлы-колонки, которые есть на этом уровне
+    //и для тех узлов-колонок, которые поделились, строим дочерние
+    //узлы-подколонки на следующем уровне MaxLev+1
+    //colnt[k_colnt]   - массив узлов текущего уровня MaxLev
+    //colnt1[k_colnt1] - массив узлов следующего уровня MaxLev+1
+    //colt[k_colt] - массив терминальных колонок
+    //признак конца итераций - на очередном уровне нет узлов, т.е. ни один
+    //из узлов предыдущего уровня не удалось раздробить
+
+    while (k_colnt >= 0) {
+        if (++MaxLev > MaxAllowLev) //ограничение Word-a на глубину дерева
+            flTerm = TRUE;
+
+        k_colnt1 = -1; /*Число нетерминал. колонок след. уровня*/
+        //--цикл попытки дробления всех узлов текущего уровня--
+        CONS_MESS1("while....................  k_colnt=%d ", k_colnt);
+
+        do0(i,0,k_colnt) {
+            CONS_MESS1("beg......................1 ");
+            CONS_MESS1("i=%d ", i);
+            ptr = colnt[i]; //текущий узел
+            left = ptr->InBegFrm; //индекс первой рамки (фрагмента) узла
+            kf = ptr->NumFrm - 1; //число рамок(фрагментов)узла
+            ptr->OrderChild = UNSORT;//вначале считаем, что рамки узла неупорядочены
+            //если же узел удастся разбить, то порядок
+            //узла определяется упорядоченностью его дочерних
+            //узлов (V- или H-порядок)
+            CONS_MESS1("(index first fragm)left=%d , (count fragm) kf=%d ", left, kf);
+            //bndc - рамка узла
+            if (!fl_beg)
+                bound_frm(&frm[left], kf, &bndc); //рамка узла есть рамка входящих в узел рамок фрагментов
+
+            else
+                bndc = BndTxt; //вначале рамка узла-корня есть рамка всего листа
+            CONS_MESS1("fl_beg=%d, bndc : left=%d,  right=%d,  up=%d,  down=%d", fl_beg, bndc.left,
+                        bndc.right, bndc.up, bndc.down);
+            //---
+            MaxOld = NumMax;
+            //-- попытка разбиение узла путем построения соответствующего --
+            //   профиля: на ось Ox для order=HOR или на ось Oy для order=VER
+            //   и поиска на нем межколонных зазоров
+            if (flTerm) {
+                fl = kcol = 0;
+            }
+            else {
+                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
+                        &intr, &begI, &endI, &NumMax)) < 0) {
+                    CONS_MESS9(" 715 !!!!! SearchColHist1 fl=%d", fl);
+                    return fl - 2000;
+                }
+                CONS_MESS1("after SearchColHist1 MaxOld=%d, NumMax=%d", MaxOld, NumMax);
+            }
+
+            if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
+                    NumMax) == NOT_ALLOC) {
+                CONS_MESS9("NOT_ALLOC 726");
                 return NOT_ALLOC;
             }
-            //--Создание спискового простр-ва и корня дерева--
-            Tree.NumKnot=NumMax*2;
-            Tree.NumSeg=-1;
-            if((fl=init_lst(&Tree.ArrSeg,&Tree.NumSeg,Tree.NumKnot,(KNOT**)&Tree.free,sizeof(KNOTT)))!=0)
-            {
-                CONS_MESS9("NOT_ALLOC 618");
-                return -90-fl;
+
+            if (!fl && fl_beg) {
+                //В I-ый раз пробуем ортогональное направления разбиения,
+                //если не удалось разбиение в прямом направлении
+
+                //вообще-то лучше сделать в корневом узле не предопределенный выбор
+                //направления первого разбиения, если допустимы оба направления,
+                //а выбор того направления, на котором между колонками больший зазор
+
+                order = order == HOR ? VER : HOR;
+                MaxOld = NumMax;
+                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
+                        &intr, &begI, &endI, &NumMax)) < 0) {
+                    CONS_MESS9("744 fl-2000");
+                    return fl - 2000;
+                }
+                if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
+                        NumMax) == NOT_ALLOC) {
+                    CONS_MESS9("752 NOT_ALLOC");
+                    return NOT_ALLOC;
+                }
             }
-            if((Tree.Root=IncKnot(NULL,NULL,&Tree.free)) == NULL)
-            {
-                CONS_MESS9("NOT_ALLOC 624");
-                return -6;
-            }
-            FillFieldKNOTT1(Tree.Root,0,1,0,1,0,NumFrm,IN_NO,UNSORT,ROOT,TRUE,ALG_BEG,ALG_BEG,NULL);
-            colnt[k_colnt=0]=Tree.Root; k_colt=-1;
-            fl_beg=1; order=VER;//Так удобнее для RTF-converter
-            ThresX=ThresY=(int16_t)(1.5*size_y);
+            if (fl) //если разбиение удалось, присваиваем узлу порядок, определяемый направлением разбиени
+                ptr->OrderChild = order;
 
-            int16_t MaxAllowLev,flTerm;
-            MaxAllowLev=6;
-            MaxLev=0; flTerm=FALSE;
+            if (kcol > 0) {
+                CONS_MESS1("beg------------------2");
+                CONS_MESS1("kcol=%d", kcol);
+                BOUND b;
+                //,bnd;
+                if (fl_beg && ptr->OrderChild == HOR)
+                    --MaxAllowLev;
 
-            //вначале считаем, что все фрагменты образуют одну колонку,
-            //внешний цикл колонизации - на каждой итерации MaxLev производитс
-            //попытка разделить те узлы-колонки, которые есть на этом уровне
-            //и для тех узлов-колонок, которые поделились, строим дочерние
-            //узлы-подколонки на следующем уровне MaxLev+1
-            //colnt[k_colnt]   - массив узлов текущего уровня MaxLev
-            //colnt1[k_colnt1] - массив узлов следующего уровня MaxLev+1
-            //colt[k_colt] - массив терминальных колонок
-            //признак конца итераций - на очередном уровне нет узлов, т.е. ни один
-            //из узлов предыдущего уровня не удалось раздробить
-
-            while(k_colnt >= 0)
-            {
-                if(++MaxLev > MaxAllowLev) //ограничение Word-a на глубину дерева
-                flTerm=TRUE;
-
-                k_colnt1=-1; /*Число нетерминал. колонок след. уровня*/
-                //--цикл попытки дробления всех узлов текущего уровня--
-                CONS_MESS1("while....................  k_colnt=%d ",k_colnt);
-
-                do0(i,0,k_colnt)
+                //Разбиение удалось => заносим в дерево дочерний куст подколонок данного узла
+                PrevChild = NULL;
+                do0(j,0,kcol) //цикл внесению дочерей в дерево
                 {
-                    CONS_MESS1("beg......................1 ");
-                    CONS_MESS1("i=%d ",i);
-                    ptr=colnt[i]; //текущий узел
-                    left=ptr->InBegFrm; //индекс первой рамки (фрагмента) узла
-                    kf=ptr->NumFrm-1; //число рамок(фрагментов)узла
-                    ptr->OrderChild=UNSORT;//вначале считаем, что рамки узла неупорядочены
-                    //если же узел удастся разбить, то порядок
-                    //узла определяется упорядоченностью его дочерних
-                    //узлов (V- или H-порядок)
-                    CONS_MESS1("(index first fragm)left=%d , (count fragm) kf=%d ",left,kf);
-                    //bndc - рамка узла
-                    if(!fl_beg)
-                    bound_frm(&frm[left],kf,&bndc); //рамка узла есть рамка входящих в узел рамок фрагментов
-
-                    else
-                    bndc=BndTxt; //вначале рамка узла-корня есть рамка всего листа
-                    CONS_MESS1("fl_beg=%d, bndc : left=%d,  right=%d,  up=%d,  down=%d",fl_beg,bndc.left,bndc.right,bndc.up,bndc.down);
-                    //---
-                    MaxOld=NumMax;
-                    //-- попытка разбиение узла путем построения соответствующего --
-                    //   профиля: на ось Ox для order=HOR или на ось Oy для order=VER
-                    //   и поиска на нем межколонных зазоров
-                    if(flTerm)
-                    {   fl=kcol=0;}
-                    else
-                    {
-                        if((fl=SearchColHist1(&frm[left],kf,&bndc,size_x,size_y,order,
-                                                &kcol,&intr,&begI,&endI,&NumMax)) < 0)
-                        {
-                            CONS_MESS9(" 715 !!!!! SearchColHist1 fl=%d",fl);
-                            return fl-2000;
-                        }
-                        CONS_MESS1("after SearchColHist1 MaxOld=%d, NumMax=%d",MaxOld,NumMax);
+                    //вставляем дочерний узел в дерево:
+                    //      ptr - узел-родитель
+                    //      PrevChild - предыдущее дит
+                    //      Tree.free - свободное списковое пространство дерева
+                    CONS_MESS1("beg------------------3");
+                    CONS_MESS1("j=%d", j);
+                    if ((Child = IncKnot(ptr, PrevChild, &Tree.free)) == NULL) {
+                        CONS_MESS9("788 !!!!!! IncKnot return -7");
+                        return -7;
                     }
 
-                    if(MaxOld != NumMax &&
-                            Realloc2(&colt,&colnt,&colnt1,NULL,NULL,NULL,MaxOld,NumMax) == NOT_ALLOC)
-                    {
-                        CONS_MESS9("NOT_ALLOC 726");
-                        return NOT_ALLOC;
+                    //номер начального фрагмента InBegFrm и число фрагментов NumF данной колонки
+                    tmp = j ? intr[j - 1] + 1 : 0;
+                    InBegFrm = ptr->InBegFrm + tmp;
+                    NumF = intr[j] - tmp + 1;
+                    CONS_MESS1("InBegFrm=%d ,  NumF=%d", InBegFrm, NumF);
+                    //--ищем близкие линии или генерим новые для границ колонки--
+                    bound_frm(&frm[InBegFrm], NumF - 1, &b);
+                    del = begI[j] - (j ? endI[j - 1] : 0);
+                    if (order == HOR) {
+                        CONS_MESS1("beg------------------4");
+                        CONS_MESS1("order == HOR");
+                        minz = MIN(ThresX,del);
+                        if ((left = !j ? ptr->Rect.left() : AddLine1(&LineVK, &nV, &nVmax,
+                                (int16_t) endI[j - 1], minz)) < 0) {
+                            CONS_MESS9("819       left-100");
+                            return left - 100;
+                        }
+                        if ((right = j == kcol ? ptr->Rect.right() : AddLine1(&LineVK, &nV, &nVmax,
+                                begI[j], minz)) < 0) {
+                            CONS_MESS9("826       right-200");
+                            return right - 200;
+                        }
+                        //top=ptr->Rect.top; bottom=ptr->Rect.bottom;
+                        //!!!для разновысоких колонок можно уточнять и верхи и низы!!!
+                        //но тогда придется рассчитать рамки новых колонок
+                        del1 = b.down - b.up;
+                        minz = MIN(ThresY,del1);
+                        if ((top = AddLine1(&LineHK, &nH, &nHmax, b.up, minz)) < 0) {
+                            CONS_MESS9("836       top-100");
+                            return top - 100;
+                        }
+                        if ((bottom = AddLine1(&LineHK, &nH, &nHmax, b.down, minz)) < 0) {
+                            CONS_MESS9("842       bottom-100");
+                            return bottom - 100;
+                        }
+                        CONS_MESS1("end------------------4");
+                    }
+                    else {
+                        CONS_MESS1("beg------------------5");
+                        CONS_MESS1("order == VER");
+                        minz = MIN(ThresY,del);
+                        if ((top = !j ? ptr->Rect.top() : AddLine1(&LineHK, &nH, &nHmax,
+                                endI[j - 1], minz)) < 0) {
+                            CONS_MESS9("858       top-300");
+                            return top - 300;
+                        }
+                        if ((bottom = j == kcol ? ptr->Rect.bottom() : AddLine1(&LineHK, &nH,
+                                &nHmax, begI[j], minz)) < 0) {
+                            CONS_MESS9("865       bottom-400");
+                            return bottom - 400;
+                        }
+                        //left=ptr->Rect.left; right=ptr->Rect.right;
+                        //!!!для разношироких колонок можно уточнять и боковые линии!!!
+                        del1 = b.right - b.left;
+                        minz = MIN(ThresX,del1);
+                        if ((left = AddLine1(&LineVK, &nV, &nVmax, b.left, minz)) < 0) {
+                            CONS_MESS9("874       left-100");
+                            return left - 100;
+                        }
+                        if ((right = AddLine1(&LineVK, &nV, &nVmax, b.right, minz)) < 0) {
+                            CONS_MESS9("880       right-200");
+                            return right - 200;
+                        }
+                        CONS_MESS1("end------------------5");
                     }
 
-                    if(!fl && fl_beg)
+                    //--разрешение противоречия равенства индексов начальной и конечной--
+                    //  границ для малоразмерных колонок
+                    if (left == right) //узкая колонка
                     {
-                        //В I-ый раз пробуем ортогональное направления разбиения,
-                        //если не удалось разбиение в прямом направлении
-
-                        //вообще-то лучше сделать в корневом узле не предопределенный выбор
-                        //направления первого разбиения, если допустимы оба направления,
-                        //а выбор того направления, на котором между колонками больший зазор
-
-                        order = order == HOR ? VER:HOR;
-                        MaxOld=NumMax;
-                        if((fl=SearchColHist1(&frm[left],kf,&bndc,size_x,size_y,order,
-                                                &kcol,&intr,&begI,&endI,&NumMax)) < 0)
-                        {
-                            CONS_MESS9("744 fl-2000");
-                            return fl-2000;
+                        CONS_MESS1("left == right <<узкая колонка>>");
+                        if (j != kcol || !fl) {
+                            //minz=fl ? (order==HOR ? begI[j]:b.right) : bnd.right;
+                            minz = fl ? (order == HOR ? begI[j] : b.right) : b.right;
+                            if ((right = AddLine1(&LineVK, &nV, &nVmax, minz, -1)) < 0) {
+                                CONS_MESS9("917       right-200");
+                                return right - 200;
+                            }
                         }
-                        if(MaxOld != NumMax &&
-                                Realloc2(&colt,&colnt,&colnt1,NULL,NULL,NULL,MaxOld,NumMax) == NOT_ALLOC)
-                        {
-                            CONS_MESS9("752 NOT_ALLOC");
-                            return NOT_ALLOC;
+                        else {
+                            //		 minz=fl ? (order==HOR ? endI[j-1]:b.left) : bnd.right;
+                            minz = fl ? (order == HOR ? endI[j - 1] : b.left) : b.right;
+                            if ((left = AddLine1(&LineVK, &nV, &nVmax, minz, -1)) < 0) {
+                                CONS_MESS9("927       right-200");
+                                return right - 200;
+                            }
                         }
                     }
-                    if(fl) //если разбиение удалось, присваиваем узлу порядок, определяемый направлением разбиени
-                    ptr->OrderChild=order;
-
-                    if(kcol > 0)
+                    if (top == bottom) //низкая колонка
                     {
-                        CONS_MESS1("beg------------------2");
-                        CONS_MESS1("kcol=%d",kcol);
-                        BOUND b;
-                        //,bnd;
-                        if(fl_beg && ptr->OrderChild == HOR)
-                        --MaxAllowLev;
-
-                        //Разбиение удалось => заносим в дерево дочерний куст подколонок данного узла
-                        PrevChild=NULL;
-                        do0(j,0,kcol) //цикл внесению дочерей в дерево
-                        {
-                            //вставляем дочерний узел в дерево:
-                            //      ptr - узел-родитель
-                            //      PrevChild - предыдущее дит
-                            //      Tree.free - свободное списковое пространство дерева
-                            CONS_MESS1("beg------------------3");
-                            CONS_MESS1("j=%d",j);
-                            if((Child=IncKnot(ptr,PrevChild,&Tree.free)) == NULL)
-                            {
-                                CONS_MESS9("788 !!!!!! IncKnot return -7");
-                                return -7;
+                        CONS_MESS1("top == bottom <<низкая колонка>>");
+                        if (j != kcol || !fl) {
+                            //				 minz=fl ? (order==VER ? begI[j]:b.down) : bnd.down;
+                            minz = fl ? (order == VER ? begI[j] : b.down) : b.down;
+                            if ((bottom = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
+                                CONS_MESS9("942       bottom-100");
+                                return bottom - 100;
                             }
-
-                            //номер начального фрагмента InBegFrm и число фрагментов NumF данной колонки
-                            tmp=j ? intr[j-1]+1 : 0;
-                            InBegFrm=ptr->InBegFrm+tmp;
-                            NumF=intr[j]-tmp+1;
-                            CONS_MESS1("InBegFrm=%d ,  NumF=%d",InBegFrm,NumF);
-                            //--ищем близкие линии или генерим новые для границ колонки--
-                            bound_frm(&frm[InBegFrm],NumF-1,&b);
-                            del=begI[j]-(j ? endI[j-1] : 0);
-                            if(order == HOR)
-                            {
-                                CONS_MESS1("beg------------------4");
-                                CONS_MESS1("order == HOR");
-                                minz=MIN(ThresX,del);
-                                if((left= !j ? ptr->Rect.left() :
-                                                AddLine1(&LineVK,&nV,&nVmax,(int16_t)endI[j-1],minz)) < 0)
-                                {
-                                    CONS_MESS9("819       left-100");
-                                    return left-100;
-                                }
-                                if((right= j==kcol ? ptr->Rect.right() :
-                                                AddLine1(&LineVK,&nV,&nVmax,begI[j],minz)) < 0)
-                                {
-                                    CONS_MESS9("826       right-200");
-                                    return right-200;
-                                }
-                                //top=ptr->Rect.top; bottom=ptr->Rect.bottom;
-                                //!!!для разновысоких колонок можно уточнять и верхи и низы!!!
-                                //но тогда придется рассчитать рамки новых колонок
-                                del1=b.down-b.up;
-                                minz=MIN(ThresY,del1);
-                                if((top=AddLine1(&LineHK,&nH,&nHmax,b.up,minz)) < 0)
-                                {
-                                    CONS_MESS9("836       top-100");
-                                    return top-100;
-                                }
-                                if((bottom=AddLine1(&LineHK,&nH,&nHmax,b.down,minz)) < 0)
-                                {
-                                    CONS_MESS9("842       bottom-100");
-                                    return bottom-100;
-                                }
-                                CONS_MESS1("end------------------4");
-                            }
-                            else
-                            {
-                                CONS_MESS1("beg------------------5");
-                                CONS_MESS1("order == VER");
-                                minz=MIN(ThresY,del);
-                                if((top= !j ? ptr->Rect.top() :
-                                                AddLine1(&LineHK,&nH,&nHmax,endI[j-1],minz)) < 0)
-                                {
-                                    CONS_MESS9("858       top-300");
-                                    return top-300;
-                                }
-                                if((bottom= j==kcol ? ptr->Rect.bottom() :
-                                                AddLine1(&LineHK,&nH,&nHmax,begI[j],minz)) < 0)
-                                {
-                                    CONS_MESS9("865       bottom-400");
-                                    return bottom-400;
-                                }
-                                //left=ptr->Rect.left; right=ptr->Rect.right;
-                                //!!!для разношироких колонок можно уточнять и боковые линии!!!
-                                del1=b.right-b.left;
-                                minz=MIN(ThresX,del1);
-                                if((left=AddLine1(&LineVK,&nV,&nVmax,b.left,minz)) < 0)
-                                {
-                                    CONS_MESS9("874       left-100");
-                                    return left-100;
-                                }
-                                if((right=AddLine1(&LineVK,&nV,&nVmax,b.right,minz)) < 0)
-                                {
-                                    CONS_MESS9("880       right-200");
-                                    return right-200;
-                                }
-                                CONS_MESS1("end------------------5");
-                            }
-
-                            //--разрешение противоречия равенства индексов начальной и конечной--
-                            //  границ для малоразмерных колонок
-                            if(left == right) //узкая колонка
-                            {
-                                CONS_MESS1("left == right <<узкая колонка>>");
-                                if(j != kcol || !fl)
-                                {
-                                    //minz=fl ? (order==HOR ? begI[j]:b.right) : bnd.right;
-                                    minz=fl ? (order==HOR ? begI[j]:b.right) : b.right;
-                                    if((right=AddLine1(&LineVK,&nV,&nVmax,minz,-1)) < 0)
-                                    {
-                                        CONS_MESS9("917       right-200");
-                                        return right-200;
-                                    }
-                                }
-                                else
-                                {
-                                    //		 minz=fl ? (order==HOR ? endI[j-1]:b.left) : bnd.right;
-                                    minz=fl ? (order==HOR ? endI[j-1]:b.left) : b.right;
-                                    if((left=AddLine1(&LineVK,&nV,&nVmax,minz,-1)) < 0)
-                                    {
-                                        CONS_MESS9("927       right-200");
-                                        return right-200;
-                                    }
-                                }
-                            }
-                            if(top == bottom) //низкая колонка
-                            {
-                                CONS_MESS1("top == bottom <<низкая колонка>>");
-                                if(j != kcol || !fl)
-                                {
-                                    //				 minz=fl ? (order==VER ? begI[j]:b.down) : bnd.down;
-                                    minz=fl ? (order==VER ? begI[j]:b.down) : b.down;
-                                    if((bottom=AddLine1(&LineHK,&nH,&nHmax,minz,-1)) < 0)
-                                    {
-                                        CONS_MESS9("942       bottom-100");
-                                        return bottom-100;
-                                    }
-                                }
-                                else
-                                {
-                                    minz=order==VER ? endI[j-1]:b.up;
-                                    if((top=AddLine1(&LineHK,&nH,&nHmax,minz,-1)) < 0)
-                                    {
-                                        CONS_MESS9("952       top-100");
-                                        return top-100;
-                                    }
-                                }
-                            }
-
-                            if(LineVK[left].beg-30 >= LineVK[right].beg ||
-                                    LineHK[top].beg -10 >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
-                            LDPUMA_Console(" Неправильные координаты фрагмента!!! ");
-
-                            if(LineVK[left].beg-30 >= LineVK[right].beg ||
-                                    LineHK[top].beg -10 > LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
-                            {
-                                CONS_MESS9("961 return -6");
-                                return -6;
-                            }
-
-                            //заполняем поля нового узла колонки
-                            //!!! поля left,right,top,bottom имеют смысл индексов линий разграфки
-                            FillFieldKNOTT1(Child,left,right,top,bottom,
-                                    InBegFrm,NumF,IN_NO,UNSORT,CELL,TRUE,ALG_BEG,ALG_BEG,NULL);
-                            if(fl)
-                            {
-                                if(++k_colnt1 >= NumMax)
-                                {
-                                    int16_t old=NumMax;
-                                    NumMax=(int16_t)(NumMax*1.5);
-                                    if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax) == NOT_ALLOC)
-                                    {
-                                        CONS_MESS9("976    NOT_ALLOC");
-                                        return NOT_ALLOC;
-                                    }
-                                }
-                                colnt1[k_colnt1]=Child;//Запоминаем очередную нетерминал. колонку
-                            }
-                            PrevChild=Child;
-                            CONS_MESS1("end------------------3");
                         }
-                        CONS_MESS1("end------------------2");
+                        else {
+                            minz = order == VER ? endI[j - 1] : b.up;
+                            if ((top = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
+                                CONS_MESS9("952       top-100");
+                                return top - 100;
+                            }
+                        }
                     }
-                    else /*Обнаружена терминал. колонка*/
+
+                    if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
+                            >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
+                        LDPUMA_Console(" Неправильные координаты фрагмента!!! ");
+
+                    if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
+                            > LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
                     {
-                        CONS_MESS1("Обнаружена терминал. колонка");
-                        CONS_MESS1("beg------------------2.1");
-                        if(++k_colt >= NumMax)
-                        {
-                            int16_t old=NumMax;
-                            NumMax=(int16_t)(NumMax*1.5);
-                            if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax)
-                                    == NOT_ALLOC)
-                            {
-                                CONS_MESS9("1012    NOT_ALLOC");
+                        CONS_MESS9("961 return -6");
+                        return -6;
+                    }
+
+                    //заполняем поля нового узла колонки
+                    //!!! поля left,right,top,bottom имеют смысл индексов линий разграфки
+                    FillFieldKNOTT1(Child, left, right, top, bottom, InBegFrm, NumF, IN_NO, UNSORT,
+                            CELL, TRUE, ALG_BEG, ALG_BEG, NULL);
+                    if (fl) {
+                        if (++k_colnt1 >= NumMax) {
+                            int16_t old = NumMax;
+                            NumMax = (int16_t) (NumMax * 1.5);
+                            if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
+                                    == NOT_ALLOC) {
+                                CONS_MESS9("976    NOT_ALLOC");
                                 return NOT_ALLOC;
                             }
                         }
-                        colt[k_colt]=ptr;
-                        //заполняем поля очередного терминал. узла
-                        ptr->OrderChild=TERM;
-                        colt[k_colt]->InColA=(int)frm[left]->start_pos;
-                        CONS_MESS1("end------------------2.1");
+                        colnt1[k_colnt1] = Child;//Запоминаем очередную нетерминал. колонку
                     }
-                    CONS_MESS1("end------------------1");
+                    PrevChild = Child;
+                    CONS_MESS1("end------------------3");
                 }
-                //переписываем узлы следующего уровня в текущий уровень для след.итерации
-                do0(i,0,k_colnt1) colnt[i]=colnt1[i];
-                k_colnt=k_colnt1;
-                fl_beg=0;
-                order = order==HOR ? VER:HOR;//меняем порядок на ортогональный для след.итерации
-                if(flTerm == TRUE)
-                break;
-            } //end of while
-            free(colt);
-            free(colnt);
-            free(colnt1);
-            free(intr);
-            free(begI);
-            free(endI);
-            tmp=k_colt;
-
-            //сортируем линии разграфки и перенумеруем их в узлах дерева
-            if((fl=SortHorLine1(LineHK,nH,LineVK,nV,Tree.Root,&colt,&k_colt,frm)))
-            {
-                CONS_MESS9("1047    fl-260");
-                return fl-260;
+                CONS_MESS1("end------------------2");
             }
-            if(tmp != k_colt)
+            else /*Обнаружена терминал. колонка*/
             {
-                CONS_MESS9("1053    fl-11");
-                return fl-11;
+                CONS_MESS1("Обнаружена терминал. колонка");
+                CONS_MESS1("beg------------------2.1");
+                if (++k_colt >= NumMax) {
+                    int16_t old = NumMax;
+                    NumMax = (int16_t) (NumMax * 1.5);
+                    if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
+                            == NOT_ALLOC) {
+                        CONS_MESS9("1012    NOT_ALLOC");
+                        return NOT_ALLOC;
+                    }
+                }
+                colt[k_colt] = ptr;
+                //заполняем поля очередного терминал. узла
+                ptr->OrderChild = TERM;
+                colt[k_colt]->InColA = (int) frm[left]->start_pos;
+                CONS_MESS1("end------------------2.1");
             }
-#ifdef alDebug
-            pTheGeomStep = pTheGeomStep2;
-            for(i=0; i <= k_colt; ++i)
-            ImageKnot1(colt[i],LineVK,LineHK,14,(int16_t)0xFFFF,_GBORDER,(int16_t)-1,frm,NumFrm,nV,nH);
-
-            pTheGeomStep = pTheGeomStep1;
-            FlagGraphic1=1;
-            Graphic1Color=0;
-            fl=ImageTree1(Tree.Root,LineVK,LineHK,frm,NumFrm,nV,nH);
-            FlagGraphic1=0;
-#endif
-            //заносим в выходную "деревянную" структуру дерево и его причандалы
-            Inf->Tree=Tree; //дерево
-            Inf->StatCell=StatCell; //
-            Inf->LineVK=LineVK; //V-разграфка дерева LineVK[nV]
-            Inf->nV=nV; //
-            Inf->LineHK=LineHK; //H-разграфка дерева LineHK[nH]
-            Inf->nH=nH; //
-            Inf->ColT=colt; //терминал. колонки дерева colt[NumT]
-            Inf->NumT=k_colt; //
-            if(!(Inf->bnd_col=(BOUND*)malloc((k_colt+1)*sizeof(BOUND))))
-            {
-                CONS_MESS9("1076    NOT_ALLOC");
-                return NOT_ALLOC;
-            }
-
-            for(i=0; i <= k_colt; ++i)
-            {
-                int16_t in;
-
-                in=colt[i]->InColA;
-                colt[i]->AllowOCR=1;
-                Inf->bnd_col[i].left = LineVK[colt[i]->Rect.left()].beg;
-                Inf->bnd_col[i].right= LineVK[colt[i]->Rect.right()].beg;
-                Inf->bnd_col[i].up = LineHK[colt[i]->Rect.top()].beg;
-                Inf->bnd_col[i].down = LineHK[colt[i]->Rect.bottom()].beg;
-            }
-            CONS_MESS1("==  !!!! end  CreateTreePlainTxt1   == ");
-            CONS_MESS9("1103    return 0; ");
-            free((KNOT**)StatCell);
-
-            return 0;
+            CONS_MESS1("end------------------1");
         }
+        //переписываем узлы следующего уровня в текущий уровень для след.итерации
+        do0(i,0,k_colnt1)
+            colnt[i] = colnt1[i];
+        k_colnt = k_colnt1;
+        fl_beg = 0;
+        order = order == HOR ? VER : HOR;//меняем порядок на ортогональный для след.итерации
+        if (flTerm == TRUE)
+            break;
+    } //end of while
+    free(colt);
+    free(colnt);
+    free(colnt1);
+    free(intr);
+    free(begI);
+    free(endI);
+    tmp = k_colt;
 
-    //Return:
-    // >= 0 - среди существующих линий найдена близкая в смысле Thres (ее индекс)
-    //        или сгенерирована новая (ее индекс)
-    // < 0 - ERR
-    //Вход:               Coor - x-коор-та для V-линии или y-коор-та для H-линии
-    //										Thres - порог грубости отождествления линий
-    //Обменные параметры: Line1[nCurr] - система линий
-    //                    nMax - максимальное число линий
-    //==
+    //сортируем линии разграфки и перенумеруем их в узлах дерева
+    if ((fl = SortHorLine1(LineHK, nH, LineVK, nV, Tree.Root, &colt, &k_colt, frm))) {
+        CONS_MESS9("1047    fl-260");
+        return fl - 260;
+    }
+    if (tmp != k_colt) {
+        CONS_MESS9("1053    fl-11");
+        return fl - 11;
+    }
+#ifdef alDebug
+    pTheGeomStep = pTheGeomStep2;
+    for (i = 0; i <= k_colt; ++i)
+        ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
+                NumFrm, nV, nH);
+
+    pTheGeomStep = pTheGeomStep1;
+    FlagGraphic1 = 1;
+    Graphic1Color = 0;
+    fl = ImageTree1(Tree.Root, LineVK, LineHK, frm, NumFrm, nV, nH);
+    FlagGraphic1 = 0;
+#endif
+    //заносим в выходную "деревянную" структуру дерево и его причандалы
+    Inf->Tree = Tree; //дерево
+    Inf->StatCell = StatCell; //
+    Inf->LineVK = LineVK; //V-разграфка дерева LineVK[nV]
+    Inf->nV = nV; //
+    Inf->LineHK = LineHK; //H-разграфка дерева LineHK[nH]
+    Inf->nH = nH; //
+    Inf->ColT = colt; //терминал. колонки дерева colt[NumT]
+    Inf->NumT = k_colt; //
+    if (!(Inf->bnd_col = (BOUND*) malloc((k_colt + 1) * sizeof(BOUND)))) {
+        CONS_MESS9("1076    NOT_ALLOC");
+        return NOT_ALLOC;
+    }
+
+    for (i = 0; i <= k_colt; ++i) {
+        int16_t in;
+
+        in = colt[i]->InColA;
+        colt[i]->AllowOCR = 1;
+        Inf->bnd_col[i].left = LineVK[colt[i]->Rect.left()].beg;
+        Inf->bnd_col[i].right = LineVK[colt[i]->Rect.right()].beg;
+        Inf->bnd_col[i].up = LineHK[colt[i]->Rect.top()].beg;
+        Inf->bnd_col[i].down = LineHK[colt[i]->Rect.bottom()].beg;
+    }
+    CONS_MESS1("==  !!!! end  CreateTreePlainTxt1   == ");
+    CONS_MESS9("1103    return 0; ");
+    free((KNOT**) StatCell);
+
+    return 0;
+}
+
+//Return:
+// >= 0 - среди существующих линий найдена близкая в смысле Thres (ее индекс)
+//        или сгенерирована новая (ее индекс)
+// < 0 - ERR
+//Вход:               Coor - x-коор-та для V-линии или y-коор-та для H-линии
+//										Thres - порог грубости отождествления линий
+//Обменные параметры: Line1[nCurr] - система линий
+//                    nMax - максимальное число линий
+//==
 int16_t AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax, int16_t Coor, int16_t Thres)
 //==
 {
@@ -1163,98 +1109,95 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
 
     CONS_MESS3("===beg    SearchColHist1   ===");
 
-    if(reg==HOR)
-    {
-        ave_dir=ave_x;ave_ort=ave_y;
-        CONS_MESS3("reg==HOR,ave_dir=%d ; ave_ort=%d",ave_dir,ave_ort);
+    if (reg == HOR) {
+        ave_dir = ave_x;
+        ave_ort = ave_y;
+        CONS_MESS3("reg==HOR,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
     }
-    else
-    {
-        ave_dir=ave_y;ave_ort=ave_x;
-        CONS_MESS3("reg==VER,ave_dir=%d ; ave_ort=%d",ave_dir,ave_ort);
+    else {
+        ave_dir = ave_y;
+        ave_ort = ave_x;
+        CONS_MESS3("reg==VER,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
     }
 
-    if((fl=SearchInterval1(frm,k_frm,begI,endI,k_int,bnd,ave_dir,ave_ort,reg,NumMax))
-            <= 0)
-    {
+    if ((fl = SearchInterval1(frm, k_frm, begI, endI, k_int, bnd, ave_dir, ave_ort, reg, NumMax))
+            <= 0) {
         CONS_MESS3("!!!!! SearchInterval1 return<0");
         free(beg);
         return fl;
     }
-    if(MaxOld != *NumMax)
-    {
-        if((intr=(int16_t*)realloc(intr,*NumMax*sizeof(int16_t)))==NULL ||
-                (beg=(KNOT4**)realloc(beg,*NumMax*sizeof(PTR)))==NULL)
-        return NOT_ALLOC;
+    if (MaxOld != *NumMax) {
+        if ((intr = (int16_t*) realloc(intr, *NumMax * sizeof(int16_t))) == NULL || (beg
+                = (KNOT4**) realloc(beg, *NumMax * sizeof(PTR))) == NULL)
+            return NOT_ALLOC;
     }
-    kcol=*k_int+1;
-    CONS_MESS3("kcol=%d",kcol);
+    kcol = *k_int + 1;
+    CONS_MESS3("kcol=%d", kcol);
 
-    do0(i,0,kcol) beg[i]=NULL;
+    do0(i,0,kcol)
+        beg[i] = NULL;
 
-    for(i=0; i < kcol; ++i) intr[i]=((*begI)[i]+(*endI)[i])>>1;
+    for (i = 0; i < kcol; ++i)
+        intr[i] = ((*begI)[i] + (*endI)[i]) >> 1;
 
-    k_bloc=-1;
+    k_bloc = -1;
 
-    if((fl=init_lst((KNOT***)&knot,&k_bloc,k_frm+2,(KNOT**)&Free,
-                            sizeof(KNOT4)))!=0)
-    return -fl-50;
+    if ((fl = init_lst((KNOT***) &knot, &k_bloc, k_frm + 2, (KNOT**) &Free, sizeof(KNOT4))) != 0)
+        return -fl - 50;
 
-    CONS_MESS3("k_frm=%d",k_frm);
+    CONS_MESS3("k_frm=%d", k_frm);
     do0(i,0,k_frm) /*занесение рамок в списки колонок*/
     {
-        x=(reg==HOR) ? frm[i]->left: frm[i]->up;
-        if(kcol < 2)
-        in=(x < intr[0]) ? 0 : 1;
+        x = (reg == HOR) ? frm[i]->left : frm[i]->up;
+        if (kcol < 2)
+            in = (x < intr[0]) ? 0 : 1;
         else
-        in=search_int((int*)intr,*k_int,x);
-        ptr=(KNOT4*)inc_lst((KNOT**)&beg[in],(KNOT**)&Free);
-        ptr->f=frm[i];
+            in = search_int((int*) intr, *k_int, x);
+        ptr = (KNOT4*) inc_lst((KNOT**) &beg[in], (KNOT**) &Free);
+        ptr->f = frm[i];
     }
-    kf=-1;
-    ki=-1;
-    do0(i,0,kcol)
-    {
-        ptr=beg[i];
-        if(ptr==NULL)
-        continue;
-        while(ptr!=NULL)
-        {
-            frm[++kf]=ptr->f; ptr=ptr->next;
+    kf = -1;
+    ki = -1;
+    do0(i,0,kcol) {
+        ptr = beg[i];
+        if (ptr == NULL)
+            continue;
+        while (ptr != NULL) {
+            frm[++kf] = ptr->f;
+            ptr = ptr->next;
         }
-        intr[++ki]=kf;
+        intr[++ki] = kf;
     }
-    free_lst((KNOT**)knot,k_bloc);
-    if(kf != k_frm)
-    {
+    free_lst((KNOT**) knot, k_bloc);
+    if (kf != k_frm) {
         CONS_MESS3("!!!!!!SearchColHist1: kf != k_frm;return -7");
         return -7;
     }
-    *k_int=ki;
+    *k_int = ki;
     free(beg);
-    CONS_MESS3("===SearchColHist1: normal end; kcol=%d===",kcol);
+    CONS_MESS3("===SearchColHist1: normal end; kcol=%d===", kcol);
     return kcol;
 }
 
-    /*Поиск колонок по вертикали либо горизонтали - функция разбиения одного узла
-     методом анализа профил
-     Вход: frm[k_frm] - рамки компонент (фрагментов);
-     bnd - габариты текущего узла;
-     ave_dir,ave_ort - среднее размера буквы-компоненты в прямом и перпендикулярном напр.
-     NumMax - максимал.число колонок
-     reg - режим колонизации (HOR - горизонтально-упорядоченные колонки,
-     VER - вертикально --//--).
-     Выход:frm[k_frm]  - рамки переупорядочены поколонно, если колонки обнаружены;
-     intr1[kcol] - правые границы найденных колонок в массиве frm,
-     beg1,end1   - [k_int1] геометрические границы межколон. интервалов
-     Выход:intr[k_int1]-середины найденных межколонных интервалов
-     reg=HOR - ищем горизонт. упорядоченные колонки,VER - вертикально-упорядоченные
-     Return:
-     0 - разбиение не произошло,
-     1 - разбиение произошло,
-     < 0 - ERR*/
+/*Поиск колонок по вертикали либо горизонтали - функция разбиения одного узла
+ методом анализа профил
+ Вход: frm[k_frm] - рамки компонент (фрагментов);
+ bnd - габариты текущего узла;
+ ave_dir,ave_ort - среднее размера буквы-компоненты в прямом и перпендикулярном напр.
+ NumMax - максимал.число колонок
+ reg - режим колонизации (HOR - горизонтально-упорядоченные колонки,
+ VER - вертикально --//--).
+ Выход:frm[k_frm]  - рамки переупорядочены поколонно, если колонки обнаружены;
+ intr1[kcol] - правые границы найденных колонок в массиве frm,
+ beg1,end1   - [k_int1] геометрические границы межколон. интервалов
+ Выход:intr[k_int1]-середины найденных межколонных интервалов
+ reg=HOR - ищем горизонт. упорядоченные колонки,VER - вертикально-упорядоченные
+ Return:
+ 0 - разбиение не произошло,
+ 1 - разбиение произошло,
+ < 0 - ERR*/
 
-    //===
+//===
 int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1,
         int16_t *k_int1, BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg, int16_t *NumMax)
 //===
@@ -1277,186 +1220,173 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
     ; //~~~
 
     CONS_MESS2("=== begin SearchInterval1===");
-    CONS_MESS2("min_int= %d",min_int);
+    CONS_MESS2("min_int= %d", min_int);
 
-    if(reg==HOR)
-    {
-        Home=bnd->left; Fin=bnd->right;
-        CONS_MESS2("reg==HOR; Home=%d; Fin=%d;",Home,Fin);
+    if (reg == HOR) {
+        Home = bnd->left;
+        Fin = bnd->right;
+        CONS_MESS2("reg==HOR; Home=%d; Fin=%d;", Home, Fin);
     }
-    else
-    {
-        Home=bnd->up; Fin=bnd->down;
-        len_group = bnd->right-bnd->left+2;
-        CONS_MESS2("reg==VER; Home=%d; Fin=%d;",Home,Fin);
+    else {
+        Home = bnd->up;
+        Fin = bnd->down;
+        len_group = bnd->right - bnd->left + 2;
+        CONS_MESS2("reg==VER; Home=%d; Fin=%d;", Home, Fin);
     }
 
     //Оценка числа строк(HOR)листа /ширины листа в символах(VER)
-            kstr = (int16_t) (reg==HOR ? (bnd->down-bnd->up)/(2*ave_ort) :
-                    (bnd->right-bnd->left)/(1.2*ave_ort));
-            //--Вычисление профиля-гистограммы числа компонент, проецирующихся в данный пиксел--
-            len=Fin-Home+2;//длина гистограммы
-            CONS_MESS2("kstr=%d  len_hist=%d",kstr,len);
-            if( (his=(int16_t*)malloc(len*sizeof(int16_t))) == NULL)
-            return NOT_ALLOC;
-            memset(his,0,len*sizeof(int16_t));
-            --len;
+    kstr = (int16_t) (reg == HOR ? (bnd->down - bnd->up) / (2 * ave_ort) : (bnd->right - bnd->left)
+            / (1.2 * ave_ort));
+    //--Вычисление профиля-гистограммы числа компонент, проецирующихся в данный пиксел--
+    len = Fin - Home + 2;//длина гистограммы
+    CONS_MESS2("kstr=%d  len_hist=%d", kstr, len);
+    if ((his = (int16_t*) malloc(len * sizeof(int16_t))) == NULL)
+        return NOT_ALLOC;
+    memset(his, 0, len * sizeof(int16_t));
+    --len;
 
-            if(reg==VER)
-            {
-                if(len_group<0)
-                {
-                    CONS_MESS21("begin len_group=%d ",len_group);
-                    len_group=0;
-                }
-                if((his_first_group=(int16_t*)malloc((len_group+4)*sizeof(int16_t))) == NULL)
-                return NOT_ALLOC;
-                if((his_second_group=(int16_t*)malloc((len_group+4)*sizeof(int16_t))) == NULL)
-                return NOT_ALLOC;
-                last_real_line=0;
-                --len_group;
-            }
-
-            CONS_MESS2("k_frm=%d ",k_frm+1);
-#ifdef alDebug
-            {   pTheGeomTemp->clear();
-                Rect rct;
-                SetRect(&rct,bnd->left,bnd->up,bnd->right,bnd->down);
-                pTheGeomTemp->push_back(rct);
-            }
-#endif
-
-            do0(i,0,k_frm)
-            {
-#ifdef alDebug
-            {
-                Rect rct;
-                SetRect(&rct,frm[i]->left,frm[i]->up,frm[i]->right,frm[i]->down);
-                pTheGeomTemp->push_back(rct);
-            }
-#endif
-
-            if(reg==HOR)
-            {
-                mi=frm[i]->left-Home; ma=frm[i]->right-Home;
-                CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d",
-                        frm[i]->left,frm[i]->right,mi,ma);
-            }
-            else
-            {
-                mi=frm[i]->up-Home;
-                ma=frm[i]->down-Home;
-                CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d",
-                        frm[i]->up,frm[i]->down,mi,ma);
-            }
-
-            if(mi < 0 || ma > len)
-            {
-                CONS_MESS2("!!!!!! mi < 0 || ma > len return -6");
-                return -6;
-            }
-
-            do0(j,mi,ma) ++his[j];
+    if (reg == VER) {
+        if (len_group < 0) {
+            CONS_MESS21("begin len_group=%d ", len_group);
+            len_group = 0;
         }
+        if ((his_first_group = (int16_t*) malloc((len_group + 4) * sizeof(int16_t))) == NULL)
+            return NOT_ALLOC;
+        if ((his_second_group = (int16_t*) malloc((len_group + 4) * sizeof(int16_t))) == NULL)
+            return NOT_ALLOC;
+        last_real_line = 0;
+        --len_group;
+    }
+
+    CONS_MESS2("k_frm=%d ", k_frm + 1);
 #ifdef alDebug
-            *CountRect = pTheGeomTemp->size();
-            CONS_MESS2("---Поиск межколон. интервалов---");
-            if(det0) MyDrawForDebug();
+    {
+        pTheGeomTemp->clear();
+        Rect rct(Point(bnd->left, bnd->up), Point(bnd->right, bnd->down));
+        pTheGeomTemp->push_back(rct);
+    }
 #endif
-            //--Поиск межколон. интервалов--
-            k_int=-1; pos=-1;
-            while((int16_t)his[++pos] < minh) /*поиск I позиции текста*/
-            {
-                if(pos>=len)
-                {
-                    if(reg==VER)
-                    {
-                        free(his_first_group);
-                        free(his_second_group);
-                    }
-                    free(his);
-                    *k_int1=-1;
-                    CONS_MESS2("===колонки не обнаружены===");
-                    return 0;
-                } /*колонки не обнаружены*/
-            }
 
-            do
-            { /*ищем I позицию интервала*/
-                while(pos < len-min_int-min_col && (int16_t)his[++pos] > maxh);
-                if(pos >= len-min_int-min_col)
-                {
-                    CONS_MESS2("!!!!!! pos >= len-min_int-min_col");
-                    break;
-                }
-                beg_int=pos;
-                /*ищем последовательность не менее чем min_int высотой < maxh*/
-                while((int16_t)his[++pos] <= maxh)
-                if(pos >= len || pos-beg_int >= min_int)
-                break;
-                if(pos - beg_int < min_int &&
-                        Check_IsItFalseHorLine(last_real_line,reg,frm,his,pos,len,maxh,min_int+min_col,
-                                len_group,his_first_group,his_second_group,bnd,k_frm))
-                continue;
-                if(pos >= len)
-                break;
-                CONS_MESS2("beg_int=%d; pos=%d",beg_int,pos);
-                tmp_pos=pos;
-                sumh=0;
-                do0(i,beg_int,pos) sumh+=his[i];
-                ave_h=sumh/(pos-beg_int+1);
-                CONS_MESS2("ave_h=%d",ave_h);
-                if(ave_h <= midh)/*интервал найден, ищем его конец*/
-                {
-                    while((int16_t)his[++pos] <= maxh)
-                    {
-                        sumh+=his[pos];
-                        ave_h=sumh/(pos-beg_int+1);
-                        if(ave_h > midh || pos >= len-min_col)
-                        break; /*Обнаружен конец интервала*/
-                    }
-                    end_int=pos;
-
-                    CONS_MESS2("end_int=%d",end_int);
+    do0(i,0,k_frm) {
 #ifdef alDebug
-            if(reg==VER)
-            {
-                Rect rct;
-                SetRect(&rct,bnd->left,tmp_pos+Home,bnd->right,tmp_pos+Home);
+        {
+            Rect rct(Point(frm[i]->left, frm[i]->up), Point(frm[i]->right, frm[i]->down));
+            pTheGeomTemp->push_back(rct);
+        }
+#endif
+
+        if (reg == HOR) {
+            mi = frm[i]->left - Home;
+            ma = frm[i]->right - Home;
+            CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d", frm[i]->left,
+                        frm[i]->right, mi, ma);
+        }
+        else {
+            mi = frm[i]->up - Home;
+            ma = frm[i]->down - Home;
+            CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d", frm[i]->up,
+                        frm[i]->down, mi, ma);
+        }
+
+        if (mi < 0 || ma > len) {
+            CONS_MESS2("!!!!!! mi < 0 || ma > len return -6");
+            return -6;
+        }
+
+        do0(j,mi,ma)
+            ++his[j];
+    }
+#ifdef alDebug
+    *CountRect = pTheGeomTemp->size();
+    CONS_MESS2("---Поиск межколон. интервалов---");
+    if (det0)
+        MyDrawForDebug();
+#endif
+    //--Поиск межколон. интервалов--
+    k_int = -1;
+    pos = -1;
+    while ((int16_t) his[++pos] < minh) /*поиск I позиции текста*/
+    {
+        if (pos >= len) {
+            if (reg == VER) {
+                free(his_first_group);
+                free(his_second_group);
+            }
+            free(his);
+            *k_int1 = -1;
+            CONS_MESS2("===колонки не обнаружены===");
+            return 0;
+        } /*колонки не обнаружены*/
+    }
+
+    do { /*ищем I позицию интервала*/
+        while (pos < len - min_int - min_col && (int16_t) his[++pos] > maxh)
+            ;
+        if (pos >= len - min_int - min_col) {
+            CONS_MESS2("!!!!!! pos >= len-min_int-min_col");
+            break;
+        }
+        beg_int = pos;
+        /*ищем последовательность не менее чем min_int высотой < maxh*/
+        while ((int16_t) his[++pos] <= maxh)
+            if (pos >= len || pos - beg_int >= min_int)
+                break;
+        if (pos - beg_int < min_int && Check_IsItFalseHorLine(last_real_line, reg, frm, his, pos,
+                len, maxh, min_int + min_col, len_group, his_first_group, his_second_group, bnd,
+                k_frm))
+            continue;
+        if (pos >= len)
+            break;
+        CONS_MESS2("beg_int=%d; pos=%d", beg_int, pos);
+        tmp_pos = pos;
+        sumh = 0;
+        do0(i,beg_int,pos)
+            sumh += his[i];
+        ave_h = sumh / (pos - beg_int + 1);
+        CONS_MESS2("ave_h=%d", ave_h);
+        if (ave_h <= midh)/*интервал найден, ищем его конец*/
+        {
+            while ((int16_t) his[++pos] <= maxh) {
+                sumh += his[pos];
+                ave_h = sumh / (pos - beg_int + 1);
+                if (ave_h > midh || pos >= len - min_col)
+                    break; /*Обнаружен конец интервала*/
+            }
+            end_int = pos;
+
+            CONS_MESS2("end_int=%d", end_int);
+#ifdef alDebug
+            if (reg == VER) {
+                Rect rct(Point(bnd->left, tmp_pos + Home), Point(bnd->right, tmp_pos + Home));
                 pTheGeomTemp->push_back(rct);//~
             }
-            else
-            {
-                Rect rct;
-                SetRect(&rct,tmp_pos+Home,bnd->up,tmp_pos+Home,bnd->down);
+            else {
+                Rect rct(Point(tmp_pos + Home, bnd->up), Point(tmp_pos + Home, bnd->down));
                 pTheGeomTemp->push_back(rct);
             }
-            if(det0) MyDrawForDebug();
+            if (det0)
+                MyDrawForDebug();
 #endif
 
-            if(pos < len-min_col) //не тривиальный интервал - т.е. еще не правая граница
+            if (pos < len - min_col) //не тривиальный интервал - т.е. еще не правая граница
             {
-                Beg[++k_int]=beg_int+Home;
-                End[k_int]=end_int+Home;
+                Beg[++k_int] = beg_int + Home;
+                End[k_int] = end_int + Home;
                 //Фиксируем интервал лишь в случае достаточной длины колонки
-                if((k_int > 0 && Beg[k_int] - End[k_int-1] < min_col) ||
-                        (Beg[k_int] - Home < min_col))
-                {
+                if ((k_int > 0 && Beg[k_int] - End[k_int - 1] < min_col) || (Beg[k_int] - Home
+                        < min_col)) {
                     --k_int;
                     CONS_MESS2(" колонка узкая,интервал не принимается! ");
                     continue;
                 }
-                last_real_line=end_int;
-                if(k_int > *NumMax-2)
-                {
-                    int16_t MaxOld=*NumMax;
-                    *NumMax=(int16_t)(*NumMax*1.5);
-                    if((Beg=(int16_t*)realloc(Beg,*NumMax*sizeof(int16_t)))==NULL ||
-                            (End=(int16_t*)realloc(End,*NumMax*sizeof(int16_t)))==NULL)
-                    {
+                last_real_line = end_int;
+                if (k_int > *NumMax - 2) {
+                    int16_t MaxOld = *NumMax;
+                    *NumMax = (int16_t) (*NumMax * 1.5);
+                    if ((Beg = (int16_t*) realloc(Beg, *NumMax * sizeof(int16_t))) == NULL || (End
+                            = (int16_t*) realloc(End, *NumMax * sizeof(int16_t))) == NULL) {
                         free(his);
-                        if(reg==VER)
-                        {
+                        if (reg == VER) {
                             free(his_first_group);
                             free(his_second_group);
                         }
@@ -1465,23 +1395,25 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
                 }
             }
         }
-        pos+=min_col; /*для попадания внутрь колонки,если end_pos - внутри интервала*/
-    }while(pos < len-min_int-min_col);
+        pos += min_col; /*для попадания внутрь колонки,если end_pos - внутри интервала*/
+    }
+    while (pos < len - min_int - min_col);
     free(his);
-    if(reg==VER)
-    {
+    if (reg == VER) {
         free(his_first_group);
         free(his_second_group);
     }
 
-    *beg1=Beg; *end1=End; *k_int1=k_int;
-    CONS_MESS2("k_int=%d",k_int);
+    *beg1 = Beg;
+    *end1 = End;
+    *k_int1 = k_int;
+    CONS_MESS2("k_int=%d", k_int);
     CONS_MESS2("=== end SearchInterval1===");
     return k_int >= 0 ? 1 : 0;
 }
 
-    //////////////        Check_IsItFalseHorLine
-    ////
+//////////////        Check_IsItFalseHorLine
+////
 int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm, int16_t *his,
         int16_t pos, int16_t len, int16_t maxh, int16_t sum, int16_t len_group,
         int16_t *his_first_group, int16_t *his_second_group, BOUND *bnd, int16_t k_frm) {
@@ -1494,133 +1426,131 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
         goto end1;
 
     CONS_MESS2("===begin Check_IsItFalseHorLine===");
-    CONS_MESS2("pos=%d len=%d last_real_line=%d",pos,len,last_real_line);
+    CONS_MESS2("pos=%d len=%d last_real_line=%d", pos, len, last_real_line);
 
-    if(last_real_line>0) --last_real_line;
-    Home=bnd->left;
-    Fin =bnd->right;
+    if (last_real_line > 0)
+        --last_real_line;
+    Home = bnd->left;
+    Fin = bnd->right;
     ///////////////////        First_Group             /////////////////////////////////////
-            do0(i,0,k_frm)
-            {
-                if(frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up )
-                {
-                    Rect rct(Point(frm[i]->left,frm[i]->up),Point(frm[i]->right,frm[i]->down));
-                    First_Group.push_back(rct);
-                }
-            }
-            k_frm_first=First_Group.size()-1;
-            CONS_MESS2(" new_count_frm-first=%d ",k_frm_first+1);
-
-            memset(his_first_group,0,(len_group+1)*sizeof(int16_t));
-            do0(i,0,k_frm_first)
-            {
-                mi=First_Group[i].left() - Home;
-                ma=First_Group[i].right() - Home;
-                if(mi < 0 || ma > len_group)
-                {
-                    CONS_MESS2("!!!!!! mi < 0 || ma > len First_Group ");
-                    goto end1;
-                }
-
-                do0(j,mi,ma) ++his_first_group[j];
-            }
-
-            ////////////////////////// Second_Group   ////////////////////////////////////////////////
-            old_pos=pos;
-            while(pos <= len && (int16_t)his[++pos] > maxh);
-            CONS_MESS2("Second_Group new pos = %d",pos);
-            do0(i,0,k_frm)
-            {
-                if(frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up )
-                {
-                    Rect rct(Point(frm[i]->left,frm[i]->up),Point(frm[i]->right,frm[i]->down));
-                    Second_Group.push_back(rct);
-                }
-            }
-
-            k_frm_second=Second_Group.size()-1;
-            CONS_MESS2("Second_Group new_count_frm=%d ",k_frm_second+1);
-
-            memset(his_second_group,0,(len_group+1)*sizeof(int16_t));
-            do0(i,0,k_frm_second)
-            {
-                mi=Second_Group[i].left() -Home;
-                ma=Second_Group[i].right()-Home;
-                if(mi < 0 || ma > len_group)
-                {
-                    CONS_MESS2("!!!!!! mi < 0 || ma > len Second_Group");
-                    goto end1;
-                }
-                do0(j,mi,ma) ++his_second_group[j];
-            }
-
-            /////////  Compary white intervals //////////////////////////////
-            do0(i,0,len_group)
-            {
-                while(i<= len_group && (int16_t)his_first_group[++i] <= maxh);
-                while(i<= len_group && (int16_t)his_first_group[++i] > maxh);
-                if(i>=len_group)
-                break;
-
-                while(i<= len_group && (int16_t)his_first_group[++i] > maxh);
-                beg_white_int=i;
-                CONS_MESS2("First Group beg_white_int=%d ",i);
-                while(i<= len_group && (int16_t)his_first_group[++i] <= maxh);
-                end_white_int=i;
-                if(end_white_int>=len_group)
-                break;
-                CONS_MESS2("First Group end_white_int=%d ",i);
-
-                if(beg_white_int==end_white_int)
-                {
-                    CONS_MESS2("beg_white_int==end_white_int i=%d ",i);
-                    goto end1;
-                }
-                if(!check_white_int(beg_white_int,end_white_int,maxh,his_second_group))
-                {
-                    CONS_MESS2("===Can't find white interval->First Group===");
-                    goto end0;
-                }
-            }
-
-            do0(i,0,len_group)
-            {
-                while(i<= len_group && (int16_t)his_second_group[++i] <= maxh);
-                while(i<= len_group && (int16_t)his_second_group[++i] > maxh);
-                if(i>=len_group)
-                break;
-
-                while(i<= len_group && (int16_t)his_second_group[++i] > maxh);
-                beg_white_int=i;
-                CONS_MESS2("Second Group beg_white_int=%d ",i);
-
-                while(i<= len_group && (int16_t)his_second_group[++i] <= maxh);
-                end_white_int=i;
-                if(end_white_int>=len_group)
-                break;
-                CONS_MESS2("Second Group end_white_int=%d ",i);
-
-                if(beg_white_int==end_white_int)
-                {
-                    CONS_MESS2("Second Group beg_white_int==end_white_int i=%d ",i);
-                    goto end1;
-                }
-                if(!check_white_int(beg_white_int,end_white_int,maxh,his_first_group))
-                {
-                    CONS_MESS2("===Second Group Can't find white interval===");
-                    goto end0;
-                }
-            }
-
-            end1:
-            //	First_Group.RemoveAll( );
-            //	Second_Group.RemoveAll( );
-            return 1;
-            end0:
-            //	First_Group.RemoveAll( );
-            //	Second_Group.RemoveAll( );
-            return 0;
+    do0(i,0,k_frm) {
+        if (frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up) {
+            Rect rct(Point(frm[i]->left, frm[i]->up), Point(frm[i]->right, frm[i]->down));
+            First_Group.push_back(rct);
         }
+    }
+    k_frm_first = First_Group.size() - 1;
+    CONS_MESS2(" new_count_frm-first=%d ", k_frm_first + 1);
+
+    memset(his_first_group, 0, (len_group + 1) * sizeof(int16_t));
+    do0(i,0,k_frm_first) {
+        mi = First_Group[i].left() - Home;
+        ma = First_Group[i].right() - Home;
+        if (mi < 0 || ma > len_group) {
+            CONS_MESS2("!!!!!! mi < 0 || ma > len First_Group ");
+            goto end1;
+        }
+
+        do0(j,mi,ma)
+            ++his_first_group[j];
+    }
+
+    ////////////////////////// Second_Group   ////////////////////////////////////////////////
+    old_pos = pos;
+    while (pos <= len && (int16_t) his[++pos] > maxh)
+        ;
+    CONS_MESS2("Second_Group new pos = %d", pos);
+    do0(i,0,k_frm) {
+        if (frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up) {
+            Rect rct(Point(frm[i]->left, frm[i]->up), Point(frm[i]->right, frm[i]->down));
+            Second_Group.push_back(rct);
+        }
+    }
+
+    k_frm_second = Second_Group.size() - 1;
+    CONS_MESS2("Second_Group new_count_frm=%d ", k_frm_second + 1);
+
+    memset(his_second_group, 0, (len_group + 1) * sizeof(int16_t));
+    do0(i,0,k_frm_second) {
+        mi = Second_Group[i].left() - Home;
+        ma = Second_Group[i].right() - Home;
+        if (mi < 0 || ma > len_group) {
+            CONS_MESS2("!!!!!! mi < 0 || ma > len Second_Group");
+            goto end1;
+        }
+        do0(j,mi,ma)
+            ++his_second_group[j];
+    }
+
+    /////////  Compary white intervals //////////////////////////////
+    do0(i,0,len_group) {
+        while (i <= len_group && (int16_t) his_first_group[++i] <= maxh)
+            ;
+        while (i <= len_group && (int16_t) his_first_group[++i] > maxh)
+            ;
+        if (i >= len_group)
+            break;
+
+        while (i <= len_group && (int16_t) his_first_group[++i] > maxh)
+            ;
+        beg_white_int = i;
+        CONS_MESS2("First Group beg_white_int=%d ", i);
+        while (i <= len_group && (int16_t) his_first_group[++i] <= maxh)
+            ;
+        end_white_int = i;
+        if (end_white_int >= len_group)
+            break;
+        CONS_MESS2("First Group end_white_int=%d ", i);
+
+        if (beg_white_int == end_white_int) {
+            CONS_MESS2("beg_white_int==end_white_int i=%d ", i);
+            goto end1;
+        }
+        if (!check_white_int(beg_white_int, end_white_int, maxh, his_second_group)) {
+            CONS_MESS2("===Can't find white interval->First Group===");
+            goto end0;
+        }
+    }
+
+    do0(i,0,len_group) {
+        while (i <= len_group && (int16_t) his_second_group[++i] <= maxh)
+            ;
+        while (i <= len_group && (int16_t) his_second_group[++i] > maxh)
+            ;
+        if (i >= len_group)
+            break;
+
+        while (i <= len_group && (int16_t) his_second_group[++i] > maxh)
+            ;
+        beg_white_int = i;
+        CONS_MESS2("Second Group beg_white_int=%d ", i);
+
+        while (i <= len_group && (int16_t) his_second_group[++i] <= maxh)
+            ;
+        end_white_int = i;
+        if (end_white_int >= len_group)
+            break;
+        CONS_MESS2("Second Group end_white_int=%d ", i);
+
+        if (beg_white_int == end_white_int) {
+            CONS_MESS2("Second Group beg_white_int==end_white_int i=%d ", i);
+            goto end1;
+        }
+        if (!check_white_int(beg_white_int, end_white_int, maxh, his_first_group)) {
+            CONS_MESS2("===Second Group Can't find white interval===");
+            goto end0;
+        }
+    }
+
+    end1:
+    //	First_Group.RemoveAll( );
+    //	Second_Group.RemoveAll( );
+    return 1;
+    end0:
+    //	First_Group.RemoveAll( );
+    //	Second_Group.RemoveAll( );
+    return 0;
+}
 
 int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int, int16_t maxh,
         int16_t *his_second_group) {
@@ -1881,851 +1811,837 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName) {
     ColH = NULL;
     ColH_New = NULL;
 
-    CONS_MESS23("Begin FileName=%s ",OutFileName);
+    CONS_MESS23("Begin FileName=%s ", OutFileName);
 #ifdef alDebug
-            FlagGraphic1=0;
+    FlagGraphic1 = 0;
 #endif
 
-            //settings for GenFullTxtfromTree
-            par_ful.AllowSpell=0;
-            par_ful.KodNoRecogOut='~';
-            Inf.TypeDoc=PLAIN;
+    //settings for GenFullTxtfromTree
+    par_ful.AllowSpell = 0;
+    par_ful.KodNoRecogOut = '~';
+    Inf.TypeDoc = PLAIN;
 
-            FlagOdinSectorOdnaColonka = TRUE;
-            //--Инициализация системы:чтение internal-файла--
+    FlagOdinSectorOdnaColonka = TRUE;
+    //--Инициализация системы:чтение internal-файла--
 #define TRUE_READ_ED   //Alik 17.04.97
-            FlagBadColumn = 0;
+    FlagBadColumn = 0;
 
-            if(!OpenFullOutTiger(InFileName))
-            {
+    if (!OpenFullOutTiger(InFileName)) {
 #ifdef alDebug
-            free((KNOT**)Inf.Tree.Root);
-            if(det20 || det23)
-            {   ConsMess("Formatter End ");
-                if(RtfWriteMode)
+        free((KNOT**) Inf.Tree.Root);
+        if (det20 || det23) {
+            ConsMess("Formatter End ");
+            if (RtfWriteMode)
                 ConsMess("*************************************************************");
-            }
-#endif
-            return TRUE;
         }
-        CONS_MESS20("OpenFullOutTiger ");
-
-        if( NumCol>=0 )
-        fl=CalcStatTiger();
-        else
-        fl=1;
-
-        setup.size_x=setup.size_y=SizeYGlob;
-        OldNumCol = NumCol;
-        ++NumCol;
-        // Форматирование текстовых фрагментов
-        if(fl=GenerateTreeByFragm(RectFragm,NumCol,&setup,&frm,&Inf))
-        {
-            --NumCol;
-            FlagBadBad=TRUE;
-            CONS_MESS22("  NameFile-> %s ",OutFileName);
-            goto BadReturn;
-        }
-        CONS_MESS22("GenerateTreeByFragm ");
-        //---объединяем результаты распознавания текстовых фрагментов в колонки---
-        if( Inf.NumT )
-        FlagOdinSectorOdnaColonka=FALSE;
-        for(i=0; i <= Inf.NumT; ++i)
-        {
-            int16_t num,inCol,nc,ns,r,l,t,b,TotalNumStr,m;
-
-            l = Inf.bnd_col[i].left;
-            r = Inf.bnd_col[i].right;
-            t = Inf.bnd_col[i].up;
-            b = Inf.bnd_col[i].down;
-            n_beg = Inf.ColT[i]->InBegFrm;
-            num = Inf.ColT[i]->NumFrm;
-
-            Inf.ColT[i]->Type = 1;
-            Inf.ColT[i]->InBegFrm = (int)frm[n_beg]->start_pos;
-            inCol = Inf.ColT[i]->InBegFrm;
-
-            if(num>1)
-            {
-                qsort((void *)(frm+n_beg),num,sizeof(FRAME *),Alik_sort_function);
-
-                for(j=0; j < num-1; ++j)
-                {
-                    if(frm[n_beg+j]->down > frm[n_beg+j+1]->up)
-                    {
-                        FlagOdinSectorOdnaColonka = FALSE;
-                        break;
-                    }
-                }
-
-                for(j=0; j < num-1; ++j)
-                {
-                    if(frm[n_beg+j]->down-30 > frm[n_beg+j+1]->up)
-                    {
-                        Inf.ColT[i]->Type=0;
-                        Inf.ColT[i]->InBegFrm=n_beg;
-                        break;
-                    }
-                }
-
-                if(Inf.ColT[i]->Type) inCol = Inf.ColT[i]->InBegFrm=(int)frm[n_beg]->start_pos;
-            }
-
-            CONS_MESS6("beg=%d num=%d inCol=%d",n_beg,num,NumCol-inCol);
-#ifdef alDebug
-            if(det6 && num>1 && !Inf.ColT[i]->Type) {ConsMess(" Фрагмент не отсортирован !!! ");
-                ConsMess("********* end multiframe ********");}
 #endif
-            //многофрагментная колонка => объединяем строки фрагментов
-            if( num>1 && (Inf.ColT[i]->Type || ( FlagOdinSectorOdnaColonka && !Inf.NumT ) ))
-            {
-                TotalNumStr=0;
-                m=0;
-                RectFragm[inCol].rleft()=Inf.bnd_col[i].left;
-                RectFragm[inCol].rright()=Inf.bnd_col[i].right;
-                RectFragm[inCol].rtop()=Inf.bnd_col[i].up;
-                RectFragm[inCol].rbottom()=Inf.bnd_col[i].down;
-
-                for(j=0; j < num; ++j)
-                {
-                    nc=(int16_t)frm[n_beg+j]->start_pos;
-                    TotalNumStr += NumStr[nc]+1;
-                }
-
-                TITLE_STR *tS;
-                TITLE_WORD **tW;
-                ZN ***Z;
-
-                tS=(TITLE_STR* )Submalloc(TotalNumStr*sizeof(TITLE_STR),&SubZn);
-                tW=(TITLE_WORD**)Submalloc(TotalNumStr*sizeof(PTR),&SubZn);
-                Z =(ZN***) Submalloc(TotalNumStr*sizeof(PTR),&SubZn);
-                if(!tS || !tW || !Z)
-                return NOT_ALLOC;
-
-                for(j=0; j<num; ++j)
-                {
-                    nc = (int16_t)frm[n_beg+j]->start_pos; //прибавить строки колонки nc к inCol
-                    if(j)
-                    TitleStr[nc][0].S_Attr=1;
-#ifdef alDebug
-            if(dets && det6) ConsMess("nc=%d ",NumCol-nc);
-#endif
-            for(ns=0; ns <= NumStr[nc]; ++ns)
-            {
-                tS[m] = TitleStr[nc][ns];
-                tW[m] = TitleWord[nc][ns];
-                Z[m] = Zn[nc][ns];
-                m++;
-            }
-            NumStr[nc]=-1; //для неосвобождения повторно их памяти или уплотнени
-        }
-
-        if(FlagOdinSectorOdnaColonka)
-        inCol=0;
-        TitleStr[inCol] = tS;
-        TitleWord[inCol] = tW;
-        Zn[inCol] = Z;
-        NumStr[inCol] = TotalNumStr-1;
-        CONS_MESS6("********* end multiframe ********");
+        return TRUE;
     }
-}
+    CONS_MESS20("OpenFullOutTiger ");
 
-pRoot=Inf.Tree.Root;
-Inf.StatCell=(STAT_CELL*)malloc(NumCol*sizeof(STAT_CELL));
-Inf.StatCell[0].HeiStr=42;//~т.к. из ED-файла приходит неверные значени
-Inf.MonoSpaceTrue =22;//~
-Inf.k_str=NumStr;
+    if (NumCol >= 0)
+        fl = CalcStatTiger();
+    else
+        fl = 1;
 
-//---Заполнение структуры колонок K_Sect,K_Hor,K_Ver,Colt,ColH---***********************
-k_lev=MaxLev-1;
---NumCol;
-if(FlagOdinSectorOdnaColonka)
-{
-    OldNumCol=NumCol;
-    NumCol=0;
-}
+    setup.size_x = setup.size_y = SizeYGlob;
+    OldNumCol = NumCol;
+    ++NumCol;
+    // Форматирование текстовых фрагментов
+    if (fl = GenerateTreeByFragm(RectFragm, NumCol, &setup, &frm, &Inf)) {
+        --NumCol;
+        FlagBadBad = TRUE;
+        CONS_MESS22("  NameFile-> %s ", OutFileName);
+        goto BadReturn;
+    }
+    CONS_MESS22("GenerateTreeByFragm ");
+    //---объединяем результаты распознавания текстовых фрагментов в колонки---
+    if (Inf.NumT)
+        FlagOdinSectorOdnaColonka = FALSE;
+    for (i = 0; i <= Inf.NumT; ++i) {
+        int16_t num, inCol, nc, ns, r, l, t, b, TotalNumStr, m;
 
-//converter from Inf, где лежит дерево, в трехуровневую uint16_t-схему
-//представления иерархии колонок:
-// K_Sect
-// 		K_Hor[K_Sect]
-// 			K_Ver[K_Sect][K_Hor[K_Sect]]
-// K_Ver_Flag_Term указывает свойства колонки :
-// 0----простая колонка; 1----простая колонка c терм. фрагментами; 2----- сложная колонка
-{
-    k_col[1]=CalcNumDau(pRoot)-1;
-    /*****************     Начал. порядок - горизон. *********************************/
-    if(pRoot->OrderChild == HOR)
-    {
-        CONS_MESS4("Начал. порядок - горизон.");
-        CONS_MESS4("Количество колон =%d",k_col[1]+1);
+        l = Inf.bnd_col[i].left;
+        r = Inf.bnd_col[i].right;
+        t = Inf.bnd_col[i].up;
+        b = Inf.bnd_col[i].down;
+        n_beg = Inf.ColT[i]->InBegFrm;
+        num = Inf.ColT[i]->NumFrm;
 
-        K_Sect=0;
-        K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
-        K_Hor[0]=k_col[1];
-        K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-        K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-        Colt=(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
-        if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
-        return NOT_ALLOC;
-        if((K_Ver[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
-                (K_Ver_Flag_Term[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
-                (Colt [0]=(int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
-        return NOT_ALLOC;
+        Inf.ColT[i]->Type = 1;
+        Inf.ColT[i]->InBegFrm = (int) frm[n_beg]->start_pos;
+        inCol = Inf.ColT[i]->InBegFrm;
 
-        for(ih=0,ptr=pRoot->down; ih <= K_Hor[0]; ++ih,ptr=ptr->next)
-        {
-            K_Ver_Flag_Term[0][ih]=0;
-            iv=0;
-            kp=CalcNumDau(ptr)-1;
-            CONS_MESS4(" #Col=%d",ih+1);
-            if(kp < 0) //Терминал.колонка
-            {
-                if(ptr->NumFrm>1 && !ptr->Type)
-                {
-                    K_Ver[0][ih]=ptr->NumFrm-1;
-                    K_Ver_Flag_Term[0][ih]=2;
+        if (num > 1) {
+            qsort((void *) (frm + n_beg), num, sizeof(FRAME *), Alik_sort_function);
+
+            for (j = 0; j < num - 1; ++j) {
+                if (frm[n_beg + j]->down > frm[n_beg + j + 1]->up) {
+                    FlagOdinSectorOdnaColonka = FALSE;
+                    break;
                 }
-                else
-                K_Ver[0][ih]=0;
+            }
 
-                if((Colt[0][ih]=(int16_t*)malloc((K_Ver[0][ih]+1)*sizeof(int16_t)))==NULL)
-                return NOT_ALLOC;
-                Get_all_term_fragms1( ptr,Colt[0][ih],&iv,NumCol,frm );
-#ifdef alDebug
-            if(det4 && ptr->NumFrm>1 && !ptr->Type)
-            ConsMess("Колонка сложной структуры (фреймы) ");
-#endif
+            for (j = 0; j < num - 1; ++j) {
+                if (frm[n_beg + j]->down - 30 > frm[n_beg + j + 1]->up) {
+                    Inf.ColT[i]->Type = 0;
+                    Inf.ColT[i]->InBegFrm = n_beg;
+                    break;
+                }
+            }
+
+            if (Inf.ColT[i]->Type)
+                inCol = Inf.ColT[i]->InBegFrm = (int) frm[n_beg]->start_pos;
         }
-        else
-        {
-            K_Ver[0][ih]=ptr->NumFrm-1;
-            if((Colt[0][ih]=(int16_t*)malloc((K_Ver[0][ih]+1)*sizeof(int16_t)))==NULL)
-            return NOT_ALLOC;
+
+        CONS_MESS6("beg=%d num=%d inCol=%d", n_beg, num, NumCol - inCol);
 #ifdef alDebug
-            if(det4 && dets) ConsMess(" Выдельяем память для %d term fragm",ptr->NumFrm);
+        if (det6 && num > 1 && !Inf.ColT[i]->Type) {
+            ConsMess(" Фрагмент не отсортирован !!! ");
+            ConsMess("********* end multiframe ********");
+        }
 #endif
+        //многофрагментная колонка => объединяем строки фрагментов
+        if (num > 1 && (Inf.ColT[i]->Type || (FlagOdinSectorOdnaColonka && !Inf.NumT))) {
+            TotalNumStr = 0;
+            m = 0;
+            RectFragm[inCol].rleft() = Inf.bnd_col[i].left;
+            RectFragm[inCol].rright() = Inf.bnd_col[i].right;
+            RectFragm[inCol].rtop() = Inf.bnd_col[i].up;
+            RectFragm[inCol].rbottom() = Inf.bnd_col[i].down;
 
-            for(iv1=0,iv=0,ptr1=ptr->down; iv1 <= kp; ++iv1,ptr1=ptr1->next)
-            {
-                //Поиск терминальных фрагментов
-                kp1=CalcNumDau(ptr1)-1;
-                if(kp1 >= 0)
-                {
-                    Get_all_term_fragms( ptr1,Colt[0][ih],&iv,NumCol,frm );
-                    K_Ver_Flag_Term[0][ih]=2;
+            for (j = 0; j < num; ++j) {
+                nc = (int16_t) frm[n_beg + j]->start_pos;
+                TotalNumStr += NumStr[nc] + 1;
+            }
+            TITLE_STR *tS;
+            TITLE_WORD **tW;
+            ZN ***Z;
+
+            tS = (TITLE_STR*) Submalloc(TotalNumStr * sizeof(TITLE_STR), &SubZn);
+            tW = (TITLE_WORD**) Submalloc(TotalNumStr * sizeof(PTR), &SubZn);
+            Z = (ZN***) Submalloc(TotalNumStr * sizeof(PTR), &SubZn);
+            if (!tS || !tW || !Z)
+                return NOT_ALLOC;
+
+            for (j = 0; j < num; ++j) {
+                nc = (int16_t) frm[n_beg + j]->start_pos; //прибавить строки колонки nc к inCol
+                if (j)
+                    TitleStr[nc][0].S_Attr = 1;
+#ifdef alDebug
+                if (dets && det6)
+                    ConsMess("nc=%d ", NumCol - nc);
+#endif
+                for (ns = 0; ns <= NumStr[nc]; ++ns) {
+                    tS[m] = TitleStr[nc][ns];
+                    tW[m] = TitleWord[nc][ns];
+                    Z[m] = Zn[nc][ns];
+                    m++;
                 }
-                else
-                {
-                    if(ptr1->NumFrm>1 && !ptr1->Type)
-                    {
-                        K_Ver_Flag_Term[0][ih]=2;
-                        CONS_MESS4(">>> %d не отсортированных фрагмента",ptr1->NumFrm);
+                NumStr[nc] = -1; //для неосвобождения повторно их памяти или уплотнени
+            }
 
-                        i_nse=ptr1->InBegFrm+ptr1->NumFrm;
-                        for(i_nsb=ptr1->InBegFrm; i_nsb<i_nse; ++iv,++i_nsb)
-                        {
-                            Colt[0][ih][iv]=(int16_t)frm[i_nsb]->start_pos;
-                            CONS_MESS4(" #term=%d",NumCol+1-Colt[0][ih][iv]);
-                        }
+            if (FlagOdinSectorOdnaColonka)
+                inCol = 0;
+            TitleStr[inCol] = tS;
+            TitleWord[inCol] = tW;
+            Zn[inCol] = Z;
+            NumStr[inCol] = TotalNumStr - 1;
+            CONS_MESS6("********* end multiframe ********");
+        }
+    }
+
+    pRoot = Inf.Tree.Root;
+    Inf.StatCell = (STAT_CELL*) malloc(NumCol * sizeof(STAT_CELL));
+    Inf.StatCell[0].HeiStr = 42;//~т.к. из ED-файла приходит неверные значени
+    Inf.MonoSpaceTrue = 22;//~
+    Inf.k_str = NumStr;
+
+    //---Заполнение структуры колонок K_Sect,K_Hor,K_Ver,Colt,ColH---***********************
+    k_lev = MaxLev - 1;
+    --NumCol;
+    if (FlagOdinSectorOdnaColonka) {
+        OldNumCol = NumCol;
+        NumCol = 0;
+    }
+
+    //converter from Inf, где лежит дерево, в трехуровневую uint16_t-схему
+    //представления иерархии колонок:
+    // K_Sect
+    // 		K_Hor[K_Sect]
+    // 			K_Ver[K_Sect][K_Hor[K_Sect]]
+    // K_Ver_Flag_Term указывает свойства колонки :
+    // 0----простая колонка; 1----простая колонка c терм. фрагментами; 2----- сложная колонка
+    {
+        k_col[1] = CalcNumDau(pRoot) - 1;
+        /*****************     Начал. порядок - горизон. *********************************/
+        if (pRoot->OrderChild == HOR) {
+            CONS_MESS4("Начал. порядок - горизон.");
+            CONS_MESS4("Количество колон =%d", k_col[1] + 1);
+
+            K_Sect = 0;
+            K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
+            K_Hor[0] = k_col[1];
+            K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
+            if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
+                return NOT_ALLOC;
+            if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                    || (K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t)))
+                            == NULL || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR)))
+                    == NULL)
+                return NOT_ALLOC;
+
+            for (ih = 0, ptr = pRoot->down; ih <= K_Hor[0]; ++ih, ptr = ptr->next) {
+                K_Ver_Flag_Term[0][ih] = 0;
+                iv = 0;
+                kp = CalcNumDau(ptr) - 1;
+                CONS_MESS4(" #Col=%d", ih + 1);
+                if (kp < 0) //Терминал.колонка
+                {
+                    if (ptr->NumFrm > 1 && !ptr->Type) {
+                        K_Ver[0][ih] = ptr->NumFrm - 1;
+                        K_Ver_Flag_Term[0][ih] = 2;
                     }
                     else
-                    {
-                        if(!K_Ver_Flag_Term[0][ih]) K_Ver_Flag_Term[0][ih]=1;
-                        Colt[0][ih][iv]=ptr1->InBegFrm;
-                        CONS_MESS4(" #term=%d",NumCol+1-Colt[0][ih][iv]);
-                        iv++;
-                    }
-                }
-            }
-            K_Ver[0][ih] = --iv;
+                        K_Ver[0][ih] = 0;
+
+                    if ((Colt[0][ih] = (int16_t*) malloc((K_Ver[0][ih] + 1) * sizeof(int16_t)))
+                            == NULL)
+                        return NOT_ALLOC;
+                    Get_all_term_fragms1(ptr, Colt[0][ih], &iv, NumCol, frm);
 #ifdef alDebug
-            if(det4 && dets) ConsMess("Кол-во терм. колонок=%d",K_Ver[0][ih]+1);
+                    if (det4 && ptr->NumFrm > 1 && !ptr->Type)
+                        ConsMess("Колонка сложной структуры (фреймы) ");
 #endif
-        }
+                }
+                else {
+                    K_Ver[0][ih] = ptr->NumFrm - 1;
+                    if ((Colt[0][ih] = (int16_t*) malloc((K_Ver[0][ih] + 1) * sizeof(int16_t)))
+                            == NULL)
+                        return NOT_ALLOC;
 #ifdef alDebug
-            if(det4)
-            {
-                if(!K_Ver_Flag_Term[0][ih]) ConsMess("Колонка простая");
-                else
-                if(det4 && K_Ver_Flag_Term[0][ih]==1) ConsMess("Колонка простая и состоит из терм.фраг-тов");
-                else ConsMess("Колонка сложной структуры (фреймы) ");
-            }
+                    if (det4 && dets)
+                        ConsMess(" Выдельяем память для %d term fragm", ptr->NumFrm);
 #endif
-        }
-    }
-    /*****************     Начал. порядок - вертикал. *********************************/
-    else
-    if(pRoot->OrderChild == VER)
-    {
-        CONS_MESS4("Начал. порядок - вертикал.");
-        CONS_MESS4("Количество секций =%d",k_col[1]+1);
 
-        K_Sect=k_col[1];
-        K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
-        K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-        K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-        Colt =(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
-        if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
-        return NOT_ALLOC;
-        //******  Цикл по секциям,внутри каждой - до 2-уровневой иерархии ***********
-        for(i=0,ptr=pRoot->down; i <= K_Sect; ++i,ptr=ptr->next)
-        {
-            kp=CalcNumDau(ptr)-1;
-            CONS_MESS4("***Секция #%d- из   %d   гориз. колонок ",i+1,kp<0?1:kp+1);
-
-            //Секция - одна терминал. колонка
-            if(kp < 0)
-            {
-                K_Hor[i]=0;
-                K_Ver[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-                K_Ver_Flag_Term[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-                Colt[i] =(int16_t**)malloc((K_Hor[i]+1)*sizeof(int16_t*));
-                if(K_Ver[i]==NULL||K_Ver_Flag_Term[i]==NULL||Colt[i]==NULL)
-                return NOT_ALLOC;
-
-                if(ptr->NumFrm>1 && !ptr->Type)
-                {
-                    K_Ver[i][0]=ptr->NumFrm-1;
-                    K_Ver_Flag_Term[i][0]=2;
-                }
-                else
-                {
-                    K_Ver[i][0]=0;
-                    K_Ver_Flag_Term[i][0]=0;
-                }
-
-                if((Colt[i][0]=(int16_t*)malloc((K_Ver[i][0]+1)*sizeof(int16_t)))==NULL)
-                return -3;
-
-                if(ptr->NumFrm>1 && !ptr->Type)
-                {
-                    CONS_MESS4(">>> %d не отсортированных фрагмента",ptr->NumFrm);
-
-                    i_nse=ptr->InBegFrm+ptr->NumFrm;
-                    for(i_ns1=0,i_nsb=ptr->InBegFrm; i_nsb<i_nse; ++i_ns1,++i_nsb)
-                    {
-                        Colt[i][0][i_ns1]=(int16_t)frm[i_nsb]->start_pos;
-                        CONS_MESS4(" #term=%d",NumCol+1-Colt[i][0][i_ns1]);
-                    }
-                    CONS_MESS4("Колонка сложной структуры (фреймы) ");
-                }
-                else
-                {
-                    Colt[i][0][0]=ptr->InBegFrm;
-                    CONS_MESS4(" #term=%d",NumCol+1-Colt[i][0][0]);
-                }
-            }
-            //Секция - из kp H-колонок
-
-            else
-            {
-                K_Hor[i]=kp;
-                K_Ver[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-                K_Ver_Flag_Term[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-                Colt[i] =(int16_t**)malloc((K_Hor[i]+1)*sizeof(int16_t*));
-                if(K_Ver[i]==NULL||K_Ver_Flag_Term[i]==NULL||Colt[i]==NULL)
-                return NOT_ALLOC;
-                //************  цикл по H-дочерям секции ****************************
-                for(ih=0,ptr1=ptr->down; ih <= kp; ++ih,ptr1=ptr1->next)
-                {
-                    kp1=CalcNumDau(ptr1)-1;//Число дочерей H-col
-                    K_Ver_Flag_Term[i][ih]=0;
-                    CONS_MESS4(" #Col=%d",ih+1);
-
-                    if(kp1 < 0) //Терм. H-col
-                    {
-                        if(ptr1->NumFrm>1 && !ptr1->Type)
-                        {
-                            K_Ver[i][ih]=ptr1->NumFrm-1;
-                            K_Ver_Flag_Term[i][ih]=2;
+                    for (iv1 = 0, iv = 0, ptr1 = ptr->down; iv1 <= kp; ++iv1, ptr1 = ptr1->next) {
+                        //Поиск терминальных фрагментов
+                        kp1 = CalcNumDau(ptr1) - 1;
+                        if (kp1 >= 0) {
+                            Get_all_term_fragms(ptr1, Colt[0][ih], &iv, NumCol, frm);
+                            K_Ver_Flag_Term[0][ih] = 2;
                         }
-                        else
-                        {
-                            K_Ver[i][ih]=0;
-                            K_Ver_Flag_Term[i][ih]=0;
-                        }
+                        else {
+                            if (ptr1->NumFrm > 1 && !ptr1->Type) {
+                                K_Ver_Flag_Term[0][ih] = 2;
+                                CONS_MESS4(">>> %d не отсортированных фрагмента", ptr1->NumFrm);
 
-                        if((Colt[i][ih]=(int16_t*)malloc((K_Ver[i][ih]+1)*sizeof(int16_t)))==NULL)
-                        return -3;
-
-                        if(ptr1->NumFrm>1 && !ptr1->Type)
-                        {
-                            CONS_MESS4(">>> %d не отсортированных фрагмента",ptr1->NumFrm);
-
-                            i_nse=ptr1->InBegFrm+ptr1->NumFrm;
-                            for(i_ns1=0,i_nsb=ptr1->InBegFrm; i_nsb<i_nse; ++i_ns1,++i_nsb)
-                            {
-                                Colt[i][ih][i_ns1]=(int16_t)frm[i_nsb]->start_pos;
-                                CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][i_ns1]);
+                                i_nse = ptr1->InBegFrm + ptr1->NumFrm;
+                                for (i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
+                                    Colt[0][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
+                                    CONS_MESS4(" #term=%d", NumCol + 1 - Colt[0][ih][iv]);
+                                }
+                            }
+                            else {
+                                if (!K_Ver_Flag_Term[0][ih])
+                                    K_Ver_Flag_Term[0][ih] = 1;
+                                Colt[0][ih][iv] = ptr1->InBegFrm;
+                                CONS_MESS4(" #term=%d", NumCol + 1 - Colt[0][ih][iv]);
+                                iv++;
                             }
                         }
-                        else
-                        {
-                            Colt[i][ih][0]=ptr1->InBegFrm;
-                            CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][0]);
-                        }
                     }
+                    K_Ver[0][ih] = --iv;
+#ifdef alDebug
+                    if (det4 && dets)
+                        ConsMess("Кол-во терм. колонок=%d", K_Ver[0][ih] + 1);
+#endif
+                }
+#ifdef alDebug
+                if (det4) {
+                    if (!K_Ver_Flag_Term[0][ih])
+                        ConsMess("Колонка простая");
+                    else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
+                        ConsMess("Колонка простая и состоит из терм.фраг-тов");
                     else
-                    {
-                        K_Ver[i][ih]=ptr1->NumFrm-1;
-                        if((Colt[i][ih]=(int16_t*)malloc((K_Ver[i][ih]+1)*sizeof(int16_t)))==NULL)
+                        ConsMess("Колонка сложной структуры (фреймы) ");
+                }
+#endif
+            }
+        }
+        /*****************     Начал. порядок - вертикал. *********************************/
+        else if (pRoot->OrderChild == VER) {
+            CONS_MESS4("Начал. порядок - вертикал.");
+            CONS_MESS4("Количество секций =%d", k_col[1] + 1);
+
+            K_Sect = k_col[1];
+            K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
+            K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
+            if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
+                return NOT_ALLOC;
+            //******  Цикл по секциям,внутри каждой - до 2-уровневой иерархии ***********
+            for (i = 0, ptr = pRoot->down; i <= K_Sect; ++i, ptr = ptr->next) {
+                kp = CalcNumDau(ptr) - 1;
+                CONS_MESS4("***Секция #%d- из   %d   гориз. колонок ", i + 1, kp < 0 ? 1 : kp + 1);
+
+                //Секция - одна терминал. колонка
+                if (kp < 0) {
+                    K_Hor[i] = 0;
+                    K_Ver[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    K_Ver_Flag_Term[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    Colt[i] = (int16_t**) malloc((K_Hor[i] + 1) * sizeof(int16_t*));
+                    if (K_Ver[i] == NULL || K_Ver_Flag_Term[i] == NULL || Colt[i] == NULL)
+                        return NOT_ALLOC;
+
+                    if (ptr->NumFrm > 1 && !ptr->Type) {
+                        K_Ver[i][0] = ptr->NumFrm - 1;
+                        K_Ver_Flag_Term[i][0] = 2;
+                    }
+                    else {
+                        K_Ver[i][0] = 0;
+                        K_Ver_Flag_Term[i][0] = 0;
+                    }
+
+                    if ((Colt[i][0] = (int16_t*) malloc((K_Ver[i][0] + 1) * sizeof(int16_t)))
+                            == NULL)
                         return -3;
+
+                    if (ptr->NumFrm > 1 && !ptr->Type) {
+                        CONS_MESS4(">>> %d не отсортированных фрагмента", ptr->NumFrm);
+
+                        i_nse = ptr->InBegFrm + ptr->NumFrm;
+                        for (i_ns1 = 0, i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
+                            Colt[i][0][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
+                            CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][0][i_ns1]);
+                        }
+                        CONS_MESS4("Колонка сложной структуры (фреймы) ");
+                    }
+                    else {
+                        Colt[i][0][0] = ptr->InBegFrm;
+                        CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][0][0]);
+                    }
+                }
+                //Секция - из kp H-колонок
+
+                else {
+                    K_Hor[i] = kp;
+                    K_Ver[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    K_Ver_Flag_Term[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    Colt[i] = (int16_t**) malloc((K_Hor[i] + 1) * sizeof(int16_t*));
+                    if (K_Ver[i] == NULL || K_Ver_Flag_Term[i] == NULL || Colt[i] == NULL)
+                        return NOT_ALLOC;
+                    //************  цикл по H-дочерям секции ****************************
+                    for (ih = 0, ptr1 = ptr->down; ih <= kp; ++ih, ptr1 = ptr1->next) {
+                        kp1 = CalcNumDau(ptr1) - 1;//Число дочерей H-col
+                        K_Ver_Flag_Term[i][ih] = 0;
+                        CONS_MESS4(" #Col=%d", ih + 1);
+
+                        if (kp1 < 0) //Терм. H-col
+                        {
+                            if (ptr1->NumFrm > 1 && !ptr1->Type) {
+                                K_Ver[i][ih] = ptr1->NumFrm - 1;
+                                K_Ver_Flag_Term[i][ih] = 2;
+                            }
+                            else {
+                                K_Ver[i][ih] = 0;
+                                K_Ver_Flag_Term[i][ih] = 0;
+                            }
+
+                            if ((Colt[i][ih] = (int16_t*) malloc((K_Ver[i][ih] + 1)
+                                    * sizeof(int16_t))) == NULL)
+                                return -3;
+
+                            if (ptr1->NumFrm > 1 && !ptr1->Type) {
+                                CONS_MESS4(">>> %d не отсортированных фрагмента", ptr1->NumFrm);
+
+                                i_nse = ptr1->InBegFrm + ptr1->NumFrm;
+                                for (i_ns1 = 0, i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
+                                    Colt[i][ih][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
+                                    CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][i_ns1]);
+                                }
+                            }
+                            else {
+                                Colt[i][ih][0] = ptr1->InBegFrm;
+                                CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][0]);
+                            }
+                        }
+                        else {
+                            K_Ver[i][ih] = ptr1->NumFrm - 1;
+                            if ((Colt[i][ih] = (int16_t*) malloc((K_Ver[i][ih] + 1)
+                                    * sizeof(int16_t))) == NULL)
+                                return -3;
 #ifdef alDebug
-            if(det4 && dets) ConsMess(" Выдельяем память для %d term fragm",ptr1->NumFrm);
+                            if (det4 && dets)
+                                ConsMess(" Выдельяем память для %d term fragm", ptr1->NumFrm);
 #endif
 
-            for(iv1=0,iv=0,ptr2=ptr1->down; iv1 <= kp1; ++iv1,ptr2=ptr2->next)
-            {
-                //Поиск терминальных фрагментов
-                kp2=CalcNumDau(ptr2)-1;
-                if(kp2 >= 0)
-                {
-                    Get_all_term_fragms( ptr2,Colt[i][ih],&iv,NumCol,frm );
-                    K_Ver_Flag_Term[i][ih]=2;
-                }
-                else
-                {
-                    if(ptr2->NumFrm>1 && !ptr2->Type)
-                    {
-                        K_Ver_Flag_Term[i][ih]=2;
-                        CONS_MESS4(">>> %d не отсортированных фрагмента",ptr2->NumFrm);
+                            for (iv1 = 0, iv = 0, ptr2 = ptr1->down; iv1 <= kp1; ++iv1, ptr2
+                                    = ptr2->next) {
+                                //Поиск терминальных фрагментов
+                                kp2 = CalcNumDau(ptr2) - 1;
+                                if (kp2 >= 0) {
+                                    Get_all_term_fragms(ptr2, Colt[i][ih], &iv, NumCol, frm);
+                                    K_Ver_Flag_Term[i][ih] = 2;
+                                }
+                                else {
+                                    if (ptr2->NumFrm > 1 && !ptr2->Type) {
+                                        K_Ver_Flag_Term[i][ih] = 2;
+                                        CONS_MESS4(">>> %d не отсортированных фрагмента",
+                                                    ptr2->NumFrm);
 
-                        i_nse=ptr2->InBegFrm+ptr2->NumFrm;
-                        for(i_nsb=ptr2->InBegFrm; i_nsb<i_nse; ++iv,++i_nsb)
-                        {
-                            Colt[i][ih][iv]=(int16_t)frm[i_nsb]->start_pos;
-                            CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][iv]);
+                                        i_nse = ptr2->InBegFrm + ptr2->NumFrm;
+                                        for (i_nsb = ptr2->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
+                                            Colt[i][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
+                                            CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
+
+                                        }
+                                    }
+                                    else {
+                                        if (!K_Ver_Flag_Term[i][ih])
+                                            K_Ver_Flag_Term[i][ih] = 1;
+                                        Colt[i][ih][iv] = ptr2->InBegFrm;
+                                        CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
+
+                                        iv++;
+                                    }
+                                }
+                            }
+                            K_Ver[i][ih] = --iv;
+#ifdef alDebug
+                            if (det4 && dets)
+                                ConsMess("Кол-во терм. колонок=%d", K_Ver[i][ih] + 1);
+#endif
 
                         }
+#ifdef alDebug
+                        if (det4) {
+                            if (!K_Ver_Flag_Term[i][ih])
+                                ConsMess("Колонка простая");
+                            else if (K_Ver_Flag_Term[i][ih] == 1)
+                                ConsMess("Колонка простая и состоит из терм.фраг-тов");
+                            else
+                                ConsMess("Колонка сложной структуры (фреймы) ");
+                        }
+#endif
+
+                    }
+                    //************ Конец цикла по H-дочерям секции ****************************
+                }
+            }
+        }
+        else {
+            if (!NumCol) //090899 update
+            {
+                K_Sect = 0;
+                K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
+                K_Hor[0] = 0;
+                K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
+                if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
+                    return NOT_ALLOC;
+                if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (K_Ver_Flag_Term[0]
+                                = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
+                    return NOT_ALLOC;
+                K_Ver_Flag_Term[0][0] = 0;
+                K_Ver[0][0] = 0;
+                if ((Colt[0][0] = (int16_t*) malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
+                    return NOT_ALLOC;
+                Colt[0][0][0] = 0;
+            }
+            else {
+                BadReturn: FlagBadColumn = 1;
+                K_Sect = 0;
+                K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
+                K_Hor[0] = 0;
+                K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
+
+                if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
+                    return NOT_ALLOC;
+
+                if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (K_Ver_Flag_Term[0]
+                                = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
+                    return NOT_ALLOC;
+
+                K_Ver_Flag_Term[0][0] = 2;
+                K_Ver[0][0] = NumCol;
+
+                if ((Colt[0][0] = (int16_t*) malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
+                    return NOT_ALLOC;
+
+                do0(i,0,NumCol) {
+                    Colt[0][0][i] = i;
+                }
+            }
+
+        }
+    }
+
+    do0(i,0,K_Sect) {
+        do0(ih,0,K_Hor[i]) {
+            do0(iv,0,K_Ver[i][ih]) {
+                nc = Colt[i][ih][iv];
+                RectFragm[nc].rleft() = (int16_t) (RectFragm[nc].left() * Twips);
+                RectFragm[nc].rright() = (int16_t) (RectFragm[nc].right() * Twips);
+                RectFragm[nc].rtop() = (int16_t) (RectFragm[nc].top() * Twips);
+                RectFragm[nc].rbottom() = (int16_t) (RectFragm[nc].bottom() * Twips);
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //  Создание массива укрупненных колонок Colh--*****************************************//
+    //  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if ((ColH = (COLH**) malloc((K_Sect + 1) * sizeof(COLH*))) == NULL)
+        return -3;
+
+    K_Ver_Add_On = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+    K_Ver_Offset = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+    if (K_Ver_Add_On == NULL || K_Ver_Offset == NULL)
+        return NOT_ALLOC;
+
+    do0(i,0,K_Sect) {
+        SRECT BndTmp;
+        if ((ColH[i] = (COLH*) malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL)
+            return -3;
+        K_Ver_Add_On[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+        K_Ver_Offset[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+        if (K_Ver_Add_On[i] == NULL || K_Ver_Offset[i] == NULL)
+            return NOT_ALLOC;
+
+        do0(ih,0,K_Hor[i]) {
+            K_Ver_Add_On[i][ih] = 0;
+            K_Ver_Offset[i][ih] = 0;
+            if (K_Ver_Flag_Term[i][ih] >= 2)
+                flag_vse_term = 0;
+            do0(iv,0,K_Ver[i][ih]) {
+                nc = Colt[i][ih][iv];
+                if (!iv)
+                    ConvertRect16ToBnd(&RectFragm[nc], &bnd); //!! или берем по линиям с выравниванием
+
+                else {
+                    ConvertRect16ToBnd(&RectFragm[nc], &BndTmp);
+                    MyUnionRect(&bnd, &BndTmp, &bnd);
+                }
+            }
+            ColH[i][ih].bnd.left = bnd.left;
+            ColH[i][ih].bnd.right = bnd.right;
+            ColH[i][ih].bnd.top = bnd.top;
+            ColH[i][ih].bnd.bottom = bnd.bottom;
+        }
+    }
+
+    CONS_MESS20("Подсчет реалных размеров кеглей ");
+    /////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                     //
+    //                  Подсчет реалных размеров кеглей                                    //
+    //                                                                                     //
+    /////////////////////////////////////////////////////////////////////////////////////////
+    do0(i,0,K_Sect) { //sect begin
+        int index_word;
+        do0(ih,0,K_Hor[i]) {//hor. col.  begin
+            do0(iv,0,K_Ver[i][ih]) { //vert. col.  begin
+                nc = Colt[i][ih][iv];
+                if (NumStr[nc] < 0)
+                    continue;
+                RtfPage->m_arFragments.push_back(new CRtfFragment());
+                RtfPage->Count.RtfTextFragments++;
+                j = RtfPage->m_arFragments.size();
+                pRtfFragment = RtfPage->m_arFragments[j - 1];
+                int strings_count = NumStr[nc] + 1;
+                pRtfFragment->m_wType = FT_TEXT;
+                pRtfFragment->m_rect = RectFragm[nc];
+                pRtfFragment->m_Flag = FragFlag[nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
+
+                for (ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
+                    if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
+                        continue;
+
+                    pRtfFragment->strings.push_back(new CRtfString());
+
+                    pRtfString = pRtfFragment->strings[ns];
+                    //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
+                    pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
+
+                    for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
+                        if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
+                            continue;
+
+                        pRtfString->words.push_back(new CRtfWord);
+                        pRtfWord = pRtfString->words.back();
+                        pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+                        pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+
+                        for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
+                            pRtfWord->chars.push_back(new CRtfChar());
+                            pRtfChar = pRtfWord->chars[nz];
+
+                            pRtfChar->countAlt
+                                    =MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt
+                                    < REC_MAX_VERS; alt++) {
+                                pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
+                                pRtfChar->versions[alt].probability_
+                                        = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                            }
+                            pRtfChar->flag_spell_nocarrying
+                                    = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
+                            pRtfChar->flag_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
+                            pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
+                            pRtfChar->flag_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
+                            pRtfChar->fontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+                            pRtfChar->fontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+
+                            RtfAssignRect_CRect_SRect(&pRtfChar->real_rect_,
+                                    &Zn[nc][ns][nw][nz].Title.Z_RealRect);
+                            RtfAssignRect_CRect_SRect(&pRtfChar->ideal_rect_,
+                                    &Zn[nc][ns][nw][nz].Title.Z_Rect);
+                        }//char end
+                    }//word end
+                }//str end
+            }//vert.end
+        }//hor.end
+    }//sec.end
+
+    RtfPage->CorrectKegl(); // actually it is calculation of the kegles
+    RtfPage->ChangeKegl(); // it is properly writing
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Новые координаты гор.колонок после пересчета реал. размеров вер.кол , параг. и строк  //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if ((ColH_New = (COLH**) malloc((K_Sect + 1) * sizeof(COLH*))) == NULL)
+        return -3;
+    do0(i,0,K_Sect) {
+        if ((ColH_New[i] = (COLH*) malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL)
+            return -3;
+        do0(ih,0,K_Hor[i]) {
+            ColH_New[i][ih].bnd.left = ColH[i][ih].bnd.left;
+            ColH_New[i][ih].bnd.right = ColH[i][ih].bnd.right;
+            ColH_New[i][ih].bnd.top = ColH[i][ih].bnd.top;
+            ColH_New[i][ih].bnd.bottom = ColH[i][ih].bnd.bottom;
+        }
+    }
+
+    //                                                                                     //
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // Добавляем отформатированные текстовые фрагменты (Page).
+    RtfPage->Count.RtfSectors = K_Sect;
+    do0(i,0,K_Sect) { //sect begin
+        int index_word;
+        RtfPage->m_arSectors.push_back(new CRtfSector());
+        pRtfSector = RtfPage->m_arSectors[i];
+        pRtfSector->m_wHorizontalColumnsCount = K_Hor[i];
+
+        do0(ih,0,K_Hor[i]) {//hor. col.  begin
+            pRtfSector->m_arHorizontalColumns.push_back(new CRtfHorizontalColumn());
+            pRtfHorizontalColumn = pRtfSector->m_arHorizontalColumns[ih];
+
+            RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
+            RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
+            RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);
+
+            RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
+            RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
+            RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
+
+            pRtfHorizontalColumn->m_wVerticalColumnsCount = K_Ver[i][ih];
+            pRtfHorizontalColumn->m_wType = K_Ver_Flag_Term[i][ih];
+
+            do0(iv,0,K_Ver[i][ih]) { //vert. col.  begin
+                nc = Colt[i][ih][iv];
+                if (NumStr[nc] < 0)
+                    continue;
+
+                if (K_Hor[i] == 0 && K_Ver[i][ih] == 0 && NumStr[nc] == 0)
+                    pRtfSector->m_FlagOneString = TRUE;
+
+                pRtfHorizontalColumn->m_arVerticalColumns.push_back(new CRtfVerticalColumn());
+                pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns.back();
+
+                pRtfVerticalColumn->m_wFragmentsCount = 1;
+                pRtfVerticalColumn->m_arFragments.push_back(new CRtfFragment());
+                pRtfFragment = pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
+                pRtfFragment->m_wType = FT_TEXT;
+                RtfAssignRect_CRect_Rect16(&pRtfVerticalColumn->m_rect, &RectFragm[nc]);
+                RtfAssignRect_CRect_Rect16(&pRtfVerticalColumn->m_rectReal, &RectFragm[nc]);
+
+                RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectFragm[nc]);
+                RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rectReal, &RectFragm[nc]);
+
+                int strings_count = NumStr[nc] + 1;
+                pRtfFragment->m_Flag = FragFlag[nc]; //nega
+
+                for (ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
+                    if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
+                        continue;
+
+                    pRtfFragment->strings.push_back(new CRtfString());
+                    pRtfString = pRtfFragment->strings[ns];
+
+                    if (TitleStr[nc][ns].S_Attr) {
+                        pRtfFragment->m_Attr = 1;
+                        pRtfString->attr = TRUE;
                     }
                     else
-                    {
-                        if(!K_Ver_Flag_Term[i][ih])
-                        K_Ver_Flag_Term[i][ih]=1;
-                        Colt[i][ih][iv]=ptr2->InBegFrm;
-                        CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][iv]);
+                        pRtfString->attr = FALSE;
 
-                        iv++;
-                    }
-                }
-            }
-            K_Ver[i][ih] = --iv;
-#ifdef alDebug
-            if(det4 && dets) ConsMess("Кол-во терм. колонок=%d",K_Ver[i][ih]+1);
-#endif
+                    pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
-        }
-#ifdef alDebug
-            if(det4) {
-                if(!K_Ver_Flag_Term[i][ih]) ConsMess("Колонка простая");
-                else
-                if(K_Ver_Flag_Term[i][ih]==1) ConsMess("Колонка простая и состоит из терм.фраг-тов");
-                else ConsMess("Колонка сложной структуры (фреймы) ");}
-#endif
+                    for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
+                        if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
+                            continue;
+                        }
+                        pRtfString->words.push_back(new CRtfWord);
+                        pRtfWord = pRtfString->words.back();
 
-        }
-        //************ Конец цикла по H-дочерям секции ****************************
-    }
-}
-}
-else
-{
-if(!NumCol) //090899 update
-{
-    K_Sect=0;
-    K_Hor=(int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
-    K_Hor[0]=0;
-    K_Ver=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-    K_Ver_Flag_Term=(int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-    Colt=(int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
-    if(K_Hor==NULL||K_Ver_Flag_Term==NULL||K_Ver==NULL||Colt==NULL)
-    return NOT_ALLOC;
-    if((K_Ver[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
-            (K_Ver_Flag_Term[0]=(int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL||
-            (Colt [0]=(int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR)))==NULL)
-    return NOT_ALLOC;
-    K_Ver_Flag_Term[0][0]=0;
-    K_Ver[0][0]=0;
-    if((Colt[0][0]=(int16_t*)malloc((K_Ver[0][0]+1)*sizeof(int16_t)))==NULL)
-    return NOT_ALLOC;
-    Colt[0][0][0]=0;
-}
-else
-{
-    BadReturn:
-    FlagBadColumn = 1;
-    K_Sect = 0;
-    K_Hor = (int16_t*)malloc((K_Sect+1)*sizeof(int16_t));
-    K_Hor[0] = 0;
-    K_Ver = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-    K_Ver_Flag_Term = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-    Colt = (int16_t***)malloc((K_Sect+1)*sizeof(int16_t**));
+                        pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+                        pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
-    if( K_Hor==NULL || K_Ver_Flag_Term==NULL || K_Ver==NULL || Colt==NULL )
-    return NOT_ALLOC;
+                        if (NumStr[nc] == 0 && TitleStr[nc][ns].S_Gen.S_NumWord == 1)
+                            pRtfWord->real_font_point_size = RtfPage->GetMinKegl(
+                                    pRtfWord->ideal_font_point_size);
+                        else
+                            pRtfWord->real_font_point_size = RtfPage->GetNewKegl(
+                                    pRtfWord->ideal_font_point_size);
 
-    if(( K_Ver[0] = (int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL ||
-            ( K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0]+1)*sizeof(int16_t)))==NULL ||
-            ( Colt [0] = (int16_t**)malloc((K_Hor[0]+1)*sizeof(PTR))) ==NULL)
-    return NOT_ALLOC;
+                        for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
+                            pRtfWord->chars.push_back(new CRtfChar());
+                            pRtfChar = pRtfWord->chars[nz];
 
-    K_Ver_Flag_Term[0][0]=2;
-    K_Ver[0][0]=NumCol;
+                            pRtfChar->countAlt
+                                    =MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt
+                                    < REC_MAX_VERS; alt++) {
+                                pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
+                                pRtfChar->versions[alt].probability_
+                                        = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                            }
+                            pRtfChar->flag_spell_nocarrying
+                                    = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
+                            pRtfChar->flag_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
+                            pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
+                            pRtfChar->flag_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
+                            pRtfChar->fontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+                            pRtfChar->fontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 
-    if((Colt[0][0]=(int16_t*)malloc((K_Ver[0][0]+1)*sizeof(int16_t)))==NULL)
-    return NOT_ALLOC;
-
-    do0(i,0,NumCol)
-    {
-        Colt[0][0][i]=i;
-    }
-}
-
-}
-}
-
-do0(i,0,K_Sect)
-{
-do0(ih,0,K_Hor[i])
-{
-do0(iv,0,K_Ver[i][ih])
-{
-    nc=Colt[i][ih][iv];
-    RectFragm[nc].rleft() = (int16_t)(RectFragm[nc].left() * Twips);
-    RectFragm[nc].rright() = (int16_t)(RectFragm[nc].right() * Twips);
-    RectFragm[nc].rtop() = (int16_t)(RectFragm[nc].top() * Twips);
-    RectFragm[nc].rbottom() = (int16_t)(RectFragm[nc].bottom() * Twips);
-}
-}
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//  Создание массива укрупненных колонок Colh--*****************************************//
-//  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               //
-//////////////////////////////////////////////////////////////////////////////////////////
-if((ColH=(COLH**)malloc((K_Sect+1)*sizeof(COLH*)))==NULL)
-return -3;
-
-K_Ver_Add_On = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-K_Ver_Offset = (int16_t**)malloc((K_Sect+1)*sizeof(int16_t*));
-if(K_Ver_Add_On==NULL||K_Ver_Offset==NULL)
-return NOT_ALLOC;
-
-do0(i,0,K_Sect)
-{
-SRECT BndTmp;
-if((ColH[i]=(COLH*)malloc((K_Hor[i]+1)*sizeof(COLH)))==NULL)return -3;
-K_Ver_Add_On[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-K_Ver_Offset[i]=(int16_t*)malloc((K_Hor[i]+1)*sizeof(int16_t));
-if(K_Ver_Add_On[i]==NULL||K_Ver_Offset[i]==NULL)
-return NOT_ALLOC;
-
-do0(ih,0,K_Hor[i])
-{
-K_Ver_Add_On[i][ih]=0;
-K_Ver_Offset[i][ih]=0;
-if(K_Ver_Flag_Term[i][ih]>=2)
-flag_vse_term=0;
-do0(iv,0,K_Ver[i][ih])
-{
-    nc=Colt[i][ih][iv];
-    if(!iv)
-    ConvertRect16ToBnd(&RectFragm[nc],&bnd); //!! или берем по линиям с выравниванием
-
-    else
-    {
-        ConvertRect16ToBnd(&RectFragm[nc],&BndTmp);
-        MyUnionRect(&bnd,&BndTmp,&bnd);
-    }
-}
-ColH[i][ih].bnd.left = bnd.left;
-ColH[i][ih].bnd.right = bnd.right;
-ColH[i][ih].bnd.top = bnd.top;
-ColH[i][ih].bnd.bottom = bnd.bottom;
-}
-}
-
-CONS_MESS20("Подсчет реалных размеров кеглей ");
-/////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                     //
-//                  Подсчет реалных размеров кеглей                                    //
-//                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////
-do0(i,0,K_Sect)
-{ //sect begin
-int index_word;
-do0(ih,0,K_Hor[i])
-{//hor. col.  begin
-do0(iv,0,K_Ver[i][ih])
-{ //vert. col.  begin
-    nc=Colt[i][ih][iv];
-    if( NumStr[nc] < 0)
-    continue;
-    RtfPage->m_arFragments.push_back( new CRtfFragment() );
-    RtfPage->Count.RtfTextFragments++;
-    j = RtfPage->m_arFragments.size();
-    pRtfFragment = RtfPage->m_arFragments[j-1];
-    int strings_count = NumStr[nc]+1;
-    pRtfFragment->m_wType = FT_TEXT;
-    pRtfFragment->m_rect = RectFragm[nc];
-    pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
-
-    for(ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
-        if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
-            continue;
-
-        pRtfFragment->strings.push_back( new CRtfString() );
-
-        pRtfString = pRtfFragment->strings[ns];
-        //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
-        pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
-
-        for (nw= 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
-            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
-                continue;
-
-            pRtfString->words.push_back(new CRtfWord);
-            pRtfWord=pRtfString->words.back();
-            pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-            pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-
-            for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
-                pRtfWord->chars.push_back( new CRtfChar() );
-                pRtfChar=pRtfWord->chars[nz];
-
-                pRtfChar->countAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
-                for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
-                {
-                    pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                    pRtfChar->versions[alt].probability_ = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
-                }
-                pRtfChar->flag_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
-                pRtfChar->flag_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
-                pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
-                pRtfChar->flag_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
-                pRtfChar->fontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-                pRtfChar->fontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-
-                RtfAssignRect_CRect_SRect( &pRtfChar->real_rect_, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                RtfAssignRect_CRect_SRect( &pRtfChar->ideal_rect_, &Zn[nc][ns][nw][nz].Title.Z_Rect );
-            }//char end
-        }//word end
-    }//str end
-}//vert.end
-}//hor.end
-}//sec.end
-
-RtfPage->CorrectKegl(); // actually it is calculation of the kegles
-RtfPage->ChangeKegl(); // it is properly writing
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//Новые координаты гор.колонок после пересчета реал. размеров вер.кол , параг. и строк  //
-//////////////////////////////////////////////////////////////////////////////////////////
-if((ColH_New=(COLH**)malloc((K_Sect+1)*sizeof(COLH*)))==NULL) return -3;
-do0(i,0,K_Sect)
-{
-if((ColH_New[i]=(COLH*)malloc((K_Hor[i]+1)*sizeof(COLH)))==NULL) return -3;
-do0(ih,0,K_Hor[i])
-{
-ColH_New[i][ih].bnd.left = ColH[i][ih].bnd.left;
-ColH_New[i][ih].bnd.right = ColH[i][ih].bnd.right;
-ColH_New[i][ih].bnd.top = ColH[i][ih].bnd.top;
-ColH_New[i][ih].bnd.bottom = ColH[i][ih].bnd.bottom;
-}
-}
-
-//                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////
-// Добавляем отформатированные текстовые фрагменты (Page).
-RtfPage->Count.RtfSectors = K_Sect;
-do0(i,0,K_Sect)
-{ //sect begin
-int index_word;
-RtfPage->m_arSectors.push_back( new CRtfSector() );
-pRtfSector = RtfPage->m_arSectors[i];
-pRtfSector->m_wHorizontalColumnsCount = K_Hor[i];
-
-do0(ih,0,K_Hor[i])
-{//hor. col.  begin
-pRtfSector->m_arHorizontalColumns.push_back( new CRtfHorizontalColumn() );
-pRtfHorizontalColumn = pRtfSector->m_arHorizontalColumns[ih];
-
-RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
-RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
-RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);
-
-RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
-RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
-RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
-
-pRtfHorizontalColumn->m_wVerticalColumnsCount = K_Ver[i][ih];
-pRtfHorizontalColumn->m_wType = K_Ver_Flag_Term[i][ih];
-
-do0(iv,0,K_Ver[i][ih])
-{ //vert. col.  begin
-    nc=Colt[i][ih][iv];
-    if( NumStr[nc] < 0)
-    continue;
-
-    if( K_Hor[i]==0 && K_Ver[i][ih]==0 && NumStr[nc]==0 )
-    pRtfSector->m_FlagOneString = TRUE;
-
-    pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CRtfVerticalColumn() );
-    pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns.back();
-
-    pRtfVerticalColumn->m_wFragmentsCount = 1;
-    pRtfVerticalColumn->m_arFragments.push_back( new CRtfFragment() );
-    pRtfFragment=pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
-    pRtfFragment->m_wType = FT_TEXT;
-    RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
-    RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
-
-    RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
-    RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
-
-    int strings_count = NumStr[nc]+1;
-    pRtfFragment->m_Flag = FragFlag[nc]; //nega
-
-    for(ns = 0; ns <= NumStr[nc]; ++ns)    { //str. begin
-        if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
-            continue;
-
-        pRtfFragment->strings.push_back( new CRtfString() );
-        pRtfString = pRtfFragment->strings[ns];
-
-        if(TitleStr[nc][ns].S_Attr)
-        {
-            pRtfFragment->m_Attr=1;
-            pRtfString->attr=TRUE;
-        }
-        else
-        pRtfString->attr=FALSE;
-
-        pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
-
-        for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
-            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
-                continue;
-            }
-            pRtfString->words.push_back(new CRtfWord);
-            pRtfWord=pRtfString->words.back();
-
-            pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-            pRtfWord->ideal_font_point_size= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-
-            if(NumStr[nc]==0 && TitleStr[nc][ns].S_Gen.S_NumWord==1)
-            pRtfWord->real_font_point_size = RtfPage->GetMinKegl(pRtfWord->ideal_font_point_size);
-            else
-            pRtfWord->real_font_point_size = RtfPage->GetNewKegl(pRtfWord->ideal_font_point_size);
-
-            for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
-                pRtfWord->chars.push_back( new CRtfChar() );
-                pRtfChar=pRtfWord->chars[nz];
-
-                pRtfChar->countAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
-                for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
-                {
-                    pRtfChar->versions[alt].char_ = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                    pRtfChar->versions[alt].probability_ = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
-                }
-                pRtfChar->flag_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
-                pRtfChar->flag_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
-                pRtfChar->language_ = Zn[nc][ns][nw][nz].Alt[0].a_language;
-                pRtfChar->flag_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
-                pRtfChar->fontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-                pRtfChar->fontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-
-                RtfAssignRect_CRect_SRect( &pRtfChar->real_rect_, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                RtfAssignRect_CRect_SRect( &pRtfChar->ideal_rect_, &Zn[nc][ns][nw][nz].Title.Z_Rect );
-            }
-        }//word end
-    }//str end
-}//vert.end
-}//hor.end
-}//sec.end
+                            RtfAssignRect_CRect_SRect(&pRtfChar->real_rect_,
+                                    &Zn[nc][ns][nw][nz].Title.Z_RealRect);
+                            RtfAssignRect_CRect_SRect(&pRtfChar->ideal_rect_,
+                                    &Zn[nc][ns][nw][nz].Title.Z_Rect);
+                        }
+                    }//word end
+                }//str end
+            }//vert.end
+        }//hor.end
+    }//sec.end
 
 #ifdef alDebug
-            if(det20 || det23)
-            {   ConsMess("Formatter End ");
-                if(RtfWriteMode)
-                ConsMess("*************************************************************");
-            }
+    if (det20 || det23) {
+        ConsMess("Formatter End ");
+        if (RtfWriteMode)
+            ConsMess("*************************************************************");
+    }
 #endif
-            do0(i,0,K_Sect)
-            {
-                do0(ih,0,K_Hor[i])
-                free(Colt[i][ih]);
-                free(K_Ver[i]);
-                free(K_Ver_Flag_Term[i]);
-                free(K_Ver_Add_On[i]);
-                free(K_Ver_Offset[i]);
-                free(Colt[i]);
-                free(ColH[i]);
-                free(ColH_New[i]);
-            }
+    do0(i,0,K_Sect) {
+        do0(ih,0,K_Hor[i])
+            free(Colt[i][ih]);
+        free(K_Ver[i]);
+        free(K_Ver_Flag_Term[i]);
+        free(K_Ver_Add_On[i]);
+        free(K_Ver_Offset[i]);
+        free(Colt[i]);
+        free(ColH[i]);
+        free(ColH_New[i]);
+    }
 
-            if(K_Hor) free(K_Hor);
-            if(K_Ver) free(K_Ver);
-            if(K_Ver_Flag_Term) free(K_Ver_Flag_Term);
-            if(K_Ver_Add_On) free(K_Ver_Add_On);
-            if(K_Ver_Offset) free(K_Ver_Offset);
-            if(Colt) free(Colt);
-            if(ColH) free(ColH);
-            if(ColH_New) free(ColH_New);
-            if(RootUdal) free((KNOT**)RootUdal);
-            if(ArrFrm) free(ArrFrm);
-            if(frm) free(frm);
+    if (K_Hor)
+        free(K_Hor);
+    if (K_Ver)
+        free(K_Ver);
+    if (K_Ver_Flag_Term)
+        free(K_Ver_Flag_Term);
+    if (K_Ver_Add_On)
+        free(K_Ver_Add_On);
+    if (K_Ver_Offset)
+        free(K_Ver_Offset);
+    if (Colt)
+        free(Colt);
+    if (ColH)
+        free(ColH);
+    if (ColH_New)
+        free(ColH_New);
+    if (RootUdal)
+        free((KNOT**) RootUdal);
+    if (ArrFrm)
+        free(ArrFrm);
+    if (frm)
+        free(frm);
 
-            if(FlagOdinSectorOdnaColonka)
-            {
-                int16_t tmpNumCol;
-                tmpNumCol = NumCol;
-                NumCol = OldNumCol;
-                if(NumStr)
-                FreeStructFull();
-                NumCol = tmpNumCol;
-            }
-            else
-            if(NumStr) FreeStructFull();
+    if (FlagOdinSectorOdnaColonka) {
+        int16_t tmpNumCol;
+        tmpNumCol = NumCol;
+        NumCol = OldNumCol;
+        if (NumStr)
+            FreeStructFull();
+        NumCol = tmpNumCol;
+    }
+    else if (NumStr)
+        FreeStructFull();
 
-            if(NumStr) free(NumStr);
-            if(UserNumber) free(UserNumber);
-            if(FragFlag) free(FragFlag);
-            if(RectFragm) free(RectFragm);
+    if (NumStr)
+        free(NumStr);
+    if (UserNumber)
+        free(UserNumber);
+    if (FragFlag)
+        free(FragFlag);
+    if (RectFragm)
+        free(RectFragm);
 
-            //#ifdef alDebug
-            //if(det20)	{ ConsMess("End FileName=%s ",OutFileName); }
-            //#endif
+    //#ifdef alDebug
+    //if(det20)	{ ConsMess("End FileName=%s ",OutFileName); }
+    //#endif
 
 
-            if(FlagBadBad)
-            return TRUE;
+    if (FlagBadBad)
+        return TRUE;
 
-            free((KNOT**)Inf.Tree.Root);
-            free((KNOT**)Inf.Tree.ArrSeg);
-            free((KNOT**)Inf.LineVK);
-            free((KNOT**)Inf.LineHK);
-            free((KNOT**)Inf.bnd_col);
-            free((KNOT**)Inf.StatCell);
-            free((KNOT**)Inf.ColT);
+    free((KNOT**) Inf.Tree.Root);
+    free((KNOT**) Inf.Tree.ArrSeg);
+    free((KNOT**) Inf.LineVK);
+    free((KNOT**) Inf.LineHK);
+    free((KNOT**) Inf.bnd_col);
+    free((KNOT**) Inf.StatCell);
+    free((KNOT**) Inf.ColT);
 
-            return TRUE;
-        }
+    return TRUE;
+}
 
 void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol, FRAME **frm) {
     int16_t i_nsb, i_nse;
 
     if (ptr->NumFrm > 1 && !ptr->Type) {
 #ifdef alDebug
-        if(det4) ConsMess(">>> %d не отсортированных фрагмента",ptr->NumFrm);
+        if (det4)
+            ConsMess(">>> %d не отсортированных фрагмента", ptr->NumFrm);
 #endif
 
         i_nse = ptr->InBegFrm + ptr->NumFrm;
         for (i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++*iv, ++i_nsb) {
             Colt[*iv] = (int16_t) frm[i_nsb]->start_pos;
 #ifdef alDebug
-            if(det4) ConsMess(" #term=%d",NumCol+1-Colt[*iv]);
+            if (det4)
+                ConsMess(" #term=%d", NumCol + 1 - Colt[*iv]);
 #endif
         }
     }
@@ -2733,7 +2649,8 @@ void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol
         Colt[*iv] = ptr->InBegFrm;
         ++*iv;
 #ifdef alDebug
-        if(det11) ConsMess(" #term=%d",NumCol+1-ptr->InBegFrm);
+        if (det11)
+            ConsMess(" #term=%d", NumCol + 1 - ptr->InBegFrm);
 #endif
     }
 }
@@ -2763,8 +2680,8 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol,
                                 if (kp4 < 0) //Терм. col
                                     Get_all_term_fragms1(ptr4, Colt, iv, NumCol, frm);
 #ifdef alDebug
-                                else
-                                if(det11) ConsMess("   Ошибка !!!   ");
+                                else if (det11)
+                                    ConsMess("   Ошибка !!!   ");
 #endif
 
                             }
@@ -2848,60 +2765,58 @@ char *get2_param(char *str, char *param, int16_t max_len)
 }
 
 #ifdef alDebug
-void clear(void) {;}
-void pause_internal(void) {;}
-
-void image_frm(FRAME *f,int col,int line_style,int fill)
-{
-    Rect f1;
-    f1.left=f->left;
-    f1.right=f->right;
-    f1.top=f->up;
-    f1.bottom=f->down;
-    image_rect(&f1,col,line_style,fill);
+void clear(void) {
+    ;
+}
+void pause_internal(void) {
+    ;
 }
 
-void image_bnd(BOUND *f,int col,int line_style,int fill) {}
+void image_frm(FRAME *f, int col, int line_style, int fill) {
+    Rect f1(Point(f->left, f->up), Point(f->right, f->down));
+    image_rect(&f1, col, line_style, fill);
+}
 
-void image_frame(FRAME **frm,int k,int col,int line_style,int fill)
-{
+void image_bnd(BOUND *f, int col, int line_style, int fill) {
+}
+
+void image_frame(FRAME **frm, int k, int col, int line_style, int fill) {
     int i;
     do0(i,0,k)
-    image_frm(frm[i],col,line_style,fill);
+        image_frm(frm[i], col, line_style, fill);
 }
 
-void bounds_frm(int ii,FRAME **frm,int nx) {}
+void bounds_frm(int ii, FRAME **frm, int nx) {
+}
 
-void BoundsRect(int ii,Rect *frm,int nx) {}
+void BoundsRect(int ii, Rect *frm, int nx) {
+}
 
-void image_rect(Rect *f,int col,int line_style,int fill)
-{
-    CONS_MESS1(" left=%d,  right=%d,  up=%d,  down=%d",f->left,f->right,f->top,f->bottom);
-    if( pTheGeomStep == pTheGeomStep1 )
-    {
+void image_rect(Rect *f, int col, int line_style, int fill) {
+    CONS_MESS1(" left=%d,  right=%d,  up=%d,  down=%d", f->left(), f->right(), f->top(),
+                f->bottom());
+    if (pTheGeomStep == pTheGeomStep1) {
         pFragRectColor->push_back(Graphic1Color);
-        if(Graphic1Color==0)
-        {
-            f->left=MAX(0,f->left-12);
-            f->top=MAX(0,f->top-12);
-            f->right+=12;f->bottom+=12;
+        if (Graphic1Color == 0) {
+            f->rleft() = MAX(0,f->left()-12);
+            f->rtop() = MAX(0,f->top()-12);
+            f->rright() += 12;
+            f->rbottom() += 12;
         }
-        if(Graphic1Color==1)
-        {
-            f->left=MAX(0,f->left-8);
-            f->top=MAX(0,f->top-8);
-            f->right+=8;f->bottom+=8;
+        if (Graphic1Color == 1) {
+            f->rleft() = MAX(0,f->left()-8);
+            f->rtop() = MAX(0,f->top()-8);
+            f->rright() += 8;
+            f->rbottom() += 8;
         }
-        if(Graphic1Color==2)
-        {
-            f->left=MAX(0,f->left-4);
-            f->top=MAX(0,f->top-4);
-            f->right+=4;f->bottom+=4;
+        if (Graphic1Color == 2) {
+            f->rleft() = MAX(0,f->left()-4);
+            f->rtop() = MAX(0,f->top()-4);
+            f->rright() += 4;
+            f->rbottom() += 4;
         }
     }
-    Rect rct;
-    SetRect(&rct,f->left,f->top,f->right,f->bottom);
-    pTheGeomStep->push_back(rct);
+    pTheGeomStep->push_back(*f);
 }
 
 #endif

@@ -20,10 +20,42 @@
 #define POINT_H_
 
 #include <stdint.h>
+#include <limits>
+#include <cassert>
 
 namespace CIF {
 
-template<class T>
+struct OverflowCheckNumeric
+{
+    template<class T>
+    static void check(long long int value) {
+        assert(value <= std::numeric_limits<T>::max());
+    }
+};
+
+struct UnderflowCheckNumeric
+{
+    template<class T>
+    static void check(long long int value) {
+        assert(value >= std::numeric_limits<T>::min());
+    }
+};
+
+struct OverflowCheckNone
+{
+    template<class T>
+    static void check(long long int) {
+    }
+};
+
+struct UnderflowCheckNone
+{
+    template<class T>
+    static void check(long long int) {
+    }
+};
+
+template<class T, class OverflowChecker = OverflowCheckNumeric, class UnderflowChecker = UnderflowCheckNumeric>
 class PointImpl
 {
 public:
@@ -71,15 +103,21 @@ public:
     }
 
     PointImpl operator+(const PointImpl& pt) const {
+        OverflowChecker::template check<T>(x_ + pt.x_);
+        OverflowChecker::template check<T>(y_ + pt.y_);
         return PointImpl(x_ + pt.x_, y_ + pt.y_);
     }
 
     PointImpl operator-(const PointImpl& pt) const {
+        UnderflowChecker::template check<T>(x_ - pt.x_);
+        UnderflowChecker::template check<T>(y_ - pt.y_);
         return PointImpl(x_ - pt.x_, y_ - pt.y_);
     }
 
     template<class U>
     PointImpl& operator+=(const PointImpl<U>& pt) {
+        OverflowChecker::template check<T>(x_ + pt.x());
+        OverflowChecker::template check<T>(y_ + pt.y());
         x_ += pt.x();
         y_ += pt.y();
         return *this;
@@ -87,18 +125,24 @@ public:
 
     template<class U>
     PointImpl& operator-=(const PointImpl<U>& pt) {
+        UnderflowChecker::template check<T>(x_ - pt.x());
+        UnderflowChecker::template check<T>(y_ - pt.y());
         x_ -= pt.x();
         y_ -= pt.y();
         return *this;
     }
 
     PointImpl& operator+=(T offset) {
+        OverflowChecker::template check<T>(x_ + offset);
+        OverflowChecker::template check<T>(y_ + offset);
         x_ += offset;
         y_ += offset;
         return *this;
     }
 
     PointImpl& operator-=(T offset) {
+        UnderflowChecker::template check<T>(x_ - offset);
+        UnderflowChecker::template check<T>(y_ - offset);
         x_ -= offset;
         y_ -= offset;
         return *this;
@@ -111,6 +155,8 @@ public:
 
     template<class U>
     void operator=(const PointImpl<U>& pt) {
+        OverflowChecker::template check<T>(pt.x());
+        OverflowChecker::template check<T>(pt.y());
         x_ = pt.x();
         y_ = pt.y();
     }
@@ -189,8 +235,8 @@ PointImpl<T> rightmost(PointImpl<T>& p0, PointImpl<T>& p1) {
     return p0.x() > p1.x() ? p0 : p1;
 }
 
-typedef PointImpl<int> Point;
-typedef PointImpl<int16_t> Point16;
+typedef PointImpl<int32_t, OverflowCheckNumeric, UnderflowCheckNumeric> Point;
+typedef PointImpl<int16_t, OverflowCheckNumeric, UnderflowCheckNumeric> Point16;
 
 }
 

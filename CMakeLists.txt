@@ -5,7 +5,7 @@ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
-SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -fno-inline -Wall -Wextra -fvisibility=default")
+SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -fno-inline -Wall -Wextra -fvisibility=default -Wconversion")
 
 add_definitions("-D_USE_RVERLINE_")
 

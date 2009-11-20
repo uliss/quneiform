@@ -81,7 +81,7 @@
 using namespace CIF;
 
 #ifdef alDebug
-extern std::vector<RECT> *pInputArray;
+extern std::vector<Rect> *pInputArray;
 #endif
 
 int32_t PageIncline2048 = 2048;
@@ -462,10 +462,7 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* C
 
 #ifdef alDebug //obsolete option
     {
-        Rect rect;
-        SetRect(&rect,line_attr.col, line_attr.row,
-                line_attr.col + line_attr.wid,
-                line_attr.row + line_attr.hei);
+        Rect rect(Point(line_attr.col, line_attr.row), line_attr.wid, line_attr.hei);
         pInputArray->push_back(rect);
     }
 #endif

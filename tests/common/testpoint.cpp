@@ -71,3 +71,11 @@ void TestPoint::testCompare() {
     CPPUNIT_ASSERT_EQUAL(leftmost(p2, p1), p1);
     CPPUNIT_ASSERT_EQUAL(rightmost(p2, p1), p2);
 }
+
+void TestPoint::testOverflow() {
+    Point p1(32000, 32000);
+    Point16 p2;
+    p2 = p1;
+//    p2 += 1000;
+}
+
