@@ -128,10 +128,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
             //Реальные коор. строки!
             fread(&SRect, sizeof(Rect16), 1, in);
             fread(&tmp, 2, 1, in);
-            pRtfString->m_wWordsCount = tmp;
+            pRtfString->words_count = tmp;
 
             fread(&tmp, sizeof(uint32_t), 1, in);//NEGA_STR
-            for (nw = 0; nw < pRtfString->m_wWordsCount; ++nw) {
+            for (nw = 0; nw < pRtfString->words_count; ++nw) {
                 pRtfWord = pRtfString->GetNextWord();
                 fread(&tmp, 2, 1, in);
                 int chars_count = tmp;
@@ -564,12 +564,12 @@ void CRtfPage::CorrectKegl(void) {
 
         for (int ns = 0; ns < CountStrings; ns++) {
             pRtfString = pRtfFragment->m_arStrings[ns];
-            CountWords = pRtfString->m_wWordsCount;
+            CountWords = pRtfString->words_count;
 
             //Считаем длину получившейся строки
             int len = 0;
             for (int w = 0; w < CountWords; w++)
-                len += pRtfString->m_arWords[w]->chars.size() + 1;
+                len += pRtfString->words[w]->chars.size() + 1;
             //Выделяем буфер под неё
             char* TmpString = new char[len + 1];
             TmpString[0] = 0;
@@ -577,7 +577,7 @@ void CRtfPage::CorrectKegl(void) {
             //Формируем полную строку
             for (int nw = 0; nw < CountWords; nw++) {
                 int nz;
-                pRtfWord = pRtfString->m_arWords[nw];
+                pRtfWord = pRtfString->words[nw];
                 CountChars = pRtfWord->chars.size();
                 for (nz = 0; nz < CountChars; nz++) {
                     pRtfChar = pRtfWord->chars[nz];
@@ -592,9 +592,9 @@ void CRtfPage::CorrectKegl(void) {
                 strcat(TmpString, tmp_str);
             }
 
-            pRtfWord = pRtfString->m_arWords.front();
+            pRtfWord = pRtfString->words.front();
             pFirstChar = pRtfWord->chars.front();
-            pRtfWord = pRtfString->m_arWords[CountWords - 1];
+            pRtfWord = pRtfString->words[CountWords - 1];
             CountChars = pRtfWord->chars.size();
             pLastChar = pRtfWord->chars[CountChars - 1];
 
@@ -625,10 +625,10 @@ void CRtfPage::ChangeKegl(void) {
 
         for (int ns = 0; ns < CountStrings; ns++) {
             pRtfString = (CRtfString*) pRtfFragment->m_arStrings[ns];
-            CountWords = pRtfString->m_wWordsCount;
+            CountWords = pRtfString->words_count;
 
             for (int nw = 0; nw < CountWords; nw++) {
-                pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
+                pRtfWord = (CRtfWord*) pRtfString->words[nw];
                 if (CountStrings == 1)
                     pRtfWord->real_font_point_size = GetMinKegl(pRtfWord->ideal_font_point_size);
                 else

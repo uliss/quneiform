@@ -2478,19 +2478,19 @@ do0(iv,0,K_Ver[i][ih])
         pRtfFragment->m_arStrings.push_back( new CRtfString() );
 
         pRtfString=pRtfFragment->m_arStrings[ns];
-        pRtfString->m_wWordsCount = TitleStr[nc][ns].S_Gen.S_NumWord;//nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
-        pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
+        pRtfString->words_count = TitleStr[nc][ns].S_Gen.S_NumWord;//nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
+        pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
         do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
         {//word begin
             if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
             {
-                pRtfString->m_wWordsCount--;
+                pRtfString->words_count--;
                 continue;
             }
-            pRtfString->m_arWords.push_back( new CRtfWord() );
-            index_word = pRtfString->m_arWords.size();
-            pRtfWord=pRtfString->m_arWords[index_word-1];
+            pRtfString->words.push_back( new CRtfWord() );
+            index_word = pRtfString->words.size();
+            pRtfWord=pRtfString->words[index_word-1];
             pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
 
@@ -2602,24 +2602,24 @@ do0(iv,0,K_Ver[i][ih])
         if(TitleStr[nc][ns].S_Attr)
         {
             pRtfFragment->m_Attr=1;
-            pRtfString->m_Attr=TRUE;
+            pRtfString->attr=TRUE;
         }
         else
-        pRtfString->m_Attr=FALSE;
+        pRtfString->attr=FALSE;
 
-        pRtfString->m_wWordsCount = TitleStr[nc][ns].S_Gen.S_NumWord;
-        pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
+        pRtfString->words_count = TitleStr[nc][ns].S_Gen.S_NumWord;
+        pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
         do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
         { //word begin
             if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
             {
-                pRtfString->m_wWordsCount--;
+                pRtfString->words_count--;
                 continue;
             }
-            pRtfString->m_arWords.push_back( new CRtfWord() );
-            index_word = pRtfString->m_arWords.size();
-            pRtfWord=pRtfString->m_arWords[index_word-1];
+            pRtfString->words.push_back( new CRtfWord() );
+            index_word = pRtfString->words.size();
+            pRtfWord=pRtfString->words[index_word-1];
 
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
             pRtfWord->ideal_font_point_size= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;

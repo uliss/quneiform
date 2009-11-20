@@ -52,28 +52,28 @@ int16_t GetRealSize(int16_t FontSize, int16_t FontNumber, int16_t* strHeight) {
 }
 
 CRtfString::CRtfString() {
-    m_wWordsCount = 0;
-    m_wLeftIndent = 0;
-    m_wRightIndent = 0;
-    m_wFirstIndent = 0;
-    m_wFlagBeginParagraph = 0;
-    m_wAlignment = 0;
-    m_wPrevAlignment = 0;
-    m_wLeftBorderEqual = 0;
-    m_wRightBorderEqual = 0;
-    m_wCentreEqual = 0;
-    m_bLineTransfer = 0;
-    m_FlagCarry = 0;
-    S_Flags = 0;
-    m_LengthStringInTwips = 0;
+    words_count = 0;
+    left_indent = 0;
+    right_indent = 0;
+    first_indent = 0;
+    flag_begin_paragraph = 0;
+    alignment = 0;
+    prev_alignment = 0;
+    left_border_equal = 0;
+    right_border_equal = 0;
+    centre_equal = 0;
+    line_transfer = 0;
+    flag_carry = 0;
+    flags = 0;
+    length_string_in_twips = 0;
 }
 
 CRtfString::~CRtfString() {
     CRtfWord* cWord;
 
-    m_wWordsCount = m_arWords.size();
-    for (int i = 0; i < m_wWordsCount; i++) {
-        cWord = m_arWords[i];
+    words_count = words.size();
+    for (int i = 0; i < words_count; i++) {
+        cWord = words[i];
         delete cWord;
     }
 }
@@ -83,9 +83,9 @@ int16_t CRtfString::GetStringSizeInTwips() {
     CRtfChar *pLastChar, *pFirstChar;
     uint16_t CountChars;
 
-    pRtfWord = (CRtfWord*) m_arWords[0];
+    pRtfWord = (CRtfWord*) words[0];
     pFirstChar = (CRtfChar*) pRtfWord->chars[0];
-    pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
+    pRtfWord = (CRtfWord*) words[words_count - 1];
     CountChars = pRtfWord->chars.size();
     pLastChar = (CRtfChar*) pRtfWord->chars[CountChars - 1];
     int16_t LenghtStr =
@@ -102,8 +102,8 @@ uint16_t CRtfString::GetRealStringSize(void) {
     int16_t strHeight;
     int index = 0;
 
-    for (int nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
+    for (int nw = 0; nw < words_count; nw++) {
+        pRtfWord = (CRtfWord*) words[nw];
         CountChars = pRtfWord->chars.size();
         for (int nz = 0; nz < CountChars; nz++) {
             pRtfChar = (CRtfChar*) pRtfWord->chars[nz];
@@ -114,7 +114,7 @@ uint16_t CRtfString::GetRealStringSize(void) {
     }
 
     tmp_str[index] = 0;
-    pRtfWord = (CRtfWord*) m_arWords[0];
+    pRtfWord = (CRtfWord*) words[0];
     pRtfChar = (CRtfChar*) pRtfWord->chars[0];
 
     RealSize = GetRealSize(pRtfWord->real_font_point_size, pRtfChar->fontNumber, &strHeight);
@@ -122,16 +122,16 @@ uint16_t CRtfString::GetRealStringSize(void) {
 }
 
 CRtfWord* CRtfString::GetNextWord() {
-    m_arWords.push_back(new CRtfWord());
-    return m_arWords.back();
+    words.push_back(new CRtfWord());
+    return words.back();
 }
 
 uint16_t CRtfString::get_max_font_size() {
     uint16_t nw, str_max_font = 3;
     CRtfWord* pRtfWord;
 
-    for (nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
+    for (nw = 0; nw < words_count; nw++) {
+        pRtfWord = (CRtfWord*) words[nw];
         str_max_font = MAX(str_max_font, pRtfWord->real_font_point_size);
     }
     return str_max_font;

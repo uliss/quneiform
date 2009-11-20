@@ -22,7 +22,6 @@
 #include <vector>
 
 #include "cttypes.h"
-#include "rect.h"
 
 class CRtfWord;
 class CRtfFragment;
@@ -38,32 +37,30 @@ public:
     int16_t GetStringSizeInTwips(void);
     uint16_t GetRealStringSize(void);
 
-    std::vector<CRtfWord*> m_arWords;
+    typedef std::vector<CRtfWord*> vectorWord;
+    vectorWord words;
+    uint16_t words_count;
 
-    uint16_t m_wWordsCount;
-    CIF::Rect m_rect;
-    uint16_t m_wType;
-
-    int32_t m_LeftBorder;
-    int32_t m_RightBorder;
-    uint16_t m_wLeftIndent;
-    uint16_t m_wRightIndent;
-    uint16_t m_wCentre;
-    uint16_t m_wFirstIndent;
-    uint16_t m_wFlagBeginParagraph;
-    uint16_t m_wAlignment;
-    uint16_t m_wPrevAlignment;
-    uint16_t m_LengthStringInTwips;
-    uint16_t m_wSpaceBefore;
-    uchar m_wLeftBorderEqual;
-    uchar m_wRightBorderEqual;
-    uchar m_wCentreEqual;
-    uchar m_bLineTransfer;
-    uchar m_LastChar;
-    uchar m_FirstChar;
-    uchar m_Attr;
-    uchar m_FlagCarry;
-    uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
+    int32_t left_border;
+    int32_t right_border;
+    uint16_t left_indent;
+    uint16_t right_indent;
+    uint16_t centre;
+    uint16_t first_indent;
+    uint16_t flag_begin_paragraph;
+    uint16_t alignment;
+    uint16_t prev_alignment;
+    uint16_t length_string_in_twips;
+    uint16_t space_before;
+    uchar left_border_equal;
+    uchar right_border_equal;
+    uchar centre_equal;
+    uchar line_transfer;
+    uchar last_char;
+    uchar first_char;
+    uchar attr;
+    uchar flag_carry;
+    uint32_t flags; //NEGA_STR vmk 10-06-2001
 };
 
 #endif /* CRTFSTRING_H_ */
