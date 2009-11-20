@@ -117,12 +117,12 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         pRtfFragment->m_rect.rright() = (int32_t) (RectFragm.right() * Twips);
         pRtfFragment->m_rect.rbottom() = (int32_t) (RectFragm.bottom() * Twips);
         fread(&tmp, 2, 1, in);
-        pRtfFragment->m_wStringsCount = tmp;
+        pRtfFragment->strings_count = tmp;
         fread(&wtmp, 4, 1, in);
         pRtfFragment->m_wUserNumber = wtmp;
         fread(&wtmp, 4, 1, in);
 
-        for (ns = 0; ns < pRtfFragment->m_wStringsCount; ++ns) {
+        for (ns = 0; ns < pRtfFragment->strings_count; ++ns) {
             pRtfString = pRtfFragment->GetNextString();
             fread(&SRect, sizeof(Rect16), 1, in);
             //Реальные коор. строки!
@@ -561,10 +561,10 @@ void CRtfPage::CorrectKegl(void) {
     CountTextFragments = Count.RtfTextFragments + Count.RtfFrameTextFragments;
     for (int i = 0; i < CountTextFragments; i++) {
         pRtfFragment = m_arFragments[i];
-        CountStrings = pRtfFragment->m_wStringsCount;
+        CountStrings = pRtfFragment->strings_count;
 
         for (int ns = 0; ns < CountStrings; ns++) {
-            pRtfString = pRtfFragment->m_arStrings[ns];
+            pRtfString = pRtfFragment->strings[ns];
             CountWords = pRtfString->words.size();
 
             //Считаем длину получившейся строки
@@ -622,10 +622,10 @@ void CRtfPage::ChangeKegl(void) {
     // по частоте встречаемости выбираем преобразование из реал. в идеал. кегль
     for (int i = 0; i < CountTextFragments; i++) {
         pRtfFragment = (CRtfFragment*) m_arFragments[i];
-        CountStrings = pRtfFragment->m_wStringsCount;
+        CountStrings = pRtfFragment->strings_count;
 
         for (int ns = 0; ns < CountStrings; ns++) {
-            pRtfString = pRtfFragment->m_arStrings[ns];
+            pRtfString = pRtfFragment->strings[ns];
             CountWords = pRtfString->words.size();
 
             for (int nw = 0; nw < CountWords; nw++) {

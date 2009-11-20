@@ -90,3 +90,9 @@ uint16_t CRtfString::GetRealStringSize(void) {
     int16_t strHeight;
     return GetRealSize(pRtfWord->real_font_point_size, pRtfChar->fontNumber, &strHeight);
 }
+
+std::ostream& operator<<(std::ostream& os, const CRtfString& string) {
+    for(size_t i = 0; i < string.words.size(); i++)
+        os << ' ' << *string.words[i];
+    return os;
+}

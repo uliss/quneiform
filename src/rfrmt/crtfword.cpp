@@ -85,3 +85,9 @@ void CRtfWord::getCoordinatesAndProbability() {
         m_wcs = std::min(m_wcs, chars[nz]->flag_spell);
     }
 }
+
+std::ostream& operator<<(std::ostream& os, const CRtfWord& word) {
+    for(size_t i = 0; i < word.chars.size(); i++)
+        os << word.chars[i]->versions[0].char_;
+    return os;
+}

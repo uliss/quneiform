@@ -20,6 +20,7 @@
 #define CRTFWORD_H_
 
 #include <vector>
+#include <iostream>
 
 #include "cttypes.h"
 #include "crtfchar.h"
@@ -50,5 +51,7 @@ public:
 private:
     void calcCoordinates();
 };
+
+std::ostream& operator<<(std::ostream& os, const CRtfWord& word);
 
 #endif /* CRTFWORD_H_ */

@@ -2466,7 +2466,7 @@ do0(iv,0,K_Ver[i][ih])
     RtfPage->Count.RtfTextFragments++;
     j = RtfPage->m_arFragments.size();
     pRtfFragment = RtfPage->m_arFragments[j-1];
-    pRtfFragment->m_wStringsCount = NumStr[nc]+1;
+    pRtfFragment->strings_count = NumStr[nc]+1;
     pRtfFragment->m_wType = FT_TEXT;
     pRtfFragment->m_rect = RectFragm[nc];
     pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
@@ -2475,9 +2475,9 @@ do0(iv,0,K_Ver[i][ih])
     { //str. begin
         if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
         continue;
-        pRtfFragment->m_arStrings.push_back( new CRtfString() );
+        pRtfFragment->strings.push_back( new CRtfString() );
 
-        pRtfString=pRtfFragment->m_arStrings[ns];
+        pRtfString=pRtfFragment->strings[ns];
         //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
         pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
@@ -2585,7 +2585,7 @@ do0(iv,0,K_Ver[i][ih])
     RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
     RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
 
-    pRtfFragment->m_wStringsCount = NumStr[nc]+1;
+    pRtfFragment->strings_count = NumStr[nc]+1;
     pRtfFragment->m_Flag = FragFlag[nc]; //nega
 
     do0(ns,0,NumStr[nc])
@@ -2593,8 +2593,8 @@ do0(iv,0,K_Ver[i][ih])
         if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
         continue;
 
-        pRtfFragment->m_arStrings.push_back( new CRtfString() );
-        pRtfString=pRtfFragment->m_arStrings[ns];
+        pRtfFragment->strings.push_back( new CRtfString() );
+        pRtfString=pRtfFragment->strings[ns];
 
         if(TitleStr[nc][ns].S_Attr)
         {

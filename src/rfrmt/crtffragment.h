@@ -84,9 +84,10 @@ public:
 
     void PrintTheResult(const char*);
 
-    std::vector<CRtfString*> m_arStrings;
+    typedef std::vector<CRtfString*> VectorString;
+    VectorString strings;
 
-    uint16_t m_wStringsCount;
+    uint16_t strings_count;
     CIF::Rect m_rect;
     CIF::Rect m_rectReal;
     CIF::Rect m_rectFree;

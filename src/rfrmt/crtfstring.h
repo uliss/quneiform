@@ -20,6 +20,7 @@
 #define CRTFSTRING_H_
 
 #include <vector>
+#include <iostream>
 
 #include "cttypes.h"
 
@@ -58,5 +59,7 @@ public:
     uchar flag_carry;
     uint32_t flags; //NEGA_STR vmk 10-06-2001
 };
+
+std::ostream& operator<<(std::ostream& os, const CRtfString& string);
 
 #endif /* CRTFSTRING_H_ */
