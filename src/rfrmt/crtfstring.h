@@ -32,14 +32,10 @@ public:
     CRtfString();
     ~CRtfString();
 
-    CRtfWord* GetNextWord(void);
-    uint16_t get_max_font_size(void);
-    int16_t GetStringSizeInTwips(void);
     uint16_t GetRealStringSize(void);
 
     typedef std::vector<CRtfWord*> vectorWord;
     vectorWord words;
-    uint16_t words_count;
 
     int32_t left_border;
     int32_t right_border;

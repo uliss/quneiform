@@ -2478,19 +2478,16 @@ do0(iv,0,K_Ver[i][ih])
         pRtfFragment->m_arStrings.push_back( new CRtfString() );
 
         pRtfString=pRtfFragment->m_arStrings[ns];
-        pRtfString->words_count = TitleStr[nc][ns].S_Gen.S_NumWord;//nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
+        //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
         pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
-        do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
-        {//word begin
-            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
-            {
-                pRtfString->words_count--;
+        for (nw= 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
+            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                 continue;
             }
-            pRtfString->words.push_back( new CRtfWord() );
-            index_word = pRtfString->words.size();
-            pRtfWord=pRtfString->words[index_word-1];
+
+            pRtfString->words.push_back(new CRtfWord);
+            pRtfWord=pRtfString->words.back();
             pRtfWord->ideal_font_point_size = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
 
@@ -2605,21 +2602,16 @@ do0(iv,0,K_Ver[i][ih])
             pRtfString->attr=TRUE;
         }
         else
-        pRtfString->attr=FALSE;
+            pRtfString->attr=FALSE;
 
-        pRtfString->words_count = TitleStr[nc][ns].S_Gen.S_NumWord;
         pRtfString->flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
-        do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
-        { //word begin
-            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
-            {
-                pRtfString->words_count--;
+        for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
+            if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                 continue;
             }
-            pRtfString->words.push_back( new CRtfWord() );
-            index_word = pRtfString->words.size();
-            pRtfWord=pRtfString->words[index_word-1];
+            pRtfString->words.push_back(new CRtfWord);
+            pRtfWord=pRtfString->words.back();
 
             pRtfWord->font_number = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
             pRtfWord->ideal_font_point_size= ((TitleWord[nc][ns][nw]).W_Gen).FontSize;

@@ -52,7 +52,6 @@ int16_t GetRealSize(int16_t FontSize, int16_t FontNumber, int16_t* strHeight) {
 }
 
 CRtfString::CRtfString() {
-    words_count = 0;
     left_indent = 0;
     right_indent = 0;
     first_indent = 0;
@@ -69,70 +68,25 @@ CRtfString::CRtfString() {
 }
 
 CRtfString::~CRtfString() {
-    CRtfWord* cWord;
-
-    words_count = words.size();
-    for (int i = 0; i < words_count; i++) {
-        cWord = words[i];
-        delete cWord;
-    }
-}
-
-int16_t CRtfString::GetStringSizeInTwips() {
-    CRtfWord* pRtfWord;
-    CRtfChar *pLastChar, *pFirstChar;
-    uint16_t CountChars;
-
-    pRtfWord = (CRtfWord*) words[0];
-    pFirstChar = (CRtfChar*) pRtfWord->chars[0];
-    pRtfWord = (CRtfWord*) words[words_count - 1];
-    CountChars = pRtfWord->chars.size();
-    pLastChar = (CRtfChar*) pRtfWord->chars[CountChars - 1];
-    int16_t LenghtStr =
-            (int16_t) ((pLastChar->ideal_rect_.right() - pFirstChar->ideal_rect_.left()) * Twips);
-    return LenghtStr;
+    for(vectorWord::iterator it = words.begin(), end = words.end(); it != end; ++it)
+        delete *it;
 }
 
 uint16_t CRtfString::GetRealStringSize(void) {
     char tmp_str[MAX_BUFFER_SIZE];
-    CRtfWord* pRtfWord;
-    CRtfChar *pRtfChar;
 
-    uint16_t CountChars, RealSize;
-    int16_t strHeight;
     int index = 0;
-
-    for (int nw = 0; nw < words_count; nw++) {
-        pRtfWord = (CRtfWord*) words[nw];
-        CountChars = pRtfWord->chars.size();
-        for (int nz = 0; nz < CountChars; nz++) {
-            pRtfChar = (CRtfChar*) pRtfWord->chars[nz];
-            tmp_str[index++] = pRtfChar->versions[0].char_;
-
+    for (uint nw = 0; nw < words.size(); nw++) {
+        CRtfWord* word = words[nw];
+        for (uint nz = 0; nz < word->chars.size(); nz++) {
+            tmp_str[index++] = word->chars[nz]->versions[0].char_;
         }
         tmp_str[index++] = ' ';
     }
 
     tmp_str[index] = 0;
-    pRtfWord = (CRtfWord*) words[0];
-    pRtfChar = (CRtfChar*) pRtfWord->chars[0];
-
-    RealSize = GetRealSize(pRtfWord->real_font_point_size, pRtfChar->fontNumber, &strHeight);
-    return RealSize;
-}
-
-CRtfWord* CRtfString::GetNextWord() {
-    words.push_back(new CRtfWord());
-    return words.back();
-}
-
-uint16_t CRtfString::get_max_font_size() {
-    uint16_t nw, str_max_font = 3;
-    CRtfWord* pRtfWord;
-
-    for (nw = 0; nw < words_count; nw++) {
-        pRtfWord = (CRtfWord*) words[nw];
-        str_max_font = MAX(str_max_font, pRtfWord->real_font_point_size);
-    }
-    return str_max_font;
+    CRtfWord* pRtfWord = words[0];
+    CRtfChar *pRtfChar = pRtfWord->chars[0];
+    int16_t strHeight;
+    return GetRealSize(pRtfWord->real_font_point_size, pRtfChar->fontNumber, &strHeight);
 }
