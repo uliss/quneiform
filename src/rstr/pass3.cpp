@@ -1481,7 +1481,7 @@ static void accept_Cell(cell *c, CSTR_rast_attr *rst, CCOM_comp *cmp,
 	c->bas_acc = 0;
 	DeskewCell(c, cmp, nIncline, shift);
 	set_bad_cell(c);
-	if (cmp->type == c_comp::ch_great)
+	if (cmp->type == ch_great)
 		c->env = 0;
 
 	return;
@@ -1927,8 +1927,8 @@ void dust_ini(CSTR_line lin) {
   c2->env->large |= ch_taken;
   c2->reasno=0;
   c2->bdiff=(char)(obtain_diff(c2->col));
-  c2->dupstart = CSTR_GetDup(curr);
-  c2->dupend = CSTR_GetDupEnd(curr);
+  c2->dupstart=(int32_t)CSTR_GetDup(curr);
+  c2->dupend  =(int32_t)CSTR_GetDupEnd(curr);
 
   c2->flg_new |= c_fn_taken; // Nick 13.02.2001
 
@@ -2482,7 +2482,7 @@ void accept_cell(cell *c, c_comp *cmp) {
 		c->history = c_rs_ev;
 	} else
 		set_bad_cell(c);
-	if (cmp->type == c_comp::ch_great)
+	if (cmp->type == ch_great)
 		c->env = 0;
 }
 

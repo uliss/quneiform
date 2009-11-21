@@ -108,7 +108,8 @@ uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,
 		szDefault = szDef;
 	}
 
-	return 0;
+	return GetPrivateProfileString(szSection, szKey, szDefault, szResult,
+			nResult, szIniFileName);
 }
 
 Bool32 LnsWriteProfileInt(char* szKey, int nValue) {

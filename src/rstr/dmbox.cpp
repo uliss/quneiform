@@ -105,19 +105,19 @@ static int16_t many_legs(s_glue *);
 static uchar wide_let[] = { 166, 172, 228, 232, 233, 235, 238 };
 
 //  Add component to box raster
-static void make_box_raster5x3(uint16_t * matr, c_comp * cp, int16_t row,
+static void make_box_raster5x3(PWORD matr, c_comp * cp, int16_t row,
 		int16_t col, int16_t h, int16_t w, lnhead * lp);
 
-static void comp_to_box5x3(uint16_t * matr, c_comp * cp, uint16_t row, uint16_t col,
+static void comp_to_box5x3(PWORD matr, c_comp * cp, uint16_t row, uint16_t col,
 		uint16_t h, uint16_t w) {
 	make_box_raster5x3(matr, cp, row, (int16_t) ((cp->left - col) * 5), h, w,
 			(lnhead *) ((puchar) cp + cp->lines + sizeof(uint16_t)));
 }
 
-static void make_box_raster5x3(uint16_t * matr, c_comp * cp, int16_t row,
+static void make_box_raster5x3(PWORD matr, c_comp * cp, int16_t row,
 		int16_t add_col, int16_t h, int16_t w, lnhead * lp) {
 	int16_t r3, row_rest, w2, w3, w4;
-	uint16_t * pm, * p;
+	PWORD pm, p;
 	int16_t xs, xe, s1, s2, s3, s4, s5;
 	interval * ip;
 
@@ -221,7 +221,7 @@ static void make_box_raster5x3(uint16_t * matr, c_comp * cp, int16_t row,
 	lp = (lnhead *) ((puchar) lp + lp->lth);
 	if (lp->lth != 0)
 		goto next_line;
-}
+}/*make_box_raster5x3*/
 
 int16_t crecell5x3(cell *B1, s_glue *GL) {
 	servBOX save;
@@ -250,6 +250,9 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
 	int16_t typl, svr, svh, svw, svc, svmr, svmc, pa, pA, py;
 	uchar c1, c2, c3;
 	uchar p1, p2, p3;
+	//extern uchar no_linpen;
+	//if( no_linpen )
+	//    return 8;
 
 	typl = ftv; // **********************  not used
 	typl = tpl;
@@ -1220,7 +1223,7 @@ static int16_t many_legs(s_glue *GL) {
 	char n1, h1, h2;
 	uchar *wb;
 	int16_t nc, Lc1, lc1, nleg;
-	c_comp *cp1;
+	struct comp_struc *cp1;
 	int16_t bm;
 
 	nc = 0;

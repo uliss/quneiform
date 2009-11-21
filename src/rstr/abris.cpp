@@ -1946,7 +1946,7 @@ int16_t h_filt(cell *c, int16_t prob, s_glue *GL, uchar h_or_b_Let) {
 		Lp1 = (lnhead *) ((char *) cp1 + cp1->lines + 2); // beginning of first line
 		Lp2 = Lp1;
 		for (lc1 = 0; lc1 < Lc1; lc1++) {
-			if ((Lp1->flg & lnhead::l_fbeg) == 0)
+			if ((Lp1->flg & l_fbeg) == 0)
 				goto nextl; // need free_beg line
 			hbeg = Lp1->row + rowd;
 			hend = hbeg + Lp1->h;

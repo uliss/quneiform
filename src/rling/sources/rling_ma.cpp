@@ -144,6 +144,7 @@ static uchar all_loaded = 0;
 static puchar fontBOX = NULL; /* BOX table for font  */
 static puchar omniBOX = NULL; /* BOX save table for omni  */
 static int32_t box_n = BOX_NUM0
+;
 static PROOT root_file = NULL; /* start of the root file */
 static puchar full_list[512];
 static puchar font_full_list[512];

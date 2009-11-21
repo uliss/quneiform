@@ -56,7 +56,6 @@
 
 #include "linedefs.h"
 #include "point.h"
-#include "rect.h"
 
 #define CLINE_HorizantalLine   1
 #define CLINE_VerticalLine     0
@@ -134,7 +133,7 @@ typedef const DLns* CPDLns;
 typedef struct Line_Data_struct {
 	uint32_t Flags; // common use info
 	uint32_t Tail; // остаток линии за таблицой
-	CIF::Rect rect; // прямоугольник линии
+	Rect32 rect; // прямоугольник линии
 	Bool32 ProcessingType; // тип обработки линии(гор. или верт.)
 	int32_t LineEventsLength; // сумма черных точек линии
 	double Degree;

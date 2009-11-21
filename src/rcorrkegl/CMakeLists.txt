@@ -1,6 +1,10 @@
+include_directories(BEFORE src/h)
+
 add_library(rcorrkegl ${LIBTYPE}
-cor_kegl.cpp
-rcorrkegl.cpp
+${SNP_SRC}
+src/cpp/cor_kegl.cpp
+src/cpp/rcorrkegl.cpp
+src/cpp/stdafx.cpp
 )
 set_property(TARGET rcorrkegl PROPERTY COMPILE_DEFINITIONS __RCORRKEGL__)
 

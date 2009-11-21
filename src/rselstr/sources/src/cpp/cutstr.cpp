@@ -66,7 +66,7 @@
 #include "cpage/cpage.h"
 #include "dpuma.h"
 #include "polyblock.h"
-#include "rcutp/rcutp.h"
+#include "rcutp.h"
 
 using namespace CIF;
 
@@ -115,661 +115,689 @@ int GetMediumHeight(POLY_*);
 Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom, int left,
-        int right);
+void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
+		int bottom, int left, int right);
 Bool IfEqv(char* buf1, char* buf2);
+Bool IfEqv(Rect16 r1, Rect16 r2);
 Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
 void DelBlockMas(POLY_* masp);
 Bool InitBlockMas(POLY_** ppRc, int len);
 int IsInPoly(Point16 a, void * pPoly);
-Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut);
-void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect* Rc);
+Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+		Bool fl_cut);
+void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
 
 void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
 }
 
-void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect* Rc) {
-    CCOM_comp * comp;
-    int16_t top = Rc->top();
-    int16_t bottom = Rc->bottom();
-    int16_t left = Rc->left();
-    int16_t right = Rc->right();
-    CCOM_USER_BLOCK ub;
+void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
+	CCOM_comp * comp;
+	int16_t top = (int16_t) Rc->top;
+	int16_t bottom = (int16_t) Rc->bottom;
+	int16_t left = (int16_t) Rc->left;
+	int16_t right = (int16_t) Rc->right;
+	CCOM_USER_BLOCK ub;
 
-    for (comp = CCOM_GetFirst(hCCOM, NULL); comp; comp = CCOM_GetNext(comp, NULL)) {
-        int size = sizeof(uint32_t);
+	for (comp = CCOM_GetFirst(hCCOM, NULL); comp; comp = CCOM_GetNext(comp,
+			NULL)) {
+		int size = sizeof(uint32_t);
 
-        if (comp->upper >= top && comp->left >= left && comp->upper + comp->h <= bottom
-                && comp->left + comp->w <= right) {
-            if (comp->large & CCOM_LR_KILLED) {
-                ub.code = Code_UB_Kill;
-                if (CCOM_GetUserBlock(comp, &ub)) {
-                    if (ub.size == size) {
-                        if (*((uint32_t*) (ub.data)) == Code_UB_Kill)
-                            CCOM_Reanimate(comp);
-                    }
-                }
-            }
-            else {
-                ub.code = Code_UB_Create;
-                if (CCOM_GetUserBlock(comp, &ub)) {
-                    if (ub.size == size) {
-                        if (*((uint32_t*) (ub.data)) == Code_UB_Create)
-                            CCOM_Kill(comp);
-                    }
-                }
-            }
-        }
-    }
+		if (comp->upper >= top && comp->left >= left && comp->upper + comp->h
+				<= bottom && comp->left + comp->w <= right) {
+			if (comp->large & CCOM_LR_KILLED) {
+				ub.code = Code_UB_Kill;
+				if (CCOM_GetUserBlock(comp, &ub)) {
+					if (ub.size == size) {
+						if (*((uint32_t*) (ub.data)) == Code_UB_Kill)
+							CCOM_Reanimate(comp);
+					}
+				}
+			} else {
+				ub.code = Code_UB_Create;
+				if (CCOM_GetUserBlock(comp, &ub)) {
+					if (ub.size == size) {
+						if (*((uint32_t*) (ub.data)) == Code_UB_Create)
+							CCOM_Kill(comp);
+					}
+				}
+			}
+		}
+	}
 }
 
 int CutStrings(POLY_* pBlock) {
-    medium_h = GetMediumHeight(pBlock);
+	medium_h = GetMediumHeight(pBlock);
 
-    int cut_h = (int) ((double) (medium_h) * k_cut);
+	int cut_h = (int) ((double) (medium_h) * k_cut);
 
-    CCOM_comp * comp;
-    CCOM_comp* prev_comp = NULL;
+	CCOM_comp * comp;
+	CCOM_comp* prev_comp = NULL;
 
-    PAGEINFO info = { 0 };
-    GetPageInfo(HCPAGE, &info);
-    int nIncline = info.Incline2048;
+	PAGEINFO info = { 0 };
+	GetPageInfo(HCPAGE, &info);
+	int nIncline = info.Incline2048;
 
-    Point16 pLeftTop;
-    Point16 pRightTop;
-    Point16 pLeftBottom;
-    Point16 pRightBottom;
+	Point16 pLeftTop;
+	Point16 pRightTop;
+	Point16 pLeftBottom;
+	Point16 pRightBottom;
 
-    Bool fl_cont = FALSE;
+	Bool fl_cont = FALSE;
 
-    comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL);
-    prev_comp = comp;
+	comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL);
+	prev_comp = comp;
 
-    //Andrey: устанавливаем переменные для метода определения точек разрезания, перемещенного в RCUTP
-    if (!RCUTP_RSelStr_SetEnv(/*(char*)info.szImageName, */medium_h, inf_let_w, inf_dust_h,
-            inf_let_h, HCCOM, sup_dust_w, min_cut_down_let_w, sup_prob_w, info.BitPerPixel))
-        return 0;
+	//Andrey: устанавливаем переменные для метода определения точек разрезания, перемещенного в RCUTP
+	if (!RCUTP_RSelStr_SetEnv(/*(char*)info.szImageName, */medium_h, inf_let_w,
+			inf_dust_h, inf_let_h, HCCOM, sup_dust_w, min_cut_down_let_w,
+			sup_prob_w, info.BitPerPixel))
+		return 0;
 
-    while (comp) {
-        fl_cont = FALSE;
-        if (comp->h < inf_let_h) {
-            prev_comp = comp;
-            comp = CCOM_GetNext(comp, NULL);
-            fl_cont = TRUE;
-        }
-        if (fl_cont)
-            continue;
+	while (comp) {
+		fl_cont = FALSE;
+		if (comp->h < inf_let_h) {
+			prev_comp = comp;
+			comp = CCOM_GetNext(comp, NULL);
+			fl_cont = TRUE;
+		}
+		if (fl_cont)
+			continue;
 
-        pLeftTop.rx() = comp->left;
-        pLeftTop.ry() = comp->upper - 1;
-        pRightTop.rx() = comp->left + comp->w - 1;
-        pRightTop.ry() = comp->upper - 1;
-        pLeftBottom.rx() = comp->left;
-        pLeftBottom.ry() = comp->upper + comp->h - 2;
-        pRightBottom.rx() = comp->left + comp->w - 1;
-        pRightBottom.ry() = comp->upper + comp->h - 2;
+		pLeftTop.rx() =  comp->left;
+		pLeftTop.ry() = comp->upper - 1;
+		pRightTop.rx() =  comp->left + comp->w - 1;
+		pRightTop.ry() = comp->upper - 1;
+		pLeftBottom.rx() =  comp->left;
+		pLeftBottom.ry() = comp->upper + comp->h - 2;
+		pRightBottom.rx() =  comp->left + comp->w - 1;
+		pRightBottom.ry() = comp->upper + comp->h - 2;
 
-        IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
-        IDEAL_XY(pRightTop.rx(), pRightTop.ry());
-        IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
-        IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
+		IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
+		IDEAL_XY(pRightTop.rx(), pRightTop.ry());
+		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
+		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-        if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock) || IsInPoly(pLeftBottom,
-                pBlock) || IsInPoly(pRightBottom, pBlock)) {
-            if (comp->h >= cut_h && comp->h <= medium_h * 5 && comp->w >= inf_let_w - 1) {
-                uchar Data[1000];
-                memset(Data, 0, sizeof(Data));
-                uchar* pmasp = Data;
-                Rect16 Rc;
+		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
+				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
+				pBlock)) {
+			if (comp->h >= cut_h && comp->h <= medium_h * 5 && comp->w
+					>= inf_let_w - 1) {
+				uchar Data[1000];
+				memset(Data, 0, sizeof(Data));
+				uchar* pmasp = Data;
+				Rect16 Rc;
 
-                Rc.rtop() = comp->upper;
-                Rc.rbottom() = comp->upper + comp->h - 1;
-                Rc.rleft() = comp->left;
-                Rc.rright() = comp->left + comp->w - 1;
+				Rc.top = comp->upper;
+				Rc.bottom = comp->upper + comp->h - 1;
+				Rc.left = comp->left;
+				Rc.right = comp->left + comp->w - 1;
 
-                int bound = GetMasP(HCPAGE, Rc, &pmasp)
-                        ? RCUTP_RSelStr_CP(comp, &type_let, pmasp)
-                        : comp->h / medium_h;
+				int bound = GetMasP(HCPAGE, Rc, &pmasp) ? RCUTP_RSelStr_CP(
+						comp, &type_let, pmasp) : comp->h / medium_h;
 
-                if (bound > 0) {
-                    if (CutComp(HCPAGE, (CCOM_handle) HCCOM, comp, bound, 1)) {
-                        comp = prev_comp;
-                        fl_cont = TRUE;
-                    }
-                }
-                if (!fl_cont)
-                    comp = CCOM_GetNext(comp, NULL);
-            }
-            else
-                comp = CCOM_GetNext(comp, NULL);
-        }
-        else
-            comp = CCOM_GetNext(comp, NULL);
-    }
+				if (bound > 0) {
+					if (CutComp(HCPAGE, (CCOM_handle) HCCOM, comp, bound, 1)) {
+						comp = prev_comp;
+						fl_cont = TRUE;
+					}
+				}
+				if (!fl_cont)
+					comp = CCOM_GetNext(comp, NULL);
+			} else
+				comp = CCOM_GetNext(comp, NULL);
+		} else
+			comp = CCOM_GetNext(comp, NULL);
+	}
 
-    //Andrey: снятие действия установки переменных в RCUTP
-    RCUTP_RSelStr_UnsetEnv();
+	//Andrey: снятие действия установки переменных в RCUTP
+	RCUTP_RSelStr_UnsetEnv();
 
-    return 1;
+	return 1;
 }
 
 int GetMediumHeight(POLY_* pBlock) {
-    CCOM_comp * comp;
-    int sum_height = 0;
-    int count = 0;
-    Point16 pLeftTop;
-    Point16 pRightTop;
-    Point16 pLeftBottom;
-    Point16 pRightBottom;
+	CCOM_comp * comp;
+	int sum_height = 0;
+	int count = 0;
+	Point16 pLeftTop;
+	Point16 pRightTop;
+	Point16 pLeftBottom;
+	Point16 pRightBottom;
 
-    PAGEINFO info = { 0 };
-    GetPageInfo(HCPAGE, &info);
-    int nIncline = info.Incline2048;
+	PAGEINFO info = { 0 };
+	GetPageInfo(HCPAGE, &info);
+	int nIncline = info.Incline2048;
 
-    for (comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL); comp; comp = CCOM_GetNext(comp, NULL)) {
-        if (comp->h < inf_let_h)
-            continue;
+	for (comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL); comp; comp
+			= CCOM_GetNext(comp, NULL)) {
+		if (comp->h < inf_let_h)
+			continue;
 
-        pLeftTop.rx() = comp->left;
-        pLeftTop.ry() = comp->upper - 1;
-        pRightTop.rx() = comp->left + comp->w - 1;
-        pRightTop.ry() = comp->upper - 1;
-        pLeftBottom.rx() = comp->left;
-        pLeftBottom.ry() = comp->upper + comp->h - 2;
-        pRightBottom.rx() = comp->left + comp->w - 1;
-        pRightBottom.ry() = comp->upper + comp->h - 2;
+		pLeftTop.rx() =  comp->left;
+		pLeftTop.ry() = comp->upper - 1;
+		pRightTop.rx() =  comp->left + comp->w - 1;
+		pRightTop.ry() = comp->upper - 1;
+		pLeftBottom.rx() =  comp->left;
+		pLeftBottom.ry() = comp->upper + comp->h - 2;
+		pRightBottom.rx() =  comp->left + comp->w - 1;
+		pRightBottom.ry() = comp->upper + comp->h - 2;
 
-        IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
-        IDEAL_XY(pRightTop.rx(), pRightTop.ry());
-        IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
-        IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
+		IDEAL_XY(pLeftTop.rx(), pLeftTop.ry());
+		IDEAL_XY(pRightTop.rx(), pRightTop.ry());
+		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
+		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-        if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock) || IsInPoly(pLeftBottom,
-                pBlock) || IsInPoly(pRightBottom, pBlock)) {
-            sum_height += comp->h;
-            count++;
-        }
-    }
+		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
+				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
+				pBlock)) {
+			sum_height += comp->h;
+			count++;
+		}
+	}
 
-    if (!count)
-        return medium_statistics_h;
+	if (!count)
+		return medium_statistics_h;
 
-    return sum_height / count;
+	return sum_height / count;
 }
 
 int GetMediumHeight(ROOT* pRoots) {
-    ROOT* pRoot;
-    int sum_height = 0;
-    int count = 0;
+	ROOT* pRoot;
+	int sum_height = 0;
+	int count = 0;
 
-    for (pRoot = pRoots; pRoot; pRoot = pRoot->u1.pNext) {
-        if (IS_LAYOUT_DUST(*pRoot))
-            continue;
+	for (pRoot = pRoots; pRoot; pRoot = pRoot->u1.pNext) {
+		if (IS_LAYOUT_DUST(*pRoot))
+			continue;
 
-        if ((pRoot->bType & ROOT_LETTER) && pRoot->nHeight > inf_let_h) {
-            sum_height += pRoot->nHeight;
-            count++;
-        }
-    }
+		if ((pRoot->bType & ROOT_LETTER) && pRoot->nHeight > inf_let_h) {
+			sum_height += pRoot->nHeight;
+			count++;
+		}
+	}
 
-    if (!count)
-        return 0;
-    return sum_height / count;
+	if (!count)
+		return 0;
+	return sum_height / count;
 }
 
 int GetStatisticsH() {
-    int sum = 0;
-    int count = 0;
-    CCOM_comp * comp;
+	int sum = 0;
+	int count = 0;
+	CCOM_comp * comp;
 
-    comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL);
+	comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL);
 
-    while (comp) {
-        if (comp->h > inf_let_h) {
-            count++;
-            sum += comp->h;
-        }
-        comp = CCOM_GetNext(comp, NULL);
-    }
+	while (comp) {
+		if (comp->h > inf_let_h) {
+			count++;
+			sum += comp->h;
+		}
+		comp = CCOM_GetNext(comp, NULL);
+	}
 
-    if (!count)
-        return 15;
+	if (!count)
+		return 15;
 
-    return sum / count;
+	return sum / count;
 }
 
 Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
-    int prewide;
-    int left = Rc.left();
-    int h = Rc.height() + 1;
-    int w = Rc.width() + 1;
-    int upper = Rc.top() - 1;
-    if ((w % 8) == 0)
-        prewide = w;
-    else {
-        prewide = w / 8 + 1;
-        prewide *= 8;
-    }
+	int prewide;
+	int left = Rc.left;
+	int h = Rc.bottom - Rc.top + 1;
+	int w = Rc.right - Rc.left + 1;
+	int upper = Rc.top - 1;
+	if ((w % 8) == 0)
+		prewide = w;
+	else {
+		prewide = w / 8 + 1;
+		prewide *= 8;
+	}
 
-    PAGEINFO info = { 0 };
-    CIMAGE_InfoDataInGet DataInto = { 0 };
-    CIMAGE_InfoDataOutGet DataOut = { 0 };
+	PAGEINFO info = { 0 };
+	CIMAGE_InfoDataInGet DataInto = { 0 };
+	CIMAGE_InfoDataOutGet DataOut = { 0 };
 
-    char Name[CPAGE_MAXNAME];
-    Bool ret;
-    int i;
+	char Name[CPAGE_MAXNAME];
+	Bool ret;
+	int i;
 
-    //  1. Подготовка к запросу части изображения.
-    DataInto.dwHeight = (uint32_t)(h);
-    DataInto.dwWidth = (uint32_t)(prewide);
-    DataInto.wByteWidth = (uint16_t) (prewide / 8);
-    DataInto.dwX = left;
-    DataInto.dwY = upper;
-    DataInto.MaskFlag = 0x00;
-    GetPageInfo(hCPage, &info);
-    for (i = 0; i < CPAGE_MAXNAME; i++)
-        Name[i] = info.szImageName[i];
-    DataOut.dwWidth = DataInto.dwWidth;
-    DataOut.dwHeight = DataInto.dwHeight;
-    DataOut.wByteWidth = DataInto.wByteWidth;
-    DataOut.byBit = (uint16_t) info.BitPerPixel;
-    DataOut.lpData = *ppmasp;
+	//  1. Подготовка к запросу части изображения.
+	DataInto.dwHeight = (uint32_t)(h);
+	DataInto.dwWidth = (uint32_t)(prewide);
+	DataInto.wByteWidth = (uint16_t)(prewide / 8);
+	DataInto.dwX = left;
+	DataInto.dwY = upper;
+	DataInto.MaskFlag = 0x00;
+	GetPageInfo(hCPage, &info);
+	for (i = 0; i < CPAGE_MAXNAME; i++)
+		Name[i] = info.szImageName[i];
+	DataOut.dwWidth = DataInto.dwWidth;
+	DataOut.dwHeight = DataInto.dwHeight;
+	DataOut.wByteWidth = DataInto.wByteWidth;
+	DataOut.byBit = (uint16_t) info.BitPerPixel;
+	DataOut.lpData = *ppmasp;
 
-    //	  5. Чтение части изображения.
-    ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
-    if (!ret)
-        return FALSE;
-    if (DataOut.lpData == NULL)
-        return FALSE;
-    *ppmasp = DataOut.lpData;
-    return TRUE;
+	//	  5. Чтение части изображения.
+	ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+	if (!ret)
+		return FALSE;
+	if (DataOut.lpData == NULL)
+		return FALSE;
+	*ppmasp = DataOut.lpData;
+	return TRUE;
 }
 
 Bool Increase2(RecRaster* rast, CCOM_comp* comp) {
-    int newbytewide = ((rast->lnPixWidth) * 2 + 7) / 8;
-    int bytewide = (rast->lnPixWidth + 7) / 8;
-    int newh = rast->lnPixHeight * 2;
-    if (newbytewide * newh > REC_MAX_RASTER_SIZE)
-        return FALSE;
-    if (comp->h * ((comp->w + 7) / 8) > REC_MAX_RASTER_SIZE)
-        return FALSE;
+	int newbytewide = ((rast->lnPixWidth) * 2 + 7) / 8;
+	int bytewide = (rast->lnPixWidth + 7) / 8;
+	int newh = rast->lnPixHeight * 2;
+	if (newbytewide * newh > REC_MAX_RASTER_SIZE)
+		return FALSE;
+	if (comp->h * ((comp->w + 7) / 8) > REC_MAX_RASTER_SIZE)
+		return FALSE;
 
-    uchar bytep;
-    uchar bytep2;
-    int nowbyte = 0;
-    int nowbyte2 = 0;
-    int k;
-    int j;
-    int count = (rast->lnPixWidth + 63) / 64;
-    int new_count = (newbytewide + 7) / 8;
+	uchar bytep;
+	uchar bytep2;
+	int nowbyte = 0;
+	int nowbyte2 = 0;
+	int k;
+	int j;
+	int count = (rast->lnPixWidth + 63) / 64;
+	int new_count = (newbytewide + 7) / 8;
 
-    uchar* str = new uchar[REC_MAX_RASTER_SIZE];
-    if (!str)
-        return FALSE;
+	uchar* str = new uchar[REC_MAX_RASTER_SIZE];
+	if (!str)
+		return FALSE;
 
-    for (k = REC_MAX_RASTER_SIZE - 1; k >= 0; k--)
-        str[k] = 0;
+	for (k = REC_MAX_RASTER_SIZE - 1; k >= 0; k--)
+		str[k] = 0;
 
-    int i;
-    for (i = rast->lnPixHeight - 1; i >= 0; i--) {
-        nowbyte = i * count * 8;
-        nowbyte2 = i * new_count * 8;
-        for (int j = new_count; j > 0; j--) {
-            bytep = 0;
-            bytep2 = rast->Raster[nowbyte];
-            bytep |= 128 & bytep2;
-            bytep |= 64 & (bytep2 >> 1);
-            bytep |= 32 & (bytep2 >> 1);
-            bytep |= 16 & (bytep2 >> 2);
-            bytep |= 8 & (bytep2 >> 2);
-            bytep |= 4 & (bytep2 >> 3);
-            bytep |= 2 & (bytep2 >> 3);
-            bytep |= 1 & (bytep2 >> 4);
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            bytep = 0;
-            bytep |= 128 & (bytep2 << 4);
-            bytep |= 64 & (bytep2 << 3);
-            bytep |= 32 & (bytep2 << 3);
-            bytep |= 16 & (bytep2 << 2);
-            bytep |= 8 & (bytep2 << 2);
-            bytep |= 4 & (bytep2 << 1);
-            bytep |= 2 & (bytep2 << 1);
-            bytep |= 1 & bytep2;
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            nowbyte++;
+	int i;
+	for (i = rast->lnPixHeight - 1; i >= 0; i--) {
+		nowbyte = i * count * 8;
+		nowbyte2 = i * new_count * 8;
+		for (int j = new_count; j > 0; j--) {
+			bytep = 0;
+			bytep2 = rast->Raster[nowbyte];
+			bytep |= 128 & bytep2;
+			bytep |= 64 & (bytep2 >> 1);
+			bytep |= 32 & (bytep2 >> 1);
+			bytep |= 16 & (bytep2 >> 2);
+			bytep |= 8 & (bytep2 >> 2);
+			bytep |= 4 & (bytep2 >> 3);
+			bytep |= 2 & (bytep2 >> 3);
+			bytep |= 1 & (bytep2 >> 4);
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			bytep = 0;
+			bytep |= 128 & (bytep2 << 4);
+			bytep |= 64 & (bytep2 << 3);
+			bytep |= 32 & (bytep2 << 3);
+			bytep |= 16 & (bytep2 << 2);
+			bytep |= 8 & (bytep2 << 2);
+			bytep |= 4 & (bytep2 << 1);
+			bytep |= 2 & (bytep2 << 1);
+			bytep |= 1 & bytep2;
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			nowbyte++;
 
-            bytep = 0;
-            bytep2 = rast->Raster[nowbyte];
-            bytep |= 128 & bytep2;
-            bytep |= 64 & (bytep2 >> 1);
-            bytep |= 32 & (bytep2 >> 1);
-            bytep |= 16 & (bytep2 >> 2);
-            bytep |= 8 & (bytep2 >> 2);
-            bytep |= 4 & (bytep2 >> 3);
-            bytep |= 2 & (bytep2 >> 3);
-            bytep |= 1 & (bytep2 >> 4);
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            bytep = 0;
-            bytep |= 128 & (bytep2 << 4);
-            bytep |= 64 & (bytep2 << 3);
-            bytep |= 32 & (bytep2 << 3);
-            bytep |= 16 & (bytep2 << 2);
-            bytep |= 8 & (bytep2 << 2);
-            bytep |= 4 & (bytep2 << 1);
-            bytep |= 2 & (bytep2 << 1);
-            bytep |= 1 & bytep2;
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            nowbyte++;
+			bytep = 0;
+			bytep2 = rast->Raster[nowbyte];
+			bytep |= 128 & bytep2;
+			bytep |= 64 & (bytep2 >> 1);
+			bytep |= 32 & (bytep2 >> 1);
+			bytep |= 16 & (bytep2 >> 2);
+			bytep |= 8 & (bytep2 >> 2);
+			bytep |= 4 & (bytep2 >> 3);
+			bytep |= 2 & (bytep2 >> 3);
+			bytep |= 1 & (bytep2 >> 4);
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			bytep = 0;
+			bytep |= 128 & (bytep2 << 4);
+			bytep |= 64 & (bytep2 << 3);
+			bytep |= 32 & (bytep2 << 3);
+			bytep |= 16 & (bytep2 << 2);
+			bytep |= 8 & (bytep2 << 2);
+			bytep |= 4 & (bytep2 << 1);
+			bytep |= 2 & (bytep2 << 1);
+			bytep |= 1 & bytep2;
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			nowbyte++;
 
-            bytep = 0;
-            bytep2 = rast->Raster[nowbyte];
-            bytep |= 128 & bytep2;
-            bytep |= 64 & (bytep2 >> 1);
-            bytep |= 32 & (bytep2 >> 1);
-            bytep |= 16 & (bytep2 >> 2);
-            bytep |= 8 & (bytep2 >> 2);
-            bytep |= 4 & (bytep2 >> 3);
-            bytep |= 2 & (bytep2 >> 3);
-            bytep |= 1 & (bytep2 >> 4);
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            bytep = 0;
-            bytep |= 128 & (bytep2 << 4);
-            bytep |= 64 & (bytep2 << 3);
-            bytep |= 32 & (bytep2 << 3);
-            bytep |= 16 & (bytep2 << 2);
-            bytep |= 8 & (bytep2 << 2);
-            bytep |= 4 & (bytep2 << 1);
-            bytep |= 2 & (bytep2 << 1);
-            bytep |= 1 & bytep2;
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            nowbyte++;
+			bytep = 0;
+			bytep2 = rast->Raster[nowbyte];
+			bytep |= 128 & bytep2;
+			bytep |= 64 & (bytep2 >> 1);
+			bytep |= 32 & (bytep2 >> 1);
+			bytep |= 16 & (bytep2 >> 2);
+			bytep |= 8 & (bytep2 >> 2);
+			bytep |= 4 & (bytep2 >> 3);
+			bytep |= 2 & (bytep2 >> 3);
+			bytep |= 1 & (bytep2 >> 4);
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			bytep = 0;
+			bytep |= 128 & (bytep2 << 4);
+			bytep |= 64 & (bytep2 << 3);
+			bytep |= 32 & (bytep2 << 3);
+			bytep |= 16 & (bytep2 << 2);
+			bytep |= 8 & (bytep2 << 2);
+			bytep |= 4 & (bytep2 << 1);
+			bytep |= 2 & (bytep2 << 1);
+			bytep |= 1 & bytep2;
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			nowbyte++;
 
-            bytep = 0;
-            bytep2 = rast->Raster[nowbyte];
-            bytep |= 128 & bytep2;
-            bytep |= 64 & (bytep2 >> 1);
-            bytep |= 32 & (bytep2 >> 1);
-            bytep |= 16 & (bytep2 >> 2);
-            bytep |= 8 & (bytep2 >> 2);
-            bytep |= 4 & (bytep2 >> 3);
-            bytep |= 2 & (bytep2 >> 3);
-            bytep |= 1 & (bytep2 >> 4);
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            bytep = 0;
-            bytep |= 128 & (bytep2 << 4);
-            bytep |= 64 & (bytep2 << 3);
-            bytep |= 32 & (bytep2 << 3);
-            bytep |= 16 & (bytep2 << 2);
-            bytep |= 8 & (bytep2 << 2);
-            bytep |= 4 & (bytep2 << 1);
-            bytep |= 2 & (bytep2 << 1);
-            bytep |= 1 & bytep2;
-            str[nowbyte2] = bytep;
-            nowbyte2++;
-            nowbyte++;
-        }
-    }
+			bytep = 0;
+			bytep2 = rast->Raster[nowbyte];
+			bytep |= 128 & bytep2;
+			bytep |= 64 & (bytep2 >> 1);
+			bytep |= 32 & (bytep2 >> 1);
+			bytep |= 16 & (bytep2 >> 2);
+			bytep |= 8 & (bytep2 >> 2);
+			bytep |= 4 & (bytep2 >> 3);
+			bytep |= 2 & (bytep2 >> 3);
+			bytep |= 1 & (bytep2 >> 4);
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			bytep = 0;
+			bytep |= 128 & (bytep2 << 4);
+			bytep |= 64 & (bytep2 << 3);
+			bytep |= 32 & (bytep2 << 3);
+			bytep |= 16 & (bytep2 << 2);
+			bytep |= 8 & (bytep2 << 2);
+			bytep |= 4 & (bytep2 << 1);
+			bytep |= 2 & (bytep2 << 1);
+			bytep |= 1 & bytep2;
+			str[nowbyte2] = bytep;
+			nowbyte2++;
+			nowbyte++;
+		}
+	}
 
-    uchar* raster = rast->Raster;
-    for (i = REC_MAX_RASTER_SIZE - 1; i >= 0; i--)
-        raster[i] = str[i];
+	uchar* raster = rast->Raster;
+	for (i = REC_MAX_RASTER_SIZE - 1; i >= 0; i--)
+		raster[i] = str[i];
 
-    for (i = newh - 1; i >= 0; i = i - 2) {
-        nowbyte = i * 8* new_count ;
-        nowbyte2 = (i - 1) * 8* new_count ;
-        k = (i / 2) * 8* new_count ;
-        for (j = new_count; j > 0; j--) {
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-            rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
-            k++;
-            nowbyte++;
-            nowbyte2++;
-        }
-    }
-    rast->lnPixHeight *= 2;
-    rast->lnPixWidth *= 2;
-    (comp->scale)--;
-    if (!(comp->scale)) {
-        rast->lnPixHeight = comp->h;
-        rast->lnPixWidth = comp->w;
-    }
-    delete[] str;
-    return TRUE;
+	for (i = newh - 1; i >= 0; i = i - 2) {
+		nowbyte = i * 8* new_count ;
+		nowbyte2 = (i - 1) * 8* new_count ;
+		k = (i / 2) * 8* new_count ;
+		for (j = new_count; j > 0; j--) {
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+			rast->Raster[nowbyte] = rast->Raster[nowbyte2] = rast->Raster[k];
+			k++;
+			nowbyte++;
+			nowbyte2++;
+		}
+	}
+	rast->lnPixHeight *= 2;
+	rast->lnPixWidth *= 2;
+	(comp->scale)--;
+	if (!(comp->scale)) {
+		rast->lnPixHeight = comp->h;
+		rast->lnPixWidth = comp->w;
+	}
+	delete[] str;
+	return TRUE;
 }
 
 int GetCountNumbers(int num) {
-    int count = 0;
-    if (num == 0)
-        return 1;
-    for (; num > 0; num = num / 10)
-        count++;
-    return count;
+	int count = 0;
+	if (num == 0)
+		return 1;
+	for (num; num > 0; num = num / 10)
+		count++;
+	return count;
 }
 
-void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom, int left,
-        int right) {
-    Rect16 Rect(Point16(left, top - 1), Point16(right + 1, bottom));
-    LDPUMA_DrawRect(wnd, &(Rect), 0, color, -100, OperCode);
+void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
+		int bottom, int left, int right) {
+
+	Rect16 Rect;
+
+	Rect.bottom = bottom;
+	Rect.left = left;
+	Rect.right = right + 1;
+	Rect.top = top - 1;
+
+	LDPUMA_DrawRect(wnd, &(Rect), 0, color, -100, OperCode);
+
 }
 
 void IfDifCut(void) {
-    if (!f_old_cut || !f_temp_cut)
-        return;
+	if (!f_old_cut || !f_temp_cut)
+		return;
 
-    char buf1[10000];
-    char buf2[10000];
-    fgets(buf1, 10000, f_temp_cut);
-    Bool fl_exist = FALSE;
+	char buf1[10000];
+	char buf2[10000];
+	fgets(buf1, 10000, f_temp_cut);
+	Bool fl_exist = FALSE;
 
-    while (fgets(buf2, 10000, f_old_cut)) {
-        if (IfEqv(buf1, buf2))
-            fl_exist = TRUE;
-        if (fl_exist)
-            break;
-    }
-    if (!fl_exist)
-        return;
+	while (fgets(buf2, 10000, f_old_cut)) {
+		if (IfEqv(buf1, buf2))
+			fl_exist = TRUE;
+		if (fl_exist)
+			break;
+	}
+	if (!fl_exist)
+		return;
 
-    Rect16 pOldCut[1000];
-    int nOldCut = 0;
-    Rect16 pNewCut[1000];
-    int nNewCut = 0;
-    Bool fl_empty = FALSE;
+	Rect16 pOldCut[1000];
+	int nOldCut = 0;
+	Rect16 pNewCut[1000];
+	int nNewCut = 0;
+	Bool fl_empty = FALSE;
 
-    if (!fgets(buf2, 10000, f_old_cut))
-        fl_empty = TRUE;
+	if (!fgets(buf2, 10000, f_old_cut))
+		fl_empty = TRUE;
 
-    int i;
-    for (i = 999; i >= 0; i--) {
-        pNewCut[i] = Rect();
-        pOldCut[i] = Rect();
-    }
+	int i;
+	for (i = 999; i >= 0; i--) {
+		pNewCut[i].bottom = pOldCut[i].bottom = 0;
+		pNewCut[i].top = pOldCut[i].top = 0;
+		pNewCut[i].left = pOldCut[i].left = 0;
+		pNewCut[i].right = pOldCut[i].right = 0;
+	}
 
-    while ((buf2[1] != ':') && (buf2[2] != '\\') && (!fl_empty)) {
-        i = 4;
-        while (buf2[i] != ' ') {
-            pOldCut[nOldCut].rtop() *= 10;
-            if (buf2[i] != '0')
-                pOldCut[nOldCut].rtop() += buf2[i] - '1' + 1;
-            i++;
-        }
-        i = 18;
-        while (buf2[i] != ' ') {
-            pOldCut[nOldCut].rbottom() *= 10;
-            if (buf2[i] != '0')
-                pOldCut[nOldCut].rbottom() += buf2[i] - '1' + 1;
-            i++;
-        }
-        i = 30;
-        while (buf2[i] != ' ') {
-            pOldCut[nOldCut].rleft() *= 10;
-            if (buf2[i] != '0')
-                pOldCut[nOldCut].rleft() += buf2[i] - '1' + 1;
-            i++;
-        }
-        i = 43;
-        while (buf2[i] != ' ' && buf2[i] != '\n' && buf2[i] != '\0') {
-            pOldCut[nOldCut].rright() *= 10;
-            if (buf2[i] != '0')
-                pOldCut[nOldCut].rright() += buf2[i] - '1' + 1;
-            i++;
-        }
-        nOldCut++;
+	while ((buf2[1] != ':') && (buf2[2] != '\\') && (!fl_empty)) {
+		i = 4;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].top *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].top += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 18;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].bottom *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].bottom += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 30;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].left *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].left += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 43;
+		while (buf2[i] != ' ' && buf2[i] != '\n' && buf2[i] != '\0') {
+			pOldCut[nOldCut].right *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].right += buf2[i] - '1' + 1;
+			i++;
+		}
+		nOldCut++;
 
-        if (!fgets(buf2, 10000, f_old_cut))
-            break;
-    }
+		if (!fgets(buf2, 10000, f_old_cut))
+			break;
+	}
 
-    fl_empty = FALSE;
-    if (!fgets(buf1, 10000, f_temp_cut))
-        fl_empty = TRUE;
+	fl_empty = FALSE;
+	if (!fgets(buf1, 10000, f_temp_cut))
+		fl_empty = TRUE;
 
-    while ((buf1[1] != ':') && (buf1[2] != '\\') && (!fl_empty)) {
-        i = 4;
-        while (buf1[i] != ' ') {
-            pNewCut[nNewCut].rtop() *= 10;
-            if (buf1[i] != '0')
-                pNewCut[nNewCut].rtop() += buf1[i] - '1' + 1;
-            i++;
-        }
-        i = 18;
-        while (buf1[i] != ' ') {
-            pNewCut[nNewCut].rbottom() *= 10;
-            if (buf1[i] != '0')
-                pNewCut[nNewCut].rbottom() += buf1[i] - '1' + 1;
-            i++;
-        }
-        i = 30;
-        while (buf1[i] != ' ') {
-            pNewCut[nNewCut].rleft() *= 10;
-            if (buf1[i] != '0')
-                pNewCut[nNewCut].rleft() += buf1[i] - '1' + 1;
-            i++;
-        }
-        i = 43;
-        while (buf1[i] != ' ' && buf1[i] != '\n' && buf1[i] != '\0') {
-            pNewCut[nNewCut].rright() *= 10;
-            if (buf1[i] != '0')
-                pNewCut[nNewCut].rright() += buf1[i] - '1' + 1;
-            i++;
-        }
-        nNewCut++;
+	while ((buf1[1] != ':') && (buf1[2] != '\\') && (!fl_empty)) {
+		i = 4;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].top *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].top += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 18;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].bottom *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].bottom += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 30;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].left *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].left += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 43;
+		while (buf1[i] != ' ' && buf1[i] != '\n' && buf1[i] != '\0') {
+			pNewCut[nNewCut].right *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].right += buf1[i] - '1' + 1;
+			i++;
+		}
+		nNewCut++;
 
-        if (!fgets(buf1, 10000, f_temp_cut))
-            break;
-    }
+		if (!fgets(buf1, 10000, f_temp_cut))
+			break;
+	}
 
-    if (!nOldCut && !nNewCut)
-        return;
+	if (!nOldCut && !nNewCut)
+		return;
 
-    int j;
-    // старая резка:
-    for (i = nOldCut - 1; i >= 0; i--) {
-        for (j = nNewCut - 1; j >= 0; j--) {
-            if (pOldCut[i] == pNewCut[j])
-                break;
-        }
-        if (j < 0) {
-            StrDrawRect(MainWindowD, code_str_cut_d, RGB(0,0,255), pOldCut[i].top(),
-                    pOldCut[i].bottom(), pOldCut[i].left(), pOldCut[i].right());
-            WasDif = TRUE;
-        }
-    }
-    // новая резка:
-    for (i = nNewCut - 1; i >= 0; i--) {
-        for (j = nOldCut - 1; j >= 0; j--) {
-            if (pNewCut[i] == pOldCut[j])
-                break;
-        }
-        if (j < 0) {
-            StrDrawRect(MainWindowD, code_str_cut_d, RGB(255,0,0), pNewCut[i].top(),
-                    pNewCut[i].bottom(), pNewCut[i].left(), pNewCut[i].right());
-            WasDif = TRUE;
-        }
-    }
+	int j;
+	// старая резка:
+	for (i = nOldCut - 1; i >= 0; i--) {
+		for (j = nNewCut - 1; j >= 0; j--) {
+			if (IfEqv(pOldCut[i], pNewCut[j]))
+				break;
+		}
+		if (j < 0) {
+			StrDrawRect(MainWindowD, code_str_cut_d, RGB(0,0,255),
+					pOldCut[i].top, pOldCut[i].bottom, pOldCut[i].left,
+					pOldCut[i].right);
+			WasDif = TRUE;
+		}
+	}
+	// новая резка:
+	for (i = nNewCut - 1; i >= 0; i--) {
+		for (j = nOldCut - 1; j >= 0; j--) {
+			if (IfEqv(pNewCut[i], pOldCut[j]))
+				break;
+		}
+		if (j < 0) {
+			StrDrawRect(MainWindowD, code_str_cut_d, RGB(255,0,0),
+					pNewCut[i].top, pNewCut[i].bottom, pNewCut[i].left,
+					pNewCut[i].right);
+			WasDif = TRUE;
+		}
+	}
 
 }
 
 Bool IfEqv(char* buf1, char* buf2) {
-    int i = 0;
-    while (buf1[i] != '\0' && buf2[i] != '\0' && buf1[i] == buf2[i])
-        i++;
-    if (buf1[i] == buf2[i])
-        return TRUE;
-    return FALSE;
+	int i = 0;
+	while (buf1[i] != '\0' && buf2[i] != '\0' && buf1[i] == buf2[i])
+		i++;
+	if (buf1[i] == buf2[i])
+		return TRUE;
+	return FALSE;
+}
+
+Bool IfEqv(Rect16 r1, Rect16 r2) {
+	if (r1.top != r2.top)
+		return FALSE;
+	if (r1.bottom != r2.bottom)
+		return FALSE;
+	if (r1.left != r2.left)
+		return FALSE;
+	if (r1.right != r2.right)
+		return FALSE;
+	return TRUE;
 }
 
 Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
-    POLY_ *dop;
-    int i;
-    if (!(InitBlockMas(&dop, len)))
-        return FALSE;
-    for (i = 0; i < len; i++) {
-        for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-            dop[i].com.Vertex[j].rx() = (*ppRc)[i].com.Vertex[i].x();
-            dop[i].com.Vertex[j].ry() = (*ppRc)[i].com.Vertex[i].y();
-        }
-    }
+	POLY_ *dop;
+	int i;
+	if (!(InitBlockMas(&dop, len)))
+		return FALSE;
+	for (i = 0; i < len; i++) {
+		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
+			dop[i].com.Vertex[j].rx() =  (*ppRc)[i].com.Vertex[i].x();
+			dop[i].com.Vertex[j].ry() = (*ppRc)[i].com.Vertex[i].y();
+		}
+	}
 
-    DelBlockMas(*ppRc);
-    if (!(InitBlockMas(ppRc, len + add))) {
-        (*ppRc) = dop;
-        return FALSE;
-    }
+	DelBlockMas(*ppRc);
+	if (!(InitBlockMas(ppRc, len + add))) {
+		(*ppRc) = dop;
+		return FALSE;
+	}
 
-    for (i = 0; i < len; i++) {
-        for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-            (*ppRc)[i].com.Vertex[i].rx() = dop[i].com.Vertex[j].x();
-            (*ppRc)[i].com.Vertex[i].ry() = dop[i].com.Vertex[j].y();
-        }
-    }
+	for (i = 0; i < len; i++) {
+		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
+			(*ppRc)[i].com.Vertex[i].rx() =  dop[i].com.Vertex[j].x();
+			(*ppRc)[i].com.Vertex[i].ry() = dop[i].com.Vertex[j].y();
+		}
+	}
 
-    len += add;
-    DelBlockMas(dop);
-    return TRUE;
+	len += add;
+	DelBlockMas(dop);
+	return TRUE;
 }
 
 void DelBlockMas(POLY_ *masp) {
-    delete[] masp;
+	delete[] masp;
 }
 
 Bool InitBlockMas(POLY_** ppRc, int len) {
-    (*ppRc) = NULL;
-    if (!((*ppRc) = new POLY_[len]))
-        return FALSE;
-    return TRUE;
+	(*ppRc) = NULL;
+	if (!((*ppRc) = new POLY_[len]))
+		return FALSE;
+	return TRUE;
 }

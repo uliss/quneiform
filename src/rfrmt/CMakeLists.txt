@@ -1,28 +1,25 @@
+include_directories(BEFORE 
+h
+sources/main)
+
 add_library(rfrmt ${LIBTYPE}
 ${SNP_SRC}
-crtfchar.cpp
-crtfword.cpp
-crtfstring.cpp
-crtffragment.cpp
-crtfsector.cpp
-crtfhorizontalcolumn.cpp
-crtfverticalcolumn.cpp
-crtfpage.cpp
-creatertf.cpp
-frmt.cpp
-rfrmt.cpp
-frmtallignment.cpp
-frmtdibapi.cpp
-frmtdll.cpp
-frmtfile.cpp
-frmtpict.cpp
-int_file.cpp
-pagetree.cpp
-sort_int.cpp
-util.cpp
-util_lst.cpp
-util_spl.cpp
+sources/main/creatertf.cpp
+sources/main/frmt.cpp
+sources/main/frmtallignment.cpp
+sources/main/frmtdibapi.cpp
+sources/main/frmtdll.cpp
+sources/main/frmtfile.cpp
+sources/main/frmtpict.cpp
+sources/main/int_file.cpp
+sources/main/mymem.cpp
+sources/main/pagetree.cpp
+sources/main/sort_int.cpp
+sources/main/util.cpp
+sources/main/util_lst.cpp
+sources/main/util_spl.cpp
 )
+set_property(TARGET rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(rfrmt
 ced

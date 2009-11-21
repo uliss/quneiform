@@ -60,7 +60,6 @@
 #include "globus.h"
 #include "linedefs.h"
 #include "point.h"
-#include "rect.h"
 
 typedef struct tagLnsFrag {
 	int32_t flags; // misc info
@@ -71,7 +70,7 @@ typedef struct tagLnsFrag {
 #define LF_STICK_BOTTOM 0x0080 // there is stick at top side - may be letter
 #define LF_TEXT     0x0002 // fragment seems to be part of text (can be combined with LF_LINE)
 	int32_t mass; // count of filtered black pixels
-	CIF::Rect16 rc; // real image rect
+	Rect16 rc; // real image rect
 	CIF::Point16 A, B; // start and end - if ~LF_LINE - may be not linear, so...
 	double Xc;// center of mass in real coords
 	double Yc;
@@ -154,8 +153,8 @@ typedef struct tagLineInfo {
 	//========= Групповые характеристики ============================
 	AdjacentLst Adj; // потенциальное расширение на уровне
 	LnsCorner Corner; // стыковка углов с перпендикулярными
-	CIF::Rect XXContext; // согласование с параллельными линиями
-	CIF::Rect XYContext; // согласование с перпендикулярными линиями
+	Rect32 XXContext; // согласование с параллельными линиями
+	Rect32 XYContext; // согласование с перпендикулярными линиями
 
 	//========= Привязка к выделителю (для последующего снятия,...) =====
 	int32_t ExtrDllHnd; // внутренний номер линии от выделителя

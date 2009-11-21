@@ -1,20 +1,17 @@
+include_directories(BEFORE . src)
+
 add_library(rout ${LIBTYPE}
-browse.cpp
-codetables.cpp
-exporter.cpp
-exporterfactory.cpp
-debugexporter.cpp
-edexporter.cpp
-rtfexporter.cpp
-textexporter.cpp
-html.cpp
-pictures.cpp
-rout.cpp
-rout_dll.cpp
-tabledbf.cpp
-tabletext.cpp
-text.cpp
-words.cpp
+src/browse.cpp
+src/codetables.cpp
+src/html.cpp
+src/pictures.cpp
+src/rout.cpp
+src/rout_dll.cpp
+src/stdafx.cpp
+src/tabledbf.cpp
+src/tabletext.cpp
+src/text.cpp
+src/words.cpp
 )
 set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 

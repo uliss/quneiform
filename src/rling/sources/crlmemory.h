@@ -81,7 +81,7 @@ void SetReturnCode_rling(uint16_t rc);
 uint16_t GetReturnCode_rling();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-void * RLINGAlloc(size_t stAllocateBlock);
+void * RLINGAlloc(uint32_t stAllocateBlock);
 void RLINGFree(void * mem);
 void * RLINGLock(void * mem);
 void RLINGUnlock(void * mem);

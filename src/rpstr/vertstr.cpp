@@ -62,8 +62,6 @@
 #include "cstr/cstr.h"
 #include "dpuma.h"
 
-using namespace CIF;
-
 void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 
@@ -204,7 +202,13 @@ void RPSTR_NormalizeVertStr(void) {
 void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right) {
 
-	Rect16 Rect(Point16(left, top - 1), Point16(right + 1, bottom));
+	Rect16 Rect;
+
+	Rect.bottom = bottom;
+	Rect.left = left;
+	Rect.right = right + 1;
+	Rect.top = top - 1;
+
 	LDPUMA_DrawRect(wnd, &(Rect), 0, color, -100, OperCode);
 
 }

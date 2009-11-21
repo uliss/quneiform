@@ -59,7 +59,6 @@
 
 #include "dif.h"
 #include "stick.h"
-#include "struct.h"
 
 extern void init_diskrim(uchar* raster, int16_t height, int16_t width);
 extern int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx,

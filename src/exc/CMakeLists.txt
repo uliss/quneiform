@@ -1,3 +1,5 @@
+include_directories(BEFORE src)
+
 add_library(exc ${LIBTYPE}
 compdata.cpp
 compkit.cpp
@@ -5,6 +7,7 @@ extrcomp.cpp
 locompmn.cpp
 matrix.cpp
 v0compan.cpp
+v0compgl.cpp
 v0compmn.cpp
 )
 set_property(TARGET exc PROPERTY COMPILE_DEFINITIONS __EXC__)

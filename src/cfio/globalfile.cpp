@@ -381,7 +381,6 @@ Handle GlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster) {
 
 bool GlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster) {
 	PCFIOMCLUSTER pCluster, pLastCluster, pNextToDelete;
-	pCluster = 0;
 
 	// if 1 or more cluster present
 	if (mcFirst.mcNext) {

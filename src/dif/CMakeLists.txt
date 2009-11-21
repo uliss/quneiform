@@ -1,3 +1,5 @@
+include_directories(BEFORE src)
+
 add_library(dif32 ${LIBTYPE}
 dif.cpp
 diffr.cpp

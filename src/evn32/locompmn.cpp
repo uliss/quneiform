@@ -60,6 +60,9 @@
 #include "struct.h"
 #include "v1comp.h"
 
+BWSS * locomp_seglist(uchar * raster, BWSS *bwsp, BWSS * bwe, int height,
+		int width);
+
 MN * c_locomp(uchar* raster, int bw, int h, int upper, int left);
 //      Memory service
 
@@ -337,7 +340,7 @@ static void merge_line() {
 		return;
 	}
 	n = mno->mnboxcnt;
-	if ((n > MN::usual_box_count) && (n > mn->mnboxcnt)) {
+	if ((n > usual_box_count) && (n > mn->mnboxcnt)) {
 		n = mn->mnboxcnt;
 		mnw = mno;
 		mno = mn;

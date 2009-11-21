@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "rdib/ctdib.h"
+#include "ctdib.h"
 #include "rprogressor.h"	// Added by ClassView
 #include "cttypes.h"	// Added by ClassView
 

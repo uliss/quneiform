@@ -59,11 +59,30 @@
 
 #include "recdefs.h"
 #include "leo/leodefs.h"
-#include "mn.h"
 
 #define RASTER_MAX_HEIGHT	63
 #define RASTER_MAX_WIDTH	128
 
+//-------------------- conectivity component ---------------------
+#ifndef usual_box_count
+struct mn_struc {
+	void *mnfirstbox; // address of the first box
+	int16_t mncounter; // number of living lines in the component
+#define mnfree	mnfirstbox	// reference to next free main number
+	int16_t mnupper; // upper bound of component
+	int16_t mnlower; // lower bound of component
+	int16_t mnboxcnt; // number of boxes in component
+#define usual_box_count 20 	// heuristic of number of lines in a letter
+#define great_box_count	200	// heuristic for number of boxes in a picture
+	uchar mnlines; // number of lines in the component
+	uchar mnbegs; // number of free line begins
+	uchar mnends; // number of free line ends
+	uchar mnflag; // flag byte for main number
+#define mnpicture 1		// component is a picture
+	struct mn_struc *mnnext; // address of next dead component
+};
+typedef struct mn_struc MN;
+#endif
 //-------------------- lines buffer -------------------------------
 
 struct tagLPOOL {

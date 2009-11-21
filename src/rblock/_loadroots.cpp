@@ -488,8 +488,6 @@ Bool32 IsNotBigLetter(CCOM_comp *comp) {
 	return TRUE;
 }
 
-Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
-
 Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS) {
 	CCOM_comp * comp = NULL;
 	Handle pPage;

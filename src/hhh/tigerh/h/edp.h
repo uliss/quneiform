@@ -275,9 +275,9 @@ typedef struct {
 	uint16_t columns_quant; // number of columns
 
 	// Tables support
-	uint16_t * cells_w; // cell widthes array
-	uint16_t * cells_x; // x of cells
-	uint16_t * cells_g; // gaps of cells
+	PWORD cells_w; // cell widthes array
+	PWORD cells_x; // x of cells
+	PWORD cells_g; // gaps of cells
 	uint16_t cells_quant; // number of cells
 	uint16_t current_cell; // current cell number
 	uchar section_fill; // non empty section flag
@@ -286,7 +286,7 @@ typedef struct {
 	// ED save working area
 	int16_t Xmin; // Minimal left coordinate of all fragments
 	int16_t Xmax; // Maximal right coordinate of all fragments
-	uint16_t * char_tab; // Tabulation table pointer
+	PWORD char_tab; // Tabulation table pointer
 	DF ** sort_frag; // List of sorted by upper fragment
 	uint16_t cn; // Local fragment counter for sortlist
 	int16_t cy; // Current 'y' for plank

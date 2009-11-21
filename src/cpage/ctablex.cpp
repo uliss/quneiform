@@ -68,6 +68,7 @@ Handle CPAGE_ExTableCreate(Handle hPage, int32_t Skew2048, uint32_t nVer,
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 	Handle rc = NULL;
+	Bool32 res = FALSE;
 
 	TableClass tc;
 
@@ -164,26 +165,26 @@ Bool32 CPAGE_ExTableGetNumberColumn(Handle hTable, int32_t * lpNumber) {
 	return rc;
 }
 
-Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point point, Rect * lpRect) {
+Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
-	Rect rect;
+	Rect32 rect = { 0 };
 
 	assert(lpRect);
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		rect.rleft() = tc->GetVLine(point.x());
-		rect.rright() = tc->GetVLine(point.x() + 1);
-		rect.rtop() = tc->GetVLine(point.y());
-		rect.rbottom() = tc->GetVLine(point.y() + 1);
+		rect.left = tc->GetVLine(point.x());
+		rect.right = tc->GetVLine(point.x() + 1);
+		rect.top = tc->GetVLine(point.y());
+		rect.bottom = tc->GetVLine(point.y() + 1);
 		*lpRect = rect;
 		rc = TRUE;
 	}EPILOG;
 	return rc;
 }
 
-Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point point, Rect * lpRect) {
+Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -294,19 +295,20 @@ Bool32 CPAGE_ExTableIsPhysicCell(Handle hTable, Point point,
 	return rc;
 }
 
-Bool32 CPAGE_ExTableSize(Handle hTable, Rect * rect) {
+Bool32 CPAGE_ExTableSize(Handle hTable, Rect32 * lpRect) {
 	PROLOG;
 	Bool32 rc = FALSE;
 	SetReturnCode_cpage(IDS_ERR_NO);
 
-	assert(rect);
+	assert(lpRect);
 
 	TableClass * tc = (TableClass *) hTable;
 	if (tc) {
-		rect->rleft() = tc->GetVLine(0);
-		rect->rright() = tc->GetVLine(tc->GetNumberColumn());
-		rect->rtop() = tc->GetHLine(0);
-		rect->rbottom() = tc->GetHLine(tc->GetNumberRow());
+
+		lpRect->left = tc->GetVLine(0);
+		lpRect->right = tc->GetVLine(tc->GetNumberColumn());
+		lpRect->top = tc->GetHLine(0);
+		lpRect->bottom = tc->GetHLine(tc->GetNumberRow());
 
 		rc = TRUE;
 	} EPILOG;

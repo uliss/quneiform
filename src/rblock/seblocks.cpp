@@ -65,7 +65,6 @@
  *                                                                          *
  ***************************************************************************/
 
-#include <cstring>
 # include "extract.h"
 # include "c_memory.h"
 # include "my_mem.h"

@@ -1,0 +1,163 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_REP_DLG DIALOG DISCARDABLE  0, 0, 278, 63
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Сообщение"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_RDLG_MSGTEXT,7,12,19,22,ES_CENTER | ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | NOT 
+                    WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "Более не показывать диалог",IDC_RDLG_CHK_REPEAT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,11,44,111,9
+    DEFPUSHBUTTON   "OK",ID_OK,48,23,76,14
+    DEFPUSHBUTTON   "Отмена",ID_CANCEL,213,25,46,14
+    DEFPUSHBUTTON   "Да",ID_YES,138,23,55,14
+    DEFPUSHBUTTON   "Нет",ID_NO,185,7,55,14
+    DEFPUSHBUTTON   "Стоп",ID_ABORT,125,42,46,14
+    DEFPUSHBUTTON   "Повтор",ID_RETRY,175,42,46,14
+    DEFPUSHBUTTON   "Пропуск",ID_IGNORE,225,42,46,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_REP_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 271
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_REP_DLG DIALOG DISCARDABLE  0, 0, 278, 63
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Message"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_RDLG_MSGTEXT,7,12,34,22,ES_CENTER | ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | NOT 
+                    WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "Don't show this dialog again",IDC_RDLG_CHK_REPEAT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,44,111,9
+    DEFPUSHBUTTON   "OK",ID_OK,69,16,76,14
+    DEFPUSHBUTTON   "Cancel",ID_CANCEL,166,25,46,14
+    DEFPUSHBUTTON   "Yes",ID_YES,150,14,55,14
+    DEFPUSHBUTTON   "No",ID_NO,209,14,55,14
+    DEFPUSHBUTTON   "Stop",ID_ABORT,125,42,46,14
+    DEFPUSHBUTTON   "Retry",ID_RETRY,175,42,46,14
+    DEFPUSHBUTTON   "Ignore",ID_IGNORE,225,42,46,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_REP_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 271
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

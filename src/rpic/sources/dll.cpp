@@ -90,6 +90,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
+	LDPUMA_Init(0,NULL);
 	InitDebug();
 
 	ClearLogRes();
@@ -101,6 +102,7 @@ RPIC_FUNC(Bool32) RPIC_Done()
 {
 
 	CloseLogRes();
+	LDPUMA_Done();
 	DoneDebug();
 	return TRUE;
 }

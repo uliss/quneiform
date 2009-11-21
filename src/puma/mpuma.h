@@ -55,26 +55,123 @@
  */
 #ifndef __MPUMA_H__
 #define __MPUMA_H__
-#include "cttypes.h"
+#include "resource.h"
+#include "puma.h"
+#include "dpuma.h"
+#include "pumadef.h"
+#include "ccom/ccom.h"
+#include "ced.h"
+#include "cfio/cfio.h"
+#include "cpage/cpage.h"
+#include "criimage.h"
+#include "cstr/cstr.h"
+#include "cimage/ctiimage.h"
+#include "cline.h"
+#include "exc.h"
+#include "rblock.h"
+#include "rline.h"
+#include "rfrmt.h"
+#include "rout.h"
+#include "rpic.h"
+#include "rpstr/rpstr.h"
+#include "rstr/rstr.h"
+#include "rstuff.h"
+#include "rverline.h"
+#include "rmarker.h"
+#include "rselstr.h"
+#include "mpumatime.h"
+#include "rsl.h"
+#include "rreccom.h"
+#include "rcorrkegl.h"
+
+#include <string>
 
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
 #define VAL(a)		= a
+#define VALM(a)		= {a}
+#define VAL2(a,b)	= { a,b }
+#define VAL4(a,b,c,d)	= { a,b,c,d }
 #else
 #define EXTERN		extern
 #define VAL(a)
+#define VALM(a)
+#define VAL2(a,b)
+#define VAL4(a,b,c,d)
 #endif
+#define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
+// Исходные данные, передаваемые пользователем
+EXTERN uint32_t gnLanguage VAL(7);
+EXTERN Bool32 gbSpeller VAL(TRUE);
+EXTERN Bool32 gbOneColumn VAL(FALSE);
+EXTERN Bool32 gbFax100 VAL(FALSE);
+EXTERN Bool32 gbDotMatrix VAL(FALSE);
+EXTERN Bool32 gbBold VAL(TRUE);
+EXTERN Bool32 gbItalic VAL(TRUE);
+EXTERN Bool32 gbSize VAL(TRUE);
+EXTERN uint32_t gnFormat VAL(1);
+EXTERN Bool32 gnPreserveLineBreaks VAL(FALSE);
+EXTERN uchar gnUnrecogChar VAL('~');
+EXTERN uint32_t gnPictures VAL(1);
+EXTERN uint32_t gnTables VAL(1);
+
+EXTERN const char * gpUserDictName VAL("");
+EXTERN const char * gpSerifName VAL("Times New Roman");
+EXTERN const char * gpSansSerifName VAL("Arial");
+EXTERN const char * gpCourierName VAL("Courier New");
+
+EXTERN std::string szInputFileName;
+EXTERN puchar gpInputDIB VAL(NULL);
+EXTERN puchar gpRecogDIB VAL(NULL);
+EXTERN Bool32 gbAutoRotate VAL(FALSE);
+
+extern CIF::Point gPageSize;
+// формат А4 в миллиметрах
+EXTERN Rect32 gRectTemplate VAL4(-1,-1,-1,-1);
+
+// Данные образуемые в результате работы.
+EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
+EXTERN char szFormatTbl1[] VAL("%stbl1%s.dat");
+EXTERN int32_t gnNumberTables VAL(0);
+EXTERN Handle hCCOM VAL(NULL);
+EXTERN Handle hCPAGE VAL(NULL);
+EXTERN CLINE_handle hCLINE VAL(0);
+EXTERN Handle hLinesCCOM VAL(NULL);
+// компоненты с линиями
+EXTERN Handle ghEdPage VAL(NULL);
 // 1. Отладочная информаци
+EXTERN Handle hDebugRoot VAL(NULL);
 EXTERN Handle hDebugCancelStrings VAL(NULL);
 EXTERN Handle hDebugCancelRecognition VAL(NULL);
+EXTERN Handle hDebugCancelRemoveLines VAL(NULL);
+EXTERN Handle hDebugCancelSearchLines VAL(NULL);
+EXTERN Handle hDebugCancelOrtoMove VAL(NULL);
+EXTERN Handle hDebugCancelAutoTemplate VAL(NULL);
+EXTERN Handle hDebugCancelSearchTables VAL(NULL);
+EXTERN Handle hDebugCancelVerifyLines VAL(NULL);
+EXTERN Handle hDebugCancelSearchDotLines VAL(NULL);
 EXTERN Handle hDebugCancelFormatted VAL(NULL);
+EXTERN Handle hDebugCancelBinarize VAL(NULL);
+EXTERN Handle hDebugCancelComponent VAL(NULL);
+EXTERN Handle hDebugCancelComponentSecond VAL(NULL);
+EXTERN Handle hDebugCancelExtractBlocks VAL(NULL);
 EXTERN Handle hDebugCancelStringsPass2 VAL(NULL);
+EXTERN Handle hDebugCancelStringsColor VAL(NULL);
+EXTERN Handle hDebugCancelPostRecognition VAL(NULL);
+EXTERN Handle hDebugCancelPostSpeller VAL(NULL);
+EXTERN Handle hDebugCancelSearchPictures VAL(NULL);
+EXTERN Handle hDebugCancelLinePass3 VAL(NULL);
+EXTERN Handle hDebugCancelSearchNegatives VAL(NULL);
+EXTERN Handle hDebugEnableSearchSegment VAL(NULL);
+EXTERN Handle hDebugCancelVertCells VAL(NULL);
+EXTERN Handle hDebugEnableSaveJtl VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr1 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr2 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr3 VAL(NULL);
 EXTERN Handle hDebugEnableSaveCstr4 VAL(NULL);
+EXTERN Handle hDebugCPAGEStorage VAL(NULL);
 // 2.
 EXTERN Handle hDebugRootStuff VAL(NULL);
 EXTERN Handle hDebugBinarize VAL(NULL);
@@ -117,7 +214,31 @@ EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
+EXTERN char szLayoutFileName[256] VAL("Layout.bin");
+EXTERN unsigned nDebugReturnCode VAL(0);
+EXTERN unsigned nDebugAllocMemory VAL(0);
+EXTERN uint32_t g_prgStep VAL(0);
+//Allex  при разделении бинаризации и обработки сырь
+//имя картинки 'lpRecogName' сделано глабольной переменной
+EXTERN const char * glpRecogName VAL(NULL);
+EXTERN Bool32 grc_line VAL(TRUE);
+EXTERN Bool32 gneed_clean_line VAL(FALSE);
+EXTERN Bool32 gKillVSLComponents VAL(TRUE);
+EXTERN uchar gnSpecialProject VAL(0);
+//allex
+EXTERN uint32_t g_flgUpdate VAL(0);
+
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
+//functions
+void SetReturnCode_puma(uint32_t rc);
+
+// Enum.cpp
+long _EnumFormats(long prev);
+long _EnumCodes(long f, long prev);
+long _EnumLanguage(long prev);
+long _EnumFormatMode(long prev);
+long _EnumTable(long prev);
+long _EnumPicture(long prev);
 
 #endif

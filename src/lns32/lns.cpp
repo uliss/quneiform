@@ -70,189 +70,195 @@ using namespace CIF;
 static Err16 lnserr = ER_NONE;
 
 static int nSquares = 0;
-Rect16 BlackSquares[256];
+Rect16 BlackSquares[256] = { 0 };
 
 static void ResetBlackSquares() // call on new page
 {
-    nSquares = 0;
+	nSquares = 0;
 }
 
 void RegisterBlackSquare(int left, int top, int right, int bottom) {
-    if (nSquares < sizeof(BlackSquares) / sizeof(BlackSquares[0])) {
-        BlackSquares[nSquares].setLeft(left);
-        BlackSquares[nSquares].setTop(top);
-        BlackSquares[nSquares].setRight(right);
-        BlackSquares[nSquares].setBottom(bottom);
-        nSquares++;
-    };
+	if (nSquares < sizeof(BlackSquares) / sizeof(BlackSquares[0])) {
+		BlackSquares[nSquares].left = left;
+		BlackSquares[nSquares].top = top;
+		BlackSquares[nSquares].right = right;
+		BlackSquares[nSquares].bottom = bottom;
+		nSquares++;
+	};
 }
 
 Rect16* LnsGetBlackSquares(int32_t* count) {
-    *count = nSquares;
-    return BlackSquares;
+	*count = nSquares;
+	return BlackSquares;
 }
 
+/////////////////////////////////////////////////
 static int nCheckBoxes = 0;
-Rect16 CheckBoxes[256];
+Rect16 CheckBoxes[256] = { 0 };
 
 static void ResetCheckBoxes() // call on new page
 {
-    nCheckBoxes = 0;
+	nCheckBoxes = 0;
 }
 
 void RegisterCheckBox(Rect16& rcbox) {
-    if (nCheckBoxes < sizeof(CheckBoxes) / sizeof(CheckBoxes[0]))
-        CheckBoxes[nCheckBoxes++] = rcbox;
+	if (nCheckBoxes < sizeof(CheckBoxes) / sizeof(CheckBoxes[0]))
+		CheckBoxes[nCheckBoxes++] = rcbox;
 }
 
 Rect16* LnsGetCheckBoxes(int32_t* count) {
-    *count = nCheckBoxes;
-    return CheckBoxes;
+	*count = nCheckBoxes;
+	return CheckBoxes;
 }
 
 void InitLNS(TImageOpen f_op, TImageRead f_rd, TImageClose f_cl); //tgreader.cpp
 
 void LnsPageStart(TImageAccess* img) {
-    InitLNS(img->f_op, img->f_re, img->f_cl);
-    ResetBlackSquares();
-    ResetCheckBoxes();
-    HLiner_Init();
+	InitLNS(img->f_op, img->f_re, img->f_cl);
+	ResetBlackSquares();
+	ResetCheckBoxes();
+	HLiner_Init();
 }
 
-Bool16 LnsExtractLines(int32_t min_h_len, int32_t min_v_len, int32_t* result_h_count,
-        int32_t* result_v_count) {
-    lnserr = ExtrLinesUnderTigerStatic(min_h_len, min_v_len, *result_h_count, *result_v_count);
-    return lnserr == 0;
+Bool16 LnsExtractLines(int32_t min_h_len, int32_t min_v_len,
+		int32_t* result_h_count, int32_t* result_v_count) {
+	lnserr = ExtrLinesUnderTigerStatic(min_h_len, min_v_len, *result_h_count,
+			*result_v_count);
+	return lnserr == 0;
 }
 Bool16 ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo *lti) {
-    return ExtractEvents(hCLINE, lti);
+	return ExtractEvents(hCLINE, lti);
 }
 
-Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len, int32_t* result_h_count,
-        int32_t* result_v_count) {
-    return ExtrLinesGetCount(min_h_len, min_v_len, *result_h_count, *result_v_count);
+Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len,
+		int32_t* result_h_count, int32_t* result_v_count) {
+	return ExtrLinesGetCount(min_h_len, min_v_len, *result_h_count,
+			*result_v_count);
 }
 
 static Bool32 __HasCorners(LineInfo& li, LinesTotalInfo* plti, Bool32 is_hor) {
-    Rect16 rcA(Point16(li.A.x() - 8, li.A.y() - 8), Point16(li.A.x() + 8, li.A.y() + 8));
-    Rect16 rcB(Point16(li.B.x() - 8, li.B.y() - 8), Point16(li.B.x() + 8, li.B.y() + 8));
-    LnsInfoArray & ar = is_hor ? plti->Ver : plti->Hor;
-    for (int i = 0; i < ar.Cnt; i++) {
-        LineInfo& linf = ar.Lns[i];
-        if (Inside(rcA, linf.A) || Inside(rcB, linf.A) || Inside(rcA, linf.B)
-                || Inside(rcB, linf.B))
-            return TRUE;
-    }
-    return FALSE;
+	Rect16 rcA = { li.A.x() - 8, li.A.y() - 8, li.A.x() + 8, li.A.y() + 8 };
+	Rect16 rcB = { li.B.x() - 8, li.B.y() - 8, li.B.x() + 8, li.B.y() + 8 };
+	LnsInfoArray & ar = is_hor ? plti->Ver : plti->Hor;
+	for (int i = 0; i < ar.Cnt; i++) {
+		LineInfo& linf = ar.Lns[i];
+		if (Inside(rcA, linf.A) || Inside(rcB, linf.A) || Inside(rcA, linf.B)
+				|| Inside(rcB, linf.B))
+			return TRUE;
+	};
+	return FALSE;
 }
 
 void __RejectNearBound(LinesTotalInfo* plti) {
-    Rect imgrect;
-    Set(imgrect, 0, 0, plti->ImgSize.x() - 1, plti->ImgSize.y() - 1);
+	Rect32 imgrect;
+	Set(imgrect, 0, 0, plti->ImgSize.x() - 1, plti->ImgSize.y() - 1);
 
-    int hcnt = 0, vcnt = 0;
-    ltiGetNotNoise(plti, hcnt, vcnt);
+	int hcnt = 0, vcnt = 0;
+	ltiGetNotNoise(plti, hcnt, vcnt);
 
-    int i(0);
-    for (i = 0; i < plti->Hor.Cnt; i++) {
-        LineInfo & li = plti->Hor.Lns[i];
-        if (hcnt < 5)
-            break; // keep lines, if lack
-        if (li.Flags & LI_NOISE)
-            continue;
-        Point Mn;
-        Mn.rx() = MIN(li.A.x(), li.B.x());
-        Mn.ry() = MIN(li.A.y(), li.B.y());
-        Point Mx;
-        Mx.rx() = MAX(li.A.x(), li.B.x());
-        Mx.ry() = MAX(li.A.y(), li.B.y());
-        if ((Mn.y() < imgrect.top() + 50) || (Mx.y() > imgrect.bottom() - 50)) {
-            if (!__HasCorners(li, plti, TRUE)) {
-                li.Flags |= LI_NOISE;
-                hcnt--;
-                continue;
-            };
-        };
+	int i(0);
+	for (i = 0; i < plti->Hor.Cnt; i++) {
+		LineInfo & li = plti->Hor.Lns[i];
+		if (hcnt < 5)
+			break; // keep lines, if lack
+		if (li.Flags & LI_NOISE)
+			continue;
+		Point Mn;
+		Mn.rx() = MIN(li.A.x(), li.B.x());
+		Mn.ry() = MIN(li.A.y(), li.B.y());
+		Point Mx;
+		Mx.rx() = MAX(li.A.x(), li.B.x());
+		Mx.ry() = MAX(li.A.y(), li.B.y());
+		if ((Mn.y() < imgrect.top + 50) || (Mx.y() > imgrect.bottom - 50)) {
+			if (!__HasCorners(li, plti, TRUE)) {
+				li.Flags |= LI_NOISE;
+				hcnt--;
+				continue;
+			};
+		};
 
-        if ((((Mn.y() < imgrect.top() + 100) || (Mx.y() > imgrect.bottom() - 100))) && ((Mn.x()
-                < imgrect.left() + 50) || ((Mx.x() > imgrect.right() - 50)))) {
-            if (!__HasCorners(li, plti, TRUE)) {
-                li.Flags |= LI_NOISE;
-                hcnt--;
-                continue;
-            };
-        }
-    };
-    for (i = 0; i < plti->Ver.Cnt; i++) {
-        LineInfo & li = plti->Ver.Lns[i];
-        if (li.Flags & LI_NOISE)
-            continue;
-        if (vcnt < 5)
-            break; // keep lines, if lack
-        Point Mn;
-        Mn.rx() = MIN(li.A.x(), li.B.x());
-        Mn.ry() = MIN(li.A.y(), li.B.y());
-        Point Mx;
-        Mx.rx() = MAX(li.A.x(), li.B.x());
-        Mx.ry() = MAX(li.A.y(), li.B.y());
-        if ((Mn.x() < imgrect.left() + 50) || (Mx.x() > imgrect.right() - 50)) {
-            if (!__HasCorners(li, plti, FALSE)) {
-                li.Flags |= LI_NOISE;
-                vcnt--;
-                continue;
-            };
-        }
-        if ((((Mn.x() < imgrect.left() + 100) || (Mx.x() > imgrect.right() - 100))) && ((Mn.y()
-                < imgrect.top() + 50) || ((Mx.y() > imgrect.bottom() - 50)))) {
-            if (!__HasCorners(li, plti, FALSE)) {
-                li.Flags |= LI_NOISE;
-                vcnt--;
-                continue;
-            };
-        }
+		if ((((Mn.y() < imgrect.top + 100) || (Mx.y() > imgrect.bottom - 100)))
+				&& ((Mn.x() < imgrect.left + 50) || ((Mx.x() > imgrect.right
+						- 50)))) {
+			if (!__HasCorners(li, plti, TRUE)) {
+				li.Flags |= LI_NOISE;
+				hcnt--;
+				continue;
+			};
+		}
+	};
+	for (i = 0; i < plti->Ver.Cnt; i++) {
+		LineInfo & li = plti->Ver.Lns[i];
+		if (li.Flags & LI_NOISE)
+			continue;
+		if (vcnt < 5)
+			break; // keep lines, if lack
+		Point Mn;
+		Mn.rx() = MIN(li.A.x(), li.B.x());
+		Mn.ry() = MIN(li.A.y(), li.B.y());
+		Point Mx;
+		Mx.rx() = MAX(li.A.x(), li.B.x());
+		Mx.ry() = MAX(li.A.y(), li.B.y());
+		if ((Mn.x() < imgrect.left + 50) || (Mx.x() > imgrect.right - 50)) {
+			if (!__HasCorners(li, plti, FALSE)) {
+				li.Flags |= LI_NOISE;
+				vcnt--;
+				continue;
+			};
+		}
+		if ((((Mn.x() < imgrect.left + 100) || (Mx.x() > imgrect.right - 100)))
+				&& ((Mn.y() < imgrect.top + 50) || ((Mx.y() > imgrect.bottom
+						- 50)))) {
+			if (!__HasCorners(li, plti, FALSE)) {
+				li.Flags |= LI_NOISE;
+				vcnt--;
+				continue;
+			};
+		}
 
-        int mcx = (li.A.x() + li.B.x()) >> 1;
-        if (((mcx < imgrect.left() + 200) || (mcx > imgrect.right() - 200)) && (li.B.y() - li.A.y()
-                > 200) // not too short
-        ) { // test lines near bound for collinear neibours
-            int len = li.B.y() - li.A.y();
-            int ay = li.A.y() + 50;
-            int by = li.B.y() - 50; // shortened for normal intersection area ( > 50)
-            for (int j = i + 1; j < plti->Ver.Cnt; j++) {
-                LineInfo & li2 = plti->Ver.Lns[j];
-                int len2 = li2.B.y() - li2.A.y();
-                if (len2 < 200)
-                    continue; // ignore short
-                int mcx2 = (li2.A.x() + li2.B.x()) >> 1;
-                int xdelta = abs(mcx - mcx2);
-                if (xdelta < 16 && Overlap(ay, by, li2.A.y(), li2.B.y())) {
-                    if (len < len2 * 2) { // kill first, may be keep second
-                        if (!(li.Flags & LI_NOISE)) {
-                            li.Flags |= LI_NOISE;
-                            vcnt--;
-                        };
-                    }
-                    if (len2 < len * 2) { // kill second, may be keep first
-                        if (!(li2.Flags & LI_NOISE)) {
-                            li2.Flags |= LI_NOISE;
-                            vcnt--;
-                        };
-                    };
-                };
-            };
-        };
-    };
+		int mcx = (li.A.x() + li.B.x()) >> 1;
+		if (((mcx < imgrect.left + 200) || (mcx > imgrect.right - 200))
+				&& (li.B.y() - li.A.y() > 200) // not too short
+		) { // test lines near bound for collinear neibours
+			Bool left = (mcx < imgrect.left + 200);
+			int len = li.B.y() - li.A.y();
+			int ay = li.A.y() + 50;
+			int by = li.B.y() - 50; // shortened for normal intersection area ( > 50)
+			for (int j = i + 1; j < plti->Ver.Cnt; j++) {
+				LineInfo & li2 = plti->Ver.Lns[j];
+				int len2 = li2.B.y() - li2.A.y();
+				if (len2 < 200)
+					continue; // ignore short
+				int mcx2 = (li2.A.x() + li2.B.x()) >> 1;
+				int xdelta = abs(mcx - mcx2);
+				if (xdelta < 16 && Overlap(ay, by, li2.A.y(), li2.B.y())) {
+					if (len < len2 * 2) { // kill first, may be keep second
+						if (!(li.Flags & LI_NOISE)) {
+							li.Flags |= LI_NOISE;
+							vcnt--;
+						};
+					}
+					if (len2 < len * 2) { // kill second, may be keep first
+						if (!(li2.Flags & LI_NOISE)) {
+							li2.Flags |= LI_NOISE;
+							vcnt--;
+						};
+					};
+				};
+			};
+		};
+	};
 }
 
 Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len, int32_t min_v_len) {
-    int32_t h, v;
-    if (ExtrLinesGetInfo(lti, min_h_len, min_v_len, h, v)) {
-        __RejectNearBound(lti);
+	int32_t h, v;
+	if (ExtrLinesGetInfo(lti, min_h_len, min_v_len, h, v)) {
+		__RejectNearBound(lti);
 
-        return TRUE;
-    }
-    lnserr = ER_CURRENTLYDISABLED;
-    return FALSE;
+		return TRUE;
+	}
+	lnserr = ER_CURRENTLYDISABLED;
+	return FALSE;
 }
 
 /////////// sweeping /////////////////
@@ -263,52 +269,52 @@ int16_t LnsImageRead(uchar* lpImage, uint16_t wMaxSize);
 Bool16 LnsImageClose(void);
 
 Bool16 LnsImageOpen(Tiger_ImageInfo* lpImageInfo) {
-    return Sweeper_ImageOpen(lpImageInfo);
+	return Sweeper_ImageOpen(lpImageInfo);
 }
 
 int16_t LnsImageRead(uchar* lpImage, uint16_t wMaxSize) {
-    return Sweeper_ImageRead(lpImage, wMaxSize);
+	return Sweeper_ImageRead(lpImage, wMaxSize);
 }
 
 Bool16 LnsImageClose(void) {
-    return Sweeper_ImageClose();
+	return Sweeper_ImageClose();
 }
 
 TImageAccess* LnsGetSweepedImage(LinesTotalInfo* lti) {
-    ExtrLinesPrepearToSweep(lti);
-    memset(&swpimg, 0, sizeof(swpimg));
-    swpimg.f_op = LnsImageOpen;
-    swpimg.f_re = LnsImageRead;
-    swpimg.f_cl = LnsImageClose;
-    return &swpimg;
+	ExtrLinesPrepearToSweep(lti);
+	memset(&swpimg, 0, sizeof(swpimg));
+	swpimg.f_op = LnsImageOpen;
+	swpimg.f_re = LnsImageRead;
+	swpimg.f_cl = LnsImageClose;
+	return &swpimg;
 }
 
 Err16 LnsGetError() {
-    return lnserr;
+	return lnserr;
 }
 
 void LnsPageFinish() {
-    HLiner_Done();
-    ExtrLinesDoneLNS();
-    Frag_VFree();
-    Frag_HFree();
+	HLiner_Done();
+	ExtrLinesDoneLNS();
+	Frag_VFree();
+	Frag_HFree();
 }
 
 LnsSetupStr lnsSetup = { 0 };
 
 Bool16 LnsSetup(LnsSetupStr* ls) // can call before LnsExtractLines
 {
-    if (ls)
-        lnsSetup = *ls;
+	if (ls)
+		lnsSetup = *ls;
 
-    return TRUE;
+	return TRUE;
 }
 
 /// 10.02.99, VP ------- registering fragments for external usage
 int LnsGetFragCount(Bool horisontal) {
-    return horisontal ? Frag_HCount() : Frag_VCount();
+	return horisontal ? Frag_HCount() : Frag_VCount();
 }
 
 LnsFrag* LnsGetFragments(Bool horisontal) {
-    return horisontal ? Frag_HGet(0) : Frag_VGet(0);
+	return horisontal ? Frag_HGet(0) : Frag_VGet(0);
 }

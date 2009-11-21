@@ -95,9 +95,9 @@ LNS_FUNC LnsFrag* LnsGetFragments(Bool horisontal);
 LNS_FUNC Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len,
 		int32_t min_v_len);
 
-LNS_FUNC CIF::Rect16* LnsGetBlackSquares(int32_t* count);
+LNS_FUNC Rect16* LnsGetBlackSquares(int32_t* count);
 // 04 dec 1998 - black squares upload
-LNS_FUNC CIF::Rect16* LnsGetCheckBoxes(int32_t* count);
+LNS_FUNC Rect16* LnsGetCheckBoxes(int32_t* count);
 // 11 feb 1998 - checkboxes upload
 
 LNS_FUNC TImageAccess* LnsGetSweepedImage(LinesTotalInfo* lti);

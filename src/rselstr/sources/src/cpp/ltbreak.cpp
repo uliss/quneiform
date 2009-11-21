@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include "c_memory.h"
 # include "layout.h"
-# include "hrstr/func.h"
+# include "func.h"
 # include "my_mem.h"
 
 # include "dpuma.h"

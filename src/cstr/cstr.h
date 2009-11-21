@@ -72,8 +72,6 @@
 #include "recdefs.h"
 #include "memfunc.h"
 
-#include <string>
-
 #ifdef __CSTR__
 #define CSTR_FUNC  FUN_EXPO__
 #else
@@ -84,6 +82,7 @@ CSTR_FUNC Bool32 CSTR_Init(uint16_t wHeightCode, Handle hStorage);
 CSTR_FUNC void CSTR_Done(void);
 CSTR_FUNC uint32_t CSTR_GetReturnCode(void);
 CSTR_FUNC char* CSTR_GetReturnString(uint32_t dwError);
+CSTR_FUNC Bool32 CSTR_GetExportData(uint32_t dwType, void * pData);
 
 enum CSTRFunctionsExt {
 	CSTR_FNNEWLINE,
@@ -256,8 +255,9 @@ CSTR_FUNC CCOM_comp * CSTR_GetComp(CSTR_rast curr_raster);
 typedef int32_t (*FNCSTR_NewUserCode)(void);
 CSTR_FUNC int32_t CSTR_NewUserCode(void);
 // 27   CSTR_FNVERSION      версия библиотеки
-// 28   получить текстовый обрах строки
-CSTR_FUNC std::string CSTR_LineToTxt(CSTR_line lin, char Unrecognized = '~');
+// 28   CSTR_FNTOTXT        получить текстовый обрах строки
+typedef Bool32 (*FNCSTR_LineToTxt)(CSTR_line lin, char *txt);
+CSTR_FUNC Bool32 CSTR_LineToTxt(CSTR_line lin, char *txt);
 // 29   CSTR_FNINSRST       вставить растр после текущего
 typedef CSTR_rast (*FNCSTR_InsertRaster)(CSTR_rast curr_raster);
 CSTR_FUNC CSTR_rast CSTR_InsertRaster(CSTR_rast curr_raster);

@@ -83,8 +83,6 @@ ROOT *pRoots = NULL;
 uint32_t nRoots = 0;
 # endif
 
-int16_t nRoots = 0;
-
 ROOT *pAfterRoots;
 
 int16_t nOriginalRoots;
@@ -96,7 +94,7 @@ int nRootExts = 0;
 
 int nRootSpaceWidth;
 int nRootSpaceHeight;
-CIF::Rect rRootSpace;
+RECTANGLE rRootSpace;
 
 int nPageHeight;
 int nSuitablePageHeight;
@@ -108,313 +106,336 @@ int nRootStrips = 0;
 int nRootStripsStep;
 int nRootStripsOffset;
 
-#ifdef LT_STAND_ALONE
-#define ROOTS_MEMORY_QUANTUM   1024
+# ifdef LT_STAND_ALONE
+# define ROOTS_MEMORY_QUANTUM   1024
 
-Bool RootsLoadFile(char * pFilename) {
-    ROOT RootRecord;
+Bool RootsLoadFile (char * pFilename)
+{
+	/*    typedef int Handle;*/
 
-    RootsFreeData();
+	Handle hFile;
+	ROOT RootRecord;
 
-    int hFile = open(pFilename, O_RDONLY | O_BINARY);
+	RootsFreeData ();
 
-    if (hFile == -1) {
-        ErrorFile();
-        return (FALSE);
-    }
+	hFile = (Handle)open (pFilename, O_RDONLY | O_BINARY);
 
-    while (read(hFile, &RootRecord, sizeof(ROOT)) == sizeof(ROOT)) {
-        RootRecord.bReached = FALSE;
+	if (hFile == (Handle)(-1))
+	{
+		ErrorFile ();
+		return (FALSE);
+	}
 
-        if (nRoots % ROOTS_MEMORY_QUANTUM == 0) {
-            pRoots = static_cast<ROOT*> (realloc(pRoots, (size_t) ((nRoots / ROOTS_MEMORY_QUANTUM
-                                            + 1) * ROOTS_MEMORY_QUANTUM * sizeof(ROOT))));
-        }
+	while (read ((int)hFile, &RootRecord, sizeof (ROOT)) == sizeof (ROOT))
+	{
+		RootRecord.bReached = FALSE;
 
-        nRoots++;
+		if (nRoots % ROOTS_MEMORY_QUANTUM == 0)
+		{
+			pRoots = static_cast<ROOT*>(realloc (pRoots,
+							(size_t) ((nRoots / ROOTS_MEMORY_QUANTUM + 1)
+									* ROOTS_MEMORY_QUANTUM * sizeof (ROOT))));
+		}
 
-        if (pRoots == NULL) {
-            ErrorNoEnoughMemory("in LTROOTS.C,RootsLoadFile,part 1");
-            nRoots = 0;
-            close(hFile);
-            return FALSE;
-        }
+		nRoots++;
 
-        pRoots[nRoots - 1] = RootRecord;
-    }
+		if (pRoots == NULL)
+		{
+			ErrorNoEnoughMemory ("in LTROOTS.C,RootsLoadFile,part 1");
+			nRoots = 0;
+			close ((int)hFile);
+			return (FALSE);
+		}
 
-    close(hFile);
-    return (TRUE);
+		pRoots [nRoots - 1] = RootRecord;
+	}
+
+	close ((int) hFile);
+	return (TRUE);
 }
-#endif
+# endif
 
 void CalculatePageParameters(void) {
-    ROOT *pRoot;
+	ROOT *pRoot;
 
-    pAfterRoots = pRoots + nRoots;
+	pAfterRoots = pRoots + nRoots;
 
-    nOriginalRoots = nRoots;
-    pAfterOriginalRoots = pAfterRoots;
+	nOriginalRoots = nRoots;
+	pAfterOriginalRoots = pAfterRoots;
 
-    if (nRoots == 0) {
-        rRootSpace.rleft() = 0;
-        rRootSpace.rtop() = 0;
-        rRootSpace.rright() = -1;
-        rRootSpace.rbottom() = -1;
-    }
-    else {
-        rRootSpace.rleft() = pRoots[0].xColumn;
-        rRootSpace.rtop() = pRoots[0].yRow;
-        rRootSpace.rright() = pRoots[0].xColumn + pRoots[0].nWidth - 1;
-        rRootSpace.rbottom() = pRoots[0].yRow + pRoots[0].nHeight - 1;
-    }
+	if (nRoots == 0) {
+		rRootSpace.xLeft = 0;
+		rRootSpace.yTop = 0;
+		rRootSpace.xRight = -1;
+		rRootSpace.yBottom = -1;
+	} else {
+		rRootSpace.xLeft = pRoots[0].xColumn;
+		rRootSpace.yTop = pRoots[0].yRow;
+		rRootSpace.xRight = pRoots[0].xColumn + pRoots[0].nWidth - 1;
+		rRootSpace.yBottom = pRoots[0].yRow + pRoots[0].nHeight - 1;
+	}
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        pRoot -> bReached = FALSE;
+	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+		pRoot -> bReached = FALSE;
 
-        if (rRootSpace.left() > pRoot -> xColumn)
-            rRootSpace.rleft() = pRoot -> xColumn;
+		if (rRootSpace.xLeft > pRoot -> xColumn)
+			rRootSpace.xLeft = pRoot -> xColumn;
 
-        if (rRootSpace.top() > pRoot -> yRow)
-            rRootSpace.rtop() = pRoot -> yRow;
+		if (rRootSpace.yTop > pRoot -> yRow)
+			rRootSpace.yTop = pRoot -> yRow;
 
-        if (rRootSpace.right() < pRoot -> xColumn + pRoots -> nWidth - 1)
-            rRootSpace.rright() = pRoot -> xColumn + pRoots -> nWidth - 1;
+		if (rRootSpace.xRight < pRoot -> xColumn + pRoots -> nWidth - 1)
+			rRootSpace.xRight = pRoot -> xColumn + pRoots -> nWidth - 1;
 
-        if (rRootSpace.bottom() < pRoot -> yRow + pRoots -> nHeight - 1)
-            rRootSpace.rbottom() = pRoot -> yRow + pRoots -> nHeight - 1;
-    }
+		if (rRootSpace.yBottom < pRoot -> yRow + pRoots -> nHeight - 1)
+			rRootSpace.yBottom = pRoot -> yRow + pRoots -> nHeight - 1;
+	}
 
-    nRootSpaceWidth = rRootSpace.width() + 1;
-    nRootSpaceHeight = rRootSpace.height() + 1;
+	nRootSpaceWidth = rRootSpace.xRight - rRootSpace.xLeft + 1;
+	nRootSpaceHeight = rRootSpace.yBottom - rRootSpace.yTop + 1;
+	/*
+	 printf ("[%d, %d]-[%d, %d] : w: %d h: %d\n",
+	 (int) rRootSpace.xLeft,
+	 (int) rRootSpace.yTop,
+	 (int) rRootSpace.xRight,
+	 (int) rRootSpace.yBottom,
+	 (int) nRootSpaceWidth,
+	 (int) nRootSpaceHeight);
+	 LT_Getch ();
+	 */
 
-    nPageHeight = nRootSpaceHeight;
-    nSuitablePageHeight = nRootSpaceHeight * 2;
-    nPageOffset = nRootSpaceHeight / 2;
+	nPageHeight = nRootSpaceHeight;
+	nSuitablePageHeight = nRootSpaceHeight * 2;
+	nPageOffset = nRootSpaceHeight / 2;
 }
 
 void RootStripsCalculate(void) {
-    ROOT *pRoot;
-    int yMin, yMax; // впоследствии -- это ординаты начала
-    // и конца массива проекций всех рутов (на вертикаль)
-    int iStrip;
-    int iStripBegin;
-    int iStripEnd;
+	ROOT *pRoot;
+	int yMin, yMax; // впоследствии -- это ординаты начала
+	// и конца массива проекций всех рутов (на вертикаль)
+	int iStrip;
+	int iStripBegin;
+	int iStripEnd;
 
-    if (nRoots == 0)
-        ErrorInternal("nRoots == 0");
+	if (nRoots == 0)
+		ErrorInternal("nRoots == 0");
 
-    // вычисление минимальной и максимальной ординаты
-    // коробок символов ("рутов").
-    yMin = pRoots[0].yRow;
-    yMax = pRoots[0].yRow + pRoots[0].nHeight - 1;
+	// вычисление минимальной и максимальной ординаты
+	// коробок символов ("рутов").
+	yMin = pRoots[0].yRow;
+	yMax = pRoots[0].yRow + pRoots[0].nHeight - 1;
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        if (pRoot -> yRow < yMin)
-            yMin = pRoot -> yRow;
+	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+		if (pRoot -> yRow < yMin)
+			yMin = pRoot -> yRow;
 
-        if (pRoot -> yRow + pRoot -> nHeight - 1 > yMax)
-            yMax = pRoot -> yRow + pRoot -> nHeight - 1;
-    }
+		if (pRoot -> yRow + pRoot -> nHeight - 1 > yMax)
+			yMax = pRoot -> yRow + pRoot -> nHeight - 1;
+	}
 
-    nRootStripsOffset = yMin;
-    nRootStripsStep = 128;
-    nRootStrips = (yMax - yMin + (nRootStripsStep - 1)) / nRootStripsStep + 1;
-    // то есть nRootStrips -- это ближайшее сверху
-    // к (yMax - yMin) кратное 128; например, при совпадении
-    // yMax и yMin это просто 128 и есть
+	nRootStripsOffset = yMin;
+	nRootStripsStep = 128;
+	nRootStrips = (yMax - yMin + (nRootStripsStep - 1)) / nRootStripsStep + 1;
+	// то есть nRootStrips -- это ближайшее сверху
+	// к (yMax - yMin) кратное 128; например, при совпадении
+	// yMax и yMin это просто 128 и есть
 
-    if (pRootStrips)// Piter
-    {
-        free(pRootStrips);// Piter
-        pRootStrips = NULL;// Piter
-    }// Piter
-    pRootStrips = static_cast<ROOT_STRIP*> (malloc(nRootStrips * sizeof(ROOT_STRIP)));
-    if (pRootStrips == NULL)
-        ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
-    memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
+	if (pRootStrips)// Piter
+	{
+		free(pRootStrips);// Piter
+		pRootStrips = NULL;// Piter
+	}// Piter
+	pRootStrips = static_cast<ROOT_STRIP*> (malloc(nRootStrips
+			* sizeof(ROOT_STRIP)));
+	if (pRootStrips == NULL)
+		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
+	memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        iStripBegin = (pRoot -> yRow - nRootStripsOffset) / nRootStripsStep;
+	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+		iStripBegin = (pRoot -> yRow - nRootStripsOffset) / nRootStripsStep;
 
-        iStripEnd = (pRoot -> yRow + pRoot -> nHeight - 1 - nRootStripsOffset) / nRootStripsStep;
-        assert(nRootStrips>iStripEnd); // Piter
-        assert(nRootStrips>iStripBegin);// Piter
-        for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
-            if (pRootStrips[iStrip].pBegin == NULL || pRoot < pRootStrips[iStrip].pBegin) {
-                pRootStrips[iStrip].pBegin = pRoot;
-            }
+		iStripEnd = (pRoot -> yRow + pRoot -> nHeight - 1 - nRootStripsOffset)
+				/ nRootStripsStep;
+		assert(nRootStrips>iStripEnd); // Piter
+		assert(nRootStrips>iStripBegin);// Piter
+		for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
+			if (pRootStrips[iStrip].pBegin == NULL || pRoot
+					< pRootStrips[iStrip].pBegin) {
+				pRootStrips[iStrip].pBegin = pRoot;
+			}
 
-            if (pRootStrips[iStrip].pEnd == NULL || pRoot > pRootStrips[iStrip].pEnd) {
-                pRootStrips[iStrip].pEnd = pRoot;
-            }
-        }
-    }
+			if (pRootStrips[iStrip].pEnd == NULL || pRoot
+					> pRootStrips[iStrip].pEnd) {
+				pRootStrips[iStrip].pEnd = pRoot;
+			}
+		}
+	}
 }
 
-void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter) {
-    int iStripBegin;
-    int iStripEnd;
-    ROOT *pBegin;
-    ROOT *pEnd;
-    int iStrip;
+void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin,
+		ROOT **ppAfter) {
+	int iStripBegin;
+	int iStripEnd;
+	ROOT *pBegin;
+	ROOT *pEnd;
+	int iStrip;
 
-    if (nRootStripsStep == 0)
-        ErrorInternal("nRootStripsStep == 0");
+	if (nRootStripsStep == 0)
+		ErrorInternal("nRootStripsStep == 0");
 
-    iStripBegin = (yTop - nRootStripsOffset) / nRootStripsStep;
+	iStripBegin = (yTop - nRootStripsOffset) / nRootStripsStep;
 
-    iStripEnd = (yBottom - nRootStripsOffset) / nRootStripsStep;
+	iStripEnd = (yBottom - nRootStripsOffset) / nRootStripsStep;
 
-    if (iStripBegin < 0)
-        iStripBegin = 0;
-    if (iStripEnd < 0)
-        iStripEnd = 0;
-    if (iStripBegin >= nRootStrips)
-        iStripBegin = nRootStrips - 1;
-    if (iStripEnd >= nRootStrips)
-        iStripEnd = nRootStrips - 1;
+	if (iStripBegin < 0)
+		iStripBegin = 0;
+	if (iStripEnd < 0)
+		iStripEnd = 0;
+	if (iStripBegin >= nRootStrips)
+		iStripBegin = nRootStrips - 1;
+	if (iStripEnd >= nRootStrips)
+		iStripEnd = nRootStrips - 1;
 
-    if (iStripBegin > iStripEnd)
-        EXCHANGE_INTS(iStripBegin, iStripEnd);
+	if (iStripBegin > iStripEnd)
+		EXCHANGE_INTS(iStripBegin, iStripEnd);
 
-    pBegin = NULL;
-    pEnd = NULL;
+	pBegin = NULL;
+	pEnd = NULL;
 
-    for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
-        if (pRootStrips[iStrip].pBegin == NULL)
-            continue;
+	for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
+		if (pRootStrips[iStrip].pBegin == NULL)
+			continue;
 
-        if (pBegin == NULL) {
-            pBegin = pRootStrips[iStrip].pBegin;
-            pEnd = pRootStrips[iStrip].pEnd;
-        }
-        else {
-            if (pRootStrips[iStrip].pBegin < pBegin)
-                pBegin = pRootStrips[iStrip].pBegin;
+		if (pBegin == NULL) {
+			pBegin = pRootStrips[iStrip].pBegin;
+			pEnd = pRootStrips[iStrip].pEnd;
+		} else {
+			if (pRootStrips[iStrip].pBegin < pBegin)
+				pBegin = pRootStrips[iStrip].pBegin;
 
-            if (pRootStrips[iStrip].pEnd > pEnd)
-                pEnd = pRootStrips[iStrip].pEnd;
-        }
-    }
+			if (pRootStrips[iStrip].pEnd > pEnd)
+				pEnd = pRootStrips[iStrip].pEnd;
+		}
+	}
 
-    if ((pBegin == NULL) != (pEnd == NULL))
-        ErrorInternal("(pBegin == NULL) != (pEnd == NULL)");
+	if ((pBegin == NULL) != (pEnd == NULL))
+		ErrorInternal("(pBegin == NULL) != (pEnd == NULL)");
 
-    if (pBegin == NULL) {
-        *ppBegin = NULL;
-        *ppAfter = NULL;
-    }
-    else {
-        *ppBegin = pBegin;
-        *ppAfter = pEnd + 1;
-    }
+	if (pBegin == NULL) {
+		*ppBegin = NULL;
+		*ppAfter = NULL;
+	} else {
+		*ppBegin = pBegin;
+		*ppAfter = pEnd + 1;
+	}
 }
 
 void RootsRemoveFromRulers(void) {
-    ROOT *p;
-    int x, y;
-    extern void del_root(int16_t row, int16_t col, int16_t h, int16_t w);
+	ROOT *p;
+	int x, y;
+	extern void del_root(int16_t row, int16_t col, int16_t h, int16_t w);
 
-    for (p = pRoots; p < pAfterRoots; p++) {
-        if (p -> nBlock == REMOVED_BLOCK_NUMBER) {
-            x = p -> xColumn;
-            y = p -> yRow;
+	for (p = pRoots; p < pAfterRoots; p++) {
+		if (p -> nBlock == REMOVED_BLOCK_NUMBER) {
+			x = p -> xColumn;
+			y = p -> yRow;
 
-            REAL_XY(x, y);
-        }
-    }
+			REAL_XY(x, y);
+			//          del_root (y, x, p -> nHeight, p -> nWidth);
+		}
+	}
 }
 
 void RootsSaveNonLayoutData(void) {
-    int i;
+	int i;
 
-    if (pRootExts != NULL)
-        ErrorInternal("RootsSaveNonLayoutData: pRootExts != NULL");
+	if (pRootExts != NULL)
+		ErrorInternal("RootsSaveNonLayoutData: pRootExts != NULL");
 
-    nRootExts = nRoots;
+	nRootExts = nRoots;
 
-    pRootExts = (PROOT_EXT) malloc(nRootExts * sizeof(ROOT_EXT));
+	pRootExts = (PROOT_EXT) malloc(nRootExts * sizeof(ROOT_EXT));
 
-    if (pRootExts == NULL)
-        ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 2");
+	if (pRootExts == NULL)
+		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 2");
 
-    pAfterRootExts = pRootExts + nRootExts;
+	pAfterRootExts = pRootExts + nRootExts;
 
-    for (i = 0; i < nRootExts; i++) {
-        pRootExts[i].wSegmentPtr = pRoots[i].u1.u2.wSegmentPtr;
-        pRootExts[i].wLength = pRoots[i].u1.u2.wLength;
-    }
+	for (i = 0; i < nRootExts; i++) {
+		pRootExts[i].wSegmentPtr = pRoots[i].u1.u2.wSegmentPtr;
+		pRootExts[i].wLength = pRoots[i].u1.u2.wLength;
+	}
 }
 
 void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
-    int i;
+	int i;
 
-    if (pRootExts == NULL)
-        ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
+	if (pRootExts == NULL)
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
 
-    for (i = 0; i < nRootExts; i++) {
-        if (pRoots[i].nBlock == DUST_BLOCK_NUMBER || pRoots[i].nBlock == REMOVED_BLOCK_NUMBER) {
-            pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-            pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
-        }
-    }
+	for (i = 0; i < nRootExts; i++) {
+		if (pRoots[i].nBlock == DUST_BLOCK_NUMBER || pRoots[i].nBlock
+				== REMOVED_BLOCK_NUMBER) {
+			pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+			pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
+		}
+	}
 }
 
 void RootsRestoreNonLayoutData_ForBlock(BLOCK *p) {
-    ROOT *pRoot, *pNext;
+	ROOT *pRoot, *pNext;
 
-    if (pRootExts == NULL)
-        ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
+	if (pRootExts == NULL)
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
 
-    if (p -> pRoots == NULL)
-        return;
+	if (p -> pRoots == NULL)
+		return;
 
-    for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pNext) {
-        pNext = pRoot -> u1.pNext;
-        pRoot -> u1.u2.wSegmentPtr = pRootExts[pRoot - pRoots].wSegmentPtr;
-        pRoot -> u1.u2.wLength = pRootExts[pRoot - pRoots].wLength;
-    }
+	for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pNext) {
+		pNext = pRoot -> u1.pNext;
+		pRoot -> u1.u2.wSegmentPtr = pRootExts[pRoot - pRoots].wSegmentPtr;
+		pRoot -> u1.u2.wLength = pRootExts[pRoot - pRoots].wLength;
+	}
 }
 
 void RootsRestoreNonLayoutData(void) {
-    int i;
+	int i;
 
-    if (pRootExts == NULL)
-        ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
+	if (pRootExts == NULL)
+		ErrorInternal("RootsRestoreNonLayoutData: pRootExts == NULL");
 
-    for (i = 0; i < nRootExts; i++) {
-        pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-        pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
-    }
+	for (i = 0; i < nRootExts; i++) {
+		pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+		pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
+	}
 
-    free(pRootExts);
+	free(pRootExts);
 
-    pRootExts = NULL;
-    pAfterRootExts = NULL;
-    nRootExts = 0;
+	pRootExts = NULL;
+	pAfterRootExts = NULL;
+	nRootExts = 0;
 }
 
 void RootsFreeData(void) {
 # ifdef LT_STAND_ALONE
-    if (pRoots != NULL)
-    {
-        free (pRoots);
-        pRoots = NULL;
-        pAfterRoots = NULL;
-        nRoots = 0;
-    }
+	if (pRoots != NULL)
+	{
+		free (pRoots);
+		pRoots = NULL;
+		pAfterRoots = NULL;
+		nRoots = 0;
+	}
 # endif
 
-    if (pRootExts != NULL) {
-        free(pRootExts);
-        pRootExts = NULL;
-        pAfterRootExts = NULL;
-    }
+	if (pRootExts != NULL) {
+		free(pRootExts);
+		pRootExts = NULL;
+		pAfterRootExts = NULL;
+	}
 
-    if (pRootStrips != NULL) {
-        free(pRootStrips);
-        pRootStrips = NULL;
-        nRootStrips = 0;
-    }
+	if (pRootStrips != NULL) {
+		free(pRootStrips);
+		pRootStrips = NULL;
+		nRootStrips = 0;
+	}
 }

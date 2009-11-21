@@ -57,10 +57,41 @@
 #ifndef _RMFUNC_H_
 #define _RMFUNC_H_
 
-#include "cttypes.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "cimage/ctiimage.h"
+#include "ccom/ccomdefs.h"
+#include "cpage/cpage.h"
+#include "puma/mpumatime.h"
 
-namespace CIF {
+typedef int Bool;
+
+# define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")
+struct BIG_IMAGE {
+	CCOM_handle hCCOM;
+	uchar ImageName[CPAGE_MAXNAME];
+};
+
+Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
+Bool32 PageMarkup(PRMPreProcessImage Image);
+Bool32 SetCBProgressPoints(void *);
+uint32_t GetReturnCode_rmarker(void);
+Bool32 SearchPictures(PRMPreProcessImage, BIG_IMAGE);
+Bool32 SearchNeg(PRMPreProcessImage, BIG_IMAGE, int);
+Bool32 SearchFon(PRMPreProcessImage, BIG_IMAGE, int);
+void GiveMainBuff(void **vvBuff, int *Size);
+void GiveWorkBuff(char **ccBuff, int *Size);
+void SetMainBuff(void *vBuff, int Size);
+void SetWorkBuff(void *vBuff, int Size);
+void ReSetMem(void);
 void MySetNegative(void *vB, Handle hCPage);
-}
+//
+#define DEC_CB_TYPE(a)  PF##a
+#define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
+DEC_CB_FUN(Bool32, DPumaSkipComponent, (void))
+DEC_CB_FUN(Bool32, DPumaSkipTurn, (void))
+DEC_CB_FUN(void, SetUpdate, (uint32_t, uint32_t))
+DEC_CB_FUN(char *, GetModulePath, (void))
+#undef DEC_CB_FUN
 
 #endif

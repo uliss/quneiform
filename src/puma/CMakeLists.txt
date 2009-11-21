@@ -1,13 +1,14 @@
 add_library(puma ${LIBTYPE}
+${SNP_SRC}
 common.cpp 
-formatoptions.cpp
-layoutoptions.cpp
+enum.cpp
+puma.cpp 
+dll.cpp 
 pumaimpl.cpp
 )
 set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 
 target_link_libraries(puma
-common
 ced
 cfio
 cimage

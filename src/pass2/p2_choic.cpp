@@ -1088,7 +1088,7 @@ int p2_selectRusEng(CSTR_rast rusStart, CSTR_rast rusEnd, CSTR_rast engStart,
 			} else {
 				Bool32 same;
 				int porog;
-				const char *qq;
+				char *qq;
 
 				if (attrEng.language == LANG_ENGLISH) {
 					if (MAX(isMultiRus, isMultiEng) <= 1 && (qq = strchr(

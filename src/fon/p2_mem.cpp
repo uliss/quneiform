@@ -69,148 +69,152 @@
 extern Nraster_header *rh;
 
 static int32_t numAddedMemory = 0;
+////////////
 int32_t GetNumMemory(void) {
-    return numAddedMemory;
+	return numAddedMemory;
 }
 
 void EndNumMemory(void) {
-    numAddedMemory = 0;
+	numAddedMemory = 0;
 }
 
 static int16_t MakeBitmapsRecRaster(Nraster_header *rhh, RecRaster *r) {
-    uchar *AddBuffer(int32_t sizebitmap);
+	uchar *AddBuffer(int32_t sizebitmap);
 
-    int16_t j, i;
-    int16_t sx = rhh->w, sy = rhh->h, sxbyte;
-    int32_t sizebitmap;
-    uchar *pic, *pp;
-    int32_t wb = ((r->lnPixWidth + 63) / 64) * 8;
+	int16_t j, i;
+	int16_t sx = rhh->w, sy = rhh->h, sxbyte;
+	int32_t sizebitmap;
+	uchar *pic, *pp;
+	int32_t wb = ((r->lnPixWidth + 63) / 64) * 8;
 
-    rhh->xbyte = sxbyte = (sx >> 3) + 1;
-    sizebitmap = sxbyte * sy;
+	rhh->xbyte = sxbyte = (sx >> 3) + 1;
+	sizebitmap = sxbyte * sy;
 
-    if ((rhh->pHau = AddBuffer(2* sizebitmap + sxbyte)) == NULL)
-        return -1;
+	if ((rhh->pHau = AddBuffer(2* sizebitmap + sxbyte)) == NULL)
+		return -1;
 
-    j = (sx + 7) >> 3; // real bytes
-    pic = rhh->pHau;
-    pp = r->Raster;
-    for (i = 0; i < sy; i++, pic += sxbyte, pp += wb)
-        memcpy(pic, pp, j);
+	j = (sx + 7) >> 3; // real bytes
+	pic = rhh->pHau;
+	pp = r->Raster;
+	for (i = 0; i < sy; i++, pic += sxbyte, pp += wb)
+		memcpy(pic, pp, j);
 
-    rhh->pHaur = rhh->pHau + sxbyte * sy;
-    // размазать и обнулить хвосты!
-    rhh->fat = (uchar) Razmaz(rhh->pHau, rhh->pHaur, sxbyte, sx, sy, rhh->bold);
+	rhh->pHaur = rhh->pHau + sxbyte * sy;
+	// размазать и обнулить хвосты!
+	rhh->fat = (uchar) Razmaz(rhh->pHau, rhh->pHaur, sxbyte, sx, sy, rhh->bold);
 
-    return 0;
+	return 0;
 }
 
 // fill static Nraster_header rh !!!
-int32_t FONStoreRaster(RecRaster *r, uchar let, uchar IsPrint, uchar Prob, uchar Valid,
-        int16_t line_number, uchar kegl, CIF::Rect16 *rect, uchar column) {
-    Nraster_header *rhh;
+int32_t FONStoreRaster(RecRaster *r, uchar let, uchar IsPrint, uchar Prob,
+		uchar Valid, int16_t line_number, uchar kegl, Rect16 *rect,
+		uchar column) {
+	Nraster_header *rhh;
 
-    if (IsPrint == 0) // CTB[5]
-        return 0;
-    // CTB[15]
-    if ((Valid & LEO_VALID_FINAL) == 0)
-        return 0; // no in final
+	if (IsPrint == 0) // CTB[5]
+		return 0;
+	// CTB[15]
+	if ((Valid & LEO_VALID_FINAL) == 0)
+		return 0; // no in final
 
-    if (numAddedMemory >= MAXSYM)
-        return 0;
+	if (numAddedMemory >= MAXSYM)
+		return 0;
 
-    // захватить память
-    if (numAddedMemory == 0) {
-        EndHausdorfDLL();
-        if (StartHausdorfDLL(0, NULL, 0) < 0)
-            return -1;
-    }
-    if (!rh)
-        return -1;
+	// захватить память
+	if (numAddedMemory == 0) {
+		EndHausdorfDLL();
+		if (StartHausdorfDLL(0, NULL, 0) < 0)
+			return -1;
+	}
+	if (!rh)
+		return -1;
 
-    rhh = rh + numAddedMemory;
-    memset(rhh, 0, sizeof(Nraster_header));
+	rhh = rh + numAddedMemory;
+	memset(rhh, 0, sizeof(Nraster_header));
 
-    rhh->w = (uchar) r->lnPixWidth; //CTBdata[1];
-    rhh->h = (uchar) r->lnPixHeight; //CTBdata[2];
-    rhh->let = let; //CTBdata[3];
+	rhh->w = (uchar) r->lnPixWidth; //CTBdata[1];
+	rhh->h = (uchar) r->lnPixHeight; //CTBdata[2];
+	rhh->let = let; //CTBdata[3];
 
-    rhh->prob = Prob; // probability
-    rhh->valid = Valid; // validity
+	rhh->prob = Prob; // probability
+	rhh->valid = Valid; // validity
 
-    rhh->sr_row = rect->top();
-    rhh->sr_col = rect->left();
+	rhh->sr_row = rect->top;
+	rhh->sr_col = rect->left;
 
-    rhh->nInCTB = numAddedMemory + 1; // count from 1 !
-    rhh->nField = line_number; //CTBdata[25];   // which field
+	rhh->nInCTB = numAddedMemory + 1; // count from 1 !
+	rhh->nField = line_number; //CTBdata[25];   // which field
 
-    rhh->solid = 1;
-    if (IsPrint & CTB_PRINT_ITALIC)
-        rhh->italic = 1;
-    if (IsPrint & CTB_PRINT_BOLD)
-        rhh->bold = 1;
-    if (IsPrint & CTB_PRINT_SERIFIC)
-        rhh->serif = 1;
-    if (IsPrint & CTB_PRINT_GELV)
-        rhh->gelv = 1;
-    if (IsPrint & CTB_PRINT_NARROW)
-        rhh->narrow = 1;
+	rhh->solid = 1;
+	if (IsPrint & CTB_PRINT_ITALIC)
+		rhh->italic = 1;
+	if (IsPrint & CTB_PRINT_BOLD)
+		rhh->bold = 1;
+	if (IsPrint & CTB_PRINT_SERIFIC)
+		rhh->serif = 1;
+	if (IsPrint & CTB_PRINT_GELV)
+		rhh->gelv = 1;
+	if (IsPrint & CTB_PRINT_NARROW)
+		rhh->narrow = 1;
 
-    rhh->kegl = kegl;
-    rhh->tablColumn = column;
+	rhh->kegl = kegl;
+	rhh->tablColumn = column;
 
-    if (MakeBitmapsRecRaster(rhh, r) < 0)
-        return -1;
+	if (MakeBitmapsRecRaster(rhh, r) < 0)
+		return -1;
 
-    numAddedMemory++;
+	numAddedMemory++;
 
-    return numAddedMemory;
+	return numAddedMemory;
 }
+/////////////////////
+int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus,
+		int16_t countFont, uint32_t *allFields) {
+	int i, CurCount;
+	FONBASE *fBase;
 
-int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus, int16_t countFont,
-        uint32_t *allFields) {
-    int i, CurCount;
-    FONBASE *fBase;
+	for (i = 0, CurCount = 0; i < CurClus; i++) {
+		if ((metkaValid[i] & METKA_VALID) != 0)
+			CurCount++;
+	}
+	if (CurCount <= 0)
+		return 0;
 
-    for (i = 0, CurCount = 0; i < CurClus; i++) {
-        if ((metkaValid[i] & METKA_VALID) != 0)
-            CurCount++;
-    }
-    if (CurCount <= 0)
-        return 0;
+	FONDone();
+	fBase = GetStaticFonbase();
+	fBase->start = (welet *) malloc(CurCount * sizeof(welet));
 
-    FONDone();
-    fBase = GetStaticFonbase();
-    fBase->start = (welet *) malloc(CurCount * sizeof(welet));
+	if (fBase->start == NULL)
+		return -1;
+	fBase->reserv = CurCount;
 
-    if (fBase->start == NULL)
-        return -1;
-    fBase->reserv = CurCount;
+	// now to static - fonts info
+	fBase->countFont = countFont;
+	// Информация о шрифтах в полях
+	i = MIN(countFont, 4);
+	memcpy(fBase->fontFields, allFields, i * NFIELDDWORD * sizeof(uint32_t));
 
-    // now to static - fonts info
-    fBase->countFont = countFont;
-    // Информация о шрифтах в полях
-    i = MIN(countFont, 4);
-    memcpy(fBase->fontFields, allFields, i * NFIELDDWORD * sizeof(uint32_t));
-
-    return CurCount;
+	return CurCount;
 }
-
+///////////////////
 int32_t AddClusterMemFont(welet *wel) {
-    FONBASE *fBase = GetStaticFonbase();
+	FONBASE *fBase = GetStaticFonbase();
 
-    // есть еще место?
-    if (fBase->inBase >= fBase->reserv)
-        return fBase->inBase;
+	// есть еще место?
+	if (fBase->inBase >= fBase->reserv)
+		return fBase->inBase;
 
-    // not need not-solid for recognition !
-    if (!(wel->attr & FON_CLU_SOLID) || wel->invalid)
-        return fBase->inBase;
+	// not need not-solid for recognition !
+	if (!(wel->attr & FON_CLU_SOLID) || wel->invalid)
+		return fBase->inBase;
 
-    memcpy(fBase->start + fBase->inBase, wel, sizeof(welet));
+	memcpy(fBase->start + fBase->inBase, wel, sizeof(welet));
 
-    FONCutOffClusters(fBase->start + fBase->inBase, 1);
-    fBase->inBase++;
-    return fBase->inBase;
+	FONCutOffClusters(fBase->start + fBase->inBase, 1);
+	fBase->inBase++;
+	return fBase->inBase;
 }
+//////////////////////////
+
 

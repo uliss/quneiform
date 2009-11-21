@@ -1,20 +1,9 @@
-/***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
- *   serge.poltavski@gmail.com                                             *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
- ***************************************************************************/
+/*
+ * memorybuffer.h
+ *
+ *  Created on: 09.10.2009
+ *      Author: uliss
+ */
 
 #ifndef MEMORYBUFFER_H_
 #define MEMORYBUFFER_H_
@@ -26,7 +15,7 @@ namespace CIF {
 
 template<class T>
 struct InitNone {
-	static void init(void *, size_t) {
+	static void init(void * mem, size_t size) {
 	}
 };
 
@@ -91,7 +80,7 @@ public:
 	}
 
 	T * end() {
-		return buf_ + N;
+		return &buf_[N];
 	}
 
 	void clear() {
@@ -112,7 +101,7 @@ public:
 		return N;
 	}
 private:
-	T buf_[N];
+	T buf_[N + 1];
 };
 }
 

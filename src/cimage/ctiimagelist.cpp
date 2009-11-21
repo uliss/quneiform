@@ -56,109 +56,217 @@
 
 #include "ctimemory.h"
 #include "ctiimagelist.h"
-#include "ctiimageheader.h"
-
-#include <algorithm>
-
-using namespace std;
-
-bool NameCompare(CTIImageHeader * image, const char * Name) {
-    return image->ImageName() == Name;
-}
 
 CTIImageList::CTIImageList() {
+	Begin()->SetNext(End());
+	End()->SetNext(NULL);
 }
 
 CTIImageList::~CTIImageList() {
+	CTIImageHeader * Previos;
+	CTIImageHeader * LastImage;
+
+	while ((LastImage = FindImage("", &Previos)) != Begin()) {
+		Previos->SetNext(LastImage->GetNext());
+		delete LastImage;
+	}
 }
 
-CTIImageList::Container::iterator CTIImageList::findImage(const std::string& Name) {
-    return find_if(images_.begin(), images_.end(), bind2nd(ptr_fun(NameCompare), Name.c_str()));
+Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag) {
+	CTIImageHeader * NewImage = NULL;
+	CTIImageHeader * LastImage = NULL;
+
+	while (FindImage(lpName, &LastImage)) {
+		LastImage = NULL;
+		DeleteImage(lpName);
+	}
+
+	if (lpName == NULL && lpName[0] == 0x0) {
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
+		return FALSE;
+	}
+
+	if (hDIB == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_INFO);
+		return FALSE;
+	}
+
+	if (LastImage == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		return FALSE;
+	}
+
+	NewImage = new CTIImageHeader(lpName, hDIB, wFlag);
+
+	if (NewImage == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_INFO);
+		return FALSE;
+	}
+
+	NewImage->SetNext(LastImage->GetNext());
+	LastImage->SetNext(NewImage);
+
+	return TRUE;
 }
 
-void CTIImageList::AddImage(const std::string& Name, Handle hDIB, uint32_t Flag) {
-    if (Name.empty())
-        throw Exception("CTIImageList::AddImage: empty image name");
+Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB) {
+	CTIImageHeader * Image = FindImage(lpName);
 
-    if (!hDIB)
-        throw Exception("CTIImageList::AddImage: invalid image info");
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
 
-    DeleteImage(Name);
-    CTIImageHeader * NewImage = new CTIImageHeader(Name, hDIB, Flag);
-    images_.push_back(NewImage);
+	*phDIB = Image->GetImageHandle();
+
+	return TRUE;
 }
 
-bool CTIImageList::DeleteImage(const std::string& Name) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
-    delete *it;
-    images_.erase(it);
-    return true;
+Bool32 CTIImageList::DeleteImage(const char *lpName) {
+	CTIImageHeader * Previos = NULL;
+	CTIImageHeader * ToDelete = FindImage(lpName, &Previos);
+
+	if (ToDelete != NULL) {
+		Previos->SetNext(ToDelete->GetNext());
+		delete ToDelete;
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
-bool CTIImageList::EnableMask(const std::string& Name, const char* pType, Bool Enabled) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
+CTIImageHeader * CTIImageList::FindImage(const char *lpName,
+		CTIImageHeader ** Previos) {
+	CTIImageHeader * Current = NULL;
+	CTIImageHeader * Prev = Begin();
+	char Buff[CIMAGE_MAX_IMAGE_NAME];
 
-    return (*it)->EnableMask(pType, Enabled);
+	if (lpName != NULL && strlen(lpName) < CIMAGE_MAX_IMAGE_NAME) {
+		strcpy(Buff, lpName);
+
+		if (Buff[0] != 0x0) {
+			for (Current = Begin()->GetNext(); Current != End(); Current
+					= Current->GetNext()) {
+				if (Current->CheckName(Buff))
+					break;
+
+				Prev = Current;
+			}
+
+			if (Previos) {
+				*Previos = Prev;
+			}
+
+			if (Current == End()) {
+				SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_IN_CONTAINER);
+				Current = NULL;
+			}
+
+			return Current;
+		} else {
+			if (Begin()->GetNext() == End()) {
+				Current = Prev = Begin();
+			} else
+				for (Current = Begin()->GetNext(); Current != End()
+						&& Current->GetNext() != End(); Current
+						= Current->GetNext()) {
+					Prev = Current;
+				}
+
+			if (Previos) {
+				*Previos = Prev;
+			}
+
+			return Current;
+		}
+	}
+	return NULL;
 }
 
-bool CTIImageList::FindHandle(Handle hImage) {
-    if (!hImage)
-        return false;
+Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask) {
+	Bool32 bRet;
+	CTIImageHeader * Image = FindImage(lpName);
 
-    for (Container::iterator it = images_.begin(), end = images_.end(); it != end; ++it) {
-        if ((*it)->GetImageHandle() == hImage)
-            return true;
-    }
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
 
-    return false;
+	bRet = Image->SetWriteMask(pWMask);
+
+	return TRUE;
 }
 
-bool CTIImageList::GetImage(const std::string& Name, Handle* phDIB) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
+Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask) {
+	Bool32 bRet;
+	CTIImageHeader * Image = FindImage(lpName);
 
-    *phDIB = (*it)->GetImageHandle();
-    return true;
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
+
+	bRet = Image->SetReadMask(pAMask);
+
+	return TRUE;
 }
 
-bool CTIImageList::GetImageReadMask(const std::string& Name, PPCTIMask ppMask, PBool32 pEnMask) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
+Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask,
+		PBool32 pEnMask) {
+	CTIImageHeader * Image = FindImage(lpName);
 
-    *ppMask = (*it)->GetReadMask();
-    *pEnMask = (*it)->IsMaskEnabled("r");
-    return true;
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
+
+	*ppWMask = Image->GetWriteMask();
+	*pEnMask = Image->IsMaskEnabled("w");
+
+	return TRUE;
 }
 
-bool CTIImageList::GetImageWriteMask(const std::string& Name, PPCTIMask ppWMask, PBool32 pEnMask) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
+Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask,
+		PBool32 pEnMask) {
+	CTIImageHeader * Image = FindImage(lpName);
 
-    *ppWMask = (*it)->GetWriteMask();
-    *pEnMask = (*it)->IsMaskEnabled("w");
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
 
-    return true;
+	*ppMask = Image->GetReadMask();
+	*pEnMask = Image->IsMaskEnabled("r");
+	return TRUE;
 }
 
-bool CTIImageList::SetImageReadMask(const std::string& Name, PCTIMask pAMask) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
-    (*it)->SetReadMask(pAMask);
-    return true;
+Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEnabled) {
+	CTIImageHeader * Image = FindImage(pName);
+
+	if (Image == NULL) {
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
+		return FALSE;
+	}
+
+	return Image->EnableMask(pType, mEnabled);
 }
 
-bool CTIImageList::SetImageWriteMask(const std::string& Name, PCTIMask pWMask) {
-    Container::iterator it = findImage(Name);
-    if (it == images_.end())
-        return false;
-    (*it)->SetWriteMask(pWMask);
-    return true;
+Bool32 CTIImageList::FindHandle(Handle hImage) {
+	CTIImageHeader * Current = NULL;
+	CTIImageHeader * Prev = Begin();
+	Bool32 bRet = FALSE;
+
+	if (hImage) {
+
+		for (Current = Begin()->GetNext(); Current != End(); Current
+				= Current->GetNext()) {
+			if (Current->GetImageHandle() == hImage) {
+				bRet = TRUE;
+				break;
+			}
+
+			Prev = Current;
+		}
+	}
+	return bRet;
 }

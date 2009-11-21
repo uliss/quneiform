@@ -86,105 +86,106 @@ Bool bPageMatrixInitialized = FALSE;
 
 void PageMatrixInit(int nWidth, int nHeight) {
 #ifdef  HUGE_IMAGE
-    if (PageMatrix == NULL)
-        PageMatrix = static_cast<uchar*> (malloc(PAGE_MATRIX_SIZE));
-    if (PageMatrix == NULL)
-        error_exit(ERR_comp, 13);
-    memset(PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
+	if( PageMatrix==NULL )
+	PageMatrix = static_cast<uchar*> (malloc(PAGE_MATRIX_SIZE));
+	if(PageMatrix==NULL)
+	error_exit(ERR_comp,13);
+	memset (PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
 #else
-    PageMatrix = CellsPage;
+	PageMatrix = CellsPage;
 #endif
-    if (nWidth > XY_UNCOMPRESS(PAGE_MATRIX_WIDTH) || nHeight > XY_UNCOMPRESS(
-            PAGE_MATRIX_HEIGHT)) {
-        return;
-    }
+	if (nWidth > XY_UNCOMPRESS(PAGE_MATRIX_WIDTH) || nHeight > XY_UNCOMPRESS(
+			PAGE_MATRIX_HEIGHT)) {
+		return;
+	}
 
-    //    memset (PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
-    bPageMatrixInitialized = TRUE;
+	//    memset (PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
+	bPageMatrixInitialized = TRUE;
 }
 
 static void PutInterval(int y, int x, int l) {
-    memset(PageMatrix + (XY_COMPRESS(y) << PAGE_MATRIX_WIDTH_SHIFT) + XY_COMPRESS(x), PMC_PICTURE,
-            XY_COMPRESS(l + (x & PAGE_COMP_MASK)
-                    + PAGE_COMP_FACTOR - 1));
+	memset(PageMatrix + (XY_COMPRESS(y) << PAGE_MATRIX_WIDTH_SHIFT)
+			+ XY_COMPRESS(x), PMC_PICTURE, XY_COMPRESS(l + (x & PAGE_COMP_MASK)
+			+ PAGE_COMP_FACTOR - 1));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AK 17.02.98
 void SpecCompPut(MN *mn) {
-    BOX *pBox;
-    int nBox;
-    LNSTRT *pLine;
+	BOX *pBox;
+	int nBox;
+	LNSTRT *pLine;
 
-    BOXINT *pInts;
-    BOXINT *pAfterInts;
-    BOXINT *pInt;
+	BOXINT *pInts;
+	BOXINT *pAfterInts;
+	BOXINT *pInt;
 
-    int xEnd = 0, y = 0;
+	int xEnd = 0, y = 0;
 
-    if (!bPageMatrixInitialized)
-        return;
+	if (!bPageMatrixInitialized)
+		return;
 
-    for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0; nBox < mn -> mnboxcnt; pBox = pBox -> boxnext, nBox++) {
-        // AK add c/g
-        if (!pBox->boxnext)
-            return;
+	for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0; nBox < mn -> mnboxcnt; pBox
+			= pBox -> boxnext, nBox++) {
+		// AK add c/g
+		if (!pBox->boxnext)
+			return;
 
-        if (pBox -> boxflag & BOXBEG) {
-            pLine = (LNSTRT *) ((uchar *) pBox + sizeof(BOX));
+		if (pBox -> boxflag & BOXBEG) {
+			pLine = (LNSTRT *) ((uchar *) pBox + sizeof(BOX));
 
-            xEnd = pLine -> x;
-            y = pLine -> y;
+			xEnd = pLine -> x;
+			y = pLine -> y;
 
-            PutInterval(y, xEnd - pLine -> l, pLine -> l);
-            pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX) + sizeof(LNSTRT));
-        }
-        else {
-            if (y == 0)
-                return;
-            pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX));
-        }
+			PutInterval(y, xEnd - pLine -> l, pLine -> l);
+			pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX) + sizeof(LNSTRT));
+		} else {
+			if (y == 0)
+				return;
+			pInts = (BOXINT *) ((uchar *) pBox + sizeof(BOX));
+		}
 
-        pAfterInts = (BOXINT *) ((uchar *) pBox + pBox -> boxptr);
+		pAfterInts = (BOXINT *) ((uchar *) pBox + pBox -> boxptr);
 
-        for (pInt = pInts; (uchar *) pAfterInts - (uchar *) pInt >= sizeof(BOXINT); pInt++) {
-            xEnd += pInt -> d;
-            y++;
-            PutInterval(y, xEnd - pInt -> l, pInt -> l);
-        }
-    }
+		for (pInt = pInts; (uchar *) pAfterInts - (uchar *) pInt
+				>= sizeof(BOXINT); pInt++) {
+			xEnd += pInt -> d;
+			y++;
+			PutInterval(y, xEnd - pInt -> l, pInt -> l);
+		}
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 void PageMatrixPutRoots(void) {
-    ROOT *p;
-    CIF::Rect r;
-    int o;
+	ROOT *p;
+	RECTANGLE r;
+	int o;
 
-    for (p = pRoots; p < pAfterRoots; p++) {
-        if (IS_LAYOUT_DUST(*p))
-            continue;
+	for (p = pRoots; p < pAfterRoots; p++) {
+		if (IS_LAYOUT_DUST(*p))
+			continue;
 
-        // компресс -- это деление на 2^N, N==4(==PAGE_COMP_SHIFT)
-        r.rleft() = XY_COMPRESS(p -> xColumn);
-        r.rright() = XY_COMPRESS(p -> xColumn + p -> nWidth - 1);
-        r.rtop() = XY_COMPRESS(p -> yRow);
-        r.rbottom() = XY_COMPRESS(p -> yRow + p -> nHeight - 1);
+		// компресс -- это деление на 2^N, N==4(==PAGE_COMP_SHIFT)
+		r.xLeft = XY_COMPRESS(p -> xColumn);
+		r.xRight = XY_COMPRESS(p -> xColumn + p -> nWidth - 1);
+		r.yTop = XY_COMPRESS(p -> yRow);
+		r.yBottom = XY_COMPRESS(p -> yRow + p -> nHeight - 1);
 
-        // "сдвиг": при PAGE_MATRIX_WIDTH==1024
-        // PAGE_MATRIX_WIDTH_SHIFT==10 (степень)
-        for (o = r.top() << PAGE_MATRIX_WIDTH_SHIFT; o <= r.bottom() << PAGE_MATRIX_WIDTH_SHIFT; o
-                += PAGE_MATRIX_WIDTH)
-        // т.е., for(y=top;y<=bottom;y++,o=PAGE_MATRIX_WIDTH*y)
-        {
-            uchar * p;
-            assert((o + r.right()) < PAGE_MATRIX_SIZE); // < 1024^2
-            for (p = PageMatrix + o + r.left(); // start=&matrix+MaxW*y+left
-            p <= PageMatrix + o + r.right(); //end=start+right
-            p++) { // закрасить весь прямоугольник как "основной"
-                *p |= PMC_ROOT;
-            }
-        }
-    }
+		// "сдвиг": при PAGE_MATRIX_WIDTH==1024
+		// PAGE_MATRIX_WIDTH_SHIFT==10 (степень)
+		for (o = r.yTop << PAGE_MATRIX_WIDTH_SHIFT; o <= r.yBottom
+				<< PAGE_MATRIX_WIDTH_SHIFT; o += PAGE_MATRIX_WIDTH)
+		// т.е., for(y=top;y<=bottom;y++,o=PAGE_MATRIX_WIDTH*y)
+		{
+			uchar * p;
+			assert((o + r.xRight) < PAGE_MATRIX_SIZE); // < 1024^2
+			for (p = PageMatrix + o + r.xLeft; // start=&matrix+MaxW*y+left
+			p <= PageMatrix + o + r.xRight; //end=start+right
+			p++) { // закрасить весь прямоугольник как "основной"
+				*p |= PMC_ROOT;
+			}
+		}
+	}
 }
 
 # define HORZ_GLUE_DIST  8
@@ -197,39 +198,39 @@ void PageMatrixPutRoots(void) {
 // Итого исходное расстояние склейки - 16*8==2^(4+2)==64,
 // при этом мы "заливаем" (склеиваем) сразу 16ти-точечный вертикальный интервал.
 void PageMatrixHorzGlue(void) {
-    int o, x;
-    int xLast;
-    int xLastPicture;
+	int o, x;
+	int xLast;
+	int xLastPicture;
 
-    for (o = 0; o < PAGE_MATRIX_SIZE; o += PAGE_MATRIX_WIDTH) {
-        xLast = -1;
-        xLastPicture = -2;
+	for (o = 0; o < PAGE_MATRIX_SIZE; o += PAGE_MATRIX_WIDTH) {
+		xLast = -1;
+		xLastPicture = -2;
 
-        for (x = 0; x < PAGE_MATRIX_WIDTH; x++) {
-            if (PageMatrix[o + x] & PMC_PICTURE) {
-                xLastPicture = x;
-            }
+		for (x = 0; x < PAGE_MATRIX_WIDTH; x++) {
+			if (PageMatrix[o + x] & PMC_PICTURE) {
+				xLastPicture = x;
+			}
 
-            if (PageMatrix[o + x] & PMC_ROOT) {
-                //                if (xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST)
-                if (xLast >= 0 && xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST) // Piter
-                {
-                    for (xLast++; xLast < x; xLast++)
-                        PageMatrix[o + xLast] |= PMC_ROOT;
-                }
-                else {
-                    xLast = x;
-                }
-            }
-        }
+			if (PageMatrix[o + x] & PMC_ROOT) {
+				//                if (xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST)
+				if (xLast >= 0 && xLastPicture < xLast && x - xLast
+						<= HORZ_GLUE_DIST) // Piter
+				{
+					for (xLast++; xLast < x; xLast++)
+						PageMatrix[o + xLast] |= PMC_ROOT;
+				} else {
+					xLast = x;
+				}
+			}
+		}
 
-        //if (xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST)
-        if (xLast >= 0 && xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST) // Piter
-        {
-            for (xLast++; xLast < x; xLast++)
-                PageMatrix[o + xLast] |= PMC_ROOT;
-        }
-    }
+		//if (xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST)
+		if (xLast >= 0 && xLastPicture < xLast && x - xLast <= HORZ_GLUE_DIST) // Piter
+		{
+			for (xLast++; xLast < x; xLast++)
+				PageMatrix[o + xLast] |= PMC_ROOT;
+		}
+	}
 }
 
 // склеиваются все вертикальные интервалы, геометрическое расстояние
@@ -238,93 +239,95 @@ void PageMatrixHorzGlue(void) {
 // Замечание. Точки PageMatrix получены из "рутов" сжатием в PAGE_COMP_FACTOR == (1 << PAGE_COMP_SHIFT) раз.
 // Итого исходное расстояние склейки - 16*4==2^(4+2)==64, при этом мы заливаем сразу 16ти-точечный интервал
 void PageMatrixVertGlue(void) {
-    int x, o;
-    int oLast;
-    int oLastPicture;
+	int x, o;
+	int oLast;
+	int oLastPicture;
 
-    for (x = 0; x < PAGE_MATRIX_WIDTH; x++) {
-        oLast = x - PAGE_MATRIX_WIDTH;
-        oLastPicture = x - PAGE_MATRIX_WIDTH * 2;
+	for (x = 0; x < PAGE_MATRIX_WIDTH; x++) {
+		oLast = x - PAGE_MATRIX_WIDTH;
+		oLastPicture = x - PAGE_MATRIX_WIDTH * 2;
 
-        for (o = x; o < PAGE_MATRIX_SIZE; o += PAGE_MATRIX_WIDTH) {
-            if (PageMatrix[o] & PMC_PICTURE) {
-                oLastPicture = o;
-            }
+		for (o = x; o < PAGE_MATRIX_SIZE; o += PAGE_MATRIX_WIDTH) {
+			if (PageMatrix[o] & PMC_PICTURE) {
+				oLastPicture = o;
+			}
 
-            if (PageMatrix[o] & PMC_ROOT) {
-                // if (oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST)
-                if (oLast >= 0 && oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST) // Piter
-                {
-                    for (oLast += PAGE_MATRIX_WIDTH; oLast < o; oLast += PAGE_MATRIX_WIDTH) {
-                        PageMatrix[oLast] |= PMC_ROOT;
-                    }
-                }
-                else {
-                    oLast = o;
-                }
-            }
-        }
+			if (PageMatrix[o] & PMC_ROOT) {
+				// if (oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST)
+				if (oLast >= 0 && oLastPicture < oLast && o - oLast
+						<= VERT_GLUE_DIST) // Piter
+				{
+					for (oLast += PAGE_MATRIX_WIDTH; oLast < o; oLast
+							+= PAGE_MATRIX_WIDTH) {
+						PageMatrix[oLast] |= PMC_ROOT;
+					}
+				} else {
+					oLast = o;
+				}
+			}
+		}
 
-        //if (oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST)
-        if (oLast >= 0 && oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST) {
-            for (oLast += PAGE_MATRIX_WIDTH; oLast < o; oLast += PAGE_MATRIX_WIDTH) {
-                PageMatrix[oLast] |= PMC_ROOT;
-            }
-        }
-    }
+		//if (oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST)
+		if (oLast >= 0 && oLastPicture < oLast && o - oLast <= VERT_GLUE_DIST) {
+			for (oLast += PAGE_MATRIX_WIDTH; oLast < o; oLast
+					+= PAGE_MATRIX_WIDTH) {
+				PageMatrix[oLast] |= PMC_ROOT;
+			}
+		}
+	}
 }
 
 // флаг "рута" ("основного" (текстового) блока) стирается в пользу флага картинки
 void PageMatrixExcludeIntersections(void) {
-    int o;
+	int o;
 
-    for (o = 0; o < PAGE_MATRIX_SIZE; o++) {
-        if ((PageMatrix[o] & PMC_ROOT) && (PageMatrix[o] & PMC_PICTURE)) {
-            PageMatrix[o] &= ~PMC_ROOT;
-        }
-    }
+	for (o = 0; o < PAGE_MATRIX_SIZE; o++) {
+		if ((PageMatrix[o] & PMC_ROOT) && (PageMatrix[o] & PMC_PICTURE)) {
+			PageMatrix[o] &= ~PMC_ROOT;
+		}
+	}
 }
 
 void PageMatrixBuild(void) {
-    PageMatrixInit(3000, 3000);//DDD
-    PageMatrixPutRoots();
+	PageMatrixInit(3000, 3000);//DDD
+	PageMatrixPutRoots();
 
 # ifdef LT_DEBUG
-    //if (LT_DebugGraphicsLevel >= 4)
-    if (!LDPUMA_Skip(hPageMatrix))
-        LT_GraphicsPageMatrixOutput("After put roots");
+	//if (LT_DebugGraphicsLevel >= 4)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("After put roots");
 # endif
 
-    PageMatrixHorzGlue();
+	PageMatrixHorzGlue();
 
 # ifdef LT_DEBUG
-    //if (LT_DebugGraphicsLevel >= 4)
-    if (!LDPUMA_Skip(hPageMatrix))
-        LT_GraphicsPageMatrixOutput("After horz glue");
+	//if (LT_DebugGraphicsLevel >= 4)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("After horz glue");
 # endif
 
-    PageMatrixVertGlue();
+	PageMatrixVertGlue();
 
 # ifdef LT_DEBUG
-    //if (LT_DebugGraphicsLevel >= 4)
-    if (!LDPUMA_Skip(hPageMatrix))
-        LT_GraphicsPageMatrixOutput("After vert glue");
+	//if (LT_DebugGraphicsLevel >= 4)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("After vert glue");
 # endif
 
-    PageMatrixExcludeIntersections();
+	PageMatrixExcludeIntersections();
 
 # ifdef LT_DEBUG
-    //if (LT_DebugGraphicsLevel >= 4)
-    if (!LDPUMA_Skip(hPageMatrix))
-        LT_GraphicsPageMatrixOutput("After excluding intersections");
+	//if (LT_DebugGraphicsLevel >= 4)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("After excluding intersections");
 # endif
 
-    PageMatrixPutSeparators(FALSE); //Bool bConvertToRealCoords:=FALSE
+	PageMatrixPutSeparators(FALSE); //Bool bConvertToRealCoords:=FALSE
 
 # ifdef LT_DEBUG
-    //if (LT_DebugGraphicsLevel >= 4)
-    if (!LDPUMA_Skip(hPageMatrix))
-        LT_GraphicsPageMatrixOutput("After put separators");
+	//if (LT_DebugGraphicsLevel >= 4)
+	if (!LDPUMA_Skip(hPageMatrix))
+	LT_GraphicsPageMatrixOutput ("After put separators");
 # endif
 }
 
@@ -335,311 +338,317 @@ static DRAW_ACTION fDrawMatrixPictureHorzInterval;
 static DRAW_ACTION fDrawMatrixPictureVertInterval;
 
 void PutMatrixPictureHorzInterval(int y, int x1, int x2) {
-    uchar *p, *pBegin, *pEnd;
+	uchar *p, *pBegin, *pEnd;
 
-    if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
-        return;
+	if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
+		return;
 
-    if (x1 > x2)
-        EXCHANGE_INTS(x1, x2);
+	if (x1 > x2)
+		EXCHANGE_INTS(x1, x2);
 
-    if (x1 >= PAGE_MATRIX_WIDTH)
-        return;
+	if (x1 >= PAGE_MATRIX_WIDTH)
+		return;
 
-    if (x1 < 0)
-        x1 = 0;
+	if (x1 < 0)
+		x1 = 0;
 
-    if (x2 >= PAGE_MATRIX_WIDTH)
-        x2 = PAGE_MATRIX_WIDTH - 1;
+	if (x2 >= PAGE_MATRIX_WIDTH)
+		x2 = PAGE_MATRIX_WIDTH - 1;
 
-    pBegin = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x1;
-    pEnd = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x2;
+	pBegin = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x1;
+	pEnd = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x2;
 
-    for (p = pBegin; p <= pEnd; p++)
-        *p |= PMC_PICTURE;
+	for (p = pBegin; p <= pEnd; p++)
+		*p |= PMC_PICTURE;
 }
 
 // закрашивание интервалов происходит добавлением флага картинки
 void PutMatrixPictureVertInterval(int x, int y1, int y2) {
-    uchar *p, *pBegin, *pEnd;
+	uchar *p, *pBegin, *pEnd;
 
-    if (x < 0 || x >= PAGE_MATRIX_WIDTH)
-        return;
+	if (x < 0 || x >= PAGE_MATRIX_WIDTH)
+		return;
 
-    if (y1 > y2)
-        EXCHANGE_INTS(y1, y2);
+	if (y1 > y2)
+		EXCHANGE_INTS(y1, y2);
 
-    if (y1 >= PAGE_MATRIX_HEIGHT)
-        return;
+	if (y1 >= PAGE_MATRIX_HEIGHT)
+		return;
 
-    if (y1 < 0)
-        y1 = 0;
+	if (y1 < 0)
+		y1 = 0;
 
-    if (y2 >= PAGE_MATRIX_HEIGHT)
-        y2 = PAGE_MATRIX_HEIGHT - 1;
+	if (y2 >= PAGE_MATRIX_HEIGHT)
+		y2 = PAGE_MATRIX_HEIGHT - 1;
 
-    pBegin = PageMatrix + (y1 << PAGE_MATRIX_WIDTH_SHIFT) + x;
-    pEnd = PageMatrix + (y2 << PAGE_MATRIX_WIDTH_SHIFT) + x;
+	pBegin = PageMatrix + (y1 << PAGE_MATRIX_WIDTH_SHIFT) + x;
+	pEnd = PageMatrix + (y2 << PAGE_MATRIX_WIDTH_SHIFT) + x;
 
-    for (p = pBegin; p <= pEnd; p += PAGE_MATRIX_WIDTH)
-        *p |= PMC_PICTURE;
+	for (p = pBegin; p <= pEnd; p += PAGE_MATRIX_WIDTH)
+		*p |= PMC_PICTURE;
 }
 
 void RemoveMatrixPictureHorzInterval(int y, int x1, int x2) {
-    uchar *p, *pBegin, *pEnd;
+	uchar *p, *pBegin, *pEnd;
 
-    if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
-        return;
+	if (y < 0 || y >= PAGE_MATRIX_HEIGHT)
+		return;
 
-    if (x1 > x2)
-        EXCHANGE_INTS(x1, x2);
+	if (x1 > x2)
+		EXCHANGE_INTS(x1, x2);
 
-    if (x1 >= PAGE_MATRIX_WIDTH)
-        return;
+	if (x1 >= PAGE_MATRIX_WIDTH)
+		return;
 
-    if (x1 < 0)
-        x1 = 0;
+	if (x1 < 0)
+		x1 = 0;
 
-    if (x2 >= PAGE_MATRIX_WIDTH)
-        x2 = PAGE_MATRIX_WIDTH - 1;
+	if (x2 >= PAGE_MATRIX_WIDTH)
+		x2 = PAGE_MATRIX_WIDTH - 1;
 
-    pBegin = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x1;
-    pEnd = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x2;
+	pBegin = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x1;
+	pEnd = PageMatrix + (y << PAGE_MATRIX_WIDTH_SHIFT) + x2;
 
-    for (p = pBegin; p <= pEnd; p++)
-        *p &= ~PMC_PICTURE;
+	for (p = pBegin; p <= pEnd; p++)
+		*p &= ~PMC_PICTURE;
 }
 
 void RemoveMatrixPictureVertInterval(int x, int y1, int y2) {
-    uchar *p, *pBegin, *pEnd;
+	uchar *p, *pBegin, *pEnd;
 
-    if (x < 0 || x >= PAGE_MATRIX_WIDTH)
-        return;
+	if (x < 0 || x >= PAGE_MATRIX_WIDTH)
+		return;
 
-    if (y1 > y2)
-        EXCHANGE_INTS(y1, y2);
+	if (y1 > y2)
+		EXCHANGE_INTS(y1, y2);
 
-    if (y1 >= PAGE_MATRIX_HEIGHT)
-        return;
+	if (y1 >= PAGE_MATRIX_HEIGHT)
+		return;
 
-    if (y1 < 0)
-        y1 = 0;
+	if (y1 < 0)
+		y1 = 0;
 
-    if (y2 >= PAGE_MATRIX_HEIGHT)
-        y2 = PAGE_MATRIX_HEIGHT - 1;
+	if (y2 >= PAGE_MATRIX_HEIGHT)
+		y2 = PAGE_MATRIX_HEIGHT - 1;
 
-    pBegin = PageMatrix + (y1 << PAGE_MATRIX_WIDTH_SHIFT) + x;
-    pEnd = PageMatrix + (y2 << PAGE_MATRIX_WIDTH_SHIFT) + x;
+	pBegin = PageMatrix + (y1 << PAGE_MATRIX_WIDTH_SHIFT) + x;
+	pEnd = PageMatrix + (y2 << PAGE_MATRIX_WIDTH_SHIFT) + x;
 
-    for (p = pBegin; p <= pEnd; p += PAGE_MATRIX_WIDTH)
-        *p &= ~PMC_PICTURE;
+	for (p = pBegin; p <= pEnd; p += PAGE_MATRIX_WIDTH)
+		*p &= ~PMC_PICTURE;
 }
 
-void DrawMatrixPictureRectangle(CIF::Rect r) {
-    int y;
+void DrawMatrixPictureRectangle(RECTANGLE r) {
+	int y;
 
-    if (r.top() > r.bottom())
-        EXCHANGE_INTS(r.rtop(), r.rbottom());
+	if (r.yTop > r.yBottom)
+		EXCHANGE_INTS(r.yTop, r.yBottom);
 
-    if (r.left() > r.right())
-        EXCHANGE_INTS(r.rleft(), r.rright());
+	if (r.xLeft > r.xRight)
+		EXCHANGE_INTS(r.xLeft, r.xRight);
 
-    for (y = r.top(); y <= r.bottom(); y++)
-        fDrawMatrixPictureHorzInterval(y, r.left(), r.right());
+	for (y = r.yTop; y <= r.yBottom; y++)
+		fDrawMatrixPictureHorzInterval(y, r.xLeft, r.xRight);
 }
 
-void DrawRealHorzPictureLine(CIF::Point Point1, CIF::Point Point2, int nWidth) {
-    int y1, y2;
-    int x, y;
-    int nHalfWidth = MAX(1, nWidth / 2);
-    int dx, dy;
-    CIF::Point LocalBegin, LocalEnd;
+void DrawRealHorzPictureLine(LPOINT Point1, LPOINT Point2, int nWidth) {
+	int y1, y2;
+	int x, y;
+	int nHalfWidth = MAX(1, nWidth / 2);
+	int dx, dy;
+	LPOINT LocalBegin, LocalEnd;
 
-    // грубо говоря -- если ординаты совпадают с точностью до 16 точек,
-    // то "заметаем" линию горизонтальным интервалом сжатой(/16) толщины
-    // (но не менее единичной, есно)
-    if (XY_COMPRESS(Point1.y()) == XY_COMPRESS(Point2.y())) {
-        y1 = XY_COMPRESS(MIN(Point1.y(), Point2.y()) - nHalfWidth) - nExtension;
-        y2 = XY_COMPRESS(MAX(Point1.y(), Point2.y()) + nHalfWidth) + nExtension;
+	// грубо говоря -- если ординаты совпадают с точностью до 16 точек,
+	// то "заметаем" линию горизонтальным интервалом сжатой(/16) толщины
+	// (но не менее единичной, есно)
+	if (XY_COMPRESS(Point1.y) == XY_COMPRESS(Point2.y)) {
+		y1 = XY_COMPRESS(MIN(Point1.y, Point2.y) - nHalfWidth) - nExtension;
+		y2 = XY_COMPRESS(MAX(Point1.y, Point2.y) + nHalfWidth) + nExtension;
 
-        for (y = y1; y <= y2; y++) {
-            fDrawMatrixPictureHorzInterval(y, XY_COMPRESS(Point1.x()), XY_COMPRESS(Point2.x()));
-        }
-        return;
-    }
+		for (y = y1; y <= y2; y++) {
+			fDrawMatrixPictureHorzInterval(y, XY_COMPRESS(Point1.x),
+					XY_COMPRESS(Point2.x));
+		}
+		return;
+	}
 
-    if (Point1.x() > Point2.x()) {
-        EXCHANGE_INTS(Point1.rx(), Point2.rx());
-        EXCHANGE_INTS(Point1.ry(), Point2.ry());
-    }
+	// else "if (XY_COMPRESS (Point1.y) != XY_COMPRESS (Point2.y))" :
+	if (Point1.x > Point2.x) {
+		EXCHANGE_INTS(Point1.x, Point2.x);
+		EXCHANGE_INTS(Point1.y, Point2.y);
+	}
 
-    dx = Point2.x() - Point1.x();
-    dy = Point2.y() - Point1.y();
+	dx = Point2.x - Point1.x;
+	dy = Point2.y - Point1.y;
 
-    LocalEnd.rx() = XY_UNCOMPRESS(XY_COMPRESS(Point1.x()));
+	LocalEnd.x = XY_UNCOMPRESS(XY_COMPRESS(Point1.x));
 #ifndef NO_GEORGE
-    //LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
-    LocalEnd.ry() = Point1.y(); //George
-    // грубо говоря, закрашивание происходит
-    // по каждому вертикальному интервалу
+	//LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
+	LocalEnd.y = Point1.y; //George
+	// грубо говоря, закрашивание происходит
+	// по каждому вертикальному интервалу
 #else
-    LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
+	LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
 #endif
-    for (x = LocalEnd.x(); x <= Point2.x(); x += PAGE_COMP_FACTOR) {
-        LocalBegin = LocalEnd;
+	for (x = LocalEnd.x; x <= Point2.x; x += PAGE_COMP_FACTOR) {
+		LocalBegin = LocalEnd;
 
-        LocalEnd.rx() += PAGE_COMP_FACTOR;
+		LocalEnd.x += PAGE_COMP_FACTOR;
 #ifndef NO_GEORGE
-        //LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
-        LocalEnd.ry() = Point1.y() + (LocalEnd.x() - LocalBegin.x()) * dy / dx; //George
-        // в общем, при Point1.x=0 это было бы честным закрашиванием парралелограмма.
-        // теперь это оно же, но поднятое на высоту, на которую линия бы поднялась
-        // в точке Point1.x, выходя из нуля (то есть, в общем, то самое Point1.x * dy/dx)
+		//LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
+		LocalEnd.y = Point1.y + (LocalEnd.x - LocalBegin.x) * dy / dx; //George
+		// в общем, при Point1.x=0 это было бы честным закрашиванием парралелограмма.
+		// теперь это оно же, но поднятое на высоту, на которую линия бы поднялась
+		// в точке Point1.x, выходя из нуля (то есть, в общем, то самое Point1.x * dy/dx)
 #else
-        LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
+		LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
 #endif
-        y1 = XY_COMPRESS(MIN(LocalBegin.y(), LocalEnd.y()) - nHalfWidth) - nExtension;
-        y2 = XY_COMPRESS(MAX(LocalBegin.y(), LocalEnd.y()) + nHalfWidth) + nExtension;
+		y1 = XY_COMPRESS(MIN(LocalBegin.y, LocalEnd.y) - nHalfWidth)
+				- nExtension;
+		y2 = XY_COMPRESS(MAX(LocalBegin.y, LocalEnd.y) + nHalfWidth)
+				+ nExtension;
 
-        fDrawMatrixPictureVertInterval(XY_COMPRESS(x), y1, y2);
-    }
+		fDrawMatrixPictureVertInterval(XY_COMPRESS(x), y1, y2);
+	}
 }
 
-void DrawRealVertPictureLine(CIF::Point Point1, CIF::Point Point2, int nWidth) {
-    int x1, x2;
-    int x;
-    int nHalfWidth = MAX(1, nWidth / 2);
+void DrawRealVertPictureLine(LPOINT Point1, LPOINT Point2, int nWidth) {
+	int x1, x2;
+	int x;
+	int nHalfWidth = MAX(1, nWidth / 2);
 
-    if (XY_COMPRESS(Point1.x()) == XY_COMPRESS(Point2.x())) {
-        x1 = XY_COMPRESS(MIN(Point1.x(), Point2.x()) - nHalfWidth);
-        x2 = XY_COMPRESS(MAX(Point1.x(), Point2.x()) + nHalfWidth);
+	if (XY_COMPRESS(Point1.x) == XY_COMPRESS(Point2.x)) {
+		x1 = XY_COMPRESS(MIN(Point1.x, Point2.x) - nHalfWidth);
+		x2 = XY_COMPRESS(MAX(Point1.x, Point2.x) + nHalfWidth);
 
-        for (x = x1; x <= x2; x++) {
-            fDrawMatrixPictureVertInterval(x, XY_COMPRESS(Point1.y()), XY_COMPRESS(Point2.y()));
-        }
-    }
+		for (x = x1; x <= x2; x++) {
+			fDrawMatrixPictureVertInterval(x, XY_COMPRESS(Point1.y),
+					XY_COMPRESS(Point2.y));
+		}
+	}
 }
 
-void DrawRealPictureLine(CIF::Point Point1, CIF::Point Point2, int nWidth) {
-    int nHalfWidth = MAX(1, nWidth / 2);
-    CIF::Rect rBegin, rEnd;
+void DrawRealPictureLine(LPOINT Point1, LPOINT Point2, int nWidth) {
+	int nHalfWidth = MAX(1, nWidth / 2);
+	RECTANGLE rBegin, rEnd;
 
-    rBegin.rleft() = XY_COMPRESS(Point1.x() - nHalfWidth);
-    rBegin.rtop() = XY_COMPRESS(Point1.y() - nHalfWidth);
-    rBegin.rright() = XY_COMPRESS(Point1.x() + nHalfWidth);
-    rBegin.rbottom() = XY_COMPRESS(Point1.y() + nHalfWidth);
+	rBegin.xLeft = XY_COMPRESS(Point1.x - nHalfWidth);
+	rBegin.yTop = XY_COMPRESS(Point1.y - nHalfWidth);
+	rBegin.xRight = XY_COMPRESS(Point1.x + nHalfWidth);
+	rBegin.yBottom = XY_COMPRESS(Point1.y + nHalfWidth);
 
-    rEnd.rleft() = XY_COMPRESS(Point2.x() - nHalfWidth);
-    rEnd.rtop() = XY_COMPRESS(Point2.y() - nHalfWidth);
-    rEnd.rright() = XY_COMPRESS(Point2.x() + nHalfWidth);
-    rEnd.rbottom() = XY_COMPRESS(Point2.y() + nHalfWidth);
+	rEnd.xLeft = XY_COMPRESS(Point2.x - nHalfWidth);
+	rEnd.yTop = XY_COMPRESS(Point2.y - nHalfWidth);
+	rEnd.xRight = XY_COMPRESS(Point2.x + nHalfWidth);
+	rEnd.yBottom = XY_COMPRESS(Point2.y + nHalfWidth);
 
-    // нарисовать квадратные (nWidth/2) - окрестности точек начала и конца линии (??)
-    DrawMatrixPictureRectangle(rBegin);
-    DrawMatrixPictureRectangle(rEnd);
+	// нарисовать квадратные (nWidth/2) - окрестности точек начала и конца линии (??)
+	DrawMatrixPictureRectangle(rBegin);
+	DrawMatrixPictureRectangle(rEnd);
 
-    if (Point1 == Point2)
-        return;
-    else if (abs(Point1.x() - Point2.x()) >= abs(Point1.y() - Point2.y()))
-        DrawRealHorzPictureLine(Point1, Point2, nWidth);
-    else
-        DrawRealVertPictureLine(Point1, Point2, nWidth);
+	if (Point1.x == Point2.x && Point1.y == Point2.y)
+		return;
+	else if (abs(Point1.x - Point2.x) >= abs(Point1.y - Point2.y))
+		DrawRealHorzPictureLine(Point1, Point2, nWidth);
+	else
+		DrawRealVertPictureLine(Point1, Point2, nWidth);
 }
 
-void PutRealPictureLine(const CIF::Point& Point1, const CIF::Point& Point2, int nWidth) {
-    nExtension = 0; // утолщение линии при рисовании в матрице страницы;
-    // сейчас (23.10.01) -- 0 либо 1;
+void PutRealPictureLine(LPOINT Point1, LPOINT Point2, int nWidth) {
+	nExtension = 0; // утолщение линии при рисовании в матрице страницы;
+	// сейчас (23.10.01) -- 0 либо 1;
 
-    // настроить (глобальные) указатели на функции
-    fDrawMatrixPictureHorzInterval = PutMatrixPictureHorzInterval;
-    fDrawMatrixPictureVertInterval = PutMatrixPictureVertInterval;
+	// настроить (глобальные) указатели на функции
+	fDrawMatrixPictureHorzInterval = PutMatrixPictureHorzInterval;
+	fDrawMatrixPictureVertInterval = PutMatrixPictureVertInterval;
 
-    DrawRealPictureLine(Point1, Point2, nWidth);
+	DrawRealPictureLine(Point1, Point2, nWidth);
 }
 
-void RemoveRealPictureLine(const CIF::Point& Point1, const CIF::Point& Point2, int nWidth) {
-    nExtension = 1;
-    fDrawMatrixPictureHorzInterval = RemoveMatrixPictureHorzInterval;
-    fDrawMatrixPictureVertInterval = RemoveMatrixPictureVertInterval;
-    DrawRealPictureLine(Point1, Point2, nWidth);
+void RemoveRealPictureLine(LPOINT Point1, LPOINT Point2, int nWidth) {
+	nExtension = 1;
+	fDrawMatrixPictureHorzInterval = RemoveMatrixPictureHorzInterval;
+	fDrawMatrixPictureVertInterval = RemoveMatrixPictureVertInterval;
+	DrawRealPictureLine(Point1, Point2, nWidth);
 }
 
 void PageMatrixPutSeparators(Bool bConvertToRealCoords) {
-    CIF::Point Begin, End;
-    int i;
+	LPOINT Begin, End;
+	int i;
 
-    for (i = 0; i < nSeps; i++) {
-        switch (pSeps[i].Type) {
-        case SEP_VERT:
-        case SEP_HORZ:
-            Begin.rx() = pSeps[i].xBegin;
-            Begin.ry() = pSeps[i].yBegin;
-            End.rx() = pSeps[i].xEnd;
-            End.ry() = pSeps[i].yEnd;
+	for (i = 0; i < nSeps; i++) {
+		switch (pSeps[i].Type) {
+		case SEP_VERT:
+		case SEP_HORZ:
+			Begin.x = pSeps[i].xBegin;
+			Begin.y = pSeps[i].yBegin;
+			End.x = pSeps[i].xEnd;
+			End.y = pSeps[i].yEnd;
 
-            // "откатить" (назад) учет наклона
-            if (bConvertToRealCoords) {
-                REAL_XY(Begin.rx(), Begin.ry());
-                REAL_XY(End.rx(), End.ry());
-            }
+			// "откатить" (назад) учет наклона
+			if (bConvertToRealCoords) {
+				REAL_XY(Begin.x, Begin.y);
+				REAL_XY(End.x, End.y);
+			}
 
-            PutRealPictureLine(Begin, End, pSeps[i].nWidth);
-            break;
+			PutRealPictureLine(Begin, End, pSeps[i].nWidth);
+			break;
 
-        default:
-            break;
-        }
-    }
+		default:
+			break;
+		}
+	}
 }
 
 void PageMatrixExcludeSeparators(Bool bConvertToRealCoords) {
-    CIF::Point Begin, End;
-    int i;
+	LPOINT Begin, End;
+	int i;
 
-    for (i = 0; i < nSeps; i++) {
-        switch (pSeps[i].Type) {
-        case SEP_VERT:
-        case SEP_HORZ:
-            Begin.rx() = pSeps[i].xBegin;
-            Begin.ry() = pSeps[i].yBegin;
-            End.rx() = pSeps[i].xEnd;
-            End.ry() = pSeps[i].yEnd;
+	for (i = 0; i < nSeps; i++) {
+		switch (pSeps[i].Type) {
+		case SEP_VERT:
+		case SEP_HORZ:
+			Begin.x = pSeps[i].xBegin;
+			Begin.y = pSeps[i].yBegin;
+			End.x = pSeps[i].xEnd;
+			End.y = pSeps[i].yEnd;
 
-            if (bConvertToRealCoords) {
-                REAL_XY(Begin.rx(), Begin.ry());
-                REAL_XY(End.rx(), End.ry());
-            }
+			if (bConvertToRealCoords) {
+				REAL_XY(Begin.x, Begin.y);
+				REAL_XY(End.x, End.y);
+			}
 
-            RemoveRealPictureLine(Begin, End, pSeps[i].nWidth);
-            break;
+			RemoveRealPictureLine(Begin, End, pSeps[i].nWidth);
+			break;
 
-        default:
-            break;
-        }
-    }
+		default:
+			break;
+		}
+	}
 }
 
 uchar PageMatrixFlagsByIdealXY(int xIdeal, int yIdeal) {
-    int xReal, yReal;
+	int xReal, yReal;
 
-    if (!bPageMatrixInitialized)
-        return (FALSE);
+	if (!bPageMatrixInitialized)
+		return (FALSE);
 
-    xReal = xIdeal;
-    yReal = yIdeal;
+	xReal = xIdeal;
+	yReal = yIdeal;
 
-    REAL_XY(xReal, yReal);
+	REAL_XY(xReal, yReal);
 
-    xReal = MIN(MAX(xReal, 0), PAGE_MATRIX_REAL_WIDTH - 1);
-    yReal = MIN(MAX(yReal, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
+	xReal = MIN(MAX(xReal, 0), PAGE_MATRIX_REAL_WIDTH - 1);
+	yReal = MIN(MAX(yReal, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
 
-    return (PageMatrix[XY_COMPRESS(xReal) + (XY_COMPRESS(yReal) << PAGE_MATRIX_WIDTH_SHIFT)]);
+	return (PageMatrix[XY_COMPRESS(xReal) + (XY_COMPRESS(yReal)
+			<< PAGE_MATRIX_WIDTH_SHIFT)]);
 }
 
 void PageMatrixFreeData(void) {
-    bPageMatrixInitialized = FALSE;
+	bPageMatrixInitialized = FALSE;
 #ifdef  HUGE_IMAGE
-    free(PageMatrix);
-    PageMatrix = NULL;
+	free(PageMatrix);
+	PageMatrix = NULL;
 #endif
 }

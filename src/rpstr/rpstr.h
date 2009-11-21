@@ -87,6 +87,7 @@ RPSTR_FUNC void RPSTR_Done(void);
 RPSTR_FUNC uint32_t RPSTR_GetReturnCode(void);
 RPSTR_FUNC char* RPSTR_GetReturnString(uint32_t dwError);
 RPSTR_FUNC Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData);
+RPSTR_FUNC Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData);
 
 enum RPSTRFunctionsExt {
 	RPSTR_FNNEWPAGE,

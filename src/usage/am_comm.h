@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 #include "point.h"
-#include "rect.h"
 
 
 typedef int (*FN_AM_Console) (const char * lpFormat,...);
@@ -84,7 +83,7 @@ void AM_RegiHelp (Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 uint32_t AM_WaitUserInput (Handle owner, Handle wnd);
 void   AM_DrawLine (Handle wnd, CIF::Point16 *start, CIF::Point16 *end, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
-void   AM_DrawRect (Handle wnd, CIF::Rect16 *pRc, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
+void   AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
 void   AM_DeleteLines (Handle wnd, uint32_t key);
 void   AM_DeleteRects (Handle wnd, uint32_t key);
 Bool16 AM_Skip (Handle owner);

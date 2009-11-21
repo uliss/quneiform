@@ -58,6 +58,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "c_types.h"
 #include "func.h"
 #include "ccom/ccom.h"
 #include "exc.h"
@@ -79,7 +80,7 @@ uint32_t progress_set_percent(uint32_t volume) {
 		rc = !fnProgressStep_rblock(volume);
 	return rc;
 }
-
+;
 void progress_finish(void) {
 	if (fnProgressFinish_rblock)
 		fnProgressFinish_rblock();
@@ -138,8 +139,6 @@ void online_comp(c_comp *w) {
 CCOM_comp *get_CCOM_comp(PROOT r) {
 	return (CCOM_comp *) r->pComp;
 }
-
-extern Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 
 Bool save_MN(MN *mn) {
 	extern Handle exthCCOM;

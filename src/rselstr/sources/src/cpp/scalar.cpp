@@ -56,7 +56,7 @@
 
 #include "c_types.h"
 #include "struct.h"
-#include "hrstr/func.h"
+#include "func.h"
 
 static uchar sqrt_tab[] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4,
 		4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6,

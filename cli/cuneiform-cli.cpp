@@ -53,24 +53,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
- *   serge.poltavski@gmail.com                                             *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
- ***************************************************************************/
-
 /* This is a simple command line program for the Puma library. */
 
 #include "cimage/ctiimage.h" // Must be first, or else you get compile errors.
@@ -81,15 +63,12 @@
 #include <stdlib.h>
 #include <cstring>
 #include <getopt.h>
-#include <Magick++.h>
-#include <boost/scoped_array.hpp>
 
 #include "cttypes.h"
 #include "puma/puma.h"
 #include "puma/pumaimpl.h"
 #include "lang_def.h"
 #include "config.h"
-#include "common/cifconfig.h"
 
 using namespace std;
 
@@ -134,7 +113,7 @@ static const langlist langs[] = {
     { LANG_LITHUANIAN, "lit", "Lithuanian" },
     { LANG_ESTONIAN, "est", "Estonian" },
     { LANG_TURKISH, "tur", "Turkish" },
-    { (language_t) -1, NULL, NULL } };
+    { (language_t) - 1, NULL, NULL } };
 
 struct formatlist
 {
@@ -175,30 +154,24 @@ static string usage() {
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os << ""
-        "  -h   --help                   Print this help message\n"
-        "  -v   --verbose                Print verbose debugging messages\n"
-        "  -V   --version                Print program version and exit\n"
-        "       --debug-dump             Dumps various temporary recognition data\n"
-        "                                   to current directory\n"
-        "       --autorotate             Automatically rotate input image\n"
-        "  -f   --format   FORMAT        Sets output format\n"
-        "                                   type --format help to get full list\n"
-        "  -l   --language LANGUAGE      Sets recognition language\n"
-        "                                   type --language help to gel full list\n"
-        "  -o   --output   FILENAME      Sets output filename\n"
-        "       --spell                  Use spell correction\n"
-        "       --onecolumn              Use one column layout\n"
-        "       --dotmatrix                               \n"
-        "       --fax                                     \n"
+        "  -h   --help               Print this help message\n"
+        "  -v   --verbose            Print verbose debugging messages\n"
+        "  -V   --version            Print program version and exit\n"
+        "       --autorotate         Automatically rotate input image\n"
+        "  -f   --format   FORMAT    Sets output format\n"
+        "                              type --format help to get full list\n"
+        "  -l   --language LANGUAGE  Sets recognition language\n"
+        "                              type --language help to gel full list\n"
+        "  -o   --output   FILENAME  Sets output filename\n"
+        "       --spell              Use spell correction\n"
+        "       --onecolumn                              \n"
+        "       --dotmatix                               \n"
+        "       --fax                                    \n"
         "       --tables   MODE\n"
-        "       --pictures               Search pictures\n"
-        "       --nopictures             Do not search pictures\n"
-        "       --preserve-line-breaks                  \n"
-        "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
-        "                                    Default is '~'.\n"
-        "       --monospace-name         Use specified monospace font in RTF output\n"
-        "       --serif-name             Use specified serif font in RTF output\n"
-        "       --sansserif-name         Use seecified sans-serif font in RTF output\n";
+        "       --pictures MODE\n"
+        "       --monospace-name     Use specified monospace font in RTF output\n"
+        "       --serif-name         Use specified serif font in RTF output\n"
+        "       --sansserif-name     Use seecified sans-serif font in RTF output\n";
     return os.str();
 }
 
@@ -215,7 +188,7 @@ static language_t recognize_language(const std::string& language) {
         if (language == l->name)
             return l->code;
     }
-    return (language_t) -1;
+    return (language_t) - 1;
 }
 
 static string default_output_name(puma_format_t format) {
@@ -250,6 +223,11 @@ static string default_output_name(puma_format_t format) {
  * Read file and return it as a BMP DIB entity. On failure write an error
  * and return NULL. Caller delete[]'s the returned result.
  */
+static char* read_file(const char *fname);
+
+#ifdef USE_MAGICK
+#include <Magick++.h>
+
 static char* read_file(const char *fname) {
     using namespace Magick;
     Blob blob;
@@ -257,20 +235,10 @@ static char* read_file(const char *fname) {
     char *dib;
     try {
         Image image(fname);
-        switch (image.type()) {
-        case BilevelType:
-        case TrueColorType:
-            break;
-        default:
-            image.type(TrueColorType);
-        }
-        if (CIF::Config::instance().debugHigh())
-            image.verbose(true);
         // Write to BLOB in BMP format
-        image.magick("DIB");
-        image.write(&blob);
+        image.write(&blob, "DIB");
     }
-    catch (Exception &error_) {
+    catch(Exception &error_) {
         cerr << error_.what() << "\n";
         return NULL;
     }
@@ -280,37 +248,72 @@ static char* read_file(const char *fname) {
     return dib;
 }
 
+#else // No ImageMagick++
+static char* read_file(const char *fname) {
+    char bmpheader[2];
+    char *dib;
+    FILE *f;
+    int32_t dibsize, offset;
+
+    f = fopen(fname, "rb");
+    if (!f) {
+        cerr << "Could not open file " << fname << ".\n";
+        return NULL;
+    }
+    fread(bmpheader, 1, 2, f);
+    if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
+        cerr << fname << " is not a BMP file.\n";
+        return NULL;
+    }
+    fread(&dibsize, sizeof(int32_t), 1, f);
+    fread(bmpheader, 1, 2, f);
+    fread(bmpheader, 1, 2, f);
+    fread(&offset, sizeof(int32_t), 1, f);
+
+    dibsize -= ftell(f);
+    dib = new char[dibsize];
+    fread(dib, dibsize, 1, f);
+    fclose(f);
+
+    if (*((int32_t*) dib) != 40) {
+        cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
+        delete[] dib;
+        return NULL;
+    }
+
+    if (*((int32_t*) (dib + 16)) != 0) {
+        cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.";
+        delete[] dib;
+        return NULL;
+    }
+    return dib;
+}
+#endif // USE_MAGICK
 int main(int argc, char **argv) {
     program_name = argv[0];
-    std::string dictionaries;
-    char unrecognized_char = 0;
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
-            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE, do_dump = FALSE;
+            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE;
 
-    const char * const short_options = ":ho:vVl:f:d:u:";
+    const char * const short_options = ":ho:vVl:f:";
     const struct option long_options[] = {
     //
         { "autorotate", no_argument, &do_autorotate, 1 },//
-        { "debug-dump", no_argument, &do_dump, 1 },//
-        { "dictionary", required_argument, NULL, 'd' }, //
-        { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
+        { "dotmarix", no_argument, &do_dotmatrix, 1 },//
         { "fax", no_argument, &do_fax, 1 },//
         { "format", required_argument, NULL, 'f' },//
         { "help", no_argument, NULL, 'h' },//
         { "language", required_argument, NULL, 'l' },//
         { "monospace-name", required_argument, NULL, 'x' },
-        { "nopictures", no_argument, &do_pictures, 0 },//
         { "output", required_argument, NULL, 'o' },//
         { "pictures", no_argument, &do_pictures, 1 },//
-        { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
         { "sansserif-name", required_argument, NULL, 'y' },
         { "serif-name", required_argument, NULL, 'z' },
         { "onecolumn", no_argument, &do_singlecolumn, 1 },//
         { "spell", no_argument, &do_speller, 1 },//
         { "tables", required_argument, &do_tables, 1 },//
-        { "unrecognized", required_argument, NULL, 'u' },//
         { "verbose", no_argument, &do_verbose, 1 },//
         { "version", no_argument, NULL, 'V' },//
         { NULL, 0, NULL, 0 } };
@@ -321,9 +324,6 @@ int main(int argc, char **argv) {
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (code) {
-        case 'd':
-            dictionaries = optarg;
-            break;
         case 'f': {
             if (strcmp(optarg, "help") == 0) {
                 cout << supported_formats();
@@ -360,9 +360,6 @@ int main(int argc, char **argv) {
             break;
         case 'o':
             outfilename = optarg;
-            break;
-        case 'u':
-            unrecognized_char = optarg[0];
             break;
         case 'v':
             do_verbose = 1;
@@ -411,68 +408,39 @@ int main(int argc, char **argv) {
     if (outfilename.empty())
         outfilename = default_output_name(outputformat);
 
+    char * dib = read_file(infilename.c_str());
+    if (!dib) // Error msg is already printed so just get out.
+        return 1;
+
     using namespace CIF;
-    try {
-        if (do_verbose == 1) {
-            Config::instance().setDebug(true);
-            Config::instance().setDebugLevel(100);
-        }
-        else {
-            Config::instance().setDebug(false);
-        }
 
-        if (do_dump) {
-            Config::instance().setDebug(true);
-            Config::instance().setDebugDump(true);
-        }
+    Puma::instance().setOptionLanguage(langcode);
+    Puma::instance().setOptionOneColumn(do_singlecolumn);
+    Puma::instance().setOptionFax100(do_fax);
+    Puma::instance().setOptionDotMatrix(do_dotmatrix);
+    Puma::instance().setOptionUseSpeller(do_speller);
+    Puma::instance().setOptionAutoRotate(do_autorotate);
 
-        boost::scoped_array<char> dib(read_file(infilename.c_str()));
-        if (!dib)
-            return EXIT_FAILURE;
+    if (!serif.empty())
+        Puma::instance().setOptionSerifName(serif.c_str());
+    if (!sansserif.empty())
+        Puma::instance().setOptionSansSerifName(sansserif.c_str());
+    if (!monospace.empty())
+        Puma::instance().setOptionMonospaceName(monospace.c_str());
 
-        Puma::instance().addUserDictionary(dictionaries);
-        Puma::instance().setOptionLanguage(langcode);
+    //	Puma::instance().setOptionUnrecognizedChar('?');
+    //	Puma::instance().setOptionBold(true);
+    //	Puma::instance().setOptionItalic(true);
+    //  Puma::instance().setOptionSize(true);
+    //  Puma::instance().setOptionFormatMode(puma_format_mode_t t);
+    //	Puma::instance().setOptionPictures(puma_picture_t mode);
+    //  Puma::instance().setOptionTables(puma_table_t mode);
 
-        LayoutOptions lopt = Puma::instance().layoutOptions();
-        lopt.setOneColumn(do_singlecolumn);
-        lopt.setDotMatrix(do_dotmatrix);
-        lopt.setAutoRotate(do_autorotate);
-        if (do_pictures)
-            lopt.setPictures(PUMA_PICTURE_ALL);
-        else
-            lopt.setPictures(PUMA_PICTURE_NONE);
-        //  opt.setTables(puma_table_t mode);
-        //  opt.setTablesNum(int number);
-        Puma::instance().setLayoutOptions(lopt);
+    Puma::instance().open(dib);
+    Puma::instance().recognize();
+    Puma::instance().save(outfilename, outputformat);
+    Puma::instance().close();
 
-        FormatOptions opt = Puma::instance().formatOptions();
-        if (!serif.empty())
-            opt.setSerifName(serif);
-        if (!sansserif.empty())
-            opt.setSansSerifName(sansserif);
-        if (!monospace.empty())
-            opt.setMonospaceName(monospace);
-
-        //  opt.useBold(true);
-        //  opt.useItalic(true);
-        //  opt.useFontSize(true);
-        //  opt.setFormatMode(puma_format_mode_t t);
-        opt.setPreserveLineBreaks(preserve_line_breaks);
-        if (unrecognized_char)
-            opt.setUnrecognizedChar(unrecognized_char);
-
-        Puma::instance().setFormatOptions(opt);
-
-        Puma::instance().setOptionFax100(do_fax);
-        Puma::instance().setOptionUseSpeller(do_speller);
-
-        Puma::instance().open(dib.get());
-        Puma::instance().recognize();
-        Puma::instance().save(outfilename, outputformat);
-        Puma::instance().close();
-    }
-    catch (std::runtime_error& e) {
-        cerr << e.what() << endl;
-        return EXIT_FAILURE;
-    }
+    delete[] dib;
+    return 0;
 }

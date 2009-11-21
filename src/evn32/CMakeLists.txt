@@ -1,3 +1,5 @@
+include_directories( BEFORE  src )
+
 add_library(evn32 ${LIBTYPE}
 compdata.cpp
 compkit.cpp

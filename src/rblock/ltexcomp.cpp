@@ -71,6 +71,7 @@
 # include "c_memory.h"
 #include "lterrors.h"
 # include "layout.h"
+# include "my_mem.h"
 #include "minmax.h"
 
 static uchar *pMatrix = NULL;

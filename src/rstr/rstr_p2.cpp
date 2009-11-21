@@ -64,7 +64,6 @@
 #include <fcntl.h>
 #include <string.h>
 
-#include "compat_defs.h"
 #include "std.h"
 #include "globus.h"
 #include "imgaccs.h"
@@ -128,7 +127,7 @@ Bool32 p2_accept_Cell(cell *c, CSTR_rast_attr *rst, CCOM_comp *cmp,
 	if (!cmp)
 		return FALSE;
 
-	if (cmp->type != c_comp::ch_great) {
+	if (cmp->type != ch_great) {
 		ec.size = sizeof(c_comp) + cmp->size_linerep + 2;
 		if (kit_curr + ec.size >= kit_end) {
 			// ErrorExit(RSTR_ERR_NOPLACE); - // Nick 03.04.2002
@@ -339,7 +338,7 @@ int32_t p2_Cstr2Cell(CSTR_line lin, CSTR_rast first, CSTR_rast last,
 		}
 
 		// проверим - есть ли место !
-		if (cmp && cmp->type != c_comp::ch_great) {
+		if (cmp && cmp->type != ch_great) {
 			// Nick 03.04.2002 если нет памяти
 			if (kit_curr + sizeof(c_comp) + cmp->size_linerep + 2 >= kit_end)
 				break;
@@ -410,11 +409,16 @@ int32_t p2_Cstr2Cell(CSTR_line lin, CSTR_rast first, CSTR_rast last,
 		c1 = c2;
 
 		// Nick add
-		c2->dupstart = CSTR_GetDup(curr);
-		c2->dupend = CSTR_GetDupEnd(curr);
+		c2->dupstart = (int32_t) CSTR_GetDup(curr);
+		c2->dupend = (int32_t) CSTR_GetDupEnd(curr);
 
 		numCell++;
 	}
+
+	//c2=cell_l();
+	//c1->next=c1->nextl=c2;
+	//c2->prev=c2->prevl=c1;
+
 
 	return numCell;
 }
@@ -428,6 +432,8 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c) {
 	attr->r_row = c->r_row;
 	attr->r_col = c->r_col;
 
+	//attr->row=attr->r_row-(int16_t)((int32_t)nIncline*attr->r_col/2048);
+	//attr->col=attr->r_col+(int16_t)((int32_t)nIncline*attr->r_row/2048);
 	attr->row = c->row;
 	attr->col = c->col;
 

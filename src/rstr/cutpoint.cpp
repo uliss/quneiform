@@ -65,7 +65,7 @@
 #include "func.h"
 #include "alik_rec.h"
 #include "status.h"
-#include "rcutp/rcutp.h"
+#include "rcutp.h"
 #include "linear.h"
 
 #include "compat_defs.h"
@@ -2065,4 +2065,5 @@ int16_t SearchObjezd(int16_t x, // column number where cutting is going.
 	}
 	return 0;
 }
+;
 

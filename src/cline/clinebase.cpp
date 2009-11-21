@@ -127,7 +127,7 @@ Bool APIENTRY DllMain(HINSTANCE, uint32_t ul_reason_for_call, void*) {
 //////////////////////////////////////////////////////////////////////////////////
 //
 CLINE_FUNC Bool CLINE_Init(int, Handle) {
-//	LDPUMA_Init(0, NULL);
+	LDPUMA_Init(0, NULL);
 
 	pLCont = NULL;
 	pMainCont = NULL;
@@ -167,12 +167,29 @@ CLINE_FUNC Bool CLINE_Init(int, Handle) {
 	hcode = (CLINE_handle) time;
 	CLINE_Debug = 0;
 	CLINE_Debug_2 = 0;
+
+	//    LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
+
+	LDPUMA_Registry(&Root, "Контейнер линий", NULL);
+	LDPUMA_RegistryHelp(
+			Root,
+			"<Ответственный тов. Степаненков> \
+                        \n Вершина отладки контейнера линий.",
+			FALSE);
+	LDPUMA_RegVariable(Root, "CLINE_DEBUG", &CLINE_Debug, "int");
+	LDPUMA_RegVariable(Root, "CLINE_DEBUG_WEAK", &CLINE_Debug_2, "int");
+
+	LDPUMA_Registry(&MemStat, "Отпись статистики по памяти", Root);
+	LDPUMA_RegistryHelp(MemStat,
+			"Разрешить отпись статистики по памяти в файл clstat.res", FALSE);
+
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 CLINE_FUNC Bool CLINE_Done() {
 	DeleteData();
+	LDPUMA_Done();
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////

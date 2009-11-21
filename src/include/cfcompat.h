@@ -44,6 +44,8 @@
 #endif
 
 CFCOMPAT_FUNC void* GlobalAlloc(uint uFlags, int dwBytes);
+CFCOMPAT_FUNC void GlobalFree(void *f);
+CFCOMPAT_FUNC void* GlobalReAlloc(void * ptr, size_t size);
 
 CFCOMPAT_FUNC Handle CreateFile(const char * lpFileName,
 		uint32_t dwDesiredAccess, uint32_t dwShareMode,
@@ -51,8 +53,11 @@ CFCOMPAT_FUNC Handle CreateFile(const char * lpFileName,
 		uint32_t dwFlagsAndAttributes, Handle hTemplateFile);
 CFCOMPAT_FUNC Bool CreateDirectory(const char * dir);
 CFCOMPAT_FUNC size_t GetTempPath(size_t BufferLength, char * buffer);
+CFCOMPAT_FUNC int GetTempFileName(const char * lpPathName,
+		const char * lpPrefixString, uint uUnique, char * lpTempFileName);
 CFCOMPAT_FUNC uint32_t GetModuleFileName(HMODULE hModule, char * lpFilename,
 		size_t size);
+CFCOMPAT_FUNC int GetLastError();
 
 CFCOMPAT_FUNC int _findclose(long handle);
 CFCOMPAT_FUNC long _findfirst(const char *filespec,
@@ -64,7 +69,9 @@ CFCOMPAT_FUNC Bool GetComputerName(char* buffer, size_t * size);
 
 CFCOMPAT_FUNC Bool WritePrivateProfileString(const char * AppName,
 		const char * KeyName, const char * String, const char * FileName);
-
+CFCOMPAT_FUNC uint GetPrivateProfileString(const char * AppName,
+		const char * KeyName, const char * Default, char* ReturnedString,
+		size_t nSize, const char * lpFileName);
 CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * AppName,
 		const char * KeyName, uint defaultValue, const char * FileName);
 
@@ -82,11 +89,29 @@ CFCOMPAT_FUNC void strlwr(char *foo);
 
 CFCOMPAT_FUNC int wsprintf(char* lpOut, const char * lpFmt, ...);
 
+#define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))
+#define GetBValue(rgb) ((uchar) ((rgb) >> 16))
+#define GetRValue(rgb) ((uchar) (rgb))
+
+CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText,
+		const char * lpCaption, uint uType);
+
 CFCOMPAT_FUNC void * GlobalLock(HGLOBAL hMem);
 CFCOMPAT_FUNC Bool GlobalUnlock(HGLOBAL hMem);
 CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
+CFCOMPAT_FUNC Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight,
+		int yBottom);
+CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, CIF::Point16 pt);
+CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1,
+		const RECT *lprcSrc2);
+CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,
+		const RECT *lprcSrc2);
 
 CFCOMPAT_FUNC long filelength(int fd);
+CFCOMPAT_FUNC int LoadCursor(HINSTANCE hInstance, const char * lpCursorName);
+CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect,
+		int nRightRect, int nBottomRect);
+CFCOMPAT_FUNC char* _strupr(char*s);
 
 CFCOMPAT_FUNC int open_data_file(const char *basename, int mode);
 CFCOMPAT_FUNC int data_file_exists(const char *basename);

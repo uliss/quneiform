@@ -62,887 +62,890 @@
 
 using namespace CIF;
 /*---------------------------------------------------------------------------*/
-Bool MakeTopBotGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pBegGt,
-        Un_GYST *pEndGt) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
-    long dy, ddy;
-    int32_t x, yBeg, yEnd;
-    int32_t SkewSquar;
-    int *pBegSig, *pEndSig;
-    SkewSquar = Skew * Skew;
-    pBegGt->nElem = nRc;
-    pEndGt->nElem = nRc;
-    pBegSig = pBegGt->Signal;
-    pEndSig = pEndGt->Signal;
-    /*  Предельные значения проекций  */
-    x = (pRc[0].left() + pRc[0].right() + 1) / 2;
-    dy = ((-Skew * x + 0x200) >> 10);
-    yBeg = pRc[0].top();
-    yEnd = pRc[0].bottom();
-    ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-    yBeg += dy;
-    yBeg -= ddy;
-    ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-    yEnd += dy;
-    yEnd -= ddy;
-    MinBeg = yBeg;
-    MaxBeg = yBeg;
-    MinEnd = yEnd;
-    MaxEnd = yEnd;
-    for (i = 1; i < nRc; i++) {
-        x = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        dy = ((-Skew * x + 0x200) >> 10);
-        yBeg = pRc[i].top();
-        yEnd = pRc[i].bottom();
-        ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-        yBeg += dy;
-        yBeg -= ddy;
-        ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-        yEnd += dy;
-        yEnd -= ddy;
-        if (MinBeg > yBeg)
-            MinBeg = yBeg;
-        if (MaxBeg < yBeg)
-            MaxBeg = yBeg;
-        if (MinEnd > yEnd)
-            MinEnd = yEnd;
-        if (MaxEnd < yEnd)
-            MaxEnd = yEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    pBegGt->Shift = MinBeg;
-    pBegGt->End = MaxBeg - MinBeg;
-    pEndGt->Shift = MinEnd;
-    pEndGt->End = MaxEnd - MinEnd;
-    End = pBegGt->End;
-    if (End < pEndGt->End)
-        End = pEndGt->End;
-    for (i = 0; i <= End; i++) {
-        pBegSig[i] = 0;
-        pEndSig[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        x = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        dy = ((-Skew * x + 0x200) >> 10);
-        yBeg = pRc[i].top();
-        yEnd = pRc[i].bottom();
-        ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-        yBeg += dy;
-        yBeg -= ddy;
-        ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-        yEnd += dy;
-        yEnd -= ddy;
-        pBegSig[yBeg - MinBeg]++;
-        pEndSig[yEnd - MinEnd]++;
-    }
-    return TRUE;
+Bool MakeTopBotGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+		Un_GYST *pBegGt, Un_GYST *pEndGt) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
+	long dy, ddy;
+	int32_t x, yBeg, yEnd;
+	int32_t SkewSquar;
+	int *pBegSig, *pEndSig;
+	SkewSquar = Skew * Skew;
+	pBegGt->nElem = nRc;
+	pEndGt->nElem = nRc;
+	pBegSig = pBegGt->Signal;
+	pEndSig = pEndGt->Signal;
+	/*  Предельные значения проекций  */
+	x = (pRc[0].left + pRc[0].right + 1) / 2;
+	dy = ((-Skew * x + 0x200) >> 10);
+	yBeg = pRc[0].top;
+	yEnd = pRc[0].bottom;
+	ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+	yBeg += dy;
+	yBeg -= ddy;
+	ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+	yEnd += dy;
+	yEnd -= ddy;
+	MinBeg = yBeg;
+	MaxBeg = yBeg;
+	MinEnd = yEnd;
+	MaxEnd = yEnd;
+	for (i = 1; i < nRc; i++) {
+		x = (pRc[i].left + pRc[i].right + 1) / 2;
+		dy = ((-Skew * x + 0x200) >> 10);
+		yBeg = pRc[i].top;
+		yEnd = pRc[i].bottom;
+		ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+		yBeg += dy;
+		yBeg -= ddy;
+		ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+		yEnd += dy;
+		yEnd -= ddy;
+		if (MinBeg > yBeg)
+			MinBeg = yBeg;
+		if (MaxBeg < yBeg)
+			MaxBeg = yBeg;
+		if (MinEnd > yEnd)
+			MinEnd = yEnd;
+		if (MaxEnd < yEnd)
+			MaxEnd = yEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	pBegGt->Shift = MinBeg;
+	pBegGt->End = MaxBeg - MinBeg;
+	pEndGt->Shift = MinEnd;
+	pEndGt->End = MaxEnd - MinEnd;
+	End = pBegGt->End;
+	if (End < pEndGt->End)
+		End = pEndGt->End;
+	for (i = 0; i <= End; i++) {
+		pBegSig[i] = 0;
+		pEndSig[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		x = (pRc[i].left + pRc[i].right + 1) / 2;
+		dy = ((-Skew * x + 0x200) >> 10);
+		yBeg = pRc[i].top;
+		yEnd = pRc[i].bottom;
+		ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+		yBeg += dy;
+		yBeg -= ddy;
+		ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+		yEnd += dy;
+		yEnd -= ddy;
+		pBegSig[yBeg - MinBeg]++;
+		pEndSig[yEnd - MinEnd]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeLefRigGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pBegGt,
-        Un_GYST *pEndGt) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
-    long dx, ddx;
-    int32_t y, xBeg, xEnd;
-    int32_t SkewSquar;
-    int *pBegSig, *pEndSig;
-    SkewSquar = Skew * Skew;
-    pBegGt->nElem = nRc;
-    pEndGt->nElem = nRc;
-    pBegSig = pBegGt->Signal;
-    pEndSig = pEndGt->Signal;
-    /*  Предельные значения проекций  */
-    y = (pRc[0].top() + pRc[0].bottom() + 1) / 2;
-    dx = ((-Skew * y + 0x200) >> 10);
-    xBeg = pRc[0].left();
-    xEnd = pRc[0].right();
-    ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-    xBeg -= dx;
-    xBeg -= ddx;
-    ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-    xEnd -= dx;
-    xEnd -= ddx;
-    MinBeg = xBeg;
-    MaxBeg = xBeg;
-    MinEnd = xEnd;
-    MaxEnd = xEnd;
-    for (i = 1; i < nRc; i++) {
-        y = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        dx = ((-Skew * y + 0x200) >> 10);
-        xBeg = pRc[i].left();
-        xEnd = pRc[i].right();
-        ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-        xBeg -= dx;
-        xBeg -= ddx;
-        ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-        xEnd -= dx;
-        xEnd -= ddx;
-        if (MinBeg > xBeg)
-            MinBeg = xBeg;
-        if (MaxBeg < xBeg)
-            MaxBeg = xBeg;
-        if (MinEnd > xEnd)
-            MinEnd = xEnd;
-        if (MaxEnd < xEnd)
-            MaxEnd = xEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    pBegGt->Shift = MinBeg;
-    pBegGt->End = MaxBeg - MinBeg;
-    pEndGt->Shift = MinEnd;
-    pEndGt->End = MaxEnd - MinEnd;
-    End = pBegGt->End;
-    if (End < pEndGt->End)
-        End = pEndGt->End;
-    for (i = 0; i <= End; i++) {
-        pBegSig[i] = 0;
-        pEndSig[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        y = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        dx = ((-Skew * y + 0x200) >> 10);
-        xBeg = pRc[i].left();
-        xEnd = pRc[i].right();
-        ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-        xBeg -= dx;
-        xBeg -= ddx;
-        ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-        xEnd -= dx;
-        xEnd -= ddx;
-        pBegSig[xBeg - MinBeg]++;
-        pEndSig[xEnd - MinEnd]++;
-    }
-    return TRUE;
+Bool MakeLefRigGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+		Un_GYST *pBegGt, Un_GYST *pEndGt) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
+	long dx, ddx;
+	int32_t y, xBeg, xEnd;
+	int32_t SkewSquar;
+	int *pBegSig, *pEndSig;
+	SkewSquar = Skew * Skew;
+	pBegGt->nElem = nRc;
+	pEndGt->nElem = nRc;
+	pBegSig = pBegGt->Signal;
+	pEndSig = pEndGt->Signal;
+	/*  Предельные значения проекций  */
+	y = (pRc[0].top + pRc[0].bottom + 1) / 2;
+	dx = ((-Skew * y + 0x200) >> 10);
+	xBeg = pRc[0].left;
+	xEnd = pRc[0].right;
+	ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+	xBeg -= dx;
+	xBeg -= ddx;
+	ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+	xEnd -= dx;
+	xEnd -= ddx;
+	MinBeg = xBeg;
+	MaxBeg = xBeg;
+	MinEnd = xEnd;
+	MaxEnd = xEnd;
+	for (i = 1; i < nRc; i++) {
+		y = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		dx = ((-Skew * y + 0x200) >> 10);
+		xBeg = pRc[i].left;
+		xEnd = pRc[i].right;
+		ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+		xBeg -= dx;
+		xBeg -= ddx;
+		ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+		xEnd -= dx;
+		xEnd -= ddx;
+		if (MinBeg > xBeg)
+			MinBeg = xBeg;
+		if (MaxBeg < xBeg)
+			MaxBeg = xBeg;
+		if (MinEnd > xEnd)
+			MinEnd = xEnd;
+		if (MaxEnd < xEnd)
+			MaxEnd = xEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	pBegGt->Shift = MinBeg;
+	pBegGt->End = MaxBeg - MinBeg;
+	pEndGt->Shift = MinEnd;
+	pEndGt->End = MaxEnd - MinEnd;
+	End = pBegGt->End;
+	if (End < pEndGt->End)
+		End = pEndGt->End;
+	for (i = 0; i <= End; i++) {
+		pBegSig[i] = 0;
+		pEndSig[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		y = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		dx = ((-Skew * y + 0x200) >> 10);
+		xBeg = pRc[i].left;
+		xEnd = pRc[i].right;
+		ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+		xBeg -= dx;
+		xBeg -= ddx;
+		ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+		xEnd -= dx;
+		xEnd -= ddx;
+		pBegSig[xBeg - MinBeg]++;
+		pEndSig[xEnd - MinEnd]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeTopMidBotGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pBegGt,
-        Un_GYST *pMidGt, Un_GYST *pEndGt) {
-    int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
-    long dy, ddy;
-    int32_t x, yBeg, yMid, yEnd;
-    int32_t SkewSquar;
-    int *pBegSig, *pMidSig, *pEndSig;
-    SkewSquar = Skew * Skew;
-    pBegGt->nElem = nRc;
-    pMidGt->nElem = nRc;
-    pEndGt->nElem = nRc;
-    pBegSig = pBegGt->Signal;
-    pMidSig = pMidGt->Signal;
-    pEndSig = pEndGt->Signal;
-    /*  Предельные значения проекций  */
-    x = (pRc[0].left() + pRc[0].right() + 1) / 2;
-    dy = ((-Skew * x + 0x200) >> 10);
-    yBeg = pRc[0].top();
-    yMid = (pRc[0].top() + pRc[0].bottom() + 1) / 2;
-    yEnd = pRc[0].bottom();
-    ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-    yBeg += dy;
-    yBeg -= ddy;
-    ddy = ((SkewSquar * yMid + 0x100000) >> 21);
-    yMid += dy;
-    yMid -= ddy;
-    ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-    yEnd += dy;
-    yEnd -= ddy;
-    MinBeg = yBeg;
-    MaxBeg = yBeg;
-    MinMid = yMid;
-    MaxMid = yMid;
-    MinEnd = yEnd;
-    MaxEnd = yEnd;
-    for (i = 1; i < nRc; i++) {
-        x = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        dy = ((-Skew * x + 0x200) >> 10);
-        yBeg = pRc[i].top();
-        yMid = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        yEnd = pRc[i].bottom();
-        ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-        yBeg += dy;
-        yBeg -= ddy;
-        ddy = ((SkewSquar * yMid + 0x100000) >> 21);
-        yMid += dy;
-        yMid -= ddy;
-        ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-        yEnd += dy;
-        yEnd -= ddy;
-        if (MinBeg > yBeg)
-            MinBeg = yBeg;
-        if (MaxBeg < yBeg)
-            MaxBeg = yBeg;
-        if (MinMid > yMid)
-            MinMid = yMid;
-        if (MaxMid < yMid)
-            MaxMid = yMid;
-        if (MinEnd > yEnd)
-            MinEnd = yEnd;
-        if (MaxEnd < yEnd)
-            MaxEnd = yEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxMid - MinMid >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    pBegGt->Shift = MinBeg;
-    pBegGt->End = MaxBeg - MinBeg;
-    pMidGt->Shift = MinMid;
-    pMidGt->End = MaxMid - MinMid;
-    pEndGt->Shift = MinEnd;
-    pEndGt->End = MaxEnd - MinEnd;
-    End = pBegGt->End;
-    if (End < pMidGt->End)
-        End = pMidGt->End;
-    if (End < pEndGt->End)
-        End = pEndGt->End;
-    for (i = 0; i <= End; i++) {
-        pBegSig[i] = 0;
-        pMidSig[i] = 0;
-        pEndSig[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        x = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        dy = ((-Skew * x + 0x200) >> 10);
-        yBeg = pRc[i].top();
-        yMid = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        yEnd = pRc[i].bottom();
-        ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
-        yBeg += dy;
-        yBeg -= ddy;
-        ddy = ((SkewSquar * yMid + 0x100000) >> 21);
-        yMid += dy;
-        yMid -= ddy;
-        ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
-        yEnd += dy;
-        yEnd -= ddy;
-        pBegSig[yBeg - MinBeg]++;
-        pMidSig[yMid - MinMid]++;
-        pEndSig[yEnd - MinEnd]++;
-    }
-    return TRUE;
+Bool MakeTopMidBotGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+		Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt) {
+	int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
+	long dy, ddy;
+	int32_t x, yBeg, yMid, yEnd;
+	int32_t SkewSquar;
+	int *pBegSig, *pMidSig, *pEndSig;
+	SkewSquar = Skew * Skew;
+	pBegGt->nElem = nRc;
+	pMidGt->nElem = nRc;
+	pEndGt->nElem = nRc;
+	pBegSig = pBegGt->Signal;
+	pMidSig = pMidGt->Signal;
+	pEndSig = pEndGt->Signal;
+	/*  Предельные значения проекций  */
+	x = (pRc[0].left + pRc[0].right + 1) / 2;
+	dy = ((-Skew * x + 0x200) >> 10);
+	yBeg = pRc[0].top;
+	yMid = (pRc[0].top + pRc[0].bottom + 1) / 2;
+	yEnd = pRc[0].bottom;
+	ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+	yBeg += dy;
+	yBeg -= ddy;
+	ddy = ((SkewSquar * yMid + 0x100000) >> 21);
+	yMid += dy;
+	yMid -= ddy;
+	ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+	yEnd += dy;
+	yEnd -= ddy;
+	MinBeg = yBeg;
+	MaxBeg = yBeg;
+	MinMid = yMid;
+	MaxMid = yMid;
+	MinEnd = yEnd;
+	MaxEnd = yEnd;
+	for (i = 1; i < nRc; i++) {
+		x = (pRc[i].left + pRc[i].right + 1) / 2;
+		dy = ((-Skew * x + 0x200) >> 10);
+		yBeg = pRc[i].top;
+		yMid = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		yEnd = pRc[i].bottom;
+		ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+		yBeg += dy;
+		yBeg -= ddy;
+		ddy = ((SkewSquar * yMid + 0x100000) >> 21);
+		yMid += dy;
+		yMid -= ddy;
+		ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+		yEnd += dy;
+		yEnd -= ddy;
+		if (MinBeg > yBeg)
+			MinBeg = yBeg;
+		if (MaxBeg < yBeg)
+			MaxBeg = yBeg;
+		if (MinMid > yMid)
+			MinMid = yMid;
+		if (MaxMid < yMid)
+			MaxMid = yMid;
+		if (MinEnd > yEnd)
+			MinEnd = yEnd;
+		if (MaxEnd < yEnd)
+			MaxEnd = yEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxMid - MinMid >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	pBegGt->Shift = MinBeg;
+	pBegGt->End = MaxBeg - MinBeg;
+	pMidGt->Shift = MinMid;
+	pMidGt->End = MaxMid - MinMid;
+	pEndGt->Shift = MinEnd;
+	pEndGt->End = MaxEnd - MinEnd;
+	End = pBegGt->End;
+	if (End < pMidGt->End)
+		End = pMidGt->End;
+	if (End < pEndGt->End)
+		End = pEndGt->End;
+	for (i = 0; i <= End; i++) {
+		pBegSig[i] = 0;
+		pMidSig[i] = 0;
+		pEndSig[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		x = (pRc[i].left + pRc[i].right + 1) / 2;
+		dy = ((-Skew * x + 0x200) >> 10);
+		yBeg = pRc[i].top;
+		yMid = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		yEnd = pRc[i].bottom;
+		ddy = ((SkewSquar * yBeg + 0x100000) >> 21);
+		yBeg += dy;
+		yBeg -= ddy;
+		ddy = ((SkewSquar * yMid + 0x100000) >> 21);
+		yMid += dy;
+		yMid -= ddy;
+		ddy = ((SkewSquar * yEnd + 0x100000) >> 21);
+		yEnd += dy;
+		yEnd -= ddy;
+		pBegSig[yBeg - MinBeg]++;
+		pMidSig[yMid - MinMid]++;
+		pEndSig[yEnd - MinEnd]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeLefMidRigGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pBegGt,
-        Un_GYST *pMidGt, Un_GYST *pEndGt) {
-    int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
-    long dx, ddx;
-    int32_t y, xBeg, xMid, xEnd;
-    int32_t SkewSquar;
-    int *pBegSig, *pMidSig, *pEndSig;
-    SkewSquar = Skew * Skew;
-    pBegGt->nElem = nRc;
-    pMidGt->nElem = nRc;
-    pEndGt->nElem = nRc;
-    pBegSig = pBegGt->Signal;
-    pMidSig = pMidGt->Signal;
-    pEndSig = pEndGt->Signal;
-    /*  Предельные значения проекций  */
-    y = (pRc[0].top() + pRc[0].bottom() + 1) / 2;
-    dx = ((-Skew * y + 0x200) >> 10);
-    xBeg = pRc[0].left();
-    xMid = (pRc[0].left() + pRc[0].right() + 1) / 2;
-    xEnd = pRc[0].right();
-    ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-    xBeg -= dx;
-    xBeg -= ddx;
-    ddx = ((SkewSquar * xMid + 0x100000) >> 21);
-    xMid -= dx;
-    xMid -= ddx;
-    ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-    xEnd -= dx;
-    xEnd -= ddx;
-    MinBeg = xBeg;
-    MaxBeg = xBeg;
-    MinMid = xMid;
-    MaxMid = xMid;
-    MinEnd = xEnd;
-    MaxEnd = xEnd;
-    for (i = 1; i < nRc; i++) {
-        y = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        dx = ((-Skew * y + 0x200) >> 10);
-        xBeg = pRc[i].left();
-        xMid = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        xEnd = pRc[i].right();
-        ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-        xBeg -= dx;
-        xBeg -= ddx;
-        ddx = ((SkewSquar * xMid + 0x100000) >> 21);
-        xMid -= dx;
-        xMid -= ddx;
-        ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-        xEnd -= dx;
-        xEnd -= ddx;
-        if (MinBeg > xBeg)
-            MinBeg = xBeg;
-        if (MaxBeg < xBeg)
-            MaxBeg = xBeg;
-        if (MinMid > xMid)
-            MinMid = xMid;
-        if (MaxMid < xMid)
-            MaxMid = xMid;
-        if (MinEnd > xEnd)
-            MinEnd = xEnd;
-        if (MaxEnd < xEnd)
-            MaxEnd = xEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxMid - MinMid >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    pBegGt->Shift = MinBeg;
-    pBegGt->End = MaxBeg - MinBeg;
-    pMidGt->Shift = MinMid;
-    pMidGt->End = MaxMid - MinMid;
-    pEndGt->Shift = MinEnd;
-    pEndGt->End = MaxEnd - MinEnd;
-    End = pBegGt->End;
-    if (End < pMidGt->End)
-        End = pMidGt->End;
-    if (End < pEndGt->End)
-        End = pEndGt->End;
-    for (i = 0; i <= End; i++) {
-        pBegSig[i] = 0;
-        pMidSig[i] = 0;
-        pEndSig[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        y = (pRc[i].top() + pRc[i].bottom() + 1) / 2;
-        dx = ((-Skew * y + 0x200) >> 10);
-        xBeg = pRc[i].left();
-        xMid = (pRc[i].left() + pRc[i].right() + 1) / 2;
-        xEnd = pRc[i].right();
-        ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
-        xBeg -= dx;
-        xBeg -= ddx;
-        ddx = ((SkewSquar * xMid + 0x100000) >> 21);
-        xMid -= dx;
-        xMid -= ddx;
-        ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
-        xEnd -= dx;
-        xEnd -= ddx;
-        pBegSig[xBeg - MinBeg]++;
-        pMidSig[xMid - MinMid]++;
-        pEndSig[xEnd - MinEnd]++;
-    }
-    return TRUE;
+Bool MakeLefMidRigGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+		Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt) {
+	int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
+	long dx, ddx;
+	int32_t y, xBeg, xMid, xEnd;
+	int32_t SkewSquar;
+	int *pBegSig, *pMidSig, *pEndSig;
+	SkewSquar = Skew * Skew;
+	pBegGt->nElem = nRc;
+	pMidGt->nElem = nRc;
+	pEndGt->nElem = nRc;
+	pBegSig = pBegGt->Signal;
+	pMidSig = pMidGt->Signal;
+	pEndSig = pEndGt->Signal;
+	/*  Предельные значения проекций  */
+	y = (pRc[0].top + pRc[0].bottom + 1) / 2;
+	dx = ((-Skew * y + 0x200) >> 10);
+	xBeg = pRc[0].left;
+	xMid = (pRc[0].left + pRc[0].right + 1) / 2;
+	xEnd = pRc[0].right;
+	ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+	xBeg -= dx;
+	xBeg -= ddx;
+	ddx = ((SkewSquar * xMid + 0x100000) >> 21);
+	xMid -= dx;
+	xMid -= ddx;
+	ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+	xEnd -= dx;
+	xEnd -= ddx;
+	MinBeg = xBeg;
+	MaxBeg = xBeg;
+	MinMid = xMid;
+	MaxMid = xMid;
+	MinEnd = xEnd;
+	MaxEnd = xEnd;
+	for (i = 1; i < nRc; i++) {
+		y = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		dx = ((-Skew * y + 0x200) >> 10);
+		xBeg = pRc[i].left;
+		xMid = (pRc[i].left + pRc[i].right + 1) / 2;
+		xEnd = pRc[i].right;
+		ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+		xBeg -= dx;
+		xBeg -= ddx;
+		ddx = ((SkewSquar * xMid + 0x100000) >> 21);
+		xMid -= dx;
+		xMid -= ddx;
+		ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+		xEnd -= dx;
+		xEnd -= ddx;
+		if (MinBeg > xBeg)
+			MinBeg = xBeg;
+		if (MaxBeg < xBeg)
+			MaxBeg = xBeg;
+		if (MinMid > xMid)
+			MinMid = xMid;
+		if (MaxMid < xMid)
+			MaxMid = xMid;
+		if (MinEnd > xEnd)
+			MinEnd = xEnd;
+		if (MaxEnd < xEnd)
+			MaxEnd = xEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxMid - MinMid >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	pBegGt->Shift = MinBeg;
+	pBegGt->End = MaxBeg - MinBeg;
+	pMidGt->Shift = MinMid;
+	pMidGt->End = MaxMid - MinMid;
+	pEndGt->Shift = MinEnd;
+	pEndGt->End = MaxEnd - MinEnd;
+	End = pBegGt->End;
+	if (End < pMidGt->End)
+		End = pMidGt->End;
+	if (End < pEndGt->End)
+		End = pEndGt->End;
+	for (i = 0; i <= End; i++) {
+		pBegSig[i] = 0;
+		pMidSig[i] = 0;
+		pEndSig[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		y = (pRc[i].top + pRc[i].bottom + 1) / 2;
+		dx = ((-Skew * y + 0x200) >> 10);
+		xBeg = pRc[i].left;
+		xMid = (pRc[i].left + pRc[i].right + 1) / 2;
+		xEnd = pRc[i].right;
+		ddx = ((SkewSquar * xBeg + 0x100000) >> 21);
+		xBeg -= dx;
+		xBeg -= ddx;
+		ddx = ((SkewSquar * xMid + 0x100000) >> 21);
+		xMid -= dx;
+		xMid -= ddx;
+		ddx = ((SkewSquar * xEnd + 0x100000) >> 21);
+		xEnd -= dx;
+		xEnd -= ddx;
+		pBegSig[xBeg - MinBeg]++;
+		pMidSig[xMid - MinMid]++;
+		pEndSig[xEnd - MinEnd]++;
+	}
+	return TRUE;
 }
-int ScoreComp(const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc) {
-    int i, k;
-    Point PosIdeal;
-    k = 0;
-    for (i = 0; i < nRc; i++) {
-        if (pRc[i].right() - pRc[i].left() < 2)
-            continue;
-        if (pRc[i].right() - pRc[i].left() > 100)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() < 2)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() > 100)
-            continue;
-        PosIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        PosIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        PosIdeal.deskew(-Skew);
-        if (PosIdeal.x() > pRcReg->right())
-            continue;
-        if (PosIdeal.x() < pRcReg->left())
-            continue;
-        if (PosIdeal.y() > pRcReg->bottom())
-            continue;
-        if (PosIdeal.y() < pRcReg->top())
-            continue;
-        k++;
-    }
-    return k;
-}
-/*---------------------------------------------------------------------------*/
-void MakeNormVertGyst(const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc,
-        int *Sig) {
-    int i, k;
-    Point BegDirIdeal;
-    Point EndDirIdeal;
-    for (i = 0; i < nRc; i++) {
-        if (pRc[i].right() - pRc[i].left() < 2)
-            continue;
-        if (pRc[i].right() - pRc[i].left() > 100)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() < 2)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() > 100)
-            continue;
-        BegDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        BegDirIdeal.ry() = pRc[i].top();
-        BegDirIdeal.deskew(-Skew);
-        if (BegDirIdeal.x() > pRcReg->right())
-            continue;
-        if (BegDirIdeal.x() < pRcReg->left())
-            continue;
-        if (BegDirIdeal.y() >= pRcReg->bottom())
-            continue;
-        if (BegDirIdeal.y() < pRcReg->top())
-            BegDirIdeal.ry() = pRcReg->top();
-        EndDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        EndDirIdeal.ry() = pRc[i].bottom();
-        EndDirIdeal.deskew(-Skew);
-        if (EndDirIdeal.y() <= pRcReg->top())
-            continue;
-        if (EndDirIdeal.y() > pRcReg->bottom())
-            EndDirIdeal.ry() = pRcReg->bottom();
-        for (k = BegDirIdeal.y(); k <= EndDirIdeal.y(); k++)
-            Sig[k - pRcReg->top()]++;
-    }
+int ScoreComp(const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc,
+		const int nRc) {
+	int i, k;
+	Point PosIdeal;
+	k = 0;
+	for (i = 0; i < nRc; i++) {
+		if (pRc[i].right - pRc[i].left < 2)
+			continue;
+		if (pRc[i].right - pRc[i].left > 100)
+			continue;
+		if (pRc[i].bottom - pRc[i].top < 2)
+			continue;
+		if (pRc[i].bottom - pRc[i].top > 100)
+			continue;
+		PosIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		PosIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		PosIdeal.deskew(-Skew);
+		if (PosIdeal.x() > pRcReg->right)
+			continue;
+		if (PosIdeal.x() < pRcReg->left)
+			continue;
+		if (PosIdeal.y() > pRcReg->bottom)
+			continue;
+		if (PosIdeal.y() < pRcReg->top)
+			continue;
+		k++;
+	}
+	return k;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeVertGysts(Rect16 *pRc, int nRc, int32_t Skew, int Amnist, int MaxSize, Un_GYST *pVerGt,
-        int *pWhatDo) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
-    Point BegDirIdeal;
-    Point EndDirIdeal;
-    iFirst = -1;
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        iFirst = i;
-        break;
-    }
-    if (iFirst == -1)
-        return FALSE;
-    /*  Предельные значения проекций  */
-    BegDirIdeal.rx() = (int) (.5 * (pRc[iFirst].left() + pRc[iFirst].right() + 1));
-    BegDirIdeal.ry() = pRc[iFirst].top();
-    BegDirIdeal.deskew(-Skew);
-    MinBeg = BegDirIdeal.y();
-    MaxBeg = BegDirIdeal.y();
-    EndDirIdeal.rx() = (int) (.5 * (pRc[iFirst].left() + pRc[iFirst].right() + 1));
-    EndDirIdeal.ry() = pRc[iFirst].bottom();
-    EndDirIdeal.deskew(-Skew);
-    MinEnd = EndDirIdeal.y();
-    MaxEnd = EndDirIdeal.y();
-    for (i = iFirst + 1; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        BegDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        BegDirIdeal.ry() = pRc[i].top();
-        BegDirIdeal.deskew(-Skew);
-        CurBeg = BegDirIdeal.y();
-        EndDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        EndDirIdeal.ry() = pRc[i].bottom();
-        EndDirIdeal.deskew(-Skew);
-        CurEnd = EndDirIdeal.y();
-        if (MinBeg > CurBeg)
-            MinBeg = CurBeg;
-        if (MaxBeg < CurBeg)
-            MaxBeg = CurBeg;
-        if (MinEnd > CurEnd)
-            MinEnd = CurEnd;
-        if (MaxEnd < CurEnd)
-            MaxEnd = CurEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    if (MinBeg > MinEnd)
-        return FALSE;
-    if (MaxBeg > MaxEnd)
-        return FALSE;
-    pVerGt->Shift = MinBeg;
-    pVerGt->End = MaxEnd - MinBeg;
-    pVerGt->nElem = nRc;
-    End = pVerGt->End;
-    for (i = 0; i <= End; i++) {
-        pVerGt->Signal[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        BegDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        BegDirIdeal.ry() = pRc[i].top();
-        BegDirIdeal.deskew(-Skew);
-        CurBeg = BegDirIdeal.y();
-        EndDirIdeal.rx() = (int) (.5 * (pRc[i].left() + pRc[i].right() + 1));
-        EndDirIdeal.ry() = pRc[i].bottom();
-        EndDirIdeal.deskew(-Skew);
-        CurEnd = EndDirIdeal.y();
-        for (k = CurBeg + Amnist; k <= CurEnd - Amnist; k++)
-            pVerGt->Signal[k - MinBeg]++;
-    }
-    return TRUE;
+void MakeNormVertGyst(const Rect16 *pRcReg, const int32_t Skew,
+		const Rect16 *pRc, const int nRc, int *Sig) {
+	int i, k;
+	Point BegDirIdeal;
+	Point EndDirIdeal;
+	for (i = 0; i < nRc; i++) {
+		if (pRc[i].right - pRc[i].left < 2)
+			continue;
+		if (pRc[i].right - pRc[i].left > 100)
+			continue;
+		if (pRc[i].bottom - pRc[i].top < 2)
+			continue;
+		if (pRc[i].bottom - pRc[i].top > 100)
+			continue;
+		BegDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		BegDirIdeal.ry() = pRc[i].top;
+		BegDirIdeal.deskew(-Skew);
+		if (BegDirIdeal.x() > pRcReg->right)
+			continue;
+		if (BegDirIdeal.x() < pRcReg->left)
+			continue;
+		if (BegDirIdeal.y() >= pRcReg->bottom)
+			continue;
+		if (BegDirIdeal.y() < pRcReg->top)
+			BegDirIdeal.ry() = pRcReg->top;
+		EndDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		EndDirIdeal.ry() = pRc[i].bottom;
+		EndDirIdeal.deskew(-Skew);
+		if (EndDirIdeal.y() <= pRcReg->top)
+			continue;
+		if (EndDirIdeal.y() > pRcReg->bottom)
+			EndDirIdeal.ry() = pRcReg->bottom;
+		for (k = BegDirIdeal.y(); k <= EndDirIdeal.y(); k++)
+			Sig[k - pRcReg->top]++;
+	}
 }
 /*---------------------------------------------------------------------------*/
-void MakeNormHoriGyst(const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc,
-        int *Sig) {
-    int i, k;
-    Point BegDirIdeal;
-    Point EndDirIdeal;
-    for (i = 0; i < nRc; i++) {
-        if (pRc[i].right() - pRc[i].left() < 2)
-            continue;
-        if (pRc[i].right() - pRc[i].left() > 100)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() < 2)
-            continue;
-        if (pRc[i].bottom() - pRc[i].top() > 100)
-            continue;
-        BegDirIdeal.rx() = pRc[i].left();
-        BegDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        BegDirIdeal.deskew(-Skew);
-        if (BegDirIdeal.y() > pRcReg->bottom())
-            continue;
-        if (BegDirIdeal.y() < pRcReg->top())
-            continue;
-        if (BegDirIdeal.x() >= pRcReg->right())
-            continue;
-        if (BegDirIdeal.x() < pRcReg->left())
-            BegDirIdeal.rx() = pRcReg->left();
-        EndDirIdeal.rx() = pRc[i].right();
-        EndDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        EndDirIdeal.deskew(-Skew);
-        if (EndDirIdeal.x() <= pRcReg->left())
-            continue;
-        if (EndDirIdeal.x() > pRcReg->right())
-            EndDirIdeal.rx() = pRcReg->right();
-        for (k = BegDirIdeal.x(); k <= EndDirIdeal.x(); k++)
-            Sig[k - pRcReg->left()]++;
-    }
+Bool MakeVertGysts(Rect16 *pRc, int nRc, int32_t Skew, int Amnist, int MaxSize,
+		Un_GYST *pVerGt, int *pWhatDo) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
+	Point BegDirIdeal;
+	Point EndDirIdeal;
+	iFirst = -1;
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		iFirst = i;
+		break;
+	}
+	if (iFirst == -1)
+		return FALSE;
+	/*  Предельные значения проекций  */
+	BegDirIdeal.rx() = (int) (.5 * (pRc[iFirst].left + pRc[iFirst].right + 1));
+	BegDirIdeal.ry() = pRc[iFirst].top;
+	BegDirIdeal.deskew(-Skew);
+	MinBeg = BegDirIdeal.y();
+	MaxBeg = BegDirIdeal.y();
+	EndDirIdeal.rx() = (int) (.5 * (pRc[iFirst].left + pRc[iFirst].right + 1));
+	EndDirIdeal.ry() = pRc[iFirst].bottom;
+	EndDirIdeal.deskew(-Skew);
+	MinEnd = EndDirIdeal.y();
+	MaxEnd = EndDirIdeal.y();
+	for (i = iFirst + 1; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		BegDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		BegDirIdeal.ry() = pRc[i].top;
+		BegDirIdeal.deskew(-Skew);
+		CurBeg = BegDirIdeal.y();
+		EndDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		EndDirIdeal.ry() = pRc[i].bottom;
+		EndDirIdeal.deskew(-Skew);
+		CurEnd = EndDirIdeal.y();
+		if (MinBeg > CurBeg)
+			MinBeg = CurBeg;
+		if (MaxBeg < CurBeg)
+			MaxBeg = CurBeg;
+		if (MinEnd > CurEnd)
+			MinEnd = CurEnd;
+		if (MaxEnd < CurEnd)
+			MaxEnd = CurEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	if (MinBeg > MinEnd)
+		return FALSE;
+	if (MaxBeg > MaxEnd)
+		return FALSE;
+	pVerGt->Shift = MinBeg;
+	pVerGt->End = MaxEnd - MinBeg;
+	pVerGt->nElem = nRc;
+	End = pVerGt->End;
+	for (i = 0; i <= End; i++) {
+		pVerGt->Signal[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		BegDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		BegDirIdeal.ry() = pRc[i].top;
+		BegDirIdeal.deskew(-Skew);
+		CurBeg = BegDirIdeal.y();
+		EndDirIdeal.rx() = (int) (.5 * (pRc[i].left + pRc[i].right + 1));
+		EndDirIdeal.ry() = pRc[i].bottom;
+		EndDirIdeal.deskew(-Skew);
+		CurEnd = EndDirIdeal.y();
+		for (k = CurBeg + Amnist; k <= CurEnd - Amnist; k++)
+			pVerGt->Signal[k - MinBeg]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeHoriGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pHorGt, int *pWhatDo) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
-    Point BegDirIdeal;
-    Point EndDirIdeal;
-    iFirst = -1;
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        iFirst = i;
-        break;
-    }
-    if (iFirst == -1)
-        return FALSE;
-    /*  Предельные значения проекций  */
-    BegDirIdeal.rx() = pRc[iFirst].left();
-    BegDirIdeal.ry() = (int) (.5 * (pRc[iFirst].top() + pRc[iFirst].bottom() + 1));
-    BegDirIdeal.deskew(-Skew);
-    MinBeg = BegDirIdeal.x();
-    MaxBeg = BegDirIdeal.x();
-    EndDirIdeal.rx() = pRc[iFirst].right();
-    EndDirIdeal.ry() = (int) (.5 * (pRc[iFirst].top() + pRc[iFirst].bottom() + 1));
-    EndDirIdeal.deskew(-Skew);
-    MinEnd = EndDirIdeal.x();
-    MaxEnd = EndDirIdeal.x();
-    for (i = iFirst + 1; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        BegDirIdeal.rx() = pRc[i].left();
-        BegDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        BegDirIdeal.deskew(-Skew);
-        CurBeg = BegDirIdeal.x();
-        EndDirIdeal.rx() = pRc[i].right();
-        EndDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        EndDirIdeal.deskew(-Skew);
-        CurEnd = EndDirIdeal.x();
-        if (MinBeg > CurBeg)
-            MinBeg = CurBeg;
-        if (MaxBeg < CurBeg)
-            MaxBeg = CurBeg;
-        if (MinEnd > CurEnd)
-            MinEnd = CurEnd;
-        if (MaxEnd < CurEnd)
-            MaxEnd = CurEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    if (MinBeg > MinEnd)
-        return FALSE;
-    if (MaxBeg > MaxEnd)
-        return FALSE;
-    pHorGt->Shift = MinBeg;
-    pHorGt->End = MaxEnd - MinBeg;
-    pHorGt->nElem = nRc;
-    End = pHorGt->End;
-    for (i = 0; i <= End; i++) {
-        pHorGt->Signal[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        BegDirIdeal.rx() = pRc[i].left();
-        BegDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        BegDirIdeal.deskew(-Skew);
-        CurBeg = BegDirIdeal.x();
-        EndDirIdeal.rx() = pRc[i].right();
-        EndDirIdeal.ry() = (int) (.5 * (pRc[i].top() + pRc[i].bottom() + 1));
-        EndDirIdeal.deskew(-Skew);
-        CurEnd = EndDirIdeal.x();
-        for (k = CurBeg; k <= CurEnd; k++)
-            pHorGt->Signal[k - MinBeg]++;
-    }
-    return TRUE;
+void MakeNormHoriGyst(const Rect16 *pRcReg, const int32_t Skew,
+		const Rect16 *pRc, const int nRc, int *Sig) {
+	int i, k;
+	Point BegDirIdeal;
+	Point EndDirIdeal;
+	for (i = 0; i < nRc; i++) {
+		if (pRc[i].right - pRc[i].left < 2)
+			continue;
+		if (pRc[i].right - pRc[i].left > 100)
+			continue;
+		if (pRc[i].bottom - pRc[i].top < 2)
+			continue;
+		if (pRc[i].bottom - pRc[i].top > 100)
+			continue;
+		BegDirIdeal.rx() = pRc[i].left;
+		BegDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		BegDirIdeal.deskew(-Skew);
+		if (BegDirIdeal.y() > pRcReg->bottom)
+			continue;
+		if (BegDirIdeal.y() < pRcReg->top)
+			continue;
+		if (BegDirIdeal.x() >= pRcReg->right)
+			continue;
+		if (BegDirIdeal.x() < pRcReg->left)
+			BegDirIdeal.rx() = pRcReg->left;
+		EndDirIdeal.rx() = pRc[i].right;
+		EndDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		EndDirIdeal.deskew(-Skew);
+		if (EndDirIdeal.x() <= pRcReg->left)
+			continue;
+		if (EndDirIdeal.x() > pRcReg->right)
+			EndDirIdeal.rx() = pRcReg->right;
+		for (k = BegDirIdeal.x(); k <= EndDirIdeal.x(); k++)
+			Sig[k - pRcReg->left]++;
+	}
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeHoriSrez(Rect16 *pRcId, int nRc, int BegSrez, int EndSrez, int MaxSize, Un_GYST *pHorGt,
-        int *pWhatDo) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
-    iFirst = -1;
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        iFirst = i;
-        break;
-    }
-    if (iFirst == -1)
-        return FALSE;
-    /*  Предельные значения проекций  */
-    MinBeg = pRcId[iFirst].left();
-    MaxBeg = MinBeg;
-    MinEnd = pRcId[iFirst].right();
-    MaxEnd = MinEnd;
-    for (i = iFirst + 1; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        CurBeg = pRcId[i].left();
-        CurEnd = pRcId[i].right();
-        if (MinBeg > CurBeg)
-            MinBeg = CurBeg;
-        if (MaxBeg < CurBeg)
-            MaxBeg = CurBeg;
-        if (MinEnd > CurEnd)
-            MinEnd = CurEnd;
-        if (MaxEnd < CurEnd)
-            MaxEnd = CurEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    if (MinBeg > MinEnd)
-        return FALSE;
-    if (MaxBeg > MaxEnd)
-        return FALSE;
-    pHorGt->Shift = MinBeg;
-    pHorGt->End = MaxEnd - MinBeg;
-    pHorGt->nElem = nRc;
-    End = pHorGt->End;
-    for (i = 0; i <= End; i++) {
-        pHorGt->Signal[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        if (pRcId[i].top() >= EndSrez)
-            continue;
-        if (pRcId[i].bottom() <= BegSrez)
-            continue;
-        CurBeg = pRcId[i].left();
-        CurEnd = pRcId[i].right();
-        for (k = CurBeg; k <= CurEnd; k++)
-            pHorGt->Signal[k - MinBeg]++;
-    }
-    return TRUE;
+Bool MakeHoriGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+		Un_GYST *pHorGt, int *pWhatDo) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
+	Point BegDirIdeal;
+	Point EndDirIdeal;
+	iFirst = -1;
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		iFirst = i;
+		break;
+	}
+	if (iFirst == -1)
+		return FALSE;
+	/*  Предельные значения проекций  */
+	BegDirIdeal.rx() = pRc[iFirst].left;
+	BegDirIdeal.ry() = (int) (.5 * (pRc[iFirst].top + pRc[iFirst].bottom + 1));
+	BegDirIdeal.deskew(-Skew);
+	MinBeg = BegDirIdeal.x();
+	MaxBeg = BegDirIdeal.x();
+	EndDirIdeal.rx() = pRc[iFirst].right;
+	EndDirIdeal.ry() = (int) (.5 * (pRc[iFirst].top + pRc[iFirst].bottom + 1));
+	EndDirIdeal.deskew(-Skew);
+	MinEnd = EndDirIdeal.x();
+	MaxEnd = EndDirIdeal.x();
+	for (i = iFirst + 1; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		BegDirIdeal.rx() = pRc[i].left;
+		BegDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		BegDirIdeal.deskew(-Skew);
+		CurBeg = BegDirIdeal.x();
+		EndDirIdeal.rx() = pRc[i].right;
+		EndDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		EndDirIdeal.deskew(-Skew);
+		CurEnd = EndDirIdeal.x();
+		if (MinBeg > CurBeg)
+			MinBeg = CurBeg;
+		if (MaxBeg < CurBeg)
+			MaxBeg = CurBeg;
+		if (MinEnd > CurEnd)
+			MinEnd = CurEnd;
+		if (MaxEnd < CurEnd)
+			MaxEnd = CurEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	if (MinBeg > MinEnd)
+		return FALSE;
+	if (MaxBeg > MaxEnd)
+		return FALSE;
+	pHorGt->Shift = MinBeg;
+	pHorGt->End = MaxEnd - MinBeg;
+	pHorGt->nElem = nRc;
+	End = pHorGt->End;
+	for (i = 0; i <= End; i++) {
+		pHorGt->Signal[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		BegDirIdeal.rx() = pRc[i].left;
+		BegDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		BegDirIdeal.deskew(-Skew);
+		CurBeg = BegDirIdeal.x();
+		EndDirIdeal.rx() = pRc[i].right;
+		EndDirIdeal.ry() = (int) (.5 * (pRc[i].top + pRc[i].bottom + 1));
+		EndDirIdeal.deskew(-Skew);
+		CurEnd = EndDirIdeal.x();
+		for (k = CurBeg; k <= CurEnd; k++)
+			pHorGt->Signal[k - MinBeg]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeVertSrez(Rect16 *pRcId, int nRc, int BegSrez, int EndSrez, int MaxSize, Un_GYST *pVerGt,
-        int *pWhatDo) {
-    int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
-    iFirst = -1;
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        iFirst = i;
-        break;
-    }
-    if (iFirst == -1)
-        return FALSE;
-    /*  Предельные значения проекций  */
-    MinBeg = pRcId[iFirst].top();
-    MaxBeg = MinBeg;
-    MinEnd = pRcId[iFirst].bottom();
-    MaxEnd = MinEnd;
-    for (i = iFirst + 1; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        CurBeg = pRcId[i].top();
-        CurEnd = pRcId[i].bottom();
-        if (MinBeg > CurBeg)
-            MinBeg = CurBeg;
-        if (MaxBeg < CurBeg)
-            MaxBeg = CurBeg;
-        if (MinEnd > CurEnd)
-            MinEnd = CurEnd;
-        if (MaxEnd < CurEnd)
-            MaxEnd = CurEnd;
-    }
-    if (MaxBeg - MinBeg >= MaxSize)
-        return FALSE;
-    if (MaxEnd - MinEnd >= MaxSize)
-        return FALSE;
-    if (MinBeg > MinEnd)
-        return FALSE;
-    if (MaxBeg > MaxEnd)
-        return FALSE;
-    pVerGt->Shift = MinBeg;
-    pVerGt->End = MaxEnd - MinBeg;
-    pVerGt->nElem = nRc;
-    End = pVerGt->End;
-    for (i = 0; i <= End; i++) {
-        pVerGt->Signal[i] = 0;
-    }
-    for (i = 0; i < nRc; i++) {
-        if (pWhatDo[i] != 1)
-            continue;
-        if (pRcId[i].left() >= EndSrez)
-            continue;
-        if (pRcId[i].right() <= BegSrez)
-            continue;
-        CurBeg = pRcId[i].top();
-        CurEnd = pRcId[i].bottom();
-        for (k = CurBeg; k <= CurEnd; k++)
-            pVerGt->Signal[k - MinBeg]++;
-    }
-    return TRUE;
+Bool MakeHoriSrez(Rect16 *pRcId, int nRc, int BegSrez, int EndSrez,
+		int MaxSize, Un_GYST *pHorGt, int *pWhatDo) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
+	iFirst = -1;
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		iFirst = i;
+		break;
+	}
+	if (iFirst == -1)
+		return FALSE;
+	/*  Предельные значения проекций  */
+	MinBeg = pRcId[iFirst].left;
+	MaxBeg = MinBeg;
+	MinEnd = pRcId[iFirst].right;
+	MaxEnd = MinEnd;
+	for (i = iFirst + 1; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		CurBeg = pRcId[i].left;
+		CurEnd = pRcId[i].right;
+		if (MinBeg > CurBeg)
+			MinBeg = CurBeg;
+		if (MaxBeg < CurBeg)
+			MaxBeg = CurBeg;
+		if (MinEnd > CurEnd)
+			MinEnd = CurEnd;
+		if (MaxEnd < CurEnd)
+			MaxEnd = CurEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	if (MinBeg > MinEnd)
+		return FALSE;
+	if (MaxBeg > MaxEnd)
+		return FALSE;
+	pHorGt->Shift = MinBeg;
+	pHorGt->End = MaxEnd - MinBeg;
+	pHorGt->nElem = nRc;
+	End = pHorGt->End;
+	for (i = 0; i <= End; i++) {
+		pHorGt->Signal[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		if (pRcId[i].top >= EndSrez)
+			continue;
+		if (pRcId[i].bottom <= BegSrez)
+			continue;
+		CurBeg = pRcId[i].left;
+		CurEnd = pRcId[i].right;
+		for (k = CurBeg; k <= CurEnd; k++)
+			pHorGt->Signal[k - MinBeg]++;
+	}
+	return TRUE;
+}
+/*---------------------------------------------------------------------------*/
+Bool MakeVertSrez(Rect16 *pRcId, int nRc, int BegSrez, int EndSrez,
+		int MaxSize, Un_GYST *pVerGt, int *pWhatDo) {
+	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
+	iFirst = -1;
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		iFirst = i;
+		break;
+	}
+	if (iFirst == -1)
+		return FALSE;
+	/*  Предельные значения проекций  */
+	MinBeg = pRcId[iFirst].top;
+	MaxBeg = MinBeg;
+	MinEnd = pRcId[iFirst].bottom;
+	MaxEnd = MinEnd;
+	for (i = iFirst + 1; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		CurBeg = pRcId[i].top;
+		CurEnd = pRcId[i].bottom;
+		if (MinBeg > CurBeg)
+			MinBeg = CurBeg;
+		if (MaxBeg < CurBeg)
+			MaxBeg = CurBeg;
+		if (MinEnd > CurEnd)
+			MinEnd = CurEnd;
+		if (MaxEnd < CurEnd)
+			MaxEnd = CurEnd;
+	}
+	if (MaxBeg - MinBeg >= MaxSize)
+		return FALSE;
+	if (MaxEnd - MinEnd >= MaxSize)
+		return FALSE;
+	if (MinBeg > MinEnd)
+		return FALSE;
+	if (MaxBeg > MaxEnd)
+		return FALSE;
+	pVerGt->Shift = MinBeg;
+	pVerGt->End = MaxEnd - MinBeg;
+	pVerGt->nElem = nRc;
+	End = pVerGt->End;
+	for (i = 0; i <= End; i++) {
+		pVerGt->Signal[i] = 0;
+	}
+	for (i = 0; i < nRc; i++) {
+		if (pWhatDo[i] != 1)
+			continue;
+		if (pRcId[i].left >= EndSrez)
+			continue;
+		if (pRcId[i].right <= BegSrez)
+			continue;
+		CurBeg = pRcId[i].top;
+		CurEnd = pRcId[i].bottom;
+		for (k = CurBeg; k <= CurEnd; k++)
+			pVerGt->Signal[k - MinBeg]++;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
 Bool FindNextHole(Un_GYST *pDarkGt, int Beg, int End, int *NewBeg, int *NewEnd) {
-    int i;
-    Bool ret;
-    if (Beg > End)
-        return FALSE;
-    ret = FALSE;
-    for (i = Beg; i <= End; i++) {
-        if (i < pDarkGt->Shift)
-            continue;
-        if (i > pDarkGt->Shift + pDarkGt->End)
-            break;
-        if (pDarkGt->Signal[i - pDarkGt->Shift] > 0)
-            continue;
-        *NewBeg = i;
-        ret = TRUE;
-        break;
-    }
-    if (!ret)
-        return FALSE;
-    for (i = *NewBeg; i <= End; i++) {
-        if (i > pDarkGt->Shift + pDarkGt->End)
-            break;
-        if (pDarkGt->Signal[i - pDarkGt->Shift] > 0)
-            break;
-        *NewEnd = i;
-        continue;
-    }
-    return TRUE;
+	int i;
+	Bool ret;
+	if (Beg > End)
+		return FALSE;
+	ret = FALSE;
+	for (i = Beg; i <= End; i++) {
+		if (i < pDarkGt->Shift)
+			continue;
+		if (i > pDarkGt->Shift + pDarkGt->End)
+			break;
+		if (pDarkGt->Signal[i - pDarkGt->Shift] > 0)
+			continue;
+		*NewBeg = i;
+		ret = TRUE;
+		break;
+	}
+	if (!ret)
+		return FALSE;
+	for (i = *NewBeg; i <= End; i++) {
+		if (i > pDarkGt->Shift + pDarkGt->End)
+			break;
+		if (pDarkGt->Signal[i - pDarkGt->Shift] > 0)
+			break;
+		*NewEnd = i;
+		continue;
+	}
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool FindNextHoleWithBound(int MaxSig, Un_GYST *pDarkGt, int Beg, int End, int *NewBeg,
-        int *NewEnd, int MinLent) {
-    int i, Beg_C, End_C;
-    Bool ret;
-    if (Beg > End)
-        return FALSE;
-    Beg_C = Beg;
-    if (Beg_C < pDarkGt->Shift)
-        Beg_C = pDarkGt->Shift;
-    End_C = End;
-    if (End_C > pDarkGt->Shift + pDarkGt->End)
-        End_C = pDarkGt->Shift + pDarkGt->End;
-    if (Beg_C > End_C)
-        return FALSE;
-    while (Beg_C <= End_C) {
-        ret = FALSE;
-        for (i = Beg_C; i <= End_C; i++) {
-            if (pDarkGt->Signal[i - pDarkGt->Shift] > MaxSig)
-                continue;
-            *NewBeg = i;
-            ret = TRUE;
-            break;
-        }
-        if (!ret)
-            return FALSE;
-        *NewEnd = *NewBeg;
-        for (i = *NewBeg; i <= End_C; i++) {
-            if (pDarkGt->Signal[i - pDarkGt->Shift] > MaxSig)
-                break;
-            *NewEnd = i;
-            continue;
-        }
-        if (*NewEnd - *NewBeg >= MinLent)
-            return TRUE;
-        Beg_C = *NewEnd + 1;
-    }
-    return FALSE;
+Bool FindNextHoleWithBound(int MaxSig, Un_GYST *pDarkGt, int Beg, int End,
+		int *NewBeg, int *NewEnd, int MinLent) {
+	int i, Beg_C, End_C;
+	Bool ret;
+	if (Beg > End)
+		return FALSE;
+	Beg_C = Beg;
+	if (Beg_C < pDarkGt->Shift)
+		Beg_C = pDarkGt->Shift;
+	End_C = End;
+	if (End_C > pDarkGt->Shift + pDarkGt->End)
+		End_C = pDarkGt->Shift + pDarkGt->End;
+	if (Beg_C > End_C)
+		return FALSE;
+	while (Beg_C <= End_C) {
+		ret = FALSE;
+		for (i = Beg_C; i <= End_C; i++) {
+			if (pDarkGt->Signal[i - pDarkGt->Shift] > MaxSig)
+				continue;
+			*NewBeg = i;
+			ret = TRUE;
+			break;
+		}
+		if (!ret)
+			return FALSE;
+		*NewEnd = *NewBeg;
+		for (i = *NewBeg; i <= End_C; i++) {
+			if (pDarkGt->Signal[i - pDarkGt->Shift] > MaxSig)
+				break;
+			*NewEnd = i;
+			continue;
+		}
+		if (*NewEnd - *NewBeg >= MinLent)
+			return TRUE;
+		Beg_C = *NewEnd + 1;
+	}
+	return FALSE;
 }
 /*---------------------------------------------------------------------------*/
-Bool FindNormNextHoleWithBound(int *pSig, int LenSig, int Beg, int End, int *NewBeg, int *NewEnd,
-        int MaxSig, int MinLent) {
-    int i, Beg_C, End_C;
-    Bool ret;
-    if (Beg > End)
-        return FALSE;
-    Beg_C = Beg;
-    if (Beg_C < 0)
-        Beg_C = 0;
-    End_C = End;
-    if (End_C > LenSig - 1)
-        End_C = LenSig - 1;
-    if (Beg_C > End_C)
-        return FALSE;
-    while (Beg_C <= End_C) {
-        ret = FALSE;
-        for (i = Beg_C; i <= End_C; i++) {
-            if (pSig[i] > MaxSig)
-                continue;
-            *NewBeg = i;
-            ret = TRUE;
-            break;
-        }
-        if (!ret)
-            return FALSE;
-        *NewEnd = *NewBeg;
-        for (i = *NewBeg; i <= End_C; i++) {
-            if (pSig[i] > MaxSig)
-                break;
-            *NewEnd = i;
-            continue;
-        }
-        if (*NewEnd - *NewBeg >= MinLent)
-            return TRUE;
-        Beg_C = *NewEnd + 1;
-    }
-    return FALSE;
+Bool FindNormNextHoleWithBound(int *pSig, int LenSig, int Beg, int End,
+		int *NewBeg, int *NewEnd, int MaxSig, int MinLent) {
+	int i, Beg_C, End_C;
+	Bool ret;
+	if (Beg > End)
+		return FALSE;
+	Beg_C = Beg;
+	if (Beg_C < 0)
+		Beg_C = 0;
+	End_C = End;
+	if (End_C > LenSig - 1)
+		End_C = LenSig - 1;
+	if (Beg_C > End_C)
+		return FALSE;
+	while (Beg_C <= End_C) {
+		ret = FALSE;
+		for (i = Beg_C; i <= End_C; i++) {
+			if (pSig[i] > MaxSig)
+				continue;
+			*NewBeg = i;
+			ret = TRUE;
+			break;
+		}
+		if (!ret)
+			return FALSE;
+		*NewEnd = *NewBeg;
+		for (i = *NewBeg; i <= End_C; i++) {
+			if (pSig[i] > MaxSig)
+				break;
+			*NewEnd = i;
+			continue;
+		}
+		if (*NewEnd - *NewBeg >= MinLent)
+			return TRUE;
+		Beg_C = *NewEnd + 1;
+	}
+	return FALSE;
 }
 /*---------------------------------------------------------------------------*/
-Bool FindMainHole(int Beg, int End, int MaxSig, Un_GYST *pOrtGt, int *NewBeg, int *NewEnd,
-        int *NewMax) {
-    int CurBeg, CurEnd, i, BegPos;
-    Bool ret;
-    ret = FindNextHoleWithBound(MaxSig, pOrtGt, Beg, End, &CurBeg, &CurEnd, 0);
-    if (!ret)
-        return FALSE;
-    *NewBeg = CurBeg;
-    *NewEnd = CurEnd;
-    BegPos = *NewEnd + 1;
-    while (1) {
-        ret = FindNextHoleWithBound(MaxSig, pOrtGt, BegPos, End, &CurBeg, &CurEnd, 0);
-        if (!ret)
-            break;
-        BegPos = CurEnd + 1;
-        if (*NewEnd - *NewBeg > CurEnd - CurBeg)
-            continue;
-        *NewBeg = CurBeg;
-        *NewEnd = CurEnd;
-    }
-    *NewMax = pOrtGt->Signal[*NewBeg - pOrtGt->Shift];
-    for (i = *NewBeg; i <= *NewEnd; i++)
-        if (*NewMax < pOrtGt->Signal[i - pOrtGt->Shift])
-            *NewMax = pOrtGt->Signal[i - pOrtGt->Shift];
-    return TRUE;
+Bool FindMainHole(int Beg, int End, int MaxSig, Un_GYST *pOrtGt, int *NewBeg,
+		int *NewEnd, int *NewMax) {
+	int CurBeg, CurEnd, i, BegPos;
+	Bool ret;
+	ret = FindNextHoleWithBound(MaxSig, pOrtGt, Beg, End, &CurBeg, &CurEnd, 0);
+	if (!ret)
+		return FALSE;
+	*NewBeg = CurBeg;
+	*NewEnd = CurEnd;
+	BegPos = *NewEnd + 1;
+	while (1) {
+		ret = FindNextHoleWithBound(MaxSig, pOrtGt, BegPos, End, &CurBeg,
+				&CurEnd, 0);
+		if (!ret)
+			break;
+		BegPos = CurEnd + 1;
+		if (*NewEnd - *NewBeg > CurEnd - CurBeg)
+			continue;
+		*NewBeg = CurBeg;
+		*NewEnd = CurEnd;
+	}
+	*NewMax = pOrtGt->Signal[*NewBeg - pOrtGt->Shift];
+	for (i = *NewBeg; i <= *NewEnd; i++)
+		if (*NewMax < pOrtGt->Signal[i - pOrtGt->Shift])
+			*NewMax = pOrtGt->Signal[i - pOrtGt->Shift];
+	return TRUE;
 }
 /*---------------------------------------------------------------------------*/

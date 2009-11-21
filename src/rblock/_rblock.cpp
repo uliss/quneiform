@@ -85,9 +85,13 @@ Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
 	SetReturnCode_rblock(IDS_ERR_NO);
 	Open_Res_Log();
 
+	MainWindowD = NULL;
+	MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
+	if (!MainWindowD)
+		MainWindowD = LDPUMA_GetWindowHandle("Main");
 	HCLINE = hCLINE;
 
-	PAGEINFO info;
+	PAGEINFO info = { 0 };
 	if (GetPageInfo(hCPAGE, &info))
 		nIncline = info.Incline2048;
 	else
@@ -106,7 +110,8 @@ Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
 	return TRUE;
 }
 
-Bool32 RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
+////////////////////////////////////////////////
+RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 {
 	SetReturnCode_rblock(IDS_ERR_NO);
 	Open_Res_Log();
@@ -124,8 +129,8 @@ Bool32 RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 
 	return TRUE;
 }
-
-Bool32 RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
+////////////////////////////////////////////////
+RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
 {
 	Bool32 rc = TRUE;
 	SetReturnCode_rblock(IDS_ERR_NO);
@@ -140,7 +145,7 @@ Bool32 RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenomi
 	assert(lpNominator);
 	assert(lpDenominator);
 	assert(hCCOM);
-	CalculatePageIncline(lpNominator,lpDenominator);
+	CalculatePageIncline(hCCOM, lpNominator,lpDenominator);
 	Close_Res_Log();
 
 	return rc;

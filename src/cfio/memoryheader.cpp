@@ -15,12 +15,12 @@ MemoryHeader::MemoryHeader() :
 	GlobalHeader() {
 }
 
-MemoryHeader::MemoryHeader(Handle hMemory, size_t wBlockSize) :
+MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize) :
 	GlobalHeader(hMemory, NULL, wBlockSize) {
 	SetHeaderSize(sizeof(class MemoryHeader));
 }
 
-MemoryHeader::MemoryHeader(Handle hMemory, size_t wBlockSize,
+MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize,
 		const std::string& OwnerName, const std::string& Commentary) :
 	GlobalHeader(hMemory, NULL, wBlockSize), comment_(Commentary), owner_(
 			OwnerName) {

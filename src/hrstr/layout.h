@@ -1,58 +1,59 @@
 /*
- Copyright (c) 1993-2008, Cognitive Technologies
- All rights reserved.
+Copyright (c) 1993-2008, Cognitive Technologies
+All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Разрешается повторное распространение и использование как в виде исходного кода,
+так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+      * При повторном распространении исходного кода должны оставаться указанное
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
+        других материалах, поставляемых при распространении, должны сохраняться
+        указанная выше информация об авторском праве, этот список условий и
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
+        продуктов, основанных на этом ПО, без предварительного письменного
+        разрешения.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
- Redistribution and use in source and binary forms, with or without modification,
- are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 
- * Redistributions of source code must retain the above copyright notice,
- this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.
- * Neither the name of the Cognitive Technologies nor the names of its
- contributors may be used to endorse or promote products derived from this
- software without specific prior written permission.
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of the Cognitive Technologies nor the names of its
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 
 /****************************************************************************
  *                                                                          *
@@ -77,7 +78,8 @@
 #include  "picture.h"
 #include  "ctp.h"
 
-void q_sort(char *, size_t, size_t, int(*)(const void *, const void *));
+void  q_sort( char *, size_t, size_t,
+			  int (*)( const void *, const void * ) );
 
 # ifdef LT_STAND_ALONE
 # define DEFAULT_ROOTS_FILENAME  "a.rts"
@@ -88,6 +90,24 @@ void q_sort(char *, size_t, size_t, int(*)(const void *, const void *));
                             fprintf (f, "%s: %d\n", __FILE__, __LINE__); \
                             fclose (f);                                  \
                         }
+
+/****************************************************************************
+ *   Common structures                                                      *
+ ***************************************************************************/
+
+typedef struct
+    {
+        int x;
+        int y;
+    } LPOINT;
+
+typedef struct
+    {
+        int xLeft;
+        int yTop;
+        int xRight;
+        int yBottom;
+    } RECTANGLE;
 
 # define EXCHANGE_INTS(a, b) { int temp; temp = a; a = b; b = temp; }
 
@@ -119,15 +139,16 @@ typedef struct _RootBackup ROOT_BACKUP;
 struct _BackupCopy;
 typedef struct _BackupCopy BACKUP_COPY;
 
+
 /****************************************************************************
  *   Working with roots                                                     *
  ***************************************************************************/
 
 struct _RootStrip
-{
-    ROOT *pBegin;
-    ROOT *pEnd;
-};
+    {
+        ROOT *pBegin;
+        ROOT *pEnd;
+    };
 
 extern ROOT_STRIP *pRootStrips;
 extern int nRootStrips;
@@ -138,23 +159,24 @@ extern int nRootStripsOffset;
 # ifdef LT_STAND_ALONE
 Bool RootsLoadFile (char * pFilename);
 # endif
-void CalculatePageParameters(void);
+void CalculatePageParameters (void);
 
-void RootStripsCalculate(void);
-void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter);
+void RootStripsCalculate (void);
+void RootStripsGetLoopParameters
+         (int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter);
 
-void RootsRemoveFromRulers(void);
+void RootsRemoveFromRulers (void);
 
-void RootsSaveNonLayoutData(void);
-void RootsRestoreNonLayoutData_ForDustAndRemoved(void);
-void RootsRestoreNonLayoutData_ForBlock(BLOCK *p);
-void RootsRestoreNonLayoutData(void);
+void RootsSaveNonLayoutData (void);
+void RootsRestoreNonLayoutData_ForDustAndRemoved (void);
+void RootsRestoreNonLayoutData_ForBlock (BLOCK *p);
+void RootsRestoreNonLayoutData (void);
 
-void RootsFreeData(void);
+void RootsFreeData (void);
 
 extern int nRootSpaceWidth;
 extern int nRootSpaceHeight;
-extern CIF::Rect rRootSpace;
+extern RECTANGLE rRootSpace;
 
 /****************************************************************************
  *   Inclines accounting                                                    *
@@ -162,19 +184,19 @@ extern CIF::Rect rRootSpace;
 
 # define INCLINE_FACTOR  2048
 
-extern int *pnHeightesCounter;
-extern int nHeightesAllocated;
-extern int nHeightes;
+extern int  *pnHeightesCounter;
+extern int  nHeightesAllocated;
+extern int  nHeightes;
 
 extern int16_t nIncline;
 
-Bool InclinesAccount(void);
-void InclinesFreeData(void);
+Bool InclinesAccount (void);
+void InclinesFreeData (void);
 
-void IdealXY(int16_t x, int16_t y, int16_t *px, int16_t *py);
-void RealXY(int16_t x, int16_t y, int16_t *px, int16_t *py);
+void IdealXY (int16_t x, int16_t y, int16_t *px, int16_t *py);
+void RealXY (int16_t x, int16_t y, int16_t *px, int16_t *py);
 
-void RotatePageToIdeal(void);
+void RotatePageToIdeal (void);
 
 # define IDEAL_XY(x, y)   \
          {\
@@ -201,11 +223,11 @@ void RotatePageToIdeal(void);
  ***************************************************************************/
 
 struct _Interval
-{
-    int xBegin;
-    int xEnd;
-    COMP *pComp;
-};
+    {
+        int   xBegin;
+        int   xEnd;
+        COMP  *pComp;
+    };
 
 extern INTERVAL *pIntervals;
 extern int nIntervals;
@@ -213,76 +235,83 @@ extern int nIntervals;
 extern INTERVAL *pPrevIntervals;
 extern int nPrevIntervals;
 
-void IntervalsInit(void);
-void IntervalsBuild(int y);
-void IntervalsStep(int y);
-void IntervalsFreeData(void);
+void IntervalsInit (void);
+void IntervalsBuild (int y);
+void IntervalsStep (int y);
+void IntervalsFreeData (void);
 
 /****************************************************************************
  *   Strips                                                                 *
  ***************************************************************************/
 
 struct _Strip
-{
-    STRIP *pNext;
+    {
+        STRIP *pNext;
 
-    int y;
-    int xBegin;
-    int xEnd;
-};
+        int   y;
+        int   xBegin;
+        int   xEnd;
+    };
 
 # define STRIPS_POOL_FIRST_ALLOCATION      1000
 # define STRIPS_POOL_ALLOCATION_QUANTUM    500
 
 extern STRIP *pStripsPool;
-extern int nStripsPoolLength;
+extern int   nStripsPoolLength;
 extern STRIP *pFreeStripsList;
 
-STRIP *StripNew(void);
-void StripDelete(STRIP *pStrip);
+STRIP *StripNew (void);
+void StripDelete (STRIP *pStrip);
 
 /****************************************************************************
  *   Components                                                             *
  ***************************************************************************/
 
 struct _Component
-{
-    COMP *pNext;
-    COMP *pPrev;
+    {
+        COMP    *pNext;
+        COMP    *pPrev;
 
-    int Number;
+        int     Number;
 
-    int xLeft;
-    int yTop;
-    int xRight;
-    int yBottom;
-    Bool bRectangleAccounted;
+        int     xLeft;
+        int     yTop;
+        int     xRight;
+        int     yBottom;
+        Bool    bRectangleAccounted;
 
-    STRIP *pStripsListBegin;
-    STRIP *pStripsListEnd;
+        STRIP   *pStripsListBegin;
+        STRIP   *pStripsListEnd;
 
-    int nSquare;
-};
+        int     nSquare;
+    };
 
 # define COMPS_POOL_FIRST_ALLOCATION     100
 # define COMPS_POOL_ALLOCATION_QUANTUM   50
 
 extern COMP *pCompsPool;
-extern int nCompsPoolLength;
+extern int  nCompsPoolLength;
 extern COMP *pFreeCompsList;
 
 extern COMP *pCompsList;
 
-COMP *CompNew(void);
-void CompDelete(COMP *pComp);
-void CompAddInterval(COMP *pComp, int y, INTERVAL *pInterval);
-void CompsConnect(COMP *pComp1, COMP *pComp2);
-void CompOR_Matrix(COMP *pComp, int Mask);
-void CompAND_Matrix(COMP *pComp, int Mask);
+COMP *CompNew (void);
+void CompDelete (COMP *pComp);
+void CompAddInterval (COMP *pComp, int y, INTERVAL *pInterval);
+void CompsConnect (COMP *pComp1, COMP *pComp2);
+void CompOR_Matrix (COMP *pComp, int Mask);
+void CompAND_Matrix (COMP *pComp, int Mask);
 
-void CompsBuild(uchar *pMatrix, int nWidth, int nHeight, int nSize, int BlackMask);
+void CompsBuild
+(
+    uchar *pMatrix,
+    int   nWidth,
+    int   nHeight,
+    int   nSize,
+    int   BlackMask
+);
 
-void CompsFreeData(void);
+void CompsFreeData (void);
 
 /****************************************************************************
  ****************************************************************************
@@ -307,17 +336,17 @@ void CompsFreeData(void);
 # define PMC_FLAGS_MASK    (PMC_ROOT | PMC_DUST | PMC_PICTURE)
 
 #ifdef  HUGE_IMAGE
-# define PAGE_MATRIX_WIDTH          1024        // 512
-# define PAGE_MATRIX_WIDTH_SHIFT    10          // 9
-# define PAGE_MATRIX_HEIGHT         1024
+  # define PAGE_MATRIX_WIDTH          1024        // 512
+  # define PAGE_MATRIX_WIDTH_SHIFT    10          // 9
+	# define PAGE_MATRIX_HEIGHT         1024
 
-# define PAGE_MATRIX_SIZE           (1024*1024) // 512
+  # define PAGE_MATRIX_SIZE           (1024*1024) // 512
 #else
-# define PAGE_MATRIX_WIDTH          256
-# define PAGE_MATRIX_WIDTH_SHIFT    8
-# define PAGE_MATRIX_HEIGHT         256
+	# define PAGE_MATRIX_WIDTH          256
+	# define PAGE_MATRIX_WIDTH_SHIFT    8
+	# define PAGE_MATRIX_HEIGHT         256
 
-# define PAGE_MATRIX_SIZE           65536
+	# define PAGE_MATRIX_SIZE           65536
 #endif
 /* (PAGE_MATRIX_WIDTH * PAGE_MATRIX_HEIGHT) */
 
@@ -332,26 +361,26 @@ void CompsFreeData(void);
 # define PAGE_MATRIX_REAL_WIDTH  (PAGE_MATRIX_WIDTH  << PAGE_COMP_SHIFT)
 # define PAGE_MATRIX_REAL_HEIGHT (PAGE_MATRIX_HEIGHT << PAGE_COMP_SHIFT)
 
-extern uchar *PageMatrix; /* [PAGE_MATRIX_SIZE] */
+extern uchar *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
 extern Bool bPageMatrixInitialized;
 
-void PageMatrixInit(int nWidth, int nHeight);
-void SpecCompPut(MN *mn);
-void PageMatrixPutRoots(void);
-void PageMatrixHorzGlue(void);
-void PageMatrixVertGlue(void);
-void PageMatrixExcludeIntersections(void);
-void PageMatrixBuild(void);
-void PageMatrixPutSeparators(Bool bConvertToRealCoords);
-void PageMatrixExcludeSeparators(Bool bConvertToRealCoords);
-uchar PageMatrixFlagsByIdealXY(int xIdeal, int yIdeal);
-void PageMatrixFreeData(void);
+void PageMatrixInit (int nWidth, int nHeight);
+void SpecCompPut (MN *mn);
+void PageMatrixPutRoots (void);
+void PageMatrixHorzGlue (void);
+void PageMatrixVertGlue (void);
+void PageMatrixExcludeIntersections (void);
+void PageMatrixBuild (void);
+void PageMatrixPutSeparators (Bool bConvertToRealCoords);
+void PageMatrixExcludeSeparators (Bool bConvertToRealCoords);
+uchar PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal);
+void PageMatrixFreeData (void);
 
 # define PAGE_MATRIX_MARK_SHIFT  3
 # define COMP_SERIES_LENGTH      7
 
-void InitialBreakingProceed(void);
-void InitialBreakingFreeData(void);
+void InitialBreakingProceed (void);
+void InitialBreakingFreeData (void);
 
 /****************************************************************************
  *   Working with separators                                                *
@@ -366,21 +395,21 @@ void InitialBreakingFreeData(void);
 # define SEPF_IS_PART 1
 
 struct _Separator
-{
-    int Type;
-    unsigned uFlags;
-    int xBegin;
-    int yBegin;
-    int xEnd;
-    int yEnd;
-    int nWidth;
-};
+    {
+        int      Type;
+        unsigned uFlags;
+        int      xBegin;
+        int      yBegin;
+        int      xEnd;
+        int      yEnd;
+        int      nWidth;
+    };
 
 extern SEPARATOR *pSeps;
 extern int nSeps;
 
-void SeparatorsGet(void);
-void SeparatorsFreeData(void);
+void SeparatorsGet (void);
+void SeparatorsFreeData (void);
 
 /****************************************************************************
  *   Working with blocks                                                    *
@@ -394,6 +423,7 @@ void SeparatorsFreeData(void);
 # define BLOCK_VERT_SEPARATOR 3
 # define BLOCK_RECT_SEPARATOR 4
 # define BLOCK_PICTURE        5  // Pit
+
 /* Block Flags */
 
 # define BF_NULL                                0
@@ -419,52 +449,52 @@ struct _Block
     BLOCK *pNext;
     BLOCK *pPrev;
 
-    int16_t Type;
-    unsigned uFlags;
-    int nNumber;
-    int nUserNum; // Number call of User ExractBlocks Piter 08-17-95 06:20pm
+    int16_t        Type;
+    unsigned   uFlags;
+    int        nNumber;
+    int        nUserNum;  // Number call of User ExractBlocks Piter 08-17-95 06:20pm
     //05-25-94 03:01pm,Pit
-    uchar language; // ­  Є Є®¬ п§лЄҐ ­ ЇЁб ­®
-    CIF::Rect Rect;
+    uchar        language; // ­  Є Є®¬ п§лЄҐ ­ ЇЁб ­®
+    RECTANGLE  Rect;
 
-    int nEmbedding;
-    BLOCK *pLowerEmbedding;
-    BLOCK *pHigherEmbedding;
+    int        nEmbedding;
+    BLOCK      *pLowerEmbedding;
+    BLOCK      *pHigherEmbedding;
 
-    BLOCK *pLeft;
-    BLOCK *pRight;
-    BLOCK *pUp;
-    BLOCK *pDown;
+    BLOCK      *pLeft;
+    BLOCK      *pRight;
+    BLOCK      *pUp;
+    BLOCK      *pDown;
 
-    ROOT *pRoots;
-    ROOT *pEndRoots;
+    ROOT       *pRoots;
+    ROOT       *pEndRoots;
 
-    int nRoots;
-    int nLetters;
-    int nDust;
-    int nHeightesSum;
-    int nAverageHeight;
+    int        nRoots;
+    int        nLetters;
+    int        nDust;
+    int        nHeightesSum;
+    int        nAverageHeight;
 
-    int nParents;
-    int nChildren;
-    BLOCK *pParent;
+    int        nParents;
+    int        nChildren;
+    BLOCK      *pParent;
 
-    SEPARATOR *pUpSep; // Own block separators
-    SEPARATOR *pDownSep;
-    SEPARATOR *pLeftSep;
-    SEPARATOR *pRightSep;
+    SEPARATOR   *pUpSep;                  // Own block separators
+    SEPARATOR   *pDownSep;
+    SEPARATOR   *pLeftSep;
+    SEPARATOR   *pRightSep;
 
-    int *pHorzHystogram; // Hystogram for breaking
+    int        *pHorzHystogram;          // Hystogram for breaking
 
-    int nActualHeight;
+    int        nActualHeight;
 
-    int nStartColumnWidth;
-    int nUnconditionalMinColumnWidth;
-    int nConditionalMinColumnWidth;
+    int        nStartColumnWidth;
+    int        nUnconditionalMinColumnWidth;
+    int        nConditionalMinColumnWidth;
 
-    int *pHystogram; // Hystogram for strings extraction
-    int nHystColumns;
-    int hPicture; // Pit. ЋЇЁб ­ЁҐ Є авЁ­ЄЁ
+    int        *pHystogram;              // Hystogram for strings extraction
+    int        nHystColumns;
+    int        hPicture;                   // Pit. ЋЇЁб ­ЁҐ Є авЁ­ЄЁ
 };
 
 extern BLOCK *pBlocksList;
@@ -476,44 +506,49 @@ extern BLOCK *pTopBlocksList;
 extern BLOCK *pBottomBlocksList;
 extern int nNextBlockNumber;
 
-BLOCK *BlocksAddDescriptor(void);
-void BlocksRemoveDescriptor(BLOCK *p);
-void BlockAccountRoot(BLOCK *p, ROOT *pRoot);
-void BlockSetAverageHeight(BLOCK *p);
-void BlockCalculateBreakingParameters(BLOCK *p);
-void BlockReCalculateBreakingParameters(BLOCK *p);
-void BlockSetRootsNumbers(BLOCK *p);
-void BlocksSetRootsNumbers(void);
-void BlocksRestoreBreakedBlock(BLOCK *p, BLOCK *q, BLOCK *r);
+Bool RectEq (RECTANGLE *p, RECTANGLE *q);
+Bool RectIsCrossed (RECTANGLE *p, RECTANGLE *q);
+void RectAsgPlus (RECTANGLE *p, RECTANGLE *q);
+Bool RectIncludes (RECTANGLE *p, RECTANGLE *q);
+
+BLOCK *BlocksAddDescriptor (void);
+void BlocksRemoveDescriptor (BLOCK *p);
+void BlockAccountRoot (BLOCK *p, ROOT *pRoot);
+void BlockSetAverageHeight (BLOCK *p);
+void BlockCalculateBreakingParameters (BLOCK *p);
+void BlockReCalculateBreakingParameters (BLOCK *p);
+void BlockSetRootsNumbers (BLOCK *p);
+void BlocksSetRootsNumbers (void);
+void BlocksRestoreBreakedBlock (BLOCK *p, BLOCK *q, BLOCK *r);
 void BlockEnglish(BLOCK *p); // Pit 02-11-94
 
 # ifdef LT_DEBUG
-void BlocksSetRandomRootsNumbers(void);
+void BlocksSetRandomRootsNumbers (void);
 # endif
 
-void BlockRenameRoots(BLOCK *p, int nBlock);
-void BlocksFreeData(void);
-void BlocksBuildEmbeddingLists(void);
-void BlocksBuildLeftAndRightLists(void);
-void BlocksBuildTopAndBottomLists(void);
+void BlockRenameRoots (BLOCK *p, int nBlock);
+void BlocksFreeData (void);
+void BlocksBuildEmbeddingLists (void);
+void BlocksBuildLeftAndRightLists (void);
+void BlocksBuildTopAndBottomLists (void);
 
 /****************************************************************************
  *   Hystogram                                                              *
  ***************************************************************************/
 
-extern int *pHystogram;
-extern int *pHystVertHeightesSum;
-extern int *pHystHorzHeightesSum;
-extern int *pHystInt1;
-extern int *pHystInt2;
-extern int *pHystTops;
-extern int *pHystBottoms;
-extern int nHystColumns;
-extern int nHystColumnWidth;
+extern int  *pHystogram;
+extern int  *pHystVertHeightesSum;
+extern int  *pHystHorzHeightesSum;
+extern int  *pHystInt1;
+extern int  *pHystInt2;
+extern int  *pHystTops;
+extern int  *pHystBottoms;
+extern int  nHystColumns;
+extern int  nHystColumnWidth;
 
-Bool HystogramAllocateBody(void);
-void HystogramMakeIntegral(int *pInt, int *p, int nWidth);
-void HystogramFreeData(void);
+Bool HystogramAllocateBody (void);
+void HystogramMakeIntegral (int *pInt, int *p, int nWidth);
+void HystogramFreeData (void);
 
 /****************************************************************************
  ****************************************************************************
@@ -533,28 +568,28 @@ void HystogramFreeData(void);
 # define SUSPICION_COMP_CELL  4
 
 extern uchar *pSB_Matrix;
-extern int nSB_Width;
-extern int nSB_Height;
-extern int nSB_Size;
-extern int nSB_CellWidth;
-extern int nSB_CellHeight;
+extern int  nSB_Width;
+extern int  nSB_Height;
+extern int  nSB_Size;
+extern int  nSB_CellWidth;
+extern int  nSB_CellHeight;
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 extern BLOCK *pSB_Block;
 # endif
 
-Bool SB_MatrixBuild(BLOCK *pBlock, int nCellWidth, int nCellHeight);
-void SB_MatrixFreeData(void);
+Bool SB_MatrixBuild (BLOCK *pBlock, int nCellWidth, int nCellHeight);
+void SB_MatrixFreeData (void);
 
 # define FCC_NOT_FOUND        0
 # define FCC_FOUND            1
 # define FCC_CANT_FOUND       2
 # define FCC_FOUND_SUSPICION  3
 
-int CompsFindCompToCut(COMP **ppResult);
+int  CompsFindCompToCut (COMP **ppResult);
 
-Bool TrySmartBreaking(BLOCK *pBlock);
-void SmartBreakingFreeData(void);
+Bool TrySmartBreaking (BLOCK *pBlock);
+void SmartBreakingFreeData (void);
 
 /****************************************************************************
  ****************************************************************************
@@ -581,73 +616,73 @@ typedef struct _WSB_Point
     int yAverage;
 } WSB_POINT;
 
-extern int * pWSB_Hyst1;
-extern int * pWSB_Hyst2;
-extern int nWSB_HystColumns;
-extern int xWSB_HystOffset;
+extern int  * pWSB_Hyst1;
+extern int  * pWSB_Hyst2;
+extern int    nWSB_HystColumns;
+extern int    xWSB_HystOffset;
 
 # define WSB_POINTS_POOL_ALLOCATION_QUANTUM    32
 
 extern WSB_POINT * pWSB_Points;
-extern int nWSB_Points;
+extern int         nWSB_Points;
 
-void WSB_BuildHystograms(void);
-void WSB_AddPoint(WSB_POINT Point);
-void WSB_BuildPoints(void);
-Bool WSB_BreakBlock(BLOCK * p, WSB_POINT Point);
-Bool WSB_CutUpperLine(BLOCK * p, WSB_POINT Point);
-void WhiteStripsBreaking(void);
-void WSB_FreeData(void);
+void WSB_BuildHystograms (void);
+void WSB_AddPoint (WSB_POINT Point);
+void WSB_BuildPoints (void);
+Bool WSB_BreakBlock (BLOCK * p, WSB_POINT Point);
+Bool WSB_CutUpperLine (BLOCK * p, WSB_POINT Point);
+void WhiteStripsBreaking (void);
+void WSB_FreeData (void);
 
 /****************************************************************************
  *   Graphics output                                                        *
  ***************************************************************************/
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
-void LT_GraphicsOpen(void);
-void LT_GraphicsClearScreen(void);
-void LT_GraphicsTitle(const char *pTitle);
-int LT_Getch(void);
+void LT_GraphicsOpen (void);
+void LT_GraphicsClearScreen (void);
+void LT_GraphicsTitle (const char *pTitle);
+int  LT_Getch (void);
 
-void LT_GraphicsRootsOutput(const char *pTitle);
-void LT_GraphicsRootStripsOutput(char *pTitle);
-void LT_GraphicsPageMatrixOutput(char *pTitle);
-void LT_GraphicsBlocksOutput(const char *pTitle);
-void LT_GraphicsHystogramOutput(const char *pTitle);
-void LT_GraphicsSpecialCuttingOutput(char *pTitle);
-void LT_GraphicsSB_MatrixOutput(char *pTitle);
-void LT_GraphicsWSB_Hystogram_1_Output(char *pTitle);
-void LT_GraphicsWSB_Hystogram_2_Output(char *pTitle);
-void LT_GraphicsWSB_PointsOutput(char *pTitle);
-void LT_GraphicsPictureRemovingConditionsOutput(char * pTitle);
-void LT_GraphicsDD_RemovingConditionsOutput(char * pTitle);
-void LT_GraphicsTreeOutput(char *pTitle);
-void LT_GraphicsHighEmbeddingBlocksListOutput(char *pTitle);
-void LT_GraphicsLowEmbeddingBlocksListOutput(char *pTitle);
-void LT_GraphicsLeftBlocksListOutput(char *pTitle);
-void LT_GraphicsRightBlocksListOutput(char *pTitle);
-void LT_GraphicsTopBlocksListOutput(char *pTitle);
-void LT_GraphicsBottomBlocksListOutput(char *pTitle);
-void LT_GraphicsBlocksOrderOutput(char *pTitle);
-void LT_GraphicsCurrentStringOutput(const char *pTitle);
-void LT_GraphicsStringsOutput(const char *pTitle);
-void LT_GraphicsStringsForwardOrderOutput(const char *pTitle);
-void LT_GraphicsStringsBackwardOrderOutput(const char *pTitle);
-void LT_GraphicsStringsUpOrderOutput(const char *pTitle);
-void LT_GraphicsStringsDownOrderOutput(const char *pTitle);
-void LT_GraphicsRasterOutput(const char *pTitle);
-void LT_GraphicsBreakingOutput(const char *pTitle);
+void LT_GraphicsRootsOutput (const char *pTitle);
+void LT_GraphicsRootStripsOutput (char *pTitle);
+void LT_GraphicsPageMatrixOutput (char *pTitle);
+void LT_GraphicsBlocksOutput (const char *pTitle);
+void LT_GraphicsHystogramOutput (const char *pTitle);
+void LT_GraphicsSpecialCuttingOutput (char *pTitle);
+void LT_GraphicsSB_MatrixOutput (char *pTitle);
+void LT_GraphicsWSB_Hystogram_1_Output (char *pTitle);
+void LT_GraphicsWSB_Hystogram_2_Output (char *pTitle);
+void LT_GraphicsWSB_PointsOutput (char *pTitle);
+void LT_GraphicsPictureRemovingConditionsOutput (char * pTitle);
+void LT_GraphicsDD_RemovingConditionsOutput (char * pTitle);
+void LT_GraphicsTreeOutput (char *pTitle);
+void LT_GraphicsHighEmbeddingBlocksListOutput (char *pTitle);
+void LT_GraphicsLowEmbeddingBlocksListOutput (char *pTitle);
+void LT_GraphicsLeftBlocksListOutput (char *pTitle);
+void LT_GraphicsRightBlocksListOutput (char *pTitle);
+void LT_GraphicsTopBlocksListOutput (char *pTitle);
+void LT_GraphicsBottomBlocksListOutput (char *pTitle);
+void LT_GraphicsBlocksOrderOutput (char *pTitle);
+void LT_GraphicsCurrentStringOutput (const char *pTitle);
+void LT_GraphicsStringsOutput (const char *pTitle);
+void LT_GraphicsStringsForwardOrderOutput (const char *pTitle);
+void LT_GraphicsStringsBackwardOrderOutput (const char *pTitle);
+void LT_GraphicsStringsUpOrderOutput (const char *pTitle);
+void LT_GraphicsStringsDownOrderOutput (const char *pTitle);
+void LT_GraphicsRasterOutput (const char *pTitle);
+void LT_GraphicsBreakingOutput (const char *pTitle);
 void LT_ShowBlock(char *pTitle);
 
-void LT_GraphicsBlockOutput2(const char *pTitle);
+void LT_GraphicsBlockOutput2 (char *pTitle);
 
-void LT_GraphicsPictureRemovingConditionsOutput2(char *pTitle);
-void LT_GraphicsDD_RemovingConditionsOutput2(char *pTitle);
-void LT_GraphicsLinearRemovingConditionsOutput2(char *pTitle);
-void LT_GraphicsClose(void);
+void LT_GraphicsPictureRemovingConditionsOutput2 (char *pTitle);
+void LT_GraphicsDD_RemovingConditionsOutput2 (char *pTitle);
+void LT_GraphicsLinearRemovingConditionsOutput2 (char *pTitle);
+void LT_GraphicsClose (void);
 
 extern BLOCK *pDebugBlock;
-extern CIF::Rect rDebugRect;
+extern RECTANGLE rDebugRect;
 extern int xDebugVertLine;
 # endif
 
@@ -655,12 +690,14 @@ extern int xDebugVertLine;
  *   Blocks processing tools                                                *
  ***************************************************************************/
 
-Bool BlockBreakOnVertical(BLOCK *p, BLOCK **pq, BLOCK **pr, int x, int nBreakingWidth);
-Bool BlockBreakOnHorizontal(BLOCK *p, BLOCK **pq, BLOCK **pr, int y);
-Bool BlockBreakByRectangle(BLOCK *p, BLOCK **pq, BLOCK **pr, int xBegin, int yBegin, int xEnd,
-        int yEnd);
-BLOCK *BlocksGlueTwo(BLOCK *p, BLOCK *q);
-void BlockRemove(BLOCK *p);
+Bool BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
+                           int x, int nBreakingWidth);
+Bool BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
+                             int y);
+Bool BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
+                            int xBegin, int yBegin, int xEnd, int yEnd);
+BLOCK *BlocksGlueTwo (BLOCK *p, BLOCK *q);
+void BlockRemove (BLOCK *p);
 
 /****************************************************************************
  *   Layout backup / restore procedures                                     *
@@ -669,25 +706,25 @@ void BlockRemove(BLOCK *p);
 
 struct _RootBackup
 {
-    int16_t nBlock;
+    int16_t  nBlock;
     ROOT *pNext;
 };
 
 struct _BackupCopy
 {
-    BACKUP_COPY *pNext;
-    BACKUP_COPY *pPrev;
+    BACKUP_COPY  *pNext;
+    BACKUP_COPY  *pPrev;
 
-    ROOT_BACKUP *pRootBackups;
+    ROOT_BACKUP  *pRootBackups;
 
-    int nBlocks;
-    BLOCK *pBlocks;
+    int          nBlocks;
+    BLOCK        *pBlocks;
 
-    long lPictures; // size of pictures buffer Pit 09-29-94 03:05pm
-    puchar pPictures; //         pictures buffer
+    long         lPictures; // size of pictures buffer Pit 09-29-94 03:05pm
+    puchar        pPictures; //         pictures buffer
 
-    int nSheets; // зЁб«® в Ў«Ёж
-    SHT *sht; // Ёе ®ЇЁб вҐ«Ё
+    int          nSheets;   // зЁб«® в Ў«Ёж
+    SHT          *sht;      // Ёе ®ЇЁб вҐ«Ё
 };
 
 extern BACKUP_COPY *pBC_First;
@@ -695,43 +732,43 @@ extern BACKUP_COPY *pBC_Last;
 extern BACKUP_COPY *pBC_Current;
 extern int nBC_Copies;
 
-void LayoutBackup(void);
-void LayoutUndo(void);
-void LayoutRedo(void);
-void LayoutBackupFreeData(void);
+void LayoutBackup (void);
+void LayoutUndo (void);
+void LayoutRedo (void);
+void LayoutBackupFreeData (void);
 
 /****************************************************************************
  *   Hand layout functions                                                  *
  ***************************************************************************/
 
-void HandLayoutFreeData(void);
+void HandLayoutFreeData (void);
 
 /****************************************************************************
  *   Main subroutines                                                       *
  ***************************************************************************/
 
-void PageMatrixBuild(void);
-void InitialBreakingProceed(void);
-void BlocksExtract(void);
-void BlocksBreak(void);
-void BlocksGlue(void);
-void BlocksRemoveEmptyBlocks(void);
-void BlocksRemoveFrameLikeRoots(void);
-void BlocksAbsorbDust(void);
-void BlocksDisAbsorbBoundaryDust(void);
-void BlocksCutPageEdges();
-void BlocksAddVirtualSeparatorsBlocks(void);
-void TreeBuild(void);
-void TreeEdit(void);
-void TreePass(void);
+void PageMatrixBuild (void);
+void InitialBreakingProceed (void);
+void BlocksExtract (void);
+void BlocksBreak (void);
+void BlocksGlue (void);
+void BlocksRemoveEmptyBlocks (void);
+void BlocksRemoveFrameLikeRoots (void);
+void BlocksAbsorbDust (void);
+void BlocksDisAbsorbBoundaryDust (void);
+void BlocksCutPageEdges ();
+void BlocksAddVirtualSeparatorsBlocks (void);
+void TreeBuild (void);
+void TreeEdit  (void);
+void TreePass  (void);
 
-void LT_FreeAllData(void);
-void LayoutPart1(void);
-void LayoutPart2(void);
+void LT_FreeAllData (void);
+void LayoutPart1 (void);
+void LayoutPart2 (void);
 
 # ifdef LT_DEBUG
 extern Bool bDebugTimeFlag;
-extern int LT_DebugGraphicsLevel;
+extern int  LT_DebugGraphicsLevel;
 extern Bool bDebugOptionCalibratePictureRemovingCriteria;
 extern Bool bDebugOptionCalibrateDD_RemovingCriteria;
 extern Bool bDebugOptionCalibrateLinearRemovingCriteria;

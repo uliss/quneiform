@@ -78,6 +78,7 @@ extern uchar image_white; // mask for wite pixels adding
 extern struct main_memory_str Q;
 
 void analise();
+BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width);
 uint32_t progress_set_percent(uint32_t volume);
 int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 

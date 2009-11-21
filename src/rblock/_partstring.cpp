@@ -62,6 +62,8 @@
 
 using namespace CIF;
 
+#define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
+
 extern jmp_buf fatal_error_exit; // For error handling
 extern int16_t nStrings;
 extern uint16_t run_options;
@@ -72,256 +74,291 @@ extern Handle hShowCells;
 static void LayoutFromCPAGE(Handle hCPAGE);
 static int IsInPoly(Point16 a, void * pPoly);
 
+// Piter /////////////////////////////////////
 void RotatePageToIdeal(void);
 void RotatePageToReal(void);
 
 void PageLayoutStrings(Handle hCCOM, Handle hCPAGE) {
-    if (ReadRoots(hCCOM, FALSE)) {
-        run_options = FORCE_ONE_COLUMN;
-        LayoutPart1();
-        LayoutFromCPAGE(hCPAGE);
-        LayoutPart2();
-    }
+	if (ReadRoots(hCCOM, FALSE)) {
+		run_options = FORCE_ONE_COLUMN;
+
+		LayoutPart1();
+
+		LayoutFromCPAGE(hCPAGE);
+
+		LayoutPart2();
+		if (!LDPUMA_Skip(hShowString)) {
+			LDPUMA_Console("Нажмите любую клавишу...");
+			LDPUMA_WaitUserInput(NULL, NULL);
+			LDPUMA_DeleteRects(NULL, PUMA_MODULE_RBLOCK);
+		}
+		//free (CellsPage); // *** Rom 03-03-99
+		//CellsPage = NULL; // *** Rom 03-03-99
+	}
 }
 
 void file_string(STRING * s) {
-    CSTR_line lin_in;
-    Rect16 r(Point16(s->xLeft, s->yTop), Point16(s->xRight, s->yBottom));
-    Rect left, right;
-    Bool32 filtr = FALSE;
+	CSTR_line lin_in;
+	Rect16 r = { s->xLeft, s->yTop, s->xRight, s->yBottom };
+	Rect32 left, right;
+	Bool32 filtr = FALSE;
 
-    nStrings++;
+	nStrings++;
 
-    lin_in = CSTR_NewLine(nStrings, 0, -1);
-    if (lin_in == (CSTR_line) NULL) {
-        SetReturnCode_rblock(CSTR_GetReturnCode());
-        longjmp(fatal_error_exit, -1);
-    }
-    else {
-        int i = 0;
-        ROOT * pRoot = NULL;
-        CCOM_comp * com = NULL;
+	if (!LDPUMA_Skip(hShowString))
+		LDPUMA_DrawRect(NULL, &r, nIncline / 2, __RGB__(0,127,0), 1,
+				PUMA_MODULE_RBLOCK);
 
-        CSTR_rast_attr attr = { 0 };
-        CSTR_rast rst = { 0 };
-        CSTR_attr lattr;
+	lin_in = CSTR_NewLine(nStrings, 0, -1);
+	if (lin_in == (CSTR_line) NULL) {
+		SetReturnCode_rblock(CSTR_GetReturnCode());
+		longjmp(fatal_error_exit, -1);
+	} else {
+		int i = 0;
+		ROOT * pRoot = NULL;
+		CCOM_comp * com = NULL;
 
-        lattr.incline = nIncline; // Incline*2048 = tg
-        lattr.fragment = s->nBlock - FIRST_REGULAR_BLOCK_NUMBER;
-        lattr.col = s->xLeft;
-        lattr.row = s->yTop;
-        lattr.wid = s->xRight - s->xLeft + 1;
-        lattr.hei = s->yBottom - s->yTop + 1;
-        strcpy((char*) lattr.VersionName, "RBLOCKS"); // 64 bytes
-        lattr.Flags = CSTR_STR_No;
-        if (s->uFlags & CSTR_STR_CapDrop) {
-            lattr.Flags += CSTR_STR_CapDrop;
-        }
+		CSTR_rast_attr attr = { 0 };
+		CSTR_rast rst = { 0 };
+		CSTR_attr lattr;
 
-        CSTR_SetLineAttr(lin_in, &lattr);
-        // OLEG : Delete Garbage
-        if (s->nDust > s->nLetters * 1) {
-            int32_t le, ri, nri, nle;
-            for (le = 32000, ri = -16000, i = 0; i < s->nLetters; i++) {
-                com = static_cast<CCOM_comp*> ((pRoots + s -> pLettersList[i])->pComp);
-                if (le > com->left)
-                    le = com->left;
-                if (ri < com->left + com->w)
-                    ri = com->left + com->w;
-            }
-            // find left & right letters limit
-            left.rleft() = right.rleft() = 32000;
-            left.rtop() = right.rtop() = 32000;
-            left.rright() = right.rright() = -16000;
-            left.rbottom() = right.rbottom() = -16000;
-            for (nri = nle = i = 0; i < s->nDust; i++) {
-                com = static_cast<CCOM_comp*> ((pRoots + s -> pDustList[i])->pComp);
-                if (com->w * com->h < 15) {
-                    CCOM_comp com1 = *com;
-                    com1.upper = com1.upper - (int16_t) (nIncline * com1.left / 2048);
-                    com1.left = com1.left + (int16_t) (nIncline * com1.upper / 2048);
-                    if (com->left + com->w <= le) {
-                        nle++;
-                        if (left.left() > com1.left)
-                            left.rleft() = com1.left;
-                        if (left.right() < com1.left + com->w)
-                            left.rright() = com1.left + com1.w;
-                        if (left.top() > com1.upper)
-                            left.rtop() = com1.upper;
-                        if (left.bottom() < com1.upper + com->h)
-                            left.rbottom() = com1.upper + com1.h;
-                    }
-                    if (com->left >= ri) {
-                        nri++;
-                        if (right.left() > com1.left)
-                            right.setLeft(com1.left);
-                        if (right.right() < com1.left + com->w)
-                            right.rright() = com1.left + com1.w;
-                        if (right.top() > com1.upper)
-                            right.rtop() = com1.upper;
-                        if (right.bottom() < com1.upper + com->h)
-                            right.rbottom() = com1.upper + com1.h;
-                    }
-                } // end of if select sizes
-            } // end of dust cycl
-            if (nle > 10 && left.height() > 10 || nri > 10 && right.height() > 10)
-                filtr = TRUE;
-        } // end of if num dust > num let * ...
-        // dust
-        for (i = 0; i < s->nDust; i++) {
-            pRoot = pRoots + s -> pDustList[i];
-            com = static_cast<CCOM_comp*> (pRoot->pComp);
-            if (filtr && com->w * com->h < 15) {
-                CCOM_comp com1 = *com;
-                com1.upper = com1.upper - (int16_t) (nIncline * com1.left / 2048);
-                com1.left = com1.left + (int16_t) (nIncline * com1.upper / 2048);
-                if (com1.upper >= left.top() && com1.upper + com1.h <= left.bottom() && com1.left
-                        >= left.left() && com1.left + com1.w <= left.right())
-                    continue;
-                if (com1.upper >= right.top() && com1.upper + com1.h <= right.bottom() && com1.left
-                        >= right.left() && com1.left + com1.w <= right.right())
-                    continue;
-            }
-            if ((rst = (CSTR_rast) CSTR_NewRaster(lin_in, com->left, com->upper, com->w))
-                    != (CSTR_rast) NULL) {
-                attr.row = com->upper;
-                attr.col = com->left;
-                attr.w = com->w;
-                attr.h = com->h;
-                attr.r_row = com->upper;
-                attr.r_col = com->left;
-                attr.flg = CSTR_f_dust;
-                CSTR_SetAttr(rst, &attr);
-                CSTR_StoreComp(rst, (uchar*) com->linerep, 1, com->scale);
-                if (com->vers)
-                    CSTR_StoreCollection(rst, com->vers);
-            }
-        }
-        // letters
-        for (i = 0; i < s->nLetters; i++) {
-            pRoot = pRoots + s -> pLettersList[i];
-            com = static_cast<CCOM_comp*> (pRoot->pComp);
-            if ((rst = (CSTR_rast) CSTR_NewRaster(lin_in, com->left, com->upper, com->w))
-                    != (CSTR_rast) NULL) {
-                attr.row = com->upper;
-                attr.col = com->left;
-                attr.w = com->w;
-                attr.h = com->h;
-                attr.r_row = com->upper;
-                attr.r_col = com->left;
-                attr.flg = CSTR_f_let | CSTR_f_bad;
-                CSTR_SetAttr(rst, &attr);
-                CSTR_StoreComp(rst, (uchar*) com->linerep, 1, com->scale);
-                if (s->uFlags & CSTR_STR_CapDrop) {
-                    CCOM_comp *ci = com;
-                    CCOM_comp *co = CSTR_GetComp(rst);
-                    CCOM_USER_BLOCK ub;
-                    int32_t n;
+		lattr.incline = nIncline; // Incline*2048 = tg
+		lattr.fragment = s->nBlock - FIRST_REGULAR_BLOCK_NUMBER;
+		lattr.col = s->xLeft;
+		lattr.row = s->yTop;
+		lattr.wid = s->xRight - s->xLeft + 1;
+		lattr.hei = s->yBottom - s->yTop + 1;
+		strcpy((char*) lattr.VersionName, "RBLOCKS"); // 64 bytes
+		lattr.Flags = CSTR_STR_No;
+		if (s->uFlags & CSTR_STR_CapDrop) {
+			lattr.Flags += CSTR_STR_CapDrop;
+		}
 
-                    ub.code = CCOM_UB_CAPDROPLN;
-                    ub.data = (uchar*) &n;
-                    if (CCOM_GetUserBlock(ci, &ub))
-                        CCOM_SetUserBlock(co, &ub);
-                }
-                if (com->vers)
-                    CSTR_StoreCollection(rst, com->vers);
-            }
-        }
-        CSTR_PackLine(lin_in);
-    }
+		CSTR_SetLineAttr(lin_in, &lattr);
+		// OLEG : Delete Garbage
+		if (s->nDust > s->nLetters * 1) {
+			int32_t le, ri, nri, nle;
+			for (le = 32000, ri = -16000, i = 0; i < s->nLetters; i++) {
+				com
+						= static_cast<CCOM_comp*> ((pRoots
+								+ s -> pLettersList[i])->pComp);
+				if (le > com->left)
+					le = com->left;
+				if (ri < com->left + com->w)
+					ri = com->left + com->w;
+			}
+			// find left & right letters limit
+			left.left = right.left = 32000;
+			left.top = right.top = 32000;
+			left.right = right.right = -16000;
+			left.bottom = right.bottom = -16000;
+			for (nri = nle = i = 0; i < s->nDust; i++) {
+				com
+						= static_cast<CCOM_comp*> ((pRoots + s -> pDustList[i])->pComp);
+				if (com->w * com->h < 15) {
+					CCOM_comp com1 = *com;
+					com1.upper = com1.upper - (int16_t) (nIncline * com1.left
+							/ 2048);
+					com1.left = com1.left + (int16_t) (nIncline * com1.upper
+							/ 2048);
+					if (com->left + com->w <= le) {
+						nle++;
+						if (left.left > com1.left)
+							left.left = com1.left;
+						if (left.right < com1.left + com->w)
+							left.right = com1.left + com1.w;
+						if (left.top > com1.upper)
+							left.top = com1.upper;
+						if (left.bottom < com1.upper + com->h)
+							left.bottom = com1.upper + com1.h;
+					}
+					if (com->left >= ri) {
+						nri++;
+						if (right.left > com1.left)
+							right.left = com1.left;
+						if (right.right < com1.left + com->w)
+							right.right = com1.left + com1.w;
+						if (right.top > com1.upper)
+							right.top = com1.upper;
+						if (right.bottom < com1.upper + com->h)
+							right.bottom = com1.upper + com1.h;
+					}
+				} // end of if select sizes
+			} // end of dust cycl
+			if (nle > 10 && left.bottom - left.top > 10 || nri > 10
+					&& right.bottom - right.top > 10)
+				filtr = TRUE;
+		} // end of if num dust > num let * ...
+		// dust
+		for (i = 0; i < s->nDust; i++) {
+			pRoot = pRoots + s -> pDustList[i];
+			com = static_cast<CCOM_comp*> (pRoot->pComp);
+			if (filtr && com->w * com->h < 15) {
+				CCOM_comp com1 = *com;
+				com1.upper = com1.upper - (int16_t) (nIncline * com1.left
+						/ 2048);
+				com1.left = com1.left
+						+ (int16_t) (nIncline * com1.upper / 2048);
+				if (com1.upper >= left.top && com1.upper + com1.h
+						<= left.bottom && com1.left >= left.left && com1.left
+						+ com1.w <= left.right)
+					continue;
+				if (com1.upper >= right.top && com1.upper + com1.h
+						<= right.bottom && com1.left >= right.left && com1.left
+						+ com1.w <= right.right)
+					continue;
+			}
+			if ((rst = (CSTR_rast) CSTR_NewRaster(lin_in, com->left,
+					com->upper, com->w)) != (CSTR_rast) NULL) {
+				attr.row = com->upper;
+				attr.col = com->left;
+				attr.w = com->w;
+				attr.h = com->h;
+				attr.r_row = com->upper;
+				attr.r_col = com->left;
+				attr.flg = CSTR_f_dust;
+				CSTR_SetAttr(rst, &attr);
+				CSTR_StoreComp(rst, (uchar*) com->linerep, 1, com->scale);
+				if (com->vers)
+					CSTR_StoreCollection(rst, com->vers);
+			}
+		}
+		// letters
+		for (i = 0; i < s->nLetters; i++) {
+			pRoot = pRoots + s -> pLettersList[i];
+			com = static_cast<CCOM_comp*> (pRoot->pComp);
+			if ((rst = (CSTR_rast) CSTR_NewRaster(lin_in, com->left,
+					com->upper, com->w)) != (CSTR_rast) NULL) {
+				attr.row = com->upper;
+				attr.col = com->left;
+				attr.w = com->w;
+				attr.h = com->h;
+				attr.r_row = com->upper;
+				attr.r_col = com->left;
+				attr.flg = CSTR_f_let | CSTR_f_bad;
+				CSTR_SetAttr(rst, &attr);
+				CSTR_StoreComp(rst, (uchar*) com->linerep, 1, com->scale);
+				if (s->uFlags & CSTR_STR_CapDrop) {
+					CCOM_comp *ci = com;
+					CCOM_comp *co = CSTR_GetComp(rst);
+					CCOM_USER_BLOCK ub;
+					int32_t n;
+
+					ub.code = CCOM_UB_CAPDROPLN;
+					ub.data = (uchar*) &n;
+					if (CCOM_GetUserBlock(ci, &ub))
+						CCOM_SetUserBlock(co, &ub);
+				}
+				if (com->vers)
+					CSTR_StoreCollection(rst, com->vers);
+			}
+		}
+		CSTR_PackLine(lin_in);
+		//		LDPUMA_CSTR_Monitor(NULL,lin_in,0,myMonitorProc);
+	}
 
 }
+;
+/////////////////////////////////////
 
 static void LayoutFromCPAGE(Handle hCPAGE) {
-    Handle h = NULL;
-    POLY_ block;
-    int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
-    Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
-    ROOT * pRoot = NULL;
-    uint32_t BlockNumber;
-    // piter 08.07.99
-    PAGEINFO PInfo;
-    RotatePageToReal();
+	Handle h = NULL;
+	POLY_ block;
+	int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
+	Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
+	ROOT * pRoot = NULL;
+	uint32_t BlockNumber;
+	// piter 08.07.99
+	PAGEINFO PInfo = { 0 };
 
-    if (CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
-        nIncline = PInfo.Incline2048;
+	RotatePageToReal();
 
-    RotatePageToIdeal();
-    // piter
-    // remove ALL
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        pRoot -> nBlock = REMOVED_BLOCK_NUMBER;
-    }
+	if (CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
+		nIncline = PInfo.Incline2048;
 
-    BlockNumber = 1;
+	RotatePageToIdeal();
+	// piter
+	// remove ALL
+	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+		pRoot -> nBlock = REMOVED_BLOCK_NUMBER;
+	}
 
-    for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
-            TYPE_TEXT)) {
-        if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
-            SetReturnCode_rblock(CPAGE_GetReturnCode());
-            longjmp(fatal_error_exit, -1);
-        }
-        nBlocks++;
-        for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-            pLeftTop.rx() = pRoot->xColumn + 1;
-            pLeftTop.ry() = pRoot->yRow + 1;
-            pRightTop.rx() = pRoot->xColumn + pRoot->nWidth - 1;
-            pRightTop.ry() = pRoot->yRow + 1;
-            pLeftBottom.rx() = pRoot->xColumn + 1;
-            pLeftBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
-            pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
-            pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
+	BlockNumber = 1;
 
-            if (IsInPoly(pLeftTop, &block) || IsInPoly(pRightTop, &block) || IsInPoly(pLeftBottom,
-                    &block) || IsInPoly(pRightBottom, &block)) {
-                pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
-                pRoot->nUserNum = BlockNumber;
-            }
-        }
-        CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
-        BlockNumber++;
-    }
+	for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h
+			= CPAGE_GetBlockNext(hCPAGE, h, TYPE_TEXT)) {
+		uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
+		//BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
+		if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block))
+				!= sizeof(block)) {
+			SetReturnCode_rblock(CPAGE_GetReturnCode());
+			longjmp(fatal_error_exit, -1);
+		}
+		nBlocks++;
+		for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+			pLeftTop.rx() = pRoot->xColumn + 1;
+			pLeftTop.ry() = pRoot->yRow + 1;
+			pRightTop.rx() = pRoot->xColumn + pRoot->nWidth - 1;
+			pRightTop.ry() = pRoot->yRow + 1;
+			pLeftBottom.rx() = pRoot->xColumn + 1;
+			pLeftBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
+			pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
+			pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
-    if (CPAGE_GetReturnCode()) {
-        SetReturnCode_rblock(CPAGE_GetReturnCode());
-        longjmp(fatal_error_exit, -1);
-    }
+			//if(IsInPoly(pLeftTop,&block) && IsInPoly(pRightBottom,&block))
+			if (IsInPoly(pLeftTop, &block) || IsInPoly(pRightTop, &block)
+					|| IsInPoly(pLeftBottom, &block) || IsInPoly(pRightBottom,
+					&block)) {
+				pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
+				pRoot->nUserNum = BlockNumber;
+			}
+		}
+		//CPAGE_SetBlockUserNum(hCPAGE,h,BlockNumber);// Piter 030399
+		CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+		BlockNumber++;
+	}
 
-    BlocksExtract();
+	if (CPAGE_GetReturnCode()) {
+		SetReturnCode_rblock(CPAGE_GetReturnCode());
+		longjmp(fatal_error_exit, -1);
+	}
+
+	BlocksExtract();
 }
-
+////////////////////////////////////////
 int IsInPoly(Point16 a, void * pPoly) {
-    int i, y, n, ind;
-    int Count = 0;
-    POLY_ *p;
-    p = (POLY_*) pPoly;
-    n = p->com.count;
-    for (i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-        y = p->com.Vertex[i].y();
-        ind = i;
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y()) / ((double) (p->com.Vertex[j].y()
-                    - (double) p->com.Vertex[i].y())));
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x() - (double) p->com.Vertex[i].x())
-                    >= (double) a.x())
-                Count++;
-        }
-    }
-    return Count & 1;
+	int i, y, n, ind;
+	int Count = 0;
+	POLY_ *p;
+	p = (POLY_*) pPoly;
+	n = p->com.count;
+	for (i = 0; i < n; i++) {
+		int j = (i + 1) % n;
+		if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
+			continue;
+		if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
+			continue;
+		if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
+			continue;
+		y = p->com.Vertex[i].y();
+		ind = i;
+		if (p->com.Vertex[j].y() > y) {
+			y = p->com.Vertex[j].y();
+			ind = j;
+		}
+		if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
+			Count++;
+		else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
+			continue;
+		else {
+			double t = ((double) (a.y() - p->com.Vertex[i].y())
+					/ ((double) (p->com.Vertex[j].y()
+							- (double) p->com.Vertex[i].y())));
+			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
+					* ((double) p->com.Vertex[j].x()
+							- (double) p->com.Vertex[i].x()) >= (double) a.x())
+				Count++;
+		}
+	}
+	return Count & 1;
 }

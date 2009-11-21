@@ -1,7 +1,10 @@
 add_library(rmarker ${LIBTYPE}
-bigimage.cpp
-linesbuffer.cpp
+${SNP_SRC}
+dll.cpp
 rmarker.cpp
+rmarkermem.cpp
+rmtimer.cpp
+shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp
 ../usage/line_am_util.cpp
 ../usage/line_vp_2_am.cpp

@@ -695,7 +695,7 @@ uint16_t check_xX(cell * c) {
 
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
-		if (line->h > 2 || !(line->flg & (lnhead::l_fbeg | lnhead::l_fend)))
+		if (line->h > 2 || !(line->flg & (l_fbeg | l_fend)))
 			nl++;
 	if (nl == 1)
 		pen += 220;
@@ -966,7 +966,7 @@ uint16_t check_AL(cell * c, uchar let) {
 		for (line = (lnhead *) ((pchar)(c->env) + c->env->lines
 				+ sizeof(int16_t)); (l = line->lth) > 0; line
 				= (lnhead *) ((pchar) line + l))
-			if (!(line->flg & (lnhead::l_fend | lnhead::l_fbeg)))
+			if (!(line->flg & (l_fend | l_fbeg)))
 				if (line->h == 1)
 					gaps--; // skip non valueble lines
 				else if (line->row > c->h / 2 && line->h < 3)
@@ -989,7 +989,7 @@ uint16_t check_EK(uchar let, cell * c) {
 
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
-		if (line->row < c->h / 3 && !(line->flg & lnhead::l_fend) && line->h > c->h / 4)
+		if (line->row < c->h / 3 && !(line->flg & l_fend) && line->h > c->h / 4)
 			pen_E += 100;
 
 	switch (let) {
@@ -1019,7 +1019,7 @@ uint16_t check_iee(cell * c, uchar let) {
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
 		if (line->row < c->h / 2 && line->h < c->h / 4
-				&& (!(line->flg & lnhead::l_fend) && !(line->flg & lnhead::l_fbeg)))
+				&& (!(line->flg & l_fend) && !(line->flg & l_fbeg)))
 			pen += 60;
 
 	return pen;
@@ -1033,7 +1033,7 @@ uint16_t check_ya(cell * c) {
 			- ((c_comp*) c->env)->ends + 1;
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
-		if ((line->flg & (lnhead::l_fbeg | lnhead::l_fend)) == 0)
+		if ((line->flg & (l_fbeg | l_fend)) == 0)
 			if (line->row > c->h / 3)
 				suspect++;
 			else
@@ -1577,7 +1577,7 @@ Bool check_uple_hook_cell(cell * c) {
 		i = (interval *) ((pchar) line + sizeof(lnhead));
 		wid = i->l;
 		if (line->row < 2 && line->h * 2 <= c->h && (i->e - i->l) * 4 < c->w
-				&& line->h > 2 && (line->flg & lnhead::l_fend)) {
+				&& line->h > 2 && (line->flg & l_fend)) {
 			h = line->h;
 			for (av = i->l, ind = line->row; h; ind++, h--, i++) /* hook-line        */
 			{
@@ -1604,7 +1604,7 @@ Bool check_upri_hook_cell(cell * c) {
 		i = (interval *) ((pchar) line + sizeof(lnhead));
 		wid = i->l;
 		if (line->row < 2 && line->h * 2 <= c->h && (i->e - i->l) * 4 > c->w
-				* 3 && line->h > 2 && (line->flg & lnhead::l_fend)) {
+				* 3 && line->h > 2 && (line->flg & l_fend)) {
 			h = line->h;
 			for (ind = line->row; h; ind++, h--, i++) /* hook-line        */
 			{
@@ -1628,7 +1628,7 @@ Bool check_dnri_hook_cell(cell * c, int16_t w) {
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l)) {
 		i = (interval *) ((pchar) line + sizeof(lnhead));
 		if (line->row >= c->h / 2 && line->h * 3 <= c->h
-				&& (line->flg & lnhead::l_fbeg) && i->l <= c->w / 3) {
+				&& (line->flg & l_fbeg) && i->l <= c->w / 3) {
 			h = line->h;
 			for (ri = 0, ind = line->row; h; ind++, h--, i++) /* hook-line        */
 			{
@@ -2594,7 +2594,7 @@ Bool check_bend_up(cell * c) {
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l)) {
 		i = (interval *) ((pchar) line + sizeof(lnhead));
 		if (line->row > c->h / 2 && line->h * 4 <= c->h && i->e - i->l > 3*
-				c ->w / 4 && line->flg & lnhead::l_fbeg)
+				c ->w / 4 && line->flg & l_fbeg)
 			return TRUE;
 	}
 	return FALSE;
@@ -2607,7 +2607,7 @@ Bool check_bend_dn(cell * c) {
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l)) {
 		i = (interval *) ((pchar) line + sizeof(lnhead));
 		if (line->row > 2* c ->h / 3 && line->h * 4 <= c->h && (i->e - i->l)
-				* 2 > c->w && (line->flg & lnhead::l_fend || line->flg & lnhead::l_fbeg)
+				* 2 > c->w && (line->flg & l_fend || line->flg & l_fbeg)
 				&& i->l <= c->w / 3 && ((line->h == 1 && i->l > 3 && line->row
 				!= c->h - 1) || (line->h > 1 && i->l > 1)))
 			return TRUE;
@@ -2627,16 +2627,16 @@ int16_t short_lines2(cell *c) {
 			flg = line->flg;
 			row = line->row;
 			intval = (interval *) ((pchar) line + sizeof(lnhead));
-			if (h == 2 && flg & lnhead::l_fend) {
+			if (h == 2 && flg & l_fend) {
 				intval++;
 				row++;
 			}
 			w = intval->l;
 			col = intval->e - w;
 			if (3 * (c ->w) / 4 <= col + w / 2 && w >= c->h / 8) {
-				if (flg & lnhead::l_fbeg && 4 * row < c->h)
+				if (flg & l_fbeg && 4 * row < c->h)
 					a |= 1;
-				if (flg & lnhead::l_fend && 4 * (c ->h - row) < c->h)
+				if (flg & l_fend && 4 * (c ->h - row) < c->h)
 					a |= 2;
 			}
 		}
@@ -2795,7 +2795,7 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 				+ sizeof(int16_t)); (l = line->lth) > 0; line
 				= (lnhead *) ((pchar) line + l)) {
 			in = (interval *) ((pchar) line + sizeof(lnhead));
-			if (!(line->flg & lnhead::l_fbeg) && !(line->flg & lnhead::l_fend) && line->row > h
+			if (!(line->flg & l_fbeg) && !(line->flg & l_fend) && line->row > h
 					/ 3)
 				for (i = 0; i < line->h; i++, in++)
 					if (in->l < 2) {

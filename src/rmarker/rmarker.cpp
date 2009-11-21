@@ -54,17 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cassert>
-#include <cstring>
+#define _RMARKER_CPP
 
-#include "common/cifconfig.h"
-#include "common/debug.h"
-#include "rmarker.h"
-#include "dpuma.h"
-#include "linesbuffer.h"
-#include "rblock.h"
+#include <fstream>
+#include "markpage.h"
 #include "rmfunc.h"
-#include "rpic.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
 #include "line_vp_2_am.h"
@@ -76,298 +70,248 @@
 #include "rselstr.h"
 #include "rline.h"
 #include "cfio/cfio.h"
-#include "bigimage.h"
+
+using namespace CIF::CFIO;
 
 #include "compat_defs.h"
 
-namespace CIF {
+# define INCLINE_FACTOR  2048
 
-using namespace CFIO;
+# define IDEAL_XY(x, y)   \
+         {\
+             y = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);\
+         }
+
+# define REAL_XY(x, y)   \
+         {\
+             x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
+		}
+
+#define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")
+
+extern Handle DebugFill;
+extern Handle hVertCells;
+extern Handle hNegaCells;
+extern Handle hVertCellsAuto;
+extern Handle hNegaCellsAuto;
+extern Handle hDebugUpDown;
+extern Handle hDebugPictures;
+extern Handle hPrintFileVertCells;
+extern Handle hDebugNeg;
+extern Handle hDebugLinePass3;
+extern Handle hDebugLinePass2;
+extern Handle hDebugVerifLine;
+extern Handle hNoGiveNeg;
+extern Handle hNoSeePict;
+
+extern Handle hPrep;
+extern Handle hPicture;
+extern Handle hNegative;
+extern Handle hPrintCrossedPics;
+extern Handle hVCutInZones;
+extern Handle hSVLP;
+extern Handle hBlocks;
+extern Handle hLines3;
+extern Handle hNegaTestCells;
+extern Handle hVertTestCells;
+extern Handle hFon;
+extern Handle hEnd;
+
+static uint32_t gwRC = 0;
+Bool dpDebugUpDown;
+
+Bool32 PageMarkup(PRMPreProcessImage Image) {
+
+	LDPUMA_Skip(hPrep);
+	Bool32 rc = TRUE;
+
+	gSVLBuffer.VLinefBufferA = NULL;
+	gSVLBuffer.VLinefBufferB = NULL;
+	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(
+			sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
+			"SVL step I lines info pool");
+	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(
+			sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
+			"SVL step II lines info pool");
+
+	if (rc) {
+		rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
+	}
+
+	Handle h = NULL;
+	BIG_IMAGE big_Image;
+	int i;
+
+	//default Image:
+	PAGEINFO info = { 0 };
+	GetPageInfo(Image->hCPAGE, &info);
+	for (i = 0; i < CPAGE_MAXNAME; i++)
+		big_Image.ImageName[i] = info.szImageName[i];
+	big_Image.hCCOM = NULL;
+
+	h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
+	if (h) {
+		CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image,
+				sizeof(BIG_IMAGE));
+		CPAGE_DeleteBlock(Image->hCPAGE, h);
+	}
+	//    if(big_Image.hCCOM==NULL)
+	//		big_Image.hCCOM=(CCOM_handle)(Image->hCCOM);
+
+	LDPUMA_Skip(hPicture);
+
+	//Поиск очевидных картинок
+	if (rc)
+		rc = SearchPictures(Image, big_Image);
+
+	LDPUMA_Skip(hNegative);
+
+	//Поиск негативов
+	if (rc)
+		rc = SearchNeg(Image, big_Image, info.Incline2048);
+
+	LDPUMA_Skip(hLines3);
+
+	//Третий проход по линиям
+	if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
+			&& LDPUMA_Skip(hDebugLinePass2)) {
+		if (rc)
+			RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM,
+					(uchar) Image->gnLanguage);
+	}
+
+	LDPUMA_Skip(hSVLP);
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//
+	////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
+	if (rc) {
+		rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
+	}
+
+	ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
+
+	CFIO_FreeMemory(gSVLBuffer.LineInfoA);
+	CFIO_FreeMemory(gSVLBuffer.LineInfoB);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+
+	LDPUMA_Skip(hBlocks);
+
+	if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
+		Image->hCPAGE = CPAGE_RestorePage(TRUE,
+				(pchar)(Image->szLayoutFileName));
+		if (Image->hCPAGE == NULL) {
+			SetReturnCode_rmarker(CPAGE_GetReturnCode());
+			rc = FALSE;
+		} else {
+			CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
+			LDPUMA_Console("Layout восстановлен из файла '%s'\n",
+					Image->szLayoutFileName);
+		}
+	} else {
+		if (rc) {
+			if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
+				Bool32 bEnableSearchPicture;
+				bEnableSearchPicture = Image->gnPictures;
+				RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture,
+						&bEnableSearchPicture);
+				RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn,
+						&(Image->gbOneColumn));
+
+				if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE,
+						Image->hCLINE)) {
+					SetReturnCode_rmarker(RBLOCK_GetReturnCode());
+					rc = FALSE;
+				}
+
+			} else
+				LDPUMA_Console("Пропущен этап автоматического Layout.\n");
+		}
+	}
+
+	CCOM_DeleteContainer(big_Image.hCCOM);
+
+	LDPUMA_Skip(hEnd);
+
+	return rc;
+}
+
+void SetReturnCode_rmarker(uint32_t rc) {
+	gwRC = rc;
+}
+
+uint32_t GetReturnCode_rmarker(void) {
+	return gwRC;
+}
+
+Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew) {
+	if (!LDPUMA_Skip(hDebugNeg))
+		return TRUE;
+
+	RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
+	return TRUE;
+}
+
+Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image) {
+	Bool32 rc = TRUE;
+
+	if (!LDPUMA_Skip(hDebugPictures))
+		return TRUE;
+
+	//	rc = ProgressStep(1,/*GetResourceString(IDS_PRG_OPEN),*/10);
+
+	if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
+		if (Image->gnPictures) {
+			if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM,
+					Image->hCPAGE)) {
+				uint32_t RPicRetCode = RPIC_GetReturnCode();
+
+				SetReturnCode_rmarker(RPicRetCode);
+				rc = FALSE;
+			}
+		}
+	}
+	return rc;
+}
+
+int GetCountNumbers(int num) {
+	int count = 0;
+	if (num == 0)
+		return 1;
+	for (; num > 0; num = num / 10)
+		count++;
+	return count;
+}
 
 void MySetNegative(void *vB, Handle hCPage) {
-    int Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
-    if (Ind < 0)
-        return;
-
-    POLY_ block;
-    memset(&block, 0, sizeof(block));
-    UN_BUFF *pB = static_cast<UN_BUFF*> (vB);
-    int nRc = pB->nPartUnits[Ind];
-    Rect16 * pRc = (Rect16*) pB->vPart[Ind];
-    for (int i = 0; i < nRc; i++) {
-        block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
-        block.com.count = 4;
-        block.com.Flags |= POS_NEGTABCAP;
-        block.com.Vertex[0] = pRc[i].leftTop();
-        block.com.Vertex[1] = pRc[i].rightTop();
-        block.com.Vertex[2] = pRc[i].rightBottom();
-        block.com.Vertex[3] = pRc[i].leftBottom();
-        CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
-    }
-
-}
-
-RMarker::RMarker() :
-    lines_total_info_(NULL), ccom_(NULL), cline_(NULL), cpage_(NULL), one_column_(true),
-            kill_svl_components_(false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL) {
-    RNEG_Init(0, NULL);
-}
-
-RMarker::~RMarker() {
-    RNEG_Done();
-}
-
-Handle RMarker::cCom() const {
-    return ccom_;
-}
-
-Handle RMarker::cLine() const {
-    return cline_;
-}
-
-Handle RMarker::cPage() const {
-    return cpage_;
-}
-
-void RMarker::setCCom(Handle ccom) {
-    ccom_ = ccom;
-}
-
-void RMarker::setCLine(Handle cline) {
-    cline_ = cline;
-}
-
-void RMarker::setCPage(Handle cpage) {
-    cpage_ = cpage;
-}
-
-void RMarker::pageMarkup() {
-    buffer_.alloc();
-
-    shortVerticalLinesProcessPass1();
-
-    BigImage big_Image;
-    Handle h = CPAGE_GetBlockFirst(cpage_, CPAGE_GetInternalType("TYPE_BIG_COMP"));
-    if (h) {
-        CPAGE_GetBlockData(cpage_, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), &big_Image,
-                sizeof(BigImage));
-        CPAGE_DeleteBlock(cpage_, h);
-    }
-
-    big_Image.setCCOM(CCOM_CreateContainer());
-
-    //Поиск очевидных картинок
-    searchPictures(big_Image);
-    //Поиск негативов
-    searchNeg(big_Image);
-
-    //Третий проход по линиям
-    RLINE_LinesPass3(cpage_, cline_, ccom_, language_);
-
-    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-    shortVerticalLinesProcessPass2();
-
-    buffer_.free();
-
-    Bool32 bEnableSearchPicture = pictures_;
-    RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &one_column_);
-
-    if (!RBLOCK_ExtractTextBlocks(ccom_, cpage_, cline_))
-        throw RMarkerException("RBLOCK_ExtractTextBlocks failed");
-}
-
-void RMarker::readSVLFromPageContainer(LinesTotalInfo * LTInfo) {
-    assert(LTInfo);
-    LTInfo->Hor.Cnt = 0;
-    LTInfo->Ver.Cnt = 0;
-
-    int count = 0;
-    CLINE_handle hline = CLINE_GetFirstLine(cline_);
-    while (hline) {
-        CPDLine cpdata = CLINE_GetLineData(hline);
-        if (!cpdata)
-            hline = CLINE_GetNextLine(hline);
-        else {
-            if (count >= PUMAMaxNumLines)
-                break;
-            count++;
-            if (cpdata->Dir == LD_Horiz && LTInfo->Hor.Lns) {
-                int num = LTInfo->Hor.Cnt;
-                LTInfo->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
-                LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
-                LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
-                (LTInfo->Hor.Cnt)++;
-            }
-            else if (LTInfo->Ver.Lns) {
-                int num = LTInfo->Ver.Cnt;
-                LTInfo->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
-                LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
-                LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
-                (LTInfo->Ver.Cnt)++;
-            }
-
-            hline = CLINE_GetNextLine(hline);
-        }
-    }
-}
-
-void RMarker::searchNeg(const BigImage& big_image) {
-    PAGEINFO info;
-    GetPageInfo(cpage_, &info);
-    RNEG_RecogNeg(big_image.ccom(), cpage_, big_image.imageName(), info.Incline2048);
-}
-
-void RMarker::searchPictures(const BigImage& big_image) {
-    if (pictures_ == PUMA_PICTURE_NONE) {
-        if(Config::instance().debug())
-            Debug() << "Skipping picture search\n";
-        return;
-    }
-
-    if (!RPIC_SearchPictures(ccom_, big_image.ccom(), cpage_))
-        throw RMarkerException("RPIC_SearchPictures failed");
-}
-
-void RMarker::setKillSVLComponents(bool value) {
-    kill_svl_components_ = value;
-}
-
-void RMarker::setLanguage(language_t lang) {
-    language_ = lang;
-}
-
-void RMarker::setOneColumn(bool value) {
-    one_column_ = value;
-}
-
-void RMarker::setPicturesMode(puma_picture_t mode) {
-    pictures_ = mode;
-}
-
-void RMarker::shortVerticalLinesProcessPass1() {
-    buffer_.HLinesBufferA = NULL;
-    buffer_.LineInfoA->Hor.Lns = NULL;
-
-    if (buffer_.VLinefBufferA == NULL)
-        buffer_.VLinefBufferA = buffer_.LineInfoA->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
-                (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
-                "SVL step I lines pool");
-
-    readSVLFromPageContainer(buffer_.LineInfoB);
-}
-
-void RMarker::shortVerticalLinesProcessPass2() {
-    buffer_.HLinesBufferB = NULL;
-    buffer_.LineInfoB->Hor.Lns = NULL;
-
-    if (buffer_.VLinefBufferB == NULL)
-        buffer_.VLinefBufferB = buffer_.LineInfoB->Ver.Lns = (LineInfo *) CFIO_DAllocMemory(
-                (sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, "puma",
-                "SVL step II lines pool");
-
-    readSVLFromPageContainer(buffer_.LineInfoB);
-
-    // обработка и удаление тут
-    svlFilter(buffer_.LineInfoA, buffer_.LineInfoB);
-}
-
-void RMarker::svlComponentFilter(LineInfo *Line) {
-    assert(Line);
-
-    Rect16 Rl(Line->A, Line->B);
-    int nRc = 0;
-    int Thick = Line->Thickness / 2;
-    Bool32 bDieComponent = FALSE;
-
-    if (Rl.left() <= Rl.right()) {
-        Rl.rleft() -= Thick;
-        Rl.rright() += Thick;
-    }
-    else {
-        Rl.rleft() += Thick;
-        Rl.rright() -= Thick;
-    }
-
-    CCOM_comp * pcomp = CCOM_GetFirst(ccom_, NULL);
-    do {
-        Rect16 Rc(Point16(pcomp->left, pcomp->upper), pcomp->w - 1, pcomp->h - 1);
-        nRc++;
-
-        if (Rl.intersects(Rc)) {
-            if (kill_svl_components_) {
-                CCOM_comp * pdeadcom = pcomp;
-                pcomp = CCOM_GetNext(pcomp, NULL);
-                bDieComponent = CCOM_Delete(ccom_, pdeadcom);
-            }
-
-            if (Config::instance().debugHigh()) {
-                fprintf(stderr, "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >",
-                        Rc.left(), Rc.top(), Rc.right(), Rc.bottom());
-
-                if (bDieComponent)
-                    fprintf(stderr, " +dead+");
-
-                fprintf(stderr, "\n");
-                bDieComponent = FALSE;
-            }
-        }
-
-        if (!bDieComponent)
-            pcomp = CCOM_GetNext(pcomp, NULL);
-        else
-            // Almi 18.09.00
-            bDieComponent = FALSE;
-
-    }
-    while (pcomp != NULL);
-}
-
-void RMarker::svlFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB) {
-    assert(LtiA);
-    assert(LtiB);
-
-    uint SVLCount = 0;
-    uint LinesTotalA = LtiA->Ver.Cnt;
-    uint LinesTotalB = LtiB->Ver.Cnt;
-
-    if (Config::instance().debugHigh())
-        Debug() << "VSL: before table search - " << LinesTotalA << ", after -" << LinesTotalB
-                << "\n";
-
-    for (uint i = 0; i < LinesTotalB; i++) {
-        if (LtiB->Ver.Lns[i].Flags == LtiA->Ver.Lns[i].Flags)
-            continue;
-
-        if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
-            if (Config::instance().debugHigh()) {
-                fprintf(
-                        stderr,
-                        "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x - delete\n",
-                        LtiB->Ver.Lns[i].A.x(), LtiA->Ver.Lns[i].A.y(), LtiB->Ver.Lns[i].B.x(),
-                        LtiB->Ver.Lns[i].B.y(), LtiB->Ver.Lns[i].Thickness, LtiA->Ver.Lns[i].Flags,
-                        LtiB->Ver.Lns[i].Flags);
-            }
-
-            svlComponentFilter(&LtiB->Ver.Lns[i]);
-            SVLCount++;
-        }
-
-    }
-
-    if (Config::instance().debugHigh()) {
-        if (SVLCount == 0)
-            Debug() << "VSL: Нужных изменений не найдено\n";
-        else
-            Debug() << "VSL: Найдено " << SVLCount << " линий.\n";
-    }
-}
-
+	int i, Ind, nRc;
+	Bool WasNegTabl;
+	Rect16 *pRc;
+	POLY_ block = { 0 };
+	UN_BUFF *pB;
+	pB = (UN_BUFF *) vB;
+	Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
+	WasNegTabl = (Ind >= 0);
+	if (WasNegTabl) {
+		nRc = pB->nPartUnits[Ind];
+		pRc = (Rect16*) pB->vPart[Ind];
+		for (i = 0; i < nRc; i++) {
+			block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
+			block.com.count = 4;
+			block.com.Flags |= POS_NEGTABCAP;
+			block.com.Vertex[0].rx() = pRc[i].left;
+			block.com.Vertex[0].ry() = pRc[i].top;
+			block.com.Vertex[1].rx() = pRc[i].right;
+			block.com.Vertex[1].ry() = pRc[i].top;
+			block.com.Vertex[2].rx() = pRc[i].right;
+			block.com.Vertex[2].ry() = pRc[i].bottom;
+			block.com.Vertex[3].rx() = pRc[i].left;
+			block.com.Vertex[3].ry() = pRc[i].bottom;
+			CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+		}
+	}
 }
 

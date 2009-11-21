@@ -57,12 +57,13 @@
 #ifndef __XPATH_H
 #define __XPATH_H
 
-#include <climits>
-#include <cstring>
-
+#ifndef __XTEXT_H
 #include "xtext.h"
+#endif
+
 #include "filestuff.h"
 #include "cfcompat.h"
+#include "limits.h"
 
 class XPath: public XText<PATH_MAX> {
 public:

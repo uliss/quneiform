@@ -70,6 +70,7 @@
 
 # include "c_memory.h"
 # include "layout.h"
+# include "my_mem.h"
 
 int *pHystogram = NULL;
 int *pHystVertHeightesSum = NULL;
@@ -82,122 +83,124 @@ int nHystColumns = 0;
 int nHystColumnWidth = 0;
 
 Bool HystogramAllocateBody(void) {
-    BLOCK *p;
-    int nBlockWidth;
-    int nBlockHeight;
-    int nMaxValue;
+	BLOCK *p;
+	int nBlockWidth;
+	int nBlockHeight;
+	int nMaxValue;
 
-    HystogramFreeData();
-    nMaxValue = 0;
+	HystogramFreeData();
+	nMaxValue = 0;
 
-    for (p = pBlocksList; p != NULL; p = p -> pNext) {
-        nBlockWidth = p -> Rect.width() + 1;
-        nBlockHeight = p -> Rect.height() + 1;
+	for (p = pBlocksList; p != NULL; p = p -> pNext) {
+		nBlockWidth = p -> Rect.xRight - p -> Rect.xLeft + 1;
+		nBlockHeight = p -> Rect.yBottom - p -> Rect.yTop + 1;
 
-        if (nBlockWidth > nMaxValue)
-            nMaxValue = nBlockWidth;
+		if (nBlockWidth > nMaxValue)
+			nMaxValue = nBlockWidth;
 
-        if (nBlockHeight > nMaxValue)
-            nMaxValue = nBlockHeight;
-    }
+		if (nBlockHeight > nMaxValue)
+			nMaxValue = nBlockHeight;
+	}
 
-    if (nMaxValue == 0)
-        return (FALSE);
+	if (nMaxValue == 0)
+		return (FALSE);
 
-    nMaxValue++;
-    pHystogram = static_cast<int*> (malloc((nMaxValue + 1) * sizeof(int)));
-    //Andrey 05.03.2003: +1 т.к. в дальнейшем будет использоваться именно до такого значения
+	nMaxValue++;
+	pHystogram = static_cast<int*> (malloc((nMaxValue + 1) * sizeof(int)));
+	//Andrey 05.03.2003: +1 т.к. в дальнейшем будет использоваться именно до такого значения
 
-    if (pHystogram == NULL)
-        ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 1");
+	if (pHystogram == NULL)
+		ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 1");
 
-    if (bOptionPointSizeAnalysis) {
-        pHystVertHeightesSum = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+	if (bOptionPointSizeAnalysis) {
+		pHystVertHeightesSum = static_cast<int*> (malloc(nMaxValue
+				* sizeof(int)));
 
-        if (pHystVertHeightesSum == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 2");
+		if (pHystVertHeightesSum == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 2");
 
-        pHystHorzHeightesSum = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+		pHystHorzHeightesSum = static_cast<int*> (malloc(nMaxValue
+				* sizeof(int)));
 
-        if (pHystHorzHeightesSum == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 3");
+		if (pHystHorzHeightesSum == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 3");
 
-        pHystInt1 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+		pHystInt1 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
 
-        if (pHystInt1 == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 4");
+		if (pHystInt1 == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 4");
 
-        pHystInt2 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+		pHystInt2 = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
 
-        if (pHystInt2 == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 5");
-    }
+		if (pHystInt2 == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 5");
+	}
 
-    if (bOptionSpecialHorizontalCutting) {
-        pHystTops = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+	if (bOptionSpecialHorizontalCutting) {
+		pHystTops = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
 
-        if (pHystTops == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 6");
+		if (pHystTops == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 6");
 
-        pHystBottoms = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
+		pHystBottoms = static_cast<int*> (malloc(nMaxValue * sizeof(int)));
 
-        if (pHystBottoms == NULL)
-            ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 7");
-    }
+		if (pHystBottoms == NULL)
+			ErrorNoEnoughMemory("in LTHYST.C,HystogramAllocateBody,part 7");
+	}
 
-    return (TRUE);
+	return (TRUE);
 }
 
 void HystogramMakeIntegral(int *pInt, int *p, int nWidth) {
-    int nSum = 0;
-    int i;
+	int nSum = 0;
+	int i;
 
-    for (i = 0; i < nWidth; i++) {
-        nSum += p[i];
-        pInt[i] = nSum;
-    }
+	for (i = 0; i < nWidth; i++) {
+		nSum += p[i];
+		pInt[i] = nSum;
+	}
 }
 
 void HystogramFreeData(void) {
-    if (pHystogram != NULL) {
-        free(pHystogram);
-        pHystogram = NULL;
-    }
+	if (pHystogram != NULL) {
+		free(pHystogram);
+		pHystogram = NULL;
+	}
 
-    if (bOptionPointSizeAnalysis) {
-        if (pHystVertHeightesSum != NULL) {
-            free(pHystVertHeightesSum);
-            pHystVertHeightesSum = NULL;
-        }
+	if (bOptionPointSizeAnalysis) {
+		if (pHystVertHeightesSum != NULL) {
+			free(pHystVertHeightesSum);
+			pHystVertHeightesSum = NULL;
+		}
 
-        if (pHystHorzHeightesSum != NULL) {
-            free(pHystHorzHeightesSum);
-            pHystHorzHeightesSum = NULL;
-        }
+		if (pHystHorzHeightesSum != NULL) {
+			free(pHystHorzHeightesSum);
+			pHystHorzHeightesSum = NULL;
+		}
 
-        if (pHystInt1 != NULL) {
-            free(pHystInt1);
-            pHystInt1 = NULL;
-        }
+		if (pHystInt1 != NULL) {
+			free(pHystInt1);
+			pHystInt1 = NULL;
+		}
 
-        if (pHystInt2 != NULL) {
-            free(pHystInt2);
-            pHystInt2 = NULL;
-        }
-    }
+		if (pHystInt2 != NULL) {
+			free(pHystInt2);
+			pHystInt2 = NULL;
+		}
+	}
 
-    if (bOptionSpecialHorizontalCutting) {
-        if (pHystTops != NULL) {
-            free(pHystTops);
-            pHystTops = NULL;
-        }
+	if (bOptionSpecialHorizontalCutting) {
+		if (pHystTops != NULL) {
+			free(pHystTops);
+			pHystTops = NULL;
+		}
 
-        if (pHystBottoms != NULL) {
-            free(pHystBottoms);
-            pHystBottoms = NULL;
-        }
-    }
+		if (pHystBottoms != NULL) {
+			free(pHystBottoms);
+			pHystBottoms = NULL;
+		}
+	}
 
-    nHystColumns = 0;
-    nHystColumnWidth = 0;
+	nHystColumns = 0;
+	nHystColumnWidth = 0;
 }

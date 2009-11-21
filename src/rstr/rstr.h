@@ -76,44 +76,43 @@
 #define RSTR_FUNC  FUN_IMPO__
 #endif
 
-class IRstrDelta
-{
+class IRstrDelta {
 public:
-    CIF::Rect16 dr; // bounds delta
-    CIF::Point16 dc; // centers delta
-    CIF::Point16 dhw; // height-width delta
-    IRstrDelta(const CIF::Rect16 & r, const CIF::Point16 & p) :
-        dr(r), dc(p), dhw(p) {
-    }
-    IRstrDelta(const CIF::Rect16 & r, const CIF::Point16 & p, const CIF::Point16 & hw) :
-        dr(r), dc(p), dhw(hw) {
-    }
-    void Set(const CIF::Rect16 & r, const CIF::Point16 & p) {
-        dr = r;
-        dc = p;
-        dhw = p;
-    }
-    void Set(const CIF::Rect16 & r, const CIF::Point16 & p, const CIF::Point16 & hw) {
-        dr = r;
-        dc = p;
-        dhw = hw;
-    }
-    IRstrDelta() {
-    }
+	Rect16 dr; // bounds delta
+	CIF::Point16 dc; // centers delta
+	CIF::Point16 dhw; // height-width delta
+	IRstrDelta(const Rect16 & r, const CIF::Point16 & p) :
+		dr(r), dc(p), dhw(p) {
+	}
+	IRstrDelta(const Rect16 & r, const CIF::Point16 & p,
+			const CIF::Point16 & hw) :
+		dr(r), dc(p), dhw(hw) {
+	}
+	void Set(const Rect16 & r, const CIF::Point16 & p) {
+		dr = r;
+		dc = p;
+		dhw = p;
+	}
+	void Set(const Rect16 & r, const CIF::Point16 & p, const CIF::Point16 & hw) {
+		dr = r;
+		dc = p;
+		dhw = hw;
+	}
+	IRstrDelta() {
+	}
 };
 _SETTYPES( IRstrDelta)
 _SETCLASS( IRstrDelta)
 
-typedef struct tagRSTR_info
-{
-    int32_t ndig, nfdig, nall, alphabet, ndollars, nplus_minus;
+typedef struct tagRSTR_info {
+	int32_t ndig, nfdig, nall, alphabet, ndollars, nplus_minus;
 } RSTR_info;
 
 RSTR_FUNC Bool32 RSTRInit(MemFunc* mem);
 RSTR_FUNC Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage);
 RSTR_FUNC void RSTRRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
-        __SnpToolBox *p_snp_tools // tools complect, may be NULL
-        );
+		__SnpToolBox *p_snp_tools // tools complect, may be NULL
+		);
 
 RSTR_FUNC void RSTRDone(void);
 RSTR_FUNC Err16 RSTRGetErr(void);
@@ -124,47 +123,47 @@ RSTR_FUNC Bool32 RSTR_Init(uint16_t wHightCode, Handle hStorage);
 RSTR_FUNC Bool32 RSTR_Done(void);
 RSTR_FUNC uint32_t RSTR_GetReturnCode(void);
 RSTR_FUNC uchar * RSTR_GetReturnString(uint32_t dwError);
+RSTR_FUNC Bool32 RSTR_GetExportData(uint32_t dwType, void * pData);
 RSTR_FUNC Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData);
 
-enum RSTRFunctions
-{
-    RSTR_FNNEWPAGE,
-    RSTR_FNSETOPTIONS,
-    RSTR_FNBITMAP,
-    RSTR_FNLINE,
-    RSTR_FNVERSION,
-    REXC_FNRSTR_ISLANGUAGE,
-    RSTR_FNIMP_FREE,
-    RSTR_FNIMP_ALLOC,
-    RSTR_Word8_Language,
-    RSTR_Word16_Resolution,
-    RSTR_Word8_Fax1x2,
-    RSTR_Word8_Matrix,
-    RSTR_Word8_P2_active,
-    RSTR_Word8_Spell_check,
-    RSTR_pchar_user_dict_name,
-    RSTR_FNSTRENDPAGE,
-    RSTR_FNNEEDPASS2,
-    RSTR_FNIMP_GETCOLORS,
-    RSTR_pchar_temp_dir,
-    RSTR_OcrPath,
-    RSTR_Word8_spec_camera,
-    RSTR_Word8_spec_nolinpen,
-    RSTR_Word8_mmx,
-    RSTR_FNLINEBL,
-    RSTR_FNTESTALPHABET,
-    RSTR_RECONEWORD,
-    RSTR_FNSTUDYALPHABET,
-    RSTR_FNRECOGONELETTER,
-    RSTR_FNRECOGCONTAINER,
-    RSTR_Word8_P2_disable,
-    RSTR_FNRECOGONELETTERALL,
-    RSTR_FNTESTALPHABETPASS2,
-    RSTR_FNSTUDYALPHABETPASS2,
-    RSTR_FNCHANGELINENUMBER,
-    RSTR_SETSPECPRJ,
-    RSTR_CTB_BASE_NAME,
-    RSTR_CTB_GRAY_NAME
+enum RSTRFunctions {
+	RSTR_FNNEWPAGE,
+	RSTR_FNSETOPTIONS,
+	RSTR_FNBITMAP,
+	RSTR_FNLINE,
+	RSTR_FNVERSION,
+	REXC_FNRSTR_ISLANGUAGE,
+	RSTR_FNIMP_FREE,
+	RSTR_FNIMP_ALLOC,
+	RSTR_Word8_Language,
+	RSTR_Word16_Resolution,
+	RSTR_Word8_Fax1x2,
+	RSTR_Word8_Matrix,
+	RSTR_Word8_P2_active,
+	RSTR_Word8_Spell_check,
+	RSTR_pchar_user_dict_name,
+	RSTR_FNSTRENDPAGE,
+	RSTR_FNNEEDPASS2,
+	RSTR_FNIMP_GETCOLORS,
+	RSTR_pchar_temp_dir,
+	RSTR_OcrPath,
+	RSTR_Word8_spec_camera,
+	RSTR_Word8_spec_nolinpen,
+	RSTR_Word8_mmx,
+	RSTR_FNLINEBL,
+	RSTR_FNTESTALPHABET,
+	RSTR_RECONEWORD,
+	RSTR_FNSTUDYALPHABET,
+	RSTR_FNRECOGONELETTER,
+	RSTR_FNRECOGCONTAINER,
+	RSTR_Word8_P2_disable,
+	RSTR_FNRECOGONELETTERALL,
+	RSTR_FNTESTALPHABETPASS2,
+	RSTR_FNSTUDYALPHABETPASS2,
+	RSTR_FNCHANGELINENUMBER,
+	RSTR_SETSPECPRJ,
+	RSTR_CTB_BASE_NAME,
+	RSTR_CTB_GRAY_NAME
 };
 
 // 1)   RSTR_FNNEWPAGE      новая страница
@@ -176,8 +175,8 @@ RSTR_FUNC Bool32 RSTR_NewPage(int32_t resolutiony, Handle myPage);
 typedef Bool32(*FNRSTR_SetOptions)(RSTR_Options *opt);
 RSTR_FUNC Bool32 RSTR_SetOptions(RSTR_Options *opt);
 // 3)   RSTR_FNBITMAP       распознать по зоне
-typedef Bool32(*FNRSTR_RecogBitmap)(CIF::Rect16 *r, Handle bm, CSTR_line lino);
-RSTR_FUNC Bool32 RSTR_RecogBitmap(CIF::Rect16 *r, Handle bm, CSTR_line lino);
+typedef Bool32(*FNRSTR_RecogBitmap)(Rect16 *r, Handle bm, CSTR_line lino);
+RSTR_FUNC Bool32 RSTR_RecogBitmap(Rect16 *r, Handle bm, CSTR_line lino);
 // 4)   RSTR_FNLINE         распознать
 typedef Bool32(*FNRSTR_Recog)(CSTR_line lini, CSTR_line lino);
 RSTR_FUNC Bool32 RSTR_Recog(CSTR_line lini, CSTR_line lino);
@@ -199,24 +198,28 @@ RSTR_FUNC Bool32 RSTR_RecogBL(CSTR_line lini);
 typedef Bool32 (*FNRSTR_TestAlphabet)(RSTR_info *str, CSTR_line lin);
 RSTR_FUNC Bool32 RSTR_TestAlphabet(RSTR_info *str, CSTR_line lin);
 // 11   RSTR_RECONEWORD     распознать фиксированное слово
-typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, uchar *word, char *points, uchar *res);
-RSTR_FUNC Bool32 RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points, uchar *res);
+typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, uchar *word,
+		char *points, uchar *res);
+RSTR_FUNC Bool32 RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points,
+		uchar *res);
 // Первое двойное слово - три наихудшие оценки, следующее - соответствующие номера букв (нумерация с нуля),
 // последнее - оценки заказанных в points букв
 // 12   RSTR_FNSTUDYALPHABET    выбор алфавита столбца по статистике
 typedef Bool32 (*FNRSTR_StudyAlphabet)(RSTR_info *str);
 RSTR_FUNC Bool32 RSTR_StudyAlphabet(RSTR_info *str);
 // 13   RSTR_FNRECOGONELETTER   распознать как большую английскую или русскую букву
-typedef Bool32 (*FNRSTR_RecogOneLetter)(RecRaster *Rs, uchar Language, RecVersions *Vs);
-RSTR_FUNC Bool32 RSTR_RecogOneLetter(RecRaster *Rs, uchar Language, RecVersions *Vs);
+typedef Bool32 (*FNRSTR_RecogOneLetter)(RecRaster *Rs, uchar Language,
+		RecVersions *Vs);
+RSTR_FUNC Bool32 RSTR_RecogOneLetter(RecRaster *Rs, uchar Language,
+		RecVersions *Vs);
 // 14   RSTR_FNRECOGCONTAINER   распознать контейнер строк
 typedef Bool32 (*FNRSTR_RecogContainer)(void);
 RSTR_FUNC Bool32 RSTR_RecogContainer(void);
 // 15   RSTR_FNRECOGONELETTERALL   распознать как букву из алфавита
-typedef Bool32 (*FNRSTR_RecogOneLetter_all)(RecRaster *Rs, char *letters, RecVersions *Vs,
-        int32_t nType);
-RSTR_FUNC Bool32 RSTR_RecogOneLetter_all(RecRaster *Rs, char *letters, RecVersions *Vs,
-        int32_t nType);
+typedef Bool32 (*FNRSTR_RecogOneLetter_all)(RecRaster *Rs, char *letters,
+		RecVersions *Vs, int32_t nType);
+RSTR_FUNC Bool32 RSTR_RecogOneLetter_all(RecRaster *Rs, char *letters,
+		RecVersions *Vs, int32_t nType);
 // 16   RSTR_FNTESTALPHABETPASS2 сбор алфавитной статистики в столбце перед вторым проходом
 typedef Bool32 (*FNRSTR_TestAlphabetPass2)(RSTR_info *str, CSTR_line lin);
 RSTR_FUNC Bool32 RSTR_TestAlphabetPass2(RSTR_info *str, CSTR_line lin);
@@ -234,86 +237,86 @@ RSTR_FUNC Bool32 RSTR_SetSpecPrj(uchar nSpecPrj);
 RSTR_FUNC Bool32 RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
 RSTR_FUNC void RSTR_Save2CTB(CSTR_line lino, int32_t type, int16_t line_num);
 RSTR_FUNC Bool32 RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
+
 _SETCLASS( IRstr)
-class IRstr
-{
+class IRstr {
 public:
-    CIF::Rect16 rmn;
-    CIF::Rect16 rmx;
-    CIF::Point16 cmn;
-    CIF::Point16 cmx;
-    CIF::Point16 hwmn;
-    CIF::Point16 hwmx;
-    IRstr(const CIF::Rect16 & rc) {
-        Set(rc);
-    }
+	Rect16 rmn;
+	Rect16 rmx;
+	CIF::Point16 cmn;
+	CIF::Point16 cmx;
+	CIF::Point16 hwmn;
+	CIF::Point16 hwmx;
+	IRstr(const Rect16 & rc) {
+		Set(rc);
+	}
 
-    void Set(const CIF::Rect16 & rc);
-    IRstr() {
-    }
+	void Set(const Rect16 & rc);
+	IRstr() {
+	}
 
-    IRstr(RCIRstr rst, RCIRstrDelta rd) {
-        Set(rst, rd);
-    }
-    // extended restriction
-    void Set(RCIRstr rst, RCIRstrDelta rd); // extended restriction
-    Bool Check(const CIF::Rect16 & rc) const;
-    Bool Check(const CIF::Rect16 & rc, int delta) const;
+	IRstr(RCIRstr rst, RCIRstrDelta rd) {
+		Set(rst, rd);
+	}
+	// extended restriction
+	void Set(RCIRstr rst, RCIRstrDelta rd); // extended restriction
+	Bool Check(const Rect16 & rc) const;
+	Bool Check(const Rect16 & rc, int delta) const;
 
-    void Update(const CIF::Rect16 & rc, long this2rc);
+	void Update(const Rect16 & rc, /*FrmLMask*/long this2rc);
 
-    void Update(RCIRstr rst, long this2rc);
+	void Update(RCIRstr rst, /*FrmLMask*/long this2rc);
 
-    void UpdateC();
+	void UpdateC();
 
-    void UpdateHW();
+	void UpdateHW();
 
-    void UpdateLL(const CIF::Rect16 & rc, long this2rc, int delta = 0); // line by line
+	void UpdateLL(const Rect16 & rc, /*FrmLMask*/long this2rc, int delta = 0); // line by line
 
-    void SqueezeWidth(int max_width);
+	void SqueezeWidth(int max_width);
 
-    void SqueezeHeight(int max_height);
+	void SqueezeHeight(int max_height);
 
-    /** Self checking **/
-    Bool LRGood() const {
-        return (rmx.left() >= rmn.left()) && (rmx.right() >= rmn.right()) && (rmx.right()
-                >= rmn.left());
-    }
+	/** Self checking **/
+	Bool LRGood() const {
+		return (rmx.left >= rmn.left) && (rmx.right >= rmn.right) && (rmx.right
+				>= rmn.left);
+	}
 
-    Bool TBGood() const {
-        return (rmx.top() >= rmn.top()) && (rmx.bottom() >= rmn.bottom()) && (rmx.bottom()
-                >= rmn.top());
-    }
+	Bool TBGood() const {
+		return (rmx.top >= rmn.top) && (rmx.bottom >= rmn.bottom)
+				&& (rmx.bottom >= rmn.top);
+	}
 
-    Bool XYGood() const {
-        return cmx.x() >= cmn.x() && cmx.y() >= cmn.y();
-    }
+	Bool XYGood() const {
+		return cmx >= cmn;
+	}
 
-    Bool Good() const {
-        return LRGood() && TBGood() && XYGood();
-    }
+	Bool Good() const {
+		return LRGood() && TBGood() && XYGood();
+	}
 
-    Bool LRGood(int Delta) const {
-        return (rmx.left() + Delta >= rmn.left()) && (rmx.right() + Delta >= rmn.right())
-                && (rmx.right() + Delta >= rmn.left());
-    }
+	Bool LRGood(int Delta) const {
+		return (rmx.left + Delta >= rmn.left) && (rmx.right + Delta
+				>= rmn.right) && (rmx.right + Delta >= rmn.left);
+	}
 
-    Bool TBGood(int Delta) const {
-        return (rmx.top() + Delta >= rmn.top()) && (rmx.bottom() + Delta >= rmn.bottom())
-                && (rmx.bottom() + Delta >= rmn.top());
-    }
+	Bool TBGood(int Delta) const {
+		return (rmx.top + Delta >= rmn.top) && (rmx.bottom + Delta
+				>= rmn.bottom) && (rmx.bottom + Delta >= rmn.top);
+	}
 
-    Bool XYGood(int Delta) const {
-        return (cmx.x() + Delta >= cmn.x()) && (cmx.y() + Delta >= cmn.y());
-    }
+	Bool XYGood(int Delta) const {
+		return (cmx.x() + Delta >= cmn.x()) && (cmx.y() + Delta >= cmn.y());
+	}
 
-    Bool Good(int Delta) const {
-        return LRGood(Delta) && TBGood(Delta) && XYGood(Delta);
-    }
+	Bool Good(int Delta) const {
+		return LRGood(Delta) && TBGood(Delta) && XYGood(Delta);
+	}
 
-    Bool operator !() const {
-        return Good();
-    }
+	Bool operator !() const {
+		return Good();
+	}
 };
 _SETTYPES(IRstr)
 #endif

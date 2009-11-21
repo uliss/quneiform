@@ -68,7 +68,6 @@
 /*  межпроектные чужие  */
 #include "cttypes.h"
 #include "point.h"
-#include "rect.h"
 /*------------------------------------------------------------------------------------------------*/
 /**
  \brief Функция поворота прямоугольника
@@ -77,7 +76,7 @@
  \param Skew[in]    - угол наклона идеальных координат
  \note  Используется в RLTable и USAGE
  */
-void RotateRect(const CIF::Rect16 *pRcRe, CIF::Rect16 *pRcId, int32_t Skew);
+void RotateRect(const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 /**
  \brief Функция нахождения минимального прямоугольника, охватывающего заданные
  \param nRc [in]      - количество охватываемых прямоугольников
@@ -87,7 +86,7 @@ void RotateRect(const CIF::Rect16 *pRcRe, CIF::Rect16 *pRcId, int32_t Skew);
  \note  Используется только в SStreak
  */
 void FindMinimIdealRegion(const int nRc, const int *pDo,
-		const CIF::Rect16 *pRcIdeal, CIF::Rect16 *pMIR);
+		const Rect16 *pRcIdeal, Rect16 *pMIR);
 /**
  \brief Функция проверяет, пересекает ли линия прямоугольник
  \param pA [in/out]  - указатель на точку - начало линии в реальных координатах
@@ -99,7 +98,7 @@ void FindMinimIdealRegion(const int nRc, const int *pDo,
  \retval bool        - так пересекает или нет
  \note  Используется в RVerLine и USAGE
  */
-bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, const CIF::Rect16 *pRc,
+bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, const Rect16 *pRc,
 		const int32_t Skew, const int NearHor, const int NearVer);
 /**
  \brief Функция проверяет, пересекаются ли два прямоугольника
@@ -108,7 +107,7 @@ bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, const CIF::Rect16 *pR
  \retval bool     - так пересекаются или нет
  \note  Используется только в MZoning
  */
-bool IsRectsCross(const CIF::Rect16 *pRc1, const CIF::Rect16 *pRc2);
+bool IsRectsCross(const Rect16 *pRc1, const Rect16 *pRc2);
 /**
  \brief Функция поворота прямоугольника - выглядит копией функции RotateRect
  \param pRcRe [in]  - указатель на прямоугольник в реальных координатах
@@ -116,4 +115,4 @@ bool IsRectsCross(const CIF::Rect16 *pRc1, const CIF::Rect16 *pRc2);
  \param Skew[in]    - угол наклона идеальных координат
  \note  Используется только в MZoning
  */
-bool MakeInternalRectId(const CIF::Rect16 *pRcRe, CIF::Rect16 *pRcId, int32_t Skew);
+bool MakeInternalRectId(const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);

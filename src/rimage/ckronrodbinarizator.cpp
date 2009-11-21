@@ -1864,8 +1864,8 @@ void CKronrodBinarizator::Korob_calc_porog_x_y() {
 
 	m_Verblud:
 	//			6/8   -
-	/*			    /	\   */
-	/*			  /   B	  \ */
+	//			    /	\
+	//			  /   B	  \
 	//			/   A	C   - -  4/8
 	//		      /   9	  D
 	// 3/8	- - - - - - /   8	    E F
@@ -1951,7 +1951,7 @@ void CKronrodBinarizator::Korob_Files_Write() {
 			/*......................................................................*/
 			for (i=Korob_i1; i<=Korob_i2; i++)
 			{
-				memcpy ((puchar) buf_B, ppMem [i] + Korob_j1, Korob_nj); ///
+				memcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj); ///
 				n = fwrite (buf_B, 1, Korob_nj, mkFile_KOROBS_BODIES);
 				if (n!=Korob_nj)
 				PR_BEG
@@ -2238,38 +2238,51 @@ void CKronrodBinarizator::memory_free() {
 
 void CKronrodBinarizator::pr_ERR(pchar text) {
 	wsprintf((char *) (mkText), (char *) text);
+	MMM;
 }
 
 void CKronrodBinarizator::pr_ERR_1(pchar text, int32_t n1) {
 	wsprintf((char *) mkText, (char *) text, n1);
+	MMM;
 }
 
 void CKronrodBinarizator::pr_ERR_2(pchar text, int32_t n1, int32_t n2) {
 	wsprintf((char *) mkText, (char *) text, n1, n2);
+	MMM;
 }
 
 void CKronrodBinarizator::pr_ERR_3(pchar text, int32_t n1, int32_t n2,
 		int32_t n3) {
 	wsprintf(mkText, text, n1, n2, n3);
+	MMM;
 }
 
 void CKronrodBinarizator::pr_MES(pchar text) {
 	wsprintf(mkText, text);
+	MMM_NP
 }
 
 void CKronrodBinarizator::pr_MES_1(pchar text, int32_t n1) {
 	wsprintf(mkText, text, n1);
+	MMM_NP;
 }
 
 void CKronrodBinarizator::pr_MES_2(pchar text, int32_t n1, int32_t n2) {
 	wsprintf(mkText, text, n1, n2);
+	MMM_NP;
 }
 
 void CKronrodBinarizator::pr_MES_3(pchar text, int32_t n1, int32_t n2,
 		int32_t n3) {
 	wsprintf(mkText, text, n1, n2, n3);
+	MMM_NP;
 }
 
 uint32_t CKronrodBinarizator::mk_1235() {
 	return 0;
+}
+
+void CKronrodBinarizator::mk_hist_WORD(uint32_t * /*Hist_WORD*/, puchar /*p*/,
+		uint32_t /*n*/) {
+	return;
 }

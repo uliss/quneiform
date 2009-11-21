@@ -63,12 +63,9 @@
 #ifndef KERNEL_H_INCLUDE
 #define KERNEL_H_INCLUDE
 
+#include "struct.h"
 #include "extract.h"
 #include "stick.h"
-//#include "hrstr/ccomp.h"
-//#include "hrstr/mn.h"
-//#include "hrstr/cell.h"
-#include "cutstr.h"
 
 extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3, *accent_tab;
@@ -272,12 +269,12 @@ void embBOXF(servBOX *, int16_t, Bool);
 
 // module scalar.asm
 int16_t proport(uint16_t, uint16_t, uint16_t, int16_t, int16_t);
-extern uint16_t (*scalarf)(uint16_t *, uint16_t *, uint16_t);
-extern int32_t (*scalar)(uint16_t *, uint16_t *);
+extern uint16_t (*scalarf)(PWORD, PWORD, uint16_t);
+extern int32_t (*scalar)(PWORD, PWORD);
 int16_t long_sqrt(uint32_t);
 
 // module funcBOX.asm
-void comp_to_box(uint16_t *, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
+void comp_to_box(PWORD, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
 
 // module abris.c
 void abris_reset();

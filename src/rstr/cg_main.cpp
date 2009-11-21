@@ -3724,7 +3724,7 @@ static int16_t is_stick(cell *B) {
 	int16_t s0, s1; //площадь горба и остальной части
 	c_comp *cp; //envelope C
 	lnhead *lp; //текущая линия
-	interval *intp; //текущий интервал
+	struct int_s *intp; //текущий интервал
 
 	if (!B->env || B->h < my_bases.ps - (my_bases.ps >> 2) || (B->w + (B->w
 			>> 1) > B->h))
@@ -3738,7 +3738,7 @@ static int16_t is_stick(cell *B) {
 	cp = B->env;
 	lp = (lnhead *) ((char *) cp + cp->lines + 2); //шапка первой линии
 	for (i = 0; i < cp->nl; i++) {
-		intp = (interval *) (lp + 1);
+		intp = (struct int_s *) (lp + 1);
 		for (j = 0; j < lp->h; j++, intp++) {
 			he = hist + (intp->e - intp->l);
 			emax = MAX(emax, intp->e);

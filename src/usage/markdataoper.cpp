@@ -65,7 +65,6 @@
 /*  interface my-my      */
 #include "amt_geom.h"
 #include "markdataoper.h" //own functions
-using namespace CIF;
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv(void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim,
 		int32_t SkewReg, char *pStr, char *pWho) {
@@ -157,10 +156,10 @@ Bool LoadComps_rv(Handle hC, void *vB, char *pStr, int Filter) {
 		}
 		nRc++;
 		/*  собственно данные  */
-		pCurr->rleft() = pcomp->left;
-		pCurr->rright() = pcomp->left + pcomp->w - 1;
-		pCurr->rtop() = pcomp->upper;
-		pCurr->rbottom() = pcomp->upper + pcomp->h - 1;
+		pCurr->left = pcomp->left;
+		pCurr->right = pcomp->left + pcomp->w - 1;
+		pCurr->top = pcomp->upper;
+		pCurr->bottom = pcomp->upper + pcomp->h - 1;
 		pCurr++;
 		SizeCurr -= sizeof(Rect16);
 	}
@@ -196,10 +195,10 @@ Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
 		return FALSE;
 	if (pPict->com.Vertex[0].y() >= pPict->com.Vertex[3].y())
 		return FALSE;
-	pCurr->rleft() = pPict->com.Vertex[0].x();
-	pCurr->rright() = pPict->com.Vertex[1].x();
-	pCurr->rtop() = pPict->com.Vertex[0].y();
-	pCurr->rbottom() = pPict->com.Vertex[3].y();
+	pCurr->left = (int16_t) pPict->com.Vertex[0].x();
+	pCurr->right = (int16_t) pPict->com.Vertex[1].x();
+	pCurr->top = (int16_t) pPict->com.Vertex[0].y();
+	pCurr->bottom = (int16_t) pPict->com.Vertex[3].y();
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/

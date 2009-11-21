@@ -69,7 +69,7 @@
 //
 #ifndef DPUMA_SNAP
 #ifndef NO_SNP
-static __SnpToolBox* __pSnpToolBox=NULL;
+static __SnpToolBox* __pSnpToolBox= NULL;
 // this variable will be in all modules with include of snaptool.h
 // internal usage!
 #define SnpSetTools(tools) { __pSnpToolBox=tools; };
@@ -109,60 +109,58 @@ static __SnpToolBox* __pSnpToolBox=NULL;
 //
 
 void SnpAddNode( // should be called from dll's XxxRegisterSnpTree();
-        SnpTreeNode * node, // on module's static data segment
-        const char * name, // user readable
-        SnpTreeNode * parent
-        // eliminated, 21 oct 96:
-        // SnpTreeNode *  elder_brother
+		SnpTreeNode * node, // on module's static data segment
+		const char * name, // user readable
+		SnpTreeNode * parent
+// eliminated, 21 oct 96:
+// SnpTreeNode *  elder_brother
 ) {
-    memset(node, 0, sizeof(SnpTreeNode));
-    node->Parent = parent;
-    strncpy(node->Name, name, sizeof(node->Name) - 1);
-    // set node->Next & node->Prev:
-    if (parent != NULL) {
-        SnpTreeNode* kid = NULL;
-        if (parent->FirstChild != NULL) {
-            kid = parent->FirstChild;
-            while (kid->Next != NULL)
-            kid = kid->Next;
-            kid->Next = node;
-            node->Prev = kid;
-        }
-        else
-        // first child in family!
-        parent->FirstChild = node;
-    };
+	memset(node, 0, sizeof(SnpTreeNode));
+	node->Parent = parent;
+	strncpy(node->Name, name, sizeof(node->Name) - 1);
+	// set node->Next & node->Prev:
+	if (parent != NULL) {
+		SnpTreeNode* kid = NULL;
+		if (parent->FirstChild != NULL) {
+			kid = parent->FirstChild;
+			while (kid->Next != NULL)
+				kid = kid->Next;
+			kid->Next = node;
+			node->Prev = kid;
+		} else
+			// first child in family!
+			parent->FirstChild = node;
+	};
 }
+
 
 static // internal usage, dont call directly
 void __SnpIterParent(SnpTreeNode* node, Bool activate) {
-    SnpTreeNode* child = node->GetFirstBaby();
-    while (child != NULL) {
-        if (activate) {
-            if (child->IterParent > 0)
-            child->IterParent--;
-        }
-        else
-        child->IterParent++;
-        __SnpIterParent(child, activate);
-        child = child->GetNext();
-    };
+	SnpTreeNode* child = node->GetFirstBaby();
+	while (child != NULL) {
+		if (activate) {
+			if (child->IterParent > 0)
+				child->IterParent--;
+		} else
+			child->IterParent++;
+		__SnpIterParent(child, activate);
+		child = child->GetNext();
+	};
 }
 
 static
 void SnpFreezeChilds(SnpTreeNode* node, Bool32 freeze) {
-    if (freeze) {
-        if (!(node->Status & STN_FROZENCHILDS)) {
-            __SnpIterParent(node, FALSE); // freeze subtree
-            node->Status |= STN_FROZENCHILDS;
-        };
-    }
-    else {
-        if (node->Status & STN_FROZENCHILDS) {
-            __SnpIterParent(node, TRUE); // unfreeze subtree
-            node->Status &= ~STN_FROZENCHILDS;
-        };
-    };
+	if (freeze) {
+		if (!(node->Status & STN_FROZENCHILDS)) {
+			__SnpIterParent(node, FALSE); // freeze subtree
+			node->Status |= STN_FROZENCHILDS;
+		};
+	} else {
+		if (node->Status & STN_FROZENCHILDS) {
+			__SnpIterParent(node, TRUE); // unfreeze subtree
+			node->Status &= ~STN_FROZENCHILDS;
+		};
+	};
 }
 
 Bool16 SnpSkip(SnpTreeNode* node)
@@ -171,68 +169,80 @@ Bool16 SnpSkip(SnpTreeNode* node)
 // NOTE: call it once per iteration
 {
 
-    if (!SnpIsActive() // snap is not active at all
-            || node->IterParent > 0 // parent iterated
-            || NOT_ACTIVE(node->Status) // no node activity
-            || ((node->IterStop > 0) && // iteration was set...
-                    //16.12.96 16:05 VP      (node->IterCur != node->IterStop) // ... but another
-                    (node->IterCur < node->IterStop) // ... but another
-            ))
-    return TRUE; // Skip it, baby!
+	if (!SnpIsActive() // snap is not active at all
+			|| node->IterParent > 0 // parent iterated
+			|| NOT_ACTIVE(node->Status) // no node activity
+			|| ((node->IterStop > 0) && // iteration was set...
+					//16.12.96 16:05 VP      (node->IterCur != node->IterStop) // ... but another
+					(node->IterCur < node->IterStop) // ... but another
+			))
+		return TRUE; // Skip it, baby!
 
-    ///////////// node about to be activated ///////////
-    SnpNotifyAppl(node); // notify application
-    return FALSE;
+	///////////// node about to be activated ///////////
+	SnpNotifyAppl(node); // notify application
+	return FALSE;
 }
 
 void SnpStartLoop( // call in dll before start of loop
-        SnpTreeNode* node, // node inside loop
-        uint32_t iter_total // iteration count, 0 if unknown
+		SnpTreeNode* node, // node inside loop
+		uint32_t iter_total // iteration count, 0 if unknown
 ) {
-    node->IterTotal = iter_total;
-    node->IterCur = 0;
-    if (node->IterStop > 0
-            //            && !(node->Status & STN_FROZENCHILDS)
-    ) {
-        //__SnpIterParent(node, FALSE); // freeze subtree
-        //node->Status |= STN_FROZENCHILDS;
-        SnpFreezeChilds(node, TRUE);
-    };
+	node->IterTotal = iter_total;
+	node->IterCur = 0;
+	if (node->IterStop > 0
+	//            && !(node->Status & STN_FROZENCHILDS)
+	) {
+		//__SnpIterParent(node, FALSE); // freeze subtree
+		//node->Status |= STN_FROZENCHILDS;
+		SnpFreezeChilds(node, TRUE);
+	};
 }
 
 void SnpLoopNext( // call in dll at start of next iteration
-        SnpTreeNode* node) {
-    node->IterCur++;
-    if (node->IterCur == node->IterStop) {
-        SnpFreezeChilds(node, FALSE); // unfreeze
-        return;
-    };
+		SnpTreeNode* node) {
+	node->IterCur++;
+	if (node->IterCur == node->IterStop) {
+		SnpFreezeChilds(node, FALSE); // unfreeze
+		return;
+	};
 }
 
 #else
 void SnpSetTools(__SnpToolBox* tools);
 Bool SnpIsActive(void);
 
-int SnpLog(const char* s, ...);
+int SnpLog( const char* s, ...);
+void SnpStatusLine( char* s, ...);
+void SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
+		int32_t pen_width,uint32_t key);
+void SnpHideRects(uint32_t key);
+void SnpDrawLine(Point16* start, Point16* end, int32_t skew,
+		uint32_t rgb_color,int16_t pen_width, Handle key );
 void SnpHideLines(Handle key);
 void SnpDrawFocusRect(Rect16* rc);
-uint32_t SnpSetZoneOn(Rect16* zone_rect, uint32_t rgb_color, char* status_line_comment,
-        uint32_t users_zone_handle, FTOnMouseDown on_mouse_down);
-void SnpSetZoneOff(uint32_t zone_handle);
+uint32_t SnpSetZoneOn(Rect16* zone_rect,
+		uint32_t rgb_color,char* status_line_comment,
+		uint32_t users_zone_handle, FTOnMouseDown on_mouse_down );
+void SnpSetZoneOff( uint32_t zone_handle );
 void SnpUpdateViews(void);
-Bool16 SnpGetUserString(char * _text, char * result_string, uint32_t result_string_length);
-Bool16 SnpGetUserLong(char * _text, int32_t * result_long);
-Bool16 SnpGetUserRect(Rect16* rect);
+void SnpMessBoxOk( char * message );
+Bool16 SnpMessBoxYesNo( char * message );
+Bool16 SnpGetUserString (char * _text,
+		char * result_string, uint32_t result_string_length );
+Bool16 SnpGetUserLong(char * _text,
+		int32_t * result_long);
+Bool16 SnpGetUserRect( Rect16* rect );
 Bool16 SnpGetUserPoint(Point16* pnt);
 uint32_t SnpWaitUserInput(SnpTreeNode* cur_node);
 void SnpNotifyAppl(SnpTreeNode* cur_node);
 // tree manipulation
 void SnpRasterText(char *Text);
-void SnpAddNode(SnpTreeNode * node, const char * name, SnpTreeNode * parent);
-void __SnpIterParent(SnpTreeNode* node, Bool activate);
-void SnpStartLoop(SnpTreeNode* node, uint32_t iter_total);
-void SnpLoopNext(SnpTreeNode* node);
-Bool16 SnpSkip(SnpTreeNode* node);
+void SnpAddNode( SnpTreeNode * node, const char * name,
+		SnpTreeNode * parent );
+void __SnpIterParent( SnpTreeNode* node, Bool activate );
+void SnpStartLoop( SnpTreeNode* node, uint32_t iter_total );
+void SnpLoopNext( SnpTreeNode* node );
+Bool16 SnpSkip( SnpTreeNode* node );
 
 #endif
 #else
@@ -241,25 +251,25 @@ void SnpStatusLine(const char * s,...);
 void SnpSetTools(__SnpToolBox* tools);
 Bool SnpIsActive(void);
 
-void SnpDrawRect(CIF::Rect16* rc, int32_t skew, uint32_t rgb_color,
-        int32_t pen_width,uint32_t key);
+void SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
+		int32_t pen_width,uint32_t key);
 void SnpHideRects(uint32_t key);
 void SnpDrawLine(CIF::Point16* start, CIF::Point16* end, int32_t skew,
-        uint32_t rgb_color, int16_t pen_width, Handle key );
+		uint32_t rgb_color, int16_t pen_width, Handle key );
 void SnpHideLines(Handle key);
-void SnpDrawFocusRect(CIF::Rect16* rc);
-uint32_t SnpSetZoneOn(CIF::Rect16* zone_rect,
-        uint32_t rgb_color,char* status_line_comment,
-        uint32_t users_zone_handle, FTOnMouseDown on_mouse_down );
+void SnpDrawFocusRect(Rect16* rc);
+uint32_t SnpSetZoneOn(Rect16* zone_rect,
+		uint32_t rgb_color,char* status_line_comment,
+		uint32_t users_zone_handle, FTOnMouseDown on_mouse_down );
 void SnpSetZoneOff( uint32_t zone_handle );
 void SnpUpdateViews(void);
 void SnpMessBoxOk( char * message );
 Bool16 SnpMessBoxYesNo( char * message );
 Bool16 SnpGetUserString (char * static_text,
-        char * result_string, uint32_t result_string_length );
+		char * result_string, uint32_t result_string_length );
 Bool16 SnpGetUserLong(char * static_text,
-        int32_t * result_long);
-Bool16 SnpGetUserRect( CIF::Rect16* rect );
+		int32_t * result_long);
+Bool16 SnpGetUserRect( Rect16* rect );
 Bool16 SnpGetUserPoint(CIF::Point16* pnt);
 uint32_t SnpWaitUserInput(SnpTreeNode* cur_node);
 void SnpNotifyAppl(SnpTreeNode* cur_node);
@@ -272,7 +282,7 @@ void __SnpIterParent( SnpTreeNode* node, Bool activate );
 void SnpStartLoop( SnpTreeNode* node, uint32_t iter_total );
 void SnpLoopNext( SnpTreeNode* node );
 Bool16 SnpSkip( SnpTreeNode* node );
-void SnpZoomToRect(CIF::Rect16 * lpRect);
+void SnpZoomToRect(Rect16 * lpRect);
 void SnpRasterHeader(char * lpText,uint32_t num);
 #endif
 #endif

@@ -72,6 +72,7 @@ void LnsRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
 			SnpAddNode( &stnHLiner,"HLiner", parent);
 		}
 
+static int32_t nByteWidth;
 static int32_t nLine = 0;
 static XMatrix<uchar> xmImageMap;
 static XStack<Line16> xsLines;
@@ -90,6 +91,9 @@ Bool32 HLiner_Setup(Tiger_ImageInfo* pTgInfo) {
 
 	nLine = 0;
 
+	//if (ImageInfo.bFotoMetrics != 0) // white pixel is 0
+	//   BlackBitsCountTbl = bit1_cnt;
+	//else
 	BlackBitsCountTbl = bit0_cnt;
 
 	return TRUE;
@@ -254,8 +258,10 @@ int32_t HLiner_Analyze(void) // returns count of extracted lines
 	if (!SnpSkip(&stnHLiner)) {
 		for (i = 0; i < xsLines.GetCurCnt(); i++) {
 			Line16& li = xsLines[i];
+			SnpDrawLine(&li.A, &li.B, 0, wRGB(255, 0, 255), 2, &stnHLiner);
 		}
 		SnpWaitUserInput(&stnHLiner);
+		SnpHideLines(&stnHLiner);
 	}
 
 	xmImageMap.Destroy(); // free, currently not used later

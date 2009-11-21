@@ -62,6 +62,7 @@
 #define NBBOX         16 // 7
 
 #include "cutstr.h"
+#include "struct.h"
 
 #define iFINE_CONST  4
 

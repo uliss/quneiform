@@ -65,13 +65,12 @@
 
 #include <setjmp.h>
 
+#include "struct.h"
 #include "extract.h"
 #include "stick.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
 #include "point.h"
-#include "cutstr.h"
-#include "embbox.h"
 
 /* FIXME: to compile in MS VC++ */
 #define c_locomp EVN_CLocomp
@@ -255,6 +254,9 @@ int16_t cell_is_BOX_solid(cell*);
 // module locomp.asm
 extern MN* c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
 
+// module v0compgl.asm
+void invert_tiff(puchar c, uint16_t lth);
+
 // module cutgraph.c
 int16_t make_graph();
 void excl_connect();
@@ -291,12 +293,12 @@ void embBOXF(servBOX *, int16_t, Bool);
 
 // module scalar.asm
 int16_t proport(uint16_t, uint16_t, uint16_t, int16_t, int16_t);
-extern uint16_t (*scalarf)(uint16_t *, uint16_t *, uint16_t);
-extern int32_t (*scalar)(uint16_t *, uint16_t *);
+extern uint16_t (*scalarf)(PWORD, PWORD, uint16_t);
+extern int32_t (*scalar)(PWORD, PWORD);
 int16_t long_sqrt(uint32_t);
 
 // module funcBOX.asm
-void comp_to_box(uint16_t*, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
+void comp_to_box(PWORD, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
 
 // module abris.c
 void abris_reset();
@@ -693,7 +695,7 @@ void c_rastror(puchar, puchar, uint16_t, uint16_t);
 lnhead *c_boxln(MN *);
 
 // rstr_con.c
-int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, CIF::Rect16 *rect,
+int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
 		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
 		uchar kegl, uchar column, uchar tabno);
 void rstr_close_cont(void);

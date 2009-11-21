@@ -324,7 +324,7 @@ static void merge_lines() {
 		return;
 	}
 
-	if ((n = mn->mnboxcnt) > MN::usual_box_count) {
+	if ((n = mn->mnboxcnt) > usual_box_count) {
 		if (n > mnn->mnboxcnt) {
 			n = mnn->mnboxcnt;
 			mnw = mnn;
@@ -478,7 +478,7 @@ static void no_box() {
 
 	n = mmax->mnboxcnt;
 	bpp = NULL;
-	mmax->mnflag = MN::mnpicture;
+	mmax->mnflag = mnpicture;
 	mmax->mnboxcnt = 0;
 	bp = static_cast<BOX*> (mmax->mnfirstbox);
 	left = bp->boxleft;

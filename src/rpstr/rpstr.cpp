@@ -73,6 +73,7 @@ uint16_t wHeightRC = 0;
 uint16_t wLowRC = RPSTR_ERR_NO;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE, skip_line = FALSE;
+;
 Handle hSnapSpell = 0, hSnapWordSpell = 0, hSnapMatch = 0, hSnapCapDrop = 0;
 Handle hSnapEndWord = NULL, hSnapStartWord = NULL;
 Handle hVertCompD;
@@ -163,6 +164,28 @@ Bool32 RPSTR_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	wLowRC = RPSTR_ERR_NO;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
+	LDPUMA_Init(0, NULL);
+	//kegl_snap_init();
+	LDPUMA_Registry(&hSnapSpell, "Словарь и постобработка", NULL);
+	LDPUMA_RegistryHelp(hSnapSpell, "Словарь", FALSE);
+	LDPUMA_Registry(&hSnapWordSpell, "Запретить проверку словами", hSnapSpell);
+	LDPUMA_Registry(&hSnapMatch, "Показать проверку словами", hSnapWordSpell);
+	LDPUMA_RegistryHelp(hSnapWordSpell, "Разрешить проверку словами", FALSE);
+	LDPUMA_Registry(&hSnapCapDrop, "Запретить обработку БУКВИЦ", hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapCapDrop, "Запретить обработку БУКВИЦ", FALSE);
+
+	LDPUMA_Registry(&hSnapEndWord, "Отменить проверку окончаний", hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapEndWord,
+			"Разрешить или нет любые замены окончаний", FALSE);
+	LDPUMA_Registry(&hSnapStartWord, "Отменить осторожность в именах",
+			hSnapSpell);
+	LDPUMA_RegistryHelp(hSnapStartWord,
+			"Обращаться или нет одинаково со всеми словами", FALSE);
+
+	LDPUMA_Registry(&hVertCompD, "Прорисовка букв в вертикальных строках!",
+			NULL);
+	LDPUMA_RegistryHelp(hVertCompD,
+			"Разрешить прорисовку букв в вертикальных строках", FALSE);
 	return TRUE;
 }
 
@@ -171,6 +194,7 @@ void RPSTR_Done(void) {
 	wHeightRC = 0;
 	snap_enable = TRUE;
 	exit_enable = FALSE;
+	LDPUMA_Done();
 	return;
 }
 
@@ -225,6 +249,7 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		sprintf(snapstr, "before spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("before spelling");
+		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 
 		if (exit_enable) {
 			LDPUMA_DestroyRasterWnd();
@@ -243,6 +268,7 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb,
 		sprintf(snapstr, "after spelling line %d", line_num);
 		Snap_Console(snapstr);
 		LDPUMA_RasterText("after spelling");
+		LDPUMA_CSTR_Monitor(hSnapSpell, (uint32_t) line, 0, myMonitorProc);
 	}
 	if (exit_enable) {
 		LDPUMA_DestroyRasterWnd();
@@ -324,6 +350,38 @@ Bool32 RPSTR_CollectCapDrops(int32_t version) {
 		}
 	}
 	return TRUE;
+}
+
+Bool32 RPSTR_GetExportData(uint32_t dwType, void * pData) {
+	Bool32 rc = TRUE;
+#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
+	wLowRC = RPSTR_ERR_NO;
+	switch (dwType) {
+	case RPSTR_FNNEWPAGE: //      init new page
+		EXPORT(RPSTR_NewPage)
+		break;
+	case RPSTR_FNCORRECTSPELL: //      init new page
+		EXPORT(RPSTR_CorrectSpell)
+		break;
+	case RPSTR_FNCORRECTLINESPELL:
+		EXPORT(RPSTR_CorrectLineSpell)
+		break;
+	case RPSTR_FNCORRECTINCLINE:
+		EXPORT(RPSTR_CorrectIncline)
+		break;
+	case RPSTR_FNCOLLECTCAPDROP:
+		EXPORT( RPSTR_CollectCapDrops)
+		break;
+	case RPSTR_FNNORMVERTSTR:
+		EXPORT( RPSTR_NormalizeVertStr)
+		break;
+	default:
+		wLowRC = RPSTR_ERR_NOTIMPLEMENT;
+		rc = FALSE;
+		break;
+	}
+#undef EXPORT
+	return rc;
 }
 
 Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData) {

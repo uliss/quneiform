@@ -172,14 +172,18 @@ extern Handle hSnapBLcut;
 static Bool internal_skip[sizeof(snap_pass) / sizeof(snap_pass[0])];
 
 void reset_snap(void) {
+	LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[3], NULL);
+	return;
 }
-
 static int Lang_Console(char *text, uchar lang) {
 	char buf[1024];
+	//LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
+	//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   uint32_t textcolor,
+	//      int charset,    char * name )
+	LDPUMA_SetConsoleProperty(0, 0, 0, 0, 0, 0, 0, CodePages[lang], NULL);//"Courier New" ) ;
 	strcpy(buf, text);
 	strcat(buf, "\n");
-	LDPUMA_Console(buf);
-	return 1;
+	return LDPUMA_Console(buf);
 }
 
 static int Snap_Console(char *text) {
@@ -254,6 +258,39 @@ Bool snap_init(void) {
 	if (init)
 		return TRUE;
 	init = TRUE;
+	LDPUMA_Init(0, NULL);
+	//LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
+
+	LDPUMA_Registry(&hSnapMain, "Распознавание строк...", NULL);
+	for (i = 0; snap_pass[i][0]; i++) {
+		LDPUMA_Registry(&hSnapPass[i], (char*) snap_pass[i], hSnapMain);
+		LDPUMA_RegistryHelp(hSnapPass[i], snap_pass_help[i], FALSE);
+	}
+	LDPUMA_Registry(&hSnapMainFict, "Fictive points...", hSnapMain);
+	for (i = 0; i < 5; i++) {
+		LDPUMA_Registry(&hSnapFict[i], (char*) snap_fict[i], hSnapMainFict);
+		LDPUMA_RegistryHelp(hSnapFict[i], snap_fict_help[i], FALSE);
+	}
+	LDPUMA_Registry(&hSnapBLcut, "Запретить разрезание по базам", hSnapMain);
+	LDPUMA_Registry(&hSnapLEO, "Запретить ЛЕО", hSnapMain);
+	LDPUMA_Registry(&hSnapSerifTrace, "Serif Dispaly", hSnapPass['k' - 'a']);
+	LDPUMA_RegistryHelp(hSnapSerifTrace, "Draw rectangles", FALSE);
+	//IGOR
+	for (i = 0; snap_bl[i][0]; i++) {
+		LDPUMA_Registry(&hSnapLineBL[i], (char*) snap_bl[i], hSnapPass['d'
+				- 'a']);
+		LDPUMA_RegistryHelp(hSnapLineBL[i], snap_bl_help[i], FALSE);
+	}
+	//IGOR
+	LDPUMA_RegVariable(hSnapMain, "Трассировка", &db_trace_flag, "char");
+#ifdef MATCH_WORD
+	LDPUMA_RegVariable(hSnapMain,"Наложение слова",mwInput,"char *");
+#endif
+	LDPUMA_Registry(&hSnapSmartCut,
+			"Запретить кластерное разрезание/склеивание на 2-ом проходе",
+			hSnapMain);
+	LDPUMA_RegistryHelp(hSnapSmartCut,
+			"Запретить кластерное разрезание/склеивание на 2-ом проходе", FALSE);
 	snap_page_disable = snap_disable = db_skip_client = FALSE;
 	memset(internal_skip, TRUE, snap_clients * sizeof(Bool));
 	exit_enable = FALSE;
@@ -642,6 +679,8 @@ Bool snap_monitor(void) {
 
 	//
 	snap_monitor_calls++;
+	stop_number = LDPUMA_CSTR_Monitor(hnd, (uint32_t) snap_line, stop_number,
+			myMonitorProc);
 	snap_monitor_calls--;
 	//
 	CSTR_DeleteLine(snap_line);
@@ -690,6 +729,8 @@ Bool snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
 	//
 
 	new_snap: snap_continue = FALSE;
+	stop_number = LDPUMA_CSTR_Monitor(hnd, (uint32_t) snap_line[select_line],
+			stop_number, myMonitorProc/*Ori*/);
 	if (snap_continue) {
 		stop_number = 0;
 		goto new_snap;
@@ -760,6 +801,8 @@ Bool snap_is_marked(CSTR_line ln) {
 	if (!wnd)
 		return FALSE;
 	CSTR_GetLineAttr(ln, &r);
+	if (!LDPUMA_GetUserPoint(wnd, &p))
+		return FALSE;
 	return !((p.x() < r.r_col) || (p.x() > r.r_col + r.r_wid) || (p.y() < r.r_row)
 			|| (p.y() > r.r_row + r.r_hei));
 }
@@ -989,6 +1032,7 @@ void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 }
 
 void snap_del_line(Handle wnd, uint32_t key) {
+	LDPUMA_DeleteLines(wnd, key);
 	return;
 }
 //IGOR

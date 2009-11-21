@@ -60,7 +60,6 @@
 #include <stdlib.h>
 #include "recdefs.h"
 #include "lang_def.h"
-#include "struct.h"
 
 #include "minmax.h"
 

@@ -110,10 +110,9 @@
 //для динамич. переключения длины PRS-кода
 //#define PRS_2_3
 
-struct h_frame
-{
-    unsigned long start_pos, end_pos;
-    int left, up, right, down;
+struct h_frame {
+	unsigned long start_pos, end_pos;
+	int left, up, right, down;
 };
 
 typedef h_frame FRAME;
@@ -131,9 +130,8 @@ ID_SYM {unsigned char col,str,comp,word;};
 #define CONV uchar
 #define FL_ID 1
 #else
-ID_SYM
-{
-    uint col, str, comp, word;
+ID_SYM {
+	uint col, str, comp, word;
 };
 #define CONV uint
 #define FL_ID 0
@@ -151,206 +149,185 @@ typedef void *** PTR3;
 #define doi(p1,p2,p3) for(p1=(int)(p2); p1>=(int)(p3); --p1)
 
 //Структура структуры в памяти
-struct PIECE
-{
-    int up, down;
+struct PIECE {
+	int up, down;
 };
 
-struct FRM_ARR
-{
-    FRAME **FrmArr, **frm;
-    int NumArr, NumFrm, AllFrm;
+struct FRM_ARR {
+	FRAME **FrmArr, **frm;
+	int NumArr, NumFrm, AllFrm;
 };
 
-struct BOUND
-{
-    int left, up, right, down;
+struct BOUND {
+	int left, up, right, down;
 };
 
-struct POS_STR
-{
-    uint HeadLine :1, buf :15;
+struct POS_STR {
+	uint HeadLine :1, buf :15;
 };
 
-struct STAT_STR
-{
-    int dx, dy, dsym, down_line;
-    POS_STR PosStr;
+struct STAT_STR {
+	int dx, dy, dsym, down_line;
+	POS_STR PosStr;
 };
 
-struct STAT_COL
-{
-    STAT_STR *stat_str;
-    int dx_col, dy_col, dsym_col, dy_Low, dy_Upp;
+struct STAT_COL {
+	STAT_STR *stat_str;
+	int dx_col, dy_col, dsym_col, dy_Low, dy_Upp;
 };
 
-struct KNOT
-{
-    KNOT *next, *back;
+struct KNOT {
+	KNOT *next, *back;
 };
 
-struct KNOT2
-{
-    KNOT2 *next, *back;
-    FRAME *f;
-    TYPE dist;
+struct KNOT2 {
+	KNOT2 *next, *back;
+	FRAME *f;
+	TYPE dist;
 };
 
-struct KNOT3
-{
-    KNOT3 *next, *back;
-    FRAME *f;
-    int cl;
-    KNOT3 *beg;
+struct KNOT3 {
+	KNOT3 *next, *back;
+	FRAME *f;
+	int cl;
+	KNOT3 *beg;
 };
 
-struct KNOT4
-{
-    KNOT4 *next, *back;
-    FRAME *f;
+struct KNOT4 {
+	KNOT4 *next, *back;
+	FRAME *f;
 };
 
-struct FRML
-{
-    FRML *next, *back;
-    int left, up, right, down;
+struct FRML {
+	FRML *next, *back;
+	int left, up, right, down;
 };
 
-struct AS
-{
-    KNOT3 ***beg_as; //Двумерный массив голов списков сегментов АС
-    KNOT3 *beg_free; //Ук-ль на голову списка свободных эл-тов списк. прост-ва
-    int kx, ky, dx, dy, xmin, ymin; //Кол-ва и размеры сегментов по осям,начало АС
-    BOUND *bnd; //Габарит. прямоугольник АС (без учета фиктив. полос)
+struct AS {
+	KNOT3 ***beg_as; //Двумерный массив голов списков сегментов АС
+	KNOT3 *beg_free; //Ук-ль на голову списка свободных эл-тов списк. прост-ва
+	int kx, ky, dx, dy, xmin, ymin; //Кол-ва и размеры сегментов по осям,начало АС
+	BOUND *bnd; //Габарит. прямоугольник АС (без учета фиктив. полос)
 };
 
-struct REFER
-{
-    uint ss;
+struct REFER {
+	uint ss;
 };
 
-struct TITLE_PRS
-{
-    char Name[4], ScanResX, ScanResY, Thick, Reserv;
-    int SizeX, SizeY;
+struct TITLE_PRS {
+	char Name[4], ScanResX, ScanResY, Thick, Reserv;
+	int SizeX, SizeY;
 };
 
 #pragma pack(1)
 
-struct PAR
-{
-    float ax, ay, percent_kgv;
-    int xmin_abs, ymin_abs; /*параметры filtr_size*/
-    float ax_as, ay_as; /*параметры развертки*/
-    int kv;/*весовые коэф-ты "рамочной" метрики*/
-    int nums, numw;
-    float al, bet, delx; /*параметры union_str*/
-    float csi, zet;
-    int dp_abs;
-    /*clust_as:относит.пороги буквенный csi и словный zet,
-     dp_abs - абсолют.порог присоединения тонких изолир.фрагментов к строкам*/
-    float k10, k11, size_win_word, num_por;
-    int dh_word; //divide_word_str
-    int g1, g2; /*миним.длина колонки и интервала в символах(коэф-ты при ave_x)*/
-    int maxhg; /*Макс.допустимая высота гистограммы в интервале*/
-    float minhg;/*мин.допустимая высота гистограммы в колонке(minh=minnhg*kstr)*/
-    int midhg; /*Макс.допустимая средняя высота гист-мы в интервале*/
-    int v1, v2; /*миним.длина колонки и интервала в символах(коэф-ты при ave_y)*/
-    int maxhv; /*Макс.допустимая высота гистограммы в интервале*/
-    float minhv;/*мин.допустимая высота гистограммы в колонке(minh=minnhg*kstr)*/
-    int midhv; /*Макс.допустимая средняя высота гист-мы в интервале*/
-    float ag, bg, gg, dg;/*Параметры процедуры union_comp*/
-    float com1, com2, com3;/*Параметры процедуры find_comma*/
-    float por_mono;/*порог на % общего числа рамок в окне для моноспейсности*/
-    int allow_colH, allow_colV;/*1-разрешение H- или V-колонизации*/
-    int allow_union_str;/*1-разрешение слияния строк*/
-    int allow_cut_str;/*1-разрешение резки строк*/
-    int allow_filtr_size;/*1-разрешение фильтра по размерам*/
-    int allow_union_comp;/*1-разрешение наведения рамок на многосвяз.символ*/
-    int allow_cut_comp;/*[1-разрешение вертикал. резки рамок*/
-    int allow_cut_prs;/*[1-разрешение вертикал. резки PRS-компонент*/
-    int allow_DeSkewCol;
-    int allow_RevizRuleStr;
-    int allow_SeparGraph;
-    int allow_ProcSmall;
-    int allow_RevizEstStrAfterDeSkewCol;
-    int allow_DeSkewColFragm;
-    int allow_DeSkewAll; //Запрещение всех видов вращений
-    int allow_SplitCol; //Запрещение колонизации снизу-вверх
-    float cut_str1;/*коэф-т для грубой оценки кратности строки*/
-    float cut_str2;/*репрезантативность кратности в длинах символов*/
-    float cut_str_a, cut_str_b;//Завис-ть от вертикал.кратности
-    float EstBnd1;
-    int EstBndSize;//Параметры EstBndStrHist
-    float k_parag; //Относит. критерий красной строки DivideColParag
-    float CutComp1; //Относит.порог вертикал."захода"в сосед.строку FindCutComp
-    //Макс.уровень торчания и Max число торчащих наружу и внутрь от линеек для обнаружения заголовков
-    int Stick, MaxStickOut, MaxStickIn;
-    float StickCoeff;
-    float UnionPairStr1; //ф-ция UnionPairStr
-    int MinKsym;
-    float PercKsym; //AnalysRuler
-    float MinMax1, MinMax2;
-    int NumIterL, NumIterW;//Параметры EstBndMinMax
-    int MaxDelh, DelLine, DepthSearch;//Параметры DeSkewCol
-    //Параметры алг-ма RevizRuleCol уточнения линеек строк
-    int RevizRuleDelMax;//Коридор для согласования с линейками AnalysRule
-    float RevizRuleC1;//Коэф-т при SizeLow порога высоты строки
-    float RevizRuleC2;//C2*ksym - min-число рамок в коридоре согласования
-    float RevizRuleC3;//C3*ksym - порог числа итераций EstBndMinMax
-    int RevizRuleC4; //Мин.число рамок в коридоре сост-ти MM-оценки линеек
-    float RevizRuleK1;//Относит.порог тонкости ММ-оценки строки EstBndMinMax
-    float RevizRuleK2;//Относит.порог тонкости рамки для отбраковки
-    int PenV; //ClassFrmSmall - Penv
-    float WeightBetwLine;//ClassFrmEnv -критерий зацепленности по VERT для привед.окр.
-    float ax_as_other, ay_as_other, RelThresholdOther;//ClassFrmOther
-    float ThresholdXFrmCol, ThresholdYFrmCol;//ClustCOL Относит.пороги меры сходства
-    int TypeDoc;
-    int AllowLine;//Включать ли поиск линий
+struct PAR {
+	float ax, ay, percent_kgv;
+	int xmin_abs, ymin_abs; /*параметры filtr_size*/
+	float ax_as, ay_as; /*параметры развертки*/
+	int kv;/*весовые коэф-ты "рамочной" метрики*/
+	int nums, numw;
+	float al, bet, delx; /*параметры union_str*/
+	float csi, zet;
+	int dp_abs;
+	/*clust_as:относит.пороги буквенный csi и словный zet,
+	 dp_abs - абсолют.порог присоединения тонких изолир.фрагментов к строкам*/
+	float k10, k11, size_win_word, num_por;
+	int dh_word; //divide_word_str
+	int g1, g2; /*миним.длина колонки и интервала в символах(коэф-ты при ave_x)*/
+	int maxhg; /*Макс.допустимая высота гистограммы в интервале*/
+	float minhg;/*мин.допустимая высота гистограммы в колонке(minh=minnhg*kstr)*/
+	int midhg; /*Макс.допустимая средняя высота гист-мы в интервале*/
+	int v1, v2; /*миним.длина колонки и интервала в символах(коэф-ты при ave_y)*/
+	int maxhv; /*Макс.допустимая высота гистограммы в интервале*/
+	float minhv;/*мин.допустимая высота гистограммы в колонке(minh=minnhg*kstr)*/
+	int midhv; /*Макс.допустимая средняя высота гист-мы в интервале*/
+	float ag, bg, gg, dg;/*Параметры процедуры union_comp*/
+	float com1, com2, com3;/*Параметры процедуры find_comma*/
+	float por_mono;/*порог на % общего числа рамок в окне для моноспейсности*/
+	int allow_colH, allow_colV;/*1-разрешение H- или V-колонизации*/
+	int allow_union_str;/*1-разрешение слияния строк*/
+	int allow_cut_str;/*1-разрешение резки строк*/
+	int allow_filtr_size;/*1-разрешение фильтра по размерам*/
+	int allow_union_comp;/*1-разрешение наведения рамок на многосвяз.символ*/
+	int allow_cut_comp;/*[1-разрешение вертикал. резки рамок*/
+	int allow_cut_prs;/*[1-разрешение вертикал. резки PRS-компонент*/
+	int allow_DeSkewCol;
+	int allow_RevizRuleStr;
+	int allow_SeparGraph;
+	int allow_ProcSmall;
+	int allow_RevizEstStrAfterDeSkewCol;
+	int allow_DeSkewColFragm;
+	int allow_DeSkewAll; //Запрещение всех видов вращений
+	int allow_SplitCol; //Запрещение колонизации снизу-вверх
+	float cut_str1;/*коэф-т для грубой оценки кратности строки*/
+	float cut_str2;/*репрезантативность кратности в длинах символов*/
+	float cut_str_a, cut_str_b;//Завис-ть от вертикал.кратности
+	float EstBnd1;
+	int EstBndSize;//Параметры EstBndStrHist
+	float k_parag; //Относит. критерий красной строки DivideColParag
+	float CutComp1; //Относит.порог вертикал."захода"в сосед.строку FindCutComp
+	//Макс.уровень торчания и Max число торчащих наружу и внутрь от линеек для обнаружения заголовков
+	int Stick, MaxStickOut, MaxStickIn;
+	float StickCoeff;
+	float UnionPairStr1; //ф-ция UnionPairStr
+	int MinKsym;
+	float PercKsym; //AnalysRuler
+	float MinMax1, MinMax2;
+	int NumIterL, NumIterW;//Параметры EstBndMinMax
+	int MaxDelh, DelLine, DepthSearch;//Параметры DeSkewCol
+	//Параметры алг-ма RevizRuleCol уточнения линеек строк
+	int RevizRuleDelMax;//Коридор для согласования с линейками AnalysRule
+	float RevizRuleC1;//Коэф-т при SizeLow порога высоты строки
+	float RevizRuleC2;//C2*ksym - min-число рамок в коридоре согласования
+	float RevizRuleC3;//C3*ksym - порог числа итераций EstBndMinMax
+	int RevizRuleC4; //Мин.число рамок в коридоре сост-ти MM-оценки линеек
+	float RevizRuleK1;//Относит.порог тонкости ММ-оценки строки EstBndMinMax
+	float RevizRuleK2;//Относит.порог тонкости рамки для отбраковки
+	int PenV; //ClassFrmSmall - Penv
+	float WeightBetwLine;//ClassFrmEnv -критерий зацепленности по VERT для привед.окр.
+	float ax_as_other, ay_as_other, RelThresholdOther;//ClassFrmOther
+	float ThresholdXFrmCol, ThresholdYFrmCol;//ClustCOL Относит.пороги меры сходства
+	int TypeDoc;
+	int AllowLine;//Включать ли поиск линий
 };
 
-struct POS_BIT
-{
-    uint pos1;
-    uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1, Fract :1,
-            MultiPoint :1;
+struct POS_BIT {
+	uint pos1;
+	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
+			Fract :1, MultiPoint :1;
 };
 
-struct POS_BIT8
-{
-    uint pos1, pos2, pos3;
-    uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1, Fract :1,
-            MultiPoint :1;
+struct POS_BIT8 {
+	uint pos1, pos2, pos3;
+	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
+			Fract :1, MultiPoint :1;
 };
 
-struct POS1_BIT
-{
-    int DownL;
-    uint pos :8, cut_comp :2, buf :6;
+struct POS1_BIT {
+	int DownL;
+	uint pos :8, cut_comp :2, buf :6;
 };
 
-struct POS_INT
-{
-    uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1, Fract :1,
-            MultiPoint :1;
+struct POS_INT {
+	uint pos :8, word :1, sym :1, comma :1, parag :1, JoinComp :1, Index :1,
+			Fract :1, MultiPoint :1;
 };
 
-struct POS2_BIT
-{
-    uint pos1;
-    uint pos :8;
-    uint AveCrossInt :4; //Целая часть сред.сложности символа(числа пересечений)
-    uint AveCrossFloat :4;//Дроб. часть сред.сложности символа(ЦМР - 1/16)
+struct POS2_BIT {
+	uint pos1;
+	uint pos :8;
+	uint AveCrossInt :4; //Целая часть сред.сложности символа(числа пересечений)
+	uint AveCrossFloat :4;//Дроб. часть сред.сложности символа(ЦМР - 1/16)
 };
 
 #define AVE_CROSS(arg) ((POS2_BIT*)&arg)->AveCrossInt+(((POS2_BIT*)&arg)->AveCrossFloat)/16.
 
-struct POS3_BIT
-{
-    uint pos1;
-    uint pos :8;
-    uint NumHole :4; //Число дыр
-    uint MaxDepth :4;//Макс. глубина(ЦМР - 1/16 высоты рамки)
+struct POS3_BIT {
+	uint pos1;
+	uint pos :8;
+	uint NumHole :4; //Число дыр
+	uint MaxDepth :4;//Макс. глубина(ЦМР - 1/16 высоты рамки)
 };
 
 #define NUM_HOLE(arg) ((POS3_BIT*)&arg)->NumHole
@@ -368,17 +345,15 @@ struct POS3_BIT
  end - признак блокировки (1 - конец блока);
  buf - резерв */
 
-struct KNOTG
-{
-    KNOTG *next, *back, *up, *down;
-    FRML *f;
-    uint reg :1, typ :4, lev :4, end :1, buf :6;
+struct KNOTG {
+	KNOTG *next, *back, *up, *down;
+	FRML *f;
+	uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
 #pragma pack(2)
-struct SPEC
-{
-    uint reg :1, typ :4, lev :4, end :1, buf :6;
+struct SPEC {
+	uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
@@ -475,23 +450,26 @@ int nxn,nyn,nxk,nyk,KX,KY,gr_regim;
 float xnn,ynn,xkk,ykk,xmm,ymm;
 #endif
 void pointt_w(int x1, int y1, int krat, int ifil);
-void point_w(int x1, int y1), point(int x, int y), vect_w(int x1, int y1), vector_w(int x1, int y1,
-        int x2, int y2), vect(int x, int y), vector(int x1, int y1, int x2, int y2), clear(void),
-        pause_internal(void), opn1(void), win_real(void), bounds_frm(int ii, FRAME **frm, int nx),
-        BoundsRect(int ii, CIF::Rect *frm, int nx), polygon_w(int *x, int *y, int n, int col,
-                int zap, int krat, int ifil), polygon(int *x, int *y, int n, int col, int zap,
-                int krat, int ifil), zpage(int ist);
+void point_w(int x1, int y1), point(int x, int y), vect_w(int x1, int y1),
+		vector_w(int x1, int y1, int x2, int y2), vect(int x, int y), vector(
+				int x1, int y1, int x2, int y2), clear(void), pause_internal(
+				void), opn1(void), win_real(void), bounds_frm(int ii,
+				FRAME **frm, int nx), BoundsRect(int ii, RECT *frm, int nx),
+		polygon_w(int *x, int *y, int n, int col, int zap, int krat, int ifil),
+		polygon(int *x, int *y, int n, int col, int zap, int krat, int ifil),
+		zpage(int ist);
 int setcol(int i);
 void point_f(float x1, float y1);
 int getch1(void), shift(void), ctrl(void), alt(void);
 void image_frm(FRAME *f, int col, int line_style, int fill);
 void image_frame(FRAME **frm, int k, int col, int line_style, int fill);
 void image_bnd(BOUND *f, int col, int line_style, int fill);
-void image_rect(CIF::Rect *f, int col, int line_style, int fill);
+void image_rect(RECT *f, int col, int line_style, int fill);
 void scale_image(float ax, float ay);
 void move_image(int nx, int ny);
 int analys_key(int *fl);
-int hist_int(char *name, int *x, int n, int Xmin, int Xmax, int reg, int *y, int k);
+int hist_int(char *name, int *x, int n, int Xmin, int Xmax, int reg, int *y,
+		int k);
 void mess(char *s1, char *s2, char *s3, char *s4);
 uint32_t SendMessage_m(uint16_t wParam, uint32_t lParam);
 int chk_string(FRAME ***str, int *ksym, int k_str, FRAME **frms);
@@ -509,12 +487,14 @@ ShiftEsc=4027,ShiftEnter=4013,ShiftDel=4083,ShiftDelete=4008,ShiftTab=4009,
 ShiftHome=4071,ShiftEnd=4079,ShiftIns=4082,ShiftUp=4072,ShiftDown=4080,
 ShiftLeft=4075,ShiftRight=4077,ShiftPgUp=4073,ShiftPgDown=4081;
 #else
-extern int Esc, Enter, Del, Delete, Tab, Home, End1, Ins, Up, Down, Left, Right, PgUp, PgDown,
-        CtrlEsc, CtrlEnter, CtrlDel, CtrlDelete, CtrlTab, CtrlHome, CtrlEnd, CtrlIns, CtrlUp,
-        CtrlDown, CtrlLeft, CtrlRight, CtrlPgUp, CtrlPgDown, AltEsc, AltEnter, AltDel, AltDelete,
-        AltTab, AltHome, AltEnd, AltIns, AltUp, AltDown, AltLeft, AltRight, AltPgUp, AltPgDown,
-        ShiftEsc, ShiftEnter, ShiftDel, ShiftDelete, ShiftTab, ShiftHome, ShiftEnd, ShiftIns,
-        ShiftUp, ShiftDown, ShiftLeft, ShiftRight, ShiftPgUp, ShiftPgDown;
+extern int Esc, Enter, Del, Delete, Tab, Home, End1, Ins, Up, Down, Left,
+		Right, PgUp, PgDown, CtrlEsc, CtrlEnter, CtrlDel, CtrlDelete, CtrlTab,
+		CtrlHome, CtrlEnd, CtrlIns, CtrlUp, CtrlDown, CtrlLeft, CtrlRight,
+		CtrlPgUp, CtrlPgDown, AltEsc, AltEnter, AltDel, AltDelete, AltTab,
+		AltHome, AltEnd, AltIns, AltUp, AltDown, AltLeft, AltRight, AltPgUp,
+		AltPgDown, ShiftEsc, ShiftEnter, ShiftDel, ShiftDelete, ShiftTab,
+		ShiftHome, ShiftEnd, ShiftIns, ShiftUp, ShiftDown, ShiftLeft,
+		ShiftRight, ShiftPgUp, ShiftPgDown;
 #endif
 #pragma pack(1)
 #define PRS_ONE1 struct h_prs_one1
@@ -524,22 +504,21 @@ typedef unsigned short PRS_ONE;
 #define WIDTH_PRS 2
 #else
 #define PRS_ONE struct h_prs_one
-PRS_ONE1
-{
-    uchar code;
-    uint16_t metri;
+PRS_ONE1 {
+	uchar code;
+	uint16_t metri;
 };
-PRS_ONE
-{
-    uint typ :2, het :1, scob :1, dummi :12;
-    uchar dummi1;
+PRS_ONE {
+	uint typ :2, het :1, scob :1, dummi :12;
+	uchar dummi1;
 };
 #define WIDTH_PRS 3
 #endif
 
 #pragma pack(2)
 /*-------------Прототипы ф-ций-------------*/
-int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_item);
+int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
+		int size_item);
 KNOT *inc_lst(KNOT **beg, KNOT **beg_free);
 KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
 void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
@@ -551,20 +530,23 @@ uint determine_free_memory(uint size);
 void print_ptr(KNOT *beg);
 void print_ptr_invert(KNOT *beg);
 void pr_ptr(KNOT *ptr, char *str);
-int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm, int *k_frm);
+int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
+		int *k_frm);
 void GetOldCoor(FRAME *f, CIF::Point16 *old);
 void RestoreOldCoorFrm(FRAME *f, FRAME *fo, float tg_ang);
-void RestoreOldCoorRect(FRAME *f, CIF::Rect *fo);
-int read_frmW(char *file_frm, CIF::Point** CentrW, int *SizeX_W, int *SizeY_W, long *k_frm);
+void RestoreOldCoorRect(FRAME *f, RECT *fo);
+int read_frmW(char *file_frm, CIF::Point** CentrW, int *SizeX_W, int *SizeY_W,
+		long *k_frm);
 void free_frm(FRAME **frm_arr, int k_arr_frm, FRAME **frm);
 int unfold(FRAME **frm, int k_frm, TYPE *dist1, int ave_y, BOUND *bnd);
-int clust_unfold(FRAME **frm, int k_frm, TYPE *dist, TYPE dp, int max_cl, int *k_cl1,
-        KNOT3 **beg_free1, KNOT3 **beg_cl);
+int clust_unfold(FRAME **frm, int k_frm, TYPE *dist, TYPE dp, int max_cl,
+		int *k_cl1, KNOT3 **beg_free1, KNOT3 **beg_cl);
 int viz_clust_word(FRAME **frm, int k_frm, int k_cl, KNOT3 **beg_cl);
 int comp_left(FRAME **a, FRAME **b);
 int sort_lett(int k_cl, KNOT3 **beg_free1, KNOT3 **beg_cl, COMP_FUN CompFun);
 int cut_word_unfold(int *k_cl1, KNOT3 **beg_cl);
-int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW, CIF::Point16 CentrW, long k_frmW);
+int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW,
+		CIF::Point16 CentrW, long k_frmW);
 void sort_int(TYPE *a, int num, int *nodr);
 int comp1(TYPE *a, TYPE *b);
 int compF(float *a, float *b);
@@ -574,28 +556,32 @@ int comp_long(uint32_t *a, uint32_t *b);
 int search_int(int *x, int n, int a);
 #define TYPE int /*тип сортируемых данных*/
 float tg(float ang);
-int filtr_size(FRAME **frm, int *k_frm1, int *kg1, int *kv1, int *kgv1, int ave_x, int ave_y);
-int ClassFrmSize(FRAME **frm, int *k_frm, int *k_small, int xmin, int ymin, int ymin1);
-int ClassFrmSmall(FRAME **frm, int k_frm, int k_small, int *IndSmall, BOUND *bnd, KNOT3 **beg_str,
-        FRAME **frms, int k_str, int size_x, int size_y);
+int filtr_size(FRAME **frm, int *k_frm1, int *kg1, int *kv1, int *kgv1,
+		int ave_x, int ave_y);
+int ClassFrmSize(FRAME **frm, int *k_frm, int *k_small, int xmin, int ymin,
+		int ymin1);
+int ClassFrmSmall(FRAME **frm, int k_frm, int k_small, int *IndSmall,
+		BOUND *bnd, KNOT3 **beg_str, FRAME **frms, int k_str, int size_x,
+		int size_y);
 int d_small(FRAME *l, FRAME *s, int k);
 int init_par(char *PathName, int reg);
 int init_arr_frm(FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm, int k_frm);
 int est_frame_word(FRAME **frmw, int k_cl, KNOT3 **beg_cl);
-int EstBndMinMax(short *up, short *down, int n, int NumIter, short *t, short *b, int AveY,
-        float k1, float k2);
+int EstBndMinMax(short *up, short *down, int n, int NumIter, short *t,
+		short *b, int AveY, float k1, float k2);
 int imax(short *x, int n, char *pr, int *imax);
 int imin(short *x, int n, char *pr, int *imin);
 int MaxArr(int *x, int n, int *PosExtr);
 int MinArr(int *x, int n, int *PosExtr);
 int ReAnalysStr(FRAME **f, int k, int Reg);
-int RevizRule(BOUND *bnds, int dU, int dL, FRAME **str, int ksym, int DelMax, int flUpp);
+int RevizRule(BOUND *bnds, int dU, int dL, FRAME **str, int ksym, int DelMax,
+		int flUpp);
 int RevizRuleCol(BOUND *bnds, FRAME ***str, int *ksym, int k_str, int DelMax);
 int ImFrmRule(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str, int in);
 #define COEFF 300
 int est_angle_word(int k_cl, KNOT3 **beg_cl, float *tg_ang);
-int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del, int MaxDelh, int k,
-        FRAME **frm, int k_frm);
+int DeSkewCol(BOUND *bnd_str, FRAME ***str, int *ksym, int k_str, int del,
+		int MaxDelh, int k, FRAME **frm, int k_frm);
 /*Кластер-анализ с использованием АС*/
 #define MAX_ENV 100
 #define DIST_LETTER 0
@@ -612,21 +598,24 @@ void GetUpDown(KNOT3 *beg, int reg, short *up, short *down);
 TYPE dist_word(FRAME *f1, FRAME *f2);
 int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim);
 int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod);
-int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim);
-int statis(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim);
+int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
+		int regim);
+int statis(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
+		int regim);
 int statisF(float *arr, int n, float *ave, float *sig, float *med, float *mod);
 int sort_str(int k_str, KNOT3 **beg_str, FRAME **frms);
 int sort1_str(int k_str, FRAME ***str, int *ksym, FRAME **frms);
 int comp_vert(FRAME **a, FRAME **b);
-int gen_str(KNOT3 **beg_str, int k_str, FRAME ***str, int *ksym, FRAME **frm, int *IndSmall,
-        int k_frm, int k_small);
-int union_str(int *k_str1, FRAME **frms, KNOT3 **beg_str, int *ksym, KNOT3 **beg_freew, int size_x,
-        int size_y);
+int gen_str(KNOT3 **beg_str, int k_str, FRAME ***str, int *ksym, FRAME **frm,
+		int *IndSmall, int k_frm, int k_small);
+int union_str(int *k_str1, FRAME **frms, KNOT3 **beg_str, int *ksym,
+		KNOT3 **beg_freew, int size_x, int size_y);
 int dist_x(FRAME *f1, FRAME *f2);
-int cut_str(FRAME ****str1, int **ksym1, int *k_str1, FRAME ***frms1, int size_x, int kmax_str);
+int cut_str(FRAME ****str1, int **ksym1, int *k_str1, FRAME ***frms1,
+		int size_x, int kmax_str);
 float f_inc(int v_krat);
-int divide_str_substr(int k, int ns, FRAME ****str1, int **ksym1, int *k_str1, FRAME*** frms1,
-        int kmax_str, BOUND *bnd_str);
+int divide_str_substr(int k, int ns, FRAME ****str1, int **ksym1, int *k_str1,
+		FRAME*** frms1, int kmax_str, BOUND *bnd_str);
 void out_vih(FRAME ***str, int *ksym, int k_str, char *file);
 int divide_str_word(FRAME ***str, int *ksym, int k_str, int size_x);
 int DivideColParag(FRAME ***str, int *ksym, int k_str, int size_x);
@@ -637,21 +626,23 @@ int DetectHeadLine(FRAME ***str, int *ksym, int k_str, FRAME **frms, int ave_y);
 int UnionPairStr(FRAME ***str, int *ksym, int *k_str1, FRAME **frms, int SizeY);
 int CalcHist(int *x, int *krat, int n, int *MinX, int *MaxX, int **hist);
 int EstBndStrHist(FRAME **f, int n, BOUND *bnd, int ksym_ave, int size_x);
-int AnalysRuler(FRAME **str, int ksym, BOUND *frms, int DelMax, int DelMin, int *AllU, int *AllD);
+int AnalysRuler(FRAME **str, int ksym, BOUND *frms, int DelMax, int DelMin,
+		int *AllU, int *AllD);
 int est_monospace(FRAME ***str, int *ksym, int k_str, int *space1);
-int DetectColGraph(CIF::Point16 * CentrW, long k_frmw, FRAME ***str, int *ksym, int k_str,
-        BOUND bndt, BOUND *BndStr);
+int DetectColGraph(CIF::Point16 * CentrW, long k_frmw, FRAME ***str, int *ksym,
+		int k_str, BOUND bndt, BOUND *BndStr);
 int calc_frm_str(FRAME **str, int ksym, BOUND *bnd);
 void corr_title_prs(char *file_prs_out);
 uint mark_term(uint typ_term, uint param);
 void image_prs_str(uint *sym, int len, int col);
 char *getpath(char *buf);
 //Резка рамок компонент
-int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm, int *k_frm);
+int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm,
+		int *k_frm);
 int FindCutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, int SizeY);
 int breath(int **pprs, int j, int *jj);
-int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg, int dir,
-        int *num_alt, int *nCurrA, int *found_max);
+int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg,
+		int dir, int *num_alt, int *nCurrA, int *found_max);
 //==Колонизация==
 #define UNSORT 0
 #define HOR    1
@@ -673,33 +664,37 @@ int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg, i
 #define COLVT 5
 #define MAX_COL 45 /*Макс.число терминал. колонок*/
 /*Рамки всех уровней, кроме компонент, связаны в списки по уровням*/
-int search_col(FRAME **frm, int k_frm, int *intr, int *k_int1, BOUND *bnd, int ave_dir,
-        int ave_ort, int reg);
-int inc_g(KNOTG *after, KNOTG **begg, KNOTG **freeg, KNOTG **ptrg, FRML **begf, FRML **freef,
-        FRML **ptrf, int lev);
-int est_string(FRAME **frm, int k_frm, FRAME ****str1, int **ksym1, int *k_str1);
-int EstSizeUppLow_Col(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str, int *SizeUpp,
-        int *SizeLow);
-int inc_g(KNOTG *after, KNOTG **begg, KNOTG **freeg, KNOTG **ptrg, FRML **begf, FRML **freef,
-        FRML **ptrf, int lev);
-int class_frm_col(FRAME **frm, int k_frm, BOUND *bnd, int ave_x, int ave_y, int reg, int *intr,
-        int *k_int);
+int search_col(FRAME **frm, int k_frm, int *intr, int *k_int1, BOUND *bnd,
+		int ave_dir, int ave_ort, int reg);
+int inc_g(KNOTG *after, KNOTG **begg, KNOTG **freeg, KNOTG **ptrg, FRML **begf,
+		FRML **freef, FRML **ptrf, int lev);
+int
+		est_string(FRAME **frm, int k_frm, FRAME ****str1, int **ksym1,
+				int *k_str1);
+int EstSizeUppLow_Col(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str,
+		int *SizeUpp, int *SizeLow);
+int inc_g(KNOTG *after, KNOTG **begg, KNOTG **freeg, KNOTG **ptrg, FRML **begf,
+		FRML **freef, FRML **ptrf, int lev);
+int class_frm_col(FRAME **frm, int k_frm, BOUND *bnd, int ave_x, int ave_y,
+		int reg, int *intr, int *k_int);
 int calc_stat_col(FRAME ***str, int *ksym, int k_str, BOUND *bnd_str);
 //---Колонизация "снизу-вверх"----
 long DistMinFrm(FRAME *f1, FRAME *f2);
 int DistFrmCol(FRAME *f1, FRAME *f2, int ph, int pv);
-int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, int value, AS *As,
-        CIF::Rect Rect);
+int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
+		int value, AS *As, RECT Rect);
 int EstBetwLine(AS *As, int *BetwLine, int k_frm);
-int ClassFrmEnv(FRAME **frm, int *k_frm1, int *k_izo1, AS *As, int BetwLine, int AveX, int AveY);
-int ClassFrmOther(FRAME **frm, int *k_frm1, int k_other, KNOT3 **beg_cl, int k_cl, KNOT3 *beg_free,
-        int AveX, int AveY, int BetwLine, BOUND *bnd, int *intr, int *k_col);
-int SplitCol(FRAME **frm, int *k_frm1, int SizeXGlob, int SizeYGlob, BOUND *bndc,
-        KNOT3 **beg_free1, int **intr1, int *kcol, int *NumMax);
+int ClassFrmEnv(FRAME **frm, int *k_frm1, int *k_izo1, AS *As, int BetwLine,
+		int AveX, int AveY);
+int ClassFrmOther(FRAME **frm, int *k_frm1, int k_other, KNOT3 **beg_cl,
+		int k_cl, KNOT3 *beg_free, int AveX, int AveY, int BetwLine,
+		BOUND *bnd, int *intr, int *k_col);
+int SplitCol(FRAME **frm, int *k_frm1, int SizeXGlob, int SizeYGlob,
+		BOUND *bndc, KNOT3 **beg_free1, int **intr1, int *kcol, int *NumMax);
 //--Отделение текста от графики--
 int CalcHistVert(FRAME ***f1, int k_str, int *ksym1, BOUND *bnds1);
-int OrtFoure(float *y, float *Re, float *Im, float *ys, float *Err, int k, int p, int na, int beg,
-        int end);
+int OrtFoure(float *y, float *Re, float *Im, float *ys, float *Err, int k,
+		int p, int na, int beg, int end);
 
 #ifndef V_LOCK
 int32_t filelength_m(FILE *stream);
@@ -828,7 +823,7 @@ void union1_frm(FRAME **frm, int k_frm, BOUND *bnd);
 int ReadLines(char *FileLine,LINES *Lines1,int *NumStretchAll1);
 int TestLines(LINES *Lines1);
 int EstAngleLine(LINES *Lines1,float *tg_ang1,int NumStretchAll);
-//int PASC CorrectImage(BMPL *obmp,CIF::Rect *lpRect,int nRect);
+//int PASC CorrectImage(BMPL *obmp,RECT *lpRect,int nRect);
 //int PASC PutImage(BMPL *obmp,char *outname,int teep);
 int Free_Line(LINES *Lines);
 //--Диагностика тестировщика структуры линий--
@@ -857,49 +852,49 @@ int Free_Line(LINES *Lines);
 #pragma pack(1)
 
 typedef struct hSTRET
-{   short xn,xk,yn,yk;//Stretch-Coordinate
-    float k; //Тангенс наклон линии y=kx+b
-    short thickness; //средняя толщина отрезка
-    float angle; //Угол наклона = atan2(..)
-    uchar FeatOrient; //HOR_LINE || VER_LINE
-    uchar TypeLine; //Тип линии DOT_LINE || SOLID_LINE || DOUBLE_LINE
-    short LenShadow; //Длина перекрытия
-    void *ptr; //вспомогат. ук-ль (для FindDot)
+{	short xn,xk,yn,yk;//Stretch-Coordinate
+	float k; //Тангенс наклон линии y=kx+b
+	short thickness; //средняя толщина отрезка
+	float angle; //Угол наклона = atan2(..)
+	uchar FeatOrient; //HOR_LINE || VER_LINE
+	uchar TypeLine; //Тип линии DOT_LINE || SOLID_LINE || DOUBLE_LINE
+	short LenShadow; //Длина перекрытия
+	void *ptr; //вспомогат. ук-ль (для FindDot)
 }STRET;
 
 typedef struct hSTRET_P
-{   STRET *Stret;
-    short Feat; //POINT_BEG || POINT_END
+{	STRET *Stret;
+	short Feat; //POINT_BEG || POINT_END
 }STRET_P;
 
 int GetConnectLine(STRET_P *Obj1,STRET_P *Obj2,long ThresEvkl);
 int GetConnAxis(STRET *Obj1,STRET *Obj2);
 int ClustLine(LINES *Lines, short NumStretchAll,float *tg_ang1,long ThresEvkl,
-        int size_x,int size_y,STRET **LineV,short *NumLV,STRET **LineH,short *NumLH,
-        FRAME **frm,int *NumFrm);
+		int size_x,int size_y,STRET **LineV,short *NumLV,STRET **LineH,short *NumLH,
+		FRAME **frm,int *NumFrm);
 int MetrRectSoAxis(FRAME *ff,KNOT3 *ptr,KNOT3 **beg_cl);
-int UnionEtalonClust(KNOT3 **beg_cl,KNOT3 **bs, int *k_bs,FRAME *ff,CIF::Rect **ReUn);
+int UnionEtalonClust(KNOT3 **beg_cl,KNOT3 **bs, int *k_bs,FRAME *ff,RECT **ReUn);
 void UnionStret(STRET *Stret,int *IndStretLine,int Num,uchar Orient,
-        STRET *Stret1,int RegDouble);
+		STRET *Stret1,int RegDouble);
 int compKNOT3_STRET_xn(KNOT3 **a,KNOT3 **b);
 int compKNOT3_STRET_yn(KNOT3 **a,KNOT3 **b);
 int comp_STRET_xn(STRET**a,STRET**b);
 int comp_STRET_yn(STRET**a,STRET**b);
 int ProcSoAxis(uchar Orient,STRET *Stret1,short NumS,BOUND bnd,
-        float ThresDelOrient,short ThresShadow,short ThresDouble,
-        int size_x,int size_y,
-        KNOT3 **beg_cl,KNOT3 **beg_free1,short *k_cl1,STRET_P **PtrObj,
-        STRET **Line1);
+		float ThresDelOrient,short ThresShadow,short ThresDouble,
+		int size_x,int size_y,
+		KNOT3 **beg_cl,KNOT3 **beg_free1,short *k_cl1,STRET_P **PtrObj,
+		STRET **Line1);
 short FilterPiecesLines(FRAME **frm,int *k_frm1,
-        float kX,float kY,int SizeX,int SizeY,short Thickness);
+		float kX,float kY,int SizeX,int SizeY,short Thickness);
 short FilterPiecesLines1(FRAME **frm,int *k_frm1,STRET *Stret,short NumStret,
-        int Reg,short Thickness,short ThrShadow);
+		int Reg,short Thickness,short ThrShadow);
 short LikeFrmLineV(STRET *s, FRAME *f,short ThrShadow);
 short LikeFrmLineH(STRET *s, FRAME *f,short ThrShadow);
-short AccumulDelRect(int *nRect,short Num,CIF::Rect *Rect,int Reg,STRET *s,
-        short MaxDelPix,BMPL *Bmp,float si,float co,float tg_ang);
-void CreateRect(int xn,int xk,int yn,int yk,STRET *s,CIF::Rect *r,int Reg,
-        int *nRect);
+short AccumulDelRect(int *nRect,short Num,RECT *Rect,int Reg,STRET *s,
+		short MaxDelPix,BMPL *Bmp,float si,float co,float tg_ang);
+void CreateRect(int xn,int xk,int yn,int yk,STRET *s,RECT *r,int Reg,
+		int *nRect);
 int CopyBMPLMem(BMPL *BmpIn,BMPL *BmpOut);
 #endif
 /**/
@@ -910,45 +905,49 @@ int CopyBMPLMem(BMPL *BmpIn,BMPL *BmpOut);
 #define NOT_ALLOC -3
 //Основная ф-ция структурайзера
 #ifndef GLOB
-int est_column(char *file_frm, char *file_prs, INF_TREE **InfStr);
+int PASC est_column(char *file_frm,char *file_prs,INF_TREE **InfStr);
 #endif
-int FreeInfTree(INF_TREE *Inf);
-void SetMessage(FUN_MESS ExtFunMessage);
-void SetBreakStr(FUN_POMP Ext_pump);
-void OnBreakStr(int ExtBreak_on);
-void InitEstStruct(FUN_MESS ExtFunMessage, FUN_POMP Ext_pump, char **ParStruct, char **ParTabl,
-        char **ParLine);
-void CloseEstStruct(char *ParStruct, char *ParTabl, char *ParLine);
+int PASC FreeInfTree(INF_TREE *Inf);
+void PASC SetMessage(FUN_MESS ExtFunMessage);
+void PASC SetBreakStr(FUN_POMP Ext_pump);
+void PASC OnBreakStr(int ExtBreak_on);
+void PASC InitEstStruct(FUN_MESS ExtFunMessage,FUN_POMP Ext_pump,
+		char **ParStruct,char **ParTabl,char **ParLine);
+void PASC CloseEstStruct(char *ParStruct,char *ParTabl,char *ParLine);
 int TestBreak(void);
-void FreeAllStruct(FRAME **frm_arr, int k_arr_frm, FRAME **frm, STRET *LineV, STRET *LineH,
-        INF_TREE *Inf);
+void FreeAllStruct(FRAME **frm_arr, int k_arr_frm, FRAME **frm, STRET *LineV,
+		STRET *LineH, INF_TREE *Inf);
 //--Индексы--
 int EstBottomStr(FRAME **f, int NumSym, int *Bottom, int dyLow, int dyUpp);
-int DetectIndice(FRAME ***sym, int *ksym, int *kstr, BOUND *bnds, int dyLow, int dyUpp);
+int DetectIndice(FRAME ***sym, int *ksym, int *kstr, BOUND *bnds, int dyLow,
+		int dyUpp);
 //--Дроби--
 int FindFractCell(FRAME ***sym, int *ksym, STAT_CELL *StatCell);
 //--Многоточия--
 int FindMultiPointCell(FRAME ***sym, int *ksym, int kstr, STAT_CELL *StatCell);
 //--Внутриячеистый фильтр--
-int FilterNoiseCell(KNOTT *Knott, STAT_CELL *StatCell, INF_CELL *InfCell, FRAME **frm);
+int FilterNoiseCell(KNOTT *Knott, STAT_CELL *StatCell, INF_CELL *InfCell,
+		FRAME **frm);
 //--
 int GetCriptDir(char *path, int len);
 int GetTypeDoc(void);
 
 //=== K R E S T ===
 int EstAnglePlain(FRAME **frm, int NumFrm, float *tg_ang);
-int DetectStringRECT(CIF::Rect *Rect, int NumFrm, float tg_ang, CIF::Rect ***StrRect1,
-        int **NumSym1, int *NumStr1);
+int PASC DetectStringRECT(RECT *Rect,int NumFrm,float tg_ang,
+		RECT ***StrRect1,int **NumSym1,int *NumStr1);
 //=== P R A F A X ===
-int InitExtrSym(char *FileRb, int WidthPRS, FRAME ***frm, int *NumFrm, int Reg, FRAME *kramki);
-void CloseExtrSym(FRAME **frm);
-int DetectLineRaster(char *file_pcx, char *FileOut, STRET **Stret1, int *NumStretchAll1);
-int SaveLine(int flPRA, STRET *Stret, int NumStret);
-int ExtractComp(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
-int ExtractComp3(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
+int PASC InitExtrSym
+(char *FileRb,int WidthPRS,FRAME ***frm,int *NumFrm,int Reg,FRAME *kramki);
+void PASC CloseExtrSym(FRAME **frm);
+int PASC DetectLineRaster(char *file_pcx,char *FileOut,STRET **Stret1,
+		int *NumStretchAll1);
+int PASC SaveLine(int flPRA,STRET *Stret,int NumStret);
+int PASC ExtractComp(PRS_ONE *sym1,long *LenSym,FRAME *ff,char **symH1);
+int PASC ExtractComp3(PRS_ONE *sym1,long *LenSym,FRAME *ff,char **symH1);
 //=== Library ===
-int EstAnglePlainImage(char *File, float *tg_ang);
-int DeSkewlePlainImage(char *FileIn, char *FileOut, float tg_ang);
+int PASC EstAnglePlainImage(char *File,float *tg_ang);
+int PASC DeSkewlePlainImage(char *FileIn,char *FileOut,float tg_ang);
 
 //TypeCall: CALL_BOX - without open output PRN-file, CALL_STR - with ...
 #define CALL_STR 0
@@ -960,15 +959,16 @@ void FreePrsLine(void);
 
 int ProjectFrm(FRAME **frm, int NumFrm, float tg_ang);
 int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024);
-int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS, CIF::Rect *Limit,
-        int MinVol, float MinPerc, int limDX, int limDY, int *dsym, int *AveX, int *AveY);
+int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
+		RECT *Limit, int MinVol, float MinPerc, int limDX, int limDY,
+		int *dsym, int *AveX, int *AveY);
 
 #pragma pack()
 
 #define STRUCT_INI "struct.ini"
 
 void u4sort(void *base, int num, int width, int(*compare)());
-int clust_as(FRAME **frm, int k_frm, KNOT3 **beg_pr, TYPE dp, int size_x, int size_y, BOUND *bnd,
-        int max_cl, int *k_cl1, KNOT3 **beg_free1, KNOT3 **beg_cl,
-        TYPE(*dist_frame)(FRAME*, FRAME*), int reg);
+int clust_as(FRAME **frm, int k_frm, KNOT3 **beg_pr, TYPE dp, int size_x,
+		int size_y, BOUND *bnd, int max_cl, int *k_cl1, KNOT3 **beg_free1,
+		KNOT3 **beg_cl, TYPE(*dist_frame)(FRAME*, FRAME*), int reg);
 

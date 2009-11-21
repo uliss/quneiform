@@ -59,7 +59,7 @@
 #include <string.h>
 
 #include "c_types.h"
-#include "hrstr/func.h"
+#include "func.h"
 #include "ccom/ccom.h"
 #include "exc.h"
 #include "loc/loc.h"
@@ -165,8 +165,6 @@ puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
 CCOM_comp *get_CCOM_comp(PROOT r) {
 	return (CCOM_comp *) r->pComp;
 }
-
-extern Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 
 Bool save_MN(MN *mn) {
 	CCOM_comp * p = REXC_MN2CCOM((Handle) exthCCOM, (Handle) mn);

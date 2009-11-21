@@ -61,7 +61,7 @@
 #include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
-#include "rdib/ctdib.h"
+#include "ctdib.h"
 #include "ctimask.h"
 #include "ctiimagelist.h"
 #include "ctiimageheader.h"
@@ -92,7 +92,7 @@ public:
 	~CTIControl();
 
 private:
-	Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, CTIMaskLineSegment *  pSegm,
+	Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
 			uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
 	Bool32 ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX = 0,
 			uint32_t wAtY = 0);
@@ -143,7 +143,7 @@ public:
 	Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
 	Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 			CIMAGE_InfoDataOutGet * lplpOut);
-	Bool32 GetDIB(const char* lpName, Handle* phDIB, bool noCopy = true);
+	Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
 	Bool32 SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag = 0);
 	Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
 	Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
@@ -161,7 +161,7 @@ protected:
 	uchar mwLABlackRightMask[8];
 	uchar mwLABlackLeftMask[8];
 	uchar mwIndexMask[8];
-	bool mbSourceDIBCopy;
+	Bool32 mbSourceDIBCopy;
 	PCTIMask mpcSrcDIBReadMask;
 	PCTIMask mpcSrcDIBWriteMask;
 	Bool32 mbEnableDIBReadMask;
