@@ -373,7 +373,8 @@ struct cell_struc {
 	// 112
 	STICK save_baton[MAX_BATON];
 	// 24+112=136
-	int32_t dupstart, dupend;
+	void * dupstart;
+	void * dupend;
 #define dup_default     ((cell*)0xffffffff)
 	// 144
 	uchar dlang_dup;

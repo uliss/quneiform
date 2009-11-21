@@ -87,7 +87,7 @@ CSTR_line capdrop_get_main(CSTR_line ln, CSTR_line linef) {
 			} else {
 				for (line = linef, i = 0; line; i++, line = CSTR_NextLineFragm(
 						line)) {
-					if ((int) line != num_ln)
+					if ((size_t)line != num_ln)
 						break;
 				}
 			}

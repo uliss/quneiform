@@ -82,7 +82,7 @@ CCOM_FUNC void CCOM_Done(void);
 CCOM_FUNC uint32_t CCOM_GetReturnCode(void);
 CCOM_FUNC char* CCOM_GetReturnString(uint32_t dwError);
 CCOM_FUNC Bool32 CCOM_SetImportData(uint32_t dwType, void * pData);
-CCOM_FUNC Bool32 CCOM_GetExportData(uint32_t dwType, void * pData);
+CCOM_FUNC int CCOM_Version(void);
 
 enum CCOMFunctionsExt {
 	CCOM_FNNEW,

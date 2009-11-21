@@ -368,8 +368,8 @@ void cell_bonus_let(cell *C, char Let, int16_t BonVal) {
 /*=================== Start of string processing ======================*/
 extern uchar *CellsPage_rstr, *CellsPageEnd_rstr;
 void setup_string() {
-	int32_t number_of_cells = ((int32_t) CellsPageEnd_rstr
-			- (int32_t) CellsPage_rstr) / sizeof(cell);
+	size_t number_of_cells = ((size_t) CellsPageEnd_rstr
+			- (size_t) CellsPage_rstr) / sizeof(cell);
 	empty_cell = (cell *) (CellsPage_rstr);
 	cell_boundary = empty_cell + number_of_cells;//NUMBER_OF_CELLS;
 	free_cell_chain = NULL;

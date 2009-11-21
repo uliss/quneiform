@@ -123,7 +123,6 @@ RSTR_FUNC Bool32 RSTR_Init(uint16_t wHightCode, Handle hStorage);
 RSTR_FUNC Bool32 RSTR_Done(void);
 RSTR_FUNC uint32_t RSTR_GetReturnCode(void);
 RSTR_FUNC uchar * RSTR_GetReturnString(uint32_t dwError);
-RSTR_FUNC Bool32 RSTR_GetExportData(uint32_t dwType, void * pData);
 RSTR_FUNC Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData);
 
 enum RSTRFunctions {

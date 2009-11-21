@@ -82,7 +82,6 @@ CSTR_FUNC Bool32 CSTR_Init(uint16_t wHeightCode, Handle hStorage);
 CSTR_FUNC void CSTR_Done(void);
 CSTR_FUNC uint32_t CSTR_GetReturnCode(void);
 CSTR_FUNC char* CSTR_GetReturnString(uint32_t dwError);
-CSTR_FUNC Bool32 CSTR_GetExportData(uint32_t dwType, void * pData);
 
 enum CSTRFunctionsExt {
 	CSTR_FNNEWLINE,

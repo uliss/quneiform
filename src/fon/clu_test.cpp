@@ -422,7 +422,7 @@ static int TestSymbolGood(  Nraster_header *rh,
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
  int xmove,ymove;
  uchar twin1=0,twin2=0;
- char *qq;
+ const char *qq;
 
   qq=strchr(twinHave,rh[start].let);
   if( qq ) twin1=twinLet[qq-twinHave];
