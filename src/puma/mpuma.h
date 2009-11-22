@@ -104,7 +104,6 @@
 // global variables
 // Исходные данные, передаваемые пользователем
 EXTERN uint32_t gnLanguage VAL(7);
-EXTERN Bool32 gbSpeller VAL(TRUE);
 EXTERN Bool32 gbOneColumn VAL(FALSE);
 EXTERN Bool32 gbFax100 VAL(FALSE);
 EXTERN Bool32 gbDotMatrix VAL(FALSE);
@@ -127,9 +126,8 @@ EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
 EXTERN Bool32 gbAutoRotate VAL(FALSE);
 
-extern CIF::Point gPageSize;
 // формат А4 в миллиметрах
-EXTERN Rect32 gRectTemplate VAL4(-1,-1,-1,-1);
+extern CIF::Point gPageSize;
 
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
