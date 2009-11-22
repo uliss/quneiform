@@ -1,7 +1,6 @@
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 common.cpp 
-enum.cpp
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp

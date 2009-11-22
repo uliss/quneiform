@@ -175,9 +175,7 @@ EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
-EXTERN char szLayoutFileName[256] VAL("Layout.bin");
 EXTERN unsigned nDebugReturnCode VAL(0);
-EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
 EXTERN const char * glpRecogName VAL(NULL);
@@ -192,13 +190,5 @@ Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 //functions
 void SetReturnCode_puma(uint32_t rc);
-
-// Enum.cpp
-long _EnumFormats(long prev);
-long _EnumCodes(long f, long prev);
-long _EnumLanguage(long prev);
-long _EnumFormatMode(long prev);
-long _EnumTable(long prev);
-long _EnumPicture(long prev);
 
 #endif
