@@ -180,22 +180,15 @@ typedef struct tagCTDIBRGBQUAD
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-	typedef Handle (*PCTDIBMemAlloc)(uint32_t);
+	typedef Handle (*PCTDIBMemAlloc)(size_t);
 	typedef void   (*PCTDIBMemFree)(Handle);
 	typedef pvoid  (*PCTDIBMemLock)(Handle);
-	typedef void   (*PCTDIBMemUnlock)(Handle);
+	typedef pvoid   (*PCTDIBMemUnlock)(Handle);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 class CTDIB
 {
 	// macros etc.
-	// CTDIBBITMAPINFOHEADER alloced:
-	enum CTDIBALLOC
-	{
-		noAlloc,
-		crtAlloc,
-		heapAlloc
-	};
 	// DIB Version: 3, 4 or 5
 	enum CTDIBVersion
 	{
@@ -257,14 +250,6 @@ private:
 	CTDIBDirection      wDirect;
 	// TRUE if DIB attached
 	Bool32              IsAvailable;
-	// pointer to external memory alloc function - need to be set for creating DIB by this class
-	PCTDIBMemAlloc      pExternalAlloc;
-	// pointer to external memory free function - need to be set for creating DIB by this class
-	PCTDIBMemFree       pExternalFree;
-	// pointer to external memory lock function - need to be set for creating DIB by this class
-	PCTDIBMemLock       pExternalLock;
-	// pointer to external memory unlock function - need to be set for creating DIB by this class
-	PCTDIBMemUnlock     pExternalUnlock;
 	// TRUE if DIB created by this class
 	Bool32              UnderConstruction;
 	// flag for DIB created by this module

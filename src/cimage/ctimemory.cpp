@@ -53,38 +53,95 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <string>
 
-#include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
+#include "cfio/cfio.h"
 
-#include <string>
+// Для использования без CFIO.DLL
+#ifdef _NO_CFIO
+#undef _NO_CFIO
+//#define _NO_CFIO
+#endif
+
+using namespace CIF::CFIO;
 
 static std::string CommentBuffer;
 
 void CIMAGEComment(const char * Comment) {
-	CommentBuffer = Comment;
+    CommentBuffer = Comment;
 }
 
 void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-	CIMAGEComment(Comment);
-	return CIMAGEAlloc(stAllocateBlock);
+    CIMAGEComment(Comment);
+    return CIMAGEAlloc(stAllocateBlock);
 }
 
 void * CIMAGEAlloc(uint32_t stAllocateBlock) {
-	return ::new char[stAllocateBlock];
+#ifdef _NO_CFIO
+    return ::new char[stAllocateBlock];
+#else
+    return CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR, "CImage", CommentBuffer.c_str());
+#endif
 }
 
 void CIMAGEFree(void * mem) {
-	::delete[] mem;
+#ifdef _NO_CFIO
+    ::delete[] mem;
+#else
+    CFIO_FreeMemory(mem);
+#endif
 }
 
 void * CIMAGELock(void * mem) {
-	return mem;
+#ifdef _NO_CFIO
+    return mem;
+#else
+    void * pMem = CFIO_LockMemory(mem);
+
+    if (pMem == NULL && mem != NULL)
+    return mem;
+#endif
 }
 
-void CIMAGEUnlock(void *) {
-	return;
+void CIMAGEUnlock(void * mem) {
+#ifndef _NO_CFIO
+    CFIO_UnlockMemory(mem);
+#endif
 }
+
+//#include "resource.h"
+//#include "ctidefines.h"
+//#include "ctiimage.h"
+//#include "ctimemory.h"
+//
+//#include <string>
+//
+//static std::string CommentBuffer;
+//
+//void CIMAGEComment(const char * Comment) {
+//    CommentBuffer = Comment;
+//}
+//
+//void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
+//    CIMAGEComment(Comment);
+//    return CIMAGEAlloc(stAllocateBlock);
+//}
+//
+//void * CIMAGEAlloc(uint32_t stAllocateBlock) {
+//    return malloc(stAllocateBlock);
+//}
+//
+//void CIMAGEFree(void * mem) {
+//    free(mem);
+//}
+//
+//void * CIMAGELock(void * mem) {
+//    return mem;
+//}
+//
+//void CIMAGEUnlock(void*) {
+//}
 
