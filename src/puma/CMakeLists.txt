@@ -5,6 +5,7 @@ enum.cpp
 puma.cpp 
 dll.cpp 
 pumaimpl.cpp
+formatoptions.cpp
 )
 set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 

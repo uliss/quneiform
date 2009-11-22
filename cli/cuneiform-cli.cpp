@@ -63,7 +63,6 @@
 #include <stdlib.h>
 #include <cstring>
 #include <getopt.h>
-#include <Magick++.h>
 
 #include "cttypes.h"
 #include "puma/puma.h"
@@ -114,7 +113,7 @@ static const langlist langs[] = {
     { LANG_LITHUANIAN, "lit", "Lithuanian" },
     { LANG_ESTONIAN, "est", "Estonian" },
     { LANG_TURKISH, "tur", "Turkish" },
-    { (language_t) - 1, NULL, NULL } };
+    { (language_t) -1, NULL, NULL } };
 
 struct formatlist
 {
@@ -189,7 +188,7 @@ static language_t recognize_language(const std::string& language) {
         if (language == l->name)
             return l->code;
     }
-    return (language_t) - 1;
+    return (language_t) -1;
 }
 
 static string default_output_name(puma_format_t format) {
@@ -224,6 +223,11 @@ static string default_output_name(puma_format_t format) {
  * Read file and return it as a BMP DIB entity. On failure write an error
  * and return NULL. Caller delete[]'s the returned result.
  */
+static char* read_file(const char *fname);
+
+#ifdef USE_MAGICK
+#include <Magick++.h>
+
 static char* read_file(const char *fname) {
     using namespace Magick;
     Blob blob;
@@ -234,7 +238,7 @@ static char* read_file(const char *fname) {
         // Write to BLOB in BMP format
         image.write(&blob, "DIB");
     }
-    catch(Exception &error_) {
+    catch (Exception &error_) {
         cerr << error_.what() << "\n";
         return NULL;
     }
@@ -244,6 +248,49 @@ static char* read_file(const char *fname) {
     return dib;
 }
 
+#else // No ImageMagick++
+static char* read_file(const char *fname) {
+    char bmpheader[2];
+    char *dib;
+    FILE *f;
+    int32_t dibsize, offset;
+
+    f = fopen(fname, "rb");
+    if (!f) {
+        cerr << "Could not open file " << fname << ".\n";
+        return NULL;
+    }
+    fread(bmpheader, 1, 2, f);
+    if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
+        cerr << fname << " is not a BMP file.\n";
+        return NULL;
+    }
+    fread(&dibsize, sizeof(int32_t), 1, f);
+    fread(bmpheader, 1, 2, f);
+    fread(bmpheader, 1, 2, f);
+    fread(&offset, sizeof(int32_t), 1, f);
+
+    dibsize -= ftell(f);
+    dib = new char[dibsize];
+    fread(dib, dibsize, 1, f);
+    fclose(f);
+
+    if (*((int32_t*) dib) != 40) {
+        cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
+        delete[] dib;
+        return NULL;
+    }
+
+    if (*((int32_t*) (dib + 16)) != 0) {
+        cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.";
+        delete[] dib;
+        return NULL;
+    }
+    return dib;
+}
+#endif // USE_MAGICK
 int main(int argc, char **argv) {
     program_name = argv[0];
 
@@ -374,19 +421,23 @@ int main(int argc, char **argv) {
     Puma::instance().setOptionUseSpeller(do_speller);
     Puma::instance().setOptionAutoRotate(do_autorotate);
 
+    FormatOptions opt = Puma::instance().formatOptions();
     if (!serif.empty())
-        Puma::instance().setOptionSerifName(serif.c_str());
+        opt.setSerifName(serif);
     if (!sansserif.empty())
-        Puma::instance().setOptionSansSerifName(sansserif.c_str());
+        opt.setSansSerifName(sansserif);
     if (!monospace.empty())
-        Puma::instance().setOptionMonospaceName(monospace.c_str());
+        opt.setMonospaceName(monospace);
 
-    //	Puma::instance().setOptionUnrecognizedChar('?');
-    //	Puma::instance().setOptionBold(true);
-    //	Puma::instance().setOptionItalic(true);
-    //  Puma::instance().setOptionSize(true);
-    //  Puma::instance().setOptionFormatMode(puma_format_mode_t t);
-    //	Puma::instance().setOptionPictures(puma_picture_t mode);
+    //  opt.setUnrecognizedChar('?');
+    //  opt.useBold(true);
+    //  opt.useItalic(true);
+    //  opt.useFontSize(true);
+    //  opt.setFormatMode(puma_format_mode_t t);
+
+    Puma::instance().setFormatOptions(opt);
+
+    //  Puma::instance().setOptionPictures(puma_picture_t mode);
     //  Puma::instance().setOptionTables(puma_table_t mode);
 
     Puma::instance().open(dib);

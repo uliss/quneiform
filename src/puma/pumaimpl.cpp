@@ -60,13 +60,15 @@ static Handle ghStorage = NULL;
 
 namespace CIF {
 
-Point gPageSize(209, 295);
-
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true) {
+    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
+                    false), language_(LANG_RUSENG), pictures_(PUMA_PICTURE_ALL), tables_(
+                    PUMA_TABLE_DEFAULT) {
+    format_options_.setLanguage(language_);
     modulesInit();
 }
 
@@ -171,13 +173,13 @@ void PumaImpl::extractComponents() {
     exc.Control = Ex_ExtraComp | Ex_Picture;
 
     //Andrey: orientation is obtained from new library RNORM
-    if (gnPictures)
+    if (pictures_ != PUMA_PICTURE_NONE)
         exc.Control |= Ex_PictureLarge;
 
-    uchar w8 = (uchar) gbDotMatrix;
+    uchar w8 = dot_matrix_ ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Matrix, &w8);
 
-    w8 = (uchar) gbFax100;
+    w8 = fax100_ ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
 
     CIMAGEIMAGECALLBACK clbk;
@@ -212,22 +214,26 @@ void PumaImpl::extractStrings() {
     }
 }
 
+FormatOptions PumaImpl::formatOptions() const {
+    return format_options_;
+}
+
 void PumaImpl::formatResult() {
-    setFormatOptions();
+    RFRMT_SetFormatOptions(format_options_);
 
     if (ghEdPage) {
         CED_DeletePage(ghEdPage);
         ghEdPage = NULL;
     }
 
-    if (!RFRMT_Formatter(szInputFileName.c_str(), &ghEdPage))
+    if (!RFRMT_Formatter(input_filename_.c_str(), &ghEdPage))
         throw PumaException("RFRMT_Formatter failed");
 
     if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
-        std::string fname(szInputFileName + "_tmp_.rtf");
-        setFormatOptions();
+        std::string fname(input_filename_ + "_tmp_.rtf");
+        RFRMT_SetFormatOptions(format_options_);
         RFRMT_SaveRtf(fname.c_str(), 8);
-        fname = szInputFileName + "_tmp_.fed";
+        fname = input_filename_ + "_tmp_.fed";
         save(fname.c_str(), PUMA_TOEDNATIVE);
     }
 }
@@ -267,20 +273,20 @@ void PumaImpl::layout() {
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
 
-    DataforRS.gbAutoRotate = gbAutoRotate;
+    DataforRS.gbAutoRotate = auto_rotate_;
     DataforRS.pgpRecogDIB = &gpRecogDIB;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = hCPAGE;
     DataforRS.phCCOM = &hCCOM;
     DataforRS.phCLINE = &hCLINE;
     DataforRS.phLinesCCOM = &hLinesCCOM;
-    DataforRS.gnPictures = gnPictures;
-    DataforRS.gnLanguage = gnLanguage;
-    DataforRS.gbDotMatrix = gbDotMatrix;
-    DataforRS.gbFax100 = gbFax100;
+    DataforRS.gnPictures = pictures_;
+    DataforRS.gnLanguage = language_;
+    DataforRS.gbDotMatrix = dot_matrix_;
+    DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
     DataforRS.pgrc_line = &grc_line;
-    DataforRS.gnTables = gnTables;
+    DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &gnNumberTables;
     DataforRS.pgneed_clean_line = &gneed_clean_line;
     DataforRS.gRectTemplate = rect_template_;
@@ -305,22 +311,22 @@ void PumaImpl::layout() {
 
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbAutoRotate = gbAutoRotate;
+    DataforRM.gbAutoRotate = auto_rotate_;
     DataforRM.pgpRecogDIB = &gpRecogDIB;
-    DataforRM.gbOneColumn = gbOneColumn;
+    DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = gKillVSLComponents;
     DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = hCPAGE;
     DataforRM.hCCOM = hCCOM;
     DataforRM.hCLINE = hCLINE;
     DataforRM.phLinesCCOM = &hLinesCCOM;
-    DataforRM.gnPictures = gnPictures;
-    DataforRM.gnLanguage = gnLanguage;
-    DataforRM.gbDotMatrix = gbDotMatrix;
-    DataforRM.gbFax100 = gbFax100;
+    DataforRM.gnPictures = pictures_;
+    DataforRM.gnLanguage = language_;
+    DataforRM.gbDotMatrix = dot_matrix_;
+    DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
     DataforRM.pgrc_line = &grc_line;
-    DataforRM.gnTables = gnTables;
+    DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &gnNumberTables;
     DataforRM.pgneed_clean_line = &gneed_clean_line;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
@@ -519,21 +525,18 @@ Rect PumaImpl::pageTemplate() const {
 
 void PumaImpl::pass1() {
     if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
-        savePass1(replaceFileExt(szInputFileName, "_1.cst"));
-
+        saveCSTR(1);
     recognizePass1();
 }
 
 void PumaImpl::pass2() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr2)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_2.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr2))
+        saveCSTR(2);
 
     ///////////////////////////////
     // OLEG : 01-05-18 : for GiP //
     ///////////////////////////////
-    if (SPEC_PRJ_GIP == gnSpecialProject && gnLanguage == LANG_RUSENG) {
+    if (SPEC_PRJ_GIP == gnSpecialProject && language_ == LANG_RUSENG) {
         int i, n;
         double s;
         CSTR_line lin_ruseng;
@@ -554,8 +557,8 @@ void PumaImpl::pass2() {
                         CSTR_DeleteLine(lin_ruseng);
                 }
             }
-            gnLanguage = LANG_ENGLISH;
-            recognizeSetup(gnLanguage);
+            language_ = LANG_ENGLISH;
+            recognizeSetup(language_);
             recognizePass1();
         }
     }
@@ -567,10 +570,8 @@ void PumaImpl::pass2() {
 }
 
 void PumaImpl::spellCorrection() {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr3)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_3.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
+        saveCSTR(3);
 
     // Дораспознаем по словарю
     CSTR_SortFragm(1);
@@ -668,7 +669,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
 void PumaImpl::postOpenInitialize() {
     LDPUMA_SetFileName(NULL, "none.txt");
-    szInputFileName = "none.bin";
+    input_filename_ = "none.bin";
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
@@ -717,7 +718,7 @@ void PumaImpl::recognize() {
 
     // распознаем строки
     CSTR_SortFragm(0);
-    recognizeSetup(gnLanguage);
+    recognizeSetup(language_);
 
     CSTR_SortFragm(0);
     CSTR_line ln;
@@ -798,19 +799,14 @@ void PumaImpl::recognize() {
 void PumaImpl::recognizeCorrection() {
     // Скорректируем результат распознавани
     CSTR_SortFragm(1);
-    if (LDPUMA_Skip(hDebugCancelPostRecognition)) {
-        if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &gbFax100) || !RCORRKEGL_CorrectKegl(
-                1))
-            throw PumaException("PumaImpl::recognizeCorrection() failed");
-    }
+    if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &fax100_) || !RCORRKEGL_CorrectKegl(1))
+        throw PumaException("PumaImpl::recognizeCorrection() failed");
 
     CSTR_SortFragm(1);
     RPSTR_CorrectIncline(1);
 
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr4)) {
-        std::string CstrFileName = CIF::replaceFileExt(szInputFileName, "_4.cst");
-        CSTR_SaveCont(CstrFileName.c_str());
-    }
+    if (!LDPUMA_Skip(hDebugEnableSaveCstr4))
+        saveCSTR(4);
 }
 
 void PumaImpl::recognizePass1() {
@@ -900,16 +896,16 @@ void PumaImpl::recognizeSetup(int language) {
         throw PumaException("RSTR_SetOptions failed");
 
     // Настройка параметров
-    uchar w8 = (uchar) gnLanguage;
+    uchar w8 = (uchar) language_;
     RSTR_SetImportData(RSTR_Word8_Language, &w8);
 
     uint16_t w16 = (uint16_t) info.DPIY;//300;
     RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
 
-    w8 = (uchar) gbFax100;
+    w8 = fax100_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
 
-    w8 = (uchar) gbDotMatrix;
+    w8 = dot_matrix_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
 
     w8 = 0;
@@ -922,7 +918,7 @@ void PumaImpl::recognizeSetup(int language) {
     w8 = do_spell_corretion_ ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
 
-    RSTR_SetImportData(RSTR_pchar_user_dict_name, gpUserDictName);
+    RSTR_SetImportData(RSTR_pchar_user_dict_name, user_dict_name_.c_str());
 
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
@@ -984,11 +980,12 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
     if (str)
         *(str) = '\0';
 
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) gnPreserveLineBreaks)
+    char unrecog = format_options_.unrecognizedChar();
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(ROUT_LONG_Format,
             (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
-            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1012,10 +1009,12 @@ void PumaImpl::rout(const std::string& filename, int Format) const {
 }
 
 void PumaImpl::rout(void * dest, size_t size, int format) const {
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) gnPreserveLineBreaks)
+    char unrecog = format_options_.unrecognizedChar();
+
+    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ghEdPage) || !ROUT_SetImportData(
             ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
-            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, &gnUnrecogChar))
+            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1093,6 +1092,12 @@ void PumaImpl::save(void * dest, size_t size, int format) const {
     }
 }
 
+void PumaImpl::saveCSTR(int pass) {
+    ostringstream os;
+    os << removeFileExt(input_filename_) << "_" << pass << ".cst";
+    CSTR_SaveCont(os.str().c_str());
+}
+
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
     CPAGE_ClearBackUp(hCPAGE);
     if (!CPAGE_SavePage(hCPAGE, fname.c_str())) {
@@ -1100,10 +1105,6 @@ void PumaImpl::saveLayoutToFile(const std::string& fname) {
         os << "CPAGE_SavePage to '" << fname << "' failed.";
         throw PumaException(os.str());
     }
-}
-
-void PumaImpl::savePass1(const std::string& fname) {
-    CSTR_SaveCont(fname.c_str());
 }
 
 void PumaImpl::saveToText(ostream& os) const {
@@ -1125,87 +1126,47 @@ void PumaImpl::saveToText(const std::string& filename) const {
     saveToText(of);
 }
 
-void PumaImpl::setFormatOptions() {
-    RFRMT_SetImportData(RFRMT_Bool32_Bold, &gbBold);
-    RFRMT_SetImportData(RFRMT_Bool32_Italic, &gbItalic);
-    RFRMT_SetImportData(RFRMT_Bool32_Size, &gbSize);
-    RFRMT_SetImportData(RFRMT_Word32_Format, &gnFormat);
-    RFRMT_SetImportData(RFRMT_char_SerifName, gpSerifName);
-    RFRMT_SetImportData(RFRMT_char_SansSerifName, gpSansSerifName);
-    RFRMT_SetImportData(RFRMT_char_CourierName, gpCourierName);
-    RFRMT_SetImportData(RFRMT_Word8_UnRecogSymbol, &gnUnrecogChar);
-    RFRMT_SetImportData(RFRMT_Word32_Language, &gnLanguage);
+void PumaImpl::setFormatOptions(const FormatOptions& opt) {
+    format_options_ = opt;
 }
 
 void PumaImpl::setOptionAutoRotate(bool val) {
-    gbAutoRotate = val ? TRUE : FALSE;
+    auto_rotate_ = val;
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionBold(bool val) {
-    gbBold = val ? TRUE : FALSE;
-}
-
 void PumaImpl::setOptionDotMatrix(bool val) {
-    gbDotMatrix = val ? TRUE : FALSE;
+    dot_matrix_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionFax100(bool val) {
-    gbFax100 = val ? TRUE : FALSE;
+    fax100_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionFormatMode(puma_format_mode_t format) {
-    gnFormat = format;
-}
-
-void PumaImpl::setOptionItalic(bool val) {
-    gbItalic = val ? TRUE : FALSE;
 }
 
 void PumaImpl::setOptionLanguage(language_t lang) {
-    gnLanguage = lang;
+    language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionMonospaceName(const char * name) {
-    gpCourierName = name;
-}
-
 void PumaImpl::setOptionOneColumn(bool val) {
-    gbOneColumn = val ? TRUE : FALSE;
+    one_column_ = val;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionPictures(puma_picture_t type) {
-    gnPictures = type;
+    pictures_ = type;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionSansSerifName(const char * name) {
-    gpSansSerifName = name;
-}
-
-void PumaImpl::setOptionSerifName(const char * name) {
-    gpSerifName = name;
-}
-
-void PumaImpl::setOptionSize(bool val) {
-    gbSize = val ? TRUE : FALSE;
 }
 
 void PumaImpl::setOptionTable(puma_table_t mode) {
-    gnTables = mode;
+    tables_ = mode;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionUnrecognizedChar(char ch) {
-    gnUnrecogChar = ch;
-}
-
-void setOptionUserDictionaryName(const char * name) {
-    gpUserDictName = name;
+void PumaImpl::setOptionUserDictionaryName(const char * name) {
+    user_dict_name_ = name;
 }
 
 void PumaImpl::setOptionUseSpeller(bool value) {

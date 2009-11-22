@@ -78,8 +78,6 @@
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 
-CIF::Point gPageSize(209, 295);
-
 int PUMA_GetReturnCode() {
 	return gwRC;
 }

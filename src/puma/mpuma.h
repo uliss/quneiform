@@ -103,31 +103,8 @@
 #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
 // Исходные данные, передаваемые пользователем
-EXTERN uint32_t gnLanguage VAL(7);
-EXTERN Bool32 gbOneColumn VAL(FALSE);
-EXTERN Bool32 gbFax100 VAL(FALSE);
-EXTERN Bool32 gbDotMatrix VAL(FALSE);
-EXTERN Bool32 gbBold VAL(TRUE);
-EXTERN Bool32 gbItalic VAL(TRUE);
-EXTERN Bool32 gbSize VAL(TRUE);
-EXTERN uint32_t gnFormat VAL(1);
-EXTERN Bool32 gnPreserveLineBreaks VAL(FALSE);
-EXTERN uchar gnUnrecogChar VAL('~');
-EXTERN uint32_t gnPictures VAL(1);
-EXTERN uint32_t gnTables VAL(1);
-
-EXTERN const char * gpUserDictName VAL("");
-EXTERN const char * gpSerifName VAL("Times New Roman");
-EXTERN const char * gpSansSerifName VAL("Arial");
-EXTERN const char * gpCourierName VAL("Courier New");
-
-EXTERN std::string szInputFileName;
 EXTERN puchar gpInputDIB VAL(NULL);
 EXTERN puchar gpRecogDIB VAL(NULL);
-EXTERN Bool32 gbAutoRotate VAL(FALSE);
-
-// формат А4 в миллиметрах
-extern CIF::Point gPageSize;
 
 // Данные образуемые в результате работы.
 EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
