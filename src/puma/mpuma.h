@@ -102,20 +102,6 @@
 #endif
 #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
-// Исходные данные, передаваемые пользователем
-EXTERN puchar gpInputDIB VAL(NULL);
-EXTERN puchar gpRecogDIB VAL(NULL);
-
-// Данные образуемые в результате работы.
-EXTERN char szFormatStorageName[] VAL("%sstorage.tmp");
-EXTERN char szFormatTbl1[] VAL("%stbl1%s.dat");
-EXTERN int32_t gnNumberTables VAL(0);
-EXTERN Handle hCCOM VAL(NULL);
-EXTERN Handle hCPAGE VAL(NULL);
-EXTERN CLINE_handle hCLINE VAL(0);
-EXTERN Handle hLinesCCOM VAL(NULL);
-// компоненты с линиями
-EXTERN Handle ghEdPage VAL(NULL);
 // 1. Отладочная информаци
 EXTERN Handle hDebugRoot VAL(NULL);
 EXTERN Handle hDebugCancelStrings VAL(NULL);
@@ -191,7 +177,6 @@ EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
 EXTERN char szLayoutFileName[256] VAL("Layout.bin");
 EXTERN unsigned nDebugReturnCode VAL(0);
-EXTERN unsigned nDebugAllocMemory VAL(0);
 EXTERN uint32_t g_prgStep VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной

@@ -112,6 +112,14 @@ private:
     FormatOptions format_options_;
     puma_picture_t pictures_;
     puma_table_t tables_;
+    void * input_dib_;
+    void * recog_dib_;
+    int tables_num_;
+    Handle ccom_;
+    Handle cpage_;
+    Handle lines_ccom_;
+    Handle cline_;
+    Handle ed_page_;
 };
 
 }
