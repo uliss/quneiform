@@ -67,109 +67,197 @@
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-# ifndef _CTC_CONTROL_HEADER_
-# define _CTC_CONTROL_HEADER_
+#include <string.h>
+#include "ctcclasses.h"
 
-#include <string>
-
-#include "cfio.h"
-#include "filelist.h"
-#include "memorylist.h"
-#include "storagelist.h"
-
-namespace CIF {
-namespace CFIO {
-
-class Control {
-public:
-	Control();
-	~Control();
-
-	// import functions
-	bool SetFolder(uint32_t wFolder, char* pcBuff);
-	bool GetFolder(uint32_t wFolder, char* pcBuff);
-
-	// import functions
-	Handle OpenStorage(const std::string& Name, uint Types);
-	bool CloseStorage(Handle hStorage, uint Flag);
-	bool DeleteStorage(const std::string& Name);
-	bool WriteFileToStorage(Handle hStorage, Handle hFile,
-			const std::string& Name);
-	Handle ReadFileFromStorage(Handle hStorage, char* lpName);
-	Handle OpenFile(Handle hFile, const std::string& Name, uint Flag);
-	bool CloseFile(Handle hFile, uint Flag, Handle hStorage = NULL);
-	uint32_t WriteFile(Handle hFile, char * lpData, uint32_t Size);
-	uint32_t ReadFromFile(Handle hFile, char * lpData, uint32_t Size);
-	uint32_t Seek(Handle hFile, uint32_t Bytes, uint32_t From);
-	uint32_t Tell(Handle hFile) const;
-	bool Flush(Handle hFile);
-	Handle Alloc(size_t Size, uint Flag, const std::string& Owner,
-			const std::string& Comment);
-	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint Flag);
-	bool Free(Handle hMem);
-	void * Lock(Handle hMem);
-	bool Unlock(Handle hMem);
-	uint32_t WriteMemToFile(Handle hMem, const std::string& Name);
-	uint32_t ReadMemFromFile(const std::string& Name, Handle * phMem, uint Flag =
-			MAF_GALL_GHND);
-	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, const std::string& Name);
-	uint32_t ReadMemFromStorage(Handle hStorage, char* lpName, Handle * phMem);
-
-private:
-	Handle AddFileInList(GlobalFile * File, uint Flag, Handle Storage);
-	Handle OpenFileAndAttach(const std::string& Name, uint Flag,
-			Handle Storage = NULL);
-	Handle AllocNewMemory(uint Flag, uint Size, bool Global,
-			const std::string& Owner, const std::string& Comment);
-	bool AddNewMemoryInList(Handle hMemory, uint Size, uint32_t IsGlobal,
-			const std::string& Owner, const std::string& Comment);
-	bool FreeMemory(Handle hMemory, uint Flag = 0x0);
-	bool TakeMemory(Handle hMemory, size_t * wMemorySize,
-			uint32_t * wMemoryFlag);
-	bool GetMemory(Handle hMemory, PPMemoryHeader pHeader);
-	bool DeleteMemoryFromList(Handle hMemory);
-	void * LockMemory(Handle hMemory);
-	bool UnlockMemory(Handle hMemory);
-	bool LockatorMemoryInList(Handle hMemory, Bool32 bLock);
-	bool AttachFileToStorage(Handle File, Handle Storage, uint Flag);
-	bool DeleteFileFromList(Handle File, uint Flag, Handle Stotrage = NULL);
-	bool FlushFile(Handle File);
-	uint32_t TellFilePointer(Handle File) const;
-	bool CloseFileAndAttach(Handle File, uint Flag, Handle Storage);
-	bool DeleteFileFromDisk(Handle File);
-	uint32_t SeekFilePointer(Handle File, uint32_t Position, uint32_t From);
-	uint32_t ReadDataFromFile(Handle File, void * lpData, uint32_t Size);
-	uint32_t WriteDataToFile(Handle File, void * lpData, uint32_t Size);
-	bool CloseFileAndDettach(Handle File, uint Flag, Handle Storage);
-	Handle CompliteStorage(Handle Storage, uint Flag);
-	uint32_t WriteItemToStorage(StorageHeader * Storage, void * pItem,
-			uint32_t Size);
-	uint32_t WriteFileToStorage(StorageHeader * Storage, FileHeader * File);
-	bool CloseStorageFile(Handle Storage, uint32_t Flag = 0);
-	bool CloseAllStorageFile(Handle Storage, uint32_t Flag);
-	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
-	uint32_t DecompileStorage(Handle Storage);
-	Handle AddStorageInList(GlobalFile * lpNewStorageName, uint NewFlag);
-	Handle OpenNewStorage(const std::string& Name, uint Flag);
-	Handle OpenCompliteStorage(const std::string& Name, uint Flag);
-	uint32_t ReadFileFromStorage(StorageHeader * Storage, STORAGEITEM * pInfo,
-			GlobalFile ** pFile);
-	uint32_t ReadItemFromStorage(StorageHeader * Storage, void * lpData,
-			uint32_t wSize);
-	std::string MakeNameForStorage(const std::string& FileName,
-			StorageHeader * phStorage = NULL);
-	char* FileNameToFolder(char* Buffer, const char* FolderName,
-			const char* FileName, uint32_t Size);
-
-private:
-	MemoryList memory_list_;
-	FileList file_list_;
-	StorageList storage_list_;
-	char szTempFolder[CFIO_MAX_PATH];
-	char szFileFolder[CFIO_MAX_PATH];
-	char szStorageFolder[CFIO_MAX_PATH];
-	char szBuffer[CFIO_MAX_PATH];
-};
+using namespace CIF::CTC;
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileHeader::CTCFileHeader() :
+	GlobalHeader() {
+	pFile = NULL;
 }
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileHeader::~CTCFileHeader() {
+	if (GetFile()) {
+		delete GetFile();
+	}
 }
-#endif //_CTC_CONTROL_HEADER_
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileHeader::CTCFileHeader(CTCGlobalFile * pNewFile, uint32_t Flag,
+		Handle Storage) :
+	GlobalHeader(NULL, NULL, 0) {
+	pFile = pNewFile;
+	SetHandle(AcceptFile(pNewFile));
+	SetFlag(Flag);
+	SetHeaderSize(sizeof(class CTCFileHeader));
+	AttachToStorage(Storage);
+	BreakName();
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCFileHeader::DetachFromStorage() {
+	return ((hStorage = NULL) == NULL);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCFileHeader::AttachToStorage(Handle Storage) {
+	if (TRUE /*!IsFlag(CFIO_FILE_LOCKED)*/) {
+		hStorage = Storage;
+		return TRUE;
+	}
+	return FALSE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCFileHeader::LockToStorage(void) {
+	if (CanWrite() && GetAttaching()) {
+		return AddFlag(CFIO_FILE_LOCKED);
+	}
+	return FALSE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCFileHeader::UnlockFromStorage(void) {
+	if (!CanWrite() && GetAttaching()) {
+		return RemoveFlag(CFIO_FILE_LOCKED);
+	}
+	return FALSE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileList::CTCFileList() {
+	mfFirstItem.SetNext(&mfLastItem);
+	mfFirstItem.SetSize(0);
+	mfLastItem.SetSize(0);
+	mfFirstItem.SetHandle(FICTIV_Handle);
+	mfLastItem.SetHandle(FICTIV_Handle);
+
+	pList = NULL;
+	wFileCounter = 0;
+	wSpaceCounter = 0;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileList::~CTCFileList() {
+
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag,
+		Handle Storage) {
+	CTCFileHeader * Current, *NewBlock = NULL;
+	Handle NewHandle = pNewFile->GetFileHandle();
+
+	if (!NewHandle)
+		return NULL;
+
+	for (Current = pFirst(); Current->GetNext() != pLast(); Current
+			= Current->GetNext())
+		if (Current->GetHandle() == pNewFile->GetFileHandle()) {
+			return NULL;
+		}
+
+	NewBlock = new CTCFileHeader(pNewFile, wNewFlag, Storage);
+	NewBlock->SetNext(Current->GetNext());
+	Current->SetNext(NewBlock);
+	IncreaseFileCounter();
+
+	return NewHandle;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCFileList::DeleteItem(Handle File, uint32_t Flag) {
+	CTCFileHeader * Current, *Last, *EraseBlock;
+	uint32_t IsOK = 0;
+
+	for (Last = Current = pFirst(); Current != pLast(); Current
+			= Current->GetNext()) {
+		if (Current->GetHandle() == File) {
+			EraseBlock = Current;
+			DecreaseFileCounter();
+			Last->SetNext(Current->GetNext());
+			delete EraseBlock;
+			IsOK++;
+			Current = Last;
+		} else {
+			Last = Current;
+		}
+	}
+	return (IsOK == 1);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalFile * CTCFileList::GetItem(Handle File) {
+	CTCFileHeader * pCurrent = GetItemHeader(File);
+	CTCGlobalFile * pFounded = NULL;
+
+	if (pCurrent) {
+		pFounded = pCurrent->GetFile();
+	}
+
+	return pFounded;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCFileHeader * CTCFileList::GetItemHeader(Handle File) {
+	CTCFileHeader * pCurrent;
+
+	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+			= pCurrent->GetNext()) {
+		if (pCurrent->GetHandle() == File) {
+			return pCurrent;
+		}
+	}
+
+	return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCFileList::GetAttachedFileHeader(Handle Storage, CTCFileHeader * File) {
+	CTCFileHeader * pCurrent, *pStart;
+
+	if (File == NULL) {
+		pStart = pFirst();
+	} else {
+		pStart = File;
+
+		if (!pStart)
+			return NULL;
+	}
+
+	for (pCurrent = pStart; pCurrent != pLast(); pCurrent = pCurrent->GetNext()) {
+		if (pCurrent->GetAttaching() == Storage) {
+			return pCurrent->GetHandle();
+		}
+	}
+	return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCFileList::FindFile(char* lpFileName) {
+	CTCGlobalFile * pFile;
+	CTCFileHeader * pCurrent;
+	uint32_t wComp;
+
+	for (pCurrent = pFirst(); pCurrent != pLast(); pCurrent
+			= pCurrent->GetNext()) {
+		pFile = pCurrent->GetFile();
+
+		if (pFile) {
+			wComp = strcmp(pFile->GetFileName(), lpFileName);
+			// Unix is case sensitive.
+			//wiComp = strcasecomp (pFile->GetFileName(), lpFileName );
+
+			if (wComp == 0)
+				return pCurrent->GetHandle();
+		}
+	}
+	return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//end of file
+
+

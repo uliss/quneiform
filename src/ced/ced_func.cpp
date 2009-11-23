@@ -62,8 +62,6 @@
 #include "resource.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
-
 //First of all, we define all .dib as metafiles since word does not know about .dib
 static CEDPage * mainPage;
 static CEDLine * curEdLine;

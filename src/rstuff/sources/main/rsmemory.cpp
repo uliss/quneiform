@@ -74,7 +74,6 @@
 #include "rsfunc.h"
 
 #include "cfio/cfio.h"
-using namespace CIF::CFIO;
 
 uchar* Buffer = NULL;
 uchar* WorkMem = NULL;

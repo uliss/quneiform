@@ -60,9 +60,7 @@
 #include "cridefines.h"
 #include "criimage.h"
 #include "crimemory.h"
-
 #include "cfio/cfio.h"
-using namespace CIF::CFIO;
 
 Bool32 InitCFIOInterface(Bool32 Status) {
 	Bool32 bRet = TRUE;

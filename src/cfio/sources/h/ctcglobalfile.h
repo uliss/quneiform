@@ -1,12 +1,22 @@
 /*
- * ctc_def.h
+ * ctcglobalfile.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CTC_DEF_H_
-#define CTC_DEF_H_
+#ifndef CTCGLOBALFILE_H_
+#define CTCGLOBALFILE_H_
+
+#include <cstddef>
+#include <cstdio>
+
+#include <string>
+
+#include "cttypes.h"
+
+namespace CIF {
+namespace CTC {
 
 #define                CFIO_ALLOC(a,b)                  GlobalAlloc(a,b)
 #define                CFIO_REALLOC(a,b,c)              GlobalRealloc(a,b,c)
@@ -50,8 +60,9 @@
 #define                CFIO_GETFOLDERSITEMS             split_path
 #define                CFIO_MAKEPATH                    make_path
 #define                CFIO_MAKEFULLPATH                _fullpath
-#define                CFIO_MAKEFOLDER(a)               CreateDirectory(a)
-#define                CFIO_DELETEFOLDER(a)             rmdir(a)
+#define                CFIO_MAKEFOLDER(a)               CreateDirectory(a,NULL)      //_mkdir(a) //
+#define                CFIO_DELETEFOLDER                RemoveDirectory         //_rmdir          //
+//                                                 CreateFolder
 //     local flags
 #define                CFIO_GF_CWRITE              "w"
 #define                CFIO_GF_CREAD               "r"
@@ -64,29 +75,124 @@
 #define                CFIO_GF_CCOMMIT             "c"
 #define                CFIO_GF_CNOCOMMIT           "n"
 
-#define                CFIO_FILE_CREATE                    CFIO_GF_CREATE
-#define                CFIO_FILE_OPEN                      CFIO_GF_OPEN
-#define                CFIO_FILE_WRITE                     CFIO_GF_WRITE
-#define                CFIO_FILE_READ                      CFIO_GF_READ
-#define                CFIO_FILE_APPEND                    CFIO_GF_APPEND
-#define                CFIO_FILE_BINARY                    CFIO_GF_BINARY
-#define                CFIO_FILE_COMMIT                    CFIO_GF_COMMIT
-#define                CFIO_FILE_EXIST                     CFIO_GF_FILE
-#define                CFIO_FILE_ATTACHED                  CFIO_GF_STORAGE
-#define                CFIO_FILE_IN_MEMORY                 CFIO_GF_IN_MEMORY
-#define                CFIO_FILE_TEMPORARY                 CFIO_GF_TEMPORARY
-#define                CFIO_FILE_LOCKED                    CFIO_GF_LOCKED
-#define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR
-#define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG
-#define                CFIO_FILE_SEEK_END                  CFIO_GF_SEEK_END
+struct CTC_mem_cluster {
+	struct CTC_mem_cluster * mcNext;
+	Handle mcHandle;
+	void * mcPtr;
+	uint32_t mcSize;
+	uint32_t mcMemoryFlag;
+	Bool32 mcLocked;
+	uint32_t mcFill;
+	uint32_t mcNumber;
+};
 
-#define    FICTIV_BLOC             0xffffffff
-#define    FICTIV_Handle           (void *)FICTIV_BLOC
+typedef struct CTC_mem_cluster CFIOMCLUSTER, *PCFIOMCLUSTER, **PPCFIOMCLUSTER;
+typedef Handle HandleFILE;
 
-namespace CIF {
-namespace CFIO {
+class GlobalFile {
+private:
+	HandleFILE hFile;
+	std::string file_name_;
+	uint32_t wSeeker;
+	char cFlag[32];
+	bool Deleted;
+	bool InMemory;
+	bool MoveToFile;
+	uint32_t wClusterCounter;
+	uint32_t wMemorySize;
+	CFIOMCLUSTER mcFirst;
 
+public:
+	GlobalFile();
+	GlobalFile(const std::string& Name, uint32_t Flag);
+	~GlobalFile();
+
+public:
+	uint32_t Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t Flush();
+	uint32_t Tell() const;
+	uint32_t Seek(uint32_t Position, uint32_t Flag);
+	std::string GetFileName(char* lpName = NULL) const;
+	uint32_t GetFileLenght();
+	void SetFileName(const std::string& FileName);
+	bool Close();
+
+public:
+	Handle GetFileHandle() {
+		return ((Handle) hFile);
+	}
+
+	HandleFILE GetHandle() {
+		return hFile;
+	}
+
+	char* GetFlagString() {
+		return cFlag;
+	}
+
+	bool IsInString(const char* Flag);
+
+	size_t GetFileSize() const;
+
+	size_t GetHeaderSize() const {
+		return (sizeof(class GlobalFile));
+	}
+
+	bool SetDelete() {
+		return (Deleted = TRUE);
+	}
+
+	bool KeepOnDisk() {
+		return !(Deleted = FALSE);
+	}
+
+	bool IsDeleted() const {
+		return (Deleted);
+	}
+
+protected:
+	Handle SetFileHandle(Handle NewFile) {
+		return (hFile = static_cast<HandleFILE> (NewFile));
+	}
+
+	HandleFILE SetHandle(HandleFILE NewHandle) {
+		return (hFile = NewHandle);
+	}
+
+	bool ProvideFileFolder(const std::string& FileFullName);
+
+public:
+	void TranslateFlagToString(uint32_t Flag);
+	void ClearFlagString(void);
+	void AddFlagToString(const char*Flag);
+
+private:
+	Handle CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	bool KillLastCluster(PCFIOMCLUSTER pCluster = NULL);
+	PCFIOMCLUSTER TakeCluster(Handle hCluster);
+	Handle GetFirstCluster() {
+		return (mcFirst.mcNext)->mcHandle;
+	}
+
+	Handle GetNextCluster(Handle Cluster, PPCFIOMCLUSTER pmcCluster = NULL);
+	Handle GetLastCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	Handle GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+	void
+			* GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+					NULL);
+	bool
+			ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+					NULL);
+	uint32_t WriteToMemory(void * pData, uint32_t wDataSwze,
+			uint32_t wDataCounter);
+	uint32_t ReadFromMemory(void * pData, uint32_t wDataSize,
+			uint32_t wDataCounter);
+	bool MoveFromMemory(Handle dFile);
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 }
 }
 
-#endif /* CTC_DEF_H_ */
+#endif /* CTCGLOBALFILE_H_ */

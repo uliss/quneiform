@@ -1,16 +1,13 @@
-include_directories(BEFORE)
+include_directories(BEFORE sources/h sources/cpp)
 
 add_library(cfio ${LIBTYPE}
-	control.cpp
-	dll.cpp
-	fileheader.cpp
-	filelist.cpp
-	globalheader.cpp
-	globalfile.cpp
-	memorylist.cpp
-	memoryheader.cpp
-	storagelist.cpp
-	storageheader.cpp
+sources/cpp/ctcbase.cpp
+sources/cpp/ctccontrol.cpp
+sources/cpp/ctcfile.cpp
+sources/cpp/ctcmemory.cpp
+sources/cpp/ctcstorage.cpp
+sources/cpp/dll_main.cpp
+sources/cpp/ctcglobalheader.cpp
 )
 
 target_link_libraries(cfio cfcompat)

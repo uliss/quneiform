@@ -401,7 +401,7 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RMSEGMENT_
     RMSEGMENT_Done();
 #endif //_USE_RMSEGMENT_
-    CFIO::CFIO_Done();
+    CFIO_Done();
 }
 
 void PumaImpl::modulesInit() {
@@ -409,7 +409,7 @@ void PumaImpl::modulesInit() {
         // CONTEINERS
         if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
             throw PumaException("CLINE_Init failed.");
-        if (!CFIO::CFIO_Init(PUMA_MODULE_CFIO, NULL))
+        if (!CFIO_Init(PUMA_MODULE_CFIO, NULL))
             throw PumaException("CFIO_Init failed.");
         CIMAGE_Init();
         //  нужна инициализация контейнера CCOM перед

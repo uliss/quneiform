@@ -67,7 +67,6 @@
 #include "cedint.h"
 #include "puma/pumadef.h"
 #include "cfio/cfio.h"
-using namespace CIF::CFIO;
 
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
@@ -127,8 +126,6 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/) {
 	/// ????
 #define	ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
 		SetReturnCode_ced((uint16_t)CFIO_GetReturnCode());
-
-	using namespace CIF::CFIO;
 
 	//	ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
 	//	ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);

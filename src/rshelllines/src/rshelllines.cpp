@@ -83,7 +83,6 @@
 #include "un_buff.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
 using namespace CIF;
 
 #define CRIME_CUT   50

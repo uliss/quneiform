@@ -1,15 +1,15 @@
 /*
- * globalheader.cpp
+ * ctcglobalheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#include "globalheader.h"
+#include "ctcglobalheader.h"
 
 namespace CIF {
 
-namespace CFIO {
+namespace CTC {
 
 GlobalHeader::GlobalHeader(Handle NewHandle, void * NewData, uint NewSize,
 		uint NewFlag, GlobalHeader * NewNext) {

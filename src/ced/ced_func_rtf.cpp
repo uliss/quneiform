@@ -66,8 +66,6 @@
 #include "compat_defs.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
-
 #define MAX_LEN 500
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor	RGB(255,255,255)
@@ -508,18 +506,14 @@ Bool FlushRtfLine(struct StrRtfOut far *rtf) {
         return TRUE; // nothing to flush
 
     // add cr/lf to the line
-    //	rtf->text[rtf->TextLen] = 0xd;
-    //	rtf->TextLen++;
-    //	rtf->text[rtf->TextLen] = 0xa;
-    //	rtf->TextLen++;
-    std::string output(rtf->text, rtf->TextLen);
-    output += "\n";
+    rtf->text[rtf->TextLen] = 0xd;
+    rtf->TextLen++;
+    rtf->text[rtf->TextLen] = 0xa;
+    rtf->TextLen++;
 
     if (rtf->hFile) { // write to file
-        return fprintf((FILE*) rtf->hFile, output.c_str());
-        //		if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, rtf->text,
-        //				rtf->TextLen)) {
-        //			return 0;
+        if (!fwrite(rtf->text, rtf->TextLen, sizeof(char), static_cast<FILE*> (rtf->hFile)))
+            return 0;
     }
 
     rtf->TextLen = 0; // reset buffer

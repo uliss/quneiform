@@ -73,8 +73,6 @@
 #include "cline.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
-
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;

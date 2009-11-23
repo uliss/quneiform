@@ -62,8 +62,6 @@
 Bool32 func_char(puchar p, uint32_t lth);
 Bool32 func_spec(puchar p, uint32_t lth);
 
-using namespace CIF::CFIO;
-
 static unsigned char ed_table[] = { sizeof(struct bit_map_ref), /* 0  SS_BITMAP_REF         */
 sizeof(struct text_ref), /* 1  SS_TEXT_REF           */
 sizeof(struct font_kegl), /* 2  SS_FONT_KEGL          */

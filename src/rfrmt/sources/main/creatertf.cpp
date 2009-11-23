@@ -82,7 +82,6 @@
 
 #include "minmax.h"
 
-using namespace CIF::CFIO;
 using namespace CIF;
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);

@@ -1,26 +1,26 @@
 /*
- * memoryheader.cpp
+ * ctcmemoryheader.cpp
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#include "memoryheader.h"
-#include "ctc_def.h"
+#include "ctcmemoryheader.h"
+#include "ctcclasses.h"
 
 namespace CIF {
-namespace CFIO {
+namespace CTC {
 
 MemoryHeader::MemoryHeader() :
 	GlobalHeader() {
 }
 
-MemoryHeader::MemoryHeader(Handle hMemory, size_t wBlockSize) :
+MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize) :
 	GlobalHeader(hMemory, NULL, wBlockSize) {
 	SetHeaderSize(sizeof(class MemoryHeader));
 }
 
-MemoryHeader::MemoryHeader(Handle hMemory, size_t wBlockSize,
+MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize,
 		const std::string& OwnerName, const std::string& Commentary) :
 	GlobalHeader(hMemory, NULL, wBlockSize), comment_(Commentary), owner_(
 			OwnerName) {

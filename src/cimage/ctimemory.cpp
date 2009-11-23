@@ -66,8 +66,6 @@
 //#define _NO_CFIO
 #endif
 
-using namespace CIF::CFIO;
-
 static std::string CommentBuffer;
 
 void CIMAGEComment(const char * Comment) {

@@ -71,8 +71,6 @@
 #include "rline.h"
 #include "cfio/cfio.h"
 
-using namespace CIF::CFIO;
-
 #include "compat_defs.h"
 
 # define INCLINE_FACTOR  2048

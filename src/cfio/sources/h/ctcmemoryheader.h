@@ -1,18 +1,18 @@
 /*
- * memoryheader.h
+ * ctcmemoryheader.h
  *
  *  Created on: 20.09.2009
  *      Author: uliss
  */
 
-#ifndef CIF_CTC_MEMORYHEADER_H_
-#define CIF_CTC_MEMORYHEADER_H_
+#ifndef CTCMEMORYHEADER_H_
+#define CTCMEMORYHEADER_H_
 
 #include <string>
-#include "globalheader.h"
+#include "ctcglobalheader.h"
 
 namespace CIF {
-namespace CFIO {
+namespace CTC {
 
 #define                 CFIO_MEMORY_GLOBAL           0x0001
 #define                 CFIO_MEMORY_LOCK             0x0002
@@ -22,8 +22,8 @@ namespace CFIO {
 class MemoryHeader: public GlobalHeader {
 public:
 	MemoryHeader();
-	MemoryHeader(Handle hMemory, size_t BlockSize);
-	MemoryHeader(Handle hMemory, size_t BlockSize, const std::string& OwnerName, const std::string& Comment);
+	MemoryHeader(Handle hMemory, uint32_t wBlockSize);
+	MemoryHeader(Handle hMemory, uint32_t wBlockSize, const std::string& OwnerName, const std::string& Comment);
 	~MemoryHeader();
 
 	std::string GetOwner() const {
@@ -47,4 +47,4 @@ typedef MemoryHeader ** PPMemoryHeader;
 }
 }
 
-#endif /* CIF_CTC_MEMORYHEADER_H_ */
+#endif /* CTCMEMORYHEADER_H_ */
