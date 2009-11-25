@@ -126,9 +126,10 @@ Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048, Po
                 rb.ry() = pict.Corner[i].y();
         }
         *lpLr = lt;
-        *lpWh = rb - lt;
+        lpWh->rx() = rb.x() - lt.x();
+        lpWh->ry() = rb.y() - lt.y();
         rc = TRUE;
-    }EPILOG;
+    } EPILOG;
     return rc;
 }
 

@@ -137,7 +137,7 @@ public:
 	Bool32 FreeBuffers(void);
 	Bool32 FreeAlloced(Handle hDIB);
 	Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
-			pchar *pDIB);
+			void **pDIB);
 	Bool32 RemoveImage(const char* lpName);
 	Bool32 GetImageInfo(const char* lpImage, BitmapInfoHeader * lpBIH);
 	Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);

@@ -195,6 +195,7 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
 
 	// открываем исходный
 	if (!OpenSourceDIB(cDIBIn)) {
+	    fprintf(stderr, "OpenSourceDIB failed\n");
 		return FALSE;
 	}
 
@@ -443,6 +444,7 @@ Bool32 CRIControl::OpenSourceDIB(char* cDIBName) {
 	pvoid pDIB;
 
 	if (!ReadDIB(cDIBName, &hDIBIn)) {
+	    fprintf(stderr, "CRIControl::OpenSourceDIB no image found\n");
 		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}

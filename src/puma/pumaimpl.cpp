@@ -349,7 +349,7 @@ void PumaImpl::layout() {
         cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
 
-    if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
+//    if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
         LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
         Handle block = CPAGE_GetBlockFirst(cpage_, 0);
         while (block) {
@@ -358,7 +358,7 @@ void PumaImpl::layout() {
                     CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
             block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
-    }
+//    }
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }

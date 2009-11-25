@@ -18,6 +18,7 @@ if(LIBTYPE STREQUAL SHARED)
     message(STATUS "Adding __snp.cpp to individual libraries.")
 endif()
 
+add_subdirectory(common)
 add_subdirectory(ccom)
 add_subdirectory(cstr)
 add_subdirectory(rstr)

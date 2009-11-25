@@ -83,7 +83,7 @@ Bool32 CIMAGE_GetData(const char *Name, CIMAGE_InfoDataInGet * lpIn,
 }
 
 Bool32 CIMAGE_GetDIBData(const char * Name, CIMAGE_InfoDataInGet * lpIn,
-		pchar *lpDIB) {
+		void ** lpDIB) {
 	return CImage::instance().GetDIBFromImage(Name, lpIn, lpDIB);
 }
 

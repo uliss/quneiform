@@ -59,9 +59,13 @@
 //////////////////////////////////////////////////////////////////////
 
 #include <cassert>
+#include <cstdio>
 #include <memory.h>
 #include <stdlib.h>
 #include "ctdib.h"
+#include "common/debug.h"
+
+using namespace CIF;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -136,6 +140,10 @@ Bool32 CTDIB::AttachDIB() {
             wVersion = FifhtVersion;
             break;
         default: {
+            // uliss
+            // pSimpleHead->biSize = CTDIB_VERSION_3_HEADER_SIZE;
+            // break;
+            Debug() << "CTDIB::AttachDIB: Unknown DIB header size: " << pSimpleHead->biSize << "\n";
             return !DetachDIB();
         }
 
@@ -335,7 +343,8 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, u
     assert(hDIB);
     pDIB = hDIB;
 
-//    if (!(pDIB = pExternalLock(hDIB))) {
+    //    TODO uliss: check!!!
+    //    if (!(pDIB = pExternalLock(hDIB))) {
     //        free(hDIB);
     //        return FALSE;
     //    }
