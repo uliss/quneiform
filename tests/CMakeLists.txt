@@ -19,16 +19,9 @@ common/testpoint.cpp
 common/testrect.cpp
 )
 
-add_executable(test_rfrmt
-rfrmt/test_rfrmt.cpp
-rfrmt/testcrtfchar.cpp
-)
-
 target_link_libraries(test_alphabets alphabets cppunit)
 target_link_libraries(test_common cppunit)
-target_link_libraries(test_rfrmt cppunit rfrmt puma alphabets)
 
 ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
 ADD_TEST(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
-ADD_TEST(RFRMT ${EXECUTABLE_OUTPUT_PATH}/test_rfrmt)
 

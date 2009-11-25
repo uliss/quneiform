@@ -16,13 +16,55 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/ui/text/TestRunner.h>
+#include "dutch.h"
+#include "alphabetfactory.h"
+#include "ligas.h"
 
-int main() {
-    CppUnit::TextUi::TestRunner runner;
-    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
-    runner.addTest(registry.makeTest());
-    bool wasSuccessful = runner.run("", false);
-    return wasSuccessful ? 0 : -1;
+namespace {
+using namespace CIF;
+Alphabet * create() {
+    return new DutchAlphabet;
+}
+
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_DUTCH, create);
+}
+
+namespace CIF {
+
+DutchAlphabet::DutchAlphabet() {
+    addSymbol(AA_left_accent);
+    addSymbol(AA_2dot_accent);
+    addSymbol(AA_roof_accent);
+    addSymbol(CC_bottom_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(EE_2dot_accent);
+    addSymbol(EE_roof_accent);
+    addSymbol(OO_2dot_accent);
+    addSymbol(NN_tild_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(II_2dot_accent);
+    addSymbol(UU_roof_accent);
+    addSymbol(UU_2dot_accent);
+
+    addSymbol(a_left_accent);
+    addSymbol(a_2dot_accent);
+    addSymbol(a_roof_accent);
+    addSymbol(c_bottom_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(e_2dot_accent);
+    addSymbol(e_roof_accent);
+    addSymbol(o_2dot_accent);
+    addSymbol(n_tild_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(i_2dot_accent);
+    addSymbol(u_roof_accent);
+    addSymbol(u_2dot_accent);
+}
+
+language_t DutchAlphabet::language() const {
+    return LANG_DUTCH;
+}
+
 }

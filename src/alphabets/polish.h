@@ -15,23 +15,21 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testcrtfchar.h"
-#include "rfrmt/crtfchar.h"
-#include "rfrmt/creatertf.h"
-#include "common/tostring.h"
-CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfChar);
 
-using namespace CIF;
+#ifndef POLISH_H_
+#define POLISH_H_
 
-void TestCRtfChar::testInit() {
-    CRtfChar ch;
-    LETTER lt;
-    CIF::Rect layout(Point(), 100, 20);
-    Rtf_CED_CreateChar(&layout, &lt, NULL);
-    CPPUNIT_ASSERT_EQUAL(layout, Rect(Point(-1, -1), Point(-1, -1)));
-    CPPUNIT_ASSERT_EQUAL(lt.alternative, (uchar)' ');
-    CPPUNIT_ASSERT_EQUAL(lt.probability, (uchar)0);
+#include "easteurope.h"
 
-    Rtf_CED_CreateChar(&layout, &lt, &ch);
-    CPPUNIT_ASSERT_EQUAL(layout, Rect());
+namespace CIF {
+
+class PolishAlphabet: public EastEuropeAlphabet
+{
+public:
+    PolishAlphabet();
+    language_t language() const;
+};
+
 }
+
+#endif /* POLISH_H_ */

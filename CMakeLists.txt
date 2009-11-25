@@ -59,5 +59,5 @@ endif()
 add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
-#add_subdirectory(tests)
+add_subdirectory(tests)
 

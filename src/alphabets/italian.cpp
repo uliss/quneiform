@@ -16,18 +16,47 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTCRTFHAR_H_
-#define TESTCRTFHAR_H_
+#include "italian.h"
+#include "alphabetfactory.h"
+#include "ligas.h"
 
-#include <cppunit/extensions/HelperMacros.h>
+namespace {
+using namespace CIF;
+Alphabet * create() {
+    return new ItalianAlphabet;
+}
 
-class TestCRtfChar: public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(TestCRtfChar);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-};
+const bool registered = AlphabetFactory::instance().registerCreator(LANG_ITALIAN, create);
+}
 
-#endif /* TESTCRTFHAR_H_ */
+namespace CIF {
+
+ItalianAlphabet::ItalianAlphabet() {
+    addSymbol(AA_left_accent);
+    addSymbol(EE_left_accent);
+    addSymbol(EE_right_accent);
+    addSymbol(II_left_accent);
+    addSymbol(II_right_accent);
+    addSymbol(II_roof_accent);
+    addSymbol(OO_left_accent);
+    addSymbol(OO_right_accent);
+    addSymbol(UU_left_accent);
+    addSymbol(UU_right_accent);
+
+    addSymbol(a_left_accent);
+    addSymbol(e_left_accent);
+    addSymbol(e_right_accent);
+    addSymbol(i_left_accent);
+    addSymbol(i_right_accent);
+    addSymbol(i_roof_accent);
+    addSymbol(o_left_accent);
+    addSymbol(o_right_accent);
+    addSymbol(u_left_accent);
+    addSymbol(u_right_accent);
+}
+
+language_t ItalianAlphabet::language() const {
+    return LANG_ITALIAN;
+}
+
+}

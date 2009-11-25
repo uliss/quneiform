@@ -1,16 +1,27 @@
-/*
- * rect.h
- *
- *  Created on: 09.10.2009
- *      Author: uliss
- */
+/***************************************************************************
+ *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   serge.poltavski@gmail.com                                             *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 3 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
+ ***************************************************************************/
 
 #ifndef RECT_H_
 #define RECT_H_
 
+#include <cmath>
 #include <algorithm>
 #include <stdexcept>
-#include <cmath>
 
 #include "point.h"
 #include "size.h"
@@ -37,8 +48,8 @@ template<class T, class NormalizeChecker = RectCheckNone>
 class RectImpl
 {
 public:
-    RectImpl(const PointImpl<T>& pt, T height, T width) :
-        pt0_(pt), pt1_(pt + PointImpl<T> (height, width)) {
+    RectImpl(const PointImpl<T>& pt, T width, T height) :
+        pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
         NormalizeChecker::check(*this);
     }
 
@@ -73,14 +84,14 @@ public:
     }
 
     T centerX() const {
-        return pt0_.x() + width() / 2;
+        return (left() + right()) / 2;
     }
 
     T centerY() const {
-        return pt0_.y() + height() / 2;
+        return (top() + bottom()) / 2;
     }
 
-    bool contains(T x, T y, bool proper) {
+    bool contains(T x, T y, bool proper) const {
         return proper ? (left() < x && top() < y && x < right() && y < bottom()) : (left() <= x
                 && top() <= y && x <= right() && y <= bottom());
     }
@@ -100,6 +111,17 @@ public:
 
     double diagonal() const {
         return ::sqrt(height() * height() + width() * width());
+    }
+
+    bool intersects(const RectImpl& r) const {
+        if (left() > r.right() || right() < r.left() || top() > r.bottom() || bottom() < r.top())
+            return false;
+        return true;
+    }
+
+    RectImpl intersected(const RectImpl& r) {
+        return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
+                PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
     }
 
     bool isPositive() const {
@@ -131,6 +153,20 @@ public:
         return pt0_.x();
     }
 
+    PointImpl<T> leftBottom() const {
+        return PointImpl<T> (left(), bottom());
+    }
+
+    PointImpl<T> leftTop() const {
+        return pt0_;
+    }
+
+    template<class U>
+    void moveBy(const PointImpl<U>& pt) {
+        pt0_ += pt;
+        pt1_ += pt;
+    }
+
     template<class U>
     void operator=(const RectImpl<U>& rect) {
         pt0_ = rect.pt0();
@@ -143,6 +179,17 @@ public:
 
     bool operator!=(const RectImpl& r) const {
         return !this->operator==(r);
+    }
+
+    void operator|=(const RectImpl& rect) {
+        pt0_.rx() = std::min(left(), rect.left());
+        pt0_.ry() = std::min(top(), rect.top());
+        pt1_.rx() = std::max(right(), rect.right());
+        pt1_.ry() = std::max(bottom(), rect.bottom());
+    }
+
+    T perimeter() const {
+        return (width() + height()) * 2;
     }
 
     PointImpl<T>& pt0() {
@@ -165,9 +212,39 @@ public:
         return pt1_.x();
     }
 
+    PointImpl<T> rightBottom() const {
+        return pt1_;
+    }
+
+    PointImpl<T> rightTop() const {
+        return PointImpl<T> (right(), top());
+    }
+
+    T& rbottom() {
+        return pt1_.ry();
+    }
+
+    T& rleft() {
+        return pt0_.rx();
+    }
+
+    T& rright() {
+        return pt1_.rx();
+    }
+
+    T& rtop() {
+        return pt0_.ry();
+    }
+
     void set(const PointImpl<T>& pos, T width, T height) {
         pt0_ = pos;
         pt1_.set(pos.x() + width, pos.y() + height);
+        NormalizeChecker::check(*this);
+    }
+
+    void set(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+        pt0_ = p0;
+        pt1_ = p1;
         NormalizeChecker::check(*this);
     }
 
@@ -260,6 +337,11 @@ public:
         return pt0_.y();
     }
 
+    RectImpl united(const RectImpl& r) {
+        return RectImpl(PointImpl<T> (std::min(top(), r.top()), std::min(left(), r.left())),
+                PointImpl<T> (std::max(bottom(), r.bottom()), std::max(right(), r.right())));
+    }
+
     T width() const {
         return pt1_.x() - pt0_.x();
     }
@@ -276,6 +358,7 @@ private:
 };
 
 typedef RectImpl<int, RectCheckNone> Rect;
+typedef RectImpl<short, RectCheckNone> Rect16;
 
 }
 
