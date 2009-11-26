@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new ItalianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_ITALIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-ItalianAlphabet::ItalianAlphabet() {
+ItalianAlphabet::ItalianAlphabet()
+{
     addSymbol(AA_left_accent);
     addSymbol(EE_left_accent);
     addSymbol(EE_right_accent);
@@ -42,7 +46,6 @@ ItalianAlphabet::ItalianAlphabet() {
     addSymbol(OO_right_accent);
     addSymbol(UU_left_accent);
     addSymbol(UU_right_accent);
-
     addSymbol(a_left_accent);
     addSymbol(e_left_accent);
     addSymbol(e_right_accent);
@@ -55,7 +58,8 @@ ItalianAlphabet::ItalianAlphabet() {
     addSymbol(u_right_accent);
 }
 
-language_t ItalianAlphabet::language() const {
+language_t ItalianAlphabet::language() const
+{
     return LANG_ITALIAN;
 }
 

@@ -74,321 +74,376 @@
 extern CTCControl * Control_ctc;
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile::CTCGlobalFile() {
-//	_ASSERT(FALSE);
-	SetHandle(NULL);
+CTCGlobalFile::CTCGlobalFile()
+{
+//  _ASSERT(FALSE);
+    SetHandle(NULL);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile::CTCGlobalFile(const char * Name, uint32_t Flag) {
-	ProvideFileFolder(Name);
-	TranslateFlagToString(Flag);
-	if (Flag & CFIO_GF_IN_MEMORY) {
-		Deleted = TRUE;
-		InMemory = TRUE;
-		MoveToFile = TRUE;
-		wSeeker = 0;
-		wClusterCounter = 0;
-		mcFirst.mcPtr = mcFirst.mcHandle = mcFirst.mcNext = NULL;
-		mcFirst.mcSize = 0;
-		SetHandle(CreateNewCluster());
-	} else {
-		SetHandle(CFIO_OPEN(Name, GetFlagString()));
-		Deleted = FALSE;
-		InMemory = FALSE;
-		MoveToFile = FALSE;
-	}
+CTCGlobalFile::CTCGlobalFile(const char * Name, uint32_t Flag)
+{
+    ProvideFileFolder(Name);
+    TranslateFlagToString(Flag);
 
-	if (GetHandle()) {
-		SetFileName(Name);
-		wSeeker = 0;
-	}
+    if (Flag & CFIO_GF_IN_MEMORY) {
+        Deleted = TRUE;
+        InMemory = TRUE;
+        MoveToFile = TRUE;
+        wSeeker = 0;
+        wClusterCounter = 0;
+        mcFirst.mcPtr = mcFirst.mcHandle = mcFirst.mcNext = NULL;
+        mcFirst.mcSize = 0;
+        SetHandle(CreateNewCluster());
+    }
+
+    else {
+        SetHandle(CFIO_OPEN(Name, GetFlagString()));
+        Deleted = FALSE;
+        InMemory = FALSE;
+        MoveToFile = FALSE;
+    }
+
+    if (GetHandle()) {
+        SetFileName(Name);
+        wSeeker = 0;
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile::~CTCGlobalFile() {
-	if (GetHandle())
-		Close();
+CTCGlobalFile::~CTCGlobalFile()
+{
+    if (GetHandle())
+        Close();
 
-	if (IsDeleted())
-		CFIO_REMOVE(cFileName);
+    if (IsDeleted())
+        CFIO_REMOVE(cFileName);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-bool CTCGlobalFile::IsInString(const char * Flag) {
-	for (char * i = GetFlagString(); *i != 0x00; i++) {
-		if (*i == *Flag) {
-			if (*(Flag + 1) == 0x00)
-				return true;
-			else if (*(Flag + 1) == *(i + 1))
-				return true;
-		}
-	}
+bool CTCGlobalFile::IsInString(const char * Flag)
+{
+    for (char * i = GetFlagString(); *i != 0x00; i++) {
+        if (*i == *Flag) {
+            if (*(Flag + 1) == 0x00)
+                return true;
 
-	return false;
+            else if (*(Flag + 1) == *(i + 1))
+                return true;
+        }
+    }
+
+    return false;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCGlobalFile::Write(void * pData, uint32_t wDataSize,
-		uint32_t wDataCounter) {
-	if (IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD)
-			|| IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND)
-			|| IsInString(CFIO_GF_CAPPENDEOF)) {
-		if (!InMemory) {
-			uint32_t Writed = CFIO_WRITE(pData, wDataSize, wDataCounter,
-					GetHandle());
-			Flush();
-			return Writed;
-		} else {
-			return WriteToMemory(pData, wDataSize, wDataCounter);
-		}
-	}
-	return 0;
+                              uint32_t wDataCounter)
+{
+    if (IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD)
+            || IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND)
+            || IsInString(CFIO_GF_CAPPENDEOF)) {
+        if (!InMemory) {
+            uint32_t Writed = CFIO_WRITE(pData, wDataSize, wDataCounter,
+                                         GetHandle());
+            Flush();
+            return Writed;
+        }
+
+        else {
+            return WriteToMemory(pData, wDataSize, wDataCounter);
+        }
+    }
+
+    return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCGlobalFile::Read(void * pData, uint32_t wDataSize,
-		uint32_t wDataCounter) {
-	if (IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD)
-			|| IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND)
-			|| IsInString(CFIO_GF_CAPPENDEOF)) {
-		if (!InMemory) {
-			return CFIO_READ(pData, wDataSize, wDataCounter, GetHandle());
-		} else {
-			return ReadFromMemory(pData, wDataSize, wDataCounter);
-		}
-	}
-	return 0;
+                             uint32_t wDataCounter)
+{
+    if (IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD)
+            || IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND)
+            || IsInString(CFIO_GF_CAPPENDEOF)) {
+        if (!InMemory) {
+            return CFIO_READ(pData, wDataSize, wDataCounter, GetHandle());
+        }
+
+        else {
+            return ReadFromMemory(pData, wDataSize, wDataCounter);
+        }
+    }
+
+    return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-bool CTCGlobalFile::Close() {
-	uint32_t Closet;
+bool CTCGlobalFile::Close()
+{
+    uint32_t Closet;
 
-	if (!InMemory) {
-		Closet = CFIO_CLOSE(GetHandle());
-	} else if (!IsDeleted()) {
-		FILE * DiskFile;
-		char DiskFileName[CFIO_MAX_PATH];
+    if (!InMemory) {
+        Closet = CFIO_CLOSE(GetHandle());
+    }
 
-		// extract memory file name for disk file
-		// if present
-		if (*(GetFileName(DiskFileName)) != 0x00) {
-			if (IsInString(CFIO_GF_CBINARY))
-				DiskFile = CFIO_OPEN(DiskFileName, "wb");
-			else
-				DiskFile = CFIO_OPEN(DiskFileName, "w");
-			//move from memory to disk
-			MoveFromMemory(DiskFile);
+    else if (!IsDeleted()) {
+        FILE * DiskFile;
+        char DiskFileName[CFIO_MAX_PATH];
 
-			CFIO_CLOSE(DiskFile);
-		}
-	} else {
-		MoveFromMemory(NULL);
-	}
+        // extract memory file name for disk file
+        // if present
+        if (*(GetFileName(DiskFileName)) != 0x00) {
+            if (IsInString(CFIO_GF_CBINARY))
+                DiskFile = CFIO_OPEN(DiskFileName, "wb");
 
-	if (Closet == 0) {
-		SetHandle(NULL);
-		return true;
-	}
+            else
+                DiskFile = CFIO_OPEN(DiskFileName, "w");
 
-	return false;
+            //move from memory to disk
+            MoveFromMemory(DiskFile);
+            CFIO_CLOSE(DiskFile);
+        }
+    }
+
+    else {
+        MoveFromMemory(NULL);
+    }
+
+    if (Closet == 0) {
+        SetHandle(NULL);
+        return true;
+    }
+
+    return false;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //move file from memroy to disk and delete memory copy
-bool CTCGlobalFile::MoveFromMemory(Handle dFile) {
-	uint32_t DataLeft = wMemorySize;
-	uint32_t wWriteCount = 0;
-	uint32_t ReadFromCluster;
-	PCFIOMCLUSTER pCurrentCluster = mcFirst.mcNext;
-	void * lpData;
+bool CTCGlobalFile::MoveFromMemory(Handle dFile)
+{
+    uint32_t DataLeft = wMemorySize;
+    uint32_t wWriteCount = 0;
+    uint32_t ReadFromCluster;
+    PCFIOMCLUSTER pCurrentCluster = mcFirst.mcNext;
+    void * lpData;
 
-	if (dFile) {
-		while (DataLeft) {
-			if (DataLeft > CFIO_GF_MEMORY_FILE_CLUSTER) {
-				ReadFromCluster = CFIO_GF_MEMORY_FILE_CLUSTER;
-			} else {
-				ReadFromCluster = DataLeft;
-			}
-			// take pointer to memory
-			lpData = GetPtrToMemoryCluster(NULL, pCurrentCluster);
-			// write memory to disk
-			wWriteCount += CFIO_WRITE(lpData, sizeof(char), ReadFromCluster,
-					dFile);
-			DataLeft -= ReadFromCluster;
-			ClosePtrToMemoryCluster(NULL, pCurrentCluster);
-			pCurrentCluster = pCurrentCluster->mcNext;
-		}
-	}
+    if (dFile) {
+        while (DataLeft) {
+            if (DataLeft > CFIO_GF_MEMORY_FILE_CLUSTER) {
+                ReadFromCluster = CFIO_GF_MEMORY_FILE_CLUSTER;
+            }
 
-	KillLastCluster(&mcFirst);
+            else {
+                ReadFromCluster = DataLeft;
+            }
 
-	return true;
+            // take pointer to memory
+            lpData = GetPtrToMemoryCluster(NULL, pCurrentCluster);
+            // write memory to disk
+            wWriteCount += CFIO_WRITE(lpData, sizeof(char), ReadFromCluster,
+                                      dFile);
+            DataLeft -= ReadFromCluster;
+            ClosePtrToMemoryCluster(NULL, pCurrentCluster);
+            pCurrentCluster = pCurrentCluster->mcNext;
+        }
+    }
+
+    KillLastCluster(&mcFirst);
+    return true;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCGlobalFile::Seek(uint32_t Position, uint32_t Flag) {
-	int Direction;
-	uint32_t NewSeeker;
+uint32_t CTCGlobalFile::Seek(uint32_t Position, uint32_t Flag)
+{
+    int Direction;
+    uint32_t NewSeeker;
 
-	switch (Flag) {
-	case CFIO_GF_SEEK_CURR:
-		Direction = SEEK_CUR;
-		break;
-	case CFIO_GF_SEEK_BEG:
-		Direction = SEEK_SET;
-		break;
-	case CFIO_GF_SEEK_END:
-		Direction = SEEK_END;
-		break;
-	default:
-		Direction = SEEK_CUR;
-		break;
-	}
+    switch (Flag) {
+        case CFIO_GF_SEEK_CURR:
+            Direction = SEEK_CUR;
+            break;
+        case CFIO_GF_SEEK_BEG:
+            Direction = SEEK_SET;
+            break;
+        case CFIO_GF_SEEK_END:
+            Direction = SEEK_END;
+            break;
+        default:
+            Direction = SEEK_CUR;
+            break;
+    }
 
-	if (InMemory) {
-		switch (Direction) {
-		case SEEK_CUR:
-			wSeeker += Position;
+    if (InMemory) {
+        switch (Direction) {
+            case SEEK_CUR:
+                wSeeker += Position;
 
-			if (wSeeker > wMemorySize)
-				wSeeker = wMemorySize;
+                if (wSeeker > wMemorySize)
+                    wSeeker = wMemorySize;
 
-			break;
+                break;
+            case SEEK_END:
 
-		case SEEK_END:
+                if (Position < wMemorySize)
+                    wSeeker = wMemorySize - Position;
 
-			if (Position < wMemorySize)
-				wSeeker = wMemorySize - Position;
-			else
-				wSeeker = 0;
+                else
+                    wSeeker = 0;
 
-			break;
+                break;
+            case SEEK_SET:
 
-		case SEEK_SET:
+                if (Position < wMemorySize)
+                    wSeeker = Position;
 
-			if (Position < wMemorySize)
-				wSeeker = Position;
-			else
-				wSeeker = wMemorySize;
-			break;
-		}
-	} else {
-		if (CFIO_SEEK(GetHandle(), Position, Direction) == 0) {
-			NewSeeker = Tell();
-			wSeeker = NewSeeker;
-		}
-	}
-	return wSeeker;
+                else
+                    wSeeker = wMemorySize;
+
+                break;
+        }
+    }
+
+    else {
+        if (CFIO_SEEK(GetHandle(), Position, Direction) == 0) {
+            NewSeeker = Tell();
+            wSeeker = NewSeeker;
+        }
+    }
+
+    return wSeeker;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCGlobalFile::Tell() {
-	if (InMemory) {
-		return wSeeker;
-	} else {
-		return CFIO_TELL(GetHandle());
-	}
+uint32_t CTCGlobalFile::Tell()
+{
+    if (InMemory) {
+        return wSeeker;
+    }
+
+    else {
+        return CFIO_TELL(GetHandle());
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCGlobalFile::Flush() {
-	if (InMemory) {
-		return 0;
-	} else {
-		return CFIO_FLUSH(GetHandle());
-	}
+uint32_t CTCGlobalFile::Flush()
+{
+    if (InMemory) {
+        return 0;
+    }
+
+    else {
+        return CFIO_FLUSH(GetHandle());
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCGlobalFile::GetFileSize() {
-	uint32_t CurrentPosition = Tell();
-	uint32_t Size;
+uint32_t CTCGlobalFile::GetFileSize()
+{
+    uint32_t CurrentPosition = Tell();
+    uint32_t Size;
 
-	if (Seek(0, CFIO_GF_SEEK_END)) {
-		Size = Tell();
-		Seek(CurrentPosition, CFIO_GF_SEEK_BEG);
-	}
-	return Size;
+    if (Seek(0, CFIO_GF_SEEK_END)) {
+        Size = Tell();
+        Seek(CurrentPosition, CFIO_GF_SEEK_BEG);
+    }
+
+    return Size;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void CTCGlobalFile::TranslateFlagToString(uint32_t Flag) {
-	ClearFlagString();
+void CTCGlobalFile::TranslateFlagToString(uint32_t Flag)
+{
+    ClearFlagString();
 
-	if (Flag & CFIO_GF_CREATE) {
-		if (Flag & CFIO_GF_READ)
-			AddFlagToString(CFIO_GF_CWRITEREAD);
-		else
-			AddFlagToString(CFIO_GF_CWRITE);
-	} else {
-		if (Flag & CFIO_GF_READ) {
-			if (Flag & CFIO_GF_WRITE)
-				AddFlagToString(CFIO_GF_CREADWRITE);
-			else {
-				if (Flag & CFIO_GF_APPEND)
-					AddFlagToString(CFIO_GF_CAPPENDEOF);
-				else
-					AddFlagToString(CFIO_GF_CREAD);
-			}
-		} else {
-			if (Flag & CFIO_GF_WRITE)
-				AddFlagToString(CFIO_GF_CWRITE);
-			else {
-				if (Flag & CFIO_GF_APPEND)
-					AddFlagToString(CFIO_GF_CAPPEND);
-				else
-					AddFlagToString(CFIO_GF_CWRITEREAD);
-			}
-		}
-	}
+    if (Flag & CFIO_GF_CREATE) {
+        if (Flag & CFIO_GF_READ)
+            AddFlagToString(CFIO_GF_CWRITEREAD);
 
-	if (Flag & CFIO_GF_BINARY)
-		AddFlagToString(CFIO_GF_CBINARY);
-	else
-		AddFlagToString(CFIO_GF_CTEXT);
+        else
+            AddFlagToString(CFIO_GF_CWRITE);
+    }
 
-	if (Flag & CFIO_GF_COMMIT)
-		AddFlagToString(CFIO_GF_CCOMMIT);
+    else {
+        if (Flag & CFIO_GF_READ) {
+            if (Flag & CFIO_GF_WRITE)
+                AddFlagToString(CFIO_GF_CREADWRITE);
+
+            else {
+                if (Flag & CFIO_GF_APPEND)
+                    AddFlagToString(CFIO_GF_CAPPENDEOF);
+
+                else
+                    AddFlagToString(CFIO_GF_CREAD);
+            }
+        }
+
+        else {
+            if (Flag & CFIO_GF_WRITE)
+                AddFlagToString(CFIO_GF_CWRITE);
+
+            else {
+                if (Flag & CFIO_GF_APPEND)
+                    AddFlagToString(CFIO_GF_CAPPEND);
+
+                else
+                    AddFlagToString(CFIO_GF_CWRITEREAD);
+            }
+        }
+    }
+
+    if (Flag & CFIO_GF_BINARY)
+        AddFlagToString(CFIO_GF_CBINARY);
+
+    else
+        AddFlagToString(CFIO_GF_CTEXT);
+
+    if (Flag & CFIO_GF_COMMIT)
+        AddFlagToString(CFIO_GF_CCOMMIT);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void CTCGlobalFile::ClearFlagString(void) {
-	CFIO_STRCPY(cFlag, "");
+void CTCGlobalFile::ClearFlagString(void)
+{
+    CFIO_STRCPY(cFlag, "");
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void CTCGlobalFile::AddFlagToString(const char * Flag) {
-	CFIO_STRCAT(cFlag, Flag);
+void CTCGlobalFile::AddFlagToString(const char * Flag)
+{
+    CFIO_STRCAT(cFlag, Flag);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-char * CTCGlobalFile::GetFileName(char * lpName) {
-	if (lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH)
-		CFIO_STRCPY(lpName, cFileName);
+char * CTCGlobalFile::GetFileName(char * lpName)
+{
+    if (lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH)
+        CFIO_STRCPY(lpName, cFileName);
 
-	return cFileName;
+    return cFileName;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-char * CTCGlobalFile::SetFileName(const char * lpName) {
-	if (lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH)
-		CFIO_STRCPY(cFileName, lpName);
+char * CTCGlobalFile::SetFileName(const char * lpName)
+{
+    if (lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH)
+        CFIO_STRCPY(cFileName, lpName);
 
-	return cFileName;
+    return cFileName;
 }
 
-uint32_t CTCGlobalFile::GetFileLenght() {
-	if (InMemory) {
-		return wMemorySize;
-	} else {
-		uint32_t wFileLenght;
-		uint32_t wCurrentPos = Tell();
+uint32_t CTCGlobalFile::GetFileLenght()
+{
+    if (InMemory) {
+        return wMemorySize;
+    }
 
-		wFileLenght = Seek(0, CFIO_GF_SEEK_END);
-		Seek(wCurrentPos, CFIO_GF_SEEK_BEG);
-		return wFileLenght;
-	}
+    else {
+        uint32_t wFileLenght;
+        uint32_t wCurrentPos = Tell();
+        wFileLenght = Seek(0, CFIO_GF_SEEK_END);
+        Seek(wCurrentPos, CFIO_GF_SEEK_BEG);
+        return wFileLenght;
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -398,355 +453,384 @@ static char Extension[CFIO_MAX_PATH];
 static char Out[CFIO_MAX_PATH];
 //////////////////////////////////////////////////////////////////////////////////
 //
-bool CTCGlobalFile::ProvideFileFolder(const char * lpFileName) {
-	/*
-	 * Given a filename such as "/foo/bar/baz/file.txt" creates the
-	 * directory "/foo/bar/baz".
-	 */
-	if (strlen(lpFileName) == 0)
-		return false;
+bool CTCGlobalFile::ProvideFileFolder(const char * lpFileName)
+{
+    /*
+     * Given a filename such as "/foo/bar/baz/file.txt" creates the
+     * directory "/foo/bar/baz".
+     */
+    if (strlen(lpFileName) == 0)
+        return false;
 
-	//MAKEFULLPATH(FullPath, lpFileName, _MAX_PATH);
-	CFIO_GETFOLDERSITEMS(lpFileName, Folder, File, Extension);
-	CFIO_MAKEPATH(Out, Folder, NULL, NULL);
+    //MAKEFULLPATH(FullPath, lpFileName, _MAX_PATH);
+    CFIO_GETFOLDERSITEMS(lpFileName, Folder, File, Extension);
+    CFIO_MAKEPATH(Out, Folder, NULL, NULL);
 
-	if (Out[0] == 0x0)
-		return true;
+    if (Out[0] == 0x0)
+        return true;
 
-	CFIO_MAKEFOLDER(Out);
-	//CreateDirectory(Out, NULL);
-
-	CFIO_MAKEPATH(Out, Folder, File, Extension);
-
-	return true;
+    CFIO_MAKEFOLDER(Out);
+    //CreateDirectory(Out, NULL);
+    CFIO_MAKEPATH(Out, Folder, File, Extension);
+    return true;
 }
 //////////////////////////////////////////////////////////////////////////////////
 /////////////////////////memory file//////////////////////////////////////////////
 //
-Handle CTCGlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster) {
-	PCFIOMCLUSTER pCurrentCluster, pNewCluster;
-	// if not first
-	if (mcFirst.mcNext) {
-		GetLastCluster(&pCurrentCluster);
-	} else {
-		pCurrentCluster = &mcFirst;
-	}
+Handle CTCGlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster)
+{
+    PCFIOMCLUSTER pCurrentCluster, pNewCluster;
 
-	pNewCluster = new CFIOMCLUSTER;
+    // if not first
+    if (mcFirst.mcNext) {
+        GetLastCluster(&pCurrentCluster);
+    }
 
-	pNewCluster->mcNext = NULL;
-	pNewCluster->mcLocked = FALSE;
-	pNewCluster->mcPtr = NULL;
-	// new Cluster Size for alloc()
-	pNewCluster->mcSize = CFIO_GF_MEMORY_FILE_CLUSTER;
-	// new Cluster memory flag for alloc()
-	pNewCluster->mcMemoryFlag = MAF_GALL_GHND;
-	// alloc new memory for new cluster
-	pNewCluster->mcHandle = Control_ctc->Alloc(pNewCluster->mcSize,
-			pNewCluster->mcMemoryFlag, "CFIO virtual file cluster",
-			"no comment");
-	// new cluster is clear
-	pNewCluster->mcFill = 0;
-	pNewCluster->mcNumber = wClusterCounter;
+    else {
+        pCurrentCluster = &mcFirst;
+    }
 
-	if (pmcCluster) {
-		*pmcCluster = pNewCluster;
-	}
+    pNewCluster = new CFIOMCLUSTER;
+    pNewCluster->mcNext = NULL;
+    pNewCluster->mcLocked = FALSE;
+    pNewCluster->mcPtr = NULL;
+    // new Cluster Size for alloc()
+    pNewCluster->mcSize = CFIO_GF_MEMORY_FILE_CLUSTER;
+    // new Cluster memory flag for alloc()
+    pNewCluster->mcMemoryFlag = MAF_GALL_GHND;
+    // alloc new memory for new cluster
+    pNewCluster->mcHandle = Control_ctc->Alloc(pNewCluster->mcSize,
+                                               pNewCluster->mcMemoryFlag, "CFIO virtual file cluster",
+                                               "no comment");
+    // new cluster is clear
+    pNewCluster->mcFill = 0;
+    pNewCluster->mcNumber = wClusterCounter;
 
-	if (pNewCluster->mcHandle) {
-		pCurrentCluster->mcNext = pNewCluster;
-	}
-	// increase cluster counter
-	wClusterCounter++;
-	return pNewCluster->mcHandle;
+    if (pmcCluster) {
+        *pmcCluster = pNewCluster;
+    }
+
+    if (pNewCluster->mcHandle) {
+        pCurrentCluster->mcNext = pNewCluster;
+    }
+
+    // increase cluster counter
+    wClusterCounter++;
+    return pNewCluster->mcHandle;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-bool CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster) {
-	PCFIOMCLUSTER pCluster, pLastCluster, pNextToDelete;
+bool CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
+{
+    PCFIOMCLUSTER pCluster, pLastCluster, pNextToDelete;
 
-	// if 1 or more cluster present
-	if (mcFirst.mcNext) {
-		// set last cluster in chain
-		pLastCluster = &mcFirst;
-		// define end of cluster chain -
-		if (pEndCluster) {
-			// reset last cluster
-			pLastCluster = pEndCluster;
-			// set first cluster for delete
-			pCluster = pEndCluster->mcNext;
-		}
-		// or delete las 1 cluster
-		else {
-			for (pCluster = mcFirst.mcNext; pCluster->mcNext != NULL; pCluster
-					= pCluster->mcNext) {
-				pLastCluster = pCluster;
-			}
-		}
-		// breah\k chain
-		pLastCluster->mcNext = NULL;
+    // if 1 or more cluster present
+    if (mcFirst.mcNext) {
+        // set last cluster in chain
+        pLastCluster = &mcFirst;
 
-		// delete clusters from end cluster
-		while (pCluster) {
-			pNextToDelete = pCluster->mcNext;
-			// unlock memory (for any case)
-			if (pCluster->mcLocked)
-				Control_ctc->Unlock(pCluster->mcHandle);
+        // define end of cluster chain -
+        if (pEndCluster) {
+            // reset last cluster
+            pLastCluster = pEndCluster;
+            // set first cluster for delete
+            pCluster = pEndCluster->mcNext;
+        }
 
-			// free memory cluster and ...
-			Control_ctc->Free(pCluster->mcHandle);
-			// delete memory cluster info
-			delete pCluster;
-			// decrease cluster counter;
-			wClusterCounter--;
-			pCluster = pNextToDelete;
-		}
-		return true;
-	}
+        // or delete las 1 cluster
+        else {
+            for (pCluster = mcFirst.mcNext; pCluster->mcNext != NULL; pCluster
+                    = pCluster->mcNext) {
+                pLastCluster = pCluster;
+            }
+        }
 
-	return true;
+        // breah\k chain
+        pLastCluster->mcNext = NULL;
+
+        // delete clusters from end cluster
+        while (pCluster) {
+            pNextToDelete = pCluster->mcNext;
+
+            // unlock memory (for any case)
+            if (pCluster->mcLocked)
+                Control_ctc->Unlock(pCluster->mcHandle);
+
+            // free memory cluster and ...
+            Control_ctc->Free(pCluster->mcHandle);
+            // delete memory cluster info
+            delete pCluster;
+            // decrease cluster counter;
+            wClusterCounter--;
+            pCluster = pNextToDelete;
+        }
+
+        return true;
+    }
+
+    return true;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-PCFIOMCLUSTER CTCGlobalFile::TakeCluster(Handle hCluster) {
-	PCFIOMCLUSTER pCurrentCluster;
+PCFIOMCLUSTER CTCGlobalFile::TakeCluster(Handle hCluster)
+{
+    PCFIOMCLUSTER pCurrentCluster;
 
-	for (pCurrentCluster = mcFirst.mcNext; pCurrentCluster != NULL; pCurrentCluster
-			= pCurrentCluster->mcNext) {
-		if (pCurrentCluster->mcHandle = hCluster) {
-			return pCurrentCluster;
-		}
-	}
-	return NULL;
+    for (pCurrentCluster = mcFirst.mcNext; pCurrentCluster != NULL; pCurrentCluster
+            = pCurrentCluster->mcNext) {
+        if (pCurrentCluster->mcHandle = hCluster) {
+            return pCurrentCluster;
+        }
+    }
+
+    return NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCGlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster) {
-	PCFIOMCLUSTER pLastCluster;
+Handle CTCGlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster)
+{
+    PCFIOMCLUSTER pLastCluster;
 
-	if (!mcFirst.mcNext) {
-		return &mcFirst;
-	}
+    if (!mcFirst.mcNext) {
+        return &mcFirst;
+    }
 
-	for (pLastCluster = mcFirst.mcNext; pLastCluster->mcNext != NULL; pLastCluster
-			= pLastCluster->mcNext)
-		;
+    for (pLastCluster = mcFirst.mcNext; pLastCluster->mcNext != NULL; pLastCluster
+            = pLastCluster->mcNext)
+        ;
 
-	if (pmcCluster) {
-		*pmcCluster = pLastCluster;
-	}
+    if (pmcCluster) {
+        *pmcCluster = pLastCluster;
+    }
 
-	return pLastCluster->mcHandle;
+    return pLastCluster->mcHandle;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCGlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster) {
-	PCFIOMCLUSTER pCluster = TakeCluster(hCluster);
+Handle CTCGlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster)
+{
+    PCFIOMCLUSTER pCluster = TakeCluster(hCluster);
 
-	if (pCluster) {
-		if (pmcCluster) {
-			*pmcCluster = pCluster;
-		}
-		return pCluster->mcNext->mcHandle;
-	}
+    if (pCluster) {
+        if (pmcCluster) {
+            *pmcCluster = pCluster;
+        }
 
-	if (pmcCluster) {
-		*pmcCluster = NULL;
-	}
+        return pCluster->mcNext->mcHandle;
+    }
 
-	return NULL;
+    if (pmcCluster) {
+        *pmcCluster = NULL;
+    }
+
+    return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 void * CTCGlobalFile::GetPtrToMemoryCluster(Handle hCluster,
-		PCFIOMCLUSTER pCluster) {
-	PCFIOMCLUSTER pCurrentCluster;
+                                            PCFIOMCLUSTER pCluster)
+{
+    PCFIOMCLUSTER pCurrentCluster;
 
-	if (pCluster) {
-		pCurrentCluster = pCluster;
-	} else {
-		pCurrentCluster = TakeCluster(hCluster);
-	}
+    if (pCluster) {
+        pCurrentCluster = pCluster;
+    }
 
-	if (!pCurrentCluster->mcLocked) {
-		pCurrentCluster->mcPtr = Control_ctc->Lock(pCurrentCluster->mcHandle);
-		pCurrentCluster->mcLocked = TRUE;
-	}
+    else {
+        pCurrentCluster = TakeCluster(hCluster);
+    }
 
-	return pCurrentCluster->mcPtr;
+    if (!pCurrentCluster->mcLocked) {
+        pCurrentCluster->mcPtr = Control_ctc->Lock(pCurrentCluster->mcHandle);
+        pCurrentCluster->mcLocked = TRUE;
+    }
 
+    return pCurrentCluster->mcPtr;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 bool CTCGlobalFile::ClosePtrToMemoryCluster(Handle hCluster,
-		PCFIOMCLUSTER pCluster) {
-	PCFIOMCLUSTER pCurrentCluster;
+                                            PCFIOMCLUSTER pCluster)
+{
+    PCFIOMCLUSTER pCurrentCluster;
 
-	if (pCluster) {
-		pCurrentCluster = pCluster;
-	} else {
-		pCurrentCluster = TakeCluster(hCluster);
-	}
+    if (pCluster) {
+        pCurrentCluster = pCluster;
+    }
 
-	if (pCurrentCluster->mcLocked) {
-		pCurrentCluster->mcPtr = NULL;
-		Control_ctc->Unlock(pCurrentCluster->mcHandle);
-		pCurrentCluster->mcLocked = FALSE;
-	}
+    else {
+        pCurrentCluster = TakeCluster(hCluster);
+    }
 
-	return !pCurrentCluster->mcLocked;
+    if (pCurrentCluster->mcLocked) {
+        pCurrentCluster->mcPtr = NULL;
+        Control_ctc->Unlock(pCurrentCluster->mcHandle);
+        pCurrentCluster->mcLocked = FALSE;
+    }
+
+    return !pCurrentCluster->mcLocked;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster) {
-	uint32_t FilledClusters = wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER;
-	PCFIOMCLUSTER pCluster;
+Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster)
+{
+    uint32_t FilledClusters = wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER;
+    PCFIOMCLUSTER pCluster;
 
-	// if allright
-	if (FilledClusters <= wClusterCounter) {
-		// seeker to end
-		if (wSeeker == wMemorySize) {
-			GetLastCluster(&pCluster);
-		} else
-		//seeker to begin
-		if (wSeeker == 0) {
-			pCluster = mcFirst.mcNext;
-		}
-		// seeker to midle of file
-		else {
-			for (pCluster = mcFirst.mcNext; pCluster != NULL && FilledClusters
-					> 0; pCluster = pCluster->mcNext, FilledClusters--)
-				;
-		}
+    // if allright
+    if (FilledClusters <= wClusterCounter) {
+        // seeker to end
+        if (wSeeker == wMemorySize) {
+            GetLastCluster(&pCluster);
+        }
 
-	} else // if seeker out of range
-	{
-		wSeeker = 0;
-		pCluster = mcFirst.mcNext;
-	}
+        else
 
-	if (pmcCluster) {
-		*pmcCluster = pCluster;
-	}
+            //seeker to begin
+            if (wSeeker == 0) {
+                pCluster = mcFirst.mcNext;
+            }
 
-	if (pCluster)
-		return pCluster->mcHandle;
-	else
-		return NULL;
+        // seeker to midle of file
+            else {
+                for (pCluster = mcFirst.mcNext; pCluster != NULL && FilledClusters
+                        > 0; pCluster = pCluster->mcNext, FilledClusters--)
+                    ;
+            }
+    }
+
+    else { // if seeker out of range
+        wSeeker = 0;
+        pCluster = mcFirst.mcNext;
+    }
+
+    if (pmcCluster) {
+        *pmcCluster = pCluster;
+    }
+
+    if (pCluster)
+        return pCluster->mcHandle;
+
+    else
+        return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCGlobalFile::WriteToMemory(void * pData, uint32_t wDataSize,
-		uint32_t wDataCounter) {
-	uint32_t ClusterOffset;
-	uint32_t wAllData = wDataSize * wDataCounter;
-	uint32_t AvailableToWriteInCluster;
-	//uint32_t i;
-	uint32_t Counter = 0;
-	char * Sorc = (char *) pData;
-	char * Desc;
-	PCFIOMCLUSTER pWritedCluster;
+                                      uint32_t wDataCounter)
+{
+    uint32_t ClusterOffset;
+    uint32_t wAllData = wDataSize * wDataCounter;
+    uint32_t AvailableToWriteInCluster;
+    //uint32_t i;
+    uint32_t Counter = 0;
+    char * Sorc = (char *) pData;
+    char * Desc;
+    PCFIOMCLUSTER pWritedCluster;
+    // position to seeker
+    GetSeekedCluster(&pWritedCluster);
+    // set offset in cluster
+    ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER)
+                               * CFIO_GF_MEMORY_FILE_CLUSTER);
 
-	// position to seeker
-	GetSeekedCluster(&pWritedCluster);
-	// set offset in cluster
-	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER)
-			* CFIO_GF_MEMORY_FILE_CLUSTER);
+    //writing:
+    while (wAllData) {
+        //  available to write in this cluster
+        AvailableToWriteInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
+        // set ptr to writing
+        Desc = ((char *) GetPtrToMemoryCluster(NULL, pWritedCluster))
+               + ClusterOffset;
 
-	//writing:
-	while (wAllData) {
-		//  available to write in this cluster
-		AvailableToWriteInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
-		// set ptr to writing
-		Desc = ((char *) GetPtrToMemoryCluster(NULL, pWritedCluster))
-				+ ClusterOffset;
+        //  if need to write less then free space in last cluster
+        if (wAllData < AvailableToWriteInCluster) {
+            // write all data in one cluster
+            AvailableToWriteInCluster = wAllData;
+        }
 
-		//  if need to write less then free space in last cluster
-		if (wAllData < AvailableToWriteInCluster) {
-			// write all data in one cluster
-			AvailableToWriteInCluster = wAllData;
-		} else {
-			// or create new cluster if last can't be writen by all data
-			if (pWritedCluster->mcNext == NULL)
-				CreateNewCluster();
+        else {
+            // or create new cluster if last can't be writen by all data
+            if (pWritedCluster->mcNext == NULL)
+                CreateNewCluster();
 
-			// clear offset for next cluster
-			ClusterOffset = 0;
-		}
-		memcpy(Desc, Sorc, AvailableToWriteInCluster);
-		Sorc += AvailableToWriteInCluster;
-		wAllData -= AvailableToWriteInCluster;
-		Counter += AvailableToWriteInCluster;
-		wSeeker += AvailableToWriteInCluster;
+            // clear offset for next cluster
+            ClusterOffset = 0;
+        }
 
-		ClosePtrToMemoryCluster(NULL, pWritedCluster);
+        memcpy(Desc, Sorc, AvailableToWriteInCluster);
+        Sorc += AvailableToWriteInCluster;
+        wAllData -= AvailableToWriteInCluster;
+        Counter += AvailableToWriteInCluster;
+        wSeeker += AvailableToWriteInCluster;
+        ClosePtrToMemoryCluster(NULL, pWritedCluster);
 
-		// switch to write on next cluster
-		if (wAllData) {
-			pWritedCluster = pWritedCluster->mcNext;
-		}
-	}
-	// new file in memory size
-	wMemorySize = wSeeker;
-	return Counter;
+        // switch to write on next cluster
+        if (wAllData) {
+            pWritedCluster = pWritedCluster->mcNext;
+        }
+    }
+
+    // new file in memory size
+    wMemorySize = wSeeker;
+    return Counter;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 uint32_t CTCGlobalFile::ReadFromMemory(void * pData, uint32_t wDataSize,
-		uint32_t wDataCounter) {
-	uint32_t ClusterOffset;
-	uint32_t wAllData = wDataSize * wDataCounter;
-	uint32_t AvailableToReadInCluster;
-	//	uint32_t i;
-	uint32_t Counter = 0;
-	char * Sorc;
-	char * Desc = (char *) pData;
-	PCFIOMCLUSTER pReadedCluster;
+                                       uint32_t wDataCounter)
+{
+    uint32_t ClusterOffset;
+    uint32_t wAllData = wDataSize * wDataCounter;
+    uint32_t AvailableToReadInCluster;
+    //  uint32_t i;
+    uint32_t Counter = 0;
+    char * Sorc;
+    char * Desc = (char *) pData;
+    PCFIOMCLUSTER pReadedCluster;
+    // position to seeker
+    GetSeekedCluster(&pReadedCluster);
+    // set offset in cluster
+    ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER)
+                               * CFIO_GF_MEMORY_FILE_CLUSTER);
 
-	// position to seeker
-	GetSeekedCluster(&pReadedCluster);
-	// set offset in cluster
-	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER)
-			* CFIO_GF_MEMORY_FILE_CLUSTER);
+    if (wAllData > wMemorySize)
+        wAllData = wMemorySize;
 
-	if (wAllData > wMemorySize)
-		wAllData = wMemorySize;
+    //writing:
+    while (wAllData) {
+        //  available to write in this cluster
+        AvailableToReadInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
+        // set ptr to writing
+        Sorc = ((char *) GetPtrToMemoryCluster(NULL, pReadedCluster))
+               + ClusterOffset;
 
-	//writing:
-	while (wAllData) {
-		//  available to write in this cluster
-		AvailableToReadInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
-		// set ptr to writing
-		Sorc = ((char *) GetPtrToMemoryCluster(NULL, pReadedCluster))
-				+ ClusterOffset;
+        //  if need to write less then free space in last cluster
+        if (wAllData < AvailableToReadInCluster) {
+            // write all data in one cluster
+            AvailableToReadInCluster = wAllData;
+        }
 
-		//  if need to write less then free space in last cluster
-		if (wAllData < AvailableToReadInCluster) {
-			// write all data in one cluster
-			AvailableToReadInCluster = wAllData;
-		}
-		//copy data
-		memcpy(Desc, Sorc, AvailableToReadInCluster);
-		// move destination pointer to write next data
-		Desc += AvailableToReadInCluster;
-		// decrease data to copy counter
-		wAllData -= AvailableToReadInCluster;
-		// increase data copy counter
-		Counter += AvailableToReadInCluster;
-		// move virtual file position pointer
-		wSeeker += AvailableToReadInCluster;
+        //copy data
+        memcpy(Desc, Sorc, AvailableToReadInCluster);
+        // move destination pointer to write next data
+        Desc += AvailableToReadInCluster;
+        // decrease data to copy counter
+        wAllData -= AvailableToReadInCluster;
+        // increase data copy counter
+        Counter += AvailableToReadInCluster;
+        // move virtual file position pointer
+        wSeeker += AvailableToReadInCluster;
+        ClosePtrToMemoryCluster(NULL, pReadedCluster);
 
-		ClosePtrToMemoryCluster(NULL, pReadedCluster);
+        // switch to write on next cluster
+        if (wAllData) {
+            pReadedCluster = pReadedCluster->mcNext;
+            ClusterOffset = 0;
 
-		// switch to write on next cluster
-		if (wAllData) {
-			pReadedCluster = pReadedCluster->mcNext;
-			ClusterOffset = 0;
+            if (!pReadedCluster) {
+                return 0;
+            }
+        }
+    }
 
-			if (!pReadedCluster) {
-				return 0;
-			}
-		}
-	}
-	return Counter;
+    return Counter;
 }

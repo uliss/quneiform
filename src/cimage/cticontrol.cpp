@@ -60,11 +60,13 @@
 
 #include <cassert>
 
-CTIControl::CTIControl() {
+CTIControl::CTIControl()
+{
     init();
 }
 
-void CTIControl::init() {
+void CTIControl::init()
+{
     mbSourceDIBCopy = FALSE;
     hCBImage = NULL;
     pCBImage = NULL;
@@ -91,12 +93,12 @@ void CTIControl::init() {
     mwMemoryErrors = 0;
     mbWriteFlag = FALSE;
     mhCopyedDIB = NULL;
-
     mwLAWhiteLeftMask[7] = 0xff;
     mwLAWhiteRightMask[0] = 0xff;
     mwLABlackLeftMask[0] = 0x7f;
     mwLABlackRightMask[7] = 0xfe;
     mwIndexMask[0] = 0x01;
+
     for (uint32_t i = 1; i < 8; i++) {
         mwLAWhiteLeftMask[7 - i] = mwLAWhiteLeftMask[8 - i] << 1;
         mwLAWhiteRightMask[i] = mwLAWhiteRightMask[i - 1] >> 1;
@@ -106,33 +108,40 @@ void CTIControl::init() {
     }
 }
 
-CTIControl::~CTIControl() {
+CTIControl::~CTIControl()
+{
     clear();
 }
 
-void CTIControl::clear() {
+void CTIControl::clear()
+{
     FreeBuffers();
 
     if (mCBSourceDIB != NULL) {
         delete mCBSourceDIB;
     }
+
     if (mCBWSourceDIB != NULL) {
         delete mCBWSourceDIB;
     }
+
     if (mCBDestianationDIB != NULL) {
         delete mCBDestianationDIB;
     }
+
     if (mCBWDestianationDIB != NULL) {
         delete mCBWDestianationDIB;
     }
 }
 
-void CTIControl::Reset() {
+void CTIControl::Reset()
+{
     clear();
     init();
 }
 
-Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
+Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk)
+{
     Handle hNewDIB;
     Bool32 Ret;
     uint32_t Readed;
@@ -149,23 +158,29 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
         return FALSE;
     }
+
     //
     ImageInfo.wImageWidth = 0;
     ImageInfo.wImageByteWidth = 0;
     ImageInfo.wImageHeight = 0;
+
     //////////////////////////////////////////////////////////////////////////////////
     // Создаем новый DIB
     if (mCBWDestianationDIB != NULL || mCBWSourceDIB != NULL) {
         return FALSE;
     }
+
     // для проверки на выявление узких мест
     mCBWInProcess = TRUE;
+
     if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME) {
         strcpy(mCBWName, lpName);
     }
+
     else {
         strncpy(mCBWName, lpName, CIMAGE_MAX_IMAGE_NAME - 1);
     }
+
     // этот в качестве буфера для закидывания по одной строке
     mCBWSourceDIB = new CTDIB;
     // а этот будет основным
@@ -185,14 +200,17 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
         mCBWInProcess = FALSE;
         return FALSE;
     }
+
     // выделение памяти под новый DIB и под буферный
     if (mCBWDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
             && mCBWSourceDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
         CIMAGEComment(lpName);
+
         if (mCBWDestianationDIB->CreateDIBBegin(ImageInfo.wImageWidth, ImageInfo.wImageHeight, 1)
                 && mCBWDestianationDIB->SetResolutionDPI(ImageInfo.wResolutionX,
-                        ImageInfo.wResolutionY) && mCBWDestianationDIB->CreateDIBEnd()) {
+                                                         ImageInfo.wResolutionY) && mCBWDestianationDIB->CreateDIBEnd()) {
             CIMAGEComment("Temporary DIB - WriteCBImage");
+
             if (mCBWSourceDIB->CreateDIBBegin(ImageInfo.wImageWidth, 1, 1)
                     && mCBWSourceDIB->CreateDIBEnd()) {
                 cdFQuad.rgbBlue = cdFQuad.rgbGreen = cdFQuad.rgbRed = 0x00;
@@ -206,7 +224,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
                 mCBWSourceDIB->SetRGBQuad(0, cdFQuad);
                 mCBWDestianationDIB->SetRGBQuad(1, cdSQuad);
                 mCBWSourceDIB->SetRGBQuad(1, cdSQuad);
-                // заполняем структурку	для замещения строк
+                // заполняем структурку  для замещения строк
                 FrameToReplace.byBit = (uint16_t) mCBWSourceDIB->GetPixelSize();
                 FrameToReplace.dwX = 0;
                 FrameToReplace.dwY = 0;
@@ -220,7 +238,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
                 for (i = 0; i < ImageInfo.wImageHeight; i++) {
                     // вызываем второй калбэк
                     Readed = Cbk.CIMAGE_ImageRead((pchar) mCBWSourceDIB->GetPtrToLine(0),
-                            (uint16_t) mCBWSourceDIB->GetLineWidthInBytes());
+                                                  (uint16_t) mCBWSourceDIB->GetLineWidthInBytes());
 
                     //инвертируем битовое поле, ежели надо
                     if (bInvert) {
@@ -234,11 +252,13 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
 
                     // номер строчки
                     FrameToReplace.dwY = i;
+
                     // записваем строчку в новый из буфера
                     if (Readed) {
                         SetFrame(mCBWSourceDIB, mCBWDestianationDIB, &FrameToReplace);
                     }
                 }
+
                 // Закрываем
                 // вывзываем третий калбэк
                 Ret = Cbk.CIMAGE_ImageClose();
@@ -264,9 +284,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
     }
 
 #ifdef CIMAGE_DUMP_ENABLE
-
     //WriteDIBtoBMP("Allex.CBWrited.bmp", mCBWDestianationDIB);
-
 #endif
 
     if (mCBWDestianationDIB) {
@@ -279,7 +297,8 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
     return Ret;
 }
 
-Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
+Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk)
+{
     Handle hImage = NULL;
 
     if (!pCbk) {
@@ -293,7 +312,6 @@ Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
 
 #ifdef CIMAGE_DUMP_ENABLE
     PCTDIB pDebugDIB;
-
     pDebugDIB = new CTDIB();
     pDebugDIB->SetDIBbyPtr(hImage);
     //WriteDIBtoBMP("Allex.CBReaded.bmp",pDebugDIB);
@@ -303,21 +321,22 @@ Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
     if (strlen(lpName) < CIMAGE_MAX_IMAGE_NAME) {
         strcpy(mCBName, lpName);
     }
+
     else {
         strncpy(mCBName, lpName, CIMAGE_MAX_IMAGE_NAME - 1);
     }
+
     /////////////////////////////////////////
     pCbk->CIMAGE_ImageOpen = CIMAGE_Callback_ImageOpen;
     pCbk->CIMAGE_ImageRead = CIMAGE_Callback_ImageRead;
     pCbk->CIMAGE_ImageClose = CIMAGE_Callback_ImageClose;
     wCBStep = 0;
-
     hCBImage = hImage;
-
     return TRUE;
 }
 
-Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
+Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag)
+{
     Handle hImage = NULL;
 
     if (wFlag == FALSE) { // создаем новую копию
@@ -327,6 +346,7 @@ Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
             return FALSE;
         }
     }
+
     else {
         hImage = hDIB;
     }
@@ -334,9 +354,9 @@ Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
     return mlImages.AddImage(lpName, hImage, wFlag);
 }
 
-Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
+Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag)
+{
     Handle hImage = NULL; // Handle
-
     // открываем картинку
     if (!OpenDIBFromList(lpName, &hImage)) {
         fprintf(stderr, "CTIControl::GetDIB failed: %s\n", lpName);
@@ -353,6 +373,7 @@ Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
     }
 
     mbSourceDIBCopy = (wFlag == 0);
+
     if (mbSourceDIBCopy) { // создаем новую копию
         if (CopyDIB(hImage, phDIB)) {
             return TRUE;
@@ -360,29 +381,33 @@ Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
 
         SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
     }
+
     else {
         *phDIB = hImage;
         return TRUE;
     }
+
     return FALSE;
 }
 
 Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
-        CIMAGE_InfoDataOutGet * lplpOut) {
+                            CIMAGE_InfoDataOutGet * lplpOut)
+{
     Bool32 bRet = FALSE;
     PCTDIB pDscDIB;
     void* pDIBMemory;
     int32_t iY;
-
     FreeBuffers();
 
     // берем кусок диба оттедова
     if (GetDIBFromImage(lpName, lpIn, &pDIBMemory)) {
         pDscDIB = new CTDIB;
+
         if (pDscDIB->SetDIBbyPtr(pDIBMemory)) {
 #ifdef CIMAGE_DUMP_ENABLE
             //WriteDIBtoBMP("Allex.AlmiData.bmp",pDscDIB);
 #endif
+
             //////////////////////////////////////
             // смотрим, что там на выход;
             if (lpIn->wByteWidth >= pDscDIB->GetUsedLineWidthInBytes() && lpIn->dwWidth
@@ -390,16 +415,12 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
                 uint32_t nOutLine;
                 puchar pOutLine;
                 uchar WhiteBit;
-
                 lplpOut->byBit = (uint16_t) pDscDIB->GetPixelSize();
                 lplpOut->dwHeight = pDscDIB->GetLinesNumber();
                 lplpOut->dwWidth = pDscDIB->GetLineWidth();
                 lplpOut->wByteWidth = (uint16_t) pDscDIB->GetUsedLineWidthInBytes();
-
                 lplpOut->wBlackBit = pDscDIB->GetBlackPixel();
-
                 WhiteBit = (uchar) pDscDIB->GetWhitePixel();
-
                 mhBitFildFromImage = CIMAGEDAlloc(lpIn->wByteWidth * lpIn->dwHeight, lpName);
                 mpBitFildFromImage = (puchar) CIMAGELock(mhBitFildFromImage);
 
@@ -414,7 +435,6 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 
                 lplpOut->lpData = pOutLine = mpBitFildFromImage;
                 iY = (int32_t) lpIn->dwY;
-
                 // для Almi - заполняем белым пикселом
                 /*
                  for ( ;iY < 0; iY++, lplpOut->dwHeight++ )
@@ -438,6 +458,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 
         delete pDscDIB;
     }
+
     else {
         bRet = FALSE;
         lplpOut->lpData = NULL;
@@ -446,7 +467,8 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
     return bRet;
 }
 
-Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lpIn) {
+Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lpIn)
+{
     Handle hImage = NULL;
     void * pImage;
     PCTDIB pSrcDIB = NULL;
@@ -455,7 +477,6 @@ Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lp
 
     if (!GetDIB(lpName, &hImage, TRUE)) {
         return FALSE;
-
     }
 
     pImage = CIMAGELock(hImage);
@@ -472,8 +493,9 @@ Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lp
     if (pDscDIB->SetDIBbyPtr(pImage)) {
         if (pSrcDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
             CIMAGEComment("Temporary DIB - ReplaceImage");
+
             if (pSrcDIB->CreateDIBBegin(lpIn->dwWidth, lpIn->dwHeight, pDscDIB->GetPixelSize(),
-                    pDscDIB->GetActualColorNumber()) && pSrcDIB->CreateDIBEnd()) {
+                                        pDscDIB->GetActualColorNumber()) && pSrcDIB->CreateDIBEnd()) {
                 if (lpIn->wByteWidth <= pSrcDIB->GetUsedLineWidthInBytes()) {
                     uint32_t nInLine;
                     puchar pInLine = lpIn->lpData;
@@ -497,7 +519,8 @@ Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lp
     return ret;
 }
 
-Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH) {
+Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH)
+{
     Handle hImage = NULL;
     void * pDIB;
 
@@ -511,25 +534,24 @@ Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH) {
     }
 
     pDIB = CIMAGELock(hImage);
-
     memcpy(lpBIH, pDIB, sizeof(BitmapInfoHeader));
-
     CIMAGEUnlock(hImage);
     return TRUE;
 }
 
-Bool32 CTIControl::RemoveImage(const char* lpName) {
+Bool32 CTIControl::RemoveImage(const char* lpName)
+{
     return mlImages.DeleteImage(lpName);
 }
 
-Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
+Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib)
+{
     void * pSrc = NULL;
     void * pDsc = NULL;
     Handle hDsc = NULL;
     uint32_t DIBSize = 0;
     PCTDIB pcSrcDIB = NULL;
     PCTDIB pcDscDIB = NULL;
-
     pSrc = CIMAGELock(hSrc);
 
     if (!pSrc) {
@@ -546,10 +568,8 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
     }
 
     DIBSize = pcSrcDIB->GetDIBSize();
-
     // больше не нужен
     delete pcSrcDIB;
-
     hDsc = CIMAGEDAlloc(DIBSize, "Copyed DIB - CopyDIB");
     pDsc = CIMAGELock(hDsc);
 
@@ -558,7 +578,6 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
     }
 
     memcpy(pDsc, pSrc, DIBSize);
-
     //ALLEX Mask/////////////////////////////////////
     // ошибка тут
     pcDscDIB = new CTDIB;
@@ -568,23 +587,24 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
         delete pcDscDIB;
         return FALSE;
     }
+
     // а сюда теперь надо вставить маску на чтение для картинки
     if (mpcSrcDIBReadMask && mbEnableDIBReadMask && mbWriteFlag == FALSE) {
         ApplayMaskToDIB(pcDscDIB, mpcSrcDIBReadMask);
     }
+
     delete pcDscDIB;
     //////////////////////////////////////////////////
     CIMAGEUnlock(hDsc);
     CIMAGEUnlock(hSrc);
-
     *phCopyedDib = mhCopyedDIB = hDsc;
-
     return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet * pIn,
-        puchar pMask) {
+                            puchar pMask)
+{
     if (pSrcDIB == NULL || pDscDIB == NULL) {
         fprintf(stderr, "CTIControl::GetFrame: empty image containers\n");
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
@@ -596,6 +616,7 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
         return FALSE;
     }
+
     //копируем из одного диба в другой
     if (!CopyToFrame(pSrcDIB, pDscDIB, pIn, pMask)) {
         fprintf(stderr, "CTIControl::GetFrame: IDS_CIMAGE_INVALID_IMAGES_CONTAINER\n");
@@ -610,11 +631,13 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet
         if (!ApplayMaskToDIB(pDscDIB, mpcSrcDIBReadMask, pIn->dwX, pIn->dwY))
             return FALSE;
     }
+
     return TRUE;
 }
 
 Bool32 CTIControl::CopyToFrame(CTDIB * pSrcDIB, CTDIB * pDscDIB, CIMAGE_InfoDataInGet * pFrameInfo,
-        puchar pMask) {
+                               puchar pMask)
+{
     uint32_t StartY = pFrameInfo->dwY;
     uint32_t EndY = StartY + pFrameInfo->dwHeight;
     uint32_t StartX = pFrameInfo->dwX;
@@ -632,8 +655,10 @@ Bool32 CTIControl::CopyToFrame(CTDIB * pSrcDIB, CTDIB * pDscDIB, CIMAGE_InfoData
             SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
             return FALSE;
         }
+
         bRet = TRUE;
     }
+
     // теперь используем битовую маску
     WriteDIBtoBMP("Allex.DIBCopyToFrame.Before Bit Mask.bmp", pDscDIB);
 
@@ -642,12 +667,14 @@ Bool32 CTIControl::CopyToFrame(CTDIB * pSrcDIB, CTDIB * pDscDIB, CIMAGE_InfoData
         bRet = ApplayBitMaskToDIB(pMask, pDscDIB);
         WriteDIBtoBMP("Allex.DIBCopyToFrame.After Bit Mask.bmp", pDscDIB);
     }
+
     return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-        CIMAGE_InfoDataInReplace * pFrameIn) {
+                                 CIMAGE_InfoDataInReplace * pFrameIn)
+{
     uint32_t StartY = pFrameIn->dwY;
     uint32_t EndY = StartY + pFrameIn->dwHeight;
     uint32_t nLine;
@@ -666,18 +693,21 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
                 return FALSE;
             }
         }
+
         else {
             continue;
         }
     }
+
     return TRUE;
 }
 
-Bool32 CTIControl::ApplayBitMaskToFrame(CIMAGE_InfoDataInGet * pIn, CIMAGE_InfoDataOutGet * pOut) {
-
+Bool32 CTIControl::ApplayBitMaskToFrame(CIMAGE_InfoDataInGet * pIn, CIMAGE_InfoDataOutGet * pOut)
+{
     if (pIn->MaskFlag == 0) {
         return TRUE;
     }
+
     else {
         uint32_t SizeInBytes;
         uint32_t i;
@@ -685,43 +715,37 @@ Bool32 CTIControl::ApplayBitMaskToFrame(CIMAGE_InfoDataInGet * pIn, CIMAGE_InfoD
         char * pRaster = (char *) (pOut->lpData);
         char * Msc;
         char * Dsc;
-
         pMask += sizeof(CIMAGE_InfoDataInGet);
 
         switch (pOut->byBit) {
+            case 1:
+                SizeInBytes = (pOut->dwWidth) * (pOut->dwHeight);
+                SizeInBytes += 7;
+                SizeInBytes /= 8;
+                Dsc = pRaster;
+                Msc = pMask;
 
-        case 1:
+                for (i = 0; i < (SizeInBytes - 1); i++) {
+                    *Dsc = (*(Dsc++) & *(Msc++));
+                }
 
-            SizeInBytes = (pOut->dwWidth) * (pOut->dwHeight);
-            SizeInBytes += 7;
-            SizeInBytes /= 8;
-
-            Dsc = pRaster;
-            Msc = pMask;
-
-            for (i = 0; i < (SizeInBytes - 1); i++) {
-                *Dsc = (*(Dsc++) & *(Msc++));
-            }
-
-            break;
-
-        default:
-            SetReturnCode_cimage(IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION);
-            return FALSE;
-
+                break;
+            default:
+                SetReturnCode_cimage(IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION);
+                return FALSE;
         }
-
     }
 
     return TRUE;
-
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB) {
+Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB)
+{
     if (pMask == 0) {
         return TRUE;
     }
+
     else {
         puchar pMaskByte = pMask; //(puchar)&pIn[1];
         puchar pImageByte;
@@ -732,7 +756,6 @@ Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB) {
         int32_t k;
         uchar WhiteByte = (uchar) pDIB->GetWhitePixel();
         uchar tmpByte;
-
         ///////////////////////////////////////////////////////////////////////////////////////
         //Allex 28.01.2000
         //ввиду неоднократных ошибок, связанных с  выделением памяти под передаваемую мне маску
@@ -752,9 +775,10 @@ Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB) {
         catch (...) {
             SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_MEMORY);
             LDPUMA_Console(
-                    "CImage: Mask unvailable or mask memory blok less then needed!\n        Mask not applied.\n");
+                "CImage: Mask unvailable or mask memory blok less then needed!\n        Mask not applied.\n");
             return TRUE;
         }
+
         // конец проверки
         ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -765,83 +789,88 @@ Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB) {
             pMaskByte = pMask + ((Pixels + 7) / 8) * i;
 
             switch (pDIB->GetPixelSize()) {
-            case 1:
-                while ((j > 0)) {
-                    tmpByte = ~(*(pMaskByte));
+                case 1:
 
-                    if (WhiteByte == 1) {
-                        *(pImageByte++) = *(pImageByte) | tmpByte;
-                    }
-                    else {
-                        *(pImageByte++) = *(pImageByte) & tmpByte;
-                    }
+                    while ((j > 0)) {
+                        tmpByte = ~(*(pMaskByte));
 
-                    pMaskByte++;
-                    j -= 8;
-                }
-                break;
-
-            case 8:
-                while (j > 7) {
-                    tmpByte = ~(*(pMaskByte));
-
-                    for (k = 7; k >= 0; k--) {
-                        if (tmpByte & mwIndexMask[k]) {
-                            *(pImageByte) = WhiteByte;
+                        if (WhiteByte == 1) {
+                            *(pImageByte++) = *(pImageByte) | tmpByte;
                         }
 
-                        pImageByte++;
+                        else {
+                            *(pImageByte++) = *(pImageByte) & tmpByte;
+                        }
+
+                        pMaskByte++;
+                        j -= 8;
+                    }
+
+                    break;
+                case 8:
+
+                    while (j > 7) {
+                        tmpByte = ~(*(pMaskByte));
+
+                        for (k = 7; k >= 0; k--) {
+                            if (tmpByte & mwIndexMask[k]) {
+                                *(pImageByte) = WhiteByte;
+                            }
+
+                            pImageByte++;
+                        }
+
+                        pMaskByte++;
+                        j -= 8;
+                    }
+
+                    k = 7;
+
+                    while (j--) {
+                        tmpByte = ~(*(pMaskByte));
+
+                        if (tmpByte & mwIndexMask[k--]) {
+                            *(pImageByte) = WhiteByte;
+                        }
                     }
 
                     pMaskByte++;
-                    j -= 8;
-                }
+                    break;
+                case 24:
 
-                k = 7;
-                while (j--) {
-                    tmpByte = ~(*(pMaskByte));
+                    while (j > 7) {
+                        tmpByte = ~(*(pMaskByte));
 
-                    if (tmpByte & mwIndexMask[k--]) {
-                        *(pImageByte) = WhiteByte;
+                        for (k = 7; k >= 0; k--) {
+                            if (tmpByte & mwIndexMask[k]) {
+                                *(pImageByte) = WhiteByte;
+                                *(pImageByte + 1) = WhiteByte;
+                                *(pImageByte + 2) = WhiteByte;
+                            }
+
+                            pImageByte += 3;
+                        }
+
+                        pMaskByte++;
+                        j -= 8;
                     }
-                }
-                pMaskByte++;
-                break;
 
-            case 24:
-                while (j > 7) {
-                    tmpByte = ~(*(pMaskByte));
+                    k = 7;
 
-                    for (k = 7; k >= 0; k--) {
-                        if (tmpByte & mwIndexMask[k]) {
+                    while (j--) {
+                        tmpByte = ~(*(pMaskByte));
+
+                        if (tmpByte & mwIndexMask[k--]) {
                             *(pImageByte) = WhiteByte;
                             *(pImageByte + 1) = WhiteByte;
                             *(pImageByte + 2) = WhiteByte;
                         }
-
-                        pImageByte += 3;
                     }
 
-                    pMaskByte++;
-                    j -= 8;
-
-                }
-
-                k = 7;
-                while (j--) {
-                    tmpByte = ~(*(pMaskByte));
-
-                    if (tmpByte & mwIndexMask[k--]) {
-                        *(pImageByte) = WhiteByte;
-                        *(pImageByte + 1) = WhiteByte;
-                        *(pImageByte + 2) = WhiteByte;
-                    }
-                }
-                break;
-
-            default:
-                SetReturnCode_cimage(IDS_CIMAGE_NOT_REALIZED);
-                return FALSE;
+                    break;
+                default:
+                    SetReturnCode_cimage(IDS_CIMAGE_NOT_REALIZED);
+                    return FALSE;
             }
         }
 
@@ -849,13 +878,15 @@ Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB) {
     }
 }
 
-Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInReplace * pIn) {
+Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInReplace * pIn)
+{
     uint32_t wFrameSize;
 
     if (pSrcDIB == NULL || pDscDIB == NULL || !pIn) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
         return FALSE;
     }
+
     // проверяем на ненулевость
     wFrameSize = (pIn->dwHeight) * (pIn->dwWidth);
 
@@ -863,6 +894,7 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInRep
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
         return FALSE;
     }
+
     // Проверяем на соответствие размеров
     if ((pDscDIB->GetLineWidth() < pSrcDIB->GetLineWidth() + pIn->dwX)
             || (pDscDIB->GetLinesNumber() < pSrcDIB->GetLinesNumber() + pIn->dwY)) {
@@ -878,26 +910,26 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInRep
     return TRUE;
 }
 
-Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo) {
+Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo)
+{
     uint32_t wFrgb;
     uint32_t wSrgb;
     Handle hDescDIB;
     //CTDIBRGBQUAD tmpQ;
-
 #if defined( _TRASING ) & defined ( _DEBUG )
-    if ( wCBStep != 0 )
-    {
-        TRACE("!!!CIMAGE!!! Повторный вызов CBImageOpen для картинки %s без переинициализации CIMAGE_CBImageRead!\n",mCBName);
+
+    if ( wCBStep != 0 ) {
+        TRACE("!!!CIMAGE!!! Повторный вызов CBImageOpen для картинки %s без переинициализации CIMAGE_CBImageRead!\n", mCBName);
     }
+
 #endif
-
     wCBStep++;
-
 #if defined( _TRASING ) & defined ( _DEBUG )
-    if ( mCBWInProcess == TRUE )
-    {
-        TRACE("!!!CIMAGE!!! CIMAGE_CBImageRead( %s, ...) вызывается из CIMAGE_WriteCBImage( %s, ...)!\n",mCBName,mCBWName);
+
+    if ( mCBWInProcess == TRUE ) {
+        TRACE("!!!CIMAGE!!! CIMAGE_CBImageRead( %s, ...) вызывается из CIMAGE_WriteCBImage( %s, ...)!\n", mCBName, mCBWName);
     }
+
 #endif
 
     if (!hCBImage) {
@@ -917,43 +949,37 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo) {
         wCBBufferSize = mCBSourceDIB->GetUsedLineWidthInBytes();
         wCBWidth = mCBSourceDIB->GetLineWidth();
         wCBStep++;
-
         CIMAGEComment("Temporary DIB - CBImageOpen");
+
         if (mCBDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
                 && (hDescDIB = mCBDestianationDIB->CreateDIBBegin(wCBWidth, 1,
-                        mCBSourceDIB->GetPixelSize())) && mCBDestianationDIB->CreateDIBEnd()) {
+                                                                  mCBSourceDIB->GetPixelSize())) && mCBDestianationDIB->CreateDIBEnd()) {
             wCBLines = mCBSourceDIB->GetLinesNumber();
-
             lpImageInfo->wImageWidth = (uint16_t) mCBSourceDIB->GetLineWidth();
             lpImageInfo->wImageHeight = (uint16_t) wCBLines;
             lpImageInfo->wImageByteWidth = (uint16_t) wCBBufferSize;
             lpImageInfo->wImageDisplacement = 0;
-
             mCBSourceDIB->GetResolutionDPI(&wFrgb, &wSrgb);
             lpImageInfo->wResolutionX = (uint16_t) wFrgb;
             lpImageInfo->wResolutionY = (uint16_t) wSrgb;
-
             lpImageInfo->bFotoMetrics = (uchar) mCBSourceDIB->GetWhitePixel();
-
             lpImageInfo->wAddX = 0;
             lpImageInfo->wAddY = 0;
-
             wCBStep++;
         }
     }
 
     wCBLine = 0;
-
     return TRUE;
 }
 
-uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize) {
+uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize)
+{
     CIMAGE_InfoDataInGet InFrame;
     uint32_t LinesAtOnce;
     uint32_t nOutLine;
     uint32_t CopiedBytes = 0;
     char* pNextLineInBuffer = lpBuff;
-
 #ifndef CIMAGE_CBR_ONE_LINE
     LinesAtOnce = wMaxSize / wCBBufferSize;
 #else
@@ -976,12 +1002,13 @@ uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize) {
                         wCBLine++;
                         wCBStep += 10;
                         memcpy(pNextLineInBuffer, mCBDestianationDIB->GetPtrToLine(0),
-                                wCBBufferSize);
+                               wCBBufferSize);
                         CopiedBytes += wCBBufferSize;
                         pNextLineInBuffer += wCBBufferSize;
                     }
                 }
             }
+
             return CopiedBytes;
         }
     }
@@ -990,7 +1017,8 @@ uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::CBImageClose(void) {
+Bool32 CTIControl::CBImageClose(void)
+{
     if (hCBImage)
         CIMAGEUnlock(hCBImage);
 
@@ -1017,12 +1045,12 @@ Bool32 CTIControl::CBImageClose(void) {
     wCBLine = 0;
     wCBWidth = 0;
     wCBStep = 0;
-
     return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::FreeAlloced(Handle hDIB) {
+Bool32 CTIControl::FreeAlloced(Handle hDIB)
+{
     if (hDIB == NULL) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
         return FALSE;
@@ -1037,14 +1065,13 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB) {
         mhCopyedDIB = NULL;
 
     CIMAGEFree(hDIB);
-
     return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::DumpToFile(const char* FileName, puchar pData, uint32_t Size) {
+Bool32 CTIControl::DumpToFile(const char* FileName, puchar pData, uint32_t Size)
+{
     FILE * fDump;
-
     fDump = fopen(FileName, "wb");
 
     if (fDump == NULL)
@@ -1055,14 +1082,14 @@ Bool32 CTIControl::DumpToFile(const char* FileName, puchar pData, uint32_t Size)
     return TRUE;
 }
 
-Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn, void **pDIB) {
+Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn, void **pDIB)
+{
     Handle hImage = NULL;
     void * pImage = NULL;
     Bool32 bRet = FALSE;
     uint32_t wResolutionX;
     uint32_t wResolutionY;
     CIMAGE_InfoDataInGet NewIn;
-
     // в случае повторного вызова предыдущий диб стирается
     FreeBuffers();
 
@@ -1084,33 +1111,36 @@ Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lp
     //инициализируем ctdib-чики
     PCTDIB pSrcDIB = new CTDIB;
     mpDIBFromImage = new CTDIB;
-
     assert(pImage);
+
     if (pSrcDIB->SetDIBbyPtr(pImage) && pSrcDIB->GetResolutionDPM(&wResolutionX, &wResolutionY)) {
         // проверяем размеры картинки
         if (CheckInData(pSrcDIB, lpIn, &NewIn)) {
-
             if (mpDIBFromImage->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
                 CIMAGEComment("Temporary DIB - GetDIBFromImage");
+
                 if (mpDIBFromImage->CreateDIBBegin(NewIn.dwWidth, NewIn.dwHeight,
-                        pSrcDIB->GetPixelSize(), pSrcDIB->GetActualColorNumber())
+                                                   pSrcDIB->GetPixelSize(), pSrcDIB->GetActualColorNumber())
                         && mpDIBFromImage->CopyPalleteFromDIB(pSrcDIB)
                         && mpDIBFromImage->SetResolutionDPM(wResolutionX, wResolutionY)
                         && mpDIBFromImage->CreateDIBEnd()) {
                     bRet = GetFrame(pSrcDIB, mpDIBFromImage, &NewIn, (NewIn.MaskFlag == TRUE
-                            ? (puchar) &lpIn[1]
-                            : NULL));
+                                                                      ? (puchar) & lpIn[1]
+                                                                      : NULL));
                 }
+
                 else {
                     fprintf(stderr, "IDS_CIMAGE_UNABLE_CREATE_DIB\n");
                     SetReturnCode_cimage(IDS_CIMAGE_UNABLE_CREATE_DIB);
                 }
             }
+
             else {
                 fprintf(stderr, "IDS_CIMAGE_UNABLE_COPY_DIB\n");
                 SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
             }
         }
+
         else {
             fprintf(stderr, "IDS_CIMAGE_INVALID_PARAMETR\n");
             SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
@@ -1119,11 +1149,11 @@ Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lp
 
     pSrcDIB->DestroyDIB();
     delete pSrcDIB;
-
     //    WriteDIBtoBMP("Allex.DIBFromImage.bmp", mpDIBFromImage);
 
     if (mpDIBFromImage->GetDIBPtr(pDIB))
         return TRUE;
+
     else {
         *pDIB = NULL;
         return FALSE;
@@ -1132,7 +1162,8 @@ Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lp
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // end of file
 
-Bool32 CTIControl::FreeBuffers() {
+Bool32 CTIControl::FreeBuffers()
+{
     Bool32 bCrashedDIB = FALSE;
 
     if (mpBitFildFromImage != NULL) {
@@ -1148,6 +1179,7 @@ Bool32 CTIControl::FreeBuffers() {
     if (mpDIBFromImage != NULL) {
         if (mpDIBFromImage->DestroyDIB())
             delete mpDIBFromImage;
+
         else {
             bCrashedDIB = TRUE;
             mwMemoryErrors++;
@@ -1156,7 +1188,7 @@ Bool32 CTIControl::FreeBuffers() {
         mpDIBFromImage = NULL;
         // даем знать, что мы его стерли
         //if ( pDIB != NULL )
-        //	*pDIB = NULL;
+        //  *pDIB = NULL;
         //return TRUE;
     }
 
@@ -1164,7 +1196,8 @@ Bool32 CTIControl::FreeBuffers() {
 }
 
 Bool32 CTIControl::CheckInData(CTDIB * pDIB, CIMAGE_InfoDataInGet * lpIn,
-        CIMAGE_InfoDataInGet * lpNewIn) {
+                               CIMAGE_InfoDataInGet * lpNewIn)
+{
     int32_t * NewX = (int32_t *) (lpNewIn ? &lpNewIn->dwX : &lpIn->dwX);
     int32_t * NewY = (int32_t *) (lpNewIn ? &lpNewIn->dwY : &lpIn->dwY);
     int32_t * NewH = (int32_t *) (lpNewIn ? &lpNewIn->dwHeight : &lpIn->dwHeight);
@@ -1182,10 +1215,12 @@ Bool32 CTIControl::CheckInData(CTDIB * pDIB, CIMAGE_InfoDataInGet * lpIn,
     if (lpNewIn) {
         memcpy(lpNewIn, lpIn, sizeof(CIMAGE_InfoDataInGet));
     }
+
     //проверяем ширину
     if (*NewW < 0) {
         *NewW = DIBW;
     }
+
     // и высоту
     if (*NewH < 0) {
         *NewH = DIBH;
@@ -1202,9 +1237,11 @@ Bool32 CTIControl::CheckInData(CTDIB * pDIB, CIMAGE_InfoDataInGet * lpIn,
     if (*NewX > DIBW) {
         if (*NewW < DIBW)
             *NewX = DIBW - *NewW;
+
         else
             *NewX = 0;
     }
+
     // проверяем Y
     if (*NewY < 0) {
         if (*NewH > -*NewY)
@@ -1216,9 +1253,11 @@ Bool32 CTIControl::CheckInData(CTDIB * pDIB, CIMAGE_InfoDataInGet * lpIn,
     if (*NewY > DIBH) {
         if (*NewH < DIBH)
             *NewY = DIBH - *NewH;
+
         else
             *NewY = 0;
     }
+
     // проверяем размеры
     if ((*NewX + *NewW) > DIBW) {
         *NewW = DIBW - *NewX;
@@ -1231,45 +1270,46 @@ Bool32 CTIControl::CheckInData(CTDIB * pDIB, CIMAGE_InfoDataInGet * lpIn,
     return TRUE;
 }
 
-Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB) {
+Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
+{
 #ifdef CIMAGE_DUMP_ENABLE
-
     uint32_t wBMPSize = pDIB->GetDIBSize() + 14;
     PumaMemoryToFileDumper BMPDump(cName);
-
-    BMPDump.AddDump("BM",2);
-    BMPDump.AddDump((char *)&wBMPSize,4);
+    BMPDump.AddDump("BM", 2);
+    BMPDump.AddDump((char *)&wBMPSize, 4);
     wBMPSize = 0;
-    BMPDump.AddDump((char *)&wBMPSize,4);
+    BMPDump.AddDump((char *)&wBMPSize, 4);
     wBMPSize = 14 + pDIB->GetHeaderSize() + pDIB->GetRGBPalleteSize();
-    BMPDump.AddDump((char *)&wBMPSize,4);
+    BMPDump.AddDump((char *)&wBMPSize, 4);
     BMPDump.AddDump(pDIB->GetPtrToHeader(), pDIB->GetDIBSize());
     BMPDump.EndDump();
-
 #endif
-
     return TRUE;
 }
 
-Bool32 CTIControl::AddWriteRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst) {
+Bool32 CTIControl::AddWriteRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst)
+{
     return AddRectsToMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::RemoveWriteRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst) {
+Bool32 CTIControl::RemoveWriteRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst)
+{
     return RemoveRectsFromMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::AddReadRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst) {
+Bool32 CTIControl::AddReadRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst)
+{
     return AddRectsToMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst) {
+Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber, CIMAGE_Rect * pFirst)
+{
     return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
+Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage)
+{
     mlImages.GetImage(lpName, phImage);
-
     //ALLEX Mask
     // ошибка не тут
     OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
@@ -1284,11 +1324,13 @@ Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
 }
 
 Bool32 CTIControl::OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask,
-        const char *pcType) {
+                                    const char *pcType)
+{
     Bool32 bRet;
 
     if (pcType[0] == 'r')
         bRet = mlImages.GetImageReadMask(lpName, ppMask, pEnMask);
+
     else if (pcType[0] == 'w')
         bRet = mlImages.GetImageWriteMask(lpName, ppMask, pEnMask);
 
@@ -1298,11 +1340,13 @@ Bool32 CTIControl::OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool3
     return bRet;
 }
 
-Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType) {
+Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType)
+{
     Bool32 bRet;
 
     if (pcType[0] == 'r')
         bRet = mlImages.SetImageReadMask(pName, pMask);
+
     else if (pcType[0] == 'w')
         bRet = mlImages.SetImageWriteMask(pName, pMask);
 
@@ -1312,9 +1356,9 @@ Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask, const char* 
     return bRet;
 }
 
-Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB) {
+Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB)
+{
     Handle hDIB;
-
     mlImages.GetImage(lpName, &hDIB);
     //ALLEX Mask
     // ошибка не тут
@@ -1325,23 +1369,25 @@ Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB) {
         SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
         return FALSE;
     }
+
     pcDIB->SetDIBHandle(hDIB);
     return pcDIB->SetDIBbyPtr(CIMAGELock(hDIB));
 }
 
-Bool32 CTIControl::CloseDIBFromList(PCTDIB pDIB) {
+Bool32 CTIControl::CloseDIBFromList(PCTDIB pDIB)
+{
     Handle hDIB;
 
     if (pDIB->GetDIBHandle(&hDIB))
         CIMAGEUnlock(hDIB);
 
     pDIB->DestroyDIB();
-
     return TRUE;
 }
 
 Bool32 CTIControl::AddRectsToMask(const char *lpName, uint32_t wNumber, CIMAGE_Rect * pFirstRect,
-        const char *pcType) {
+                                  const char *pcType)
+{
     Bool32 bRet = FALSE;
     PCTIMask pMask;
     Bool32 bInvalidMask = FALSE;
@@ -1380,7 +1426,8 @@ Bool32 CTIControl::AddRectsToMask(const char *lpName, uint32_t wNumber, CIMAGE_R
 }
 
 Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, uint32_t wNumber,
-        CIMAGE_Rect * pFirstRect, const char *pcType) {
+                                       CIMAGE_Rect * pFirstRect, const char *pcType)
+{
     Bool32 bRet = true;
     PCTIMask pMask;
     Bool32 bInvalidMask = FALSE;
@@ -1406,7 +1453,8 @@ Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, uint32_t wNumber,
     return bRet;
 }
 
-Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, uint32_t wAtY) {
+Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, uint32_t wAtY)
+{
     uint32_t wX, wY;
     uint32_t wXb, wXe;
     uint32_t wYb, wYe;
@@ -1418,7 +1466,6 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
 
     wXe = (wXb = wAtX) + pDIB->GetLineWidth();
     wYe = (wYb = wAtY) + pDIB->GetLinesNumber();
-
     CIMAGE_Rect cRectAllDIB = { wXb, wYb, wXe - wXb, wYe - wYb };
 
     if (!pMask->IsRectOnMask(&cRectAllDIB))
@@ -1439,11 +1486,13 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
 
                         if (pcMaskLine->GetLeftIntersection(&Segm)) {
                             wX = Segm.GetEnd() + 1;
+
                             if (!ApplayMaskToDIBLine(pDIB, &Segm, wY, wAtX, wAtY)) {
                                 SetReturnCode_cimage(IDS_CIMAGE_UNABLE_APPLAY_MASK);
                                 return FALSE;
                             }
                         }
+
                         else
                             break;
                     }
@@ -1455,7 +1504,8 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
 }
 
 Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, uint32_t wLine,
-        uint32_t wAtX, uint32_t wAtY) {
+                                       uint32_t wAtX, uint32_t wAtY)
+{
     uint32_t wBitCount;
     Bool32 bRet = FALSE;
     uint32_t wXb;
@@ -1470,7 +1520,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
     int32_t wLAFullBits;
 
     if ((pSegm->GetStart() > (int32_t) (pcDIB->GetLineWidth() + wAtX)) || (pSegm->GetEnd()
-            > (int32_t) (pcDIB->GetLineWidth() + wAtX))
+                                                                           > (int32_t) (pcDIB->GetLineWidth() + wAtX))
             || (wLine >= pcDIB->GetLinesNumber() + wAtY))
         return FALSE;
 
@@ -1494,44 +1544,48 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
     }
 
     switch (wBitCount) {
-    case 1:
-        wLAStartPos = pcDIB->GetPixelShiftInByte(wXb);
-        wLAEndPos = pcDIB->GetPixelShiftInByte(wXe);
-        wWPLA = (uchar) pcDIB->GetWhitePixel();
-        wLAFullBits = pPixE - pPixB - 1;
+        case 1:
+            wLAStartPos = pcDIB->GetPixelShiftInByte(wXb);
+            wLAEndPos = pcDIB->GetPixelShiftInByte(wXe);
+            wWPLA = (uchar) pcDIB->GetWhitePixel();
+            wLAFullBits = pPixE - pPixB - 1;
 
-        if (wLAFullBits > 0) {
-            if (wWPLA == 0)
-                memset(pPixB + 1, 0x00, wLAFullBits);
-            else
-                memset(pPixB + 1, 0xff, wLAFullBits);
-        }
+            if (wLAFullBits > 0) {
+                if (wWPLA == 0)
+                    memset(pPixB + 1, 0x00, wLAFullBits);
 
-        if (wWPLA == 0) {
-            *pPixB = *pPixB & mwLABlackRightMask[wLAStartPos];
-            *pPixE = *pPixE & mwLABlackLeftMask[wLAEndPos];
-        }
-        else {
-            *pPixB = *pPixB | mwLAWhiteRightMask[wLAStartPos];
-            *pPixE = *pPixE | mwLAWhiteLeftMask[wLAEndPos];
-        }
-        bRet = true;
-        break;
-    case 4:
-        break;
-    case 8:
-    case 16:
-    case 24:
-    case 32:
-        wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart()) * wBitCount) / 8;
-        memset(pPixB, (uchar) pcDIB->GetWhitePixel(), wSegmLenght);
-        bRet = TRUE;
-        break;
+                else
+                    memset(pPixB + 1, 0xff, wLAFullBits);
+            }
+
+            if (wWPLA == 0) {
+                *pPixB = *pPixB & mwLABlackRightMask[wLAStartPos];
+                *pPixE = *pPixE & mwLABlackLeftMask[wLAEndPos];
+            }
+
+            else {
+                *pPixB = *pPixB | mwLAWhiteRightMask[wLAStartPos];
+                *pPixE = *pPixE | mwLAWhiteLeftMask[wLAEndPos];
+            }
+
+            bRet = true;
+            break;
+        case 4:
+            break;
+        case 8:
+        case 16:
+        case 24:
+        case 32:
+            wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart()) * wBitCount) / 8;
+            memset(pPixB, (uchar) pcDIB->GetWhitePixel(), wSegmLenght);
+            bRet = TRUE;
+            break;
     }
 
     return bRet;
 }
 
-Bool32 CTIControl::EnableMask(const char* pcName, const char* pcType, Bool32 bEnable) {
+Bool32 CTIControl::EnableMask(const char* pcName, const char* pcType, Bool32 bEnable)
+{
     return mlImages.EnableMask(pcName, pcType, bEnable);
 }

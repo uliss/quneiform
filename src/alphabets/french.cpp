@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new FrenchAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_FRENCH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-FrenchAlphabet::FrenchAlphabet() {
+FrenchAlphabet::FrenchAlphabet()
+{
     addSymbol(AA_left_accent);
     addSymbol(AA_roof_accent);
     addSymbol(CC_bottom_accent);
@@ -47,7 +51,6 @@ FrenchAlphabet::FrenchAlphabet() {
     addSymbol(UU_left_accent);
     addSymbol(UU_roof_accent);
     addSymbol(UU_2dot_accent);
-
     addSymbol(a_left_accent);
     addSymbol(a_roof_accent);
     addSymbol(c_bottom_accent);
@@ -65,7 +68,8 @@ FrenchAlphabet::FrenchAlphabet() {
     addSymbol(u_2dot_accent);
 }
 
-language_t FrenchAlphabet::language() const {
+language_t FrenchAlphabet::language() const
+{
     return LANG_FRENCH;
 }
 

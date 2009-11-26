@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new LatvianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_LATVIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-LatvianAlphabet::LatvianAlphabet() {
+LatvianAlphabet::LatvianAlphabet()
+{
     addSymbol(AA_macron);
     addSymbol(a_macron);
     addSymbol(CC_inv_roof);
@@ -54,7 +58,6 @@ LatvianAlphabet::LatvianAlphabet() {
     addSymbol(u_macron);
     addSymbol(ZZ_inv_roof_baltic);
     addSymbol(z_inv_roof_baltic);
-
     removeSymbol('Q');
     removeSymbol('q');
     removeSymbol('W');
@@ -65,7 +68,8 @@ LatvianAlphabet::LatvianAlphabet() {
     removeSymbol('y');
 }
 
-language_t LatvianAlphabet::language() const {
+language_t LatvianAlphabet::language() const
+{
     return LANG_LATVIAN;
 }
 

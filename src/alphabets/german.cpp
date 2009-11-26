@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new GermanAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_GERMAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-GermanAlphabet::GermanAlphabet() {
+GermanAlphabet::GermanAlphabet()
+{
     addSymbol(AA_2dot_accent);
     addSymbol(a_2dot_accent);
     addSymbol(UU_2dot_accent);
@@ -41,7 +45,8 @@ GermanAlphabet::GermanAlphabet() {
     addSymbol(0xDF); // ??? small S-cet
 }
 
-language_t GermanAlphabet::language() const {
+language_t GermanAlphabet::language() const
+{
     return LANG_GERMAN;
 }
 

@@ -56,163 +56,192 @@
 
 #include "ctb.h"
 
-int32_t CTB_AddRecRaster(const char *fname, RecRaster *r, uchar let) {
-	CTB_handle hnd;
-	int32_t num;
-	uchar raster[REC_MAX_RASTER_SIZE], data[CTB_DATA_SIZE] = { 0 };
-	int32_t wb;
-	Bool32 ret;
+int32_t CTB_AddRecRaster(const char *fname, RecRaster *r, uchar let)
+{
+    CTB_handle hnd;
+    int32_t num;
+    uchar raster[REC_MAX_RASTER_SIZE], data[CTB_DATA_SIZE] = { 0 };
+    int32_t wb;
+    Bool32 ret;
 
-	if (!CTB_open(fname, &hnd, "w")) {
-		if (1)
-			CTB_create(fname, NULL);
-		else
-			CTB_create_gray(fname, NULL);
-		if (!CTB_open(fname, &hnd, "w")) {
-			return FALSE;
-		}
-	}
-	data[1] = (uchar) r->lnPixWidth;
-	data[2] = (uchar) r->lnPixHeight;
-	data[3] = let;
+    if (!CTB_open(fname, &hnd, "w")) {
+        if (1)
+            CTB_create(fname, NULL);
 
-	if (hnd.signums & (CTB_GRAY_SCALE | CTB_PLANE)) {
-		wb = r->lnPixWidth;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-	} else {
-		wb = ((r->lnPixWidth + 63) / 64) * 8;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-		CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
-	}
-	ret = CTB_write(&hnd, -1, raster, data);
-	num = hnd.num;
-	CTB_close(&hnd);
-	return ret ? num : -1;
+        else
+            CTB_create_gray(fname, NULL);
+
+        if (!CTB_open(fname, &hnd, "w")) {
+            return FALSE;
+        }
+    }
+
+    data[1] = (uchar) r->lnPixWidth;
+    data[2] = (uchar) r->lnPixHeight;
+    data[3] = let;
+
+    if (hnd.signums & (CTB_GRAY_SCALE | CTB_PLANE)) {
+        wb = r->lnPixWidth;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+    }
+
+    else {
+        wb = ((r->lnPixWidth + 63) / 64) * 8;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+        CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
+    }
+
+    ret = CTB_write(&hnd, -1, raster, data);
+    num = hnd.num;
+    CTB_close(&hnd);
+    return ret ? num : -1;
 }
 
-int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r, uchar *data) {
-	CTB_handle hnd;
-	int32_t num;
-	uchar raster[REC_MAX_RASTER_SIZE];
-	int32_t wb;
-	Bool32 ret;
+int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r, uchar *data)
+{
+    CTB_handle hnd;
+    int32_t num;
+    uchar raster[REC_MAX_RASTER_SIZE];
+    int32_t wb;
+    Bool32 ret;
 
-	if (!CTB_open(fname, &hnd, "w")) {
-		if (1)
-			CTB_create(fname, NULL);
-		else
-			CTB_create_gray(fname, NULL);
-		if (!CTB_open(fname, &hnd, "w")) {
-			return FALSE;
-		}
-	}
-	data[1] = (uchar) r->lnPixWidth;
-	data[2] = (uchar) r->lnPixHeight;
+    if (!CTB_open(fname, &hnd, "w")) {
+        if (1)
+            CTB_create(fname, NULL);
 
-	if (hnd.signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
-		wb = r->lnPixWidth;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-	} else {
-		wb = ((r->lnPixWidth + 63) / 64) * 8;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-		CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
-	}
-	ret = CTB_write(&hnd, -1, raster, data);
-	num = hnd.num;
-	CTB_close(&hnd);
-	return ret ? num : -1;
+        else
+            CTB_create_gray(fname, NULL);
+
+        if (!CTB_open(fname, &hnd, "w")) {
+            return FALSE;
+        }
+    }
+
+    data[1] = (uchar) r->lnPixWidth;
+    data[2] = (uchar) r->lnPixHeight;
+
+    if (hnd.signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
+        wb = r->lnPixWidth;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+    }
+
+    else {
+        wb = ((r->lnPixWidth + 63) / 64) * 8;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+        CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
+    }
+
+    ret = CTB_write(&hnd, -1, raster, data);
+    num = hnd.num;
+    CTB_close(&hnd);
+    return ret ? num : -1;
 }
 
 Bool32 CTB_ReadRecRaster(CTB_handle *hnd, int32_t num, uchar *let,
-		RecRaster *r, uchar *data) {
-	uchar raster[REC_MAX_RASTER_SIZE], w, h;
-	int32_t wb, ww, hh;
-	Bool32 ret;
+                         RecRaster *r, uchar *data)
+{
+    uchar raster[REC_MAX_RASTER_SIZE], w, h;
+    int32_t wb, ww, hh;
+    Bool32 ret;
+    ret = CTB_read(hnd, num, raster, data);
 
-	ret = CTB_read(hnd, num, raster, data);
-	if (ret) {
-		w = data[1];
-		h = data[2];
-		ww = w;
-		hh = h;
-		r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
-		r->lnPixWidth = ww;
-		r->lnPixHeight = hh;
-		*let = data[3];
-		if (hnd->signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
-			memcpy(r->Raster, raster, ww * hh);
-		} else {
-			wb = (w + 7) / 8;
-			memcpy(r->Raster, raster, wb * hh);
-			CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
-		}
-	}
+    if (ret) {
+        w = data[1];
+        h = data[2];
+        ww = w;
+        hh = h;
+        r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
+        r->lnPixWidth = ww;
+        r->lnPixHeight = hh;
+        *let = data[3];
 
-	return ret;
+        if (hnd->signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
+            memcpy(r->Raster, raster, ww * hh);
+        }
+
+        else {
+            wb = (w + 7) / 8;
+            memcpy(r->Raster, raster, wb * hh);
+            CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
+        }
+    }
+
+    return ret;
 }
 
-Bool32 CTB_GetRecRaster(const char *fname, int32_t id_rast, RecRaster *r) {
-	uchar raster[REC_MAX_RASTER_SIZE], w, h, data[CTB_DATA_SIZE];
-	int32_t wb, ww, hh;
-	Bool32 ret;
-	CTB_handle hnd;
+Bool32 CTB_GetRecRaster(const char *fname, int32_t id_rast, RecRaster *r)
+{
+    uchar raster[REC_MAX_RASTER_SIZE], w, h, data[CTB_DATA_SIZE];
+    int32_t wb, ww, hh;
+    Bool32 ret;
+    CTB_handle hnd;
 
-	if (!CTB_open(fname, &hnd, "w"))
-		return FALSE;
+    if (!CTB_open(fname, &hnd, "w"))
+        return FALSE;
 
-	ret = CTB_read(&hnd, id_rast, raster, data);
-	CTB_close(&hnd);
+    ret = CTB_read(&hnd, id_rast, raster, data);
+    CTB_close(&hnd);
 
-	if (ret) {
-		w = data[1];
-		h = data[2];
-		ww = w;
-		hh = h;
+    if (ret) {
+        w = data[1];
+        h = data[2];
+        ww = w;
+        hh = h;
+        r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
+        r->lnPixWidth = ww;
+        r->lnPixHeight = hh;
 
-		r->lnRasterBufSize = REC_MAX_RASTER_SIZE;
-		r->lnPixWidth = ww;
-		r->lnPixHeight = hh;
-		if (hnd.signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
-			memcpy(r->Raster, raster, ww * hh);
-		} else {
-			wb = (w + 7) / 8;
-			memcpy(r->Raster, raster, wb * hh);
-			CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
-		}
-	}
-	return ret;
+        if (hnd.signums == (CTB_GRAY_SCALE | CTB_PLANE)) {
+            memcpy(r->Raster, raster, ww * hh);
+        }
+
+        else {
+            wb = (w + 7) / 8;
+            memcpy(r->Raster, raster, wb * hh);
+            CTB_align8_lines(r->Raster, r->lnPixWidth, r->lnPixHeight);
+        }
+    }
+
+    return ret;
 }
 
-int32_t CTB_AddRecRasterEx(char *fname, RecRasterEx *r, uchar let) {
-	CTB_handle hnd;
-	int32_t num;
-	uchar raster[REC_MAX_RASTER_SIZE_EX], data[CTB_DATA_SIZE] = { 0 };
-	int32_t wb;
-	Bool32 ret;
+int32_t CTB_AddRecRasterEx(char *fname, RecRasterEx *r, uchar let)
+{
+    CTB_handle hnd;
+    int32_t num;
+    uchar raster[REC_MAX_RASTER_SIZE_EX], data[CTB_DATA_SIZE] = { 0 };
+    int32_t wb;
+    Bool32 ret;
 
-	if (!CTB_open(fname, &hnd, "w")) {
-		if (0)
-			CTB_create(fname, NULL);
-		else
-			CTB_create_gray(fname, NULL);
-		if (!CTB_open(fname, &hnd, "w")) {
-			return FALSE;
-		}
-	}
-	data[1] = (uchar) r->lnPixWidth;
-	data[2] = (uchar) r->lnPixHeight;
-	data[3] = let;
+    if (!CTB_open(fname, &hnd, "w")) {
+        if (0)
+            CTB_create(fname, NULL);
 
-	if (hnd.signums & CTB_GRAY_SCALE) {
-		wb = r->lnPixWidth;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-	} else {
-		wb = ((r->lnPixWidth + 63) / 64) * 8;
-		memcpy(raster, r->Raster, wb * r->lnPixHeight);
-		CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
-	}
-	ret = CTB_write(&hnd, -1, raster, data);
-	num = hnd.num;
-	CTB_close(&hnd);
-	return ret ? num : -1;
+        else
+            CTB_create_gray(fname, NULL);
+
+        if (!CTB_open(fname, &hnd, "w")) {
+            return FALSE;
+        }
+    }
+
+    data[1] = (uchar) r->lnPixWidth;
+    data[2] = (uchar) r->lnPixHeight;
+    data[3] = let;
+
+    if (hnd.signums & CTB_GRAY_SCALE) {
+        wb = r->lnPixWidth;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+    }
+
+    else {
+        wb = ((r->lnPixWidth + 63) / 64) * 8;
+        memcpy(raster, r->Raster, wb * r->lnPixHeight);
+        CTB_align1_lines(raster, r->lnPixWidth, r->lnPixHeight);
+    }
+
+    ret = CTB_write(&hnd, -1, raster, data);
+    num = hnd.num;
+    CTB_close(&hnd);
+    return ret ? num : -1;
 }

@@ -80,528 +80,589 @@ extern int size_class_comp;
 extern int size_class_line;
 extern int size_class_hline;
 
-CLINE_FUNC void CLINE_Reset() {
-	if (!LDPUMA_Skip(MemStat) && LDPUMA_IsActive()) {
-		FILE* f = fopen("clstat.res", "w");
-		fprintf(f, "Interval -   %d\n", pMyMem->pInvMas.m_count * len_inv_mas);
-		fprintf(f, "Event    -   %d\n", pMyMem->pEventMas.m_count
-				* len_event_mas);
-		fprintf(f, "Comp     -   %d\n", pMyMem->pCompMas.m_count * len_comp_mas);
-		fprintf(f, "Cupoint  -   %d\n", pMyMem->pCupointMas.m_count
-				* len_cupoint_mas);
-		fprintf(f, "Line     -   %d\n", pMyMem->pLineMas.m_count * len_line_mas);
-		fprintf(f, "HLine    -   %d\n", pMyMem->pHLineMas.m_count
-				* len_hline_mas);
-		fprintf(f, "All Mem  -   %d\n", pMyMem->pInvMas.m_count * len_inv_mas
-				* size_class_inv + pMyMem->pEventMas.m_count * len_event_mas
-				* size_class_event + pMyMem->pCompMas.m_count * len_comp_mas
-				* size_class_comp + pMyMem->pCupointMas.m_count
-				* len_cupoint_mas * size_class_cupoint
-				+ pMyMem->pLineMas.m_count * len_line_mas * size_class_line
-				+ pMyMem->pHLineMas.m_count * len_hline_mas * size_class_hline);
-		fclose(f);
-	}
+CLINE_FUNC void CLINE_Reset()
+{
+    if (!LDPUMA_Skip(MemStat) && LDPUMA_IsActive()) {
+        FILE* f = fopen("clstat.res", "w");
+        fprintf(f, "Interval -   %d\n", pMyMem->pInvMas.m_count * len_inv_mas);
+        fprintf(f, "Event    -   %d\n", pMyMem->pEventMas.m_count
+                * len_event_mas);
+        fprintf(f, "Comp     -   %d\n", pMyMem->pCompMas.m_count * len_comp_mas);
+        fprintf(f, "Cupoint  -   %d\n", pMyMem->pCupointMas.m_count
+                * len_cupoint_mas);
+        fprintf(f, "Line     -   %d\n", pMyMem->pLineMas.m_count * len_line_mas);
+        fprintf(f, "HLine    -   %d\n", pMyMem->pHLineMas.m_count
+                * len_hline_mas);
+        fprintf(f, "All Mem  -   %d\n", pMyMem->pInvMas.m_count * len_inv_mas
+                * size_class_inv + pMyMem->pEventMas.m_count * len_event_mas
+                * size_class_event + pMyMem->pCompMas.m_count * len_comp_mas
+                * size_class_comp + pMyMem->pCupointMas.m_count
+                * len_cupoint_mas * size_class_cupoint
+                + pMyMem->pLineMas.m_count * len_line_mas * size_class_line
+                + pMyMem->pHLineMas.m_count * len_hline_mas * size_class_hline);
+        fclose(f);
+    }
 
-	pLCont->FastDel();
-	pMainCont = NULL;
+    pLCont->FastDel();
+    pMainCont = NULL;
 }
 
-CLINE_FUNC CLINE_handle CLINE_CreateContainer(Bool Main) {
-	if (Main) {
-		pMainCont = pLCont->Add();
-		return (CLINE_handle)(pMainCont);
-	}
-	return (CLINE_handle)(pLCont->Add());
+CLINE_FUNC CLINE_handle CLINE_CreateContainer(Bool Main)
+{
+    if (Main) {
+        pMainCont = pLCont->Add();
+        return (CLINE_handle)(pMainCont);
+    }
+
+    return (CLINE_handle)(pLCont->Add());
 }
 
-CLINE_FUNC void CLINE_DeleteContainer(CLINE_handle handle) {
-	if (!handle)
-		return;
-	if (handle == (CLINE_handle)(pMainCont))
-		pMainCont = NULL;
-	pLCont->Del((CHLine*) (handle));
+CLINE_FUNC void CLINE_DeleteContainer(CLINE_handle handle)
+{
+    if (!handle)
+        return;
+
+    if (handle == (CLINE_handle)(pMainCont))
+        pMainCont = NULL;
+
+    pLCont->Del((CHLine*) (handle));
 }
 
-CLINE_FUNC CLINE_handle CLINE_GetFirstContainer() {
-	return (CLINE_handle)(pLCont->GetRoot());
+CLINE_FUNC CLINE_handle CLINE_GetFirstContainer()
+{
+    return (CLINE_handle)(pLCont->GetRoot());
 }
 
-CLINE_FUNC CLINE_handle CLINE_GetNextContainer(CLINE_handle container) {
-	if (!container)
-		return 0;
-	CHLine* pcont = (CHLine*) (container);
-	// assert(IfExistContainer(pcont));
-	return (CLINE_handle)(pcont->next);
+CLINE_FUNC CLINE_handle CLINE_GetNextContainer(CLINE_handle container)
+{
+    if (!container)
+        return 0;
+
+    CHLine* pcont = (CHLine*) (container);
+    // assert(IfExistContainer(pcont));
+    return (CLINE_handle)(pcont->next);
 }
 
-CLINE_FUNC CLINE_handle CLINE_GetMainContainer() {
-	return (CLINE_handle)(pMainCont);
+CLINE_FUNC CLINE_handle CLINE_GetMainContainer()
+{
+    return (CLINE_handle)(pMainCont);
 }
 
-CLINE_FUNC void CLINE_CleanContainer(CLINE_handle container) {
-	CLINE_DelAllLines(container);
+CLINE_FUNC void CLINE_CleanContainer(CLINE_handle container)
+{
+    CLINE_DelAllLines(container);
 }
 
-CLINE_FUNC int CLINE_GetLineCount(CLINE_handle container) {
-	if (!container)
-		return 0;
-	CHLine* phline = (CHLine*) (container);
-	// assert( IfExistContainer(phline) );
-	return phline->m_line.m_count;
+CLINE_FUNC int CLINE_GetLineCount(CLINE_handle container)
+{
+    if (!container)
+        return 0;
+
+    CHLine* phline = (CHLine*) (container);
+    // assert( IfExistContainer(phline) );
+    return phline->m_line.m_count;
 }
 
 CLINE_FUNC Bool32 CLINE_MoveLine(CLINE_handle container_to,
-		CLINE_handle container_from, CLINE_handle line) {
-	if (!container_from || !container_to || !line)
-		return FALSE;
+                                 CLINE_handle container_from, CLINE_handle line)
+{
+    if (!container_from || !container_to || !line)
+        return FALSE;
 
-	CHLine* phline_from = (CHLine*) (container_from);
-	CHLine* phline_to = (CHLine*) (container_to);
-	CLine* pline = (CLine*) (line);
+    CHLine* phline_from = (CHLine*) (container_from);
+    CHLine* phline_to = (CHLine*) (container_to);
+    CLine* pline = (CLine*) (line);
 
-	if (!phline_from->m_line.Detach(pline))
-		return FALSE;
+    if (!phline_from->m_line.Detach(pline))
+        return FALSE;
 
-	phline_to->m_line.Attach(pline);
-
-	return TRUE;
+    phline_to->m_line.Attach(pline);
+    return TRUE;
 }
 
-CLINE_FUNC CLINE_handle CLINE_GetFirstLine(CLINE_handle container) {
-	if (!container)
-		return 0;
-	CHLine* phline = (CHLine*) (container);
-	// assert( IfExistContainer(phline) );
-	return (CLINE_handle)(phline->m_line.GetRoot());
+CLINE_FUNC CLINE_handle CLINE_GetFirstLine(CLINE_handle container)
+{
+    if (!container)
+        return 0;
+
+    CHLine* phline = (CHLine*) (container);
+    // assert( IfExistContainer(phline) );
+    return (CLINE_handle)(phline->m_line.GetRoot());
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextLine(CLINE_handle prev_line)
 {
-	if(!prev_line)
-	return 0;
-	CLine* pline=(CLine*)(prev_line);
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->next );
+    if (!prev_line)
+        return 0;
+
+    CLine* pline = (CLine*)(prev_line);
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewLine(CLINE_handle container)
 {
-	if(!container)
-	return 0;
-	CHLine* phline;
-	phline=(CHLine*)(container);
-	// assert( IfExistContainer(phline) );
-	CLine* pline=phline->m_line.Add();
-	return (CLINE_handle)(pline);
+    if (!container)
+        return 0;
+
+    CHLine* phline;
+    phline = (CHLine*)(container);
+    // assert( IfExistContainer(phline) );
+    CLine* pline = phline->m_line.Add();
+    return (CLINE_handle)(pline);
 }
 
-CLINE_FUNC void CLINE_DelLine(CLINE_handle container,CLINE_handle line)
+CLINE_FUNC void CLINE_DelLine(CLINE_handle container, CLINE_handle line)
 {
-	if(!container||!line)
-	return;
-	CHLine* phline=(CHLine*)(container);
-	// assert( IfExistContainer(phline) );
-	CLine* pline=(CLine*)(line);
-	phline->m_line.Del( pline );
+    if (!container || !line)
+        return;
+
+    CHLine* phline = (CHLine*)(container);
+    // assert( IfExistContainer(phline) );
+    CLine* pline = (CLine*)(line);
+    phline->m_line.Del( pline );
 }
 
 CLINE_FUNC void CLINE_DelAllLines(CLINE_handle container)
 {
-	if(!container)
-	return;
-	CHLine* phline=(CHLine*)(container);
-	// assert( IfExistContainer(phline) );
-	phline->m_line.FastDel();
+    if (!container)
+        return;
+
+    CHLine* phline = (CHLine*)(container);
+    // assert( IfExistContainer(phline) );
+    phline->m_line.FastDel();
 }
 
 CLINE_FUNC CPDLine CLINE_GetLineData(CLINE_handle line)
 {
-	if(!line)
-	return NULL;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CPDLine)(&(pline->data));
+    if (!line)
+        return NULL;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CPDLine)(&(pline->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetLineData(CLINE_handle line,CPDLine cpdata)
+CLINE_FUNC Bool32 CLINE_SetLineData(CLINE_handle line, CPDLine cpdata)
 {
-	if(!line||!cpdata)
-	return FALSE;
-	CLine* pline=(CLine*)((line));
-	/// assert( IfExistLine(pline) );
-	return CopyData(cpdata,&(pline->data),size_line);
+    if (!line || !cpdata)
+        return FALSE;
+
+    CLine* pline = (CLine*)((line));
+    /// assert( IfExistLine(pline) );
+    return CopyData(cpdata, &(pline->data), size_line);
 }
 
 CLINE_FUNC int CLINE_GetEventCount(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return pline->m_event.m_count;
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return pline->m_event.m_count;
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetFirstEvent(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->m_event.GetRoot() );
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->m_event.GetRoot() );
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextEvent(CLINE_handle event)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	return (CLINE_handle)( pevent->next );
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    return (CLINE_handle)( pevent->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewEvent(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	CLINE_handle hevent=(CLINE_handle)( pline->m_event.Add() );
-	pline->data.n_event=pline->m_event.m_count;
-	return hevent;
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    CLINE_handle hevent = (CLINE_handle)( pline->m_event.Add() );
+    pline->data.n_event = pline->m_event.m_count;
+    return hevent;
 }
 
-CLINE_FUNC void CLINE_DelEvent(CLINE_handle line,CLINE_handle event)
+CLINE_FUNC void CLINE_DelEvent(CLINE_handle line, CLINE_handle event)
 {
-	if(!line||!event)
-	return;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	CEvent* pevent=(CEvent*)((event));
-	pline->m_event.Del(pevent);
-	pline->data.n_event=pline->m_event.m_count;
+    if (!line || !event)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    CEvent* pevent = (CEvent*)((event));
+    pline->m_event.Del(pevent);
+    pline->data.n_event = pline->m_event.m_count;
 }
 
 CLINE_FUNC void CLINE_DelAllEvents(CLINE_handle line)
 {
-	if(!line)
-	return;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	pline->m_event.FastDel();
-	pline->data.n_event=pline->m_event.m_count;
+    if (!line)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    pline->m_event.FastDel();
+    pline->data.n_event = pline->m_event.m_count;
 }
 
 CLINE_FUNC CPDEvent CLINE_GetEventData(CLINE_handle event)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	return (CPDEvent)(&(pevent->data));
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    return (CPDEvent)(&(pevent->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetEventData(CLINE_handle event,CPDEvent cpdata)
+CLINE_FUNC Bool32 CLINE_SetEventData(CLINE_handle event, CPDEvent cpdata)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	return CopyData(cpdata,&(pevent->data),size_event);
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    return CopyData(cpdata, &(pevent->data), size_event);
 }
 
 CLINE_FUNC int CLINE_GetCutPointCount(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return pline->m_cut_point.m_count;
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return pline->m_cut_point.m_count;
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetFirstCutPoint(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->m_cut_point.GetRoot() );
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->m_cut_point.GetRoot() );
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextCutPoint(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	return (CLINE_handle)( pcupoint->next );
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    return (CLINE_handle)( pcupoint->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewCutPoint(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->m_cut_point.Add() );
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->m_cut_point.Add() );
 }
 
-CLINE_FUNC void CLINE_DelCutPoint(CLINE_handle line,CLINE_handle cupoint)
+CLINE_FUNC void CLINE_DelCutPoint(CLINE_handle line, CLINE_handle cupoint)
 {
-	if(!line||!cupoint)
-	return;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	pline->m_cut_point.Del(pcupoint);
+    if (!line || !cupoint)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    pline->m_cut_point.Del(pcupoint);
 }
 
 CLINE_FUNC void CLINE_DelAllCutPoints(CLINE_handle line)
 {
-	if(!line)
-	return;
-	CLine* pline=(CLine*)((line));
-	/// assert( IfExistLine(pline) );
-	pline->m_cut_point.FastDel();
+    if (!line)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    /// assert( IfExistLine(pline) );
+    pline->m_cut_point.FastDel();
 }
 
 CLINE_FUNC CPDCutPoint CLINE_GetCutPointData(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	return (CPDCutPoint)(&(pcupoint->data));
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    return (CPDCutPoint)(&(pcupoint->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetCutPointData(CLINE_handle cupoint,CPDCutPoint cpdata)
+CLINE_FUNC Bool32 CLINE_SetCutPointData(CLINE_handle cupoint, CPDCutPoint cpdata)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	return CopyData(cpdata,&(pcupoint->data),size_cupoint);
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    return CopyData(cpdata, &(pcupoint->data), size_cupoint);
 }
 
 CLINE_FUNC int CLINE_GetCompCount(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return pline->m_comp.m_count;
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return pline->m_comp.m_count;
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetFirstComp(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->m_comp.GetRoot() );
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->m_comp.GetRoot() );
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextComp(CLINE_handle comp)
 {
-	if(!comp)
-	return 0;
-	CComponent* pcomp=(CComponent*)((comp));
-	/// assert( IfExistComp(pcomp) );
-	return (CLINE_handle)( pcomp->next );
+    if (!comp)
+        return 0;
+
+    CComponent* pcomp = (CComponent*)((comp));
+    /// assert( IfExistComp(pcomp) );
+    return (CLINE_handle)( pcomp->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewComp(CLINE_handle line)
 {
-	if(!line)
-	return 0;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	return (CLINE_handle)( pline->m_comp.Add() );
+    if (!line)
+        return 0;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    return (CLINE_handle)( pline->m_comp.Add() );
 }
 
-CLINE_FUNC void CLINE_DelComp(CLINE_handle line,CLINE_handle comp)
+CLINE_FUNC void CLINE_DelComp(CLINE_handle line, CLINE_handle comp)
 {
-	if(!line||!comp)
-	return;
-	CLine* pline=(CLine*)((line));
-	// assert( IfExistLine(pline) );
-	CComponent* pcomp=(CComponent*)((comp));
-	pline->m_comp.Del(pcomp);
+    if (!line || !comp)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    // assert( IfExistLine(pline) );
+    CComponent* pcomp = (CComponent*)((comp));
+    pline->m_comp.Del(pcomp);
 }
 
 CLINE_FUNC void CLINE_DelAllComps(CLINE_handle line)
 {
-	if(!line)
-	return;
-	CLine* pline=(CLine*)((line));
-	/// assert( IfExistLine(pline) );
-	pline->m_comp.FastDel();
+    if (!line)
+        return;
+
+    CLine* pline = (CLine*)((line));
+    /// assert( IfExistLine(pline) );
+    pline->m_comp.FastDel();
 }
 
 CLINE_FUNC CPDComponent CLINE_GetCompData(CLINE_handle comp)
 {
-	if(!comp)
-	return 0;
-	CComponent* pcomp=(CComponent*)((comp));
-	// assert( IfExistComp(pcomp) );
-	return (CPDComponent)(&(pcomp->data));
+    if (!comp)
+        return 0;
+
+    CComponent* pcomp = (CComponent*)((comp));
+    // assert( IfExistComp(pcomp) );
+    return (CPDComponent)(&(pcomp->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetCompData(CLINE_handle comp,CPDComponent cpdata)
+CLINE_FUNC Bool32 CLINE_SetCompData(CLINE_handle comp, CPDComponent cpdata)
 {
-	if(!comp)
-	return 0;
-	CComponent* pcomp=(CComponent*)((comp));
-	// assert( IfExistComp(pcomp) );
-	return CopyData(cpdata,&(pcomp->data),size_comp);
+    if (!comp)
+        return 0;
+
+    CComponent* pcomp = (CComponent*)((comp));
+    // assert( IfExistComp(pcomp) );
+    return CopyData(cpdata, &(pcomp->data), size_comp);
 }
 
 CLINE_FUNC int CLINE_GetEventInvCount(CLINE_handle event)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistLine(pline) );
-	return pevent->m_interval.m_count;
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistLine(pline) );
+    return pevent->m_interval.m_count;
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetFirstEventInv(CLINE_handle event)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	return (CLINE_handle)( pevent->m_interval.GetRoot() );
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    return (CLINE_handle)( pevent->m_interval.GetRoot() );
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextEventInv(CLINE_handle inv)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	// assert( IfExistEventInv(pinv) );
-	return (CLINE_handle)( pinv->next );
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    // assert( IfExistEventInv(pinv) );
+    return (CLINE_handle)( pinv->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewEventInv(CLINE_handle event)
 {
-	if(!event)
-	return 0;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	return (CLINE_handle)( pevent->m_interval.Add() );
+    if (!event)
+        return 0;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    return (CLINE_handle)( pevent->m_interval.Add() );
 }
 
-CLINE_FUNC void CLINE_DelEventInv(CLINE_handle event,CLINE_handle inv)
+CLINE_FUNC void CLINE_DelEventInv(CLINE_handle event, CLINE_handle inv)
 {
-	if(!event||!inv)
-	return;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	CInterval* pinv=(CInterval*)((inv));
-	pevent->m_interval.Del(pinv);
+    if (!event || !inv)
+        return;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    CInterval* pinv = (CInterval*)((inv));
+    pevent->m_interval.Del(pinv);
 }
 
 CLINE_FUNC void CLINE_DelAllEventInvs(CLINE_handle event)
 {
-	if(!event)
-	return;
-	CEvent* pevent=(CEvent*)((event));
-	// assert( IfExistEvent(pevent) );
-	pevent->m_interval.FastDel();
+    if (!event)
+        return;
+
+    CEvent* pevent = (CEvent*)((event));
+    // assert( IfExistEvent(pevent) );
+    pevent->m_interval.FastDel();
 }
 
 CLINE_FUNC CPDInterval CLINE_GetEventInvData(CLINE_handle inv)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	// assert( IfExistEventInv(pinv) );
-	return (CPDInterval)(&(pinv->data));
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    // assert( IfExistEventInv(pinv) );
+    return (CPDInterval)(&(pinv->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetEventInvData(CLINE_handle inv,CPDInterval cpdata)
+CLINE_FUNC Bool32 CLINE_SetEventInvData(CLINE_handle inv, CPDInterval cpdata)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	// assert( IfExistEventInv(pinv) );
-	return CopyData(cpdata,&(pinv->data),size_inv);
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    // assert( IfExistEventInv(pinv) );
+    return CopyData(cpdata, &(pinv->data), size_inv);
 }
 
 CLINE_FUNC int CLINE_GetCutPointInvCount(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistLine(pline) );
-	return pcupoint->m_interval.m_count;
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistLine(pline) );
+    return pcupoint->m_interval.m_count;
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetFirstCutPointInv(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	return (CLINE_handle)( pcupoint->m_interval.GetRoot() );
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    return (CLINE_handle)( pcupoint->m_interval.GetRoot() );
 }
 
 CLINE_FUNC CLINE_handle CLINE_GetNextCutPointInv(CLINE_handle inv)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	/// assert( IfExistCutPointInv(pinv) );
-	return (CLINE_handle)( pinv->next );
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    /// assert( IfExistCutPointInv(pinv) );
+    return (CLINE_handle)( pinv->next );
 }
 
 CLINE_FUNC CLINE_handle CLINE_AddNewCutPointInv(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return 0;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	return (CLINE_handle)( pcupoint->m_interval.Add() );
+    if (!cupoint)
+        return 0;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    return (CLINE_handle)( pcupoint->m_interval.Add() );
 }
 
-CLINE_FUNC void CLINE_DelCutPointInv(CLINE_handle cupoint,CLINE_handle inv)
+CLINE_FUNC void CLINE_DelCutPointInv(CLINE_handle cupoint, CLINE_handle inv)
 {
-	if(!cupoint||!inv)
-	return;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	// assert( IfExistCutPoint(pcupoint) );
-	CInterval* pinv=(CInterval*)((inv));
-	pcupoint->m_interval.Del(pinv);
+    if (!cupoint || !inv)
+        return;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    // assert( IfExistCutPoint(pcupoint) );
+    CInterval* pinv = (CInterval*)((inv));
+    pcupoint->m_interval.Del(pinv);
 }
 
 CLINE_FUNC void CLINE_DelAllCutPointInvs(CLINE_handle cupoint)
 {
-	if(!cupoint)
-	return;
-	CCutPoint* pcupoint=(CCutPoint*)((cupoint));
-	/// assert( IfExistCutPoint(pcupoint) );
-	pcupoint->m_interval.FastDel();
+    if (!cupoint)
+        return;
+
+    CCutPoint* pcupoint = (CCutPoint*)((cupoint));
+    /// assert( IfExistCutPoint(pcupoint) );
+    pcupoint->m_interval.FastDel();
 }
 
 CLINE_FUNC CPDInterval CLINE_GetCutPointInvData(CLINE_handle inv)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	// assert( IfExistCutPointInv(pinv) );
-	return (CPDInterval)(&(pinv->data));
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    // assert( IfExistCutPointInv(pinv) );
+    return (CPDInterval)(&(pinv->data));
 }
 
-CLINE_FUNC Bool32 CLINE_SetCutPointInvData(CLINE_handle inv,CPDInterval cpdata)
+CLINE_FUNC Bool32 CLINE_SetCutPointInvData(CLINE_handle inv, CPDInterval cpdata)
 {
-	if(!inv)
-	return 0;
-	CInterval* pinv=(CInterval*)((inv));
-	// assert( IfExistCutPointInv(pinv) );
-	return CopyData(cpdata,&(pinv->data),size_inv);
+    if (!inv)
+        return 0;
+
+    CInterval* pinv = (CInterval*)((inv));
+    // assert( IfExistCutPointInv(pinv) );
+    return CopyData(cpdata, &(pinv->data), size_inv);
 }
 
-CLINE_FUNC Bool32 CLINE_CopyData(void* to,const void* from,int size)
+CLINE_FUNC Bool32 CLINE_CopyData(void* to, const void* from, int size)
 {
-	return CopyData(from,to,size);
+    return CopyData(from, to, size);
 }

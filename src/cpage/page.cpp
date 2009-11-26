@@ -66,123 +66,124 @@ PAGE::PAGE()
 //#################################
 PAGE::~PAGE()
 {
-	Block.Clear();
+    Block.Clear();
 }
 //#################################
-Handle	PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags ,void * lpData , uint32_t Size )
+Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     BLOCK tmp;
-	Handle hBlock = Block.AddTail(tmp);
-	if(hBlock)
-	{
-	if(!Block.GetItem(hBlock).Create(Type, UserNum , Flags ,lpData ,Size))
-		return NULL;
-	}
-return hBlock;
+    Handle hBlock = Block.AddTail(tmp);
+
+    if (hBlock) {
+        if (!Block.GetItem(hBlock).Create(Type, UserNum , Flags , lpData , Size))
+            return NULL;
+    }
+
+    return hBlock;
 }
 //#################################
 PAGE & PAGE::operator = (PAGE & Page)
 {
-	int count = Page.Block.GetCount();
-	Block.Clear();
-	for(int i=0;i<count;i++)
-		Block.AddTail(Page.Block.GetItem(Page.Block.GetHandle(i)));
+    int count = Page.Block.GetCount();
+    Block.Clear();
 
-	*(DATA *)this = Page;
+    for (int i = 0; i < count; i++)
+        Block.AddTail(Page.Block.GetItem(Page.Block.GetHandle(i)));
 
-	return *this;
+    *(DATA *)this = Page;
+    return *this;
 }
 
 //#################################
-Bool32	PAGE::Save(Handle to)
+Bool32  PAGE::Save(Handle to)
 {
-	int count = Block.GetCount();
-	Bool32 rc = FALSE;
-	int i;
+    int count = Block.GetCount();
+    Bool32 rc = FALSE;
+    int i;
+    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-	rc = myWrite(to,&count,sizeof(count))==sizeof(count);
-	if(rc == TRUE && count)
-		for(i=0;i<count;i++)
-			Block.GetItem(Block.GetHandle(i)).Save(to);
+    if (rc == TRUE && count)
+        for (i = 0; i < count; i++)
+            Block.GetItem(Block.GetHandle(i)).Save(to);
 
-	if(rc)
-		rc = DATA::Save(to);
+    if (rc)
+        rc = DATA::Save(to);
 
-return rc;
+    return rc;
 }
 //#################################
-Bool32	PAGE::Restore(Handle from)
+Bool32  PAGE::Restore(Handle from)
 {
- Bool32 rc = FALSE;
- int count,i;
+    Bool32 rc = FALSE;
+    int count, i;
+    Block.Clear();
+    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
-	Block.Clear();
-  	rc = myRead(from,&count,sizeof(count))==sizeof(count);
-	for(i=0;i<count && rc==TRUE;i++)
-	{
-		BLOCK block;
-		rc = block.Restore(from);
-		if(rc)
-			Block.AddTail(block);
-	}
-	if(rc)
-		rc = DATA::Restore(from);
+    for (i = 0; i < count && rc == TRUE; i++) {
+        BLOCK block;
+        rc = block.Restore(from);
 
-return rc;
+        if (rc)
+            Block.AddTail(block);
+    }
+
+    if (rc)
+        rc = DATA::Restore(from);
+
+    return rc;
 }
 //#################################
-Bool32	PAGE::SaveCompress(Handle to)
+Bool32  PAGE::SaveCompress(Handle to)
 {
-	int count = Block.GetCount();
-	Bool32 rc = FALSE;
-	int i;
+    int count = Block.GetCount();
+    Bool32 rc = FALSE;
+    int i;
+    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-	rc = myWrite(to,&count,sizeof(count))==sizeof(count);
-	if(rc == TRUE && count)
-		for(i=0;i<count;i++)
-			Block.GetItem(Block.GetHandle(i)).SaveCompress(to);
+    if (rc == TRUE && count)
+        for (i = 0; i < count; i++)
+            Block.GetItem(Block.GetHandle(i)).SaveCompress(to);
 
-	if(rc)
-		rc = DATA::SaveCompress(to);
+    if (rc)
+        rc = DATA::SaveCompress(to);
 
-return rc;
+    return rc;
 }
 //#################################
-Bool32	PAGE::RestoreCompress(Handle from)
+Bool32  PAGE::RestoreCompress(Handle from)
 {
- Bool32 rc = FALSE;
- int count,i;
+    Bool32 rc = FALSE;
+    int count, i;
+    Block.Clear();
+    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
-	Block.Clear();
-  	rc = myRead(from,&count,sizeof(count))==sizeof(count);
-	for(i=0;i<count && rc==TRUE;i++)
-	{
-		BLOCK block;
-		rc = block.RestoreCompress(from);
-		if(rc)
-			Block.AddTail(block);
-	}
-	if(rc)
-		rc = DATA::RestoreCompress(from);
+    for (i = 0; i < count && rc == TRUE; i++) {
+        BLOCK block;
+        rc = block.RestoreCompress(from);
 
-return rc;
+        if (rc)
+            Block.AddTail(block);
+    }
+
+    if (rc)
+        rc = DATA::RestoreCompress(from);
+
+    return rc;
 }
-static 	CPAGE_CONVERTOR s_ConvertorPages = {0,DefConvertPage};
+static  CPAGE_CONVERTOR s_ConvertorPages = {0, DefConvertPage};
 //#################################
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor)
 {
-	CPAGE_CONVERTOR old = s_ConvertorPages;
-
-	s_ConvertorPages = convertor;
-
-	return old;
+    CPAGE_CONVERTOR old = s_ConvertorPages;
+    s_ConvertorPages = convertor;
+    return old;
 }
 //#################################
-uint32_t PAGE::Convert(Handle type,void * lpdata,uint32_t size)
+uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
 {
-	uint32_t rc = 0;
-	rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
-									Type,lpData,Size,
-									type,lpdata,size);
-return rc;
+    uint32_t rc = 0;
+    rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
+                                         Type, lpData, Size,
+                                         type, lpdata, size);
+    return rc;
 }

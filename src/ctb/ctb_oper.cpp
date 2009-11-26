@@ -69,177 +69,193 @@
 /// extern fuxntions and data
 extern char * ctb_last_punct(char *word);
 extern Bool32 CTB_files_init(const char *file_name, uchar *data, int16_t maxX,
-		int16_t maxY, int16_t dpb, uchar signums, uchar attr_size);
+                             int16_t maxY, int16_t dpb, uchar signums, uchar attr_size);
 extern int32_t ctb_err_code; // error code                   //
 
-int32_t CTB_compress(const char *filename) {
-	char *p, tmp_file[MAXPATH], file_name[MAXPATH];
-	CTB_handle hi, ho;
-	int32_t i, n, compress;
-	uchar dst[CTB_DATA_SIZE], buffer[256* 128 + 2 + CTB_DATA_SIZE ];
+int32_t CTB_compress(const char *filename)
+{
+    char *p, tmp_file[MAXPATH], file_name[MAXPATH];
+    CTB_handle hi, ho;
+    int32_t i, n, compress;
+    uchar dst[CTB_DATA_SIZE], buffer[256* 128 + 2 + CTB_DATA_SIZE ];
+    p = ctb_last_punct(file_name);
+    strcpy(file_name, filename);
+    ctb_err_code = CTB_ERR_NONE;
 
-	p = ctb_last_punct(file_name);
-	strcpy(file_name, filename);
+    if (p)
+        *p = '\0';
 
-	ctb_err_code = CTB_ERR_NONE;
-	if (p)
-		*p = '\0';
-	STRCPY(tmp_file, file_name);
-	p = STRRCHR(tmp_file, '\\');
-	if (p) {
-		*(p + 1) = '\0';
-		STRCAT(tmp_file, "$$$$$$$$");
-	} else
-		STRCPY(tmp_file, "$$$$$$$$");
+    STRCPY(tmp_file, file_name);
+    p = STRRCHR(tmp_file, '\\');
 
-	if (!CTB_open(file_name, &hi, "w"))
-		return FALSE;
+    if (p) {
+        *(p + 1) = '\0';
+        STRCAT(tmp_file, "$$$$$$$$");
+    }
 
-	CTB_read_global_data(&hi, dst);
-	CTB_files_init(tmp_file, dst, hi.width, hi.height, hi.dpb, hi.signums,
-			hi.attr_size);
+    else
+        STRCPY(tmp_file, "$$$$$$$$");
 
-	n = CTB_volume(&hi);
-	compress = hi.need_compress;
+    if (!CTB_open(file_name, &hi, "w"))
+        return FALSE;
 
-	if (compress) {
-		if (!CTB_open(tmp_file, &ho, "w"))
-			return 0;
-		for (i = 0; i < n; i++) {
-			switch (CTB_read(&hi, i, buffer, dst)) {
-			case 1:
-				CTB_write_mark(&ho, -1, buffer, dst, FALSE);
-				break;
-			case 2:
-				CTB_write_mark(&ho, -1, buffer, dst, TRUE);
-				break;
-			default:
-				break;
-			}
-		}
-		ho.need_compress = 0;
-		CTB_close(&ho);
-	}
+    CTB_read_global_data(&hi, dst);
+    CTB_files_init(tmp_file, dst, hi.width, hi.height, hi.dpb, hi.signums,
+                   hi.attr_size);
+    n = CTB_volume(&hi);
+    compress = hi.need_compress;
 
-	hi.need_compress = 0;
-	CTB_close(&hi);
-	if (!compress) { // delete tmp file //
-		STRCAT(tmp_file, ".CTB");
-		UNLINK(tmp_file);
-		*ctb_last_punct(tmp_file) = 0;
-		STRCAT(tmp_file, ".IND");
-		UNLINK(tmp_file);
-		return 0;
-	}
+    if (compress) {
+        if (!CTB_open(tmp_file, &ho, "w"))
+            return 0;
 
-	STRCAT(file_name, ".CTB");
-	STRCAT(tmp_file, ".CTB");
-	UNLINK(file_name);
-	RENAME(tmp_file, file_name);
-	*ctb_last_punct(tmp_file) = 0;
-	*ctb_last_punct(file_name) = 0;
-	STRCAT(file_name, ".IND");
-	STRCAT(tmp_file, ".IND");
-	UNLINK(file_name);
-	RENAME(tmp_file, file_name);
+        for (i = 0; i < n; i++) {
+            switch (CTB_read(&hi, i, buffer, dst)) {
+                case 1:
+                    CTB_write_mark(&ho, -1, buffer, dst, FALSE);
+                    break;
+                case 2:
+                    CTB_write_mark(&ho, -1, buffer, dst, TRUE);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-	return n;
+        ho.need_compress = 0;
+        CTB_close(&ho);
+    }
+
+    hi.need_compress = 0;
+    CTB_close(&hi);
+
+    if (!compress) { // delete tmp file //
+        STRCAT(tmp_file, ".CTB");
+        UNLINK(tmp_file);
+        *ctb_last_punct(tmp_file) = 0;
+        STRCAT(tmp_file, ".IND");
+        UNLINK(tmp_file);
+        return 0;
+    }
+
+    STRCAT(file_name, ".CTB");
+    STRCAT(tmp_file, ".CTB");
+    UNLINK(file_name);
+    RENAME(tmp_file, file_name);
+    *ctb_last_punct(tmp_file) = 0;
+    *ctb_last_punct(file_name) = 0;
+    STRCAT(file_name, ".IND");
+    STRCAT(tmp_file, ".IND");
+    UNLINK(file_name);
+    RENAME(tmp_file, file_name);
+    return n;
 }
 
-int32_t CTB_rename(char *new_name, char *old_name) {
-	char newname[MAXPATH], oldname[MAXPATH];
+int32_t CTB_rename(char *new_name, char *old_name)
+{
+    char newname[MAXPATH], oldname[MAXPATH];
 
-	if (*(new_name + 1) != ':' && *(old_name + 1) != ':' || // without disk names //
-			toupper(*new_name) == toupper(*old_name) && *(new_name + 1) == ':'
-					&& *(old_name + 1) == ':') // one disk           //
-	{
-		char *p = ctb_last_punct(old_name);
-		if (p)
-			*p = 0;
-		p = ctb_last_punct(new_name);
-		if (p)
-			*p = 0;
+    if (*(new_name + 1) != ':' && *(old_name + 1) != ':' || // without disk names //
+            toupper(*new_name) == toupper(*old_name) && *(new_name + 1) == ':'
+            && *(old_name + 1) == ':') { // one disk           //
+        char *p = ctb_last_punct(old_name);
 
-		SPRINTF(newname, "%s.CTB", new_name);
-		SPRINTF(oldname, "%s.CTB", old_name);
-		if (!access(newname, 0))
-			unlink(newname);
-		RENAME(oldname, newname); // two files in one disk  //
-		SPRINTF(newname, "%s.IND", new_name);
-		SPRINTF(oldname, "%s.IND", old_name);
-		if (!access(newname, 0))
-			unlink(newname);
-		RENAME(oldname, newname); // two files in one disk  //
-		return 1;
-	}
+        if (p)
+            *p = 0;
 
-	CTB_move(new_name, old_name); // move from disk to disk //
-	return 2;
+        p = ctb_last_punct(new_name);
+
+        if (p)
+            *p = 0;
+
+        SPRINTF(newname, "%s.CTB", new_name);
+        SPRINTF(oldname, "%s.CTB", old_name);
+
+        if (!access(newname, 0))
+            unlink(newname);
+
+        RENAME(oldname, newname); // two files in one disk  //
+        SPRINTF(newname, "%s.IND", new_name);
+        SPRINTF(oldname, "%s.IND", old_name);
+
+        if (!access(newname, 0))
+            unlink(newname);
+
+        RENAME(oldname, newname); // two files in one disk  //
+        return 1;
+    }
+
+    CTB_move(new_name, old_name); // move from disk to disk //
+    return 2;
 }
 
-int32_t CTB_move(char *new_name, char *old_name) {
-	int16_t n;
-
-	n = (int16_t) CTB_copy(new_name, old_name);
-	CTB_unlink(old_name);
-	return n;
+int32_t CTB_move(char *new_name, char *old_name)
+{
+    int16_t n;
+    n = (int16_t) CTB_copy(new_name, old_name);
+    CTB_unlink(old_name);
+    return n;
 }
 
-void CTB_unlink(char *name) {
-	char str[MAXPATH], *p = ctb_last_punct(name);
+void CTB_unlink(char *name)
+{
+    char str[MAXPATH], *p = ctb_last_punct(name);
 
-	if (p)
-		*p = '\0';
-	STRCPY(str, name);
-	STRCAT(str, ".CTB");
-	UNLINK(str);
+    if (p)
+        *p = '\0';
 
-	STRCPY(str, name);
-	STRCAT(str, ".IND");
-	UNLINK(str);
-	return;
+    STRCPY(str, name);
+    STRCAT(str, ".CTB");
+    UNLINK(str);
+    STRCPY(str, name);
+    STRCAT(str, ".IND");
+    UNLINK(str);
+    return;
 }
 
-int32_t CTB_copy(char *new_name, char *old_name) {
-	char *p;
-	CTB_handle hi, ho;
-	int16_t i, n;
-	uchar dst[CTB_DATA_SIZE], buffer[256* 128 + 2 + CTB_DATA_SIZE ];
+int32_t CTB_copy(char *new_name, char *old_name)
+{
+    char *p;
+    CTB_handle hi, ho;
+    int16_t i, n;
+    uchar dst[CTB_DATA_SIZE], buffer[256* 128 + 2 + CTB_DATA_SIZE ];
+    ctb_err_code = CTB_ERR_NONE;
+    p = ctb_last_punct(old_name);
 
-	ctb_err_code = CTB_ERR_NONE;
-	p = ctb_last_punct(old_name);
-	if (p)
-		*p = '\0';
-	p = ctb_last_punct(new_name);
-	if (p)
-		*p = '\0';
+    if (p)
+        *p = '\0';
 
-	if (!CTB_open(old_name, &hi, "w"))
-		return 0;
-	CTB_read_global_data(&hi, dst);
-	CTB_files_init(new_name, dst, hi.width, hi.height, hi.dpb, hi.signums,
-			hi.attr_size);
+    p = ctb_last_punct(new_name);
 
-	n = (int16_t) CTB_volume(&hi);
+    if (p)
+        *p = '\0';
 
-	if (!CTB_open(new_name, &ho, "w"))
-		return 0;
+    if (!CTB_open(old_name, &hi, "w"))
+        return 0;
 
-	for (i = 0; i < n; i++) {
-		switch (CTB_read(&hi, i, buffer, dst)) {
-		case 1:
-			CTB_write_mark(&ho, -1, buffer, dst, FALSE);
-			break;
-		case 2:
-			CTB_write_mark(&ho, -1, buffer, dst, TRUE);
-			break;
-		default:
-			break;
-		}
-	}
-	CTB_close(&ho);
-	CTB_close(&hi);
+    CTB_read_global_data(&hi, dst);
+    CTB_files_init(new_name, dst, hi.width, hi.height, hi.dpb, hi.signums,
+                   hi.attr_size);
+    n = (int16_t) CTB_volume(&hi);
 
-	return n;
+    if (!CTB_open(new_name, &ho, "w"))
+        return 0;
+
+    for (i = 0; i < n; i++) {
+        switch (CTB_read(&hi, i, buffer, dst)) {
+            case 1:
+                CTB_write_mark(&ho, -1, buffer, dst, FALSE);
+                break;
+            case 2:
+                CTB_write_mark(&ho, -1, buffer, dst, TRUE);
+                break;
+            default:
+                break;
+        }
+    }
+
+    CTB_close(&ho);
+    CTB_close(&hi);
+    return n;
 }
 

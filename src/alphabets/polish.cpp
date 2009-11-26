@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new PolishAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_POLISH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-PolishAlphabet::PolishAlphabet() {
+PolishAlphabet::PolishAlphabet()
+{
     addSymbol(POLISH_SS);
     addSymbol(POLISH_s);
     addSymbol(POLISH_ZZR);
@@ -50,7 +54,8 @@ PolishAlphabet::PolishAlphabet() {
     addSymbol(POLISH_l);
 }
 
-language_t PolishAlphabet::language() const {
+language_t PolishAlphabet::language() const
+{
     return LANG_POLISH;
 }
 

@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new SerbianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_SERBIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-SerbianAlphabet::SerbianAlphabet() {
+SerbianAlphabet::SerbianAlphabet()
+{
     addSymbol(SERB_HH);
     addSymbol(SERB_hh);
     addSymbol(SERB_L);
@@ -49,7 +53,8 @@ SerbianAlphabet::SerbianAlphabet() {
     addSymbol(liga_j);
 }
 
-language_t SerbianAlphabet::language() const {
+language_t SerbianAlphabet::language() const
+{
     return LANG_SERBIAN;
 }
 

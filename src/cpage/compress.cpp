@@ -60,57 +60,62 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
-void CleanData(Handle Type,void * lpData,uint32_t Size)
+void CleanData(Handle Type, void * lpData, uint32_t Size)
 // Неиспользуемые части массивов заполняем нулями для лучшей упаковки
 {
-    if(Type == TYPE_TEXT || Type == TYPE_IMAGE)
-	{
-		POLY_ *poly = (POLY_ *)lpData;
-		COMMON *com = &poly->com;
-		int maxnum=MaxNum;
-		memset(&com->Vertex[com->count],0,(char*)&com->Vertex[maxnum]-(char*)&com->Vertex[com->count]);
-		memset(&poly->mark[com->count],0,(char*)&poly->mark[maxnum]-(char*)&poly->mark[com->count]);
-	}
-	else
-    if(Type == TYPE_TABLE)
-	{
-		TABLE_ *table = (TABLE_ *)lpData;
-		COMMON *com = &table->com;
-		memset(&com->Vertex[com->count],0,(char*)&com->Vertex[MaxNum]-(char*)&com->Vertex[com->count]);
-		int32_t *line=table->LineY;
-		memset(&line[table->num_rows+1],0,(char*)&line[MaxHorLines-1]-(char*)&line[table->num_rows+1]);
-		line=table->LineX;
-		memset(&line[table->num_colons+1],0,(char*)&line[MaxVerLines-1]-(char*)&line[table->num_colons+1]);
-		for (int32_t j=0; j<MaxVerLines; j++)
-			for (int32_t i=0; i<MaxHorLines; i++)
-				if (i>=table->num_rows || j>=table->num_colons)
-					table->Visible[i][j][0]=table->Visible[i][j][1]=table->TypeCell[i][j]=0;
-	}
+    if (Type == TYPE_TEXT || Type == TYPE_IMAGE) {
+        POLY_ *poly = (POLY_ *)lpData;
+        COMMON *com = &poly->com;
+        int maxnum = MaxNum;
+        memset(&com->Vertex[com->count], 0, (char*)&com->Vertex[maxnum] - (char*)&com->Vertex[com->count]);
+        memset(&poly->mark[com->count], 0, (char*)&poly->mark[maxnum] - (char*)&poly->mark[com->count]);
+    }
+
+    else if (Type == TYPE_TABLE) {
+        TABLE_ *table = (TABLE_ *)lpData;
+        COMMON *com = &table->com;
+        memset(&com->Vertex[com->count], 0, (char*)&com->Vertex[MaxNum] - (char*)&com->Vertex[com->count]);
+        int32_t *line = table->LineY;
+        memset(&line[table->num_rows+1], 0, (char*)&line[MaxHorLines-1] - (char*)&line[table->num_rows+1]);
+        line = table->LineX;
+        memset(&line[table->num_colons+1], 0, (char*)&line[MaxVerLines-1] - (char*)&line[table->num_colons+1]);
+
+        for (int32_t j = 0; j < MaxVerLines; j++)
+            for (int32_t i = 0; i < MaxHorLines; i++)
+                if (i >= table->num_rows || j >= table->num_colons)
+                    table->Visible[i][j][0] = table->Visible[i][j][1] = table->TypeCell[i][j] = 0;
+    }
 }
 
 Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size)
 //Сравнивает размер блока данных с размером структуры;
 // если структура больше - дополняется нулями, если меньше - ошибка
 {
-	uint32_t NewSize=*Size;
-	if (Type==TYPE_TEXT  ||  Type==TYPE_IMAGE)
-		 NewSize = sizeof(POLY_);
-	else
-	if (Type==TYPE_TABLE)
-		 NewSize = sizeof(TABLE_);
-	if (NewSize < *Size)
-		return FALSE;
-	if (NewSize > *Size)
-	{
-		char *lpNewData = new char[NewSize];
-		if (!lpNewData)
-			return FALSE;
-		memcpy(lpNewData,*lpData,*Size);
-		memset(lpNewData+(*Size),0,NewSize-(*Size));
-		delete *lpData;
-		*lpData=lpNewData; 	*Size=NewSize;
-	}
-	return TRUE;
+    uint32_t NewSize = *Size;
+
+    if (Type == TYPE_TEXT  ||  Type == TYPE_IMAGE)
+        NewSize = sizeof(POLY_);
+
+    else if (Type == TYPE_TABLE)
+        NewSize = sizeof(TABLE_);
+
+    if (NewSize < *Size)
+        return FALSE;
+
+    if (NewSize > *Size) {
+        char *lpNewData = new char[NewSize];
+
+        if (!lpNewData)
+            return FALSE;
+
+        memcpy(lpNewData, *lpData, *Size);
+        memset(lpNewData + (*Size), 0, NewSize - (*Size));
+        delete *lpData;
+        *lpData = lpNewData;
+        *Size = NewSize;
+    }
+
+    return TRUE;
 }
 
 Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize)
@@ -118,100 +123,115 @@ Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t *
 // Заменяем группу из не менее MIN_REPEAT одинаковых символов на счетчик повторений
 #define MIN_REPEAT 2*sizeof(CompressHeader)
 
-	if (Size==0)
-		return FALSE;
+    if (Size == 0)
+        return FALSE;
 
-   char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
-   if (!newData)										  //иначе - не больше исходного
-	   return FALSE;
-   char *lpNewData = newData;
+    char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
 
-	// Находим пару - обычный фрагмент и фрагмент, заполненный одинаковыми символами;
-	// затем оба отписываем
-	char * ordinary=lpData,	  //обычный фрагмент
-		 * end=ordinary+Size;
-	do
-	{
-		uint32_t count=1;
-		char * current=ordinary+1,
-			 * repeating=ordinary; //фрагмент, заполненный одинаковыми символами;
-		while (current<end)
-		{
-			if (*current != *repeating)
-			{
-				if (current-repeating>=MIN_REPEAT)  break;
-				repeating=current;
-			}
-			current++;
-		}
-		count=current-repeating;
+    if (!newData)                                          //иначе - не больше исходного
+        return FALSE;
 
-		if (count<MIN_REPEAT)  //дошли до конца, а повторений мало - отвергаем
-		{
-			repeating += count;  count=0;
-		}
-		if (repeating>ordinary)  //обычный фрагмент
-		{
-			CompressHeader head={0};
-			head.bCompressed=FALSE;
-			head.wCount=repeating-ordinary;
-			memcpy(lpNewData,&head,sizeof(head));    lpNewData += sizeof(head);
-			memcpy(lpNewData,ordinary,head.wCount); lpNewData += head.wCount;
-		}
-		if (count)				 //фрагмент, заполненный символом (*repeated)
-		{
-			CompressHeader head={0};
-			head.bCompressed=TRUE;
-			head.cRepeater=*repeating;
-			head.wCount=count;
-			memcpy(lpNewData,&head,sizeof(head));    lpNewData += sizeof(head);
-		}
-		ordinary=current;
-	}
-	while(ordinary<end);
-	*compressedData = newData;  *compressedSize = lpNewData-newData;
-	return TRUE;
+    char *lpNewData = newData;
+    // Находим пару - обычный фрагмент и фрагмент, заполненный одинаковыми символами;
+    // затем оба отписываем
+    char * ordinary = lpData, //обычный фрагмент
+                      * end = ordinary + Size;
+
+    do {
+        uint32_t count = 1;
+        char * current = ordinary + 1,
+                         * repeating = ordinary; //фрагмент, заполненный одинаковыми символами;
+
+        while (current < end) {
+            if (*current != *repeating) {
+                if (current - repeating >= MIN_REPEAT)  break;
+
+                repeating = current;
+            }
+
+            current++;
+        }
+
+        count = current - repeating;
+
+        if (count < MIN_REPEAT) { //дошли до конца, а повторений мало - отвергаем
+            repeating += count;
+            count = 0;
+        }
+
+        if (repeating > ordinary) { //обычный фрагмент
+            CompressHeader head = {0};
+            head.bCompressed = FALSE;
+            head.wCount = repeating - ordinary;
+            memcpy(lpNewData, &head, sizeof(head));
+            lpNewData += sizeof(head);
+            memcpy(lpNewData, ordinary, head.wCount);
+            lpNewData += head.wCount;
+        }
+
+        if (count) {             //фрагмент, заполненный символом (*repeated)
+            CompressHeader head = {0};
+            head.bCompressed = TRUE;
+            head.cRepeater = *repeating;
+            head.wCount = count;
+            memcpy(lpNewData, &head, sizeof(head));
+            lpNewData += sizeof(head);
+        }
+
+        ordinary = current;
+    }
+    while (ordinary < end);
+
+    *compressedData = newData;
+    *compressedSize = lpNewData - newData;
+    return TRUE;
 }
 
 //#################################
 Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize)
 {
-	if (Size==0)
-		return FALSE;
+    if (Size == 0)
+        return FALSE;
 
-	char * old=lpData, *end=lpData+Size;
+    char * old = lpData, *end = lpData + Size;
+    //Определяем размер после декомпрессии
+    uint32_t newSize = 0;
 
-	//Определяем размер после декомпрессии
-	uint32_t newSize=0;
-	while (old<end)
-	{
-		CompressHeader *head = (CompressHeader *)old;
-		old += sizeof(CompressHeader);
-		if (!head->bCompressed) old += head->wCount;
-		newSize += head->wCount;
-	}
+    while (old < end) {
+        CompressHeader *head = (CompressHeader *)old;
+        old += sizeof(CompressHeader);
 
-	//Распаковываем
-	char *newData = new char[newSize], *modern=newData;
-	if (!newData)
-		return FALSE;
+        if (!head->bCompressed) old += head->wCount;
 
-	old=lpData;
-	while (old<end)
-	{
-		CompressHeader *head = (CompressHeader *)old;
-		old += sizeof(CompressHeader);
-		if (head->bCompressed)
-			memset(modern,head->cRepeater,head->wCount);
-		else
-		{
-			memcpy(modern,old,head->wCount);
-			old += head->wCount;
-		}
-		modern += head->wCount;
-	}
-	*decomData=newData;  *decomSize=newSize;
-	return TRUE;
+        newSize += head->wCount;
+    }
+
+    //Распаковываем
+    char *newData = new char[newSize], *modern = newData;
+
+    if (!newData)
+        return FALSE;
+
+    old = lpData;
+
+    while (old < end) {
+        CompressHeader *head = (CompressHeader *)old;
+        old += sizeof(CompressHeader);
+
+        if (head->bCompressed)
+            memset(modern, head->cRepeater, head->wCount);
+
+        else {
+            memcpy(modern, old, head->wCount);
+            old += head->wCount;
+        }
+
+        modern += head->wCount;
+    }
+
+    *decomData = newData;
+    *decomSize = newSize;
+    return TRUE;
 }
 
 

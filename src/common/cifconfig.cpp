@@ -18,51 +18,64 @@
 
 #include "cifconfig.h"
 
-namespace CIF {
+namespace CIF
+{
 
 Config::Config() :
-    debug_(true), dump_(false), debug_level_(DEBUG_HIGH) {
+        debug_(true), dump_(false), debug_level_(DEBUG_HIGH)
+{
 }
 
-bool Config::debug() const {
+bool Config::debug() const
+{
     return debug_;
 }
 
-bool Config::debugDump() const {
+bool Config::debugDump() const
+{
     return debug() && dump_;
 }
 
-int Config::debugLevel() const {
+int Config::debugLevel() const
+{
     return debug_level_;
 }
 
-bool Config::debugLow() const {
+bool Config::debugLow() const
+{
     return debug() && (debugLevel() >= DEBUG_LOW);
 }
 
-bool Config::debugMedium() const {
+bool Config::debugMedium() const
+{
     return debug() && (debugLevel() >= DEBUG_MEDIUM);
 }
 
-bool Config::debugHigh() const {
+bool Config::debugHigh() const
+{
     return debug() && (debugLevel() >= DEBUG_HIGH);
 }
 
-void Config::setDebug(bool value) {
+void Config::setDebug(bool value)
+{
     debug_ = value;
+
     if (!debug_)
         debug_level_ = 0;
 }
 
-void Config::setDebugDump(bool value) {
-    dump_= value;
+void Config::setDebugDump(bool value)
+{
+    dump_ = value;
 }
 
-void Config::setDebugLevel(int level) {
+void Config::setDebugLevel(int level)
+{
     debug_level_ = level;
 }
 
-Config& Config::instance() {
+Config& Config::instance()
+{
     static Config config;
     return config;
 }

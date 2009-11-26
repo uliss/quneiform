@@ -20,24 +20,27 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new TurkishAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_TURKISH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-TurkishAlphabet::TurkishAlphabet() {
+TurkishAlphabet::TurkishAlphabet()
+{
     // Турецкие лиги, отличные от западноевропейских
     addSymbol(liga_TM_turkish);
     addSymbol(liga_CC_turkish);
     addSymbol(liga_CR_turkish);
     addSymbol(liga_bull_turkish);
-
     // Турецкие буквы, отличные от западноевропейских
     addSymbol(GG_semicircle);
     addSymbol(g_semicircle);
@@ -53,7 +56,8 @@ TurkishAlphabet::TurkishAlphabet() {
     removeSymbol('x');
 }
 
-language_t TurkishAlphabet::language() const {
+language_t TurkishAlphabet::language() const
+{
     return LANG_TURKISH;
 }
 

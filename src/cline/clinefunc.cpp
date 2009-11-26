@@ -86,450 +86,551 @@ extern CHLine* pHLineMem;
 
 extern LIST<CHLine>* pLCont;
 
-CLINE_handle GetHandle(void* lp) {
-	return (CLINE_handle)(lp);
+CLINE_handle GetHandle(void* lp)
+{
+    return (CLINE_handle)(lp);
 }
 
-void* GetLP(CLINE_handle handle) {
-	return (void*) handle;
+void* GetLP(CLINE_handle handle)
+{
+    return (void*) handle;
 }
 
-Bool CopyData(const void* from, void* to, int size) {
+Bool CopyData(const void* from, void* to, int size)
+{
 #ifdef _DEBUG
-	if(!from||!to||(size<0))
-	return FALSE;
-	if(!size)
-	return TRUE;
+
+    if (!from || !to || (size < 0))
+        return FALSE;
+
+    if (!size)
+        return TRUE;
+
 #endif
-	if (!memcpy(to, from, size))
-		return FALSE;
-	return TRUE;
+
+    if (!memcpy(to, from, size))
+        return FALSE;
+
+    return TRUE;
 }
 
-void DeleteData(void) {
-	/*	if(!LDPUMA_Skip(MemStat) && LDPUMA_IsActive())
-	 {
-	 FILE* f=fopen("clstat.res","w");
-	 fprintf(f,"Interval -   %d\n",pMyMem->pInvMas.m_count*len_inv_mas);
-	 fprintf(f,"Event    -   %d\n",pMyMem->pEventMas.m_count*len_event_mas);
-	 fprintf(f,"Comp     -   %d\n",pMyMem->pCompMas.m_count*len_comp_mas);
-	 fprintf(f,"Cupoint  -   %d\n",pMyMem->pCupointMas.m_count*len_cupoint_mas);
-	 fprintf(f,"Line     -   %d\n",pMyMem->pLineMas.m_count*len_line_mas);
-	 fprintf(f,"HLine    -   %d\n",pMyMem->pHLineMas.m_count*len_hline_mas);
-	 fprintf(f,"All Mem  -   %d\n",pMyMem->pInvMas.m_count*len_inv_mas*size_class_inv+pMyMem->pEventMas.m_count*len_event_mas*size_class_event+pMyMem->pCompMas.m_count*len_comp_mas*size_class_comp+pMyMem->pCupointMas.m_count*len_cupoint_mas*size_class_cupoint+pMyMem->pLineMas.m_count*len_line_mas*size_class_line+pMyMem->pHLineMas.m_count*len_hline_mas*size_class_hline);
-	 fclose(f);
-	 }
-	 */
-	delete pLCont;
-	pLCont = NULL;
-	CMem* pMem = pMyMem->pInvMas.m_root;
-	while (pMem) {
-		CInterval* pInvMas = (CInterval*) (pMem->lp);
-		delete[] pInvMas;
-		pMem = pMem->next;
-	}
-	pMem = pMyMem->pCompMas.m_root;
-	while (pMem) {
-		CComponent* pCompMas = (CComponent*) (pMem->lp);
-		delete[] pCompMas;
-		pMem = pMem->next;
-	}
-	pMem = pMyMem->pCupointMas.m_root;
-	while (pMem) {
-		CCutPoint* pCPMas = (CCutPoint*) (pMem->lp);
-		delete[] pCPMas;
-		pMem = pMem->next;
-	}
-	pMem = pMyMem->pEventMas.m_root;
-	while (pMem) {
-		CEvent* pEventMas = (CEvent*) (pMem->lp);
-		delete[] pEventMas;
-		pMem = pMem->next;
-	}
-	pMem = pMyMem->pHLineMas.m_root;
-	while (pMem) {
-		CHLine* pHLineMas = (CHLine*) (pMem->lp);
-		delete[] pHLineMas;
-		pMem = pMem->next;
-	}
-	pMem = pMyMem->pLineMas.m_root;
-	while (pMem) {
-		CLine* pLineMas = (CLine*) (pMem->lp);
-		delete[] pLineMas;
-		pMem = pMem->next;
-	}
-	pMyMem->pCompMas.RealDelAll();
-	pMyMem->pCupointMas.RealDelAll();
-	pMyMem->pEventMas.RealDelAll();
-	pMyMem->pHLineMas.RealDelAll();
-	pMyMem->pInvMas.RealDelAll();
-	pMyMem->pLineMas.RealDelAll();
-	delete pMyMem;
-	pMyMem = NULL;
+void DeleteData(void)
+{
+    /*  if(!LDPUMA_Skip(MemStat) && LDPUMA_IsActive())
+     {
+     FILE* f=fopen("clstat.res","w");
+     fprintf(f,"Interval -   %d\n",pMyMem->pInvMas.m_count*len_inv_mas);
+     fprintf(f,"Event    -   %d\n",pMyMem->pEventMas.m_count*len_event_mas);
+     fprintf(f,"Comp     -   %d\n",pMyMem->pCompMas.m_count*len_comp_mas);
+     fprintf(f,"Cupoint  -   %d\n",pMyMem->pCupointMas.m_count*len_cupoint_mas);
+     fprintf(f,"Line     -   %d\n",pMyMem->pLineMas.m_count*len_line_mas);
+     fprintf(f,"HLine    -   %d\n",pMyMem->pHLineMas.m_count*len_hline_mas);
+     fprintf(f,"All Mem  -   %d\n",pMyMem->pInvMas.m_count*len_inv_mas*size_class_inv+pMyMem->pEventMas.m_count*len_event_mas*size_class_event+pMyMem->pCompMas.m_count*len_comp_mas*size_class_comp+pMyMem->pCupointMas.m_count*len_cupoint_mas*size_class_cupoint+pMyMem->pLineMas.m_count*len_line_mas*size_class_line+pMyMem->pHLineMas.m_count*len_hline_mas*size_class_hline);
+     fclose(f);
+     }
+     */
+    delete pLCont;
+    pLCont = NULL;
+    CMem* pMem = pMyMem->pInvMas.m_root;
 
+    while (pMem) {
+        CInterval* pInvMas = (CInterval*) (pMem->lp);
+        delete[] pInvMas;
+        pMem = pMem->next;
+    }
+
+    pMem = pMyMem->pCompMas.m_root;
+
+    while (pMem) {
+        CComponent* pCompMas = (CComponent*) (pMem->lp);
+        delete[] pCompMas;
+        pMem = pMem->next;
+    }
+
+    pMem = pMyMem->pCupointMas.m_root;
+
+    while (pMem) {
+        CCutPoint* pCPMas = (CCutPoint*) (pMem->lp);
+        delete[] pCPMas;
+        pMem = pMem->next;
+    }
+
+    pMem = pMyMem->pEventMas.m_root;
+
+    while (pMem) {
+        CEvent* pEventMas = (CEvent*) (pMem->lp);
+        delete[] pEventMas;
+        pMem = pMem->next;
+    }
+
+    pMem = pMyMem->pHLineMas.m_root;
+
+    while (pMem) {
+        CHLine* pHLineMas = (CHLine*) (pMem->lp);
+        delete[] pHLineMas;
+        pMem = pMem->next;
+    }
+
+    pMem = pMyMem->pLineMas.m_root;
+
+    while (pMem) {
+        CLine* pLineMas = (CLine*) (pMem->lp);
+        delete[] pLineMas;
+        pMem = pMem->next;
+    }
+
+    pMyMem->pCompMas.RealDelAll();
+    pMyMem->pCupointMas.RealDelAll();
+    pMyMem->pEventMas.RealDelAll();
+    pMyMem->pHLineMas.RealDelAll();
+    pMyMem->pInvMas.RealDelAll();
+    pMyMem->pLineMas.RealDelAll();
+    delete pMyMem;
+    pMyMem = NULL;
 }
 
-Bool InitData(void) {
-	pLCont = NULL;
-	pLCont = new LIST<CHLine> ;
-	pMyMem = new CAllMem;
-	if (!pLCont)
-		return FALSE;
-	if (!pMyMem)
-		return FALSE;
-	CMem* pMem;
-	CInterval* pInvMas = new CInterval[len_inv_mas];
-	if (!pInvMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pInvMas.RealAdd();
-		if (!pMem) {
-			delete[] pInvMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pInvMas;
-	}
-	CEvent* pEventMas = new CEvent[len_event_mas];
-	if (!pEventMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pEventMas.RealAdd();
-		if (!pMem) {
-			delete[] pEventMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pEventMas;
-	}
-	CCutPoint* pCupointMas = new CCutPoint[len_cupoint_mas];
-	if (!pCupointMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pCupointMas.RealAdd();
-		if (!pMem) {
-			delete[] pCupointMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pCupointMas;
-	}
-	CComponent* pCompMas = new CComponent[len_comp_mas];
-	if (!pCompMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pCompMas.RealAdd();
-		if (!pMem) {
-			delete[] pCompMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pCompMas;
-	}
-	CLine* pLineMas = new CLine[len_line_mas];
-	if (!pLineMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pLineMas.RealAdd();
-		if (!pMem) {
-			delete[] pLineMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pLineMas;
-	}
-	CHLine* pHLineMas = new CHLine[len_hline_mas];
-	if (!pHLineMas) {
-		DeleteData();
-		return FALSE;
-	} else {
-		pMem = pMyMem->pHLineMas.RealAdd();
-		if (!pMem) {
-			delete[] pHLineMas;
-			DeleteData();
-			return FALSE;
-		}
-		pMem->lp = pHLineMas;
-	}
+Bool InitData(void)
+{
+    pLCont = NULL;
+    pLCont = new LIST<CHLine> ;
+    pMyMem = new CAllMem;
 
-	int i;
-	for (i = len_inv_mas - 1; i > 0; i--)
-		pInvMas[i - 1].next = &(pInvMas[i]);
+    if (!pLCont)
+        return FALSE;
 
-	for (i = len_event_mas - 1; i > 0; i--)
-		pEventMas[i - 1].next = &(pEventMas[i]);
+    if (!pMyMem)
+        return FALSE;
 
-	for (i = len_cupoint_mas - 1; i > 0; i--)
-		pCupointMas[i - 1].next = &(pCupointMas[i]);
+    CMem* pMem;
+    CInterval* pInvMas = new CInterval[len_inv_mas];
 
-	for (i = len_comp_mas - 1; i > 0; i--)
-		pCompMas[i - 1].next = &(pCompMas[i]);
+    if (!pInvMas) {
+        DeleteData();
+        return FALSE;
+    }
 
-	for (i = len_line_mas - 1; i > 0; i--)
-		pLineMas[i - 1].next = &(pLineMas[i]);
+    else {
+        pMem = pMyMem->pInvMas.RealAdd();
 
-	for (i = len_hline_mas - 1; i > 0; i--)
-		pHLineMas[i - 1].next = &(pHLineMas[i]);
+        if (!pMem) {
+            delete[] pInvMas;
+            DeleteData();
+            return FALSE;
+        }
 
-	pInvMem = pInvMas;
-	pEventMem = pEventMas;
-	pCupointMem = pCupointMas;
-	pCompMem = pCompMas;
-	pLineMem = pLineMas;
-	pHLineMem = pHLineMas;
+        pMem->lp = pInvMas;
+    }
 
-	return TRUE;
+    CEvent* pEventMas = new CEvent[len_event_mas];
+
+    if (!pEventMas) {
+        DeleteData();
+        return FALSE;
+    }
+
+    else {
+        pMem = pMyMem->pEventMas.RealAdd();
+
+        if (!pMem) {
+            delete[] pEventMas;
+            DeleteData();
+            return FALSE;
+        }
+
+        pMem->lp = pEventMas;
+    }
+
+    CCutPoint* pCupointMas = new CCutPoint[len_cupoint_mas];
+
+    if (!pCupointMas) {
+        DeleteData();
+        return FALSE;
+    }
+
+    else {
+        pMem = pMyMem->pCupointMas.RealAdd();
+
+        if (!pMem) {
+            delete[] pCupointMas;
+            DeleteData();
+            return FALSE;
+        }
+
+        pMem->lp = pCupointMas;
+    }
+
+    CComponent* pCompMas = new CComponent[len_comp_mas];
+
+    if (!pCompMas) {
+        DeleteData();
+        return FALSE;
+    }
+
+    else {
+        pMem = pMyMem->pCompMas.RealAdd();
+
+        if (!pMem) {
+            delete[] pCompMas;
+            DeleteData();
+            return FALSE;
+        }
+
+        pMem->lp = pCompMas;
+    }
+
+    CLine* pLineMas = new CLine[len_line_mas];
+
+    if (!pLineMas) {
+        DeleteData();
+        return FALSE;
+    }
+
+    else {
+        pMem = pMyMem->pLineMas.RealAdd();
+
+        if (!pMem) {
+            delete[] pLineMas;
+            DeleteData();
+            return FALSE;
+        }
+
+        pMem->lp = pLineMas;
+    }
+
+    CHLine* pHLineMas = new CHLine[len_hline_mas];
+
+    if (!pHLineMas) {
+        DeleteData();
+        return FALSE;
+    }
+
+    else {
+        pMem = pMyMem->pHLineMas.RealAdd();
+
+        if (!pMem) {
+            delete[] pHLineMas;
+            DeleteData();
+            return FALSE;
+        }
+
+        pMem->lp = pHLineMas;
+    }
+
+    int i;
+
+    for (i = len_inv_mas - 1; i > 0; i--)
+        pInvMas[i - 1].next = &(pInvMas[i]);
+
+    for (i = len_event_mas - 1; i > 0; i--)
+        pEventMas[i - 1].next = &(pEventMas[i]);
+
+    for (i = len_cupoint_mas - 1; i > 0; i--)
+        pCupointMas[i - 1].next = &(pCupointMas[i]);
+
+    for (i = len_comp_mas - 1; i > 0; i--)
+        pCompMas[i - 1].next = &(pCompMas[i]);
+
+    for (i = len_line_mas - 1; i > 0; i--)
+        pLineMas[i - 1].next = &(pLineMas[i]);
+
+    for (i = len_hline_mas - 1; i > 0; i--)
+        pHLineMas[i - 1].next = &(pHLineMas[i]);
+
+    pInvMem = pInvMas;
+    pEventMem = pEventMas;
+    pCupointMem = pCupointMas;
+    pCompMem = pCompMas;
+    pLineMem = pLineMas;
+    pHLineMem = pHLineMas;
+    return TRUE;
 }
 
-void* MyNew(int size) {
-	void* ret;
-	if (size == size_class_inv) {
-		if (!pInvMem) {
-			if (!MyRealloc((void**) &pInvMem, size))
-				return NULL;
-		}
-		ret = pInvMem;
-		pInvMem = pInvMem->next;
-		return ret;
-	}
-	if (size == size_class_event) {
-		if (!pEventMem) {
-			if (!MyRealloc((void**) &pEventMem, size))
-				return NULL;
-		}
-		ret = pEventMem;
-		pEventMem = pEventMem->next;
-		return ret;
-	}
-	if (size == size_class_cupoint) {
-		if (!pCupointMem) {
-			if (!MyRealloc((void**) &pCupointMem, size))
-				return NULL;
-		}
-		ret = pCupointMem;
-		pCupointMem = pCupointMem->next;
-		return ret;
-	}
-	if (size == size_class_line) {
-		if (!pLineMem) {
-			if (!MyRealloc((void**) &pLineMem, size))
-				return NULL;
-		}
-		ret = pLineMem;
-		pLineMem = pLineMem->next;
-		return ret;
-	}
-	if (size == size_class_comp) {
-		if (!pCompMem) {
-			if (!MyRealloc((void**) &pCompMem, size))
-				return NULL;
-		}
-		ret = pCompMem;
-		pCompMem = pCompMem->next;
-		return ret;
-	}
-	if (size == size_class_hline) {
-		if (!pHLineMem) {
-			if (!MyRealloc((void**) &pHLineMem, size))
-				return NULL;
-		}
-		ret = pHLineMem;
-		pHLineMem = pHLineMem->next;
-		return ret;
-	}
-	return NULL;
+void* MyNew(int size)
+{
+    void* ret;
+
+    if (size == size_class_inv) {
+        if (!pInvMem) {
+            if (!MyRealloc((void**) &pInvMem, size))
+                return NULL;
+        }
+
+        ret = pInvMem;
+        pInvMem = pInvMem->next;
+        return ret;
+    }
+
+    if (size == size_class_event) {
+        if (!pEventMem) {
+            if (!MyRealloc((void**) &pEventMem, size))
+                return NULL;
+        }
+
+        ret = pEventMem;
+        pEventMem = pEventMem->next;
+        return ret;
+    }
+
+    if (size == size_class_cupoint) {
+        if (!pCupointMem) {
+            if (!MyRealloc((void**) &pCupointMem, size))
+                return NULL;
+        }
+
+        ret = pCupointMem;
+        pCupointMem = pCupointMem->next;
+        return ret;
+    }
+
+    if (size == size_class_line) {
+        if (!pLineMem) {
+            if (!MyRealloc((void**) &pLineMem, size))
+                return NULL;
+        }
+
+        ret = pLineMem;
+        pLineMem = pLineMem->next;
+        return ret;
+    }
+
+    if (size == size_class_comp) {
+        if (!pCompMem) {
+            if (!MyRealloc((void**) &pCompMem, size))
+                return NULL;
+        }
+
+        ret = pCompMem;
+        pCompMem = pCompMem->next;
+        return ret;
+    }
+
+    if (size == size_class_hline) {
+        if (!pHLineMem) {
+            if (!MyRealloc((void**) &pHLineMem, size))
+                return NULL;
+        }
+
+        ret = pHLineMem;
+        pHLineMem = pHLineMem->next;
+        return ret;
+    }
+
+    return NULL;
 }
 
-Bool MyRealloc(void** pMem, int size) {
-	int i;
-	void* pTemp;
-	CMem* pMemory;
+Bool MyRealloc(void** pMem, int size)
+{
+    int i;
+    void* pTemp;
+    CMem* pMemory;
 
-	if (size == size_class_inv) {
-		if (!(pMemory = pMyMem->pInvMas.RealAdd()))
-			return FALSE;
+    if (size == size_class_inv) {
+        if (!(pMemory = pMyMem->pInvMas.RealAdd()))
+            return FALSE;
 
-		pTemp = NULL;
-		pTemp = new CInterval[len_inv_mas];
-		if (!pTemp)
-			return FALSE;
+        pTemp = NULL;
+        pTemp = new CInterval[len_inv_mas];
 
-		pMemory->lp = pTemp;
+        if (!pTemp)
+            return FALSE;
 
-		for (i = len_inv_mas - 1; i > 0; i--)
-			((CInterval*) pTemp)[i - 1].next = &(((CInterval*) pTemp)[i]);
+        pMemory->lp = pTemp;
 
-		*pMem = (CInterval*) pTemp;
-		return TRUE;
-	} else {
-		if (size == size_class_event) {
-			if (!(pMemory = pMyMem->pEventMas.RealAdd()))
-				return FALSE;
+        for (i = len_inv_mas - 1; i > 0; i--)
+            ((CInterval*) pTemp)[i - 1].next = &(((CInterval*) pTemp)[i]);
 
-			pTemp = NULL;
-			pTemp = new CEvent[len_event_mas];
-			if (!pTemp)
-				return FALSE;
+        *pMem = (CInterval*) pTemp;
+        return TRUE;
+    }
 
-			pMemory->lp = pTemp;
+    else {
+        if (size == size_class_event) {
+            if (!(pMemory = pMyMem->pEventMas.RealAdd()))
+                return FALSE;
 
-			for (i = len_event_mas - 1; i > 0; i--)
-				((CEvent*) pTemp)[i - 1].next = &(((CEvent*) pTemp)[i]);
+            pTemp = NULL;
+            pTemp = new CEvent[len_event_mas];
 
-			*pMem = (CEvent*) pTemp;
-			return TRUE;
-		} else {
-			if (size == size_class_comp) {
-				if (!(pMemory = pMyMem->pCompMas.RealAdd()))
-					return FALSE;
+            if (!pTemp)
+                return FALSE;
 
-				pTemp = NULL;
-				pTemp = new CComponent[len_comp_mas];
-				if (!pTemp)
-					return FALSE;
+            pMemory->lp = pTemp;
 
-				pMemory->lp = pTemp;
+            for (i = len_event_mas - 1; i > 0; i--)
+                ((CEvent*) pTemp)[i - 1].next = &(((CEvent*) pTemp)[i]);
 
-				for (i = len_comp_mas - 1; i > 0; i--)
-					((CComponent*) pTemp)[i - 1].next
-							= &(((CComponent*) pTemp)[i]);
+            *pMem = (CEvent*) pTemp;
+            return TRUE;
+        }
 
-				*pMem = (CComponent*) pTemp;
-				return TRUE;
-			} else {
-				if (size == size_class_cupoint) {
-					if (!(pMemory = pMyMem->pCupointMas.RealAdd()))
-						return FALSE;
+        else {
+            if (size == size_class_comp) {
+                if (!(pMemory = pMyMem->pCompMas.RealAdd()))
+                    return FALSE;
 
-					pTemp = NULL;
-					pTemp = new CCutPoint[len_cupoint_mas];
-					if (!pTemp)
-						return FALSE;
+                pTemp = NULL;
+                pTemp = new CComponent[len_comp_mas];
 
-					pMemory->lp = pTemp;
+                if (!pTemp)
+                    return FALSE;
 
-					for (i = len_cupoint_mas - 1; i > 0; i--)
-						((CCutPoint*) pTemp)[i - 1].next
-								= &(((CCutPoint*) pTemp)[i]);
+                pMemory->lp = pTemp;
 
-					*pMem = (CCutPoint*) pTemp;
-					return TRUE;
-				} else {
-					if (size == size_class_line) {
-						if (!(pMemory = pMyMem->pLineMas.RealAdd()))
-							return FALSE;
+                for (i = len_comp_mas - 1; i > 0; i--)
+                    ((CComponent*) pTemp)[i - 1].next
+                    = &(((CComponent*) pTemp)[i]);
 
-						pTemp = NULL;
-						pTemp = new CLine[len_line_mas];
-						if (!pTemp)
-							return FALSE;
+                *pMem = (CComponent*) pTemp;
+                return TRUE;
+            }
 
-						pMemory->lp = pTemp;
+            else {
+                if (size == size_class_cupoint) {
+                    if (!(pMemory = pMyMem->pCupointMas.RealAdd()))
+                        return FALSE;
 
-						for (i = len_line_mas - 1; i > 0; i--)
-							((CLine*) pTemp)[i - 1].next
-									= &(((CLine*) pTemp)[i]);
+                    pTemp = NULL;
+                    pTemp = new CCutPoint[len_cupoint_mas];
 
-						*pMem = (CLine*) pTemp;
-						return TRUE;
-					} else {
-						if (size == size_class_hline) {
-							if (!(pMemory = pMyMem->pHLineMas.RealAdd()))
-								return FALSE;
+                    if (!pTemp)
+                        return FALSE;
 
-							pTemp = NULL;
-							pTemp = new CHLine[len_hline_mas];
-							if (!pTemp)
-								return FALSE;
+                    pMemory->lp = pTemp;
 
-							pMemory->lp = pTemp;
+                    for (i = len_cupoint_mas - 1; i > 0; i--)
+                        ((CCutPoint*) pTemp)[i - 1].next
+                        = &(((CCutPoint*) pTemp)[i]);
 
-							for (i = len_hline_mas - 1; i > 0; i--)
-								((CHLine*) pTemp)[i - 1].next
-										= &(((CHLine*) pTemp)[i]);
+                    *pMem = (CCutPoint*) pTemp;
+                    return TRUE;
+                }
 
-							*pMem = (CHLine*) pTemp;
-							return TRUE;
-						}
-					}
-				}
-			}
-		}
-	}
-	return FALSE;
+                else {
+                    if (size == size_class_line) {
+                        if (!(pMemory = pMyMem->pLineMas.RealAdd()))
+                            return FALSE;
+
+                        pTemp = NULL;
+                        pTemp = new CLine[len_line_mas];
+
+                        if (!pTemp)
+                            return FALSE;
+
+                        pMemory->lp = pTemp;
+
+                        for (i = len_line_mas - 1; i > 0; i--)
+                            ((CLine*) pTemp)[i - 1].next
+                            = &(((CLine*) pTemp)[i]);
+
+                        *pMem = (CLine*) pTemp;
+                        return TRUE;
+                    }
+
+                    else {
+                        if (size == size_class_hline) {
+                            if (!(pMemory = pMyMem->pHLineMas.RealAdd()))
+                                return FALSE;
+
+                            pTemp = NULL;
+                            pTemp = new CHLine[len_hline_mas];
+
+                            if (!pTemp)
+                                return FALSE;
+
+                            pMemory->lp = pTemp;
+
+                            for (i = len_hline_mas - 1; i > 0; i--)
+                                ((CHLine*) pTemp)[i - 1].next
+                                = &(((CHLine*) pTemp)[i]);
+
+                            *pMem = (CHLine*) pTemp;
+                            return TRUE;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return FALSE;
 }
 
-void MyDelete(void* vType, int size) {
-	if (!vType)
-		return;
-	if (size == size_class_event) {
-		CEvent* pEvent = (CEvent*) vType;
-		pEvent->next = pEventMem;
-		pEventMem = pEvent;
-		MyDeleteAll(pEvent->m_interval.m_root, pEvent->m_interval.m_tail,
-				size_class_inv);
-		pEvent->m_interval.m_root = pEvent->m_interval.m_tail = NULL;
-		pEvent->m_interval.m_count = 0;
-		return;
-	}
-	if (size == size_class_cupoint) {
-		CCutPoint* pCupoint = (CCutPoint*) vType;
-		pCupoint->next = pCupointMem;
-		pCupointMem = pCupoint;
-		MyDeleteAll(pCupoint->m_interval.m_root, pCupoint->m_interval.m_tail,
-				size_class_inv);
-		pCupoint->m_interval.m_root = pCupoint->m_interval.m_tail = NULL;
-		pCupoint->m_interval.m_count = 0;
-		return;
-	}
-	if (size == size_class_line) {
-		CLine* pLine = (CLine*) vType;
-		pLine->next = pLineMem;
-		pLineMem = pLine;
-		pLine->m_cut_point.FastDel();
-		pLine->m_event.FastDel();
-		MyDeleteAll(pLine->m_comp.m_root, pLine->m_comp.m_tail, size_class_comp);
-		pLine->m_comp.m_root = pLine->m_comp.m_tail = NULL;
-		pLine->m_comp.m_count = 0;
-		return;
-	}
-	if (size == size_class_hline) {
-		CHLine* pHLine = (CHLine*) vType;
-		pHLine->next = pHLineMem;
-		pHLineMem = pHLine;
-		pHLine->m_line.FastDel();
-		return;
-	}
-	if (size == size_class_inv) {
-		CInterval* pInv = (CInterval*) vType;
-		pInv->next = pInvMem;
-		pInvMem = pInv;
-		return;
-	}
-	if (size == size_class_comp) {
-		CComponent* pComp = (CComponent*) vType;
-		pComp->next = pCompMem;
-		pCompMem = pComp;
-		return;
-	}
+void MyDelete(void* vType, int size)
+{
+    if (!vType)
+        return;
+
+    if (size == size_class_event) {
+        CEvent* pEvent = (CEvent*) vType;
+        pEvent->next = pEventMem;
+        pEventMem = pEvent;
+        MyDeleteAll(pEvent->m_interval.m_root, pEvent->m_interval.m_tail,
+                    size_class_inv);
+        pEvent->m_interval.m_root = pEvent->m_interval.m_tail = NULL;
+        pEvent->m_interval.m_count = 0;
+        return;
+    }
+
+    if (size == size_class_cupoint) {
+        CCutPoint* pCupoint = (CCutPoint*) vType;
+        pCupoint->next = pCupointMem;
+        pCupointMem = pCupoint;
+        MyDeleteAll(pCupoint->m_interval.m_root, pCupoint->m_interval.m_tail,
+                    size_class_inv);
+        pCupoint->m_interval.m_root = pCupoint->m_interval.m_tail = NULL;
+        pCupoint->m_interval.m_count = 0;
+        return;
+    }
+
+    if (size == size_class_line) {
+        CLine* pLine = (CLine*) vType;
+        pLine->next = pLineMem;
+        pLineMem = pLine;
+        pLine->m_cut_point.FastDel();
+        pLine->m_event.FastDel();
+        MyDeleteAll(pLine->m_comp.m_root, pLine->m_comp.m_tail, size_class_comp);
+        pLine->m_comp.m_root = pLine->m_comp.m_tail = NULL;
+        pLine->m_comp.m_count = 0;
+        return;
+    }
+
+    if (size == size_class_hline) {
+        CHLine* pHLine = (CHLine*) vType;
+        pHLine->next = pHLineMem;
+        pHLineMem = pHLine;
+        pHLine->m_line.FastDel();
+        return;
+    }
+
+    if (size == size_class_inv) {
+        CInterval* pInv = (CInterval*) vType;
+        pInv->next = pInvMem;
+        pInvMem = pInv;
+        return;
+    }
+
+    if (size == size_class_comp) {
+        CComponent* pComp = (CComponent*) vType;
+        pComp->next = pCompMem;
+        pCompMem = pComp;
+        return;
+    }
 }
 
-void MyDeleteAll(void* vRoot, void* vTail, int size) {
-	if (!vTail)
-		return;
-	if (size == size_class_inv) {
-		((CInterval*) vTail)->next = pInvMem;
-		pInvMem = (CInterval*) vRoot;
-		return;
-	}
-	if (size == size_class_comp) {
-		((CComponent*) vTail)->next = pCompMem;
-		pCompMem = (CComponent*) vRoot;
-		return;
-	}
+void MyDeleteAll(void* vRoot, void* vTail, int size)
+{
+    if (!vTail)
+        return;
+
+    if (size == size_class_inv) {
+        ((CInterval*) vTail)->next = pInvMem;
+        pInvMem = (CInterval*) vRoot;
+        return;
+    }
+
+    if (size == size_class_comp) {
+        ((CComponent*) vTail)->next = pCompMem;
+        pCompMem = (CComponent*) vRoot;
+        return;
+    }
 }

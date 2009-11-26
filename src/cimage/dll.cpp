@@ -71,18 +71,22 @@
 //GLOBAL VARIABLES
 static uint16_t gwLowRC = 0;
 
-void CIMAGE_Init() {
-	CIF::CImage::instance();
+void CIMAGE_Init()
+{
+    CIF::CImage::instance();
 }
 
-void CIMAGE_Done() {
+void CIMAGE_Done()
+{
 }
 
-void SetReturnCode_cimage(uint16_t rc) {
-	if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
-		gwLowRC = rc;
+void SetReturnCode_cimage(uint16_t rc)
+{
+    if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
+        gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_cimage() {
-	return gwLowRC;
+uint16_t GetReturnCode_cimage()
+{
+    return gwLowRC;
 }

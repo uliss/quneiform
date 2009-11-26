@@ -62,171 +62,209 @@
 static const int FAMILY_SHIFT  = 8;
 #endif
 
-int GetCPUName() {
+int GetCPUName()
+{
 #ifdef _MSC_VER
-	short int retu;
-	_asm {
-		;
-		; cmp 386 & 486 &586 : study bit 18 in flag register EFLAGS. If we can
-		; chandged this bit, then used i486. If can not - i386.
-		;
-		; save stack pointer
-		mov edx , esp
-		; align stack pointer for disable during sexception etting flag AC
-		and esp , not 3
-		; copy registr EFLAGS to EAX
-		pushfd
-		pop eax
-		; saving start state EFLAGS
-		mov ecx , eax
-		; switch flag AC
-		xor eax , 40000H
-		; write changed value to EFLAGS
-		push eax
-		popfd
-		; copy registr EFLAGS to EAX
-		pushfd
-		pop eax
-		; compare old and new values of bit AC
-		xor eax , ecx
-		shr eax , 18
-		and eax , 1
-		push ecx
-		; restore registr EFLAGS
-		popfd
-		; restore stack pointer
-		mov esp , edx
-		; AX=0 for i386; AX=1 for i486
-		mov dx , 386
-		test ax , ax
-		mov cx , 1
-		jz cpu_end
-		mov dx , 486
-	}
+    short int retu;
+    _asm {
+        ;
+        ;
+    cmp 386 & 486 &586 :
+        study bit 18 in flag register EFLAGS. If we can
+        ;
+        chandged this bit, then used i486. If can not - i386.
+        ;
+        ;
+        save stack pointer
+        mov edx , esp
+        ;
 
-	_asm {
-		;
-		; cmp 486 & CPUID : study bit 21 in flag register EFLAGS. If we can
-		; chandged this bit, then used Intel_with_CPUID. If can not - i486.
-		;
-		; copy registr EFLAGS to EAX
-		pushfd
-		pop eax
-		; saving start state EFLAGS
-		mov ecx , eax
-		; switch flag AC
-		xor eax , 200000H
-		; write changed value to EFLAGS
-		push eax
-		popfd
-		; copy registr EFLAGS to EAX
-		pushfd
-		pop eax
-		; compare old and new values of bit AC
-		xor eax , ecx
-		shr eax , 21
-		and eax , 1
-		push ecx
-		; restore registr EFLAGS
-		popfd
-		test ax , ax
-		mov cx , 1
-		jz cpu_end
-	}
+        align stack pointer for disable during sexception etting flag AC
+        and esp , not 3
+        ;
 
-	_asm {
-		;
-		; CPUID studies
-		;
-		mov ax , 0
-		CPUID0
-		cmp ebx, 0756E6547h;"Genu"
-		jne NO_GENUININTEL
-		cmp edx, 049656E69h;"ineI"
-		jne NO_GENUININTEL
-		cmp ecx, 06C65746Eh;"ntel"
-		jne NO_GENUININTEL
-		jmp GENUININTEL
-	}
-	NO_GENUININTEL:
-	_asm {
-		mov cx , 1
-		mov dx , 486
-		jmp cpu_end
-	}
-	GENUININTEL:
-	_asm {
-		mov eax , 1
-		CPUID0
-		test edx , 00800000h
-		mov cx , 1
-		jz MMX_SKIP
-		mov cx , 10; scaling
-	}
-	MMX_SKIP :
-	_asm {
-		test edx , 02000000h
-		mov bx , 1
-		jz XMM_SKIP
-		mov bx , 10; scaling
-	}
-	XMM_SKIP :
-	_asm {
-		mov dx , 486
-		and ax , FAMILY_MASK
-		shr ax , FAMILY_SHIFT
-		cmp ax , 5
-		jl cpu_end
-		je cpu_586
-		mov dx , 686
-		mov cx , 1; Klamath, Detushes - not opt, Katmai - future
-		jmp cpu_end
-	}
-	cpu_586:
-	_asm {
-		mov dx , 586
-	}
-	cpu_end:
-	_asm {
-		mov ax , dx
-		mov dx , 0
-		mul cx
-		mov retu, ax
-	}
-	return retu;
+        copy registr EFLAGS to EAX
+        pushfd
+        pop eax
+        ;
+        saving start state EFLAGS
+        mov ecx , eax
+        ;
+
+        switch flag AC
+            xor eax , 40000H
+            ;
+
+            write changed value to EFLAGS
+            push eax
+            popfd
+            ;
+            copy registr EFLAGS to EAX
+            pushfd
+            pop eax
+            ;
+            compare old and new values of bit AC
+            xor eax , ecx
+            shr eax , 18
+            and eax , 1
+            push ecx
+            ;
+            restore registr EFLAGS
+            popfd
+            ;
+            restore stack pointer
+            mov esp , edx
+            ;
+
+            AX = 0 for i386;
+
+                AX = 1 for i486
+                         mov dx , 386
+                    test ax , ax
+                    mov cx , 1
+                    jz cpu_end
+                    mov dx , 486
+                }
+                _asm {
+                    ;
+                    ;
+                cmp 486 & CPUID :
+                    study bit 21 in flag register EFLAGS. If we can
+                    ;
+                    chandged this bit, then used Intel_with_CPUID. If can not - i486.
+                    ;
+                    ;
+                    copy registr EFLAGS to EAX
+                    pushfd
+                    pop eax
+                    ;
+                    saving start state EFLAGS
+                    mov ecx , eax
+                    ;
+
+                    switch flag AC
+                        xor eax , 200000H
+                        ;
+
+                        write changed value to EFLAGS
+                        push eax
+                        popfd
+                        ;
+                        copy registr EFLAGS to EAX
+                        pushfd
+                        pop eax
+                        ;
+                        compare old and new values of bit AC
+                        xor eax , ecx
+                        shr eax , 21
+                        and eax , 1
+                        push ecx
+                        ;
+                        restore registr EFLAGS
+                        popfd
+                        test ax , ax
+                        mov cx , 1
+                        jz cpu_end
+                    }
+                    _asm {
+                        ;
+                        ;
+                        CPUID studies
+                        ;
+                        mov ax , 0
+                        CPUID0
+                        cmp ebx, 0756E6547h; "Genu"
+                        jne NO_GENUININTEL
+                        cmp edx, 049656E69h; "ineI"
+                        jne NO_GENUININTEL
+                        cmp ecx, 06C65746Eh; "ntel"
+                        jne NO_GENUININTEL
+                        jmp GENUININTEL
+                    }
+                NO_GENUININTEL:
+                    _asm {
+                        mov cx , 1
+                        mov dx , 486
+                        jmp cpu_end
+                }
+GENUININTEL:
+_asm {
+    mov eax , 1
+    CPUID0
+    test edx , 00800000h
+    mov cx , 1
+    jz MMX_SKIP
+    mov cx , 10;
+    scaling
+}
+MMX_SKIP :
+_asm {
+    test edx , 02000000h
+    mov bx , 1
+    jz XMM_SKIP
+    mov bx , 10;
+    scaling
+}
+XMM_SKIP :
+_asm {
+    mov dx , 486
+    and ax , FAMILY_MASK
+    shr ax , FAMILY_SHIFT
+    cmp ax , 5
+    jl cpu_end
+    je cpu_586
+    mov dx , 686
+    mov cx , 1;
+    Klamath, Detushes - not opt, Katmai - future
+    jmp cpu_end
+}
+cpu_586:
+_asm {
+    mov dx , 586
+}
+cpu_end:
+_asm {
+    mov ax , dx
+    mov dx , 0
+    mul cx
+    mov retu, ax
+}
+return retu;
 #else
-	return 386;
+    return 386;
 #endif
 }
 
 static int get_CPUID_EDX_BIT(int mask)
 {
 #ifdef _MSC_VER
-int retu=0;
-_asm{
-;
-; CPUID studies
-;
-	mov		eax	,	0
-    CPUID0
-	cmp		ebx,	0756E6547h ;"Genu"
-    mov     ebx,    0
-	jne		END
-	cmp		edx,	049656E69h ;"ineI"
-	jne		END
-    cmp		ecx,	06C65746Eh ;"ntel"
+    int retu = 0;
+    _asm {
+        ;
+        ;
+        CPUID studies
+        ;
+        mov     eax ,   0
+        CPUID0
+        cmp     ebx,    0756E6547h ; "Genu"
+        mov     ebx,    0
+        jne     END
+        cmp     edx,    049656E69h ; "ineI"
+        jne     END
+        cmp     ecx,    06C65746Eh ; "ntel"
 
-	jne		END
-	mov		eax	,	1
-    CPUID0
-    mov     ecx,    mask
-	test	edx	,	ecx
-	jz		END
-	mov		ebx	,	1  ; mask & EDX  != 0
+        jne     END
+        mov     eax ,   1
+        CPUID0
+        mov     ecx,    mask
+        test    edx ,   ecx
+        jz      END
+        mov     ebx ,   1  ;
+        mask & EDX  != 0
     }
 END :
-_asm{
-	mov     retu, ebx
+    _asm {
+        mov     retu, ebx
     }
     return retu;
 #else
@@ -234,11 +272,13 @@ _asm{
 #endif
 }
 
-int Get_MMX(void) {
-	return get_CPUID_EDX_BIT(0x800000);
+int Get_MMX(void)
+{
+    return get_CPUID_EDX_BIT(0x800000);
 }
 
-int Get_XMM(void) {
-	extern int get_XMM();
-	return get_CPUID_EDX_BIT(0x2000000);
+int Get_XMM(void)
+{
+    extern int get_XMM();
+    return get_CPUID_EDX_BIT(0x2000000);
 }

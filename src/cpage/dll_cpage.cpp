@@ -86,153 +86,162 @@ Handle hSnapTimerEnd = NULL;
 
 /////////////////////////////////////////
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+                      pvoid lpReserved)
+{
+    switch (ul_reason_for_call) {
+        case DLL_PROCESS_ATTACH:
+            ghInst = hModule;
+            break;
+        case DLL_THREAD_ATTACH:
+            break;
+        case DLL_THREAD_DETACH:
+            break;
+        case DLL_PROCESS_DETACH:
+            break;
+    }
+
+    return TRUE;
 }
 
-Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage) {
-	gwHeightRC = wHeightCode;
+Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage)
+{
+    gwHeightRC = wHeightCode;
 #ifdef DPUMA_ON
-	Handle hSnap = NULL;
-	LDPUMA_Init(0,NULL);
-	LDPUMA_Registry(&hSnap,"Контейнер CPAGE", NULL);
-	LDPUMA_RegistryHelp(hSnap,
-			"<Ответственный:П.Хлебутин> Эта вершина предназначена для тестирования работы с контейнером CPAGE."
-			,FALSE);
-	LDPUMA_Registry(&hSnapTimerBeg,"Время работы CPAGE", hSnap);
-	LDPUMA_RegistryHelp(hSnapTimerBeg,
-			"Эта вершина предназначена для определения времени работы контейнера."
-			,FALSE);
+    Handle hSnap = NULL;
+    LDPUMA_Init(0, NULL);
+    LDPUMA_Registry(&hSnap, "Контейнер CPAGE", NULL);
+    LDPUMA_RegistryHelp(hSnap,
+                        "<Ответственный:П.Хлебутин> Эта вершина предназначена для тестирования работы с контейнером CPAGE."
+                        , FALSE);
+    LDPUMA_Registry(&hSnapTimerBeg, "Время работы CPAGE", hSnap);
+    LDPUMA_RegistryHelp(hSnapTimerBeg,
+                        "Эта вершина предназначена для определения времени работы контейнера."
+                        , FALSE);
 #endif
-	return TRUE;
+    return TRUE;
 }
 
-Bool32 CPAGE_Done() {
-	Bool32 rc = CPAGE_DeleteAll();
+Bool32 CPAGE_Done()
+{
+    Bool32 rc = CPAGE_DeleteAll();
 #ifdef DPUMA_ON
-	LDPUMA_Done();
+    LDPUMA_Done();
 #endif
-	return rc;
+    return rc;
 }
 
-uint32_t CPAGE_GetReturnCode() {
-	uint32_t rc = 0;
-	if ((gwLowRC - IDS_ERR_NO) > 0)
-		rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
+uint32_t CPAGE_GetReturnCode()
+{
+    uint32_t rc = 0;
 
-	return rc;
+    if ((gwLowRC - IDS_ERR_NO) > 0)
+        rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
+
+    return rc;
 }
 
-char * CPAGE_GetReturnString(uint32_t dwError) {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
+char * CPAGE_GetReturnString(uint32_t dwError)
+{
+    uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
 
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != gwHeightRC)
+        gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	return NULL;
+    return NULL;
 }
 
-Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
+Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData)
+{
+    Bool32 rc = TRUE;
+    gwLowRC = 0;
+#define CASE_FUNCTION(a)    case CPAGE_FN##a:   *(FN##a *)pData = a; break;
 
-	gwLowRC = 0;
+    switch (dwType) {
+            CASE_FUNCTION(CPAGE_CreatePage)
+            CASE_FUNCTION(CPAGE_DeletePage)
+            CASE_FUNCTION(CPAGE_SavePage)
+            CASE_FUNCTION(CPAGE_RestorePage)
+            CASE_FUNCTION(CPAGE_GetPageType)
+            CASE_FUNCTION(CPAGE_SetPageData)
+            CASE_FUNCTION(CPAGE_GetPageData)
+            CASE_FUNCTION(CPAGE_ClearBackUp)
+            CASE_FUNCTION(CPAGE_BackUp)
+            CASE_FUNCTION(CPAGE_Undo)
+            CASE_FUNCTION(CPAGE_Redo)
+            CASE_FUNCTION(CPAGE_GetCountPage)
+            CASE_FUNCTION(CPAGE_GetCountBlock)
+            CASE_FUNCTION(CPAGE_CreateBlock)
+            CASE_FUNCTION(CPAGE_GetBlockType)
+            CASE_FUNCTION(CPAGE_GetBlockUserNum)
+            CASE_FUNCTION(CPAGE_SetBlockUserNum)
+            CASE_FUNCTION(CPAGE_GetBlockFlags)
+            CASE_FUNCTION(CPAGE_SetBlockFlags)
+            CASE_FUNCTION(CPAGE_SetBlockData)
+            CASE_FUNCTION(CPAGE_GetBlockData)
+            CASE_FUNCTION(CPAGE_DeleteBlock)
+            CASE_FUNCTION(CPAGE_GetHandlePage)
+            CASE_FUNCTION(CPAGE_GetHandleBlock)
+            CASE_FUNCTION(CPAGE_SetConvertorPages)
+            CASE_FUNCTION(CPAGE_SetConvertorBlocks)
+            CASE_FUNCTION(CPAGE_GetUserPageType)
+            CASE_FUNCTION(CPAGE_GetUserBlockType)
+            CASE_FUNCTION(CPAGE_GetBuckUpCount)
+            CASE_FUNCTION(CPAGE_GetBuckUpHandle)
+            CASE_FUNCTION(CPAGE_GetPageFirst)
+            CASE_FUNCTION(CPAGE_GetPageNext)
+            CASE_FUNCTION(CPAGE_GetBlockFirst)
+            CASE_FUNCTION(CPAGE_GetBlockNext)
+            CASE_FUNCTION(CPAGE_DeleteAll)
+            CASE_FUNCTION(CPAGE_GetCurrentPage)
+            CASE_FUNCTION(CPAGE_SetCurrentPage)
+            CASE_FUNCTION(CPAGE_GetNumberPage)
+            CASE_FUNCTION(CPAGE_UpdateBlocks)
+            CASE_FUNCTION(CPAGE_HL_TableExtract)
+            CASE_FUNCTION(CPAGE_PictureGetFirst)
+            CASE_FUNCTION(CPAGE_PictureGetNext)
+            CASE_FUNCTION(CPAGE_PictureGetPlace)
+            CASE_FUNCTION(CPAGE_PictureGetMask)
+            CASE_FUNCTION(CPAGE_GetBlockInterNum)
+            CASE_FUNCTION(CPAGE_SetBlockInterNum)
+            CASE_FUNCTION(CPAGE_GetBlockDataPtr)
+            CASE_FUNCTION(CPAGE_GetInternalType)
+            CASE_FUNCTION(CPAGE_GetNameInternalType)
+        default:
+            *(Handle *) pData = NULL;
+            gwLowRC = IDS_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
-#define CASE_FUNCTION(a)	case CPAGE_FN##a:	*(FN##a *)pData = a; break;
-
-	switch (dwType) {
-	CASE_FUNCTION(CPAGE_CreatePage)
-	CASE_FUNCTION(CPAGE_DeletePage)
-	CASE_FUNCTION(CPAGE_SavePage)
-	CASE_FUNCTION(CPAGE_RestorePage)
-	CASE_FUNCTION(CPAGE_GetPageType)
-	CASE_FUNCTION(CPAGE_SetPageData)
-	CASE_FUNCTION(CPAGE_GetPageData)
-	CASE_FUNCTION(CPAGE_ClearBackUp)
-	CASE_FUNCTION(CPAGE_BackUp)
-	CASE_FUNCTION(CPAGE_Undo)
-	CASE_FUNCTION(CPAGE_Redo)
-	CASE_FUNCTION(CPAGE_GetCountPage)
-	CASE_FUNCTION(CPAGE_GetCountBlock)
-	CASE_FUNCTION(CPAGE_CreateBlock)
-	CASE_FUNCTION(CPAGE_GetBlockType)
-	CASE_FUNCTION(CPAGE_GetBlockUserNum)
-	CASE_FUNCTION(CPAGE_SetBlockUserNum)
-	CASE_FUNCTION(CPAGE_GetBlockFlags)
-	CASE_FUNCTION(CPAGE_SetBlockFlags)
-	CASE_FUNCTION(CPAGE_SetBlockData)
-	CASE_FUNCTION(CPAGE_GetBlockData)
-	CASE_FUNCTION(CPAGE_DeleteBlock)
-	CASE_FUNCTION(CPAGE_GetHandlePage)
-	CASE_FUNCTION(CPAGE_GetHandleBlock)
-	CASE_FUNCTION(CPAGE_SetConvertorPages)
-	CASE_FUNCTION(CPAGE_SetConvertorBlocks)
-	CASE_FUNCTION(CPAGE_GetUserPageType)
-	CASE_FUNCTION(CPAGE_GetUserBlockType)
-	CASE_FUNCTION(CPAGE_GetBuckUpCount)
-	CASE_FUNCTION(CPAGE_GetBuckUpHandle)
-	CASE_FUNCTION(CPAGE_GetPageFirst)
-	CASE_FUNCTION(CPAGE_GetPageNext)
-	CASE_FUNCTION(CPAGE_GetBlockFirst)
-	CASE_FUNCTION(CPAGE_GetBlockNext)
-	CASE_FUNCTION(CPAGE_DeleteAll)
-	CASE_FUNCTION(CPAGE_GetCurrentPage)
-	CASE_FUNCTION(CPAGE_SetCurrentPage)
-	CASE_FUNCTION(CPAGE_GetNumberPage)
-	CASE_FUNCTION(CPAGE_UpdateBlocks)
-	CASE_FUNCTION(CPAGE_HL_TableExtract)
-	CASE_FUNCTION(CPAGE_PictureGetFirst)
-	CASE_FUNCTION(CPAGE_PictureGetNext)
-	CASE_FUNCTION(CPAGE_PictureGetPlace)
-	CASE_FUNCTION(CPAGE_PictureGetMask)
-	CASE_FUNCTION(CPAGE_GetBlockInterNum)
-	CASE_FUNCTION(CPAGE_SetBlockInterNum)
-	CASE_FUNCTION(CPAGE_GetBlockDataPtr)
-	CASE_FUNCTION(CPAGE_GetInternalType)
-	CASE_FUNCTION(CPAGE_GetNameInternalType)
-	default:
-		*(Handle *) pData = NULL;
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
 #undef CASE_FUNCTION
-	return rc;
+    return rc;
 }
 
-Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData) {
-	Bool rc = FALSE;
-	gwLowRC = IDS_ERR_NOTIMPLEMENT;
+Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData)
+{
+    Bool rc = FALSE;
+    gwLowRC = IDS_ERR_NOTIMPLEMENT;
+#define CASE_FUNCTION(a)    case CPAGE_FN##a:   a = (FN##a)pData; break;
 
-#define CASE_FUNCTION(a)	case CPAGE_FN##a:	a = (FN##a)pData; break;
+    switch (dwType) {
+            CASE_FUNCTION(CPAGE_HL_TableExtract)
+        default:
+            *(Handle *) pData = NULL;
+            gwLowRC = IDS_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
-	switch (dwType) {
-	CASE_FUNCTION(CPAGE_HL_TableExtract)
-	default:
-		*(Handle *) pData = NULL;
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
 #undef CASE_FUNCTION
-
-	return rc;
+    return rc;
 }
 
-void SetReturnCode_cpage(uint16_t rc) {
-	gwLowRC = rc;
+void SetReturnCode_cpage(uint16_t rc)
+{
+    gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_cpage() {
-	return gwLowRC;
+uint16_t GetReturnCode_cpage()
+{
+    return gwLowRC;
 }
 
 #ifdef DPUMA_ON
@@ -246,36 +255,37 @@ static clock_t s_tbeg = 0;
 
 Handle ProfileProlog()
 {
-	Handle rc = NULL;
-	if(!s_prolog)
-	{
+    Handle rc = NULL;
+
+    if (!s_prolog) {
 #ifdef TIMECONTROL
-		s_tbeg = clock();
+        s_tbeg = clock();
 #endif
-		rc = LDPUMA_GetPrevSkipOwner();
-		LDPUMA_Skip(hSnapTimerBeg);
-		// Проверим - используется ли эта вершина на самом деле.
-		if(LDPUMA_GetPrevSkipOwner() == rc)
-		rc = NULL;// Нет. Иначе, она равнялась бы hSnapTimerBeg
-	}
-	s_prolog++;
-	return rc;
+        rc = LDPUMA_GetPrevSkipOwner();
+        LDPUMA_Skip(hSnapTimerBeg);
+
+        // Проверим - используется ли эта вершина на самом деле.
+        if (LDPUMA_GetPrevSkipOwner() == rc)
+            rc = NULL;// Нет. Иначе, она равнялась бы hSnapTimerBeg
+    }
+
+    s_prolog++;
+    return rc;
 }
 
 void ProfileEpilog(Handle prev)
 {
-	if(s_prolog>0)
-	{
-		s_prolog--;
-		if(!s_prolog && prev)
-		{
+    if (s_prolog > 0) {
+        s_prolog--;
+
+        if (!s_prolog && prev) {
 #ifdef TIMECONTROL
-			uint32_t c = clock() - s_tbeg;
-			assert(c < 99);
+            uint32_t c = clock() - s_tbeg;
+            assert(c < 99);
 #endif
-			LDPUMA_Skip(prev);
-		}
-	}
+            LDPUMA_Skip(prev);
+        }
+    }
 }
 #endif
 

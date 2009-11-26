@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new CzechAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_CZECH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-CzechAlphabet::CzechAlphabet() {
+CzechAlphabet::CzechAlphabet()
+{
     addSymbol(AA_right_accent);
     addSymbol(a_right_accent);
     addSymbol(CC_inv_roof);
@@ -64,7 +68,8 @@ CzechAlphabet::CzechAlphabet() {
     addSymbol(z_inv_roof_latin);
 }
 
-language_t CzechAlphabet::language() const {
+language_t CzechAlphabet::language() const
+{
     return LANG_CZECH;
 }
 

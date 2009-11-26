@@ -64,71 +64,82 @@ using namespace CIF;
 
 // Конверторы преобразования из TYPE_DESC в CPAGE_TABLE
 uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn,
-		CPAGE_TABLE * lpDataOut, uint32_t SizeOut) {
-	uint32_t rc = 0;
-	if (lpDataOut == NULL)
-		return sizeof(CPAGE_TABLE);
+                                  CPAGE_TABLE * lpDataOut, uint32_t SizeOut)
+{
+    uint32_t rc = 0;
 
-	if (sizeof(TABLE_DESC) != SizeIn || sizeof(CPAGE_TABLE) != SizeOut
-			|| lpDataIn == NULL) {
-		SetReturnCode_cpage(IDS_ERR_DISCREP);
-		return 0;
-	}
+    if (lpDataOut == NULL)
+        return sizeof(CPAGE_TABLE);
 
-	memset(lpDataOut, 0, SizeOut);
+    if (sizeof(TABLE_DESC) != SizeIn || sizeof(CPAGE_TABLE) != SizeOut
+            || lpDataIn == NULL) {
+        SetReturnCode_cpage(IDS_ERR_DISCREP);
+        return 0;
+    }
 
-	lpDataOut->prop = *lpDataIn;
-	// заполним структуру описания ячеек таблицы
-	if (lpDataIn->nHorLines > 0 && lpDataIn->nHorLines > 0) {
-		int c_current = 0;
-		Point p;
+    memset(lpDataOut, 0, SizeOut);
+    lpDataOut->prop = *lpDataIn;
 
-		for (int c_row = 0; c_row < lpDataIn->nHorLines - 1; c_row++)
-			for (int c_col = 0; c_col < lpDataIn->nVerLines - 1; c_col++) {
-				assert((c_row*(lpDataIn->nVerLines - 1)+c_col)<MaxCells);
-				if (c_row && lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
-						+ c_col].TypeBound[TABLE_CELL_TOP] & CELL_BOUND_PSEVDO) {// нет горизонтального разделителя сверху
-					p = lpDataOut->cell[c_row - 1][c_col].PhCoord;
-					c_current = lpDataOut->cell[c_row - 1][c_col].Number;
-				} else if (!c_col
-						|| !(lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
-								+ c_col].TypeBound[TABLE_CELL_LEF]
-								& CELL_BOUND_PSEVDO)) {// есть вертикальный разделитель слева
-					c_current = ++lpDataOut->PhNumber;
-					p.rx() = c_col;
-					p.ry() = c_row;
-				} else {// есть гор. разделитель сверху и нет верт. справа
-					p = lpDataOut->cell[c_row][c_col - 1].PhCoord;
-					c_current = lpDataOut->cell[c_row][c_col - 1].Number;
-				}
+    // заполним структуру описания ячеек таблицы
+    if (lpDataIn->nHorLines > 0 && lpDataIn->nHorLines > 0) {
+        int c_current = 0;
+        Point p;
 
-				lpDataOut->cell[c_row][c_col].Number = c_current;
-				lpDataOut->cell[c_row][c_col].PhCoord = p;
-				lpDataOut->cell[c_row][c_col].Block = -1;
-				lpDataOut->cell[p.y()][p.x()].GeCount++;
-			}
-		rc = sizeof(*lpDataOut);
-	} else
-		assert(FALSE);
+        for (int c_row = 0; c_row < lpDataIn->nHorLines - 1; c_row++)
+            for (int c_col = 0; c_col < lpDataIn->nVerLines - 1; c_col++) {
+                assert((c_row*(lpDataIn->nVerLines - 1) + c_col) < MaxCells);
 
-	return rc;
+                if (c_row && lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
+                                            + c_col].TypeBound[TABLE_CELL_TOP] & CELL_BOUND_PSEVDO) {// нет горизонтального разделителя сверху
+                    p = lpDataOut->cell[c_row - 1][c_col].PhCoord;
+                    c_current = lpDataOut->cell[c_row - 1][c_col].Number;
+                }
+
+                else if (!c_col
+                         || !(lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
+                                             + c_col].TypeBound[TABLE_CELL_LEF]
+                              & CELL_BOUND_PSEVDO)) {// есть вертикальный разделитель слева
+                    c_current = ++lpDataOut->PhNumber;
+                    p.rx() = c_col;
+                    p.ry() = c_row;
+                }
+
+                else {// есть гор. разделитель сверху и нет верт. справа
+                    p = lpDataOut->cell[c_row][c_col - 1].PhCoord;
+                    c_current = lpDataOut->cell[c_row][c_col - 1].Number;
+                }
+
+                lpDataOut->cell[c_row][c_col].Number = c_current;
+                lpDataOut->cell[c_row][c_col].PhCoord = p;
+                lpDataOut->cell[c_row][c_col].Block = -1;
+                lpDataOut->cell[p.y()][p.x()].GeCount++;
+            }
+
+        rc = sizeof(*lpDataOut);
+    }
+
+    else
+        assert(FALSE);
+
+    return rc;
 }
 
 uint32_t CPAGE_TABLE_to_TYPE_DESK(CPAGE_TABLE * lpDataIn, uint32_t SizeIn,
-		TABLE_DESC * LpDataOut, uint32_t SizeOut) {
-	uint32_t rc = 0;
+                                  TABLE_DESC * LpDataOut, uint32_t SizeOut)
+{
+    uint32_t rc = 0;
 
-	if (LpDataOut == NULL)
-		return sizeof(TABLE_DESC);
+    if (LpDataOut == NULL)
+        return sizeof(TABLE_DESC);
 
-	if (sizeof(TABLE_DESC) != SizeOut || sizeof(CPAGE_TABLE) != SizeIn
-			|| lpDataIn == NULL) {
-		SetReturnCode_cpage(IDS_ERR_DISCREP);
-		return 0;
-	}
+    if (sizeof(TABLE_DESC) != SizeOut || sizeof(CPAGE_TABLE) != SizeIn
+            || lpDataIn == NULL) {
+        SetReturnCode_cpage(IDS_ERR_DISCREP);
+        return 0;
+    }
 
-	*LpDataOut = lpDataIn->prop;
-	rc = sizeof(TABLE_DESC);
-	return rc;
+    *LpDataOut = lpDataIn->prop;
+    rc = sizeof(TABLE_DESC);
+    return rc;
 }
 

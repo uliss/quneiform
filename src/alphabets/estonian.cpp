@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new EstonianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_ESTONIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-EstonianAlphabet::EstonianAlphabet() {
+EstonianAlphabet::EstonianAlphabet()
+{
     addSymbol(AA_2dot_accent);
     addSymbol(a_2dot_accent);
     addSymbol(OO_tild_accent);
@@ -44,7 +48,6 @@ EstonianAlphabet::EstonianAlphabet() {
     addSymbol(u_2dot_accent);
     addSymbol(ZZ_inv_roof_baltic);
     addSymbol(z_inv_roof_baltic);
-
     removeSymbol('C');
     removeSymbol('c');
     removeSymbol('Q');
@@ -57,7 +60,8 @@ EstonianAlphabet::EstonianAlphabet() {
     removeSymbol('y');
 }
 
-language_t EstonianAlphabet::language() const {
+language_t EstonianAlphabet::language() const
+{
     return LANG_ESTONIAN;
 }
 

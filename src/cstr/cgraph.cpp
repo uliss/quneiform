@@ -77,737 +77,761 @@ int32_t memsize = 256;
 uchar IDtext[IDTEXT_LEN] = "CCOM&CSTR file"; //Идентификатор файла
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Возвращает количество компонент в контейнере CSTR
-//	ARGS:	объект CSTR_rast
-//	RETS:	Количество компонент в контейнере CSTR_rast
+//  DESC:   Возвращает количество компонент в контейнере CSTR
+//  ARGS:   объект CSTR_rast
+//  RETS:   Количество компонент в контейнере CSTR_rast
 /////////////////////////////////////////////////////////////////////////////////////////
-int32_t CGRAPH_GetCompCount(CSTR_rast rast) {
-	CSTR_rast curr_rast = rast;
-	int count = 0;
+int32_t CGRAPH_GetCompCount(CSTR_rast rast)
+{
+    CSTR_rast curr_rast = rast;
+    int count = 0;
 
-	if (!curr_rast)
-		return -1;
+    if (!curr_rast)
+        return -1;
 
-	while (curr_rast) {
-		++count;
-		curr_rast = curr_rast->next;
-	}
-	return count;
+    while (curr_rast) {
+        ++count;
+        curr_rast = curr_rast->next;
+    }
+
+    return count;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Получить стоповый растр
-//	ARGS:	rast	- текущий растр
-//	RETS:	Стоповый растр
+//  DESC:   Получить стоповый растр
+//  ARGS:   rast    - текущий растр
+//  RETS:   Стоповый растр
 /////////////////////////////////////////////////////////////////////////////////////////
-CSTR_rast CGRAPH_GetStopRaster(CSTR_rast rast) {
-	CSTR_rast rst = rast;
+CSTR_rast CGRAPH_GetStopRaster(CSTR_rast rast)
+{
+    CSTR_rast rst = rast;
 
-	while (rst) {
-		if (rst->next_up)
-			return rst->next_up;
-		rst = rst->next;
-	}
+    while (rst) {
+        if (rst->next_up)
+            return rst->next_up;
 
-	return NULL;
+        rst = rst->next;
+    }
+
+    return NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Установить указатель массива al->loop на требуемую позицию
-//	ARGS:	ptr	- указатель на al->loop
-//			n	- позиция
-//	RETS:	Указатель на затребованную позицию
+//  DESC:   Установить указатель массива al->loop на требуемую позицию
+//  ARGS:   ptr - указатель на al->loop
+//          n   - позиция
+//  RETS:   Указатель на затребованную позицию
 /////////////////////////////////////////////////////////////////////////////////////////
-intptr_t *SetPtr(intptr_t *ptr, int32_t n) {
-	intptr_t i;
-	for (i = 0; i < n; i++)
-		ptr++;
-	return ptr;
+intptr_t *SetPtr(intptr_t *ptr, int32_t n)
+{
+    intptr_t i;
+
+    for (i = 0; i < n; i++)
+        ptr++;
+
+    return ptr;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Запомнить адрес текущего растра в массиве al->loop
-//	ARGS:	al		- указатель на ALoop
-//			rast	- текущий растр
-//	RETS:	TRUE	- OK
-//			FALSE	- нет памяти
+//  DESC:   Запомнить адрес текущего растра в массиве al->loop
+//  ARGS:   al      - указатель на ALoop
+//          rast    - текущий растр
+//  RETS:   TRUE    - OK
+//          FALSE   - нет памяти
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 AddLoop(ALoop *al, CSTR_rast rast) {
-	CSTR_rast rst = rast;
-	intptr_t *ptr = SetPtr(al->loop, al->n);
-	*(ptr) = reinterpret_cast<intptr_t> (rst);
-	al->n++;
+Bool32 AddLoop(ALoop *al, CSTR_rast rast)
+{
+    CSTR_rast rst = rast;
+    intptr_t *ptr = SetPtr(al->loop, al->n);
+    *(ptr) = reinterpret_cast<intptr_t> (rst);
+    al->n++;
 
-	if (al->n == memsize) {
-		memsize *= 2;
-		al->loop = static_cast<intptr_t*> (realloc(al->loop, sizeof(intptr_t)
-				* memsize));
-		if (!al->loop)
-			return FALSE;
-	}
+    if (al->n == memsize) {
+        memsize *= 2;
+        al->loop = static_cast<intptr_t*> (realloc(al->loop, sizeof(intptr_t)
+                                                   * memsize));
 
-	return TRUE;
+        if (!al->loop)
+            return FALSE;
+    }
+
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Запомнить текущий уровень вложенности в массиве al->loop
-//	ARGS:	al		- указатель на ALoop
-//			level	- текущий уровень вложенности
-//	RETS:	TRUE	- ОК
-//			FALSE	- нет памяти
+//  DESC:   Запомнить текущий уровень вложенности в массиве al->loop
+//  ARGS:   al      - указатель на ALoop
+//          level   - текущий уровень вложенности
+//  RETS:   TRUE    - ОК
+//          FALSE   - нет памяти
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 AddLevel(ALoop *al, intptr_t level) {
-	intptr_t *ptr = SetPtr(al->loop, al->n);
-	*(ptr) = level;
-	al->n++;
+Bool32 AddLevel(ALoop *al, intptr_t level)
+{
+    intptr_t *ptr = SetPtr(al->loop, al->n);
+    *(ptr) = level;
+    al->n++;
 
-	if (al->n == memsize) {
-		memsize *= 2;
-		al->loop = static_cast<intptr_t*> (realloc(al->loop, sizeof(intptr_t)
-				* memsize));
-		if (!al->loop)
-			return FALSE;
-	}
+    if (al->n == memsize) {
+        memsize *= 2;
+        al->loop = static_cast<intptr_t*> (realloc(al->loop, sizeof(intptr_t)
+                                                   * memsize));
 
-	return TRUE;
+        if (!al->loop)
+            return FALSE;
+    }
+
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Получить число альтернативных ветвей для текущей ветви
-//	ARGS:	rast	- текущая ветвь
-//	RETS:	Число альтернативных ветвей для текущей ветви
+//  DESC:   Получить число альтернативных ветвей для текущей ветви
+//  ARGS:   rast    - текущая ветвь
+//  RETS:   Число альтернативных ветвей для текущей ветви
 /////////////////////////////////////////////////////////////////////////////////////////
-int32_t GetCurrLoopCount(CSTR_rast rast) {
-	int32_t count = 0;
-	CSTR_rast rst = rast;
-	while (rst) {
-		if (rst->next_down)
-			++count;
-		rst = rst->next;
-	}
-	return count;
+int32_t GetCurrLoopCount(CSTR_rast rast)
+{
+    int32_t count = 0;
+    CSTR_rast rst = rast;
+
+    while (rst) {
+        if (rst->next_down)
+            ++count;
+
+        rst = rst->next;
+    }
+
+    return count;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Инизиализировать структуру LoopData
-//	ARGS:	curr_rast	- начало предыдущей строки петли
-//			next_rast	- начало текущей петли
-//	RETS:	FALSE	- ошибка
-//			TRUE	- ОК
+//  DESC:   Инизиализировать структуру LoopData
+//  ARGS:   curr_rast   - начало предыдущей строки петли
+//          next_rast   - начало текущей петли
+//  RETS:   FALSE   - ошибка
+//          TRUE    - ОК
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_GetLoopData(CSTR_rast curr_rast, CSTR_rast next_rast,
-		LoopData *ld) {
-	int32_t count = 0;
+                          LoopData *ld)
+{
+    int32_t count = 0;
+    CSTR_rast curr_rst = curr_rast;
+    CSTR_rast next_rst = next_rast;
+    CSTR_rast start_rst;
+    CSTR_rast stop_rst;
+    ld->beg = 0;
+    ld->end = 0;
+    start_rst = next_rst->prev_up;
+    stop_rst = CGRAPH_GetStopRaster(next_rst);
 
-	CSTR_rast curr_rst = curr_rast;
-	CSTR_rast next_rst = next_rast;
-	CSTR_rast start_rst;
-	CSTR_rast stop_rst;
+    if (!start_rst || !stop_rst || !curr_rst || !next_rst)
+        return FALSE;
 
-	ld->beg = 0;
-	ld->end = 0;
+    while (curr_rst) {
+        if (curr_rst == start_rst)
+            ld->beg = count;
 
-	start_rst = next_rst->prev_up;
-	stop_rst = CGRAPH_GetStopRaster(next_rst);
+        if (curr_rst == stop_rst)
+            ld->end = count;
 
-	if (!start_rst || !stop_rst || !curr_rst || !next_rst)
-		return FALSE;
+        ++count;
+        curr_rst = curr_rst->next;
+    }
 
-	while (curr_rst) {
-		if (curr_rst == start_rst)
-			ld->beg = count;
-
-		if (curr_rst == stop_rst)
-			ld->end = count;
-
-		++count;
-		curr_rst = curr_rst->next;
-	}
-
-	return TRUE;
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Получить число петлей и инициализировать Aloop
-//	ARGS:	al		- указатель на ALoop
-//			rast	- растр
-//	RETS:	TRUE	- OK
-//			FALSE	- ошибка
+//  DESC:   Получить число петлей и инициализировать Aloop
+//  ARGS:   al      - указатель на ALoop
+//          rast    - растр
+//  RETS:   TRUE    - OK
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast) {
-	int32_t curr_level = 1;
-	int32_t i;
-	intptr_t *ptr;
-	CSTR_rast curr_rst;
-	CSTR_rast next_rst;
+Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
+{
+    int32_t curr_level = 1;
+    int32_t i;
+    intptr_t *ptr;
+    CSTR_rast curr_rst;
+    CSTR_rast next_rst;
+    curr_rst = rast;
+    next_rst = rast;
+    al->n = 0;
+    al->loop = static_cast<intptr_t*> (malloc(sizeof(intptr_t) * memsize));
 
-	curr_rst = rast;
-	next_rst = rast;
+    if (!al->loop) {
+        wLowRC = CGRAPH_ERR_MEMORY;
+        return FALSE;
+    }
 
-	al->n = 0;
-	al->loop = static_cast<intptr_t*> (malloc(sizeof(intptr_t) * memsize));
+    //get first part of loops
+    while (next_rst) {
+        if (next_rst->next_down) {
+            if (!AddLoop(al, curr_rst)) {
+                wLowRC = CGRAPH_ERR_MEMORY;
+                return FALSE;
+            }
 
-	if (!al->loop) {
-		wLowRC = CGRAPH_ERR_MEMORY;
-		return FALSE;
-	}
+            if (!AddLoop(al, next_rst->next_down)) {
+                wLowRC = CGRAPH_ERR_MEMORY;
+                return FALSE;
+            }
 
-	//get first part of loops
-	while (next_rst) {
-		if (next_rst->next_down) {
-			if (!AddLoop(al, curr_rst)) {
-				wLowRC = CGRAPH_ERR_MEMORY;
-				return FALSE;
-			}
+            if (!AddLevel(al, curr_level)) {
+                wLowRC = CGRAPH_ERR_MEMORY;
+                return FALSE;
+            }
+        }
 
-			if (!AddLoop(al, next_rst->next_down)) {
-				wLowRC = CGRAPH_ERR_MEMORY;
-				return FALSE;
-			}
+        next_rst = next_rst->next;
+    }
 
-			if (!AddLevel(al, curr_level)) {
-				wLowRC = CGRAPH_ERR_MEMORY;
-				return FALSE;
-			}
-		}
-		next_rst = next_rst->next;
-	}
+    //get next parts of loops
+    for (i = 0; i < al->n; i++) {
+        ptr = SetPtr(al->loop, ++i);
+        next_rst = (CSTR_rast) * (ptr);
+        ptr = SetPtr(al->loop, ++i);
+        curr_level = *(ptr);
+        curr_rst = next_rst;
+        ++curr_level;
 
-	//get next parts of loops
-	for (i = 0; i < al->n; i++) {
-		ptr = SetPtr(al->loop, ++i);
-		next_rst = (CSTR_rast) * (ptr);
-		ptr = SetPtr(al->loop, ++i);
-		curr_level = *(ptr);
-		curr_rst = next_rst;
+        while (next_rst) {
+            if (next_rst->next_down) {
+                if (!AddLoop(al, curr_rst)) {
+                    wLowRC = CGRAPH_ERR_MEMORY;
+                    return FALSE;
+                }
 
-		++curr_level;
+                if (!AddLoop(al, next_rst->next_down)) {
+                    wLowRC = CGRAPH_ERR_MEMORY;
+                    return FALSE;
+                }
 
-		while (next_rst) {
-			if (next_rst->next_down) {
-				if (!AddLoop(al, curr_rst)) {
-					wLowRC = CGRAPH_ERR_MEMORY;
-					return FALSE;
-				}
+                if (!AddLevel(al, curr_level)) {
+                    wLowRC = CGRAPH_ERR_MEMORY;
+                    return FALSE;
+                }
+            }
 
-				if (!AddLoop(al, next_rst->next_down)) {
-					wLowRC = CGRAPH_ERR_MEMORY;
-					return FALSE;
-				}
+            next_rst = next_rst->next;
+        }
+    }
 
-				if (!AddLevel(al, curr_level)) {
-					wLowRC = CGRAPH_ERR_MEMORY;
-					return FALSE;
-				}
-			}
-			next_rst = next_rst->next;
-		}
-	}
-	return TRUE;
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Сохранение на диск контейнера CSTR
-//	ARGS:	rast	- объект CSTR_rast
-//			attr	- указатель на структуру CSTR_attr
-//			out		- указатель на FILE
-//	RETS:	TRUE	- записано успешно
-//			FALSE	- ошибка
+//  DESC:   Сохранение на диск контейнера CSTR
+//  ARGS:   rast    - объект CSTR_rast
+//          attr    - указатель на структуру CSTR_attr
+//          out     - указатель на FILE
+//  RETS:   TRUE    - записано успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out) {
-	int32_t count;
+Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out)
+{
+    int32_t count;
+    CGRAPH_Data cstr;
+    CSTR_rast rst = rast;
 
-	CGRAPH_Data cstr;
-	CSTR_rast rst = rast;
+    if (!rst || !attr) {
+        wLowRC = CGRAPH_ERR_PARAM;
+        return FALSE;
+    }
 
-	if (!rst || !attr) {
-		wLowRC = CGRAPH_ERR_PARAM;
-		return FALSE;
-	}
+    count = CGRAPH_GetCompCount(rst);
 
-	count = CGRAPH_GetCompCount(rst);
-	if (count == -1) {
-		wLowRC = CGRAPH_ERR_PARAM;
-		return FALSE;
-	}
+    if (count == -1) {
+        wLowRC = CGRAPH_ERR_PARAM;
+        return FALSE;
+    }
 
-	fwrite(&count, sizeof(count), 1, out);
-	fwrite(attr, sizeof(CSTR_attr), 1, out);
+    fwrite(&count, sizeof(count), 1, out);
+    fwrite(attr, sizeof(CSTR_attr), 1, out);
 
-	while (rst) {
-		if (rst->env) {
-			cstr.env = TRUE;
+    while (rst) {
+        if (rst->env) {
+            cstr.env = TRUE;
+            cstr.left = rst->env->left;
+            cstr.upper = rst->env->upper;
+            cstr.w = rst->env->w;
+            cstr.h = rst->env->h;
+            cstr.scale = rst->env->scale;
+            cstr.numcomp = rst->env->numcomp;
+            cstr.size_linerep = rst->env->size_linerep;
 
-			cstr.left = rst->env->left;
-			cstr.upper = rst->env->upper;
-			cstr.w = rst->env->w;
-			cstr.h = rst->env->h;
+            if (rst->vers)
+                cstr.uvers = TRUE;
 
-			cstr.scale = rst->env->scale;
+            else
+                cstr.uvers = FALSE;
+        }
 
-			cstr.numcomp = rst->env->numcomp;
-			cstr.size_linerep = rst->env->size_linerep;
+        else {
+            cstr.env = FALSE;
 
-			if (rst->vers)
-				cstr.uvers = TRUE;
-			else
-				cstr.uvers = FALSE;
-		} else {
-			cstr.env = FALSE;
+            if (rst->vers)
+                cstr.uvers = TRUE;
 
-			if (rst->vers)
-				cstr.uvers = TRUE;
-			else
-				cstr.uvers = FALSE;
-		}
+            else
+                cstr.uvers = FALSE;
+        }
 
-		fwrite(&cstr, sizeof(cstr), 1, out);
-		fwrite(&rst->attr, sizeof(CSTR_rast_attr), 1, out);
+        fwrite(&cstr, sizeof(cstr), 1, out);
+        fwrite(&rst->attr, sizeof(CSTR_rast_attr), 1, out);
 
-		if (cstr.uvers)
-			fwrite(rst->vers, sizeof(UniVersions), 1, out);
+        if (cstr.uvers)
+            fwrite(rst->vers, sizeof(UniVersions), 1, out);
 
-		if (rst->env) {
-			if (rst->env->size_linerep)
-				fwrite(rst->env->linerep, cstr.size_linerep, 1, out);
-		}
+        if (rst->env) {
+            if (rst->env->size_linerep)
+                fwrite(rst->env->linerep, cstr.size_linerep, 1, out);
+        }
 
-		rst = rst->next;
-	}
+        rst = rst->next;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Сохранить альтернативные ветви
-//	ARGS:	rast	- объект CSTR_rast
-//			attr	- указатель на структуру CSTR_attr
-//			out		- указатель на FILE
-//	RETS:	TRUE	- записано успешно
-//			FALSE	- ошибка
+//  DESC:   Сохранить альтернативные ветви
+//  ARGS:   rast    - объект CSTR_rast
+//          attr    - указатель на структуру CSTR_attr
+//          out     - указатель на FILE
+//  RETS:   TRUE    - записано успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out) {
-	int32_t i;
-	intptr_t *ptr;
-	CSTR_rast curr_rst = rast, next_rst = rast;
-	ALoop al;
-	LoopData ld;
+Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
+{
+    int32_t i;
+    intptr_t *ptr;
+    CSTR_rast curr_rst = rast, next_rst = rast;
+    ALoop al;
+    LoopData ld;
 
-	if (!CGRAPH_GetLoopCount(&al, curr_rst)) {
-		wLowRC = CGRAPH_ERR_PARAM;
-		return FALSE;
-	}
+    if (!CGRAPH_GetLoopCount(&al, curr_rst)) {
+        wLowRC = CGRAPH_ERR_PARAM;
+        return FALSE;
+    }
 
-	i = al.n / 3;
-	fwrite(&i, sizeof(i), 1, out);
+    i = al.n / 3;
+    fwrite(&i, sizeof(i), 1, out);
 
-	for (i = 0; i < al.n; i++) {
-		ptr = SetPtr(al.loop, i);
-		curr_rst = (CSTR_rast) * ptr;
+    for (i = 0; i < al.n; i++) {
+        ptr = SetPtr(al.loop, i);
+        curr_rst = (CSTR_rast) * ptr;
+        ptr = SetPtr(al.loop, ++i);
+        next_rst = (CSTR_rast) * ptr;
+        ptr = SetPtr(al.loop, ++i);
+        ld.level = *ptr;
 
-		ptr = SetPtr(al.loop, ++i);
-		next_rst = (CSTR_rast) * ptr;
+        if (!CGRAPH_GetLoopData(curr_rst, next_rst, &ld)) {
+            wLowRC = CGRAPH_ERR_PARAM;
+            return FALSE;
+        }
 
-		ptr = SetPtr(al.loop, ++i);
-		ld.level = *ptr;
+        ld.loop = GetCurrLoopCount(next_rst);
+        fwrite(&ld, sizeof(LoopData), 1, out);
 
-		if (!CGRAPH_GetLoopData(curr_rst, next_rst, &ld)) {
-			wLowRC = CGRAPH_ERR_PARAM;
-			return FALSE;
-		}
+        if (!CGRAPH_SaveCSTR(next_rst, attr, out))
+            return FALSE;
+    }
 
-		ld.loop = GetCurrLoopCount(next_rst);
-		fwrite(&ld, sizeof(LoopData), 1, out);
-
-		if (!CGRAPH_SaveCSTR(next_rst, attr, out))
-			return FALSE;
-	}
-
-	free(al.loop);
-	return TRUE;
+    free(al.loop);
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Запись контейнера CSTR на диск
-//	ARGS:	filename	- имя файла
-//	RETS:	TRUE	- успешно
-//			FALSE	- ошибка
+//  DESC:   Запись контейнера CSTR на диск
+//  ARGS:   filename    - имя файла
+//  RETS:   TRUE    - успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CSTR_SaveCont(const char *filename) {
-	int32_t i, j, count;
-	Bool32 lineFlg;
-	FILE *out;
+Bool32 CSTR_SaveCont(const char *filename)
+{
+    int32_t i, j, count;
+    Bool32 lineFlg;
+    FILE *out;
+    CSTR_rast rst;
+    CSTR_attr attr;
+    CSTR_line linx;
+    CGRAPH_FileData fData;
 
-	CSTR_rast rst;
-	CSTR_attr attr;
-	CSTR_line linx;
-	CGRAPH_FileData fData;
+    if (!(out = fopen(filename, "wb"))) {
+        wLowRC = CGRAPH_ERR_OPEN;
+        return FALSE;
+    }
 
-	if (!(out = fopen(filename, "wb"))) {
-		wLowRC = CGRAPH_ERR_OPEN;
-		return FALSE;
-	}
+    fData.FileVer = FILE_VER;
+    fData.MaxLineVer = LINE_VER;
+    count = CSTR_GetMaxNumber();
+    fwrite(IDtext, sizeof(IDtext), 1, out);
+    fwrite(&fData, sizeof(fData), 1, out);
+    fwrite(&count, sizeof(count), 1, out);
 
-	fData.FileVer = FILE_VER;
-	fData.MaxLineVer = LINE_VER;
+    for (i = 1; i <= count; i++) {
+        for (j = 0; j < fData.MaxLineVer; j++) {
+            fwrite(&i, sizeof(i), 1, out); //Номер строки
+            fwrite(&j, sizeof(i), 1, out); //Версия
 
-	count = CSTR_GetMaxNumber();
+            if (!(linx = CSTR_GetLineHandle(i, j))) {
+                lineFlg = FALSE;
+                fwrite(&lineFlg, sizeof(lineFlg), 1, out);
+                continue;
+            }
 
-	fwrite(IDtext, sizeof(IDtext), 1, out);
-	fwrite(&fData, sizeof(fData), 1, out);
-	fwrite(&count, sizeof(count), 1, out);
+            else {
+                lineFlg = TRUE;
+                fwrite(&lineFlg, sizeof(lineFlg), 1, out);
+            }
 
-	for (i = 1; i <= count; i++) {
-		for (j = 0; j < fData.MaxLineVer; j++) {
-			fwrite(&i, sizeof(i), 1, out); //Номер строки
-			fwrite(&j, sizeof(i), 1, out); //Версия
+            if (!(rst = CSTR_GetFirstRaster(linx))) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                fclose(out);
+                return FALSE;
+            }
 
-			if (!(linx = CSTR_GetLineHandle(i, j))) {
-				lineFlg = FALSE;
-				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
-				continue;
-			} else {
-				lineFlg = TRUE;
-				fwrite(&lineFlg, sizeof(lineFlg), 1, out);
-			}
+            if (!(CSTR_GetLineAttr(linx, &attr))) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                fclose(out);
+                return FALSE;
+            }
 
-			if (!(rst = CSTR_GetFirstRaster(linx))) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				fclose(out);
-				return FALSE;
-			}
+            if (!CGRAPH_SaveCSTR(rst->next, &attr, out)) {
+                fclose(out);
+                return FALSE;
+            }
 
-			if (!(CSTR_GetLineAttr(linx, &attr))) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				fclose(out);
-				return FALSE;
-			}
+            if (!CGRAPH_SaveLoop(rst->next, &attr, out)) {
+                fclose(out);
+                return FALSE;
+            }
+        }
+    }
 
-			if (!CGRAPH_SaveCSTR(rst->next, &attr, out)) {
-				fclose(out);
-				return FALSE;
-			}
-
-			if (!CGRAPH_SaveLoop(rst->next, &attr, out)) {
-				fclose(out);
-				return FALSE;
-			}
-		}
-	}
-
-	fclose(out);
-	return TRUE;
+    fclose(out);
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Востановление с диска альтернативных ветвей растров
-///	ARGS:	rast	- объект CSTR_rast
-//			in		- указатель на FILE
-//	RETS:	TRUE	- успешно
-//			FALSE	- ошибка
+//  DESC:   Востановление с диска альтернативных ветвей растров
+/// ARGS:   rast    - объект CSTR_rast
+//          in      - указатель на FILE
+//  RETS:   TRUE    - успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in) {
-	int32_t count, lcount, rcount, curr_level = 1;
-	int32_t i, j;
-	intptr_t *ptr;
-	int32_t count_rast;
-	Bool32 flg = FALSE;
+Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
+{
+    int32_t count, lcount, rcount, curr_level = 1;
+    int32_t i, j;
+    intptr_t *ptr;
+    int32_t count_rast;
+    Bool32 flg = FALSE;
+    CSTR_rast rst = rast, curr_rst = rast;
+    CSTR_rast beg, end;
+    CSTR_attr attr;
+    CSTR_rast_attr rast_attr = { 0 };
+    UniVersions uvers = { 0 };
+    CGRAPH_Data cstr = { 0 };
+    uchar *lp = NULL;
+    LoopData ld;
+    ALoop al;
+    al.n = 0;
+    al.loop = static_cast<intptr_t *> (malloc(sizeof(intptr_t) * memsize));
 
-	CSTR_rast rst = rast, curr_rst = rast;
-	CSTR_rast beg, end;
-	CSTR_attr attr;
-	CSTR_rast_attr rast_attr = { 0 };
+    if (!al.loop)
+        return FALSE;
 
-	UniVersions uvers = { 0 };
-	CGRAPH_Data cstr = { 0 };
+    fread(&lcount, sizeof(lcount), 1, in);
 
-	uchar *lp = NULL;
-	LoopData ld;
-	ALoop al;
+    for (i = 0, count = 0, rcount = 0; i < lcount; i++, count = 0) {
+        fread(&ld, sizeof(ld), 1, in);
 
-	al.n = 0;
-	al.loop = static_cast<intptr_t *> (malloc(sizeof(intptr_t) * memsize));
+        if (curr_level < ld.level)
+            flg = TRUE;
 
-	if (!al.loop)
-		return FALSE;
+        if (flg) {
+            ptr = SetPtr(al.loop, rcount);
+            rst = (CSTR_rast) * ptr;
+            ++rcount;
+        }
 
-	fread(&lcount, sizeof(lcount), 1, in);
+        else
+            rst = rast;
 
-	for (i = 0, count = 0, rcount = 0; i < lcount; i++, count = 0) {
-		fread(&ld, sizeof(ld), 1, in);
+        //InsertRasterDown
+        while (rst) {
+            if (count == ld.beg)
+                beg = rst;
 
-		if (curr_level < ld.level)
-			flg = TRUE;
+            if (count == ld.end)
+                end = rst;
 
-		if (flg) {
-			ptr = SetPtr(al.loop, rcount);
-			rst = (CSTR_rast) * ptr;
-			++rcount;
-		} else
-			rst = rast;
+            ++count;
+            rst = rst->next;
+        }
 
-		//InsertRasterDown
-		while (rst) {
-			if (count == ld.beg)
-				beg = rst;
+        if (!beg || !end)
+            return FALSE;
 
-			if (count == ld.end)
-				end = rst;
+        if (!(curr_rst = CSTR_InsertRasterDown(beg, end))) {
+            wLowRC = CGRAPH_ERR_PARAM;
+            return FALSE;
+        }
 
-			++count;
-			rst = rst->next;
-		}
+        if (ld.loop) {
+            for (j = 0; j < ld.loop; j++) {
+                if (!AddLoop(&al, curr_rst)) {
+                    wLowRC = CGRAPH_ERR_MEMORY;
+                    return FALSE;
+                }
+            }
+        }
 
-		if (!beg || !end)
-			return FALSE;
+        //Read Rasters
+        fread(&count_rast, sizeof(count_rast), 1, in);
+        fread(&attr, sizeof(CSTR_attr), 1, in);
 
-		if (!(curr_rst = CSTR_InsertRasterDown(beg, end))) {
-			wLowRC = CGRAPH_ERR_PARAM;
-			return FALSE;
-		}
+        //InsertRaster
+        for (j = 0; j < count_rast; j++) {
+            fread(&cstr, sizeof(cstr), 1, in);
+            fread(&rast_attr, sizeof(CSTR_rast_attr), 1, in);
 
-		if (ld.loop) {
-			for (j = 0; j < ld.loop; j++) {
-				if (!AddLoop(&al, curr_rst)) {
-					wLowRC = CGRAPH_ERR_MEMORY;
-					return FALSE;
-				}
-			}
-		}
+            if (cstr.env) {
+                if (cstr.uvers)
+                    fread(&uvers, sizeof(uvers), 1, in);
 
-		//Read Rasters
-		fread(&count_rast, sizeof(count_rast), 1, in);
-		fread(&attr, sizeof(CSTR_attr), 1, in);
+                if (cstr.size_linerep) {
+                    lp = (uchar *) malloc(cstr.size_linerep);
 
-		//InsertRaster
-		for (j = 0; j < count_rast; j++) {
-			fread(&cstr, sizeof(cstr), 1, in);
-			fread(&rast_attr, sizeof(CSTR_rast_attr), 1, in);
+                    if (!lp) {
+                        wLowRC = CGRAPH_ERR_MEMORY;
+                        return FALSE;
+                    }
 
-			if (cstr.env) {
-				if (cstr.uvers)
-					fread(&uvers, sizeof(uvers), 1, in);
+                    fread(lp, cstr.size_linerep, 1, in);
+                }
 
-				if (cstr.size_linerep) {
-					lp = (uchar *) malloc(cstr.size_linerep);
-					if (!lp) {
-						wLowRC = CGRAPH_ERR_MEMORY;
-						return FALSE;
-					}
+                if (!(rst = CSTR_InsertRaster(curr_rst))) {
+                    wLowRC = CGRAPH_ERR_PARAM;
+                    return FALSE;
+                }
 
-					fread(lp, cstr.size_linerep, 1, in);
-				}
+                if (!CSTR_SetAttr(rst, &rast_attr)) {
+                    wLowRC = CGRAPH_ERR_PARAM;
+                    return FALSE;
+                }
 
-				if (!(rst = CSTR_InsertRaster(curr_rst))) {
-					wLowRC = CGRAPH_ERR_PARAM;
-					return FALSE;
-				}
+                if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
+                    wLowRC = CGRAPH_ERR_PARAM;
+                    return FALSE;
+                }
 
-				if (!CSTR_SetAttr(rst, &rast_attr)) {
-					wLowRC = CGRAPH_ERR_PARAM;
-					return FALSE;
-				}
+                if (cstr.uvers) {
+                    if (!CSTR_StoreCollectionUni(rst, &uvers)) {
+                        wLowRC = CGRAPH_ERR_PARAM;
+                        return FALSE;
+                    }
+                }
 
-				if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
-					wLowRC = CGRAPH_ERR_PARAM;
-					return FALSE;
-				}
+                if (lp)
+                    free(lp);
+            }
 
-				if (cstr.uvers) {
-					if (!CSTR_StoreCollectionUni(rst, &uvers)) {
-						wLowRC = CGRAPH_ERR_PARAM;
-						return FALSE;
-					}
-				}
+            else {
+                if (cstr.uvers)
+                    fread(&uvers, sizeof(uvers), 1, in);
 
-				if (lp)
-					free(lp);
-			} else {
-				if (cstr.uvers)
-					fread(&uvers, sizeof(uvers), 1, in);
+                if (!(rst = CSTR_InsertRaster(curr_rst))) {
+                    wLowRC = CGRAPH_ERR_PARAM;
+                    return FALSE;
+                }
 
-				if (!(rst = CSTR_InsertRaster(curr_rst))) {
-					wLowRC = CGRAPH_ERR_PARAM;
-					return FALSE;
-				}
+                if (!CSTR_SetAttr(rst, &rast_attr)) {
+                    wLowRC = CGRAPH_ERR_PARAM;
+                    return FALSE;
+                }
 
-				if (!CSTR_SetAttr(rst, &rast_attr)) {
-					wLowRC = CGRAPH_ERR_PARAM;
-					return FALSE;
-				}
+                if (cstr.uvers) {
+                    if (!CSTR_StoreCollectionUni(rst, &uvers)) {
+                        wLowRC = CGRAPH_ERR_PARAM;
+                        return FALSE;
+                    }
+                }
+            }
+        }
+    }
 
-				if (cstr.uvers) {
-					if (!CSTR_StoreCollectionUni(rst, &uvers)) {
-						wLowRC = CGRAPH_ERR_PARAM;
-						return FALSE;
-					}
-				}
-			}
-		}
-	}
-
-	free(al.loop);
-	return TRUE;
+    free(al.loop);
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Востановление с диска контейнера CSTR
-///	ARGS:	lin	- указатель на CSTR_line
-//			in	- указатель на FILE
-//	RETS:	TRUE	- успешно
-//			FALSE	- ошибка
+//  DESC:   Востановление с диска контейнера CSTR
+/// ARGS:   lin - указатель на CSTR_line
+//          in  - указатель на FILE
+//  RETS:   TRUE    - успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
 CSTR_rast curr_rast;
-Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in) {
-	int32_t i, count_rast;
-	Bool32 flg;
-	CSTR_rast rst;
-	CSTR_rast_attr rast_attr = { 0 };
-	CSTR_attr attr;
-	UniVersions uvers = { 0 };
-	CGRAPH_Data cstr = { 0 };
-	uchar *lp = NULL;
+Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
+{
+    int32_t i, count_rast;
+    Bool32 flg;
+    CSTR_rast rst;
+    CSTR_rast_attr rast_attr = { 0 };
+    CSTR_attr attr;
+    UniVersions uvers = { 0 };
+    CGRAPH_Data cstr = { 0 };
+    uchar *lp = NULL;
+    fread(&count_rast, sizeof(count_rast), 1, in);
+    fread(&attr, sizeof(CSTR_attr), 1, in);
 
-	fread(&count_rast, sizeof(count_rast), 1, in);
-	fread(&attr, sizeof(CSTR_attr), 1, in);
+    if (!(CSTR_SetLineAttr(*lin, &attr))) {
+        wLowRC = CGRAPH_ERR_PARAM;
+        return FALSE;
+    }
 
-	if (!(CSTR_SetLineAttr(*lin, &attr))) {
-		wLowRC = CGRAPH_ERR_PARAM;
-		return FALSE;
-	}
+    for (i = 0, flg = TRUE; i < count_rast; i++, lp = NULL) {
+        fread(&cstr, sizeof(cstr), 1, in);
+        fread(&rast_attr, sizeof(CSTR_rast_attr), 1, in);
 
-	for (i = 0, flg = TRUE; i < count_rast; i++, lp = NULL) {
-		fread(&cstr, sizeof(cstr), 1, in);
-		fread(&rast_attr, sizeof(CSTR_rast_attr), 1, in);
+        if (cstr.env) {
+            if (cstr.uvers)
+                fread(&uvers, sizeof(uvers), 1, in);
 
-		if (cstr.env) {
-			if (cstr.uvers)
-				fread(&uvers, sizeof(uvers), 1, in);
+            if (cstr.size_linerep) {
+                lp = (uchar *) malloc(cstr.size_linerep);
 
-			if (cstr.size_linerep) {
-				lp = (uchar *) malloc(cstr.size_linerep);
-				if (!lp) {
-					wLowRC = CGRAPH_ERR_MEMORY;
-					return FALSE;
-				}
+                if (!lp) {
+                    wLowRC = CGRAPH_ERR_MEMORY;
+                    return FALSE;
+                }
 
-				fread(lp, cstr.size_linerep, 1, in);
-			}
-		} else {
-			if (cstr.uvers)
-				fread(&uvers, sizeof(uvers), 1, in);
-		}
+                fread(lp, cstr.size_linerep, 1, in);
+            }
+        }
 
-		if (flg) {
-			if (!(rst = CSTR_NewRaster(*lin, cstr.left, cstr.upper, cstr.w))) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
-			flg = FALSE;
-		} else {
-			if (!(rst = CSTR_InsertRaster(curr_rast))) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
-		}
+        else {
+            if (cstr.uvers)
+                fread(&uvers, sizeof(uvers), 1, in);
+        }
 
-		if (!(CSTR_SetAttr(rst, &rast_attr))) {
-			wLowRC = CGRAPH_ERR_PARAM;
-			return FALSE;
-		}
+        if (flg) {
+            if (!(rst = CSTR_NewRaster(*lin, cstr.left, cstr.upper, cstr.w))) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
 
-		if (cstr.env) {
-			if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
-		}
+            flg = FALSE;
+        }
 
-		if (cstr.uvers) {
-			if (!CSTR_StoreCollectionUni(rst, &uvers)) {
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
-		}
+        else {
+            if (!(rst = CSTR_InsertRaster(curr_rast))) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
+        }
 
-		if (lp)
-			free(lp);
+        if (!(CSTR_SetAttr(rst, &rast_attr))) {
+            wLowRC = CGRAPH_ERR_PARAM;
+            return FALSE;
+        }
 
-		curr_rast = rst;
-	}
+        if (cstr.env) {
+            if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
+        }
 
-	return TRUE;
+        if (cstr.uvers) {
+            if (!CSTR_StoreCollectionUni(rst, &uvers)) {
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
+        }
+
+        if (lp)
+            free(lp);
+
+        curr_rast = rst;
+    }
+
+    return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Востановление контейнера CSTR
-//	ARGS:	filename	- имя файла
-//	RETS:	TRUE	- успешно
-//			FALSE	- ошибка
+//  DESC:   Востановление контейнера CSTR
+//  ARGS:   filename    - имя файла
+//  RETS:   TRUE    - успешно
+//          FALSE   - ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CSTR_RestoreCont(char *filename) {
-	CSTR_line linx;
-	CSTR_rast rst;
-	FILE *in;
-	uchar IDt[IDTEXT_LEN];
-	int32_t i, j, count;
-	Bool32 lineFlg;
-	CGRAPH_FileData fData;
+Bool32 CSTR_RestoreCont(char *filename)
+{
+    CSTR_line linx;
+    CSTR_rast rst;
+    FILE *in;
+    uchar IDt[IDTEXT_LEN];
+    int32_t i, j, count;
+    Bool32 lineFlg;
+    CGRAPH_FileData fData;
 
-	if (!(in = fopen(filename, "rb"))) {
-		wLowRC = CGRAPH_ERR_OPEN;
-		return FALSE;
-	}
+    if (!(in = fopen(filename, "rb"))) {
+        wLowRC = CGRAPH_ERR_OPEN;
+        return FALSE;
+    }
 
-	fread(IDt, sizeof(IDt), 1, in);
-	fread(&fData, sizeof(fData), 1, in);
-	fread(&count, sizeof(count), 1, in);
+    fread(IDt, sizeof(IDt), 1, in);
+    fread(&fData, sizeof(fData), 1, in);
+    fread(&count, sizeof(count), 1, in);
 
-	if (strcmp((char *) IDt, (char *) IDtext) != 0) {
-		fclose(in);
-		wLowRC = CGRAPH_ERR_FILE;
-		return FALSE;
-	}
+    if (strcmp((char *) IDt, (char *) IDtext) != 0) {
+        fclose(in);
+        wLowRC = CGRAPH_ERR_FILE;
+        return FALSE;
+    }
 
-	for (i = 1; i <= count; i++) {
-		for (j = 0; j < fData.MaxLineVer; j++) {
-			fread(&i, sizeof(i), 1, in);
-			fread(&j, sizeof(j), 1, in);
+    for (i = 1; i <= count; i++) {
+        for (j = 0; j < fData.MaxLineVer; j++) {
+            fread(&i, sizeof(i), 1, in);
+            fread(&j, sizeof(j), 1, in);
 
-			if (!(linx = CSTR_NewLine(i, j, -1))) {
-				fclose(in);
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
+            if (!(linx = CSTR_NewLine(i, j, -1))) {
+                fclose(in);
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
 
-			fread(&lineFlg, sizeof(lineFlg), 1, in);
+            fread(&lineFlg, sizeof(lineFlg), 1, in);
 
-			if (!lineFlg)
-				continue;
+            if (!lineFlg)
+                continue;
 
-			if (!(CGRAPH_RestoreCSTR(&linx, in))) {
-				fclose(in);
-				return FALSE;
-			}
+            if (!(CGRAPH_RestoreCSTR(&linx, in))) {
+                fclose(in);
+                return FALSE;
+            }
 
-			if (!(rst = CSTR_GetFirstRaster(linx))) {
-				fclose(in);
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
+            if (!(rst = CSTR_GetFirstRaster(linx))) {
+                fclose(in);
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
 
-			if (!CGRAPH_RestoreLoop(rst->next, in)) {
-				fclose(in);
-				return FALSE;
-			}
+            if (!CGRAPH_RestoreLoop(rst->next, in)) {
+                fclose(in);
+                return FALSE;
+            }
 
-			if (!CSTR_PackLine(linx)) {
-				fclose(in);
-				wLowRC = CGRAPH_ERR_PARAM;
-				return FALSE;
-			}
-		}
-	}
+            if (!CSTR_PackLine(linx)) {
+                fclose(in);
+                wLowRC = CGRAPH_ERR_PARAM;
+                return FALSE;
+            }
+        }
+    }
 
-	return TRUE;
+    return TRUE;
 }

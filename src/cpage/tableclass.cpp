@@ -64,219 +64,255 @@ using namespace CIF;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-TableCell::TableCell() {
-	m_nNumber = 0;
-	m_nBlock = 0;
-	m_nGeCount = 0;
+TableCell::TableCell()
+{
+    m_nNumber = 0;
+    m_nBlock = 0;
+    m_nGeCount = 0;
 }
-TableCell::~TableCell() {
-}
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-TableLine::TableLine() {
-	m_nCoord = 0;
-	//m_nItems = 0;
-}
-//////////////////////////////////////////////////////////////////////
-TableLine::~TableLine() {
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Create(int32_t nCoord, uint32_t nItems) {
-	Bool32 rc = FALSE;
-
-	m_nCoord = nCoord;
-	//m_nItems = nItems;
-	rc = m_lpProperty.Create(nItems);
-
-	return rc;
-}
-//////////////////////////////////////////////////////////////////////
-void TableLine::Delete() {
-	m_nCoord = 0;
-	//m_nItems = 0;
-	m_lpProperty.Delete();
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Attach(Handle hPage) {
-	return m_lpProperty.Attach(hPage);
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Store(Handle hPage) {
-	return m_lpProperty.Store(hPage);
-}
-//////////////////////////////////////////////////////////////////////
-void TableLine::Remove(Handle hPage) {
-	m_lpProperty.Remove(hPage);
-}
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-TableClass::TableClass() {
-	//m_nVer = 0;
-	//m_nHor = 0;
-	m_nSkew2048 = 0;
-	m_hBlock = NULL;
-	m_hPage = NULL;
-	m_nPhNumber = 0;
-
+TableCell::~TableCell()
+{
 }
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-TableClass::~TableClass() {
-	Delete();
+TableLine::TableLine()
+{
+    m_nCoord = 0;
+    //m_nItems = 0;
+}
+//////////////////////////////////////////////////////////////////////
+TableLine::~TableLine()
+{
+}
+//////////////////////////////////////////////////////////////////////
+Bool32 TableLine::Create(int32_t nCoord, uint32_t nItems)
+{
+    Bool32 rc = FALSE;
+    m_nCoord = nCoord;
+    //m_nItems = nItems;
+    rc = m_lpProperty.Create(nItems);
+    return rc;
+}
+//////////////////////////////////////////////////////////////////////
+void TableLine::Delete()
+{
+    m_nCoord = 0;
+    //m_nItems = 0;
+    m_lpProperty.Delete();
+}
+//////////////////////////////////////////////////////////////////////
+Bool32 TableLine::Attach(Handle hPage)
+{
+    return m_lpProperty.Attach(hPage);
+}
+//////////////////////////////////////////////////////////////////////
+Bool32 TableLine::Store(Handle hPage)
+{
+    return m_lpProperty.Store(hPage);
+}
+//////////////////////////////////////////////////////////////////////
+void TableLine::Remove(Handle hPage)
+{
+    m_lpProperty.Remove(hPage);
+}
+
+//////////////////////////////////////////////////////////////////////
+// Construction/Destruction
+//////////////////////////////////////////////////////////////////////
+TableClass::TableClass()
+{
+    //m_nVer = 0;
+    //m_nHor = 0;
+    m_nSkew2048 = 0;
+    m_hBlock = NULL;
+    m_hPage = NULL;
+    m_nPhNumber = 0;
+}
+//////////////////////////////////////////////////////////////////////
+// Construction/Destruction
+//////////////////////////////////////////////////////////////////////
+TableClass::~TableClass()
+{
+    Delete();
 }
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 Bool32 TableClass::Create(int32_t Skew2048, uint32_t nVer, int32_t * lpVCor,
-		uint32_t nHor, int32_t * lpHCor) {
-	Bool32 rc = FALSE;
-	m_nSkew2048 = Skew2048;
+                          uint32_t nHor, int32_t * lpHCor)
+{
+    Bool32 rc = FALSE;
+    m_nSkew2048 = Skew2048;
 
-	if (nVer && nHor) {
-		uint32_t i = 0;
-		rc = m_lpVerLines.Create(nVer);
-		for (i = 0; i < nVer && lpVCor; i++)
-			rc &= m_lpVerLines[i].Create(lpVCor[i], nHor);
+    if (nVer && nHor) {
+        uint32_t i = 0;
+        rc = m_lpVerLines.Create(nVer);
 
-		rc &= m_lpHorLines.Create(nHor);
-		for (i = 0; i < nHor && lpHCor; i++)
-			rc &= m_lpHorLines[i].Create(lpHCor[i], nVer);
+        for (i = 0; i < nVer && lpVCor; i++)
+            rc &= m_lpVerLines[i].Create(lpVCor[i], nHor);
 
-		rc &= m_lpCell.Create(GetNumberRow() * GetNumberColumn());
-	}
-	m_hBlock = NULL;
-	m_hPage = NULL;
-	return rc;
+        rc &= m_lpHorLines.Create(nHor);
+
+        for (i = 0; i < nHor && lpHCor; i++)
+            rc &= m_lpHorLines[i].Create(lpHCor[i], nVer);
+
+        rc &= m_lpCell.Create(GetNumberRow() * GetNumberColumn());
+    }
+
+    m_hBlock = NULL;
+    m_hPage = NULL;
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////
-void TableClass::Delete() {
-	if (m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
-		uint32_t i = 0;
-		for (i = 0; i < m_lpVerLines.GetSize(); i++)
-			m_lpVerLines[i].Delete();
-		m_lpVerLines.Delete();
+void TableClass::Delete()
+{
+    if (m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
+        uint32_t i = 0;
 
-		for (i = 0; i < m_lpHorLines.GetSize(); i++)
-			m_lpHorLines[i].Delete();
-		m_lpHorLines.Delete();
+        for (i = 0; i < m_lpVerLines.GetSize(); i++)
+            m_lpVerLines[i].Delete();
 
-		m_lpCell.Delete();
-	}
-	//m_nVer = m_nHor = 0;
-	m_nSkew2048 = 0;
-	m_hBlock = NULL;
-	m_hPage = NULL;
+        m_lpVerLines.Delete();
+
+        for (i = 0; i < m_lpHorLines.GetSize(); i++)
+            m_lpHorLines[i].Delete();
+
+        m_lpHorLines.Delete();
+        m_lpCell.Delete();
+    }
+
+    //m_nVer = m_nHor = 0;
+    m_nSkew2048 = 0;
+    m_hBlock = NULL;
+    m_hPage = NULL;
 }
 //////////////////////////////////////////////////////////////////////
-TableClass * TableClass::Attach(Handle hPage, Handle hBlock) {
-	TableClass * rc = NULL;
-	Handle Type = CPAGE_GetInternalType("TableClass");
-	if (CPAGE_GetBlockDataPtr(hPage, hBlock, Type, (void**) &rc)
-			&& rc->m_lpVerLines.GetSize() && rc->m_lpHorLines.GetSize()) {
-		uint32_t i = 0;
-		rc->m_lpVerLines.Attach(hPage);
-		for (i = 0; i < rc->m_lpVerLines.GetSize(); i++)
-			rc->m_lpVerLines[i].Attach(hPage);
+TableClass * TableClass::Attach(Handle hPage, Handle hBlock)
+{
+    TableClass * rc = NULL;
+    Handle Type = CPAGE_GetInternalType("TableClass");
 
-		rc->m_lpHorLines.Attach(hPage);
-		for (i = 0; i < rc->m_lpHorLines.GetSize(); i++)
-			rc->m_lpHorLines[i].Attach(hPage);
-		rc->m_lpCell.Attach(hPage);
-		rc->m_hBlock = hBlock;
-		rc->m_hPage = hPage;
-	}
-	return rc;
+    if (CPAGE_GetBlockDataPtr(hPage, hBlock, Type, (void**) &rc)
+            && rc->m_lpVerLines.GetSize() && rc->m_lpHorLines.GetSize()) {
+        uint32_t i = 0;
+        rc->m_lpVerLines.Attach(hPage);
+
+        for (i = 0; i < rc->m_lpVerLines.GetSize(); i++)
+            rc->m_lpVerLines[i].Attach(hPage);
+
+        rc->m_lpHorLines.Attach(hPage);
+
+        for (i = 0; i < rc->m_lpHorLines.GetSize(); i++)
+            rc->m_lpHorLines[i].Attach(hPage);
+
+        rc->m_lpCell.Attach(hPage);
+        rc->m_hBlock = hBlock;
+        rc->m_hPage = hPage;
+    }
+
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////
-Handle TableClass::Store(Handle hPage) {
-	Bool32 res = FALSE;
-	Handle Type = CPAGE_GetInternalType("TableClass");
+Handle TableClass::Store(Handle hPage)
+{
+    Bool32 res = FALSE;
+    Handle Type = CPAGE_GetInternalType("TableClass");
+    m_hBlock = CPAGE_CreateBlock(hPage, Type, 0, 0, this, sizeof(*this));
 
-	m_hBlock = CPAGE_CreateBlock(hPage, Type, 0, 0, this, sizeof(*this));
-	if (m_hBlock && m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
-		uint32_t i = 0;
-		res = m_lpVerLines.Store(hPage);
-		for (i = 0; i < m_lpVerLines.GetSize(); i++)
-			res &= m_lpVerLines[i].Store(hPage);
+    if (m_hBlock && m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
+        uint32_t i = 0;
+        res = m_lpVerLines.Store(hPage);
 
-		res &= m_lpHorLines.Store(hPage);
-		for (i = 0; i < m_lpHorLines.GetSize(); i++)
-			res &= m_lpHorLines[i].Store(hPage);
+        for (i = 0; i < m_lpVerLines.GetSize(); i++)
+            res &= m_lpVerLines[i].Store(hPage);
 
-		res &= m_lpCell.Store(hPage);
-		m_hPage = hPage;
-	}
-	if (res == FALSE)
-		Remove();
+        res &= m_lpHorLines.Store(hPage);
 
-	return m_hBlock;
+        for (i = 0; i < m_lpHorLines.GetSize(); i++)
+            res &= m_lpHorLines[i].Store(hPage);
+
+        res &= m_lpCell.Store(hPage);
+        m_hPage = hPage;
+    }
+
+    if (res == FALSE)
+        Remove();
+
+    return m_hBlock;
 }
 //////////////////////////////////////////////////////////////////////
-void TableClass::Remove() {
-	if (m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
-		uint32_t i = 0;
-		for (i = 0; i < m_lpVerLines.GetSize(); i++)
-			m_lpVerLines[i].Remove(m_hPage);
-		m_lpVerLines.Remove(m_hPage);
+void TableClass::Remove()
+{
+    if (m_lpVerLines.GetSize() && m_lpHorLines.GetSize()) {
+        uint32_t i = 0;
 
-		for (i = 0; i < m_lpHorLines.GetSize(); i++)
-			m_lpHorLines[i].Remove(m_hPage);
-		m_lpHorLines.Remove(m_hPage);
+        for (i = 0; i < m_lpVerLines.GetSize(); i++)
+            m_lpVerLines[i].Remove(m_hPage);
 
-		m_lpCell.Remove(m_hPage);
-	}
-	if (m_hBlock)
-		CPAGE_DeleteBlock(m_hPage, m_hBlock);
-	/*
-	 m_nVer = m_nHor = 0;
-	 m_nSkew2048 = 0;
-	 m_hBlock = NULL;
-	 m_hPage = NULL;
-	 */
+        m_lpVerLines.Remove(m_hPage);
+
+        for (i = 0; i < m_lpHorLines.GetSize(); i++)
+            m_lpHorLines[i].Remove(m_hPage);
+
+        m_lpHorLines.Remove(m_hPage);
+        m_lpCell.Remove(m_hPage);
+    }
+
+    if (m_hBlock)
+        CPAGE_DeleteBlock(m_hPage, m_hBlock);
+
+    /*
+     m_nVer = m_nHor = 0;
+     m_nSkew2048 = 0;
+     m_hBlock = NULL;
+     m_hPage = NULL;
+     */
 }
 //////////////////////////////////////////////////////////////////////
-TableClass * TableClass::GetNext() {
-	Handle Type = CPAGE_GetInternalType("TableClass");
-	TableClass * rc = NULL;
+TableClass * TableClass::GetNext()
+{
+    Handle Type = CPAGE_GetInternalType("TableClass");
+    TableClass * rc = NULL;
+    Handle hBlock = CPAGE_GetBlockNext(m_hPage, m_hBlock, Type);
 
-	Handle hBlock = CPAGE_GetBlockNext(m_hPage, m_hBlock, Type);
-	if (hBlock)
-		rc = Attach(m_hPage, hBlock);
+    if (hBlock)
+        rc = Attach(m_hPage, hBlock);
 
-	return rc;
+    return rc;
 }
 
-void TableClass::Update() {
-	// Подсчитаем физические ячейки
-	int nRow = GetNumberRow();
-	int nCol = GetNumberColumn();
-	Point p(-1, -1);
-	int32_t n = -1;
+void TableClass::Update()
+{
+    // Подсчитаем физические ячейки
+    int nRow = GetNumberRow();
+    int nCol = GetNumberColumn();
+    Point p(-1, -1);
+    int32_t n = -1;
+    m_nPhNumber = 0;
 
-	m_nPhNumber = 0;
+    for (int i = 0; i < nRow; i++) {
+        for (int j = 0; j < nCol; j++) {
+            if (i && !m_lpHorLines[i].IsRealy(j)) {// нет горизонтального разделителя сверху
+                p = m_lpCell[(i - 1) * nCol + j].Point();
+                n = m_lpCell[(i - 1) * nCol + j];
+            }
 
-	for (int i = 0; i < nRow; i++) {
-		for (int j = 0; j < nCol; j++) {
-			if (i && !m_lpHorLines[i].IsRealy(j)) {// нет горизонтального разделителя сверху
-				p = m_lpCell[(i - 1) * nCol + j].Point();
-				n = m_lpCell[(i - 1) * nCol + j];
-			} else if (!j || m_lpVerLines[j].IsRealy(i)) {// есть вертикальный разделитель слева
-				n = ++m_nPhNumber;
-				p.rx() = j;
-				p.ry() = i;
-			} else {// есть гор. разделитель сверху и нет верт. справа
-				p = m_lpCell[i * nCol + j - 1].Point();
-				n = m_lpCell[i * nCol + j - 1];
-			}
+            else if (!j || m_lpVerLines[j].IsRealy(i)) {// есть вертикальный разделитель слева
+                n = ++m_nPhNumber;
+                p.rx() = j;
+                p.ry() = i;
+            }
 
-			m_lpCell[i * nCol + j] = n;
-			m_lpCell[i * nCol + j] = p;
-			m_lpCell[i * nCol + j].Fragment() = -1;
-			m_lpCell[i * nCol + j].GeCount()++;
-		}
-	}
+            else {// есть гор. разделитель сверху и нет верт. справа
+                p = m_lpCell[i * nCol + j - 1].Point();
+                n = m_lpCell[i * nCol + j - 1];
+            }
+
+            m_lpCell[i * nCol + j] = n;
+            m_lpCell[i * nCol + j] = p;
+            m_lpCell[i * nCol + j].Fragment() = -1;
+            m_lpCell[i * nCol + j].GeCount()++;
+        }
+    }
 }

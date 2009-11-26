@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new PortugueseAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_PORTUGUESE, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-PortugueseAlphabet::PortugueseAlphabet() {
+PortugueseAlphabet::PortugueseAlphabet()
+{
     addSymbol(AA_left_accent);
     addSymbol(AA_right_accent);
     addSymbol(AA_tild_accent);
@@ -48,7 +52,6 @@ PortugueseAlphabet::PortugueseAlphabet() {
     addSymbol(II_right_accent);
     addSymbol(II_2dot_accent);
     addSymbol(UU_roof_accent);
-
     addSymbol(a_left_accent);
     addSymbol(a_right_accent);
     addSymbol(a_tild_accent);
@@ -67,7 +70,8 @@ PortugueseAlphabet::PortugueseAlphabet() {
     addSymbol(u_roof_accent);
 }
 
-language_t PortugueseAlphabet::language() const {
+language_t PortugueseAlphabet::language() const
+{
     return LANG_PORTUGUESE;
 }
 

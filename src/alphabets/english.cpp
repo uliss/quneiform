@@ -19,9 +19,11 @@
 #include "english.h"
 #include "alphabetfactory.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new EnglishAlphabet;
 }
 
@@ -49,14 +51,16 @@ const bool registered = AlphabetFactory::instance().registerCreator(LANG_ENGLISH
  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0  // f
  */
 
-namespace CIF {
+namespace CIF
+{
 
 EnglishAlphabet::EnglishAlphabet() :
-    DigitsAlphabet() {
+        DigitsAlphabet()
+{
     // digits initialized in parent class
     //    uliss: why '+' is missing???
     static const char * latin =
-            "!#$%&()-./:;<=>?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}";
+        "!#$%&()-./:;<=>?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}";
 
     for (const char * c = latin; *c; c++)
         addSymbol(*c);
@@ -65,13 +69,13 @@ EnglishAlphabet::EnglishAlphabet() :
     for (int i = 0xB0; i <= 0xBD; i++)
         addSymbol(i);
 
-
     addSymbol(0xD5);
     addSymbol(0xD7);
     addSymbol(0xD8);
 }
 
-language_t EnglishAlphabet::language() const {
+language_t EnglishAlphabet::language() const
+{
     return LANG_ENGLISH;
 }
 

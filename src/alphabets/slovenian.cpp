@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new SlovenianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_SLOVENIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-SlovenianAlphabet::SlovenianAlphabet() {
+SlovenianAlphabet::SlovenianAlphabet()
+{
     addSymbol(CC_inv_roof);
     addSymbol(c_inv_roof);
     addSymbol(SS_inv_roof_latin);
@@ -40,7 +44,8 @@ SlovenianAlphabet::SlovenianAlphabet() {
     addSymbol(z_inv_roof_latin);
 }
 
-language_t SlovenianAlphabet::language() const {
+language_t SlovenianAlphabet::language() const
+{
     return LANG_SLOVENIAN;
 }
 

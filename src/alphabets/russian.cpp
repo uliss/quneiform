@@ -20,57 +20,58 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new RussianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_RUSSIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-RussianAlphabet::RussianAlphabet() {
+RussianAlphabet::RussianAlphabet()
+{
     // DOS cp866
     static const char alph_russian[256] = {
-     // 0 1 2 3 4 5 6 7 8 9 A B C D E F
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
-        0,1,0,1,0,1,1,0,1,1,0,1,0,1,1,1,    // 2 "!#%&()+-./"
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // 3 "0123456789:;<=>?"
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 4
-        0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,    // 5 "[]_"
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 6
-        0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,    // 7 "{|}"
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // 8 from "А"
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // 9 to "Я"
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // a from "а" to "п"
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // b
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // c
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // d
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // e from "р" to "я"
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
-     };
-
+        // 0 1 2 3 4 5 6 7 8 9 A B C D E F
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // 1
+        0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1,    // 2 "!#%&()+-./"
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    // 3 "0123456789:;<=>?"
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // 4
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,    // 5 "[]_"
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // 6
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,    // 7 "{|}"
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    // 8 from "А"
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    // 9 to "Я"
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    // a from "а" to "п"
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // b
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // c
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    // d
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    // e from "р" to "я"
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0     // f
+    };
     initFromTable(alph_russian);
-
     const static language_t language = LANG_RUSSIAN;
-
     addSymbol(r_cu_d);
     addSymbol(r_cu_g);
     addSymbol(r_cu_m);
     addSymbol(r_cu_u);
     addSymbol(r_cu_z);
     addSymbol(r_cu_a);
-
     addSymbol(liga_exm);
     addSymbol(liga_qm);
     addSymbol(liga_uperc);
     addSymbol(liga_lperc);
 }
 
-language_t RussianAlphabet::language() const {
+language_t RussianAlphabet::language() const
+{
     return LANG_RUSSIAN;
 }
 

@@ -19,9 +19,11 @@
 #include "baltic.h"
 #include "ligas.h"
 
-namespace CIF {
+namespace CIF
+{
 
-BalticAlphabet::BalticAlphabet() {
+BalticAlphabet::BalticAlphabet()
+{
     // WWindows cp-1257
     // it's only a var for marcores
     const int language = LANG_ESTONIAN;

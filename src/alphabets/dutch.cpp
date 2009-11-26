@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new DutchAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_DUTCH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-DutchAlphabet::DutchAlphabet() {
+DutchAlphabet::DutchAlphabet()
+{
     addSymbol(AA_left_accent);
     addSymbol(AA_2dot_accent);
     addSymbol(AA_roof_accent);
@@ -46,7 +50,6 @@ DutchAlphabet::DutchAlphabet() {
     addSymbol(II_2dot_accent);
     addSymbol(UU_roof_accent);
     addSymbol(UU_2dot_accent);
-
     addSymbol(a_left_accent);
     addSymbol(a_2dot_accent);
     addSymbol(a_roof_accent);
@@ -63,7 +66,8 @@ DutchAlphabet::DutchAlphabet() {
     addSymbol(u_2dot_accent);
 }
 
-language_t DutchAlphabet::language() const {
+language_t DutchAlphabet::language() const
+{
     return LANG_DUTCH;
 }
 

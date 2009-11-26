@@ -64,108 +64,102 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //##############################
 BLOCK::BLOCK()
 {
-	UserNum = 0;
-	Flags = 0;
-	InterNum = 0;
+    UserNum = 0;
+    Flags = 0;
+    InterNum = 0;
 }
 //##############################
 BLOCK::~BLOCK()
 {
 }
 //##############################
-Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags ,void * lpdata , uint32_t size )
+Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
 {
-	UserNum = usernum;
-	Flags = flags;
-	InterNum = 0;
-
-
-	SetData(type,lpdata,size);
-return TRUE;
+    UserNum = usernum;
+    Flags = flags;
+    InterNum = 0;
+    SetData(type, lpdata, size);
+    return TRUE;
 }
 //##############################
 BLOCK & BLOCK::operator = (BLOCK & Block)
 {
-	UserNum = Block.UserNum;
-	Flags = Block.Flags;
-	InterNum = Block.InterNum;
-
-
-	*(DATA *)this = Block;
-return *this;
+    UserNum = Block.UserNum;
+    Flags = Block.Flags;
+    InterNum = Block.InterNum;
+    *(DATA *)this = Block;
+    return *this;
 }
 //##############################
 Bool32 BLOCK::operator == (BLOCK & Block)
 {
-	if(	UserNum == Block.UserNum &&
-		Flags == Block.Flags &&
-		InterNum == Block.InterNum &&
-		*(DATA *)this == Block)
-		return TRUE;
+    if ( UserNum == Block.UserNum &&
+            Flags == Block.Flags &&
+            InterNum == Block.InterNum &&
+            *(DATA *)this == Block)
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 //##############################
 Bool32 BLOCK::Save(Handle to)
 {
-	if( myWrite(to,&UserNum,sizeof(UserNum))==sizeof(UserNum) &&
-		myWrite(to,&Flags,sizeof(Flags))==sizeof(Flags) &&
-		DATA::Save(to) &&
-		myWrite(to,&InterNum,sizeof(InterNum))==sizeof(InterNum))
-	   return TRUE;
+    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
+            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+            DATA::Save(to) &&
+            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 //##############################
 Bool32 BLOCK::Restore(Handle from)
 {
-	if( myRead(from,&UserNum,sizeof(UserNum))==sizeof(UserNum) &&
-		myRead(from,&Flags,sizeof(Flags))==sizeof(Flags) &&
-		DATA::Restore(from) &&
-		myRead(from,&InterNum,sizeof(InterNum))==sizeof(InterNum))
-	   return TRUE;
+    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
+            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+            DATA::Restore(from) &&
+            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 //##############################
 Bool32 BLOCK::SaveCompress(Handle to)
 {
-	if( myWrite(to,&UserNum,sizeof(UserNum))==sizeof(UserNum) &&
-		myWrite(to,&Flags,sizeof(Flags))==sizeof(Flags) &&
-		DATA::SaveCompress(to) &&
-		myWrite(to,&InterNum,sizeof(InterNum))==sizeof(InterNum))
-	   return TRUE;
+    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
+            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+            DATA::SaveCompress(to) &&
+            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 //##############################
 Bool32 BLOCK::RestoreCompress(Handle from)
 {
-	if( myRead(from,&UserNum,sizeof(UserNum))==sizeof(UserNum) &&
-		myRead(from,&Flags,sizeof(Flags))==sizeof(Flags) &&
-		DATA::RestoreCompress(from) &&
-		myRead(from,&InterNum,sizeof(InterNum))==sizeof(InterNum))
-	   return TRUE;
+    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
+            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+            DATA::RestoreCompress(from) &&
+            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 
-static 	CPAGE_CONVERTOR s_ConvertorBlocks = {0,DefConvertBlock};
+static  CPAGE_CONVERTOR s_ConvertorBlocks = {0, DefConvertBlock};
 //#################################
 CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
 {
-	CPAGE_CONVERTOR old = s_ConvertorBlocks;
-
-	s_ConvertorBlocks = convertor;
-
-	return old;
+    CPAGE_CONVERTOR old = s_ConvertorBlocks;
+    s_ConvertorBlocks = convertor;
+    return old;
 }
 //#################################
-uint32_t BLOCK::Convert(Handle type,void * lpdata,uint32_t size)
+uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
 {
-	uint32_t rc = 0;
-	rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,
-									Type,lpData,Size,
-									type,lpdata,size);
-return rc;
+    uint32_t rc = 0;
+    rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,
+                                          Type, lpData, Size,
+                                          type, lpdata, size);
+    return rc;
 }

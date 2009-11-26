@@ -20,48 +20,57 @@
 
 #include "iconv.h"
 
-namespace CIF {
+namespace CIF
+{
 
 Iconv::Iconv() :
-    iconv_(iconv_t(-1)) {
+        iconv_(iconv_t(-1))
+{
 }
 
 Iconv::Iconv(const std::string &from, const std::string &to) :
-    iconv_(iconv_t(-1)) {
+        iconv_(iconv_t(-1))
+{
     if (!open(from, to))
         throw Exception("Can't convert from " + from + " to " + to);
 }
 
-Iconv::~Iconv() {
+Iconv::~Iconv()
+{
     close();
 }
 
-bool Iconv::close() {
+bool Iconv::close()
+{
     bool result = true;
+
     if (iconv_ != iconv_t(-1)) {
         if (::iconv_close(iconv_) == -1)
             result = false;
+
         iconv_ = iconv_t(-1);
     }
+
     return result;
 }
 
-void throwException() {
+void throwException()
+{
     switch (errno) {
-    case E2BIG:
-        break;
-    case EILSEQ:
-        throw Iconv::Exception("Invalid character or multibyte sequence in the input");
-        break;
-    case EINVAL:
-    default:
-        throw Iconv::Exception("Incomplete multibyte sequence in the input");
-        break;
+        case E2BIG:
+            break;
+        case EILSEQ:
+            throw Iconv::Exception("Invalid character or multibyte sequence in the input");
+            break;
+        case EINVAL:
+        default:
+            throw Iconv::Exception("Incomplete multibyte sequence in the input");
+            break;
     }
-
 }
 
-std::string Iconv::convert(const std::string& src) {
+std::string Iconv::convert(const std::string& src)
+{
     std::string result;
 
     if (src.empty())
@@ -75,6 +84,7 @@ std::string Iconv::convert(const std::string& src) {
     while (source_len > 0) {
         output_buf[0] = '\0';
         char * output_ptr = output_buf;
+
         if (convert(&source_ptr, &source_len, &output_ptr, &output_len) == size_t(-1))
             throwException();
 
@@ -83,14 +93,15 @@ std::string Iconv::convert(const std::string& src) {
     }
 
     return result;
-
 }
 
-size_t Iconv::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
+size_t Iconv::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft)
+{
     return ::iconv(iconv_, inbuf, inbytesleft, outbuf, outbytesleft);
 }
 
-bool Iconv::open(const std::string &from, const std::string &to) {
+bool Iconv::open(const std::string &from, const std::string &to)
+{
     close();
     iconv_ = ::iconv_open(to.c_str(), from.c_str());
     return iconv_ != iconv_t(-1);

@@ -8,35 +8,41 @@
 #include "ctcmemoryheader.h"
 #include "ctcclasses.h"
 
-namespace CIF {
-namespace CTC {
+namespace CIF
+{
+namespace CTC
+{
 
 MemoryHeader::MemoryHeader() :
-	GlobalHeader() {
+        GlobalHeader()
+{
 }
 
 MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize) :
-	GlobalHeader(hMemory, NULL, wBlockSize) {
-	SetHeaderSize(sizeof(class MemoryHeader));
+        GlobalHeader(hMemory, NULL, wBlockSize)
+{
+    SetHeaderSize(sizeof(class MemoryHeader));
 }
 
 MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize,
-		const std::string& OwnerName, const std::string& Commentary) :
-	GlobalHeader(hMemory, NULL, wBlockSize), comment_(Commentary), owner_(
-			OwnerName) {
-	SetHeaderSize(sizeof(class MemoryHeader));
+                           const std::string& OwnerName, const std::string& Commentary) :
+        GlobalHeader(hMemory, NULL, wBlockSize), comment_(Commentary), owner_(
+            OwnerName)
+{
+    SetHeaderSize(sizeof(class MemoryHeader));
 }
 
-MemoryHeader::~MemoryHeader() {
-	Handle hToDelete = GetHandle();
+MemoryHeader::~MemoryHeader()
+{
+    Handle hToDelete = GetHandle();
 
-	if (hToDelete != NULL && hToDelete != FICTIV_Handle) {
+    if (hToDelete != NULL && hToDelete != FICTIV_Handle) {
 #ifdef CFIO_USE_GLOBAL_MEMORY
-		CFIO_FREE(GetHandle());
+        CFIO_FREE(GetHandle());
 #else
-		delete[] static_cast<char*> (hToDelete);
+        delete[] static_cast<char*> (hToDelete);
 #endif //CFIO_USE_GLOBAL_MEMORY
-	}
+    }
 }
 }
 }

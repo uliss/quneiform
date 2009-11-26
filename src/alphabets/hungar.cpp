@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new HungarAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_HUNGAR, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-HungarAlphabet::HungarAlphabet() {
+HungarAlphabet::HungarAlphabet()
+{
     addSymbol(AA_right_accent);
     addSymbol(a_right_accent);
     addSymbol(EE_right_accent);
@@ -46,7 +50,8 @@ HungarAlphabet::HungarAlphabet() {
     addSymbol(o_double_right);
 }
 
-language_t HungarAlphabet::language() const {
+language_t HungarAlphabet::language() const
+{
     return LANG_HUNGAR;
 }
 

@@ -81,441 +81,541 @@ static void merge_lines();
 static void new_line_cont();
 static void no_box();
 
-void analise() {
-	op = Q.oldline;
-	np = Q.newline;
-	ol = nl = 0;
-	if (op->b == 0)
-		ol += (op++)->w;
-	if (np->b == 0)
-		nl += (np++)->w;
-	if (ol < 0)
-		goto restnewline_b;
-	if (nl < 0)
-		goto restoldline_b;
+void analise()
+{
+    op = Q.oldline;
+    np = Q.newline;
+    ol = nl = 0;
 
-	gencase: if (ol != nl)
-		goto actnewold;
-	ol += op->b;
-	nl += np->b;
-	simple_cont();
+    if (op->b == 0)
+        ol += (op++)->w;
 
-	intersect_step: // compare segment ends nl and ol
-	if (nl == ol) {
-		nl += (np++)->w;
-		if (nl < 0)
-			goto restoldline;
-		ol += (op++)->w;
-		if (ol > 0)
-			goto gencase;
-		else
-			goto restnewline_b;
-	}
+    if (np->b == 0)
+        nl += (np++)->w;
 
-	if (ol < nl) {
-		ol += (op++)->w;
-		if (ol < 0)
-			goto restnewline;
-		if (ol > nl) {
-			nl += (np++)->w;
-			if (nl > 0)
-				goto gencase;
-			else
-				goto restoldline_b;
-		}
-		ol += op->b;
-		merge_lines();
-		goto intersect_step;
-	} else {
-		nl += (np++)->w;
-		if (nl < 0)
-			goto restoldline;
-		if (nl > ol) {
-			ol += (op++)->w;
-			if (ol > 0)
-				goto gencase;
-			else
-				goto restnewline_b;
-		}
-		new_line_cont();
-		goto intersect_step;
-	}
+    if (ol < 0)
+        goto restnewline_b;
 
-	actnewold: if (ol < nl) {
-		ol += op->b;
-		if (ol < nl) {
-			dead_line();
-			ol += (op++)->w;
-			if (ol > 0)
-				goto gencase;
-			else
-				goto restnewline_b;
-		}
-		nl += np->b;
-		simple_cont();
-		goto intersect_step;
-	} else {
-		nl += np->b;
-		if (nl < ol) {
-			new_line();
-			nl += (np++)->w;
-			if (nl > 0)
-				goto gencase;
-			else
-				goto restoldline_b;
-		}
-		ol += op->b;
-		simple_cont();
-		goto intersect_step;
-	}
+    if (nl < 0)
+        goto restoldline_b;
 
-	restnewline_b: if (nl < 0)
-		return;
-	restnewline_1: nl += np->b;
-	new_line();
-	restnewline: nl += (np++)->w;
-	if (nl > 0)
-		goto restnewline_1;
-	return;
+gencase:
 
-	restoldline_b: if (ol < 0)
-		return;
-	restoldline_1: ol += op->b;
-	dead_line();
-	restoldline: ol += (op++)->w;
-	if (ol > 0)
-		goto restoldline_1;
-	return;
+    if (ol != nl)
+        goto actnewold;
+
+    ol += op->b;
+    nl += np->b;
+    simple_cont();
+intersect_step: // compare segment ends nl and ol
+
+    if (nl == ol) {
+        nl += (np++)->w;
+
+        if (nl < 0)
+            goto restoldline;
+
+        ol += (op++)->w;
+
+        if (ol > 0)
+            goto gencase;
+
+        else
+            goto restnewline_b;
+    }
+
+    if (ol < nl) {
+        ol += (op++)->w;
+
+        if (ol < 0)
+            goto restnewline;
+
+        if (ol > nl) {
+            nl += (np++)->w;
+
+            if (nl > 0)
+                goto gencase;
+
+            else
+                goto restoldline_b;
+        }
+
+        ol += op->b;
+        merge_lines();
+        goto intersect_step;
+    }
+
+    else {
+        nl += (np++)->w;
+
+        if (nl < 0)
+            goto restoldline;
+
+        if (nl > ol) {
+            ol += (op++)->w;
+
+            if (ol > 0)
+                goto gencase;
+
+            else
+                goto restnewline_b;
+        }
+
+        new_line_cont();
+        goto intersect_step;
+    }
+
+actnewold:
+
+    if (ol < nl) {
+        ol += op->b;
+
+        if (ol < nl) {
+            dead_line();
+            ol += (op++)->w;
+
+            if (ol > 0)
+                goto gencase;
+
+            else
+                goto restnewline_b;
+        }
+
+        nl += np->b;
+        simple_cont();
+        goto intersect_step;
+    }
+
+    else {
+        nl += np->b;
+
+        if (nl < ol) {
+            new_line();
+            nl += (np++)->w;
+
+            if (nl > 0)
+                goto gencase;
+
+            else
+                goto restoldline_b;
+        }
+
+        ol += op->b;
+        simple_cont();
+        goto intersect_step;
+    }
+
+restnewline_b:
+
+    if (nl < 0)
+        return;
+
+restnewline_1:
+    nl += np->b;
+    new_line();
+restnewline:
+    nl += (np++)->w;
+
+    if (nl > 0)
+        goto restnewline_1;
+
+    return;
+restoldline_b:
+
+    if (ol < 0)
+        return;
+
+restoldline_1:
+    ol += op->b;
+    dead_line();
+restoldline:
+    ol += (op++)->w;
+
+    if (ol > 0)
+        goto restoldline_1;
+
+    return;
 }
 
-static void simple_cont() {
-	BOX * bp, *bpp;
-	BOXINT * ip;
-	MN * mn;
+static void simple_cont()
+{
+    BOX * bp, *bpp;
+    BOXINT * ip;
+    MN * mn;
+reset:
+    bp = op->box;
+    ip = (BOXINT *) ((uchar*) bp + bp->boxptr);
 
-	reset: bp = op->box;
-	ip = (BOXINT *) ((uchar*) bp + bp->boxptr);
-	if (bp->boxptr > BOXBOUNDARY)
-		goto fullbox;
-	fret: ip->l = np->b;
-	ip->d = nl - ol;
-	bp->boxptr += sizeof(BOXINT);
-	if (nl > bp->boxright)
-		bp->boxright = nl;
-	if (nl - ip->l < bp->boxleft)
-		bp->boxleft = nl - ip->l;
-	np->box = bp;
-	return;
+    if (bp->boxptr > BOXBOUNDARY)
+        goto fullbox;
 
-	fullbox: if (bp->boxptr == BOXSIZE) // double fax forcing
-	{
-		bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
-		np->box = bp;
-		return;
-	}
+fret:
+    ip->l = np->b;
+    ip->d = nl - ol;
+    bp->boxptr += sizeof(BOXINT);
 
-	ip->l = -1;
-	bpp = Q.boxalloc;
-	if (bpp == NULL)
-		goto compress;
-	Q.boxalloc = bpp->boxnext;
-	bpp->boxnext = bp->boxnext;
-	bp->boxnext = bpp;
-	mn = bpp->boxmain = bp->boxmain;
-	mn->mnboxcnt++;
-	bp = bpp;
-	bp->boxleft = (bp->boxright = nl) - np->b;
-	bp->boxflag = 0;
-	bp->boxptr = sizeof(BOX);
-	ip = (BOXINT *) ((uchar*) bp + sizeof(BOX));
-	goto fret;
+    if (nl > bp->boxright)
+        bp->boxright = nl;
 
-	compress: no_box();
-	goto reset;
+    if (nl - ip->l < bp->boxleft)
+        bp->boxleft = nl - ip->l;
+
+    np->box = bp;
+    return;
+fullbox:
+
+    if (bp->boxptr == BOXSIZE) { // double fax forcing
+        bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
+        np->box = bp;
+        return;
+    }
+
+    ip->l = -1;
+    bpp = Q.boxalloc;
+
+    if (bpp == NULL)
+        goto compress;
+
+    Q.boxalloc = bpp->boxnext;
+    bpp->boxnext = bp->boxnext;
+    bp->boxnext = bpp;
+    mn = bpp->boxmain = bp->boxmain;
+    mn->mnboxcnt++;
+    bp = bpp;
+    bp->boxleft = (bp->boxright = nl) - np->b;
+    bp->boxflag = 0;
+    bp->boxptr = sizeof(BOX);
+    ip = (BOXINT *) ((uchar*) bp + sizeof(BOX));
+    goto fret;
+compress:
+    no_box();
+    goto reset;
 }
 
-static void new_line() {
-	BOX * bp;
-	MN * mn;
-	LNSTRT * lp;
-	reset: if ((bp = Q.boxalloc) == NULL)
-		goto compress;
-	if ((mn = Q.mainalloc) == NULL)
-		return; //error_exit (ERR_comp, 3);
-	Q.mainalloc = (MN *) (mn->mnfirstbox);
+static void new_line()
+{
+    BOX * bp;
+    MN * mn;
+    LNSTRT * lp;
+reset:
 
-	mn->mnfirstbox = bp;
-	mn->mncounter = mn->mnboxcnt = 1;
-	mn->mnflag = 0;
-	mn->mnlines = mn->mnbegs = 1;
-	mn->mnends = 0;
+    if ((bp = Q.boxalloc) == NULL)
+        goto compress;
 
-	Q.boxalloc = bp->boxnext;
-	bp->boxnext = NULL;
-	np->box = bp;
-	bp->boxflag = BOXFREEBEG;
-	bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
-	lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
-	mn->mnupper = lp->y = Q.lineno;
-	bp->boxmain = mn;
-	bp->boxright = lp->x = nl;
-	bp->boxleft = nl - (lp->l = np->b);
-	if (double_fax) {
-		mn->mnupper++;
-		lp->y++;
-		bp->boxptr = BOXSIZE;
-	}
-	return;
+    if ((mn = Q.mainalloc) == NULL)
+        return; //error_exit (ERR_comp, 3);
 
-	compress: no_box();
-	goto reset;
+    Q.mainalloc = (MN *) (mn->mnfirstbox);
+    mn->mnfirstbox = bp;
+    mn->mncounter = mn->mnboxcnt = 1;
+    mn->mnflag = 0;
+    mn->mnlines = mn->mnbegs = 1;
+    mn->mnends = 0;
+    Q.boxalloc = bp->boxnext;
+    bp->boxnext = NULL;
+    np->box = bp;
+    bp->boxflag = BOXFREEBEG;
+    bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
+    lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
+    mn->mnupper = lp->y = Q.lineno;
+    bp->boxmain = mn;
+    bp->boxright = lp->x = nl;
+    bp->boxleft = nl - (lp->l = np->b);
+
+    if (double_fax) {
+        mn->mnupper++;
+        lp->y++;
+        bp->boxptr = BOXSIZE;
+    }
+
+    return;
+compress:
+    no_box();
+    goto reset;
 }
 
-static void new_line_cont() {
-	MN * mn;
-	BOX *bp, *bpp;
-	LNSTRT *lp;
-	mn = (bpp = (np - 1)->box)->boxmain;
-	reset: bp = Q.boxalloc;
-	if (bp == NULL)
-		goto compress;
-	Q.boxalloc = bp->boxnext;
-	bp->boxnext = bpp->boxnext;
-	bpp->boxnext = bp;
-	np->box = bp;
+static void new_line_cont()
+{
+    MN * mn;
+    BOX *bp, *bpp;
+    LNSTRT *lp;
+    mn = (bpp = (np - 1)->box)->boxmain;
+reset:
+    bp = Q.boxalloc;
 
-	mn->mnlines++;
-	mn->mncounter++;
-	mn->mnboxcnt++;
+    if (bp == NULL)
+        goto compress;
 
-	bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
-	bp->boxmain = mn;
-	bp->boxflag = BOXBEG;
-	bp->boxleft = nl;
-	lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
-	nl += (lp->l = np->b);
-	bp->boxright = lp->x = nl;
-	lp->y = Q.lineno;
-	return;
-
-	compress: no_box();
-	goto reset;
+    Q.boxalloc = bp->boxnext;
+    bp->boxnext = bpp->boxnext;
+    bpp->boxnext = bp;
+    np->box = bp;
+    mn->mnlines++;
+    mn->mncounter++;
+    mn->mnboxcnt++;
+    bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
+    bp->boxmain = mn;
+    bp->boxflag = BOXBEG;
+    bp->boxleft = nl;
+    lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
+    nl += (lp->l = np->b);
+    bp->boxright = lp->x = nl;
+    lp->y = Q.lineno;
+    return;
+compress:
+    no_box();
+    goto reset;
 }
 
-static void merge_lines() {
-	BOX *bp, *bpp;
-	MN *mn, *mnn, *mnw;
-	BOXINT *ip;
-	uint16_t n;
+static void merge_lines()
+{
+    BOX *bp, *bpp;
+    MN *mn, *mnn, *mnw;
+    BOXINT *ip;
+    uint16_t n;
+    bp = op->box;
+    ip = (BOXINT *) ((uchar*) bp + (bp->boxptr)++);
+    ip->l = 0;
+    bp->boxflag |= BOXEND;
+    bp->boxey = Q.lineno;
+    bp->boxel = op->b;
+    bp->boxex = ol;
+    mn = bp->boxmain;
+    bpp = np->box;
+    mnn = bpp->boxmain;
 
-	bp = op->box;
-	ip = (BOXINT *) ((uchar*) bp + (bp->boxptr)++);
-	ip->l = 0;
-	bp->boxflag |= BOXEND;
-	bp->boxey = Q.lineno;
-	bp->boxel = op->b;
-	bp->boxex = ol;
+    if (mn == mnn) {
+        mn->mncounter--;
+        return;
+    }
 
-	mn = bp->boxmain;
-	bpp = np->box;
-	mnn = bpp->boxmain;
-	if (mn == mnn) {
-		mn->mncounter--;
-		return;
-	}
+    if ((n = mn->mnboxcnt) > usual_box_count) {
+        if (n > mnn->mnboxcnt) {
+            n = mnn->mnboxcnt;
+            mnw = mnn;
+            mnn = mn;
+            mn = mnw;
+        }
+    }
 
-	if ((n = mn->mnboxcnt) > usual_box_count) {
-		if (n > mnn->mnboxcnt) {
-			n = mnn->mnboxcnt;
-			mnw = mnn;
-			mnn = mn;
-			mn = mnw;
-		}
-	}
+    // set_active_MN(mnn,mn); // Vald for picture extraction
+    mnn->mnflag |= mn->mnflag;
+    mnn->mncounter += mn->mncounter - 1;
+    mnn->mnlines += mn->mnlines;
+    mnn->mnbegs += mn->mnbegs;
+    mnn->mnends += mn->mnends;
+    mnn->mnboxcnt += n;
 
-	// set_active_MN(mnn,mn); // Vald for picture extraction
+    if (mn->mnupper < mnn->mnupper)
+        mnn->mnupper = mn->mnupper;
 
-	mnn->mnflag |= mn->mnflag;
-	mnn->mncounter += mn->mncounter - 1;
-	mnn->mnlines += mn->mnlines;
-	mnn->mnbegs += mn->mnbegs;
-	mnn->mnends += mn->mnends;
-	mnn->mnboxcnt += n;
-	if (mn->mnupper < mnn->mnupper)
-		mnn->mnupper = mn->mnupper;
+    bp = static_cast<BOX*> (mn->mnfirstbox);
+    bpp = static_cast<BOX*> (mnn->mnfirstbox);
+    mnn->mnfirstbox = bp;
+    mn->mnfirstbox = (BOX *) Q.mainalloc;
+    Q.mainalloc = mn;
 
-	bp = static_cast<BOX*> (mn->mnfirstbox);
-	bpp = static_cast<BOX*> (mnn->mnfirstbox);
-	mnn->mnfirstbox = bp;
-	mn->mnfirstbox = (BOX *) Q.mainalloc;
-	Q.mainalloc = mn;
-	while (--n) {
-		bp->boxmain = mnn;
-		bp = bp->boxnext;
-	}
-	bp->boxmain = mnn;
-	bp->boxnext = bpp;
-	return;
+    while (--n) {
+        bp->boxmain = mnn;
+        bp = bp->boxnext;
+    }
+
+    bp->boxmain = mnn;
+    bp->boxnext = bpp;
+    return;
 }
 
-static void dead_line() {
-	BOX *bp, *bpp;
-	BOXINT *ip;
-	MN *mn;
-	uint16_t lnum;
-	Bool16 lcomp;
+static void dead_line()
+{
+    BOX *bp, *bpp;
+    BOXINT *ip;
+    MN *mn;
+    uint16_t lnum;
+    Bool16 lcomp;
+    //      Double Fax preprocessing
+resume_fax:
+    bp = op->box;
+    ip = (BOXINT *) ((uchar*) bp + bp->boxptr);
+    lnum = Q.lineno;
 
-	//      Double Fax preprocessing
+    if (double_fax) {
+        lnum--;
 
-	resume_fax: bp = op->box;
-	ip = (BOXINT *) ((uchar*) bp + bp->boxptr);
-	lnum = Q.lineno;
+        if (bp->boxptr > sizeof(BOX) + sizeof(LNSTRT)) {
+            (ip - 1)->l = 0;
+            bp->boxptr -= sizeof(BOXINT) + 1;
+            goto faxend;
+        }
 
-	if (double_fax) {
-		lnum--;
-		if (bp->boxptr > sizeof(BOX) + sizeof(LNSTRT)) {
-			(ip - 1)->l = 0;
-			bp->boxptr -= sizeof(BOXINT) + 1;
-			goto faxend;
-		}
-		if (bp->boxptr == sizeof(BOX) + sizeof(LNSTRT)) {
-			ip->l = 0;
-			mn = bp->boxmain;
-			if (mn->mnupper == lnum) {
-				mn->mnupper--;
-				((LNSTRT *) ((uchar*) bp + sizeof(BOX)))->y--;
-			}
-			goto faxend;
-		}
-		mn = static_cast<MN*> (bp->boxmain);
-		mn->mnboxcnt--;
-		bpp = static_cast<BOX*> (mn->mnfirstbox);
-		while (bpp->boxnext != bp)
-			bpp = bpp->boxnext;
-		bpp->boxnext = bp->boxnext;
-		bp->boxnext = Q.boxalloc;
-		Q.boxalloc = bp;
-		bp = bpp;
-		op->box = bp;
-		goto resume_fax;
-	} else {
-		ip->l = 0;
-		bp->boxptr++; // if regukar case
-	}
+        if (bp->boxptr == sizeof(BOX) + sizeof(LNSTRT)) {
+            ip->l = 0;
+            mn = bp->boxmain;
 
-	faxend:
+            if (mn->mnupper == lnum) {
+                mn->mnupper--;
+                ((LNSTRT *) ((uchar*) bp + sizeof(BOX)))->y--;
+            }
 
-	//      Finish the line
-	bp->boxey = lnum;
-	bp->boxex = ol;
-	bp->boxel = op->b;
-	bp->boxflag |= BOXFREEEND;
-	mn = bp->boxmain;
-	mn->mnends++;
-	if (--(mn->mncounter))
-		return;
+            goto faxend;
+        }
 
-	//      Component dies
-	mn->mnlower = lnum;
-	main_number_ptr = mn;
-	lcomp = component_account();
-	bp = Q.boxalloc;
-	Q.boxalloc = boxchain;
-	dl_last_in_chain->boxnext = bp;
-	if (lcomp)
-		alone_comp();
-	//else     picture_process (mn);
-	else
-		picture_process();
-	mn->mnfirstbox = (BOX *) (Q.mainalloc);
-	Q.mainalloc = mn;
-	return;
+        mn = static_cast<MN*> (bp->boxmain);
+        mn->mnboxcnt--;
+        bpp = static_cast<BOX*> (mn->mnfirstbox);
+
+        while (bpp->boxnext != bp)
+            bpp = bpp->boxnext;
+
+        bpp->boxnext = bp->boxnext;
+        bp->boxnext = Q.boxalloc;
+        Q.boxalloc = bp;
+        bp = bpp;
+        op->box = bp;
+        goto resume_fax;
+    }
+
+    else {
+        ip->l = 0;
+        bp->boxptr++; // if regukar case
+    }
+
+faxend:
+    //      Finish the line
+    bp->boxey = lnum;
+    bp->boxex = ol;
+    bp->boxel = op->b;
+    bp->boxflag |= BOXFREEEND;
+    mn = bp->boxmain;
+    mn->mnends++;
+
+    if (--(mn->mncounter))
+        return;
+
+    //      Component dies
+    mn->mnlower = lnum;
+    main_number_ptr = mn;
+    lcomp = component_account();
+    bp = Q.boxalloc;
+    Q.boxalloc = boxchain;
+    dl_last_in_chain->boxnext = bp;
+
+    if (lcomp)
+        alone_comp();
+
+    //else     picture_process (mn);
+    else
+        picture_process();
+
+    mn->mnfirstbox = (BOX *) (Q.mainalloc);
+    Q.mainalloc = mn;
+    return;
 }
 
-static void no_box() {
-	BWSS * bwp;
-	BOX *bp, *bpp, *bww;
-	MN *mn, *mmax;
-	LNSTRT *lp;
-	int16_t left, right;
-	uint16_t n, i;
-	//     Clear references to box in the new line
-	bwp = np;
-	do
-		bwp->box = NULL;
-	while ((bwp++)->w > 0);
-	//     Look for main number with maximal box number
-	for (i = 0, n = 0, mn = mmax = Q.mnstart; i < SEG_MAX_NUM; i++, mn++) {
-		if ((mn->mnboxcnt > n) && mn->mncounter) {
-			n = mn->mnboxcnt;
-			mmax = mn;
-		} else if (mn->mnboxcnt == 0)
-			break;
-	}
-	// SpecCompPut(mmax);     // Save information about component to delete
-	// accept_greate_picture(mmax); // Vald for picture extaction
+static void no_box()
+{
+    BWSS * bwp;
+    BOX *bp, *bpp, *bww;
+    MN *mn, *mmax;
+    LNSTRT *lp;
+    int16_t left, right;
+    uint16_t n, i;
+    //     Clear references to box in the new line
+    bwp = np;
 
-	// Mark all boxes within component
-	for (i = 0, bp = static_cast<BOX*> (mmax->mnfirstbox); i < n; i++, bp
-			= bp->boxnext)
-		bp->boxwf = 1;
+    do
+        bwp->box = NULL;
 
-	for (i = 0, bwp = Q.oldline; i < 2; i++, bwp = Q.newline) {
-		n = 0;
-		do {
-			if ((bp = bwp->box) != NULL)
-				if (bp->boxmain == mmax) {
-					bp->boxwf = 0;
-					bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
-					lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
-					lp->y = Q.lineno - 1 + i;
-					lp->x = n + (lp->l = bwp->b);
-					bp->boxflag = BOXFREEBEG;
-				}
-			n += bwp->b + bwp->w;
-		} while ((bwp++)->w > 0);
-	}
+    while ((bwp++)->w > 0);
 
-	n = mmax->mnboxcnt;
-	bpp = NULL;
-	mmax->mnflag = mnpicture;
-	mmax->mnboxcnt = 0;
-	bp = static_cast<BOX*> (mmax->mnfirstbox);
-	left = bp->boxleft;
-	right = bp->boxright;
+    //     Look for main number with maximal box number
+    for (i = 0, n = 0, mn = mmax = Q.mnstart; i < SEG_MAX_NUM; i++, mn++) {
+        if ((mn->mnboxcnt > n) && mn->mncounter) {
+            n = mn->mnboxcnt;
+            mmax = mn;
+        }
 
-	sep_loop: if (bp->boxleft <= left)
-		left = bp->boxleft;
-	if (bp->boxright >= right)
-		right = bp->boxright;
-	if (bp->boxwf) {
-		bp->boxmain = NULL;
-		bww = bp->boxnext;
-		bp->boxnext = Q.boxalloc;
-		Q.boxalloc = bp;
-		if ((bp = bww) != NULL)
-			goto sep_loop;
-		else
-			goto sep_end;
-	}
-	if (bpp)
-		bpp->boxnext = bp;
-	else
-		mmax->mnfirstbox = bp;
-	bpp = bp;
-	bp = bp->boxnext;
-	mmax->mnboxcnt++;
-	if (--n == 0)
-		return; //error_exit(ERR_comp,4);
-	if (bp)
-		goto sep_loop;
+        else if (mn->mnboxcnt == 0)
+            break;
+    }
 
-	sep_end: bpp->boxnext = NULL;
-	bpp = static_cast<BOX*> (mmax->mnfirstbox);
-	bpp->boxleft = left;
-	bpp->boxright = right;
+    // SpecCompPut(mmax);     // Save information about component to delete
+    // accept_greate_picture(mmax); // Vald for picture extaction
+
+    // Mark all boxes within component
+    for (i = 0, bp = static_cast<BOX*> (mmax->mnfirstbox); i < n; i++, bp
+            = bp->boxnext)
+        bp->boxwf = 1;
+
+    for (i = 0, bwp = Q.oldline; i < 2; i++, bwp = Q.newline) {
+        n = 0;
+
+        do {
+            if ((bp = bwp->box) != NULL)
+                if (bp->boxmain == mmax) {
+                    bp->boxwf = 0;
+                    bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
+                    lp = (LNSTRT *) ((uchar*) bp + sizeof(BOX));
+                    lp->y = Q.lineno - 1 + i;
+                    lp->x = n + (lp->l = bwp->b);
+                    bp->boxflag = BOXFREEBEG;
+                }
+
+            n += bwp->b + bwp->w;
+        }
+        while ((bwp++)->w > 0);
+    }
+
+    n = mmax->mnboxcnt;
+    bpp = NULL;
+    mmax->mnflag = mnpicture;
+    mmax->mnboxcnt = 0;
+    bp = static_cast<BOX*> (mmax->mnfirstbox);
+    left = bp->boxleft;
+    right = bp->boxright;
+sep_loop:
+
+    if (bp->boxleft <= left)
+        left = bp->boxleft;
+
+    if (bp->boxright >= right)
+        right = bp->boxright;
+
+    if (bp->boxwf) {
+        bp->boxmain = NULL;
+        bww = bp->boxnext;
+        bp->boxnext = Q.boxalloc;
+        Q.boxalloc = bp;
+
+        if ((bp = bww) != NULL)
+            goto sep_loop;
+
+        else
+            goto sep_end;
+    }
+
+    if (bpp)
+        bpp->boxnext = bp;
+
+    else
+        mmax->mnfirstbox = bp;
+
+    bpp = bp;
+    bp = bp->boxnext;
+    mmax->mnboxcnt++;
+
+    if (--n == 0)
+        return; //error_exit(ERR_comp,4);
+
+    if (bp)
+        goto sep_loop;
+
+sep_end:
+    bpp->boxnext = NULL;
+    bpp = static_cast<BOX*> (mmax->mnfirstbox);
+    bpp->boxleft = left;
+    bpp->boxright = right;
 }
 
-static void picture_process(void) {
-
+static void picture_process(void)
+{
 }

@@ -62,147 +62,148 @@ extern LIST<CHLine>* pLCont;
 
 Bool IfExistContainer(CHLine* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-   if(phline==pelem)
-	   return TRUE;
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        if (phline == pelem)
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 
 Bool IfExistLine(CLine* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   if(pline==pelem)
-	   return TRUE;
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            if (pline == pelem)
+                return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 Bool IfExistEvent(CEvent* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- CEvent* pevent=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   for(pevent=pline->m_event.GetRoot();pevent;pevent=pline->m_event.GetNext(pevent))
-   {
-    if(pevent==pelem)
-	    return TRUE;
-   }
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+    CEvent* pevent = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            for (pevent = pline->m_event.GetRoot(); pevent; pevent = pline->m_event.GetNext(pevent)) {
+                if (pevent == pelem)
+                    return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 Bool IfExistCutPoint(CCutPoint* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- CCutPoint* pcupoint=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   for(pcupoint=pline->m_cut_point.GetRoot();pcupoint;pcupoint=pline->m_cut_point.GetNext(pcupoint))
-   {
-    if(pcupoint==pelem)
-	    return TRUE;
-   }
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+    CCutPoint* pcupoint = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            for (pcupoint = pline->m_cut_point.GetRoot(); pcupoint; pcupoint = pline->m_cut_point.GetNext(pcupoint)) {
+                if (pcupoint == pelem)
+                    return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 Bool IfExistComp(CComponent* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- CComponent* pcomp=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   for(pcomp=pline->m_comp.GetRoot();pcomp;pcomp=pline->m_comp.GetNext(pcomp))
-   {
-    if(pcomp==pelem)
-	    return TRUE;
-   }
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+    CComponent* pcomp = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            for (pcomp = pline->m_comp.GetRoot(); pcomp; pcomp = pline->m_comp.GetNext(pcomp)) {
+                if (pcomp == pelem)
+                    return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 
 Bool IfExistEventInv(CInterval* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- CEvent* pevent=NULL;
- CInterval* pinv=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   for(pevent=pline->m_event.GetRoot();pevent;pevent=pline->m_event.GetNext(pevent))
-   {
-	for(pinv=pevent->m_interval.GetRoot();pinv;pinv=pevent->m_interval.GetNext(pinv))
-	{
-     if(pinv==pelem)
-	     return TRUE;
-	}
-   }
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+    CEvent* pevent = NULL;
+    CInterval* pinv = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            for (pevent = pline->m_event.GetRoot(); pevent; pevent = pline->m_event.GetNext(pevent)) {
+                for (pinv = pevent->m_interval.GetRoot(); pinv; pinv = pevent->m_interval.GetNext(pinv)) {
+                    if (pinv == pelem)
+                        return TRUE;
+                }
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 Bool IfExistCutPointInv(CInterval* pelem)
 {
- if(!CLINE_Debug_2)
-	 return TRUE;
- CHLine* phline=NULL;
- CLine* pline=NULL;
- CCutPoint* pcupoint=NULL;
- CInterval* pinv=NULL;
- for(phline=pLCont->GetRoot();phline;phline=pLCont->GetNext(phline))
- {
-  for(pline=phline->m_line.GetRoot();pline;pline=phline->m_line.GetNext(pline))
-  {
-   for(pcupoint=pline->m_cut_point.GetRoot();pcupoint;pcupoint=pline->m_cut_point.GetNext(pcupoint))
-   {
-	for(pinv=pcupoint->m_interval.GetRoot();pinv;pinv=pcupoint->m_interval.GetNext(pinv))
-	{
-     if(pinv==pelem)
-	     return TRUE;
-	}
-   }
-  }
- }
- return FALSE;
+    if (!CLINE_Debug_2)
+        return TRUE;
+
+    CHLine* phline = NULL;
+    CLine* pline = NULL;
+    CCutPoint* pcupoint = NULL;
+    CInterval* pinv = NULL;
+
+    for (phline = pLCont->GetRoot(); phline; phline = pLCont->GetNext(phline)) {
+        for (pline = phline->m_line.GetRoot(); pline; pline = phline->m_line.GetNext(pline)) {
+            for (pcupoint = pline->m_cut_point.GetRoot(); pcupoint; pcupoint = pline->m_cut_point.GetNext(pcupoint)) {
+                for (pinv = pcupoint->m_interval.GetRoot(); pinv; pinv = pcupoint->m_interval.GetNext(pinv)) {
+                    if (pinv == pelem)
+                        return TRUE;
+                }
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 

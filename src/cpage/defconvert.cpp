@@ -65,48 +65,47 @@ static Handle varTYPE_CPAGE_PICTURE = 0;
 
 void DefConvertInit()
 {
-	varTYPE_CPAGE_TABLE = TYPE_CPAGE_TABLE;
-	varTYPE_CPAGE_PICTURE = TYPE_CPAGE_PICTURE;
+    varTYPE_CPAGE_TABLE = TYPE_CPAGE_TABLE;
+    varTYPE_CPAGE_PICTURE = TYPE_CPAGE_PICTURE;
 }
 #undef TYPE_CPAGE_TABLE
 #undef TYPE_CPAGE_PICTURE
 
 uint32_t DefConvertBlock(uint32_t dwContext,
-				  Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-				  Handle TypeOut,void * LpDataOut, uint32_t SizeOut)
+                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
+                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
-	uint32_t rc = 0;
-	SetReturnCode_cpage(IDS_ERR_NO);
+    uint32_t rc = 0;
+    SetReturnCode_cpage(IDS_ERR_NO);
 
-	if(TypeIn==TYPE_DESK)
-	{
-		if(TypeOut==varTYPE_CPAGE_TABLE)
-			rc = TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)lpDataIn,SizeIn,(CPAGE_TABLE *)LpDataOut,SizeOut);
-	}
-	else if(TypeIn==varTYPE_CPAGE_TABLE)
-	{
-		if(TypeOut==TYPE_DESK)
-			rc = CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)lpDataIn,SizeIn,(TABLE_DESC *)LpDataOut,SizeOut);
-	}
-	else if(TypeIn==TYPE_IMAGE)
-	{
-		if(TypeOut==varTYPE_CPAGE_PICTURE)
-			rc = TYPE_PICTURE_to_CPAGE_PICTURE((POLY_ *)lpDataIn,SizeIn,(CPAGE_PICTURE *)LpDataOut,SizeOut);
-	}
-	else if(TypeIn==varTYPE_CPAGE_PICTURE)
-	{
-		if(TypeOut==TYPE_IMAGE)
-			rc = CPAGE_PICTURE_to_TYPE_PICTURE((CPAGE_PICTURE *)lpDataIn,SizeIn,(POLY_ *)LpDataOut,SizeOut);
-	}
-	return rc;
+    if (TypeIn == TYPE_DESK) {
+        if (TypeOut == varTYPE_CPAGE_TABLE)
+            rc = TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)lpDataIn, SizeIn, (CPAGE_TABLE *)LpDataOut, SizeOut);
+    }
+
+    else if (TypeIn == varTYPE_CPAGE_TABLE) {
+        if (TypeOut == TYPE_DESK)
+            rc = CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)lpDataIn, SizeIn, (TABLE_DESC *)LpDataOut, SizeOut);
+    }
+
+    else if (TypeIn == TYPE_IMAGE) {
+        if (TypeOut == varTYPE_CPAGE_PICTURE)
+            rc = TYPE_PICTURE_to_CPAGE_PICTURE((POLY_ *)lpDataIn, SizeIn, (CPAGE_PICTURE *)LpDataOut, SizeOut);
+    }
+
+    else if (TypeIn == varTYPE_CPAGE_PICTURE) {
+        if (TypeOut == TYPE_IMAGE)
+            rc = CPAGE_PICTURE_to_TYPE_PICTURE((CPAGE_PICTURE *)lpDataIn, SizeIn, (POLY_ *)LpDataOut, SizeOut);
+    }
+
+    return rc;
 }
 
 uint32_t DefConvertPage(uint32_t dwContext,
-				  Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-				  Handle TypeOut,void * LpDataOut, uint32_t SizeOut)
+                        Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
+                        Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
-	uint32_t rc = 0;
-	SetReturnCode_cpage(IDS_ERR_NO);
-
-	return rc;
+    uint32_t rc = 0;
+    SetReturnCode_cpage(IDS_ERR_NO);
+    return rc;
 }

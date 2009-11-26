@@ -7,17 +7,20 @@
 
 #include "ctcglobalheader.h"
 
-namespace CIF {
+namespace CIF
+{
 
-namespace CTC {
+namespace CTC
+{
 
 GlobalHeader::GlobalHeader(Handle NewHandle, void * NewData, uint NewSize,
-		uint NewFlag, GlobalHeader * NewNext) {
-	SetHandle(NewHandle);
-	SetData(NewData);
-	SetNext(NewNext);
-	SetSize(NewSize);
-	SetFlag(NewFlag);
+                           uint NewFlag, GlobalHeader * NewNext)
+{
+    SetHandle(NewHandle);
+    SetData(NewData);
+    SetNext(NewNext);
+    SetSize(NewSize);
+    SetFlag(NewFlag);
 }
 }
 

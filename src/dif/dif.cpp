@@ -62,15 +62,15 @@
 
 extern void init_diskrim(uchar* raster, int16_t height, int16_t width);
 extern int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx,
-		int16_t dy, uchar, int16_t);
+                       int16_t dy, uchar, int16_t);
 extern uchar stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r,
-		STICK_SIGNUMS *s);
+                         STICK_SIGNUMS *s);
 extern uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
-		STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
-		STICK_SIGNUMS *res_signums);
+                                       STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
+                                       STICK_SIGNUMS *res_signums);
 extern int lnhead_stick_get_incline(lnhead * pool, int dy, int dx);
 extern void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
-		int16_t NHEIGHT);
+                              int16_t NHEIGHT);
 extern uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
 extern int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
 extern int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
@@ -84,257 +84,313 @@ extern int16_t broken_ii;
 extern uchar broken_flag;
 uchar cutl_flag, cutr_flag;
 
-void DIFSetFont(int32_t typ_of_font) {
-	dif_typ_of_font = typ_of_font;
-	return;
+void DIFSetFont(int32_t typ_of_font)
+{
+    dif_typ_of_font = typ_of_font;
+    return;
 }
 
 Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II, Bool32 cut_left,
-		Bool32 cut_right) {
-	broken_ii = (int16_t) (broken_II != 0);
-	broken_flag = (uchar) broken;
-	cutl_flag = (uchar)(cut_left != 0);
-	cutr_flag = (uchar)(cut_right != 0);
-	init_diskrim(r->Raster, (int16_t) r->lnPixHeight, (int16_t) r->lnPixWidth);
-	return TRUE;
+               Bool32 cut_right)
+{
+    broken_ii = (int16_t) (broken_II != 0);
+    broken_flag = (uchar) broken;
+    cutl_flag = (uchar)(cut_left != 0);
+    cutr_flag = (uchar)(cut_right != 0);
+    init_diskrim(r->Raster, (int16_t) r->lnPixHeight, (int16_t) r->lnPixWidth);
+    return TRUE;
 }
 
-Bool32 DIFPenaltyChar(RecRaster* r, RecVersions* res) {
-	int i, pen;
-	int16_t dx, dy;
-	int maxprob;
+Bool32 DIFPenaltyChar(RecRaster* r, RecVersions* res)
+{
+    int i, pen;
+    int16_t dx, dy;
+    int maxprob;
+    dy = (int16_t) r->lnPixHeight;
+    dx = (int16_t) r->lnPixWidth;
 
-	dy = (int16_t) r->lnPixHeight;
-	dx = (int16_t) r->lnPixWidth;
+    for (maxprob = i = 0; i < res->lnAltCnt; i++)
+        if (res->Alt[i].Prob > maxprob)
+            maxprob = res->Alt[i].Prob;
 
-	for (maxprob = i = 0; i < res->lnAltCnt; i++)
-		if (res->Alt[i].Prob > maxprob)
-			maxprob = res->Alt[i].Prob;
+    for (i = 0; i < res->lnAltCnt; i++) {
+        pen = Diskrim((char) (res->Alt[i].Code), r->Raster,
+                      (int16_t) REC_GW_WORD8(dx), (int16_t) dx, (int16_t) dy, 0, 0);
 
-	for (i = 0; i < res->lnAltCnt; i++) {
+        if (pen < 0 && broken_flag && broken_ii) { // broken II
+            switch (pen) {
+                case -254:
+                    res->Alt[i].Prob = std::min(255, maxprob + 4);
+                    break;
+                case -252:
+                    res->Alt[i].Prob = std::min(255, maxprob + 2);
+                    break;
+            }
+        }
 
-		pen = Diskrim((char) (res->Alt[i].Code), r->Raster,
-				(int16_t) REC_GW_WORD8(dx), (int16_t) dx, (int16_t) dy, 0, 0);
-		if (pen < 0 && broken_flag && broken_ii) { // broken II
-			switch (pen) {
-			case -254:
-				res->Alt[i].Prob = std::min(255, maxprob + 4);
-				break;
-			case -252:
-				res->Alt[i].Prob = std::min(255, maxprob + 2);
-				break;
-			}
-		} else {
-			if (res->Alt[i].Prob <= pen)
-				res->Alt[i].Prob = 1;
-			else
-				res->Alt[i].Prob -= pen;
-		}
-	}
+        else {
+            if (res->Alt[i].Prob <= pen)
+                res->Alt[i].Prob = 1;
 
-	return TRUE;
+            else
+                res->Alt[i].Prob -= pen;
+        }
+    }
 
+    return TRUE;
 }
 
-uchar dif_down_prob(uchar prob, uchar dis) {
-	if (prob > dis)
-		prob -= dis;
-	else
-		prob = 1;
-	return prob;
+uchar dif_down_prob(uchar prob, uchar dis)
+{
+    if (prob > dis)
+        prob -= dis;
+
+    else
+        prob = 1;
+
+    return prob;
 }
 
-Bool32 DIFStick_expert(int16_t dx, int16_t dy, uchar *pool, RecVersions* res) {
-	STICK_CHARS res_left_chars = { 0 }, res_right_chars = { 0 };
-	STICK_SIGNUMS res_signums = { 0 };
-	int16_t i;
-	uchar ret = 0, r;
+Bool32 DIFStick_expert(int16_t dx, int16_t dy, uchar *pool, RecVersions* res)
+{
+    STICK_CHARS res_left_chars = { 0 }, res_right_chars = { 0 };
+    STICK_SIGNUMS res_signums = { 0 };
+    int16_t i;
+    uchar ret = 0, r;
 
-	if (!pool)
-		return FALSE;
-	for (i = 0; i < res->lnAltCnt; i++) {
-		if (res->Alt[i].Prob)
-			break;
-	}
-	dif_adding_mode = (i == res->lnAltCnt);
-	ret = lnhead_stick_center_study((lnhead *) pool, dy, dx, &res_left_chars,
-			&res_right_chars, &res_signums);
-	{ // external info for stick
-		res_signums.cut_l = cutl_flag;
-		res_signums.cut_r = cutr_flag;
-	}
-	if (!ret) {
-		for (i = 0; i < res->lnAltCnt; i++) {
-			switch (res->Alt[i].Code) {
-			case '1':
-			case '|':
-			case '/':
-			case 'l':
-				res->Alt[i].Prob = 1;
-				break;
-			default:
-				break;
-			}
-		}
-		return TRUE;
-	}
-	if (ret == 1) {
-		for (i = 0; i < res->lnAltCnt; i++) {
-			switch (res->Alt[i].Code) {
-			case '1':
-			case '|':
-			case '/':
-			case 'l':
-			case 't':
-				//            case 'f':
-				r = stick_recog(res->Alt[i].Code, &res_left_chars,
-						&res_right_chars, &res_signums);
-				if (!res->Alt[i].Prob) {
-					res->Alt[i].Prob = r;
-				} else {
-					r = 255 - r;
-					if (res->Alt[i].Prob > r)
-						res->Alt[i].Prob -= r;
-					else
-						res->Alt[i].Prob = 1;
-				}
+    if (!pool)
+        return FALSE;
 
-				break;
-			case '(':
-				if (!alphabet['(']) {
-					res->Alt[i].Prob = 1;
-					break;
-				}
-			case ')':
-				if (!alphabet[')']) {
-					res->Alt[i].Prob = 1;
-					break;
-				}
-				r = stick_recog(res->Alt[i].Code, &res_left_chars,
-						&res_right_chars, &res_signums);
-				if (r > 220) {
-					if (!res->Alt[i].Prob)
-						res->Alt[i].Prob = r;
-					else {
-						r = 255 - r;
-						if (res->Alt[i].Prob > r)
-							res->Alt[i].Prob -= r;
-						else
-							res->Alt[i].Prob = 1;
-					}
-				} else {
-					if (!res->Alt[i].Prob)
-						res->Alt[i].Prob = 1;
-					else {
-						r = 255 - r;
-						if (res->Alt[i].Prob > r)
-							res->Alt[i].Prob -= r;
-						else
-							res->Alt[i].Prob = 1;
-					}
-				}
-				break;
-			default:
-				break;
-			}
-		}
-	} else {
-		for (i = 0; i < res->lnAltCnt; i++) {
-			switch (res->Alt[i].Code) {
-			case '(':
-				if (dif_adding_mode)
-					res->Alt[i].Prob = 255;
-				if (ret != 2)
-					res->Alt[i].Prob = 1;
-				else if (ret == 2) {
-					if (res_signums.cut_l)
-						res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 40);
-					if (res_signums.cut_r)
-						res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 20);
-				}
-				break;
-			case ')':
-				if (dif_adding_mode)
-					res->Alt[i].Prob = 255;
-				if (ret != 3)
-					res->Alt[i].Prob = 1;
-				else if (ret == 3) {
-					if (res_signums.cut_r)
-						res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 40);
-					if (res_signums.cut_r)
-						res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 20);
-				}
+    for (i = 0; i < res->lnAltCnt; i++) {
+        if (res->Alt[i].Prob)
+            break;
+    }
 
-				break;
-			case '1':
-			case '|':
-			case '/':
-				res->Alt[i].Prob = 1;
-				break;
-			default:
-				break;
-			}
-		}
-	}
+    dif_adding_mode = (i == res->lnAltCnt);
+    ret = lnhead_stick_center_study((lnhead *) pool, dy, dx, &res_left_chars,
+                                    &res_right_chars, &res_signums);
+    { // external info for stick
+        res_signums.cut_l = cutl_flag;
+        res_signums.cut_r = cutr_flag;
+    }
 
-	return TRUE;
+    if (!ret) {
+        for (i = 0; i < res->lnAltCnt; i++) {
+            switch (res->Alt[i].Code) {
+                case '1':
+                case '|':
+                case '/':
+                case 'l':
+                    res->Alt[i].Prob = 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return TRUE;
+    }
+
+    if (ret == 1) {
+        for (i = 0; i < res->lnAltCnt; i++) {
+            switch (res->Alt[i].Code) {
+                case '1':
+                case '|':
+                case '/':
+                case 'l':
+                case 't':
+                    //            case 'f':
+                    r = stick_recog(res->Alt[i].Code, &res_left_chars,
+                                    &res_right_chars, &res_signums);
+
+                    if (!res->Alt[i].Prob) {
+                        res->Alt[i].Prob = r;
+                    }
+
+                    else {
+                        r = 255 - r;
+
+                        if (res->Alt[i].Prob > r)
+                            res->Alt[i].Prob -= r;
+
+                        else
+                            res->Alt[i].Prob = 1;
+                    }
+
+                    break;
+                case '(':
+
+                    if (!alphabet['(']) {
+                        res->Alt[i].Prob = 1;
+                        break;
+                    }
+
+                case ')':
+
+                    if (!alphabet[')']) {
+                        res->Alt[i].Prob = 1;
+                        break;
+                    }
+
+                    r = stick_recog(res->Alt[i].Code, &res_left_chars,
+                                    &res_right_chars, &res_signums);
+
+                    if (r > 220) {
+                        if (!res->Alt[i].Prob)
+                            res->Alt[i].Prob = r;
+
+                        else {
+                            r = 255 - r;
+
+                            if (res->Alt[i].Prob > r)
+                                res->Alt[i].Prob -= r;
+
+                            else
+                                res->Alt[i].Prob = 1;
+                        }
+                    }
+
+                    else {
+                        if (!res->Alt[i].Prob)
+                            res->Alt[i].Prob = 1;
+
+                        else {
+                            r = 255 - r;
+
+                            if (res->Alt[i].Prob > r)
+                                res->Alt[i].Prob -= r;
+
+                            else
+                                res->Alt[i].Prob = 1;
+                        }
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    else {
+        for (i = 0; i < res->lnAltCnt; i++) {
+            switch (res->Alt[i].Code) {
+                case '(':
+
+                    if (dif_adding_mode)
+                        res->Alt[i].Prob = 255;
+
+                    if (ret != 2)
+                        res->Alt[i].Prob = 1;
+
+                    else if (ret == 2) {
+                        if (res_signums.cut_l)
+                            res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 40);
+
+                        if (res_signums.cut_r)
+                            res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 20);
+                    }
+
+                    break;
+                case ')':
+
+                    if (dif_adding_mode)
+                        res->Alt[i].Prob = 255;
+
+                    if (ret != 3)
+                        res->Alt[i].Prob = 1;
+
+                    else if (ret == 3) {
+                        if (res_signums.cut_r)
+                            res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 40);
+
+                        if (res_signums.cut_r)
+                            res->Alt[i].Prob = dif_down_prob(res->Alt[i].Prob, 20);
+                    }
+
+                    break;
+                case '1':
+                case '|':
+                case '/':
+                    res->Alt[i].Prob = 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    return TRUE;
 }
 
-int32_t DIFGet_incline(RecRaster* r, uchar *pool) {
-	int16_t dx, dy;
+int32_t DIFGet_incline(RecRaster* r, uchar *pool)
+{
+    int16_t dx, dy;
+    dy = (int16_t) r->lnPixHeight;
+    dx = (int16_t) r->lnPixWidth;
 
-	dy = (int16_t) r->lnPixHeight;
-	dx = (int16_t) r->lnPixWidth;
+    if (!pool)
+        return -1;
 
-	if (!pool)
-		return -1;
-
-	return lnhead_stick_get_incline((lnhead *) pool, dy, dx);
+    return lnhead_stick_get_incline((lnhead *) pool, dy, dx);
 }
 
-void DIFDone(void) {
-	return;
+void DIFDone(void)
+{
+    return;
 }
 
-int16_t DIFGetErr(void) {
-	return TRUE;
+int16_t DIFGetErr(void)
+{
+    return TRUE;
 }
 
-int16_t DIFLeftDistance(uchar *RASTER, int16_t NWIDTH) {
-	return LeftDistance(RASTER, NWIDTH);
+int16_t DIFLeftDistance(uchar *RASTER, int16_t NWIDTH)
+{
+    return LeftDistance(RASTER, NWIDTH);
 }
 
-int16_t DIFRightDistance(uchar *RASTER, int16_t NWIDTH) {
-	return RightDistance(RASTER, NWIDTH);
+int16_t DIFRightDistance(uchar *RASTER, int16_t NWIDTH)
+{
+    return RightDistance(RASTER, NWIDTH);
 }
 
 void DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
-		int16_t NHEIGHT) {
-	clear_right_bites(RASTER, NWIDTH, WBYTE, NHEIGHT);
-	return;
+                       int16_t NHEIGHT)
+{
+    clear_right_bites(RASTER, NWIDTH, WBYTE, NHEIGHT);
+    return;
 }
 
-Bool32 DIFSetAlphabet(char *alpha) {
-	int i, d, a;
-	memcpy(alphabet, alpha, 256);
-	for (d = a = i = 0; i < 256; i++) {
-		if (alphabet[i]) {
-			if ((i > 47 && i < 58) || i == 40 || i == 41)
-				d++;
-			a++;
-		}
-	}
-	digit_mode = FALSE;
-	if (a == d)
-		digit_mode = TRUE;
-	return TRUE;
+Bool32 DIFSetAlphabet(char *alpha)
+{
+    int i, d, a;
+    memcpy(alphabet, alpha, 256);
+
+    for (d = a = i = 0; i < 256; i++) {
+        if (alphabet[i]) {
+            if ((i > 47 && i < 58) || i == 40 || i == 41)
+                d++;
+
+            a++;
+        }
+    }
+
+    digit_mode = FALSE;
+
+    if (a == d)
+        digit_mode = TRUE;
+
+    return TRUE;
 }
 
-Bool32 DIF_SetLanguage(uchar lang) {
-	language = lang;
-	return TRUE;
+Bool32 DIF_SetLanguage(uchar lang)
+{
+    language = lang;
+    return TRUE;
 }
 
-uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx) {
-	return typ_thin_stick((lnhead *) lin, dy, dx);
+uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx)
+{
+    return typ_thin_stick((lnhead *) lin, dy, dx);
 }

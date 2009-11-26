@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new CroatianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_CROATIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-CroatianAlphabet::CroatianAlphabet() {
+CroatianAlphabet::CroatianAlphabet()
+{
     addSymbol(CROAT_D);
     addSymbol(CROAT_d);
     addSymbol(CROAT_SR);
@@ -44,7 +48,8 @@ CroatianAlphabet::CroatianAlphabet() {
     addSymbol(CROAT_cr);
 }
 
-language_t CroatianAlphabet::language() const {
+language_t CroatianAlphabet::language() const
+{
     return LANG_CROATIAN;
 }
 

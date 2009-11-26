@@ -20,28 +20,32 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new DanishAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_DANISH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-DanishAlphabet::DanishAlphabet() {
+DanishAlphabet::DanishAlphabet()
+{
     addSymbol(AE_cap_deaf_sound);
     addSymbol(AA_circle_accent);
     addSymbol(OO_crossed);
-
     addSymbol(ae_deaf_sound);
     addSymbol(a_circle_accent);
     addSymbol(o_crossed);
 }
 
-language_t DanishAlphabet::language() const {
+language_t DanishAlphabet::language() const
+{
     return LANG_DANISH;
 }
 

@@ -65,188 +65,183 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////
 
 CTIMaskLineSegment::CTIMaskLineSegment()
-                   : mpNext(NULL),
-				     mwStart(-1),
-					 mwEnd(-1)
+        : mpNext(NULL),
+        mwStart(-1),
+        mwEnd(-1)
 {
 }
 
 CTIMaskLineSegment::~CTIMaskLineSegment()
 {
-
 }
 
 CTIMaskLineSegment::CTIMaskLineSegment(int32_t Start, int32_t End)
-                   : mpNext(NULL),
-				     mwStart(-1),
-					 mwEnd(-1)
+        : mpNext(NULL),
+        mwStart(-1),
+        mwEnd(-1)
 {
-	if ( Start >= 0 && End >= 0 && Start <= End)
-	{
-		mwStart = Start;
-		mwEnd   = End;
-	}
+    if ( Start >= 0 && End >= 0 && Start <= End) {
+        mwStart = Start;
+        mwEnd   = End;
+    }
 }
 
 CTIMaskLineSegment::CTIMaskLineSegment(PCTIMaskLineSegment pSegm)
-                   : mpNext(pSegm->GetNext()),
-				     mwStart(pSegm->GetStart()),
-					 mwEnd(pSegm->GetEnd())
+        : mpNext(pSegm->GetNext()),
+        mwStart(pSegm->GetStart()),
+        mwEnd(pSegm->GetEnd())
 {
 }
 
 uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
 {
-	uint32_t Intrsct = 0;
-	uint32_t S;
-	uint32_t E;
-	int32_t  iDS;
-	int32_t  iDE;
+    uint32_t Intrsct = 0;
+    uint32_t S;
+    uint32_t E;
+    int32_t  iDS;
+    int32_t  iDE;
 
-	if ( pSegm )
-	{
-		S = pSegm->GetStart();
-		E = pSegm->GetEnd();
-		iDS = GetPointDirect(S);
-		iDE = GetPointDirect(E);
+    if ( pSegm ) {
+        S = pSegm->GetStart();
+        E = pSegm->GetEnd();
+        iDS = GetPointDirect(S);
+        iDE = GetPointDirect(E);
 
-		if ( IsEqual(pSegm)	)
-			Intrsct = CTIMLSEGMINTERSECTEQUAL;
-		else
-		{
-			if ( iDS == CTIMLSEGMPOINTLEF &&
-				 iDE == CTIMLSEGMPOINTRIGHT )
-				 Intrsct = CTIMLSEGMINTERSECTOVER;
-			else
-			{
-				if ( IsPointInSegment(S) )
-				{
-					if ( IsPointInSegment(E) )
-						Intrsct = CTIMLSEGMINTERSECTIN;
-					else
-						Intrsct = CTIMLSEGMINTERSECTRIGHT;
-				}
-				else
-				{
-					if ( IsPointInSegment(E) )
-						Intrsct = CTIMLSEGMINTERSECTLEFT;
-					else
-						if ( iDS == CTIMLSEGMPOINTLEF &&
-							 iDE == CTIMLSEGMPOINTLEF    )
-						Intrsct = CTIMLSEGMINTERSECTFULLLEFT;
-						else
-							Intrsct = CTIMLSEGMINTERSECTFULLRIGHT;
-				}
-			}
-		}
-	}
-	return Intrsct;
+        if ( IsEqual(pSegm) )
+            Intrsct = CTIMLSEGMINTERSECTEQUAL;
+
+        else {
+            if ( iDS == CTIMLSEGMPOINTLEF &&
+                    iDE == CTIMLSEGMPOINTRIGHT )
+                Intrsct = CTIMLSEGMINTERSECTOVER;
+
+            else {
+                if ( IsPointInSegment(S) ) {
+                    if ( IsPointInSegment(E) )
+                        Intrsct = CTIMLSEGMINTERSECTIN;
+
+                    else
+                        Intrsct = CTIMLSEGMINTERSECTRIGHT;
+                }
+
+                else {
+                    if ( IsPointInSegment(E) )
+                        Intrsct = CTIMLSEGMINTERSECTLEFT;
+
+                    else if ( iDS == CTIMLSEGMPOINTLEF &&
+                              iDE == CTIMLSEGMPOINTLEF    )
+                        Intrsct = CTIMLSEGMINTERSECTFULLLEFT;
+
+                    else
+                        Intrsct = CTIMLSEGMINTERSECTFULLRIGHT;
+                }
+            }
+        }
+    }
+
+    return Intrsct;
 }
 
 Bool32 CTIMaskLineSegment::IntersectWith(PCTIMaskLineSegment pSegm)
 {
-	Bool32 bRet = FALSE;
+    Bool32 bRet = FALSE;
 
-	if (pSegm)
-	{
-		switch( IsIntersectWith(pSegm) )
-		{
-		case CTIMLSEGMINTERSECTLEFT :
-			mwEnd  = pSegm->GetEnd();
-			bRet =  TRUE;
-			break;
-		case CTIMLSEGMINTERSECTRIGHT :
-			mwStart = pSegm->GetStart();
-			bRet =  TRUE;
-			break;
-		case CTIMLSEGMINTERSECTIN :
-			mwEnd   = pSegm->GetEnd();
-			mwStart = pSegm->GetStart();
-			bRet = TRUE;
-			break;
-		}
-	}
-	return bRet;
+    if (pSegm) {
+        switch ( IsIntersectWith(pSegm) ) {
+            case CTIMLSEGMINTERSECTLEFT :
+                mwEnd  = pSegm->GetEnd();
+                bRet =  TRUE;
+                break;
+            case CTIMLSEGMINTERSECTRIGHT :
+                mwStart = pSegm->GetStart();
+                bRet =  TRUE;
+                break;
+            case CTIMLSEGMINTERSECTIN :
+                mwEnd   = pSegm->GetEnd();
+                mwStart = pSegm->GetStart();
+                bRet = TRUE;
+                break;
+        }
+    }
+
+    return bRet;
 }
 
 Bool32 CTIMaskLineSegment::AddWith(PCTIMaskLineSegment pSegm)
 {
-	Bool32 bRet = FALSE;
+    Bool32 bRet = FALSE;
 
-	if (pSegm)
-	{
-		switch( IsIntersectWith(pSegm) )
-		{
-		case CTIMLSEGMINTERSECTLEFT :
-			mwStart = pSegm->GetStart();
-			bRet = TRUE;
-			break;
-		case CTIMLSEGMINTERSECTRIGHT :
-			mwEnd  = pSegm->GetEnd();
-			bRet = TRUE;
-			break;
-		case CTIMLSEGMINTERSECTIN :
-			bRet = TRUE;
-			break;
-		case CTIMLSEGMINTERSECTOVER:
-			mwStart = pSegm->GetStart();
-			mwEnd  = pSegm->GetEnd();
-			bRet = TRUE;
-			break;
-		}
-	}
-	return bRet;
+    if (pSegm) {
+        switch ( IsIntersectWith(pSegm) ) {
+            case CTIMLSEGMINTERSECTLEFT :
+                mwStart = pSegm->GetStart();
+                bRet = TRUE;
+                break;
+            case CTIMLSEGMINTERSECTRIGHT :
+                mwEnd  = pSegm->GetEnd();
+                bRet = TRUE;
+                break;
+            case CTIMLSEGMINTERSECTIN :
+                bRet = TRUE;
+                break;
+            case CTIMLSEGMINTERSECTOVER:
+                mwStart = pSegm->GetStart();
+                mwEnd  = pSegm->GetEnd();
+                bRet = TRUE;
+                break;
+        }
+    }
+
+    return bRet;
 }
 
 Bool32 CTIMaskLineSegment::CutLeftTo(PCTIMaskLineSegment pSegm)
 {
-	Bool32 bRet = FALSE;
+    Bool32 bRet = FALSE;
 
-	if (pSegm)
-	{
-		switch( IsIntersectWith(pSegm) )
-		{
-		case CTIMLSEGMINTERSECTRIGHT :
-		case CTIMLSEGMINTERSECTIN :
-			mwEnd  = pSegm->GetStart();
-			bRet = TRUE;
-			break;
-		}
-	}
-	return bRet;
+    if (pSegm) {
+        switch ( IsIntersectWith(pSegm) ) {
+            case CTIMLSEGMINTERSECTRIGHT :
+            case CTIMLSEGMINTERSECTIN :
+                mwEnd  = pSegm->GetStart();
+                bRet = TRUE;
+                break;
+        }
+    }
+
+    return bRet;
 }
 
 Bool32 CTIMaskLineSegment::CutRightTo(PCTIMaskLineSegment pSegm)
 {
-	Bool32 bRet = FALSE;
+    Bool32 bRet = FALSE;
 
-	if (pSegm)
-	{
-		switch( IsIntersectWith(pSegm) )
-		{
-		case CTIMLSEGMINTERSECTLEFT :
-		case CTIMLSEGMINTERSECTIN :
-			mwStart = pSegm->GetEnd();
-			bRet = TRUE;
-			break;
-		}
-	}
-	return bRet;
+    if (pSegm) {
+        switch ( IsIntersectWith(pSegm) ) {
+            case CTIMLSEGMINTERSECTLEFT :
+            case CTIMLSEGMINTERSECTIN :
+                mwStart = pSegm->GetEnd();
+                bRet = TRUE;
+                break;
+        }
+    }
+
+    return bRet;
 }
 
 int32_t CTIMaskLineSegment::GetPointDirect(uint32_t X)
 {
-	int32_t iRet = CTIMLSEGMPOINTIN;
+    int32_t iRet = CTIMLSEGMPOINTIN;
 
-	if ( !IsPointInSegment(X) )
-	{
-		if ( (int32_t)X < GetStart() )
-			iRet = CTIMLSEGMPOINTLEF;
-		else
-			iRet = CTIMLSEGMPOINTRIGHT;
-	}
+    if ( !IsPointInSegment(X) ) {
+        if ( (int32_t)X < GetStart() )
+            iRet = CTIMLSEGMPOINTLEF;
 
-	return iRet;
+        else
+            iRet = CTIMLSEGMPOINTRIGHT;
+    }
+
+    return iRet;
 }
 /////////////////////////////////////////////////////////////////////////
 // end of file

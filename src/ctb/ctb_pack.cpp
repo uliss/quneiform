@@ -58,64 +58,61 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //* CTB_pack : PCX pack-unpack functions *********************************//
 //************************************************************************//
 #include "ctb.h"
-int16_t encput( uchar byt, uchar cnt,uchar *save)
+int16_t encput( uchar byt, uchar cnt, uchar *save)
 {
-if( cnt )
-	{
-	if( cnt==1 && (0xC0!=(0xC0&byt)) )
-		{
-		*save++ = byt;
-		return(1);
-		}
-	else
-		{
-		*save++ = (0xC0|cnt);
-		*save++ = byt;
-		return(2);
-		}
-	}
+    if ( cnt ) {
+        if ( cnt == 1 && (0xC0 != (0xC0&byt)) ) {
+            *save++ = byt;
+            return(1);
+        }
 
-return(0);
+        else {
+            *save++ = (0xC0 | cnt);
+            *save++ = byt;
+            return(2);
+        }
+    }
+
+    return(0);
 }
 
 
 // PACKING //
-int16_t encLine(uchar *inBuff, int16_t inLen,uchar *buf, int16_t outLen)
+int16_t encLine(uchar *inBuff, int16_t inLen, uchar *buf, int16_t outLen)
 {
-uchar curr,last;
-uint16_t scrIndex;
-uint16_t total;
-uchar runCount;
+    uchar curr, last;
+    uint16_t scrIndex;
+    uint16_t total;
+    uchar runCount;
+    total    = 0;
+    runCount = 1;
+    last     = *inBuff;
 
-total    = 0;
-runCount = 1;
-last     = *inBuff;
+    for ( scrIndex = 1; scrIndex < inLen && total < outLen; scrIndex++) {
+        curr = *(++inBuff);
 
-for( scrIndex=1;scrIndex<inLen&&total<outLen;scrIndex++)
-	{
-	curr = *(++inBuff);
-	if( curr==last )	// There is a "run" in the data, encode it //
-		{
-		runCount++;
-		if( runCount==63 )
-			{
-			total += encput(last,runCount,&buf[total]);
-			runCount = 0;
-			}
-		}
-	else			// No "run" - curr!=last	//
-		{
-		if( runCount )
-			total += encput(last,runCount,&buf[total]);
-		last = curr;
-		runCount = 1;
-		}
-	}	// endloop 	//
+        if ( curr == last ) { // There is a "run" in the data, encode it //
+            runCount++;
 
-if( runCount )	// finish up 	//
-	return total+encput(last,runCount,&buf[total]) ;
+            if ( runCount == 63 ) {
+                total += encput(last, runCount, &buf[total]);
+                runCount = 0;
+            }
+        }
 
-return total;
+        else {          // No "run" - curr!=last    //
+            if ( runCount )
+                total += encput(last, runCount, &buf[total]);
+
+            last = curr;
+            runCount = 1;
+        }
+    }   // endloop  //
+
+    if ( runCount ) // finish up    //
+        return total + encput(last, runCount, &buf[total]) ;
+
+    return total;
 }
 
 #ifndef ASM_USED
@@ -124,22 +121,20 @@ return total;
 
 int16_t decLine(uchar *inBuffer, int16_t inLen, uchar *outBuffer)
 {
-uchar cnt, *inB, *inE;
+    uchar cnt, *inB, *inE;
 
-for( inB=inBuffer, inE=inBuffer+inLen ; inB<inE ; inB++)
-	{	// increment by cnt bellow	//
+    for ( inB = inBuffer, inE = inBuffer + inLen ; inB < inE ; inB++) {  // increment by cnt bellow  //
+        if ( *inB >= 0xC0 ) {
+            cnt = 0x3F & *inB++;
+            memset(outBuffer, *inB, cnt);
+            outBuffer += cnt;
+        }
 
-	if( *inB>=0xC0 )
-		{
-		cnt = 0x3F & *inB++;
-		memset(outBuffer,*inB,cnt);
-		outBuffer += cnt;
-		}
-	else
-      *outBuffer++ = *inB;
-  } // end loop //
+        else
+            *outBuffer++ = *inB;
+    } // end loop //
 
-return (0);
+    return (0);
 }
 #endif
 

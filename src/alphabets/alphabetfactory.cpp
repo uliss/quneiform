@@ -21,29 +21,36 @@
 
 #include "alphabetfactory.h"
 
-namespace CIF {
+namespace CIF
+{
 
 AlphabetFactory * AlphabetFactory::instance_ = 0;
 
-AlphabetFactory::AlphabetFactory() {
+AlphabetFactory::AlphabetFactory()
+{
 }
 
-AlphabetFactory& AlphabetFactory::instance() {
+AlphabetFactory& AlphabetFactory::instance()
+{
     if (!instance_) {
         instance_ = new AlphabetFactory;
     }
+
     return *instance_;
 }
 
-Alphabet * AlphabetFactory::make(language_t language) {
+Alphabet * AlphabetFactory::make(language_t language)
+{
     AlphabetMap::iterator it = alpha_map_.find(language);
+
     if (alpha_map_.end() == it)
         throw AlphabetException("Unregistered language type", language);
 
     return it->second();
 }
 
-bool AlphabetFactory::registerCreator(language_t language, alphabetCreate creator) {
+bool AlphabetFactory::registerCreator(language_t language, alphabetCreate creator)
+{
     alpha_map_.insert(AlphabetMap::value_type(language, creator));
     return true;
 }

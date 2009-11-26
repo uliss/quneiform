@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new BulgarAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_BULGAR, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-BulgarAlphabet::BulgarAlphabet() {
+BulgarAlphabet::BulgarAlphabet()
+{
     // В Болгарском нет трех русских букв
     removeSymbol(r_EE_2dot);
     removeSymbol(r_e_2dot);
@@ -41,7 +45,8 @@ BulgarAlphabet::BulgarAlphabet() {
     removeSymbol(0xFD); // э
 }
 
-language_t BulgarAlphabet::language() const {
+language_t BulgarAlphabet::language() const
+{
     return LANG_BULGAR;
 }
 

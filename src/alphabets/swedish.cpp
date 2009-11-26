@@ -20,28 +20,32 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new SwedishAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_SWEDISH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-SwedishAlphabet::SwedishAlphabet() {
+SwedishAlphabet::SwedishAlphabet()
+{
     addSymbol(AA_2dot_accent);
     addSymbol(OO_2dot_accent);
     addSymbol(AA_circle_accent);
-
     addSymbol(a_2dot_accent);
     addSymbol(o_2dot_accent);
     addSymbol(a_circle_accent);
 }
 
-language_t SwedishAlphabet::language() const {
+language_t SwedishAlphabet::language() const
+{
     return LANG_SWEDISH;
 }
 

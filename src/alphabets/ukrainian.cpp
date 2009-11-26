@@ -21,18 +21,22 @@
 #include "lang_def.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new UkrainianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_UKRAINIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-UkrainianAlphabet::UkrainianAlphabet() {
+UkrainianAlphabet::UkrainianAlphabet()
+{
     const language_t language = LANG_UKRAINIAN;
     addSymbol('I');
     addSymbol('i');
@@ -47,7 +51,8 @@ UkrainianAlphabet::UkrainianAlphabet() {
     addSymbol(liga_i);
 }
 
-language_t UkrainianAlphabet::language() const {
+language_t UkrainianAlphabet::language() const
+{
     return LANG_UKRAINIAN;
 }
 

@@ -61,12 +61,14 @@
 
 using namespace CIF;
 
-CTIImageList::CTIImageList() {
+CTIImageList::CTIImageList()
+{
     Begin()->SetNext(End());
     End()->SetNext(NULL);
 }
 
-CTIImageList::~CTIImageList() {
+CTIImageList::~CTIImageList()
+{
     CTIImageHeader * Previos;
     CTIImageHeader * LastImage;
 
@@ -76,7 +78,8 @@ CTIImageList::~CTIImageList() {
     }
 }
 
-Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag) {
+Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag)
+{
     CTIImageHeader * NewImage = NULL;
     CTIImageHeader * LastImage = NULL;
 
@@ -110,7 +113,8 @@ Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag) {
     return TRUE;
 }
 
-Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB) {
+Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB)
+{
     CTIImageHeader * Image = FindImage(lpName);
 
     if (Image == NULL) {
@@ -119,11 +123,11 @@ Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB) {
     }
 
     *phDIB = Image->GetImageHandle();
-
     return TRUE;
 }
 
-Bool32 CTIImageList::DeleteImage(const char *lpName) {
+Bool32 CTIImageList::DeleteImage(const char *lpName)
+{
     CTIImageHeader * Previos = NULL;
     CTIImageHeader * ToDelete = FindImage(lpName, &Previos);
 
@@ -133,13 +137,15 @@ Bool32 CTIImageList::DeleteImage(const char *lpName) {
 
         if (Config::instance().debug())
             Debug() << "CTIImageList::DeleteImage: image deleted: " << lpName << "\n";
+
         return TRUE;
     }
 
     return FALSE;
 }
 
-CTIImageHeader * CTIImageList::FindImage(const char *lpName, CTIImageHeader ** Previos) {
+CTIImageHeader * CTIImageList::FindImage(const char *lpName, CTIImageHeader ** Previos)
+{
     CTIImageHeader * Current = NULL;
     CTIImageHeader * Prev = Begin();
     char Buff[CIMAGE_MAX_IMAGE_NAME];
@@ -166,10 +172,12 @@ CTIImageHeader * CTIImageList::FindImage(const char *lpName, CTIImageHeader ** P
 
             return Current;
         }
+
         else {
             if (Begin()->GetNext() == End()) {
                 Current = Prev = Begin();
             }
+
             else
                 for (Current = Begin()->GetNext(); Current != End() && Current->GetNext() != End(); Current
                         = Current->GetNext()) {
@@ -183,10 +191,12 @@ CTIImageHeader * CTIImageList::FindImage(const char *lpName, CTIImageHeader ** P
             return Current;
         }
     }
+
     return NULL;
 }
 
-Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask) {
+Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask)
+{
     Bool32 bRet;
     CTIImageHeader * Image = FindImage(lpName);
 
@@ -196,11 +206,11 @@ Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask) {
     }
 
     bRet = Image->SetWriteMask(pWMask);
-
     return TRUE;
 }
 
-Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask) {
+Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask)
+{
     Bool32 bRet;
     CTIImageHeader * Image = FindImage(lpName);
 
@@ -210,11 +220,11 @@ Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask) {
     }
 
     bRet = Image->SetReadMask(pAMask);
-
     return TRUE;
 }
 
-Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PBool32 pEnMask) {
+Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PBool32 pEnMask)
+{
     CTIImageHeader * Image = FindImage(lpName);
 
     if (Image == NULL) {
@@ -224,11 +234,11 @@ Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PB
 
     *ppWMask = Image->GetWriteMask();
     *pEnMask = Image->IsMaskEnabled("w");
-
     return TRUE;
 }
 
-Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask) {
+Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask)
+{
     CTIImageHeader * Image = FindImage(lpName);
 
     if (Image == NULL) {
@@ -241,7 +251,8 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
     return TRUE;
 }
 
-Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEnabled) {
+Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEnabled)
+{
     CTIImageHeader * Image = FindImage(pName);
 
     if (Image == NULL) {
@@ -252,13 +263,13 @@ Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEn
     return Image->EnableMask(pType, mEnabled);
 }
 
-Bool32 CTIImageList::FindHandle(Handle hImage) {
+Bool32 CTIImageList::FindHandle(Handle hImage)
+{
     CTIImageHeader * Current = NULL;
     CTIImageHeader * Prev = Begin();
     Bool32 bRet = FALSE;
 
     if (hImage) {
-
         for (Current = Begin()->GetNext(); Current != End(); Current = Current->GetNext()) {
             if (Current->GetImageHandle() == hImage) {
                 bRet = TRUE;
@@ -268,5 +279,6 @@ Bool32 CTIImageList::FindHandle(Handle hImage) {
             Prev = Current;
         }
     }
+
     return bRet;
 }

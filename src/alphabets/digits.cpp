@@ -19,24 +19,30 @@
 #include "digits.h"
 #include "alphabetfactory.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new DigitsAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_DIG, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-DigitsAlphabet::DigitsAlphabet() {
+DigitsAlphabet::DigitsAlphabet()
+{
     static const char * digits = "#0123456789";
+
     for (const char * c = digits; *c; c++)
         addSymbol(*c);
 }
 
-language_t DigitsAlphabet::language() const {
+language_t DigitsAlphabet::language() const
+{
     return LANG_DIG;
 }
 

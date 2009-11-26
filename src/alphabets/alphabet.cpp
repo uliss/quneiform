@@ -21,65 +21,81 @@
 #include <sstream>
 #include "alphabet.h"
 
-namespace CIF {
+namespace CIF
+{
 
-Alphabet::Alphabet() {
+Alphabet::Alphabet()
+{
 }
 
-Alphabet::~Alphabet() {
+Alphabet::~Alphabet()
+{
 }
 
-void Alphabet::exportToTable(char * table) {
+void Alphabet::exportToTable(char * table)
+{
     for (size_t i = 0; i < chars_.size(); i++)
         table[i] = chars_.test(i) ? 1 : 0;
 }
 
-void Alphabet::initFromTable(const char * bits) {
+void Alphabet::initFromTable(const char * bits)
+{
     for (size_t i = 0; i < chars_.size(); i++) {
         if (bits[i])
             chars_.set(i);
     }
 }
 
-bool Alphabet::isCode(size_t code) {
+bool Alphabet::isCode(size_t code)
+{
     assert(code < chars_.size());
     return chars_.test(code);
 }
 
-void Alphabet::addSymbol(size_t pos) {
+void Alphabet::addSymbol(size_t pos)
+{
     assert(pos < chars_.size());
     chars_.set(pos);
 }
 
-size_t Alphabet::size() const {
+size_t Alphabet::size() const
+{
     return chars_.size();
 }
 
-void Alphabet::removeSymbol(size_t pos) {
+void Alphabet::removeSymbol(size_t pos)
+{
     assert(pos < chars_.size());
     chars_.set(pos, 0);
 }
 
-std::string Alphabet::toString() const {
+std::string Alphabet::toString() const
+{
     std::ostringstream os;
+
     for (size_t i = 0; i < chars_.size(); i++) {
         if (chars_.test(i))
             os << (char) i;
     }
+
     return os.str();
 }
 
-std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
+std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet)
+{
     os << "Alphabet\n";
     os << "Characters: " << alphabet.toString() << "\n";
 
     for (size_t i = 0; i < 16; i++)
         os << " " << std::hex << i;
+
     os << "\n";
     std::string delim(32, '_');
     os << " " << delim << "\n";
+
     for (size_t i = 0, total = alphabet.chars_.size(); i < total; i++) {
         os << " " << (int) alphabet.chars_.test(i);
+
         if (i != 0 && (i + 1) % 16 == 0)
             os << "| " << std::hex << ((i - 1) / 16) << "\n";
     }

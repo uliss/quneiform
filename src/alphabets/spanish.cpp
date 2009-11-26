@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new SpanishAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_SPANISH, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-SpanishAlphabet::SpanishAlphabet() {
+SpanishAlphabet::SpanishAlphabet()
+{
     addSymbol(AA_right_accent);
     addSymbol(EE_right_accent);
     addSymbol(II_right_accent);
@@ -39,7 +43,6 @@ SpanishAlphabet::SpanishAlphabet() {
     addSymbol(UU_right_accent);
     addSymbol(UU_2dot_accent);
     addSymbol(NN_tild_accent);
-
     addSymbol(a_right_accent);
     addSymbol(e_right_accent);
     addSymbol(i_right_accent);
@@ -49,7 +52,8 @@ SpanishAlphabet::SpanishAlphabet() {
     addSymbol(n_tild_accent);
 }
 
-language_t SpanishAlphabet::language() const {
+language_t SpanishAlphabet::language() const
+{
     return LANG_SPANISH;
 }
 

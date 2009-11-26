@@ -98,141 +98,171 @@ static void emptyline();
 
 //========================== Extract components pass ====================
 
-void extrcomp() {
-	// TGCV prop_init();
-	// TGCV rules_open();
-	// TGCV sweeper_ini();
-	// TGCV progress_next = progress_set_step (image_height + 1);
-	initdsect();
-	//enough_memory();
-	allocboxes();
-	// TGCV save_comp_ini();
-	double_fax = fax1x2;
-	begin();
+void extrcomp()
+{
+    // TGCV prop_init();
+    // TGCV rules_open();
+    // TGCV sweeper_ini();
+    // TGCV progress_next = progress_set_step (image_height + 1);
+    initdsect();
+    //enough_memory();
+    allocboxes();
+    // TGCV save_comp_ini();
+    double_fax = fax1x2;
+    begin();
 
-	if (double_fax) {
-		fax_loop: Q.lineno++;
-		if (!readline())
-			goto lastline;
-		analise();
-		Q.lineno++;
-		if (!readline()) {
-			fax_double();
-			analise();
-			goto lastline;
-		}
-		if (!fax_test())
-			error_exit(ERR_comp, 14); // not a fax image
-		analise();
-		// TGCV    if (Q.lineno >= progress_next)
-		progress_set_percent(Q.lineno);
-		goto fax_loop;
-	}
+    if (double_fax) {
+    fax_loop:
+        Q.lineno++;
 
-	main_loop: Q.lineno++;
-	if (readline()) {
-		analise();
-		goto main_loop;
-	}
+        if (!readline())
+            goto lastline;
 
-	lastline: exchangelines();
-	emptyline();
-	analise();
+        analise();
+        Q.lineno++;
+
+        if (!readline()) {
+            fax_double();
+            analise();
+            goto lastline;
+        }
+
+        if (!fax_test())
+            error_exit(ERR_comp, 14); // not a fax image
+
+        analise();
+        // TGCV    if (Q.lineno >= progress_next)
+        progress_set_percent(Q.lineno);
+        goto fax_loop;
+    }
+
+main_loop:
+    Q.lineno++;
+
+    if (readline()) {
+        analise();
+        goto main_loop;
+    }
+
+lastline:
+    exchangelines();
+    emptyline();
+    analise();
 }
 
-static void initdsect() {
-	MN *p;
-	int16_t i;
+static void initdsect()
+{
+    MN *p;
+    int16_t i;
+    memset(Q.mnstart, 0, sizeof(MN) * SEG_MAX_NUM);
+    memset(Q.line1start, 0, sizeof(BWS) * SEG_MAX_NUM);
+    memset(Q.line2start, 0, sizeof(BWS) * SEG_MAX_NUM);
+    Q.lineno = 0;
+    p = Q.mainalloc = Q.mnstart;
 
-	memset(Q.mnstart, 0, sizeof(MN) * SEG_MAX_NUM);
-	memset(Q.line1start, 0, sizeof(BWS) * SEG_MAX_NUM);
-	memset(Q.line2start, 0, sizeof(BWS) * SEG_MAX_NUM);
+    for (i = 0; i < SEG_MAX_NUM - 1; p++, i++)
+        p->mnfirstbox = (BOX *) (p + 1);
 
-	Q.lineno = 0;
-	p = Q.mainalloc = Q.mnstart;
-	for (i = 0; i < SEG_MAX_NUM - 1; p++, i++)
-		p->mnfirstbox = (BOX *) (p + 1);
-	p->mnfirstbox = NULL;
-	Q.oldline = Q.line1start;
-	Q.newline = Q.line2start;
+    p->mnfirstbox = NULL;
+    Q.oldline = Q.line1start;
+    Q.newline = Q.line2start;
 }
 
-static void allocboxes() {
-	BOX *b;
-	int32_t i;
-	for (b = Q.boxalloc = Q.boxstart, i = 0; i < box_number - 1; i++, b
-			= (BOX *) ((uchar*) b + BOXSIZE))
-		b->boxnext = (BOX *) ((uchar*) b + BOXSIZE);
-	b->boxnext = NULL;
+static void allocboxes()
+{
+    BOX *b;
+    int32_t i;
+
+    for (b = Q.boxalloc = Q.boxstart, i = 0; i < box_number - 1; i++, b
+            = (BOX *) ((uchar*) b + BOXSIZE))
+        b->boxnext = (BOX *) ((uchar*) b + BOXSIZE);
+
+    b->boxnext = NULL;
 }
 
-static void begin() {
-	Q.dcodeptr = Q.scan_buffer;
-	Q.dcodeend = Q.dcodeptr + image_lth;
-	emptyline();
+static void begin()
+{
+    Q.dcodeptr = Q.scan_buffer;
+    Q.dcodeend = Q.dcodeptr + image_lth;
+    emptyline();
 }
 
-static void emptyline() {
-	Q.newline->b = 0;
-	Q.newline->w = -0x7000;
+static void emptyline()
+{
+    Q.newline->b = 0;
+    Q.newline->w = -0x7000;
 }
 
-static void exchangelines() {
-	BWS *p;
-	p = Q.oldline;
-	Q.oldline = Q.newline;
-	Q.newline = p;
+static void exchangelines()
+{
+    BWS *p;
+    p = Q.oldline;
+    Q.oldline = Q.newline;
+    Q.newline = p;
 }
 
-static uint16_t readline() {
-	uchar* p;
-	int16_t i;
-	p = Q.dcodeptr + image_lth;
-	after_read: if (p + image_lth > Q.dcodeend)
-		goto rd_source;
+static uint16_t readline()
+{
+    uchar* p;
+    int16_t i;
+    p = Q.dcodeptr + image_lth;
+after_read:
 
-	Q.dcodeptr = p;
-	exchangelines();
-	p += image_disp_byte;
-	*p &= image_disp_mask;
-	*(p + image_disp_end - 1) &= image_black;
-	extrcomp_seglist(p, Q.newline, Q.newline + SEG_MAX_NUM, image_disp_end);
-	return 1;
+    if (p + image_lth > Q.dcodeend)
+        goto rd_source;
 
-	rd_source: i = source_read(Q.scan_buffer, p, Q.dcodeend);
-	if (i <= 0)
-		return 0;
-	Q.dcodeend = Q.dcodeend - p + i + Q.scan_buffer;
-	p = Q.scan_buffer;
-	goto after_read;
+    Q.dcodeptr = p;
+    exchangelines();
+    p += image_disp_byte;
+    *p &= image_disp_mask;
+    *(p + image_disp_end - 1) &= image_black;
+    extrcomp_seglist(p, Q.newline, Q.newline + SEG_MAX_NUM, image_disp_end);
+    return 1;
+rd_source:
+    i = source_read(Q.scan_buffer, p, Q.dcodeend);
+
+    if (i <= 0)
+        return 0;
+
+    Q.dcodeend = Q.dcodeend - p + i + Q.scan_buffer;
+    p = Q.scan_buffer;
+    goto after_read;
 }
 
-static int16_t fax_test() {
-	BWS * old, *new_;
-	old = Q.oldline;
-	new_ = Q.newline;
-	while (1) {
-		if ((old->b != new_->b) || (old->w != new_->w))
-			return 0;
-		if (old->w < 0)
-			return 1;
-		old++;
-		new_++;
-	}
+static int16_t fax_test()
+{
+    BWS * old, *new_;
+    old = Q.oldline;
+    new_ = Q.newline;
+
+    while (1) {
+        if ((old->b != new_->b) || (old->w != new_->w))
+            return 0;
+
+        if (old->w < 0)
+            return 1;
+
+        old++;
+        new_++;
+    }
 }
 
-static void fax_double() {
-	BWS * old, *new_;
-	exchangelines();
-	old = Q.oldline;
-	new_ = Q.newline;
-	while (1) {
-		new_->b = old->b;
-		new_->w = old->w;
-		new_->box = NULL;
-		if (old->w < 0)
-			return;
-		old++;
-		new_++;
-	}
+static void fax_double()
+{
+    BWS * old, *new_;
+    exchangelines();
+    old = Q.oldline;
+    new_ = Q.newline;
+
+    while (1) {
+        new_->b = old->b;
+        new_->w = old->w;
+        new_->box = NULL;
+
+        if (old->w < 0)
+            return;
+
+        old++;
+        new_++;
+    }
 }

@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new RomanAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_ROMAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-RomanAlphabet::RomanAlphabet() {
+RomanAlphabet::RomanAlphabet()
+{
     const int language = LANG_ROMAN;
     addSymbol(AA_semicircle);
     addSymbol(a_semicircle);
@@ -45,7 +49,8 @@ RomanAlphabet::RomanAlphabet() {
     addSymbol(t_bottom_accent);
 }
 
-language_t RomanAlphabet::language() const {
+language_t RomanAlphabet::language() const
+{
     return LANG_ROMAN;
 }
 

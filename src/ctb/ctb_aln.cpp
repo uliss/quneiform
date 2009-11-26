@@ -63,79 +63,84 @@
 
 static uchar local_rst[REC_MAX_RASTER_SIZE];
 
-void CTB_align8_lines(uchar *bin, int32_t w, int32_t h) {
-	int i, ii, iii, wb = (w + 7) / 8, wb_new = ((w + 63) / 64) * 8;
-	uchar buf[256];
+void CTB_align8_lines(uchar *bin, int32_t w, int32_t h)
+{
+    int i, ii, iii, wb = (w + 7) / 8, wb_new = ((w + 63) / 64) * 8;
+    uchar buf[256];
+    memset(buf, 0, wb_new);
 
-	memset(buf, 0, wb_new);
-	for (iii = (h - 1) * wb_new, ii = (h - 1) * wb, i = 0; i < h; i++, ii -= wb, iii
-			-= wb_new) {
-		memcpy(buf, &bin[ii], wb);
-		memcpy(&bin[iii], buf, wb_new);
-	}
+    for (iii = (h - 1) * wb_new, ii = (h - 1) * wb, i = 0; i < h; i++, ii -= wb, iii
+            -= wb_new) {
+        memcpy(buf, &bin[ii], wb);
+        memcpy(&bin[iii], buf, wb_new);
+    }
 
-	return;
+    return;
 }
 
-void CTB_align1_lines(uchar *bin, int32_t w, int32_t h) {
-	int i, ii, iii, wb = ((w + 63) / 64) * 8, wb_new = (w + 7) / 8;
-	uchar buf[256];
+void CTB_align1_lines(uchar *bin, int32_t w, int32_t h)
+{
+    int i, ii, iii, wb = ((w + 63) / 64) * 8, wb_new = (w + 7) / 8;
+    uchar buf[256];
+    memset(buf, 0, wb_new);
 
-	memset(buf, 0, wb_new);
-	for (iii = ii = i = 0; i < h; i++, ii += wb, iii += wb_new) {
-		memcpy(buf, &bin[ii], wb);
-		memcpy(&bin[iii], buf, wb_new);
-	}
+    for (iii = ii = i = 0; i < h; i++, ii += wb, iii += wb_new) {
+        memcpy(buf, &bin[ii], wb);
+        memcpy(&bin[iii], buf, wb_new);
+    }
 
-	return;
+    return;
 }
 
 void CTB_align8_124lines(uchar *bin, int32_t w, int32_t h, int32_t alin,
-		uchar init) {
-	int i, wb, wb_new;
-	uchar buf[256];
-	uchar *bout;
+                         uchar init)
+{
+    int i, wb, wb_new;
+    uchar buf[256];
+    uchar *bout;
 
-	switch (alin) {
-	case 1:
-		wb = (w + 7) / 8;
-		break;
-	case 2:
-		wb = ((w + 1) / 2) * 2;
-		break;
-	case 4:
-		wb = ((w + 3) / 4) * 4;
-		break;
-	default:
-		return;
-	}
-	wb_new = ((w + 7) / 8) * 8;
+    switch (alin) {
+        case 1:
+            wb = (w + 7) / 8;
+            break;
+        case 2:
+            wb = ((w + 1) / 2) * 2;
+            break;
+        case 4:
+            wb = ((w + 3) / 4) * 4;
+            break;
+        default:
+            return;
+    }
 
-	memset(buf, init, wb_new);
-	for (bout = bin + wb_new * (h - 1), bin += wb * (h - 1), i = 0; i < h; i++, bin
-			-= wb, bout -= wb_new) {
-		memcpy(buf, bin, w);
-		memcpy(bout, buf, wb_new);
-	}
+    wb_new = ((w + 7) / 8) * 8;
+    memset(buf, init, wb_new);
 
-	return;
+    for (bout = bin + wb_new * (h - 1), bin += wb * (h - 1), i = 0; i < h; i++, bin
+            -= wb, bout -= wb_new) {
+        memcpy(buf, bin, w);
+        memcpy(bout, buf, wb_new);
+    }
+
+    return;
 }
 
 // bin : B/W images align to 4 bytes
-void CTB_align41(uchar *sbin, int32_t w, int32_t h) {
-	int i, wb_in, wb_out;
-	uchar buf[256];
-	uchar *bout, *bin = sbin;
+void CTB_align41(uchar *sbin, int32_t w, int32_t h)
+{
+    int i, wb_in, wb_out;
+    uchar buf[256];
+    uchar *bout, *bin = sbin;
+    wb_in = (w / 32 + 1) * 4;
+    wb_out = (w + 7) / 8;
 
-	wb_in = (w / 32 + 1) * 4;
-	wb_out = (w + 7) / 8;
+    for (bout = local_rst + wb_out * (h - 1), bin += wb_in * (h - 1), i = 0; i
+            < h; i++, bin -= wb_in, bout -= wb_out) {
+        memcpy(buf, bin, wb_out);
+        memcpy(bout, buf, wb_out);
+    }
 
-	for (bout = local_rst + wb_out * (h - 1), bin += wb_in * (h - 1), i = 0; i
-			< h; i++, bin -= wb_in, bout -= wb_out) {
-		memcpy(buf, bin, wb_out);
-		memcpy(bout, buf, wb_out);
-	}
-	memcpy(sbin, local_rst, wb_out * h);
-	return;
+    memcpy(sbin, local_rst, wb_out * h);
+    return;
 }
 

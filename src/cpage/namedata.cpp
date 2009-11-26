@@ -72,10 +72,11 @@ PtrList<NAMEDATA> NameData;
 
 NAMEDATA::NAMEDATA(const char * name)
 {
-	if(name)
-		strcpy(Name,name);
-	else
-		Name[0]='\0';
+    if (name)
+        strcpy(Name, name);
+
+    else
+        Name[0] = '\0';
 }
 
 NAMEDATA::~NAMEDATA()
@@ -84,24 +85,24 @@ NAMEDATA::~NAMEDATA()
 
 Bool32 NAMEDATA::operator ==(NAMEDATA &nd)
 {
-	assert(nd.Name[0]);
-	assert(Name[0]);
-return strcmp(nd.Name,Name)==0;
+    assert(nd.Name[0]);
+    assert(Name[0]);
+    return strcmp(nd.Name, Name) == 0;
 }
 
-NAMEDATA & NAMEDATA::operator =(NAMEDATA &nd)
+NAMEDATA & NAMEDATA::operator =(NAMEDATA & nd)
 {
-	strcpy(Name,nd.Name);
-
-return *this;
+    strcpy(Name, nd.Name);
+    return *this;
 }
 
 NAMEDATA & NAMEDATA::operator=(char *  name)
 {
-	if(name)
-		strcpy(Name,name);
-	else
-		Name[0]='\0';
+    if (name)
+        strcpy(Name, name);
 
-	return *this;
+    else
+        Name[0] = '\0';
+
+    return *this;
 }

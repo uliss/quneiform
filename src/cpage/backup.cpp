@@ -56,205 +56,200 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "backup.h"
 
-PtrList<BACKUPPAGE>	Page;
-Handle				hCurPage = NULL;
+PtrList<BACKUPPAGE> Page;
+Handle              hCurPage = NULL;
 
 
 //#################################
 BACKUPPAGE::BACKUPPAGE()
 {
-	hCurBackUp = NULL;
+    hCurBackUp = NULL;
 }
 //#################################
 BACKUPPAGE::~BACKUPPAGE()
 {
-	BackUpPage.Clear();
+    BackUpPage.Clear();
 }
 //#################################
 void BACKUPPAGE::Clear()
 {
-	BackUpPage.Clear();
-	hCurBackUp = NULL;
+    BackUpPage.Clear();
+    hCurBackUp = NULL;
 }
 //#################################
 Handle BACKUPPAGE::BackUp(Handle backup)
 {
-	Handle hBackupPage = backup == NULL ? hCurBackUp : backup;
+    Handle hBackupPage = backup == NULL ? hCurBackUp : backup;
 // Удалить все страницы позднее текущей.
-	Handle prevPage  = NULL;
-	while(hBackupPage != prevPage)
-	{
-		prevPage = hBackupPage;
-		PAGE & p = BackUpPage.GetNext(hBackupPage);
-		if(hCurBackUp != prevPage)
-			BackUpPage.Del(prevPage);
-	}
+    Handle prevPage  = NULL;
 
-	Handle hPage = BackUpPage.AddTail(*this);
+    while (hBackupPage != prevPage) {
+        prevPage = hBackupPage;
+        PAGE & p = BackUpPage.GetNext(hBackupPage);
 
-	if(hPage==NULL)
-		return NULL;
+        if (hCurBackUp != prevPage)
+            BackUpPage.Del(prevPage);
+    }
 
-	hCurBackUp = hPage;
-	return  hCurBackUp;
+    Handle hPage = BackUpPage.AddTail(*this);
+
+    if (hPage == NULL)
+        return NULL;
+
+    hCurBackUp = hPage;
+    return  hCurBackUp;
 }
 //#################################
 Bool32 BACKUPPAGE::Redo(Handle backup)
 {
-	if(hCurBackUp)
-	{
-		if(backup)
-		{
-			*(PAGE*)this = BackUpPage.GetItem(backup);
-			hCurBackUp = backup;
-		}
-		else
-			*(PAGE*)this = BackUpPage.GetNext(hCurBackUp);
+    if (hCurBackUp) {
+        if (backup) {
+            *(PAGE*)this = BackUpPage.GetItem(backup);
+            hCurBackUp = backup;
+        }
 
-		return TRUE;
-	}
-return FALSE;
+        else
+            *(PAGE*)this = BackUpPage.GetNext(hCurBackUp);
+
+        return TRUE;
+    }
+
+    return FALSE;
 }
 //#################################
 Bool32 BACKUPPAGE::Undo(Handle backup)
 {
-	if(hCurBackUp)
-	{
-		if(backup)
-		{
-			*(PAGE*)this = BackUpPage.GetItem(backup);
-			hCurBackUp = backup;
-		}
-		else
-			*(PAGE*)this = BackUpPage.GetPrev(hCurBackUp);
+    if (hCurBackUp) {
+        if (backup) {
+            *(PAGE*)this = BackUpPage.GetItem(backup);
+            hCurBackUp = backup;
+        }
 
-		return TRUE;
-	}
-return FALSE;
+        else
+            *(PAGE*)this = BackUpPage.GetPrev(hCurBackUp);
+
+        return TRUE;
+    }
+
+    return FALSE;
 }
 //#################################
 Bool32 BACKUPPAGE::Save(Handle to)
 {
-	int count = BackUpPage.GetCount();
-	Bool32 rc = FALSE;
-	int i,position;
+    int count = BackUpPage.GetCount();
+    Bool32 rc = FALSE;
+    int i, position;
+    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-	rc = myWrite(to,&count,sizeof(count))==sizeof(count);
-	if(count)
-	{
-		position = BackUpPage.GetPos(hCurBackUp);
-		if(rc) rc = myWrite(to,&position,sizeof(position))==sizeof(position);
+    if (count) {
+        position = BackUpPage.GetPos(hCurBackUp);
 
-		if(rc == TRUE && count)
-			for(i=0;i<count;i++)
-				BackUpPage.GetItem(BackUpPage.GetHandle(i)).Save(to);
-	}
-	if(rc)
-		rc = PAGE::Save(to);
+        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
 
+        if (rc == TRUE && count)
+            for (i = 0; i < count; i++)
+                BackUpPage.GetItem(BackUpPage.GetHandle(i)).Save(to);
+    }
 
-return rc;
+    if (rc)
+        rc = PAGE::Save(to);
 
-
+    return rc;
 }
 //#################################
 Bool32 BACKUPPAGE::Restore(Handle from)
 {
- Bool32 rc = FALSE;
- int count,i,position;
+    Bool32 rc = FALSE;
+    int count, i, position;
+    BackUpPage.Clear();
+    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
-	BackUpPage.Clear();
+    if (count) {
+        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
 
-  	rc = myRead(from,&count,sizeof(count))==sizeof(count);
-	if(count)
-	{
-		if(rc) rc = myRead(from,&position,sizeof(position))==sizeof(position);
+        for (i = 0; i < count && rc == TRUE; i++) {
+            PAGE page;
+            rc = page.Restore(from);
 
-		for(i=0;i<count && rc==TRUE;i++)
-		{
-			PAGE page;
-			rc = page.Restore(from);
-			if(rc)
-				BackUpPage.AddTail(page);
-		}
+            if (rc)
+                BackUpPage.AddTail(page);
+        }
 
-		if(rc && position>=0)
-			hCurBackUp = BackUpPage.GetHandle(position);
-	}
-	if(rc)
-		rc = PAGE::Restore(from);
-return rc;
+        if (rc && position >= 0)
+            hCurBackUp = BackUpPage.GetHandle(position);
+    }
+
+    if (rc)
+        rc = PAGE::Restore(from);
+
+    return rc;
 }
 //#################################
 Bool32 BACKUPPAGE::SaveCompress(Handle to)
 {
-	int count = BackUpPage.GetCount();
-	Bool32 rc = FALSE;
-	int i,position;
+    int count = BackUpPage.GetCount();
+    Bool32 rc = FALSE;
+    int i, position;
+    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-	rc = myWrite(to,&count,sizeof(count))==sizeof(count);
-	if(count)
-	{
-		position = BackUpPage.GetPos(hCurBackUp);
-		if(rc) rc = myWrite(to,&position,sizeof(position))==sizeof(position);
+    if (count) {
+        position = BackUpPage.GetPos(hCurBackUp);
 
-		if(rc == TRUE && count)
-			for(i=0;i<count;i++)
-				BackUpPage.GetItem(BackUpPage.GetHandle(i)).SaveCompress(to);
-	}
-	if(rc)
-		rc = PAGE::SaveCompress(to);
+        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
 
+        if (rc == TRUE && count)
+            for (i = 0; i < count; i++)
+                BackUpPage.GetItem(BackUpPage.GetHandle(i)).SaveCompress(to);
+    }
 
-return rc;
+    if (rc)
+        rc = PAGE::SaveCompress(to);
 
-
+    return rc;
 }
 //#################################
 Bool32 BACKUPPAGE::RestoreCompress(Handle from)
 {
- Bool32 rc = FALSE;
- int count,i,position;
+    Bool32 rc = FALSE;
+    int count, i, position;
+    BackUpPage.Clear();
+    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
-	BackUpPage.Clear();
+    if (count) {
+        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
 
-  	rc = myRead(from,&count,sizeof(count))==sizeof(count);
-	if(count)
-	{
-		if(rc) rc = myRead(from,&position,sizeof(position))==sizeof(position);
+        for (i = 0; i < count && rc == TRUE; i++) {
+            PAGE page;
+            rc = page.RestoreCompress(from);
 
-		for(i=0;i<count && rc==TRUE;i++)
-		{
-			PAGE page;
-			rc = page.RestoreCompress(from);
-			if(rc)
-				BackUpPage.AddTail(page);
-		}
+            if (rc)
+                BackUpPage.AddTail(page);
+        }
 
-		if(rc && position>=0)
-			hCurBackUp = BackUpPage.GetHandle(position);
-	}
-	if(rc)
-		rc = PAGE::RestoreCompress(from);
-return rc;
+        if (rc && position >= 0)
+            hCurBackUp = BackUpPage.GetHandle(position);
+    }
+
+    if (rc)
+        rc = PAGE::RestoreCompress(from);
+
+    return rc;
 }
 //#################################
 BACKUPPAGE & BACKUPPAGE::operator = (BACKUPPAGE & Page)
 {
-	int count = Page.BackUpPage.GetCount();
+    int count = Page.BackUpPage.GetCount();
+    BackUpPage.Clear();
 
-	BackUpPage.Clear();
-	for(int i=0;i<count;i++)
-		BackUpPage.AddTail(Page.BackUpPage.GetItem(Page.BackUpPage.GetHandle(i)));
+    for (int i = 0; i < count; i++)
+        BackUpPage.AddTail(Page.BackUpPage.GetItem(Page.BackUpPage.GetHandle(i)));
 
-	if(count)
-	{
-		int curr = Page.BackUpPage.GetPos(Page.hCurBackUp);
-		hCurBackUp = BackUpPage.GetHandle(curr);
-	}
+    if (count) {
+        int curr = Page.BackUpPage.GetPos(Page.hCurBackUp);
+        hCurBackUp = BackUpPage.GetHandle(curr);
+    }
 
-	*(PAGE *)this = Page;
-
-	return *this;
+    *(PAGE *)this = Page;
+    return *this;
 }
 

@@ -61,63 +61,59 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 
 // Конверторы преобразования из TYPE_PICTURE в CPAGE_PICTURE
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,uint32_t SizeIn,CPAGE_PICTURE* LpDataOut,uint32_t SizeOut)
+uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE* LpDataOut, uint32_t SizeOut)
 {
-	uint32_t rc = 0;
-	if(LpDataOut == NULL)
-		return sizeof(CPAGE_PICTURE);
+    uint32_t rc = 0;
 
-	if(sizeof(POLY_) != SizeIn ||
-		sizeof(CPAGE_PICTURE) != SizeOut ||
-		lpDataIn == NULL)
-	{
-		SetReturnCode_cpage(IDS_ERR_DISCREP);
-		return 0;
-	}
+    if (LpDataOut == NULL)
+        return sizeof(CPAGE_PICTURE);
 
-	POLY_  desc = *lpDataIn;
-	CPAGE_PICTURE pict = {0};
+    if (sizeof(POLY_) != SizeIn ||
+            sizeof(CPAGE_PICTURE) != SizeOut ||
+            lpDataIn == NULL) {
+        SetReturnCode_cpage(IDS_ERR_DISCREP);
+        return 0;
+    }
 
-	pict.Number = desc.com.count;
-	for(uint32_t i=0;i<pict.Number;i++)
-	{
-		pict.Corner[i] = desc.com.Vertex[i];
-	}
+    POLY_  desc = *lpDataIn;
+    CPAGE_PICTURE pict = {0};
+    pict.Number = desc.com.count;
 
-	*LpDataOut = pict;
+    for (uint32_t i = 0; i < pict.Number; i++) {
+        pict.Corner[i] = desc.com.Vertex[i];
+    }
 
-	rc = sizeof(CPAGE_PICTURE);
-	return rc;
+    *LpDataOut = pict;
+    rc = sizeof(CPAGE_PICTURE);
+    return rc;
 }
 //##########################################################
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,uint32_t SizeIn,POLY_ * LpDataOut,uint32_t SizeOut)
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
 {
-	uint32_t rc = 0;
+    uint32_t rc = 0;
 
-	if(LpDataOut == NULL)
-			return sizeof(POLY_);
+    if (LpDataOut == NULL)
+        return sizeof(POLY_);
 
-	if(sizeof(POLY_) != SizeOut ||
-		sizeof(CPAGE_PICTURE) != SizeIn ||
-		lpDataIn == NULL)
-	{
-		SetReturnCode_cpage(IDS_ERR_DISCREP);
-		return 0;
-	}
+    if (sizeof(POLY_) != SizeOut ||
+            sizeof(CPAGE_PICTURE) != SizeIn ||
+            lpDataIn == NULL) {
+        SetReturnCode_cpage(IDS_ERR_DISCREP);
+        return 0;
+    }
 
-	POLY_  desc = {0} ;
-	CPAGE_PICTURE pict = *lpDataIn;
+    POLY_  desc = {0} ;
+    CPAGE_PICTURE pict = *lpDataIn;
+    desc.com.count = pict.Number;
 
-	desc.com.count = pict.Number;
-	for(uint32_t i=0;i<pict.Number;i++)
-	{
-		desc.com.Vertex[i] = pict.Corner[i];
-	}
-	desc.com.type		= TYPE_PICTURE;
-	desc.com.number	= 0;
+    for (uint32_t i = 0; i < pict.Number; i++) {
+        desc.com.Vertex[i] = pict.Corner[i];
+    }
 
-	*LpDataOut = desc;
-	rc = sizeof(POLY_);
-	return rc;
+    desc.com.type       = TYPE_PICTURE;
+    desc.com.number = 0;
+    *LpDataOut = desc;
+    rc = sizeof(POLY_);
+    return rc;
 }
 

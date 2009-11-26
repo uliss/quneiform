@@ -19,21 +19,26 @@
 #include "kazakh.h"
 #include "alphabetfactory.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new KazakhAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_KAZ, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-KazakhAlphabet::KazakhAlphabet() {
+KazakhAlphabet::KazakhAlphabet()
+{
 }
 
-language_t KazakhAlphabet::language() const {
+language_t KazakhAlphabet::language() const
+{
     return LANG_KAZ;
 }
 

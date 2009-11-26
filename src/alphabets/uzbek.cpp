@@ -19,22 +19,26 @@
 #include "uzbek.h"
 #include "alphabetfactory.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new UzbekAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_UZBEK, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-UzbekAlphabet::UzbekAlphabet() {
-
+UzbekAlphabet::UzbekAlphabet()
+{
 }
 
-language_t UzbekAlphabet::language() const {
+language_t UzbekAlphabet::language() const
+{
     return LANG_UZBEK;
 }
 

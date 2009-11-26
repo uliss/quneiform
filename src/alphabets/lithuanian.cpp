@@ -20,18 +20,22 @@
 #include "alphabetfactory.h"
 #include "ligas.h"
 
-namespace {
+namespace
+{
 using namespace CIF;
-Alphabet * create() {
+Alphabet * create()
+{
     return new LithuanianAlphabet;
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANG_LITHUANIAN, create);
 }
 
-namespace CIF {
+namespace CIF
+{
 
-LithuanianAlphabet::LithuanianAlphabet() {
+LithuanianAlphabet::LithuanianAlphabet()
+{
     const int language = LANG_LITHUANIAN;
     addSymbol(AA_bottom_accent);
     addSymbol(a_bottom_accent);
@@ -51,7 +55,6 @@ LithuanianAlphabet::LithuanianAlphabet() {
     addSymbol(u_macron);
     addSymbol(ZZ_inv_roof_baltic);
     addSymbol(z_inv_roof_baltic);
-
     removeSymbol('Q');
     removeSymbol('q');
     removeSymbol('W');
@@ -60,7 +63,8 @@ LithuanianAlphabet::LithuanianAlphabet() {
     removeSymbol('x');
 }
 
-language_t LithuanianAlphabet::language() const {
+language_t LithuanianAlphabet::language() const
+{
     return LANG_LITHUANIAN;
 }
 
