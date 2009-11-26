@@ -17,6 +17,8 @@
 #include <cstring>
 #include <iomanip>
 
+#include "common/cifconfig.h"
+#include "common/debug.h"
 #include "helper.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
@@ -86,7 +88,8 @@ void PumaImpl::binarizeImage() {
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 
-    LDPUMA_Console("The image depth is %d at this point.\n", info_.biBitCount);
+    if (Config::instance().debug())
+        Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
 
     if (info_.biBitCount > 1) {
         //RIMAGE_BINARISE_KRONROD
@@ -349,16 +352,16 @@ void PumaImpl::layout() {
         cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
     }
 
-//    if (!LDPUMA_Skip(hDebugPrintBlocksCPAGE)) {
-        LDPUMA_Console("Контейнер CPAGE содержит: \n имя : размер\n");
+    if (Config::instance().debug()) {
+        Debug() << "Container CPAGE has: \n name : size\n";
         Handle block = CPAGE_GetBlockFirst(cpage_, 0);
         while (block) {
-            LDPUMA_Console("%s : %i\n",
-                    CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)),
-                    CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0));
+            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)) << " : "
+                    << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
+                    << "\n";
             block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
-//    }
+    }
 
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
@@ -756,7 +759,8 @@ void PumaImpl::recognize() {
     spellCorrection();
     recognizeCorrection();
 
-    printResult(cerr);
+    if (Config::instance().debug())
+        printResult(cerr);
 
     // OLEG fot Consistent
     if (SPEC_PRJ_CONS == gnSpecialProject) {
