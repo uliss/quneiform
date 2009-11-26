@@ -75,64 +75,71 @@ extern int countCluster[256]; // how many clust
 
 Bool32 BadCluster(InfoCluster *infoC);
 void GetClusterStatistic(int numSymbol, int numCluster, Nraster_header *rh,
-		int16_t *nClus, InfoCluster *infoC, int *countC, uchar *metkaGood,
-		uchar *metkaValid, Bool addLingvo);
+                         int16_t *nClus, InfoCluster *infoC, int *countC, uchar *metkaGood,
+                         uchar *metkaValid, Bool addLingvo);
 
 #define GoodCluster(infoC) (infoC.valid & LEO_VALID_LINGVO )
 
 //  hvosty obnuleny v Razmaz !
-static int GetVes(Nraster_header *rh) {
-	int i = rh->xbyte * rh->h;
-	uchar *buf = rh->pHau;
-	int summa;
+static int GetVes(Nraster_header *rh)
+{
+    int i = rh->xbyte * rh->h;
+    uchar *buf = rh->pHau;
+    int summa;
 
-	for (summa = 0; i > 0; i--, buf++)
-		summa += Num11[*buf];
+    for (summa = 0; i > 0; i--, buf++)
+        summa += Num11[*buf];
 
-	return summa;
+    return summa;
 }
 ///////////////
 static int GetAddField(int num, uint32_t *ifield, int let, int numCluster,
-		InfoCluster *infoC, uint32_t *addField) {
-	uint32_t field[NFIELDDWORD];
-	int i;
+                       InfoCluster *infoC, uint32_t *addField)
+{
+    uint32_t field[NFIELDDWORD];
+    int i;
+    SetFields(field, ifield);
+    ClearFields(addField);
 
-	SetFields(field,ifield);
-	ClearFields(addField);
-	for (i = 0; i < numCluster; i++) {
-		if (i == num)
-			continue;
-		if (!GoodCluster(infoC[i]))
-			continue;
-		if (infoC[i].let != let)
-			continue;
-		if (IntersectFields(field,infoC[i].fields))
-			AddFields(field , infoC[i].fields)
-		else
-		AddFields(addField,infoC[i].fields)
-	}
+    for (i = 0; i < numCluster; i++) {
+        if (i == num)
+            continue;
 
-	if (IntersectFields(field, addField))
-		return 0;
-	return 1;
+        if (!GoodCluster(infoC[i]))
+            continue;
+
+        if (infoC[i].let != let)
+            continue;
+
+        if (IntersectFields(field, infoC[i].fields))
+            AddFields(field , infoC[i].fields)
+            else
+                AddFields(addField, infoC[i].fields)
+            }
+
+    if (IntersectFields(field, addField))
+        return 0;
+
+    return 1;
 }
 
 static Bool32 isAddField(uchar name, InfoCluster *infoC, int numCluster,
-		uint32_t *addField) {
-	int i;
+                         uint32_t *addField)
+{
+    int i;
 
-	for (i = 0; i < numCluster; i++) {
-		if (BadCluster(infoC + i))
-			continue;
+    for (i = 0; i < numCluster; i++) {
+        if (BadCluster(infoC + i))
+            continue;
 
-		if (infoC[i].let != name)
-			continue;
+        if (infoC[i].let != name)
+            continue;
 
-		if (IntersectFields(infoC[i].fields,addField))
-			return TRUE;
-	}
+        if (IntersectFields(infoC[i].fields, addField))
+            return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 // ищем - кто еще не вошел
@@ -140,295 +147,310 @@ static Bool32 isAddField(uchar name, InfoCluster *infoC, int numCluster,
 static int smes[256];
 static int uniqal[256];
 static int GetSameField(uint32_t *field, uint32_t *addField, int let,
-		int numCluster, InfoCluster *infoC, int *numSmes, uint32_t *sameField) {
-	int i, numSame, nSmes = 0;
-	int k;
+                        int numCluster, InfoCluster *infoC, int *numSmes, uint32_t *sameField)
+{
+    int i, numSame, nSmes = 0;
+    int k;
+    SetFields(sameField, field);
 
-	SetFields(sameField,field);
-	for (i = 0, numSame = 1; i < numCluster; i++) {
-		if (BadCluster(infoC + i))
-			continue;
+    for (i = 0, numSame = 1; i < numCluster; i++) {
+        if (BadCluster(infoC + i))
+            continue;
 
-		if (infoC[i].let == let)
-			continue;
-		if (infoC[i].let < 0 || infoC[i].let > 255)
-			continue;
+        if (infoC[i].let == let)
+            continue;
 
-		// if(!strchr(testLet,let))  continue;
+        if (infoC[i].let < 0 || infoC[i].let > 255)
+            continue;
 
-		// уже работали с буквой ?
-		if (infoC[i].good) {
-			smes[infoC[i].let] = -1;
-			uniqal[infoC[i].let] = i + 1;
-			continue;
-		}
+        // if(!strchr(testLet,let))  continue;
 
-		// есть отдельный кластер
-		if (uniqal[infoC[i].let])
-			continue;
+        // уже работали с буквой ?
+        if (infoC[i].good) {
+            smes[infoC[i].let] = -1;
+            uniqal[infoC[i].let] = i + 1;
+            continue;
+        }
 
-		// undefined ?
-		if (EmptyField(infoC[i].fields))
-			continue;
+        // есть отдельный кластер
+        if (uniqal[infoC[i].let])
+            continue;
 
-		if (!IntersectFields(field,infoC[i].fields))
-			continue;
+        // undefined ?
+        if (EmptyField(infoC[i].fields))
+            continue;
 
-		if (IntersectFields(addField,infoC[i].fields)) {
-			// слишком мелкий ?
-			if (infoC[i].count < POROG_TEST)
-				continue;
+        if (!IntersectFields(field, infoC[i].fields))
+            continue;
 
-			// пересечение с обоими
-			k = smes[infoC[i].let] - 1;
-			if (k < 0 || infoC[k].count < infoC[i].count)
-				smes[infoC[i].let] = i + 1;
-			nSmes++;
-			continue;
-		}
+        if (IntersectFields(addField, infoC[i].fields)) {
+            // слишком мелкий ?
+            if (infoC[i].count < POROG_TEST)
+                continue;
 
-		smes[infoC[i].let] = -1;
-		k = uniqal[infoC[i].let] - 1;
-		if (k < 0 || infoC[k].count < infoC[i].count)
-			uniqal[infoC[i].let] = i + 1;
+            // пересечение с обоими
+            k = smes[infoC[i].let] - 1;
 
-		AddFields(sameField, infoC[i].fields);
+            if (k < 0 || infoC[k].count < infoC[i].count)
+                smes[infoC[i].let] = i + 1;
 
-		if (infoC[uniqal[infoC[i].let] - 1].count >= POROG_TEST && isAddField(
-				(uchar) infoC[i].let, infoC, numCluster, addField))
-			numSame++;
-	}
+            nSmes++;
+            continue;
+        }
 
-	if (nSmes == 0)
-		return 0;
+        smes[infoC[i].let] = -1;
+        k = uniqal[infoC[i].let] - 1;
 
-	if (numSame <= 3)
-		return 0;
+        if (k < 0 || infoC[k].count < infoC[i].count)
+            uniqal[infoC[i].let] = i + 1;
 
-	*numSmes = numSame;
+        AddFields(sameField, infoC[i].fields);
 
-	return 1;
+        if (infoC[uniqal[infoC[i].let] - 1].count >= POROG_TEST && isAddField(
+                    (uchar) infoC[i].let, infoC, numCluster, addField))
+            numSame++;
+    }
+
+    if (nSmes == 0)
+        return 0;
+
+    if (numSame <= 3)
+        return 0;
+
+    *numSmes = numSame;
+    return 1;
 }
 
-static void FillInfo(InfoCluster *infoC, Nraster_header *rh, int i) {
+static void FillInfo(InfoCluster *infoC, Nraster_header *rh, int i)
+{
+    MakeDWORDField(rh->nField, infoC->fields);
+    infoC->mw += rh->w;
+    infoC->mh += rh->h;
 
-	MakeDWORDField(rh->nField, infoC->fields);
+    if (infoC->count == 0)
+        infoC->first = i;
 
-	infoC->mw += rh->w;
-	infoC->mh += rh->h;
-	if (infoC->count == 0)
-		infoC->first = i;
-	infoC->count++;
-	infoC->prob = MAX(infoC->prob, rh->prob);
-	infoC->valid |= rh->valid;
+    infoC->count++;
+    infoC->prob = MAX(infoC->prob, rh->prob);
+    infoC->valid |= rh->valid;
 }
 //////////////
 // i - new, j - old
 static Bool32 SameSizes(InfoCluster *infoC, int i, int j, int *sumNew,
-		int *wNew, int *hNew, int *sumOld, int *wOld, int *hOld) { // middle value
-	int c1, c12, c2, c22;
+                        int *wNew, int *hNew, int *sumOld, int *wOld, int *hOld)   // middle value
+{
+    int c1, c12, c2, c22;
+    c1 = infoC[i].count;
+    c2 = infoC[j].count;
 
-	c1 = infoC[i].count;
-	c2 = infoC[j].count;
-	if (c1 == 0 || c2 == 0)
-		return TRUE;
-	c12 = c1 >> 1;
-	c22 = c2 >> 1;
+    if (c1 == 0 || c2 == 0)
+        return TRUE;
 
-	*sumNew = ((*sumNew) + c12) / c1;
-	*sumOld = ((*sumOld) + c22) / c2;
+    c12 = c1 >> 1;
+    c22 = c2 >> 1;
+    *sumNew = ((*sumNew) + c12) / c1;
+    *sumOld = ((*sumOld) + c22) / c2;
+    *wNew = (infoC[i].mw + c12) / c1;
+    *wOld = (infoC[j].mw + c22) / c2;
+    *hNew = (infoC[i].mh + c12) / c1;
+    *hOld = (infoC[j].mh + c22) / c2;
 
-	*wNew = (infoC[i].mw + c12) / c1;
-	*wOld = (infoC[j].mw + c22) / c2;
+    if (*wNew == *wOld && *hNew == *hOld && *sumNew == *sumOld)
+        return TRUE;
 
-	*hNew = (infoC[i].mh + c12) / c1;
-	*hOld = (infoC[j].mh + c22) / c2;
-
-	if (*wNew == *wOld && *hNew == *hOld && *sumNew == *sumOld)
-		return TRUE;
-
-	return FALSE;
+    return FALSE;
 }
 
 extern int16_t DistanceHausDLL(uchar *b1, int16_t xbyte1, int16_t yrow1,
-		uchar *b2, int16_t xbyte2, int16_t yrow2, int16_t porog);
+                               uchar *b2, int16_t xbyte2, int16_t yrow2, int16_t porog);
 
 static int TrySubdivide(int numSymbol, Nraster_header *rh, int16_t *nClus,
-		InfoCluster *infoC, int nCluster, int numNew, uint32_t *testField,
-		uint32_t *addField, int *smes, int *uniqal) {
-	int i, let;
-	uint32_t field[NFIELDDWORD];
-	int nNul;
-	int oldFir;
-	InfoCluster saveInfo;
-	int clus;
-	int sumNew, sumOld, wNew, wOld, hNew, hOld;
+                        InfoCluster *infoC, int nCluster, int numNew, uint32_t *testField,
+                        uint32_t *addField, int *smes, int *uniqal)
+{
+    int i, let;
+    uint32_t field[NFIELDDWORD];
+    int nNul;
+    int oldFir;
+    InfoCluster saveInfo;
+    int clus;
+    int sumNew, sumOld, wNew, wOld, hNew, hOld;
 
-	for (let = '0'; let < 256; let++) {
-		// есть еще место ?
-		if (nCluster + numNew >= MAXWEICLUS)
-			break;
+    for (let = '0'; let < 256; let++) {
+        // есть еще место ?
+        if (nCluster + numNew >= MAXWEICLUS)
+            break;
 
-		if ((clus = uniqal[let]) > 0)
-			continue;
+        if ((clus = uniqal[let]) > 0)
+            continue;
 
-		if ((clus = smes[let]) <= 0)
-			continue;
-		if (clus > nCluster)
-			continue;
+        if ((clus = smes[let]) <= 0)
+            continue;
 
-		saveInfo = infoC[clus - 1];
+        if (clus > nCluster)
+            continue;
 
-		oldFir = infoC[clus - 1].first;
-		memset(infoC + clus - 1, 0, sizeof(InfoCluster));
-		infoC[clus - 1].let = saveInfo.let;
-		infoC[nCluster + numNew] = infoC[clus - 1];
+        saveInfo = infoC[clus - 1];
+        oldFir = infoC[clus - 1].first;
+        memset(infoC + clus - 1, 0, sizeof(InfoCluster));
+        infoC[clus - 1].let = saveInfo.let;
+        infoC[nCluster + numNew] = infoC[clus - 1];
 
-		for (i = oldFir, sumNew = sumOld = 0, nNul = 0; i < numSymbol; i++) {
-			if (nClus[i] != clus)
-				continue;
+        for (i = oldFir, sumNew = sumOld = 0, nNul = 0; i < numSymbol; i++) {
+            if (nClus[i] != clus)
+                continue;
 
-			if (rh[i].nField <= 0 || rh[i].nField > MAXFIELD) {
-				nNul++;
-				nClus[i] = 2 * (nCluster + numNew + 1);
+            if (rh[i].nField <= 0 || rh[i].nField > MAXFIELD) {
+                nNul++;
+                nClus[i] = 2 * (nCluster + numNew + 1);
+                continue;
+            }
 
-				continue;
-			}
+            MakeDWORDField(rh[i].nField, field);
 
-			MakeDWORDField(rh[i].nField, field);
+            if (IntersectFields(field, testField)) {
+                FillInfo(infoC + nCluster + numNew, rh + i, i);
+                sumNew += GetVes(rh + i);
+                nClus[i] = nCluster + numNew + 1;
+            }
 
-			if (IntersectFields(field,testField)) {
+            else {
+                sumOld += GetVes(rh + i);
+                FillInfo(infoC + clus - 1, rh + i, i);
+            }
+        }
 
-				FillInfo(infoC + nCluster + numNew, rh + i, i);
+        if (infoC[clus - 1].count <= 0 || infoC[nCluster + numNew].count <= 0
+                || BadCluster(infoC + clus - 1) || BadCluster(infoC + nCluster
+                                                              + numNew) || SameSizes(infoC, nCluster + numNew, clus - 1,
+                                                                                     &sumNew, &wNew, &hNew, &sumOld, &wOld, &hOld)) { // restore old
+            infoC[clus - 1] = saveInfo;
 
-				sumNew += GetVes(rh + i);
-				nClus[i] = nCluster + numNew + 1;
+            for (i = oldFir; i < numSymbol; i++) {
+                if (nClus[i] == nCluster + numNew + 1 || nClus[i] == 2
+                        * (nCluster + numNew + 1))
+                    nClus[i] = clus;
+            }
 
-			} else {
-				sumOld += GetVes(rh + i);
-				FillInfo(infoC + clus - 1, rh + i, i);
+            continue;
+        }
 
-			}
-		}
+        if (nNul > 0) {
+            int k, m;
 
-		if (infoC[clus - 1].count <= 0 || infoC[nCluster + numNew].count <= 0
-				|| BadCluster(infoC + clus - 1) || BadCluster(infoC + nCluster
-				+ numNew) || SameSizes(infoC, nCluster + numNew, clus - 1,
-				&sumNew, &wNew, &hNew, &sumOld, &wOld, &hOld)) { // restore old
-			infoC[clus - 1] = saveInfo;
-			for (i = oldFir; i < numSymbol; i++) {
-				if (nClus[i] == nCluster + numNew + 1 || nClus[i] == 2
-						* (nCluster + numNew + 1))
-					nClus[i] = clus;
-			}
-			continue;
-		}
+            for (i = oldFir; i < numSymbol; i++) {
+                if (nClus[i] != 2 * (nCluster + numNew + 1))
+                    continue;
 
-		if (nNul > 0) {
-			int k, m;
-			for (i = oldFir; i < numSymbol; i++) {
-				if (nClus[i] != 2 * (nCluster + numNew + 1))
-					continue;
-				k = GetVes(rh + i);
+                k = GetVes(rh + i);
 
-				if ((m = abs(rh[i].w - wNew) - abs(rh[i].w - wOld)) < 0 || m
-						== 0 && abs(k - sumOld) < abs(k - sumNew))
-					m = nCluster + numNew + 1;
-				else
-					m = clus;
-				nClus[i] = m;
-				infoC[m - 1].count++;
-				infoC[m - 1].mw += rh[i].w;
-				infoC[m - 1].mh += rh[i].h;
-				if (i < infoC[m - 1].first)
-					infoC[m - 1].first = i;
-			}
-		}
+                if ((m = abs(rh[i].w - wNew) - abs(rh[i].w - wOld)) < 0 || m
+                        == 0 && abs(k - sumOld) < abs(k - sumNew))
+                    m = nCluster + numNew + 1;
 
-		{ // middle value
-			int m = nCluster + numNew;
-			infoC[m].mw = (infoC[m].mw + (infoC[m].count >> 1))
-					/ infoC[m].count;
-			infoC[m].mh = (infoC[m].mh + (infoC[m].count >> 1))
-					/ infoC[m].count;
-			infoC[m].good = 1; // mark
-			infoC[clus - 1].mw = (infoC[clus - 1].mw + (infoC[clus - 1].count
-					>> 1)) / infoC[clus - 1].count;
-			infoC[clus - 1].mh = (infoC[clus - 1].mh + (infoC[clus - 1].count
-					>> 1)) / infoC[clus - 1].count;
-			infoC[clus - 1].good = 1; // mark
-		}
+                else
+                    m = clus;
 
-		numNew++;
-	}
+                nClus[i] = m;
+                infoC[m - 1].count++;
+                infoC[m - 1].mw += rh[i].w;
+                infoC[m - 1].mh += rh[i].h;
 
-	return numNew;
+                if (i < infoC[m - 1].first)
+                    infoC[m - 1].first = i;
+            }
+        }
+
+        { // middle value
+            int m = nCluster + numNew;
+            infoC[m].mw = (infoC[m].mw + (infoC[m].count >> 1))
+                          / infoC[m].count;
+            infoC[m].mh = (infoC[m].mh + (infoC[m].count >> 1))
+                          / infoC[m].count;
+            infoC[m].good = 1; // mark
+            infoC[clus - 1].mw = (infoC[clus - 1].mw + (infoC[clus - 1].count
+                                                        >> 1)) / infoC[clus - 1].count;
+            infoC[clus - 1].mh = (infoC[clus - 1].mh + (infoC[clus - 1].count
+                                                        >> 1)) / infoC[clus - 1].count;
+            infoC[clus - 1].good = 1; // mark
+        }
+
+        numNew++;
+    }
+
+    return numNew;
 }
 
-int TryDivide(int numSymbol, Nraster_header *rh, int16_t *nClus, int numCluster) {
-	int i, j;
-	uint32_t testField[NFIELDDWORD];
-	uint32_t addField[NFIELDDWORD], sameField[NFIELDDWORD];
-	int numNew = 0;
-	int numSmes;
+int TryDivide(int numSymbol, Nraster_header *rh, int16_t *nClus, int numCluster)
+{
+    int i, j;
+    uint32_t testField[NFIELDDWORD];
+    uint32_t addField[NFIELDDWORD], sameField[NFIELDDWORD];
+    int numNew = 0;
+    int numSmes;
+    InfoCluster *infoC = infoClusterStat;
+    int *countC = countCluster;
+    uint32_t dividedFields[NFIELDDWORD] = { 0, 0 };
 
-	InfoCluster *infoC = infoClusterStat;
-	int *countC = countCluster;
-	uint32_t dividedFields[NFIELDDWORD] = { 0, 0 };
+    if (numCluster >= MAXWEICLUS)
+        return numCluster;
 
-	if (numCluster >= MAXWEICLUS)
-		return numCluster;
+    GetClusterStatistic(numSymbol, numCluster, rh, nClus, infoC, countC, NULL,
+                        NULL, FALSE);
 
-	GetClusterStatistic(numSymbol, numCluster, rh, nClus, infoC, countC, NULL,
-			NULL, FALSE);
+    for (j = 0; j < numCluster; j++) {
+        if (numCluster + numNew >= MAXWEICLUS)
+            break;
 
-	for (j = 0; j < numCluster; j++) {
-		if (numCluster + numNew >= MAXWEICLUS)
-			break;
-		if (infoC[j].good) // tested
-			continue;
+        if (infoC[j].good) // tested
+            continue;
 
-		if (BadCluster(infoC + j))
-			continue;
+        if (BadCluster(infoC + j))
+            continue;
 
-		i = infoC[j].let;
-		if (i < 0 || i >= 256)
-			continue;
-		if (countC[i] <= 1)
-			continue;
+        i = infoC[j].let;
 
-		// смотрим только буквы-цифры
-		if (!LetDigSymbol(i))
-			continue;
+        if (i < 0 || i >= 256)
+            continue;
 
-		if (infoC[j].count < POROG_TEST)
-			continue;
-		if (EmptyField(infoC[j].fields))
-			continue;
+        if (countC[i] <= 1)
+            continue;
 
-		SetFields( testField,infoC[j].fields);
-		if (IntersectFields(testField, dividedFields))
-			continue;
+        // смотрим только буквы-цифры
+        if (!LetDigSymbol(i))
+            continue;
 
-		if (GetAddField(j, testField, i, numCluster + numNew, infoC, addField)
-				== 0 || EmptyField(addField))
-			continue;
+        if (infoC[j].count < POROG_TEST)
+            continue;
 
-		memset(smes, 0, 256 * sizeof(int));
-		memset(uniqal, 0, 256 * sizeof(int));
-		numSmes = 0;
-		if (GetSameField(testField, addField, i, numCluster + numNew, infoC,
-				&numSmes, sameField) == 0 || EmptyField(sameField))
-			continue;
-		if (numSmes <= 0)
-			continue;
+        if (EmptyField(infoC[j].fields))
+            continue;
 
-		AddFields(dividedFields, sameField);
+        SetFields( testField, infoC[j].fields);
 
-		numNew = TrySubdivide(numSymbol, rh, nClus, infoC, numCluster, numNew,
-				sameField, addField, smes, uniqal);
-	}
+        if (IntersectFields(testField, dividedFields))
+            continue;
 
-	return numCluster + numNew; // кластеров стало
+        if (GetAddField(j, testField, i, numCluster + numNew, infoC, addField)
+                == 0 || EmptyField(addField))
+            continue;
+
+        memset(smes, 0, 256 * sizeof(int));
+        memset(uniqal, 0, 256 * sizeof(int));
+        numSmes = 0;
+
+        if (GetSameField(testField, addField, i, numCluster + numNew, infoC,
+                         &numSmes, sameField) == 0 || EmptyField(sameField))
+            continue;
+
+        if (numSmes <= 0)
+            continue;
+
+        AddFields(dividedFields, sameField);
+        numNew = TrySubdivide(numSymbol, rh, nClus, infoC, numCluster, numNew,
+                              sameField, addField, smes, uniqal);
+    }
+
+    return numCluster + numNew; // кластеров стало
 }
 

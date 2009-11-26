@@ -64,7 +64,7 @@
 #include "face_lng.h"
 
 #if MORDA==LANG_ENGLISH
-/*=============	English definitions for error messages ========	*/
+/*============= English definitions for error messages ======== */
 #define msg_0_1 "Format error."
 #define msg_0_2 "Some of recognition tables cannot be found."
 #define msg_0_3 "Debug stop."
@@ -77,7 +77,7 @@
 #define msg_1_4  "104. ExtrComp(an): Unable to exclude large picture."
 #define msg_1_5  "105. FileSys: No place in the roots file."
 #define msg_1_6  "106. LinesForming: Not enough memory."
-#define msg_1_7	 "107. LinesForming: Unable to count page skew."
+#define msg_1_7  "107. LinesForming: Unable to count page skew."
 #define msg_1_8  "108. LinesForming: Empty page."
 #define msg_1_9  "109. ExtrComp(mn): No memory for boxes."
 #define msg_1_10 "110. FileSys: No place for strings."
@@ -106,11 +106,11 @@
 #define msg_4_6 "406. Spelling: no ed_file."
 #define msg_4_7 "407. Spelling: postrecognition error."
 
-#define msg_6_1 "601. TextSave: Open error."		// only DOS
+#define msg_6_1 "601. TextSave: Open error."        // only DOS
 #define msg_6_2 "602. TextSave: Write error."
 #define msg_6_3 "603. TextSave: Out of memory."
 #define msg_6_4 "604. TextSave: Cannot open temporary ED-file."
-#define msg_6_5 "605. Lineout: Open error in ED-file."	// Only DOS
+#define msg_6_5 "605. Lineout: Open error in ED-file."  // Only DOS
 #define msg_6_6 "606. Lineout: Read error in ED-file."
 #define msg_6_7 "607. Lineout: Empty page."
 #define msg_6_8 "608. TextSave: Unuseble coding for this language."
@@ -140,7 +140,7 @@
 #define msg_8_5 "805. Edout: Character's number is wrong."
 
 #elif MORDA==LANG_RUSSIAN
-/*=============	Русские definitions for error messages ========	*/
+/*============= Русские definitions for error messages ========  */
 #define msg_0_1 "Ошибка форматирования."
 #define msg_0_2 "Не найдены некоторые таблицы распознавания."
 #define msg_0_3 "Debug stop."
@@ -153,7 +153,7 @@
 #define msg_1_4 "104. ExtrComp(an): Не могу удалить большую картинку."
 #define msg_1_5 "105. FileSys: Нет места в корневом списке."
 #define msg_1_6 "106. LinesForming: Не хватает оперативной памяти."
-#define msg_1_7	"107. LinesForming: Сильный перекос страницы."
+#define msg_1_7 "107. LinesForming: Сильный перекос страницы."
 #define msg_1_8 "108. LinesForming: Пустая страница."
 #define msg_1_9 "109. ExtrComp(mn): Нет памяти для коробочек."
 #define msg_1_10 "110. FileSys: Нет места для строки."
@@ -182,11 +182,11 @@
 #define msg_4_6 "406. Spelling: нет ED_файла."
 #define msg_4_7 "407. Spelling: ошибка дораспознавания."
 
-#define msg_6_1 "601. TextSave: Ошибка открытия."		// only DOS
+#define msg_6_1 "601. TextSave: Ошибка открытия."     // only DOS
 #define msg_6_2 "602. TextSave: Ошибка записи."
 #define msg_6_3 "603. TestSave: Не хватает памяти."
 #define msg_6_4 "604. TextSave: Не могу открыть временный ED-файл."
-#define msg_6_5 "605. Lineout: Ошибка открытия ED-файла."	// Only DOS
+#define msg_6_5 "605. Lineout: Ошибка открытия ED-файла."    // Only DOS
 #define msg_6_6 "606. Lineout: Ошибка чтения ED-файла."
 #define msg_6_7 "607. Lineout: Пустая страница."
 #define msg_6_8 "608. TestSave: Неиспользуемая кодировка для данного языка."
@@ -216,112 +216,127 @@
 #define msg_8_5 "805. Edout: Не корректный номер символа."
 #endif
 
-/*============== Messages groups structure ====================	*/
+/*============== Messages groups structure ==================== */
 
 static const char * format_msg[] = { msg_0_1, msg_0_2, msg_0_3, msg_0_4,
-		msg_0_5 };
+                                     msg_0_5
+                                   };
 static const char * comp_msg[] = { msg_1_1, msg_1_2, msg_1_3, msg_1_4, msg_1_5,
-		msg_1_6, msg_1_7, msg_1_8, msg_1_9, msg_1_10, msg_1_11, msg_1_12,
-		msg_1_13, msg_1_14, msg_1_15, msg_1_16, msg_1_17 };
+                                   msg_1_6, msg_1_7, msg_1_8, msg_1_9, msg_1_10, msg_1_11, msg_1_12,
+                                   msg_1_13, msg_1_14, msg_1_15, msg_1_16, msg_1_17
+                                 };
 static const char
-		* image_msg[] = { msg_2_1, msg_2_2, msg_2_3, msg_2_4, msg_2_5 };
+* image_msg[] = { msg_2_1, msg_2_2, msg_2_3, msg_2_4, msg_2_5 };
 static const char * run_msg[] = { msg_3_1, msg_3_2 };
 static const char * voc_msg[] = { msg_4_1, msg_4_2, msg_4_3, msg_4_4, msg_4_5,
-		msg_4_6, msg_4_7 };
+                                  msg_4_6, msg_4_7
+                                };
 static const char * rtf_msg[] = { msg_6_1, msg_6_2, msg_6_3, msg_6_4, msg_6_5,
-		msg_6_6, msg_6_7, msg_6_8, msg_6_9, msg_6_10, msg_6_11, msg_6_12,
-		msg_6_13, msg_6_14 };
+                                  msg_6_6, msg_6_7, msg_6_8, msg_6_9, msg_6_10, msg_6_11, msg_6_12,
+                                  msg_6_13, msg_6_14
+                                };
 static const char * kernel_msg[] = { msg_7_1, msg_7_2, msg_7_3, msg_7_4,
-		msg_7_5, msg_7_6, msg_7_7, msg_7_8, msg_7_9, msg_7_10, msg_7_11 };
+                                     msg_7_5, msg_7_6, msg_7_7, msg_7_8, msg_7_9, msg_7_10, msg_7_11
+                                   };
 static const char
-		* edout_msg[] = { msg_8_1, msg_8_2, msg_8_3, msg_8_4, msg_8_5 };
+* edout_msg[] = { msg_8_1, msg_8_2, msg_8_3, msg_8_4, msg_8_5 };
 
 #ifndef DEMO
 static const char * copyr_msg[] = { "\n\n     \n" };
 #endif
 
 #ifdef DEMO
-static const char * copyr_msg[]= {
-	"\n\n"
-	"       ████  ██████   ████           █████     ████   ██████    \n"
-	"      ██       ██    ██             ██   ██   ██      ██   ██   \n"
-	"      ██       ██    ██             ██   ██   ██      ██████    \n"
-	"      ██       ██    ██             ██   ██   ██      ██ ██     \n"
-	"       ████    ██     ████           █████     ████   ██  ██    \n\n"
-	"                     D E M O   V E R S I O N                    \n\n\n"
+static const char * copyr_msg[] = {
+    "\n\n"
+    "       ████  ██████   ████           █████     ████   ██████    \n"
+    "      ██       ██    ██             ██   ██   ██      ██   ██   \n"
+    "      ██       ██    ██             ██   ██   ██      ██████    \n"
+    "      ██       ██    ██             ██   ██   ██      ██ ██     \n"
+    "       ████    ██     ████           █████     ████   ██  ██    \n\n"
+    "                     D E M O   V E R S I O N                    \n\n\n"
 };
 #endif
 
 const char ** message_groups[] = { format_msg, comp_msg, image_msg, run_msg,
-		voc_msg, copyr_msg, rtf_msg, kernel_msg, edout_msg };
+                                   voc_msg, copyr_msg, rtf_msg, kernel_msg, edout_msg
+                                 };
 
 //---------------------- Errors processing ------------------
 extern jmp_buf fatal_error_exit;
 static uint16_t status_code = 0;
 static char mess[512], add_mess[256];
-//	Fatal error break processing
+//  Fatal error break processing
 
-static void msg_err(int16_t group, int16_t element) {
-	status_code = 1000 + group * 100 + element;
-	Tiger_ReportError(status_code, (uchar*) get_message(status_code));
+static void msg_err(int16_t group, int16_t element)
+{
+    status_code = 1000 + group * 100 + element;
+    Tiger_ReportError(status_code, (uchar*) get_message(status_code));
 }
 
-void error_exit(int16_t group, int16_t element) {
-	extern void FreeAllData(void);
-
-	FreeAllData();
-	add_mess[0] = '\0';
-	msg_err(group, element); /* show message */
-	longjmp(fatal_error_exit, element);
-
+void error_exit(int16_t group, int16_t element)
+{
+    extern void FreeAllData(void);
+    FreeAllData();
+    add_mess[0] = '\0';
+    msg_err(group, element); /* show message */
+    longjmp(fatal_error_exit, element);
 }
 
-void error_exit_str(int16_t group, int16_t element, pchar s) {
-	extern void FreeAllData(void);
-
-	FreeAllData();
-	strcpy(add_mess, s);
-	msg_err(group, element); /* show message */
-	longjmp(fatal_error_exit, element);
+void error_exit_str(int16_t group, int16_t element, pchar s)
+{
+    extern void FreeAllData(void);
+    FreeAllData();
+    strcpy(add_mess, s);
+    msg_err(group, element); /* show message */
+    longjmp(fatal_error_exit, element);
 }
 
-void error_exit_asm(int16_t element) {
-	error_exit(ERR_comp, element);
+void error_exit_asm(int16_t element)
+{
+    error_exit(ERR_comp, element);
 }
 
-//	External manipulation with error status
-pchar get_message(uint16_t code) {
-	pchar c = mess;
-	if (code == 0)
-		return "OK.";
-	strcpy(mess, *(message_groups[(code - 1000) / 100] + code % 100 - 1)); /* ptr to message */
-	strcat(mess, add_mess);
+//  External manipulation with error status
+pchar get_message(uint16_t code)
+{
+    pchar c = mess;
+
+    if (code == 0)
+        return "OK.";
+
+    strcpy(mess, *(message_groups[(code - 1000) / 100] + code % 100 - 1)); /* ptr to message */
+    strcat(mess, add_mess);
 #ifdef __MAC__
-	// Перекодирование под Windows идет в WINCV\DLL_MAIN.c
-	// тк программа под DOS и WINDOWS собирается на одной компиляции
-	{
-		extern char decode_ASCII_to_[];
-		int16_t i;
-		for(i=0;*(c+i);i++)
-		*(c+i)=decode_ASCII_to_[(uchar)(*(c+i))];
-	}
+    // Перекодирование под Windows идет в WINCV\DLL_MAIN.c
+    // тк программа под DOS и WINDOWS собирается на одной компиляции
+    {
+        extern char decode_ASCII_to_[];
+        int16_t i;
+
+        for (i = 0; *(c + i); i++)
+            *(c + i) = decode_ASCII_to_[(uchar)(*(c+i))];
+    }
 #endif
-	return c;
+    return c;
 }
 
-uint16_t get_error_status() {
-	return status_code;
+uint16_t get_error_status()
+{
+    return status_code;
 }
 
-void clear_error_status() {
-	status_code = 0;
-	add_mess[0] = '\0';
+void clear_error_status()
+{
+    status_code = 0;
+    add_mess[0] = '\0';
 }
 
-Bool bool_status() {
-	return ((status_code) ? FALSE : TRUE);
+Bool bool_status()
+{
+    return ((status_code) ? FALSE : TRUE);
 }
 
-void set_error_status(uint16_t group, uint16_t element) {
-	msg_err(group, element);
+void set_error_status(uint16_t group, uint16_t element)
+{
+    msg_err(group, element);
 }

@@ -59,118 +59,114 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "smooth.h"
 #include "lns.h"
 ///////////////////////////////////////////////////////////////////
-static int32_t* buff=NULL;
-static int nLines=0; // count of lines passed through buffer
-static int width_dword =0;
+static int32_t* buff = NULL;
+static int nLines = 0; // count of lines passed through buffer
+static int width_dword = 0;
 
 #define DEF_SMOOTH_HEIGHT 4
 #define MAX_SMOOTH_HEIGHT 16   // crazy...
 
-static int nSmoothHeight=DEF_SMOOTH_HEIGHT; // count of lines smoothed vertically
+static int nSmoothHeight = DEF_SMOOTH_HEIGHT; // count of lines smoothed vertically
 
 Bool     smooth_start(int _width_dword)
 {
-   nSmoothHeight = LnsGetProfileInt("nSmoothHeight", DEF_SMOOTH_HEIGHT);
-   if (nSmoothHeight < 0 || nSmoothHeight > MAX_SMOOTH_HEIGHT)
-      nSmoothHeight = DEF_SMOOTH_HEIGHT;
+    nSmoothHeight = LnsGetProfileInt("nSmoothHeight", DEF_SMOOTH_HEIGHT);
 
-   if (nSmoothHeight == 0)
-      return TRUE; // no smoothing
+    if (nSmoothHeight < 0 || nSmoothHeight > MAX_SMOOTH_HEIGHT)
+        nSmoothHeight = DEF_SMOOTH_HEIGHT;
 
-   width_dword = _width_dword;
-   buff = (int32_t *)(malloc(4*width_dword*(nSmoothHeight+1) ) );
-   if (buff==NULL)
-      return FALSE;
+    if (nSmoothHeight == 0)
+        return TRUE; // no smoothing
 
-   memset(buff, 0xff,  4*width_dword*(nSmoothHeight+1) ); // start - all white
-   nLines =0;
-   return TRUE;
+    width_dword = _width_dword;
+    buff = (int32_t *)(malloc(4 * width_dword * (nSmoothHeight + 1) ) );
+
+    if (buff == NULL)
+        return FALSE;
+
+    memset(buff, 0xff,  4*width_dword*(nSmoothHeight + 1) ); // start - all white
+    nLines = 0;
+    return TRUE;
 }
 
 int32_t    smooth_get_height() // count of lines joined lines
 {
-   return nSmoothHeight;
+    return nSmoothHeight;
 }
 
 int32_t*   smooth_update(int32_t* new_line)
 {
-   if (nSmoothHeight==0 || nSmoothHeight==1)
-      return new_line;
+    if (nSmoothHeight == 0 || nSmoothHeight == 1)
+        return new_line;
 
-   int pos = 1 + (nLines % nSmoothHeight);     // 1..nSmoothHeight used to keep lines
-                                               // 0 pos used for result
-   nLines++;
+    int pos = 1 + (nLines % nSmoothHeight);     // 1..nSmoothHeight used to keep lines
+    // 0 pos used for result
+    nLines++;
+    memcpy(buff + pos * width_dword, new_line, 4*width_dword); // save line
+    // make smooth
+    if (nSmoothHeight == 4) {
+        int32_t* p0 = buff;
+        int32_t* p1 = buff + width_dword;
+        int32_t* p2 = buff + width_dword * 2;
+        int32_t* p3 = buff + width_dword * 3;
+        int32_t* p4 = buff + width_dword * 4;
+        int wi = width_dword;
 
-   memcpy(buff + pos * width_dword, new_line, 4*width_dword); // save line
+        while (wi--) {
+            *p0++ = ((*p1++) & (*p2++)) & ((*p3++) & (*p4++));
+        }
 
-   // make smooth
-   if (nSmoothHeight == 4)
-   {
-      int32_t* p0=buff;
-      int32_t* p1=buff + width_dword;
-      int32_t* p2=buff + width_dword*2;
-      int32_t* p3=buff + width_dword*3;
-      int32_t* p4=buff + width_dword*4;
+        return buff;
+    }
 
-      int wi = width_dword;
-      while (wi--)
-      {
-         *p0++ = ((*p1++) & (*p2++)) & ((*p3++) & (*p4++));
-      }
+    if (nSmoothHeight == 3) {
+        int32_t* p0 = buff;
+        int32_t* p1 = buff + width_dword;
+        int32_t* p2 = buff + width_dword * 2;
+        int32_t* p3 = buff + width_dword * 3;
+        int wi = width_dword;
 
-      return buff;
-   }
-   if (nSmoothHeight == 3)
-   {
-      int32_t* p0=buff;
-      int32_t* p1=buff + width_dword;
-      int32_t* p2=buff + width_dword*2;
-      int32_t* p3=buff + width_dword*3;
+        while (wi--) {
+            *p0++ = ((*p1++) & (*p2++)) & ((*p3++));
+        }
+    }
 
-      int wi = width_dword;
-      while (wi--)
-      {
-         *p0++ = ((*p1++) & (*p2++)) & ((*p3++));
-      }
-   }
-   if (nSmoothHeight == 2)
-   {
-      int32_t* p0=buff;
-      int32_t* p1=buff + width_dword;
-      int32_t* p2=buff + width_dword*2;
+    if (nSmoothHeight == 2) {
+        int32_t* p0 = buff;
+        int32_t* p1 = buff + width_dword;
+        int32_t* p2 = buff + width_dword * 2;
+        int wi = width_dword;
 
-      int wi = width_dword;
-      while (wi--)
-      {
-         *p0++ = ((*p1++) & (*p2++));
-      }
-   }
-   if (nSmoothHeight > 4)
-   {
-      int32_t* p0=buff;
-      int wi = width_dword;
-      while (wi--)
-      {
-         *p0 = 0xffffffff;
-         int sh = nSmoothHeight;
-         int32_t* p1=p0;
-         while (sh--)
-         {
-            p1 += width_dword;
-            *p0 &= *p1;
-         }
-         p0++;
-      }
-   }
+        while (wi--) {
+            *p0++ = ((*p1++) & (*p2++));
+        }
+    }
 
-   return buff;
+    if (nSmoothHeight > 4) {
+        int32_t* p0 = buff;
+        int wi = width_dword;
+
+        while (wi--) {
+            *p0 = 0xffffffff;
+            int sh = nSmoothHeight;
+            int32_t* p1 = p0;
+
+            while (sh--) {
+                p1 += width_dword;
+                *p0 &= *p1;
+            }
+
+            p0++;
+        }
+    }
+
+    return buff;
 }
 
 void     smooth_finish()
 {
-   if (buff)
-   {
-      free(buff);
-      buff = NULL;
-   }
+    if (buff) {
+        free(buff);
+        buff = NULL;
+    }
 }

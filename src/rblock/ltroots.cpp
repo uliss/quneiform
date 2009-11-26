@@ -109,12 +109,11 @@ int nRootStripsOffset;
 # ifdef LT_STAND_ALONE
 # define ROOTS_MEMORY_QUANTUM   1024
 
-Bool RootsLoadFile(char * pFilename) {
+Bool RootsLoadFile(char * pFilename)
+{
     int hFile;
     ROOT RootRecord;
-
     RootsFreeData();
-
     hFile = open(pFilename, O_RDONLY | O_BINARY);
 
     if (hFile == -1) {
@@ -127,7 +126,7 @@ Bool RootsLoadFile(char * pFilename) {
 
         if (nRoots % ROOTS_MEMORY_QUANTUM == 0) {
             pRoots = static_cast<ROOT*> (realloc(pRoots, (size_t) ((nRoots / ROOTS_MEMORY_QUANTUM
-                    + 1) * ROOTS_MEMORY_QUANTUM * sizeof(ROOT))));
+                                                                    + 1) * ROOTS_MEMORY_QUANTUM * sizeof(ROOT))));
         }
 
         nRoots++;
@@ -147,11 +146,10 @@ Bool RootsLoadFile(char * pFilename) {
 }
 # endif
 
-void CalculatePageParameters(void) {
+void CalculatePageParameters(void)
+{
     ROOT *pRoot;
-
     pAfterRoots = pRoots + nRoots;
-
     nOriginalRoots = nRoots;
     pAfterOriginalRoots = pAfterRoots;
 
@@ -161,6 +159,7 @@ void CalculatePageParameters(void) {
         rRootSpace.xRight = -1;
         rRootSpace.yBottom = -1;
     }
+
     else {
         rRootSpace.xLeft = pRoots[0].xColumn;
         rRootSpace.yTop = pRoots[0].yRow;
@@ -196,13 +195,13 @@ void CalculatePageParameters(void) {
      (int) nRootSpaceHeight);
      LT_Getch ();
      */
-
     nPageHeight = nRootSpaceHeight;
     nSuitablePageHeight = nRootSpaceHeight * 2;
     nPageOffset = nRootSpaceHeight / 2;
 }
 
-void RootStripsCalculate(void) {
+void RootStripsCalculate(void)
+{
     ROOT *pRoot;
     int yMin, yMax; // впоследствии -- это ординаты начала
     // и конца массива проекций всех рутов (на вертикаль)
@@ -233,22 +232,24 @@ void RootStripsCalculate(void) {
     // к (yMax - yMin) кратное 128; например, при совпадении
     // yMax и yMin это просто 128 и есть
 
-    if (pRootStrips)// Piter
-    {
+    if (pRootStrips) { // Piter
         free(pRootStrips);// Piter
         pRootStrips = NULL;// Piter
     }// Piter
+
     pRootStrips = static_cast<ROOT_STRIP*> (malloc(nRootStrips * sizeof(ROOT_STRIP)));
+
     if (pRootStrips == NULL)
         ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
+
     memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
 
     for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
         iStripBegin = (pRoot -> yRow - nRootStripsOffset) / nRootStripsStep;
-
         iStripEnd = (pRoot -> yRow + pRoot -> nHeight - 1 - nRootStripsOffset) / nRootStripsStep;
-        assert(nRootStrips>iStripEnd); // Piter
-        assert(nRootStrips>iStripBegin);// Piter
+        assert(nRootStrips > iStripEnd); // Piter
+        assert(nRootStrips > iStripBegin);// Piter
+
         for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
             if (pRootStrips[iStrip].pBegin == NULL || pRoot < pRootStrips[iStrip].pBegin) {
                 pRootStrips[iStrip].pBegin = pRoot;
@@ -261,7 +262,8 @@ void RootStripsCalculate(void) {
     }
 }
 
-void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter) {
+void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter)
+{
     int iStripBegin;
     int iStripEnd;
     ROOT *pBegin;
@@ -272,15 +274,17 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **p
         ErrorInternal("nRootStripsStep == 0");
 
     iStripBegin = (yTop - nRootStripsOffset) / nRootStripsStep;
-
     iStripEnd = (yBottom - nRootStripsOffset) / nRootStripsStep;
 
     if (iStripBegin < 0)
         iStripBegin = 0;
+
     if (iStripEnd < 0)
         iStripEnd = 0;
+
     if (iStripBegin >= nRootStrips)
         iStripBegin = nRootStrips - 1;
+
     if (iStripEnd >= nRootStrips)
         iStripEnd = nRootStrips - 1;
 
@@ -298,6 +302,7 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **p
             pBegin = pRootStrips[iStrip].pBegin;
             pEnd = pRootStrips[iStrip].pEnd;
         }
+
         else {
             if (pRootStrips[iStrip].pBegin < pBegin)
                 pBegin = pRootStrips[iStrip].pBegin;
@@ -314,13 +319,15 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin, ROOT **p
         *ppBegin = NULL;
         *ppAfter = NULL;
     }
+
     else {
         *ppBegin = pBegin;
         *ppAfter = pEnd + 1;
     }
 }
 
-void RootsRemoveFromRulers(void) {
+void RootsRemoveFromRulers(void)
+{
     ROOT *p;
     int x, y;
     extern void del_root(int16_t row, int16_t col, int16_t h, int16_t w);
@@ -329,21 +336,20 @@ void RootsRemoveFromRulers(void) {
         if (p -> nBlock == REMOVED_BLOCK_NUMBER) {
             x = p -> xColumn;
             y = p -> yRow;
-
             REAL_XY(x, y);
             //          del_root (y, x, p -> nHeight, p -> nWidth);
         }
     }
 }
 
-void RootsSaveNonLayoutData(void) {
+void RootsSaveNonLayoutData(void)
+{
     int i;
 
     if (pRootExts != NULL)
         ErrorInternal("RootsSaveNonLayoutData: pRootExts != NULL");
 
     nRootExts = nRoots;
-
     pRootExts = (PROOT_EXT) malloc(nRootExts * sizeof(ROOT_EXT));
 
     if (pRootExts == NULL)
@@ -357,7 +363,8 @@ void RootsSaveNonLayoutData(void) {
     }
 }
 
-void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
+void RootsRestoreNonLayoutData_ForDustAndRemoved(void)
+{
     int i;
 
     if (pRootExts == NULL)
@@ -371,7 +378,8 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
     }
 }
 
-void RootsRestoreNonLayoutData_ForBlock(BLOCK *p) {
+void RootsRestoreNonLayoutData_ForBlock(BLOCK *p)
+{
     ROOT *pRoot, *pNext;
 
     if (pRootExts == NULL)
@@ -387,7 +395,8 @@ void RootsRestoreNonLayoutData_ForBlock(BLOCK *p) {
     }
 }
 
-void RootsRestoreNonLayoutData(void) {
+void RootsRestoreNonLayoutData(void)
+{
     int i;
 
     if (pRootExts == NULL)
@@ -399,21 +408,22 @@ void RootsRestoreNonLayoutData(void) {
     }
 
     free(pRootExts);
-
     pRootExts = NULL;
     pAfterRootExts = NULL;
     nRootExts = 0;
 }
 
-void RootsFreeData(void) {
+void RootsFreeData(void)
+{
 # ifdef LT_STAND_ALONE
-    if (pRoots != NULL)
-    {
+
+    if (pRoots != NULL) {
         free (pRoots);
         pRoots = NULL;
         pAfterRoots = NULL;
         nRoots = 0;
     }
+
 # endif
 
     if (pRootExts != NULL) {

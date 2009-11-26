@@ -83,490 +83,550 @@ STRING *pStringsListEnd = NULL;
 STRING *pStringsUpList = NULL;
 STRING *pStringsDownList = NULL;
 
-void StringPrepare(void) {
-	StringFree();
+void StringPrepare(void)
+{
+    StringFree();
+    String.pLettersList = static_cast<int*> (malloc(nRoots * sizeof(int)));
 
-	String.pLettersList = static_cast<int*> (malloc(nRoots * sizeof(int)));
-	if (String.pLettersList == NULL)
-		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 1");
+    if (String.pLettersList == NULL)
+        ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 1");
 
-	String.pDustList = static_cast<int*> (malloc(nRoots * sizeof(int)));
-	if (String.pDustList == NULL)
-		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 2");
+    String.pDustList = static_cast<int*> (malloc(nRoots * sizeof(int)));
 
-	bNeedFreeString = TRUE;
+    if (String.pDustList == NULL)
+        ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 2");
+
+    bNeedFreeString = TRUE;
 }
 
-void StringFree(void) {
-	if (bNeedFreeString) {
-		if (String.pLettersList != NULL)
-			free(String.pLettersList);
-		if (String.pDustList != NULL)
-			free(String.pDustList);
-		bNeedFreeString = FALSE;
-	}
+void StringFree(void)
+{
+    if (bNeedFreeString) {
+        if (String.pLettersList != NULL)
+            free(String.pLettersList);
+
+        if (String.pDustList != NULL)
+            free(String.pDustList);
+
+        bNeedFreeString = FALSE;
+    }
 }
 
-void StringNewDescriptor(void) {
-	String.uFlags = SF_NULL;
-	String.nLetters = 0;
-	String.nDust = 0;
-	String.nRecognized = 0;
-	String.nSpecialsLetters = 0;
+void StringNewDescriptor(void)
+{
+    String.uFlags = SF_NULL;
+    String.nLetters = 0;
+    String.nDust = 0;
+    String.nRecognized = 0;
+    String.nSpecialsLetters = 0;
 }
 
-Bool StringIncludes(STRING *p, STRING *q) {
-	int i;
-	ROOT * pRoot;
-	int nLettersSquare;
-	int nStringSquare;
-	Bool bNotIncludes;
+Bool StringIncludes(STRING *p, STRING *q)
+{
+    int i;
+    ROOT * pRoot;
+    int nLettersSquare;
+    int nStringSquare;
+    Bool bNotIncludes;
 
-	if ((p -> uFlags & SF_SPECIAL) || (q -> uFlags & SF_SPECIAL) || p -> yMin
-			> q -> yMiddleTop || p -> yMax < q -> yMiddleBottom) {
-		return FALSE;
-	}
+    if ((p -> uFlags & SF_SPECIAL) || (q -> uFlags & SF_SPECIAL) || p -> yMin
+            > q -> yMiddleTop || p -> yMax < q -> yMiddleBottom) {
+        return FALSE;
+    }
 
-	nLettersSquare = 0;
+    nLettersSquare = 0;
 
-	for (i = 0; i < q -> nLetters; i++) {
-		pRoot = &pRoots[q -> pLettersList[i]];
-		nLettersSquare += pRoot -> nWidth * pRoot -> nHeight;
-	}
+    for (i = 0; i < q -> nLetters; i++) {
+        pRoot = &pRoots[q -> pLettersList[i]];
+        nLettersSquare += pRoot -> nWidth * pRoot -> nHeight;
+    }
 
-	nStringSquare = (q -> xRight - q -> xLeft + 1) * (q -> yBottom - q -> yTop
-			+ 1);
+    nStringSquare = (q -> xRight - q -> xLeft + 1) * (q -> yBottom - q -> yTop
+                                                      + 1);
 
-	if (bOptionBusinessCardsLayout) {
-		// 940223 AL   replaced by:   check SF_VERTCUT
-		//int    nPBigDistance = (p -> yMiddleBottom - p -> yMiddleTop + 1) * 6;
-		//int    nQBigDistance = (q -> yMiddleBottom - q -> yMiddleTop + 1) * 6;
-		//int    nTestDistance = MIN (nPBigDistance, nQBigDistance);
-		//int    nPQDistance = MAX (q->xLeft - p->xRight,p->xLeft - q->xRight );
-		bNotIncludes = ((q -> uFlags & SF_VERTCUT) && q -> nLetters > 0
-				&& nLettersSquare >= nStringSquare / 3) || (q -> nLetters >= 5
-				&& q -> nRecognized >= q -> nLetters / 2 && nLettersSquare
-				>= nStringSquare / 3);
-	} else {
-		bNotIncludes = q -> nLetters >= 5 && q -> nRecognized >= q -> nLetters
-				/ 2 && q -> yMiddleTop > p -> yMiddleBottom && nLettersSquare
-				>= nStringSquare / 2;
-	}
+    if (bOptionBusinessCardsLayout) {
+        // 940223 AL   replaced by:   check SF_VERTCUT
+        //int    nPBigDistance = (p -> yMiddleBottom - p -> yMiddleTop + 1) * 6;
+        //int    nQBigDistance = (q -> yMiddleBottom - q -> yMiddleTop + 1) * 6;
+        //int    nTestDistance = MIN (nPBigDistance, nQBigDistance);
+        //int    nPQDistance = MAX (q->xLeft - p->xRight,p->xLeft - q->xRight );
+        bNotIncludes = ((q -> uFlags & SF_VERTCUT) && q -> nLetters > 0
+                        && nLettersSquare >= nStringSquare / 3) || (q -> nLetters >= 5
+                                                                    && q -> nRecognized >= q -> nLetters / 2 && nLettersSquare
+                                                                    >= nStringSquare / 3);
+    }
 
-	if (bNotIncludes) {
+    else {
+        bNotIncludes = q -> nLetters >= 5 && q -> nRecognized >= q -> nLetters
+                       / 2 && q -> yMiddleTop > p -> yMiddleBottom && nLettersSquare
+                       >= nStringSquare / 2;
+    }
+
+    if (bNotIncludes) {
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 2)
-		{
-			char bf[64];
-			sprintf (bf, "Not Incl fl %x l %d r %d" ,
-					q->uFlags,q->nLetters, q->nRecognized );
-			LT_GraphicsStringsOutput (bf);
-		}
+
+        if (SE_DebugGraphicsLevel >= 2) {
+            char bf[64];
+            sprintf (bf, "Not Incl fl %x l %d r %d" ,
+                     q->uFlags, q->nLetters, q->nRecognized );
+            LT_GraphicsStringsOutput (bf);
+        }
+
 # endif
-		return (FALSE);
-	} else {
+        return (FALSE);
+    }
+
+    else {
 # ifdef SE_DEBUG
-		if (SE_DebugGraphicsLevel >= 2)
-		{
-			char bf[64];
-			sprintf (bf, "Incl fl %x l %d r %d" ,
-					q->uFlags,q->nLetters, q->nRecognized );
-			LT_GraphicsStringsOutput (bf);
-		}
+
+        if (SE_DebugGraphicsLevel >= 2) {
+            char bf[64];
+            sprintf (bf, "Incl fl %x l %d r %d" ,
+                     q->uFlags, q->nLetters, q->nRecognized );
+            LT_GraphicsStringsOutput (bf);
+        }
+
 # endif
-		return (TRUE);
-	}
+        return (TRUE);
+    }
 }
 
-void StringRemove(STRING *p) {
-	int i;
+void StringRemove(STRING *p)
+{
+    int i;
 
-	for (i = 0; i < p -> nLetters; i++)
-		pRoots[p -> pLettersList[i]].bType &= ~ROOT_USED;
+    for (i = 0; i < p -> nLetters; i++)
+        pRoots[p -> pLettersList[i]].bType &= ~ROOT_USED;
 
-	if (p == pStringsList)
-		pStringsList = pStringsList -> pNext;
+    if (p == pStringsList)
+        pStringsList = pStringsList -> pNext;
 
-	if (p == pStringsListEnd)
-		pStringsListEnd = pStringsListEnd -> pPrev;
+    if (p == pStringsListEnd)
+        pStringsListEnd = pStringsListEnd -> pPrev;
 
-	if (p -> pPrev != NULL)
-		p -> pPrev -> pNext = p -> pNext;
-	if (p -> pNext != NULL)
-		p -> pNext -> pPrev = p -> pPrev;
+    if (p -> pPrev != NULL)
+        p -> pPrev -> pNext = p -> pNext;
 
-	if (p == pStringsUpList)
-		pStringsUpList = pStringsUpList -> pDown;
+    if (p -> pNext != NULL)
+        p -> pNext -> pPrev = p -> pPrev;
 
-	if (p == pStringsDownList)
-		pStringsDownList = pStringsDownList -> pUp;
+    if (p == pStringsUpList)
+        pStringsUpList = pStringsUpList -> pDown;
 
-	if (p -> pUp != NULL)
-		p -> pUp -> pDown = p -> pDown;
-	if (p -> pDown != NULL)
-		p -> pDown -> pUp = p -> pUp;
+    if (p == pStringsDownList)
+        pStringsDownList = pStringsDownList -> pUp;
 
-	if (p -> pLettersList != NULL)
-		free(p -> pLettersList);
+    if (p -> pUp != NULL)
+        p -> pUp -> pDown = p -> pDown;
 
-	if (p -> pDustList != NULL)
-		free(p -> pDustList);
+    if (p -> pDown != NULL)
+        p -> pDown -> pUp = p -> pUp;
 
-	free(p);
+    if (p -> pLettersList != NULL)
+        free(p -> pLettersList);
+
+    if (p -> pDustList != NULL)
+        free(p -> pDustList);
+
+    free(p);
 }
 
-void StringRemoveFromUpDownLists(STRING *p) {
-	if (p == pStringsUpList)
-		pStringsUpList = pStringsUpList -> pDown;
+void StringRemoveFromUpDownLists(STRING *p)
+{
+    if (p == pStringsUpList)
+        pStringsUpList = pStringsUpList -> pDown;
 
-	if (p == pStringsDownList)
-		pStringsDownList = pStringsDownList -> pUp;
+    if (p == pStringsDownList)
+        pStringsDownList = pStringsDownList -> pUp;
 
-	if (p -> pUp != NULL)
-		p -> pUp -> pDown = p -> pDown;
-	if (p -> pDown != NULL)
-		p -> pDown -> pUp = p -> pUp;
+    if (p -> pUp != NULL)
+        p -> pUp -> pDown = p -> pDown;
+
+    if (p -> pDown != NULL)
+        p -> pDown -> pUp = p -> pUp;
 }
 
-void StringAccountRectangle1(int iRoot) {
-	ROOT *pRoot = &pRoots[iRoot];
+void StringAccountRectangle1(int iRoot)
+{
+    ROOT *pRoot = &pRoots[iRoot];
 
-	if (!(String.uFlags & SF_RECT_ACCOUNTED)) {
-		String.xLeft = pRoot -> xColumn;
-		String.yTop = pRoot -> yRow;
-		String.xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
-		String.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
-		String.uFlags |= SF_RECT_ACCOUNTED;
-	} else {
-		if (String.xLeft > pRoot -> xColumn)
-			String.xLeft = pRoot -> xColumn;
+    if (!(String.uFlags & SF_RECT_ACCOUNTED)) {
+        String.xLeft = pRoot -> xColumn;
+        String.yTop = pRoot -> yRow;
+        String.xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+        String.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
+        String.uFlags |= SF_RECT_ACCOUNTED;
+    }
 
-		if (String.yTop > pRoot -> yRow)
-			String.yTop = pRoot -> yRow;
+    else {
+        if (String.xLeft > pRoot -> xColumn)
+            String.xLeft = pRoot -> xColumn;
 
-		if (String.xRight < pRoot -> xColumn + pRoot -> nWidth - 1)
-			String.xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+        if (String.yTop > pRoot -> yRow)
+            String.yTop = pRoot -> yRow;
 
-		if (String.yBottom < pRoot -> yRow + pRoot -> nHeight - 1)
-			String.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
-	}
+        if (String.xRight < pRoot -> xColumn + pRoot -> nWidth - 1)
+            String.xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+
+        if (String.yBottom < pRoot -> yRow + pRoot -> nHeight - 1)
+            String.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
+    }
 }
 
-void StringAccountRectangle2(STRING *pString, int iRoot) {
-	ROOT *pRoot = &pRoots[iRoot];
+void StringAccountRectangle2(STRING *pString, int iRoot)
+{
+    ROOT *pRoot = &pRoots[iRoot];
 
-	if (!(pString -> uFlags & SF_RECT_ACCOUNTED)) {
-		pString -> xLeft = pRoot -> xColumn;
-		pString -> yTop = pRoot -> yRow;
-		pString -> xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
-		pString -> yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
-		pString -> uFlags |= SF_RECT_ACCOUNTED;
-	} else {
-		if (pString -> xLeft > pRoot -> xColumn)
-			pString -> xLeft = pRoot -> xColumn;
+    if (!(pString -> uFlags & SF_RECT_ACCOUNTED)) {
+        pString -> xLeft = pRoot -> xColumn;
+        pString -> yTop = pRoot -> yRow;
+        pString -> xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+        pString -> yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
+        pString -> uFlags |= SF_RECT_ACCOUNTED;
+    }
 
-		if (pString -> yTop > pRoot -> yRow)
-			pString -> yTop = pRoot -> yRow;
+    else {
+        if (pString -> xLeft > pRoot -> xColumn)
+            pString -> xLeft = pRoot -> xColumn;
 
-		if (pString -> xRight < pRoot -> xColumn + pRoot -> nWidth - 1)
-			pString -> xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+        if (pString -> yTop > pRoot -> yRow)
+            pString -> yTop = pRoot -> yRow;
 
-		if (pString -> yBottom < pRoot -> yRow + pRoot -> nHeight - 1)
-			pString -> yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
-	}
+        if (pString -> xRight < pRoot -> xColumn + pRoot -> nWidth - 1)
+            pString -> xRight = pRoot -> xColumn + pRoot -> nWidth - 1;
+
+        if (pString -> yBottom < pRoot -> yRow + pRoot -> nHeight - 1)
+            pString -> yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
+    }
 }
 
-void StringAccountRepresentationParameters1(int iRoot) {
-	ROOT_EXT *pExt = &pRootExts[iRoot];
+void StringAccountRepresentationParameters1(int iRoot)
+{
+    ROOT_EXT *pExt = &pRootExts[iRoot];
 
-	if (!(String.uFlags & SF_REPRESENTATION_ACCOUNTED)) {
-		String.wFirst = pExt -> wSegmentPtr;
-		String.wLast = pExt -> wSegmentPtr + pExt-> wLength;
-		String.uFlags |= SF_REPRESENTATION_ACCOUNTED;
-	} else {
-		if (String.wFirst > pExt -> wSegmentPtr)
-			String.wFirst = pExt -> wSegmentPtr;
+    if (!(String.uFlags & SF_REPRESENTATION_ACCOUNTED)) {
+        String.wFirst = pExt -> wSegmentPtr;
+        String.wLast = pExt -> wSegmentPtr + pExt-> wLength;
+        String.uFlags |= SF_REPRESENTATION_ACCOUNTED;
+    }
 
-		if (String.wLast < pExt -> wSegmentPtr + pExt -> wLength)
-			String.wLast = pExt -> wSegmentPtr + pExt -> wLength;
-	}
+    else {
+        if (String.wFirst > pExt -> wSegmentPtr)
+            String.wFirst = pExt -> wSegmentPtr;
+
+        if (String.wLast < pExt -> wSegmentPtr + pExt -> wLength)
+            String.wLast = pExt -> wSegmentPtr + pExt -> wLength;
+    }
 }
 
-void StringAccountRepresentationParameters2(STRING *pString, int iRoot) {
-	ROOT_EXT *pExt = &pRootExts[iRoot];
+void StringAccountRepresentationParameters2(STRING *pString, int iRoot)
+{
+    ROOT_EXT *pExt = &pRootExts[iRoot];
 
-	if (!(pString -> uFlags & SF_REPRESENTATION_ACCOUNTED)) {
-		pString -> wFirst = pExt -> wSegmentPtr;
-		pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
-		pString -> uFlags |= SF_REPRESENTATION_ACCOUNTED;
-	} else {
-		if (pString -> wFirst > pExt -> wSegmentPtr)
-			pString -> wFirst = pExt -> wSegmentPtr;
+    if (!(pString -> uFlags & SF_REPRESENTATION_ACCOUNTED)) {
+        pString -> wFirst = pExt -> wSegmentPtr;
+        pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
+        pString -> uFlags |= SF_REPRESENTATION_ACCOUNTED;
+    }
 
-		if (pString -> wLast < pExt -> wSegmentPtr + pExt -> wLength)
-			pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
-	}
+    else {
+        if (pString -> wFirst > pExt -> wSegmentPtr)
+            pString -> wFirst = pExt -> wSegmentPtr;
+
+        if (pString -> wLast < pExt -> wSegmentPtr + pExt -> wLength)
+            pString -> wLast = pExt -> wSegmentPtr + pExt -> wLength;
+    }
 }
 
-void StringCountRecog(STRING *q) {
-	int16_t i, j;
-	q->nRecognized = 0;
-	for (i = 0; i < q -> nLetters; i++) {
-		j = q -> pLettersList[i];
-		if (pRoots[j].bType & ROOT_LETTER)
-			q->nRecognized++;
-	}
+void StringCountRecog(STRING *q)
+{
+    int16_t i, j;
+    q->nRecognized = 0;
+
+    for (i = 0; i < q -> nLetters; i++) {
+        j = q -> pLettersList[i];
+
+        if (pRoots[j].bType & ROOT_LETTER)
+            q->nRecognized++;
+    }
 }
 
-void StringAddLetter1(int iRoot) {
-	String.pLettersList[String.nLetters++] = iRoot;
+void StringAddLetter1(int iRoot)
+{
+    String.pLettersList[String.nLetters++] = iRoot;
 
-	if (pRoots[iRoot].bType & ROOT_LETTER)
-		String.nRecognized++;
+    if (pRoots[iRoot].bType & ROOT_LETTER)
+        String.nRecognized++;
 
-	StringAccountRectangle1(iRoot);
+    StringAccountRectangle1(iRoot);
 }
 
-void StringAddLetter2(STRING *pString, int iRoot) {
-	pString -> nLetters++;
-	pString -> pLettersList = static_cast<int*> (realloc(
-			pString -> pLettersList, pString -> nLetters));
+void StringAddLetter2(STRING *pString, int iRoot)
+{
+    pString -> nLetters++;
+    pString -> pLettersList = static_cast<int*> (realloc(
+                                                     pString -> pLettersList, pString -> nLetters));
 
-	if (pString -> pLettersList == NULL)
-		ErrorNoEnoughMemory("in SESTRING.C,StringAddLetter2 ,part 1");
+    if (pString -> pLettersList == NULL)
+        ErrorNoEnoughMemory("in SESTRING.C,StringAddLetter2 ,part 1");
 
-	pString -> pLettersList[pString -> nLetters - 1] = iRoot;
+    pString -> pLettersList[pString -> nLetters - 1] = iRoot;
 
-	if (pRoots[iRoot].bType & ROOT_LETTER)
-		pString -> nRecognized++;
+    if (pRoots[iRoot].bType & ROOT_LETTER)
+        pString -> nRecognized++;
 
-	StringAccountRectangle2(pString, iRoot);
+    StringAccountRectangle2(pString, iRoot);
 }
 
-void StringAddDust1(int iRoot) {
-	String.pDustList[String.nDust++] = iRoot;
+void StringAddDust1(int iRoot)
+{
+    String.pDustList[String.nDust++] = iRoot;
 }
 
-void StringAddDust2(STRING *pString, int iRoot) {
-	if ((pString -> nDust & DUST_LIST_MEMORY_ALLOCATION_MASK) == 0) {
-		pString -> pDustList = static_cast<int*> (realloc(pString -> pDustList,
-				(size_t) ((((pString -> nDust
-						>> DUST_LIST_MEMORY_ALLOCATION_SHIFT) + 1)
-						<< DUST_LIST_MEMORY_ALLOCATION_SHIFT) * sizeof(int))));
+void StringAddDust2(STRING *pString, int iRoot)
+{
+    if ((pString -> nDust & DUST_LIST_MEMORY_ALLOCATION_MASK) == 0) {
+        pString -> pDustList = static_cast<int*> (realloc(pString -> pDustList,
+                                                          (size_t) ((((pString -> nDust
+                                                                       >> DUST_LIST_MEMORY_ALLOCATION_SHIFT) + 1)
+                                                                     << DUST_LIST_MEMORY_ALLOCATION_SHIFT) * sizeof(int))));
 
-		if (pString -> pDustList == NULL)
-			ErrorNoEnoughMemory("in SESTRING.C,StringAddDust2,part 1");
-	}
+        if (pString -> pDustList == NULL)
+            ErrorNoEnoughMemory("in SESTRING.C,StringAddDust2,part 1");
+    }
 
-	pString -> pDustList[pString -> nDust++] = iRoot;
+    pString -> pDustList[pString -> nDust++] = iRoot;
 }
 
-STRING *StringAddToList(void) {
-	STRING *pNew;
-	STRING *p;
+STRING *StringAddToList(void)
+{
+    STRING *pNew;
+    STRING *p;
+    pNew = static_cast<STRING*> (malloc(sizeof(STRING)));
 
-	pNew = static_cast<STRING*> (malloc(sizeof(STRING)));
-	if (pNew == NULL)
-		ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 1");
+    if (pNew == NULL)
+        ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 1");
 
-	memcpy(pNew, &String, sizeof(String));
+    memcpy(pNew, &String, sizeof(String));
 
-	if (String.nLetters != 0) {
-		pNew -> pLettersList = static_cast<int*> (malloc(String.nLetters
-				* sizeof(int)));
+    if (String.nLetters != 0) {
+        pNew -> pLettersList = static_cast<int*> (malloc(String.nLetters
+                                                         * sizeof(int)));
 
-		if (pNew -> pLettersList == NULL)
-			ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 2");
+        if (pNew -> pLettersList == NULL)
+            ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 2");
 
-		memcpy(pNew -> pLettersList, String.pLettersList, String.nLetters
-				* sizeof(int));
-	} else {
-		pNew -> pLettersList = NULL;
-	}
+        memcpy(pNew -> pLettersList, String.pLettersList, String.nLetters
+               * sizeof(int));
+    }
 
-	if (String.nDust != 0) {
-		pNew -> pDustList = static_cast<int*> (malloc(String.nDust
-				* sizeof(int)));
+    else {
+        pNew -> pLettersList = NULL;
+    }
 
-		if (pNew -> pDustList == NULL)
-			ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 3");
+    if (String.nDust != 0) {
+        pNew -> pDustList = static_cast<int*> (malloc(String.nDust
+                                                      * sizeof(int)));
 
-		memcpy(pNew -> pDustList, String.pDustList, String.nDust * sizeof(int));
-	} else {
-		pNew -> pDustList = NULL;
-	}
+        if (pNew -> pDustList == NULL)
+            ErrorNoEnoughMemory("in SESTRING.C,StringAddToList,part 3");
 
-	if (pStringsList == NULL) {
-		pStringsList = pNew;
-		pStringsListEnd = pNew;
-		pNew -> pNext = NULL;
-		pNew -> pPrev = NULL;
-	} else {
-		pStringsListEnd -> pNext = pNew;
-		pNew -> pNext = NULL;
-		pNew -> pPrev = pStringsListEnd;
-		pStringsListEnd = pNew;
-	}
+        memcpy(pNew -> pDustList, String.pDustList, String.nDust * sizeof(int));
+    }
 
-	if (pStringsUpList == NULL) {
-		pStringsUpList = pStringsDownList = pNew;
-		pNew -> pUp = NULL;
-		pNew -> pDown = NULL;
-	} else if (!(pStringsUpList -> uFlags & SF_NEED_DELETE)
-			&& (pStringsUpList -> yMiddleTop > pNew -> yMiddleBottom
-					|| pStringsUpList -> yMiddleBottom > pNew -> yMiddleTop
-							&& pStringsUpList -> xLeft > pNew -> xLeft)) {
-		pNew -> pUp = NULL;
-		pNew -> pDown = pStringsUpList;
-		pStringsUpList -> pUp = pNew;
-		pStringsUpList = pNew;
-	} else {
-		for (p = pStringsUpList; p -> pDown != NULL; p = p -> pDown) {
-			if (p -> pDown -> uFlags & SF_NEED_DELETE)
-				continue;
+    else {
+        pNew -> pDustList = NULL;
+    }
 
-			if (pNew -> yMiddleBottom <= p -> pDown -> yMiddleTop
-					|| pNew -> yMiddleTop <= p -> pDown -> yMiddleBottom
-							&& pNew -> xLeft <= p -> pDown -> xLeft) {
-				break;
-			}
-		}
+    if (pStringsList == NULL) {
+        pStringsList = pNew;
+        pStringsListEnd = pNew;
+        pNew -> pNext = NULL;
+        pNew -> pPrev = NULL;
+    }
 
-		if (p -> pDown == NULL) {
-			pNew -> pUp = pStringsDownList;
-			pNew -> pDown = NULL;
-			pStringsDownList -> pDown = pNew;
-			pStringsDownList = pNew;
-		} else {
-			pNew -> pUp = p;
-			pNew -> pDown = p -> pDown;
-			p -> pDown -> pUp = pNew;
-			p -> pDown = pNew;
-		}
-	}
+    else {
+        pStringsListEnd -> pNext = pNew;
+        pNew -> pNext = NULL;
+        pNew -> pPrev = pStringsListEnd;
+        pStringsListEnd = pNew;
+    }
 
-	return (pNew);
+    if (pStringsUpList == NULL) {
+        pStringsUpList = pStringsDownList = pNew;
+        pNew -> pUp = NULL;
+        pNew -> pDown = NULL;
+    }
+
+    else if (!(pStringsUpList -> uFlags & SF_NEED_DELETE)
+             && (pStringsUpList -> yMiddleTop > pNew -> yMiddleBottom
+                 || pStringsUpList -> yMiddleBottom > pNew -> yMiddleTop
+                 && pStringsUpList -> xLeft > pNew -> xLeft)) {
+        pNew -> pUp = NULL;
+        pNew -> pDown = pStringsUpList;
+        pStringsUpList -> pUp = pNew;
+        pStringsUpList = pNew;
+    }
+
+    else {
+        for (p = pStringsUpList; p -> pDown != NULL; p = p -> pDown) {
+            if (p -> pDown -> uFlags & SF_NEED_DELETE)
+                continue;
+
+            if (pNew -> yMiddleBottom <= p -> pDown -> yMiddleTop
+                    || pNew -> yMiddleTop <= p -> pDown -> yMiddleBottom
+                    && pNew -> xLeft <= p -> pDown -> xLeft) {
+                break;
+            }
+        }
+
+        if (p -> pDown == NULL) {
+            pNew -> pUp = pStringsDownList;
+            pNew -> pDown = NULL;
+            pStringsDownList -> pDown = pNew;
+            pStringsDownList = pNew;
+        }
+
+        else {
+            pNew -> pUp = p;
+            pNew -> pDown = p -> pDown;
+            p -> pDown -> pUp = pNew;
+            p -> pDown = pNew;
+        }
+    }
+
+    return (pNew);
 }
 
-static int StringListCompProc(const int *p1, const int *p2) {
-	return (pRoots[*p1].xColumn - pRoots[*p2].xColumn);
+static int StringListCompProc(const int *p1, const int *p2)
+{
+    return (pRoots[*p1].xColumn - pRoots[*p2].xColumn);
 }
 
-void StringSortLetters(STRING *pString) {
-	q_sort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
-			(int(*)(const void*, const void*)) StringListCompProc);
+void StringSortLetters(STRING *pString)
+{
+    q_sort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
+           (int(*)(const void*, const void*)) StringListCompProc);
 }
 
-void StringSortDust(STRING *pString) {
-	q_sort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
-			(int(*)(const void*, const void*)) StringListCompProc);
+void StringSortDust(STRING *pString)
+{
+    q_sort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
+           (int(*)(const void*, const void*)) StringListCompProc);
 }
 
-void StringOutput(void) {
-	extern void file_string(STRING * n);
-
-	String.nBlock = nCurrentBlock;
-	String.nUserNum = pCurrentBlock->nUserNum;// Piter 08-17-95 06:41pm
-	String.yBottom++;
-	String.xRight++;
-
-	file_string(&String);
+void StringOutput(void)
+{
+    extern void file_string(STRING * n);
+    String.nBlock = nCurrentBlock;
+    String.nUserNum = pCurrentBlock->nUserNum;// Piter 08-17-95 06:41pm
+    String.yBottom++;
+    String.xRight++;
+    file_string(&String);
 }
 
-void StringsListOutput(void) {
+void StringsListOutput(void)
+{
 # ifdef LT_DUMP
-	extern FILE *pfListing;
+    extern FILE *pfListing;
 # endif
 
-	while (pStringsUpList != NULL) {
+    while (pStringsUpList != NULL) {
 # ifdef LT_DUMP
-		fprintf (pfListing,
-				"String: Letters: %d, Dust: %d, Rect: [%d, %d]-[%d, %d]\n",
-				(int) pStringsUpList -> nLetters,
-				(int) pStringsUpList -> nDust,
-				(int) pStringsUpList -> xLeft,
-				(int) pStringsUpList -> yTop,
-				(int) pStringsUpList -> xRight,
-				(int) pStringsUpList -> yBottom);
+        fprintf (pfListing,
+                 "String: Letters: %d, Dust: %d, Rect: [%d, %d]-[%d, %d]\n",
+                 (int) pStringsUpList -> nLetters,
+                 (int) pStringsUpList -> nDust,
+                 (int) pStringsUpList -> xLeft,
+                 (int) pStringsUpList -> yTop,
+                 (int) pStringsUpList -> xRight,
+                 (int) pStringsUpList -> yBottom);
 # endif
-		memcpy(&String, pStringsUpList, sizeof(String));
-		StringOutput();
-		StringRemove(pStringsUpList);
-	}
+        memcpy(&String, pStringsUpList, sizeof(String));
+        StringOutput();
+        StringRemove(pStringsUpList);
+    }
 
-	StringsFreeMemory();
+    StringsFreeMemory();
 # ifdef LT_DUMP
-	fprintf (pfListing, "\n");
+    fprintf (pfListing, "\n");
 # endif
 }
 
-void StringUpdate(STRING *pString) {
-	int i;
+void StringUpdate(STRING *pString)
+{
+    int i;
+    pString -> uFlags &= ~(SF_RECT_ACCOUNTED | SF_REPRESENTATION_ACCOUNTED);
 
-	pString -> uFlags &= ~(SF_RECT_ACCOUNTED | SF_REPRESENTATION_ACCOUNTED);
+    for (i = 0; i < pString -> nLetters; i++) {
+        pRoots[pString -> pLettersList[i]].bType &= ~ROOT_SPECIAL_LETTER;
+        pRoots[pString -> pLettersList[i]].bType |= ROOT_USED;
+        StringAccountRectangle2(pString, pString -> pLettersList[i]);
+    }
 
-	for (i = 0; i < pString -> nLetters; i++) {
-		pRoots[pString -> pLettersList[i]].bType &= ~ROOT_SPECIAL_LETTER;
-		pRoots[pString -> pLettersList[i]].bType |= ROOT_USED;
-		StringAccountRectangle2(pString, pString -> pLettersList[i]);
-	}
-
-	StringSortLetters(pString);
-	StringSortDust(pString);
-	StringCalculateParameters(pString);
-	pString -> uFlags &= ~SF_NEED_UPDATE;
+    StringSortLetters(pString);
+    StringSortDust(pString);
+    StringCalculateParameters(pString);
+    pString -> uFlags &= ~SF_NEED_UPDATE;
 }
 
-void StringsListUpdate(void) {
-	STRING *pString, *pNext;
-
+void StringsListUpdate(void)
+{
+    STRING *pString, *pNext;
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 4)
-	LT_GraphicsStringsOutput ("Before remove");
+
+    if (SE_DebugGraphicsLevel >= 4)
+        LT_GraphicsStringsOutput ("Before remove");
+
 # endif
 
-	for (pString = pStringsList; pString != NULL; pString = pNext) {
-		pNext = pString -> pNext;
+    for (pString = pStringsList; pString != NULL; pString = pNext) {
+        pNext = pString -> pNext;
 
-		if (pString -> uFlags & SF_NEED_DELETE)
-			StringRemove(pString);
-	}
+        if (pString -> uFlags & SF_NEED_DELETE)
+            StringRemove(pString);
+    }
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 4)
-	LT_GraphicsStringsOutput ("Before update");
+
+    if (SE_DebugGraphicsLevel >= 4)
+        LT_GraphicsStringsOutput ("Before update");
+
 # endif
 
-	for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
-		if (pString -> uFlags & SF_NEED_UPDATE)
-			StringUpdate(pString);
-	}
+    for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
+        if (pString -> uFlags & SF_NEED_UPDATE)
+            StringUpdate(pString);
+    }
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 4)
-	LT_GraphicsStringsOutput ("Updated");
+
+    if (SE_DebugGraphicsLevel >= 4)
+        LT_GraphicsStringsOutput ("Updated");
+
 # endif
 }
 
-void StringsFreeMemory(void) {
-	STRING *pTemp;
+void StringsFreeMemory(void)
+{
+    STRING *pTemp;
 
-	while (pStringsList != NULL) {
-		pTemp = pStringsList;
-		pStringsList = pStringsList -> pNext;
+    while (pStringsList != NULL) {
+        pTemp = pStringsList;
+        pStringsList = pStringsList -> pNext;
 
-		if (pTemp -> pLettersList != NULL)
-			free(pTemp -> pLettersList);
+        if (pTemp -> pLettersList != NULL)
+            free(pTemp -> pLettersList);
 
-		if (pTemp -> pDustList != NULL)
-			free(pTemp -> pDustList);
+        if (pTemp -> pDustList != NULL)
+            free(pTemp -> pDustList);
 
-		free(pTemp);
-	}
+        free(pTemp);
+    }
 
-	pStringsList = NULL;
-	pStringsListEnd = NULL;
-	pStringsUpList = NULL;
-	pStringsDownList = NULL;
-	StringFree();
+    pStringsList = NULL;
+    pStringsListEnd = NULL;
+    pStringsUpList = NULL;
+    pStringsDownList = NULL;
+    StringFree();
 }

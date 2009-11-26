@@ -60,12 +60,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int32_t filelength_m(FILE *stream)
 {
-   long pos=fseek(stream, 0L, SEEK_END);
-   fseek(stream, 0L, SEEK_SET);
-   return pos;
+    long pos = fseek(stream, 0L, SEEK_END);
+    fseek(stream, 0L, SEEK_SET);
+    return pos;
 }
 
-static uint cr=13,lf=10;
+static uint cr = 13, lf = 10;
 /*==Return:
     -1 - END_OF_FILE,
     -2 - int32_t STRING,
@@ -74,23 +74,34 @@ static uint cr=13,lf=10;
     str - буфер строки,
     max_len - ограничение на длину строки
     f - идентификатор файла (текстового)*/
-int fgets_m(char *str,int max_len,FILE *f)
+int fgets_m(char *str, int max_len, FILE *f)
 /*=========*/
-{ int len=-1;
-  while(++len < max_len)
-  { str[len]=get_kod(f);
-    if(str[len]==0) return -1; /*END FILE*/
-    if(len && (uint)str[len-1] == cr && (uint)str[len] == lf)
-      { str[--len]=0; return len; }
-  }
-  str[len-1]=0; return -2; /*int32_t STRING*/
+{
+    int len = -1;
+
+    while (++len < max_len) {
+        str[len] = get_kod(f);
+
+        if (str[len] == 0) return -1; /*END FILE*/
+
+        if (len && (uint)str[len-1] == cr && (uint)str[len] == lf) {
+            str[--len] = 0;
+            return len;
+        }
+    }
+
+    str[len-1] = 0;
+    return -2; /*int32_t STRING*/
 }
 /*=========Return: >0 - код символа, 0 - END_OF_FILE*/
 char get_kod(FILE *f)
 /*=========*/
-{ char sym;
-  if(fread(&sym,1,1,f) == 0) return 0; /*END FILE*/
-  return sym;
+{
+    char sym;
+
+    if (fread(&sym, 1, 1, f) == 0) return 0; /*END FILE*/
+
+    return sym;
 }
 /*==Return:
     -1 - END_OF_FILE,
@@ -100,31 +111,57 @@ char get_kod(FILE *f)
     str - буфер строки,
     max_len - ограничение на длину строки
     f - идентификатор файла (текстового)*/
-int fgets1_m(char *str,int max_len,FILE *f)
+int fgets1_m(char *str, int max_len, FILE *f)
 /*=========*/
-{ int len=-1;
-  if(f==NULL) { get1_kod(f); return 0; }
-  while(++len < max_len)
-  { str[len]=get1_kod(f);
-    if(str[len]==0) return -1; /*END FILE*/
-    if(len && (uint)str[len-1] == cr && (uint)str[len] == lf)
-      { str[--len]=0; return len; }
-  }
-  str[len-1]=0; return -2; /*int32_t STRING*/
+{
+    int len = -1;
+
+    if (f == NULL) {
+        get1_kod(f);
+        return 0;
+    }
+
+    while (++len < max_len) {
+        str[len] = get1_kod(f);
+
+        if (str[len] == 0) return -1; /*END FILE*/
+
+        if (len && (uint)str[len-1] == cr && (uint)str[len] == lf) {
+            str[--len] = 0;
+            return len;
+        }
+    }
+
+    str[len-1] = 0;
+    return -2; /*int32_t STRING*/
 }
 #define SIZE_BLOC 512
 /*=========Return: >0 - код символа, 0 - END_OF_FILE*/
 char get1_kod(FILE *f)
 /*=========*/
-{ static char *b; static int len=-1,pos=-1;
-  if(f==NULL)
-   { if(len!=-1 || pos!=-1) free(b); len=-1,pos=-1; return 0; }
-  if(pos >= len)
-  { if(pos == -1) b=(char*)malloc(SIZE_BLOC);
-    if((len=fread(b,1,SIZE_BLOC,f)) == 0) {free(b);return 0;/*END FILE*/}
-    pos=0;
-  }
-  return b[pos++];
+{
+    static char *b;
+    static int len = -1, pos = -1;
+
+    if (f == NULL) {
+        if (len != -1 || pos != -1) free(b);
+
+        len = -1, pos = -1;
+        return 0;
+    }
+
+    if (pos >= len) {
+        if (pos == -1) b = (char*)malloc(SIZE_BLOC);
+
+        if ((len = fread(b, 1, SIZE_BLOC, f)) == 0) {
+            free(b);
+            return 0;/*END FILE*/
+        }
+
+        pos = 0;
+    }
+
+    return b[pos++];
 }
 /*=Параметры:
    str   - входная строка,
@@ -133,17 +170,30 @@ char get1_kod(FILE *f)
    Return: указатель на строку, из которой удалены знаки параметра,
            если параметр не удалось выделить, возвращается NULL STRING
 */
-char *get_param(char *str,char *param,int max_len)
+char *get_param(char *str, char *param, int max_len)
 /*=========*/
-{ int len;
-  len=-1; while(str[++len]==' '); str+=len;/*Убираем пробелы слева от параметра*/
-  len=-1;
-  while(++len < max_len && str[len] != ' ') /*Поиск первого пробела справа*/
-  { if( (param[len]=str[len]) == 0) break; /*Detect END STRING*/
-    if(len && (uint)str[len-1] == cr && (uint)str[len] == lf) /*Detect <cr><lf>*/
-      { --len; break; }
-  }
-  /*Если параметр очень длинный, возвращаем неудачу его выделения*/
-  if(len < max_len-1) param[len]=0; else param[len=0]=0;
-  return str+len;
+{
+    int len;
+    len = -1;
+
+    while (str[++len] == ' ');
+
+    str += len;/*Убираем пробелы слева от параметра*/
+    len = -1;
+
+    while (++len < max_len && str[len] != ' ') { /*Поиск первого пробела справа*/
+        if ( (param[len] = str[len]) == 0) break; /*Detect END STRING*/
+
+        if (len && (uint)str[len-1] == cr && (uint)str[len] == lf) { /*Detect <cr><lf>*/
+            --len;
+            break;
+        }
+    }
+
+    /*Если параметр очень длинный, возвращаем неудачу его выделения*/
+    if (len < max_len - 1) param[len] = 0;
+
+    else param[len=0] = 0;
+
+    return str + len;
 }

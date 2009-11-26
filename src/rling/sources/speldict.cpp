@@ -85,7 +85,7 @@
 /* -- Code -- */
 
 int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
-		struct dict_state * dict);
+               struct dict_state * dict);
 
 /* -- Data -- */
 extern uchar alphabet[2][ABCSIZE];
@@ -95,15 +95,15 @@ extern KEYTYPE codetable[256];
 
 /* 03-22-93 10:51pm, Mike                 */
 /* 03-22-93 10:52pm, Mike -- See above... */
-uchar alphabet[][ABCSIZE]= {
-	{	'\'','A','.','Ћ','Џ','.','.','’','B','C','Ђ','D','E','.','.',
-		'.','ђ','F','G','H','I','.','.','.','.','J','K','L','M','N',
-		'Ґ','O','.','™','.','.','P','Q','R','S','T','U','љ','.','.',
-		'.','V','W','X','Y','.','Z'},
-	{	'\'','a','ѓ','„','†','…',' ','‘','b','c','‡','d','e','€','Љ',
-		'‰','‚','f','g','h','i','‹','Њ','Ќ','Ў','j','k','l','m','n',
-		'¤','o','“','”','•','ў','p','q','r','s','t','u','Ѓ','–','—',
-		'Ј','v','w','x','y','�','z'}
+uchar alphabet[][ABCSIZE] = {
+    {   '\'', 'A', '.', 'Ћ', 'Џ', '.', '.', '’', 'B', 'C', 'Ђ', 'D', 'E', '.', '.',
+        '.', 'ђ', 'F', 'G', 'H', 'I', '.', '.', '.', '.', 'J', 'K', 'L', 'M', 'N',
+        'Ґ', 'O', '.', '™', '.', '.', 'P', 'Q', 'R', 'S', 'T', 'U', 'љ', '.', '.',
+        '.', 'V', 'W', 'X', 'Y', '.', 'Z'},
+    {   '\'', 'a', 'ѓ', '„', '†', '…', ' ', '‘', 'b', 'c', '‡', 'd', 'e', '€', 'Љ',
+        '‰', '‚', 'f', 'g', 'h', 'i', '‹', 'Њ', 'Ќ', 'Ў', 'j', 'k', 'l', 'm', 'n',
+        '¤', 'o', '“', '”', '•', 'ў', 'p', 'q', 'r', 's', 't', 'u', 'Ѓ', '–', '—',
+        'Ј', 'v', 'w', 'x', 'y', '�', 'z'}
 };
 
 KEYTYPE codetable[256];
@@ -115,20 +115,20 @@ KEYTYPE codetable[256];
 /* -- Code -- */
 
 static int16_t
-		analyse(int16_t * account, int16_t * wordsize, LTIMG * wrddef[], int16_t * found);
+analyse(int16_t * account, int16_t * wordsize, LTIMG * wrddef[], int16_t * found);
 static int16_t next_level(KEYTYPE ch);
 static int16_t test_tail(uchar * ptr, int16_t * accounter, int16_t * tailmaxl,
-		LTIMG * wrddef[], int16_t * tailfound);
+                         LTIMG * wrddef[], int16_t * tailfound);
 
 static TShiftType brother2(uchar * ptr);
 
 static int16_t comp_tail(int16_t varnum, int16_t rest, int16_t cnt, KEYTYPE * wptr,
-		int16_t * tailmaxl, LTIMG * wrddef[], int16_t * tailfound);
+                         int16_t * tailmaxl, LTIMG * wrddef[], int16_t * tailfound);
 static int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont);
 static int16_t tailout(int16_t cnt, int16_t rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		int16_t * tailfound, uchar *tailptr);
+                       int16_t * tailfound, uchar *tailptr);
 static int16_t chkfill(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
-		int16_t * fillfind, uchar symb, LT ** gaplt);
+                       int16_t * fillfind, uchar symb, LT ** gaplt);
 
 /* -- Macro -- */
 
@@ -213,54 +213,64 @@ static uchar *ndptr; /* pointer to current vertex in  */
 /*************************************************************************/
 
 int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
-		struct dict_state * dict) {
-	int16_t found = 0;
-	int16_t state; /* state of search in dictionary */
-	int16_t account = 0; /* word statistic                */
-	int16_t full_size = *wordsize; /* ATAL, save word size          */
+               struct dict_state * dict)
+{
+    int16_t found = 0;
+    int16_t state; /* state of search in dictionary */
+    int16_t account = 0; /* word statistic                */
+    int16_t full_size = *wordsize; /* ATAL, save word size          */
+    dictInfo = dict; /* initial values of prossess    */
+    ndptr = dict->root;
+    indpos = 1;
+    wptr = word;
+    poslevel = 0;
+    maxlevel = VERTV_KEY(ndptr);
 
-	dictInfo = dict; /* initial values of prossess    */
-	ndptr = dict->root;
-	indpos = 1;
-	wptr = word;
-	poslevel = 0;
-	maxlevel = VERTV_KEY(ndptr);
+    for (cnt = 0, rest = *wordsize; rest >= 0; ++cnt, --rest) {
+        if (wrddef[cnt]->blank == 1) {
+            if (!fillgap(word, cnt, wrddef, found))
+                if (!found) {
+                    *wordsize = cnt - 1;
+                    goto Fail;
+                }
 
-	for (cnt = 0, rest = *wordsize; rest >= 0; ++cnt, --rest) {
-		if (wrddef[cnt]->blank == 1) {
-			if (!fillgap(word, cnt, wrddef, found))
-				if (!found) {
-					*wordsize = cnt - 1;
-					goto Fail;
-				} else
-					goto Success;
-		}
-		if (!next_level(word[cnt])) {
-			if (!found) {
-				*wordsize = cnt;
-				goto Fail;
-			} else
-				goto Success;
-		}
-		state = analyse(&account, wordsize, wrddef, &found);
-		if (state != 0) { /* -- word found or break is in need -- */
-			if (((state == 1) && (!found)) || state == 2)
-				break;
-		}
-	}
+                else
+                    goto Success;
+        }
 
-	if (state == 1 || found)
-		goto Success;
-	else
-		goto Fail;
+        if (!next_level(word[cnt])) {
+            if (!found) {
+                *wordsize = cnt;
+                goto Fail;
+            }
 
-	Fail: return FAIL; /* <==> return (0)        */
+            else
+                goto Success;
+        }
 
-	Success: while (full_size >= 0) {
-		wrddef[full_size--]->blank = 0;
-	}
-	return account; /* return word statistic  */
+        state = analyse(&account, wordsize, wrddef, &found);
 
+        if (state != 0) { /* -- word found or break is in need -- */
+            if (((state == 1) && (!found)) || state == 2)
+                break;
+        }
+    }
+
+    if (state == 1 || found)
+        goto Success;
+
+    else
+        goto Fail;
+
+Fail:
+    return FAIL; /* <==> return (0)        */
+Success:
+
+    while (full_size >= 0) {
+        wrddef[full_size--]->blank = 0;
+    }
+
+    return account; /* return word statistic  */
 }
 
 /*************************************************************************/
@@ -270,58 +280,72 @@ int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
 /*  returns 1, otherwise 0 is returned.                                  */
 /*************************************************************************/
 
-int16_t next_level(KEYTYPE ch) {
-	TShiftType shift;
+int16_t next_level(KEYTYPE ch)
+{
+    TShiftType shift;
+Begin:
 
-	Begin: if (indpos)
-		if (poslevel != maxlevel) {
-			if (maxlevel > 2) {
-				register uint16_t i;
-				for (i = maxlevel - poslevel - 1, shift = 1L; i > 0; --i) {
-					shift *= dictInfo->abcSize;
-					shift++;
-				}
-			} else if (poslevel == 0) {
-				shift = dictInfo->abcSize + 1L;
-				ndptr -= 2;
-			} else {
-				shift = 1L;
-			}
+    if (indpos)
+        if (poslevel != maxlevel) {
+            if (maxlevel > 2) {
+                register uint16_t i;
 
-			ndptr += (ch * shift + 1) * VERTP_SIZE;
-			poslevel++;
+                for (i = maxlevel - poslevel - 1, shift = 1L; i > 0; --i) {
+                    shift *= dictInfo->abcSize;
+                    shift++;
+                }
+            }
 
-			if (VERTP_EXIST(ndptr) != 0)
-				goto Success;
-			else
-				goto Fail;
-		} else {
-			ndptr += lthorshift;
-			indpos = 0;
-			lthorshift = 0L;
-			goto Begin;
-		}
-	else { /* -- if ( ! indpos ) -> pointer tree */
-		ndptr += lthorshift;
+            else if (poslevel == 0) {
+                shift = dictInfo->abcSize + 1L;
+                ndptr -= 2;
+            }
 
-		while (VERTV_KEY(ndptr) < ch) {
-			shift = brother2(ndptr);
-			if (shift == 0L)
-				goto Fail;
-			/* it was the last brother ? */
-			ndptr += shift;
-		}
+            else {
+                shift = 1L;
+            }
 
-		if (VERTV_KEY(ndptr) == ch)
-			goto Success;
-		else
-			goto Fail;
-	}
+            ndptr += (ch * shift + 1) * VERTP_SIZE;
+            poslevel++;
 
-	Success: return OK;
+            if (VERTP_EXIST(ndptr) != 0)
+                goto Success;
 
-	Fail: return FAIL;
+            else
+                goto Fail;
+        }
 
+        else {
+            ndptr += lthorshift;
+            indpos = 0;
+            lthorshift = 0L;
+            goto Begin;
+        }
+
+    else { /* -- if ( ! indpos ) -> pointer tree */
+        ndptr += lthorshift;
+
+        while (VERTV_KEY(ndptr) < ch) {
+            shift = brother2(ndptr);
+
+            if (shift == 0L)
+                goto Fail;
+
+            /* it was the last brother ? */
+            ndptr += shift;
+        }
+
+        if (VERTV_KEY(ndptr) == ch)
+            goto Success;
+
+        else
+            goto Fail;
+    }
+
+Success:
+    return OK;
+Fail:
+    return FAIL;
 }
 
 /**************************************************************************/
@@ -331,36 +355,40 @@ int16_t next_level(KEYTYPE ch) {
 /* function cntinues searching to next(right) brother.                    */
 /**************************************************************************/
 
-TShiftType brother2(uchar * ptr) {
-	TShiftType shift = 0;
+TShiftType brother2(uchar * ptr)
+{
+    TShiftType shift = 0;
 
-	if (VERTV_CONT(ptr) == 0) {
-		return 0; /* continuation absent  */
-	}
+    if (VERTV_CONT(ptr) == 0) {
+        return 0; /* continuation absent  */
+    }
 
-	ptr += VERTV_SIZE; /* skip vertex itself */
+    ptr += VERTV_SIZE; /* skip vertex itself */
 
-	while (POSTFICS_TAIL(ptr) != 0 /* skip account and postfics */
-	&& POSTFICS_CONT(ptr) != 0) {
-		if (POSTFICS_ACCNT(ptr) != 0)
-			ptr += ACCOUNT_SIZE;
-		else
-			ptr += POSTFICS_SIZE;
-	}
+    while (POSTFICS_TAIL(ptr) != 0 /* skip account and postfics */
+            && POSTFICS_CONT(ptr) != 0) {
+        if (POSTFICS_ACCNT(ptr) != 0)
+            ptr += ACCOUNT_SIZE;
 
-	if (ADDR_TAIL(ptr) == 0) {
-		shift = ADDR_SHIFT0(ptr);
-		if (ADDR_LTH(ptr) != 0) {
-			shift <<= 7;
-			shift += ADDR_SHIFT2 ( ptr );
-			if (ADDR_LTH2(ptr) != 0) {
-				shift <<= 8;
-				shift += ADDR_SHIFT3 ( ptr );
-			}
-		}
-	}
+        else
+            ptr += POSTFICS_SIZE;
+    }
 
-	return shift;
+    if (ADDR_TAIL(ptr) == 0) {
+        shift = ADDR_SHIFT0(ptr);
+
+        if (ADDR_LTH(ptr) != 0) {
+            shift <<= 7;
+            shift += ADDR_SHIFT2 ( ptr );
+
+            if (ADDR_LTH2(ptr) != 0) {
+                shift <<= 8;
+                shift += ADDR_SHIFT3 ( ptr );
+            }
+        }
+    }
+
+    return shift;
 }
 
 /*************************************************************************/
@@ -369,50 +397,65 @@ TShiftType brother2(uchar * ptr) {
 /*  terminal in tree or not.                                             */
 /*************************************************************************/
 
-int16_t analyse(int16_t * account, int16_t * wordsize, LTIMG ** wrddef, int16_t * found) {
-	int16_t tailmaxl = 0;
-	uchar * ptr; /* serv pointer: points to vertex cont. */
+int16_t analyse(int16_t * account, int16_t * wordsize, LTIMG ** wrddef, int16_t * found)
+{
+    int16_t tailmaxl = 0;
+    uchar * ptr; /* serv pointer: points to vertex cont. */
 
-	if (indpos)
-		lthorshift = ((TShiftType) VERTP_SHIFT0(ndptr) << 16)
-				+ ((TShiftType) VERTP_SHIFT1(ndptr) << 8) + VERTP_SHIFT2(ndptr);
-	else
-		lthorshift = 1; /*lth of VERTV vertex */
+    if (indpos)
+        lthorshift = ((TShiftType) VERTP_SHIFT0(ndptr) << 16)
+                     + ((TShiftType) VERTP_SHIFT1(ndptr) << 8) + VERTP_SHIFT2(ndptr);
 
-	ptr = ndptr + lthorshift;
+    else
+        lthorshift = 1; /*lth of VERTV vertex */
 
-	if (VERTV_CONT(ndptr) != 0 && rest >= 0) {
-		int16_t ret = test_tail(ptr, account, &tailmaxl, wrddef, found);
-		if (ret && !*found) {
-			goto Success;
-		}
-	}
+    ptr = ndptr + lthorshift;
 
-	if (rest == 0) { /* test the end of word, if current letter  */
-		goto Fail;
-		/* is the last letter in the word.          */
-	} else { /* the current letter isn't the last.       */
-		if (VERTV_NOTERM(ndptr) != 0) {
-			goto GoNext;
-		} else {
-			if (*found)
-				goto Fail;
-			else
-				goto Failcnt;
-		}
-	}
+    if (VERTV_CONT(ndptr) != 0 && rest >= 0) {
+        int16_t ret = test_tail(ptr, account, &tailmaxl, wrddef, found);
 
-	GoNext: return 0; /* go to the next vertex in tree         */
-	Success: return 1; /* the word is in dictionary             */
-	Failcnt: if (!(VERTV_CONT(ndptr) != 0 && rest >= 0))
-		*wordsize = cnt; /* continue searching impossible         */
-	else
-		*wordsize = cnt + tailmaxl + 1;
-	/* Test variant : cnt points for the current letter.
-	 We test tails hence we are working with the next letter:
-	 1 is in need.
-	 */
-	Fail: return 2;
+        if (ret && !*found) {
+            goto Success;
+        }
+    }
+
+    if (rest == 0) { /* test the end of word, if current letter  */
+        goto Fail;
+        /* is the last letter in the word.          */
+    }
+
+    else { /* the current letter isn't the last.       */
+        if (VERTV_NOTERM(ndptr) != 0) {
+            goto GoNext;
+        }
+
+        else {
+            if (*found)
+                goto Fail;
+
+            else
+                goto Failcnt;
+        }
+    }
+
+GoNext:
+    return 0; /* go to the next vertex in tree         */
+Success:
+    return 1; /* the word is in dictionary             */
+Failcnt:
+
+    if (!(VERTV_CONT(ndptr) != 0 && rest >= 0))
+        *wordsize = cnt; /* continue searching impossible         */
+
+    else
+        *wordsize = cnt + tailmaxl + 1;
+
+    /* Test variant : cnt points for the current letter.
+     We test tails hence we are working with the next letter:
+     1 is in need.
+     */
+Fail:
+    return 2;
 }
 
 /**********************************************************************/
@@ -425,65 +468,81 @@ int16_t analyse(int16_t * account, int16_t * wordsize, LTIMG ** wrddef, int16_t 
 /**********************************************************************/
 
 int16_t test_tail(uchar * ptr, int16_t * accounter, int16_t * tailmaxl, LTIMG * wrddef[],
-		int16_t * tailfound) {
-	int16_t contflag = 0;
-	int16_t tailscnter = 0;
-	int16_t accntcnter = 0;
-	uint32_t wCount = 0;
+                  int16_t * tailfound)
+{
+    int16_t contflag = 0;
+    int16_t tailscnter = 0;
+    int16_t accntcnter = 0;
+    uint32_t wCount = 0;
 
-	do {
-		contflag = POSTFICS_CONT(ptr);
-		if (POSTFICS_TAIL(ptr)) {
-			if (!POSTFICS_ACCNT(ptr)) {
-				if (rest != 0) {
-					/* -- don't check tails if no rest. */
-					uint16_t enterNum;
-					enterNum = (POSTFICS_ENTER0(ptr) << 8)
-							+ POSTFICS_ENTER1(ptr);
+    do {
+        contflag = POSTFICS_CONT(ptr);
 
-					if (comp_tail(enterNum, rest, cnt, wptr, tailmaxl, wrddef,
-							tailfound)) {
-						goto Success;
-					}
-				}
-				tailscnter++;
-				ptr += POSTFICS_SIZE;
-			} else {
-				if (!*tailfound) {
-					*accounter = ACCOUNT_FREQ(ptr);
-					if (rest == 0 && ACCOUNT_WRDTERM(ptr) != 0) {
-						goto Success;
-					}
-				}
-				accntcnter++;
-				ptr += ACCOUNT_SIZE;
-			}
-		} else {
-			if (ADDR_LTH(ptr) == 0) {
-				lthorshift += 1;
-				ptr += 1;
-			} else {
-				if (ADDR_LTH2(ptr) == 0) {
-					lthorshift += 2;
-					ptr += 2;
-				} else {
-					lthorshift += 3;
-					ptr += 3;
-				}
-			}
-		}
-		/////////
-		wCount++;
-		/////////
-	} while (contflag);
+        if (POSTFICS_TAIL(ptr)) {
+            if (!POSTFICS_ACCNT(ptr)) {
+                if (rest != 0) {
+                    /* -- don't check tails if no rest. */
+                    uint16_t enterNum;
+                    enterNum = (POSTFICS_ENTER0(ptr) << 8)
+                               + POSTFICS_ENTER1(ptr);
 
-	lthorshift += tailscnter * POSTFICS_SIZE + accntcnter * ACCOUNT_SIZE;
+                    if (comp_tail(enterNum, rest, cnt, wptr, tailmaxl, wrddef,
+                                  tailfound)) {
+                        goto Success;
+                    }
+                }
 
-	if (*tailfound == 0) {
-		return FAIL;
-	}
+                tailscnter++;
+                ptr += POSTFICS_SIZE;
+            }
 
-	Success: return OK;
+            else {
+                if (!*tailfound) {
+                    *accounter = ACCOUNT_FREQ(ptr);
+
+                    if (rest == 0 && ACCOUNT_WRDTERM(ptr) != 0) {
+                        goto Success;
+                    }
+                }
+
+                accntcnter++;
+                ptr += ACCOUNT_SIZE;
+            }
+        }
+
+        else {
+            if (ADDR_LTH(ptr) == 0) {
+                lthorshift += 1;
+                ptr += 1;
+            }
+
+            else {
+                if (ADDR_LTH2(ptr) == 0) {
+                    lthorshift += 2;
+                    ptr += 2;
+                }
+
+                else {
+                    lthorshift += 3;
+                    ptr += 3;
+                }
+            }
+        }
+
+        /////////
+        wCount++;
+        /////////
+    }
+    while (contflag);
+
+    lthorshift += tailscnter * POSTFICS_SIZE + accntcnter * ACCOUNT_SIZE;
+
+    if (*tailfound == 0) {
+        return FAIL;
+    }
+
+Success:
+    return OK;
 }
 
 /*************************************************************************/
@@ -494,155 +553,179 @@ int16_t test_tail(uchar * ptr, int16_t * accounter, int16_t * tailmaxl, LTIMG * 
 #define MASK 0x1L
 
 int16_t comp_tail(int16_t varnum, int16_t rest, int16_t cnt, KEYTYPE * wptr, int16_t * tailmaxl,
-		LTIMG * wrddef[], int16_t * tailfound) {
-	register int16_t j, k;
-	uchar * ptr;
-	uchar * tailptr;
-	uint32_t mask;
+                  LTIMG * wrddef[], int16_t * tailfound)
+{
+    register int16_t j, k;
+    uchar * ptr;
+    uchar * tailptr;
+    uint32_t mask;
 
-	if (dictInfo->vartable[varnum].maxtaillth < rest) {
-		return FAIL;
-	}
+    if (dictInfo->vartable[varnum].maxtaillth < rest) {
+        return FAIL;
+    }
 
-	ptr = dictInfo->tailset_root
-			+ dictInfo->table[dictInfo->vartable[varnum].tablenum];
-	mask = dictInfo->vartable[varnum].tailmask;
-	for (; mask != 0; mask >>= 1) {
-		if ((MASK & mask) != 0) {
-			tailptr = ptr, j = cnt + 1, k = rest - 1;
-			do {
-				if (wrddef[j]->blank != 1) {
-					if (wptr[j] != TAILSET_CH(ptr)) {
-						if (*tailmaxl <= j - cnt - 2) {
-							*tailmaxl = j - cnt - 1;
-						}
-						break;
-					}
-				}
-				/*-------------------------------------------------------------------------*/
-				if (TAILSET_TAILEND(ptr) && k == 0) { /* end of word & tail */
-					if (tailout(cnt, rest, wptr, wrddef, tailfound, tailptr)
-							!= HAVE_BLANK) {
-						return OK;
-					}
-				}
-				if (TAILSET_TAILEND(ptr)) {
-					break;
-				}
-				/*------------------------------------------------------------------------*/
-				j++, k--, ptr++;
-			} while (k >= 0);
-		}
+    ptr = dictInfo->tailset_root
+          + dictInfo->table[dictInfo->vartable[varnum].tablenum];
+    mask = dictInfo->vartable[varnum].tailmask;
 
-		while (TAILSET_TAILEND(ptr) == 0)
-			ptr++;
-		ptr++;
-	}
+    for (; mask != 0; mask >>= 1) {
+        if ((MASK & mask) != 0) {
+            tailptr = ptr, j = cnt + 1, k = rest - 1;
 
-	return FAIL;
+            do {
+                if (wrddef[j]->blank != 1) {
+                    if (wptr[j] != TAILSET_CH(ptr)) {
+                        if (*tailmaxl <= j - cnt - 2) {
+                            *tailmaxl = j - cnt - 1;
+                        }
+
+                        break;
+                    }
+                }
+
+                /*-------------------------------------------------------------------------*/
+                if (TAILSET_TAILEND(ptr) && k == 0) { /* end of word & tail */
+                    if (tailout(cnt, rest, wptr, wrddef, tailfound, tailptr)
+                            != HAVE_BLANK) {
+                        return OK;
+                    }
+                }
+
+                if (TAILSET_TAILEND(ptr)) {
+                    break;
+                }
+
+                /*------------------------------------------------------------------------*/
+                j++, k--, ptr++;
+            }
+            while (k >= 0);
+        }
+
+        while (TAILSET_TAILEND(ptr) == 0)
+            ptr++;
+
+        ptr++;
+    }
+
+    return FAIL;
 }
 
 /*************************************************************************/
 /*                                                                       */
 /*************************************************************************/
 
-int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont) {
+int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont)
+{
+    TShiftType shift;
+    LT * gaplt;
+    int16_t xindpos;
+    int16_t xposlevel;
+    int16_t xmaxlevel;
+    TShiftType xlthorshift;
+    uchar * xndptr;
+    int16_t fillfind = 0;
+    xindpos = indpos;
+    xposlevel = poslevel;
+    xmaxlevel = maxlevel;
+    xndptr = ndptr;
+    xlthorshift = lthorshift;
 
-	TShiftType shift;
+    if (gapcont == 0) { /* fill gap from the beginning  */
+        wrddef[cnt]->lt = (LT *) & wrddef[cnt]->std;
+        gaplt = wrddef[cnt]->lt;
+    }
 
-	LT * gaplt;
-	int16_t xindpos;
-	int16_t xposlevel;
-	int16_t xmaxlevel;
-	TShiftType xlthorshift;
-	uchar * xndptr;
+    else { /* continue filling             */
+        gaplt = wrddef[cnt]->lt;
 
-	int16_t fillfind = 0;
+        while (!(gaplt->attr & EOLIST)) {
+            ++gaplt;
+        }
 
-	xindpos = indpos;
-	xposlevel = poslevel;
-	xmaxlevel = maxlevel;
-	xndptr = ndptr;
-	xlthorshift = lthorshift;
+        ++gaplt;
+    }
 
-	if (gapcont == 0) { /* fill gap from the beginning  */
-		wrddef[cnt]->lt = (LT *) &wrddef[cnt]->std;
-		gaplt = wrddef[cnt]->lt;
-	} else { /* continue filling             */
-		gaplt = wrddef[cnt]->lt;
-		while (!(gaplt->attr & EOLIST)) {
-			++gaplt;
-		}
-		++gaplt;
-	}
+Begin:
 
-	Begin:
+    if (xindpos) {
+        if (xposlevel != xmaxlevel) {
+            register int16_t i;
+            uint16_t abcSize = dictInfo->abcSize;
+            ;
 
-	if (xindpos) {
-		if (xposlevel != xmaxlevel) {
+            if (xmaxlevel > 2) {
+                for (i = xmaxlevel - xposlevel - 1, shift = 1L; i > 0; --i) {
+                    shift *= abcSize;
+                    ++shift;
+                }
+            }
 
-			register int16_t i;
-			uint16_t abcSize = dictInfo->abcSize;
-			;
+            else if (xposlevel == 0) {
+                shift = abcSize + 1;
+                xndptr -= 2;
+            }
 
-			if (xmaxlevel > 2) {
-				for (i = xmaxlevel - xposlevel - 1, shift = 1L; i > 0; --i) {
-					shift *= abcSize;
-					++shift;
-				}
-			} else if (xposlevel == 0) {
-				shift = abcSize + 1;
-				xndptr -= 2;
-			} else {
-				shift = 1L;
-			}
+            else {
+                shift = 1L;
+            }
 
-			xndptr += VERTP_SIZE;
-			for (i = 0; i < abcSize; ++i) {
-				if (VERTP_EXIST(xndptr) != 0) {
-					chkfill(word, cnt, wrddef, gapcont, &fillfind,
-							alphabet[0][i], &gaplt);
-				}
-				xndptr += shift * VERTP_SIZE;
-			}
+            xndptr += VERTP_SIZE;
 
-			if (fillfind != 0)
-				goto Success;
-			else
-				goto Fail;
-		} else {
-			xndptr += xlthorshift;
-			xindpos = 0;
-			xlthorshift = 0L;
-			goto Begin;
-		}
-	} else { /* -- if ( !xindpos ) -> pointer tree */
-		xndptr += xlthorshift;
+            for (i = 0; i < abcSize; ++i) {
+                if (VERTP_EXIST(xndptr) != 0) {
+                    chkfill(word, cnt, wrddef, gapcont, &fillfind,
+                            alphabet[0][i], &gaplt);
+                }
 
-		chkfill(word, cnt, wrddef, gapcont, &fillfind,
-				alphabet[0][VERTV_KEY(xndptr)], &gaplt);
-		while ((shift = brother2(xndptr)) != 0) {
-			xndptr += shift;
-			chkfill(word, cnt, wrddef, gapcont, &fillfind,
-					alphabet[0][VERTV_KEY(xndptr)], &gaplt);
-		}
+                xndptr += shift * VERTP_SIZE;
+            }
 
-		if (fillfind > 0)
-			goto Success;
-		else
-			goto Fail;
+            if (fillfind != 0)
+                goto Success;
 
-	} /* end if (xindpos) */
+            else
+                goto Fail;
+        }
 
-	Success: wrddef[cnt]->blank = 0;
-	return OK;
+        else {
+            xndptr += xlthorshift;
+            xindpos = 0;
+            xlthorshift = 0L;
+            goto Begin;
+        }
+    }
 
-	Fail: if (gapcont != 0) {
-		wrddef[cnt]->blank = 0;
-		return OK;
-	} else {
-		return FAIL;
-	}
+    else { /* -- if ( !xindpos ) -> pointer tree */
+        xndptr += xlthorshift;
+        chkfill(word, cnt, wrddef, gapcont, &fillfind,
+                alphabet[0][VERTV_KEY(xndptr)], &gaplt);
+
+        while ((shift = brother2(xndptr)) != 0) {
+            xndptr += shift;
+            chkfill(word, cnt, wrddef, gapcont, &fillfind,
+                    alphabet[0][VERTV_KEY(xndptr)], &gaplt);
+        }
+
+        if (fillfind > 0)
+            goto Success;
+
+        else
+            goto Fail;
+    } /* end if (xindpos) */
+
+Success:
+    wrddef[cnt]->blank = 0;
+    return OK;
+Fail:
+
+    if (gapcont != 0) {
+        wrddef[cnt]->blank = 0;
+        return OK;
+    }
+
+    else {
+        return FAIL;
+    }
 }
 
 /*************************************************************************/
@@ -650,43 +733,53 @@ int16_t fillgap(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont) 
 /*************************************************************************/
 
 int16_t chkfill(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
-		int16_t * fillfind, uchar symb, LT ** gaplt) {
-	LT * xxgaplt;
+                int16_t * fillfind, uchar symb, LT ** gaplt)
+{
+    LT * xxgaplt;
 
-	if (gapcont == 0) {
-		goto Gapadd;
-		/* fill gap from the beginning */
-	}
+    if (gapcont == 0) {
+        goto Gapadd;
+        /* fill gap from the beginning */
+    }
 
-	xxgaplt = (LT *) &wrddef[cnt]->std;
-	while (xxgaplt != *gaplt) {
-		if (xxgaplt->code == symb) {
-			break;
-		}
-		xxgaplt++;
-	}
+    xxgaplt = (LT *) & wrddef[cnt]->std;
 
-	if (xxgaplt == *gaplt) { /* symb not found in the available list */
-		goto Gapadd;
-	} else {
-		goto CheckFirstFind;
-	}
+    while (xxgaplt != *gaplt) {
+        if (xxgaplt->code == symb) {
+            break;
+        }
 
-	Gapadd: if ((*gaplt) != (LT *) &wrddef[cnt]->std) {
-		((*gaplt) - 1)->attr = 0;
-	}
-	(*gaplt)->code = symb;
-	(*gaplt)->attr = 1;
-	++(*gaplt);
+        xxgaplt++;
+    }
 
-	CheckFirstFind: if (*fillfind == 0) { /* 1-st find */
-		if (gapcont == 0) {
-			word[cnt] = codetable[symb];
-		}
-		*fillfind = 1;
-	}
+    if (xxgaplt == *gaplt) { /* symb not found in the available list */
+        goto Gapadd;
+    }
 
-	return OK;
+    else {
+        goto CheckFirstFind;
+    }
+
+Gapadd:
+
+    if ((*gaplt) != (LT *) &wrddef[cnt]->std) {
+        ((*gaplt) - 1)->attr = 0;
+    }
+
+    (*gaplt)->code = symb;
+    (*gaplt)->attr = 1;
+    ++(*gaplt);
+CheckFirstFind:
+
+    if (*fillfind == 0) { /* 1-st find */
+        if (gapcont == 0) {
+            word[cnt] = codetable[symb];
+        }
+
+        *fillfind = 1;
+    }
+
+    return OK;
 }
 
 /*************************************************************************/
@@ -694,63 +787,73 @@ int16_t chkfill(KEYTYPE * word, int16_t cnt, LTIMG * wrddef[], int16_t gapcont,
 /*************************************************************************/
 
 int16_t tailout(int16_t cnt, int16_t rest, KEYTYPE * wptr, LTIMG * wrddef[],
-		int16_t * tailfound, uchar *tailptr) {
+                int16_t * tailfound, uchar *tailptr)
+{
+    uchar * xxptr;
+    int16_t xj;
+    LT * xxgaplt = NULL;
+    int16_t bl_flag = 0;
+    int16_t last_bl = 0;
+    xj = cnt + 1;
+    xxptr = tailptr;
 
-	uchar * xxptr;
-	int16_t xj;
-	LT * xxgaplt = NULL;
-	int16_t bl_flag = 0;
-	int16_t last_bl = 0;
+    do { /* loop to fill all wrddef, if blank  */
+        if (wrddef[xj]->blank == 1) {
+            bl_flag = 1;
 
-	xj = cnt + 1;
-	xxptr = tailptr;
-	do { /* loop to fill all wrddef, if blank  */
-		if (wrddef[xj]->blank == 1) {
-			bl_flag = 1;
-			if (*tailfound == 0) {
-				xxgaplt = (LT *) &wrddef[xj]->std;
-				/* ---------------------------------------------------------- */
-				wrddef[xj]->lt = xxgaplt;
-				xxgaplt->attr = 1;
-				xxgaplt->code = alphabet[0][TAILSET_CH(xxptr)];
-				wptr[xj] = TAILSET_CH(xxptr); /* output ch instead of BLANK */
-			} else if (xxgaplt == NULL || (xxgaplt && last_bl != -1 && (xxgaplt
-					== (LT *) &wrddef[last_bl]->std))) {
-				xxgaplt = (LT *) &wrddef[xj]->std;
-				xxgaplt--;
-				do {
-					xxgaplt++;
-					if (xxgaplt->code == alphabet[0][TAILSET_CH(xxptr)]) {
-						break;
-					}
-				} while (!(xxgaplt->attr & EOLIST));
-				if (xxgaplt->code != alphabet[0][TAILSET_CH(xxptr)]) {
-					(xxgaplt)->attr = 0;
-					(++xxgaplt)->attr = 1;
-					(xxgaplt)->code = alphabet[0][TAILSET_CH(xxptr)];
-				}
-			}
-			/* ------------------------------------------------------------ */
-			else {
-				last_bl = -1;
-			}
-			if (last_bl != -1) {
-				last_bl = xj;
-			}
-		}
+            if (*tailfound == 0) {
+                xxgaplt = (LT *) & wrddef[xj]->std;
+                /* ---------------------------------------------------------- */
+                wrddef[xj]->lt = xxgaplt;
+                xxgaplt->attr = 1;
+                xxgaplt->code = alphabet[0][TAILSET_CH(xxptr)];
+                wptr[xj] = TAILSET_CH(xxptr); /* output ch instead of BLANK */
+            }
 
-		++xj, ++xxptr;
-	} while ((--rest) != 0);
+            else if (xxgaplt == NULL || (xxgaplt && last_bl != -1 && (xxgaplt
+                                                                      == (LT *) &wrddef[last_bl]->std))) {
+                xxgaplt = (LT *) & wrddef[xj]->std;
+                xxgaplt--;
 
-	if (bl_flag) {
-		*tailfound = 1;
-	}
+                do {
+                    xxgaplt++;
 
-	if (!bl_flag)
-		return OK;
-	else
-		return HAVE_BLANK;
+                    if (xxgaplt->code == alphabet[0][TAILSET_CH(xxptr)]) {
+                        break;
+                    }
+                }
+                while (!(xxgaplt->attr & EOLIST));
 
+                if (xxgaplt->code != alphabet[0][TAILSET_CH(xxptr)]) {
+                    (xxgaplt)->attr = 0;
+                    (++xxgaplt)->attr = 1;
+                    (xxgaplt)->code = alphabet[0][TAILSET_CH(xxptr)];
+                }
+            }
+
+            /* ------------------------------------------------------------ */
+            else {
+                last_bl = -1;
+            }
+
+            if (last_bl != -1) {
+                last_bl = xj;
+            }
+        }
+
+        ++xj, ++xxptr;
+    }
+    while ((--rest) != 0);
+
+    if (bl_flag) {
+        *tailfound = 1;
+    }
+
+    if (!bl_flag)
+        return OK;
+
+    else
+        return HAVE_BLANK;
 }
 /*************************************************************************/
 /*                                                                       */

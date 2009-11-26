@@ -97,8 +97,7 @@ static void BlocksAddLink (BLOCK *p, BLOCK *q)
 static Bool IsPossibleParent (BLOCK *p, BLOCK *q)
 {
     if (p -> Type == BLOCK_TEXT && q -> Type == BLOCK_TEXT &&
-        p -> nEmbedding != q -> nEmbedding)
-    {
+            p -> nEmbedding != q -> nEmbedding) {
         return (FALSE);
     }
 
@@ -170,21 +169,32 @@ void TreeEdit (void)
 
 static BLOCK * GetNextInTreeOrder( void )
 {
- BLOCK *p, *q;
- for (p = pLeftBlocksList; p != NULL; p = p -> pRight)
- {
-   if ( p->nParents == -1 ) continue;
-   if (p -> Type == BLOCK_VERT_SEPARATOR) goto found;
-   for (q = p->pParent ? p->pParent : p->pUp; q != NULL; q = q -> pUp)
-   {
-     if (q -> Type == BLOCK_VERT_SEPARATOR) continue;
-     if (q -> nParents == -1 ) continue;
-     if (IsPossibleParent( q, p ))  { p->pParent = q; goto next_p; }
-   }
-found:   p->nParents = -1;  return p;
-next_p:;
- }
- return NULL;
+    BLOCK *p, *q;
+
+    for (p = pLeftBlocksList; p != NULL; p = p -> pRight) {
+        if ( p->nParents == -1 ) continue;
+
+        if (p -> Type == BLOCK_VERT_SEPARATOR) goto found;
+
+        for (q = p->pParent ? p->pParent : p->pUp; q != NULL; q = q -> pUp) {
+            if (q -> Type == BLOCK_VERT_SEPARATOR) continue;
+
+            if (q -> nParents == -1 ) continue;
+
+            if (IsPossibleParent( q, p ))  {
+                p->pParent = q;
+                goto next_p;
+            }
+        }
+
+    found:
+        p->nParents = -1;
+        return p;
+    next_p:
+        ;
+    }
+
+    return NULL;
 }
 
 void TreePass (void)
@@ -195,91 +205,85 @@ void TreePass (void)
     BLOCK *p;
     // int  iChild;
     ROOT *pRoot;
-
     nTextBlock = 0;
     nSeparator = 0;
 
-    while ( (p = GetNextInTreeOrder()) != NULL )
-    {
-                switch (p -> Type)
-                {
-                    case BLOCK_TEXT:
-                        ++nTextBlock;
+    while ( (p = GetNextInTreeOrder()) != NULL ) {
+        switch (p -> Type) {
+            case BLOCK_TEXT:
+                ++nTextBlock;
 
-                        for (pRoot = p -> pRoots;
-                                 pRoot != NULL;
-                                     pRoot = pRoot -> u1.pNext)
-                        {
-                            if (! pRoot -> bReached)
-                            {
-                                pRoot -> bReached = TRUE;
-                                pRoot -> nBlock   = nTextBlock;
-                            }
-                        }
-
-                        p -> nNumber = nTextBlock;
-                        break;
-
-                    case BLOCK_HORZ_SEPARATOR:
-                    case BLOCK_VERT_SEPARATOR:
-                    case BLOCK_RECT_SEPARATOR:
-                        p -> nNumber = ++nSeparator;
-                        break;
-
-                    default:
-                        BlocksRemoveDescriptor (p);
-                        break;
-                }
-    }
-/************************ Old function
-    do
-    {
-        bDone = TRUE;
-
-	for (p = pLeftBlocksList; p != NULL; p = p -> pRight)
-        {
-            if (p -> nParents == 0)
-            {
-                p -> nParents = -1;
-
-                for (iChild = 0; iChild < p -> nChildren; iChild++)
-                    p -> pChildren [iChild] -> nParents--;
-
-                switch (p -> Type)
-                {
-                    case BLOCK_TEXT:
-                        ++nTextBlock;
-
-                        for (pRoot = p -> pRoots;
-                                 pRoot != NULL;
-                                     pRoot = pRoot -> u1.pNext)
-                        {
-                            if (! pRoot -> bReached)
-                            {
-                                pRoot -> bReached = TRUE;
-                                pRoot -> nBlock   = nTextBlock;
-                            }
-                        }
-
-                        p -> nNumber = nTextBlock;
-                        break;
-
-                    case BLOCK_HORZ_SEPARATOR:
-                    case BLOCK_VERT_SEPARATOR:
-                    case BLOCK_RECT_SEPARATOR:
-                        p -> nNumber = ++nSeparator;
-                        break;
-
-                    default:
-                        BlocksRemoveDescriptor (p);
-                        break;
+                for (pRoot = p -> pRoots;
+                        pRoot != NULL;
+                        pRoot = pRoot -> u1.pNext) {
+                    if (! pRoot -> bReached) {
+                        pRoot -> bReached = TRUE;
+                        pRoot -> nBlock   = nTextBlock;
+                    }
                 }
 
-                bDone = FALSE;
+                p -> nNumber = nTextBlock;
                 break;
-            }
+            case BLOCK_HORZ_SEPARATOR:
+            case BLOCK_VERT_SEPARATOR:
+            case BLOCK_RECT_SEPARATOR:
+                p -> nNumber = ++nSeparator;
+                break;
+            default:
+                BlocksRemoveDescriptor (p);
+                break;
         }
     }
-    while (!bDone);
- **********************************************/
+
+    /************************ Old function
+        do
+        {
+            bDone = TRUE;
+
+        for (p = pLeftBlocksList; p != NULL; p = p -> pRight)
+            {
+                if (p -> nParents == 0)
+                {
+                    p -> nParents = -1;
+
+                    for (iChild = 0; iChild < p -> nChildren; iChild++)
+                        p -> pChildren [iChild] -> nParents--;
+
+                    switch (p -> Type)
+                    {
+                        case BLOCK_TEXT:
+                            ++nTextBlock;
+
+                            for (pRoot = p -> pRoots;
+                                     pRoot != NULL;
+                                         pRoot = pRoot -> u1.pNext)
+                            {
+                                if (! pRoot -> bReached)
+                                {
+                                    pRoot -> bReached = TRUE;
+                                    pRoot -> nBlock   = nTextBlock;
+                                }
+                            }
+
+                            p -> nNumber = nTextBlock;
+                            break;
+
+                        case BLOCK_HORZ_SEPARATOR:
+                        case BLOCK_VERT_SEPARATOR:
+                        case BLOCK_RECT_SEPARATOR:
+                            p -> nNumber = ++nSeparator;
+                            break;
+
+                        default:
+                            BlocksRemoveDescriptor (p);
+                            break;
+                    }
+
+                    bDone = FALSE;
+                    break;
+                }
+            }
+        }
+        while (!bDone);
+     **********************************************/
 }

@@ -80,161 +80,153 @@ static int32_t InitCount = 0;
 Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+                      pvoid lpReserved)
+{
+    switch (ul_reason_for_call) {
+        case DLL_PROCESS_ATTACH:
+            ghInst = hModule;
+            break;
+        case DLL_THREAD_ATTACH:
+            break;
+        case DLL_THREAD_DETACH:
+            break;
+        case DLL_PROCESS_DETACH:
+            break;
+    }
+
+    return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
+RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
 {
+    if ( !Control_cri ) {
+        if ( InitCFIOInterface(TRUE) ) {
+            Control_cri = new CRIControl;
+            gwHeightRC = wHeightCode;
+        }
 
-	if ( !Control_cri )
-	{
-		if ( InitCFIOInterface(TRUE) )
-		{
-			Control_cri = new CRIControl;
-			gwHeightRC = wHeightCode;
-		}
-		else
-		return FALSE;
-	}
+        else
+            return FALSE;
+    }
 
-	if ( Control_cri )
-	{
-		InitCount++;
-		return TRUE;
-	}
+    if ( Control_cri ) {
+        InitCount++;
+        return TRUE;
+    }
 
-	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-	return FALSE;
+    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
+    return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 RIMAGE_FUNC(Bool32)RIMAGE_Done()
 {
+    if ( Control_cri ) {
+        if (--InitCount == 0) {
+            delete Control_cri;
+            Control_cri = NULL;
+            InitCFIOInterface(FALSE);
+        }
 
-	if ( Control_cri )
-	{
-		if (--InitCount == 0)
-		{
-			delete Control_cri;
-			Control_cri = NULL;
-			InitCFIOInterface(FALSE);
-		}
-		return TRUE;
-	}
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 RIMAGE_FUNC(Bool32)RIMAGE_Reset()
 {
+    if ( Control_cri ) {
+        if (InitCount == 1) {
+            delete Control_cri;
+            Control_cri = new CRIControl;
+            return TRUE;
+        }
+    }
 
-	if ( Control_cri )
-	{
-		if (InitCount == 1)
-		{
-			delete Control_cri;
-			Control_cri = new CRIControl;
-			return TRUE;
-		}
-	}
-
-	return FALSE;
+    return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
 {
-	if ( !gwLowRC )
-	return 0;
+    if ( !gwLowRC )
+        return 0;
 
-	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RIMAGE_ERR_NO);
+    return (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_RIMAGE_ERR_NO);
 }
 
-char * RIMAGE_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
+char * RIMAGE_GetReturnString(uint32_t dwError)
+{
+    if (dwError >> 16 != gwHeightRC)
+        gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
 
-	return NULL;
-
+    return NULL;
 }
 
-#define CASE_FUNCTION(a)	case RIMAGE_FN_##a:	*(FNRIMAGE##a *)pData = RIMAGE_##a; break
+#define CASE_FUNCTION(a)    case RIMAGE_FN_##a: *(FNRIMAGE##a *)pData = RIMAGE_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
 RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
 {
-	Bool32 rc = TRUE;
+    Bool32 rc = TRUE;
+    gwLowRC = 0;
 
-	gwLowRC = 0;
+    switch (dwType) {
+            CASE_FUNCTION(SetMargins);
+            CASE_FUNCTION(Binarise);
+            CASE_FUNCTION(Rotate);
+            CASE_FUNCTION(Turn);
+            CASE_FUNCTION(Inverse);
+        default:
+            *(Handle *)pData = NULL;
+            gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(SetMargins);
-		CASE_FUNCTION(Binarise);
-		CASE_FUNCTION(Rotate);
-		CASE_FUNCTION(Turn);
-		CASE_FUNCTION(Inverse);
-
-		default:
-		*(Handle *)pData = NULL;
-		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
-
-	return rc;
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
-	Bool rc = FALSE;
-	gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
+    Bool rc = FALSE;
+    gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
 
-	switch(dwType)
-	{
-		case RIMAGE_FN_SetProgressStart:
-		Control_cri->SetProgressCallBacks((PRIMAGECBPRogressStart)pData, NULL, NULL);
-		rc = TRUE;
-		break;
-		case RIMAGE_FN_SetProgressStep:
-		Control_cri->SetProgressCallBacks(NULL, (PRIMAGECBPRogressStep)pData, NULL);
-		rc = TRUE;
-		break;
-		case RIMAGE_FN_SetProgressFinish:
-		Control_cri->SetProgressCallBacks(NULL, NULL, (PRIMAGECBPRogressFinish)pData);
-		rc = TRUE;
-		break;
-		default:
-		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
+    switch (dwType) {
+        case RIMAGE_FN_SetProgressStart:
+            Control_cri->SetProgressCallBacks((PRIMAGECBPRogressStart)pData, NULL, NULL);
+            rc = TRUE;
+            break;
+        case RIMAGE_FN_SetProgressStep:
+            Control_cri->SetProgressCallBacks(NULL, (PRIMAGECBPRogressStep)pData, NULL);
+            rc = TRUE;
+            break;
+        case RIMAGE_FN_SetProgressFinish:
+            Control_cri->SetProgressCallBacks(NULL, NULL, (PRIMAGECBPRogressFinish)pData);
+            rc = TRUE;
+            break;
+        default:
+            gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
-	return rc;
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rimage(uint16_t rc) {
-	if (rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO)
-		gwLowRC = rc;
+void SetReturnCode_rimage(uint16_t rc)
+{
+    if (rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO)
+        gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rimage() {
-	return gwLowRC;
+uint16_t GetReturnCode_rimage()
+{
+    return gwLowRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //end of file

@@ -86,27 +86,26 @@ extern STD std_;
 extern uchar all_lt[256];
 
 #ifdef S_COMMENTS
-uchar all_lt[]=
-{
-	/*0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F */
+uchar all_lt[] = {
+    /*0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F */
 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,_SP1,_SP2,
-	_SPC,_TRM,E_DL,E_DL,_DIG,E_DL,E_DL,_APF,E_DL,E_DL,E_DL,E_DL,E_DL,_WDV,_TRM,E_DL,
-	_DIG,_DIG,_DIG,_DIG,_DIG,_DIG,_DIG,_DIG,_DIG,_DIG,E_DL,E_DL,E_DL,E_DL,E_DL,_TRM,
-	E_DL,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,
-	E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_CP,E_DL,E_DL,E_DL, 0, 0,
-	0,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,
-	E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_OD,E_DL,E_DL,E_DL, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, _SP1, _SP2,
+    _SPC, _TRM, E_DL, E_DL, _DIG, E_DL, E_DL, _APF, E_DL, E_DL, E_DL, E_DL, E_DL, _WDV, _TRM, E_DL,
+    _DIG, _DIG, _DIG, _DIG, _DIG, _DIG, _DIG, _DIG, _DIG, _DIG, E_DL, E_DL, E_DL, E_DL, E_DL, _TRM,
+    E_DL, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP,
+    E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_CP, E_DL, E_DL, E_DL, 0, 0,
+    0, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD,
+    E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_OD, E_DL, E_DL, E_DL, 0, 0,
 
-	R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,
-	R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,R_CP,
-	R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,R_OD,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP,
+    R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP, R_CP,
+    R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD, R_OD,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 #endif
 /* ------------------------------------------------------------------ */
@@ -118,7 +117,7 @@ dQ *vz = &SPQ; //Q;
 /*                         functions' prototypes                      */
 /*=================================================================== */
 static int16_t check_and_look(int16_t *, LTIMG **, voc_state *, int16_t,
-		int16_t);
+                              int16_t);
 
 int16_t check_art_dict(char word[], int16_t * wordlth, int16_t * vockind);
 
@@ -134,79 +133,85 @@ int16_t check_art_dict(char word[], int16_t * wordlth, int16_t * vockind);
  */
 /****************************************************************************/
 int16_t check_compound(SOBJ * obj, LTIMG ** wrddef, struct dict_state * dict,
-		user_voc voc_array[], int16_t voc_no) {
-	int16_t insect, depth = 0, prob = 1024;
-	int16_t wordlth;
-	int16_t lth;
-	char save_word[sizeof(obj->wordchar) + 1];
-	int16_t beg = 0, loclth = 0;
-	char *out;
-	SWORD *wrd;
-	wrd = obj -> word;
-	lth = wrd -> lth;
-	wordlth = lth - 1;
+                       user_voc voc_array[], int16_t voc_no)
+{
+    int16_t insect, depth = 0, prob = 1024;
+    int16_t wordlth;
+    int16_t lth;
+    char save_word[sizeof(obj->wordchar) + 1];
+    int16_t beg = 0, loclth = 0;
+    char *out;
+    SWORD *wrd;
+    wrd = obj -> word;
+    lth = wrd -> lth;
+    wordlth = lth - 1;
 
-	if (wrd->voc_prob = check_art_dict((char*) obj->wordchar, &wordlth,
-			&(wrd->voc_kind))) {
-		obj -> nmb_wrdfound++;
-		obj -> lthok = wordlth;
-		return Ok;
-	}
+    if (wrd->voc_prob = check_art_dict((char*) obj->wordchar, &wordlth,
+                                       &(wrd->voc_kind))) {
+        obj -> nmb_wrdfound++;
+        obj -> lthok = wordlth;
+        return Ok;
+    }
 
-	memcpy(save_word, obj-> wordchar, sizeof(obj->wordchar));
+    memcpy(save_word, obj-> wordchar, sizeof(obj->wordchar));
+    out = (char*) obj -> wordchar;
+    save_word[lth] = '.';
 
-	out = (char*) obj -> wordchar;
-	save_word[lth] = '.';
-	for (insect = 0; insect <= lth; insect++)
-		switch (symcode((char *) (save_word + insect))) {
-		case E_DL:
-		case _TRM:
-			if (!loclth) {
-				depth++;
-				beg++;
-				out = (char*) obj -> wordchar;
-				continue;
-			}
-			*out = 0;
-			wrd -> lth = loclth;
-			wrd -> voc_prob = 0;
-			check_dict_voc(obj, wrddef + beg, dict, voc_array, voc_no);
-			depth += obj -> lthok;
-			if (wrd -> voc_prob < prob)
-				prob = wrd -> voc_prob;
+    for (insect = 0; insect <= lth; insect++)
+        switch (symcode((char *) (save_word + insect))) {
+            case E_DL:
+            case _TRM:
 
-			if (!prob) {
-				if (obj -> lthok + 1 == loclth)
-					depth++;
-				goto GetOut;
-			}
-			/* The following line has been substituted to cover
-			 Satisfaction/Ouality not founding
-			 Le, 02.10.93. Moscow.
-			 */
-			/*		   depth ++;                            */
-			depth += 2;
+                if (!loclth) {
+                    depth++;
+                    beg++;
+                    out = (char*) obj -> wordchar;
+                    continue;
+                }
 
-			loclth = 0;
-			beg = insect + 1;
-			out = (char*) obj -> wordchar;
-			continue;
+                *out = 0;
+                wrd -> lth = loclth;
+                wrd -> voc_prob = 0;
+                check_dict_voc(obj, wrddef + beg, dict, voc_array, voc_no);
+                depth += obj -> lthok;
 
-		default:
-			*(out++) = *(obj -> wordchar + insect);
-			loclth++;
-			continue;
-		}
-	GetOut: memcpy(obj-> wordchar, save_word, lth);
-	wrd -> voc_prob = prob;
-	wrd -> lth = lth;
+                if (wrd -> voc_prob < prob)
+                    prob = wrd -> voc_prob;
 
-	if (depth >= lth)
-		depth = lth - 1;
-	obj -> lthok = ((wrd -> lth < 6) && !(wrd -> type_sp & T_BLANK)) ? lth - 1
-			: depth;
+                if (!prob) {
+                    if (obj -> lthok + 1 == loclth)
+                        depth++;
 
-	return (wrd -> voc_prob) ? Ok : No;
+                    goto GetOut;
+                }
+
+                /* The following line has been substituted to cover
+                 Satisfaction/Ouality not founding
+                 Le, 02.10.93. Moscow.
+                 */
+                /*         depth ++;                            */
+                depth += 2;
+                loclth = 0;
+                beg = insect + 1;
+                out = (char*) obj -> wordchar;
+                continue;
+            default:
+                *(out++) = *(obj -> wordchar + insect);
+                loclth++;
+                continue;
+        }
+
+GetOut:
+    memcpy(obj-> wordchar, save_word, lth);
+    wrd -> voc_prob = prob;
+    wrd -> lth = lth;
+
+    if (depth >= lth)
+        depth = lth - 1;
+
+    obj -> lthok = ((wrd -> lth < 6) && !(wrd -> type_sp & T_BLANK)) ? lth - 1
+                   : depth;
+    return (wrd -> voc_prob) ? Ok : No;
 }
 
 /****************************************************************************/
@@ -214,163 +219,185 @@ int16_t check_compound(SOBJ * obj, LTIMG ** wrddef, struct dict_state * dict,
  */
 /****************************************************************************/
 int16_t check_dict_voc(SOBJ * obj, LTIMG ** wrddef, struct dict_state * dict,
-		user_voc voc_array[], int16_t voc_no) {
-	int16_t wordlth;
-	int16_t max_dep = 0;
-	int16_t direction;
-	SWORD *wrd;
-	wrd = obj -> word;
-	direction = CheckContext(obj, wrddef, wrd -> lth);
+                       user_voc voc_array[], int16_t voc_no)
+{
+    int16_t wordlth;
+    int16_t max_dep = 0;
+    int16_t direction;
+    SWORD *wrd;
+    wrd = obj -> word;
+    direction = CheckContext(obj, wrddef, wrd -> lth);
+    wordlth = wrd -> lth - 1;
 
-	wordlth = wrd -> lth - 1;
+    if (direction == All_dicts) {
+        obj -> voc_kind = 2;
 
-	if (direction == All_dicts) {
+        if (wrd -> voc_prob = findstat(&wordlth, wrddef, dict))
+            wrd -> voc_kind = 2; /* the word found in static voc */
 
-		obj -> voc_kind = 2;
+        if (max_dep < wordlth)
+            max_dep = wordlth;
 
-		if (wrd -> voc_prob = findstat(&wordlth, wrddef, dict))
-			wrd -> voc_kind = 2; /* the word found in static voc */
-		if (max_dep < wordlth)
-			max_dep = wordlth;
-		if (wrd -> voc_prob)
-			goto Br;
+        if (wrd -> voc_prob)
+            goto Br;
 
-		if (wrd -> type_sp & T_APF) {
-			int16_t l, r;
-			if (test_apppostrof(obj -> wordchar, wrd, &l, &r)) {
-				wordlth = r - l - 1;
-				if (wrd -> voc_prob = findstat(&wordlth, wrddef + l, dict))
-					wrd -> voc_kind = 2; /* the word found in static voc */
-				if (max_dep < wordlth + l)
-					max_dep = wordlth + l;
-				if (wrd -> voc_prob)
-					goto Br;
-			}
-		}
-	} else
-		/* Not all dicts */
-		max_dep = obj -> lthok;
+        if (wrd -> type_sp & T_APF) {
+            int16_t l, r;
 
-	if (voc_no)
-		if (!wrd -> voc_prob) {
-			int16_t i, lth;
-			obj ->voc_kind = 1;
-			for (i = 0; i < voc_no; i++) {
-				lth = wordlth = wrd -> lth - 1;
-				if (wrd -> voc_prob = check_and_look(&wordlth, wrddef,
-						&voc_array[i].voc, VOC_R, 0))
-					wrd -> voc_kind = 1; /* the word found in dynamic voc */
+            if (test_apppostrof(obj -> wordchar, wrd, &l, &r)) {
+                wordlth = r - l - 1;
 
-				if (wordlth > lth)
-					wordlth = lth;
-				if (max_dep < wordlth)
-					max_dep = wordlth;
-				if (wrd -> voc_prob)
-					goto Br;
+                if (wrd -> voc_prob = findstat(&wordlth, wrddef + l, dict))
+                    wrd -> voc_kind = 2; /* the word found in static voc */
 
-				// Le 06-02-95 06:52pm
-				if (wrd -> type_sp & T_APF) {
-					int16_t l, r;
-					if (test_apppostrof(obj -> wordchar, wrd, &l, &r)) {
-						wordlth = r - l - 1;
-						if (wrd -> voc_prob = check_and_look(&wordlth, wrddef
-								+ l, &voc_array[i].voc, VOC_R, 0))
-							wrd -> voc_kind = 1; /* the word found in dynamic voc */
+                if (max_dep < wordlth + l)
+                    max_dep = wordlth + l;
 
-						if (max_dep < wordlth + l)
-							max_dep = wordlth + l;
-						if (wrd -> voc_prob)
-							goto Br;
-					}
-				}
-				// Le 06-02-95 06:52pm
+                if (wrd -> voc_prob)
+                    goto Br;
+            }
+        }
+    }
 
-			}
-		}
+    else
+        /* Not all dicts */
+        max_dep = obj -> lthok;
 
-	wordlth = wrd->lth - 1;
-	/*
-	 if((!wordlth) ||
-	 ((wordlth - obj->part->blank_nmb) >= 1))
-	 */
-	if ((!(wrd -> type & T_LOW)) || (wrd -> type & T_DIG))
+    if (voc_no)
+        if (!wrd -> voc_prob) {
+            int16_t i, lth;
+            obj ->voc_kind = 1;
 
-		if (wrd -> voc_prob = check_art_dict((char*) obj->wordchar, &wordlth,
-				&(wrd -> voc_kind))) {
-			if (max_dep < wordlth)
-				max_dep = wordlth;
-		}
+            for (i = 0; i < voc_no; i++) {
+                lth = wordlth = wrd -> lth - 1;
 
-	Br: if (wrd -> voc_prob)
-		obj->nmb_wrdfound++;
-	if ((obj ->part -> type & T_CHEESE) && !(wrd -> type_sp & T_BLANK))
-		obj->lthok = wrd -> lth - 1;
-	else
-		obj->lthok = max_dep;
+                if (wrd -> voc_prob = check_and_look(&wordlth, wrddef,
+                                                     &voc_array[i].voc, VOC_R, 0))
+                    wrd -> voc_kind = 1; /* the word found in dynamic voc */
 
-	return (wrd -> voc_prob) ? Ok : No;
+                if (wordlth > lth)
+                    wordlth = lth;
+
+                if (max_dep < wordlth)
+                    max_dep = wordlth;
+
+                if (wrd -> voc_prob)
+                    goto Br;
+
+                // Le 06-02-95 06:52pm
+                if (wrd -> type_sp & T_APF) {
+                    int16_t l, r;
+
+                    if (test_apppostrof(obj -> wordchar, wrd, &l, &r)) {
+                        wordlth = r - l - 1;
+
+                        if (wrd -> voc_prob = check_and_look(&wordlth, wrddef
+                                                             + l, &voc_array[i].voc, VOC_R, 0))
+                            wrd -> voc_kind = 1; /* the word found in dynamic voc */
+
+                        if (max_dep < wordlth + l)
+                            max_dep = wordlth + l;
+
+                        if (wrd -> voc_prob)
+                            goto Br;
+                    }
+                }
+
+                // Le 06-02-95 06:52pm
+            }
+        }
+
+    wordlth = wrd->lth - 1;
+
+    /*
+     if((!wordlth) ||
+     ((wordlth - obj->part->blank_nmb) >= 1))
+     */
+    if ((!(wrd -> type & T_LOW)) || (wrd -> type & T_DIG))
+        if (wrd -> voc_prob = check_art_dict((char*) obj->wordchar, &wordlth,
+                                             &(wrd -> voc_kind))) {
+            if (max_dep < wordlth)
+                max_dep = wordlth;
+        }
+
+Br:
+
+    if (wrd -> voc_prob)
+        obj->nmb_wrdfound++;
+
+    if ((obj ->part -> type & T_CHEESE) && !(wrd -> type_sp & T_BLANK))
+        obj->lthok = wrd -> lth - 1;
+
+    else
+        obj->lthok = max_dep;
+
+    return (wrd -> voc_prob) ? Ok : No;
 }
 
 /****************************************************************************/
 /* This procedure is the VOC (dynamic) interface for spelling checker       */
 /****************************************************************************/
 int16_t check_and_look(int16_t *lth, LTIMG **wrddef, voc_state *dindict,
-		int16_t status, int16_t incr) {
+                       int16_t status, int16_t incr)
+{
 #ifdef OVERVOC
-	if(CHECKVOC)
-	{
-		int32_t size;
-		size=read_all_file((char *)Q.temp_voc_file,V_POINT(Q.v_state.vocseg,0));
-		unlink(Q.temp_voc_file);
-		if ( size != -1 )
-		{
-			dindict->vocfree=size;
-			voc_open(dindict);
-		}
-		else
-		if ( voc_init(dindict) < 0 )
-		return -3;
-	}
-#endif
-	return (look_through_voc(lth, wrddef, dindict, status, incr, NULL));
 
+    if (CHECKVOC) {
+        int32_t size;
+        size = read_all_file((char *)Q.temp_voc_file, V_POINT(Q.v_state.vocseg, 0));
+        unlink(Q.temp_voc_file);
+
+        if ( size != -1 ) {
+            dindict->vocfree = size;
+            voc_open(dindict);
+        }
+
+        else if ( voc_init(dindict) < 0 )
+            return -3;
+    }
+
+#endif
+    return (look_through_voc(lth, wrddef, dindict, status, incr, NULL));
 }
 /****************************************************************************/
 /* This procedure sets initial state of wrdimg
  via current part of a current object
  */
 /****************************************************************************/
-int16_t setimg(SOBJ * obj, LTIMG wrdimg[]) {
-	int16_t pi; /* curr pos index                             */
-	int16_t ii; /* wrdimg curr pos index                      */
-	int16_t ai; /* index of curr alt of curr pos              */
-	LT * alt; /* pointer to curr alt stored in img-alt-list */
+int16_t setimg(SOBJ * obj, LTIMG wrdimg[])
+{
+    int16_t pi; /* curr pos index                             */
+    int16_t ii; /* wrdimg curr pos index                      */
+    int16_t ai; /* index of curr alt of curr pos              */
+    LT * alt; /* pointer to curr alt stored in img-alt-list */
 
-	for (ii = 0; ii <= obj->part->lth; ii++) {
-		pi = obj->part->posn[ii];
-		memset(&(wrdimg[ii]), 0, sizeof(LTIMG));/*init state of wrdimg item */
-		wrdimg[ii].lt = (LT *) &wrdimg[ii].std; /*allways alt-list in std_ !  */
-		wrdimg[ii].lt += 0; /* normalize !               */
-		wrdimg[ii].source = (uchar *) &(obj->pos[pi].orig);
-		if (obj->pos[pi].type_sp & T_BLANK) /* blank in this position    */
-		{
-			memcpy(&wrdimg[ii].std, &std_, sizeof(STD));
-			wrdimg[ii].blank = 1; /* this flag is used for dict access !!! */
-		} else /* not blank, copy all alts of the pos: */
-		{
-			alt = wrdimg[ii].lt; /* here alt-list will begin             */
-			for (ai = 0; ai <= obj->pos[pi].alt_nmb; ai++, alt++) {
-				alt->code = obj->pos[pi].alt[ai].lt->code;
-				alt->attr = obj->pos[pi].alt[ai].lt->attr;
-			}
-			alt--; /* last alt pointer                     */
-			alt->attr |= EOLIST; /* EOlist of alts                       */
-		}
+    for (ii = 0; ii <= obj->part->lth; ii++) {
+        pi = obj->part->posn[ii];
+        memset(&(wrdimg[ii]), 0, sizeof(LTIMG));/*init state of wrdimg item */
+        wrdimg[ii].lt = (LT *) & wrdimg[ii].std; /*allways alt-list in std_ !  */
+        wrdimg[ii].lt += 0; /* normalize !               */
+        wrdimg[ii].source = (uchar *) & (obj->pos[pi].orig);
 
-	}
+        if (obj->pos[pi].type_sp & T_BLANK) { /* blank in this position    */
+            memcpy(&wrdimg[ii].std, &std_, sizeof(STD));
+            wrdimg[ii].blank = 1; /* this flag is used for dict access !!! */
+        }
 
-	wrdimg[ii].lt = NULL;
-	return (OK);
+        else { /* not blank, copy all alts of the pos: */
+            alt = wrdimg[ii].lt; /* here alt-list will begin             */
+
+            for (ai = 0; ai <= obj->pos[pi].alt_nmb; ai++, alt++) {
+                alt->code = obj->pos[pi].alt[ai].lt->code;
+                alt->attr = obj->pos[pi].alt[ai].lt->attr;
+            }
+
+            alt--; /* last alt pointer                     */
+            alt->attr |= EOLIST; /* EOlist of alts                       */
+        }
+    }
+
+    wrdimg[ii].lt = NULL;
+    return (OK);
 }
 
 /**************************************************************************/
@@ -381,13 +408,16 @@ int16_t setimg(SOBJ * obj, LTIMG wrdimg[]) {
  *lth=last wrddef index
  */
 /**************************************************************************/
-int16_t setdef(LTIMG wrdimg[], LTIMG * wrddef[], int16_t * lth) {
-	register int16_t i;
-	for (i = 0; wrdimg[i].lt; i++)
-		wrddef[i] = &wrdimg[i];
-	wrddef[i] = NULL;
-	*lth = i - 1; /* last wrddef index */
-	return (OK);
+int16_t setdef(LTIMG wrdimg[], LTIMG * wrddef[], int16_t * lth)
+{
+    register int16_t i;
+
+    for (i = 0; wrdimg[i].lt; i++)
+        wrddef[i] = &wrdimg[i];
+
+    wrddef[i] = NULL;
+    *lth = i - 1; /* last wrddef index */
+    return (OK);
 }
 
 /*************************************************************************/
@@ -398,77 +428,82 @@ int16_t setdef(LTIMG wrdimg[], LTIMG * wrddef[], int16_t * lth) {
  obj->word->(SWORD)
  */
 /*************************************************************************/
-int16_t setwrd(SOBJ * obj, LTIMG * wrddef[]) {
-	int16_t i, pi, ai;
-	SWORD * wrd;
-	LT * lt;
-	LT * wlt;
+int16_t setwrd(SOBJ * obj, LTIMG * wrddef[])
+{
+    int16_t i, pi, ai;
+    SWORD * wrd;
+    LT * lt;
+    LT * wlt;
+    wrd = obj->word->next; /* save ref to the next in part-word list */
+    memset(obj->word, 0, sizeof(SWORD));
+    obj->word->next = wrd; /* restore ref to the next ...            */
+    memset(obj->wordchar, 0, MAX_WORD_SIZE);
 
-	wrd = obj->word->next; /* save ref to the next in part-word list */
-	memset(obj->word, 0, sizeof(SWORD));
-	obj->word->next = wrd; /* restore ref to the next ...            */
-	memset(obj->wordchar, 0, MAX_WORD_SIZE);
+    for (i = 0; wrddef[i]; i++) {
+        obj->wordchar[i] = wrddef[i]->lt->code; /* word as a char-chain   */
+        pi = obj->part->posn[i]; /* position number        */
+        obj->word->pos[i] = &(obj->pos[pi]); /* ref to pos-item of obj */
 
-	for (i = 0; wrddef[i]; i++) {
-		obj->wordchar[i] = wrddef[i]->lt->code; /* word as a char-chain   */
-		pi = obj->part->posn[i]; /* position number        */
-		obj->word->pos[i] = &(obj->pos[pi]); /* ref to pos-item of obj */
-		if (obj->word->pos[i]->type_sp & T_BLANK) /* the pos is BLANK ?     */
-		{ /* BLANK => direct access to STD alt-list in obj->pos[]->alt[]: */
-			ai = getstdn((char *) &(wrddef[i]->lt->code));
-			/*  AL 122892 */
-			/* was:
-			 if (obj->word->pos[i]->alt[ai].lt->code == wrddef[i]->lt->code)
-			 obj->word->altn[i] = ai;
-			 :was */
-			wlt = obj->word->pos[i]->alt[ai].lt;
-			if (wlt == NULL)
-				goto mytail1;
-			/* He DOESN'T caught his tail */
-			if (wlt->code == wrddef[i]->lt->code)
-				obj->word->altn[i] = (uchar) ai;
-			else /* I've caught my tail ! */
-			{
+        if (obj->word->pos[i]->type_sp & T_BLANK) /* the pos is BLANK ?     */
+        { /* BLANK => direct access to STD alt-list in obj->pos[]->alt[]: */
+            ai = getstdn((char *) & (wrddef[i]->lt->code));
+            /*  AL 122892 */
+            /* was:
+             if (obj->word->pos[i]->alt[ai].lt->code == wrddef[i]->lt->code)
+             obj->word->altn[i] = ai;
+             :was */
+            wlt = obj->word->pos[i]->alt[ai].lt;
+
+            if (wlt == NULL)
+                goto mytail1;
+
+            /* He DOESN'T caught his tail */
+            if (wlt->code == wrddef[i]->lt->code)
+                obj->word->altn[i] = (uchar) ai;
+
+            else { /* I've caught my tail ! */
 #ifdef SYSPR
 #ifdef SYSPR_ERROR
-				PRINTF ("\n SYSTEM ERROR (SPELLSET.SETWORD): blank alt not found !!!\n");
+                PRINTF ("\n SYSTEM ERROR (SPELLSET.SETWORD): blank alt not found !!!\n");
 #endif
 #endif
-				return (No);
-			}
-		} else /* NOT BLANK pos, access via displacement: */
-		{
-			lt = (LT *) &(wrddef[i]->std);
-			lt += 0;
-			ai = wrddef[i]->lt - lt;
-			/*  AL 122892 */
-			/* was:
-			 if (obj->word->pos[i]->alt[ai].lt->code == wrddef[i]->lt->code)
-			 obj->word->altn[i] = ai;
-			 :was */
-			wlt = obj->word->pos[i]->alt[ai].lt;
-			if (wlt == NULL)
-				goto mytail1;
-			/* He DOESN'T caught his tail */
-			if (wlt->code == wrddef[i]->lt->code)
-				obj->word->altn[i] = (uchar) ai;
-			else /* I've caught my tail ! */
-			{
-				mytail1:
+                return (No);
+            }
+        }
+
+        else { /* NOT BLANK pos, access via displacement: */
+            lt = (LT *) & (wrddef[i]->std);
+            lt += 0;
+            ai = wrddef[i]->lt - lt;
+            /*  AL 122892 */
+            /* was:
+             if (obj->word->pos[i]->alt[ai].lt->code == wrddef[i]->lt->code)
+             obj->word->altn[i] = ai;
+             :was */
+            wlt = obj->word->pos[i]->alt[ai].lt;
+
+            if (wlt == NULL)
+                goto mytail1;
+
+            /* He DOESN'T caught his tail */
+            if (wlt->code == wrddef[i]->lt->code)
+                obj->word->altn[i] = (uchar) ai;
+
+            else { /* I've caught my tail ! */
+            mytail1:
 #ifdef SYSPR
 #ifdef SYSPR_ERROR
-				PRINTF ("\n SYSTEM ERROR (SPELLSET.SETWORD): alt specified not found !!!\n");
+                PRINTF ("\n SYSTEM ERROR (SPELLSET.SETWORD): alt specified not found !!!\n");
 #endif
 #endif
-				return (No);
-			}
+                return (No);
+            }
+        }
+    }
 
-		}
-
-	}
-	obj->word->lth = i;
-	obj->wordchar[i] = '\0';
-	return (Ok);
+    obj->word->lth = i;
+    obj->wordchar[i] = '\0';
+    return (Ok);
 }
 
 /*************************************************************************/
@@ -478,34 +513,36 @@ int16_t setwrd(SOBJ * obj, LTIMG * wrddef[]) {
  Stop - no next word
  */
 /*************************************************************************/
-int16_t nextwrd(SOBJ * obj, LTIMG * wrddef[]) {
-	int16_t i; /* curr index of wrddef[i]              */
-	int16_t l; /*      index of wrddef[l] for next alt */
+int16_t nextwrd(SOBJ * obj, LTIMG * wrddef[])
+{
+    int16_t i; /* curr index of wrddef[i]              */
+    int16_t l; /*      index of wrddef[l] for next alt */
+    l = obj->lthok;
 
-	l = obj->lthok;
-	while ((l >= 0) && ((wrddef[l]->lt->attr & EOLIST) || wrddef[l] ->blank))
-		l--;
-	if (l < 0)
-		return (Stop);
-	(wrddef[l]->lt)++; /* next alt in wrddef */
+    while ((l >= 0) && ((wrddef[l]->lt->attr & EOLIST) || wrddef[l] ->blank))
+        l--;
 
-	for (i = 0; wrddef[i]/*->lt*/; i++) {
-		if (i > l) /* is the pos new in comparison with the previous word ? */
-		{ /* yes, altn should be set to zero & STD if blank        */
-			wrddef[i]->lt = (LT *) &(wrddef[i]->std);/*allways alt-list in std!*/
-			wrddef[i]->lt += 0; /* normalize !            */
-			if (*(wrddef[i]->source) == BLANK) /*blank in this position ?*/
-			{ /* Yes:                   */
-				wrddef[i]->blank = 1; /* this flag is used for dict access !!!  */
-				memcpy(&(wrddef[i]->std), &std_, sizeof(STD));
-			}
-		}
-	}
+    if (l < 0)
+        return (Stop);
 
-	obj->lthok = i - 1;
+    (wrddef[l]->lt)++; /* next alt in wrddef */
 
-	return (Ok);
+    for (i = 0; wrddef[i]/*->lt*/; i++) {
+        if (i > l) /* is the pos new in comparison with the previous word ? */
+        { /* yes, altn should be set to zero & STD if blank        */
+            wrddef[i]->lt = (LT *) & (wrddef[i]->std);/*allways alt-list in std!*/
+            wrddef[i]->lt += 0; /* normalize !            */
 
+            if (*(wrddef[i]->source) == BLANK) /*blank in this position ?*/
+            { /* Yes:                   */
+                wrddef[i]->blank = 1; /* this flag is used for dict access !!!  */
+                memcpy(&(wrddef[i]->std), &std_, sizeof(STD));
+            }
+        }
+    }
+
+    obj->lthok = i - 1;
+    return (Ok);
 }
 
 /*************************************************************************/
@@ -518,17 +555,21 @@ int16_t nextwrd(SOBJ * obj, LTIMG * wrddef[]) {
  */
 /*************************************************************************/
 int16_t findpart(SOBJ * obj, SPART * part, int16_t beg, int16_t end,
-		int16_t * parti) {
-	int16_t pi;
-	for (pi = 0; pi < obj->part_max; pi++) /* find the part in part[]            */
-	{
-		if ((part[pi].beg == beg) && (part[pi].end == end))
-			goto Ok_findpart;
-		/* part found                           */
-	}
-	return (No);
-	Ok_findpart: *parti = pi;
-	return (OK);
+                 int16_t * parti)
+{
+    int16_t pi;
+
+    for (pi = 0; pi < obj->part_max; pi++) { /* find the part in part[]            */
+        if ((part[pi].beg == beg) && (part[pi].end == end))
+            goto Ok_findpart;
+
+        /* part found                           */
+    }
+
+    return (No);
+Ok_findpart:
+    *parti = pi;
+    return (OK);
 }
 
 /*************************************************************************/
@@ -541,16 +582,19 @@ int16_t findpart(SOBJ * obj, SPART * part, int16_t beg, int16_t end,
  No - not found
  */
 /*************************************************************************/
-int16_t findparte(SPART * part, int16_t end, int16_t maxpi, int16_t * parti) {
-	int16_t pi;
+int16_t findparte(SPART * part, int16_t end, int16_t maxpi, int16_t * parti)
+{
+    int16_t pi;
 
-	for (pi = maxpi - 1; pi >= 0; pi--) /* find previous part with fixed end    */
-	{
-		if (part[pi].end == end)
-			goto Ok_findparte;
-		/* part found                           */
-	}
-	return (No); /* no more part with such an end        */
-	Ok_findparte: *parti = pi;
-	return (OK);
+    for (pi = maxpi - 1; pi >= 0; pi--) { /* find previous part with fixed end    */
+        if (part[pi].end == end)
+            goto Ok_findparte;
+
+        /* part found                           */
+    }
+
+    return (No); /* no more part with such an end        */
+Ok_findparte:
+    *parti = pi;
+    return (OK);
 }

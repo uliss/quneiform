@@ -55,8 +55,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // stdafx.cpp : source file that includes just the standard includes
-//	RCorrKegl.pch will be the pre-compiled header
-//	stdafx.obj will contain the pre-compiled type information
+//  RCorrKegl.pch will be the pre-compiled header
+//  stdafx.obj will contain the pre-compiled type information
 
 #include "stdafx.h"
 

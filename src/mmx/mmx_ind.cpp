@@ -58,309 +58,445 @@
 
 extern uint32_t bit_cnt_mmx[];
 
-Bool32 MMX_anding(int32_t *image, uint16_t *etalons, int32_t L) {
+Bool32 MMX_anding(int32_t *image, uint16_t *etalons, int32_t L)
+{
 #ifdef _MSC_VER
-	_asm {
+    _asm {
 
-		mov edx, etalons
-		xor eax, eax; accounter of bits
+        mov edx, etalons
+        xor eax, eax;
+        accounter of bits
 
-		;CYKL 0
-		movq mm0, [edx]; mm0 = etalon
+        ;
+        CYKL 0
+        movq mm0, [edx];
+        mm0 = etalon
 
-		movq mm1, mm0
-		;IF ARG EQ 0
-		pand mm0, mm2
-		pandn mm1, mm3
-		;ENDIF
+              movq mm1, mm0
+              ;
+        IF ARG EQ 0
+        pand mm0, mm2
+        pandn mm1, mm3
+        ;
+        ENDIF
 
-		;IF ARG EQ 1
-		; pand mm0, mm4
-		; pandn mm1, mm5
-		;ENDIF
+        ;
+        IF ARG EQ 1
+        ;
+        pand mm0, mm4
+        ;
+        pandn mm1, mm5
+        ;
+        ENDIF
 
-		;IF ARG EQ 2
-		; pand mm0, mm6
-		; pandn mm1, mm7
-		;ENDIF
+        ;
+        IF ARG EQ 2
+        ;
+        pand mm0, mm6
+        ;
+        pandn mm1, mm7
+        ;
+        ENDIF
 
-		;IF ARG EQ 3
-		; mov edx, image
-		; pand mm0, [edx+24]
-		; pandn mm1, [edx+8*4+24]
-		;ENDIF
-		; mm0 = tmp & (image = iobraz)
-		; mm1 =~tmp & (image+8 = iobraz2)
-		;IF ARG EQ 0
-		sub eax, L
-		;ENDIF
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 0-15
+        ;
+        IF ARG EQ 3
+        ;
+        mov edx, image
+        ;
+        pand mm0, [edx+24]
+        ;
+        pandn mm1, [edx+8*4+24]
+        ;
+        ENDIF
+        ;
+        mm0 = tmp & (image = iobraz)
+              ;
+        mm1 = ~tmp & (image + 8 = iobraz2)
+              ;
+        IF ARG EQ 0
+        sub eax, L
+        ;
+        ENDIF
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        0 - 15
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 0-15
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        0 - 15
+        jge retur
 
-		psrlq mm0, 32
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 16-31
-		psrlq mm1, 32
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 16-31
-		jge retur
+        psrlq mm0, 32
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        16 - 31
+        psrlq mm1, 32
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        16 - 31
+        jge retur
 
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 32-47
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        32 - 47
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 32-47
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        32 - 47
+        jge retur
 
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 48-63
-		add edx, 8
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 48-63
-		;IF ARG NE 3
-		jge retur
-		;ENDIF
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        48 - 63
+        add edx, 8
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        48 - 63
+        ;
+        IF ARG NE 3
+        jge retur
+        ;
+        ENDIF
 
-		; CYKL 1
-		movq mm0, [edx]; mm0 = etalon
+        ;
+        CYKL 1
+        movq mm0, [edx];
+        mm0 = etalon
 
-		movq mm1, mm0
-		;IF ARG EQ 0
-		; pand mm0, mm2
-		; pandn mm1, mm3
-		;ENDIF
+              movq mm1, mm0
+              ;
+        IF ARG EQ 0
+        ;
+        pand mm0, mm2
+        ;
+        pandn mm1, mm3
+        ;
+        ENDIF
 
-		;IF ARG EQ 1
-		pand mm0, mm4
-		pandn mm1, mm5
-		;ENDIF
+        ;
+        IF ARG EQ 1
+        pand mm0, mm4
+        pandn mm1, mm5
+        ;
+        ENDIF
 
-		;IF ARG EQ 2
-		; pand mm0, mm6
-		; pandn mm1, mm7
-		;ENDIF
+        ;
+        IF ARG EQ 2
+        ;
+        pand mm0, mm6
+        ;
+        pandn mm1, mm7
+        ;
+        ENDIF
 
-		;IF ARG EQ 3
-		; mov edx, image
-		; pand mm0, [edx+24]
-		; pandn mm1, [edx+8*4+24]
-		;ENDIF
-		; mm0 = tmp & (image = iobraz)
-		; mm1 =~tmp & (image+8 = iobraz2)
-		;IF ARG EQ 0
-		; sub eax, L
-		;ENDIF
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 0-15
+        ;
+        IF ARG EQ 3
+        ;
+        mov edx, image
+        ;
+        pand mm0, [edx+24]
+        ;
+        pandn mm1, [edx+8*4+24]
+        ;
+        ENDIF
+        ;
+        mm0 = tmp & (image = iobraz)
+              ;
+        mm1 = ~tmp & (image + 8 = iobraz2)
+              ;
+        IF ARG EQ 0
+        ;
+        sub eax, L
+        ;
+        ENDIF
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        0 - 15
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 0-15
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        0 - 15
+        jge retur
 
-		psrlq mm0, 32
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 16-31
-		psrlq mm1, 32
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 16-31
-		jge retur
+        psrlq mm0, 32
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        16 - 31
+        psrlq mm1, 32
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        16 - 31
+        jge retur
 
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 32-47
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        32 - 47
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 32-47
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        32 - 47
+        jge retur
 
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 48-63
-		add edx, 8
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 48-63
-		;IF ARG NE 3
-		jge retur
-		;ENDIF
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        48 - 63
+        add edx, 8
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        48 - 63
+        ;
+        IF ARG NE 3
+        jge retur
+        ;
+        ENDIF
 
-		; CYKL 2
-		movq mm0, [edx]; mm0 = etalon
+        ;
+        CYKL 2
+        movq mm0, [edx];
+        mm0 = etalon
 
-		movq mm1, mm0
-		;IF ARG EQ 0
-		; pand mm0, mm2
-		; pandn mm1, mm3
-		;ENDIF
+              movq mm1, mm0
+              ;
+        IF ARG EQ 0
+        ;
+        pand mm0, mm2
+        ;
+        pandn mm1, mm3
+        ;
+        ENDIF
 
-		;IF ARG EQ 1
-		; pand mm0, mm4
-		; pandn mm1, mm5
-		;ENDIF
+        ;
+        IF ARG EQ 1
+        ;
+        pand mm0, mm4
+        ;
+        pandn mm1, mm5
+        ;
+        ENDIF
 
-		;IF ARG EQ 2
-		pand mm0, mm6
-		pandn mm1, mm7
-		;ENDIF
+        ;
+        IF ARG EQ 2
+        pand mm0, mm6
+        pandn mm1, mm7
+        ;
+        ENDIF
 
-		;IF ARG EQ 3
-		; mov edx, image
-		; pand mm0, [edx+24]
-		; pandn mm1, [edx+8*4+24]
-		;ENDIF
-		; mm0 = tmp & (image = iobraz)
-		; mm1 =~tmp & (image+8 = iobraz2)
-		;IF ARG EQ 0
-		; sub eax, L
-		;ENDIF
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 0-15
+        ;
+        IF ARG EQ 3
+        ;
+        mov edx, image
+        ;
+        pand mm0, [edx+24]
+        ;
+        pandn mm1, [edx+8*4+24]
+        ;
+        ENDIF
+        ;
+        mm0 = tmp & (image = iobraz)
+              ;
+        mm1 = ~tmp & (image + 8 = iobraz2)
+              ;
+        IF ARG EQ 0
+        ;
+        sub eax, L
+        ;
+        ENDIF
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        0 - 15
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 0-15
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        0 - 15
+        jge retur
 
-		psrlq mm0, 32
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 16-31
-		psrlq mm1, 32
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 16-31
-		jge retur
+        psrlq mm0, 32
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        16 - 31
+        psrlq mm1, 32
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        16 - 31
+        jge retur
 
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 32-47
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        32 - 47
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 32-47
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        32 - 47
+        jge retur
 
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 48-63
-		add edx, 8
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 48-63
-		;IF ARG NE 3
-		jge retur
-		;ENDIF
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        48 - 63
+        add edx, 8
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        48 - 63
+        ;
+        IF ARG NE 3
+        jge retur
+        ;
+        ENDIF
 
-		; CYKL 3
-		movq mm0, [edx]; mm0 = etalon
+        ;
+        CYKL 3
+        movq mm0, [edx];
+        mm0 = etalon
 
-		movq mm1, mm0
-		;IF ARG EQ 0
-		; pand mm0, mm2
-		; pandn mm1, mm3
-		;ENDIF
+              movq mm1, mm0
+              ;
+        IF ARG EQ 0
+        ;
+        pand mm0, mm2
+        ;
+        pandn mm1, mm3
+        ;
+        ENDIF
 
-		;IF ARG EQ 1
-		; pand mm0, mm4
-		; pandn mm1, mm5
-		;ENDIF
+        ;
+        IF ARG EQ 1
+        ;
+        pand mm0, mm4
+        ;
+        pandn mm1, mm5
+        ;
+        ENDIF
 
-		;IF ARG EQ 2
-		; pand mm0, mm6
-		; pandn mm1, mm7
-		;ENDIF
+        ;
+        IF ARG EQ 2
+        ;
+        pand mm0, mm6
+        ;
+        pandn mm1, mm7
+        ;
+        ENDIF
 
-		;IF ARG EQ 3
-		mov edx, image
-		pand mm0, [edx+24]
-		pandn mm1, [edx+8*4+24]
-		;ENDIF
-		; mm0 = tmp & (image = iobraz)
-		; mm1 =~tmp & (image+8 = iobraz2)
-		;IF ARG EQ 0
-		; sub eax, L
-		;ENDIF
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 0-15
+        ;
+        IF ARG EQ 3
+        mov edx, image
+        pand mm0, [edx+24]
+        pandn mm1, [edx+8*4+24]
+        ;
+        ENDIF
+        ;
+        mm0 = tmp & (image = iobraz)
+              ;
+        mm1 = ~tmp & (image + 8 = iobraz2)
+              ;
+        IF ARG EQ 0
+        ;
+        sub eax, L
+        ;
+        ENDIF
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        0 - 15
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 0-15
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        0 - 15
+        jge retur
 
-		psrlq mm0, 32
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 16-31
-		psrlq mm1, 32
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 16-31
-		jge retur
+        psrlq mm0, 32
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        16 - 31
+        psrlq mm1, 32
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        16 - 31
+        jge retur
 
-		movd esi, mm0
-		mov edi, esi
-		and esi, 0ffffh
-		movd ebx, mm1
-		shr edi, 16
-		mov ecx, ebx
-		and ebx, 0ffffh
-		shr ecx, 16
-		add eax, dword ptr bit_cnt_mmx[esi*4]; 32-47
+        movd esi, mm0
+        mov edi, esi
+        and esi, 0ffffh
+        movd ebx, mm1
+        shr edi, 16
+        mov ecx, ebx
+        and ebx, 0ffffh
+        shr ecx, 16
+        add eax, dword ptr bit_cnt_mmx[esi*4];
+        32 - 47
 
-		add eax, dword ptr bit_cnt_mmx[ebx*4]; 32-47
-		jge retur
+        add eax, dword ptr bit_cnt_mmx[ebx*4];
+        32 - 47
+        jge retur
 
-		add eax, dword ptr bit_cnt_mmx[edi*4]; 48-63
-		add edx, 8
-		add eax, dword ptr bit_cnt_mmx[ecx*4]; 48-63
-		;IF ARG NE 3
-		; jge retur
-		;ENDIF
-		retur:
-		add eax, L
-	}
-
+        add eax, dword ptr bit_cnt_mmx[edi*4];
+        48 - 63
+        add edx, 8
+        add eax, dword ptr bit_cnt_mmx[ecx*4];
+        48 - 63
+        ;
+        IF ARG NE 3
+        ;
+        jge retur
+        ;
+        ENDIF
+    retur:
+        add eax, L
+    }
 #else
-	return 0;
+    return 0;
 #endif
 }
 
-void MMX_open(int32_t *image) {
+void MMX_open(int32_t *image)
+{
 #ifdef _MSC_VER
-	_asm {
-		mov edx, image
-		movq mm2, [edx]; MM2 = (image = iobraz)
-		movq mm3, [edx+8*4]; MM3 = (image+8 = iobraz2)
-		movq mm4, [edx+8]; MM4 = (image = iobraz)
-		movq mm5, [edx+8*4+8]; MM5 = (image+8 = iobraz2)
-		movq mm6, [edx+16]; MM6 = (image = iobraz)
-		movq mm7, [edx+8*4+16]; MM7 = (image+8 = iobraz2)
-	}
+    _asm {
+        mov edx, image
+        movq mm2, [edx];
+        MM2 = (image = iobraz)
+              movq mm3, [edx+8*4];
+        MM3 = (image + 8 = iobraz2)
+              movq mm4, [edx+8];
+        MM4 = (image = iobraz)
+              movq mm5, [edx+8*4+8];
+        MM5 = (image + 8 = iobraz2)
+              movq mm6, [edx+16];
+        MM6 = (image = iobraz)
+              movq mm7, [edx+8*4+16];
+        MM7 = (image + 8 = iobraz2)
+          }
 #endif
-}
+      }
 
-void MMX_close(void) {
+      void MMX_close(void)
+{
 #ifdef _MSC_VER
-	_asm EMMS
+    _asm EMMS
 #endif
 }

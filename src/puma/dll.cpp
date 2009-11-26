@@ -78,26 +78,30 @@
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 
-int PUMA_GetReturnCode() {
-	return gwRC;
+int PUMA_GetReturnCode()
+{
+    return gwRC;
 }
 
-void SetReturnCode_puma(uint32_t rc) {
-	uint16_t low = (uint16_t) (rc & 0xFFFF);
-	uint16_t hei = (uint16_t) (rc >> 16);
+void SetReturnCode_puma(uint32_t rc)
+{
+    uint16_t low = (uint16_t) (rc & 0xFFFF);
+    uint16_t hei = (uint16_t) (rc >> 16);
 
-	if (hei)
-		gwRC = rc;
-	else {
-		if (low >= IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
-		else
-			gwRC = low;
-	}
+    if (hei)
+        gwRC = rc;
 
-	if (low > 0 && low != IDS_ERR_NO)
-		LDPUMA_Console("%s\n", GetModulesString(gwRC));
+    else {
+        if (low >= IDS_ERR_NO)
+            gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
 
-	if (gwRC == nDebugReturnCode && nDebugReturnCode)
-		LDPUMA_Stop();
+        else
+            gwRC = low;
+    }
+
+    if (low > 0 && low != IDS_ERR_NO)
+        LDPUMA_Console("%s\n", GetModulesString(gwRC));
+
+    if (gwRC == nDebugReturnCode && nDebugReturnCode)
+        LDPUMA_Stop();
 }

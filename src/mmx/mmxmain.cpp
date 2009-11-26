@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 uint32_t bit_cnt_mmx[256*256];
 
-void MMX_ind_setup_table(uint32_t *bit_cnt0) {
+void MMX_ind_setup_table(uint32_t *bit_cnt0)
+{
     memcpy(bit_cnt_mmx, bit_cnt0, 256*256*sizeof(uint32_t));
 }

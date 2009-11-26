@@ -65,261 +65,276 @@
 #include "p2libr.h"
 
 // Ради language
-#include "ligas.h"				// 01.06.2001 E.P.
-#include "pass2/p2.h"					// 01.06.2001 E.P.
+#include "ligas.h"              // 01.06.2001 E.P.
+#include "pass2/p2.h"                   // 01.06.2001 E.P.
 extern P2GLOBALS p2globals; // 01.06.2001 E.P.
 
 #define P_TEST 240
 #define P_IN   245      // зилнпэ
 static uchar porogSelfTest[256] = { P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST,
-		P_TEST, // 128 -
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_IN,
-		P_IN,
-		P_TEST,
-		P_TEST,
-		P_IN,
-		P_TEST,
-		P_IN,
-		P_TEST,
-		P_IN, // 160-
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_IN,
-		P_TEST,
-		P_TEST, // 224-
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
-		P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST };
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_TEST, // 128 -
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_IN,
+                                    P_IN,
+                                    P_TEST,
+                                    P_TEST,
+                                    P_IN,
+                                    P_TEST,
+                                    P_IN,
+                                    P_TEST,
+                                    P_IN, // 160-
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_IN,
+                                    P_TEST,
+                                    P_TEST, // 224-
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST,
+                                    P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST, P_TEST
+                                  };
 
 // с кем путаются буквы на первом проходе
 static const char *testAlts[256] = { "", "", "", "", "", "", "", "", "", "",
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-		"",
-		"",
-		"",
-		"", //32-47
-		"\x8e", "lI", "", "\x87", "", "", "\xa1",
-		"",
-		"B\x82",
-		"", // 48 - 57 (0-9)
-		"", "", "",
-		"",
-		"",
-		"", //58-63
-		"", "", "8", "", "", "", "", "", "", "1l", "", "", "",
-		"",
-		"",
-		"", // 64-79 @A-O
-		"", "", "", "", "", "", "", "", "", "", "", "", "",
-		"",
-		"",
-		"", // 80-95 P-
-		"", "es", "h", "", "", "sa", "", "", "b", "", "", "", "1I",
-		"",
-		"",
-		"", // 96-111 `a-o
-		"", "", "", "ae", "", "", "", "", "", "", "", "", "",
-		"",
-		"",
-		"", // 112-127
-		"", "", "8", "", "",
-		"",
-		"",
-		"3", //128
-		"", "", "", "\x8f", "\xac",
-		"",
-		"0",
-		"\x8b", //136
-		"\xe0", "", "", "\xe3", "\xe4", "", "", "", "", "", "", "", "",
-		"",
-		"",
-		"", // 144
-		"\xa2", "6", "\xa5\xa7\xad\xa0", "\xe2", "", "\xa2\xe1",
-		"",
-		"\xed\xa2", // 160 - 167    а-з
-		"\xad\xaf", "", "", "\xaf", "\x8c", "\xa8\xaf\xeb", "\xfd",
-		"\xa8\xab\xad", // 168 - 175 и-п
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 176
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 192
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 208
-		"\x90", "\xa5\xae", "\xa3", "\x93", "\x94", "", "", "",//224-231 р-ч
-		"\xe9", "\xe8", "", "", "", "\xa7\xa0", "", "\xa0", // 232-239   ш-я
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "\xae", "", "" //240-255
-		};
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                                     "",
+                                     "",
+                                     "",
+                                     "", //32-47
+                                     "\x8e", "lI", "", "\x87", "", "", "\xa1",
+                                     "",
+                                     "B\x82",
+                                     "", // 48 - 57 (0-9)
+                                     "", "", "",
+                                     "",
+                                     "",
+                                     "", //58-63
+                                     "", "", "8", "", "", "", "", "", "", "1l", "", "", "",
+                                     "",
+                                     "",
+                                     "", // 64-79 @A-O
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "",
+                                     "",
+                                     "",
+                                     "", // 80-95 P-
+                                     "", "es", "h", "", "", "sa", "", "", "b", "", "", "", "1I",
+                                     "",
+                                     "",
+                                     "", // 96-111 `a-o
+                                     "", "", "", "ae", "", "", "", "", "", "", "", "", "",
+                                     "",
+                                     "",
+                                     "", // 112-127
+                                     "", "", "8", "", "",
+                                     "",
+                                     "",
+                                     "3", //128
+                                     "", "", "", "\x8f", "\xac",
+                                     "",
+                                     "0",
+                                     "\x8b", //136
+                                     "\xe0", "", "", "\xe3", "\xe4", "", "", "", "", "", "", "", "",
+                                     "",
+                                     "",
+                                     "", // 144
+                                     "\xa2", "6", "\xa5\xa7\xad\xa0", "\xe2", "", "\xa2\xe1",
+                                     "",
+                                     "\xed\xa2", // 160 - 167    а-з
+                                     "\xad\xaf", "", "", "\xaf", "\x8c", "\xa8\xaf\xeb", "\xfd",
+                                     "\xa8\xab\xad", // 168 - 175 и-п
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 176
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 192
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 208
+                                     "\x90", "\xa5\xae", "\xa3", "\x93", "\x94", "", "", "",//224-231 р-ч
+                                     "\xe9", "\xe8", "", "", "", "\xa7\xa0", "", "\xa0", // 232-239   ш-я
+                                     "", "", "", "", "", "", "", "", "", "", "", "", "", "\xae", "", "" //240-255
+                                   };
 
 int32_t p2_testSelf(RecRaster *recRast, RecVersions *vers,
-		FonSpecInfo *specInfo, int32_t testSelf) {
-	int nAlt, i;
-	uchar *alts;
-	FonTestInfo testInfo[MAXCHECKALT];
+                    FonSpecInfo *specInfo, int32_t testSelf)
+{
+    int nAlt, i;
+    uchar *alts;
+    FonTestInfo testInfo[MAXCHECKALT];
 
-	if (!specInfo || !specInfo->nLet)
-		return 0;
+    if (!specInfo || !specInfo->nLet)
+        return 0;
 
-	// уже тестировался по себе ?
-	if (testSelf > 0) {
-		nAlt = 1;
-		testInfo[0].prob = (uchar) testSelf;
-	} else {
-		nAlt = FONTestChar(recRast, specInfo->nLet, testInfo, specInfo->nInCTB);
-		specInfo->nClust = testInfo[0].nClust;
-	}
+    // уже тестировался по себе ?
+    if (testSelf > 0) {
+        nAlt = 1;
+        testInfo[0].prob = (uchar) testSelf;
+    }
 
-	if (nAlt <= 0 || testInfo[0].prob <= porogSelfTest[specInfo->nLet])
-		return 0;
+    else {
+        nAlt = FONTestChar(recRast, specInfo->nLet, testInfo, specInfo->nInCTB);
+        specInfo->nClust = testInfo[0].nClust;
+    }
 
-	nAlt = 1;
-	vers->Alt[0].Code = specInfo->nLet;
-	vers->Alt[0].Prob = testInfo[0].prob;
-	vers->Alt[0].Method = REC_METHOD_FON;
-	vers->lnAltCnt = 1;
+    if (nAlt <= 0 || testInfo[0].prob <= porogSelfTest[specInfo->nLet])
+        return 0;
 
-	// проверять только по себе ?
-	if (specInfo->onlySelf == 1)
-		return vers->lnAltCnt;
+    nAlt = 1;
+    vers->Alt[0].Code = specInfo->nLet;
+    vers->Alt[0].Prob = testInfo[0].prob;
+    vers->Alt[0].Method = REC_METHOD_FON;
+    vers->lnAltCnt = 1;
 
-	alts = (uchar*) testAlts[specInfo->nLet];
+    // проверять только по себе ?
+    if (specInfo->onlySelf == 1)
+        return vers->lnAltCnt;
 
-	// 16.07.2001 E.P. конфликт с a_bottom_accent_baltic 0xe0
-	if (is_baltic_language(p2globals.language) && (specInfo->nLet == 0xe0
-			|| alts[0] == 0xe0))
-		alts = (uchar*) "";
+    alts = (uchar*) testAlts[specInfo->nLet];
 
-	for (; *alts; alts++) {
-		if (vers->lnAltCnt >= REC_MAX_VERS)
-			break;
+    // 16.07.2001 E.P. конфликт с a_bottom_accent_baltic 0xe0
+    if (is_baltic_language(p2globals.language) && (specInfo->nLet == 0xe0
+                                                   || alts[0] == 0xe0))
+        alts = (uchar*) "";
 
-		nAlt = FONTestChar(recRast, *alts, testInfo, 0);
+    for (; *alts; alts++) {
+        if (vers->lnAltCnt >= REC_MAX_VERS)
+            break;
 
-		if (nAlt > 0) {
-			for (i = 0; i < vers->lnAltCnt; i++)
-				if (testInfo[0].prob > vers->Alt[i].Prob)
-					break;
-			if (i < vers->lnAltCnt)
-				memmove(vers->Alt + i + 1, vers->Alt + i, (vers->lnAltCnt - i)
-						* sizeof(RecAlt));
-			vers->Alt[i].Code = *alts;
-			vers->Alt[i].Prob = testInfo[0].prob;
-			vers->Alt[i].Method = REC_METHOD_FON;
-			vers->lnAltCnt++;
+        nAlt = FONTestChar(recRast, *alts, testInfo, 0);
 
-			if (i == 0) // the best ?
-				specInfo->nClust = testInfo[0].nClust;
-		}
-	}
+        if (nAlt > 0) {
+            for (i = 0; i < vers->lnAltCnt; i++)
+                if (testInfo[0].prob > vers->Alt[i].Prob)
+                    break;
 
-	return vers->lnAltCnt;
+            if (i < vers->lnAltCnt)
+                memmove(vers->Alt + i + 1, vers->Alt + i, (vers->lnAltCnt - i)
+                        * sizeof(RecAlt));
+
+            vers->Alt[i].Code = *alts;
+            vers->Alt[i].Prob = testInfo[0].prob;
+            vers->Alt[i].Method = REC_METHOD_FON;
+            vers->lnAltCnt++;
+
+            if (i == 0) // the best ?
+                specInfo->nClust = testInfo[0].nClust;
+        }
+    }
+
+    return vers->lnAltCnt;
 }
 
-int32_t p2_testAccents(CSTR_rast first, CSTR_rast last) {
-	int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo,
-			CSTR_rast firNew, CSTR_rast lasNew, int lang, int porog,
-			int nNaklon, int nRazmaz);
-	CSTR_rast rst, rstPrev, rstNext;
-	RecVersions verOld;
-	CSTR_rast_attr attr, attrAcc;
-	int language = p2globals.language;
-	int porog; // TRSFINE
-	int32_t goodBrok = 0;
+int32_t p2_testAccents(CSTR_rast first, CSTR_rast last)
+{
+    int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo,
+                           CSTR_rast firNew, CSTR_rast lasNew, int lang, int porog,
+                           int nNaklon, int nRazmaz);
+    CSTR_rast rst, rstPrev, rstNext;
+    RecVersions verOld;
+    CSTR_rast_attr attr, attrAcc;
+    int language = p2globals.language;
+    int porog; // TRSFINE
+    int32_t goodBrok = 0;
 
-	if (language == LANG_ENGLISH && p2globals.multy_language)
-		language = LANG_RUSENG;
-	//
-	//
-	for (rst = first; rst && rst != last;) {
-		if (!CSTR_GetAttr(rst, &attr) || !CSTR_GetCollection(rst, &verOld))
-			return 0;
+    if (language == LANG_ENGLISH && p2globals.multy_language)
+        language = LANG_RUSENG;
 
-		if (!(attr.flg & (CSTR_f_bad | CSTR_f_let))) {
-			rst = CSTR_GetNext(rst);
-			continue;
-		}
+    //
+    //
+    for (rst = first; rst && rst != last;) {
+        if (!CSTR_GetAttr(rst, &attr) || !CSTR_GetCollection(rst, &verOld))
+            return 0;
 
-		rstNext = CSTR_GetNext(rst);
-		if (rstNext == last)
-			rstNext = NULL;
+        if (!(attr.flg & (CSTR_f_bad | CSTR_f_let))) {
+            rst = CSTR_GetNext(rst);
+            continue;
+        }
 
-		rstPrev = CSTR_GetPrev(rst);
+        rstNext = CSTR_GetNext(rst);
 
-		if (rstPrev) {
-			CSTR_GetAttr(rstPrev, &attrAcc);
-			if (attrAcc.flg & CSTR_f_let)
-				rstPrev = NULL;
-			else {
-				if (attrAcc.col + attrAcc.w <= attr.col || attrAcc.col
-						>= attr.col + attr.w)
-					rstPrev = NULL;
-			}
-		}
+        if (rstNext == last)
+            rstNext = NULL;
 
-		if (rstNext) {
-			CSTR_GetAttr(rstNext, &attrAcc);
-			if (attrAcc.flg & CSTR_f_let)
-				rstNext = NULL;
-			else {
-				if (attrAcc.col + attrAcc.w <= attr.col || attrAcc.col
-						>= attr.col + attr.w)
-					rstNext = NULL;
-			}
-		}
+        rstPrev = CSTR_GetPrev(rst);
 
-		if (rstPrev == NULL && rstNext == NULL) {
-			rst = CSTR_GetNext(rst);
-			continue;
-		}
+        if (rstPrev) {
+            CSTR_GetAttr(rstPrev, &attrAcc);
 
-		if (verOld.lnAltCnt <= 0)
-			porog = 180;
-		else
-			porog = MAX(180, verOld.Alt[0].Prob - 20);
+            if (attrAcc.flg & CSTR_f_let)
+                rstPrev = NULL;
 
-		if (!rstPrev)
-			rstPrev = rst;
-		if (!rstNext)
-			rstNext = rst;
+            else {
+                if (attrAcc.col + attrAcc.w <= attr.col || attrAcc.col
+                        >= attr.col + attr.w)
+                    rstPrev = NULL;
+            }
+        }
 
-		rstNext = CSTR_GetNext(rstNext);
+        if (rstNext) {
+            CSTR_GetAttr(rstNext, &attrAcc);
 
-		if (FONRecogBroken(rstPrev, rstNext, rstPrev, rstNext, language, porog,
-				p2globals.nIncline, 1) > 0)
-			goodBrok++;
+            if (attrAcc.flg & CSTR_f_let)
+                rstNext = NULL;
 
-		rst = rstNext;
-	}
+            else {
+                if (attrAcc.col + attrAcc.w <= attr.col || attrAcc.col
+                        >= attr.col + attr.w)
+                    rstNext = NULL;
+            }
+        }
 
-	return goodBrok;
+        if (rstPrev == NULL && rstNext == NULL) {
+            rst = CSTR_GetNext(rst);
+            continue;
+        }
+
+        if (verOld.lnAltCnt <= 0)
+            porog = 180;
+
+        else
+            porog = MAX(180, verOld.Alt[0].Prob - 20);
+
+        if (!rstPrev)
+            rstPrev = rst;
+
+        if (!rstNext)
+            rstNext = rst;
+
+        rstNext = CSTR_GetNext(rstNext);
+
+        if (FONRecogBroken(rstPrev, rstNext, rstPrev, rstNext, language, porog,
+                           p2globals.nIncline, 1) > 0)
+            goodBrok++;
+
+        rst = rstNext;
+    }
+
+    return goodBrok;
 }
 

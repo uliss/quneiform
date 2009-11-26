@@ -66,10 +66,10 @@
 #define SP_ABC_NO    12
 
 typedef struct spec_abc {
-	ArtVH * hd;
-	uchar * * pref;
-	uchar * body;
-	uchar * * postf;
+    ArtVH * hd;
+    uchar * * pref;
+    uchar * body;
+    uchar * * postf;
 } SABC;
 
 SABC SpABC[SP_ABC_NO];
@@ -79,179 +79,197 @@ ArtFH * SpABCroot;
 
 extern int32_t read_all_vtab(int16_t, char *);
 
-uchar * load_specABC(uchar *point, int16_t Country) {
-	uchar *a;
-	uchar * *b;
-	long size;
-	int i, j;
+uchar * load_specABC(uchar *point, int16_t Country)
+{
+    uchar *a;
+    uchar * *b;
+    long size;
+    int i, j;
+    SpABCroot = (ArtFH *) point;
+    // 08-14-93 03:03pm, Mike
+    // Reading *.art file ( art-dictionary ).
+    size = read_all_vtab(8, (char *) SpABCroot);
 
-	SpABCroot = (ArtFH *) point;
-
-	// 08-14-93 03:03pm, Mike
-	// Reading *.art file ( art-dictionary ).
-	size = read_all_vtab(8, (char *) SpABCroot);
-	if (size == -1L) {
+    if (size == -1L) {
 #ifdef SYSPR_ERROR
-		PRINTF("Unable to open %s \n", w);
+        PRINTF("Unable to open %s \n", w);
 #endif
-		return NULL;
-	}
+        return NULL;
+    }
 
-	for (i = strlen(ARTFILE_ID); i < size; i++) {
-		*(point + i) ^= XOR_MASK;
-	}
+    for (i = strlen(ARTFILE_ID); i < size; i++) {
+        *(point + i) ^= XOR_MASK;
+    }
 
-	if (SpABCroot->voc_no >= SP_ABC_NO) {
+    if (SpABCroot->voc_no >= SP_ABC_NO) {
 #ifdef SYSPR_ERROR
-		PRINTF("Too many specABC: %d\n", SpABCroot -> voc_no);
+        PRINTF("Too many specABC: %d\n", SpABCroot -> voc_no);
 #endif
-		return (NULL);
-	}
+        return (NULL);
+    }
 
-	a = point + sizeof(ArtFH);
-	b = (uchar * *) (point + size);
-	for (i = 0; i < SpABCroot -> voc_no; i++) {
-		SpABC[i].hd = (ArtVH *) a;
-		a += sizeof(ArtVH);
-		SpABC[i].pref = b;
-		for (j = 0; j < SpABC[i].hd->pref_no; j++) {
-			*b = a;
-			while (*(a++))
-				;
-			b++;
-		}
-		*(b++) = NULL;
-		SpABC[i].body = a;
-		while (*(a++))
-			;
-		SpABC[i].postf = b;
-		for (j = 0; j < SpABC[i].hd->post_no; j++) {
-			*b = a;
-			while (*(a++))
-				;
-			b++;
-		}
-		*(b++) = NULL;
-	}
+    a = point + sizeof(ArtFH);
+    b = (uchar * *) (point + size);
 
-	Country = 0;
-	return (uchar *) b;
+    for (i = 0; i < SpABCroot -> voc_no; i++) {
+        SpABC[i].hd = (ArtVH *) a;
+        a += sizeof(ArtVH);
+        SpABC[i].pref = b;
+
+        for (j = 0; j < SpABC[i].hd->pref_no; j++) {
+            *b = a;
+
+            while (*(a++))
+                ;
+
+            b++;
+        }
+
+        *(b++) = NULL;
+        SpABC[i].body = a;
+
+        while (*(a++))
+            ;
+
+        SpABC[i].postf = b;
+
+        for (j = 0; j < SpABC[i].hd->post_no; j++) {
+            *b = a;
+
+            while (*(a++))
+                ;
+
+            b++;
+        }
+
+        *(b++) = NULL;
+    }
+
+    Country = 0;
+    return (uchar *) b;
 }
 
 /* ------------------------------------------------------------------ */
 
-int16_t check_art_dict(char word[], int16_t * wordlth, int16_t * vockind) {
+int16_t check_art_dict(char word[], int16_t * wordlth, int16_t * vockind)
+{
+    char no;
+    char pref;
+    char postf;
+    char CapWord[MAX_WORD_SIZE];
+    register char *body_b;
+    pchar body_e;
+    register uchar *p;
+    word[*wordlth + 1] = 0;
 
-	char no;
-	char pref;
-	char postf;
-	char CapWord[MAX_WORD_SIZE];
-	register char *body_b;
-	pchar body_e;
-	register uchar *p;
-	word[*wordlth + 1] = 0;
+    for (p = (uchar*) word, body_b = CapWord; *p; p++, body_b++)
+        *body_b = _2cap(*p);
 
-	for (p = (uchar*) word, body_b = CapWord; *p; p++, body_b++)
-		*body_b = _2cap(*p);
-	*body_b = 0;
+    *body_b = 0;
+    /*for ( no= (strcmp ( CapWord, word) != 0 ) ? 2 : 0; no<SP_ABC_NO; no++ )*/
+    /** Do not forget about Latyn **/
+    /** The first (0) triple is always main dictionary prefs - postfs */
 
-	/*for ( no= (strcmp ( CapWord, word) != 0 ) ? 2 : 0; no<SP_ABC_NO; no++ )*/
+    for (no = 1; no < SpABCroot ->voc_no; no++)
+        for (pref = 0; (p = SpABC[no].pref[pref]) != 0; pref++) {
+            for (body_b = CapWord; *p && *body_b; p++, body_b++)
+                if (*body_b != *p)
+                    break;
 
-	/** Do not forget about Latyn **/
+            if ((!*p) && (*body_b)) {
+                for (postf = 0; (p = SpABC[no].postf[postf]) != 0; postf++) {
+                    char lth;
 
-	/** The first (0) triple is always main dictionary prefs - postfs */
+                    for (body_e = CapWord + (*wordlth), lth = *wordlth + 1; *p
+                            && lth; p++, body_e--, lth--) {
+                        if (*body_e != *p)
+                            break;
+                    }
 
-	for (no = 1; no < SpABCroot ->voc_no; no++)
+                    /*     if((!*p) && lth)                   Lepik -- 08/06/92 04:30pm  */
+                    /*                                                                   */
+                    /* This restriction prohibits 1st and 2nd.                             */
+                    /* The following permits 'TH'                                        */
 
-		for (pref = 0; (p = SpABC[no].pref[pref]) != 0; pref++) {
-			for (body_b = CapWord; *p && *body_b; p++, body_b++)
-				if (*body_b != *p)
-					break;
-			if ((!*p) && (*body_b)) {
-				for (postf = 0; (p = SpABC[no].postf[postf]) != 0; postf++) {
-					char lth;
-					for (body_e = CapWord + (*wordlth), lth = *wordlth + 1; *p
-							&& lth; p++, body_e--, lth--) {
-						if (*body_e != *p)
-							break;
-					}
-					/*     if((!*p) && lth)                   Lepik -- 08/06/92 04:30pm  */
-					/*                                                                   */
-					/* This restriction prohibits 1st and 2nd.                             */
+                    if (!*p) {
+                        for (; body_b <= body_e; body_b++) {
+                            for (p = SpABC[no].body; *p; p++)
+                                if (*body_b == *p)
+                                    break;
 
-					/* The following permits 'TH'                                        */
+                            if (!(*p))
+                                break;
+                        }
 
-					if (!*p) {
-						for (; body_b <= body_e; body_b++) {
-							for (p = SpABC[no].body; *p; p++)
-								if (*body_b == *p)
-									break;
-							if (!(*p))
-								break;
-						}
-						if (body_b > body_e) {
-							*vockind = no + 4;
-							return SpABC[no].hd ->relabty;
-						}
-					}
-				}
-			}
-		}
-	return 0;
+                        if (body_b > body_e) {
+                            *vockind = no + 4;
+                            return SpABC[no].hd ->relabty;
+                        }
+                    }
+                }
+            }
+        }
+
+    return 0;
 }
 
 /* ------------------------------------------------------------------ */
 
-int16_t test_apppostrof(uchar word[], SWORD *wrd, int16_t *l, int16_t *r) {
-	int16_t i, pref, apf, postf;
-	uchar *p, *pp;
-	char CapWord[MAX_WORD_SIZE];
+int16_t test_apppostrof(uchar word[], SWORD *wrd, int16_t *l, int16_t *r)
+{
+    int16_t i, pref, apf, postf;
+    uchar *p, *pp;
+    char CapWord[MAX_WORD_SIZE];
 
-	for (p = word, pp = (uchar*) CapWord; (*p) != 0; p++, pp++)
-		*pp = _2cap(*p);
-	*pp = 0;
+    for (p = word, pp = (uchar*) CapWord; (*p) != 0; p++, pp++)
+        *pp = _2cap(*p);
 
-	*l = 0;
-	*r = wrd -> lth;
+    *pp = 0;
+    *l = 0;
+    *r = wrd -> lth;
 
-	for (apf = 0; apf < wrd -> lth; apf++)
-		if (CapWord[apf] == 0x27)
-			break;
-	//  if (wrd ->pos[apf] ->type_sp & T_APF)             break;
-	if (apf == wrd -> lth)
-		return FALSE;
+    for (apf = 0; apf < wrd -> lth; apf++)
+        if (CapWord[apf] == 0x27)
+            break;
 
-	for (pref = 0; (p = SpABC[0].pref[pref]) != 0; pref++) {
-		for (i = 0; *(p + i) && CapWord[i]; i++)
-			if (*(p + i) != CapWord[i])
-				break;
-		/* vowel */
-		if ((!*(p + i)) && (i == apf) && (i))
-			if (IsVowel(CapWord[i + 1])) {
-				*l = i + 1;
-				break;
-			}
-	}
+    //  if (wrd ->pos[apf] ->type_sp & T_APF)             break;
+    if (apf == wrd -> lth)
+        return FALSE;
 
-	for (i = wrd -> lth - 1; i > apf; i--)
-		if (CapWord[i] == 0x27)
-			break;
-	//if (wrd ->pos[i] ->type_sp & T_APF)                  break;
+    for (pref = 0; (p = SpABC[0].pref[pref]) != 0; pref++) {
+        for (i = 0; *(p + i) && CapWord[i]; i++)
+            if (*(p + i) != CapWord[i])
+                break;
 
-	if ((i == apf) && *l)
-		return TRUE;
+        /* vowel */
+        if ((!*(p + i)) && (i == apf) && (i))
+            if (IsVowel(CapWord[i + 1])) {
+                *l = i + 1;
+                break;
+            }
+    }
 
-	apf = i;
+    for (i = wrd -> lth - 1; i > apf; i--)
+        if (CapWord[i] == 0x27)
+            break;
 
-	for (postf = 0; (p = SpABC[0].postf[postf]) != 0; postf++) {
-		for (i = 0; *(p + i) && (wrd -> lth - i - 1); i++)
-			if (*(p + i) != CapWord[wrd ->lth - i - 1])
-				break;
-		if ((!*(p + i)) && (wrd -> lth - i - 1 == apf) && (i != 0)) {
-			*r = apf;
-			break;
-		}
+    //if (wrd ->pos[i] ->type_sp & T_APF)                  break;
 
-	}
-	return (*r != wrd -> lth) || (*l);
+    if ((i == apf) && *l)
+        return TRUE;
+
+    apf = i;
+
+    for (postf = 0; (p = SpABC[0].postf[postf]) != 0; postf++) {
+        for (i = 0; *(p + i) && (wrd -> lth - i - 1); i++)
+            if (*(p + i) != CapWord[wrd ->lth - i - 1])
+                break;
+
+        if ((!*(p + i)) && (wrd -> lth - i - 1 == apf) && (i != 0)) {
+            *r = apf;
+            break;
+        }
+    }
+
+    return (*r != wrd -> lth) || (*l);
 }

@@ -92,89 +92,100 @@ int Romi = 0;
 
 //#define DELETE_PTR(ptr) if (ptr != NULL) { ::delete ptr; ptr = NULL; };
 #define DELETE_PTR(ptr) if (ptr != NULL) { delete ptr; ptr = NULL; };
-static void _destroy_lines(void) {
-	DELETE_PTR( hvSB );
-	DELETE_PTR( hRB );
-	DELETE_PTR( hLB );
-	DELETE_PTR( vRB );
-	DELETE_PTR( vLB );
+static void _destroy_lines(void)
+{
+    DELETE_PTR( hvSB );
+    DELETE_PTR( hRB );
+    DELETE_PTR( hLB );
+    DELETE_PTR( vRB );
+    DELETE_PTR( vLB );
 }
 
-void ExtrLinesInitLNS(void) {
-	_destroy_lines();
-	//*******************Rom********************
-	RBlockCurrent = new CRomBabble;
-	RBlockFirst = RBlockCurrent;
-	RBlockPrev = NULL;
-	Rptr = new RomBubble;
-	Rptr->next = NULL; //*************Rom 17.11.98  16:30
-	Rptr2 = NULL;
-	Rptr3 = Rptr;
-	Romi = 0;
-	//******************************************
-
+void ExtrLinesInitLNS(void)
+{
+    _destroy_lines();
+    //*******************Rom********************
+    RBlockCurrent = new CRomBabble;
+    RBlockFirst = RBlockCurrent;
+    RBlockPrev = NULL;
+    Rptr = new RomBubble;
+    Rptr->next = NULL; //*************Rom 17.11.98  16:30
+    Rptr2 = NULL;
+    Rptr3 = Rptr;
+    Romi = 0;
+    //******************************************
 }
 
-void ExtrLinesDoneLNS(void) {
-	_destroy_lines();
-	DELETE_PTR( Rptr );
-	Rptr2 = Rptr3 = NULL;
-	Romi = 0;
-	RBlockPrev = RBlockCurrent = RBlockFirst;
-	while (RBlockCurrent != NULL) {
-		RBlockCurrent = RBlockPrev->next;
-		delete (RBlockPrev);
-		RBlockPrev = RBlockCurrent;
-	}
+void ExtrLinesDoneLNS(void)
+{
+    _destroy_lines();
+    DELETE_PTR( Rptr );
+    Rptr2 = Rptr3 = NULL;
+    Romi = 0;
+    RBlockPrev = RBlockCurrent = RBlockFirst;
+
+    while (RBlockCurrent != NULL) {
+        RBlockCurrent = RBlockPrev->next;
+        delete (RBlockPrev);
+        RBlockPrev = RBlockCurrent;
+    }
 }
 
 static void _squeezeIfTooMany(int32_t & hor_len, int32_t & ver_len,
-		int32_t & hor_cnt, int32_t & ver_cnt) {
-	int32_t max_cnt = 0xFFF0 / sizeof(LineInfo);
-	while (TRUE) {
-		ExtrLinesGetCount(hor_len, ver_len, hor_cnt, ver_cnt);
-		if (hor_cnt <= max_cnt && ver_cnt <= max_cnt)
-			break;
-		if (hor_cnt > max_cnt)
-			hor_len++;
-		if (ver_cnt > max_cnt)
-			ver_len++;
-	};
+                              int32_t & hor_cnt, int32_t & ver_cnt)
+{
+    int32_t max_cnt = 0xFFF0 / sizeof(LineInfo);
+
+    while (TRUE) {
+        ExtrLinesGetCount(hor_len, ver_len, hor_cnt, ver_cnt);
+
+        if (hor_cnt <= max_cnt && ver_cnt <= max_cnt)
+            break;
+
+        if (hor_cnt > max_cnt)
+            hor_len++;
+
+        if (ver_cnt > max_cnt)
+            ver_len++;
+    };
 }
 
 //******************************* Rom 8-2-99 **************
 static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt,
-		uchar* quality) {
-	int16_t Romii;
-	int16_t SpacesLength, TotalLength;
-	TLinesBambuk* lb = hor ? hLB : vLB;
+                               uchar* quality)
+{
+    int16_t Romii;
+    int16_t SpacesLength, TotalLength;
+    TLinesBambuk* lb = hor ? hLB : vLB;
+    TLineInfo & li = lb->linesRoot[hnd];
+    BEntry lbe = li.linesBambukEntry;
+    BHandle h = lb->firstEntryMember(lbe);
+    TLineFragment lf;
+    Romii = 0;
 
-	TLineInfo & li = lb->linesRoot[hnd];
-	BEntry lbe = li.linesBambukEntry;
-	BHandle h = lb->firstEntryMember(lbe);
-	TLineFragment lf;
-	Romii = 0;
+    if (hor)
+        TotalLength = abs(li.lineAsIs.start.x() - li.lineAsIs.end.x());
 
-	if (hor)
-		TotalLength = abs(li.lineAsIs.start.x() - li.lineAsIs.end.x());
-	else
-		TotalLength = abs(li.lineAsIs.start.y() - li.lineAsIs.end.y());
+    else
+        TotalLength = abs(li.lineAsIs.start.y() - li.lineAsIs.end.y());
 
-	SpacesLength = TotalLength;
-	if (TotalLength <= 0)
-		return;
-	while (h != NULLBHandle) {
-		lf = (*lb)[h];
-		SpacesLength -= hor ? abs(lf.fragmentAsIs.start.x()
-				- lf.fragmentAsIs.end.x()) : abs(lf.fragmentAsIs.start.y()
-				- lf.fragmentAsIs.end.y());
+    SpacesLength = TotalLength;
 
-		SpacesLength = abs(SpacesLength);
-		Romii++;
-		h = lb->nextMember(h);
-	}
-	*cnt = Romii;
-	*quality = ((TotalLength - SpacesLength) * 255) / TotalLength;
+    if (TotalLength <= 0)
+        return;
+
+    while (h != NULLBHandle) {
+        lf = (*lb)[h];
+        SpacesLength -= hor ? abs(lf.fragmentAsIs.start.x()
+                                  - lf.fragmentAsIs.end.x()) : abs(lf.fragmentAsIs.start.y()
+                                                                   - lf.fragmentAsIs.end.y());
+        SpacesLength = abs(SpacesLength);
+        Romii++;
+        h = lb->nextMember(h);
+    }
+
+    *cnt = Romii;
+    *quality = ((TotalLength - SpacesLength) * 255) / TotalLength;
 }
 
 //**********************************************************
@@ -187,683 +198,779 @@ static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt,
 #include "hliner.h"
 
 Err16 ExtrLinesUnderTigerStatic(int32_t hor_len, int32_t ver_len,
-		int32_t &hor_cnt, int32_t &ver_cnt) {
+                                int32_t &hor_cnt, int32_t &ver_cnt)
+{
 #ifdef LOG_TIME
-	XTimer t("Lines Extraction");
+    XTimer t("Lines Extraction");
 #endif
+    int err_code = ER_NONE;
+    int i = 0;
+    TigerReader tg_rdr;
+    HLiner_Setup(&tg_rdr);
 
-	int err_code = ER_NONE;
-	int i = 0;
+    if (!tg_rdr.isOk()) {
+        assert(0);
+        return tg_rdr.errCode;
+    };
 
-	TigerReader tg_rdr;
+    _destroy_lines();
 
-	HLiner_Setup(&tg_rdr);
+    int AddX = tg_rdr.wAddX;
 
-	if (!tg_rdr.isOk()) {
-		assert(0);
-		return tg_rdr.errCode;
-	};
+    int AddY = tg_rdr.wAddY;
 
-	_destroy_lines();
-	int AddX = tg_rdr.wAddX;
-	int AddY = tg_rdr.wAddY;
-	/* I. build segments bambuk */
-	hvSB = new THVSegBambuk(tg_rdr);
-	if (hvSB == NULL) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	if (!hvSB->isOk()) {
-		err_code = hvSB->errCode;
-		goto ErrorExit;
-	};
+    /* I. build segments bambuk */
+    hvSB = new THVSegBambuk(tg_rdr);
 
-	/* II. make horisontal lines */
-	/* build H rasters */
-	hRB = new TRasterBambuk(&(hvSB->hBambuk), (BHandle) MAX_H_DASHES_COUNT, // members
-			(BEntry) MAX_H_RASTERS_COUNT // entries
-			);
-	if (hRB == NULL) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	if (!hRB->isOk()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
+    if (hvSB == NULL) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	/* build H lines */
+    if (!hvSB->isOk()) {
+        err_code = hvSB->errCode;
+        goto ErrorExit;
+    };
 
-	HLiner_Analyze();
+    /* II. make horisontal lines */
+    /* build H rasters */
+    hRB = new TRasterBambuk(&(hvSB->hBambuk), (BHandle) MAX_H_DASHES_COUNT, // members
+                            (BEntry) MAX_H_RASTERS_COUNT // entries
+                           );
 
-	hLB = new TLinesBambuk(hRB, &(hvSB->hBambuk), (BEntry) MAX_H_LINES_COUNT,
-			FALSE // not vertical
-			);
-	if (hLB == NULL) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
+    if (hRB == NULL) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	if (!hLB->isOk()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	*((TXYDim*) hLB) = *((TXYDim*) hvSB); // 11-05-93 07:24pm
+    if (!hRB->isOk()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	/* III. make vertical lines */
-	/* build V rasters */
-	vRB = new TRasterBambuk(&(hvSB->vBambuk), (BHandle) MAX_V_DASHES_COUNT, // members
-			(BEntry) MAX_V_RASTERS_COUNT // entries
-			);
-	if (vRB == NULL) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	if (!vRB->isOk()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
+    /* build H lines */
+    HLiner_Analyze();
 
-	/* build V lines */
-	vLB = new TLinesBambuk(vRB, &(hvSB->vBambuk), (BEntry) MAX_V_LINES_COUNT,
-			TRUE // is vertical
-			);
-	if (vLB == NULL) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	if (!vLB->isOk()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	};
-	*((TXYDim*) vLB) = *((TXYDim*) hvSB); // 11-05-93 07:24pm
-	////////////////
-	Bool AnalyzeFragments(TLinesBambuk & hLB, TLinesBambuk & vLB);
-	Bool AnalyzeFragmentsII(TLinesBambuk & hLB, TLinesBambuk & vLB);
+    hLB = new TLinesBambuk(hRB, &(hvSB->hBambuk), (BEntry) MAX_H_LINES_COUNT,
+                           FALSE // not vertical
+                          );
 
-	if (!AnalyzeFragments(*hLB, *vLB)) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	}
+    if (hLB == NULL) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	if (!AnalyzeFragmentsII(*hLB, *vLB)) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	}
+    if (!hLB->isOk()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	if (!hLB->linkHFragments()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	}
+    *((TXYDim*) hLB) = *((TXYDim*) hvSB); // 11-05-93 07:24pm
 
-	if (!vLB->linkVFragments()) {
-		err_code = ER_NOMEMORY;
-		goto ErrorExit;
-	}
-	/////////////////
-	/* IV. Make diff... */
-	for (i = 0; i < hLB->linesCount; i++) {
-		Point & p1 = hLB->linesRoot[i].lineAsIs.end;
-		p1.rx() += AddX;
-		p1.ry() += AddY;
-		Point & p2 = hLB->linesRoot[i].lineAsIs.start;
-		p2.rx() += AddX;
-		p2.ry() += AddY;
-	};
+    /* III. make vertical lines */
+    /* build V rasters */
+    vRB = new TRasterBambuk(&(hvSB->vBambuk), (BHandle) MAX_V_DASHES_COUNT, // members
+                            (BEntry) MAX_V_RASTERS_COUNT // entries
+                           );
 
-	for (i = 0; i < vLB->linesCount; i++) {
-		Point & p1 = vLB->linesRoot[i].lineAsIs.end;
-		p1.rx() += AddX;
-		p1.ry() += AddY;
-		Point & p2 = vLB->linesRoot[i].lineAsIs.start;
-		p2.rx() += AddX;
-		p2.ry() += AddY;
-	};
-	/* IV. Send counts... */
+    if (vRB == NULL) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	//=========== 10-19-95 06:46pm, Basil ====================
-	_squeezeIfTooMany(hor_len, ver_len, hor_cnt, ver_cnt);
-	//============================================================
+    if (!vRB->isOk()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
+    /* build V lines */
+    vLB = new TLinesBambuk(vRB, &(hvSB->vBambuk), (BEntry) MAX_V_LINES_COUNT,
+                           TRUE // is vertical
+                          );
 
-	return ER_NONE; // Normal exit
+    if (vLB == NULL) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	ErrorExit: _destroy_lines();
+    if (!vLB->isOk()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    };
 
-	return err_code; // Bad exit
+    *((TXYDim*) vLB) = *((TXYDim*) hvSB); // 11-05-93 07:24pm
+
+    ////////////////
+    Bool AnalyzeFragments(TLinesBambuk & hLB, TLinesBambuk & vLB);
+
+    Bool AnalyzeFragmentsII(TLinesBambuk & hLB, TLinesBambuk & vLB);
+
+    if (!AnalyzeFragments(*hLB, *vLB)) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    }
+
+    if (!AnalyzeFragmentsII(*hLB, *vLB)) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    }
+
+    if (!hLB->linkHFragments()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    }
+
+    if (!vLB->linkVFragments()) {
+        err_code = ER_NOMEMORY;
+        goto ErrorExit;
+    }
+
+    /////////////////
+    /* IV. Make diff... */
+    for (i = 0; i < hLB->linesCount; i++) {
+        Point & p1 = hLB->linesRoot[i].lineAsIs.end;
+        p1.rx() += AddX;
+        p1.ry() += AddY;
+        Point & p2 = hLB->linesRoot[i].lineAsIs.start;
+        p2.rx() += AddX;
+        p2.ry() += AddY;
+    };
+
+    for (i = 0; i < vLB->linesCount; i++) {
+        Point & p1 = vLB->linesRoot[i].lineAsIs.end;
+        p1.rx() += AddX;
+        p1.ry() += AddY;
+        Point & p2 = vLB->linesRoot[i].lineAsIs.start;
+        p2.rx() += AddX;
+        p2.ry() += AddY;
+    };
+
+    /* IV. Send counts... */
+    //=========== 10-19-95 06:46pm, Basil ====================
+    _squeezeIfTooMany(hor_len, ver_len, hor_cnt, ver_cnt);
+
+    //============================================================
+    return ER_NONE; // Normal exit
+
+ErrorExit:
+    _destroy_lines();
+
+    return err_code; // Bad exit
 }
 
 Bool ExtrLinesGetCount(int32_t hor_len, int32_t ver_len, int32_t &hor_cnt,
-		int32_t &ver_cnt) {
+                       int32_t &ver_cnt)
+{
+    if (hLB == NULL)
+        return WRONG();
 
-	if (hLB == NULL)
-		return WRONG();
-	if (vLB == NULL)
-		return WRONG();
-	if (!hLB->isOk())
-		return WRONG();
-	if (!vLB->isOk())
-		return WRONG();
+    if (vLB == NULL)
+        return WRONG();
 
-	hor_cnt = 0;
-	int i(0);
-	for (i = 0; i < hLB->linesCount; i++) {
-		if ((hLB->linesRoot[i].lineAsIs.end.x()
-				- hLB->linesRoot[i].lineAsIs.start.x()) > hor_len)
-			hor_cnt++;
-	};
-	ver_cnt = 0;
-	for (i = 0; i < vLB->linesCount; i++) {
-		if ((vLB->linesRoot[i].lineAsIs.end.y()
-				- vLB->linesRoot[i].lineAsIs.start.y()) > ver_len)
-			ver_cnt++;
-	};
-	return TRUE;
+    if (!hLB->isOk())
+        return WRONG();
+
+    if (!vLB->isOk())
+        return WRONG();
+
+    hor_cnt = 0;
+    int i(0);
+
+    for (i = 0; i < hLB->linesCount; i++) {
+        if ((hLB->linesRoot[i].lineAsIs.end.x()
+                - hLB->linesRoot[i].lineAsIs.start.x()) > hor_len)
+            hor_cnt++;
+    };
+
+    ver_cnt = 0;
+
+    for (i = 0; i < vLB->linesCount; i++) {
+        if ((vLB->linesRoot[i].lineAsIs.end.y()
+                - vLB->linesRoot[i].lineAsIs.start.y()) > ver_len)
+            ver_cnt++;
+    };
+
+    return TRUE;
 }
 
-static void LCpy(Point16& dst, Point& src) {
-	dst.rx() = src.x();
-	dst.ry() = src.y();
+static void LCpy(Point16& dst, Point& src)
+{
+    dst.rx() = src.x();
+    dst.ry() = src.y();
 }
 
 Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
-		int32_t &hor_cnt, int32_t &ver_cnt) {
-	int16_t cnt;//******************Rom
-	uchar Quality;//******************Rom
+                      int32_t &hor_cnt, int32_t &ver_cnt)
+{
+    int16_t cnt;//******************Rom
+    uchar Quality;//******************Rom
 
-	if (hLB == NULL)
-		return WRONG();
-	if (vLB == NULL)
-		return WRONG();
-	if (!hLB->isOk())
-		return WRONG();
-	if (!vLB->isOk())
-		return WRONG();
+    if (hLB == NULL)
+        return WRONG();
 
-	int32_t max_cnt = 0xFFF0 / sizeof(LineInfo);
-	_squeezeIfTooMany(hor_len, ver_len, hor_cnt, ver_cnt);
+    if (vLB == NULL)
+        return WRONG();
 
-	int i(0);
-	hor_cnt = 0;
-	for (i = 0; i < hLB->linesCount; i++) {
-		if ((hLB->linesRoot[i].lineAsIs.end.x()
-				- hLB->linesRoot[i].lineAsIs.start.x()) > hor_len) {
-			if (hor_cnt >= lti->Hor.Cnt)
-				return WRONG();
-			LineInfo& li = lti->Hor.Lns[hor_cnt];
-			FillFragmentsCount(i, TRUE, &cnt, &Quality);
-			LCpy(li.A, hLB->linesRoot[i].lineAsIs.start);
-			LCpy(li.B, hLB->linesRoot[i].lineAsIs.end);
-			li.Thickness = (hLB->linesRoot[i].lineAsIs.width10 + 5) / 10;
-			//li.A = hLB->linesRoot[i].lineAsIs.start;
-			//li.B = hLB->linesRoot[i].lineAsIs.end;
-			li.ExtrDllHnd = i;
-			li.Extractor = LI_LNSDLL;
-			li.Flags = hLB->linesRoot[i].lineAsIs.flags; //******************Rom
-			li.Anew = li.A;//******Rom
-			li.Bnew = li.B;//******Rom
-			li.SegCnt = cnt; //******** Rom 8-2-99
-			li.Quality = Quality; //******* Rom 23-2-99
-			hor_cnt++;
-			assert( hor_cnt <= max_cnt );
-		};
-	};
-	ver_cnt = 0;
-	for (i = 0; i < vLB->linesCount; i++) {
-		if ((vLB->linesRoot[i].lineAsIs.end.y()
-				- vLB->linesRoot[i].lineAsIs.start.y()) > ver_len) {
-			if (ver_cnt >= lti->Ver.Cnt)
-				return WRONG();
-			LineInfo& li = lti->Ver.Lns[ver_cnt];
-			FillFragmentsCount(i, FALSE, &cnt, &Quality);
-			LCpy(li.A, vLB->linesRoot[i].lineAsIs.start);
-			LCpy(li.B, vLB->linesRoot[i].lineAsIs.end);
-			li.Thickness = (vLB->linesRoot[i].lineAsIs.width10 + 5) / 10;
-			//li.A = vLB->linesRoot[i].lineAsIs.start;
-			//li.B = vLB->linesRoot[i].lineAsIs.end;
-			li.ExtrDllHnd = i;
-			li.Extractor = LI_LNSDLL;
-			li.Flags = vLB->linesRoot[i].lineAsIs.flags; //******************Rom
-			li.Anew = li.A;//******Rom
-			li.Bnew = li.B;//******Rom
-			li.SegCnt = cnt; //******** Rom 8-2-99
-			li.Quality = Quality; //******* Rom 23-2-99
-			ver_cnt++;
-			assert( ver_cnt <= max_cnt );
-		};
-	};
+    if (!hLB->isOk())
+        return WRONG();
 
-	lti->ImgResolution.ry() = hvSB->yres;
-	lti->ImgResolution.rx() = hvSB->xres;
+    if (!vLB->isOk())
+        return WRONG();
 
-	lti->ImgSize.ry() = hvSB->height();
-	lti->ImgSize.rx() = hvSB->width();
+    int32_t max_cnt = 0xFFF0 / sizeof(LineInfo);
+    _squeezeIfTooMany(hor_len, ver_len, hor_cnt, ver_cnt);
+    int i(0);
+    hor_cnt = 0;
 
-	if (hLB->averagePhi != 1. && vLB->averagePhi != 1.)
-		lti->Skew1024 = (int) (512 * (hLB->averagePhi + vLB->averagePhi));
-	else {
-		lti->Skew1024 = 0;
-		if (hLB->averagePhi != 1.)
-			lti->Skew1024 = (int) (1024 * hLB->averagePhi);
-		else if (vLB->averagePhi != 1.)
-			lti->Skew1024 = (int) (1024 * vLB->averagePhi);
-	}
+    for (i = 0; i < hLB->linesCount; i++) {
+        if ((hLB->linesRoot[i].lineAsIs.end.x()
+                - hLB->linesRoot[i].lineAsIs.start.x()) > hor_len) {
+            if (hor_cnt >= lti->Hor.Cnt)
+                return WRONG();
 
-	int skew = lti->Skew1024;
-	for (i = 0; i < hor_cnt; i++) {
-		LineInfo& li = lti->Hor.Lns[i];
-		li.Ar = li.A;
-		li.Ar.deskew(skew);
-		li.Br = li.B;
-		li.Br.deskew(skew);
-	};
-	for (i = 0; i < ver_cnt; i++) {
-		LineInfo& li = lti->Ver.Lns[i];
-		li.Ar = li.A;
-		li.Ar.deskew(skew);
-		li.Br = li.B;
-		li.Br.deskew(skew);
-	};
+            LineInfo& li = lti->Hor.Lns[hor_cnt];
+            FillFragmentsCount(i, TRUE, &cnt, &Quality);
+            LCpy(li.A, hLB->linesRoot[i].lineAsIs.start);
+            LCpy(li.B, hLB->linesRoot[i].lineAsIs.end);
+            li.Thickness = (hLB->linesRoot[i].lineAsIs.width10 + 5) / 10;
+            //li.A = hLB->linesRoot[i].lineAsIs.start;
+            //li.B = hLB->linesRoot[i].lineAsIs.end;
+            li.ExtrDllHnd = i;
+            li.Extractor = LI_LNSDLL;
+            li.Flags = hLB->linesRoot[i].lineAsIs.flags; //******************Rom
+            li.Anew = li.A;//******Rom
+            li.Bnew = li.B;//******Rom
+            li.SegCnt = cnt; //******** Rom 8-2-99
+            li.Quality = Quality; //******* Rom 23-2-99
+            hor_cnt++;
+            assert( hor_cnt <= max_cnt );
+        };
+    };
 
-	return TRUE;
+    ver_cnt = 0;
+
+    for (i = 0; i < vLB->linesCount; i++) {
+        if ((vLB->linesRoot[i].lineAsIs.end.y()
+                - vLB->linesRoot[i].lineAsIs.start.y()) > ver_len) {
+            if (ver_cnt >= lti->Ver.Cnt)
+                return WRONG();
+
+            LineInfo& li = lti->Ver.Lns[ver_cnt];
+            FillFragmentsCount(i, FALSE, &cnt, &Quality);
+            LCpy(li.A, vLB->linesRoot[i].lineAsIs.start);
+            LCpy(li.B, vLB->linesRoot[i].lineAsIs.end);
+            li.Thickness = (vLB->linesRoot[i].lineAsIs.width10 + 5) / 10;
+            //li.A = vLB->linesRoot[i].lineAsIs.start;
+            //li.B = vLB->linesRoot[i].lineAsIs.end;
+            li.ExtrDllHnd = i;
+            li.Extractor = LI_LNSDLL;
+            li.Flags = vLB->linesRoot[i].lineAsIs.flags; //******************Rom
+            li.Anew = li.A;//******Rom
+            li.Bnew = li.B;//******Rom
+            li.SegCnt = cnt; //******** Rom 8-2-99
+            li.Quality = Quality; //******* Rom 23-2-99
+            ver_cnt++;
+            assert( ver_cnt <= max_cnt );
+        };
+    };
+
+    lti->ImgResolution.ry() = hvSB->yres;
+
+    lti->ImgResolution.rx() = hvSB->xres;
+
+    lti->ImgSize.ry() = hvSB->height();
+
+    lti->ImgSize.rx() = hvSB->width();
+
+    if (hLB->averagePhi != 1. && vLB->averagePhi != 1.)
+        lti->Skew1024 = (int) (512 * (hLB->averagePhi + vLB->averagePhi));
+
+    else {
+        lti->Skew1024 = 0;
+
+        if (hLB->averagePhi != 1.)
+            lti->Skew1024 = (int) (1024 * hLB->averagePhi);
+
+        else if (vLB->averagePhi != 1.)
+            lti->Skew1024 = (int) (1024 * vLB->averagePhi);
+    }
+
+    int skew = lti->Skew1024;
+
+    for (i = 0; i < hor_cnt; i++) {
+        LineInfo& li = lti->Hor.Lns[i];
+        li.Ar = li.A;
+        li.Ar.deskew(skew);
+        li.Br = li.B;
+        li.Br.deskew(skew);
+    };
+
+    for (i = 0; i < ver_cnt; i++) {
+        LineInfo& li = lti->Ver.Lns[i];
+        li.Ar = li.A;
+        li.Ar.deskew(skew);
+        li.Br = li.B;
+        li.Br.deskew(skew);
+    };
+
+    return TRUE;
 }
 
-Bool ExtrLinesIsOk(void) {
-	if ((hvSB == NULL) || (!hvSB->isOk()))
-		return WRONG();
-	if ((hRB == NULL) || (!hRB->isOk()))
-		return WRONG();
-	if ((hLB == NULL) || (!hLB->isOk()))
-		return WRONG();
-	if ((vRB == NULL) || (!vRB->isOk()))
-		return WRONG();
-	if ((vLB == NULL) || (!vLB->isOk()))
-		return WRONG();
+Bool ExtrLinesIsOk(void)
+{
+    if ((hvSB == NULL) || (!hvSB->isOk()))
+        return WRONG();
 
-	return TRUE;
+    if ((hRB == NULL) || (!hRB->isOk()))
+        return WRONG();
+
+    if ((hLB == NULL) || (!hLB->isOk()))
+        return WRONG();
+
+    if ((vRB == NULL) || (!vRB->isOk()))
+        return WRONG();
+
+    if ((vLB == NULL) || (!vLB->isOk()))
+        return WRONG();
+
+    return TRUE;
 }
 
-static Bool _PreSwp(LnsInfoArray& larr, Bool hor) {
-	if (larr.Cnt == 0)
-		return TRUE;
-	if (larr.Lns == NULL)
-		return WRONG();
+static Bool _PreSwp(LnsInfoArray& larr, Bool hor)
+{
+    if (larr.Cnt == 0)
+        return TRUE;
 
-	TLinesBambuk* lb = hor ? hLB : vLB;
-	if (lb == NULL)
-		return WRONG();
-	TRasterBambuk* rb = hor ? hRB : vRB;
-	if (rb == NULL)
-		return WRONG();
-	TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
-	if (sb == NULL)
-		return WRONG();
+    if (larr.Lns == NULL)
+        return WRONG();
 
-	int32_t root_len = lb->linesRoot.volume();
-	for (int i = 0; i < larr.Cnt; i++) {
-		if ((larr.Lns[i].Flags & LI_COVERED) != 0) {
-			LineInfo & cover = larr.Lns[larr.Lns[i].IndCover];
-			if (!(cover.Flags & LI_SWEEP))
-				continue; // if not must be sweepped - do nothing here;
-		} else if ((larr.Lns[i].Flags & LI_SWEEP) == 0) {
-			continue; // if not must be sweepped - do nothing here;
-		}
+    TLinesBambuk* lb = hor ? hLB : vLB;
 
-		if (larr.Lns[i].Extractor != LI_LNSDLL) {
-			continue; // if not extracted by this - do nothing here;
-		}
+    if (lb == NULL)
+        return WRONG();
 
-		// if here - this is noise line; let's delete it from bambuks!
+    TRasterBambuk* rb = hor ? hRB : vRB;
 
-		//******************Rom****************
-		int32_t RightX = larr.Lns[i].B.x(); // set restrictions for case of sweeping
-		int32_t LeftX = larr.Lns[i].A.x(); // not whole line; initially - full line
-		int32_t TopY = larr.Lns[i].A.y();
-		int32_t BottomY = larr.Lns[i].A.y();
+    if (rb == NULL)
+        return WRONG();
 
-		if (larr.Lns[i].A.y() > larr.Lns[i].B.y()) {
-			BottomY = larr.Lns[i].B.y();
-		} else {
-			TopY = larr.Lns[i].B.y();
-		}
-		//*************************************
+    TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
 
+    if (sb == NULL)
+        return WRONG();
 
-		if (larr.Lns[i].Flags & LI_NOTWHOLE) // correct restriction if not whole line should be sweeped
-		{
-			if (larr.Lns[i].Anew.x() > larr.Lns[i].A.x()) {
-				if (larr.Lns[i].Anew.x() > larr.Lns[i].B.x())
-					larr.Lns[i].Anew.rx() = larr.Lns[i].A.x();
-				LeftX = larr.Lns[i].Anew.x();
-			}
-			if (larr.Lns[i].Anew.y() > larr.Lns[i].A.y()) {
-				if (larr.Lns[i].Anew.y() > TopY)
-					larr.Lns[i].Anew.ry() = larr.Lns[i].A.y();
-				BottomY = larr.Lns[i].Anew.y();
-			}
-			if (larr.Lns[i].Bnew.x() < larr.Lns[i].B.x()) {
-				if (larr.Lns[i].Bnew.x() < larr.Lns[i].A.x())
-					larr.Lns[i].Bnew.rx() = larr.Lns[i].B.x();
-				RightX = larr.Lns[i].Bnew.x();
-			}
-			if (larr.Lns[i].Bnew.y() < larr.Lns[i].B.y()) {
-				if (larr.Lns[i].Bnew.y() < BottomY)
-					larr.Lns[i].Bnew.ry() = larr.Lns[i].B.y();
-				TopY = larr.Lns[i].Bnew.y();
-			}
-		}
+    int32_t root_len = lb->linesRoot.volume();
 
-		int32_t hnd = larr.Lns[i].ExtrDllHnd;
-		if (hnd >= root_len)
-			return WRONG();
-		TLineInfo & li = lb->linesRoot[hnd];
-		BEntry lbe = li.linesBambukEntry;
-		BHandle h = lb->firstEntryMember(lbe);
-		while (h != NULLBHandle) {
-			TLineFragment& lf = (*lb)[h];
+    for (int i = 0; i < larr.Cnt; i++) {
+        if ((larr.Lns[i].Flags & LI_COVERED) != 0) {
+            LineInfo & cover = larr.Lns[larr.Lns[i].IndCover];
 
-			if (lf.fragmentAsIs.flags & LF_HLINER) {
-				h = lb->nextMember(h);
-				continue;
-			}
+            if (!(cover.Flags & LI_SWEEP))
+                continue; // if not must be sweepped - do nothing here;
+        }
 
-			BEntry rbe = lf.rasterBambukEntry;
-			BHandle hr = rb->firstEntryMember(rbe);
+        else if ((larr.Lns[i].Flags & LI_SWEEP) == 0) {
+            continue; // if not must be sweepped - do nothing here;
+        }
+
+        if (larr.Lns[i].Extractor != LI_LNSDLL) {
+            continue; // if not extracted by this - do nothing here;
+        }
+
+        // if here - this is noise line; let's delete it from bambuks!
+        //******************Rom****************
+        int32_t RightX = larr.Lns[i].B.x(); // set restrictions for case of sweeping
+        int32_t LeftX = larr.Lns[i].A.x(); // not whole line; initially - full line
+        int32_t TopY = larr.Lns[i].A.y();
+        int32_t BottomY = larr.Lns[i].A.y();
+
+        if (larr.Lns[i].A.y() > larr.Lns[i].B.y()) {
+            BottomY = larr.Lns[i].B.y();
+        }
+
+        else {
+            TopY = larr.Lns[i].B.y();
+        }
+
+        //*************************************
+
+        if (larr.Lns[i].Flags & LI_NOTWHOLE) { // correct restriction if not whole line should be sweeped
+            if (larr.Lns[i].Anew.x() > larr.Lns[i].A.x()) {
+                if (larr.Lns[i].Anew.x() > larr.Lns[i].B.x())
+                    larr.Lns[i].Anew.rx() = larr.Lns[i].A.x();
+
+                LeftX = larr.Lns[i].Anew.x();
+            }
+
+            if (larr.Lns[i].Anew.y() > larr.Lns[i].A.y()) {
+                if (larr.Lns[i].Anew.y() > TopY)
+                    larr.Lns[i].Anew.ry() = larr.Lns[i].A.y();
+
+                BottomY = larr.Lns[i].Anew.y();
+            }
+
+            if (larr.Lns[i].Bnew.x() < larr.Lns[i].B.x()) {
+                if (larr.Lns[i].Bnew.x() < larr.Lns[i].A.x())
+                    larr.Lns[i].Bnew.rx() = larr.Lns[i].B.x();
+
+                RightX = larr.Lns[i].Bnew.x();
+            }
+
+            if (larr.Lns[i].Bnew.y() < larr.Lns[i].B.y()) {
+                if (larr.Lns[i].Bnew.y() < BottomY)
+                    larr.Lns[i].Bnew.ry() = larr.Lns[i].B.y();
+
+                TopY = larr.Lns[i].Bnew.y();
+            }
+        }
+
+        int32_t hnd = larr.Lns[i].ExtrDllHnd;
+
+        if (hnd >= root_len)
+            return WRONG();
+
+        TLineInfo & li = lb->linesRoot[hnd];
+        BEntry lbe = li.linesBambukEntry;
+        BHandle h = lb->firstEntryMember(lbe);
+
+        while (h != NULLBHandle) {
+            TLineFragment& lf = (*lb)[h];
+
+            if (lf.fragmentAsIs.flags & LF_HLINER) {
+                h = lb->nextMember(h);
+                continue;
+            }
+
+            BEntry rbe = lf.rasterBambukEntry;
+            BHandle hr = rb->firstEntryMember(rbe);
 #ifndef NO_17FEB99         // prepear to detect touching letters
-			int frag_width[4000]; // width by len distribution
+            int frag_width[4000]; // width by len distribution
+            // compute real left and right fragment's bounds
+            int frag_left = 0xffff;
+            int frag_right = 0;
 
-			// compute real left and right fragment's bounds
-			int frag_left = 0xffff;
-			int frag_right = 0;
-			while (hr != NULLBHandle) {
-				TDash& dash = (*rb)[hr];
-				BHandle sh = dash.firstSegHandle;
-				while (sh != NULLBHandle) {
-					TBlackSeg& bs = (*sb)[sh];
-					frag_left = MIN(frag_left, bs.left);
-					frag_right = MAX(frag_right, bs.right);
-					sh = bs.nLower;
-				}
-				hr = rb->nextMember(hr);
-			}
-			hr = rb->firstEntryMember(rbe);
+            while (hr != NULLBHandle) {
+                TDash& dash = (*rb)[hr];
+                BHandle sh = dash.firstSegHandle;
 
-			int frag_len = frag_right - frag_left + 1;
-			int frag_base = frag_left;
+                while (sh != NULLBHandle) {
+                    TBlackSeg& bs = (*sb)[sh];
+                    frag_left = MIN(frag_left, bs.left);
+                    frag_right = MAX(frag_right, bs.right);
+                    sh = bs.nLower;
+                }
 
-			double ave_frag_width = 2.0; // default, for any
+                hr = rb->nextMember(hr);
+            }
 
-			// avoid sweep short fragments at the bound of line
-			//  cos probably part of letters:
+            hr = rb->firstEntryMember(rbe);
+            int frag_len = frag_right - frag_left + 1;
+            int frag_base = frag_left;
+            double ave_frag_width = 2.0; // default, for any
+            // avoid sweep short fragments at the bound of line
+            //  cos probably part of letters:
 #ifndef SHORT_FRAGMENTS_ARE_TESTED_TO_BE_NOT_PART_OF_LETTER
-			if (hor && frag_len < 50 && // short fragment
-					(lf.fragmentAsIs.end.x() == li.lineAsIs.end.x() // at the end of line
-							|| lf.fragmentAsIs.start.x()
-									== li.lineAsIs.start.x())) { // skip it, don't sweep.
-				h = lb->nextMember(h);
-				continue;
-			}
+
+            if (hor && frag_len < 50 && // short fragment
+                    (lf.fragmentAsIs.end.x() == li.lineAsIs.end.x() // at the end of line
+                     || lf.fragmentAsIs.start.x()
+                     == li.lineAsIs.start.x())) { // skip it, don't sweep.
+                h = lb->nextMember(h);
+                continue;
+            }
+
 #endif  // SHORT_FRAGMENTS_ARE_TESTED_TO_BE_NOT_PART_OF_LETTER
-			// accumulate width distribution
-			if (hor && frag_len > 0 && frag_len * sizeof(frag_width[0])
-					< sizeof(frag_width)) {
-				memset(frag_width, 0, frag_len * sizeof(frag_width[0]));
-				while (hr != NULLBHandle) {
-					TDash& dash = (*rb)[hr];
-					BHandle sh = dash.firstSegHandle;
-					while (sh != NULLBHandle) {
-						TBlackSeg& bs = (*sb)[sh];
-						frag_width[bs.left - frag_base]++;
-						frag_width[bs.right - frag_base]--;
-						sh = bs.nLower;
-					}
-					hr = rb->nextMember(hr);
-				}
-				int sum_pel = 0;
-				for (int i = 1; i < frag_len; i++) {
-					frag_width[i] += frag_width[i - 1];
-					sum_pel += frag_width[i];
-				}
-				ave_frag_width = sum_pel / frag_len;
+            // accumulate width distribution
+            if (hor && frag_len > 0 && frag_len * sizeof(frag_width[0])
+                    < sizeof(frag_width)) {
+                memset(frag_width, 0, frag_len * sizeof(frag_width[0]));
 
-				hr = rb->firstEntryMember(rbe); // reset hr
-			}
+                while (hr != NULLBHandle) {
+                    TDash& dash = (*rb)[hr];
+                    BHandle sh = dash.firstSegHandle;
+
+                    while (sh != NULLBHandle) {
+                        TBlackSeg& bs = (*sb)[sh];
+                        frag_width[bs.left - frag_base]++;
+                        frag_width[bs.right - frag_base]--;
+                        sh = bs.nLower;
+                    }
+
+                    hr = rb->nextMember(hr);
+                }
+
+                int sum_pel = 0;
+
+                for (int i = 1; i < frag_len; i++) {
+                    frag_width[i] += frag_width[i - 1];
+                    sum_pel += frag_width[i];
+                }
+
+                ave_frag_width = sum_pel / frag_len;
+                hr = rb->firstEntryMember(rbe); // reset hr
+            }
+
 #endif // NO_17FEB99
-			// start main loop of presweeping:
-			while (hr != NULLBHandle) {
-				TDash& dash = (*rb)[hr];
-				Romi = 0;
-				BHandle sh = dash.firstSegHandle;
-				while (sh != NULLBHandle) {
-					TBlackSeg& bs = (*sb)[sh];
-					if (hor) {
+            // start main loop of presweeping:
+            while (hr != NULLBHandle) {
+                TDash& dash = (*rb)[hr];
+                Romi = 0;
+                BHandle sh = dash.firstSegHandle;
+
+                while (sh != NULLBHandle) {
+                    TBlackSeg& bs = (*sb)[sh];
+
+                    if (hor) {
 #ifndef NO_17FEB99         // prepear to detect touching letters:
-						// keep short segment if local jump of width > 1.5 pel
-						if (!(bs.right - bs.left < 24 && // short interval and width jump > 1.5 pel
-								(double(frag_width[(bs.left + bs.right) / 2
-										- frag_base]) > ave_frag_width + 1.5
-										|| double(frag_width[bs.left + 4
-												- frag_base]) > ave_frag_width
-												+ 1.5
-										|| double(frag_width[bs.right - 4
-												- frag_base]) > ave_frag_width
-												+ 1.5)))
+                        // keep short segment if local jump of width > 1.5 pel
+                        if (!(bs.right - bs.left < 24 && // short interval and width jump > 1.5 pel
+                                (double(frag_width[(bs.left + bs.right) / 2
+                                                   - frag_base]) > ave_frag_width + 1.5
+                                 || double(frag_width[bs.left + 4
+                                                      - frag_base]) > ave_frag_width
+                                 + 1.5
+                                 || double(frag_width[bs.right - 4
+                                                      - frag_base]) > ave_frag_width
+                                 + 1.5)))
 #endif
-							if ((bs.right > LeftX) && (bs.left < RightX)) {
-								if (bs.left < LeftX - 5)
-									bs.left = LeftX;
-								if (bs.right > RightX + 5)
-									bs.right = RightX;
-								int xx = bs.left;
-								bs.left = bs.right;
-								bs.right = xx;
-							}
-						// swap segment to indicate it's SWEEPABILITY
-					}
-					//*********************Rom**********************
-					else {
-						if ((bs.right > BottomY) && (bs.left < TopY)) {
-							if (bs.left < BottomY - 5)
-								bs.left = BottomY;
-							if (bs.right > TopY + 5)
-								bs.right = TopY;
-							if (RBlockCurrent->Current >= RBlockCurrent->Max) {
-								RBlockPrev = RBlockCurrent;
-								RBlockCurrent = new CRomBabble;
-								RBlockPrev->next = RBlockCurrent;
-							}
-							Rptr2
-									= &RBlockCurrent->Data[RBlockCurrent->Current];
-							Rptr2->Begin = bs.left;
-							Rptr2->End = bs.right + 4;
-							Rptr2->Column = dash.firstSegEntry + Romi;
-							RBlockCurrent->Current++;
-							Rptr2->next = NULL;
-							Rptr3->next = Rptr2;
-							Rptr3 = Rptr3->next;
-						}
-						Romi++;
-					}
-					//**********************************************
-					sh = bs.nLower;
-				}
-				hr = rb->nextMember(hr);
-			}
+                            if ((bs.right > LeftX) && (bs.left < RightX)) {
+                                if (bs.left < LeftX - 5)
+                                    bs.left = LeftX;
 
-			h = lb->nextMember(h);
-		}
-	}
-	return TRUE;
+                                if (bs.right > RightX + 5)
+                                    bs.right = RightX;
+
+                                int xx = bs.left;
+                                bs.left = bs.right;
+                                bs.right = xx;
+                            }
+
+                        // swap segment to indicate it's SWEEPABILITY
+                    }
+
+                    //*********************Rom**********************
+                    else {
+                        if ((bs.right > BottomY) && (bs.left < TopY)) {
+                            if (bs.left < BottomY - 5)
+                                bs.left = BottomY;
+
+                            if (bs.right > TopY + 5)
+                                bs.right = TopY;
+
+                            if (RBlockCurrent->Current >= RBlockCurrent->Max) {
+                                RBlockPrev = RBlockCurrent;
+                                RBlockCurrent = new CRomBabble;
+                                RBlockPrev->next = RBlockCurrent;
+                            }
+
+                            Rptr2
+                            = &RBlockCurrent->Data[RBlockCurrent->Current];
+                            Rptr2->Begin = bs.left;
+                            Rptr2->End = bs.right + 4;
+                            Rptr2->Column = dash.firstSegEntry + Romi;
+                            RBlockCurrent->Current++;
+                            Rptr2->next = NULL;
+                            Rptr3->next = Rptr2;
+                            Rptr3 = Rptr3->next;
+                        }
+
+                        Romi++;
+                    }
+
+                    //**********************************************
+                    sh = bs.nLower;
+                }
+
+                hr = rb->nextMember(hr);
+            }
+
+            h = lb->nextMember(h);
+        }
+    }
+
+    return TRUE;
 }
-Bool ExtractEvents(CLINE_handle hCLINE, LinesTotalInfo *lti) {
+Bool ExtractEvents(CLINE_handle hCLINE, LinesTotalInfo *lti)
+{
+    Bool hor;//горизонтальный - вертикальный
+    LnsInfoArray larr;
+    CLINE_handle hLine, hEvent, hInterval;//хэндлы
+    DEvent Event;//структура для дэшей
+    DInterval Interval;//структура для интервалов
+    CPDLine pLine;//указатель на структуру для линии
+    int count_lines = 0;
+    Bool first_ver = 1;
 
-	Bool hor;//горизонтальный - вертикальный
-	LnsInfoArray larr;
-	CLINE_handle hLine, hEvent, hInterval;//хэндлы
-	DEvent Event;//структура для дэшей
-	DInterval Interval;//структура для интервалов
-	CPDLine pLine;//указатель на структуру для линии
-	int count_lines = 0;
-	Bool first_ver = 1;
-	for (hLine = CLINE_GetFirstLine(hCLINE); hLine; hLine = CLINE_GetNextLine(
-			hLine)) {//цикл по всем линиям в контейнере ( и гор. и верт. )
+    for (hLine = CLINE_GetFirstLine(hCLINE); hLine; hLine = CLINE_GetNextLine(
+                                                                hLine)) {//цикл по всем линиям в контейнере ( и гор. и верт. )
+        pLine = CLINE_GetLineData(hLine);//указатель по хэндлу
 
-		pLine = CLINE_GetLineData(hLine);//указатель по хэндлу
+        if (!pLine)//проверка на вшивость
+            continue;
 
-		if (!pLine)//проверка на вшивость
-			continue;
-		if (pLine->Dir == LD_Horiz)//определение какая линия, горизонтальная или вертикальная
-		{
-			hor = TRUE;
-			larr = lti->Hor;// взяли структуру гори. линии а ля Lns32
-		} else {
-			if (first_ver) {
-				first_ver = 0;
-				count_lines = 0;
-			}
+        if (pLine->Dir == LD_Horiz) { //определение какая линия, горизонтальная или вертикальная
+            hor = TRUE;
+            larr = lti->Hor;// взяли структуру гори. линии а ля Lns32
+        }
 
-			hor = FALSE;
-			larr = lti->Ver;// взяли структуру верт. линии а ля Lns32
-		}
-		// проверим готовность структур данных ( кусок извлечен из _preSwp() )
-		TLinesBambuk* lb = hor ? hLB : vLB;
-		if (lb == NULL)
-			return WRONG(); // false
-		TRasterBambuk* rb = hor ? hRB : vRB;
-		if (rb == NULL)
-			return WRONG();
-		TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
-		int32_t root_len = lb->linesRoot.volume();
-		if (sb == NULL)
-			return WRONG();
+        else {
+            if (first_ver) {
+                first_ver = 0;
+                count_lines = 0;
+            }
 
-		//вот это главная проблема. Здесь на руках имеем линия а ля Контейнер CLINE, как узнать
-		//какая линия а ля Lns32 ей соответствует?????
+            hor = FALSE;
+            larr = lti->Ver;// взяли структуру верт. линии а ля Lns32
+        }
 
-		//int i = from_pLine_to_larr_index(pLine); // pLine->??
+        // проверим готовность структур данных ( кусок извлечен из _preSwp() )
+        TLinesBambuk* lb = hor ? hLB : vLB;
 
-		//TLineInfo& li = larr[i]; // взяли описатель i-й линии
-		/* Возможен нулевой хэндл !
-		 while( larr.Lns[count_lines].ExtrDllHnd == 0 )
-		 {
-		 count_lines++;
-		 }
-		 */
-		if (larr.Lns[count_lines].Extractor != LI_LNSDLL) {
-			//int u = 0;
-			continue; // не из LNSDLL Пришлось закоментировать!!!
-		}
+        if (lb == NULL)
+            return WRONG(); // false
 
-		int32_t hnd = larr.Lns[count_lines].ExtrDllHnd; /// начинаем проход по линии Lns[i]
-		count_lines++;
-		/*
-		 if( hnd == 0 )
-		 return WRONG();
-		 */
-		if (hnd >= root_len)
-			return WRONG();
-		TLineInfo & li = lb->linesRoot[hnd];
-		BEntry lbe = li.linesBambukEntry; /// линия - набор фрагментов, каждый из которых является компонентой связности  (КС)
+        TRasterBambuk* rb = hor ? hRB : vRB;
 
+        if (rb == NULL)
+            return WRONG();
 
-		BHandle h = lb->firstEntryMember(lbe); /// берем первый фрагмент
+        TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
+        int32_t root_len = lb->linesRoot.volume();
 
-		while (h != NULLBHandle) /// цикл по фрагментам линии
-		{
-			TLineFragment& lf = (*lb)[h]; /// описатель фрагмента линии
+        if (sb == NULL)
+            return WRONG();
 
-			if (lf.fragmentAsIs.flags & LF_HLINER) /// этот кусок линии был выделен другим алгоритмом
-			{
-				h = lb->nextMember(h);
-				continue;
-			}
+        //вот это главная проблема. Здесь на руках имеем линия а ля Контейнер CLINE, как узнать
+        //какая линия а ля Lns32 ей соответствует?????
+        //int i = from_pLine_to_larr_index(pLine); // pLine->??
 
-			BEntry rbe = lf.rasterBambukEntry; /// вход в список  эвентов - 'Dash'
-			BHandle hr = rb->firstEntryMember(rbe); /// номер первого эвент
-			while (hr != NULLBHandle) /// по всем эвентам
-			{
-				TDash& dash = (*rb)[hr]; /// взяли дэш (=эвент)
-				hEvent = CLINE_AddNewEvent(hLine); // создали эвент
-				BHandle sh = dash.firstSegHandle;
-				while (sh != NULLBHandle) /// пошли по его списку интервалов
-				{
-					TBlackSeg& bs = (*sb)[sh];///взяли интервал
-					hInterval = CLINE_AddNewEventInv(hEvent);
-					Interval.Pos = bs.left;//наполняем структуру
-					Interval.Lent = bs.right - bs.left + 1;//наполняем структуру
-					CLINE_SetEventInvData(hInterval, &Interval);//откладываем в контейнер интервал ( сегмент )
-					sh = bs.nLower;
-				}
-				Event.Hori = pLine->Dir == LD_Horiz;//hor;//pLine->Dir;//наполняем структуру
-				Event.Increase = TRUE;//наполняем структуру
-				Event.Lev_0 = dash.firstSegEntry; /// начинается с этой строки изображения
-				Event.Width = 0;
+        //TLineInfo& li = larr[i]; // взяли описатель i-й линии
+        /* Возможен нулевой хэндл !
+         while( larr.Lns[count_lines].ExtrDllHnd == 0 )
+         {
+         count_lines++;
+         }
+         */
+        if (larr.Lns[count_lines].Extractor != LI_LNSDLL) {
+            //int u = 0;
+            continue; // не из LNSDLL Пришлось закоментировать!!!
+        }
 
-				CLINE_SetEventData(hEvent, &Event);//откладываем в контейнер эвент ( дэш )
-				hr = rb->nextMember(hr); // переходим к следующему дэшу
-			}
-			h = lb->nextMember(h);
-		} // конец цикла по фрагментам линии
-	} // конец цикла по hLINE
+        int32_t hnd = larr.Lns[count_lines].ExtrDllHnd; /// начинаем проход по линии Lns[i]
+        count_lines++;
 
+        /*
+         if( hnd == 0 )
+         return WRONG();
+         */
+        if (hnd >= root_len)
+            return WRONG();
 
-	return TRUE;
+        TLineInfo & li = lb->linesRoot[hnd];
+        BEntry lbe = li.linesBambukEntry; /// линия - набор фрагментов, каждый из которых является компонентой связности  (КС)
+        BHandle h = lb->firstEntryMember(lbe); /// берем первый фрагмент
+
+        while (h != NULLBHandle) { /// цикл по фрагментам линии
+            TLineFragment& lf = (*lb)[h]; /// описатель фрагмента линии
+
+            if (lf.fragmentAsIs.flags & LF_HLINER) { /// этот кусок линии был выделен другим алгоритмом
+                h = lb->nextMember(h);
+                continue;
+            }
+
+            BEntry rbe = lf.rasterBambukEntry; /// вход в список  эвентов - 'Dash'
+            BHandle hr = rb->firstEntryMember(rbe); /// номер первого эвент
+
+            while (hr != NULLBHandle) { /// по всем эвентам
+                TDash& dash = (*rb)[hr]; /// взяли дэш (=эвент)
+                hEvent = CLINE_AddNewEvent(hLine); // создали эвент
+                BHandle sh = dash.firstSegHandle;
+
+                while (sh != NULLBHandle) { /// пошли по его списку интервалов
+                    TBlackSeg& bs = (*sb)[sh];///взяли интервал
+                    hInterval = CLINE_AddNewEventInv(hEvent);
+                    Interval.Pos = bs.left;//наполняем структуру
+                    Interval.Lent = bs.right - bs.left + 1;//наполняем структуру
+                    CLINE_SetEventInvData(hInterval, &Interval);//откладываем в контейнер интервал ( сегмент )
+                    sh = bs.nLower;
+                }
+
+                Event.Hori = pLine->Dir == LD_Horiz;//hor;//pLine->Dir;//наполняем структуру
+                Event.Increase = TRUE;//наполняем структуру
+                Event.Lev_0 = dash.firstSegEntry; /// начинается с этой строки изображения
+                Event.Width = 0;
+                CLINE_SetEventData(hEvent, &Event);//откладываем в контейнер эвент ( дэш )
+                hr = rb->nextMember(hr); // переходим к следующему дэшу
+            }
+
+            h = lb->nextMember(h);
+        } // конец цикла по фрагментам линии
+    } // конец цикла по hLINE
+
+    return TRUE;
 }
 
-Bool ExtrLinesPrepearToSweep(LinesTotalInfo * lti) {
-	if (lti == NULL)
-		return WRONG();
-	//Rptr = GetRomptr();
-	if (lti->Hor.Cnt > 0) {
-		if (lti->Hor.Lns == NULL)
-			return WRONG();
-		if (!_PreSwp(lti->Hor, TRUE))
-			return WRONG();
-	}
-	//***************************Rom**********************
-	if (lti->Ver.Cnt > 0) {
-		if (lti->Ver.Lns == NULL)
-			return WRONG();
-		if (!_PreSwp(lti->Ver, FALSE))
-			return WRONG();
-	}
+Bool ExtrLinesPrepearToSweep(LinesTotalInfo * lti)
+{
+    if (lti == NULL)
+        return WRONG();
 
-	SortList(Rptr);
-	SetRomptr(Rptr);
-	//****************************************************
+    //Rptr = GetRomptr();
+    if (lti->Hor.Cnt > 0) {
+        if (lti->Hor.Lns == NULL)
+            return WRONG();
 
+        if (!_PreSwp(lti->Hor, TRUE))
+            return WRONG();
+    }
 
-	InitSweeperData(hvSB);
-	return TRUE;
+    //***************************Rom**********************
+    if (lti->Ver.Cnt > 0) {
+        if (lti->Ver.Lns == NULL)
+            return WRONG();
+
+        if (!_PreSwp(lti->Ver, FALSE))
+            return WRONG();
+    }
+
+    SortList(Rptr);
+    SetRomptr(Rptr);
+    //****************************************************
+    InitSweeperData(hvSB);
+    return TRUE;
 }
 
 //**********************Rom***************
-Bool SortList(RomBubble* rptr) {
-	Bool IsOk = TRUE;
-	Bool Unsorted = TRUE;
-	RomBubble* Rptr0 = NULL;
-	RomBubble* Rptr1 = NULL;
-	RomBubble* Rptr2 = NULL;
+Bool SortList(RomBubble* rptr)
+{
+    Bool IsOk = TRUE;
+    Bool Unsorted = TRUE;
+    RomBubble* Rptr0 = NULL;
+    RomBubble* Rptr1 = NULL;
+    RomBubble* Rptr2 = NULL;
 
-	while ((Unsorted) && (Rptr->next != NULL)) {
-		Rptr0 = Rptr;
-		Rptr1 = Rptr->next;
-		Unsorted = FALSE;
-		while (Rptr1->next != NULL) {
-			if (Rptr1->Begin > Rptr1->next->Begin) {
-				Rptr2 = Rptr1->next;
-				Rptr1->next = Rptr1->next->next;
-				Rptr2->next = Rptr1;
-				Rptr1 = Rptr2;
-				Rptr0->next = Rptr2;
-				Unsorted = TRUE;
-			} else {
-				Rptr0 = Rptr1;
-				Rptr1 = Rptr1->next;
-			}
-		}
-	}
+    while ((Unsorted) && (Rptr->next != NULL)) {
+        Rptr0 = Rptr;
+        Rptr1 = Rptr->next;
+        Unsorted = FALSE;
 
-	return IsOk;
+        while (Rptr1->next != NULL) {
+            if (Rptr1->Begin > Rptr1->next->Begin) {
+                Rptr2 = Rptr1->next;
+                Rptr1->next = Rptr1->next->next;
+                Rptr2->next = Rptr1;
+                Rptr1 = Rptr2;
+                Rptr0->next = Rptr2;
+                Unsorted = TRUE;
+            }
+
+            else {
+                Rptr0 = Rptr1;
+                Rptr1 = Rptr1->next;
+            }
+        }
+    }
+
+    return IsOk;
 }
 

@@ -113,7 +113,7 @@ static size_t stMaxAllocated;
 static void AccountSumAllocation (void)
 {
     nAllocated  = nMallocs + nCallocs + nRealloc0s - (nFrees - nFree0s),
-    stAllocated = stMallocSize + stCallocSize + stReallocSize - stFreeSize;
+                  stAllocated = stMallocSize + stCallocSize + stReallocSize - stFreeSize;
 
     if (nAllocated > nMaxAllocated)
         nMaxAllocated = nAllocated;
@@ -125,19 +125,19 @@ static void AccountSumAllocation (void)
 void *my_calloc (size_t n, size_t size, char *pFilename, int nLine)
 {
     void *p;
-
     nCallocs++;
+
     if (n == 0 || size == 0) nCalloc0s++;
 
     p = calloc (n, size);
 
-    if (MA_DebugLevel >= 2)
-    {
+    if (MA_DebugLevel >= 2) {
         printf ("calloc  (%10d, %10d)  return (%10p) : %s (%d)\n",
-                    n, size, p, pFilename, nLine);
+                n, size, p, pFilename, nLine);
     }
 
     if (p != NULL) stCallocSize += _msize (p);
+
     AccountSumAllocation ();
     return (p);
 }
@@ -145,21 +145,19 @@ void *my_calloc (size_t n, size_t size, char *pFilename, int nLine)
 void my_free(void *ptr, char *pFilename, int nLine)
 {
     nFrees++;
+
     if (ptr != NULL) stFreeSize += _msize (ptr);
 
-    if (ptr == NULL)
-    {
+    if (ptr == NULL) {
         nFree0s++;
     }
 
-    if (MA_DebugLevel >= 2)
-    {
+    if (MA_DebugLevel >= 2) {
         printf ("free    (%10p (%9d)) : %s (%d)\n",
                 ptr, ptr != NULL ? _msize (ptr) : 0, pFilename, nLine);
     }
 
-    if (ptr != NULL)
-    {
+    if (ptr != NULL) {
         if ((unsigned long) ptr < ulMinPointer)
             ulMinPointer = (unsigned long) ptr;
 
@@ -174,14 +172,13 @@ void my_free(void *ptr, char *pFilename, int nLine)
 void *my_malloc(size_t size, char *pFilename, int nLine)
 {
     void *p;
-
     nMallocs++;
+
     if (size == 0) nMalloc0s++;
 
     p = malloc (size);
 
-    if (MA_DebugLevel >= 2)
-    {
+    if (MA_DebugLevel >= 2) {
         printf ("malloc  (%10d)              return (%10p) : %s (%d)\n",
                 size, p, pFilename, nLine);
     }
@@ -194,18 +191,16 @@ void *my_malloc(size_t size, char *pFilename, int nLine)
 void *my_realloc(void *ptr, size_t size, char *pFilename, int nLine)
 {
     void *p;
-
     nReallocs++;
+
     if (ptr != NULL) stReallocSize -= _msize (ptr);
 
-    if (ptr == NULL)
-    {
+    if (ptr == NULL) {
         nRealloc0s++;
         stRealloc0Size += size;
     }
 
-    if (ptr != NULL)
-    {
+    if (ptr != NULL) {
         if ((unsigned long) ptr < ulMinPointer)
             ulMinPointer = (unsigned long) ptr;
 
@@ -215,8 +210,7 @@ void *my_realloc(void *ptr, size_t size, char *pFilename, int nLine)
 
     p = realloc (ptr, size);
 
-    if (MA_DebugLevel >= 2)
-    {
+    if (MA_DebugLevel >= 2) {
         printf ("realloc (%10p, %10d)  return (%10p) : %s (%d)\n",
                 ptr, size, p, pFilename, nLine);
     }
@@ -228,14 +222,13 @@ void *my_realloc(void *ptr, size_t size, char *pFilename, int nLine)
 
 void AllocationsAccountingOpen (void)
 {
-    if (nChecking >= MAX_HEAP_CHECKINGS)
-    {
+    if (nChecking >= MAX_HEAP_CHECKINGS) {
         if (MA_DebugLevel >= 1)
             printf ("Array of heap checkings overflow\n");
     }
-    else
-    {
-     //   AvailableAmount [nChecking++] = _memavl ();		 // AK WatcomC ? This module not need?
+
+    else {
+        //   AvailableAmount [nChecking++] = _memavl ();        // AK WatcomC ? This module not need?
     }
 
     nMallocs       = 0;
@@ -251,7 +244,6 @@ void AllocationsAccountingOpen (void)
     nFrees         = 0;
     stFreeSize     = 0;
     nFree0s        = 0;
-
     nAllocated     = 0;
     stAllocated    = 0;
     nMaxAllocated  = 0;
@@ -267,25 +259,22 @@ void AllocationsAccountingClose (void)
 
     if (nChecking >= MAX_HEAP_CHECKINGS)
         printf ("Array of heap checkings overflow\n");
+
     else
-//        AvailableAmount [nChecking++] = _memavl ();	//AK 11.03.97
+//        AvailableAmount [nChecking++] = _memavl ();   //AK 11.03.97
+        printf ("Current heap checkings array:\n");
 
-    printf ("Current heap checkings array:\n");
-
-    for (i = 0; i < nChecking; i++)
-    {
+    for (i = 0; i < nChecking; i++) {
         printf ("%s: %u\n",
-                    (i & 1) == 0 ? "Begin " : "End   ",
-                    AvailableAmount [i]);
+                (i & 1) == 0 ? "Begin " : "End   ",
+                AvailableAmount [i]);
     }
 
     printf ("\nArea: %lx-%lx (%ld-%ld)\n",
-                ulMinPointer, ulMaxPointer,
-                ulMinPointer, ulMaxPointer);
-
+            ulMinPointer, ulMaxPointer,
+            ulMinPointer, ulMaxPointer);
     printf ("\nFunction       Calls      Size\n");
     printf ("----------------------------------\n");
-
     printf ("malloc         %7d    %8d\n", nMallocs,   stMallocSize);
     printf ("malloc (0)     %7d\n", nMalloc0s);
     printf ("calloc         %7d    %8d\n", nCallocs,   stCallocSize);

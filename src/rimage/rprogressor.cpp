@@ -67,93 +67,85 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CRProgressor::CRProgressor()
 {
-	mfStart  = NULL;
-	mfStep   = NULL;
-	mfFinish = NULL;
-	mbProgressStarted = FALSE;
-	mwLastPercent = 0;
+    mfStart  = NULL;
+    mfStep   = NULL;
+    mfFinish = NULL;
+    mbProgressStarted = FALSE;
+    mwLastPercent = 0;
 }
 
 CRProgressor::CRProgressor( void (*pStart)(void), void (*pFinish)(void), Bool32 (*pStep)(uint32_t))
 {
-	mfStart  = pStart;
-	mfStep   = pStep;
-	mfFinish = pFinish;
-	mbProgressStarted = FALSE;
-	mwLastPercent = 0;
+    mfStart  = pStart;
+    mfStep   = pStep;
+    mfFinish = pFinish;
+    mbProgressStarted = FALSE;
+    mwLastPercent = 0;
 }
 
 CRProgressor::~CRProgressor()
 {
-	Finish();
+    Finish();
 }
 
 Bool32 CRProgressor::Start()
 {
-	if ( !mbProgressStarted && mfStart )
-	{
-		mfStart();
-		return TRUE;
-	}
+    if ( !mbProgressStarted && mfStart ) {
+        mfStart();
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 Bool32 CRProgressor::Finish()
 {
-	if ( mbProgressStarted && mfFinish )
-	{
-		mfFinish();
-		mbProgressStarted = FALSE;
-		mwLastPercent = 0;
-		return TRUE;
-	}
+    if ( mbProgressStarted && mfFinish ) {
+        mfFinish();
+        mbProgressStarted = FALSE;
+        mwLastPercent = 0;
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 Bool32 CRProgressor::SetStep(uint32_t wPercent)
 {
-	if ( mbProgressStarted && mfStep )
-	{
-		if ( wPercent > mwLastPercent )
-		{
-			mwLastPercent = wPercent;
+    if ( mbProgressStarted && mfStep ) {
+        if ( wPercent > mwLastPercent ) {
+            mwLastPercent = wPercent;
 
-			if ( mfStep(wPercent) )
-			{
-				Finish();
-				return TRUE;
-			}
-		}
-	}
+            if ( mfStep(wPercent) ) {
+                Finish();
+                return TRUE;
+            }
+        }
+    }
 
-	return FALSE;
-
+    return FALSE;
 }
 
 Bool32 CRProgressor::SetExternals(CRPStart pStart, CRPFinish pFinish, CRPStep pStep)
 {
-	Bool32 ret = FALSE;
+    Bool32 ret = FALSE;
 
-	if ( pStart )
-	{
-		mfStart = pStart;
-		ret = TRUE;
-	}
-	if ( pFinish )
-	{
-		mfFinish = pFinish;
-		ret = TRUE;
-	}
+    if ( pStart ) {
+        mfStart = pStart;
+        ret = TRUE;
+    }
 
-	if ( pStep )
-	{
-		mfStep = pStep;
-		ret = TRUE;
-	}
+    if ( pFinish ) {
+        mfFinish = pFinish;
+        ret = TRUE;
+    }
 
-	return ret;
+    if ( pStep ) {
+        mfStep = pStep;
+        ret = TRUE;
+    }
+
+    return ret;
 }
 
 

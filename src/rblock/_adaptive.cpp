@@ -74,80 +74,91 @@ extern int16_t nIncline;
 PROOT root_file = NULL;
 uint16_t run_options = 0;
 
-uint32_t progress_set_percent(uint32_t volume) {
-	uint32_t rc = 0;
-	if (fnProgressStep_rblock)
-		rc = !fnProgressStep_rblock(volume);
-	return rc;
+uint32_t progress_set_percent(uint32_t volume)
+{
+    uint32_t rc = 0;
+
+    if (fnProgressStep_rblock)
+        rc = !fnProgressStep_rblock(volume);
+
+    return rc;
 }
 ;
-void progress_finish(void) {
-	if (fnProgressFinish_rblock)
-		fnProgressFinish_rblock();
+void progress_finish(void)
+{
+    if (fnProgressFinish_rblock)
+        fnProgressFinish_rblock();
 }
 
-void Tiger_ReportError(uint16_t status, puchar message) {
-	LDPUMA_Console("Tiger_ReportError (%u,%s )", status, message);
+void Tiger_ReportError(uint16_t status, puchar message)
+{
+    LDPUMA_Console("Tiger_ReportError (%u,%s )", status, message);
 }
 
 extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
+                        int16_t left);
 extern uchar work_raster[], work_raster_1[];
 extern uint16_t lpool_lth;
 extern uchar lpool[];
 static uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };
 static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h =
-		0;
+                                                                  0;
 
-puchar make_raster_CCOM(CCOM_comp *cmp) {
-	int16_t h, d, dd, k, i, ii;
-	RecRaster rs;
+puchar make_raster_CCOM(CCOM_comp *cmp)
+{
+    int16_t h, d, dd, k, i, ii;
+    RecRaster rs;
+    memset(work_raster, 0, cmp->rw * cmp->h);
+    CCOM_GetRaster(cmp, &rs);
+    h = rs.lnPixHeight;
+    d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
+    dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
 
-	memset(work_raster, 0, cmp->rw * cmp->h);
-	CCOM_GetRaster(cmp, &rs);
-	h = rs.lnPixHeight;
-	d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
-	dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
-	for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
-		memcpy(&work_raster[ii], &rs.Raster[i], dd);
-	}
+    for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
+        memcpy(&work_raster[ii], &rs.Raster[i], dd);
+    }
 
-	return work_raster;
+    return work_raster;
 }
 
-puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
-	int16_t h, d, dd, k, i, ii;
-	RecRaster rs;
+puchar make_extended_raster_CCOM(CCOM_comp *cmp)
+{
+    int16_t h, d, dd, k, i, ii;
+    RecRaster rs;
+    memset(work_raster, 0, cmp->rw * cmp->h);
+    CCOM_GetExtRaster(cmp, &rs);
+    h = rs.lnPixHeight;
+    d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
+    dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
 
-	memset(work_raster, 0, cmp->rw * cmp->h);
-	CCOM_GetExtRaster(cmp, &rs);
-	h = rs.lnPixHeight;
-	d = REC_GW_WORD8(rs.lnPixWidth); // align to 8 bytes in RecRaster
-	dd = (rs.lnPixWidth + 7) / 8; // aling to 1 byte  in standart
-	for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
-		memcpy(&work_raster[ii], &rs.Raster[i], dd);
-	}
+    for (k = ii = i = 0; k < h; k++, i += d, ii += dd) {
+        memcpy(&work_raster[ii], &rs.Raster[i], dd);
+    }
 
-	return work_raster;
+    return work_raster;
 }
 
-void online_comp(c_comp *w) {
-	return;
-
+void online_comp(c_comp *w)
+{
+    return;
 }
 
-CCOM_comp *get_CCOM_comp(PROOT r) {
-	return (CCOM_comp *) r->pComp;
+CCOM_comp *get_CCOM_comp(PROOT r)
+{
+    return (CCOM_comp *) r->pComp;
 }
 
-Bool save_MN(MN *mn) {
-	extern Handle exthCCOM;
-	CCOM_comp * p = REXC_MN2CCOM((Handle) exthCCOM, (Handle) mn);
-	if (!p)
-		return FALSE;
+Bool save_MN(MN *mn)
+{
+    extern Handle exthCCOM;
+    CCOM_comp * p = REXC_MN2CCOM((Handle) exthCCOM, (Handle) mn);
 
-	if (!AddRoot(p, FALSE))
-		return FALSE;
-	BlockAccountRoot(pCurrentBlock, &pRoots[nRoots - 1]);
-	return TRUE;
+    if (!p)
+        return FALSE;
+
+    if (!AddRoot(p, FALSE))
+        return FALSE;
+
+    BlockAccountRoot(pCurrentBlock, &pRoots[nRoots - 1]);
+    return TRUE;
 }

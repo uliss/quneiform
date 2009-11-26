@@ -66,12 +66,12 @@
 
 # include <stdlib.h>
 
-# include	"extract.h"
-# include	"func.h"
-# include	"struct.h"
+# include   "extract.h"
+# include   "func.h"
+# include   "struct.h"
 #include    "ccom/ccom.h"
-#include	"evn32/evn.h"
-#include	"newfunc.h"
+#include    "evn32/evn.h"
+#include    "newfunc.h"
 #include "minmax.h"
 
 #include "new_c.h" /* FIXME: to build in MS VC++ */
@@ -99,318 +99,314 @@ extern puchar make_extended_raster_CCOM(CCOM_comp *cmp);
 void RotatePageToReal(void);// Piter
 
 static int nQuantityOfOnes[256] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3,
-		3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3,
-		3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
-		5, 6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4,
-		4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
-		5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3,
-		3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
-		5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5,
-		5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
-		5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5,
-		5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7,
-		7, 8 };
+                                    3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3,
+                                    3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4,
+                                    4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3,
+                                    3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5,
+                                    5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7,
+                                    7, 8
+                                  };
 
-void FormOneRootString(int iRoot) {
-	StringNewDescriptor();
-	StringAddLetter1(iRoot);
-	pRoots[iRoot].bType |= ROOT_USED;
+void FormOneRootString(int iRoot)
+{
+    StringNewDescriptor();
+    StringAddLetter1(iRoot);
+    pRoots[iRoot].bType |= ROOT_USED;
+    StringCalculateParameters(&String);
+    String.uFlags |= SF_SPECIAL;
+# ifdef SE_DEBUG
 
-	StringCalculateParameters(&String);
-	String.uFlags |= SF_SPECIAL;
+    if (SE_DebugGraphicsLevel >= 3)
+        LT_GraphicsCurrentStringOutput ("One-root string");
+
+# endif
+    StringAddToList();
+}
+
+Bool IsInterStringsComponent(ROOT *pRoot)
+{
+    int yTop = pRoot -> yRow;
+    int yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
+    STRING *pString;
+    int nHighestOwnStringTall = 0; /* To avoid warning under Mac */
+    int nCrossings = 0;
+
+    for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
+        ROOT *pFirstRoot = &pRoots[pString -> pLettersList[0]];
+
+        if (!(yBottom < pString -> yTop || yTop > pString -> yBottom) && (pRoot
+                                                                          == pFirstRoot || pRoot -> xColumn + pRoot -> nWidth - 1
+                                                                          <= pFirstRoot -> xColumn + pFirstRoot -> nWidth - 1)) {
+            nCrossings++;
+
+            if (nCrossings == 1 || pString -> yMiddleBottom
+                    - pString -> yMiddleTop + 1 > nHighestOwnStringTall) {
+                nHighestOwnStringTall = pString -> yMiddleBottom
+                                        - pString -> yMiddleTop + 1;
+            }
+        }
+    }
+
+    if (nCrossings == 1 && pRoot -> nHeight > nHighestOwnStringTall * 5 / 2) {
+        return (TRUE);
+    }
+
+    if (nCrossings > 1 && (pRoot -> bType & ROOT_RECOGNIZED) != 0
+            && pRoot -> nHeight > nHighestOwnStringTall * 2) {
+        return (TRUE);
+    }
+
+    return (FALSE);
+}
+
+Bool IsGluedComponent(STRING *pString, ROOT *pRoot)
+{
+    STRING *pUp, *pDown;
+    int yUpLine;
+    int yDownLine;
+
+    for (pUp = pString -> pUp; pUp != NULL && (pUp -> uFlags & SF_SPECIAL); pUp
+            = pUp -> pUp) {
+    }
+
+    for (pDown = pString -> pDown; pDown != NULL && (pDown -> uFlags
+                                                     & SF_SPECIAL); pDown = pDown -> pDown) {
+    }
+
+    if (pUp != NULL) {
+        yUpLine = (pUp -> yMiddleTop + pUp -> yMiddleBottom) / 2;
+    }
+
+    if (pDown != NULL) {
+        yDownLine = (pDown -> yMiddleTop + pDown -> yMiddleBottom) / 2;
+    }
+
+    if (pUp != NULL && pRoot -> yRow <= yUpLine && !(pUp -> xRight
+                                                     < pRoot -> xColumn - 2 * pRoot -> nWidth /* SWEE1 */
+                                                     || pRoot -> xColumn + 3 * pRoot -> nWidth < pUp -> xLeft)) {
+        yRasterUpBreakLimit = pUp -> yMiddleBottom - pRoot -> yRow;
+        yRasterDownBreakLimit = pString -> yMiddleTop - pRoot -> yRow;
+    }
+
+    else if (pDown != NULL && pRoot -> yRow + pRoot -> nHeight - 1
+             >= yDownLine && /* SWEE1 */
+             !(pDown -> xRight < pRoot -> xColumn - 2 * pRoot -> nWidth
+               || pRoot -> xColumn + 3 * pRoot -> nWidth < pDown -> xLeft)) {
+        yRasterUpBreakLimit = pString -> yMiddleBottom - pRoot -> yRow;
+        yRasterDownBreakLimit = pDown -> yMiddleTop - pRoot -> yRow;
+    }
+
+    else {
+        return (FALSE);
+    }
+
+    return (TRUE);
+}
+
+void RasterHystogramBuild(void)
+{
+    int y, o, i;
+    memset(aRasterHystogram, 0, sizeof(aRasterHystogram));
+
+    for (y = 0, o = 0; y < nRasterHeight; y++, o += nRasterByteWidth) {
+        for (i = 0; i < nRasterByteWidth; i++)
+            aRasterHystogram[y] += nQuantityOfOnes[pRaster[o + i]];
+    }
+}
+
+Bool GluedLettersProcess(ROOT *pRoot)
+{
+    int oBreakLine, oAfterBreakLine;
+    MN *mn;
+    CCOM_comp *pComp;
+    ROOT *pPreviousAfterRoots = pAfterRoots;
+    ROOT *pTmpRoot;
+    int16_t yRealRow, xRealColumn;
+    int nMN = 0;
+    //uint32_t RootShift;
+
+    if (pRoot -> nWidth > EXTENDED_RASTER_MAX_WIDTH || pRoot -> nHeight
+            > EXTENDED_RASTER_MAX_HEIGHT) {
+        return (FALSE);
+    }
+
+    REAL_XY(pRoot -> xColumn, pRoot -> yRow);
+    yRealRow = pRoot -> yRow;
+    xRealColumn = pRoot -> xColumn;
+    nRasterWidth = pRoot -> nWidth;
+    nRasterHeight = pRoot -> nHeight;
+    nRasterByteWidth = (nRasterWidth + 7) / 8;
+    pComp = get_CCOM_comp(pRoot);
+
+    if (pComp -> scale == 0) {
+        pRaster = make_raster_CCOM(pComp);
+    }
+
+    else {
+        pRaster = make_extended_raster_CCOM(pComp);
+    }
+
+    IDEAL_XY(pRoot -> xColumn, pRoot -> yRow);
+    RasterHystogramBuild();
+    yRasterBreakLine = (yRasterUpBreakLimit + yRasterDownBreakLimit) / 2;
+
+    if (yRasterBreakLine > RASTER_MAX_HEIGHT || nRasterHeight
+            - yRasterBreakLine > RASTER_MAX_HEIGHT) {
+        return (FALSE);
+    }
 
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 3)
-	LT_GraphicsCurrentStringOutput ("One-root string");
+
+    if (SE_DebugGraphicsLevel >= 1)
+        LT_GraphicsBreakingOutput ("Glued component");
+
 # endif
+    oBreakLine = yRasterBreakLine * nRasterByteWidth;
+    oAfterBreakLine = (yRasterBreakLine + 1) * nRasterByteWidth;
+    memset(pRaster + oBreakLine, 0, oAfterBreakLine - oBreakLine);
+    mn
+    = EVN_CLocomp(pRaster, nRasterByteWidth, nRasterHeight,
+                  yRealRow /* pRoot -> yRow    */, xRealColumn /* pRoot -> xColumn */);
 
-	StringAddToList();
-}
+    if (mn == NULL) {
+        return (FALSE);
+    }
 
-Bool IsInterStringsComponent(ROOT *pRoot) {
-	int yTop = pRoot -> yRow;
-	int yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
-	STRING *pString;
-	int nHighestOwnStringTall = 0; /* To avoid warning under Mac */
-	int nCrossings = 0;
+    for (pTmpRoot = pCurrentBlock -> pRoots; (pTmpRoot -> u1.pNext != NULL)
+            && (pTmpRoot != NULL); pTmpRoot = pTmpRoot -> u1.pNext) {
+    }
 
-	for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
-		ROOT *pFirstRoot = &pRoots[pString -> pLettersList[0]];
+    for (; mn != NULL; mn = mn -> mnnext) {
+        if (save_MN(mn)) {
+            CalculatePageParameters();// Piter
+            RootStripsCalculate();// Piter
+            nMN++;
+            IDEAL_XY((pAfterRoots - 1)->xColumn, (pAfterRoots - 1)->yRow);
+            (pAfterRoots - 1)-> nBlock = nCurrentBlock;
+        }
+    }
 
-		if (!(yBottom < pString -> yTop || yTop > pString -> yBottom) && (pRoot
-				== pFirstRoot || pRoot -> xColumn + pRoot -> nWidth - 1
-				<= pFirstRoot -> xColumn + pFirstRoot -> nWidth - 1)) {
-			nCrossings++;
+    CCOM_Delete(exthCCOM, (CCOM_comp*) pRoot->pComp);
 
-			if (nCrossings == 1 || pString -> yMiddleBottom
-					- pString -> yMiddleTop + 1 > nHighestOwnStringTall) {
-				nHighestOwnStringTall = pString -> yMiddleBottom
-						- pString -> yMiddleTop + 1;
-			}
-		}
-	}
+    if (pCurrentBlock -> pRoots == pRoot) {
+        pCurrentBlock -> pRoots = pRoot-> u1.pNext;
+    }
 
-	if (nCrossings == 1 && pRoot -> nHeight > nHighestOwnStringTall * 5 / 2) {
-		return (TRUE);
-	}
+    for (pTmpRoot = pCurrentBlock -> pRoots; (pTmpRoot -> u1.pNext != NULL)
+            && (pTmpRoot != NULL); pTmpRoot = pTmpRoot -> u1.pNext) {
+        if (pTmpRoot->u1.pNext == pTmpRoot) {
+            pTmpRoot->u1.pNext = pTmpRoot->u1.pNext->u1.pNext;
+        }
+    }
 
-	if (nCrossings > 1 && (pRoot -> bType & ROOT_RECOGNIZED) != 0
-			&& pRoot -> nHeight > nHighestOwnStringTall * 2) {
-		return (TRUE);
-	}
+    pPreviousAfterRoots = pAfterRoots - nMN;// Piter
+    {
+        ROOT *p;
 
-	return (FALSE);
-}
-
-Bool IsGluedComponent(STRING *pString, ROOT *pRoot) {
-	STRING *pUp, *pDown;
-	int yUpLine;
-	int yDownLine;
-
-	for (pUp = pString -> pUp; pUp != NULL && (pUp -> uFlags & SF_SPECIAL); pUp
-			= pUp -> pUp) {
-	}
-
-	for (pDown = pString -> pDown; pDown != NULL && (pDown -> uFlags
-			& SF_SPECIAL); pDown = pDown -> pDown) {
-	}
-
-	if (pUp != NULL) {
-		yUpLine = (pUp -> yMiddleTop + pUp -> yMiddleBottom) / 2;
-	}
-
-	if (pDown != NULL) {
-		yDownLine = (pDown -> yMiddleTop + pDown -> yMiddleBottom) / 2;
-	}
-
-	if (pUp != NULL && pRoot -> yRow <= yUpLine && !(pUp -> xRight
-			< pRoot -> xColumn - 2 * pRoot -> nWidth /* SWEE1 */
-	|| pRoot -> xColumn + 3 * pRoot -> nWidth < pUp -> xLeft)) {
-		yRasterUpBreakLimit = pUp -> yMiddleBottom - pRoot -> yRow;
-		yRasterDownBreakLimit = pString -> yMiddleTop - pRoot -> yRow;
-	} else if (pDown != NULL && pRoot -> yRow + pRoot -> nHeight - 1
-			>= yDownLine && /* SWEE1 */
-	!(pDown -> xRight < pRoot -> xColumn - 2 * pRoot -> nWidth
-			|| pRoot -> xColumn + 3 * pRoot -> nWidth < pDown -> xLeft)) {
-		yRasterUpBreakLimit = pString -> yMiddleBottom - pRoot -> yRow;
-		yRasterDownBreakLimit = pDown -> yMiddleTop - pRoot -> yRow;
-	} else {
-		return (FALSE);
-	}
-
-	return (TRUE);
-}
-
-void RasterHystogramBuild(void) {
-	int y, o, i;
-
-	memset(aRasterHystogram, 0, sizeof(aRasterHystogram));
-
-	for (y = 0, o = 0; y < nRasterHeight; y++, o += nRasterByteWidth) {
-		for (i = 0; i < nRasterByteWidth; i++)
-			aRasterHystogram[y] += nQuantityOfOnes[pRaster[o + i]];
-	}
-}
-
-Bool GluedLettersProcess(ROOT *pRoot) {
-	int oBreakLine, oAfterBreakLine;
-	MN *mn;
-	CCOM_comp *pComp;
-	ROOT *pPreviousAfterRoots = pAfterRoots;
-	ROOT *pTmpRoot;
-	int16_t yRealRow, xRealColumn;
-	int nMN = 0;
-	//uint32_t RootShift;
-
-	if (pRoot -> nWidth > EXTENDED_RASTER_MAX_WIDTH || pRoot -> nHeight
-			> EXTENDED_RASTER_MAX_HEIGHT) {
-		return (FALSE);
-	}
-
-	REAL_XY(pRoot -> xColumn, pRoot -> yRow);
-
-	yRealRow = pRoot -> yRow;
-	xRealColumn = pRoot -> xColumn;
-
-	nRasterWidth = pRoot -> nWidth;
-	nRasterHeight = pRoot -> nHeight;
-	nRasterByteWidth = (nRasterWidth + 7) / 8;
-
-	pComp = get_CCOM_comp(pRoot);
-
-	if (pComp -> scale == 0) {
-		pRaster = make_raster_CCOM(pComp);
-
-	} else {
-		pRaster = make_extended_raster_CCOM(pComp);
-	}
-
-	IDEAL_XY(pRoot -> xColumn, pRoot -> yRow);
-
-	RasterHystogramBuild();
-
-	yRasterBreakLine = (yRasterUpBreakLimit + yRasterDownBreakLimit) / 2;
-
-	if (yRasterBreakLine > RASTER_MAX_HEIGHT || nRasterHeight
-			- yRasterBreakLine > RASTER_MAX_HEIGHT) {
-		return (FALSE);
-	}
-
+        for (p = pPreviousAfterRoots; p < pAfterRoots; p++) {
+            IDEAL_XY(p -> xColumn, p -> yRow);
+            p -> bType |= ROOT_HORZ_BREAKED;
+        }
+    }
 # ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 1)
-	LT_GraphicsBreakingOutput ("Glued component");
+
+    if (SE_DebugGraphicsLevel >= 1) {
+        ROOT *p;
+
+        for (p = pPreviousAfterRoots; p < pAfterRoots; p++) {
+            nRasterWidth = p -> nWidth;
+            nRasterHeight = p -> nHeight;
+            nRasterByteWidth = (nRasterWidth + 7) / 8;
+            pComp = get_CCOM_comp (p);
+
+            if (pComp -> scale == 0) {
+                pRaster = make_raster_CCOM( pComp );
+            }
+
+            else {
+                pRaster = make_raster_CCOM( pComp );
+            }
+
+            LT_GraphicsRasterOutput ("Cutted component");
+        }
+    }
+
 # endif
-
-	oBreakLine = yRasterBreakLine * nRasterByteWidth;
-	oAfterBreakLine = (yRasterBreakLine + 1) * nRasterByteWidth;
-
-	memset(pRaster + oBreakLine, 0, oAfterBreakLine - oBreakLine);
-	mn
-			= EVN_CLocomp(pRaster, nRasterByteWidth, nRasterHeight,
-					yRealRow /* pRoot -> yRow    */, xRealColumn /* pRoot -> xColumn */);
-
-	if (mn == NULL) {
-		return (FALSE);
-	}
-
-	for (pTmpRoot = pCurrentBlock -> pRoots; (pTmpRoot -> u1.pNext != NULL)
-			&& (pTmpRoot != NULL); pTmpRoot = pTmpRoot -> u1.pNext) {
-	}
-
-	for (; mn != NULL; mn = mn -> mnnext) {
-		if (save_MN(mn)) {
-			CalculatePageParameters();// Piter
-			RootStripsCalculate();// Piter
-
-			nMN++;
-			IDEAL_XY((pAfterRoots - 1)->xColumn, (pAfterRoots - 1)->yRow);
-			(pAfterRoots - 1)-> nBlock = nCurrentBlock;
-
-		}
-	}
-
-	CCOM_Delete(exthCCOM, (CCOM_comp*) pRoot->pComp);
-
-	if (pCurrentBlock -> pRoots == pRoot) {
-		pCurrentBlock -> pRoots = pRoot-> u1.pNext;
-	}
-
-	for (pTmpRoot = pCurrentBlock -> pRoots; (pTmpRoot -> u1.pNext != NULL)
-			&& (pTmpRoot != NULL); pTmpRoot = pTmpRoot -> u1.pNext) {
-		if (pTmpRoot->u1.pNext == pTmpRoot) {
-			pTmpRoot->u1.pNext = pTmpRoot->u1.pNext->u1.pNext;
-		}
-	}
-
-	pPreviousAfterRoots = pAfterRoots - nMN;// Piter
-
-	{
-		ROOT *p;
-
-		for (p = pPreviousAfterRoots; p < pAfterRoots; p++) {
-			IDEAL_XY(p -> xColumn, p -> yRow);
-			p -> bType |= ROOT_HORZ_BREAKED;
-		}
-	}
-
-# ifdef SE_DEBUG
-	if (SE_DebugGraphicsLevel >= 1)
-	{
-		ROOT *p;
-
-		for (p = pPreviousAfterRoots; p < pAfterRoots; p++)
-		{
-			nRasterWidth = p -> nWidth;
-			nRasterHeight = p -> nHeight;
-			nRasterByteWidth = (nRasterWidth + 7) / 8;
-
-			pComp = get_CCOM_comp (p);
-
-			if (pComp -> scale == 0)
-			{
-				pRaster = make_raster_CCOM( pComp );
-			}
-			else
-			{
-				pRaster = make_raster_CCOM( pComp );
-			}
-
-			LT_GraphicsRasterOutput ("Cutted component");
-		}
-	}
-# endif
-
-	return (TRUE);
+    return (TRUE);
 }
 
-void AddAllCuttedComponentsToStrings(void) {
-	return;
+void AddAllCuttedComponentsToStrings(void)
+{
+    return;
 }
 
-void StringsProcessSpecials(void) {
-	STRING *pString;
-	ROOT *pRoot;
-	int i, j;
-	int nDeleted;
-	Bool bSpecialsFounded = FALSE;
+void StringsProcessSpecials(void)
+{
+    STRING *pString;
+    ROOT *pRoot;
+    int i, j;
+    int nDeleted;
+    Bool bSpecialsFounded = FALSE;
+    nOldRoots = nRoots;
+    pOldAfterRoots = pAfterRoots;
 
-	nOldRoots = nRoots;
-	pOldAfterRoots = pAfterRoots;
+    for (pString = pStringsUpList; pString != NULL; pString = pString -> pDown) {
+        if (pCurrentBlock->nUserNum == IS_IN_TABLE) {
+            continue;
+        }
 
-	for (pString = pStringsUpList; pString != NULL; pString = pString -> pDown) {
-		if (pCurrentBlock->nUserNum == IS_IN_TABLE) {
-			continue;
-		}
+        if (pString -> nSpecialsLetters == 0
+                || (pString -> uFlags & SF_SPECIAL)) {
+            continue;
+        }
 
-		if (pString -> nSpecialsLetters == 0
-				|| (pString -> uFlags & SF_SPECIAL)) {
-			continue;
-		}
+        bSpecialsFounded = TRUE;
+        i = 0;
+        j = 0;
+        nDeleted = 0;
+        pRoot = &pRoots[pString -> pLettersList[i]];
 
-		bSpecialsFounded = TRUE;
+        if ((pRoot -> bType & ROOT_SPECIAL_LETTER) && !(pRoot -> bType
+                                                        & ROOT_SPECIAL_DUST) && IsInterStringsComponent(pRoot)) {
+            pRoot -> bType &= ~ROOT_SPECIAL_LETTER;
+            FormOneRootString(pString -> pLettersList[i]);
+            i++;
+            nDeleted++;
+        }
 
-		i = 0;
-		j = 0;
-		nDeleted = 0;
+        for (; i < pString -> nLetters; i++) {
+            pRoot = &pRoots[pString -> pLettersList[i]];
 
-		pRoot = &pRoots[pString -> pLettersList[i]];
+            if (pRoot -> bType & ROOT_SPECIAL_DUST) {
+                nDeleted++;
+                pRoot -> bType &= ~(ROOT_SPECIAL_DUST | ROOT_USED);
+                continue;
+            }
 
-		if ((pRoot -> bType & ROOT_SPECIAL_LETTER) && !(pRoot -> bType
-				& ROOT_SPECIAL_DUST) && IsInterStringsComponent(pRoot)) {
-			pRoot -> bType &= ~ROOT_SPECIAL_LETTER;
-			FormOneRootString(pString -> pLettersList[i]);
-			i++;
-			nDeleted++;
-		}
+            if ((pRoot -> bType & ROOT_SPECIAL_LETTER) && IsGluedComponent(
+                        pString, pRoot)) {
+                GluedLettersProcess(pRoot);
+                nDeleted++;
+                continue;
+            }
 
-		for (; i < pString -> nLetters; i++) {
-			pRoot = &pRoots[pString -> pLettersList[i]];
+            pRoot -> bType &= ~ROOT_SPECIAL_LETTER;
+            pString -> pLettersList[j++] = pString -> pLettersList[i];
+        }
 
-			if (pRoot -> bType & ROOT_SPECIAL_DUST) {
-				nDeleted++;
-				pRoot -> bType &= ~(ROOT_SPECIAL_DUST | ROOT_USED);
-				continue;
-			}
+        pString -> nLetters -= nDeleted;
 
-			if ((pRoot -> bType & ROOT_SPECIAL_LETTER) && IsGluedComponent(
-					pString, pRoot)) {
-				GluedLettersProcess(pRoot);
-				nDeleted++;
-				continue;
-			}
+        if (nDeleted != 0)
+            pString -> uFlags |= SF_NEED_UPDATE;
+    }
 
-			pRoot -> bType &= ~ROOT_SPECIAL_LETTER;
-			pString -> pLettersList[j++] = pString -> pLettersList[i];
-		}
-
-		pString -> nLetters -= nDeleted;
-
-		if (nDeleted != 0)
-			pString -> uFlags |= SF_NEED_UPDATE;
-	}
-
-	if (bSpecialsFounded) {
-		AddAllCuttedComponentsToStrings();
-		StringsListUpdate();
-	}
+    if (bSpecialsFounded) {
+        AddAllCuttedComponentsToStrings();
+        StringsListUpdate();
+    }
 }

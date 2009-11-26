@@ -61,40 +61,49 @@
 #include "crlmemory.h"
 
 //memory Allocator for RLING module
-void * RLINGAlloc(size_t stAllocateBlock) {
-	return malloc(stAllocateBlock);
+void * RLINGAlloc(size_t stAllocateBlock)
+{
+    return malloc(stAllocateBlock);
 }
 
-void RLINGFree(void * mem) {
-	free(mem);
+void RLINGFree(void * mem)
+{
+    free(mem);
 }
 
-void * RLINGLock(void * mem) {
-	return mem;
+void * RLINGLock(void * mem)
+{
+    return mem;
 }
 
-void RLINGUnlock(void * /*mem*/) {
-	return;
+void RLINGUnlock(void * /*mem*/)
+{
+    return;
 }
 
-Handle RLINGOpenSave(char * lpName) {
-	return (Handle) fopen(lpName, "wb");
+Handle RLINGOpenSave(char * lpName)
+{
+    return (Handle) fopen(lpName, "wb");
 }
 
-Handle RLINGOpenRestore(char * lpName) {
-	Handle rc = NULL;
-	rc = (Handle) fopen(lpName, "rb");
-	return rc;
+Handle RLINGOpenRestore(char * lpName)
+{
+    Handle rc = NULL;
+    rc = (Handle) fopen(lpName, "rb");
+    return rc;
 }
 
-unsigned int RLINGWrite(Handle h, void * lpdata, unsigned int size) {
-	return fwrite(lpdata, 1, size, (FILE*) h);
+unsigned int RLINGWrite(Handle h, void * lpdata, unsigned int size)
+{
+    return fwrite(lpdata, 1, size, (FILE*) h);
 }
 
-unsigned int RLINGRead(Handle h, void * lpdata, unsigned int size) {
-	return fread(lpdata, 1, size, (FILE *) h);
+unsigned int RLINGRead(Handle h, void * lpdata, unsigned int size)
+{
+    return fread(lpdata, 1, size, (FILE *) h);
 }
 
-void RLINGClose(Handle h) {
-	fclose((FILE*) h);
+void RLINGClose(Handle h)
+{
+    fclose((FILE*) h);
 }

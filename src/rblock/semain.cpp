@@ -84,10 +84,11 @@ void SE_FreeAllData (void)
     BlocksHystogramsFreeData ();
     BlocksAccessTableFree ();
     StringsFreeMemory ();
-
 # if defined (SE_DEBUG) && ! defined (LT_DEBUG)
+
     if (SE_DebugGraphicsLevel > 0)
         LT_GraphicsClose ();
+
 # endif
 }
 
@@ -97,18 +98,17 @@ void StringsExtract (void)
         return;
 
 # ifdef SE_DEBUG
+
     if (SE_DebugGraphicsLevel > 0)
         LT_GraphicsOpen ();
-# endif
 
+# endif
     RootsRestoreNonLayoutData_ForDustAndRemoved ();
     BlocksAccessTableBuild ();
     BlocksHystogramsBuild ();
-
     nCurrentFillingRoots = 0;
 
-    for (nCurrentBlock = nMinBlock; nCurrentBlock <= nMaxBlock; nCurrentBlock++)
-    {
+    for (nCurrentBlock = nMinBlock; nCurrentBlock <= nMaxBlock; nCurrentBlock++) {
         pCurrentBlock = pBlockPointer [nCurrentBlock];
 
         if (pCurrentBlock != NULL)

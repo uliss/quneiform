@@ -54,37 +54,37 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-  #include "spelmode.h"
+#include "spelmode.h"
 
-  #if defined(TURBO_C)
-    #include "tc_types.h"
-    #include <dir.h>
-  #elif defined(WATCOM)
-    #include "spelwatc.h"
+#if defined(TURBO_C)
+#include "tc_types.h"
+#include <dir.h>
+#elif defined(WATCOM)
+#include "spelwatc.h"
 //    #include <direct.h>
-  #else
-    #error   NO TOOOL SPECIFIED
-  #endif
+#else
+#error   NO TOOOL SPECIFIED
+#endif
 
-  #include <fcntl.h>
-  #include <ctype.h>
-  #include <time.h>
+#include <fcntl.h>
+#include <ctype.h>
+#include <time.h>
 
 
-  #include "speldefs.h"
-  #include "spelfunc.h"
+#include "speldefs.h"
+#include "spelfunc.h"
 
 
 /* ------------------------------------------------------------------ */
 
-  SPART   part[MAX_PARTS];                /* fundamental parts of     */
-                                          /* the object:              */
+SPART   part[MAX_PARTS];                /* fundamental parts of     */
+/* the object:              */
 
-  uchar    word[MAX_WORDS * sizeof(SWORD)];/* best words within object */
-                                          /* fundamental parts        */
-                                          /* ( mixed buf for parts):  */
+uchar    word[MAX_WORDS * sizeof(SWORD)];/* best words within object */
+/* fundamental parts        */
+/* ( mixed buf for parts):  */
 
-  LTIMG   wrdimg[MAX_WORD_SIZE];
-  LTIMG * wrddef[MAX_WORD_SIZE];
+LTIMG   wrdimg[MAX_WORD_SIZE];
+LTIMG * wrddef[MAX_WORD_SIZE];
 
 /* ------------------------------------------------------------------ */

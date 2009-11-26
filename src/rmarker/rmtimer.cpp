@@ -57,37 +57,37 @@
 #include "markpage.h"
 #include "rmfunc.h"
 
-Bool32 SetCBProgressPoints(void * pData) {
-	PRMCBProgressPoints pPoints = (PRMCBProgressPoints) pData;
-
+Bool32 SetCBProgressPoints(void * pData)
+{
+    PRMCBProgressPoints pPoints = (PRMCBProgressPoints) pData;
 #define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
-	SET_CB_POINTS(pPoints, DPumaSkipComponent);
-	SET_CB_POINTS(pPoints, DPumaSkipTurn);
-	SET_CB_POINTS(pPoints, GetModulePath);
-	//SET_CB_POINTS(pPoints,                   );
+    SET_CB_POINTS(pPoints, DPumaSkipComponent);
+    SET_CB_POINTS(pPoints, DPumaSkipTurn);
+    SET_CB_POINTS(pPoints, GetModulePath);
+    //SET_CB_POINTS(pPoints,                   );
 #undef SET_CB_POINTS
-	return true;
+    return true;
 }
 
 #define DEF_CB_FUNC(a,b,c,d,e)       a b c \
 {\
-	DEC_CB_TYPE(b) pfFunc; \
-	a ret = e ; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		return pfFunc d ; \
-	} \
-	return ret; \
+    DEC_CB_TYPE(b) pfFunc; \
+    a ret = e ; \
+    if ( ProgressPoints.p##b ) \
+    { \
+        pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
+        return pfFunc d ; \
+    } \
+    return ret; \
 }
 #define DEF_CB_VOID_FUNC(b,c,d)       void b c \
 { \
-	DEC_CB_TYPE(b) pfFunc; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		pfFunc d; \
-	}\
+    DEC_CB_TYPE(b) pfFunc; \
+    if ( ProgressPoints.p##b ) \
+    { \
+        pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
+        pfFunc d; \
+    }\
 }
 
 DEF_CB_FUNC(Bool32, DPumaSkipComponent, (void), (), FALSE )

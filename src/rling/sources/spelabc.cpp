@@ -95,189 +95,194 @@ uchar tabstdn[256]; /* nmbs of STD symb in order      */
 
 STD std_;
 
-uchar _2low(uchar c) {
-	if (all_lt[c] != E_CP) {
-		return c;
-	} else {
-		return alphabet[1][codetable[c]];
-	}
+uchar _2low(uchar c)
+{
+    if (all_lt[c] != E_CP) {
+        return c;
+    }
+
+    else {
+        return alphabet[1][codetable[c]];
+    }
 }
 
 /* ------------------------------------------------------------------ */
 
-uchar _2cap(uchar c) {
-	if (all_lt[c] != E_OD) {
-		return c;
-	} else {
-		return alphabet[0][codetable[c]];
-	}
+uchar _2cap(uchar c)
+{
+    if (all_lt[c] != E_OD) {
+        return c;
+    }
+
+    else {
+        return alphabet[0][codetable[c]];
+    }
 }
 
 /* ------------------------------------------------------------------ */
 
-Bool IsVowel(uchar c) {
-	return alphabet[2][codetable[c]] == (uchar) '^' ? TRUE : FALSE;
+Bool IsVowel(uchar c)
+{
+    return alphabet[2][codetable[c]] == (uchar) '^' ? TRUE : FALSE;
 }
 
 /* ------------------------------------------------------------------ */
 
 extern void init_tab_alpha(uchar *s1, uchar *s2, int16_t num);
-Bool InitializeAlphabet(int16_t CountryCode) {
-	uchar w[ABCSIZE + 1];
-	int16_t h;
+Bool InitializeAlphabet(int16_t CountryCode)
+{
+    uchar w[ABCSIZE + 1];
+    int16_t h;
 
-	if ((h = TBOPEN( 6, language, BO_READ_TEXT, S_IREAD )) < 0) {
-		vocs_NOK |= 1 << 6;
-		return FALSE;
-	}
+    if ((h = TBOPEN( 6, language, BO_READ_TEXT, S_IREAD )) < 0) {
+        vocs_NOK |= 1 << 6;
+        return FALSE;
+    }
 
-	if (TGGETS( h, (char*)w, sizeof(w)) == (char*) w) {
-		ABCSize = atoi((char*) w);
-	}
+    if (TGGETS( h, (char*)w, sizeof(w)) == (char*) w) {
+        ABCSize = atoi((char*) w);
+    }
 
-	if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
-		memcpy(alphabet[0], w, ABCSIZE);
-	}
-	if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
-		memcpy(alphabet[1], w, ABCSIZE);
-	}
-	if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
-		memcpy(alphabet[2], w, ABCSIZE);
-	} else {
-		TGCLOSE(h);
-		return FALSE;
-	}
+    if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
+        memcpy(alphabet[0], w, ABCSIZE);
+    }
 
-	/* 01-15-94 10:10pm, Mike     */
-	/*  if ( !setUpAcsGrps(h) ) { */
-	/*    TGCLOSE(h);             */
-	/*    return FALSE;           */
-	/*  }                         */
+    if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
+        memcpy(alphabet[1], w, ABCSIZE);
+    }
 
-	TGCLOSE(h);
+    if (TGGETS( h, (char*)memset( w, 0, sizeof(w)), sizeof(w)) == (char*) w) {
+        memcpy(alphabet[2], w, ABCSIZE);
+    }
 
-	if ((strlen((char*) alphabet[0]) != (uint16_t) ABCSize) || (strlen(
-			(char*) alphabet[1]) != (uint16_t) ABCSize)) {
-		return FALSE;
-	}
+    else {
+        TGCLOSE(h);
+        return FALSE;
+    }
 
-	dectable_init();
-	std_init();
-	initcode();
-	initstdn();
-	init_tab_alpha(alphabet[0], alphabet[1], ABCSize);
+    /* 01-15-94 10:10pm, Mike     */
+    /*  if ( !setUpAcsGrps(h) ) { */
+    /*    TGCLOSE(h);             */
+    /*    return FALSE;           */
+    /*  }                         */
+    TGCLOSE(h);
 
-	CountryCode = 0;
+    if ((strlen((char*) alphabet[0]) != (uint16_t) ABCSize) || (strlen(
+                                                                    (char*) alphabet[1]) != (uint16_t) ABCSize)) {
+        return FALSE;
+    }
 
-	return TRUE;
+    dectable_init();
+    std_init();
+    initcode();
+    initstdn();
+    init_tab_alpha(alphabet[0], alphabet[1], ABCSize);
+    CountryCode = 0;
+    return TRUE;
 }
-void dectable_init(void) {
-	int16_t i, j;
-	uint16_t index;
+void dectable_init(void)
+{
+    int16_t i, j;
+    uint16_t index;
+    memset(codetable, 0, sizeof(codetable));
+    memset(codepermit, 0, sizeof(codepermit));
 
-	memset(codetable, 0, sizeof(codetable));
-	memset(codepermit, 0, sizeof(codepermit));
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < ABCSize; j++) {
+            index = (uchar) alphabet[i][j];
+            codetable[index] = (KEYTYPE) j;
+            codepermit[index] = (KEYTYPE) 1;
+        }
+    }
 
-	for (i = 0; i < 2; i++) {
-		for (j = 0; j < ABCSize; j++) {
-			index = (uchar) alphabet[i][j];
-			codetable[index] = (KEYTYPE) j;
-			codepermit[index] = (KEYTYPE) 1;
-		}
-	}
-
-	return;
-}
-
-void std_init(void) {
-	int i;
-
-	memset(&std_, 0, sizeof(std_));
-
-	for (i = 0; i < ABCSize; i++) {
-		std_.stdlt[i].code = alphabet[0][i];
-	}
-	std_.stdlt[ABCSize - 1].attr = 1;
+    return;
 }
 
-void initcode(void) {
-	register int16_t i;
+void std_init(void)
+{
+    int i;
+    memset(&std_, 0, sizeof(std_));
 
-	memset(all_lt, 0, sizeof(all_lt));
+    for (i = 0; i < ABCSize; i++) {
+        std_.stdlt[i].code = alphabet[0][i];
+    }
 
-	for (i = 0; i < ABCSize; i++) {
-		all_lt[alphabet[0][i]] = E_CP;
-		all_lt[alphabet[1][i]] = E_OD;
-	}
+    std_.stdlt[ABCSize - 1].attr = 1;
+}
 
-	all_lt[(uchar) BLANK] = _BLK;
-	all_lt[(uchar) SPACE] = _SPC;
-	all_lt[(uchar) TRADEMARK] = E_DL;
+void initcode(void)
+{
+    register int16_t i;
+    memset(all_lt, 0, sizeof(all_lt));
 
-	all_lt[(uchar) WRDDIV] = _WDV; // 11-23-93 Mike : DASH problem...
-	/* i=(uchar)WRDDIV; all_lt[i]=E_DL; */
+    for (i = 0; i < ABCSize; i++) {
+        all_lt[alphabet[0][i]] = E_CP;
+        all_lt[alphabet[1][i]] = E_OD;
+    }
 
-	all_lt[0x1e] = _SP1;
-	all_lt[0x1f] = _SP2;
-
-	/*       !            .           ?                              */
-	all_lt[0x21] = all_lt[0x2e] = all_lt[0x3f] = _TRM;
-
-	/* !(flipped)    ?(flipped)                                      */
+    all_lt[(uchar) BLANK] = _BLK;
+    all_lt[(uchar) SPACE] = _SPC;
+    all_lt[(uchar) TRADEMARK] = E_DL;
+    all_lt[(uchar) WRDDIV] = _WDV; // 11-23-93 Mike : DASH problem...
+    /* i=(uchar)WRDDIV; all_lt[i]=E_DL; */
+    all_lt[0x1e] = _SP1;
+    all_lt[0x1f] = _SP2;
+    /*       !            .           ?                              */
+    all_lt[0x21] = all_lt[0x2e] = all_lt[0x3f] = _TRM;
+    /* !(flipped)    ?(flipped)                                      */
 #ifndef WIN_FRENCH
-	all_lt[0xA1] = _TRM;
+    all_lt[0xA1] = _TRM;
 #endif
-	all_lt[0xA0] = _TRM;
-	/*       <<      >>                                              */
-	all_lt[0xAB] = all_lt[0xAD] = _TRM;
-
-	/*       '                                                       */
-	all_lt[0x27] = _APF;
-
-	/*       0            1             2            3            4  */
-	all_lt[0x30] = all_lt[0x31] = all_lt[0x32] = all_lt[0x33] = all_lt[0x34] =
-	/*       5            6             7            8            9  */
-	all_lt[0x35] = all_lt[0x36] = all_lt[0x37] = all_lt[0x38] = all_lt[0x39] =
-	/*       $                                                       */
-	all_lt[0x24] = _DIG;
-
-	/*      "            #             %            &           (    */
-	all_lt[0x22] = all_lt[0x23] = all_lt[0x25] = all_lt[0x26] = all_lt[0x28] =
-	/*       )           *            +             ,            /   */
-	all_lt[0x29] = all_lt[0x2a] = all_lt[0x2b] = all_lt[0x2c] = all_lt[0x2f] =
-	/*       :            ;            <            =           >    */
-	all_lt[0x3a] = all_lt[0x3b] = all_lt[0x3c] = all_lt[0x3d] = all_lt[0x3e] =
-	/*      @            [             \             ]           {   */
-	all_lt[0x40] = all_lt[0x5b] = all_lt[0x5c] = all_lt[0x5d] = all_lt[0x7b] =
-	/*       |           }                                           */
-	all_lt[0x7c] = all_lt[0x7d] = all_lt[0xab] = all_lt[0xbb] = E_DL;
-	/*                            <<          >>                     */
-	return;
+    all_lt[0xA0] = _TRM;
+    /*       <<      >>                                              */
+    all_lt[0xAB] = all_lt[0xAD] = _TRM;
+    /*       '                                                       */
+    all_lt[0x27] = _APF;
+    /*       0            1             2            3            4  */
+    all_lt[0x30] = all_lt[0x31] = all_lt[0x32] = all_lt[0x33] = all_lt[0x34] =
+                                                                    /*       5            6             7            8            9  */
+                                                                    all_lt[0x35] = all_lt[0x36] = all_lt[0x37] = all_lt[0x38] = all_lt[0x39] =
+                                                                                                                                    /*       $                                                       */
+                                                                                                                                    all_lt[0x24] = _DIG;
+    /*      "            #             %            &           (    */
+    all_lt[0x22] = all_lt[0x23] = all_lt[0x25] = all_lt[0x26] = all_lt[0x28] =
+                                                                    /*       )           *            +             ,            /   */
+                                                                    all_lt[0x29] = all_lt[0x2a] = all_lt[0x2b] = all_lt[0x2c] = all_lt[0x2f] =
+                                                                                                                                    /*       :            ;            <            =           >    */
+                                                                                                                                    all_lt[0x3a] = all_lt[0x3b] = all_lt[0x3c] = all_lt[0x3d] = all_lt[0x3e] =
+                                                                                                                                                                                                    /*      @            [             \             ]           {   */
+                                                                                                                                                                                                    all_lt[0x40] = all_lt[0x5b] = all_lt[0x5c] = all_lt[0x5d] = all_lt[0x7b] =
+                                                                                                                                                                                                                                                                    /*       |           }                                           */
+                                                                                                                                                                                                                                                                    all_lt[0x7c] = all_lt[0x7d] = all_lt[0xab] = all_lt[0xbb] = E_DL;
+    /*                            <<          >>                     */
+    return;
 }
 
-int16_t symcode(char *ed) {
-	return all_lt[(uchar) * ed];
+int16_t symcode(char *ed)
+{
+    return all_lt[(uchar) * ed];
 }
 
 /**********************************************************************/
 /* This procedure sets standard symb numbers in SDT-list (tabstdn)    */
 /**********************************************************************/
-void initstdn(void) {
-	register int16_t i, j;
+void initstdn(void)
+{
+    register int16_t i, j;
+    memset(tabstdn, 0xFF, sizeof(tabstdn));
 
-	memset(tabstdn, 0xFF, sizeof(tabstdn));
+    for (i = 0; i < sizeof(STD) / sizeof(LT); i++) {
+        j = std_.stdlt[i].code; /* symb ASCII mnb */
+        tabstdn[j] = (uchar) i;
+    }
 
-	for (i = 0; i < sizeof(STD) / sizeof(LT); i++) {
-		j = std_.stdlt[i].code; /* symb ASCII mnb */
-		tabstdn[j] = (uchar) i;
-	}
-
-	return;
+    return;
 }
 
 /**********************************************************************/
 /* This procedure converts STD symbol code to it number in STD-list   */
 /**********************************************************************/
-int16_t getstdn(char *ed) {
-	return tabstdn[(uchar) * ed];
+int16_t getstdn(char *ed)
+{
+    return tabstdn[(uchar) * ed];
 }

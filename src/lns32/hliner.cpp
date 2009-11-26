@@ -65,12 +65,12 @@
 #include "snptools.h"
 static SnpTreeNode stnHLiner;
 void LnsRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
-		__SnpToolBox*p_snp_tools // tools complect, may be NULL
-		)
-		{
-			SnpSetTools( p_snp_tools ); // may be NULL, it's OK
-			SnpAddNode( &stnHLiner,"HLiner", parent);
-		}
+                        __SnpToolBox*p_snp_tools // tools complect, may be NULL
+                       )
+{
+    SnpSetTools( p_snp_tools ); // may be NULL, it's OK
+    SnpAddNode( &stnHLiner, "HLiner", parent);
+}
 
 static int32_t nByteWidth;
 static int32_t nLine = 0;
@@ -81,200 +81,217 @@ extern const uchar bit0_cnt[256];
 static const uchar* BlackBitsCountTbl = bit1_cnt;
 static Tiger_ImageInfo ImageInfo = { 0 };
 
-Bool32 HLiner_Setup(Tiger_ImageInfo* pTgInfo) {
-	ImageInfo = *pTgInfo;
+Bool32 HLiner_Setup(Tiger_ImageInfo* pTgInfo)
+{
+    ImageInfo = *pTgInfo;
 
-	if (!xmImageMap.Create((ImageInfo.wImageWidth + 15) / 16,
-			(ImageInfo.wImageHeight + 1) / 2))
-		return FALSE;
-	xmImageMap.MemSet(0);
+    if (!xmImageMap.Create((ImageInfo.wImageWidth + 15) / 16,
+                           (ImageInfo.wImageHeight + 1) / 2))
+        return FALSE;
 
-	nLine = 0;
-
-	//if (ImageInfo.bFotoMetrics != 0) // white pixel is 0
-	//   BlackBitsCountTbl = bit1_cnt;
-	//else
-	BlackBitsCountTbl = bit0_cnt;
-
-	return TRUE;
+    xmImageMap.MemSet(0);
+    nLine = 0;
+    //if (ImageInfo.bFotoMetrics != 0) // white pixel is 0
+    //   BlackBitsCountTbl = bit1_cnt;
+    //else
+    BlackBitsCountTbl = bit0_cnt;
+    return TRUE;
 }
 
-Bool32 HLiner_Init(void) {
-	HLiner_Done();
-	return TRUE;
+Bool32 HLiner_Init(void)
+{
+    HLiner_Done();
+    return TRUE;
 }
 
-void HLiner_Done(void) {
-	xsLines.Destroy();
-	xmImageMap.Destroy();
-	Set0(ImageInfo);
-	nLine = 0;
+void HLiner_Done(void)
+{
+    xsLines.Destroy();
+    xmImageMap.Destroy();
+    Set0(ImageInfo);
+    nLine = 0;
 }
 
-inline uchar* GetMapLine(int n) {
-	return &(xmImageMap.Get(n, 0));
+inline uchar* GetMapLine(int n)
+{
+    return &(xmImageMap.Get(n, 0));
 }
 
-Bool32 HLiner_AddImageLine(uchar* pLine) {
-	if (nLine < 0 || nLine > ImageInfo.wImageHeight - 1)
-		RET_FALSE;
+Bool32 HLiner_AddImageLine(uchar* pLine)
+{
+    if (nLine < 0 || nLine > ImageInfo.wImageHeight - 1)
+        RET_FALSE;
 
-	uchar* res = GetMapLine(nLine / 2);
-	int nWords = (ImageInfo.wImageWidth + 15) / 16; //Almi: Вася нашёл эту ошибку 21 mar 2002 - было: = ImageInfo.wImageByteWidth >> 1;
-	while (nWords--) {
-		*res += BlackBitsCountTbl[*pLine++]; // get 16 bits
-		*res += BlackBitsCountTbl[*pLine++];
-		res++;
-	}
-	nLine++;
-	return TRUE;
+    uchar* res = GetMapLine(nLine / 2);
+    int nWords = (ImageInfo.wImageWidth + 15) / 16; //Almi: Вася нашёл эту ошибку 21 mar 2002 - было: = ImageInfo.wImageByteWidth >> 1;
+
+    while (nWords--) {
+        *res += BlackBitsCountTbl[*pLine++]; // get 16 bits
+        *res += BlackBitsCountTbl[*pLine++];
+        res++;
+    }
+
+    nLine++;
+    return TRUE;
 }
 
-Bool32 _TraceLine(int i, int j, Line16& ln) {
-	ln.A.rx() = (j << 4) + 8; // 16x2
-	ln.A.ry() = i << 1;
+Bool32 _TraceLine(int i, int j, Line16& ln)
+{
+    ln.A.rx() = (j << 4) + 8; // 16x2
+    ln.A.ry() = i << 1;
+    // trace up
+    int i_top = i;
+    int i_bot = i + 1;
 
-	// trace up
-	int i_top = i;
-	int i_bot = i + 1;
+    while (GetMapLine(i_top)[j] == 100) {
+        GetMapLine(i_top)[j] = 102; // marked
+        i_top--; // up
+    }
 
-	while (GetMapLine(i_top)[j] == 100) {
-		GetMapLine(i_top)[j] = 102; // marked
-		i_top--; // up
-	}
+    while (GetMapLine(i_bot)[j] == 100) {
+        GetMapLine(i_bot)[j] = 102; // marked
+        i_bot++; // down
+    }
 
-	while (GetMapLine(i_bot)[j] == 100) {
-		GetMapLine(i_bot)[j] = 102; // marked
-		i_bot++; // down
-	}
+    int ii = (i_top + i_bot) >> 1;
+    ln.A.ry() = i_top + i_bot; // 16x2
+    int thick = 0;
+    int jj = j;
 
-	int ii = (i_top + i_bot) >> 1;
-	ln.A.ry() = i_top + i_bot; // 16x2
+    do {
+        jj++; // step right
+        thick = 0;
 
-	int thick = 0;
-	int jj = j;
-	do {
-		jj++; // step right
-		thick = 0;
+        if (GetMapLine(ii)[jj] != 100) { // try step up or down
+            if (GetMapLine(ii - 1)[jj] == 100)
+                ii--;
 
-		if (GetMapLine(ii)[jj] != 100) // try step up or down
-		{
-			if (GetMapLine(ii - 1)[jj] == 100)
-				ii--;
-			else if (GetMapLine(ii + 1)[jj] == 100)
-				ii++;
-			else // line ended
-			{
-				ln.B.ry() = ii << 1; // 16x2
-				ln.B.rx() = (jj << 4) - 8; // 16x2, prev cell
-				break; // line stopped
-			}
-		};
+            else if (GetMapLine(ii + 1)[jj] == 100)
+                ii++;
 
-		// update center of line and sweep
-		i_top = ii;
-		i_bot = ii + 1;
-		while (GetMapLine(i_top)[jj] == 100) {
-			GetMapLine(i_top)[jj] = 102; // marked
-			i_top--; // up
-		}
-		while (GetMapLine(i_bot)[jj] == 100) {
-			GetMapLine(i_bot)[jj] = 102; // marked
-			i_bot++; // down
-		}
-		ii = (i_top + i_bot) >> 1;
-	} while (1);
+            else { // line ended
+                ln.B.ry() = ii << 1; // 16x2
+                ln.B.rx() = (jj << 4) - 8; // 16x2, prev cell
+                break; // line stopped
+            }
+        };
 
-	return (jj - j) > 3;
+        // update center of line and sweep
+        i_top = ii;
+
+        i_bot = ii + 1;
+
+        while (GetMapLine(i_top)[jj] == 100) {
+            GetMapLine(i_top)[jj] = 102; // marked
+            i_top--; // up
+        }
+
+        while (GetMapLine(i_bot)[jj] == 100) {
+            GetMapLine(i_bot)[jj] = 102; // marked
+            i_bot++; // down
+        }
+
+        ii = (i_top + i_bot) >> 1;
+    }
+    while (1);
+
+    return (jj - j) > 3;
 }
 
 int32_t HLiner_Analyze(void) // returns count of extracted lines
 {
-	int gap = 3; // count of zero cells on up and down direction
-	int wid = 3; // count of notzero cells on left or right side
-	int nHeight = xmImageMap.GetHeight();
-	int nWidth = xmImageMap.GetWidth();
+    int gap = 3; // count of zero cells on up and down direction
+    int wid = 3; // count of notzero cells on left or right side
+    int nHeight = xmImageMap.GetHeight();
+    int nWidth = xmImageMap.GetWidth();
+    int i(0);
 
-	int i(0);
-	for (i = gap; i < nHeight - gap - 1; i++) // by lines
-	{
-		uchar* line_hi = GetMapLine(i - gap);
-		uchar* line_on = GetMapLine(i);
-		uchar* line_lo = GetMapLine(i + gap);
-		for (int j = wid; j < nWidth - wid - 1; j++) // first column
-		{
-			if (!line_on[j])
-				continue;
+    for (i = gap; i < nHeight - gap - 1; i++) { // by lines
+        uchar* line_hi = GetMapLine(i - gap);
+        uchar* line_on = GetMapLine(i);
+        uchar* line_lo = GetMapLine(i + gap);
 
-			if (!(line_hi[j] + line_lo[j]) && (line_on[j - wid] + line_on[j
-					+ wid])) {
-				line_on[j] = 100; // seems to be line fragment
-			} else {
-				line_on[j] = 101;
-			}
-		}
-	}
+        for (int j = wid; j < nWidth - wid - 1; j++) { // first column
+            if (!line_on[j])
+                continue;
 
-	// замазываем дырки и убиваем одиночек
-	for (i = gap; i < nHeight - gap - 1; i++) // by lines
-	{
-		uchar* line_on = GetMapLine(i);
-		for (int j = wid; j < nWidth - wid - 1; j++) // first column
-		{
-			if (line_on[j] == 100) {
-				if (line_on[j - 1] != 100 && line_on[j + 1] != 100)
-					line_on[j] = 101; // kill
-			} else {
-				if (line_on[j - 1] == 100 && line_on[j + 1] == 100)
-					line_on[j] = 100; // recover
-					//            else if (line_on[j-2] == 100 && line_on[j+2]==100)
-					//               line_on[j] = 100; // recover
-			}
-		}
-	}
+            if (!(line_hi[j] + line_lo[j]) && (line_on[j - wid] + line_on[j
+                                                                          + wid])) {
+                line_on[j] = 100; // seems to be line fragment
+            }
 
-	// now link lines from start to end
-	//
-	uchar* line_on = NULL;
-	Line16 ln;
-	for (i = gap; i < nHeight - gap - 1; i++) // by lines
-	{
-		uchar* line_on = GetMapLine(i);
-		for (int j = wid; j < nWidth - wid - 1; j++) // first column
-		{
-			if (line_on[j] != 100)
-				continue;
-			// reach line cell
-			if (GetMapLine(i + 1)[j - 1] != 100 && GetMapLine(i)[j - 1] != 100
-					&& GetMapLine(i - 1)[j - 1] != 100) { // start new line
-				if (!_TraceLine(i, j, ln))
-					continue;
-				if (!xsLines.Push(&ln, NULL))
-					break;
-			}
-		}
-	}
+            else {
+                line_on[j] = 101;
+            }
+        }
+    }
 
-	if (!SnpSkip(&stnHLiner)) {
-		for (i = 0; i < xsLines.GetCurCnt(); i++) {
-			Line16& li = xsLines[i];
-			SnpDrawLine(&li.A, &li.B, 0, wRGB(255, 0, 255), 2, &stnHLiner);
-		}
-		SnpWaitUserInput(&stnHLiner);
-		SnpHideLines(&stnHLiner);
-	}
+    // замазываем дырки и убиваем одиночек
+    for (i = gap; i < nHeight - gap - 1; i++) { // by lines
+        uchar* line_on = GetMapLine(i);
 
-	xmImageMap.Destroy(); // free, currently not used later
+        for (int j = wid; j < nWidth - wid - 1; j++) { // first column
+            if (line_on[j] == 100) {
+                if (line_on[j - 1] != 100 && line_on[j + 1] != 100)
+                    line_on[j] = 101; // kill
+            }
 
-	return xsLines.GetCurCnt();
+            else {
+                if (line_on[j - 1] == 100 && line_on[j + 1] == 100)
+                    line_on[j] = 100; // recover
+
+                //            else if (line_on[j-2] == 100 && line_on[j+2]==100)
+                //               line_on[j] = 100; // recover
+            }
+        }
+    }
+
+    // now link lines from start to end
+    //
+    uchar* line_on = NULL;
+    Line16 ln;
+
+    for (i = gap; i < nHeight - gap - 1; i++) { // by lines
+        uchar* line_on = GetMapLine(i);
+
+        for (int j = wid; j < nWidth - wid - 1; j++) { // first column
+            if (line_on[j] != 100)
+                continue;
+
+            // reach line cell
+            if (GetMapLine(i + 1)[j - 1] != 100 && GetMapLine(i)[j - 1] != 100
+                    && GetMapLine(i - 1)[j - 1] != 100) { // start new line
+                if (!_TraceLine(i, j, ln))
+                    continue;
+
+                if (!xsLines.Push(&ln, NULL))
+                    break;
+            }
+        }
+    }
+
+    if (!SnpSkip(&stnHLiner)) {
+        for (i = 0; i < xsLines.GetCurCnt(); i++) {
+            Line16& li = xsLines[i];
+            SnpDrawLine(&li.A, &li.B, 0, wRGB(255, 0, 255), 2, &stnHLiner);
+        }
+
+        SnpWaitUserInput(&stnHLiner);
+        SnpHideLines(&stnHLiner);
+    }
+
+    xmImageMap.Destroy(); // free, currently not used later
+    return xsLines.GetCurCnt();
 }
 
-int32_t HLiner_GetCount(void) {
-	return xsLines.GetCurCnt();
+int32_t HLiner_GetCount(void)
+{
+    return xsLines.GetCurCnt();
 }
 
-Line16* HLiner_GetLine(int32_t nLineIndex) {
-	return &(xsLines[nLineIndex]);
+Line16* HLiner_GetLine(int32_t nLineIndex)
+{
+    return &(xsLines[nLineIndex]);
 } // 0..count-1
 // NULL - wrong index or not ready
 

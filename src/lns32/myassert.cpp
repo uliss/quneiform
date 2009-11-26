@@ -69,27 +69,28 @@ void my_assert_fail(const char *__cond, const char *__file, int __line);
 #define __ASM asm
 #endif
 
-void my_assert_fail(const char *__cond, const char *__file, int __line) {
-
+void my_assert_fail(const char *__cond, const char *__file, int __line)
+{
 #if defined( _Windows ) || defined( WIN32 )
-	char mess[500];
-	sprintf( mess,
-			" %s file %s, line %d\n Continue (Yes),Breakpoint(No) or Cancel?",
-			__cond, __file, __line);
-	OutputDebugString(mess);
-
-	return;
-
+    char mess[500];
+    sprintf( mess,
+             " %s file %s, line %d\n Continue (Yes),Breakpoint(No) or Cancel?",
+             __cond, __file, __line);
+    OutputDebugString(mess);
+    return;
 #else
-	int c(0);
-	printf("\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line);
-	printf("\nPress <Space> to continue execution, <Esc> to abort");
+    int c(0);
+    printf("\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line);
+    printf("\nPress <Space> to continue execution, <Esc> to abort");
 
-	do {
-		c = getchar();
-	} while ((c != 32) && (c != 27) && (c != EOF));
-	if (c == 27)
-		exit(0);
-	printf("..OK");
+    do {
+        c = getchar();
+    }
+    while ((c != 32) && (c != 27) && (c != EOF));
+
+    if (c == 27)
+        exit(0);
+
+    printf("..OK");
 #endif
 }

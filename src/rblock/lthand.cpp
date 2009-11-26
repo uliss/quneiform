@@ -78,17 +78,13 @@ void BlocksCutPageEdges ()
 {
     BLOCK * p;
     BLOCK * pNext;
-
     int x1, y1;
     int x2, y2;
-
     int xLeftBlockEdge;
     int xRightBlockEdge;
-
     pNext = pBlocksList;
 
-    while (pNext != NULL)
-    {
+    while (pNext != NULL) {
         p = pNext;
         pNext = pNext -> pNext;
 
@@ -99,30 +95,24 @@ void BlocksCutPageEdges ()
         y1 = p -> Rect.yTop;
         x2 = p -> Rect.xLeft;
         y2 = p -> Rect.yBottom;
-
         REAL_XY (x1, y1);
         REAL_XY (x2, y2);
-
         xLeftBlockEdge = MIN (x1, x2);
-
         x1 = p -> Rect.xRight;
         y1 = p -> Rect.yTop;
         x2 = p -> Rect.xRight;
         y2 = p -> Rect.yBottom;
-
         REAL_XY (x1, y1);
         REAL_XY (x2, y2);
-
         xRightBlockEdge = MAX (x1, x2);
 
-	if (cut_page_left                          &&
-            xLeftBlockEdge  < 32                   &&
-            xRightBlockEdge < xLastImagePixel / 2
+        if (cut_page_left                          &&
+                xLeftBlockEdge  < 32                   &&
+                xRightBlockEdge < xLastImagePixel / 2
                 ||
-	    cut_page_right                         &&
-            xRightBlockEdge > xLastImagePixel - 32 &&
-            xLeftBlockEdge  > xLastImagePixel / 2)
-        {
+                cut_page_right                         &&
+                xRightBlockEdge > xLastImagePixel - 32 &&
+                xLeftBlockEdge  > xLastImagePixel / 2) {
             BlockRemove (p);
         }
     }

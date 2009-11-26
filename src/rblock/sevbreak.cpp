@@ -84,8 +84,7 @@ Bool StringBreakOnVertical (STRING *p,  int x,
 
     iLettersLimit = i;
 
-    if (iLettersLimit == 0 || iLettersLimit == p -> nLetters)
-    {
+    if (iLettersLimit == 0 || iLettersLimit == p -> nLetters) {
         return (FALSE);
     }
 
@@ -94,26 +93,22 @@ Bool StringBreakOnVertical (STRING *p,  int x,
             break;
 
     iDustLimit = i;
-
     pRootLastInQ  = &pRoots [p -> pLettersList [iLettersLimit - 1]];
     pRootFirstInR = &pRoots [p -> pLettersList [iLettersLimit]];
-
     String = *p;
     String.nLetters    = iLettersLimit;
     String.nDust       = iDustLimit;
     String.uFlags      |= SF_NEED_UPDATE;
     String.xRight      = pRootLastInQ -> xColumn + pRootLastInQ -> nWidth;
-
 # ifdef SE_DEBUG
+
     if (SE_DebugGraphicsLevel >= 4)
         LT_GraphicsCurrentStringOutput ("First part of breaked string");
-# endif
 
+# endif
     *pq = StringAddToList ();
     (*pq) -> uFlags |= (SF_NEED_UPDATE | SF_VERTCUT);  // 940223 AL
-
     StringCountRecog (*pq);   // 940223  AL
-
     String = *p;
     String.pLettersList += iLettersLimit;
     String.nLetters     -= iLettersLimit;
@@ -121,16 +116,15 @@ Bool StringBreakOnVertical (STRING *p,  int x,
     String.nDust        -= iDustLimit;
     String.uFlags       |= SF_NEED_UPDATE;
     String.xLeft        = pRootFirstInR -> xColumn;
-
 # ifdef SE_DEBUG
+
     if (SE_DebugGraphicsLevel >= 4)
         LT_GraphicsCurrentStringOutput ("Second part of breaked string");
-# endif
 
+# endif
     *pr = StringAddToList ();
     (*pr) -> uFlags |= (SF_NEED_UPDATE | SF_VERTCUT);  // 940223 AL
     StringCountRecog (*pr);   // 940223   AL
-
     p -> uFlags |= SF_NEED_DELETE;
     return (TRUE);
 }
@@ -148,13 +142,11 @@ static Bool CheckIntervalsAndProcessString
     STRING *q, *r;
     int xCrossEnd, xCrossBegin;
 
-    if (xDustBegin - xDustEnd < nBigDistance)
-    {
+    if (xDustBegin - xDustEnd < nBigDistance) {
         return (FALSE);
     }
 
-    if (xLetBegin < xDustEnd || xDustBegin < xLetEnd)
-    {
+    if (xLetBegin < xDustEnd || xDustBegin < xLetEnd) {
         return (FALSE);
     }
 
@@ -162,8 +154,7 @@ static Bool CheckIntervalsAndProcessString
     xCrossBegin = MIN (xLetBegin, xDustBegin);
 
     if (xCrossBegin - xCrossEnd >= nBigDistance &&
-        StringBreakOnVertical (p, (xCrossBegin+xCrossEnd) / 2, &q, &r))
-    {
+            StringBreakOnVertical (p, (xCrossBegin + xCrossEnd) / 2, &q, &r)) {
         StringProcessVerticalBreaking (q);
         StringProcessVerticalBreaking (r);
         return (TRUE);
@@ -182,20 +173,17 @@ static Bool StringProcessVerticalBreaking (STRING *p)
     ROOT *pLet1,  *pLet2;
     ROOT *pDust1, *pDust2;
 
-    for (i = 0; i < nSeps; i++)
-    {
+    for (i = 0; i < nSeps; i++) {
         if (pSeps [i].Type != SEP_VERT)
             continue;
 
         x = (pSeps [i].xBegin + pSeps [i].xEnd) / 2;
 
         if (x > p -> xLeft                       &&
-            x < p -> xRight                      &&
-            pSeps [i].yBegin < p -> yMiddleTop   &&
-            pSeps [i].yEnd   > p -> yMiddleBottom)
-        {
-            if (StringBreakOnVertical (p, x, &q, &r))
-            {
+                x < p -> xRight                      &&
+                pSeps [i].yBegin < p -> yMiddleTop   &&
+                pSeps [i].yEnd   > p -> yMiddleBottom) {
+            if (StringBreakOnVertical (p, x, &q, &r)) {
                 StringProcessVerticalBreaking (q);
                 StringProcessVerticalBreaking (r);
                 return (TRUE);
@@ -204,51 +192,46 @@ static Bool StringProcessVerticalBreaking (STRING *p)
     }
 
     if (p -> nLetters > 30 &&
-        p -> nTopDispersion     > p -> nMiddleHeight / 10 &&
-        p -> nBottomDispersion  > p -> nMiddleHeight / 10)
-    {
-
+            p -> nTopDispersion     > p -> nMiddleHeight / 10 &&
+            p -> nBottomDispersion  > p -> nMiddleHeight / 10) {
         String = *p;
-
 # ifdef SE_DEBUG
+
         if (SE_DebugGraphicsLevel >= 1)
             LT_GraphicsCurrentStringOutput ("May be shifted string");
+
 # endif
     }
 
     //   Search for big spaces in string
 
-    if (p -> nLetters == 0)
-    {
+    if (p -> nLetters == 0) {
         return (FALSE);
     }
 
     pLet2 = &pRoots [p -> pLettersList [0]];
 
-    for (i = 1; i < p -> nLetters; i++)
-    {
+    for (i = 1; i < p -> nLetters; i++) {
         pLet1 = pLet2;
         pLet2 = &pRoots [p -> pLettersList [i]];
-
         xLetEnd   = pLet1 -> xColumn + pLet1 -> nWidth - 1;
         xLetBegin = pLet2 -> xColumn;
 
         if (xLetBegin - xLetEnd < nBigDistance)
             continue;
-/*
-        if (StringBreakOnVertical (p, (xLetBegin + xLetEnd) / 2, &q, &r))
-        {
-            StringProcessVerticalBreaking (q);
-            StringProcessVerticalBreaking (r);
-            return (TRUE);
-        }
-*/
+
+        /*
+                if (StringBreakOnVertical (p, (xLetBegin + xLetEnd) / 2, &q, &r))
+                {
+                    StringProcessVerticalBreaking (q);
+                    StringProcessVerticalBreaking (r);
+                    return (TRUE);
+                }
+        */
         // Case: no dust
 
-        if (p -> nDust == 0)
-        {
-            if (StringBreakOnVertical (p, (xLetBegin + xLetEnd) / 2, &q, &r))
-            {
+        if (p -> nDust == 0) {
+            if (StringBreakOnVertical (p, (xLetBegin + xLetEnd) / 2, &q, &r)) {
                 StringProcessVerticalBreaking (q);
                 StringProcessVerticalBreaking (r);
                 return (TRUE);
@@ -258,49 +241,42 @@ static Bool StringProcessVerticalBreaking (STRING *p)
         }
 
         // Case : no dust at the beginning of string
-
         pDust2 = &pRoots [p -> pDustList [0]];
 
         if (CheckIntervalsAndProcessString (p,
-                nBigDistance,
-                xLetEnd,
-                xLetBegin,
-                p -> xLeft,
-                pDust2 -> xColumn))
-        {
+                                            nBigDistance,
+                                            xLetEnd,
+                                            xLetBegin,
+                                            p -> xLeft,
+                                            pDust2 -> xColumn)) {
             return (TRUE);
         }
 
         // Case : no dust at the end of string
-
         pDust1 = &pRoots [p -> pDustList [p -> nDust - 1]];
 
         if (CheckIntervalsAndProcessString (p,
-                nBigDistance,
-                xLetEnd,
-                xLetBegin,
-                pDust1 -> xColumn + pDust1 -> nWidth - 1,
-                p -> xRight))
-        {
+                                            nBigDistance,
+                                            xLetEnd,
+                                            xLetBegin,
+                                            pDust1 -> xColumn + pDust1 -> nWidth - 1,
+                                            p -> xRight)) {
             return (TRUE);
         }
 
         // Case : regular
-
         pDust2 = &pRoots [p -> pDustList [0]];
 
-        for (j = 1; j < p -> nDust; j++)
-        {
+        for (j = 1; j < p -> nDust; j++) {
             pDust1 = pDust2;
             pDust2 = &pRoots [p -> pDustList [j]];
 
             if (CheckIntervalsAndProcessString (p,
-                    nBigDistance,
-                    xLetEnd,
-                    xLetBegin,
-                    pDust1 -> xColumn + pDust1 -> nWidth - 1,
-                    pDust2 -> xColumn))
-            {
+                                                nBigDistance,
+                                                xLetEnd,
+                                                xLetBegin,
+                                                pDust1 -> xColumn + pDust1 -> nWidth - 1,
+                                                pDust2 -> xColumn)) {
                 return (TRUE);
             }
         }
@@ -312,18 +288,17 @@ static Bool StringProcessVerticalBreaking (STRING *p)
 void StringsBreakOnVertical (void)
 {
     STRING *pString;
+AGAIN:
 
-  AGAIN:
-    for (pString = pStringsList; pString != NULL; pString = pString -> pNext)
-    {
+    for (pString = pStringsList; pString != NULL; pString = pString -> pNext) {
         if (pString -> uFlags
-            & (SF_NEED_UPDATE | SF_NEED_DELETE | SF_DONT_VBREAK))
-        {
+                & (SF_NEED_UPDATE | SF_NEED_DELETE | SF_DONT_VBREAK)) {
             continue;
         }
 
         if (StringProcessVerticalBreaking (pString))
             goto AGAIN;
+
         else
             pString -> uFlags |= SF_DONT_VBREAK;
     }

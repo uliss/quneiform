@@ -78,761 +78,863 @@ extern int32_t leo_MSK_ndx[];
 
 unsigned char alphabet[256];
 
-Bool32 leo_add_vers(RecVersions *dst, RecVersions *src) {
-	int i, j;
-	if (!src->lnAltCnt)
-		return FALSE;
-	for (i = dst->lnAltCnt, j = 0; i < REC_MAX_VERS && j < src->lnAltCnt; i++, j++)
-		dst->Alt[i] = src->Alt[j];
-	dst->lnAltCnt = i;
-	return TRUE;
+Bool32 leo_add_vers(RecVersions *dst, RecVersions *src)
+{
+    int i, j;
+
+    if (!src->lnAltCnt)
+        return FALSE;
+
+    for (i = dst->lnAltCnt, j = 0; i < REC_MAX_VERS && j < src->lnAltCnt; i++, j++)
+        dst->Alt[i] = src->Alt[j];
+
+    dst->lnAltCnt = i;
+    return TRUE;
 }
 
-int leo_exist_code(RecVersions *ver, uchar code) {
-	for (int i = 0; i < ver->lnAltCnt; i++) {
-		if (ver->Alt[i].Code == code)
-			return i;
-	}
-	return -1;
+int leo_exist_code(RecVersions *ver, uchar code)
+{
+    for (int i = 0; i < ver->lnAltCnt; i++) {
+        if (ver->Alt[i].Code == code)
+            return i;
+    }
+
+    return -1;
 }
 
-int leo_exist_codes(RecVersions *ver, uchar *codes) {
-	for (int i = 0; i < ver->lnAltCnt; i++) {
-		if (strchr((char*) codes, ver->Alt[i].Code))
-			return 1;
-	}
-	return 0;
+int leo_exist_codes(RecVersions *ver, uchar *codes)
+{
+    for (int i = 0; i < ver->lnAltCnt; i++) {
+        if (strchr((char*) codes, ver->Alt[i].Code))
+            return 1;
+    }
+
+    return 0;
 }
 
-int32_t cmp_prob_info(const void *a, const void *b) {
-	return static_cast<int> (((RecAlt *) a)->Info) - (int32_t)(
-			((RecAlt *) b)->Info);
+int32_t cmp_prob_info(const void *a, const void *b)
+{
+    return static_cast<int> (((RecAlt *) a)->Info) - (int32_t)(
+               ((RecAlt *) b)->Info);
 }
 
-int leo_sort_vers_info(RecVersions *v) {
-	stdQsort(v->Alt, v->lnAltCnt, sizeof(RecAlt), cmp_prob_info);
-	return v->lnAltCnt;
+int leo_sort_vers_info(RecVersions *v)
+{
+    stdQsort(v->Alt, v->lnAltCnt, sizeof(RecAlt), cmp_prob_info);
+    return v->lnAltCnt;
 }
 
-int32_t cmp_prob(const void *a, const void *b) {
-	return static_cast<int> (((RecAlt *) b)->Prob) - (int32_t)(
-			((RecAlt *) a)->Prob);
+int32_t cmp_prob(const void *a, const void *b)
+{
+    return static_cast<int> (((RecAlt *) b)->Prob) - (int32_t)(
+               ((RecAlt *) a)->Prob);
 }
 
-int leo_sort_vers_prob(RecVersions *v) {
-	int i, n0, n1;
-	uchar c0, c1;
-	RecAlt a0, a1;
-	stdQsort(v->Alt, v->lnAltCnt, sizeof(RecAlt), cmp_prob);
-	if (v->lnAltCnt > 1 && v->Alt[0].Prob == v->Alt[1].Prob) {
-		c0 = v->Alt[0].Code;
-		c1 = v->Alt[1].Code;
-		a0 = v->Alt[0];
-		a1 = v->Alt[1];
+int leo_sort_vers_prob(RecVersions *v)
+{
+    int i, n0, n1;
+    uchar c0, c1;
+    RecAlt a0, a1;
+    stdQsort(v->Alt, v->lnAltCnt, sizeof(RecAlt), cmp_prob);
 
-		for (n1 = n0 = i = 0; i < v->lnAltCnt; i++) {
-			n0 += (v->Alt[i].Code == c0);
-			n1 += (v->Alt[i].Code == c1);
-		}
-		if (n1 > n0) {
-			v->Alt[0] = a1;
-			v->Alt[1] = a0;
+    if (v->lnAltCnt > 1 && v->Alt[0].Prob == v->Alt[1].Prob) {
+        c0 = v->Alt[0].Code;
+        c1 = v->Alt[1].Code;
+        a0 = v->Alt[0];
+        a1 = v->Alt[1];
 
-		}
-	}
-	return v->lnAltCnt;
+        for (n1 = n0 = i = 0; i < v->lnAltCnt; i++) {
+            n0 += (v->Alt[i].Code == c0);
+            n1 += (v->Alt[i].Code == c1);
+        }
+
+        if (n1 > n0) {
+            v->Alt[0] = a1;
+            v->Alt[1] = a0;
+        }
+    }
+
+    return v->lnAltCnt;
 }
 
-void leo_clear(RecVersions *v) {
-	RecVersions c;
-	int j = 0;
+void leo_clear(RecVersions *v)
+{
+    RecVersions c;
+    int j = 0;
+    memcpy(&c, v, sizeof(RecVersions));
 
-	memcpy(&c, v, sizeof(RecVersions));
-	for (int i = 0; i < v->lnAltCnt; i++) {
-		if (c.Alt[i].Prob > MIN_PROB) {
-			memcpy(&v->Alt[j++], &c.Alt[i], sizeof(RecAlt));
-		}
-	}
+    for (int i = 0; i < v->lnAltCnt; i++) {
+        if (c.Alt[i].Prob > MIN_PROB) {
+            memcpy(&v->Alt[j++], &c.Alt[i], sizeof(RecAlt));
+        }
+    }
 
-	v->lnAltCnt = j;
+    v->lnAltCnt = j;
 }
 
-void leo_compress(RecVersions *v) {
-	uchar alph[256];
-	RecVersions c;
-	int i, j;
+void leo_compress(RecVersions *v)
+{
+    uchar alph[256];
+    RecVersions c;
+    int i, j;
+    memcpy(&c, v, sizeof(RecVersions));
+    memset(alph, 0, 256);
 
-	memcpy(&c, v, sizeof(RecVersions));
-	memset(alph, 0, 256);
-	for (j = i = 0; i < v->lnAltCnt; i++) {
-		if (!alph[c.Alt[i].Code]) {
-			alph[c.Alt[i].Code] = 1;
-			memcpy(&v->Alt[j++], &c.Alt[i], sizeof(RecAlt));
-		}
-	}
+    for (j = i = 0; i < v->lnAltCnt; i++) {
+        if (!alph[c.Alt[i].Code]) {
+            alph[c.Alt[i].Code] = 1;
+            memcpy(&v->Alt[j++], &c.Alt[i], sizeof(RecAlt));
+        }
+    }
 
-	v->lnAltCnt = j;
+    v->lnAltCnt = j;
 }
 
-void leo_decode_to_ansi(RecVersions *v) {
-	for (int i = 0; i < v->lnAltCnt; i++)
-		v->Alt[i].Code = stdAsciiToAnsi(v->Alt[i].Code);
+void leo_decode_to_ansi(RecVersions *v)
+{
+    for (int i = 0; i < v->lnAltCnt; i++)
+        v->Alt[i].Code = stdAsciiToAnsi(v->Alt[i].Code);
 }
 
-void leo_decode_to_acsii(RecVersions *v) {
-	for (int i = 0; i < v->lnAltCnt; i++)
-		v->Alt[i].Code = stdAnsiToAscii(v->Alt[i].Code);
+void leo_decode_to_acsii(RecVersions *v)
+{
+    for (int i = 0; i < v->lnAltCnt; i++)
+        v->Alt[i].Code = stdAnsiToAscii(v->Alt[i].Code);
 }
 
-void LeoAddOneProb(int Probs[], int Code, int Prob) {
-	int p = Probs[Code];
-	Probs[Code] = p + Prob - p * Prob / 255;
+void LeoAddOneProb(int Probs[], int Code, int Prob)
+{
+    int p = Probs[Code];
+    Probs[Code] = p + Prob - p * Prob / 255;
 }
 
-void LeoAddPVers(int Probs[], RecVersions *v) {
-	RecVersions ver;
-	memcpy(&ver, v, sizeof(ver));
-	for (int i = 0; i < ver.lnAltCnt; i++)
-		LeoAddOneProb(Probs, ver.Alt[i].Code, ver.Alt[i].Prob);
+void LeoAddPVers(int Probs[], RecVersions *v)
+{
+    RecVersions ver;
+    memcpy(&ver, v, sizeof(ver));
+
+    for (int i = 0; i < ver.lnAltCnt; i++)
+        LeoAddOneProb(Probs, ver.Alt[i].Code, ver.Alt[i].Prob);
 }
 
-void LeoAddToVer(int Probs[], RecVersions *v) {
-	int i, ii;
-	for (ii = v->lnAltCnt, i = 0; i < 256; i++)
-		if (Probs[i]) {
-			v->Alt[ii].Code = i;
-			v->Alt[ii].CodeExt = 0;
-			v->Alt[ii].Method = REC_METHOD_FINAL;
-			v->Alt[ii].Prob = Probs[i];
-			ii++;
-		}
-	v->lnAltCnt = ii;
+void LeoAddToVer(int Probs[], RecVersions *v)
+{
+    int i, ii;
+
+    for (ii = v->lnAltCnt, i = 0; i < 256; i++)
+        if (Probs[i]) {
+            v->Alt[ii].Code = i;
+            v->Alt[ii].CodeExt = 0;
+            v->Alt[ii].Method = REC_METHOD_FINAL;
+            v->Alt[ii].Prob = Probs[i];
+            ii++;
+        }
+
+    v->lnAltCnt = ii;
 }
 
-void leoProbsToVer_expert(int Probs[], RecVersions *v, RecVersions *mod) {
-	int i, ii;
-	for (ii = i = 0; i < mod->lnAltCnt; i++)
-		if (Probs[mod->Alt[i].Code]) {
-			v->Alt[ii].Code = mod->Alt[i].Code;
-			v->Alt[ii].CodeExt = 0;
-			v->Alt[ii].Method = REC_METHOD_FINAL;
-			v->Alt[ii].Prob = Probs[mod->Alt[i].Code];
-			ii++;
-		}
-	v->lnAltCnt = ii;
-	v->lnAltMax = REC_MAX_VERS;
+void leoProbsToVer_expert(int Probs[], RecVersions *v, RecVersions *mod)
+{
+    int i, ii;
+
+    for (ii = i = 0; i < mod->lnAltCnt; i++)
+        if (Probs[mod->Alt[i].Code]) {
+            v->Alt[ii].Code = mod->Alt[i].Code;
+            v->Alt[ii].CodeExt = 0;
+            v->Alt[ii].Method = REC_METHOD_FINAL;
+            v->Alt[ii].Prob = Probs[mod->Alt[i].Code];
+            ii++;
+        }
+
+    v->lnAltCnt = ii;
+    v->lnAltMax = REC_MAX_VERS;
 }
 
-void LeoProbsToVer(int Probs[], RecVersions *v) {
-	int i, ii, mmin;
+void LeoProbsToVer(int Probs[], RecVersions *v)
+{
+    int i, ii, mmin;
 
-	do {
-		for (mmin = 255, ii = i = 0; i < 256; i++) {
-			if (Probs[i]) {
-				ii++;
+    do {
+        for (mmin = 255, ii = i = 0; i < 256; i++) {
+            if (Probs[i]) {
+                ii++;
 
-				if (Probs[i] < mmin)
-					mmin = Probs[i];
-			}
-		}
+                if (Probs[i] < mmin)
+                    mmin = Probs[i];
+            }
+        }
 
-		if (ii > REC_MAX_VERS) {
-			for (i = 0; i < 256; i++)
-				if (Probs[i] == mmin)
-					Probs[i] = 0;
-		}
-	} while (ii > REC_MAX_VERS);
+        if (ii > REC_MAX_VERS) {
+            for (i = 0; i < 256; i++)
+                if (Probs[i] == mmin)
+                    Probs[i] = 0;
+        }
+    }
+    while (ii > REC_MAX_VERS);
 
-	for (ii = i = 0; i < 256; i++)
-		if (Probs[i] && ii < v->lnAltMax) {
-			v->Alt[ii].Code = i;
-			v->Alt[ii].CodeExt = 0;
-			v->Alt[ii].Method = REC_METHOD_FINAL;
-			v->Alt[ii].Prob = Probs[i];
-			ii++;
-		}
-	v->lnAltCnt = ii;
-	v->lnAltMax = REC_MAX_VERS;
+    for (ii = i = 0; i < 256; i++)
+        if (Probs[i] && ii < v->lnAltMax) {
+            v->Alt[ii].Code = i;
+            v->Alt[ii].CodeExt = 0;
+            v->Alt[ii].Method = REC_METHOD_FINAL;
+            v->Alt[ii].Prob = Probs[i];
+            ii++;
+        }
+
+    v->lnAltCnt = ii;
+    v->lnAltMax = REC_MAX_VERS;
 }
 
-void leo_kill(RecVersions *v, uchar *kill_list) {
-	if (!v->lnAltCnt)
-		return;
-	int l = strlen((char*) kill_list);
-	for (int i = 0; i < REC_MAX_VERS && i < v->lnAltCnt; i++) {
-		if (memchr(kill_list, v->Alt[i].Code, l))
-			v->Alt[i].Prob = 1;
-	}
+void leo_kill(RecVersions *v, uchar *kill_list)
+{
+    if (!v->lnAltCnt)
+        return;
+
+    int l = strlen((char*) kill_list);
+
+    for (int i = 0; i < REC_MAX_VERS && i < v->lnAltCnt; i++) {
+        if (memchr(kill_list, v->Alt[i].Code, l))
+            v->Alt[i].Prob = 1;
+    }
 }
 
-void VersToAlph(RecVersions *ver, uchar alphabet0[]) {
-	for (int i = 0; i < ver->lnAltCnt; i++)
-		alphabet0[ver->Alt[i].Code] = 1;
+void VersToAlph(RecVersions *ver, uchar alphabet0[])
+{
+    for (int i = 0; i < ver->lnAltCnt; i++)
+        alphabet0[ver->Alt[i].Code] = 1;
 }
 
-uchar leo_get_prob(RecVersions *v, uchar let) {
-	for (int i = 0; i < v->lnAltCnt; i++)
-		if (v->Alt[i].Code == let)
-			return v->Alt[i].Prob;
+uchar leo_get_prob(RecVersions *v, uchar let)
+{
+    for (int i = 0; i < v->lnAltCnt; i++)
+        if (v->Alt[i].Code == let)
+            return v->Alt[i].Prob;
 
-	return 0;
+    return 0;
 }
 
-void leo_special_iva(RecVersions *v, RecRaster *recR) {
-	uchar alphabet0[256];
-	if (leo_alpha_type == ALPH_ROM) {
-		if (v->lnAltCnt < 2 || v->Alt[0].Code == v->Alt[1].Code)
-			return; // too few versions
-		if (v->Alt[0].Prob - v->Alt[1].Prob < 5) {
-			memset(alphabet0, 0, 256);
-			VersToAlph(v, alphabet0);
-			MSKRecogCharExp(leo_MSK_ndx[0], recR, v);
-			leo_compress(v);
-			leo_sort_vers_prob(v);
-		}
-	}
-	if (v->lnAltCnt < 3 || v->Alt[0].Code == v->Alt[1].Code)
-		return; // too few versions
-	if (v->Alt[0].Prob - v->Alt[2].Prob < 5) {
-		memset(alphabet0, 0, 256);
-		VersToAlph(v, alphabet0);
-		MSKRecogCharExp(leo_MSK_ndx[0], recR, v);
-		leo_compress(v);
-		leo_sort_vers_prob(v);
-	}
+void leo_special_iva(RecVersions *v, RecRaster *recR)
+{
+    uchar alphabet0[256];
+
+    if (leo_alpha_type == ALPH_ROM) {
+        if (v->lnAltCnt < 2 || v->Alt[0].Code == v->Alt[1].Code)
+            return; // too few versions
+
+        if (v->Alt[0].Prob - v->Alt[1].Prob < 5) {
+            memset(alphabet0, 0, 256);
+            VersToAlph(v, alphabet0);
+            MSKRecogCharExp(leo_MSK_ndx[0], recR, v);
+            leo_compress(v);
+            leo_sort_vers_prob(v);
+        }
+    }
+
+    if (v->lnAltCnt < 3 || v->Alt[0].Code == v->Alt[1].Code)
+        return; // too few versions
+
+    if (v->Alt[0].Prob - v->Alt[2].Prob < 5) {
+        memset(alphabet0, 0, 256);
+        VersToAlph(v, alphabet0);
+        MSKRecogCharExp(leo_MSK_ndx[0], recR, v);
+        leo_compress(v);
+        leo_sort_vers_prob(v);
+    }
 }
 
-void leo_over(RecVersions *ver, RecVersions *alph) {
-	int i, k;
-	RecVersions loc;
-	if (ver->lnAltCnt < 1)
-		return;
-	memcpy(&loc, ver, sizeof(RecVersions));
-	for (k = i = 0; i < loc.lnAltCnt; i++)
-		if (leo_exist_code(alph, loc.Alt[i].Code) != -1) {
-			memcpy(&ver->Alt[k++], &loc.Alt[i], sizeof(RecAlt));
-		}
-	ver->lnAltCnt = k;
+void leo_over(RecVersions *ver, RecVersions *alph)
+{
+    int i, k;
+    RecVersions loc;
+
+    if (ver->lnAltCnt < 1)
+        return;
+
+    memcpy(&loc, ver, sizeof(RecVersions));
+
+    for (k = i = 0; i < loc.lnAltCnt; i++)
+        if (leo_exist_code(alph, loc.Alt[i].Code) != -1) {
+            memcpy(&ver->Alt[k++], &loc.Alt[i], sizeof(RecAlt));
+        }
+
+    ver->lnAltCnt = k;
 }
 
 int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster */*r*/,
-		uchar prob_3x5, uchar /*prob_iva*/) {
-	RecVersions loc;
-	loc.lnAltMax = REC_MAX_VERS;
-	loc.Alt[0].Code = Code;
-	loc.lnAltCnt = 1;
+                     uchar prob_3x5, uchar /*prob_iva*/)
+{
+    RecVersions loc;
+    loc.lnAltMax = REC_MAX_VERS;
+    loc.Alt[0].Code = Code;
+    loc.lnAltCnt = 1;
 
-	if (!prob_3x5) {
-		R35RecogCharIm3x5_expert(v3x5, &loc);
-		prob_3x5 = loc.Alt[0].Prob;
-	}
-	return prob_3x5;
+    if (!prob_3x5) {
+        R35RecogCharIm3x5_expert(v3x5, &loc);
+        prob_3x5 = loc.Alt[0].Prob;
+    }
+
+    return prob_3x5;
 }
 
 int leo_expert_recog_prn(uchar Code, RecRaster *raster, uint16_t *v3x5,
-		uchar prob_3x5, Bool32 enable5x3) {
-	RecVersions loc;
-	uchar wide_letters[] = { 134, 140, 148, 152, 153, 155, 158, 166, 172, 228,
-			232, 233, 235, 238 };// ж   м   ф   ш   щ   ы   ю
-	uint16_t v5x3[16];
-	loc.lnAltMax = REC_MAX_VERS;
-	loc.Alt[0].Code = Code;
-	loc.lnAltCnt = 1;
+                         uchar prob_3x5, Bool32 enable5x3)
+{
+    RecVersions loc;
+    uchar wide_letters[] = { 134, 140, 148, 152, 153, 155, 158, 166, 172, 228,
+                             232, 233, 235, 238
+                           };// ж   м   ф   ш   щ   ы   ю
+    uint16_t v5x3[16];
+    loc.lnAltMax = REC_MAX_VERS;
+    loc.Alt[0].Code = Code;
+    loc.lnAltCnt = 1;
 
-	if (enable5x3 && memchr(wide_letters, Code, sizeof(wide_letters))) {
-		R35Pack(raster, v5x3, 5, 3);
-		R35RecogPrintCharIm3x5_expert(v5x3, &loc, TRUE); // 5x3
-		prob_3x5 = loc.Alt[0].Prob;
-	} else if (!prob_3x5) {
-		R35RecogPrintCharIm3x5_expert(v3x5, &loc, FALSE); // 5x3
-		prob_3x5 = loc.Alt[0].Prob;
-	}
+    if (enable5x3 && memchr(wide_letters, Code, sizeof(wide_letters))) {
+        R35Pack(raster, v5x3, 5, 3);
+        R35RecogPrintCharIm3x5_expert(v5x3, &loc, TRUE); // 5x3
+        prob_3x5 = loc.Alt[0].Prob;
+    }
 
-	loc.Alt[0].Prob = prob_3x5;
+    else if (!prob_3x5) {
+        R35RecogPrintCharIm3x5_expert(v3x5, &loc, FALSE); // 5x3
+        prob_3x5 = loc.Alt[0].Prob;
+    }
 
-	if (loc.Alt[0].Prob < 1)
-		loc.Alt[0].Prob = 1;
+    loc.Alt[0].Prob = prob_3x5;
 
-	return loc.Alt[0].Prob;
+    if (loc.Alt[0].Prob < 1)
+        loc.Alt[0].Prob = 1;
+
+    return loc.Alt[0].Prob;
 }
 
-void leo_set_max_vers(RecVersions *v, int p) {
-	if (p < 1)
-		p = 1;
-	int n = v->lnAltCnt;
-	int pold = v->Alt[0].Prob;
-	v->Alt[0].Prob = p;
-	if (n > 1) {
-		for (int i = 1; i < n; i++) {
-			v->Alt[i].Prob = (v->Alt[i].Prob * p) / pold;
-			if (v->Alt[i].Prob < 1)
-				v->Alt[i].Prob = 1;
-		}
-	}
+void leo_set_max_vers(RecVersions *v, int p)
+{
+    if (p < 1)
+        p = 1;
+
+    int n = v->lnAltCnt;
+    int pold = v->Alt[0].Prob;
+    v->Alt[0].Prob = p;
+
+    if (n > 1) {
+        for (int i = 1; i < n; i++) {
+            v->Alt[i].Prob = (v->Alt[i].Prob * p) / pold;
+
+            if (v->Alt[i].Prob < 1)
+                v->Alt[i].Prob = 1;
+        }
+    }
 }
 
 void leo_expert_prob(RecVersions *v, uint16_t *v3x5, RecRaster *r,
-		uchar prob_3x5[], uchar prob_iva[], int32_t prn, Bool32 bonus,
-		Bool32 enable5x3) {
-	if (v->lnAltCnt < 1)
-		return;
+                     uchar prob_3x5[], uchar prob_iva[], int32_t prn, Bool32 bonus,
+                     Bool32 enable5x3)
+{
+    if (v->lnAltCnt < 1)
+        return;
 
-	int p, pold;
-	switch (prn) {
-	case 1:
-		pold = v->Alt[0].Prob;
-		p = leo_expert_recog_prn(v->Alt[0].Code, r, v3x5,
-				prob_3x5[v->Alt[0].Code], enable5x3);
-		if (bonus && pold > p)
-			p = (p + pold) / 2;
-		break;
-	case 0:
-		p = leo_expert_recog(v->Alt[0].Code, v3x5, r, prob_3x5[v->Alt[0].Code],
-				prob_iva[v->Alt[0].Code]);
-		if (leo_alpha_type != ALPH_ROM) {
-			if (leo_alpha_type == ALPH_DIG)
-				p = (p * 246) / 255;
-			else
-				p = (p * 200) / 255;
-		}
-		break;
-	default:
-		p = prn;
-		break;
-	}
+    int p, pold;
 
-	leo_set_max_vers(v, p);
+    switch (prn) {
+        case 1:
+            pold = v->Alt[0].Prob;
+            p = leo_expert_recog_prn(v->Alt[0].Code, r, v3x5,
+                                     prob_3x5[v->Alt[0].Code], enable5x3);
+
+            if (bonus && pold > p)
+                p = (p + pold) / 2;
+
+            break;
+        case 0:
+            p = leo_expert_recog(v->Alt[0].Code, v3x5, r, prob_3x5[v->Alt[0].Code],
+                                 prob_iva[v->Alt[0].Code]);
+
+            if (leo_alpha_type != ALPH_ROM) {
+                if (leo_alpha_type == ALPH_DIG)
+                    p = (p * 246) / 255;
+
+                else
+                    p = (p * 200) / 255;
+            }
+
+            break;
+        default:
+            p = prn;
+            break;
+    }
+
+    leo_set_max_vers(v, p);
 }
 
-void add_to_prob_array(uchar prob[], RecVersions *v) {
-	int n = v->lnAltCnt;
-	if (n < 1)
-		return;
+void add_to_prob_array(uchar prob[], RecVersions *v)
+{
+    int n = v->lnAltCnt;
 
-	for (int i = 0; i < n; i++)
-		prob[v->Alt[i].Code] = v->Alt[i].Prob;
+    if (n < 1)
+        return;
+
+    for (int i = 0; i < n; i++)
+        prob[v->Alt[i].Code] = v->Alt[i].Prob;
 }
 
-int leo_comp_codes(uchar c1, uchar c2) {
-	return stdLeoCompareChar(c1, c2);
+int leo_comp_codes(uchar c1, uchar c2)
+{
+    return stdLeoCompareChar(c1, c2);
 }
 
-uchar * leo_strchr_codes(uchar *c1, uchar c2) {
-	for (uchar * c = c1; *c; c++)
-		if (leo_comp_codes(*c, c2))
-			return c;
-	return NULL;
+uchar * leo_strchr_codes(uchar *c1, uchar c2)
+{
+    for (uchar * c = c1; *c; c++)
+        if (leo_comp_codes(*c, c2))
+            return c;
+
+    return NULL;
 }
 
-uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2) {
-	for (uchar * c = c1; *c; c++)
-		if (leo_comp_codes(stdAnsiToAscii(*c), c2))
-			return c;
-	return NULL;
+uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2)
+{
+    for (uchar * c = c1; *c; c++)
+        if (leo_comp_codes(stdAnsiToAscii(*c), c2))
+            return c;
+
+    return NULL;
 }
 
-static void leo_tab2ver(int Cnts[], RecVersions *ver) {
-	int i, k;
-	for (k = i = 0; i < 256; i++)
-		if (Cnts[i] > 1) {
-			ver->Alt[k].Code = i;
-			ver->Alt[k].CodeExt = 0;
-			ver->Alt[k].Prob = 255;
-			ver->Alt[k].Method = REC_METHOD_FINAL;
-			k++;
-		}
-	ver->lnAltCnt = k;
+static void leo_tab2ver(int Cnts[], RecVersions *ver)
+{
+    int i, k;
+
+    for (k = i = 0; i < 256; i++)
+        if (Cnts[i] > 1) {
+            ver->Alt[k].Code = i;
+            ver->Alt[k].CodeExt = 0;
+            ver->Alt[k].Prob = 255;
+            ver->Alt[k].Method = REC_METHOD_FINAL;
+            k++;
+        }
+
+    ver->lnAltCnt = k;
 }
 
 void leo_evn_pass(RecObject* object, uint16_t CompImage16x16[],
-		RecVersions *alphr) {
-	RecVersions evn;
-	RecRaster recR;
+                  RecVersions *alphr)
+{
+    RecVersions evn;
+    RecRaster recR;
+    memset(&evn, 0, sizeof(RecVersions));
+    evn.lnAltMax = REC_MAX_VERS;
+    // events
 
-	memset(&evn, 0, sizeof(RecVersions));
-	evn.lnAltMax = REC_MAX_VERS;
+    if (R35Pack(&object->recData.recRaster, CompImage16x16, 16, 16)) {
+        R35Binarize(&recR, CompImage16x16, 16, 16);
+        EVNRecogChar(&recR, &evn);
+    }
 
-	// events
+    else
+        EVNRecogChar(&object->recData.recRaster, &evn);
 
-	if (R35Pack(&object->recData.recRaster, CompImage16x16, 16, 16)) {
-		R35Binarize(&recR, CompImage16x16, 16, 16);
-		EVNRecogChar(&recR, &evn);
-	} else
-		EVNRecogChar(&object->recData.recRaster, &evn);
-
-	object->lwStatusMethods |= REC_STATUS_METHODS_EVN;
-
-	*alphr = evn;
+    object->lwStatusMethods |= REC_STATUS_METHODS_EVN;
+    *alphr = evn;
 }
 
 int32_t leo_MSKRecogCharExpert(RecRaster* rr, RecVersions *ver,
-		RecVersions *iva) {
-	if (ver->lnAltCnt) {
-		*iva = *ver;
-		MSKRecogCharExp(leo_MSK_ndx[0], rr, iva);
-		leo_sort_vers_prob(iva);
-	} else
-		MSKRecogChar(leo_MSK_ndx[0], rr, iva);
+                               RecVersions *iva)
+{
+    if (ver->lnAltCnt) {
+        *iva = *ver;
+        MSKRecogCharExp(leo_MSK_ndx[0], rr, iva);
+        leo_sort_vers_prob(iva);
+    }
 
-	return iva->lnAltCnt;
+    else
+        MSKRecogChar(leo_MSK_ndx[0], rr, iva);
+
+    return iva->lnAltCnt;
 }
 
-void leo_add_aux(RecVersions *ver, RecVersions *sav) {
-	int j = 0;
-	if (!ver->lnAltCnt || !sav->lnAltCnt)
-		return;
-	for (int i = 0, j = ver->lnAltCnt; i < sav->lnAltCnt; i++) {
-		int c = leo_exist_code(ver, sav->Alt[i].Code);
-		if (c == -1) {
-			ver->Alt[j] = sav->Alt[i];
-			ver->Alt[j].Prob = 1;
-			j++;
-		}
-	}
-	ver->lnAltCnt = j;
+void leo_add_aux(RecVersions *ver, RecVersions *sav)
+{
+    int j = 0;
+
+    if (!ver->lnAltCnt || !sav->lnAltCnt)
+        return;
+
+    for (int i = 0, j = ver->lnAltCnt; i < sav->lnAltCnt; i++) {
+        int c = leo_exist_code(ver, sav->Alt[i].Code);
+
+        if (c == -1) {
+            ver->Alt[j] = sav->Alt[i];
+            ver->Alt[j].Prob = 1;
+            j++;
+        }
+    }
+
+    ver->lnAltCnt = j;
 }
 
-Bool32 leo_kill_undefined_prob(RecVersions *per) {
-	if (per->lnAltCnt < 2)
-		return FALSE;
-	if (per->Alt[0].Prob != per->Alt[1].Prob)
-		return FALSE;
-	for (int i = 1; i < per->lnAltCnt; i++)
-		if (per->Alt[i].Prob > 1)
-			per->Alt[i].Prob--;
-	return TRUE;
+Bool32 leo_kill_undefined_prob(RecVersions *per)
+{
+    if (per->lnAltCnt < 2)
+        return FALSE;
+
+    if (per->Alt[0].Prob != per->Alt[1].Prob)
+        return FALSE;
+
+    for (int i = 1; i < per->lnAltCnt; i++)
+        if (per->Alt[i].Prob > 1)
+            per->Alt[i].Prob--;
+
+    return TRUE;
 }
 
-Bool32 leo_reverse_perc(RecVersions *per, RecVersions *iva) {
-	static const int REC_PER_LIMIT = 200;
-	if (per->lnAltCnt && iva->lnAltCnt && per->Alt[0].Prob > REC_PER_LIMIT) {
-		if (iva->lnAltCnt
-				&& !leo_comp_codes(per->Alt[0].Code, iva->Alt[0].Code)) {
-			for (int i = 1; i < per->lnAltCnt && abs(per->Alt[0].Prob
-					- per->Alt[i].Prob) < 40; i++) {
-				if (leo_comp_codes(per->Alt[i].Code, iva->Alt[0].Code)) {
-					per->Alt[i].Code = per->Alt[0].Code;
-					per->Alt[0].Code = iva->Alt[0].Code;
-					return TRUE;
-				}
-			}
-		}
-	}
-	return FALSE;
+Bool32 leo_reverse_perc(RecVersions *per, RecVersions *iva)
+{
+    static const int REC_PER_LIMIT = 200;
+
+    if (per->lnAltCnt && iva->lnAltCnt && per->Alt[0].Prob > REC_PER_LIMIT) {
+        if (iva->lnAltCnt
+                && !leo_comp_codes(per->Alt[0].Code, iva->Alt[0].Code)) {
+            for (int i = 1; i < per->lnAltCnt && abs(per->Alt[0].Prob
+                                                     - per->Alt[i].Prob) < 40; i++) {
+                if (leo_comp_codes(per->Alt[i].Code, iva->Alt[0].Code)) {
+                    per->Alt[i].Code = per->Alt[0].Code;
+                    per->Alt[0].Code = iva->Alt[0].Code;
+                    return TRUE;
+                }
+            }
+        }
+    }
+
+    return FALSE;
 }
 
-void set_result(RecVersions *res, int ind, uchar ch[]) {
-	static const int leo_tab3[] = { 2, 3, 3, 3, 3, 3, 3 };
-	static const uchar leo_tab0[] = { 255, 253, 251, 250, 252, 249, 248 };
-	static const uchar leo_tab1[] = { 96, 96, 197, 159, 112, 224, 175 };
-	static const uchar leo_tab2[] = { 0, 80, 133, 144, 96, 149, 154 };
+void set_result(RecVersions *res, int ind, uchar ch[])
+{
+    static const int leo_tab3[] = { 2, 3, 3, 3, 3, 3, 3 };
+    static const uchar leo_tab0[] = { 255, 253, 251, 250, 252, 249, 248 };
+    static const uchar leo_tab1[] = { 96, 96, 197, 159, 112, 224, 175 };
+    static const uchar leo_tab2[] = { 0, 80, 133, 144, 96, 149, 154 };
+    res->lnAltCnt = leo_tab3[ind];
+    res->Alt[0].Prob = leo_tab0[ind];
+    res->Alt[1].Prob = leo_tab1[ind];
+    res->Alt[2].Prob = leo_tab2[ind];
 
-	res->lnAltCnt = leo_tab3[ind];
-	res->Alt[0].Prob = leo_tab0[ind];
-	res->Alt[1].Prob = leo_tab1[ind];
-	res->Alt[2].Prob = leo_tab2[ind];
-	for (int j = 0; j < res->lnAltCnt; j++) {
-		res->Alt[j].Code = ch[j + 1];
-		res->Alt[j].CodeExt = 0;
-		res->Alt[j].Method = REC_METHOD_FINAL;
-	}
+    for (int j = 0; j < res->lnAltCnt; j++) {
+        res->Alt[j].Code = ch[j + 1];
+        res->Alt[j].CodeExt = 0;
+        res->Alt[j].Method = REC_METHOD_FINAL;
+    }
 }
 
 int32_t leoMakePropability(RecVersions *per, RecVersions *sce,
-		RecVersions *iva, RecVersions *res) {
-	uchar per_ch1, per_pr1, per_ch2 = 0, per_pr2 = 0; // perceptron
-	uchar sce_ch1, sce_pr1, sce_ch2 = 0, sce_pr2 = 0; // sceleton
-	uchar iva_ch1, iva_pr1, iva_ch2 = 0, iva_pr2 = 0; // ivanisov
-	uchar ch[4];
+                           RecVersions *iva, RecVersions *res)
+{
+    uchar per_ch1, per_pr1, per_ch2 = 0, per_pr2 = 0; // perceptron
+    uchar sce_ch1, sce_pr1, sce_ch2 = 0, sce_pr2 = 0; // sceleton
+    uchar iva_ch1, iva_pr1, iva_ch2 = 0, iva_pr2 = 0; // ivanisov
+    uchar ch[4];
+    res->lnAltCnt = 0;
 
-	res->lnAltCnt = 0;
-	if (!per->lnAltCnt || !sce->lnAltCnt || !iva->lnAltCnt)
-		return 0;
-	ch[1] = ch[2] = ch[3] = 0;
-	per_ch1 = per->Alt[0].Code;
-	per_pr1 = per->Alt[0].Prob;
-	sce_ch1 = sce->Alt[0].Code;
-	sce_pr1 = sce->Alt[0].Prob;
-	iva_ch1 = iva->Alt[0].Code;
-	iva_pr1 = iva->Alt[0].Prob;
+    if (!per->lnAltCnt || !sce->lnAltCnt || !iva->lnAltCnt)
+        return 0;
 
-	if (per->lnAltCnt > 1) {
-		per_ch2 = per->Alt[1].Code;
-		per_pr2 = per->Alt[1].Prob;
-	}
-	if (sce->lnAltCnt > 1) {
-		sce_ch2 = sce->Alt[1].Code;
-		sce_pr2 = sce->Alt[1].Prob;
-	}
-	if (iva->lnAltCnt > 1) {
-		iva_ch2 = iva->Alt[1].Code;
-		iva_pr2 = iva->Alt[1].Prob;
-	}
+    ch[1] = ch[2] = ch[3] = 0;
+    per_ch1 = per->Alt[0].Code;
+    per_pr1 = per->Alt[0].Prob;
+    sce_ch1 = sce->Alt[0].Code;
+    sce_pr1 = sce->Alt[0].Prob;
+    iva_ch1 = iva->Alt[0].Code;
+    iva_pr1 = iva->Alt[0].Prob;
 
-	if (!leo_comp_codes(per_ch1, sce_ch1) && !leo_comp_codes(per_ch1, iva_ch1)) {
-		if (!(per_pr1 == per_pr2 && (leo_comp_codes(per_ch2, sce_ch1)
-				|| leo_comp_codes(per_ch2, iva_ch1))))
-			return 0;
-	}
+    if (per->lnAltCnt > 1) {
+        per_ch2 = per->Alt[1].Code;
+        per_pr2 = per->Alt[1].Prob;
+    }
 
-	if (leo_comp_codes(per_ch1, sce_ch1) && leo_comp_codes(per_ch1, iva_ch1)) { // over 3
-		ch[1] = per_ch1;
-		ch[2] = '~';
-		set_result(res, 0, ch);
-		return res->lnAltCnt;
-	}
-	if (per_pr1 == per_pr2 && leo_comp_codes(per_ch2, sce_ch1)
-			&& leo_comp_codes(per_ch2, iva_ch1)) { // over 3
-		ch[1] = per_ch2;
-		ch[2] = '~';
-		set_result(res, 0, ch);
-		return res->lnAltCnt;
-	}
-	if (per_pr1 < 200/*150*/&& !(leo_comp_codes(per_ch2, sce_ch1) && sce_pr1
-			> 254))
-		return 0;
-	if (leo_comp_codes(per_ch1, sce_ch1) && !leo_comp_codes(per_ch1, iva_ch1)) {
-		if (per_pr1 == 255 && !leo_comp_codes(per_ch2, iva_ch1)
-				&& !leo_comp_codes(sce_ch2, iva_ch1)) {
-			ch[1] = per_ch1;
-			ch[2] = iva_ch1;
-			ch[3] = '~';
-			set_result(res, 1, ch);
-			return res->lnAltCnt;
-		}
+    if (sce->lnAltCnt > 1) {
+        sce_ch2 = sce->Alt[1].Code;
+        sce_pr2 = sce->Alt[1].Prob;
+    }
 
-		if (per_pr1 != 255 && (leo_comp_codes(per_ch2, iva_ch1)
-				|| leo_comp_codes(sce_ch2, iva_ch1))) {
-			ch[1] = per_ch1;
-			ch[2] = iva_ch1;
-			ch[3] = '~';
-			set_result(res, 2, ch);
-			return res->lnAltCnt;
-		}
+    if (iva->lnAltCnt > 1) {
+        iva_ch2 = iva->Alt[1].Code;
+        iva_pr2 = iva->Alt[1].Prob;
+    }
 
-		ch[1] = per_ch1;
-		ch[2] = iva_ch1;
-		ch[3] = '~';
-		res->Alt[0].Code = ch[1];
-		res->Alt[1].Code = ch[2]; // 65398
-		res->Alt[2].Code = ch[3];
-		set_result(res, 3, ch);
-		return res->lnAltCnt;
-	}
+    if (!leo_comp_codes(per_ch1, sce_ch1) && !leo_comp_codes(per_ch1, iva_ch1)) {
+        if (!(per_pr1 == per_pr2 && (leo_comp_codes(per_ch2, sce_ch1)
+                                     || leo_comp_codes(per_ch2, iva_ch1))))
+            return 0;
+    }
 
-	if (leo_comp_codes(per_ch1, iva_ch1) && !leo_comp_codes(per_ch1, sce_ch1)) {
-		if (per_pr1 == 255 && !leo_comp_codes(per_ch2, sce_ch1)
-				&& !leo_comp_codes(iva_ch2, sce_ch1)) {
-			ch[1] = per_ch1;
-			ch[2] = sce_ch1;
-			ch[3] = '~';
-			set_result(res, 4, ch);
-			return res->lnAltCnt;
-		}
+    if (leo_comp_codes(per_ch1, sce_ch1) && leo_comp_codes(per_ch1, iva_ch1)) { // over 3
+        ch[1] = per_ch1;
+        ch[2] = '~';
+        set_result(res, 0, ch);
+        return res->lnAltCnt;
+    }
 
-		if (per_pr1 != 255 && (leo_comp_codes(per_ch2, sce_ch1)
-				|| leo_comp_codes(iva_ch2, sce_ch1))) {
-			ch[1] = per_ch1;
-			ch[2] = sce_ch1;
-			ch[3] = '~';
-			set_result(res, 5, ch);
-			return res->lnAltCnt;
-		}
+    if (per_pr1 == per_pr2 && leo_comp_codes(per_ch2, sce_ch1)
+            && leo_comp_codes(per_ch2, iva_ch1)) { // over 3
+        ch[1] = per_ch2;
+        ch[2] = '~';
+        set_result(res, 0, ch);
+        return res->lnAltCnt;
+    }
 
-		ch[1] = per_ch1;
-		ch[2] = sce_ch1;
-		ch[3] = '~';
-		res->Alt[0].Code = ch[1];
-		res->Alt[1].Code = ch[2]; // 65263
-		res->Alt[2].Code = ch[3];
-		set_result(res, 6, ch);
-		return res->lnAltCnt;
-	}
+    if (per_pr1 < 200/*150*/ && !(leo_comp_codes(per_ch2, sce_ch1) && sce_pr1
+                                  > 254))
+        return 0;
 
-	res->lnAltCnt = 0;
-	return res->lnAltCnt;
+    if (leo_comp_codes(per_ch1, sce_ch1) && !leo_comp_codes(per_ch1, iva_ch1)) {
+        if (per_pr1 == 255 && !leo_comp_codes(per_ch2, iva_ch1)
+                && !leo_comp_codes(sce_ch2, iva_ch1)) {
+            ch[1] = per_ch1;
+            ch[2] = iva_ch1;
+            ch[3] = '~';
+            set_result(res, 1, ch);
+            return res->lnAltCnt;
+        }
+
+        if (per_pr1 != 255 && (leo_comp_codes(per_ch2, iva_ch1)
+                               || leo_comp_codes(sce_ch2, iva_ch1))) {
+            ch[1] = per_ch1;
+            ch[2] = iva_ch1;
+            ch[3] = '~';
+            set_result(res, 2, ch);
+            return res->lnAltCnt;
+        }
+
+        ch[1] = per_ch1;
+        ch[2] = iva_ch1;
+        ch[3] = '~';
+        res->Alt[0].Code = ch[1];
+        res->Alt[1].Code = ch[2]; // 65398
+        res->Alt[2].Code = ch[3];
+        set_result(res, 3, ch);
+        return res->lnAltCnt;
+    }
+
+    if (leo_comp_codes(per_ch1, iva_ch1) && !leo_comp_codes(per_ch1, sce_ch1)) {
+        if (per_pr1 == 255 && !leo_comp_codes(per_ch2, sce_ch1)
+                && !leo_comp_codes(iva_ch2, sce_ch1)) {
+            ch[1] = per_ch1;
+            ch[2] = sce_ch1;
+            ch[3] = '~';
+            set_result(res, 4, ch);
+            return res->lnAltCnt;
+        }
+
+        if (per_pr1 != 255 && (leo_comp_codes(per_ch2, sce_ch1)
+                               || leo_comp_codes(iva_ch2, sce_ch1))) {
+            ch[1] = per_ch1;
+            ch[2] = sce_ch1;
+            ch[3] = '~';
+            set_result(res, 5, ch);
+            return res->lnAltCnt;
+        }
+
+        ch[1] = per_ch1;
+        ch[2] = sce_ch1;
+        ch[3] = '~';
+        res->Alt[0].Code = ch[1];
+        res->Alt[1].Code = ch[2]; // 65263
+        res->Alt[2].Code = ch[3];
+        set_result(res, 6, ch);
+        return res->lnAltCnt;
+    }
+
+    res->lnAltCnt = 0;
+    return res->lnAltCnt;
 }
 
-Bool32 leoRecogCharRom(RecObject* object, int32_t /*erect*/) {
-	RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
-	int32_t num_horiz_dist, hei;
-	uint16_t CompImage16x16[16 * 16];
+Bool32 leoRecogCharRom(RecObject* object, int32_t /*erect*/)
+{
+    RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
+    int32_t num_horiz_dist, hei;
+    uint16_t CompImage16x16[16 * 16];
+    uchar prob_3x5[256] = { 0 }, prob_iva[256] = { 0 };
+    Bool32 bonus = FALSE;
+    memset(&ver, 0, sizeof(RecVersions));
+    ver.lnAltMax = REC_MAX_VERS;
+    memset(&sce, 0, sizeof(RecVersions));
+    sce.lnAltMax = REC_MAX_VERS;
+    memset(&sver, 0, sizeof(RecVersions));
+    sver.lnAltMax = REC_MAX_VERS;
+    memset(&loc, 0, sizeof(RecVersions));
+    loc.lnAltMax = REC_MAX_VERS;
+    memset(&tmp, 0, sizeof(RecVersions));
+    tmp.lnAltMax = REC_MAX_VERS;
+    memset(&alph, 0, sizeof(RecVersions));
+    alph.lnAltMax = REC_MAX_VERS;
+    memset(&per, 0, sizeof(RecVersions));
+    per.lnAltMax = REC_MAX_VERS;
+    memset(&iva, 0, sizeof(RecVersions));
+    iva.lnAltMax = REC_MAX_VERS;
+    hei = object->recData.recRaster.lnPixHeight;
+    num_horiz_dist = leo_stick_horiz_hist(hei);
 
-	uchar prob_3x5[256] = { 0 }, prob_iva[256] = { 0 };
-	Bool32 bonus = FALSE;
+    // ROMA DIGITs recognizer
+    if (object->recData.lwCompCnt < 5) {
+        // GENERATORS PASS
+        leo_evn_pass(object, CompImage16x16, &alph);
+        ver = alph;
+        leo_snapChar(&ver, "LEO ROMA Evn : ", 0);
+        leo_MSKRecogCharExpert(&object->recData.recRaster, &alph, &iva);
+        add_to_prob_array(prob_iva, &iva);
+    }
 
-	memset(&ver, 0, sizeof(RecVersions));
-	ver.lnAltMax = REC_MAX_VERS;
+    if (!(object->recData.lwStatus & REC_STATUS_V3X5)) {
+        R35Pack(&object->recData.recRaster, object->recData.v3x5, 3, 5);
+        object->recData.lwStatus |= REC_STATUS_V3X5;
+    }
 
-	memset(&sce, 0, sizeof(RecVersions));
-	sce.lnAltMax = REC_MAX_VERS;
+    if (!ver.lnAltCnt) { // auxilary generator NET3x5
+        ver.lnAltCnt = 0;
+        R35RecogCharIm3x5(object->recData.v3x5, &loc);
+        add_to_prob_array(prob_3x5, &loc);
 
-	memset(&sver, 0, sizeof(RecVersions));
-	sver.lnAltMax = REC_MAX_VERS;
+        if (leo_add_vers(&ver, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
 
-	memset(&loc, 0, sizeof(RecVersions));
-	loc.lnAltMax = REC_MAX_VERS;
+        MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        add_to_prob_array(prob_iva, &loc);
 
-	memset(&tmp, 0, sizeof(RecVersions));
-	tmp.lnAltMax = REC_MAX_VERS;
+        if (leo_add_vers(&ver, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
 
-	memset(&alph, 0, sizeof(RecVersions));
-	alph.lnAltMax = REC_MAX_VERS;
+        if (ver.lnAltCnt && alph.lnAltCnt)
+            leo_over(&ver, &alph); // over generators
 
-	memset(&per, 0, sizeof(RecVersions));
-	per.lnAltMax = REC_MAX_VERS;
+        if (leo_add_vers(&ver, &per))
+            object->lwStatusMethods |= REC_STATUS_METHODS_NCU;
 
-	memset(&iva, 0, sizeof(RecVersions));
-	iva.lnAltMax = REC_MAX_VERS;
-	hei = object->recData.recRaster.lnPixHeight;
-	num_horiz_dist = leo_stick_horiz_hist(hei);
+        if (loc.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob == 255
+                && loc.Alt[0].Prob > 190 && leo_comp_codes(per.Alt[0].Code,
+                                                           loc.Alt[0].Code))
+            bonus = TRUE;
 
-	// ROMA DIGITs recognizer
-	if (object->recData.lwCompCnt < 5) {
-		// GENERATORS PASS
-		leo_evn_pass(object, CompImage16x16, &alph);
-		ver = alph;
-		leo_snapChar(&ver, "LEO ROMA Evn : ", 0);
-		leo_MSKRecogCharExpert(&object->recData.recRaster, &alph, &iva);
-		add_to_prob_array(prob_iva, &iva);
-	}
+        leo_sort_vers_prob(&ver);
+        leo_snapChar(&ver, "LEO ROMA GEN2 Net3x5+3x5+MSK : ", 0);
+    }
 
-	if (!(object->recData.lwStatus & REC_STATUS_V3X5)) {
-		R35Pack(&object->recData.recRaster, object->recData.v3x5, 3, 5);
-		object->recData.lwStatus |= REC_STATUS_V3X5;
-	}
+    else { // EXPERT PASS
+        loc = ver;
+        tmp = ver;
+        R35RecogCharIm3x5_expert(object->recData.v3x5, &tmp);
+        add_to_prob_array(prob_3x5, &tmp);
 
-	if (!ver.lnAltCnt)
+        if (leo_add_vers(&ver, &tmp))
+            object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
 
-	{ // auxilary generator NET3x5
-		ver.lnAltCnt = 0;
-		R35RecogCharIm3x5(object->recData.v3x5, &loc);
-		add_to_prob_array(prob_3x5, &loc);
-		if (leo_add_vers(&ver, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
+        add_to_prob_array(prob_iva, &iva);
 
-		MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        if (leo_add_vers(&ver, &iva))
+            object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
 
-		add_to_prob_array(prob_iva, &loc);
-		if (leo_add_vers(&ver, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
+        if (leo_add_vers(&ver, &per))
+            object->lwStatusMethods |= REC_STATUS_METHODS_NCU;
 
-		if (ver.lnAltCnt && alph.lnAltCnt)
-			leo_over(&ver, &alph); // over generators
-		if (leo_add_vers(&ver, &per))
-			object->lwStatusMethods |= REC_STATUS_METHODS_NCU;
-		if (loc.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob == 255
-				&& loc.Alt[0].Prob > 190 && leo_comp_codes(per.Alt[0].Code,
-				loc.Alt[0].Code))
-			bonus = TRUE;
+        if (iva.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob == 255
+                && iva.Alt[0].Prob > 190 && leo_comp_codes(per.Alt[0].Code,
+                                                           iva.Alt[0].Code))
+            bonus = TRUE;
 
-		leo_sort_vers_prob(&ver);
-		leo_snapChar(&ver, "LEO ROMA GEN2 Net3x5+3x5+MSK : ", 0);
-	} else { // EXPERT PASS
-		loc = ver;
-		tmp = ver;
-		R35RecogCharIm3x5_expert(object->recData.v3x5, &tmp);
-		add_to_prob_array(prob_3x5, &tmp);
-		if (leo_add_vers(&ver, &tmp))
-			object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
+        leo_sort_vers_prob(&ver);
+        leo_snapChar(&ver, "LEO ROMA EXPERT Net3x5+3x5+MSK : ", 0);
+    }
 
-		add_to_prob_array(prob_iva, &iva);
-		if (leo_add_vers(&ver, &iva))
-			object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
+    if (!ver.lnAltCnt || (ver.lnAltCnt && ver.Alt[0].Prob < 100
+                          && prob_3x5[ver.Alt[0].Code] < 60) || (ver.lnAltCnt
+                                                                 && ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 200 && prob_3x5['I']
+                                                                 < 100 && num_horiz_dist * 100 > hei * 35)) {
+        tmp.lnAltCnt = 0;
+        R35RecogCharIm3x5(object->recData.v3x5, &loc);
+        add_to_prob_array(prob_3x5, &loc);
 
-		if (leo_add_vers(&ver, &per))
-			object->lwStatusMethods |= REC_STATUS_METHODS_NCU;
-		if (iva.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob == 255
-				&& iva.Alt[0].Prob > 190 && leo_comp_codes(per.Alt[0].Code,
-				iva.Alt[0].Code))
-			bonus = TRUE;
+        if (leo_add_vers(&tmp, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
 
-		leo_sort_vers_prob(&ver);
-		leo_snapChar(&ver, "LEO ROMA EXPERT Net3x5+3x5+MSK : ", 0);
-	}
+        MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        add_to_prob_array(prob_iva, &loc);
 
-	if (!ver.lnAltCnt || (ver.lnAltCnt && ver.Alt[0].Prob < 100
-			&& prob_3x5[ver.Alt[0].Code] < 60) || (ver.lnAltCnt
-			&& ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 200 && prob_3x5['I']
-			< 100 && num_horiz_dist * 100 > hei * 35)) {
-		tmp.lnAltCnt = 0;
-		R35RecogCharIm3x5(object->recData.v3x5, &loc);
-		add_to_prob_array(prob_3x5, &loc);
-		if (leo_add_vers(&tmp, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
+        if (leo_add_vers(&tmp, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
 
-		MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        if (tmp.lnAltCnt && tmp.Alt[0].Prob > 100 && !(tmp.lnAltCnt == 1
+                                                       && tmp.Alt[0].Code == 'I' && num_horiz_dist * 2 > hei)) {
+            ver = tmp;
+            leo_snapChar(&ver, "LEO ROMA GEN3 Net3x5+3x5+MSK : ", 0);
+        }
+    }
 
-		add_to_prob_array(prob_iva, &loc);
-		if (leo_add_vers(&tmp, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
-		if (tmp.lnAltCnt && tmp.Alt[0].Prob > 100 && !(tmp.lnAltCnt == 1
-				&& tmp.Alt[0].Code == 'I' && num_horiz_dist * 2 > hei)) {
-			ver = tmp;
-			leo_snapChar(&ver, "LEO ROMA GEN3 Net3x5+3x5+MSK : ", 0);
-		}
-	}
+    leo_sort_vers_prob(&ver);
+    // Post-correction
+    leo_compress(&ver);
 
-	leo_sort_vers_prob(&ver);
-	// Post-correction
-	leo_compress(&ver);
+    if (ver.lnAltCnt == 1 && ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 200
+            && num_horiz_dist * 100 > hei * 35) {
+        tmp.lnAltCnt = 0;
+        R35RecogCharIm3x5(object->recData.v3x5, &loc);
+        add_to_prob_array(prob_3x5, &loc);
 
-	if (ver.lnAltCnt == 1 && ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 200
-			&& num_horiz_dist * 100 > hei * 35) {
-		tmp.lnAltCnt = 0;
-		R35RecogCharIm3x5(object->recData.v3x5, &loc);
-		add_to_prob_array(prob_3x5, &loc);
-		if (leo_add_vers(&tmp, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
+        if (leo_add_vers(&tmp, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_3X5;
 
-		MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        MSKRecogChar(leo_MSK_ndx[0], &object->recData.recRaster, &loc);
+        add_to_prob_array(prob_iva, &loc);
 
-		add_to_prob_array(prob_iva, &loc);
-		if (leo_add_vers(&tmp, &loc))
-			object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
-		if (tmp.lnAltCnt && tmp.Alt[0].Prob > 100) {
-			ver = tmp;
-			leo_snapChar(&ver, "LEO ROMA GEN4 Net3x5+3x5+MSK : ", 0);
-		}
-	}
-	leo_snapChar(&ver, "LEO ROMA RECOG BEFORE RERECOG3x5 : ", 0);
-	if (!(object->recData.lwStatus & REC_STATUS_V3X5)) {
-		R35Pack(&object->recData.recRaster, object->recData.v3x5, 3, 5);
-		object->recData.lwStatus |= REC_STATUS_V3X5;
-	}
-	if (!bonus)
-		leo_expert_prob(&ver, object->recData.v3x5, &object->recData.recRaster,
-				prob_3x5, prob_iva, 0, FALSE, FALSE);
+        if (leo_add_vers(&tmp, &loc))
+            object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
 
-	//XOPOIII:;
-	if (ver.lnAltCnt > 1 && ver.Alt[0].Code == 'I' && ((ver.Alt[0].Prob < 128
-			&& num_horiz_dist * 100 > hei * 35) || (ver.Alt[0].Prob < 220
-			&& num_horiz_dist * 100 > hei * 50))) {
-		ver.Alt[0].Code = ver.Alt[1].Code;
-		ver.Alt[1].Code = 'I';
-		leo_snapChar(&ver, "LEO ROMA MONUS I : ", 0);
-	}
-	if (ver.lnAltCnt && ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 128
-			&& num_horiz_dist * 100 > hei * 35) {
-		tmp.Alt[0].Code = 'X';
-		tmp.Alt[1].Code = 'V';
-		tmp.lnAltCnt = 2;
-		R35RecogCharIm3x5_expert(object->recData.v3x5, &tmp);
-		leo_sort_vers_prob(&tmp);
-		if (num_horiz_dist * 100 > hei * 50 || tmp.Alt[0].Prob
-				> ver.Alt[0].Prob)
-			ver = tmp;
-	}
+        if (tmp.lnAltCnt && tmp.Alt[0].Prob > 100) {
+            ver = tmp;
+            leo_snapChar(&ver, "LEO ROMA GEN4 Net3x5+3x5+MSK : ", 0);
+        }
+    }
 
-	if (ver.lnAltCnt > 1 && memchr("XV", ver.Alt[0].Code, 2)) {
-		if (ver.Alt[0].Prob < 128 && num_horiz_dist == 0) {
-			ver.Alt[1].Code = ver.Alt[0].Code;
-			ver.Alt[0].Code = 'I';
-			leo_snapChar(&ver, "LEO ROMA BONUS I : ", 0);
-		}
-	}
+    leo_snapChar(&ver, "LEO ROMA RECOG BEFORE RERECOG3x5 : ", 0);
 
-	memcpy(&object->recResults, &ver, sizeof(RecVersions));
-	return TRUE;
+    if (!(object->recData.lwStatus & REC_STATUS_V3X5)) {
+        R35Pack(&object->recData.recRaster, object->recData.v3x5, 3, 5);
+        object->recData.lwStatus |= REC_STATUS_V3X5;
+    }
+
+    if (!bonus)
+        leo_expert_prob(&ver, object->recData.v3x5, &object->recData.recRaster,
+                        prob_3x5, prob_iva, 0, FALSE, FALSE);
+
+    //XOPOIII:;
+    if (ver.lnAltCnt > 1 && ver.Alt[0].Code == 'I' && ((ver.Alt[0].Prob < 128
+                                                        && num_horiz_dist * 100 > hei * 35) || (ver.Alt[0].Prob < 220
+                                                                                                && num_horiz_dist * 100 > hei * 50))) {
+        ver.Alt[0].Code = ver.Alt[1].Code;
+        ver.Alt[1].Code = 'I';
+        leo_snapChar(&ver, "LEO ROMA MONUS I : ", 0);
+    }
+
+    if (ver.lnAltCnt && ver.Alt[0].Code == 'I' && ver.Alt[0].Prob < 128
+            && num_horiz_dist * 100 > hei * 35) {
+        tmp.Alt[0].Code = 'X';
+        tmp.Alt[1].Code = 'V';
+        tmp.lnAltCnt = 2;
+        R35RecogCharIm3x5_expert(object->recData.v3x5, &tmp);
+        leo_sort_vers_prob(&tmp);
+
+        if (num_horiz_dist * 100 > hei * 50 || tmp.Alt[0].Prob
+                > ver.Alt[0].Prob)
+            ver = tmp;
+    }
+
+    if (ver.lnAltCnt > 1 && memchr("XV", ver.Alt[0].Code, 2)) {
+        if (ver.Alt[0].Prob < 128 && num_horiz_dist == 0) {
+            ver.Alt[1].Code = ver.Alt[0].Code;
+            ver.Alt[0].Code = 'I';
+            leo_snapChar(&ver, "LEO ROMA BONUS I : ", 0);
+        }
+    }
+
+    memcpy(&object->recResults, &ver, sizeof(RecVersions));
+    return TRUE;
 }
 

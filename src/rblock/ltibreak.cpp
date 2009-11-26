@@ -78,14 +78,12 @@ void SetRootsBlocks (int nShift)
     RECTANGLE r;
     int  nBlock;
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
-    {
+    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
         if (pRoot -> nBlock >= FIRST_REGULAR_BLOCK_NUMBER)
             continue;
 
         r.xLeft   = XY_COMPRESS (pRoot -> xColumn);
         r.yTop    = XY_COMPRESS (pRoot -> yRow);
-
         // берем идентификатор (типа) блока из матрицы страницы,
         // в которой к этому моменту уже сидит номер блока
         // (поднятый на три бита PAGE_MATRIX_MARK_SHIFT и т.п.,
@@ -93,33 +91,27 @@ void SetRootsBlocks (int nShift)
         nBlock = PageMatrix [(r.yTop << PAGE_MATRIX_WIDTH_SHIFT) + r.xLeft]
                  >> PAGE_MATRIX_MARK_SHIFT;
 
-        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER)
-        { // то есть если блок относится (как должен)
-          // к пронумерованной компоненте ("зарегистрирован")
+        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER) { // то есть если блок относится (как должен)
+            // к пронумерованной компоненте ("зарегистрирован")
             pRoot -> nBlock = nBlock + nShift;
             continue;
         }
 
         // если блок НЕ относится к уже учтенным компонентам
-
         r.xRight  = XY_COMPRESS (pRoot -> xColumn + pRoot -> nWidth - 1);
-
         nBlock = PageMatrix [(r.yTop << PAGE_MATRIX_WIDTH_SHIFT) + r.xRight]
                  >> PAGE_MATRIX_MARK_SHIFT;
 
-        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER)
-        {
+        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER) {
             pRoot -> nBlock = nBlock + nShift;
             continue;
         }
 
         r.yBottom = XY_COMPRESS (pRoot -> yRow    + pRoot -> nHeight - 1);
-
         nBlock = PageMatrix [(r.yBottom << PAGE_MATRIX_WIDTH_SHIFT) + r.xLeft]
                  >> PAGE_MATRIX_MARK_SHIFT;
 
-        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER)
-        {
+        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER) {
             pRoot -> nBlock = nBlock + nShift;
             continue;
         }
@@ -127,8 +119,7 @@ void SetRootsBlocks (int nShift)
         nBlock = PageMatrix [(r.yBottom << PAGE_MATRIX_WIDTH_SHIFT) + r.xRight]
                  >> PAGE_MATRIX_MARK_SHIFT;
 
-        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER)
-        {
+        if (nBlock >= FIRST_REGULAR_BLOCK_NUMBER) {
             pRoot -> nBlock = nBlock + nShift;
             continue;
         }
@@ -144,8 +135,7 @@ void ClearSeries (COMP *pBegin, COMP *pEnd)
 
     // чистим матрицу страницы, оставляя только базовые флаги:
     // рута, дуста и картинки
-    for (pComp = pBegin; pComp != pEnd; pComp = pComp -> pNext)
-    {
+    for (pComp = pBegin; pComp != pEnd; pComp = pComp -> pNext) {
         CompAND_Matrix (pComp, PMC_FLAGS_MASK);
     }
 }
@@ -160,12 +150,11 @@ void InitialBreakingProceed (void)
 
     // отмечается, к какому типу блока сии руты более тяготеют:
     // (например -- к "дустовому")
-    for (i = 0; i < nRoots; i++)
-    {
+    for (i = 0; i < nRoots; i++) {
         pRoots [i].nBlock =
             IS_LAYOUT_DUST (pRoots [i]) ?
-                DUST_BLOCK_NUMBER :
-                REMAINDER_BLOCK_NUMBER; // единственное место в коде, где ставится этот флаг
+            DUST_BLOCK_NUMBER :
+            REMAINDER_BLOCK_NUMBER; // единственное место в коде, где ставится этот флаг
     }
 
     if (! bOptionInitialBreakingByPageMatrix)
@@ -179,31 +168,27 @@ void InitialBreakingProceed (void)
         PAGE_MATRIX_SIZE,    // угу :)
         PMC_ROOT             // "цвет" выделяемых интервалов
     );
-
     nCompShift       = 0;
     nComp            = 0;          // текущее (учтенное) кол-во компонент
     pCompSeriesBegin = pCompsList; // начало списка компонент
 
-    for (pComp = pCompsList; pComp != NULL; pComp = pComp -> pNext)
-    {
-        if (nComp == COMP_SERIES_LENGTH)
-        {
+    for (pComp = pCompsList; pComp != NULL; pComp = pComp -> pNext) {
+        if (nComp == COMP_SERIES_LENGTH) {
             // настроить поле nBlock рута на номер компоненты (связности)
             SetRootsBlocks (nCompShift);
-
 # ifdef LT_DEBUG
-            //if (LT_DebugGraphicsLevel >= 4)
-			// попросту снова выводим на экран матрицу страницы
-      // (шо, в общем-то, интересно -- но не так уж и нужно)
-      if (!LDPUMA_Skip(hInitialBreaking))
-                LT_GraphicsPageMatrixOutput ("Comps series");
-# endif
 
+            //if (LT_DebugGraphicsLevel >= 4)
+            // попросту снова выводим на экран матрицу страницы
+            // (шо, в общем-то, интересно -- но не так уж и нужно)
+            if (!LDPUMA_Skip(hInitialBreaking))
+                LT_GraphicsPageMatrixOutput ("Comps series");
+
+# endif
             // чистим матрицу страницы, оставляя только базовые флаги:
             // рута, дуста и картинки (для компонент с pCompSeriesBegin
             // по текущую; в данном случае -- по последнюю)
             ClearSeries (pCompSeriesBegin, pComp);
-
             nCompShift += nComp;
             nComp = 0;
             pCompSeriesBegin = pComp;
@@ -218,7 +203,6 @@ void InitialBreakingProceed (void)
             pComp,
             (nComp + FIRST_REGULAR_BLOCK_NUMBER) << PAGE_MATRIX_MARK_SHIFT
         );
-
         nComp++;
     }
 
@@ -229,11 +213,9 @@ void InitialBreakingProceed (void)
     // рута, дуста и картинки (индексы компонент в рутах настроены
     // -- матрицу страницы и остальное можно возвращать в исходные (позиции))
     ClearSeries (pCompSeriesBegin, NULL);
-
     nNextBlockNumber = nCompShift + nComp + 1;
     CompsFreeData ();      // все стираем: и список компонент,
     IntervalsFreeData ();  // и стрипы, и (разумеется) интервалы.
-
     // остается: в каждом руте (в поле nBlock) -- данные о компоненте;
     // в матрице страницы -- то, что было до входа в эту функцию.
 }

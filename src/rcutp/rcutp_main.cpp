@@ -79,86 +79,82 @@ Handle ghStorage = NULL;
 Handle hDebugRoot, hDebugMy, hDebugCutP;
 
 ///////////////////////////////////////////////////////////////
-RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
+RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode, Handle hStorage)
 {
-	LDPUMA_Init(0,NULL);
-	LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
-	LDPUMA_Registry(&hDebugMy,"Отладка точек разрезания",hDebugRoot);
-
-	LDPUMA_Registry(&hDebugCutP,"Просмотр точек разрезания",hDebugMy);
-	LDPUMA_RegistryHelp(hDebugCutP,"Эта опция предназначена для вывода точек разрезания",FALSE);
-
-	gwHeightRC = wHeightCode;
-
-	return TRUE;
+    LDPUMA_Init(0, NULL);
+    LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_CONVERTERS, NULL);
+    LDPUMA_Registry(&hDebugMy, "Отладка точек разрезания", hDebugRoot);
+    LDPUMA_Registry(&hDebugCutP, "Просмотр точек разрезания", hDebugMy);
+    LDPUMA_RegistryHelp(hDebugCutP, "Эта опция предназначена для вывода точек разрезания", FALSE);
+    gwHeightRC = wHeightCode;
+    return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
 RCUTP_FUNC(Bool32) RCUTP_Done()
 {
-	LDPUMA_Done();
-	return TRUE;
+    LDPUMA_Done();
+    return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
 RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode()
 {
-	uint32_t rc = 0;
-	if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+    uint32_t rc = 0;
 
-	return rc;
+    if ((gwLowRC - IDS_ERR_NO) > 0)
+        rc = (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
+
+    return rc;
 }
 
-char * RCUTP_GetReturnString(uint32_t dwError) {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
+char * RCUTP_GetReturnString(uint32_t dwError)
+{
+    uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
 
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != gwHeightRC)
+        gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
-	return NULL;
+    return NULL;
 }
 
 RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData)
 {
-	Bool32 rc = TRUE;
+    Bool32 rc = TRUE;
+    gwLowRC = 0;
+#define CASE_FUNCTION(a)    case RCUTP_FN##a:   *(FN##a *)pData = a; break
+#define CASE_DATA(a,b,c)    case a: *(b *)pData = c; break
 
-	gwLowRC = 0;
-
-#define CASE_FUNCTION(a)	case RCUTP_FN##a:	*(FN##a *)pData = a; break
-#define CASE_DATA(a,b,c)	case a: *(b *)pData = c; break
-
-	switch(dwType)
-	{
-		CASE_FUNCTION(RCUTP_CutPoints);
-		CASE_FUNCTION(RCUTP_SetBL_for_CutPoints);
-
-		default:
-		*(Handle *)pData = NULL;
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
+    switch (dwType) {
+            CASE_FUNCTION(RCUTP_CutPoints);
+            CASE_FUNCTION(RCUTP_SetBL_for_CutPoints);
+        default:
+            *(Handle *)pData = NULL;
+            gwLowRC = IDS_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
 #undef CASE_DATA
 #undef CASE_FUNCTION
-
-	return rc;
+    return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
 RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData)
 {
-	Bool32 rc = TRUE;
-	return rc;
+    Bool32 rc = TRUE;
+    return rc;
 }
 
-void SetReturnCode_rcutp(uint16_t rc) {
-	gwLowRC = rc;
+void SetReturnCode_rcutp(uint16_t rc)
+{
+    gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_rcutp() {
-	return gwLowRC;
+uint16_t GetReturnCode_rcutp()
+{
+    return gwLowRC;
 }

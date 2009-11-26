@@ -77,67 +77,73 @@ int nMaxBlock;
 int nCurrentBlock;
 BLOCK *pCurrentBlock;
 
-void BlocksAccessTableBuild(void) {
-	uint32_t i = 0;
-	int w = 0;
-	BLOCK *p;
+void BlocksAccessTableBuild(void)
+{
+    uint32_t i = 0;
+    int w = 0;
+    BLOCK *p;
+    int PrevMin, CurrMin;
+    int AllBlocksIsDone;
+    long BlockNumber;
+    nMinBlock = 0;
+    nMaxBlock = 0;
 
-	int PrevMin, CurrMin;
-	int AllBlocksIsDone;
-	long BlockNumber;
+    for (i = 0; i < nRoots; i++) {
+        w = pRoots[i].nBlock;
 
-	nMinBlock = 0;
-	nMaxBlock = 0;
+        if ((w != DUST_BLOCK_NUMBER) && (w != REMOVED_BLOCK_NUMBER)) {
+            if (w < nMinBlock || nMinBlock == 0)
+                nMinBlock = w;
 
-	for (i = 0; i < nRoots; i++) {
-		w = pRoots[i].nBlock;
-		if ((w != DUST_BLOCK_NUMBER) && (w != REMOVED_BLOCK_NUMBER)) {
-			if (w < nMinBlock || nMinBlock == 0)
-				nMinBlock = w;
+            if (w > nMaxBlock || nMaxBlock == 0)
+                nMaxBlock = w;
+        }
+    }
 
-			if (w > nMaxBlock || nMaxBlock == 0)
-				nMaxBlock = w;
-		}
-	}
+    if (nMinBlock == 0 || nMaxBlock == 0)
+        ErrorInternal("No blocks");
 
-	if (nMinBlock == 0 || nMaxBlock == 0)
-		ErrorInternal("No blocks");
+    nBlocks = nMaxBlock + 1;
+    pBlockPointer = static_cast<BLOCK**> (malloc(nBlocks * sizeof(BLOCK *)));
 
-	nBlocks = nMaxBlock + 1;
-	pBlockPointer = static_cast<BLOCK**> (malloc(nBlocks * sizeof(BLOCK *)));
+    if (pBlockPointer == NULL)
+        ErrorNoEnoughMemory("in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
 
-	if (pBlockPointer == NULL)
-		ErrorNoEnoughMemory("in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
+    memset(pBlockPointer, 0, nBlocks * sizeof(BLOCK *));
+    //*********************************** Rom
+    PrevMin = 0;
+    AllBlocksIsDone = FALSE;
 
-	memset(pBlockPointer, 0, nBlocks * sizeof(BLOCK *));
+    while (!AllBlocksIsDone) {
+        CurrMin = 32000;
+        AllBlocksIsDone = TRUE;
 
-	//*********************************** Rom
-	PrevMin = 0;
-	AllBlocksIsDone = FALSE;
-	while (!AllBlocksIsDone) {
-		CurrMin = 32000;
-		AllBlocksIsDone = TRUE;
-		for (p = pBlocksList; p != NULL; p = p -> pNext) {
-			BlockNumber = p->nUserNum;
-			if ((BlockNumber > PrevMin) && (BlockNumber < CurrMin)) {
-				CurrMin = BlockNumber;
-				AllBlocksIsDone = FALSE;
-			}
-		}
-		PrevMin = CurrMin;
+        for (p = pBlocksList; p != NULL; p = p -> pNext) {
+            BlockNumber = p->nUserNum;
 
-		for (p = pBlocksList; p != NULL; p = p -> pNext) {
-			if ((p -> Type == BLOCK_TEXT) && (p->nUserNum == CurrMin))
-				pBlockPointer[p -> nNumber] = p;
-			//pBlockPointer [p -> nUserNum] = p;
-		}
-	}
-	//*******************************************************
+            if ((BlockNumber > PrevMin) && (BlockNumber < CurrMin)) {
+                CurrMin = BlockNumber;
+                AllBlocksIsDone = FALSE;
+            }
+        }
+
+        PrevMin = CurrMin;
+
+        for (p = pBlocksList; p != NULL; p = p -> pNext) {
+            if ((p -> Type == BLOCK_TEXT) && (p->nUserNum == CurrMin))
+                pBlockPointer[p -> nNumber] = p;
+
+            //pBlockPointer [p -> nUserNum] = p;
+        }
+    }
+
+    //*******************************************************
 }
 
-void BlocksAccessTableFree(void) {
-	if (pBlockPointer != NULL) {
-		free(pBlockPointer);
-		pBlockPointer = NULL;
-	}
+void BlocksAccessTableFree(void)
+{
+    if (pBlockPointer != NULL) {
+        free(pBlockPointer);
+        pBlockPointer = NULL;
+    }
 }

@@ -58,50 +58,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rmarker.h"
 #include "rmfunc.h"
 
-uchar* Buffer=NULL;
-uchar* WorkMem=NULL;
-int BufferSize=0;
-int WorkMemSize=0;
+uchar* Buffer = NULL;
+uchar* WorkMem = NULL;
+int BufferSize = 0;
+int WorkMemSize = 0;
 
 
 void GiveMainBuff (void **vvBuff, int *Size)
 {
-	*vvBuff = Buffer;
-	*Size = BufferSize;
+    *vvBuff = Buffer;
+    *Size = BufferSize;
 }
 
 void GiveWorkBuff (char **ccBuff, int *Size)
 {
-	*ccBuff = (char*)WorkMem;
-	*Size = WorkMemSize;
+    *ccBuff = (char*)WorkMem;
+    *Size = WorkMemSize;
 }
 
 void SetMainBuff(void *vBuff, int Size)
 {
-	Buffer=(uchar*)vBuff;
-	BufferSize=Size;
+    Buffer = (uchar*)vBuff;
+    BufferSize = Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size)
 {
-	WorkMem=(uchar*)vBuff;
-	WorkMemSize=Size;
+    WorkMem = (uchar*)vBuff;
+    WorkMemSize = Size;
 }
 
 void ReSetMem()
 {
-	Buffer=NULL;
-	BufferSize=0;
-	WorkMem=NULL;
-	WorkMemSize=0;
+    Buffer = NULL;
+    BufferSize = 0;
+    WorkMem = NULL;
+    WorkMemSize = 0;
 }
 
-void *	RMARKERAlloc(int stAllocateBlock)
+void *  RMARKERAlloc(int stAllocateBlock)
 {
-	return malloc(stAllocateBlock);
+    return malloc(stAllocateBlock);
 }
 
-void	RMARKERFree(void * mem)
+void    RMARKERFree(void * mem)
 {
- free(mem);
+    free(mem);
 }

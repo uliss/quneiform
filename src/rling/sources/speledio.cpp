@@ -114,81 +114,85 @@ static void skip_safeguard(struct segm *segm_ptr);
 //
 // This procedure stores new state of ed_file into output stream.
 //
-int16_t save_ed_file(uchar batch_run) {
-	struct segm *segm_ptr;
-	int16_t lth;
+int16_t save_ed_file(uchar batch_run)
+{
+    struct segm *segm_ptr;
+    int16_t lth;
+    batch_run++;
+    segm_ptr = SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].first_segm;
+    lth = 0;
 
-	batch_run++;
-	segm_ptr = SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].first_segm;
-	lth = 0;
+    if (segm_ptr == NULL) {
+        return 0;
+    }
 
-	if (segm_ptr == NULL) {
-		return 0;
-	}
+    skip_safeguard(segm_ptr);
 
-	skip_safeguard(segm_ptr);
+    while (segm_ptr) {
+        ed_out_write(segm_ptr->string, segm_ptr->busy_lth);
+        segm_ptr = segm_ptr->next_in_sheet;
+    }
 
-	while (segm_ptr) {
-		ed_out_write(segm_ptr->string, segm_ptr->busy_lth);
-		segm_ptr = segm_ptr->next_in_sheet;
-	}
-
-	return 1;
+    return 1;
 }
 
 //
 //  This procedure reads ed file into memory and generates
 //  needed structures.
 //
-int16_t read_file(uchar batch_run) {
-	int16_t i;
-	char ret;
-	int32_t shift;
-	int16_t read_cnt;
-	LT safeGuard = { 0x20, 0xF };
+int16_t read_file(uchar batch_run)
+{
+    int16_t i;
+    char ret;
+    int32_t shift;
+    int16_t read_cnt;
+    LT safeGuard = { 0x20, 0xF };
+    batch_run++;
+    read_cnt = 0;
 
-	batch_run++;
-	read_cnt = 0;
+    for (i = 0; i <= read_cnt; i++) {
+        SPQ.buff_l = SPQ.file_lth = (ED_file_end - ED_file_start);
+        SPQ.text_buff = (char*) ED_file_start;
+        SPQ.buff_ptr = ED_file_start;
+        SPQ.l = 0;
 
-	for (i = 0; i <= read_cnt; i++) {
-		SPQ.buff_l = SPQ.file_lth = (ED_file_end - ED_file_start);
-		SPQ.text_buff = (char*) ED_file_start;
-		SPQ.buff_ptr = ED_file_start;
-		SPQ.l = 0;
+        for (SPQ.l = 0; SPQ.l < SPQ.buff_l; SPQ.buff_ptr++) {
+            ret = (char) processEdSymb();
 
-		for (SPQ.l = 0; SPQ.l < SPQ.buff_l; SPQ.buff_ptr++) {
-			ret = (char) processEdSymb();
+            if (ret == TOO_MANY_FRAGMS) {
+                return FALSE;
+            }
 
-			if (ret == TOO_MANY_FRAGMS) {
-				return FALSE;
-			} else if (ret == NO) {
-				shift = SPQ.l - SPQ.buff_l;
-				lseek(SPQ.ed_file, shift, SEEK_CUR);
-				break;
-			} else if (ret == -1)
-				ErrorExit(RLING_ERROR_WRONG_ED_FILE);
-		}
-	}
+            else if (ret == NO) {
+                shift = SPQ.l - SPQ.buff_l;
+                lseek(SPQ.ed_file, shift, SEEK_CUR);
+                break;
+            }
 
-	puff_last_segm();
+            else if (ret == -1)
+                ErrorExit(RLING_ERROR_WRONG_ED_FILE);
+        }
+    }
 
-	// Insert "safeguard" space symbol to avoid lexical integrity
-	// destruction at the last symbol of ED-file.
-	// SPQ.st.cur_segm must point to the last segment of ED-file!!!
-	insert_symb(SPQ.st.cur_segm, NULL, &safeGuard);
-	return TRUE;
+    puff_last_segm();
+    // Insert "safeguard" space symbol to avoid lexical integrity
+    // destruction at the last symbol of ED-file.
+    // SPQ.st.cur_segm must point to the last segment of ED-file!!!
+    insert_symb(SPQ.st.cur_segm, NULL, &safeGuard);
+    return TRUE;
 }
 
 //
 //  This procedure removes "safeguard" space symbol inserted by
 //  read_file() from the last position of the ED-file.
 //
-void skip_safeguard(struct segm *segm_ptr) {
-	while (segm_ptr->next_in_sheet) {
-		segm_ptr = segm_ptr->next_in_sheet;
-	}
+void skip_safeguard(struct segm *segm_ptr)
+{
+    while (segm_ptr->next_in_sheet) {
+        segm_ptr = segm_ptr->next_in_sheet;
+    }
 
-	skip_letter_in_line(segm_ptr, LAST_LETTER);
-	shift(LEFT, sizeof(LT), segm_ptr, (char*) SPQ.ns_symb + sizeof(LT));
+    skip_letter_in_line(segm_ptr, LAST_LETTER);
+    shift(LEFT, sizeof(LT), segm_ptr, (char*) SPQ.ns_symb + sizeof(LT));
 }
 

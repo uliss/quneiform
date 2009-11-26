@@ -56,244 +56,258 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-	#ifndef __BLCKWHTE_H
-	#	include "blckwhte.h"
-	#endif
+#ifndef __BLCKWHTE_H
+#   include "blckwhte.h"
+#endif
 
-	#ifndef __SBAMBUK_H
-	#  include "sbambuk.h"
-	#endif
+#ifndef __SBAMBUK_H
+#  include "sbambuk.h"
+#endif
 
-	void SetupHConverter( int right,
-						  int left,
-						  int filter_len,
-                    TSegBambuk* bambuk,
-                    Bool include_borders
-						);
+void SetupHConverter( int right,
+                      int left,
+                      int filter_len,
+                      TSegBambuk* bambuk,
+                      Bool include_borders
+                    );
 
-   void ConvertBWLine( void* image_line_ptr );
+void ConvertBWLine( void* image_line_ptr );
 
 
 #define Word16_BIT_SIZE   16
 
 #ifndef NDEBUG
-	int32_t tot_seg_extracted = 0;
+int32_t tot_seg_extracted = 0;
 #endif
 
-	static uint16_t left_pixel_ = 1;           // left border in pixels [1..)
-	static uint16_t right_pixel_ = 0;          // right border (included) in pixels [16..)
-	static uint16_t left_word_offset_ = 0;     // offset from start of line in word (0..);
-	static uint16_t left_pixel_offset_ = 0;    // pixel in word from wich starts line
-                                          // [0..Word16_BIT_SIZE-1]
-	static uint16_t right_pixel_offset_ = 0;
-   static Bool include_border_segments_ = TRUE; // if FALSE - segments touching border are ignored
-   static TSegBambuk* bambuk_ptr_ = NULL;       // all line segments
-	static int filter_len_ = 0;            // segments shorter (or equal) filter_len
-														// are ignored
+static uint16_t left_pixel_ = 1;           // left border in pixels [1..)
+static uint16_t right_pixel_ = 0;          // right border (included) in pixels [16..)
+static uint16_t left_word_offset_ = 0;     // offset from start of line in word (0..);
+static uint16_t left_pixel_offset_ = 0;    // pixel in word from wich starts line
+// [0..Word16_BIT_SIZE-1]
+static uint16_t right_pixel_offset_ = 0;
+static Bool include_border_segments_ = TRUE; // if FALSE - segments touching border are ignored
+static TSegBambuk* bambuk_ptr_ = NULL;       // all line segments
+static int filter_len_ = 0;            // segments shorter (or equal) filter_len
+// are ignored
 
-	static inline void new_segment( int left, int right );
+static inline void new_segment( int left, int right );
 
 #ifndef NDEBUG
-//	extern word seg_len_histo[34];
+//  extern word seg_len_histo[34];
 #endif
 
 
-void SetupHConverter( int 			left,
-					  int 			right,
-					  int 			filter_len,
-                 TSegBambuk*  bambuk,
-                 Bool         include_borders
-							)
- {
-	assert( right > left );
-	assert( filter_len >= 0 );
-	assert( bambuk != NULL );
-	assert( bambuk->isOk() );
-
-	left_pixel_ = left;
-	right_pixel_ = right;
-   left_word_offset_ = left / Word16_BIT_SIZE;
-   left_pixel_offset_ = left % Word16_BIT_SIZE;
-   right_pixel_offset_ = right % Word16_BIT_SIZE;
-	include_border_segments_ = include_borders;
-
-	bambuk_ptr_ = bambuk;
-	filter_len_ = filter_len;
- }
+void SetupHConverter( int           left,
+                      int           right,
+                      int           filter_len,
+                      TSegBambuk*  bambuk,
+                      Bool         include_borders
+                    )
+{
+    assert( right > left );
+    assert( filter_len >= 0 );
+    assert( bambuk != NULL );
+    assert( bambuk->isOk() );
+    left_pixel_ = left;
+    right_pixel_ = right;
+    left_word_offset_ = left / Word16_BIT_SIZE;
+    left_pixel_offset_ = left % Word16_BIT_SIZE;
+    right_pixel_offset_ = right % Word16_BIT_SIZE;
+    include_border_segments_ = include_borders;
+    bambuk_ptr_ = bambuk;
+    filter_len_ = filter_len;
+}
 
 #define NO_DOTMATRIX
-static int prev_left=0;
-static int prev_right=0;
+static int prev_left = 0;
+static int prev_right = 0;
 
 static inline void line_start()
 {
-   prev_right = 0;
-   prev_left  = 0;
+    prev_right = 0;
+    prev_left  = 0;
 }
 
 static inline void line_finish()
 {
 #ifndef NO_DOTMATRIX  // old style processing
-   if (prev_right)
-      if ((prev_right-prev_left) >= filter_len_)
-		   bambuk_ptr_->addHorisontal( prev_left, prev_right );
+
+    if (prev_right)
+        if ((prev_right - prev_left) >= filter_len_)
+            bambuk_ptr_->addHorisontal( prev_left, prev_right );
+
 #endif
 }
 
 static inline void new_segment( int left, int right )
- {
-
+{
 #ifdef NO_DOTMATRIX  // old style processing
 
-	if ((right-left) >= filter_len_)
-		bambuk_ptr_->addHorisontal( left, right );
+    if ((right - left) >= filter_len_)
+        bambuk_ptr_->addHorisontal( left, right );
 
 #else  // DOTMATRIX
 
-   if (prev_right) // not first segment
-   {
-      if (left - prev_right < 4) // small gap?
-         prev_right = right;     // expand right
-      else  // big gap - register prev segment and save new one
-      {
-      	if ((prev_right-prev_left) >= filter_len_)
-		      bambuk_ptr_->addHorisontal( prev_left, prev_right );
-         prev_left = left;
-         prev_right=right;
-      }
-   }
-   else
-   {  // first segment
-      prev_left = left;
-      prev_right=right;
-   }
+    if (prev_right) { // not first segment
+        if (left - prev_right < 4) // small gap?
+            prev_right = right;     // expand right
+
+        else { // big gap - register prev segment and save new one
+            if ((prev_right - prev_left) >= filter_len_)
+                bambuk_ptr_->addHorisontal( prev_left, prev_right );
+
+            prev_left = left;
+            prev_right = right;
+        }
+    }
+
+    else { // first segment
+        prev_left = left;
+        prev_right = right;
+    }
 
 #endif // NO_DOTMATRIX
-
- }
+}
 
 inline uint16_t GetWord16( uint16_t* pw )
 #ifndef BIG_ENDIAN
-{  return *pw; }
+{  return *pw;
+}
 #else
-{  return (*pw << 8 ) | (*pw >> 8); }
+{  return (*pw << 8 ) | (*pw >> 8);
+}
 #endif
 
 
-const int trail_zeros[256] = // byte=>count of trailed zeros
-{
-/*       0 1 2 3 4 5 6 7 8 9 a b c d e f */
-/*0*/    8,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*1*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*2*/    5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*3*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*4*/    6,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*5*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*6*/    5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*7*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*8*/    7,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*9*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*a*/    5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*b*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*c*/    6,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*d*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*e*/    5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
-/*f*/    4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0
+const int trail_zeros[256] = { // byte=>count of trailed zeros
+    /*       0 1 2 3 4 5 6 7 8 9 a b c d e f */
+    /*0*/    8, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*1*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*2*/    5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*3*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*4*/    6, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*5*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*6*/    5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*7*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*8*/    7, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*9*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*a*/    5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*b*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*c*/    6, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*d*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*e*/    5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+    /*f*/    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0
 };
 
 
 #include "fillgap3.h"
 void ConvertBWLine(  void*      image_line_ptr
-						)
+                  )
 {
 #ifndef BLACK_IS_ZERO
 #error Wow, !BLACK_IS_ZERO, Correct, me please!
 #endif
-
-   image_line_ptr = FillGap3_SubstLine( (uchar*)image_line_ptr );
-
-	register uchar* pb = (uchar*)image_line_ptr + left_pixel_/8;
-   uchar* pfirst = (uchar*)image_line_ptr;
-   uchar* plast  = (uchar*)image_line_ptr + right_pixel_/8;
-	uchar last_byte = *plast;
-   int left, right;
-   line_start();
+    image_line_ptr = FillGap3_SubstLine( (uchar*)image_line_ptr );
+    register uchar* pb = (uchar*)image_line_ptr + left_pixel_ / 8;
+    uchar* pfirst = (uchar*)image_line_ptr;
+    uchar* plast  = (uchar*)image_line_ptr + right_pixel_ / 8;
+    uchar last_byte = *plast;
+    int left, right;
+    line_start();
 #ifdef NO_DOTMATRIX
-	for (;;)
-	{
-	   // loop on white area
-	   *plast = 0x00;
-	   while (*++pb){;}        // skip for entire black segment
-	   if (!(plast-pb))	// stopped on last byte?
-		   break;
-      // started black area...
-      left = ((pb-pfirst)<<3) - trail_zeros[*(pb-1)];
-      *plast = 0xff;
-	   while (!*++pb){;}
-	   if (!(plast-pb))	// stopped on last byte?
-      {
-         right = ((pb-pfirst)<<3) + first_bit1_pos[ last_byte ];
-         new_segment(left, right);
-         break;
-      };
-      right = ((pb-pfirst)<<3) + first_bit1_pos[*pb];
-      new_segment(left, right);
-	};
+
+    for (;;) {
+        // loop on white area
+        *plast = 0x00;
+
+        while (*++pb) {
+            ;    // skip for entire black segment
+        }
+
+        if (!(plast - pb)) // stopped on last byte?
+            break;
+
+        // started black area...
+        left = ((pb - pfirst) << 3) - trail_zeros[*(pb-1)];
+        *plast = 0xff;
+
+        while (!*++pb) {
+            ;
+        }
+
+        if (!(plast - pb)) { // stopped on last byte?
+            right = ((pb - pfirst) << 3) + first_bit1_pos[ last_byte ];
+            new_segment(left, right);
+            break;
+        };
+
+        right = ((pb - pfirst) << 3) + first_bit1_pos[*pb];
+
+        new_segment(left, right);
+    };
+
 #else    // DOTMATRIX
-   while (plast!=pb) // not the last byte
-   {
-      if (white)
-      {
-   	   *plast = 0x00;
-	      while (*++pb==0xff){;}  // skip clean white bytes
-   	   if (!(plast-pb))	// stopped on last byte?
-	   	   break;
+    while (plast != pb) { // not the last byte
+        if (white) {
+            *plast = 0x00;
 
-         AlgStatus& as= stat_tbl[*pb];
-         if (as.next)
-         {  *pb++;
-            continue;
-         }
-         else
-         {
-            right = as.right;
-            *pb = as.
+            while (*++pb == 0xff) {
+                ;    // skip clean white bytes
+            }
 
+            if (!(plast - pb)) // stopped on last byte?
+                break;
 
-         white
+            AlgStatus& as = stat_tbl[*pb];
 
+            if (as.next) {
+                *pb++;
+                continue;
+            }
 
-         left = first_bit0_pos[*pb]+((pb-pfirst)<<3);
-         pb +=
+            else {
+                right = as.right;
+                *pb = as.
+                      white
+                      left = first_bit0_pos[*pb] + ((pb - pfirst) << 3);
+                pb +=
+                }
 
-      }
-      else
-      {
-      }
-   }
+            else {
+            }
+        }
 
+        for (;;) {
+            // loop on white area
+            *plast = 0x00;
 
-	for (;;)
-	{
-	   // loop on white area
-	   *plast = 0x00;
-	   while (*++pb==0xff){;}  // skip clean white bytes
-	   if (!(plast-pb))	// stopped on last byte?
-		   break;
-      // started black area...
-      left = ((pb-pfirst)<<3) - trail_zeros[*(pb-1)];
-      *plast = 0xff;
-	   while (!*++pb){;}
-	   if (!(plast-pb))	// stopped on last byte?
-      {
-         right = ((pb-pfirst)<<3) + first_bit1_pos[ last_byte ];
-         new_segment(left, right);
-         break;
-      };
-      right = ((pb-pfirst)<<3) + first_bit1_pos[*pb];
-      new_segment(left, right);
-	};
+            while (*++pb == 0xff) {
+                ;    // skip clean white bytes
+            }
+
+            if (!(plast - pb)) // stopped on last byte?
+                break;
+
+            // started black area...
+            left = ((pb - pfirst) << 3) - trail_zeros[*(pb-1)];
+            *plast = 0xff;
+
+            while (!*++pb) {
+                ;
+            }
+
+            if (!(plast - pb)) { // stopped on last byte?
+                right = ((pb - pfirst) << 3) + first_bit1_pos[ last_byte ];
+                new_segment(left, right);
+                break;
+            };
+
+            right = ((pb - pfirst) << 3) + first_bit1_pos[*pb];
+
+            new_segment(left, right);
+        };
+
 #endif
-
-   line_finish();
+    line_finish();
 }

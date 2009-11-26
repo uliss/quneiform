@@ -86,85 +86,86 @@ int nSB_CellHeight;
 # define NEEDED_COMP_MIN_HEIGHT 8
 # define NEEDED_REMAINED_SQUARE 10
 
-Bool SB_MatrixAllocateBody(BLOCK *p, int nCellWidth, int nCellHeight) {
-	nSB_CellWidth = nCellWidth;
-	nSB_CellHeight = nCellHeight;
+Bool SB_MatrixAllocateBody(BLOCK *p, int nCellWidth, int nCellHeight)
+{
+    nSB_CellWidth = nCellWidth;
+    nSB_CellHeight = nCellHeight;
 
-	if (nSB_CellWidth < 6 || nSB_CellHeight < 6)
-		return (FALSE);
+    if (nSB_CellWidth < 6 || nSB_CellHeight < 6)
+        return (FALSE);
 
-	nSB_Width = (p -> Rect.xRight - p -> Rect.xLeft + 1) / nSB_CellWidth + 1;
-	nSB_Height = (p -> Rect.yBottom - p -> Rect.yTop + 1) / nSB_CellHeight + 1;
+    nSB_Width = (p -> Rect.xRight - p -> Rect.xLeft + 1) / nSB_CellWidth + 1;
+    nSB_Height = (p -> Rect.yBottom - p -> Rect.yTop + 1) / nSB_CellHeight + 1;
 
-	if (nSB_Width < NEEDED_COMP_MIN_WIDTH || nSB_Height
-			< NEEDED_COMP_MIN_HEIGHT) {
-		return (FALSE);
-	}
+    if (nSB_Width < NEEDED_COMP_MIN_WIDTH || nSB_Height
+            < NEEDED_COMP_MIN_HEIGHT) {
+        return (FALSE);
+    }
 
-	nSB_Size = nSB_Width * nSB_Height;
-	pSB_Matrix = static_cast<uchar*> (malloc(nSB_Size));
+    nSB_Size = nSB_Width * nSB_Height;
+    pSB_Matrix = static_cast<uchar*> (malloc(nSB_Size));
 
-	if (pSB_Matrix == NULL)
-		ErrorNoEnoughMemory("in LTSMART.C,SB_MatrixAllocateBody,part 1");
+    if (pSB_Matrix == NULL)
+        ErrorNoEnoughMemory("in LTSMART.C,SB_MatrixAllocateBody,part 1");
 
-	memset(pSB_Matrix, WHITE_CELL, nSB_Size);
-	return (TRUE);
+    memset(pSB_Matrix, WHITE_CELL, nSB_Size);
+    return (TRUE);
 }
 
-Bool SB_MatrixBuild(BLOCK *p, int nCellWidth, int nCellHeight) {
-	ROOT *pRoot;
-	RECTANGLE r;
-	int y, o;
-	int xExtension = nCellWidth / 2;
-	int yExtension = nCellHeight / 4;
-
+Bool SB_MatrixBuild(BLOCK *p, int nCellWidth, int nCellHeight)
+{
+    ROOT *pRoot;
+    RECTANGLE r;
+    int y, o;
+    int xExtension = nCellWidth / 2;
+    int yExtension = nCellHeight / 4;
 # ifdef LT_DEBUG
-	pDebugBlock = p;
+    pDebugBlock = p;
 # endif
 
-	if (!SB_MatrixAllocateBody(p, nCellWidth, nCellHeight))
-		return (FALSE);
+    if (!SB_MatrixAllocateBody(p, nCellWidth, nCellHeight))
+        return (FALSE);
 
-	for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-		r.xLeft = (pRoot -> xColumn - p -> Rect.xLeft - xExtension)
-				/ nSB_CellWidth;
+    for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
+        r.xLeft = (pRoot -> xColumn - p -> Rect.xLeft - xExtension)
+                  / nSB_CellWidth;
 
-		if (r.xLeft < 0)
-			r.xLeft = 0;
+        if (r.xLeft < 0)
+            r.xLeft = 0;
 
-		r.xRight = (pRoot -> xColumn + pRoot -> nWidth - 1 - p -> Rect.xLeft
-				+ xExtension) / nSB_CellWidth;
+        r.xRight = (pRoot -> xColumn + pRoot -> nWidth - 1 - p -> Rect.xLeft
+                    + xExtension) / nSB_CellWidth;
 
-		if (r.xRight >= nSB_Width)
-			r.xRight = nSB_Width - 1;
+        if (r.xRight >= nSB_Width)
+            r.xRight = nSB_Width - 1;
 
-		r.yTop = (pRoot -> yRow - p -> Rect.yTop - yExtension) / nSB_CellHeight;
+        r.yTop = (pRoot -> yRow - p -> Rect.yTop - yExtension) / nSB_CellHeight;
 
-		if (r.yTop < 0)
-			r.yTop = 0;
+        if (r.yTop < 0)
+            r.yTop = 0;
 
-		pSB_Matrix[r.yTop * nSB_Width + r.xLeft] = BLACK_CELL;
+        pSB_Matrix[r.yTop * nSB_Width + r.xLeft] = BLACK_CELL;
+        r.yBottom = (pRoot -> yRow + pRoot -> nHeight - 1 - p -> Rect.yTop
+                     + yExtension) / nSB_CellHeight;
 
-		r.yBottom = (pRoot -> yRow + pRoot -> nHeight - 1 - p -> Rect.yTop
-				+ yExtension) / nSB_CellHeight;
+        if (r.yBottom >= nSB_Height)
+            r.yBottom = nSB_Height - 1;
 
-		if (r.yBottom >= nSB_Height)
-			r.yBottom = nSB_Height - 1;
+        for (y = r.yTop, o = y * nSB_Width; y <= r.yBottom; y++, o += nSB_Width) {
+            memset(pSB_Matrix + o + r.xLeft, BLACK_CELL, (r.xRight - r.xLeft
+                                                          + 1));
+        }
+    }
 
-		for (y = r.yTop, o = y * nSB_Width; y <= r.yBottom; y++, o += nSB_Width) {
-			memset(pSB_Matrix + o + r.xLeft, BLACK_CELL, (r.xRight - r.xLeft
-					+ 1));
-		}
-	}
-
-	return (TRUE);
+    return (TRUE);
 }
 
-void SB_MatrixFreeData(void) {
-	if (pSB_Matrix != NULL) {
-		free(pSB_Matrix);
-		pSB_Matrix = NULL;
-	}
+void SB_MatrixFreeData(void)
+{
+    if (pSB_Matrix != NULL) {
+        free(pSB_Matrix);
+        pSB_Matrix = NULL;
+    }
 }
 
 /*
@@ -208,90 +209,95 @@ void SB_MatrixFreeData(void) {
  }
  */
 
-int CompsFindCompToCut(COMP **ppResult) {
-	COMP *pResult;
-	COMP *p;
-	int nTotalSquare;
+int CompsFindCompToCut(COMP **ppResult)
+{
+    COMP *pResult;
+    COMP *p;
+    int nTotalSquare;
 
-	if (pCompsList == NULL || pCompsList -> pNext == NULL)
-		return (FCC_CANT_FOUND);
+    if (pCompsList == NULL || pCompsList -> pNext == NULL)
+        return (FCC_CANT_FOUND);
 
-	nTotalSquare = 0;
+    nTotalSquare = 0;
 
-	for (p = pCompsList; p != NULL; p = p -> pNext)
-		nTotalSquare += p -> nSquare;
+    for (p = pCompsList; p != NULL; p = p -> pNext)
+        nTotalSquare += p -> nSquare;
 
-	pResult = NULL;
+    pResult = NULL;
 
-	for (p = pCompsList; p != NULL; p = p -> pNext) {
-		if (p -> xRight - p -> xLeft + 1 < NEEDED_COMP_MIN_WIDTH
-				|| p -> yBottom - p -> yTop + 1 < NEEDED_COMP_MIN_HEIGHT) {
-			continue;
-		}
+    for (p = pCompsList; p != NULL; p = p -> pNext) {
+        if (p -> xRight - p -> xLeft + 1 < NEEDED_COMP_MIN_WIDTH
+                || p -> yBottom - p -> yTop + 1 < NEEDED_COMP_MIN_HEIGHT) {
+            continue;
+        }
 
-		if (pResult == NULL || p -> nSquare > pResult -> nSquare)
-			pResult = p;
-	}
+        if (pResult == NULL || p -> nSquare > pResult -> nSquare)
+            pResult = p;
+    }
 
-	if (pResult == NULL || nTotalSquare - pResult -> nSquare
-			< NEEDED_REMAINED_SQUARE) {
-		return (FCC_NOT_FOUND);
-	}
+    if (pResult == NULL || nTotalSquare - pResult -> nSquare
+            < NEEDED_REMAINED_SQUARE) {
+        return (FCC_NOT_FOUND);
+    }
 
-	*ppResult = pResult;
-	/*
-	 if (CalculateSuspicionCells (pResult) > pResult -> nSquare / 4)
-	 return (FCC_FOUND_SUSPICION);
-	 */
-	return (FCC_FOUND);
+    *ppResult = pResult;
+    /*
+     if (CalculateSuspicionCells (pResult) > pResult -> nSquare / 4)
+     return (FCC_FOUND_SUSPICION);
+     */
+    return (FCC_FOUND);
 }
 
-Bool BlockBreakByMatrix(BLOCK *p, BLOCK **pq, BLOCK **pr) {
-	BLOCK *q, *r;
-	ROOT *pRoot, *pNext;
+Bool BlockBreakByMatrix(BLOCK *p, BLOCK **pq, BLOCK **pr)
+{
+    BLOCK *q, *r;
+    ROOT *pRoot, *pNext;
 
-	if (p -> nRoots <= 1)
-		return (FALSE);
+    if (p -> nRoots <= 1)
+        return (FALSE);
 
-	q = BlocksAddDescriptor();
-	q -> nNumber = ++nNextBlockNumber;
-	q -> Type = BLOCK_TEXT;
-	q -> uFlags |= BF_SMART_BREAKING_APPLIED;
+    q = BlocksAddDescriptor();
+    q -> nNumber = ++nNextBlockNumber;
+    q -> Type = BLOCK_TEXT;
+    q -> uFlags |= BF_SMART_BREAKING_APPLIED;
+    r = BlocksAddDescriptor();
+    r -> nNumber = ++nNextBlockNumber;
+    r -> Type = BLOCK_TEXT;
+    r -> uFlags |= BF_SMART_BREAKING_APPLIED;
 
-	r = BlocksAddDescriptor();
-	r -> nNumber = ++nNextBlockNumber;
-	r -> Type = BLOCK_TEXT;
-	r -> uFlags |= BF_SMART_BREAKING_APPLIED;
+    for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pNext) {
+        int x, y;
+        pNext = pRoot -> u1.pNext;
+        x = (pRoot -> xColumn - p -> Rect.xLeft) / nSB_CellWidth;
+        y = (pRoot -> yRow - p -> Rect.yTop) / nSB_CellHeight;
 
-	for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pNext) {
-		int x, y;
-		pNext = pRoot -> u1.pNext;
+        if (pSB_Matrix[x + y * nSB_Width] & MARKED_CELL)
+            BlockAccountRoot(r, pRoot);
 
-		x = (pRoot -> xColumn - p -> Rect.xLeft) / nSB_CellWidth;
-		y = (pRoot -> yRow - p -> Rect.yTop) / nSB_CellHeight;
+        else
+            BlockAccountRoot(q, pRoot);
+    }
 
-		if (pSB_Matrix[x + y * nSB_Width] & MARKED_CELL)
-			BlockAccountRoot(r, pRoot);
-		else
-			BlockAccountRoot(q, pRoot);
-	}
+    if (q -> nRoots == 0 || r -> nRoots == 0) {
+        BlocksRestoreBreakedBlock(p, q, r);
+        return (FALSE);
+    }
 
-	if (q -> nRoots == 0 || r -> nRoots == 0) {
-		BlocksRestoreBreakedBlock(p, q, r);
-		return (FALSE);
-	} else {
-		BlockSetAverageHeight(q);
-		BlockSetAverageHeight(r);
-		BlockCalculateBreakingParameters(q);
-		BlockCalculateBreakingParameters(r);
+    else {
+        BlockSetAverageHeight(q);
+        BlockSetAverageHeight(r);
+        BlockCalculateBreakingParameters(q);
+        BlockCalculateBreakingParameters(r);
+        BlocksRemoveDescriptor(p);
 
-		BlocksRemoveDescriptor(p);
-		if (pq != NULL)
-			*pq = q;
-		if (pr != NULL)
-			*pr = r;
-		return (TRUE);
-	}
+        if (pq != NULL)
+            *pq = q;
+
+        if (pr != NULL)
+            *pr = r;
+
+        return (TRUE);
+    }
 }
 
 # define SB_ITERATIONS   3
@@ -301,72 +307,78 @@ static int SB_CoefficientX_Den[SB_ITERATIONS] = { 1, 1, 1 };
 static int SB_CoefficientY_Nom[SB_ITERATIONS] = { 1, 2, 4 };
 static int SB_CoefficientY_Den[SB_ITERATIONS] = { 1, 1, 1 };
 
-Bool TrySmartBreaking(BLOCK *pBlock) {
-	COMP *pComp;
-	int FCC_Status;
-	int nIter;
-	Bool bSuccess;
+Bool TrySmartBreaking(BLOCK *pBlock)
+{
+    COMP *pComp;
+    int FCC_Status;
+    int nIter;
+    Bool bSuccess;
 
-	for (nIter = 0; nIter < SB_ITERATIONS; nIter++) {
-		if (!SB_MatrixBuild(pBlock, pBlock -> nAverageHeight
-				* SB_CoefficientX_Nom[nIter] / SB_CoefficientX_Den[nIter],
-				pBlock -> nAverageHeight * SB_CoefficientY_Nom[nIter]
-						/ SB_CoefficientY_Den[nIter])) {
-			SmartBreakingFreeData();
-			return (FALSE);
-		}
+    for (nIter = 0; nIter < SB_ITERATIONS; nIter++) {
+        if (!SB_MatrixBuild(pBlock, pBlock -> nAverageHeight
+                            * SB_CoefficientX_Nom[nIter] / SB_CoefficientX_Den[nIter],
+                            pBlock -> nAverageHeight * SB_CoefficientY_Nom[nIter]
+                            / SB_CoefficientY_Den[nIter])) {
+            SmartBreakingFreeData();
+            return (FALSE);
+        }
 
-		CompsBuild(pSB_Matrix, nSB_Width, nSB_Height, nSB_Size, BLACK_CELL
-				| MARKED_CELL | SUSPICION_COMP_CELL);
+        CompsBuild(pSB_Matrix, nSB_Width, nSB_Height, nSB_Size, BLACK_CELL
+                   | MARKED_CELL | SUSPICION_COMP_CELL);
+        FCC_Status = CompsFindCompToCut(&pComp);
 
-		FCC_Status = CompsFindCompToCut(&pComp);
-
-		switch (FCC_Status) {
-		case FCC_NOT_FOUND:
+        switch (FCC_Status) {
+            case FCC_NOT_FOUND:
 # ifdef LT_DEBUG
-			//if (LT_DebugGraphicsLevel >= 3)
-			if(!LDPUMA_Skip(hBlocksBreaking))
-			LT_GraphicsSB_MatrixOutput ("Matrix (not found)");
-# endif
-			SmartBreakingFreeData();
-			return (FALSE);
 
-		case FCC_FOUND:
+                //if (LT_DebugGraphicsLevel >= 3)
+                if (!LDPUMA_Skip(hBlocksBreaking))
+                    LT_GraphicsSB_MatrixOutput ("Matrix (not found)");
+
+# endif
+                SmartBreakingFreeData();
+                return (FALSE);
+            case FCC_FOUND:
 # ifdef LT_DEBUG
-			//if (LT_DebugGraphicsLevel >= 3)
-			if(!LDPUMA_Skip(hBlocksBreaking))
-			LT_GraphicsSB_MatrixOutput ("Matrix (found)");
-# endif
-			CompOR_Matrix(pComp, MARKED_CELL);
-			bSuccess = BlockBreakByMatrix(pBlock, NULL, NULL);
-			SmartBreakingFreeData();
-			return (bSuccess);
 
-		case FCC_CANT_FOUND:
+                //if (LT_DebugGraphicsLevel >= 3)
+                if (!LDPUMA_Skip(hBlocksBreaking))
+                    LT_GraphicsSB_MatrixOutput ("Matrix (found)");
+
+# endif
+                CompOR_Matrix(pComp, MARKED_CELL);
+                bSuccess = BlockBreakByMatrix(pBlock, NULL, NULL);
+                SmartBreakingFreeData();
+                return (bSuccess);
+            case FCC_CANT_FOUND:
 # ifdef LT_DEBUG
-			//if (LT_DebugGraphicsLevel >= 3)
-			if(!LDPUMA_Skip(hBlocksBreaking))
-			LT_GraphicsSB_MatrixOutput ("Matrix (can't found)");
-# endif
-			SmartBreakingFreeData();
-			return (FALSE);
 
-		case FCC_FOUND_SUSPICION:
+                //if (LT_DebugGraphicsLevel >= 3)
+                if (!LDPUMA_Skip(hBlocksBreaking))
+                    LT_GraphicsSB_MatrixOutput ("Matrix (can't found)");
+
+# endif
+                SmartBreakingFreeData();
+                return (FALSE);
+            case FCC_FOUND_SUSPICION:
 # ifdef LT_DEBUG
-			//if (LT_DebugGraphicsLevel >= 3)
-			if(!LDPUMA_Skip(hBlocksBreaking))
-			LT_GraphicsSB_MatrixOutput ("Matrix (not found)");
-# endif
-			SmartBreakingFreeData();
-			continue;
-		}
-	}
 
-	return (FALSE);
+                //if (LT_DebugGraphicsLevel >= 3)
+                if (!LDPUMA_Skip(hBlocksBreaking))
+                    LT_GraphicsSB_MatrixOutput ("Matrix (not found)");
+
+# endif
+                SmartBreakingFreeData();
+                continue;
+        }
+    }
+
+    return (FALSE);
 }
 
-void SmartBreakingFreeData(void) {
-	IntervalsFreeData();
-	CompsFreeData();
-	SB_MatrixFreeData();
+void SmartBreakingFreeData(void)
+{
+    IntervalsFreeData();
+    CompsFreeData();
+    SB_MatrixFreeData();
 }

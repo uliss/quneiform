@@ -56,18 +56,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-	#ifndef __ROMBLB_H
-	#	include "rombabble.h"
-	#endif
+#ifndef __ROMBLB_H
+#   include "rombabble.h"
+#endif
 
-   #ifndef __MEMOPS_H
-   #  include "memops.h"
-   #endif
+#ifndef __MEMOPS_H
+#  include "memops.h"
+#endif
 
 CRomBabble::CRomBabble(  )
-	{
-		Max = MaxNumberOfBabbles;
-		Current = 0;
-		next = NULL;
-      memset( Data, 0, sizeof(Data) );
-	}
+{
+    Max = MaxNumberOfBabbles;
+    Current = 0;
+    next = NULL;
+    memset( Data, 0, sizeof(Data) );
+}

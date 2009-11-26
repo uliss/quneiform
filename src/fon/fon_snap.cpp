@@ -83,224 +83,252 @@ static int probSnap[NUM_IN_SNAP + 1];
 //
 ///////////////
 
-int32_t FONInitSnap(Handle hwnd) {
-	memset(nameSnap, 0, sizeof(nameSnap));
-	InSnap = 0;
+int32_t FONInitSnap(Handle hwnd)
+{
+    memset(nameSnap, 0, sizeof(nameSnap));
+    InSnap = 0;
 
-	if (snapRaster == NULL)
-		snapRaster = (RecRaster *) malloc(NUM_IN_SNAP * sizeof(RecRaster));
-	if (!snapRaster)
-		return -1;
+    if (snapRaster == NULL)
+        snapRaster = (RecRaster *) malloc(NUM_IN_SNAP * sizeof(RecRaster));
 
-	if (WasRegister == FALSE) {
-		if (hwnd)
-			hGluInstance = NULL;
-		else
-			hGluInstance = NULL;
+    if (!snapRaster)
+        return -1;
 
-		WasRegister = RegisterGlu(hGluInstance, szGluName);
-		if (WasRegister == FALSE)
-			return -2;
-	}
+    if (WasRegister == FALSE) {
+        if (hwnd)
+            hGluInstance = NULL;
 
-	IsSnap = TRUE;
-	return NUM_IN_SNAP;
+        else
+            hGluInstance = NULL;
+
+        WasRegister = RegisterGlu(hGluInstance, szGluName);
+
+        if (WasRegister == FALSE)
+            return -2;
+    }
+
+    IsSnap = TRUE;
+    return NUM_IN_SNAP;
 }
 
-int32_t FONEndSnap(void) {
+int32_t FONEndSnap(void)
+{
+    IsSnap = FALSE;
+    InSnap = 0;
 
-	IsSnap = FALSE;
-	InSnap = 0;
-	if (snapRaster)
-		free(snapRaster);
-	snapRaster = NULL;
+    if (snapRaster)
+        free(snapRaster);
 
-	return 1;
+    snapRaster = NULL;
+    return 1;
 }
 
-int PutNamesSnap(int nvar, uchar *names, int *probs) {
-	int i;
+int PutNamesSnap(int nvar, uchar *names, int *probs)
+{
+    int i;
+    memset(recogResult, 0, sizeof(recogResult));
 
-	memset(recogResult, 0, sizeof(recogResult));
-	for (i = 0; i < nvar; i++)
-		sprintf(recogResult + strlen(recogResult), "%c(%d) ", names[i],
-				(int) probs[i]);
-	return 1;
+    for (i = 0; i < nvar; i++)
+        sprintf(recogResult + strlen(recogResult), "%c(%d) ", names[i],
+                (int) probs[i]);
+
+    return 1;
 }
 /////////////////////////
-int AddRasterToSnap(RecRaster *rr, int num) {
-	if (num < 0)
-		num = InSnap;
-	else
-		InSnap = num;
+int AddRasterToSnap(RecRaster *rr, int num)
+{
+    if (num < 0)
+        num = InSnap;
 
-	if (num >= NUM_IN_SNAP)
-		return -10;
-	if (num == 0)
-		recogResult[0] = 0;
-	memcpy(snapRaster + num, rr, sizeof(RecRaster));
-	InSnap++;
-	return 1;
+    else
+        InSnap = num;
+
+    if (num >= NUM_IN_SNAP)
+        return -10;
+
+    if (num == 0)
+        recogResult[0] = 0;
+
+    memcpy(snapRaster + num, rr, sizeof(RecRaster));
+    InSnap++;
+    return 1;
 }
 //////////////
-int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist) {
-	int bytesx = ((xbit + 63) / 64) * 8;
-	int xbyte = (xbit + 7) >> 3;
-	RecRaster *recRas;
-	uchar *ras;
+int AddBitmapToSnap(uchar *buf, int xbit, int yrow, int name, int dist)
+{
+    int bytesx = ((xbit + 63) / 64) * 8;
+    int xbyte = (xbit + 7) >> 3;
+    RecRaster *recRas;
+    uchar *ras;
 
-	if (!IsSnap)
-		return 0;
+    if (!IsSnap)
+        return 0;
 
-	if (InSnap >= NUM_IN_SNAP)
-		InSnap = 0;
-	//return -10;
+    if (InSnap >= NUM_IN_SNAP)
+        InSnap = 0;
 
-	if (name <= 0) {
-		nameSnap[InSnap] = '~';
-		probSnap[InSnap] = 0;
-	}
-	// to ANSI from ASCII
-	else {
-		if (name >= 128 && name < 176)
-			nameSnap[InSnap] = name + 64;
-		else if (name >= 224 && name < 240)
-			nameSnap[InSnap] = name + 16;
-		else
-			nameSnap[InSnap] = name;
-		probSnap[InSnap] = dist;
-	}
+    //return -10;
 
-	if (bytesx * yrow > REC_MAX_RASTER_SIZE)
-		yrow = REC_MAX_RASTER_SIZE / bytesx;
+    if (name <= 0) {
+        nameSnap[InSnap] = '~';
+        probSnap[InSnap] = 0;
+    }
 
-	recRas = snapRaster + InSnap;
-	recRas->lnPixHeight = yrow;
-	recRas->lnPixWidth = xbit;
-	recRas->lnRasterBufSize = REC_MAX_RASTER_SIZE;
-	ras = recRas->Raster;
-	for (; yrow > 0; yrow--, ras += bytesx, buf += xbyte)
-		memcpy(ras, buf, xbyte);
+    // to ANSI from ASCII
+    else {
+        if (name >= 128 && name < 176)
+            nameSnap[InSnap] = name + 64;
 
-	InSnap++;
-	return 1;
+        else if (name >= 224 && name < 240)
+            nameSnap[InSnap] = name + 16;
+
+        else
+            nameSnap[InSnap] = name;
+
+        probSnap[InSnap] = dist;
+    }
+
+    if (bytesx * yrow > REC_MAX_RASTER_SIZE)
+        yrow = REC_MAX_RASTER_SIZE / bytesx;
+
+    recRas = snapRaster + InSnap;
+    recRas->lnPixHeight = yrow;
+    recRas->lnPixWidth = xbit;
+    recRas->lnRasterBufSize = REC_MAX_RASTER_SIZE;
+    ras = recRas->Raster;
+
+    for (; yrow > 0; yrow--, ras += bytesx, buf += xbyte)
+        memcpy(ras, buf, xbyte);
+
+    InSnap++;
+    return 1;
 }
 //////////////
 // rr-> at position fx,fy, size sx,sy
-static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) {
-	int i, j;
-	int wid = rr->lnPixWidth;
-	int hei = rr->lnPixHeight;
-	int xbyte = ((wid + 63) / 64) * 8;
-	int step, x, y;
-	uchar cc;
-	uchar *buf = rr->Raster;
+static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy)
+{
+    int i, j;
+    int wid = rr->lnPixWidth;
+    int hei = rr->lnPixHeight;
+    int xbyte = ((wid + 63) / 64) * 8;
+    int step, x, y;
+    uchar cc;
+    uchar *buf = rr->Raster;
+    step = MIN(sx / wid, sy / hei);
 
-	step = MIN(sx / wid, sy / hei);
-	if (step < 3)
-		step = 3;
+    if (step < 3)
+        step = 3;
 
-	for (i = 0, y = fy; i < hei; i++, buf += xbyte, y += step) {
-		for (j = 0, x = fx, cc = 128; j < wid; j++, x += step) {
-			if (buf[j >> 3] & cc)
-				Rectangle(hDC, x, y, x + step, y + step);
-			cc >>= 1;
-			if (cc == 0)
-				cc = 128;
-		}
-	}
+    for (i = 0, y = fy; i < hei; i++, buf += xbyte, y += step) {
+        for (j = 0, x = fx, cc = 128; j < wid; j++, x += step) {
+            if (buf[j >> 3] & cc)
+                Rectangle(hDC, x, y, x + step, y + step);
 
-	return step;
+            cc >>= 1;
+
+            if (cc == 0)
+                cc = 128;
+        }
+    }
+
+    return step;
 }
 
-int32_t FONShowSnap(void) {
-	RECT rect;
-	int i, j, xstart, ystart;
-	HDC hDC;
-	int numRow = 1;
-	int all;
+int32_t FONShowSnap(void)
+{
+    RECT rect;
+    int i, j, xstart, ystart;
+    HDC hDC;
+    int numRow = 1;
+    int all;
 
-	if (IsSnap == FALSE)
-		return -11;
-	if (InSnap <= 0)
-		return 0; // nothing in snap
+    if (IsSnap == FALSE)
+        return -11;
 
-	if (hwndSnap == NULL)
-		return -3;
+    if (InSnap <= 0)
+        return 0; // nothing in snap
 
-	numRow = 1;
-	if (InSnap > 6)
-		numRow = 3; // make 3 rows
-	else if (InSnap > 3)
-		numRow = 2; // make 2 rows
+    if (hwndSnap == NULL)
+        return -3;
 
-	if (InSnap >= 3)
-		j = rect.right / 3;
-	else
-		j = rect.right / InSnap;
+    numRow = 1;
 
-	Rectangle(hDC, 0, 0, rect.right, rect.bottom);
+    if (InSnap > 6)
+        numRow = 3; // make 3 rows
 
-	rect.bottom /= numRow;
-	ystart = 0;
-	for (all = 0; numRow; numRow--, ystart += rect.bottom) {
-		for (i = xstart = 0; i < 3 && all < InSnap; i++, xstart += j, all++) {
-			Rectangle(hDC, xstart, ystart, xstart + j, ystart + rect.bottom);
-			PutRecRaster(hDC, snapRaster + all, xstart, ystart, j, rect.bottom);
-		}
-	}
+    else if (InSnap > 3)
+        numRow = 2; // make 2 rows
 
-	PutNamesSnap(InSnap, (uchar*) nameSnap, probSnap);
+    if (InSnap >= 3)
+        j = rect.right / 3;
 
-	return InSnap;
+    else
+        j = rect.right / InSnap;
+
+    Rectangle(hDC, 0, 0, rect.right, rect.bottom);
+    rect.bottom /= numRow;
+    ystart = 0;
+
+    for (all = 0; numRow; numRow--, ystart += rect.bottom) {
+        for (i = xstart = 0; i < 3 && all < InSnap; i++, xstart += j, all++) {
+            Rectangle(hDC, xstart, ystart, xstart + j, ystart + rect.bottom);
+            PutRecRaster(hDC, snapRaster + all, xstart, ystart, j, rect.bottom);
+        }
+    }
+
+    PutNamesSnap(InSnap, (uchar*) nameSnap, probSnap);
+    return InSnap;
 }
 
 /*
  * Handle messages for the application window
  */
 int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam,
-		LPARAM lparam) {
-	PAINTSTRUCT ps;
+                                LPARAM lparam)
+{
+    PAINTSTRUCT ps;
 
-	switch (msg) {
-	case WM_DESTROY:
-		//FONEndSnap();
-		hwndSnap = NULL;
-		IsSnap = FALSE;
-		break;
-	case WM_SIZE:
-		if (InSnap)
-			FONShowSnap();
-		break;
-	case WM_PAINT:
-		if (InSnap)
-			FONShowSnap();
-		return TRUE;
-	default:
-		break;
-	}
-	return 0;
+    switch (msg) {
+        case WM_DESTROY:
+            //FONEndSnap();
+            hwndSnap = NULL;
+            IsSnap = FALSE;
+            break;
+        case WM_SIZE:
+
+            if (InSnap)
+                FONShowSnap();
+
+            break;
+        case WM_PAINT:
+
+            if (InSnap)
+                FONShowSnap();
+
+            return TRUE;
+        default:
+            break;
+    }
+
+    return 0;
 }
 
-static Bool RegisterGlu(Handle hInstance, char* szAppName) {
-	WNDCLASS WndClass;
-	Bool bSuccess;
-
-	memset(&WndClass, 0, sizeof(WNDCLASS));
-
-	WndClass.lpszClassName = szAppName;
-	WndClass.hInstance = hInstance;
-	WndClass.lpfnWndProc = (void*) GluFonWindowProc;
-	WndClass.style = (unsigned int) NULL;
-	WndClass.hbrBackground = NULL;
-	WndClass.hCursor = NULL;
-	WndClass.hIcon = NULL;
-	WndClass.lpszMenuName = (char*) NULL;
-	WndClass.cbClsExtra = (int) NULL;
-	WndClass.cbWndExtra = (int) NULL;
-
-	bSuccess = FALSE;
-
-	return bSuccess;
+static Bool RegisterGlu(Handle hInstance, char* szAppName)
+{
+    WNDCLASS WndClass;
+    Bool bSuccess;
+    memset(&WndClass, 0, sizeof(WNDCLASS));
+    WndClass.lpszClassName = szAppName;
+    WndClass.hInstance = hInstance;
+    WndClass.lpfnWndProc = (void*) GluFonWindowProc;
+    WndClass.style = (unsigned int) NULL;
+    WndClass.hbrBackground = NULL;
+    WndClass.hCursor = NULL;
+    WndClass.hIcon = NULL;
+    WndClass.lpszMenuName = (char*) NULL;
+    WndClass.cbClsExtra = (int) NULL;
+    WndClass.cbWndExtra = (int) NULL;
+    bSuccess = FALSE;
+    return bSuccess;
 }
 

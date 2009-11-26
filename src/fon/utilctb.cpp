@@ -69,101 +69,96 @@
 
 static uchar UseHand = 0;
 
-void EndCTB(CTB_handle *CTBFile) {
-	CTB_close(CTBFile);
+void EndCTB(CTB_handle *CTBFile)
+{
+    CTB_close(CTBFile);
 }
 
 int StartCTB(char *outname, CTB_handle *CTBFile, int16_t countFont,
-		uint32_t *fields) {
-	uchar CTBdata[CTB_DATA_SIZE];
-	int16_t *pint16 = (int16_t *) (CTBdata + 6);
-	uint32_t *pword32 = (uint32_t *) (CTBdata + 8);
-	int i;
+             uint32_t *fields)
+{
+    uchar CTBdata[CTB_DATA_SIZE];
+    int16_t *pint16 = (int16_t *) (CTBdata + 6);
+    uint32_t *pword32 = (uint32_t *) (CTBdata + 8);
+    int i;
+    memset(CTBdata, 0, CTB_DATA_SIZE);
+    memcpy(&CTBdata[1], ParolBase, 5);
+    *pint16 = countFont;
+    i = MIN(countFont, 4);
+    memcpy(pword32, fields, i * NFIELDDWORD * sizeof(uint32_t));
+    CTBdata[0] = std::max(8 + 4 * NFIELDDWORD * sizeof(uint32_t), 34 + NFIELDDWORD
+                          * sizeof(uint32_t));
 
-	memset(CTBdata, 0, CTB_DATA_SIZE);
-	memcpy(&CTBdata[1], ParolBase, 5);
-	*pint16 = countFont;
-	i = MIN(countFont, 4);
-	memcpy(pword32, fields, i * NFIELDDWORD * sizeof(uint32_t));
+    if (CTB_create_gray(outname, CTBdata) == FALSE) {
+        //    MessageBox(GetActiveWindow(),outname,"Error create CTB",MB_OK);
+        return -1;
+    }
 
-	CTBdata[0] = std::max(8 + 4*NFIELDDWORD * sizeof(uint32_t), 34 + NFIELDDWORD
-			* sizeof(uint32_t));
+    if (CTB_open(outname, CTBFile, "w") == FALSE) {
+        //    MessageBox(GetActiveWindow(),outname,"Error open CTB",MB_OK);
+        return -2;
+    }
 
-	if (CTB_create_gray(outname, CTBdata) == FALSE) {
-		//    MessageBox(GetActiveWindow(),outname,"Error create CTB",MB_OK);
-		return -1;
-	}
-
-	if (CTB_open(outname, CTBFile, "w") == FALSE) {
-		//    MessageBox(GetActiveWindow(),outname,"Error open CTB",MB_OK);
-		return -2;
-	}
-
-	return 1;
+    return 1;
 }
 
-int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile) {
-	uchar CTBdata[CTB_DATA_SIZE];
-	int fullX;
-	int fullY;
-	uchar *bufCTB;
-	uint16_t *pword16;
-	uint32_t *pword32;
-	int16_t *pint16;
-	static int num = 0;
-	int i;
+int SaveWeletAsCTB(welet *wel, CTB_handle *CTBFile)
+{
+    uchar CTBdata[CTB_DATA_SIZE];
+    int fullX;
+    int fullY;
+    uchar *bufCTB;
+    uint16_t *pword16;
+    uint32_t *pword32;
+    int16_t *pint16;
+    static int num = 0;
+    int i;
+    fullX = 128; //((wel->w+7)>>3)<<3;
+    fullY = 64; // wel->h;
+    bufCTB = (uchar*) wel->raster;
+    memset(CTBdata, 0, CTB_DATA_SIZE);
+    CTBdata[0] = CTB_OEM_CHARSET;
+    CTBdata[1] = (uchar) fullX; // 128
+    CTBdata[2] = (uchar) fullY; //  64
+    CTBdata[3] = (uchar) wel->let; // in ASCII
+    // now my features
+    CTBdata[4] = (uchar) wel->w;
+    CTBdata[5] = (uchar) wel->h;
+    CTBdata[6] = (uchar) wel->weight; // how many symbols make
+    CTBdata[7] = (uchar) wel->porog; // threshold
+    CTBdata[8] = (uchar) wel->mw; // medium width
+    CTBdata[9] = (uchar) wel->mh; //        height
+    CTBdata[10] = (uchar) wel->prob; // for CTB - probability
+    CTBdata[11] = (uchar) wel->attr; // for attributes
+    // now put words
+    pword16 = (uint16_t *) (CTBdata + 12);
+    pword16[0] = wel->fill;
+    pword16[1] = wel->num;
+    pword16[2] = wel->invalid;
+    CTBdata[18] = wel->valid; // for CTB - validity
+    CTBdata[19] = wel->kegl;
+    // now short int's
+    pint16 = (int16_t *) (CTBdata + 20);
+    pint16[0] = wel->sr_col;
+    pint16[1] = wel->sr_row;
+    // now dword
+    pword32 = (uint32_t *) (CTBdata + 24);
+    pword32[0] = wel->summa;
 
-	fullX = 128; //((wel->w+7)>>3)<<3;
-	fullY = 64; // wel->h;
-	bufCTB = (uchar*) wel->raster;
+    for (i = 0; i < NFIELDDWORD; i++)
+        pword32[1 + i] = wel->fields[i];
 
-	memset(CTBdata, 0, CTB_DATA_SIZE);
-	CTBdata[0] = CTB_OEM_CHARSET;
-	CTBdata[1] = (uchar) fullX; // 128
-	CTBdata[2] = (uchar) fullY; //  64
-	CTBdata[3] = (uchar) wel->let; // in ASCII
-	// now my features
-	CTBdata[4] = (uchar) wel->w;
-	CTBdata[5] = (uchar) wel->h;
-	CTBdata[6] = (uchar) wel->weight; // how many symbols make
-	CTBdata[7] = (uchar) wel->porog; // threshold
-	CTBdata[8] = (uchar) wel->mw; // medium width
-	CTBdata[9] = (uchar) wel->mh; //        height
-	CTBdata[10] = (uchar) wel->prob; // for CTB - probability
-	CTBdata[11] = (uchar) wel->attr; // for attributes
+    pint16 = (int16_t *) (CTBdata + 28 + NFIELDDWORD * sizeof(uint32_t));
+    pint16[0] = wel->nInCTB;
+    pword32 = (uint32_t *) (pint16 + 1);
+    pword32[0] = wel->tablColumn;
 
-	// now put words
-	pword16 = (uint16_t *) (CTBdata + 12);
-	pword16[0] = wel->fill;
-	pword16[1] = wel->num;
-	pword16[2] = wel->invalid;
+    if (CTB_write(CTBFile, -1, bufCTB, CTBdata) == FALSE)
+        //    PutMyMessage(NULL,CTB_get_error(),"CTB error write raster!");
+        return 0;
 
-	CTBdata[18] = wel->valid; // for CTB - validity
-	CTBdata[19] = wel->kegl;
-
-	// now short int's
-	pint16 = (int16_t *) (CTBdata + 20);
-	pint16[0] = wel->sr_col;
-	pint16[1] = wel->sr_row;
-
-	// now dword
-	pword32 = (uint32_t *) (CTBdata + 24);
-	pword32[0] = wel->summa;
-
-	for (i = 0; i < NFIELDDWORD; i++)
-		pword32[1 + i] = wel->fields[i];
-
-	pint16 = (int16_t *) (CTBdata + 28 + NFIELDDWORD * sizeof(uint32_t));
-	pint16[0] = wel->nInCTB;
-
-	pword32 = (uint32_t *) (pint16 + 1);
-	pword32[0] = wel->tablColumn;
-
-	if (CTB_write(CTBFile, -1, bufCTB, CTBdata) == FALSE)
-		//    PutMyMessage(NULL,CTB_get_error(),"CTB error write raster!");
-		return 0;
-	num++;
-	return 1;
+    num++;
+    return 1;
 }
 ////////////////////
 //
@@ -174,76 +169,80 @@ static CTB_handle CTBfileBW;
 static unsigned char CTBima[((BASE_MAX_W + 7) / 8) * (BASE_MAX_H + 1)];
 static unsigned char CTBdata[MAX(CTB_DATA_SIZE, 36)];
 
-void CloseBase(void) {
-	CTB_close(&CTBfileBW);
-	return;
+void CloseBase(void)
+{
+    CTB_close(&CTBfileBW);
+    return;
 }
 
-int OpenBase(char *bas) {
+int OpenBase(char *bas)
+{
+    if (!CTB_open(bas, &CTBfileBW, "w"))
+        return -2;
 
-	if (!CTB_open(bas, &CTBfileBW, "w"))
-		return -2;
+    // grey file ?
+    if (CTBfileBW.signums & CTB_GRAY) {
+        CTB_close(&CTBfileBW);
+        //   MessageBox(GetActiveWindow(),name,"Grey base!",MB_OK);
+        return -3;
+    }
 
-	// grey file ?
-	if (CTBfileBW.signums & CTB_GRAY) {
-		CTB_close(&CTBfileBW);
-		//	 MessageBox(GetActiveWindow(),name,"Grey base!",MB_OK);
-		return -3;
-	}
-
-	return CTB_volume(&CTBfileBW);
+    return CTB_volume(&CTBfileBW);
 }
 ///////////////
-int GetSymbolFromBase(int i, Nraster_header *rh, uchar **pBuf) {
-	int16_t *pint16;
+int GetSymbolFromBase(int i, Nraster_header *rh, uchar **pBuf)
+{
+    int16_t *pint16;
+    memset(rh, 0, sizeof(Nraster_header));
 
-	memset(rh, 0, sizeof(Nraster_header));
+    if (!CTB_read(&CTBfileBW, i, CTBima, CTBdata))
+        return 0;
 
-	if (!CTB_read(&CTBfileBW, i, CTBima, CTBdata))
-		return 0;
-
-	if (CTBdata[5] == 0 && !UseHand)
-		return 0; // not printed symbol
+    if (CTBdata[5] == 0 && !UseHand)
+        return 0; // not printed symbol
 
 #ifdef _ONLY_FINAL_
-	if ((CTBdata[15] & LEO_VALID_FINAL) == 0)
-		return 0; // no in final
+
+    if ((CTBdata[15] & LEO_VALID_FINAL) == 0)
+        return 0; // no in final
+
 #endif
+    rh->w = CTBdata[1]; //result_struct.dx;
+    rh->h = CTBdata[2]; //result_struct.dy;
+    rh->let = CTBdata[3]; //result_struct.let;
+    rh->solid = 1;
+    pint16 = (int16_t *) (CTBdata + 6);
+    rh->sr_col = pint16[0];
+    rh->sr_row = pint16[1];
+    rh->prob = CTBdata[14]; // probability
+    rh->valid = CTBdata[15]; // validity
+    rh->nInCTB = i + 1; // count from 1 !
+    rh->nField = CTBdata[25]; // which field
 
-	rh->w = CTBdata[1]; //result_struct.dx;
-	rh->h = CTBdata[2]; //result_struct.dy;
-	rh->let = CTBdata[3]; //result_struct.let;
-	rh->solid = 1;
+    if (CTBdata[5] & CTB_PRINT_ITALIC)
+        rh->italic = 1;
 
-	pint16 = (int16_t *) (CTBdata + 6);
-	rh->sr_col = pint16[0];
-	rh->sr_row = pint16[1];
+    if (CTBdata[5] & CTB_PRINT_BOLD)
+        rh->bold = 1;
 
-	rh->prob = CTBdata[14]; // probability
-	rh->valid = CTBdata[15]; // validity
+    if (CTBdata[5] & CTB_PRINT_SERIFIC)
+        rh->serif = 1;
 
-	rh->nInCTB = i + 1; // count from 1 !
-	rh->nField = CTBdata[25]; // which field
+    if (CTBdata[5] & CTB_PRINT_GELV)
+        rh->gelv = 1;
 
-	if (CTBdata[5] & CTB_PRINT_ITALIC)
-		rh->italic = 1;
-	if (CTBdata[5] & CTB_PRINT_BOLD)
-		rh->bold = 1;
-	if (CTBdata[5] & CTB_PRINT_SERIFIC)
-		rh->serif = 1;
-	if (CTBdata[5] & CTB_PRINT_GELV)
-		rh->gelv = 1;
-	if (CTBdata[5] & CTB_PRINT_NARROW)
-		rh->narrow = 1;
+    if (CTBdata[5] & CTB_PRINT_NARROW)
+        rh->narrow = 1;
 
-	rh->kegl = CTBdata[34]; // 25.10.2000 - accord Oleg ! rstr_con_store
-	rh->tablColumn = CTBdata[35]; // were - [32],[33] !!!
-	*pBuf = &CTBima[0];
-	return 1;
+    rh->kegl = CTBdata[34]; // 25.10.2000 - accord Oleg ! rstr_con_store
+    rh->tablColumn = CTBdata[35]; // were - [32],[33] !!!
+    *pBuf = &CTBima[0];
+    return 1;
 }
 
-uchar SetHand(uchar val) {
-	UseHand = val;
-	return UseHand;
+uchar SetHand(uchar val)
+{
+    UseHand = val;
+    return UseHand;
 }
 

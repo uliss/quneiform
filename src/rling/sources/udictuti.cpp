@@ -88,81 +88,86 @@
 
 /***        P R O T O T Y P E S       ****/
 static int16_t UserDictRDWR(uchar * word, voc_state * user_dict,
-		int16_t weight, int16_t mode);
+                            int16_t weight, int16_t mode);
 static Bool ispermitted(uchar a);
 extern uchar multy_language;
 
 /* ------------------------------------------------------------------ */
 
 int16_t AddWordToUserDictionary(uchar * word, int16_t weight,
-		voc_state * user_dict) {
-	int16_t resp;
+                                voc_state * user_dict)
+{
+    int16_t resp;
+    resp = UserDictRDWR(word, user_dict, weight, VOC_W);
 
-	resp = UserDictRDWR(word, user_dict, weight, VOC_W);
+    if (resp > 0)
+        return TRUE;
 
-	if (resp > 0)
-		return TRUE;
-	else
-		switch (resp) {
-		case VOC_MEM_OVERFLOW:
-			return FALSE;
-
-		case VOC_ACCNT_OVERFLOW:
-			return TRUE;
-
-		case VOC_ACCNT_ZERO:
-		default:
-			/* printf ("Bolvano...");*/
-			return FALSE;
-		}
+    else
+        switch (resp) {
+            case VOC_MEM_OVERFLOW:
+                return FALSE;
+            case VOC_ACCNT_OVERFLOW:
+                return TRUE;
+            case VOC_ACCNT_ZERO:
+            default:
+                /* printf ("Bolvano...");*/
+                return FALSE;
+        }
 }
 
-int16_t DeleteWordFromUserDictionary(uchar * word, voc_state * user_dict) {
-	int16_t resp;
+int16_t DeleteWordFromUserDictionary(uchar * word, voc_state * user_dict)
+{
+    int16_t resp;
+    resp = UserDictRDWR(word, user_dict, -256, VOC_R);
 
-	resp = UserDictRDWR(word, user_dict, -256, VOC_R);
-
-	switch (resp) {
-	case 0:
-	case VOC_ACCNT_ZERO:
-		return TRUE;
-	default:
-		printf("Bolvano...");
-		return FALSE;
-	}
+    switch (resp) {
+        case 0:
+        case VOC_ACCNT_ZERO:
+            return TRUE;
+        default:
+            printf("Bolvano...");
+            return FALSE;
+    }
 }
 
-int16_t _IsWordInUserDictionary(uchar * word, voc_state * user_dict) {
-	int16_t resp;
+int16_t _IsWordInUserDictionary(uchar * word, voc_state * user_dict)
+{
+    int16_t resp;
+    resp = UserDictRDWR(word, user_dict, 0, VOC_R);
 
-	resp = UserDictRDWR(word, user_dict, 0, VOC_R);
-	if (resp >= 0)
-		return resp;
-	else {
-		;
-		return 0;
-	}
+    if (resp >= 0)
+        return resp;
+
+    else {
+        ;
+        return 0;
+    }
 }
 
 int16_t UserDictRDWR(uchar * word, voc_state * user_dict, int16_t weight,
-		int16_t mode) {
-	LTIMG wrdimg[MAX_WORD_SIZE], *wrddef[MAX_WORD_SIZE + 1];
-	LT lt[MAX_WORD_SIZE];
-	int16_t i;
-	int16_t lth;
-	for (i = 0; *word; i++, word++) {
-		if (i == MAX_WORD_SIZE)
-			return 0;
-		lt[i].code = *word;
-		lt[i].attr = 255;
-		wrdimg[i].lt = lt + i;
-		wrdimg[i].blank = 0;
-		wrddef[i] = wrdimg + i;
-	}
-	wrddef[i] = NULL;
-	lth = i - 1;
-	user_dict -> lev = -1;
-	return voc_(user_dict, wrddef, &lth, weight, mode, NULL);
+                     int16_t mode)
+{
+    LTIMG wrdimg[MAX_WORD_SIZE], *wrddef[MAX_WORD_SIZE + 1];
+    LT lt[MAX_WORD_SIZE];
+    int16_t i;
+    int16_t lth;
+
+    for (i = 0; *word; i++, word++) {
+        if (i == MAX_WORD_SIZE)
+            return 0;
+
+        lt[i].code = *word;
+        lt[i].attr = 255;
+        wrdimg[i].lt = lt + i;
+        wrdimg[i].blank = 0;
+        wrddef[i] = wrdimg + i;
+    }
+
+    wrddef[i] = NULL;
+    lth = i - 1;
+    user_dict -> lev = -1;
+    return voc_(user_dict, wrddef, &lth, weight, mode, NULL);
 }
 
 /* function splits a word record onto a pair of word and its frequency.
@@ -171,69 +176,90 @@ int16_t UserDictRDWR(uchar * word, voc_state * user_dict, int16_t weight,
  // if line is empty -1 returned.
  // otherwise frc returned.
  */
-int16_t SplitWordRecord(uchar * str) {
-	uchar *b;
-	b = str;
-	while ((*str) && (*str == ' '))
-		str++;
-	if ((!*str) || (*str == '\n'))
-		return -1;
-	if (!ispermitted(*str))
-		return 0;
-	if (b != str)
-		strcpy((char*) b, (char*) str);
-	b++;
-	while ((*b) && ispermitted(*b))
-		b++;
-	if (!*b)
-		return 1;
-	if (*b == '\n') {
-		*b = 0;
-		return 1;
-	}
-	if (*b != ' ')
-		return 0;
-	*(b++) = 0;
-	while ((*b) && (*b == ' '))
-		b++;
-	if ((!*b) || (*b == '\n'))
-		return 1;
-	if (!isdigit(*b))
-		return 0;
-	return atoi((char*) b);
+int16_t SplitWordRecord(uchar * str)
+{
+    uchar *b;
+    b = str;
+
+    while ((*str) && (*str == ' '))
+        str++;
+
+    if ((!*str) || (*str == '\n'))
+        return -1;
+
+    if (!ispermitted(*str))
+        return 0;
+
+    if (b != str)
+        strcpy((char*) b, (char*) str);
+
+    b++;
+
+    while ((*b) && ispermitted(*b))
+        b++;
+
+    if (!*b)
+        return 1;
+
+    if (*b == '\n') {
+        *b = 0;
+        return 1;
+    }
+
+    if (*b != ' ')
+        return 0;
+
+    *(b++) = 0;
+
+    while ((*b) && (*b == ' '))
+        b++;
+
+    if ((!*b) || (*b == '\n'))
+        return 1;
+
+    if (!isdigit(*b))
+        return 0;
+
+    return atoi((char*) b);
 }
 
 static byte tab_alphas[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 0
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 10
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 20
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 30
-		0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 40
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, // 50
-		0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 60
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, // 70
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 80
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 90
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // a0
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // b0
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // c0
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // d0
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // e0
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 // f0
-		};
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 10
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 20
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 30
+                                0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 40
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, // 50
+                                0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 60
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, // 70
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 80
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 90
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // a0
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // b0
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // c0
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // d0
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // e0
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 // f0
+                              };
 
-void init_tab_alpha(uchar *s1, uchar *s2, int16_t num) {
-	int16_t i;
-	if (language == LANG_RUSSIAN && multy_language || language == LANG_RUSENG)
-		memset(&tab_alphas[128], 0, 128);
-	else
-		memset(tab_alphas, 0, 256);
-	for (i = 0; i < num; i++)
-		tab_alphas[s1[i]] = tab_alphas[s2[i]] = 1;
-	return;
+void init_tab_alpha(uchar *s1, uchar *s2, int16_t num)
+{
+    int16_t i;
+
+    if (language == LANG_RUSSIAN && multy_language || language == LANG_RUSENG)
+        memset(&tab_alphas[128], 0, 128);
+
+    else
+        memset(tab_alphas, 0, 256);
+
+    for (i = 0; i < num; i++)
+        tab_alphas[s1[i]] = tab_alphas[s2[i]] = 1;
+
+    return;
 }
 
-Bool ispermitted(uchar a) {
-	return tab_alphas[a];
+Bool ispermitted(uchar a)
+{
+    return tab_alphas[a];
 }
 
 // 08-13-93 07:26pm, Mike
@@ -246,29 +272,31 @@ Bool ispermitted(uchar a) {
  - UD_PERMITTED  - file has a CFIO user dict header.
  */
 
-int16_t _IsUserDict(char * name) {
-	char buff[128];
-	int16_t f;
-	int32_t ret;
+int16_t _IsUserDict(char * name)
+{
+    char buff[128];
+    int16_t f;
+    int32_t ret;
+    f
+    = TGOPEN( (int16_t)VC_STREAM, name, (int16_t)(O_RDONLY | O_BINARY), S_IREAD );
 
-	f
-			= TGOPEN( (int16_t)VC_STREAM, name, (int16_t)(O_RDONLY|O_BINARY), S_IREAD );
-	if (f == -1) {
-		return UD_NOTEXIST;
-	}
+    if (f == -1) {
+        return UD_NOTEXIST;
+    }
 
-	ret = TGREAD (f, buff, sizeof(DYN_DICT_HEADER));
-	if (ret != sizeof(DYN_DICT_HEADER)) {
-		return UD_WRONGHEAD;
-	}
+    ret = TGREAD (f, buff, sizeof(DYN_DICT_HEADER));
 
-	buff[sizeof(DYN_DICT_HEADER)] = 0;
-	if (strcmp(buff, DYN_DICT_HEADER)) {
-		return UD_WRONGHEAD;
-	}
+    if (ret != sizeof(DYN_DICT_HEADER)) {
+        return UD_WRONGHEAD;
+    }
 
-	TGCLOSE(f);
+    buff[sizeof(DYN_DICT_HEADER)] = 0;
 
-	return UD_PERMITTED;
+    if (strcmp(buff, DYN_DICT_HEADER)) {
+        return UD_WRONGHEAD;
+    }
+
+    TGCLOSE(f);
+    return UD_PERMITTED;
 }
 

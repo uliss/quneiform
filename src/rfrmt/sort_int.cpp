@@ -74,139 +74,174 @@ static int* num_ptr;
 //flip - ®Ў¬Ґ­ Ї ал н«-в®ў ¬Ґбв ¬Ё
 static void flip(char*, char *);
 static void quick_sort(char *, int);
-static void flip(char *a, char *b) {
-	memcpy(flip_buffer, a, w);
-	memcpy(a, b, w);
-	memcpy(b, flip_buffer, w);
+static void flip(char *a, char *b)
+{
+    memcpy(flip_buffer, a, w);
+    memcpy(a, b, w);
+    memcpy(b, flip_buffer, w);
 }
 /*====*/
 //void  u4sort(void *base, int  num, int  width, COMP_FUN (*compare()))
-void u4sort(void *base2, int num, int width, int(*compare)()) {
-	w = width;
-	c = (int(*)(char *, char *)) compare;
-	quick_sort((char *) base2, num);
+void u4sort(void *base2, int num, int width, int(*compare)())
+{
+    w = width;
+    c = (int(*)(char *, char *)) compare;
+    quick_sort((char *) base2, num);
 }
 
 #define LOWORD(l) ((uint16_t)(l))
-int compare(TYPE *a, TYPE *b) {
-	return (*a >= *b ? 1 : -1);
+int compare(TYPE *a, TYPE *b)
+{
+    return (*a >= *b ? 1 : -1);
 }
-int comp_left(FRAME **a, FRAME **b) {
-	return ((*a)->left >= (*b)->left ? 1 : -1);
+int comp_left(FRAME **a, FRAME **b)
+{
+    return ((*a)->left >= (*b)->left ? 1 : -1);
 }
-int comp_vert(FRAME **a, FRAME **b) {
-	return ((*a)->up >= (*b)->up ? 1 : -1);
+int comp_vert(FRAME **a, FRAME **b)
+{
+    return ((*a)->up >= (*b)->up ? 1 : -1);
 }
-int comp_leftDesc(FRAME **a, FRAME **b) {
-	return (-(*a)->left >= -(*b)->left ? 1 : -1);
+int comp_leftDesc(FRAME **a, FRAME **b)
+{
+    return (-(*a)->left >= -(*b)->left ? 1 : -1);
 }
-int comp_vertDesc(FRAME **a, FRAME **b) {
-	return (-(*a)->up >= -(*b)->up ? 1 : -1);
+int comp_vertDesc(FRAME **a, FRAME **b)
+{
+    return (-(*a)->up >= -(*b)->up ? 1 : -1);
 }
-int comp1(TYPE *a, TYPE *b) {
-	return (*a >= *b ? 1 : -1);
+int comp1(TYPE *a, TYPE *b)
+{
+    return (*a >= *b ? 1 : -1);
 }
-int compF(float *a, float *b) {
-	return (*a >= *b ? 1 : -1);
+int compF(float *a, float *b)
+{
+    return (*a >= *b ? 1 : -1);
 }
-int comp_long(uint32_t *a, uint32_t *b) {
-	return (LOWORD(*a) >= LOWORD(*b) ? 1 : -1);
+int comp_long(uint32_t *a, uint32_t *b)
+{
+    return (LOWORD(*a) >= LOWORD(*b) ? 1 : -1);
 }
-int comp1_long(uint32_t *a, uint32_t *b) {
-	return (*((uint*) a) >= *((uint*) b) ? 1 : -1);
+int comp1_long(uint32_t *a, uint32_t *b)
+{
+    return (*((uint*) a) >= *((uint*) b) ? 1 : -1);
 }
 /*  *((uint*)a+1) - нв® бв аиҐҐ б«®ў®  */
 /* ЎЁ­ а­л© Ї®ЁбЄ ў ®вб®авЁа®ў ­­®¬ ¬ ббЁўҐ    */
-int search_int(int *x, int n, int a) {
-	int left, right, middle;
-	if (a < x[0])
-		return 0;
-	if (a > x[n])
-		return n + 1;
-	left = 0;
-	right = n;
-	while (right - left > 1) {
-		if (a < x[(middle = (right + left) >> 1)])
-			right = middle;
-		else
-			left = middle;
-	}
-	return left + 1;
+int search_int(int *x, int n, int a)
+{
+    int left, right, middle;
+
+    if (a < x[0])
+        return 0;
+
+    if (a > x[n])
+        return n + 1;
+
+    left = 0;
+    right = n;
+
+    while (right - left > 1) {
+        if (a < x[(middle = (right + left) >> 1)])
+            right = middle;
+
+        else
+            left = middle;
+    }
+
+    return left + 1;
 }
 
-static void quick_sort(char *base1, int num1) {
-	int num, num_smaller;
-	char *base, *smallQ, *largeQ;
-	base_start_ptr = base_arr;
-	//  base_end_ptr = base_start_ptr + MAX__DEPTH + 1 ;
-	base_end_ptr = base_start_ptr + MAX__DEPTH; //071299
-	base_ptr = base_start_ptr + 1;
-	num_ptr = (int*) num_arr;
-	num_ptr++;
-	*base_ptr = base1;
-	*num_ptr = num1;
-	do {
-		base = *base_ptr;
-		num = *num_ptr;
-		if (num < 3) {
-			if (num == 2)
-				if ((*c)(base, base + w) > 0)
-					flip(base, base + w);
-			base_ptr--;
-			num_ptr--;
-		} else {
-			largeQ = base + w * (num - 1);
-			smallQ = base + w * (num >> 1);
+static void quick_sort(char *base1, int num1)
+{
+    int num, num_smaller;
+    char *base, *smallQ, *largeQ;
+    base_start_ptr = base_arr;
+    //  base_end_ptr = base_start_ptr + MAX__DEPTH + 1 ;
+    base_end_ptr = base_start_ptr + MAX__DEPTH; //071299
+    base_ptr = base_start_ptr + 1;
+    num_ptr = (int*) num_arr;
+    num_ptr++;
+    *base_ptr = base1;
+    *num_ptr = num1;
 
-			/* base should point to a middle value fewest recursions */
-			if ((*c)(smallQ, largeQ) > 0)
-				flip(smallQ, largeQ);
-			if ((*c)(smallQ, base) > 0)
-				flip(smallQ, base);
-			else if ((*c)(base, largeQ) > 0)
-				flip(base, largeQ);
+    do {
+        base = *base_ptr;
+        num = *num_ptr;
 
-			if (num == 3) {
-				flip(base, smallQ);
-				base_ptr--;
-				num_ptr--;
-			} else {
+        if (num < 3) {
+            if (num == 2)
+                if ((*c)(base, base + w) > 0)
+                    flip(base, base + w);
 
-				smallQ = base + w;
+            base_ptr--;
+            num_ptr--;
+        }
 
-				while (smallQ < largeQ) {
-					if ((*c)(smallQ, base) < 0) {
-						smallQ += w;
-						continue;
-					}
+        else {
+            largeQ = base + w * (num - 1);
+            smallQ = base + w * (num >> 1);
 
-					do {
-						if ((*c)(base, largeQ) > 0) {
-							flip(smallQ, largeQ);
-							largeQ -= w;
-							smallQ += w;
-							break;
-						}
-						largeQ -= w;
-					} while (smallQ < largeQ);
-				}
+            /* base should point to a middle value fewest recursions */
+            if ((*c)(smallQ, largeQ) > 0)
+                flip(smallQ, largeQ);
 
-				if ((*c)(smallQ, base) < 0)
-					flip(smallQ, base);
-				num_smaller = (int) ((smallQ - base) / w);
-				*num_ptr = num_smaller;
-				base_ptr++;
-				//
-				if (base_ptr > base_end_ptr) {
-					printf("\n Sorting Buffer Overflow");
-					return;
-				};
-				num_ptr++;
-				*base_ptr = smallQ; //10000 bytes ml
-				*num_ptr = num - num_smaller;
-			}
-		}
-	} while (base_ptr != base_start_ptr);
+            if ((*c)(smallQ, base) > 0)
+                flip(smallQ, base);
 
-	return;
+            else if ((*c)(base, largeQ) > 0)
+                flip(base, largeQ);
+
+            if (num == 3) {
+                flip(base, smallQ);
+                base_ptr--;
+                num_ptr--;
+            }
+
+            else {
+                smallQ = base + w;
+
+                while (smallQ < largeQ) {
+                    if ((*c)(smallQ, base) < 0) {
+                        smallQ += w;
+                        continue;
+                    }
+
+                    do {
+                        if ((*c)(base, largeQ) > 0) {
+                            flip(smallQ, largeQ);
+                            largeQ -= w;
+                            smallQ += w;
+                            break;
+                        }
+
+                        largeQ -= w;
+                    }
+                    while (smallQ < largeQ);
+                }
+
+                if ((*c)(smallQ, base) < 0)
+                    flip(smallQ, base);
+
+                num_smaller = (int) ((smallQ - base) / w);
+                *num_ptr = num_smaller;
+                base_ptr++;
+
+                //
+                if (base_ptr > base_end_ptr) {
+                    printf("\n Sorting Buffer Overflow");
+                    return;
+                };
+
+                num_ptr++;
+
+                *base_ptr = smallQ; //10000 bytes ml
+
+                *num_ptr = num - num_smaller;
+            }
+        }
+    }
+    while (base_ptr != base_start_ptr);
+
+    return;
 }

@@ -81,72 +81,71 @@ extern int16_t nIncline;
 Handle MainWindowD;
 
 Bool32 RBLOCK_ExtractTextBlocks(Handle hCCOM, Handle hCPAGE,
-		CLINE_handle hCLINE) {
-	SetReturnCode_rblock(IDS_ERR_NO);
-	Open_Res_Log();
+                                CLINE_handle hCLINE)
+{
+    SetReturnCode_rblock(IDS_ERR_NO);
+    Open_Res_Log();
+    MainWindowD = NULL;
+    MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
 
-	MainWindowD = NULL;
-	MainWindowD = LDPUMA_GetWindowHandle("Изображение после разворота");
-	if (!MainWindowD)
-		MainWindowD = LDPUMA_GetWindowHandle("Main");
-	HCLINE = hCLINE;
+    if (!MainWindowD)
+        MainWindowD = LDPUMA_GetWindowHandle("Main");
 
-	PAGEINFO info = { 0 };
-	if (GetPageInfo(hCPAGE, &info))
-		nIncline = info.Incline2048;
-	else
-		nIncline = 0;
+    HCLINE = hCLINE;
+    PAGEINFO info = { 0 };
 
-	if (setjmp (fatal_error_exit)) {
-		progress_finish();
-		return FALSE;
-	}
+    if (GetPageInfo(hCPAGE, &info))
+        nIncline = info.Incline2048;
 
-	EnableDebug();
-	PageLayoutBlocks(hCCOM);
-	OutputFragments(hCPAGE);
-	Close_Res_Log();
+    else
+        nIncline = 0;
 
-	return TRUE;
+    if (setjmp (fatal_error_exit)) {
+        progress_finish();
+        return FALSE;
+    }
+
+    EnableDebug();
+    PageLayoutBlocks(hCCOM);
+    OutputFragments(hCPAGE);
+    Close_Res_Log();
+    return TRUE;
 }
 
 ////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
+RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM, Handle hCPAGE)
 {
-	SetReturnCode_rblock(IDS_ERR_NO);
-	Open_Res_Log();
+    SetReturnCode_rblock(IDS_ERR_NO);
+    Open_Res_Log();
 
-	if (setjmp (fatal_error_exit))
-	{
-		progress_finish();
-		return FALSE;
-	}
+    if (setjmp (fatal_error_exit)) {
+        progress_finish();
+        return FALSE;
+    }
 
-	nStrings = 0;
-	EnableDebug();
-	PageLayoutStrings(hCCOM,hCPAGE);
-	Close_Res_Log();
-
-	return TRUE;
+    nStrings = 0;
+    EnableDebug();
+    PageLayoutStrings(hCCOM, hCPAGE);
+    Close_Res_Log();
+    return TRUE;
 }
 ////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
+RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator)
 {
-	Bool32 rc = TRUE;
-	SetReturnCode_rblock(IDS_ERR_NO);
-	Open_Res_Log();
+    Bool32 rc = TRUE;
+    SetReturnCode_rblock(IDS_ERR_NO);
+    Open_Res_Log();
 
-	if (setjmp (fatal_error_exit))
-	{
-		progress_finish();
-		return FALSE;
-	}
-	EnableDebug();
-	assert(lpNominator);
-	assert(lpDenominator);
-	assert(hCCOM);
-	CalculatePageIncline(hCCOM, lpNominator,lpDenominator);
-	Close_Res_Log();
+    if (setjmp (fatal_error_exit)) {
+        progress_finish();
+        return FALSE;
+    }
 
-	return rc;
+    EnableDebug();
+    assert(lpNominator);
+    assert(lpDenominator);
+    assert(hCCOM);
+    CalculatePageIncline(hCCOM, lpNominator, lpDenominator);
+    Close_Res_Log();
+    return rc;
 }

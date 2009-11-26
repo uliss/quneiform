@@ -75,75 +75,72 @@ Bool32 gbFax100 = FALSE;
 uchar language = 3;
 
 Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	return TRUE;
+                      pvoid lpReserved)
+{
+    return TRUE;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,Handle hStorage)
+RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode, Handle hStorage)
 {
-	gwHeightRC = wHeightCode;
-	snap_enable = TRUE;
-	exit_enable = FALSE;
-
-	kegl_snap_init();
-	LDPUMA_Init(0,NULL);
-
-	return TRUE;
+    gwHeightRC = wHeightCode;
+    snap_enable = TRUE;
+    exit_enable = FALSE;
+    kegl_snap_init();
+    LDPUMA_Init(0, NULL);
+    return TRUE;
 }
 
 RCK_FUNC(Bool32) RCORRKEGL_Done()
 {
-	LDPUMA_Done();
-
-	return TRUE;
+    LDPUMA_Done();
+    return TRUE;
 }
 
 RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
 {
-	if(gwLowRC == RCORRKEGL_ERR_NO)
-	return 0;
+    if (gwLowRC == RCORRKEGL_ERR_NO)
+        return 0;
 
-	return (gwHeightRC<<16)|(gwLowRC-RCORRKEGL_ERR_MIN);
+    return (gwHeightRC << 16) | (gwLowRC - RCORRKEGL_ERR_MIN);
 }
 
 RCK_FUNC(char*) RCORRKEGL_GetReturnString(uint32_t dwError)
 {
-	uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
-	static char szBuffer[512];
+    uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
+    static char szBuffer[512];
 
-	if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
 
-	if (rc > 0 && rc <= RCORRKEGL_ERR_MAX - RCORRKEGL_ERR_MIN)
-	strcpy((char*)szBuffer, RCORRKEGL_error_name [rc]);
-	else
-	return NULL;
+    if (rc > 0 && rc <= RCORRKEGL_ERR_MAX - RCORRKEGL_ERR_MIN)
+        strcpy((char*)szBuffer, RCORRKEGL_error_name [rc]);
 
-	return szBuffer;
+    else
+        return NULL;
+
+    return szBuffer;
 }
 
 RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
 {
+    gwLowRC = RCORRKEGL_ERR_NO;
+#define CASE_DATA(a,b,c)    case a: c = *(b *)pData; break
+#define CASE_PDATA(a,b,c)   case a: c = (b)pData; break
 
-	gwLowRC = RCORRKEGL_ERR_NO;
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break
-#define CASE_PDATA(a,b,c)	case a: c = (b)pData; break
-	switch(dwType)
-	{
-		CASE_DATA(RCORRKEGL_Bool32_Fax100,Bool32,gbFax100);
-		// 12.06.2002 E.P.
-		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,uchar,language);
+    switch (dwType) {
+            CASE_DATA(RCORRKEGL_Bool32_Fax100, Bool32, gbFax100);
+            // 12.06.2002 E.P.
+            CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE, uchar, language);
+        default:
+            gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
+            return FALSE;
+    }
 
-		default:
-		gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
-		return FALSE;
-	}
 #undef CASE_DATA
 #undef CASE_PDATA
-
-	return TRUE;
+    return TRUE;
 }
 
 RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(int32_t version)
 {
-	return CorrectKegl(version);
+    return CorrectKegl(version);
 }

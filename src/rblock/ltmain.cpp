@@ -119,22 +119,22 @@ static clock_t tTimeTotal;
 # ifdef LT_STAND_ALONE
 # ifdef LT_DEBUG
 static char szQuickHelpText [] =
-"usage: layout [-ght] [<roots_file>]\n";
+    "usage: layout [-ght] [<roots_file>]\n";
 
 static char szHelpText [] =
-"Layout Version 1.0  - Stand-alone program for page layout debugging\n"
-"Written in 1991 by Yuri Panchul\n"
-"\n"
-"Usage: layout [-ght] [<roots_file>]\n";
+    "Layout Version 1.0  - Stand-alone program for page layout debugging\n"
+    "Written in 1991 by Yuri Panchul\n"
+    "\n"
+    "Usage: layout [-ght] [<roots_file>]\n";
 # else
 static char szQuickHelpText [] =
-"usage: layout [-h] [<roots_file>]\n";
+    "usage: layout [-h] [<roots_file>]\n";
 
 static char szHelpText [] =
-"Layout Version 1.0  - Stand-alone program for page layout debugging\n"
-"Written in 1991 by Yuri Panchul\n"
-"\n"
-"Usage: layout [-h] [<roots_file>]\n";
+    "Layout Version 1.0  - Stand-alone program for page layout debugging\n"
+    "Written in 1991 by Yuri Panchul\n"
+    "\n"
+    "Usage: layout [-h] [<roots_file>]\n";
 # endif
 # endif
 
@@ -142,532 +142,575 @@ static char szHelpText [] =
 char szRootsFilename [100] = DEFAULT_ROOTS_FILENAME;
 # endif
 
-void LT_FreeAllData(void) {
-	WSB_FreeData();
-	SmartBreakingFreeData();
-	HystogramFreeData();
-	SeparatorsFreeData();
-	BlocksFreeData();
-	InitialBreakingFreeData();
-	PageMatrixFreeData();
-	CompsFreeData();
-	IntervalsFreeData();
-	//    InclinesFreeData ();
-	RootsFreeData();
-
+void LT_FreeAllData(void)
+{
+    WSB_FreeData();
+    SmartBreakingFreeData();
+    HystogramFreeData();
+    SeparatorsFreeData();
+    BlocksFreeData();
+    InitialBreakingFreeData();
+    PageMatrixFreeData();
+    CompsFreeData();
+    IntervalsFreeData();
+    //    InclinesFreeData ();
+    RootsFreeData();
 # ifdef LT_DEBUG
-	LT_GraphicsClose ();
+    LT_GraphicsClose ();
 # endif
-
-	LayoutBackupFreeData();
+    LayoutBackupFreeData();
 }
 
 # ifdef LT_DUMP
 FILE *pfListing;
 # endif
 
-void PageLayoutPart1(void) {
-	int i;
-	i = 0;
-	i = i;
+void PageLayoutPart1(void)
+{
+    int i;
+    i = 0;
+    i = i;
 # ifdef MA_DEBUG
-	AllocationsAccountingOpen ();
+    AllocationsAccountingOpen ();
 # endif
-
 # ifdef LT_DUMP
-	pfListing = fopen ("layout.dmp", "w");
+    pfListing = fopen ("layout.dmp", "w");
 
-	if (pfListing == NULL)
-	ErrorInternal ("Can't open dump file");
+    if (pfListing == NULL)
+        ErrorInternal ("Can't open dump file");
 
-	fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+    fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+    {
+        int i;
 
-	{
-		int i;
+        for (i = 0; i < nRoots; i++) {
+            fprintf (pfListing,
+                     "x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x] %4x\n",
+                     (int) pRoots [i].xColumn,
+                     (int) pRoots [i].yRow,
+                     (int) pRoots [i].nWidth,
+                     (int) pRoots [i].nHeight,
+                     (int) pRoots [i].nBlock,
+                     (int) pRoots [i].nUserNum,
+                     0, //(int) pRoots [i].wSegmentPtr,
+                     0, //(int) pRoots [i].wLength);
+                     (int) pRoots [i].bType);
+        }
+    }
+    fclose (pfListing);
+# endif
 
-		for (i = 0; i < nRoots; i++)
-		{
-			fprintf (pfListing,
-					"x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x] %4x\n",
-					(int) pRoots [i].xColumn,
-					(int) pRoots [i].yRow,
-					(int) pRoots [i].nWidth,
-					(int) pRoots [i].nHeight,
-					(int) pRoots [i].nBlock,
-					(int) pRoots [i].nUserNum,
-					0, //(int) pRoots [i].wSegmentPtr,
-					0, //(int) pRoots [i].wLength);
-					(int) pRoots [i].bType);
-		}
-	}
-	fclose (pfListing);
+    if (nRoots == 0)
+        //ErrorInternal ("Page is empty");
+        return;
+
+    nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
+# ifdef LT_DEBUG
+
+    //if (LT_DebugGraphicsLevel > 0)
+    if ( !LDPUMA_Skip (hPageBeforeEditing) ||
+            !LDPUMA_Skip (hPageMatrix) ||
+            !LDPUMA_Skip (hInitialBreaking) ||
+            !LDPUMA_Skip (hInclineCalculating) ||
+            !LDPUMA_Skip (hBlocksBreaking) ||
+            !LDPUMA_Skip (hBlocksGlueing) ||
+            !LDPUMA_Skip (hFirstDustAbsorbtion) ||
+            !LDPUMA_Skip (hRemoveEmptyBlocks) ||
+            !LDPUMA_Skip (hSecondDustAbsorbtion)) {
+        LT_GraphicsOpen ();
+    }
+
+    if (bDebugTimeFlag)
+        tTimeTotal = clock ();
+
+# endif
+    RootsSaveNonLayoutData();
+    CalculatePageParameters();
+    SeparatorsGet();
+# ifdef LT_DEBUG
+
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hPageBeforeEditing))
+        LT_GraphicsRootsOutput ("Page");
 
 # endif
 
-	if (nRoots == 0)
-		//ErrorInternal ("Page is empty");
-		return;
-
-	nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
+    if (bOptionInitialBreakingByPageMatrix || bOptionBlocksRemovingByPageMatrix) {
+        PageMatrixBuild();
+    }
 
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel > 0)
-	if( !LDPUMA_Skip (hPageBeforeEditing) ||
-			!LDPUMA_Skip (hPageMatrix) ||
-			!LDPUMA_Skip (hInitialBreaking) ||
-			!LDPUMA_Skip (hInclineCalculating) ||
-			!LDPUMA_Skip (hBlocksBreaking) ||
-			!LDPUMA_Skip (hBlocksGlueing) ||
-			!LDPUMA_Skip (hFirstDustAbsorbtion) ||
-			!LDPUMA_Skip (hRemoveEmptyBlocks) ||
-			!LDPUMA_Skip (hSecondDustAbsorbtion))
-	{
-		LT_GraphicsOpen ();
-	}
 
-	if (bDebugTimeFlag)
-	tTimeTotal = clock ();
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hPageMatrix))
+        LT_GraphicsPageMatrixOutput ("Page matrix");
+
 # endif
-
-	RootsSaveNonLayoutData();
-	CalculatePageParameters();
-	SeparatorsGet();
-
+    // выделить в матрице страницы компоненты связности;
+    // настроить в рутах поле nBlock на хранение этой
+    // полезной информации; сами компоненты связности -- не хранятся.
+    InitialBreakingProceed();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if (!LDPUMA_Skip(hPageBeforeEditing))
-	LT_GraphicsRootsOutput ("Page");
+
+    //if (LT_DebugGraphicsLevel >= 3)
+    if (!LDPUMA_Skip(hInitialBreaking))
+        LT_GraphicsBlocksOutput ("Initial breaking");
+
 # endif
-
-	if (bOptionInitialBreakingByPageMatrix || bOptionBlocksRemovingByPageMatrix) {
-		PageMatrixBuild();
-	}
-
+    //    InclinesAccount ();
+    RotatePageToIdeal();
+    //    InclinesFreeData ();
+    RootStripsCalculate();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if (!LDPUMA_Skip(hPageMatrix))
-	LT_GraphicsPageMatrixOutput ("Page matrix");
+
+    //if (LT_DebugGraphicsLevel >= 3)
+    if (!LDPUMA_Skip(hInclineCalculating)) {
+        LT_GraphicsRootsOutput ("Roots after page rotation");
+        LT_GraphicsRootStripsOutput ("Root strips");
+    }
+
 # endif
-
-	// выделить в матрице страницы компоненты связности;
-	// настроить в рутах поле nBlock на хранение этой
-	// полезной информации; сами компоненты связности -- не хранятся.
-	InitialBreakingProceed();
-
+    BlocksExtract();
+    //BlockAnalyse();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 3)
-	if (!LDPUMA_Skip(hInitialBreaking))
-	LT_GraphicsBlocksOutput ("Initial breaking");
+    //if (LT_DebugGraphicsLevel >= 2)
+    //    LT_GraphicsBlocksOutput ("Blocks after extraction.1");
 # endif
+    /*    Pit 09-27-94 03:42pm
+     new_picture(3,5,300,500);
+     del_picture(0);
+     new_picture(300,500,100,100);
 
-	//    InclinesAccount ();
-	RotatePageToIdeal();
-	//    InclinesFreeData ();
-	RootStripsCalculate();
+     BlocksExtract ();
 
+     # ifdef LT_DEBUG
+     if (LT_DebugGraphicsLevel >= 2)
+     LT_GraphicsBlocksOutput ("Blocks after extraction.2");
+     # endif
+     */
+    BlocksBreak();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 3)
-	if(!LDPUMA_Skip(hInclineCalculating))
-	{
-		LT_GraphicsRootsOutput ("Roots after page rotation");
-		LT_GraphicsRootStripsOutput ("Root strips");
-	}
-# endif
 
-	BlocksExtract();
-	//BlockAnalyse();
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hBlocksBreaking))
+        LT_GraphicsBlocksOutput ("Blocks after breaking");
+
+# endif
+    BlocksAddVirtualSeparatorsBlocks();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	//    LT_GraphicsBlocksOutput ("Blocks after extraction.1");
+    //if (LT_DebugGraphicsLevel >= 2)
+    //    LT_GraphicsBlocksOutput ("Blocks after adding separators");
 # endif
-	/*    Pit 09-27-94 03:42pm
-	 new_picture(3,5,300,500);
-	 del_picture(0);
-	 new_picture(300,500,100,100);
-
-	 BlocksExtract ();
-
-	 # ifdef LT_DEBUG
-	 if (LT_DebugGraphicsLevel >= 2)
-	 LT_GraphicsBlocksOutput ("Blocks after extraction.2");
-	 # endif
-	 */
-	BlocksBreak();
-
+    BlocksRemoveFrameLikeRoots();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if(!LDPUMA_Skip(hBlocksBreaking))
-	LT_GraphicsBlocksOutput ("Blocks after breaking");
+    //if (LT_DebugGraphicsLevel >= 2)
+    //    LT_GraphicsBlocksOutput ("After removing frame like roots");
 # endif
-
-	BlocksAddVirtualSeparatorsBlocks();
-
+    BlocksGlue();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	//    LT_GraphicsBlocksOutput ("Blocks after adding separators");
+
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hBlocksGlueing))
+        LT_GraphicsBlocksOutput ("Blocks after glueing");
+
 # endif
-
-	BlocksRemoveFrameLikeRoots();
-
+    BlocksBuildEmbeddingLists();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	//    LT_GraphicsBlocksOutput ("After removing frame like roots");
+    //if (LT_DebugGraphicsLevel >= 3)
+    //{
+    //    LT_GraphicsHighEmbeddingBlocksListOutput ("High embedding blocks list");
+    //    LT_GraphicsLowEmbeddingBlocksListOutput  ("Low embedding blocks list");
+    //}
 # endif
-
-	BlocksGlue();
-
+    BlocksAbsorbDust();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if(!LDPUMA_Skip(hBlocksGlueing))
-	LT_GraphicsBlocksOutput ("Blocks after glueing");
+
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hFirstDustAbsorbtion))
+        LT_GraphicsBlocksOutput ("After first dust absorbtion");
+
 # endif
-
-	BlocksBuildEmbeddingLists();
-
+    PageMatrixExcludeSeparators(TRUE);
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 3)
-	//{
-	//    LT_GraphicsHighEmbeddingBlocksListOutput ("High embedding blocks list");
-	//    LT_GraphicsLowEmbeddingBlocksListOutput  ("Low embedding blocks list");
-	//}
+    //if (LT_DebugGraphicsLevel >= 2)
+    //    LT_GraphicsPageMatrixOutput ("Matrix after excluding separators");
 # endif
-
-	BlocksAbsorbDust();
-
+    BlocksRemoveEmptyBlocks();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if(!LDPUMA_Skip(hFirstDustAbsorbtion))
-	LT_GraphicsBlocksOutput ("After first dust absorbtion");
+
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hRemoveEmptyBlocks))
+        LT_GraphicsBlocksOutput ("After removing empty blocks");
+
 # endif
-
-	PageMatrixExcludeSeparators(TRUE);
-
+    BlocksAbsorbDust();
+    BlocksDisAbsorbBoundaryDust();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	//    LT_GraphicsPageMatrixOutput ("Matrix after excluding separators");
+
+    //if (LT_DebugGraphicsLevel >= 2)
+    if (!LDPUMA_Skip(hSecondDustAbsorbtion))
+        LT_GraphicsBlocksOutput ("After second dust absorbtion");
+
 # endif
 
-	BlocksRemoveEmptyBlocks();
-
+    if (cut_page_left || cut_page_right) {
+        BlocksCutPageEdges();
 # ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if(!LDPUMA_Skip(hRemoveEmptyBlocks))
-	LT_GraphicsBlocksOutput ("After removing empty blocks");
+        //   if (LT_DebugGraphicsLevel >= 2)
+        //       LT_GraphicsBlocksOutput ("After BlocksCutPageEdges");
 # endif
+    }
 
-	BlocksAbsorbDust();
-	BlocksDisAbsorbBoundaryDust();
-
-# ifdef LT_DEBUG
-	//if (LT_DebugGraphicsLevel >= 2)
-	if(!LDPUMA_Skip(hSecondDustAbsorbtion))
-	LT_GraphicsBlocksOutput ("After second dust absorbtion");
-# endif
-
-	if (cut_page_left || cut_page_right) {
-		BlocksCutPageEdges();
-
-# ifdef LT_DEBUG
-		//   if (LT_DebugGraphicsLevel >= 2)
-		//       LT_GraphicsBlocksOutput ("After BlocksCutPageEdges");
-# endif
-	}
-
-	LayoutBackupFreeData();
+    LayoutBackupFreeData();
 }
 
-void PageLayoutPart2(void) {
-	LayoutBackupFreeData();
-
+void PageLayoutPart2(void)
+{
+    LayoutBackupFreeData();
 # ifdef LT_DUMP
-	fprintf (pfListing, "Blocks:\n");
+    fprintf (pfListing, "Blocks:\n");
+    {
+        BLOCK *p;
 
-	{
-		BLOCK *p;
-
-		for (p = pBlocksList; p != NULL; p = p -> pNext)
-		fprintf (pfListing,
-				"[%d, %d]-[%d, %d] %d\n",
-				(int) p -> Rect.xLeft,
-				(int) p -> Rect.yTop,
-				(int) p -> Rect.xRight,
-				(int) p -> Rect.yBottom,
-				(int) p -> Type);
-	}
+        for (p = pBlocksList; p != NULL; p = p -> pNext)
+            fprintf (pfListing,
+                     "[%d, %d]-[%d, %d] %d\n",
+                     (int) p -> Rect.xLeft,
+                     (int) p -> Rect.yTop,
+                     (int) p -> Rect.xRight,
+                     (int) p -> Rect.yBottom,
+                     (int) p -> Type);
+    }
 # endif
-
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 1)
-	LT_GraphicsBlocksOutput ("Text blocks");
+
+    if (LT_DebugGraphicsLevel >= 1)
+        LT_GraphicsBlocksOutput ("Text blocks");
+
 # endif
-
-	BlocksBuildLeftAndRightLists();
-
+    BlocksBuildLeftAndRightLists();
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 3)
-	{
-		LT_GraphicsLeftBlocksListOutput ("Left blocks list");
-		LT_GraphicsRightBlocksListOutput ("Right blocks list");
-	}
+
+    if (LT_DebugGraphicsLevel >= 3) {
+        LT_GraphicsLeftBlocksListOutput ("Left blocks list");
+        LT_GraphicsRightBlocksListOutput ("Right blocks list");
+    }
+
 # endif
-
-	BlocksBuildTopAndBottomLists();
-
+    BlocksBuildTopAndBottomLists();
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 3)
-	{
-		LT_GraphicsTopBlocksListOutput ("Top blocks list");
-		LT_GraphicsBottomBlocksListOutput ("Bottom blocks list");
-	}
+
+    if (LT_DebugGraphicsLevel >= 3) {
+        LT_GraphicsTopBlocksListOutput ("Top blocks list");
+        LT_GraphicsBottomBlocksListOutput ("Bottom blocks list");
+    }
+
 # endif
+    /******************************** ATAL 940414 Remove couple functions calls
+     TreeBuild ();
 
-	/******************************** ATAL 940414 Remove couple functions calls
-	 TreeBuild ();
+     # ifdef LT_DEBUG
+     if (LT_DebugGraphicsLevel >= 3)
+     LT_GraphicsTreeOutput ("Tree structure before edit");
+     # endif
 
-	 # ifdef LT_DEBUG
-	 if (LT_DebugGraphicsLevel >= 3)
-	 LT_GraphicsTreeOutput ("Tree structure before edit");
-	 # endif
+     TreeEdit ();
 
-	 TreeEdit ();
-
-	 # ifdef LT_DEBUG
-	 if (LT_DebugGraphicsLevel >= 2)
-	 LT_GraphicsTreeOutput ("Tree structure");
-	 # endif
-	 *************************************************/
-
-	TreePass();
-
+     # ifdef LT_DEBUG
+     if (LT_DebugGraphicsLevel >= 2)
+     LT_GraphicsTreeOutput ("Tree structure");
+     # endif
+     *************************************************/
+    TreePass();
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 2)
-	LT_GraphicsBlocksOrderOutput ("Output blocks order");
+
+    if (LT_DebugGraphicsLevel >= 2)
+        LT_GraphicsBlocksOrderOutput ("Output blocks order");
+
 # endif
-
-	RootsRemoveFromRulers();
-
+    RootsRemoveFromRulers();
 # ifdef LT_DEBUG
-	if (bDebugTimeFlag)
-	{
-		//      printf ("\nLayout Time : %f\n",
-		//          (double) (clock () - tTimeTotal) / CLK_TCK);
-	}
-# endif
 
+    if (bDebugTimeFlag) {
+        //      printf ("\nLayout Time : %f\n",
+        //          (double) (clock () - tTimeTotal) / CLK_TCK);
+    }
+
+# endif
 # ifdef LT_USE_STRINGS_EXTRACTION
-	StringsExtract ();
+    StringsExtract ();
 # endif
-
-	RootsRestoreNonLayoutData();
-	LT_FreeAllData();
-
+    RootsRestoreNonLayoutData();
+    LT_FreeAllData();
 # ifdef LT_DEBUG
-	if (bDebugTimeFlag)
-	{
-		//      tTimeTotal = clock () - tTimeTotal;
-		//      printf ("\nLayout Time : %f\n", (double) tTimeTotal / CLK_TCK);
-	}
-# endif
 
+    if (bDebugTimeFlag) {
+        //      tTimeTotal = clock () - tTimeTotal;
+        //      printf ("\nLayout Time : %f\n", (double) tTimeTotal / CLK_TCK);
+    }
+
+# endif
 # ifdef MA_DEBUG
-	AllocationsAccountingClose ();
+    AllocationsAccountingClose ();
 # endif
-
 # ifdef LT_DUMP
-	fprintf (pfListing, "\nAFTER LAYOUT:\n");
-	fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+    fprintf (pfListing, "\nAFTER LAYOUT:\n");
+    fprintf (pfListing, "nRoots: %d\n", (int) nRoots);
+    {
+        int i;
 
-	{
-		int i;
-
-		for (i = 0; i < nRoots; i++)
-		{
-			fprintf (pfListing,
-					"x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x]\n",
-					(int) pRoots [i].xColumn,
-					(int) pRoots [i].yRow,
-					(int) pRoots [i].nWidth,
-					(int) pRoots [i].nHeight,
-					(int) pRoots [i].nBlock,
-					(int) pRoots [i].nUserNum,
-					0, //(int) pRoots [i].wSegmentPtr,
-					0); //(int) pRoots [i].wLength);
-		}
-	}
-
-	fclose (pfListing);
+        for (i = 0; i < nRoots; i++) {
+            fprintf (pfListing,
+                     "x: %4d, y: %4d, w: %4d, h: %4d, block: %4d/%4d [%4x %4x]\n",
+                     (int) pRoots [i].xColumn,
+                     (int) pRoots [i].yRow,
+                     (int) pRoots [i].nWidth,
+                     (int) pRoots [i].nHeight,
+                     (int) pRoots [i].nBlock,
+                     (int) pRoots [i].nUserNum,
+                     0, //(int) pRoots [i].wSegmentPtr,
+                     0); //(int) pRoots [i].wLength);
+        }
+    }
+    fclose (pfListing);
 # endif
 }
 
 extern void ErrorEmptyPage();
-void PageStrings1(void) {
+void PageStrings1(void)
+{
 # ifdef MA_DEBUG
-	AllocationsAccountingOpen ();
+    AllocationsAccountingOpen ();
 # endif
 
-	if (nRoots == 0)
-		ErrorEmptyPage();
+    if (nRoots == 0)
+        ErrorEmptyPage();
 
-	nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
-
+    nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel > 0)
-	LT_GraphicsOpen ();
 
-	if (bDebugTimeFlag)
-	tTimeTotal = clock ();
+    if (LT_DebugGraphicsLevel > 0)
+        LT_GraphicsOpen ();
+
+    if (bDebugTimeFlag)
+        tTimeTotal = clock ();
+
 # endif
-
-	RootsSaveNonLayoutData();
-	CalculatePageParameters();
-
+    RootsSaveNonLayoutData();
+    CalculatePageParameters();
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 2)
-	LT_GraphicsRootsOutput ("Roots");
+
+    if (LT_DebugGraphicsLevel >= 2)
+        LT_GraphicsRootsOutput ("Roots");
+
 # endif
+    RotatePageToIdeal();
+    RootStripsCalculate();
 
-	RotatePageToIdeal();
-	RootStripsCalculate();
-
-	for (int i = 0; i < nRoots; i++)
-		pRoots[i].nBlock = FIRST_REGULAR_BLOCK_NUMBER;
+    for (int i = 0; i < nRoots; i++)
+        pRoots[i].nBlock = FIRST_REGULAR_BLOCK_NUMBER;
 
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 2)
-	LT_GraphicsRootsOutput ("Roots after page rotation");
+
+    if (LT_DebugGraphicsLevel >= 2)
+        LT_GraphicsRootsOutput ("Roots after page rotation");
+
 # endif
-
-	BlocksExtract();
-
+    BlocksExtract();
 # ifdef LT_DEBUG
-	if (LT_DebugGraphicsLevel >= 2)
-	LT_GraphicsBlocksOutput ("Blocks after extraction");
+
+    if (LT_DebugGraphicsLevel >= 2)
+        LT_GraphicsBlocksOutput ("Blocks after extraction");
+
 # endif
 }
 
-void PageStrings2(void) {
-	RootsRemoveFromRulers();
-
+void PageStrings2(void)
+{
+    RootsRemoveFromRulers();
 # ifdef LT_USE_STRINGS_EXTRACTION
-	StringsExtract ();
+    StringsExtract ();
 # endif
-
-	RootsRestoreNonLayoutData();
-	LT_FreeAllData();
-
+    RootsRestoreNonLayoutData();
+    LT_FreeAllData();
 # ifdef LT_DEBUG
-	if (bDebugTimeFlag)
-	tTimeTotal = clock () - tTimeTotal;
-# endif
 
+    if (bDebugTimeFlag)
+        tTimeTotal = clock () - tTimeTotal;
+
+# endif
 # ifdef MA_DEBUG
-	AllocationsAccountingClose ();
+    AllocationsAccountingClose ();
 # endif
 }
 
-void LayoutPart1(void) {
-	extern int SheetsCorrectRoots();
+void LayoutPart1(void)
+{
+    extern int SheetsCorrectRoots();
 # ifdef LT_DEBUG
-	switch (layout)
-	{
-		case 0: LT_DebugGraphicsLevel = 0; break;
-		case 1: LT_DebugGraphicsLevel = 1; break;
-		case 2: LT_DebugGraphicsLevel = 2; break;
-		case 3: LT_DebugGraphicsLevel = 3; break;
-		case 4: LT_DebugGraphicsLevel = 4; break;
-		case 5: LT_DebugGraphicsLevel = 1; break;
-		case 6: LT_DebugGraphicsLevel = 1; break;
-		case 7: LT_DebugGraphicsLevel = 1; break;
-		case 8: LT_DebugGraphicsLevel = 1; break;
-		case 9: LT_DebugGraphicsLevel = 0; break;
-		case 10: LT_DebugGraphicsLevel = 0; break;
-	}
 
-	bDebugTimeFlag = FALSE;
+    switch (layout) {
+        case 0:
+            LT_DebugGraphicsLevel = 0;
+            break;
+        case 1:
+            LT_DebugGraphicsLevel = 1;
+            break;
+        case 2:
+            LT_DebugGraphicsLevel = 2;
+            break;
+        case 3:
+            LT_DebugGraphicsLevel = 3;
+            break;
+        case 4:
+            LT_DebugGraphicsLevel = 4;
+            break;
+        case 5:
+            LT_DebugGraphicsLevel = 1;
+            break;
+        case 6:
+            LT_DebugGraphicsLevel = 1;
+            break;
+        case 7:
+            LT_DebugGraphicsLevel = 1;
+            break;
+        case 8:
+            LT_DebugGraphicsLevel = 1;
+            break;
+        case 9:
+            LT_DebugGraphicsLevel = 0;
+            break;
+        case 10:
+            LT_DebugGraphicsLevel = 0;
+            break;
+    }
 
-	bDebugOptionCalibratePictureRemovingCriteria = FALSE;
-	bDebugOptionCalibrateDD_RemovingCriteria = FALSE;
-	bDebugOptionCalibrateLinearRemovingCriteria = FALSE;
+    bDebugTimeFlag = FALSE;
+    bDebugOptionCalibratePictureRemovingCriteria = FALSE;
+    bDebugOptionCalibrateDD_RemovingCriteria = FALSE;
+    bDebugOptionCalibrateLinearRemovingCriteria = FALSE;
 # endif
-
 # ifdef SE_DEBUG
-	switch (layout)
-	{
-		case 0: SE_DebugGraphicsLevel = 0; break;
-		case 1: SE_DebugGraphicsLevel = 0; break;
-		case 2: SE_DebugGraphicsLevel = 0; break;
-		case 3: SE_DebugGraphicsLevel = 0; break;
-		case 4: SE_DebugGraphicsLevel = 0; break;
-		case 5: SE_DebugGraphicsLevel = 1; break;
-		case 6: SE_DebugGraphicsLevel = 2; break;
-		case 7: SE_DebugGraphicsLevel = 3; break;
-		case 8: SE_DebugGraphicsLevel = 4; break;
-		case 9: SE_DebugGraphicsLevel = 0; break;
-		case 10: SE_DebugGraphicsLevel = 0; break;
-	}
-# endif
 
+    switch (layout) {
+        case 0:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 1:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 2:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 3:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 4:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 5:
+            SE_DebugGraphicsLevel = 1;
+            break;
+        case 6:
+            SE_DebugGraphicsLevel = 2;
+            break;
+        case 7:
+            SE_DebugGraphicsLevel = 3;
+            break;
+        case 8:
+            SE_DebugGraphicsLevel = 4;
+            break;
+        case 9:
+            SE_DebugGraphicsLevel = 0;
+            break;
+        case 10:
+            SE_DebugGraphicsLevel = 0;
+            break;
+    }
+
+# endif
 # ifdef MA_DEBUG
-	switch (layout)
-	{
-		case 0: MA_DebugLevel = 0; break;
-		case 1: MA_DebugLevel = 0; break;
-		case 2: MA_DebugLevel = 0; break;
-		case 3: MA_DebugLevel = 0; break;
-		case 4: MA_DebugLevel = 0; break;
-		case 5: MA_DebugLevel = 0; break;
-		case 6: MA_DebugLevel = 0; break;
-		case 7: MA_DebugLevel = 0; break;
-		case 8: MA_DebugLevel = 0; break;
-		case 9: MA_DebugLevel = 1; break;
-		case 10: MA_DebugLevel = 2; break;
-	}
+
+    switch (layout) {
+        case 0:
+            MA_DebugLevel = 0;
+            break;
+        case 1:
+            MA_DebugLevel = 0;
+            break;
+        case 2:
+            MA_DebugLevel = 0;
+            break;
+        case 3:
+            MA_DebugLevel = 0;
+            break;
+        case 4:
+            MA_DebugLevel = 0;
+            break;
+        case 5:
+            MA_DebugLevel = 0;
+            break;
+        case 6:
+            MA_DebugLevel = 0;
+            break;
+        case 7:
+            MA_DebugLevel = 0;
+            break;
+        case 8:
+            MA_DebugLevel = 0;
+            break;
+        case 9:
+            MA_DebugLevel = 1;
+            break;
+        case 10:
+            MA_DebugLevel = 2;
+            break;
+    }
+
 # endif
+    bOptionForceOneColumn = ((run_options & FORCE_ONE_COLUMN) != 0);
+    bOptionBusinessCardsLayout = ((run_options & BCRLOUT) != 0);
+    bOptionPointSizeAnalysis = TRUE;
+    bOptionSmartBreaking = TRUE;
+    bOptionInitialBreakingByPageMatrix = TRUE;
+    bOptionBlocksRemovingByPageMatrix = !bOptionBusinessCardsLayout;
+    bOptionBlocksRemovingByDustDistribution = !bOptionBusinessCardsLayout;
+    bOptionSpecialHorizontalCutting = FALSE;
+    bOptionWhiteStripsBreaking = TRUE;
 
-	bOptionForceOneColumn = ((run_options & FORCE_ONE_COLUMN) != 0);
-	bOptionBusinessCardsLayout = ((run_options & BCRLOUT) != 0);
+    if (bOptionForceOneColumn)
+        PageStrings1();
 
-	bOptionPointSizeAnalysis = TRUE;
-	bOptionSmartBreaking = TRUE;
-	bOptionInitialBreakingByPageMatrix = TRUE;
-	bOptionBlocksRemovingByPageMatrix = !bOptionBusinessCardsLayout;
-	bOptionBlocksRemovingByDustDistribution = !bOptionBusinessCardsLayout;
-	bOptionSpecialHorizontalCutting = FALSE;
-	bOptionWhiteStripsBreaking = TRUE;
+    else
+        PageLayoutPart1();
 
-	if (bOptionForceOneColumn)
-		PageStrings1();
-	else
-		PageLayoutPart1();
-
-	// маркируются ROOTы попадающие в ячейки таблиц
-	//DDD SheetsCorrectRoots(); // Piter 08-17-95 07:29pm
-	BlocksExtract();
-	//BlockAnalyse();
-
-	// ******** temporary ***************
-	// Piter 08-28-95 05:58pm
-	// Удаление фрагментов не входящих в таблицы
-	//{
-	//    BLOCK *p;
-	//    lrep:
-	//       for (p = pBlocksList; p != NULL; p = p -> pNext)
-	//  switch(p -> nUserNum)
-	//  {
-	//  case 0:
-	//        BlockRemove (p);
-	//        goto lrep;
-	//  }
-
-	//}//**************************************
-
+    // маркируются ROOTы попадающие в ячейки таблиц
+    //DDD SheetsCorrectRoots(); // Piter 08-17-95 07:29pm
+    BlocksExtract();
+    //BlockAnalyse();
+    // ******** temporary ***************
+    // Piter 08-28-95 05:58pm
+    // Удаление фрагментов не входящих в таблицы
+    //{
+    //    BLOCK *p;
+    //    lrep:
+    //       for (p = pBlocksList; p != NULL; p = p -> pNext)
+    //  switch(p -> nUserNum)
+    //  {
+    //  case 0:
+    //        BlockRemove (p);
+    //        goto lrep;
+    //  }
+    //}//**************************************
 }
 
-void LayoutPart2(void) {
-	if (bOptionForceOneColumn)
-		PageStrings2();
-	else
-		PageLayoutPart2();
+void LayoutPart2(void)
+{
+    if (bOptionForceOneColumn)
+        PageStrings2();
+
+    else
+        PageLayoutPart2();
 }
 /**********************************************/
 # ifdef LT_STAND_ALONE

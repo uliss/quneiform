@@ -93,9 +93,9 @@ static int nInclinesStrings;
 # define MAX_EQUAL_LOWERS_DIFFERENCE    4
 
 struct _HorizontalBarRecord {
-	Bool bAllocated;
-	int xLeft;
-	int nLower;
+    Bool bAllocated;
+    int xLeft;
+    int nLower;
 };
 
 typedef struct _HorizontalBarRecord HORIZONTAL_BAR_RECORD;
@@ -513,52 +513,54 @@ static int nLetterRepresentativeHeight;
  }
  */
 
-void IdealXY(int16_t x, int16_t y, int16_t *px, int16_t *py) {
-	*px = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);
-	//*py = (int16_t) (y - (int32_t) *px * nIncline / INCLINE_FACTOR);
-	*py = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR); // Piter
+void IdealXY(int16_t x, int16_t y, int16_t *px, int16_t *py)
+{
+    *px = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);
+    //*py = (int16_t) (y - (int32_t) *px * nIncline / INCLINE_FACTOR);
+    *py = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR); // Piter
 }
 
-void RealXY(int16_t x, int16_t y, int16_t *px, int16_t *py) {
-	*py = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);
-	//*px = (int16_t) (x - (int32_t) *py * nIncline / INCLINE_FACTOR);
-	*px = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR); // Piter
+void RealXY(int16_t x, int16_t y, int16_t *px, int16_t *py)
+{
+    *py = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);
+    //*px = (int16_t) (x - (int32_t) *py * nIncline / INCLINE_FACTOR);
+    *px = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR); // Piter
 }
 
-void RotatePageToIdeal(void) {
-	int i;
+void RotatePageToIdeal(void)
+{
+    int i;
 
-	for (i = 0; i < nRoots; i++) {
-		/*if(  pRoots [i].xColumn < 177 &&
-		 pRoots [i].yRow < 102 &&
-		 (pRoots [i].xColumn + pRoots [i].nWidth) > 177 &&
-		 (pRoots [i].yRow + pRoots [i].nHeight) > 102)
-		 {
-		 int a = 0;
-		 }*/
-		IDEAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
-	}
+    for (i = 0; i < nRoots; i++) {
+        /*if(  pRoots [i].xColumn < 177 &&
+         pRoots [i].yRow < 102 &&
+         (pRoots [i].xColumn + pRoots [i].nWidth) > 177 &&
+         (pRoots [i].yRow + pRoots [i].nHeight) > 102)
+         {
+         int a = 0;
+         }*/
+        IDEAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
+    }
 
-	for (i = 0; i < nSeps; i++) {
-		switch (pSeps[i].Type) {
-		case SEP_VERT:
-		case SEP_HORZ:
-		case SEP_RECT:
-			break;
+    for (i = 0; i < nSeps; i++) {
+        switch (pSeps[i].Type) {
+            case SEP_VERT:
+            case SEP_HORZ:
+            case SEP_RECT:
+                break;
+            default:
+                continue;
+        }
 
-		default:
-			continue;
-		}
+        IDEAL_XY(pSeps[i].xBegin, pSeps[i].yBegin);
+        IDEAL_XY(pSeps[i].xEnd, pSeps[i].yEnd);
 
-		IDEAL_XY(pSeps[i].xBegin, pSeps[i].yBegin);
-		IDEAL_XY(pSeps[i].xEnd, pSeps[i].yEnd);
+        if (pSeps[i].xBegin > pSeps[i].xEnd)
+            EXCHANGE_INTS(pSeps[i].xBegin, pSeps[i].xEnd);
 
-		if (pSeps[i].xBegin > pSeps[i].xEnd)
-			EXCHANGE_INTS(pSeps[i].xBegin, pSeps[i].xEnd);
-
-		if (pSeps[i].yBegin > pSeps[i].yEnd)
-			EXCHANGE_INTS(pSeps[i].yBegin, pSeps[i].yEnd);
-	}
+        if (pSeps[i].yBegin > pSeps[i].yEnd)
+            EXCHANGE_INTS(pSeps[i].yBegin, pSeps[i].yEnd);
+    }
 }
 
 /*
@@ -572,38 +574,38 @@ void RotatePageToIdeal(void) {
  }
  */
 // Piter 08.07.99
-void RotatePageToReal(void) {
-	int i;
+void RotatePageToReal(void)
+{
+    int i;
 
-	for (i = 0; i < nRoots; i++) {
-		/*if(  pRoots [i].xColumn < 177 &&
-		 pRoots [i].yRow < 102 &&
-		 (pRoots [i].xColumn + pRoots [i].nWidth) > 177 &&
-		 (pRoots [i].yRow + pRoots [i].nHeight) > 102)
-		 {
-		 int a = 0;
-		 }*/
-		REAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
-	}
+    for (i = 0; i < nRoots; i++) {
+        /*if(  pRoots [i].xColumn < 177 &&
+         pRoots [i].yRow < 102 &&
+         (pRoots [i].xColumn + pRoots [i].nWidth) > 177 &&
+         (pRoots [i].yRow + pRoots [i].nHeight) > 102)
+         {
+         int a = 0;
+         }*/
+        REAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
+    }
 
-	for (i = 0; i < nSeps; i++) {
-		switch (pSeps[i].Type) {
-		case SEP_VERT:
-		case SEP_HORZ:
-		case SEP_RECT:
-			break;
+    for (i = 0; i < nSeps; i++) {
+        switch (pSeps[i].Type) {
+            case SEP_VERT:
+            case SEP_HORZ:
+            case SEP_RECT:
+                break;
+            default:
+                continue;
+        }
 
-		default:
-			continue;
-		}
+        REAL_XY(pSeps[i].xBegin, pSeps[i].yBegin);
+        REAL_XY(pSeps[i].xEnd, pSeps[i].yEnd);
 
-		REAL_XY(pSeps[i].xBegin, pSeps[i].yBegin);
-		REAL_XY(pSeps[i].xEnd, pSeps[i].yEnd);
+        if (pSeps[i].xBegin > pSeps[i].xEnd)
+            EXCHANGE_INTS(pSeps[i].xBegin, pSeps[i].xEnd);
 
-		if (pSeps[i].xBegin > pSeps[i].xEnd)
-			EXCHANGE_INTS(pSeps[i].xBegin, pSeps[i].xEnd);
-
-		if (pSeps[i].yBegin > pSeps[i].yEnd)
-			EXCHANGE_INTS(pSeps[i].yBegin, pSeps[i].yEnd);
-	}
+        if (pSeps[i].yBegin > pSeps[i].yEnd)
+            EXCHANGE_INTS(pSeps[i].yBegin, pSeps[i].yEnd);
+    }
 }

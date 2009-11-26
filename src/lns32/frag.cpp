@@ -65,51 +65,55 @@ static XStack< LnsFrag > vFrag;
 
 Bool Frag_HAlloc( int nitems )
 {
-   if (!hFrag.Create( nitems, nitems ))
-      return FALSE;
-   hFrag.MemSet(0);
-   return TRUE;
+    if (!hFrag.Create( nitems, nitems ))
+        return FALSE;
+
+    hFrag.MemSet(0);
+    return TRUE;
 }
 
 LnsFrag* Frag_HGet( int nfrag )
 {
-   if (!hFrag)
-      return NULL;
-   return &(hFrag[nfrag]);
+    if (!hFrag)
+        return NULL;
+
+    return &(hFrag[nfrag]);
 }
 
 int      Frag_HCount(void)
 {
-   return hFrag.GetCurCnt();
+    return hFrag.GetCurCnt();
 }
 
 void Frag_HFree(void)
 {
-   hFrag.Destroy();
+    hFrag.Destroy();
 }
 
 Bool Frag_VAlloc( int nitems )
 {
-   if (!vFrag.Create( nitems, nitems ))
-      return FALSE;
-   vFrag.MemSet(0);
-   return TRUE;
+    if (!vFrag.Create( nitems, nitems ))
+        return FALSE;
+
+    vFrag.MemSet(0);
+    return TRUE;
 }
 
 LnsFrag* Frag_VGet( int nfrag )
 {
-   if (!vFrag)
-      return NULL;
-   return &(vFrag[nfrag]);
+    if (!vFrag)
+        return NULL;
+
+    return &(vFrag[nfrag]);
 }
 
 int      Frag_VCount(void)
 {
-   return vFrag.GetCurCnt();
+    return vFrag.GetCurCnt();
 }
 
 void Frag_VFree(void)
 {
-   vFrag.Destroy();
+    vFrag.Destroy();
 }
 

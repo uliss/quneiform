@@ -58,157 +58,146 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int16_t *stat_gistoGramma(int16_t *X, int16_t n)
 {
-	if(X == NULL) return NULL;
+    if (X == NULL) return NULL;
 
-	int16_t xMax = X[stat_index_GlobMax(X, n, 1)];
-	int16_t xMin = X[stat_index_GlobMin(X, n)];
-	int16_t   ng = xMax - xMin + 1;
+    int16_t xMax = X[stat_index_GlobMax(X, n, 1)];
+    int16_t xMin = X[stat_index_GlobMin(X, n)];
+    int16_t   ng = xMax - xMin + 1;
+    int16_t *G = (int16_t *) calloc(ng, sizeof(int16_t));
 
-	int16_t *G = (int16_t *) calloc(ng, sizeof(int16_t));
-	if(G == NULL)
-		return NULL;
+    if (G == NULL)
+        return NULL;
 
-	for(int16_t i = 0; i < n; i++)
-	{
-		G[X[i] - xMin]++;
-	}
-	return G;
+    for (int16_t i = 0; i < n; i++) {
+        G[X[i] - xMin]++;
+    }
+
+    return G;
 }
 
 int16_t stat_index_LeftLocMax(int16_t *Y, int16_t k0)
 {
-	if(Y == NULL) return -1;
+    if (Y == NULL) return -1;
 
-	int16_t ret = -1, max = 0, iMax = 0;
+    int16_t ret = -1, max = 0, iMax = 0;
 
-	for(int16_t i = 0; i <= k0; i++)
-	{
-		if(Y[i] > max)
-		{
-			max  = Y[i];
-			iMax = i;
-		}
-	}
+    for (int16_t i = 0; i <= k0; i++) {
+        if (Y[i] > max) {
+            max  = Y[i];
+            iMax = i;
+        }
+    }
 
-	ret = max != 0 ? iMax : -1;
-
-	return ret;
+    ret = max != 0 ? iMax : -1;
+    return ret;
 }
 
 int16_t stat_index_RightLocMax(int16_t *Y, int16_t k, int16_t k0)
 {
-	if(Y == NULL) return -1;
+    if (Y == NULL) return -1;
 
-	int16_t ret = -1, max = 0, iMax = k0;
+    int16_t ret = -1, max = 0, iMax = k0;
 
-	if(k >= k0)
-	{
-		for(int16_t i = k0; i < k; i++)
-		{
-			if(Y[i] >= max)
-			{
-				max  = Y[i];
-				iMax = i;
-			}
-		}
+    if (k >= k0) {
+        for (int16_t i = k0; i < k; i++) {
+            if (Y[i] >= max) {
+                max  = Y[i];
+                iMax = i;
+            }
+        }
 
-		ret = max != 0 ?  iMax : -1;
-	}
+        ret = max != 0 ?  iMax : -1;
+    }
 
-	return ret;
+    return ret;
 }
 
 int16_t stat_index_GlobMax(int16_t *Y, int16_t k, int16_t inequality)
 {
-	if(Y == NULL) return -1;
+    if (Y == NULL) return -1;
 
-	if(k > 1)
-	{
-		int16_t max = Y[0], iMax = 0;
+    if (k > 1) {
+        int16_t max = Y[0], iMax = 0;
 
-		for(int16_t i=1; i<k; i++)
-		{
-			switch(inequality)
-			{
-				case 1: if(Y[i] > max)
-						{
-							max  = Y[i];
-							iMax = i;
-						}
-						break;
-				case 2: if(Y[i] >= max)
-						{
-							max  = Y[i];
-							iMax = i;
-						}
-						break;
-				default: ;
-			}
-		}
+        for (int16_t i = 1; i < k; i++) {
+            switch (inequality) {
+                case 1:
 
-		return iMax;
-	}
-	else
-	{
-		return 0;
-	}
+                    if (Y[i] > max) {
+                        max  = Y[i];
+                        iMax = i;
+                    }
+
+                    break;
+                case 2:
+
+                    if (Y[i] >= max) {
+                        max  = Y[i];
+                        iMax = i;
+                    }
+
+                    break;
+                default:
+                    ;
+            }
+        }
+
+        return iMax;
+    }
+
+    else {
+        return 0;
+    }
 }
 
 int16_t stat_alt_indexMax(int16_t *Y, int16_t k, int16_t diff, int16_t b3)
 {
-	if(Y == NULL) return -1;
+    if (Y == NULL) return -1;
 
-	if(k > 1)
-	{
-		int16_t max = Y[0], iMax = 0;
+    if (k > 1) {
+        int16_t max = Y[0], iMax = 0;
 
-		for(int16_t i=1; i<k; i++)
-		{
-			if(Y[i] > max)
-			{
-				max  = Y[i];
-				iMax = i;
-			}
-			else
-			{
-				if(Y[i] == max && b3 - i >= diff)
-				{
-					max  = Y[i];
-					iMax = i;
-				}
-			}
-		}
+        for (int16_t i = 1; i < k; i++) {
+            if (Y[i] > max) {
+                max  = Y[i];
+                iMax = i;
+            }
 
-		return iMax;
-	}
-	else
-	{
-		return 0;
-	}
+            else {
+                if (Y[i] == max && b3 - i >= diff) {
+                    max  = Y[i];
+                    iMax = i;
+                }
+            }
+        }
+
+        return iMax;
+    }
+
+    else {
+        return 0;
+    }
 }
 
 int16_t stat_index_GlobMin(int16_t *Y, int16_t k)
 {
-	if(Y == NULL) return -1;
+    if (Y == NULL) return -1;
 
-	if(k > 1)
-	{
-		int16_t min = Y[0], iMin = 0;
+    if (k > 1) {
+        int16_t min = Y[0], iMin = 0;
 
-		for(int16_t i=1; i<k; i++)
-		{
-			if(Y[i] < min)
-			{
-				min  = Y[i];
-				iMin = i;
-			}
-		}
+        for (int16_t i = 1; i < k; i++) {
+            if (Y[i] < min) {
+                min  = Y[i];
+                iMin = i;
+            }
+        }
 
-		return iMin;
-	}
-	else
-	{
-		return 0;
-	}
+        return iMin;
+    }
+
+    else {
+        return 0;
+    }
 }
 

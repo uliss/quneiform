@@ -63,48 +63,85 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define mov(a,b) memcpy (a,b,siz);
 
 void    q_sort( char *base, size_t N, size_t siz,
-		        int (*comp_func)( const void *, const void * ) )
+                int (*comp_func)( const void *, const void * ) )
 
 {
- char swbuf[256];
- size_t NN;
- size_t root;
- char reg;
- size_t left,right,curr;
+    char swbuf[256];
+    size_t NN;
+    size_t root;
+    char reg;
+    size_t left, right, curr;
 
-  if (N <= 2)
-  { if (N <= 1)return;
+    if (N <= 2) {
+        if (N <= 1)return;
+
 //  last_two:
-    if (cmp(0,base+siz) > 0) swap(0,siz);
+        if (cmp(0, base + siz) > 0) swap(0, siz);
+
+        return;
+    }
+
+    base -= siz;
+    NN = N * siz;
+    reg = 0;
+    root = N / 2;
+    root *= siz;
+
+    while (root) {
+        mov (swbuf, el(root));
+        goto piramida;
+    ret_1:
+        root -= siz;
+    }
+
+    reg = 1;
+    root = siz;
+
+    while (N > 2) {
+        mov (swbuf, el(NN));
+        mov (el(NN), el(siz));
+        N--;
+        NN -= siz;
+        goto piramida;
+    ret_2:
+        ;
+    }
+
+    swap(siz, siz + siz);
     return;
-  }
-  base -= siz;	NN = N * siz;
-
-  reg = 0;
-  root = N/2; root*=siz; while (root)
-  { mov (swbuf,el(root)); goto piramida; ret_1: root-=siz;}
-
-  reg = 1; root = siz;
-  while (N > 2)
-   { mov (swbuf,el(NN)); mov (el(NN),el(siz)); N--; NN -=siz; goto piramida; ret_2:; }
-  swap(siz, siz+siz); return;
-
-piramida: curr = root;
-
+piramida:
+    curr = root;
 p_iter:
-	left = curr+curr; if (left > NN) goto RET;
-	right = left+siz;
-	if (cmp(left,swbuf) > 0)
-	 {
-	  if ((right <= NN) && (cmp(right,el(left)) > 0))
-	   { mov (el(curr),el(right)); curr = right; goto p_iter; }
-	  mov (el(curr), el(left)); curr = left; goto p_iter;
-	 }
-	if ((right <= NN) && (cmp(right,swbuf) > 0))
-	 {  mov (el(curr),el(right)); curr = right; goto p_iter; }
+    left = curr + curr;
+
+    if (left > NN) goto RET;
+
+    right = left + siz;
+
+    if (cmp(left, swbuf) > 0) {
+        if ((right <= NN) && (cmp(right, el(left)) > 0)) {
+            mov (el(curr), el(right));
+            curr = right;
+            goto p_iter;
+        }
+
+        mov (el(curr), el(left));
+        curr = left;
+        goto p_iter;
+    }
+
+    if ((right <= NN) && (cmp(right, swbuf) > 0)) {
+        mov (el(curr), el(right));
+        curr = right;
+        goto p_iter;
+    }
+
 RET:
-	mov (el(curr),swbuf);
-	if (reg) goto ret_2; else goto ret_1;
+    mov (el(curr), swbuf);
+
+    if (reg) goto ret_2;
+
+    else goto ret_1;
 }
 
 // static int ar[10] = {7,3,5,1,0,2,6,9,8,4};

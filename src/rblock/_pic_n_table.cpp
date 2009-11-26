@@ -76,102 +76,123 @@ using namespace CIF;
 //int my_upper, my_left, my_bottom, my_right;
 /***********************************************************/
 
-int IsInPoly(Point16 a, void * pPoly) {
-	int i, y, n, ind;
-	int Count = 0;
-	POLY_ *p;
-	p = (POLY_*) pPoly;
-	n = p->com.count;
-	for (i = 0; i < n; i++) {
-		int j = (i + 1) % n;
-		if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-			continue;
-		if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-			continue;
-		if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-			continue;
-		y = p->com.Vertex[i].y();
-		ind = i;
-		if (p->com.Vertex[j].y() > y) {
-			y = p->com.Vertex[j].y();
-			ind = j;
-		}
-		if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-			Count++;
-		else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-			continue;
-		else {
-			double t = ((double) (a.y() - p->com.Vertex[i].y())
-					/ ((double) (p->com.Vertex[j].y()
-							- (double) p->com.Vertex[i].y())));
-			if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-					* ((double) p->com.Vertex[j].x()
-							- (double) p->com.Vertex[i].x()) >= (double) a.x())
-				Count++;
-		}
-	}
-	return Count & 1;
+int IsInPoly(Point16 a, void * pPoly)
+{
+    int i, y, n, ind;
+    int Count = 0;
+    POLY_ *p;
+    p = (POLY_*) pPoly;
+    n = p->com.count;
+
+    for (i = 0; i < n; i++) {
+        int j = (i + 1) % n;
+
+        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
+            continue;
+
+        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
+            continue;
+
+        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
+            continue;
+
+        y = p->com.Vertex[i].y();
+        ind = i;
+
+        if (p->com.Vertex[j].y() > y) {
+            y = p->com.Vertex[j].y();
+            ind = j;
+        }
+
+        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
+            Count++;
+
+        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
+            continue;
+
+        else {
+            double t = ((double) (a.y() - p->com.Vertex[i].y())
+                        / ((double) (p->com.Vertex[j].y()
+                                     - (double) p->com.Vertex[i].y())));
+
+            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
+                    * ((double) p->com.Vertex[j].x()
+                       - (double) p->com.Vertex[i].x()) >= (double) a.x())
+                Count++;
+        }
+    }
+
+    return Count & 1;
 }
 
-int Max(int x1, int x2) {
-	return (x1 > x2) ? x1 : x2;
+int Max(int x1, int x2)
+{
+    return (x1 > x2) ? x1 : x2;
 }
 
-int Min(int x1, int x2) {
-	return x1 < x2 ? x1 : x2;
+int Min(int x1, int x2)
+{
+    return x1 < x2 ? x1 : x2;
 }
 
-Bool32 MyFiltrateOr(int32_t upper, int32_t left, int32_t w, int32_t h) {
-	if ((upper < my_upper) && (left < my_left) && (upper + h > my_bottom)
-			&& (left + w > my_right))
-		return FALSE;
-	if ((upper >= my_bottom) || (left >= my_right) || (upper + h <= my_upper)
-			|| (left + w <= my_left))
-		return FALSE;
-	return TRUE;
+Bool32 MyFiltrateOr(int32_t upper, int32_t left, int32_t w, int32_t h)
+{
+    if ((upper < my_upper) && (left < my_left) && (upper + h > my_bottom)
+            && (left + w > my_right))
+        return FALSE;
+
+    if ((upper >= my_bottom) || (left >= my_right) || (upper + h <= my_upper)
+            || (left + w <= my_left))
+        return FALSE;
+
+    return TRUE;
 }
 
-void DeleteRoot(ROOT * lpRoot) {
-	int32_t nn;
-	nn = (lpRoot - pRoots) / sizeof(ROOT);
-	nn = nRoots - nn - 100;
-	nn = (pRoots + nRoots) - lpRoot - 1;
-	memcpy(lpRoot, lpRoot + 1, nn * sizeof(ROOT));
-
-	nRoots--;
+void DeleteRoot(ROOT * lpRoot)
+{
+    int32_t nn;
+    nn = (lpRoot - pRoots) / sizeof(ROOT);
+    nn = nRoots - nn - 100;
+    nn = (pRoots + nRoots) - lpRoot - 1;
+    memcpy(lpRoot, lpRoot + 1, nn * sizeof(ROOT));
+    nRoots--;
 }
-Bool32 DeleteRootsFromTables(void) {
-	return TRUE;
-}
-
-Bool32 DeleteRootsFromPictures(void) {
-	Handle pPage;
-	Handle h = NULL;
-	POLY_ block;
-	ROOT * pRoot;
-
-	pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-
-	for (h = CPAGE_GetBlockFirst(pPage, TYPE_IMAGE); h != NULL; h
-			= CPAGE_GetBlockNext(pPage, h, TYPE_IMAGE)) {
-		CPAGE_GetBlockData(pPage, h, TYPE_IMAGE, &block, sizeof(block));
-		for (pRoot = pRoots; pRoot < pRoots + nRoots; pRoot++) {
-			my_left = block.com.Vertex[0].x();
-			my_right = block.com.Vertex[1].x();
-			my_upper = block.com.Vertex[1].y();
-			my_bottom = block.com.Vertex[2].y();
-			//if(MyFiltrateIn(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight ))
-			if (MyFiltrateOr(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth,
-					pRoot -> nHeight)) {
-				DeleteRoot(pRoot);
-				pRoot--;
-			}
-		}
-	}
-
-	return TRUE;
+Bool32 DeleteRootsFromTables(void)
+{
+    return TRUE;
 }
 
-Bool32 SearchPicturesSecond(Handle hCCOM, Bool32 BLOCKS, CCOM_comp * comp) {
-	return TRUE;
+Bool32 DeleteRootsFromPictures(void)
+{
+    Handle pPage;
+    Handle h = NULL;
+    POLY_ block;
+    ROOT * pRoot;
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+
+    for (h = CPAGE_GetBlockFirst(pPage, TYPE_IMAGE); h != NULL; h
+            = CPAGE_GetBlockNext(pPage, h, TYPE_IMAGE)) {
+        CPAGE_GetBlockData(pPage, h, TYPE_IMAGE, &block, sizeof(block));
+
+        for (pRoot = pRoots; pRoot < pRoots + nRoots; pRoot++) {
+            my_left = block.com.Vertex[0].x();
+            my_right = block.com.Vertex[1].x();
+            my_upper = block.com.Vertex[1].y();
+            my_bottom = block.com.Vertex[2].y();
+
+            //if(MyFiltrateIn(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight ))
+            if (MyFiltrateOr(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth,
+                             pRoot -> nHeight)) {
+                DeleteRoot(pRoot);
+                pRoot--;
+            }
+        }
+    }
+
+    return TRUE;
+}
+
+Bool32 SearchPicturesSecond(Handle hCCOM, Bool32 BLOCKS, CCOM_comp * comp)
+{
+    return TRUE;
 }

@@ -92,41 +92,44 @@ uint16_t GetReturnCode_rling();
 #endif
 
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+                      pvoid lpReserved)
+{
+    switch (ul_reason_for_call) {
+        case DLL_PROCESS_ATTACH:
+            ghInst = hModule;
+            break;
+        case DLL_THREAD_ATTACH:
+            break;
+        case DLL_THREAD_DETACH:
+            break;
+        case DLL_PROCESS_DETACH:
+            break;
+    }
+
+    return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode,Handle hStorage)
+RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode, Handle hStorage)
 #else
-RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode,Handle hStorage)
+RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode, Handle hStorage)
 #endif
 {
-	gwHeightRC = wHeightCode;
+    gwHeightRC = wHeightCode;
 
-	Control_crl = new CRLControl;
+    Control_crl = new CRLControl;
 
-	if ( Control_crl )
+    if ( Control_crl )
 #if defined ( __RLING__ )
-	return RLINGS_Init(wHeightCode, hStorage);
+        return RLINGS_Init(wHeightCode, hStorage);
+
 #else
-	return TRUE;
+        return TRUE;
 #endif
 
-	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
-	return FALSE;
+    SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
+    return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -136,13 +139,13 @@ RLING_FUNC(Bool32)RLING_Done()
 RLINGS_FUNC(Bool32)RLINGS_Done()
 #endif
 {
-	delete Control_crl;
-	Control_crl = NULL;
+    delete Control_crl;
+    Control_crl = NULL;
 
 #if defined ( __RLING__ )
-	return RLINGS_Done();
+    return RLINGS_Done();
 #else
-	return TRUE;
+    return TRUE;
 #endif
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -153,15 +156,18 @@ RLING_FUNC(uint32_t) RLING_GetReturnCode()
 RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
 #endif
 {
-	if ( !gwLowRC )
-	return 0;
+
+    if ( !gwLowRC )
+        return 0;
 
 #if defined ( __RLING__ )
-	if ( gwLowRC == IDS_RLING_ERR_NO )
-	return RLINGS_GetReturnCode();
+
+    if ( gwLowRC == IDS_RLING_ERR_NO )
+        return RLINGS_GetReturnCode();
+
 #endif
 
-	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RLING_ERR_NO);
+    return (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_RLING_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -171,17 +177,18 @@ char * RLING_GetReturnString(uint32_t dwError)
 char * RLINGS_GetReturnString(uint32_t dwError)
 #endif
 {
-	uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_RLING_ERR_NO;
+    uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_RLING_ERR_NO;
 
-	if (dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
-	return NULL;
+    if (dwError >> 16 != gwHeightRC)
+        gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
+
+    return NULL;
 }
 
 #if defined( __RLING__ )
-#define CASE_FUNCTION(a)	case RLING_FN_##a:	*(FNRLING##a *)pData = RLING_##a; break
+#define CASE_FUNCTION(a)    case RLING_FN_##a:  *(FNRLING##a *)pData = RLING_##a; break
 #else
-#define CASE_FUNCTION(a)	case RLINGS_FN_##a:	*(FNRLINGS##a *)pData = RLINGS_##a; break
+#define CASE_FUNCTION(a)    case RLINGS_FN_##a: *(FNRLINGS##a *)pData = RLINGS_##a; break
 #endif
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -191,42 +198,41 @@ RLING_FUNC(Bool32) RLING_GetExportData(uint32_t dwType, void * pData)
 RLINGS_FUNC(Bool32) RLINGS_GetExportData(uint32_t dwType, void * pData)
 #endif
 {
-	Bool32 rc = TRUE;
+    Bool32 rc = TRUE;
 
-	gwLowRC = 0;
+    gwLowRC = 0;
 
-	switch(dwType)
-	{
-		CASE_FUNCTION(IsDictonaryAvailable);
-		CASE_FUNCTION(LoadDictonary);
-		CASE_FUNCTION(LoadSecDictonary);
-		CASE_FUNCTION(UnloadDictonary);
-		CASE_FUNCTION(UnloadSecDictonary);
-		CASE_FUNCTION(LoadUserDictonary);
-		CASE_FUNCTION(LoadSecUserDictonary);
-		CASE_FUNCTION(UnloadUserDictonary);
-		CASE_FUNCTION(UnloadSecUserDictonary);
-		CASE_FUNCTION(CheckWord);
-		CASE_FUNCTION(CheckSecWord);
-		CASE_FUNCTION(CheckED);
-		CASE_FUNCTION(CheckSecED);
-		/*
-		 CASE_FUNCTION(CorrectWord);
-		 CASE_FUNCTION(CorrectSecWord);
-		 CASE_FUNCTION(CorrectHypWord);
-		 CASE_FUNCTION(CorrectSecHypWord);
-		 CASE_FUNCTION(GetCorrectedRectElement);
-		 CASE_FUNCTION(GetSecCorrectedRectElement);
-		 CASE_FUNCTION(GetCorrectedVersElement);
-		 CASE_FUNCTION(GetSecCorrectedVersElement);
-		 */
-		default:
-		*(Handle *)pData = NULL;
-		gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
+    switch (dwType) {
+            CASE_FUNCTION(IsDictonaryAvailable);
+            CASE_FUNCTION(LoadDictonary);
+            CASE_FUNCTION(LoadSecDictonary);
+            CASE_FUNCTION(UnloadDictonary);
+            CASE_FUNCTION(UnloadSecDictonary);
+            CASE_FUNCTION(LoadUserDictonary);
+            CASE_FUNCTION(LoadSecUserDictonary);
+            CASE_FUNCTION(UnloadUserDictonary);
+            CASE_FUNCTION(UnloadSecUserDictonary);
+            CASE_FUNCTION(CheckWord);
+            CASE_FUNCTION(CheckSecWord);
+            CASE_FUNCTION(CheckED);
+            CASE_FUNCTION(CheckSecED);
+            /*
+             CASE_FUNCTION(CorrectWord);
+             CASE_FUNCTION(CorrectSecWord);
+             CASE_FUNCTION(CorrectHypWord);
+             CASE_FUNCTION(CorrectSecHypWord);
+             CASE_FUNCTION(GetCorrectedRectElement);
+             CASE_FUNCTION(GetSecCorrectedRectElement);
+             CASE_FUNCTION(GetCorrectedVersElement);
+             CASE_FUNCTION(GetSecCorrectedVersElement);
+             */
+        default:
+            *(Handle *)pData = NULL;
+            gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
+            rc = FALSE;
+    }
 
-	return rc;
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -236,21 +242,23 @@ RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData)
 RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
 #endif
 {
-	Bool rc = FALSE;
-	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
+    Bool rc = FALSE;
+    gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
 
-	return rc;
+    return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rling(uint16_t rc) {
-	if (rc == IDS_RLING_ERR_NO || gwLowRC == IDS_RLING_ERR_NO)
-		gwLowRC = rc;
+void SetReturnCode_rling(uint16_t rc)
+{
+    if (rc == IDS_RLING_ERR_NO || gwLowRC == IDS_RLING_ERR_NO)
+        gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rling() {
-	return gwLowRC;
+uint16_t GetReturnCode_rling()
+{
+    return gwLowRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //end of file

@@ -61,34 +61,35 @@ using namespace CIF;
 char NameFuncErr[100], Buff[60];
 short NumErr;
 
-void heapstat(char *mess) {
+void heapstat(char *mess)
+{
 #ifdef _MSC_VER
-	int status = _heapchk(), n;
-	switch (status)
-	{
-		case _HEAPOK: // heap is fine
-		case _HEAPEMPTY: // empty heap
-		case _HEAPEND: // end of heap
-		return;
-	}
+    int status = _heapchk(), n;
 
-	fprintf(stderr, "\n%s",mess);
-	switch (status)
-	{
-		case _HEAPBADPTR: // bad pointer to heap
-		n = 1; break;
+    switch (status) {
+        case _HEAPOK: // heap is fine
+        case _HEAPEMPTY: // empty heap
+        case _HEAPEND: // end of heap
+            return;
+    }
 
-		case _HEAPBADBEGIN: // bad start of heap
-		n = 2; break;
+    fprintf(stderr, "\n%s", mess);
 
-		case _HEAPBADNODE: // bad node in heap
-		n = 3; break;
+    switch (status) {
+        case _HEAPBADPTR: // bad pointer to heap
+            n = 1;
+            break;
+        case _HEAPBADBEGIN: // bad start of heap
+            n = 2;
+            break;
+        case _HEAPBADNODE: // bad node in heap
+            n = 3;
+            break;
+        default: // ЌҐа бЇ®§­ ­­ п ®иЁЎЄ 
+            n = -1;
+    }
 
-		default: // ЌҐа бЇ®§­ ­­ п ®иЁЎЄ 
-		n = -1;
-	}
-
-	ERR(n, "Heapstat");
+    ERR(n, "Heapstat");
 #endif
 }
 
@@ -96,251 +97,287 @@ void heapstat(char *mess) {
 #if defined (WIN_MOD) || defined (DEBUG_MEM)
 char * PASC malloc_m(unsigned long size)
 {
-
 #ifdef WIN_MOD
 #ifndef WIN32
-
-	Handle h;
+    Handle h;
 #ifdef DEBUG_MEM
-	char *p,*err="malloc_m";
-	if (!(h=GlobalAlloc(GMEM_MOVEABLE, (long)size)))
-	return NULL;
-	if((p=GlobalLock(h)) == NULL)
-	ERR(2,err);
-	return p;
-#else
-	if (!(h=GlobalAlloc(GHND, (long)size)))
-	return NULL;
-	return GlobalLock(h);
-#endif
+    char *p, *err = "malloc_m";
 
-#else
-#ifdef DEBUG_MEM
+    if (!(h = GlobalAlloc(GMEM_MOVEABLE, (long)size)))
+        return NULL;
 
-	char *p,*err="malloc_m";
-	if(!size)
-	ERR(1,err);
-	heapstat("malloc_m bef");
-	if((p=(char*)malloc(size)) == NULL)
-	ERR(2,err);
-	heapstat("malloc_m aft");
-	return p;
+    if ((p = GlobalLock(h)) == NULL)
+        ERR(2, err);
 
+    return p;
 #else
-	return (char*)malloc(size);
-#endif
+
+    if (!(h = GlobalAlloc(GHND, (long)size)))
+        return NULL;
+
+    return GlobalLock(h);
 #endif
 #else
 #ifdef DEBUG_MEM
+    char *p, *err = "malloc_m";
 
-	char *p,*err="malloc_m";
-	if(!size)
-	ERR(1,err);
-	if(size > 0xFFFF)
-	ERR(3,err);
-	heapstat("malloc_m bef");
-	if((p=(char*)malloc((size_t)size)) == NULL)
-	ERR(2,err);
-	heapstat("malloc_m aft");
-	return p;
+    if (!size)
+        ERR(1, err);
 
+    heapstat("malloc_m bef");
+
+    if ((p = (char*)malloc(size)) == NULL)
+        ERR(2, err);
+
+    heapstat("malloc_m aft");
+    return p;
 #else
-	return malloc((size_t)size);
+    return (char*)malloc(size);
+#endif
+#endif
+#else
+#ifdef DEBUG_MEM
+    char *p, *err = "malloc_m";
+
+    if (!size)
+        ERR(1, err);
+
+    if (size > 0xFFFF)
+        ERR(3, err);
+
+    heapstat("malloc_m bef");
+
+    if ((p = (char*)malloc((size_t)size)) == NULL)
+        ERR(2, err);
+
+    heapstat("malloc_m aft");
+    return p;
+#else
+    return malloc((size_t)size);
 #endif
 #endif
 }
 
 //=================
 char * PASC halloc_m(long n, uint size)
-{	char *err="halloc_m";
-
+{
+    char *err = "halloc_m";
 #ifdef WIN_MOD
 #ifndef WIN32
-	Handle h;
-	if (!(h=GlobalAlloc(GHND, n * size))) return NULL;
-	return GlobalLock(h);
+    Handle h;
+
+    if (!(h = GlobalAlloc(GHND, n * size))) return NULL;
+
+    return GlobalLock(h);
 #else
 #ifdef DEBUG_MEM
-	char * p;
-	if(!size)ERR(1,err);
-	heapstat("halloc_m bef");
-	p=(char*)malloc(n*size);
-	heapstat("halloc_m aft");
-	return p;
+    char * p;
+
+    if (!size)ERR(1, err);
+
+    heapstat("halloc_m bef");
+    p = (char*)malloc(n * size);
+    heapstat("halloc_m aft");
+    return p;
 #else
-	return (char*) malloc((int32_t)n * size);
+    return (char*) malloc((int32_t)n * size);
 #endif
 #endif
 #else
-	return (char*)malloc(n*size);
+    return (char*)malloc(n*size);
 #endif
 }
 //=================
 void PASC free_m(void *ptr)
 {
-
 #ifdef WIN_MOD
-	if(ptr)
-	{
+
+    if (ptr) {
 #ifndef WIN32
-		Handle h,h1;
+        Handle h, h1;
 #ifdef DEBUG_MEM
-		while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
+        while ( GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
 #else
-		GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
+        GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) );
 #endif
-		if( h1 = (Handle) GlobalFree(h) )
-		ERR(1,"free_m");
-#else
-#ifdef DEBUG_MEM
-		if(!ptr)
-		ERR(2,"free_m");
-		heapstat("free_m bef");
-		free(ptr);
-		heapstat("free_m aft");
-#else
-		free(ptr);
-#endif
-#endif
-	}
+
+        if ( h1 = (Handle) GlobalFree(h) )
+            ERR(1, "free_m");
+
 #else
 #ifdef DEBUG_MEM
-	if(!ptr)
-	ERR(2,"free_m");
-	heapstat("free_m bef");
-	free(ptr);
-	heapstat("free_m aft");
+
+        if (!ptr)
+            ERR(2, "free_m");
+
+        heapstat("free_m bef");
+        free(ptr);
+        heapstat("free_m aft");
 #else
-	free(ptr);
+        free(ptr);
+#endif
+#endif
+    }
+
+#else
+#ifdef DEBUG_MEM
+
+    if (!ptr)
+        ERR(2, "free_m");
+
+    heapstat("free_m bef");
+    free(ptr);
+    heapstat("free_m aft");
+#else
+    free(ptr);
 #endif
 #endif
 }
 //=================
 void PASC hfree_m(void *ptr)
 {
-
 #ifdef WIN_MOD
 #ifndef WIN32
-	if(ptr)
-	{	Handle h,h1;
+
+    if (ptr) {
+        Handle h, h1;
 #ifdef DEBUG_MEM
-		while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
+        while ( GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
 #else
-		GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
+        GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) );
 #endif
-		if (h1 = (Handle) GlobalFree(h))
-		ERR(1,"hfree_m");
-	}
+
+        if (h1 = (Handle) GlobalFree(h))
+            ERR(1, "hfree_m");
+    }
+
 #else
 #ifdef DEBUG_MEM
-	if(ptr == NULL)
-	ERR(2,"hfree_m");
-	heapstat("hfree_m bef");
-	free(ptr);
-	heapstat("hfree_m aft");
+
+    if (ptr == NULL)
+        ERR(2, "hfree_m");
+
+    heapstat("hfree_m bef");
+    free(ptr);
+    heapstat("hfree_m aft");
 #else
-	free(ptr);
+    free(ptr);
 #endif
 #endif
 #else //WIN_MOD
-	free(ptr);
-
+    free(ptr);
 #endif //WIN_MOD
 }
 #endif /* defined (WIN_MOD) || defined (DEBUG_MEM) */
 
 //®бў®Ў®¦¤Ґ­ЁҐ б ЇаҐ¤ў аЁв. Їа®ўҐаЄ®© ­  NULL
-void free_c(void *ptr) {
-	if (ptr)
+void free_c(void *ptr)
+{
+    if (ptr)
 #ifdef WIN_MOD
 #ifndef WIN32
-	{	Handle h,h1;
+    {   Handle h, h1;
 #ifdef DEBUG_MEM
-		while( GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
+        while ( GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) ) );
+
 #else
-		GlobalUnlock( h=LOWORD(GlobalHandle(SELECTOROF(ptr))) );
+        GlobalUnlock( h = LOWORD(GlobalHandle(SELECTOROF(ptr))) );
 #endif
-		if( h1 = (Handle) GlobalFree(h) )
-		ERR(1,"free_c");
-	}
+
+        if ( h1 = (Handle) GlobalFree(h) )
+            ERR(1, "free_c");
+    }
 #else
-	{	free(ptr);}
+    {   free(ptr);
+    }
 #endif
 #else
-	{
-		free(ptr);
-	}
+    {
+        free(ptr);
+    }
 #endif
 }
 
 //===
-void * realloc_m(void *ptr_old, uint size_old, uint size_new) {
-	void *ptr_new;
-	if (!size_old)
+void * realloc_m(void *ptr_old, uint size_old, uint size_new)
+{
+    void *ptr_new;
+
+    if (!size_old)
 #ifdef DEBUG_MEM
-		ERR(1,"realloc_m");
+        ERR(1, "realloc_m");
+
 #else
-		/* ’ Є ваҐЎгҐв бв ­¤ ав realloc'  */
-		return malloc(size_new);
+        /* ’ Є ваҐЎгҐв бв ­¤ ав realloc'  */
+        return malloc(size_new);
 #endif
 
-	if (size_new <= size_old)
-		return ptr_old;
-	if (ptr_new = malloc(size_new)) {
-		//memcpy_m(ptr_new,ptr_old,size_old);
-		memmove(ptr_new, ptr_old, size_old);
-		free(ptr_old);
-	}
-	return ptr_new;
+    if (size_new <= size_old)
+        return ptr_old;
+
+    if (ptr_new = malloc(size_new)) {
+        //memcpy_m(ptr_new,ptr_old,size_old);
+        memmove(ptr_new, ptr_old, size_old);
+        free(ptr_old);
+    }
+
+    return ptr_new;
 }
 
 //== ‘ЋЋЃ™…Ќ€џ ЋЃ Ћ�€ЃЉЂ• ==
-void ERR(int num, const char *str) {
-	char str1[60];
-	WAR(num, str);
+void ERR(int num, const char *str)
+{
+    char str1[60];
+    WAR(num, str);
 #ifdef WIN_MOD
-	wsprintf(str1,"\nERR=%d %s",num,str);
-	//MessageBox((HWND) 0,str1,(char*) "ERROR",MB_ICONHAND|MB_OK);
+    wsprintf(str1, "\nERR=%d %s", num, str);
+    //MessageBox((HWND) 0,str1,(char*) "ERROR",MB_ICONHAND|MB_OK);
 #ifndef DLL_MOD
-	FatalExit(num);
+    FatalExit(num);
 #endif
 #endif
 }
 
 //=================
-void ERRO(int num, char *str) {
-	char str1[60];
-	WAR(num, str);
+void ERRO(int num, char *str)
+{
+    char str1[60];
+    WAR(num, str);
 #ifdef WIN_MOD
-	wsprintf(str1,"\nERR=%d %s",num,str);
-	MessageBox((HWND) 0,str1,(char*) "ERROR",MB_ICONHAND|MB_OK);
+    wsprintf(str1, "\nERR=%d %s", num, str);
+    MessageBox((HWND) 0, str1, (char*) "ERROR", MB_ICONHAND | MB_OK);
 #ifndef DLL_MOD
-	FatalExit(num);
+    FatalExit(num);
 #endif
 #else
-	fprintf(stderr, "\nERR=%d %s", num, str);
-	exit(num);
+    fprintf(stderr, "\nERR=%d %s", num, str);
+    exit(num);
 #endif
 }
 
 extern char NameFuncErr[100];
 extern short NumErr;
 
-void WAR(int num, const char *str) {
-	strcpy(NameFuncErr, str);
-	NumErr = num;
+void WAR(int num, const char *str)
+{
+    strcpy(NameFuncErr, str);
+    NumErr = num;
 }
 
 //===
-void PutMess(int num, char *str) {
+void PutMess(int num, char *str)
+{
 #ifndef WIN_MOD
-
-	fprintf(stderr, "\n%s %d", str, num);
-
+    fprintf(stderr, "\n%s %d", str, num);
 #else
-	char str1[160];
-	wsprintf(str1,"\n%s %d",str,num);
-	MessageBox((HWND) 0,str1,(char*) "MESS",MB_ICONHAND|MB_OK);
+    char str1[160];
+    wsprintf(str1, "\n%s %d", str, num);
+    MessageBox((HWND) 0, str1, (char*) "MESS", MB_ICONHAND | MB_OK);
 #endif
 }
 
@@ -352,42 +389,45 @@ void PutMess(int num, char *str) {
 #include "skew1024.h"
 #endif
 
-void ProjectRect1024(Rect16 *r, int32_t Skew1024) {
-	int xa, ya,
+void ProjectRect1024(Rect16 *r, int32_t Skew1024)
+{
+    int xa, ya,
 #ifndef CT_SKEW
-			xc, yc,
+    xc, yc,
 #endif
-			dx, dy;
-	if (Skew1024) {
-		xa = (r->right + r->left) >> 1;
-		ya = (r->top + r->bottom) >> 1;
+    dx, dy;
+
+    if (Skew1024) {
+        xa = (r->right + r->left) >> 1;
+        ya = (r->top + r->bottom) >> 1;
 #ifndef CT_SKEW
-		xc = xa + (int) (((int32_t) ya * Skew1024) / 1024);
-		yc = ya - (int) (((int32_t) xa * Skew1024) / 1024);
-		dx = xc - xa;
-		dy = yc - ya;
+        xc = xa + (int) (((int32_t) ya * Skew1024) / 1024);
+        yc = ya - (int) (((int32_t) xa * Skew1024) / 1024);
+        dx = xc - xa;
+        dy = yc - ya;
 #else
-		Point16 pt(xa, ya);
-		pt.deskew(-Skew1024);
-		dx=pt.x()-xa;
-		dy=pt.y()-ya;
+        Point16 pt(xa, ya);
+        pt.deskew(-Skew1024);
+        dx = pt.x() - xa;
+        dy = pt.y() - ya;
 #endif
-		r->left += (int16_t) dx;
-		r->right += (int16_t) dx;
-		r->bottom += (int16_t) dy;
-		r->top += (int16_t) dy;
-	}
+        r->left += (int16_t) dx;
+        r->right += (int16_t) dx;
+        r->bottom += (int16_t) dy;
+        r->top += (int16_t) dy;
+    }
 }
 
-void ProjectPoint1024(Point16 *r, int32_t Skew1024) {
+void ProjectPoint1024(Point16 *r, int32_t Skew1024)
+{
 #ifndef CT_SKEW
-	int16_t xa, ya;
-	xa = r->x;
-	ya = r->y;
-	r->x = xa + (int16_t) (((int32_t) ya * Skew1024) / 1024);
-	r->y = ya - (int16_t) (((int32_t) xa * Skew1024) / 1024);
+    int16_t xa, ya;
+    xa = r->x;
+    ya = r->y;
+    r->x = xa + (int16_t) (((int32_t) ya * Skew1024) / 1024);
+    r->y = ya - (int16_t) (((int32_t) xa * Skew1024) / 1024);
 #else
-	r->deskew(-Skew1024);
+    r->deskew(-Skew1024);
 #endif
 }
 

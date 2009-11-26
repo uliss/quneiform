@@ -72,522 +72,584 @@ int16_t NewFx = 0, NewFy = 0;
 ////////////////
 /////////////////////
 // make ideal picture from weighted
-int16_t MakeIdeal(welet *wel, int16_t porog) {
-	int16_t i, j;
-	char *rr, *rr1;
-	int16_t sx = wel->w;
-	int16_t sy = wel->h;
-	int16_t fx = sx; // first x
-	int16_t lx = 0; // last  x
-	int16_t fy = sy; // first y
-	int16_t ly = 0; // last  y
-	int16_t summa; // how many weighted points removed?
-	int16_t startx = (WR_MAX_WIDTH - wel->w) / 2;
-	int16_t starty = (WR_MAX_HEIGHT - wel->h) / 2;
-	int16_t newstartx;
-	int16_t newstarty;
-	int16_t newsx, newsy;
-	int16_t sdvigx;
-	int16_t sdvigy;
+int16_t MakeIdeal(welet *wel, int16_t porog)
+{
+    int16_t i, j;
+    char *rr, *rr1;
+    int16_t sx = wel->w;
+    int16_t sy = wel->h;
+    int16_t fx = sx; // first x
+    int16_t lx = 0; // last  x
+    int16_t fy = sy; // first y
+    int16_t ly = 0; // last  y
+    int16_t summa; // how many weighted points removed?
+    int16_t startx = (WR_MAX_WIDTH - wel->w) / 2;
+    int16_t starty = (WR_MAX_HEIGHT - wel->h) / 2;
+    int16_t newstartx;
+    int16_t newstarty;
+    int16_t newsx, newsy;
+    int16_t sdvigx;
+    int16_t sdvigy;
+    rr = wel->raster + starty * WR_MAX_WIDTH + startx;
 
-	rr = wel->raster + starty * WR_MAX_WIDTH + startx;
+    for (i = 0, summa = 0; i < sy; i++, rr += WR_MAX_WIDTH) {
+        for (j = 0; j < sx; j++) {
+            if (rr[j] <= 0)
+                continue; // no point
 
-	for (i = 0, summa = 0; i < sy; i++, rr += WR_MAX_WIDTH) {
-		for (j = 0; j < sx; j++) {
-			if (rr[j] <= 0)
-				continue; // no point
-			if (rr[j] <= porog) // remove spot
-			{
-				summa += rr[j];
-				rr[j] = 0;
-				continue;
-			}
-			// check new bounds
-			if (j < fx)
-				fx = j;
-			if (j > lx)
-				lx = j;
-			if (i < fy)
-				fy = i;
-			if (i > ly)
-				ly = i;
-		}
-	}
+            if (rr[j] <= porog) { // remove spot
+                summa += rr[j];
+                rr[j] = 0;
+                continue;
+            }
 
-	NewFx = fx; // first not-empty - used in AddClu
-	NewFy = fy;
+            // check new bounds
+            if (j < fx)
+                fx = j;
 
-	if (summa == 0)
-		return 0; // nothing removed
+            if (j > lx)
+                lx = j;
 
-	wel->summa -= summa; // new summa
+            if (i < fy)
+                fy = i;
 
-	lx++;
-	ly++;
-	newsx = lx - fx;
-	newsy = ly - fy;
-	newstartx = (WR_MAX_WIDTH - newsx) / 2;
-	newstarty = (WR_MAX_HEIGHT - newsy) / 2;
+            if (i > ly)
+                ly = i;
+        }
+    }
 
-	wel->w = newsx;
-	wel->h = newsy;
+    NewFx = fx; // first not-empty - used in AddClu
+    NewFy = fy;
 
-	sdvigx = startx + fx - newstartx;
-	sdvigy = starty + fy - newstarty;
+    if (summa == 0)
+        return 0; // nothing removed
 
-	// need move ?
-	if (sdvigx == 0 && sdvigy == 0)
-		return summa;
+    wel->summa -= summa; // new summa
+    lx++;
+    ly++;
+    newsx = lx - fx;
+    newsy = ly - fy;
+    newstartx = (WR_MAX_WIDTH - newsx) / 2;
+    newstarty = (WR_MAX_HEIGHT - newsy) / 2;
+    wel->w = newsx;
+    wel->h = newsy;
+    sdvigx = startx + fx - newstartx;
+    sdvigy = starty + fy - newstarty;
 
-	// mov up / left
-	if (sdvigy > 0 || sdvigy == 0 && sdvigx > 0) {
-		rr = wel->raster + newstarty * WR_MAX_WIDTH + newstartx;
-		rr1 = rr + sdvigy * WR_MAX_WIDTH + sdvigx;
-		for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH, rr1 += WR_MAX_WIDTH)
-			memcpy(rr, rr1, newsx);
-	} else if (sdvigy == 0 && sdvigx < 0) // move right
-	{
-		rr = wel->raster + newstarty * WR_MAX_WIDTH + newstartx;
-		for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH)
-			memmove(rr, rr + sdvigx, newsx);
-	} else // move down - sdvigy < 0
-	{
-		rr = wel->raster + (newstarty + newsy - 1) * WR_MAX_WIDTH + newstartx;
-		rr1 = rr + sdvigy * WR_MAX_WIDTH + sdvigx;
-		for (i = 0; i < newsy; i++, rr -= WR_MAX_WIDTH, rr1 -= WR_MAX_WIDTH)
-			memcpy(rr, rr1, newsx);
-	}
+    // need move ?
+    if (sdvigx == 0 && sdvigy == 0)
+        return summa;
 
-	// if set distance - not need set 0-s !
+    // mov up / left
+    if (sdvigy > 0 || sdvigy == 0 && sdvigx > 0) {
+        rr = wel->raster + newstarty * WR_MAX_WIDTH + newstartx;
+        rr1 = rr + sdvigy * WR_MAX_WIDTH + sdvigx;
+
+        for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH, rr1 += WR_MAX_WIDTH)
+            memcpy(rr, rr1, newsx);
+    }
+
+    else if (sdvigy == 0 && sdvigx < 0) { // move right
+        rr = wel->raster + newstarty * WR_MAX_WIDTH + newstartx;
+
+        for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH)
+            memmove(rr, rr + sdvigx, newsx);
+    }
+
+    else { // move down - sdvigy < 0
+        rr = wel->raster + (newstarty + newsy - 1) * WR_MAX_WIDTH + newstartx;
+        rr1 = rr + sdvigy * WR_MAX_WIDTH + sdvigx;
+
+        for (i = 0; i < newsy; i++, rr -= WR_MAX_WIDTH, rr1 -= WR_MAX_WIDTH)
+            memcpy(rr, rr1, newsx);
+    }
+
+    // if set distance - not need set 0-s !
 #ifndef _L1DIST_
-	// set 0 - on moved space
-	// upper lines
-	rr=wel->raster+(starty+fy)*WR_MAX_WIDTH+startx+fx;
-	for(i=starty+fy;i<newstarty;i++,rr+=WR_MAX_WIDTH)
-	memset(rr,0,newsx);
-	// down lines
-	rr=wel->raster+(newstarty+newsy)*WR_MAX_WIDTH+startx+fx;
-	for(i=newstarty+newsy;i<starty+ly;i++,rr+=WR_MAX_WIDTH)
-	memset(rr,0,newsx);
+    // set 0 - on moved space
+    // upper lines
+    rr = wel->raster + (starty + fy) * WR_MAX_WIDTH + startx + fx;
 
-	// left columns
-	if( (j=newstartx-startx-fx) > 0)
-	{
-		rr=wel->raster+newstarty*WR_MAX_WIDTH+startx+fx;
-		for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
-	}
+    for (i = starty + fy; i < newstarty; i++, rr += WR_MAX_WIDTH)
+        memset(rr, 0, newsx);
 
-	// right columns
-	if( (j=startx+lx-newstartx-newsx) > 0)
-	{
-		rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx+newsx;
-		for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
-	}
+    // down lines
+    rr = wel->raster + (newstarty + newsy) * WR_MAX_WIDTH + startx + fx;
+
+    for (i = newstarty + newsy; i < starty + ly; i++, rr += WR_MAX_WIDTH)
+        memset(rr, 0, newsx);
+
+    // left columns
+    if ( (j = newstartx - startx - fx) > 0) {
+        rr = wel->raster + newstarty * WR_MAX_WIDTH + startx + fx;
+
+        for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH) memset(rr, 0, j);
+    }
+
+    // right columns
+    if ( (j = startx + lx - newstartx - newsx) > 0) {
+        rr = wel->raster + newstarty * WR_MAX_WIDTH + newstartx + newsx;
+
+        for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH) memset(rr, 0, j);
+    }
+
 #endif
-	return summa;
+    return summa;
 }
 ////////////////////////////////
 ////////////////
 // start find distance L1 from all points to raster
 int16_t AnalisFirstRow(uchar *row, int16_t fir, int16_t las, uchar *out,
-		int16_t sizex, int16_t sizey, int16_t fullx) {
-	register int16_t i, j;
-	int16_t PrevDist;
-	uchar *nextRow;
+                       int16_t sizex, int16_t sizey, int16_t fullx)
+{
+    register int16_t i, j;
+    int16_t PrevDist;
+    uchar *nextRow;
 
-	if (fir >= las)
-		return 0;
+    if (fir >= las)
+        return 0;
 
-	if (fir <= 0 && las >= sizex)
-		return -1;
+    if (fir <= 0 && las >= sizex)
+        return -1;
 
-	if (fir > 0) {
-		out[fir] = 1;
-		// find distance from left & down
-		for (i = fir + 1; i < las; i++) {
-			out[i] = out[i - 1] + 1;
-			// if last point exist - use it too !
-			if (las < sizex && out[i] > las - i)
-				out[i] = las - i;
-			PrevDist = MIN(out[i], sizey);
-			for (j = 1, nextRow = row + fullx + i; j < PrevDist; j++, nextRow
-					+= fullx)
-				if (*nextRow) {
-					out[i] = (uchar) j;
-					break;
-				}
-		}
+    if (fir > 0) {
+        out[fir] = 1;
 
-		// check distance from right
-		for (i = las - 2; i > fir; i--)
-			out[i] = MIN(out[i], out[i + 1] + 1);
-	}
+        // find distance from left & down
+        for (i = fir + 1; i < las; i++) {
+            out[i] = out[i - 1] + 1;
 
-	else {
-		out[las - 1] = 1;
-		// find distance from right & down
-		for (i = las - 2; i >= fir; i--) {
-			out[i] = out[i + 1] + 1;
-			PrevDist = MIN(out[i], sizey);
-			for (j = 1, nextRow = row + fullx + i; j < PrevDist; j++, nextRow
-					+= fullx)
-				if (*nextRow) {
-					out[i] = (uchar) j;
-					break;
-				}
-		}
+            // if last point exist - use it too !
+            if (las < sizex && out[i] > las - i)
+                out[i] = las - i;
 
-		// check distance from left
-		for (i = fir; i < las - 1; i++)
-			out[i] = MIN(out[i], out[i + 1] + 1);
-	}
+            PrevDist = MIN(out[i], sizey);
 
-	return 0;
+            for (j = 1, nextRow = row + fullx + i; j < PrevDist; j++, nextRow
+                    += fullx)
+                if (*nextRow) {
+                    out[i] = (uchar) j;
+                    break;
+                }
+        }
+
+        // check distance from right
+        for (i = las - 2; i > fir; i--)
+            out[i] = MIN(out[i], out[i + 1] + 1);
+    }
+
+    else {
+        out[las - 1] = 1;
+
+        // find distance from right & down
+        for (i = las - 2; i >= fir; i--) {
+            out[i] = out[i + 1] + 1;
+            PrevDist = MIN(out[i], sizey);
+
+            for (j = 1, nextRow = row + fullx + i; j < PrevDist; j++, nextRow
+                    += fullx)
+                if (*nextRow) {
+                    out[i] = (uchar) j;
+                    break;
+                }
+        }
+
+        // check distance from left
+        for (i = fir; i < las - 1; i++)
+            out[i] = MIN(out[i], out[i + 1] + 1);
+    }
+
+    return 0;
 }
 /////////////////////////
 int16_t AnalisNextRow(uchar *row, int16_t fir, int16_t las, uchar *out,
-		int16_t sizex, int16_t sizey, int16_t fullx) {
-	register int16_t i, j;
-	int16_t PrevDist;
-	uchar *nextRow;
+                      int16_t sizex, int16_t sizey, int16_t fullx)
+{
+    register int16_t i, j;
+    int16_t PrevDist;
+    uchar *nextRow;
 
-	if (fir > 0)
-		out[fir] = 1;
-	else {
-		// know distance for upper point !
-		out[fir] = out[fir - fullx] + 1;
-		if (las < sizex && out[fir] > las - fir)
-			out[fir] = las - fir;
-		if (out[fir] > 1) {
-			PrevDist = MIN(out[fir], sizey);
-			for (j = (out[fir] == 2 ? 1 : out[fir] - 2), nextRow = row + j
-					* fullx + fir; j < PrevDist; j++, nextRow += fullx)
-				if (*nextRow) {
-					out[fir] = (uchar) j;
-					break;
-				}
-		}
-	}
+    if (fir > 0)
+        out[fir] = 1;
 
-	for (i = fir + 1; i < las; i++) {
-		// know distance for upper point !
-		PrevDist = out[i - fullx];
-		// check left point
-		out[i] = MIN(out[i - 1], PrevDist) + 1;
-		// distance for points - not more 1
-		if (out[i] < PrevDist)
-			continue;
+    else {
+        // know distance for upper point !
+        out[fir] = out[fir - fullx] + 1;
 
-		// know distance from right ?
-		if (las < sizex && out[i] > las - i)
-			out[i] = las - i;
-		if (out[i] == 1)
-			continue;
+        if (las < sizex && out[fir] > las - fir)
+            out[fir] = las - fir;
 
-		if (PrevDist > 1)
-			j = PrevDist - 1;
-		else
-			j = PrevDist;
+        if (out[fir] > 1) {
+            PrevDist = MIN(out[fir], sizey);
 
-		PrevDist = MIN(out[i], sizey);
-		if (j >= PrevDist)
-			continue;
+            for (j = (out[fir] == 2 ? 1 : out[fir] - 2), nextRow = row + j
+                                                                   * fullx + fir; j < PrevDist; j++, nextRow += fullx)
+                if (*nextRow) {
+                    out[fir] = (uchar) j;
+                    break;
+                }
+        }
+    }
 
-		for (nextRow = row + j * fullx + i; j < PrevDist; j++, nextRow += fullx)
-			if (*nextRow) {
-				out[i] = (uchar) j;
-				break;
-			}
-	}
+    for (i = fir + 1; i < las; i++) {
+        // know distance for upper point !
+        PrevDist = out[i - fullx];
+        // check left point
+        out[i] = MIN(out[i - 1], PrevDist) + 1;
 
-	// check distance from right
-	for (i = las - 2; i >= fir; i--)
-		out[i] = MIN(out[i], out[i + 1] + 1);
+        // distance for points - not more 1
+        if (out[i] < PrevDist)
+            continue;
 
-	return 0;
+        // know distance from right ?
+        if (las < sizex && out[i] > las - i)
+            out[i] = las - i;
+
+        if (out[i] == 1)
+            continue;
+
+        if (PrevDist > 1)
+            j = PrevDist - 1;
+
+        else
+            j = PrevDist;
+
+        PrevDist = MIN(out[i], sizey);
+
+        if (j >= PrevDist)
+            continue;
+
+        for (nextRow = row + j * fullx + i; j < PrevDist; j++, nextRow += fullx)
+            if (*nextRow) {
+                out[i] = (uchar) j;
+                break;
+            }
+    }
+
+    // check distance from right
+    for (i = las - 2; i >= fir; i--)
+        out[i] = MIN(out[i], out[i + 1] + 1);
+
+    return 0;
 }
 ///////////////////////
 static int16_t FindDist(uchar *ras, int16_t sizex, int16_t sizey,
-		int16_t fullx, uchar *out) {
-	int16_t i;
-	int16_t fir, k;
-	int16_t tsizey; // stay rows
-	int16_t fill;
+                        int16_t fullx, uchar *out)
+{
+    int16_t i;
+    int16_t fir, k;
+    int16_t tsizey; // stay rows
+    int16_t fill;
 
-	// at first - find distances in first row
-	for (i = 0, fir = -1, fill = 0; i < sizex; i++) {
-		if (ras[i]) // find point from picture
-		{
-			out[i] = 0;
-			fill++;
-			if (fir >= 0)
-				AnalisFirstRow(ras, fir, i, out, sizex, sizey, fullx);
-			fir = -1;
-			continue;
-		}
-		if (fir == -1)
-			fir = i; // first unknown empty point
-	}
+    // at first - find distances in first row
+    for (i = 0, fir = -1, fill = 0; i < sizex; i++) {
+        if (ras[i]) { // find point from picture
+            out[i] = 0;
+            fill++;
 
-	if (fir >= 0)
-		i = AnalisFirstRow(ras, fir, sizex, out, sizex, sizey, fullx);
+            if (fir >= 0)
+                AnalisFirstRow(ras, fir, i, out, sizex, sizey, fullx);
 
-	// now - study all distances in other rows
+            fir = -1;
+            continue;
+        }
 
-	ras += fullx;
-	out += fullx;
-	for (k = 1, tsizey = sizey - 1; k < sizey; k++, ras += fullx, out += fullx, tsizey--) {
+        if (fir == -1)
+            fir = i; // first unknown empty point
+    }
 
-		for (i = 0, fir = -1; i < sizex; i++) {
-			if (ras[i]) // find point from picture
-			{
-				out[i] = 0;
-				fill++;
-				if (fir >= 0)
-					AnalisNextRow(ras, fir, i, out, sizex, tsizey, fullx);
-				fir = -1;
-				continue;
-			}
-			if (fir == -1)
-				fir = i; // first unknown empty point
-		}
+    if (fir >= 0)
+        i = AnalisFirstRow(ras, fir, sizex, out, sizex, sizey, fullx);
 
-		if (fir >= 0)
-			i = AnalisNextRow(ras, fir, sizex, out, sizex, tsizey, fullx);
-	} // end k
+    // now - study all distances in other rows
+    ras += fullx;
+    out += fullx;
 
-	return fill;
+    for (k = 1, tsizey = sizey - 1; k < sizey; k++, ras += fullx, out += fullx, tsizey--) {
+        for (i = 0, fir = -1; i < sizex; i++) {
+            if (ras[i]) { // find point from picture
+                out[i] = 0;
+                fill++;
+
+                if (fir >= 0)
+                    AnalisNextRow(ras, fir, i, out, sizex, tsizey, fullx);
+
+                fir = -1;
+                continue;
+            }
+
+            if (fir == -1)
+                fir = i; // first unknown empty point
+        }
+
+        if (fir >= 0)
+            i = AnalisNextRow(ras, fir, sizex, out, sizex, tsizey, fullx);
+    } // end k
+
+    return fill;
 }
 ////////////////
 // find distances in wel - results put to outwel
-int16_t FindDistanceWr(welet *wel, welet *outwel) {
-	uchar *cur;
-	int16_t startx, starty;
-	uchar *out;
-	register int16_t i, j;
-	int16_t bound;
-	int16_t sizex, sizey;
-	int16_t fill;
-	uchar *cout;
+int16_t FindDistanceWr(welet *wel, welet *outwel)
+{
+    uchar *cur;
+    int16_t startx, starty;
+    uchar *out;
+    register int16_t i, j;
+    int16_t bound;
+    int16_t sizex, sizey;
+    int16_t fill;
+    uchar *cout;
 #ifdef _WEIDIST_
-	uint16_t koef;
-	uchar ckoef, maxvei;
-	char *ras, *cras;
+    uint16_t koef;
+    uchar ckoef, maxvei;
+    char *ras, *cras;
 #else
-	int16_t b2;
-	uchar *fullout;
+    int16_t b2;
+    uchar *fullout;
 #endif
-
-	startx = (WR_MAX_WIDTH - wel->w) / 2;
-	starty = (WR_MAX_HEIGHT - wel->h) / 2;
-	cur = (uchar *) wel->raster + starty * WR_MAX_WIDTH + startx;
-	out = (uchar *) outwel->raster + starty * WR_MAX_WIDTH + startx;
-
-	fill = FindDist(cur, wel->w, wel->h, (int16_t) WR_MAX_WIDTH, out);
-
-	// set distances for all around
-	sizex = wel->w;
-	sizey = wel->h;
-
+    startx = (WR_MAX_WIDTH - wel->w) / 2;
+    starty = (WR_MAX_HEIGHT - wel->h) / 2;
+    cur = (uchar *) wel->raster + starty * WR_MAX_WIDTH + startx;
+    out = (uchar *) outwel->raster + starty * WR_MAX_WIDTH + startx;
+    fill = FindDist(cur, wel->w, wel->h, (int16_t) WR_MAX_WIDTH, out);
+    // set distances for all around
+    sizex = wel->w;
+    sizey = wel->h;
 #ifdef _WEIDIST_
 
-	if (fill <= 0)
-		fill = 1;
-	koef = (uint16_t) (wel->summa / fill);
+    if (fill <= 0)
+        fill = 1;
 
-	if (koef < 1)
-		koef = 1;
+    koef = (uint16_t) (wel->summa / fill);
 
-	ckoef = MIN(128, koef);
-	maxvei = 128 / koef;
+    if (koef < 1)
+        koef = 1;
 
-	// set new weighted distance inside
-	ras = wel->raster + starty * WR_MAX_WIDTH + startx;
-	if (ckoef > 1) {
-		for (i = 0, cout = out; i < sizey; i++, cout += WR_MAX_WIDTH, ras
-				+= WR_MAX_WIDTH) {
-			for (j = 0; j < sizex; j++)
-				if (cout[j] > 0) {
-					if (cout[j] <= maxvei)
-						ras[j] = -(cout[j] * ckoef);
-					else
-						ras[j] = -128;
-				}
-		}
-	}
+    ckoef = MIN(128, koef);
+    maxvei = 128 / koef;
+    // set new weighted distance inside
+    ras = wel->raster + starty * WR_MAX_WIDTH + startx;
 
-	else {
-		for (i = 0, cout = out; i < sizey; i++, cout += WR_MAX_WIDTH, ras
-				+= WR_MAX_WIDTH) {
-			for (j = 0; j < sizex; j++)
-				if (cout[j] > 0)
-					ras[j] = -cout[j];
-		}
-	}
+    if (ckoef > 1) {
+        for (i = 0, cout = out; i < sizey; i++, cout += WR_MAX_WIDTH, ras
+                += WR_MAX_WIDTH) {
+            for (j = 0; j < sizex; j++)
+                if (cout[j] > 0) {
+                    if (cout[j] <= maxvei)
+                        ras[j] = -(cout[j] * ckoef);
 
-	// up - part
-	ras = wel->raster + starty * WR_MAX_WIDTH + startx;
-	for (i = 0; i < sizex; i++) {
-		bound = ras[i];
-		if (bound > 0)
-			bound = 0;
-		bound -= koef;
-		cras = ras - WR_MAX_WIDTH + i;
-		for (j = 0; j < starty; j++, cras -= WR_MAX_WIDTH, bound -= koef) {
-			if (bound < -128)
-				break;
-			*cras = (char) bound;
-		}
-		for (; j < starty; j++, cras -= WR_MAX_WIDTH)
-			*cras = -128;
-	}
+                    else
+                        ras[j] = -128;
+                }
+        }
+    }
 
-	// down - part
-	ras += (sizey - 1) * WR_MAX_WIDTH;
-	starty += sizey;
-	for (i = 0; i < sizex; i++) {
-		bound = ras[i];
-		if (bound > 0)
-			bound = 0;
-		bound -= koef;
-		cras = ras + WR_MAX_WIDTH + i;
-		for (j = starty; j < WR_MAX_HEIGHT; j++, cras += WR_MAX_WIDTH, bound
-				-= koef) {
-			if (bound < -128)
-				break;
-			*cras = (char) bound;
-		}
-		for (; j < WR_MAX_HEIGHT; j++, cras += WR_MAX_WIDTH)
-			*cras = -128;
-	}
+    else {
+        for (i = 0, cout = out; i < sizey; i++, cout += WR_MAX_WIDTH, ras
+                += WR_MAX_WIDTH) {
+            for (j = 0; j < sizex; j++)
+                if (cout[j] > 0)
+                    ras[j] = -cout[j];
+        }
+    }
 
-	// left part
-	ras = wel->raster;
-	for (i = 0; i < WR_MAX_HEIGHT; i++, ras += WR_MAX_WIDTH) {
-		bound = ras[startx];
-		if (bound > 0)
-			bound = 0;
-		bound -= koef;
-		for (j = startx - 1; j >= 0; j--, bound -= koef) {
-			if (bound <= -128)
-				break;
-			else
-				ras[j] = (char) bound;
-		}
-		if (j >= 0)
-			memset(ras, -128, j + 1);
-	}
+    // up - part
+    ras = wel->raster + starty * WR_MAX_WIDTH + startx;
 
-	// right part
-	ras = wel->raster;
-	startx += sizex;
-	for (i = 0; i < WR_MAX_HEIGHT; i++, ras += WR_MAX_WIDTH) {
-		bound = ras[startx - 1];
-		if (bound > 0)
-			bound = 0;
-		bound -= koef;
+    for (i = 0; i < sizex; i++) {
+        bound = ras[i];
 
-		for (j = startx; j < WR_MAX_WIDTH; j++, bound -= koef) {
-			if (bound <= -128)
-				break;
-			ras[j] = (char) bound;
-		}
-		if (j < WR_MAX_WIDTH)
-			memset(ras + j, -128, WR_MAX_WIDTH - j);
-	}
+        if (bound > 0)
+            bound = 0;
+
+        bound -= koef;
+        cras = ras - WR_MAX_WIDTH + i;
+
+        for (j = 0; j < starty; j++, cras -= WR_MAX_WIDTH, bound -= koef) {
+            if (bound < -128)
+                break;
+
+            *cras = (char) bound;
+        }
+
+        for (; j < starty; j++, cras -= WR_MAX_WIDTH)
+            * cras = -128;
+    }
+
+    // down - part
+    ras += (sizey - 1) * WR_MAX_WIDTH;
+    starty += sizey;
+
+    for (i = 0; i < sizex; i++) {
+        bound = ras[i];
+
+        if (bound > 0)
+            bound = 0;
+
+        bound -= koef;
+        cras = ras + WR_MAX_WIDTH + i;
+
+        for (j = starty; j < WR_MAX_HEIGHT; j++, cras += WR_MAX_WIDTH, bound
+                -= koef) {
+            if (bound < -128)
+                break;
+
+            *cras = (char) bound;
+        }
+
+        for (; j < WR_MAX_HEIGHT; j++, cras += WR_MAX_WIDTH)
+            * cras = -128;
+    }
+
+    // left part
+    ras = wel->raster;
+
+    for (i = 0; i < WR_MAX_HEIGHT; i++, ras += WR_MAX_WIDTH) {
+        bound = ras[startx];
+
+        if (bound > 0)
+            bound = 0;
+
+        bound -= koef;
+
+        for (j = startx - 1; j >= 0; j--, bound -= koef) {
+            if (bound <= -128)
+                break;
+
+            else
+                ras[j] = (char) bound;
+        }
+
+        if (j >= 0)
+            memset(ras, -128, j + 1);
+    }
+
+    // right part
+    ras = wel->raster;
+    startx += sizex;
+
+    for (i = 0; i < WR_MAX_HEIGHT; i++, ras += WR_MAX_WIDTH) {
+        bound = ras[startx - 1];
+
+        if (bound > 0)
+            bound = 0;
+
+        bound -= koef;
+
+        for (j = startx; j < WR_MAX_WIDTH; j++, bound -= koef) {
+            if (bound <= -128)
+                break;
+
+            ras[j] = (char) bound;
+        }
+
+        if (j < WR_MAX_WIDTH)
+            memset(ras + j, -128, WR_MAX_WIDTH - j);
+    }
 
 #else
-	// left/right - parts
-	fullout=(uchar *)outwel->raster+starty*WR_MAX_WIDTH;
-	for(i=0,cout=out;i<sizey;i++,fullout+=WR_MAX_WIDTH,cout+=WR_MAX_WIDTH)
-	{
-		// left
-		bound=*cout+startx;
-		for(j=0;j<startx;j++,bound--) fullout[j]=bound;
-		// right
-		bound=*(cout+sizex-1)+1;
-		for(j=startx+sizex;j<WR_MAX_WIDTH;j++,bound++) fullout[j]=bound;
-	}
+    // left/right - parts
+    fullout = (uchar *)outwel->raster + starty * WR_MAX_WIDTH;
 
-	// up part
-	fullout=(uchar *)outwel->raster+(starty-1)*WR_MAX_WIDTH;
-	cout=fullout+WR_MAX_WIDTH;
-	/*
-	 fullout+=WR_MAX_WIDTH-1;
-	 cout+=WR_MAX_WIDTH-1;
-	 j=starty*WR_MAX_WIDTH;
-	 for(i=0;i<j;i++,fullout--,cout--) *fullout=*cout+1;
-	 */
+    for (i = 0, cout = out; i < sizey; i++, fullout += WR_MAX_WIDTH, cout += WR_MAX_WIDTH) {
+        // left
+        bound = *cout + startx;
 
-	for(i=0;i<starty;i++,fullout-=WR_MAX_WIDTH,cout-=WR_MAX_WIDTH)
-	{
-		//memcpy(fullout,cout,WR_MAX_WIDTH);
-		for(j=0;j<WR_MAX_WIDTH;j++) fullout[j]=cout[j]+1;
-	}
+        for (j = 0; j < startx; j++, bound--) fullout[j] = bound;
 
-	// down part
-	fullout=(uchar *)outwel->raster+(starty+sizey)*WR_MAX_WIDTH;
-	cout=fullout-WR_MAX_WIDTH;
-	/*
-	 j=(WR_MAX_HEIGHT-starty-sizey)*WR_MAX_WIDTH;
-	 for(i=0;i<j;i++,fullout++,cout++) *fullout=*cout+1;
-	 */
+        // right
+        bound = *(cout + sizex - 1) + 1;
 
-	for(i=starty+sizey;i<WR_MAX_HEIGHT;i++,fullout+=WR_MAX_WIDTH,cout+=WR_MAX_WIDTH)
-	{
-		//memcpy(fullout,cout,WR_MAX_WIDTH);
-		for(j=0;j<WR_MAX_WIDTH;j++) fullout[j]=cout[j]+1;
-	}
+        for (j = startx + sizex; j < WR_MAX_WIDTH; j++, bound++) fullout[j] = bound;
+    }
 
-	j=WR_MAX_WIDTH*WR_MAX_HEIGHT;
-	ras=wel->raster;
-	out=(uchar *)outwel->raster;
-	for(i=0;i<j;i++) if(out[i] > 0) ras[i]=-out[i];
+    // up part
+    fullout = (uchar *)outwel->raster + (starty - 1) * WR_MAX_WIDTH;
+    cout = fullout + WR_MAX_WIDTH;
+    /*
+     fullout+=WR_MAX_WIDTH-1;
+     cout+=WR_MAX_WIDTH-1;
+     j=starty*WR_MAX_WIDTH;
+     for(i=0;i<j;i++,fullout--,cout--) *fullout=*cout+1;
+     */
+
+    for (i = 0; i < starty; i++, fullout -= WR_MAX_WIDTH, cout -= WR_MAX_WIDTH) {
+        //memcpy(fullout,cout,WR_MAX_WIDTH);
+        for (j = 0; j < WR_MAX_WIDTH; j++) fullout[j] = cout[j] + 1;
+    }
+
+    // down part
+    fullout = (uchar *)outwel->raster + (starty + sizey) * WR_MAX_WIDTH;
+    cout = fullout - WR_MAX_WIDTH;
+    /*
+     j=(WR_MAX_HEIGHT-starty-sizey)*WR_MAX_WIDTH;
+     for(i=0;i<j;i++,fullout++,cout++) *fullout=*cout+1;
+     */
+
+    for (i = starty + sizey; i < WR_MAX_HEIGHT; i++, fullout += WR_MAX_WIDTH, cout += WR_MAX_WIDTH) {
+        //memcpy(fullout,cout,WR_MAX_WIDTH);
+        for (j = 0; j < WR_MAX_WIDTH; j++) fullout[j] = cout[j] + 1;
+    }
+
+    j = WR_MAX_WIDTH * WR_MAX_HEIGHT;
+    ras = wel->raster;
+    out = (uchar *)outwel->raster;
+
+    for (i = 0; i < j; i++) if (out[i] > 0) ras[i] = -out[i];
+
 #endif
-	return fill;
+    return fill;
 }
 /////////////////
 #define POROG_IDEAL 10
 
-int32_t FONCutOffClusters(welet *ww, int16_t num) {
-	int16_t TestFat(welet *wel, int16_t porog, int16_t porog_fat);
-	char porog;
-	welet tmp_wel;
+int32_t FONCutOffClusters(welet *ww, int16_t num)
+{
+    int16_t TestFat(welet *wel, int16_t porog, int16_t porog_fat);
+    char porog;
+    welet tmp_wel;
 
-	if (!ww)
-		return 0;
-	NewFx = NewFy = 0;
-	for (; num > 0; num--, ww++) {
-		if (ww->attr & FON_CLU_FIXED)
-			porog = ww->porog;
-		else
+    if (!ww)
+        return 0;
+
+    NewFx = NewFy = 0;
+
+    for (; num > 0; num--, ww++) {
+        if (ww->attr & FON_CLU_FIXED)
+            porog = ww->porog;
+
+        else
 #ifdef _NEW_POROG_
-		{
-			if (ww->weight < 5)
-				porog = 0;
-			else if (ww->weight <= 10)
-				porog = 1;
-			else
-				porog = ((int) ww->weight * (int) 3 + 10) / 20; // 15%
-		}
+        {
+            if (ww->weight < 5)
+                porog = 0;
+
+            else if (ww->weight <= 10)
+                porog = 1;
+
+            else
+                porog = ((int) ww->weight * (int) 3 + 10) / 20; // 15%
+        }
+
 #else
-		porog= ww->weight /POROG_IDEAL;
+            porog = ww->weight / POROG_IDEAL;
 #endif
-
 #ifdef _TEST_FAT_
-		if( ww->weight > 1 && ww->fixed==0 )
-		{
-			//   if( ((ww->summa*100L)/((int32_t)ww->mw*ww->mh*ww->weight)) < 75 )
-			porog=TestFat(ww,porog,_POROG_FAT_);
-		}
+
+        if ( ww->weight > 1 && ww->fixed == 0 ) {
+            //   if( ((ww->summa*100L)/((int32_t)ww->mw*ww->mh*ww->weight)) < 75 )
+            porog = TestFat(ww, porog, _POROG_FAT_);
+        }
+
 #endif
+        ww->porog = porog;
 
-		ww->porog = porog;
-		if (porog > 0)
-			MakeIdeal(ww, porog);
+        if (porog > 0)
+            MakeIdeal(ww, porog);
 
-		ww->fill = FindDistanceWr(ww, &tmp_wel);
-	}
+        ww->fill = FindDistanceWr(ww, &tmp_wel);
+    }
 
-	return 1;
+    return 1;
 }

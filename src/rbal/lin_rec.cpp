@@ -69,89 +69,96 @@ extern int16_t prop_l_delta, prop_r_delta;
 extern uchar *letters_pidx_table;
 //////////////
 // proport.c    - no more !!
-uint16_t el_pidx_crit(uint16_t t_let, int16_t pidx) {
-	uint16_t let;
+uint16_t el_pidx_crit(uint16_t t_let, int16_t pidx)
+{
+    uint16_t let;
+    let = (uchar) t_let * 2;
 
-	let = (uchar) t_let * 2;
-	if ((pidx + prop_l_delta < letters_pidx_table[let]) || (pidx - prop_r_delta
-			> letters_pidx_table[let + 1]))
-		return FALSE;
-	else
-		return TRUE;
+    if ((pidx + prop_l_delta < letters_pidx_table[let]) || (pidx - prop_r_delta
+                                                            > letters_pidx_table[let + 1]))
+        return FALSE;
+
+    else
+        return TRUE;
 }
 /////////////////
 // prop.c
-int16_t prop_index(int16_t h, int16_t w) {
-	if (fax1x2)
-		h += 2;
+int16_t prop_index(int16_t h, int16_t w)
+{
+    if (fax1x2)
+        h += 2;
 
-	if (h <= 0)
-		h = 1;
-	if (w <= 0)
-		w = 1;
+    if (h <= 0)
+        h = 1;
 
-	if (w <= h)
-		return ((uint16_t) w << 6) / h;
-	else
-		return 128 - ((uint16_t) h << 6) / w;
+    if (w <= 0)
+        w = 1;
+
+    if (w <= h)
+        return ((uint16_t) w << 6) / h;
+
+    else
+        return 128 - ((uint16_t) h << 6) / w;
 }
 /////////////////
-static void v2_pidx_crit(CSTR_rast c) {
-	int16_t pidx;
-	// version *v, *wv;
-	UniVersions vers, wvers = { 0 };
-	uint16_t let;
-	int i, j;
-	CSTR_rast_attr attr;
+static void v2_pidx_crit(CSTR_rast c)
+{
+    int16_t pidx;
+    // version *v, *wv;
+    UniVersions vers, wvers = { 0 };
+    uint16_t let;
+    int i, j;
+    CSTR_rast_attr attr;
+    CSTR_GetAttr(c, &attr);
+    CSTR_GetCollectionUni(c, &vers);
 
-	CSTR_GetAttr(c, &attr);
-	CSTR_GetCollectionUni(c, &vers);
-	// Paul 07-12-99
-	if (vers.lnAltCnt <= 0)
-		return;
-	//
+    // Paul 07-12-99
+    if (vers.lnAltCnt <= 0)
+        return;
 
-	attr.reasno = 0;
-	pidx = prop_index(attr.h, attr.w);
-	// wv = v = c->vers;
-	wvers.lnAltMax = REC_MAX_VERS;
+    //
+    attr.reasno = 0;
+    pidx = prop_index(attr.h, attr.w);
+    // wv = v = c->vers;
+    wvers.lnAltMax = REC_MAX_VERS;
 
-	// while (v->let)
-	for (i = j = 0; i < vers.lnAltCnt; i++) {
-		if (is_cen_language(language) && !attr.accent_leader)
-			//let = (wv->let=v->let) * 2;
-			let = ((uint16_t) vers.Alt[i].Liga) * 2;
-		else
-			//let = (let_sans_acc[wv->let=v->let]) * 2;
-			let = (let_sans_acc[vers.Alt[i].Liga]) * 2;
+    // while (v->let)
+    for (i = j = 0; i < vers.lnAltCnt; i++) {
+        if (is_cen_language(language) && !attr.accent_leader)
+            //let = (wv->let=v->let) * 2;
+            let = ((uint16_t) vers.Alt[i].Liga) * 2;
 
-		//   wv->prob = v->prob;
-		if (pidx + prop_l_delta < letters_pidx_table[let]) {
-			attr.reasno |= CSTR_rn_left;
-			continue;
-		}
+        else
+            //let = (let_sans_acc[wv->let=v->let]) * 2;
+            let = (let_sans_acc[vers.Alt[i].Liga]) * 2;
 
-		if (pidx - prop_r_delta > letters_pidx_table[let + 1]) {
-			attr.reasno |= CSTR_rn_right;
-			continue;
-		}
+        //   wv->prob = v->prob;
+        if (pidx + prop_l_delta < letters_pidx_table[let]) {
+            attr.reasno |= CSTR_rn_left;
+            continue;
+        }
 
-		//   v++;
-		//   wv++;
-		wvers.Alt[j] = vers.Alt[i];
-		j++;
-	}
+        if (pidx - prop_r_delta > letters_pidx_table[let + 1]) {
+            attr.reasno |= CSTR_rn_right;
+            continue;
+        }
 
-	// wv->let = 0;
-	CSTR_SetAttr(c, &attr);
+        //   v++;
+        //   wv++;
+        wvers.Alt[j] = vers.Alt[i];
+        j++;
+    }
 
-	wvers.lnAltCnt = j;
+    // wv->let = 0;
+    CSTR_SetAttr(c, &attr);
+    wvers.lnAltCnt = j;
 
-	// if ((c->nvers -= v-wv) == 0)
-	if (wvers.lnAltCnt <= 0)
-		set_bad_cell(c);
-	else
-		CSTR_StoreCollectionUni(c, &wvers);
+    // if ((c->nvers -= v-wv) == 0)
+    if (wvers.lnAltCnt <= 0)
+        set_bad_cell(c);
+
+    else
+        CSTR_StoreCollectionUni(c, &wvers);
 }
 
 ////////////////////
@@ -209,68 +216,64 @@ static void v2_pidx_crit(CSTR_rast c) {
 ////////////////////
 /////////////////
 // Tools.c
-int16_t short_recog_cell(CSTR_rast c, int line_scale) {
-	int16_t n, i;
-	uchar res[20];
+int16_t short_recog_cell(CSTR_rast c, int line_scale)
+{
+    int16_t n, i;
+    uchar res[20];
+    CSTR_rast_attr attr;
+    CCOM_comp *comp;
+    // ExtComponent ec;
+    int16_t *pint16;
+    uchar * lpool;
+    UniVersions vers = { 0 };
+    CSTR_GetAttr(c, &attr);
+    comp = CSTR_GetComp(c);
+    // исходно была ошибка Tools.c -
+    // если c->env == 0 в lpool лежало неизвестно что!
 
-	CSTR_rast_attr attr;
-	CCOM_comp *comp;
-	// ExtComponent ec;
-	int16_t *pint16;
-	uchar * lpool;
-	UniVersions vers = { 0 };
+    // if( (c->cg_flag & CSTR_cg_comp) &&  !c->env )
+    //   return 0;
+    if ((attr.cg_flag & CSTR_cg_comp) || !comp)
+        return 0;
 
-	CSTR_GetAttr(c, &attr);
-	comp = CSTR_GetComp(c);
+    // comp_from_kit(c);
+    // CCOM_comp -> to ExtComponent
+    /*  memset(&ec,0,sizeof(ExtComponent));
+     if( !Ccomp2ExtComponenet(comp,&ec,&attr,line_scale) )
+     return 0;
+     */
+    // n = (int16_t)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
+    pint16 = (int16_t *) comp->linerep;
+    // *pint16 == comp->size_linerep ?????
+    lpool = comp->linerep + 2;
+    //  n = (int16_t)EVNRecog_lp(&ec,lpool,*pint16,&res[0]);
+    n = (int16_t) EVNRecog_lp(comp, lpool, *pint16, &res[0]);
+    vers.lnAltMax = REC_MAX_VERS;
 
-	// исходно была ошибка Tools.c -
-	// если c->env == 0 в lpool лежало неизвестно что!
+    if (n) {
+        for (i = 0; i < n; i++) {
+            //c->vers[i].let=res[i];
+            //c->vers[i].prob=254;
+            vers.Alt[i].Liga = res[i];
+            vers.Alt[i].Prob = 254;
+            vers.Alt[i].Method = REC_METHOD_EVN;
+        }
 
-	// if( (c->cg_flag & CSTR_cg_comp) &&  !c->env )
-	//   return 0;
-	if ((attr.cg_flag & CSTR_cg_comp) || !comp)
-		return 0;
+        attr.flg = CSTR_f_let;
+        attr.recsource |= CSTR_rs_ev;
+        attr.RecogHistory |= CSTR_rs_ev;
+    }
 
-	// comp_from_kit(c);
+    else {
+        attr.flg = CSTR_f_bad;
+    }
 
-	// CCOM_comp -> to ExtComponent
-	/*  memset(&ec,0,sizeof(ExtComponent));
-	 if( !Ccomp2ExtComponenet(comp,&ec,&attr,line_scale) )
-	 return 0;
-	 */
-	// n = (int16_t)EVNRecog_lp(c->env,lpool,lpool_lth,&res[0]);
-
-	pint16 = (int16_t *) comp->linerep;
-	// *pint16 == comp->size_linerep ?????
-	lpool = comp->linerep + 2;
-	//  n = (int16_t)EVNRecog_lp(&ec,lpool,*pint16,&res[0]);
-	n = (int16_t) EVNRecog_lp(comp, lpool, *pint16, &res[0]);
-
-	vers.lnAltMax = REC_MAX_VERS;
-	if (n) {
-		for (i = 0; i < n; i++) {
-			//c->vers[i].let=res[i];
-			//c->vers[i].prob=254;
-			vers.Alt[i].Liga = res[i];
-			vers.Alt[i].Prob = 254;
-			vers.Alt[i].Method = REC_METHOD_EVN;
-		}
-		attr.flg = CSTR_f_let;
-		attr.recsource |= CSTR_rs_ev;
-		attr.RecogHistory |= CSTR_rs_ev;
-	} else {
-		attr.flg = CSTR_f_bad;
-	}
-
-	vers.lnAltCnt = n;
-	CSTR_StoreCollectionUni(c, &vers);
-	CSTR_SetAttr(c, &attr);
-
-	v2_pidx_crit(c);
-	sort_vers(c);
-
-	CSTR_GetCollectionUni(c, &vers);
-
-	return (int16_t) vers.lnAltCnt;
+    vers.lnAltCnt = n;
+    CSTR_StoreCollectionUni(c, &vers);
+    CSTR_SetAttr(c, &attr);
+    v2_pidx_crit(c);
+    sort_vers(c);
+    CSTR_GetCollectionUni(c, &vers);
+    return (int16_t) vers.lnAltCnt;
 }
 ////////////////////////////

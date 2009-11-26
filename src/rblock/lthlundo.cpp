@@ -84,13 +84,11 @@ int nBC_Copies = 0;
 void RestoreBackupCopy (BACKUP_COPY *pCopy)
 {
     int i;
-
     /*
      *  Restore roots blocks allocation
      */
 
-    for (i = 0; i < nRoots; i++)
-    {
+    for (i = 0; i < nRoots; i++) {
         pRoots [i].nBlock = pCopy -> pRootBackups [i].nBlock;
         pRoots [i].u1.pNext  = pCopy -> pRootBackups [i].pNext;
     }
@@ -106,39 +104,35 @@ void RestoreBackupCopy (BACKUP_COPY *pCopy)
      *  Restore blocks.
      */
 
-    for (i = 0; i < pCopy -> nBlocks; i++)
-    {
+    for (i = 0; i < pCopy -> nBlocks; i++) {
         BLOCK *pBlock;
         BLOCK *pSaveNext;
         BLOCK *pSavePrev;
-
         pBlock = BlocksAddDescriptor ();
-/*
-        {
-            char buf [128];
+        /*
+                {
+                    char buf [128];
 
-            sprintf (buf, "Restore: [%d, %d]-[%d, %d]",
-                    (int) pCopy -> pBlocks [i].Rect.xLeft,
-                    (int) pCopy -> pBlocks [i].Rect.yTop,
-                    (int) pCopy -> pBlocks [i].Rect.xRight,
-                    (int) pCopy -> pBlocks [i].Rect.yBottom);
-            MESSAGE (buf);
-        }
-*/
+                    sprintf (buf, "Restore: [%d, %d]-[%d, %d]",
+                            (int) pCopy -> pBlocks [i].Rect.xLeft,
+                            (int) pCopy -> pBlocks [i].Rect.yTop,
+                            (int) pCopy -> pBlocks [i].Rect.xRight,
+                            (int) pCopy -> pBlocks [i].Rect.yBottom);
+                    MESSAGE (buf);
+                }
+        */
         pSaveNext = pBlock -> pNext;
         pSavePrev = pBlock -> pPrev;
-
         *pBlock = pCopy -> pBlocks [i];
-
         pBlock -> pNext = pSaveNext;
         pBlock -> pPrev = pSavePrev;
     }
+
     /* Pit 09-29-94 03:10pm
      * Restore pictures information.
      */
-	//DDD if(pCopy ->lPictures > 0 && pCopy -> pPictures != NULL)
+    //DDD if(pCopy ->lPictures > 0 && pCopy -> pPictures != NULL)
     //DDD   undo_pictures(pCopy -> pPictures,pCopy ->lPictures);
-
     //DDDundo_sheets(pCopy->nSheets,pCopy->sht);
 }
 
@@ -152,16 +146,17 @@ void FreeBackupCopy (BACKUP_COPY *p)
 
     if (p -> pBlocks != NULL)
         free (p -> pBlocks);
+
     if (p -> pPictures != NULL) // Pit 09-29-94 03:15pm
         free (p -> pPictures);
-    if (p -> sht != NULL){
-	//DDDfree_undo_sheets(p->nSheets,p -> sht);
-	p->nSheets = 0;
-	p->sht     = NULL;
-        }
+
+    if (p -> sht != NULL) {
+        //DDDfree_undo_sheets(p->nSheets,p -> sht);
+        p->nSheets = 0;
+        p->sht     = NULL;
+    }
 
     free (p);
-
     nBC_Copies--;
 }
 
@@ -169,8 +164,7 @@ void FreeBackupChain (BACKUP_COPY *p)
 {
     BACKUP_COPY *pTemp;
 
-    while (p != NULL)
-    {
+    while (p != NULL) {
         pTemp = p;
         p = p -> pNext;
         FreeBackupCopy (pTemp);
@@ -353,7 +347,6 @@ void LayoutUndo (void)
         return;
 
     pBC_Current = pBC_Current -> pPrev;
-
     RestoreBackupCopy (pBC_Current);
 }
 
@@ -363,17 +356,14 @@ void LayoutRedo (void)
         return;
 
     pBC_Current = pBC_Current -> pNext;
-
     RestoreBackupCopy (pBC_Current);
 }
 
 void LayoutBackupFreeData (void)
 {
     FreeBackupChain (pBC_First);
-
     pBC_First   = NULL;
     pBC_Last    = NULL;
     pBC_Current = NULL;
-
     nBC_Copies = 0;
 }

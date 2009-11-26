@@ -62,63 +62,77 @@
 #include "crimemory.h"
 #include "cfio/cfio.h"
 
-Bool32 InitCFIOInterface(Bool32 Status) {
-	Bool32 bRet = TRUE;
+Bool32 InitCFIOInterface(Bool32 Status)
+{
+    Bool32 bRet = TRUE;
 
-	if (Status == TRUE) {
-		CFIO_Init(NULL, NULL);
-	} else {
-		bRet = CFIO_Done();
-	}
+    if (Status == TRUE) {
+        CFIO_Init(NULL, NULL);
+    }
 
-	return bRet;
+    else {
+        bRet = CFIO_Done();
+    }
+
+    return bRet;
 }
 
 char cCommentBuffer[CFIO_MAX_COMMENT];
 
-void RIMAGEComment(const char *Comment) {
-	uint32_t Len = strlen(Comment);
-	Len = Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1;
-	strncpy(cCommentBuffer, Comment, Len);
-	cCommentBuffer[Len] = 0x0;
+void RIMAGEComment(const char *Comment)
+{
+    uint32_t Len = strlen(Comment);
+    Len = Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1;
+    strncpy(cCommentBuffer, Comment, Len);
+    cCommentBuffer[Len] = 0x0;
 }
 
-void * RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-	RIMAGEComment(Comment);
-	return RIMAGEAlloc(stAllocateBlock);
+void * RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment)
+{
+    RIMAGEComment(Comment);
+    return RIMAGEAlloc(stAllocateBlock);
 }
 
-void * RIMAGEAlloc(uint32_t stAllocateBlock) {
-	return malloc(stAllocateBlock);
+void * RIMAGEAlloc(uint32_t stAllocateBlock)
+{
+    return malloc(stAllocateBlock);
 }
 
-void RIMAGEFree(void * mem) {
-	free(mem);
+void RIMAGEFree(void * mem)
+{
+    free(mem);
 }
 
-void * RIMAGELock(void * mem) {
-	return mem;
+void * RIMAGELock(void * mem)
+{
+    return mem;
 }
 
-void RIMAGEUnlock(void * /*mem*/) {
+void RIMAGEUnlock(void * /*mem*/)
+{
 }
 
-Handle RIMAGEOpenSave(char * lpName) {
-	return static_cast<Handle> (fopen(lpName, "wb"));
+Handle RIMAGEOpenSave(char * lpName)
+{
+    return static_cast<Handle> (fopen(lpName, "wb"));
 }
 
-Handle RIMAGEOpenRestore(char * lpName) {
-	return static_cast<Handle> (fopen(lpName, "rb"));
+Handle RIMAGEOpenRestore(char * lpName)
+{
+    return static_cast<Handle> (fopen(lpName, "rb"));
 }
 
-unsigned int RIMAGEWrite(Handle h, void * lpdata, unsigned int size) {
-	return fwrite(lpdata, 1, size, (FILE*) h);
+unsigned int RIMAGEWrite(Handle h, void * lpdata, unsigned int size)
+{
+    return fwrite(lpdata, 1, size, (FILE*) h);
 }
 
-unsigned int RIMAGERead(Handle h, void * lpdata, unsigned int size) {
-	return fread(lpdata, 1, size, (FILE *) h);
+unsigned int RIMAGERead(Handle h, void * lpdata, unsigned int size)
+{
+    return fread(lpdata, 1, size, (FILE *) h);
 }
 
-void RIMAGEClose(Handle h) {
-	fclose((FILE*) h);
+void RIMAGEClose(Handle h)
+{
+    fclose((FILE*) h);
 }

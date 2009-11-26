@@ -67,11 +67,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "spelmode.h"
 
 #if defined(TURBO_C)
-  #include "tc_types.h"
+#include "tc_types.h"
 #elif defined(WATCOM)
-  #include "spelwatc.h"
+#include "spelwatc.h"
 #else
-  #error   NO TOOOL SPECIFIED
+#error   NO TOOOL SPECIFIED
 #endif
 #include "speldefs.h"
 #include "spelfunc.h"
@@ -84,58 +84,71 @@ extern KEYTYPE codepermit[256];
 /*************************************************************************/
 /*              decoding & search word in dictionary                     */
 /*************************************************************************/
-int16_t findstat(int16_t * currw,LTIMG * wrddef[],
-             struct dict_state * dict)
-{ KEYTYPE wordin[MAX_WORD_SIZE],c;
-  register int16_t i;
+int16_t findstat(int16_t * currw, LTIMG * wrddef[],
+                 struct dict_state * dict)
+{
+    KEYTYPE wordin[MAX_WORD_SIZE], c;
+    register int16_t i;
 
-  /* ---------- decoding input word -----------------------------------*/
-  for (i=0; i<=*currw ;i++)
-   {
-    c=wrddef[i]->lt->code;
-    if (codepermit[c])
-      wordin[i]=codetable[c];
-    else
-    { *currw=i;
-     return 0;			/* symbol is not in codetable */
-     }
-   }
-  /* ---------- search word in dictionary -----------------------------*/
-  return (search(wordin,currw,wrddef,dict));
+    /* ---------- decoding input word -----------------------------------*/
+    for (i = 0; i <= *currw ; i++) {
+        c = wrddef[i]->lt->code;
+
+        if (codepermit[c])
+            wordin[i] = codetable[c];
+
+        else {
+            *currw = i;
+            return 0;          /* symbol is not in codetable */
+        }
+    }
+
+    /* ---------- search word in dictionary -----------------------------*/
+    return (search(wordin, currw, wrddef, dict));
 }
 
 /*************************************************************************/
 /*              decoding & search text word in dictionary                */
-/*	WARRNING !!! Only for 32-bits mode because load_dict points to	 */
-/*			far memory					 */
+/*  WARRNING !!! Only for 32-bits mode because load_dict points to   */
+/*          far memory                   */
 /*************************************************************************/
 extern struct dict_state  * load_dict;
 extern int16_t vocs_NOK;   // 0 - vocs found at load
 
 int16_t text_findstat_rling(char * word)
-{ KEYTYPE wordin[MAX_WORD_SIZE],c;
-  LTIMG * wrddef[MAX_WORD_SIZE+1], *p;
-  LTIMG wrdim[MAX_WORD_SIZE];
-  struct letter lt[MAX_WORD_SIZE];
-  int16_t i;
-  if (vocs_NOK) return 0;
-  /* ---------- decoding input word -----------------------------------*/
-  for (i=0; *word ;i++, word++)
-   {
-    if (i >= MAX_WORD_SIZE) return 0;
-    c=*word; 		if (c == 0) break;
-    lt[i].code = c;	lt[i].attr = 255;
-    p=&wrdim[i];
-    wrddef[i] = p;
-    p->lt = lt + i;	p->blank = 0;
+{
+    KEYTYPE wordin[MAX_WORD_SIZE], c;
+    LTIMG * wrddef[MAX_WORD_SIZE+1], *p;
+    LTIMG wrdim[MAX_WORD_SIZE];
+    struct letter lt[MAX_WORD_SIZE];
+    int16_t i;
 
-    if (codepermit[c])	wordin[i]=codetable[c];
-    else 		return 0;	/* symbol is not in codetable */
-   }
-  /* ---------- search word in dictionary -----------------------------*/
-  wrddef[i] = 0;
-  i--;
-  return (search(wordin,&i,wrddef,load_dict));
+    if (vocs_NOK) return 0;
+
+    /* ---------- decoding input word -----------------------------------*/
+    for (i = 0; *word ; i++, word++) {
+        if (i >= MAX_WORD_SIZE) return 0;
+
+        c = *word;
+
+        if (c == 0) break;
+
+        lt[i].code = c;
+        lt[i].attr = 255;
+        p = &wrdim[i];
+        wrddef[i] = p;
+        p->lt = lt + i;
+        p->blank = 0;
+
+        if (codepermit[c])  wordin[i] = codetable[c];
+
+        else        return 0;   /* symbol is not in codetable */
+    }
+
+    /* ---------- search word in dictionary -----------------------------*/
+    wrddef[i] = 0;
+    i--;
+    return (search(wordin, &i, wrddef, load_dict));
 }
 
 /*************************************************************************/

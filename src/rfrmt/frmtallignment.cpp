@@ -75,7 +75,7 @@ extern Bool32 FlagDebugAlign;
 
 /*------------------------------------------------------------------------------------------------------------
    RTF_TP_LEFT_ALLIGN                   0   -  выравниваение по левому краю
- 	 RTF_TP_RIGHT_ALLIGN                  1   -  выравнивание по правому краю
+     RTF_TP_RIGHT_ALLIGN                  1   -  выравнивание по правому краю
    RTF_TP_LEFT_ALLIGN&TP_RIGHT_ALLIGN   2   -  выравнивание по ширине
    RTF_TP_CENTER                        3   -  выравнивание по центру
    RTF_TP_ONE                           4   -  каждая строка состоит из одного слова, выравнивание левому краю
@@ -86,38 +86,27 @@ extern Bool32 FlagDebugAlign;
 //                                 SetFragmentAlignment
 void CRtfFragment::SetFragmentAlignment(RtfSectorInfo* SectorInfo)
 {
+    if (ProcessingUseNoneMode() == FALSE) {
+        Init(SectorInfo);
 
- if(ProcessingUseNoneMode()==FALSE)
- {
+        if (ProcessingOverLayedFragment(SectorInfo) == FALSE) {
+            if (DeterminationOfMixedFragment(SectorInfo) == FALSE) {
+                if (DeterminationOfLeftRightJustification(0, m_wStringsCount) == FALSE) {
+                    if (DeterminationOfListType(0, m_wStringsCount) == FALSE) {
+                        if (DeterminationOfLeftJustification(0, m_wStringsCount, 0) == FALSE) {
+                            if (DeterminationOfCentreJustification(0, m_wStringsCount) == FALSE) {
+                                if (DeterminationOfRightJustification(0, m_wStringsCount) == FALSE) {
+                                    DeterminationOfLeftJustification(0, m_wStringsCount, 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-  Init(SectorInfo);
-
-  if(ProcessingOverLayedFragment(SectorInfo)==FALSE)
-  {
-   if(DeterminationOfMixedFragment(SectorInfo)==FALSE)
-   {
-    if(DeterminationOfLeftRightJustification(0, m_wStringsCount)==FALSE)
-    {
-     if(DeterminationOfListType(0, m_wStringsCount)==FALSE)
-     {
-      if(DeterminationOfLeftJustification(0, m_wStringsCount, 0)==FALSE)
-      {
-       if(DeterminationOfCentreJustification(0, m_wStringsCount)==FALSE)
-       {
-        if(DeterminationOfRightJustification(0, m_wStringsCount)==FALSE)
-        {
-         DeterminationOfLeftJustification(0, m_wStringsCount, 1);
+            Done();
         }
-       }
-      }
-     }
     }
-   }
-   Done();
-  }
-
- }
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,27 +114,28 @@ void CRtfFragment::SetFragmentAlignment(RtfSectorInfo* SectorInfo)
 
 Bool CRtfFragment::ProcessingUseNoneMode(void)
 {
- CRtfString  *pRtfString;
- int ns;
+    CRtfString  *pRtfString;
+    int ns;
 
-  if(!(FlagMode & USE_NONE))
-   return FALSE;
+    if (!(FlagMode & USE_NONE))
+        return FALSE;
 
-  for( ns=0; ns<m_wStringsCount; ns++ )
-	 {
-   pRtfString=(CRtfString*)m_arStrings[ns];
+    for ( ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-   if(!ns) pRtfString->m_wFlagBeginParagraph = TRUE;
-   else				pRtfString->m_wFlagBeginParagraph = FALSE;
+        if (!ns) pRtfString->m_wFlagBeginParagraph = TRUE;
 
-			if(ns == m_wStringsCount-1) pRtfString->m_bLineTransfer = FALSE;
-			else                        pRtfString->m_bLineTransfer = TRUE;
+        else             pRtfString->m_wFlagBeginParagraph = FALSE;
 
-   pRtfString->m_wAlignment = RTF_TP_LEFT_ALLIGN;
-			pRtfString->m_wLeftIndent = pRtfString->m_wFirstIndent = pRtfString->m_wRightIndent = 0;
-  }
+        if (ns == m_wStringsCount - 1) pRtfString->m_bLineTransfer = FALSE;
 
-	 return TRUE;
+        else                        pRtfString->m_bLineTransfer = TRUE;
+
+        pRtfString->m_wAlignment = RTF_TP_LEFT_ALLIGN;
+        pRtfString->m_wLeftIndent = pRtfString->m_wFirstIndent = pRtfString->m_wRightIndent = 0;
+    }
+
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,109 +143,103 @@ Bool CRtfFragment::ProcessingUseNoneMode(void)
 
 void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
 {
-	int         LeftDif, RightDif, CentreDif;
-	CRtfString  *pRtfStringPrev, *pRtfString;
-	CRtfWord    *pRtfWord;
-	CRtfChar    *pRtfCharFirst, *pRtfCharLast;
-	int32_t       CountChars  = 0;
-	int32_t       LengthChars = 0;
-	int ns;
+    int         LeftDif, RightDif, CentreDif;
+    CRtfString  *pRtfStringPrev, *pRtfString;
+    CRtfWord    *pRtfWord;
+    CRtfChar    *pRtfCharFirst, *pRtfCharLast;
+    int32_t       CountChars  = 0;
+    int32_t       LengthChars = 0;
+    int ns;
+    m_l_fragment = 32000;
+    m_r_fragment = 0;
 
-	m_l_fragment = 32000;
-	m_r_fragment = 0;
+    //  I. Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
+    //  II.Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
+    for (ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-  //  I. Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
-  //  II.Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
-	for(ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
+        if (!ns) {
+            pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+        }
 
-		if(!ns)	{pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
-			pRtfString->m_wFlagBeginParagraph = TRUE;}
-		else    pRtfString->m_wSpaceBefore = 0;
+        else    pRtfString->m_wSpaceBefore = 0;
 
-		pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-		pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
-		pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
+        pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
+        pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
+        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
+        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
+        CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
+        m_l_fragment  = MIN(m_l_fragment, (int16_t)pRtfCharFirst->m_Idealrect.left);
+        m_r_fragment  = MAX(m_r_fragment, (int16_t)pRtfCharLast->m_Idealrect.right);
 
-		pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
-		pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
-		pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        if (pRtfCharLast->m_chrVersions[0].m_bChar == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
+            pRtfString->m_FlagCarry = TRUE;
+    }
 
-		pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
-		pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
+    if (CountChars) m_max_dist = (int16_t)(LengthChars / CountChars);
 
-		CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
-		m_l_fragment  = MIN(m_l_fragment, (int16_t)pRtfCharFirst->m_Idealrect.left);
-		m_r_fragment  = MAX(m_r_fragment, (int16_t)pRtfCharLast->m_Idealrect.right);
+    else           m_max_dist = 10;
 
-		if(pRtfCharLast->m_chrVersions[0].m_bChar=='-' && pRtfCharLast->m_bFlg_spell_nocarrying)
-			pRtfString->m_FlagCarry=TRUE;
-	}
+    // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
+    for ( ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+        pRtfString->m_wLeftIndent  = (int16_t)(pRtfString->m_LeftBorder - m_l_fragment);
+        pRtfString->m_wRightIndent = (int16_t)(m_r_fragment - pRtfString->m_RightBorder);
+        pRtfString->m_wCentre      = (int16_t)(pRtfString->m_LeftBorder + pRtfString->m_RightBorder) / 2;
+    }
 
-	if(CountChars) m_max_dist = (int16_t)(LengthChars/CountChars);
-	else           m_max_dist = 10;
+    // Присваиваются признаки равенства концов и середины соседних строк
+    for ( ns = 1; ns < m_wStringsCount; ns++ ) {
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+        pRtfString     = (CRtfString*)m_arStrings[ns];
+        LeftDif   = pRtfString->m_wLeftIndent  - pRtfStringPrev->m_wLeftIndent;
+        RightDif  = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
+        CentreDif = pRtfString->m_wCentre      - pRtfStringPrev->m_wCentre;
 
-  // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
-	for( ns=0; ns < m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-		pRtfString->m_wLeftIndent  = (int16_t)(pRtfString->m_LeftBorder - m_l_fragment);
-		pRtfString->m_wRightIndent = (int16_t)(m_r_fragment - pRtfString->m_RightBorder);
-		pRtfString->m_wCentre      = (int16_t)(pRtfString->m_LeftBorder + pRtfString->m_RightBorder)/2;
-	}
+        if ( abs(LeftDif) <= m_max_dist ) {
+            pRtfString->m_wLeftBorderEqual = TRUE;
+            m_CountLeftEqual++;
 
-  // Присваиваются признаки равенства концов и середины соседних строк
-	for( ns=1; ns < m_wStringsCount; ns++ )
-	{
-		pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
-		pRtfString     = (CRtfString*)m_arStrings[ns];
+            if (ns == 1) {
+                pRtfStringPrev->m_wLeftBorderEqual = TRUE;
+                m_CountLeftEqual++;
+            }
+        }
 
-		LeftDif   = pRtfString->m_wLeftIndent  - pRtfStringPrev->m_wLeftIndent;
-		RightDif  = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
-  		CentreDif = pRtfString->m_wCentre      - pRtfStringPrev->m_wCentre;
+        if ( abs(RightDif) <= m_max_dist ) {
+            pRtfString->m_wRightBorderEqual = TRUE;
+            m_CountRightEqual++;
 
-		if( abs(LeftDif) <= m_max_dist )
-		{
- 			pRtfString->m_wLeftBorderEqual = TRUE;
-			m_CountLeftEqual++;
-			if(ns==1)
-				{pRtfStringPrev->m_wLeftBorderEqual = TRUE;
-				m_CountLeftEqual++;
-			}
-		}
+            if (pRtfString->m_wLeftBorderEqual == TRUE)
+                m_CountLeftRightEqual++;
 
-		if( abs(RightDif) <= m_max_dist )
-		{
-			pRtfString->m_wRightBorderEqual = TRUE;
-			m_CountRightEqual++;
-			if(pRtfString->m_wLeftBorderEqual==TRUE)
-				m_CountLeftRightEqual++;
+            if (ns == 1) {
+                pRtfStringPrev->m_wRightBorderEqual = TRUE;
+                m_CountRightEqual++;
+                m_CountLeftRightEqual++;
+            }
+        }
 
-			if(ns==1)
-				{pRtfStringPrev->m_wRightBorderEqual = TRUE;
-				m_CountRightEqual++;
-				m_CountLeftRightEqual++;
-			}
-		}
+        if (((abs(CentreDif) < m_max_dist) &&
+                ((LeftDif <= 0 && RightDif <= 0) || (LeftDif > 0 && RightDif > 0)) &&
+                (abs(LeftDif) > m_max_dist / 2)  && (abs(RightDif) > m_max_dist / 2))  ||
+                ((abs(CentreDif) < 2*m_max_dist) && (abs(RightDif - LeftDif) < 3*m_max_dist) && (abs(LeftDif) > 5*m_max_dist) && (abs(RightDif) > 5*m_max_dist)) ) {
+            pRtfString->m_wCentreEqual = TRUE;
+            m_CountCentreEqual++;
 
-		if(((abs(CentreDif) < m_max_dist) &&
-			((LeftDif<=0 && RightDif<=0) || (LeftDif>0 && RightDif>0)) &&
-			(abs(LeftDif) > m_max_dist/2)  && (abs(RightDif) > m_max_dist/2))  ||
-			((abs(CentreDif) < 2*m_max_dist) && (abs(RightDif-LeftDif) < 3*m_max_dist) && (abs(LeftDif) > 5*m_max_dist) && (abs(RightDif) > 5*m_max_dist)) )
-		{
-			pRtfString->m_wCentreEqual = TRUE;
-			m_CountCentreEqual++;
+            if (ns == 1) {
+                pRtfStringPrev->m_wCentreEqual = TRUE;
+                m_CountCentreEqual++;
+            }
+        }
+    }
 
-			if(ns==1)
-				{pRtfStringPrev->m_wCentreEqual = TRUE;
-				m_CountCentreEqual++;
-			}
-		}
-
-	}
-
-	PrintTheResult("\n ================== Init ================== \n");
+    PrintTheResult("\n ================== Init ================== \n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,63 +249,59 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
 
 Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 {
- CRtfString  *pRtfStringPrev;
- CRtfString  *pRtfStringNext;
- CRtfString  *pRtfString;
+    CRtfString  *pRtfStringPrev;
+    CRtfString  *pRtfStringNext;
+    CRtfString  *pRtfString;
 
-	if(!(SectorInfo->FlagOverLayed)) return FALSE;
+    if (!(SectorInfo->FlagOverLayed)) return FALSE;
 
- int ns(0);
- for(ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-	 pRtfString->m_wAlignment          = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
-		pRtfString->m_wFlagBeginParagraph = FALSE;
-		pRtfString->m_wRightIndent        = 0;
-	}
+    int ns(0);
 
- 
- for(ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
+    for (ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+        pRtfString->m_wAlignment          = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
+        pRtfString->m_wFlagBeginParagraph = FALSE;
+        pRtfString->m_wRightIndent        = 0;
+    }
 
-		if(ns==0)
-		{
-			if(pRtfString->m_wLeftIndent>m_max_dist/2)
-				pRtfString->m_wFirstIndent = (uint16_t)(m_max_dist*Twips);
-			else
-				pRtfString->m_wFirstIndent = 0;
+    for (ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-   pRtfString->m_wLeftIndent = 0;
-			pRtfString->m_wFlagBeginParagraph = TRUE;
-		 continue;
-		}
+        if (ns == 0) {
+            if (pRtfString->m_wLeftIndent > m_max_dist / 2)
+                pRtfString->m_wFirstIndent = (uint16_t)(m_max_dist * Twips);
 
-		pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+            else
+                pRtfString->m_wFirstIndent = 0;
 
-		if(ns==m_wStringsCount-1)
-		{
-			if((pRtfString->m_wLeftIndent-pRtfStringPrev->m_wLeftIndent)>(m_max_dist/2))
-			{
-    pRtfString->m_wLeftIndent         = 0;
-				pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist*Twips);
- 	 	pRtfString->m_wFlagBeginParagraph = TRUE;
-			}
-		}
-		else
-		{
- 		pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
-   if( ((pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent)>(m_max_dist/2)) &&
-				   ((pRtfString->m_wLeftIndent - pRtfStringNext->m_wLeftIndent)>(m_max_dist/2)) )
-				{
-     pRtfString->m_wLeftIndent         = 0;
-					pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist*Twips);
- 	 		pRtfString->m_wFlagBeginParagraph = TRUE;
-				}
-  }
- }
+            pRtfString->m_wLeftIndent = 0;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+            continue;
+        }
 
- return TRUE;
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+
+        if (ns == m_wStringsCount - 1) {
+            if ((pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent) > (m_max_dist / 2)) {
+                pRtfString->m_wLeftIndent         = 0;
+                pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist * Twips);
+                pRtfString->m_wFlagBeginParagraph = TRUE;
+            }
+        }
+
+        else {
+            pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
+
+            if ( ((pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent) > (m_max_dist / 2)) &&
+                    ((pRtfString->m_wLeftIndent - pRtfStringNext->m_wLeftIndent) > (m_max_dist / 2)) ) {
+                pRtfString->m_wLeftIndent         = 0;
+                pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist * Twips);
+                pRtfString->m_wFlagBeginParagraph = TRUE;
+            }
+        }
+    }
+
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,16 +309,13 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 
 Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end)
 {
+    if (!CheckLeftRightJustification(beg, end))  return FALSE;
 
- if(!CheckLeftRightJustification(beg, end))  return FALSE;
-
- SetParagraphAlignment(beg, end, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
- SetFlagBeginParagraphForLeftRightJustification(beg, end);
- CorrectIndents(beg, end);
-
-	PrintTheResult("\n ================== DeterminationOfLeftRightJustification ================== \n");
-
- return TRUE;
+    SetParagraphAlignment(beg, end, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    SetFlagBeginParagraphForLeftRightJustification(beg, end);
+    CorrectIndents(beg, end);
+    PrintTheResult("\n ================== DeterminationOfLeftRightJustification ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,75 +323,73 @@ Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end)
 
 Bool CRtfFragment::CheckLeftRightJustification(int beg, int end)
 {
- CRtfString  *pRtfString;
- int          Count = 0;
- uint16_t         CountLeftRightEqual=0;
- uint16_t         CountCentreEqual=0;
- uint16_t         CountLeftEqual=0;
+    CRtfString  *pRtfString;
+    int          Count = 0;
+    uint16_t         CountLeftRightEqual = 0;
+    uint16_t         CountCentreEqual = 0;
+    uint16_t         CountLeftEqual = 0;
+    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
 
- GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
- GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
+    if (CountCentreEqual == (end - beg))
+        return FALSE;
 
- if(CountCentreEqual==(end-beg))
-  return FALSE;
+    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    m_FlagCarry = GetFlagCarry(beg, end);
+    m_FlagLeft = GetFlagLeft(beg, end);
+    m_FlagStrongLeft = GetFlagStrongLeft(beg, end);
+    m_FlagRight = GetFlagRight(beg, end);
+    m_FlagBigSpace = GetFlagBigSpace(beg, end);
 
- GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
- m_FlagCarry=GetFlagCarry(beg, end);
- m_FlagLeft=GetFlagLeft(beg, end);
- m_FlagStrongLeft=GetFlagStrongLeft(beg, end);
- m_FlagRight=GetFlagRight(beg, end);
- m_FlagBigSpace=GetFlagBigSpace(beg,end);
+    if (m_FlagStrongLeft == TRUE)
+        return FALSE;
 
- if(m_FlagStrongLeft==TRUE)
-  return FALSE;
+    if (m_FlagCarry == FALSE && end - beg <= 2 && CountLeftRightEqual == 0)
+        return FALSE;
 
- if(m_FlagCarry==FALSE && end-beg<=2 && CountLeftRightEqual==0)
-  return FALSE;
+    if (m_FlagCarry == FALSE && m_FlagBigSpace == FALSE && (CountLeftRightEqual < (end - beg) / 3))
+        return FALSE;
 
-	if(m_FlagCarry==FALSE && m_FlagBigSpace==FALSE && (CountLeftRightEqual < (end-beg)/3))
-  return FALSE;
+    if (m_FlagRight == TRUE && end - beg <= 4)
+        return FALSE;
 
- if(m_FlagRight==TRUE && end-beg<=4)
-  return FALSE;
+    if ((CountLeftEqual >= (end - beg - 1)) && m_FlagBigSpace == FALSE) {
+        if (((end - beg) < 5) && (CountLeftEqual > CountLeftRightEqual))
+            return FALSE;
 
- if((CountLeftEqual>=(end-beg-1)) && m_FlagBigSpace==FALSE)
- {
-  if(((end-beg)<5) && (CountLeftEqual>CountLeftRightEqual))
-   return FALSE;
+        if (CountLeftRightEqual <= (end - beg) / 2)
+            return FALSE;
+    }
 
-  if(CountLeftRightEqual<=(end-beg)/2)
-   return FALSE;
- }
+    for (int ns = beg + 1; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
- for(int ns=beg+1; ns<end; ns++ )
-	{
-  pRtfString = (CRtfString*)m_arStrings[ns];
+        if (pRtfString->m_wLeftBorderEqual && pRtfString->m_wRightBorderEqual)
+            continue;
 
-  if(pRtfString->m_wLeftBorderEqual && pRtfString->m_wRightBorderEqual)
-   continue;
+        if (CheckStringForLeftRightJustification(ns))
+            Count++;
+    }
 
-  if(CheckStringForLeftRightJustification(ns))
-		 Count++;
-	}
+    if (m_FlagLeft && ((Count + CountLeftRightEqual) < 4*(end - beg - 1) / 5))
+        return FALSE;
 
- if(m_FlagLeft && ((Count + CountLeftRightEqual) < 4*(end-beg-1)/5))
-  return FALSE;
+    if (m_FlagCarry) {
+        if ((Count + CountLeftRightEqual) < (end - beg - 1) / 3)
+            return FALSE;
+    }
 
- if(m_FlagCarry)
- {
-  if((Count + CountLeftRightEqual) < (end-beg-1)/3)
-   return FALSE;
- }
- else
- {
-  if((Count + CountLeftRightEqual) < 4*(end-beg-1)/5)
-   return FALSE;
+    else {
+        if ((Count + CountLeftRightEqual) < 4*(end - beg - 1) / 5)
+            return FALSE;
 
-  GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
-  if((Count + CountLeftRightEqual) < CountCentreEqual)
-   return FALSE;
- }
- return TRUE;
+        GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+
+        if ((Count + CountLeftRightEqual) < CountCentreEqual)
+            return FALSE;
+    }
+
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -422,38 +397,42 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end)
 
 void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignType)
 {
- CRtfString  *pRtfString;
+    CRtfString  *pRtfString;
 
- for(int i=beg; i<end; i++)
- {
-  pRtfString = (CRtfString*)m_arStrings[i];
+    for (int i = beg; i < end; i++) {
+        pRtfString = (CRtfString*)m_arStrings[i];
 
-  switch(AlignType)
-  {
-  case RTF_TP_LEFT_ALLIGN:
-                                    if(pRtfString->m_wLeftBorderEqual==TRUE)
-                                     (*Count)++;
-                                    break;
-  case RTF_TP_RIGHT_ALLIGN:
-                                    if(pRtfString->m_wRightBorderEqual==TRUE)
-                                     (*Count)++;
-                                    break;
-  case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-                                    if((pRtfString->m_wLeftBorderEqual==TRUE) && (pRtfString->m_wRightBorderEqual==TRUE))
-                                     (*Count)++;
-                                    break;
-  case RTF_TP_CENTER:
-                                    if(pRtfString->m_wCentreEqual==TRUE)
-                                     (*Count)++;
-                                    break;
+        switch (AlignType) {
+            case RTF_TP_LEFT_ALLIGN:
 
-  default:
-                                    break;
-  }
+                if (pRtfString->m_wLeftBorderEqual == TRUE)
+                    (*Count)++;
 
- }
+                break;
+            case RTF_TP_RIGHT_ALLIGN:
 
- if(*Count==1) (*Count)++;
+                if (pRtfString->m_wRightBorderEqual == TRUE)
+                    (*Count)++;
+
+                break;
+            case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
+
+                if ((pRtfString->m_wLeftBorderEqual == TRUE) && (pRtfString->m_wRightBorderEqual == TRUE))
+                    (*Count)++;
+
+                break;
+            case RTF_TP_CENTER:
+
+                if (pRtfString->m_wCentreEqual == TRUE)
+                    (*Count)++;
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (*Count == 1) (*Count)++;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -461,40 +440,45 @@ void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignTyp
 
 Bool CRtfFragment::CheckStringForLeftRightJustification(int ns)
 {
- CRtfString *pRtfString;
- CRtfString *pRtfStringPrev;
- CRtfString *pRtfStringNext;
- int16_t       LeftFragm, RightFragm;
- int16_t       LeftDif,RightDif;
+    CRtfString *pRtfString;
+    CRtfString *pRtfStringPrev;
+    CRtfString *pRtfStringNext;
+    int16_t       LeftFragm, RightFragm;
+    int16_t       LeftDif, RightDif;
 
- if(m_Attr)
- {
-  LeftFragm = m_l_fragmentLocal; RightFragm = m_r_fragmentLocal;
-  LeftDif = m_l_fragmentLocal-m_l_fragment;
-  RightDif= m_r_fragment-m_r_fragmentLocal;
- }
- else
- {LeftFragm  = m_l_fragment; RightFragm = m_r_fragment; LeftDif=0; RightDif=0;}
+    if (m_Attr) {
+        LeftFragm = m_l_fragmentLocal;
+        RightFragm = m_r_fragmentLocal;
+        LeftDif = m_l_fragmentLocal - m_l_fragment;
+        RightDif = m_r_fragment - m_r_fragmentLocal;
+    }
 
- pRtfString = (CRtfString*)m_arStrings[ns];
+    else {
+        LeftFragm  = m_l_fragment;
+        RightFragm = m_r_fragment;
+        LeftDif = 0;
+        RightDif = 0;
+    }
 
- if((pRtfString->m_wLeftIndent-LeftDif)>m_max_dist && ns<m_wStringsCount-1 )
- {
-  pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
-  if(((pRtfString->m_wLeftIndent-LeftDif) < (RightFragm-LeftFragm)/2) &&
-     ((pRtfString->m_wRightIndent-RightDif) < m_max_dist)              &&
-     ((pRtfStringNext->m_wLeftIndent-LeftDif) < m_max_dist))
-   return TRUE;
- }
+    pRtfString = (CRtfString*)m_arStrings[ns];
 
- if((pRtfString->m_wLeftIndent-LeftDif)<m_max_dist && ns>1)
- {
-  pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
-  if((pRtfStringPrev->m_wRightIndent-RightDif)<m_max_dist)
-   return TRUE;
- }
+    if ((pRtfString->m_wLeftIndent - LeftDif) > m_max_dist && ns < m_wStringsCount - 1 ) {
+        pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
 
-return FALSE;
+        if (((pRtfString->m_wLeftIndent - LeftDif) < (RightFragm - LeftFragm) / 2) &&
+                ((pRtfString->m_wRightIndent - RightDif) < m_max_dist)              &&
+                ((pRtfStringNext->m_wLeftIndent - LeftDif) < m_max_dist))
+            return TRUE;
+    }
+
+    if ((pRtfString->m_wLeftIndent - LeftDif)<m_max_dist && ns>1) {
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+
+        if ((pRtfStringPrev->m_wRightIndent - RightDif) < m_max_dist)
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 
@@ -503,29 +487,32 @@ return FALSE;
 
 void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int end)
 {
- CRtfString  *pRtfStringPrev;
- CRtfString  *pRtfString;
+    CRtfString  *pRtfStringPrev;
+    CRtfString  *pRtfString;
 
- for(int ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-		if(ns==beg) {	pRtfString->m_wFlagBeginParagraph = TRUE; continue;	}
+    for (int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-		pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+        if (ns == beg) {
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+            continue;
+        }
 
-  if(
-     ((pRtfString->m_wLeftIndent      >  2*m_max_dist) && (abs(pRtfString->m_wLeftIndent-pRtfStringPrev->m_wLeftIndent)>m_max_dist)) ||
-     (pRtfStringPrev->m_wRightIndent  >  10*m_max_dist)                                                                         ||
-     ((pRtfStringPrev->m_wRightIndent >  5*m_max_dist) && (pRtfStringPrev->m_LastChar==';' || pRtfStringPrev->m_LastChar=='.')) ||
-     (CheckNumber(pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar==';' || pRtfStringPrev->m_LastChar=='.'))             ||
-     ((pRtfString->m_wLeftIndent      >  3*m_max_dist/2) && (pRtfStringPrev->m_LastChar=='.' || pRtfString->m_FirstChar==TIRE)) ||
-     (pRtfStringPrev->m_LastChar=='.' && (pRtfString->m_FirstChar=='-'  || pRtfString->m_FirstChar==TIRE))                      ||
-     (pRtfStringPrev->m_LastChar=='?' && (pRtfString->m_FirstChar=='-'  || pRtfString->m_FirstChar==TIRE))                      ||
-     (pRtfStringPrev->m_LastChar==':' && (pRtfString->m_FirstChar=='-'  || pRtfString->m_FirstChar==TIRE))                      ||
-     (pRtfStringPrev->m_wRightIndent  >  2*m_max_dist && pRtfString->m_FirstChar==TIRE)
-    )
-			pRtfString->m_wFlagBeginParagraph = TRUE;
- }
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+
+        if (
+            ((pRtfString->m_wLeftIndent      >  2*m_max_dist) && (abs(pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent) > m_max_dist)) ||
+            (pRtfStringPrev->m_wRightIndent  >  10*m_max_dist)                                                                         ||
+            ((pRtfStringPrev->m_wRightIndent >  5*m_max_dist) && (pRtfStringPrev->m_LastChar == ';' || pRtfStringPrev->m_LastChar == '.')) ||
+            (CheckNumber(pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar == ';' || pRtfStringPrev->m_LastChar == '.'))             ||
+            ((pRtfString->m_wLeftIndent      >  3*m_max_dist / 2) && (pRtfStringPrev->m_LastChar == '.' || pRtfString->m_FirstChar == TIRE)) ||
+            (pRtfStringPrev->m_LastChar == '.' && (pRtfString->m_FirstChar == '-'  || pRtfString->m_FirstChar == TIRE))                      ||
+            (pRtfStringPrev->m_LastChar == '?' && (pRtfString->m_FirstChar == '-'  || pRtfString->m_FirstChar == TIRE))                      ||
+            (pRtfStringPrev->m_LastChar == ':' && (pRtfString->m_FirstChar == '-'  || pRtfString->m_FirstChar == TIRE))                      ||
+            (pRtfStringPrev->m_wRightIndent  >  2*m_max_dist && pRtfString->m_FirstChar == TIRE)
+        )
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -533,14 +520,14 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 
 Bool CRtfFragment::CheckNumber(uchar FirstChar)
 {
- const char* result=NULL;
- const char* MasNumber="0123456789";
+    const char* result = NULL;
+    const char* MasNumber = "0123456789";
+    result = strchr( MasNumber, FirstChar );
 
-	 result = strchr( MasNumber, FirstChar );
-  if(result==NULL)
-   return FALSE;
+    if (result == NULL)
+        return FALSE;
 
- return TRUE;
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -548,37 +535,34 @@ Bool CRtfFragment::CheckNumber(uchar FirstChar)
 
 void CRtfFragment::CorrectIndents(int beg, int end)
 {
- CRtfString*  pRtfString;
- int16_t        MinLeftIndent;
- int16_t        MinRightIndent;
+    CRtfString*  pRtfString;
+    int16_t        MinLeftIndent;
+    int16_t        MinRightIndent;
+    int i(0);
 
- 	 int i(0);
-     for(i=beg; i<end; i++ )
-		 {
-    pRtfString      = (CRtfString*)m_arStrings[i];
-    if(i==beg)
-    {
-  	  MinLeftIndent  = pRtfString->m_wLeftIndent;
-		   MinRightIndent = pRtfString->m_wRightIndent;
-     continue;
-    }
-    if(pRtfString->m_wFlagBeginParagraph==TRUE)
-    {
-     MinLeftIndent   = MIN(pRtfString->m_wLeftIndent,  MinLeftIndent);
-     MinRightIndent  = MIN(pRtfString->m_wRightIndent, MinRightIndent);
-    }
-		 }
+    for (i = beg; i < end; i++ ) {
+        pRtfString      = (CRtfString*)m_arStrings[i];
 
- 	 for(i=beg; i<end; i++)
-		 {
-    pRtfString = (CRtfString*)m_arStrings[i];
-    if(pRtfString->m_wFlagBeginParagraph==TRUE)
-    {
-     if(abs(pRtfString->m_wLeftIndent-MinLeftIndent) < m_max_dist)
-      pRtfString->m_wLeftIndent = MinLeftIndent;
-    }
-		 }
+        if (i == beg) {
+            MinLeftIndent  = pRtfString->m_wLeftIndent;
+            MinRightIndent = pRtfString->m_wRightIndent;
+            continue;
+        }
 
+        if (pRtfString->m_wFlagBeginParagraph == TRUE) {
+            MinLeftIndent   = MIN(pRtfString->m_wLeftIndent,  MinLeftIndent);
+            MinRightIndent  = MIN(pRtfString->m_wRightIndent, MinRightIndent);
+        }
+    }
+
+    for (i = beg; i < end; i++) {
+        pRtfString = (CRtfString*)m_arStrings[i];
+
+        if (pRtfString->m_wFlagBeginParagraph == TRUE) {
+            if (abs(pRtfString->m_wLeftIndent - MinLeftIndent) < m_max_dist)
+                pRtfString->m_wLeftIndent = MinLeftIndent;
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -586,21 +570,17 @@ void CRtfFragment::CorrectIndents(int beg, int end)
 
 Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direct)
 {
+    if (!direct && !CheckLeftJustification(beg, end))  return FALSE;
 
- if(!direct && !CheckLeftJustification(beg, end))  return FALSE;
+    SetParagraphAlignment(beg, end, RTF_TP_LEFT_ALLIGN);
 
- SetParagraphAlignment(beg, end, RTF_TP_LEFT_ALLIGN);
+    if (GetFlagCarry(beg, end) == FALSE || GetFlagLeft(beg, end))
+        SetLineTransfer(beg, end - 1);
 
- if(GetFlagCarry(beg, end)==FALSE || GetFlagLeft(beg, end))
-		SetLineTransfer(beg, end-1);
-
- SetFlagBeginParagraphForLeftJustification(beg, end);
- CorrectIndents(beg, end);
-
-	PrintTheResult("\n ================== DeterminationOfLeftJustification ================== \n");
-
- return TRUE;
-
+    SetFlagBeginParagraphForLeftJustification(beg, end);
+    CorrectIndents(beg, end);
+    PrintTheResult("\n ================== DeterminationOfLeftJustification ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -608,24 +588,23 @@ Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direc
 
 Bool CRtfFragment::CheckLeftJustification(int beg, int end)
 {
- uint16_t CountLeftEqual=0;
- uint16_t CountRightEqual=0;
- uint16_t CountLeftRightEqual=0;
- uint16_t CountCentreEqual=0;
+    uint16_t CountLeftEqual = 0;
+    uint16_t CountRightEqual = 0;
+    uint16_t CountLeftRightEqual = 0;
+    uint16_t CountCentreEqual = 0;
+    GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
+    GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
 
- GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
- GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
- GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
- GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
+    if ((CountLeftEqual < (end - beg) / 2         ||
+            CountLeftEqual < CountRightEqual     ||
+            CountLeftEqual < CountLeftRightEqual ||
+            CountLeftEqual < CountCentreEqual)   &&
+            (CountRightEqual + CountLeftRightEqual + CountCentreEqual > 0 ))
+        return FALSE;
 
-	if((CountLeftEqual < (end-beg)/2         ||
-     CountLeftEqual < CountRightEqual     ||
-     CountLeftEqual < CountLeftRightEqual ||
-     CountLeftEqual < CountCentreEqual)   &&
-    (CountRightEqual+ CountLeftRightEqual + CountCentreEqual>0 ))
-  return FALSE;
-
- return TRUE;
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -633,55 +612,63 @@ Bool CRtfFragment::CheckLeftJustification(int beg, int end)
 
 void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
 {
- CRtfString  *pRtfStringPrev;
- CRtfString  *pRtfString;
- uchar        FlagStringParagraph=FALSE;
- uchar        FlagStringParagraphSoft=FALSE;
- uint16_t        Count=0;
- int16_t       LeftFragm, RightFragm;
- int16_t       LeftDif,RightDif;
+    CRtfString  *pRtfStringPrev;
+    CRtfString  *pRtfString;
+    uchar        FlagStringParagraph = FALSE;
+    uchar        FlagStringParagraphSoft = FALSE;
+    uint16_t        Count = 0;
+    int16_t       LeftFragm, RightFragm;
+    int16_t       LeftDif, RightDif;
 
- if(m_Attr)
- {
-  LeftFragm = m_l_fragmentLocal; RightFragm = m_r_fragmentLocal;
-  LeftDif = m_l_fragmentLocal-m_l_fragment;
-  RightDif= m_r_fragment-m_r_fragmentLocal;
- }
- else
- {LeftFragm  = m_l_fragment; RightFragm = m_r_fragment; LeftDif=0; RightDif=0;}
+    if (m_Attr) {
+        LeftFragm = m_l_fragmentLocal;
+        RightFragm = m_r_fragmentLocal;
+        LeftDif = m_l_fragmentLocal - m_l_fragment;
+        RightDif = m_r_fragment - m_r_fragmentLocal;
+    }
 
- int ns(0);
- for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_LastChar=='.')
-   Count++;
- }
+    else {
+        LeftFragm  = m_l_fragment;
+        RightFragm = m_r_fragment;
+        LeftDif = 0;
+        RightDif = 0;
+    }
 
- if(Count>(4*(end-beg)/5))
-  FlagStringParagraph=TRUE;
+    int ns(0);
 
- if(Count>=((end-beg)/3))
-  FlagStringParagraphSoft=TRUE;
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
- for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-		if(ns==beg) {	pRtfString->m_wFlagBeginParagraph = TRUE; continue;	}
+        if (pRtfString->m_LastChar == '.')
+            Count++;
+    }
 
-		pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+    if (Count > (4*(end - beg) / 5))
+        FlagStringParagraph = TRUE;
 
-  if(((pRtfString->m_wLeftIndent-LeftDif) > 2*m_max_dist)                                                                          ||
-     ((pRtfStringPrev->m_wRightIndent-RightDif) > (RightFragm-LeftFragm)/3)                                                        ||
-     ((pRtfString->m_wLeftIndent > m_max_dist) && (pRtfString->m_FirstChar=='—' || pRtfString->m_FirstChar==TIRE))                 ||
-     (CheckNumber(pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar==';' || pRtfStringPrev->m_LastChar=='.'))                ||
-     (pRtfStringPrev->m_LastChar=='.' && FlagStringParagraphSoft==TRUE && (pRtfStringPrev->m_wRightIndent-RightDif)>5*m_max_dist ) ||
-     (pRtfStringPrev->m_LastChar=='.' && FlagStringParagraph==TRUE))
-  {
-   pRtfStringPrev->m_bLineTransfer = FALSE;
-			pRtfString->m_wFlagBeginParagraph = TRUE;
-  }
- }
+    if (Count >= ((end - beg) / 3))
+        FlagStringParagraphSoft = TRUE;
+
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+
+        if (ns == beg) {
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+            continue;
+        }
+
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+
+        if (((pRtfString->m_wLeftIndent - LeftDif) > 2*m_max_dist)                                                                          ||
+                ((pRtfStringPrev->m_wRightIndent - RightDif) > (RightFragm - LeftFragm) / 3)                                                        ||
+                ((pRtfString->m_wLeftIndent > m_max_dist) && (pRtfString->m_FirstChar == '—' || pRtfString->m_FirstChar == TIRE))                 ||
+                (CheckNumber(pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar == ';' || pRtfStringPrev->m_LastChar == '.'))                ||
+                (pRtfStringPrev->m_LastChar == '.' && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent - RightDif) > 5*m_max_dist ) ||
+                (pRtfStringPrev->m_LastChar == '.' && FlagStringParagraph == TRUE)) {
+            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -689,34 +676,29 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
 
 Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end)
 {
- CRtfString  *pRtfString;
+    CRtfString  *pRtfString;
+    uint16_t CountLeftEqual = 0;
+    uint16_t CountRightEqual = 0;
+    uint16_t CountLeftRightEqual = 0;
+    uint16_t CountCentreEqual = 0;
+    GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
+    GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
 
- uint16_t CountLeftEqual=0;
- uint16_t CountRightEqual=0;
- uint16_t CountLeftRightEqual=0;
- uint16_t CountCentreEqual=0;
+    if ((CountCentreEqual < (end - beg) / 2         ||
+            CountCentreEqual < CountRightEqual     ||
+            CountCentreEqual < CountLeftRightEqual ||
+            CountCentreEqual < CountLeftEqual)   &&
+            (CountRightEqual + CountLeftRightEqual + CountLeftEqual > 0 ))
+        return FALSE;
 
- GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
- GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
- GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
- GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
-
-	if((CountCentreEqual < (end-beg)/2         ||
-     CountCentreEqual < CountRightEqual     ||
-     CountCentreEqual < CountLeftRightEqual ||
-     CountCentreEqual < CountLeftEqual)   &&
-    (CountRightEqual+ CountLeftRightEqual + CountLeftEqual>0 ))
-  return FALSE;
-
- SetParagraphAlignment(beg, end, RTF_TP_CENTER);
- SetLineTransfer( beg,  end);
-
-	pRtfString = (CRtfString*)m_arStrings[beg];
-	pRtfString->m_wFlagBeginParagraph = TRUE;
-
-	PrintTheResult("\n ================== DeterminationOfCentreJustification ================== \n");
-
-return TRUE;
+    SetParagraphAlignment(beg, end, RTF_TP_CENTER);
+    SetLineTransfer( beg,  end);
+    pRtfString = (CRtfString*)m_arStrings[beg];
+    pRtfString->m_wFlagBeginParagraph = TRUE;
+    PrintTheResult("\n ================== DeterminationOfCentreJustification ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -724,51 +706,52 @@ return TRUE;
 
 Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end)
 {
- CRtfString  *pRtfStringPrev;
- CRtfString  *pRtfString;
+    CRtfString  *pRtfStringPrev;
+    CRtfString  *pRtfString;
+    uint16_t CountLeftEqual = 0;
+    uint16_t CountRightEqual = 0;
+    uint16_t CountLeftRightEqual = 0;
+    uint16_t CountCentreEqual = 0;
+    m_FlagCarry = GetFlagCarry(beg, end);
 
- uint16_t CountLeftEqual=0;
- uint16_t CountRightEqual=0;
- uint16_t CountLeftRightEqual=0;
- uint16_t CountCentreEqual=0;
+    if (m_FlagCarry && m_FlagRight == FALSE) return FALSE;
 
-  m_FlagCarry=GetFlagCarry(beg, end);
-  if(m_FlagCarry && m_FlagRight==FALSE) return FALSE;
+    GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
+    GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
 
-  GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
-  GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
-  GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-  GetCountEqual(beg, end, &CountCentreEqual,    RTF_TP_CENTER);
+    if (CountRightEqual < (end - beg) / 2 )
+        return FALSE;
 
-	 if(CountRightEqual < (end-beg)/2 )
-   return FALSE;
+    if ((CountRightEqual < CountCentreEqual ||
+            CountRightEqual < CountLeftRightEqual ||
+            CountRightEqual < CountLeftEqual)   &&
+            (CountCentreEqual + CountLeftRightEqual + CountLeftEqual > 0 ))
+        return FALSE;
 
-  if((CountRightEqual < CountCentreEqual ||
-      CountRightEqual < CountLeftRightEqual ||
-      CountRightEqual < CountLeftEqual)   &&
-     (CountCentreEqual+ CountLeftRightEqual + CountLeftEqual>0 ))
-  return FALSE;
+    SetParagraphAlignment(beg, end, RTF_TP_RIGHT_ALLIGN);
 
-  SetParagraphAlignment(beg, end, RTF_TP_RIGHT_ALLIGN);
+    for (int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-  for(int ns=beg; ns < end; ns++ )
-	 {
-	 	pRtfString = (CRtfString*)m_arStrings[ns];
-   if(ns==beg) {pRtfString->m_wFlagBeginParagraph = TRUE; pRtfString->m_bLineTransfer = TRUE; continue;}
+        if (ns == beg) {
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+            pRtfString->m_bLineTransfer = TRUE;
+            continue;
+        }
 
-   pRtfString->m_bLineTransfer = TRUE;
+        pRtfString->m_bLineTransfer = TRUE;
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
 
-	 	pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
-   if(pRtfStringPrev->m_LastChar=='.')
-   {
-	 	 pRtfString->m_wFlagBeginParagraph = TRUE;
-    pRtfStringPrev->m_bLineTransfer = FALSE;
-   }
-  }
+        if (pRtfStringPrev->m_LastChar == '.') {
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+            pRtfStringPrev->m_bLineTransfer = FALSE;
+        }
+    }
 
-	 PrintTheResult("\n ================== DeterminationOfRightJustification ================== \n");
-
-return TRUE;
+    PrintTheResult("\n ================== DeterminationOfRightJustification ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -776,73 +759,68 @@ return TRUE;
 
 Bool CRtfFragment::DeterminationOfListType(int beg, int end)
 {
- CRtfString  *pRtfString;
-	uchar        FlagListParagraph = 0;
- int32_t       MinLeft,MaxLeft,MaxRight;
- int32_t       CountMinLeft=0, CountMaxLeft=0, CountMaxRight=0;
- uint16_t        CountCentreEqual=0;
+    CRtfString  *pRtfString;
+    uchar        FlagListParagraph = 0;
+    int32_t       MinLeft, MaxLeft, MaxRight;
+    int32_t       CountMinLeft = 0, CountMaxLeft = 0, CountMaxRight = 0;
+    uint16_t        CountCentreEqual = 0;
+    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
 
-  GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+    if (CountCentreEqual == (end - beg))
+        return FALSE;
 
-  if(CountCentreEqual==(end-beg))
-   return FALSE;
+    pRtfString = (CRtfString*)m_arStrings[0];
+    MinLeft = MaxLeft = pRtfString->m_LeftBorder;
+    MaxRight = pRtfString->m_RightBorder;
+    int ns(0);
 
-  pRtfString = (CRtfString*)m_arStrings[0];
-  MinLeft=MaxLeft=pRtfString->m_LeftBorder;
-  MaxRight=pRtfString->m_RightBorder;
+    //поиск тела списка
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+        MinLeft  = MIN(MinLeft,  pRtfString->m_LeftBorder);
+        MaxLeft  = MAX(MaxLeft,  pRtfString->m_LeftBorder);
+        MaxRight = MAX(MaxRight, pRtfString->m_RightBorder);
+    }
 
-  int ns(0);
-	 //поиск тела списка
-  for(ns=beg; ns<end; ns++ )
-	 {
-	 	pRtfString = (CRtfString*)m_arStrings[ns];
-   MinLeft  = MIN(MinLeft,  pRtfString->m_LeftBorder);
-   MaxLeft  = MAX(MaxLeft,  pRtfString->m_LeftBorder);
-   MaxRight = MAX(MaxRight, pRtfString->m_RightBorder);
-  }
+    if ((MaxLeft - MinLeft) > (MaxRight - MaxLeft) / 2)
+        return FALSE;
 
-  if((MaxLeft-MinLeft)>(MaxRight-MaxLeft)/2)
-   return FALSE;
+    if ((MaxLeft - MinLeft) < m_max_dist)
+        return FALSE;
 
-  if((MaxLeft-MinLeft)<m_max_dist)
-   return FALSE;
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-  for(ns=beg; ns<end; ns++ )
-	 {
-	 	pRtfString = (CRtfString*)m_arStrings[ns];
+        if ((abs(MinLeft - pRtfString->m_LeftBorder) > 5*m_max_dist) &&
+                (abs(MaxLeft - pRtfString->m_LeftBorder) > 5*m_max_dist))
+            return FALSE;
 
-   if((abs(MinLeft-pRtfString->m_LeftBorder)>5*m_max_dist) &&
-      (abs(MaxLeft-pRtfString->m_LeftBorder)>5*m_max_dist))
-    return FALSE;
+        if (abs(MinLeft - pRtfString->m_LeftBorder) < m_max_dist)
+            CountMinLeft++;
 
-   if(abs(MinLeft-pRtfString->m_LeftBorder)<m_max_dist)
-    CountMinLeft++;
+        if (abs(MaxLeft - pRtfString->m_LeftBorder) < m_max_dist)
+            CountMaxLeft++;
 
-   if(abs(MaxLeft-pRtfString->m_LeftBorder)<m_max_dist)
-    CountMaxLeft++;
+        if (abs(MaxRight - pRtfString->m_RightBorder) < m_max_dist)
+            CountMaxRight++;
+    }
 
-   if(abs(MaxRight-pRtfString->m_RightBorder)<m_max_dist)
-    CountMaxRight++;
-  }
+    if ((CountMinLeft > CountMaxLeft)  ||
+            ((CountMinLeft + CountMaxLeft) < 4*(end - beg) / 5)  ||
+            (CountMaxRight < (end - beg) / 2))
+        return FALSE;
 
-  if((CountMinLeft>CountMaxLeft)  ||
-    ((CountMinLeft+CountMaxLeft)< 4*(end-beg)/5)  ||
-    (CountMaxRight<(end-beg)/2))
-   return FALSE;
+    SetParagraphAlignment(beg, end, RTF_TP_TYPE_LINE);
 
-  SetParagraphAlignment(beg, end, RTF_TP_TYPE_LINE);
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-  for(ns=beg; ns<end; ns++ )
-	 {
-	 	pRtfString = (CRtfString*)m_arStrings[ns];
+        if ((ns == beg) || abs(MinLeft - pRtfString->m_LeftBorder) < m_max_dist)
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+    }
 
-   if((ns==beg) || abs(MinLeft-pRtfString->m_LeftBorder)<m_max_dist)
-    pRtfString->m_wFlagBeginParagraph=TRUE;
-  }
-
- 	PrintTheResult("\n ================== DeterminationOfListType ================== \n");
-
-return TRUE;
+    PrintTheResult("\n ================== DeterminationOfListType ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -850,37 +828,33 @@ return TRUE;
 
 Bool CRtfFragment::DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo)
 {
- int32_t beg=0,end;
- Bool  Flag=TRUE;
+    int32_t beg = 0, end;
+    Bool  Flag = TRUE;
 
- if(m_Attr==FALSE)
-  return FALSE;
+    if (m_Attr == FALSE)
+        return FALSE;
 
- while(Flag)
- {
-  GetNextFragmentBegEnd(&beg, &end, &Flag);
-  ReInit(SectorInfo, beg, end);
-  if(DeterminationOfLeftRightJustification(beg, end)==FALSE)
-  {
-   if(DeterminationOfListType(beg, end)==FALSE)
-   {
-    if(DeterminationOfLeftJustification(beg, end, 0)==FALSE)
-    {
-     if(DeterminationOfCentreJustification(beg, end)==FALSE)
-     {
-      if(DeterminationOfRightJustification(beg, end)==FALSE)
-      {
-       DeterminationOfLeftJustification(beg, end, 1);
-      }
-     }
+    while (Flag) {
+        GetNextFragmentBegEnd(&beg, &end, &Flag);
+        ReInit(SectorInfo, beg, end);
+
+        if (DeterminationOfLeftRightJustification(beg, end) == FALSE) {
+            if (DeterminationOfListType(beg, end) == FALSE) {
+                if (DeterminationOfLeftJustification(beg, end, 0) == FALSE) {
+                    if (DeterminationOfCentreJustification(beg, end) == FALSE) {
+                        if (DeterminationOfRightJustification(beg, end) == FALSE) {
+                            DeterminationOfLeftJustification(beg, end, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        beg = end;
     }
-   }
-  }
-  beg=end;
- }
 
-	PrintTheResult("\n ================== DeterminationOfMixedFragment ================== \n");
- return TRUE;
+    PrintTheResult("\n ================== DeterminationOfMixedFragment ================== \n");
+    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -888,116 +862,106 @@ Bool CRtfFragment::DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo)
 
 void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
 {
-	int         LeftDif, RightDif, CentreDif,top,bottom;
-	CRtfString  *pRtfStringPrev, *pRtfString;
-	CRtfWord    *pRtfWord;
-	CRtfChar    *pRtfCharFirst, *pRtfCharLast;
+    int         LeftDif, RightDif, CentreDif, top, bottom;
+    CRtfString  *pRtfStringPrev, *pRtfString;
+    CRtfWord    *pRtfWord;
+    CRtfChar    *pRtfCharFirst, *pRtfCharLast;
     int ns(0);
+    m_l_fragmentLocal = 32000;
+    m_r_fragmentLocal = 0;
+    m_CountLeftEqual = 0;
+    m_CountRightEqual = 0;
+    m_CountLeftRightEqual = 0;
+    m_CountCentreEqual = 0;
 
-	m_l_fragmentLocal = 32000;
-	m_r_fragmentLocal = 0;
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+        pRtfString->m_wLeftBorderEqual  = FALSE;
+        pRtfString->m_wRightBorderEqual = FALSE;
+        pRtfString->m_wCentreEqual      = FALSE;
+    }
 
-	m_CountLeftEqual=0;
-	m_CountRightEqual=0;
-	m_CountLeftRightEqual=0;
-	m_CountCentreEqual=0;
-	for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-		pRtfString->m_wLeftBorderEqual  = FALSE;
-		pRtfString->m_wRightBorderEqual = FALSE;
-		pRtfString->m_wCentreEqual      = FALSE;
-	}
-  //  I. Поиск:       Левой(m_l_fragmentLocal) и правой(m_r_fragmentLocal) границ фрагмента
-	for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
+    //  I. Поиск:       Левой(m_l_fragmentLocal) и правой(m_r_fragmentLocal) границ фрагмента
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-		if(ns==beg)
-		{
-			if(!ns) pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
-			else
-			{
-				pRtfStringPrev=(CRtfString*)m_arStrings[ns-1];
+        if (ns == beg) {
+            if (!ns) pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
 
-  				pRtfWord      = (CRtfWord*)pRtfStringPrev->m_arWords[0];
-				pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
-				top = pRtfCharFirst->m_Idealrect.bottom;
+            else {
+                pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+                pRtfWord      = (CRtfWord*)pRtfStringPrev->m_arWords[0];
+                pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+                top = pRtfCharFirst->m_Idealrect.bottom;
+                pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
+                pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+                bottom = pRtfCharFirst->m_Idealrect.top;
+                pRtfString->m_wSpaceBefore = (uint16_t)(bottom - top);
+            }
 
-  				pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-				pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
-				bottom = pRtfCharFirst->m_Idealrect.top;
-				pRtfString->m_wSpaceBefore =(uint16_t)(bottom - top);
-			}
-			pRtfString->m_wFlagBeginParagraph = TRUE;
-		}
-		else    pRtfString->m_wSpaceBefore = 0;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+        }
 
-		pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-		pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
-		pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        else    pRtfString->m_wSpaceBefore = 0;
 
-		pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
-		pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
-		pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
+        pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
+        pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
+        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
+        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
+        m_l_fragmentLocal  = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->m_Idealrect.left);
+        m_r_fragmentLocal  = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->m_Idealrect.right);
+    }
 
-		pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
-		pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
+    // Присваиваются признаки равенства концов и середины соседних строк
+    for (ns = beg + 1; ns < end; ns++ ) {
+        pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
+        pRtfString     = (CRtfString*)m_arStrings[ns];
+        LeftDif   = pRtfString->m_wLeftIndent  - pRtfStringPrev->m_wLeftIndent;
+        RightDif  = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
+        CentreDif = pRtfString->m_wCentre      - pRtfStringPrev->m_wCentre;
 
-		m_l_fragmentLocal  = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->m_Idealrect.left);
-		m_r_fragmentLocal  = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->m_Idealrect.right);
+        if ( abs(LeftDif) <= m_max_dist ) {
+            pRtfString->m_wLeftBorderEqual = TRUE;
+            m_CountLeftEqual++;
 
-	}
+            if (ns == beg) {
+                pRtfStringPrev->m_wLeftBorderEqual = TRUE;
+                m_CountLeftEqual++;
+            }
+        }
 
-  // Присваиваются признаки равенства концов и середины соседних строк
-	for(ns=beg+1; ns < end; ns++ )
-	{
-		pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
-		pRtfString     = (CRtfString*)m_arStrings[ns];
+        if ( abs(RightDif) <= m_max_dist ) {
+            pRtfString->m_wRightBorderEqual = TRUE;
+            m_CountRightEqual++;
 
-		LeftDif   = pRtfString->m_wLeftIndent  - pRtfStringPrev->m_wLeftIndent;
-		RightDif  = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
-  		CentreDif = pRtfString->m_wCentre      - pRtfStringPrev->m_wCentre;
+            if (pRtfString->m_wLeftBorderEqual == TRUE)
+                m_CountLeftRightEqual++;
 
-		if( abs(LeftDif) <= m_max_dist )
-		{
- 			pRtfString->m_wLeftBorderEqual = TRUE;
-			m_CountLeftEqual++;
-			if(ns==beg)
-				{pRtfStringPrev->m_wLeftBorderEqual = TRUE;
-				m_CountLeftEqual++;
-			}
-		}
+            if (ns == beg) {
+                pRtfStringPrev->m_wRightBorderEqual = TRUE;
+                m_CountRightEqual++;
+                m_CountLeftRightEqual++;
+            }
+        }
 
-		if( abs(RightDif) <= m_max_dist )
-		{
-			pRtfString->m_wRightBorderEqual = TRUE;
-			m_CountRightEqual++;
-			if(pRtfString->m_wLeftBorderEqual==TRUE)
-				m_CountLeftRightEqual++;
+        if ( (abs(CentreDif) < m_max_dist) &&
+                ((LeftDif <= 0 && RightDif <= 0) || (LeftDif > 0 && RightDif > 0)) &&
+                (abs(LeftDif) > m_max_dist / 2)  && (abs(RightDif) > m_max_dist / 2)) {
+            pRtfString->m_wCentreEqual = TRUE;
+            m_CountCentreEqual++;
 
-			if(ns==beg)
-				{pRtfStringPrev->m_wRightBorderEqual = TRUE;
-				m_CountRightEqual++;
-				m_CountLeftRightEqual++;
-			}
-		}
+            if (ns == beg) {
+                pRtfStringPrev->m_wCentreEqual = TRUE;
+                m_CountCentreEqual++;
+            }
+        }
+    }
 
-		if( (abs(CentreDif) < m_max_dist) &&
-			((LeftDif<=0 && RightDif<=0) || (LeftDif>0 && RightDif>0)) &&
-			(abs(LeftDif) > m_max_dist/2)  && (abs(RightDif) > m_max_dist/2))
-		{
-			pRtfString->m_wCentreEqual = TRUE;
-			m_CountCentreEqual++;
-
-			if(ns==beg)
-				{pRtfStringPrev->m_wCentreEqual = TRUE;
-				m_CountCentreEqual++;
-			}
-		}
-	}
-
-	PrintTheResult("\n ================== ReInit ================== \n");
+    PrintTheResult("\n ================== ReInit ================== \n");
 }
 
 
@@ -1007,22 +971,23 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
 
 void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
 {
- CRtfString *pRtfString;
- int i;
+    CRtfString *pRtfString;
+    int i;
+    *end = *beg + 1;
 
- *end=*beg+1;
- for(i=*end; i<m_wStringsCount; i++)
- {
-  pRtfString = (CRtfString*)m_arStrings[i];
-  if(pRtfString->m_Attr==TRUE)
-  {*end=i; break;}
- }
+    for (i = *end; i < m_wStringsCount; i++) {
+        pRtfString = (CRtfString*)m_arStrings[i];
 
- if((*end >= (int32_t)m_wStringsCount) || (i >= (int32_t)m_wStringsCount))
- {
-  *end= (int32_t)m_wStringsCount;
-  *Flag=FALSE;
- }
+        if (pRtfString->m_Attr == TRUE) {
+            *end = i;
+            break;
+        }
+    }
+
+    if ((*end >= (int32_t)m_wStringsCount) || (i >= (int32_t)m_wStringsCount)) {
+        *end = (int32_t)m_wStringsCount;
+        *Flag = FALSE;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1030,9 +995,9 @@ void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
 
 void CRtfFragment::Done(void)
 {
-	CheckOnceAgainImportancesFlagBeginParagraph();
-	SetFirstLeftAndRightIndentOfParagraph();
-	DefineLineTransfer();
+    CheckOnceAgainImportancesFlagBeginParagraph();
+    SetFirstLeftAndRightIndentOfParagraph();
+    DefineLineTransfer();
 }
 
 
@@ -1041,24 +1006,22 @@ void CRtfFragment::Done(void)
 //-------------------------------------------------------------------------------------------------
 void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars, int32_t* LengthChars)
 {
- CRtfWord    *pRtfWord;
-	CRtfChar    *pRtfChar;
-	uint16_t         CountWords;
-	uint16_t         WCountChars;
+    CRtfWord    *pRtfWord;
+    CRtfChar    *pRtfChar;
+    uint16_t         CountWords;
+    uint16_t         WCountChars;
+    CountWords = pRtfString->m_wWordsCount;
 
-  CountWords = pRtfString->m_wWordsCount;
-  for(int i=0; i<CountWords; i++)
-  {
-   pRtfWord   = (CRtfWord*)pRtfString->m_arWords[i];
-   WCountChars = pRtfWord->m_wCharsCount;
-   for(int j=0; j<WCountChars; j++)
-   {
-    pRtfChar = (CRtfChar*)pRtfWord->m_arChars[j];
-    (*LengthChars) += MAX(0,pRtfChar->m_Idealrect.right-pRtfChar->m_Idealrect.left);
-    (*CountChars)++;
-   }
-  }
+    for (int i = 0; i < CountWords; i++) {
+        pRtfWord   = (CRtfWord*)pRtfString->m_arWords[i];
+        WCountChars = pRtfWord->m_wCharsCount;
 
+        for (int j = 0; j < WCountChars; j++) {
+            pRtfChar = (CRtfChar*)pRtfWord->m_arChars[j];
+            (*LengthChars) += MAX(0, pRtfChar->m_Idealrect.right - pRtfChar->m_Idealrect.left);
+            (*CountChars)++;
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1066,70 +1029,62 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
 
 void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph()
 {
-	CRtfString  *pRtfString;
-	CRtfString  *pRtfStringPrev;
-	CRtfWord    *pRtfWordPrev;
-	CRtfWord    *pRtfWord;
-	CRtfChar    *pRtfChar;
-	uint16_t         CountWords;
-	uint16_t         CountChars;
-
+    CRtfString  *pRtfString;
+    CRtfString  *pRtfStringPrev;
+    CRtfWord    *pRtfWordPrev;
+    CRtfWord    *pRtfWord;
+    CRtfChar    *pRtfChar;
+    uint16_t         CountWords;
+    uint16_t         CountChars;
     int ns(0);
-	for(ns=1; ns < m_wStringsCount; ns++ )
-	{
-		pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
-		pRtfString      = (CRtfString*)m_arStrings[ns];
 
-   // если выр. другая, то необходимо начать новый параграф
-		if( pRtfString->m_wAlignment != pRtfStringPrev->m_wAlignment )
-		{
-			pRtfStringPrev->m_bLineTransfer = FALSE;
-			pRtfString->m_wFlagBeginParagraph = TRUE;
-		}
-	}
+    for (ns = 1; ns < m_wStringsCount; ns++ ) {
+        pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
+        pRtfString      = (CRtfString*)m_arStrings[ns];
 
-	for(ns=1; ns < m_wStringsCount; ns++ )
-	{
-		pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
-		pRtfString      = (CRtfString*)m_arStrings[ns];
+        // если выр. другая, то необходимо начать новый параграф
+        if ( pRtfString->m_wAlignment != pRtfStringPrev->m_wAlignment ) {
+            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+        }
+    }
 
- 		pRtfWordPrev    = (CRtfWord*)pRtfStringPrev->m_arWords[0];
- 		pRtfWord        = (CRtfWord*)pRtfString->m_arWords[0];
+    for (ns = 1; ns < m_wStringsCount; ns++ ) {
+        pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
+        pRtfString      = (CRtfString*)m_arStrings[ns];
+        pRtfWordPrev    = (CRtfWord*)pRtfStringPrev->m_arWords[0];
+        pRtfWord        = (CRtfWord*)pRtfString->m_arWords[0];
 
-		if(pRtfString->m_wAlignment !=RTF_TP_CENTER && abs(pRtfWord->m_wRealFontPointSize - pRtfWordPrev->m_wRealFontPointSize)>1 )
-		{
-			pRtfStringPrev->m_bLineTransfer = FALSE;
-			pRtfString->m_wFlagBeginParagraph = TRUE;
-		}
-	}
+        if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->m_wRealFontPointSize - pRtfWordPrev->m_wRealFontPointSize) > 1 ) {
+            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfString->m_wFlagBeginParagraph = TRUE;
+        }
+    }
 
-	for(ns=1; ns < m_wStringsCount; ns++ )
-	{
-		pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
-		pRtfString      = (CRtfString*)m_arStrings[ns];
+    for (ns = 1; ns < m_wStringsCount; ns++ ) {
+        pRtfStringPrev  = (CRtfString*)m_arStrings[ns-1];
+        pRtfString      = (CRtfString*)m_arStrings[ns];
 
-		if( pRtfString->m_wFlagBeginParagraph == TRUE )
-		{
-			CountWords = pRtfStringPrev->m_wWordsCount;
-  			pRtfWord   = (CRtfWord*)pRtfStringPrev->m_arWords[CountWords-1];
-			CountChars = pRtfWord->m_wCharsCount;
-			pRtfChar   = (CRtfChar*)pRtfWord->m_arChars[CountChars-1];
-			if( pRtfChar->m_chrVersions[0].m_bChar=='-' && pRtfChar->m_bFlg_spell_nocarrying )
-			{
-				if( pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment	)
- 					pRtfString->m_wFlagBeginParagraph = FALSE;
-				else
-				if(pRtfStringPrev->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN && pRtfString->m_wAlignment == RTF_TP_LEFT_ALLIGN)
-				{
-	 				pRtfString->m_wAlignment = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
- 					pRtfStringPrev->m_bLineTransfer = FALSE;
-					pRtfString->m_wFlagBeginParagraph = FALSE;
-				}
-			}
-		}
-	}
+        if ( pRtfString->m_wFlagBeginParagraph == TRUE ) {
+            CountWords = pRtfStringPrev->m_wWordsCount;
+            pRtfWord   = (CRtfWord*)pRtfStringPrev->m_arWords[CountWords-1];
+            CountChars = pRtfWord->m_wCharsCount;
+            pRtfChar   = (CRtfChar*)pRtfWord->m_arChars[CountChars-1];
 
-	PrintTheResult("\n ================== CheckOnceAgainImportancesFlagBeginParagraph ================== \n");
+            if ( pRtfChar->m_chrVersions[0].m_bChar == '-' && pRtfChar->m_bFlg_spell_nocarrying ) {
+                if ( pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment    )
+                    pRtfString->m_wFlagBeginParagraph = FALSE;
+
+                else if (pRtfStringPrev->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN && pRtfString->m_wAlignment == RTF_TP_LEFT_ALLIGN) {
+                    pRtfString->m_wAlignment = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
+                    pRtfStringPrev->m_bLineTransfer = FALSE;
+                    pRtfString->m_wFlagBeginParagraph = FALSE;
+                }
+            }
+        }
+    }
+
+    PrintTheResult("\n ================== CheckOnceAgainImportancesFlagBeginParagraph ================== \n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1137,160 +1092,163 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph()
 
 void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph()
 {
- CRtfString  *pRtfString;
- CRtfString  *pRtfStringNext;
- int16_t       MinLeftIndent;
- int16_t       MinRightIndent;
- int         i;
- int         ns(0);
- int16_t       twp_dist;
- int16_t       Dif=0;
+    CRtfString  *pRtfString;
+    CRtfString  *pRtfStringNext;
+    int16_t       MinLeftIndent;
+    int16_t       MinRightIndent;
+    int         i;
+    int         ns(0);
+    int16_t       twp_dist;
+    int16_t       Dif = 0;
+    twp_dist = (int16_t)(3 * m_max_dist * Twips);
 
- twp_dist = (int16_t)(3*m_max_dist * Twips);
-	for(ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString                         =(CRtfString*)m_arStrings[ns];
-		pRtfString->m_LengthStringInTwips  =pRtfString->GetRealStringSize();
-  pRtfString->m_wLeftIndent          =(int16_t)((int16_t)(pRtfString->m_wLeftIndent  * Twips)+m_LeftOffsetFragmentFromVerticalColumn);
-  pRtfString->m_wRightIndent         =(int16_t)((int16_t)(pRtfString->m_wRightIndent * Twips)+m_RightOffsetFragmentFromVerticalColumn);
-		pRtfString->m_wRightIndent         =MIN(pRtfString->m_wRightIndent,
-			m_WidthVerticalColumn - (pRtfString->m_LengthStringInTwips + pRtfString->m_wLeftIndent + pRtfString->m_wRightIndent));
-	}
+    for (ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString                         = (CRtfString*)m_arStrings[ns];
+        pRtfString->m_LengthStringInTwips  = pRtfString->GetRealStringSize();
+        pRtfString->m_wLeftIndent          = (int16_t)((int16_t)(pRtfString->m_wLeftIndent  * Twips) + m_LeftOffsetFragmentFromVerticalColumn);
+        pRtfString->m_wRightIndent         = (int16_t)((int16_t)(pRtfString->m_wRightIndent * Twips) + m_RightOffsetFragmentFromVerticalColumn);
+        pRtfString->m_wRightIndent         = MIN(pRtfString->m_wRightIndent,
+                                                 m_WidthVerticalColumn - (pRtfString->m_LengthStringInTwips + pRtfString->m_wLeftIndent + pRtfString->m_wRightIndent));
+    }
 
-	for(ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString  = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_wFlagBeginParagraph == TRUE)
-		{
+    for (ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString  = (CRtfString*)m_arStrings[ns];
 
-			if(pRtfString->m_wAlignment == RTF_TP_LEFT_ALLIGN )
-			{
-				Dif = MAX(0,m_WidthVerticalColumn - pRtfString->m_LengthStringInTwips);
+        if (pRtfString->m_wFlagBeginParagraph == TRUE) {
+            if (pRtfString->m_wAlignment == RTF_TP_LEFT_ALLIGN ) {
+                Dif = MAX(0, m_WidthVerticalColumn - pRtfString->m_LengthStringInTwips);
+                MinLeftIndent  = pRtfString->m_wLeftIndent;
 
-				MinLeftIndent  = pRtfString->m_wLeftIndent;
- 		 for( i=ns+1; i<m_wStringsCount; i++ )
-				{
-   		pRtfStringNext  = (CRtfString*)m_arStrings[i];
-     if(pRtfStringNext->m_wFlagBeginParagraph == TRUE || pRtfStringNext->m_wAlignment != RTF_TP_LEFT_ALLIGN)
-						break;
-     MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
-				}
+                for ( i = ns + 1; i < m_wStringsCount; i++ ) {
+                    pRtfStringNext  = (CRtfString*)m_arStrings[i];
 
-				if(m_WidthVerticalColumn > pRtfString->m_LengthStringInTwips)
-				{
-			  pRtfString->m_wFirstIndent  = pRtfString->m_wLeftIndent - MinLeftIndent;
-     if(pRtfString->m_wFirstIndent<(twp_dist/3))
-      pRtfString->m_wFirstIndent=0;
+                    if (pRtfStringNext->m_wFlagBeginParagraph == TRUE || pRtfStringNext->m_wAlignment != RTF_TP_LEFT_ALLIGN)
+                        break;
 
-     pRtfString->m_wLeftIndent   = MIN(Dif,	MinLeftIndent);
-				}
-				else
-				{
-     pRtfString->m_wLeftIndent  = 0;
-     pRtfString->m_wFirstIndent = 0;
-				}
+                    MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
+                }
 
-    pRtfString->m_wRightIndent = 0;
+                if (m_WidthVerticalColumn > pRtfString->m_LengthStringInTwips) {
+                    pRtfString->m_wFirstIndent  = pRtfString->m_wLeftIndent - MinLeftIndent;
 
-    if(pRtfString->m_wLeftIndent<(twp_dist/2))
-     pRtfString->m_wLeftIndent  = 0;
+                    if (pRtfString->m_wFirstIndent < (twp_dist / 3))
+                        pRtfString->m_wFirstIndent = 0;
 
-    if(i==(ns+1))
-    { pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent; pRtfString->m_wLeftIndent = 0; }
+                    pRtfString->m_wLeftIndent   = MIN(Dif, MinLeftIndent);
+                }
 
-				continue;
-			}
+                else {
+                    pRtfString->m_wLeftIndent  = 0;
+                    pRtfString->m_wFirstIndent = 0;
+                }
 
-			if(pRtfString->m_wAlignment == RTF_TP_RIGHT_ALLIGN )
-			{
-				pRtfString->m_wLeftIndent  = 0;
-				pRtfString->m_wFirstIndent = 0;
-    pRtfString->m_wRightIndent = 0;
-				continue;
-			}
+                pRtfString->m_wRightIndent = 0;
 
-   if(pRtfString->m_wAlignment == RTF_TP_TYPE_LINE)
-			{
-	   if( ns+1< m_wStringsCount)
-				{
-   		pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
-					if( pRtfStringNext->m_wFlagBeginParagraph == FALSE && pRtfStringNext->m_wAlignment == RTF_TP_TYPE_LINE )
-	 			{
-						pRtfString->m_wFirstIndent = pRtfStringNext->m_wLeftIndent-pRtfString->m_wLeftIndent;
-      pRtfString->m_wLeftIndent  = pRtfStringNext->m_wLeftIndent;
-					}
-     else
-						pRtfString->m_wFirstIndent = 0;
-				}
-				else
-     pRtfString->m_wFirstIndent = 0;
-				continue;
-			}
+                if (pRtfString->m_wLeftIndent < (twp_dist / 2))
+                    pRtfString->m_wLeftIndent  = 0;
 
-   if(pRtfString->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN)
-			{
-	   MinLeftIndent  = pRtfString->m_wLeftIndent;
-				MinRightIndent = pRtfString->m_wRightIndent;
+                if (i == (ns + 1)) {
+                    pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent;
+                    pRtfString->m_wLeftIndent = 0;
+                }
 
- 		 for( i=ns+1; i<m_wStringsCount; i++ )
-				{
-   		pRtfStringNext  = (CRtfString*)m_arStrings[i];
-     if(pRtfStringNext->m_wFlagBeginParagraph == TRUE ||
-        pRtfStringNext->m_wAlignment != RTF_TP_LEFT_AND_RIGHT_ALLIGN)
-						break;
-     MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
-     MinRightIndent  = MIN(pRtfStringNext->m_wRightIndent, MinRightIndent);
-				}
+                continue;
+            }
 
-    if(MinLeftIndent<(twp_dist/3))
-     MinLeftIndent=0;
+            if (pRtfString->m_wAlignment == RTF_TP_RIGHT_ALLIGN ) {
+                pRtfString->m_wLeftIndent  = 0;
+                pRtfString->m_wFirstIndent = 0;
+                pRtfString->m_wRightIndent = 0;
+                continue;
+            }
 
-				pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent - MinLeftIndent;
+            if (pRtfString->m_wAlignment == RTF_TP_TYPE_LINE) {
+                if ( ns + 1 < m_wStringsCount) {
+                    pRtfStringNext = (CRtfString*)m_arStrings[ns+1];
 
-    if(pRtfString->m_wFirstIndent<(twp_dist/3))
-     pRtfString->m_wFirstIndent=0;
+                    if ( pRtfStringNext->m_wFlagBeginParagraph == FALSE && pRtfStringNext->m_wAlignment == RTF_TP_TYPE_LINE ) {
+                        pRtfString->m_wFirstIndent = pRtfStringNext->m_wLeftIndent - pRtfString->m_wLeftIndent;
+                        pRtfString->m_wLeftIndent  = pRtfStringNext->m_wLeftIndent;
+                    }
 
-				if(MinLeftIndent < twp_dist)
-     pRtfString->m_wLeftIndent = 0;
-				else
-     pRtfString->m_wLeftIndent  = MinLeftIndent;
+                    else
+                        pRtfString->m_wFirstIndent = 0;
+                }
 
-				if(MinRightIndent < twp_dist)
-					pRtfString->m_wRightIndent = 0;
+                else
+                    pRtfString->m_wFirstIndent = 0;
 
-    if(i==(ns+1))
-    {
-     if(MinLeftIndent>((2*twp_dist)/3))
-      pRtfString->m_wLeftIndent = MinLeftIndent;
+                continue;
+            }
 
-     pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent; pRtfString->m_wLeftIndent = 0; pRtfString->m_wRightIndent = 0;}
-				continue;
-			}
+            if (pRtfString->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN) {
+                MinLeftIndent  = pRtfString->m_wLeftIndent;
+                MinRightIndent = pRtfString->m_wRightIndent;
 
-			if(pRtfString->m_wAlignment == RTF_TP_CENTER)
-			{
-    MinLeftIndent  = pRtfString->m_wLeftIndent;
-				MinRightIndent = pRtfString->m_wRightIndent;
+                for ( i = ns + 1; i < m_wStringsCount; i++ ) {
+                    pRtfStringNext  = (CRtfString*)m_arStrings[i];
 
-			 for( i=ns; i<m_wStringsCount; i++ )
-				{
-   		pRtfStringNext  = (CRtfString*)m_arStrings[i];
-     MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
-     MinRightIndent  = MIN(pRtfStringNext->m_wRightIndent, MinRightIndent);
-  			if(pRtfString->m_wAlignment != RTF_TP_CENTER)
-						break;
-				}
+                    if (pRtfStringNext->m_wFlagBeginParagraph == TRUE ||
+                            pRtfStringNext->m_wAlignment != RTF_TP_LEFT_AND_RIGHT_ALLIGN)
+                        break;
 
-    if(abs(MinLeftIndent-MinRightIndent)<(2*m_max_dist))
-     MinLeftIndent=MinRightIndent=0;
-    pRtfString->m_wFirstIndent = 0;
-				pRtfString->m_wLeftIndent =  MinLeftIndent;
-    pRtfString->m_wRightIndent = MinRightIndent;
-			}
+                    MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
+                    MinRightIndent  = MIN(pRtfStringNext->m_wRightIndent, MinRightIndent);
+                }
 
-		}
-	}
-	PrintTheResult("\n ================== SetFirstLeftAndRightIndentOfParagraph ================== \n");
+                if (MinLeftIndent < (twp_dist / 3))
+                    MinLeftIndent = 0;
+
+                pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent - MinLeftIndent;
+
+                if (pRtfString->m_wFirstIndent < (twp_dist / 3))
+                    pRtfString->m_wFirstIndent = 0;
+
+                if (MinLeftIndent < twp_dist)
+                    pRtfString->m_wLeftIndent = 0;
+
+                else
+                    pRtfString->m_wLeftIndent  = MinLeftIndent;
+
+                if (MinRightIndent < twp_dist)
+                    pRtfString->m_wRightIndent = 0;
+
+                if (i == (ns + 1)) {
+                    if (MinLeftIndent > ((2*twp_dist) / 3))
+                        pRtfString->m_wLeftIndent = MinLeftIndent;
+
+                    pRtfString->m_wFirstIndent = pRtfString->m_wLeftIndent;
+                    pRtfString->m_wLeftIndent = 0;
+                    pRtfString->m_wRightIndent = 0;
+                }
+
+                continue;
+            }
+
+            if (pRtfString->m_wAlignment == RTF_TP_CENTER) {
+                MinLeftIndent  = pRtfString->m_wLeftIndent;
+                MinRightIndent = pRtfString->m_wRightIndent;
+
+                for ( i = ns; i < m_wStringsCount; i++ ) {
+                    pRtfStringNext  = (CRtfString*)m_arStrings[i];
+                    MinLeftIndent   = MIN(pRtfStringNext->m_wLeftIndent,  MinLeftIndent);
+                    MinRightIndent  = MIN(pRtfStringNext->m_wRightIndent, MinRightIndent);
+
+                    if (pRtfString->m_wAlignment != RTF_TP_CENTER)
+                        break;
+                }
+
+                if (abs(MinLeftIndent - MinRightIndent) < (2*m_max_dist))
+                    MinLeftIndent = MinRightIndent = 0;
+
+                pRtfString->m_wFirstIndent = 0;
+                pRtfString->m_wLeftIndent =  MinLeftIndent;
+                pRtfString->m_wRightIndent = MinRightIndent;
+            }
+        }
+    }
+
+    PrintTheResult("\n ================== SetFirstLeftAndRightIndentOfParagraph ================== \n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1298,21 +1256,20 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph()
 
 void CRtfFragment::DefineLineTransfer()
 {
- CRtfString  *pRtfString;
- int          Count;
+    CRtfString  *pRtfString;
+    int          Count;
 
-	for( int ns=0; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_wFlagBeginParagraph == TRUE  &&
-			 (FlagLineTransfer || pRtfString->m_wAlignment == RTF_TP_CENTER ))
-		{
-   Count = GetCountLine(ns);
-			SetLineTransfer(ns,ns+Count);
-		}
-	}
+    for ( int ns = 0; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-	PrintTheResult("\n ================== DefineLineTransfer ================== \n");
+        if (pRtfString->m_wFlagBeginParagraph == TRUE  &&
+                (FlagLineTransfer || pRtfString->m_wAlignment == RTF_TP_CENTER )) {
+            Count = GetCountLine(ns);
+            SetLineTransfer(ns, ns + Count);
+        }
+    }
+
+    PrintTheResult("\n ================== DefineLineTransfer ================== \n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1320,38 +1277,37 @@ void CRtfFragment::DefineLineTransfer()
 
 Bool CRtfFragment::GetFlagLeft(int beg, int end)
 {
- CRtfString*  pRtfString;
- int          Count=0;
- uint16_t         CountLeftEqual=0;
- Bool         PriznakLeft=FALSE;
+    CRtfString*  pRtfString;
+    int          Count = 0;
+    uint16_t         CountLeftEqual = 0;
+    Bool         PriznakLeft = FALSE;
 
+    for ( int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-	for( int ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_LastChar==',')
-  {
-   Count++;
-   if(pRtfString->m_wRightIndent > (pRtfString->m_RightBorder - pRtfString->m_LeftBorder)/4)
-    PriznakLeft=TRUE;
-  }
-	}
+        if (pRtfString->m_LastChar == ',') {
+            Count++;
 
- if(Count>1 && PriznakLeft)
-  return TRUE;
+            if (pRtfString->m_wRightIndent > (pRtfString->m_RightBorder - pRtfString->m_LeftBorder) / 4)
+                PriznakLeft = TRUE;
+        }
+    }
 
- GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
+    if (Count > 1 && PriznakLeft)
+        return TRUE;
 
- if(CountLeftEqual==(end-beg))
-  return TRUE;
+    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
 
- m_FlagBigSpace=GetFlagBigSpace(beg,end);
- m_FlagCarry=GetFlagCarry(beg, end);
+    if (CountLeftEqual == (end - beg))
+        return TRUE;
 
- if(!m_FlagBigSpace && !m_FlagCarry)
-  return TRUE;
+    m_FlagBigSpace = GetFlagBigSpace(beg, end);
+    m_FlagCarry = GetFlagCarry(beg, end);
 
- return FALSE;
+    if (!m_FlagBigSpace && !m_FlagCarry)
+        return TRUE;
+
+    return FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1359,23 +1315,23 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end)
 
 Bool CRtfFragment::GetFlagStrongLeft(int beg, int end)
 {
- int         Count=0;
- CRtfString  *pRtfString;
+    int         Count = 0;
+    CRtfString  *pRtfString;
 
-	for( int ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_LastChar=='.' || pRtfString->m_LastChar==',')
-   Count++;
-	}
+    for ( int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
- if(Count==end-beg)
-  return TRUE;
+        if (pRtfString->m_LastChar == '.' || pRtfString->m_LastChar == ',')
+            Count++;
+    }
 
- if((end-beg<5) && Count>2 )
-  return TRUE;
+    if (Count == end - beg)
+        return TRUE;
 
- return FALSE;
+    if ((end - beg < 5) && Count > 2 )
+        return TRUE;
+
+    return FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1383,24 +1339,24 @@ Bool CRtfFragment::GetFlagStrongLeft(int beg, int end)
 
 Bool CRtfFragment::GetFlagRight(int beg, int end)
 {
- CRtfString  *pRtfString;
-
+    CRtfString  *pRtfString;
     int ns(0);
-	for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_wRightIndent > m_max_dist)
-   return FALSE;
-	}
 
-	for(ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_wLeftIndent > ((m_r_fragment-m_l_fragment)/2))
-   return TRUE;
-	}
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
- return FALSE;
+        if (pRtfString->m_wRightIndent > m_max_dist)
+            return FALSE;
+    }
+
+    for (ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+
+        if (pRtfString->m_wLeftIndent > ((m_r_fragment - m_l_fragment) / 2))
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1408,16 +1364,16 @@ Bool CRtfFragment::GetFlagRight(int beg, int end)
 
 Bool CRtfFragment::GetFlagCarry(int beg, int end)
 {
- CRtfString  *pRtfString;
+    CRtfString  *pRtfString;
 
-	for( int ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_FlagCarry == TRUE)
-   return TRUE;
-	}
+    for ( int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
- return FALSE;
+        if (pRtfString->m_FlagCarry == TRUE)
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1425,31 +1381,28 @@ Bool CRtfFragment::GetFlagCarry(int beg, int end)
 
 Bool CRtfFragment::GetFlagBigSpace(int beg, int end)
 {
- CRtfString*  pRtfString;
- CRtfWord*    pRtfWordPrev,*pRtfWordCur;
- CRtfChar*    pRtfCharPrev,*pRtfCharCur;
- int          FlagBigSpase=0;
- int          CountCharInPrevWord;
+    CRtfString*  pRtfString;
+    CRtfWord*    pRtfWordPrev, *pRtfWordCur;
+    CRtfChar*    pRtfCharPrev, *pRtfCharCur;
+    int          FlagBigSpase = 0;
+    int          CountCharInPrevWord;
 
-  for(int ns=beg; ns<end; ns++ )
-  {
-	  pRtfString = (CRtfString*)m_arStrings[ns];
+    for (int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
 
-   for(int i=1; i<pRtfString->m_wWordsCount; i++)
-   {
-		  pRtfWordPrev = (CRtfWord*)pRtfString->m_arWords[i-1];
-		  pRtfWordCur  = (CRtfWord*)pRtfString->m_arWords[i];
+        for (int i = 1; i < pRtfString->m_wWordsCount; i++) {
+            pRtfWordPrev = (CRtfWord*)pRtfString->m_arWords[i-1];
+            pRtfWordCur  = (CRtfWord*)pRtfString->m_arWords[i];
+            CountCharInPrevWord = pRtfWordPrev->m_wCharsCount;
+            pRtfCharPrev = (CRtfChar*)pRtfWordPrev->m_arChars[CountCharInPrevWord-1];
+            pRtfCharCur  = (CRtfChar*)pRtfWordCur->m_arChars[0];
 
-    CountCharInPrevWord = pRtfWordPrev->m_wCharsCount;
+            if ((pRtfCharCur->m_Idealrect.left - pRtfCharPrev->m_Idealrect.right) > 2*m_max_dist)
+                FlagBigSpase = 1;
+        }
+    }
 
-    pRtfCharPrev = (CRtfChar*)pRtfWordPrev->m_arChars[CountCharInPrevWord-1];
-    pRtfCharCur  = (CRtfChar*)pRtfWordCur->m_arChars[0];
-    if((pRtfCharCur->m_Idealrect.left - pRtfCharPrev->m_Idealrect.right)>2*m_max_dist)
-     FlagBigSpase=1;
-   }
-  }
-
- return FlagBigSpase;
+    return FlagBigSpase;
 }
 
 
@@ -1458,17 +1411,14 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end)
 
 void CRtfFragment::SetParagraphAlignment(int beg, int end, int AlignType)
 {
-	CRtfString  *pRtfString;
-	int         i;
+    CRtfString  *pRtfString;
+    int         i;
+    beg = MAX(0, beg);
 
-  beg = MAX(0,beg);
-
-	 for(i=beg; i<end; i++)
-		{
-			pRtfString = (CRtfString*)m_arStrings[i];
-   pRtfString->m_wAlignment = AlignType;
-		}
-
+    for (i = beg; i < end; i++) {
+        pRtfString = (CRtfString*)m_arStrings[i];
+        pRtfString->m_wAlignment = AlignType;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1476,18 +1426,20 @@ void CRtfFragment::SetParagraphAlignment(int beg, int end, int AlignType)
 
 int CRtfFragment::GetCountLine(int beg)
 {
- CRtfString  *pRtfString;
- int          Count=0;
+    CRtfString  *pRtfString;
+    int          Count = 0;
 
-	for( int ns=beg+1; ns<m_wStringsCount; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  if(pRtfString->m_wFlagBeginParagraph == TRUE)
-			break;
-		else
-			Count++;
-	}
-	return Count;
+    for ( int ns = beg + 1; ns < m_wStringsCount; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+
+        if (pRtfString->m_wFlagBeginParagraph == TRUE)
+            break;
+
+        else
+            Count++;
+    }
+
+    return Count;
 }
 
 
@@ -1496,13 +1448,12 @@ int CRtfFragment::GetCountLine(int beg)
 
 void CRtfFragment::SetLineTransfer(int beg, int end)
 {
- CRtfString  *pRtfString;
+    CRtfString  *pRtfString;
 
-	for( int ns=beg; ns<end; ns++ )
-	{
-		pRtfString = (CRtfString*)m_arStrings[ns];
-  pRtfString->m_bLineTransfer = TRUE;
-	}
+    for ( int ns = beg; ns < end; ns++ ) {
+        pRtfString = (CRtfString*)m_arStrings[ns];
+        pRtfString->m_bLineTransfer = TRUE;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1510,41 +1461,41 @@ void CRtfFragment::SetLineTransfer(int beg, int end)
 
 void CRtfFragment::PrintTheResult(const char* header_str)
 {
-/*	CRtfString  *pRtfString;
-	CRtfWord    *pRtfWord;
-	CRtfChar    *pRtfCharFirst;
-	CString     str;
-	char* str;
-	uint16_t        CountWord,CountChar;
+    /*  CRtfString  *pRtfString;
+        CRtfWord    *pRtfWord;
+        CRtfChar    *pRtfCharFirst;
+        CString     str;
+        char* str;
+        uint16_t        CountWord,CountChar;
 
-	if( FlagDebugAlign )
-	{
-		LDPUMA_Console(header_str);
-		for(int ns=0; ns < m_wStringsCount; ns++ )
-		{
-			str.Empty();
-			pRtfString = (CRtfString*)m_arStrings[ns];
-			CountWord  = pRtfString->m_wWordsCount;
-			for(int i1=0; i1<CountWord; i1++)
-			{
- 				pRtfWord  = pRtfString->m_arWords[i1];
-				CountChar = pRtfWord->m_wCharsCount;
-				for(int i2=0; i2<CountChar; i2++)
-				{
-					if(!i2)
-						str+=' ';
-					pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[i2];
-					str+=pRtfCharFirst->m_chrVersions[0].m_bChar;
-				}
-			}
-			str+='\n';
-			LDPUMA_Console(str);
- 			str.Format("N#=%4d , Alignment= %d, BeginParagraph= %d,FI=%4d, LI=%4d, RI=%4d, LBorderEqual=%d, RBorderEqual=%d, CentreEqual=%d, dist=%3d \n",
-															ns, pRtfString->m_wAlignment, pRtfString->m_wFlagBeginParagraph,
-															pRtfString->m_wFirstIndent,pRtfString->m_wLeftIndent,	pRtfString->m_wRightIndent,
-			pRtfString->m_wLeftBorderEqual, pRtfString->m_wRightBorderEqual, pRtfString->m_wCentreEqual,
-															m_max_dist);
-			LDPUMA_Console(str);
-		}
-	}
-*/}
+        if( FlagDebugAlign )
+        {
+            LDPUMA_Console(header_str);
+            for(int ns=0; ns < m_wStringsCount; ns++ )
+            {
+                str.Empty();
+                pRtfString = (CRtfString*)m_arStrings[ns];
+                CountWord  = pRtfString->m_wWordsCount;
+                for(int i1=0; i1<CountWord; i1++)
+                {
+                    pRtfWord  = pRtfString->m_arWords[i1];
+                    CountChar = pRtfWord->m_wCharsCount;
+                    for(int i2=0; i2<CountChar; i2++)
+                    {
+                        if(!i2)
+                            str+=' ';
+                        pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[i2];
+                        str+=pRtfCharFirst->m_chrVersions[0].m_bChar;
+                    }
+                }
+                str+='\n';
+                LDPUMA_Console(str);
+                str.Format("N#=%4d , Alignment= %d, BeginParagraph= %d,FI=%4d, LI=%4d, RI=%4d, LBorderEqual=%d, RBorderEqual=%d, CentreEqual=%d, dist=%3d \n",
+                                                                ns, pRtfString->m_wAlignment, pRtfString->m_wFlagBeginParagraph,
+                                                                pRtfString->m_wFirstIndent,pRtfString->m_wLeftIndent,   pRtfString->m_wRightIndent,
+                pRtfString->m_wLeftBorderEqual, pRtfString->m_wRightBorderEqual, pRtfString->m_wCentreEqual,
+                                                                m_max_dist);
+                LDPUMA_Console(str);
+            }
+        }
+    */}

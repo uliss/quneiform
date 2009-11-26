@@ -67,24 +67,27 @@
 
 
 //OLEG fot Consistent
-void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength) {
-	extern char global_buf[];
-	extern int32_t global_buf_len;
+void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength)
+{
+    extern char global_buf[];
+    extern int32_t global_buf_len;
 
-	if (nResultLength)
-		*nResultLength = global_buf_len;
-	if (szResult) {
-		if (global_buf_len)
-			memcpy(szResult, global_buf, global_buf_len);
-		else
-			szResult[0] = '\0';
-	}
+    if (nResultLength)
+        *nResultLength = global_buf_len;
+
+    if (szResult) {
+        if (global_buf_len)
+            memcpy(szResult, global_buf, global_buf_len);
+
+        else
+            szResult[0] = '\0';
+    }
 }
 
-bool PUMA_SetSpecialProject(uchar nSpecialProject) {
-	gnSpecialProject = nSpecialProject;
-	RSTUFF_RSSetSpecPrj(nSpecialProject);
-	RSTR_SetSpecPrj(nSpecialProject);
-
-	return true;
+bool PUMA_SetSpecialProject(uchar nSpecialProject)
+{
+    gnSpecialProject = nSpecialProject;
+    RSTUFF_RSSetSpecPrj(nSpecialProject);
+    RSTR_SetSpecPrj(nSpecialProject);
+    return true;
 }

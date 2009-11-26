@@ -64,64 +64,64 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CRInvertor::CRInvertor() {
-
+CRInvertor::CRInvertor()
+{
 }
 
-CRInvertor::~CRInvertor() {
-
+CRInvertor::~CRInvertor()
+{
 }
 
-Bool32 CRInvertor::Invert(PCTDIB Image) {
-	uint32_t LineLen;
-	uint32_t Lines;
-	uint32_t x;
-	uint32_t y;
-	uint32_t * pData;
+Bool32 CRInvertor::Invert(PCTDIB Image)
+{
+    uint32_t LineLen;
+    uint32_t Lines;
+    uint32_t x;
+    uint32_t y;
+    uint32_t * pData;
 
-	if (!Image) {
-		return FALSE;
-	}
+    if (!Image) {
+        return FALSE;
+    }
 
-	LineLen = Image->GetLineWidthInBytes();
+    LineLen = Image->GetLineWidthInBytes();
+    Lines = Image->GetLinesNumber();
 
-	Lines = Image->GetLinesNumber();
+    for (y = 0; y < Lines; y++) {
+        pData = static_cast<uint32_t*> (Image->GetPtrToLine(y));
 
-	for (y = 0; y < Lines; y++) {
-		pData = static_cast<uint32_t*> (Image->GetPtrToLine(y));
+        for (x = 0; x < LineLen; x += 4) {
+            *pData++ = ~(*pData);
+        }
+    }
 
-		for (x = 0; x < LineLen; x += 4) {
-			*pData++ = ~(*pData);
-		}
-	}
-
-	return ((LineLen != 0) && (Lines != 0));
+    return ((LineLen != 0) && (Lines != 0));
 }
 
-Bool32 CRInvertor::Inverse(PCTDIB Image) {
-	uint32_t Colors;
-	uint32_t Color;
-	CTDIBRGBQUAD ctQuad;
+Bool32 CRInvertor::Inverse(PCTDIB Image)
+{
+    uint32_t Colors;
+    uint32_t Color;
+    CTDIBRGBQUAD ctQuad;
 
-	if (!Image) {
-		return FALSE;
-	}
+    if (!Image) {
+        return FALSE;
+    }
 
-	Colors = Image->GetActualColorNumber();
+    Colors = Image->GetActualColorNumber();
 
-	if (Colors == 0)
-		return Invert(Image);
+    if (Colors == 0)
+        return Invert(Image);
 
-	for (Color = 0; Color < Colors; Color++) {
-		if (!Image->GetRGBQuad(Color, &ctQuad))
-			continue;
+    for (Color = 0; Color < Colors; Color++) {
+        if (!Image->GetRGBQuad(Color, &ctQuad))
+            continue;
 
-		ctQuad.rgbBlue = ~(ctQuad.rgbBlue);
-		ctQuad.rgbGreen = ~(ctQuad.rgbGreen);
-		ctQuad.rgbRed = ~(ctQuad.rgbRed);
+        ctQuad.rgbBlue = ~(ctQuad.rgbBlue);
+        ctQuad.rgbGreen = ~(ctQuad.rgbGreen);
+        ctQuad.rgbRed = ~(ctQuad.rgbRed);
+        Image->SetRGBQuad(Color, ctQuad);
+    }
 
-		Image->SetRGBQuad(Color, ctQuad);
-	}
-
-	return (Colors != 0);
+    return (Colors != 0);
 }

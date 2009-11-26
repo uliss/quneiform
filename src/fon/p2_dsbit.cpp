@@ -66,207 +66,237 @@ extern const int Num11[256];
 // Bitmap distance from b1 to b2
 // black point == 1 !
 static int16_t DistanceBitDLL(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
-		int16_t xbyte2, int16_t yrow2, int16_t porog) {
-	register int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
-	int16_t dist;
+                              int16_t xbyte2, int16_t yrow2, int16_t porog)
+{
+    register int16_t i, j;
+    int16_t xbyte = MIN(xbyte1, xbyte2);
+    int16_t yrow = MIN(yrow1, yrow2);
+    int16_t dist;
 
-	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
-		//memset(btmp,0,xbyte*sizeof(ulong));
-		for (j = 0; j < xbyte; j++)
-			dist += Num11[b1[j] ^ b2[j]];
-		if (dist >= porog)
-			return dist;
+    for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
+        //memset(btmp,0,xbyte*sizeof(ulong));
+        for (j = 0; j < xbyte; j++)
+            dist += Num11[b1[j] ^ b2[j]];
 
-		// если первый символ шире
-		for (j = xbyte; j < xbyte1; j++)
-			dist += Num11[b1[j]];
-		if (dist >= porog)
-			return dist;
+        if (dist >= porog)
+            return dist;
 
-		// если второй символ шире
-		for (j = xbyte; j < xbyte2; j++)
-			dist += Num11[b2[j]];
-		if (dist >= porog)
-			return dist;
-	}
+        // если первый символ шире
+        for (j = xbyte; j < xbyte1; j++)
+            dist += Num11[b1[j]];
 
-	// if yrow2 < yrow1  - первый символ выше
-	for (i = yrow; i < yrow1; i++, b1 += xbyte1) {
-		for (j = 0; j < xbyte1; j++)
-			dist += Num11[b1[j]];
-		if (dist >= porog)
-			return dist;
-	}
+        if (dist >= porog)
+            return dist;
 
-	//  если второй символ выше
-	for (i = yrow; i < yrow2; i++, b2 += xbyte2) {
-		for (j = 0; j < xbyte2; j++)
-			dist += Num11[b2[j]];
-		if (dist >= porog)
-			return dist;
-	}
+        // если второй символ шире
+        for (j = xbyte; j < xbyte2; j++)
+            dist += Num11[b2[j]];
 
-	return dist;
+        if (dist >= porog)
+            return dist;
+    }
+
+    // if yrow2 < yrow1  - первый символ выше
+    for (i = yrow; i < yrow1; i++, b1 += xbyte1) {
+        for (j = 0; j < xbyte1; j++)
+            dist += Num11[b1[j]];
+
+        if (dist >= porog)
+            return dist;
+    }
+
+    //  если второй символ выше
+    for (i = yrow; i < yrow2; i++, b2 += xbyte2) {
+        for (j = 0; j < xbyte2; j++)
+            dist += Num11[b2[j]];
+
+        if (dist >= porog)
+            return dist;
+    }
+
+    return dist;
 }
 /**************************************/
 int16_t DistanceBitFull(uchar *b1, int16_t xbyte1, int16_t yrow1, uchar *b2,
-		int16_t xbyte2, int16_t yrow2) {
-	register int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
-	int16_t dist;
+                        int16_t xbyte2, int16_t yrow2)
+{
+    register int16_t i, j;
+    int16_t xbyte = MIN(xbyte1, xbyte2);
+    int16_t yrow = MIN(yrow1, yrow2);
+    int16_t dist;
 
-	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
-		for (j = 0; j < xbyte; j++)
-			dist += Num11[b1[j] ^ b2[j]];
-		// если первый символ шире
-		for (j = xbyte; j < xbyte1; j++)
-			dist += Num11[b1[j]];
-		// если второй символ шире
-		for (j = xbyte; j < xbyte2; j++)
-			dist += Num11[b2[j]];
-	}
+    for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
+        for (j = 0; j < xbyte; j++)
+            dist += Num11[b1[j] ^ b2[j]];
 
-	// if yrow2 < yrow1  - первый символ выше
-	for (i = yrow; i < yrow1; i++, b1 += xbyte1) {
-		for (j = 0; j < xbyte1; j++)
-			dist += Num11[b1[j]];
-	}
+        // если первый символ шире
+        for (j = xbyte; j < xbyte1; j++)
+            dist += Num11[b1[j]];
 
-	//  если второй символ выше
-	for (i = yrow; i < yrow2; i++, b2 += xbyte2) {
-		for (j = 0; j < xbyte2; j++)
-			dist += Num11[b2[j]];
-	}
+        // если второй символ шире
+        for (j = xbyte; j < xbyte2; j++)
+            dist += Num11[b2[j]];
+    }
 
-	return dist;
+    // if yrow2 < yrow1  - первый символ выше
+    for (i = yrow; i < yrow1; i++, b1 += xbyte1) {
+        for (j = 0; j < xbyte1; j++)
+            dist += Num11[b1[j]];
+    }
+
+    //  если второй символ выше
+    for (i = yrow; i < yrow2; i++, b2 += xbyte2) {
+        for (j = 0; j < xbyte2; j++)
+            dist += Num11[b2[j]];
+    }
+
+    return dist;
 }
 /**************************************/
 // move bitmaps left-right on mov bit ( <8!)
-void MoveRightBmp(uchar *buf, int16_t mov, int16_t xbyte, int16_t yrow) {
-	register int16_t i, j;
-	int16_t mov1 = 8 - mov;
+void MoveRightBmp(uchar *buf, int16_t mov, int16_t xbyte, int16_t yrow)
+{
+    register int16_t i, j;
+    int16_t mov1 = 8 - mov;
 
-	for (i = 0; i < yrow; i++, buf += xbyte) {
-		for (j = xbyte - 1; j > 0; j--)
-			buf[j] = (buf[j] >> mov) | (buf[j - 1] << mov1);
-		buf[0] >>= mov;
-	}
+    for (i = 0; i < yrow; i++, buf += xbyte) {
+        for (j = xbyte - 1; j > 0; j--)
+            buf[j] = (buf[j] >> mov) | (buf[j - 1] << mov1);
+
+        buf[0] >>= mov;
+    }
 }
 ////////////
-void MoveLeftBmp(uchar *buf, int16_t mov, int16_t xbyte, int16_t yrow) {
-	register int16_t i, j;
-	int16_t mov1 = 8 - mov;
+void MoveLeftBmp(uchar *buf, int16_t mov, int16_t xbyte, int16_t yrow)
+{
+    register int16_t i, j;
+    int16_t mov1 = 8 - mov;
 
-	for (i = 0; i < yrow; i++, buf += xbyte) {
-		for (j = 0; j < xbyte - 1; j++)
-			buf[j] = (buf[j] << mov) | (buf[j + 1] >> mov1);
-		buf[xbyte - 1] <<= mov;
-	}
+    for (i = 0; i < yrow; i++, buf += xbyte) {
+        for (j = 0; j < xbyte - 1; j++)
+            buf[j] = (buf[j] << mov) | (buf[j + 1] >> mov1);
+
+        buf[xbyte - 1] <<= mov;
+    }
 }
 ////////////
 // tbuf -temporary buffer, in it - moved b1 right,left
 int16_t CheckCenterSymbol(uchar *b1, int16_t xbyte, int16_t yrow, uchar *b2,
-		uchar *tbuf, int16_t xbit2, int16_t yrow2, int16_t *sdvigx, int16_t *sdvigy,
-		int16_t firdist) {
-	register int16_t i;
-	int16_t dist, bestdist;
-	int16_t xbyte2 = (xbit2 >> 3) + 1; // bytes in row
-	int16_t bestx = 0;
-	int16_t besty = 0;
-	int16_t tx;
+                          uchar *tbuf, int16_t xbit2, int16_t yrow2, int16_t *sdvigx, int16_t *sdvigy,
+                          int16_t firdist)
+{
+    register int16_t i;
+    int16_t dist, bestdist;
+    int16_t xbyte2 = (xbit2 >> 3) + 1; // bytes in row
+    int16_t bestx = 0;
+    int16_t besty = 0;
+    int16_t tx;
+    *sdvigx = 0;
+    *sdvigy = 0;
+    bestdist = DistanceBitFull(b1, xbyte, yrow, b2, xbyte2, yrow2);
 
-	*sdvigx = 0;
-	*sdvigy = 0;
+    if (bestdist == 0)
+        return 0;
 
-	bestdist = DistanceBitFull(b1, xbyte, yrow, b2, xbyte2, yrow2);
-	if (bestdist == 0)
-		return 0;
-	for (tx = 0;;) {
-		// distance to original bitmap
-		if (tx) {
-			dist = DistanceBitDLL(b1, xbyte, yrow, b2, xbyte2, yrow2, bestdist);
-			if (tx == 1)
-				dist += firdist;
-			if (dist < bestdist) {
-				bestdist = dist;
-				bestx = tx;
-				besty = 0;
-				if (dist == 0)
-					break;
-			}
-		}
+    for (tx = 0;;) {
+        // distance to original bitmap
+        if (tx) {
+            dist = DistanceBitDLL(b1, xbyte, yrow, b2, xbyte2, yrow2, bestdist);
 
-		// move b2 - down (or etalon -up)
-		dist = DistanceBitDLL(b1 + xbyte, xbyte, (int16_t) (yrow - 1), b2, xbyte2,
-				yrow2, bestdist);
-		if (tx == 1)
-			dist += firdist;
-		if (dist < bestdist) { // add first row
-			for (i = 0; i < xbyte; i++)
-				dist += Num11[b1[i]];
-			if (dist < bestdist) {
-				bestdist = dist;
-				bestx = tx;
-				besty = 1;
-				if (dist == 0)
-					break;
-			}
-		}
+            if (tx == 1)
+                dist += firdist;
 
-		// move b2 - up
-		dist = DistanceBitDLL(b1, xbyte, yrow, b2 + xbyte2, xbyte2,
-				(int16_t) (yrow2 - 1), bestdist);
-		if (tx == 1)
-			dist += firdist;
-		if (dist < bestdist) {
-			for (i = 0; i < xbyte; i++)
-				dist += Num11[b2[i]];
-			if (dist < bestdist) {
-				bestdist = dist;
-				bestx = tx;
-				besty = -1;
-				if (dist == 0)
-					break;
-			}
-		}
+            if (dist < bestdist) {
+                bestdist = dist;
+                bestx = tx;
+                besty = 0;
 
-		if (tx == 0) {
-			b1 = tbuf;
-			tx = -1;
-		} else {
-			if (tx != -1)
-				break;
-			tx = 1;
-			if (firdist >= bestdist)
-				break;
-			b1 += xbyte * yrow;
-		}
-	} // end tx
+                if (dist == 0)
+                    break;
+            }
+        }
 
-	*sdvigx = bestx;
-	*sdvigy = besty;
-	return bestdist;
+        // move b2 - down (or etalon -up)
+        dist = DistanceBitDLL(b1 + xbyte, xbyte, (int16_t) (yrow - 1), b2, xbyte2,
+                              yrow2, bestdist);
+
+        if (tx == 1)
+            dist += firdist;
+
+        if (dist < bestdist) { // add first row
+            for (i = 0; i < xbyte; i++)
+                dist += Num11[b1[i]];
+
+            if (dist < bestdist) {
+                bestdist = dist;
+                bestx = tx;
+                besty = 1;
+
+                if (dist == 0)
+                    break;
+            }
+        }
+
+        // move b2 - up
+        dist = DistanceBitDLL(b1, xbyte, yrow, b2 + xbyte2, xbyte2,
+                              (int16_t) (yrow2 - 1), bestdist);
+
+        if (tx == 1)
+            dist += firdist;
+
+        if (dist < bestdist) {
+            for (i = 0; i < xbyte; i++)
+                dist += Num11[b2[i]];
+
+            if (dist < bestdist) {
+                bestdist = dist;
+                bestx = tx;
+                besty = -1;
+
+                if (dist == 0)
+                    break;
+            }
+        }
+
+        if (tx == 0) {
+            b1 = tbuf;
+            tx = -1;
+        }
+
+        else {
+            if (tx != -1)
+                break;
+
+            tx = 1;
+
+            if (firdist >= bestdist)
+                break;
+
+            b1 += xbyte * yrow;
+        }
+    } // end tx
+
+    *sdvigx = bestx;
+    *sdvigy = besty;
+    return bestdist;
 }
 ///////////////
 // move left/right on 1 etalon
 // return - summa 1 im first column
-int16_t MakeMoved(uchar *etalon, int16_t xbyte, int16_t yrow, uchar *tmpbuf) {
-	int16_t i, j;
+int16_t MakeMoved(uchar *etalon, int16_t xbyte, int16_t yrow, uchar *tmpbuf)
+{
+    int16_t i, j;
+    memcpy(tmpbuf, etalon, xbyte * yrow);
+    MoveRightBmp(tmpbuf, 1, xbyte, yrow);
+    tmpbuf += xbyte * yrow;
+    memcpy(tmpbuf, etalon, xbyte * yrow);
+    MoveLeftBmp(tmpbuf, 1, xbyte, yrow);
 
-	memcpy(tmpbuf, etalon, xbyte * yrow);
-	MoveRightBmp(tmpbuf, 1, xbyte, yrow);
+    // calc 1-s in first column
+    for (i = 0, j = 0; i < yrow; i++, etalon += xbyte)
+        if (*etalon & 128)
+            j++;
 
-	tmpbuf += xbyte * yrow;
-	memcpy(tmpbuf, etalon, xbyte * yrow);
-	MoveLeftBmp(tmpbuf, 1, xbyte, yrow);
-
-	// calc 1-s in first column
-	for (i = 0, j = 0; i < yrow; i++, etalon += xbyte)
-		if (*etalon & 128)
-			j++;
-	return j;
+    return j;
 }
 ////////////////

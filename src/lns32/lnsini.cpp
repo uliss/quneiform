@@ -60,23 +60,23 @@
 #include "compat_defs.h"
 #include "lns.h"
 
-char* ChangEx(char* szPath, char* szEx) {
-	char dir[_MAX_DIR];
-	char fname[_MAX_FNAME];
-	char ext[_MAX_EXT];
-
-	split_path(szPath, dir, fname, ext);
-	make_path(szPath, dir, fname, szEx);
-	return szPath;
+char* ChangEx(char* szPath, char* szEx)
+{
+    char dir[_MAX_DIR];
+    char fname[_MAX_FNAME];
+    char ext[_MAX_EXT];
+    split_path(szPath, dir, fname, ext);
+    make_path(szPath, dir, fname, szEx);
+    return szPath;
 }
-char* ChangNameEx(char* szPath, const char* szNameEx) {
-	char dir[_MAX_DIR];
-	char fname[_MAX_FNAME];
-	char ext[_MAX_EXT];
-
-	split_path(szPath, dir, fname, ext);
-	make_path(szPath, dir, szNameEx, NULL);
-	return szPath;
+char* ChangNameEx(char* szPath, const char* szNameEx)
+{
+    char dir[_MAX_DIR];
+    char fname[_MAX_FNAME];
+    char ext[_MAX_EXT];
+    split_path(szPath, dir, fname, ext);
+    make_path(szPath, dir, szNameEx, NULL);
+    return szPath;
 }
 
 char szIniFileName[PATH_MAX] = { 0 };
@@ -84,45 +84,50 @@ char szSection[64] = "Default";
 
 void LnsSetSection(char* _szSection) // 63 chars max
 {
-	strncpy(szSection, _szSection, sizeof(szSection) - 1);
+    strncpy(szSection, _szSection, sizeof(szSection) - 1);
 }
 
-uint32_t LnsGetProfileInt(const char* szKey, int nDefault) {
-	if (szIniFileName[0] == 0) {
-		GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
-		ChangNameEx(szIniFileName, "lns32.ini");
-	}
+uint32_t LnsGetProfileInt(const char* szKey, int nDefault)
+{
+    if (szIniFileName[0] == 0) {
+        GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
+        ChangNameEx(szIniFileName, "lns32.ini");
+    }
 
-	return GetPrivateProfileInt(szSection, szKey, nDefault, szIniFileName);
+    return GetPrivateProfileInt(szSection, szKey, nDefault, szIniFileName);
 }
 
 uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,
-		char* szDefault) {
-	if (szIniFileName[0] == 0) {
-		GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
-		ChangNameEx(szIniFileName, "lns32.ini");
-	}
+                             char* szDefault)
+{
+    if (szIniFileName[0] == 0) {
+        GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
+        ChangNameEx(szIniFileName, "lns32.ini");
+    }
 
-	static char szDef[4] = { 0 };
-	if (szDefault == NULL) {
-		szDefault = szDef;
-	}
+    static char szDef[4] = { 0 };
 
-	return GetPrivateProfileString(szSection, szKey, szDefault, szResult,
-			nResult, szIniFileName);
+    if (szDefault == NULL) {
+        szDefault = szDef;
+    }
+
+    return GetPrivateProfileString(szSection, szKey, szDefault, szResult,
+                                   nResult, szIniFileName);
 }
 
-Bool32 LnsWriteProfileInt(char* szKey, int nValue) {
-	char szValue[256];
-	sprintf(szValue, "%d", nValue);
-	return LnsWriteProfileString(szKey, szValue);
+Bool32 LnsWriteProfileInt(char* szKey, int nValue)
+{
+    char szValue[256];
+    sprintf(szValue, "%d", nValue);
+    return LnsWriteProfileString(szKey, szValue);
 }
 
-Bool32 LnsWriteProfileString(char* szKey, char* szValue) {
-	if (szIniFileName[0] == 0) {
-		GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
-		ChangNameEx(szIniFileName, "Lns32.ini");
-	}
+Bool32 LnsWriteProfileString(char* szKey, char* szValue)
+{
+    if (szIniFileName[0] == 0) {
+        GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
+        ChangNameEx(szIniFileName, "Lns32.ini");
+    }
 
-	return WritePrivateProfileString(szSection, szKey, szValue, szIniFileName);
+    return WritePrivateProfileString(szSection, szKey, szValue, szIniFileName);
 }

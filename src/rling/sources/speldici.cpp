@@ -197,121 +197,123 @@ uchar * load_stat_dict(char *point)
  Returns far pointer to the next available memory block.
  --------------------------------------------------*/
 {
-	int32_t size;
-	PTDictState dict;
-	PTDictHeaderMask dictHdr;
-	char nearBuf[65];
-	uint32_t treeLength, tailsLength;
-	uint32_t rulesLength, hushLength;
+    int32_t size;
+    PTDictState dict;
+    PTDictHeaderMask dictHdr;
+    char nearBuf[65];
+    uint32_t treeLength, tailsLength;
+    uint32_t rulesLength, hushLength;
 
-	if (!InitializeAlphabet(language)) {
-		ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
-	}
+    if (!InitializeAlphabet(language)) {
+        ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
+    }
 
-	/* -- Initialize control pointers. -- */
-	load_dict = dict = (PTDictState) point;
-	point += sizeof(TDictState);
+    /* -- Initialize control pointers. -- */
+    load_dict = dict = (PTDictState) point;
+    point += sizeof(TDictState);
+    /* -- Read whole static dictionary file. -- */
+    size = read_all_vtab(7, point);
 
-	/* -- Read whole static dictionary file. -- */
-	size = read_all_vtab(7, point);
-	if (size == -1) {
+    if (size == -1) {
 #ifdef SYSPR_ERROR
-		PRINTF("Unable to open TREE.VOC \n");
+        PRINTF("Unable to open TREE.VOC \n");
 #endif
-		ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
-		//return (uchar  *)dict;
-	} else {
-		dict->size = size;
-		dictHdr = (PTDictHeaderMask) point;
-	}
+        ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
+        //return (uchar  *)dict;
+    }
 
-	/* -- Check correctness of file header. -- */
-	memcpy(nearBuf, dictHdr->sign, sizeof(dictHdr->sign));
-	if (memcmp(nearBuf, STAT_DICT_SIGN, sizeof(STAT_DICT_SIGN))) {
-		return (uchar *) dict;
-	}
+    else {
+        dict->size = size;
+        dictHdr = (PTDictHeaderMask) point;
+    }
 
-	/* -- Check CPU type for current data. -- */
+    /* -- Check correctness of file header. -- */
+    memcpy(nearBuf, dictHdr->sign, sizeof(dictHdr->sign));
+
+    if (memcmp(nearBuf, STAT_DICT_SIGN, sizeof(STAT_DICT_SIGN))) {
+        return (uchar *) dict;
+    }
+
+    /* -- Check CPU type for current data. -- */
 #ifdef PC_TYPE
-	if ( dictHdr->cpuType[0] != 'I' ) {
-		return (uchar *)dict;
-	}
+
+    if ( dictHdr->cpuType[0] != 'I' ) {
+        return (uchar *)dict;
+    }
+
 #endif
 #ifdef __MAC__
-	if ( dictHdr->cpuType[0] != 'M' ) {
-		return (uchar *)dict;
-	}
+
+    if ( dictHdr->cpuType[0] != 'M' ) {
+        return (uchar *)dict;
+    }
+
 #endif
+    /* -- Get data section sizes. -- */
+    treeLength = strtoul(dictHdr->treeLength, NULL, 10);
+    tailsLength = strtoul(dictHdr->tailsLength, NULL, 10);
+    rulesLength = strtoul(dictHdr->rulesLength, NULL, 10);
+    hushLength = strtoul(dictHdr->hushLength, NULL, 10);
+    /* -- Get alphabet size. -- */
+    size = strtoul(dictHdr->abcSize, NULL, 10);
 
-	/* -- Get data section sizes. -- */
-	treeLength = strtoul(dictHdr->treeLength, NULL, 10);
-	tailsLength = strtoul(dictHdr->tailsLength, NULL, 10);
-	rulesLength = strtoul(dictHdr->rulesLength, NULL, 10);
-	hushLength = strtoul(dictHdr->hushLength, NULL, 10);
+    if (size > 64) {
+        return (uchar *) dict;
+    }
 
-	/* -- Get alphabet size. -- */
-	size = strtoul(dictHdr->abcSize, NULL, 10);
-	if (size > 64) {
-		return (uchar *) dict;
-	} else {
-		dict->abcSize = (uint16_t) size;
-	}
+    else {
+        dict->abcSize = (uint16_t) size;
+    }
 
-	/*  -- Load decode tables. -- NEED TO THINK ABOUT !!!
-	 --
-	 --  memcpy( nearBuf, dictHdr->abcUpper, sizeof(dictHdr->abcUpper));
-	 --  memcpy( alphabet[0], nearBuf, sizeof(dictHdr->abcUpper) );
-	 --  memcpy( nearBuf, dictHdr->abcLower, sizeof(dictHdr->abcLower));
-	 --  memcpy( alphabet[1], nearBuf, sizeof(dictHdr->abcLower) );
-	 --
-	 */
+    /*  -- Load decode tables. -- NEED TO THINK ABOUT !!!
+     --
+     --  memcpy( nearBuf, dictHdr->abcUpper, sizeof(dictHdr->abcUpper));
+     --  memcpy( alphabet[0], nearBuf, sizeof(dictHdr->abcUpper) );
+     --  memcpy( nearBuf, dictHdr->abcLower, sizeof(dictHdr->abcLower));
+     --  memcpy( alphabet[1], nearBuf, sizeof(dictHdr->abcLower) );
+     --
+     */
+    /* -- Initialize decoder tables. */
+    dectable_init();
+    /* -- Set pointers for access procedure. -- */
+    dict->root = (uchar *) dictHdr + sizeof(TDictHeaderMask);
+    dict->tailset_root = (uchar *) dict->root + treeLength;
+    dict->vartable = (PTTailVar) ((uchar *) dict->tailset_root + tailsLength);
+    dict->table = (PTShiftType) ((uchar *) dict->vartable + rulesLength);
+    /* -- Check size corectness. -- */
+    size = treeLength + tailsLength + rulesLength + hushLength
+           + sizeof(TDictHeaderMask);
 
-	/* -- Initialize decoder tables. */
-	dectable_init();
+    if ((int32_t) dict->size != size) {
+        return (uchar *) dict;
+    }
 
-	/* -- Set pointers for access procedure. -- */
-	dict->root = (uchar *) dictHdr + sizeof(TDictHeaderMask);
-	dict->tailset_root = (uchar *) dict->root + treeLength;
-	dict->vartable = (PTTailVar) ((uchar *) dict->tailset_root + tailsLength);
-	dict->table = (PTShiftType) ((uchar *) dict->vartable + rulesLength);
+    // 08-14-93 05:50pm, Mike
+    //  Bolvano ( after Lepik )!!!!
+    //  If you want to use .ART and so on you need to load these files!!!!!
+    //  else {
+    //    return dict->root + dict->size;
+    //  }
+    // Here is the new version of dictionary loading.
+    point = (char*) dict->root + dict->size; // temp: for return value counting.
 
-	/* -- Check size corectness. -- */
-	size = treeLength + tailsLength + rulesLength + hushLength
-			+ sizeof(TDictHeaderMask);
-
-	if ((int32_t) dict->size != size) {
-		return (uchar *) dict;
-	}
-
-	// 08-14-93 05:50pm, Mike
-	//  Bolvano ( after Lepik )!!!!
-	//  If you want to use .ART and so on you need to load these files!!!!!
-
-	//  else {
-	//    return dict->root + dict->size;
-	//  }
-
-	// Here is the new version of dictionary loading.
-
-	point = (char*) dict->root + dict->size; // temp: for return value counting.
-
-	if ((point = (char*) load_specABC((uchar*) point, language)) == NULL) {
+    if ((point = (char*) load_specABC((uchar*) point, language)) == NULL) {
 #ifdef SYSPR
-		PRINTF( "\n SPELLER: Unable to open Special voc...\n");
+        PRINTF( "\n SPELLER: Unable to open Special voc...\n");
 #endif
-		return (uchar *) dict;
-	}
+        return (uchar *) dict;
+    }
 
-	if (!loadArtBase(language)) {
+    if (!loadArtBase(language)) {
 #ifdef SYSPR
-		PRINTF( "\n SPELLER: Problems to load special"
-				" replacement table...\n"
-		);
+        PRINTF( "\n SPELLER: Problems to load special"
+                " replacement table...\n"
+              );
 #endif
-		return (uchar *) dict;
-	}
+        return (uchar *) dict;
+    }
 
-	return (uchar*) point;
+    return (uchar*) point;
 }
 
 void init_stat_dict(struct dict_state * dict)
@@ -320,25 +322,28 @@ void init_stat_dict(struct dict_state * dict)
  <load_dict> into NEAR control structure <dict>.
  --------------------------------------------------*/
 {
-	memcpy(dict, load_dict, sizeof(struct dict_state));
+    memcpy(dict, load_dict, sizeof(struct dict_state));
 }
 
 /* ------------------------------------------------------------------ */
 // 08-13-93 05:54pm, Mike
 // From Joe...
 
-void user_voc_init(void) {
-	real_voc_no = 0;
+void user_voc_init(void)
+{
+    real_voc_no = 0;
 }
 
 // 08-13-93 05:54pm, Mike
 // From Joe...
 
-void unload_user_dicts(void) {
-	for (int i = 0; i < real_voc_no; i++) {
-		free(voc_array[i].voc.vocseg/*,0*/);
-	}
-	real_voc_no = 0;
+void unload_user_dicts(void)
+{
+    for (int i = 0; i < real_voc_no; i++) {
+        free(voc_array[i].voc.vocseg/*,0*/);
+    }
+
+    real_voc_no = 0;
 }
 
 #define VOCMEMSIZE 0x10000L     /* 64K */
@@ -350,48 +355,47 @@ void load_user_dicts_kzl(char * list_name, char * point)
  list of vocs.
  --------------------------------------------------*/
 {
-	char w[MAXPATH], nm[MAXPATH];
-	FILE * lst;
-	int16_t type;
-	int16_t errorNo = 0;
+    char w[MAXPATH], nm[MAXPATH];
+    FILE * lst;
+    int16_t type;
+    int16_t errorNo = 0;
+    unload_user_dicts();
+    lst = fopen(list_name, "rt");
 
-	unload_user_dicts();
+    if (lst < 0) {
+        return;
+    }
 
-	lst = fopen(list_name, "rt");
-	if (lst < 0) {
-		return;
-	}
+    while (fgets(w, MAXPATH, lst) != NULL) {
+        if (real_voc_no == MAX_VOC_NUMBER) {
+            errorNo = VOC_TOOLARGELIST;
+            break;
+        }
 
-	while (fgets(w, MAXPATH, lst) != NULL) {
+        if (!parce_voc_list_record(w, nm, &type)) {
+            continue;
+        }
 
-		if (real_voc_no == MAX_VOC_NUMBER) {
-			errorNo = VOC_TOOLARGELIST;
-			break;
-		}
+        if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
+            errorNo = VOC_NOTLOADED;
+            break;
+        }
 
-		if (!parce_voc_list_record(w, nm, &type)) {
-			continue;
-		}
+        if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
+                == 0L) {
+            free(point);
+            errorNo = VOC_NOTLOADED;
+            break;
+        }
 
-		if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
-			errorNo = VOC_NOTLOADED;
-			break;
-		}
+        real_voc_no++;
+    }
 
-		if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
-				== 0L) {
-			free(point);
-			errorNo = VOC_NOTLOADED;
-			break;
-		}
+    fclose(lst);
 
-		real_voc_no++;
-	}
-
-	fclose(lst);
-	if (errorNo != 0) {
-		ErrorExit( /*ERR_voc,*/errorNo);
-	}
+    if (errorNo != 0) {
+        ErrorExit( /*ERR_voc,*/errorNo);
+    }
 }
 
 // list_of_name if concat many vocs name, cutting '\0', last limit is "\0\0"
@@ -399,54 +403,59 @@ void load_user_dicts_kzl(char * list_name, char * point)
  Function loads user's dictionaries into memory using
  list of names of vocabularies(in list_of_names).
  --------------------------------------------------*/
-void load_user_dicts(char * list_of_names, char * point) {
-	int16_t type;
-	int16_t errorNo = 0;
-	char nm[MAXPATH];
+void load_user_dicts(char * list_of_names, char * point)
+{
+    int16_t type;
+    int16_t errorNo = 0;
+    char nm[MAXPATH];
+    unload_user_dicts();
 
-	unload_user_dicts();
+    while ((*list_of_names) != 0) {
+        if (real_voc_no == MAX_VOC_NUMBER) {
+            errorNo = RLING_ERROR_TOO_MANY_USER_DICTONARY;
+            break;
+        }
 
-	while ((*list_of_names) != 0) {
-		if (real_voc_no == MAX_VOC_NUMBER) {
-			errorNo = RLING_ERROR_TOO_MANY_USER_DICTONARY;
-			break;
-		}
+        if (!parce_voc_list_record(list_of_names, nm, &type)) {
+            continue;
+        }
 
-		if (!parce_voc_list_record(list_of_names, nm, &type)) {
-			continue;
-		}
+        if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
+            errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
+            break;
+        }
 
-		if ((point = (char*) malloc(VOCMEMSIZE)) == NULL) {
-			errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
-			break;
-		}
+        if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
+                == 0L) {
+            free(point);
+            errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
+            break;
+        }
 
-		if (LoadUserDict(nm, point, VOCMEMSIZE, &(voc_array[real_voc_no].voc))
-				== 0L) {
-			free(point);
-			errorNo = RLING_ERROR_CANT_OPEN_USER_DICTONARY;
-			break;
-		}
+        list_of_names += (strlen(list_of_names) + 1);
+        real_voc_no++;
+    }
 
-		list_of_names += (strlen(list_of_names) + 1);
-		real_voc_no++;
-	}
-
-	if (errorNo != 0) {
-		unload_user_dicts();
-		ErrorExit(errorNo);
-	}
+    if (errorNo != 0) {
+        unload_user_dicts();
+        ErrorExit(errorNo);
+    }
 }
 
-int16_t parce_voc_list_record(char * w, char * nm, int16_t *type) {
-	*type = 0;
-	while ((*w) && (*w == ' '))
-		w++;
-	if ((!*w) || (*w == '\n'))
-		return 0;
-	while ((*w != ' ') && (*w != 0) && (*w != '\n'))
-		*(nm++) = *(w++);
-	*nm = 0;
-	return 1;
+int16_t parce_voc_list_record(char * w, char * nm, int16_t *type)
+{
+    *type = 0;
+
+    while ((*w) && (*w == ' '))
+        w++;
+
+    if ((!*w) || (*w == '\n'))
+        return 0;
+
+    while ((*w != ' ') && (*w != 0) && (*w != '\n'))
+        *(nm++) = *(w++);
+
+    *nm = 0;
+    return 1;
 }
 

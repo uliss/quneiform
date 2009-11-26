@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Для использования без CFIO.DLL
 #ifndef _DEBUG
-	#define _DEBUG
+#define _DEBUG
 #endif
 
 // extern functions
@@ -71,63 +71,62 @@ void SetReturnCode_rfrmt(uint16_t rc);
 uint16_t GetReturnCode_rfrmt();
 
 //####################################
-void *	myAlloc(size_t stAllocateBlock)
+void *  myAlloc(size_t stAllocateBlock)
 {
-	void * mem = NULL;
-
+    void * mem = NULL;
 #ifdef _DEBUG
+    mem = malloc(stAllocateBlock);
 
-	mem = malloc(stAllocateBlock);
-	if(!mem)
-		SetReturnCode_rfrmt(IDS_ERR_NO_MEMORY);
+    if (!mem)
+        SetReturnCode_rfrmt(IDS_ERR_NO_MEMORY);
+
 #endif
-
-	return mem;
+    return mem;
 }
 //####################################
-void	myFree(void * mem)
+void    myFree(void * mem)
 {
 #ifdef _DEBUG
-	free(mem);
+    free(mem);
 #endif
 }
 
 Handle  myOpenSave(char * lpName)
 {
-	Handle rc = NULL;
+    Handle rc = NULL;
 #ifdef _DEBUG
-	rc = (Handle)fopen(lpName,"wb");
+    rc = (Handle)fopen(lpName, "wb");
 #endif
-	return rc;
+    return rc;
 }
 Handle  myOpenRestore(char * lpName)
 {
-	Handle rc = NULL;
+    Handle rc = NULL;
 #ifdef _DEBUG
-	rc = (Handle)fopen(lpName,"rb");
+    rc = (Handle)fopen(lpName, "rb");
 #endif
-	return rc;
+    return rc;
 }
-unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
+unsigned int  myWrite(Handle h, void * lpdata, unsigned int size)
 {
-	uint32_t rc = 0;
+    uint32_t rc = 0;
 #ifdef _DEBUG
-	rc = fwrite(lpdata,1,size,(FILE*)h);
+    rc = fwrite(lpdata, 1, size, (FILE*)h);
 #endif
-	return rc;
+    return rc;
 }
-unsigned int  myRead(Handle h,void * lpdata,unsigned int size)
+unsigned int  myRead(Handle h, void * lpdata, unsigned int size)
 {
-	uint32_t rc = 0;
+    uint32_t rc = 0;
 #ifdef _DEBUG
-	rc = fread(lpdata,1,size,(FILE *)h);
+    rc = fread(lpdata, 1, size, (FILE *)h);
 #endif
-	return rc;
+    return rc;
 }
 void    myClose(Handle h)
 {
 #ifdef _DEBUG
-	fclose((FILE*)h);
+    fclose((FILE*)h);
 #endif
 }
 

@@ -71,86 +71,98 @@
 #include "compat_defs.h"
 
 uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
-		voc_state *user_dict) {
-	int32_t size;
-	pool_size = pool_size;
-	if (_IsUserDict(DictName) != UD_PERMITTED)
-		return 0;
+                      voc_state *user_dict)
+{
+    int32_t size;
+    pool_size = pool_size;
+
+    if (_IsUserDict(DictName) != UD_PERMITTED)
+        return 0;
 
 #ifdef TURBO_C
-	if(TEST_PRPH(pool))
-	pool=ALI_PR(pool);
+
+    if (TEST_PRPH(pool))
+        pool = ALI_PR(pool);
+
 #endif
+    user_dict -> vocseg = (uchar *) SET_VOC_ROOT(pool);
+    {
+        int16_t Fh;
+        char nm[128];
+        strcpy(nm, DictName);
+        Fh = TGOPEN(VC_STREAM, nm, (int16_t)(O_RDONLY | O_BINARY), S_IREAD);
 
-	user_dict -> vocseg = (uchar *) SET_VOC_ROOT(pool);
+        if (Fh == -1)
+            return 0;
 
-	{
-		int16_t Fh;
-		char nm[128];
-		strcpy(nm, DictName);
-		Fh = TGOPEN(VC_STREAM, nm, (int16_t)(O_RDONLY | O_BINARY), S_IREAD);
-		if (Fh == -1)
-			return 0;
-		if (TGFILELTH(Fh) > MAX_VOC_SIZE) {
-			TGCLOSE(Fh);
-			return 0;
-		}
-		size
-				= TGREAD(Fh, (char*) V_POINT(user_dict -> vocseg, 0), TGFILELTH(Fh));
-		TGCLOSE(Fh);
-	}
-	if (size <= 0)
-		return 0;
-	else {
-		voc_open(user_dict);
-		user_dict -> vocfree = (uint16_t) size;
-	}
-	return MAX_VOC_SIZE;
+        if (TGFILELTH(Fh) > MAX_VOC_SIZE) {
+            TGCLOSE(Fh);
+            return 0;
+        }
+
+        size
+        = TGREAD(Fh, (char*) V_POINT(user_dict -> vocseg, 0), TGFILELTH(Fh));
+        TGCLOSE(Fh);
+    }
+
+    if (size <= 0)
+        return 0;
+
+    else {
+        voc_open(user_dict);
+        user_dict -> vocfree = (uint16_t) size;
+    }
+
+    return MAX_VOC_SIZE;
 }
 
 uint32_t InitializeNewUserDict(char *pool, uint32_t pool_size,
-		voc_state *user_dict) {
+                               voc_state *user_dict)
+{
 #ifdef TURBO_C
-	if(TEST_PRPH(pool))
-	pool=ALI_PR(pool);
+
+    if (TEST_PRPH(pool))
+        pool = ALI_PR(pool);
+
 #endif
 
-	if (pool_size < MAX_VOC_SIZE)
-		return 0;
+    if (pool_size < MAX_VOC_SIZE)
+        return 0;
 
-	user_dict -> vocseg = (uchar*) SET_VOC_ROOT(pool);
-	voc_init(user_dict);
-
-	return MAX_VOC_SIZE;
+    user_dict -> vocseg = (uchar*) SET_VOC_ROOT(pool);
+    voc_init(user_dict);
+    return MAX_VOC_SIZE;
 }
 
-void ResetUserDict(voc_state * user_dict) {
-	user_dict ->lev = -1;
+void ResetUserDict(voc_state * user_dict)
+{
+    user_dict ->lev = -1;
 }
 
-Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict) {
-	if (user_dict -> state & VOC_CHANGED) {
-		char w[80];
-		int32_t size;
-		int16_t h;
+Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict)
+{
+    if (user_dict -> state & VOC_CHANGED) {
+        char w[80];
+        int32_t size;
+        int16_t h;
+        strcpy(w, (char*) DictName);
+        h = TGOPEN(VC_STREAM, w, O_CREAT, S_IREAD);
 
-		strcpy(w, (char*) DictName);
-		h = TGOPEN(VC_STREAM, w, O_CREAT, S_IREAD);
+        if (h == -1) {
+            /* MsgBox("failed to open"); */
+            return FALSE;
+        }
 
-		if (h == -1) {
-			/* MsgBox("failed to open"); */
-			return FALSE;
-		}
+        size = TGWRITE(h, V_POINT(user_dict ->vocseg, 0), user_dict ->vocfree);
+        TGCLOSE(h);
 
-		size = TGWRITE(h, V_POINT(user_dict ->vocseg, 0), user_dict ->vocfree);
-		TGCLOSE(h);
+        if (size != (int32_t) user_dict->vocfree) {
+            /* MsgBox("wrong size"); */
+            return FALSE;
+        }
 
-		if (size != (int32_t) user_dict->vocfree) {
-			/* MsgBox("wrong size"); */
-			return FALSE;
-		}
+        user_dict -> state &= (~VOC_CHANGED);
+    }
 
-		user_dict -> state &= (~VOC_CHANGED);
-	}
-	return TRUE;
+    return TRUE;
 }

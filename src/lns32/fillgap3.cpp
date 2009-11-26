@@ -60,84 +60,78 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fillgap_.h"
 #include "lns.h"
 
-static uchar* buff=NULL;
-static uchar* buff_=NULL;
-static int nByteWidth=0;
+static uchar* buff = NULL;
+static uchar* buff_ = NULL;
+static int nByteWidth = 0;
 
 static Bool16 No_Fillgap = FALSE;
 
 extern LnsSetupStr lnsSetup;
 
- // fill gaps with 3 pels
+// fill gaps with 3 pels
 Bool     FillGap3_Init(int wImageByteWidth)
 {
-	No_Fillgap = lnsSetup.nOptions & LSS_NOFILLGAP3_FILTER;
+    No_Fillgap = lnsSetup.nOptions & LSS_NOFILLGAP3_FILTER;
 
-   if (!No_Fillgap) // no flag - look to ini
-   {
-      int nSmoothWidth = LnsGetProfileInt( "nSmoothWidth", 4 ); // by default 3 pixel gaps are filled
-      No_Fillgap = (nSmoothWidth == 0);
-   }
+    if (!No_Fillgap) { // no flag - look to ini
+        int nSmoothWidth = LnsGetProfileInt( "nSmoothWidth", 4 ); // by default 3 pixel gaps are filled
+        No_Fillgap = (nSmoothWidth == 0);
+    }
 
-	if ( !No_Fillgap )				//*******Rom
-	{
-		nByteWidth= wImageByteWidth;
+    if ( !No_Fillgap ) {            //*******Rom
+        nByteWidth = wImageByteWidth;
+        buff_ = (uchar*)malloc(nByteWidth + 4);
 
-		buff_ = (uchar*)malloc(nByteWidth+4);
-		if (buff_==NULL)
-			return FALSE;
-		memset(buff_, 0xff, nByteWidth + 4);
+        if (buff_ == NULL)
+            return FALSE;
 
-		buff = buff_+4;
-		return TRUE;
-	}
-	else
-	{
-		return TRUE;
-	}
+        memset(buff_, 0xff, nByteWidth + 4);
+        buff = buff_ + 4;
+        return TRUE;
+    }
+
+    else {
+        return TRUE;
+    }
 }
 
 uchar*   FillGap3_SubstLine( uchar* line )
 {
-	if ( !No_Fillgap )				//*******Rom
-	{
-		if (buff==NULL)
-			return line;
+    if ( !No_Fillgap ) {            //*******Rom
+        if (buff == NULL)
+            return line;
 
-		uchar* res = buff-1;
+        uchar* res = buff - 1;
+        int xx = 0;
+        int bytes = nByteWidth;
 
-		int xx = 0;
-		int bytes =nByteWidth;
-		while (bytes--)
-		{
-			xx = ((xx & 0x0f) << 8) | *line++;
-			xx = FillGap3_Tbl[xx];
-			*res++ &= (uchar)( (xx | 0xf000) >> 8);        // black assumed 1
-			*res =    (uchar)xx;
-		}
+        while (bytes--) {
+            xx = ((xx & 0x0f) << 8) | *line++;
+            xx = FillGap3_Tbl[xx];
+            *res++ &= (uchar)( (xx | 0xf000) >> 8);        // black assumed 1
+            *res =    (uchar)xx;
+        }
 
-		return buff;
-	}
-	else
-	{
-		return line;
-	}
+        return buff;
+    }
+
+    else {
+        return line;
+    }
 }
 
 void     FillGap3_Done()
 {
-	if ( !No_Fillgap )				//*******Rom
-	{
-		if (buff_)
-		{
-			free(buff_);
-			buff_ = NULL;
-			buff = NULL;
-		}
-	}
-	else
-	{
-	}
+    if ( !No_Fillgap ) {            //*******Rom
+        if (buff_) {
+            free(buff_);
+            buff_ = NULL;
+            buff = NULL;
+        }
+    }
+
+    else {
+    }
 }
 
 

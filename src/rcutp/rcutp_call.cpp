@@ -72,24 +72,23 @@ extern uchar language;
 
 //-------------------------------------------------------
 RCUTP_FUNC(Bool32) RCUTP_SetBL_for_CutPoints(
-		int16_t minrow0,int16_t bbs10,int16_t bbs20,int16_t bbs30,int16_t bbs40,
-		int16_t Nb10,int16_t Nb20,int16_t Nb30, uchar language0)
+    int16_t minrow0, int16_t bbs10, int16_t bbs20, int16_t bbs30, int16_t bbs40,
+    int16_t Nb10, int16_t Nb20, int16_t Nb30, uchar language0)
 {
-	minrow=minrow0;
-	bbs1 =bbs10;
-	bbs2 =bbs20;
-	bbs3 =bbs30;
-	bbs4 =bbs40;
-	Nb1 =Nb10;
-	Nb2 =Nb20;
-	Nb3 =Nb30;
-	language=language0;
-	return TRUE;
+    minrow = minrow0;
+    bbs1 = bbs10;
+    bbs2 = bbs20;
+    bbs3 = bbs30;
+    bbs4 = bbs40;
+    Nb1 = Nb10;
+    Nb2 = Nb20;
+    Nb3 = Nb30;
+    language = language0;
+    return TRUE;
 }
 
-RCUTP_FUNC(Bool32) RCUTP_CutPoints(uchar *raster,struct own_cut *ans, int16_t w, int16_t h, int16_t row)
+RCUTP_FUNC(Bool32) RCUTP_CutPoints(uchar *raster, struct own_cut *ans, int16_t w, int16_t h, int16_t row)
 {
-	Alik_define_cut_points((pchar)raster, ans, w, h, row);
-
-	return TRUE;
+    Alik_define_cut_points((pchar)raster, ans, w, h, row);
+    return TRUE;
 }

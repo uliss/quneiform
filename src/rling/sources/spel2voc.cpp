@@ -58,34 +58,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*************************************************************************/
 /*      access to dictionary from program "edconv"                       */
 /*************************************************************************/
-  #include "spelmode.h"
+#include "spelmode.h"
 
-  #if defined(TURBO_C)
-    #include "tc_types.h"
-  #elif defined(WATCOM)
-    #include "spelwatc.h"
-  #elif defined(THINK_C)
-    #include "spelthin.h"
-  #else
-    #error   NO TOOOL SPECIFIED
-  #endif
+#if defined(TURBO_C)
+#include "tc_types.h"
+#elif defined(WATCOM)
+#include "spelwatc.h"
+#elif defined(THINK_C)
+#include "spelthin.h"
+#else
+#error   NO TOOOL SPECIFIED
+#endif
 
-  #include "speldefs.h"
-  #include "spelfunc.h"
+#include "speldefs.h"
+#include "spelfunc.h"
 
 
 /*************************************************************************/
 /*              decoding & search word in dictionary                     */
 /*************************************************************************/
-int16_t look_through_voc(int16_t * currw,LTIMG * wrddef[],
-	      voc_state * voc,int16_t vocmode,int16_t incr,WTOKEN **wtoken)
-{ int16_t resp;
-
-   voc->lev=-1;
-
-  resp=voc_(voc,wrddef,currw,incr,vocmode,wtoken);
-
-  return (resp);
+int16_t look_through_voc(int16_t * currw, LTIMG * wrddef[],
+                         voc_state * voc, int16_t vocmode, int16_t incr, WTOKEN **wtoken)
+{
+    int16_t resp;
+    voc->lev = -1;
+    resp = voc_(voc, wrddef, currw, incr, vocmode, wtoken);
+    return (resp);
 }
 /*************************************************************************/
 /*                           end of file                                 */

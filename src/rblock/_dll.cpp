@@ -80,114 +80,124 @@ extern jmp_buf fatal_error_exit; // For error handling
 extern unsigned short int run_options;
 
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+                      pvoid lpReserved)
+{
+    switch (ul_reason_for_call) {
+        case DLL_PROCESS_ATTACH:
+            ghInst = hModule;
+            break;
+        case DLL_THREAD_ATTACH:
+            break;
+        case DLL_THREAD_DETACH:
+            break;
+        case DLL_PROCESS_DETACH:
+            break;
+    }
+
+    return TRUE;
 }
 
-Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage) {
-	gwHeightRC = wHeightCode;
-	LDPUMA_Init(0, NULL);
-	return TRUE;
+Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage)
+{
+    gwHeightRC = wHeightCode;
+    LDPUMA_Init(0, NULL);
+    return TRUE;
 }
 
-Bool32 RBLOCK_Done() {
-	Close_Res_Log();
-	LDPUMA_Done();
-	return TRUE;
+Bool32 RBLOCK_Done()
+{
+    Close_Res_Log();
+    LDPUMA_Done();
+    return TRUE;
 }
 
-uint32_t RBLOCK_GetReturnCode() {
-	return gwRC;
+uint32_t RBLOCK_GetReturnCode()
+{
+    return gwRC;
 }
 
-char * RBLOCK_GetReturnString(uint32_t dwError) {
-	return NULL;
+char * RBLOCK_GetReturnString(uint32_t dwError)
+{
+    return NULL;
 }
 
-Bool32 RBLOCK_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
+Bool32 RBLOCK_GetExportData(uint32_t dwType, void * pData)
+{
+    Bool32 rc = TRUE;
+#define CASE_FUNCTION(a)    case RBLOCK_FN##a:  *(FN##a *)pData = a; break;
 
-#define CASE_FUNCTION(a)	case RBLOCK_FN##a:	*(FN##a *)pData = a; break;
+    switch (dwType) {
+            CASE_FUNCTION(RBLOCK_ExtractTextBlocks)
+            CASE_FUNCTION(RBLOCK_ExtractTextStrings)
+            CASE_FUNCTION(RBLOCK_GetAnglePage)
+        case RBLOCK_Bool32_OneColumn:
+            *(Bool32*) pData = run_options & FORCE_ONE_COLUMN ? TRUE : FALSE;
+            break;
+        default:
+            *(Handle *) pData = NULL;
+            SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
+            rc = FALSE;
+    }
 
-	switch (dwType) {
-	CASE_FUNCTION(RBLOCK_ExtractTextBlocks)
-	CASE_FUNCTION(RBLOCK_ExtractTextStrings)
-	CASE_FUNCTION(RBLOCK_GetAnglePage)
-	case RBLOCK_Bool32_OneColumn:
-		*(Bool32*) pData = run_options & FORCE_ONE_COLUMN ? TRUE : FALSE;
-		break;
-	default:
-		*(Handle *) pData = NULL;
-		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
-	return rc;
+    return rc;
 }
 
-Bool32 RBLOCK_SetImportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
+Bool32 RBLOCK_SetImportData(uint32_t dwType, void * pData)
+{
+    Bool32 rc = TRUE;
+    gwRC = 0;
+#define CASE_DATA(a,b,c)    case a: c = *(b *)pData; break;
+#define CASE_PDATA(a,b,c)   case a: c = (b)pData; break;
 
-	gwRC = 0;
+    switch (dwType) {
+            CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStart, FNRBLOCK_ProgressStart , fnProgressStart_rblock)
+            CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStep, FNRBLOCK_ProgressStep, fnProgressStep_rblock)
+            CASE_PDATA(RBLOCK_FNRBLOCK_ProgressFinish, FNRBLOCK_ProgressFinish, fnProgressFinish_rblock)
+            CASE_DATA(RBLOCK_Bool32_SearchPicture, Bool32, bSearchPicture)
+        case RBLOCK_Bool32_OneColumn:
 
-#define CASE_DATA(a,b,c)	case a: c = *(b *)pData; break;
-#define CASE_PDATA(a,b,c)	case a: c = (b)pData; break;
+            if (*(Bool32*) pData)
+                run_options |= FORCE_ONE_COLUMN;
 
-	switch (dwType) {
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStart, FNRBLOCK_ProgressStart ,fnProgressStart_rblock)
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStep, FNRBLOCK_ProgressStep, fnProgressStep_rblock)
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressFinish, FNRBLOCK_ProgressFinish,fnProgressFinish_rblock)
-	CASE_DATA(RBLOCK_Bool32_SearchPicture,Bool32,bSearchPicture)
-	case RBLOCK_Bool32_OneColumn:
+            else
+                run_options &= ~FORCE_ONE_COLUMN;
 
-		if (*(Bool32*) pData)
-			run_options |= FORCE_ONE_COLUMN;
-		else
-			run_options &= ~FORCE_ONE_COLUMN;
-
-		break;
-	default:
-		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+            break;
+        default:
+            SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
+            rc = FALSE;
+    }
 
 #undef CASE_DATA
 #undef CASE_PDATA
-
-	return rc;
+    return rc;
 }
 
-void SetReturnCode_rblock(uint32_t rc) {
-	uint16_t low = (uint16_t) (rc & 0xFFFF);
-	uint16_t hei = (uint16_t) (rc >> 16);
+void SetReturnCode_rblock(uint32_t rc)
+{
+    uint16_t low = (uint16_t) (rc & 0xFFFF);
+    uint16_t hei = (uint16_t) (rc >> 16);
 
-	if (hei)
-		gwRC = rc;
-	else {
-		if (low - IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
-		else
-			gwRC = 0;
-	}
+    if (hei)
+        gwRC = rc;
+
+    else {
+        if (low - IDS_ERR_NO)
+            gwRC = (uint32_t)(gwHeightRC << 16) | (low - IDS_ERR_NO);
+
+        else
+            gwRC = 0;
+    }
 }
 
-uint32_t GetReturnCode_rblock() {
-	uint32_t rc = gwRC;
-	uint16_t low = (uint16_t) (gwRC & 0xFFFF);
-	uint16_t hei = (uint16_t) (gwRC >> 16);
+uint32_t GetReturnCode_rblock()
+{
+    uint32_t rc = gwRC;
+    uint16_t low = (uint16_t) (gwRC & 0xFFFF);
+    uint16_t hei = (uint16_t) (gwRC >> 16);
 
-	if (hei == gwHeightRC || hei == 0)
-		rc = low + IDS_ERR_NO;
+    if (hei == gwHeightRC || hei == 0)
+        rc = low + IDS_ERR_NO;
 
-	return rc;
+    return rc;
 }
