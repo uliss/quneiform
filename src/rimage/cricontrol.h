@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "criimage.h"
 #include "cimage/ctiimage.h"
 #include "crinvertor.h" // Added by ClassView
-#include "ctdib.h"  // Added by ClassView
+#include "rdib/ctdib.h"  // Added by ClassView
 #include "rprogressor.h"    // Added by ClassView
 #include "cribinarizator.h"
 #include "crturner.h"

@@ -66,7 +66,7 @@
 #include "rline.h"
 #include "cline.h"
 #include "dpuma.h"
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "linedefs.h"
 
 #include "compat_defs.h"

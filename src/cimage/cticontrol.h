@@ -61,7 +61,7 @@
 #include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "ctimask.h"
 #include "ctiimagelist.h"
 #include "ctiimageheader.h"

@@ -64,7 +64,7 @@
 #include "lns32/lns.h"
 #include "rline.h"
 #include "dpuma.h"
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "rstuff.h"
 #include "rsfunc.h"
 #include "cfio/cfio.h"

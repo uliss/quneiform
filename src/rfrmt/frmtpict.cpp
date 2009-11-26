@@ -74,7 +74,7 @@
 #include "frmtpict.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
-#include "ctdib.h"
+#include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
 #include "frmtdibapi.h"
 #include "criimage.h"
