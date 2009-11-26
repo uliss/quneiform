@@ -55,20 +55,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __ERROBJ_H
-#	define __ERROBJ_H
+#   define __ERROBJ_H
 
-    #ifndef __LNSLANG_H
-    #  include "lnslang.h"
-	#endif
+#ifndef __LNSLANG_H
+#  include "lnslang.h"
+#endif
 
 #include "err16.h"
 
 class TErrObj // : TFarHeap
 {
-public:
-Err16 errCode;
-/* virtual */ Bool isOk( void ) { return  (errCode == ER_NONE); };
-/*TErrObj::*/TErrObj(void) : errCode(ER_NONE){};
+    public:
+        Err16 errCode;
+        /* virtual */
+        Bool isOk( void ) {
+            return  (errCode == ER_NONE);
+        };
+        /*TErrObj::*/
+        TErrObj(void) : errCode(ER_NONE) {};
 };
 
 #endif  // __ERROBJ_H

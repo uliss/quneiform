@@ -58,44 +58,44 @@
 #define __LINDEFS_H
 
 enum {
-	FILE_PCX = 900,
-	ONLY_STRETCH = 910,
-	ONLY_LINE = 911,
-	ONLY_BOX_LINE = 912,
-	NO_RASTER = 920,
-	YES_RASTER = 921,
-	YES_OUT_LIN = 930,
-	NO_OUT_LIN = 931,
-	YES_OUT_BIN = 940,
-	NO_OUT_BIN = 941,
-	ID_USER = 999
+    FILE_PCX = 900,
+    ONLY_STRETCH = 910,
+    ONLY_LINE = 911,
+    ONLY_BOX_LINE = 912,
+    NO_RASTER = 920,
+    YES_RASTER = 921,
+    YES_OUT_LIN = 930,
+    NO_OUT_LIN = 931,
+    YES_OUT_BIN = 940,
+    NO_OUT_BIN = 941,
+    ID_USER = 999
 };
 
 typedef struct lines_par {
-	int vmaxwid;
-	int vminlen;
-	int vlsarea;
-	int vlconnill;
-	int vlconnils;
-	int vlconniss;
-	int vstartlenf;
-	int vstartlens;
-	int gmaxwid;
-	int gminlen;
-	int glsarea;
-	int glconnill;
-	int glconnils;
-	int glconniss;
-	int gstartlenf;
-	int gstartlens;
-	int lcont;
-	int minboxw;
-	int bsarf;
-	int psarf;
-	int psarb;
-	int gangl;
-	int langl;
-	int linnm;
+    int vmaxwid;
+    int vminlen;
+    int vlsarea;
+    int vlconnill;
+    int vlconnils;
+    int vlconniss;
+    int vstartlenf;
+    int vstartlens;
+    int gmaxwid;
+    int gminlen;
+    int glsarea;
+    int glconnill;
+    int glconnils;
+    int glconniss;
+    int gstartlenf;
+    int gstartlens;
+    int lcont;
+    int minboxw;
+    int bsarf;
+    int psarf;
+    int psarb;
+    int gangl;
+    int langl;
+    int linnm;
 } PAR_LINE;
 
 //#define STRETCH struct h_STRETCH //Один отрезок
@@ -105,54 +105,54 @@ typedef struct lines_par {
 //#define LINES struct h_LINES //Вся структура линий, боксов и узлов.
 
 struct STRETCH {
-	CIF::Point16 Beg, End; //начало и конец отрезка после поворота
-	CIF::Point16 BegOld, EndOld; //начало и конец отрезка до поворота
-	float k; //наклон линии y=kx+b
-	float b; //смещение
-	short thickness; //средняя толщина отрезка
+    CIF::Point16 Beg, End; //начало и конец отрезка после поворота
+    CIF::Point16 BegOld, EndOld; //начало и конец отрезка до поворота
+    float k; //наклон линии y=kx+b
+    float b; //смещение
+    short thickness; //средняя толщина отрезка
 };
 
 struct LINE {
-	int NumStretch;
-	STRETCH *Stretch; //[NumStretch] - число отрезков одной линии
+    int NumStretch;
+    STRETCH *Stretch; //[NumStretch] - число отрезков одной линии
 };
 
 
 struct BOX {
-	short Top; //Индекс верхней линии бокса
-	short Left; //Индекс левой линии бокса
-	short Bottom;//Индекс нижней линии бокса
-	short Right; //Индекс правой линии бокса
-	short Diag13, Diag24;
+    short Top; //Индекс верхней линии бокса
+    short Left; //Индекс левой линии бокса
+    short Bottom;//Индекс нижней линии бокса
+    short Right; //Индекс правой линии бокса
+    short Diag13, Diag24;
 };
 
 struct KNOTL {
-	short InVertLine; //номер вертикальной линии
-	short InVertStretch;//и номер отрезка в порядке обхода ее отрезков
-	short InHorLine; //номер горизонтальной линии
-	short InHorStretch; //и номер отрезка в порядке обхода ее отрезков
-	CIF::Point16 PointIntersection;//точка пересечения линий
-	short TypeIntersection;//тип пересечения линий
+    short InVertLine; //номер вертикальной линии
+    short InVertStretch;//и номер отрезка в порядке обхода ее отрезков
+    short InHorLine; //номер горизонтальной линии
+    short InHorStretch; //и номер отрезка в порядке обхода ее отрезков
+    CIF::Point16 PointIntersection;//точка пересечения линий
+    short TypeIntersection;//тип пересечения линий
 };
 
 struct LINES {
-	short NumAll; //общее число линий
-	short NumVert; //число вертикальных линий
-	short NumHor; //число горизонтальных линий
-	short NumOther;//число остальных линий
-	LINE *Line; //[NumAll] - массив линий
-	short NumBox; //число прямоугольников
-	BOX *Box; //[NumBox] - массив прямоугольников
-	short NumKnot;//число узлов
-	KNOTL *Knotl; //[NumKnotl] - массив узлов
+    short NumAll; //общее число линий
+    short NumVert; //число вертикальных линий
+    short NumHor; //число горизонтальных линий
+    short NumOther;//число остальных линий
+    LINE *Line; //[NumAll] - массив линий
+    short NumBox; //число прямоугольников
+    BOX *Box; //[NumBox] - массив прямоугольников
+    short NumKnot;//число узлов
+    KNOTL *Knotl; //[NumKnotl] - массив узлов
 };
 
 struct BMPL {
-	int widthBit;
-	int height;
-	int widthByte;
-	int NumBuf;
-	uchar **bmp; //bmp[NumBuf][64000]
+    int widthBit;
+    int height;
+    int widthByte;
+    int NumBuf;
+    uchar **bmp; //bmp[NumBuf][64000]
 };
 
 #endif

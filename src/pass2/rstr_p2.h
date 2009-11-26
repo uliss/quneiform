@@ -60,7 +60,7 @@
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
 extern int (*RSTR_p2_RecogCutGlu)(CSTR_rast first, CSTR_rast last,
-		CSTR_line lineFon, P2GLOBALS *p2globals);
+                                  CSTR_line lineFon, P2GLOBALS *p2globals);
 
 // допустимые символы, перекодировка
 // по языку заполнить массив допустимых символов alphaBet[256]
@@ -75,7 +75,7 @@ extern Bool (*RSTR_p2_NoStopSnapLEO)(void);
 extern Bool (*RSTR_p2_snap_show_text)(const char *txt);
 extern Bool (*RSTR_p2_snap_activity)(uchar a);
 extern Bool
-		(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
+(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
 
 // проверка по словарю
 extern Bool (*RSTR_p2_spell)(pchar s, uchar lang);

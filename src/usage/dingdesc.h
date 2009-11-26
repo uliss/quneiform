@@ -65,14 +65,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __DINGDESC_H
 
 #define   MaxMyDings      600//310
-typedef struct tagRLT_DING
-{
-	int       Beg;
-	int       End;
-	int       Beg_Big;
-	int       End_Big;
-	int       Level;
-	int       Width;
+typedef struct tagRLT_DING {
+    int       Beg;
+    int       End;
+    int       Beg_Big;
+    int       End_Big;
+    int       Level;
+    int       Width;
 #define    RLT_DT_Unknown      0x00
 #define    RLT_DT_Line         0x01
 #define    RLT_DT_Ssel         0x02
@@ -80,25 +79,24 @@ typedef struct tagRLT_DING
 #define    RLT_DT_Pointed      0x08
 #define    RLT_DT_Refused      0x10
 #define    RLT_DT_Doubt        0x20
-	//не учитывать этот разделитель при создании отсутствующих разделителей
-	char      Type;
-}RLT_DING;
-typedef struct tagRLT_DINGPOOL
-{
-	int       Skew;
-	int       nHori;
-	RLT_DING  Hori[MaxMyDings];
-	int       nVert;
-	RLT_DING  Vert[MaxMyDings];
+    //не учитывать этот разделитель при создании отсутствующих разделителей
+    char      Type;
+} RLT_DING;
+typedef struct tagRLT_DINGPOOL {
+    int       Skew;
+    int       nHori;
+    RLT_DING  Hori[MaxMyDings];
+    int       nVert;
+    RLT_DING  Vert[MaxMyDings];
 #define    RLT_DS_Unknown      0x00
 #define    RLT_DS_Normal       0x01
 #define    RLT_DS_Delete       0x02
 #define    RLT_DS_WasChanged   0x04
 #define    RLT_DS_MadeOnBase   0x08
 #define    RLT_DS_Created      0x10
-	char      HoriStat[MaxMyDings];
-	char      VertStat[MaxMyDings];
-}RLT_DINGPOOL;
+    char      HoriStat[MaxMyDings];
+    char      VertStat[MaxMyDings];
+} RLT_DINGPOOL;
 
 #endif   // __DINGDESC_H
 /*----------------------------------------------------------------------------*/

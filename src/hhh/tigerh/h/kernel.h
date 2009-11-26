@@ -54,10 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//	TIGER run options
+//  TIGER run options
 #define RUN_SPELLER          1
 #define FORCE_ONE_COLUMN     2
-#define NO_FORMATING	     4
+#define NO_FORMATING         4
 #define FAX100               8
 #define DOTMATRIX           16
 #define BCRFLAG             32
@@ -66,7 +66,7 @@
 #define CUTRIGHT           256
 #define SPACE_CORRECTION   512
 
-//	Kernel functions
+//  Kernel functions
 Bool kernel_init(void);
 Bool bcr_init(void);
 void kernel_run_options(uint16_t options);
@@ -89,9 +89,9 @@ Bool bool_status(void);
 void set_error_status(uint16_t group, uint16_t element);
 void clear_error_status(void);
 
-//	Convetrt to text
+//  Convetrt to text
 Bool convert_to_text(puchar edfile, puchar textfile, uint16_t options, uint16_t codepage,
-		uchar badchar);
+                     uchar badchar);
 #define SAVE_TEXT_ED            0x01
 #define SAVE_TEXT_ASCII         0x02
 #define SAVE_TEXT_SMART_ASCII   0x04
@@ -103,11 +103,11 @@ Bool convert_to_text(puchar edfile, puchar textfile, uint16_t options, uint16_t 
 #define SAVE_TEXT_SMART_ASCII_APP   (SAVE_TEXT_SMART_ASCII + SAVE_TEXT_APPEND)
 #define SAVE_TEXT_RTF_APP           (SAVE_TEXT_RTF + SAVE_TEXT_APPEND)
 
-#define SAVE_TABLE_TXT		0x0100
-#define SAVE_TABLE_CSV		0x0200
-#define SAVE_TABLE_DBF		0x0400
-#define SAVE_TABLE_ODBC 	0x0800
-#define SAVE_TABLE_WKS		0x1000
+#define SAVE_TABLE_TXT      0x0100
+#define SAVE_TABLE_CSV      0x0200
+#define SAVE_TABLE_DBF      0x0400
+#define SAVE_TABLE_ODBC     0x0800
+#define SAVE_TABLE_WKS      0x1000
 #define SAVE_HTML               0x2000
 #define SAVE_HOCR               0x4000
 
@@ -125,19 +125,19 @@ void write_text(uchar);
 
 //-------------------- Callback functions -------------------------
 
-//	Image read functions
+//  Image read functions
 
 struct AttrImage {
-	uint16_t PixelHeight;
-	uint16_t PixelWidth;
-	uint16_t ByteWidth;
-	uint16_t LeftDisplacement;
-	uint16_t Resolution_X;
-	uint16_t Resolution_Y;
-	uchar FotoMetrics;
-	uchar bUnused;
-	uint16_t AddX;
-	uint16_t AddY;
+    uint16_t PixelHeight;
+    uint16_t PixelWidth;
+    uint16_t ByteWidth;
+    uint16_t LeftDisplacement;
+    uint16_t Resolution_X;
+    uint16_t Resolution_Y;
+    uchar FotoMetrics;
+    uchar bUnused;
+    uint16_t AddX;
+    uint16_t AddY;
 };
 
 Bool Tiger_ImageOpen(struct AttrImage * p);
@@ -146,7 +146,7 @@ Bool Tiger_ImageClose(void);
 int16_t Tiger_ImageRead(puchar buffer, uint16_t lth);
 uint32_t Tiger_ProcessPictures(puchar buffer, uint32_t lth);
 
-//	Immediate error report
+//  Immediate error report
 void Tiger_ReportError(uint16_t status, puchar message);
 
 // Progress Monitor

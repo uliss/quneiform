@@ -26,10 +26,10 @@
 #include "point.h"
 #include "size.h"
 
-namespace CIF {
-
-struct RectCheckNormalized
+namespace CIF
 {
+
+struct RectCheckNormalized {
     template<class T>
     static void check(const T& rect) {
         if (!rect.isValid())
@@ -37,324 +37,326 @@ struct RectCheckNormalized
     }
 };
 
-struct RectCheckNone
-{
+struct RectCheckNone {
     template<class T>
     static void check(const T&) {
     }
 };
 
-template<class T, class NormalizeChecker = RectCheckNone>
+template < class T, class NormalizeChecker = RectCheckNone >
 class RectImpl
 {
-public:
-    RectImpl(const PointImpl<T>& pt, T width, T height) :
-        pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
-        NormalizeChecker::check(*this);
-    }
+    public:
+        RectImpl(const PointImpl<T>& pt, T width, T height) :
+                pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
+            NormalizeChecker::check(*this);
+        }
 
-    RectImpl(const PointImpl<T>& pt0, const PointImpl<T>& pt1) :
-        pt0_(pt0), pt1_(pt1) {
-        NormalizeChecker::check(*this);
-    }
+        RectImpl(const PointImpl<T>& pt0, const PointImpl<T>& pt1) :
+                pt0_(pt0), pt1_(pt1) {
+            NormalizeChecker::check(*this);
+        }
 
-    RectImpl() {
-    }
+        RectImpl() {
+        }
 
-    void adjust(T dx0, T dy0, T dx1, T dy1) {
-        pt0_.rx() += dx0;
-        pt0_.ry() += dy0;
-        pt1_.rx() += dx1;
-        pt1_.ry() += dy1;
-        NormalizeChecker::check(*this);
-    }
+        void adjust(T dx0, T dy0, T dx1, T dy1) {
+            pt0_.rx() += dx0;
+            pt0_.ry() += dy0;
+            pt1_.rx() += dx1;
+            pt1_.ry() += dy1;
+            NormalizeChecker::check(*this);
+        }
 
-    RectImpl adjusted(T dx0, T dy0, T dx1, T dy1) const {
-        RectImpl tmp(*this);
-        tmp.adjust(dx0, dy0, dx1, dy1);
-        return tmp;
-    }
+        RectImpl adjusted(T dx0, T dy0, T dx1, T dy1) const {
+            RectImpl tmp(*this);
+            tmp.adjust(dx0, dy0, dx1, dy1);
+            return tmp;
+        }
 
-    T bottom() const {
-        return pt1_.y();
-    }
+        T bottom() const {
+            return pt1_.y();
+        }
 
-    PointImpl<T> center() const {
-        return PointImpl<T> (centerX(), centerY());
-    }
+        PointImpl<T> center() const {
+            return PointImpl<T> (centerX(), centerY());
+        }
 
-    T centerX() const {
-        return (left() + right()) / 2;
-    }
+        T centerX() const {
+            return (left() + right()) / 2;
+        }
 
-    T centerY() const {
-        return (top() + bottom()) / 2;
-    }
+        T centerY() const {
+            return (top() + bottom()) / 2;
+        }
 
-    bool contains(T x, T y, bool proper) const {
-        return proper ? (left() < x && top() < y && x < right() && y < bottom()) : (left() <= x
-                && top() <= y && x <= right() && y <= bottom());
-    }
+        bool contains(T x, T y, bool proper) const {
+            return proper ? (left() < x && top() < y && x < right() && y < bottom()) : (left() <= x
+                                                                                        && top() <= y && x <= right() && y <= bottom());
+        }
 
-    bool contains(const PointImpl<T>& pt, bool proper = false) const {
-        return contains(pt.x(), pt.y(), proper);
-    }
+        bool contains(const PointImpl<T>& pt, bool proper = false) const {
+            return contains(pt.x(), pt.y(), proper);
+        }
 
-    bool contains(const RectImpl& rect, bool proper = false) const {
-        if (proper)
-            return top() < rect.top() && left() < rect.left() && rect.bottom() < bottom()
-                    && rect.right() < right();
-        else
-            return top() <= rect.top() && left() <= rect.left() && rect.bottom() <= bottom()
-                    && rect.right() <= right();
-    }
+        bool contains(const RectImpl& rect, bool proper = false) const {
+            if (proper)
+                return top() < rect.top() && left() < rect.left() && rect.bottom() < bottom()
+                       && rect.right() < right();
 
-    double diagonal() const {
-        return ::sqrt(height() * height() + width() * width());
-    }
+            else
+                return top() <= rect.top() && left() <= rect.left() && rect.bottom() <= bottom()
+                       && rect.right() <= right();
+        }
 
-    bool intersects(const RectImpl& r) const {
-        if (left() > r.right() || right() < r.left() || top() > r.bottom() || bottom() < r.top())
-            return false;
-        return true;
-    }
+        double diagonal() const {
+            return ::sqrt(height() * height() + width() * width());
+        }
 
-    RectImpl intersected(const RectImpl& r) {
-        return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
-                PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
-    }
+        bool intersects(const RectImpl& r) const {
+            if (left() > r.right() || right() < r.left() || top() > r.bottom() || bottom() < r.top())
+                return false;
 
-    bool isPositive() const {
-        return pt0_.isPositive() && pt1_.isPositive();
-    }
+            return true;
+        }
 
-    bool isValid() const {
-        return left() < right() && top() < bottom();
-    }
+        RectImpl intersected(const RectImpl& r) {
+            return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
+                            PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
+        }
 
-    T height() const {
-        return pt1_.y() - pt0_.y();
-    }
+        bool isPositive() const {
+            return pt0_.isPositive() && pt1_.isPositive();
+        }
 
-    void normalize() {
-        if (pt0_.x() > pt1_.x())
-            std::swap(pt0_.rx(), pt1_.rx());
-        if (pt0_.y() > pt1_.y())
-            std::swap(pt0_.ry(), pt1_.ry());
-    }
+        bool isValid() const {
+            return left() < right() && top() < bottom();
+        }
 
-    RectImpl normalized() const {
-        RectImpl tmp(*this);
-        tmp.normalize();
-        return tmp;
-    }
+        T height() const {
+            return pt1_.y() - pt0_.y();
+        }
 
-    T left() const {
-        return pt0_.x();
-    }
+        void normalize() {
+            if (pt0_.x() > pt1_.x())
+                std::swap(pt0_.rx(), pt1_.rx());
 
-    PointImpl<T> leftBottom() const {
-        return PointImpl<T> (left(), bottom());
-    }
+            if (pt0_.y() > pt1_.y())
+                std::swap(pt0_.ry(), pt1_.ry());
+        }
 
-    PointImpl<T> leftTop() const {
-        return pt0_;
-    }
+        RectImpl normalized() const {
+            RectImpl tmp(*this);
+            tmp.normalize();
+            return tmp;
+        }
 
-    template<class U>
-    void moveBy(const PointImpl<U>& pt) {
-        pt0_ += pt;
-        pt1_ += pt;
-    }
+        T left() const {
+            return pt0_.x();
+        }
 
-    template<class U>
-    void operator=(const RectImpl<U>& rect) {
-        pt0_ = rect.pt0();
-        pt1_ = rect.pt1();
-    }
+        PointImpl<T> leftBottom() const {
+            return PointImpl<T> (left(), bottom());
+        }
 
-    bool operator==(const RectImpl& r) const {
-        return pt0_ == r.pt0_ && pt1_ == r.pt1_;
-    }
+        PointImpl<T> leftTop() const {
+            return pt0_;
+        }
 
-    bool operator!=(const RectImpl& r) const {
-        return !this->operator==(r);
-    }
+        template<class U>
+        void moveBy(const PointImpl<U>& pt) {
+            pt0_ += pt;
+            pt1_ += pt;
+        }
 
-    void operator|=(const RectImpl& rect) {
-        pt0_.rx() = std::min(left(), rect.left());
-        pt0_.ry() = std::min(top(), rect.top());
-        pt1_.rx() = std::max(right(), rect.right());
-        pt1_.ry() = std::max(bottom(), rect.bottom());
-    }
+        template<class U>
+        void operator=(const RectImpl<U>& rect) {
+            pt0_ = rect.pt0();
+            pt1_ = rect.pt1();
+        }
 
-    T perimeter() const {
-        return (width() + height()) * 2;
-    }
+        bool operator==(const RectImpl& r) const {
+            return pt0_ == r.pt0_ && pt1_ == r.pt1_;
+        }
 
-    PointImpl<T>& pt0() {
-        return pt0_;
-    }
+        bool operator!=(const RectImpl& r) const {
+            return !this->operator==(r);
+        }
 
-    const PointImpl<T>& pt0() const {
-        return pt0_;
-    }
+        void operator|=(const RectImpl& rect) {
+            pt0_.rx() = std::min(left(), rect.left());
+            pt0_.ry() = std::min(top(), rect.top());
+            pt1_.rx() = std::max(right(), rect.right());
+            pt1_.ry() = std::max(bottom(), rect.bottom());
+        }
 
-    PointImpl<T>& pt1() {
-        return pt1_;
-    }
+        T perimeter() const {
+            return (width() + height()) * 2;
+        }
 
-    const PointImpl<T>& pt1() const {
-        return pt1_;
-    }
+        PointImpl<T>& pt0() {
+            return pt0_;
+        }
 
-    T right() const {
-        return pt1_.x();
-    }
+        const PointImpl<T>& pt0() const {
+            return pt0_;
+        }
 
-    PointImpl<T> rightBottom() const {
-        return pt1_;
-    }
+        PointImpl<T>& pt1() {
+            return pt1_;
+        }
 
-    PointImpl<T> rightTop() const {
-        return PointImpl<T> (right(), top());
-    }
+        const PointImpl<T>& pt1() const {
+            return pt1_;
+        }
 
-    T& rbottom() {
-        return pt1_.ry();
-    }
+        T right() const {
+            return pt1_.x();
+        }
 
-    T& rleft() {
-        return pt0_.rx();
-    }
+        PointImpl<T> rightBottom() const {
+            return pt1_;
+        }
 
-    T& rright() {
-        return pt1_.rx();
-    }
+        PointImpl<T> rightTop() const {
+            return PointImpl<T> (right(), top());
+        }
 
-    T& rtop() {
-        return pt0_.ry();
-    }
+        T& rbottom() {
+            return pt1_.ry();
+        }
 
-    void set(const PointImpl<T>& pos, T width, T height) {
-        pt0_ = pos;
-        pt1_.set(pos.x() + width, pos.y() + height);
-        NormalizeChecker::check(*this);
-    }
+        T& rleft() {
+            return pt0_.rx();
+        }
 
-    void set(const PointImpl<T>& p0, const PointImpl<T>& p1) {
-        pt0_ = p0;
-        pt1_ = p1;
-        NormalizeChecker::check(*this);
-    }
+        T& rright() {
+            return pt1_.rx();
+        }
 
-    void setBottom(T bottom) {
-        pt1_.setY(bottom);
-        NormalizeChecker::check(*this);
-    }
+        T& rtop() {
+            return pt0_.ry();
+        }
 
-    void setBottomLeft(const PointImpl<T>& pt) {
-        setLeft(pt.x());
-        setBottom(pt.y());
-    }
+        void set(const PointImpl<T>& pos, T width, T height) {
+            pt0_ = pos;
+            pt1_.set(pos.x() + width, pos.y() + height);
+            NormalizeChecker::check(*this);
+        }
 
-    void setBottomRight(const PointImpl<T>& pt) {
-        pt1_ = pt;
-        NormalizeChecker::check(*this);
-    }
+        void set(const PointImpl<T>& p0, const PointImpl<T>& p1) {
+            pt0_ = p0;
+            pt1_ = p1;
+            NormalizeChecker::check(*this);
+        }
 
-    void setHeight(T t) {
-        pt1_.setX(pt0_.x() + t);
-        NormalizeChecker::check(*this);
-    }
+        void setBottom(T bottom) {
+            pt1_.setY(bottom);
+            NormalizeChecker::check(*this);
+        }
 
-    void setLeft(T left) {
-        pt0_.setX(left);
-        NormalizeChecker::check(*this);
-    }
+        void setBottomLeft(const PointImpl<T>& pt) {
+            setLeft(pt.x());
+            setBottom(pt.y());
+        }
 
-    void setRight(T right) {
-        pt1_.setX(right);
-        NormalizeChecker::check(*this);
-    }
+        void setBottomRight(const PointImpl<T>& pt) {
+            pt1_ = pt;
+            NormalizeChecker::check(*this);
+        }
 
-    void setSize(const SizeImpl<T>& size) {
-        setWidth(size.width());
-        setHeight(size.height());
-    }
+        void setHeight(T t) {
+            pt1_.setX(pt0_.x() + t);
+            NormalizeChecker::check(*this);
+        }
 
-    void setTop(T top) {
-        pt0_.setY(top);
-        NormalizeChecker::check(*this);
-    }
+        void setLeft(T left) {
+            pt0_.setX(left);
+            NormalizeChecker::check(*this);
+        }
 
-    void setTopLeft(const PointImpl<T>& pt) {
-        pt0_ = pt;
-    }
+        void setRight(T right) {
+            pt1_.setX(right);
+            NormalizeChecker::check(*this);
+        }
 
-    void setTopRight(const PointImpl<T>& pt) {
-        setRight(pt.x());
-        setTop(pt.y());
-    }
+        void setSize(const SizeImpl<T>& size) {
+            setWidth(size.width());
+            setHeight(size.height());
+        }
 
-    void setWidth(T t) {
-        pt1_.setY(pt0_.y() + t);
-        NormalizeChecker::check(*this);
-    }
+        void setTop(T top) {
+            pt0_.setY(top);
+            NormalizeChecker::check(*this);
+        }
 
-    RectImpl& scale(double factor) {
-        setSize(size().scale(factor));
-        return *this;
-    }
+        void setTopLeft(const PointImpl<T>& pt) {
+            pt0_ = pt;
+        }
 
-    SizeImpl<T> size() const {
-        return SizeImpl<T> (width(), height());
-    }
+        void setTopRight(const PointImpl<T>& pt) {
+            setRight(pt.x());
+            setTop(pt.y());
+        }
 
-    RectImpl& translate(const PointImpl<T>& pt) {
-        pt0_ += pt;
-        pt1_ += pt;
-        return *this;
-    }
+        void setWidth(T t) {
+            pt1_.setY(pt0_.y() + t);
+            NormalizeChecker::check(*this);
+        }
 
-    RectImpl& translate(T dx, T dy) {
-        return translate(PointImpl<T> (dx, dy));
-    }
+        RectImpl& scale(double factor) {
+            setSize(size().scale(factor));
+            return *this;
+        }
 
-    RectImpl& translateX(T offset) {
-        pt0_.rx() += offset;
-        pt1_.rx() += offset;
-        return *this;
-    }
+        SizeImpl<T> size() const {
+            return SizeImpl<T> (width(), height());
+        }
 
-    RectImpl& translateY(T offset) {
-        pt0_.ry() += offset;
-        pt1_.ry() += offset;
-        return *this;
-    }
+        RectImpl& translate(const PointImpl<T>& pt) {
+            pt0_ += pt;
+            pt1_ += pt;
+            return *this;
+        }
 
-    T top() const {
-        return pt0_.y();
-    }
+        RectImpl& translate(T dx, T dy) {
+            return translate(PointImpl<T> (dx, dy));
+        }
 
-    RectImpl united(const RectImpl& r) {
-        return RectImpl(PointImpl<T> (std::min(top(), r.top()), std::min(left(), r.left())),
-                PointImpl<T> (std::max(bottom(), r.bottom()), std::max(right(), r.right())));
-    }
+        RectImpl& translateX(T offset) {
+            pt0_.rx() += offset;
+            pt1_.rx() += offset;
+            return *this;
+        }
 
-    T width() const {
-        return pt1_.x() - pt0_.x();
-    }
+        RectImpl& translateY(T offset) {
+            pt0_.ry() += offset;
+            pt1_.ry() += offset;
+            return *this;
+        }
 
-    T x() const {
-        return pt0_.x();
-    }
+        T top() const {
+            return pt0_.y();
+        }
 
-    T y() const {
-        return pt0_.y();
-    }
-private:
-    PointImpl<T> pt0_, pt1_;
+        RectImpl united(const RectImpl& r) {
+            return RectImpl(PointImpl<T> (std::min(top(), r.top()), std::min(left(), r.left())),
+                            PointImpl<T> (std::max(bottom(), r.bottom()), std::max(right(), r.right())));
+        }
+
+        T width() const {
+            return pt1_.x() - pt0_.x();
+        }
+
+        T x() const {
+            return pt0_.x();
+        }
+
+        T y() const {
+            return pt0_.y();
+        }
+    private:
+        PointImpl<T> pt0_, pt1_;
 };
 
 typedef RectImpl<int, RectCheckNone> Rect;

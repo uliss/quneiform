@@ -55,13 +55,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
-	шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
-	шш                                                              шш
-	шш	Copyright (C) 1992 Cognitive Technology Corporation.    шш
-	шш	All rights reserved. This program is proprietary and    шш
-	шш      a trade secret of Cognitive Technology Corporation.     шш
-	шш                                                              шш
-	шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
+    шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
+    шш                                                              шш
+    шш    Copyright (C) 1992 Cognitive Technology Corporation.    шш
+    шш    All rights reserved. This program is proprietary and    шш
+    шш      a trade secret of Cognitive Technology Corporation.     шш
+    шш                                                              шш
+    шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
 */
 #pragma pack(1)                                          //AK 30.04.97
 
@@ -76,36 +76,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-struct hyp_point
- {
-  int x;
-  int y;
+struct hyp_point {
+    int x;
+    int y;
 
-  int dot;
-  char *lower;
-  char *upper;
- };
-
-
-struct strucAlternative
-{
-  int n_recog;                  /* Number of versions of recognition  */
-  unsigned char vers[64];       /* Versions                           */
-  unsigned char prob[64];       /* Corresponding probability          */
-  unsigned char pen;
+    int dot;
+    char *lower;
+    char *upper;
 };
 
 
-typedef  struct{
-   uchar  let;
-   int32_t  tr1,tr2;
+struct strucAlternative {
+    int n_recog;                  /* Number of versions of recognition  */
+    unsigned char vers[64];       /* Versions                           */
+    unsigned char prob[64];       /* Corresponding probability          */
+    unsigned char pen;
+};
+
+
+typedef  struct {
+    uchar  let;
+    int32_t  tr1, tr2;
 }  StructTree;
 
 
 
 int32_t  read_auto_tree( uchar );
 pchar tree_start( int16_t n );
-int16_t copy_raster( puchar in, int16_t dy, int16_t dx,puchar out,int16_t row,int16_t col );
+int16_t copy_raster( puchar in, int16_t dy, int16_t dx, puchar out, int16_t row, int16_t col );
 void  errorExit( pchar str );
 int16_t  recog( void );
 int16_t  rec_without_halo( void );

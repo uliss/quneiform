@@ -141,7 +141,7 @@ int16_t outpos_exch(SOBJ * obj, int16_t pos, int16_t anew);
 /*** STATDICT ***/
 
 int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
-		struct dict_state * dict);
+               struct dict_state * dict);
 
 /*** EDFORMAT ***/
 
@@ -168,14 +168,14 @@ int16_t findstat(int16_t *, LTIMG **, struct dict_state *);
 /*** FINDVOC  ***/
 
 int16_t look_through_voc(int16_t * currw, LTIMG * wrddef[], voc_state * voc,
-		int16_t vocmode, int16_t incr, WTOKEN * * wtoken);
+                         int16_t vocmode, int16_t incr, WTOKEN * * wtoken);
 
 /***   VOC    ***/
 
 int16_t voc_init(voc_state*);
 void voc_open(voc_state*);
 int16_t voc_(voc_state *voc, LTIMG **wrddef, int16_t *lth, int16_t weight, int16_t mode,
-		WTOKEN * *wtoken);
+             WTOKEN * *wtoken);
 
 /*** IN_TREEI ***/
 
@@ -193,13 +193,13 @@ int32_t read_all_voc(int16_t seqn, char *name, char *p);
 
 #ifdef SECOND_PASS
 
-int16_t pull_to_stat(int16_t status,SOBJ*obj,SPART *part,
-		LTIMG wrdimg[],LTIMG *wrddef[]);
-void investigate_word(int16_t status,SOBJ *obj,LTIMG *wrddef[],
-		WTOKEN *token);
-void set_context(WTOKEN *left,WTOKEN *right);
-int16_t set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
-int16_t set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
+int16_t pull_to_stat(int16_t status, SOBJ*obj, SPART *part,
+                     LTIMG wrdimg[], LTIMG *wrddef[]);
+void investigate_word(int16_t status, SOBJ *obj, LTIMG *wrddef[],
+                      WTOKEN *token);
+void set_context(WTOKEN *left, WTOKEN *right);
+int16_t set_img_for_found(SOBJ *obj, SPART *part, LTIMG wrdimg[]);
+int16_t set_img_for_notfound(SOBJ *obj, SPART *part, LTIMG wrdimg[]);
 
 int16_t stat_replacements(SOBJ *obj);
 

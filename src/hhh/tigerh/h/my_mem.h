@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ONE_BLOCK  // ЇҐаҐеў в а Ў®вл б Ї ¬пвмо
 
 #ifdef  DebugFile
-   #ifndef __KERNEL__  // ЇҐаҐ¬Ґ­­лҐ ®ЇаҐ¤Ґ«Ґ­л ў KERNEL.C
-        extern char  StringError[];
-        extern FILE * FileError;
-   #endif
+#ifndef __KERNEL__  // ЇҐаҐ¬Ґ­­лҐ ®ЇаҐ¤Ґ«Ґ­л ў KERNEL.C
+extern char  StringError[];
+extern FILE * FileError;
+#endif
 #endif

@@ -64,29 +64,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ptrlist.h"
 
 /////////////////////////////////////////////////////
-class PAGE:public DATA
+class PAGE: public DATA
 {
-public:
-	PtrList<BLOCK>  Block;
+    public:
+        PtrList<BLOCK>  Block;
 
-public:
-	Handle	CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0,void * lpData = NULL, uint32_t Size = 0);
+    public:
+        Handle  CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
 
-public:
-	PAGE ();
-	virtual ~PAGE();
+    public:
+        PAGE ();
+        virtual ~PAGE();
 
-	PAGE & operator = (PAGE & Page);
+        PAGE & operator = (PAGE & Page);
 
-	Bool32 Save(Handle to);
-	Bool32 Restore(Handle from);
-	Bool32 SaveCompress(Handle to);
-	Bool32 RestoreCompress(Handle from);
+        Bool32 Save(Handle to);
+        Bool32 Restore(Handle from);
+        Bool32 SaveCompress(Handle to);
+        Bool32 RestoreCompress(Handle from);
 
-	virtual uint32_t Convert(Handle type,void * lpdata,uint32_t size);
+        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
 
 };
 
-	CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
+CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
 
 #endif

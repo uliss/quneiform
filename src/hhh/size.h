@@ -19,81 +19,83 @@
 #ifndef SIZE_H_
 #define SIZE_H_
 
-namespace CIF {
+namespace CIF
+{
 
 template<class T>
 class SizeImpl
 {
-public:
-    SizeImpl() :
-        width_(0), height_(0) {
-    }
+    public:
+        SizeImpl() :
+                width_(0), height_(0) {
+        }
 
-    SizeImpl(T width, T height) :
-        width_(width), height_(height) {
-    }
+        SizeImpl(T width, T height) :
+                width_(width), height_(height) {
+        }
 
-    bool isValid() const {
-        return width >= 0 && height_ >= 0;
-    }
+        bool isValid() const {
+            return width >= 0 && height_ >= 0;
+        }
 
-    T height() const {
-        return height_;
-    }
+        T height() const {
+            return height_;
+        }
 
-    template<class U>
-    bool operator==(const SizeImpl<U>& sz) {
-        return width_ == sz.width() && height_ == sz.height();
-    }
+        template<class U>
+        bool operator==(const SizeImpl<U>& sz) {
+            return width_ == sz.width() && height_ == sz.height();
+        }
 
-    template<class U>
-    bool operator!=(const SizeImpl<U>& sz) {
-        return width_ != sz.width() || height_ != sz.height();
-    }
+        template<class U>
+        bool operator!=(const SizeImpl<U>& sz) {
+            return width_ != sz.width() || height_ != sz.height();
+        }
 
-    template<class U>
-    void operator=(const SizeImpl<U>& sz) {
-        setWidth(sz.width());
-        setHeight(sz.height());
-    }
+        template<class U>
+        void operator=(const SizeImpl<U>& sz) {
+            setWidth(sz.width());
+            setHeight(sz.height());
+        }
 
-    T& rheight() {
-        return height_;
-    }
+        T& rheight() {
+            return height_;
+        }
 
-    T& rwidth() {
-        return width_;
-    }
+        T& rwidth() {
+            return width_;
+        }
 
-    SizeImpl& scale(double factor) {
-        width_ *= factor;
-        height_ *= factor;
-        return *this;
-    }
+        SizeImpl& scale(double factor) {
+            width_ *= factor;
+            height_ *= factor;
+            return *this;
+        }
 
-    void setHeight(T h) {
-        height_ = h;
-    }
+        void setHeight(T h) {
+            height_ = h;
+        }
 
-    void setWidth(T w) {
-        width_ = w;
-    }
+        void setWidth(T w) {
+            width_ = w;
+        }
 
-    void set(T width, T height) {
-        height_ = height;
-        width_ = width;
-    }
+        void set(T width, T height) {
+            height_ = height;
+            width_ = width;
+        }
 
-    T width() const {
-        return width_;
-    }
+        T width() const {
+            return width_;
+        }
 
-private:
-    T width_, height_;
+    private:
+        T width_, height_;
 };
 
 template<class T, class U>
-bool SizeContentEqual(const SizeImpl<T>& s0, const SizeImpl<U>& s1) {
+bool SizeContentEqual(const SizeImpl<T>& s0, const SizeImpl<U>& s1)
+{
     return s0.height() * s0.width() == s1.height() * s1.width();
 }
 

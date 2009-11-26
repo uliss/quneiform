@@ -55,178 +55,220 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __XSTACK_H
-   #define __XSTACK_H
+#define __XSTACK_H
 
-   #ifndef __XPOOL_H
-   #  include "xpool.h"
-   #endif
+#ifndef __XPOOL_H
+#  include "xpool.h"
+#endif
 
 template <class T>
 class XStack : private XPool
 {
-	public:
-      XStack( int32_t max_cnt = 0, int32_t cur_cnt = 0 ):
-         XPool(), MaxCnt(0), CurCnt(0) {  Create(max_cnt, cur_cnt); };
-      ~XStack(void){ Destroy(); };
-      Bool     Create( int32_t max_cnt, int32_t cur_cnt = 0 ); // differs of Resize by no realloc
-      Bool     CreateOf( int32_t init_cnt ){  return Create( init_cnt, init_cnt ); }
-      void     Destroy();
-      Bool     Resize( int32_t new_max_cnt ); // reallocation
-      void     SetCurCnt( int32_t new_cnt );  // does not resize!
-      Bool     operator !() const
-         {  return   ( !*(XPool*)this )     ||
+    public:
+        XStack( int32_t max_cnt = 0, int32_t cur_cnt = 0 ):
+                XPool(), MaxCnt(0), CurCnt(0) {
+            Create(max_cnt, cur_cnt);
+        };
+        ~XStack(void) {
+            Destroy();
+        };
+        Bool     Create( int32_t max_cnt, int32_t cur_cnt = 0 ); // differs of Resize by no realloc
+        Bool     CreateOf( int32_t init_cnt ) {
+            return Create( init_cnt, init_cnt );
+        }
+        void     Destroy();
+        Bool     Resize( int32_t new_max_cnt ); // reallocation
+        void     SetCurCnt( int32_t new_cnt );  // does not resize!
+        Bool     operator !() const {
+            return   ( !*(XPool*)this )     ||
                      ( CurCnt > MaxCnt )    ||
                      ( GetVolume() != (int32_t)(MaxCnt*sizeof(T)) );
-			};
-      T&       operator  []( int32_t i ) const
-         {  assert(GetData()!=NULL); assert(i<CurCnt); return *((T*)(GetData())+i);};
-      T*       GetPtr()  const {  return (T*)(GetData()); };
-      int32_t    GetCurCnt() const { return CurCnt; };
-      int32_t    GetMaxCnt() const { return MaxCnt; };
-      T*       Push( int32_t* no ); // fix space for new element
-      Bool     Push( T* t, int32_t* no );
-      Bool     Push( T& t, int32_t* no ){ return Push(&t, no); };
-		T*       Pop();
+        };
+        T&       operator  []( int32_t i ) const {
+            assert(GetData() != NULL);
+            assert(i < CurCnt);
+            return *((T*)(GetData()) + i);
+        };
+        T*       GetPtr()  const {
+            return (T*)(GetData());
+        };
+        int32_t    GetCurCnt() const {
+            return CurCnt;
+        };
+        int32_t    GetMaxCnt() const {
+            return MaxCnt;
+        };
+        T*       Push( int32_t* no ); // fix space for new element
+        Bool     Push( T* t, int32_t* no );
+        Bool     Push( T& t, int32_t* no ) {
+            return Push(&t, no);
+        };
+        T*       Pop();
 
-		T*       Top(); // returns temporary pointer to last element;
-                      // later element can be relocated (after push())
+        T*       Top(); // returns temporary pointer to last element;
+        // later element can be relocated (after push())
 
-      Err16    Read( XFile & bf, Bool32 swap_bytes = FALSE );
-      Bool     Write( XFile & bf ) const;
+        Err16    Read( XFile & bf, Bool32 swap_bytes = FALSE );
+        Bool     Write( XFile & bf ) const;
 
-      void     MemSet( uchar pattern ){ XPool::MemSet(pattern); };
+        void     MemSet( uchar pattern ) {
+            XPool::MemSet(pattern);
+        };
 
-   private:
-               int32_t   MaxCnt;
-               int32_t   CurCnt;
-      Bool     Copy( T* dst, T* src )
-         {  //*dst=*src;
+    private:
+        int32_t   MaxCnt;
+        int32_t   CurCnt;
+        Bool     Copy( T* dst, T* src ) { //*dst=*src;
             memcpy( dst, src, sizeof(T) );
             return TRUE;
-         };
+        };
 
-/** 22.03.97 22:07
-  public:          // The obsolete methods: for backward compatibility.
-		void     flush  () {Destroy();};
-//		T      * ptr( uint num )        { return &(*this)[num]; }
-		T      * firstPtr(void)         { return (T *)GetData();}
-		uint32_t   volume( void )         {  return MaxCnt;}
-		T      & GetLast(void)          {  return (*this)[(uint)(CurCnt -1)];}
-**/
+        /** 22.03.97 22:07
+          public:          // The obsolete methods: for backward compatibility.
+                void     flush  () {Destroy();};
+        //      T      * ptr( uint num )        { return &(*this)[num]; }
+                T      * firstPtr(void)         { return (T *)GetData();}
+                uint32_t   volume( void )         {  return MaxCnt;}
+                T      & GetLast(void)          {  return (*this)[(uint)(CurCnt -1)];}
+        **/
 };
 
 template < class T >
 Bool     XStack< T >::Create( int32_t max_cnt, int32_t cur_cnt )
-	{  assert(max_cnt>=cur_cnt);
-      if ( !XPool::Create( max_cnt*sizeof(T) ) )
-         {  CurCnt = 0;MaxCnt = 0;RETFALSE; }
-		CurCnt = cur_cnt;
-		MaxCnt = max_cnt;
-		return TRUE;
-	}
+{
+    assert(max_cnt >= cur_cnt);
+
+    if ( !XPool::Create( max_cnt*sizeof(T) ) ) {
+        CurCnt = 0;
+        MaxCnt = 0;
+        RETFALSE;
+    }
+
+    CurCnt = cur_cnt;
+    MaxCnt = max_cnt;
+    return TRUE;
+}
 
 template < class T >
 void     XStack< T >::SetCurCnt( int32_t new_cnt ) // does not resize!
-	{
-		assert( new_cnt <= MaxCnt );
-		CurCnt = new_cnt;
-	}
+{
+    assert( new_cnt <= MaxCnt );
+    CurCnt = new_cnt;
+}
 
 template < class T >
 void     XStack< T >::Destroy()
-   {  XPool::Destroy();
-		CurCnt = MaxCnt = 0;
-	}
+{
+    XPool::Destroy();
+    CurCnt = MaxCnt = 0;
+}
 
 
 template < class T >
 Bool     XStack< T >::Resize( int32_t new_max_cnt )
-	{
-      if ( !XPool::Realloc( new_max_cnt*sizeof(T) ) )
-			RETFALSE;
-		MaxCnt = new_max_cnt;
-      CurCnt =  MIN( CurCnt, new_max_cnt );
-		return TRUE;
-	}
+{
+    if ( !XPool::Realloc( new_max_cnt*sizeof(T) ) )
+        RETFALSE;
+
+    MaxCnt = new_max_cnt;
+    CurCnt =  MIN( CurCnt, new_max_cnt );
+    return TRUE;
+}
 
 template < class T >
 T*       XStack< T >::Push( int32_t* no ) // fix space for new element
 {
-		assert( CurCnt <= MaxCnt );
-      if ( CurCnt == MaxCnt )
-         if (!Resize( MAX( CurCnt*2, 1 ) ))
+    assert( CurCnt <= MaxCnt );
+
+    if ( CurCnt == MaxCnt )
+        if (!Resize( MAX( CurCnt*2, 1 ) ))
             RETNULL;
 
-      assert( CurCnt < MaxCnt );
-		T* pt = (T*)GetData();
-      if (pt==NULL)
-         RETNULL;
-		pt+=(uint)CurCnt;
-      if (no)
-         *no = CurCnt;
-		CurCnt++;
-      return pt;
+    assert( CurCnt < MaxCnt );
+    T* pt = (T*)GetData();
+
+    if (pt == NULL)
+        RETNULL;
+
+    pt += (uint)CurCnt;
+
+    if (no)
+        *no = CurCnt;
+
+    CurCnt++;
+    return pt;
 }
 
 template < class T >
 Bool     XStack< T >::Push( T* t, int32_t* no )
-	{
-		assert( CurCnt <= MaxCnt );
-      if ( CurCnt == MaxCnt )
-         if (!Resize( MAX( CurCnt*2, 1 ) ))
+{
+    assert( CurCnt <= MaxCnt );
+
+    if ( CurCnt == MaxCnt )
+        if (!Resize( MAX( CurCnt*2, 1 ) ))
             RETFALSE;
 
-      assert( CurCnt < MaxCnt );
-		T* pt = (T*)GetData();
-      if (pt==NULL)
-         RETFALSE;
-		pt+=(uint)CurCnt;
-		if ( ( t!=NULL ) && !Copy( pt, t) )
-			RETFALSE;
-      if (no)
-         *no = CurCnt;
-		CurCnt++;
-		return TRUE;
-	}
+    assert( CurCnt < MaxCnt );
+    T* pt = (T*)GetData();
+
+    if (pt == NULL)
+        RETFALSE;
+
+    pt += (uint)CurCnt;
+
+    if ( ( t != NULL ) && !Copy( pt, t) )
+        RETFALSE;
+
+    if (no)
+        *no = CurCnt;
+
+    CurCnt++;
+    return TRUE;
+}
 
 template < class T >
 T*       XStack< T >::Pop(void)
-	{
-		if (CurCnt==0) RETNULL;
-		T* pt = (T*)GetData();
-		assert(pt!=NULL);
-		CurCnt--;
-		pt+=(uint)CurCnt;
-		return pt;
-	}
+{
+    if (CurCnt == 0) RETNULL;
+
+    T* pt = (T*)GetData();
+    assert(pt != NULL);
+    CurCnt--;
+    pt += (uint)CurCnt;
+    return pt;
+}
 
 template < class T >
 T*       XStack< T >::Top(void)
-	{
-		if (CurCnt==0)
-         return NULL;
-		T* pt = (T*)GetData();
-		assert(pt!=NULL);
-		pt+=(uint)(CurCnt-1);
-		return pt;
-	}
+{
+    if (CurCnt == 0)
+        return NULL;
+
+    T* pt = (T*)GetData();
+    assert(pt != NULL);
+    pt += (uint)(CurCnt - 1);
+    return pt;
+}
 
 template < class T >
 Err16 XStack< T >::Read( XFile & bf, Bool32 swap_bytes )
-	{
-      RETIFERR( XPool::Read(bf, swap_bytes) );
-		if ( (GetVolume() % sizeof(T)) != 0)
-         RETERR( ER_CORRUPTED );
-		CurCnt = MaxCnt = (GetVolume() / sizeof(T));
-		assert(!!*this);
-      return ER_NONE;
-	}
+{
+    RETIFERR( XPool::Read(bf, swap_bytes) );
+
+    if ( (GetVolume() % sizeof(T)) != 0)
+        RETERR( ER_CORRUPTED );
+
+    CurCnt = MaxCnt = (GetVolume() / sizeof(T));
+    assert(!!*this);
+    return ER_NONE;
+}
 
 template < class T >
 Bool     XStack< T >::Write( XFile & bf ) const
-	{
-      if(!XPool::Write(bf, CurCnt*sizeof(T)))   RETFALSE;
-		return TRUE;
-	}
+{
+    if (!XPool::Write(bf, CurCnt*sizeof(T)))   RETFALSE;
+
+    return TRUE;
+}
 
 #endif // __TAGSTACK_H

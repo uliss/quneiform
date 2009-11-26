@@ -57,20 +57,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface my        */
 
 #ifndef __SMetric_H
-	#define __SMetric_H
+#define __SMetric_H
 
-	#include "cttypes.h"
+#include "cttypes.h"
 
-	#include "globus.h"
+#include "globus.h"
 
 #ifdef __SMetric__
-	#define SMetric_FUNC  FUN_EXPO
+#define SMetric_FUNC  FUN_EXPO
 #else
-	#define SMetric_FUNC  FUN_IMPO
+#define SMetric_FUNC  FUN_IMPO
 #endif
 
 
-SMetric_FUNC(Bool32) SMetric_Init(uint16_t wHeightCode,Handle hStorage);
+SMetric_FUNC(Bool32) SMetric_Init(uint16_t wHeightCode, Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
 SMetric_FUNC(uint32_t) SMetric_GetReturnCode();
 SMetric_FUNC(char *) SMetric_GetReturnString(uint32_t dwError);
@@ -81,12 +81,11 @@ SMetric_FUNC(Bool32) SMetric_SetImportData(uint32_t dwType, void * pData);
 #define SMetric_BLOCK_TYPE CPAGE_GetInternalType("TYPE_DESC")
 
 
-typedef enum
-{
-                SMetric_FNSMetric_FindMainSkew = 1,
-                SMetric_DTSMetric_AnyOne,
-				SMetric_ResolX,	// для задания разрешения по x (в Import int32_t в Export int32_t*)
-				SMetric_ResolY  // для задания разрешения по y (в Import int32_t в Export int32_t*)
+typedef enum {
+    SMetric_FNSMetric_FindMainSkew = 1,
+    SMetric_DTSMetric_AnyOne,
+    SMetric_ResolX, // для задания разрешения по x (в Import int32_t в Export int32_t*)
+    SMetric_ResolY  // для задания разрешения по y (в Import int32_t в Export int32_t*)
 } SMetric_EXPORT_ENTRIES;
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; SMetric_FUNC(a) b c

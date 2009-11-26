@@ -66,152 +66,138 @@
 
 class XPath: public XText<PATH_MAX>
 {
-public:
-    XPath(void) :
-        XText<PATH_MAX> ("") {
-    }
-
-    XPath(const char* path) :
-        XText<PATH_MAX> (path) {
-    }
-
-    XPath& operator =(const char * path) {
-        *(XText<PATH_MAX>*) this = path;
-        return *this;
-    }
-
-    XPath& operator =(const XText<PATH_MAX>& path) {
-        *(XText<PATH_MAX>*) this = path;
-        return *this;
-    }
-
-    XPath(const char* dir, const char* name, const char* ext) :
-        XText<PATH_MAX> () {
-        make_path(buf, dir, name, ext);
-    }
-
-    XPath& GetModuleFileName(HMODULE hModule = NULL) {
-        ::GetModuleFileName(hModule, buf, sizeof(buf));
-        return *this;
-    }
-
-    XPath& GetCurrentDirectory(void) {
-        curr_dir(sizeof(buf), buf);
-        return *this;
-    }
-
-    XPath& GetTempPath(void) {
-        ::GetTempPath(sizeof(buf), buf);
-        return *this;
-    }
-
-    XPath& CutPath(void) // оставляем только путь (без имени и расширения)
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-
-        split_path(buf, dir, name, ext);
-        make_path(buf, dir, NULL, NULL);
-        return *this;
-    }
-
-    XPath& CutName(void) // оставляем только имя (без расширения)
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-
-        split_path(buf, dir, name, ext);
-        make_path(buf, NULL, name, NULL);
-        return *this;
-    }
-
-    XPath& CutNameEx(void) // оставляем только имя (с расширением)
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-
-        split_path(buf, dir, name, ext);
-        make_path(buf, NULL, name, ext);
-        return *this;
-    }
-
-    XPath& CutExt(void) {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-
-        split_path(buf, dir, name, ext);
-        make_path(buf, NULL, NULL, ext);
-        return *this;
-    }
-
-    XPath& SetExt(const char* new_ext) // заменяем или добавляем новое расширение
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-
-        split_path(buf, dir, name, NULL);
-        make_path(buf, dir, name, new_ext);
-        return *this;
-    }
-
-    XPath& CheckSlash(void) // проверяем и добавляем слэш в конце если нет
-    {
-        int len = strlen(buf);
-        if (buf[0] && buf[len - 1] != '/') {
-            buf[len] = '/';
-            buf[len + 1] = 0;
+    public:
+        XPath(void) :
+                XText<PATH_MAX> ("") {
         }
 
-        return *this;
-    }
-
-    XPath& StripSlash(void) // проверяем и убираем слэш в конце если есть
-    {
-        int len = strlen(buf);
-        if (buf[0] && buf[len - 1] == '/') {
-            buf[len - 1] = 0;
+        XPath(const char* path) :
+                XText<PATH_MAX> (path) {
         }
 
-        return *this;
-    }
+        XPath& operator =(const char * path) {
+            *(XText<PATH_MAX>*) this = path;
+            return *this;
+        }
 
-    XPath& SetName(const char* new_name) // заменяем или добавляем новое имя+расш
-    {
-        char dir[_MAX_DIR];
+        XPath& operator =(const XText<PATH_MAX>& path) {
+            *(XText<PATH_MAX>*) this = path;
+            return *this;
+        }
 
-        split_path(buf, dir, NULL, NULL);
-        make_path(buf, dir, new_name, NULL);
-        return *this;
-    }
+        XPath(const char* dir, const char* name, const char* ext) :
+                XText<PATH_MAX> () {
+            make_path(buf, dir, name, ext);
+        }
 
-    XPath& EraseDrive() // удаляем название диска
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-        split_path(buf, dir, name, ext);
-        make_path(buf, dir, name, ext);
-        return *this;
-    }
+        XPath& GetModuleFileName(HMODULE hModule = NULL) {
+            ::GetModuleFileName(hModule, buf, sizeof(buf));
+            return *this;
+        }
 
-    XPath& SetDrive(const char* /*pDrive*/) // удаляем название диска
-    {
-        char dir[_MAX_DIR];
-        char name[_MAX_FNAME];
-        char ext[_MAX_EXT];
-        split_path(buf, dir, name, ext);
-        make_path(buf, dir, name, ext);
-        return *this;
-    }
+        XPath& GetCurrentDirectory(void) {
+            curr_dir(sizeof(buf), buf);
+            return *this;
+        }
 
-    void Split(char* pDir, char* pFileName, char* pExt) // разбиваем путь на компоненты
-    {
-        split_path(buf, pDir, pFileName, pExt);
-    }
+        XPath& GetTempPath(void) {
+            ::GetTempPath(sizeof(buf), buf);
+            return *this;
+        }
+
+        XPath& CutPath(void) { // оставляем только путь (без имени и расширения)
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, dir, NULL, NULL);
+            return *this;
+        }
+
+        XPath& CutName(void) { // оставляем только имя (без расширения)
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, NULL, name, NULL);
+            return *this;
+        }
+
+        XPath& CutNameEx(void) { // оставляем только имя (с расширением)
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, NULL, name, ext);
+            return *this;
+        }
+
+        XPath& CutExt(void) {
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, NULL, NULL, ext);
+            return *this;
+        }
+
+        XPath& SetExt(const char* new_ext) { // заменяем или добавляем новое расширение
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            split_path(buf, dir, name, NULL);
+            make_path(buf, dir, name, new_ext);
+            return *this;
+        }
+
+        XPath& CheckSlash(void) { // проверяем и добавляем слэш в конце если нет
+            int len = strlen(buf);
+
+            if (buf[0] && buf[len - 1] != '/') {
+                buf[len] = '/';
+                buf[len + 1] = 0;
+            }
+
+            return *this;
+        }
+
+        XPath& StripSlash(void) { // проверяем и убираем слэш в конце если есть
+            int len = strlen(buf);
+
+            if (buf[0] && buf[len - 1] == '/') {
+                buf[len - 1] = 0;
+            }
+
+            return *this;
+        }
+
+        XPath& SetName(const char* new_name) { // заменяем или добавляем новое имя+расш
+            char dir[_MAX_DIR];
+            split_path(buf, dir, NULL, NULL);
+            make_path(buf, dir, new_name, NULL);
+            return *this;
+        }
+
+        XPath& EraseDrive() { // удаляем название диска
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, dir, name, ext);
+            return *this;
+        }
+
+        XPath& SetDrive(const char* /*pDrive*/) { // удаляем название диска
+            char dir[_MAX_DIR];
+            char name[_MAX_FNAME];
+            char ext[_MAX_EXT];
+            split_path(buf, dir, name, ext);
+            make_path(buf, dir, name, ext);
+            return *this;
+        }
+
+        void Split(char* pDir, char* pFileName, char* pExt) { // разбиваем путь на компоненты
+            split_path(buf, pDir, pFileName, pExt);
+        }
 };
 
 #endif // XPath

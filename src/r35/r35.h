@@ -83,37 +83,37 @@ R35_FUNC Bool32 R35SetAlphabet(char* char_tbl_put_to); // char table[0-255]
 // Set alphabet for recognition
 
 R35_FUNC Bool32 R35Binarize(RecRaster *rRaster, uint16_t *CompImage,
-		int32_t dx, int32_t dy);
+                            int32_t dx, int32_t dy);
 R35_FUNC Bool32 R35Binarize8(RecRaster *rRaster, uchar *CompImage, int32_t dx,
-		int32_t dy);
+                             int32_t dy);
 
 R35_FUNC void R35SetPlatform(int32_t cpu);
 R35_FUNC Bool32 R35Pack(RecRaster* raster, // raster description
-		uint16_t* Image3x5, int32_t TO_X, int32_t TO_Y); // result
+                        uint16_t* Image3x5, int32_t TO_X, int32_t TO_Y); // result
 
 R35_FUNC Bool32 R35PackProport(RecRaster* raster, // raster description
-		uint16_t* Image3x5, int32_t TO_X, int32_t TO_Y); // result
+                               uint16_t* Image3x5, int32_t TO_X, int32_t TO_Y); // result
 
 R35_FUNC Bool32 R35PackProportHor16(RecRaster *raster, uint16_t *Image3x5,
-		int32_t *to_x, int32_t *to_y);
+                                    int32_t *to_x, int32_t *to_y);
 
 R35_FUNC Bool32 R35RecogCharIm3x5(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res);
+                                  RecVersions* R35res);
 
 R35_FUNC Bool32 R35RecogCharIm3x5_expert(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res);
+                                         RecVersions* R35res);
 
 R35_FUNC Bool32 R35RecogPrintCharIm3x5(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res);
+                                       RecVersions* R35res);
 
 R35_FUNC Bool32 R35RecogPrintCharIm3x5_expert(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res, Bool32 r5x3);
+                                              RecVersions* R35res, Bool32 r5x3);
 
 R35_FUNC Bool32 R35RecogNdxIm3x5(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res);
+                                 RecVersions* R35res);
 
 R35_FUNC Bool32 R35RecogNdxIm3x5_expert(uint16_t* Im3x5, // image 3x5
-		RecVersions* R35res);
+                                        RecVersions* R35res);
 
 R35_FUNC void R35Done(void);
 // Stop function. Call after R35Init()
@@ -123,7 +123,7 @@ R35_FUNC int16_t R35GetErr(void);
 R35_FUNC Bool32 R35Init_learn(int32_t num, uchar level, int32_t FontType);
 R35_FUNC void R35Done_learn(int32_t FontType);
 R35_FUNC Bool32 R35RecogCharIm3x5_learn(uchar Code,
-		uint16_t* Im3x5/*, Bool32 r5x3*/, int32_t FontType);
+                                        uint16_t* Im3x5/*, Bool32 r5x3*/, int32_t FontType);
 R35_FUNC Bool32 R35RecogCharIm3x5_learn_expert(uchar Code, uint16_t* Im3x5);
 R35_FUNC Bool32 R35Delete(uchar let, int32_t num_del);
 R35_FUNC Bool32 R35Add(uchar let, uint16_t* Im3x5, int32_t FontType);
@@ -131,16 +131,16 @@ R35_FUNC void R35SetMTR(int fnt);
 
 // error code
 enum r35_err_t {
-	ER_R35_NO_ERROR = 0,
-	ER_R35_NO_RECOG = 1,
-	ER_R35_TOO_SMALL = 2,
-	ER_R35_OPEN = 3,
-	ER_R35_READ = 4,
-	ER_R35_MEMORY = 5,
-	ER_R35_NO_LOAD = 6,
-	ER_R35_NO_LEVEL = 7,
-	ER_R35_ALPHA = 8,
-	ER_R35_WRITE = 9
+    ER_R35_NO_ERROR = 0,
+    ER_R35_NO_RECOG = 1,
+    ER_R35_TOO_SMALL = 2,
+    ER_R35_OPEN = 3,
+    ER_R35_READ = 4,
+    ER_R35_MEMORY = 5,
+    ER_R35_NO_LOAD = 6,
+    ER_R35_NO_LEVEL = 7,
+    ER_R35_ALPHA = 8,
+    ER_R35_WRITE = 9
 };
 
 #endif

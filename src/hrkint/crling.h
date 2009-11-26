@@ -57,44 +57,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if ( !defined ( __CRLING_HEADER_ ) & !defined ( RLING_SECONDARY ) ) | ( !defined (__CRLINGS_HEADER_) & defined(RLING_SECONDARY) )
 
 # ifdef RLING_SECONDARY
-  #define __RLINGS__
-  #undef  __RLING__
-  #define __CRLINGS_HEADER_
+#define __RLINGS__
+#undef  __RLING__
+#define __CRLINGS_HEADER_
 #else
-  #define __RLING__
-  #undef  __RLINGS__
-  #define __CRLING_HEADER_
+#define __RLING__
+#undef  __RLINGS__
+#define __CRLING_HEADER_
 #endif
 
 # if defined (_DEBUG)
-    # if defined __RLING__
-         # pragma message( __FILE__": master checker")
-    #else
-         # pragma message( __FILE__": slave checker - for RLING and RLINGS project only!")
-    #endif
+# if defined __RLING__
+# pragma message( __FILE__": master checker")
+#else
+# pragma message( __FILE__": slave checker - for RLING and RLINGS project only!")
+#endif
 # endif // (_DEBUG)
 
- #include "globus.h"
+#include "globus.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #undef  RLING_FUNC
 #ifdef __RLING__
-  #define RLING_FUNC  FUN_EXPO
+#define RLING_FUNC  FUN_EXPO
 #else
-  #define RLING_FUNC  FUN_IMPO
+#define RLING_FUNC  FUN_IMPO
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #undef  RLINGS_FUNC
 #ifdef __RLINGS__
-  #define RLINGS_FUNC  FUN_EXPO
+#define RLINGS_FUNC  FUN_EXPO
 #else
-  #define RLINGS_FUNC  FUN_IMPO
+#define RLINGS_FUNC  FUN_IMPO
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #pragma pack (push,8)
 ///////////////////////////////////////////////////////////////////////////////////////////////
-# define	RLING_MAXNAME 260
+# define    RLING_MAXNAME 260
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -103,7 +103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLING__
-RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode,Handle hStorage);
+RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode, Handle hStorage);
 RLING_FUNC(Bool32) RLING_Done();
 RLING_FUNC(uint32_t) RLING_GetReturnCode();
 RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError);
@@ -112,7 +112,7 @@ RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData);
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLINGS__
-RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode,Handle hStorage);
+RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode, Handle hStorage);
 RLINGS_FUNC(Bool32) RLINGS_Done();
 RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode();
 RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError);
@@ -122,66 +122,64 @@ RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLING__
-typedef enum
-{
-		RLING_FN_IsDictonaryAvailable = 1,
-		RLING_FN_LoadDictonary,
-		RLING_FN_LoadSecDictonary,
-		RLING_FN_LoadUserDictonary,
-		RLING_FN_LoadSecUserDictonary,
-		RLING_FN_UnloadDictonary,
-		RLING_FN_UnloadSecDictonary,
-		RLING_FN_UnloadUserDictonary,
-		RLING_FN_UnloadSecUserDictonary,
-		RLING_FN_CheckWord,
-		RLING_FN_CheckSecWord,
-		RLING_FN_CheckED,
-		RLING_FN_CheckSecED,
-		RLING_FN_CorrectWord,
-		RLING_FN_CorrectSecWord,
-		RLING_FN_CorrectHypWord,
-		RLING_FN_CorrectSecHypWord,
-		RLING_FN_GetCorrectedRectElement,
-		RLING_FN_GetSecCorrectedRectElement,
-		RLING_FN_GetCorrectedVersElement,
-		RLING_FN_GetSecCorrectedVersElement
+typedef enum {
+    RLING_FN_IsDictonaryAvailable = 1,
+    RLING_FN_LoadDictonary,
+    RLING_FN_LoadSecDictonary,
+    RLING_FN_LoadUserDictonary,
+    RLING_FN_LoadSecUserDictonary,
+    RLING_FN_UnloadDictonary,
+    RLING_FN_UnloadSecDictonary,
+    RLING_FN_UnloadUserDictonary,
+    RLING_FN_UnloadSecUserDictonary,
+    RLING_FN_CheckWord,
+    RLING_FN_CheckSecWord,
+    RLING_FN_CheckED,
+    RLING_FN_CheckSecED,
+    RLING_FN_CorrectWord,
+    RLING_FN_CorrectSecWord,
+    RLING_FN_CorrectHypWord,
+    RLING_FN_CorrectSecHypWord,
+    RLING_FN_GetCorrectedRectElement,
+    RLING_FN_GetSecCorrectedRectElement,
+    RLING_FN_GetCorrectedVersElement,
+    RLING_FN_GetSecCorrectedVersElement
 } RLING_EXPORT_ENTRIES;
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLINGS__
-typedef enum
-{
-		RLINGS_FN_IsDictonaryAvailable = 1,
-		RLINGS_FN_LoadDictonary,
-		RLINGS_FN_LoadSecDictonary,
-		RLINGS_FN_LoadUserDictonary,
-		RLINGS_FN_LoadSecUserDictonary,
-		RLINGS_FN_UnloadDictonary,
-		RLINGS_FN_UnloadSecDictonary,
-		RLINGS_FN_UnloadUserDictonary,
-		RLINGS_FN_UnloadSecUserDictonary,
-		RLINGS_FN_CheckWord,
-		RLINGS_FN_CheckSecWord,
-		RLINGS_FN_CheckED,
-		RLINGS_FN_CheckSecED,
-		RLINGS_FN_CorrectWord,
-		RLINGS_FN_CorrectSecWord,
-		RLINGS_FN_CorrectHypWord,
-		RLINGS_FN_CorrectSecHypWord,
-		RLINGS_FN_GetCorrectedRectElement,
-		RLINGS_FN_GetSecCorrectedRectElement,
-		RLINGS_FN_GetCorrectedVersElement,
-		RLINGS_FN_GetSecCorrectedVersElement
+typedef enum {
+    RLINGS_FN_IsDictonaryAvailable = 1,
+    RLINGS_FN_LoadDictonary,
+    RLINGS_FN_LoadSecDictonary,
+    RLINGS_FN_LoadUserDictonary,
+    RLINGS_FN_LoadSecUserDictonary,
+    RLINGS_FN_UnloadDictonary,
+    RLINGS_FN_UnloadSecDictonary,
+    RLINGS_FN_UnloadUserDictonary,
+    RLINGS_FN_UnloadSecUserDictonary,
+    RLINGS_FN_CheckWord,
+    RLINGS_FN_CheckSecWord,
+    RLINGS_FN_CheckED,
+    RLINGS_FN_CheckSecED,
+    RLINGS_FN_CorrectWord,
+    RLINGS_FN_CorrectSecWord,
+    RLINGS_FN_CorrectHypWord,
+    RLINGS_FN_CorrectSecHypWord,
+    RLINGS_FN_GetCorrectedRectElement,
+    RLINGS_FN_GetSecCorrectedRectElement,
+    RLINGS_FN_GetCorrectedVersElement,
+    RLINGS_FN_GetSecCorrectedVersElement
 } RLINGS_EXPORT_ENTRIES;
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLING__
-  #define DEC_FUN(a,b,c) typedef a (*FNRLING##b)c; RLING_FUNC(a) RLING_##b c
+#define DEC_FUN(a,b,c) typedef a (*FNRLING##b)c; RLING_FUNC(a) RLING_##b c
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 #if defined( __RLINGS__ ) & !defined (__RLING__)
-  #define DEC_FUN(a,b,c) typedef a (*FNRLINGS##b)c; RLINGS_FUNC(a) RLINGS_##b c
+#define DEC_FUN(a,b,c) typedef a (*FNRLINGS##b)c; RLINGS_FUNC(a) RLINGS_##b c
 #endif
 //////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -203,9 +201,9 @@ DEC_FUN(Bool32,  CorrectSecWord,           (void *, void *, uint32_t *, pchar));
 DEC_FUN(Bool32,  CorrectHypWord,           (void *, void *, uint32_t *, void *, void *, uint32_t *, pchar));
 DEC_FUN(Bool32,  CorrectSecHypWord,        (void *, void *, uint32_t *, void *, void *, uint32_t *, pchar));
 DEC_FUN(Rect16,  GetCorrectedRectElement,   (uint32_t));
-DEC_FUN(Rect16,  GetSecCorrectedRectElement,(uint32_t));
+DEC_FUN(Rect16,  GetSecCorrectedRectElement, (uint32_t));
 DEC_FUN(RecVersions,  GetCorrectedVersElement,   (uint32_t, uint32_t *));
-DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(uint32_t, uint32_t *));
+DEC_FUN(RecVersions,  GetSecCorrectedVersElement, (uint32_t, uint32_t *));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

@@ -55,21 +55,22 @@
  */
 
 static const char *english_voc[] = { "at", "on", "pro", "more", "an", "mr", "many",
-		"him", "ran", "any", "or", "open", "one", "once", "be", "can", "of",
-		"we", "the", "him", "are", "it", "dos", "ocr", "ibm", "group", "by",
-		"is", "in", "if", "very", "cdrom", "fax", "cd", "rom", "new", "old",
-		"svga", "vga", "computer", "multimedia", "hp", "ascii", "soft", "copy",
-		"sorry", "as", "system", "isn", "samsung", "infoseek", "rtf", "dbf",
-		"odbc", "api", "sdk", "csv", "xls", "html", "pci", "pentium", "ide",
-		"vesa", "cisco", "scsi", "eisa", "cashe", "\0" // end of word list
-		};
+                                     "him", "ran", "any", "or", "open", "one", "once", "be", "can", "of",
+                                     "we", "the", "him", "are", "it", "dos", "ocr", "ibm", "group", "by",
+                                     "is", "in", "if", "very", "cdrom", "fax", "cd", "rom", "new", "old",
+                                     "svga", "vga", "computer", "multimedia", "hp", "ascii", "soft", "copy",
+                                     "sorry", "as", "system", "isn", "samsung", "infoseek", "rtf", "dbf",
+                                     "odbc", "api", "sdk", "csv", "xls", "html", "pci", "pentium", "ide",
+                                     "vesa", "cisco", "scsi", "eisa", "cashe", "\0" // end of word list
+                                   };
 static const char *russian_voc[] = { "Є Є", "ҐЈ®", "§ ", "в Є", "­ ", "­Ґ", "ҐҐ",
-		"­®", "®­", "®­ ", "ў®в", "Ё", "б®", "ўбҐ", "ў", "ўбҐ©", "ў®", "Ї®«Ґ",
-		"Ї®", "­г", "з б", "®", "зҐЈ®", " ", "бҐЎҐ", "¦Ґ", "Їа®бв®", "Є®Ј®",
-		"Їа®", "зв®", "ва®Ґ", "би ", "®в", "¬Јж", "ЈЎ ©в", "®­Ё", "Єв®", "\0" // end of word list
-		};
+                                     "­®", "®­", "®­ ", "ў®в", "Ё", "б®", "ўбҐ", "ў", "ўбҐ©", "ў®", "Ї®«Ґ",
+                                     "Ї®", "­г", "з б", "®", "зҐЈ®", " ", "бҐЎҐ", "¦Ґ", "Їа®бв®", "Є®Ј®",
+                                     "Їа®", "зв®", "ва®Ґ", "би ", "®в", "¬Јж", "ЈЎ ©в", "®­Ё", "Єв®", "\0" // end of word list
+                                   };
 static const char *english_voc_all[] = { "for", "ole", "win", "\0" };
 static const char *russian_voc_all[] = { "или", "лет", "сил", "ним", "изо", "стр",
-		"неё", "её", "нём", "шёл", "бог", "\0" };
+                                         "неё", "её", "нём", "шёл", "бог", "\0"
+                                       };
 
 static const char *russian_voc_short[] = { "тыс", "соч", "стр", "рус", "\0" };

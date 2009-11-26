@@ -63,18 +63,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class CRomBabble
 {
 
-private:
-//	const int	MaxNumberOfBabbles = 10;
+    private:
+//  const int   MaxNumberOfBabbles = 10;
 
-public:
-	int			Max;
-	int			Current;
-	CRomBabble* next;
-	RomBubble   Data[MaxNumberOfBabbles];
+    public:
+        int         Max;
+        int         Current;
+        CRomBabble* next;
+        RomBubble   Data[MaxNumberOfBabbles];
 
-public:
+    public:
 
-CRomBabble		(  );
-//~CRomBabble		( void ) {};
+        CRomBabble      (  );
+//~CRomBabble       ( void ) {};
 
 };

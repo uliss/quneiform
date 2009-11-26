@@ -57,7 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _ALPHABET_H_
 #define _ALPHABET_H_
 
-typedef struct { int16_t dig,fuzzy_dig,all,alphabet,dollars,pm;} str_info;
+typedef struct {
+    int16_t dig, fuzzy_dig, all, alphabet, dollars, pm;
+} str_info;
 
 void  add_digital_versions(void);
 void   copy_alphabet(puchar);
@@ -69,13 +71,13 @@ void set_digital_alphabet(void);
 void set_all_alphabet(void);
 void add_alphabet_elem(uchar let);
 void del_alphabet_elem(uchar let);
-void save_alphabet_information(str_info *s,int16_t num,CSTR_line ln);
-void save_alphabet_information_pass2(str_info *s,int16_t num,CSTR_line ln);
-int16_t  GetColumn(int16_t *VertLines,int16_t VertNum);
+void save_alphabet_information(str_info *s, int16_t num, CSTR_line ln);
+void save_alphabet_information_pass2(str_info *s, int16_t num, CSTR_line ln);
+int16_t  GetColumn(int16_t *VertLines, int16_t VertNum);
 void make_simples_diff(int16_t lang);
-int16_t  dichotomy_array(int16_t value,int16_t *array,int16_t start,int16_t end);
-void set_column_alphabets(str_info *str_inf,int16_t VertNum);
-void set_column_alphabets_pass2(str_info *str_inf,int16_t VertNum);
+int16_t  dichotomy_array(int16_t value, int16_t *array, int16_t start, int16_t end);
+void set_column_alphabets(str_info *str_inf, int16_t VertNum);
+void set_column_alphabets_pass2(str_info *str_inf, int16_t VertNum);
 void setup_digital_mode(str_info *str, int16_t first_pass);
 void setup_digital_mode_pass2(str_info *str, int16_t first_pass);
 Bool digital_last_context(void);

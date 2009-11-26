@@ -86,7 +86,7 @@ void RotateRect(const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
  \note  Используется только в SStreak
  */
 void FindMinimIdealRegion(const int nRc, const int *pDo,
-		const Rect16 *pRcIdeal, Rect16 *pMIR);
+                          const Rect16 *pRcIdeal, Rect16 *pMIR);
 /**
  \brief Функция проверяет, пересекает ли линия прямоугольник
  \param pA [in/out]  - указатель на точку - начало линии в реальных координатах
@@ -99,7 +99,7 @@ void FindMinimIdealRegion(const int nRc, const int *pDo,
  \note  Используется в RVerLine и USAGE
  */
 bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, const Rect16 *pRc,
-		const int32_t Skew, const int NearHor, const int NearVer);
+                       const int32_t Skew, const int NearHor, const int NearVer);
 /**
  \brief Функция проверяет, пересекаются ли два прямоугольника
  \param pRc1 [in] - указатель на первый прямоугольник

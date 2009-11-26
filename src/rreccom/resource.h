@@ -54,28 +54,27 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-static const char * RRECCOM_error_name[]=
-{
-	"No error",
-	"Can't operate",
-	"Not enough memory",
-	"Not implement",
-	"Internal error - call developer",
-	"Can't open DumpFile",
-	"DumpFile writing error",
-	"External CallBack error",
-	"Bad Parameters of call",
-	"Empty Page",
-	"Can't init eventual-library",
-	"Different versions of REXC and CCOM",
-	"Can't import",
-	"Can't export",
-	"Language not exist",
-	"Can't init language",
-	"Can't init networks",
-	"Already init",
-	"Not enough memory",
-	"Failed to rotate page automatically. Rotate page manually and turn off Autorotate option, then recognize page again.",
-	"Bad image information",
-	""
+static const char * RRECCOM_error_name[] = {
+    "No error",
+    "Can't operate",
+    "Not enough memory",
+    "Not implement",
+    "Internal error - call developer",
+    "Can't open DumpFile",
+    "DumpFile writing error",
+    "External CallBack error",
+    "Bad Parameters of call",
+    "Empty Page",
+    "Can't init eventual-library",
+    "Different versions of REXC and CCOM",
+    "Can't import",
+    "Can't export",
+    "Language not exist",
+    "Can't init language",
+    "Can't init networks",
+    "Already init",
+    "Not enough memory",
+    "Failed to rotate page automatically. Rotate page manually and turn off Autorotate option, then recognize page again.",
+    "Bad image information",
+    ""
 };

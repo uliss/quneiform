@@ -60,9 +60,9 @@
 
 //////////////////////////////////////////////////////////////
 //
-//	Description: ShellLine's functions definition
+//  Description: ShellLine's functions definition
 //
-//	Implemented: by B.M. Shahverdiev
+//  Implemented: by B.M. Shahverdiev
 //
 //
 
@@ -92,22 +92,22 @@ void DrowPolynomia(DLine* pCLine); //
 void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow);
 void CleaningRaster(DLine* pCLine, char* Buffer); //
 void DrowCleanedRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow); //
+                       BitmapInfoHeader* image_info, Handle* HndMyWindow); //
 void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
-		BitmapInfoHeader* image_info, Handle* HndMyWindow); //
+                            BitmapInfoHeader* image_info, Handle* HndMyWindow); //
 void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect); //
 Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
-		Bool FlagVerticalLine); //
+                             Bool FlagVerticalLine); //
 //Bool   GetCorrectedLineStripesIntervals(CLine* pCLine);
 void FillingStripes(CLINE_handle line, int y, int16_t Count,
-		uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
+                    uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
 void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine); //
 int Bits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals); //
 void TypeIntervals(int y, int16_t Count, uint16_t* pIntervals); //
 void TypeStripe(CLINE_handle hStripe, DEvent* pStripe); //
 Bool GetLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow,
-		int ColorIndex, Bool32 ForAllLines = FALSE); //
+                         int ColorIndex, Bool32 ForAllLines = FALSE); //
 //void DrawSeparationPoints(CLine* pCLine, Handle HndMyWindow);
 Bool CorrectLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle GetTransposedRaster(DLine* pCLine, char* Buffer, char** pRaster); //
@@ -117,8 +117,8 @@ void Drow2Rects(Rect32* rect, Rect32* rect1); //
 void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine);
 void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster);
 Bool32
-		CompareRasterParts(CPDLine pLine, char* pSourceRaster,
-				Bool32 CheckSerif);
+CompareRasterParts(CPDLine pLine, char* pSourceRaster,
+                   Bool32 CheckSerif);
 //////////////////////////////////////////////////////////////////////////////////
 //
 #ifdef __RSL_EXTERN__
@@ -154,7 +154,7 @@ EXTERN Handle hDebugTypeDegree VAL( NULL );
 //EXTERN Handle hDebugDrowPass3                              VAL( NULL );
 //EXTERN Handle hDebugDrowTableZone                          VAL( NULL );
 EXTERN Handle hDebugProfileRSL VAL( NULL );
-//EXTERN Handle hDebugProfStart	      	        		   VAL( NULL );
+//EXTERN Handle hDebugProfStart                            VAL( NULL );
 EXTERN Handle hDebugProfFindLineFrag VAL( NULL );
 EXTERN Handle hDebugProfEndFindLineFrag VAL( NULL );
 EXTERN Handle hDebugProfSL_GetRaster VAL( NULL );

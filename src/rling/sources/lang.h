@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _LANG_INCLUDED_
 
 #if _MSC_VER > 1000
-   #pragma once
+#pragma once
 #endif // _MSC_VER > 1000
 
 #include "lang_def.h"

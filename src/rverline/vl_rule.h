@@ -64,35 +64,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 #ifndef Handle
-	#define Handle void *
+#define Handle void *
 #endif
-typedef enum
-{
-	RU_Unknown = 0,
-	/*  Верификация линий  */
-	RU_VL_Into,
-	RU_VL_I_PrimLines,
-	RU_VL_I_PrimBoxes,
-	RU_VL_Out,
-	RU_VL_O_VerifLines,
-	RU_VL_O_CorrLines,
-	RU_VL_O_ModelLines,
-	RU_VL_O_SaveComps,
-	RU_VL_Control,
-	RU_VL_C_ContErr,
-	RU_VL_C_ContWarn,
-	RU_VL_C_ContRare,
-	RU_VL_Upravlenie,
-	RU_VL_U_NoPointedLines,
-	RU_VL_U_AbleKillShortVert,
-	RU_VL_U_NewFormalVerify,
-	RU_VL_U_NoInvestLongLines,
-	RU_VL_U_NoInvestImage,
-	RU_VL_U_AbleHoriZher,
-	RU_VL_Debug,
-	RU_VL_D_Info,
-	RU_VL_D_InvestImage,
-	RU_VL_D_WrResLine
+typedef enum {
+    RU_Unknown = 0,
+    /*  Верификация линий  */
+    RU_VL_Into,
+    RU_VL_I_PrimLines,
+    RU_VL_I_PrimBoxes,
+    RU_VL_Out,
+    RU_VL_O_VerifLines,
+    RU_VL_O_CorrLines,
+    RU_VL_O_ModelLines,
+    RU_VL_O_SaveComps,
+    RU_VL_Control,
+    RU_VL_C_ContErr,
+    RU_VL_C_ContWarn,
+    RU_VL_C_ContRare,
+    RU_VL_Upravlenie,
+    RU_VL_U_NoPointedLines,
+    RU_VL_U_AbleKillShortVert,
+    RU_VL_U_NewFormalVerify,
+    RU_VL_U_NoInvestLongLines,
+    RU_VL_U_NoInvestImage,
+    RU_VL_U_AbleHoriZher,
+    RU_VL_Debug,
+    RU_VL_D_Info,
+    RU_VL_D_InvestImage,
+    RU_VL_D_WrResLine
 } VL_RULES;
 /*------------own functions---------------------------------------------------*/
 void AM_MakeTreeRules_VerifLines (Handle parent);

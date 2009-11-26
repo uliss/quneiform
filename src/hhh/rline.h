@@ -60,15 +60,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RLINE__
-  #define RLINE_FUNC  FUN_EXPO
+#define RLINE_FUNC  FUN_EXPO
 #else
-  #define RLINE_FUNC  FUN_IMPO
+#define RLINE_FUNC  FUN_IMPO
 #endif
 
 #define __XTYPES_H
 #define RLINE_BLOCK_TYPE CPAGE_GetInternalType("RLINE_BLOCK_TYPE")
 
-RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,void * hStorage);
+RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode, void * hStorage);
 RLINE_FUNC(Bool32) RLINE_Done();
 RLINE_FUNC(uint32_t) RLINE_GetReturnCode();
 RLINE_FUNC(char *) RLINE_GetReturnString(uint32_t dwError);
@@ -76,25 +76,24 @@ RLINE_FUNC(Bool32) RLINE_GetExportData(uint32_t dwType, void * pData);
 RLINE_FUNC(Bool32) RLINE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
-typedef enum
-{
-        RLINE_FNRLINE_SearchLines =1,
-        RLINE_FNRLINE_DeleteLines,
-        RLINE_Bool32_NOFILLGAP3,
-        RLINE_Bool32_NOHBORDER,
-        RLINE_Bool32_NOVBORDER,
-		RLINE_FNRLINE_LinesPass1,
-		RLINE_FNRLINE_LinesPass2,
-		RLINE_FNRLINE_LinesPass3
+typedef enum {
+    RLINE_FNRLINE_SearchLines = 1,
+    RLINE_FNRLINE_DeleteLines,
+    RLINE_Bool32_NOFILLGAP3,
+    RLINE_Bool32_NOHBORDER,
+    RLINE_Bool32_NOVBORDER,
+    RLINE_FNRLINE_LinesPass1,
+    RLINE_FNRLINE_LinesPass2,
+    RLINE_FNRLINE_LinesPass3
 } RLINE_EXPORT_ENTRIES;
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RLINE_FUNC(a) b c
 
-DEC_FUN(Bool32,  RLINE_SearchLines,(void* lpInPage,void* hpCLINE));
-DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInPage, const char* lpOutDIB));
-DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
-DEC_FUN(Bool32,  RLINE_LinesPass2, (Handle hCCOM,void* phCLINE, Handle hCPAGE));
+DEC_FUN(Bool32,  RLINE_SearchLines, (void* lpInPage, void* hpCLINE));
+DEC_FUN(Bool32,  RLINE_DeleteLines, (void* lpInPage, const char* lpOutDIB));
+DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage, Handle hCCOM, void* phCLINE, PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
+DEC_FUN(Bool32,  RLINE_LinesPass2, (Handle hCCOM, void* phCLINE, Handle hCPAGE));
 DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, uchar lang));
 
 #undef DEC_FUN

@@ -89,18 +89,18 @@
 // predefined
 #ifdef __PUMA_CPP__
 #define EXTERN
-#define VAL(a)		= a
-#define VALM(a)		= {a}
-#define VAL2(a,b)	= { a,b }
-#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define VAL(a)      = a
+#define VALM(a)     = {a}
+#define VAL2(a,b)   = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-#define EXTERN		extern
+#define EXTERN      extern
 #define VAL(a)
 #define VALM(a)
 #define VAL2(a,b)
 #define VAL4(a,b,c,d)
 #endif
-#define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
+#define NOSAVEBACKUP    //не сохранять предысторию ручной фрагментации - Paul 29-12-2000
 // global variables
 // 1. Отладочная информаци
 EXTERN Handle hDebugRoot VAL(NULL);

@@ -21,12 +21,13 @@
 
 #include "alphabet.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class EastEuropeAlphabet: public Alphabet
 {
-public:
-    EastEuropeAlphabet();
+    public:
+        EastEuropeAlphabet();
 };
 
 }

@@ -84,86 +84,86 @@ CSTR_FUNC uint32_t CSTR_GetReturnCode(void);
 CSTR_FUNC char* CSTR_GetReturnString(uint32_t dwError);
 
 enum CSTRFunctionsExt {
-	CSTR_FNNEWLINE,
-	CSTR_FNDELLINE,
-	CSTR_FNSETSTRATTR,
-	CSTR_FNGETSTRATTR,
-	CSTR_FNGETFIRST,
-	CSTR_FNGETLAST,
-	CSTR_FNGETNEXT,
-	CSTR_FNGETPREV,
-	CSTR_FNGETLINE,
-	CSTR_FNSTORELINE,
-	CSTR_FNNEWRASTER,
-	CSTR_FNSTORERASTER,
-	CSTR_FNSTORECOMP,
-	CSTR_FNSTORECOLLECTION,
-	CSTR_FNDELRASTER,
-	CSTR_FNVERIFY,
-	CSTR_FNGETRASTER,
-	CSTR_FNGETATTR,
-	CSTR_FNGETCOLLECT,
-	CSTR_FNSETUSER,
-	CSTR_FNGETUSER,
-	CSTR_FNSETATTR,
-	CSTR_FNCOPYLINE,
-	CSTR_FNGETLNHND,
-	CSTR_FNGETCOMP,
-	CSTR_FNNEWUSERCODE,
-	CSTR_FNVERSION,
-	CSTR_FNTOTXT,
-	CSTR_FNINSRST,
-	CSTR_FNMAXNUM,
-	CSTR_FNFIRSTLN,
-	CSTR_FNNEXTTLN,
-	CSTR_FNDELALL,
-	CSTR_FNNEXT,
-	CSTR_FNPREV,
-	CSTR_FNSWAP,
-	CSTR_FNDELSAVE,
-	CSTR_FNRESTRAST,
-	CSTR_FNCOMPOSE,
-	CSTR_KILLIM,
-	CSTR_FNSAVE,
-	CSTR_FNGETLIST,
-	CSTR_FNSETLIST,
-	CSTR_FNGETCOLLECTIONUNI,
-	CSTR_FNSTORECOLLECTIONUNI,
-	CSTR_FNGETCONTAINER,
-	CSTR_FNSTORESCALE,
-	CSTR_FNGETLINEFIRST,
-	CSTR_FNGETLINENEXT,
-	CSTR_FNCLEARLINE,
-	CSTR_FNGETRASTERLINE,
-	CSTR_FNSETDUP,
-	CSTR_FNSETDUPEND,
-	CSTR_FNGETDUP,
-	CSTR_FNGETDUPEND,
-	CSTR_FNPACK,
-	CSTR_FNUNPACK,
-	CSTR_FNSORTFRAGM,
-	CSTR_FNFIRSTLINEFRAGM,
-	CSTR_FNNEXTLINEFRAGM,
-	CSTR_FNSTORECOMPORIGINAL,
-	CSTR_FNGETMAXFRAGMENT,
-	CSTR_SAVECONT,
-	CSTR_RESTORECONT,
-	CSTR_INSERTRASTERDOWN,
-	CSTR_COPYRASTER,
-	CSTR_DELETELOOPS,
-	CSTR_GETNEXTDOWN,
-	CSTR_GETPREVDOWN,
-	CSTR_GETNEXTUP,
-	CSTR_GETPREVUP,
-	CSTR_GETLENGTH,
-	CSTR_FNTOTXT_COORD
+    CSTR_FNNEWLINE,
+    CSTR_FNDELLINE,
+    CSTR_FNSETSTRATTR,
+    CSTR_FNGETSTRATTR,
+    CSTR_FNGETFIRST,
+    CSTR_FNGETLAST,
+    CSTR_FNGETNEXT,
+    CSTR_FNGETPREV,
+    CSTR_FNGETLINE,
+    CSTR_FNSTORELINE,
+    CSTR_FNNEWRASTER,
+    CSTR_FNSTORERASTER,
+    CSTR_FNSTORECOMP,
+    CSTR_FNSTORECOLLECTION,
+    CSTR_FNDELRASTER,
+    CSTR_FNVERIFY,
+    CSTR_FNGETRASTER,
+    CSTR_FNGETATTR,
+    CSTR_FNGETCOLLECT,
+    CSTR_FNSETUSER,
+    CSTR_FNGETUSER,
+    CSTR_FNSETATTR,
+    CSTR_FNCOPYLINE,
+    CSTR_FNGETLNHND,
+    CSTR_FNGETCOMP,
+    CSTR_FNNEWUSERCODE,
+    CSTR_FNVERSION,
+    CSTR_FNTOTXT,
+    CSTR_FNINSRST,
+    CSTR_FNMAXNUM,
+    CSTR_FNFIRSTLN,
+    CSTR_FNNEXTTLN,
+    CSTR_FNDELALL,
+    CSTR_FNNEXT,
+    CSTR_FNPREV,
+    CSTR_FNSWAP,
+    CSTR_FNDELSAVE,
+    CSTR_FNRESTRAST,
+    CSTR_FNCOMPOSE,
+    CSTR_KILLIM,
+    CSTR_FNSAVE,
+    CSTR_FNGETLIST,
+    CSTR_FNSETLIST,
+    CSTR_FNGETCOLLECTIONUNI,
+    CSTR_FNSTORECOLLECTIONUNI,
+    CSTR_FNGETCONTAINER,
+    CSTR_FNSTORESCALE,
+    CSTR_FNGETLINEFIRST,
+    CSTR_FNGETLINENEXT,
+    CSTR_FNCLEARLINE,
+    CSTR_FNGETRASTERLINE,
+    CSTR_FNSETDUP,
+    CSTR_FNSETDUPEND,
+    CSTR_FNGETDUP,
+    CSTR_FNGETDUPEND,
+    CSTR_FNPACK,
+    CSTR_FNUNPACK,
+    CSTR_FNSORTFRAGM,
+    CSTR_FNFIRSTLINEFRAGM,
+    CSTR_FNNEXTLINEFRAGM,
+    CSTR_FNSTORECOMPORIGINAL,
+    CSTR_FNGETMAXFRAGMENT,
+    CSTR_SAVECONT,
+    CSTR_RESTORECONT,
+    CSTR_INSERTRASTERDOWN,
+    CSTR_COPYRASTER,
+    CSTR_DELETELOOPS,
+    CSTR_GETNEXTDOWN,
+    CSTR_GETPREVDOWN,
+    CSTR_GETNEXTUP,
+    CSTR_GETPREVUP,
+    CSTR_GETLENGTH,
+    CSTR_FNTOTXT_COORD
 };
 
 // 1    CSTR_FNNEWLINE      Образовать новую строку
 typedef CSTR_line (*FNCSTR_NewLine)(int32_t lineno, int32_t version,
-		int32_t container);
+                                    int32_t container);
 CSTR_FUNC CSTR_line CSTR_NewLine(int32_t lineno, int32_t version,
-		int32_t container);
+                                 int32_t container);
 // 2    CSTR_FNDELLINE      Удалить строку
 typedef Bool32 (*FNCSTR_DeleteLine)(CSTR_line line);
 CSTR_FUNC Bool32 CSTR_DeleteLine(CSTR_line line);
@@ -181,14 +181,14 @@ typedef CSTR_rast (*FNCSTR_GetLastRaster)(CSTR_line line);
 CSTR_FUNC CSTR_rast CSTR_GetLastRaster(CSTR_line line);
 // 7    CSTR_FNGETNEXT      дать хэндл следующего растра
 typedef CSTR_rast (*FNCSTR_GetNextRaster)(CSTR_rast curr_raster,
-		uint32_t type_raster);
+                                          uint32_t type_raster);
 CSTR_FUNC CSTR_rast CSTR_GetNextRaster(CSTR_rast curr_raster,
-		uint32_t type_raster);
+                                       uint32_t type_raster);
 // 8    CSTR_FNGETPREV      дать хэндл предыдущего растра
 typedef CSTR_rast (*FNCSTR_GetPrevRaster)(CSTR_rast curr_raster,
-		uint32_t type_raster);
+                                          uint32_t type_raster);
 CSTR_FUNC CSTR_rast CSTR_GetPrevRaster(CSTR_rast curr_raster,
-		uint32_t type_raster);
+                                       uint32_t type_raster);
 // 9    CSTR_FNGETLINE      дать хэндл строки, сопряжённой с растром
 typedef CSTR_line (*FNCSTR_GetLine)(CSTR_rast curr_raster);
 CSTR_FUNC CSTR_line CSTR_GetLine(CSTR_rast curr_raster);
@@ -197,22 +197,22 @@ typedef Bool32 (*FNCSTR_StoreLine)(CSTR_rast curr_raster, CSTR_line line);
 CSTR_FUNC Bool32 CSTR_StoreLine(CSTR_rast curr_raster, CSTR_line line);
 // 11   CSTR_FNNEWRASTER    создать новый растр в текущей строке
 typedef CSTR_rast (*FNCSTR_NewRaster)(CSTR_line line, int32_t col, int32_t row,
-		int32_t w);
+                                      int32_t w);
 CSTR_FUNC CSTR_rast CSTR_NewRaster(CSTR_line line, int32_t col, int32_t row,
-		int32_t w);
+                                   int32_t w);
 // 12   CSTR_FNSTORERASTER  запомнить растр как изображение
 typedef Bool32 (*FNCSTR_StoreRaster)(CSTR_rast curr_raster, RecRaster *image);
 CSTR_FUNC Bool32 CSTR_StoreRaster(CSTR_rast curr_raster, RecRaster *image);
 // 13   CSTR_FNSTORECOMP запомнить растр как компоненту с интервальным представлением
 typedef Bool32 (*FNCSTR_StoreComp)(CSTR_rast curr_raster, uchar *lp,
-		Bool32 raster_init, uchar scale);
+                                   Bool32 raster_init, uchar scale);
 CSTR_FUNC Bool32 CSTR_StoreComp(CSTR_rast curr_raster, uchar *lp,
-		Bool32 raster_init, uchar scale);
+                                Bool32 raster_init, uchar scale);
 // 14   CSTR_FNSTORECOLLECTION запомнить коллекцию
 typedef Bool32 (*FNCSTR_StoreCollection)(CSTR_rast curr_raster,
-		RecVersions *collect);
+                                         RecVersions *collect);
 CSTR_FUNC Bool32 CSTR_StoreCollection(CSTR_rast curr_raster,
-		RecVersions *collect);
+                                      RecVersions *collect);
 // 15   CSTR_FNDELRASTER    удалить растр
 typedef CSTR_rast (*FNCSTR_DelRaster)(CSTR_rast curr_raster);
 CSTR_FUNC CSTR_rast CSTR_DelRaster(CSTR_rast curr_raster);
@@ -221,17 +221,17 @@ typedef Bool32 (*FNCSTR_VerifyLine)(CSTR_line line);
 CSTR_FUNC Bool32 CSTR_VerifyLine(CSTR_line line);
 // 17   CSTR_FNGETRASTER    получить изображение (растр или интервалы)
 typedef Bool32 (*FNCSTR_GetImage)(CSTR_rast curr_raster, uchar *out_res,
-		uint32_t type_image);
+                                  uint32_t type_image);
 CSTR_FUNC Bool32 CSTR_GetImage(CSTR_rast curr_raster, uchar *out_res,
-		uint32_t type_image);
+                               uint32_t type_image);
 // 18   CSTR_FNGETATTR      получить атрибуты растра
 typedef Bool32 (*FNCSTR_GetAttr)(CSTR_rast curr_raster, CSTR_rast_attr * attr);
 CSTR_FUNC Bool32 CSTR_GetAttr(CSTR_rast curr_raster, CSTR_rast_attr * attr);
 // 19   CSTR_FNGETCOLLECT   получить коллекцию
 typedef Bool32 (*FNCSTR_GetCollection)(CSTR_rast curr_raster,
-		RecVersions *result_collect);
+                                       RecVersions *result_collect);
 CSTR_FUNC Bool32 CSTR_GetCollection(CSTR_rast curr_raster,
-		RecVersions *result_collect);
+                                    RecVersions *result_collect);
 // 20   CSTR_FNSETUSER      записать в растр пользовательские данные
 typedef Bool32 (*FNCSTR_SetUserAttr)(CSTR_rast raster, CCOM_USER_BLOCK *ub);
 CSTR_FUNC Bool32 CSTR_SetUserAttr(CSTR_rast raster, CCOM_USER_BLOCK *ub);
@@ -289,9 +289,9 @@ typedef CSTR_rast (*FNCSTR_RestoreRaster)(CSTR_line ln, CSTR_rast rst);
 CSTR_FUNC CSTR_rast CSTR_RestoreRaster(CSTR_line ln, CSTR_rast rst);
 // 39   CSTR_FNCOMPOSE      склеить массив растров
 typedef CSTR_rast (*FNCSTR_compose_Cell)(int32_t n, CSTR_rast *clist,
-		int32_t nIncline, Bool32 NeedDel);
+                                         int32_t nIncline, Bool32 NeedDel);
 CSTR_FUNC CSTR_rast CSTR_compose_Cell(int32_t n, CSTR_rast *clist,
-		int32_t nIncline, Bool32 NeedDel);
+                                      int32_t nIncline, Bool32 NeedDel);
 // 40   CSTR_KILLIM         убить образ в растре
 typedef Bool32 (*FNCSTR_KillImage)(CSTR_rast rst);
 CSTR_FUNC Bool32 CSTR_KillImage(CSTR_rast rst);
@@ -306,14 +306,14 @@ typedef Bool32 (*FNCSTR_SetComplist)(CSTR_rast rst, CSTR_rast complist);
 CSTR_FUNC Bool32 CSTR_SetComplist(CSTR_rast rst, CSTR_rast complist);
 // 44   CSTR_FNGETCOLLECTIONUNI дать расширенную коллекцию
 typedef Bool32(*FNCSTR_GetCollectionUni)(CSTR_rast curr_raster,
-		UniVersions *result_collect);
+                                         UniVersions *result_collect);
 CSTR_FUNC Bool32 CSTR_GetCollectionUni(CSTR_rast curr_raster,
-		UniVersions *result_collect);
+                                       UniVersions *result_collect);
 // 45   CSTR_FNSTORECOLLECTIONUNI запомнить расширенную коллекцию
 typedef Bool32(*FNCSTR_StoreCollectionUni)(CSTR_rast curr_raster,
-		UniVersions *result_collect);
+                                           UniVersions *result_collect);
 CSTR_FUNC Bool32 CSTR_StoreCollectionUni(CSTR_rast curr_raster,
-		UniVersions *result_collect);
+                                         UniVersions *result_collect);
 // 46   CSTR_FNGETCONTAINER дать хэндл контейнера строки
 typedef CCOM_handle (*FNCSTR_GetContainer)(CSTR_line ln);
 CSTR_FUNC CCOM_handle CSTR_GetContainer(CSTR_line ln);
@@ -325,9 +325,9 @@ typedef CSTR_line (*FNCSTR_GetLineFirst)(int32_t fragment_no, int32_t version);
 CSTR_FUNC CSTR_line CSTR_GetLineFirst(int32_t fragment_no, int32_t version);
 // 49   CSTR_GETLINENEXT    дать хэндл следующей строки данных фрагмента и версии
 typedef CSTR_line (*FNCSTR_GetLineNext)(CSTR_line lin, int32_t fragment_no,
-		int32_t version);
+                                        int32_t version);
 CSTR_FUNC CSTR_line CSTR_GetLineNext(CSTR_line lin, int32_t fragment_no,
-		int32_t version);
+                                     int32_t version);
 // 50   CSTR_FNCLEARLINE    Удалить растры из строки
 typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin, int16_t left, int16_t right);
 CSTR_FUNC Bool32 CSTR_ClearLine(CSTR_line lin, int16_t left, int16_t right);
@@ -363,9 +363,9 @@ typedef CSTR_line (*FNCSTR_NextLineFragm)(CSTR_line start);
 CSTR_FUNC CSTR_line CSTR_NextLineFragm(CSTR_line start);
 // 61   CSTR_FNSTORECOMPORIGINAL    запомнить компоненту (для оригинального контейнера)
 typedef Bool32 (*FNCSTR_StoreCompOriginal)(CSTR_rast curr_raster,
-		CCOM_comp * comp, Bool32 raster_init);
+                                           CCOM_comp * comp, Bool32 raster_init);
 CSTR_FUNC Bool32 CSTR_StoreCompOriginal(CSTR_rast curr_raster,
-		CCOM_comp * comp, Bool32 raster_init);
+                                        CCOM_comp * comp, Bool32 raster_init);
 // 62   CSTR_FNGETMAXFRAGMENT   максимальный номер фрагмента
 typedef int32_t (*FNCSTR_GetMaxFragment)(int32_t version);
 CSTR_FUNC int32_t CSTR_GetMaxFragment(int32_t version);
@@ -377,9 +377,9 @@ typedef Bool32 (*FNCSTR_RestoreCont)(char *filename);
 CSTR_FUNC Bool32 CSTR_RestoreCont(char *filename);
 // 65   CSTR_INSERTRASTERDOWN   вставить ссылку вниз
 typedef Bool32 (*FNCSTR_InsertRasterDown)(CSTR_rast start_raster,
-		CSTR_rast stop_raster);
+                                          CSTR_rast stop_raster);
 CSTR_FUNC CSTR_rast CSTR_InsertRasterDown(CSTR_rast start_raster,
-		CSTR_rast stop_raster);
+                                          CSTR_rast stop_raster);
 // 66   CSTR_COPYRASTER                 скопировать содержимое растра
 typedef Bool32 (*FNCSTR_CopyRaster)(CSTR_rast trg, CSTR_rast src);
 CSTR_FUNC Bool32 CSTR_CopyRaster(CSTR_rast trg, CSTR_rast src);

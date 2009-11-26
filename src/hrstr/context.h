@@ -75,13 +75,13 @@ extern int16_t line_number;
 /******* Context Internal Type Definitions: **********/
 typedef cell * pCell;
 typedef struct din_var {
-	cell *C;
-	uchar pos; // the version number
-	uchar class_; // the kind of symbol : big, small, digit, empty and undef
-	uchar first;
-	uchar res;
-	int16_t est; // current estimation
-	int16_t back; // refference to previous element
+    cell *C;
+    uchar pos; // the version number
+    uchar class_; // the kind of symbol : big, small, digit, empty and undef
+    uchar first;
+    uchar res;
+    int16_t est; // current estimation
+    int16_t back; // refference to previous element
 } dv;
 /*######## Constants Defenitions : ############*/
 #define APOSTROPH       0x27

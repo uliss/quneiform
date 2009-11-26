@@ -54,19 +54,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-typedef struct tagWeight
-{
-  int32_t meas;  //measure
-  int32_t nlet;  //letter's numbers
+typedef struct tagWeight {
+    int32_t meas;  //measure
+    int32_t nlet;  //letter's numbers
 } Weight;
 
-typedef struct tagMatchWordPar
-{
-  B_LINES   *bases;  //базовые линии
-uint32_t cut_width;   //>=0 - минимальная ширина компонента, который можно резать
-uint32_t  monitors;   //номера букв (по байту), оценки которых нужно отследить
-  uchar   p2_active;  //call while p2 pass
-  uchar    language;
+typedef struct tagMatchWordPar {
+    B_LINES   *bases;  //базовые линии
+    uint32_t cut_width;   //>=0 - минимальная ширина компонента, который можно резать
+    uint32_t  monitors;   //номера букв (по байту), оценки которых нужно отследить
+    uchar   p2_active;  //call while p2 pass
+    uchar    language;
 } MatchWordPar;
 
 Weight match_string(CSTR_line ln, uchar *str, MatchWordPar *param);

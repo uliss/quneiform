@@ -89,24 +89,24 @@ RPSTR_FUNC char* RPSTR_GetReturnString(uint32_t dwError);
 RPSTR_FUNC Bool32 RPSTR_SetImportData(uint32_t dwType, void * pData);
 
 enum RPSTRFunctionsExt {
-	RPSTR_FNNEWPAGE,
-	RPSTR_FNCORRECTSPELL,
-	RPSTR_FNCORRECTINCLINE,
-	RPSTR_FNCOLLECTCAPDROP,
-	RPSTR_FNNORMVERTSTR,
-	RPSTR_FNCORRECTLINESPELL
+    RPSTR_FNNEWPAGE,
+    RPSTR_FNCORRECTSPELL,
+    RPSTR_FNCORRECTINCLINE,
+    RPSTR_FNCOLLECTCAPDROP,
+    RPSTR_FNNORMVERTSTR,
+    RPSTR_FNCORRECTLINESPELL
 };
 
 enum RPSTRFunctionsImp {
-	RPSTR_FNIMP_ALLOC,
-	RPSTR_FNIMP_REALLOC,
-	RPSTR_FNIMP_FREE,
-	RPSTR_FNIMP_OPEN,
-	RPSTR_FNIMP_CLOSE,
-	RPSTR_FNIMP_READ,
-	RPSTR_FNIMP_WRITE,
-	RPSTR_FNIMP_LANGUAGE,
-	RPSTR_Bool32_Fax100
+    RPSTR_FNIMP_ALLOC,
+    RPSTR_FNIMP_REALLOC,
+    RPSTR_FNIMP_FREE,
+    RPSTR_FNIMP_OPEN,
+    RPSTR_FNIMP_CLOSE,
+    RPSTR_FNIMP_READ,
+    RPSTR_FNIMP_WRITE,
+    RPSTR_FNIMP_LANGUAGE,
+    RPSTR_Bool32_Fax100
 };
 
 // 1    RPSTR_FNNEWPAGE          init new page
@@ -126,7 +126,7 @@ typedef void (*FNRPSTR_NormalizeVertStr)(void);
 RPSTR_FUNC void RPSTR_NormalizeVertStr(void);
 // 6 RPSTR_FNCORRECTLINESPELL      spelling checker for given line
 typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, int32_t line_num,
-		CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
+                                           CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
 RPSTR_FUNC Bool32 RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
 
 #endif

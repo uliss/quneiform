@@ -57,41 +57,49 @@
 #ifndef __SWABYTES
 #define __SWABYTES
 
-inline uint16_t __SwapWord16(uint16_t w) {
-	return (w >> 8) | (w << 8);
+inline uint16_t __SwapWord16(uint16_t w)
+{
+    return (w >> 8) | (w << 8);
 }
 
-inline uint32_t __SwapWord32(uint32_t ww) {
-	return (uint32_t(__SwapWord16(uint16_t(ww >> 16)))) | (uint32_t(
-			__SwapWord16(uint16_t(ww))) << 16);
+inline uint32_t __SwapWord32(uint32_t ww)
+{
+    return (uint32_t(__SwapWord16(uint16_t(ww >> 16)))) | (uint32_t(
+                                                               __SwapWord16(uint16_t(ww))) << 16);
 }
 
 #define __SWAP16(x) x=__SwapWord16((uint16_t)x)
 #define __SWAP32(x) x=__SwapWord32((uint32_t)x)
 
-inline void SwapWord16(uint16_t & x) {
-	__SWAP16(x);
+inline void SwapWord16(uint16_t & x)
+{
+    __SWAP16(x);
 }
-inline void SwapWord32(uint32_t & x) {
-	__SWAP32(x);
+inline void SwapWord32(uint32_t & x)
+{
+    __SWAP32(x);
 }
-inline void SwapInt16(int16_t & x) {
-	__SWAP16(x);
+inline void SwapInt16(int16_t & x)
+{
+    __SWAP16(x);
 }
-inline void Swapint32_t(int32_t & x) {
-	__SWAP32(x);
+inline void Swapint32_t(int32_t & x)
+{
+    __SWAP32(x);
 }
-inline void SwapRect16(Rect16 & x) {
-	__SWAP16(x.left);
-	__SWAP16(x.top);
-	__SWAP16(x.right);
-	__SWAP16(x.bottom);
+inline void SwapRect16(Rect16 & x)
+{
+    __SWAP16(x.left);
+    __SWAP16(x.top);
+    __SWAP16(x.right);
+    __SWAP16(x.bottom);
 }
-inline void SwapRect32(Rect32 & x) {
-	__SWAP32(x.left);
-	__SWAP32(x.top);
-	__SWAP32(x.right);
-	__SWAP32(x.bottom);
+inline void SwapRect32(Rect32 & x)
+{
+    __SWAP32(x.left);
+    __SWAP32(x.top);
+    __SWAP32(x.right);
+    __SWAP32(x.bottom);
 }
 
 

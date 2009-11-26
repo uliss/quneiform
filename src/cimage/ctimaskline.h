@@ -78,34 +78,48 @@ typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
 ///////////////////////////////////////////////////////////////////////////
 class CTIMaskLine
 {
-public:
-	Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm){ return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t)mwLenght && pSegm->GetEnd() <= (int32_t)mwLenght); };
-	Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
-	Bool32        AddSegment(PCTIMaskLineSegment pSegm);
-	PCTIMaskLine  GetNext() { return mpNext; };
-	void          SetNext(PCTIMaskLine pLine) { mpNext = pLine; };
-	uint32_t        SetLineNumber( uint32_t nLine ) { return mwLine = nLine; };
-	uint32_t        GetLineNumber( void ) { return mwLine; };
-	uint32_t        GetSegmentsNumber( void ) { return mwSegments; };
-	Bool32        IsLine(uint32_t nLine) { return ((int32_t)nLine == mwLine); };
-	Bool32        GetLeftIntersection(PCTIMaskLineSegment pcSegm);
+    public:
+        Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm) {
+            return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t)mwLenght && pSegm->GetEnd() <= (int32_t)mwLenght);
+        };
+        Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
+        Bool32        AddSegment(PCTIMaskLineSegment pSegm);
+        PCTIMaskLine  GetNext() {
+            return mpNext;
+        };
+        void          SetNext(PCTIMaskLine pLine) {
+            mpNext = pLine;
+        };
+        uint32_t        SetLineNumber( uint32_t nLine ) {
+            return mwLine = nLine;
+        };
+        uint32_t        GetLineNumber( void ) {
+            return mwLine;
+        };
+        uint32_t        GetSegmentsNumber( void ) {
+            return mwSegments;
+        };
+        Bool32        IsLine(uint32_t nLine) {
+            return ((int32_t)nLine == mwLine);
+        };
+        Bool32        GetLeftIntersection(PCTIMaskLineSegment pcSegm);
 
-public:
-	CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine);
-	CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm);
-	CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm);
-	CTIMaskLine(uint32_t Lenght);
-	CTIMaskLine();
-	virtual ~CTIMaskLine();
+    public:
+        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine);
+        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm);
+        CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm);
+        CTIMaskLine(uint32_t Lenght);
+        CTIMaskLine();
+        virtual ~CTIMaskLine();
 
-protected:
-    uint32_t mwLenght;
-    uint32_t mwSegments;
-    PCTIMaskLine mpNext;
-	int32_t mwLine;
-	CTIMaskLineSegment mcFirst;
-private:
-	Bool32 CheckSegments(void);
+    protected:
+        uint32_t mwLenght;
+        uint32_t mwSegments;
+        PCTIMaskLine mpNext;
+        int32_t mwLine;
+        CTIMaskLineSegment mcFirst;
+    private:
+        Bool32 CheckSegments(void);
 };
 
 #endif // !defined(_CTIMASKLINE_H_)

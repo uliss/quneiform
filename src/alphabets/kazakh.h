@@ -21,13 +21,14 @@
 
 #include "russian.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class KazakhAlphabet: public RussianAlphabet
 {
-public:
-    KazakhAlphabet();
-    language_t language() const;
+    public:
+        KazakhAlphabet();
+        language_t language() const;
 };
 
 }

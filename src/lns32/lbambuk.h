@@ -60,13 +60,13 @@
 #include "lnslang.h"
 
 #ifndef __BAMBUK_H
-#	include "Bambuk.h"
+#   include "Bambuk.h"
 #endif
 #ifndef __FARARRAY_H
-#	include "FarArray.h"
+#   include "FarArray.h"
 #endif
 #ifndef __RBAMBUK_H
-#	include "RBambuk.h"
+#   include "RBambuk.h"
 #endif
 #include "lnsdefs.h"
 #include "hliner.h"
@@ -81,78 +81,79 @@
  */
 
 struct Line {
-	CIF::Point start;
-	CIF::Point end;
-	int16_t width10;
-	int16_t flags; // LF_,,, in LnsFrag from lnsdefs.h
+    CIF::Point start;
+    CIF::Point end;
+    int16_t width10;
+    int16_t flags; // LF_,,, in LnsFrag from lnsdefs.h
 #define LF_DONTLINK 0x0001 // don't try to link
 #define LF_HLINER   0x0002 // extracted by HLiner
-	// Bool  isStartJoined;    // 10-11-93 09:27pm, Basil
-	// Bool  isEndJoined;      // ...
+    // Bool  isStartJoined;    // 10-11-93 09:27pm, Basil
+    // Bool  isEndJoined;      // ...
 };
 
 typedef Line * PLine;
 
 struct TLineInfo {
-	Line lineAsIs;
-	BEntry linesBambukEntry;
-	int level; // line intersection with 0 axis
+    Line lineAsIs;
+    BEntry linesBambukEntry;
+    int level; // line intersection with 0 axis
 };
 
 typedef TArray<TLineInfo> TLineInfoArray;
 
 struct TLineFragment {
-	Line fragmentAsIs;
-	BEntry rasterBambukEntry; // pointer to proper raster
-	int level;
+    Line fragmentAsIs;
+    BEntry rasterBambukEntry; // pointer to proper raster
+    int level;
 };
 typedef TLineFragment * PTLineFragment;
 
-class TLinesBambuk: public TBambuk<TLineFragment> , public TXYDim {
-public:
+class TLinesBambuk: public TBambuk<TLineFragment> , public TXYDim
+{
+    public:
 
-	TLineInfoArray linesRoot; // some addition to bambuk entries (||)
-	TLinesBambuk(TRasterBambuk* rb, TSegBambuk* sb, BEntry max_lines,
-			Bool isVertical):
-		TBambuk<TLineFragment> (rb->totalRasterCount() + (isVertical ? 0
-				: HLiner_GetCount()), max_lines), linesRoot(max_lines),
-				fragmentsCount(0), linesCount(0), ok(FALSE) {
-		if (linesRoot.isOk() && TBambuk<TLineFragment>::isOk()) {
-			ok = makeIt(rb, sb, isVertical); // false if too many lines or rasters
-		};
-	}
-	;
+        TLineInfoArray linesRoot; // some addition to bambuk entries (||)
+        TLinesBambuk(TRasterBambuk* rb, TSegBambuk* sb, BEntry max_lines,
+                     Bool isVertical):
+                TBambuk<TLineFragment> (rb->totalRasterCount() + (isVertical ? 0
+                                                                  : HLiner_GetCount()), max_lines), linesRoot(max_lines),
+                fragmentsCount(0), linesCount(0), ok(FALSE) {
+            if (linesRoot.isOk() && TBambuk<TLineFragment>::isOk()) {
+                ok = makeIt(rb, sb, isVertical); // false if too many lines or rasters
+            };
+        }
+        ;
 
-	~TLinesBambuk(void) {
-		destroy();
-	}
-	;
+        ~TLinesBambuk(void) {
+            destroy();
+        }
+        ;
 
-	int32_t fragmentsCount;
-	int32_t linesCount; // result count of lines
-	double averagePhi;
+        int32_t fragmentsCount;
+        int32_t linesCount; // result count of lines
+        double averagePhi;
 
-	Bool isOk(void) {
-		return (TBambuk<TLineFragment>::isOk() && ok);
-	}
-	;
-	int compareEntry(const void *entry1, const void *entry2);
+        Bool isOk(void) {
+            return (TBambuk<TLineFragment>::isOk() && ok);
+        }
+        ;
+        int compareEntry(const void *entry1, const void *entry2);
 
-	void destroy(void) {
-		linesRoot.flash();
-		destroyBambuk();
-	}
+        void destroy(void) {
+            linesRoot.flash();
+            destroyBambuk();
+        }
 
-	Bool linkHFragments();
-	Bool linkVFragments();
+        Bool linkHFragments();
+        Bool linkVFragments();
 
-private:
-	Bool ok;
-	Bool makeIt(TRasterBambuk* rb, TSegBambuk* sb, Bool isVertical);
-	void computeHRasters(TRasterBambuk* rb, TSegBambuk* sb);
-	void computeVRasters(TRasterBambuk* rb, TSegBambuk* sb);
+    private:
+        Bool ok;
+        Bool makeIt(TRasterBambuk* rb, TSegBambuk* sb, Bool isVertical);
+        void computeHRasters(TRasterBambuk* rb, TSegBambuk* sb);
+        void computeVRasters(TRasterBambuk* rb, TSegBambuk* sb);
 
-	void sortByLevel();
+        void sortByLevel();
 };
 
 #endif

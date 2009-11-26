@@ -71,21 +71,21 @@ typedef void * Handle;
 #endif
 
 enum RRECCOMParametrs {
-	RRECCOM_FNREX_ISLANGUAGE,
-	RRECCOM_FNRECOG,
-	RRECCOM_OcrPath,
-	RRECCOM_FNRECOGCOMP
+    RRECCOM_FNREX_ISLANGUAGE,
+    RRECCOM_FNRECOG,
+    RRECCOM_OcrPath,
+    RRECCOM_FNRECOGCOMP
 };
 
 typedef struct tagRRecComControl {
-	uint32_t flags;
+    uint32_t flags;
 #define RECOG_EVN 1 //опознание с помошью метода "Event"
 #define RECOG_GRA 2 //опознание с помошью нейросети
-	uint16_t MaxCompWid; // if comp width > MaxCompWid => ignored; 0 - not init
-	uint16_t MaxCompHei; // =""= by height
-	uint16_t MinCompWid; // if comp width <= MinCompWid => ignored; 0 - not init
-	uint16_t MinCompHei; // =""= by width
-	uint16_t MaxScale; // if scaling > => use long intervals
+    uint16_t MaxCompWid; // if comp width > MaxCompWid => ignored; 0 - not init
+    uint16_t MaxCompHei; // =""= by height
+    uint16_t MinCompWid; // if comp width <= MinCompWid => ignored; 0 - not init
+    uint16_t MinCompHei; // =""= by width
+    uint16_t MaxScale; // if scaling > => use long intervals
 } RRecComControl;
 
 //   RRECCOM_FUNC(Bool32) ExtrcompInit( void);
@@ -102,9 +102,9 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
 
 // 1    RRECCOM_FNRECOG   опознать компоненты
 typedef Bool32 (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control,
-		char *spath, uchar lang);
+                                  char *spath, uchar lang);
 RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
-//2		RRECCOM_FNRECOGCOMP опознать одну компоненту
+//2     RRECCOM_FNRECOGCOMP опознать одну компоненту
 // 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
 typedef Bool32 (*FNRRECCOM_IsLanguage)(uchar language);
 RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language);

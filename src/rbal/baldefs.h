@@ -62,72 +62,72 @@
 
 // входные параметры
 typedef struct tagBAL_RSTR_GLOBALS {
-	int32_t language;
-	int32_t line_number;
-	int32_t fax1x2;
+    int32_t language;
+    int32_t line_number;
+    int32_t fax1x2;
 
-	int32_t actual_resolution;
-	int32_t fEdCode; // ASCII
-	int32_t line_BL;
-	int32_t spec_camera;
-	int32_t no_linpen;
+    int32_t actual_resolution;
+    int32_t fEdCode; // ASCII
+    int32_t line_BL;
+    int32_t spec_camera;
+    int32_t no_linpen;
 
-	int16_t prop_l_delta;
-	int16_t prop_r_delta;
+    int16_t prop_l_delta;
+    int16_t prop_r_delta;
 
-	uchar *let_lindef3;
-	uchar *let_lindef;
-	uchar *let_linpos;
-	uchar *let_linshape;
-	uchar *let_sans_acc; // [257]
-	uchar *letters_pidx_table; // 512
-	uchar *decode_ASCII_to_; // [256][4]
-	Handle skew_corr;
-	Handle rast_is_BOX_solid;
+    uchar *let_lindef3;
+    uchar *let_lindef;
+    uchar *let_linpos;
+    uchar *let_linshape;
+    uchar *let_sans_acc; // [257]
+    uchar *letters_pidx_table; // 512
+    uchar *decode_ASCII_to_; // [256][4]
+    Handle skew_corr;
+    Handle rast_is_BOX_solid;
 
-	uchar db_status;
-	uchar db_pass;
-	Handle snap_monitor;
-	Handle snap_show_text;
-	Handle snap_activity;
-	Handle snap_monitor_ori;//IGOR
-	Handle snap_is_marked; //IGOR
-	Handle snap_baselines; //IGOR
-	Handle snap_draw_line; //IGOR
-	Handle snap_del_line; //IGOR
+    uchar db_status;
+    uchar db_pass;
+    Handle snap_monitor;
+    Handle snap_show_text;
+    Handle snap_activity;
+    Handle snap_monitor_ori;//IGOR
+    Handle snap_is_marked; //IGOR
+    Handle snap_baselines; //IGOR
+    Handle snap_draw_line; //IGOR
+    Handle snap_del_line; //IGOR
 } BAL_RSTR_GLOBALS;
 
 // входные-выходные параметры
 typedef struct tagBAL_INOUT_GLOBALS {
-	// наклон строки
-	int32_t nIncline;
-	// параметры строки
-	int16_t minrow, mincol, maxrow, maxcol;
-	// получены БЛ
-	int16_t bs_got; //
-	// линии
-	int16_t bbs0, bbs1, bbs2, bbs3, bbs4, bbsm;
-	// параметры для определения dust
-	int16_t bsdust_upper, bsdust_lower, bsdust_ps;
-	// параметры БЛ
-	int16_t Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
-	// сколько на первой, второй линиях
-	int16_t Ns1, Ns2; // in Iot.c   only  !!!
-	// мульти - БЛ
-	uchar multi_bas;
-	// буква была переведена в dust
-	uchar let_to_dust;
-	// все буквы в строке заглавные
-	char all_caps;
-	// посчитаны и заполнены в растры ->bdiff, ->difflg.
-	char all_diffs_made;
+    // наклон строки
+    int32_t nIncline;
+    // параметры строки
+    int16_t minrow, mincol, maxrow, maxcol;
+    // получены БЛ
+    int16_t bs_got; //
+    // линии
+    int16_t bbs0, bbs1, bbs2, bbs3, bbs4, bbsm;
+    // параметры для определения dust
+    int16_t bsdust_upper, bsdust_lower, bsdust_ps;
+    // параметры БЛ
+    int16_t Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
+    // сколько на первой, второй линиях
+    int16_t Ns1, Ns2; // in Iot.c   only  !!!
+    // мульти - БЛ
+    uchar multi_bas;
+    // буква была переведена в dust
+    uchar let_to_dust;
+    // все буквы в строке заглавные
+    char all_caps;
+    // посчитаны и заполнены в растры ->bdiff, ->difflg.
+    char all_diffs_made;
 } BAL_INOUT_GLOBALS;
 
 typedef struct BLIN_bas_ln_type {
-	int16_t startcol, endcol;
-	int16_t ps, b1, b2, b3, b4;
-	int16_t n1, n2, n3, n4;
-	uchar fl_def;
+    int16_t startcol, endcol;
+    int16_t ps, b1, b2, b3, b4;
+    int16_t n1, n2, n3, n4;
+    uchar fl_def;
 } BAL_bas_ln;
 
 #endif

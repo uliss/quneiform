@@ -60,10 +60,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "imgaccs.h"
 
 PPS_FUNC( Err16 )  ImageTransfer (
-                      TImgImport *from,
-                      TImgExport *to, // may be NULL
-                      int32_t   buff_size
-                      );
+    TImgImport *from,
+    TImgExport *to, // may be NULL
+    int32_t   buff_size
+);
 
 
 

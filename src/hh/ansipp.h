@@ -66,62 +66,77 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template < class T >
 class TNew
 {
-   T* t_ptr;
-   public:
-      TNew(){  t_ptr = new T;
-               if (t_ptr)
-                  memset( t_ptr, 0, sizeof(T) );
-            };
-      virtual ~TNew()
-      {  if (t_ptr)
-            delete t_ptr;
-         t_ptr = NULL;
-      };
-      operator T* () const { return t_ptr; };
-      operator T& () const { return *t_ptr; };
-      T* GetPtr() const    { return t_ptr; };
+        T* t_ptr;
+    public:
+        TNew() {
+            t_ptr = new T;
+
+            if (t_ptr)
+                memset( t_ptr, 0, sizeof(T) );
+        };
+        virtual ~TNew() {
+            if (t_ptr)
+                delete t_ptr;
+
+            t_ptr = NULL;
+        };
+        operator T* () const {
+            return t_ptr;
+        };
+        operator T& () const {
+            return *t_ptr;
+        };
+        T* GetPtr() const    {
+            return t_ptr;
+        };
 
 };
-   /////////////////////////////////////////////////////
-   // example of TNew usage
-   // void MyFunc()
-   // {
-   //    TNew<MyStruct> mstr; // makes instance of MyStruct on the heap
-   //    if (mstr.GetPtr()==NULL) ...// new() failed
-   //    mstr->..
-   //    ............
-   //    // on exit mstr automatically deleted
-   // }
+/////////////////////////////////////////////////////
+// example of TNew usage
+// void MyFunc()
+// {
+//    TNew<MyStruct> mstr; // makes instance of MyStruct on the heap
+//    if (mstr.GetPtr()==NULL) ...// new() failed
+//    mstr->..
+//    ............
+//    // on exit mstr automatically deleted
+// }
 
 template < class FuncType >
 class CallWhenDestruct
 {
-   FuncType func;
-   public:
-      CallWhenDestruct( FuncType _func ): func(_func) {};
-      ~CallWhenDestruct(){ func(); };
+        FuncType func;
+    public:
+        CallWhenDestruct( FuncType _func ): func(_func) {};
+        ~CallWhenDestruct() {
+            func();
+        };
 };
 
 template < class FuncType, class ArgType >
 class CallWhenDestruct1
 {
-   FuncType func;
-   ArgType  arg;
-   public:
-      CallWhenDestruct1( FuncType _func, ArgType _arg ): func(_func),arg(_arg){};
-      ~CallWhenDestruct1(){ func(arg); };
+        FuncType func;
+        ArgType  arg;
+    public:
+        CallWhenDestruct1( FuncType _func, ArgType _arg ): func(_func), arg(_arg) {};
+        ~CallWhenDestruct1() {
+            func(arg);
+        };
 };
 
 template < class FuncType, class ArgType1, class ArgType2 >
 class CallWhenDestruct2
 {
-   FuncType func;
-   ArgType1 arg1;
-   ArgType2 arg2;
-   public:
-      CallWhenDestruct2( FuncType _func, ArgType1 _arg1 ):
-         func(_func),arg1(_arg1),arg2(_arg2){};
-      ~CallWhenDestruct2(){ func(arg1,arg2); };
+        FuncType func;
+        ArgType1 arg1;
+        ArgType2 arg2;
+    public:
+        CallWhenDestruct2( FuncType _func, ArgType1 _arg1 ):
+                func(_func), arg1(_arg1), arg2(_arg2) {};
+        ~CallWhenDestruct2() {
+            func(arg1, arg2);
+        };
 };
 
 #endif   // __ANSIPP_H

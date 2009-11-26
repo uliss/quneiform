@@ -83,17 +83,17 @@ class CChar;
 class CRtfString;
 
 struct PageElementCount {
-	uint16_t Frags;
-	uint16_t Strings;
-	uint16_t Words;
-	uint16_t Chars;
+    uint16_t Frags;
+    uint16_t Strings;
+    uint16_t Words;
+    uint16_t Chars;
 };
 
 typedef struct tagInternalRect {
-	int16_t left;
-	int16_t top;
-	int16_t right;
-	int16_t bottom;
+    int16_t left;
+    int16_t top;
+    int16_t right;
+    int16_t bottom;
 } InternalRect;
 
 void VCopyRect(InternalRect* InnerR, RECT* OuterR);
@@ -104,26 +104,26 @@ Bool CheckRect(InternalRect* Inner);
 
 class CFPage //: public CObject
 {
-public:
-	CFPage();
-	~CFPage();
+    public:
+        CFPage();
+        ~CFPage();
 
-	CFragment* GetFirstFrag();
-	CFragment* GetNextFrag();
-	void ProcessingComingLine(CSTR_line* line);
-	void CreateArray_For_TextFragments();
-	Bool CheckComingLine_For_TextFragments(CSTR_line* line);
-	void AddString(CSTR_line* line);
-	Bool Write();
+        CFragment* GetFirstFrag();
+        CFragment* GetNextFrag();
+        void ProcessingComingLine(CSTR_line* line);
+        void CreateArray_For_TextFragments();
+        Bool CheckComingLine_For_TextFragments(CSTR_line* line);
+        void AddString(CSTR_line* line);
+        Bool Write();
 
-	/*CDWordArray*/
-	std::vector<uint32_t> FragmentsArray;
-	PageElementCount Count;
-	uint16_t m_wDpi;
-	std::vector<CFragment*>/*CObArray*/m_arFrags;
-	int m_nIndex;
-	int m_nCurFragNumber;
-	int m_nPrevFragNumber;
+        /*CDWordArray*/
+        std::vector<uint32_t> FragmentsArray;
+        PageElementCount Count;
+        uint16_t m_wDpi;
+        std::vector<CFragment*>/*CObArray*/m_arFrags;
+        int m_nIndex;
+        int m_nCurFragNumber;
+        int m_nPrevFragNumber;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -131,23 +131,23 @@ public:
 
 class CFragment//:public CObject
 {
-public:
-	CFragment();
-	~CFragment();
+    public:
+        CFragment();
+        ~CFragment();
 
-	CFString* GetFirstString();
-	CFString* GetNextString();
-	void AddString(CSTR_line* line, PageElementCount* Count);
-	Bool Write();
+        CFString* GetFirstString();
+        CFString* GetNextString();
+        void AddString(CSTR_line* line, PageElementCount* Count);
+        Bool Write();
 
-	uint16_t m_wStringsCount;
-	/*CObArray*/
-	std::vector<CFString*> m_arStrings;
-	uint16_t m_wIndex;
-	RECT m_rectFrag;
-	uint16_t m_wType;
-	uint32_t m_wUserNumber;
-	uint32_t m_Flags;
+        uint16_t m_wStringsCount;
+        /*CObArray*/
+        std::vector<CFString*> m_arStrings;
+        uint16_t m_wIndex;
+        RECT m_rectFrag;
+        uint16_t m_wType;
+        uint32_t m_wUserNumber;
+        uint32_t m_Flags;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -155,25 +155,25 @@ public:
 
 class CFString//:public CObject
 {
-public:
-	CFString();
-	~CFString();
+    public:
+        CFString();
+        ~CFString();
 
-	CWord* GetFirstWord();
-	CWord* GetNextWord();
-	void ExtractWordsFromString(CSTR_line* line, PageElementCount* Count);
-	void ExtractNextWord(CSTR_line* line);
-	Bool Write();
+        CWord* GetFirstWord();
+        CWord* GetNextWord();
+        void ExtractWordsFromString(CSTR_line* line, PageElementCount* Count);
+        void ExtractNextWord(CSTR_line* line);
+        Bool Write();
 
-	uint16_t m_wWordsCount;
-	/*CObArray*/
-	std::vector<CWord*> m_arWords;
-	uint16_t m_wIndex;
-	CFragment* m_Frag;
-	RECT m_rectString;
-	uint16_t m_wType;
-	RECT m_rectBaseLine;
-	uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
+        uint16_t m_wWordsCount;
+        /*CObArray*/
+        std::vector<CWord*> m_arWords;
+        uint16_t m_wIndex;
+        CFragment* m_Frag;
+        RECT m_rectString;
+        uint16_t m_wType;
+        RECT m_rectBaseLine;
+        uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -181,24 +181,24 @@ public:
 
 class CWord//:public CObject
 {
-public:
-	CWord();
-	~CWord();
+    public:
+        CWord();
+        ~CWord();
 
-	CChar* GetFirstChar();
-	CChar* GetNextChar();
-	void AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
-			Bool* FlagCapDrop);
-	Bool Write();
+        CChar* GetFirstChar();
+        CChar* GetNextChar();
+        void AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
+                            Bool* FlagCapDrop);
+        Bool Write();
 
-	/*CObArray*/
-	std::vector<CChar*> m_arChars;
-	uint16_t m_wCharsCount;
-	uint16_t m_wIndex;
-	CFString* m_String;
-	RECT m_rectWord;
-	uint16_t m_wFontNumber;
-	uint16_t m_wFontPointSize;
+        /*CObArray*/
+        std::vector<CChar*> m_arChars;
+        uint16_t m_wCharsCount;
+        uint16_t m_wIndex;
+        CFString* m_String;
+        RECT m_rectWord;
+        uint16_t m_wFontNumber;
+        uint16_t m_wFontPointSize;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -206,25 +206,25 @@ public:
 
 class CChar//:public CObject
 {
-public:
-	CChar();
-	~CChar();
-	void AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop);
-	Bool Write();
+    public:
+        CChar();
+        ~CChar();
+        void AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop);
+        Bool Write();
 
-	RECT m_rectChar;
-	RECT m_RealRectChar;
-	struct {
-		uchar m_bChar;
-		uchar m_bProbability;
-	} m_chrVersions[REC_MAX_VERS];//!!! Art
-	uchar m_blanguage;
-	uchar m_bFlg_spell;
-	uchar m_bFlg_spell_nocarrying;
-	uchar m_bFlg_cup_drop;
-	uint16_t m_wCountAlt;
-	uint16_t m_wFontNumber;
-	uint16_t m_wIndex;
+        RECT m_rectChar;
+        RECT m_RealRectChar;
+        struct {
+            uchar m_bChar;
+            uchar m_bProbability;
+        } m_chrVersions[REC_MAX_VERS];//!!! Art
+        uchar m_blanguage;
+        uchar m_bFlg_spell;
+        uchar m_bFlg_spell_nocarrying;
+        uchar m_bFlg_cup_drop;
+        uint16_t m_wCountAlt;
+        uint16_t m_wFontNumber;
+        uint16_t m_wIndex;
 };
 
 /////////////////////////////////////////////////////////////////////////////

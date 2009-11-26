@@ -64,17 +64,17 @@
 
 #include "ctp.h"
 
-#define SS_EXTENTION	0x1C
+#define SS_EXTENTION    0x1C
 
 struct edExtention {
-	unsigned char code; /* always SS_EXTENTION <0x1C> */
-	unsigned short int Ecode; /* New extention code */
-	unsigned short int length; /* Length in bytes */
+    unsigned char code; /* always SS_EXTENTION <0x1C> */
+    unsigned short int Ecode; /* New extention code */
+    unsigned short int length; /* Length in bytes */
 };
 struct edExtentionNew {
-	unsigned char code; /* always SS_EXTENTION <0x1C> */
-	unsigned short int Ecode; /* New extention code */
-	unsigned short int length; /* Length in bytes */
+    unsigned char code; /* always SS_EXTENTION <0x1C> */
+    unsigned short int Ecode; /* New extention code */
+    unsigned short int length; /* Length in bytes */
 };
 /* This structure is header all structs included in extention ED */
 typedef struct edExtention EDEXT;
@@ -91,35 +91,35 @@ typedef struct edExtention EDEXT;
 
 /* 0xF000 - 0xFFFF temporary code for debugging ( ! Not used in releas version !)*/
 
-#define EDEXT_VERSION		0x0000
+#define EDEXT_VERSION       0x0000
 
-#define EDEXT_TABLE_START 	0x0100 // edTable struct
+#define EDEXT_TABLE_START   0x0100 // edTable struct
 #define EDEXT_TABLE_VER         0x0101 // array horiz. coord of vert lines (x0,x1,...)
 #define EDEXT_TABLE_HOR         0x0102 // array vert. coord of horiz. lines (y0,y1,...)
 #define EDEXT_TABLE_TAB         0x0103 // array ID of items
 #define EDEXT_TABLE_VERLINE     0x0104 // array not delete vert lines (x00,y00,x01,y01,...)
-#define EDEXT_CTP	 	0x0200 // filename of CTP file
+#define EDEXT_CTP       0x0200 // filename of CTP file
 #define EDEXT_PICTURE           0x0201 // struct of <edPicture>
-#define	EDEXT_TIFF_DESC	0x202	//Описатель исходного изображения
-#define EDEXT_FONTS		0x300
-#define EDEXT_BORDERS	0x301
-#define EDEXT_SECTION	0x302
-#define EDEXT_FRAME		0x303
+#define EDEXT_TIFF_DESC 0x202   //Описатель исходного изображения
+#define EDEXT_FONTS     0x300
+#define EDEXT_BORDERS   0x301
+#define EDEXT_SECTION   0x302
+#define EDEXT_FRAME     0x303
 #define EDEXT_PARAGRAPH 0x304
 #define EDEXT_TABLE_ROW 0x305
 //SS_EXTENTION может быть 16 и 32 битно длинным - здесь 32
-#define EDEXT_PICS		(0x306|0x8000)
+#define EDEXT_PICS      (0x306|0x8000)
 #define EDEXT_TABLE_CELL 0x307
-#define EDEXT_CHAR		0x308
+#define EDEXT_CHAR      0x308
 
 typedef struct sTable {
-	EDEXT head;
-	int32_t Sh; // count horizontal lines
-	int32_t Sv; // count vertical lines
-	int32_t angle; // angle of table 1/1024 rad
-	int32_t VerCount; // count not delete of vert lines
-	int32_t ShiftX; // shift tables in image
-	int32_t ShiftY; //
+    EDEXT head;
+    int32_t Sh; // count horizontal lines
+    int32_t Sv; // count vertical lines
+    int32_t angle; // angle of table 1/1024 rad
+    int32_t VerCount; // count not delete of vert lines
+    int32_t ShiftX; // shift tables in image
+    int32_t ShiftY; //
 } edTable;
 
 #define EDEXT_SIZE_FILENAME 256

@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ
   ЫЫ                                                              ЫЫ
   ЫЫ     Copyright (C) 1990 Cognitive Technology Corporation.     ЫЫ
-  ЫЫ	 All rights reserved. This program is proprietary and     ЫЫ
+  ЫЫ   All rights reserved. This program is proprietary and     ЫЫ
   ЫЫ     a trade secret of Cognitive Technology Corporation.      ЫЫ
   ЫЫ                                                              ЫЫ
   ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ
@@ -109,48 +109,43 @@ struct _Root;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 
-struct _Root
-    {
-        int16_t   yRow;
-        int16_t   xColumn;
+struct _Root {
+    int16_t   yRow;
+    int16_t   xColumn;
 
-        union
-        {
-            struct
-            {
-                uint16_t  wSegmentPtr;
-                uint16_t  wLength;
-            } u2;
+    union {
+        struct {
+            uint16_t  wSegmentPtr;
+            uint16_t  wLength;
+        } u2;
 
-            ROOT *pNext;
-        } u1;
+        ROOT *pNext;
+    } u1;
 
-        int16_t   nHeight;
-        int16_t   nWidth;
-        uchar  bType;
-        uchar  bReached;
-        int16_t   nBlock;   // тип блока: "дустовый" али какой
-		int16_t   nUserNum;
-		void * pComp;
-    };
+    int16_t   nHeight;
+    int16_t   nWidth;
+    uchar  bType;
+    uchar  bReached;
+    int16_t   nBlock;   // тип блока: "дустовый" али какой
+    int16_t   nUserNum;
+    void * pComp;
+};
 
 struct _RootExt;
 typedef struct _RootExt ROOT_EXT;
 typedef struct _RootExt *PROOT_EXT;
 
-struct _RootExt
-    {
-        uint16_t  wSegmentPtr;
-        uint16_t  wLength;
-    };
+struct _RootExt {
+    uint16_t  wSegmentPtr;
+    uint16_t  wLength;
+};
 
-typedef struct
-    {
-        int xLeft;
-        int yTop;
-        int xRight;
-        int yBottom;
-    } ROOT_RECT;
+typedef struct {
+    int xLeft;
+    int yTop;
+    int xRight;
+    int yBottom;
+} ROOT_RECT;
 
 # ifndef LT_STAND_ALONE
 # define pRoots root_file

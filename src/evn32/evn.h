@@ -79,7 +79,7 @@ EVN_FUNC Bool32 EVNInit();
 
 // Set alphabet for recognition
 EVN_FUNC Bool32 EVNSetAlphabet(char* char_tbl_put_to // char table[0-255]
-		);
+                              );
 
 EVN_FUNC Bool32 EVNRecogChar(RecRaster * rRaster, RecVersions* EVNres);
 EVN_FUNC Bool32 EVNRecogCharPRN(RecRaster * rRaster, RecVersions* EVNres);
@@ -92,24 +92,24 @@ EVN_FUNC int16_t EVNGetErr();
 
 EVN_FUNC uchar* EVNMakeLine(RecRaster *rRaster, int32_t parm);
 EVN_FUNC MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
+                          int16_t left);
 EVN_FUNC int32_t EVNGetNumComp(RecRaster *rRaster);
 EVN_FUNC int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn,
-		uchar *evn_rot, int32_t font);
+                                 uchar *evn_rot, int32_t font);
 EVN_FUNC int32_t
-		EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res);
+EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res);
 EVN_FUNC uchar* EVN_GetSegmentPool(void);
 EVN_FUNC Bool32 EVNInitLanguage(const char *tabevn1, const char *tabevn2,
-		uchar lang);
+                                uchar lang);
 EVN_FUNC Bool32 EVNSetLanguage(uchar lang);
 
 // error code
 enum evn_error_t {
-	ER_EVN_NO_ERROR = 0,
-	ER_EVN_NO_RECOG = 1,
-	ER_EVN_OPEN = 2,
-	ER_EVN_MEMORY = 3,
-	ER_EVN_READ = 4
+    ER_EVN_NO_ERROR = 0,
+    ER_EVN_NO_RECOG = 1,
+    ER_EVN_OPEN = 2,
+    ER_EVN_MEMORY = 3,
+    ER_EVN_READ = 4
 };
 
 #endif

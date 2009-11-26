@@ -63,16 +63,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 //#include "cttypes.h"
 /*----------------------------------------------------------------------------*/
-typedef struct tagRLT_PARAM
-{
-	int       MinAbsUdlDng;  // at pixeles
-	int       MaxAbsUdlDng;  // at pixeles
-	int       MaxRelUdlDng;  // at pro2miles
-}RLT_PARAM;
-typedef struct tagRLT_REVIDING
-{
-	int       MinVoiForCre;
-	int       HorMinLenOpory;
-	int       VerMinLenOpory;
-}RLT_REVIDING;
+typedef struct tagRLT_PARAM {
+    int       MinAbsUdlDng;  // at pixeles
+    int       MaxAbsUdlDng;  // at pixeles
+    int       MaxRelUdlDng;  // at pro2miles
+} RLT_PARAM;
+typedef struct tagRLT_REVIDING {
+    int       MinVoiForCre;
+    int       HorMinLenOpory;
+    int       VerMinLenOpory;
+} RLT_REVIDING;
 /*----------------------------------------------------------------------------*/

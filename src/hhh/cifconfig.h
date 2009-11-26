@@ -10,23 +10,25 @@
 
 #include "singleton.h"
 
-namespace CIF {
+namespace CIF
+{
 
-class ConfigImpl {
-public:
-	ConfigImpl() :
-		verbose_(false) {
-	}
+class ConfigImpl
+{
+    public:
+        ConfigImpl() :
+                verbose_(false) {
+        }
 
-	bool verbose() const {
-		return verbose_;
-	}
+        bool verbose() const {
+            return verbose_;
+        }
 
-	void setVerbose(bool value) {
-		verbose_ = value;
-	}
-private:
-	bool verbose_;
+        void setVerbose(bool value) {
+            verbose_ = value;
+        }
+    private:
+        bool verbose_;
 };
 
 typedef Singleton<ConfigImpl> Config;

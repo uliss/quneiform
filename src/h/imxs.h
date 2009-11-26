@@ -66,33 +66,33 @@
 #pragma pack(4)
 
 typedef struct tagImxs_ImageInfo {
-	uint16_t wImageHeight; /* Height of the image in lines       */
-	uint16_t wImageWidth; /* Width of the image in pixels       */
-	uint16_t wImageByteWidth; /* Size of the image line in bytes    */
-	uint16_t wImageDisplacement; /* Displacement of the first pixel of */
-	/*   image line in pixels, usually 0  */
-	uint16_t wResolutionX; /* Resolution by X-axe */
-	uint16_t wResolutionY; /* Resolution by Y-axe */
-	uchar bFotoMetrics; /* White pixel */
-	uchar bUnused; /* not used; for alignment purpose only */
+    uint16_t wImageHeight; /* Height of the image in lines       */
+    uint16_t wImageWidth; /* Width of the image in pixels       */
+    uint16_t wImageByteWidth; /* Size of the image line in bytes    */
+    uint16_t wImageDisplacement; /* Displacement of the first pixel of */
+    /*   image line in pixels, usually 0  */
+    uint16_t wResolutionX; /* Resolution by X-axe */
+    uint16_t wResolutionY; /* Resolution by Y-axe */
+    uchar bFotoMetrics; /* White pixel */
+    uchar bUnused; /* not used; for alignment purpose only */
 
-	uint16_t wAddX;
-	uint16_t wAddY;
+    uint16_t wAddX;
+    uint16_t wAddY;
 } Imxs_ImageInfo;
 
 #pragma pack()
 
 typedef int16_t (*TImageGetBlock)(uchar* lpBuff, int16_t fstLine,
-		int16_t nLines);
+                                  int16_t nLines);
 typedef Bool16 (*TImageOpen)(Imxs_ImageInfo* lpImageInfo);
 typedef int16_t (*TImageRead)(uchar* lpImage, uint16_t wMaxSize);
 typedef Bool16 (*TImageClose)(void);
 
 typedef struct tagImxs {
-	TImageOpen f_op;
-	TImageRead f_re; // may be NULL
-	TImageGetBlock f_gb; // may be NULL
-	TImageClose f_cl;
+    TImageOpen f_op;
+    TImageRead f_re; // may be NULL
+    TImageGetBlock f_gb; // may be NULL
+    TImageClose f_cl;
 } Imxs;
 
 #endif

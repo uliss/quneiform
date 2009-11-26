@@ -81,7 +81,7 @@ void SetReturnCode_rstuff(int);
 void DebugInit(void);
 void DebugDPumaDrawRect(Handle, CIF::Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
-		uint32_t);
+                              uint32_t);
 
 Bool32 Binarise(void);
 Bool32 Normalise(PRSPreProcessImage);

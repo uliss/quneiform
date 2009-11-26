@@ -72,7 +72,7 @@
 // for mem==NULL need used internal memory functions from DLL
 // New call - after close library without DIFDone
 DIF_FUNC Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II,
-		Bool32 cut_left, Bool32 cut_right);
+                        Bool32 cut_left, Bool32 cut_right);
 DIF_FUNC void DIFSetFont(int32_t typ_of_font);
 
 /**
@@ -92,7 +92,7 @@ DIF_FUNC Bool32 DIFPenaltyChar(RecRaster* raster, RecVersions* DIFres);
  * @param DIFres - acuracy
  */
 DIF_FUNC Bool32 DIFStick_expert(int16_t dx, int16_t dy, uchar* pool,
-		RecVersions* DIFres);
+                                RecVersions* DIFres);
 
 DIF_FUNC int32_t DIFGet_incline(RecRaster* r, uchar *pool);
 
@@ -109,9 +109,9 @@ DIF_FUNC int16_t DIFGetErr(void);
 DIF_FUNC int16_t DIFLeftDistance(uchar *RASTER, int16_t NWIDTH);
 DIF_FUNC int16_t DIFRightDistance(uchar *RASTER, int16_t NWIDTH);
 DIF_FUNC void DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
-		int16_t NHEIGHT);
+                                int16_t NHEIGHT);
 DIF_FUNC int16_t DIF_GetNoCutPoint(uchar *RASTER, int16_t Wb, uchar NWIDTH,
-		uchar NLENGTH);
+                                   uchar NLENGTH);
 DIF_FUNC Bool32 DIF_SetLanguage(uchar lang);
 DIF_FUNC uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx);
 

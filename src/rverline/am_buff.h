@@ -62,23 +62,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Оптимизация работы с памятью.                               */
 /*----------------------------------------------------------------------------*/
 #define        MaxBufPart    100
-typedef struct tagUN_BUFF
-{
-	/*  отведенная изначально память  */
-	void     *vBuff;
-	int       SizeBuff;
-	/*  пока свободная часть памяти  */
-	void     *vCurr;
-	int       SizeCurr;
-	/*  задействованная часть памяти  */
-	int       nPart;
-	void     *vPart[MaxBufPart];
-	char      TypePart[MaxBufPart];
-	char      AimPart[MaxBufPart];
-	int       SizePartUnits[MaxBufPart];
-	int       nPartUnits[MaxBufPart];
-	int       SizePartTotal[MaxBufPart];
-}UN_BUFF;
+typedef struct tagUN_BUFF {
+    /*  отведенная изначально память  */
+    void     *vBuff;
+    int       SizeBuff;
+    /*  пока свободная часть памяти  */
+    void     *vCurr;
+    int       SizeCurr;
+    /*  задействованная часть памяти  */
+    int       nPart;
+    void     *vPart[MaxBufPart];
+    char      TypePart[MaxBufPart];
+    char      AimPart[MaxBufPart];
+    int       SizePartUnits[MaxBufPart];
+    int       nPartUnits[MaxBufPart];
+    int       SizePartTotal[MaxBufPart];
+} UN_BUFF;
 /*----------------------------------------------------------------------------*/
 void CleanLastDataPart (void *vB);
 void EndLastDataPart (void *vB, char Aim, char Type, int SizeU, int nU);

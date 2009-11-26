@@ -65,39 +65,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAXH 128
 #define MAXV 128
 
-typedef struct Line {int Ax,Ay,Bx,By;}  LINE;
+typedef struct Line {
+    int Ax, Ay, Bx, By;
+}  LINE;
 
 struct strSheet {
- int16_t      Sh,Sv,angle,VerCount;
- int16_t	  *Ver;
- int16_t	  *Hor;
- int16_t	  *Tab;
- LINE     *VerLine;
- int16_t      ShiftX;
- int16_t      ShiftY;
-                };
+    int16_t      Sh, Sv, angle, VerCount;
+    int16_t      *Ver;
+    int16_t      *Hor;
+    int16_t      *Tab;
+    LINE     *VerLine;
+    int16_t      ShiftX;
+    int16_t      ShiftY;
+};
 typedef struct strSheet SHT;
 
 // ltsheet.c
-int  GetUserNumSheet(SHT * sht,int x,int y);
-int  GetWidthSheet(SHT * sht,int x,int y);
-int  GetNumFragmentColumn(SHT * sht,int num);
-Bool ExtractSheets(int16_t NumSht,SHT ** sht);
+int  GetUserNumSheet(SHT * sht, int x, int y);
+int  GetWidthSheet(SHT * sht, int x, int y);
+int  GetNumFragmentColumn(SHT * sht, int num);
+Bool ExtractSheets(int16_t NumSht, SHT ** sht);
 Bool DeleteSheet(int16_t);
 Bool ExistSheets(void);
 Bool GetSheetIncline(int16_t * angle);
 Bool ItsSheetBlock(BLOCK * p);
-Bool OutsideSheet(int * xLeft,int * yTop,int * xRight,int * yBottom);
+Bool OutsideSheet(int * xLeft, int * yTop, int * xRight, int * yBottom);
 
-int  GetHeightItemSheet	(SHT *,int,int);
-int  GetWidthItemSheet 	(SHT *,int,int);
-int  GetUserNumSheet   	(SHT *,int,int);
-Bool ItsNewItem		(SHT *,int,int);
+int  GetHeightItemSheet (SHT *, int, int);
+int  GetWidthItemSheet  (SHT *, int, int);
+int  GetUserNumSheet    (SHT *, int, int);
+Bool ItsNewItem     (SHT *, int, int);
 
 
 void backup_sheets   (int * nSheets, SHT ** sht);
-void free_undo_sheets(int nSheets,SHT * sht);
-void undo_sheets     (int nSheets,SHT * sht);
+void free_undo_sheets(int nSheets, SHT * sht);
+void undo_sheets     (int nSheets, SHT * sht);
 
 // gmsheet.c
 Bool ExtractSheetFragments(void);

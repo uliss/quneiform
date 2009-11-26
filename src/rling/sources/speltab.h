@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __SPEC_REP_TAB_DEFS__
 
 #if _MSC_VER > 1000
-   #pragma once
+#pragma once
 #endif // _MSC_VER > 1000
 
 /* -------------------------------------------------------------------------
@@ -76,9 +76,9 @@ The following constants are restriction flags for special replacement table.
 
 #define ANY_S  0x00   /*No restrictions                                */
 #define BAD_S  0x01   /*Replacement applies only for notconfidentially
-                        recognized symb                                */
+recognized symb                                */
 #define EMB_S  0x01   /*Replacement applies for a couple of symbs with
-                        overlapped envelopes.                          */
+overlapped envelopes.                          */
 #define DEL_S  0x02   /* Only for delemeters.                          */
 #define WID_S  0x04   /* wide letter */
 #define FAX_M  0x10   /*Only for Fax recognition                       */
@@ -96,20 +96,18 @@ The following constants are restriction flags for special replacement table.
 
 #define XOR_MASK  0x4a
 
-typedef struct
- {
-  uchar   id[ sizeof(ARTFILE_ID)];
-  uchar   voc_no;                      // int16_t
-  uchar  _unused;
- } ArtFH;
+typedef struct {
+    uchar   id[ sizeof(ARTFILE_ID)];
+    uchar   voc_no;                      // int16_t
+    uchar  _unused;
+} ArtFH;
 
-typedef struct
- {
-  char pref_no;
-  char post_no;
-  uchar relabty;                       // int16_t
-  uchar  _unused;
- } ArtVH;
+typedef struct {
+    char pref_no;
+    char post_no;
+    uchar relabty;                       // int16_t
+    uchar  _unused;
+} ArtVH;
 
 #define NOVOC -1
 #define  VOC  0
@@ -120,30 +118,28 @@ typedef struct
 
 
 
-typedef struct
- {
-  uchar  id[ sizeof(TABFILE_ID)];
-  uchar  rep_no;                       // int16_t
-  uchar  _unused;
- } TabFH;
+typedef struct {
+    uchar  id[ sizeof(TABFILE_ID)];
+    uchar  rep_no;                       // int16_t
+    uchar  _unused;
+} TabFH;
 
-typedef struct artstr
- {
-  uchar sr1;                   /* code1 of what replace */
-  uchar sr2;                   /* code2 of what replace */
-  uchar obj1;                  /* code1 by what replace */
-  uchar obj2;                  /* code2 by what replace */
-  uchar objt1;                 /* type of obj1          */
-  uchar objt2;                 /* type of obj2          */
-  uchar objts1;                /* type_sp of obj1       */
-  uchar objts2;                /* type_sp of obj2       */
-  uchar cond_sr1;              /* cond1 for sr1         */
-  uchar cond_sr2;              /* cond2 for sr2         */
-  uchar cond_sr12;             /* cond12 for sr1&sr2    */
-  uchar cond_obj12x;           /* cond12 for obj1&obj2 to check before */
-  uchar cond_obj12r;           /* cond12 for obj1&obj2 to check after  */
-  uchar _unused;
- } ARTS;
+typedef struct artstr {
+    uchar sr1;                   /* code1 of what replace */
+    uchar sr2;                   /* code2 of what replace */
+    uchar obj1;                  /* code1 by what replace */
+    uchar obj2;                  /* code2 by what replace */
+    uchar objt1;                 /* type of obj1          */
+    uchar objt2;                 /* type of obj2          */
+    uchar objts1;                /* type_sp of obj1       */
+    uchar objts2;                /* type_sp of obj2       */
+    uchar cond_sr1;              /* cond1 for sr1         */
+    uchar cond_sr2;              /* cond2 for sr2         */
+    uchar cond_sr12;             /* cond12 for sr1&sr2    */
+    uchar cond_obj12x;           /* cond12 for obj1&obj2 to check before */
+    uchar cond_obj12r;           /* cond12 for obj1&obj2 to check after  */
+    uchar _unused;
+} ARTS;
 
 /*
 #if !defined(WATCOM) && !defined(THINK_C)

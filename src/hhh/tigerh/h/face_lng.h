@@ -61,10 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // #define WIN_FRENCH
 // Be sure than tiger32.dll will be placed at
 // Eng or Ru directory
-	#if ( ! defined( _TIGER_FACE_ENG_ ) )
-		#define MORDA 		LANG_RUSSIAN      // interface
-	#else
-		#define MORDA 		LANG_ENGLISH      // interface
-	#endif
+#if ( ! defined( _TIGER_FACE_ENG_ ) )
+#define MORDA       LANG_RUSSIAN      // interface
+#else
+#define MORDA       LANG_ENGLISH      // interface
+#endif
 
 #endif

@@ -70,16 +70,16 @@
 
 // return < 0 - error
 P2_FUNC int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne,
-		P2GLOBALS *P2globals);
+                        P2GLOBALS *P2globals);
 P2_FUNC int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *specInfo,
-		int32_t testSelf);
+                         int32_t testSelf);
 // распознать компоненту в линейном представлении
 P2_FUNC int32_t p2_RecogCompLp(int16_t sizeLp, uchar *lp, int16_t w, int16_t h,
-		int16_t col, int16_t row, RecVersions *vers);
+                               int16_t col, int16_t row, RecVersions *vers);
 P2_FUNC int32_t p2_rotate(RecRaster *recRast);
 
 P2_FUNC Bool32 p2_Comp2Raster(int16_t sizeLP, uchar *lp, int16_t w, int16_t h,
-		RecRaster *rec);
+                              RecRaster *rec);
 
 P2_FUNC void p2_SetShowWords(Bool32 val);
 P2_FUNC Bool32 p2_GetShowWords(void);
@@ -87,13 +87,13 @@ P2_FUNC void p2_SetStopBound(int stopCol);
 P2_FUNC Bool32 p2_stopPlace(void);
 
 P2_FUNC void P2_SetRSTR(Handle RecogCutGlu, Handle setAlpha, Handle GetPage,
-		Handle Decode, Handle NoStopSnapLEO, Handle monitor_ori,
-		Handle activity, Handle show_text, Handle spell, Handle setupPage,
-		Handle setupField, Handle specRecog);
+                        Handle Decode, Handle NoStopSnapLEO, Handle monitor_ori,
+                        Handle activity, Handle show_text, Handle spell, Handle setupPage,
+                        Handle setupField, Handle specRecog);
 
 // error code
 enum p2_error_t {
-	ER_P2_NO_ERROR = 0, ER_P2_NO_RECOG = 1, ER_P2_MEMORY = 4
+    ER_P2_NO_ERROR = 0, ER_P2_NO_RECOG = 1, ER_P2_MEMORY = 4
 };
 
 #endif

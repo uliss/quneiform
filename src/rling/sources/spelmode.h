@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __SPEL_MODE_H__
 
 #if _MSC_VER > 1000
-   #pragma once
+#pragma once
 #endif // _MSC_VER > 1000
 
 /********************************************************************/
@@ -125,9 +125,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #undef FOR_EDIT                     /* ---"----"------"-----*/
 
 #undef SECOND_PASS        /*   constant switches on/off collection of    */
-			  /*  statistic over first (general) pass        */
-			  /*    and envokes second pass over word stack  */
-			  /* Second pass isn't written. There are only */
-			  /* some investigation dashes unusable in       */
-			  /* the working mode.                           */
+/*  statistic over first (general) pass        */
+/*    and envokes second pass over word stack  */
+/* Second pass isn't written. There are only */
+/* some investigation dashes unusable in       */
+/* the working mode.                           */
 #endif //#ifndef __SPEL_MODE_H__

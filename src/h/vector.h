@@ -60,61 +60,60 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct tagChunk;  // forward definition
 
-typedef struct bw_segmentv
-{
- int16_t b;
- int16_t w;
- struct tagChunk * box;
- #define SEG_DELIM -0x7000
+typedef struct bw_segmentv {
+    int16_t b;
+    int16_t w;
+    struct tagChunk * box;
+#define SEG_DELIM -0x7000
 } BWSV;
 
 
 typedef struct tagChunk {
-BWSV *		 	first_int;      // If != NULL structure is in use
-struct tagChunk * 	master;		// Master chunk (can be NULL)
-struct tagChunk * 	dragon;		// Chunk who is ate this chunk
-int32_t			area;		// area in pixels
-int16_t			height,
-			yline;		// y offset of chunk in letter box
-int16_t			nintervals;	// number of intervals
-uint16_t			wide : 1,       // wide chunk
-			v_deleted : 1;  // chunk was deleted
-#define MAX_CHUNK	64
+    BWSV *          first_int;      // If != NULL structure is in use
+    struct tagChunk *   master;     // Master chunk (can be NULL)
+    struct tagChunk *   dragon;     // Chunk who is ate this chunk
+    int32_t         area;       // area in pixels
+    int16_t         height,
+    yline;      // y offset of chunk in letter box
+    int16_t         nintervals; // number of intervals
+    uint16_t            wide : 1,       // wide chunk
+    v_deleted : 1;  // chunk was deleted
+#define MAX_CHUNK   64
 } Chunk;
 
 typedef struct tagVector {
-Point16 beg,end;
-int32_t incline;   // 2048 * tangens
-#define INCLINE_UNKNOWN	(-0x41414141)	  ///	      _______
-int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
-int32_t Mx,My;
-int32_t Cx,Cy;  // debug purposes
-int32_t area;
-uchar Mn; // normalized moment
-uchar reserve[3];
-#define MAX_VECT	64
-#define NORMA_FACTOR	12
+    Point16 beg, end;
+    int32_t incline;   // 2048 * tangens
+#define INCLINE_UNKNOWN (-0x41414141)     ///         _______
+    int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
+    int32_t Mx, My;
+    int32_t Cx, Cy; // debug purposes
+    int32_t area;
+    uchar Mn; // normalized moment
+    uchar reserve[3];
+#define MAX_VECT    64
+#define NORMA_FACTOR    12
 }  Vector;
 
 typedef struct tagSegmVersion {
-uchar s;    // segment code
-#define UNREC_SEG	100
-int16_t prob; // probability
+    uchar s;    // segment code
+#define UNREC_SEG   100
+    int16_t prob; // probability
 } SegmVersion;
 
 typedef struct tagSegment {
-#define MAX_VERS	3
-#define MAX_SEG		48
-SegmVersion sgm[MAX_VERS+1];
-Vector * chunk;
+#define MAX_VERS    3
+#define MAX_SEG     48
+    SegmVersion sgm[MAX_VERS+1];
+    Vector * chunk;
 } Segment;
 
 
 typedef struct tagSegmRec {
-uint16_t segm;
-uint16_t let;
-uchar prob;
-#define MAX_REC_SEG		14
+    uint16_t segm;
+    uint16_t let;
+    uchar prob;
+#define MAX_REC_SEG     14
 } SegmRec;
 
 #endif

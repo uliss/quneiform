@@ -88,7 +88,7 @@ char * GetModulesString(uint32_t dwError);
 
 Bool32 OutputFragments(Handle hPage);
 void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
-		int32_t * lpDenominator);
+                          int32_t * lpDenominator);
 
 Bool32 Open_Res_Log(void);
 Bool32 Close_Res_Log(void);

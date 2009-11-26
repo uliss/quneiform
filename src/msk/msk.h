@@ -91,13 +91,13 @@ MSK_FUNC Bool32 MSKRecogChar(int HndTab, RecRaster * raster, RecVersions * MSKre
  * @param recraster - description
  */
 MSK_FUNC Bool32 MSKRecogCharExp(int HndTab, RecRaster *recraster,
-		RecVersions *Indres);
+                                RecVersions *Indres);
 
 /**
  * @param recraster - raster description
  */
 MSK_FUNC Bool32 MSKRecogCharExpPuma(int HndTab, RecRaster *recraster,
-		RecVersions *Indres, uint32_t Flags);
+                                    RecVersions *Indres, uint32_t Flags);
 
 MSK_FUNC Bool32 MSKSetHndTab(int HndTab);
 

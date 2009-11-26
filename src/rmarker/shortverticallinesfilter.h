@@ -66,14 +66,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lns32/lnsdefs.h"
 
-typedef struct tagPUMALinesBuffer
-{
-	LinesTotalInfo * LineInfoA;
-	LinesTotalInfo * LineInfoB;
-	void * HLinesBufferA;
-	void * VLinefBufferA;
-	void * HLinesBufferB;
-	void * VLinefBufferB;
+typedef struct tagPUMALinesBuffer {
+    LinesTotalInfo * LineInfoA;
+    LinesTotalInfo * LineInfoB;
+    void * HLinesBufferA;
+    void * VLinefBufferA;
+    void * HLinesBufferB;
+    void * VLinefBufferB;
 } PUMALinesBuffer, *PPUMALinesBuffer;
 
 Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Image );

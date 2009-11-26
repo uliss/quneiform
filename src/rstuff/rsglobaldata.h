@@ -74,17 +74,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // predefined
 #ifdef __RSTUFF_CPP__
-	#define EXTERN
-	#define VAL(a)		    = a
-    #define VALM(a)		    = {a}
-	#define VAL2(a,b)	    = { a,b }
-	#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define EXTERN
+#define VAL(a)          = a
+#define VALM(a)         = {a}
+#define VAL2(a,b)       = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-	#define EXTERN		extern
-	#define VAL(a)
-	#define VALM(a)
-	#define VAL2(a,b)
-	#define VAL4(a,b,c,d)
+#define EXTERN      extern
+#define VAL(a)
+#define VALM(a)
+#define VAL2(a,b)
+#define VAL4(a,b,c,d)
 #endif
 
 ////////////////////////////////////////////////
@@ -109,7 +109,7 @@ EXTERN Handle               hDebugKillLinesStep                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesData                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsBefore VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsAfter  VAL(NULL);
-EXTERN	uchar				db_spec_prj			VAL(0);
+EXTERN  uchar               db_spec_prj         VAL(0);
 #endif //_RSGLOBALDATA_H_
 ////////////////////////////////////////////////////////////////////////////////////
 //end of file

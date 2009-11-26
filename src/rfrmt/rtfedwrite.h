@@ -74,34 +74,34 @@
 #define TABLE_TP_CENTER        0x0008
 
 struct RtfSectorInfo {
-	CIF::Point16 Offset;
-	CIF::Point16 OffsetFromColumn;
-	RECT m_rectFree;
+    CIF::Point16 Offset;
+    CIF::Point16 OffsetFromColumn;
+    RECT m_rectFree;
 
-	uint16_t CountFragments;
-	Handle hEDPage;
-	Handle hEDSector;
-	Handle hColumn;
-	Handle hFirstColumn;
-	Handle hObject;
-	Handle hEdTable;
-	Handle hEdTableRow;
-	Handle hEdTableCell;
-	Handle hEdTableParagraph;
-	Handle hEdTableString;
-	int userNum;
-	uint16_t VerticalOffsetColumnFromSector;
-	uint16_t VerticalOffsetFragmentInColumn;
-	uint16_t FlagInColumn;
-	uint16_t InterSectorDist;
-	Bool FlagFictiveParagraph;
-	int32_t MargL;
-	int32_t MargR;
-	int32_t PaperW;
-	int32_t PaperH;
+    uint16_t CountFragments;
+    Handle hEDPage;
+    Handle hEDSector;
+    Handle hColumn;
+    Handle hFirstColumn;
+    Handle hObject;
+    Handle hEdTable;
+    Handle hEdTableRow;
+    Handle hEdTableCell;
+    Handle hEdTableParagraph;
+    Handle hEdTableString;
+    int userNum;
+    uint16_t VerticalOffsetColumnFromSector;
+    uint16_t VerticalOffsetFragmentInColumn;
+    uint16_t FlagInColumn;
+    uint16_t InterSectorDist;
+    Bool FlagFictiveParagraph;
+    int32_t MargL;
+    int32_t MargR;
+    int32_t PaperW;
+    int32_t PaperH;
 
-	Bool FlagOneString;
-	Bool FlagOverLayed;
+    Bool FlagOneString;
+    Bool FlagOverLayed;
 };
 
 #endif

@@ -55,33 +55,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __VEC_H
-   #define __VEC_H
+#define __VEC_H
 
-   #ifndef __GLOBUS_H
-      #include "globus.h"
-   #endif
-
-   #include "vecdefs.h"
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
+#ifndef __GLOBUS_H
+#include "globus.h"
 #endif
-   #include "memfunc.h"
+
+#include "vecdefs.h"
+#ifndef __RECDEFS_H
+#include "recdefs.h"
+#endif
+#include "memfunc.h"
 
 #ifdef __VEC__
-      #define VEC_FUNC  FUN_EXPO
- #else
-     #define VEC_FUNC  FUN_IMPO
-   #endif
+#define VEC_FUNC  FUN_EXPO
+#else
+#define VEC_FUNC  FUN_IMPO
+#endif
 
-   VEC_FUNC(Bool32)  VECRecogChar(
-      RecRaster*  raster,     // raster description
-      RecVersions* VECres );  // acuracy
+VEC_FUNC(Bool32)  VECRecogChar(
+    RecRaster*  raster,     // raster description
+    RecVersions* VECres );  // acuracy
 
-   VEC_FUNC(Bool32) VECGetVectors(RecRaster * raster,
-                                     RecData * data);
+VEC_FUNC(Bool32) VECGetVectors(RecRaster * raster,
+                               RecData * data);
 
 
-      // Err16.h defined codes or one of the next
+// Err16.h defined codes or one of the next
 
 // error code
 #define ER_VEC_NO_ERROR  0

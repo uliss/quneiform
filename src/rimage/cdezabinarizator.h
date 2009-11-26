@@ -71,20 +71,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
-typedef	struct tagTigerImageInfo
-	{
-		unsigned short int wImageHeight;       /* Height of the image in lines */
-		unsigned short int wImageWidth;        /* Width of the image in pixels */
-		unsigned short int wImageByteWidth; /* Size of the image line in bytes */
-		unsigned short int wImageDisplacement;
-		/* Displacement of the first pixel of image line in pixels, usually 0 */
-		unsigned short int wResolutionX;                /* Resolution by X-axe */
-		unsigned short int wResolutionY;                /* Resolution by Y-axe */
-		unsigned char bFotoMetrics;                             /* White pixel */
-		unsigned char bUnused;         /* not used; for alignment purpose only */
-		unsigned short int wAddX;
-		unsigned short int wAddY;
-	} CTBINTigerImageInfo, *PCTBINTigerImageInfo;
+typedef struct tagTigerImageInfo {
+    unsigned short int wImageHeight;       /* Height of the image in lines */
+    unsigned short int wImageWidth;        /* Width of the image in pixels */
+    unsigned short int wImageByteWidth; /* Size of the image line in bytes */
+    unsigned short int wImageDisplacement;
+    /* Displacement of the first pixel of image line in pixels, usually 0 */
+    unsigned short int wResolutionX;                /* Resolution by X-axe */
+    unsigned short int wResolutionY;                /* Resolution by Y-axe */
+    unsigned char bFotoMetrics;                             /* White pixel */
+    unsigned char bUnused;         /* not used; for alignment purpose only */
+    unsigned short int wAddX;
+    unsigned short int wAddY;
+} CTBINTigerImageInfo, *PCTBINTigerImageInfo;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #define   DB_MALLOC(a)        RIMAGEAlloc(a)
@@ -100,67 +99,67 @@ class CRIBinarizator;
 //
 class CDezaBinarizator
 {
-	#define BUFS 3*1000
-    #define SB 256
-    #define LONGBUF 15L*4096L
+#define BUFS 3*1000
+#define SB 256
+#define LONGBUF 15L*4096L
 
-public:
-	int32_t CloseTrackBin(void);
-	int32_t GetBinarized(puchar ptbl, uint32_t lenbl);
-	uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, uint32_t wdezaFlag);
-	CDezaBinarizator();
-	virtual ~CDezaBinarizator();
+    public:
+        int32_t CloseTrackBin(void);
+        int32_t GetBinarized(puchar ptbl, uint32_t lenbl);
+        uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, uint32_t wdezaFlag);
+        CDezaBinarizator();
+        virtual ~CDezaBinarizator();
 
-private:
-	int32_t Get1(void);
-	int32_t Read_por_first(void);
-	int32_t Elem_st(void);
-	int32_t Grey_black(void);
-	int32_t Xygo(int32_t, int32_t);
-	int32_t Our1(int32_t);
-	puchar Black_file(puchar, int32_t);
+    private:
+        int32_t Get1(void);
+        int32_t Read_por_first(void);
+        int32_t Elem_st(void);
+        int32_t Grey_black(void);
+        int32_t Xygo(int32_t, int32_t);
+        int32_t Our1(int32_t);
+        puchar Black_file(puchar, int32_t);
 
-private:
-	void Ras1_pred(int32_t);
-	void Raspred(int32_t);
-	void Stek(void);
-	void Left_str(void);
-	void Right_str(void);
-	int32_t bWhitePixel;
-	int32_t colall;
-	int32_t chet_color[SB];
-	uchar lg0;
-	puchar ptbtek;
-	puchar ptbosn;
-	puchar ptb;
-	puchar ptgrey;
-	uint32_t indend;
-	uint32_t indbeg;
-	int32_t nstrb;
-	int32_t nstr;
-	int32_t sy1;
-	int32_t sdvig;
-	int32_t lg0i;
-	int32_t spx2;
-	int32_t spx1;
-	int32_t spy;
-	int32_t spx;
-	int32_t bufmark[4];
-	int32_t sheds;
-	int32_t shed;
-	int32_t st[BUFS];
-	int32_t ypor;
-	int32_t tip;
-	int32_t indbl;
-	int32_t lgn;
-	int32_t lg;
-	int32_t xx;
-	int32_t y;
-	int32_t x;
-	int32_t urov[2];
-	CRIBinarizator * mpBinarizatorControl;
-	//////////////////////////////////////////////////////////////////////
-	#define  DB_GREYREAD(a,b,c)    mpBinarizatorControl->KronrodImageRead(a,b,c)
+    private:
+        void Ras1_pred(int32_t);
+        void Raspred(int32_t);
+        void Stek(void);
+        void Left_str(void);
+        void Right_str(void);
+        int32_t bWhitePixel;
+        int32_t colall;
+        int32_t chet_color[SB];
+        uchar lg0;
+        puchar ptbtek;
+        puchar ptbosn;
+        puchar ptb;
+        puchar ptgrey;
+        uint32_t indend;
+        uint32_t indbeg;
+        int32_t nstrb;
+        int32_t nstr;
+        int32_t sy1;
+        int32_t sdvig;
+        int32_t lg0i;
+        int32_t spx2;
+        int32_t spx1;
+        int32_t spy;
+        int32_t spx;
+        int32_t bufmark[4];
+        int32_t sheds;
+        int32_t shed;
+        int32_t st[BUFS];
+        int32_t ypor;
+        int32_t tip;
+        int32_t indbl;
+        int32_t lgn;
+        int32_t lg;
+        int32_t xx;
+        int32_t y;
+        int32_t x;
+        int32_t urov[2];
+        CRIBinarizator * mpBinarizatorControl;
+        //////////////////////////////////////////////////////////////////////
+#define  DB_GREYREAD(a,b,c)    mpBinarizatorControl->KronrodImageRead(a,b,c)
 };
 /////////////////////////////////////////////////////
 //

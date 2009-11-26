@@ -79,44 +79,44 @@
 #endif
 
 typedef struct tagRSPreProcessImage {
-	puchar *pgpRecogDIB;
-	Bool32 gbAutoRotate;
-	Bool32 gbDotMatrix;
-	Bool32 gbFax100;
-	uint32_t gnLanguage;
-	uint32_t gnTables;
-	Handle hCPAGE;
-	Handle hDebugCancelSearchPictures;
-	Handle hDebugCancelComponent;
-	Handle hDebugCancelTurn;
-	Handle hDebugCancelSearchLines;
-	Handle hDebugCancelVerifyLines;
-	Handle hDebugCancelSearchDotLines;
-	Handle hDebugCancelRemoveLines;
-	Handle hDebugCancelSearchTables;
-	Handle hDebugCancelAutoTemplate;
-	Handle hDebugEnableSearchSegment;
-	const char ** pglpRecogName;
-	Handle* phCCOM;
-	void * pinfo;
-	Handle* phLinesCCOM;
-	void * phCLINE;
-	PBool32 pgneed_clean_line;
-	int32_t * pgnNumberTables;
-	uint32_t gnPictures;
-	Bool32* pgrc_line;
-	CIF::Rect gRectTemplate;
-	char *szLayoutFileName;
+    puchar *pgpRecogDIB;
+    Bool32 gbAutoRotate;
+    Bool32 gbDotMatrix;
+    Bool32 gbFax100;
+    uint32_t gnLanguage;
+    uint32_t gnTables;
+    Handle hCPAGE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugCancelComponent;
+    Handle hDebugCancelTurn;
+    Handle hDebugCancelSearchLines;
+    Handle hDebugCancelVerifyLines;
+    Handle hDebugCancelSearchDotLines;
+    Handle hDebugCancelRemoveLines;
+    Handle hDebugCancelSearchTables;
+    Handle hDebugCancelAutoTemplate;
+    Handle hDebugEnableSearchSegment;
+    const char ** pglpRecogName;
+    Handle* phCCOM;
+    void * pinfo;
+    Handle* phLinesCCOM;
+    void * phCLINE;
+    PBool32 pgneed_clean_line;
+    int32_t * pgnNumberTables;
+    uint32_t gnPictures;
+    Bool32* pgrc_line;
+    CIF::Rect gRectTemplate;
+    char *szLayoutFileName;
 } RSPreProcessImage, *PRSPreProcessImage;
 
 typedef struct tagRSCBProgressPoints {
-	void * pDPumaSkipComponent;
-	void * pDPumaSkipTurn;
-	void * pSetReturnCode;
-	void * pSetUpdate;
+    void * pDPumaSkipComponent;
+    void * pDPumaSkipTurn;
+    void * pSetReturnCode;
+    void * pSetUpdate;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 
-RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage);
+RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
 RSTUFF_FUNC(Bool32) RSTUFF_Done();
 RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode();
 RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);
@@ -124,24 +124,24 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData);
 RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
-	RSTUFF_FN_RSBinarise = 1,
-	RSTUFF_FN_RSNormalise,
-	RSTUFF_FN_RSLayout,
-	RSTUFF_FN_RSSetSpecPrj
+    RSTUFF_FN_RSBinarise = 1,
+    RSTUFF_FN_RSNormalise,
+    RSTUFF_FN_RSLayout,
+    RSTUFF_FN_RSSetSpecPrj
 } RSTUFF_EXPORT_ENTRIES;
 
 typedef enum {
-	RSTUFF_FN_SetProgresspoints = 128,
-	RSTUFF_FN_SetProgressStart,
-	RSTUFF_FN_SetProgressStep,
-	RSTUFF_FN_SetProgressFinish,
-	RSTUFF_FN_SetInitPRGTIME,
-	RSTUFF_FN_SetDPumaSkipComponent
+    RSTUFF_FN_SetProgresspoints = 128,
+    RSTUFF_FN_SetProgressStart,
+    RSTUFF_FN_SetProgressStep,
+    RSTUFF_FN_SetProgressFinish,
+    RSTUFF_FN_SetInitPRGTIME,
+    RSTUFF_FN_SetDPumaSkipComponent
 } RSTUFF_IMPORT_ENTRIES;
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FNRSTUFF##b)c; RSTUFF_FUNC(a) RSTUFF_##b c;
 DEC_FUN(Bool32, RSBinarise, (void))
-DEC_FUN(Bool32, RSNormalise, (PRSPreProcessImage,void* vBuff,int Size,void* vWork,int SizeWork))
+DEC_FUN(Bool32, RSNormalise, (PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork))
 DEC_FUN(Bool32, RSNormVerify, (PRSPreProcessImage))
 DEC_FUN(Bool32, RSNormRemoveLines, (PRSPreProcessImage))
 DEC_FUN(Bool32, RSLayout, (PRSPreProcessImage))

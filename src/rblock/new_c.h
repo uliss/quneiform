@@ -84,13 +84,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGFILENAME_BLOCKS "rom_BLOCKS.log"
 #define RESFILENAME_BLOCKS "rom_BLOCKS.res"
 
-# define ROOTS_QUANTUM			1024
-# define COMPS_QUANTUM			128
-# define PICS_QUANTUM		16
-# define BIG_LETTERS_QUANTUM	16
-# define DUST_LENGHT			4
-# define HOR_BOUND_SIZE		20
-# define VER_BOUND_SIZE		10
+# define ROOTS_QUANTUM          1024
+# define COMPS_QUANTUM          128
+# define PICS_QUANTUM       16
+# define BIG_LETTERS_QUANTUM    16
+# define DUST_LENGHT            4
+# define HOR_BOUND_SIZE     20
+# define VER_BOUND_SIZE     10
 # define MinHeightOfLetter 10
 # define MaxHeightOfLetter 100
 # define DIFFERENCE1  4  //3
@@ -98,21 +98,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define ROM_TYPE_TABLE 111;
 //# define BOUND 15
 # define BOUND 1
-# define INC_COEFF		 1.4
-# define DEC_COEFF		 0.9
-# define BOUND_SIZE		 30
+# define INC_COEFF       1.4
+# define DEC_COEFF       0.9
+# define BOUND_SIZE      30
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifdef __LOAD_ROOTS_C__
-	#define EXTERN
-	#define VAL1(a)		= a
-	#define VAL2(a,b)	= { a,b }
-	#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define EXTERN
+#define VAL1(a)     = a
+#define VAL2(a,b)   = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-	#define EXTERN		extern
-	#define VAL1(a)
-	#define VAL2(a,b)
-	#define VAL4(a,b,c,d)
+#define EXTERN      extern
+#define VAL1(a)
+#define VAL2(a,b)
+#define VAL4(a,b,c,d)
 #endif
 
 EXTERN Handle resFile_comp;

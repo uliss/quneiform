@@ -58,7 +58,7 @@
  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
  шш                                                              шш
  шш     Copyright (C) 1990 Cognitive Technology Corporation.     шш
- шш	 All rights reserved. This program is proprietary and     шш
+ шш    All rights reserved. This program is proprietary and     шш
  шш     a trade secret of Cognitive Technology Corporation.      шш
  шш                                                              шш
  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
@@ -66,12 +66,12 @@
 
 /********************************************************************/
 /*                                                                  */
-/*	       Basis data types and functions definitions           */
-/*		for 32-bit flat WATCOM model aplications            */
+/*         Basis data types and functions definitions           */
+/*      for 32-bit flat WATCOM model aplications            */
 /*                                                                  */
 /********************************************************************/
 
-#ifndef	TYPES_H_DEFINE
+#ifndef TYPES_H_DEFINE
 #define TYPES_H_DEFINE
 #include "c_trans.h"
 #include "tech.h"

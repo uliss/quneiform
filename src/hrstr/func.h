@@ -76,7 +76,7 @@
 #define c_locomp EVN_CLocomp
 
 extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
-		*let_sans_acc, *let_lindef3;
+*let_sans_acc, *let_lindef3;
 extern uint16_t *accent_tab; // 30.08.2000 E.P.
 
 // module diffrv.c
@@ -161,7 +161,7 @@ Bool snap_show_text(const char *);
 Bool snap_show_text1(puchar);
 Bool snap_monitor(void);
 void snap_draw_line(Handle wnd, CIF::Point16 *start, CIF::Point16 *end, int32_t skew,
-		uint32_t rgb, int16_t pen, uint32_t key);//IGOR
+                    uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void snap_del_line(Handle wnd, uint32_t key);//IGOR
 Bool snap_baselines(uchar a);//IGOR
 Bool snap_monitor_ori(CSTR_line *snap_line, int32_t nums);
@@ -233,7 +233,7 @@ void dm1();
 int16_t discrid(cell *, int16_t);
 int16_t decidust(cell *);
 int16_t estcomp(char, cell *, SVERS *, int16_t, int16_t, int16_t, s_glue *, cut_pos*, cut_pos*,
-		char, char, char);
+                char, char, char);
 void snBOX(cell *);
 void est_snap(char user, cell *C, const char * txt);
 void promote(uchar, cell *, uchar, int16_t);
@@ -266,7 +266,7 @@ void find_path();
 int16_t cut_points(int16_t, int16_t, puchar, struct cut_elm *);
 int16_t Alik_cut_points(int16_t, int16_t, puchar, struct cut_elm *, int16_t);
 MN* cut_rast(puchar, int16_t, int16_t, int16_t, int16_t, struct cut_elm *, char, char, pchar,
-		cut_pos*);
+             cut_pos*);
 
 // module alcutfun.c
 void Alik_def_cut_flg(cell *, struct cut_elm *, struct cut_elm *, int16_t, uchar);
@@ -339,15 +339,15 @@ void filtr_short(uchar fun[], int16_t n, int16_t lev);
 void filtr121(uchar fun[], int16_t n);
 void filtr_bullet(uchar fun[], int16_t len);
 void add_thick_stick_versions(cell *c, int16_t dx, int16_t wide, int16_t inc, int16_t typ_snap,
-		STICK_CHARS *left_chars, STICK_CHARS *right_chars,
-		STICK_SIGNUMS *signums);
+                              STICK_CHARS *left_chars, STICK_CHARS *right_chars,
+                              STICK_SIGNUMS *signums);
 void add_thin_stick_versions(cell *c, uchar left[], uchar right[], int16_t dy,
-		int16_t dx, int16_t typ_inc, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
-		STICK_SIGNUMS *signums);
+                             int16_t dx, int16_t typ_inc, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
+                             STICK_SIGNUMS *signums);
 Bool sign_neck(uchar left[], uchar right[], int16_t n, int16_t base, int16_t mode);
 int16_t conv_prob(int16_t prob);
 int16_t shift_raster(uchar *r, int16_t dy, int16_t dx, int16_t tab[], int16_t max_shift, uchar *res,
-		int16_t dir);
+                     int16_t dir);
 /******************************
  void full_snap(cell *c,STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
  int16_t tab_angle[],
@@ -358,7 +358,7 @@ int16_t shift_raster(uchar *r, int16_t dy, int16_t dx, int16_t tab[], int16_t ma
 
 // module dis_stic.c
 int16_t discrim_all_sticks(cell *c, STICK_CHARS *left_chars,
-		STICK_CHARS *right_chars, STICK_SIGNUMS *signums);
+                           STICK_CHARS *right_chars, STICK_SIGNUMS *signums);
 int16_t discrim_stick(uchar, STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *, int16_t);
 int16_t del_sticks(cell *c, char let);
 int16_t similar_0xBA(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
@@ -375,29 +375,29 @@ uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars);
 int16_t stick_center_study(cell *c, s_glue *GL, int16_t typ);
 uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
 int16_t erector(cell *c, int16_t enable_erect, int16_t enable_shave, int16_t enable_snap,
-		int16_t enable_diskrim);
+                int16_t enable_diskrim);
 
 // module cha_stic.c
 int16_t set_stick_char(uchar left[], uchar right[], int16_t tails[], int16_t dy, int16_t dx,
-		int16_t opt, int16_t wid, int16_t corr_mode, int16_t skip_ul, int16_t skip_dl, int16_t skip_ur,
-		int16_t skip_dr, int16_t inc, STICK_CHARS *left_chars,
-		STICK_CHARS *right_chars, STICK_SIGNUMS *signums, int16_t *l_mode,
-		int16_t *r_mode);
+                       int16_t opt, int16_t wid, int16_t corr_mode, int16_t skip_ul, int16_t skip_dl, int16_t skip_ur,
+                       int16_t skip_dr, int16_t inc, STICK_CHARS *left_chars,
+                       STICK_CHARS *right_chars, STICK_SIGNUMS *signums, int16_t *l_mode,
+                       int16_t *r_mode);
 int16_t calc_right_f_symptom(uchar fun[], int16_t n, int16_t m);
 int16_t calc_left_f_symptom(uchar fun[], int16_t n, int16_t nx, Bool c_ft);
 void num_of_skip_line(uchar left[], uchar right[], int16_t dy, int16_t opt, int16_t wide,
-		int16_t *up_l, int16_t *up_r, int16_t *down_l, int16_t *down_r);
+                      int16_t *up_l, int16_t *up_r, int16_t *down_l, int16_t *down_r);
 
 void set_stick_aux_signums(cell *c, uchar left[], uchar right[], int16_t dy,
-		int16_t wide_up, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
-		STICK_SIGNUMS *signums, int16_t dis_left_brace, int16_t dis_right_brace,
-		int16_t dis_slash, int16_t l_f_sym, int16_t r_f_sym, int16_t T_c, uint16_t T_2_3,
-		uint16_t T_skok, B_LINES *bl, int16_t nlines, int16_t incline);
+                           int16_t wide_up, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
+                           STICK_SIGNUMS *signums, int16_t dis_left_brace, int16_t dis_right_brace,
+                           int16_t dis_slash, int16_t l_f_sym, int16_t r_f_sym, int16_t T_c, uint16_t T_2_3,
+                           uint16_t T_skok, B_LINES *bl, int16_t nlines, int16_t incline);
 
 void
-		calc_skipped_lines(int16_t hist_int[], uchar left[], uchar right[], int16_t dy,
-				int16_t dx, int16_t wide, int16_t opt, Bool c_r, int16_t *ul, int16_t *ur, int16_t *dl,
-				int16_t *dr);
+calc_skipped_lines(int16_t hist_int[], uchar left[], uchar right[], int16_t dy,
+                   int16_t dx, int16_t wide, int16_t opt, Bool c_r, int16_t *ul, int16_t *ur, int16_t *dl,
+                   int16_t *dr);
 void correct_f_symptoms(int16_t hist_int[], int16_t dy, int16_t *l_f_sym, int16_t *r_f_sym);
 void correct_upper_peaks(STICK_CHARS *l, STICK_CHARS *r, int16_t dy);
 
@@ -696,8 +696,8 @@ lnhead *c_boxln(MN *);
 
 // rstr_con.c
 int16_t rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
-		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
-		uchar kegl, uchar column, uchar tabno);
+                        uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
+                        uchar kegl, uchar column, uchar tabno);
 void rstr_close_cont(void);
 Bool32 rstr_open_cont(void);
 // rcm.c

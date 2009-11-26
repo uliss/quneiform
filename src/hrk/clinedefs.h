@@ -68,33 +68,33 @@
 typedef void* CLINE_handle;
 
 typedef union {
-	struct {
-		NR_PoinLine data;
-		int32_t res[2];
-	} point_line;
-	struct {
-		NR_DefiLine data;
-	} defi_line;
+    struct {
+        NR_PoinLine data;
+        int32_t res[2];
+    } point_line;
+    struct {
+        NR_DefiLine data;
+    } defi_line;
 } SPECLINE;
 
 typedef struct SL_POLOY_struct {
-	int16_t count;
-	CIF::Point16 Vertex[CLINE_MaxVerticsNumber];
+    int16_t count;
+    CIF::Point16 Vertex[CLINE_MaxVerticsNumber];
 } CLINE_SL_POLY;
 
 typedef struct Interval_Data_struct {
-	int32_t Pos;
-	int32_t Lent;
+    int32_t Pos;
+    int32_t Lent;
 } DInterval;
 
 typedef const DInterval* CPDInterval;
 
 typedef struct Event_Data_struct {
-	Bool32 Hori; //гориз.(1) или вертик.(0)
-	Bool32 Increase; //наращивать или уменьшать уровень
-	int32_t Lev_0; //уровень первого интервала
-	int Width;
-	int32_t EventLength;
+    Bool32 Hori; //гориз.(1) или вертик.(0)
+    Bool32 Increase; //наращивать или уменьшать уровень
+    int32_t Lev_0; //уровень первого интервала
+    int Width;
+    int32_t EventLength;
 } DEvent;
 
 typedef const DEvent* CPDEvent;
@@ -104,9 +104,9 @@ typedef const DEvent* CPDEvent;
 #define DirectedForBothSides  2
 
 typedef struct CutPoint_Data_struct {
-	Bool32 Direction;
-	int32_t Level; //уровень полосы
-	uchar reserv;
+    Bool32 Direction;
+    int32_t Level; //уровень полосы
+    uchar reserv;
 } DCutPoint;
 
 typedef const DCutPoint* CPDCutPoint;
@@ -116,44 +116,44 @@ typedef const DCutPoint* CPDCutPoint;
 #define  CLINE_EndPointHasCrossPoint      4
 
 typedef struct Component_Data_struct {
-	Bool32 CrossPointFlag;
-	int32_t BeginPoint;
-	int32_t EndPoint;
+    Bool32 CrossPointFlag;
+    int32_t BeginPoint;
+    int32_t EndPoint;
 } DComponent;
 
 typedef const DComponent* CPDComponent;
 
 typedef struct Lns_Data_struct {
-	CIF::Point16 Anew;
-	CIF::Point16 Bnew;
+    CIF::Point16 Anew;
+    CIF::Point16 Bnew;
 } DLns;
 
 typedef const DLns* CPDLns;
 
 typedef struct Line_Data_struct {
-	uint32_t Flags; // common use info
-	uint32_t Tail; // остаток линии за таблицой
-	Rect32 rect; // прямоугольник линии
-	Bool32 ProcessingType; // тип обработки линии(гор. или верт.)
-	int32_t LineEventsLength; // сумма черных точек линии
-	double Degree;
-	Handle RelationshipIndex; // индекс коробки компонент
-	Bool32 FlagCalculatedWidth;
-	Bool32 FlagExtensible;
-	Bool32 FlagDot; // устанавливается когда линия точечная
-	Bool32 FlagBad;
-	Bool32 FlagLongStrip;
+    uint32_t Flags; // common use info
+    uint32_t Tail; // остаток линии за таблицой
+    Rect32 rect; // прямоугольник линии
+    Bool32 ProcessingType; // тип обработки линии(гор. или верт.)
+    int32_t LineEventsLength; // сумма черных точек линии
+    double Degree;
+    Handle RelationshipIndex; // индекс коробки компонент
+    Bool32 FlagCalculatedWidth;
+    Bool32 FlagExtensible;
+    Bool32 FlagDot; // устанавливается когда линия точечная
+    Bool32 FlagBad;
+    Bool32 FlagLongStrip;
 
-	NR_SimpLine Line; // простейшее описание линии
-	int32_t Status; // история линии в программе
-	NORM_DATATYPES Type; // *Unknown, *Simple, *Defis, *Pointed
-	LINE_DIR Dir;
-	char Qual; // quality (or estimation) at percents
-	char Dens; // density at percents
-	SPECLINE Specline; // (NR_DefiLine), (NR_PoinLine)
-	CLINE_SL_POLY poly;
-	int32_t n_event; //число ивентов
-	DLns lns_data;
+    NR_SimpLine Line; // простейшее описание линии
+    int32_t Status; // история линии в программе
+    NORM_DATATYPES Type; // *Unknown, *Simple, *Defis, *Pointed
+    LINE_DIR Dir;
+    char Qual; // quality (or estimation) at percents
+    char Dens; // density at percents
+    SPECLINE Specline; // (NR_DefiLine), (NR_PoinLine)
+    CLINE_SL_POLY poly;
+    int32_t n_event; //число ивентов
+    DLns lns_data;
 } DLine;
 
 typedef const DLine* CPDLine;

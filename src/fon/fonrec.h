@@ -60,37 +60,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define FONDigitFuzzyColumn  2
 #define FONSmesColumn        3
 
-typedef struct tagFONBase
-	{
-	 welet *start;
-	 int   inBase;
-	 access_tab *ace;
-	 int16_t countFont;
-	 int16_t reserv;
-	 uint32_t fontFields[4][NFIELDDWORD];
-	 Bool32 isFirst;
-	 uint16_t first[256];
-	 uchar  tablColumn[32];
-	}
-	FONBASE;
+typedef struct tagFONBase {
+    welet *start;
+    int   inBase;
+    access_tab *ace;
+    int16_t countFont;
+    int16_t reserv;
+    uint32_t fontFields[4][NFIELDDWORD];
+    Bool32 isFirst;
+    uint16_t first[256];
+    uchar  tablColumn[32];
+}
+FONBASE;
 
 //int16_t CutOffClusters(welet *ww,int16_t num);
-typedef struct tagRecResult
-{
-   short int nClust;
-   uchar name;
-   uchar prob;
+typedef struct tagRecResult {
+    short int nClust;
+    uchar name;
+    uchar prob;
 }
 RECRESULT;
 
-int AddVersion(RECRESULT *recres,uchar let,uchar rec,int nClust,
-			   int num,int maxNames);
-int16_t RecogClu(uchar *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-              RECRESULT *recResult,int16_t size,
-              welet *wl, int numWelet,
-              int porog,int nInCTB,int16_t col,int16_t row,int32_t countRazmaz);
-int32_t GetNearestClusters (int num, welet *wel,int numWel ,
-	    RecVersions *collection );
-int32_t TestClustNames(welet *wel,int numWel,
-					 int name1,int name2 );
+int AddVersion(RECRESULT *recres, uchar let, uchar rec, int nClust,
+               int num, int maxNames);
+int16_t RecogClu(uchar *rast, int16_t xbyte, int16_t xbit, int16_t yrow,
+                 RECRESULT *recResult, int16_t size,
+                 welet *wl, int numWelet,
+                 int porog, int nInCTB, int16_t col, int16_t row, int32_t countRazmaz);
+int32_t GetNearestClusters (int num, welet *wel, int numWel ,
+                            RecVersions *collection );
+int32_t TestClustNames(welet *wel, int numWel,
+                       int name1, int name2 );
 FONBASE *GetStaticFonbase(void);

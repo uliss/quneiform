@@ -85,60 +85,60 @@ CCOM_FUNC Bool32 CCOM_SetImportData(uint32_t dwType, void * pData);
 CCOM_FUNC int CCOM_Version(void);
 
 enum CCOMFunctionsExt {
-	CCOM_FNNEW,
-	CCOM_FNSTORE,
-	CCOM_FNCOPY,
-	CCOM_FNDELETE,
-	CCOM_FNGETFIRST,
-	CCOM_FNGETNEXT,
-	CCOM_FNGETLINE,
-	CCOM_FNGETRASTER,
-	CCOM_FNGETCOLLECTION,
-	CCOM_FNGETUSERBLOCK,
-	CCOM_FNCREATECONT,
-	CCOM_FNDELETECONT,
-	CCOM_FNADDLPTORS,
-	CCOM_FNMAKELP,
-	CCOM_FNSETUSERBLOCK,
-	CCOM_FNNEWUSERCODE,
-	CCOM_FNVERSION,
-	CCOM_FNBACKUP,
-	CCOM_FNRESTORE,
-	CCOM_FNDELALL,
-	CCOM_FNLARGENEW,
-	CCOM_FNLARGENEWLN,
-	CCOM_FNLARGENEWINTERVAL,
-	CCOM_FNLARGECLOSE,
-	CCOM_FNSETKILLEDACCESS,
-	CCOM_FNKILL,
-	CCOM_FNGETEXTRASTER,
-	CCOM_FNCLEARCONTAINER,
-	CCOM_FNGETSCALERASTER,
-	CCOM_COMPRESSCONTAINER,
-	CCOM_SETLANGUAGE,
-	CCOM_GETLANGUAGE,
-	CCOM_GECONTAINERVOLUME,
-	CCOM_YDECR,
-	CCOM_YINCR,
-	CCOM_FNREANIMATE,
-	CCOM_FNADDCOMPTORS
+    CCOM_FNNEW,
+    CCOM_FNSTORE,
+    CCOM_FNCOPY,
+    CCOM_FNDELETE,
+    CCOM_FNGETFIRST,
+    CCOM_FNGETNEXT,
+    CCOM_FNGETLINE,
+    CCOM_FNGETRASTER,
+    CCOM_FNGETCOLLECTION,
+    CCOM_FNGETUSERBLOCK,
+    CCOM_FNCREATECONT,
+    CCOM_FNDELETECONT,
+    CCOM_FNADDLPTORS,
+    CCOM_FNMAKELP,
+    CCOM_FNSETUSERBLOCK,
+    CCOM_FNNEWUSERCODE,
+    CCOM_FNVERSION,
+    CCOM_FNBACKUP,
+    CCOM_FNRESTORE,
+    CCOM_FNDELALL,
+    CCOM_FNLARGENEW,
+    CCOM_FNLARGENEWLN,
+    CCOM_FNLARGENEWINTERVAL,
+    CCOM_FNLARGECLOSE,
+    CCOM_FNSETKILLEDACCESS,
+    CCOM_FNKILL,
+    CCOM_FNGETEXTRASTER,
+    CCOM_FNCLEARCONTAINER,
+    CCOM_FNGETSCALERASTER,
+    CCOM_COMPRESSCONTAINER,
+    CCOM_SETLANGUAGE,
+    CCOM_GETLANGUAGE,
+    CCOM_GECONTAINERVOLUME,
+    CCOM_YDECR,
+    CCOM_YINCR,
+    CCOM_FNREANIMATE,
+    CCOM_FNADDCOMPTORS
 };
 
 enum CCOMFunctionsImp {
-	CCOM_FNIMP_MAKELP
+    CCOM_FNIMP_MAKELP
 };
 // 1    CCOM_FNNEW          создать новую компоненту
 typedef CCOM_comp * (*FNCCOM_New)(CCOM_handle cont, int32_t upper,
-		int32_t left, int32_t w, int32_t h);
+                                  int32_t left, int32_t w, int32_t h);
 CCOM_FUNC CCOM_comp* CCOM_New(CCOM_handle cont, int32_t upper, int32_t left,
-		int32_t w, int32_t h);
+                              int32_t w, int32_t h);
 // 2    CCOM_FNSTORE        записать в компоненту образ
 typedef Bool32 (*FNCCOM_Store)(CCOM_comp * comp, int16_t numcomp,
-		int32_t size_nlines, uchar *lines, int16_t nl, uchar free_beg,
-		uchar free_e, RecVersions *vers, CCOM_USER_BLOCK *ub);
+                               int32_t size_nlines, uchar *lines, int16_t nl, uchar free_beg,
+                               uchar free_e, RecVersions *vers, CCOM_USER_BLOCK *ub);
 CCOM_FUNC Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp,
-		int32_t size_nlines, uchar *lines, int16_t nl, uchar free_beg,
-		uchar free_e, RecVersions *vers, CCOM_USER_BLOCK *ub);
+                            int32_t size_nlines, uchar *lines, int16_t nl, uchar free_beg,
+                            uchar free_e, RecVersions *vers, CCOM_USER_BLOCK *ub);
 // 3    CCOM_FNSTORE        записать в компоненту образ
 typedef Bool32 (*FNCCOM_Copy)(CCOM_comp * to, CCOM_comp *from);
 CCOM_FUNC Bool32 CCOM_Copy(CCOM_comp * to, CCOM_comp *from);
@@ -147,14 +147,14 @@ typedef Bool32 (*FNCCOM_Delete)(CCOM_handle cont, CCOM_comp * comp);
 CCOM_FUNC Bool32 CCOM_Delete(CCOM_handle cont, CCOM_comp * comp);
 // 5    CCOM_FNGETFIRST     дать первую компоненту из контейнера
 typedef CCOM_comp * (*FNCCOM_GetFirst)(CCOM_handle ccom, Bool32(*filtrate)(
-		int32_t upper, int32_t left, int32_t w, int32_t h));
+                                           int32_t upper, int32_t left, int32_t w, int32_t h));
 CCOM_FUNC CCOM_comp* CCOM_GetFirst(CCOM_handle ccom, Bool32(*filtrate)(
-		int32_t upper, int32_t left, int32_t w, int32_t h));
+                                       int32_t upper, int32_t left, int32_t w, int32_t h));
 // 6    CCOM_FNGETNEXT      дать следующую компоненту
 typedef CCOM_comp * (*FNCCOM_GetNext)(CCOM_comp * comp, Bool32(*filtrate)(
-		int32_t upper, int32_t left, int32_t w, int32_t h));
+                                          int32_t upper, int32_t left, int32_t w, int32_t h));
 CCOM_FUNC CCOM_comp* CCOM_GetNext(CCOM_comp * comp, Bool32(*filtrate)(
-		int32_t upper, int32_t left, int32_t w, int32_t h));
+                                      int32_t upper, int32_t left, int32_t w, int32_t h));
 // 7    CCOM_FNGETLINE      получить интервальное представление
 typedef Bool32 (*FNCCOM_GetLine)(CCOM_comp * comp, CCOM_linerep *lrep);
 CCOM_FUNC int16_t CCOM_GetLine(CCOM_comp * comp, CCOM_linerep *lrep);
@@ -178,9 +178,9 @@ typedef Bool32 (*FNCCOM_AddLPToRaster)(CCOM_comp * comp, RecRaster *rec);
 CCOM_FUNC Bool32 CCOM_AddLPToRaster(CCOM_comp * comp, RecRaster *rec);
 // 14   CCOM_FNMAKELP       Получить интервальное представление
 typedef Bool32 (*FNCCOM_MakeLP)(RecRaster *rRaster, uchar *lp,
-		int16_t *lp_size, int16_t *numcomp);
+                                int16_t *lp_size, int16_t *numcomp);
 CCOM_FUNC Bool32 CCOM_MakeLP(RecRaster *rRaster, uchar *lp, int16_t *lp_size,
-		int16_t *numcomp);
+                             int16_t *numcomp);
 // 15   CCOM_FNSETUSERBLOCK Записать пользовательский блок
 typedef Bool32 (*FNCCOM_SetUserBlock)(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
 CCOM_FUNC Bool32 CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
@@ -199,9 +199,9 @@ typedef void (*FNCCOM_DeleteAll)(void);
 CCOM_FUNC void CCOM_DeleteAll(void);
 // 21   CCOM_FNLARGENEW     создать новую компоненту с длинными интервалами
 typedef CCOM_comp *(*FNCCOM_LargeNew)(CCOM_handle cont, int32_t upper,
-		int32_t left, int32_t w, int32_t h, int32_t size);
+                                      int32_t left, int32_t w, int32_t h, int32_t size);
 CCOM_FUNC CCOM_comp *CCOM_LargeNew(CCOM_handle cont, int32_t upper,
-		int32_t left, int32_t w, int32_t h, int32_t size);
+                                   int32_t left, int32_t w, int32_t h, int32_t size);
 // 22   CCOM_FNLARGENEWLN   создать новую линию с длинными интервалами
 typedef Bool32 (*FNCCOM_LargeNewLn)(CCOM_comp *cmp, CCOM_lnhead **lnh);
 CCOM_FUNC Bool32 CCOM_LargeNewLn(CCOM_comp *cmp, CCOM_lnhead **lnh);
@@ -225,9 +225,9 @@ typedef Bool32 (*FNCCOM_ClearContatiner)(CCOM_handle con);
 CCOM_FUNC Bool32 CCOM_ClearContatiner(CCOM_handle con);
 // 29   CCOM_FNGETSCALERASTER    ЛП в растр со сжатием
 typedef Bool32 (*FNCCOM_GetScaleRaster)(CCOM_comp * comp, RecRaster *rec,
-		int32_t scale);
+                                        int32_t scale);
 CCOM_FUNC Bool32 CCOM_GetScaleRaster(CCOM_comp * comp, RecRaster *rec,
-		int32_t scale);
+                                     int32_t scale);
 // 30   CCOM_COMPRESSCONTAINER  удалить мелочь
 typedef Bool32 (*FNCCOM_CompressContatiner)(CCOM_handle hcont);
 CCOM_FUNC Bool32 CCOM_CompressContatiner(CCOM_handle hcont);
@@ -252,8 +252,8 @@ CCOM_FUNC Bool32 CCOM_Reanimate(CCOM_comp *c);
 // 37   CCOM_FNADDCOMPTORS
 // Добавить ЛП к растру -- исправленный вариант
 typedef Bool32 (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, int16_t relleft,
-		int16_t relupper, RecRaster *rec);
+                                         int16_t relupper, RecRaster *rec);
 CCOM_FUNC Bool32 CCOM_AddCompToRaster(CCOM_comp * comp, int16_t relleft,
-		int16_t relupper, RecRaster *rec);
+                                      int16_t relupper, RecRaster *rec);
 
 #endif

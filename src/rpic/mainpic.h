@@ -65,9 +65,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define MinHeightOfLetter 10
 #define MaxHeightOfLetter 100
-#define PICS_QUANTUM		16
-#define HOR_BOUND_SIZE		20
-#define VER_BOUND_SIZE		10
+#define PICS_QUANTUM        16
+#define HOR_BOUND_SIZE      20
+#define VER_BOUND_SIZE      10
 #define LOCAL           20 //15
 #define OVERALL         20
 #define DIFFERENCE1  4  //3
@@ -83,11 +83,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 #ifdef __RPIC_CPP__
 #define EXTERN
-#define VAL1(a)		= a
-#define VAL2(a,b)	= { a,b }
-#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define VAL1(a)     = a
+#define VAL2(a,b)   = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-#define EXTERN		extern
+#define EXTERN      extern
 #define VAL1(a)
 #define VAL2(a,b)
 #define VAL4(a,b,c,d)

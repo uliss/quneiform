@@ -57,30 +57,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  myassert.h
 
     My Assert Macro (07-08-93 03:54pm,Basil)
-	 BC++, v3.1 was used as base
+     BC++, v3.1 was used as base
 */
 
 #ifdef __MYASSERT_H
-#	Error: Do not specify MYASSERT.H directly - use SLANG.H. Postnikov.
+#   Error: Do not specify MYASSERT.H directly - use SLANG.H. Postnikov.
 #else
-#	define __MYASSERT_H
+#   define __MYASSERT_H
 #endif
 
 #define MY_DEBUG_LEVEL    2
 
 #ifdef NDEBUG
-#	define WRONG() (FALSE)
+#   define WRONG() (FALSE)
 #else
 #  define WRONG() (assert(0),FALSE)
 #endif
 
 #ifndef MY_DEBUG_LEVEL
-   void   __assertfail( char  *__msg,
-                                      char  *__cond,
-                                      char  *__file,
-         	                          int __line);
+void   __assertfail( char  *__msg,
+                     char  *__cond,
+                     char  *__file,
+                     int __line);
 #else
-   void   my_assert_fail(const char *cond, const char *__file, int __line);
+void   my_assert_fail(const char *cond, const char *__file, int __line);
 #endif
 
 #undef assert
@@ -93,16 +93,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #  else
 #    define _ENDL "\n"
 #  endif
-	#ifdef MY_DEBUG_LEVEL
-	#	define assert(p) 															\
-				((p)) ?                                               \
-					(void)0 :                                          \
-					(void) my_assert_fail( #p, __FILE__, __LINE__)
-	#else
-	#  define assert(p) 															\
-				((p) ?                                                \
-					(void)0 :                                          \
-					(void) __assertfail( "Assertion failed: %s, file %s, line %d" _ENDL, \
-   	                 #p, __FILE__, __LINE__ ) )
-	#endif
+#ifdef MY_DEBUG_LEVEL
+#   define assert(p)                                                            \
+                ((p)) ?                                               \
+                    (void)0 :                                          \
+                    (void) my_assert_fail( #p, __FILE__, __LINE__)
+#else
+#  define assert(p)                                                             \
+                ((p) ?                                                \
+                    (void)0 :                                          \
+                    (void) __assertfail( "Assertion failed: %s, file %s, line %d" _ENDL, \
+                     #p, __FILE__, __LINE__ ) )
+#endif
 #endif

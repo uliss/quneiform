@@ -60,13 +60,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "criimage.h"
 
 #ifdef _DEBUG
-	#ifndef IS_VALID
-		#define IS_VALID(a) asser(_CrtIsValidPointer(a, 1, TRUE ))
-	#endif
+#ifndef IS_VALID
+#define IS_VALID(a) asser(_CrtIsValidPointer(a, 1, TRUE ))
+#endif
 #else
-	#ifndef IS_VALID
-		#define IS_VALID(a)
-	#endif
+#ifndef IS_VALID
+#define IS_VALID(a)
+#endif
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -75,9 +75,9 @@ uint16_t GetReturnCode_rimage();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RIMAGEComment(const char *Comment);
-void *	RIMAGEAlloc(uint32_t stAllocateBlock);
-void *	RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment);
-void	RIMAGEFree(void * mem);
+void *  RIMAGEAlloc(uint32_t stAllocateBlock);
+void *  RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment);
+void    RIMAGEFree(void * mem);
 void *  RIMAGELock(void * mem);
 void    RIMAGEUnlock(void * mem);
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -86,8 +86,8 @@ Handle  RIMAGEOpenSave(char * lpName);
 Handle  RIMAGEOpenRestore(char * lpName);
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-unsigned int  RIMAGEWrite(Handle h,void * lpdata,unsigned int size);
-unsigned int  RIMAGERead(Handle h,void * lpdata,unsigned int size);
+unsigned int  RIMAGEWrite(Handle h, void * lpdata, unsigned int size);
+unsigned int  RIMAGERead(Handle h, void * lpdata, unsigned int size);
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RIMAGEClose(Handle h);

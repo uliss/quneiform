@@ -21,13 +21,14 @@
 
 #include "easteurope.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class HungarAlphabet: public EastEuropeAlphabet
 {
-public:
-    HungarAlphabet();
-    language_t language() const;
+    public:
+        HungarAlphabet();
+        language_t language() const;
 };
 
 }

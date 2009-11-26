@@ -71,20 +71,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CSTR_ERR_OPEN            2061
 #define CSTR_ERR_MAX             2061
 
-static const char *CSTR_error_name[]={
-  "No error",
-  "Can't operate",
-  "Not enough memory",
-  "Not implement",
-  "Null poiner assigned",
-  "Bad value of argument",
-  "Assigned Line is absent",
-  "Can't rewrite used Line",
-  "Structure of line has become rotten",
-  "Internal error",
-  "Can't convert to raster",
-  "Write error!",
-  "Read error!",
-  "Can't open file!",
-  ""
+static const char *CSTR_error_name[] = {
+    "No error",
+    "Can't operate",
+    "Not enough memory",
+    "Not implement",
+    "Null poiner assigned",
+    "Bad value of argument",
+    "Assigned Line is absent",
+    "Can't rewrite used Line",
+    "Structure of line has become rotten",
+    "Internal error",
+    "Can't convert to raster",
+    "Write error!",
+    "Read error!",
+    "Can't open file!",
+    ""
 };

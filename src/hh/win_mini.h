@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifndef RC_INVOKED
-#if	( _MSC_VER >= 800 )
+#if ( _MSC_VER >= 800 )
 #pragma warning(disable:4001)
 #endif
 /*#include <excpt.h>*/
@@ -115,7 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <winuser.h>
 
 #ifndef RC_INVOKED
-#if	( _MSC_VER >= 800 )
+#if ( _MSC_VER >= 800 )
 #pragma warning(default:4001)
 #endif
 #endif /* RC_INVOKED */

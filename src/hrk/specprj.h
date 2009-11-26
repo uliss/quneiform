@@ -68,8 +68,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _SPECPRJ_H_
 #define _SPECPRJ_H_
 
-#define SPEC_PRJ_NO		0
-#define SPEC_PRJ_GIP	1
-#define SPEC_PRJ_CONS	2
+#define SPEC_PRJ_NO     0
+#define SPEC_PRJ_GIP    1
+#define SPEC_PRJ_CONS   2
 
 #endif

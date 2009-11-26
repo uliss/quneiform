@@ -55,24 +55,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __PROCLINE_H
-	#define __PROCLINE_H
+#define __PROCLINE_H
 
-   #ifndef __LNSLANG_H
-   #  include "lnslang.h"
-	#endif
+#ifndef __LNSLANG_H
+#  include "lnslang.h"
+#endif
 
-	#ifndef __SBAMBUK_H
-	#  include "SBambuk.h"
-	#endif
+#ifndef __SBAMBUK_H
+#  include "SBambuk.h"
+#endif
 
-   class TSegBambuk;
-	void SetupHConverter( 	int right,
-									int left,
-									int filter_len,
-									TSegBambuk* bambuk,
-                           Bool include_borders = TRUE
-								);
+class TSegBambuk;
+void SetupHConverter(   int right,
+                        int left,
+                        int filter_len,
+                        TSegBambuk* bambuk,
+                        Bool include_borders = TRUE
+                    );
 
-   extern void ConvertBWLine( void* image_line_ptr );
+extern void ConvertBWLine( void* image_line_ptr );
 
 #endif

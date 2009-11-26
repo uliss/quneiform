@@ -57,5 +57,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include<windows.h>*/
 
 
-void *	RMARKERAlloc(int stAllocateBlock);
-void	RMARKERFree(void * mem);
+void *  RMARKERAlloc(int stAllocateBlock);
+void    RMARKERFree(void * mem);

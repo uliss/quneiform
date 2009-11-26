@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include  "ctp.h"
 
 void  q_sort( char *, size_t, size_t,
-			  int (*)( const void *, const void * ) );
+              int (*)( const void *, const void * ) );
 
 # ifdef LT_STAND_ALONE
 # define DEFAULT_ROOTS_FILENAME  "a.rts"
@@ -95,19 +95,17 @@ void  q_sort( char *, size_t, size_t,
  *   Common structures                                                      *
  ***************************************************************************/
 
-typedef struct
-    {
-        int x;
-        int y;
-    } LPOINT;
+typedef struct {
+    int x;
+    int y;
+} LPOINT;
 
-typedef struct
-    {
-        int xLeft;
-        int yTop;
-        int xRight;
-        int yBottom;
-    } RECTANGLE;
+typedef struct {
+    int xLeft;
+    int yTop;
+    int xRight;
+    int yBottom;
+} RECTANGLE;
 
 # define EXCHANGE_INTS(a, b) { int temp; temp = a; a = b; b = temp; }
 
@@ -144,11 +142,10 @@ typedef struct _BackupCopy BACKUP_COPY;
  *   Working with roots                                                     *
  ***************************************************************************/
 
-struct _RootStrip
-    {
-        ROOT *pBegin;
-        ROOT *pEnd;
-    };
+struct _RootStrip {
+    ROOT *pBegin;
+    ROOT *pEnd;
+};
 
 extern ROOT_STRIP *pRootStrips;
 extern int nRootStrips;
@@ -163,7 +160,7 @@ void CalculatePageParameters (void);
 
 void RootStripsCalculate (void);
 void RootStripsGetLoopParameters
-         (int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter);
+(int yTop, int yBottom, ROOT **ppBegin, ROOT **ppAfter);
 
 void RootsRemoveFromRulers (void);
 
@@ -222,12 +219,11 @@ void RotatePageToIdeal (void);
  *   Intervals                                                              *
  ***************************************************************************/
 
-struct _Interval
-    {
-        int   xBegin;
-        int   xEnd;
-        COMP  *pComp;
-    };
+struct _Interval {
+    int   xBegin;
+    int   xEnd;
+    COMP  *pComp;
+};
 
 extern INTERVAL *pIntervals;
 extern int nIntervals;
@@ -244,14 +240,13 @@ void IntervalsFreeData (void);
  *   Strips                                                                 *
  ***************************************************************************/
 
-struct _Strip
-    {
-        STRIP *pNext;
+struct _Strip {
+    STRIP *pNext;
 
-        int   y;
-        int   xBegin;
-        int   xEnd;
-    };
+    int   y;
+    int   xBegin;
+    int   xEnd;
+};
 
 # define STRIPS_POOL_FIRST_ALLOCATION      1000
 # define STRIPS_POOL_ALLOCATION_QUANTUM    500
@@ -267,24 +262,23 @@ void StripDelete (STRIP *pStrip);
  *   Components                                                             *
  ***************************************************************************/
 
-struct _Component
-    {
-        COMP    *pNext;
-        COMP    *pPrev;
+struct _Component {
+    COMP    *pNext;
+    COMP    *pPrev;
 
-        int     Number;
+    int     Number;
 
-        int     xLeft;
-        int     yTop;
-        int     xRight;
-        int     yBottom;
-        Bool    bRectangleAccounted;
+    int     xLeft;
+    int     yTop;
+    int     xRight;
+    int     yBottom;
+    Bool    bRectangleAccounted;
 
-        STRIP   *pStripsListBegin;
-        STRIP   *pStripsListEnd;
+    STRIP   *pStripsListBegin;
+    STRIP   *pStripsListEnd;
 
-        int     nSquare;
-    };
+    int     nSquare;
+};
 
 # define COMPS_POOL_FIRST_ALLOCATION     100
 # define COMPS_POOL_ALLOCATION_QUANTUM   50
@@ -336,17 +330,17 @@ void CompsFreeData (void);
 # define PMC_FLAGS_MASK    (PMC_ROOT | PMC_DUST | PMC_PICTURE)
 
 #ifdef  HUGE_IMAGE
-  # define PAGE_MATRIX_WIDTH          1024        // 512
-  # define PAGE_MATRIX_WIDTH_SHIFT    10          // 9
-	# define PAGE_MATRIX_HEIGHT         1024
+# define PAGE_MATRIX_WIDTH          1024        // 512
+# define PAGE_MATRIX_WIDTH_SHIFT    10          // 9
+# define PAGE_MATRIX_HEIGHT         1024
 
-  # define PAGE_MATRIX_SIZE           (1024*1024) // 512
+# define PAGE_MATRIX_SIZE           (1024*1024) // 512
 #else
-	# define PAGE_MATRIX_WIDTH          256
-	# define PAGE_MATRIX_WIDTH_SHIFT    8
-	# define PAGE_MATRIX_HEIGHT         256
+# define PAGE_MATRIX_WIDTH          256
+# define PAGE_MATRIX_WIDTH_SHIFT    8
+# define PAGE_MATRIX_HEIGHT         256
 
-	# define PAGE_MATRIX_SIZE           65536
+# define PAGE_MATRIX_SIZE           65536
 #endif
 /* (PAGE_MATRIX_WIDTH * PAGE_MATRIX_HEIGHT) */
 
@@ -394,16 +388,15 @@ void InitialBreakingFreeData (void);
 # define SEPF_NULL    0
 # define SEPF_IS_PART 1
 
-struct _Separator
-    {
-        int      Type;
-        unsigned uFlags;
-        int      xBegin;
-        int      yBegin;
-        int      xEnd;
-        int      yEnd;
-        int      nWidth;
-    };
+struct _Separator {
+    int      Type;
+    unsigned uFlags;
+    int      xBegin;
+    int      yBegin;
+    int      xEnd;
+    int      yEnd;
+    int      nWidth;
+};
 
 extern SEPARATOR *pSeps;
 extern int nSeps;
@@ -444,8 +437,7 @@ void SeparatorsFreeData (void);
 # define BF_GLUED_FROM_ONE_LINE_BLOCKS          0x400
 # define BF_CROSSED                             0x800
 
-struct _Block
-{
+struct _Block {
     BLOCK *pNext;
     BLOCK *pPrev;
 
@@ -605,8 +597,7 @@ void SmartBreakingFreeData (void);
  *                                                                          *
  ***************************************************************************/
 
-typedef struct _WSB_Point
-{
+typedef struct _WSB_Point {
     int xBegin;
     int xMain;
     int xEnd;
@@ -704,14 +695,12 @@ void BlockRemove (BLOCK *p);
  ***************************************************************************/
 #include "sheet.h"
 
-struct _RootBackup
-{
+struct _RootBackup {
     int16_t  nBlock;
     ROOT *pNext;
 };
 
-struct _BackupCopy
-{
+struct _BackupCopy {
     BACKUP_COPY  *pNext;
     BACKUP_COPY  *pPrev;
 

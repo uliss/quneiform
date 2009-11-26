@@ -58,20 +58,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_HOR_IL1 128
 #define MAX_VERT_IL1 64
 
-#define NFUNC 20	         // number of projections
+#define NFUNC 20             // number of projections
 #define NO 0
 #define YES 1
 #define WAY_DOWN 0
 #define WAY_UP 1
-#define MIN_JUMP 30/100	         // minimal difference between max and min
-				 //                     for peak
-#define MIN_WIDTH_JUMP 6/100	 // ~~~~~~~~~ in % of height
-#define MAX_DIFF 20/100	         // maximal difference between top and bottom
-				 //		of peak
+#define MIN_JUMP 30/100          // minimal difference between max and min
+//                     for peak
+#define MIN_WIDTH_JUMP 6/100     // ~~~~~~~~~ in % of height
+#define MAX_DIFF 20/100          // maximal difference between top and bottom
+//     of peak
 #define LONG_PEAK_LEVEL 85/100
 #define SHORT_PEAK_LEVEL 50/100
 #define THIN_MIN_JUMP 6/100      // maximal difference for thin letter
-				 //		in % of width
+//     in % of width
 #define THIN_LONG_PEAK_LEVEL 20/100
 #define THIN_SHORT_PEAK_LEVEL 16/100
 #define SHARP_PEAK_LEVEL 15/100

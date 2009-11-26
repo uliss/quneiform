@@ -63,9 +63,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TRS5T 220      // >=  stop cut attempts for thin at level 1
 #define TRSO1 200   // >=  o,O,0 treated as reliable and NOT to be cut
 #define TRSO2 220   // >=  o,O,0 (cutted) treated as reliable
-		    //        and shorten the search
+//        and shorten the search
 #define TRSO3 220   // >=  o,O,0 (cutted) treated as reliable
-		    //        and shorten the search */
+//        and shorten the search */
 #define TRSTBOX 200 // stick born by events/stairs good to remain as it is
 #define WDLIM 110   // width limit: can't try to cut when wider
 #define MONstick 70 // near_tall_stick_cut MONUS

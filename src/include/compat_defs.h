@@ -116,10 +116,10 @@ extern int HFILE_ERROR;
 typedef int HFILE;
 
 typedef struct tagRECT {
-	int32_t left;
-	int32_t right;
-	int32_t top;
-	int32_t bottom;
+    int32_t left;
+    int32_t right;
+    int32_t top;
+    int32_t bottom;
 } RECT;
 
 typedef RECT* LPRECT;
@@ -135,69 +135,69 @@ typedef uint32_t *LPCOLORREF;
 #endif
 
 typedef struct {
-	char * lpszClassName;
-	HINSTANCE hInstance;
-	void * lpfnWndProc;
-	unsigned int style;
-	int hbrBackground;
-	int hCursor;
-	int hIcon;
-	char * lpszMenuName;
-	char *cbClsExtra;
-	char *cbWndExtra;
+    char * lpszClassName;
+    HINSTANCE hInstance;
+    void * lpfnWndProc;
+    unsigned int style;
+    int hbrBackground;
+    int hCursor;
+    int hIcon;
+    char * lpszMenuName;
+    char *cbClsExtra;
+    char *cbWndExtra;
 } WNDCLASS;
 
 #pragma pack(push, 2)
 
 typedef struct tagBITMAPINFOHEADER {
-	uint32_t biSize;
-	int32_t biWidth;
-	int32_t biHeight;
-	uint16_t biPlanes;
-	uint16_t biBitCount;
-	uint32_t biCompression;
-	uint32_t biSizeImage;
-	int32_t biXPelsPerMeter;
-	int32_t biYPelsPerMeter;
-	uint32_t biClrUsed;
-	uint32_t biClrImportant;
+    uint32_t biSize;
+    int32_t biWidth;
+    int32_t biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    int32_t biXPelsPerMeter;
+    int32_t biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
 typedef struct tagBITMAPCOREHEADER {
-	uint32_t bcSize;
-	uint16_t bcWidth;
-	uint16_t bcHeight;
-	uint16_t bcPlanes;
-	uint16_t bcBitCount;
+    uint32_t bcSize;
+    uint16_t bcWidth;
+    uint16_t bcHeight;
+    uint16_t bcPlanes;
+    uint16_t bcBitCount;
 } BITMAPCOREHEADER, *PBITMAPCOREHEADER;
 
 #pragma pack(pop)
 
 struct _finddata_t {
-	unsigned attrib;
-	time_t time_create; /*-1forFATfilesystems*/
-	time_t time_access; /*-1forFATfilesystems */
-	time_t time_write;
-	unsigned int size;
-	char name[260];
+    unsigned attrib;
+    time_t time_create; /*-1forFATfilesystems*/
+    time_t time_access; /*-1forFATfilesystems */
+    time_t time_write;
+    unsigned int size;
+    char name[260];
 };
 
 typedef struct tagRGBQUAD {
-	uchar rgbBlue;
-	uchar rgbGreen;
-	uchar rgbRed;
-	uchar rgbReserved;
+    uchar rgbBlue;
+    uchar rgbGreen;
+    uchar rgbRed;
+    uchar rgbReserved;
 } RGBQUAD;
 
 typedef struct tagBITMAPINFO {
-	BITMAPINFOHEADER bmiHeader;
-	RGBQUAD bmiColors[1];
+    BITMAPINFOHEADER bmiHeader;
+    RGBQUAD bmiColors[1];
 } BITMAPINFO, *PBITMAPINFO;
 
 typedef struct tagRGBTRIPLE {
-	uchar rgbtBlue;
-	uchar rgbtGreen;
-	uchar rgbtRed;
+    uchar rgbtBlue;
+    uchar rgbtGreen;
+    uchar rgbtRed;
 } RGBTRIPLE;
 
 typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
@@ -205,26 +205,26 @@ typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
 typedef struct tagMETAHEADER {
-	uint16_t mtType;
-	uint16_t mtHeaderSize;
-	uint16_t mtVersion;
-	uint32_t mtSize;
-	uint16_t mtNoObjects;
-	uint32_t mtMaxRecord;
-	uint16_t mtNoParameters;
+    uint16_t mtType;
+    uint16_t mtHeaderSize;
+    uint16_t mtVersion;
+    uint32_t mtSize;
+    uint16_t mtNoObjects;
+    uint32_t mtMaxRecord;
+    uint16_t mtNoParameters;
 } METAHEADER, *PMETAHEADER;
 
 typedef struct tagPALETTEENTRY {
-	uchar peRed;
-	uchar peGreen;
-	uchar peBlue;
-	uchar peFlags;
+    uchar peRed;
+    uchar peGreen;
+    uchar peBlue;
+    uchar peFlags;
 } PALETTEENTRY;
 
 typedef struct tagLOGPALETTE {
-	uint16_t palVersion;
-	uint16_t palNumEntries;
-	PALETTEENTRY palPalEntry[1];
+    uint16_t palVersion;
+    uint16_t palNumEntries;
+    PALETTEENTRY palPalEntry[1];
 } LOGPALETTE;
 
 typedef Bool(*WNDENUMPROC)(HWND, int);
@@ -232,29 +232,29 @@ typedef Bool(*WNDENUMPROC)(HWND, int);
 typedef int HPALETTE;
 
 typedef struct tagPAINTSTRUCT {
-	HDC hdc;
-	Bool fErase;
-	RECT rcPaint;
-	Bool fRestore;
-	Bool fIncUpdate;
-	unsigned char rgbReserved[32];
+    HDC hdc;
+    Bool fErase;
+    RECT rcPaint;
+    Bool fRestore;
+    Bool fIncUpdate;
+    unsigned char rgbReserved[32];
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
 #pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER {
-	uint16_t bfType;
-	uint32_t bfSize;
-	uint16_t bfReserved1;
-	uint16_t bfReserved2;
-	uint32_t bfOffBits;
+    uint16_t bfType;
+    uint32_t bfSize;
+    uint16_t bfReserved1;
+    uint16_t bfReserved2;
+    uint32_t bfOffBits;
 } BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 
 #pragma pack(pop)
 
 typedef struct tagCOPYDATASTRUCT {
-	ulong dwData;
-	uint32_t cbData;
-	pvoid lpData;
+    ulong dwData;
+    uint32_t cbData;
+    pvoid lpData;
 } COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
 typedef int HKEY;

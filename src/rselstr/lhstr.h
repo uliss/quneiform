@@ -65,90 +65,89 @@ class CHstr;
 
 class CHstr
 {
- public:
-  CHstr* next;
-  uchar* ImageName;
-  int m_num_frag;
-  Bool vertical;
-  Bool neg;
-  int left;
-  int top;
-  int w;
-  int h;
+    public:
+        CHstr* next;
+        uchar* ImageName;
+        int m_num_frag;
+        Bool vertical;
+        Bool neg;
+        int left;
+        int top;
+        int w;
+        int h;
 
- public:
-  CHstr();
-  ~CHstr();
+    public:
+        CHstr();
+        ~CHstr();
 };
 
 
 class CLhstr
 {
-  CHstr* m_root;
-  CHstr* m_tail;
+        CHstr* m_root;
+        CHstr* m_tail;
 
- public:
+    public:
 
-  CLhstr();
-  ~CLhstr();
-  CHstr* Add();
-  void DelTail();
-  CHstr* GetRoot();
-  CHstr* GetNext(CHstr*);
+        CLhstr();
+        ~CLhstr();
+        CHstr* Add();
+        void DelTail();
+        CHstr* GetRoot();
+        CHstr* GetNext(CHstr*);
 };
 
 class CPrepHstr;
 
 class CPrepHstr
 {
- public:
-  CPrepHstr* next;
-  uchar ImageName[CPAGE_MAXNAME];
-  int m_num_frag;
-  Bool vertical;
-  Bool neg;
-  int left;
-  int oldleft;
-  int top;
-  int w;
-  int h;
-  CCOM_handle hStrCCOM;
-  Rect16* pRc;
-  Rect16 prc[MAX_STR_COUNT];
-  int nRc;
-  Bool fl_rotate;
-  int* hi;
-  int16_t phi[MAX_STR_COUNT];
-  Rect16 unrotRc;
-  int16_t* begx;
-  int16_t* movey;
-  uchar* flmovey;
+    public:
+        CPrepHstr* next;
+        uchar ImageName[CPAGE_MAXNAME];
+        int m_num_frag;
+        Bool vertical;
+        Bool neg;
+        int left;
+        int oldleft;
+        int top;
+        int w;
+        int h;
+        CCOM_handle hStrCCOM;
+        Rect16* pRc;
+        Rect16 prc[MAX_STR_COUNT];
+        int nRc;
+        Bool fl_rotate;
+        int* hi;
+        int16_t phi[MAX_STR_COUNT];
+        Rect16 unrotRc;
+        int16_t* begx;
+        int16_t* movey;
+        uchar* flmovey;
 
- public:
-  CPrepHstr();
-  ~CPrepHstr();
+    public:
+        CPrepHstr();
+        ~CPrepHstr();
 };
 
 
 class CLPrepHstr
 {
-  CPrepHstr* m_root;
-  CPrepHstr* m_tail;
+        CPrepHstr* m_root;
+        CPrepHstr* m_tail;
 
- public:
+    public:
 
-  CLPrepHstr();
-  ~CLPrepHstr();
-  CPrepHstr* Add();
-  void DelTail();
-  CPrepHstr* GetRoot();
-  CPrepHstr* GetNext(CPrepHstr*);
+        CLPrepHstr();
+        ~CLPrepHstr();
+        CPrepHstr* Add();
+        void DelTail();
+        CPrepHstr* GetRoot();
+        CPrepHstr* GetNext(CPrepHstr*);
 };
 
-struct MATRIX
-{
- int a11;
- int a12;
- int a21;
- int a22;
+struct MATRIX {
+    int a11;
+    int a12;
+    int a21;
+    int a22;
 };

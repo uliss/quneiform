@@ -65,43 +65,43 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *             __MAC__    - Macintosh                                 *
  **********************************************************************/
 #ifndef _C_TARNSLATOR_
-  #define _C_TRANSLATOR_
+#define _C_TRANSLATOR_
 
- ////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 //  For Watcom C 10.5
 //
- #ifndef __MSVC__
-    #ifndef __WATCOM__
-      #define __WATCOM__   1050
-    #endif
-    #ifdef WIN32
-      #ifndef __WIN32__
-        #define __WIN32__
-      #endif
-    #else
-      #define __WIN16__
-    #endif
-  #endif
+#ifndef __MSVC__
+#ifndef __WATCOM__
+#define __WATCOM__   1050
+#endif
+#ifdef WIN32
+#ifndef __WIN32__
+#define __WIN32__
+#endif
+#else
+#define __WIN16__
+#endif
+#endif
 
 ///////////////////////////////////////////////////////////////////////
 //  For Microsoft Visual C or developer Studio ver. 4.1
 //  In other times will be skiped
-  #ifndef __WATCOM__
-    #ifndef __MSVC__
-      #define __MSVC__          410
-      #ifndef __NT__
-        #define __NT__
-      #endif
-     #else
-      #if __MSVC__ < 410
-        #undef __MSVC__
-        #define __MSVC__        410
-      #endif
-      #ifndef __NT__
-        #define __NT__
-      #endif
-    #endif
-  #endif
+#ifndef __WATCOM__
+#ifndef __MSVC__
+#define __MSVC__          410
+#ifndef __NT__
+#define __NT__
+#endif
+#else
+#if __MSVC__ < 410
+#undef __MSVC__
+#define __MSVC__        410
+#endif
+#ifndef __NT__
+#define __NT__
+#endif
+#endif
+#endif
 /////////////////////////////////////////////////////////////////////////
 //
 //

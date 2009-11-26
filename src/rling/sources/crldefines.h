@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // размер мозгов для словаря
-#define SizeTables	0x00210000	//	2162688 07.06.2002 E.P.
+#define SizeTables  0x00210000  //  2162688 07.06.2002 E.P.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 #define   RLING_ERROR_CANT_OPEN_TABLE                2
 #define   RLING_ERROR_ED_ALREADY_CHEKED              3
@@ -80,11 +80,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define   RLING_ERROR_MEMORY_FAULT                   13
 #define   RLING_ERROR_UNSUPPORTED_LANGUAGE           33
 ////////////////////////////////////////////////////////////////////////////////////
-#define BOX_NUM				512;
-#define BOX_NUM0			2048;
-#define BOXHLTH	            (sizeof(BOX))	// the box header length
-#define BOXSIZE             (BOXHLTH+32*4)	// the length of box
-#define BOXBOUNDARY         (BOXSIZE-6)	// the boundary control
+#define BOX_NUM             512;
+#define BOX_NUM0            2048;
+#define BOXHLTH             (sizeof(BOX))   // the box header length
+#define BOXSIZE             (BOXHLTH+32*4)  // the length of box
+#define BOXBOUNDARY         (BOXSIZE-6) // the boundary control
 #define     RLING_RGBQUDSSIZE(a, b)        a += ( (0x0001 << b) * sizeof(RLINGRGBQUAD) )
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

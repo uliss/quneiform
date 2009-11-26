@@ -56,22 +56,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 /*---------------------------------------------------------------------------*/
-typedef struct tagUn_GYST
-{
-	int     Shift;
-	int     nElem;
-	int     End;
-	int     *Signal;
+typedef struct tagUn_GYST {
+    int     Shift;
+    int     nElem;
+    int     End;
+    int     *Signal;
 } Un_GYST;
 /*---------------------------------------------------------------------------*/
 Bool MakeTopBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
-				Un_GYST *pBegGt, Un_GYST *pEndGt);
+                      Un_GYST *pBegGt, Un_GYST *pEndGt);
 Bool MakeLefRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
-				Un_GYST *pBegGt, Un_GYST *pEndGt);
+                      Un_GYST *pBegGt, Un_GYST *pEndGt);
 Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
-				Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
+                         Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
 Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
-				Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
+                         Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
 int ScoreComp (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc);
 void MakeNormVertGyst (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc, int *Sig);
 Bool MakeVertGysts (Rect16 *pRc, int nRc, int32_t Skew, int Amnist, int MaxSize, Un_GYST *pVerGt, int *pWhatDo);
@@ -82,6 +81,6 @@ Bool MakeVertSrez (Rect16 *pRcId, int nRc, int BegSrez, int EndSrez, int MaxSize
 Bool FindNextHole (Un_GYST *pDarkGt, int Beg, int End, int *NewBeg, int *NewEnd);
 Bool FindNextHoleWithBound (int MaxSig, Un_GYST *pDarkGt, int Beg, int End, int *NewBeg, int *NewEnd, int MinLent);
 Bool FindNormNextHoleWithBound (int *pSig, int LenSig, int Beg, int End
-						, int *NewBeg, int *NewEnd, int MaxSig, int MinLent);
+                                , int *NewBeg, int *NewEnd, int MaxSig, int MinLent);
 Bool FindMainHole (int Beg, int End, int MaxSig, Un_GYST *pOrtGt, int *NewBeg, int *NewEnd, int *NewMax);
 /*---------------------------------------------------------------------------*/

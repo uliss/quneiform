@@ -66,9 +66,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "point.h"
 
 
-typedef int (*FN_AM_Console) (const char * lpFormat,...);
-typedef int (*FN_AM_ConsolN) (const char * lpFormat,...);
-typedef void (*FN_AM_MessageBoxOk) (const char * lpFormat,...);
+typedef int (*FN_AM_Console) (const char * lpFormat, ...);
+typedef int (*FN_AM_ConsolN) (const char * lpFormat, ...);
+typedef void (*FN_AM_MessageBoxOk) (const char * lpFormat, ...);
 /*------------own functions---------------------------------------------------*/
 int AM_OpenRes_rv_fte (int Code, char *pFile);
 int AM_SaveRes_rv_fte (int Code, char *pFile);
@@ -88,13 +88,13 @@ void   AM_DeleteLines (Handle wnd, uint32_t key);
 void   AM_DeleteRects (Handle wnd, uint32_t key);
 Bool16 AM_Skip (Handle owner);
 #ifdef _AM_Comm_
-	FN_AM_Console AM_Console;
-	FN_AM_ConsolN AM_ConsolN;
-	FN_AM_MessageBoxOk AM_MessageBoxOk;
+FN_AM_Console AM_Console;
+FN_AM_ConsolN AM_ConsolN;
+FN_AM_MessageBoxOk AM_MessageBoxOk;
 #else
-	extern FN_AM_Console AM_Console;
-	extern FN_AM_ConsolN AM_ConsolN;
-	extern FN_AM_MessageBoxOk AM_MessageBoxOk;
+extern FN_AM_Console AM_Console;
+extern FN_AM_ConsolN AM_ConsolN;
+extern FN_AM_MessageBoxOk AM_MessageBoxOk;
 #endif
 Handle AM_CreateWindow (const char *lpTitle, void *lpDib);
 Handle AM_GetWindowHandle (const char *name);

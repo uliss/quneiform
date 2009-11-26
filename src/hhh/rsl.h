@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-//	Implemented: by B.M. Shahverdiev
+//  Implemented: by B.M. Shahverdiev
 //
 //
 #ifndef __RSL_H
@@ -63,14 +63,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RSL__
-  #define RSL_FUNC  FUN_EXPO
+#define RSL_FUNC  FUN_EXPO
 #else
-  #define RSL_FUNC  FUN_IMPO
+#define RSL_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
 
-RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,Handle hStorage);
+RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode, Handle hStorage);
 RSL_FUNC(Bool32) RSL_Done();
 RSL_FUNC(uint32_t) RSL_GetReturnCode();
 RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError);

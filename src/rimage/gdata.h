@@ -55,18 +55,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*----------------------------------------------------------------------*/
-/*	DATA.H	10.08.1993	M.Kronrod	in SCAN-LEM		*/
+/*  DATA.H  10.08.1993  M.Kronrod   in SCAN-LEM     */
 /*----------------------------------------------------------------------*/
-#define	noCARMAN
+#define noCARMAN
 /*----------------------------------------------------------------------*/
-// 03.08.1993	Begin from LEMAN's DATA.H 02.08.1993 (??????)
-//		DELETE Itek (see also ZONE.C);
-//		see also Flag_FAX_100x200;
-//	move here  Card_Up, Card_Left, Card_H, Card_W,
-//		   Card_DEXTRA_Multi, 	Card_DEXTRA_Ncards_max,
-//		   Card_DEXTRA_Address;
-// 10.08.1993	take LEMAN's DATA.H (05.08.1993) and add CARMAN;
-//		NOTA BENE: here (HEAD);  "CARMAN";  Itek;
+// 03.08.1993   Begin from LEMAN's DATA.H 02.08.1993 (??????)
+//      DELETE Itek (see also ZONE.C);
+//      see also Flag_FAX_100x200;
+//  move here  Card_Up, Card_Left, Card_H, Card_W,
+//         Card_DEXTRA_Multi,   Card_DEXTRA_Ncards_max,
+//         Card_DEXTRA_Address;
+// 10.08.1993   take LEMAN's DATA.H (05.08.1993) and add CARMAN;
+//      NOTA BENE: here (HEAD);  "CARMAN";  Itek;
 /*----------------------------------------------------------------------*/
 #ifndef __DATA_H__
 #define __DATA_H__

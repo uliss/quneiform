@@ -80,8 +80,8 @@
 // Правильно: if (...) { DEBUG_PRINT(...,...,...); }
 #ifdef _DEBUG
 #define DEBUG_PRINT \
-			gFile = __FILE__;gLine = __LINE__;\
-			MyDebugPrint
+            gFile = __FILE__;gLine = __LINE__;\
+            MyDebugPrint
 #else
 #define DEBUG_PRINT if(0) MyDebugPrint
 #endif
@@ -112,7 +112,7 @@
 #define IS_LETTER(c) IsLetter((Byte)c)
 #define INIT_MEMORY(a,b) {if(!InitMemory(a,b)) return FALSE;}
 #define CHECK_MEMORY(a) {if(gMemCur+(a)>gMemEnd)\
-						{NO_MEMORY; return FALSE;}}
+                        {NO_MEMORY; return FALSE;}}
 
 //*****************************************************************
 // Глобальные данные.
@@ -183,7 +183,7 @@ EXTERN Bool langKaz VAL(FALSE);
 
 // Конец строки
 #if defined(_WIN32) || defined(__CYGWIN__)
-EXTERN char gEOL[4] VAL2(0x0d,0x0a);
+EXTERN char gEOL[4] VAL2(0x0d, 0x0a);
 #else
 EXTERN char gEOL[4] VAL2(0x0a, 0x00);
 #endif
@@ -261,10 +261,10 @@ EXTERN Byte gLower[256] VAL( {0});
 EXTERN Byte gVowels[256] VAL( {0});
 // Склейка переносов и строк (Words.cpp):
 // Все буквы (позиционная таблица)
-#define CASE_UPPER	1	// Прописная буква
-#define CASE_LOWER	2	// Строчная буква
-#define CASE_VOWEL	4	// Гласная буква
-#define CASE_DIGIT	8	// Цифра
+#define CASE_UPPER  1   // Прописная буква
+#define CASE_LOWER  2   // Строчная буква
+#define CASE_VOWEL  4   // Гласная буква
+#define CASE_DIGIT  8   // Цифра
 EXTERN Byte gAlphabetTable[256] VAL( {0});
 // Последний конец строки в текущем абзаце
 EXTERN Byte *gLastEOL VAL(NULL);
@@ -278,8 +278,8 @@ EXTERN Byte *gDefis VAL(NULL);
 
 // Представление одной строки текста
 typedef struct {
-	long ltext; // Длина строки текста
-	Byte *text; // Адрес строки текста
+    long ltext; // Длина строки текста
+    Byte *text; // Адрес строки текста
 } LINE_TEXT;
 
 // Для упрощения распределения памяти для массива
@@ -293,12 +293,12 @@ EXTERN LINE_TEXT *gEndLineText VAL(NULL);
 
 // Построчное представление текста в одной ячейке таблицы:
 typedef struct {
-	long lines; // Количество строк текста в ячейке
-	long width; // Ширина ячейки ( = максимальная длина
-	// строк текста в ячейке )
-	LINE_TEXT *line; // Информация о строках текста в ячейке
-	long row; // В какой строке таблицы начинается ячейка
-	long col; // В какой колонке таблицы начинается ячейка
+    long lines; // Количество строк текста в ячейке
+    long width; // Ширина ячейки ( = максимальная длина
+    // строк текста в ячейке )
+    LINE_TEXT *line; // Информация о строках текста в ячейке
+    long row; // В какой строке таблицы начинается ячейка
+    long col; // В какой колонке таблицы начинается ячейка
 } CELL_TEXT;
 // Табличный текст, разложенный построчно по ячейкам:
 EXTERN CELL_TEXT *gTableText VAL(NULL);
@@ -352,9 +352,9 @@ EXTERN char gTableTextSeparators[8] VAL("");
 
 // Опции табличного текста
 EXTERN long gTableTextOptions VAL(
-		ROUT_TABLE_TEXT_INCLUDED |
-		ROUT_TABLE_TEXT_ALIGN_COLUMNS |
-		0);
+    ROUT_TABLE_TEXT_INCLUDED |
+    ROUT_TABLE_TEXT_ALIGN_COLUMNS |
+    0);
 
 // Картинка
 EXTERN long gPictureNumber VAL(0);
@@ -425,11 +425,11 @@ long BrowseTables(ulong targetIndex);
 // Browse.cpp
 // Функция, вызываемая при обходе страницы для каждого объекта
 typedef Bool (*FNROUT_BrowseFunction)(Handle hObject, long reason // См. enum BROWSE_REASON
-		);
+                                     );
 
 // Обход страницы
 Bool BrowsePage(FNROUT_BrowseFunction BrowseFunction, Bool wantSkipTableCells,
-		Bool wantSkipParagraphs);
+                Bool wantSkipParagraphs);
 
 // Обход ячеек таблицы
 Bool BrowseCells(FNROUT_BrowseFunction BrowseFunction);
@@ -441,39 +441,39 @@ Bool BrowseTable(FNROUT_BrowseFunction BrowseFunction);
 // Обход абзацев, таблиц и фреймов
 // в родительском объекте (колонке, фрейме, ячейке)
 Bool BrowseParagraphs(Handle hParentObject,
-		FNROUT_BrowseFunction BrowseFunction, Bool wantSkipTableCells,
-		Bool wantSkipParagraphs);
+                      FNROUT_BrowseFunction BrowseFunction, Bool wantSkipTableCells,
+                      Bool wantSkipParagraphs);
 
 typedef enum {
-	BROWSE_PAGE_START = 1, BROWSE_PAGE_END, // 2
+    BROWSE_PAGE_START = 1, BROWSE_PAGE_END, // 2
 
-	BROWSE_SECTION_START, // 3
-	BROWSE_SECTION_END, // 4
+    BROWSE_SECTION_START, // 3
+    BROWSE_SECTION_END, // 4
 
-	BROWSE_COLUMN_START, // 5
-	BROWSE_COLUMN_END, // 6
+    BROWSE_COLUMN_START, // 5
+    BROWSE_COLUMN_END, // 6
 
-	BROWSE_FRAME_START, // 7
-	BROWSE_FRAME_END, // 8
+    BROWSE_FRAME_START, // 7
+    BROWSE_FRAME_END, // 8
 
-	BROWSE_TABLE_START, // 9
-	BROWSE_TABLE_END, // 10
+    BROWSE_TABLE_START, // 9
+    BROWSE_TABLE_END, // 10
 
-	BROWSE_ROW_START, // 11
-	BROWSE_ROW_END, // 12
+    BROWSE_ROW_START, // 11
+    BROWSE_ROW_END, // 12
 
-	BROWSE_CELL_START, // 13
-	BROWSE_CELL_END, // 14
+    BROWSE_CELL_START, // 13
+    BROWSE_CELL_END, // 14
 
-	BROWSE_PARAGRAPH_START, // 15
-	BROWSE_PARAGRAPH_END, // 16
+    BROWSE_PARAGRAPH_START, // 15
+    BROWSE_PARAGRAPH_END, // 16
 
-	BROWSE_LINE_START, // 17
-	BROWSE_LINE_END, // 18
+    BROWSE_LINE_START, // 17
+    BROWSE_LINE_END, // 18
 
-	BROWSE_CHAR, // 19
+    BROWSE_CHAR, // 19
 
-	BROWSE_PICTURE
+    BROWSE_PICTURE
 // 20
 
 } BROWSE_REASON;
@@ -500,20 +500,20 @@ Bool MakeHOCR();
 //*****************************************************************
 // То чего не хватает в CED.H (из EDP.H и EDFILE.H)
 #define FONT_DBLUNDERLINED 1 // подчеркнутый двойной линией
-#define FONT_HIDDEN		   2 // скрытый
+#define FONT_HIDDEN        2 // скрытый
 #define FONT_BOLD          4 // жирный
 #define FONT_LIGHT         8
 #define FONT_ITALIC       16 // курсивный
 #define FONT_PROTECT      32 // защищенный
 #define FONT_UNDERLINE    64 // подчеркнутый
-#define FONT_STRIKE		 128 // перечеркнутый
-#define FONT_SUPER		 256 // верхний индекс
-#define FONT_SUB		 512 // нижний индекс
-#define FONT_FOOTNOTE	1024 // сноска
-#define ALIGN_LEFT		2
-#define ALIGN_RIGHT		4
-#define ALIGN_CENTER	8
-#define ALIGN_MASK		(ALIGN_LEFT | ALIGN_RIGHT | ALIGN_CENTER)
+#define FONT_STRIKE      128 // перечеркнутый
+#define FONT_SUPER       256 // верхний индекс
+#define FONT_SUB         512 // нижний индекс
+#define FONT_FOOTNOTE   1024 // сноска
+#define ALIGN_LEFT      2
+#define ALIGN_RIGHT     4
+#define ALIGN_CENTER    8
+#define ALIGN_MASK      (ALIGN_LEFT | ALIGN_RIGHT | ALIGN_CENTER)
 
 //*****************************************************************
 // TableText.cpp
@@ -523,17 +523,17 @@ Bool TableText_Delete();
 
 // Обход построчного представления таблицы:
 typedef enum {
-	BROWSE_TABLE_TEXT_TABLE_START = 1,
-	BROWSE_TABLE_TEXT_TABLE_END,
-	BROWSE_TABLE_TEXT_RECORD_START,
-	BROWSE_TABLE_TEXT_RECORD_END,
-	BROWSE_TABLE_TEXT_STRING
+    BROWSE_TABLE_TEXT_TABLE_START = 1,
+    BROWSE_TABLE_TEXT_TABLE_END,
+    BROWSE_TABLE_TEXT_RECORD_START,
+    BROWSE_TABLE_TEXT_RECORD_END,
+    BROWSE_TABLE_TEXT_STRING
 } BROWSE_TABLE_TEXT_REASON;
 
 // Функция, вызываемая при обходе построчного
 // представления таблицы
 typedef Bool (*FNROUT_BrowseTableTextFunction)(long reason // См. enum BROWSE_TABLE_TEXT_REASON
-		);
+                                              );
 
 Bool BrowseTableText(FNROUT_BrowseTableTextFunction BrowseTableTextFunction);
 
@@ -549,7 +549,7 @@ long GetPictureNumber(Handle charHandle);
 
 // Записать картинку в BMP-файл
 Bool WritePictureToBMP_File(Byte *pDIB, // Адрес DIB включая заголовок
-		long lenDIB, // Длина DIB включая заголовок
-		char *filename // Имя файла
-		);
+                            long lenDIB, // Длина DIB включая заголовок
+                            char *filename // Имя файла
+                           );
 

@@ -63,21 +63,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 /*----------------------------------------------------------------------------*/
-typedef struct tagFT_OFOR_LINE
-{
-	Bool        WasFound;
-	int         Level;
-	int         Width;
-}FT_OFOR_LINE;
+typedef struct tagFT_OFOR_LINE {
+    Bool        WasFound;
+    int         Level;
+    int         Width;
+} FT_OFOR_LINE;
 /*----------------------------------------------------------------------------*/
-typedef struct tagFT_SRCH_QUASILINE
-{
-	int    MinLev;
-	int    MaxLev;
-	int    Beg;
-	int    End;
-	double MaxHoleDens;
-	int    MaxWidUnion;
-	Bool   FromBeg;
-}FT_SRCH_QUASILINE;
+typedef struct tagFT_SRCH_QUASILINE {
+    int    MinLev;
+    int    MaxLev;
+    int    Beg;
+    int    End;
+    double MaxHoleDens;
+    int    MaxWidUnion;
+    Bool   FromBeg;
+} FT_SRCH_QUASILINE;
 /*----------------------------------------------------------------------------*/

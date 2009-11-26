@@ -54,34 +54,34 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-//	Run modes
+//  Run modes
 
-#define RUN_MODE_FULL	0
-#define RUN_MODE_P1	1
-#define RUN_MODE_P2	2
+#define RUN_MODE_FULL   0
+#define RUN_MODE_P1 1
+#define RUN_MODE_P2 2
 
-//	Run Stages
+//  Run Stages
 
-#define RUN_EXTRCOMP	1
-#define RUN_LAYOUT_1	2
-#define RUN_LAYOUT_2	4
-#define RUN_FINAL_REC	8
-#define RUN_SPELL	0x10
-#define RUN_FORMAT 	0x20
-#define RUN_ED_WRITE	0x40
-#define RUN_1	RUN_EXTRCOMP|RUN_LAYOUT_1
+#define RUN_EXTRCOMP    1
+#define RUN_LAYOUT_1    2
+#define RUN_LAYOUT_2    4
+#define RUN_FINAL_REC   8
+#define RUN_SPELL   0x10
+#define RUN_FORMAT  0x20
+#define RUN_ED_WRITE    0x40
+#define RUN_1   RUN_EXTRCOMP|RUN_LAYOUT_1
 #define RUN_2   RUN_LAYOUT_2|RUN_FINAL_REC|RUN_FORMAT|RUN_ED_WRITE
 
 #define TSRO_RECOGLANG  64 // „гЎ«Ёа®ў ­® Ё§ tgcall.h !! Pit
 
-//	Steps for Progress monitor
+//  Steps for Progress monitor
 
-#define PROGRESS_STEPS	8
+#define PROGRESS_STEPS  8
 #define DRAFT_PERC      0
-#define LAYOUT_1_PERC 	1
-#define LAYOUT_2_PERC	2
-#define SECOND_PERC 	3
-#define THIRD_PERC 	4
+#define LAYOUT_1_PERC   1
+#define LAYOUT_2_PERC   2
+#define SECOND_PERC     3
+#define THIRD_PERC  4
 #define SPELL_PERC      5
 #define FORMAT_PERC     6
-#define CLEANUP_PERC	7
+#define CLEANUP_PERC    7

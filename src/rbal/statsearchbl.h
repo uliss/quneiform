@@ -63,25 +63,25 @@
 
 ///////
 typedef struct tagROW_STRUCT {
-	int16_t globMax; //глобальный максимум
-	int16_t ValGM; //значение глобального максимума
-	int16_t AltGM; //значение альтернативы (1-я или 2-я БЛ)
+    int16_t globMax; //глобальный максимум
+    int16_t ValGM; //значение глобального максимума
+    int16_t AltGM; //значение альтернативы (1-я или 2-я БЛ)
 
-	int16_t rightLocMax;
-	int16_t ValRLM;
-	int16_t AltRLM;
-	float rightCoeff;
+    int16_t rightLocMax;
+    int16_t ValRLM;
+    int16_t AltRLM;
+    float rightCoeff;
 
-	int16_t leftLocMax;
-	int16_t ValLLM;
-	int16_t AltLLM;
-	float leftCoeff;
+    int16_t leftLocMax;
+    int16_t ValLLM;
+    int16_t AltLLM;
+    float leftCoeff;
 
 } ROW_STRUCT;
 
 //////
 int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff,
-		int16_t fl_b2_or_b1);
+                             int16_t fl_b2_or_b1);
 int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2);
 int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2);
 //////
@@ -97,43 +97,43 @@ int16_t stat_Left_diff_from_max(int16_t *p_FreqArr, int16_t max_FreqArr);
 
 //////
 void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, int16_t *pY2Arr,
-		int16_t *pFreqY2Arr, int16_t *Ns3, int16_t *Ns4);
+                    int16_t *pFreqY2Arr, int16_t *Ns3, int16_t *Ns4);
 void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *pY1Arr,
-		int16_t *pY2Arr, int16_t *pFreqY1Arr, int16_t *Ns1, int16_t *Ns2);
+                    int16_t *pY2Arr, int16_t *pFreqY1Arr, int16_t *Ns1, int16_t *Ns2);
 void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2,
-		int16_t *Ns4);
+                           int16_t *Ns4);
 //////
 
 //////
 Bool stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str);
 Bool stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3,
-		ROW_STRUCT *row_str);
+                                    ROW_STRUCT *row_str);
 Bool stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3,
-		int16_t b4, ROW_STRUCT *row_str);
+                           int16_t b4, ROW_STRUCT *row_str);
 Bool stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3,
-		int16_t b4, ROW_STRUCT *row_str);
+                              int16_t b4, ROW_STRUCT *row_str);
 //////
 
 //////
 Bool stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3,
-		int16_t b4);
+                          int16_t b4);
 int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row,
-		ROW_STRUCT *row_str);
+                                 ROW_STRUCT *row_str);
 Bool stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4);
 //////
 
 //////
 void stat_FormArrays(CSTR_line line, int16_t row, int16_t *pY1Arr,
-		int16_t *pY2Arr);
+                     int16_t *pY2Arr);
 Bool stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop,
-		CSTR_attr *pCSTR_attrArr);
+                             CSTR_attr *pCSTR_attrArr);
 int16_t stat_LineLength(CSTR_line line);
 //////
 
 //////
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr, int16_t *Ns1,
-		int16_t *Ns2, int16_t *Ns3, int16_t *Ns4);
+                  int16_t *Ns2, int16_t *Ns3, int16_t *Ns4);
 
-#define	 __STAT_SEARCH_BL_H__
+#define  __STAT_SEARCH_BL_H__
 #endif
 

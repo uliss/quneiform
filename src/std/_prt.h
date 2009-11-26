@@ -71,264 +71,293 @@ using namespace std;
 #define TIMER_DELTA 10
 #define CUR_SYS_EVN_COUNT  12
 // file
-class stdPrtFILE {
-	FILE* hfile;
-public:
-	operator FILE*(void) const {
-		return hfile;
-	}
+class stdPrtFILE
+{
+        FILE* hfile;
+    public:
+        operator FILE*(void) const {
+            return hfile;
+        }
 
-	stdPrtFILE() {
-		hfile = NULL;
-	}
+        stdPrtFILE() {
+            hfile = NULL;
+        }
 
-	stdPrtFILE(const char* opts) {
-		hfile = NULL;
-		char path_name[PATH_MAX] = { 0 };
-		::GetModuleFileName(NULL, path_name, PATH_MAX);
-		if (path_name[0] != 0) {
-			char dir[_MAX_DIR] = { 0 };
-			char name[_MAX_FNAME] = { 0 };
-			char ext[_MAX_EXT] = { 0 };
-			split_path(path_name, dir, name, ext);
-			stdGoToHomeDirectory();
-			XPath xFname = "tmp/";
-			xFname += name;
-			xFname += ".prt";
-			hfile = fopen((char*) xFname, opts);
-		};
-	}
+        stdPrtFILE(const char* opts) {
+            hfile = NULL;
+            char path_name[PATH_MAX] = { 0 };
+            ::GetModuleFileName(NULL, path_name, PATH_MAX);
 
-	stdPrtFILE(const char* name, const char* opts) {
-		XPath xstdPrtPath;
-		xstdPrtPath = stdGetHomeDirectory();
-		xstdPrtPath += "/";
-		xstdPrtPath += name;
-		hfile = fopen((char*) (xstdPrtPath), opts);
-	}
+            if (path_name[0] != 0) {
+                char dir[_MAX_DIR] = { 0 };
+                char name[_MAX_FNAME] = { 0 };
+                char ext[_MAX_EXT] = { 0 };
+                split_path(path_name, dir, name, ext);
+                stdGoToHomeDirectory();
+                XPath xFname = "tmp/";
+                xFname += name;
+                xFname += ".prt";
+                hfile = fopen((char*) xFname, opts);
+            };
+        }
 
-	~stdPrtFILE(void) {
-		if (hfile)
-			fclose(hfile);
-	}
+        stdPrtFILE(const char* name, const char* opts) {
+            XPath xstdPrtPath;
+            xstdPrtPath = stdGetHomeDirectory();
+            xstdPrtPath += "/";
+            xstdPrtPath += name;
+            hfile = fopen((char*) (xstdPrtPath), opts);
+        }
 
-	void Open(const char* name) {
-		if (name)
-			hfile = fopen(name, "rt");
-	}
+        ~stdPrtFILE(void) {
+            if (hfile)
+                fclose(hfile);
+        }
+
+        void Open(const char* name) {
+            if (name)
+                hfile = fopen(name, "rt");
+        }
 
 };
 
 static stdPrtFILE* theFile;//("a+");
 // table
-class CTableEvnFiller {
-	char m_szTableName[PATH_MAX];
-public:
-	vector<StdPrtEvent> xsTblEventData;
-	CTableEvnFiller();
-	~CTableEvnFiller();
-	bool OpenEvnTable(char *TableName);
+class CTableEvnFiller
+{
+        char m_szTableName[PATH_MAX];
+    public:
+        vector<StdPrtEvent> xsTblEventData;
+        CTableEvnFiller();
+        ~CTableEvnFiller();
+        bool OpenEvnTable(char *TableName);
 };
 
 // console
-class stdPrtConsole {
-	mutable HWND hConsoleOutput;
-	uint uiMesasageHandle;
-	Bool32 bUseConsole;
-public:
-	//operator Handle (void) const { return bUseConsole ? hConsoleOutput = FindWindow( NULL, "PrtConsole") : 0; };
-	operator Handle(void) const {
-		return NULL;
-	}
+class stdPrtConsole
+{
+        mutable HWND hConsoleOutput;
+        uint uiMesasageHandle;
+        Bool32 bUseConsole;
+    public:
+        //operator Handle (void) const { return bUseConsole ? hConsoleOutput = FindWindow( NULL, "PrtConsole") : 0; };
+        operator Handle(void) const {
+            return NULL;
+        }
 
-	stdPrtConsole() :
-		hConsoleOutput(0), bUseConsole(0) {
-	}
+        stdPrtConsole() :
+                hConsoleOutput(0), bUseConsole(0) {
+        }
 
-	~stdPrtConsole() {
-		if (hConsoleOutput) {
-			bUseConsole = FALSE;
-			hConsoleOutput = NULL;
-		}
-	}
+        ~stdPrtConsole() {
+            if (hConsoleOutput) {
+                bUseConsole = FALSE;
+                hConsoleOutput = NULL;
+            }
+        }
 
-	Bool32 AllocPrtConsole();
-	void FreePrtConsole() {
-		bUseConsole = FALSE;
-		hConsoleOutput = NULL;
-	}
+        Bool32 AllocPrtConsole();
+        void FreePrtConsole() {
+            bUseConsole = FALSE;
+            hConsoleOutput = NULL;
+        }
 
-	Bool32 SendTextToConsole(char *text, int len);
+        Bool32 SendTextToConsole(char *text, int len);
 };
 
 static stdPrtConsole stdPrtConsole;
 
 // send to console
-class CPrtSendEventToConsole {
-public:
-	Bool32 operator()(char* EventText) {
-		if ((Handle)(stdPrtConsole) == NULL)
-			return TRUE;
-		if (!EventText)
-			RET_FALSE;
-		stdPrtConsole.SendTextToConsole(EventText, strlen(EventText));
-		return TRUE;
-	}
+class CPrtSendEventToConsole
+{
+    public:
+        Bool32 operator()(char* EventText) {
+            if ((Handle)(stdPrtConsole) == NULL)
+                return TRUE;
+
+            if (!EventText)
+                RET_FALSE;
+
+            stdPrtConsole.SendTextToConsole(EventText, strlen(EventText));
+            return TRUE;
+        }
 };
 // send to file
-class CPrtSendEventToFile {
-public:
-	Bool32 operator()(char* EventText) {
-		if (NULL == (FILE*) (*theFile))
-			RET_FALSE;
-		if (!EventText)
-			RET_FALSE;
-		fprintf((FILE*) (*theFile)/*theFile*/, "%s", EventText);
-		return TRUE;
-	}
+class CPrtSendEventToFile
+{
+    public:
+        Bool32 operator()(char* EventText) {
+            if (NULL == (FILE*) (*theFile))
+                RET_FALSE;
+
+            if (!EventText)
+                RET_FALSE;
+
+            fprintf((FILE*) (*theFile)/*theFile*/, "%s", EventText);
+            return TRUE;
+        }
 
 };
 
-class CPrtSendEventToPublic {
-	XPath file_name;
-	FILE *file;
-	bool bUse;
-public:
-	CPrtSendEventToPublic() {
-		char szString[PATH_MAX] = { 0 };
-		int32_t size = PATH_MAX;
-		bUse = false;
-		file = NULL;
-		stdGetProfileString(szString, &size, "protocol.ini", "Options", "Path",
-				STD_SETPROF_DIR_PROJECT);
-		if (!szString[0])
-			return;
-		file_name = szString;
-		bUse = true;
-	}
+class CPrtSendEventToPublic
+{
+        XPath file_name;
+        FILE *file;
+        bool bUse;
+    public:
+        CPrtSendEventToPublic() {
+            char szString[PATH_MAX] = { 0 };
+            int32_t size = PATH_MAX;
+            bUse = false;
+            file = NULL;
+            stdGetProfileString(szString, &size, "protocol.ini", "Options", "Path",
+                                STD_SETPROF_DIR_PROJECT);
 
-	~CPrtSendEventToPublic() {
-		if (file)
-			fclose(file);
-	}
+            if (!szString[0])
+                return;
 
-	Bool32 operator()(char* EventText) {
-		if (!bUse)
-			return TRUE;
-		XPath spath = file_name;
-		spath.SetExt("id");
-		Handle hnd = CreateFile((char*) spath, GENERIC_READ | GENERIC_WRITE, 0,
-				NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
-		// поставить таймаут
-		while (hnd == INVALID_HANDLE_VALUE) {
-			hnd = CreateFile(spath, GENERIC_READ | GENERIC_WRITE, 0, NULL,
-					CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
-			sleep(30);
-		};
-		file = fopen((char*) file_name, "at+");
+            file_name = szString;
+            bUse = true;
+        }
 
-		if (file == NULL) {
-			stdMessageBox("Open failed", "Protocol");
-			RET_FALSE;
-		} else {
-			int n = setvbuf(file, NULL, _IONBF, 0);
-			if (n != 0) {
-				char mess[256];
-				sprintf(mess, "setvbuf()->%d", n);
-				stdMessageBox(mess, "Protocol");
-			};
-		}
-		fflush(file);
-		int n = fputs(EventText, file);
-		fflush(file);
-		fclose(file);
-		file = NULL;
-		while (!unlink(spath.buf))
-			sleep(30);
-		if (n < 0)
-			RET_FALSE;
-		return true;
-	}
+        ~CPrtSendEventToPublic() {
+            if (file)
+                fclose(file);
+        }
+
+        Bool32 operator()(char* EventText) {
+            if (!bUse)
+                return TRUE;
+
+            XPath spath = file_name;
+            spath.SetExt("id");
+            Handle hnd = CreateFile((char*) spath, GENERIC_READ | GENERIC_WRITE, 0,
+                                    NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
+
+            // поставить таймаут
+            while (hnd == INVALID_HANDLE_VALUE) {
+                hnd = CreateFile(spath, GENERIC_READ | GENERIC_WRITE, 0, NULL,
+                                 CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
+                sleep(30);
+            };
+
+            file = fopen((char*) file_name, "at+");
+
+            if (file == NULL) {
+                stdMessageBox("Open failed", "Protocol");
+                RET_FALSE;
+            }
+
+            else {
+                int n = setvbuf(file, NULL, _IONBF, 0);
+
+                if (n != 0) {
+                    char mess[256];
+                    sprintf(mess, "setvbuf()->%d", n);
+                    stdMessageBox(mess, "Protocol");
+                };
+            }
+
+            fflush(file);
+            int n = fputs(EventText, file);
+            fflush(file);
+            fclose(file);
+            file = NULL;
+
+            while (!unlink(spath.buf))
+                sleep(30);
+
+            if (n < 0)
+                RET_FALSE;
+
+            return true;
+        }
 };
 // transaction
 
-class CPrtTransactionBuffer {
+class CPrtTransactionBuffer
+{
 
-	list<string> m_buffer;
-	int m_buffer_len;
-	bool FlushToDisk();
-	bool AddToBuffer(char* str);
-	bool Clear();
-	bool m_bStart;
-public:
-	CPrtTransactionBuffer() {
-		m_bStart = false;
-		m_buffer_len = 0;
-	}
+        list<string> m_buffer;
+        int m_buffer_len;
+        bool FlushToDisk();
+        bool AddToBuffer(char* str);
+        bool Clear();
+        bool m_bStart;
+    public:
+        CPrtTransactionBuffer() {
+            m_bStart = false;
+            m_buffer_len = 0;
+        }
 
-	~CPrtTransactionBuffer() {
-		m_bStart = false;
-		m_buffer_len = 0;
-	}
+        ~CPrtTransactionBuffer() {
+            m_bStart = false;
+            m_buffer_len = 0;
+        }
 
-	bool Start();
-	bool Finish();
-	bool Rollback();
-	bool Add(char* str);
-	void FreeBuffer();
+        bool Start();
+        bool Finish();
+        bool Rollback();
+        bool Add(char* str);
+        void FreeBuffer();
 };
 
 // Evn Sender
-class CPrtEventSender {
-	CPrtSendEventToFile SenderToFile;
-	CPrtSendEventToPublic SenderToPublic;
-	CPrtSendEventToConsole SenderToConsole;
-	Bool32 SendEvent(char* EventText, int32_t EvnType);
-	char MessageBuffer[8* 1024 ];
-public:
-	CPrtEventSender() {memset(MessageBuffer,0,sizeof(MessageBuffer));};
-	Bool32 SendEvent(StdPrtEvent* pspe, va_list& List);
+class CPrtEventSender
+{
+        CPrtSendEventToFile SenderToFile;
+        CPrtSendEventToPublic SenderToPublic;
+        CPrtSendEventToConsole SenderToConsole;
+        Bool32 SendEvent(char* EventText, int32_t EvnType);
+        char MessageBuffer[8* 1024 ];
+    public:
+        CPrtEventSender() {
+            memset(MessageBuffer, 0, sizeof(MessageBuffer));
+        };
+        Bool32 SendEvent(StdPrtEvent* pspe, va_list& List);
 };
 
-class CPrtSysEventSender {
-	char buffer[4097];
-	CPrtEventSender EventSender;
-	Bool32 SendTimerEvent(); // сообщение системного таймера
-	Bool32 SendEnvRegistrationEvent(StdPrtEvent* pspe); // сообщение о регистрации
-	CTableEvnFiller* m_TableEvnCreator;
-public:
-	CPrtSysEventSender() {
-		memset(buffer, 0, sizeof(buffer));
-		m_TableEvnCreator = NULL;
-	}
+class CPrtSysEventSender
+{
+        char buffer[4097];
+        CPrtEventSender EventSender;
+        Bool32 SendTimerEvent(); // сообщение системного таймера
+        Bool32 SendEnvRegistrationEvent(StdPrtEvent* pspe); // сообщение о регистрации
+        CTableEvnFiller* m_TableEvnCreator;
+    public:
+        CPrtSysEventSender() {
+            memset(buffer, 0, sizeof(buffer));
+            m_TableEvnCreator = NULL;
+        }
 
-	~CPrtSysEventSender() {
-		if (m_TableEvnCreator) {
-			delete m_TableEvnCreator;
-			m_TableEvnCreator = NULL;
-		}
-	}
+        ~CPrtSysEventSender() {
+            if (m_TableEvnCreator) {
+                delete m_TableEvnCreator;
+                m_TableEvnCreator = NULL;
+            }
+        }
 
-	Bool32 SendSysEvent(int32_t SysEvnNo, ...); // вызов посылки сообщения
-	Bool32 SendSysEvent(int32_t SysEvnNo, va_list& List);
-	Bool32 SendEvent(StdPrtEvent* pspe); // посылка необходимых(необходимость определяется по StdPrtEvent) системных сообщений
-	void Destroy();
+        Bool32 SendSysEvent(int32_t SysEvnNo, ...); // вызов посылки сообщения
+        Bool32 SendSysEvent(int32_t SysEvnNo, va_list& List);
+        Bool32 SendEvent(StdPrtEvent* pspe); // посылка необходимых(необходимость определяется по StdPrtEvent) системных сообщений
+        void Destroy();
 };
 
-class CPrtSendEvent {
-	CPrtSysEventSender SysEventSender;
-	CPrtEventSender EventSender;
-public:
-	Bool32 operator()(StdPrtEvent* pspe, va_list& List) {
-		Bool32 res2 = SysEventSender.SendEvent(pspe);
-		Bool32 res1 = EventSender.SendEvent(pspe, List);
-		return (res1 && res2);
-	}
+class CPrtSendEvent
+{
+        CPrtSysEventSender SysEventSender;
+        CPrtEventSender EventSender;
+    public:
+        Bool32 operator()(StdPrtEvent* pspe, va_list& List) {
+            Bool32 res2 = SysEventSender.SendEvent(pspe);
+            Bool32 res1 = EventSender.SendEvent(pspe, List);
+            return (res1 && res2);
+        }
 };
 
 typedef struct tagStdPrtEventData {
-	char FrmtEvnString[256]; // строка содержащая формат вывода события
-	int32_t iEvnNo; // Идентиф. номер события
+    char FrmtEvnString[256]; // строка содержащая формат вывода события
+    int32_t iEvnNo; // Идентиф. номер события
 } StdPrtEventData;
 
 bool ReadFromEvnTable(char* TableName);

@@ -67,42 +67,42 @@
 #define iFINE_CONST  4
 
 typedef struct elidx {
-	uchar ltr; // the letter
-	uchar vnum; // the number of the classes
-	uint16_t numel; // the number of the first class
+    uchar ltr; // the letter
+    uchar vnum; // the number of the classes
+    uint16_t numel; // the number of the first class
 } indBOX;
 
 typedef struct eltab {
-	uchar ltr; // the letter
-	uchar fnt; // the font number
-	uint16_t list; // next of same letter
-	uint16_t bnd; // the bound of the typeface
-	uint16_t vect[15]; // the vector of the letter
+    uchar ltr; // the letter
+    uchar fnt; // the font number
+    uint16_t list; // next of same letter
+    uint16_t bnd; // the bound of the typeface
+    uint16_t vect[15]; // the vector of the letter
 } elmBOX;
 
 struct res_recog {
-	char best_lets[NBBOX + 1]; // best letters
-	char best_font[NBBOX + 1];
-	uint16_t ibest_cosinus[NBBOX + 1]; // best cosinus
-	uint16_t icurr_cosinus;
-	uchar curr_ltr;
-	uchar curr_font;
-	char n_rsn[NBBOX + 1]; // number of letter from all same letters
+    char best_lets[NBBOX + 1]; // best letters
+    char best_font[NBBOX + 1];
+    uint16_t ibest_cosinus[NBBOX + 1]; // best cosinus
+    uint16_t icurr_cosinus;
+    uchar curr_ltr;
+    uchar curr_font;
+    char n_rsn[NBBOX + 1]; // number of letter from all same letters
 };
 
 struct t_m_3_5 {
-	uint16_t isq_rt;
-	uint16_t vect[WBOX * HBOX];
+    uint16_t isq_rt;
+    uint16_t vect[WBOX * HBOX];
 };
 typedef struct t_m_3_5 t_mBOX;
 
 struct str_servBOX {
-	int16_t up_row, left_col; // left upper corner coordinates
-	int16_t math_row, math_col; // same after deskewing
-	int16_t rast_h, rast_w; // height, width
-	char dens; // density in 1/8-ths
-	t_mBOX matrBOX;
-	t_answer best_BOX[NBBOX + 1];
+    int16_t up_row, left_col; // left upper corner coordinates
+    int16_t math_row, math_col; // same after deskewing
+    int16_t rast_h, rast_w; // height, width
+    char dens; // density in 1/8-ths
+    t_mBOX matrBOX;
+    t_answer best_BOX[NBBOX + 1];
 };
 typedef struct str_servBOX servBOX;
 

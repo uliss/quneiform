@@ -86,12 +86,12 @@
 #define IDS_ERR_INITIATED_BY_ALLEX      2029
 #ifdef _RMARKER_CPP
 #define EXTERN
-#define VAL(a)		= a
-#define VALM(a)		= {a}
-#define VAL2(a,b)	= { a,b }
-#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define VAL(a)      = a
+#define VALM(a)     = {a}
+#define VAL2(a,b)   = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-#define EXTERN		extern
+#define EXTERN      extern
 #define VAL(a)
 #define VALM(a)
 #define VAL2(a,b)

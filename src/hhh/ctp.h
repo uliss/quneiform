@@ -54,58 +54,58 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	_C_T_P_
+#ifndef _C_T_P_
 #define _C_T_P_
 
 #include "cttypes.h"
 
-#define CTP_FILE_NAME	"cunei$.ctp"
+#define CTP_FILE_NAME   "cunei$.ctp"
 
 struct ctp_hdr {
-#define SIGNA	"CT Picture"
-	uchar Signatura[10];
+#define SIGNA   "CT Picture"
+    uchar Signatura[10];
 };
 
 struct ctp_pic_hdr {
-	uint32_t pic_size; // in bytes
-	uint16_t x_off; // in pixels
-	uint16_t y_off; // in pixels
-	uint16_t w; // in pixels
-	uint16_t h; // in pixels
-	uint16_t resolution;
-	uint16_t bpl; // bytes per line. Only if native format
-	uchar bitpix;
-	uchar type;
+    uint32_t pic_size; // in bytes
+    uint16_t x_off; // in pixels
+    uint16_t y_off; // in pixels
+    uint16_t w; // in pixels
+    uint16_t h; // in pixels
+    uint16_t resolution;
+    uint16_t bpl; // bytes per line. Only if native format
+    uchar bitpix;
+    uchar type;
 #define ctp_BW          0
 #define ctp_greytone    1
-#define ctp_color	2
-#define ctp_2xx		10 // compressed
-#define ctp_4xx		11 // contured
+#define ctp_color   2
+#define ctp_2xx     10 // compressed
+#define ctp_4xx     11 // contured
 #define ctp_native      64 /* if type less this const
-			      It one of native formats */
+    It one of native formats */
 #define ctp_tiff        65
 #define ctp_gif         66
 #define ctp_pcx         67
 #define ctp_bmp         68
-#define ctp_wmf		69
-#define ctp_jpeg	70
-	uchar PicName[32];
+#define ctp_wmf     69
+#define ctp_jpeg    70
+    uchar PicName[32];
 };
 
 typedef struct ctp_pic_hdr pic_id;
 
-#define strip_H	16
+#define strip_H 16
 
 typedef struct {
-	uint16_t len; // strip len in bytes
-	uint16_t col; // begining of strip from strip_header.left(in bytes)
+    uint16_t len; // strip len in bytes
+    uint16_t col; // begining of strip from strip_header.left(in bytes)
 } strip;
 
 typedef struct {
-	uint16_t top; // adjusted to strip_H bound
-	uint16_t left;
-	uint16_t n_strip;
-	uint16_t handle;
+    uint16_t top; // adjusted to strip_H bound
+    uint16_t left;
+    uint16_t n_strip;
+    uint16_t handle;
 } strip_header;
 
 #endif  // _C_T_P_

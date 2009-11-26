@@ -19,15 +19,18 @@
 #ifndef INCLINE_H_
 #define INCLINE_H_
 
-namespace CIF {
+namespace CIF
+{
 
-inline void IDEAL_XY(int& x, int& y, int Incline) {
+inline void IDEAL_XY(int& x, int& y, int Incline)
+{
     const int INCLINE_FACTOR = 2048;
     y -= x * Incline / INCLINE_FACTOR;
     x += y * Incline / INCLINE_FACTOR;
 }
 
-inline void REAL_XY(int& x, int& y, int Incline) {
+inline void REAL_XY(int& x, int& y, int Incline)
+{
     x -= y * Incline / INCLINE_FACTOR;
     y += x * Incline / INCLINE_FACTOR;
 }

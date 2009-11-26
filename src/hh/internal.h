@@ -55,108 +55,108 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __INTERNAL_H
-   #define __INTERNAL_H
+#define __INTERNAL_H
 
-   #if (defined( _Windows ) || defined( _WINDOWS ) || defined( WIN32 ) )
-      #ifdef WIN32
-         #ifndef PPS_WIN32
-            #define PPS_WIN32
-         #endif
-      #else
-         #ifndef PPS_WIN
-            #define PPS_WIN
-            #define PPS_WIN16 // 16-bit Windows
-	    #define WIN16
-         #endif
-      #endif
-   #endif
+#if (defined( _Windows ) || defined( _WINDOWS ) || defined( WIN32 ) )
+#ifdef WIN32
+#ifndef PPS_WIN32
+#define PPS_WIN32
+#endif
+#else
+#ifndef PPS_WIN
+#define PPS_WIN
+#define PPS_WIN16 // 16-bit Windows
+#define WIN16
+#endif
+#endif
+#endif
 
-   #if !defined(__STDDEF_H) && !defined(_INC_STDDEF)
-      #include <stddef.h>
-   #endif
+#if !defined(__STDDEF_H) && !defined(_INC_STDDEF)
+#include <stddef.h>
+#endif
 
-   #if !defined(__STDIO_H) && !defined(_INC_STDIO)
-      #include <stdio.h>
-   #endif
+#if !defined(__STDIO_H) && !defined(_INC_STDIO)
+#include <stdio.h>
+#endif
 
-   #if !defined(__STDLIB_H) && !defined(_INC_STDLIB)
-      #include <stdlib.h>
-   #endif
+#if !defined(__STDLIB_H) && !defined(_INC_STDLIB)
+#include <stdlib.h>
+#endif
 
-   #if !defined(__MATH_H) && !defined(_INC_MATH)
-      #include <math.h>
-   #endif
+#if !defined(__MATH_H) && !defined(_INC_MATH)
+#include <math.h>
+#endif
 
-   #if !defined(__STRING_H) && !defined(_STRING_)
-      #include <string.h>
-   #endif
+#if !defined(__STRING_H) && !defined(_STRING_)
+#include <string.h>
+#endif
 
-   #ifdef __BORLANDC__
-      #define BITS_16
-   #else
-      #define BITS_32
-   #endif
+#ifdef __BORLANDC__
+#define BITS_16
+#else
+#define BITS_32
+#endif
 
-   #if defined( PPS_WIN ) || defined( PPS_WIN32 )
-      #ifdef __BORLANDC__
-      #  ifndef __WINDOWS_H
-      #        include <windows.h>     // 16 bit, borland assumed
-      #  endif
-      #else //  assumed 32 bit && VC
-      #  ifndef _WINDOWS_
-      #     define WIN32_EXTRA_LEAN
-      #     define WIN32_LEAN_AND_MEAN
+#if defined( PPS_WIN ) || defined( PPS_WIN32 )
+#ifdef __BORLANDC__
+#  ifndef __WINDOWS_H
+#        include <windows.h>     // 16 bit, borland assumed
+#  endif
+#else //  assumed 32 bit && VC
+#  ifndef _WINDOWS_
+#     define WIN32_EXTRA_LEAN
+#     define WIN32_LEAN_AND_MEAN
 
-      #     define NOSERVICE // no service control manager, include "winsvc.h" directly if need
-      #     define NOIME     // no input method manager, include "ime.h" directly if need
-      #     define NOMCX     // no modem extensions, include "mcx.h" directly if need
+#     define NOSERVICE // no service control manager, include "winsvc.h" directly if need
+#     define NOIME     // no input method manager, include "ime.h" directly if need
+#     define NOMCX     // no modem extensions, include "mcx.h" directly if need
 
 //      #     include <windows.h>
-      #     include "win_mini.h"
-      #  endif
-      #endif
-   #endif
+#     include "win_mini.h"
+#  endif
+#endif
+#endif
 
-   #ifndef __GLOBUS_H
-      #include "globus.h"
-   #endif
+#ifndef __GLOBUS_H
+#include "globus.h"
+#endif
 
-   //== to be precompiled
-   #ifndef __STD_H
-      #include "std.h"
-   #endif
+//== to be precompiled
+#ifndef __STD_H
+#include "std.h"
+#endif
 
-   #define CONSOLE   stdConsole
-   #define CONSOLE_is_stdConsole
-   #define CONSOLE_IF( statm )   if(statm) stdConsole
+#define CONSOLE   stdConsole
+#define CONSOLE_is_stdConsole
+#define CONSOLE_IF( statm )   if(statm) stdConsole
 
-   #if defined(assert)
-   #undef assert
-   #endif
-   #ifdef NDEBUG
-      #define assert(p) ((void)0)
-   #else
-      #define assert(p) \
+#if defined(assert)
+#undef assert
+#endif
+#ifdef NDEBUG
+#define assert(p) ((void)0)
+#else
+#define assert(p) \
          ((p)) ? (void)0 : (void)stdAssert( #p, __FILE__, __LINE__)
-   #endif
-   #define assert_is_stdAssert
+#endif
+#define assert_is_stdAssert
 
-   #define ifret( cond ) \
+#define ifret( cond ) \
       {  if (!(cond)) { stdSetError( ER_INTERNAL, #cond, __FILE__, __LINE__); return; } }
 
-   #define ifret0( cond ) \
+#define ifret0( cond ) \
       {  if (!(cond)) { stdSetError( ER_INTERNAL, #cond, __FILE__, __LINE__); return 0; } }
 
-   #ifndef __XMACROS_H
-   #include "xmacros.h"
-   #endif
+#ifndef __XMACROS_H
+#include "xmacros.h"
+#endif
 
-   #ifndef __SAFESTR_H
-   #include "safestr.h"
-   #endif
+#ifndef __SAFESTR_H
+#include "safestr.h"
+#endif
 
-   #ifndef __WMB_H
-   #include "wmb.h"
-   #endif
+#ifndef __WMB_H
+#include "wmb.h"
+#endif
 
 #endif  // INTERNAL

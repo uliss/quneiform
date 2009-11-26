@@ -69,8 +69,8 @@ int32_t HLiner_Analyze(); // returns count of extracted lines
 int32_t HLiner_GetCount(void);// returns count of extracted lines
 
 typedef struct tagLine16 {
-	CIF::Point16 A;
-	CIF::Point16 B;
+    CIF::Point16 A;
+    CIF::Point16 B;
 } Line16;
 
 Line16* HLiner_GetLine(int32_t nLineIndex); // 0..count-1

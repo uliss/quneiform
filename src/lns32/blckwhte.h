@@ -55,104 +55,104 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /* Black/White pixel-bit definition.
-	Link with "bit_data.c"
+    Link with "bit_data.c"
  */
 #ifndef __BLCKWHTE_H
 # define __BLCKWHTE_H
-	//= interface =================================//
-	// please, comment one of the next...
-	#define BLACK_IS_ZERO
-	//#define WHITE_IS_ZERO
+//= interface =================================//
+// please, comment one of the next...
+#define BLACK_IS_ZERO
+//#define WHITE_IS_ZERO
 
-	//= implementation ============================//
-	#ifndef __BIT_FUNC_H
-   #	include "bit_func.h"
-   #endif
-	/*
-	extern const word bit_word[16];
-	extern const first_bit0_pos[256];
-	extern const first_bit1_pos[256];
-   */
+//= implementation ============================//
+#ifndef __BIT_FUNC_H
+#    include "bit_func.h"
+#endif
+/*
+extern const word bit_word[16];
+extern const first_bit0_pos[256];
+extern const first_bit1_pos[256];
+*/
 
-	#ifdef BLACK_IS_ZERO
+#ifdef BLACK_IS_ZERO
 
-		#ifdef WHITE_IS_ZERO
-		#	error Both WHITE_IS_ZERO and BLACK_IS_ZERO defined
-		#endif
+#ifdef WHITE_IS_ZERO
+#   error Both WHITE_IS_ZERO and BLACK_IS_ZERO defined
+#endif
 
-//		#define BLACK 0
-//		#define WHITE 1
-		#define BBYTE 0x00
-		#define WBYTE 0xFF
-      #define BWord16 0x0000
-      #define WWord16 0xFFFF
+//      #define BLACK 0
+//      #define WHITE 1
+#define BBYTE 0x00
+#define WBYTE 0xFF
+#define BWord16 0x0000
+#define WWord16 0xFFFF
 
-      #define BLACK_Word16( ww )          ( ww == BWord16 )
-      #define WHITE_Word16( ww )          ( ww == WWord16 )
-		#define BLACK_BIT( ww, i )        ( (~ww) & lbit_word[i] )
-		#define WHITE_BIT( ww, i )        ( ww & lbit_word[i]    )
-		#define FIRST_WHITE_BIT( ww )                               \
-			(                                                        \
-				(left_byte(ww)) 	? 												\
-					first_bit1_pos[ left_byte(ww) ]   						\
-					: 8+first_bit1_pos[ right_byte(ww) ] 					\
-			)
-		#define FIRST_BLACK_BIT( ww )     									\
-			(                                                        \
-				(left_byte(ww)==WBYTE) ?                              \
-					8+first_bit0_pos[ right_byte(ww) ] :  					\
-					first_bit0_pos[ left_byte(ww) ]  						\
-			)
-		#define FIRST_BLACK_BIT_IN_BYTE( bb )								\
-			(                                                        \
-					first_bit0_pos[ bb ]  										\
-			)
+#define BLACK_Word16( ww )          ( ww == BWord16 )
+#define WHITE_Word16( ww )          ( ww == WWord16 )
+#define BLACK_BIT( ww, i )        ( (~ww) & lbit_word[i] )
+#define WHITE_BIT( ww, i )        ( ww & lbit_word[i]    )
+#define FIRST_WHITE_BIT( ww )                               \
+            (                                                        \
+                (left_byte(ww))     ?                                               \
+                    first_bit1_pos[ left_byte(ww) ]                         \
+                    : 8+first_bit1_pos[ right_byte(ww) ]                    \
+            )
+#define FIRST_BLACK_BIT( ww )                                       \
+            (                                                        \
+                (left_byte(ww)==WBYTE) ?                              \
+                    8+first_bit0_pos[ right_byte(ww) ] :                    \
+                    first_bit0_pos[ left_byte(ww) ]                         \
+            )
+#define FIRST_BLACK_BIT_IN_BYTE( bb )                               \
+            (                                                        \
+                    first_bit0_pos[ bb ]                                        \
+            )
 
-		#define MAKE_BIT_WHITE( ww_bb, num )                        \
-			( ww_bb |= lbit_word[ num ] )
-	#endif
+#define MAKE_BIT_WHITE( ww_bb, num )                        \
+            ( ww_bb |= lbit_word[ num ] )
+#endif
 
-	#ifdef WHITE_IS_ZERO
-		#ifdef BLACK_IS_ZERO
-		#	error Both WHITE_IS_ZERO and BLACK_IS_ZERO defined
-		#endif
-//		#define BLACK 1
-//		#define WHITE 0
-		#define BBYTE 0xFF
-		#define WBYTE 0x00
-      #define BWord16 0xFFFF
-      #define WWord16 0x0000
+#ifdef WHITE_IS_ZERO
+#ifdef BLACK_IS_ZERO
+#   error Both WHITE_IS_ZERO and BLACK_IS_ZERO defined
+#endif
+//      #define BLACK 1
+//      #define WHITE 0
+#define BBYTE 0xFF
+#define WBYTE 0x00
+#define BWord16 0xFFFF
+#define WWord16 0x0000
 
-      #define BLACK_Word16( ww )          ( ww == BWord16 )
-      #define WHITE_Word16( ww )          ( ww == WWord16 )
-		#define BLACK_BIT( ww, i )        ( ww & lbit_word[i]    )
-		#define WHITE_BIT( ww, i )        ( (~ww) & lbit_word[i] )
-		#define FIRST_WHITE_BIT( ww )     									\
-			(                                                        \
-				(left_byte(ww)==0xBBYTE) ?                            \
-					8+first_bit0_pos( right_byte(ww) ) :  					\
-					first_bit0_pos( left_byte(ww) )  						\
-			)
-		#define FIRST_BLACK_BIT( ww )
-			(                                                        \
-				(left_byte(ww)) 	? 												\
-					first_bit1_pos( left_byte(ww) )   						\
-					: 8+first_bit1_pos( right_byte(ww)  					\
-			)
-		#define FIRST_BLACK_BIT_IN_BYTE( bb )								\
-			(                                                        \
-					first_bit1_pos[ bb ]  										\
-			)
+#define BLACK_Word16( ww )          ( ww == BWord16 )
+#define WHITE_Word16( ww )          ( ww == WWord16 )
+#define BLACK_BIT( ww, i )        ( ww & lbit_word[i]    )
+#define WHITE_BIT( ww, i )        ( (~ww) & lbit_word[i] )
+#define FIRST_WHITE_BIT( ww )                                       \
+            (                                                        \
+                (left_byte(ww)==0xBBYTE) ?                            \
+                    8+first_bit0_pos( right_byte(ww) ) :                    \
+                    first_bit0_pos( left_byte(ww) )                         \
+            )
+#define FIRST_BLACK_BIT( ww )
+(                                                        \
+                                                         (left_byte(ww))     ?                                               \
+                                                         first_bit1_pos( left_byte(ww) )                         \
+                                                         : 8 + first_bit1_pos( right_byte(ww)                      \
+                                                                             )
+#define FIRST_BLACK_BIT_IN_BYTE( bb )                               \
+            (                                                        \
+                    first_bit1_pos[ bb ]                                        \
+            )
 
-		#define MAKE_BIT_WHITE( bb, num )                           \
-			( bb &= lbit_word[ num ] )
-	#endif
+#define MAKE_BIT_WHITE( bb, num )                           \
+            ( bb &= lbit_word[ num ] )
+#endif
 
-	#ifndef BLACK_IS_ZERO
-	#	ifndef WHITE_IS_ZERO
-	#		error Neither WHITE_IS_ZERO nor BLACK_IS_ZERO defined
-	#	endif
-	#endif
+#ifndef BLACK_IS_ZERO
+#   ifndef WHITE_IS_ZERO
+#       error Neither WHITE_IS_ZERO nor BLACK_IS_ZERO defined
+#   endif
+#endif
 
 
 #endif

@@ -70,17 +70,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class NAMEDATA
 {
-private:
-	char Name[260];
-public:
-	NAMEDATA(const char * name=NULL);
-	virtual ~NAMEDATA();
+    private:
+        char Name[260];
+    public:
+        NAMEDATA(const char * name = NULL);
+        virtual ~NAMEDATA();
 
-	Bool32 operator==(NAMEDATA & nd);
-	NAMEDATA & operator=(NAMEDATA & nd);
-	NAMEDATA & operator=(char *  nd);
-	inline operator char *() { return Name;};
-	inline operator int   () { return strlen(Name)+1;}
+        Bool32 operator==(NAMEDATA & nd);
+        NAMEDATA & operator=(NAMEDATA & nd);
+        NAMEDATA & operator=(char *  nd);
+        inline operator char *() {
+            return Name;
+        };
+        inline operator int   () {
+            return strlen(Name) + 1;
+        }
 
 };
 

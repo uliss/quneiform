@@ -64,5 +64,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 /*----------------------------------------------------------------------------*/
 /* !!! */Bool ConvertLinesToAM_rv (int FromType, int ToType, void *vB, int *pForw
-					, int sForw, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool ContWarn);
+                                   , int sForw, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool ContWarn);
 /*----------------------------------------------------------------------------*/

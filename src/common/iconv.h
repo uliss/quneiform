@@ -23,23 +23,24 @@
 #include <stdexcept>
 #include <iconv.h>
 
-namespace CIF {
+namespace CIF
+{
 
 class Iconv
 {
-public:
-    Iconv();
-    Iconv(const std::string &from, const std::string &to);
-    ~Iconv();
+    public:
+        Iconv();
+        Iconv(const std::string &from, const std::string &to);
+        ~Iconv();
 
-    typedef std::runtime_error Exception;
+        typedef std::runtime_error Exception;
 
-    bool close();
-    size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
-    std::string convert(const std::string& src);
-    bool open(const std::string &from, const std::string &to);
-private:
-    iconv_t iconv_;
+        bool close();
+        size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
+        std::string convert(const std::string& src);
+        bool open(const std::string &from, const std::string &to);
+    private:
+        iconv_t iconv_;
 };
 
 }

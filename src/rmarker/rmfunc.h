@@ -66,10 +66,10 @@
 
 typedef int Bool;
 
-# define  TYPE_BIG_COMP		CPAGE_GetInternalType("TYPE_BIG_COMP")
+# define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 struct BIG_IMAGE {
-	CCOM_handle hCCOM;
-	uchar ImageName[CPAGE_MAXNAME];
+    CCOM_handle hCCOM;
+    uchar ImageName[CPAGE_MAXNAME];
 };
 
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);

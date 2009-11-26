@@ -73,74 +73,74 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "puma/pumadef.h"
 
 #ifdef __ROUT__
-  #define ROUT_FUNC  FUN_EXPO
+#define ROUT_FUNC  FUN_EXPO
 #else
-  #define ROUT_FUNC  FUN_IMPO
+#define ROUT_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
 
 #ifndef Byte
-	typedef unsigned char Byte;
+typedef unsigned char Byte;
 #endif
 
 //*****************************************************************
 // Элемент списка форматов или кодировок
 // См. функции ROUT_ListFormats и ROUT_ListCodes
 typedef struct {
-	long code;
-	char name[64];
+    long code;
+    char name[64];
 } ROUT_ITEM;
 //*****************************************************************
 // Список форматов
 typedef enum {
-ROUT_FMT_Text  = PUMA_TOTEXT,// 2 - Plain text
-ROUT_FMT_SmartText = PUMA_TOSMARTTEXT, // 4 - Formatted text
-ROUT_FMT_TableText  = PUMA_TOTABLETXT, // 0x100 - Table text
-ROUT_FMT_CSV = PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
-ROUT_FMT_DBF = PUMA_TOTABLEDBF,	// 0x400 - Table DBF
-ROUT_FMT_WKS = PUMA_TOTABLEWKS,	// 0x1000 - Table WKS (Lotus)
-ROUT_FMT_HTML = PUMA_TOHTML,	// 0x2000 - HTML
-ROUT_FMT_HOCR = PUMA_TOHOCR,
+    ROUT_FMT_Text  = PUMA_TOTEXT,// 2 - Plain text
+    ROUT_FMT_SmartText = PUMA_TOSMARTTEXT, // 4 - Formatted text
+    ROUT_FMT_TableText  = PUMA_TOTABLETXT, // 0x100 - Table text
+    ROUT_FMT_CSV = PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
+    ROUT_FMT_DBF = PUMA_TOTABLEDBF, // 0x400 - Table DBF
+    ROUT_FMT_WKS = PUMA_TOTABLEWKS, // 0x1000 - Table WKS (Lotus)
+    ROUT_FMT_HTML = PUMA_TOHTML,    // 0x2000 - HTML
+    ROUT_FMT_HOCR = PUMA_TOHOCR,
 
-ROUT_FMT_COUNT  = 7,	// Количество форматов
-ROUT_FMT_MAX  = 0x2000	// Максимальный формат
-	} ROUT_FMT;
+    ROUT_FMT_COUNT  = 7,    // Количество форматов
+    ROUT_FMT_MAX  = 0x2000  // Максимальный формат
+} ROUT_FMT;
 
 //*****************************************************************
 // Список кодировок
 typedef enum {
 // 1 - ASCII (text, formatted text, dbf)
-ROUT_CODE_ASCII = PUMA_CODE_ASCII,
+    ROUT_CODE_ASCII = PUMA_CODE_ASCII,
 
 // 2 - Windows (all formats)
-ROUT_CODE_ANSI = PUMA_CODE_ANSI,
+    ROUT_CODE_ANSI = PUMA_CODE_ANSI,
 
 // 4 - KOI8-R (text, formatted text, html)
-ROUT_CODE_KOI8R = PUMA_CODE_KOI8,
+    ROUT_CODE_KOI8R = PUMA_CODE_KOI8,
 
 // 8 - ISO (text, formatted text, html)
-ROUT_CODE_ISO = PUMA_CODE_ISO,
+    ROUT_CODE_ISO = PUMA_CODE_ISO,
 
 // 10 - UTF8 (text, formatted text, html)
-ROUT_CODE_UTF8 = PUMA_CODE_UTF8,
+    ROUT_CODE_UTF8 = PUMA_CODE_UTF8,
 
-	ROUT_CODE_COUNT  = 5,	// Количество кодировок
-	ROUT_CODE_MAX  = 16		// Максимальная кодировка
-	} ROUT_CODE;
+    ROUT_CODE_COUNT  = 5,   // Количество кодировок
+    ROUT_CODE_MAX  = 16     // Максимальная кодировка
+} ROUT_CODE;
 //*****************************************************************
 // Опции табличного текста
 typedef enum {
 // 1 - включить таблицы в текст страницы в формате ROUT_FMT_Text
-ROUT_TABLE_TEXT_INCLUDED = 1,
+    ROUT_TABLE_TEXT_INCLUDED = 1,
 
 // 2 - выравнивание колонок
-ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
+    ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 
-	} ROUT_TABLE_TEXT_OPTIONS;
+} ROUT_TABLE_TEXT_OPTIONS;
 //*****************************************************************
 // Точки входа в DLL имени Петра Хлебутина.
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode,Handle hStorage);
+ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode, Handle hStorage);
 ROUT_FUNC(Bool32) ROUT_Done();
 ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
 ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);
@@ -148,12 +148,11 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData);
 ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData);
 //*****************************************************************
 // Экспорт
-typedef enum
-{
-	// Опции табличного текста (экспорт-импорт выполняются
-	// по одинаковому номеру; потребуется два действия для
-	// установки одного отдельного флага не меняя остальные)
-	ROUT_LONG_TableTextOptions = 100
+typedef enum {
+    // Опции табличного текста (экспорт-импорт выполняются
+    // по одинаковому номеру; потребуется два действия для
+    // установки одного отдельного флага не меняя остальные)
+    ROUT_LONG_TableTextOptions = 100
 
 } ROUT_EXPORT_ENTRIES;
 
@@ -162,58 +161,58 @@ typedef enum
 // Импорт алфавита, загруженного из REC6.DAT в SPELABC.C.
 // Гласные буквы отмечаются знаком "^", согласные любым отличным символом
 // Например для английского vowels = "^bcd^fgh^^klmn^pqrst^v^x^z"
-DEC_FUN(Bool32, ROUT_SetAlphabet,(
-		uint32_t sizeAlphabet,// Количество букв
-		char *upper,		// Прописные буквы ( ровно sizeAlphabet )
-		char *lower,		// Строчные буквы  ( ровно sizeAlphabet )
-		char *vowels		// Гласные буквы   ( ровно sizeAlphabet )
-		));
+DEC_FUN(Bool32, ROUT_SetAlphabet, (
+            uint32_t sizeAlphabet,// Количество букв
+            char *upper,        // Прописные буквы ( ровно sizeAlphabet )
+            char *lower,        // Строчные буквы  ( ровно sizeAlphabet )
+            char *vowels        // Гласные буквы   ( ровно sizeAlphabet )
+        ));
 
 // Функция для загрузки списка таблиц из файла rec6all.dat
-DEC_FUN(Bool32, ROUT_LoadRec6List,(
-		const char *rec6AllFilename
-		));
+DEC_FUN(Bool32, ROUT_LoadRec6List, (
+            const char *rec6AllFilename
+        ));
 
 // Загрузка ED-файла
 DEC_FUN(Bool32, ROUT_LoadEd,
-		// Параметры как в CED_ReadFormattedEd:
-		(char *lpEdFile,	// Имя файла или адрес в памяти
-		Bool32 readFromFile,	// TRUE, если задано имя файла
-		uint32_t bufLen));	// Длина (только при readFromFile=FALSE)
+        // Параметры как в CED_ReadFormattedEd:
+        (char *lpEdFile,    // Имя файла или адрес в памяти
+         Bool32 readFromFile,    // TRUE, если задано имя файла
+         uint32_t bufLen));  // Длина (только при readFromFile=FALSE)
 
 // Выгрузка ED-файла
-DEC_FUN(Bool32, ROUT_UnloadEd,(void));
+DEC_FUN(Bool32, ROUT_UnloadEd, (void));
 
 // Получение списка поддерживаемых форматов
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListFormats,
-	(puchar buf,	  // Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf // Длина буфера
-	));
+        (puchar buf,      // Адрес буфера для списка ROUT_ITEM
+         uint32_t sizeBuf // Длина буфера
+        ));
 
 // Получение списка возможных форматов сохранения
 // для текущей загруженной страницы.
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListAvailableFormats,
-	(puchar buf,	// Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf	// Длина буфера
-	));
+        (puchar buf,    // Адрес буфера для списка ROUT_ITEM
+         uint32_t sizeBuf    // Длина буфера
+        ));
 
 // Получение списка кодировок для данного формата
 // Возвращает количество кодировок или -1 при ошибке
 DEC_FUN(long, ROUT_ListCodes,
-	(puchar buf,	// Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf	// Длина буфера
-	));
+        (puchar buf,    // Адрес буфера для списка ROUT_ITEM
+         uint32_t sizeBuf    // Длина буфера
+        ));
 
 // Перекодировать один байт по кодовой таблице
-DEC_FUN(Byte, ROUT_Byte,(Byte c));
+DEC_FUN(Byte, ROUT_Byte, (Byte c));
 
 // Перекодировать блок памяти по кодовой таблице
-DEC_FUN(Bool32, ROUT_Block,(
-		Byte *lpMem,	// Адрес блока памяти
-		long sizeMem	// Длина блока памяти
-		));
+DEC_FUN(Bool32, ROUT_Block, (
+            Byte *lpMem,    // Адрес блока памяти
+            long sizeMem    // Длина блока памяти
+        ));
 
 // Сосчитать количество объектов на странице.
 // Предварительно рекомендуется загрузить страницу (ROUT_LoadEd)
@@ -224,121 +223,120 @@ DEC_FUN(Bool32, ROUT_Block,(
 //
 // Выдает -1, если страница не загружена или при другой ошибке.
 //
-DEC_FUN(long, ROUT_CountObjects,());
+DEC_FUN(long, ROUT_CountObjects, ());
 
 // Конвертирование в один формат на заданной памяти
 DEC_FUN(Bool32, ROUT_GetObject,
-		(
-		uint32_t objIndex,	// Индекс объекта начиная от 1
-		Byte *lpMem,	// Адрес блока памяти ( 0 - старая память)
-		long *sizeMem	// Длина блока памяти ( 0 - старая память)
-		));
+        (
+            uint32_t objIndex,  // Индекс объекта начиная от 1
+            Byte *lpMem,    // Адрес блока памяти ( 0 - старая память)
+            long *sizeMem   // Длина блока памяти ( 0 - старая память)
+        ));
 
 // Конвертирование в один формат и запись в файл
 DEC_FUN(Bool32, ROUT_SaveObject,
-		(
-		uint32_t objIndex,	// Индекс объекта начиная от 1
-		const char *path,			// Путь до выходного файла
-		Bool32 append		// Дополнение в конец файла
-		));
+        (
+            uint32_t objIndex,  // Индекс объекта начиная от 1
+            const char *path,           // Путь до выходного файла
+            Bool32 append       // Дополнение в конец файла
+        ));
 
-//	Сформировать имя выходного файла из имени страницы,
-//	для установленной комбинации формат-кодировка и для
-//	заданного индекса объекта. Например:
-//		PageName_w.txt - текст в кодировке ANSI
-//		PageName_a.txt - текст в кодировке ASCII
-//		PageName_k.txt - текст в кодировке KOI8-R
-//		PageName_i.txt - текст в кодировке ISO
-//		PageName_b_w.txt - табличный текст в кодировке ANSI
-//		PageName_b_w2.txt - вторая таблица на странице
-//		и т.д.
+//  Сформировать имя выходного файла из имени страницы,
+//  для установленной комбинации формат-кодировка и для
+//  заданного индекса объекта. Например:
+//      PageName_w.txt - текст в кодировке ANSI
+//      PageName_a.txt - текст в кодировке ASCII
+//      PageName_k.txt - текст в кодировке KOI8-R
+//      PageName_i.txt - текст в кодировке ISO
+//      PageName_b_w.txt - табличный текст в кодировке ANSI
+//      PageName_b_w2.txt - вторая таблица на странице
+//      и т.д.
 DEC_FUN(char *, ROUT_GetDefaultObjectName,
-		(
-		uint32_t objIndex	// Индекс объекта начиная от 1
-		));
+        (
+            uint32_t objIndex   // Индекс объекта начиная от 1
+        ));
 
 // Гадкая функция для определения длины объекта
-DEC_FUN(uint32_t, ROUT_GetObjectSize,(
-		uint32_t objIndex	// Индекс объекта начиная от 1
-		));
+DEC_FUN(uint32_t, ROUT_GetObjectSize, (
+            uint32_t objIndex   // Индекс объекта начиная от 1
+        ));
 
 #undef DEC_FUN
 
 //*****************************************************************
 
 // Импорт
-typedef enum
-{
- 	// Имя страницы без расширения .tif или .fed;
-	// может включать или не включать путь
-	ROUT_PCHAR_PageName = 1,
+typedef enum {
+    // Имя страницы без расширения .tif или .fed;
+    // может включать или не включать путь
+    ROUT_PCHAR_PageName = 1,
 
-	// Страница в контейнере CED
-	ROUT_HANDLE_PageHandle = 2,
+    // Страница в контейнере CED
+    ROUT_HANDLE_PageHandle = 2,
 
-	// Язык распознавания
-	ROUT_LONG_Language = 3,
+    // Язык распознавания
+    ROUT_LONG_Language = 3,
 
-	// Формат
-	ROUT_LONG_Format = 4,
+    // Формат
+    ROUT_LONG_Format = 4,
 
-	// Выходная кодировка
-	ROUT_LONG_Code = 5,
+    // Выходная кодировка
+    ROUT_LONG_Code = 5,
 
-	// Сохранение концов строк
-	ROUT_BOOL_PreserveLineBreaks = 6,
+    // Сохранение концов строк
+    ROUT_BOOL_PreserveLineBreaks = 6,
 
-	// Нераспознанный символ
-	ROUT_PCHAR_BAD_CHAR = 7,
+    // Нераспознанный символ
+    ROUT_PCHAR_BAD_CHAR = 7,
 
-	// Количество подстановок из REC6.DAT
-	ROUT_LONG_CountTigerToUserCharSet = 8,
+    // Количество подстановок из REC6.DAT
+    ROUT_LONG_CountTigerToUserCharSet = 8,
 
-	// Массив подстановок [3][128] (Tiger/Windows/DOS)
-	ROUT_PPBYTE_TigerToUserCharSet = 9,
+    // Массив подстановок [3][128] (Tiger/Windows/DOS)
+    ROUT_PPBYTE_TigerToUserCharSet = 9,
 
-	// Максимальное количество строк текста в одной таблице
-	ROUT_LONG_MaxTextLinesInOneTable = 10,
+    // Максимальное количество строк текста в одной таблице
+    ROUT_LONG_MaxTextLinesInOneTable = 10,
 
-	// Интервал между ячейками таблицы по вертикали
-	ROUT_ULONG_TableTextIntervalBetweenCellsYY = 11,
+    // Интервал между ячейками таблицы по вертикали
+    ROUT_ULONG_TableTextIntervalBetweenCellsYY = 11,
 
-	// Интервал между ячейками таблицы по горизонтали
-	ROUT_ULONG_TableTextIntervalBetweenCellsXX = 12,
+    // Интервал между ячейками таблицы по горизонтали
+    ROUT_ULONG_TableTextIntervalBetweenCellsXX = 12,
 
-	// Смещение таблицы от начала строки
-	ROUT_ULONG_TableTextLeftIndent = 13,
+    // Смещение таблицы от начала строки
+    ROUT_ULONG_TableTextLeftIndent = 13,
 
-	// Список разделителей (пробел - нет, t - табуляция):
-	// символ 0 - перед первой колонкой таблицы
-	// символ 1 - между колонками таблицы
-	// символ 2 - после последней колонки таблицы
-	ROUT_PCHAR_TableTextSeparators = 14
+    // Список разделителей (пробел - нет, t - табуляция):
+    // символ 0 - перед первой колонкой таблицы
+    // символ 1 - между колонками таблицы
+    // символ 2 - после последней колонки таблицы
+    ROUT_PCHAR_TableTextSeparators = 14
 
-	// Опции табличного текста (экспорт-импорт выполняются
-	// по одинаковому номеру; потребуется два действия для
-	// установки одного отдельного флага не меняя остальные.
-	// См. enum ROUT_EXPORT_ENTRIES)
-	// ROUT_LONG_TableTextOptions = 100
+    // Опции табличного текста (экспорт-импорт выполняются
+    // по одинаковому номеру; потребуется два действия для
+    // установки одного отдельного флага не меняя остальные.
+    // См. enum ROUT_EXPORT_ENTRIES)
+    // ROUT_LONG_TableTextOptions = 100
 
 } ROUT_IMPORT_ENTRIES;
 
 //*****************************************************************
 // Коды возврата
 typedef enum {
-	ROUT_RETURN_OK = 0,
-	ROUT_RETURN_NOTIMPLEMENT = 1,
-	ROUT_RETURN_NO_MEMORY = 2,
-	ROUT_RETURN_WRONG_ARGUMENT = 3,
-	ROUT_RETURN_WRITING_TO_FILE = 4,
-	ROUT_RETURN_OPEN_FILE = 5,
-	ROUT_RETURN_CLOSE_FILE = 6,
-	ROUT_RETURN_PAGE_NOT_LOADED = 7,
-	ROUT_RETURN_OBJECT_NOT_FOUND = 8,
-	ROUT_RETURN_POSSIBLE_LOSS_OF_DATA = 9
-	} ROUT_RETURN_CODES;
+    ROUT_RETURN_OK = 0,
+    ROUT_RETURN_NOTIMPLEMENT = 1,
+    ROUT_RETURN_NO_MEMORY = 2,
+    ROUT_RETURN_WRONG_ARGUMENT = 3,
+    ROUT_RETURN_WRITING_TO_FILE = 4,
+    ROUT_RETURN_OPEN_FILE = 5,
+    ROUT_RETURN_CLOSE_FILE = 6,
+    ROUT_RETURN_PAGE_NOT_LOADED = 7,
+    ROUT_RETURN_OBJECT_NOT_FOUND = 8,
+    ROUT_RETURN_POSSIBLE_LOSS_OF_DATA = 9
+} ROUT_RETURN_CODES;
 //*****************************************************************
 
 #pragma pack (pop)
 
-#endif	// __ROUT_H
+#endif  // __ROUT_H

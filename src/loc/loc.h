@@ -74,16 +74,16 @@ LOC_FUNC void LOCDone();
 LOC_FUNC int16_t LOCGetErr();
 
 LOC_FUNC MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
+                          int16_t left);
 LOC_FUNC uchar* LOC_GetSegmentPool(void);
 
 // error code
 enum loc_error_t {
-	ER_LOC_NO_ERROR = 0,
-	ER_LOC_NO_RECOG = 1,
-	ER_LOC_OPEN = 2,
-	ER_LOC_MEMORY = 3,
-	ER_LOC_READ = 4
+    ER_LOC_NO_ERROR = 0,
+    ER_LOC_NO_RECOG = 1,
+    ER_LOC_OPEN = 2,
+    ER_LOC_MEMORY = 3,
+    ER_LOC_READ = 4
 };
 
 #endif

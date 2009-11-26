@@ -79,14 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // хотя имело бы смысл использовать из файла, лежащего в данном модуле
 //#include "cor_spell.h"
 
-struct VersRef
-{
+struct VersRef {
     uchar   code;
     uchar   prob;
 };
 
-struct BitMapRef
-{
+struct BitMapRef {
     uchar code;
     uchar pos;
     uint16_t row;
@@ -95,8 +93,7 @@ struct BitMapRef
     uint16_t height;
 };
 
-struct SheetDiskDescr
-{
+struct SheetDiskDescr {
     uchar code;
     char quant_fragm;
     uint16_t sheet_numb;
@@ -107,15 +104,13 @@ struct SheetDiskDescr
     char tabl[13];
 };
 
-struct FragmDisk
-{
+struct FragmDisk {
     uchar code;
     uchar fragm_numb;
     uint16_t depth;
 };
 
-struct FragmDiskDescr
-{
+struct FragmDiskDescr {
     uchar code;
     uint16_t row;
     uint16_t col;
@@ -139,44 +134,50 @@ class CRLEd
 {
 
 
-public:
-	RecVersions GetVersElement(uint32_t i, uint32_t * pNVers);
-	Rect16 GetRectElement(uint32_t i);
-	void * GetEdPool(void) { return (void *) mpEdBuffer; };
-	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
-	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
-	Bool32 ExcludeToVers(int32_t size, char* pStr);
-	Bool32 AddWord(CSTR_rast b, CSTR_rast e, puchar pLanguage);
-	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,puchar Language);
-	void   Init();
-	CRLEd();
-	virtual ~CRLEd();
+    public:
+        RecVersions GetVersElement(uint32_t i, uint32_t * pNVers);
+        Rect16 GetRectElement(uint32_t i);
+        void * GetEdPool(void) {
+            return (void *) mpEdBuffer;
+        };
+        void * GetEdOutPool(void) {
+            return (void *) mpEdOutBuffer;
+        };
+        uint32_t GetEdPoolSize(void) {
+            return mpEdFileEnd - mpEdBuffer;
+        };
+        Bool32 ExcludeToVers(int32_t size, char* pStr);
+        Bool32 AddWord(CSTR_rast b, CSTR_rast e, puchar pLanguage);
+        Bool32 MakeWord(CSTR_rast b, CSTR_rast e, puchar Language);
+        void   Init();
+        CRLEd();
+        virtual ~CRLEd();
 
-protected:
-	Bool32 mbReadyToAdd;
-	Rect16 mEdRect[CRL_ED_RECT_ARRAY_SIZE];
-	RecVersions mEdVers[CRL_ED_VERS_ARRAY_SIZE];
-	int32_t miEdNVers;
-	Handle mhEdOutBuffer;
-	Handle mhEdBuffer;
-	puchar mpEdFileBound;
-	puchar mpEdFileEnd;
-	puchar mpEdOutBuffer;
-	puchar mpEdBuffer;
-	uchar  mHalfSpaces[3];
-	struct SheetDiskDescr    mSdd;
-	struct FragmDiskDescr    mFdd;
-	struct FragmDisk         mFd;
-	struct VersRef           mVr;
-	struct BitMapRef         mBmr;
-	//struct sheet_disk_descr    mSdd;
-	//struct fragm_disk_descr    mFdd;
-	//struct fragm_disk          mFd;
-	//struct vers_ref            mVr;
-	//struct bit_map_ref         mBmr;
+    protected:
+        Bool32 mbReadyToAdd;
+        Rect16 mEdRect[CRL_ED_RECT_ARRAY_SIZE];
+        RecVersions mEdVers[CRL_ED_VERS_ARRAY_SIZE];
+        int32_t miEdNVers;
+        Handle mhEdOutBuffer;
+        Handle mhEdBuffer;
+        puchar mpEdFileBound;
+        puchar mpEdFileEnd;
+        puchar mpEdOutBuffer;
+        puchar mpEdBuffer;
+        uchar  mHalfSpaces[3];
+        struct SheetDiskDescr    mSdd;
+        struct FragmDiskDescr    mFdd;
+        struct FragmDisk         mFd;
+        struct VersRef           mVr;
+        struct BitMapRef         mBmr;
+        //struct sheet_disk_descr    mSdd;
+        //struct fragm_disk_descr    mFdd;
+        //struct fragm_disk          mFd;
+        //struct vers_ref            mVr;
+        //struct bit_map_ref         mBmr;
 
-private:
-	void   Write(puchar pP, uint16_t wSize);
+    private:
+        void   Write(puchar pP, uint16_t wSize);
 
 };
 

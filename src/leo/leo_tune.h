@@ -58,15 +58,15 @@
 #define __LEO_TUNE_H__
 
 enum leo_tune_t {
-	MIN_PROB = 80,
-	MIN_REC_PROB = 80,
-	MIN_DIG_PROB = 100,
-	MIN_LTR_PROB = 100,
-	MID_LTR_PROB = 150,
-	MIN_GOOD_PROB = 200,
-	MIN_REC_VIT = 240,
-	MIN_REC_VIT1 = 240,
-	MIN_TAB_PROB = 229
+    MIN_PROB = 80,
+    MIN_REC_PROB = 80,
+    MIN_DIG_PROB = 100,
+    MIN_LTR_PROB = 100,
+    MID_LTR_PROB = 150,
+    MIN_GOOD_PROB = 200,
+    MIN_REC_VIT = 240,
+    MIN_REC_VIT1 = 240,
+    MIN_TAB_PROB = 229
 };
 
 #endif

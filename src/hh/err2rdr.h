@@ -59,18 +59,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MAX_TRANS_FRM 10
 
-typedef struct tagRdrJob
-{
+typedef struct tagRdrJob {
     char        ImgFile[256];
     char        FieldID[16];
     int32_t       FieldInd;
 
 #ifndef FORMREADER
     Rect16      rcFieldIdeal;
-	Rect16      rcFieldCurr;
-	Rect16      rcFieldPrev;
+    Rect16      rcFieldCurr;
+    Rect16      rcFieldPrev;
 #else
-	Rect16      rcFieldId;
+    Rect16      rcFieldId;
     char        FrmFile[256];
     char        FrmFilesAdd[MAX_TRANS_FRM][256];
     char        reserved[256];
@@ -78,6 +77,6 @@ typedef struct tagRdrJob
 
 } tRdrJob;
 
-    #define ID_ERR2RDR_MSG      3432
+#define ID_ERR2RDR_MSG      3432
 
 #endif

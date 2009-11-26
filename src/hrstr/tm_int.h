@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static int16_t check_TM (cell **first_cell);
 static int16_t badvertProjectionTM (cell *predcessor, cell *successor,
-						int16_t TM_left, int16_t TM_right);
+                                    int16_t TM_left, int16_t TM_right);
 static int16_t  create_new_bas (cell *first, int16_t cmps);
 static int16_t try_TM (cell **first, int16_t num);
 static void ReRecogComponents (int16_t mode);

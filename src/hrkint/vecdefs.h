@@ -62,49 +62,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct tagChunk;  // forward definition
 
-typedef struct bw_segment
-{
- int16_t b;
- int16_t w;
- struct tagChunk * box;
- #define SEG_DELIM -0x7000
+typedef struct bw_segment {
+    int16_t b;
+    int16_t w;
+    struct tagChunk * box;
+#define SEG_DELIM -0x7000
 } BWS;
 
 
 typedef struct tagChunk {
-BWS *		 	first_int;      // If != NULL structure is in use
-struct tagChunk * 	master;		// Master chunk (can be NULL)
-struct tagChunk * 	dragon;		// Chunk who is ate this chunk
-int32_t			area;		// area in pixels
-int16_t			height,
-			yline;		// y offset of chunk in letter box
-int16_t			nintervals;	// number of intervals
-uint16_t			wide : 1,       // wide chunk
-			v_deleted : 1;  // chunk was deleted
-#define MAX_CHUNK	64
+    BWS *           first_int;      // If != NULL structure is in use
+    struct tagChunk *   master;     // Master chunk (can be NULL)
+    struct tagChunk *   dragon;     // Chunk who is ate this chunk
+    int32_t         area;       // area in pixels
+    int16_t         height,
+    yline;      // y offset of chunk in letter box
+    int16_t         nintervals; // number of intervals
+    uint16_t            wide : 1,       // wide chunk
+    v_deleted : 1;  // chunk was deleted
+#define MAX_CHUNK   64
 } Chunk;
 
 
 
 typedef struct tagSegmVersion {
-uchar s;    // segment code
-#define UNREC_SEG	100
-int16_t prob; // probability
+    uchar s;    // segment code
+#define UNREC_SEG   100
+    int16_t prob; // probability
 } SegmVersion;
 
 typedef struct tagSegment {
-#define MAX_VERS	3
-#define MAX_SEG		48
-SegmVersion sgm[MAX_VERS+1];
-RecVector * chunk;
+#define MAX_VERS    3
+#define MAX_SEG     48
+    SegmVersion sgm[MAX_VERS+1];
+    RecVector * chunk;
 } Segment;
 
 
 typedef struct tagSegmRec {
-uint16_t segm;
-uint16_t let;
-uchar prob;
-#define MAX_REC_SEG		14
+    uint16_t segm;
+    uint16_t let;
+    uchar prob;
+#define MAX_REC_SEG     14
 } SegmRec;
 
 #endif

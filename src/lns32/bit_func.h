@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __BIT_FUNC_H
-#	define __BIT_FUNC_H
+#   define __BIT_FUNC_H
 
 #ifndef __LNSLANG_H
 #  include "lnslang.h"
@@ -84,38 +84,38 @@ extern const uchar first_bit1_pos[256];
 #define low_byte( some_word )    (    (uchar)some_word             )
 
 #define left_byte( some_word )      ( low_byte( some_word )       )
-#define right_byte( some_word )     ( hi_byte( some_word ) 			)
+#define right_byte( some_word )     ( hi_byte( some_word )          )
 
 #define lr_word( le_byte, ri_byte )   ( (ri_byte << 8) + le_byte )
 #define hl_word( hi_byte, lo_byte )   ( (hi_byte << 8) + lo_byte )
 
-#define FIRST_BIT_IN_BYTE( bb )     (	first_bit1_pos[ bb ] )     // 0..7; 8 if none
+#define FIRST_BIT_IN_BYTE( bb )     (   first_bit1_pos[ bb ] )     // 0..7; 8 if none
 
-#define set_bit_to_1( to_word, bit_num )	( (to_word) |= bit_word[ bit_num  ] )
-#define set_bit_to_0( to_word, bit_num )	( (to_word) &= ~bit_word[ bit_num ] )
-#define is_bit( in_word, bit_num )  		( (in_word) & bit_word[ bit_num   ] )
+#define set_bit_to_1( to_word, bit_num )    ( (to_word) |= bit_word[ bit_num  ] )
+#define set_bit_to_0( to_word, bit_num )    ( (to_word) &= ~bit_word[ bit_num ] )
+#define is_bit( in_word, bit_num )          ( (in_word) & bit_word[ bit_num   ] )
 
 // for reversed data images (TIFF 'II')
-#define set_bit_to_1_inv( to_word, bit_num )	( (to_word) |= lbit_word[ bit_num  ] )
-#define set_bit_to_0_inv( to_word, bit_num )	( (to_word) &= ~lbit_word[ bit_num ] )
-#define is_bit_inv( in_word, bit_num )  		( (in_word) & lbit_word[ bit_num   ] )
-		// returns 0x0000 if bit "i" is 0 in "in_word"
+#define set_bit_to_1_inv( to_word, bit_num )    ( (to_word) |= lbit_word[ bit_num  ] )
+#define set_bit_to_0_inv( to_word, bit_num )    ( (to_word) &= ~lbit_word[ bit_num ] )
+#define is_bit_inv( in_word, bit_num )          ( (in_word) & lbit_word[ bit_num   ] )
+// returns 0x0000 if bit "i" is 0 in "in_word"
 
 #define bit0_count( in_word )  \
-	( 	bit0_cnt[ hi_byte(in_word) ] + bit0_cnt[ low_byte(in_word) ] )
+    (   bit0_cnt[ hi_byte(in_word) ] + bit0_cnt[ low_byte(in_word) ] )
 #define bit1_count( in_word )  \
-	( 	bit1_cnt[ hi_byte(in_word) ] + bit1_cnt[ low_byte(in_word) ] )
+    (   bit1_cnt[ hi_byte(in_word) ] + bit1_cnt[ low_byte(in_word) ] )
 
-#define left_part_0( of_word )      											  		\
-	(  left_byte( of_word ) ?             										  		\
-			lr_word( left_0[ left_byte(of_word) ],	0xFF ) 							\
-		: 	lr_word( 0x00,	left_0[ right_byte(of_word) ] )                    \
-	)
+#define left_part_0( of_word )                                                          \
+    (  left_byte( of_word ) ?                                                           \
+            lr_word( left_0[ left_byte(of_word) ],  0xFF )                          \
+        :   lr_word( 0x00,  left_0[ right_byte(of_word) ] )                    \
+    )
 
-#define right_part_0( of_word )    														\
-	(  right_byte( of_word ) ?            												\
-			lr_word( 0xFF, right_0[ right_byte(of_word) ])     					\
-		:	lr_word( right_0[ left_byte(of_word) ], 0x00 )							\
-	)
+#define right_part_0( of_word )                                                         \
+    (  right_byte( of_word ) ?                                                          \
+            lr_word( 0xFF, right_0[ right_byte(of_word) ])                      \
+        :   lr_word( right_0[ left_byte(of_word) ], 0x00 )                          \
+    )
 
 #endif  // __BIT_FUNC_H

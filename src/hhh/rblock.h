@@ -60,9 +60,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RBLOCK__
-  #define RBLOCK_FUNC  FUN_EXPO
+#define RBLOCK_FUNC  FUN_EXPO
 #else
-  #define RBLOCK_FUNC  FUN_IMPO
+#define RBLOCK_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RBLOCK_MAXNAME 260
 
 
-RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,Handle hStorage);
+RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode, Handle hStorage);
 RBLOCK_FUNC(Bool32) RBLOCK_Done();
 RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode();
 RBLOCK_FUNC(char *) RBLOCK_GetReturnString(uint32_t dwError);
@@ -79,30 +79,29 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 
-typedef enum
-{
-		RBLOCK_FNRBLOCK_ExtractTextBlocks = 1,
-		RBLOCK_FNRBLOCK_ExtractTextStrings,
-		RBLOCK_FNRBLOCK_GetAnglePage,
-		RBLOCK_FNRBLOCK_ProgressStart,
-		RBLOCK_FNRBLOCK_ProgressStep,
-		RBLOCK_FNRBLOCK_ProgressFinish,
-        RBLOCK_Bool32_SearchPicture,
-		RBLOCK_Bool32_OneColumn
+typedef enum {
+    RBLOCK_FNRBLOCK_ExtractTextBlocks = 1,
+    RBLOCK_FNRBLOCK_ExtractTextStrings,
+    RBLOCK_FNRBLOCK_GetAnglePage,
+    RBLOCK_FNRBLOCK_ProgressStart,
+    RBLOCK_FNRBLOCK_ProgressStep,
+    RBLOCK_FNRBLOCK_ProgressFinish,
+    RBLOCK_Bool32_SearchPicture,
+    RBLOCK_Bool32_OneColumn
 
 } RBLOCK_EXPORT_ENTRIES;
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC(a) b c
 
-DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM, Handle hCPAGE, Handle hCLINE));
-DEC_FUN(Bool32, RBLOCK_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
-DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator));
+DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks, (Handle hCCOM, Handle hCPAGE, Handle hCLINE));
+DEC_FUN(Bool32, RBLOCK_ExtractTextStrings, (Handle hCCOM, Handle hCPAGE));
+DEC_FUN(Bool32, RBLOCK_GetAnglePage, (Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator));
 #undef DEC_FUN
 
 typedef void   (*FNRBLOCK_ProgressStart)( void );
-typedef	Bool32 (*FNRBLOCK_ProgressStep)(uint32_t perc);
-typedef	void   (*FNRBLOCK_ProgressFinish)( void );
+typedef Bool32 (*FNRBLOCK_ProgressStep)(uint32_t perc);
+typedef void   (*FNRBLOCK_ProgressFinish)( void );
 
 
 #pragma pack (pop)

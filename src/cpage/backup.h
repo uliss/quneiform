@@ -61,26 +61,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class BACKUPPAGE : public PAGE
 {
-public:
-	PtrList<PAGE> BackUpPage;
-	Handle		  hCurBackUp;
+    public:
+        PtrList<PAGE> BackUpPage;
+        Handle        hCurBackUp;
 
-public:
-	BACKUPPAGE();
-	virtual ~BACKUPPAGE();
+    public:
+        BACKUPPAGE();
+        virtual ~BACKUPPAGE();
 
-	void Clear();
-	Handle BackUp(Handle backup = NULL);
-	Bool32 Redo(Handle backup);
-	Bool32 Undo(Handle backup);
+        void Clear();
+        Handle BackUp(Handle backup = NULL);
+        Bool32 Redo(Handle backup);
+        Bool32 Undo(Handle backup);
 
-	Bool32 Save(Handle to);
-	Bool32 SaveCompress(Handle to);
-	Bool32 Restore(Handle from);
-	Bool32 RestoreCompress(Handle from);
+        Bool32 Save(Handle to);
+        Bool32 SaveCompress(Handle to);
+        Bool32 Restore(Handle from);
+        Bool32 RestoreCompress(Handle from);
 
-	BACKUPPAGE & operator = (BACKUPPAGE & Page);
-	inline uint32_t GetCurPos(){ return BackUpPage.GetPos(hCurBackUp);};
+        BACKUPPAGE & operator = (BACKUPPAGE & Page);
+        inline uint32_t GetCurPos() {
+            return BackUpPage.GetPos(hCurBackUp);
+        };
 
 
 };
@@ -89,37 +91,37 @@ public:
 // for debug functions
 #endif
 
- void   SetReturnCode_cpage(uint16_t rc);
- uint16_t GetReturnCode_cpage();
+void   SetReturnCode_cpage(uint16_t rc);
+uint16_t GetReturnCode_cpage();
 
 void DefConvertInit();
 uint32_t DefConvertBlock( uint32_t dwContext,
-					Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-					Handle TypeOut,void * LpDataOut, uint32_t SizeOut);
+                          Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
+                          Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
 uint32_t DefConvertPage( uint32_t dwContext,
-					Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-					Handle TypeOut,void * LpDataOut, uint32_t SizeOut);
-void CleanData(Handle Type,void * lpData,uint32_t Size);
+                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
+                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
+void CleanData(Handle Type, void * lpData, uint32_t Size);
 Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size);
 Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize);
 Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize);
 
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,uint32_t SizeIn,CPAGE_TABLE * LpDataOut,uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,uint32_t SizeIn,TABLE_DESC * LpDataOut,uint32_t SizeOut);
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,uint32_t SizeIn,CPAGE_PICTURE * LpDataOut,uint32_t SizeOut);
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,uint32_t SizeIn,POLY_ * LpDataOut,uint32_t SizeOut);
+uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
+uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
+uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE * LpDataOut, uint32_t SizeOut);
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
 
 #ifdef DPUMA_ON
-	Handle	ProfileProlog();
-	void	ProfileEpilog(Handle prev);
+Handle  ProfileProlog();
+void    ProfileEpilog(Handle prev);
 
-	#define PROLOG Handle	hProfile = ProfileProlog()
-	#define EPILOG ProfileEpilog(hProfile)
+#define PROLOG Handle   hProfile = ProfileProlog()
+#define EPILOG ProfileEpilog(hProfile)
 
 #else
 
-	#define PROLOG
-	#define EPILOG
+#define PROLOG
+#define EPILOG
 
 #endif
 

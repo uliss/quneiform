@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     \note  Используется в RLTable и MZoning
 */
 bool MakeDingFromLine (RLT_DINGPOOL *pDingPool, const RLT_LINEPOOL *pLinePool
-    , const RLT_PARAM *pParam, const int32_t SkewReg);
+                       , const RLT_PARAM *pParam, const int32_t SkewReg);
 /**
     \brief Функция летописи эволюции обобщённых линий
     \param pLinePool [in] - массив обобщённых линий
@@ -85,7 +85,7 @@ bool MakeDingFromLine (RLT_DINGPOOL *pDingPool, const RLT_LINEPOOL *pLinePool
     \note  Используется только в RLTable
 */
 void EvolFor_MakeDing (const RLT_LINEPOOL *pLinePool, int *pForw, int *pBack, const int MyMaxL
-    , const int StepAlg);
+                       , const int StepAlg);
 /**
     \brief Функция удаления лишних и добавления отсутствующих разделителей
     \param pDingPool [in/out] - массив разделителей
@@ -97,5 +97,5 @@ void EvolFor_MakeDing (const RLT_LINEPOOL *pLinePool, int *pForw, int *pBack, co
     \note  Используется только в RLTable
 */
 bool DelAndAddDing (RLT_DINGPOOL *pDingPool, int *pForw, int *pBack, const int MyMaxL
-    , const int StepAlg, const RLT_REVIDING *pReviDing);
+                    , const int StepAlg, const RLT_REVIDING *pReviDing);
 /*------------------------------------------------------------------------------------------------*/

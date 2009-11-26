@@ -61,54 +61,57 @@
 #include "cttypes.h"
 
 typedef struct tagCompressHeader {
-	Bool16 bCompressed;
-	uchar cRepeater;
-	uchar reserved;
-	uint32_t wCount;
+    Bool16 bCompressed;
+    uchar cRepeater;
+    uchar reserved;
+    uint32_t wCount;
 } CompressHeader;
 
-class DATA {
-public:
-	Handle Type;
-	uint32_t Size;
-	char * lpData;
+class DATA
+{
+    public:
+        Handle Type;
+        uint32_t Size;
+        char * lpData;
 
-public:
-	DATA();
-	virtual ~DATA();
+    public:
+        DATA();
+        virtual ~DATA();
 
-	Bool32 SetData(Handle type, void * lpData, uint32_t Size);
-	uint32_t GetData(Handle type, void * lpData, uint32_t Size);
-	inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
-		Bool32 rc = FALSE;
-		assert(lpdata);
-		if (type == Type) {
-			*lpdata = lpData;
-			rc = TRUE;
-		}
-		return rc;
-	}
+        Bool32 SetData(Handle type, void * lpData, uint32_t Size);
+        uint32_t GetData(Handle type, void * lpData, uint32_t Size);
+        inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
+            Bool32 rc = FALSE;
+            assert(lpdata);
 
-	inline Handle GetType() {
-		return Type;
-	}
+            if (type == Type) {
+                *lpdata = lpData;
+                rc = TRUE;
+            }
 
-	inline Handle SetType(Handle dwType) {
-		Handle old = Type;
-		Type = dwType;
-		return old;
-	}
+            return rc;
+        }
 
-	DATA & operator =(DATA & data);
-	Bool32 operator ==(DATA & data);
+        inline Handle GetType() {
+            return Type;
+        }
 
-public:
-	virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
+        inline Handle SetType(Handle dwType) {
+            Handle old = Type;
+            Type = dwType;
+            return old;
+        }
 
-	Bool32 Save(Handle to);
-	Bool32 Restore(Handle from);
-	Bool32 SaveCompress(Handle to);
-	Bool32 RestoreCompress(Handle from);
+        DATA & operator =(DATA & data);
+        Bool32 operator ==(DATA & data);
+
+    public:
+        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
+
+        Bool32 Save(Handle to);
+        Bool32 Restore(Handle from);
+        Bool32 SaveCompress(Handle to);
+        Bool32 RestoreCompress(Handle from);
 };
 
 #endif

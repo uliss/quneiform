@@ -60,178 +60,218 @@ void MyDelete(void* vElem, int size_type);
 void MyDeleteAll(void* vRoot, void* vTail, int size_type);
 void* MyNew(int size_type);
 
-template<class TYPE> class LIST {
-public:
+template<class TYPE> class LIST
+{
+    public:
 
-	TYPE* m_root;
-	TYPE* m_tail;
-	int m_count;
+        TYPE* m_root;
+        TYPE* m_tail;
+        int m_count;
 
-	LIST() {
-		m_root = NULL;
-		m_tail = NULL;
-		m_count = 0;
-	}
+        LIST() {
+            m_root = NULL;
+            m_tail = NULL;
+            m_count = 0;
+        }
 
-	~LIST() {
-	}
+        ~LIST() {
+        }
 
-	TYPE* GetRoot() {
-		return m_root;
-	}
+        TYPE* GetRoot() {
+            return m_root;
+        }
 
-	TYPE* GetTail() {
-		return m_tail;
-	}
+        TYPE* GetTail() {
+            return m_tail;
+        }
 
-	TYPE* GetNext(TYPE* now);
-	TYPE* Add();
-	void Attach(TYPE* att);
-	Bool Detach(TYPE* det);
-	TYPE* RealAdd();
-	void Del(TYPE* now);
-	void RealDelAll();
-	Bool IfExistElem(TYPE* now);
-	void FastDel() {
-		TYPE* temp;
-		while (m_root) {
-			temp = m_root;
-			m_root = m_root->next;
-			MyDelete(temp, sizeof(TYPE));
-		}
-		m_count = 0;
-		m_tail = NULL;
-	}
+        TYPE* GetNext(TYPE* now);
+        TYPE* Add();
+        void Attach(TYPE* att);
+        Bool Detach(TYPE* det);
+        TYPE* RealAdd();
+        void Del(TYPE* now);
+        void RealDelAll();
+        Bool IfExistElem(TYPE* now);
+        void FastDel() {
+            TYPE* temp;
+
+            while (m_root) {
+                temp = m_root;
+                m_root = m_root->next;
+                MyDelete(temp, sizeof(TYPE));
+            }
+
+            m_count = 0;
+            m_tail = NULL;
+        }
 };
 
-template<class TYPE> TYPE* LIST<TYPE>::GetNext(TYPE* now) {
-	if (!now)
-		return NULL;
-	return now->next;
+template<class TYPE> TYPE* LIST<TYPE>::GetNext(TYPE* now)
+{
+    if (!now)
+        return NULL;
+
+    return now->next;
 }
 
-template<class TYPE> TYPE* LIST<TYPE>::Add() {
-	TYPE* temp = NULL;
-	temp = (TYPE*) MyNew(sizeof(TYPE));
-	if (!temp)
-		return NULL;
-	if (!m_root)
-		m_root = m_tail = temp;
-	else {
-		m_tail->next = temp;
-		m_tail = temp;
-	}
-	m_count++;
-	temp->next = NULL;
-	return temp;
+template<class TYPE> TYPE* LIST<TYPE>::Add()
+{
+    TYPE* temp = NULL;
+    temp = (TYPE*) MyNew(sizeof(TYPE));
+
+    if (!temp)
+        return NULL;
+
+    if (!m_root)
+        m_root = m_tail = temp;
+
+    else {
+        m_tail->next = temp;
+        m_tail = temp;
+    }
+
+    m_count++;
+    temp->next = NULL;
+    return temp;
 }
 
-template<class TYPE> TYPE* LIST<TYPE>::RealAdd() {
-	TYPE* temp = NULL;
-	temp = new TYPE;
-	if (!temp)
-		return NULL;
-	if (!m_root)
-		m_root = m_tail = temp;
-	else {
-		m_tail->next = temp;
-		m_tail = temp;
-	}
-	m_count++;
-	temp->next = NULL;
-	return temp;
+template<class TYPE> TYPE* LIST<TYPE>::RealAdd()
+{
+    TYPE* temp = NULL;
+    temp = new TYPE;
+
+    if (!temp)
+        return NULL;
+
+    if (!m_root)
+        m_root = m_tail = temp;
+
+    else {
+        m_tail->next = temp;
+        m_tail = temp;
+    }
+
+    m_count++;
+    temp->next = NULL;
+    return temp;
 }
 
-template<class TYPE> void LIST<TYPE>::Del(TYPE* now) {
-	if (!now)
-		return;
-	if (!m_root)
-		return;
-	if (now == m_root) {
-		if (m_root == m_tail) {
-			MyDelete(m_root, sizeof(TYPE));
-			m_root = m_tail = NULL;
-		} else {
-			m_root = m_root->next;
-			MyDelete(now, sizeof(TYPE));
-		}
-		m_count--;
-		return;
-	}
-	TYPE* temp = m_root;
-	while (temp->next && temp->next != now)
-		temp = temp->next;
-	if (!temp->next)
-		return;
-	temp->next = now->next;
-	if (m_tail == now)
-		m_tail = temp;
-	MyDelete(now, sizeof(TYPE));
-	m_count--;
+template<class TYPE> void LIST<TYPE>::Del(TYPE* now)
+{
+    if (!now)
+        return;
+
+    if (!m_root)
+        return;
+
+    if (now == m_root) {
+        if (m_root == m_tail) {
+            MyDelete(m_root, sizeof(TYPE));
+            m_root = m_tail = NULL;
+        }
+
+        else {
+            m_root = m_root->next;
+            MyDelete(now, sizeof(TYPE));
+        }
+
+        m_count--;
+        return;
+    }
+
+    TYPE* temp = m_root;
+
+    while (temp->next && temp->next != now)
+        temp = temp->next;
+
+    if (!temp->next)
+        return;
+
+    temp->next = now->next;
+
+    if (m_tail == now)
+        m_tail = temp;
+
+    MyDelete(now, sizeof(TYPE));
+    m_count--;
 }
 
-template<class TYPE> void LIST<TYPE>::RealDelAll() {
-	TYPE* temp;
-	while (m_root) {
-		temp = m_root;
-		m_root = m_root->next;
-		delete temp;
-	}
-	m_count = 0;
-	m_tail = NULL;
+template<class TYPE> void LIST<TYPE>::RealDelAll()
+{
+    TYPE* temp;
+
+    while (m_root) {
+        temp = m_root;
+        m_root = m_root->next;
+        delete temp;
+    }
+
+    m_count = 0;
+    m_tail = NULL;
 }
 
-template<class TYPE> Bool LIST<TYPE>::IfExistElem(TYPE* now) {
-	if (!now)
-		return FALSE;
-	if (!m_root)
-		return FALSE;
-	TYPE* temp = m_root;
-	while (temp) {
-		if (temp == now)
-			return TRUE;
-		temp = temp->next;
-	}
-	return FALSE;
+template<class TYPE> Bool LIST<TYPE>::IfExistElem(TYPE* now)
+{
+    if (!now)
+        return FALSE;
+
+    if (!m_root)
+        return FALSE;
+
+    TYPE* temp = m_root;
+
+    while (temp) {
+        if (temp == now)
+            return TRUE;
+
+        temp = temp->next;
+    }
+
+    return FALSE;
 }
 
-template<class TYPE> void LIST<TYPE>::Attach(TYPE* att) {
-	if (!m_root)
-		m_root = m_tail = att;
-	else {
-		m_tail->next = att;
-		m_tail = att;
-	}
-	m_count++;
-	att->next = NULL;
+template<class TYPE> void LIST<TYPE>::Attach(TYPE* att)
+{
+    if (!m_root)
+        m_root = m_tail = att;
+
+    else {
+        m_tail->next = att;
+        m_tail = att;
+    }
+
+    m_count++;
+    att->next = NULL;
 }
 
-template<class TYPE> Bool LIST<TYPE>::Detach(TYPE* det) {
-	if (!m_root)
-		return FALSE;
+template<class TYPE> Bool LIST<TYPE>::Detach(TYPE* det)
+{
+    if (!m_root)
+        return FALSE;
 
-	TYPE* now = m_root;
-	TYPE* prev = NULL;
+    TYPE* now = m_root;
+    TYPE* prev = NULL;
 
-	while (now) {
-		if (now == det) {
-			if (prev)
-				prev->next = now->next;
-			else
-				m_root = now->next;
+    while (now) {
+        if (now == det) {
+            if (prev)
+                prev->next = now->next;
 
-			if (!now->next)
-				m_tail = prev;
+            else
+                m_root = now->next;
 
-			m_count--;
+            if (!now->next)
+                m_tail = prev;
 
-			return TRUE;
-		}
+            m_count--;
+            return TRUE;
+        }
 
-		prev = now;
-		now = now->next;
-	}
+        prev = now;
+        now = now->next;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 

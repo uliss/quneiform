@@ -24,61 +24,62 @@
 #include "common/exception.h"
 #include "lang_def.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class Alphabet
 {
-public:
-    Alphabet();
-    virtual ~Alphabet();
+    public:
+        Alphabet();
+        virtual ~Alphabet();
 
-    /**
-     * Adds symbol in alphabet
-     * @param pos
-     */
-    void addSymbol(size_t code);
+        /**
+         * Adds symbol in alphabet
+         * @param pos
+         */
+        void addSymbol(size_t code);
 
-    /**
-     * Exports alphabet to table, that have to be char array[0-alphabet_size]
-     * Existed symbol exported as 1, non-existent as 0 at array position == symbol code
-     */
-    void exportToTable(char * table);
+        /**
+         * Exports alphabet to table, that have to be char array[0-alphabet_size]
+         * Existed symbol exported as 1, non-existent as 0 at array position == symbol code
+         */
+        void exportToTable(char * table);
 
-    /**
-     * Checks if symbol with given code exists in alphabet
-     * @param code symbol
-     * @return true if exists
-     */
-    bool isCode(size_t code);
+        /**
+         * Checks if symbol with given code exists in alphabet
+         * @param code symbol
+         * @return true if exists
+         */
+        bool isCode(size_t code);
 
-    /**
-     * Returns alphabet language
-     */
-    virtual language_t language() const = 0;
+        /**
+         * Returns alphabet language
+         */
+        virtual language_t language() const = 0;
 
-    /**
-     * Removes symbol from alphabet with given code
-     * @param code
-     */
-    void removeSymbol(size_t code);
+        /**
+         * Removes symbol from alphabet with given code
+         * @param code
+         */
+        void removeSymbol(size_t code);
 
-    /**
-     * Returns size of alphabet table
-     * @return
-     */
-    size_t size() const;
+        /**
+         * Returns size of alphabet table
+         * @return
+         */
+        size_t size() const;
 
-    /**
-     * Returns all alphabet characters as string
-     * @return
-     */
-    std::string toString() const;
-protected:
-    // table[0-255]
-    void initFromTable(const char * bits);
-private:
-    std::bitset<256> chars_;
-    friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
+        /**
+         * Returns all alphabet characters as string
+         * @return
+         */
+        std::string toString() const;
+    protected:
+        // table[0-255]
+        void initFromTable(const char * bits);
+    private:
+        std::bitset<256> chars_;
+        friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
 };
 
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);

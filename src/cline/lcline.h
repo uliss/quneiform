@@ -63,13 +63,15 @@ class CInterval;
 
 class CInterval
 {
-public:
-  DInterval data;
+    public:
+        DInterval data;
 
-  CInterval* next;
+        CInterval* next;
 
-  CInterval(){next=NULL;}
-  ~CInterval(){};
+        CInterval() {
+            next = NULL;
+        }
+        ~CInterval() {};
 
 };
 
@@ -78,15 +80,17 @@ class CEvent;
 
 class CEvent
 {
-public:
-  DEvent data;
+    public:
+        DEvent data;
 
-  LIST<CInterval> m_interval;
+        LIST<CInterval> m_interval;
 
-  CEvent* next;
+        CEvent* next;
 
-  CEvent(){next=NULL;};
-  ~CEvent(){};
+        CEvent() {
+            next = NULL;
+        };
+        ~CEvent() {};
 
 };
 
@@ -99,15 +103,17 @@ class CCutPoint;
 
 class CCutPoint
 {
-public:
-  DCutPoint data;
+    public:
+        DCutPoint data;
 
-  LIST<CInterval>  m_interval;
+        LIST<CInterval>  m_interval;
 
-  CCutPoint* next;
+        CCutPoint* next;
 
-  CCutPoint(){next=NULL;};
-  ~CCutPoint(){};
+        CCutPoint() {
+            next = NULL;
+        };
+        ~CCutPoint() {};
 };
 
 #define  InitialPointHasCrossPoint  1  //defines for Component
@@ -118,13 +124,15 @@ class CComponent;
 
 class CComponent
 {
-public:
-  DComponent data;
+    public:
+        DComponent data;
 
-  CComponent* next;
+        CComponent* next;
 
-  CComponent(){next=NULL;};
-  ~CComponent(){};
+        CComponent() {
+            next = NULL;
+        };
+        ~CComponent() {};
 };
 
 
@@ -132,17 +140,19 @@ class CLine;
 
 class CLine
 {
-public:
-  DLine data;
+    public:
+        DLine data;
 
-  LIST<CEvent>     m_event;                 // фрагменты
-  LIST<CCutPoint>  m_cut_point;             // точки пересечения с ортогональными линиями
-  LIST<CComponent> m_comp;                  // компоненты линии с признаками точек пересечения
+        LIST<CEvent>     m_event;                 // фрагменты
+        LIST<CCutPoint>  m_cut_point;             // точки пересечения с ортогональными линиями
+        LIST<CComponent> m_comp;                  // компоненты линии с признаками точек пересечения
 
- CLine* next;
+        CLine* next;
 
-CLine(){next=NULL;};
-~CLine(){};
+        CLine() {
+            next = NULL;
+        };
+        ~CLine() {};
 
 };
 
@@ -151,38 +161,43 @@ class CHLine;
 
 class CHLine
 {
-public:
-	LIST<CLine>                   m_line;
+    public:
+        LIST<CLine>                   m_line;
 
-	CHLine* next;
-	uint32_t reserv;
+        CHLine* next;
+        uint32_t reserv;
 
-	CHLine(){next=NULL;}
-	~CHLine(){}
+        CHLine() {
+            next = NULL;
+        }
+        ~CHLine() {}
 };
 
 class CInvMem;
 
 class CMem
 {
-public:
-	void* lp;
-	CMem* next;
-	CMem(){next=NULL;lp=NULL;}
-	~CMem(){}
+    public:
+        void* lp;
+        CMem* next;
+        CMem() {
+            next = NULL;
+            lp = NULL;
+        }
+        ~CMem() {}
 };
 
 class CAllMem
 {
-public:
- LIST<CMem> pInvMas;
- LIST<CMem> pEventMas;
- LIST<CMem> pCompMas;
- LIST<CMem> pCupointMas;
- LIST<CMem> pLineMas;
- LIST<CMem> pHLineMas;
- CAllMem(){};
- ~CAllMem(){};
+    public:
+        LIST<CMem> pInvMas;
+        LIST<CMem> pEventMas;
+        LIST<CMem> pCompMas;
+        LIST<CMem> pCupointMas;
+        LIST<CMem> pLineMas;
+        LIST<CMem> pHLineMas;
+        CAllMem() {};
+        ~CAllMem() {};
 };
 
 

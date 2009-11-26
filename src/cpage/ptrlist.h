@@ -63,53 +63,53 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mymem.h"
 
 #ifndef IS_VALID
-	#define IS_VALID(a)
+#define IS_VALID(a)
 #endif
 
 template<class TYPE> class PtrList
 {
-protected:
-	TYPE Data;
+    protected:
+        TYPE Data;
 
-private:
-	PtrList * Bot;// для корня - TAIL, остальные NEXT
-	PtrList * Top;// для корня - HEAD, остальные PREV
+    private:
+        PtrList * Bot;// для корня - TAIL, остальные NEXT
+        PtrList * Top;// для корня - HEAD, остальные PREV
 
-protected:
-	void * operator new ( size_t stAllocateBlock );
-	void   operator delete( void * mem );
+    protected:
+        void * operator new ( size_t stAllocateBlock );
+        void   operator delete( void * mem );
 
 
-public:
-	PtrList() ;
-	~PtrList();
+    public:
+        PtrList() ;
+        ~PtrList();
 
-	void Clear();
+        void Clear();
 
-	Handle AddTail(TYPE & Data);
-	Handle AddHead(TYPE & Data);
+        Handle AddTail(TYPE & Data);
+        Handle AddHead(TYPE & Data);
 
-	bool   Del(Handle ptr);
+        bool   Del(Handle ptr);
 
-	TYPE & GetHead(Handle & hPos);
-	TYPE & GetTail(Handle & hPos);
-	TYPE & GetNext(Handle & hPos);
-	TYPE & GetPrev(Handle & hPos);
+        TYPE & GetHead(Handle & hPos);
+        TYPE & GetTail(Handle & hPos);
+        TYPE & GetNext(Handle & hPos);
+        TYPE & GetPrev(Handle & hPos);
 
-	int	GetCount();
+        int GetCount();
 
-	TYPE & GetItem(Handle hPos);
-	int    GetPos(Handle hPos);
-	Handle GetHandle(int Number);
+        TYPE & GetItem(Handle hPos);
+        int    GetPos(Handle hPos);
+        Handle GetHandle(int Number);
 
-	Handle FindFirst(TYPE & type);
-	Handle FindNext(TYPE & type,Handle hPos);
+        Handle FindFirst(TYPE & type);
+        Handle FindNext(TYPE & type, Handle hPos);
 };
 
 //#################################
 template<class TYPE> PtrList<TYPE>::PtrList()
 {
-	Top = Bot = NULL;
+    Top = Bot = NULL;
 }
 //#################################
 template<class TYPE> PtrList<TYPE>::~PtrList()
@@ -118,209 +118,208 @@ template<class TYPE> PtrList<TYPE>::~PtrList()
 //#################################
 template<class TYPE> int PtrList<TYPE>::GetCount()
 {
-	PtrList * tmp;
-	int i;
+    PtrList * tmp;
+    int i;
 
-	for(i=0,tmp=Top;tmp;i++,tmp=tmp->Bot) IS_VALID(tmp);
-return i;
+    for (i = 0, tmp = Top; tmp; i++, tmp = tmp->Bot) IS_VALID(tmp);
+
+    return i;
 }
 //#################################
 template<class TYPE> Handle PtrList<TYPE>::AddTail(TYPE & tpData)
 {
-	PtrList * NewItem = new PtrList;
+    PtrList * NewItem = new PtrList;
 
-	if(NewItem)
-	{
-		NewItem->Data = tpData;
-		if(Bot == NULL)
-		{
-			Top = Bot = NewItem;
-		}
-		else {
-			Bot->Bot = NewItem;
-			NewItem->Top = Bot;
-			Bot = NewItem;
-			}
-	}
+    if (NewItem) {
+        NewItem->Data = tpData;
 
-return NewItem;
+        if (Bot == NULL) {
+            Top = Bot = NewItem;
+        }
+
+        else {
+            Bot->Bot = NewItem;
+            NewItem->Top = Bot;
+            Bot = NewItem;
+        }
+    }
+
+    return NewItem;
 }
 //#################################
 template<class TYPE> Handle PtrList<TYPE>::AddHead(TYPE & tpData)
 {
-	PtrList * NewItem = new PtrList;
-	if(NewItem)
-	{
-		NewItem->Data = tpData;
+    PtrList * NewItem = new PtrList;
 
-		if(Top == NULL)
-		{
-			Top = Bot = NewItem;
-		}
-		else {
-			Top->Top = NewItem;
-			NewItem->Bot = Top;
-			Top = NewItem;
-			}
-	}
-return NewItem;
+    if (NewItem) {
+        NewItem->Data = tpData;
+
+        if (Top == NULL) {
+            Top = Bot = NewItem;
+        }
+
+        else {
+            Top->Top = NewItem;
+            NewItem->Bot = Top;
+            Top = NewItem;
+        }
+    }
+
+    return NewItem;
 }
 //#################################
 template<class TYPE> bool  PtrList<TYPE>::Del(Handle ptr)
 {
-	PtrList * p = (PtrList *)ptr;
-	if(ptr)
-	{
-		IS_VALID(ptr);
+    PtrList * p = (PtrList *)ptr;
 
-		PtrList * top = p->Top;
-		PtrList * bot = p->Bot;
+    if (ptr) {
+        IS_VALID(ptr);
+        PtrList * top = p->Top;
+        PtrList * bot = p->Bot;
 
-		if(top)
-		{
-			IS_VALID(top);
-			top->Bot = bot;
-		}
-		else
-			Top = bot;
+        if (top) {
+            IS_VALID(top);
+            top->Bot = bot;
+        }
 
-		if(bot)
-		{
-			IS_VALID(bot);
-			bot->Top = top;
-		}
-		else
-			Bot = top;
+        else
+            Top = bot;
 
-		delete p;
-		return true;
-	}
-return false;
+        if (bot) {
+            IS_VALID(bot);
+            bot->Top = top;
+        }
+
+        else
+            Bot = top;
+
+        delete p;
+        return true;
+    }
+
+    return false;
 }
 //#################################
 template<class TYPE> TYPE & PtrList<TYPE>::GetHead(Handle & hPos)
 {
-	IS_VALID(Top);
-
-	hPos = Top;
-
-	return Top->Data;
+    IS_VALID(Top);
+    hPos = Top;
+    return Top->Data;
 }
 //#################################
 template<class TYPE> TYPE & PtrList<TYPE>::GetTail(Handle & hPos)
 {
-	IS_VALID(Bot);
-
-	hPos = Bot;
-
-	return Bot->Data;
+    IS_VALID(Bot);
+    hPos = Bot;
+    return Bot->Data;
 }
 //#################################
 template<class TYPE> TYPE & PtrList<TYPE>::GetNext(Handle & pos)
 {
-	IS_VALID(pos);
+    IS_VALID(pos);
+    PtrList * tmp = (PtrList *)pos;
 
-	PtrList * tmp = (PtrList *)pos;
+    if (tmp->Bot)
+        pos = tmp->Bot;
 
-	if(tmp->Bot)
-		pos = tmp->Bot;
-	return tmp->Data;
+    return tmp->Data;
 }
 //#################################
 template<class TYPE> TYPE & PtrList<TYPE>::GetPrev(Handle & pos)
 {
-	IS_VALID(pos);
+    IS_VALID(pos);
+    PtrList * tmp = (PtrList *)pos;
 
-	PtrList * tmp = (PtrList *)pos;
+    if (tmp->Top)
+        pos = tmp->Top;
 
-	if(tmp->Top)
-		pos = tmp->Top;
-	return tmp->Data;
+    return tmp->Data;
 }
 //#################################
 template<class TYPE> Handle PtrList<TYPE>::GetHandle(int pos)
 {
-	int i;
-	PtrList * rc = NULL;
-	PtrList * tmp;
+    int i;
+    PtrList * rc = NULL;
+    PtrList * tmp;
 
-	for(i=0,tmp=Top; tmp && i!=pos;i++,tmp=tmp->Bot) IS_VALID(tmp);
-	if(i==pos)
-		rc = tmp;
+    for (i = 0, tmp = Top; tmp && i != pos; i++, tmp = tmp->Bot) IS_VALID(tmp);
 
-return rc;
+    if (i == pos)
+        rc = tmp;
+
+    return rc;
 }
 //#################################
 template<class TYPE> int PtrList<TYPE>::GetPos(Handle handle)
 {
-	int i;
-	PtrList * tmp;
+    int i;
+    PtrList * tmp;
+    IS_VALID(handle);
 
-	IS_VALID(handle);
+    for (i = 0, tmp = Top; tmp && tmp != handle; i++, tmp = tmp->Bot) IS_VALID(tmp);
 
-	for(i=0,tmp=Top; tmp && tmp!=handle;i++,tmp=tmp->Bot) IS_VALID(tmp);
-	if(!tmp)
-		i = -1;
-return i;
+    if (!tmp)
+        i = -1;
+
+    return i;
 }
 //#################################
 template<class TYPE> TYPE & PtrList<TYPE>::GetItem(Handle pos)
 {
-	IS_VALID(pos);
-	return ((PtrList *)pos)->Data;
+    IS_VALID(pos);
+    return ((PtrList *)pos)->Data;
 }
 //#################################
 template<class TYPE> void PtrList<TYPE>::Clear()
 {
-	PtrList * curr = Top;
-	while(curr)
-	{
-	  IS_VALID(curr);
+    PtrList * curr = Top;
 
-	  PtrList * next = curr->Bot;
-	  Del(curr);
-	  curr = next;
-	}
+    while (curr) {
+        IS_VALID(curr);
+        PtrList * next = curr->Bot;
+        Del(curr);
+        curr = next;
+    }
 }
 //#################################
 template<class TYPE> void * PtrList<TYPE>:: operator new ( size_t stAllocateBlock )
 {
-	return myAlloc(stAllocateBlock);
+    return myAlloc(stAllocateBlock);
 }
 //#################################
 template<class TYPE> void   PtrList<TYPE>::operator delete( void * mem )
 {
-	myFree(mem);
+    myFree(mem);
 }
 //#################################
-template<class TYPE>	Handle PtrList<TYPE>::FindFirst(TYPE & type)
+template<class TYPE>    Handle PtrList<TYPE>::FindFirst(TYPE & type)
 {
-	Handle rc = NULL;
-	PtrList * tmp = Top;
-	for(;tmp;tmp=tmp->Bot)
-	{
-		if(type == tmp->Data)
-		{
-			rc = tmp;
-			break;
-		}
-	}
-	return rc;
+    Handle rc = NULL;
+    PtrList * tmp = Top;
+
+    for (; tmp; tmp = tmp->Bot) {
+        if (type == tmp->Data) {
+            rc = tmp;
+            break;
+        }
+    }
+
+    return rc;
 }
 //#################################
-template<class TYPE>	Handle PtrList<TYPE>::FindNext(TYPE & type,Handle hPos)
+template<class TYPE>    Handle PtrList<TYPE>::FindNext(TYPE & type, Handle hPos)
 {
-	Handle rc = NULL;
-	PtrList * tmp = hPos;
-	for(tmp=tmp->Bot;tmp;tmp=tmp->Bot)
-	{
-		if(type == tmp->Data)
-		{
-			rc = tmp;
-			break;
-		}
-	}
-	return rc;
+    Handle rc = NULL;
+    PtrList * tmp = hPos;
+
+    for (tmp = tmp->Bot; tmp; tmp = tmp->Bot) {
+        if (type == tmp->Data) {
+            rc = tmp;
+            break;
+        }
+    }
+
+    return rc;
 }
 
 #endif

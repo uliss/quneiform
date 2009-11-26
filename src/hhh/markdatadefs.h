@@ -61,43 +61,40 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Основные рабочие объекты при разметке.                      */
 /*  Назначение :  Унификация алгоритмов разметки и обработки сырья.           */
 /*----------------------------------------------------------------------------*/
-typedef enum
-{
-	UN_DT_Unknown = 0,
-	UN_DT_LinesTotalInfo,
-	UN_DT_LineInfo,
-	UN_DT_Rect16,
-	UN_DT_RltLinePool,
-	UN_DT_RltLine,
-	UN_DT_ClineLine
+typedef enum {
+    UN_DT_Unknown = 0,
+    UN_DT_LinesTotalInfo,
+    UN_DT_LineInfo,
+    UN_DT_Rect16,
+    UN_DT_RltLinePool,
+    UN_DT_RltLine,
+    UN_DT_ClineLine
 } UN_DATATYPES;
-typedef enum
-{
-	UN_DA_Unknown = 0,
-	UN_DA_Hori,
-	UN_DA_Vert,
-	UN_DA_Linii,
-	UN_DA_Polosy,
-	UN_DA_CompReal,
-	UN_DA_CompIdeal,
-	UN_DA_PictReal,
-	UN_DA_PictIdeal,
-	UN_DA_UnknownZone,
-	UN_DA_NormalZone,
-	UN_DA_NormalRazrezZone,
-	UN_DA_CommerZone,
-	UN_DA_NegTextCap,
-	UN_DA_NegTablCap
+typedef enum {
+    UN_DA_Unknown = 0,
+    UN_DA_Hori,
+    UN_DA_Vert,
+    UN_DA_Linii,
+    UN_DA_Polosy,
+    UN_DA_CompReal,
+    UN_DA_CompIdeal,
+    UN_DA_PictReal,
+    UN_DA_PictIdeal,
+    UN_DA_UnknownZone,
+    UN_DA_NormalZone,
+    UN_DA_NormalRazrezZone,
+    UN_DA_CommerZone,
+    UN_DA_NegTextCap,
+    UN_DA_NegTablCap
 } UN_DATAAIMS;
-typedef enum
-{
-	UN_LD_Unknown = 0,
-	UN_LD_LinesVP,
-	UN_LD_LinesVP2,
-	UN_LD_CompRe,
-	UN_LD_CompId,
-	UN_LD_PictRe,
-	UN_LD_PictId,
-	UN_LD_LinesAM
+typedef enum {
+    UN_LD_Unknown = 0,
+    UN_LD_LinesVP,
+    UN_LD_LinesVP2,
+    UN_LD_CompRe,
+    UN_LD_CompId,
+    UN_LD_PictRe,
+    UN_LD_PictId,
+    UN_LD_LinesAM
 } UN_LOADDATA;
 /*----------------------------------------------------------------------------*/

@@ -57,8 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////
 // class XFile : C++ layer for file operations;
 // based on open(), read(), write(), close() set of C-funcs;
-// Features:	auto-closing,
-// 		template reading-writing (TagRead(), TagWrite())
+// Features:    auto-closing,
+//      template reading-writing (TagRead(), TagWrite())
 //
 // 1997, Postnikov
 ///////////////////////////////////////////////////////////
@@ -89,102 +89,140 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define O_BINARY 0
 #endif
 
-enum XFileOpenMode
-{  XF_UNDEFINED = 0,
-   XF_READ      = O_RDONLY|O_BINARY,
-   XF_READ_TXT  = O_RDONLY,
-   XF_WRITE     = O_WRONLY|O_CREAT|O_TRUNC|O_BINARY,
-   XF_WRITE_TXT = O_WRONLY|O_CREAT|O_TRUNC,
-   XF_RDWR      = O_RDWR|O_CREAT|O_BINARY,
-   XF_APPEND    = O_WRONLY|O_CREAT|O_APPEND|O_BINARY
+enum XFileOpenMode {  XF_UNDEFINED = 0,
+                      XF_READ      = O_RDONLY | O_BINARY,
+                      XF_READ_TXT  = O_RDONLY,
+                      XF_WRITE     = O_WRONLY | O_CREAT | O_TRUNC | O_BINARY,
+                      XF_WRITE_TXT = O_WRONLY | O_CREAT | O_TRUNC,
+                      XF_RDWR      = O_RDWR | O_CREAT | O_BINARY,
+                      XF_APPEND    = O_WRONLY | O_CREAT | O_APPEND | O_BINARY
                    };
 class XFile
 {
-   // internal attributes
-   int            hnd;
-   XFileOpenMode  mode;
-   Err16          err;
-   void  Zero(void) { hnd=-1; mode = XF_UNDEFINED; err = ER_NONE; };
-public:
-   // status
-   Bool  operator !() const  { return !IsReady(); };
-   Bool  IsReady(void) const { return hnd != -1;  };
-   Err16 GetError() const    { return err;        };
+        // internal attributes
+        int            hnd;
+        XFileOpenMode  mode;
+        Err16          err;
+        void  Zero(void) {
+            hnd = -1;
+            mode = XF_UNDEFINED;
+            err = ER_NONE;
+        };
+    public:
+        // status
+        Bool  operator !() const  {
+            return !IsReady();
+        };
+        Bool  IsReady(void) const {
+            return hnd != -1;
+        };
+        Err16 GetError() const    {
+            return err;
+        };
 
-   // construction & initialization
-   XFile(void) { Zero(); };
-   XFile(char* name, XFileOpenMode _mode) { Zero(); Open( name, _mode ); };
-   XFile( XFile & xf ) { if (xf.hnd != -1){ assert(0); }; }; // no copy for opened files!
-   ~XFile(void) { Close(); };
+        // construction & initialization
+        XFile(void) {
+            Zero();
+        };
+        XFile(char* name, XFileOpenMode _mode) {
+            Zero();
+            Open( name, _mode );
+        };
+        XFile( XFile & xf ) {
+            if (xf.hnd != -1) {
+                assert(0);
+            };
+        }; // no copy for opened files!
+        ~XFile(void) {
+            Close();
+        };
 
 #if _MSC_VER
-   int32_t  Commit(void) { return (hnd != -1) ? FlushFileBuffers((Handle) _get_osfhandle(hnd)) : -1; };
+        int32_t  Commit(void) {
+            return (hnd != -1) ? FlushFileBuffers((Handle) _get_osfhandle(hnd)) : -1;
+        };
 #else
-   int32_t  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
+        int32_t  Commit(void) {
+            return (hnd != -1) ? fsync(hnd) : -1;
+        };
 #endif
-   Bool32 Open(char* name, XFileOpenMode mode_)
-   {
-      assert(hnd==-1);
-      mode = mode_;
-      hnd  = stdOpen( name, mode );
-      if (hnd == -1)
-      {
-         err = ER_CANTOPEN;
-         return FALSE;
-      };
-      return TRUE;
-   };
+        Bool32 Open(char* name, XFileOpenMode mode_) {
+            assert(hnd == -1);
+            mode = mode_;
+            hnd  = stdOpen( name, mode );
 
-   Bool  Close(void)
-   {
-      if (hnd!= -1)
-      {  int n = stdClose(hnd);
-         hnd = -1;
-         return n == 0;
-      };
-      return TRUE;
-   };
+            if (hnd == -1) {
+                err = ER_CANTOPEN;
+                return FALSE;
+            };
 
-   Bool  Read( void* p, int32_t size )
-      {  int32_t nr=nRead(p, size);
-         return nr >=0 && size == nr;
-      };
+            return TRUE;
+        };
 
-   Bool  Write( void* p, int32_t size )
-      {  int32_t nw=nWrite(p, size);
-         return nw >=0 && size == nw;
-      };
+        Bool  Close(void) {
+            if (hnd != -1) {
+                int n = stdClose(hnd);
+                hnd = -1;
+                return n == 0;
+            };
 
-   int32_t nRead( void* p, int32_t size )
-   {  if (size ==0)
-         {  return 0;  };
-      if (hnd  == -1)
-         { err = ER_NOTREADY; return -1; };
-      return stdRead(hnd, p, size);   // char* - for Mac's
-   };
+            return TRUE;
+        };
 
-   int32_t nWrite( void* p, int32_t size )
-   {  if (size ==0)
-         {  return 0;  };
-      if (hnd  == -1)
-         { err = ER_NOTREADY; return -1; };
-      return stdWrite(hnd, p, size);  // char* - for Mac's
-   };
+        Bool  Read( void* p, int32_t size ) {
+            int32_t nr = nRead(p, size);
+            return nr >= 0 && size == nr;
+        };
 
-   int32_t Tell(void)
-      { return stdTell(hnd); };
+        Bool  Write( void* p, int32_t size ) {
+            int32_t nw = nWrite(p, size);
+            return nw >= 0 && size == nw;
+        };
 
-   int32_t nSeek( int32_t offset, int32_t set = SEEK_SET )
-      { return stdSeek(hnd, offset, set); };
+        int32_t nRead( void* p, int32_t size ) {
+            if (size == 0) {
+                return 0;
+            };
 
-   Bool32 Seek( int32_t offset ) // set from start to pos, true - success
-   {  if (hnd ==-1 || offset < 0)
-         return FALSE;
-      return nSeek(offset, SEEK_SET) == offset;
-   };
+            if (hnd  == -1) {
+                err = ER_NOTREADY;
+                return -1;
+            };
 
-   int32_t GetLength( void )
-      {   return stdFileLength(hnd); };
+            return stdRead(hnd, p, size);   // char* - for Mac's
+        };
+
+        int32_t nWrite( void* p, int32_t size ) {
+            if (size == 0) {
+                return 0;
+            };
+
+            if (hnd  == -1) {
+                err = ER_NOTREADY;
+                return -1;
+            };
+
+            return stdWrite(hnd, p, size);  // char* - for Mac's
+        };
+
+        int32_t Tell(void) {
+            return stdTell(hnd);
+        };
+
+        int32_t nSeek( int32_t offset, int32_t set = SEEK_SET ) {
+            return stdSeek(hnd, offset, set);
+        };
+
+        Bool32 Seek( int32_t offset ) { // set from start to pos, true - success
+            if (hnd == -1 || offset < 0)
+                return FALSE;
+
+            return nSeek(offset, SEEK_SET) == offset;
+        };
+
+        int32_t GetLength( void ) {
+            return stdFileLength(hnd);
+        };
 };
 
 /*** "Omnitag" reading/writing functions *************/
@@ -192,13 +230,15 @@ public:
 
 template <class T>
 Bool32  TagRead( XFile& xf, T& t )
-   {  return xf.Read( (void*)&t, sizeof(t) );
-   }
+{
+    return xf.Read( (void*)&t, sizeof(t) );
+}
 
 template <class T>
 Bool32  TagWrite( XFile& xf, T& t )
-   {  return xf.Write( (void*)&t, sizeof(t) );
-   }
+{
+    return xf.Write( (void*)&t, sizeof(t) );
+}
 
 #endif // NO_OMNITAG_IO
 

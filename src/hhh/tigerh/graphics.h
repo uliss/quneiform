@@ -68,23 +68,23 @@ void _setcolor (int color);
 #define _GBORDER 1
 //#define _GPIXELBORDER _GBORDER
 //#define _GSCREENBORDER 2
-void _rectangle (int t,int left,int top,int right,int bottom);
+void _rectangle (int t, int left, int top, int right, int bottom);
 void _getfillmask (char * OldMask);
 void _setfillmask (char * OldMask);
-void _moveto (int x,int y);
-void _lineto (int x,int y);
+void _moveto (int x, int y);
+void _lineto (int x, int y);
 void _setlinestyle (int style);
 
 struct textsettings {
-	int height;
-	int width;
+    int height;
+    int width;
 };
 void _gettextsettings (struct textsettings *ts);
 #define _RIGHT 0
 #define _TOP 1
 #define _CENTER 2
 #define _HALF 3
-void _settextalign (int right,int top);
+void _settextalign (int right, int top);
 void _setcharsize (int n1, int n2);
 void _grtext (int x, int y, const char * text);
 unsigned _getlinestyle ();
@@ -94,22 +94,22 @@ Bool snapAutofont(uchar a); // Andrew Theer
 int LT_Getch (void);
 // 16.10.2001 (George Fedorov)
 // 16 цветов в порядке, заданном DOS (см. хэлп к MENUCOLOR )
-   #define	_COLOR_BLACK	     0   // черный
-   #define	_COLOR_DBLUE       1   // темно-синий
-   #define	_COLOR_DGREEN      2   // темно-зеленый
-   #define	_COLOR_DCYAN       3   // темно-бирюзовый (dark cyan)
-   #define	_COLOR_DRED 	     4   // темно-красный
-   #define	_COLOR_DMAGENTA 	 5   // темно-розовый (/малиновый/фиолетовый)
-   #define	_COLOR_BROWN  		 6   // коричневый
-   #define	_COLOR_GRAY   		 7   // светло-серый
-   #define	_COLOR_DGRAY  		 8   // темно-серый
-   #define	_COLOR_BLUE   		 9   // синий
-   #define	_COLOR_GREEN  		 10  // ярко-зеленый
-   #define	_COLOR_CYAN   		 11  // светло-бирюзовый
-   #define	_COLOR_RED    		 12  // ярко-красный
-   #define	_COLOR_MAGENTA		 13  // сиреневый (/розовый)
-   #define	_COLOR_YELLOW 		 14  // желтый
-   #define	_COLOR_WHITE  		 15  // белый
+#define  _COLOR_BLACK         0   // черный
+#define  _COLOR_DBLUE       1   // темно-синий
+#define  _COLOR_DGREEN      2   // темно-зеленый
+#define  _COLOR_DCYAN       3   // темно-бирюзовый (dark cyan)
+#define  _COLOR_DRED          4   // темно-красный
+#define  _COLOR_DMAGENTA      5   // темно-розовый (/малиновый/фиолетовый)
+#define  _COLOR_BROWN         6   // коричневый
+#define  _COLOR_GRAY          7   // светло-серый
+#define  _COLOR_DGRAY         8   // темно-серый
+#define  _COLOR_BLUE          9   // синий
+#define  _COLOR_GREEN         10  // ярко-зеленый
+#define  _COLOR_CYAN          11  // светло-бирюзовый
+#define  _COLOR_RED           12  // ярко-красный
+#define  _COLOR_MAGENTA       13  // сиреневый (/розовый)
+#define  _COLOR_YELLOW        14  // желтый
+#define  _COLOR_WHITE         15  // белый
 
 #define _COLOR_BACKGROUND _COLOR_DMAGENTA
 #define _COLOR_TEXT       _COLOR_DCYAN

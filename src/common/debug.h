@@ -23,44 +23,46 @@
 
 #include "singleton.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class DebugImpl
 {
-public:
-    DebugImpl() :
-        null_(0) {
+    public:
+        DebugImpl() :
+                null_(0) {
 #ifndef NDEBUG
-        os_ = &std::cerr;
+            os_ = &std::cerr;
 #else
-        os_ = &null_;
+            os_ = &null_;
 #endif
-    }
+        }
 
-    ~DebugImpl() {
-        os_->flush();
-    }
+        ~DebugImpl() {
+            os_->flush();
+        }
 
-    std::ostream& null() {
-        return null_;
-    }
+        std::ostream& null() {
+            return null_;
+        }
 
-    template<class T>
-    std::ostream& operator<<(const T& val) {
-        (*os_) << val;
-        return *os_;
-    }
+        template<class T>
+        std::ostream& operator<<(const T& val) {
+            (*os_) << val;
+            return *os_;
+        }
 
-    void setOutput(std::ostream& os) {
-        os_->flush();
-        os_ = &os;
-    }
-private:
-    std::ostream * os_;
-    std::ostream null_;
+        void setOutput(std::ostream& os) {
+            os_->flush();
+            os_ = &os;
+        }
+    private:
+        std::ostream * os_;
+        std::ostream null_;
 };
 
-inline DebugImpl& Debug() {
+inline DebugImpl& Debug()
+{
     return Singleton<DebugImpl>::instance();
 }
 

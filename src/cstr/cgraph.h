@@ -67,40 +67,40 @@ extern uint16_t wLowRC;
 
 //32
 typedef struct CGRAPH_Data {
-	int16_t upper;
-	int16_t left;
-	int16_t h;
-	int16_t w;
-	int16_t numcomp;
-	int16_t size_linerep;
+    int16_t upper;
+    int16_t left;
+    int16_t h;
+    int16_t w;
+    int16_t numcomp;
+    int16_t size_linerep;
 
-	uchar scale;
+    uchar scale;
 
-	Bool32 uvers;
-	Bool32 env;
-	Bool32 loop;
+    Bool32 uvers;
+    Bool32 env;
+    Bool32 loop;
 
-	uchar Reserved[7];
+    uchar Reserved[7];
 } data;
 
 //32
 typedef struct CGRAPH_FileData {
-	uint16_t FileVer;
-	uint16_t MaxLineVer;
+    uint16_t FileVer;
+    uint16_t MaxLineVer;
 
-	uchar Reserved[28];
+    uchar Reserved[28];
 } FileData;
 
 typedef struct ALoop {
-	int32_t n;
-	intptr_t *loop;
+    int32_t n;
+    intptr_t *loop;
 } aloop;
 
 typedef struct LoopData {
-	int32_t beg;
-	int32_t end;
-	int32_t level;
-	int32_t loop;
+    int32_t beg;
+    int32_t end;
+    int32_t level;
+    int32_t loop;
 } ld;
 
 #endif

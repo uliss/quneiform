@@ -60,36 +60,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RPIC__
-  #define RPIC_FUNC  FUN_EXPO
+#define RPIC_FUNC  FUN_EXPO
 #else
-  #define RPIC_FUNC  FUN_IMPO
+#define RPIC_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
 
-RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
+RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode, Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
 RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
 RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError);
 RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData);
 RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData);
 
-typedef enum
-{
-		RPIC_FNRPIC_SearchPictures
+typedef enum {
+    RPIC_FNRPIC_SearchPictures
 } RPIC_EXPORT_ENTRIES;
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RPIC_FUNC(a) b c
-DEC_FUN(Bool32, RPIC_SearchPictures,(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE));
+DEC_FUN(Bool32, RPIC_SearchPictures, (Handle hCCOM, Handle hCCOM_big, Handle hCPAGE));
 #undef DEC_FUN
 
-struct _RPIC_Comp_Rect
-{
-	int16_t upper;                   // upper boundary of component
-	int16_t left;                    // left boundary of component
-	int16_t h;                       // height of component
-	int16_t w;                       // width of component
+struct _RPIC_Comp_Rect {
+    int16_t upper;                   // upper boundary of component
+    int16_t left;                    // left boundary of component
+    int16_t h;                       // height of component
+    int16_t w;                       // width of component
 };
 typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
 

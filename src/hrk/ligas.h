@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __LIGAS__
 
 //#include "face_lng.h"
-#include "cttypes.h"	// uchar 01.09.2000 E.P.
-#include "lang_def.h"	// 12.09.2000 E.P.
+#include "cttypes.h"    // uchar 01.09.2000 E.P.
+#include "lang_def.h"   // 12.09.2000 E.P.
 
 #define ligas_beg       0xb1
 #define liga_fi         0xb1
@@ -84,55 +84,55 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // При добавлении новой макры нужно добавить в
 // space_ligas() в SPACE.C, а также
 // correct_let_tables() в ACC_TABS.C и PROPTAB.C
-#define liga_i			((uchar)(is_cen_language(language)?liga_i_latin:\
-						(is_baltic_language(language)?liga_i_baltic:liga_i_usual)))
-#define liga_exm		((uchar)(is_cen_language(language)?liga_exm_latin:liga_exm_usual))
-#define liga_inv_exm	((uchar)(is_cen_language(language)?liga_inv_exm_latin:liga_inv_exm_usual))
-#define right_quocket	((uchar)(is_cen_language(language)?right_quocket_latin:\
-						(is_baltic_language(language)?right_quocket_baltic:right_quocket_usual)))
+#define liga_i          ((uchar)(is_cen_language(language)?liga_i_latin:\
+                        (is_baltic_language(language)?liga_i_baltic:liga_i_usual)))
+#define liga_exm        ((uchar)(is_cen_language(language)?liga_exm_latin:liga_exm_usual))
+#define liga_inv_exm    ((uchar)(is_cen_language(language)?liga_inv_exm_latin:liga_inv_exm_usual))
+#define right_quocket   ((uchar)(is_cen_language(language)?right_quocket_latin:\
+                        (is_baltic_language(language)?right_quocket_baltic:right_quocket_usual)))
 
-#define liga_CC			((uchar)(is_cen_language(language)?liga_CC_latin:\
-						(is_baltic_language(language)?liga_CC_baltic:\
-						(is_turkish_language(language)?liga_CC_turkish:liga_CC_usual))))
+#define liga_CC         ((uchar)(is_cen_language(language)?liga_CC_latin:\
+                        (is_baltic_language(language)?liga_CC_baltic:\
+                        (is_turkish_language(language)?liga_CC_turkish:liga_CC_usual))))
 
-#define liga_CR			((uchar)(is_cen_language(language)?liga_CR_latin:\
-						(is_baltic_language(language)?liga_CR_baltic:\
-						(is_turkish_language(language)?liga_CR_turkish:liga_CR_usual))))
+#define liga_CR         ((uchar)(is_cen_language(language)?liga_CR_latin:\
+                        (is_baltic_language(language)?liga_CR_baltic:\
+                        (is_turkish_language(language)?liga_CR_turkish:liga_CR_usual))))
 
-#define liga_bull		((uchar)(is_cen_language(language)?liga_bull_latin:\
-						(is_baltic_language(language)?liga_bull_baltic:\
-						(is_turkish_language(language)?liga_bull_turkish:liga_bull_usual))))
+#define liga_bull       ((uchar)(is_cen_language(language)?liga_bull_latin:\
+                        (is_baltic_language(language)?liga_bull_baltic:\
+                        (is_turkish_language(language)?liga_bull_turkish:liga_bull_usual))))
 
-#define low_quotes		(language==LANG_RUSSIAN?low_quotes_rus:low_quotes_usual)
+#define low_quotes      (language==LANG_RUSSIAN?low_quotes_rus:low_quotes_usual)
 
-#define liga_TM			((uchar)(is_cen_language(language)?liga_TM_latin:\
-						(is_baltic_language(language)?liga_TM_baltic:\
-						(is_turkish_language(language)?liga_TM_turkish:liga_TM_usual))))
+#define liga_TM         ((uchar)(is_cen_language(language)?liga_TM_latin:\
+                        (is_baltic_language(language)?liga_TM_baltic:\
+                        (is_turkish_language(language)?liga_TM_turkish:liga_TM_usual))))
 
 #define AA_bottom_accent ((uchar)(is_baltic_language(language)?AA_bottom_accent_baltic:AA_bottom_accent_latin))
 #define a_bottom_accent  ((uchar)(is_baltic_language(language)?a_bottom_accent_baltic:a_bottom_accent_latin))
 #define EE_bottom_accent ((uchar)(is_baltic_language(language)?EE_bottom_accent_baltic:EE_bottom_accent_latin))
 #define e_bottom_accent  ((uchar)(is_baltic_language(language)?e_bottom_accent_baltic:e_bottom_accent_latin))
 
-#define SS_inv_roof		 ((uchar)(is_baltic_language(language)?SS_inv_roof_baltic:SS_inv_roof_latin))
-#define s_inv_roof		 ((uchar)(is_baltic_language(language)?s_inv_roof_baltic:s_inv_roof_latin))
+#define SS_inv_roof      ((uchar)(is_baltic_language(language)?SS_inv_roof_baltic:SS_inv_roof_latin))
+#define s_inv_roof       ((uchar)(is_baltic_language(language)?s_inv_roof_baltic:s_inv_roof_latin))
 
 #define SS_bottom_accent ((uchar)(is_turkish_language(language)?SS_bottom_accent_turkish:SS_bottom_accent_latin))
-#define s_bottom_accent	 ((uchar)(is_turkish_language(language)?s_bottom_accent_turkish:s_bottom_accent_latin))
+#define s_bottom_accent  ((uchar)(is_turkish_language(language)?s_bottom_accent_turkish:s_bottom_accent_latin))
 
-#define ZZ_inv_roof		 ((uchar)(is_baltic_language(language)?ZZ_inv_roof_baltic:ZZ_inv_roof_latin))
-#define z_inv_roof		 ((uchar)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
+#define ZZ_inv_roof      ((uchar)(is_baltic_language(language)?ZZ_inv_roof_baltic:ZZ_inv_roof_latin))
+#define z_inv_roof       ((uchar)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
 
 
 // Лиги для cp1250 30.08.2000 E.P.
-#define liga_i_latin		  0xa0 // 0xba
+#define liga_i_latin          0xa0 // 0xba
 #define liga_exm_latin        0x90 // 0xbc  // ! with dot
 #define liga_inv_exm_latin    0    // 0xbe выкинуть
 #define right_quocket_latin   0xa2 // 0xd8  // >>
 #define liga_CC_latin         0xa9 // 0xdd  // Copyright in Circle
 #define liga_CR_latin         0xae // 0xde  // ® (R) in Circle
-#define liga_bull_latin		  0xff // 0xfe bullet
-#define liga_TM_latin		  0xa8 // 0xd0
+#define liga_bull_latin       0xff // 0xfe bullet
+#define liga_TM_latin         0xa8 // 0xd0
 
 // Following codes should agree with
 // leftlig_cen[] and rightlig_cen[] in SPACES.C
@@ -197,32 +197,32 @@ is_ligas_lat(let))))
 #define ED_WIN_FRENCH   3
 
 #ifdef __MAC__
-	#define ED_VALUE ED_MAC
+#define ED_VALUE ED_MAC
 #else
-    #ifdef WIN_FRENCH
-	#define ED_VALUE ED_WIN_FRENCH
-    #else
-	#define ED_VALUE ED_WIN
-    #endif
+#ifdef WIN_FRENCH
+#define ED_VALUE ED_WIN_FRENCH
+#else
+#define ED_VALUE ED_WIN
+#endif
 #endif
 
 #ifndef __KERNEL__
-        extern  uchar     fEdCode; // Change code letter in module LINUTIL.C
-        extern  uchar     bEdCode[];
+extern  uchar     fEdCode; // Change code letter in module LINUTIL.C
+extern  uchar     bEdCode[];
 #else
-        uchar   fEdCode = 0;  //ASCII
-        uchar   bEdCode[4]={//  ASCII, WIN, MAC, FRN
-                                0xFE,0x95,0xA5,0xB0 // BULLET
-                              };
+uchar   fEdCode = 0;  //ASCII
+uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
+    0xFE, 0x95, 0xA5, 0xB0 // BULLET
+};
 #endif
 
 #define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
 #define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
 
-#define left_quocket		  0xd7    // 0xab  <<
+#define left_quocket          0xd7    // 0xab  <<
 #define right_quocket_usual   0xd8    // 0xad  >>
-#define low_quotes_usual      0x84	  // 31.05.2001 E.P.
-#define low_quotes_rus		  0xd5    //  Pit  0xaf    // ,,
+#define low_quotes_usual      0x84    // 31.05.2001 E.P.
+#define low_quotes_rus        0xd5    //  Pit  0xaf    // ,,
 
 /***** foreign languages symbols ******************/
 
@@ -291,21 +291,21 @@ is_ligas_lat(let))))
 Таблица acc_tab в ACC_TABS.C теперь типа uint16_t, для добавления
 новых типов акцентов. См. также ACCENTS.C. 30.08.2000 E.P.
 */
-#define ACC_LEFT			1
-#define ACC_RIGHT			2
-#define ACC_LR				(ACC_LEFT|ACC_RIGHT)
-#define ACC_ROOF			4
-#define ACC_TILD			8
+#define ACC_LEFT            1
+#define ACC_RIGHT           2
+#define ACC_LR              (ACC_LEFT|ACC_RIGHT)
+#define ACC_ROOF            4
+#define ACC_TILD            8
 #define ACC_2DOT           16
-#define ACC_CIR			   32
-#define ACC_DOT			   64
-#define ACC_UNKNOWN		  127
-#define ACC_SUPERUP		  128
-#define ACC_ROOF_INV	  256
-#define ACC_DOUBLE_RIGHT  512	// HUNGAR 30.08.2000 E.P. Над O, U
-#define ACC_SEMICIRCLE	 1024	// ROMAN 31.08.2000 E.P. Полукруг над А.
-#define ACC_WEAK_ROOF	 2048	// ROMAN 31.05.2001 E.P. Слабый акцент над 'i'
-#define ACC_MACRON		 4096	// LATVIAN 05.07.2001 E.P. Черта сверху над AEIU
+#define ACC_CIR            32
+#define ACC_DOT            64
+#define ACC_UNKNOWN       127
+#define ACC_SUPERUP       128
+#define ACC_ROOF_INV      256
+#define ACC_DOUBLE_RIGHT  512   // HUNGAR 30.08.2000 E.P. Над O, U
+#define ACC_SEMICIRCLE   1024   // ROMAN 31.08.2000 E.P. Полукруг над А.
+#define ACC_WEAK_ROOF    2048   // ROMAN 31.05.2001 E.P. Слабый акцент над 'i'
+#define ACC_MACRON       4096   // LATVIAN 05.07.2001 E.P. Черта сверху над AEIU
 
 // Russian cursiv symbols
 
@@ -322,9 +322,9 @@ is_ligas_lat(let))))
 #ifdef WIN_FRENCH
 // ЇҐаҐЄалў ойЁҐбп бЁ¬ў®«л ­ ЎЁа Ґ¬лҐ ­  Є« ўЁ вгаҐ
 // ў аҐ¦Ё¬Ґ а бЇ®§­ ў ­Ёп да ­жг§бЄ®Ј® п§лЄ 
-	#define KEY_D5   0x91
-	#define KEY_D7   0x92
-	#define KEY_D8   0x93
+#define KEY_D5   0x91
+#define KEY_D7   0x92
+#define KEY_D8   0x93
 #endif
 
 #define liga_TM_usual  0xd0    // TM конфликт с Croatian DD_stroked 31.05.2001
@@ -422,26 +422,26 @@ is_ligas_lat(let))))
 
 // Новые буквы для CZECH, ROMAN, HUNGAR 30.08.2000 E.P.
 // См. также функцию fromcp1250_to_cp852() в ACC_TABS.C
-#define AA_semicircle		0xC3
-#define a_semicircle		0xE3
-#define DD_inv_roof			0xCF
-#define d_inv_roof			0xEF
-#define EE_inv_roof			0xCC
-#define e_inv_roof			0xEC
-#define NN_inv_roof			0xD2
-#define n_inv_roof			0xF2
-#define OO_double_right		0xD5
-#define o_double_right		0xF5
-#define RR_inv_roof			0xD8
-#define r_inv_roof			0xF8
-#define SS_bottom_accent_latin    0xAA	// См. макрос SS_bottom_accent 18.05.2002 E.P.
-#define s_bottom_accent_latin     0xBA	// См. макрос s_bottom_accent  18.05.2002 E.P.
-#define TT_inv_roof			0x8D
-#define t_inv_roof			0x9D
+#define AA_semicircle       0xC3
+#define a_semicircle        0xE3
+#define DD_inv_roof         0xCF
+#define d_inv_roof          0xEF
+#define EE_inv_roof         0xCC
+#define e_inv_roof          0xEC
+#define NN_inv_roof         0xD2
+#define n_inv_roof          0xF2
+#define OO_double_right     0xD5
+#define o_double_right      0xF5
+#define RR_inv_roof         0xD8
+#define r_inv_roof          0xF8
+#define SS_bottom_accent_latin    0xAA  // См. макрос SS_bottom_accent 18.05.2002 E.P.
+#define s_bottom_accent_latin     0xBA  // См. макрос s_bottom_accent  18.05.2002 E.P.
+#define TT_inv_roof         0x8D
+#define t_inv_roof          0x9D
 #define TT_bottom_accent    0xDE
 #define t_bottom_accent     0xFE
-#define UU_double_right		0xDB
-#define u_double_right		0xFB
+#define UU_double_right     0xDB
+#define u_double_right      0xFB
 #define UU_circle_accent    0xD9
 #define u_circle_accent     0xF9
 #define YY_right_accent     0xDD
@@ -457,75 +457,75 @@ is_ligas_lat(let))))
 )
 
 // Лиги для балтийских языков. 05.07.2001 E.P.
-#define low_quotes_baltic	 0x84	// = low_quotes_usual
-#define liga_exm_baltic		 0xbc	// = liga_exm_usual
-#define liga_i_baltic		 0xa0	// = liga_i_latin
-#define right_quocket_baltic 0xa2	// = right_quocket_latin
-#define liga_TM_baltic		 0xa8	// = liga_TM_latin
-#define liga_CC_baltic		 0xa9	// = liga_CC_latin
-#define liga_CR_baltic		 0xae	// = liga_CR_latin
-#define liga_bull_baltic	 0xff	// = liga_bull_latin
+#define low_quotes_baltic    0x84   // = low_quotes_usual
+#define liga_exm_baltic      0xbc   // = liga_exm_usual
+#define liga_i_baltic        0xa0   // = liga_i_latin
+#define right_quocket_baltic 0xa2   // = right_quocket_latin
+#define liga_TM_baltic       0xa8   // = liga_TM_latin
+#define liga_CC_baltic       0xa9   // = liga_CC_latin
+#define liga_CR_baltic       0xae   // = liga_CR_latin
+#define liga_bull_baltic     0xff   // = liga_bull_latin
 
 // Following codes should agree with
 // leftlig_baltic[] and rightlig_baltic[] in SPACE.C
-#define ligas_beg_baltic	0xb1	// except for 0xba
-#define ligas_end_baltic	0xbd	// except for 0xba
+#define ligas_beg_baltic    0xb1    // except for 0xba
+#define ligas_end_baltic    0xbd    // except for 0xba
 
 // Буквы балтийских языков, cp1257. 06.07.2001 E.P.
 /*
-#define AA_2dot_accent      0xc4	   196 = западно-европейская cp1252
-#define a_2dot_accent       0xe4	   228 = западно-европейская cp1252
+#define AA_2dot_accent      0xc4       196 = западно-европейская cp1252
+#define a_2dot_accent       0xe4       228 = западно-европейская cp1252
 */
-#define AA_macron			0xc2	// 194 Макрон есть черта сверху над буквой
-#define a_macron			0xe2	// 226
+#define AA_macron           0xc2    // 194 Макрон есть черта сверху над буквой
+#define a_macron            0xe2    // 226
 #define AA_bottom_accent_baltic 0xc0// 192
-#define a_bottom_accent_baltic	0xe0// 224
+#define a_bottom_accent_baltic  0xe0// 224
 /*
-#define CC_inv_roof			0xc8	   200 = центрально-европейская cp1250
-#define c_inv_roof			0xe8	   232 = центрально-европейская cp1250
+#define CC_inv_roof         0xc8       200 = центрально-европейская cp1250
+#define c_inv_roof          0xe8       232 = центрально-европейская cp1250
 */
-#define EE_macron			0xc7	// 199 Макрон есть черта сверху над буквой
-#define e_macron			0xe7	// 231
+#define EE_macron           0xc7    // 199 Макрон есть черта сверху над буквой
+#define e_macron            0xe7    // 231
 #define EE_bottom_accent_baltic 0xc6// 198
-#define e_bottom_accent_baltic	0xe6// 230
-#define EE_dot_accent		0xcb	// 203 Точка сверху, как над польской буквой ZZ_dot_accent
-#define e_dot_accent		0xeb	// 235 Точка сверху, как над польской буквой z_dot_accent
+#define e_bottom_accent_baltic  0xe6// 230
+#define EE_dot_accent       0xcb    // 203 Точка сверху, как над польской буквой ZZ_dot_accent
+#define e_dot_accent        0xeb    // 235 Точка сверху, как над польской буквой z_dot_accent
 
-#define GG_bottom_accent	0xcc	// 204 Акцент внизу, посередине
-#define LATVIAN_g			0xec	// 236 Акцент над g сверху, различной формы: опрокинутая
-									//     запятая, рог с правым наклоном и т.д.
-#define II_macron			0xce	// 206 Макрон есть черта сверху над буквой
-#define i_macron			0xee	// 238
-#define II_bottom_accent	0xc1	// 193
-#define i_bottom_accent		0xe1	// 225
+#define GG_bottom_accent    0xcc    // 204 Акцент внизу, посередине
+#define LATVIAN_g           0xec    // 236 Акцент над g сверху, различной формы: опрокинутая
+//     запятая, рог с правым наклоном и т.д.
+#define II_macron           0xce    // 206 Макрон есть черта сверху над буквой
+#define i_macron            0xee    // 238
+#define II_bottom_accent    0xc1    // 193
+#define i_bottom_accent     0xe1    // 225
 
-#define KK_bottom_accent	0xcd	// 205
-#define k_bottom_accent		0xed	// 237
+#define KK_bottom_accent    0xcd    // 205
+#define k_bottom_accent     0xed    // 237
 
-#define LL_bottom_accent	0xcf	// 207
-#define l_bottom_accent		0xef	// 239
+#define LL_bottom_accent    0xcf    // 207
+#define l_bottom_accent     0xef    // 239
 
-#define NN_bottom_accent	0xd2	// 210
-#define n_bottom_accent		0xf2	// 242
+#define NN_bottom_accent    0xd2    // 210
+#define n_bottom_accent     0xf2    // 242
 /*
-#define OO_tild_accent      0xd5	   213 = западно-европейская cp1252
-#define o_tild_accent       0xf5	   245 = западно-европейская cp1252
-#define OO_2dot_accent      0xd6	   214 = западно-европейская cp1252
-#define o_2dot_accent       0xf6	   246 = западно-европейская cp1252
+#define OO_tild_accent      0xd5       213 = западно-европейская cp1252
+#define o_tild_accent       0xf5       245 = западно-европейская cp1252
+#define OO_2dot_accent      0xd6       214 = западно-европейская cp1252
+#define o_2dot_accent       0xf6       246 = западно-европейская cp1252
 */
-#define SS_inv_roof_baltic	0xd0	// 208
-#define s_inv_roof_baltic	0xf0	// 240
+#define SS_inv_roof_baltic  0xd0    // 208
+#define s_inv_roof_baltic   0xf0    // 240
 /*
-#define UU_2dot_accent      0xdc	   220 = западно-европейская cp1252
-#define u_2dot_accent       0xfc	   252 = западно-европейская cp1252
+#define UU_2dot_accent      0xdc       220 = западно-европейская cp1252
+#define u_2dot_accent       0xfc       252 = западно-европейская cp1252
 */
-#define UU_bottom_accent	0xd8	// 216
-#define u_bottom_accent		0xf8	// 248
-#define UU_macron			0xdb	// 219
-#define u_macron			0xfb	// 251
+#define UU_bottom_accent    0xd8    // 216
+#define u_bottom_accent     0xf8    // 248
+#define UU_macron           0xdb    // 219
+#define u_macron            0xfb    // 251
 
-#define ZZ_inv_roof_baltic	0xde	// 222
-#define z_inv_roof_baltic	0xfe	// 254
+#define ZZ_inv_roof_baltic  0xde    // 222
+#define z_inv_roof_baltic   0xfe    // 254
 
 // ********************************************************************************
 // Турецкий язык. 18.05.2002 E.P.
@@ -533,37 +533,37 @@ is_ligas_lat(let))))
 #define is_turkish_language(language) ((language)==LANG_TURKISH)
 
 // Лиги для турецкого языка
-#define liga_TM_turkish		 0x99	// 153
-#define liga_CC_turkish		 0xa9	// = liga_CC_latin	= liga_CC_baltic
-#define liga_CR_turkish		 0xae	// = liga_CR_latin	= liga_CR_baltic
-#define liga_bull_turkish	 0x95	// 149
+#define liga_TM_turkish      0x99   // 153
+#define liga_CC_turkish      0xa9   // = liga_CC_latin  = liga_CC_baltic
+#define liga_CR_turkish      0xae   // = liga_CR_latin  = liga_CR_baltic
+#define liga_bull_turkish    0x95   // 149
 
 // Following codes should agree with
 // leftlig_turkish[] and rightlig_turkish[] in SPACE.C
-#define ligas_beg_turkish	0xb1	//
-#define ligas_end_turkish	0xbd	//
+#define ligas_beg_turkish   0xb1    //
+#define ligas_end_turkish   0xbd    //
 
 // Буквы турецкого языка, cp1254.
 /*
-#define AA_roof_accent      0xc2	194 = западно-европейская cp1252
-#define a_roof_accent       0xe2	226 = западно-европейская cp1252
-#define CC_bottom_accent    0xC7	199 = западно-европейская cp1252
-#define c_bottom_accent     0xE7	231 = западно-европейская cp1252
-#define II_roof_accent      0xCE	206 = западно-европейская cp1252
-#define i_roof_accent       0xEE	238 = западно-европейская cp1252
+#define AA_roof_accent      0xc2    194 = западно-европейская cp1252
+#define a_roof_accent       0xe2    226 = западно-европейская cp1252
+#define CC_bottom_accent    0xC7    199 = западно-европейская cp1252
+#define c_bottom_accent     0xE7    231 = западно-европейская cp1252
+#define II_roof_accent      0xCE    206 = западно-европейская cp1252
+#define i_roof_accent       0xEE    238 = западно-европейская cp1252
 */
-#define GG_semicircle		0xd0 //	208
-#define g_semicircle		0xf0 //	240
+#define GG_semicircle       0xd0 // 208
+#define g_semicircle        0xf0 // 240
 /*
-#define OO_2dot_accent      0xD6	214 = западно-европейская cp1252
-#define o_2dot_accent       0xF6	246 = западно-европейская cp1252
-#define UU_roof_accent      0xDB	219 = западно-европейская cp1252
-#define u_roof_accent       0xFB	251 = западно-европейская cp1252
-#define UU_2dot_accent      0xDC	220 = западно-европейская cp1252
-#define u_2dot_accent       0xFC	252 = западно-европейская cp1252
+#define OO_2dot_accent      0xD6    214 = западно-европейская cp1252
+#define o_2dot_accent       0xF6    246 = западно-европейская cp1252
+#define UU_roof_accent      0xDB    219 = западно-европейская cp1252
+#define u_roof_accent       0xFB    251 = западно-европейская cp1252
+#define UU_2dot_accent      0xDC    220 = западно-европейская cp1252
+#define u_2dot_accent       0xFC    252 = западно-европейская cp1252
 */
-#define II_dot_accent		0xdd //	221 = западно-европейская cp1252
-#define i_sans_accent		0xfd //	253 = западно-европейская cp1252
+#define II_dot_accent       0xdd // 221 = западно-европейская cp1252
+#define i_sans_accent       0xfd // 253 = западно-европейская cp1252
 
 #define SS_bottom_accent_turkish    0xde // 222
 #define s_bottom_accent_turkish     0xfe // 254

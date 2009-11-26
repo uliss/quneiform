@@ -58,14 +58,14 @@
 #define _PICTURE_H_
 
 struct env {
-	uint16_t left, top;
-	uint16_t h, w;
+    uint16_t left, top;
+    uint16_t h, w;
 };
 typedef struct env envelope;
 
-#define pic_underkill		1 // if total underlay kill him
-#define pic_overkill		2 // if total overlay kill him
-#define pic_interlace_merge	4 // if interlaced merge
+#define pic_underkill       1 // if total underlay kill him
+#define pic_overkill        2 // if total overlay kill him
+#define pic_interlace_merge 4 // if interlaced merge
 Bool shutdown_pictures(void);
 Bool del_picture(int16_t handle);
 int16_t new_picture(int16_t top, int16_t left, int16_t h, int16_t w, uint16_t mod);
@@ -75,12 +75,12 @@ int16_t merge_pictures(int16_t ha1, int16_t ha2);
 int16_t undo_pictures(puchar pool, uint32_t size);
 
 extern uchar pic_state;
-#define  pic_non_exist	0
-#define  pic_in_core	1
-#define  pic_flushed	2
-#define  pic_any_fail	128
-#define  pic_hard_fail 	(pic_any_fail+1)
-#define  pic_write_fail	(pic_any_fail+2)
-#define  pic_core_fail 	(pic_any_fail+3)
+#define  pic_non_exist  0
+#define  pic_in_core    1
+#define  pic_flushed    2
+#define  pic_any_fail   128
+#define  pic_hard_fail  (pic_any_fail+1)
+#define  pic_write_fail (pic_any_fail+2)
+#define  pic_core_fail  (pic_any_fail+3)
 
 #endif // _PICTURE_H_

@@ -77,9 +77,9 @@ int16_t stat_index_LeftLocMax(int16_t *Y, int16_t k0);
 int16_t stat_index_RightLocMax(int16_t *Y, int16_t k, int16_t k0);
 
 //возвращает индекс минимального элемента массива
-int16_t stat_index_GlobMin(int16_t *Y,int16_t k);
+int16_t stat_index_GlobMin(int16_t *Y, int16_t k);
 
-#define	 __GISTOGRAMMA_H__
+#define  __GISTOGRAMMA_H__
 #endif
 
 

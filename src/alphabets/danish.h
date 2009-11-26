@@ -21,13 +21,14 @@
 
 #include "english.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class DanishAlphabet: public EnglishAlphabet
 {
-public:
-    DanishAlphabet();
-    language_t language() const;
+    public:
+        DanishAlphabet();
+        language_t language() const;
 };
 
 }

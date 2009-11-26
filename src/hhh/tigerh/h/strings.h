@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
   шш                                                              шш
   шш     Copyright (C) 1990 Cognitive Technology Corporation.     шш
-  шш	 All rights reserved. This program is proprietary and     шш
+  шш   All rights reserved. This program is proprietary and     шш
   шш     a trade secret of Cognitive Technology Corporation.      шш
   шш                                                              шш
   шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
@@ -101,48 +101,47 @@ typedef struct _String STRING;
 # define SF_SPECIAL                    0x20
 # define SF_VERTCUT                    0x40
 
-struct _String
-       {
-           STRING *pNext;
-           STRING *pPrev;
+struct _String {
+    STRING *pNext;
+    STRING *pPrev;
 
-           STRING *pUp;
-           STRING *pDown;
+    STRING *pUp;
+    STRING *pDown;
 
-           unsigned uFlags;
-           uchar     language; // Pit 02-??-94
-           int      nBlock;
-	   int      nUserNum;// Piter 08-17-95 06:18pm
+    unsigned uFlags;
+    uchar     language; // Pit 02-??-94
+    int      nBlock;
+    int      nUserNum;// Piter 08-17-95 06:18pm
 
-           int      xLeft;
-           int      yTop;
-           int      xRight;
-           int      yBottom;
+    int      xLeft;
+    int      yTop;
+    int      xRight;
+    int      yBottom;
 
-           uint16_t     wFirst;
-           uint16_t     wLast;
+    uint16_t     wFirst;
+    uint16_t     wLast;
 
-           int      *pLettersList;
-           int      nLetters;
+    int      *pLettersList;
+    int      nLetters;
 
-           int      *pDustList;
-           int      nDust;
+    int      *pDustList;
+    int      nDust;
 
-           int      nRecognized;
-           int      nSpecialsLetters;
+    int      nRecognized;
+    int      nSpecialsLetters;
 
-           int      nMiddleHeight;
+    int      nMiddleHeight;
 
-           int      yMiddleTop;
-           int      yMiddleLine;
-           int      yMiddleBottom;
+    int      yMiddleTop;
+    int      yMiddleLine;
+    int      yMiddleBottom;
 
-           int      nTopDispersion;
-           int      nBottomDispersion;
+    int      nTopDispersion;
+    int      nBottomDispersion;
 
-           int      yMin;
-           int      yMax;
-       };
+    int      yMin;
+    int      yMax;
+};
 
 # define String Tiger_String
 

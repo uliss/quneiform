@@ -57,31 +57,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef COR_SPEL_H_
 #define COR_SPEL_H_
 
-struct vers_ref
-    {
+struct vers_ref {
     uchar   code;
     uchar   prob;
-    };
+};
 
-struct bit_map_ref
-    {
+struct bit_map_ref {
     uchar code;
     uchar pos;
     uint16_t row;
     uint16_t col;
     uint16_t width;
     uint16_t height;
-    } ;
+} ;
 
-struct fragm_disk
-    {
+struct fragm_disk {
     uchar code;
     uchar fragm_numb;
     uint16_t depth;
-    } ;
+} ;
 
-struct fragm_disk_descr
-    {
+struct fragm_disk_descr {
     uchar code;
     uint16_t row;
     uint16_t col;
@@ -92,10 +88,9 @@ struct fragm_disk_descr
     uchar  font;
     uchar  language;
     uchar  type_underl;
-    } ;
+} ;
 
-struct sheet_disk_descr
-    {
+struct sheet_disk_descr {
     uchar code;
     char quant_fragm;
     uint16_t sheet_numb;
@@ -104,6 +99,6 @@ struct sheet_disk_descr
     uint16_t resolution;
     uint16_t  incline;
     char tabl[13];
-    } ;
+} ;
 
 #endif

@@ -74,25 +74,25 @@ typedef Bool32 (*CRPStep)(uint32_t);
 class CRProgressor
 {
 
-public:
-	Bool32 SetStep(uint32_t wPercent);
-	Bool32 Finish(void);
-	Bool32 Start(void);
+    public:
+        Bool32 SetStep(uint32_t wPercent);
+        Bool32 Finish(void);
+        Bool32 Start(void);
 
-public:
-	Bool32 SetExternals(CRPStart pStart, CRPFinish pFinish, CRPStep pStep);
-	CRProgressor();
-	CRProgressor( CRPStart pStart, CRPFinish pFinish, CRPStep pStep);
-	virtual ~CRProgressor();
+    public:
+        Bool32 SetExternals(CRPStart pStart, CRPFinish pFinish, CRPStep pStep);
+        CRProgressor();
+        CRProgressor( CRPStart pStart, CRPFinish pFinish, CRPStep pStep);
+        virtual ~CRProgressor();
 
-protected:
-	Handle hBufferForGray;
-	uint32_t         mwLastPercent;
-	Bool32         mbProgressStarted;
-	CRPFinish      mfFinish;
-	CRPStart       mfStart;
-	CRPStep        mfStep;
-private:
+    protected:
+        Handle hBufferForGray;
+        uint32_t         mwLastPercent;
+        Bool32         mbProgressStarted;
+        CRPFinish      mfFinish;
+        CRPStart       mfStart;
+        CRPStep        mfStep;
+    private:
 };
 ////////////////////////////////////////////////////////////////////////////////
 typedef CRProgressor        *PCRProgressor, **PPCRProgressor;

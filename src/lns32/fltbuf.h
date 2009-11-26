@@ -54,39 +54,43 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-   #ifndef __LNSLANG_H
-   #  include "lnslang.h"
-	#endif
-//	_TYPEDEFFAR( TFltBuf );
+#ifndef __LNSLANG_H
+#  include "lnslang.h"
+#endif
+//  _TYPEDEFFAR( TFltBuf );
 
-	/* 10-05-93 07:11pm, Basil.
-	 * TFltBuf is class that supports buffer of vertical segments
-	 * extraction/filtration. Main function - disjunctLast16()
-	 * returns bitwise disjuncted last 16 lines of b/w tiff image
-	 * Used algorithm of buffer updation by A.Ivanov and V.Postnikov
-	 */
+/* 10-05-93 07:11pm, Basil.
+ * TFltBuf is class that supports buffer of vertical segments
+ * extraction/filtration. Main function - disjunctLast16()
+ * returns bitwise disjuncted last 16 lines of b/w tiff image
+ * Used algorithm of buffer updation by A.Ivanov and V.Postnikov
+ */
 
 
 
 class TFltBuf
-	{
-		private:
-         int32_t  nCurLine;
-         int32_t  widthDWord;
-         int32_t * x16;
-         int32_t * x8;
-         int32_t * x4;
-         int32_t * x2;
-      public:
-         int32_t * cur16;        // disjunct of last 16 lines
-         int32_t * last16;       // disjunct of last 16 lines
+{
+    private:
+        int32_t  nCurLine;
+        int32_t  widthDWord;
+        int32_t * x16;
+        int32_t * x8;
+        int32_t * x4;
+        int32_t * x2;
+    public:
+        int32_t * cur16;        // disjunct of last 16 lines
+        int32_t * last16;       // disjunct of last 16 lines
 
-public:
-TFltBuf		( int width_dword );
-Bool        isOk( void ) { return (x16!=NULL); };
-void        addLine( void* new_line ); // simply fills buffer (by first 16 lines)
-void 			preBuffer( void );  // makes initial disjunct tree (after 16xaddLine())
-void        updateByLine( void* new_line ); // updates tree by next image line
-void 			destroy( void );
-~TFltBuf		( void ) { destroy(); };
-	}; // TFltBuf
+    public:
+        TFltBuf     ( int width_dword );
+        Bool        isOk( void ) {
+            return (x16 != NULL);
+        };
+        void        addLine( void* new_line ); // simply fills buffer (by first 16 lines)
+        void            preBuffer( void );  // makes initial disjunct tree (after 16xaddLine())
+        void        updateByLine( void* new_line ); // updates tree by next image line
+        void            destroy( void );
+        ~TFltBuf        ( void ) {
+            destroy();
+        };
+}; // TFltBuf

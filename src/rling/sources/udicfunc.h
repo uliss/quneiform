@@ -64,10 +64,10 @@
 #include "udictest.h"
 
 uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
-		voc_state *user_dict);
+                      voc_state *user_dict);
 
 uint32_t InitializeNewUserDict(char * pool, uint32_t pool_size,
-		voc_state *user_dict);
+                               voc_state *user_dict);
 void ResetUserDict(voc_state * user_dict);
 
 int16_t _IsUserDict(char *FileName);

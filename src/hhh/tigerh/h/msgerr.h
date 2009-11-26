@@ -58,7 +58,7 @@
  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
  шш                                                              шш
  шш     Copyright (C) 1990 Cognitive Technology Corporation.     шш
- шш	 All rights reserved. This program is proprietary and     шш
+ шш    All rights reserved. This program is proprietary and     шш
  шш     a trade secret of Cognitive Technology Corporation.      шш
  шш                                                              шш
  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
@@ -71,15 +71,15 @@ void error_exit(int16_t group, int16_t element);
 void error_exit_str(int16_t group, int16_t element, pchar s);
 
 enum {
-	ERR_format = 0,
-	ERR_comp = 1,
-	ERR_image = 2,
-	ERR_run = 3,
-	ERR_voc = 4,
-	CopyRight = 5,
-	ERR_rtf = 6,
-	ERR_kernel = 7,
-	ERR_edout = 8
+    ERR_format = 0,
+    ERR_comp = 1,
+    ERR_image = 2,
+    ERR_run = 3,
+    ERR_voc = 4,
+    CopyRight = 5,
+    ERR_rtf = 6,
+    ERR_kernel = 7,
+    ERR_edout = 8
 };
 
 #endif

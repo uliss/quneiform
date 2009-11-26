@@ -69,11 +69,11 @@
 
 #include "cline.h"
 typedef struct tagLnsSetupStr {
-	int32_t nOptions;
+    int32_t nOptions;
 #define LSS_NOVBORDER_FILTER     0x0001   // отключение чистки на левой-правой границе
 #define LSS_NOHBORDER_FILTER     0x0002   // отключение чистки на верхней-нижней границе
 #define LSS_NOFILLGAP3_FILTER    0x0004   // отключение размазывания на 3 пикселя (дотматрикс)
-	char buffer[60]; // резерв, заполняется 0
+    char buffer[60]; // резерв, заполняется 0
 } LnsSetupStr;
 
 LNS_FUNC void LnsPageStart(TImageAccess* img);
@@ -83,17 +83,17 @@ LNS_FUNC void LnsPageStart(TImageAccess* img);
  */
 LNS_FUNC Bool16 LnsSetup(LnsSetupStr* ls);
 LNS_FUNC Bool16 LnsExtractLines(int32_t min_h_len, int32_t min_v_len,
-		int32_t* result_h_count, int32_t* result_v_count);
+                                int32_t* result_h_count, int32_t* result_v_count);
 LNS_FUNC Bool16 ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo *lti);
 LNS_FUNC Bool16 LnsGetCount(int32_t min_h_len, int32_t min_v_len,
-		int32_t* result_h_count, int32_t* result_v_count);
+                            int32_t* result_h_count, int32_t* result_v_count);
 
 //.....выгрузка фрагментов..............................
 LNS_FUNC int LnsGetFragCount(Bool horisontal);
 LNS_FUNC LnsFrag* LnsGetFragments(Bool horisontal);
 
 LNS_FUNC Bool16 LnsUpload(LinesTotalInfo* lti, int32_t min_h_len,
-		int32_t min_v_len);
+                          int32_t min_v_len);
 
 LNS_FUNC Rect16* LnsGetBlackSquares(int32_t* count);
 // 04 dec 1998 - black squares upload
@@ -108,15 +108,15 @@ LNS_FUNC void LnsPageFinish();
 LNS_FUNC void LnsSetSection(char* szSection); // 63 chars max
 LNS_FUNC uint32_t LnsGetProfileInt(const char* szKey, int nDefault);
 LNS_FUNC uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,
-		char* szDefault// = NULL
-		);
+                                      char* szDefault// = NULL
+                                     );
 
 LNS_FUNC Bool32 LnsWriteProfileInt(char* szKey, int nValue);
 LNS_FUNC Bool32 LnsWriteProfileString(char* szKey, char* szValue);
 
 LNS_FUNC void LnsRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
-		__SnpToolBox *p_snp_tools // tools complect, may be NULL
-		);
+                                 __SnpToolBox *p_snp_tools // tools complect, may be NULL
+                                );
 
 #endif
 

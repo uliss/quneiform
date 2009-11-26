@@ -60,88 +60,95 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*#ifndef NO_ASM*/
 #if 0
-   extern "C"
-   {
+extern "C" {
 //#endif
-      // realized in 'memops.asm'
-      void CopyOR(         void*             dst,
-                           void*             src,
-                           unsigned short    dword_cnt
-                 );
-      void CopyAND(         void*             dst,
-                           void*             src,
-                           unsigned short    dword_cnt
+    // realized in 'memops.asm'
+    void CopyOR(         void*             dst,
+    void*             src,
+    unsigned short    dword_cnt
+               );
+    void CopyAND(         void*             dst,
+                          void*             src,
+                          unsigned short    dword_cnt
+                );
+
+#undef memcpy
+    void* memcpy( void*          dst,
+                  const void*    src,
+                  unsigned int   byte_cnt
+                );
+
+    void InvertTo( void*   dst,
+                   void*   src,
+                   unsigned short dwcnt
                  );
 
-      #undef memcpy
-      void* memcpy( void*          dst,
-                    const void*    src,
-                    unsigned int   byte_cnt
-                  );
-
-      void InvertTo( void*   dst,
-                     void*   src,
-                     unsigned short dwcnt
+    void InvertSelf(  void*   dst,
+                      unsigned short dwcnt
                    );
-
-      void InvertSelf(  void*   dst,
-                        unsigned short dwcnt
-                     );
-   #ifdef __cplusplus
-   }
-   #endif
+#ifdef __cplusplus
+}
+#endif
 
 #else // ============ NO_ASM ============
 
-   #ifndef MEMOPS_INLINE
-   #define MEMOPS_INLINE inline
-      // you can use here 'static' instead
-      // if you have some problems with 'inline'
-   #endif
+#ifndef MEMOPS_INLINE
+#define MEMOPS_INLINE inline
+// you can use here 'static' instead
+// if you have some problems with 'inline'
+#endif
 
 MEMOPS_INLINE
-void __CopyOR(uchar* dst, const uchar* src, const int bytes_cnt) {
-	for(int i=0; i<bytes_cnt; i++) {
-		*dst++ |= *src++;
-	}
+void __CopyOR(uchar* dst, const uchar* src, const int bytes_cnt)
+{
+    for (int i = 0; i < bytes_cnt; i++) {
+        *dst++ |= *src++;
+    }
 }
 
 MEMOPS_INLINE
-void CopyOR(void* dst, const void* src, const unsigned short dword_cnt) {
-	__CopyOR((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
+void CopyOR(void* dst, const void* src, const unsigned short dword_cnt)
+{
+    __CopyOR((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE
-void __CopyAND(uchar* dst, const uchar* src, const int bytes_cnt) {
-	for(int i=0; i<bytes_cnt; i++) {
-		*dst++ &= *src++;
-	}
+void __CopyAND(uchar* dst, const uchar* src, const int bytes_cnt)
+{
+    for (int i = 0; i < bytes_cnt; i++) {
+        *dst++ &= *src++;
+    }
 }
 
 MEMOPS_INLINE
-void CopyAND(void* dst, const void* src, const unsigned short dword_cnt) {
-	__CopyAND((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
+void CopyAND(void* dst, const void* src, const unsigned short dword_cnt)
+{
+    __CopyAND((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE
-void __InvertSelf(uchar* dst, const int bytes_cnt) {
-	for(int i=0; i<bytes_cnt; i++) {
-		*dst++ = ~*dst;
-	}
+void __InvertSelf(uchar* dst, const int bytes_cnt)
+{
+    for (int i = 0; i < bytes_cnt; i++) {
+        *dst++ = ~*dst;
+    }
 }
 
 MEMOPS_INLINE
-void InvertSelf(void* dst, const unsigned short dword_cnt) {
-	__InvertSelf((uchar*)dst, 4*(int)dword_cnt);
+void InvertSelf(void* dst, const unsigned short dword_cnt)
+{
+    __InvertSelf((uchar*)dst, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE
-void InvertTo(void* dst, const void* src, const unsigned short dword_cnt) {
-	unsigned char *ldst = (unsigned char*)dst;
-	unsigned char *lsrc = (unsigned char*)src;
-	for(int i=0; i<4*(int)dword_cnt; i++) {
-		*ldst++ = ~*lsrc++;
-	}
+void InvertTo(void* dst, const void* src, const unsigned short dword_cnt)
+{
+    unsigned char *ldst = (unsigned char*)dst;
+    unsigned char *lsrc = (unsigned char*)src;
+
+    for (int i = 0; i < 4*(int)dword_cnt; i++) {
+        *ldst++ = ~*lsrc++;
+    }
 }
 
 

@@ -55,48 +55,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __LNSLANG_H
-   #define __LNSLANG_H
+#define __LNSLANG_H
 
 #define LNS_DEBUG // normally commented
 
-   #include <stddef.h>
-   #include <stdlib.h>
-   #include <string.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef LNS_DEBUG
-      #include <stdio.h>
+#include <stdio.h>
 #endif
 
-   #include <stdlib.h>
+#include <stdlib.h>
 
-   #include "globus.h"
-   #include "myassert.h"
+#include "globus.h"
+#include "myassert.h"
 
-   #include "minmax.h"
+#include "minmax.h"
 
-   #define BERROR( err )   ( assert(0), (Err16)(err) )
-   #define THE (*this)
+#define BERROR( err )   ( assert(0), (Err16)(err) )
+#define THE (*this)
 
-   #define _LOWORD(l)      ((uint16_t)(l))
-   #define _HIWORD(l)      ((uint16_t)((uint32_t)(l) >> 16))
-   #define SWAPBYTES(w)    ((uint16_t)(((w)<<8) | (((uint16_t)(w))>>8)))
-   #define SWAPLONG(l)     \
+#define _LOWORD(l)      ((uint16_t)(l))
+#define _HIWORD(l)      ((uint16_t)((uint32_t)(l) >> 16))
+#define SWAPBYTES(w)    ((uint16_t)(((w)<<8) | (((uint16_t)(w))>>8)))
+#define SWAPLONG(l)     \
       ((( (int32_t)SWAPBYTES(_LOWORD(l))) <<16) | ( (int32_t)SWAPBYTES(_HIWORD(l))) )
 
 #ifndef FALSE
-   #define FALSE 0
+#define FALSE 0
 #endif
 
 #ifndef TRUE
-   #define TRUE 1
+#define TRUE 1
 #endif
 
 //*******************Rom*****************
-struct RomBubble{
-	int32_t		Column;
-	int32_t		Begin;
-	int32_t		End;
-	RomBubble* next;
+struct RomBubble {
+    int32_t     Column;
+    int32_t     Begin;
+    int32_t     End;
+    RomBubble* next;
 };
 //***************************************
 

@@ -67,16 +67,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CCOM_ERR_LARGECOMP       2057
 #define CCOM_ERR_MAX             2057
 
-static const char *CCOM_error_name[]={
-  "No error",
-  "Can't operate",
-  "Not enough memory",
-  "Not implement",
-  "Null poiner assigned",
-  "Bad value of argument",
-  "Assigned Comp is absent",
-  "Disk I/O error",
-  "No data",
-  "Large comp",
-  ""
+static const char *CCOM_error_name[] = {
+    "No error",
+    "Can't operate",
+    "Not enough memory",
+    "Not implement",
+    "Null poiner assigned",
+    "Bad value of argument",
+    "Assigned Comp is absent",
+    "Disk I/O error",
+    "No data",
+    "Large comp",
+    ""
 };

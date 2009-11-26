@@ -21,13 +21,14 @@
 
 #include "english.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class ItalianAlphabet: public EnglishAlphabet
 {
-public:
-    ItalianAlphabet();
-    language_t language() const;
+    public:
+        ItalianAlphabet();
+        language_t language() const;
 };
 
 }

@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CLINE_handle GetHandle(void* lp);
 void* GetLP(CLINE_handle handle);
-Bool32 CopyData(const void* from,void* to,int size);
+Bool32 CopyData(const void* from, void* to, int size);
 Bool IfExistContainer(CHLine* pelem);
 Bool IfExistLine(CLine* pelem);
 Bool IfExistEvent(CEvent* pelem);
@@ -70,7 +70,7 @@ Bool IfExistEventInv(CInterval* pelem);
 Bool IfExistCutPointInv(CInterval* pelem);
 Bool InitData(void);
 void DeleteData(void);
-void MyDelete(void* vElem,int size_type);
-void MyDeleteAll(void* vRoot,void* vTail,int size_type);
+void MyDelete(void* vElem, int size_type);
+void MyDeleteAll(void* vRoot, void* vTail, int size_type);
 void* MyNew(int size_type);
-Bool MyRealloc(void** pMem,int size);
+Bool MyRealloc(void** pMem, int size);

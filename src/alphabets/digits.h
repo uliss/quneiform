@@ -21,13 +21,14 @@
 
 #include "alphabet.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class DigitsAlphabet: public Alphabet
 {
-public:
-    DigitsAlphabet();
-    language_t language() const;
+    public:
+        DigitsAlphabet();
+        language_t language() const;
 };
 }
 

@@ -64,10 +64,10 @@
 #define CCOM_DUST_SIZE      8
 //-------------------- user blocks      --------------------------
 struct _USER_BLOCK {
-	uint32_t code;
-	int32_t size;
-	uchar * data;
-	struct _USER_BLOCK * next_block;
+    uint32_t code;
+    int32_t size;
+    uchar * data;
+    struct _USER_BLOCK * next_block;
 };
 typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 #define CCOM_UB_DENSITY     1
@@ -78,13 +78,13 @@ typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 //-------------------- component in kit --------------------------
 
 struct _CCOM_comp {
-	int16_t upper; // upper boundary of component
-	int16_t left; // left boundary of component
-	int16_t h; // height of component
-	int16_t w; // width of component
-	// 8
-	uchar rw; // raster width in bytes
-	uchar type; // recognition type :
+    int16_t upper; // upper boundary of component
+    int16_t left; // left boundary of component
+    int16_t h; // height of component
+    int16_t w; // width of component
+    // 8
+    uchar rw; // raster width in bytes
+    uchar type; // recognition type :
 #define CCOM_CH_PERFECT    1      // perfect type defined
 #define CCOM_CH_LETTER     2      // letter type
 #define CCOM_CH_DUST       4      // dust type
@@ -93,45 +93,45 @@ struct _CCOM_comp {
 #define CCOM_CH_GREAT     32      // great component
 #define CCOM_CH_MERGE     64      // merged components
 #define CCOM_CH_NOTLTR   128      // not letter or punctuation
-	int16_t nl; // number of lines
-	int16_t size_linerep; // sizeof to line representation
-	uchar * linerep; // linear (inteval) representation
-	uchar begs; // number of free begins
-	// 16
-	uchar ends; // number of free ends
-	uchar large; // large type :
+    int16_t nl; // number of lines
+    int16_t size_linerep; // sizeof to line representation
+    uchar * linerep; // linear (inteval) representation
+    uchar begs; // number of free begins
+    // 16
+    uchar ends; // number of free ends
+    uchar large; // large type :
 #define CCOM_LR_UNDERLINED  1   // component was underlined
 #define CCOM_LR_TAKEN       2   // taken to line at dust_ini
 #define CCOM_LR_LINEREP     4   // store line representation
 #define CCOM_LR_KILLED      8   // killed component
-	uchar scale; // scale of the component
+    uchar scale; // scale of the component
 #define CCOM_LONGLINES      128 // int16 end, int16 len
-	uchar cs; // respond from events
-	uchar pidx; // proportional index (ref.)            *
-	uchar reasno; // proportional criteria messages
-	int16_t numcomp;
-	CCOM_USER_BLOCK * user_block; // user information
-	// 24
+    uchar cs; // respond from events
+    uchar pidx; // proportional index (ref.)            *
+    uchar reasno; // proportional criteria messages
+    int16_t numcomp;
+    CCOM_USER_BLOCK * user_block; // user information
+    // 24
 #define CCOM_USER_NO    0
-	struct _CCOM_comp * next_comp; // goto next comp from the global list
-	RecVersions *vers; // recognition collection
-	// 32
+    struct _CCOM_comp * next_comp; // goto next comp from the global list
+    RecVersions *vers; // recognition collection
+    // 32
 };
 typedef struct _CCOM_comp CCOM_comp;
 
 //-------------------- linear (interval) representation ----------------------
 
-//	At the beginning of line representation - word of total length -
-//	not use it, simply skip
-//	At end of each line zero byte as mark of line end
-//	After last line zero word
+//  At the beginning of line representation - word of total length -
+//  not use it, simply skip
+//  At end of each line zero byte as mark of line end
+//  After last line zero word
 
-//	line header
+//  line header
 typedef struct _lnhead {
-	int16_t lth; // length of one line representation
-	int16_t h; // height of line
-	int16_t row; // relative row of line start
-	uint16_t flg; // flags of free beg and free end
+    int16_t lth; // length of one line representation
+    int16_t h; // height of line
+    int16_t row; // relative row of line start
+    uint16_t flg; // flags of free beg and free end
 #define CCOM_l_fbeg     0x20
 #define CCOM_l_fend     0x80
 #define CCOM_l_cbeg     0x02
@@ -139,24 +139,24 @@ typedef struct _lnhead {
 } CCOM_lnhead;
 typedef struct _lnhead CCOM_linerep; // alias
 
-//	one interval
+//  one interval
 typedef struct _interval {
-	uchar l; // length of interval
-	uchar e; // end of interval coordinates
+    uchar l; // length of interval
+    uchar e; // end of interval coordinates
 } CCOM_interval;
 
 typedef struct _interval16 {
-	uint16_t l; // length of interval
-	uint16_t e; // end of interval coordinates
+    uint16_t l; // length of interval
+    uint16_t e; // end of interval coordinates
 } CCOM_interval16;
 
 typedef struct _CCOM_cont {
-	CCOM_comp * first;
-	CCOM_comp * last;
-	struct _CCOM_cont * next;
-	struct _CCOM_cont * prev;
-	int32_t nall, nsmall[8];
-	Bool16 kill_dust_mode, language, style_new;
+    CCOM_comp * first;
+    CCOM_comp * last;
+    struct _CCOM_cont * next;
+    struct _CCOM_cont * prev;
+    int32_t nall, nsmall[8];
+    Bool16 kill_dust_mode, language, style_new;
 } CCOM_cont;
 
 typedef void* CCOM_handle;

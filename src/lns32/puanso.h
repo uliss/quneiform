@@ -55,53 +55,54 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __PUANSO_H
-#	define __PUANSO_H
+#   define __PUANSO_H
 
-   #ifndef __MATH_H
-   #	include <math.h>
-   #endif
+#ifndef __MATH_H
+#    include <math.h>
+#endif
 
-   #ifndef __LNSLANG_H
-   #  include "lnslang.h"
-	#endif
-
-
-//	_TYPEDEFFAR( TPuanso );
-
-   #ifndef __PARALINE_H
-   #	include "paraline.h"
-   #endif
-
-   #define STRANGE_PHI   10             // ?
-   #define ZERO_DIVIDER  0.001          // ???
-
-	//#define HLINE_
-	//#define HLINE_
+#ifndef __LNSLANG_H
+#  include "lnslang.h"
+#endif
 
 
+//  _TYPEDEFFAR( TPuanso );
 
-class TPuanso	{
-   public :
-		double mass;
-		double Xc;
-	   double Yc;
-	   double Phi;
-      double aveW;   // 9 feb 98; average width
-		double mainMxx;
-	   double mainMyy;
+#ifndef __PARALINE_H
+#    include "paraline.h"
+#endif
 
-			// tensor of inertia on center mass coords, but not rotated;
-		double relMxx;		//	д [delta1(y)*yэ]
-		double relMxy;		// д [delta2(y)*y]
-		double relMyy;		// д [delta3(y)]
+#define STRANGE_PHI   10             // ?
+#define ZERO_DIVIDER  0.001          // ???
 
-		int left;
-      int right;
-	public :
-      Bool isALine( void );
-      void flashPuanso( void );
-      void increase( int x1, int x2, int y );
-      void atOwnCoords( void );
+//#define HLINE_
+//#define HLINE_
+
+
+
+class TPuanso
+{
+    public :
+        double mass;
+        double Xc;
+        double Yc;
+        double Phi;
+        double aveW;   // 9 feb 98; average width
+        double mainMxx;
+        double mainMyy;
+
+        // tensor of inertia on center mass coords, but not rotated;
+        double relMxx;      //  д [delta1(y)*yэ]
+        double relMxy;      // д [delta2(y)*y]
+        double relMyy;      // д [delta3(y)]
+
+        int left;
+        int right;
+    public :
+        Bool isALine( void );
+        void flashPuanso( void );
+        void increase( int x1, int x2, int y );
+        void atOwnCoords( void );
 
 };
 #endif // __PUANSO

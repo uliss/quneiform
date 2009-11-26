@@ -90,8 +90,8 @@ extern   int16_t      get_font_name(int16_t FontNumber);
 
 uint32_t GetTablCount(void);
 void   ViewTable(void);
-void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
-Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
+void   GetTableRect( uint32_t NumberTable , Rect16* RectTable, uint32_t* UserNumber );
+Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ , Bool OutPutMode );
 
 class CTableRow;
 class CTablePhCell;
@@ -103,164 +103,163 @@ void  GetFragmLines( int32_t m_NumberFragm , Point* m_point );
 Bool  CheckLine( CSTR_line* Comingline );
 void  AddLetter( CSTR_rast* rast , uchar*  m_ucCode , uchar* m_ucFontNumber );
 void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point m_TempPhPoint,
-																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
+                            int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
 /////////////////////////////////////////////////////////////////////////////
 //Класс для таблицы
 class CMyTable //: public CObject
 {
-public:
-  CMyTable();
- ~CMyTable();
+    public:
+        CMyTable();
+        ~CMyTable();
 
-  CTableRow*    GetCurrentTableRow( void );
-  void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo,Bool OutPutMode);
+        CTableRow*    GetCurrentTableRow( void );
+        void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo, Bool OutPutMode);
 
-  Rect32        RectTable;
-  std::vector<CTableRow*>/*CObArray*/	    m_arTableRows;
-  uint16_t          m_wIndex;
-  int32_t         m_CountRows;
-  int32_t         m_CountColumns;
+        Rect32        RectTable;
+        std::vector<CTableRow*>/*CObArray*/       m_arTableRows;
+        uint16_t          m_wIndex;
+        int32_t         m_CountRows;
+        int32_t         m_CountColumns;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 //Класс для строки таблицы
 class CTableRow// : public CObject
 {
-public:
-  CTableRow();
- ~CTableRow();
+    public:
+        CTableRow();
+        ~CTableRow();
 
-  CTablePhCell* GetCurrentPhCell( void );
-  void	        Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo);
+        CTablePhCell* GetCurrentPhCell( void );
+        void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo);
 
-  std::vector<CTablePhCell*>/*CObArray*/	    m_arPhCells;
-  uint16_t		    m_wHeight;
-  uint16_t          m_wPosX;
-  uint16_t          m_wPosY;
-  uint16_t          m_wIndex;
-  uint16_t          m_wCountPhCells;
-  Handle        m_hEdTableRow;
+        std::vector<CTablePhCell*>/*CObArray*/        m_arPhCells;
+        uint16_t          m_wHeight;
+        uint16_t          m_wPosX;
+        uint16_t          m_wPosY;
+        uint16_t          m_wIndex;
+        uint16_t          m_wCountPhCells;
+        Handle        m_hEdTableRow;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 //Класс для ячейки таблицы
 class CTablePhCell// : public CObject
 {
-public:
-  CTablePhCell();
- ~CTablePhCell();
+    public:
+        CTablePhCell();
+        ~CTablePhCell();
 
-  CTableString* GetCurrentString( void );
-  void          SetPhCellParam(Bool32 FlagTerminalPhCell, int32_t   NumberPhysicalGroup ,
-  Bool32        FlagPhisicalGroup , Point m_TempPhPoint      );
-  void          FillPhCell(int32_t m_FragmentNumber);
-  void          Write_Header(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          SetPhCellFragmentFormattingAndAlignment();
-  void          SetPhCellFlag( void );
+        CTableString* GetCurrentString( void );
+        void          SetPhCellParam(Bool32 FlagTerminalPhCell, int32_t   NumberPhysicalGroup ,
+                                     Bool32        FlagPhisicalGroup , Point m_TempPhPoint      );
+        void          FillPhCell(int32_t m_FragmentNumber);
+        void          Write_Header(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
+        void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
+        void          SetPhCellFragmentFormattingAndAlignment();
+        void          SetPhCellFlag( void );
 
-  std::vector<CTableString*>/*CObArray*/	    m_arStrings;
-  std::vector <RECT> RectFragmentInPhCell;
+        std::vector<CTableString*>/*CObArray*/        m_arStrings;
+        std::vector <RECT> RectFragmentInPhCell;
 
-  Rect32        RectPhCell;//Здесь хранятся координаты прямоугольника - ГРАНИЦ ячейки (кажется в пикселях)
-  Rect32        RectTable;
-  Point       m_PhCellPoint;
+        Rect32        RectPhCell;//Здесь хранятся координаты прямоугольника - ГРАНИЦ ячейки (кажется в пикселях)
+        Rect32        RectTable;
+        Point       m_PhCellPoint;
 
-  uint16_t	        m_wIndex;
-  Bool32	    m_FlagTerminalPhCell;
-  Bool32        m_FlagPhisicalGroup;
-  int32_t         m_NumberPhysicalGroup;
-  int32_t         m_FragmentNumber;
-  int32_t         m_LeftIndent;
-  uint16_t     	    m_wCountStrings;
-  Bool32        m_PhCellFragmentFormatting;       //Hor. formatting
-  Bool32        m_PhCellFragmentAlignment;        //Ver. formatting
-  Handle        m_hEdTableCell;
-uint32_t         m_Flags;
+        uint16_t          m_wIndex;
+        Bool32        m_FlagTerminalPhCell;
+        Bool32        m_FlagPhisicalGroup;
+        int32_t         m_NumberPhysicalGroup;
+        int32_t         m_FragmentNumber;
+        int32_t         m_LeftIndent;
+        uint16_t          m_wCountStrings;
+        Bool32        m_PhCellFragmentFormatting;       //Hor. formatting
+        Bool32        m_PhCellFragmentAlignment;        //Ver. formatting
+        Handle        m_hEdTableCell;
+        uint32_t         m_Flags;
 
-  union
-  {
-	uchar		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
-	uint32_t		m_u32BoundsType;
-  };
+        union {
+            uchar       m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
+            uint32_t        m_u32BoundsType;
+        };
 };
 
 /////////////////////////////////////////////////////////////////////////////
 // Класс для строки ячейки таблицы
 class CTableString//: public CObject
 {
-public:
-  CTableString();
- ~CTableString();
+    public:
+        CTableString();
+        ~CTableString();
 
-  CTableWord*   GetCurrentWord( void );
-  void  	    ExtractWordsFromString( CSTR_line line );
-  void          ExtractNextWord( CSTR_line* line );
-  void	        Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          MyCorrectKegl( int16_t width );
-  int16_t         GetRealSizeForKegl( char* str,int16_t FontSize,int16_t FontNumber );
+        CTableWord*   GetCurrentWord( void );
+        void          ExtractWordsFromString( CSTR_line line );
+        void          ExtractNextWord( CSTR_line* line );
+        void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
+        void          MyCorrectKegl( int16_t width );
+        int16_t         GetRealSizeForKegl( char* str, int16_t FontSize, int16_t FontNumber );
 
-  /*CObArray*/std::vector<CTableWord*>      m_arWords;
+        /*CObArray*/
+        std::vector<CTableWord*>      m_arWords;
 
-  uint16_t	        m_wIndex;
-  uint16_t          m_wCountWords;
-uint32_t         m_Flags;
+        uint16_t          m_wIndex;
+        uint16_t          m_wCountWords;
+        uint32_t         m_Flags;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 // CTableWord class
 class CTableWord//: public CObject
 {
-public:
-  CTableWord();
- ~CTableWord();
+    public:
+        CTableWord();
+        ~CTableWord();
 
-  CTableChar*   GetCurrentChar(void);
-  void          AddLetter2Word( CSTR_rast* rast );
-  void          SetWordRectAndProb( CSTR_rast* rast );
-  void	        Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          WriteWordForCorrectKegl(char* TmpTableString);
+        CTableChar*   GetCurrentChar(void);
+        void          AddLetter2Word( CSTR_rast* rast );
+        void          SetWordRectAndProb( CSTR_rast* rast );
+        void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
+        void          WriteWordForCorrectKegl(char* TmpTableString);
 
-  std::vector<CTableChar*>/*CObArray*/      m_arChars;
-  RECT	        m_rectWord;
+        std::vector<CTableChar*>/*CObArray*/      m_arChars;
+        RECT          m_rectWord;
 
-  uint16_t	        m_wCountChars;
-  uint16_t	        m_wIndex;
-  uint16_t	        m_wEDIndex;
-  uint16_t	        m_wFontNumber;
-  uint16_t	        m_wFontPointSize;
-  uint16_t          m_wUnderline;
-  uint16_t          m_wBold;
-  uint16_t          m_wItalic;
-  uint16_t          m_wProb;
-  uchar          m_bSpell;
-uint32_t         m_Flags;
+        uint16_t          m_wCountChars;
+        uint16_t          m_wIndex;
+        uint16_t          m_wEDIndex;
+        uint16_t          m_wFontNumber;
+        uint16_t          m_wFontPointSize;
+        uint16_t          m_wUnderline;
+        uint16_t          m_wBold;
+        uint16_t          m_wItalic;
+        uint16_t          m_wProb;
+        uchar          m_bSpell;
+        uint32_t         m_Flags;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 // CTableChar class
 class CTableChar//: public CObject
 {
-public:
-  CTableChar();
- ~CTableChar();
+    public:
+        CTableChar();
+        ~CTableChar();
 
-  void          AddingLetter( CSTR_rast* rast ,int index );
-  Bool	        Write();
+        void          AddingLetter( CSTR_rast* rast , int index );
+        Bool          Write();
 
-  RECT	        m_rectChar;
-  struct
-  {
-  uchar	        m_bChar;
-  uchar	        m_bProbability;
-  } m_chrVersions[REC_MAX_VERS];//!!! Art
-  uchar          m_blanguage;
-  uchar          m_bFlg_spell;
-  uint16_t          m_wCountAlt;
-  uint16_t          m_wFontNumber;
-  uint16_t	        m_wIndex;
-uint32_t         m_Flags;
- };
+        RECT          m_rectChar;
+        struct {
+            uchar         m_bChar;
+            uchar         m_bProbability;
+        } m_chrVersions[REC_MAX_VERS];//!!! Art
+        uchar          m_blanguage;
+        uchar          m_bFlg_spell;
+        uint16_t          m_wCountAlt;
+        uint16_t          m_wFontNumber;
+        uint16_t          m_wIndex;
+        uint32_t         m_Flags;
+};
 
 #endif
 

@@ -66,75 +66,76 @@
 
 #include "ctimask.h"
 
-class CTIImageHeader {
-private:
-	CTIImageHeader * pNext;
-	char ImageName[CIMAGE_MAX_IMAGE_NAME];
-	BitmapInfoHeader * ImageInfo;
-	void * Image;
-	PCTIMask WriteMask;
-	PCTIMask ReadMask;
-	Bool32 ImageExternal;
-	Bool32 mbEnableReadMask;
-	Bool32 mbEnableWriteMask;
-	Handle hImage;
+class CTIImageHeader
+{
+    private:
+        CTIImageHeader * pNext;
+        char ImageName[CIMAGE_MAX_IMAGE_NAME];
+        BitmapInfoHeader * ImageInfo;
+        void * Image;
+        PCTIMask WriteMask;
+        PCTIMask ReadMask;
+        Bool32 ImageExternal;
+        Bool32 mbEnableReadMask;
+        Bool32 mbEnableWriteMask;
+        Handle hImage;
 
-public:
-	CTIImageHeader();
-	CTIImageHeader(const char *lpName, Handle hImagehandle, uint32_t Flag);
-	CTIImageHeader(const char *lpName, BitmapInfoHeader* lpInfo,
-			void * lpImage, uint32_t wFlag);
-	~CTIImageHeader();
-public:
-	Bool32 IsMaskEnabled(const char *MaskType);
-	Bool32 EnableMask(const char *cMaskType, Bool32 mEnabled);
-	Bool32 CheckName(const char *Name);
-	CTIImageHeader * GetNext(void) {
-		return pNext;
-	}
+    public:
+        CTIImageHeader();
+        CTIImageHeader(const char *lpName, Handle hImagehandle, uint32_t Flag);
+        CTIImageHeader(const char *lpName, BitmapInfoHeader* lpInfo,
+                       void * lpImage, uint32_t wFlag);
+        ~CTIImageHeader();
+    public:
+        Bool32 IsMaskEnabled(const char *MaskType);
+        Bool32 EnableMask(const char *cMaskType, Bool32 mEnabled);
+        Bool32 CheckName(const char *Name);
+        CTIImageHeader * GetNext(void) {
+            return pNext;
+        }
 
-	CTIImageHeader * SetNext(CTIImageHeader * pSet) {
-		return (pNext = pSet);
-	}
+        CTIImageHeader * SetNext(CTIImageHeader * pSet) {
+            return (pNext = pSet);
+        }
 
-	void * GetImage(void) {
-		return Image;
-	}
+        void * GetImage(void) {
+            return Image;
+        }
 
-	BitmapInfoHeader* GetImageInfo(void) {
-		return ImageInfo;
-	}
+        BitmapInfoHeader* GetImageInfo(void) {
+            return ImageInfo;
+        }
 
-	Bool32 IsExtImage(void) {
-		return !IsIntImage();
-	}
+        Bool32 IsExtImage(void) {
+            return !IsIntImage();
+        }
 
-	Bool32 IsIntImage(void) {
-		return (ImageExternal == 0);
-	}
+        Bool32 IsIntImage(void) {
+            return (ImageExternal == 0);
+        }
 
-	Handle GetImageHandle(void) {
-		return hImage;
-	}
+        Handle GetImageHandle(void) {
+            return hImage;
+        }
 
-	Handle SetImageHandle(Handle NewHandle) {
-		return (hImage = NewHandle);
-	}
+        Handle SetImageHandle(Handle NewHandle) {
+            return (hImage = NewHandle);
+        }
 
-	Bool32 SetWriteMask(PCTIMask WMask) {
-		return ((WriteMask = WMask) != NULL);
-	}
+        Bool32 SetWriteMask(PCTIMask WMask) {
+            return ((WriteMask = WMask) != NULL);
+        }
 
-	PCTIMask GetWriteMask(void) {
-		return WriteMask;
-	}
+        PCTIMask GetWriteMask(void) {
+            return WriteMask;
+        }
 
-	Bool32 SetReadMask(PCTIMask RMask) {
-		return ((ReadMask = RMask) != NULL);
-	}
+        Bool32 SetReadMask(PCTIMask RMask) {
+            return ((ReadMask = RMask) != NULL);
+        }
 
-	PCTIMask GetReadMask(void) {
-		return ReadMask;
-	}
+        PCTIMask GetReadMask(void) {
+            return ReadMask;
+        }
 };
 #endif

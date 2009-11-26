@@ -60,35 +60,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 
 typedef int32_t HEvent32;
-typedef struct tagStdPrtEvent
-{
-   char  *szFormat;  // printf like format
-   int32_t    nFlags;
+typedef struct tagStdPrtEvent {
+    char  *szFormat;  // printf like format
+    int32_t    nFlags;
 #define SPE_PUBLIC   0x0001 // отметить в общем протоколе
 #define SPE_WAIT     0x0002 // дождаться завершения записи события
 #define SPE_WITHTIME 0x0004 // проставить время события
-   HEvent32 hEvent;  // хендл эвента, заполняется ВНУТРИ stdPrt.cpp, изначально 0
-   int32_t    nFileNo; // указывает что регистрация была в файле с таким номером
+    HEvent32 hEvent;  // хендл эвента, заполняется ВНУТРИ stdPrt.cpp, изначально 0
+    int32_t    nFileNo; // указывает что регистрация была в файле с таким номером
 } StdPrtEvent;
 
 
 //STD_FUNC(HEvent32) stdPrtRegister( StdPrtEventType* pStdPrtEventType );
-   // returns registered number of event type; 0 - failed
+// returns registered number of event type; 0 - failed
 //STD_FUNC(int32_t) stdPrt( HEvent32 nEvent, ... );
-   // returns number of event if was successfully accepted, 0 - failed
+// returns number of event if was successfully accepted, 0 - failed
 
 STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, ... );
 STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe,  va_list& list);
-   // returns number of event if was successfully accepted, 0 - failed
+// returns number of event if was successfully accepted, 0 - failed
 STD_FUNC(Bool32) stdSysPrt( int32_t EvnNo, ... );
-   // returns true if sysevent is succesfully accepted
+// returns true if sysevent is succesfully accepted
 //STD_FUNC(Bool32) stdPrtRestore( n, ... );
 STD_FUNC(int32_t) stdSysPrt( int32_t EvnNo, va_list& list );
 STD_FUNC(Bool32) stdPrtStartConsole();
 STD_FUNC(void) stdPrtStopConsole();
 
-STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id);
+STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name, char* prog_id);
 STD_FUNC(Bool32) stdPrtRollback();
-STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id);
+STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name, char* prog_id);
 
 #endif

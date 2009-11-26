@@ -138,15 +138,15 @@ ABRIS_EXTERN char let_mon[let_monN], mon_fl;
 ABRIS_EXTERN int16_t abriflag, ncells, fullh, midh, midw, fullw, cprob;
 ABRIS_EXTERN int16_t gl_mincol, gl_minrow, gl_maxcol, gl_maxrow;
 ABRIS_EXTERN uchar lmax, lmin1, lmin2, lxmin11, lxmin12, lxmin21, lxmin22,
-		lxmax1, lxmax2, ljmp1, ljmp2, ljmp, leftfl; // left abris done flag
+lxmax1, lxmax2, ljmp1, ljmp2, ljmp, leftfl; // left abris done flag
 ABRIS_EXTERN uchar rmax, rmin1, rmin2, rxmin11, rxmin12, rxmin21, rxmin22,
-		rxmax1, rxmax2, rjmp1, rjmp2, rjmp, rightfl; // right abris done flag
+rxmax1, rxmax2, rjmp1, rjmp2, rjmp, rightfl; // right abris done flag
 ABRIS_EXTERN uchar sfl, swt, sws;
 ABRIS_EXTERN uchar lnmid;
 ABRIS_EXTERN uchar bmax, bmin1, bmin2, bxmin11, bxmin12, bxmin21, bxmin22,
-		bxmax1, bxmax2, botfl; // bottom abris done flag
+bxmax1, bxmax2, botfl; // bottom abris done flag
 ABRIS_EXTERN uchar tmax, tmin1, tmin2, txmin11, txmin12, txmin21, txmin22,
-		txmax1, txmax2, topfl; // top abris done flag
+txmax1, txmax2, topfl; // top abris done flag
 ABRIS_EXTERN cell *scl;
 ABRIS_EXTERN uchar letter;
 ABRIS_EXTERN int16_t total_num_black_int;
@@ -155,10 +155,10 @@ ABRIS_EXTERN int16_t total_lth_black;
 ABRIS_EXTERN uchar bold_flag;
 ABRIS_EXTERN uchar num_lines_of_comp;
 ABRIS_EXTERN uchar l_abr[128], r_abr[128], // left and right abrises
-		top[128], bot[128], // top and bottom abrises
-		sumh[128], // sums of black intervals
-		linh[128], wid[128], // numbers of intervals; c_comp. widths
-		histo[128];
+top[128], bot[128], // top and bottom abrises
+sumh[128], // sums of black intervals
+linh[128], wid[128], // numbers of intervals; c_comp. widths
+histo[128];
 ABRIS_EXTERN uchar histo_max_value;
 
 /********** functions from module ABRTOOLS.C are common use *****************/
@@ -172,7 +172,7 @@ int16_t two_int_over_b2(cell *curc, int16_t *loc_2_int);
 uchar r_tail(uchar);
 int16_t gap_in_side(uchar from, uchar to, uchar code_func, int16_t tresh, uchar *flit);
 void get_max_min(puchar func, uchar from, uchar to, puchar fmax, puchar fmin,
-		puchar x_fmax, puchar x_fmin);
+                 puchar x_fmax, puchar x_fmin);
 int16_t make_histo(uchar *array, uchar max_num);
 void make_abris(s_glue *GL, cell *cl); //AK. 07.03.97
 void make_wid();
@@ -182,9 +182,9 @@ void make_top_max();
 void make_bot_max();
 uchar constancy_vally_lth(puchar func, uchar from, uchar to, uchar tresh);
 uchar monotonous_decrease(puchar func, uchar from, uchar to, puchar last_decr,
-		uchar tresh);
+                          uchar tresh);
 uchar monotonous_increase(puchar func, uchar from, uchar to, puchar last_incr,
-		uchar tresh);
+                          uchar tresh);
 uchar find_2int_zone(uchar from, uchar to, puchar beg, puchar end);
 uchar find_1int_zone(uchar from, uchar to, puchar beg, puchar end);
 int16_t top_end_bottom_weights_delta();

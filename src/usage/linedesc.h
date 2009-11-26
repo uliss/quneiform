@@ -64,66 +64,62 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "point.h"
 /*---------------------------------------------------------------------------*/
-typedef enum
-{// четыре сектора направления линий
-	RLT_LDIR_Horiz = 0,
-	RLT_LDIR_Verti,
-	RLT_LDIR_Kosa1,
-	RLT_LDIR_Kosa2
-}RLT_LINEDIR_TYPE;
+typedef enum {// четыре сектора направления линий
+    RLT_LDIR_Horiz = 0,
+    RLT_LDIR_Verti,
+    RLT_LDIR_Kosa1,
+    RLT_LDIR_Kosa2
+} RLT_LINEDIR_TYPE;
 
-typedef struct tagRLT_LINEATDIR
-{// в данном направлении - по индексу "RLT_LINEDIR_TYPE"
-	int   nLine;           // всего линий
-	int   nLongLine;       // всего длинных линий
-	int   nLongNoAtPool;   // всего длинных линий, противоречащих пулу
-	int   nShortContrPool; // всего коротких линий, противоречащих пулу
-	int   SkewPool;        // вычисленный угол пула
-	int   WeightSkew;      // голоса за такое решение по углу (в пикселях)
-	int   LightSkew;       // убедительность голосов (в pro2miles)
-}RLT_LINEATDIR;
+typedef struct tagRLT_LINEATDIR {// в данном направлении - по индексу "RLT_LINEDIR_TYPE"
+    int   nLine;           // всего линий
+    int   nLongLine;       // всего длинных линий
+    int   nLongNoAtPool;   // всего длинных линий, противоречащих пулу
+    int   nShortContrPool; // всего коротких линий, противоречащих пулу
+    int   SkewPool;        // вычисленный угол пула
+    int   WeightSkew;      // голоса за такое решение по углу (в пикселях)
+    int   LightSkew;       // убедительность голосов (в pro2miles)
+} RLT_LINEATDIR;
 
-typedef struct tagRLT_LINE
-{
-	/*  primary values  */
-	CIF::Point16  Beg;
-	CIF::Point16  End;
-	int      Wid;
-	int16_t    nSeg;
-	uchar    Plot;
-	/*  derivative values  */
-	int      Len;
-	int      Skew;
-	int      Skew2Delta;  // ширина сектора возможных колебаний угла
-	/*  decision about line  */
+typedef struct tagRLT_LINE {
+    /*  primary values  */
+    CIF::Point16  Beg;
+    CIF::Point16  End;
+    int      Wid;
+    int16_t    nSeg;
+    uchar    Plot;
+    /*  derivative values  */
+    int      Len;
+    int      Skew;
+    int      Skew2Delta;  // ширина сектора возможных колебаний угла
+    /*  decision about line  */
 #define    RLT_LT_Initial      0x00
 #define    RLT_LT_Vertic       0x01
 #define    RLT_LT_Kosaya       0x02
-	/***   V & !K : вертикальная    :  90' - 22.5' < Skew <  90' + 22.5'  ***/
-	/***  !V & !K : горизонтальная  :   0' - 22.5' < Skew <   0' + 22.5'  ***/
-	/***   V &  K : косая-1квадрант :  45' - 22.5' < Skew <  45' + 22.5'  ***/
-	/***  !V &  K : косая-2квадрант : 135' - 22.5' < Skew < 135' + 22.5'  ***/
+    /***   V & !K : вертикальная    :  90' - 22.5' < Skew <  90' + 22.5'  ***/
+    /***  !V & !K : горизонтальная  :   0' - 22.5' < Skew <   0' + 22.5'  ***/
+    /***   V &  K : косая-1квадрант :  45' - 22.5' < Skew <  45' + 22.5'  ***/
+    /***  !V &  K : косая-2квадрант : 135' - 22.5' < Skew < 135' + 22.5'  ***/
 #define    RLT_LT_SkewConflict 0x04
-	/***   противоречит по углу пулу "родной" ориентации  ***/
+    /***   противоречит по углу пулу "родной" ориентации  ***/
 #define    RLT_LT_Long         0x08
-	/***   длинная линия  ***/
+    /***   длинная линия  ***/
 #define    RLT_LT_Line         0x10
-	/***   линия  ***/
+    /***   линия  ***/
 #define    RLT_LT_Ssel         0x20
-	/***   белая полоса  ***/
+    /***   белая полоса  ***/
 #define    RLT_LT_Pointed      0x40
-	/***   отточия  ***/
+    /***   отточия  ***/
 #define    RLT_LT_Doubt        0x80
-	/***   линия только отчасти правильная  ***/
-	char   Type;
-}RLT_LINE;
+    /***   линия только отчасти правильная  ***/
+    char   Type;
+} RLT_LINE;
 
-typedef struct tagRLT_LINEPOOL
-{
-	RLT_LINEATDIR  Pool[4];
-	int      nLine;
-	RLT_LINE  *pLine;
-}RLT_LINEPOOL;
+typedef struct tagRLT_LINEPOOL {
+    RLT_LINEATDIR  Pool[4];
+    int      nLine;
+    RLT_LINE  *pLine;
+} RLT_LINEPOOL;
 /*---------------------------------------------------------------------------*/
 void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const int32_t Skew);
 RLT_LINEDIR_TYPE LineSect (const char Type);

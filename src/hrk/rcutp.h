@@ -62,16 +62,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "roots.h"
 
 #ifdef __RCUTP__
-  #define RCUTP_FUNC  FUN_EXPO
+#define RCUTP_FUNC  FUN_EXPO
 #else
-  #define RCUTP_FUNC  FUN_IMPO
+#define RCUTP_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
 
 #define RCUTP_MAXNAME 260
 
-RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage);
+RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode, Handle hStorage);
 RCUTP_FUNC(Bool32) RCUTP_Done();
 RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode();
 RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError);
@@ -79,17 +79,16 @@ RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData);
 RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData);
 
 /////////////////////////////////////////////////////////////
-typedef enum
-{
- 		RCUTP_FNRCUTP_CutPoints = 1,
-   RCUTP_FNRCUTP_SetBL_for_CutPoints
+typedef enum {
+    RCUTP_FNRCUTP_CutPoints = 1,
+    RCUTP_FNRCUTP_SetBL_for_CutPoints
 } RCUTP_EXPORT_ENTRIES;
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RCUTP_FUNC(a) b c
 
-DEC_FUN(Bool32,  RCUTP_CutPoints, (uchar *raster,struct own_cut *ans, int16_t w,int16_t h,int16_t row));
-DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (int16_t  minrow0,int16_t  bbs10,int16_t  bbs20,
-        int16_t  bbs30,int16_t  bbs40, int16_t  Nb10,int16_t  Nb20,int16_t  Nb30,uchar language0));
+DEC_FUN(Bool32,  RCUTP_CutPoints, (uchar *raster, struct own_cut *ans, int16_t w, int16_t h, int16_t row));
+DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (int16_t  minrow0, int16_t  bbs10, int16_t  bbs20,
+                                             int16_t  bbs30, int16_t  bbs40, int16_t  Nb10, int16_t  Nb20, int16_t  Nb30, uchar language0));
 //DEC_FUN(Bool32, RCUTP_RExc_CP, (void* m, BM* W, ExtComponent* wcomp, uint16_t actual_resolution));
 DEC_FUN(int, RCUTP_RSelStr_CP, (CCOM_comp* comp, Bool* type_let, uchar* pmasp));
 DEC_FUN(Bool32, RCUTP_RSelStr_SetEnv, (/*char *szImageName,*/ int _medium_h, int _inf_let_w, int _inf_dust_h, int _inf_let_h, Handle hCCOM, int _sup_dust_w, int _min_cut_down_let_w, int _sup_prob_w, const uint16_t biBit));

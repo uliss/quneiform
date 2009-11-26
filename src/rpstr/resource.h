@@ -67,16 +67,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RPSTR_ERR_INTERNAL        2057
 #define RPSTR_ERR_MAX             2057
 
-static const char *RPSTR_error_name[]={
-  "No error",
-  "Can't operate",
-  "Not enough memory",
-  "Not implement",
-  "Null poiner assigned",
-  "Bad value of argument",
-  "Assigned Line is absent",
-  "Can't rewrite used Line",
-  "Structure of line has become rotten",
-  "Internal error"
-  ""
+static const char *RPSTR_error_name[] = {
+    "No error",
+    "Can't operate",
+    "Not enough memory",
+    "Not implement",
+    "Null poiner assigned",
+    "Bad value of argument",
+    "Assigned Line is absent",
+    "Can't rewrite used Line",
+    "Structure of line has become rotten",
+    "Internal error"
+    ""
 };

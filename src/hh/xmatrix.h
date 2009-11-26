@@ -67,52 +67,55 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 template <class T>
 class XMatrix :
-   public XPool
+        public XPool
 {
-   Private( int, Width );
-   Private( int, Height );
+        Private( int, Width );
+        Private( int, Height );
 
-   public:
-   XMatrix():
-      XPool(),
-      Width(0),
-      Height(0)
-      {};
+    public:
+        XMatrix():
+                XPool(),
+                Width(0),
+                Height(0) {};
 
-   XMatrix( unsigned width, unsigned height ):
-      XPool(),
-      Width(0),
-      Height(0)
-      {
-         Create( width, height );
-      };
+        XMatrix( unsigned width, unsigned height ):
+                XPool(),
+                Width(0),
+                Height(0) {
+            Create( width, height );
+        };
 
-   Bool  Create( unsigned width, unsigned height )
-   {
-      if (XPool::Create(width*height*sizeof(T)))
-      {  Width  = width;
-         Height = height;
-         return TRUE;
-      }
-      RETFALSE;
-   };
+        Bool  Create( unsigned width, unsigned height ) {
+            if (XPool::Create(width*height*sizeof(T))) {
+                Width  = width;
+                Height = height;
+                return TRUE;
+            }
 
-   void  Destroy()
-   {  Width =0;
-      Height =0;
-      XPool::Destroy();
-   };
+            RETFALSE;
+        };
 
-   T& Get( int i, int j ) const
-   {
-      assert( i >= 0 );
-      assert( j >= 0 );
-      assert( i < Height );
-      assert( j < Width );
-      return *(((T*)GetData()) + i*Width + j );
-   };
-   operator T*()  const {  return (T*)(GetData()); };
-	Bool  operator !() const { return GetData() == NULL; };
-	Bool  IsEmpty() { return (Width==0) || (Height==0); };
+        void  Destroy() {
+            Width = 0;
+            Height = 0;
+            XPool::Destroy();
+        };
+
+        T& Get( int i, int j ) const {
+            assert( i >= 0 );
+            assert( j >= 0 );
+            assert( i < Height );
+            assert( j < Width );
+            return *(((T*)GetData()) + i*Width + j );
+        };
+        operator T*()  const {
+            return (T*)(GetData());
+        };
+        Bool  operator !() const {
+            return GetData() == NULL;
+        };
+        Bool  IsEmpty() {
+            return (Width == 0) || (Height == 0);
+        };
 };
 #endif

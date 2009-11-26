@@ -88,35 +88,47 @@ class CTIMaskLineSegment
 #define                   CTIMLSEGMPOINTLEF                    -1
 #define                   CTIMLSEGMPOINTIN                      0
 
-public:
-	void                  SetNext(PCTIMaskLineSegment pNext) { mpNext = pNext; };
-	PCTIMaskLineSegment   GetNext(void) { return mpNext; };
-	int32_t                 GetStart(void) { return mwStart; };
-	int32_t                 GetEnd(void) { return mwEnd; };
-	Bool32                IsPointInSegment(int32_t X) {return (X >= mwStart && X <= mwEnd);};
-	Bool32                CutRightTo(PCTIMaskLineSegment pSegm);
-	// обрезать с конца
-	Bool32                CutLeftTo(PCTIMaskLineSegment pSegm);
-	// обрезать с начала
-	Bool32                AddWith(PCTIMaskLineSegment pSegm);
-	// пересечение данного сегмента с аргументом
-	Bool32                IntersectWith(PCTIMaskLineSegment pSegm);
-	// положение данного сегмента относительно аргумента
-	uint32_t                IsIntersectWith(PCTIMaskLineSegment pSegm);
-	// равенство сегментов
-	Bool32                IsEqual(PCTIMaskLineSegment pSegm) { return (mwEnd == pSegm->GetEnd() && mwStart == pSegm->GetStart()); };
+    public:
+        void                  SetNext(PCTIMaskLineSegment pNext) {
+            mpNext = pNext;
+        };
+        PCTIMaskLineSegment   GetNext(void) {
+            return mpNext;
+        };
+        int32_t                 GetStart(void) {
+            return mwStart;
+        };
+        int32_t                 GetEnd(void) {
+            return mwEnd;
+        };
+        Bool32                IsPointInSegment(int32_t X) {
+            return (X >= mwStart && X <= mwEnd);
+        };
+        Bool32                CutRightTo(PCTIMaskLineSegment pSegm);
+        // обрезать с конца
+        Bool32                CutLeftTo(PCTIMaskLineSegment pSegm);
+        // обрезать с начала
+        Bool32                AddWith(PCTIMaskLineSegment pSegm);
+        // пересечение данного сегмента с аргументом
+        Bool32                IntersectWith(PCTIMaskLineSegment pSegm);
+        // положение данного сегмента относительно аргумента
+        uint32_t                IsIntersectWith(PCTIMaskLineSegment pSegm);
+        // равенство сегментов
+        Bool32                IsEqual(PCTIMaskLineSegment pSegm) {
+            return (mwEnd == pSegm->GetEnd() && mwStart == pSegm->GetStart());
+        };
 
-public:
-	int32_t GetPointDirect(uint32_t X);
-	CTIMaskLineSegment();
-	CTIMaskLineSegment(int32_t Start, int32_t End);
-	CTIMaskLineSegment(PCTIMaskLineSegment pSegm);
-	virtual ~CTIMaskLineSegment();
+    public:
+        int32_t GetPointDirect(uint32_t X);
+        CTIMaskLineSegment();
+        CTIMaskLineSegment(int32_t Start, int32_t End);
+        CTIMaskLineSegment(PCTIMaskLineSegment pSegm);
+        virtual ~CTIMaskLineSegment();
 
-protected:
-	PCTIMaskLineSegment mpNext;
-    int32_t mwStart;
-	int32_t mwEnd;
+    protected:
+        PCTIMaskLineSegment mpNext;
+        int32_t mwStart;
+        int32_t mwEnd;
 };
 
 #endif // !defined(_CTIMASKLINESEGMENT_H_)

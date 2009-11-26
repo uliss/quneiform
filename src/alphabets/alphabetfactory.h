@@ -23,23 +23,24 @@
 #include "alphabet.h"
 #include "lang_def.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class AlphabetFactory
 {
-public:
-    typedef Alphabet * (*alphabetCreate)();
-    static AlphabetFactory& instance();
-public:
-    Alphabet * make(language_t language);
-    bool registerCreator(language_t language, alphabetCreate creator);
-private:
-    typedef std::map<language_t, alphabetCreate> AlphabetMap;
-    AlphabetMap alpha_map_;
-    AlphabetFactory();
-    AlphabetFactory(const AlphabetFactory&);
-    void operator=(const AlphabetFactory&);
-    static AlphabetFactory * instance_;
+    public:
+        typedef Alphabet * (*alphabetCreate)();
+        static AlphabetFactory& instance();
+    public:
+        Alphabet * make(language_t language);
+        bool registerCreator(language_t language, alphabetCreate creator);
+    private:
+        typedef std::map<language_t, alphabetCreate> AlphabetMap;
+        AlphabetMap alpha_map_;
+        AlphabetFactory();
+        AlphabetFactory(const AlphabetFactory&);
+        void operator=(const AlphabetFactory&);
+        static AlphabetFactory * instance_;
 };
 
 }

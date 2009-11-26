@@ -56,28 +56,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 /*---------------------------------------------------------------------------*/
-typedef struct tagTEXT_SKEW
-{
-	int32_t   Skew;
-	double  LentRow;
-	double  NumbRow;
+typedef struct tagTEXT_SKEW {
+    int32_t   Skew;
+    double  LentRow;
+    double  NumbRow;
 } TEXT_SKEW;
 
-typedef struct tagTRIP_SKEW
-{
-	TEXT_SKEW Beg;
-	TEXT_SKEW Mid;
-	TEXT_SKEW End;
+typedef struct tagTRIP_SKEW {
+    TEXT_SKEW Beg;
+    TEXT_SKEW Mid;
+    TEXT_SKEW End;
 } TRIP_SKEW;
 
-typedef struct tagINV_SKEW
-{
-	int32_t   SkewHorLin;
-	double  WeigHorLin;
-	int32_t   SkewVerLin;
-	double  WeigVerLin;
-	TRIP_SKEW Hor;
-	TRIP_SKEW Ver;
+typedef struct tagINV_SKEW {
+    int32_t   SkewHorLin;
+    double  WeigHorLin;
+    int32_t   SkewVerLin;
+    double  WeigVerLin;
+    TRIP_SKEW Hor;
+    TRIP_SKEW Ver;
 } INV_SKEW;
 /*---------------------------------------------------------------------------*/
 //установить разрешение по X. Возвращает предыдущее значение /tanya

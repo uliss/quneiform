@@ -70,14 +70,13 @@ typedef Bool   ( *TPrgNewStage  )  (int16_t StageId, char * szStage, int16_t sta
 typedef Bool   ( *TPrgSetPercent)  (int16_t prc);
 typedef Bool   ( *TPrgMessageBox)  (char  * szMessage, uint32_t *flags); // use "wmb.h" to obtain flags
 
-typedef struct tagPrgSet
- {
-   TPrgStart            Start; // Must  present
-   TPrgFinish          Finish; // Must  present
-   TPrgNewStage      NewStage; // Must  present
-   TPrgSetPercent  SetPercent; // Must  present
-   TPrgMessageBox      MsgBox; // May be NULL.
- } TPrgSet;
+typedef struct tagPrgSet {
+    TPrgStart            Start; // Must  present
+    TPrgFinish          Finish; // Must  present
+    TPrgNewStage      NewStage; // Must  present
+    TPrgSetPercent  SetPercent; // Must  present
+    TPrgMessageBox      MsgBox; // May be NULL.
+} TPrgSet;
 
 _SETTYPES(TPrgSet);
 

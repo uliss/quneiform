@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
   шш                                                              шш
   шш     Copyright (C) 1990 Cognitive Technology Corporation.     шш
-  шш	 All rights reserved. This program is proprietary and     шш
+  шш   All rights reserved. This program is proprietary and     шш
   шш     a trade secret of Cognitive Technology Corporation.      шш
   шш                                                              шш
   шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш

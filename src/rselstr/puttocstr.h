@@ -95,7 +95,7 @@ extern Handle Root;
 
 void CleanCont(void);
 Bool StrGetRaster(Handle, uchar*, Rect16, CCOM_comp*, RecRaster*, Bool, Bool,
-		int);
+                  int);
 void StrAr2(uchar*, int, int);
 Bool GetMasP(Handle, uchar*, Rect16, uchar**);
 void Invert(RecRaster*);
@@ -144,9 +144,9 @@ Bool InitPrepList(Handle hCPAGE);
 CPrepHstr* WasAlreadyPrep(CHstr* my_str);
 void GetIdealRect(CCOM_handle HCCOM, Rect16 Rc, Rect16* Rect);
 void GetStrBounds(CCOM_handle hCCOM, Rect16* pRc, int nRc, int num, int* ptop,
-		int* pbottom, Bool vert, Rect16 Rc);
+                  int* pbottom, Bool vert, Rect16 Rc);
 Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp,
-		Rect16* pRc, int nRc, int param);
+                        Rect16* pRc, int nRc, int param);
 Bool NotIn(CCOM_handle, Rect16 Rc, Rect16* pRc, int nRc, Bool vert, int);
 Bool NotInAll(CCOM_handle, Rect16 Rc, Rect16* pRc, int& nRc, Bool vert);
 Bool IfOneRowComp(CCOM_handle hCCOM, Rect16 Rc, Bool vert);

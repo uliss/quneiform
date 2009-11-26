@@ -61,20 +61,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Структуры заданий на работу с изображением.                */
 /*  Назначение :  Изоляция алгоритмов библиотеки от чужеродных типов данных. */
 /*---------------------------------------------------------------------------*/
-typedef struct tagVL_I_TASK
-{
-	/*  параметры верификации  */
-	int       MaxHeight;
-	int       MaxSize;
-	int       FreeHeight;
-	/*  текущая задача  */
-	int       MyHeight;
-	int       MySpusk;
-	int       MyExtrWidth;
-	int       MyNormWidth;
-	int       MyLeft;
-	int       MyTop;
-	/*  свойства линии  */
-	int       LineWid;
-}VL_I_TASK;
+typedef struct tagVL_I_TASK {
+    /*  параметры верификации  */
+    int       MaxHeight;
+    int       MaxSize;
+    int       FreeHeight;
+    /*  текущая задача  */
+    int       MyHeight;
+    int       MySpusk;
+    int       MyExtrWidth;
+    int       MyNormWidth;
+    int       MyLeft;
+    int       MyTop;
+    /*  свойства линии  */
+    int       LineWid;
+} VL_I_TASK;
 /*---------------------------------------------------------------------------*/

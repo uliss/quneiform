@@ -55,10 +55,10 @@
  */
 
 /**********  Заголовок  *******************************************************/
-/*  Автор      : Глеб Корольков					                                          */
+/*  Автор      : Глеб Корольков                                                             */
 /*  комментарии                                                               */
 /*  и далнейшая                                                               */
-/*  правка     :							                                  */
+/*  правка     :                                                            */
 /*  Редакция   :  16.10.2000                                                  */
 /*  Файл       :  'RMARKER.H'                                                 */
 /*  Содержание :  Интерфейс библиотеки                                        */
@@ -76,7 +76,7 @@
 #define RMARKER_FUNC  FUN_IMPO
 #endif
 
-RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
+RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
 RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
@@ -84,57 +84,57 @@ RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 
 typedef struct tagRMPreProcessImage {
-	puchar *pgpRecogDIB;
-	Bool32 gbAutoRotate;
-	Bool32 gbDotMatrix;
-	Bool32 gbFax100;
-	Bool32 gbOneColumn;
-	Bool32 gKillVSLComponents;
-	uint32_t gnLanguage;
-	uint32_t gnTables;
-	Handle hCPAGE;
-	Handle hCCOM;
-	Handle hCLINE;
-	Handle hDebugCancelSearchPictures;
-	Handle hDebugCancelComponent;
-	Handle hDebugCancelTurn;
-	Handle hDebugCancelSearchLines;
-	Handle hDebugCancelVerifyLines;
-	Handle hDebugCancelSearchDotLines;
-	Handle hDebugCancelRemoveLines;
-	Handle hDebugCancelSearchTables;
-	Handle hDebugLayoutFromFile;
-	Handle hDebugCancelExtractBlocks;
-	Handle hDebugHandLayout;
-	Handle hDebugPrintBlocksCPAGE;
-	Handle hDebugSVLines;
-	Handle hDebugSVLinesStep;
-	Handle hDebugSVLinesData;
-	Handle hDebugEnableSearchSegment;
-	char *szLayoutFileName;
-	const char ** pglpRecogName;
-	void * pinfo;
-	Handle* phLinesCCOM;
-	PBool32 pgneed_clean_line;
-	int32_t * pgnNumberTables;
-	uint32_t gnPictures;
-	Bool32* pgrc_line;
+    puchar *pgpRecogDIB;
+    Bool32 gbAutoRotate;
+    Bool32 gbDotMatrix;
+    Bool32 gbFax100;
+    Bool32 gbOneColumn;
+    Bool32 gKillVSLComponents;
+    uint32_t gnLanguage;
+    uint32_t gnTables;
+    Handle hCPAGE;
+    Handle hCCOM;
+    Handle hCLINE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugCancelComponent;
+    Handle hDebugCancelTurn;
+    Handle hDebugCancelSearchLines;
+    Handle hDebugCancelVerifyLines;
+    Handle hDebugCancelSearchDotLines;
+    Handle hDebugCancelRemoveLines;
+    Handle hDebugCancelSearchTables;
+    Handle hDebugLayoutFromFile;
+    Handle hDebugCancelExtractBlocks;
+    Handle hDebugHandLayout;
+    Handle hDebugPrintBlocksCPAGE;
+    Handle hDebugSVLines;
+    Handle hDebugSVLinesStep;
+    Handle hDebugSVLinesData;
+    Handle hDebugEnableSearchSegment;
+    char *szLayoutFileName;
+    const char ** pglpRecogName;
+    void * pinfo;
+    Handle* phLinesCCOM;
+    PBool32 pgneed_clean_line;
+    int32_t * pgnNumberTables;
+    uint32_t gnPictures;
+    Bool32* pgrc_line;
 } RMPreProcessImage, *PRMPreProcessImage;
 
 typedef struct tagRMCBProgressPoints {
-	void * pDPumaSkipComponent;
-	void * pDPumaSkipTurn;
-	void * pSetReturnCode;
-	void * pGetModulePath;
-	void * pSetUpdate;
+    void * pDPumaSkipComponent;
+    void * pDPumaSkipTurn;
+    void * pSetReturnCode;
+    void * pGetModulePath;
+    void * pSetUpdate;
 } RMCBProgressPoints, *PRMCBProgressPoints;
 #define PUMA_SVL_FIRST_STEP                         0x1
 #define PUMA_SVL_SECOND_STEP                        0x2
 #define PUMA_SVL_THRID_STEP                         0x3
 #define PUMAMaxNumLines                             2000
 #define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
-DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage,void*,int,void*,int))
-DEC_FUN(Bool32, SearchTableInZone, (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect))
+DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage, void*, int, void*, int))
+DEC_FUN(Bool32, SearchTableInZone, (Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect))
 #undef DEC_FUN
 
 #endif

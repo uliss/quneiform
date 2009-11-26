@@ -61,122 +61,122 @@
 #include "point.h"
 
 enum {
-	LEO_CONT_STD_PAGE_ID = 999999
+    LEO_CONT_STD_PAGE_ID = 999999
 };
 
 typedef struct tagLeoPageSetup {
-	uint32_t Options;
-	int32_t nResolutionX;
-	int32_t nResolutionY;
-	uchar AlphaStylesTable[256];
-	// AlphaTable[i]==0 <=> no such letter on the page;
-	// else
-	// if  AlphaTable[i] & LS_HAND => such handprinted letter;
-	// if  AlphaTable[i] & LS_INDX => such index letter; ...
-	int32_t nIdPage;
-	uchar _reserved[52 - 4];
+    uint32_t Options;
+    int32_t nResolutionX;
+    int32_t nResolutionY;
+    uchar AlphaStylesTable[256];
+    // AlphaTable[i]==0 <=> no such letter on the page;
+    // else
+    // if  AlphaTable[i] & LS_HAND => such handprinted letter;
+    // if  AlphaTable[i] & LS_INDX => such index letter; ...
+    int32_t nIdPage;
+    uchar _reserved[52 - 4];
 } LeoPageSetup;
 
 typedef struct tagLeoFieldSetup {
-	uint32_t nStyle;
-	CIF::Point16 BoxSize;
-	uchar AlphaTable[256]; // AlphaTable[i]==0 <=> no such letter
-	/// multi-passing:
-	int32_t nLeoInternal; // initially set to 0; modifyed only by LEO
-	int32_t nFieldNo; // field num
-	uchar _reserved[240];
+    uint32_t nStyle;
+    CIF::Point16 BoxSize;
+    uchar AlphaTable[256]; // AlphaTable[i]==0 <=> no such letter
+    /// multi-passing:
+    int32_t nLeoInternal; // initially set to 0; modifyed only by LEO
+    int32_t nFieldNo; // field num
+    uchar _reserved[240];
 } LeoFieldSetup;
 
 enum leo_methods_status_t {
-	REC_STATUS_METHODS_FINAL = 0x0001,
-	REC_STATUS_METHODS_3X5 = 0x0002,
-	REC_STATUS_METHODS_NET = 0x0004,
-	REC_STATUS_METHODS_TRE = 0x0008,
-	REC_STATUS_METHODS_MSK = 0x0010,
-	REC_STATUS_METHODS_EVN = 0x0020,
-	REC_STATUS_METHODS_NDX = 0x0040,
-	REC_STATUS_METHODS_VEC = 0x0080,
-	// Global NET CUBE
-	REC_STATUS_METHODS_NCU = 0x0800,
-	// Sceleton
-	REC_STATUS_METHODS_SCE = 0x1000,
-	// Sceleton
-	REC_STATUS_METHODS_PLN = 0x2000,
-	// Cut left
-	REC_STATUS_METHODS_CUT_LEFT = 0x80000000,
-	// Cut right
-	REC_STATUS_METHODS_CUT_RIGHT = 0x40000000,
-	// Cut left or right
-	REC_STATUS_METHODS_CUT = REC_STATUS_METHODS_CUT_LEFT
-			+ REC_STATUS_METHODS_CUT_RIGHT
+    REC_STATUS_METHODS_FINAL = 0x0001,
+    REC_STATUS_METHODS_3X5 = 0x0002,
+    REC_STATUS_METHODS_NET = 0x0004,
+    REC_STATUS_METHODS_TRE = 0x0008,
+    REC_STATUS_METHODS_MSK = 0x0010,
+    REC_STATUS_METHODS_EVN = 0x0020,
+    REC_STATUS_METHODS_NDX = 0x0040,
+    REC_STATUS_METHODS_VEC = 0x0080,
+    // Global NET CUBE
+    REC_STATUS_METHODS_NCU = 0x0800,
+    // Sceleton
+    REC_STATUS_METHODS_SCE = 0x1000,
+    // Sceleton
+    REC_STATUS_METHODS_PLN = 0x2000,
+    // Cut left
+    REC_STATUS_METHODS_CUT_LEFT = 0x80000000,
+    // Cut right
+    REC_STATUS_METHODS_CUT_RIGHT = 0x40000000,
+    // Cut left or right
+    REC_STATUS_METHODS_CUT = REC_STATUS_METHODS_CUT_LEFT
+    + REC_STATUS_METHODS_CUT_RIGHT
 };
 
 enum leo_method_t {
-	REC_METHOD_CNT = 255,
-	REC_METHOD_DIC = 254,
-	REC_METHOD_LEO = 253,
-	REC_METHOD_FON = 100,
-	REC_METHOD_GEN = 102,
-	REC_METHOD_NULL = 0,
-	REC_METHOD_3X5 = 1,
-	REC_METHOD_NET = 2,
-	REC_METHOD_TRE = 3,
-	REC_METHOD_MSK = 4,
-	REC_METHOD_EVN = 5,
-	REC_METHOD_NDX = 6,
-	REC_METHOD_VEC = 7,
-	REC_METHOD_NCU = 13,
-	REC_METHOD_SCE = 14,
-	REC_METHOD_PLN = 15,
-	REC_METHOD_PLD = 16,
-	REC_METHOD_FINAL = 17,
-	REC_METHOD_TOTAL = REC_METHOD_FINAL
+    REC_METHOD_CNT = 255,
+    REC_METHOD_DIC = 254,
+    REC_METHOD_LEO = 253,
+    REC_METHOD_FON = 100,
+    REC_METHOD_GEN = 102,
+    REC_METHOD_NULL = 0,
+    REC_METHOD_3X5 = 1,
+    REC_METHOD_NET = 2,
+    REC_METHOD_TRE = 3,
+    REC_METHOD_MSK = 4,
+    REC_METHOD_EVN = 5,
+    REC_METHOD_NDX = 6,
+    REC_METHOD_VEC = 7,
+    REC_METHOD_NCU = 13,
+    REC_METHOD_SCE = 14,
+    REC_METHOD_PLN = 15,
+    REC_METHOD_PLD = 16,
+    REC_METHOD_FINAL = 17,
+    REC_METHOD_TOTAL = REC_METHOD_FINAL
 };
 
 enum leo_status_t {
-	// vector 3x5 is ready
-	REC_STATUS_V3X5 = 0x0001,
-	// can used counter of components
-	REC_STATUS_COMP = 0x0002,
-	// can used array of sticks
-	REC_STATUS_STIC = 0x0004,
-	// consists of two sticks
-	REC_STATUS_BROKEN_II = 0x0008,
-	// cut at top side
-	REC_STATUS_CUT_TOP = 0x0100,
-	// cut at bottom side
-	REC_STATUS_CUT_BOTTOM = 0x0200
+    // vector 3x5 is ready
+    REC_STATUS_V3X5 = 0x0001,
+    // can used counter of components
+    REC_STATUS_COMP = 0x0002,
+    // can used array of sticks
+    REC_STATUS_STIC = 0x0004,
+    // consists of two sticks
+    REC_STATUS_BROKEN_II = 0x0008,
+    // cut at top side
+    REC_STATUS_CUT_TOP = 0x0100,
+    // cut at bottom side
+    REC_STATUS_CUT_BOTTOM = 0x0200
 };
 
 enum leo_font_t {
-	LEO_FONT_NONE = 0, LEO_FONT_TW = 2, LEO_FONT_MTR = 4
+    LEO_FONT_NONE = 0, LEO_FONT_TW = 2, LEO_FONT_MTR = 4
 };
 
 enum leo_valid_t {
-	LEO_VALID_NONE = 0x00,
-	LEO_VALID_DIGIT = 0x01,
-	LEO_VALID_RUSSIAN = 0x02,
-	LEO_VALID_LATIN = 0x04,
-	LEO_VALID_ALL = 0x08,
-	LEO_VALID_LINGVO = 0x10,
-	LEO_VALID_FONT = 0x20,
-	LEO_VALID_FINAL = 0x40
+    LEO_VALID_NONE = 0x00,
+    LEO_VALID_DIGIT = 0x01,
+    LEO_VALID_RUSSIAN = 0x02,
+    LEO_VALID_LATIN = 0x04,
+    LEO_VALID_ALL = 0x08,
+    LEO_VALID_LINGVO = 0x10,
+    LEO_VALID_FONT = 0x20,
+    LEO_VALID_FINAL = 0x40
 };
 
 enum leo_control_t {
-	LEO_CONTROL_NONE = 0x00,
-	// первая альтернатива однозначно подтверждена
-	LEO_CONTROL_FON_CONFIRMED = 0x01,
-	// несколько первых альтернатив укладываются в близкие кластеры и плохо различимы
-	LEO_CONTROL_FON_TWIN = 0x02,
-	// знакоместо сомнително (плохой размер, наличие других кластеров с такой буквой...)
-	// но не настолько, чтобы однозначно забраковать
-	LEO_CONTROL_FON_ALERT = 0x04,
-	// результат сегментации и распознавания знакоместа забракован шрифтом
-	LEO_CONTROL_FON_REJECT = 0x08,
-	LEO_CONTROL_CASE = 0x10,
-	// произвел замену первой альтернативы
-	LEO_CONTROL_FON_CHANGE = 0x20
+    LEO_CONTROL_NONE = 0x00,
+    // первая альтернатива однозначно подтверждена
+    LEO_CONTROL_FON_CONFIRMED = 0x01,
+    // несколько первых альтернатив укладываются в близкие кластеры и плохо различимы
+    LEO_CONTROL_FON_TWIN = 0x02,
+    // знакоместо сомнително (плохой размер, наличие других кластеров с такой буквой...)
+    // но не настолько, чтобы однозначно забраковать
+    LEO_CONTROL_FON_ALERT = 0x04,
+    // результат сегментации и распознавания знакоместа забракован шрифтом
+    LEO_CONTROL_FON_REJECT = 0x08,
+    LEO_CONTROL_CASE = 0x10,
+    // произвел замену первой альтернативы
+    LEO_CONTROL_FON_CHANGE = 0x20
 };
 
 #endif

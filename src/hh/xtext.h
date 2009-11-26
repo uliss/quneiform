@@ -66,47 +66,83 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template <int nSize>
 class XText
 {
-public:
-   char buf[nSize];
-   int  dummy;
-   XText(void){ buf[0]=0; dummy = 0; };
-   XText(const char* str){ if (str) strcpy( buf, str ); dummy = 0; };
-   XText& sprintf(const char* format, ...)
-   {  va_list list;
-      va_start(list, format);
-      vsprintf( buf, format, list );
-      va_end( list );
-      return *this;
-   }
+    public:
+        char buf[nSize];
+        int  dummy;
+        XText(void) {
+            buf[0] = 0;
+            dummy = 0;
+        };
+        XText(const char* str) {
+            if (str) strcpy( buf, str );
 
-   ~XText()
-   {
+            dummy = 0;
+        };
+        XText& sprintf(const char* format, ...) {
+            va_list list;
+            va_start(list, format);
+            vsprintf( buf, format, list );
+            va_end( list );
+            return *this;
+        }
+
+        ~XText() {
 #ifdef _DEBUG
 //      if (dummy != 0 || buf[nSize-1] != 0)
 //         asm int 3;
 #endif
-   };
+        };
 
-   operator char* (void) const { return (char*)buf; };
-   Bool32 operator !(void) const { return buf[0] == 0; };
+        operator char* (void) const {
+            return (char*)buf;
+        };
+        Bool32 operator !(void) const {
+            return buf[0] == 0;
+        };
 
-   XText& operator = ( const char* str ) { strcpy(buf, str);    return *this; };
-   XText& operator += ( const char* str ) { strcat(buf, str);    return *this; };
-   XText  operator + ( const char* str ) { return XText(*this) += str; };
+        XText& operator = ( const char* str ) {
+            strcpy(buf, str);
+            return *this;
+        };
+        XText& operator += ( const char* str ) {
+            strcat(buf, str);
+            return *this;
+        };
+        XText  operator + ( const char* str ) {
+            return XText(*this) += str;
+        };
 
-   Bool32 operator == ( const char* str ) const { return strcmp(buf, str)==0; };
-   Bool32 operator == (       char* str ) const { return strcmp(buf, str)==0; };
+        Bool32 operator == ( const char* str ) const {
+            return strcmp(buf, str) == 0;
+        };
+        Bool32 operator == (       char* str ) const {
+            return strcmp(buf, str) == 0;
+        };
 
-   Bool32 operator != ( const char* str ) const { return strcmp(buf, str)!=0; };
-   Bool32 operator != (       char* str ) const { return strcmp(buf, str)!=0; };
+        Bool32 operator != ( const char* str ) const {
+            return strcmp(buf, str) != 0;
+        };
+        Bool32 operator != (       char* str ) const {
+            return strcmp(buf, str) != 0;
+        };
 
-   Bool32 operator > ( const char* str ) const { return strcmp(buf, str) > 0; };
-   Bool32 operator > (       char* str ) const { return strcmp(buf, str) > 0; };
+        Bool32 operator > ( const char* str ) const {
+            return strcmp(buf, str) > 0;
+        };
+        Bool32 operator > (       char* str ) const {
+            return strcmp(buf, str) > 0;
+        };
 
-   Bool32 operator < ( const char* str ) const { return strcmp(buf, str) < 0; };
-   Bool32 operator < (       char* str ) const { return strcmp(buf, str) < 0; };
+        Bool32 operator < ( const char* str ) const {
+            return strcmp(buf, str) < 0;
+        };
+        Bool32 operator < (       char* str ) const {
+            return strcmp(buf, str) < 0;
+        };
 
-   int    GetBufSize(void){ return nSize; };
+        int    GetBufSize(void) {
+            return nSize;
+        };
 
 ///////////////
 // ??
@@ -117,21 +153,29 @@ public:
 
 class XPChar
 {
-public:
-   char * ptr;
-   XPChar(void){ ptr=NULL; };
-   XPChar(char* p){ ptr=p; };
-   operator char * (void) const { return ptr; };
-   Bool32 NotEmpty(void) { return ptr!=NULL && ptr[0] != 0; };
+    public:
+        char * ptr;
+        XPChar(void) {
+            ptr = NULL;
+        };
+        XPChar(char* p) {
+            ptr = p;
+        };
+        operator char * (void) const {
+            return ptr;
+        };
+        Bool32 NotEmpty(void) {
+            return ptr != NULL && ptr[0] != 0;
+        };
 
-/* comfortable, but may be not safe in use...
-   XPChar& operator = ( char* str ) { strcpy(ptr, str);    return *this; };
-   XPChar& operator += ( char* str ) { strcat(ptr, str);    return *this; };
-   Bool32 operator == ( char* str ) { return strcmp(ptr, str)==0; };
-   Bool32 operator != ( char* str ) { return strcmp(ptr, str)!=0; };
-   Bool32 operator > ( char* str ) { return strcmp(ptr, str) > 0; };
-   Bool32 operator < ( char* str ) { return strcmp(ptr, str) < 0; };
-*/
+        /* comfortable, but may be not safe in use...
+           XPChar& operator = ( char* str ) { strcpy(ptr, str);    return *this; };
+           XPChar& operator += ( char* str ) { strcat(ptr, str);    return *this; };
+           Bool32 operator == ( char* str ) { return strcmp(ptr, str)==0; };
+           Bool32 operator != ( char* str ) { return strcmp(ptr, str)!=0; };
+           Bool32 operator > ( char* str ) { return strcmp(ptr, str) > 0; };
+           Bool32 operator < ( char* str ) { return strcmp(ptr, str) < 0; };
+        */
 
 };
 

@@ -61,182 +61,249 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 28.05.97 22:32, Postnikov
 /////////////////////////////////////////////////////////////////
 #ifndef __XMEMFILE_H
-   #define __XMEMFILE_H
+#define __XMEMFILE_H
 
-   #ifndef __XPOOL_H
-   #  include "xpool.h"
-   #endif
+#ifndef __XPOOL_H
+#  include "xpool.h"
+#endif
 
-   #ifndef __SWABYTES_H
-   #  include "swabytes.h"
-   #endif
+#ifndef __SWABYTES_H
+#  include "swabytes.h"
+#endif
 
 class XMemFile : public XPool
 {
-   int32_t    nFileLength;  // count of bytes in use (put into)
-   uchar*   pCur;        // current ptr
+        int32_t    nFileLength;  // count of bytes in use (put into)
+        uchar*   pCur;        // current ptr
 
-public:
-   XMemFile( int32_t init_size = 0 )
-      : XPool(init_size)
-      { pCur=(uchar*)Data; nFileLength = 0; };
+    public:
+        XMemFile( int32_t init_size = 0 )
+                : XPool(init_size) {
+            pCur = (uchar*)Data;
+            nFileLength = 0;
+        };
 
-   int32_t    Tell()
-      { return pCur - (uchar*)Data; };
+        int32_t    Tell() {
+            return pCur - (uchar*)Data;
+        };
 
-   int32_t    FileLength()
-      { return nFileLength; };
+        int32_t    FileLength() {
+            return nFileLength;
+        };
 
-   void    RestoreFileLength(int32_t len) // Oleg : knot for second recongition
-      { nFileLength=len; };
+        void    RestoreFileLength(int32_t len) { // Oleg : knot for second recongition
+            nFileLength = len;
+        };
 
-   Bool     Seek( int32_t nOffset )
-      {  if ((nOffset > nFileLength)||(nOffset < 0))
-            RET_FALSE;
-         pCur= ((uchar*)Data)+nOffset;
-         return TRUE;
-      };
+        Bool     Seek( int32_t nOffset ) {
+            if ((nOffset > nFileLength) || (nOffset < 0))
+                RET_FALSE;
 
-   void     SeekToStart( void ) {  pCur= ((uchar*)Data); };
-   void     SeekToFinish( void ) {  pCur= ((uchar*)Data)+nFileLength; };
-
-   void     Reset() { nFileLength = 0; SeekToStart(); };
-
-   Bool     Get( void* data, int32_t size )
-      {
-         if (size < 0 || size+Tell() > nFileLength)
-            RET_FALSE;
-         if (size==0)
+            pCur = ((uchar*)Data) + nOffset;
             return TRUE;
-         stdMemcpy(data, pCur, size);
-         pCur+=size;
-         return TRUE;
-      };
+        };
 
-   Bool     Writeln( const char* str )
-      {
-         return Put(str, strlen(str)+1);
-      };
-   char*    Readln(void) // be sure that there is zt string!
-      {
-	 int nRest = nFileLength - Tell();
-         if (nRest <=0)
-            return NULL;
-	 char* pNext = (char*)memchr(pCur, 0, nRest);
-	 if (pNext==NULL)
-            return NULL;
-         char* ret = (char*)pCur;
-         pCur = (uchar*)pNext; pCur++;
-         return ret;
-      };
+        void     SeekToStart( void ) {
+            pCur = ((uchar*)Data);
+        };
+        void     SeekToFinish( void ) {
+            pCur = ((uchar*)Data) + nFileLength;
+        };
 
-   Bool     Reserve( int32_t size )
-      {
-         if (size < 0)
-            RET_FALSE; // too strange...
-         int32_t tell = Tell();
-         if (size+tell <= Volume)
-            return TRUE; // there is enough place
+        void     Reset() {
+            nFileLength = 0;
+            SeekToStart();
+        };
 
-         int32_t new_size = maxi(size+tell, Volume*2);
-         if (!Realloc( new_size ))
-         {
-            if (   size+tell < Volume*2  &&
-                  !Realloc(size+tell )
-               )
-            RET_FALSE;  // can't realloc
-         }
-         Seek(tell);
-         return TRUE;
-      }
+        Bool     Get( void* data, int32_t size ) {
+            if (size < 0 || size + Tell() > nFileLength)
+                RET_FALSE;
 
-   Bool     Put( const void* data, int32_t size )
-      {
-         if (size==0)
+            if (size == 0)
+                return TRUE;
+
+            stdMemcpy(data, pCur, size);
+            pCur += size;
             return TRUE;
-         if (!Reserve(size)) // prepeare place to put
-            RET_FALSE;
-         // put
-         stdMemcpy(pCur, (void*)data, size);
-         pCur+=size;
-         nFileLength += size;
-         return TRUE;
-      };
+        };
 
-   // TODO: optimize!
-   Bool     Get( int32_t& t ) { return Get( &t, sizeof(int32_t) ); }
-   Bool     Put( int32_t& t ) { return Put( &t, sizeof(int32_t) ); }
-   Bool     Get( int16_t& t ) { return Get( &t, sizeof(int16_t) ); }
-   Bool     Put( int16_t& t ) { return Put( &t, sizeof(int16_t) ); }
-   Bool     Get( char& t ) { return Get( &t, sizeof(char) ); }
-   Bool     Put( char& t ) { return Put( &t, sizeof(char) ); }
-   Bool     Get( uint32_t& t ) { return Get( &t, sizeof(uint32_t) ); }
-   Bool     Put( uint32_t& t ) { return Put( &t, sizeof(uint32_t) ); }
-   Bool     Get( uint16_t& t ) { return Get( &t, sizeof(uint16_t) ); }
-   Bool     Put( uint16_t& t ) { return Put( &t, sizeof(uint16_t) ); }
-   Bool     Get( uchar& t ) { return Get( &t, sizeof(uchar) ); }
-   Bool     Put( uchar& t ) { return Put( &t, sizeof(uchar) ); }
-   Bool     Get( Rect16& t ) { return Get( &t, sizeof(Rect16) ); }
-   Bool     Put( Rect16& t ) { return Put( &t, sizeof(Rect16) ); }
-   Bool     Get( Point16& t ) { return Get( &t, sizeof(Point16) ); }
-   Bool     Put( Point16& t ) { return Put( &t, sizeof(Point16) ); }
-   Bool     Get( Rect32& t ) { return Get( &t, sizeof(Rect32) ); }
-   Bool     Put( Rect32& t ) { return Put( &t, sizeof(Rect32) ); }
-   Bool     Get( Point& t ) { return Get( &t, sizeof(Point) ); }
-   Bool     Put( Point& t ) { return Put( &t, sizeof(Point) ); }
-   // end optimize
-/*
-   template <class T>
-   Bool     Get( T& t ) { return Get( &t, sizeof(T) ); }
+        Bool     Writeln( const char* str ) {
+            return Put(str, strlen(str) + 1);
+        };
+        char*    Readln(void) { // be sure that there is zt string!
+            int nRest = nFileLength - Tell();
 
-   template <class T>
-   Bool     Put( T& t ) { return Put( &t, sizeof(T) ); }
-*/
-   Bool     GetArray( void* p_start, int32_t& nCount, int32_t cbElemSize )
-      {  if (!Get( nCount ))
-            RET_FALSE;
-         if (!Get( p_start, nCount*cbElemSize ))
-            RET_FALSE;
-         return TRUE;
-      };
+            if (nRest <= 0)
+                return NULL;
 
-   Bool     PutArray( void* p_start, int32_t nCount, int32_t cbElemSize )
-      {  if (!Put( nCount ))
-            RET_FALSE;
-         if (!Put( p_start, nCount*cbElemSize ))
-            RET_FALSE;
-         return TRUE;
-      };
+            char* pNext = (char*)memchr(pCur, 0, nRest);
 
-   void     Destroy() { XPool::Destroy(); pCur = NULL; nFileLength = 0; };
-   /////////////////////////////////////////////////////
-   // Disk IO
-   Err16    Read( XFile & xf, Bool32 swap_bytes = FALSE )
-      {
-         RETIFERR( XPool::Read(xf, swap_bytes) );
-         nFileLength = XPool::GetVolume();
-         SeekToStart();
-         return ER_NONE;
-      };
+            if (pNext == NULL)
+                return NULL;
 
-   Bool     Write( XFile & xf ) const
-      {
-         if(!XPool::Write(xf, nFileLength))   RET_FALSE;
-         return TRUE;
-      }
+            char* ret = (char*)pCur;
+            pCur = (uchar*)pNext;
+            pCur++;
+            return ret;
+        };
 
-   /////////////////////////////////////////////////////
-   // Exchange
-   Bool CopyFrom( XMemFile& src )
-   {
-      Destroy();
-      if (!XPool::CopyFrom( *(XPool*)&src ))
-         return FALSE;
+        Bool     Reserve( int32_t size ) {
+            if (size < 0)
+                RET_FALSE; // too strange...
 
-      nFileLength = src.FileLength();
-      Seek( src.Tell() );
-      return TRUE;
-   }
+            int32_t tell = Tell();
+
+            if (size + tell <= Volume)
+                return TRUE; // there is enough place
+
+            int32_t new_size = maxi(size + tell, Volume * 2);
+
+            if (!Realloc( new_size )) {
+                if (   size + tell < Volume*2  &&
+                        !Realloc(size + tell )
+                   )
+                    RET_FALSE;  // can't realloc
+            }
+
+            Seek(tell);
+            return TRUE;
+        }
+
+        Bool     Put( const void* data, int32_t size ) {
+            if (size == 0)
+                return TRUE;
+
+            if (!Reserve(size)) // prepeare place to put
+                RET_FALSE;
+
+            // put
+            stdMemcpy(pCur, (void*)data, size);
+            pCur += size;
+            nFileLength += size;
+            return TRUE;
+        };
+
+        // TODO: optimize!
+        Bool     Get( int32_t& t ) {
+            return Get( &t, sizeof(int32_t) );
+        }
+        Bool     Put( int32_t& t ) {
+            return Put( &t, sizeof(int32_t) );
+        }
+        Bool     Get( int16_t& t ) {
+            return Get( &t, sizeof(int16_t) );
+        }
+        Bool     Put( int16_t& t ) {
+            return Put( &t, sizeof(int16_t) );
+        }
+        Bool     Get( char& t ) {
+            return Get( &t, sizeof(char) );
+        }
+        Bool     Put( char& t ) {
+            return Put( &t, sizeof(char) );
+        }
+        Bool     Get( uint32_t& t ) {
+            return Get( &t, sizeof(uint32_t) );
+        }
+        Bool     Put( uint32_t& t ) {
+            return Put( &t, sizeof(uint32_t) );
+        }
+        Bool     Get( uint16_t& t ) {
+            return Get( &t, sizeof(uint16_t) );
+        }
+        Bool     Put( uint16_t& t ) {
+            return Put( &t, sizeof(uint16_t) );
+        }
+        Bool     Get( uchar& t ) {
+            return Get( &t, sizeof(uchar) );
+        }
+        Bool     Put( uchar& t ) {
+            return Put( &t, sizeof(uchar) );
+        }
+        Bool     Get( Rect16& t ) {
+            return Get( &t, sizeof(Rect16) );
+        }
+        Bool     Put( Rect16& t ) {
+            return Put( &t, sizeof(Rect16) );
+        }
+        Bool     Get( Point16& t ) {
+            return Get( &t, sizeof(Point16) );
+        }
+        Bool     Put( Point16& t ) {
+            return Put( &t, sizeof(Point16) );
+        }
+        Bool     Get( Rect32& t ) {
+            return Get( &t, sizeof(Rect32) );
+        }
+        Bool     Put( Rect32& t ) {
+            return Put( &t, sizeof(Rect32) );
+        }
+        Bool     Get( Point& t ) {
+            return Get( &t, sizeof(Point) );
+        }
+        Bool     Put( Point& t ) {
+            return Put( &t, sizeof(Point) );
+        }
+        // end optimize
+        /*
+           template <class T>
+           Bool     Get( T& t ) { return Get( &t, sizeof(T) ); }
+
+           template <class T>
+           Bool     Put( T& t ) { return Put( &t, sizeof(T) ); }
+        */
+        Bool     GetArray( void* p_start, int32_t& nCount, int32_t cbElemSize ) {
+            if (!Get( nCount ))
+                RET_FALSE;
+
+            if (!Get( p_start, nCount*cbElemSize ))
+                RET_FALSE;
+
+            return TRUE;
+        };
+
+        Bool     PutArray( void* p_start, int32_t nCount, int32_t cbElemSize ) {
+            if (!Put( nCount ))
+                RET_FALSE;
+
+            if (!Put( p_start, nCount*cbElemSize ))
+                RET_FALSE;
+
+            return TRUE;
+        };
+
+        void     Destroy() {
+            XPool::Destroy();
+            pCur = NULL;
+            nFileLength = 0;
+        };
+        /////////////////////////////////////////////////////
+        // Disk IO
+        Err16    Read( XFile & xf, Bool32 swap_bytes = FALSE ) {
+            RETIFERR( XPool::Read(xf, swap_bytes) );
+            nFileLength = XPool::GetVolume();
+            SeekToStart();
+            return ER_NONE;
+        };
+
+        Bool     Write( XFile & xf ) const {
+            if (!XPool::Write(xf, nFileLength))   RET_FALSE;
+
+            return TRUE;
+        }
+
+        /////////////////////////////////////////////////////
+        // Exchange
+        Bool CopyFrom( XMemFile& src ) {
+            Destroy();
+
+            if (!XPool::CopyFrom( *(XPool*)&src ))
+                return FALSE;
+
+            nFileLength = src.FileLength();
+            Seek( src.Tell() );
+            return TRUE;
+        }
 };
 
 #endif // __XMEMFILE_H

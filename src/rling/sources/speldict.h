@@ -115,12 +115,12 @@
 /* --- Positional tree. --------------------------------------------- */
 
 typedef struct {
-	uint16_t cont :1; /*  20 bits - addr of continuation       */
-	uint16_t noterm :1; /*  vert isn't terminal in tree          */
-	uint16_t exist :1; /*  vertex exists                        */
-	uint16_t shift0 :5; /*  first 5 bits & next 8 + 8 bits       */
-	uint16_t shift1 :8; /*    in 21 bits relative address        */
-	uint16_t shift2 :8; /*                                       */
+    uint16_t cont : 1; /*  20 bits - addr of continuation       */
+    uint16_t noterm : 1; /*  vert isn't terminal in tree          */
+    uint16_t exist : 1; /*  vertex exists                        */
+    uint16_t shift0 : 5; /*  first 5 bits & next 8 + 8 bits       */
+    uint16_t shift1 : 8; /*    in 21 bits relative address        */
+    uint16_t shift2 : 8; /*                                       */
 } TVertP;
 
 typedef TVertP * PTVertP;
@@ -128,10 +128,10 @@ typedef TVertP * PTVertP;
 /* --- Pointer tree. ------------------------------------------------ */
 
 typedef struct {
-	uint16_t cont :1; /*  if == 1 then this vertex is          */
-	/*  followed by the continuation         */
-	uint16_t noterm :1; /*  vert isn't terminal in tree          */
-	uint16_t key :6; /*  letter no.: 0--63                    */
+    uint16_t cont : 1; /*  if == 1 then this vertex is          */
+    /*  followed by the continuation         */
+    uint16_t noterm : 1; /*  vert isn't terminal in tree          */
+    uint16_t key : 6; /*  letter no.: 0--63                    */
 } TVertV;
 
 typedef TVertV * PTVertV;
@@ -139,34 +139,34 @@ typedef TVertV * PTVertV;
 /* --- Continuations of vertex. ------------------------------------- */
 
 typedef struct {
-	uint16_t cont :1; /*  continuation exists                  */
-	uint16_t tail :1; /*  =1 (the cont is for tail/accnt)      */
-	uint16_t accnt :1; /*  =0 - tail, =1 - accnt                */
-	uint16_t enter0 :5; /*  tail kind number - first 5 bits      */
-	uint16_t enter1 :8; /*  tail kind number - next  8 bits      */
+    uint16_t cont : 1; /*  continuation exists                  */
+    uint16_t tail : 1; /*  =1 (the cont is for tail/accnt)      */
+    uint16_t accnt : 1; /*  =0 - tail, =1 - accnt                */
+    uint16_t enter0 : 5; /*  tail kind number - first 5 bits      */
+    uint16_t enter1 : 8; /*  tail kind number - next  8 bits      */
 } TPostfics;
 
 typedef TPostfics * PTPostfics;
 
 typedef struct {
-	uint16_t cont :1; /*  continuation exists                  */
-	uint16_t tail :1; /*  =1 (the cont is for tail/accnt)      */
-	uint16_t accnt :1; /*  =0 - tail, =1 - accnt                */
-	uint16_t wrdterm :1; /*  if == 1 - vertex may be end of word  */
-	uint16_t spare :1; /*  spare                                */
-	uint16_t freq :3; /*  frequency of word occurence          */
+    uint16_t cont : 1; /*  continuation exists                  */
+    uint16_t tail : 1; /*  =1 (the cont is for tail/accnt)      */
+    uint16_t accnt : 1; /*  =0 - tail, =1 - accnt                */
+    uint16_t wrdterm : 1; /*  if == 1 - vertex may be end of word  */
+    uint16_t spare : 1; /*  spare                                */
+    uint16_t freq : 3; /*  frequency of word occurence          */
 } TAccount;
 
 typedef TAccount * PTAccount;
 
 typedef struct {
-	uint16_t cont :1; /*  continuation exists                  */
-	uint16_t tail :1; /*  = 0 (the cont is for reference)      */
-	uint16_t lth :1; /*  lth of shift (bytes): 0->1, 1->2/3   */
-	uint16_t shift0 :5; /*  first 5 bits or 1-byte shift         */
-	uint16_t lth2 :1; /*  lth of long shift: = 0 - 2 bytes     */
-	uint16_t shift2 :7; /*  next 7 bits of shift (lth=1,lth2=0)  */
-	uint16_t shift3 :8; /*  next 8 bits of shift (lth=1,lth2=1)  */
+    uint16_t cont : 1; /*  continuation exists                  */
+    uint16_t tail : 1; /*  = 0 (the cont is for reference)      */
+    uint16_t lth : 1; /*  lth of shift (bytes): 0->1, 1->2/3   */
+    uint16_t shift0 : 5; /*  first 5 bits or 1-byte shift         */
+    uint16_t lth2 : 1; /*  lth of long shift: = 0 - 2 bytes     */
+    uint16_t shift2 : 7; /*  next 7 bits of shift (lth=1,lth2=0)  */
+    uint16_t shift3 : 8; /*  next 8 bits of shift (lth=1,lth2=1)  */
 } TAddr;
 
 typedef TAddr * PTAddr;
@@ -174,9 +174,9 @@ typedef TAddr * PTAddr;
 /* --- Tail string unit structure. ---------------------------------- */
 
 typedef struct {
-	uint16_t ch :6; /* character of the tail                  */
-	uint16_t :1; /* not used                               */
-	uint16_t tailend :1; /* flag of end of the tail                */
+    uint16_t ch : 6; /* character of the tail                  */
+    uint16_t : 1; /* not used                               */
+    uint16_t tailend : 1; /* flag of end of the tail                */
 } TTailSet;
 
 typedef TTailSet * PTTailSet;
@@ -184,9 +184,9 @@ typedef TTailSet * PTTailSet;
 /* --- Tail rules. -------------------------------------------------- */
 
 typedef struct {
-	uint16_t tablenum; /* tail table number                      */
-	uint16_t maxtaillth; /* max lth of tail in the table           */
-	uint32_t tailmask; /* mask of tail set variant               */
+    uint16_t tablenum; /* tail table number                      */
+    uint16_t maxtaillth; /* max lth of tail in the table           */
+    uint32_t tailmask; /* mask of tail set variant               */
 } TTailVar;
 
 typedef TTailVar * PTTailVar;
@@ -197,12 +197,12 @@ typedef TShiftType * PTShiftType;
 /* --- Static dictionary control structure type. -------------------- */
 
 struct dict_state { /* declaration for compatibility... */
-	uchar * root; /* pointer to dictionary tree       */
-	uchar * tailset_root; /* pointer to tail set allocation   */
-	PTTailVar vartable; /* table of "tail rules"            */
-	PTShiftType table; /* table of shifts to "tail strings"*/
-	uint32_t size; /* size of used memory              */
-	uint16_t abcSize; /* size of alphabet                 */
+    uchar * root; /* pointer to dictionary tree       */
+    uchar * tailset_root; /* pointer to tail set allocation   */
+    PTTailVar vartable; /* table of "tail rules"            */
+    PTShiftType table; /* table of shifts to "tail strings"*/
+    uint32_t size; /* size of used memory              */
+    uint16_t abcSize; /* size of alphabet                 */
 };
 
 typedef struct dict_state TDictState;
@@ -212,17 +212,17 @@ typedef TDictState * PTDictState;
 
 typedef struct {
 
-	char sign[8]; /* "CTCDict"                        */
-	char cpuType[8]; /* "Mac" or "Intel"                 */
-	char language[8]; /* "FRA"/"RUS"/"ENG"/etc.           */
-	char version[8]; /* "01.00"                          */
-	char treeLength[8]; /* RADIX 10 - in bytes              */
-	char tailsLength[8]; /* RADIX 10 - in bytes              */
-	char rulesLength[8]; /* RADIX 10 - in bytes              */
-	char hushLength[8]; /* RADIX 10 - in bytes              */
-	char abcSize[8]; /* size of the current alphabet     */
-	char abcUpper[64]; /* string of uppercase letters      */
-	char abcLower[64]; /* string of lowercase letters      */
+    char sign[8]; /* "CTCDict"                        */
+    char cpuType[8]; /* "Mac" or "Intel"                 */
+    char language[8]; /* "FRA"/"RUS"/"ENG"/etc.           */
+    char version[8]; /* "01.00"                          */
+    char treeLength[8]; /* RADIX 10 - in bytes              */
+    char tailsLength[8]; /* RADIX 10 - in bytes              */
+    char rulesLength[8]; /* RADIX 10 - in bytes              */
+    char hushLength[8]; /* RADIX 10 - in bytes              */
+    char abcSize[8]; /* size of the current alphabet     */
+    char abcUpper[64]; /* string of uppercase letters      */
+    char abcLower[64]; /* string of lowercase letters      */
 
 } TDictHeaderMask;
 
@@ -231,14 +231,14 @@ typedef TDictHeaderMask * PTDictHeaderMask;
 /* ------ Dictionary builder information stucture. ------------------ */
 
 typedef struct { /* -- information about vertex --- */
-	uint16_t key; /* key of vertex                   */
-	uint16_t levNum; /* absolute level number           */
-	uint16_t wordTerm; /* vertex is terminal in a word    */
-	uint16_t treeTerm; /* vertex is terminal in the tree  */
-	uint16_t levTerm; /* vertex is most right in level   */
-	uint16_t tailsNum; /* number of vertex's tails        */
-	uint16_t refLth; /* length of reference to brother  */
-	uint16_t sonsNum; /* number of vertex's sons         */
+    uint16_t key; /* key of vertex                   */
+    uint16_t levNum; /* absolute level number           */
+    uint16_t wordTerm; /* vertex is terminal in a word    */
+    uint16_t treeTerm; /* vertex is terminal in the tree  */
+    uint16_t levTerm; /* vertex is most right in level   */
+    uint16_t tailsNum; /* number of vertex's tails        */
+    uint16_t refLth; /* length of reference to brother  */
+    uint16_t sonsNum; /* number of vertex's sons         */
 } TBuildInfo;
 
 typedef TBuildInfo * PTBuildInfo;

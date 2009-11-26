@@ -68,73 +68,73 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "criimage.h"
 #include "cimage/ctiimage.h"
-#include "crinvertor.h"	// Added by ClassView
-#include "ctdib.h"	// Added by ClassView
-#include "rprogressor.h"	// Added by ClassView
+#include "crinvertor.h" // Added by ClassView
+#include "ctdib.h"  // Added by ClassView
+#include "rprogressor.h"    // Added by ClassView
 #include "cribinarizator.h"
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
-#include "cttypes.h"	// Added by ClassView
+#include "cttypes.h"    // Added by ClassView
 
 class CRIControl
 {
-private:
-	Handle           mhOpenedDIB;
-	Handle           mhCreatedDIB;
-	// pointer to class CTDIB
-	PCTDIB           mpSourceDIB;
-	PCTDIB           mpDestinationDIB;
+    private:
+        Handle           mhOpenedDIB;
+        Handle           mhCreatedDIB;
+        // pointer to class CTDIB
+        PCTDIB           mpSourceDIB;
+        PCTDIB           mpDestinationDIB;
 
 
-protected:
-	// Name of last processed image
-	char                     mcLastDIBName[256];
-	//
-	void *                    mp_TurnedDIB;
-	// pointer to class ProgressShow
-	CRProgressor              mcProgress;
-	// pointer to class Binarizator
-	PCRIBinarizator           mpBinarizator;
-	// pointer to clas  Invertor
-	PCRInvertor               mpInvertor;
-	// pointer to class Turn
-	PCRTurner                 mpTurner;
-	// pointer to class Rotate
-	PCRRotator                mpRotator;
+    protected:
+        // Name of last processed image
+        char                     mcLastDIBName[256];
+        //
+        void *                    mp_TurnedDIB;
+        // pointer to class ProgressShow
+        CRProgressor              mcProgress;
+        // pointer to class Binarizator
+        PCRIBinarizator           mpBinarizator;
+        // pointer to clas  Invertor
+        PCRInvertor               mpInvertor;
+        // pointer to class Turn
+        PCRTurner                 mpTurner;
+        // pointer to class Rotate
+        PCRRotator                mpRotator;
 
-public:
-	CRIControl();
-	~CRIControl();
+    public:
+        CRIControl();
+        ~CRIControl();
 
-private:
-	Bool32          DIBOpeningType;
-	RIMAGEMARGINS   mrMargins;
-	Bool32          mbMarginsFlag;
+    private:
+        Bool32          DIBOpeningType;
+        RIMAGEMARGINS   mrMargins;
+        Bool32          mbMarginsFlag;
 
-private:
-	Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-	Bool32          GetDIB(char*   cDIB, Handle* phDIB);
-	Bool32          CloseSourceDIB();
-	Bool32          CreateDestinatonDIB(uint32_t BitCount);
-	Bool32          SetDestinationDIBtoStorage(char*  cDIBName);
-	Bool32          OpenDestinationDIBfromSource(char*  cSDIB);
-	Bool32          CloseDestinationDIB(char*   cDIBName);
-	Bool32          OpenSourceDIB(char*   cDIBName);
-	Bool32          SetDIB(char*   cDIB, Handle hDIB);
-	Bool32          WriteDIB(char*   cDIB, Handle hDIB);
-	Bool32          ReadDIB(char*   cDIB, Handle* phDIB);
+    private:
+        Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
+        Bool32          GetDIB(char*   cDIB, Handle* phDIB);
+        Bool32          CloseSourceDIB();
+        Bool32          CreateDestinatonDIB(uint32_t BitCount);
+        Bool32          SetDestinationDIBtoStorage(char*  cDIBName);
+        Bool32          OpenDestinationDIBfromSource(char*  cSDIB);
+        Bool32          CloseDestinationDIB(char*   cDIBName);
+        Bool32          OpenSourceDIB(char*   cDIBName);
+        Bool32          SetDIB(char*   cDIB, Handle hDIB);
+        Bool32          WriteDIB(char*   cDIB, Handle hDIB);
+        Bool32          ReadDIB(char*   cDIB, Handle* phDIB);
 
-public:
-	Bool32                    RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
-	Bool32                    StartProgress(void);
-	Bool32                    SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
-	Bool32                    SetMargins(PRIMAGEMARGINS pMargins);
-	Bool32                    Binarise(char*   cDIBIn, char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
-	Bool32                    Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
-	Bool32                    Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
-	Bool32                    Turn(char*   cDIBIn, char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
-	Bool32                    Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
+    public:
+        Bool32                    RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
+        Bool32                    StartProgress(void);
+        Bool32                    SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
+        Bool32                    SetMargins(PRIMAGEMARGINS pMargins);
+        Bool32                    Binarise(char*   cDIBIn, char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+        Bool32                    Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
+        Bool32                    Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
+        Bool32                    Turn(char*   cDIBIn, char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+        Bool32                    Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
 };
 # endif    //__CRI_CONTROL_H_
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

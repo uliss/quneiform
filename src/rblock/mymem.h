@@ -62,22 +62,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef _DEBUG
-	#ifndef IS_VALID
-		#define IS_VALID(a) assert(_CrtIsValidPointer(a, 1, TRUE ))
-	#endif
+#ifndef IS_VALID
+#define IS_VALID(a) assert(_CrtIsValidPointer(a, 1, TRUE ))
+#endif
 #else
-	#ifndef IS_VALID
-		#define IS_VALID(a)
-	#endif
+#ifndef IS_VALID
+#define IS_VALID(a)
+#endif
 #endif
 
-void *	myAlloc(size_t stAllocateBlock);
-void	myFree(void * mem);
+void *  myAlloc(size_t stAllocateBlock);
+void    myFree(void * mem);
 
 Handle  myOpenSave(char * lpName);
 Handle  myOpenRestore(char * lpName);
-unsigned int  myWrite(Handle h,void * lpdata,unsigned int size);
-unsigned int  myRead(Handle h,void * lpdata,unsigned int size);
+unsigned int  myWrite(Handle h, void * lpdata, unsigned int size);
+unsigned int  myRead(Handle h, void * lpdata, unsigned int size);
 void    myClose(Handle h);
 
 #endif

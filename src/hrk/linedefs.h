@@ -67,63 +67,61 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "normdefs.h"
 
 
-typedef enum
-{
-	LD_Unknown = 0,
-	LD_Horiz,
-	LD_Verti,
-	LD_Kosa1,
-	LD_Kosa2
-	/***  вертикальная    :  90' - 22.5' < Skew <  90' + 22.5'  ***/
-	/***  горизонтальная  :   0' - 22.5' < Skew <   0' + 22.5'  ***/
-	/***  косая-1квадрант :  45' - 22.5' < Skew <  45' + 22.5'  ***/
-	/***  косая-2квадрант : 135' - 22.5' < Skew < 135' + 22.5'  ***/
+typedef enum {
+    LD_Unknown = 0,
+    LD_Horiz,
+    LD_Verti,
+    LD_Kosa1,
+    LD_Kosa2
+    /***  вертикальная    :  90' - 22.5' < Skew <  90' + 22.5'  ***/
+    /***  горизонтальная  :   0' - 22.5' < Skew <   0' + 22.5'  ***/
+    /***  косая-1квадрант :  45' - 22.5' < Skew <  45' + 22.5'  ***/
+    /***  косая-2квадрант : 135' - 22.5' < Skew < 135' + 22.5'  ***/
 } LINE_DIR;
 
-typedef struct tagLINE_COM
-{
-	NR_SimpLine     Line;     // простейшее описание линии
-	int32_t           Status;   // история линии в программе
-	uint32_t          Flags;    // common use info
-	NORM_DATATYPES  Type;     //*Unknown, *Simple, *Defis, *Pointed
-	LINE_DIR        Dir;
-	char            Qual;     // quality (or estimation) at percents
-	char            Dens;     // density at percents
-	int32_t           nFrag;    // if==-1 - fragmentation was not made
-	NR_Event       *pFrag;    // NULL for nFrag<1
-	void           *Specline; //(NR_DefiLine), (NR_PoinLine)
-	/* не NULL только для *Defis и *Pointed типов, и если информацию положили */
+typedef struct tagLINE_COM {
+    NR_SimpLine     Line;     // простейшее описание линии
+    int32_t           Status;   // история линии в программе
+    uint32_t          Flags;    // common use info
+    NORM_DATATYPES  Type;     //*Unknown, *Simple, *Defis, *Pointed
+    LINE_DIR        Dir;
+    char            Qual;     // quality (or estimation) at percents
+    char            Dens;     // density at percents
+    int32_t           nFrag;    // if==-1 - fragmentation was not made
+    NR_Event       *pFrag;    // NULL for nFrag<1
+    void           *Specline; //(NR_DefiLine), (NR_PoinLine)
+    /* не NULL только для *Defis и *Pointed типов, и если информацию положили */
 } LINE_COM;
 
 //Line flags (from LNS):
-      #define LI_NOISE      0x00000001   // is a noise line
-      #define LI_ATTACHED   0x00000002   // Line  confidently
-                                         // attached to form element
-      #define LI_SMARTSWEEP 0x00000004   // must smartly dissolve it from image
-      #define LI_CRUDESWEEP 0x00000008   //
-      #define LI_SWEEP (LI_SMARTSWEEP | LI_CRUDESWEEP)
-      #define LI_DOT        0x00000010   //
-      #define LI_COVERED    0x00000020   // always with LI_NOISE
-	/*****  Выставляются верификатором линий.  *****/
-		// Либо только один из следующих, либо ни одного. Если ни одного, то
-		// либо линия сомнительна, либо не иссдедовалась.
-	#define LI_IsTrue       0x00000040
-			// правильно выделенная линия
-	#define LI_IsFalse      0x00000080
-			// не линия
-	#define LI_NOTWHOLE     0x00000100
-			// Краевые захваты. Реальная линия короче - от Anew до Bnew.
-	#define LI_COMPLEX      0x00000200
-			// Составная линия : несколько реальных линий, иногда еще и одна
-			// или несколько компонент связности. Информация о входящих в ее
-			// состав реальных линиях и компонентах отписывается в совершенно
-			// независимую структуру.
-	#define LI_Pointed      0x00001000
-	#define LI_Doubt        0x00002000
-	#define LI_Used         0x00004000  // Использована как подчеркивание
- #define LI_FRMT_Used    0x00008000  // Formatter used
-	/*****  Выставляются выделителем таблиц.  *****/
-	#define LI_IsAtTable    0x00000400
-	#define LI_IsNotAtTable 0x00000800
+#define LI_NOISE      0x00000001   // is a noise line
+#define LI_ATTACHED   0x00000002   // Line  confidently
+// attached to form element
+#define LI_SMARTSWEEP 0x00000004   // must smartly dissolve it from image
+#define LI_CRUDESWEEP 0x00000008   //
+#define LI_SWEEP (LI_SMARTSWEEP | LI_CRUDESWEEP)
+#define LI_DOT        0x00000010   //
+#define LI_COVERED    0x00000020   // always with LI_NOISE
+/*****  Выставляются верификатором линий.  *****/
+// Либо только один из следующих, либо ни одного. Если ни одного, то
+// либо линия сомнительна, либо не иссдедовалась.
+#define LI_IsTrue       0x00000040
+// правильно выделенная линия
+#define LI_IsFalse      0x00000080
+// не линия
+#define LI_NOTWHOLE     0x00000100
+// Краевые захваты. Реальная линия короче - от Anew до Bnew.
+#define LI_COMPLEX      0x00000200
+// Составная линия : несколько реальных линий, иногда еще и одна
+// или несколько компонент связности. Информация о входящих в ее
+// состав реальных линиях и компонентах отписывается в совершенно
+// независимую структуру.
+#define LI_Pointed      0x00001000
+#define LI_Doubt        0x00002000
+#define LI_Used         0x00004000  // Использована как подчеркивание
+#define LI_FRMT_Used    0x00008000  // Formatter used
+/*****  Выставляются выделителем таблиц.  *****/
+#define LI_IsAtTable    0x00000400
+#define LI_IsNotAtTable 0x00000800
 //end Line flags
 #endif

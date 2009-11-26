@@ -61,126 +61,117 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MAX_STR 1000
 
-struct Rotating
-{
-	Rect16 Rc;
-	uchar* pmasp;
-	int16_t* begx;
-	int16_t* movey;
-	uchar* flmovey;
-	int* hi;
-	Rotating()
-	{
-		pmasp=NULL;
-		begx=movey=NULL;
-		flmovey=NULL;
-		hi=NULL;
-	}
-	~Rotating()
-	{
-	 delete[] pmasp;
-	 delete[] begx;
-	 delete[] movey;
-	 delete[] flmovey;
-	 delete[] hi;
-	}
+struct Rotating {
+    Rect16 Rc;
+    uchar* pmasp;
+    int16_t* begx;
+    int16_t* movey;
+    uchar* flmovey;
+    int* hi;
+    Rotating() {
+        pmasp = NULL;
+        begx = movey = NULL;
+        flmovey = NULL;
+        hi = NULL;
+    }
+    ~Rotating() {
+        delete[] pmasp;
+        delete[] begx;
+        delete[] movey;
+        delete[] flmovey;
+        delete[] hi;
+    }
 };
 
 #define FlVert 1
 #define FlDown2Up 2
 
-struct Negativ
-{
-	Rect16* pRc;
-	int nRc;
-	int len_mas;
-	double p;
-	double p_str;
-	double p_rec;
+struct Negativ {
+    Rect16* pRc;
+    int nRc;
+    int len_mas;
+    double p;
+    double p_str;
+    double p_rec;
     int Flags;
-	Rotating rot;
-	Handle hCCOM[MAX_STR];
-	Negativ(Rect16 init);
-	~Negativ()
-	{
-		delete[] pRc;
-		for(int i=MAX_STR-1;i>=0;i--)
-		{
-			if(hCCOM[i])
-			CCOM_DeleteContainer(hCCOM[i]);
-		}
-	}
+    Rotating rot;
+    Handle hCCOM[MAX_STR];
+    Negativ(Rect16 init);
+    ~Negativ() {
+        delete[] pRc;
+
+        for (int i = MAX_STR - 1; i >= 0; i--) {
+            if (hCCOM[i])
+                CCOM_DeleteContainer(hCCOM[i]);
+        }
+    }
 };
 
 class NegList;
 
 class NegList
 {
-public:
+    public:
 
-   Negativ neg;
+        Negativ neg;
 
-   NegList *prev;
-   NegList *next;
+        NegList *prev;
+        NegList *next;
 
-	NegList(Rect16 init);
+        NegList(Rect16 init);
 
-	~NegList();
+        ~NegList();
 
-	NegList* GetNext(NegList* neg_l)
-	{
-		if(!neg_l)
-			return NULL;
-		else
-			return neg_l->next;
-	}
+        NegList* GetNext(NegList* neg_l) {
+            if (!neg_l)
+                return NULL;
 
-    NegList* GetPrev(NegList* neg_l)
-	{
-		if(!neg_l)
-			return NULL;
-		else
-			return neg_l->prev;
-	}
+            else
+                return neg_l->next;
+        }
 
-	void AddNeg(NegList *add);
+        NegList* GetPrev(NegList* neg_l) {
+            if (!neg_l)
+                return NULL;
+
+            else
+                return neg_l->prev;
+        }
+
+        void AddNeg(NegList *add);
 
 };
-struct RotImageFlags
-{
-	Rect16 Rc;
-	int16_t* begx;
-	int16_t* movey;
-	uchar* fl_movey;
-	int* hi;
-	RotImageFlags()
-	{
-		begx=NULL;
-		movey=NULL;
-		fl_movey=NULL;
-		hi=NULL;
-	}
-	~RotImageFlags()
-	{
-		delete[] begx;
-		delete[] movey;
-		delete[] fl_movey;
-		delete[] hi;
-	}
+struct RotImageFlags {
+    Rect16 Rc;
+    int16_t* begx;
+    int16_t* movey;
+    uchar* fl_movey;
+    int* hi;
+    RotImageFlags() {
+        begx = NULL;
+        movey = NULL;
+        fl_movey = NULL;
+        hi = NULL;
+    }
+    ~RotImageFlags() {
+        delete[] begx;
+        delete[] movey;
+        delete[] fl_movey;
+        delete[] hi;
+    }
 };
 
-struct NegImage
-{
-	int Wide;
-	int Height;
-	int bytewide;
-	uchar* lp;
-	Bool fl_delete;
-	uchar* pmasp;
-	int size_mas;
-	RotImageFlags rotate;
-	NegImage();
-	~NegImage();
-	Bool SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
-	uchar* GetPmasp(Rect16* pRc);
+struct NegImage {
+    int Wide;
+    int Height;
+    int bytewide;
+    uchar* lp;
+    Bool fl_delete;
+    uchar* pmasp;
+    int size_mas;
+    RotImageFlags rotate;
+    NegImage();
+    ~NegImage();
+    Bool SetDibPtr(uchar* lpDibData, int wide, int heght, int bwide);
+    uchar* GetPmasp(Rect16* pRc);
 };

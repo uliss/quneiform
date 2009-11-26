@@ -55,72 +55,72 @@
  */
 
 //
-//	шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
-//	шш                                                              шш
-//	шш	Copyright (C) 1992 Cognitive Technology Corporation.    шш
-//	шш	All rights reserved. This program is proprietary and    шш
-//	шш      a trade secret of Cognitive Technology Corporation.     шш
-//	шш                                                              шш
-//	шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
+//  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
+//  шш                                                              шш
+//  шш    Copyright (C) 1992 Cognitive Technology Corporation.    шш
+//  шш    All rights reserved. This program is proprietary and    шш
+//  шш      a trade secret of Cognitive Technology Corporation.     шш
+//  шш                                                              шш
+//  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
 //
 //
 //
 //===========================================================================
 //
-//	Components extraction definition module
+//  Components extraction definition module
 //
 //===========================================================================
 //
 struct bw_segment {
-	int16_t b;
-	int16_t w;
-	BOX * box;
+    int16_t b;
+    int16_t w;
+    BOX * box;
 };
 
 typedef struct bw_segment BWS;
 //
-//		Memory organisation
+//      Memory organisation
 //
-//		We reserve additional memory for
-#define BOX_NUMBER	2048	// boxes, wich should allocate in
+//      We reserve additional memory for
+#define BOX_NUMBER  2048    // boxes, wich should allocate in
 // remaining memory (320 Kb now).
-#define LINE_MAX_LTH	512	// maximal length of image string mesured
+#define LINE_MAX_LTH    512 // maximal length of image string mesured
 // in bytes
-#define SEG_MAX_NUM	1024	// maximal number of segments
-//		Boxes and main numbers has dinamical structure organisation,
-//	that means free elements are conected in the chains. For
-//	this purpose are used fields mnfree and boxchain.
+#define SEG_MAX_NUM 1024    // maximal number of segments
+//      Boxes and main numbers has dinamical structure organisation,
+//  that means free elements are conected in the chains. For
+//  this purpose are used fields mnfree and boxchain.
 //
-//		Main memory segment structure
+//      Main memory segment structure
 //
 //
 
 struct main_memory_str {
-	//		Memory service
-	//
-	//		In _DSECT
-	BOX *boxalloc; // box free chain start
-	MN *mainalloc; // main number free chain start
-	BWS *oldline; // old line area
-	BWS *newline; // new line area
-	//
-	puchar dcodeptr; // current decoding line offset
-	puchar dcodeend; // end of read line buffer ptr
-	//								lth=12
-	//		Line service
-	//
-	uint16_t lineno; // line counter
-	uint16_t reserv_v1comp; // arround byte
-	//								lth=7
-	//
-	//		Big tables size counting and its allocation
-	//
-	//   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-	MN *mnstart; // [SEG_MAX_NUM];    // pool of main numbers
-	BOX *boxstart; // box pool
-	BWS *line1start; // [SEG_MAX_NUM];    // line 1
-	BWS *line2start; //[SEG_MAX_NUM];    // line 2
-	//   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-	uchar *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
+    //      Memory service
+    //
+    //      In _DSECT
+    BOX *boxalloc; // box free chain start
+    MN *mainalloc; // main number free chain start
+    BWS *oldline; // old line area
+    BWS *newline; // new line area
+    //
+    puchar dcodeptr; // current decoding line offset
+    puchar dcodeend; // end of read line buffer ptr
+    //                              lth=12
+    //      Line service
+    //
+    uint16_t lineno; // line counter
+    uint16_t reserv_v1comp; // arround byte
+    //                              lth=7
+    //
+    //      Big tables size counting and its allocation
+    //
+    //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
+    MN *mnstart; // [SEG_MAX_NUM];    // pool of main numbers
+    BOX *boxstart; // box pool
+    BWS *line1start; // [SEG_MAX_NUM];    // line 1
+    BWS *line2start; //[SEG_MAX_NUM];    // line 2
+    //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
+    uchar *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
 };
 

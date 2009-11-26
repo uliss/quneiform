@@ -64,21 +64,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cline.h"
 /* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode); */
 Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
-/* !!! только для вызова MyReSetLines */void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
+/* !!! только для вызова MyReSetLines */
+void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
 Bool GetSomeKeys_rv (void *vB, uint32_t *pKeyHor, uint32_t *pKeyVer
-					 , int *pCntHor, int *pCntVer, char *pStr);
+                     , int *pCntHor, int *pCntVer, char *pStr);
 Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
 Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
-Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori);
-/* !!! */Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
-				   , Handle VertType, char *pStr);
-Bool MyReSetLines(void* vLines,int Count,CLINE_handle hCLINE,char *pStr);
+Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr, Bool Hori);
+/* !!! */
+Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
+                   , Handle VertType, char *pStr);
+Bool MyReSetLines(void* vLines, int Count, CLINE_handle hCLINE, char *pStr);
 Bool ReferForLinesVP (void *vLti, void *vB);
-/* !!! */Bool PrepareLinesVP_rv (void *vB, void **vvData);
-Bool ReferForAndCountLinesVP (void *vB, void **vvData,int* pcount,Bool Hori);
+/* !!! */
+Bool PrepareLinesVP_rv (void *vB, void **vvData);
+Bool ReferForAndCountLinesVP (void *vB, void **vvData, int* pcount, Bool Hori);
 Bool IsWarnAtLine (void *vLns, Bool Hori);
-Bool IsWarnAtLine (void *vLine,Bool Hori,Bool zero);
-/* !!! */void MarkTableLines (void *vLti, int *pForw, int MyMaxL);
-void MarkTableLines (void *vHorLines,int hor_count,void *vVerLines,int ver_count, int *pForw, int MyMaxL);
+Bool IsWarnAtLine (void *vLine, Bool Hori, Bool zero);
+/* !!! */
+void MarkTableLines (void *vLti, int *pForw, int MyMaxL);
+void MarkTableLines (void *vHorLines, int hor_count, void *vVerLines, int ver_count, int *pForw, int MyMaxL);
 Bool LineBringToTable (int i, int *pForw, int MyMaxL);
 /*---------------------------------------------------------------------------*/

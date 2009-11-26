@@ -105,40 +105,40 @@ int32_t TE_file_length(int16_t);
 #define BO_READ_TEXT           O_RDONLY|O_TEXT
 
 typedef struct {
-	uchar let;
-	int32_t tr1;
-	int32_t tr2;
+    uchar let;
+    int32_t tr1;
+    int32_t tr2;
 } StructTree;
 ////////////////////////////////////////////////////////////////////////////////////
 typedef struct elidx {
-	uchar ltr; // the letter
-	uchar vnum; // the number of the classes
-	uint16_t numel; // the number of the first class
+    uchar ltr; // the letter
+    uchar vnum; // the number of the classes
+    uint16_t numel; // the number of the first class
 } indBOX;
 ////////////////////////////////////////////////////////////////////////////////////
 typedef struct eltab {
-	uchar ltr; // the letter
-	uchar fnt; // the font number
-	uint16_t list; // next of same letter
-	uint16_t bnd; // the bound of the typeface
-	uint16_t vect[15]; // the vector of the letter
+    uchar ltr; // the letter
+    uchar fnt; // the font number
+    uint16_t list; // next of same letter
+    uint16_t bnd; // the bound of the typeface
+    uint16_t vect[15]; // the vector of the letter
 } elmBOX;
 ///////////////////////////////////////////////////////////////////////////////////
 struct mn_struc {
-	void *mnfirstbox; // address of the first box
-	int16_t mncounter; // (was int16_t) number of living lines in the component
-#define mnfree	mnfirstbox	// reference to next free main number
-	int16_t mnupper; // upper bound of component
-	int16_t mnlower; // lower bound of component
-	int16_t mnboxcnt; // number of boxes in component
-#define usual_box_count 20 	// heuristic of number of lines in a letter
-#define great_box_count	200	// heuristic for number of boxes in a picture
-	uchar mnlines; // number of lines in the component
-	uchar mnbegs; // number of free line begins
-	uchar mnends; // number of free line ends
-	uchar mnflag; // flag byte for main number
-#define mnpicture 1		// component is a picture
-	struct mn_struc *mnnext; // address of next dead component
+    void *mnfirstbox; // address of the first box
+    int16_t mncounter; // (was int16_t) number of living lines in the component
+#define mnfree  mnfirstbox  // reference to next free main number
+    int16_t mnupper; // upper bound of component
+    int16_t mnlower; // lower bound of component
+    int16_t mnboxcnt; // number of boxes in component
+#define usual_box_count 20  // heuristic of number of lines in a letter
+#define great_box_count 200 // heuristic for number of boxes in a picture
+    uchar mnlines; // number of lines in the component
+    uchar mnbegs; // number of free line begins
+    uchar mnends; // number of free line ends
+    uchar mnflag; // flag byte for main number
+#define mnpicture 1     // component is a picture
+    struct mn_struc *mnnext; // address of next dead component
 };
 typedef struct mn_struc MN;
 /////////////////////////////////////////////////////////////////////////////////////
@@ -146,42 +146,42 @@ struct _Root;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 struct _Root {
-	int16_t yRow;
-	int16_t xColumn;
+    int16_t yRow;
+    int16_t xColumn;
 
-	union {
-		struct {
-			uint16_t wSegmentPtr;
-			uint16_t wLength;
-		} u2;
+    union {
+        struct {
+            uint16_t wSegmentPtr;
+            uint16_t wLength;
+        } u2;
 
-		ROOT *pNext;
-	} u1;
+        ROOT *pNext;
+    } u1;
 
-	int16_t nHeight;
-	int16_t nWidth;
-	uchar bType;
-	uchar bReached;
-	int16_t nBlock;
-	int16_t nUserNum;
-	void *pComp;
+    int16_t nHeight;
+    int16_t nWidth;
+    uchar bType;
+    uchar bReached;
+    int16_t nBlock;
+    int16_t nUserNum;
+    void *pComp;
 };
 ////////////////////////////////////////////////////////////////////////////////////
 struct box_struct {
-	struct box_struct *boxnext; // chain address (zero if no next box)
-	MN * boxmain; // component main number pointer
-	uint16_t boxptr; // ptr to the empty place in the box
-	int16_t boxleft; // left boundary for line envelope
-	int16_t boxright; // right boundary for line envelope
-	int16_t boxey; // row of line end+1 ( if line ends within
-	//    box)
-	int16_t boxel; // length of the last segment (if line ends
-	//    within box)
-	int16_t boxex; // coordinate of last segment end (if line
-	//    ends within box)
-	uchar boxflag; // byte for box attributes flags
-	uchar boxwf; // working flag (for picture compress)
-	uint16_t boxresw; // reserved word (for *4 arround)
+    struct box_struct *boxnext; // chain address (zero if no next box)
+    MN * boxmain; // component main number pointer
+    uint16_t boxptr; // ptr to the empty place in the box
+    int16_t boxleft; // left boundary for line envelope
+    int16_t boxright; // right boundary for line envelope
+    int16_t boxey; // row of line end+1 ( if line ends within
+    //    box)
+    int16_t boxel; // length of the last segment (if line ends
+    //    within box)
+    int16_t boxex; // coordinate of last segment end (if line
+    //    ends within box)
+    uchar boxflag; // byte for box attributes flags
+    uchar boxwf; // working flag (for picture compress)
+    uint16_t boxresw; // reserved word (for *4 arround)
 };
 typedef struct box_struct BOX;
 

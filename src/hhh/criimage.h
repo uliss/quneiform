@@ -60,9 +60,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RIMAGE__
-  #define RIMAGE_FUNC(a)  FUN_EXPO(a)
+#define RIMAGE_FUNC(a)  FUN_EXPO(a)
 #else
-  #define RIMAGE_FUNC(a)  FUN_IMPO(a)
+#define RIMAGE_FUNC(a)  FUN_IMPO(a)
 #endif
 
 #define     RIMAGE_CALLBACK_FUNC(a)         a
@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #pragma pack (push,8)
 ///////////////////////////////////////////////////////////////////////////////////////////////
-# define	RIMAGE_MAXNAME 260
-# define	RIMAGE_TURN_90        1
-# define	RIMAGE_TURN_270       2
+# define    RIMAGE_MAXNAME 260
+# define    RIMAGE_TURN_90        1
+# define    RIMAGE_TURN_270       2
 # define    RIMAGE_TURN_180       3
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,16 +82,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define    RIMAGEWORD            uint16_t
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-typedef struct tag_RIMAGE_MARGINS
-{
-	uint32_t    rmLeftMarg;
-	uint32_t    rmTopMarg;
-	uint32_t    rmRightMarg;
-	uint32_t    rmBottomMarg;
+typedef struct tag_RIMAGE_MARGINS {
+    uint32_t    rmLeftMarg;
+    uint32_t    rmTopMarg;
+    uint32_t    rmRightMarg;
+    uint32_t    rmBottomMarg;
 }   RIMAGEMARGINS, *PRIMAGEMARGINS, **PPRIMAGEMARGINS;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage);
+RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage);
 RIMAGE_FUNC(Bool32) RIMAGE_Done();
 RIMAGE_FUNC(Bool32) RIMAGE_Reset();
 RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode();
@@ -99,28 +98,26 @@ RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError);
 RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData);
 RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
-typedef enum
-{
-		RIMAGE_FN_SetMargins = 1,
-		RIMAGE_FN_Binarise,
-		RIMAGE_FN_Rotate,
-		RIMAGE_FN_Roll,
-		RIMAGE_FN_Turn,
-		RIMAGE_FN_Inverse,
-		RIMAGE_FN_Flip,
-		RIMAGE_FN_SetProgressCB,
-		RIMAGE_FN_RotatePoint
+typedef enum {
+    RIMAGE_FN_SetMargins = 1,
+    RIMAGE_FN_Binarise,
+    RIMAGE_FN_Rotate,
+    RIMAGE_FN_Roll,
+    RIMAGE_FN_Turn,
+    RIMAGE_FN_Inverse,
+    RIMAGE_FN_Flip,
+    RIMAGE_FN_SetProgressCB,
+    RIMAGE_FN_RotatePoint
 } RIMAGE_EXPORT_ENTRIES;
 //////////////////////////////////////////////////////////////////////////////////////////////
 typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
 //////////////////////////////////////////////////////////////////////////////////////////////
-typedef enum
-{
-		RIMAGE_FN_SetProgressStart = 32,
-		RIMAGE_FN_SetProgressStep,
-		RIMAGE_FN_SetProgressFinish
+typedef enum {
+    RIMAGE_FN_SetProgressStart = 32,
+    RIMAGE_FN_SetProgressStep,
+    RIMAGE_FN_SetProgressFinish
 } RIMAGE_IMPORT_ENTRIES;
 /////////////////////////////////////////////////////////////////////////////////////////
 #define DEC_FUN(a,b,c) typedef a (*FNRIMAGE##b)c; RIMAGE_FUNC(a) RIMAGE_##b c

@@ -69,14 +69,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class CRInvertor
 {
-public:
-	Bool32 Inverse(PCTDIB Image);
-	Bool32 Invert(PCTDIB Image);
-	CRInvertor();
-	virtual ~CRInvertor();
+    public:
+        Bool32 Inverse(PCTDIB Image);
+        Bool32 Invert(PCTDIB Image);
+        CRInvertor();
+        virtual ~CRInvertor();
 
-private:
-	PCTDIB mpDIB;
+    private:
+        PCTDIB mpDIB;
 };
 
 typedef  CRInvertor   *PCRInvertor, **PPCRInvertor;

@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __EXCSTRUC_H
-   #define __EXCSTRUC_H
+#define __EXCSTRUC_H
 
 #ifndef __CTTYPES_H
 #include "cttypes.h"
@@ -70,19 +70,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define REXC_VERSION_CODE   1
 // c_comp in H\struct.h OLD TIGER
 //-------------------- component in kit --------------------------
-typedef struct tagExtComponent
-{
- uint16_t size;             // size of component in bytes (head + body)
-                          // NOTE: in tiger.dll - in paragraphs >=3
-                          // can be used to step to next comp
- /////////////////////////////////// in image coords, not ideal
- int16_t upper;             // upper boundary of component
- int16_t left;              // left boundary of component
- int16_t h;                 // height of component
- int16_t w;                 // width of component
- ///////////////////////////////////////////////////////////////
- uchar rw;               // raster width in bytes  == (w+7)/8
- uchar type;             // recognition type
+typedef struct tagExtComponent {
+    uint16_t size;             // size of component in bytes (head + body)
+    // NOTE: in tiger.dll - in paragraphs >=3
+    // can be used to step to next comp
+/////////////////////////////////// in image coords, not ideal
+    int16_t upper;             // upper boundary of component
+    int16_t left;              // left boundary of component
+    int16_t h;                 // height of component
+    int16_t w;                 // width of component
+///////////////////////////////////////////////////////////////
+    uchar rw;               // raster width in bytes  == (w+7)/8
+    uchar type;             // recognition type
 #define ch_perfect    1     // perfect type defined
 #define ch_letter     2     // letter type
 #define ch_dust       4     // dust type
@@ -91,17 +90,17 @@ typedef struct tagExtComponent
 #define ch_great     32     // great component
 #define ch_merge     64     // merged components
 #define ch_notltr   128     // not letter or punctuation
- uchar cs;              // recognition case (see bellow)        *
- uchar pidx;            // proportional index (ref.)            *
- int16_t nvers;           // number of alternative versions, 0 - none !!
- int16_t records;         // recognition records offset, 0 - none     !!
- int16_t lines;           // ptr to line representation, 0 - never
-                        // p_body == (char*)p_comp + lines;
- int16_t nl;               // number of lines
- uchar begs;             // number of free begins
- uchar ends;             // number of free ends
- uchar reasno;           // proportional criteria messages
- uchar large;            // large type
+    uchar cs;              // recognition case (see bellow)        *
+    uchar pidx;            // proportional index (ref.)            *
+    int16_t nvers;           // number of alternative versions, 0 - none !!
+    int16_t records;         // recognition records offset, 0 - none     !!
+    int16_t lines;           // ptr to line representation, 0 - never
+    // p_body == (char*)p_comp + lines;
+    int16_t nl;               // number of lines
+    uchar begs;             // number of free begins
+    uchar ends;             // number of free ends
+    uchar reasno;           // proportional criteria messages
+    uchar large;            // large type
 #define REXC_ch_underlined   0x01       // component was underlined
 #define REXC_ch_taken        0x02       // taken to line at dust_ini
 // Almi added //
@@ -115,9 +114,9 @@ typedef struct tagExtComponent
 //#define el_vert_big      32     // more than anyone letter
 //#define el_hori_big      64     // extremely long
 ////////////////
- uchar scale;                    // scale of the component
- uchar begends;
- int32_t dens;
+    uchar scale;                    // scale of the component
+    uchar begends;
+    int32_t dens;
 } ExtComponent;
 
 ///////////////////////////////////////////////
@@ -130,14 +129,13 @@ typedef struct tagExtComponent
 
 
 // dust_comp in H\struct.h OLD TIGER
-typedef struct tagExtCompDust // currently not used
-{
-  uint16_t size;            // =1
-  int16_t  upper;
-  int16_t  left;
-  uchar h;               // >0
-  uchar w;               // >0
-  uchar raster[8];
+typedef struct tagExtCompDust { // currently not used
+    uint16_t size;            // =1
+    int16_t  upper;
+    int16_t  left;
+    uchar h;               // >0
+    uchar w;               // >0
+    uchar raster[8];
 } ExtCompDust;
 
 
@@ -149,14 +147,13 @@ typedef struct tagExtCompDust // currently not used
 //      After last line zero word
 
 //      line header
-typedef struct tagExtLnHead
-{
- int16_t lth;       // length of one line representation,
-                  // ==head+intervals size in bytes
- int16_t h;         // height of line == count of intervals
- int16_t row;       // relative row of line start
-                  // (offset in pixels from top bound of comp, 0 based)
- uint16_t flg;       // flags of free beg and free end
+typedef struct tagExtLnHead {
+    int16_t lth;       // length of one line representation,
+    // ==head+intervals size in bytes
+    int16_t h;         // height of line == count of intervals
+    int16_t row;       // relative row of line start
+    // (offset in pixels from top bound of comp, 0 based)
+    uint16_t flg;       // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
@@ -166,13 +163,12 @@ typedef struct tagExtLnHead
 
 // interval in H\struct.h OLD TIGER
 //      one interval
-typedef struct tagExtInterval
-{
- uchar l;        // length of interval
- uchar e;        // end of interval from left bound of comp in pixels
-                 // so, start == e-l, relatively to left bound of comp
-         //beg = inter->e - inter->l;
-         //end = inter->e - 1;
+typedef struct tagExtInterval {
+    uchar l;        // length of interval
+    uchar e;        // end of interval from left bound of comp in pixels
+    // so, start == e-l, relatively to left bound of comp
+    //beg = inter->e - inter->l;
+    //end = inter->e - 1;
 
 } ExtInterval;
 
@@ -199,69 +195,66 @@ typedef struct tagExtInterval
 
 //  Pass parameters to extrcomp
 
-   #define EXC_DUMP_FILE "hardcopy.cmp" // TODO: "tmp\\hardcopy.cmp"
+#define EXC_DUMP_FILE "hardcopy.cmp" // TODO: "tmp\\hardcopy.cmp"
 
-typedef struct tagExcControl
-{
-        uint32_t Control;
-         // Control flag (bitonal)
-         #define Ex_ExtraComp            0x00000001
-            // 1 - result -> ExtComponent+...
-            // 0 - just frames, not intervals -> ExcBox[]
-         #define Ex_DumpFile             0x00000002
-            // additionally, writes to EXC_DUMP_FILE
-         #define Ex_EvnRecog             0x00000004
-            // additionally, recognizing all comps without evn
-         #define Ex_Picture              0x00000008
-                        // enable picture recognizing
-         #define Ex_Orient               0x00000010
-                        // enable page orientation
-         #define Ex_PictureLarge         0x00000020
-            // enable storing large pictures with long intervals
-         #define Ex_DisableCut           0x00000040
-            // enable cutting long big comps to boxes for recog
-         #define Ex_Invert               0x00000080
-            // use inverting image
-         #define Ex_Background           0x00000100
-            // stady background
-         #define Ex_NetRecog             0x00000200
-            // additionally, recognizing all comps without neural network
-         #define Ex_NoContainer          0x00000400
-            // not used container CCOM
+typedef struct tagExcControl {
+    uint32_t Control;
+    // Control flag (bitonal)
+#define Ex_ExtraComp            0x00000001
+    // 1 - result -> ExtComponent+...
+    // 0 - just frames, not intervals -> ExcBox[]
+#define Ex_DumpFile             0x00000002
+    // additionally, writes to EXC_DUMP_FILE
+#define Ex_EvnRecog             0x00000004
+    // additionally, recognizing all comps without evn
+#define Ex_Picture              0x00000008
+    // enable picture recognizing
+#define Ex_Orient               0x00000010
+    // enable page orientation
+#define Ex_PictureLarge         0x00000020
+    // enable storing large pictures with long intervals
+#define Ex_DisableCut           0x00000040
+    // enable cutting long big comps to boxes for recog
+#define Ex_Invert               0x00000080
+    // use inverting image
+#define Ex_Background           0x00000100
+    // stady background
+#define Ex_NetRecog             0x00000200
+    // additionally, recognizing all comps without neural network
+#define Ex_NoContainer          0x00000400
+    // not used container CCOM
 
-   uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
-   uint16_t MaxCompHei;  // =""= by height
-   uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
-   uint16_t MinCompHei;  // =""= by width
-   uint16_t MaxScale;    // if scaling > => use long intervals
+    uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
+    uint16_t MaxCompHei;  // =""= by height
+    uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
+    uint16_t MinCompHei;  // =""= by width
+    uint16_t MaxScale;    // if scaling > => use long intervals
 } ExcControl;
 
-typedef struct tagExcBox
-{
- int16_t   row;       // real row of comp
- int16_t   col;       // real column of  comp
- int16_t   h;         // height of  comp
- int16_t   w;         // width of  comp
- uint16_t  flag;     // some logical info
- int32_t   user;     // working var for user
+typedef struct tagExcBox {
+    int16_t   row;       // real row of comp
+    int16_t   col;       // real column of  comp
+    int16_t   h;         // height of  comp
+    int16_t   w;         // width of  comp
+    uint16_t  flag;     // some logical info
+    int32_t   user;     // working var for user
 } ExcBox;
 
 
-typedef struct tagREXC_DIB
-      {
-      uint32_t       biSize;
-      int32_t        biWidth;
-      int32_t        biHeight;
-      uint16_t        biPlanes;
-      uint16_t        biBitCount;
-      uint32_t       biCompression;
-      uint32_t       biSizeImage;
-      int32_t        biXPelsPerMeter;
-      int32_t        biYPelsPerMeter;
-      uint32_t       biClrUsed;
-      uint32_t       biClrImportant;
-      }
-   REXC_DIB;
+typedef struct tagREXC_DIB {
+    uint32_t       biSize;
+    int32_t        biWidth;
+    int32_t        biHeight;
+    uint16_t        biPlanes;
+    uint16_t        biBitCount;
+    uint32_t       biCompression;
+    uint32_t       biSizeImage;
+    int32_t        biXPelsPerMeter;
+    int32_t        biYPelsPerMeter;
+    uint32_t       biClrUsed;
+    uint32_t       biClrImportant;
+}
+REXC_DIB;
 typedef struct tagREXC_RGBQUAD { // rgbq
     uchar    rgbBlue;
     uchar    rgbGreen;
@@ -271,8 +264,8 @@ typedef struct tagREXC_RGBQUAD { // rgbq
 
 #define MAX_NUM_CUTPN 2048
 //Andrey: это потом надо будет убрать, аналог есть в tigerh\h\struct.h
-#define RASTER_MAX_HEIGHT	63
-#define RASTER_MAX_WIDTH	128
+#define RASTER_MAX_HEIGHT   63
+#define RASTER_MAX_WIDTH    128
 /*
 struct big_merge_struct
 {
@@ -286,6 +279,6 @@ struct big_merge_struct
 
 typedef struct big_merge_struct BM;
 */
-      #pragma pack(pop)
+#pragma pack(pop)
 
 #endif // __EXCSTRUC_H

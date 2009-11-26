@@ -62,12 +62,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "imgaccs.h"
 
 void  InitSweeperCallbacks(
-	TImageOpen  f_op,
-	TImageRead  f_rd,
-	TImageClose f_cl
-								  );
+    TImageOpen  f_op,
+    TImageRead  f_rd,
+    TImageClose f_cl
+);
 #ifndef __SBAMBUK_H
-#	include "sbambuk.h"
+#   include "sbambuk.h"
 #endif
 
 void SetRomptr ( RomBubble* rptr);// ***********Rom***********

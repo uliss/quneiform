@@ -62,76 +62,70 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class XTimer
 {
-   clock_t start, finish;
-   double  duration;
-   char proc[64];
-   Bool stopped;
-private:
-   double compute_duration()
-   {
-      return double(finish-start) / CLOCKS_PER_SEC;
-   };
+        clock_t start, finish;
+        double  duration;
+        char proc[64];
+        Bool stopped;
+    private:
+        double compute_duration() {
+            return double(finish - start) / CLOCKS_PER_SEC;
+        };
 
-public:
-   XTimer(const char* proc_id=NULL)
-   {
-      if (proc_id)
-         strncpy(proc,proc_id, sizeof(proc));
-      else
+    public:
+        XTimer(const char* proc_id = NULL) {
+            if (proc_id)
+                strncpy(proc, proc_id, sizeof(proc));
 
+            else
 #ifdef E_LANG
-         strncpy(proc,"Еlapsed time", sizeof(proc));
+                strncpy(proc, "Еlapsed time", sizeof(proc));
+
 #else
-         strncpy(proc,"Время обработки", sizeof(proc));
+                strncpy(proc, "Время обработки", sizeof(proc));
 #endif
+            start = clock();
+            stopped = FALSE;
+        };
 
-      start = clock();
-      stopped = FALSE;
-   };
+        double Update() {
+            finish = clock();
+            duration = compute_duration();
+            return duration;
+        };
 
-   double Update()
-   {
-      finish = clock();
-      duration = compute_duration();
-      return duration;
-   };
+        void   Stop(int nItems = -1) {
+            if (!stopped) {
+                Update();
+                char message[512];
 
-   void   Stop(int nItems = -1)
-   {
-      if (!stopped)
-      {
-         Update();
-         char message[512];
-         if (nItems > 0)
-         {
-            sprintf( message,
+                if (nItems > 0) {
+                    sprintf( message,
 #ifdef E_LANG
-               "%s: %2.2f sec. (%2.2f per item)",
+                             "%s: %2.2f sec. (%2.2f per item)",
 #else
-               "%s: %2.2f сек. (в среднем %2.2f)",
+                             "%s: %2.2f сек. (в среднем %2.2f)",
 #endif
-            proc, duration, duration/nItems
-                   );
-         }
-         else
-         {
-            sprintf( message,
+                             proc, duration, duration / nItems
+                           );
+                }
+
+                else {
+                    sprintf( message,
 #ifdef E_LANG
-               "%s: %2.2f sec.",
+                             "%s: %2.2f sec.",
 #else
-               "%s: %2.2f сек.",
+                             "%s: %2.2f сек.",
 #endif
-            proc, duration
-                   );
-         }
+                             proc, duration
+                           );
+                }
 
-         CONSOLE(message);
+                CONSOLE(message);
+                stopped = TRUE;
+            }
+        }
 
-         stopped = TRUE;
-      }
-   }
-
-   ~XTimer() { /*Stop();*/ };
+        ~XTimer() { /*Stop();*/ };
 };
 
 #endif

@@ -66,14 +66,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __rcutp_prot_h__
 #define __rcutp_prot_h__
 
-int16_t  Alik_define_cut_points(pchar,struct own_cut *,int16_t,int16_t,int16_t);
+int16_t  Alik_define_cut_points(pchar, struct own_cut *, int16_t, int16_t, int16_t);
 
 #ifdef __RCUTP_EXTERN__
-	#define EXTERN
-	#define VAL(a) = a
+#define EXTERN
+#define VAL(a) = a
 #else
-	#define EXTERN extern
-	#define VAL(a)
+#define EXTERN extern
+#define VAL(a)
 #endif
 
 #endif // __rcutp_prot_h_

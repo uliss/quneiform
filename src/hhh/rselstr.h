@@ -63,9 +63,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RSELSTR__
-  #define RSELSTR_FUNC  FUN_EXPO
+#define RSELSTR_FUNC  FUN_EXPO
 #else
-  #define RSELSTR_FUNC  FUN_IMPO
+#define RSELSTR_FUNC  FUN_IMPO
 #endif
 
 #pragma pack (push,8)
@@ -73,37 +73,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RSELSTR_MAXNAME 260
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage);
+RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode, Handle hStorage);
 RSELSTR_FUNC(Bool32) RSELSTR_Done();
 RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode();
 RSELSTR_FUNC(char *) RSELSTR_GetReturnString(uint32_t dwError);
 RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(uint32_t dwType, void * pData);
 RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
-typedef struct struct_CHSTR_Objects
-{
-	uchar ImageName[CPAGE_MAXNAME];
-	Rect16 Rc;
-	Bool32 type_vert;
-	Bool32 type_neg;
-	int32_t block_number;
+typedef struct struct_CHSTR_Objects {
+    uchar ImageName[CPAGE_MAXNAME];
+    Rect16 Rc;
+    Bool32 type_vert;
+    Bool32 type_neg;
+    int32_t block_number;
 } CHSTR_Objects;
 
 
 
-typedef enum
-{
-		RSELSTR_FNRSELSTR_ExtractTextStrings = 1,
-		RSELSTR_FNRSELSTR_ProgressStart,
-		RSELSTR_FNRSELSTR_ProgressStep,
-		RSELSTR_FNRSELSTR_ProgressFinish,
-		RSELSTR_FNRSELSTR_PutObjects,
-		RSELSTR_FNRSELSTR_CutStr,
-        RSELSTR_FNRSELSTR_RotateRaster,
-        RSELSTR_FNRSELSTR_UnRotateRect,
-	    RSELSTR_FNRSELSTR_CleanStr,
-		RSELSTR_FNRSELSTR_TestForVertical,
-		RSELSTR_FNRSELSTR_CutCompInTableZones
+typedef enum {
+    RSELSTR_FNRSELSTR_ExtractTextStrings = 1,
+    RSELSTR_FNRSELSTR_ProgressStart,
+    RSELSTR_FNRSELSTR_ProgressStep,
+    RSELSTR_FNRSELSTR_ProgressFinish,
+    RSELSTR_FNRSELSTR_PutObjects,
+    RSELSTR_FNRSELSTR_CutStr,
+    RSELSTR_FNRSELSTR_RotateRaster,
+    RSELSTR_FNRSELSTR_UnRotateRect,
+    RSELSTR_FNRSELSTR_CleanStr,
+    RSELSTR_FNRSELSTR_TestForVertical,
+    RSELSTR_FNRSELSTR_CutCompInTableZones
 
 } RSELSTR_EXPORT_ENTRIES;
 
@@ -111,20 +109,20 @@ typedef enum
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RSELSTR_FUNC(a) b c
 
-DEC_FUN(Bool32, RSELSTR_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
-DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage,Handle hCCOM,CHSTR_Objects* pObjects,int nObjects));
-DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc,int& nRc,int& len_mas_Rc,uchar* pRast,int DPIX,int DPIY,int str_w));
-DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp,int skew,Rect16* Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int betw_str));
-DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew,Rect16* pRc,int nRc,Rect16 Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int* hi));
-DEC_FUN(void, RSELSTR_CleanStr, (Rect16* pN,CCOM_comp** pC,int& nN,int top,int left,int h,int w,int skew,Bool32 vertical));
-DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM,Handle hCPage,Rect16 RC,Bool32 neg,int param));
-DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE,CCOM_handle hCCOM));
+DEC_FUN(Bool32, RSELSTR_ExtractTextStrings, (Handle hCCOM, Handle hCPAGE));
+DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage, Handle hCCOM, CHSTR_Objects* pObjects, int nObjects));
+DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc, int& nRc, int& len_mas_Rc, uchar* pRast, int DPIX, int DPIY, int str_w));
+DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp, int skew, Rect16* Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int betw_str));
+DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew, Rect16* pRc, int nRc, Rect16 Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int* hi));
+DEC_FUN(void, RSELSTR_CleanStr, (Rect16* pN, CCOM_comp** pC, int& nN, int top, int left, int h, int w, int skew, Bool32 vertical));
+DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM, Handle hCPage, Rect16 RC, Bool32 neg, int param));
+DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE, CCOM_handle hCCOM));
 
 #undef DEC_FUN
 
 typedef void   (*FNRSELSTR_ProgressStart)( void );
-typedef	Bool32 (*FNRSELSTR_ProgressStep)(uint32_t perc);
-typedef	void   (*FNRSELSTR_ProgressFinish)( void );
+typedef Bool32 (*FNRSELSTR_ProgressStep)(uint32_t perc);
+typedef void   (*FNRSELSTR_ProgressFinish)( void );
 
 
 #pragma pack (pop)

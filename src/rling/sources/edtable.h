@@ -70,8 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ED_LREC(p) ( (ED_LLP(p)<64)? ED_LLP(p):( (ED_LLP(p)&64)? (*ED_PPP(p)):(*(int16_t*)(ED_PPP(p))) ) )
 #define ED_VAR_LREC(p) ((ED_LLP(p)&64)? (*(uchar*)(ED_PPP(p))): (*(int16_t*)(ED_PPP(p))))
 
-static unsigned char ed_table[]=
-    {
+static unsigned char ed_table[] = {
     10,     /* 0  SS_BITMAP_REF         */
     4,      /* 1  SS_TEXT_REF           */
     4,      /* 2  SS_FONT_KEGL          */
@@ -104,4 +103,4 @@ static unsigned char ed_table[]=
     2,      /* 1D SS_AKSANT             */
     2,      /* 1E SS_NEG_HALF_SPACE     */
     2       /* 1F SS_POS_HALF_SPACE     */
-    };
+};

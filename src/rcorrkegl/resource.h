@@ -57,11 +57,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _RCORRKEGL_RESOURCE_H_
 #define _RCORRKEGL_RESOURCE_H_
 
-static const char *RCORRKEGL_error_name[]=
-{
-	"No error",
-	"Not implement",
-	""
+static const char *RCORRKEGL_error_name[] = {
+    "No error",
+    "Not implement",
+    ""
 };
 
 #endif

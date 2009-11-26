@@ -63,37 +63,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////
 class BLOCK: public DATA
 {
-public:
-	uint32_t UserNum;
-	uint32_t Flags;
-	uint32_t InterNum;
+    public:
+        uint32_t UserNum;
+        uint32_t Flags;
+        uint32_t InterNum;
 
 
-public:
-	BLOCK();
-	virtual ~BLOCK();
+    public:
+        BLOCK();
+        virtual ~BLOCK();
 
-	Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0,void * lpData = NULL, uint32_t Size = 0);
+        Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
 
-	Handle  GetType() { return DATA::GetType();};
-	uint32_t  GetUserNum() { return UserNum;};
-	void    SetUserNum(uint32_t user) { UserNum = user;};
-	uint32_t  GetFlags() { return Flags;};
-	void    SetFlags(uint32_t flags) { Flags = flags;};
-	uint32_t  GetInterNum() { return InterNum;};
-	void    SetInterNum(uint32_t user) { InterNum = user;};
+        Handle  GetType() {
+            return DATA::GetType();
+        };
+        uint32_t  GetUserNum() {
+            return UserNum;
+        };
+        void    SetUserNum(uint32_t user) {
+            UserNum = user;
+        };
+        uint32_t  GetFlags() {
+            return Flags;
+        };
+        void    SetFlags(uint32_t flags) {
+            Flags = flags;
+        };
+        uint32_t  GetInterNum() {
+            return InterNum;
+        };
+        void    SetInterNum(uint32_t user) {
+            InterNum = user;
+        };
 
-	BLOCK & operator = (BLOCK & Block);
-	Bool32  operator == (BLOCK & Block);
+        BLOCK & operator = (BLOCK & Block);
+        Bool32  operator == (BLOCK & Block);
 
-	Bool32 Save(Handle to);
-	Bool32 Restore(Handle from);
-	Bool32 SaveCompress(Handle to);
-	Bool32 RestoreCompress(Handle from);
+        Bool32 Save(Handle to);
+        Bool32 Restore(Handle from);
+        Bool32 SaveCompress(Handle to);
+        Bool32 RestoreCompress(Handle from);
 
-	virtual uint32_t Convert(Handle type,void * lpdata,uint32_t size);
+        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
 };
 
-	CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
+CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
 
 #endif

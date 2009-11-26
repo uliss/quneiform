@@ -61,13 +61,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "imgaccs_gbw.h"
 
 #ifndef GBW_FUNC
-        #define GBW_FUNC FUN_IMPO
+#define GBW_FUNC FUN_IMPO
 #endif
 
-enum TBinEnum {VIA_DEZA,VIA_KRONROD};
+enum TBinEnum {VIA_DEZA, VIA_KRONROD};
 
 /*
-	ЗАМЕЧАНИЯ.
+    ЗАМЕЧАНИЯ.
 1. Работа трио базируется на информации получаемой из структуры ImageInfo.
 2. Размер серого изображения (в байтах) равен ImageInfo->wImageWidth.
 3. Размер получаемого чб изображения вычисляется по формуле (ImageInfo->wImageWidth+7)/8 (для целых!!!).
@@ -76,47 +76,47 @@ enum TBinEnum {VIA_DEZA,VIA_KRONROD};
 */
 
 GBW_FUNC( Bool ) OpenBinarizator  (enum TBinEnum benum,
-								   LPTIGER_IMAGEINFO ImageInfo,
-									TImageGetBlock fGetGreyBlock
+                                   LPTIGER_IMAGEINFO ImageInfo,
+                                   TImageGetBlock fGetGreyBlock
 //#ifdef gbwMANUBRI      // version with manual Image Intensity flag
-		 ,
-		  short int ImageInty   // 0 - "weak", 1- "normal", 2 -"dirty"
+                                   ,
+                                   short int ImageInty   // 0 - "weak", 1- "normal", 2 -"dirty"
 //#endif
-					   );
+                                  );
 GBW_FUNC( uint16_t ) Binarize  ( puchar lpBuff, uint16_t Lth);
 /*
-	lpBuff - адрес, куда писать черно-белое
-	lth    - число байт
+    lpBuff - адрес, куда писать черно-белое
+    lth    - число байт
 Возвращает 0, если изображение кончилось.
 */
 GBW_FUNC( void )   CloseBinarizator (void);
 
 #ifdef WIN32
-	#include "windows.h"
+#include "windows.h"
 /*
-	Преобразование серого 8 битного DIB изображения в ч.б. DIB.
-	параметры:
-		benum - вид бинаризации (см выше)
-		ImageInty - качество изображения (см выше)
-		hInMemory - handle глобальной памяти на серый DIB
-	Возврашает NULL в случае ошибки или handle глобальной памяти на ч.б. DIB.
-	Для освобождения памяти надо вызвать GlobalFree(<ч.б. DIB>).
+    Преобразование серого 8 битного DIB изображения в ч.б. DIB.
+    параметры:
+        benum - вид бинаризации (см выше)
+        ImageInty - качество изображения (см выше)
+        hInMemory - handle глобальной памяти на серый DIB
+    Возврашает NULL в случае ошибки или handle глобальной памяти на ч.б. DIB.
+    Для освобождения памяти надо вызвать GlobalFree(<ч.б. DIB>).
 
 
 */
 //  hInMemory - 8 pixel-gray image DIB
 //  Return B/W image DIB or NULL if error.
-GBW_FUNC( HGLOBAL ) GreyToMono(enum TBinEnum benum,short int ImageInty,HGLOBAL hInMemory);
+GBW_FUNC( HGLOBAL ) GreyToMono(enum TBinEnum benum, short int ImageInty, HGLOBAL hInMemory);
 GBW_FUNC( void    ) DestroyMono(HGLOBAL hInMemory);
 
-GBW_FUNC(uint16_t)	Grey_open(enum TBinEnum benum,uint16_t Width, uint16_t Height);
-GBW_FUNC(uint16_t)	Grey_to(puchar pTo);
-GBW_FUNC(void)		Grey_from(puchar pFrom);
-GBW_FUNC(void)		Grey_close(void);
+GBW_FUNC(uint16_t)  Grey_open(enum TBinEnum benum, uint16_t Width, uint16_t Height);
+GBW_FUNC(uint16_t)  Grey_to(puchar pTo);
+GBW_FUNC(void)      Grey_from(puchar pFrom);
+GBW_FUNC(void)      Grey_close(void);
 
 #ifndef DPITODPM
-	#define DPITODPM(a) ((long)a * 254L / 10000L)
-	#define DPMTODPI(a) ((long)a * 10000L / 254L)
+#define DPITODPM(a) ((long)a * 254L / 10000L)
+#define DPMTODPI(a) ((long)a * 10000L / 254L)
 #endif
 
 #endif // WIN32

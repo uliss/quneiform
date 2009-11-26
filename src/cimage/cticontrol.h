@@ -70,107 +70,108 @@
 
 //#define CIMAGE_CBR_ONE_LINE
 
-class CTIControl {
-protected:
-	CTIImageList mlImages;
-	Handle hCBImage;
-	void * pCBImage;
-	char * pCBBuffer;
-	uint32_t wCBBufferSize;
-	uint32_t wCBLine;
-	uint32_t wCBWidth;
-	uint32_t wCBLines;
-	uint32_t wCBStep;
-	char mCBName[CIMAGE_MAX_IMAGE_NAME];
-	char mCBWName[CIMAGE_MAX_IMAGE_NAME];
-	Handle mhBitFildFromImage;
-	puchar mpBitFildFromImage;
-	PCTDIB mpDIBFromImage;
+class CTIControl
+{
+    protected:
+        CTIImageList mlImages;
+        Handle hCBImage;
+        void * pCBImage;
+        char * pCBBuffer;
+        uint32_t wCBBufferSize;
+        uint32_t wCBLine;
+        uint32_t wCBWidth;
+        uint32_t wCBLines;
+        uint32_t wCBStep;
+        char mCBName[CIMAGE_MAX_IMAGE_NAME];
+        char mCBWName[CIMAGE_MAX_IMAGE_NAME];
+        Handle mhBitFildFromImage;
+        puchar mpBitFildFromImage;
+        PCTDIB mpDIBFromImage;
 
-public:
-	CTIControl();
-	~CTIControl();
+    public:
+        CTIControl();
+        ~CTIControl();
 
-private:
-	Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
-			uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
-	Bool32 ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX = 0,
-			uint32_t wAtY = 0);
-	Bool32 RemoveRectsFromMask(const char *lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirstRect, const char*pcType);
-	Bool32 AddRectsToMask(const char *lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirstRect, const char *pcType);
-	Bool32 OpenDIBFromList(const char *lpName, PCTDIB pDIB);
-	Bool32 SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType);
-	Bool32 OpenMaskFromList(const char *lpName, PPCTIMask ppMask,
-			PBool32 pEnMask, const char *pcType);
-	Bool32 OpenDIBFromList(const char* lpName, Handle* phImage);
-	Bool32 WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-	Bool32 SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-			CIMAGE_InfoDataInReplace * pIn);
-	Bool32 ApplayBitMaskToFrame(CIMAGE_InfoDataInGet* pIn,
-			CIMAGE_InfoDataOutGet * pOut);
-	Bool32 ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB);
-	Bool32 CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-			CIMAGE_InfoDataInReplace * pFrameIn);
-	Bool32 CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-			CIMAGE_InfoDataInGet* pFrameInfo, puchar pMask);
-	Bool32 GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet* pIn,
-			puchar pMask);
-	Bool32 CopyDIB(Handle hDIB, Handle* hCopyedDib);
-	Bool32 DumpToFile(const char* FileName, puchar pData, uint32_t Size);
-	Bool32 CheckInData(PCTDIB pDIB, CIMAGE_InfoDataInGet* lpIn,
-			CIMAGE_InfoDataInGet* lpNewIn = NULL);
-	void init();
-	void clear();
+    private:
+        Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
+                                   uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
+        Bool32 ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX = 0,
+                               uint32_t wAtY = 0);
+        Bool32 RemoveRectsFromMask(const char *lpName, uint32_t wNumber,
+                                   CIMAGE_Rect * pFirstRect, const char*pcType);
+        Bool32 AddRectsToMask(const char *lpName, uint32_t wNumber,
+                              CIMAGE_Rect * pFirstRect, const char *pcType);
+        Bool32 OpenDIBFromList(const char *lpName, PCTDIB pDIB);
+        Bool32 SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType);
+        Bool32 OpenMaskFromList(const char *lpName, PPCTIMask ppMask,
+                                PBool32 pEnMask, const char *pcType);
+        Bool32 OpenDIBFromList(const char* lpName, Handle* phImage);
+        Bool32 WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
+        Bool32 SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
+                        CIMAGE_InfoDataInReplace * pIn);
+        Bool32 ApplayBitMaskToFrame(CIMAGE_InfoDataInGet* pIn,
+                                    CIMAGE_InfoDataOutGet * pOut);
+        Bool32 ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB);
+        Bool32 CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
+                             CIMAGE_InfoDataInReplace * pFrameIn);
+        Bool32 CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
+                           CIMAGE_InfoDataInGet* pFrameInfo, puchar pMask);
+        Bool32 GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet* pIn,
+                        puchar pMask);
+        Bool32 CopyDIB(Handle hDIB, Handle* hCopyedDib);
+        Bool32 DumpToFile(const char* FileName, puchar pData, uint32_t Size);
+        Bool32 CheckInData(PCTDIB pDIB, CIMAGE_InfoDataInGet* lpIn,
+                           CIMAGE_InfoDataInGet* lpNewIn = NULL);
+        void init();
+        void clear();
 
-public:
-	Bool32 EnableMask(const char* pcName, const char* pcType, Bool32 bEnable);
-	Bool32 RemoveReadRectangles(const char* lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirst);
-	Bool32 AddReadRectangles(const char* lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirst);
-	Bool32 RemoveWriteRectangles(const char* lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirst);
-	Bool32 AddWriteRectangles(const char* lpName, uint32_t wNumber,
-			CIMAGE_Rect * pFirst);
-	Bool32 FreeBuffers(void);
-	Bool32 FreeAlloced(Handle hDIB);
-	Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
-			void **pDIB);
-	Bool32 RemoveImage(const char* lpName);
-	Bool32 GetImageInfo(const char* lpImage, BitmapInfoHeader * lpBIH);
-	Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
-	Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
-			CIMAGE_InfoDataOutGet * lplpOut);
-	Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
-	Bool32 SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag = 0);
-	Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
-	Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
-	Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
-	Bool32 CBImageClose(void);
-	uint32_t CBImageRead(char * buffer, uint32_t wMaxSize);
-	Bool32 CloseDIBFromList(PCTDIB pDIB);
-	void Reset();
-protected:
-	Handle mhCopyedDIB;
-	Bool32 mbWriteFlag;
-	uint32_t mwMemoryErrors;
-	uchar mwLAWhiteRightMask[8];
-	uchar mwLAWhiteLeftMask[8];
-	uchar mwLABlackRightMask[8];
-	uchar mwLABlackLeftMask[8];
-	uchar mwIndexMask[8];
-	Bool32 mbSourceDIBCopy;
-	PCTIMask mpcSrcDIBReadMask;
-	PCTIMask mpcSrcDIBWriteMask;
-	Bool32 mbEnableDIBReadMask;
-	Bool32 mbEnableDIBWriteMask;
-	PCTDIB mCBDestianationDIB;
-	PCTDIB mCBSourceDIB;
-	PCTDIB mCBWDestianationDIB;
-	PCTDIB mCBWSourceDIB;
-	Bool32 mCBWInProcess;
+    public:
+        Bool32 EnableMask(const char* pcName, const char* pcType, Bool32 bEnable);
+        Bool32 RemoveReadRectangles(const char* lpName, uint32_t wNumber,
+                                    CIMAGE_Rect * pFirst);
+        Bool32 AddReadRectangles(const char* lpName, uint32_t wNumber,
+                                 CIMAGE_Rect * pFirst);
+        Bool32 RemoveWriteRectangles(const char* lpName, uint32_t wNumber,
+                                     CIMAGE_Rect * pFirst);
+        Bool32 AddWriteRectangles(const char* lpName, uint32_t wNumber,
+                                  CIMAGE_Rect * pFirst);
+        Bool32 FreeBuffers(void);
+        Bool32 FreeAlloced(Handle hDIB);
+        Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
+                               void **pDIB);
+        Bool32 RemoveImage(const char* lpName);
+        Bool32 GetImageInfo(const char* lpImage, BitmapInfoHeader * lpBIH);
+        Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
+        Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
+                        CIMAGE_InfoDataOutGet * lplpOut);
+        Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
+        Bool32 SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag = 0);
+        Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
+        Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
+        Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
+        Bool32 CBImageClose(void);
+        uint32_t CBImageRead(char * buffer, uint32_t wMaxSize);
+        Bool32 CloseDIBFromList(PCTDIB pDIB);
+        void Reset();
+    protected:
+        Handle mhCopyedDIB;
+        Bool32 mbWriteFlag;
+        uint32_t mwMemoryErrors;
+        uchar mwLAWhiteRightMask[8];
+        uchar mwLAWhiteLeftMask[8];
+        uchar mwLABlackRightMask[8];
+        uchar mwLABlackLeftMask[8];
+        uchar mwIndexMask[8];
+        Bool32 mbSourceDIBCopy;
+        PCTIMask mpcSrcDIBReadMask;
+        PCTIMask mpcSrcDIBWriteMask;
+        Bool32 mbEnableDIBReadMask;
+        Bool32 mbEnableDIBWriteMask;
+        PCTDIB mCBDestianationDIB;
+        PCTDIB mCBSourceDIB;
+        PCTDIB mCBWDestianationDIB;
+        PCTDIB mCBWSourceDIB;
+        Bool32 mCBWInProcess;
 
 };
 

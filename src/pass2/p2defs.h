@@ -61,20 +61,20 @@
 #include "leo/leodefs.h"
 
 typedef struct tagP2GLOBALS {
-	int language;
-	int multy_language;
-	int langUkr;
-	int langSer;
+    int language;
+    int multy_language;
+    int langUkr;
+    int langSer;
 
-	int line_number;
-	int line_alphabet;
-	int line_scale;
-	int line_tabcell;
-	int nIncline;
+    int line_number;
+    int line_alphabet;
+    int line_scale;
+    int line_tabcell;
+    int nIncline;
 
-	int cuts_point_methode;
-	int enable_smart_cut;
-	int langBul; // 13.09.2000
+    int cuts_point_methode;
+    int enable_smart_cut;
+    int langBul; // 13.09.2000
 } P2GLOBALS;
 
 #endif

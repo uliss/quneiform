@@ -19,35 +19,35 @@
 #ifndef CIFCONFIG_H_
 #define CIFCONFIG_H_
 
-namespace CIF {
+namespace CIF
+{
 
 class Config
 {
-    Config();
-public:
-    enum debug_level_t
-    {
-        DEBUG_NONE = 0,
-        DEBUG_LOW = 2,
-        DEBUG_MEDIUM = 4,
-        DEBUG_HIGH = 8
-    };
+        Config();
+    public:
+        enum debug_level_t {
+            DEBUG_NONE = 0,
+            DEBUG_LOW = 2,
+            DEBUG_MEDIUM = 4,
+            DEBUG_HIGH = 8
+        };
 
-    static Config& instance();
+        static Config& instance();
 
-    bool debugDump() const;
-    int debugLevel() const;
-    bool debugLow() const;
-    bool debugMedium() const;
-    bool debugHigh() const;
-    bool debug() const;
-    void setDebug(bool value);
-    void setDebugDump(bool value);
-    void setDebugLevel(int level);
-private:
-    bool debug_;
-    bool dump_;
-    int debug_level_;
+        bool debugDump() const;
+        int debugLevel() const;
+        bool debugLow() const;
+        bool debugMedium() const;
+        bool debugHigh() const;
+        bool debug() const;
+        void setDebug(bool value);
+        void setDebugDump(bool value);
+        void setDebugLevel(int level);
+    private:
+        bool debug_;
+        bool dump_;
+        int debug_level_;
 };
 
 }

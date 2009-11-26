@@ -87,20 +87,20 @@ LEO_FUNC Bool32 LEORecogCharPRN_expert(RecObject* object);
 // container for Recrasters
 LEO_FUNC Bool32 LEORecogId_expert(int32_t id_page, RecVersions *exp);
 LEO_FUNC Bool32 LEORecogId_Char(int32_t id_page, RecVersions *resin,
-		RecVersions *resout);
+                                RecVersions *resout);
 LEO_FUNC Bool32 LEOValidId_Char(int32_t id_page, RecVersions *resin,
-		RecVersions *resout);
+                                RecVersions *resout);
 LEO_FUNC Bool32 LEORecogRestore_Char(RecVersions *resin, RecVersions *resout);
 LEO_FUNC uchar LEOValidRestore_Char(RecVersions *resin, RecVersions *resout);
 LEO_FUNC Bool32 LEOSetValid(int16_t id_rast, uchar code, uchar valid,
-		uchar control);
+                            uchar control);
 LEO_FUNC Bool32 LEODelFinal(int16_t id_rast);
 LEO_FUNC int16_t LEO_ContStore(RecRaster *r, uchar let, uchar nLns,
-		Rect16 *rect, uchar IsPrint, uchar Prob, uchar Valid, RecVersions *Res);
+                               Rect16 *rect, uchar IsPrint, uchar Prob, uchar Valid, RecVersions *Res);
 LEO_FUNC int32_t LEO_GetGlobalIncline(void);
 LEO_FUNC Bool32 LEOPushAlphabetType(uchar alpha_type, uchar isPrint);
 LEO_FUNC Bool32 LEO_ContRestoreObject(int16_t idr, RecObject *object,
-		uchar *alpha, uchar *isPrint);
+                                      uchar *alpha, uchar *isPrint);
 //                                     id_page can be >0
 // to be deleted after implementation of LEOSetupField(), 28.02.97 20:50, VP
 LEO_FUNC Bool32 LEOSetAlphabet(char* char_tbl_put_to);
@@ -123,17 +123,17 @@ LEO_FUNC int16_t LEOGetErr(void);
 
 // Err16.h defined codes or one of the next
 enum leo_error_t {
-	ER_LEO_NO_ERROR = 0,
-	ER_LEO_NULL_OBJECT = 1,
-	ER_LEO_SMALL_OBJECT = 2,
-	ER_LEO_LARGE_OBJECT = 3,
-	ER_LEO_NOINIT_R35 = 4,
-	ER_LEO_NOINIT_NET = 5,
-	ER_LEO_NOINIT_TRE = 6,
-	ER_LEO_NOINIT_IND = 7,
-	ER_LEO_NOINIT_EVN = 8,
-	ER_LEO_NOINIT_NCU = 9,
-	ER_LEO_OPEN = 10
+    ER_LEO_NO_ERROR = 0,
+    ER_LEO_NULL_OBJECT = 1,
+    ER_LEO_SMALL_OBJECT = 2,
+    ER_LEO_LARGE_OBJECT = 3,
+    ER_LEO_NOINIT_R35 = 4,
+    ER_LEO_NOINIT_NET = 5,
+    ER_LEO_NOINIT_TRE = 6,
+    ER_LEO_NOINIT_IND = 7,
+    ER_LEO_NOINIT_EVN = 8,
+    ER_LEO_NOINIT_NCU = 9,
+    ER_LEO_OPEN = 10
 };
 
 LEO_FUNC int32_t LEOGetCPU(void);
@@ -141,11 +141,11 @@ LEO_FUNC void LEOSetPlatform(int32_t Cpu);
 LEO_FUNC void LEOSortVersProb(RecVersions *v);
 
 LEO_FUNC void LEO_RegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
-		__SnpToolBox *p_snp_tools // tools complect, may be NULL
-		);
+                                  __SnpToolBox *p_snp_tools // tools complect, may be NULL
+                                 );
 LEO_FUNC void LEO_IndRegisterSnpTree(SnpTreeNode* parent, // parent Snp Node, may be NULL
-		__SnpToolBox *p_snp_tools // tools complect, may be NULL
-		);
+                                     __SnpToolBox *p_snp_tools // tools complect, may be NULL
+                                    );
 // Registartion SubTree for Debug  (SNP)
 
 LEO_FUNC void LEO_SnpFullRecog(RecRaster *rec);
@@ -153,14 +153,14 @@ LEO_FUNC void LEO_SnpFullRecog(RecRaster *rec);
 // sizes container
 LEO_FUNC void LEO_ClearStat(void);
 LEO_FUNC int32_t LEO_AddStat(int32_t name, int32_t width, int32_t height,
-		int32_t valid);
+                             int32_t valid);
 LEO_FUNC int32_t LEO_AddStatLetter(int32_t name, int32_t width, int32_t height,
-		int32_t valid);
+                                   int32_t valid);
 LEO_FUNC int32_t LEO_GetCommonStat(int32_t *sizes, int32_t *ocenka);
 LEO_FUNC int32_t LEO_GetLetStat(int32_t name, int32_t *sizes, int32_t *ocenka);
 
 LEO_FUNC int16_t LEO_GetNoCutPoint(uchar *RASTER, int16_t WB, uchar NWIDTH,
-		uchar NLENGTH);
+                                   uchar NLENGTH);
 // convert string number to field number. -1 if bound error
 LEO_FUNC int32_t LEO_Str2FldNo(int32_t str_no);
 // store ANSI(Windows) collection

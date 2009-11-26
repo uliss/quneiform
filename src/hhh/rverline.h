@@ -60,15 +60,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RVERLINE__
-  #define RVERLINE_FUNC  FUN_EXPO
+#define RVERLINE_FUNC  FUN_EXPO
 #else
-  #define RVERLINE_FUNC  FUN_IMPO
+#define RVERLINE_FUNC  FUN_IMPO
 #endif
 
 
 #define RVERLINE_MAXNAME 260
 
-RVERLINE_FUNC(Bool32) RVERLINE_Init(uint16_t wHeightCode,Handle hStorage);
+RVERLINE_FUNC(Bool32) RVERLINE_Init(uint16_t wHeightCode, Handle hStorage);
 RVERLINE_FUNC(Bool32) RVERLINE_Done();
 RVERLINE_FUNC(uint32_t) RVERLINE_GetReturnCode();
 RVERLINE_FUNC(char *) RVERLINE_GetReturnString(uint32_t dwError);
@@ -80,13 +80,12 @@ RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void * pData);
 #define RVERLINE_ZHERTVY_LINIY CPAGE_GetInternalType("RVERLINE_ZHERTVY_LINIY")
 
 
-typedef enum
-{
-                RVERLINE_FNRVERLINE_MarkLines = 1,
-                RVERLINE_DTRVERLINE_StyleOfSearchTable,
-                RVERLINE_DTRVERLINE_WhereMustSearchTable,
-                RVERLINE_DTRVERLINE_DetailOfSearchTable,
-                RVERLINE_DTRVERLINE_RegimeOfVerifyLines
+typedef enum {
+    RVERLINE_FNRVERLINE_MarkLines = 1,
+    RVERLINE_DTRVERLINE_StyleOfSearchTable,
+    RVERLINE_DTRVERLINE_WhereMustSearchTable,
+    RVERLINE_DTRVERLINE_DetailOfSearchTable,
+    RVERLINE_DTRVERLINE_RegimeOfVerifyLines
 } RVERLINE_EXPORT_ENTRIES;
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RVERLINE_FUNC(a) b c

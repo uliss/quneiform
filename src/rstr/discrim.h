@@ -66,15 +66,15 @@
 #define UNDEF     131  // angle undefined
 #define THIN            120  // density coefficient
 #define BOLD            200  // density coefficient
-#define DUMMY_VAL	0x3333
+#define DUMMY_VAL   0x3333
 
 struct rst {
-	unsigned char * raster;
-	int w, h, u;
+    unsigned char * raster;
+    int w, h, u;
 };
 
 typedef struct {
-	uint16_t segblack, segwhite;
-	unsigned char * segbox;
+    uint16_t segblack, segwhite;
+    unsigned char * segbox;
 } segment_t;
 

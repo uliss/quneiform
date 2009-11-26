@@ -11,22 +11,26 @@
 #include <string>
 #include <sstream>
 
-namespace CIF {
+namespace CIF
+{
 
 inline std::string replaceFileExt(const std::string& filename,
-		const std::string& new_ext) {
-	return filename.substr(0, filename.rfind('.')) + new_ext;
+                                  const std::string& new_ext)
+{
+    return filename.substr(0, filename.rfind('.')) + new_ext;
 }
 
-inline std::string removeFileExt(const std::string& filename) {
+inline std::string removeFileExt(const std::string& filename)
+{
     return filename.substr(0, filename.rfind('.'));
 }
 
 template<class T>
-std::string toString(const T& t) {
-	std::ostringstream os;
-	os << t;
-	return os.str();
+std::string toString(const T& t)
+{
+    std::ostringstream os;
+    os << t;
+    return os.str();
 }
 }
 

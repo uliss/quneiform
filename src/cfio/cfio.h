@@ -83,73 +83,71 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 const int _MAX_PATH = 255;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Functions
-   #ifndef __GLOBUS_H
-   #include "globus.h"
-   #endif
+#ifndef __GLOBUS_H
+#include "globus.h"
+#endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-   #ifdef __CFIO__
-      #define CFIO_FUNC  FUN_EXPO
-   #else
-      #define CFIO_FUNC  FUN_IMPO
-   #endif
+#ifdef __CFIO__
+#define CFIO_FUNC  FUN_EXPO
+#else
+#define CFIO_FUNC  FUN_IMPO
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //#ifndef Handle
-	//#define Handle void *
-//	typedef void *Handle, **Handle*;
+//#define Handle void *
+//  typedef void *Handle, **Handle*;
 //#endif
 
 #ifndef pvoid
-    //#define pvoid     void *
-	typedef void   *pvoid, *pvoid;
+//#define pvoid     void *
+typedef void   *pvoid, *pvoid;
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #define CFIO_MAX_PATH          256
 #define CFIO_MAX_OWNER         16
 #define CFIO_MAX_COMMENT       48
 ///////////////////////////////////////////////////////////////////////////////////////////////
-CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage);
+CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode, Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();
 CFIO_FUNC(uint32_t) CFIO_GetReturnCode();
 CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError);
 CFIO_FUNC(Bool32) CFIO_GetExportData(uint32_t dwType, void * pData);
 CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData);
 ///////////////////////////////////////////////////////////////////////////////////////////////
-enum Parameters
-{
-CFIO_PCHAR_TEMPORARY_FOLDER = 1,
-CFIO_PCHAR_STORAGE_FOLDER,
-CFIO_PCHAR_FILE_FOLDER,
-CFIO_FNOpenStorage,
-CFIO_FNCloseStorage,
-CFIO_FNDeleteStorage,
-CFIO_FNWriteFileToStorage,
-CFIO_FNReadFileFromStorage,
-CFIO_FNOpenFreeFile,
-CFIO_FNCloseFreeFile,
-CFIO_FNWriteToFile,
-CFIO_FNReadFromFile,
-CFIO_FNSeekFilePointer,
-CFIO_FNTellFilePointer,
-CFIO_FNFlushFile,
-CFIO_FNAllocMemory,
-CFIO_FNDAllocMemory,
-CFIO_FNReAllocMemory,
-CFIO_FNFreeMemory,
-CFIO_FNLockMemory,
-CFIO_FNUnlockMemory,
-CFIO_FNWriteMemoryToFile,
-CFIO_FNReadMemoryFromFile,
-CFIO_FNWriteMemoryToStorage,
-CFIO_FNReadMemoryFromStorage
+enum Parameters {
+    CFIO_PCHAR_TEMPORARY_FOLDER = 1,
+    CFIO_PCHAR_STORAGE_FOLDER,
+    CFIO_PCHAR_FILE_FOLDER,
+    CFIO_FNOpenStorage,
+    CFIO_FNCloseStorage,
+    CFIO_FNDeleteStorage,
+    CFIO_FNWriteFileToStorage,
+    CFIO_FNReadFileFromStorage,
+    CFIO_FNOpenFreeFile,
+    CFIO_FNCloseFreeFile,
+    CFIO_FNWriteToFile,
+    CFIO_FNReadFromFile,
+    CFIO_FNSeekFilePointer,
+    CFIO_FNTellFilePointer,
+    CFIO_FNFlushFile,
+    CFIO_FNAllocMemory,
+    CFIO_FNDAllocMemory,
+    CFIO_FNReAllocMemory,
+    CFIO_FNFreeMemory,
+    CFIO_FNLockMemory,
+    CFIO_FNUnlockMemory,
+    CFIO_FNWriteMemoryToFile,
+    CFIO_FNReadMemoryFromFile,
+    CFIO_FNWriteMemoryToStorage,
+    CFIO_FNReadMemoryFromStorage
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Folders
-enum CFIOFolders
-{
-	CFIO_TEMP_FOLDER = 1,
-	CFIO_FILE_FOLDER,
-	CFIO_STORAGE_FOLDER
+enum CFIOFolders {
+    CFIO_TEMP_FOLDER = 1,
+    CFIO_FILE_FOLDER,
+    CFIO_STORAGE_FOLDER
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////Storages
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +159,7 @@ enum CFIOFolders
 #define   OS_OPEN                 0x02
 //typedef   Handle (*FNOpenStorage)(char *, uint32_t);
 //Handle    OpenStorage            (char * lpName,
-//								  uint32_t dwTypes);
+//                                uint32_t dwTypes);
 DEC_FUN(Handle, OpenStorage, (pchar, uint32_t) );
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close Storage
@@ -173,7 +171,7 @@ DEC_FUN(Handle, OpenStorage, (pchar, uint32_t) );
 #define   CS_ALL                  0x20                                 // Close all open storages
 //typedef   Bool32 (*FNCloseStorage)(Handle, uint32_t);
 //Bool32    CloseStorage            (Handle  hStorage,
-//								   uint32_t  dwFlag);
+//                                 uint32_t  dwFlag);
 DEC_FUN(Bool32, CloseStorage, (Handle, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Delete storage from disk (don't need to be opened)
@@ -185,14 +183,14 @@ DEC_FUN(Bool32, DeleteStorage, (pchar));
 //Write file to storage
 //typedef   uint32_t (*FNWriteFileToStorage)(Handle , Handle, char * );
 //uint32_t    WriteFileToStorage            (Handle hStorage,
-//										 Handle hFile,
-//										 char * lpName);
+//                                       Handle hFile,
+//                                       char * lpName);
 DEC_FUN(uint32_t, WriteFileToStorage, (Handle , Handle, pchar ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read file from storage
 //typedef   Handle (*FNReadFileFromStorage)(Handle , char * );
 //Handle    ReadFileFromStorage            (Handle hStorage,
-//										  char * lpName);
+//                                        char * lpName);
 DEC_FUN(Handle, ReadFileFromStorage, (Handle , pchar ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Open file
@@ -205,8 +203,8 @@ DEC_FUN(Handle, ReadFileFromStorage, (Handle , pchar ));
 #define   OSF_TEMPORARY            0x40
 //typedef   Handle (*FNOpen)(Handle, char *, uint32_t);
 //Handle    OpenFreeFile    (Handle hFile,
-//						   char * lpName,
-//						   uint32_t dwFlag);
+//                         char * lpName,
+//                         uint32_t dwFlag);
 DEC_FUN(Handle, OpenFreeFile, (Handle, const char *, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close file
@@ -216,21 +214,21 @@ DEC_FUN(Handle, OpenFreeFile, (Handle, const char *, uint32_t));
 #define   CSF_WRITE                0x08
 //typedef   Bool32 (*FNClose)(Handle, uint32_t);
 //Bool32    CloseFreeFile    (Handle hFile,
-//							uint32_t dwFlag);
+//                          uint32_t dwFlag);
 DEC_FUN(Bool32, CloseFreeFile, (Handle, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data to file
 //typedef   uint32_t (*FNWrite)(Handle, char *, uint32_t);
 //uint32_t    WriteToFile      (Handle hFile,
-//							char * lpData,
-//							uint32_t dwSize);
+//                          char * lpData,
+//                          uint32_t dwSize);
 DEC_FUN(uint32_t, WriteToFile, (Handle, pchar, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Read data from file
 //typedef   uint32_t (*FNRead)(Handle, char *, uint32_t);
 //uint32_t    ReadFromFile    (Handle hFile,
-//						   char * lpData,
-//						   uint32_t dwSize);
+//                         char * lpData,
+//                         uint32_t dwSize);
 DEC_FUN(uint32_t, ReadFromFile, (Handle, pchar, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Seek pointer
@@ -239,8 +237,8 @@ DEC_FUN(uint32_t, ReadFromFile, (Handle, pchar, uint32_t));
 #define   FS_CUR                   0x04
 //typedef   uint32_t (*FNSeek)(Handle, uint32_t, uint32_t);
 //uint32_t    SeekFilePointer (Handle hFile,
-//						   uint32_t dwBytes,
-//						   uint32_t dwFrom);
+//                         uint32_t dwBytes,
+//                         uint32_t dwFrom);
 DEC_FUN(uint32_t, SeekFilePointer, (Handle, uint32_t, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Tell pointer
@@ -273,7 +271,7 @@ DEC_FUN(Bool32, FlushFile, (Handle));
 #define   MAF_GALL_GMEM_RESERVED     0x8000
 //typedef   Handle (*FNAlloc)(uint32_t, uint32_t);
 //Handle    AllocMemory      (uint32_t dwSize,
-//							uint32_t dwFlag);
+//                          uint32_t dwFlag);
 DEC_FUN(Handle, AllocMemory, (uint32_t, uint32_t));
 DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, const char*, const char*));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -285,8 +283,8 @@ DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, const char*, const char*));
 #define   MRF_GALL_GMEM_ZEROINIT          0x0008
 //typedef   Handle (*FNReAlloc)(Handle, uint32_t, uint32_t);
 //Handle    ReAllocMemory      (Handle hMemory,
-//							  uint32_t dwSize,
-//							  uint32_t dwFlag);
+//                            uint32_t dwSize,
+//                            uint32_t dwFlag);
 DEC_FUN(Handle, ReAllocMemory, (Handle, uint32_t, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Free memory
@@ -307,27 +305,27 @@ DEC_FUN(Bool32, UnlockMemory, (Handle));
 // Write from memory to disk
 //typedef   uint32_t (*FNWriteMemToFile)(Handle, char *);
 //uint32_t    WriteMemoryToFile         (Handle hMem,
-//									 char * lpName);
+//                                   char * lpName);
 DEC_FUN(uint32_t, WriteMemoryToFile, (Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from disk to memory
 //typedef   uint32_t (*FNReadMemFromFile)(char *, Handle *);
 //uint32_t    ReadMemoryFromFile         (char * lpName,
-//									  Handle * phMem);
+//                                    Handle * phMem);
 DEC_FUN(uint32_t, ReadMemoryFromFile, (const char *, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data from memory to storage
 //typedef   uint32_t (*FNWriteMemToStorage)(Handle, Handle, char *);
 //uint32_t    WriteMemoryToStorage         (Handle hMem,
-//										Handle hStorage,
-//										char * lpName);
+//                                      Handle hStorage,
+//                                      char * lpName);
 DEC_FUN(uint32_t, WriteMemoryToStorage, (Handle, Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from storage to memory
 //typedef   uint32_t (*FNReadMemFromStorage)(Handle, char *, Handle *);
 //uint32_t    ReadMemoryFromStorage         (Handle hStorage,
-//										 char * lpName,
-//										 Handle * phMem);
+//                                       char * lpName,
+//                                       Handle * phMem);
 DEC_FUN(uint32_t, ReadMemoryFromStorage, (Handle, pchar, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef DEC_FUN

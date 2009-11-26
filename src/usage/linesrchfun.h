@@ -55,5 +55,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 void FindAllQuasiLines (const RLT_DINGPOOL *pDingPool, const Rect16 *pRcReg, const Bool Hori
-						, int *pLev, int *nLev, const int MaxNumLev
-						, const double MaxHoleDens, const int MaxWidUnion);
+                        , int *pLev, int *nLev, const int MaxNumLev
+                        , const double MaxHoleDens, const int MaxWidUnion);

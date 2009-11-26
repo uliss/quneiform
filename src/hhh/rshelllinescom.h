@@ -57,17 +57,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // RShellLinesCom.h: interface for the ShellLine's functions.
 //
 //
-//	Description: ShellLine's functions and classes definition
+//  Description: ShellLine's functions and classes definition
 //
-//	Implemented: by B.M. Shahverdiev
+//  Implemented: by B.M. Shahverdiev
 //
 //
 #include "globus.h"
 
 #ifdef __RSHELLLINES_EXPORTS__
-  #define RSHELLLINES_FUNC  FUN_EXPO
+#define RSHELLLINES_FUNC  FUN_EXPO
 #else
-  #define RSHELLLINES_FUNC  FUN_IMPO
+#define RSHELLLINES_FUNC  FUN_IMPO
 #endif
 
 
@@ -84,20 +84,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage/cpage.h"
 #include "compat_defs.h"
 
-struct DOT_STRUCT
- {
-  int32_t left;
-  int32_t right;
-  int32_t top;
-  int32_t bottom;
-  int32_t i_left;
-  int32_t i_top;
-  int32_t i_right;
-  Bool  flag;
- };
+struct DOT_STRUCT {
+    int32_t left;
+    int32_t right;
+    int32_t top;
+    int32_t bottom;
+    int32_t i_left;
+    int32_t i_top;
+    int32_t i_right;
+    Bool  flag;
+};
 
-typedef struct group_lines_mass
-{
+typedef struct group_lines_mass {
     CLINE_handle* hLinesMass;
     int           numder_of_lines;
     int           number_of_cp;
@@ -111,7 +109,7 @@ typedef struct group_lines_mass
 } GLM;
 
 
-  void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, uint32_t* LineHist, uint32_t RectBegin, uint32_t LineLength); //
+void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, uint32_t* LineHist, uint32_t RectBegin, uint32_t LineLength); //
 
 /////////////////////////////////////////////////////////////////////////////
 // Component's class
@@ -121,45 +119,45 @@ typedef struct group_lines_mass
 #define  EndPointHasCrossPoint      4
 
 // For Status
-#define ST_Unknown      0x00000000 			//
-#define ST_Basil_Short  0x00000001			//
+#define ST_Unknown      0x00000000          //
+#define ST_Basil_Short  0x00000001          //
 #define ST_Good         0x00000002          //
 #define ST_Bad          0x00000004          //
 
 /////////////////////////////////////////////////////////////////////////////
 // Line's class
 RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
-  Bool            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
+Bool            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
 void            GetNewStripeVerticalLine(DEvent* eventdata); //
-  void            SetLineProcessingType(DLine* linedata); //
-  void            SetWidth(CLINE_handle line, DLine* pCLine); //
-  void            SetLength(CLINE_handle line, DLine* pCLine); //
-  void            SetComponentsCrossPointFlag(CLINE_handle line, DLine* pCLine); //
+void            SetLineProcessingType(DLine* linedata); //
+void            SetWidth(CLINE_handle line, DLine* pCLine); //
+void            SetLength(CLINE_handle line, DLine* pCLine); //
+void            SetComponentsCrossPointFlag(CLINE_handle line, DLine* pCLine); //
 
 RSHELLLINES_FUNC(Bool32)          CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp = NULL); //
 
-  void            SetSeparationPoints(CLINE_handle hContainer, CLINE_handle hLine, DLine* pCLine, Bool32 PLines); //
-  void            SetCutPoints(CLINE_handle line, DLine* pCLine); //
-  void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, int32_t IntervalBeg, int32_t IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
-  void            SetDegree(DLine* line); //
-  Bool            CheckPoint(CLINE_handle line, int CurPoint); //
-  void            ConvertStructs(CLINE_handle line, DLine* pCLine, int32_t nIncline); //
-  void            FindTailComponent(CLINE_handle line, DLine* pCLine); //
-  void            GetCorrectLine_End_X(CLINE_handle line, DLine* pCLine); //
-  void            GetComponentBeg_Y_End_Y(int32_t Beg, int32_t End, int32_t* Beg_X, int32_t* End_X, int32_t* Beg_Y, int32_t* End_Y, CLINE_handle hLine, Bool32 ProcessingType); //
-  Bool32          IfExistCutLine(CLINE_handle hContainer, DLine* pCLine, int left,int right); //
+void            SetSeparationPoints(CLINE_handle hContainer, CLINE_handle hLine, DLine* pCLine, Bool32 PLines); //
+void            SetCutPoints(CLINE_handle line, DLine* pCLine); //
+void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, int32_t IntervalBeg, int32_t IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
+void            SetDegree(DLine* line); //
+Bool            CheckPoint(CLINE_handle line, int CurPoint); //
+void            ConvertStructs(CLINE_handle line, DLine* pCLine, int32_t nIncline); //
+void            FindTailComponent(CLINE_handle line, DLine* pCLine); //
+void            GetCorrectLine_End_X(CLINE_handle line, DLine* pCLine); //
+void            GetComponentBeg_Y_End_Y(int32_t Beg, int32_t End, int32_t* Beg_X, int32_t* End_X, int32_t* Beg_Y, int32_t* End_Y, CLINE_handle hLine, Bool32 ProcessingType); //
+Bool32          IfExistCutLine(CLINE_handle hContainer, DLine* pCLine, int left, int right); //
 
 
-  Bool                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
-  Bool                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-  Bool                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-  Bool                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+Bool                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
+Bool                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+Bool                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+Bool                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
 
 RSHELLLINES_FUNC(void)       FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
 RSHELLLINES_FUNC(void)       DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
 
 RSHELLLINES_FUNC(void)       FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult); //
-  void                     DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines); //
+void                     DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines); //
 
 RSHELLLINES_FUNC(void)       FindLosedVerticalLines(CLINE_handle hContainer, GLM* friendlinesmass, CLINE_handle hFictContainer, int CountLines, Bool32 IfDrawResult); //
 RSHELLLINES_FUNC(void)       DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines); //
@@ -167,12 +165,12 @@ RSHELLLINES_FUNC(void)       DrawLosedVerticalLines(GLM* friendlinesmass, int Co
 //  void                     GetBigComps(Handle hCComp);
 RSHELLLINES_FUNC(void)       DrawBigComps(CLINE_handle hContainer); //
 
-RSHELLLINES_FUNC(void)       FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer); //
-  Bool                     GetDotComps(Handle hCCOM,Handle hCPAGE, Handle &hbuf,char* &pDotBuffer, int32_t *CountDotComps); //
-  void                     FindChains(Handle hCCOM, char* &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
-  void                     CheckChains(Handle hCCOM, char* &pDotBuffer, int32_t BegIndex,int32_t CountDots, CLINE_handle hContainer); //
-  void                     AddNewDotLines(Handle hCCOM, char* &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //
-  void                     UnionBreakup(CLINE_handle hContainer); //
+RSHELLLINES_FUNC(void)       FindDotLines(Handle hCCOM, Handle hCPAGE, CLINE_handle hContainer); //
+Bool                     GetDotComps(Handle hCCOM, Handle hCPAGE, Handle &hbuf, char* &pDotBuffer, int32_t *CountDotComps); //
+void                     FindChains(Handle hCCOM, char* &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
+void                     CheckChains(Handle hCCOM, char* &pDotBuffer, int32_t BegIndex, int32_t CountDots, CLINE_handle hContainer); //
+void                     AddNewDotLines(Handle hCCOM, char* &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //
+void                     UnionBreakup(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer); //
 

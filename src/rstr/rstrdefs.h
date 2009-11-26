@@ -61,21 +61,21 @@
 
 #define RSTR_VERSION_CODE   1
 typedef struct tagRSTR_Options {
-	char szAlphaString[256];
-	//FrhFieldSetup *setup;    // old fields
-	//                          char     szAlphaString[256]
-	uchar language;
-	uchar * Alphabet; // 256 indicators
-	uchar StyleRecog; // printing, handprinting
-	uchar EnableCut; // only glue if 0
+    char szAlphaString[256];
+    //FrhFieldSetup *setup;    // old fields
+    //                          char     szAlphaString[256]
+    uchar language;
+    uchar * Alphabet; // 256 indicators
+    uchar StyleRecog; // printing, handprinting
+    uchar EnableCut; // only glue if 0
 
-	uchar StyleCursive; // no cursive if 0
-	uchar StyleFont; // normal,TW, DOT MATR
-	uchar StyleContext; // future
-	uchar StyleSpelling;
+    uchar StyleCursive; // no cursive if 0
+    uchar StyleFont; // normal,TW, DOT MATR
+    uchar StyleContext; // future
+    uchar StyleSpelling;
 
-	uchar EnableLearn; //
-	int32_t pageSkew2048;
+    uchar EnableLearn; //
+    int32_t pageSkew2048;
 } RSTR_Options;
 
 #pragma pack()

@@ -100,12 +100,11 @@ typedef void    (*RSSETUPDATE)           (uint32_t, uint32_t);
 #define     RSTUFF_AboutLines_SizeWorkMem   180000//165000
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-typedef struct tagRSLinesBuffer
-{
-	void * HLinesBufferA;
-	void * VLinefBufferA;
-	void * HLinesBufferB;
-	void * VLinefBufferB;
+typedef struct tagRSLinesBuffer {
+    void * HLinesBufferA;
+    void * VLinefBufferA;
+    void * HLinesBufferB;
+    void * VLinefBufferB;
 } RSLinesBuffer, *PRSLinesBuffer;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //

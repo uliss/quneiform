@@ -58,17 +58,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __MEMFUNC_H
 #define __MEMFUNC_H
 
-   #ifndef __GLOBUS_H
-      #include "globus.h"
-   #endif
+#ifndef __GLOBUS_H
+#include "globus.h"
+#endif
 
 
-	 typedef void *(*FTAllocPtr)( uint32_t );
-   typedef void (*FTFreePtr)( void *, uint32_t );
+typedef void *(*FTAllocPtr)( uint32_t );
+typedef void (*FTFreePtr)( void *, uint32_t );
 
-   typedef struct    tagMemFunc {
-      FTAllocPtr    alloc;
-      FTFreePtr     free;
-   }  MemFunc;
+typedef struct    tagMemFunc {
+    FTAllocPtr    alloc;
+    FTFreePtr     free;
+}  MemFunc;
 
 #endif

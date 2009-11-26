@@ -61,16 +61,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "table.h"
 #include "point.h"
 
-# define  TYPE_TEXT			CPAGE_GetInternalType("TYPE_TEXT")
-# define  TYPE_IMAGE		CPAGE_GetInternalType("TYPE_IMAGE")
-# define  TYPE_TABLE		CPAGE_GetInternalType("TYPE_TABLE")
-# define  TYPE_EMPTY		CPAGE_GetInternalType("TYPE_EMPTY")
-# define  TYPE_DESC			CPAGE_GetInternalType("TYPE_DESC")
-# define  TYPE_DESK			TYPE_DESC
+# define  TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
+# define  TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")
+# define  TYPE_TABLE        CPAGE_GetInternalType("TYPE_TABLE")
+# define  TYPE_EMPTY        CPAGE_GetInternalType("TYPE_EMPTY")
+# define  TYPE_DESC         CPAGE_GetInternalType("TYPE_DESC")
+# define  TYPE_DESK         TYPE_DESC
 # define  TYPE_PICTURE      CPAGE_GetInternalType("TYPE_PICTURE")
 # define  TYPE_SCROLL       CPAGE_GetInternalType("TYPE_SCROLL")
 # define  TYPE_LINE         CPAGE_GetInternalType("TYPE_LINE")
-# define  MaxNum			1000
+# define  MaxNum            1000
 
 //константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
 //01.01.01 Логинов
@@ -91,12 +91,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define DOTTED_LINE       4
 # define DASHED_LINE       8
 # define DOUBLED_LINE      16
-# define NORMAL_LINE       0	// дублирует
+# define NORMAL_LINE       0    // дублирует
 
 
 
-typedef struct tagStructBool16
-{
+typedef struct tagStructBool16 {
 //////////////////////////////////////////
 #define    BIT_0                      0x01
 #define    BIT_1                      0x02
@@ -107,75 +106,71 @@ typedef struct tagStructBool16
 #define    BIT_6                      0x40
 #define    BIT_7                      0x80
 //////////////////////////////////////////
-	char Type;
-	char Visible;
+    char Type;
+    char Visible;
 } StructBool16;
 
-typedef struct tagVertex
-{
-	int32_t x;
-	int32_t y;
-	int32_t mark;
+typedef struct tagVertex {
+    int32_t x;
+    int32_t y;
+    int32_t mark;
 } VERTEX;
 
-typedef struct tagCommon
-{
-	Handle type;//Текст, Картинка, Таблица;
-	int16_t number;//порядковый номер
-	int16_t Color;
-	Bool Select;//
-	int16_t count;
-	CIF::Point Vertex[MaxNum];
+typedef struct tagCommon {
+    Handle type;//Текст, Картинка, Таблица;
+    int16_t number;//порядковый номер
+    int16_t Color;
+    Bool Select;//
+    int16_t count;
+    CIF::Point Vertex[MaxNum];
 // Almi 18.04.00
 #define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
 #define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста
 #define POS_MATCH       0x00000004 // Используется в программе сравнения фрагментации
-	uint32_t Flags;
+    uint32_t Flags;
 } COMMON;
 
-typedef struct tagPOLY
-{
-	COMMON com;
+typedef struct tagPOLY {
+    COMMON com;
 
-	int32_t mark[MaxNum];
+    int32_t mark[MaxNum];
 
-	int32_t alphabet;//Цифры,Цифры и буквы, Буквы
-	Bool16 negative;//Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
-	int16_t orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
+    int32_t alphabet;//Цифры,Цифры и буквы, Буквы
+    Bool16 negative;//Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
+    int16_t orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
 } POLY_;
 
-typedef struct tagTABLE
-{
-	COMMON com;
+typedef struct tagTABLE {
+    COMMON com;
 
-	int32_t num_colons;//число колонок
-	int32_t num_rows;//число строк
-	int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
-	int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
-	Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
-	//StructBool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
-	Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
-	int32_t Skew;
-	Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
-	int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
+    int32_t num_colons;//число колонок
+    int32_t num_rows;//число строк
+    int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
+    int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
+    Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
+    //StructBool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
+    Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
+    int32_t Skew;
+    Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
+    int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
 
-	char    iSet; //номер сета, которому
-	char    TypeTablDetail;
-	char    Active; // 0 - пассивная, 1 - активная в сете
-	char    reserv[3];
-	//int16_t SetNum;//Нумерация в сете
-	//Bool16 bActive;//для маркировки активной таблицы в сете
-	//int16_t GlobNum;//Внутренняя нумерация
+    char    iSet; //номер сета, которому
+    char    TypeTablDetail;
+    char    Active; // 0 - пассивная, 1 - активная в сете
+    char    reserv[3];
+    //int16_t SetNum;//Нумерация в сете
+    //Bool16 bActive;//для маркировки активной таблицы в сете
+    //int16_t GlobNum;//Внутренняя нумерация
 
 } TABLE_;
 /*
 typedef struct tagLINE
 {
-	COMMON com;
+    COMMON com;
 
-	int32_t width;//Ширина
+    int32_t width;//Ширина
 
-	int32_t visi;//Внешний вид: Простая,Невидимая,Двойная,Пунктир.
+    int32_t visi;//Внешний вид: Простая,Невидимая,Двойная,Пунктир.
 
 } LINE_;
 */

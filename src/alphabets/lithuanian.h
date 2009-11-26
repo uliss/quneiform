@@ -21,13 +21,14 @@
 
 #include "baltic.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class LithuanianAlphabet: public BalticAlphabet
 {
-public:
-    LithuanianAlphabet();
-    language_t language() const;
+    public:
+        LithuanianAlphabet();
+        language_t language() const;
 };
 
 }

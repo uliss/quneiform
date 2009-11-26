@@ -21,13 +21,14 @@
 
 #include "easteurope.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class SlovenianAlphabet: public EastEuropeAlphabet
 {
-public:
-    SlovenianAlphabet();
-    language_t language() const;
+    public:
+        SlovenianAlphabet();
+        language_t language() const;
 };
 
 }

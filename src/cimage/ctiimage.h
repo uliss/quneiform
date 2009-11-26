@@ -68,34 +68,35 @@
 #endif
 
 class CTIControl;
-namespace CIF {
+namespace CIF
+{
 typedef Singleton<CTIControl> CImage;
 }
 
 enum {
-	CIMAGE_MAXNAME = 260
+    CIMAGE_MAXNAME = 260
 };
 
 CIMAGE_FUNC void CIMAGE_Init();
 
 typedef enum {
-	CIMAGE_FN_WriteCallbackImage = 1,
-	CIMAGE_FN_GetCallbackImage,
-	CIMAGE_FN_WriteDIB,
-	CIMAGE_FN_ReadDIB,
-	CIMAGE_FN_GetData,
-	CIMAGE_FN_GetDIBData,
-	CIMAGE_FN_ReplaceData,
-	CIMAGE_FN_GetImageInfo,
-	CIMAGE_FN_DeleteImage,
-	CIMAGE_FN_FreeCopedDIB,
-	CIMAGE_FN_FreeBuffers,
-	CIMAGE_FN_Reset,
-	CIMAGE_FN_AddReadCloseRects,
-	CIMAGE_FN_RemoveReadCloseRects,
-	CIMAGE_FN_AddWriteCloseRects,
-	CIMAGE_FN_RemoveWriteCloseRects,
-	CIMAGE_FN_EnableMask
+    CIMAGE_FN_WriteCallbackImage = 1,
+    CIMAGE_FN_GetCallbackImage,
+    CIMAGE_FN_WriteDIB,
+    CIMAGE_FN_ReadDIB,
+    CIMAGE_FN_GetData,
+    CIMAGE_FN_GetDIBData,
+    CIMAGE_FN_ReplaceData,
+    CIMAGE_FN_GetImageInfo,
+    CIMAGE_FN_DeleteImage,
+    CIMAGE_FN_FreeCopedDIB,
+    CIMAGE_FN_FreeBuffers,
+    CIMAGE_FN_Reset,
+    CIMAGE_FN_AddReadCloseRects,
+    CIMAGE_FN_RemoveReadCloseRects,
+    CIMAGE_FN_AddWriteCloseRects,
+    CIMAGE_FN_RemoveWriteCloseRects,
+    CIMAGE_FN_EnableMask
 } CIMAGE_EXPORT_ENTRIES;
 #define DEC_FUN(a,b,c) CIMAGE_FUNC a CIMAGE_##b c;
 DEC_FUN(Bool32, WriteCallbackImage, (const char *, CIMAGEIMAGECALLBACK))
@@ -113,7 +114,7 @@ DEC_FUN(void, Reset, (void))
 DEC_FUN(Bool32, AddReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, RemoveReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, AddWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, RemoveWriteCloseRects,(const char *, uint32_t, CIMAGE_Rect*))
+DEC_FUN(Bool32, RemoveWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, EnableMask, (const char*, const char*, Bool32))
 #undef DEC_FUN
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; a CIMAGE_##b c;

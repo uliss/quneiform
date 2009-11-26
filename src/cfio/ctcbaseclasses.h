@@ -148,115 +148,116 @@
 #define                CFIO_GF_CNOCOMMIT           "n"
 
 struct CTC_mem_cluster {
-	struct CTC_mem_cluster * mcNext;
-	Handle mcHandle;
-	void * mcPtr;
-	uint32_t mcSize;
-	uint32_t mcMemoryFlag;
-	Bool32 mcLocked;
-	uint32_t mcFill;
-	uint32_t mcNumber;
+    struct CTC_mem_cluster * mcNext;
+    Handle mcHandle;
+    void * mcPtr;
+    uint32_t mcSize;
+    uint32_t mcMemoryFlag;
+    Bool32 mcLocked;
+    uint32_t mcFill;
+    uint32_t mcNumber;
 };
 
 typedef struct CTC_mem_cluster CFIOMCLUSTER, *PCFIOMCLUSTER, **PPCFIOMCLUSTER;
 
-class CTCGlobalFile {
-private:
-	HandleFILE hFile;
-	char cFileName[CFIO_MAX_PATH];
-	uint32_t wSeeker;
-	char cFlag[32];
-	bool Deleted;
-	bool InMemory;
-	bool MoveToFile;
-	uint32_t wClusterCounter;
-	uint32_t wMemorySize;
-	CFIOMCLUSTER mcFirst;
+class CTCGlobalFile
+{
+    private:
+        HandleFILE hFile;
+        char cFileName[CFIO_MAX_PATH];
+        uint32_t wSeeker;
+        char cFlag[32];
+        bool Deleted;
+        bool InMemory;
+        bool MoveToFile;
+        uint32_t wClusterCounter;
+        uint32_t wMemorySize;
+        CFIOMCLUSTER mcFirst;
 
-public:
-	CTCGlobalFile();
-	CTCGlobalFile(const char* Name, uint32_t Flag);
-	~CTCGlobalFile();
+    public:
+        CTCGlobalFile();
+        CTCGlobalFile(const char* Name, uint32_t Flag);
+        ~CTCGlobalFile();
 
-public:
-	uint32_t Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
-	uint32_t Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
-	uint32_t Flush();
-	uint32_t Tell();
-	uint32_t Seek(uint32_t Position, uint32_t Flag);
-	char* GetFileName(char* lpName = NULL);
-	uint32_t GetFileLenght();
-	char* SetFileName(const char* pcFileName);
-	bool Close();
+    public:
+        uint32_t Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+        uint32_t Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+        uint32_t Flush();
+        uint32_t Tell();
+        uint32_t Seek(uint32_t Position, uint32_t Flag);
+        char* GetFileName(char* lpName = NULL);
+        uint32_t GetFileLenght();
+        char* SetFileName(const char* pcFileName);
+        bool Close();
 
-public:
-	Handle GetFileHandle() {
-		return ((Handle) hFile);
-	}
+    public:
+        Handle GetFileHandle() {
+            return ((Handle) hFile);
+        }
 
-	HandleFILE GetHandle() {
-		return hFile;
-	}
+        HandleFILE GetHandle() {
+            return hFile;
+        }
 
-	char* GetFlagString(void) {
-		return cFlag;
-	}
+        char* GetFlagString(void) {
+            return cFlag;
+        }
 
-	bool IsInString(const char* Flag);
-	uint32_t GetFileSize();
-	uint32_t GetHeaderSize() {
-		return (sizeof(class CTCGlobalFile));
-	}
+        bool IsInString(const char* Flag);
+        uint32_t GetFileSize();
+        uint32_t GetHeaderSize() {
+            return (sizeof(class CTCGlobalFile));
+        }
 
-	bool SetDelete() {
-		return (Deleted = TRUE);
-	}
+        bool SetDelete() {
+            return (Deleted = TRUE);
+        }
 
-	bool KeepOnDisk() {
-		return !(Deleted = FALSE);
-	}
+        bool KeepOnDisk() {
+            return !(Deleted = FALSE);
+        }
 
-	bool IsDeleted() const {
-		return (Deleted);
-	}
+        bool IsDeleted() const {
+            return (Deleted);
+        }
 
-protected:
-	Handle SetFileHandle(Handle NewFile) {
-		return (hFile = (HandleFILE) NewFile);
-	}
+    protected:
+        Handle SetFileHandle(Handle NewFile) {
+            return (hFile = (HandleFILE) NewFile);
+        }
 
-	HandleFILE SetHandle(HandleFILE NewHandle) {
-		return (hFile = NewHandle);
-	}
+        HandleFILE SetHandle(HandleFILE NewHandle) {
+            return (hFile = NewHandle);
+        }
 
-	bool ProvideFileFolder(const char* lpFileFuelName);
+        bool ProvideFileFolder(const char* lpFileFuelName);
 
-public:
-	void TranslateFlagToString(uint32_t Flag);
-	void ClearFlagString(void);
-	void AddFlagToString(const char*Flag);
+    public:
+        void TranslateFlagToString(uint32_t Flag);
+        void ClearFlagString(void);
+        void AddFlagToString(const char*Flag);
 
-private:
-	Handle CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	bool KillLastCluster(PCFIOMCLUSTER pCluster = NULL);
-	PCFIOMCLUSTER TakeCluster(Handle hCluster);
-	Handle GetFirstCluster() {
-		return (mcFirst.mcNext)->mcHandle;
-	}
+    private:
+        Handle CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+        bool KillLastCluster(PCFIOMCLUSTER pCluster = NULL);
+        PCFIOMCLUSTER TakeCluster(Handle hCluster);
+        Handle GetFirstCluster() {
+            return (mcFirst.mcNext)->mcHandle;
+        }
 
-	Handle GetNextCluster(Handle Cluster, PPCFIOMCLUSTER pmcCluster = NULL);
-	Handle GetLastCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	Handle GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
-	void
-			* GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
-					NULL);
-	bool ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
-			NULL);
-	uint32_t WriteToMemory(void * pData, uint32_t wDataSwze,
-			uint32_t wDataCounter);
-	uint32_t ReadFromMemory(void * pData, uint32_t wDataSize,
-			uint32_t wDataCounter);
-	bool MoveFromMemory(Handle dFile);
+        Handle GetNextCluster(Handle Cluster, PPCFIOMCLUSTER pmcCluster = NULL);
+        Handle GetLastCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+        Handle GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
+        void
+        * GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+                                    NULL);
+        bool ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster =
+                                         NULL);
+        uint32_t WriteToMemory(void * pData, uint32_t wDataSwze,
+                               uint32_t wDataCounter);
+        uint32_t ReadFromMemory(void * pData, uint32_t wDataSize,
+                                uint32_t wDataCounter);
+        bool MoveFromMemory(Handle dFile);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

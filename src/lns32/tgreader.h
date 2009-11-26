@@ -55,33 +55,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifndef __TGREADER_H
-   #define __TGREADER_H
+#define __TGREADER_H
 
-   #ifndef __LNSLANG_H
-   #  include "lnslang.h"
-	#endif
+#ifndef __LNSLANG_H
+#  include "lnslang.h"
+#endif
 
-//	_TYPEDEFFAR( TigerReader );
+//  _TYPEDEFFAR( TigerReader );
 
-	#ifndef __ERROBJ_H
-	#	include "errobj.h"
-	#endif
+#ifndef __ERROBJ_H
+#   include "errobj.h"
+#endif
 
-	#include "imgaccs.h"
+#include "imgaccs.h"
 
 class TigerReader :
-		public Tiger_ImageInfo,
-		public TErrObj
+        public Tiger_ImageInfo,
+        public TErrObj
 {
-   uchar* line_buf;
-   uchar* cur_line;
-   int lines_count;  // unreaded lines count
-   int32_t  dword_len;  // buf len in dwords
-public:
-   TigerReader(void);
-   ~TigerReader(void);
-   void* getLine(void);
-   int32_t lineWidthByte( void )    {return (wImageByteWidth);};
+        uchar* line_buf;
+        uchar* cur_line;
+        int lines_count;  // unreaded lines count
+        int32_t  dword_len;  // buf len in dwords
+    public:
+        TigerReader(void);
+        ~TigerReader(void);
+        void* getLine(void);
+        int32_t lineWidthByte( void )    {
+            return (wImageByteWidth);
+        };
 };
 
 

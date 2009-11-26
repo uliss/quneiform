@@ -76,23 +76,23 @@ CTB_FUNC Bool32 CTB_create(const char *file_name, uchar *data);
 CTB_FUNC Bool32 CTB_create_gray(const char *file_name, uchar *data);
 CTB_FUNC void CTB_done(void);
 CTB_FUNC Bool32 CTB_open(const char *file_name, CTB_handle *hnd,
-		const char *attr);
+                         const char *attr);
 CTB_FUNC void CTB_close(CTB_handle *hnd);
 
 //***************** read function prototypes ****************************
 CTB_FUNC int32_t CTB_volume(CTB_handle *hnd);
 CTB_FUNC int32_t CTB_volume_all(const char *file_name);
 CTB_FUNC int32_t
-		CTB_read(CTB_handle *hnd, int32_t num, uchar *ima, uchar *data);
+CTB_read(CTB_handle *hnd, int32_t num, uchar *ima, uchar *data);
 CTB_FUNC Bool32 CTB_read_global_data(CTB_handle *hnd, uchar *data);
 CTB_FUNC Bool32 CTB_read_data(CTB_handle *hnd, int32_t num, uchar *data);
 //***************** write function prototypes ***************************
 CTB_FUNC Bool32
 CTB_write(CTB_handle *hnd, int32_t num, uchar *ima, uchar *data);
 CTB_FUNC Bool32 CTB_write_mark(CTB_handle *hnd, int32_t num, uchar *ima,
-		uchar *data, Bool32 mark);
+                               uchar *data, Bool32 mark);
 CTB_FUNC Bool32 CTB_insert(CTB_handle *hnd, int32_t num, uchar *ima,
-		uchar *data);
+                           uchar *data);
 CTB_FUNC Bool32 CTB_delete(CTB_handle *hnd, int32_t num);
 CTB_FUNC Bool32 CTB_kill(CTB_handle *hnd, int32_t num);
 CTB_FUNC Bool32 CTB_mark(CTB_handle *hnd, int32_t num);
@@ -109,7 +109,7 @@ CTB_FUNC void CTB_unlink(char *newn);
 CTB_FUNC void CTB_align8_lines(uchar *bin, int32_t w, int32_t h);
 CTB_FUNC void CTB_align1_lines(uchar *bin, int32_t w, int32_t h);
 CTB_FUNC void CTB_align8_124lines(uchar *bin, int32_t w, int32_t h,
-		int32_t alin, uchar init_byte);
+                                  int32_t alin, uchar init_byte);
 CTB_FUNC void CTB_align41(uchar *sbin, int32_t w, int32_t h);
 //*************** Gray images    ********* *********************************
 CTB_FUNC uchar CTB_BestLevelInGray(uchar *image, int wx, int wy);
@@ -117,20 +117,20 @@ CTB_FUNC Bool32 CTB_GrayBound(RecRasterEx *PaintRaster, int GLevel);
 //*************** access to LEMAN protocol *********************************
 CTB_FUNC Bool32 CTB_prot_open(const char *name);
 CTB_FUNC Bool32 CTB_prot_read(unsigned char *PROT_raster, int *PROT_w,
-		int *PROT_h, unsigned char *PROT_let, unsigned char *PROT_data);
+                              int *PROT_h, unsigned char *PROT_let, unsigned char *PROT_data);
 CTB_FUNC void CTB_prot_close(void);
 CTB_FUNC Bool32 CTB_prot_write(const char *file_name, unsigned char *raster,
-		int Width, int Height, unsigned char code, int align,
-		unsigned char *PROT_data);
+                               int Width, int Height, unsigned char code, int align,
+                               unsigned char *PROT_data);
 CTB_FUNC Bool32 CTB_prot_gray_read(unsigned char *PROT_raster,
-		unsigned char *PROT_data);
+                                   unsigned char *PROT_data);
 CTB_FUNC Bool32 CTB_prot_gray_write(const char *file_name,
-		unsigned char *PROT_raster, unsigned char let, int w, int h, int align);
+                                    unsigned char *PROT_raster, unsigned char let, int w, int h, int align);
 //**************** CT FormReader data I/O **********************************
 CTB_FUNC int32_t CTB_AddRecRaster(const char *fname, RecRaster *r, uchar let);
 CTB_FUNC int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r, uchar *data);
 CTB_FUNC Bool32 CTB_ReadRecRaster(CTB_handle *hnd, int32_t num, uchar *let,
-		RecRaster *r, uchar *data);
+                                  RecRaster *r, uchar *data);
 CTB_FUNC Bool32 CTB_GetRecRaster(const char *fname, int32_t id_rast, RecRaster *r);
 
 //***************** error message *****************************
@@ -138,23 +138,23 @@ CTB_FUNC int32_t CTB_get_error(void);
 CTB_FUNC char * CTB_get_error_name(char *str);
 
 enum ctb_error_t {
-	CTB_ERR_NONE = 0,
-	CTB_ERR_OPEN_CTB = 1,
-	CTB_ERR_SEEK = 2,
-	CTB_ERR_SIGN = 3,
-	CTB_ERR_HEAD = 4,
-	CTB_ERR_VERS = 5,
-	CTB_ERR_MEM = 6,
-	CTB_ERR_OPEN_NDX = 7,
-	CTB_ERR_READ = 8,
-	CTB_ERR_NDX = 9,
-	CTB_ERR_NOT_OPEN = 10,
-	CTB_ERR_ZERO_DATA = 11,
-	CTB_ERR_KILLED = 12,
-	CTB_ERR_UNKNOWN_PACK = 13,
-	CTB_ERR_WRITE = 14,
-	CTB_ERR_ALIGN = 15,
-	CTB_ERR_DIF_VERSION = 16
+    CTB_ERR_NONE = 0,
+    CTB_ERR_OPEN_CTB = 1,
+    CTB_ERR_SEEK = 2,
+    CTB_ERR_SIGN = 3,
+    CTB_ERR_HEAD = 4,
+    CTB_ERR_VERS = 5,
+    CTB_ERR_MEM = 6,
+    CTB_ERR_OPEN_NDX = 7,
+    CTB_ERR_READ = 8,
+    CTB_ERR_NDX = 9,
+    CTB_ERR_NOT_OPEN = 10,
+    CTB_ERR_ZERO_DATA = 11,
+    CTB_ERR_KILLED = 12,
+    CTB_ERR_UNKNOWN_PACK = 13,
+    CTB_ERR_WRITE = 14,
+    CTB_ERR_ALIGN = 15,
+    CTB_ERR_DIF_VERSION = 16
 };
 
 #endif

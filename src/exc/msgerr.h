@@ -61,8 +61,8 @@ void error_exit_str (int16_t group, int16_t element, char* s);
 #define ERR_comp   1
 #define ERR_image  2
 #define ERR_run    3
-#define ERR_voc	   4
+#define ERR_voc    4
 #define CopyRight  5
-#define ERR_rtf	   6
+#define ERR_rtf    6
 #define ERR_kernel 7
 #define ERR_edout  8

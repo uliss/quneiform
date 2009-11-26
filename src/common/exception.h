@@ -22,25 +22,28 @@
 #include <string>
 #include <stdexcept>
 
-namespace CIF {
+namespace CIF
+{
 
 template<class T>
 class RuntimeExceptionImpl: public std::runtime_error
 {
-public:
-    RuntimeExceptionImpl(const std::string& msg, int code = 0);
-    int code() const;
-private:
-    int code_;
+    public:
+        RuntimeExceptionImpl(const std::string& msg, int code = 0);
+        int code() const;
+    private:
+        int code_;
 };
 
 template<class T>
 RuntimeExceptionImpl<T>::RuntimeExceptionImpl(const std::string& msg, int code) :
-    std::runtime_error(msg), code_(code) {
+        std::runtime_error(msg), code_(code)
+{
 }
 
 template<class T>
-int RuntimeExceptionImpl<T>::code() const {
+int RuntimeExceptionImpl<T>::code() const
+{
     return code_;
 }
 

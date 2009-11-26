@@ -78,14 +78,14 @@ void AM_DoneComm();
 uint32_t AM_GetOperCode(uint16_t wLocCode);
 void AM_RegiVert(Handle owner, const char *lpName, Handle parent);
 void AM_RegiVari(Handle owner, const char *lpName, void *lpData,
-		const char *lpType);
+                 const char *lpType);
 void AM_RegiHelp(Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 uint32_t AM_WaitUserInput(Handle owner, Handle wnd);
 void AM_DrawLine(Handle wnd, CIF::Point16 *start, CIF::Point16 *end,
-		int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
+                 int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
 void AM_DrawRect(Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb,
-		int16_t pen, uint32_t key);
+                 int16_t pen, uint32_t key);
 void AM_DeleteLines(Handle wnd, uint32_t key);
 void AM_DeleteRects(Handle wnd, uint32_t key);
 Bool16 AM_Skip(Handle owner);

@@ -64,20 +64,20 @@ extern unsigned char *SHAVE_FLAGS;
 #define WIDTH  SHAVE_CELL->w
 #define HEIGHT SHAVE_CELL->h
 
-#define R(x,y)	(SHAVE_RASTER + y * ((SHAVE_CELL->w+7)/8) + x/8)
-#define F(x,y)	(SHAVE_FLAGS  + y * ((SHAVE_CELL->w+7)/8) + x/8)
+#define R(x,y)  (SHAVE_RASTER + y * ((SHAVE_CELL->w+7)/8) + x/8)
+#define F(x,y)  (SHAVE_FLAGS  + y * ((SHAVE_CELL->w+7)/8) + x/8)
 
-#define IS_PIXEL(x,y)  	((x) >= 0 && (x) < WIDTH &&  \
-			 (y) >= 0 && (y) < HEIGHT && \
-			 ((*R((x),(y)) & (0x80 >> ((x) % 8))) != 0 || \
-			  (*F((x),(y)) & (0x80 >> ((x) % 8))) != 0))
+#define IS_PIXEL(x,y)   ((x) >= 0 && (x) < WIDTH &&  \
+             (y) >= 0 && (y) < HEIGHT && \
+             ((*R((x),(y)) & (0x80 >> ((x) % 8))) != 0 || \
+              (*F((x),(y)) & (0x80 >> ((x) % 8))) != 0))
 
-#define SET_PIXEL(x,y)	   (*R(x,y) |= 0x80 >> ((x) % 8))
+#define SET_PIXEL(x,y)     (*R(x,y) |= 0x80 >> ((x) % 8))
 #define CLEAR_PIXEL(x,y)   (*R(x,y) &= (unsigned char)~(0x80 >> ((x) % 8)))
 
 #define SET_DELETABLE(x,y) (*F(x,y) |= 0x80 >> ((x) % 8))
 #define IS_DELETABLE(x,y)  ((x) >= 0 && (x) < WIDTH  && \
-			    (y) >= 0 && (y) < HEIGHT && \
-			    (*F((x),(y)) & (0x80 >> ((x) % 8))) != 0)
+                (y) >= 0 && (y) < HEIGHT && \
+                (*F((x),(y)) & (0x80 >> ((x) % 8))) != 0)
 
 #define CLEAR_DELETABLE(x,y) (*F(x,y) &= (unsigned char)~(0x80 >> ((x) % 8)))

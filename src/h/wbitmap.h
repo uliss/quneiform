@@ -61,8 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    NOTE: guaranteed bitwise compatibility with BITMAP (windows.h)
  */
 
-typedef struct tagBitmap
-  {
+typedef struct tagBitmap {
     int32_t   bmType;
     int32_t   bmWidth;
     int32_t   bmHeight;
@@ -70,6 +69,6 @@ typedef struct tagBitmap
     uint16_t  bmPlanes;
     uint16_t  bmBitsPixel;
     void * bmBits;
-  } Bitmap, *PBitmap, *NPBitmap, *LPBitmap;
+} Bitmap, *PBitmap, *NPBitmap, *LPBitmap;
 
 #endif

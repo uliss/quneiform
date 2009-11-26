@@ -68,10 +68,10 @@
 #pragma pack (push,8)
 
 enum RCORRKEGLImp {
-	RCORRKEGL_FNIMP_LANGUAGE, RCORRKEGL_Bool32_Fax100
+    RCORRKEGL_FNIMP_LANGUAGE, RCORRKEGL_Bool32_Fax100
 };
 
-RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,Handle hStorage);
+RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode, Handle hStorage);
 RCK_FUNC(Bool32) RCORRKEGL_Done();
 RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode();
 RCK_FUNC(char *) RCORRKEGL_GetReturnString(uint32_t dwError);

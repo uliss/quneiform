@@ -81,95 +81,95 @@
 #define  RRBWp( recRasterPtr ) ((( (recRasterPtr)->lnPixWidth + 63) >> 6) << 3)
 
 typedef struct tagRecRaster {
-	int32_t lnPixWidth;
-	int32_t lnPixHeight;
-	int32_t lnRasterBufSize; // maximum of raster length
-	uchar Raster[REC_MAX_RASTER_SIZE]; // image
+    int32_t lnPixWidth;
+    int32_t lnPixHeight;
+    int32_t lnRasterBufSize; // maximum of raster length
+    uchar Raster[REC_MAX_RASTER_SIZE]; // image
 } RecRaster;
 
 typedef struct tagRecRasterEx {
-	int32_t lnPixWidth;
-	int32_t lnPixHeight;
-	int32_t lnRasterBufSize; // maximum of raster length
-	int32_t lnLevelGray;
-	uchar Raster[REC_MAX_RASTER_SIZE_EX]; // image
+    int32_t lnPixWidth;
+    int32_t lnPixHeight;
+    int32_t lnRasterBufSize; // maximum of raster length
+    int32_t lnLevelGray;
+    uchar Raster[REC_MAX_RASTER_SIZE_EX]; // image
 } RecRasterEx;
 /////////////////////////////////////////////////////////
 // RecBmp - .............................................
 // Black pixel is 1
 
 typedef struct tagRecBmp {
-	Rect16 Region;
-	uchar * pBits;
-	int32_t nOffsetX; //this is offset of Region.left-bit
-	//relatively 0-bit 0-byte of pBits
-	int32_t nByteWidth;
-	int32_t nResolutionX;
-	int32_t nResolutionY;
-	char reserved[16]; // zero filled reserve
+    Rect16 Region;
+    uchar * pBits;
+    int32_t nOffsetX; //this is offset of Region.left-bit
+    //relatively 0-bit 0-byte of pBits
+    int32_t nByteWidth;
+    int32_t nResolutionX;
+    int32_t nResolutionY;
+    char reserved[16]; // zero filled reserve
 } RecBmp;
 
 typedef struct tagRecAlt {
-	uchar Code;
-	uchar CodeExt; // for unicode
-	uchar Method; // recognize method
-	uchar Prob;
-	uint16_t Info;
+    uchar Code;
+    uchar CodeExt; // for unicode
+    uchar Method; // recognize method
+    uchar Prob;
+    uint16_t Info;
 } RecAlt;
 typedef struct tagUniAlt {
-	uchar Code[4];
-	uchar Liga; // for unicode
-	uchar Method; // recognize method
-	uchar Prob;
-	uchar Charset;
-	uint16_t Info;
+    uchar Code[4];
+    uchar Liga; // for unicode
+    uchar Method; // recognize method
+    uchar Prob;
+    uchar Charset;
+    uint16_t Info;
 } UniAlt;
 
 typedef struct tagClustAlt {
-	int16_t nClust; // cluster index; zero - structure is not initiated
-	uchar nDist; // distance
-	uchar nReserved;
+    int16_t nClust; // cluster index; zero - structure is not initiated
+    uchar nDist; // distance
+    uchar nReserved;
 } ClustAlt;
 
 typedef struct tagRecVersions {
-	int32_t lnAltCnt; // count of alternates
-	int32_t lnAltMax; // maximum of alternates
-	RecAlt Alt[REC_MAX_VERS]; // alternates array
+    int32_t lnAltCnt; // count of alternates
+    int32_t lnAltMax; // maximum of alternates
+    RecAlt Alt[REC_MAX_VERS]; // alternates array
 } RecVersions;
 typedef struct tagUniVersions {
-	int32_t lnAltCnt; // count of alternates
-	int32_t lnAltMax; // maximum of alternates
-	UniAlt Alt[REC_MAX_VERS]; // alternates array
+    int32_t lnAltCnt; // count of alternates
+    int32_t lnAltMax; // maximum of alternates
+    UniAlt Alt[REC_MAX_VERS]; // alternates array
 } UniVersions;
 
 typedef struct tagRecVector {
-	CIF::Point16 beg, end;
-	int32_t incline; // 2048 * tangens
-#define INCLINE_UNKNOWN	(-0x41414141)	  ///	      _______
-	int32_t len; // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
-	int32_t Mx, My;
-	int32_t Cx, Cy; // debug purposes
-	int32_t area;
-	uchar Mn; // normalized moment
-	uchar reserve[3];
-#define MAX_VECT	64
-#define NORMA_FACTOR	12
+    CIF::Point16 beg, end;
+    int32_t incline; // 2048 * tangens
+#define INCLINE_UNKNOWN (-0x41414141)     ///         _______
+    int32_t len; // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
+    int32_t Mx, My;
+    int32_t Cx, Cy; // debug purposes
+    int32_t area;
+    uchar Mn; // normalized moment
+    uchar reserve[3];
+#define MAX_VECT    64
+#define NORMA_FACTOR    12
 } RecVector;
 
 typedef struct tagRecData {
-	uint32_t lwStatus;
-	RecRaster recRaster; // basic raster. Can be not changed
-	uint16_t v3x5[16]; // normalizeted image 3x5
-	uint32_t lwCompCnt; // number of components, 0 - not counted
-	Rect16 rect;
-	RecVector vSticks[MAX_VECT];
-	int16_t lwSticksCnt;
+    uint32_t lwStatus;
+    RecRaster recRaster; // basic raster. Can be not changed
+    uint16_t v3x5[16]; // normalizeted image 3x5
+    uint32_t lwCompCnt; // number of components, 0 - not counted
+    Rect16 rect;
+    RecVector vSticks[MAX_VECT];
+    int16_t lwSticksCnt;
 } RecData;
 
 typedef struct tagRecObject {
-	RecData recData;
-	RecVersions recResults;
-	uint32_t lwStatusMethods; // indicator of used methods
+    RecData recData;
+    RecVersions recResults;
+    uint32_t lwStatusMethods; // indicator of used methods
 
 
 } RecObject;

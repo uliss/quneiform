@@ -76,117 +76,124 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 template<class TYPE> class PtrName
 {
-protected:
-	Handle  m_Type;
-	uint32_t  m_Size;
-	TYPE *	m_Ptr;
-	Bool32  m_bAttach;
+    protected:
+        Handle  m_Type;
+        uint32_t  m_Size;
+        TYPE *  m_Ptr;
+        Bool32  m_bAttach;
 
-public:
-	PtrName();
-	~PtrName();
+    public:
+        PtrName();
+        ~PtrName();
 
-	Bool32		operator==(PtrName & pn);
-	PtrName &	operator=(PtrName & pn);
-	TYPE	&	operator[](uint32_t n);
+        Bool32      operator==(PtrName & pn);
+        PtrName &   operator=(PtrName & pn);
+        TYPE    &   operator[](uint32_t n);
 
-	Bool32		Create(size_t nItem);
-	void		Delete();
+        Bool32      Create(size_t nItem);
+        void        Delete();
 
-	Bool32		Attach(Handle hPage);
-	Bool32		Store(Handle hPage);
-	void        Remove(Handle hPage);
-	inline uint32_t		GetSize(){ return m_Size/sizeof(TYPE);};
+        Bool32      Attach(Handle hPage);
+        Bool32      Store(Handle hPage);
+        void        Remove(Handle hPage);
+        inline uint32_t     GetSize() {
+            return m_Size / sizeof(TYPE);
+        };
 
 };
 ///////////////////////////////////////////////////////////
 template<class TYPE> PtrName<TYPE>::PtrName()
 {
-	m_Type = 0;
-	m_Size = 0;
-	m_Ptr = NULL;
-	m_bAttach = FALSE;
+    m_Type = 0;
+    m_Size = 0;
+    m_Ptr = NULL;
+    m_bAttach = FALSE;
 }
 ///////////////////////////////////////////////////////////
 template<class TYPE> PtrName<TYPE>::~PtrName()
 {
-	Delete();
+    Delete();
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32	 PtrName<TYPE>::operator==(PtrName & pn)
+template<class TYPE> Bool32  PtrName<TYPE>::operator==(PtrName & pn)
 {
-	return m_Size==pn.m_Size && !memcmp(m_Ptr,pn.m_Ptr,pn.m_Size);
+    return m_Size == pn.m_Size && !memcmp(m_Ptr, pn.m_Ptr, pn.m_Size);
 }
 ///////////////////////////////////////////////////////////
 
 template<class TYPE> PtrName<TYPE> & PtrName<TYPE>::operator=(PtrName & pn)
 {
-	Create(pn.m_Size/sizeof(TYPE));
-	memcpy(m_Ptr,pn.m_Ptr,pn.m_Size);
-	return *this;
+    Create(pn.m_Size / sizeof(TYPE));
+    memcpy(m_Ptr, pn.m_Ptr, pn.m_Size);
+    return *this;
 }
 
 ///////////////////////////////////////////////////////////
 template<class TYPE> TYPE & PtrName<TYPE>::operator[](uint32_t n)
 {
-	return m_Ptr[n];
+    return m_Ptr[n];
 }
 ///////////////////////////////////////////////////////////
 template<class TYPE> Bool32 PtrName<TYPE>::Create(size_t nItem)
 {
-	assert(nItem);
-	if(m_bAttach == FALSE)
-		Delete();
+    assert(nItem);
 
-	m_bAttach = FALSE;
-	m_Type = CPAGE_GetUserBlockType();
-	m_Size = nItem * sizeof(TYPE);
-	m_Ptr  = (TYPE *)myAlloc(m_Size);
+    if (m_bAttach == FALSE)
+        Delete();
 
-	return m_Ptr!=NULL;
+    m_bAttach = FALSE;
+    m_Type = CPAGE_GetUserBlockType();
+    m_Size = nItem * sizeof(TYPE);
+    m_Ptr  = (TYPE *)myAlloc(m_Size);
+    return m_Ptr != NULL;
 }
 ///////////////////////////////////////////////////////////
 template<class TYPE> void PtrName<TYPE>::Delete()
 {
-	if(!m_bAttach && m_Ptr)
-		myFree(	m_Ptr );
+    if (!m_bAttach && m_Ptr)
+        myFree( m_Ptr );
 
-	m_Type = 0;
-	m_Size = 0;
-	m_Ptr = NULL;
+    m_Type = 0;
+    m_Size = 0;
+    m_Ptr = NULL;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32		PtrName<TYPE>::Attach(Handle hPage)
+template<class TYPE> Bool32     PtrName<TYPE>::Attach(Handle hPage)
 {
-	assert(m_Ptr);
-	Handle hBlock = CPAGE_GetBlockFirst(hPage,m_Type);
-	if(!hBlock)
-		return FALSE;
-	m_bAttach = CPAGE_GetBlockDataPtr(hPage,hBlock,m_Type,(void **)&m_Ptr);
-	return m_bAttach;
-}
-///////////////////////////////////////////////////////////
-template<class TYPE> void     	PtrName<TYPE>::Remove(Handle hPage)
-{
-	Handle hBlock = CPAGE_GetBlockFirst(hPage,m_Type);
-	if(!hBlock)
-		return ;
-	CPAGE_DeleteBlock(hPage,hBlock);
+    assert(m_Ptr);
+    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
-	if(m_bAttach)
-	{
-		m_Type = 0;
-		m_Size = 0;
-		m_Ptr = NULL;
-		m_bAttach = FALSE;
-	}
+    if (!hBlock)
+        return FALSE;
+
+    m_bAttach = CPAGE_GetBlockDataPtr(hPage, hBlock, m_Type, (void **) & m_Ptr);
+    return m_bAttach;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32    	PtrName<TYPE>::Store(Handle hPage)
+template<class TYPE> void       PtrName<TYPE>::Remove(Handle hPage)
 {
-	Handle hBlock = CPAGE_GetBlockFirst(hPage,m_Type);
-	if(hBlock)
-		CPAGE_DeleteBlock(hPage,hBlock);
-	return CPAGE_CreateBlock(hPage,m_Type,0,0,m_Ptr,m_Size)!=NULL;
+    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+
+    if (!hBlock)
+        return ;
+
+    CPAGE_DeleteBlock(hPage, hBlock);
+
+    if (m_bAttach) {
+        m_Type = 0;
+        m_Size = 0;
+        m_Ptr = NULL;
+        m_bAttach = FALSE;
+    }
+}
+///////////////////////////////////////////////////////////
+template<class TYPE> Bool32     PtrName<TYPE>::Store(Handle hPage)
+{
+    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+
+    if (hBlock)
+        CPAGE_DeleteBlock(hPage, hBlock);
+
+    return CPAGE_CreateBlock(hPage, m_Type, 0, 0, m_Ptr, m_Size) != NULL;
 }
 #endif // !defined(AFX_PTRNAME_H__B7558641_0160_11D3_A5C9_E5EED2B2CF14__INCLUDED_)

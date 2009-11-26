@@ -75,20 +75,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CTB_PRINT_STRIGHT   0x40
 #define CTB_PRINT_LIGHT     0x80
 typedef struct  {
-	uchar   charset;        // 0) font charset
-	uchar   width;          // 1) 0-255
-	uchar   height;         // 2) 0-127
-	uchar   let;            // 3) letters or ligature
+    uchar   charset;        // 0) font charset
+    uchar   width;          // 1) 0-255
+    uchar   height;         // 2) 0-127
+    uchar   let;            // 3) letters or ligature
     uchar   typedface;      // 4) typeface. 0 for standart letter
     uchar   IsPrint;        // 5) print type of font (and others feats)
-	uchar   reserved[CTB_DATA_SIZE-6];
-	} CTB_data_standart;
+    uchar   reserved[CTB_DATA_SIZE-6];
+} CTB_data_standart;
 
 typedef struct  {
-	uchar   charset;        // 0) not free for version <=5
-	uchar   width;          // 1) 0-255
-	uchar   height;         // 2) 0-127
-	uchar   let;            // 3) letters or ligature      Alt[0].Code
+    uchar   charset;        // 0) not free for version <=5
+    uchar   width;          // 1) 0-255
+    uchar   height;         // 2) 0-127
+    uchar   let;            // 3) letters or ligature      Alt[0].Code
     uchar   nLns;           // 4) num of lines
     uchar   IsPrint;        // 5) print type of font (and others feats)
     uchar   rect16[8];      // 6-13) rectangle16 - box on the image
@@ -110,14 +110,14 @@ typedef struct  {
     uchar   Alt1Method;     // 29) Alt[1].Method
     uchar   Alt2Method;     // 30) Alt[2].Method
     uchar   Alt3Method;     // 31) Alt[3].Method
-	} CTB_data_container5;
+} CTB_data_container5;
 
 
 typedef struct  {
-	uchar   charset;        // 0) not free for version <=5
-	uchar   width;          // 1) 0-255
-	uchar   height;         // 2) 0-127
-	uchar   let;            // 3) letters or ligature      Alt[0].Code
+    uchar   charset;        // 0) not free for version <=5
+    uchar   width;          // 1) 0-255
+    uchar   height;         // 2) 0-127
+    uchar   let;            // 3) letters or ligature      Alt[0].Code
     uchar   typedface;      // 4) typeface. 0 for standart letter
     uchar   IsPrint;        // 5) print type of font (and others feats)
     uchar   rect16[8];      // 6-13) rectangle16 - box on the image
@@ -141,13 +141,13 @@ typedef struct  {
     uchar   Alt3Method;     // 31) Alt[3].Method
     uchar   nLns;           // 32) num of lines
     uchar   res;            // 33) num of lines
-	} CTB_data_container7;
+} CTB_data_container7;
 
 typedef struct  {
-	uchar   charset;        // 0)    not free for version <=5
-	uchar   width;          // 1)    0-255
-	uchar   height;         // 2)    0-127
-	uchar   let;            // 3)    letters or ligature      Alt[0].Code
+    uchar   charset;        // 0)    not free for version <=5
+    uchar   width;          // 1)    0-255
+    uchar   height;         // 2)    0-127
+    uchar   let;            // 3)    letters or ligature      Alt[0].Code
     uchar   typedface;      // 4)    typeface. 0 for standart letter
     uchar   IsPrint;        // 5)    print type of font (and others feats)
     int16_t   b0;             // 6,7
@@ -161,14 +161,14 @@ typedef struct  {
     int16_t   n2;             // 22,23
     int16_t   n3;             // 24,25
     int16_t   n4;             // 26,27
-    } CTB_data_container7_puma; // saved from PUMA-snap (key Alt_F8)
+} CTB_data_container7_puma; // saved from PUMA-snap (key Alt_F8)
 
 typedef struct  {
-	uchar	attr_size;      // Number of attributes
-	uchar	label[CTB_DATA_SIZE-1];
-	} CTB_global_data;
+    uchar   attr_size;      // Number of attributes
+    uchar   label[CTB_DATA_SIZE-1];
+} CTB_global_data;
 
-typedef struct 	{
+typedef struct  {
     uchar sign[2];          // can be "CT"
     int16_t version;          // version number
     int16_t size_x, size_y;   // frame sizes
@@ -178,7 +178,7 @@ typedef struct 	{
     uchar need_compress;    // need_comp-bit 1, sort -2
     uchar attr_size;        // num of attributes
     uchar data[CTB_DATA_SIZE]; // global attributes
-    } H_CTB_file;
+} H_CTB_file;
 
 
 
@@ -212,8 +212,8 @@ typedef struct 	{
 
 #define CTB_GRAY        (CTB_GRAY_SCALE|CTB_PLANE)
 
-#define CTB_COMP_NONE	0
-#define CTB_COMP_PCX	1
+#define CTB_COMP_NONE   0
+#define CTB_COMP_PCX    1
 
 #define BASE_MAX_W 255
 #define BASE_MAX_H 127
@@ -226,7 +226,7 @@ typedef struct 	{
 #define RET_FWRITE(a,b) (b)
 #define BAD_FOPEN       NULL
 #define R_B             "rb"
-#define	W_B             "wb"
+#define W_B             "wb"
 #define R_B_PLUS        "rb+"
 
 typedef FILE*          FFILE;
@@ -250,18 +250,18 @@ typedef FILE*          FFILE;
 #define STRCAT(a,b)          strcat((a), (b))
 #define STRLEN          strlen
 
-typedef struct 	{
-	FFILE  bas,ndx;       // file desriptions
+typedef struct  {
+    FFILE  bas, ndx;      // file desriptions
     int32_t  num;           // number of images
     int32_t  len;           // length of binary frame
     int16_t  type;          // type : sizes & resolution
-    int16_t  width,height,colors,version,dpb;
+    int16_t  width, height, colors, version, dpb;
     uchar  signums;       // global attributes
     uchar  need_compress; // need call compress()
     uchar  attr;          // 'r' or 'w'
     uchar  is_sort;       // base is sorted
     uchar  attr_size;     // number of attributes
-    } CTB_handle;
+} CTB_handle;
 #define CTB_ANSI_CHARSET            0
 #define CTB_DEFAULT_CHARSET         1
 #define CTB_SYMBOL_CHARSET          2

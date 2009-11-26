@@ -100,25 +100,25 @@ typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 
 struct _Root {
-	int16_t yRow;
-	int16_t xColumn;
+    int16_t yRow;
+    int16_t xColumn;
 
-	union {
-		struct {
-			uint16_t wSegmentPtr;
-			uint16_t wLength;
-		} u2;
+    union {
+        struct {
+            uint16_t wSegmentPtr;
+            uint16_t wLength;
+        } u2;
 
-		ROOT *pNext;
-	} u1;
+        ROOT *pNext;
+    } u1;
 
-	int16_t nHeight;
-	int16_t nWidth;
-	uchar bType;
-	uchar bReached;
-	int16_t nBlock;
-	int16_t nUserNum;
-	void *pComp;
+    int16_t nHeight;
+    int16_t nWidth;
+    uchar bType;
+    uchar bReached;
+    int16_t nBlock;
+    int16_t nUserNum;
+    void *pComp;
 };
 
 struct _RootExt;
@@ -126,15 +126,15 @@ typedef struct _RootExt ROOT_EXT;
 typedef struct _RootExt *PROOT_EXT;
 
 struct _RootExt {
-	uint16_t wSegmentPtr;
-	uint16_t wLength;
+    uint16_t wSegmentPtr;
+    uint16_t wLength;
 };
 
 typedef struct {
-	int xLeft;
-	int yTop;
-	int xRight;
-	int yBottom;
+    int xLeft;
+    int yTop;
+    int xRight;
+    int yBottom;
 } ROOT_RECT;
 
 #ifndef LT_STAND_ALONE

@@ -68,7 +68,7 @@
 #define FILESTUFF_H_
 
 enum {
-	_MAX_FNAME = 32, _MAX_DRIVE = 32, _MAX_DIR = 128, _MAX_EXT = 32
+    _MAX_FNAME = 32, _MAX_DRIVE = 32, _MAX_DIR = 128, _MAX_EXT = 32
 };
 
 #endif

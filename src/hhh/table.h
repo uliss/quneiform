@@ -68,94 +68,87 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 /*---------------------------------------------------------------------------*/
 #define    MaxTableUsers       5
-typedef enum
-{
-		TABLE_USER_COMMON = 0,
-		TABLE_USER_RLTABLE,
-		TABLE_USER_RBLOCK,
-		TABLE_USER_CPAGE,
-		TABLE_USER_RBTABLE
+typedef enum {
+    TABLE_USER_COMMON = 0,
+    TABLE_USER_RLTABLE,
+    TABLE_USER_RBLOCK,
+    TABLE_USER_CPAGE,
+    TABLE_USER_RBTABLE
 } NAMES_TABLE_USER;
 /*---------------------------------------------------------------------------*/
-typedef struct tagTABLE_LINE_DESC
-{
-        int32_t   Level;
+typedef struct tagTABLE_LINE_DESC {
+    int32_t   Level;
 #define TLT_UnKnown       0x00 //- ничего не означает
 #define TLT_Rough         0x01 //- правильная линия, не пытаться сократить
 #define TLT_UnSure        0x02 //- ничего пока не означает
-	char    Type;              // need types will be described
-	char    reserv[3];
-}TABLE_LINE_DESC;
-typedef struct tagTABLE_LEVEL_DESC
-{
-	char    Type;              // need types will be described
-	char    reserv[3];
-}TABLE_LEVEL_DESC;
+    char    Type;              // need types will be described
+    char    reserv[3];
+} TABLE_LINE_DESC;
+typedef struct tagTABLE_LEVEL_DESC {
+    char    Type;              // need types will be described
+    char    reserv[3];
+} TABLE_LEVEL_DESC;
 /*---------------------------------------------------------------------------*/
-typedef enum
-{
-		TABLE_CELL_LEF = 0,  // Beg_X
-		TABLE_CELL_RIG,      // End_X
-		TABLE_CELL_TOP,      // Beg_Y
-		TABLE_CELL_BOT       // End_Y
+typedef enum {
+    TABLE_CELL_LEF = 0,  // Beg_X
+    TABLE_CELL_RIG,      // End_X
+    TABLE_CELL_TOP,      // Beg_Y
+    TABLE_CELL_BOT       // End_Y
 } SIDES_TABLE_CELL;
-typedef struct tagTABLE_CELL_DESC
-{
-	char    TypeOwn;           // need types will be described
-	char    TypeBound[4];      // это - избыточная информация
-	char    reserv[3];
-}TABLE_CELL_DESC;
+typedef struct tagTABLE_CELL_DESC {
+    char    TypeOwn;           // need types will be described
+    char    TypeBound[4];      // это - избыточная информация
+    char    reserv[3];
+} TABLE_CELL_DESC;
 /*---------------------------------------------------------------------------*/
-typedef struct tagTABLE_SPECIAL_PROPERTIES
-{//сейчас использует только 'RLTABLE'
-//	char    reserv[16]; - было
-	char    nSpecVertex;   // кол-во особых узлов
-	char    Hori[5];       // номер табличной гориз.линии
-	char    Vert[5];       // номер табличной гориз.линии
+typedef struct tagTABLE_SPECIAL_PROPERTIES {//сейчас использует только 'RLTABLE'
+//  char    reserv[16]; - было
+    char    nSpecVertex;   // кол-во особых узлов
+    char    Hori[5];       // номер табличной гориз.линии
+    char    Vert[5];       // номер табличной гориз.линии
 #define    NON_CELL_VERTEX          0x01
-	char    Type[5];       // характер особенности узла
-}TABLE_SPECIAL_PROPERTIES;
+    char    Type[5];       // характер особенности узла
+} TABLE_SPECIAL_PROPERTIES;
 /*---------------------------------------------------------------------------*/
 #define    MaxHorLines        99
 #define    MaxVerLines        50
 #define    MaxCells          (MaxHorLines-1)*(MaxVerLines-1)
-typedef struct tagTABLE_DESC
-{
-	/*  Как искали таблицу  */
-	Rect32  RectFieldSearch;
-	int32_t   SkewFieldSearch;   // at what units?
-	char    TaskTableSearch;   // need types will be described
-	/*  Пользователи таблицы  */
-		/*  Key[USER] - ключ пользователя "USER" от хранилища его связанных  */
-	    /*  с этой таблицей данных. Если равно 0 - хранилище не заведено.    */
-	uint32_t  Key[MaxTableUsers];
-	/*  Общие свойства таблицы  */
-	Rect32  RectTable;         // это - избыточная информация
-	int32_t   SkewTable;         // at what units?
-	char    LifeTable;         // need types will be described
-	int     nHorLines;
-	int     nVerLines;
-	int     nCell;             // это - избыточная информация [(nH-1)*(nV-1)]
-	/*  Свойства крупных структурных элементов таблицы  */
-	TABLE_LINE_DESC    HorLine [MaxHorLines];
-	TABLE_LINE_DESC    VerLine [MaxVerLines];
-	TABLE_LEVEL_DESC   HorLevel[MaxHorLines-1];
-	TABLE_LEVEL_DESC   VerLevel[MaxVerLines-1];
-	/*  Свойства мелких структурных элементов таблицы  */
+typedef struct tagTABLE_DESC {
+    /*  Как искали таблицу  */
+    Rect32  RectFieldSearch;
+    int32_t   SkewFieldSearch;   // at what units?
+    char    TaskTableSearch;   // need types will be described
+    /*  Пользователи таблицы  */
+    /*  Key[USER] - ключ пользователя "USER" от хранилища его связанных  */
+    /*  с этой таблицей данных. Если равно 0 - хранилище не заведено.    */
+    uint32_t  Key[MaxTableUsers];
+    /*  Общие свойства таблицы  */
+    Rect32  RectTable;         // это - избыточная информация
+    int32_t   SkewTable;         // at what units?
+    char    LifeTable;         // need types will be described
+    int     nHorLines;
+    int     nVerLines;
+    int     nCell;             // это - избыточная информация [(nH-1)*(nV-1)]
+    /*  Свойства крупных структурных элементов таблицы  */
+    TABLE_LINE_DESC    HorLine [MaxHorLines];
+    TABLE_LINE_DESC    VerLine [MaxVerLines];
+    TABLE_LEVEL_DESC   HorLevel[MaxHorLines-1];
+    TABLE_LEVEL_DESC   VerLevel[MaxVerLines-1];
+    /*  Свойства мелких структурных элементов таблицы  */
 #define    CELL_BOUND_PSEVDO          0x01
-	char    TypeHorBound[MaxHorLines*MaxVerLines];
-	char    TypeVerBound[MaxHorLines*MaxVerLines];
-	TABLE_CELL_DESC       Cell [MaxCells];
-	/*  Прочее  */
-	TABLE_SPECIAL_PROPERTIES   SpecProp;
-	char    iSet; //номер сета, которому
+    char    TypeHorBound[MaxHorLines*MaxVerLines];
+    char    TypeVerBound[MaxHorLines*MaxVerLines];
+    TABLE_CELL_DESC       Cell [MaxCells];
+    /*  Прочее  */
+    TABLE_SPECIAL_PROPERTIES   SpecProp;
+    char    iSet; //номер сета, которому
 #define TTD_None          0x00 //- никакой, в сете она одна
 #define TTD_AsInImage     0x01 //- простая
 #define TTD_ByLogic       0x02 //- средняя
 #define TTD_Maximal       0x03 //- максимально подробная
-        char    TypeTablDetail; // тип детализации
-        char    Active; // 0 - пассивная, 1 - активная в сете
-	char    reserv[253];
+    char    TypeTablDetail; // тип детализации
+    char    Active; // 0 - пассивная, 1 - активная в сете
+    char    reserv[253];
 } TABLE_DESC;
 /*---------------------------------------------------------------------------*/
 #pragma pack (pop)

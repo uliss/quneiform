@@ -61,18 +61,18 @@
 #include "cttypes.h"
 
 struct PRGTIME {
-	uint32_t dwBeg; // Начало текущего диапозона
-	uint32_t dwEnd; // Конец
-	uint32_t dwStep; // текущий номер шага
-	const char * name; // текущее название шага
+    uint32_t dwBeg; // Начало текущего диапозона
+    uint32_t dwEnd; // Конец
+    uint32_t dwStep; // текущий номер шага
+    const char * name; // текущее название шага
 };
 
 // Флаги обновления контейнеров
 enum puma_update_flag_t {
-	FLG_UPDATE_NO = 0,
-	FLG_UPDATE = UINT_MAX,
-	FLG_UPDATE_CCOM = 0x1,
-	FLG_UPDATE_CPAGE = 0x2,
+    FLG_UPDATE_NO = 0,
+    FLG_UPDATE = UINT_MAX,
+    FLG_UPDATE_CCOM = 0x1,
+    FLG_UPDATE_CPAGE = 0x2,
 };
 
 #endif //_MPUMA_TIME_H_

@@ -70,14 +70,14 @@ RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError);
 RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData);
 RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData);
 
-namespace CIF {
+namespace CIF
+{
 class FormatOptions;
 }
 
 void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
 
-typedef enum
-{
+typedef enum {
     RFRMT_FNRFRMT_Formatter = 1,
     RFRMT_FNRFRMT_SaveRtf,
     RFRMT_Bool32_Bold,
@@ -91,8 +91,8 @@ typedef enum
     RFRMT_Word32_Language
 } RFRMT_EXPORT_ENTRIES;
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RFRMT_FUNC(a) b c;
-DEC_FUN(Bool32, RFRMT_Formatter,(const char * InputFileName , Handle* PtrEdTree))
-DEC_FUN(Bool32, RFRMT_SaveRtf,(const char * OutputFileName, uint32_t code))
+DEC_FUN(Bool32, RFRMT_Formatter, (const char * InputFileName , Handle* PtrEdTree))
+DEC_FUN(Bool32, RFRMT_SaveRtf, (const char * OutputFileName, uint32_t code))
 #undef DEC_FUN
 
 #pragma pack (pop)

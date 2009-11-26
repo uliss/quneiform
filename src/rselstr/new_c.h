@@ -78,19 +78,19 @@
 #define RESFILENAME_PICT "rom_pict.res"
 #define LOGFILENAME_BLOCKS "rom_BLOCKS.log"
 #define RESFILENAME_BLOCKS "rom_BLOCKS.res"
-# define ROOTS_QUANTUM			1024
-# define PICS_QUANTUM		16
-# define BIG_LETTERS_QUANTUM	16
+# define ROOTS_QUANTUM          1024
+# define PICS_QUANTUM       16
+# define BIG_LETTERS_QUANTUM    16
 # define MinHeightOfLetter 10
 # define MaxHeightOfLetter 100
 ////////////////////////////////////////////////////////////////////////////////
 #ifdef  __LOAD_ROOTS_C__
 #define EXTERN
-#define VAL1(a)		= a
-#define VAL2(a,b)	= { a,b }
-#define VAL4(a,b,c,d)	= { a,b,c,d }
+#define VAL1(a)     = a
+#define VAL2(a,b)   = { a,b }
+#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
-#define EXTERN		extern
+#define EXTERN      extern
 #define VAL1(a)
 #define VAL2(a,b)
 #define VAL4(a,b,c,d)

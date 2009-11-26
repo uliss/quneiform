@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Bool32 snap_enable;
 extern Bool32 exit_enable;
 
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
+uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message, uint32_t wParam, uint32_t lParam);
 
 #define space(x) ((x).flg & CSTR_f_space)
 #define fict(x)  ((x).flg & CSTR_f_fict)
@@ -74,4 +74,4 @@ uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,u
          {\
              x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
              y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
-		}
+        }

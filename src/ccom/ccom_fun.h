@@ -58,10 +58,10 @@
 #define CCOM_FUNC_H
 
 Bool32 Linerep2Raster(CCOM_lnhead *linerep, int16_t size, int16_t w, int16_t h,
-		int16_t c, int16_t r, RecRaster *rec, Bool32 bChangeSize);
+                      int16_t c, int16_t r, RecRaster *rec, Bool32 bChangeSize);
 Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, int16_t size, int16_t w,
-		int16_t h, int16_t c, int16_t r, RecRaster *rec);
+                         int16_t h, int16_t c, int16_t r, RecRaster *rec);
 Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, int16_t size, int16_t w,
-		int16_t h, int16_t c, int16_t r, RecRaster *rec, int32_t scale);
+                           int16_t h, int16_t c, int16_t r, RecRaster *rec, int32_t scale);
 
 #endif

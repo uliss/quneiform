@@ -69,19 +69,19 @@
 #endif
 
 BAL_FUNC Bool32 BAL_basedraft(CSTR_line ln, uchar isDust,
-		BAL_RSTR_GLOBALS *rstrGlob, BAL_INOUT_GLOBALS *blinGlob,
-		BAL_bas_ln *blin_bases);
+                              BAL_RSTR_GLOBALS *rstrGlob, BAL_INOUT_GLOBALS *blinGlob,
+                              BAL_bas_ln *blin_bases);
 
 BAL_FUNC Bool32 BAL_linpos(CSTR_line ln, BAL_RSTR_GLOBALS *rstrGlob,
-		BAL_INOUT_GLOBALS *blinGlob, BAL_bas_ln *blin_bases);
+                           BAL_INOUT_GLOBALS *blinGlob, BAL_bas_ln *blin_bases);
 
 BAL_FUNC Bool32 BAL_basefin(CSTR_line ln, BAL_RSTR_GLOBALS *rstrGlob,
-		BAL_INOUT_GLOBALS *blinGlob, BAL_bas_ln *blin_bases);
+                            BAL_INOUT_GLOBALS *blinGlob, BAL_bas_ln *blin_bases);
 
 BAL_FUNC Bool32 BAL_StatInit(void);
 
 enum rbal_error_t {
-	ER_BAL_NO_ERROR = 0, ER_BAL_MEMORY = 4
+    ER_BAL_NO_ERROR = 0, ER_BAL_MEMORY = 4
 };
 
 #endif

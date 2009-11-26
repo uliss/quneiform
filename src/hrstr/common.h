@@ -62,11 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef uchar ALPHA_TABLE[256];
 
-typedef struct tagFIELD_INFO
-{
-  Bool LINret;          //флаг: базовые линии определены LINDefineLines
-  Bool HandRec;         //рукописное распознавание
-  uint32_t Style;
+typedef struct tagFIELD_INFO {
+    Bool LINret;          //флаг: базовые линии определены LINDefineLines
+    Bool HandRec;         //рукописное распознавание
+    uint32_t Style;
 #define FIS_DONT_GLUE      1  //не клеить
 #define FIS_DONT_CUT       2  //не резать
 #define FIS_PRINTED        4  //печатное поле
@@ -80,23 +79,23 @@ typedef struct tagFIELD_INFO
 #define FIS_FUSE        1024  //рассыпанное поле
 #define FIS_MIX         2048  //может быть написано от руки или напечатано
 #define FIS_SPACED      4096  //символы разделены пробелами
-  ALPHA_TABLE  AlphaTable;    //алфавит
-  int32_t LetWidth;             //оценка для ширины буквы
-  int32_t MinLetWidth;
-  int32_t MaxLetWidth;
-  int32_t BigLetHeight;         //оценка для высоты большой буквы
-  int32_t SmallLetHeight;       // то же для маленькой
-  int32_t MaxWidthHeight;        //максимальное отношение 64*w/h
+    ALPHA_TABLE  AlphaTable;    //алфавит
+    int32_t LetWidth;             //оценка для ширины буквы
+    int32_t MinLetWidth;
+    int32_t MaxLetWidth;
+    int32_t BigLetHeight;         //оценка для высоты большой буквы
+    int32_t SmallLetHeight;       // то же для маленькой
+    int32_t MaxWidthHeight;        //максимальное отношение 64*w/h
 
 //из FrhFieldSetup
-  Rect16   compRect;         // calculated rect in ideal coords
-  int32_t    nMinLetWidth;
-  int32_t    nMaxLetWidth;
-  int32_t    nMinLetHeight; // letters excluding '-','.',...
-  int32_t    nMaxLetHeight;
-  int32_t    nMinChars;     // minimum count of chars (including dots, ...)
-  int32_t    nMaxChars;     // maximum count of chars, 0 - not restricted;
-  int32_t    xFlags;
+    Rect16   compRect;         // calculated rect in ideal coords
+    int32_t    nMinLetWidth;
+    int32_t    nMaxLetWidth;
+    int32_t    nMinLetHeight; // letters excluding '-','.',...
+    int32_t    nMaxLetHeight;
+    int32_t    nMinChars;     // minimum count of chars (including dots, ...)
+    int32_t    nMaxChars;     // maximum count of chars, 0 - not restricted;
+    int32_t    xFlags;
 } FIELD_INFO;
 
 #define not_glue        (FieldInfo.Style & FIS_DONT_GLUE)

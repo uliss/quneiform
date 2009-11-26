@@ -65,89 +65,79 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __NORMDEFS_H
 #include "cttypes.h"
 
-typedef enum
-{
-	NR_DT_Unknown = 0,
-	NR_DT_Rect,
-	NR_DT_LineSimple,
-	NR_DT_LineDefis,
-	NR_DT_LinePointed,
-	NR_DT_Frame,
-	NR_DT_EvenHori,
-	NR_DT_EvenVert,
-	NR_DT_PoolInteHori,
-	NR_DT_PoolInteVert,
-	NR_DT_CompHori,
-	NR_DT_CompVert
+typedef enum {
+    NR_DT_Unknown = 0,
+    NR_DT_Rect,
+    NR_DT_LineSimple,
+    NR_DT_LineDefis,
+    NR_DT_LinePointed,
+    NR_DT_Frame,
+    NR_DT_EvenHori,
+    NR_DT_EvenVert,
+    NR_DT_PoolInteHori,
+    NR_DT_PoolInteVert,
+    NR_DT_CompHori,
+    NR_DT_CompVert
 } NORM_DATATYPES;
 
-typedef struct tagNR_Rect
-{
-	int32_t  Lef;
-	int32_t  Top;
-	int32_t  Rig;
-	int32_t  Bot;
-	int32_t  Skew10; // == 10*1024*Tg(fi)
+typedef struct tagNR_Rect {
+    int32_t  Lef;
+    int32_t  Top;
+    int32_t  Rig;
+    int32_t  Bot;
+    int32_t  Skew10; // == 10*1024*Tg(fi)
 } NR_Rect;
 
-typedef struct tagNR_SimpLine
-{
-	int32_t  Beg_X;
-	int32_t  Beg_Y;
-	int32_t  End_X;
-	int32_t  End_Y;
-	int32_t  Wid10; // == 10*width
+typedef struct tagNR_SimpLine {
+    int32_t  Beg_X;
+    int32_t  Beg_Y;
+    int32_t  End_X;
+    int32_t  End_Y;
+    int32_t  Wid10; // == 10*width
 } NR_SimpLine;
 
-typedef struct tagNR_DefiLine
-{
-	NR_Rect Rc_0;
-	int32_t  Step1000; // == 1000*step
-	int32_t  nRc;
+typedef struct tagNR_DefiLine {
+    NR_Rect Rc_0;
+    int32_t  Step1000; // == 1000*step
+    int32_t  nRc;
 } NR_DefiLine;
 
-typedef struct tagNR_PoinLine
-{
-	int32_t  Lef_0;
-	int32_t  Top_0;
-	int32_t  Size;
-	int32_t  Step1000; // == 1000*step
-	int32_t  nRc;
+typedef struct tagNR_PoinLine {
+    int32_t  Lef_0;
+    int32_t  Top_0;
+    int32_t  Size;
+    int32_t  Step1000; // == 1000*step
+    int32_t  nRc;
 } NR_PoinLine;
 
-typedef struct tagNR_Frame
-{
-	NR_Rect Rc;
-	int32_t  StepInto;
+typedef struct tagNR_Frame {
+    NR_Rect Rc;
+    int32_t  StepInto;
 } NR_Frame;
 
-typedef struct tagNR_Shift
-{
-	int32_t  Pos;
-	int32_t  Lent;
+typedef struct tagNR_Shift {
+    int32_t  Pos;
+    int32_t  Lent;
 } NR_Shift;
 
-typedef struct tagNR_Event
-{
-	Bool   Hori;      //гориз. или вертик.
-	Bool   Increase;  //наращивать или уменьшать уровень
-	int32_t  Lev_0;     //уровень первого интервала
-	int    nInter;
-	NR_Shift *pInter; //отступы и протяженности интервалов
+typedef struct tagNR_Event {
+    Bool   Hori;      //гориз. или вертик.
+    Bool   Increase;  //наращивать или уменьшать уровень
+    int32_t  Lev_0;     //уровень первого интервала
+    int    nInter;
+    NR_Shift *pInter; //отступы и протяженности интервалов
 } NR_Event;
 
-typedef struct tagNR_Inter
-{
-	int32_t  Lev;
-	int32_t  Pos;
-	int32_t  Lent;
+typedef struct tagNR_Inter {
+    int32_t  Lev;
+    int32_t  Pos;
+    int32_t  Lent;
 } NR_Inter;
 
-typedef struct tagNR_Bag
-{
-	Bool   Hori;      //гориз. или вертик.
-	int    nInter;
-	NR_Inter *pInter;
+typedef struct tagNR_Bag {
+    Bool   Hori;      //гориз. или вертик.
+    int    nInter;
+    NR_Inter *pInter;
 } NR_Bag;
 
 #endif

@@ -57,16 +57,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __FILEFUNC_H
 #define __FILEFUNC_H
 
-   #ifndef __GLOBUS_H
-      #include "globus.h"
-   #endif
+#ifndef __GLOBUS_H
+#include "globus.h"
+#endif
 
-   typedef uint32_t (*FTFileRead)(  int32_t handle, void* /*buf*/, uint32_t /*length*/ );
-   typedef uint32_t (*FTFileWrite)( int32_t handle, void* /*buf*/, uint32_t /*length*/ );
+typedef uint32_t (*FTFileRead)(  int32_t handle, void* /*buf*/, uint32_t /*length*/ );
+typedef uint32_t (*FTFileWrite)( int32_t handle, void* /*buf*/, uint32_t /*length*/ );
 
-   typedef struct    tagFileFunc {
-      FTFileRead     read;
-      FTFileWrite    write;
-   }  FileFunc;
+typedef struct    tagFileFunc {
+    FTFileRead     read;
+    FTFileWrite    write;
+}  FileFunc;
 
 #endif

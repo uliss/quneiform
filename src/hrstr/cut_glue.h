@@ -75,30 +75,27 @@
 #define  gl_sticks 16  //склеиваются палки
 //---------------------  types   --------------------------------------
 
-struct seg_vers_struct //версии сегмента
-{
-	struct seg_vers_struct *next; //следующая версия
-	int16_t px; //левое сечение сегмента
-	char gvar; //вариант склейки
-	int16_t ro; //мера
-	int16_t width; //ширина
-	SVERS vers; //версии
+struct seg_vers_struct { //версии сегмента
+    struct seg_vers_struct *next; //следующая версия
+    int16_t px; //левое сечение сегмента
+    char gvar; //вариант склейки
+    int16_t ro; //мера
+    int16_t width; //ширина
+    SVERS vers; //версии
 };
 typedef struct seg_vers_struct seg_vers;
 
-struct dp_vers_struct //куча версий dp
-{
-	seg_vers pool[5*MAX_SEG_VERS]; //версии
-	seg_vers *node[MAX_SEG_VERS]; //указатель на версии для каждого сечения
+struct dp_vers_struct { //куча версий dp
+    seg_vers pool[5*MAX_SEG_VERS]; //версии
+    seg_vers *node[MAX_SEG_VERS]; //указатель на версии для каждого сечения
 };
 
-struct raster_struct //растр cell'а
-{
-	int16_t w; //ширина
-	int16_t h; //высота
-	int16_t top; //строка левого верхнего угла
-	int16_t left; //столбец  -""-
-	uchar pict[RASTER_WIDTH * RASTER_HEIGHT / 8]; //растр
+struct raster_struct { //растр cell'а
+    int16_t w; //ширина
+    int16_t h; //высота
+    int16_t top; //строка левого верхнего угла
+    int16_t left; //столбец  -""-
+    uchar pict[RASTER_WIDTH * RASTER_HEIGHT / 8]; //растр
 };
 typedef struct raster_struct raster;
 
@@ -178,14 +175,14 @@ extern uchar trg; //порог для склеивания
 
 //cg_smcut.c
 void dp_pass0(cell *LC, raster *r, struct cut_elm *cut_list,
-		seg_vers **vers_list, int16_t ncut);
+              seg_vers **vers_list, int16_t ncut);
 
 //cg_main.c
 cell *process_word(cell *WB, cell *WE);
 uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
-		seg_vers **vers_list, int16_t ncut, int16_t i1, int16_t i0, char mode);
+            seg_vers **vers_list, int16_t ncut, int16_t i1, int16_t i0, char mode);
 void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
-		int16_t *ib, int16_t *ie);
+              int16_t *ib, int16_t *ie);
 int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol);
 cell * create_my_cell(MN * mn, cell * ci, char bdiff, char dflag);
 
@@ -197,7 +194,7 @@ seg_vers *find_vers(int16_t i1, int16_t i0, seg_vers **vers_list);
 uchar not_connect_sect(int16_t i1, int16_t i0, struct cut_elm *cut_list);
 int16_t on_path(int16_t i, int16_t ie, struct cut_elm *cut_list);
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list, int16_t i1,
-		int16_t i0, SVERS *vers, int16_t ro, int16_t width, char gvar);
+                     int16_t i0, SVERS *vers, int16_t ro, int16_t width, char gvar);
 void adjust_3x5(Bool prerecog);
 
 void cg_show_rast(cell *C, raster *r, const char *msg, struct cut_elm *cut_list);
