@@ -58,7 +58,7 @@
 #define  __HLINER_H
 
 #include "globus.h"
-#include "point.h"
+#include "common/point.h"
 
 Bool32 HLiner_Init(void);
 Bool32 HLiner_Setup(Tiger_ImageInfo* pImInf);

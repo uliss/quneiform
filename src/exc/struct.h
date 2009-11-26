@@ -68,7 +68,7 @@
 #endif
 #define WORLD_MIN_RESOLUTION    50
 
-#include "point.h"
+#include "common/point.h"
 
 #define err_pnlet(c)  ((c))->nextl=((c))->prevl=(cell*)(0xffff0000);
 // AL 900318

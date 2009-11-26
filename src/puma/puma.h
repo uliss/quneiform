@@ -61,7 +61,7 @@
 
 #include "globus.h"
 #include "cttypes.h"
-#include "singleton.h"
+#include "common/singleton.h"
 
 #ifdef __PUMA__
 #define PUMA_FUNC  FUN_EXPO__

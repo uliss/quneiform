@@ -19,7 +19,7 @@
 
 #include "common/cifconfig.h"
 #include "common/debug.h"
-#include "helper.h"
+#include "common/helper.h"
 #include "specprj.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "cimage/cticontrol.h"

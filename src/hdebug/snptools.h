@@ -62,7 +62,7 @@
 #include "globus.h"
 #include "wrgb.h"
 #include "snpdefs.h"
-#include "point.h"
+#include "common/point.h"
 
 /////////////////////////////////////////////////////////////////////
 // Final set of routines to be used

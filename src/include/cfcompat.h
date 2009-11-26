@@ -35,7 +35,7 @@
 
 #include "globus.h"
 #include "compat_defs.h"
-#include "point.h"
+#include "common/point.h"
 
 #ifdef __CFCOMPAT__
 #define CFCOMPAT_FUNC  FUN_EXPO__

@@ -63,7 +63,7 @@
 /*  Назначение :  Обмен с консолью и диском.                                  */
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
-#include "point.h"
+#include "common/point.h"
 
 typedef int (*FN_AM_Console)(const char * lpFormat, ...);
 typedef int (*FN_AM_ConsolN)(const char * lpFormat, ...);

@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 #include "table.h"
-#include "point.h"
+#include "common/point.h"
 
 # define  TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
 # define  TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")

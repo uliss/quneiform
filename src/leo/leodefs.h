@@ -58,7 +58,7 @@
 #define __LEODEFS_H
 
 #include "recdefs.h"
-#include "point.h"
+#include "common/point.h"
 
 enum {
     LEO_CONT_STD_PAGE_ID = 999999

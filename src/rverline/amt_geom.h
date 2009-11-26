@@ -58,7 +58,7 @@
 #define AMT_GEOM_H_
 
 #include "cttypes.h"
-#include "point.h"
+#include "common/point.h"
 
 void RotateRect(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 void FindMinimIdealRegion(int nRc, int *pDo, Rect16 *pRcIdeal, Rect16 *pMIR);

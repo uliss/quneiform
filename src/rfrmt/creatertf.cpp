@@ -78,7 +78,7 @@
 #include "cstr/cstrdefs.h"
 #include "cline.h"
 
-#include "size.h"
+#include "common/size.h"
 
 #include "minmax.h"
 

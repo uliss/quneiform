@@ -55,7 +55,7 @@
  */
 
 #include "linedefs.h"
-#include "point.h"
+#include "common/point.h"
 
 #define CLINE_HorizantalLine   1
 #define CLINE_VerticalLine     0

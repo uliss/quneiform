@@ -60,7 +60,7 @@
 #include "globus.h"
 #include "cttypes.h"
 #include "cpagetyps.h"
-#include "point.h"
+#include "common/point.h"
 
 #ifdef __CPAGE__
 #define CPAGE_FUNC  FUN_EXPO__

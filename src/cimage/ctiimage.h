@@ -59,7 +59,7 @@
 
 #include "globus.h"
 #include "imageinfo.h"
-#include "singleton.h"
+#include "common/singleton.h"
 
 #ifdef __CIMAGE__
 #define CIMAGE_FUNC  FUN_EXPO__

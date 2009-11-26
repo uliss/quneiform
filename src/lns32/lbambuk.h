@@ -70,7 +70,7 @@
 #endif
 #include "lnsdefs.h"
 #include "hliner.h"
-#include "point.h"
+#include "common/point.h"
 
 /*
  * TLinesBambuk*******************************************

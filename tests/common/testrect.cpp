@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testrect.h"
-#include <rect.h>
+#include <common/rect.h>
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestRect);
 

@@ -62,7 +62,7 @@
 
 #include "cttypes.h"
 #include "ptrname.h"
-#include "point.h"
+#include "common/point.h"
 
 class TableCell
 {

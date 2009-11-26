@@ -16,8 +16,8 @@
 #include "pumadef.h"
 #include "cfcompat.h"
 #include "formatoptions.h"
-#include "rect.h"
-#include "memorybuffer.h"
+#include "common/rect.h"
+#include "common/memorybuffer.h"
 #include "cimage/imageinfo.h"
 
 class CTIControl;

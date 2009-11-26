@@ -58,7 +58,7 @@
 #define RBAL_LINEAR_H_
 
 #include "cstr/cstr.h"
-#include "point.h"
+#include "common/point.h"
 
 #define DBG 1
 #ifdef LIN_MAIN

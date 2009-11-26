@@ -69,7 +69,7 @@
 #define __RSTUFF_H
 
 #include "globus.h"
-#include "rect.h"
+#include "common/rect.h"
 #include "puma/puma.h"
 
 #ifdef __RSTUFF__

@@ -59,7 +59,7 @@
 
 #include "globus.h"
 #include "linedefs.h"
-#include "point.h"
+#include "common/point.h"
 
 typedef struct tagLnsFrag {
     int32_t flags; // misc info

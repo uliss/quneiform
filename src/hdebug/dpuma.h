@@ -59,7 +59,7 @@
 
 #include "globus.h"
 #include "charsets.h"
-#include "point.h"
+#include "common/point.h"
 
 #ifdef __DPUMA__
 #define DPUMA_FUNC  //FUN_EXPO__

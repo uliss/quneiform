@@ -59,7 +59,6 @@
 #include "fararray.h"
 #include "lnscheck.h"
 #include "skew1024.h"
-#include "point.h"
 
 using namespace CIF;
 

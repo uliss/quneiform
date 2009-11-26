@@ -69,7 +69,7 @@
 #include <math.h>
 
 #include "cttypes.h"
-#include "point.h"
+#include "common/point.h"
 
 inline CIF::Point& GetCenter(const Rect32& rc, CIF::Point& center)
 {

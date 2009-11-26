@@ -90,7 +90,7 @@
 #include <string.h>
 #include <fcntl.h>
 
-#include "point.h"
+#include "common/point.h"
 
 #define PASC
 #define WINAPI

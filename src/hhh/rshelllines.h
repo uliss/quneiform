@@ -67,7 +67,7 @@
 //
 
 #include "globus.h"
-#include "point.h"
+#include "common/point.h"
 
 #ifdef __RSHELLLINES_EXPORTS__
 #define RSHELLLINES_FUNC  FUN_EXPO

@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testpoint.h"
-#include <point.h>
+#include <common/point.h>
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPoint);
 

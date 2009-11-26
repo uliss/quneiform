@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Обмен с консолью и диском.                                  */
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
-#include "point.h"
+#include "common/point.h"
 
 
 typedef int (*FN_AM_Console) (const char * lpFormat, ...);

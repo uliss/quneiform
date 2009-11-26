@@ -58,7 +58,7 @@
 #define __RECDEFS_H
 
 #include "globus.h"
-#include "point.h"
+#include "common/point.h"
 
 #pragma pack(1)
 

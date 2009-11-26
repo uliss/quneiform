@@ -70,7 +70,7 @@
 #include "stick.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
-#include "point.h"
+#include "common/point.h"
 
 /* FIXME: to compile in MS VC++ */
 #define c_locomp EVN_CLocomp
