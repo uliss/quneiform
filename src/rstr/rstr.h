@@ -288,7 +288,7 @@ public:
 	}
 
 	Bool XYGood() const {
-		return cmx >= cmn;
+		return cmx.x() >= cmn.x() && cmx.y() >= cmn.y();
 	}
 
 	Bool Good() const {

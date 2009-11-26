@@ -57,16 +57,14 @@
 #ifndef _PRT_H_
 #define _PRT_H_
 
-#include <string>
 #include <list>
 #include <vector>
-#ifdef __CYGWIN__
-#include <stdarg.h>
-#endif
+#include <ctime>
+#include <string>
+
 #include "stdprt.h"
 #include "xstack.h"
 #include "xpath.h"
-#include "time.h"
 
 using namespace std;
 

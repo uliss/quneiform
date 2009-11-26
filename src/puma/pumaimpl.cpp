@@ -1155,6 +1155,10 @@ void PumaImpl::setOptionPictures(puma_picture_t type) {
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
+void PumaImpl::setOptionPreserveLineBreaks(bool value) {
+    preserve_line_breaks_ = value;
+}
+
 void PumaImpl::setOptionTable(puma_table_t mode) {
     tables_ = mode;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);

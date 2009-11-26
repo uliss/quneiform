@@ -455,7 +455,14 @@ int main(int argc, char **argv) {
 
         Puma::instance().setFormatOptions(opt);
 
-        //  Puma::instance().setOptionPictures(puma_picture_t mode);
+        if (do_pictures)
+            Puma::instance().setOptionPictures(PUMA_PICTURE_ALL);
+        else
+            Puma::instance().setOptionPictures(PUMA_PICTURE_NONE);
+
+        if (preserve_line_breaks)
+            Puma::instance().setOptionPreserveLineBreaks(true);
+
         //  Puma::instance().setOptionTables(puma_table_t mode);
 
         Puma::instance().open(dib.get());

@@ -68,19 +68,18 @@
 #define _RS_FUNC_H_
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+#include "cttypes.h"
 #include "rsdefines.h"
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "lns32/lnsdefs.h"
 #include "linedefs.h"
 
-using namespace CIF;
-
 //////////////////////////
 //общего назначения
 void SetReturnCode_rstuff(int);
 void DebugInit(void);
-void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
+void DebugDPumaDrawRect(Handle, CIF::Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
 		uint32_t);
 

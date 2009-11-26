@@ -52,6 +52,7 @@ public:
     void setOptionLanguage(language_t language);
     void setOptionOneColumn(bool val);
     void setOptionPictures(puma_picture_t type);
+    void setOptionPreserveLineBreaks(bool value);
     void setOptionTable(puma_table_t mode);
     void setOptionUserDictionaryName(const char * name);
     void setOptionUseSpeller(bool value = true);
