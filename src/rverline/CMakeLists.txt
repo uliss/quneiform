@@ -1,16 +1,14 @@
-include_directories(BEFORE src/h src/usage)
-
 add_library(rverline ${LIBTYPE}
 ${SNP_SRC}
-src/usage/amu_geom.cpp
-src/algoritm/by_image.cpp
-src/usage_puma/pum_comm.cpp
-src/algoritm/verifyln.cpp
-src/root/vl_kern.cpp
-src/root/vl_resid.cpp
-src/service/vl_data.cpp
-src/service/vl_rule.cpp
-src/service/vl_snap.cpp
+amu_geom.cpp
+by_image.cpp
+pum_comm.cpp
+verifyln.cpp
+vl_kern.cpp
+vl_resid.cpp
+vl_data.cpp
+vl_rule.cpp
+vl_snap.cpp
 )
 set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
