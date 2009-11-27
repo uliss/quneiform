@@ -5,7 +5,6 @@ html.cpp
 pictures.cpp
 rout.cpp
 rout_dll.cpp
-stdafx.cpp
 tabledbf.cpp
 tabletext.cpp
 text.cpp
