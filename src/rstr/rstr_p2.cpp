@@ -64,7 +64,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-#include "std.h"
+#include "std/std.h"
 #include "globus.h"
 #include "imgaccs.h"
 #include "resource.h"

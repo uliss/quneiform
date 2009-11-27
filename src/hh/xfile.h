@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 #include "globus.h"
 
-#include "std.h"
+#include "std/std.h"
 
 #ifdef WIN32
 #define PPS_WIN32

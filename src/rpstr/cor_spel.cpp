@@ -68,7 +68,7 @@
 #include "ccom/ccom.h"
 #include "crling.h"
 #include "leo/leo.h"
-#include "std.h"
+#include "std/std.h"
 #include "rstr/rstr.h"
 #include "dpuma.h"
 

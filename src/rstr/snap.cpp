@@ -68,7 +68,7 @@
 #include "dpuma.h"
 #include "cstr/cstr.h"
 #include "ctb/ctb.h"
-#include "std.h"
+#include "std/std.h"
 #include "resource.h"
 #include "cuthdr.h"
 #include "p2libr.h"

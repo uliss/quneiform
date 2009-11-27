@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma hdrstop
 
 #include <string.h>
-#include <std.h>
+#include "std/std.h"
 
 static void reverse(char *p1,char *p2, int32_t w);
 static void piramida(char *pAr,int32_t firstel,int32_t N, int32_t w,

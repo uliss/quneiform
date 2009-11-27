@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 
 #include "leo/leo.h"
-#include "std.h"
+#include "std/std.h"
 #include "ctb/ctb.h"
 #include "tuner.h"
 

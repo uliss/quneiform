@@ -73,7 +73,7 @@
 #include "charsets.h"
 #include "leo/leo.h"
 #include "fon/fon.h"
-#include "std.h"
+#include "std/std.h"
 #include "rstr.h"
 #include "ctb/ctb.h"
 #include "cstr/cstr.h"

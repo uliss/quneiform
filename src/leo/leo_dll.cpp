@@ -73,7 +73,7 @@
 #include "ctb/ctb.h"
 #include "fon/fon.h"
 #include "msk/msk.h"
-#include "std.h"
+#include "std/std.h"
 #include "snptools.h"
 #include "snpdefs.h"
 

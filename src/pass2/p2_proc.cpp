@@ -122,7 +122,7 @@
 #include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
 #include "fon/fon.h"
-#include "std.h"
+#include "std/std.h"
 #include "alphabet.h"
 #include "ligas.h"
 #include "p2libr.h"

@@ -153,7 +153,7 @@
 #define MIN_STAT     2  // minimal need for statistic
 #define MIN_STAT_ONE 1  // need for one letter stat.
 #include "leo.h"
-#include "std.h"
+#include "std/std.h"
 #include "alphaset.h"
 
 static int allHeights[MAX_HEIGHT];

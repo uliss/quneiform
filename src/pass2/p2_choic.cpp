@@ -73,7 +73,7 @@
 #include "cstr/cstr.h" // OLEG
 #include "fon/fon.h"
 #include "p2libr.h"
-#include "std.h"
+#include "std/std.h"
 #include "minmax.h"
 
 #include "p2defs.h"

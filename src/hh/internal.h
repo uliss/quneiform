@@ -123,7 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //== to be precompiled
 #ifndef __STD_H
-#include "std.h"
+#include "std/std.h"
 #endif
 
 #define CONSOLE   stdConsole

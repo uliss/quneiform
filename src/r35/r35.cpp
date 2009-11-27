@@ -65,7 +65,7 @@
 
 #include "r35.h"
 #include "mmx/mmx.h"
-#include "std.h"
+#include "std/std.h"
 
 #include "compat_defs.h"
 

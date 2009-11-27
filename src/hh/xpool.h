@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __XPOOL_H
 
 #ifndef __STD_H
-#include "std.h"
+#include "std/std.h"
 #endif
 
 #ifndef __XFILE_H

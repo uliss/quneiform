@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "cstr/cstr.h"
 #include "fon/fon.h"
-#include "std.h"
+#include "std/std.h"
 
 #include "msk/msk.h"
 #include "leo/leo.h"

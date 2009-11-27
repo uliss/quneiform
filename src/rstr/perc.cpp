@@ -114,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 #include "leo/leo.h"
-#include "std.h"
+#include "std/std.h"
 
 #include "compat_defs.h"
 

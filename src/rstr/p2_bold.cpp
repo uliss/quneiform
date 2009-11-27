@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "cstr/cstr.h"
 #include "fon/fon.h"
-#include "std.h"
+#include "std/std.h"
 //#include "linear.h"
 #include "p2libr.h"
 #include "ligas.h"	// 08.09.2000 E.P.

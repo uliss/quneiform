@@ -68,7 +68,7 @@
 #include "leo.h"
 #include "dif/dif.h"
 #include "inc_tab.h"
-#include "std.h"
+#include "std/std.h"
 #include "alphaset.h"
 #include "leo_func.h"
 

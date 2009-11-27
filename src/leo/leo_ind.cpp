@@ -67,7 +67,7 @@
 #include "leo.h"
 #include "r35/r35.h"
 #include "msk/msk.h"
-#include "std.h"
+#include "std/std.h"
 #include "snptools.h"
 
 using namespace CIF;
