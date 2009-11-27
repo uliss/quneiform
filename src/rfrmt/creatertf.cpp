@@ -68,7 +68,7 @@
 #include "cpage/cpage.h"
 #include "lst3_win.h"
 #include "cfio/cfio.h"
-#include "ced.h"
+#include "ced/ced.h"
 #include "edfile.h"
 #include "dpuma.h"
 #include "rtfedwrite.h"

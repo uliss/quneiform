@@ -62,7 +62,7 @@
 #include "rout.h"
 #include "cfio/cfio.h"
 
-#include "ced.h"
+#include "ced/ced.h"
 #include "resource.h"
 
 #include <stdio.h>

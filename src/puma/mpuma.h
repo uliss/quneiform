@@ -60,7 +60,7 @@
 #include "dpuma.h"
 #include "pumadef.h"
 #include "ccom/ccom.h"
-#include "ced.h"
+#include "ced/ced.h"
 #include "cfio/cfio.h"
 #include "cpage/cpage.h"
 #include "criimage.h"
