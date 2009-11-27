@@ -61,7 +61,7 @@
 #include "c_types.h"
 #include "func.h"
 #include "ccom/ccom.h"
-#include "exc.h"
+#include "exc/exc.h"
 #include "loc/loc.h"
 
 #define CREATE_STATUS

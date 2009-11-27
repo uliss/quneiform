@@ -89,7 +89,7 @@
 #include "criimage.h"
 #include "cimage/ctiimage.h"
 #include "dpuma.h"
-#include "exc.h"
+#include "exc/exc.h"
 #include "rpic.h"
 #include "rline.h"
 #include "rverline.h"

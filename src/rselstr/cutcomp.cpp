@@ -62,7 +62,7 @@
 #include "recdefs.h"
 #include "dpuma.h"
 #include "cimage/ctiimage.h"
-#include "exc.h"
+#include "exc/exc.h"
 #include "cpage/cpagetyps.h"
 #include "polyblock.h"
 

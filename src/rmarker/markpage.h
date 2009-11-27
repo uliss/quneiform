@@ -68,7 +68,7 @@
 #include "criimage.h"
 #include "cstr/cstr.h"
 #include "cimage/ctiimage.h"
-#include "exc.h"
+#include "exc/exc.h"
 #include "rblock.h"
 #include "rline.h"
 #include "rfrmt.h"

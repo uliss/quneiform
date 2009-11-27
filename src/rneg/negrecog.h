@@ -58,7 +58,7 @@
 
 #include "ccom/ccom.h"
 #include "cimage/ctiimage.h"
-#include "exc.h"
+#include "exc/exc.h"
 #include "recdefs.h"
 #include "negdefs.h"
 #include "rstr/rstr.h"
