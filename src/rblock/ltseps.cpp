@@ -71,7 +71,7 @@
 # include "cpage/cpage.h"
 # include "layout.h"
 # include "my_mem.h"
-# include "cline.h"
+# include "cline/cline.h"
 
 //#include "lns.h"
 //#include "rline.h"

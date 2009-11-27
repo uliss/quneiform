@@ -67,7 +67,7 @@
 
 #include "resource.h"
 #include "rline.h"
-#include "cline.h"
+#include "cline/cline.h"
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "lns32/lns.h"

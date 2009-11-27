@@ -68,7 +68,7 @@
 #include "rline/rline.h"
 #include "ccom/ccom.h"
 #include "cimage/ctiimage.h"
-#include "cline.h"
+#include "cline/cline.h"
 /*  interface our-my     */
 #include "rverline.h"
 /*  interface my        */

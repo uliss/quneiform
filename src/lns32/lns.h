@@ -67,7 +67,7 @@
 #define LNS_FUNC    FUN_IMPO__
 #endif
 
-#include "cline.h"
+#include "cline/cline.h"
 typedef struct tagLnsSetupStr {
     int32_t nOptions;
 #define LSS_NOVBORDER_FILTER     0x0001   // отключение чистки на левой-правой границе

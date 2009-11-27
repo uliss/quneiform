@@ -76,7 +76,7 @@
 #include "linedefs.h"
 #include "normdefs.h"
 #include "cstr/cstrdefs.h"
-#include "cline.h"
+#include "cline/cline.h"
 
 #include "common/size.h"
 

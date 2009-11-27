@@ -68,7 +68,7 @@
 #include "lns32/lnsdefs.h"
 #include "cpage/cpage.h"
 #include "puma/pumadef.h"
-#include "cline.h"
+#include "cline/cline.h"
 /*  interface our-my     */
 #include "rverline.h"
 /*  interface my        */

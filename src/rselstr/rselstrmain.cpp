@@ -62,7 +62,7 @@
 #include "rselstr.h"
 
 #include "new_c.h"
-#include "cline.h"
+#include "cline/cline.h"
 #include "lns32/lns.h"
 #include "rline/rline.h"
 

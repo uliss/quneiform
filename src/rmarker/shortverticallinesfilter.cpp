@@ -70,7 +70,7 @@
 
 #include "markpage.h"
 #include "linedefs.h"
-#include "cline.h"
+#include "cline/cline.h"
 #include "cfio/cfio.h"
 
 static Bool32 bShowDebug = FALSE;

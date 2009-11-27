@@ -69,7 +69,7 @@
 #include "rsfunc.h"
 #include "cfio/cfio.h"
 #include "puma/pumadef.h"
-#include "cline.h"
+#include "cline/cline.h"
 
 #include "compat_defs.h"
 

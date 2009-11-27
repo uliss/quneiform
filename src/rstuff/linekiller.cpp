@@ -78,7 +78,7 @@
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
 #include "rline/rline.h"
-#include "cline.h"
+#include "cline/cline.h"
 #include "linedefs.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////

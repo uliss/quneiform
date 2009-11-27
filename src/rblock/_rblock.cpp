@@ -63,7 +63,7 @@
 #include "newfunc.h"
 #include "dpuma.h"
 #include "ccom/ccom.h"
-#include "cline.h"
+#include "cline/cline.h"
 #include "cpage/cpage.h"
 
 #include "compat_defs.h"

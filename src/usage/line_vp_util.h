@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Прототипы утилит работы с линиями формата LNS.              */
 /*  Назначение :  Формальности ввода/вывода (с унифицированным буфером и без).*/
 /*----------------------------------------------------------------------------*/
-#include "cline.h"
+#include "cline/cline.h"
 /* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode); */
 Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
 /* !!! только для вызова MyReSetLines */

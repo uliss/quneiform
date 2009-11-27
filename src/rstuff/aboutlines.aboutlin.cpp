@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsmemory.h"
 #include "rsfunc.h"
 #include "resource.h"
-#include "cline.h"
+#include "cline/cline.h"
 /*  interface our-my     */
 /*  interface my        */
 #include "un_err.h"
