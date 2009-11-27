@@ -93,7 +93,7 @@
 #include "rpic/rpic.h"
 #include "rline/rline.h"
 #include "rverline/rverline.h"
-#include "smetric.h"
+#include "smetric/smetric.h"
 #include "rreccom/rreccom.h"
 
 const int MIN_BIG_H = 30;

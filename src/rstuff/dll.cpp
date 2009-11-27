@@ -71,7 +71,7 @@
 #include "rsmemory.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
-#include "smetric.h"
+#include "smetric/smetric.h"
 #include "rline/rline.h"
 
 #define __RSTUFF_CPP__
