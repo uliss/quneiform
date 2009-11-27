@@ -64,7 +64,7 @@
 #include "new_c.h"
 #include "cline.h"
 #include "lns32/lns.h"
-#include "rline.h"
+#include "rline/rline.h"
 
 #include "minmax.h"
 

@@ -69,7 +69,7 @@
 #include "cline.h"
 #include "exc/exc.h"
 #include "rblock.h"
-#include "rline.h"
+#include "rline/rline.h"
 #include "rfrmt.h"
 #include "rout/rout.h"
 #include "rpic.h"

@@ -72,8 +72,7 @@
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "smetric.h"
-
-#include "rline.h"
+#include "rline/rline.h"
 
 #define __RSTUFF_CPP__
 #include "rsglobaldata.h"

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "puma/pumadef.h"
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
-#include "rline.h"
+#include "rline/rline.h"
 ////////////////////////////////////////////////////////////////////////////////
 // Нормализация сырья
 // (07.07.2000) Изначально взято из puma.dll без изменений

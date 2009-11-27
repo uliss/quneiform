@@ -68,7 +68,7 @@
 #include "puma_err.h"
 #include "rneg.h"
 #include "rselstr.h"
-#include "rline.h"
+#include "rline/rline.h"
 #include "cfio/cfio.h"
 
 #include "compat_defs.h"

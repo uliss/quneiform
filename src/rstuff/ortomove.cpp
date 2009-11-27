@@ -62,7 +62,7 @@
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "lns32/lns.h"
-#include "rline.h"
+#include "rline/rline.h"
 #include "dpuma.h"
 #include "rdib/ctdib.h"
 #include "rstuff.h"

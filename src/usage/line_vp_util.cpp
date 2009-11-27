@@ -68,7 +68,7 @@
 #include "cpage/cpage.h"
 #include "cline.h"
 #include "lns32/lnsdefs.h"
-#include "rline.h"
+#include "rline/rline.h"
 /*  interface my        */
 #include "un_err.h"
 #include "am_comm.h"
