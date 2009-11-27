@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "ctp.h"
 #include "pic_n_table.h"
-#include "rpic.h"
+#include "rpic/rpic.h"
 #include "rstr/rstr.h"
 
 #define LOGFILENAME_COMP "rom_comp.log"

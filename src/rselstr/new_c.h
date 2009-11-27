@@ -70,7 +70,7 @@
 # include "cstr/cstrdefs.h"
 # include "polyblock.h"
 # include "ctp.h"
-# include "rpic.h"
+# include "rpic/rpic.h"
 ////////////////////////////////////////////////////////////////////////////////
 #define LOGFILENAME_COMP "rom_comp.log"
 #define RESFILENAME_COMP "rom_comp.res"

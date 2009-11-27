@@ -72,7 +72,7 @@
 #include "rline/rline.h"
 #include "rfrmt/rfrmt.h"
 #include "rout/rout.h"
-#include "rpic.h"
+#include "rpic/rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
 #include "rstuff.h"
