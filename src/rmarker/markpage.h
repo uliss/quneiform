@@ -75,7 +75,7 @@
 #include "rout/rout.h"
 #include "rpic/rpic.h"
 #include "rstr/rstr.h"
-#include "rstuff.h"
+#include "rstuff/rstuff.h"
 #include "rverline/rverline.h"
 #include "puma/mpumatime.h"
 #include "lns32/lnsdefs.h"
