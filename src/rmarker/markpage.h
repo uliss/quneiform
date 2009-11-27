@@ -69,7 +69,7 @@
 #include "cstr/cstr.h"
 #include "cimage/ctiimage.h"
 #include "exc/exc.h"
-#include "rblock.h"
+#include "rblock/rblock.h"
 #include "rline/rline.h"
 #include "rfrmt.h"
 #include "rout/rout.h"
