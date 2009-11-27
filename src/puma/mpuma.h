@@ -81,7 +81,7 @@
 #include "rselstr.h"
 #include "mpumatime.h"
 #include "rshelllines/rsl.h"
-#include "rreccom.h"
+#include "rreccom/rreccom.h"
 #include "rcorrkegl/rcorrkegl.h"
 
 #include <string>
