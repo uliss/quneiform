@@ -76,7 +76,7 @@
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
 #include "rstuff.h"
-#include "rverline.h"
+#include "rverline/rverline.h"
 #include "rmarker.h"
 #include "rselstr.h"
 #include "mpumatime.h"

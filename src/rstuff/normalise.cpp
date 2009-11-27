@@ -92,7 +92,7 @@
 #include "exc/exc.h"
 #include "rpic.h"
 #include "rline/rline.h"
-#include "rverline.h"
+#include "rverline/rverline.h"
 #include "smetric.h"
 #include "rreccom.h"
 
