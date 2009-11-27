@@ -56,7 +56,7 @@
 #ifndef __MARK_PAGE_H__
 #define __MARK_PAGE_H__
 
-#include <rmarker.h>
+#include "rmarker/rmarker.h"
 #include "puma/puma.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
@@ -71,7 +71,7 @@
 #include "exc/exc.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
-#include "rfrmt.h"
+#include "rfrmt/rfrmt.h"
 #include "rout/rout.h"
 #include "rpic.h"
 #include "rstr/rstr.h"

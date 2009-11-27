@@ -70,19 +70,19 @@
 #include "exc/exc.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
-#include "rfrmt.h"
+#include "rfrmt/rfrmt.h"
 #include "rout/rout.h"
 #include "rpic.h"
 #include "rpstr/rpstr.h"
 #include "rstr/rstr.h"
 #include "rstuff.h"
 #include "rverline/rverline.h"
-#include "rmarker.h"
+#include "rmarker/rmarker.h"
 #include "rselstr.h"
 #include "mpumatime.h"
 #include "rshelllines/rsl.h"
 #include "rreccom.h"
-#include "rcorrkegl.h"
+#include "rcorrkegl/rcorrkegl.h"
 
 #include <string>
 

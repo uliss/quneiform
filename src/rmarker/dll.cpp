@@ -57,7 +57,7 @@
 #include "rmarker.h"
 #include "rmarkermem.h"
 #include "rmfunc.h"
-#include "rneg.h"
+#include "rneg/rneg.h"
 #include "puma/pumadef.h"
 #include "dpuma.h"
 

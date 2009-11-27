@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include "puttocstr.h"
 #include "rselstr.h"
-#include "rneg.h"
+#include "rneg/rneg.h"
 
 
 extern int32_t my_top;
