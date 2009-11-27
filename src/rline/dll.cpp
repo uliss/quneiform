@@ -67,10 +67,10 @@
 #include "lns32/lns.h"
 #include "dpuma.h"
 #include "linedefs.h"
-#include "rshelllinescom.h"
+#include "rshelllines/rshelllinescom.h"
 
 /// BogDmitry
-#include "rsl.h"
+#include "rshelllines/rsl.h"
 #define PUMA_MODULE_RSL         116
 #define RESULT                  2
 Bool32 gbRSLT = FALSE;
