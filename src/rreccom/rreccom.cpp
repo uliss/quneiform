@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*********************************************************************************************/
 #include <string.h>
-#include "stdafx.h"
+
 #include "rreccom.h"
 #include "resource.h"
 #include "compat_defs.h"

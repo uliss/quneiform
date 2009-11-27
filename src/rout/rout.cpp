@@ -66,7 +66,7 @@
 
 #include <fcntl.h>
 #include <string.h>
-#include "stdafx.h"
+
 #include "rout_own.h"
 
 static Bool Static_GetTargetObject(Handle hObject, long reason);

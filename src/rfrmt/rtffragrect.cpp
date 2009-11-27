@@ -61,8 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // RtfFragRect.cpp : implementation file
 // ============================================================================
 
-
-#include "stdafx.h"
 #include "RtfFragRect.h"
 
 #ifdef _DEBUG

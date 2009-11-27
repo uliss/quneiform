@@ -60,7 +60,7 @@
 /***********************************************************************************************/
 #include <cstdlib>
 #include <string.h>
-#include "stdafx.h"
+
 #include "rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"

@@ -62,7 +62,6 @@
 #include <ctime>
 #include <climits>
 
-#include "stdafx.h"
 #include "linedefs.h"
 #include "lns32/lnsdefs.h"
 #include "cpage/cpage.h"

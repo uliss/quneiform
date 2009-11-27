@@ -58,7 +58,7 @@
 //
 
 #include <string.h>
-#include "stdafx.h"
+
 #include "rcorrkegl.h"
 #include "resource.h"
 #include "dpuma.h"

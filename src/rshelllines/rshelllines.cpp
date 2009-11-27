@@ -66,7 +66,6 @@
 //
 //
 
-#include "stdafx.h"
 #include "resource.h"
 #define __RSL__
 #define __RSL_EXTERN__

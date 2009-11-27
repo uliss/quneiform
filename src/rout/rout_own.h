@@ -58,7 +58,6 @@
 
 #pragma once
 
-#include "stdafx.h"
 #include "rout.h"
 #include "cfio/cfio.h"
 
