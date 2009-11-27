@@ -1,13 +1,7 @@
-include_directories(BEFORE
-h
-src
-)
-
 add_library(rshelllines ${LIBTYPE}
 ${SNP_SRC}
-src/rshelllines.cpp
-#src/RShellLines.rc
-src/stdafx.cpp
+rshelllines.cpp
+stdafx.cpp
 )
 set_property(TARGET rshelllines PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS__)
 
