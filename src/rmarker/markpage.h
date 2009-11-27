@@ -65,7 +65,7 @@
 #include "ced/ced.h"
 #include "cfio/cfio.h"
 #include "cpage/cpage.h"
-#include "criimage.h"
+#include "rimage/criimage.h"
 #include "cstr/cstr.h"
 #include "cimage/ctiimage.h"
 #include "exc/exc.h"

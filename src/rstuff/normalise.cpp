@@ -86,7 +86,7 @@
 // модули
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
-#include "criimage.h"
+#include "rimage/criimage.h"
 #include "cimage/ctiimage.h"
 #include "dpuma.h"
 #include "exc/exc.h"

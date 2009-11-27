@@ -67,7 +67,7 @@
 #include "cpage/cpage.h"
 #include "cstr/cstr.h"
 #include "exc/exc.h"
-#include "criimage.h"
+#include "rimage/criimage.h"
 #include "evn32/evn.h"
 
 /*----------------------------------------------------------------------------*/

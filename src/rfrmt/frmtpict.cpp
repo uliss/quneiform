@@ -77,7 +77,7 @@
 #include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
 #include "frmtdibapi.h"
-#include "criimage.h"
+#include "rimage/criimage.h"
 #include "sys_prog.h"
 #include "ced/ced.h"
 #include "rfrmt_prot.h"

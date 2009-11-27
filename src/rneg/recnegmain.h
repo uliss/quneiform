@@ -63,7 +63,7 @@
 #include "cimage/ctiimage.h"
 #include "negdefs.h"
 #include "polyblock.h"
-#include "criimage.h"
+#include "rimage/criimage.h"
 #include "rdib/ctdib.h"
 
 //Параметры
