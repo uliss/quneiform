@@ -1,6 +1,4 @@
 include_directories(BEFORE 
-sources/h 
-sources/main 
 ../hhh/tigerh
 ../hhh/tigerh/h)
 

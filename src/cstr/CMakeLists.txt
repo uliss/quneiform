@@ -1,5 +1,3 @@
-include_directories(src)
-
 add_library(cstr ${LIBTYPE}
 cgraph.cpp
 cstr.cpp)

@@ -1,5 +1,3 @@
-include_directories(BEFORE src)
-
 add_library(loc32 ${LIBTYPE}
 compdata.cpp
 compkit.cpp

@@ -1,5 +1,3 @@
-include_directories(src)
-
 add_library(rbal ${LIBTYPE}
 gistogramma.cpp
 lin_ext.cpp

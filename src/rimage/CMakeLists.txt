@@ -1,5 +1,3 @@
-include_directories(BEFORE sources/main sources/main/deza sources/main/kronrod)
-
 add_library(rimage ${LIBTYPE}
 cdezabinarizator.cpp
 ckronrodbinarizator.cpp

@@ -1,5 +1,3 @@
-include_directories(BEFORE src)
-
 add_definitions(-DDPUMA_SNAP) # See warning below.
 
 add_library(lns32 ${LIBTYPE}

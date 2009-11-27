@@ -1,5 +1,3 @@
-include_directories(BEFORE src)
-
 add_library(mmx32 ${LIBTYPE}
 mmx_gra.cpp
 mmx_ind.cpp

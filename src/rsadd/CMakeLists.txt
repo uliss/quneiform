@@ -1,5 +1,3 @@
-include_directories(BEFORE src)
-
 add_library(rsadd ${LIBTYPE} rsadd.cpp)
 
 set_property(TARGET rsadd PROPERTY COMPILE_DEFINITIONS __RSADD__)

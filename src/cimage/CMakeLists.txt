@@ -1,5 +1,3 @@
-include_directories(BEFORE sources/main)
-
 add_library(cimage ${LIBTYPE}
 ${SNP_SRC}
 cticontrol.cpp

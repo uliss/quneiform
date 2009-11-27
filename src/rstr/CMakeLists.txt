@@ -1,4 +1,3 @@
-#include_subdirectories(src)
 add_definitions(-DDPUMA_SNAP)
 
 add_library(rstr ${LIBTYPE}

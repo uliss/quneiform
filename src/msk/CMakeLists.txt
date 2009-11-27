@@ -1,5 +1,3 @@
-include_directories(src)
-
 add_library(msk32 ${LIBTYPE} msk.cpp)
 set_property(TARGET msk32 PROPERTY COMPILE_DEFINITIONS __MSK__)
 
