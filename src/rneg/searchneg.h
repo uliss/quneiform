@@ -60,7 +60,7 @@
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
 #include "negdefs.h"
-#include "rselstr.h"
+#include "rselstr/rselstr.h"
 
 //Настройки
 

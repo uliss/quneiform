@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include <windows.h>*/
 
 #include "dpuma.h"
-#include "rselstr.h"
+#include "rselstr/rselstr.h"
 
 
 

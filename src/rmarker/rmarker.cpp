@@ -67,7 +67,7 @@
 #include "un_err.h"
 #include "puma_err.h"
 #include "rneg/rneg.h"
-#include "rselstr.h"
+#include "rselstr/rselstr.h"
 #include "rline/rline.h"
 #include "cfio/cfio.h"
 

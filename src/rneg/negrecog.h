@@ -65,7 +65,7 @@
 #include "dpuma.h"
 #include "cpage/cpage.h"
 #include "cstr/cstr.h"
-#include "rselstr.h"
+#include "rselstr/rselstr.h"
 
 //Настройки
 extern int min_let_h;

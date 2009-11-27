@@ -58,7 +58,7 @@
 #include <time.h>
 
 #include "dpuma.h"
-#include "rselstr.h"
+#include "rselstr/rselstr.h"
 #include "cpage/cpage.h"
 #include "cimage/ctiimage.h"
 #include "negdefs.h"
