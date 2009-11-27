@@ -6,6 +6,7 @@ dll.cpp
 pumaimpl.cpp
 formatoptions.cpp
 )
+
 set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 
 target_link_libraries(puma
@@ -30,5 +31,9 @@ exc
 rreccom
 rpstr
 )
+
+if(LIBTYPE STREQUAL STATIC)
+    target_link_libraries(puma cifdebug)
+endif()
 
 install_dll(puma)

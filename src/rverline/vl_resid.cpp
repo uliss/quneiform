@@ -87,22 +87,6 @@ void SetReturnCode_rverline(uint16_t rc);
 uint16_t GetReturnCode_rverline();
 Bool WasInitRVERLINE();
 /*----------------------------------------------------------------------------*/
-Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
-/*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_Init (uint16_t wHeightCode, Handle hStorage)
 {
 	uchar err8;

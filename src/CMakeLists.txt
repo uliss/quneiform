@@ -16,6 +16,8 @@ usage
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.cpp)
     message(STATUS "Adding __snp.cpp to individual libraries.")
+else()
+    add_subdirectory(hdebug)
 endif()
 
 add_subdirectory(common)

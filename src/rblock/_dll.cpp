@@ -79,24 +79,6 @@ static HINSTANCE ghInst = NULL;
 extern jmp_buf fatal_error_exit; // For error handling
 extern unsigned short int run_options;
 
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-                      pvoid lpReserved)
-{
-    switch (ul_reason_for_call) {
-        case DLL_PROCESS_ATTACH:
-            ghInst = hModule;
-            break;
-        case DLL_THREAD_ATTACH:
-            break;
-        case DLL_THREAD_DETACH:
-            break;
-        case DLL_PROCESS_DETACH:
-            break;
-    }
-
-    return TRUE;
-}
-
 Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage)
 {
     gwHeightRC = wHeightCode;

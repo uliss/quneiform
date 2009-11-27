@@ -83,26 +83,7 @@ static Handle            hInst =                             NULL;
 CTCControl *      Control_ctc =                           NULL;
 static int32_t             InitCount =                         0;
 static Bool32            InitDone =                          FALSE;
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool APIENTRY DllMain( Handle hModule,
-                       uint32_t ul_reason_for_call,
-                       pvoid lpReserved )
-{
-    switch ( ul_reason_for_call ) {
-        case DLL_PROCESS_ATTACH:
-            hInst = hModule;
-            break;
-        case DLL_THREAD_ATTACH:
-            break;
-        case DLL_THREAD_DETACH:
-            break;
-        case DLL_PROCESS_DETACH:
-            break;
-    }
 
-    return TRUE;
-}
 //////////////////////////////////////////////////////////////////////////////////
 //
 CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode, Handle hStorage)

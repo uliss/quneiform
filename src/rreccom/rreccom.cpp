@@ -65,15 +65,6 @@ static uint16_t gwHeightRC = 0;
 uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
 uchar*  lnOcrPath = NULL;
 /*********************************************************************************************/
-/*********************************************************************************************/
-Bool APIENTRY DllMain( Handle hModule,
-uint32_t  ul_reason_for_call,
-                       pvoid lpReserved
-					 )
-{
-    return TRUE;
-}
-/*********************************************************************************************/
 // JussiP: This function is never called anywhere.
 #if 0
 RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData)

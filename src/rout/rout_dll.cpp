@@ -86,23 +86,6 @@
 #include <stdarg.h>
 #include "compat_defs.h"
 
-//*********************************************************************
-Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst_rout = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-
-	return TRUE;
-}
 //********************************************************************
 ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode,Handle hStorage)
 {

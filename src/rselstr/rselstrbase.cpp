@@ -118,28 +118,6 @@ double inf_let_black=.2;
 int inf_str_h=15;
 int inf_str_w=8;
 
-/////////////////////////////////////////
-
-
-/////////////////////////////////////////
-Bool APIENTRY DllMain( HINSTANCE  hModule,
-uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
-{
-    switch( ul_reason_for_call )
-	{
-    case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-    case DLL_THREAD_ATTACH:
-		break;
-    case DLL_THREAD_DETACH:
-		break;
-    case DLL_PROCESS_DETACH:
-		break;
-    }
-    return TRUE;
-}
 //////////////////////////////////////////////////////////////////////////////////
 //
 RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage)

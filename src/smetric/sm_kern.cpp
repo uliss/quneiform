@@ -86,22 +86,6 @@ Bool WasInitSMetric();
 Bool AM_InitComm(uint16_t wRltOwnCode);
 void AM_DoneComm();
 /*---------------------------------------------------------------------------*/
-Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
-	switch (ul_reason_for_call) {
-	case DLL_PROCESS_ATTACH:
-		ghInst = hModule;
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
-/*---------------------------------------------------------------------------*/
 SMetric_FUNC(Bool32) SMetric_Init (uint16_t wHeightCode, Handle hStorage)
 {
 	uchar err8;

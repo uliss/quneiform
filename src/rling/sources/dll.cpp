@@ -83,33 +83,7 @@ CRLControl * Control_crl = NULL;
 ///////////////////////////////////////////////////////////////////////////////////
 void SetReturnCode_rling(uint16_t rc);
 uint16_t GetReturnCode_rling();
-///////////////////////////////////////////////////////////////////////////////////
 
-// FIXME: temp hack
-#ifndef _MSC_VERS
-#undef APIENTRY
-#define APIENTRY
-#endif
-
-Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-                      pvoid lpReserved)
-{
-    switch (ul_reason_for_call) {
-        case DLL_PROCESS_ATTACH:
-            ghInst = hModule;
-            break;
-        case DLL_THREAD_ATTACH:
-            break;
-        case DLL_THREAD_DETACH:
-            break;
-        case DLL_PROCESS_DETACH:
-            break;
-    }
-
-    return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
 #if defined( __RLING__ )
 RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode, Handle hStorage)
 #else

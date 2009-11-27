@@ -74,12 +74,6 @@ Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;
 uchar language = 3;
 
-Bool APIENTRY DllMain(Handle hModule, uint32_t ul_reason_for_call,
-                      pvoid lpReserved)
-{
-    return TRUE;
-}
-
 RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode, Handle hStorage)
 {
     gwHeightRC = wHeightCode;
