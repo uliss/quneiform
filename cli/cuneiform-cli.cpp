@@ -72,23 +72,19 @@
  ***************************************************************************/
 
 /* This is a simple command line program for the Puma library. */
-
-#include "cimage/ctiimage.h" // Must be first, or else you get compile errors.
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <cstring>
 #include <getopt.h>
 #include <Magick++.h>
 #include <boost/scoped_array.hpp>
+#include "config.h"
 
-#include "cttypes.h"
 #include "puma/puma.h"
 #include "puma/pumaimpl.h"
 #include "lang_def.h"
-#include "config.h"
 #include "common/cifconfig.h"
 
 using namespace std;
