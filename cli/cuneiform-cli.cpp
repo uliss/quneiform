@@ -187,7 +187,7 @@ static string usage() {
         "       --dotmatrix                               \n"
         "       --fax                                     \n"
         "       --tables   MODE\n"
-        "       --pictures               Search pictures\n"
+        "       --pictures               Search pictures (default)\n"
         "       --nopictures             Do not search pictures\n"
         "       --preserve-line-breaks                  \n"
         "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
@@ -282,7 +282,7 @@ int main(int argc, char **argv) {
     char unrecognized_char = 0;
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
-            do_singlecolumn = FALSE, do_pictures = FALSE, do_tables = FALSE, do_autorotate = FALSE,
+            do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
             preserve_line_breaks = FALSE, do_dump = FALSE;
 
     const char * const short_options = ":ho:vVl:f:d:u:";
