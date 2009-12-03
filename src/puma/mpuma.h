@@ -174,11 +174,9 @@ EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
-EXTERN unsigned nDebugReturnCode VAL(0);
 //Allex  при разделении бинаризации и обработки сырь
 //имя картинки 'lpRecogName' сделано глабольной переменной
 EXTERN const char * glpRecogName VAL(NULL);
-EXTERN Bool32 grc_line VAL(TRUE);
 EXTERN Bool32 gneed_clean_line VAL(FALSE);
 EXTERN Bool32 gKillVSLComponents VAL(TRUE);
 EXTERN uchar gnSpecialProject VAL(0);

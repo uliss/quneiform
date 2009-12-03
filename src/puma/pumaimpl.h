@@ -133,6 +133,7 @@ class PumaImpl
         Handle lines_ccom_;
         Handle cline_;
         Handle ed_page_;
+        Bool32 rc_line_;
 };
 
 }

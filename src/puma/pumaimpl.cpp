@@ -89,7 +89,7 @@ PumaImpl::PumaImpl() :
             false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
                 PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                        NULL), ed_page_(NULL)
+                        NULL), ed_page_(NULL), rc_line_(TRUE)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -302,7 +302,7 @@ void PumaImpl::layout()
     DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
     DataforRS.pglpRecogName = &glpRecogName;
-    DataforRS.pgrc_line = &grc_line;
+    DataforRS.pgrc_line = &rc_line_;
     DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &tables_num_;
     DataforRS.pgneed_clean_line = &gneed_clean_line;
@@ -342,7 +342,7 @@ void PumaImpl::layout()
     DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
     DataforRM.pglpRecogName = &glpRecogName;
-    DataforRM.pgrc_line = &grc_line;
+    DataforRM.pgrc_line = &rc_line_;
     DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &tables_num_;
     DataforRM.pgneed_clean_line = &gneed_clean_line;
