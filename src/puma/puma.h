@@ -178,10 +178,6 @@ bool LPUMA_GetPreserveLineBreaks(void);
 uint32_t LCED_DeletePage(Handle hEdPage);
 #define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
 
-// Module functions
-DEC_FUN(int, GetReturnCode, ())
-PUMA_FUNC int PUMA_GetReturnCode();
-
 PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
 PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
 

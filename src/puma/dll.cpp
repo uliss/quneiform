@@ -78,11 +78,6 @@
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 
-int PUMA_GetReturnCode()
-{
-    return gwRC;
-}
-
 void SetReturnCode_puma(uint32_t rc)
 {
     uint16_t low = (uint16_t) (rc & 0xFFFF);
