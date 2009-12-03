@@ -2,7 +2,6 @@ add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 common.cpp 
 puma.cpp 
-dll.cpp 
 pumaimpl.cpp
 formatoptions.cpp
 )

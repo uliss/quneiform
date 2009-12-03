@@ -188,7 +188,5 @@ EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
-//functions
-void SetReturnCode_puma(uint32_t rc);
 
 #endif

@@ -112,7 +112,6 @@ typedef struct tagRSPreProcessImage {
 typedef struct tagRSCBProgressPoints {
     void * pDPumaSkipComponent;
     void * pDPumaSkipTurn;
-    void * pSetReturnCode;
     void * pSetUpdate;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 
