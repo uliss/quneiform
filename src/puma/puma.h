@@ -69,7 +69,8 @@
 #define PUMA_FUNC  FUN_IMPO__
 #endif
 
-namespace CIF {
+namespace CIF
+{
 class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
 }

@@ -56,10 +56,12 @@
 
 #include "mpuma.h"
 
-Bool32 IsUpdate(uint32_t flg) {
+Bool32 IsUpdate(uint32_t flg)
+{
     return (g_flgUpdate & flg) > 0;
 }
 
-void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
+{
     g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
 }
