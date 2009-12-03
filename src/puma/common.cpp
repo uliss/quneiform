@@ -54,124 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <string.h>
-
 #include "mpuma.h"
-#include "ccom/ccom.h"
-#include "cstr/cstr.h"
 
-
-//// Функции прогресс индикатора
-//Bool32 rexcProgressStep(uint32_t step) {
-//  return ProgressStep(2, NULL, step);
-//}
-//
-//void ProgressStart() {
-//  LDPUMA_ProgressStart();
-//  if (fnProgressStart)
-//      fnProgressStart();
-//}
-//
-//void ProgressFinish() {
-//  LDPUMA_ProgressFinish();
-//  if (fnProgressFinish)
-//      fnProgressFinish();
-//}
-//
-//Bool32 ProgressStep(uint32_t step, char*name, uint32_t percent) {
-//  Bool32 rc = TRUE;
-//  static uint32_t old = 0;
-//
-//  g_PrgTime.dwStep = step;
-//  g_PrgTime.name = name ? name : g_PrgTime.name;
-//
-//  uint32_t perc = g_PrgTime.dwBeg + percent * (g_PrgTime.dwEnd
-//          - g_PrgTime.dwBeg) / 100;
-//  rc = LDPUMA_ProgressStep(step, g_PrgTime.name, perc);
-//  //  assert(perc>=old);
-//  if (fnProgressStep)
-//      rc &= fnProgressStep(step, g_PrgTime.name, perc);
-//
-//  old = perc;
-//  return rc;
-//}
-//
-//Bool32 ProgressStepLayout(uint32_t step, uint32_t percent) {
-//  return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
-//}
-//
-//Bool32 ProgressStepLines(uint32_t step, uint32_t percent) {
-//  return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
-//}
-//
-//Bool32 ProgressStepTables(uint32_t step, uint32_t percent) {
-//  return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
-//}
-//
-//Bool32 ProgressStepSearchTables(uint32_t step, uint32_t percent) {
-//  return ProgressStep(step, GetResourceString(IDS_SEARCHTABLE), percent);
-//}
-//
-//Bool32 ProgressStepAutoLayout(uint32_t step, uint32_t percent) {
-//  return ProgressStep(step, GetResourceString(IDS_AUTOLAYOUT), percent);
-//}
-//
-//static uint32_t bInitPrgTime = 0;
-//void ResetPRGTIME() {
-//  bInitPrgTime = 0;
-//}
-//
-//Bool32 DonePRGTIME() {
-//  Bool32 rc = FALSE;
-//  if (bInitPrgTime)
-//      bInitPrgTime--;
-//  if (!bInitPrgTime)
-//      rc = TRUE;
-//  return rc;
-//}
-//
-//Bool32 InitPRGTIME() {
-//  Bool32 rc = FALSE;
-//  if (!bInitPrgTime) {
-//      g_PrgTime.dwBeg = 0;
-//      g_PrgTime.dwEnd = 100;
-//      g_PrgTime.dwStep = 0;
-//      g_PrgTime.name = "";
-//      rc = TRUE;
-//  }
-//  bInitPrgTime++;
-//  return rc;
-//}
-//
-//PRGTIME StorePRGTIME(uint32_t beg, uint32_t end) {
-//  PRGTIME rc = g_PrgTime;
-//
-//  uint32_t newBeg = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)
-//          * beg / 100;
-//  uint32_t newEnd = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)
-//          * end / 100;
-//
-//  g_PrgTime.dwBeg = newBeg;
-//  g_PrgTime.dwEnd = newEnd;
-//
-//  return rc;
-//}
-//
-//void RestorePRGTIME(PRGTIME prev) {
-//  g_PrgTime = prev;
-//}
-//
-//Bool32 HL_TableExtractEx(Handle hPAGE, uint32_t perc, Rect rect) {
-//  return RMARKER_SearchTableInZone(hPAGE, hCCOM, perc, rect);
-//}
-
-Bool32 IsUpdate(uint32_t flg)
-{
+Bool32 IsUpdate(uint32_t flg) {
     return (g_flgUpdate & flg) > 0;
 }
 
-void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
-{
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
     g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
 }

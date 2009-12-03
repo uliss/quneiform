@@ -57,6 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <setjmp.h>
 
 # include "dpuma.h"
+#include "dsnap.h"
 # include "rselstr.h"
 # include "resource.h"
 # include "newfunc.h"

@@ -58,7 +58,7 @@
 #define __PUMADEF_H__
 
 #include "lang_def.h"
-#include "dsnap.h"
+#include <climits>
 
 // Format codes
 enum puma_format_t {
@@ -102,6 +102,15 @@ enum puma_table_t {
 
 enum puma_picture_t {
     PUMA_PICTURE_NONE = 0, PUMA_PICTURE_ALL = 1
+};
+
+
+// Флаги обновления контейнеров
+enum puma_update_flag_t {
+    FLG_UPDATE_NO = 0,
+    FLG_UPDATE = UINT_MAX,
+    FLG_UPDATE_CCOM = 0x1,
+    FLG_UPDATE_CPAGE = 0x2,
 };
 
 // constants

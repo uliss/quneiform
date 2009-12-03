@@ -70,6 +70,7 @@
 #include "rsfunc.h"
 #include "rsmemory.h"
 #include "dpuma.h"
+#include "dsnap.h""
 #include "puma/pumadef.h"
 #include "smetric/smetric.h"
 #include "rline/rline.h"

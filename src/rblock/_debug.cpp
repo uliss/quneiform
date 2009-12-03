@@ -61,6 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "status.h"
 
 # include "dpuma.h"
+#include "dsnap.h"
 # include "puma/pumadef.h"
 
 //////////////////////////////////

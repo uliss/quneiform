@@ -66,6 +66,7 @@
 #include <assert.h>
 
 #include "resource.h"
+#include "dsnap.h"
 #include "rline.h"
 #include "cline/cline.h"
 #include "cimage/ctiimage.h"

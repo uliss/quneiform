@@ -65,6 +65,7 @@
 #define __RFRMT_EXTERN__
 #include "rfrmt.h"
 #include "dpuma.h"
+#include "dsnap.h"
 #include "puma/formatoptions.h"
 #include "puma/pumadef.h"
 #include "rfrmt_prot.h"

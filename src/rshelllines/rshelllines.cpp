@@ -69,6 +69,7 @@
 #include "resource.h"
 #define __RSL__
 #define __RSL_EXTERN__
+#include "dsnap.h"
 #include "cttypes.h"
 #include "linedefs.h"
 #include "puma/pumadef.h"

@@ -60,6 +60,7 @@
 #include "rneg/rneg.h"
 #include "puma/pumadef.h"
 #include "dpuma.h"
+#include "dsnap.h"
 
 Handle hLayout;
 Handle MainDebug;
