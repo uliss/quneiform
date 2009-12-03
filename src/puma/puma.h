@@ -69,38 +69,10 @@
 #define PUMA_FUNC  FUN_IMPO__
 #endif
 
-namespace CIF
-{
+namespace CIF {
 class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
 }
-
-typedef void (*FNPUMA_ProgressStart)(void);
-typedef void (*FNPUMA_ProgressFinish)(void);
-typedef bool (*FNPUMA_ProgressStep)(uint32_t step, const char* name,
-                                    uint32_t percent);
-typedef struct {
-    uint16_t wImageHeight;
-    uint16_t wImageWidth;
-    uint16_t wImageByteWidth;
-    uint16_t wImageDisplacement;
-    uint16_t wResolutionX;
-    uint16_t wResolutionY;
-    uchar bFotoMetrics;
-    uchar bUnused;
-    uint16_t wAddX;
-    uint16_t wAddY;
-} PUMA_ImageInfo;
-
-typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
-typedef uint16_t (*PUMA_Callback_ImageRead)(pchar, uint16_t);
-typedef Bool16 (*PUMA_Callback_ImageClose)(void);
-
-typedef struct {
-    PUMA_Callback_ImageOpen CIMAGE_ImageOpen;
-    PUMA_Callback_ImageRead CIMAGE_ImageRead;
-    PUMA_Callback_ImageClose CIMAGE_ImageClose;
-} PUMAIMAGECALLBACK;
 
 #define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
 PUMA_FUNC void PUMA_GetSpecialBuffer(char * szResult, int32_t *nResultLength);
