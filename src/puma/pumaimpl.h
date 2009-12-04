@@ -134,6 +134,7 @@ class PumaImpl
         Handle cline_;
         Handle ed_page_;
         Bool32 rc_line_;
+        Bool32 kill_vsl_components_;
 };
 
 }
