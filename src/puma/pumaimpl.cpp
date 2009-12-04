@@ -90,7 +90,7 @@ PumaImpl::PumaImpl() :
                     PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
                     NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE)
+            need_clean_line_(FALSE), recog_name_(NULL)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -105,7 +105,7 @@ void PumaImpl::binarizeImage()
 {
     // Бинаризуем изображение
     recog_dib_ = input_dib_;
-    glpRecogName = PUMA_IMAGE_USER;
+    recog_name_ = PUMA_IMAGE_USER;
 
     if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
@@ -125,7 +125,7 @@ void PumaImpl::binarizeImage()
         GetPageInfo(cpage_, &info);
         info.Images |= IMAGE_BINARIZE;
         SetPageInfo(cpage_, info);
-        glpRecogName = PUMA_IMAGE_BINARIZE;
+        recog_name_ = PUMA_IMAGE_BINARIZE;
     }
 }
 
@@ -302,7 +302,7 @@ void PumaImpl::layout()
     DataforRS.gnLanguage = language_;
     DataforRS.gbDotMatrix = dot_matrix_;
     DataforRS.gbFax100 = fax100_;
-    DataforRS.pglpRecogName = &glpRecogName;
+    DataforRS.pglpRecogName = &recog_name_;
     DataforRS.pgrc_line = &rc_line_;
     DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &tables_num_;
@@ -342,7 +342,7 @@ void PumaImpl::layout()
     DataforRM.gnLanguage = language_;
     DataforRM.gbDotMatrix = dot_matrix_;
     DataforRM.gbFax100 = fax100_;
-    DataforRM.pglpRecogName = &glpRecogName;
+    DataforRM.pglpRecogName = &recog_name_;
     DataforRM.pgrc_line = &rc_line_;
     DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &tables_num_;
@@ -658,7 +658,7 @@ void PumaImpl::preprocessImage()
     // Проинициализируем контейнер CPAGE
     PAGEINFO PInfo;
     GetPageInfo(cpage_, &PInfo);
-    strcpy((char*) PInfo.szImageName, glpRecogName);
+    strcpy(PInfo.szImageName, recog_name_);
     PInfo.BitPerPixel = info_.biBitCount;
     PInfo.DPIX = info_.biXPelsPerMeter * 254L / 10000;
     PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;

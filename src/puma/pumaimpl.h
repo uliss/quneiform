@@ -136,6 +136,7 @@ class PumaImpl
         Bool32 rc_line_;
         Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;
+        const char * recog_name_;
 };
 
 }
