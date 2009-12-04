@@ -178,8 +178,6 @@ EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 //имя картинки 'lpRecogName' сделано глабольной переменной
 EXTERN const char * glpRecogName VAL(NULL);
 EXTERN uchar gnSpecialProject VAL(0);
-//allex
-EXTERN uint32_t g_flgUpdate VAL(0);
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);

@@ -56,6 +56,8 @@
 
 #include "mpuma.h"
 
+static uint32_t g_flgUpdate = 0;
+
 Bool32 IsUpdate(uint32_t flg)
 {
     return (g_flgUpdate & flg) > 0;
