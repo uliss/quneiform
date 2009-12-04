@@ -54,7 +54,7 @@ static double portion_of_rus_letters(CSTR_line lin_ruseng)
 
         if (attr.flg & (CSTR_f_let)) {
             if (attr.language == LANG_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100 && !strchr(
-                        "0123456789/%", uv.Alt[0].Code[0]))
+                    "0123456789/%", uv.Alt[0].Code[0]))
                 nRus++;
 
             nAll++;
@@ -84,12 +84,13 @@ FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 PumaImpl::PumaImpl() :
-        rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-        one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
-            false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
-                PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
+    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
+                    false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
+                    PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                        NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE)
+                    NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
+            need_clean_line_(FALSE)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -207,9 +208,9 @@ void PumaImpl::extractComponents()
         throw PumaException("CIMAGE_GetCallbackImage failed");
 
     if (!REXCExtracomp3CB(
-                exc, // поиск компонент by 3CallBacks
-                (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
-                (TImageRead) clbk.CIMAGE_ImageRead))
+            exc, // поиск компонент by 3CallBacks
+            (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
+            (TImageRead) clbk.CIMAGE_ImageRead))
         throw PumaException("REXCExtracomp3CB failed");
 
     ccom_ = (Handle) REXCGetContainer();
@@ -291,7 +292,7 @@ void PumaImpl::layout()
     SET_CB(CBforRM, SetUpdate);
 #undef SET_CB
     DataforRS.gbAutoRotate = auto_rotate_;
-    DataforRS.pgpRecogDIB = (uchar**) & input_dib_;
+    DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
@@ -305,7 +306,7 @@ void PumaImpl::layout()
     DataforRS.pgrc_line = &rc_line_;
     DataforRS.gnTables = tables_;
     DataforRS.pgnNumberTables = &tables_num_;
-    DataforRS.pgneed_clean_line = &gneed_clean_line;
+    DataforRS.pgneed_clean_line = &need_clean_line_;
     DataforRS.gRectTemplate = rect_template_;
     DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRS.hDebugCancelComponent = hDebugCancelComponent;
@@ -329,7 +330,7 @@ void PumaImpl::layout()
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
     DataforRM.gbAutoRotate = auto_rotate_;
-    DataforRM.pgpRecogDIB = (uchar**) & recog_dib_;
+    DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
     DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = kill_vsl_components_;
     DataforRM.pinfo = &info_;
@@ -345,7 +346,7 @@ void PumaImpl::layout()
     DataforRM.pgrc_line = &rc_line_;
     DataforRM.gnTables = tables_;
     DataforRM.pgnNumberTables = &tables_num_;
-    DataforRM.pgneed_clean_line = &gneed_clean_line;
+    DataforRM.pgneed_clean_line = &need_clean_line_;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRM.hDebugCancelComponent = hDebugCancelComponent;
     DataforRM.hDebugCancelTurn = hDebugCancelTurn;
@@ -377,8 +378,8 @@ void PumaImpl::layout()
 
         while (block) {
             Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)) << " : "
-            << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
-            << "\n";
+                    << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
+                    << "\n";
             block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
     }
@@ -512,13 +513,13 @@ void PumaImpl::modulesInit()
 #ifdef _USE_RVERLINE_
 
         if (!RVERLINE_Init(PUMA_MODULE_RVERLINE, ghStorage))
-            throw PumaException("RVERLINE_Init failed.");
+        throw PumaException("RVERLINE_Init failed.");
 
 #endif
 #ifdef _USE_RMSEGMENT_
 
         if (!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT, ghStorage))
-            throw PumaException("RMSEGMENT_Init failed.");
+        throw PumaException("RMSEGMENT_Init failed.");
 
 #endif
 
@@ -1026,7 +1027,7 @@ void PumaImpl::rotate(void * dib, Point * p)
 
         else {
             p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048 + (int32_t) info.biWidth
-                      * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
+                    * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
             p->ry() = 0;
         }
     }
@@ -1037,7 +1038,7 @@ void PumaImpl::rotate(void * dib, Point * p)
     CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", false);
 
     if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE, PInfo.Incline2048,
-                       2048, 0))
+            2048, 0))
         throw PumaException("RIMAGE_Rotate failed");
 
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
@@ -1061,8 +1062,8 @@ void PumaImpl::rout(const std::string& filename, int Format) const
 
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
-                ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
-                                                                         (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
+            ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
+            (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
             || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
@@ -1094,8 +1095,8 @@ void PumaImpl::rout(void * dest, size_t size, int format) const
 
     if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
             || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(
-                ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
-                                                                         (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
+            ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
+            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
         throw PumaException("ROUT_SetImportData failed");
 
     // Количество объектов
@@ -1128,51 +1129,51 @@ void PumaImpl::save(const std::string& filename, int Format) const
         Debug() << "Puma save to: " << filename << endl;
 
     switch (Format) {
-        case PUMA_DEBUG_TOTEXT:
-            saveToText(filename);
-            break;
-        case PUMA_TORTF:
+    case PUMA_DEBUG_TOTEXT:
+        saveToText(filename);
+        break;
+    case PUMA_TORTF:
 
-            if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
-                throw PumaException("Save to RTF failed");
+        if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
+            throw PumaException("Save to RTF failed");
 
-            break;
-        case PUMA_TOEDNATIVE:
+        break;
+    case PUMA_TOEDNATIVE:
 
-            if (!CED_WriteFormattedEd(filename.c_str(), ed_page_))
-                throw PumaException("Save to native format failed");
+        if (!CED_WriteFormattedEd(filename.c_str(), ed_page_))
+            throw PumaException("Save to native format failed");
 
-            break;
-        case PUMA_TOTEXT:
-        case PUMA_TOSMARTTEXT:
-        case PUMA_TOTABLETXT:
-        case PUMA_TOTABLEDBF:
-        case PUMA_TOHTML:
-        case PUMA_TOHOCR:
-            rout(filename, Format);
-            break;
-        default: {
-            ostringstream os;
-            os << "Unknown output format: " << Format;
-            throw PumaException(os.str());
-        }
+        break;
+    case PUMA_TOTEXT:
+    case PUMA_TOSMARTTEXT:
+    case PUMA_TOTABLETXT:
+    case PUMA_TOTABLEDBF:
+    case PUMA_TOHTML:
+    case PUMA_TOHOCR:
+        rout(filename, Format);
+        break;
+    default: {
+        ostringstream os;
+        os << "Unknown output format: " << Format;
+        throw PumaException(os.str());
+    }
     }
 }
 
 void PumaImpl::save(void * dest, size_t size, int format) const
 {
     switch (format) {
-        case PUMA_TOTEXT:
-        case PUMA_TOSMARTTEXT:
-        case PUMA_TOTABLETXT:
-        case PUMA_TOTABLEDBF:
-        case PUMA_TOHTML:
-            rout(dest, size, format);
-        default: {
-            ostringstream os;
-            os << "Unknown output format: " << format;
-            throw PumaException(os.str());
-        }
+    case PUMA_TOTEXT:
+    case PUMA_TOSMARTTEXT:
+    case PUMA_TOTABLETXT:
+    case PUMA_TOTABLEDBF:
+    case PUMA_TOHTML:
+        rout(dest, size, format);
+    default: {
+        ostringstream os;
+        os << "Unknown output format: " << format;
+        throw PumaException(os.str());
+    }
     }
 }
 
