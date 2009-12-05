@@ -66,10 +66,3 @@
 #include "compat_defs.h"
 
 
-bool PUMA_SetSpecialProject(uchar nSpecialProject)
-{
-    gnSpecialProject = nSpecialProject;
-    RSTUFF_RSSetSpecPrj(nSpecialProject);
-    RSTR_SetSpecPrj(nSpecialProject);
-    return true;
-}

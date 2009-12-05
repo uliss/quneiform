@@ -68,6 +68,7 @@ class PumaImpl
         void setOptionUserDictionaryName(const char * name);
         void setOptionUseSpeller(bool value = true);
         void setPageTemplate(const Rect& r);
+        void setSpecialProject(uchar SpecialProject);
     public:
         static unsigned char * mainBuffer();
         static unsigned char * workBuffer();

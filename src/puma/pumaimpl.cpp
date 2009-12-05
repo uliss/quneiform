@@ -1329,6 +1329,13 @@ void PumaImpl::setPageTemplate(const Rect& r)
     }
 }
 
+void PumaImpl::setSpecialProject(uchar SpecialProject)
+{
+    gnSpecialProject = SpecialProject;
+    RSTUFF_RSSetSpecPrj(SpecialProject);
+    RSTR_SetSpecPrj(SpecialProject);
+}
+
 unsigned char * PumaImpl::mainBuffer()
 {
     return main_buffer_.begin();
