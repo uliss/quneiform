@@ -126,7 +126,7 @@ typedef enum {
 #define       RIMAGE_USE_MARGINS       TRUE
 #define       RIMAGE_WITHOUT_MARGINS   FALSE
 DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
-DEC_FUN(Bool32,  Binarise,             (puchar , puchar , uint32_t, uint32_t));
+DEC_FUN(Bool32,  Binarise,             (const char * , const char * , uint32_t, uint32_t));
 DEC_FUN(Bool32,  Rotate,               (puchar , puchar , int32_t, int32_t, uint32_t));
 DEC_FUN(Bool32,  Roll,                 (puchar , puchar , int32_t, int32_t, uint32_t));
 DEC_FUN(Bool32,  Turn,                 (puchar , puchar , uint32_t, uint32_t));

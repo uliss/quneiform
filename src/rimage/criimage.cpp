@@ -93,12 +93,12 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGEC
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Binarise(puchar cDIBIn, puchar cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Binarise(const char * cDIBIn, const char * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
     if ( Control_cri )
-        return Control_cri->Binarise( (char*)cDIBIn, (char*)cDIBOut, wFlag, UseMargins);
+        return Control_cri->Binarise(cDIBIn, cDIBOut, wFlag, UseMargins);
 
     SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
     return FALSE;

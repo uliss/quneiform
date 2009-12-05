@@ -131,7 +131,7 @@ Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Binarise(char* cDIBIn, char* cDIBOut, uint32_t wFlag,
+Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
                             uint32_t UseMargins)
 {
     Bool32 Ret = TRUE;
@@ -418,7 +418,7 @@ Bool32 CRIControl::GetDIB(char* cDIB, Handle* phDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // положить без копировыания
-Bool32 CRIControl::SetDIB(char* cDIB, Handle hDIB)
+Bool32 CRIControl::SetDIB(const char* cDIB, Handle hDIB)
 {
     if (CIMAGE_WriteDIB(cDIB, hDIB, TRUE))
         return TRUE;
@@ -428,7 +428,7 @@ Bool32 CRIControl::SetDIB(char* cDIB, Handle hDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // положитьь c копировыанием
-Bool32 CRIControl::WriteDIB(char* cDIB, Handle hDIB)
+Bool32 CRIControl::WriteDIB(const char* cDIB, Handle hDIB)
 {
     if (CIMAGE_WriteDIB(cDIB, hDIB, FALSE))
         return TRUE;
@@ -438,7 +438,7 @@ Bool32 CRIControl::WriteDIB(char* cDIB, Handle hDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять с копировыанием
-Bool32 CRIControl::ReadDIB(char* cDIB, Handle* phDIB)
+Bool32 CRIControl::ReadDIB(const char* cDIB, Handle* phDIB)
 {
     if (CIMAGE_ReadDIB(cDIB, phDIB, FALSE))
         return TRUE;
@@ -467,7 +467,7 @@ Bool32 CRIControl::CloseSourceDIB()
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::OpenSourceDIB(char* cDIBName)
+Bool32 CRIControl::OpenSourceDIB(const char* cDIBName)
 {
     Handle hDIBIn;
     pvoid pDIB;
@@ -496,7 +496,7 @@ Bool32 CRIControl::OpenSourceDIB(char* cDIBName)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Создаем временный DIB куда отпишем, что получили
-Bool32 CRIControl::CloseDestinationDIB(char* cDIBName)
+Bool32 CRIControl::CloseDestinationDIB(const char* cDIBName)
 {
     Handle hDIB = NULL;
     pvoid pDIB = NULL;
@@ -520,28 +520,6 @@ Bool32 CRIControl::CloseDestinationDIB(char* cDIBName)
         return FALSE;
     }
 
-    /*
-     while ( mpDestinationDIB )
-     {
-     if ( mpDestinationDIB->DestroyDIB() )
-     {
-     hDIB = NULL;
-     }
-     else
-     {
-     if ( mpDestinationDIB->GetDIBHandle(&hDIB) )
-     {
-     RIMAGEUnlock(hDIB);
-     RIMAGEFree(hDIB);
-     }
-     else
-     {
-     delete mpDestinationDIB;
-     mpDestinationDIB = NULL;
-     }
-     }
-     }
-     */
     delete mpDestinationDIB;
     mpDestinationDIB = NULL;
     return TRUE;
@@ -634,7 +612,7 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
     return TRUE;
 }
 
-Bool32 CRIControl::SetDestinationDIBtoStorage(char* cDIBName)
+Bool32 CRIControl::SetDestinationDIBtoStorage(const char* cDIBName)
 {
     Handle hSDIB;
     Bool32 bErrors = TRUE;
