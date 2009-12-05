@@ -177,11 +177,6 @@ void PumaImpl::close()
 
 void PumaImpl::extractComponents()
 {
-    if (!LDPUMA_Skip(hDebugCancelComponent)) {
-        LDPUMA_Console("Пропущен этап выделения компонент.\n");
-        return;
-    }
-
     PAGEINFO info;
 
     if (!GetPageInfo(cpage_, &info))
@@ -571,7 +566,7 @@ Rect PumaImpl::pageTemplate() const
 
 void PumaImpl::pass1()
 {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr1))
+    if (Config::instance().debugDump())
         saveCSTR(1);
 
     recognizePass1();
@@ -579,7 +574,7 @@ void PumaImpl::pass1()
 
 void PumaImpl::pass2()
 {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr2))
+    if (Config::instance().debugDump())
         saveCSTR(2);
 
     ///////////////////////////////
@@ -649,11 +644,7 @@ void PumaImpl::preprocessImage()
     uint32_t Angle = 0;
 
     // Выделим компоненты
-    if (LDPUMA_Skip(hDebugCancelComponent))
-        extractComponents();
-
-    else
-        LDPUMA_Console("Пропущен этап выделения компонент.\n");
+    extractComponents();
 
     // Проинициализируем контейнер CPAGE
     PAGEINFO PInfo;
@@ -755,11 +746,11 @@ void PumaImpl::recognize()
         CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
     // Сохраним описание Layout в файл.
-    if (!LDPUMA_Skip(hDebugLayoutToFile))
+    if (Config::instance().debugDump())
         saveLayoutToFile(layout_filename_);
 
     // Прочитаем описание Layout из файла.
-    if (!LDPUMA_Skip(hDebugLayoutFromFile))
+    if (Config::instance().debugDump())
         loadLayoutFromFile(layout_filename_);
 
     if (IsUpdate(FLG_UPDATE_CCOM))
@@ -769,17 +760,7 @@ void PumaImpl::recognize()
     cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
 
     // Выделим строки
-    if (!LDPUMA_Skip(hDebugCancelStrings)) {
-        LDPUMA_Console("Пропущен этап выделения строк.\n");
-        return;
-    }
-
     extractStrings();
-
-    if (!LDPUMA_Skip(hDebugCancelRecognition)) {
-        LDPUMA_Console("Пропущен этап распознавания.\n");
-        return;
-    }
 
     // распознаем строки
     CSTR_SortFragm(0);
@@ -857,12 +838,6 @@ void PumaImpl::recognize()
     }
 
     normalize();
-
-    if (!LDPUMA_Skip(hDebugCancelFormatted)) {
-        LDPUMA_Console("Пропущен этап форматирования.\n");
-        return;
-    }
-
     // Отформатируем результат
     formatResult();
 }
@@ -878,7 +853,7 @@ void PumaImpl::recognizeCorrection()
     CSTR_SortFragm(1);
     RPSTR_CorrectIncline(1);
 
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr4))
+    if (Config::instance().debugDump())
         saveCSTR(4);
 }
 
