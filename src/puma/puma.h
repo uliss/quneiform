@@ -57,26 +57,13 @@
 #ifndef __PUMA_H
 #define __PUMA_H
 
-#include <string>
-
-#include "globus.h"
-#include "cttypes.h"
 #include "common/singleton.h"
-
-#ifdef __PUMA__
-#define PUMA_FUNC  FUN_EXPO__
-#else
-#define PUMA_FUNC  FUN_IMPO__
-#endif
+#include "pumaimpl.h"
 
 namespace CIF
 {
 class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
 }
-
-#define DEC_FUN(a,b,c) typedef a (*FNPUMA_##b)c;
-PUMA_FUNC bool PUMA_SetSpecialProject(uchar nSpecPrj);
-#undef DEC_FUN
 
 #endif
