@@ -81,6 +81,7 @@ class PumaImpl
         void extractComponents();
         void extractStrings();
         void formatResult();
+        void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
         void modulesDone();

@@ -76,7 +76,6 @@ static Handle hDebugLayoutFromFile = NULL;
 static Handle hDebugHandLayout = NULL;
 static Handle hDebugPrintBlocksCPAGE = NULL;
 static Handle hDebugCancelTurn = NULL;
-static Handle hDebugEnablePrintFormatted = NULL;
 
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
@@ -146,12 +145,10 @@ PumaImpl::~PumaImpl()
 
 void PumaImpl::binarizeImage()
 {
-    // Бинаризуем изображение
     recog_dib_ = input_dib_;
     recog_name_ = PUMA_IMAGE_USER;
 
-    if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
-        throw PumaException("CIMAGE_GetImageInfo failed");
+    getImageInfo(PUMA_IMAGE_USER);
 
     if (Config::instance().debug())
         Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
@@ -189,25 +186,28 @@ void PumaImpl::clearAll()
     CSTR_DeleteAll();
     CPAGE_DeleteAll();
     cpage_ = CreateEmptyPage();
-    strcpy((char*) PInfo.szImageName, PUMA_IMAGE_USER);
+    strcpy(PInfo.szImageName, PUMA_IMAGE_USER);
     PInfo.Incline2048 = 0;
     PInfo.Angle = 0;
     PInfo.Images = IMAGE_USER;
     SetPageInfo(cpage_, PInfo);
     CCOM_DeleteAll();
     ccom_ = NULL;
-    CIMAGE_DeleteImage(PUMA_IMAGE_BINARIZE);
-    CIMAGE_DeleteImage(PUMA_IMAGE_DELLINE);
+
     //  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
     //  поскольку оно отображается в интерфейсе. Его нужно удалять
     //  либо при получении нового довернутого изображения, либо при
     //  закрытии файла
+    CIMAGE_DeleteImage(PUMA_IMAGE_BINARIZE);
+    CIMAGE_DeleteImage(PUMA_IMAGE_DELLINE);
     CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
 void PumaImpl::close()
 {
-    DBG("Puma close")
+    if (Config::instance().debug())
+        Debug() << "Puma::clone()\n";
+
     CLINE_Reset();
     clearAll();
     // clean
@@ -289,13 +289,19 @@ void PumaImpl::formatResult()
     if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
         throw PumaException("RFRMT_Formatter failed");
 
-    if (!LDPUMA_Skip(hDebugEnablePrintFormatted)) {
+    if (Config::instance().debugDump()) {
         std::string fname(input_filename_ + "_tmp_.rtf");
         RFRMT_SetFormatOptions(format_options_);
         RFRMT_SaveRtf(fname.c_str(), 8);
-        fname = input_filename_ + "_tmp_.fed";
-        save(fname.c_str(), PUMA_TOEDNATIVE);
+        // fname = input_filename_ + "_tmp_.fed";
+        // save(fname.c_str(), PUMA_TOEDNATIVE);
     }
+}
+
+void PumaImpl::getImageInfo(const std::string& image_name)
+{
+    if (!CIMAGE_GetImageInfo(image_name.c_str(), &info_))
+        throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
 // Allex
@@ -321,14 +327,14 @@ void PumaImpl::layout()
     size_t size_buf = CIF::PumaImpl::MainBufferSize;
     void* MemWork = CIF::PumaImpl::workBuffer();
     int size_work = CIF::PumaImpl::WorkBufferSize;
-#define SET_CB(a,b)   a.p##b = (void*)b
-    SET_CB(CBforRS, DPumaSkipComponent);
-    SET_CB(CBforRS, DPumaSkipTurn);
-    SET_CB(CBforRS, SetUpdate);
-    SET_CB(CBforRM, DPumaSkipComponent);
-    SET_CB(CBforRM, DPumaSkipTurn);
-    SET_CB(CBforRM, SetUpdate);
-#undef SET_CB
+
+    CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
+    CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
+    CBforRS.pSetUpdate = (void*) SetUpdate;
+    CBforRM.pDPumaSkipComponent = (void*) DPumaSkipComponent;
+    CBforRM.pDPumaSkipTurn = (void*) DPumaSkipTurn;
+    CBforRM.pSetUpdate = (void*) SetUpdate;
+
     DataforRS.gbAutoRotate = auto_rotate_;
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
@@ -767,13 +773,10 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber)
 
 void PumaImpl::postOpenInitialize()
 {
-    LDPUMA_SetFileName(NULL, "none.txt");
     input_filename_ = "none.bin";
 
-    if (!CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info_))
-        throw PumaException("CIMAGE_GetImageInfo failed");
-
-    rect_template_.set(Point(0, 0), info_.biWidth, info_.biHeight);
+    getImageInfo(PUMA_IMAGE_USER);
+    rect_template_.set(Point(), info_.biWidth, info_.biHeight);
 }
 
 void PumaImpl::recognize()
