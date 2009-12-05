@@ -1,11 +1,8 @@
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
-common.cpp 
 pumaimpl.cpp
 formatoptions.cpp
 )
-
-set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 
 target_link_libraries(puma
 common

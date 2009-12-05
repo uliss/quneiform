@@ -37,6 +37,9 @@ class CTIControl;
 namespace CIF
 {
 
+Bool32 IsUpdate(uint32_t flg);
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
+
 struct PumaException: std::runtime_error {
     PumaException(const std::string& msg) :
             std::runtime_error(msg) {

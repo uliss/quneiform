@@ -17,7 +17,6 @@
  ***************************************************************************/
 
 #include "pumaimpl.h"
-#include "puma.h"
 #include "pumadef.h"
 
 #include <iostream>
@@ -121,9 +120,20 @@ namespace CIF
 
 static char global_buf[64000]; // OLEG fot Consistent
 static int32_t global_buf_len = 0; // OLEG fot Consistent
+static uint32_t g_flgUpdate = 0;
 
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
+
+Bool32 IsUpdate(uint32_t flg)
+{
+    return (g_flgUpdate & flg) > 0;
+}
+
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
+{
+    g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
+}
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
