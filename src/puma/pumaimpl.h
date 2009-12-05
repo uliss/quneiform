@@ -27,6 +27,7 @@
 #include "pumadef.h"
 #include "cfcompat.h"
 #include "formatoptions.h"
+#include "specprj.h"
 #include "common/rect.h"
 #include "common/memorybuffer.h"
 #include "cimage/imageinfo.h"
@@ -68,7 +69,7 @@ class PumaImpl
         void setOptionUserDictionaryName(const char * name);
         void setOptionUseSpeller(bool value = true);
         void setPageTemplate(const Rect& r);
-        void setSpecialProject(uchar SpecialProject);
+        void setSpecialProject(special_project_t SpecialProject);
     public:
         static unsigned char * mainBuffer();
         static unsigned char * workBuffer();
@@ -138,6 +139,7 @@ class PumaImpl
         Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;
         const char * recog_name_;
+        special_project_t special_project_;
 };
 
 }

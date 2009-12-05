@@ -90,7 +90,7 @@ PumaImpl::PumaImpl() :
                     PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
                     NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE), recog_name_(NULL)
+            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -585,7 +585,7 @@ void PumaImpl::pass2()
     ///////////////////////////////
     // OLEG : 01-05-18 : for GiP //
     ///////////////////////////////
-    if (SPEC_PRJ_GIP == gnSpecialProject && language_ == LANG_RUSENG) {
+    if (SPEC_PRJ_GIP == special_project_ && language_ == LANG_RUSENG) {
         int i, n;
         double s;
         CSTR_line lin_ruseng;
@@ -835,7 +835,7 @@ void PumaImpl::recognize()
         printResult(cerr);
 
     // OLEG fot Consistent
-    if (SPEC_PRJ_CONS == gnSpecialProject) {
+    if (SPEC_PRJ_CONS == special_project_) {
         char * buf = &global_buf[0], buf_str[1024];
         char * pb = buf;
         global_buf_len = 0;
@@ -1329,9 +1329,9 @@ void PumaImpl::setPageTemplate(const Rect& r)
     }
 }
 
-void PumaImpl::setSpecialProject(uchar SpecialProject)
+void PumaImpl::setSpecialProject(special_project_t SpecialProject)
 {
-    gnSpecialProject = SpecialProject;
+    special_project_ = SpecialProject;
     RSTUFF_RSSetSpecPrj(SpecialProject);
     RSTR_SetSpecPrj(SpecialProject);
 }

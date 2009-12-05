@@ -174,8 +174,6 @@ EXTERN Handle hDebugCancelFictive VAL(NULL);
 EXTERN Handle hDebugCancelTurn VAL(NULL);
 EXTERN Handle hDebugEnablePrintFormatted VAL(NULL);
 
-EXTERN uchar gnSpecialProject VAL(0);
-
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 
