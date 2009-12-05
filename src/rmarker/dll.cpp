@@ -100,7 +100,8 @@ Handle hFon;
 Handle hEnd;
 Handle hSegment;
 
-RMARKER_FUNC(Bool32) RMARKER_PageMarkup(PRMPreProcessImage Image, void* vBuff, int Size, void* vWork, int SizeWork)
+Bool32 RMARKER_PageMarkup(PRMPreProcessImage Image, void* vBuff, int Size, void* vWork,
+        int SizeWork)
 {
     SetMainBuff(vBuff, Size);
     SetWorkBuff(vWork, SizeWork);
@@ -109,21 +110,21 @@ RMARKER_FUNC(Bool32) RMARKER_PageMarkup(PRMPreProcessImage Image, void* vBuff, i
     return rc;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect)
+Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect)
 {
     return TRUE;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData)
+Bool32 RMARKER_SetImportData(uint32_t dwType, void * pData)
 {
     Bool rc = FALSE;
-    rc = SetCBProgressPoints( pData );
+    rc = SetCBProgressPoints(pData);
     return rc;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
+Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
 {
-    LDPUMA_Init (0, NULL);
+    LDPUMA_Init(0, NULL);
     /*------------------------------------------------------------------------------------------*/
     RNEG_Init(wHeightCode, NULL);
     /*------------------------------------------------------------------------------------------*/
@@ -153,7 +154,7 @@ RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
     LDPUMA_Registry(&hFon, "Поис фона..", hMainTime);
     LDPUMA_Registry(&hEnd, "От RMARKER до выделения строк..", hMainTime);
     LDPUMA_Registry(&hSegment, "Грубое выделение фрагментов...", hMainTime);
-    LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL );
+    LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL);
     // LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
     LDPUMA_Registry(&DebugFill, "Поиск фона в таблицах", MainDebug);
     LDPUMA_RegistryHelp(DebugFill, "Активизация вершины разрешит поиск фона в таблицах.", FALSE);
@@ -162,19 +163,24 @@ RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
     LDPUMA_Registry(&hDebugLinePass2, "Этап третьего прохода по линиям.", NULL);
     LDPUMA_Registry(&hDebugVerifLine, "Верификация линий.", NULL);
     LDPUMA_Registry(&hNegaCellsAuto, "Диагностика негативных ячеек таблиц", MainDebug);
-    LDPUMA_RegistryHelp(hNegaCellsAuto, "Активизация вершины разрешит диагностику негативных ячеек таблиц.", FALSE);
-    LDPUMA_Registry(&hVertCellsAuto, "Этап автоматической вертикальной диагностики ячеек таблиц.", NULL);
+    LDPUMA_RegistryHelp(hNegaCellsAuto,
+            "Активизация вершины разрешит диагностику негативных ячеек таблиц.", FALSE);
+    LDPUMA_Registry(&hVertCellsAuto, "Этап автоматической вертикальной диагностики ячеек таблиц.",
+            NULL);
     LDPUMA_Registry(&hVertCells, "Работа с вертикальными ячейками таблиц", NULL);
     LDPUMA_Registry(&hPrintFileVertCells, "Печать в файл вертикальных ячеек", hVertCells);
-    LDPUMA_RegistryHelp(hPrintFileVertCells, "Разрешить печать в файл vertcell.res вертикальных ячеек таблиц.", FALSE);
+    LDPUMA_RegistryHelp(hPrintFileVertCells,
+            "Разрешить печать в файл vertcell.res вертикальных ячеек таблиц.", FALSE);
     LDPUMA_Registry(&hNegaCells, "Работа с негативными ячейками таблиц", NULL);
     LDPUMA_Registry(&hDebugUpDown, "Сверху вниз", hVertCells);
-    LDPUMA_RegistryHelp(hDebugUpDown, "При продавлении вершины вертикальные строки будут считаться типа Сверху-Вниз.", FALSE);
+    LDPUMA_RegistryHelp(hDebugUpDown,
+            "При продавлении вершины вертикальные строки будут считаться типа Сверху-Вниз.", FALSE);
     LDPUMA_Registry(&hDebugPictures, SNAP_LAYOUT_PICTURES, NULL);
     LDPUMA_Registry(&hLayout, SNAP_ROOT_LAYOUT, NULL);
     LDPUMA_RegistryHelp(hZone, "Вершина поиска зон таблиц.", FALSE);
     LDPUMA_Registry(&hPrintCrossedPics, "Отпись пересекаемых таблицами картинок", hLayout);
-    LDPUMA_RegistryHelp(hPrintCrossedPics, "Печать в файл crossed.txt координат картинок, пересекаеющи зоны таблиц", FALSE);
+    LDPUMA_RegistryHelp(hPrintCrossedPics,
+            "Печать в файл crossed.txt координат картинок, пересекаеющи зоны таблиц", FALSE);
     LDPUMA_Registry(&hNoRazrTabl, "Отменить разрезание склеенных таблиц.", hZone);
     LDPUMA_RegistryHelp(hNoRazrTabl, "Отменить разрезание склеенных таблиц.", FALSE);
     LDPUMA_Registry(&hNoGiveNeg, "Не сдавать негативы.", hZone);
@@ -185,7 +191,7 @@ RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
     return TRUE;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_Done()
+Bool32 RMARKER_Done()
 {
     /*------------------------------------------------------------------------------------------*/
     RNEG_Done();

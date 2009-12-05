@@ -66,13 +66,11 @@
 #ifndef __RMARKER_H
 #define __RMARKER_H
 #include "globus.h"
-
 #ifdef __RMARKER__
 #define RMARKER_FUNC  FUN_EXPO
 #else
 #define RMARKER_FUNC  FUN_IMPO
 #endif
-
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
@@ -136,9 +134,7 @@ enum
 };
 
 const int PUMAMaxNumLines = 2000;
-#define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
-DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage, void*, int, void*, int))
-DEC_FUN(Bool32, SearchTableInZone, (Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect))
-#undef DEC_FUN
+Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect);
 
 #endif
