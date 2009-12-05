@@ -91,6 +91,7 @@ class PumaImpl
         void normalize();
         void pass1();
         void pass2();
+        void pass2special();
         void preOpenInitialize();
         void preprocessImage();
         void printResult(std::ostream& os);
@@ -100,6 +101,7 @@ class PumaImpl
         void recognizePass1();
         void recognizePass2();
         void recognizeSetup(int lang);
+        void recognizeSpecial();
         void rotate(void * dib, Point * p);
         void rout(const std::string& fname, int Format) const;
         void rout(void * dest, size_t size, int format) const;

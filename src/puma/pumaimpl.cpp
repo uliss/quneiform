@@ -77,9 +77,6 @@ static Handle hDebugHandLayout = NULL;
 static Handle hDebugPrintBlocksCPAGE = NULL;
 static Handle hDebugCancelTurn = NULL;
 
-char global_buf[64000]; // OLEG fot Consistent
-int32_t global_buf_len = 0; // OLEG fot Consistent
-
 static double portion_of_rus_letters(CSTR_line lin_ruseng)
 {
     if (!lin_ruseng)
@@ -121,6 +118,9 @@ static Handle ghStorage = NULL;
 
 namespace CIF
 {
+
+static char global_buf[64000]; // OLEG fot Consistent
+static int32_t global_buf_len = 0; // OLEG fot Consistent
 
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
@@ -206,7 +206,7 @@ void PumaImpl::clearAll()
 void PumaImpl::close()
 {
     if (Config::instance().debug())
-        Debug() << "Puma::clone()\n";
+        Debug() << "Puma::close\n";
 
     CLINE_Reset();
     clearAll();
@@ -251,7 +251,7 @@ void PumaImpl::extractComponents()
             (TImageRead) clbk.CIMAGE_ImageRead))
         throw PumaException("REXCExtracomp3CB failed");
 
-    ccom_ = (Handle) REXCGetContainer();
+    ccom_ = REXCGetContainer();
 
     if (!ccom_)
         throw PumaException("REXCGetContainer failed");
@@ -323,10 +323,6 @@ void PumaImpl::layout()
     RSPreProcessImage DataforRS;
     RMCBProgressPoints CBforRM;
     RMPreProcessImage DataforRM;
-    void* MemBuf = CIF::PumaImpl::mainBuffer();
-    size_t size_buf = CIF::PumaImpl::MainBufferSize;
-    void* MemWork = CIF::PumaImpl::workBuffer();
-    int size_work = CIF::PumaImpl::WorkBufferSize;
 
     CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
     CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
@@ -363,6 +359,11 @@ void PumaImpl::layout()
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
     DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+
+    void* MemBuf = CIF::PumaImpl::mainBuffer();
+    size_t size_buf = CIF::PumaImpl::MainBufferSize;
+    void* MemWork = CIF::PumaImpl::workBuffer();
+    int size_work = CIF::PumaImpl::WorkBufferSize;
 
     // калбэки
     if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
@@ -579,7 +580,8 @@ void PumaImpl::modulesInit()
 
 void PumaImpl::open(char * dib)
 {
-    DBG("Puma open")
+    if (Config::instance().debug())
+        Debug() << "Puma open\n";
     assert(dib);
     preOpenInitialize();
     input_dib_ = dib;
@@ -626,44 +628,41 @@ void PumaImpl::pass2()
     if (Config::instance().debugDump())
         saveCSTR(2);
 
-    ///////////////////////////////
-    // OLEG : 01-05-18 : for GiP //
-    ///////////////////////////////
-    if (SPEC_PRJ_GIP == special_project_ && language_ == LANG_RUSENG) {
-        int i, n;
-        double s;
-        CSTR_line lin_ruseng;
-        n = CSTR_GetMaxNumber();
-
-        for (s = 0.0, i = 1; i <= n; i++) {
-            lin_ruseng = CSTR_GetLineHandle(i, 1);
-            s += portion_of_rus_letters(lin_ruseng);
-        }
-
-        if (n)
-            s /= (double) n;
-
-        if (n && s < 0.4) {
-            for (i = 0; i <= n; i++) {
-                for (int j = 1; j < 10; j++) {
-                    lin_ruseng = CSTR_GetLineHandle(i, j);
-
-                    if (lin_ruseng)
-                        CSTR_DeleteLine(lin_ruseng);
-                }
-            }
-
-            language_ = LANG_ENGLISH;
-            recognizeSetup(language_);
-            recognizePass1();
-        }
-    }
+    if (SPEC_PRJ_GIP == special_project_ && language_ == LANG_RUSENG)
+        pass2special();
 
     if (RSTR_NeedPass2())
         recognizePass2();
-
     else
-        LDPUMA_Console("RSTR считает, что второй проход не нужен.\n");
+        Debug() << "RSTR said that second pass is not needed.\n";
+}
+
+void PumaImpl::pass2special()
+{
+    double s = 0;
+    int n = CSTR_GetMaxNumber();
+    for (int i = 1; i <= n; i++) {
+        CSTR_line lin_ruseng = CSTR_GetLineHandle(i, 1);
+        s += portion_of_rus_letters(lin_ruseng);
+    }
+
+    if (n)
+        s /= (double) n;
+
+    if (n && s < 0.4) {
+        for (int i = 0; i <= n; i++) {
+            for (int j = 1; j < 10; j++) {
+                CSTR_line lin_ruseng = CSTR_GetLineHandle(i, j);
+
+                if (lin_ruseng)
+                    CSTR_DeleteLine(lin_ruseng);
+            }
+        }
+
+        language_ = LANG_ENGLISH;
+        recognizeSetup(language_);
+        recognizePass1();
+    }
 }
 
 void PumaImpl::spellCorrection()
@@ -716,9 +715,7 @@ void PumaImpl::preprocessImage()
 
 void PumaImpl::printResult(std::ostream& os)
 {
-    int count = CSTR_GetMaxNumber();
-
-    for (int i = 1; i <= count; i++)
+    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
         printResultLine(os, i);
 }
 
@@ -785,17 +782,17 @@ void PumaImpl::recognize()
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
 
-    DBG("Puma recognize")
+    if (Config::instance().debug())
+        Debug() << "Puma recognize\n";
+
     CSTR_DeleteAll();
 
     if (cpage_)
         CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
-    // Сохраним описание Layout в файл.
     if (Config::instance().debugDump())
         saveLayoutToFile(layout_filename_);
 
-    // Прочитаем описание Layout из файла.
     if (Config::instance().debugDump())
         loadLayoutFromFile(layout_filename_);
 
@@ -861,27 +858,8 @@ void PumaImpl::recognize()
     if (Config::instance().debug())
         printResult(cerr);
 
-    // OLEG fot Consistent
-    if (SPEC_PRJ_CONS == special_project_) {
-        char * buf = &global_buf[0], buf_str[1024];
-        char * pb = buf;
-        global_buf_len = 0;
-        CSTR_line buf_line;
-        int count = CSTR_GetMaxNumber();
-
-        for (int i = 1; i <= count; i++) {
-            buf_line = CSTR_GetLineHandle(i, 1);
-            CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
-            strcpy(pb, buf_str);
-            int len = strlen(pb);
-            pb += len + 1;
-            global_buf_len += len + 1;
-        }
-
-        *pb = 0;
-        global_buf_len++;
-        // OLEG fot Consistent
-    }
+    if (SPEC_PRJ_CONS == special_project_)
+        recognizeSpecial();
 
     normalize();
     // Отформатируем результат
@@ -977,7 +955,7 @@ void PumaImpl::recognizePass2()
 
 void PumaImpl::recognizeSetup(int language)
 {
-    // рапознавание строк
+    // распознавание строк
     PAGEINFO info;
     GetPageInfo(cpage_, &info);
     RSTR_Options opt;
@@ -1018,6 +996,25 @@ void PumaImpl::recognizeSetup(int language)
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
+}
+
+void PumaImpl::recognizeSpecial()
+{
+    char * buf = &global_buf[0], buf_str[1024];
+    char * pb = buf;
+    global_buf_len = 0;
+
+    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
+        CSTR_line buf_line = CSTR_GetLineHandle(i, 1);
+        CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
+        strcpy(pb, buf_str);
+        int len = strlen(pb);
+        pb += len + 1;
+        global_buf_len += len + 1;
+    }
+
+    *pb = 0;
+    global_buf_len++;
 }
 
 void PumaImpl::rotate(void * dib, Point * p)
