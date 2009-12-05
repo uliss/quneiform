@@ -83,8 +83,6 @@
 #include "config.h"
 
 #include "puma/puma.h"
-#include "puma/pumaimpl.h"
-#include "lang_def.h"
 #include "common/cifconfig.h"
 
 using namespace std;
