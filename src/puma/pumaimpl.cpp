@@ -18,7 +18,6 @@
 
 #include "pumaimpl.h"
 #include "puma.h"
-#include "mpuma.h"
 #include "pumadef.h"
 
 #include <iostream>

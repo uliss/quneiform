@@ -66,4 +66,7 @@ class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
 }
 
+Bool32 IsUpdate(uint32_t flg);
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
+
 #endif
