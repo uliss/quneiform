@@ -203,18 +203,3 @@ RMARKER_FUNC(Bool32) RMARKER_Done()
     LDPUMA_Done();
     return TRUE;
 }
-
-RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError)
-{
-    return NULL;
-}
-
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData)
-{
-    return FALSE;
-}
-
-uint32_t RMARKER_GetReturnCode(void)
-{
-    return GetReturnCode_rmarker();
-}

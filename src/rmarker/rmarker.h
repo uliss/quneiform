@@ -53,7 +53,6 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 /**********  Заголовок  *******************************************************/
 /*  Автор      : Глеб Корольков                                                             */
 /*  комментарии                                                               */
@@ -64,10 +63,8 @@
 /*  Содержание :  Интерфейс библиотеки                                        */
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
-//Almi 16.06.00 //Last edit ........
 #ifndef __RMARKER_H
 #define __RMARKER_H
-
 #include "globus.h"
 
 #ifdef __RMARKER__
@@ -78,59 +75,67 @@
 
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
-RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
-RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 
-typedef struct tagRMPreProcessImage {
-    puchar *pgpRecogDIB;
-    Bool32 gbAutoRotate;
-    Bool32 gbDotMatrix;
-    Bool32 gbFax100;
-    Bool32 gbOneColumn;
-    Bool32 gKillVSLComponents;
-    uint32_t gnLanguage;
-    uint32_t gnTables;
-    Handle hCPAGE;
-    Handle hCCOM;
-    Handle hCLINE;
-    Handle hDebugCancelSearchPictures;
-    Handle hDebugCancelComponent;
-    Handle hDebugCancelTurn;
-    Handle hDebugCancelSearchLines;
-    Handle hDebugCancelVerifyLines;
-    Handle hDebugCancelSearchDotLines;
-    Handle hDebugCancelRemoveLines;
-    Handle hDebugCancelSearchTables;
-    Handle hDebugLayoutFromFile;
-    Handle hDebugCancelExtractBlocks;
-    Handle hDebugHandLayout;
-    Handle hDebugPrintBlocksCPAGE;
-    Handle hDebugSVLines;
-    Handle hDebugSVLinesStep;
-    Handle hDebugSVLinesData;
-    Handle hDebugEnableSearchSegment;
-    char *szLayoutFileName;
-    const char ** pglpRecogName;
-    void * pinfo;
-    Handle* phLinesCCOM;
-    PBool32 pgneed_clean_line;
-    int32_t * pgnNumberTables;
-    uint32_t gnPictures;
-    Bool32* pgrc_line;
-} RMPreProcessImage, *PRMPreProcessImage;
+struct RMPreProcessImage
+{
+        puchar *pgpRecogDIB;
+        Bool32 gbAutoRotate;
+        Bool32 gbDotMatrix;
+        Bool32 gbFax100;
+        Bool32 gbOneColumn;
+        Bool32 gKillVSLComponents;
+        uint32_t gnLanguage;
+        uint32_t gnTables;
+        Handle hCPAGE;
+        Handle hCCOM;
+        Handle hCLINE;
+        Handle hDebugCancelSearchPictures;
+        Handle hDebugCancelComponent;
+        Handle hDebugCancelTurn;
+        Handle hDebugCancelSearchLines;
+        Handle hDebugCancelVerifyLines;
+        Handle hDebugCancelSearchDotLines;
+        Handle hDebugCancelRemoveLines;
+        Handle hDebugCancelSearchTables;
+        Handle hDebugLayoutFromFile;
+        Handle hDebugCancelExtractBlocks;
+        Handle hDebugHandLayout;
+        Handle hDebugPrintBlocksCPAGE;
+        Handle hDebugSVLines;
+        Handle hDebugSVLinesStep;
+        Handle hDebugSVLinesData;
+        Handle hDebugEnableSearchSegment;
+        char *szLayoutFileName;
+        const char ** pglpRecogName;
+        void * pinfo;
+        Handle* phLinesCCOM;
+        PBool32 pgneed_clean_line;
+        int32_t * pgnNumberTables;
+        uint32_t gnPictures;
+        Bool32* pgrc_line;
+};
 
-typedef struct tagRMCBProgressPoints {
-    void * pDPumaSkipComponent;
-    void * pDPumaSkipTurn;
-    void * pGetModulePath;
-    void * pSetUpdate;
-} RMCBProgressPoints, *PRMCBProgressPoints;
-#define PUMA_SVL_FIRST_STEP                         0x1
-#define PUMA_SVL_SECOND_STEP                        0x2
-#define PUMA_SVL_THRID_STEP                         0x3
-#define PUMAMaxNumLines                             2000
+typedef RMPreProcessImage * PRMPreProcessImage;
+
+struct RMCBProgressPoints
+{
+        void * pDPumaSkipComponent;
+        void * pDPumaSkipTurn;
+        void * pGetModulePath;
+        void * pSetUpdate;
+};
+
+typedef RMCBProgressPoints * PRMCBProgressPoints;
+
+enum
+{
+    PUMA_SVL_FIRST_STEP = 0x1,
+    PUMA_SVL_SECOND_STEP = 0x2,
+    PUMA_SVL_THRID_STEP = 0x3
+};
+
+const int PUMAMaxNumLines = 2000;
 #define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c;
 DEC_FUN(Bool32, PageMarkup, (PRMPreProcessImage, void*, int, void*, int))
 DEC_FUN(Bool32, SearchTableInZone, (Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect))
