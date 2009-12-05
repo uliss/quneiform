@@ -31,9 +31,53 @@
 #include "common/cifconfig.h"
 #include "common/debug.h"
 #include "common/helper.h"
-#include "specprj.h"
 #include "ligas.h"      // 12.06.2002 E.P.
+#include "ccom/ccom.h"
+#include "ced/ced.h"
+#include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
+#include "cline/cline.h"
+#include "cstr/cstr.h"
+#include "cpage/cpage.h"
+#include "dpuma.h"
+#include "exc/exc.h"
+#include "rblock/rblock.h"
+#include "rcorrkegl/rcorrkegl.h"
+#include "rfrmt/rfrmt.h"
+#include "rimage/criimage.h"
+#include "rline/rline.h"
+#include "rmarker/rmarker.h"
+#include "rout/rout.h"
+#include "rpic/rpic.h"
+#include "rpstr/rpstr.h"
+#include "rreccom/rreccom.h"
+#include "rselstr/rselstr.h"
+#include "rshelllines/rsl.h"
+#include "rstr/rstr.h"
+#include "rstuff/rstuff.h"
+#include "rverline/rverline.h"
+
+// 1. Отладочная информаци
+static Handle hDebugCancelRemoveLines = NULL;
+static Handle hDebugCancelSearchLines = NULL;
+static Handle hDebugCancelAutoTemplate = NULL;
+static Handle hDebugCancelSearchTables = NULL;
+static Handle hDebugCancelVerifyLines = NULL;
+static Handle hDebugCancelSearchDotLines = NULL;
+static Handle hDebugCancelComponent = NULL;
+static Handle hDebugCancelExtractBlocks = NULL;
+static Handle hDebugCancelStringsPass2 = NULL;
+static Handle hDebugCancelSearchPictures = NULL;
+static Handle hDebugEnableSearchSegment = NULL;
+static Handle hDebugStrings = NULL;
+static Handle hDebugSVLines = NULL;
+static Handle hDebugSVLinesStep = NULL;
+static Handle hDebugSVLinesData = NULL;
+static Handle hDebugLayoutFromFile = NULL;
+static Handle hDebugHandLayout = NULL;
+static Handle hDebugPrintBlocksCPAGE = NULL;
+static Handle hDebugCancelTurn = NULL;
+static Handle hDebugEnablePrintFormatted = NULL;
 
 char global_buf[64000]; // OLEG fot Consistent
 int32_t global_buf_len = 0; // OLEG fot Consistent
@@ -619,7 +663,7 @@ void PumaImpl::pass2()
 
 void PumaImpl::spellCorrection()
 {
-    if (!LDPUMA_Skip(hDebugEnableSaveCstr3))
+    if (Config::instance().debugDump())
         saveCSTR(3);
 
     // Дораспознаем по словарю
@@ -905,11 +949,6 @@ void PumaImpl::recognizePass1()
 
 void PumaImpl::recognizePass2()
 {
-    if (!LDPUMA_Skip(hDebugCancelStringsPass2)) {
-        LDPUMA_Console("Пропущен этап второго прохода распознавания.\n");
-        return;
-    }
-
     // рапознавание строк
     uchar w8 = 1;
     RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
