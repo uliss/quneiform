@@ -132,13 +132,13 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt)
 {
     using namespace std;
     os << "FormatOptions:\n";
-    os << setw(20) << "   SerifName:" << fmt.serifName() << "\n";
-    os << setw(20) << "   SansSerifName:" << fmt.sansSerifName() << "\n";
-    os << setw(20) << "   Monospace Name:" << fmt.monospaceName() << "\n";
-    os << setw(20) << "   Use bold:" << fmt.isBoldUsed() << "\n";
-    os << setw(20) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
-    os << setw(20) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
-    os << setw(20) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
+    os << setw(25) << "   SerifName:" << fmt.serifName() << "\n";
+    os << setw(25) << "   SansSerifName:" << fmt.sansSerifName() << "\n";
+    os << setw(25) << "   Monospace Name:" << fmt.monospaceName() << "\n";
+    os << setw(25) << "   Use bold:" << fmt.isBoldUsed() << "\n";
+    os << setw(25) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
+    os << setw(25) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
+    os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
     return os;
 }
 

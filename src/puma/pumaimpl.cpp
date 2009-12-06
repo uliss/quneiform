@@ -29,6 +29,7 @@
 #include "common/cifconfig.h"
 #include "common/debug.h"
 #include "common/helper.h"
+#include "common/tostring.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
 #include "ced/ced.h"
@@ -723,6 +724,22 @@ void PumaImpl::preprocessImage()
     SetPageInfo(cpage_, PInfo);
 }
 
+void PumaImpl::printRecognizeOptions()
+{
+    Debug() << "##################################################################\n"
+            << " Recognize options:\n" << boolalpha << std::left << setw(25)
+            << "  Spell: " << do_spell_corretion_ << "\n" << setw(25)
+            << "  Fax:   "  << fax100_ << "\n" << setw(25)
+            << "  Single column layout: " << one_column_ << "\n"  << setw(25)
+            << "  Dot matix: " << dot_matrix_ << "\n"  << setw(25)
+            << "  Autorotate: " << auto_rotate_ << "\n" << setw(25)
+            << "  Line breaks: " << preserve_line_breaks_ << "\n" << setw(25)
+            << "  Language: " << language_ << "\n" << setw(10)
+            << "  Page: " << rect_template_ << "\n"
+            << "  " << format_options_
+            << "##################################################################\n";
+}
+
 void PumaImpl::printResult(std::ostream& os)
 {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
@@ -792,8 +809,10 @@ void PumaImpl::recognize()
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();
 
-    if (Config::instance().debug())
+    if (Config::instance().debug()) {
         Debug() << "Puma recognize\n";
+        printRecognizeOptions();
+    }
 
     CSTR_DeleteAll();
 

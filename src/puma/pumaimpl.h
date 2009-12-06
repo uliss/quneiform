@@ -97,6 +97,7 @@ class PumaImpl
         void pass2special();
         void preOpenInitialize();
         void preprocessImage();
+        void printRecognizeOptions();
         void printResult(std::ostream& os);
         void printResultLine(std::ostream& os, size_t lineNumber);
         void postOpenInitialize();
