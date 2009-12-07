@@ -115,13 +115,6 @@ Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect
     return TRUE;
 }
 
-Bool32 RMARKER_SetImportData(uint32_t dwType, void * pData)
-{
-    Bool rc = FALSE;
-    rc = SetCBProgressPoints(pData);
-    return rc;
-}
-
 Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
 {
     LDPUMA_Init(0, NULL);

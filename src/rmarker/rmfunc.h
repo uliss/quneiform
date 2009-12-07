@@ -65,10 +65,12 @@
 
 typedef int Bool;
 
-# define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
-struct BIG_IMAGE {
-    CCOM_handle hCCOM;
-    uchar ImageName[CPAGE_MAXNAME];
+#define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
+
+struct BIG_IMAGE
+{
+        CCOM_handle hCCOM;
+        uchar ImageName[CPAGE_MAXNAME];
 };
 
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
@@ -84,13 +86,5 @@ void SetMainBuff(void *vBuff, int Size);
 void SetWorkBuff(void *vBuff, int Size);
 void ReSetMem(void);
 void MySetNegative(void *vB, Handle hCPage);
-//
-#define DEC_CB_TYPE(a)  PF##a
-#define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
-DEC_CB_FUN(Bool32, DPumaSkipComponent, (void))
-DEC_CB_FUN(Bool32, DPumaSkipTurn, (void))
-DEC_CB_FUN(void, SetUpdate, (uint32_t, uint32_t))
-DEC_CB_FUN(char *, GetModulePath, (void))
-#undef DEC_CB_FUN
 
 #endif

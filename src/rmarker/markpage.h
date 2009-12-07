@@ -97,7 +97,6 @@
 #endif
 
 EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
-EXTERN RMCBProgressPoints ProgressPoints VALM(NULL);
 EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
 
 void SetReturnCode_rmarker(uint32_t rc);

@@ -73,7 +73,6 @@
 #endif
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
-RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 
 struct RMPreProcessImage
 {
@@ -95,16 +94,6 @@ struct RMPreProcessImage
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;
-
-struct RMCBProgressPoints
-{
-        void * pDPumaSkipComponent;
-        void * pDPumaSkipTurn;
-        void * pGetModulePath;
-        void * pSetUpdate;
-};
-
-typedef RMCBProgressPoints * PRMCBProgressPoints;
 
 enum
 {

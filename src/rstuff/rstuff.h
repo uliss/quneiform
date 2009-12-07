@@ -112,6 +112,7 @@ typedef struct tagRSCBProgressPoints {
     void * pDPumaSkipComponent;
     void * pDPumaSkipTurn;
     void * pSetUpdate;
+    void * pGetModulePath;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 
 RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);

@@ -136,11 +136,12 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
-                    PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
-                    NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                    NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO)
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANG_RUSENG),
+            layout_filename_("layout.bin"), pictures_(PUMA_PICTURE_ALL),
+            tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
+                    NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), rc_line_(
+                    TRUE), kill_vsl_components_(TRUE), need_clean_line_(FALSE), recog_name_(NULL),
+            special_project_(SPEC_PRJ_NO)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -329,15 +330,11 @@ void PumaImpl::layout()
     binarizeImage();
     RSCBProgressPoints CBforRS;
     RSPreProcessImage DataforRS;
-    RMCBProgressPoints CBforRM;
     RMPreProcessImage DataforRM;
 
     CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
     CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
     CBforRS.pSetUpdate = (void*) SetUpdate;
-    CBforRM.pDPumaSkipComponent = (void*) DPumaSkipComponent;
-    CBforRM.pDPumaSkipTurn = (void*) DPumaSkipTurn;
-    CBforRM.pSetUpdate = (void*) SetUpdate;
 
     DataforRS.gbAutoRotate = auto_rotate_;
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
@@ -397,12 +394,10 @@ void PumaImpl::layout()
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.szLayoutFileName = layout_filename_.c_str();
 
-    if (RMARKER_SetImportData(0, &CBforRM)) {
-        if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
-            throw PumaException("RMARKER_PageMarkup failed");
+    if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
+        throw PumaException("RMARKER_PageMarkup failed");
 
-        cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
-    }
+    cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
 
     if (Config::instance().debug()) {
         Debug() << "Container CPAGE has: \n name : size\n";
@@ -700,8 +695,8 @@ void PumaImpl::printRecognizeOptions()
             << do_spell_corretion_ << "\n" << setw(25) << "  Fax:   " << fax100_ << "\n"
             << setw(25) << "  Single column layout: " << one_column_ << "\n" << setw(25)
             << "  Dot matix: " << dot_matrix_ << "\n" << setw(25) << "  Autorotate: "
-            << auto_rotate_ << "\n" << setw(25) << "  Language: " << language_ << "\n" << setw(10) << "  Page: "
-            << rect_template_ << "\n" << "  " << format_options_
+            << auto_rotate_ << "\n" << setw(25) << "  Language: " << language_ << "\n" << setw(10)
+            << "  Page: " << rect_template_ << "\n" << "  " << format_options_
             << "##################################################################\n";
 }
 

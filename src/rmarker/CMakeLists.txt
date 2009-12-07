@@ -3,7 +3,6 @@ ${SNP_SRC}
 dll.cpp
 rmarker.cpp
 rmarkermem.cpp
-rmtimer.cpp
 shortverticallinesfilter.cpp
 ../usage/amu_geom.cpp
 ../usage/line_am_util.cpp
