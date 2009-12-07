@@ -75,7 +75,6 @@ struct BIG_IMAGE
 
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
 Bool32 PageMarkup(PRMPreProcessImage Image);
-Bool32 SetCBProgressPoints(void *);
 uint32_t GetReturnCode_rmarker(void);
 Bool32 SearchPictures(PRMPreProcessImage, BIG_IMAGE);
 Bool32 SearchNeg(PRMPreProcessImage, BIG_IMAGE, int);
