@@ -46,7 +46,6 @@
 #include "rimage/criimage.h"
 #include "rline/rline.h"
 #include "rmarker/rmarker.h"
-#include "rout/rout.h"
 #include "rpic/rpic.h"
 #include "rpstr/rpstr.h"
 #include "rreccom/rreccom.h"
@@ -55,6 +54,7 @@
 #include "rstr/rstr.h"
 #include "rstuff/rstuff.h"
 #include "rverline/rverline.h"
+#include "rout/exporterfactory.h"
 
 // 1. Отладочная информаци
 static Handle hDebugCancelRemoveLines = NULL;
@@ -73,8 +73,6 @@ static Handle hDebugSVLines = NULL;
 static Handle hDebugSVLinesStep = NULL;
 static Handle hDebugSVLinesData = NULL;
 static Handle hDebugLayoutFromFile = NULL;
-static Handle hDebugHandLayout = NULL;
-static Handle hDebugPrintBlocksCPAGE = NULL;
 static Handle hDebugCancelTurn = NULL;
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng)
@@ -138,8 +136,7 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), preserve_line_breaks_(
-                    false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANG_RUSENG), layout_filename_("layout.bin"), pictures_(
                     PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
                     NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
@@ -385,41 +382,20 @@ void PumaImpl::layout()
 
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbAutoRotate = auto_rotate_;
-    DataforRM.pgpRecogDIB = (uchar**) &recog_dib_;
     DataforRM.gbOneColumn = one_column_;
     DataforRM.gKillVSLComponents = kill_vsl_components_;
-    DataforRM.pinfo = &info_;
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = cline_;
-    DataforRM.phLinesCCOM = &lines_ccom_;
     DataforRM.gnPictures = pictures_;
     DataforRM.gnLanguage = language_;
-    DataforRM.gbDotMatrix = dot_matrix_;
-    DataforRM.gbFax100 = fax100_;
-    DataforRM.pglpRecogName = &recog_name_;
-    DataforRM.pgrc_line = &rc_line_;
-    DataforRM.gnTables = tables_;
-    DataforRM.pgnNumberTables = &tables_num_;
-    DataforRM.pgneed_clean_line = &need_clean_line_;
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    DataforRM.hDebugCancelComponent = hDebugCancelComponent;
-    DataforRM.hDebugCancelTurn = hDebugCancelTurn;
-    DataforRM.hDebugCancelSearchLines = hDebugCancelSearchLines;
-    DataforRM.hDebugCancelVerifyLines = hDebugCancelVerifyLines;
-    DataforRM.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
-    DataforRM.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
-    DataforRM.hDebugCancelSearchTables = hDebugCancelSearchTables;
     DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
     DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    DataforRM.hDebugHandLayout = hDebugHandLayout;
-    DataforRM.hDebugPrintBlocksCPAGE = hDebugPrintBlocksCPAGE;
     DataforRM.hDebugSVLines = hDebugSVLines;
     DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-    DataforRM.szLayoutFileName = (char*) layout_filename_.c_str();
-    DataforRM.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
+    DataforRM.szLayoutFileName = layout_filename_.c_str();
 
     if (RMARKER_SetImportData(0, &CBforRM)) {
         if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
@@ -458,7 +434,6 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname)
 
 void PumaImpl::modulesDone()
 {
-    ROUT_Done();
     CED_Done();
     RCORRKEGL_Done();
     RPIC_Done();
@@ -559,12 +534,6 @@ void PumaImpl::modulesInit()
 
         if (!CED_Init(PUMA_MODULE_CED, ghStorage))
             throw PumaException("CED_Init failed.");
-
-        if (!ROUT_Init(PUMA_MODULE_ROUT, ghStorage))
-            throw PumaException("ROUT_Init failed.");
-
-        if (!ROUT_LoadRec6List("rec6all.dat"))
-            throw PumaException("ROUT_LoadRec6List failed.");
 
 #ifdef _USE_RVERLINE_
 
@@ -727,16 +696,12 @@ void PumaImpl::preprocessImage()
 void PumaImpl::printRecognizeOptions()
 {
     Debug() << "##################################################################\n"
-            << " Recognize options:\n" << boolalpha << std::left << setw(25)
-            << "  Spell: " << do_spell_corretion_ << "\n" << setw(25)
-            << "  Fax:   "  << fax100_ << "\n" << setw(25)
-            << "  Single column layout: " << one_column_ << "\n"  << setw(25)
-            << "  Dot matix: " << dot_matrix_ << "\n"  << setw(25)
-            << "  Autorotate: " << auto_rotate_ << "\n" << setw(25)
-            << "  Line breaks: " << preserve_line_breaks_ << "\n" << setw(25)
-            << "  Language: " << language_ << "\n" << setw(10)
-            << "  Page: " << rect_template_ << "\n"
-            << "  " << format_options_
+            << " Recognize options:\n" << boolalpha << std::left << setw(25) << "  Spell: "
+            << do_spell_corretion_ << "\n" << setw(25) << "  Fax:   " << fax100_ << "\n"
+            << setw(25) << "  Single column layout: " << one_column_ << "\n" << setw(25)
+            << "  Dot matix: " << dot_matrix_ << "\n" << setw(25) << "  Autorotate: "
+            << auto_rotate_ << "\n" << setw(25) << "  Language: " << language_ << "\n" << setw(10) << "  Page: "
+            << rect_template_ << "\n" << "  " << format_options_
             << "##################################################################\n";
 }
 
@@ -1091,77 +1056,6 @@ void PumaImpl::rotate(void * dib, Point * p)
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::rout(const std::string& filename, int Format) const
-{
-    char szName[260];
-    strcpy(szName, filename.c_str());
-    char * str = strrchr(szName, '.');
-
-    if (str)
-        *(str) = '\0';
-
-    char unrecog = format_options_.unrecognizedChar();
-
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
-            || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
-            ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(ROUT_LONG_Format,
-            (void*) Format) || !ROUT_SetImportData(ROUT_LONG_Code, (void*) PUMA_CODE_UTF8)
-            || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
-        throw PumaException("ROUT_SetImportData failed");
-
-    // Количество объектов
-    long countObjects = ROUT_CountObjects();
-
-    if (countObjects == -1)
-        return;
-
-    // Цикл по объектам на странице
-    for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
-        std::string path(filename);
-
-        if (countObjects != 1) {
-            path = ROUT_GetDefaultObjectName(objIndex);
-
-            if (!path.empty())
-                throw PumaException("ROUT_GetDefaultObjectName failed");
-        }
-
-        if (!ROUT_SaveObject(objIndex, path.c_str(), FALSE))
-            throw PumaException("ROUT_SaveObject failed");
-    }
-}
-
-void PumaImpl::rout(void * dest, size_t size, int format) const
-{
-    char unrecog = format_options_.unrecognizedChar();
-
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) preserve_line_breaks_)
-            || !ROUT_SetImportData(ROUT_HANDLE_PageHandle, ed_page_) || !ROUT_SetImportData(
-            ROUT_LONG_Format, (void*) format) || !ROUT_SetImportData(ROUT_LONG_Code,
-            (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR, (void*) &unrecog))
-        throw PumaException("ROUT_SetImportData failed");
-
-    // Количество объектов
-    long countObjects = ROUT_CountObjects();
-
-    if (countObjects == -1)
-        return;
-
-    // Просмотрим размер памяти
-    long nSize = 0;
-
-    // Цикл по объектам на странице
-    for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
-        long nCurSize = ROUT_GetObjectSize(objIndex);
-        nSize += nCurSize;
-
-        if (nSize <= (long) size) {
-            if (!ROUT_GetObject(objIndex, (uchar*) dest + (nSize - nCurSize), &nCurSize))
-                throw PumaException("ROUT_GetObject failed");
-        }
-    }
-}
-
 void PumaImpl::save(const std::string& filename, int Format) const
 {
     if (!ed_page_)
@@ -1170,53 +1064,11 @@ void PumaImpl::save(const std::string& filename, int Format) const
     if (Config::instance().debug())
         Debug() << "Puma save to: " << filename << endl;
 
-    switch (Format) {
-    case PUMA_DEBUG_TOTEXT:
-        saveToText(filename);
-        break;
-    case PUMA_TORTF:
-
-        if (!CED_WriteFormattedRtf(filename.c_str(), ed_page_))
-            throw PumaException("Save to RTF failed");
-
-        break;
-    case PUMA_TOEDNATIVE:
-
-        if (!CED_WriteFormattedEd(filename.c_str(), ed_page_))
-            throw PumaException("Save to native format failed");
-
-        break;
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-    case PUMA_TOTABLEDBF:
-    case PUMA_TOHTML:
-    case PUMA_TOHOCR:
-        rout(filename, Format);
-        break;
-    default: {
-        ostringstream os;
-        os << "Unknown output format: " << Format;
-        throw PumaException(os.str());
-    }
-    }
-}
-
-void PumaImpl::save(void * dest, size_t size, int format) const
-{
-    switch (format) {
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-    case PUMA_TOTABLEDBF:
-    case PUMA_TOHTML:
-        rout(dest, size, format);
-    default: {
-        ostringstream os;
-        os << "Unknown output format: " << format;
-        throw PumaException(os.str());
-    }
-    }
+    ExporterFactory::instance().setPage(ed_page_);
+    ExporterFactory::instance().setFormatOptions(format_options_);
+    Exporter * exp = ExporterFactory::instance().make(Format);
+    exp->exportTo(filename);
+    delete exp;
 }
 
 void PumaImpl::saveCSTR(int pass)
@@ -1245,10 +1097,7 @@ void PumaImpl::saveToText(ostream& os) const
         if (!lin_out)
             throw PumaException("CSTR_GetLineHandle failed");
 
-        char txt[500];
-
-        if (CSTR_LineToTxt(lin_out, txt))
-            os << txt << "\n";
+        os << CSTR_LineToTxt(lin_out, "~") << "\n";
     }
 }
 
@@ -1301,11 +1150,6 @@ void PumaImpl::setOptionPictures(puma_picture_t type)
 {
     pictures_ = type;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionPreserveLineBreaks(bool value)
-{
-    preserve_line_breaks_ = value;
 }
 
 void PumaImpl::setOptionTable(puma_table_t mode)

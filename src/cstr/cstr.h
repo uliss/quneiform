@@ -66,6 +66,8 @@
 #ifndef __CSTR_H
 #define __CSTR_H
 
+#include <string>
+
 #include "globus.h"
 #include "ccom/ccomdefs.h"
 #include "cstrdefs.h"
@@ -255,8 +257,7 @@ typedef int32_t (*FNCSTR_NewUserCode)(void);
 CSTR_FUNC int32_t CSTR_NewUserCode(void);
 // 27   CSTR_FNVERSION      версия библиотеки
 // 28   CSTR_FNTOTXT        получить текстовый обрах строки
-typedef Bool32 (*FNCSTR_LineToTxt)(CSTR_line lin, char *txt);
-CSTR_FUNC Bool32 CSTR_LineToTxt(CSTR_line lin, char *txt);
+CSTR_FUNC std::string CSTR_LineToTxt(CSTR_line line, const char * UnrecognizedChar);
 // 29   CSTR_FNINSRST       вставить растр после текущего
 typedef CSTR_rast (*FNCSTR_InsertRaster)(CSTR_rast curr_raster);
 CSTR_FUNC CSTR_rast CSTR_InsertRaster(CSTR_rast curr_raster);

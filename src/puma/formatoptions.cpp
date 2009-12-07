@@ -23,9 +23,9 @@ namespace CIF
 {
 
 FormatOptions::FormatOptions() :
-        serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-        use_bold_(true), use_italic_(true), use_font_size_(true),
-        format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANG_RUSENG)
+    serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
+            use_bold_(true), use_italic_(true), use_font_size_(true), preserve_line_breaks_(false),
+            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANG_RUSENG)
 {
 }
 
@@ -63,6 +63,11 @@ std::string FormatOptions::monospaceName() const
     return monospace_name_;
 }
 
+bool FormatOptions::preserveLineBreaks() const
+{
+    return preserve_line_breaks_;
+}
+
 std::string FormatOptions::sansSerifName() const
 {
     return sans_serif_name_;
@@ -73,7 +78,7 @@ std::string FormatOptions::serifName() const
     return serif_name_;
 }
 
-void FormatOptions:: setFormatMode(puma_format_mode_t format)
+void FormatOptions::setFormatMode(puma_format_mode_t format)
 {
     format_mode_ = format;
 }
@@ -86,6 +91,10 @@ void FormatOptions::setLanguage(language_t lang)
 void FormatOptions::setMonospaceName(const std::string & name)
 {
     monospace_name_ = name;
+}
+
+void FormatOptions::setPreserveLineBreaks(bool val) {
+    preserve_line_breaks_ = val;
 }
 
 void FormatOptions::setSansSerifName(const std::string & name)
@@ -139,6 +148,7 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt)
     os << setw(25) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
     os << setw(25) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
     os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
+    os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";
     return os;
 }
 

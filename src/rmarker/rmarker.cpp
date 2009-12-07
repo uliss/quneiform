@@ -73,15 +73,15 @@
 
 #include "compat_defs.h"
 
-# define INCLINE_FACTOR  2048
+#define INCLINE_FACTOR  2048
 
-# define IDEAL_XY(x, y)   \
+#define IDEAL_XY(x, y)   \
          {\
              y = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR);\
              x = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);\
          }
 
-# define REAL_XY(x, y)   \
+#define REAL_XY(x, y)   \
          {\
              x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
              y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
@@ -126,12 +126,10 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     Bool32 rc = TRUE;
     gSVLBuffer.VLinefBufferA = NULL;
     gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(
-                               sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
-                               "SVL step I lines info pool");
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(
-                               sizeof(LinesTotalInfo), MAF_GALL_GPTR, "puma",
-                               "SVL step II lines info pool");
+    gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
+            MAF_GALL_GPTR, "puma", "SVL step I lines info pool");
+    gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
+            MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
 
     if (rc) {
         rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
@@ -151,8 +149,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
 
     if (h) {
-        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image,
-                           sizeof(BIG_IMAGE));
+        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
         CPAGE_DeleteBlock(Image->hCPAGE, h);
     }
 
@@ -176,8 +173,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
             && LDPUMA_Skip(hDebugLinePass2)) {
         if (rc)
-            RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM,
-                             (uchar) Image->gnLanguage);
+            RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar) Image->gnLanguage);
     }
 
     LDPUMA_Skip(hSVLP);
@@ -197,8 +193,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     LDPUMA_Skip(hBlocks);
 
     if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
-        Image->hCPAGE = CPAGE_RestorePage(TRUE,
-                                          (pchar)(Image->szLayoutFileName));
+        Image->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (Image->szLayoutFileName));
 
         if (Image->hCPAGE == NULL) {
             SetReturnCode_rmarker(CPAGE_GetReturnCode());
@@ -207,8 +202,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
         else {
             CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n",
-                           Image->szLayoutFileName);
+            LDPUMA_Console("Layout восстановлен из файла '%s'\n", Image->szLayoutFileName);
         }
     }
 
@@ -217,13 +211,10 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
             if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
                 Bool32 bEnableSearchPicture;
                 bEnableSearchPicture = Image->gnPictures;
-                RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture,
-                                     &bEnableSearchPicture);
-                RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn,
-                                     &(Image->gbOneColumn));
+                RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+                RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
 
-                if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE,
-                                              Image->hCLINE)) {
+                if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
                     SetReturnCode_rmarker(RBLOCK_GetReturnCode());
                     rc = FALSE;
                 }
@@ -269,8 +260,7 @@ Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image)
 
     if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
         if (Image->gnPictures) {
-            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM,
-                                     Image->hCPAGE)) {
+            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
                 uint32_t RPicRetCode = RPIC_GetReturnCode();
                 SetReturnCode_rmarker(RPicRetCode);
                 rc = FALSE;

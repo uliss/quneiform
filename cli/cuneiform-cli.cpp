@@ -441,6 +441,8 @@ int main(int argc, char **argv) {
 
         if (unrecognized_char)
             opt.setUnrecognizedChar(unrecognized_char);
+        if(preserve_line_breaks)
+            opt.setPreserveLineBreaks(true);
 
         //  opt.useBold(true);
         //  opt.useItalic(true);
@@ -453,9 +455,6 @@ int main(int argc, char **argv) {
             Puma::instance().setOptionPictures(PUMA_PICTURE_ALL);
         else
             Puma::instance().setOptionPictures(PUMA_PICTURE_NONE);
-
-        if (preserve_line_breaks)
-            Puma::instance().setOptionPreserveLineBreaks(true);
 
         //  Puma::instance().setOptionTables(puma_table_t mode);
 

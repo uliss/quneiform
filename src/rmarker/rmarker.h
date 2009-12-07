@@ -77,41 +77,21 @@ RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 
 struct RMPreProcessImage
 {
-        puchar *pgpRecogDIB;
-        Bool32 gbAutoRotate;
-        Bool32 gbDotMatrix;
         Bool32 gbFax100;
         Bool32 gbOneColumn;
         Bool32 gKillVSLComponents;
         uint32_t gnLanguage;
-        uint32_t gnTables;
         Handle hCPAGE;
         Handle hCCOM;
         Handle hCLINE;
         Handle hDebugCancelSearchPictures;
-        Handle hDebugCancelComponent;
-        Handle hDebugCancelTurn;
-        Handle hDebugCancelSearchLines;
-        Handle hDebugCancelVerifyLines;
-        Handle hDebugCancelSearchDotLines;
-        Handle hDebugCancelRemoveLines;
-        Handle hDebugCancelSearchTables;
         Handle hDebugLayoutFromFile;
         Handle hDebugCancelExtractBlocks;
-        Handle hDebugHandLayout;
-        Handle hDebugPrintBlocksCPAGE;
         Handle hDebugSVLines;
         Handle hDebugSVLinesStep;
         Handle hDebugSVLinesData;
-        Handle hDebugEnableSearchSegment;
-        char *szLayoutFileName;
-        const char ** pglpRecogName;
-        void * pinfo;
-        Handle* phLinesCCOM;
-        PBool32 pgneed_clean_line;
-        int32_t * pgnNumberTables;
+        const char *szLayoutFileName;
         uint32_t gnPictures;
-        Bool32* pgrc_line;
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;

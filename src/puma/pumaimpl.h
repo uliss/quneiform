@@ -58,7 +58,6 @@ class PumaImpl
         Rect pageTemplate() const;
         void recognize();
         void save(const std::string& outputFilename, int format) const;
-        void save(void * dest, size_t size, int format) const;
         void setFormatOptions(const FormatOptions& opt);
         void setOptionAutoRotate(bool val);
         void setOptionDotMatrix(bool val);
@@ -67,7 +66,6 @@ class PumaImpl
         void setOptionLanguage(language_t language);
         void setOptionOneColumn(bool val);
         void setOptionPictures(puma_picture_t type);
-        void setOptionPreserveLineBreaks(bool value);
         void setOptionTable(puma_table_t mode);
         void setOptionUserDictionaryName(const char * name);
         void setOptionUseSpeller(bool value = true);
@@ -107,8 +105,6 @@ class PumaImpl
         void recognizeSetup(int lang);
         void recognizeSpecial();
         void rotate(void * dib, Point * p);
-        void rout(const std::string& fname, int Format) const;
-        void rout(void * dest, size_t size, int format) const;
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
@@ -126,7 +122,6 @@ class PumaImpl
         bool one_column_;
         bool dot_matrix_;
         bool auto_rotate_;
-        bool preserve_line_breaks_;
         language_t language_;
         std::string user_dict_name_;
         std::string input_filename_;

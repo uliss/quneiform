@@ -259,8 +259,8 @@ Bool32 cstr_copy_branch(CSTR_rast sta, CSTR_rast sto, CSTR_rast be, CSTR_rast en
 
     for (c = be; c && c != e; c = CSTR_GetNext(c)) {
         if (CSTR_GetAttr((CSTR_rast) c, &attr) && CSTR_GetImage((CSTR_rast) c, (uchar *) &rs,
-                                                                CSTR_TYPE_IMAGE_RS) && CSTR_GetCollectionUni((CSTR_rast) c, &vr) && (comp
-                                                                                                                                     = CSTR_GetComp(c)) != NULL) {
+                CSTR_TYPE_IMAGE_RS) && CSTR_GetCollectionUni((CSTR_rast) c, &vr) && (comp
+                = CSTR_GetComp(c)) != NULL) {
             if (c == be) { // first branch raster
                 if (!(rn = CSTR_InsertRasterDown(sta, sto)))
                     return FALSE;
@@ -317,7 +317,7 @@ Bool32 CSTR_CopyLine(CSTR_line trg, CSTR_line src)
     CSTR_SetLineAttr(trg, &lattr);
 
     for (c = CSTR_GetNextRaster(start, CSTR_f_all); c && c != stop; c = CSTR_GetNextRaster(c,
-                                                                        CSTR_f_all)) {
+            CSTR_f_all)) {
         if (CSTR_GetAttr(c, &attr) && CSTR_GetImage(c, (uchar *) &rs, CSTR_TYPE_IMAGE_RS)
                 && CSTR_GetCollectionUni(c, &vr) && (comp = CSTR_GetComp(c)) != NULL) {
             if (!(cnew = CSTR_NewRaster(trg, attr.col, attr.row, attr.w)))
@@ -988,7 +988,7 @@ Bool32 CSTR_StoreRaster(CSTR_rast curr_raster, RecRaster *recr)
     line = (CSTR_head*) (cell->line_no);
 
     if (!(cell->env = CCOM_New(line->container, cell->attr.row, cell->attr.col, cell->attr.w,
-                               cell->attr.h))) {
+            cell->attr.h))) {
         wLowRC = CSTR_ERR_INTERNAL;
         return FALSE;
     }
@@ -1021,7 +1021,7 @@ Bool32 CSTR_StoreComp(CSTR_rast curr_raster, uchar *lp, Bool32 raster_init, ucha
     line = (CSTR_head*) (cell->line_no);
 
     if (!(comp = CCOM_New(line->container, cell->attr.row, cell->attr.col, cell->attr.w,
-                          cell->attr.h))) {
+            cell->attr.h))) {
         wLowRC = CSTR_ERR_INTERNAL;
         return FALSE;
     }
@@ -1149,47 +1149,47 @@ Bool32 CSTR_GetImage(CSTR_rast curr_raster, uchar *out_res, uint32_t type_image)
     }
 
     switch (type_image) {
-        case CSTR_TYPE_IMAGE_LP: // linepepresentation
+    case CSTR_TYPE_IMAGE_LP: // linepepresentation
 
-            if (cell->env == NULL || cell->env->size_linerep <= 0) {
-                wLowRC = CSTR_ERR_NULL;
-                return FALSE;
-            }
-
-            memcpy(out_res, cell->env->linerep, cell->env->size_linerep);
-            break;
-        case CSTR_TYPE_IMAGE_RS: // RecRaster
-
-            if (cell->recRaster && (cell->lnPixWidth == 0 || cell->lnPixHeight == 0)) {
-                wLowRC = CSTR_ERR_NULL;
-                return FALSE;
-            }
-
-            if (cell->env && !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight) {
-                if (!cstr_CCOM2raster(cell->env, cell))
-                    return FALSE;
-            }
-
-            rst2RecRaster(cell, (RecRaster*) out_res);
-            ((RecRaster*) out_res)->lnRasterBufSize = REC_MAX_RASTER_SIZE;
-            break;
-        case CSTR_TYPE_IMAGE_RS1: // B/W bitmap aligned to 1 byte
-
-            if (cell->recRaster && (cell->lnPixWidth == 0 || cell->lnPixHeight == 0)) {
-                wLowRC = CSTR_ERR_NULL;
-                return FALSE;
-            }
-
-            if (cell->env && !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight) {
-                if (!cstr_CCOM2raster(cell->env, cell))
-                    return FALSE;
-            }
-
-            memcpy(out_res, cell->recRaster, ((cell->lnPixWidth + 7) / 8) * cell->lnPixHeight);
-            break;
-        default:
-            wLowRC = CSTR_ERR_VALUE;
+        if (cell->env == NULL || cell->env->size_linerep <= 0) {
+            wLowRC = CSTR_ERR_NULL;
             return FALSE;
+        }
+
+        memcpy(out_res, cell->env->linerep, cell->env->size_linerep);
+        break;
+    case CSTR_TYPE_IMAGE_RS: // RecRaster
+
+        if (cell->recRaster && (cell->lnPixWidth == 0 || cell->lnPixHeight == 0)) {
+            wLowRC = CSTR_ERR_NULL;
+            return FALSE;
+        }
+
+        if (cell->env && !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight) {
+            if (!cstr_CCOM2raster(cell->env, cell))
+                return FALSE;
+        }
+
+        rst2RecRaster(cell, (RecRaster*) out_res);
+        ((RecRaster*) out_res)->lnRasterBufSize = REC_MAX_RASTER_SIZE;
+        break;
+    case CSTR_TYPE_IMAGE_RS1: // B/W bitmap aligned to 1 byte
+
+        if (cell->recRaster && (cell->lnPixWidth == 0 || cell->lnPixHeight == 0)) {
+            wLowRC = CSTR_ERR_NULL;
+            return FALSE;
+        }
+
+        if (cell->env && !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight) {
+            if (!cstr_CCOM2raster(cell->env, cell))
+                return FALSE;
+        }
+
+        memcpy(out_res, cell->recRaster, ((cell->lnPixWidth + 7) / 8) * cell->lnPixHeight);
+        break;
+    default:
+        wLowRC = CSTR_ERR_VALUE;
+        return FALSE;
     }
 
     return TRUE;
@@ -1430,35 +1430,35 @@ int32_t CSTR_NewUserCode(void)
     return user_number;
 }
 
-Bool32 CSTR_LineToTxt(CSTR_line lin, char *txt)
+std::string CSTR_LineToTxt(CSTR_line lin, const char * UnrecognizedChar)
 {
-    CSTR_rast start = CSTR_GetFirstRaster(lin), stop = CSTR_GetLastRaster(lin), c;
-    UniVersions vers;
-    CSTR_rast_attr attr;
+    CSTR_rast start = CSTR_GetFirstRaster(lin);
+    CSTR_rast stop = CSTR_GetLastRaster(lin);
 
     if (!start || !stop) {
         wLowRC = CSTR_ERR_NULL;
         return FALSE;
     }
 
-    c = CSTR_GetNextRaster(start, CSTR_f_all);
-
-    for (*txt = '\0'; c && c != stop; c = CSTR_GetNextRaster(c, CSTR_f_all)) {
+    std::string result;
+    for (CSTR_rast c = CSTR_GetNextRaster(start, CSTR_f_all); c && c != stop; c
+            = CSTR_GetNextRaster(c, CSTR_f_all)) {
+        CSTR_rast_attr attr;
         CSTR_GetAttr(c, &attr);
 
         if (!(attr.flg & (CSTR_f_let | CSTR_f_punct | CSTR_f_bad | CSTR_f_space | CSTR_f_solid)))
             continue;
 
+        UniVersions vers;
         if (CSTR_GetCollectionUni(c, &vers)) {
             if (!vers.lnAltCnt)
-                strcat(txt, "~");
-
+                result.append(UnrecognizedChar);
             else
-                strcat(txt, (char*) vers.Alt[0].Code);
+                result.append((char*) vers.Alt[0].Code);
         }
     }
 
-    return TRUE;
+    return result;
 }
 
 Bool32 CSTR_LineToTxt_Coord(CSTR_line lin, char *txt, int32_t len)
@@ -1906,7 +1906,7 @@ Bool32 CSTR_ClearLine(CSTR_line lin, int16_t left, int16_t right)
     }
 
     for (c = CSTR_GetNextRaster(start, CSTR_f_all); c && c != stop; c = CSTR_GetNextRaster(c,
-                                                                        CSTR_f_all)) {
+            CSTR_f_all)) {
         CSTR_GetAttr(c, &attr);
 
         if (attr.r_col >= left)
