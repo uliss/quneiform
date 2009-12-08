@@ -84,6 +84,5 @@ void GiveWorkBuff(char **ccBuff, int *Size);
 void SetMainBuff(void *vBuff, int Size);
 void SetWorkBuff(void *vBuff, int Size);
 void ReSetMem(void);
-void MySetNegative(void *vB, Handle hCPage);
 
 #endif

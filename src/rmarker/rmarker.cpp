@@ -143,7 +143,6 @@ Bool dpDebugUpDown;
 
 Bool32 PageMarkup(PRMPreProcessImage Image)
 {
-    LDPUMA_Skip(hPrep);
     Bool32 rc = TRUE;
     gSVLBuffer.VLinefBufferA = NULL;
     gSVLBuffer.VLinefBufferB = NULL;
@@ -152,43 +151,31 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
             MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
 
-    if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
-    }
+    rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
 
-    Handle h = NULL;
     BIG_IMAGE big_Image;
-    int i;
     //default Image:
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(Image->hCPAGE, &info);
 
-    for (i = 0; i < CPAGE_MAXNAME; i++)
+    for (int i = 0; i < CPAGE_MAXNAME; i++)
         big_Image.ImageName[i] = info.szImageName[i];
 
     big_Image.hCCOM = NULL;
-    h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
+    Handle h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
 
     if (h) {
         CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
         CPAGE_DeleteBlock(Image->hCPAGE, h);
     }
 
-    //    if(big_Image.hCCOM==NULL)
-    //      big_Image.hCCOM=(CCOM_handle)(Image->hCCOM);
-    LDPUMA_Skip(hPicture);
-
     //Поиск очевидных картинок
     if (rc)
         rc = SearchPictures(Image, big_Image);
 
-    LDPUMA_Skip(hNegative);
-
     //Поиск негативов
     if (rc)
         rc = SearchNeg(Image, big_Image, info.Incline2048);
-
-    LDPUMA_Skip(hLines3);
 
     //Третий проход по линиям
     if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
@@ -197,10 +184,6 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
             RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar) Image->gnLanguage);
     }
 
-    LDPUMA_Skip(hSVLP);
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     if (rc) {
         rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
@@ -209,10 +192,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
     CFIO_FreeMemory(gSVLBuffer.LineInfoA);
     CFIO_FreeMemory(gSVLBuffer.LineInfoB);
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    LDPUMA_Skip(hBlocks);
 
+    // blocks
     if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
         Image->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (Image->szLayoutFileName));
 
@@ -226,28 +207,24 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
             LDPUMA_Console("Layout восстановлен из файла '%s'\n", Image->szLayoutFileName);
         }
     }
+    else if (rc) {
+        if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
+            Bool32 bEnableSearchPicture;
+            bEnableSearchPicture = Image->gnPictures;
+            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
 
-    else {
-        if (rc) {
-            if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
-                Bool32 bEnableSearchPicture;
-                bEnableSearchPicture = Image->gnPictures;
-                RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-                RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
-
-                if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
-                    SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-                    rc = FALSE;
-                }
+            if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
+                SetReturnCode_rmarker(RBLOCK_GetReturnCode());
+                rc = FALSE;
             }
-
-            else
-                LDPUMA_Console("Пропущен этап автоматического Layout.\n");
         }
+
+        else
+            LDPUMA_Console("Пропущен этап автоматического Layout.\n");
     }
 
     CCOM_DeleteContainer(big_Image.hCCOM);
-    LDPUMA_Skip(hEnd);
     return rc;
 }
 
@@ -277,8 +254,6 @@ Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image)
     if (!LDPUMA_Skip(hDebugPictures))
         return TRUE;
 
-    //  rc = ProgressStep(1,/*GetResourceString(IDS_PRG_OPEN),*/10);
-
     if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
         if (Image->gnPictures) {
             if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
@@ -290,50 +265,5 @@ Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image)
     }
 
     return rc;
-}
-
-int GetCountNumbers(int num)
-{
-    int count = 0;
-
-    if (num == 0)
-        return 1;
-
-    for (; num > 0; num = num / 10)
-        count++;
-
-    return count;
-}
-
-void MySetNegative(void *vB, Handle hCPage)
-{
-    int i, Ind, nRc;
-    Bool WasNegTabl;
-    Rect16 *pRc;
-    POLY_ block = { 0 };
-    UN_BUFF *pB;
-    pB = (UN_BUFF *) vB;
-    Ind = FindSuchAimedData(vB, UN_DT_Rect16, UN_DA_NegTablCap);
-    WasNegTabl = (Ind >= 0);
-
-    if (WasNegTabl) {
-        nRc = pB->nPartUnits[Ind];
-        pRc = (Rect16*) pB->vPart[Ind];
-
-        for (i = 0; i < nRc; i++) {
-            block.com.type = TYPE_PICTURE; //Текст, Картинка, Таблица;
-            block.com.count = 4;
-            block.com.Flags |= POS_NEGTABCAP;
-            block.com.Vertex[0].rx() = pRc[i].left;
-            block.com.Vertex[0].ry() = pRc[i].top;
-            block.com.Vertex[1].rx() = pRc[i].right;
-            block.com.Vertex[1].ry() = pRc[i].top;
-            block.com.Vertex[2].rx() = pRc[i].right;
-            block.com.Vertex[2].ry() = pRc[i].bottom;
-            block.com.Vertex[3].rx() = pRc[i].left;
-            block.com.Vertex[3].ry() = pRc[i].bottom;
-            CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
-        }
-    }
 }
 
