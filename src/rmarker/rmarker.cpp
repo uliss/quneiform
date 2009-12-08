@@ -58,6 +58,7 @@
 
 #include <fstream>
 #include "markpage.h"
+#include "rneg/rneg.h"
 #include "rmfunc.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
@@ -72,6 +73,26 @@
 #include "cfio/cfio.h"
 
 #include "compat_defs.h"
+
+namespace CIF
+{
+RMarker::RMarker() :
+    cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANG_RUSENG), pictures_(0), fax_(false),
+            one_column_(false), kill_vsl_components_(false)
+{
+    RNEG_Init(0, NULL);
+}
+
+RMarker::~RMarker()
+{
+    RNEG_Done();
+}
+
+void RMarker::markupPage()
+{
+
+}
+}
 
 #define INCLINE_FACTOR  2048
 

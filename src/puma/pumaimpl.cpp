@@ -437,7 +437,6 @@ void PumaImpl::modulesDone()
     RSL_Done();
     REXC_Done();
     RLINE_Done();
-    RMARKER_Done();
     RBLOCK_Done();
     RSELSTR_Done();
     RSTR_Done();
@@ -499,8 +498,7 @@ void PumaImpl::modulesInit()
         if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, ghStorage))
             throw PumaException("RSTUFF_Init failed.");
 
-        if (!RMARKER_Init(PUMA_MODULE_RBLOCK, ghStorage))
-            throw PumaException("RMARKER_Init failed.");
+        rmarker_.reset(new RMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, ghStorage))
             throw PumaException("RBLOCK_Init failed.");

@@ -37,6 +37,8 @@ class CTIControl;
 namespace CIF
 {
 
+class RMarker;
+
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 
@@ -115,6 +117,7 @@ class PumaImpl
         static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
     private:
         std::auto_ptr<CTIControl> cimage_;
+        std::auto_ptr<RMarker> rmarker_;
         BitmapInfoHeader info_;
         Rect rect_template_;
         bool do_spell_corretion_;

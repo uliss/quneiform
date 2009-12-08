@@ -65,14 +65,42 @@
 /*----------------------------------------------------------------------------*/
 #ifndef __RMARKER_H
 #define __RMARKER_H
-#include "globus.h"
-#ifdef __RMARKER__
-#define RMARKER_FUNC  FUN_EXPO
-#else
-#define RMARKER_FUNC  FUN_IMPO
-#endif
-RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode, Handle hStorage);
-RMARKER_FUNC(Bool32) RMARKER_Done();
+
+#include <string>
+#include "lang_def.h"
+#include "cttypes.h"
+
+namespace CIF
+{
+class RMarker
+{
+    public:
+        RMarker();
+        ~RMarker();
+
+        void markupPage();
+        void setCCom(Handle ccom);
+        void setCLine(Handle cline);
+        void setCPage(Handle cpage);
+        void setLanguage(language_t language);
+        void setPicturesNum(uint num);
+        void setFax(bool value);
+        void setOneColumnLayout(bool value);
+        void setKillVslComponents(bool value);
+        void setLayoutFilename(const std::string& fname);
+    private:
+        Handle cpage_;
+        Handle ccom_;
+        Handle cline_;
+        language_t language_;
+        uint pictures_;
+        bool fax_;
+        bool one_column_;
+        bool kill_vsl_components_;
+        std::string layout_file_name_;
+};
+
+}
 
 struct RMPreProcessImage
 {
@@ -104,6 +132,5 @@ enum
 
 const int PUMAMaxNumLines = 2000;
 Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
-Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect);
 
 #endif

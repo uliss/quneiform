@@ -109,32 +109,3 @@ Bool32 RMARKER_PageMarkup(PRMPreProcessImage Image, void* vBuff, int Size, void*
     ReSetMem();
     return rc;
 }
-
-Bool32 RMARKER_SearchTableInZone(Handle hPage, Handle hCCOM, uint32_t perc, Rect32 rect)
-{
-    return TRUE;
-}
-
-Bool32 RMARKER_Init(uint16_t wHeightCode, Handle hStorage)
-{
-    RNEG_Init(wHeightCode, NULL);
-#ifdef _USE_RFILL_
-
-    if (!RFILL_Init())
-    return FALSE;
-
-#endif //_USE_RFILL_
-    return TRUE;
-}
-
-Bool32 RMARKER_Done()
-{
-    RNEG_Done();
-#ifdef _USE_RFILL_
-
-    if (!RFILL_Done())
-    return FALSE;
-
-#endif //_USE_RFILL_
-    return TRUE;
-}
