@@ -38,9 +38,12 @@ Exporter::~Exporter() {
 }
 
 void Exporter::autoDetectOutputEncoding() {
-    std::string locale = ::getenv("LC_ALL");
-    if (locale.empty())
-        locale = ::getenv("LANG");
+    char * lc = ::getenv("LC_ALL");
+    std::string locale;
+	if(!lc)
+        lc = ::getenv("LANG");
+	if(lc)
+	    locale = lc;
     if (locale.empty()) {
         output_encoding_ = "UTF-8";
         return;
