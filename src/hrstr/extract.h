@@ -72,7 +72,7 @@
 
 # include "lterrors.h"
 # include "roots.h"
-# include "strings.h"
+# include "strings_local.h"
 # include "madebug.h"
 # include "layout.h"
 

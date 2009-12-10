@@ -1,3 +1,5 @@
+include_directories(${ICONV_INCLUDE_DIR})
+
 add_library(rout ${LIBTYPE}
 browse.cpp
 codetables.cpp
@@ -16,6 +18,7 @@ tabletext.cpp
 text.cpp
 words.cpp
 )
+
 set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
 target_link_libraries(rout ced cfio)

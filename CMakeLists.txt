@@ -45,7 +45,12 @@ if(NOT ICONV_FOUND)
     message(FATAL_ERROR "No Iconv package found")
 endif(NOT ICONV_FOUND)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.35)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+else()
+   message(FATAL_ERROR "Boost library required")
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/include/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src/include)
