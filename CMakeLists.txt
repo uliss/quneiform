@@ -59,5 +59,8 @@ endif()
 add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
-add_subdirectory(tests)
+
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+   add_subdirectory(tests)
+endif()
 
