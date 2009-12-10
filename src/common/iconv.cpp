@@ -77,7 +77,7 @@ std::string Iconv::convert(const std::string& src)
         return result;
 
     char output_buf[1024];
-    char *source_ptr = (char*) src.c_str();
+    const char *source_ptr = src.c_str();
     size_t source_len = src.length();
     size_t output_len = sizeof(output_buf) - sizeof(output_buf[0]);
 
@@ -95,9 +95,13 @@ std::string Iconv::convert(const std::string& src)
     return result;
 }
 
-size_t Iconv::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft)
+size_t Iconv::convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft)
 {
-    return ::iconv(iconv_, inbuf, inbytesleft, outbuf, outbytesleft);
+    return ::iconv(iconv_, 
+#ifndef ICONV_SECOND_ARGUMENT_IS_CONST
+                  (char**)
+#endif
+		   inbuf, inbytesleft, outbuf, outbytesleft);
 }
 
 bool Iconv::open(const std::string &from, const std::string &to)
