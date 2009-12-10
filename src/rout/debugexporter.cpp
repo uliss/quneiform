@@ -18,7 +18,7 @@
 
 #include "debugexporter.h"
 #include "cstr/cstr.h"
-#include "common/iconv.h"
+#include "common/iconv_local.h"
 
 namespace CIF
 {

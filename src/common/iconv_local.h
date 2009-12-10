@@ -19,6 +19,11 @@
 #ifndef ICONV_H_
 #define ICONV_H_
 
+#ifdef __FreeBSD__
+#undef __BSD_VISIBLE
+#endif
+
+
 #include <string>
 #include <stdexcept>
 #include <iconv.h>

@@ -18,7 +18,7 @@
 
 #include <errno.h>
 
-#include "iconv.h"
+#include "iconv_local.h"
 
 namespace CIF
 {
