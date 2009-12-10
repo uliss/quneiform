@@ -20,6 +20,7 @@ set(CF_VERSION_PATCH "0")
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
 include(install_files.cmake)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
 # Stop MSVC complaints about POSIX functions.
 if(MSVC)
@@ -38,6 +39,11 @@ if(ImageMagick_Magick++_FOUND)
 else()
     message(FATAL_ERROR "ImageMagick++ required")
 endif()
+
+find_package(Iconv)
+if(NOT ICONV_FOUND)
+    message(FATAL_ERROR "No Iconv package found")
+endif(NOT ICONV_FOUND)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/include/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src/include)
