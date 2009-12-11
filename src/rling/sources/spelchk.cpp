@@ -275,7 +275,10 @@ int16_t selectobj(SOBJ * obj, int16_t ibeg, SPART * part)
     memset(cur_part, 0, sizeof(cur_part));
 
     if (!(findpart(obj, part, obj->pos_part[ib], obj->pos_part[ie], &pi))) {
-        pi = obj->part_max; /* part not found => consider last part         */
+	pi = obj->part_max - 1; /* part not found => consider last part         */
+	if (pi == -1)
+	     goto No_selectobj; /* not worth part                               */
+
         ib = part[pi].begi; /* the last part's beg index in obj->pos_part[] */
         ie = part[pi].endi; /* the last part's end index in obj->pos_part[] */
     }
