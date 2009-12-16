@@ -19,6 +19,17 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+/**
+ * Prevents conflicting with <windows.h> min/max macroses
+ */
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
+
 #include <stdint.h>
 #include <limits>
 #include <cassert>

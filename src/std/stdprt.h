@@ -57,6 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __STDPRT_H
 #define __STDPRT_H
 
+#include <stdarg.h>
 #include "std.h"
 
 typedef int32_t HEvent32;

@@ -319,15 +319,15 @@ static Bool RegisterGlu(Handle hInstance, char* szAppName)
     Bool bSuccess;
     memset(&WndClass, 0, sizeof(WNDCLASS));
     WndClass.lpszClassName = szAppName;
-    WndClass.hInstance = hInstance;
-    WndClass.lpfnWndProc = (void*) GluFonWindowProc;
+    WndClass.hInstance = (HINSTANCE) hInstance;
+    WndClass.lpfnWndProc = (WNDPROC) GluFonWindowProc;
     WndClass.style = (unsigned int) NULL;
     WndClass.hbrBackground = NULL;
     WndClass.hCursor = NULL;
     WndClass.hIcon = NULL;
     WndClass.lpszMenuName = (char*) NULL;
-    WndClass.cbClsExtra = (int) NULL;
-    WndClass.cbWndExtra = (int) NULL;
+    WndClass.cbClsExtra = 0;
+    WndClass.cbWndExtra = 0;
     bSuccess = FALSE;
     return bSuccess;
 }

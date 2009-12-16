@@ -60,7 +60,7 @@
 
 #define __SNAP_C
 #include "dpuma.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 using namespace CIF;
 

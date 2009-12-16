@@ -148,7 +148,7 @@ static char* get_tmp_pattern()
 {
     const int len = GetTempPath(0, 0);
     const char pattrn[] = "cuneiform-XXXXXX";
-    char* tmp = malloc(len + sizeof(pattrn) + 2);
+    char* tmp = (char*) malloc(len + sizeof(pattrn) + 2);
     const int len2 = GetTempPath(len, tmp);
     tmp[len2] = '\\';
     strncpy(tmp + len2 + 1, pattrn, sizeof(pattrn) + 1);

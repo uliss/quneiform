@@ -59,11 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "std.h"
 
-#ifdef WIN32
-   #include <wingdi.h>
-   #include <winuser.h>
-#endif
-
 STD_FUNC( void ) stdAssert(const char *__cond, const char *__file, int __line)
 {
 

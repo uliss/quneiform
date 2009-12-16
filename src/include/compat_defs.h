@@ -84,40 +84,27 @@ typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
 #define APIENTRY
 #endif
 
-#ifndef HINSTANCE
-#define HINSTANCE void*
-#endif
-
-#ifndef HMODULE
-#define HMODULE void*
-#endif
-
-#ifndef HICON
-#define HICON void*
-#endif
-
-#ifndef HWND
-#define HWND void*
-#endif
-
-#ifndef HDC
-#define HDC int
-#endif
-
-#ifndef HGDIOBJ
-#define HGDIOBJ int
+#ifndef WINAPI
+#define WINAPI
 #endif
 
 #ifndef DECLARE_HANDLE
 #define DECLARE_HANDLE(a)
 #endif
 
-#ifndef WINAPI
-#define WINAPI
-#endif
+typedef void* HINSTANCE;
+typedef void* HMODULE;
+typedef void* HICON;
+typedef void* HWND;
+typedef void* HGLOBAL;
+typedef void* HMETAFILE;
+typedef void* WNDPROC;
+
+typedef int HDC;
+typedef int HGDIOBJ;
+typedef int HFILE;
 
 extern int HFILE_ERROR;
-typedef int HFILE;
 
 typedef struct tagRECT
 {
@@ -130,14 +117,6 @@ typedef struct tagRECT
 typedef RECT* LPRECT;
 typedef uint32_t COLORREF;
 typedef uint32_t *LPCOLORREF;
-
-#ifndef HGLOBAL
-#define HGLOBAL void*
-#endif
-
-#ifndef HMETAFILE
-#define HMETAFILE void*
-#endif
 
 typedef struct
 {

@@ -53,6 +53,9 @@ CFCOMPAT_FUNC void GlobalFree(void *f);
 CFCOMPAT_FUNC void* GlobalReAlloc(void * ptr, size_t size);
 
 CFCOMPAT_FUNC int GetLastError();
+CFCOMPAT_FUNC Handle CreateFile(const char * lpFileName, uint32_t dwDesiredAccess,
+        uint32_t dwShareMode, void* lpSecurityAttributes, uint32_t dwCreationDisposition,
+        uint32_t dwFlagsAndAttributes, Handle hTemplateFile);
 CFCOMPAT_FUNC uint32_t GetModuleFileName(HMODULE hModule, char * lpFilename, size_t size);
 CFCOMPAT_FUNC int GetTempFileName(const char * lpPathName, const char * lpPrefixString,
         uint uUnique, char * lpTempFileName);
@@ -60,41 +63,34 @@ CFCOMPAT_FUNC size_t GetTempPath(size_t BufferLength, char * buffer);
 CFCOMPAT_FUNC long _msize(void *memblock);
 CFCOMPAT_FUNC int LoadCursor(HINSTANCE hInstance, const char * lpCursorName);
 
+CFCOMPAT_FUNC int _findclose(long handle);
+CFCOMPAT_FUNC long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
+CFCOMPAT_FUNC int _findnext(long handle, struct _finddata_t *fileinfo);
+CFCOMPAT_FUNC long _tell(int handle);
+CFCOMPAT_FUNC long _filelength(int fd);
+CFCOMPAT_FUNC int _access(const char *filename, int mode);
+CFCOMPAT_FUNC long filelength(int fd);
+
+CFCOMPAT_FUNC void strlwr(char *foo);
+
+CFCOMPAT_FUNC uint GetPrivateProfileString(const char * AppName, const char * KeyName,
+        const char * Default, char* ReturnedString, size_t nSize, const char * lpFileName);
+CFCOMPAT_FUNC Bool WritePrivateProfileString(const char * AppName, const char * KeyName,
+        const char * String, const char * FileName);
+CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * AppName, const char * KeyName,
+        uint defaultValue, const char * FileName);
+CFCOMPAT_FUNC Bool GetComputerName(char* buffer, size_t * size);
+
 #define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))
 #define GetBValue(rgb) ((uchar) ((rgb) >> 16))
 #define GetRValue(rgb) ((uchar) (rgb))
 #endif
 
-CFCOMPAT_FUNC Handle CreateFile(const char * lpFileName, uint32_t dwDesiredAccess,
-        uint32_t dwShareMode, void* lpSecurityAttributes, uint32_t dwCreationDisposition,
-        uint32_t dwFlagsAndAttributes, Handle hTemplateFile);
 CFCOMPAT_FUNC Bool CreateDirectory(const char * dir);
-
-
-CFCOMPAT_FUNC int _findclose(long handle);
-CFCOMPAT_FUNC long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
-CFCOMPAT_FUNC int _findnext(long handle, struct _finddata_t *fileinfo);
-CFCOMPAT_FUNC long _tell(int handle);
-
-CFCOMPAT_FUNC Bool GetComputerName(char* buffer, size_t * size);
-
-CFCOMPAT_FUNC Bool WritePrivateProfileString(const char * AppName, const char * KeyName,
-        const char * String, const char * FileName);
-CFCOMPAT_FUNC uint GetPrivateProfileString(const char * AppName, const char * KeyName,
-        const char * Default, char* ReturnedString, size_t nSize, const char * lpFileName);
-CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * AppName, const char * KeyName,
-        uint defaultValue, const char * FileName);
 
 CFCOMPAT_FUNC int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
         const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr, int cbMultiByte,
         const char * lpDefaultChar, pBool lpUsedDefaultChar);
-
-CFCOMPAT_FUNC long _filelength(int fd);
-CFCOMPAT_FUNC int _access(const char *filename, int mode);
-
-#ifndef WIN32
-CFCOMPAT_FUNC void strlwr(char *foo);
-#endif
 
 CFCOMPAT_FUNC int wsprintf(char* lpOut, const char * lpFmt, ...);
 CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption, uint uType);
@@ -107,7 +103,6 @@ CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, CIF::Point16 pt);
 CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 
-CFCOMPAT_FUNC long filelength(int fd);
 CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 CFCOMPAT_FUNC char* _strupr(char*s);
 

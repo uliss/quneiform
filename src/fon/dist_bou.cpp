@@ -1398,10 +1398,13 @@ int KleyRecog(uchar *inBuf, int xbyte, int xbit, int yrow, welet *wl,
 
 #include "cstr/cstr.h"
 
+
 #ifndef WIN32
 typedef struct tagRECT {
     int left, top, right, bottom;
 } RECT;
+#else
+#include <windows.h>
 #endif
 
 // return - bytes in row

@@ -485,7 +485,7 @@ STD_FUNC( int32_t ) stdGetDirectoryInfo(const char * lpBuffer,
         char szRootDir[256]={0};
         char szComputerNameThis[256]={0};
         char szComputerName[256]={0};
-uint32_t wBuffSize=256;
+        DWORD wBuffSize=256;
         int32_t nLen=strlen(lpBuffer);
         if(nLen<2)
             return 0;
@@ -646,7 +646,9 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,int32_t nNetPathSize,const char* psz
     szDrv[0]=(char)stdUpperAscii((char)szDrv[0]);
     XPath xpPathWoDrv(pszLocalPath);
     xpPathWoDrv.EraseDrive();
-uint32_t nValType=0; uchar szValData[256]={0}; uint32_t nDataLen=sizeof(szValData);
+    DWORD nValType=0;
+    uchar szValData[256]={0};
+    DWORD nDataLen=sizeof(szValData);
     if(nDrvType==DRIVE_FIXED)
     {
         char szComputer[128]={0}; ulong nSize=sizeof(szComputer);
