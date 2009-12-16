@@ -93,7 +93,7 @@
 #include "speldefs.h"
 #include "spelfunc.h"
 #include "lang.h"         // language trigger
-#include "compat_defs.h"
+#include "cfcompat.h"
 ///////////////////////////////////////////////////////////////////////////////
 //
 #ifdef _DEBUG

@@ -63,7 +63,7 @@
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 #include "cfio/cfio.h"
 
 #define MAX_LEN 500

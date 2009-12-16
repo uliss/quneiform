@@ -72,7 +72,7 @@
 #ifndef  _MSC_VER
 #include <unistd.h>
 #endif
-#include "compat_defs.h"
+#include "cfcompat.h"
 using namespace CIF::CTC;
 //////////////////////////////////////////////////////////////////////////////////
 //

@@ -76,7 +76,7 @@
 
 #include "frmtdibapi.h"
 #include <errno.h>
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 /*************************************************************************
  *

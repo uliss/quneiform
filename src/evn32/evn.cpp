@@ -65,7 +65,7 @@
 #include "evn.h"
 #include "dif/dif.h"
 #include "struct.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #ifdef WIN32
 static const char * NAME = ".\\bin\\hnd1rus.dat";

@@ -147,6 +147,7 @@ typedef Bool32 (* CFTBool32_Word32)(uint32_t);
  * These definitions were originally scattered about the code tree.
  * Consolidating them all here.
  */
+#ifndef WIN32
 typedef int32_t * PLONG;
 typedef uint32_t * PDWORD;
 typedef uint16_t * PWORD;
@@ -154,5 +155,6 @@ typedef uint16_t * PWORD;
 typedef uchar* LPBYTE;
 typedef uint32_t * LPDWORD;
 typedef int32_t* LPLONG;
+#endif
 
 #endif   // __CTTYPES_H

@@ -61,7 +61,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include "compat_defs.h"
+#include "cfcompat.h"
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,
  reads objects, i.e. info between reliable spaces (don't confuse

@@ -60,7 +60,7 @@
 #include "sys_prog.h"
 #include <sys/types.h>
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 #include "minmax.h"
 
 //#define TIGER_CORR

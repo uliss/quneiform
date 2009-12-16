@@ -62,7 +62,10 @@
 
 #include "cfcompat.h"
 #include "xtext.h"
+
+#ifndef WIN32
 #include "filestuff.h"
+#endif
 
 class XPath: public XText<PATH_MAX>
 {

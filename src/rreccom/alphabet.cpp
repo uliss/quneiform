@@ -54,14 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*#include <io.h>*/
 #include <string.h>
 #include "cttypes.h"
 #include "lang.h"
 #include "ligas.h"
 #include "evn32/evn.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 static uchar alph_russian[256] = {
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F

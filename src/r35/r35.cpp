@@ -67,7 +67,7 @@
 #include "mmx/mmx.h"
 #include "std/std.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 static const char * NAME = "hnd3rus.dat";
 static const char * NAME_NDX = "hnd3ind.dat";

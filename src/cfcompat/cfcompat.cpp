@@ -615,8 +615,7 @@ unsigned int curr_dir(unsigned int bsize, char* buf)
 
 #define BUFSIZE 100
 
-CFCOMPAT_FUNC (FILE*)
-create_temp_file(void)
+CFCOMPAT_FUNC FILE* create_temp_file(void)
 {
     char temppath[BUFSIZE];
     char tempfname[BUFSIZE];

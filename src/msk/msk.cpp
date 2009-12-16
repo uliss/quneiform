@@ -74,7 +74,7 @@
 #include "mmx/mmx.h"
 #include "msk32fun.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 int16_t err;
 static uint32_t bit_cnt_msk[66000];

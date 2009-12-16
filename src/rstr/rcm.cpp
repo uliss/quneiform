@@ -85,7 +85,7 @@
 #include "dpuma.h"
 #include "cline/cline.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #define LOCAL_GREY_CTB "page6666"
 #define LOCAL_CTB_NAME "ct666666"

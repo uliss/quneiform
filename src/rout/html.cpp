@@ -67,7 +67,7 @@
 #include <string.h>
 
 #include "rout_own.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 static Bool Static_MakeHTML(Handle hObject, long reason);
 

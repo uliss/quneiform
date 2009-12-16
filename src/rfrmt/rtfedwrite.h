@@ -65,7 +65,7 @@
 #ifndef __RtfEdWrite_h__
 #define __RtfEdWrite_h__
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #define  EdWrite On
 

@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "rtfedwrite.h"
 #include "recdefs.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #include <vector>
 #include <cassert>

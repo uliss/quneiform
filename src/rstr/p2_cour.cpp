@@ -74,6 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctb/ctb.h"
 #include "linutil.h"
 
+#include "cfcompat.h"
+
 extern  char    alphabet[256];
 extern  uchar    decode_ASCII_to_[256][4];
 static  int            HndTab=0, HndTabInc=0;

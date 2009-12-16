@@ -63,7 +63,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #define NUM_IN_SNAP 9     // maximal pictures in snap
 Bool IsSnap = FALSE;

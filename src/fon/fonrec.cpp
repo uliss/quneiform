@@ -83,7 +83,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 static int recog_raster(uchar *r, uint16_t fullBytes, uint16_t w, uint16_t h,
                         FONBASE *fonba, RECRESULT *recres, int maxNames, int inCTB, int col,

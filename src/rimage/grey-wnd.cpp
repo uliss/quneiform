@@ -71,6 +71,7 @@
 #include "gdata.h"
 //AK ОЮЛЪРЭ ВЕПЕГ RIMAGE
 #include "crimemory.h"
+#include "cfcompat.h"
 
 #define KRONROD_ALLOC(a)          RIMAGEAlloc(a)
 #define KRONROD_FREE(h)           RIMAGEFree(h)

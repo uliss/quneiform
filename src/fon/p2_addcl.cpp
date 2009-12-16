@@ -87,7 +87,7 @@
 #include "sfont.h"
 #include "minmax.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 int16_t SetAccessTab(int16_t fl, void *buf);
 int16_t CheckAccessTab(int16_t fh, void *buf);
