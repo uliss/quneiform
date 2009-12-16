@@ -35,7 +35,7 @@ class GlobalHeader
         GlobalHeader(Handle NewHandle, void * NewData = NULL, uint NewSize = 0,
                      uint NewFlag = 0, GlobalHeader * NewNext = NULL);
 
-        ~GlobalHeader() {}
+        virtual ~GlobalHeader() {}
 
         Handle GetHandle() {
             return hGlobalHandle;
