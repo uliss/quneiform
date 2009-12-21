@@ -73,8 +73,6 @@
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
 
 extern jmp_buf fatal_error_exit; // For error handling
 extern unsigned short int run_options;

@@ -418,29 +418,6 @@ void * DebugRealloc(void * old_blk, size_t size)
     return new_blk;
 }
 
-void ErrorNoEnoughMemory(puchar message)
-{
-    message = message;
-    FreeAllData();
-#ifdef DebugFile
-    fprintf(FileError, "\nMESSAGE:%s", message);
-    fprintf(FileError, "\n%s\n%s", TemporaleString, StringError);
-    fclose(FileError);
-#endif
-    error_exit(ERR_comp, ERROR_NO_ENOUGH_MEMORY);
-}
-
-void ErrorInternal(char * s)
-{
-    s = s;
-    FreeAllData();
-#ifdef DebugFile
-    fprintf(FileError, "\n%s", s);
-    fclose(FileError);
-#endif
-    error_exit(ERR_comp, ERROR_INTERNAL);
-}
-
 void ErrorEmptyPage(void)
 {
     FreeAllData();

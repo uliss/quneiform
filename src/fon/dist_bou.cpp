@@ -1397,15 +1397,7 @@ int KleyRecog(uchar *inBuf, int xbyte, int xbit, int yrow, welet *wl,
 #ifdef _USE_CSTR_
 
 #include "cstr/cstr.h"
-
-
-#ifndef WIN32
-typedef struct tagRECT {
-    int left, top, right, bottom;
-} RECT;
-#else
-#include <windows.h>
-#endif
+#include "cfcompat.h"
 
 // return - bytes in row
 static int GetCommonSize(CSTR_rast fir, CSTR_rast last, RECT *rect)

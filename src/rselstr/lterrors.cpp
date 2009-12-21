@@ -97,8 +97,8 @@ void FreeAllData(void) {
 # endif
 }
 
-# ifdef LT_STAND_ALONE
-void ErrorNoEnoughMemory (puchar message)
+#ifdef LT_STAND_ALONE
+void ErrorNoEnoughMemory (const char * message)
 {
 	LDPUMA_Console ("No enough memory - press any key\nMESSAGE:%s",message);
 	FreeAllData ();
@@ -106,7 +106,7 @@ void ErrorNoEnoughMemory (puchar message)
 	longjmp (fatal_error_exit, -1);
 }
 
-void ErrorInternal (char * s)
+void ErrorInternal (const char * s)
 {
 	LDPUMA_Console ("Internal error: %s - press any key\n", s);
 	FreeAllData ();

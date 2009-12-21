@@ -54,10 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef WIN32
-#include <windgi.h>
-#endif
-
 #include "layout.h"
 #include "extract.h"
 
@@ -69,6 +65,7 @@
 #include "puma/pumadef.h"
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
+#include "cfcompat.h"
 
 using namespace CIF;
 
@@ -137,22 +134,6 @@ void _lineto(int x, int y) {
 
 void _setlinestyle(int style) {
 }
-
-#ifndef WIN32
-typedef struct tagBITMAPINFOHEADER {
-	uint32_t biSize;
-	int32_t biWidth;
-	int32_t biHeight;
-	uint16_t biPlanes;
-	uint16_t biBitCount;
-	uint32_t biCompression;
-	uint32_t biSizeImage;
-	int32_t biXPelsPerMeter;
-	int32_t biYPelsPerMeter;
-	uint32_t biClrUsed;
-	uint32_t biClrImportant;
-} BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
-#endif
 
 void _gettextsettings(struct textsettings *ts) {
 	LPBITMAPINFOHEADER lp = (BITMAPINFOHEADER*) LDPUMA_GetDIBptr(NULL);

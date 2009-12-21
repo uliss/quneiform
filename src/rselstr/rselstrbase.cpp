@@ -70,8 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst =  NULL;
+
 Handle Root;
 Handle VertCells=NULL;
 Handle NegaCells=NULL;

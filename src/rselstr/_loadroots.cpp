@@ -56,8 +56,9 @@
 
 # include <setjmp.h>
 # include <string.h>
-#include <assert.h>
+#include  <assert.h>
 #include "compat_defs.h"
+#include "lterrors.h"
 
 # define __LOAD_ROOTS_C__
 

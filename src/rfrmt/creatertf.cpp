@@ -61,8 +61,10 @@
 // CreateRtf.cpp
 //
 // ============================================================================
-#include "creatertf.h"
 #include <cstdio>
+
+#include "cfcompat.h"
+#include "creatertf.h"
 #include "globus.h"
 #include "sys_prog.h"
 #include "cpage/cpage.h"
@@ -79,10 +81,8 @@
 #include "cline/cline.h"
 
 #include "common/size.h"
-
 #include "minmax.h"
-
-using namespace CIF;
+#include "common/rect.h"
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
@@ -133,7 +133,7 @@ extern char RtfFileName[CFIO_MAX_PATH];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 extern uint32_t RtfWriteMode;
-extern Point16 TemplateOffset;
+extern CIF::Point16 TemplateOffset;
 
 #define  TwipsToEMU_Koef (360000 * 2.54)/1440
 
@@ -2691,9 +2691,9 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
 {
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragment;
-    RECT CurFragmentRect;
+    CIF::Rect CurFragmentRect;
     int i, number, CountFragments;
-    Point16 pt;
+    CIF::Point pt;
     number = CurFragmentNumber;
 
     if (m_arOrderingNumber.size())
@@ -2701,10 +2701,10 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
 
     pRtfVerticalColumn = m_arVerticalColumns[number];
     pRtfFragment = pRtfVerticalColumn->m_arFragments[0];
-    CurFragmentRect.left = pRtfFragment->m_rect.left;
-    CurFragmentRect.right = pRtfFragment->m_rect.right;
-    CurFragmentRect.bottom = pRtfFragment->m_rect.bottom;
-    CurFragmentRect.top = pRtfFragment->m_rect.top;
+    CurFragmentRect.rleft() = pRtfFragment->m_rect.left;
+    CurFragmentRect.rright() = pRtfFragment->m_rect.right;
+    CurFragmentRect.rbottom() = pRtfFragment->m_rect.bottom;
+    CurFragmentRect.rtop() = pRtfFragment->m_rect.top;
     CountFragments = m_PagePtr->m_arFragments.size();
 
     for (i = 0; i < CountFragments; i++) {
@@ -2716,23 +2716,23 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
         pt.rx() = pRtfFragment->m_rect.left;
         pt.ry() = pRtfFragment->m_rect.top;
 
-        if (PtInRect(&CurFragmentRect, pt))
+        if (CurFragmentRect.contains(pt))
             return TRUE;
 
         pt.rx() = pRtfFragment->m_rect.right;
 
-        if (PtInRect(&CurFragmentRect, pt))
+        if (CurFragmentRect.contains(pt))
             return TRUE;
 
         pt.rx() = pRtfFragment->m_rect.left;
         pt.ry() = pRtfFragment->m_rect.bottom;
 
-        if (PtInRect(&CurFragmentRect, pt))
+        if (CurFragmentRect.contains(pt))
             return TRUE;
 
         pt.rx() = pRtfFragment->m_rect.right;
 
-        if (PtInRect(&CurFragmentRect, pt))
+        if (CurFragmentRect.contains(pt))
             return TRUE;
     }
 
@@ -4158,7 +4158,7 @@ int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber
                     int16_t* strHeight)
 {
     HFONT testFont;
-    Size size;
+    CIF::Size size;
     int n_Weight = 600, fn;
     uchar bItalic;
     //  TEXTMETRIC  tm;

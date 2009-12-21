@@ -98,7 +98,7 @@ CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText, const char * lpCapt
 CFCOMPAT_FUNC void * GlobalLock(HGLOBAL hMem);
 CFCOMPAT_FUNC Bool GlobalUnlock(HGLOBAL hMem);
 CFCOMPAT_FUNC Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom);
-CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, CIF::Point16 pt);
+CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, const CIF::Point16& pt);
 CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 

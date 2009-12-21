@@ -93,11 +93,9 @@
 #include "common/point.h"
 
 #define PASC
-#define WINAPI
-#define CALLBACK
 #define _export
-#define pascal
 #define COM
+#define CALLBACK
 
 #ifdef DLL_MOD
 #define FL_DLL 1

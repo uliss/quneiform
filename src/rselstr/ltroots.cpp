@@ -162,7 +162,7 @@ void RootStripsCalculate(void) {
 	int iStripEnd;
 
 	if (nRoots == 0)
-		ErrorInternal((char *) "nRoots == 0");
+		ErrorInternal("nRoots == 0");
 
 	yMin = pRoots[0].yRow;
 	yMax = pRoots[0].yRow + pRoots[0].nHeight - 1;

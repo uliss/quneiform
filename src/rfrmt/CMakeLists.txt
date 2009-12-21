@@ -19,6 +19,8 @@ util_spl.cpp
 set_property(TARGET rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(rfrmt
+cfcompat
+common
 ced
 cimage
 cpage
@@ -26,8 +28,6 @@ rdib
 rimage
 cline
 cstr
-cfcompat
-common
 )
 
 install_dll(rfrmt)
