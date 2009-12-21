@@ -73,6 +73,7 @@
 #include "dpuma.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern uchar langUkr, langSer;
 

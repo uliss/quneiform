@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "context.h"
 #include "linutil.h"
 #include "lang.h"
+#include "minmax.h"
 
 
 static int16_t LiliI                (cell *);

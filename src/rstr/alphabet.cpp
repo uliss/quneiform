@@ -77,7 +77,8 @@
 #include "alphabet.h"
 #include "leo/leo.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
+#include "minmax.h"
 
 static uchar digital_mode; // see in module pass3.c
 static uchar plusminus_mode;

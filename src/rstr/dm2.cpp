@@ -75,6 +75,7 @@
 #include "tuner.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 static char txg1[] = { "LOCOMP ERR" };
 static char txg2[] = { "NO CELL got" };

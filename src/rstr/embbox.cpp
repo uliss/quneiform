@@ -534,7 +534,7 @@ void embBOXF(servBOX *SBOX, int16_t typl, Bool erection)
 	int16_t i, flp, flprop;
 	uchar curr_font;
 	uint16_t curr_cosinus;
-	PWORD vectp;
+	uint16_t* vectp;
 	uint32_t norm;
 	puchar list;
 	char cnt, n_rsn;
@@ -573,7 +573,7 @@ void embBOXF(servBOX *SBOX, int16_t typl, Bool erection)
 						if ((uint16_t) i > 32767)
 							i = 32767;
 						*(puchar)(&curr_font) = wmatr->fnt;
-						*(PWORD)(&curr_cosinus) = i;
+						*(uint16_t*)(&curr_cosinus) = i;
 						n_rsn = cnt;
 					}
 				}
@@ -592,7 +592,7 @@ void embBOXF(servBOX *SBOX, int16_t typl, Bool erection)
 						if ((uint16_t) i > 32767)
 							i = 32767;
 						*(puchar)(&curr_font) = wmatr->fnt;
-						*(PWORD)(&curr_cosinus) = i;
+						*(uint16_t*)(&curr_cosinus) = i;
 						n_rsn = cnt;
 					}
 				}
@@ -622,11 +622,11 @@ void embBOXF(servBOX *SBOX, int16_t typl, Bool erection)
 }
 
 //----------------- Sorting events by BOX -------------------------------
-void wcomp_to_box(PWORD vector);
+void wcomp_to_box(uint16_t* vector);
 
-void sort_events_box(PWORD list, int16_t nl) {
-	PWORD lend, lcur, lcp;
-	PWORD ncur, ncp;
+void sort_events_box(uint16_t* list, int16_t nl) {
+	uint16_t* lend, *lcur, *lcp;
+	uint16_t* ncur, *ncp;
 	uint16_t ev_marks[100], probest;
 	uint16_t vector[15], norm;
 	uchar ocurlet;

@@ -59,6 +59,7 @@
 #include "context.h"
 #include "tuner.h"
 #include "status.h"
+#include "minmax.h"
 
 static void contextNumberTable(void);
 /****************/

@@ -68,6 +68,7 @@
 #include "linutil.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern Bool pass4_in; //флаг: второй проход по странице
 

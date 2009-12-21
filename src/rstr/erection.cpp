@@ -77,6 +77,7 @@
 #include "lang.h"
 #include "linutil.h"	// 17.07.2001 E.P.
 #include "compat_defs.h"
+#include "minmax.h"
 
 static uchar solid_sticks[] = "|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêğà 08.09.2000 E.P.
 static uchar incline_main[] = "­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏĞ×ÈÒirbtfnBTEIPDFHLN"

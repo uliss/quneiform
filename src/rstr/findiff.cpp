@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern uchar language;
 

@@ -189,8 +189,8 @@ static int32_t line_to_hist(lnhead *line)
  {
  int32_t x,/* xm, */y,ym,i,h;                                        //20.02.97
  interval *v;
- PLONG ph/* ,pr */;                                               //20.02.97
- PLONG pt;
+ int32_t* ph/* ,pr */;                                               //20.02.97
+ int32_t* pt;
 
  for (v=(interval *)((pchar)line+sizeof(lnhead)),
                            ym=(y=H-1-line->row)-line->h;
@@ -236,7 +236,7 @@ static int32_t line_to_hist(lnhead *line)
 static int32_t sticks_find()
  {
  int32_t i,x,hh,max;                                                 //20.02.97
- PLONG ph;                                                        //20.02.97
+ int32_t* ph;                                                        //20.02.97
 
 /* for (i=0; i<NINCL; i++)
   {
@@ -278,7 +278,8 @@ static int32_t sticks_find()
 
 static int32_t test_extr(int32_t i,int32_t x,int32_t hh)
  {
- PLONG ph,ph1;                                                    //20.02.97
+ int32_t* ph;
+ int32_t* ph1;                                                    //20.02.97
  int32_t hh1;                                                        //20.02.97
 
  ph=hist+i*horsz+x;

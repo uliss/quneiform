@@ -76,6 +76,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cfcompat.h"
 
+#ifdef WIN32
+#include <io.h>
+#endif
+
 extern  char    alphabet[256];
 extern  uchar    decode_ASCII_to_[256][4];
 static  int            HndTab=0, HndTabInc=0;

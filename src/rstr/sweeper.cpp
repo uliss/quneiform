@@ -72,16 +72,8 @@
 extern uint16_t actual_resolution;
 extern int16_t idshv;
 
-static int16_t nx, ny, mstb;
+static int16_t nx;
 static uchar scsweep[512];
-static uchar work_state = 0;
-static uint32_t offset;
-
-static void stat_garb(PWORD);
-static uint16_t delete_(PWORD);
-static uint16_t to_file();
-static void open_comp_file();
-static void write_comp(pchar, int32_t);
 
 #define ROK       50
 #define NBOXMAX   4096

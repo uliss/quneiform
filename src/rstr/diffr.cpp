@@ -68,6 +68,7 @@
 #include "linutil.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 uchar broken_flag = 0;
 uchar rec5_flag = 1, font_type = 0, omni = 1;

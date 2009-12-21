@@ -74,6 +74,7 @@ extern uchar *EVN_GetSegmentPool(void);
 #include "status.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern uchar digital_string_penalty;
 //AK for debug

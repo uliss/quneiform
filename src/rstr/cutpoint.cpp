@@ -69,6 +69,7 @@
 #include "linear.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 //  snap globals
 extern uchar db_status; // snap presence byte

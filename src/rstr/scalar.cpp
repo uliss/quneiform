@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-uint16_t all_scalarf (PWORD v1, PWORD v2, uint16_t norm)      //AK 14.03.97
+uint16_t all_scalarf (uint16_t* v1, uint16_t* v2, uint16_t norm)      //AK 14.03.97
 {                              //AK definition from scalar.asm
 uint32_t v;
  v = ((uint32_t)(*(v1+0)))  * (*(v2+0))  +
@@ -80,7 +80,7 @@ uint32_t v;
  return (uint16_t)(v/norm);
 }
 
-int32_t all_scalar (PWORD v1, PWORD v2)               //AK 14.07.97
+int32_t all_scalar (uint16_t* v1, uint16_t* v2)               //AK 14.07.97
 {                                 //definition from scalar.asm
 uint32_t v;
  v = ((uint32_t)(*(v1+0)))  * (*(v2+0))  +
@@ -142,29 +142,30 @@ sq_loop:
 extern c_comp wcomp;
 extern uchar lpool[];
 
-static void make_box_raster(PWORD matr, c_comp * cp,
+static void make_box_raster(uint16_t* matr, c_comp * cp,
      int16_t row, int16_t col, int16_t h, int16_t w, lnhead * lp);
 
 
 
-void comp_to_box (PWORD matr, c_comp * cp,
+void comp_to_box (uint16_t* matr, c_comp * cp,
 	uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
  make_box_raster (matr, cp, row, (int16_t)((cp->left - col)*3), h, w,
    (lnhead *)((puchar)cp + cp->lines + sizeof(uint16_t)));
 }
 
-void wcomp_to_box (PWORD matr)
+void wcomp_to_box (uint16_t* matr)
 {
  make_box_raster (matr, &wcomp, wcomp.upper, 0, wcomp.h, wcomp.w,
    (lnhead *)lpool);
 }
 
-static void make_box_raster(PWORD matr, c_comp * cp,
+static void make_box_raster(uint16_t* matr, c_comp * cp,
      int16_t row, int16_t add_col, int16_t h, int16_t w, lnhead * lp)
 {
  int16_t r3, row_rest, w2;
- PWORD pm, p;
+ uint16_t* pm;
+uint16_t * p;
  int16_t xs, xe, s1, s2, s3;
  interval * ip;
 

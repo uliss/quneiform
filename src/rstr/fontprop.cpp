@@ -68,6 +68,7 @@
 #include "prop_nar.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern Bool line_readyBL;
 extern uchar p2_active;

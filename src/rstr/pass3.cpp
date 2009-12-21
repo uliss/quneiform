@@ -92,6 +92,7 @@
 #include "specprj.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 static void accept_Cell(cell *ce, CSTR_rast_attr*co, CCOM_comp *cmp, Bool sca);
 

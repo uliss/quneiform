@@ -117,6 +117,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std/std.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 #define NUMBER      '#'
 #define PRO_NUMBER  0xC3

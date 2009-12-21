@@ -79,6 +79,7 @@
 #include "p2libr.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 static struct cut_elm cut_pnts[64];
 static struct {

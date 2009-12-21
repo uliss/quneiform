@@ -73,6 +73,7 @@
 #include"linutil.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern uchar fax1x2;
 extern int16_t pitchsize;
