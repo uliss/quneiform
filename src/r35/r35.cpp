@@ -62,7 +62,10 @@
 #include <cstdio>
 #include <cmath>
 #include <algorithm>
+
+#ifdef WIN32
 #include <malloc.h>
+#endif
 
 #include "r35.h"
 #include "mmx/mmx.h"
