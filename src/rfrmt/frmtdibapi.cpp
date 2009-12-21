@@ -71,11 +71,12 @@
 //
 
 #include <cstring>
+#include <errno.h>
+
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
 
 #include "frmtdibapi.h"
-#include <errno.h>
 #include "cfcompat.h"
 
 /*************************************************************************

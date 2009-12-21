@@ -26,7 +26,7 @@
 
 #include "pumadef.h"
 #include "cfcompat.h"
-#include "formatoptions.h"
+#include "rfrmt/formatoptions.h"
 #include "specprj.h"
 #include "common/rect.h"
 #include "common/memorybuffer.h"

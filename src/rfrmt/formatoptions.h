@@ -23,7 +23,7 @@
 #include <iostream>
 #include <cstddef>
 
-#include "pumadef.h"
+#include "puma/pumadef.h"
 #include "lang_def.h"
 
 namespace CIF

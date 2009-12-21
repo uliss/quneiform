@@ -66,7 +66,7 @@
 #include "rfrmt.h"
 #include "dpuma.h"
 #include "dsnap.h"
-#include "puma/formatoptions.h"
+#include "formatoptions.h"
 #include "puma/pumadef.h"
 #include "rfrmt_prot.h"
 #include "compat_defs.h"
@@ -74,8 +74,6 @@
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
 Bool32 gbBold = TRUE;
 Bool32 gbItalic = TRUE;
 Bool32 gbSize = TRUE;

@@ -54,9 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// frmtdibapi.h
-//
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 #ifndef _INC_DIBAPI
 #define _INC_DIBAPI

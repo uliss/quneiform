@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cstring>
 #include "globus.h"
 #include "dpuma.h"
+#include "minmax.h"
 
 extern float  Twips;
 extern uint32_t FlagMode;

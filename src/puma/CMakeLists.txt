@@ -1,7 +1,6 @@
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 pumaimpl.cpp
-formatoptions.cpp
 )
 
 target_link_libraries(puma

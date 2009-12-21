@@ -23,7 +23,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "puma/formatoptions.h"
+#include "rfrmt/formatoptions.h"
 
 namespace CIF {
 

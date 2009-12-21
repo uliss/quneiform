@@ -21,7 +21,7 @@
 
 #include "cttypes.h"
 #include "common/singleton.h"
-#include "puma/formatoptions.h"
+#include "rfrmt/formatoptions.h"
 #include "exporter.h"
 
 #include <stdexcept>
