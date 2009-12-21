@@ -62,6 +62,7 @@
 #include <ctime>
 #include <climits>
 
+#include "cfcompat.h"
 #include "linedefs.h"
 #include "lns32/lnsdefs.h"
 #include "cpage/cpage.h"
@@ -77,7 +78,6 @@
 
 #include "rshelllines/rsl.h"
 
-#include "compat_defs.h"
 #include "minmax.h"
 
 using namespace CIF;

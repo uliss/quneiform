@@ -54,6 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef WIN32
+#include <windgi.h>
+#endif
+
 #include "layout.h"
 #include "extract.h"
 

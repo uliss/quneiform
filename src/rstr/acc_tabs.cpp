@@ -3394,7 +3394,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_NEG_HALF_SPACE], "");
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_POS_HALF_SPACE], " ");
 
-	if (CodePages[language] == ANSI_CHARSET) {
+	if (CodePages[language] == CHARSET_ANSI) {
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fi], "fi");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fl], "fl");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_ff], "ff");
@@ -3485,7 +3485,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == RUSSIAN_CHARSET) {
+	if (CodePages[language] == CHARSET_RUSSIAN) {
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_d], "ä");
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_g], "ä");
 		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_m], "ò");
@@ -3498,7 +3498,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes_rus], "„");
 	}
 
-	if (CodePages[language] == EASTEUROPE_CHARSET) {
+	if (CodePages[language] == CHARSET_EASTEUROPE) {
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fi], "fi");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_fl], "fl");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_ff], "ff");
@@ -3525,7 +3525,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == BALTIC_CHARSET) {
+	if (CodePages[language] == CHARSET_BALTIC) {
 
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "\x99");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "\xa9");
@@ -3555,7 +3555,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 	}
 
-	if (CodePages[language] == TURKISH_CHARSET) {
+	if (CodePages[language] == CHARSET_TURKISH) {
 
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "\x99");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "\xa9");

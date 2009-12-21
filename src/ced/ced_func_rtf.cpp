@@ -60,6 +60,7 @@
 #include <cctype>
 #include <cstdio>
 
+#include "minmax.h"
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"

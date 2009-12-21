@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
+#include "cfcompat.h"
 /*  interface our  */
 #include "skew1024.h"
 /*  interface our-other  */
@@ -78,7 +79,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vl_snap.h"
 /*  interface my-my      */
 #include "am_buff.h"
-#include "compat_defs.h"
 /*------------extern functions-----------------------------------------------*/
 void   SetReturnCode_rverline (uint16_t rc);
 /*---------------------------------------------------------------------------*/

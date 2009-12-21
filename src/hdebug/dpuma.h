@@ -259,15 +259,13 @@ DEC_FUNC(int32_t, DPUMA_FPuts, (Handle hFile, const char * lpString))
 
 #undef DEC_FUNC
 
-enum puma_align_t {
-    TA_LEFT = 0,
+#ifndef WIN32
+enum puma_align_t
+{
     TA_RIGHT = 2,
     TA_CENTER = 6,
-    TA_TOP = 0,
-    TA_BOTTOM = 8,
-    TA_BASELINE = 24,
-    TA_NOUPDATECP = 0,
-    TA_UPDATECP = 1
+    TA_TOP = 0
 };
+#endif
 
 #endif

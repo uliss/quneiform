@@ -492,7 +492,7 @@ Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Us)
         Us->Alt[i].Code[0]=cw;
         Us->Alt[i].Code[1]=0;
         Us->Alt[i].Liga=c;
-        Us->Alt[i].Charset=RUSSIAN_CHARSET;
+        Us->Alt[i].Charset=CHARSET_RUSSIAN;
         Us->Alt[i].Method =REC_METHOD_LEO;
         Us->Alt[i].Prob   = ro.recResults.Alt[i].Prob ;
     }

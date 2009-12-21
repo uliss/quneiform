@@ -76,7 +76,7 @@
 Bool32 gbRSLT = FALSE;
 /// BogDmitry
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 extern Bool32 gbNOFILLGAP3;
 extern Bool32 gbNOHBORDER;

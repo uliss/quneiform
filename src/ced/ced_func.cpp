@@ -57,6 +57,8 @@
 #include <cstring>
 #include <cstdlib>
 
+#include "compat_defs.h"
+#include "minmax.h"
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"

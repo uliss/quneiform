@@ -71,7 +71,8 @@
 using namespace std;
 #endif
 
-#include "compat_defs.h"
+#include "cfcompat.h"
+#include "minmax.h"
 
 using namespace CIF;
 

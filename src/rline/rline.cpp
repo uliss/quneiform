@@ -65,6 +65,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include "cfcompat.h"
 #include "resource.h"
 #include "dsnap.h"
 #include "rline.h"
@@ -75,8 +76,6 @@
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "rshelllines/rshelllinescom.h"
-
-#include "compat_defs.h"
 
 Handle hMainWindow;
 

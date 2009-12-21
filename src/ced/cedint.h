@@ -68,15 +68,6 @@
 
 #include "ced.h"
 #include "ced_struct.h"
-
-#ifdef _DEBUG
-#define EDASSERT(f) \
-    {if (!(f)) \
-        __asm { int 3 };}
-#else
-#define EDASSERT(f)
-#endif
-
 #include "compat_defs.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data
@@ -300,13 +291,13 @@ struct charParams {
 #define MAX_RTF_GROUPS     50
 
 struct StrRtfColor { // color table in an rtf file
-    COLORREF color; // color
+    uint32_t color; // color
 };
 
 struct StrRtfOut { // Rtf output file processing block
     int output; // rtr output type: RTF_FILE,RTF_BUF,RTF_CB
     Handle hFile; // stream if file is used
-    HGLOBAL hBuf; // output buffer handle if using buffer output
+    Handle hBuf; // output buffer handle if using buffer output
     uchar *buf; // output buffer pointer if using buffer
     long BufLen; // allcated length of buffer
     long BufIndex; // index of next character in the buffer

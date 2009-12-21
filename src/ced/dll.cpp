@@ -67,6 +67,7 @@
 #include "cedint.h"
 #include "puma/pumadef.h"
 #include "cfio/cfio.h"
+#include "cfcompat.h"
 
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;

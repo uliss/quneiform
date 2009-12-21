@@ -58,6 +58,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "cfcompat.h"
 
 void __assertfail(char *__msg, char *__cond, char *__file, int __line);
 

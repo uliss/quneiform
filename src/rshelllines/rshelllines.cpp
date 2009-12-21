@@ -82,6 +82,7 @@
 #include "rverline/rverline.h"
 #include "un_buff.h"
 #include "cfio/cfio.h"
+#include "cfcompat.h"
 
 using namespace CIF;
 

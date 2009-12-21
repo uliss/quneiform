@@ -85,41 +85,41 @@ void _setcolor(int color)
 {
 #define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
     uint32_t clr[16] = { // 16 цветов в порядке, заданном DOS (see MENUCOLOR :) )
-        __RGB__(0, 0, 0), // 0  черный    _COLOR_BLACK
-        __RGB__(0, 0, 127), // 1  темно-синий     _COLOR_DBLUE
-        __RGB__(0, 127, 0), // 2  темно-зеленый    _COLOR_DGREEN
-        __RGB__(0, 127, 127), // 3  темно-бирюзовый (dark cyan)    _COLOR_DCYAN
-        __RGB__(127, 0, 0), // 4  темно-красный    _COLOR_DRED
-        __RGB__(127, 0, 127), // 5  темно-розовый (/малиновый/фиолетовый)    _COLOR_DMAGENTA
-        __RGB__(0x99, 0x66, 00), // 6  коричневый    _COLOR_BROWN
-        __RGB__(0xCC, 0xCC, 0xCC), // 7  светло-серый    _COLOR_GRAY
-        __RGB__(0x99, 0x99, 0x99), // 8  темно-серый     _COLOR_DGRAY
-        __RGB__(0, 0, 255), // 9  синий    _COLOR_BLUE
-        __RGB__(0, 255, 0), // 10 ярко-зеленый    _COLOR_GREEN
-        __RGB__(0, 255, 255), // 11 светло-бирюзовый    _COLOR_CYAN
-        __RGB__(255, 0, 0), // 12 ярко-красный    _COLOR_RED
-        __RGB__(255, 0, 255), // 13 сиреневый (/розовый)    _COLOR_MAGENTA
-        __RGB__(255, 255, 0), // 14 желтый    _COLOR_YELLOW
-        __RGB__(255, 255, 255) // 15 белый    _COLOR_WHITE
-        // -- до 16.10.2001 --
-        //      __RGB__(0,0,0),// 0 черный
-        //      __RGB__(0,0,127),// 1 синий
-        //      __RGB__(0,127,0),// 2 зеленый
-        //      __RGB__(64,64,127),// 3 голубой
-        //      __RGB__(127,0,0),// 4 красный
-        //      __RGB__(127,64,64),// 5 розовый
-        //      __RGB__(64,127,64),// 6 коричневый
-        //      __RGB__(127,127,127),// 7 серый
-        //      __RGB__(0,0,255),// 1 синий
-        //      __RGB__(0,255,0),// 2 зеленый
-        //      __RGB__(127,127,255),// 3 голубой
-        //      __RGB__(255,0,0),// 4 красный
-        //      __RGB__(255,127,127),// 5 розовый
-        //      __RGB__(127,255,127),// 6 коричневый
-        //      __RGB__(255,255,0),//15 белый
-        //      __RGB__(255,0,255)//15 белый
-        // -- до 16.10.2001 --
-    };
+            __RGB__(0, 0, 0), // 0  черный    _COLOR_BLACK
+                __RGB__(0, 0, 127), // 1  темно-синий     _COLOR_DBLUE
+                __RGB__(0, 127, 0), // 2  темно-зеленый    _COLOR_DGREEN
+                __RGB__(0, 127, 127), // 3  темно-бирюзовый (dark cyan)    _COLOR_DCYAN
+                __RGB__(127, 0, 0), // 4  темно-красный    _COLOR_DRED
+                __RGB__(127, 0, 127), // 5  темно-розовый (/малиновый/фиолетовый)    _COLOR_DMAGENTA
+                __RGB__(0x99, 0x66, 00), // 6  коричневый    _COLOR_BROWN
+                __RGB__(0xCC, 0xCC, 0xCC), // 7  светло-серый    _COLOR_GRAY
+                __RGB__(0x99, 0x99, 0x99), // 8  темно-серый     _COLOR_DGRAY
+                __RGB__(0, 0, 255), // 9  синий    _COLOR_BLUE
+                __RGB__(0, 255, 0), // 10 ярко-зеленый    _COLOR_GREEN
+                __RGB__(0, 255, 255), // 11 светло-бирюзовый    _COLOR_CYAN
+                __RGB__(255, 0, 0), // 12 ярко-красный    _COLOR_RED
+                __RGB__(255, 0, 255), // 13 сиреневый (/розовый)    _COLOR_MAGENTA
+                __RGB__(255, 255, 0), // 14 желтый    _COLOR_YELLOW
+                __RGB__(255, 255, 255) // 15 белый    _COLOR_WHITE
+            // -- до 16.10.2001 --
+            //      __RGB__(0,0,0),// 0 черный
+            //      __RGB__(0,0,127),// 1 синий
+            //      __RGB__(0,127,0),// 2 зеленый
+            //      __RGB__(64,64,127),// 3 голубой
+            //      __RGB__(127,0,0),// 4 красный
+            //      __RGB__(127,64,64),// 5 розовый
+            //      __RGB__(64,127,64),// 6 коричневый
+            //      __RGB__(127,127,127),// 7 серый
+            //      __RGB__(0,0,255),// 1 синий
+            //      __RGB__(0,255,0),// 2 зеленый
+            //      __RGB__(127,127,255),// 3 голубой
+            //      __RGB__(255,0,0),// 4 красный
+            //      __RGB__(255,127,127),// 5 розовый
+            //      __RGB__(127,255,127),// 6 коричневый
+            //      __RGB__(255,255,0),//15 белый
+            //      __RGB__(255,0,255)//15 белый
+            // -- до 16.10.2001 --
+            };
     swColor = clr[color];
 #undef __RGB__
 }
@@ -129,17 +129,17 @@ void _rectangle(int t, int left, int top, int right, int bottom)
     Rect16 rect = { left, top, right, bottom };
 
     switch (t) {
-        case _GFILLINTERIOR: // закрасить прямоугольник
-            LDPUMA_DrawRect(NULL, &rect, 0, swColor, 0, PUMA_MODULE_RBLOCK);
-            break;
-        case _GBORDER: // границы в 16/100 пиксела изображения
-            LDPUMA_DrawRect(NULL, &rect, 0, swColor, -16, PUMA_MODULE_RBLOCK);
-            break;
-            //  case _G...: // толщина линии -- адын пиксел экрана
-            //      LDPUMA_DrawRect(NULL,&rect,0,swColor,1,PUMA_MODULE_RBLOCK);
-            //      break;
-        default:
-            LDPUMA_DrawRect(NULL, &rect, 0, swColor, -16, PUMA_MODULE_RBLOCK);
+    case _GFILLINTERIOR: // закрасить прямоугольник
+        LDPUMA_DrawRect(NULL, &rect, 0, swColor, 0, PUMA_MODULE_RBLOCK);
+        break;
+    case _GBORDER: // границы в 16/100 пиксела изображения
+        LDPUMA_DrawRect(NULL, &rect, 0, swColor, -16, PUMA_MODULE_RBLOCK);
+        break;
+        //  case _G...: // толщина линии -- адын пиксел экрана
+        //      LDPUMA_DrawRect(NULL,&rect,0,swColor,1,PUMA_MODULE_RBLOCK);
+        //      break;
+    default:
+        LDPUMA_DrawRect(NULL, &rect, 0, swColor, -16, PUMA_MODULE_RBLOCK);
     }
 }
 
@@ -172,25 +172,25 @@ void _setlinestyle(int style)
 ;
 
 #ifndef WIN32
-typedef struct tagBITMAPINFOHEADER {
-    uint32_t biSize;
-    int32_t biWidth;
-    int32_t biHeight;
-    uint16_t biPlanes;
-    uint16_t biBitCount;
-    uint32_t biCompression;
-    uint32_t biSizeImage;
-    int32_t biXPelsPerMeter;
-    int32_t biYPelsPerMeter;
-    uint32_t biClrUsed;
-    uint32_t biClrImportant;
+typedef struct tagBITMAPINFOHEADER
+{
+        uint32_t biSize;
+        int32_t biWidth;
+        int32_t biHeight;
+        uint16_t biPlanes;
+        uint16_t biBitCount;
+        uint32_t biCompression;
+        uint32_t biSizeImage;
+        int32_t biXPelsPerMeter;
+        int32_t biYPelsPerMeter;
+        uint32_t biClrUsed;
+        uint32_t biClrImportant;
 } BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
 #endif
 
 void _gettextsettings(struct textsettings *ts)
 {
-    LPBITMAPINFOHEADER lp = static_cast<LPBITMAPINFOHEADER> (LDPUMA_GetDIBptr(
-                                                                 NULL));
+    LPBITMAPINFOHEADER lp = static_cast<LPBITMAPINFOHEADER> (LDPUMA_GetDIBptr(NULL));
 
     if (lp) {
         ts->height = lp->biHeight;
@@ -205,33 +205,33 @@ void _settextalign(int right, int top)
     swAlign = 0;
 
     switch (right) {
-        case _RIGHT:
-            swAlign |= TA_RIGHT;
-            break;
-        case _TOP:
-            swAlign |= TA_TOP;
-            break;
-        case _CENTER:
-            swAlign |= TA_CENTER;
-            break;
-        case _HALF:
-            swAlign |= TA_CENTER;
-            break;
+    case _RIGHT:
+        swAlign |= TA_RIGHT;
+        break;
+    case _TOP:
+        swAlign |= TA_TOP;
+        break;
+    case _CENTER:
+        swAlign |= TA_CENTER;
+        break;
+    case _HALF:
+        swAlign |= TA_CENTER;
+        break;
     }
 
     switch (top) {
-        case _RIGHT:
-            swAlign |= TA_RIGHT;
-            break;
-        case _TOP:
-            swAlign |= TA_TOP;
-            break;
-        case _CENTER:
-            swAlign |= TA_CENTER;
-            break;
-        case _HALF:
-            swAlign |= TA_CENTER;
-            break;
+    case _RIGHT:
+        swAlign |= TA_RIGHT;
+        break;
+    case _TOP:
+        swAlign |= TA_TOP;
+        break;
+    case _CENTER:
+        swAlign |= TA_CENTER;
+        break;
+    case _HALF:
+        swAlign |= TA_CENTER;
+        break;
     }
 }
 
@@ -242,8 +242,7 @@ void _setcharsize(int n1, int n2)
 void _grtext(int x, int y, const char * text)
 {
     Point16 p(x, y);
-    LDPUMA_DrawString(NULL, &p, text, swAlign, swColor, 120/*12*/,
-                      PUMA_MODULE_RBLOCK);
+    LDPUMA_DrawString(NULL, &p, text, swAlign, swColor, 120/*12*/, PUMA_MODULE_RBLOCK);
 }
 
 unsigned _getlinestyle()
