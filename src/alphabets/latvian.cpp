@@ -28,7 +28,7 @@ Alphabet * create()
     return new LatvianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_LATVIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_LATVIAN, create);
 }
 
 namespace CIF
@@ -70,7 +70,7 @@ LatvianAlphabet::LatvianAlphabet()
 
 language_t LatvianAlphabet::language() const
 {
-    return LANG_LATVIAN;
+    return LANGUAGE_LATVIAN;
 }
 
 }

@@ -86,7 +86,7 @@ const char * gpSerifName = "MS Serif Cyr";
 const char * gpSansSerifName = "MS Sans Serif Cyr";
 const char * gpCourierName = "Courier Cyr";
 char UnRecogSymbol = '~';
-uint32_t gnLanguage = LANG_RUSENG;
+uint32_t gnLanguage = LANGUAGE_RUS_ENG;
 
 ///////////////////////////////////////////////////////////////
 //Handle hUseCLine;

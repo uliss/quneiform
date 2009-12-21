@@ -29,7 +29,7 @@ Alphabet * create()
     return new UkrainianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_UKRAINIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_UKRAINIAN, create);
 }
 
 namespace CIF
@@ -37,7 +37,7 @@ namespace CIF
 
 UkrainianAlphabet::UkrainianAlphabet()
 {
-    const language_t language = LANG_UKRAINIAN;
+    const language_t language = LANGUAGE_UKRAINIAN;
     addSymbol('I');
     addSymbol('i');
     addSymbol(UKR_I);
@@ -53,7 +53,7 @@ UkrainianAlphabet::UkrainianAlphabet()
 
 language_t UkrainianAlphabet::language() const
 {
-    return LANG_UKRAINIAN;
+    return LANGUAGE_UKRAINIAN;
 }
 
 }

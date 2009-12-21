@@ -28,7 +28,7 @@ Alphabet * create()
     return new FrenchAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_FRENCH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_FRENCH, create);
 }
 
 namespace CIF
@@ -70,7 +70,7 @@ FrenchAlphabet::FrenchAlphabet()
 
 language_t FrenchAlphabet::language() const
 {
-    return LANG_FRENCH;
+    return LANGUAGE_FRENCH;
 }
 
 }

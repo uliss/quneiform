@@ -770,7 +770,7 @@ void make_simples_diff(int16_t lang) {
 	for (c = cell_f()->next; c != e; c = c->next) {
 		if (!c->env->scale) {
 			criteria(c);
-			if (lang == LANG_RUSSIAN)
+			if (lang == LANGUAGE_RUSSIAN)
 				r_criteria(c, NULL);
 		}
 	}

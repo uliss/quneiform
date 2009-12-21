@@ -61,7 +61,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include "cfcompat.h"
+#include <ctype.h>
+#include <time.h>
+
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,
  reads objects, i.e. info between reliable spaces (don't confuse
@@ -82,21 +84,18 @@
 // Process indicator:
 //  1. Preliminary updation. 08-13-93 06:40pm, Mike
 //
+
+#include "cfcompat.h"
 #include "tuner.h"
 #include "spelmode.h"
 #include "cttypes.h"
 #include "tigeremulate.h"
 #include "crldefines.h"
-#include <ctype.h>
-#include <time.h>
 #include "crlmemory.h"
-
 #include "recdefs.h"
-#include "lang_def.h"
-
 #include "speldefs.h"
 #include "spelfunc.h"
-#include "compat_defs.h"
+
 //      NEED
 //      1)      proceeding ED-file
 //      2)      setup language and alphabet
@@ -162,9 +161,9 @@ static int16_t stream_op[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 static char *lang_suff[] = { "", "grm", "frn", "rus", "swe", "spa", "ita",
                              "r&e", "ukr", "ser", "cro", "pol", "dan", "por", "dut", "dig", "uzb",
                              "kaz", "kaz", // 04.09.2000 E.P.
-                             "cze", "rom", "hun", "bul", // 04.09.2000 E.P. LANG_CZECH и т.д.
-                             "slo", // LANG_SLOVENIAN 25.05.2001 E.P.
-                             "lat", "lit", "est", // LANG_LATVIAN и т.д.
+                             "cze", "rom", "hun", "bul", // 04.09.2000 E.P. LANGUAGE_CZECH и т.д.
+                             "slo", // LANGUAGE_SLOVENIAN 25.05.2001 E.P.
+                             "lat", "lit", "est", // LANGUAGE_LATVIAN и т.д.
                              "tur" // 03.06.2002 E.P.
                            };
 /////////////////////////////////////////////////////////////////////////////////////

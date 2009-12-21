@@ -28,7 +28,7 @@ Alphabet * create()
     return new ItalianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_ITALIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_ITALIAN, create);
 }
 
 namespace CIF
@@ -60,7 +60,7 @@ ItalianAlphabet::ItalianAlphabet()
 
 language_t ItalianAlphabet::language() const
 {
-    return LANG_ITALIAN;
+    return LANGUAGE_ITALIAN;
 }
 
 }

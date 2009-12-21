@@ -108,24 +108,24 @@ void context_proc_line() {
 			snap_monitor();
 		}
 		switch (language) {
-		case LANG_ENGLISH:
+		case LANGUAGE_ENGLISH:
 			lang_ret_code = english_context_process(C);
 			break;
-		case LANG_SWEDISH:
+		case LANGUAGE_SWEDISH:
 			lang_ret_code = swedish_context_process(C);
 			break;
-		case LANG_SPANISH:
+		case LANGUAGE_SPANISH:
 			lang_ret_code = spanish_context_process(C);
 			break;
-		case LANG_FRENCH:
-		case LANG_ITALIAN:
+		case LANGUAGE_FRENCH:
+		case LANGUAGE_ITALIAN:
 			lang_ret_code = franch_context_process(C);
 			break;
-		case LANG_GERMAN:
+		case LANGUAGE_GERMAN:
 			lang_ret_code = german_context_process(C);
 			break;
-		case LANG_RUSSIAN:
-			if (C->language == LANG_RUSSIAN) // Oleg : pass4 can used English cells
+		case LANGUAGE_RUSSIAN:
+			if (C->language == LANGUAGE_RUSSIAN) // Oleg : pass4 can used English cells
 				lang_ret_code = russian_context_process(C);
 			break;
 		default:
@@ -144,7 +144,7 @@ void context_proc_line() {
 				i++;
 			}
 			*p = 0;
-			if (language == LANG_ENGLISH && !strcmp("http", wrd)) {
+			if (language == LANGUAGE_ENGLISH && !strcmp("http", wrd)) {
 				if (c->nvers && !(c->flg & c_f_fict) && strchr(":",
 						c->vers[0].let) && c->next->nvers && !(c->next->flg
 						& c_f_fict) && strchr("/", c->next->vers[0].let)
@@ -161,9 +161,9 @@ void context_proc_line() {
 			}
 		}
 		if (C->nextl->vers[0].let != bad_char) {
-			if ((language == LANG_ENGLISH) && (Lbs_word()))
+			if ((language == LANGUAGE_ENGLISH) && (Lbs_word()))
 				continue;
-			if ((language == LANG_SWEDISH) && (swed_lju_flag == TRUE))
+			if ((language == LANGUAGE_SWEDISH) && (swed_lju_flag == TRUE))
 				continue;
 			if (!p2_active) // Oleg
 				Livers(C);
@@ -301,7 +301,7 @@ static uchar classify(cell *curc) {
 		test_roma_num_sym(curc);
 		test_irish_name_cur_sym(Let);
 		/* Oleg : 11-07-1994 : collection ('1','!') at the end of word */
-		if (language == LANG_RUSSIAN && Let == '1' && curc->nvers == 2
+		if (language == LANGUAGE_RUSSIAN && Let == '1' && curc->nvers == 2
 				&& (curc->vers[1].let == '!' || curc->vers[1].let
 						== (uchar) liga_exm)) {
 			if (!(curc->prev->flg & c_f_fict) && !(curc->prev->nvers > 0
@@ -369,7 +369,7 @@ static uchar classify(cell *curc) {
 				curc->next->vers[0].let == right_quocket // '>>' for rus.
 				))
 			return SPEC_SYM;
-		if (language == LANG_RUSSIAN && // Oleg : 09-09-1994 :
+		if (language == LANGUAGE_RUSSIAN && // Oleg : 09-09-1994 :
 				(curc->next->flg & c_f_let) && // word inhalt digital char
 				curc->vers[1].let == '1')
 			return SPEC_SYM;
@@ -542,7 +542,7 @@ static void Livers(cell *NC)
 			v->prob = MAX(v->prob - MONUS, 10);
 		if (kv == kt) {
 			if ((v->let == 'i') || (v->let == liga_i) || language
-					== LANG_TURKISH && // 30.05.2002 E.P.
+					== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(v->let == i_sans_accent || v->let == II_dot_accent))
 				v->prob = MAX(v->prob - MONUS, 10);
 			if (v->let == 'I') {
@@ -651,7 +651,7 @@ void complex_word() {
 	best_l = j;
 	num_v = i;
 	last_dv = cdv;
-	if ((i >= 3) && (language == LANG_ENGLISH)) {
+	if ((i >= 3) && (language == LANGUAGE_ENGLISH)) {
 		est_dc = find_dig_chr_var();
 		if (est_dc > 0) {
 			est_dc += BON_DIG_CHAR;

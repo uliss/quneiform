@@ -28,7 +28,7 @@ Alphabet * create()
     return new LithuanianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_LITHUANIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_LITHUANIAN, create);
 }
 
 namespace CIF
@@ -36,7 +36,7 @@ namespace CIF
 
 LithuanianAlphabet::LithuanianAlphabet()
 {
-    const int language = LANG_LITHUANIAN;
+    const int language = LANGUAGE_LITHUANIAN;
     addSymbol(AA_bottom_accent);
     addSymbol(a_bottom_accent);
     addSymbol(CC_inv_roof);
@@ -65,7 +65,7 @@ LithuanianAlphabet::LithuanianAlphabet()
 
 language_t LithuanianAlphabet::language() const
 {
-    return LANG_LITHUANIAN;
+    return LANGUAGE_LITHUANIAN;
 }
 
 }

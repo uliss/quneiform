@@ -28,7 +28,7 @@ Alphabet * create()
     return new CroatianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_CROATIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_CROATIAN, create);
 }
 
 namespace CIF
@@ -50,7 +50,7 @@ CroatianAlphabet::CroatianAlphabet()
 
 language_t CroatianAlphabet::language() const
 {
-    return LANG_CROATIAN;
+    return LANGUAGE_CROATIAN;
 }
 
 }

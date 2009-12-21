@@ -63,7 +63,7 @@
 #include "kernel.h"
 #include "face_lng.h"
 
-#if MORDA==LANG_ENGLISH
+#if MORDA==LANGUAGE_ENGLISH
 /*============= English definitions for error messages ======== */
 #define msg_0_1 "Format error."
 #define msg_0_2 "Some of recognition tables cannot be found."
@@ -139,7 +139,7 @@
 #define msg_8_4 "804. Edout: Word's number is wrong."
 #define msg_8_5 "805. Edout: Character's number is wrong."
 
-#elif MORDA==LANG_RUSSIAN
+#elif MORDA==LANGUAGE_RUSSIAN
 /*============= Русские definitions for error messages ========  */
 #define msg_0_1 "Ошибка форматирования."
 #define msg_0_2 "Не найдены некоторые таблицы распознавания."

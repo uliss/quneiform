@@ -491,7 +491,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 				break;
 			case (uchar) 'н':
 				// В болгарском нет Ээ. 08.09.2000 E.P.
-				if (language == LANG_RUSSIAN && langBul) {
+				if (language == LANGUAGE_RUSSIAN && langBul) {
 					d_cun = 200;
 					break;
 				}
@@ -2821,7 +2821,7 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 		return pen_z;
 	case (uchar) 'н':
 		// В болгарском нет э. 08.09.2000 E.P.
-		if (language == LANG_RUSSIAN && langBul)
+		if (language == LANGUAGE_RUSSIAN && langBul)
 			return 200;
 
 		return pen_ie;

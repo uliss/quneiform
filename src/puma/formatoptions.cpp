@@ -25,7 +25,7 @@ namespace CIF
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             use_bold_(true), use_italic_(true), use_font_size_(true), preserve_line_breaks_(false),
-            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANG_RUSENG)
+            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANGUAGE_RUS_ENG)
 {
 }
 

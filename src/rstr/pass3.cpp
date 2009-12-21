@@ -218,14 +218,14 @@ static void pass3_empty(CSTR_line lin, CSTR_line lino) {
     attrlin.incline = nIncline;
     attrlin.language = language;
     attrlin.erection = erection_inc;
-    if (language == LANG_RUSSIAN && multy_language)
-        attrlin.language = LANG_RUSENG;
-    if (language == LANG_RUSSIAN && langUkr)
-        attrlin.language = LANG_UKRAINIAN;
-    if (language == LANG_RUSSIAN && langSer)
-        attrlin.language = LANG_SERBIAN;
-    if (language == LANG_RUSSIAN && langBul)
-        attrlin.language = LANG_BULGAR;
+    if (language == LANGUAGE_RUSSIAN && multy_language)
+        attrlin.language = LANGUAGE_RUS_ENG;
+    if (language == LANGUAGE_RUSSIAN && langUkr)
+        attrlin.language = LANGUAGE_UKRAINIAN;
+    if (language == LANGUAGE_RUSSIAN && langSer)
+        attrlin.language = LANGUAGE_SERBIAN;
+    if (language == LANGUAGE_RUSSIAN && langBul)
+        attrlin.language = LANGUAGE_BULGARIAN;
     strcpy((char*) attrlin.VersionName, "EmptyLine");
     //attrlin.Flags|=CSTR_STR_EMPTY;
     CSTR_SetLineAttr(lino, &attrlin);
@@ -319,10 +319,10 @@ void kill_dusts_spaces(void) {
 Bool unique_upper(uchar c) {
     Bool ret;
     switch (language) {
-    case LANG_ENGLISH:
+    case LANGUAGE_ENGLISH:
         ret = (strchr("96543ABDEFGHKLMNQR", c) != NULL);
         break;
-    case LANG_RUSSIAN:
+    case LANGUAGE_RUSSIAN:
         ret = (strchr("АБЕ954", c) != NULL);
         break;
     default:
@@ -400,14 +400,14 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         snap_newline();
         bs_got = 0;
         db_trace_flag &= 0xf8; // reset detailed snap
-        if (language == LANG_RUSSIAN && multy_language) {
+        if (language == LANGUAGE_RUSSIAN && multy_language) {
             lneout = CSTR_GetLineHandle(line_number, CSTR_LINVERS_ENGOUT);
             if (lneout)
                 CSTR_PackLine(lneout);
         }
         // разбирательство c курсивом и прямым шрифтом с использованием кластеров
         cstr_erection_pass2(lout);
-        if (language == LANG_RUSSIAN)
+        if (language == LANGUAGE_RUSSIAN)
             multi_bas = 0;
         goto got_line;
         // skip bilingual block
@@ -438,9 +438,9 @@ void pass3(CSTR_line ln, CSTR_line lout) {
 
         if (pass2) {
             if (!Step)
-                language = LANG_RUSSIAN;
+                language = LANGUAGE_RUSSIAN;
             else
-                language = LANG_ENGLISH;
+                language = LANGUAGE_ENGLISH;
             trees_load_fict();
         }
         bs_got = 0;
@@ -511,7 +511,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         if (!p2_active && !Step)
             avdens();
         if ((cell_f()->nextl)->next == NULL) {
-            if (language == LANG_ENGLISH && Step) {
+            if (language == LANGUAGE_ENGLISH && Step) {
                 eng = 0;
                 break;
             }
@@ -519,7 +519,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             goto cont;
         }
 
-        if (!spec_camera && pass2 && language == LANG_ENGLISH)
+        if (!spec_camera && pass2 && language == LANGUAGE_ENGLISH)
             ReRecognizeComponents();
 
         // удалить "черные квадраты"
@@ -531,7 +531,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         }
 
         if ((cell_f()->nextl)->next == NULL) {
-            if (language == LANG_ENGLISH && Step) {
+            if (language == LANGUAGE_ENGLISH && Step) {
                 eng = 0;
                 break;
             }
@@ -612,7 +612,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 goto merge_lines;
             }
             else {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -665,19 +665,19 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         }
 
         // распознать звезду,процент. Распознаём отдельно, так как единообразно не удаётся
-        if (!(language == LANG_DIG || NO_Punct)) {
+        if (!(language == LANGUAGE_DIGITS || NO_Punct)) {
             star();
             perc();
         }
 
         // распознать 'Й'. Русская буква с шапкой распознаётся уникальным алгоритмом,
         //		а не через accent(), как русская буква 'Ё'
-        if (language == LANG_RUSSIAN && !langUkr && !langSer) //&& !langBul) Almi&Oleg
+        if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer) //&& !langBul) Almi&Oleg
             proc_ii();//paste '©'
 
 
         // чистим версии
-        if (language == LANG_DIG || NO_Punct)
+        if (language == LANGUAGE_DIGITS || NO_Punct)
             AKClearVers();
 
         ///////// Common code block
@@ -764,7 +764,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             ret = p2_Cstr2Cell(lout, NULL, NULL, TRUE, CSTR_f_space);
             // сколько получилось ?
             if (ret <= 0) {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -782,10 +782,10 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 snap_monitor();
             }
 
-            if (language == LANG_RUSSIAN && !langUkr && !langSer && !langBul)
+            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(1);//glue all 'л'
             if (p2_active && cell_f()->next == cell_l()) {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -798,7 +798,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             B_LINES my_bases;
             get_b_lines(NULL, &my_bases);
             if (my_bases.b1 > my_bases.b2 || my_bases.b2 > my_bases.b3 || my_bases.b3 > my_bases.b4) {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -811,7 +811,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 make_all_cuts();
             }
             else {
-                if (language == LANG_RUSSIAN) {
+                if (language == LANGUAGE_RUSSIAN) {
                     cuts_glues(); // new Paul cut & glue
                     number();
                 }
@@ -827,17 +827,17 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             // распознавание Ы. Это, действительно уникальная буква, состоящая из двух компонент, стоящих рядом.
             //			Аналога в латинице нет.
             // распознавание особых украинских букв, а также сербских, болгарских и других, производимых из алфавита кириллицы
-            if (language == LANG_RUSSIAN && !langUkr && !langSer && !langBul)
+            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(0); //paste cutted '|'
-            if (language == LANG_RUSSIAN && langUkr)
+            if (language == LANGUAGE_RUSSIAN && langUkr)
                 proc_Ukr(); //UKRAINIAN "iI & .."
-            if (language == LANG_RUSSIAN && !langSer) //&& !langBul)Almi&Oleg
+            if (language == LANGUAGE_RUSSIAN && !langSer) //&& !langBul)Almi&Oleg
                 proc_ii(); //paste '©'
 
-            if (!cuts_glues_methode || cuts_glues_methode && language != LANG_RUSSIAN)
+            if (!cuts_glues_methode || cuts_glues_methode && language != LANGUAGE_RUSSIAN)
                 make_all_glues();
 
-            if (language == LANG_RUSSIAN && !langUkr && !langSer && !langBul)
+            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(1); //glue all 'л'
         }
 
@@ -861,7 +861,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             erection_delete();
 
         // чистим версии
-        if (language == LANG_DIG || NO_Punct)
+        if (language == LANGUAGE_DIGITS || NO_Punct)
             AKClearVers();
 
         // проверка сходных английских версий (DO FP ...)
@@ -870,7 +870,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
 
         // проверка il1. Явно устаревшая функция
         if (!p2_active)
-            if (!(language == LANG_RUSSIAN && langSer))
+            if (!(language == LANGUAGE_RUSSIAN && langSer))
                 il1();
 
         // распознавание особых символов BULLET (прямоугольник, эллипс, треугольник)
@@ -883,7 +883,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 goto merge_lines;
             }
             else {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -909,7 +909,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 goto merge_lines;
             }
             else {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -927,7 +927,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 basefin(!Step ? ln : lne); // Nick 12.02.001
         // was basefin(Step?ln:lne);  // Nick 12.02.001
 
-        if ((language == LANG_RUSSIAN && langSer)) {
+        if ((language == LANGUAGE_RUSSIAN && langSer)) {
             // распознавание особых сербских букв. Эвристики, корректирующие недостатки 3х5
             serbian_J2j();
             il1();
@@ -940,7 +940,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             erection_delete();
 
         // распознавание-расстановка пунктуации
-        if (!(language == LANG_DIG || NO_Punct))
+        if (!(language == LANGUAGE_DIGITS || NO_Punct))
             punct();
 
         clear_punct_twin_flags();
@@ -952,7 +952,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 goto merge_lines;
             }
             else {
-                if (language == LANG_ENGLISH && Step) {
+                if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
                     break;
                 }
@@ -1073,7 +1073,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
                 snap_monitor_ori(l, 2);
             }
 
-            language = LANG_RUSSIAN;
+            language = LANGUAGE_RUSSIAN;
             trees_load_fict();
 
             RSADD_SetRSTR(db_status, spec_camera, (Handle) snap_monitor_ori,
@@ -1090,7 +1090,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         else
 #endif
         {
-            language = LANG_RUSSIAN;
+            language = LANGUAGE_RUSSIAN;
             trees_load_fict();
             p2_Cstr2Cell(lout, NULL, NULL, TRUE, CSTR_f_dust);
             CSTR_ClearLine(lout, (int16_t) (-16000 + 1), (int16_t) (0x7fff - 1));
@@ -1102,11 +1102,11 @@ void pass3(CSTR_line ln, CSTR_line lout) {
     }
 
     //распознавание особых символов - '®','©'
-    if (!(language == LANG_DIG || NO_Punct))
+    if (!(language == LANGUAGE_DIGITS || NO_Punct))
         trade_marks();
 
     if (pass2)
-        language = LANG_RUSSIAN;
+        language = LANGUAGE_RUSSIAN;
 
     // русско-английский контекст
     if (pass2 && !p2_active)
@@ -1148,7 +1148,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
     snap_newpass('g');
 
     // перевод лигатур
-    if (p2_active || language != LANG_RUSSIAN && language != LANG_ENGLISH)
+    if (p2_active || language != LANGUAGE_RUSSIAN && language != LANGUAGE_ENGLISH)
         convert_ligas();
 
     ready_result: ;
@@ -1163,7 +1163,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             nextRast = CSTR_GetNext(curRast);
             CSTR_DelRaster(curRast);
         }
-        if (language == LANG_RUSSIAN && multy_language) {
+        if (language == LANGUAGE_RUSSIAN && multy_language) {
             russian_english_context();
 
             lneout = CSTR_GetLineHandle(line_number, CSTR_LINVERS_ENGOUT);
@@ -1176,11 +1176,11 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         Cells2CSTR(ln, lout, NULL, 1);
 
         // Если шрифт - узкий,шкалированная строка, перераспознаем по ЛЕО
-        if (line_scale && language == LANG_RUSSIAN && cell_f()->nextl && (cell_f()->nextl->font
+        if (line_scale && language == LANGUAGE_RUSSIAN && cell_f()->nextl && (cell_f()->nextl->font
                 & c_fp_narrow))
             cstr_rerecog_leo(lout);
 
-        if (language == LANG_RUSSIAN && multy_language) {
+        if (language == LANGUAGE_RUSSIAN && multy_language) {
             lneout = CSTR_GetLineHandle(line_number, CSTR_LINVERS_ENGOUT);
             if (lneout)
                 CSTR_PackLine(lneout);
@@ -1248,7 +1248,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             pass3_table_points_suspension2(lout);
     }
     // чистим версии
-    if (language == LANG_DIG || NO_Punct)
+    if (language == LANGUAGE_DIGITS || NO_Punct)
         AKClearVers();
     clear_cells();
     del_spaces_before_carry(lout);
@@ -1330,13 +1330,13 @@ void convert_ligas(void) {
 //
 void set_cells_language(uchar lang) { // Oleg : 06-08-95 09:48pm : set 2 language
     cell *c;
-    if (lang == LANG_RUSSIAN) {
+    if (lang == LANGUAGE_RUSSIAN) {
         if (langSer)
-            lang = LANG_SERBIAN;
+            lang = LANGUAGE_SERBIAN;
         if (langUkr)
-            lang = LANG_UKRAINIAN;
+            lang = LANGUAGE_UKRAINIAN;
         if (langBul)
-            lang = LANG_BULGAR;
+            lang = LANGUAGE_BULGARIAN;
     }
     for (c = cell_f()->next; c != cell_l(); c = c->next)
         c->language = lang;
@@ -1531,7 +1531,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling) {
     if (attr.tab_number)
         line_tabcell = attr.tab_number;
     if (line_alphabet == ALPHA_DIGITAL_TRUE) {
-        language = LANG_DIG;
+        language = LANGUAGE_DIGITS;
         trees_load_fict();
         set_digital_mode();
         enable_table_recog = TRUE;
@@ -1630,7 +1630,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling) {
             }
 
         }
-        if (nall > 3 && nall == nsmall || multy_language && language == LANG_ENGLISH && ssc == 0
+        if (nall > 3 && nall == nsmall || multy_language && language == LANGUAGE_ENGLISH && ssc == 0
                 || !enable_scaling) {
             line_scale = 0;
             curr = CSTR_GetFirstRaster(lin);
@@ -2202,8 +2202,8 @@ int cell2UniVers(UniVersions *ver, cell *c) {
     int16_t i, let, ret = 0;
     int16_t lang = c->language;
 
-    if (lang == LANG_ENGLISH && multy_language)
-        lang = LANG_RUSENG;
+    if (lang == LANGUAGE_ENGLISH && multy_language)
+        lang = LANGUAGE_RUS_ENG;
     memset(ver, 0, sizeof(RecVersions));
     ver->lnAltCnt = MIN(c->nvers, REC_MAX_VERS);
     ver->lnAltCnt = MAX(ver->lnAltCnt, 0);
@@ -2443,14 +2443,14 @@ void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled) 
     attrlin.incline = nIncline;
     attrlin.language = language;
     attrlin.erection = erection_inc;
-    if (language == LANG_RUSSIAN && multy_language)
-        attrlin.language = LANG_RUSENG;
-    if (language == LANG_RUSSIAN && langUkr)
-        attrlin.language = LANG_UKRAINIAN;
-    if (language == LANG_RUSSIAN && langSer)
-        attrlin.language = LANG_SERBIAN;
-    if (language == LANG_RUSSIAN && langBul)
-        attrlin.language = LANG_BULGAR;
+    if (language == LANGUAGE_RUSSIAN && multy_language)
+        attrlin.language = LANGUAGE_RUS_ENG;
+    if (language == LANGUAGE_RUSSIAN && langUkr)
+        attrlin.language = LANGUAGE_UKRAINIAN;
+    if (language == LANGUAGE_RUSSIAN && langSer)
+        attrlin.language = LANGUAGE_SERBIAN;
+    if (language == LANGUAGE_RUSSIAN && langBul)
+        attrlin.language = LANGUAGE_BULGARIAN;
     strcpy((char*) attrlin.VersionName, "RecogVersions");
     CSTR_SetLineAttr(lino, &attrlin);
     if (lin)
@@ -2837,7 +2837,7 @@ Bool match_word_prepare(CSTR_line ln, uchar *alphabet, MatchWordPar *param) {
     if ((cell_f()->nextl)->next == NULL)
         return FALSE;
 
-    if (language == LANG_ENGLISH)
+    if (language == LANGUAGE_ENGLISH)
         ReRecognizeComponents();
 
     lsq = del_squares();
@@ -3033,7 +3033,7 @@ void cstr_rerecog_leo(CSTR_line ln) {
     for (rst = CSTR_GetNextRaster(CSTR_GetFirstRaster(ln), CSTR_f_let); rst; rst
             = CSTR_GetNextRaster(rst, CSTR_f_let)) {
         CSTR_GetAttr(rst, &attr);
-        if (attr.language == LANG_RUSSIAN) {
+        if (attr.language == LANGUAGE_RUSSIAN) {
             CSTR_GetImage(rst, (uchar*) &rc, CSTR_TYPE_IMAGE_RS);
             CSTR_GetCollectionUni(rst, &uo);
             u = uo;
@@ -3182,13 +3182,13 @@ void pass3_special_recode(CSTR_line ln) {
     CSTR_rast_attr attr;
     UniVersions uni;
 
-    if (!(language == LANG_RUSSIAN && multy_language))
+    if (!(language == LANGUAGE_RUSSIAN && multy_language))
         return;
 
     for (rst = CSTR_GetNext(CSTR_GetFirstRaster(ln)); rst; rst = CSTR_GetNext(rst)) {
         CSTR_GetCollectionUni(rst, &uni);
         CSTR_GetAttr(rst, &attr);
-        if (uni.lnAltCnt && uni.Alt[0].Liga == 0x84 && attr.language == LANG_ENGLISH) {
+        if (uni.lnAltCnt && uni.Alt[0].Liga == 0x84 && attr.language == LANGUAGE_ENGLISH) {
             uni.Alt[0].Liga = 0xd5;
             CSTR_StoreCollectionUni(rst, &uni);
         }

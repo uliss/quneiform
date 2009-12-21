@@ -28,7 +28,7 @@ Alphabet * create()
     return new EstonianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_ESTONIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_ESTONIAN, create);
 }
 
 namespace CIF
@@ -62,7 +62,7 @@ EstonianAlphabet::EstonianAlphabet()
 
 language_t EstonianAlphabet::language() const
 {
-    return LANG_ESTONIAN;
+    return LANGUAGE_ESTONIAN;
 }
 
 }

@@ -77,7 +77,7 @@
 namespace CIF
 {
 RMarker::RMarker() :
-    cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANG_RUSENG), pictures_(0), fax_(false),
+    cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANGUAGE_RUS_ENG), pictures_(0), fax_(false),
             one_column_(false), kill_vsl_components_(false)
 {
     RNEG_Init(0, NULL);

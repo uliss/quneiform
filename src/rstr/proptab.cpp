@@ -585,7 +585,7 @@ void correct_letters_pidx_table(void)
 {
   switch(language)
      {
-     case LANG_RUSSIAN:
+     case LANGUAGE_RUSSIAN:
         memcpy(work_table, letters_pidx_table_rus, sizeof (work_table));
         break;
 

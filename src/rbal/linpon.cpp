@@ -759,7 +759,7 @@ int16_t cut_by_posu(CSTR_rast C, uchar chr, int16_t wp, uchar flg, uchar arg)
             if ((i = cpsu(top - b2) + 4) <= 0)
                 break;  // Valdemar: what is bsi ?
 
-            if (bsi > 0 && language != LANG_RUSSIAN)
+            if (bsi > 0 && language != LANGUAGE_RUSSIAN)
                 i = cpsu(top - b2 - bsi) + 4;
 
             if (i <= 0)
@@ -1615,7 +1615,7 @@ int16_t levcut(CSTR_rast C, int16_t arg)
         sort_vers(C);
 
     if ((nalive == 0) || ((nalive == 1) && (surviver == invers_exm) && language
-                          != LANG_RUSSIAN))
+                          != LANGUAGE_RUSSIAN))
         // entirely killed cell
     {
         // version *v0;
@@ -1627,7 +1627,7 @@ int16_t levcut(CSTR_rast C, int16_t arg)
             chr = vers.Alt[i].Liga;
 
             if (!memchr("LTJ()<>[]trI1l!/", chr, 16) && (chr != liga_i)
-                    && !(language == LANG_TURKISH && // 30.05.2002 E.P.
+                    && !(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                          (chr == i_sans_accent || chr == II_dot_accent))
                     && (chr != liga_inv_exm))
                 goto all_cut;
@@ -1794,7 +1794,7 @@ void gen_reset()
  ncut_vers=ncut_cells=ntot_cells=0;
  i = bbs2 - (bbs3-bbs2)/2;
  bsdust_upper = MIN(i,bbs1) - 2 + minrow;
- if (language != LANG_ENGLISH)
+ if (language != LANGUAGE_ENGLISH)
  bsdust_upper -= (MAX(2,(bbs3-bbs2)/7));
  bsdust_lower = bbs4 + minrow;
 
@@ -1954,7 +1954,7 @@ all_again:
 
                     // agrees to stay as cap and as small --- killed by unstable (splitted) lines
                     if ((attr.bas_acc & CSTR_ba_chance) || language
-                            != LANG_RUSSIAN) {
+                            != LANGUAGE_RUSSIAN) {
                         CSTR_rast wd;
                         CSTR_rast_attr attr2;
                         int16_t weight;
@@ -2088,7 +2088,7 @@ all_again:
     if (all_caps)
         goto no_multi;
 
-    if (language == LANG_RUSSIAN) { // Valdemar
+    if (language == LANGUAGE_RUSSIAN) { // Valdemar
         if (ntot_cells > 10) {
             if (ncut_mult > 2 || (dead_cells > 2 && killed_box > 32000))
                 goto try_multi;
@@ -2106,7 +2106,7 @@ all_again:
         if ((killed_box > 32000) && (dead_cells > 1)) {
         try_multi:
 
-            if (language == LANG_RUSSIAN && !stable_b3)
+            if (language == LANGUAGE_RUSSIAN && !stable_b3)
                 goto no_multi; // gleb
 
             if (multi_bas == 0)
@@ -2595,7 +2595,7 @@ void basefin(CSTR_line ln)
     if (!CSTR_GetNextRaster(cell_f(), f_letter))
         return; // line emptied
 
-    if (language == LANG_RUSSIAN)
+    if (language == LANGUAGE_RUSSIAN)
         count_line_hi(); // collect some info about line
 
     mutual_influence();
@@ -2778,7 +2778,7 @@ retcv:
         CSTR_GetAttr(B1, &attrB);
     }
 
-    if (abs(attrB.bdiff) < 2 && language != LANG_RUSSIAN) { // Valdemar
+    if (abs(attrB.bdiff) < 2 && language != LANGUAGE_RUSSIAN) { // Valdemar
         if ((wdn == 0) && (wdp == 0) && (diff_curv == 0)) {
             attrB.bdiff = 0;
             attrB.difflg &= ~(CSTR_db_down | CSTR_db_up);

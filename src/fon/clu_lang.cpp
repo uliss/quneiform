@@ -73,9 +73,9 @@ static Bool32 CyrilLanguage(void)
     if (langCyrilRoman == 2)
         return FALSE;
 
-    if (language == LANG_RUSSIAN || language == LANG_ENGLISH || language
-            == LANG_UKRAINIAN || language == LANG_SERBIAN || language
-            == LANG_BULGAR || language == LANG_RUSENG) {
+    if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH || language
+            == LANGUAGE_UKRAINIAN || language == LANGUAGE_SERBIAN || language
+            == LANGUAGE_BULGARIAN || language == LANGUAGE_RUS_ENG) {
         langCyrilRoman = 1;
         return TRUE;
     }
@@ -91,13 +91,13 @@ static Bool32 RomanLanguage(void)
     if (langCyrilRoman == 2)
         return TRUE;
 
-    if (language == LANG_GERMAN || language == LANG_FRENCH || language
-            == LANG_SWEDISH || language == LANG_ITALIAN || language
-            == LANG_SPANISH || language == LANG_DANISH || language
-            == LANG_PORTUGUESE || language == LANG_DUTCH || language
-            == LANG_POLISH || language == LANG_CROATIAN || language
-            == LANG_CZECH || language == LANG_HUNGAR || language == LANG_ROMAN
-            || language == LANG_SLOVENIAN || is_baltic_language(language) || // 09.07.2001 E.P.
+    if (language == LANGUAGE_GERMAN || language == LANGUAGE_FRENCH || language
+            == LANGUAGE_SWEDISH || language == LANGUAGE_ITALIAN || language
+            == LANGUAGE_SPANISH || language == LANGUAGE_DANISH || language
+            == LANGUAGE_PORTUGUESE || language == LANGUAGE_DUTCH || language
+            == LANGUAGE_POLISH || language == LANGUAGE_CROATIAN || language
+            == LANGUAGE_CZECH || language == LANGUAGE_HUNGARIAN || language == LANGUAGE_ROMANIAN
+            || language == LANGUAGE_SLOVENIAN || is_baltic_language(language) || // 09.07.2001 E.P.
             is_turkish_language(language)) {
         langCyrilRoman = 2;
         return TRUE;
@@ -292,37 +292,37 @@ Bool32 NotStandardSymbol(int i)
             return TRUE;
 
         switch (language) {
-            case LANG_HUNGAR:
+            case LANGUAGE_HUNGARIAN:
 
                 if (is_hungar_special((uchar) i))
                     return TRUE;
 
                 break;
-            case LANG_CZECH:
+            case LANGUAGE_CZECH:
 
                 if (is_czech_special((uchar) i))
                     return TRUE;
 
                 break;
-            case LANG_LITHUANIAN:
+            case LANGUAGE_LITHUANIAN:
 
                 if (is_lithuanian_special((uchar) i))
                     return TRUE;
 
                 break;
-            case LANG_LATVIAN:
+            case LANGUAGE_LATVIAN:
 
                 if (is_latvian_special((uchar) i))
                     return TRUE;
 
                 break;
-            case LANG_ESTONIAN:
+            case LANGUAGE_ESTONIAN:
 
                 if (is_estonian_special((uchar) i))
                     return TRUE;
 
                 break;
-            case LANG_TURKISH:
+            case LANGUAGE_TURKISH:
 
                 if (is_turkish_special((uchar) i))
                     return TRUE;

@@ -100,34 +100,34 @@ struct langlist
  */
 static const langlist langs[] = {
 //
-    { LANG_ENGLISH, "eng", "English" },
-    { LANG_GERMAN, "ger", "German" },
-    { LANG_FRENCH, "fra", "French" },
-    { LANG_RUSSIAN, "rus", "Russian" },
-    { LANG_SWEDISH, "swe", "Swedish" },
-    { LANG_SPANISH, "spa", "Spanish" },
-    { LANG_ITALIAN, "ita", "Italian" },
-    { LANG_RUSENG, "ruseng", "Russian-English" },
-    { LANG_UKRAINIAN, "ukr", "Ukrainian" },
-    { LANG_SERBIAN, "srp", "Serbian" },
-    { LANG_CROATIAN, "hrv", "Croatian" },
-    { LANG_POLISH, "pol", "Polish" },
-    { LANG_DANISH, "dan", "Danish" },
-    { LANG_PORTUGUESE, "por", "Portuguese" },
-    { LANG_DUTCH, "dut", "Dutch" },
-    { LANG_DIG, "dig", "Digits" }, // This probably means "recognize digits only".
-    //        {LANG_UZBEK,     "uzb"}, // These don't seem to have data files. Thus they are disabled.
-    //        {LANG_KAZ,       "kaz"},
-    //        {LANG_KAZ_ENG,   "kazeng"},
-    { LANG_CZECH, "cze", "Czech" },
-    { LANG_ROMAN, "rum", "Roman" },
-    { LANG_HUNGAR, "hun", "Hungarian" },
-    { LANG_BULGAR, "bul", "Bulgarian" },
-    { LANG_SLOVENIAN, "slo", "Slovenian" },
-    { LANG_LATVIAN, "lav", "Latvian" },
-    { LANG_LITHUANIAN, "lit", "Lithuanian" },
-    { LANG_ESTONIAN, "est", "Estonian" },
-    { LANG_TURKISH, "tur", "Turkish" },
+    { LANGUAGE_ENGLISH, "eng", "English" },
+    { LANGUAGE_GERMAN, "ger", "German" },
+    { LANGUAGE_FRENCH, "fra", "French" },
+    { LANGUAGE_RUSSIAN, "rus", "Russian" },
+    { LANGUAGE_SWEDISH, "swe", "Swedish" },
+    { LANGUAGE_SPANISH, "spa", "Spanish" },
+    { LANGUAGE_ITALIAN, "ita", "Italian" },
+    { LANGUAGE_RUS_ENG, "ruseng", "Russian-English" },
+    { LANGUAGE_UKRAINIAN, "ukr", "Ukrainian" },
+    { LANGUAGE_SERBIAN, "srp", "Serbian" },
+    { LANGUAGE_CROATIAN, "hrv", "Croatian" },
+    { LANGUAGE_POLISH, "pol", "Polish" },
+    { LANGUAGE_DANISH, "dan", "Danish" },
+    { LANGUAGE_PORTUGUESE, "por", "Portuguese" },
+    { LANGUAGE_DUTCH, "dut", "Dutch" },
+    { LANGUAGE_DIGITS, "dig", "Digits" }, // This probably means "recognize digits only".
+    //        {LANGUAGE_UZBEK,     "uzb"}, // These don't seem to have data files. Thus they are disabled.
+    //        {LANGUAGE_KAZAKH,       "kaz"},
+    //        {LANGUAGE_KAZ_ENG,   "kazeng"},
+    { LANGUAGE_CZECH, "cze", "Czech" },
+    { LANGUAGE_ROMANIAN, "rum", "Roman" },
+    { LANGUAGE_HUNGARIAN, "hun", "Hungarian" },
+    { LANGUAGE_BULGARIAN, "bul", "Bulgarian" },
+    { LANGUAGE_SLOVENIAN, "slo", "Slovenian" },
+    { LANGUAGE_LATVIAN, "lav", "Latvian" },
+    { LANGUAGE_LITHUANIAN, "lit", "Lithuanian" },
+    { LANGUAGE_ESTONIAN, "est", "Estonian" },
+    { LANGUAGE_TURKISH, "tur", "Turkish" },
     { (language_t) -1, NULL, NULL } };
 
 struct formatlist
@@ -311,7 +311,7 @@ int main(int argc, char **argv) {
 
     string outfilename, infilename, monospace, serif, sansserif;
     puma_format_t outputformat = PUMA_TOTEXT;
-    language_t langcode = LANG_ENGLISH;
+    language_t langcode = LANGUAGE_ENGLISH;
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (code) {

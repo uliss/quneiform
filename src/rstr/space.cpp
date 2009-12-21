@@ -160,7 +160,7 @@ void space_size(int16_t h) {
 			let2 = bad_char;
 
 		// Generic for Central Europe ligas 29.08.2000 E.P.
-		if (language != LANG_RUSSIAN)
+		if (language != LANGUAGE_RUSSIAN)
 			space_ligas(&let1, &let2);
 
 		if (let1 == '_' && !memchr(".,", let2, 2) || let2 == '_' && !memchr(
@@ -168,8 +168,8 @@ void space_size(int16_t h) {
 			continue;
 
 		if (let1 == low_quotes || // Макрос 31.05.2001 E.P.
-				let2 == ',' || (language == LANG_ENGLISH || language
-				== LANG_GERMAN || language == LANG_RUSSIAN) && (let2 == ':'
+				let2 == ',' || (language == LANGUAGE_ENGLISH || language
+				== LANGUAGE_GERMAN || language == LANGUAGE_RUSSIAN) && (let2 == ':'
 				|| let2 == ';'))
 			continue;
 
@@ -179,7 +179,7 @@ void space_size(int16_t h) {
 		if (let1 == '.' && let2 == '.')
 			continue;
 
-		if (language == LANG_FRENCH && (let1 == left_quocket || let2
+		if (language == LANGUAGE_FRENCH && (let1 == left_quocket || let2
 				== right_quocket))
 			continue;
 
@@ -217,14 +217,14 @@ void space_size(int16_t h) {
 						d += 256* c2 ->w / 3;
 
 					if ((let1 == 'i' && 5* c1 ->w > 2* c1 ->h || (let1
-							== liga_i || language == LANG_TURKISH && (let1
+							== liga_i || language == LANGUAGE_TURKISH && (let1
 							== i_sans_accent || let1 == II_dot_accent) // 30.05.2002 E.P.
 							) && 4* c1 ->w > c1->h) && !((c1->font
 							| c1->font_new) & c_fp_it) && c1->font & c_fp_gelv)
 						d -= 256* c1 ->w / 5;
 
 					if ((let2 == 'i' && 5* c2 ->w > 2* c2 ->h || (let2
-							== liga_i || language == LANG_TURKISH && (let2
+							== liga_i || language == LANGUAGE_TURKISH && (let2
 							== i_sans_accent || let2 == II_dot_accent) // 30.05.2002 E.P.
 							) && 4* c2 ->w > c2->h) && !((c2->font
 							| c2->font_new) & c_fp_it) && c2->font & c_fp_gelv)
@@ -375,8 +375,8 @@ void space_size(int16_t h) {
 		snap_monitor();
 	}
 
-	dd = (language == LANG_FRENCH || language == LANG_GERMAN || language
-			== LANG_SWEDISH) ? 2 : 0;
+	dd = (language == LANGUAGE_FRENCH || language == LANGUAGE_GERMAN || language
+			== LANGUAGE_SWEDISH) ? 2 : 0;
 
 	for (nh1 = nh - ((hist[nh] < NBSMIN) ? 1 : 0), s1 = 0; s1 < 2; s1++) {
 		for (n2 = i = 0; i <= nh1 && hist[i] <= s1; n2 += hist[i++]) {
@@ -685,18 +685,18 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 	if (let2 == '.' && c2->next->vers[0].let != '.')
 		d -= H / d_point_b;
 	if (let2 == '%') {
-		if (language != LANG_FRENCH)
+		if (language != LANGUAGE_FRENCH)
 			d -= H / d_perc_b;
 		else
 			d -= H / (2*d_perc_b);
 	}
-	if ((let2 == '!' || let2 == '?') && language != LANG_FRENCH)
+	if ((let2 == '!' || let2 == '?') && language != LANGUAGE_FRENCH)
 		d -= H / d_sign_b;
-	if (let2 == '?' && language == LANG_FRENCH)
+	if (let2 == '?' && language == LANGUAGE_FRENCH)
 		d += H / (4*d_sign_b);
 	if (let2 == '?' && (c2->font | c2->font_new) & c_fp_it)
 		d -= H / d_signit_b;
-	if (language != LANG_RUSSIAN)//05-31-94 12:08pm,Pit
+	if (language != LANGUAGE_RUSSIAN)//05-31-94 12:08pm,Pit
 		if ((let2 == invers_exm || let2 == invers_qm) && !(let1 == '"' || let1
 				== left_quocket))
 			d += H / d_invsign_b;
@@ -780,7 +780,7 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 				if (let1==',' && (let2>='0' && let2<='9' && let2!='1' || let2=='O'))
 				d-=H/d_cm_dig;
 				if (let1=='g' || let2=='g' ||
-						language==LANG_TURKISH && // 27.06.2002 E.P.
+						language==LANGUAGE_TURKISH && // 27.06.2002 E.P.
 						(let1==g_semicircle || let2==g_semicircle)
 				)
 				d+=H/d_g;
@@ -849,7 +849,7 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 				d+=H/d_sign_a;
 				if ((let1=='!' || let1=='?') && (let2=='!' || let2=='?'))
 				d-=H/d_sign;
-				if(language!=LANG_RUSSIAN)//05-31-94 12:09pm,Pit
+				if(language!=LANGUAGE_RUSSIAN)//05-31-94 12:09pm,Pit
 				if (let1==invers_exm || let1==invers_qm)
 				d-=H/d_invsign_a;
 				if (c1->font&c_fp_gelv && !((c1->font|c1->font_new)&c_fp_it) &&
@@ -885,11 +885,11 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 				if (let1==0x27 ||
 						let1==low_quotes || // Макрос 31.05.2001 E.P.
 						let2==0x27 || let2=='"' ||
-						language==LANG_GERMAN && (let1==right_quocket || let2==left_quocket))
+						language==LANGUAGE_GERMAN && (let1==right_quocket || let2==left_quocket))
 				d-=H/d_ast;
-				if ((let1==left_quocket || let2==right_quocket)&&language!=LANG_RUSSIAN)
+				if ((let1==left_quocket || let2==right_quocket)&&language!=LANGUAGE_RUSSIAN)
 				d-=2*H/(3*d_ast);
-				if (language==LANG_FRENCH && (c1->font|c1->font_new)&c_fp_it && let2==0x27)
+				if (language==LANGUAGE_FRENCH && (c1->font|c1->font_new)&c_fp_it && let2==0x27)
 				d-=H/d_it_ast;
 				if (let1=='.' && (let2==0x27 || let2=='"'))
 				d-=H/d_pn_ast;
@@ -918,13 +918,13 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 				 d-=H/d_ap_qt;*/
 				if ((c1->font|c1->font_new)&c_fp_it &&
 						(let1=='g' ||
-								language==LANG_TURKISH && let1==g_semicircle // 27.06.2002 E.P.
+								language==LANGUAGE_TURKISH && let1==g_semicircle // 27.06.2002 E.P.
 						) && ser_g(c1))
 				d+=H/d_git_a;
 				if (let1=='g' && let2=='g')
 				d+=H/d_g_g;
 				if ( (let2=='g' ||
-								language==LANG_TURKISH && let2==g_semicircle // 27.06.2002 E.P.
+								language==LANGUAGE_TURKISH && let2==g_semicircle // 27.06.2002 E.P.
 						)
 						&& longtail(c2)
 				)
@@ -958,9 +958,9 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2) {
 				d-=(256*c2->w)/d_star;
 				if (let1=='@' || let2=='@')
 				d-=H/d_add;
-				if (language==LANG_FRENCH && let1=='l' && let2==0x27)
+				if (language==LANGUAGE_FRENCH && let1=='l' && let2==0x27)
 				d-=H/d_l_ast;
-				if( language==LANG_RUSSIAN && ((c2->font|c2->font_new) & c_fp_it) &&
+				if( language==LANGUAGE_RUSSIAN && ((c2->font|c2->font_new) & c_fp_it) &&
 						(let2==(uchar)'а' || let2==(uchar)'г'))
 				d += H/d_rus_lowered;
 
@@ -1087,8 +1087,8 @@ void space_cell() {
 
 		if (!pitchsize) {
 			if (let1 == low_quotes || // Макрос 31.05.2001 E.P.
-					let2 == ',' || (language == LANG_ENGLISH || language
-					== LANG_GERMAN || language == LANG_RUSSIAN) && (let2 == ':'
+					let2 == ',' || (language == LANGUAGE_ENGLISH || language
+					== LANGUAGE_GERMAN || language == LANGUAGE_RUSSIAN) && (let2 == ':'
 					|| let2 == ';'))
 				continue;
 			if (let1 == '$' && let2 >= '0' && let2 <= '9')
@@ -1103,7 +1103,7 @@ void space_cell() {
 				*wrd = 0;
 				continue;
 			}
-			if (language == LANG_FRENCH && (let1 == left_quocket || let2
+			if (language == LANGUAGE_FRENCH && (let1 == left_quocket || let2
 					== right_quocket)) {
 				insert_space(c1, c2, 0);
 				*wrd = 0;
@@ -1148,7 +1148,7 @@ void space_cell() {
 #endif
 			{
 				i = c2->left + c2->w / 2 - (c1->left + c1->w / 2);
-				if (language == LANG_RUSSIAN) {
+				if (language == LANGUAGE_RUSSIAN) {
 					int16_t distance;
 					//if (memchr("л›ий™оћ¦†",let2,10) && c2->w>c2->h) i-=c2->w/3;
 					if (isletter(let2) && let2 > 128 && c2->w > c2->h)
@@ -1165,13 +1165,13 @@ void space_cell() {
 						& c_fp_it) && c2->font & c_fp_gelv && 4* c2 ->w > c2->h)
 					i += c2->w / 3;
 				if ((let1 == 'i' && 5* c1 ->w > 2* c1 ->h || (let1 == liga_i
-						|| language == LANG_TURKISH && (let1 == i_sans_accent
+						|| language == LANGUAGE_TURKISH && (let1 == i_sans_accent
 								|| let1 == II_dot_accent) // 30.05.2002 E.P.
 						) && 4* c1 ->w > c1->h) && !((c1->font | c1->font_new)
 						& c_fp_it) && c1->font & c_fp_gelv)
 					i -= c1->w / 5;
 				if ((let2 == 'i' && 5* c2 ->w > 2* c2 ->h || (let2 == liga_i
-						|| language == LANG_TURKISH && (let2 == i_sans_accent
+						|| language == LANGUAGE_TURKISH && (let2 == i_sans_accent
 								|| let2 == II_dot_accent) // 30.05.2002 E.P.
 						) && 4* c2 ->w > c2->h) && !((c2->font | c2->font_new)
 						& c_fp_it) && c2->font & c_fp_gelv)
@@ -1733,16 +1733,16 @@ void space_valid_words(void) {
 					&& c->nextl->next->vers[0].let == '.') &&
 
 			// Англ. "Let's" и т.п. 04.09.2001 E.P.
-					!(language != LANG_RUSSIAN && c->next->vers[0].let == '\''
+					!(language != LANGUAGE_RUSSIAN && c->next->vers[0].let == '\''
 							&& c->nextl->next && c->nextl->next->nvers
 							&& c->nextl->next->vers[0].let == ' ') &&
 
 			// Француз. "C'est" и т.п. 11.03.2002 Nick
-					!((language == LANG_FRENCH ||
+					!((language == LANGUAGE_FRENCH ||
 
 					// В турецком встречается апостроф
 							// в середине слова 18.06.2002 E.P.
-							language == LANG_TURKISH) && c->next->vers[0].let
+							language == LANGUAGE_TURKISH) && c->next->vers[0].let
 							== '\'')
 
 			)

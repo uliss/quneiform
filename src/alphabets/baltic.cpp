@@ -26,7 +26,7 @@ BalticAlphabet::BalticAlphabet()
 {
     // WWindows cp-1257
     // it's only a var for marcores
-    const int language = LANG_ESTONIAN;
+    const int language = LANGUAGE_ESTONIAN;
     addSymbol(low_quotes);
     addSymbol(liga_exm);
     addSymbol(liga_i);

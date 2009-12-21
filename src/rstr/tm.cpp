@@ -141,7 +141,7 @@ Bool tradeCR(cell *c) {
 					== (uchar) 'Q') {
 				saveN = (uchar) nextc->nvers;
 				memcpy(saveV, nextc->vers, VERS_IN_CELL * sizeof(version));
-				language = LANG_ENGLISH;
+				language = LANGUAGE_ENGLISH;
 				short_recog_cell(nextc);
 				if (db_status && snap_activity(TM_SNAP_PASS)) {
 					snap_newcell(c);
@@ -334,7 +334,7 @@ int16_t is_square(cell *a) {
 	a->dens = dens / 8; // for calc BOLD
 	if (dens > 127) // too dens - not a sqare
 		flsq = 0;
-	if (language == LANG_RUSSIAN) // by Oleg: 24/10/97 && a->nvers>0 && MEMCHR("¯",a->vers[0].let,1) )
+	if (language == LANGUAGE_RUSSIAN) // by Oleg: 24/10/97 && a->nvers>0 && MEMCHR("¯",a->vers[0].let,1) )
 		flsq = 0; // Oleg : 28-03-1995 : russian small "pe" siamilar square
 	return flsq;
 }
@@ -831,7 +831,7 @@ static int16_t try_TM (cell **first_cell_ptr, int16_t num)
 		{
 			let=c->vers[j].let;
 			if (let=='t' || let=='T' || // let=='1' ||
-					( language==LANG_RUSSIAN && (let==(uchar)'â' || let==(uchar)'’')) ) // Russian T
+					( language==LANGUAGE_RUSSIAN && (let==(uchar)'â' || let==(uchar)'’')) ) // Russian T
 			{
 				tc = c;
 				TM_found=1; // T is found
@@ -876,7 +876,7 @@ static int16_t try_TM (cell **first_cell_ptr, int16_t num)
 	{
 		let=fc->vers[j].let;
 		if (let=='m' || let=='M' ||
-				(language==LANG_RUSSIAN && (let==(uchar)'¬' || let==(uchar)'Œ') ) ) // Russian M
+				(language==LANGUAGE_RUSSIAN && (let==(uchar)'¬' || let==(uchar)'Œ') ) ) // Russian M
 		{
 			TM_found|=2; // M is found
 			Mprob += fc->vers[j].prob;

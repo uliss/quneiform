@@ -28,7 +28,7 @@ Alphabet * create()
     return new PortugueseAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_PORTUGUESE, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_PORTUGUESE, create);
 }
 
 namespace CIF
@@ -72,7 +72,7 @@ PortugueseAlphabet::PortugueseAlphabet()
 
 language_t PortugueseAlphabet::language() const
 {
-    return LANG_PORTUGUESE;
+    return LANGUAGE_PORTUGUESE;
 }
 
 }

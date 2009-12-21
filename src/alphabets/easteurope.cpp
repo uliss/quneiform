@@ -45,7 +45,7 @@ EastEuropeAlphabet::EastEuropeAlphabet()
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0     // f
     };
     initFromTable(alph_ce);
-    const int language = LANG_CZECH;
+    const int language = LANGUAGE_CZECH;
     addSymbol(liga_exm);
     addSymbol(liga_inv_exm);
     addSymbol(right_quocket);

@@ -620,7 +620,7 @@ static int FindBestClustersBound(int w, int h, uchar *buf, uchar *bufrazmaz,
             continue;
 
         if (strchr(Palki, wel->let) || wel->let == liga_i || (language
-                                                              == LANG_TURKISH && // 30.05.2002 E.P.
+                                                              == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                               (wel->let == i_sans_accent || wel->let == II_dot_accent))
                 || wel->let == liga_exm) {
             if (wel->let != 'i' || !IsSinglePoint(bou))
@@ -1144,7 +1144,7 @@ static int FindFirstClusterPorog(int w, int h, uchar *buf, uchar *bufrazmaz,
             continue;
 
         if (strchr(Palki, wel->let) || wel->let == liga_i || (language
-                                                              == LANG_TURKISH && // 30.05.2002 E.P.
+                                                              == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                               (wel->let == i_sans_accent || wel->let == II_dot_accent))
                 || wel->let == liga_exm)
             continue;
@@ -1611,34 +1611,34 @@ uchar decode_ASCII_to_[256][4] = {
     "\xe3", "\x20", "\x20", "\x20", "\x20", "\xe0", "\x95", "\x20"
 };
 //////////////////
-uchar CodePages[LANG_TOTAL] = { ANSI_CHARSET, // LANG_ENGLISH
-                                ANSI_CHARSET, // LANG_GERMAN
-                                ANSI_CHARSET, // LANG_FRENCH
-                                RUSSIAN_CHARSET, // LANG_RUSSIAN
-                                ANSI_CHARSET, // LANG_SWEDISH
-                                ANSI_CHARSET, // LANG_SPANISH
-                                ANSI_CHARSET, // LANG_ITALIAN
-                                RUSSIAN_CHARSET, // LANG_RUSENG
-                                RUSSIAN_CHARSET, // LANG_UKRAINIAN
-                                RUSSIAN_CHARSET, // LANG_SERBIAN
-                                EASTEUROPE_CHARSET, // LANG_CROATIAN
-                                EASTEUROPE_CHARSET, // LANG_POLISH
-                                ANSI_CHARSET, // LANG_DANISH
-                                ANSI_CHARSET, // LANG_PORTUGUESE
-                                ANSI_CHARSET, // LANG_DUTCH
-                                ANSI_CHARSET, // LANG_DIG        15
-                                RUSSIAN_CHARSET, // LANG_UZBEK    16 // 01.09.2000 E.P.
-                                RUSSIAN_CHARSET, // LANG_KAZ          17
-                                RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
-                                EASTEUROPE_CHARSET, // LANG_CZECH     19
-                                EASTEUROPE_CHARSET, // LANG_ROMAN     20
-                                EASTEUROPE_CHARSET, // LANG_HUNGAR    21
-                                RUSSIAN_CHARSET, // LANG_BULGAR   22
-                                EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
-                                BALTIC_CHARSET, // LANG_LATVIAN   24
-                                BALTIC_CHARSET, // LANG_LITHUANIAN 25
-                                BALTIC_CHARSET, // LANG_ESTONIAN      26
-                                TURKISH_CHARSET // LANG_TURKISH   27
+uchar CodePages[LANG_TOTAL] = { ANSI_CHARSET, // LANGUAGE_ENGLISH
+                                ANSI_CHARSET, // LANGUAGE_GERMAN
+                                ANSI_CHARSET, // LANGUAGE_FRENCH
+                                RUSSIAN_CHARSET, // LANGUAGE_RUSSIAN
+                                ANSI_CHARSET, // LANGUAGE_SWEDISH
+                                ANSI_CHARSET, // LANGUAGE_SPANISH
+                                ANSI_CHARSET, // LANGUAGE_ITALIAN
+                                RUSSIAN_CHARSET, // LANGUAGE_RUS_ENG
+                                RUSSIAN_CHARSET, // LANGUAGE_UKRAINIAN
+                                RUSSIAN_CHARSET, // LANGUAGE_SERBIAN
+                                EASTEUROPE_CHARSET, // LANGUAGE_CROATIAN
+                                EASTEUROPE_CHARSET, // LANGUAGE_POLISH
+                                ANSI_CHARSET, // LANGUAGE_DANISH
+                                ANSI_CHARSET, // LANGUAGE_PORTUGUESE
+                                ANSI_CHARSET, // LANGUAGE_DUTCH
+                                ANSI_CHARSET, // LANGUAGE_DIGITS        15
+                                RUSSIAN_CHARSET, // LANGUAGE_UZBEK    16 // 01.09.2000 E.P.
+                                RUSSIAN_CHARSET, // LANGUAGE_KAZAKH          17
+                                RUSSIAN_CHARSET, // LANGUAGE_KAZ_ENG    18
+                                EASTEUROPE_CHARSET, // LANGUAGE_CZECH     19
+                                EASTEUROPE_CHARSET, // LANGUAGE_ROMANIAN     20
+                                EASTEUROPE_CHARSET, // LANGUAGE_HUNGARIAN    21
+                                RUSSIAN_CHARSET, // LANGUAGE_BULGARIAN   22
+                                EASTEUROPE_CHARSET, // LANGUAGE_SLOVENIAN  23
+                                BALTIC_CHARSET, // LANGUAGE_LATVIAN   24
+                                BALTIC_CHARSET, // LANGUAGE_LITHUANIAN 25
+                                BALTIC_CHARSET, // LANGUAGE_ESTONIAN      26
+                                TURKISH_CHARSET // LANGUAGE_TURKISH   27
                               };
 //////////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang)
@@ -1646,8 +1646,8 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang)
     int i;
     UniVersions cver, *ver;
     uchar let;
-    //if( lang==LANG_ENGLISH && multy_language )
-    //    lang    = LANG_RUSENG;
+    //if( lang==LANGUAGE_ENGLISH && multy_language )
+    //    lang    = LANGUAGE_RUS_ENG;
 
     if (!rast)
         return FALSE;

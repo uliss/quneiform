@@ -28,7 +28,7 @@ Alphabet * create()
     return new PolishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_POLISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_POLISH, create);
 }
 
 namespace CIF
@@ -56,7 +56,7 @@ PolishAlphabet::PolishAlphabet()
 
 language_t PolishAlphabet::language() const
 {
-    return LANG_POLISH;
+    return LANGUAGE_POLISH;
 }
 
 }

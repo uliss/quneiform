@@ -126,7 +126,7 @@ int16_t isKlasterFull(int16_t typl) {
 }/*isWideLetter*/
 
 static void store_many(uint16_t ibcos, char let, char ff, int16_t typl) {
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		return;
 	switch (let) {
 	case 'x':
@@ -238,7 +238,7 @@ static int16_t letagain(char curleta, int16_t fl) {
 	fl2 = fl * 2;
 	fl4 = fl * 4;
 	wiptr = NULL;
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		return 0;
 	switch (curleta) {
 	case 'c':
@@ -760,14 +760,14 @@ static puchar list_BOX(puchar free, int16_t typl) {
 		ocurlet = owiptr->ltr;
 		if (typl & 256) {
 			if (memchr("1Iil", ocurlet, 4) || ocurlet == liga_i || language
-					== LANG_TURKISH && // 30.05.2002 E.P.
+					== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(ocurlet == i_sans_accent || ocurlet == II_dot_accent)
 
 			)
 				continue;
 		} else {
 			if (!memchr("1Iil", ocurlet, 4) && ocurlet != liga_i && !(language
-					== LANG_TURKISH && // 30.05.2002 E.P.
+					== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(ocurlet == i_sans_accent || ocurlet == II_dot_accent)))
 				continue;
 		}

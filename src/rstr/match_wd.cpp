@@ -273,7 +273,7 @@ Bool32 RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points, uchar *res) 
 
 	param.monitors = *((uint32_t*) points);
 	param.p2_active = 1; //call while p2 pass
-	param.language = 3; // LANG_RUSSIAN
+	param.language = 3; // LANGUAGE_RUSSIAN
 
 	rc = setjmp(*Control_Point());
 

@@ -28,7 +28,7 @@ Alphabet * create()
     return new DutchAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_DUTCH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_DUTCH, create);
 }
 
 namespace CIF
@@ -68,7 +68,7 @@ DutchAlphabet::DutchAlphabet()
 
 language_t DutchAlphabet::language() const
 {
-    return LANG_DUTCH;
+    return LANGUAGE_DUTCH;
 }
 
 }

@@ -265,123 +265,123 @@ uchar decode_rus_ASCII_to_[256][4] = {
 
 char alphabet[256];
 uchar CodePages[LANG_TOTAL] = { // 29.08.2000 E.P.
-		ANSI_CHARSET, // LANG_ENGLISH    0
-				ANSI_CHARSET, // LANG_GERMAN     1
-				ANSI_CHARSET, // LANG_FRENCH     2
-				RUSSIAN_CHARSET, // LANG_RUSSIAN    3
-				ANSI_CHARSET, // LANG_SWEDISH    4
-				ANSI_CHARSET, // LANG_SPANISH    5
-				ANSI_CHARSET, // LANG_ITALIAN    6
-				RUSSIAN_CHARSET, // LANG_RUSENG     7
-				RUSSIAN_CHARSET, // LANG_UKRAINIAN  8
-				RUSSIAN_CHARSET, // LANG_SERBIAN    9
-				EASTEUROPE_CHARSET, // LANG_CROATIAN   10
-				EASTEUROPE_CHARSET, // LANG_POLISH     11
-				ANSI_CHARSET, // LANG_DANISH     12
-				ANSI_CHARSET, // LANG_PORTUGUESE 13
-				ANSI_CHARSET, // LANG_DUTCH      14
-				ANSI_CHARSET, // LANG_DIG        15
-				RUSSIAN_CHARSET, // LANG_UZBEK	  16 // 01.09.2000 E.P.
-				RUSSIAN_CHARSET, // LANG_KAZ	      17
-				RUSSIAN_CHARSET, // LANG_KAZ_ENG    18
-				EASTEUROPE_CHARSET, // LANG_CZECH	  19
-				EASTEUROPE_CHARSET, // LANG_ROMAN	  20
-				EASTEUROPE_CHARSET, // LANG_HUNGAR	  21
-				RUSSIAN_CHARSET, // LANG_BULGAR	  22
-				EASTEUROPE_CHARSET, // LANG_SLOVENIAN  23
-				BALTIC_CHARSET, // LANG_LATVIAN	  24
-				BALTIC_CHARSET, // LANG_LITHUANIAN 25
-				BALTIC_CHARSET, // LANG_ESTONIAN	  26
-				TURKISH_CHARSET // LANG_TURKISH	  27
+		ANSI_CHARSET, // LANGUAGE_ENGLISH    0
+				ANSI_CHARSET, // LANGUAGE_GERMAN     1
+				ANSI_CHARSET, // LANGUAGE_FRENCH     2
+				RUSSIAN_CHARSET, // LANGUAGE_RUSSIAN    3
+				ANSI_CHARSET, // LANGUAGE_SWEDISH    4
+				ANSI_CHARSET, // LANGUAGE_SPANISH    5
+				ANSI_CHARSET, // LANGUAGE_ITALIAN    6
+				RUSSIAN_CHARSET, // LANGUAGE_RUS_ENG     7
+				RUSSIAN_CHARSET, // LANGUAGE_UKRAINIAN  8
+				RUSSIAN_CHARSET, // LANGUAGE_SERBIAN    9
+				EASTEUROPE_CHARSET, // LANGUAGE_CROATIAN   10
+				EASTEUROPE_CHARSET, // LANGUAGE_POLISH     11
+				ANSI_CHARSET, // LANGUAGE_DANISH     12
+				ANSI_CHARSET, // LANGUAGE_PORTUGUESE 13
+				ANSI_CHARSET, // LANGUAGE_DUTCH      14
+				ANSI_CHARSET, // LANGUAGE_DIGITS        15
+				RUSSIAN_CHARSET, // LANGUAGE_UZBEK	  16 // 01.09.2000 E.P.
+				RUSSIAN_CHARSET, // LANGUAGE_KAZAKH	      17
+				RUSSIAN_CHARSET, // LANGUAGE_KAZ_ENG    18
+				EASTEUROPE_CHARSET, // LANGUAGE_CZECH	  19
+				EASTEUROPE_CHARSET, // LANGUAGE_ROMANIAN	  20
+				EASTEUROPE_CHARSET, // LANGUAGE_HUNGARIAN	  21
+				RUSSIAN_CHARSET, // LANGUAGE_BULGARIAN	  22
+				EASTEUROPE_CHARSET, // LANGUAGE_SLOVENIAN  23
+				BALTIC_CHARSET, // LANGUAGE_LATVIAN	  24
+				BALTIC_CHARSET, // LANGUAGE_LITHUANIAN 25
+				BALTIC_CHARSET, // LANGUAGE_ESTONIAN	  26
+				TURKISH_CHARSET // LANGUAGE_TURKISH	  27
 		};
 
-static const char *tab3x5[] = { "rec3.dat", // LANG_ENGLISH   0
-		"rec3.dat", // LANG_GERMAN    1
-		"rec3.dat", // LANG_FRENCH    2
-		"rec3rus.dat", // LANG_RUSSIAN   3
-		"rec3.dat", // LANG_SWEDISH   4
-		"rec3.dat", // LANG_SPANISH   5
-		"rec3.dat", // LANG_ITALIAN   6
-		"rec3r&e.dat", // LANG_RUSENG    7
-		"rec3rus.dat", // LANG_UKRAINIAN 8
-		"rec3rus.dat", // LANG_SERBIAN   9
-		"rec3cen.dat", // LANG_CROATIAN  10
-		"rec3cen.dat", // LANG_POLISH    11
-		"rec3n.dat", // LANG_DANISH    12
-		"rec3n.dat", // LANG_PORTUGUESE  13
-		"rec3n.dat", // LANG_DUTCH		14
-		"rec3.dat", // LANG_DIG			15
-		"rec3uzb.dat", // LANG_UZBEK		16	// 01.09.2000 E.P.
-		"rec3kaz.dat", // LANG_KAZ			17
-		"rec3kaz.dat", // LANG_KAZ_ENG		18
-		"rec3cen.dat", // LANG_CZECH		19
-		"rec3cen.dat", // LANG_ROMAN		20
-		"rec3cen.dat", // LANG_HUNGAR		21
-		"rec3rus.dat", // LANG_BULGAR		22
-		"rec3cen.dat", // LANG_SLOVENIAN	23
-		"rec3blt.dat", // LANG_LATVIAN	    24
-		"rec3blt.dat", // LANG_LITHUANIAN  25
-		"rec3blt.dat", // LANG_ESTONIAN	26
-		"rec3tur.dat" // LANG_TURKISH		27
+static const char *tab3x5[] = { "rec3.dat", // LANGUAGE_ENGLISH   0
+		"rec3.dat", // LANGUAGE_GERMAN    1
+		"rec3.dat", // LANGUAGE_FRENCH    2
+		"rec3rus.dat", // LANGUAGE_RUSSIAN   3
+		"rec3.dat", // LANGUAGE_SWEDISH   4
+		"rec3.dat", // LANGUAGE_SPANISH   5
+		"rec3.dat", // LANGUAGE_ITALIAN   6
+		"rec3r&e.dat", // LANGUAGE_RUS_ENG    7
+		"rec3rus.dat", // LANGUAGE_UKRAINIAN 8
+		"rec3rus.dat", // LANGUAGE_SERBIAN   9
+		"rec3cen.dat", // LANGUAGE_CROATIAN  10
+		"rec3cen.dat", // LANGUAGE_POLISH    11
+		"rec3n.dat", // LANGUAGE_DANISH    12
+		"rec3n.dat", // LANGUAGE_PORTUGUESE  13
+		"rec3n.dat", // LANGUAGE_DUTCH		14
+		"rec3.dat", // LANGUAGE_DIGITS			15
+		"rec3uzb.dat", // LANGUAGE_UZBEK		16	// 01.09.2000 E.P.
+		"rec3kaz.dat", // LANGUAGE_KAZAKH			17
+		"rec3kaz.dat", // LANGUAGE_KAZ_ENG		18
+		"rec3cen.dat", // LANGUAGE_CZECH		19
+		"rec3cen.dat", // LANGUAGE_ROMANIAN		20
+		"rec3cen.dat", // LANGUAGE_HUNGARIAN		21
+		"rec3rus.dat", // LANGUAGE_BULGARIAN		22
+		"rec3cen.dat", // LANGUAGE_SLOVENIAN	23
+		"rec3blt.dat", // LANGUAGE_LATVIAN	    24
+		"rec3blt.dat", // LANGUAGE_LITHUANIAN  25
+		"rec3blt.dat", // LANGUAGE_ESTONIAN	26
+		"rec3tur.dat" // LANGUAGE_TURKISH		27
 		};
 
-static const char *tabevn1[] = { "rec1.dat", // LANG_ENGLISH   0
-		"rec1.dat", // LANG_GERMAN    1
-		"rec1.dat", // LANG_FRENCH    2
-		"rec1rus.dat", // LANG_RUSSIAN   3
-		"rec1.dat", // LANG_SWEDISH   4
-		"rec1.dat", // LANG_SPANISH   5
-		"rec1.dat", // LANG_ITALIAN   6
-		"rec1r&e.dat", // LANG_RUSENG    7
-		"rec1rus.dat", // LANG_UKRAINIAN 8
-		"rec1rus.dat", // LANG_SERBIAN   9
-		"rec1cen.dat", // LANG_CROATIAN  10
-		"rec1cen.dat", // LANG_POLISH    11
-		"rec1n.dat", // LANG_DANISH    12
-		"rec1n.dat", // LANG_PORTUGUESE  13
-		"rec1n.dat", // LANG_DUTCH       14
-		"rec1.dat", // LANG_DIG         15
-		"rec1uzb.dat", // LANG_UZBEK		16	// 01.09.2000 E.P.
-		"rec1kaz.dat", // LANG_KAZ			17
-		"rec1kaz.dat", // LANG_KAZ_ENG		18
-		"rec1cen.dat", // LANG_CZECH		19
-		"rec1cen.dat", // LANG_ROMAN		20
-		"rec1cen.dat", // LANG_HUNGAR		21
-		"rec1rus.dat", // LANG_BULGAR		22
-		"rec1cen.dat", // LANG_SLOVENIAN	23
-		"rec1blt.dat", // LANG_LATVIAN	    24
-		"rec1blt.dat", // LANG_LITHUANIAN  25
-		"rec1blt.dat", // LANG_ESTONIAN	26
-		"rec1tur.dat" // LANG_TURKISH		27
+static const char *tabevn1[] = { "rec1.dat", // LANGUAGE_ENGLISH   0
+		"rec1.dat", // LANGUAGE_GERMAN    1
+		"rec1.dat", // LANGUAGE_FRENCH    2
+		"rec1rus.dat", // LANGUAGE_RUSSIAN   3
+		"rec1.dat", // LANGUAGE_SWEDISH   4
+		"rec1.dat", // LANGUAGE_SPANISH   5
+		"rec1.dat", // LANGUAGE_ITALIAN   6
+		"rec1r&e.dat", // LANGUAGE_RUS_ENG    7
+		"rec1rus.dat", // LANGUAGE_UKRAINIAN 8
+		"rec1rus.dat", // LANGUAGE_SERBIAN   9
+		"rec1cen.dat", // LANGUAGE_CROATIAN  10
+		"rec1cen.dat", // LANGUAGE_POLISH    11
+		"rec1n.dat", // LANGUAGE_DANISH    12
+		"rec1n.dat", // LANGUAGE_PORTUGUESE  13
+		"rec1n.dat", // LANGUAGE_DUTCH       14
+		"rec1.dat", // LANGUAGE_DIGITS         15
+		"rec1uzb.dat", // LANGUAGE_UZBEK		16	// 01.09.2000 E.P.
+		"rec1kaz.dat", // LANGUAGE_KAZAKH			17
+		"rec1kaz.dat", // LANGUAGE_KAZ_ENG		18
+		"rec1cen.dat", // LANGUAGE_CZECH		19
+		"rec1cen.dat", // LANGUAGE_ROMANIAN		20
+		"rec1cen.dat", // LANGUAGE_HUNGARIAN		21
+		"rec1rus.dat", // LANGUAGE_BULGARIAN		22
+		"rec1cen.dat", // LANGUAGE_SLOVENIAN	23
+		"rec1blt.dat", // LANGUAGE_LATVIAN	    24
+		"rec1blt.dat", // LANGUAGE_LITHUANIAN  25
+		"rec1blt.dat", // LANGUAGE_ESTONIAN	26
+		"rec1tur.dat" // LANGUAGE_TURKISH		27
 		};
-static const char *tabevn2[] = { "rec2.dat", // LANG_ENGLISH   0
-		"rec2.dat", // LANG_GERMAN    1
-		"rec2.dat", // LANG_FRENCH    2
-		"rec2rus.dat", // LANG_RUSSIAN   3
-		"rec2.dat", // LANG_SWEDISH   4
-		"rec2.dat", // LANG_SPANISH   5
-		"rec2.dat", // LANG_ITALIAN   6
-		"rec2r&e.dat", // LANG_RUSENG    7
-		"rec2rus.dat", // LANG_UKRAINIAN 8
-		"rec2rus.dat", // LANG_SERBIAN   9
-		"rec2cen.dat", // LANG_CROATIAN  10
-		"rec2cen.dat", // LANG_POLISH    11
-		"rec2n.dat", // LANG_DANISH    12
-		"rec2n.dat", // LANG_PORTUGUESE	13
-		"rec2n.dat", // LANG_DUTCH		14
-		"rec2.dat", // LANG_DIG			15
-		"rec2uzb.dat", // LANG_UZBEK		16 // 01.09.2000 E.P.
-		"rec2kaz.dat", // LANG_KAZ			17
-		"rec2kaz.dat", // LANG_KAZ_ENG		18
-		"rec2cen.dat", // LANG_CZECH		19
-		"rec2cen.dat", // LANG_ROMAN		20
-		"rec2cen.dat", // LANG_HUNGAR		21
-		"rec2rus.dat", // LANG_BULGAR		22
-		"rec2cen.dat", // LANG_SLOVENIAN	23
-		"rec2blt.dat", // LANG_LATVIAN	    24
-		"rec2blt.dat", // LANG_LITHUANIAN  25
-		"rec2blt.dat", // LANG_ESTONIAN	26
-		"rec2tur.dat" // LANG_TURKISH		27
+static const char *tabevn2[] = { "rec2.dat", // LANGUAGE_ENGLISH   0
+		"rec2.dat", // LANGUAGE_GERMAN    1
+		"rec2.dat", // LANGUAGE_FRENCH    2
+		"rec2rus.dat", // LANGUAGE_RUSSIAN   3
+		"rec2.dat", // LANGUAGE_SWEDISH   4
+		"rec2.dat", // LANGUAGE_SPANISH   5
+		"rec2.dat", // LANGUAGE_ITALIAN   6
+		"rec2r&e.dat", // LANGUAGE_RUS_ENG    7
+		"rec2rus.dat", // LANGUAGE_UKRAINIAN 8
+		"rec2rus.dat", // LANGUAGE_SERBIAN   9
+		"rec2cen.dat", // LANGUAGE_CROATIAN  10
+		"rec2cen.dat", // LANGUAGE_POLISH    11
+		"rec2n.dat", // LANGUAGE_DANISH    12
+		"rec2n.dat", // LANGUAGE_PORTUGUESE	13
+		"rec2n.dat", // LANGUAGE_DUTCH		14
+		"rec2.dat", // LANGUAGE_DIGITS			15
+		"rec2uzb.dat", // LANGUAGE_UZBEK		16 // 01.09.2000 E.P.
+		"rec2kaz.dat", // LANGUAGE_KAZAKH			17
+		"rec2kaz.dat", // LANGUAGE_KAZ_ENG		18
+		"rec2cen.dat", // LANGUAGE_CZECH		19
+		"rec2cen.dat", // LANGUAGE_ROMANIAN		20
+		"rec2cen.dat", // LANGUAGE_HUNGARIAN		21
+		"rec2rus.dat", // LANGUAGE_BULGARIAN		22
+		"rec2cen.dat", // LANGUAGE_SLOVENIAN	23
+		"rec2blt.dat", // LANGUAGE_LATVIAN	    24
+		"rec2blt.dat", // LANGUAGE_LITHUANIAN  25
+		"rec2blt.dat", // LANGUAGE_ESTONIAN	26
+		"rec2tur.dat" // LANGUAGE_TURKISH		27
 		};
 
 uchar * CellsPage_rstr, *CellsPageEnd_rstr;
@@ -465,8 +465,8 @@ Bool32 trees_load(void) {
 	int lang = language;
 	if (language >= LANG_TOTAL)
 		return FALSE;
-	if (language == LANG_RUSSIAN && multy_language)
-		lang = LANG_RUSENG;
+	if (language == LANGUAGE_RUSSIAN && multy_language)
+		lang = LANGUAGE_RUS_ENG;
 	//if( !EVNInitLanguage( tabevn1[lang], tabevn2[lang],language) )
 	//   return FALSE;
 
@@ -504,7 +504,7 @@ Bool32 set_user_alphabet(uchar * usa_ascii) {
 }
 
 Bool32 RSTR_IsLanguage(uchar language) {
-	if (language < LANG_ENGLISH || language >= LANG_TOTAL)
+	if (language < LANGUAGE_ENGLISH || language >= LANG_TOTAL)
 		return FALSE;
 	chdir((char*) lnOcrPath);
 	if (data_file_exists(tabevn1[language]) == -1)
@@ -513,18 +513,18 @@ Bool32 RSTR_IsLanguage(uchar language) {
 		return FALSE;
 	if (data_file_exists(tab3x5[language]) == -1)
 		return FALSE;
-	if (language == LANG_RUSSIAN || language == LANG_RUSENG) {
+	if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_RUS_ENG) {
 		if (0)
 			return FALSE;
 	}
 #ifdef     _USE_SPELLING_
-	if( language==LANG_RUSENG )
+	if( language==LANGUAGE_RUS_ENG )
 	{
-		if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (pchar)lnOcrLingPath)<1 ||
-				RLING_IsDictonaryAvailable( LANG_ENGLISH , (pchar)lnOcrLingPath)<1)
+		if( RLING_IsDictonaryAvailable( LANGUAGE_RUSSIAN , (pchar)lnOcrLingPath)<1 ||
+				RLING_IsDictonaryAvailable( LANGUAGE_ENGLISH , (pchar)lnOcrLingPath)<1)
 		return FALSE;
 	}
-	else //if( language!=LANG_DIG )
+	else //if( language!=LANGUAGE_DIGITS )
 	{
 		if( RLING_IsDictonaryAvailable( language , (pchar)lnOcrLingPath)<1 )
 		return FALSE;
@@ -759,12 +759,12 @@ Bool32 RSTR_EndPage(Handle myPage) {
 	uchar lang = language;
 	snap_page_disable = FALSE;
 	db_status = 0;
-	if (language == LANG_RUSSIAN && langSer)
-		lang = LANG_SERBIAN;
-	if (language == LANG_RUSSIAN && langUkr)
-		lang = LANG_UKRAINIAN;
-	if (language == LANG_RUSSIAN && langBul) // 01.09.2000 E.P.
-		lang = LANG_BULGAR;
+	if (language == LANGUAGE_RUSSIAN && langSer)
+		lang = LANGUAGE_SERBIAN;
+	if (language == LANGUAGE_RUSSIAN && langUkr)
+		lang = LANGUAGE_UKRAINIAN;
+	if (language == LANGUAGE_RUSSIAN && langBul) // 01.09.2000 E.P.
+		lang = LANGUAGE_BULGARIAN;
 
 	if (p2_active == 0) {
 #ifdef _USE_FON_
@@ -1125,7 +1125,7 @@ Bool copy_cap_drop(CSTR_line lin, CSTR_line lino) {
 	ci = CSTR_GetComp(ri);
 	attr.keg = (attr.h * 2 / 3);
 	if (uvs.Alt[0].Charset == 204 && !attr.language)
-		attr.language = LANG_RUSSIAN;
+		attr.language = LANGUAGE_RUSSIAN;
 	CSTR_SetAttr(ro, &attr);
 	co = CSTR_GetComp(ro);
 	ub.code = CCOM_UB_CAPDROPLN;
@@ -1141,7 +1141,7 @@ void rstr_make_multylang_loops(CSTR_line lino) {
 	CSTR_attr lattr;
 
 	CSTR_GetLineAttr(lino, &lattr);
-	if (lattr.language != LANG_RUSENG)
+	if (lattr.language != LANGUAGE_RUS_ENG)
 		return;
 
 	for (dup = 0, rst = CSTR_GetNext(CSTR_GetFirstRaster(lino)); rst; rst
@@ -1330,11 +1330,11 @@ Bool32 RSTRRecognize(CSTR_line lin, // pointer to raw string
 	 CSTR_GetLineAttr (lin, &lattr);
 	 line_rerecog=FALSE;
 	 start:;
-	 if( multy_language && language==LANG_ENGLISH  )
-	 language=LANG_RUSSIAN ;
-	 if( multy_language && language==LANG_RUSSIAN )
+	 if( multy_language && language==LANGUAGE_ENGLISH  )
+	 language=LANGUAGE_RUSSIAN ;
+	 if( multy_language && language==LANGUAGE_RUSSIAN )
 	 {
-	 lang=LANG_RUSENG;
+	 lang=LANGUAGE_RUS_ENG;
 	 CSTR_SetLineAttr (lin, &lattr);
 	 if( p2_active )
 	 correct_let_tables();
@@ -1520,10 +1520,10 @@ Bool32 RSTRRecognizeMain(CSTR_line lin, // pointer to raw string
 	CSTR_GetLineAttr(lin, &lattr);
 	line_rerecog = FALSE;
 	start: ;
-	if (multy_language && language == LANG_ENGLISH)
-		language = LANG_RUSSIAN;
-	if (multy_language && language == LANG_RUSSIAN) {
-		lang = LANG_RUSENG;
+	if (multy_language && language == LANGUAGE_ENGLISH)
+		language = LANGUAGE_RUSSIAN;
+	if (multy_language && language == LANGUAGE_RUSSIAN) {
+		lang = LANGUAGE_RUS_ENG;
 		CSTR_SetLineAttr(lin, &lattr);
 		if (p2_active)
 			correct_let_tables();
@@ -1694,11 +1694,11 @@ Bool32 RSTRRecognizeBL(CSTR_line lin) {
 	if (p2_active)
 		return FALSE;
 	start: ;
-	if (multy_language && language == LANG_ENGLISH)
-		language = LANG_RUSSIAN;
-	if (multy_language && language == LANG_RUSSIAN) {
+	if (multy_language && language == LANGUAGE_ENGLISH)
+		language = LANGUAGE_RUSSIAN;
+	if (multy_language && language == LANGUAGE_RUSSIAN) {
 		CSTR_GetLineAttr(lin, &lattr);
-		lang = LANG_RUSENG;
+		lang = LANGUAGE_RUS_ENG;
 		CSTR_SetLineAttr(lin, &lattr);
 		if (p2_active)
 			correct_let_tables();
@@ -1837,11 +1837,11 @@ Bool32 RSTR_NewPage(int32_t resolutiony, Handle Page) {
 
 Bool32 Reload_lang_vocs(uchar lang) {
 #ifdef     _USE_SPELLING_
-	//if( lang==LANG_DIG )
+	//if( lang==LANGUAGE_DIGITS )
 	//    return TRUE;
 	RLING_UnloadDictonary();
-	if( lang == LANG_RUSENG )
-	lang = LANG_RUSSIAN;
+	if( lang == LANGUAGE_RUS_ENG )
+	lang = LANGUAGE_RUSSIAN;
 	if ( !RLING_LoadDictonary( lang , (pchar)lnOcrLingPath) )
 	{
 		wLowRC = RSTR_ERR_NOINITRSTR;
@@ -1855,10 +1855,10 @@ Bool32 Reload_lang_vocs(uchar lang) {
 
 Bool32 Reload_lang_vocs_aux(uchar language) {
 #ifdef     _USE_SPELLING_
-	//if( language==LANG_DIG )
+	//if( language==LANGUAGE_DIGITS )
 	//    return TRUE;
 	RLING_UnloadSecDictonary();
-	if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
+	if( language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH )
 	{
 		if ( !RLING_LoadSecDictonary( language , (pchar)lnOcrLingPath) )
 		{
@@ -1917,21 +1917,21 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 	multy_language = FALSE;
 	slanguage = language;
 
-	if (language == LANG_RUSENG) {
-		language = LANG_RUSSIAN;
+	if (language == LANGUAGE_RUS_ENG) {
+		language = LANGUAGE_RUSSIAN;
 		multy_language = TRUE;
 	}
-	if (language == LANG_UKRAINIAN) {
-		language = LANG_RUSSIAN;
+	if (language == LANGUAGE_UKRAINIAN) {
+		language = LANGUAGE_RUSSIAN;
 		langUkr = TRUE;
 	}
-	if (language == LANG_SERBIAN) {
-		language = LANG_RUSSIAN;
+	if (language == LANGUAGE_SERBIAN) {
+		language = LANGUAGE_RUSSIAN;
 		langSer = TRUE;
 	}
-	if (language == LANG_BULGAR) // 01.09.2000 E.P.
+	if (language == LANGUAGE_BULGARIAN) // 01.09.2000 E.P.
 	{
-		language = LANG_RUSSIAN;
+		language = LANGUAGE_RUSSIAN;
 		langBul = TRUE;
 	}
 
@@ -1945,14 +1945,14 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 			wLowRC = RSTR_ERR_NOINITRSTR;
 			return FALSE;
 		}
-		if (language == LANG_RUSSIAN && multy_language) {
-			if (!Reload_lang_vocs_aux(LANG_ENGLISH)) {
+		if (language == LANGUAGE_RUSSIAN && multy_language) {
+			if (!Reload_lang_vocs_aux(LANGUAGE_ENGLISH)) {
 				wLowRC = RSTR_ERR_NOINITRSTR;
 				return FALSE;
 			}
 		}
 	}
-	if (language == LANG_RUSSIAN) {
+	if (language == LANGUAGE_RUSSIAN) {
 		cuts_glues_methode = 1;
 		cuts_point_methode = 1;
 	} else {
@@ -2234,21 +2234,21 @@ Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData) {
 	case RSTR_Word8_Language:
 		language = *(uchar*) pData;
 		multy_language = FALSE;
-		if (language == LANG_RUSENG) {
-			language = LANG_RUSSIAN;
+		if (language == LANGUAGE_RUS_ENG) {
+			language = LANGUAGE_RUSSIAN;
 			multy_language = TRUE;
 		}
-		if (language == LANG_SERBIAN) {
-			language = LANG_RUSSIAN;
+		if (language == LANGUAGE_SERBIAN) {
+			language = LANGUAGE_RUSSIAN;
 			langSer = TRUE;
 		}
-		if (language == LANG_UKRAINIAN) {
-			language = LANG_RUSSIAN;
+		if (language == LANGUAGE_UKRAINIAN) {
+			language = LANGUAGE_RUSSIAN;
 			langUkr = TRUE;
 		}
-		if (language == LANG_BULGAR) // 01.09.2000 E.P.
+		if (language == LANGUAGE_BULGARIAN) // 01.09.2000 E.P.
 		{
-			language = LANG_RUSSIAN;
+			language = LANGUAGE_RUSSIAN;
 			langBul = TRUE;
 		}
 

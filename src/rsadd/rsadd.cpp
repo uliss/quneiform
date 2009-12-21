@@ -517,9 +517,9 @@ Bool32 rsadd_is_upper(uchar Code, uchar language) {
 	int32_t code = (int32_t) Code;
 
 	switch (language) {
-	case LANG_RUSSIAN:
+	case LANGUAGE_RUSSIAN:
 		return (code > 191 && code < 224 || code > 47 && code < 58);
-	case LANG_ENGLISH:
+	case LANGUAGE_ENGLISH:
 		return (code > 64 && code < 91 || code > 47 && code < 58);
 	}
 	return FALSE;
@@ -530,9 +530,9 @@ Bool32 rsadd_is_thick(uchar Code, uchar language) {
 	if (code > 49 && code < 58 || code == 48)
 		return TRUE;
 	switch (language) {
-	case LANG_RUSSIAN:
+	case LANGUAGE_RUSSIAN:
 		return (code > 191 && !strchr("шШщЩжЖыЫюЮ", code));
-	case LANG_ENGLISH:
+	case LANGUAGE_ENGLISH:
 		return (strchr("QERTYUOPASDFGHJKLZXCVBNMqeyuopasdghkzxcvbn", code)
 				!= NULL);
 	}
@@ -570,11 +570,11 @@ Bool32 rsadd_study_word(CSTR_rast beg, CSTR_rast end, RSADD_STAT *s) {
 				break;
 
 			switch (a.language) {
-			case LANG_RUSSIAN:
+			case LANGUAGE_RUSSIAN:
 				unilet = (strchr((char*) rus_uni_letters, u.Alt[0].Liga)
 						!= NULL);
 				break;
-			case LANG_ENGLISH:
+			case LANGUAGE_ENGLISH:
 				unilet = (strchr((char*) eng_uni_letters, u.Alt[0].Liga)
 						!= NULL);
 				break;
@@ -672,7 +672,7 @@ static Bool32 rsadd_CopyWord(CSTR_rast cn, CSTR_rast eng, CSTR_rast enge,
 				break;
 
 			if (rus_lang)
-				attr.language = LANG_RUSSIAN;
+				attr.language = LANGUAGE_RUSSIAN;
 
 			if (!(cn = CSTR_InsertRaster(cn)) || !CSTR_SetAttr(cn, &attr)
 					|| !CSTR_StoreRaster(cn, &rs) || !CSTR_StoreCollectionUni(
@@ -786,11 +786,11 @@ CSTR_rast rsadd_get_right_coord(CSTR_rast rst, int16_t left, int16_t right) {
 
 uchar RSADD_get_alias_class(uchar let, uchar lang) {
 	uchar *fe, *fa, *fs;
-	if (lang == LANG_RUSSIAN) {
+	if (lang == LANGUAGE_RUSSIAN) {
 		fe = rus_equal;
 		fa = rus_alias;
 		fs = rus_similar;
-	} else if (lang == LANG_ENGLISH) {
+	} else if (lang == LANGUAGE_ENGLISH) {
 		fe = eng_equal;
 		fa = eng_alias;
 		fs = eng_similar;
@@ -811,14 +811,14 @@ uchar RSADD_get_alias_class(uchar let, uchar lang) {
 uchar * RSADD_get_aliases(uchar let, uchar lang, uchar alias_class) {
 	uchar *fe, *fa, *fs, *se, *sa, *ss, *out, *f, *s, *o;
 
-	if (lang == LANG_RUSSIAN) {
+	if (lang == LANGUAGE_RUSSIAN) {
 		fe = rus_equal;
 		fa = rus_alias;
 		fs = rus_similar;
 		se = eng_equal;
 		sa = eng_alias;
 		ss = eng_similar;
-	} else if (lang == LANG_ENGLISH) {
+	} else if (lang == LANGUAGE_ENGLISH) {
 		se = rus_equal;
 		sa = rus_alias;
 		ss = rus_similar;
@@ -996,7 +996,7 @@ Bool32 rsadd_eng_group_CSTR(CSTR_rast b, CSTR_rast e) {
 	for (s[0] = 0, r = b; r && r != e; r = CSTR_GetNext(r)) {
 		CSTR_GetAttr(r, &a);
 		CSTR_GetCollectionUni(r, &u);
-		if (a.language != LANG_ENGLISH || !u.lnAltCnt)
+		if (a.language != LANGUAGE_ENGLISH || !u.lnAltCnt)
 			return FALSE;
 		strncat((char*) s, (char*) u.Alt[0].Code, sizeof(s));
 	}
@@ -1370,7 +1370,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 			short_russian = FALSE;
 			if (verdict) {
 				neng++;
-				rsadd_revert_lang(pruse, rus, LANG_ENGLISH);
+				rsadd_revert_lang(pruse, rus, LANGUAGE_ENGLISH);
 				ruse = rsadd_skip_punct(ruse);
 				enge = rsadd_skip_punct(enge);
 				rsadd_cstr2word(rus, ruse, rwrd);

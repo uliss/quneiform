@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __LIGAS__
 #define __LIGAS__
 
-//#include "face_lng.h"
 #include "cttypes.h"    // uchar 01.09.2000 E.P.
 #include "lang_def.h"   // 12.09.2000 E.P.
 
@@ -103,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                         (is_baltic_language(language)?liga_bull_baltic:\
                         (is_turkish_language(language)?liga_bull_turkish:liga_bull_usual))))
 
-#define low_quotes      (language==LANG_RUSSIAN?low_quotes_rus:low_quotes_usual)
+#define low_quotes      (language==LANGUAGE_RUSSIAN?low_quotes_rus:low_quotes_usual)
 
 #define liga_TM         ((uchar)(is_cen_language(language)?liga_TM_latin:\
                         (is_baltic_language(language)?liga_TM_baltic:\
@@ -143,9 +142,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Новые языки 30.08.2000 E.P.
 #define is_cen_language(language) (\
-(language)==LANG_CROATIAN||(language)==LANG_POLISH ||\
-(language)==LANG_CZECH||(language)==LANG_ROMAN ||\
-(language)==LANG_HUNGAR||(language)==LANG_SLOVENIAN\
+(language)==LANGUAGE_CROATIAN||(language)==LANGUAGE_POLISH ||\
+(language)==LANGUAGE_CZECH||(language)==LANGUAGE_ROMANIAN ||\
+(language)==LANGUAGE_HUNGARIAN||(language)==LANGUAGE_SLOVENIAN\
 )
 
 #define is_ligas_lat(let )  ((let)>=ligas_beg && (let)<=ligas_end)
@@ -451,9 +450,9 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 // Балтийские языки. 05.07.2001 E.P.
 
 #define is_baltic_language(language) (\
-(language)==LANG_LATVIAN||\
-(language)==LANG_LITHUANIAN||\
-(language)==LANG_ESTONIAN\
+(language)==LANGUAGE_LATVIAN||\
+(language)==LANGUAGE_LITHUANIAN||\
+(language)==LANGUAGE_ESTONIAN\
 )
 
 // Лиги для балтийских языков. 05.07.2001 E.P.
@@ -530,7 +529,7 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 // ********************************************************************************
 // Турецкий язык. 18.05.2002 E.P.
 
-#define is_turkish_language(language) ((language)==LANG_TURKISH)
+#define is_turkish_language(language) ((language)==LANGUAGE_TURKISH)
 
 // Лиги для турецкого языка
 #define liga_TM_turkish      0x99   // 153

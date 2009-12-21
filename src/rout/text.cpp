@@ -193,7 +193,7 @@ Bool OneChar(Handle charHandle) {
 #ifdef __MAC__
 	case (uchar)206: case (uchar)207:
 	case (uchar)174: case (uchar)190:
-	if( gLanguage==LANG_FRENCH )
+	if( gLanguage==LANGUAGE_FRENCH )
 	c2=с1;
 	break;
 #endif
@@ -242,8 +242,8 @@ Bool OneChar(Handle charHandle) {
 
 		// Дифтонг oe / OE
 	case oe_deaf_sound:
-		if (FALSE == (gLanguage == LANG_RUSSIAN || langKaz || // 18.08.98 E.P.
-				gLanguage == LANG_FRENCH && gActiveCode == ROUT_CODE_ANSI)
+		if (FALSE == (gLanguage == LANGUAGE_RUSSIAN || langKaz || // 18.08.98 E.P.
+				gLanguage == LANGUAGE_FRENCH && gActiveCode == ROUT_CODE_ANSI)
 				|| gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
 			*gMemCur++ = 'o';
 			c2 = 'e';
@@ -251,8 +251,8 @@ Bool OneChar(Handle charHandle) {
 		break;
 
 	case OE_cap_deaf_sound:
-		if (FALSE == (gLanguage == LANG_RUSSIAN || langKaz || // 18.08.98 E.P.
-				gLanguage == LANG_FRENCH && gActiveCode == ROUT_CODE_ANSI)
+		if (FALSE == (gLanguage == LANGUAGE_RUSSIAN || langKaz || // 18.08.98 E.P.
+				gLanguage == LANGUAGE_FRENCH && gActiveCode == ROUT_CODE_ANSI)
 				|| gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
 			*gMemCur++ = 'O';
 			c2 = 'E';

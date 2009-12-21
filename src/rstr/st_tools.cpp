@@ -264,7 +264,7 @@ B_LINES bl;
 
 	    if (c->vers[i].let==let)  continue;	// protect version
 
-      if( language==LANG_CROATIAN &&
+      if( language==LANGUAGE_CROATIAN &&
 		  (c->vers[i].let=='d'||c->vers[i].let==CROAT_d) )
         continue;
 
@@ -286,8 +286,8 @@ for(i=0;i<n;i++)
 
 	if( let!='F')    // SPECIAL CASE
 		{
-		  if( !(language==LANG_CROATIAN &&(let=='d'||let==CROAT_d))
-		 /*&& !( language == LANG_POLISH && c->vers[i].let==POLISH_l )*/
+		  if( !(language==LANGUAGE_CROATIAN &&(let=='d'||let==CROAT_d))
+		 /*&& !( language == LANGUAGE_POLISH && c->vers[i].let==POLISH_l )*/
 		    ) // Nick - restored 29.09.2000
 				kill_stick(&(c->vers[i]));  // stick version
 		}
@@ -310,9 +310,9 @@ static int16_t kill_stick(version *v)
 uchar let = v->let ;			// A.A.LEMAN from 28.06.1993
 char stick_list[]="frtIJT1l!ij/[]{}LFY";	// 22.11.1993		//17/19
 if( memchr(stick_list, let,17)!=NULL             ||
-    ( language == LANG_CROATIAN && (let==CROAT_d||let=='d') ) ||
-    ( language == LANG_POLISH && let==POLISH_l ) ||
-    ( language != LANG_RUSSIAN &&
+    ( language == LANGUAGE_CROATIAN && (let==CROAT_d||let=='d') ) ||
+    ( language == LANGUAGE_POLISH && let==POLISH_l ) ||
+    ( language != LANGUAGE_RUSSIAN &&
 	 (let==liga_i  || let==liga_j  ||
 
 		!is_baltic_language(language) && 	// 17.07.2001 E.P.
@@ -564,7 +564,7 @@ if (c->nvers>=2 && c->vers[1].let=='l')  prob_l = c->vers[1].prob;  // 'l' #1;
 
 if (s->neck==3)					// 16.12.1993  ADD ╨ FIRST:
 //////	add_stick_vers (c, liga_i, cut_by_pos(c,liga_i,prob,1,1));
-if(language != LANG_RUSSIAN)
+if(language != LANGUAGE_RUSSIAN)
 	add_stick_vers (c, (char)liga_i,	// 17.01.1994, 140 for der Laterne:
 			(uchar)cut_by_pos(c,liga_i,(char)(MAX(prob,140)),1,1));
 
@@ -573,13 +573,13 @@ if( !inc &&  wide<<1<=dx &&				// ADD ╨ SECOND:
     similar_0xBA (l, r, s) )
 	/* no inc; exist neck; thin stick; similar '╨' */
 //////	add_stick_vers (c,'╨',cut_by_pos(c,'╨',prob,1,1));
-if(language != LANG_RUSSIAN)
+if(language != LANGUAGE_RUSSIAN)
 	add_stick_vers (c, (char)liga_i, (uchar)cut_by_pos(c,liga_i,prob,1,1));
 
 if( inc<2 &&         // ADD ╩ SECOND:
     s->neck && typ_snap &&
     similar_0xBB (l, r, s) )
-if(language != LANG_RUSSIAN)
+if(language != LANGUAGE_RUSSIAN)
   add_stick_vers (c, (char)liga_j, (uchar)cut_by_pos(c,liga_j,prob,1,1));
 
 if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
@@ -587,7 +587,7 @@ if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
 	if( similar_0xBA (l, r, s) )			// ADD ╨ THIRD:
 	    if (c->nvers==0  ||  c->vers[0].let != '/')	// PROBA 25.06.1993
 //////		add_stick_vers(c,'╨',cut_by_pos(c,'╨',prob,1,1));
-if(language != LANG_RUSSIAN)
+if(language != LANGUAGE_RUSSIAN)
 		add_stick_vers (c, (char)liga_i, (uchar)cut_by_pos(c,liga_i,prob,1,1));
 /*......................................................................*/
 	if( (check_let(c,'l')||check_let(c,'I')) &&		// ADD '1'
@@ -597,7 +597,7 @@ if(language != LANG_RUSSIAN)
 		add_stick_vers (c,(char)'1',
 			(uchar)cut_by_pos(c,'1',prob,1,1) );
 
-  if( language == LANG_POLISH  &&
+  if( language == LANGUAGE_POLISH  &&
       (check_let(c,'t') || check_let(c,'1') ) &&   // ADD '1'
       (!check_let(c,(char)POLISH_l)) &&      // 08.07.1993 MK !!!
       similar_l_stroked (l, r, s)
@@ -611,13 +611,13 @@ if(language != LANG_RUSSIAN)
 if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 	{                   /* not cut and exist !-dot */
 	int16_t pr = ADD_PROB(c);
-	if( language != LANG_RUSSIAN && pr<200 )
+	if( language != LANGUAGE_RUSSIAN && pr<200 )
 		pr=202; /* ????!!!!!! : for good glue */
 	if( similar_excl (l, r, s) )
 		{
 		if( dot_excl(c)!=NULL )
 			add_stick_vers(c,'!',(uchar)pr);
-		else if( language == LANG_RUSSIAN &&  !line_tabcell  )
+		else if( language == LANGUAGE_RUSSIAN &&  !line_tabcell  )
 			{
 			B_LINES bl;
 			get_b_lines(c,&bl);
@@ -625,7 +625,7 @@ if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 				add_stick_vers(c,(char)liga_exm,(uchar)pr);
 			}
 		}
-	else if( language == LANG_RUSSIAN &&  !line_tabcell && dot_excl(c)==NULL &&
+	else if( language == LANGUAGE_RUSSIAN &&  !line_tabcell && dot_excl(c)==NULL &&
 		 similar_excl_with_dot (l, r, s) )
 		{
 		B_LINES bl;
@@ -694,7 +694,7 @@ if ((s->right_mode - s->left_mode < 5)  &&	// 07.01.1994
 	    }
 					// NOTA BENE: without TEST of LINEAR;
 /*......................................................................*/
-if (language == LANG_SPANISH	&&		// 03.01.1994  INVERS EXM !
+if (language == LANGUAGE_SPANISH	&&		// 03.01.1994  INVERS EXM !
     s->base_2mk+2 < 0		&&
     s->base_3mk+2 < s->height	&&
     l->num_long_flags + r->num_long_flags == 0)  {
@@ -714,10 +714,10 @@ int16_t t = r->mount[0] + r->mount[1] + r->mount[2];
 int16_t prob = conv_prob((int16_t)ADD_PROB(c));	// POSIT,EVEN  (prob.0 - 4  or  254)
 B_LINES basL;
 
-if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
+if( !typ_inc && dx<5 && language!=LANGUAGE_RUSSIAN )
   {
 	//  Nick 10.09.2000 - for CZECH
-	if (language==LANG_CZECH)
+	if (language==LANGUAGE_CZECH)
 	{
       if( dy<22 && dy > dx*2 &&
           r->mount[0] && t > 1 &&
@@ -731,7 +731,7 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 	}
 
 	//  Nick 10.09.2000 - for ROMAN
-	if( language == LANG_ROMAN )
+	if( language == LANGUAGE_ROMANIAN )
 	{
       get_b_lines(c,&basL);
 	  if( dy > dx*2 &&

@@ -86,8 +86,8 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver) {
     uchar let;
     int lang = p2globals.language;
 
-    if (lang == LANG_ENGLISH && p2globals.multy_language)
-        lang = LANG_RUSENG;
+    if (lang == LANGUAGE_ENGLISH && p2globals.multy_language)
+        lang = LANGUAGE_RUS_ENG;
 
     if (!rast)
         return FALSE;
@@ -981,7 +981,7 @@ int p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last) {
 uchar p2_to_upperASCII(uchar c) {
     if (c >= (uchar) 'a' && c <= (uchar) 'z')
         return c - (uchar) 'a' + (uchar) 'A';
-    if (p2globals.language == LANG_RUSSIAN) {
+    if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
         if (c >= (uchar) ' ' && c <= (uchar) '¯')
             return c - (uchar) ' ' + (uchar) '€';
@@ -995,7 +995,7 @@ uchar p2_to_upperASCII(uchar c) {
 uchar p2_to_lowerASCII(uchar c) {
     if (c >= (uchar) 'A' && c <= (uchar) 'Z')
         return c - (uchar) 'A' + (uchar) 'a';
-    if (p2globals.language == LANG_RUSSIAN) {
+    if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
         if (c >= (uchar) '€' && c <= (uchar) '')
             return c - (uchar) '€' + (uchar) ' ';
@@ -1007,7 +1007,7 @@ uchar p2_to_lowerASCII(uchar c) {
 ///////////////
 Bool32 p2_is_lowerASCII(uchar ch) {
 
-    if (p2globals.language == LANG_RUSSIAN) {
+    if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
         if ((ch >= (uchar) ' ' && ch <= (uchar) '¯') || (ch >= (uchar) 'à' && ch <= (uchar) 'ï'))
             return TRUE;
@@ -1018,7 +1018,7 @@ Bool32 p2_is_lowerASCII(uchar ch) {
 }
 /////////////////////
 Bool32 p2_is_upperASCII(uchar ch) {
-    if (p2globals.language == LANG_RUSSIAN) {
+    if (p2globals.language == LANGUAGE_RUSSIAN) {
         if (ch >= (uchar) '€' && ch <= (uchar) 'Ÿ')
             return 1;
     }
@@ -1032,9 +1032,9 @@ static uchar eng_alias[] = "rnr68B";
 /////////////
 uchar p2_rsadd_get_alias_class(uchar let, uchar lang) {
     uchar *fa;
-    if (lang == LANG_RUSSIAN)
+    if (lang == LANGUAGE_RUSSIAN)
         fa = rus_alias;
-    else if (lang == LANG_ENGLISH)
+    else if (lang == LANGUAGE_ENGLISH)
         fa = eng_alias;
     else
         return 0;

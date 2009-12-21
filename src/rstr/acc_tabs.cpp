@@ -1227,34 +1227,34 @@ static uchar alph_ce[256] = {
 uchar fon_alphabet_language[3][256];
 
 uchar *alphabet_language[LANG_TOTAL] = { // 31.08.2000 E.P.
-		alph_english, // LANG_ENGLISH     0
-				alph_english, // LANG_GERMAN      1
-				alph_english, // LANG_FRENCH      2
-				alph_russian, // LANG_RUSSIAN     3
-				alph_english, // LANG_SWEDISH     4
-				alph_english, // LANG_SPANISH     5
-				alph_english, // LANG_ITALIAN     6
-				alph_russian, // LANG_RUSENG      7
-				alph_russian, // LANG_UKRAINIAN   8
-				alph_russian, // LANG_SERBIAN     9
-				alph_ce, // LANG_CROATIAN   10
-				alph_ce, // LANG_POLISH     11
-				alph_english, // LANG_DANISH     12
-				alph_english, // LANG_PORTUGUESE 13
-				alph_english, // LANG_DUTCH      14
-				alph_digital, // LANG_DIG        15
-				alph_russian, // LANG_UZBEK      16
-				alph_russian, // LANG_KAZ        17
-				alph_russian, // LANG_KAZ_ENG    18
-				alph_ce, // LANG_CZECH      19
-				alph_ce, // LANG_ROMAN      20
-				alph_ce, // LANG_HUNGAR     21
-				alph_russian, // LANG_BULGAR     22
-				alph_ce, // LANG_SLOVENIAN  23
-				alph_english, // LANG_LATVIAN	 24
-				alph_english, // LANG_LITHUANIAN 25
-				alph_english, // LANG_ESTONIAN	 26
-				alph_english // LANG_TURKISH	 27
+		alph_english, // LANGUAGE_ENGLISH     0
+				alph_english, // LANGUAGE_GERMAN      1
+				alph_english, // LANGUAGE_FRENCH      2
+				alph_russian, // LANGUAGE_RUSSIAN     3
+				alph_english, // LANGUAGE_SWEDISH     4
+				alph_english, // LANGUAGE_SPANISH     5
+				alph_english, // LANGUAGE_ITALIAN     6
+				alph_russian, // LANGUAGE_RUS_ENG      7
+				alph_russian, // LANGUAGE_UKRAINIAN   8
+				alph_russian, // LANGUAGE_SERBIAN     9
+				alph_ce, // LANGUAGE_CROATIAN   10
+				alph_ce, // LANGUAGE_POLISH     11
+				alph_english, // LANGUAGE_DANISH     12
+				alph_english, // LANGUAGE_PORTUGUESE 13
+				alph_english, // LANGUAGE_DUTCH      14
+				alph_digital, // LANGUAGE_DIGITS        15
+				alph_russian, // LANGUAGE_UZBEK      16
+				alph_russian, // LANGUAGE_KAZAKH        17
+				alph_russian, // LANGUAGE_KAZ_ENG    18
+				alph_ce, // LANGUAGE_CZECH      19
+				alph_ce, // LANGUAGE_ROMANIAN      20
+				alph_ce, // LANGUAGE_HUNGARIAN     21
+				alph_russian, // LANGUAGE_BULGARIAN     22
+				alph_ce, // LANGUAGE_SLOVENIAN  23
+				alph_english, // LANGUAGE_LATVIAN	 24
+				alph_english, // LANGUAGE_LITHUANIAN 25
+				alph_english, // LANGUAGE_ESTONIAN	 26
+				alph_english // LANGUAGE_TURKISH	 27
 		};
 static void list_latin_letters(); // 01.09.2000 E.P.
 static void list_baltic_letters(); // 09.07.2001 E.P.
@@ -1270,7 +1270,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	alpha_used_mode = 0;
 	for (i = 128; i < 256; i++) {
 		switch (language) {
-		case LANG_RUSSIAN:
+		case LANGUAGE_RUSSIAN:
 			strcpy((char*) decode_ASCII_to_[i], (char*) decode_rus_ASCII_to_[i]);
 			break;
 		default:
@@ -1281,7 +1281,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	if (alphabet_language[language])
 		memcpy(alphabet, alphabet_language[language], 256);
 
-	if (language == LANG_RUSSIAN) {
+	if (language == LANGUAGE_RUSSIAN) {
 		let_linpos = let_linpos_rus;
 		accent_tab = accent_tab_rus;
 		let_lindef = let_lindef_rus;
@@ -1626,7 +1626,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			accent_tab[237] = 0;
 
 		}
-	} // LANG_RUSSIAN
+	} // LANGUAGE_RUSSIAN
 	else {
 		let_linpos = let_linpos_lat;
 		accent_tab = accent_tab_lat;
@@ -1771,7 +1771,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		}
 
-		if (language == LANG_CROATIAN) {
+		if (language == LANGUAGE_CROATIAN) {
 			alphabet[CROAT_D] = 1;
 			alphabet[CROAT_d] = 1;
 			alphabet[CROAT_SR] = 1;
@@ -1857,7 +1857,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			accent_tab[CROAT_zr] = ACC_ROOF_INV;
 			accent_tab[CROAT_CR] = ACC_ROOF_INV | ACC_SUPERUP;
 			accent_tab[CROAT_cr] = ACC_ROOF_INV;
-		} else if (language == LANG_POLISH) {
+		} else if (language == LANGUAGE_POLISH) {
 			alphabet[POLISH_SS] = 1;
 			alphabet[POLISH_s] = 1;
 			alphabet[POLISH_ZZR] = 1;
@@ -2013,7 +2013,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // POLISH
 
-		if (language == LANG_CZECH) {
+		if (language == LANGUAGE_CZECH) {
 
 			// CZECH 31.08.2000 E.P.
 			alphabet[AA_right_accent] = alphabet[a_right_accent] = 1;
@@ -2243,7 +2243,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // CZECH
 
-		if (language == LANG_ROMAN) {
+		if (language == LANGUAGE_ROMANIAN) {
 
 			// ROMAN 31.08.2000 E.P.
 			alphabet[AA_semicircle] = alphabet[a_semicircle] = 1;
@@ -2332,7 +2332,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // ROMAN
 
-		if (language == LANG_HUNGAR) { // 31.08.2000 E.P.
+		if (language == LANGUAGE_HUNGARIAN) { // 31.08.2000 E.P.
 			alphabet[AA_right_accent] = alphabet[a_right_accent] = 1;
 			alphabet[EE_right_accent] = alphabet[e_right_accent] = 1;
 			alphabet[II_right_accent] = alphabet[i_right_accent] = 1;
@@ -2486,7 +2486,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // HUNGAR
 
-		if (language == LANG_SLOVENIAN) {
+		if (language == LANGUAGE_SLOVENIAN) {
 
 			// SLOVENIAN 25.05.2001 E.P.
 			alphabet[CC_inv_roof] = alphabet[c_inv_roof] = 1;
@@ -2554,7 +2554,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		} // SLOVENIAN
 
 		//  Конец фигурной скобки RUSSIAN перенес ниже  01.09.2000 E.P.
-		if (language == LANG_GERMAN) {
+		if (language == LANGUAGE_GERMAN) {
 			alphabet[AA_2dot_accent] = 1;
 			alphabet[a_2dot_accent] = 1;
 			alphabet[UU_2dot_accent] = 1;
@@ -2563,7 +2563,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[o_2dot_accent] = 1;
 			alphabet[0xDF] = 1; // ??? small S-cet
 		}
-		if (language == LANG_FRENCH) {
+		if (language == LANGUAGE_FRENCH) {
 			alphabet[AA_left_accent] = 1;
 			alphabet[AA_roof_accent] = 1;
 			alphabet[CC_bottom_accent] = 1;
@@ -2596,7 +2596,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[u_roof_accent] = 1;
 			alphabet[u_2dot_accent] = 1;
 		}
-		if (language == LANG_SWEDISH) {
+		if (language == LANGUAGE_SWEDISH) {
 			alphabet[AA_2dot_accent] = 1;
 			alphabet[OO_2dot_accent] = 1;
 			alphabet[AA_circle_accent] = 1;
@@ -2605,7 +2605,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[o_2dot_accent] = 1;
 			alphabet[a_circle_accent] = 1;
 		}
-		if (language == LANG_SPANISH) {
+		if (language == LANGUAGE_SPANISH) {
 			alphabet[AA_right_accent] = 1;
 			alphabet[EE_right_accent] = 1;
 			alphabet[II_right_accent] = 1;
@@ -2622,7 +2622,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[u_2dot_accent] = 1;
 			alphabet[n_tild_accent] = 1;
 		}
-		if (language == LANG_ITALIAN) {
+		if (language == LANGUAGE_ITALIAN) {
 			alphabet[AA_left_accent] = 1;
 			alphabet[EE_left_accent] = 1;
 			alphabet[EE_right_accent] = 1;
@@ -2645,7 +2645,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[u_left_accent] = 1;
 			alphabet[u_right_accent] = 1;
 		}
-		if (language == LANG_DANISH) {
+		if (language == LANGUAGE_DANISH) {
 			alphabet[AE_cap_deaf_sound] = 1;
 			alphabet[AA_circle_accent] = 1;
 			alphabet[OO_crossed] = 1;
@@ -2654,7 +2654,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[a_circle_accent] = 1;
 			alphabet[o_crossed] = 1;
 		}
-		if (language == LANG_PORTUGUESE) {
+		if (language == LANGUAGE_PORTUGUESE) {
 			alphabet[AA_left_accent] = 1;
 			alphabet[AA_right_accent] = 1;
 			alphabet[AA_tild_accent] = 1;
@@ -2689,7 +2689,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[i_2dot_accent] = 1;
 			alphabet[u_roof_accent] = 1;
 		}
-		if (language == LANG_DUTCH) {
+		if (language == LANGUAGE_DUTCH) {
 			alphabet[AA_left_accent] = 1;
 			alphabet[AA_2dot_accent] = 1;
 			alphabet[AA_roof_accent] = 1;
@@ -2722,7 +2722,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		}
 
 		// Прибалтийские языки. 09.07.2001 E.P.
-		if (language == LANG_LATVIAN) {
+		if (language == LANGUAGE_LATVIAN) {
 			// LATVIAN 09.07.2001 E.P.
 			alphabet[AA_macron] = alphabet[a_macron] = 1;
 			alphabet[CC_inv_roof] = alphabet[c_inv_roof] = 1;
@@ -2927,7 +2927,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // LATVIAN
 
-		if (language == LANG_LITHUANIAN) {
+		if (language == LANGUAGE_LITHUANIAN) {
 
 			// LITHUANIAN 09.07.2001 E.P.
 			alphabet[AA_bottom_accent] = 1;
@@ -3115,7 +3115,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // LITHUANIAN
 
-		if (language == LANG_ESTONIAN) {
+		if (language == LANGUAGE_ESTONIAN) {
 
 			// ESTONIAN 09.07.2001 E.P.
 			alphabet[AA_2dot_accent] = 1;
@@ -3255,7 +3255,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		} // ESTONIAN
 
 		// Турецкий язык. 20.05.2002 E.P.
-		if (language == LANG_TURKISH) {
+		if (language == LANGUAGE_TURKISH) {
 			// Турецкие лиги, отличные от западноевропейских
 
 			alphabet[liga_TM] = 1;
@@ -3383,7 +3383,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			accent_tab[s_bottom_accent_turkish] = 0;
 		}
 
-	} // !LANG_RUSSIAN
+	} // !LANGUAGE_RUSSIAN
 
 	// for all code pages :
 	strcpy((char*) decode_ASCII_to_[(uchar) '!'], "!");
@@ -3478,7 +3478,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) invers_exm], "\xA1");
 		strcpy((char*) decode_ASCII_to_[(uchar) invers_qm], "\xA0");
 
-		if (language == LANG_DANISH) {
+		if (language == LANGUAGE_DANISH) {
 			strcpy((char*) decode_ASCII_to_[(uchar) OO_crossed], "\xD8");
 			strcpy((char*) decode_ASCII_to_[(uchar) o_crossed], "\xF8");
 		}
@@ -3586,36 +3586,36 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	}
 
 	switch (language) {
-	case LANG_ENGLISH:
-	case LANG_GERMAN:
-	case LANG_FRENCH:
-	case LANG_DUTCH:
-	case LANG_DANISH:
-	case LANG_PORTUGUESE:
-	case LANG_CROATIAN:
-	case LANG_POLISH:
-	case LANG_CZECH: // 01.09.2000 E.P.
-	case LANG_ROMAN:
-	case LANG_HUNGAR:
-	case LANG_SPANISH:
-	case LANG_ITALIAN:
-	case LANG_SWEDISH:
-	case LANG_SLOVENIAN:
-	case LANG_LATVIAN:
-	case LANG_LITHUANIAN:
-	case LANG_ESTONIAN:
-	case LANG_TURKISH:
+	case LANGUAGE_ENGLISH:
+	case LANGUAGE_GERMAN:
+	case LANGUAGE_FRENCH:
+	case LANGUAGE_DUTCH:
+	case LANGUAGE_DANISH:
+	case LANGUAGE_PORTUGUESE:
+	case LANGUAGE_CROATIAN:
+	case LANGUAGE_POLISH:
+	case LANGUAGE_CZECH: // 01.09.2000 E.P.
+	case LANGUAGE_ROMANIAN:
+	case LANGUAGE_HUNGARIAN:
+	case LANGUAGE_SPANISH:
+	case LANGUAGE_ITALIAN:
+	case LANGUAGE_SWEDISH:
+	case LANGUAGE_SLOVENIAN:
+	case LANGUAGE_LATVIAN:
+	case LANGUAGE_LITHUANIAN:
+	case LANGUAGE_ESTONIAN:
+	case LANGUAGE_TURKISH:
 		memcpy(fon_alphabet_language[0], alphabet, 256);
 		fon_alphabet_language[0][0x21] = 1;
 		break;
-	case LANG_RUSSIAN:
-	case LANG_UKRAINIAN:
-	case LANG_SERBIAN:
-	case LANG_UZBEK:
-	case LANG_BULGAR: // 01.09.2000 E.P.
+	case LANGUAGE_RUSSIAN:
+	case LANGUAGE_UKRAINIAN:
+	case LANGUAGE_SERBIAN:
+	case LANGUAGE_UZBEK:
+	case LANGUAGE_BULGARIAN: // 01.09.2000 E.P.
 		memcpy(fon_alphabet_language[1], alphabet, 256);
 		break;
-	case LANG_DIG: // 20.10.2000 Nick
+	case LANGUAGE_DIGITS: // 20.10.2000 Nick
 		memcpy(fon_alphabet_language[2], alphabet, 256);
 		break;
 	default:
@@ -3624,8 +3624,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 }
 
 Bool is_russian_language(uchar lang) {
-	return (lang == LANG_RUSSIAN || lang == LANG_UKRAINIAN || lang
-			== LANG_SERBIAN || lang == LANG_UZBEK || lang == LANG_BULGAR // 01.09.2000 E.P.
+	return (lang == LANGUAGE_RUSSIAN || lang == LANGUAGE_UKRAINIAN || lang
+			== LANGUAGE_SERBIAN || lang == LANGUAGE_UZBEK || lang == LANGUAGE_BULGARIAN // 01.09.2000 E.P.
 	);
 }
 //************************************************************

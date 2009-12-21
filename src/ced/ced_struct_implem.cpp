@@ -88,7 +88,7 @@ CEDPage::CEDPage()
     picsCreated = 0; //number of pictures created in table
     picsTable = 0; //pointer to picture table
     resizeToFit = 0;
-    recogLang = LANG_RUSENG;
+    recogLang = LANGUAGE_RUS_ENG;
 }
 
 CEDPage::~CEDPage()

@@ -28,7 +28,7 @@ Alphabet * create()
     return new BulgarAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_BULGAR, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_BULGARIAN, create);
 }
 
 namespace CIF
@@ -47,7 +47,7 @@ BulgarAlphabet::BulgarAlphabet()
 
 language_t BulgarAlphabet::language() const
 {
-    return LANG_BULGAR;
+    return LANGUAGE_BULGARIAN;
 }
 
 }

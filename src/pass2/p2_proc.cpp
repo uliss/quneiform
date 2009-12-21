@@ -672,8 +672,8 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
                     CSTR_rast firOut, int lang, int nNaklon);
                     int lang = p2globals.language;
 
-                    if ( lang == LANG_ENGLISH && p2globals.multy_language )
-                        lang = LANG_RUSENG;
+                    if ( lang == LANGUAGE_ENGLISH && p2globals.multy_language )
+                        lang = LANGUAGE_RUS_ENG;
 
                     // удалим старое-новое
                     for (lastNew = CSTR_GetNext(firstNew); lastNew; lastNew = CSTR_GetNext(firstNew))
@@ -749,12 +749,12 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
 // язык подходит для ЛЕО ?
 static Bool IsLeoLanguage(uchar lang)
 {
-    if (lang == LANG_RUSSIAN && !p2globals.langBul && !p2globals.langSer)
+    if (lang == LANGUAGE_RUSSIAN && !p2globals.langBul && !p2globals.langSer)
         return TRUE;
 
 #ifdef _ENGLISH_LEO_
 
-    if (lang == LANG_ENGLISH)
+    if (lang == LANGUAGE_ENGLISH)
         return TRUE;
 
 #endif
@@ -769,7 +769,7 @@ static Bool32 IsLeoStandardLetter(uchar let, uchar lang)
     static const char latin_str[] =
         "QWERTYUIOPASDFGHJKLZXCVBNM0123456789qwertyuiopasdfghjklzxcvbnm#%+";
 
-    if (lang == LANG_RUSSIAN) {
+    if (lang == LANGUAGE_RUSSIAN) {
         if (!p2globals.langBul && !p2globals.langSer && !p2globals.langUkr)
             return TRUE;
 
@@ -781,7 +781,7 @@ static Bool32 IsLeoStandardLetter(uchar let, uchar lang)
 
 #ifdef _ENGLISH_LEO_
 
-    if (lang == LANG_ENGLISH)
+    if (lang == LANGUAGE_ENGLISH)
         return TRUE;
 
     if (strchr(latin_str, let))
@@ -821,7 +821,7 @@ static void SetRecogAlphabet(FontInfo *fontinfo)
                 specVeryBadLeo = specBadNon;
             }
 
-            else if (p2globals.language == LANG_RUSSIAN) {
+            else if (p2globals.language == LANGUAGE_RUSSIAN) {
                 aa = (uchar *) (&alpha_str[0]);
                 specBadLeo = specBadRus;
                 specVeryBadLeo = specVeryBadRus;
@@ -1165,7 +1165,7 @@ int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne, P2GLOBALS *p2glob)
                     CSTR_DelRaster(lastNew);
 
                 ret = RerecogLang(lineRaw, lineFon, &dup, dupend, (uchar)(lang
-                                                                          == LANG_RUSSIAN ? LANG_ENGLISH : LANG_RUSSIAN),
+                                                                          == LANGUAGE_RUSSIAN ? LANGUAGE_ENGLISH : LANGUAGE_RUSSIAN),
                                   &fontinfo, FALSE);
 
                 if (ret < 0)
@@ -1412,9 +1412,9 @@ int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *sinfo,
 
                 // discrim some let
                 if ((!specInfo || !specInfo->palkiLeo) && p2globals.language
-                        != LANG_RUSSIAN && (strchr("|!1li", res->Alt[0].Code)
+                        != LANGUAGE_RUSSIAN && (strchr("|!1li", res->Alt[0].Code)
                                             || res->Alt[0].Code == liga_i || (language
-                                                                              == LANG_TURKISH && // 30.05.2002 E.P.
+                                                                              == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                                               (res->Alt[0].Code == i_sans_accent || res->Alt[0].Code
                                                                                == II_dot_accent)) || res->Alt[0].Code
                                             == liga_exm)
@@ -1437,7 +1437,7 @@ int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *sinfo,
                 // надо либо распознавать и палки -
                 // ( но в ЛЕО много ошибок на палки)
                 // либо Ы распознавать только ФОНом
-                if (p2globals.language == LANG_RUSSIAN && strchr("Ьь",
+                if (p2globals.language == LANGUAGE_RUSSIAN && strchr("Ьь",
                                                                  res->Alt[0].Code))
                     return nAlt;
 
@@ -1464,9 +1464,9 @@ int32_t p2_recog(RecRaster *recRast, RecVersions *vers, void *sinfo,
                     vers->Alt[ii].Method = REC_METHOD_LEO;
                     ii++;
 
-                    if (p2globals.language == LANG_RUSSIAN && res->Alt[i].Code
+                    if (p2globals.language == LANGUAGE_RUSSIAN && res->Alt[i].Code
                             >= 194 && !strchr("абеЕ", res->Alt[i].Code)
-                            || p2globals.language != LANG_RUSSIAN && strchr(
+                            || p2globals.language != LANGUAGE_RUSSIAN && strchr(
                                 "CcOoPpSsVvWwXxZz", res->Alt[i].Code)) {
                         vers->Alt[ii] = vers->Alt[ii - 1];
                         vers->Alt[ii].Code = p2_is_lowerASCII(
@@ -1544,10 +1544,10 @@ static Bool32 IsKusokBroken(uchar Code)
     int32_t language = p2globals.language;
 
     if (strchr(kuskiBroken, Code) || Code == liga_i || // 19.06.2001
-            Code == liga_exm || language == LANG_LITHUANIAN && (Code == 'i'
+            Code == liga_exm || language == LANGUAGE_LITHUANIAN && (Code == 'i'
                                                                 || Code == i_bottom_accent) ||
             // 30.05.2002 E.P.
-            language == LANG_TURKISH && (Code == 'i' || Code == i_sans_accent
+            language == LANGUAGE_TURKISH && (Code == 'i' || Code == i_sans_accent
                                          || Code == 'I' || Code == II_dot_accent || Code
                                          == II_roof_accent || Code == i_roof_accent))
         return TRUE;
@@ -1581,7 +1581,7 @@ static int32_t CheckWord(CSTR_rast first, CSTR_rast last, CSTR_line lineOut,
     int32_t porogFine;
 
     // Nick 10.07.2002
-    if (language == LANG_TURKISH)
+    if (language == LANGUAGE_TURKISH)
         porogFine = TRSFI + 10;
 
     else
@@ -1852,7 +1852,7 @@ static int RerecogInRect(Rect32 *rect, CSTR_line lineRaw, CSTR_rast firstNew,
 
     if (rect->right - rect->left < rect->bottom - rect->top) {
         // Nick 10.07.2002 - better for all lang ??? TO TEST
-        if (p2globals.language == LANG_TURKISH) {
+        if (p2globals.language == LANGUAGE_TURKISH) {
             if ((rect->right - rect->left) * 5 < (rect->bottom - rect->top) * 4)
                 return 0;
         }
@@ -1869,7 +1869,7 @@ static int RerecogInRect(Rect32 *rect, CSTR_line lineRaw, CSTR_rast firstNew,
 
     if (nOld <= 0) {
         // Nick 10.07.2002   - better for all ??? TO TEST
-        if (p2globals.language == LANG_TURKISH) {
+        if (p2globals.language == LANGUAGE_TURKISH) {
             firOld = firstNew;
             lasOld = lastNew;
         }
@@ -1906,8 +1906,8 @@ static int GlueRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
     uint16_t firConf = 0;
     uchar firCut = 0;
 
-    if (lang == LANG_ENGLISH && p2globals.multy_language)
-        lang = LANG_RUSENG;
+    if (lang == LANGUAGE_ENGLISH && p2globals.multy_language)
+        lang = LANGUAGE_RUS_ENG;
 
     //
     for (rst = first, nLet = 0, firstNew = NULL; rst && rst != last; rst
@@ -2041,8 +2041,8 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
     int initClink = 0;
     int leftBou;
 
-    if (language == LANG_ENGLISH && p2globals.multy_language)
-        language = LANG_RUSENG;
+    if (language == LANGUAGE_ENGLISH && p2globals.multy_language)
+        language = LANGUAGE_RUS_ENG;
 
     //
     //
@@ -2107,7 +2107,7 @@ static int BrokenRerecog(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw,
             CSTR_GetAttr(rst, &attr);
 
             if (attr.clink >= TRSFINE && attr.col > rect.left + (rect.right
-                                                                 - rect.left) / 3 && (p2globals.language != LANG_TURKISH
+                                                                 - rect.left) / 3 && (p2globals.language != LANGUAGE_TURKISH
                                                                                       || attr.col > rect.left + (2 * (rect .right - rect.left))
                                                                                       / 3)
                )
@@ -2259,8 +2259,8 @@ static int RerecogPalki(CSTR_rast first, CSTR_rast last, CSTR_line lineRaw)
     return 0;
 #endif
 
-    if (language == LANG_ENGLISH && p2globals.multy_language)
-        language = LANG_RUSENG;
+    if (language == LANGUAGE_ENGLISH && p2globals.multy_language)
+        language = LANGUAGE_RUS_ENG;
 
     for (rst = first, goodBrok = 0, firstNew = NULL; rst && rst != last;) {
         if (!CSTR_GetAttr(rst, &attr) || !CSTR_GetCollection(rst, &verOld))
@@ -2542,7 +2542,7 @@ static Bool32 SomnitelnyjBlRazrez(CSTR_rast_attr *attrFon, RecVersions *vrFon,
 
 static Bool32 testUkrKryshki(uchar leoName, uchar fonName)
 {
-    if (p2globals.language == LANG_RUSSIAN && p2globals.langUkr) {
+    if (p2globals.language == LANGUAGE_RUSSIAN && p2globals.langUkr) {
         if (fonName == 0xa9 && (leoName == 0xda || leoName == 0xc2 || leoName
                                 == 0x69))
             return FALSE;
@@ -2583,8 +2583,8 @@ static int SelectLeoFon(CSTR_rast leoStart, CSTR_rast leoEnd,
 
     // не порезали на палки?
     if (nold == 1 && (palkiNew = TestPalka(fonStart, fonEnd, leoStart, leoEnd,
-                                           (p2globals.language == LANG_RUSSIAN || p2globals.language
-                                            == LANG_ENGLISH ? 215 : 199))) == 1)
+                                           (p2globals.language == LANGUAGE_RUSSIAN || p2globals.language
+                                            == LANGUAGE_ENGLISH ? 215 : 199))) == 1)
         return 0;
 
     // новое - с дустами ?

@@ -28,7 +28,7 @@ Alphabet * create()
     return new HungarAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_HUNGAR, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_HUNGARIAN, create);
 }
 
 namespace CIF
@@ -52,7 +52,7 @@ HungarAlphabet::HungarAlphabet()
 
 language_t HungarAlphabet::language() const
 {
-    return LANG_HUNGAR;
+    return LANGUAGE_HUNGARIAN;
 }
 
 }

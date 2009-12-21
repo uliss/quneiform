@@ -198,7 +198,7 @@ Edef unsigned char bcr_layout VAL(0);
 Edef unsigned char cut_page_left VAL(0);
 Edef unsigned char cut_page_right VAL(0);
 /////////////////////////////////////////////////////////////////////////////////////
-//#if MORDA==LANG_ENGLISH
+//#if MORDA==LANGUAGE_ENGLISH
 //Edef unsigned char language             VAL(0);
 //#else
 //Edef unsigned char language             VAL(3);

@@ -157,34 +157,34 @@ static uchar alph_ce[256] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // e
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // f
 		};
-static uchar *alph_lang[LANG_TOTAL] = { alph_english, // LANG_ENGLISH    0
-		alph_english, // LANG_GERMAN     1
-		alph_english, // LANG_FRENCH     2
-		alph_russian, // LANG_RUSSIAN    3
-		alph_english, // LANG_SWEDISH    4
-		alph_english, // LANG_SPANISH    5
-		alph_english, // LANG_ITALIAN    6
-		alph_ruseng, // LANG_RUSENG     7
-		alph_russian, // LANG_UKRAINIAN  8
-		alph_russian, // LANG_SERBIAN    9
-		alph_ce, // LANG_CROATIAN   10
-		alph_ce, // LANG_POLISH     11
-		alph_english, // LANG_DANISH     12
-		alph_english, // LANG_PORTUGUESE 13
-		alph_english, // LANG_DUTCH      14
-		alph_digital, // LANG_DIG        15
-		alph_russian, // LANG_UZBEK		 16	// 01.09.2000 E.P.
-		alph_russian, // LANG_KAZ	     17
-		alph_ruseng, // LANG_KAZ_ENG    18
-		alph_ce, // LANG_CZECH		 19
-		alph_ce, // LANG_ROMAN		 20
-		alph_ce, // LANG_HUNGAR	 21
-		alph_russian, // LANG_BULGAR	 22
-		alph_ce, // LANG_SLOVENIAN	 23
-		alph_english, // LANG_LATVIAN	 24
-		alph_english, // LANG_LITHUANIAN 25
-		alph_english, // LANG_ESTONIAN	 26
-		alph_english // LANG_TURKISH	 27
+static uchar *alph_lang[LANG_TOTAL] = { alph_english, // LANGUAGE_ENGLISH    0
+		alph_english, // LANGUAGE_GERMAN     1
+		alph_english, // LANGUAGE_FRENCH     2
+		alph_russian, // LANGUAGE_RUSSIAN    3
+		alph_english, // LANGUAGE_SWEDISH    4
+		alph_english, // LANGUAGE_SPANISH    5
+		alph_english, // LANGUAGE_ITALIAN    6
+		alph_ruseng, // LANGUAGE_RUS_ENG     7
+		alph_russian, // LANGUAGE_UKRAINIAN  8
+		alph_russian, // LANGUAGE_SERBIAN    9
+		alph_ce, // LANGUAGE_CROATIAN   10
+		alph_ce, // LANGUAGE_POLISH     11
+		alph_english, // LANGUAGE_DANISH     12
+		alph_english, // LANGUAGE_PORTUGUESE 13
+		alph_english, // LANGUAGE_DUTCH      14
+		alph_digital, // LANGUAGE_DIGITS        15
+		alph_russian, // LANGUAGE_UZBEK		 16	// 01.09.2000 E.P.
+		alph_russian, // LANGUAGE_KAZAKH	     17
+		alph_ruseng, // LANGUAGE_KAZ_ENG    18
+		alph_ce, // LANGUAGE_CZECH		 19
+		alph_ce, // LANGUAGE_ROMANIAN		 20
+		alph_ce, // LANGUAGE_HUNGARIAN	 21
+		alph_russian, // LANGUAGE_BULGARIAN	 22
+		alph_ce, // LANGUAGE_SLOVENIAN	 23
+		alph_english, // LANGUAGE_LATVIAN	 24
+		alph_english, // LANGUAGE_LITHUANIAN 25
+		alph_english, // LANGUAGE_ESTONIAN	 26
+		alph_english // LANGUAGE_TURKISH	 27
 		};
 
 Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
@@ -194,8 +194,8 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		memcpy(alphabet, alph_lang[language], 256);
 	else
 		return FALSE;
-	if (language == LANG_RUSSIAN || language == LANG_RUSENG || language
-			== LANG_BULGAR // 01.09.2000 E.P.
+	if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_RUS_ENG || language
+			== LANGUAGE_BULGARIAN // 01.09.2000 E.P.
 	) {
 		alphabet[r_cu_d] = 1;
 		alphabet[r_cu_g] = 1;
@@ -211,7 +211,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 	}
 
 	// В Болгарском нет трех русских букв. 01.09.2000 E.P.
-	if (language == LANG_BULGAR) {
+	if (language == LANGUAGE_BULGARIAN) {
 		alphabet[r_EE_2dot] = 0;
 		alphabet[r_e_2dot] = 0;
 		alphabet[(uchar) 'Ы'] = 0;
@@ -220,7 +220,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[(uchar) 'э'] = 0;
 	}
 
-	if (language == LANG_UKRAINIAN) {
+	if (language == LANGUAGE_UKRAINIAN) {
 		alphabet[r_cu_d] = 1;
 		alphabet[r_cu_g] = 1;
 		alphabet[r_cu_m] = 1;
@@ -244,7 +244,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[liga_uperc] = 1;
 		alphabet[liga_lperc] = 1;
 	}
-	if (language == LANG_SERBIAN) {
+	if (language == LANGUAGE_SERBIAN) {
 		alphabet[r_cu_d] = 1;
 		alphabet[r_cu_g] = 1;
 		alphabet[r_cu_m] = 1;
@@ -273,7 +273,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[liga_lperc] = 1;
 	}
 
-	if (language == LANG_CROATIAN) {
+	if (language == LANGUAGE_CROATIAN) {
 		alphabet[CROAT_D] = 1;
 		alphabet[CROAT_d] = 1;
 		alphabet[CROAT_SR] = 1;
@@ -285,7 +285,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[CROAT_CR] = 1;
 		alphabet[CROAT_cr] = 1;
 	}
-	if (language == LANG_POLISH) {
+	if (language == LANGUAGE_POLISH) {
 		alphabet[POLISH_SS] = 1;
 		alphabet[POLISH_s] = 1;
 		alphabet[POLISH_ZZR] = 1;
@@ -304,7 +304,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[POLISH_l] = 1;
 	}
 
-	if (language == LANG_GERMAN) {
+	if (language == LANGUAGE_GERMAN) {
 		alphabet[AA_2dot_accent] = 1;
 		alphabet[a_2dot_accent] = 1;
 		alphabet[UU_2dot_accent] = 1;
@@ -314,7 +314,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[0xDF] = 1; // ??? small S-cet
 	}
 
-	if (language == LANG_FRENCH) {
+	if (language == LANGUAGE_FRENCH) {
 		alphabet[AA_left_accent] = 1;
 		alphabet[AA_roof_accent] = 1;
 		alphabet[CC_bottom_accent] = 1;
@@ -348,7 +348,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[u_2dot_accent] = 1;
 	}
 
-	if (language == LANG_SWEDISH) {
+	if (language == LANGUAGE_SWEDISH) {
 		alphabet[AA_2dot_accent] = 1;
 		alphabet[OO_2dot_accent] = 1;
 		alphabet[AA_circle_accent] = 1;
@@ -357,7 +357,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[o_2dot_accent] = 1;
 		alphabet[a_circle_accent] = 1;
 	}
-	if (language == LANG_SPANISH) {
+	if (language == LANGUAGE_SPANISH) {
 		alphabet[AA_right_accent] = 1;
 		alphabet[EE_right_accent] = 1;
 		alphabet[II_right_accent] = 1;
@@ -374,7 +374,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[u_2dot_accent] = 1;
 		alphabet[n_tild_accent] = 1;
 	}
-	if (language == LANG_ITALIAN) {
+	if (language == LANGUAGE_ITALIAN) {
 		alphabet[AA_left_accent] = 1;
 		alphabet[EE_left_accent] = 1;
 		alphabet[EE_right_accent] = 1;
@@ -397,7 +397,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[u_left_accent] = 1;
 		alphabet[u_right_accent] = 1;
 	}
-	if (language == LANG_DANISH) {
+	if (language == LANGUAGE_DANISH) {
 		alphabet[AE_cap_deaf_sound] = 1;
 		alphabet[AA_circle_accent] = 1;
 		alphabet[OO_crossed] = 1;
@@ -406,7 +406,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[a_circle_accent] = 1;
 		alphabet[o_crossed] = 1;
 	}
-	if (language == LANG_PORTUGUESE) {
+	if (language == LANGUAGE_PORTUGUESE) {
 		alphabet[AA_left_accent] = 1;
 		alphabet[AA_right_accent] = 1;
 		alphabet[AA_tild_accent] = 1;
@@ -441,7 +441,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[i_2dot_accent] = 1;
 		alphabet[u_roof_accent] = 1;
 	}
-	if (language == LANG_DUTCH) {
+	if (language == LANGUAGE_DUTCH) {
 		alphabet[AA_left_accent] = 1;
 		alphabet[AA_2dot_accent] = 1;
 		alphabet[AA_roof_accent] = 1;
@@ -482,7 +482,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[liga_CR] = 1;
 	}
 
-	if (language == LANG_CZECH) {
+	if (language == LANGUAGE_CZECH) {
 		alphabet[AA_right_accent] = alphabet[a_right_accent] = 1;
 		alphabet[CC_inv_roof] = alphabet[c_inv_roof] = 1;
 		alphabet[DD_inv_roof] = alphabet[d_inv_roof] = 1;
@@ -500,7 +500,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[ZZ_inv_roof_latin] = alphabet[z_inv_roof_latin] = 1;
 	}
 
-	if (language == LANG_ROMAN) {
+	if (language == LANGUAGE_ROMANIAN) {
 		alphabet[AA_semicircle] = alphabet[a_semicircle] = 1;
 		alphabet[AA_roof_accent] = alphabet[a_roof_accent] = 1;
 		alphabet[II_roof_accent] = alphabet[i_roof_accent] = 1;
@@ -508,7 +508,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[TT_bottom_accent] = alphabet[t_bottom_accent] = 1;
 	}
 
-	if (language == LANG_HUNGAR) {
+	if (language == LANGUAGE_HUNGARIAN) {
 		alphabet[AA_right_accent] = alphabet[a_right_accent] = 1;
 		alphabet[EE_right_accent] = alphabet[e_right_accent] = 1;
 		alphabet[II_right_accent] = alphabet[i_right_accent] = 1;
@@ -517,7 +517,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[OO_double_right] = alphabet[o_double_right] = 1;
 	}
 
-	if (language == LANG_SLOVENIAN) {
+	if (language == LANGUAGE_SLOVENIAN) {
 		alphabet[CC_inv_roof] = alphabet[c_inv_roof] = 1;
 		alphabet[SS_inv_roof_latin] = alphabet[s_inv_roof_latin] = 1;
 		alphabet[ZZ_inv_roof_latin] = alphabet[z_inv_roof_latin] = 1;
@@ -535,7 +535,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[liga_bull_baltic] = 1;
 	}
 
-	if (language == LANG_LATVIAN) {
+	if (language == LANGUAGE_LATVIAN) {
 		// LATVIAN 09.07.2001 E.P.
 		alphabet[AA_macron] = 1;
 		alphabet[a_macron] = 1;
@@ -566,7 +566,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[(uchar) 'Y'] = alphabet[(uchar) 'y'] = 0;
 	}
 
-	if (language == LANG_LITHUANIAN) {
+	if (language == LANGUAGE_LITHUANIAN) {
 		// LITHUANIAN 09.07.2001 E.P.
 		alphabet[AA_bottom_accent] = 1;
 		alphabet[a_bottom_accent] = 1;
@@ -592,7 +592,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 		alphabet[(uchar) 'X'] = alphabet[(uchar) 'x'] = 0;
 	}
 
-	if (language == LANG_ESTONIAN) {
+	if (language == LANGUAGE_ESTONIAN) {
 		// ESTONIAN 09.07.2001 E.P.
 		alphabet[AA_2dot_accent] = 1;
 		alphabet[a_2dot_accent] = 1;
@@ -616,7 +616,7 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 	}
 
 	// Турецкий язык. 20.05.2002 E.P.
-	if (language == LANG_TURKISH) {
+	if (language == LANGUAGE_TURKISH) {
 		// Турецкие лиги, отличные от западноевропейских
 		alphabet[liga_TM_turkish] = 1;
 		alphabet[liga_CC_turkish] = 1;
@@ -638,64 +638,64 @@ Bool16 rec_set_alpha(uchar language, uchar *alphabet) {
 	return TRUE;
 }
 
-static const char *tabevn1[LANG_TOTAL] = { "rec1.dat", // LANG_ENGLISH		0
-		"rec1.dat", // LANG_GERMAN		1
-		"rec1.dat", // LANG_FRENCH		2
-		"rec1rus.dat", // LANG_RUSSIAN		3
-		"rec1.dat", // LANG_SWEDISH		4
-		"rec1.dat", // LANG_SPANISH		5
-		"rec1.dat", // LANG_ITALIAN		6
-		"rec1r&e.dat", // LANG_RUSENG		7
-		"rec1rus.dat", // LANG_UKRAINIAN	8
-		"rec1rus.dat", // LANG_SERBIAN		9
-		"rec1cen.dat", // LANG_CROATIAN	10
-		"rec1cen.dat", // LANG_POLISH		11
-		"rec1n.dat", // LANG_DANISH		12
-		"rec1n.dat", // LANG_PORTUGUESE	13
-		"rec1n.dat", // LANG_DUTCH		14
-		"rec1.dat", // LANG_DIG			15
-		"rec1uzb.dat", // LANG_UZBEK		16	// 01.09.2000 E.P.
-		"rec1kaz.dat", // LANG_KAZ			17
-		"rec1kaz.dat", // LANG_KAZ_ENG		18
-		"rec1cen.dat", // LANG_CZECH		19
-		"rec1cen.dat", // LANG_ROMAN		20
-		"rec1cen.dat", // LANG_HUNGAR		21
-		"rec1rus.dat", // LANG_BULGAR		22
-		"rec1cen.dat", // LANG_SLOVENIAN	23
-		"rec1blt.dat", // LANG_LATVIAN	    24
-		"rec1blt.dat", // LANG_LITHUANIAN  25
-		"rec1blt.dat", // LANG_ESTONIAN	26
-		"rec1tur.dat" // LANG_TURKISH		27
+static const char *tabevn1[LANG_TOTAL] = { "rec1.dat", // LANGUAGE_ENGLISH		0
+		"rec1.dat", // LANGUAGE_GERMAN		1
+		"rec1.dat", // LANGUAGE_FRENCH		2
+		"rec1rus.dat", // LANGUAGE_RUSSIAN		3
+		"rec1.dat", // LANGUAGE_SWEDISH		4
+		"rec1.dat", // LANGUAGE_SPANISH		5
+		"rec1.dat", // LANGUAGE_ITALIAN		6
+		"rec1r&e.dat", // LANGUAGE_RUS_ENG		7
+		"rec1rus.dat", // LANGUAGE_UKRAINIAN	8
+		"rec1rus.dat", // LANGUAGE_SERBIAN		9
+		"rec1cen.dat", // LANGUAGE_CROATIAN	10
+		"rec1cen.dat", // LANGUAGE_POLISH		11
+		"rec1n.dat", // LANGUAGE_DANISH		12
+		"rec1n.dat", // LANGUAGE_PORTUGUESE	13
+		"rec1n.dat", // LANGUAGE_DUTCH		14
+		"rec1.dat", // LANGUAGE_DIGITS			15
+		"rec1uzb.dat", // LANGUAGE_UZBEK		16	// 01.09.2000 E.P.
+		"rec1kaz.dat", // LANGUAGE_KAZAKH			17
+		"rec1kaz.dat", // LANGUAGE_KAZ_ENG		18
+		"rec1cen.dat", // LANGUAGE_CZECH		19
+		"rec1cen.dat", // LANGUAGE_ROMANIAN		20
+		"rec1cen.dat", // LANGUAGE_HUNGARIAN		21
+		"rec1rus.dat", // LANGUAGE_BULGARIAN		22
+		"rec1cen.dat", // LANGUAGE_SLOVENIAN	23
+		"rec1blt.dat", // LANGUAGE_LATVIAN	    24
+		"rec1blt.dat", // LANGUAGE_LITHUANIAN  25
+		"rec1blt.dat", // LANGUAGE_ESTONIAN	26
+		"rec1tur.dat" // LANGUAGE_TURKISH		27
 		};
 
-static const char *tabevn2[LANG_TOTAL] = { "rec2.dat", // LANG_ENGLISH		0
-		"rec2.dat", // LANG_GERMAN		1
-		"rec2.dat", // LANG_FRENCH		2
-		"rec2rus.dat", // LANG_RUSSIAN		3
-		"rec2.dat", // LANG_SWEDISH		4
-		"rec2.dat", // LANG_SPANISH		5
-		"rec2.dat", // LANG_ITALIAN		6
-		"rec2r&e.dat", // LANG_RUSENG		7
-		"rec2rus.dat", // LANG_UKRAINIAN	8
-		"rec2rus.dat", // LANG_SERBIAN		9
-		"rec2cen.dat", // LANG_CROATIAN	10
-		"rec2cen.dat", // LANG_POLISH		11
-		"rec2n.dat", // LANG_DANISH		12
-		"rec2n.dat", // LANG_PORTUGUESE	13
-		"rec2n.dat", // LANG_DUTCH		14
-		"rec2.dat", // LANG_DIG			15
-		"rec2uzb.dat", // LANG_UZBEK		16 // 01.09.2000 E.P.
-		"rec2kaz.dat", // LANG_KAZ			17
-		"rec2kaz.dat", // LANG_KAZ_ENG		18
-		"rec2cen.dat", // LANG_CZECH		19
-		"rec2cen.dat", // LANG_ROMAN		20
-		"rec2cen.dat", // LANG_HUNGAR		21
-		"rec2rus.dat", // LANG_BULGAR		22
-		"rec2cen.dat", // LANG_SLOVENIAN	23
-		"rec2blt.dat", // LANG_LATVIAN	    24
-		"rec2blt.dat", // LANG_LITHUANIAN  25
-		"rec2blt.dat", // LANG_ESTONIAN	26
-		"rec2tur.dat" // LANG_TURKISH		27
+static const char *tabevn2[LANG_TOTAL] = { "rec2.dat", // LANGUAGE_ENGLISH		0
+		"rec2.dat", // LANGUAGE_GERMAN		1
+		"rec2.dat", // LANGUAGE_FRENCH		2
+		"rec2rus.dat", // LANGUAGE_RUSSIAN		3
+		"rec2.dat", // LANGUAGE_SWEDISH		4
+		"rec2.dat", // LANGUAGE_SPANISH		5
+		"rec2.dat", // LANGUAGE_ITALIAN		6
+		"rec2r&e.dat", // LANGUAGE_RUS_ENG		7
+		"rec2rus.dat", // LANGUAGE_UKRAINIAN	8
+		"rec2rus.dat", // LANGUAGE_SERBIAN		9
+		"rec2cen.dat", // LANGUAGE_CROATIAN	10
+		"rec2cen.dat", // LANGUAGE_POLISH		11
+		"rec2n.dat", // LANGUAGE_DANISH		12
+		"rec2n.dat", // LANGUAGE_PORTUGUESE	13
+		"rec2n.dat", // LANGUAGE_DUTCH		14
+		"rec2.dat", // LANGUAGE_DIGITS			15
+		"rec2uzb.dat", // LANGUAGE_UZBEK		16 // 01.09.2000 E.P.
+		"rec2kaz.dat", // LANGUAGE_KAZAKH			17
+		"rec2kaz.dat", // LANGUAGE_KAZ_ENG		18
+		"rec2cen.dat", // LANGUAGE_CZECH		19
+		"rec2cen.dat", // LANGUAGE_ROMANIAN		20
+		"rec2cen.dat", // LANGUAGE_HUNGARIAN		21
+		"rec2rus.dat", // LANGUAGE_BULGARIAN		22
+		"rec2cen.dat", // LANGUAGE_SLOVENIAN	23
+		"rec2blt.dat", // LANGUAGE_LATVIAN	    24
+		"rec2blt.dat", // LANGUAGE_LITHUANIAN  25
+		"rec2blt.dat", // LANGUAGE_ESTONIAN	26
+		"rec2tur.dat" // LANGUAGE_TURKISH		27
 		};
 
 Bool16 rec_load_tables(uchar language) {
@@ -707,7 +707,7 @@ Bool16 rec_load_tables(uchar language) {
 }
 
 Bool16 rec_is_language(uchar language) {
-	if (language < LANG_ENGLISH || language >= LANG_TOTAL)
+	if (language < LANGUAGE_ENGLISH || language >= LANG_TOTAL)
 		return FALSE;
 	if (data_file_exists(tabevn1[language]) == -1)
 		return FALSE;

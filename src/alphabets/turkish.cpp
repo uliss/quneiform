@@ -28,7 +28,7 @@ Alphabet * create()
     return new TurkishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_TURKISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_TURKISH, create);
 }
 
 namespace CIF
@@ -58,7 +58,7 @@ TurkishAlphabet::TurkishAlphabet()
 
 language_t TurkishAlphabet::language() const
 {
-    return LANG_TURKISH;
+    return LANGUAGE_TURKISH;
 }
 
 }

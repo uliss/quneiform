@@ -576,7 +576,7 @@ int16_t checkart1(SOBJ * obj, int16_t pi1, int16_t pi2, struct artstr * a)
 
             if (!(MEMCHR(wide_let,
                          *((char *)&(obj->pos[pi2].orig.code))
-                         , sizeof wide_let )) || language != LANG_RUSSIAN)
+                         , sizeof wide_let )) || language != LANGUAGE_RUSSIAN)
                 return (No);
 
             break;

@@ -214,7 +214,7 @@ static void italic(cell *c) {
 	bad_cur_ge = (c->vers[0].let == r_cu_z && (c->recsource == c_rs_ev
 			|| c->recsource == (c_rs_ev | c_rs_deskr)) && c->vers[0].prob
 			== 254);
-	if (language == LANG_RUSSIAN && (memchr(solid_italic, c->vers[0].let,
+	if (language == LANGUAGE_RUSSIAN && (memchr(solid_italic, c->vers[0].let,
 			sizeof(solid_italic)) || p2_active && sv_save_stick_inc > 250
 			&& sv_save_stick_inc != NO_INCLINE) && !bad_cur_ge) {
 		c->font |= c_fp_it;
@@ -226,7 +226,7 @@ static void italic(cell *c) {
 
 	if (c->save_stick_inc != NO_INCLINE
 			&& !memchr("$&#257/", c->vers[0].let, 7) && !(language
-			== LANG_RUSSIAN && c->vers[0].let == r_cu_z)) {
+			== LANGUAGE_RUSSIAN && c->vers[0].let == r_cu_z)) {
 		if (c->save_stick_inc > 250 /*&& !disable_it */) {
 			if (!disable_it) {
 				c->font |= c_fp_it;
@@ -251,7 +251,7 @@ static void italic(cell *c) {
 		if (letincl(c) ||
 		//	  let>=ligas_beg && let<=ligas_end ||
 				is_liga(let) || // 14.09.2000 E.P.
-				memchr("$&#257/", let, 7) || language == LANG_RUSSIAN && let
+				memchr("$&#257/", let, 7) || language == LANGUAGE_RUSSIAN && let
 				== r_cu_z)
 			if (!memchr("╚▀", let, 2)) {
 				c->stick_inc |= 0x1000;
@@ -260,7 +260,7 @@ static void italic(cell *c) {
 				c->font ^= c_fp_it;
 
 		if (let == 'I' || let == 'i' || let == liga_i || language
-				== LANG_TURKISH && // 30.05.2002 E.P.
+				== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 				(let == i_sans_accent || let == II_dot_accent))
 			let = 'l';
 		h = (indBOX *) tableBOX + let;
@@ -275,7 +275,7 @@ static void italic(cell *c) {
 					s->matrBOX.isq_rt);
 			nansw++;
 		}
-		if (language == LANG_RUSSIAN)
+		if (language == LANGUAGE_RUSSIAN)
 			twins = twinsr;
 		else
 			twins = twinsl;
@@ -299,8 +299,8 @@ static void italic(cell *c) {
 			}
 		}
 		for (maxi = maxni = i = 0; i < nansw; i++) {
-			if (language == LANG_RUSSIAN && (font[i] & c_fp_it) || language
-					!= LANG_RUSSIAN && (font[i] == f_italic || font[i]
+			if (language == LANGUAGE_RUSSIAN && (font[i] & c_fp_it) || language
+					!= LANGUAGE_RUSSIAN && (font[i] == f_italic || font[i]
 					>= f_italic_add && font[i] <= f_italic_lst)) {
 				if (maxi < prob[i])
 					maxi = prob[i];
@@ -422,7 +422,7 @@ int16_t letincl(cell *c) {
 	int32_t s;
 
 	let = let_sans_acc[c->vers[0].let];
-	//if( language==LANG_RUSSIAN || language==LANG_ENGLISH )
+	//if( language==LANGUAGE_RUSSIAN || language==LANGUAGE_ENGLISH )
 	if (erection_cyr_language(language))
 		return 0;
 	if (c->env == NULL || (f = tabincl[let]) == 0 || c->h < KEGMIN)
@@ -691,7 +691,7 @@ static int16_t pitch() {
 			//	   (let=c->vers[0].let)>=ligas_beg && let<=ligas_end &&
 			is_liga(let) && // 14.09.2000 E.P.
 
-					let != liga_i && !(language == LANG_TURKISH && // 30.05.2002 E.P.
+					let != liga_i && !(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(let == i_sans_accent || let == II_dot_accent)) && let
 					!= liga_j && let != liga_exm && let != liga_qm)
 				ng++;
@@ -705,7 +705,7 @@ static int16_t pitch() {
 				//      (let<ligas_beg || let>ligas_end ||
 				(!is_liga(let) || // 14.09.2000 E.P.
 
-						let == liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+						let == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(let == i_sans_accent || let == II_dot_accent) || let
 						== liga_j || let == liga_exm || let == liga_qm) && (nl
 				< NLETOK && c->flg & c_f_punct || c->flg & (c_f_let | c_f_bad))
@@ -718,7 +718,7 @@ static int16_t pitch() {
 					> c->h)
 				center[n] += c->w / 3;
 			if ((let == 'i' && 5* c ->w > 2* c ->h || (let == liga_i
-					|| language == LANG_TURKISH && // 30.05.2002 E.P.
+					|| language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 							(let == i_sans_accent || let == II_dot_accent))
 					&& 4* c ->w > c->h) && !(c->font & c_fp_it) && c->font
 					& c_fp_gelv)
@@ -1886,14 +1886,14 @@ static int16_t dens_let(cell *c) {
 	let = let_sans_acc[c->vers[0].let];
 	fnt = c->font;
 	if (strchr("*#!ijltI1()[]{}", let) != NULL || let == liga_bull || let
-			== liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+			== liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 			(let == i_sans_accent || let == II_dot_accent) || let == liga_j
 			|| let == liga_exm || let == 'r' && 5* c ->w < 3* c ->h)
 		return NOTAPPL;
 	if (fnt & c_fp_it)
 		tab = tabgi;
 	else {
-		if (language != LANG_RUSSIAN && pitchsize) {
+		if (language != LANGUAGE_RUSSIAN && pitchsize) {
 			if (pitchsize > c->keg)
 				tab = tabcr;
 			else

@@ -124,29 +124,29 @@ void pass_accent(void) {
 	for (c = cell_f()->nextl; c != cell_l(); c = c->nextl)
 		if (c->nvers > 0) {
 			let = c->vers[0].let;
-			if ((language == LANG_FRENCH || language == LANG_ITALIAN)
+			if ((language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN)
 					&& memchr("AEIOUaeiou", let, 10) || language
-					== LANG_SPANISH && memchr("AEINOUaeniou", let, 12)
-					|| language == LANG_GERMAN && memchr("AOUaou", let, 6)
-					|| language == LANG_CROATIAN && memchr("SZCszc", let, 6)
-					|| language == LANG_DANISH && memchr("Aa", let, 2)
-					|| language == LANG_DUTCH && memchr("EIOeio", let, 6)
-					|| language == LANG_POLISH && memchr("SZCNOszcno", let, 10)
-					|| language == LANG_SWEDISH && memchr("AEOaeo", let, 6)
-					|| language == LANG_CZECH && memchr(// 04.09.2000 E.P.
+					== LANGUAGE_SPANISH && memchr("AEINOUaeniou", let, 12)
+					|| language == LANGUAGE_GERMAN && memchr("AOUaou", let, 6)
+					|| language == LANGUAGE_CROATIAN && memchr("SZCszc", let, 6)
+					|| language == LANGUAGE_DANISH && memchr("Aa", let, 2)
+					|| language == LANGUAGE_DUTCH && memchr("EIOeio", let, 6)
+					|| language == LANGUAGE_POLISH && memchr("SZCNOszcno", let, 10)
+					|| language == LANGUAGE_SWEDISH && memchr("AEOaeo", let, 6)
+					|| language == LANGUAGE_CZECH && memchr(// 04.09.2000 E.P.
 							"AaCcDdEeIiNnOoRrSsTtUuYyZz", let, 26) || language
-					== LANG_ROMAN && memchr("AaIi", let, 4) || language
-					== LANG_HUNGAR && memchr("AaEeIiOoUu", let, 10) || language
-					== LANG_SLOVENIAN && memchr("CcSsZz", let, 6) ||
+					== LANGUAGE_ROMANIAN && memchr("AaIi", let, 4) || language
+					== LANGUAGE_HUNGARIAN && memchr("AaEeIiOoUu", let, 10) || language
+					== LANGUAGE_SLOVENIAN && memchr("CcSsZz", let, 6) ||
 
 			// Как верхние, так и нижние акценты 10.07.2001 E.P.
-					language == LANG_LATVIAN && memchr(
+					language == LANGUAGE_LATVIAN && memchr(
 							"AaCcEeGgIiKkLlNnSsUuZz", let, 22) || language
-					== LANG_LITHUANIAN && memchr("AaCcEeIiSsUuZz", let, 14)
-					|| language == LANG_ESTONIAN && memchr("AaOoSsUuZz", let,
+					== LANGUAGE_LITHUANIAN && memchr("AaCcEeIiSsUuZz", let, 14)
+					|| language == LANGUAGE_ESTONIAN && memchr("AaOoSsUuZz", let,
 							10) ||
 			// 30.05.2002 E.P.
-					language == LANG_TURKISH && memchr("AaCcGgIiOoSsUu", let,
+					language == LANGUAGE_TURKISH && memchr("AaCcGgIiOoSsUu", let,
 							14) || 0)
 				accent(c);
 		}
@@ -161,7 +161,7 @@ int16_t bottom_accent(cell *c) {
 	if (!find_bottom_accent(c))
 		return 0;
 
-	if (language == LANG_LATVIAN) {
+	if (language == LANGUAGE_LATVIAN) {
 		for (v1 = c->vers, v2 = vers, i = 0; i < c->nvers; i++, v1++)
 			if (v1->let == 'l') {
 				was_l = 1;
@@ -173,7 +173,7 @@ int16_t bottom_accent(cell *c) {
 		chr = v1->let;
 		v2->let = 0;
 		switch (language) {
-		case (LANG_FRENCH):
+		case (LANGUAGE_FRENCH):
 			switch (chr) {
 			case 'C':
 				v2->let = CC_bottom_accent;
@@ -185,7 +185,7 @@ int16_t bottom_accent(cell *c) {
 
 			break;
 
-		case (LANG_POLISH):
+		case (LANGUAGE_POLISH):
 			switch (chr) {
 			case 'A':
 				v2->let = AA_bottom_accent_latin;
@@ -204,7 +204,7 @@ int16_t bottom_accent(cell *c) {
 			break;
 
 			// 04.09.2000 E.P.
-		case LANG_ROMAN:
+		case LANGUAGE_ROMANIAN:
 			switch (chr) {
 			case 'S':
 				v2->let = SS_bottom_accent_latin;
@@ -223,7 +223,7 @@ int16_t bottom_accent(cell *c) {
 			break;
 
 			// 10.07.2001 E.P.
-		case (LANG_LATVIAN):
+		case (LANGUAGE_LATVIAN):
 			switch (chr) {
 			case 'G':
 				v2->let = GG_bottom_accent;
@@ -255,7 +255,7 @@ int16_t bottom_accent(cell *c) {
 			break;
 
 			// 10.07.2001 E.P.
-		case (LANG_LITHUANIAN):
+		case (LANGUAGE_LITHUANIAN):
 			switch (chr) {
 			case 'A':
 				v2->let = AA_bottom_accent;
@@ -285,7 +285,7 @@ int16_t bottom_accent(cell *c) {
 
 			break;
 
-		case (LANG_TURKISH):
+		case (LANGUAGE_TURKISH):
 			switch (chr) {
 			case 'C':
 				v2->let = CC_bottom_accent;
@@ -312,13 +312,13 @@ int16_t bottom_accent(cell *c) {
 		}
 
 		// Прибалтийские Iil _bottom_accent. Продолжить просмотр версий.
-		else if ((language == LANG_LATVIAN || language == LANG_LITHUANIAN))
+		else if ((language == LANGUAGE_LATVIAN || language == LANGUAGE_LITHUANIAN))
 			continue;
 
 		// Турецкая c_bottom_accent после отрезания дает
 		// несколько версий с оценкой 254.
 		// 18.06.2002 E.P.
-		else if (language == LANG_TURKISH) {
+		else if (language == LANGUAGE_TURKISH) {
 			if ((i + 1 < c->nvers) && (v1 + 1)->prob >= 240)
 				continue;
 		} else
@@ -345,18 +345,18 @@ int16_t accent(cell *c) {
 		return bottom_accent(c); // Try to find bottom accent. 17.10.97 E.P.
 
 	for (v1 = c->vers, v2 = vers, i = n = 0; i < c->nvers; i++, v1++) {
-		if ((language == LANG_FRENCH || language == LANG_ITALIAN) && memchr(
+		if ((language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) && memchr(
 				"AEIOUaeiou", v1->let, 10) && acc_type != ACC_CIR && acc_type
 				!= ACC_TILD && (v1->let != 'A' && v1->let != 'a' || acc_type
 				!= ACC_RIGHT || acc_type != ACC_2DOT) && (v1->let != 'I'
 				&& v1->let != 'i' || !(acc_type & ACC_LR)) && (v1->let != 'O'
 				&& v1->let != 'o' || acc_type == ACC_ROOF) && (v1->let != 'U'
 				&& v1->let != 'u' || acc_type != ACC_RIGHT) || language
-				== LANG_GERMAN && memchr("AOUaou", v1->let, 6) && acc_type
+				== LANGUAGE_GERMAN && memchr("AOUaou", v1->let, 6) && acc_type
 				== ACC_2DOT)
 			goto _ok;
 
-		if (language == LANG_PORTUGUESE && (memchr("AEOUIaeoui", v1->let, 10)
+		if (language == LANGUAGE_PORTUGUESE && (memchr("AEOUIaeoui", v1->let, 10)
 				&& acc_type == ACC_RIGHT || memchr("AEOaeo", v1->let, 6)
 				&& acc_type == ACC_LEFT || memchr("AEOaeo", v1->let, 6)
 				&& acc_type == ACC_ROOF || memchr("AOao", v1->let, 4)
@@ -364,40 +364,40 @@ int16_t accent(cell *c) {
 				&& acc_type == ACC_2DOT))
 			goto _ok;
 
-		if (language == LANG_ITALIAN && memchr("o", v1->let, 1) && acc_type
-				== ACC_LEFT || language == LANG_RUSSIAN && !langUkr && !langSer
+		if (language == LANGUAGE_ITALIAN && memchr("o", v1->let, 1) && acc_type
+				== ACC_LEFT || language == LANGUAGE_RUSSIAN && !langUkr && !langSer
 				&& memchr("Ґ…", v1->let, 2) && acc_type == ACC_2DOT)
 			goto _ok;
 
-		if (language == LANG_CROATIAN && memchr("cC", v1->let, 2) && acc_type
-				== ACC_RIGHT || language == LANG_CROATIAN && (memchr("SsZzCc",
+		if (language == LANGUAGE_CROATIAN && memchr("cC", v1->let, 2) && acc_type
+				== ACC_RIGHT || language == LANGUAGE_CROATIAN && (memchr("SsZzCc",
 				v1->let, 6)) && acc_type == ACC_ROOF_INV)
 			goto _ok;
 
-		if (language == LANG_DANISH && (memchr("Aa", v1->let, 2)) && acc_type
+		if (language == LANGUAGE_DANISH && (memchr("Aa", v1->let, 2)) && acc_type
 				== ACC_CIR)
 			goto _ok;
 
-		if (language == LANG_DUTCH && (memchr("Ee", v1->let, 2)) && (acc_type
+		if (language == LANGUAGE_DUTCH && (memchr("Ee", v1->let, 2)) && (acc_type
 				== ACC_LEFT || acc_type == ACC_RIGHT || acc_type == ACC_ROOF
-				|| acc_type == ACC_2DOT) || language == LANG_DUTCH && (memchr(
+				|| acc_type == ACC_2DOT) || language == LANGUAGE_DUTCH && (memchr(
 				"Ii", v1->let, 2)) && (acc_type == ACC_2DOT) || language
-				== LANG_DUTCH && (memchr("Oo", v1->let, 2)) && (acc_type
+				== LANGUAGE_DUTCH && (memchr("Oo", v1->let, 2)) && (acc_type
 				== ACC_LEFT || acc_type == ACC_RIGHT || acc_type == ACC_ROOF))
 			goto _ok;
 
-		if (language == LANG_POLISH && memchr("SZCNOszcno", v1->let, 10)
-				&& acc_type == ACC_RIGHT || language == LANG_POLISH && memchr(
+		if (language == LANGUAGE_POLISH && memchr("SZCNOszcno", v1->let, 10)
+				&& acc_type == ACC_RIGHT || language == LANGUAGE_POLISH && memchr(
 				"Zz", v1->let, 2) && acc_type == ACC_DOT ||
 
-		language == LANG_SWEDISH && memchr("AEOaeo", v1->let, 6) && ((v1->let
+		language == LANGUAGE_SWEDISH && memchr("AEOaeo", v1->let, 6) && ((v1->let
 				== 'A' || v1->let == 'a') && (acc_type == ACC_CIR || acc_type
 				== ACC_2DOT) || (v1->let == 'E' || v1->let == 'e') && acc_type
 				& ACC_RIGHT || (v1->let == 'O' || v1->let == 'o') && acc_type
 				== ACC_2DOT))
 			goto _ok;
 
-		if (language == LANG_SPANISH && memchr("AEINOUaeinou", v1->let, 12)
+		if (language == LANGUAGE_SPANISH && memchr("AEINOUaeinou", v1->let, 12)
 				&& (v1->let != 'N' && v1->let != 'n' && acc_type & ACC_RIGHT
 						|| (v1->let == 'U' || v1->let == 'u' && acc_type
 								== ACC_2DOT) || (v1->let == 'N' || v1->let
@@ -405,42 +405,42 @@ int16_t accent(cell *c) {
 			goto _ok;
 
 		// 04.09.2000 E.P.
-		if (language == LANG_CZECH && (memchr("AaEeIiOoUuYytd", v1->let, 14)
+		if (language == LANGUAGE_CZECH && (memchr("AaEeIiOoUuYytd", v1->let, 14)
 				&& acc_type == ACC_RIGHT || memchr("CcDdEeNnRrSsTtZz", v1->let,
 				16) && acc_type == ACC_ROOF_INV || memchr("Uu", v1->let, 2)
 				&& acc_type == ACC_CIR) ||
 
-		language == LANG_ROMAN && (memchr("Aa", v1->let, 2) && acc_type
+		language == LANGUAGE_ROMANIAN && (memchr("Aa", v1->let, 2) && acc_type
 				== ACC_SEMICIRCLE || memchr("AaIi", v1->let, 4) && acc_type
 				== ACC_ROOF || v1->let == 'i' && acc_type == ACC_WEAK_ROOF) ||
 
-		language == LANG_HUNGAR && (memchr("AaEeIiOoUu", v1->let, 10)
+		language == LANGUAGE_HUNGARIAN && (memchr("AaEeIiOoUu", v1->let, 10)
 				&& acc_type == ACC_RIGHT || memchr("OoUu", v1->let, 4)
 				&& (acc_type == ACC_2DOT || acc_type == ACC_DOUBLE_RIGHT)) ||
 
-		language == LANG_SLOVENIAN && (memchr("CcSsZz", v1->let, 6) && acc_type
+		language == LANGUAGE_SLOVENIAN && (memchr("CcSsZz", v1->let, 6) && acc_type
 				== ACC_ROOF_INV))
 			goto _ok;
 
 		// Балтийские акценты. 10.07.2001 E.P.
-		if (language == LANG_LATVIAN && (memchr("AaEeIiUu", v1->let, 8)
+		if (language == LANGUAGE_LATVIAN && (memchr("AaEeIiUu", v1->let, 8)
 				&& acc_type == ACC_MACRON || memchr("CcSsZz", v1->let, 6)
 				&& acc_type == ACC_ROOF_INV || v1->let == 'g' && acc_type // Все что ловится
 				) ||
 
-		language == LANG_LITHUANIAN && (memchr("CcSsZz", v1->let, 6)
+		language == LANGUAGE_LITHUANIAN && (memchr("CcSsZz", v1->let, 6)
 				&& acc_type == ACC_ROOF_INV || (v1->let == 'E' || v1->let
 				== 'e') && acc_type == ACC_DOT || (v1->let == 'U' || v1->let
 				== 'u') && acc_type == ACC_MACRON) ||
 
-		language == LANG_ESTONIAN && (memchr("AaOoUu", v1->let, 6) && acc_type
+		language == LANGUAGE_ESTONIAN && (memchr("AaOoUu", v1->let, 6) && acc_type
 				== ACC_2DOT || (v1->let == 'O' || v1->let == 'o') && acc_type
 				== ACC_TILD || memchr("SsZz", v1->let, 4) && acc_type
 				== ACC_ROOF_INV))
 			goto _ok;
 
 		// Турецкие акценты 30.05.2002 E.P.
-		if (language == LANG_TURKISH && memchr("AaIiUu", v1->let, 6)
+		if (language == LANGUAGE_TURKISH && memchr("AaIiUu", v1->let, 6)
 				&& acc_type == ACC_ROOF || memchr("Gg", v1->let, 2) && acc_type
 				== ACC_SEMICIRCLE || memchr("OoUu", v1->let, 4) && acc_type
 				== ACC_2DOT || (v1->let == 'I' || v1->let == i_sans_accent)
@@ -580,11 +580,11 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = AA_left_accent;
 						break;
 					}
-					if (language == LANG_SPANISH) {
+					if (language == LANGUAGE_SPANISH) {
 						v2->let = AA_right_accent;
 						break;
 					}
@@ -622,7 +622,7 @@ int16_t accent(cell *c) {
 					v2->let = EE_2dot_accent;
 					break;
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = EE_right_accent;
 						v2->prob = MIN(254, v1->prob + 84);
 						v2++;
@@ -630,8 +630,8 @@ int16_t accent(cell *c) {
 						v2->let = EE_left_accent;
 						break;
 					}
-					if (language == LANG_SWEDISH || language == LANG_SPANISH
-							|| language == LANG_DUTCH) {
+					if (language == LANGUAGE_SWEDISH || language == LANGUAGE_SPANISH
+							|| language == LANGUAGE_DUTCH) {
 						v2->let = EE_right_accent;
 						break;
 					}
@@ -739,11 +739,11 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = UU_left_accent;
 						break;
 					}
-					if (language == LANG_SPANISH) {
+					if (language == LANGUAGE_SPANISH) {
 						v2->let = UU_right_accent;
 						break;
 					}
@@ -784,7 +784,7 @@ int16_t accent(cell *c) {
 				case ACC_TILD:
 
 					// Тильда от версии 'o'. 16.08.2001 E.P.
-					if (language != LANG_ESTONIAN)
+					if (language != LANGUAGE_ESTONIAN)
 						v2->let = a_tild_accent;
 					break;
 
@@ -792,11 +792,11 @@ int16_t accent(cell *c) {
 					v2->let = a_circle_accent;
 					break;
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = a_left_accent;
 						break;
 					}
-					if (language == LANG_SPANISH) {
+					if (language == LANGUAGE_SPANISH) {
 						v2->let = a_right_accent;
 						break;
 					}
@@ -834,7 +834,7 @@ int16_t accent(cell *c) {
 					v2->let = e_2dot_accent;
 					break;
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = e_right_accent;
 						v2->prob = MIN(254, v1->prob + 84);
 						v2++;
@@ -842,7 +842,7 @@ int16_t accent(cell *c) {
 						v2->let = e_left_accent;
 						break;
 					}
-					if (language == LANG_SWEDISH || language == LANG_SPANISH) {
+					if (language == LANGUAGE_SWEDISH || language == LANGUAGE_SPANISH) {
 						v2->let = e_right_accent;
 						break;
 					}
@@ -865,7 +865,7 @@ int16_t accent(cell *c) {
 			case (uchar) 'Ґ':
 				switch (acc_type) {
 				case ACC_2DOT:
-					if (language == LANG_RUSSIAN && !langUkr && !langSer
+					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
 							&& !langBul) // 31.08.2000 E.P.
 					{
 						v2->let = r_e_2dot;
@@ -878,7 +878,7 @@ int16_t accent(cell *c) {
 			case (uchar) '…':
 				switch (acc_type) {
 				case ACC_2DOT:
-					if (language == LANG_RUSSIAN && !langUkr && !langSer
+					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
 							&& !langBul) // 31.08.2000 E.P.
 					{
 						v2->let = r_EE_2dot;
@@ -891,11 +891,11 @@ int16_t accent(cell *c) {
 
 			case 'g':
 				// Над LATVIAN_g все что ловится. 10.07.2001 E.P.
-				if (language == LANG_LATVIAN) {
+				if (language == LANGUAGE_LATVIAN) {
 					v2->let = LATVIAN_g;
 					break;
 				}
-				if (language == LANG_TURKISH) {
+				if (language == LANGUAGE_TURKISH) {
 					v2->let = g_semicircle;
 					break;
 				}
@@ -904,7 +904,7 @@ int16_t accent(cell *c) {
 				break;
 
 			case 'G':
-				if (language == LANG_TURKISH) {
+				if (language == LANGUAGE_TURKISH) {
 					v2->let = GG_semicircle;
 					break;
 				}
@@ -1015,11 +1015,11 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_LR:
-					if (language == LANG_FRENCH || language == LANG_ITALIAN) {
+					if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) {
 						v2->let = u_left_accent;
 						break;
 					}
-					if (language == LANG_SPANISH) {
+					if (language == LANGUAGE_SPANISH) {
 						v2->let = u_right_accent;
 						break;
 					}
@@ -1138,7 +1138,7 @@ int16_t accent(cell *c) {
 
 				// Для разваленной турецкой g_semicircle вредно добавлять
 				// слишком много. 27.06.2002 E.P.
-				if (language == LANG_TURKISH && v2->let == g_semicircle
+				if (language == LANGUAGE_TURKISH && v2->let == g_semicircle
 						&& v1->prob < 60)
 					add_prob = 10;
 
@@ -1230,54 +1230,54 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 	accadr1 = accadr2 = NULL;
 	get_b_lines(c, &bl);
 	H = bl.ps;
-	if (language == LANG_POLISH) {
+	if (language == LANGUAGE_POLISH) {
 		acc_base_num = 10;
 		memcpy(acc_base, "SZCNOszcno", acc_base_num);
-	} else if (language == LANG_CROATIAN) {
+	} else if (language == LANGUAGE_CROATIAN) {
 		acc_base_num = 6;
 		memcpy(acc_base, "SZCszc", acc_base_num);
-	} else if (language == LANG_RUSSIAN && !langUkr && !langSer) {
+	} else if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer) {
 		acc_base_num = 2;
 		memcpy(acc_base, "Ґ…", acc_base_num);
-	} else if (language == LANG_DANISH) {
+	} else if (language == LANGUAGE_DANISH) {
 		acc_base_num = 2;
 		memcpy(acc_base, "Aa", acc_base_num);
-	} else if (language == LANG_DUTCH) {
+	} else if (language == LANGUAGE_DUTCH) {
 		acc_base_num = 6;
 		memcpy(acc_base, "EIOeio", acc_base_num);
-	} else if (language == LANG_PORTUGUESE) {
+	} else if (language == LANGUAGE_PORTUGUESE) {
 		acc_base_num = 10;
 		memcpy(acc_base, "AEIOUaeiou", acc_base_num);
 	}
 
 	// 04.09.2000 E.P.
-	else if (language == LANG_CZECH) {
+	else if (language == LANGUAGE_CZECH) {
 		acc_base_num = 26;
 		memcpy(acc_base, "AaCcDdEeIiNnOoRrSsTtUuYyZz", acc_base_num);
-	} else if (language == LANG_ROMAN) {
+	} else if (language == LANGUAGE_ROMANIAN) {
 		acc_base_num = 4;
 		memcpy(acc_base, "AaIi", acc_base_num);
-	} else if (language == LANG_HUNGAR) {
+	} else if (language == LANGUAGE_HUNGARIAN) {
 		acc_base_num = 10;
 		memcpy(acc_base, "AaEeIiOoUu", acc_base_num);
 	}
 
-	else if (language == LANG_SLOVENIAN) {
+	else if (language == LANGUAGE_SLOVENIAN) {
 		acc_base_num = 6;
 		memcpy(acc_base, "CcSsZz", acc_base_num);
 	}
 
 	// Только верхние акценты
-	else if (language == LANG_LATVIAN) {
+	else if (language == LANGUAGE_LATVIAN) {
 		acc_base_num = 15;
 		memcpy(acc_base, "AaCcEegIiSsUuZz", acc_base_num);
-	} else if (language == LANG_LITHUANIAN) {
+	} else if (language == LANGUAGE_LITHUANIAN) {
 		acc_base_num = 12;
 		memcpy(acc_base, "CcEeIiSsUuZz", acc_base_num);
-	} else if (language == LANG_ESTONIAN) {
+	} else if (language == LANGUAGE_ESTONIAN) {
 		acc_base_num = 10;
 		memcpy(acc_base, "AaOoSsUuZz", acc_base_num);
-	} else if (language == LANG_TURKISH) {
+	} else if (language == LANGUAGE_TURKISH) {
 		acc_base_num = 10;
 		memcpy(acc_base, "AaGgIiOoUu", acc_base_num);
 	} else { // fara letters
@@ -1295,7 +1295,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 	e = c->col + c->w;
 
 	// ACC_ROOF_INF над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
-	if (language == LANG_CZECH && memchr("dt", let, 2))
+	if (language == LANGUAGE_CZECH && memchr("dt", let, 2))
 		e += MAX(2, c->w / 8);
 
 	for (fld = 0, cc = c->prevl->next; cc->col <= e && cc != cell_l(); cc
@@ -1313,23 +1313,23 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 
 			raster = save_raster(cc);
 
-			if (language == LANG_FRENCH || language == LANG_ITALIAN ||
+			if (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN ||
 
 			is_cen_language(language) || // 04.09.2000 E.P.
 					is_baltic_language(language) || // 10.07.2001 E.P.
 
-					language == LANG_SPANISH && !memchr("Nn", let, 2)
-					|| language == LANG_PORTUGUESE && memchr("AEOUIaeoui", let,
-							10) || language == LANG_SWEDISH && memchr("Ee",
+					language == LANGUAGE_SPANISH && !memchr("Nn", let, 2)
+					|| language == LANGUAGE_PORTUGUESE && memchr("AEOUIaeoui", let,
+							10) || language == LANGUAGE_SWEDISH && memchr("Ee",
 					let, 2) ||
 
 			// Балтийский ACC_INV_ROOF и LATVIAN_g 10.07.2001 E.P.
-					language == LANG_LATVIAN && memchr("CcgSsZz", let, 7)
-					|| language == LANG_LITHUANIAN && memchr("CcSsZz", let, 6)
-					|| language == LANG_ESTONIAN && memchr("SsZz", let, 4) ||
+					language == LANGUAGE_LATVIAN && memchr("CcgSsZz", let, 7)
+					|| language == LANGUAGE_LITHUANIAN && memchr("CcSsZz", let, 6)
+					|| language == LANGUAGE_ESTONIAN && memchr("SsZz", let, 4) ||
 
 			// Только верхние акценты
-					language == LANG_TURKISH && memchr("AaGgIiOoUu", let, 10)
+					language == LANGUAGE_TURKISH && memchr("AaGgIiOoUu", let, 10)
 					|| 0) {
 				// Вторая проверка
 				if (cc->row + cc->h - ((let == 'i') ? 0 : 1) <= c->row && cc->h
@@ -1342,7 +1342,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 								& c_cg_cutacc) != c_cg_cutacc)) {
 
 					// ACC_DOUBLE_RIGHT 04.09.2000 E.P.
-					if (language == LANG_HUNGAR && memchr("OoUu", let, 4)
+					if (language == LANGUAGE_HUNGARIAN && memchr("OoUu", let, 4)
 							&& acc_double_right(c, cc, raster)) {
 						ret = ACC_DOUBLE_RIGHT;
 						goto non_zero_ret;
@@ -1350,7 +1350,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 
 					// В румынском есть ACC_ROOF и ACC_SEMICIRCLE,
 					// но нет ACC_ROOF_INV. 04.09.2000 E.P.
-					if (language == LANG_ROMAN) {
+					if (language == LANGUAGE_ROMANIAN) {
 						// ACC_ROOF
 						if (memchr("AOIi", let, 4) && acc_roof(cc, raster)) {
 							ret = ACC_ROOF;
@@ -1374,7 +1374,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						}
 					}
 
-					if (language == LANG_TURKISH) {
+					if (language == LANGUAGE_TURKISH) {
 						// ACC_ROOF
 						if (memchr("AaIiUu", let, 6) && acc_roof(cc, raster)) {
 							ret = ACC_ROOF;
@@ -1399,9 +1399,9 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					}
 
 					// ACC_ROOF_INV
-					if (language == LANG_CROATIAN || language == LANG_CZECH
-							|| language == LANG_HUNGAR || language
-							== LANG_SLOVENIAN || is_baltic_language(language) && // 18.07.2001
+					if (language == LANGUAGE_CROATIAN || language == LANGUAGE_CZECH
+							|| language == LANGUAGE_HUNGARIAN || language
+							== LANGUAGE_SLOVENIAN || is_baltic_language(language) && // 18.07.2001
 							memchr("CcSsZz", let, 6)) {
 						mirror(raster, cc->h, (int16_t) ((cc->w + 7) / 8));
 						if (acc_roof(cc, raster)) {
@@ -1416,7 +1416,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 							== c_cg_cutacc) && (let != 'i' || cc->col < c->col
 							+ c->w) &&
 
-					!((language == LANG_FRENCH || language == LANG_ITALIAN)
+					!((language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN)
 							&& memchr("IOio", let, 4) && c->vers[i + 1].let
 							!= 'a') &&
 
@@ -1435,7 +1435,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					if (is_cen_language(language)
 							&& (r = acc_lr(c, cc, raster)) != 0) {
 						// Акцент над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
-						if (language == LANG_CZECH && memchr("dt", let, 2))
+						if (language == LANGUAGE_CZECH && memchr("dt", let, 2))
 							ret = ACC_ROOF_INV;
 						else
 							ret = ACC_RIGHT;
@@ -1444,15 +1444,15 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					}
 
 					// Над LATVIAN_g ловится все что похоже на ACC_LEFT,ACC_RIGHT
-					if ((language == LANG_LATVIAN ||
+					if ((language == LANGUAGE_LATVIAN ||
 					// И над турецкой g_semicircle тоже
-							language == LANG_TURKISH) // 30.05.2002 E.P.
+							language == LANGUAGE_TURKISH) // 30.05.2002 E.P.
 							&& let == 'g' && (r = acc_lr(c, cc, raster)) != 0) {
 						ret = r;
 						goto non_zero_ret;
 					}
 
-					if (language == LANG_DUTCH) {
+					if (language == LANGUAGE_DUTCH) {
 						if (memchr("EOeo", let, 4) && acc_lr(c, cc, raster)
 								== ACC_RIGHT) {
 							ret = ACC_RIGHT;
@@ -1474,7 +1474,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						}
 					}
 
-					if (language == LANG_PORTUGUESE) {
+					if (language == LANGUAGE_PORTUGUESE) {
 						if (memchr("AEIOUaeiou", let, 10) && acc_lr(c, cc,
 								raster) == ACC_RIGHT) {
 							ret = ACC_RIGHT;
@@ -1504,7 +1504,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						}
 					}
 
-					if (language == LANG_FRENCH && acc_roof(cc, raster)) {
+					if (language == LANGUAGE_FRENCH && acc_roof(cc, raster)) {
 						ret = ACC_ROOF;
 						goto non_zero_ret;
 					}
@@ -1514,22 +1514,22 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 
 			// ACC_2DOT
-			if ((language == LANG_FRENCH && memchr("EIUeiu", let, 6)
-					|| language == LANG_GERMAN && (memchr("AOUaou", let, 6)
+			if ((language == LANGUAGE_FRENCH && memchr("EIUeiu", let, 6)
+					|| language == LANGUAGE_GERMAN && (memchr("AOUaou", let, 6)
 							|| memchr("aou", c->vers[1].let, 3)) || language
-					== LANG_SWEDISH && (memchr("AOao", let, 4) || memchr("ao",
-					c->vers[1].let, 2)) || language == LANG_SPANISH && memchr(
-					"Uu", let, 2) || language == LANG_RUSSIAN && !langUkr
+					== LANGUAGE_SWEDISH && (memchr("AOao", let, 4) || memchr("ao",
+					c->vers[1].let, 2)) || language == LANGUAGE_SPANISH && memchr(
+					"Uu", let, 2) || language == LANGUAGE_RUSSIAN && !langUkr
 					&& !langSer && !langBul && // 04.09.2000 E.P.
 					memchr("…Ґ", let, 2) ||
 
-			language == LANG_HUNGAR && // 04.09.2000 E.P.
+			language == LANGUAGE_HUNGARIAN && // 04.09.2000 E.P.
 					memchr("OoUu", let, 4) ||
 
-			language == LANG_ESTONIAN && memchr("AaOoUu", let, 6) || // 10.07.2001 E.P.
+			language == LANGUAGE_ESTONIAN && memchr("AaOoUu", let, 6) || // 10.07.2001 E.P.
 
 					// Турецкие умляуты по аналогии с немецкими 30.05.2002 E.P.
-					language == LANG_TURKISH && (memchr("OUou", let, 4)
+					language == LANGUAGE_TURKISH && (memchr("OUou", let, 4)
 							|| memchr("ou", c->vers[1].let, 2)) || 0)
 					&& acc_2dot(c, cc, raster, let)) {
 				ret = ACC_2DOT;
@@ -1537,10 +1537,10 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 
 			// ACC_DOT
-			if ((language == LANG_POLISH && (let == 'Z' || let == 'z')
-					|| language == LANG_LATVIAN && (let == 'g') || // 16.08.2001 E.P.
-					language == LANG_LITHUANIAN && (let == 'E' || let == 'e') || // 10.07.2001 E.P.
-					language == LANG_TURKISH && (let == 'I' || let
+			if ((language == LANGUAGE_POLISH && (let == 'Z' || let == 'z')
+					|| language == LANGUAGE_LATVIAN && (let == 'g') || // 16.08.2001 E.P.
+					language == LANGUAGE_LITHUANIAN && (let == 'E' || let == 'e') || // 10.07.2001 E.P.
+					language == LANGUAGE_TURKISH && (let == 'I' || let
 							== i_sans_accent) || // 30.05.2002 E.P.
 					0) && acc_dot(c, cc)) {
 				ret = ACC_DOT;
@@ -1548,9 +1548,9 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 
 			// ACC_CIR
-			if (((language == LANG_SWEDISH || language == LANG_DANISH)
+			if (((language == LANGUAGE_SWEDISH || language == LANGUAGE_DANISH)
 					&& (memchr("Aa", let, 2) || c->vers[1].let == 'a')
-					|| language == LANG_CZECH && memchr("Uu", let, 2) // 04.09.2000 E.P.
+					|| language == LANGUAGE_CZECH && memchr("Uu", let, 2) // 04.09.2000 E.P.
 			) && MIN(cc->h, cc->w) >= bl.ps / 4 && abs(cc->h - cc->w) <= MAX(2,
 					bl.ps / 7)
 					+ (((cc->cg_flag & c_cg_cutacc) == c_cg_cutacc) ? 1 : 0)
@@ -1562,13 +1562,13 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 
 			// ACC_TILD
-			if ((language == LANG_SPANISH && (memchr("Nn", let, 2)
-					|| c->vers[1].let == 'n') || language == LANG_ESTONIAN
+			if ((language == LANGUAGE_SPANISH && (memchr("Nn", let, 2)
+					|| c->vers[1].let == 'n') || language == LANGUAGE_ESTONIAN
 					&& (let == 'O' || let == 'o' || (let == 'a'
 							&& c->vers[1].let == 'o') // 16.08.2001 E.P.
-					)) && 2* cc ->w >= c->w && (language != LANG_ESTONIAN ? 3*
+					)) && 2* cc ->w >= c->w && (language != LANGUAGE_ESTONIAN ? 3*
 					cc ->h <= 2* cc ->w : 4* cc ->h < 3* cc ->w) && (language
-					!= LANG_ESTONIAN ? 5* cc ->h <= 2* bl .ps : 7* cc ->h < 3*
+					!= LANGUAGE_ESTONIAN ? 5* cc ->h <= 2* bl .ps : 7* cc ->h < 3*
 					bl .ps) && (d = cc->col + cc->w / 2 - (c->col + c->w / 2))
 					<= MAX(5, cc->w / 2) && d >= -MAX(3, cc->w / 3)
 					&& acc_tild(cc, raster)) {
@@ -1577,9 +1577,9 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 
 			// ACC_MACRON. 18.07.2001 E.P.
-			if (language == LANG_LATVIAN && (memchr("AaEeIiUu", let, 8)
+			if (language == LANGUAGE_LATVIAN && (memchr("AaEeIiUu", let, 8)
 					|| memchr("aeIiUu", c->vers[1].let, 6)) || language
-					== LANG_LITHUANIAN && (let == 'U' || let == 'u'
+					== LANGUAGE_LITHUANIAN && (let == 'U' || let == 'u'
 					|| c->vers[1].let == 'U' || c->vers[1].let == 'u')) {
 				int16_t wlet = 1; // Обычные буквы: aEe
 
@@ -1638,7 +1638,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					raster=save_raster(cc);
 					if (!(let=='i' && (cc->cg_flag&c_cg_cutacc)==c_cg_cutacc) &&
 					(let!='i' || cc->col<c->col+c->w) &&
-					!((language==LANG_FRENCH||language==LANG_ITALIAN) &&
+					!((language==LANGUAGE_FRENCH||language==LANGUAGE_ITALIAN) &&
 							memchr("IOio",let,4) &&
 							c->vers[i+1].let!='a') &&
 					(r=acc_lr(c,cc,raster))!=0
@@ -1649,17 +1649,17 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					}
 
 					// ACC_ROOF
-					if (language==LANG_FRENCH ||
-					language==LANG_ROMAN || // 12.09.2000 E.P.
-					language==LANG_TURKISH // 30.05.2002 E.P.
+					if (language==LANGUAGE_FRENCH ||
+					language==LANGUAGE_ROMANIAN || // 12.09.2000 E.P.
+					language==LANGUAGE_TURKISH // 30.05.2002 E.P.
 					)
 					{
 						if ( acc_roof(cc,raster) )
 						{	ret= ACC_ROOF;goto non_zero_ret;}
 
 						// 31.05.2001 E.P.
-						if ( (language==LANG_ROMAN ||
-								language==LANG_TURKISH // 30.05.2002 E.P.
+						if ( (language==LANGUAGE_ROMANIAN ||
+								language==LANGUAGE_TURKISH // 30.05.2002 E.P.
 						)&&
 						c->vers[0].let=='i' &&
 						acc_weak_roof(cc,raster)
@@ -1734,21 +1734,21 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 			if (r[l * i + j / 8] & (128 >> (j % 8)))
 				s4++;
 
-	if (language == LANG_POLISH) {
+	if (language == LANGUAGE_POLISH) {
 		sCanHaveLRAccents = "SCZNOsczno";
 		nCanHaveLRAccents = 10;
-	} else if (language == LANG_CROATIAN) {
+	} else if (language == LANGUAGE_CROATIAN) {
 		sCanHaveLRAccents = "Cc";
 		nCanHaveLRAccents = 2;
 	}
 	// 04.09.2000 E.P.
-	else if (language == LANG_CZECH) {
+	else if (language == LANGUAGE_CZECH) {
 		sCanHaveLRAccents = "AaEeIiOoUuYydt"; // Сюда же dt с апострофом
 		nCanHaveLRAccents = 14;
-	} else if (language == LANG_HUNGAR) {
+	} else if (language == LANGUAGE_HUNGARIAN) {
 		sCanHaveLRAccents = "AaEeIiOoUu";
 		nCanHaveLRAccents = 10;
-	} else if (language == LANG_LATVIAN) {
+	} else if (language == LANGUAGE_LATVIAN) {
 		sCanHaveLRAccents = "g"; // LATVIAN_g
 		nCanHaveLRAccents = 1;
 	} else if (is_baltic_language(language)) {
@@ -1773,7 +1773,7 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 	if (s13 + s24 >= 6 || let != 'i') {
 		d = ((cc->cg_flag & c_cg_cutacc) == c_cg_cutacc) ? 3 : 1;
 		if ((memchr("AEUaeu", let, 6) || c->vers[i + 1].let == 'a')
-				&& (language == LANG_FRENCH || language == LANG_ITALIAN))
+				&& (language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN))
 			if (let != 'i' && 2* (s13 -s24)>=s13-d ||
 			s13-s24>=MAX(3,s13/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
 			4*s13>=11*s24 || 3*(s13-s24)>=s13 && s4<=1 && 6*s4<=s24)
@@ -1787,20 +1787,20 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
       (let!='i' || cc->h>=c->h/3 && 3*cc->w<=cc->h))
    {
    if ((memchr("AEUaeu",let,6) || c->vers[i+1].let=='a') &&
-               (language==LANG_FRENCH||language==LANG_ITALIAN))
+               (language==LANGUAGE_FRENCH||language==LANGUAGE_ITALIAN))
     return ACC_LR;
    else
     if (s24>=s13)
         {
         // Avoid mistake with Zz dot accent. 23.10.97.
         if (!(
-				(language==LANG_POLISH && memchr("Zz",let,2) ||
+				(language==LANGUAGE_POLISH && memchr("Zz",let,2) ||
 
 				 // And with Ee dot accent. 16.07.2001 E.P.
-			     language==LANG_LITHUANIAN && memchr("Ee",let,2) ||
+			     language==LANGUAGE_LITHUANIAN && memchr("Ee",let,2) ||
 
 				 // And with II dot accent. 31.05.2002 E.P.
-			     language==LANG_TURKISH && let=='I'
+			     language==LANGUAGE_TURKISH && let=='I'
 
 				 ) &&
 				  s24==s13 && MIN(s2,s4)<=MIN(s1,s3)
@@ -1811,14 +1811,14 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 
    }
    // Add chance for letters that can have ONLY right accent. 10.10.97 E.P.
-   if ( language==LANG_POLISH && memchr("SCNOscno",let,8) )
+   if ( language==LANGUAGE_POLISH && memchr("SCNOscno",let,8) )
      if ( s24>=s13 &&          // Right direction
           cc->h>=c->h/3        // Not too small
         )
         return ACC_RIGHT;
 
    // Add chance for latvian 'g'. 17.07.2001 E.P.
-   if ( language==LANG_LATVIAN && let=='g' &&
+   if ( language==LANGUAGE_LATVIAN && let=='g' &&
           cc->h >= c->h/4 &&        // Not too small
 		  cc->w >= c->w/4
 	  )
@@ -1973,10 +1973,10 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	if (cc->row < bl.b1 - 1 && cc->row + cc->h < c->row - MAX(4, cc->h) - 1)
 		return 0;
 
-	if (!(language == LANG_RUSSIAN && !langUkr && !langSer)) {
+	if (!(language == LANGUAGE_RUSSIAN && !langUkr && !langSer)) {
 		if ((2* (cc ->h-(((cc->cg_flag&c_cg_cutacc)==c_cg_cutacc)?1:0))<=cc->w+1 ||
 		// Nick 29.08.01 for Estonian
-		language == LANG_ESTONIAN && 3*cc->h < 2*H &&
+		language == LANGUAGE_ESTONIAN && 3*cc->h < 2*H &&
 		(NumIntersect2(cc->env, cc->h)+1)*2 >= cc->h
 		)
 		&&
@@ -2000,7 +2000,7 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 			if (i1 /*&& i1>=cc->h/3*/&&
 			(i2 || (cc->cg_flag&c_cg_cutacc)==c_cg_cutacc) &&
 			i1+i2+(((cc->cg_flag&c_cg_cutacc)==c_cg_cutacc)?1:0)>=
-			cc->h/2 - (language==LANG_ESTONIAN?1:0) ) // Nick 30.08.01
+			cc->h/2 - (language==LANGUAGE_ESTONIAN?1:0) ) // Nick 30.08.01
 			{
 				u=0;
 				for (j=(cc->w-1)/2; j>=0 && !(r[l*(i1-1)+j/8]&(128>>(j%8))); j--);
@@ -2022,7 +2022,7 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 				if (u<3 && i2 || u<2)
 				return 0;
 
-				if( language == LANG_ESTONIAN && !IsProgib(r,cc->w,cc->h) )
+				if( language == LANGUAGE_ESTONIAN && !IsProgib(r,cc->w,cc->h) )
 				return 0;
 
 				accadr1=cc; return 1;
@@ -2038,7 +2038,7 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=4*H/9 && d>=-H/4)
 	if (!memchr("/l()J1It[]VW",(let1=cc1->vers[0].let),12) &&
 	let1!=liga_i &&
-	!(language == LANG_TURKISH && // 30.05.2002 E.P.
+	!(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 	(let1==i_sans_accent||let1==II_dot_accent)
 	)
 	)
@@ -2140,13 +2140,13 @@ static int16_t acc_tild(cell *c, puchar r) {
 	if ((c->cg_flag & c_cg_cutacc) == c_cg_cutacc)
 		j--;
 
-	if (language == LANG_ESTONIAN || language == LANG_PORTUGUESE // 05.07.2002 E.P.
+	if (language == LANGUAGE_ESTONIAN || language == LANGUAGE_PORTUGUESE // 05.07.2002 E.P.
 	)
 		numIntersect = NumIntersect2(c->env, c->h);
 
 	if (r[((c->w + 7) / 8) * (c->h - 1) + j / 8] & (128 >> (j % 8))) {
 		// Nick 29.08.2001
-		if (language == LANG_ESTONIAN || language == LANG_PORTUGUESE // 05.07.2002 E.P.
+		if (language == LANGUAGE_ESTONIAN || language == LANGUAGE_PORTUGUESE // 05.07.2002 E.P.
 		) {
 			j--;
 			if (r[((c->w + 7) / 8) * (c->h - 1) + j / 8] & (128 >> (j & 7))) {
@@ -2170,8 +2170,8 @@ static int16_t acc_tild(cell *c, puchar r) {
 	if (r[j/8]&(128>>(j&7)) )
 	{
 		// Nick 29.08.2001
-			if ( language == LANG_ESTONIAN ||
-					language == LANG_PORTUGUESE // 05.07.2002 E.P.
+			if ( language == LANGUAGE_ESTONIAN ||
+					language == LANGUAGE_PORTUGUESE // 05.07.2002 E.P.
 			)
 			{
 				j++;
@@ -2238,26 +2238,26 @@ int16_t find_bottom_accent(cell *c) {
 	get_b_lines(c, &bl);
 	H = bl.ps;
 
-	if (language == LANG_POLISH) {
+	if (language == LANGUAGE_POLISH) {
 		acc_base_num = 4;
 		memcpy(acc_base, "AEae", acc_base_num);
-	} else if (language == LANG_FRENCH) {
+	} else if (language == LANGUAGE_FRENCH) {
 		acc_base_num = 2;
 		memcpy(acc_base, "Cc", acc_base_num);
 	}
 	// 04.09.2000 E.P.
-	else if (language == LANG_ROMAN) {
+	else if (language == LANGUAGE_ROMANIAN) {
 		acc_base_num = 4;
 		memcpy(acc_base, "SsTt", acc_base_num);
 	}
 	// 10.07.2001 E.P.
-	else if (language == LANG_LATVIAN) {
+	else if (language == LANGUAGE_LATVIAN) {
 		acc_base_num = 7;
 		memcpy(acc_base, "GKkLlNn", acc_base_num);
-	} else if (language == LANG_LITHUANIAN) {
+	} else if (language == LANGUAGE_LITHUANIAN) {
 		acc_base_num = 8;
 		memcpy(acc_base, "AaEeIiUu", acc_base_num);
-	} else if (language == LANG_TURKISH) {
+	} else if (language == LANGUAGE_TURKISH) {
 		acc_base_num = 4;
 		memcpy(acc_base, "CcSs", acc_base_num);
 	} else
@@ -2279,8 +2279,8 @@ int16_t find_bottom_accent(cell *c) {
 
 		if ((cc->flg & (c_f_dust | c_f_punct) && cc->env) && // dust
 				// not too big
-				(2* cc ->h < H || ((language == LANG_LITHUANIAN || language
-						== LANG_LATVIAN || language == LANG_TURKISH // 19.06.2002 E.P.
+				(2* cc ->h < H || ((language == LANGUAGE_LITHUANIAN || language
+						== LANGUAGE_LATVIAN || language == LANGUAGE_TURKISH // 19.06.2002 E.P.
 						) && 3* cc ->h < 2* H )) && c->row + c->h - 1
 				<= cc->row && // bottom position
 				(cc->row <= bl.b4 || // not too low
@@ -2289,7 +2289,7 @@ int16_t find_bottom_accent(cell *c) {
 				cc->col + cc->w >= c->col + c->w / 2 // not too left ">=" 05.07.2002 E.P.
 		) {
 			// Узкие румынские акценты под t, s. 16.07.2001 E.P.
-			if (language == LANG_ROMAN && (let == 't' || let == 's')) {
+			if (language == LANGUAGE_ROMANIAN && (let == 't' || let == 's')) {
 				if (8* cc ->w < 5* c ->w && // not too wide
 						2* cc ->w >= cc->h // proportion: not too thin
 				) {
@@ -2299,7 +2299,7 @@ int16_t find_bottom_accent(cell *c) {
 			}
 
 			// Узкие прибалтийские буквы и узкие акценты. 16.07.2001 E.P.
-			else if (language == LANG_LATVIAN &&
+			else if (language == LANGUAGE_LATVIAN &&
 			// Узкая буква
 					((let == 'l' || c->h > 3* c ->w) && cc->w < 3* c ->w && // not too wide
 							2* cc ->w >= cc->h // proportion: not too thin
@@ -2312,7 +2312,7 @@ int16_t find_bottom_accent(cell *c) {
 				return 1;
 			}
 
-			else if (language == LANG_LITHUANIAN &&
+			else if (language == LANGUAGE_LITHUANIAN &&
 			// Узкие буквы
 					(let == 'i' || let == 'I' || c->h > 3* c ->w) && cc->w < 3*
 					c ->w && // not too wide
@@ -2322,7 +2322,7 @@ int16_t find_bottom_accent(cell *c) {
 				return 1;
 			}
 
-			else if (language == LANG_TURKISH &&
+			else if (language == LANGUAGE_TURKISH &&
 			// Узкие буквы
 					(let == 's') && 2* cc ->w < c->w && // not too wide
 					2* cc ->w >= cc->h // proportion: not too thin

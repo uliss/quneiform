@@ -142,25 +142,25 @@ void final_crit()
    }
   if ((let=='b' || let=='h') && (c->font|c->font_new)&c_fp_it)
    final_bh(c);
-  if ( (language==LANG_GERMAN   ||
-	    language==LANG_SPANISH  ||
-		language==LANG_FRENCH	||
-		language==LANG_ESTONIAN	||	// 19.07.2001 E.P.
-		language==LANG_TURKISH		// 30.05.2002 E.P.
+  if ( (language==LANGUAGE_GERMAN   ||
+	    language==LANGUAGE_SPANISH  ||
+		language==LANGUAGE_FRENCH	||
+		language==LANGUAGE_ESTONIAN	||	// 19.07.2001 E.P.
+		language==LANGUAGE_TURKISH		// 30.05.2002 E.P.
 	   ) &&
       ((c->font|c->font_new)&c_fp_it || let=='i' ||
 		let==liga_i ||
-		 language == LANG_TURKISH &&  // 30.05.2002 E.P.
+		 language == LANGUAGE_TURKISH &&  // 30.05.2002 E.P.
 			(let==i_sans_accent||let==II_dot_accent)
 	  ) &&
       (let=='i' || let==liga_i ||
-		 language == LANG_TURKISH &&  // 30.05.2002 E.P.
+		 language == LANGUAGE_TURKISH &&  // 30.05.2002 E.P.
 			(let==i_sans_accent||let==II_dot_accent) ||
 	   let==liga_fi || let==liga_ffi
 	  ) &&
       ( (let1=c->nextl->vers[0].let)=='i' ||
 		let1==liga_i ||
-		 language == LANG_TURKISH &&  // 30.05.2002 E.P.
+		 language == LANGUAGE_TURKISH &&  // 30.05.2002 E.P.
 			(let1==i_sans_accent||let1==II_dot_accent)
 	  ) &&
        (c->cg_flag&c_cg_cutr && c->nextl->cg_flag&c_cg_cutl ||
@@ -168,17 +168,17 @@ void final_crit()
 	   )
 	  )
    final_ii_u(c);
-  if (language==LANG_GERMAN && memchr("0AOU",let,4) ||
-      language==LANG_SWEDISH && memchr("0AO",let,3) ||
-      language==LANG_SPANISH && let=='U' ||
-	  language==LANG_ESTONIAN && memchr("0AOU",let,4)	// 19.07.2001 E.P.
+  if (language==LANGUAGE_GERMAN && memchr("0AOU",let,4) ||
+      language==LANGUAGE_SWEDISH && memchr("0AO",let,3) ||
+      language==LANGUAGE_SPANISH && let=='U' ||
+	  language==LANGUAGE_ESTONIAN && memchr("0AOU",let,4)	// 19.07.2001 E.P.
 	 )
    {
    get_b_lines(c,&bl);
    if (bl.b1>c->row)
     final_AOU_2dot(c);
    }
-  if (language==LANG_SWEDISH && c->vers[0].let=='A')
+  if (language==LANGUAGE_SWEDISH && c->vers[0].let=='A')
    {
    get_b_lines(c,&bl);
    if (bl.b1>c->row+MAX(4,bl.ps/4))
@@ -493,10 +493,10 @@ static void final_ii_u(cell *c)
 
  c1=c->nextl;
  if (c->vers[0].let=='i' ||
-	 language == LANG_TURKISH && ( c->vers[0].let==i_sans_accent || c->vers[0].let==II_dot_accent) // Nick 14.06.02
+	 language == LANGUAGE_TURKISH && ( c->vers[0].let==i_sans_accent || c->vers[0].let==II_dot_accent) // Nick 14.06.02
 	)
   {
-	if( language == LANG_TURKISH)
+	if( language == LANGUAGE_TURKISH)
 	{
 		// don't glue
 		if( c->vers[0].let==i_sans_accent && !(c1->cg_flag&c_cg_cutl) )

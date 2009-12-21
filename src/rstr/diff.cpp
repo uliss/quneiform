@@ -125,7 +125,7 @@ void criteries() {
 	c = cell_f();
 	while ((c = c->nextl)->nextl != NULL) {
 		criteria(c);
-		if (language == LANG_RUSSIAN) {
+		if (language == LANGUAGE_RUSSIAN) {
 			r_criteria(c, NULL);
 			if (c->nvers > 0 && memchr("’вѓЈ", c->vers[0].let, 4)
 					&& !is_russian_baltic_conflict(c->vers[0].let) && // 17.07.2001 E.P.
@@ -182,33 +182,33 @@ void criteria(cell *c) {
 			}
 		}
 
-		if (((language == LANG_FRENCH || language == LANG_ITALIAN) && memchr(
+		if (((language == LANGUAGE_FRENCH || language == LANGUAGE_ITALIAN) && memchr(
 				"ACEIOUaceiou", let, 12) || // Включая нижние акценты "c" 05.07.2002 E.P.
-				language == LANG_SPANISH && memchr("AEINOUaeniou", let, 12)
-				|| language == LANG_GERMAN && memchr("AOUaou", let, 6)
-				|| language == LANG_RUSSIAN && memchr("Ґ…", let, 2) || language
-				== LANG_CROATIAN && memchr("SZCszc", let, 6)
-				/*&& !pass_cut*/|| language == LANG_POLISH && memchr(
+				language == LANGUAGE_SPANISH && memchr("AEINOUaeniou", let, 12)
+				|| language == LANGUAGE_GERMAN && memchr("AOUaou", let, 6)
+				|| language == LANGUAGE_RUSSIAN && memchr("Ґ…", let, 2) || language
+				== LANGUAGE_CROATIAN && memchr("SZCszc", let, 6)
+				/*&& !pass_cut*/|| language == LANGUAGE_POLISH && memchr(
 						"AESZCNOaeszcno", let, 14) || // Включая нижние акценты a,e 05.07.2002 E.P.
-				language == LANG_PORTUGUESE && memchr("AEOUIaeoui", let, 10)
-				|| language == LANG_SWEDISH && memchr("AEOaeo", let, 6))
+				language == LANGUAGE_PORTUGUESE && memchr("AEOUIaeoui", let, 10)
+				|| language == LANGUAGE_SWEDISH && memchr("AEOaeo", let, 6))
 				&& !flacc ||
 
 		// 05.09.2000 E.P.
-				language == LANG_CZECH && memchr("AaCcDdEeIiNnOoRrSsTtUuYyZz",
-						let, 26) || language == LANG_ROMAN && memchr(
+				language == LANGUAGE_CZECH && memchr("AaCcDdEeIiNnOoRrSsTtUuYyZz",
+						let, 26) || language == LANGUAGE_ROMANIAN && memchr(
 				"AaIiSsTt", let, 8) || // Включая нижние акценты s,t 05.07.2002 E.P.
-				language == LANG_HUNGAR && memchr("AaEeIiOoUu", let, 10)
-				|| language == LANG_SLOVENIAN && memchr("CcSsZz", let, 6) ||
+				language == LANGUAGE_HUNGARIAN && memchr("AaEeIiOoUu", let, 10)
+				|| language == LANGUAGE_SLOVENIAN && memchr("CcSsZz", let, 6) ||
 
 		// 09.07.2001 E.P.
-				language == LANG_LATVIAN && memchr("AaCcEeGgIiKkLlNnSsUuZz",
-						let, 22) || language == LANG_LITHUANIAN && memchr(
-				"AaCcEeIiSsUuZz", let, 14) || language == LANG_ESTONIAN
+				language == LANGUAGE_LATVIAN && memchr("AaCcEeGgIiKkLlNnSsUuZz",
+						let, 22) || language == LANGUAGE_LITHUANIAN && memchr(
+				"AaCcEeIiSsUuZz", let, 14) || language == LANGUAGE_ESTONIAN
 				&& memchr("AaOoSsUuZz", let, 10) ||
 
 		// 21.05.2002 E.P.
-				language == LANG_TURKISH && (memchr("AaCcIiGgOoSsUu", let, 14)
+				language == LANGUAGE_TURKISH && (memchr("AaCcIiGgOoSsUu", let, 14)
 						|| let == i_sans_accent) || 0) {
 			flacc = 1;
 			if (accent(c))
@@ -216,23 +216,23 @@ void criteria(cell *c) {
 		}
 
 		// Урезание чужих букв из общих таблиц
-		if (language == LANG_POLISH && memchr("qQ", let, 2) ||
+		if (language == LANGUAGE_POLISH && memchr("qQ", let, 2) ||
 
 		// BULGAR 08.09.2000 E.P.
-				language == LANG_RUSSIAN && langBul && (let == 155 || let
+				language == LANGUAGE_RUSSIAN && langBul && (let == 155 || let
 						== 235 || // Ыы 08.09.2000 E.P.
 						let == 157 || let == 237 || // Ээ 08.09.2000 E.P.
 						let == r_EE_2dot || let == r_e_2dot) ||
 
-		language == LANG_SLOVENIAN && isnot_slovenian(let) ||
+		language == LANGUAGE_SLOVENIAN && isnot_slovenian(let) ||
 
 		// 09.07.2001 E.P.
-				language == LANG_LATVIAN && isnot_latvian(let) || language
-				== LANG_LITHUANIAN && isnot_lithuanian(let) || language
-				== LANG_ESTONIAN && isnot_estonian(let) ||
+				language == LANGUAGE_LATVIAN && isnot_latvian(let) || language
+				== LANGUAGE_LITHUANIAN && isnot_lithuanian(let) || language
+				== LANGUAGE_ESTONIAN && isnot_estonian(let) ||
 
 		// 21.05.2002 E.P.
-				language == LANG_TURKISH && isnot_turkish(let) || 0) {
+				language == LANGUAGE_TURKISH && isnot_turkish(let) || 0) {
 			vers->prob >>= 1;
 			if (vers->prob & 1)
 				vers->prob--;
@@ -242,7 +242,7 @@ void criteria(cell *c) {
 
 		if (c->flg & (c_f_let | c_f_bad)) // Oleg : 02-28-96 04:55pm : letter only
 			if (((let = vers->let) == 'i' || let == 'j' || (language
-					== LANG_TURKISH && let == II_dot_accent) // 17.06.2002 E.P.
+					== LANGUAGE_TURKISH && let == II_dot_accent) // 17.06.2002 E.P.
 			) && (r = ij_dot(c)) != 0) {
 				if (r > 0)
 					break;
@@ -251,7 +251,7 @@ void criteria(cell *c) {
 			}
 
 		// Nick 18.06.2002
-		if (language == LANG_TURKISH && ((let = vers->let) == i_sans_accent
+		if (language == LANGUAGE_TURKISH && ((let = vers->let) == i_sans_accent
 				|| let == II_dot_accent) && (r = upper_right_angle(c)) > 0) {
 			vers->prob = MAX(2, vers->prob - r);
 			continue;
@@ -263,7 +263,7 @@ void criteria(cell *c) {
 			vers--;
 			continue;
 		}
-		if (language != LANG_RUSSIAN) // refuse with  ,Ў
+		if (language != LANGUAGE_RUSSIAN) // refuse with  ,Ў
 			if ((let = vers->let) == invers_exm || let == invers_qm) {
 				if (inv_dot(c) > 0)
 					break;
@@ -271,7 +271,7 @@ void criteria(cell *c) {
 				continue;
 			}
 
-		if ((language == LANG_FRENCH || language == LANG_TURKISH // 18.06.2002 E.P.
+		if ((language == LANGUAGE_FRENCH || language == LANGUAGE_TURKISH // 18.06.2002 E.P.
 		) && (vers->let == 'c' || vers->let == 'C'))
 			c_to_ctail(c, 0); // AL 940321
 		if (vers->let == liga_rt && not_rt(c)) {
@@ -523,18 +523,18 @@ int16_t ij_test(cell *c) {
 		return 1;
 	get_b_lines(c, &bl);
 	H = bl.ps;
-	if (language == LANG_FRENCH || language == LANG_CROATIAN || language
-			== LANG_CZECH || language == LANG_HUNGAR || // 05.09.2000 E.P.
-			language == LANG_LATVIAN || // 16.07.2001 E.P.
-			language == LANG_TURKISH // 31.05.2002 E.P.
+	if (language == LANGUAGE_FRENCH || language == LANGUAGE_CROATIAN || language
+			== LANGUAGE_CZECH || language == LANGUAGE_HUNGARIAN || // 05.09.2000 E.P.
+			language == LANGUAGE_LATVIAN || // 16.07.2001 E.P.
+			language == LANGUAGE_TURKISH // 31.05.2002 E.P.
 	)
 		memcpy(&cc, c, sizeof(cell));
 	if ((r = ij_dot(c)) >= 0)
 		return r;
-	if (language == LANG_FRENCH || language == LANG_CROATIAN || language
-			== LANG_CZECH || language == LANG_HUNGAR || // 05.09.2000 E.P.
-			language == LANG_LATVIAN || // 16.07.2001 E.P.
-			language == LANG_TURKISH // 31.05.2002 E.P.
+	if (language == LANGUAGE_FRENCH || language == LANGUAGE_CROATIAN || language
+			== LANGUAGE_CZECH || language == LANGUAGE_HUNGARIAN || // 05.09.2000 E.P.
+			language == LANGUAGE_LATVIAN || // 16.07.2001 E.P.
+			language == LANGUAGE_TURKISH // 31.05.2002 E.P.
 	) {
 		memcpy(c, &cc, sizeof(cell));
 		for (v1 = c->vers; v1->let && v1->let != 'i'; v1++)
@@ -582,7 +582,7 @@ int16_t ij_test(cell *c) {
 	 return 0;
 	 */
 
-	if (language == LANG_RUSSIAN && langUkr)
+	if (language == LANGUAGE_RUSSIAN && langUkr)
 		if (c->w >= c->h - 2)
 			goto ret0;
 
@@ -621,7 +621,7 @@ int16_t ij_test(cell *c) {
 		if (2* cc ->row + cc->h > 2* bl .b2)
 			goto ret0;
 		for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
-			if (v1->let == 'i' || v1->let == 'j' || language == LANG_TURKISH && // 31.05.2002 E.P.
+			if (v1->let == 'i' || v1->let == 'j' || language == LANGUAGE_TURKISH && // 31.05.2002 E.P.
 					v1->let == II_dot_accent) {
 				v2->let = v1->let;
 				v2->prob = MIN(254, v1->prob + 84);
@@ -656,7 +656,7 @@ int16_t ij_test(cell *c) {
 			goto ret0;
 		for (v = cc->vers; v->let; v++)
 			if (!strchr("/l()J1It[]", v->let) && v->let != liga_i && !(language
-					== LANG_TURKISH && // 30.05.2002 E.P.
+					== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(v->let == i_sans_accent || v->let == II_dot_accent))
 					&& v->prob >= TRPROB)
 				goto ret0;
@@ -669,7 +669,7 @@ int16_t ij_test(cell *c) {
 
 	// if no dot
 	for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++) {
-		if (language == LANG_TURKISH && // 31.05.2002 E.P.
+		if (language == LANGUAGE_TURKISH && // 31.05.2002 E.P.
 				v1->let == II_dot_accent && !upper_dot_I(c) // Nick 23.06.2002
 		)
 			continue;
@@ -779,7 +779,7 @@ cell *dot_ij(cell *c) {
 	int16_t e, d, H;
 	uchar let = 0;
 
-	if (language == LANG_RUSSIAN && langUkr)
+	if (language == LANGUAGE_RUSSIAN && langUkr)
 		return dot_iUkr(c);
 
 	csv = NULL;
@@ -807,15 +807,15 @@ cell *dot_ij(cell *c) {
 							cc->col+cc->w-6<=c->col+c->w &&
 							(memchr("ij",( let = c->prevl->vers[0].let),2)==NULL &&
 		// Исправил || на "&& !" 08.09.2000 E.P.
-      !( language == LANG_POLISH &&
+      !( language == LANGUAGE_POLISH &&
 			( let == ZZ_dot_accent || let == z_dot_accent ) ||
 
 		 // 16.07.2001 E.P.
-		 language == LANG_LITHUANIAN &&
+		 language == LANGUAGE_LITHUANIAN &&
 			( let == EE_dot_accent || let == e_dot_accent ) ||
 
 		 // 30.05.2002 E.P.
-		 language == LANG_TURKISH &&
+		 language == LANGUAGE_TURKISH &&
 			let == II_dot_accent
 	   ) ||
            c->prevl->col+c->prevl->w < cc->col) )

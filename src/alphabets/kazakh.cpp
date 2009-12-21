@@ -27,7 +27,7 @@ Alphabet * create()
     return new KazakhAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_KAZ, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_KAZAKH, create);
 }
 
 namespace CIF
@@ -39,7 +39,7 @@ KazakhAlphabet::KazakhAlphabet()
 
 language_t KazakhAlphabet::language() const
 {
-    return LANG_KAZ;
+    return LANGUAGE_KAZAKH;
 }
 
 }

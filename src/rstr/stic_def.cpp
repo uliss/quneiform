@@ -785,7 +785,7 @@ static void filtrate_abris( uchar left[],uchar right[],int16_t dy,int16_t dx,int
 {
 int16_t center_h;
 
-if( language==LANG_RUSSIAN && dx*2>wide*7 && wide>4 )
+if( language==LANGUAGE_RUSSIAN && dx*2>wide*7 && wide>4 )
     {
     filtr121(&left[1+ul],(int16_t)(dy-2-ul-dl));
     }
@@ -1183,7 +1183,7 @@ if (dy>16 && dx<4)
   ret |= 0x0C;  // 09.07.1993 SUPPRESS 'r'
 
 //////if (dx==3 && dy==18)  mkm4 = ret;
-if (language == LANG_POLISH &&
+if (language == LANGUAGE_POLISH &&
     similar_l_stroked(&left_chars,&right_chars,&signums) )
   ret |= 0x300;
 

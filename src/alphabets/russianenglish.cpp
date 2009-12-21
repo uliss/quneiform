@@ -28,7 +28,7 @@ Alphabet * create()
     return new RussianEnglishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_RUSENG, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_RUS_ENG, create);
 }
 
 namespace CIF
@@ -57,7 +57,7 @@ RussianEnglishAlphabet::RussianEnglishAlphabet()
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0     // f
     };
     initFromTable(alph_ruseng);
-    const static language_t language = LANG_RUSSIAN;
+    const static language_t language = LANGUAGE_RUSSIAN;
     addSymbol(r_cu_d);
     addSymbol(r_cu_g);
     addSymbol(r_cu_m);
@@ -72,7 +72,7 @@ RussianEnglishAlphabet::RussianEnglishAlphabet()
 
 language_t RussianEnglishAlphabet::language() const
 {
-    return LANG_RUSENG;
+    return LANGUAGE_RUS_ENG;
 }
 
 

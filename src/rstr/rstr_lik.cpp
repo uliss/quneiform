@@ -303,7 +303,7 @@ void interdif(cell *P, cell *N, cell *B1)
  retcv:
 // if (abs(B1->bdiff) < 2)
 if(Ns1+Ns2 > 0 && B1->bdiff != 0) smart_diff( B1 ); // Valdemar
-if (abs(B1->bdiff) < 2 && language != LANG_RUSSIAN) // Valdemar
+if (abs(B1->bdiff) < 2 && language != LANGUAGE_RUSSIAN) // Valdemar
   {
    if ((wdn==0) && (wdp==0) && (diff_curv==0))
    {
@@ -867,7 +867,7 @@ int16_t cut_by_posu(cell *C, uchar chr, int16_t wp, uchar flg, uchar arg)
 
     if (Nb2<=0) break;
     if ((i=cpsu(top-b2)+4) <= 0) break;  // Valdemar: what is bsi ?
-    if (bsi > 0 && language != LANG_RUSSIAN)  i=cpsu(top-b2-bsi)+4;
+    if (bsi > 0 && language != LANGUAGE_RUSSIAN)  i=cpsu(top-b2-bsi)+4;
     if (i <= 0) break;
     if (i > 5) goto cut;
     pen_up=ptu12[i]; break;
@@ -1098,7 +1098,7 @@ int16_t levcut(cell *C, int16_t arg)
  if (arg)
    sort_vers(C);
  if ((nalive==0) ||
-     ((nalive==1) && (surviver == invers_exm) && language != LANG_RUSSIAN)
+     ((nalive==1) && (surviver == invers_exm) && language != LANGUAGE_RUSSIAN)
     )
  // entirely killed cell
  { version *v0; uchar chr;
@@ -1106,7 +1106,7 @@ int16_t levcut(cell *C, int16_t arg)
    {
      if(! memchr("LTJ()<>[]trI1l!/",chr,16) &&
 		 (chr!=liga_i) &&
-		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
+		 !(language == LANGUAGE_TURKISH &&  // 30.05.2002 E.P.
 			(chr==i_sans_accent||chr==II_dot_accent)
 		  ) &&
 		 (chr!=liga_inv_exm)

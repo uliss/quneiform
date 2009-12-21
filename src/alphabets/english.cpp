@@ -27,7 +27,7 @@ Alphabet * create()
     return new EnglishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_ENGLISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_ENGLISH, create);
 }
 
 /*
@@ -76,7 +76,7 @@ EnglishAlphabet::EnglishAlphabet() :
 
 language_t EnglishAlphabet::language() const
 {
-    return LANG_ENGLISH;
+    return LANGUAGE_ENGLISH;
 }
 
 }

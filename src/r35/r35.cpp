@@ -62,10 +62,12 @@
 #include <cstdio>
 #include <cmath>
 #include <algorithm>
+#include <malloc.h>
 
 #include "r35.h"
 #include "mmx/mmx.h"
 #include "std/std.h"
+#include "minmax.h"
 
 #include "cfcompat.h"
 

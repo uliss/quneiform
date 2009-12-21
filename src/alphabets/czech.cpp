@@ -28,7 +28,7 @@ Alphabet * create()
     return new CzechAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_CZECH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_CZECH, create);
 }
 
 namespace CIF
@@ -70,7 +70,7 @@ CzechAlphabet::CzechAlphabet()
 
 language_t CzechAlphabet::language() const
 {
-    return LANG_CZECH;
+    return LANGUAGE_CZECH;
 }
 
 }

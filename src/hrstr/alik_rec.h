@@ -170,14 +170,14 @@ void Alik_rus_bad_c(pchar, pchar, int16_t, int16_t, pchar, pchar, pint16_t, pint
 uchar Alik_find_black_interval(puchar str, uchar len, puchar intrvl);
 
 void Alik_form_bound(pchar, uint16_t, uint16_t, uint16_t, pchar, uint16_t);
-void Alik_my_correct_base_lines(pint16_t, pint16_t, int16_t, int16_t, int16_t, puchar, PWORD, puchar);
+void Alik_my_correct_base_lines(pint16_t, pint16_t, int16_t, int16_t, int16_t, puchar, uint16_t*, puchar);
 void Alik_correct_base_lines(pchar, int16_t, int16_t, int16_t*, int16_t*);
 int16_t  Alik_sort(pint16_t, pint16_t, int16_t);
 int16_t  Alik_search_bound_point_in_raster(pchar, int16_t, int16_t);
 void Alik_tr_bit_matr(int16_t, int16_t, pchar, pchar, int16_t, int16_t);
 void Alik_cor_pnt(pint16_t, pint16_t, pint16_t, int16_t, int16_t, int16_t, int16_t, pchar, pchar);
 int  Alik_sort_function( const void *a, const void *b);
-int16_t  Alik_up_position_double_serif(puchar, int16_t, int16_t, PWORD, puchar, int16_t);
+int16_t  Alik_up_position_double_serif(puchar, int16_t, int16_t, uint16_t*, puchar, int16_t);
 void Alik_CountCut(pchar, int16_t, int16_t, puchar, puchar);
 uchar Alik_priznak_del_3_cut(puchar, int16_t, int16_t);
 void Alik_cor_height_and_var(int16_t, struct own_cut *, pint16_t, int16_t, int16_t);

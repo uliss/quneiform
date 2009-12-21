@@ -572,7 +572,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 	case (uchar) 'н':
 
 		// В болгарском нет Ээ. 08.09.2000 E.P.
-		if (language == LANG_RUSSIAN && langBul) {
+		if (language == LANGUAGE_RUSSIAN && langBul) {
 			P = 200;
 			break;
 		}

@@ -28,7 +28,7 @@ Alphabet * create()
     return new SlovenianAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_SLOVENIAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_SLOVENIAN, create);
 }
 
 namespace CIF
@@ -46,7 +46,7 @@ SlovenianAlphabet::SlovenianAlphabet()
 
 language_t SlovenianAlphabet::language() const
 {
-    return LANG_SLOVENIAN;
+    return LANGUAGE_SLOVENIAN;
 }
 
 }

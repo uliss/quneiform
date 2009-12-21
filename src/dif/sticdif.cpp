@@ -924,7 +924,7 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
             dis += tab_1[0]; // 60
 
 #ifndef RUS_ENG_LANG
-        //if(  language != LANG_RUSSIAN || language == LANG_RUSSIAN && lmd<1 && rmd<1 )
+        //if(  language != LANGUAGE_RUSSIAN || language == LANGUAGE_RUSSIAN && lmd<1 && rmd<1 )
 #else
         //if( multy_language )
 #endif
@@ -977,7 +977,7 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
             int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
 
             if (0)
-//if(  language != LANG_RUSSIAN )
+//if(  language != LANGUAGE_RUSSIAN )
             {
                 if ( lmu == 1 && rmu == 1 && lmd == 1 && rmd == 1 && ser > 5 ||   // study angle:
 /////lmu>1  && rmu>1  && lmd>1  && rmd>1  && ser>4 )    // flags+serifs-information
@@ -1145,7 +1145,7 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
 
     if (0)
         //if( is_digital_string() )
-        //if( language==LANG_RUSSIAN )
+        //if( language==LANGUAGE_RUSSIAN )
     {
         if ( dis > 100 ) dis = 40;
 
@@ -2455,7 +2455,7 @@ uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx)
     if (dy > 16 && dx < 4)
         ret |= 0x0C; // 09.07.1993 SUPPRESS 'r'
 
-    if (language == LANG_POLISH && similar_l_stroked(&left_chars, &right_chars,
+    if (language == LANGUAGE_POLISH && similar_l_stroked(&left_chars, &right_chars,
                                                      &signums))
         ret |= 0x300;
 

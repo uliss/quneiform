@@ -237,7 +237,7 @@ int16_t crecell5x3(cell *B1, s_glue *GL) {
 }/*crecell5x3*/
 
 int16_t isWideLetter(uchar let) {
-	if ((language == LANG_RUSSIAN) && memchr(wide_let, to_lower(let),
+	if ((language == LANGUAGE_RUSSIAN) && memchr(wide_let, to_lower(let),
 			sizeof(wide_let)))
 		return 1;
 
@@ -269,7 +269,7 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
 	BC->row = SBOX.math_row;
 	BC->col = SBOX.math_col;
 	if (rq) {
-		if (language == LANG_RUSSIAN) { // Valdemar
+		if (language == LANGUAGE_RUSSIAN) { // Valdemar
 			BC->vers[0].let = (uchar) '†';
 			BC->vers[1].let = (uchar) 'А';
 			BC->vers[2].let = (uchar) 'г';
@@ -292,7 +292,7 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
 		p3 = BC->vers[2].prob;
 		c3 = BC->vers[2].let;
 		pa = pA = py = 0;
-		if (language == LANG_RUSSIAN) {
+		if (language == LANGUAGE_RUSSIAN) {
 			if (c1 == (uchar) '†')
 				pa = p1;
 			if (c1 == (uchar) 'А')
@@ -385,11 +385,11 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 	flit = 0;
 	dv1 = BC->vers;
 	ftv = 0;
-	if (dv1->prob > (language != LANG_RUSSIAN ? 170 : 200))
+	if (dv1->prob > (language != LANGUAGE_RUSSIAN ? 170 : 200))
 		ftv = 1; // solid versions present
 	for (; (wc = dv1->let) != 0; dv1++) {
 		if (!memchr("lI1\xbb|!", wc, 6) && wc != liga_i && !(language
-				== LANG_TURKISH && // 30.05.2002 E.P.
+				== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 				(wc == i_sans_accent || wc == II_dot_accent)) && wc != liga_exm // 10.09.2000 E.P.
 		)
 			stick = 0;
@@ -399,7 +399,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 	SBOX.best_BOX[0].ltr = 0;
 
 	if (ftv // solid tiger versions present
-			&& !(language == LANG_RUSSIAN && strchr("ЃЗІ3", BC->vers[0].let))) //Pual 23-12-96
+			&& !(language == LANGUAGE_RUSSIAN && strchr("ЃЗІ3", BC->vers[0].let))) //Pual 23-12-96
 	{
 		if (stick && (BC->w <= 5)) {
 			if (db_status && (db_trace_flag & 4))
@@ -410,11 +410,11 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 		embBOX(&SBOX, &svers, (Bool) ((A->pos_inc & erect_rot) != 0)); // BOX estimate
 		if (GL->arg & GABOXs)
 			goto makeans; // single "stick" version
-		if ((best_answer_BOX > 29500 && language != LANG_RUSSIAN)
-				|| (best_answer_BOX > 30300 && language == LANG_RUSSIAN)) {
+		if ((best_answer_BOX > 29500 && language != LANGUAGE_RUSSIAN)
+				|| (best_answer_BOX > 30300 && language == LANGUAGE_RUSSIAN)) {
 			if (db_status && (db_trace_flag & 4)) {
 				char wrk[32];
-				sprintf(wrk, language == LANG_RUSSIAN ? "best %d > 30300"
+				sprintf(wrk, language == LANGUAGE_RUSSIAN ? "best %d > 30300"
 						: "best %d > 29500", best_answer_BOX);
 				est_snap(db_pass, BC, wrk);
 			}
@@ -512,7 +512,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 				if (db_status && (db_trace_flag & 4))
 					est_snap(db_pass, BC, "u-->n");
 			}
-			if (language == LANG_RUSSIAN && c == (uchar) 'ч') {
+			if (language == LANGUAGE_RUSSIAN && c == (uchar) 'ч') {
 				c = (uchar) 'ѓ';
 				if (db_status && (db_trace_flag & 4))
 					est_snap(db_pass, BC, "ч-->ѓ");
@@ -559,7 +559,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 				// “урецкие палки 30.05.2002 E.P.
 			case i_sans_accent:
 			case II_dot_accent:
-				if (language == LANG_TURKISH)
+				if (language == LANGUAGE_TURKISH)
 					pl = 2;
 
 				break;
@@ -653,7 +653,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 		est_snap(db_pass, BC, "recog-2 done");
 	BC->cg_flag = scg; // restore flag
 	// -------------- Russian discrim -----------------
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		r_criteria(BC, GL);
 
 	// APPEND
@@ -690,7 +690,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 					!= 0)); dv2++)
 				if ((wc == '!') || (wc == 'i') || (wc == 'l') || (wc == 'I')
 						|| (wc == '1') || (wc == liga_exm) || (wc == liga_i)
-						|| language == LANG_TURKISH && // 30.05.2002 E.P.
+						|| language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 								(wc == i_sans_accent || wc == II_dot_accent)
 
 				) // stick
@@ -701,7 +701,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 					!= 0)); dv2++)
 				if ((wc == '!') || (wc == 'i') || (wc == 'l') || (wc == 'I')
 						|| (wc == '1') || (wc == liga_exm) || (wc == liga_i)
-						|| language == LANG_TURKISH && // 30.05.2002 E.P.
+						|| language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 								(wc == i_sans_accent || wc == II_dot_accent)) // stick
 					dv2->prob = (uchar) beste; // make all sticks equivalent by BOX
 			if (db_status && (db_trace_flag & 4))
@@ -801,7 +801,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 		))
 			c = 0;
 
-		// LANG_LATVIAN и т.д. 09.07.2001 E.P.
+		// LANGUAGE_LATVIAN и т.д. 09.07.2001 E.P.
 		if (!BC->accent_leader && is_baltic_language(language)
 				&& (is_latvian_special(c_acc) || is_lithuanian_special(c_acc)
 						|| is_estonian_special(c_acc)))
@@ -842,7 +842,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 				&& !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
 				!is_russian_turkish_conflict(c) // 21.05.2002 E.P.
 				|| // "03.03.1993 RESTORE"
-				language != LANG_RUSSIAN && (c == liga_i || c == liga_j ||
+				language != LANGUAGE_RUSSIAN && (c == liga_i || c == liga_j ||
 
 				//  онфликтные коды 17.07.2001 E.P.
 						!is_baltic_language(language) && // 17.07.2001 E.P.
@@ -864,12 +864,12 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
 						))
 			flag_stick = 1; // Oleg : 16.09.92.
 
-		if (language == LANG_CROATIAN && (c == CROAT_d || c == 'd') || language
-				== LANG_POLISH && c == POLISH_l ||
+		if (language == LANGUAGE_CROATIAN && (c == CROAT_d || c == 'd') || language
+				== LANGUAGE_POLISH && c == POLISH_l ||
 
 		// 08.09.2000 E.P.
-				language == LANG_CZECH && (c == d_inv_roof || c == t_inv_roof)
-				|| language == LANG_ROMAN && c == c == t_bottom_accent)
+				language == LANGUAGE_CZECH && (c == d_inv_roof || c == t_inv_roof)
+				|| language == LANGUAGE_ROMANIAN && c == c == t_bottom_accent)
 
 			flag_stick = 1;
 
@@ -952,7 +952,7 @@ int16_t dmBOX(cell *BC, s_glue *GL) {
 	if (pass4_in) {// OLEG : SERBIAN PASS4
 		extern uchar langSer;
 		ret = estletter(BC, GL);
-		if (language == LANG_RUSSIAN && langSer && BC->nvers && BC->vers[0].let
+		if (language == LANGUAGE_RUSSIAN && langSer && BC->nvers && BC->vers[0].let
 				== SERB_j && ij_dot(BC) <= 0)
 			ret -= 100;
 		return ret;
@@ -1065,7 +1065,7 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag) {
 		if (DC->flg & c_f_let)
 			break;
 		// Valdemar 08.11.93 to paste л
-		if (language == LANG_RUSSIAN && (BC->vers[0].let == (uchar) 'м'
+		if (language == LANGUAGE_RUSSIAN && (BC->vers[0].let == (uchar) 'м'
 				|| BC->vers[0].let == (uchar) 'Ь'))
 			if (d1 > 5)
 				break;

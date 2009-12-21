@@ -408,7 +408,7 @@ void cuts_glues() {
 	minp = minw >> 1;
 	line_sym_width = my_bases.ps;
 	cut_width = 0;
-	if (language == LANG_RUSSIAN && !pass4_in) {
+	if (language == LANGUAGE_RUSSIAN && !pass4_in) {
 		get_sym_width(&line_sym_width, &cut_width, &sym_dist);
 		//   if (get_sym_width(&sym_width,&cut_width))  minw=sym_width>>2;
 		//   else                                       minw=my_bases.ps/5;
@@ -451,7 +451,7 @@ void cuts_glues() {
 		WB = process_word(WB, WE);
 	} while (WB->next);
 
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		paste();
 
 	// if (pass4_in && bs_cut_en)
@@ -686,7 +686,7 @@ cell *process_word(cell *WB, cell *WE) {
 		ST = NULL;
 
 		while (1) {
-			if (language == LANG_RUSSIAN) {
+			if (language == LANGUAGE_RUSSIAN) {
 				let = E->vers[0].let;
 
 				if (let(E) && (let == (uchar) 'т'
@@ -792,7 +792,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 
 
 			if (!pass4_in) {
-				if (language == LANG_RUSSIAN && langSer && (B->flg & c_f_let)
+				if (language == LANGUAGE_RUSSIAN && langSer && (B->flg & c_f_let)
 						&& B->nvers && (B->vers[0].let == SERB_j
 						|| B->vers[0].let == 'j') && ij_dot(B) == 0)
 					dis = TRUE;
@@ -1038,7 +1038,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 	GL.ngluc = 1;
 	for (i = 0; i < n; i++) {
 		cg_flag |= B->cg_flag;
-		if (language == LANG_RUSSIAN && !dust(B))
+		if (language == LANGUAGE_RUSSIAN && !dust(B))
 			if (nstick < 2)
 				switch (fl_b) {
 				uchar let;
@@ -1223,7 +1223,7 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 	for (i = 2, cut = cut_list + 1; i < ncut; i++, cut++)
 		cut->var |= NOT_CUT; //не резать
 
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		dp_pass0(LC, &r, cut_list, &vers_list, ncut);
 	else
 		for (pass = 1; pass <= 3; pass++)
@@ -2268,7 +2268,7 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 			s += sprintf(s, "not registered");
 		}
 
-	if (language == LANG_RUSSIAN) {
+	if (language == LANGUAGE_RUSSIAN) {
 		if (width < my_bases.ps >> 1)
 			width = my_bases.ps >> 1;
 	} else if (width < ps3)
@@ -2505,7 +2505,7 @@ static char *res_for(uchar let, uchar *sticks, uchar *letters, char **results) {
 	if (sticks) {
 		pos = strchr((char*) sticks, let);
 		if (pos || let == liga_i || // 08.09.2000 E.P.
-				language == LANG_TURKISH && // 30.05.2002 E.P.
+				language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(let == i_sans_accent || let == II_dot_accent))
 			return results[0];
 	}
@@ -2670,7 +2670,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 
 	//больше одной палки клеить нельзя
 
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		for (i = 0; i < box.n; i++)
 			if (!dust(B = org_cells[i]))
 				if (nstick < 2)
@@ -2842,7 +2842,7 @@ static int16_t recog_one(cell *B0, s_glue *GL, int16_t tol, SVERS *vers) {
  static char wide (cell *C)
  {
  int16_t h=my_bases.b3-C->row;
- return ( C->w > (h<<1) + ((language==LANG_RUSSIAN) ? -(h>>3) : (h>>3)) );
+ return ( C->w > (h<<1) + ((language==LANGUAGE_RUSSIAN) ? -(h>>3) : (h>>3)) );
  }
  */
 
@@ -3328,10 +3328,10 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 			if (il == secm->px) {
 				//запрещается приклеивать 'i', если получается та же буква
 				if (letl == let0 && (letr == 'i' || letr == liga_i || language
-						== LANG_TURKISH && // 30.05.2002 E.P.
+						== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(letr == i_sans_accent || letr == II_dot_accent)) // X+i=X
 						&& versl->vers[0].prob > 200 || letr == let0 && (letl
-						== 'i' || letl == liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+						== 'i' || letl == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(letl == i_sans_accent || letl == II_dot_accent)) // i+X=X
 						&& versr->vers[0].prob > 200)
 					goto retb;
@@ -3920,7 +3920,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 		int16_t ret = estletter(B1, gl0);
 		if (B1->vers[0].let == 0)
 			B1->vers[0].let = bad_char;
-		if (language == LANG_RUSSIAN && langSer && (B1->flg & c_f_let)
+		if (language == LANGUAGE_RUSSIAN && langSer && (B1->flg & c_f_let)
 				&& B1->nvers && (B1->vers[0].let == SERB_j || B1->vers[0].let
 				== 'j') && ij_dot(B1) > 0)
 			ret -= 100;
@@ -3972,9 +3972,9 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	//                all cutten letters with simple structure
 
 	if ((B1->flg & c_f_let) && (B1->nvers == 1)) {
-		if (language == LANG_RUSSIAN && strchr("оЗз3", c))
+		if (language == LANGUAGE_RUSSIAN && strchr("оЗз3", c))
 			goto estiBOX;
-		if ((language != LANG_ENGLISH) && (memchr("aoeu", B1->vers[0].let, 4))) {
+		if ((language != LANGUAGE_ENGLISH) && (memchr("aoeu", B1->vers[0].let, 4))) {
 			accent(B1);
 			if (B1->nvers != 1)
 				goto not_a_single;
@@ -4046,7 +4046,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 		}
 		c_sacc = let_sans_acc[c];
 		if ((memchr("sSaoO0QGDMNHURdxq6<>cCkwWBEA", c_sacc, 28)) || (c_sacc
-				== ss_deaf_sound && language != LANG_RUSSIAN)) // Vademar 2.2.93
+				== ss_deaf_sound && language != LANGUAGE_RUSSIAN)) // Vademar 2.2.93
 		{
 			p1 = (uchar) abris(GL, B1, c_sacc, p1);
 			goto deciBOX;
@@ -4055,7 +4055,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 		if (memchr("rtfTJ()<>[]LI1il!/F7тТгГ°|", c, 26)
 				&& !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
 				|| // 07.01.1993 (see S_TOOLS.C)
-				(language != LANG_RUSSIAN && (c == liga_i || // FARA REDACTION
+				(language != LANGUAGE_RUSSIAN && (c == liga_i || // FARA REDACTION
 
 						!is_baltic_language(language) && // 17.07.2001 E.P.
 								!is_turkish_language(language) && ( // 21.05.2002 E.P.
@@ -4138,7 +4138,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			// cutten version - estimate by BOX
 		}
 		if (memchr("1lI()[]{}!", c, 10) || c == liga_i || language
-				== LANG_TURKISH && // 30.05.2002 E.P.
+				== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 				(c == i_sans_accent || c == II_dot_accent) || c == liga_exm)
 			if (signif_line_count(B1) == 1) {
 				svarg = GL->arg;
@@ -4221,7 +4221,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			rest_vers(B1, &svorg);
 	}
 
-	if (language != LANG_RUSSIAN)
+	if (language != LANGUAGE_RUSSIAN)
 		if (B1->nvers) {
 			/*
 			 if ( cut(B1) )
@@ -4267,7 +4267,7 @@ static void corr_cut() {
 	b2 = cell_f();
 	while ((b2 = b2->nextl)->nextl) {
 		if (!b2->nvers) {
-			if (language == LANG_RUSSIAN && (b2->env && (b2->env->nl == 1)
+			if (language == LANGUAGE_RUSSIAN && (b2->env && (b2->env->nl == 1)
 					|| 3* b2 ->w <= b2->h)) { //попытка распознать "!"
 				stick_center_study(b2, NULL, 1);
 				det_snap(b2, "bring sticks");
@@ -4276,7 +4276,7 @@ static void corr_cut() {
 		}
 		if (bad(b2) && b2->vers[0].prob > MINlet)
 			set_let(b2);
-		if (language != LANG_RUSSIAN) {
+		if (language != LANGUAGE_RUSSIAN) {
 			b1 = b2->prevl;
 			b3 = b2->nextl;
 			c2 = b2->vers[0].let;
@@ -4284,7 +4284,7 @@ static void corr_cut() {
 			c3 = b3->vers[0].let;
 			// try to recover "stick_to_something" producing 'k', 'd', 'b'
 			if (memchr("lI1/J)!", c2, 7) || // stick character ?
-					c2 == liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+					c2 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(c2 == i_sans_accent || c2 == II_dot_accent) || c2
 					== liga_exm)
 				// in combinations  (vI) (WI) (uI)  promote  't' in place of 'I'
@@ -4341,7 +4341,7 @@ static int16_t forbid_stick_cut(cell *c, SVERS *vers, int16_t h, cut_pos *cpos,
 
 	// is it a stick ?
 	if ((l != 'i') && (l != 'l') && (l != '1') && (l != 'I') && (l != liga_i)
-			&& !(language == LANG_TURKISH && // 30.05.2002 E.P.
+			&& !(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(l == i_sans_accent || l == II_dot_accent)))
 		return 0;
 

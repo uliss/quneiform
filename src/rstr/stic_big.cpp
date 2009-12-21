@@ -437,7 +437,7 @@ else if (t<wid && !l->up_serif && !r->up_serif &&	// 28.07.1993
 DIS_DIFFERENT_SERIFS(l,r,0,4,wid,tab_J[3]);				// *6
 
 DIS_CENTER_FLAGS(l,r,1,wid,inc,tab_J[4],tab_J[5]);		// *40/6
-if( language==LANG_RUSSIAN && langSer )
+if( language==LANGUAGE_RUSSIAN && langSer )
   {
   int16_t dis0=dis;
   DIS_CENTER_FLAGS(l,r,2,wid,inc,tab_J[4],tab_J[5]);    // *40/6
@@ -583,16 +583,16 @@ DIS_DIFFERENT_SERIFS(l,r,4,4,wid,tab_T[3]);		// DOWN		// 6
 
 u = MAX(l->mount[0],l->mount[1]);
 d = MAX(l->mount[3],l->mount[4]);
-if( language==LANG_RUSSIAN &&  s->cut_l && abs(u-d)<1 ||
-    language==LANG_RUSSIAN && !s->cut_l && abs(u-d)<2 ||
-    language!=LANG_RUSSIAN &&              abs(u-d)<2 )
+if( language==LANGUAGE_RUSSIAN &&  s->cut_l && abs(u-d)<1 ||
+    language==LANGUAGE_RUSSIAN && !s->cut_l && abs(u-d)<2 ||
+    language!=LANGUAGE_RUSSIAN &&              abs(u-d)<2 )
   dis += tab_T[4];   /* similar 'I' */        // 60
 
 u = MAX(r->mount[0],r->mount[1]);
 d = MAX(r->mount[3],r->mount[4]);
-if( language==LANG_RUSSIAN &&  s->cut_r && abs(u-d)<1 ||
-    language==LANG_RUSSIAN && !s->cut_r && abs(u-d)<2 ||
-    language!=LANG_RUSSIAN &&              abs(u-d)<2 )
+if( language==LANGUAGE_RUSSIAN &&  s->cut_r && abs(u-d)<1 ||
+    language==LANGUAGE_RUSSIAN && !s->cut_r && abs(u-d)<2 ||
+    language!=LANGUAGE_RUSSIAN &&              abs(u-d)<2 )
 	dis += tab_T[4];   /* similar 'I' */				// 60
 
 			// NB: here were also OLEG for Y_config
@@ -926,7 +926,7 @@ int16_t L_max=s>>1;	/* 1/2 stick width */
 int16_t rmd,rmu,lmd,lmu;
 int16_t r3,r4,l3,l4,ss,m;
 
-if( language == LANG_RUSSIAN )
+if( language == LANGUAGE_RUSSIAN )
 {
 if( !add_flag )
 	{
@@ -1131,7 +1131,7 @@ if( t<2 )
 if( u<signums->height/4 )
 	dis += 60;	/* similar 'I'  or left part broken '▐' */
 
-if( language==LANG_RUSSIAN && multy_language )
+if( language==LANGUAGE_RUSSIAN && multy_language )
   {
   if( r->mount[1]==0 && r->mount[2]>2 )
     dis += 30;

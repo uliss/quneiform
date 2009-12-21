@@ -28,7 +28,7 @@ Alphabet * create()
     return new RomanAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_ROMAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_ROMANIAN, create);
 }
 
 namespace CIF
@@ -36,7 +36,7 @@ namespace CIF
 
 RomanAlphabet::RomanAlphabet()
 {
-    const int language = LANG_ROMAN;
+    const int language = LANGUAGE_ROMANIAN;
     addSymbol(AA_semicircle);
     addSymbol(a_semicircle);
     addSymbol(AA_roof_accent);
@@ -51,7 +51,7 @@ RomanAlphabet::RomanAlphabet()
 
 language_t RomanAlphabet::language() const
 {
-    return LANG_ROMAN;
+    return LANGUAGE_ROMANIAN;
 }
 
 }

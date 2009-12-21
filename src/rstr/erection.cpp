@@ -1644,7 +1644,7 @@ Bool erect_solid_stick(cell *c) {
 	for (i = 0; i < c->nvers; i++) {
 		if (!memchr(solid_sticks, c->vers[i].let, sizeof(solid_sticks))
 				&& c->vers[i].let != liga_i && // 08.09.2000 E.P.
-				!(language == LANG_TURKISH && // 30.05.2002 E.P.
+				!(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(c->vers[i].let == i_sans_accent || c->vers[i].let
 								== II_dot_accent)))
 			return FALSE;
@@ -1653,7 +1653,7 @@ Bool erect_solid_stick(cell *c) {
 }
 
 int16_t erection_cond_language(uchar language) {
-	return !(language == LANG_RUSSIAN && !langSer && !langUkr);
+	return !(language == LANGUAGE_RUSSIAN && !langSer && !langUkr);
 }
 
 int16_t erection_language(uchar language) {
@@ -1661,6 +1661,6 @@ int16_t erection_language(uchar language) {
 }
 
 int16_t erection_cyr_language(uchar language) {
-	return (language == LANG_RUSSIAN);
+	return (language == LANGUAGE_RUSSIAN);
 }
 

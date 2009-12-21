@@ -90,7 +90,7 @@ static double portion_of_rus_letters(CSTR_line lin_ruseng)
         CSTR_GetCollectionUni(rast, &uv);
 
         if (attr.flg & (CSTR_f_let)) {
-            if (attr.language == LANG_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100 && !strchr(
+            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100 && !strchr(
                     "0123456789/%", uv.Alt[0].Code[0]))
                 nRus++;
 
@@ -136,7 +136,7 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANG_RUSENG),
+            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANGUAGE_RUS_ENG),
             layout_filename_("layout.bin"), pictures_(PUMA_PICTURE_ALL),
             tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
                     NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), rc_line_(
@@ -601,7 +601,7 @@ void PumaImpl::pass2()
     if (Config::instance().debugDump())
         saveCSTR(2);
 
-    if (SPEC_PRJ_GIP == special_project_ && language_ == LANG_RUSENG)
+    if (SPEC_PRJ_GIP == special_project_ && language_ == LANGUAGE_RUS_ENG)
         pass2special();
 
     if (RSTR_NeedPass2())
@@ -632,7 +632,7 @@ void PumaImpl::pass2special()
             }
         }
 
-        language_ = LANG_ENGLISH;
+        language_ = LANGUAGE_ENGLISH;
         recognizeSetup(language_);
         recognizePass1();
     }

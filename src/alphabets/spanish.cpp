@@ -28,7 +28,7 @@ Alphabet * create()
     return new SpanishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_SPANISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_SPANISH, create);
 }
 
 namespace CIF
@@ -54,7 +54,7 @@ SpanishAlphabet::SpanishAlphabet()
 
 language_t SpanishAlphabet::language() const
 {
-    return LANG_SPANISH;
+    return LANGUAGE_SPANISH;
 }
 
 }

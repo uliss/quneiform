@@ -101,7 +101,7 @@ int16_t stick_like(CSTR_rast r)
         c = vers->Alt[i].Liga;
 
         if (!memchr("LTJ()<>[]trI1ijl!/", c, 18) && (c != liga_i) && !(language
-                                                                       == LANG_TURKISH && // 30.05.2002 E.P.
+                                                                       == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                                        (c == i_sans_accent || c == II_dot_accent)))
             return 0;
     }
@@ -165,7 +165,7 @@ int16_t can_serve(CSTR_rast b, int16_t bs, int16_t pass)
         chr = v0->Alt[i].Liga;
 
         if (!memchr("LTJ()<>[]trI1l!/", chr, 16) && (chr != liga_i)
-                && !(language == LANG_TURKISH && // 30.05.2002 E.P.
+                && !(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                      (chr == i_sans_accent || chr == II_dot_accent)))
             return 1; // "non-stick" available
     }
@@ -1916,7 +1916,7 @@ int16_t cell_sticker(CSTR_rast wc)
         chr = vers.Alt[i].Liga;
 
         if (!memchr("l1rtfI", chr, 6) && chr != liga_i && !(language
-                                                            == LANG_TURKISH && // 30.05.2002 E.P.
+                                                            == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                             (chr == i_sans_accent || chr == II_dot_accent)))
             return 0;
     }

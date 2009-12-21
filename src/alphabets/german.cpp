@@ -28,7 +28,7 @@ Alphabet * create()
     return new GermanAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_GERMAN, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_GERMAN, create);
 }
 
 namespace CIF
@@ -47,7 +47,7 @@ GermanAlphabet::GermanAlphabet()
 
 language_t GermanAlphabet::language() const
 {
-    return LANG_GERMAN;
+    return LANGUAGE_GERMAN;
 }
 
 }

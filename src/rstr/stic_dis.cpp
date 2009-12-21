@@ -179,7 +179,7 @@ switch( let )
 	case 'F' : dis = dis_F(l,r,s) ;		break;	// 25.03.1993	MK
 	case 'r' : dis = dis_r(l,r,s);		break;
 	case 't' : dis = dis_t(l,r,s,sign_f);	break;
-  case '|' : if(language!=LANG_RUSSIAN )  break;
+  case '|' : if(language!=LANGUAGE_RUSSIAN )  break;
              if( s->incline>256 )
               dis = dis_i(l,r,s, 1);
              else
@@ -203,7 +203,7 @@ switch( let )
 	case 'J' : dis = dis_J(l,r,s);		break;
   case (uchar)'£' :
   case (uchar)'Г' :
-		if( language==LANG_RUSSIAN )    dis = dis_RusG(l,r,s);
+		if( language==LANGUAGE_RUSSIAN )    dis = dis_RusG(l,r,s);
                                                 break;
 
   case (uchar)'в' :
@@ -213,7 +213,7 @@ switch( let )
 		)
 		{dis = 0; break;}
 
-  case (uchar)'Т' : if( language!=LANG_RUSSIAN )    break;
+  case (uchar)'Т' : if( language!=LANGUAGE_RUSSIAN )    break;
 
   case 'T' : dis = dis_T(l,r,s);      break;
   case 'Y' : dis = dis_Y(l,r,s);      break;
@@ -246,25 +246,25 @@ switch( let )
 	break;
 
   case CROAT_d :
-             if( language==LANG_CROATIAN )
+             if( language==LANGUAGE_CROATIAN )
               dis = dis_d_croatian(l,r,s);break;
   case 'd' :
              dis=0;
-             if( language==LANG_CROATIAN )
+             if( language==LANGUAGE_CROATIAN )
               dis = dis_d(l,r);break;
   case POLISH_l :
                dis = dis_l_stroked(l,r,s);    break;
   default  : dis = 0;     break;
 	}
 
-  if( language == LANG_RUSSIAN && langUkr )
+  if( language == LANGUAGE_RUSSIAN && langUkr )
     if( let == 'i' ){
        if( dis > 0 )
          dis = MIN(dis,dis_i(l,r,s,2));
     }
 
 
-if( language!=  LANG_RUSSIAN )			// FRENCH 07.12.1993:
+if( language!=  LANGUAGE_RUSSIAN )			// FRENCH 07.12.1993:
 {
 //  онфликтные коды // 07.09.2000 E.P.
 if (
@@ -616,13 +616,13 @@ t = wid>6 ? 1 : 0;
 if( lmu<=t )				/* no left upper flag */
 	dis += tab_1[0];						// 60
 //#ifndef RUS_ENG_LANG
-//if(  language != LANG_RUSSIAN || language == LANG_RUSSIAN && lmd<1 && rmd<1 )
+//if(  language != LANGUAGE_RUSSIAN || language == LANGUAGE_RUSSIAN && lmd<1 && rmd<1 )
 //#else
 //if( multy_language )
 //#endif
-if( language != LANG_RUSSIAN ||
-    language == LANG_RUSSIAN && !multy_language && lmd<1 && rmd<1 ||
-    language == LANG_RUSSIAN && multy_language )
+if( language != LANGUAGE_RUSSIAN ||
+    language == LANGUAGE_RUSSIAN && !multy_language && lmd<1 && rmd<1 ||
+    language == LANGUAGE_RUSSIAN && multy_language )
 {
 if( rmu>1 && !inc || rmu>2 && inc)	/* exist right upper flag */
 	{	/* different nonlinear (dis=f(rmu)) discrim */
@@ -646,7 +646,7 @@ if( typ_add==0 && !(s->typ_nose_1&&l->mount[0]>wid) )	/* not add */
 {
 int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
 
-if(  language != LANG_RUSSIAN )
+if(  language != LANGUAGE_RUSSIAN )
 {
 if ( lmu==1 && rmu==1 && lmd==1 && rmd==1 && ser>5 ||	// study angle:
 /////lmu>1  && rmu>1  && lmd>1  && rmd>1  && ser>4 )	// flags+serifs-information
@@ -764,7 +764,7 @@ if (rmd>=2 && lmu>lmd+wid+rmd)		// 17.01.1994 too long nose
 /*......................................................................*/
 //////m_ex:
 if( is_digital_string() )
-if( language==LANG_RUSSIAN )
+if( language==LANGUAGE_RUSSIAN )
   {
   if( dis>100 )     dis=40;
   else if( dis>60 ) dis=20;
@@ -772,7 +772,7 @@ if( language==LANG_RUSSIAN )
   else              dis=0;
   }
 #ifdef  INTERSEPTOR
-if( language==LANG_RUSSIAN )
+if( language==LANGUAGE_RUSSIAN )
   {
   if( dis>100 )     dis=40;
   else if( dis>60 ) dis=20;
@@ -1397,7 +1397,7 @@ static int16_t dis_7 (STICK_SIGNUMS *s)
 {
 int16_t     dis=0;
 
-if( language == LANG_RUSSIAN )
+if( language == LANGUAGE_RUSSIAN )
         {
 	if( s->incline<16*8 )
                 dis = 100;
@@ -1412,7 +1412,7 @@ int16_t dis_d_croatian (STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
 int16_t     dis=0;
 
-if( language == LANG_CROATIAN )
+if( language == LANGUAGE_CROATIAN )
         {
         if( r->mount[2]>2 || r->mount[3]>2 || r->mount[4]>2 )
                 dis += 100;
@@ -1429,7 +1429,7 @@ int16_t dis_d (STICK_CHARS *l, STICK_CHARS *r)
 {
 int16_t     dis=0;
 
-if( language == LANG_CROATIAN )
+if( language == LANGUAGE_CROATIAN )
         {
         if( r->mount[0]>1 && l->mount[0]>1 )
                 dis += 100;

@@ -108,7 +108,7 @@ static Bool proplet_tg(uchar let)
 
 	extern uchar NO_Punct;
 
-	if ( language == LANG_DIG )
+	if ( language == LANGUAGE_DIGITS )
 		return is_digit(let);
 
 	if ( NO_Punct )
@@ -116,7 +116,7 @@ static Bool proplet_tg(uchar let)
     if( line_alphabet==ALPHA_DIGITAL_TRUE )
         return is_digit(let);
 
-	if( language==LANG_RUSSIAN )
+	if( language==LANGUAGE_RUSSIAN )
 	{
 		if( langUkr )
 		{
@@ -156,10 +156,10 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// for INTERSEPTOR need "S"
-	if(language==LANG_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(uchar)'ß'))
+	if(language==LANGUAGE_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(uchar)'ß'))
 		return FALSE;
 	// Oleg : 20-10-1994 : kill english versions for Rus-Eng mode
-	if(language==LANG_ENGLISH && (is_russian(let)||let=='|'))
+	if(language==LANGUAGE_ENGLISH && (is_russian(let)||let=='|'))
 		return FALSE;
 	// Oleg : 20-10-1994 : kill russian versions for Rus-Eng mode
 
@@ -172,7 +172,7 @@ static Bool proplet_tg(uchar let)
 	   )
 		return FALSE;
 
-	if( language==LANG_CROATIAN )
+	if( language==LANGUAGE_CROATIAN )
 	{
 		if( let<128 ||
 			(is_ligas_latin(let)&&let!=POLISH_l&&let!=POLISH_a) ||
@@ -186,7 +186,7 @@ static Bool proplet_tg(uchar let)
 			return FALSE;
 	}
 
-	if( language==LANG_POLISH )
+	if( language==LANGUAGE_POLISH )
 	{
 		if( let < 128 || is_ligas_latin(let) ||
 			is_polish_special( let )
@@ -197,7 +197,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 05.09.2000 E.P.
-	if( language==LANG_CZECH )
+	if( language==LANGUAGE_CZECH )
 	{
 		if( let < 128 || is_ligas_latin(let) ||
 			is_czech_special(let)
@@ -208,7 +208,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 05.09.2000 E.P.
-	if( language==LANG_ROMAN )
+	if( language==LANGUAGE_ROMANIAN )
 	{
 		if( let < 128 || is_ligas_latin(let) ||
 			is_roman_special(let)
@@ -219,7 +219,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 05.09.2000 E.P.
-	if( language==LANG_HUNGAR )
+	if( language==LANGUAGE_HUNGARIAN )
 	{
 		if( let < 128 || is_ligas_latin(let) ||
 			is_hungar_special(let)
@@ -230,7 +230,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 25.05.2001 E.P.
-	if( language==LANG_SLOVENIAN )
+	if( language==LANGUAGE_SLOVENIAN )
 	{
 		if( isnot_slovenian(let) )
 			return FALSE;
@@ -244,7 +244,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 09.07.2001 E.P.
-	if( language==LANG_LATVIAN)
+	if( language==LANGUAGE_LATVIAN)
 	{
 		if( isnot_latvian(let) )
 			return FALSE;
@@ -258,7 +258,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 09.07.2001 E.P.
-	if( language==LANG_LITHUANIAN)
+	if( language==LANGUAGE_LITHUANIAN)
 	{
 		if( isnot_lithuanian(let) )
 			return FALSE;
@@ -272,7 +272,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 09.07.2001 E.P.
-	if( language==LANG_ESTONIAN)
+	if( language==LANGUAGE_ESTONIAN)
 	{
 		if( isnot_estonian(let) )
 			return FALSE;
@@ -286,7 +286,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// 20.05.2002 E.P.
-	if( language==LANG_TURKISH)
+	if( language==LANGUAGE_TURKISH)
 	{
 		if( isnot_turkish(let) )
 			return FALSE;
@@ -299,13 +299,13 @@ static Bool proplet_tg(uchar let)
 			return FALSE;
 	}
 
-	if (language==LANG_RUSSIAN)
+	if (language==LANGUAGE_RUSSIAN)
 		return TRUE;
 
-	if (language!=LANG_FRENCH &&
+	if (language!=LANGUAGE_FRENCH &&
 		(let==CC_bottom_accent || let==c_bottom_accent) ||
-		language!=LANG_GERMAN && let==ss_deaf_sound     ||
-		language!=LANG_SPANISH && (let==invers_exm || let==invers_qm ||
+		language!=LANGUAGE_GERMAN && let==ss_deaf_sound     ||
+		language!=LANGUAGE_SPANISH && (let==invers_exm || let==invers_qm ||
 		let==liga_inv_exm || let==liga_inv_qm))
 		return FALSE;
     if( line_tabcell && let==liga_exm )

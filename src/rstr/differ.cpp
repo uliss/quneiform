@@ -321,8 +321,8 @@ static void dif_vy(cell *c)
 static void dif_cct(cell *c)
 {
  if (
-     ( language==LANG_FRENCH ||
-	   language==LANG_TURKISH // 18.06.2002 E.P.
+     ( language==LANGUAGE_FRENCH ||
+	   language==LANGUAGE_TURKISH // 18.06.2002 E.P.
 	 ) &&
      c->vers[0].prob>=PROB_V_OK &&
      (c->vers[0].let=='c' ||
@@ -715,7 +715,7 @@ static void dif_f_t_inv_roof(cell *c1)
  uchar     let;
  uchar    goodLet,badLet;
 
-  if( language != LANG_CZECH )
+  if( language != LANGUAGE_CZECH )
  	 return;
 
   for (prob_f=prob_troof=0,i=c1->nvers-1; i>=0; i--)
@@ -815,7 +815,7 @@ static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
  uchar    goodLet,badLet;
  int      maxWidth;
 
-  if( language != LANG_CZECH && language != LANG_HUNGAR)
+  if( language != LANGUAGE_CZECH && language != LANGUAGE_HUNGARIAN)
  	 return;
 
   for (prob_f=prob_troof=0,i=c1->nvers-1; i>=0; i--)
@@ -928,7 +928,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
  int32_t    leftJump, rightJump;
  int32_t    leftPerekladina;
 
-  if( language != LANG_LITHUANIAN )
+  if( language != LANGUAGE_LITHUANIAN )
  	 return;
 
   if( c1->nvers <= 0 )

@@ -672,7 +672,7 @@ static int LookBestClusters(int w, int h, uchar *buf, uchar *bufrazmaz,
         j = abs(wel->mh - h);
 
         if (strchr(Palki, wel->let) || wel->let == liga_i || (language
-                                                              == LANG_TURKISH && // 30.05.2002 E.P.
+                                                              == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                                                               (wel->let == i_sans_accent || wel->let == II_dot_accent))) {
             if (j * 5 > MIN(h, wel->mh))
                 continue;

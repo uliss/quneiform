@@ -174,34 +174,34 @@ static uchar iso_turkish[257]={
 /*f0*/ 0xf0,0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff};
 
 static puchar iso_table[LANG_TOTAL]={
-  iso_euro,		// LANG_ENGLISH    0
-  iso_euro,		// LANG_GERMAN     1
-  iso_euro,		// LANG_FRENCH     2
-  iso_cyr,		// LANG_RUSSIAN    3
-  iso_euro,		// LANG_SWEDISH    4
-  iso_euro,		// LANG_SPANISH    5
-  iso_euro,		// LANG_ITALIAN    6
+  iso_euro,		// LANGUAGE_ENGLISH    0
+  iso_euro,		// LANGUAGE_GERMAN     1
+  iso_euro,		// LANGUAGE_FRENCH     2
+  iso_cyr,		// LANGUAGE_RUSSIAN    3
+  iso_euro,		// LANGUAGE_SWEDISH    4
+  iso_euro,		// LANGUAGE_SPANISH    5
+  iso_euro,		// LANGUAGE_ITALIAN    6
   iso_cyr,		// LANG_RUS/ENG    7
-  iso_cyr,		// LANG_UKRAINIAN  8
-  iso_cyr,		// LANG_SERBIAN    9
-  iso_ce,		// LANG_CROATIAN   10
-  iso_ce,		// LANG_POLISH     11
-  iso_euro,		// LANG_DANISH     12
-  iso_euro,		// LANG_PORTUGUESE 13
-  iso_euro,		// LANG_DUTCH      14
-  iso_cyr,		// LANG_DIG		   15
-  iso_cyr,		// LANG_UZBEK      16
-  iso_cyr,		// LANG_KAZ        17
-  iso_cyr,		// LANG_KAZ_ENG    18
-  iso_ce,		// LANG_CZECH	   19
-  iso_ce,		// LANG_ROMAN	   20
-  iso_ce,		// LANG_HUNGAR	   21
-  iso_cyr,		// LANG_BULGAR	   22
-  iso_ce,		// LANG_SLOVENIAN  23	// 25.05.2001 E.P.
-  iso_baltic,	// LANG_LATVIAN	   24
-  iso_baltic,	// LANG_LITHUANIAN 25
-  iso_baltic,	// LANG_ESTONIAN   26
-  iso_turkish	// LANG_TURKISH	   27
+  iso_cyr,		// LANGUAGE_UKRAINIAN  8
+  iso_cyr,		// LANGUAGE_SERBIAN    9
+  iso_ce,		// LANGUAGE_CROATIAN   10
+  iso_ce,		// LANGUAGE_POLISH     11
+  iso_euro,		// LANGUAGE_DANISH     12
+  iso_euro,		// LANGUAGE_PORTUGUESE 13
+  iso_euro,		// LANGUAGE_DUTCH      14
+  iso_cyr,		// LANGUAGE_DIGITS		   15
+  iso_cyr,		// LANGUAGE_UZBEK      16
+  iso_cyr,		// LANGUAGE_KAZAKH        17
+  iso_cyr,		// LANGUAGE_KAZ_ENG    18
+  iso_ce,		// LANGUAGE_CZECH	   19
+  iso_ce,		// LANGUAGE_ROMANIAN	   20
+  iso_ce,		// LANGUAGE_HUNGARIAN	   21
+  iso_cyr,		// LANGUAGE_BULGARIAN	   22
+  iso_ce,		// LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.P.
+  iso_baltic,	// LANGUAGE_LATVIAN	   24
+  iso_baltic,	// LANGUAGE_LITHUANIAN 25
+  iso_baltic,	// LANGUAGE_ESTONIAN   26
+  iso_turkish	// LANGUAGE_TURKISH	   27
 };
 
 /**********************************/
@@ -332,34 +332,34 @@ static uchar ansi_turkish[257]={
 /*f0*/ 0xf0,0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff};
 
 static puchar ansi_table[LANG_TOTAL]={
-  ansi_euro,	// LANG_ENGLISH    0
-  ansi_euro,    // LANG_GERMAN     1
-  ansi_euro,    // LANG_FRENCH     2
-  ansi_cyr,     // LANG_RUSSIAN    3
-  ansi_euro,    // LANG_SWEDISH    4
-  ansi_euro,    // LANG_SPANISH    5
-  ansi_euro,    // LANG_ITALIAN    6
+  ansi_euro,	// LANGUAGE_ENGLISH    0
+  ansi_euro,    // LANGUAGE_GERMAN     1
+  ansi_euro,    // LANGUAGE_FRENCH     2
+  ansi_cyr,     // LANGUAGE_RUSSIAN    3
+  ansi_euro,    // LANGUAGE_SWEDISH    4
+  ansi_euro,    // LANGUAGE_SPANISH    5
+  ansi_euro,    // LANGUAGE_ITALIAN    6
   ansi_cyr,     // LANG_RUS/ENG    7
-  ansi_cyr,     // LANG_UKRAINIAN  8
-  ansi_cyr,     // LANG_SERBIAN    9
-  ansi_euro,    // LANG_CROATIAN   10
-  ansi_euro,    // LANG_POLISH     11
-  ansi_euro,    // LANG_DANISH     12
-  ansi_euro,    // LANG_PORTUGUESE 13
-  ansi_euro,    // LANG_DUTCH      14
-  ansi_euro,	// LANG_DIG		   15
-  ansi_cyr,     // LANG_UZBEK      16
-  ansi_cyr,     // LANG_KAZ        17
-  ansi_cyr,     // LANG_KAZ_ENG    18
-  ansi_euro,	// LANG_CZECH	   19	// 05.09.2000 E.P.
-  ansi_euro,	// LANG_ROMAN	   20
-  ansi_euro,	// LANG_HUNGAR	   21
-  ansi_cyr,		// LANG_BULGAR	   22
-  ansi_euro,	// LANG_SLOVENIAN  23	// 25.05.2001 E.P.
-  ansi_baltic,	// LANG_LATVIAN	   24
-  ansi_baltic,	// LANG_LITHUANIAN 25
-  ansi_baltic,	// LANG_ESTONIAN   26
-  ansi_turkish	// LANG_TURKISH	   27
+  ansi_cyr,     // LANGUAGE_UKRAINIAN  8
+  ansi_cyr,     // LANGUAGE_SERBIAN    9
+  ansi_euro,    // LANGUAGE_CROATIAN   10
+  ansi_euro,    // LANGUAGE_POLISH     11
+  ansi_euro,    // LANGUAGE_DANISH     12
+  ansi_euro,    // LANGUAGE_PORTUGUESE 13
+  ansi_euro,    // LANGUAGE_DUTCH      14
+  ansi_euro,	// LANGUAGE_DIGITS		   15
+  ansi_cyr,     // LANGUAGE_UZBEK      16
+  ansi_cyr,     // LANGUAGE_KAZAKH        17
+  ansi_cyr,     // LANGUAGE_KAZ_ENG    18
+  ansi_euro,	// LANGUAGE_CZECH	   19	// 05.09.2000 E.P.
+  ansi_euro,	// LANGUAGE_ROMANIAN	   20
+  ansi_euro,	// LANGUAGE_HUNGARIAN	   21
+  ansi_cyr,		// LANGUAGE_BULGARIAN	   22
+  ansi_euro,	// LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.P.
+  ansi_baltic,	// LANGUAGE_LATVIAN	   24
+  ansi_baltic,	// LANGUAGE_LITHUANIAN 25
+  ansi_baltic,	// LANGUAGE_ESTONIAN   26
+  ansi_turkish	// LANGUAGE_TURKISH	   27
 };
 
 /**********************************/
@@ -470,34 +470,34 @@ static uchar ascii_turkish[257]={
 
 
 static puchar ascii_table[LANG_TOTAL]={
-  ascii_euro,    // LANG_ENGLISH    0
-  ascii_euro,    // LANG_GERMAN     1
-  ascii_euro,    // LANG_FRENCH     2
-  ascii_cyr,     // LANG_RUSSIAN    3
-  ascii_euro,    // LANG_SWEDISH    4
-  ascii_euro,    // LANG_SPANISH    5
-  ascii_euro,    // LANG_ITALIAN    6
+  ascii_euro,    // LANGUAGE_ENGLISH    0
+  ascii_euro,    // LANGUAGE_GERMAN     1
+  ascii_euro,    // LANGUAGE_FRENCH     2
+  ascii_cyr,     // LANGUAGE_RUSSIAN    3
+  ascii_euro,    // LANGUAGE_SWEDISH    4
+  ascii_euro,    // LANGUAGE_SPANISH    5
+  ascii_euro,    // LANGUAGE_ITALIAN    6
   ascii_cyr,     // LANG_RUS/ENG    7
-  ascii_cyr,     // LANG_UKRAINIAN  8
-  ascii_cyr,     // LANG_SERBIAN    9
-  ascii_ce,      // LANG_CROATIAN   10
-  ascii_ce,      // LANG_POLISH     11
-  ascii_euro,    // LANG_DANISH     12
-  ascii_euro,    // LANG_PORTUGUESE 13
-  ascii_euro,    // LANG_DUTCH      14
-  ascii_euro, 	 // LANG_DIG		15
-  ascii_cyr,     // LANG_UZBEK      16
-  ascii_cyr,     // LANG_KAZ        17
-  ascii_cyr,     // LANG_KAZ_ENG    18
-  ascii_ce,		 // LANG_CZECH	    19	// 05.09.2000 E.P.
-  ascii_ce,		 // LANG_ROMAN	    20
-  ascii_ce,		 // LANG_HUNGAR	    21
-  ascii_cyr,	 // LANG_BULGAR	    22
-  ascii_ce,		 // LANG_SLOVENIAN  23	// 25.05.2001 E.P.
-  ascii_baltic,  // LANG_LATVIAN	24
-  ascii_baltic,  // LANG_LITHUANIAN 25
-  ascii_baltic,  // LANG_ESTONIAN   26
-  ascii_turkish	 // LANG_TURKISH	27
+  ascii_cyr,     // LANGUAGE_UKRAINIAN  8
+  ascii_cyr,     // LANGUAGE_SERBIAN    9
+  ascii_ce,      // LANGUAGE_CROATIAN   10
+  ascii_ce,      // LANGUAGE_POLISH     11
+  ascii_euro,    // LANGUAGE_DANISH     12
+  ascii_euro,    // LANGUAGE_PORTUGUESE 13
+  ascii_euro,    // LANGUAGE_DUTCH      14
+  ascii_euro, 	 // LANGUAGE_DIGITS		15
+  ascii_cyr,     // LANGUAGE_UZBEK      16
+  ascii_cyr,     // LANGUAGE_KAZAKH        17
+  ascii_cyr,     // LANGUAGE_KAZ_ENG    18
+  ascii_ce,		 // LANGUAGE_CZECH	    19	// 05.09.2000 E.P.
+  ascii_ce,		 // LANGUAGE_ROMANIAN	    20
+  ascii_ce,		 // LANGUAGE_HUNGARIAN	    21
+  ascii_cyr,	 // LANGUAGE_BULGARIAN	    22
+  ascii_ce,		 // LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.P.
+  ascii_baltic,  // LANGUAGE_LATVIAN	24
+  ascii_baltic,  // LANGUAGE_LITHUANIAN 25
+  ascii_baltic,  // LANGUAGE_ESTONIAN   26
+  ascii_turkish	 // LANGUAGE_TURKISH	27
 };
 
 // KOI8-R
@@ -523,34 +523,34 @@ static uchar koi8r_cyr[257]={
             };
 
 static puchar koi8r_table[LANG_TOTAL]={
-  koi8r_cyr,     // LANG_ENGLISH    0
-  ansi_euro,     // LANG_GERMAN     1
-  ansi_euro,     // LANG_FRENCH     2
-  koi8r_cyr,     // LANG_RUSSIAN    3
-  ansi_euro,     // LANG_SWEDISH    4
-  ansi_euro,     // LANG_SPANISH    5
-  ansi_euro,     // LANG_ITALIAN    6
+  koi8r_cyr,     // LANGUAGE_ENGLISH    0
+  ansi_euro,     // LANGUAGE_GERMAN     1
+  ansi_euro,     // LANGUAGE_FRENCH     2
+  koi8r_cyr,     // LANGUAGE_RUSSIAN    3
+  ansi_euro,     // LANGUAGE_SWEDISH    4
+  ansi_euro,     // LANGUAGE_SPANISH    5
+  ansi_euro,     // LANGUAGE_ITALIAN    6
   koi8r_cyr,     // LANG_RUS/ENG    7
-  koi8r_cyr,     // LANG_UKRAINIAN  8
-  ansi_euro,     // LANG_SERBIAN    9
-  ansi_euro,     // LANG_CROATIAN   10
-  ansi_euro,     // LANG_POLISH     11
-  ansi_euro,     // LANG_DANISH     12
-  ansi_euro,     // LANG_PORTUGUESE 13
-  ansi_euro,     // LANG_DUTCH      14
-  koi8r_cyr,	 // LANG_DIG		15
-  koi8r_cyr,     // LANG_UZBEK      16
-  koi8r_cyr,     // LANG_KAZ        17
-  koi8r_cyr,     // LANG_KAZ_ENG    18
-  ansi_euro,	 // LANG_CZECH	    19
-  ansi_euro,	 // LANG_ROMAN	    20
-  ansi_euro,	 // LANG_HUNGAR	    21
-  ascii_cyr,	 // LANG_BULGAR	    22
-  ansi_euro,	 // LANG_SLOVENIAN  23
-  ansi_baltic,   // LANG_LATVIAN	24
-  ansi_baltic,   // LANG_LITHUANIAN 25
-  ansi_baltic,   // LANG_ESTONIAN   26
-  ansi_turkish   // LANG_TURKISH	27
+  koi8r_cyr,     // LANGUAGE_UKRAINIAN  8
+  ansi_euro,     // LANGUAGE_SERBIAN    9
+  ansi_euro,     // LANGUAGE_CROATIAN   10
+  ansi_euro,     // LANGUAGE_POLISH     11
+  ansi_euro,     // LANGUAGE_DANISH     12
+  ansi_euro,     // LANGUAGE_PORTUGUESE 13
+  ansi_euro,     // LANGUAGE_DUTCH      14
+  koi8r_cyr,	 // LANGUAGE_DIGITS		15
+  koi8r_cyr,     // LANGUAGE_UZBEK      16
+  koi8r_cyr,     // LANGUAGE_KAZAKH        17
+  koi8r_cyr,     // LANGUAGE_KAZ_ENG    18
+  ansi_euro,	 // LANGUAGE_CZECH	    19
+  ansi_euro,	 // LANGUAGE_ROMANIAN	    20
+  ansi_euro,	 // LANGUAGE_HUNGARIAN	    21
+  ascii_cyr,	 // LANGUAGE_BULGARIAN	    22
+  ansi_euro,	 // LANGUAGE_SLOVENIAN  23
+  ansi_baltic,   // LANGUAGE_LATVIAN	24
+  ansi_baltic,   // LANGUAGE_LITHUANIAN 25
+  ansi_baltic,   // LANGUAGE_ESTONIAN   26
+  ansi_turkish   // LANGUAGE_TURKISH	27
 };
 
 /**************************************/
@@ -620,34 +620,34 @@ static uchar mac_turkish[257]={
 /*f0*/  219,0xf1,0xf2,0xf3,0xf4,0xf5, 154,0xf7,0xf8,0xf9,0xfa, 158, 159, 221, 223,0xff};
 
 static puchar mac_table[LANG_TOTAL]={
-  mac_euro,    // LANG_ENGLISH    0
-  mac_euro,    // LANG_GERMAN     1
-  mac_euro,    // LANG_FRENCH     2
-  mac_euro,    // LANG_RUSSIAN    3
-  mac_euro,    // LANG_SWEDISH    4
-  mac_euro,    // LANG_SPANISH    5
-  mac_euro,    // LANG_ITALIAN    6
+  mac_euro,    // LANGUAGE_ENGLISH    0
+  mac_euro,    // LANGUAGE_GERMAN     1
+  mac_euro,    // LANGUAGE_FRENCH     2
+  mac_euro,    // LANGUAGE_RUSSIAN    3
+  mac_euro,    // LANGUAGE_SWEDISH    4
+  mac_euro,    // LANGUAGE_SPANISH    5
+  mac_euro,    // LANGUAGE_ITALIAN    6
   mac_euro,    // LANG_RUS/ENG    7
-  mac_euro,    // LANG_UKRAINIAN  8
-  mac_euro,    // LANG_SERBIAN    9
-  mac_euro,    // LANG_CROATIAN   10
-  mac_euro,    // LANG_POLISH     11
-  mac_euro,    // LANG_DANISH     12
-  mac_euro,    // LANG_PORTUGUESE 13
-  mac_euro,    // LANG_DUTCH      14
-  mac_euro,    // LANG_DIG		  15
-  mac_euro,    // LANG_UZBEK      16
-  mac_euro,    // LANG_KAZ        17
-  mac_euro,	   // LANG_KAZ_ENG    18
-  mac_euro,    // LANG_CZECH	  19	// 10.07.2001 E.P.
-  mac_euro,    // LANG_ROMAN	  20
-  mac_euro,    // LANG_HUNGAR	  21
-  mac_euro,	   // LANG_BULGAR	  22
-  mac_euro,    // LANG_SLOVENIAN  23	// 25.05.2001 E.P.
-  mac_baltic,  // LANG_LATVIAN	  24
-  mac_baltic,  // LANG_LITHUANIAN 25
-  mac_baltic,  // LANG_ESTONIAN   26
-  mac_turkish  // LANG_TURKISH	  27
+  mac_euro,    // LANGUAGE_UKRAINIAN  8
+  mac_euro,    // LANGUAGE_SERBIAN    9
+  mac_euro,    // LANGUAGE_CROATIAN   10
+  mac_euro,    // LANGUAGE_POLISH     11
+  mac_euro,    // LANGUAGE_DANISH     12
+  mac_euro,    // LANGUAGE_PORTUGUESE 13
+  mac_euro,    // LANGUAGE_DUTCH      14
+  mac_euro,    // LANGUAGE_DIGITS		  15
+  mac_euro,    // LANGUAGE_UZBEK      16
+  mac_euro,    // LANGUAGE_KAZAKH        17
+  mac_euro,	   // LANGUAGE_KAZ_ENG    18
+  mac_euro,    // LANGUAGE_CZECH	  19	// 10.07.2001 E.P.
+  mac_euro,    // LANGUAGE_ROMANIAN	  20
+  mac_euro,    // LANGUAGE_HUNGARIAN	  21
+  mac_euro,	   // LANGUAGE_BULGARIAN	  22
+  mac_euro,    // LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.P.
+  mac_baltic,  // LANGUAGE_LATVIAN	  24
+  mac_baltic,  // LANGUAGE_LITHUANIAN 25
+  mac_baltic,  // LANGUAGE_ESTONIAN   26
+  mac_turkish  // LANGUAGE_TURKISH	  27
 };
 
 static uchar **code_table[] = {
@@ -808,65 +808,65 @@ long GetCodePage()
 */
 
 static long cp_ascii[LANG_TOTAL]={
-	850,	// LANG_ENGLISH    0
-	850,	// LANG_GERMAN     1
-	850,  	// LANG_FRENCH     2
-	866,  	// LANG_RUSSIAN    3
-	865,  	// LANG_SWEDISH    4
-	850,  	// LANG_SPANISH    5
-	850,  	// LANG_ITALIAN    6
+	850,	// LANGUAGE_ENGLISH    0
+	850,	// LANGUAGE_GERMAN     1
+	850,  	// LANGUAGE_FRENCH     2
+	866,  	// LANGUAGE_RUSSIAN    3
+	865,  	// LANGUAGE_SWEDISH    4
+	850,  	// LANGUAGE_SPANISH    5
+	850,  	// LANGUAGE_ITALIAN    6
 	866, 	// LANG_RUS/ENG    7
-	866,  	// LANG_UKRAINIAN  8
-	866,  	// LANG_SERBIAN    9
-	852,  	// LANG_CROATIAN   10
-	852,  	// LANG_POLISH     11
-	865,  	// LANG_DANISH     12
-	850,  	// LANG_PORTUGUESE 13
-	850,  	// LANG_DUTCH      14
-	850,  	// LANG_DIG		   15
-	866,  	// LANG_UZBEK      16
-	866,  	// LANG_KAZ        17
-	866,  	// LANG_KAZ_ENG    18
-	852,	// LANG_CZECH	   19	// 05.09.2000 E.
-	852,	// LANG_ROMAN	   20
-	852,	// LANG_HUNGAR	   21
-	866,    // LANG_BULGAR	   22
-	852,	// LANG_SLOVENIAN  23	// 25.05.2001 E.
-	775,	// LANG_LATVIAN	   24
-	775,	// LANG_LITHUANIAN 25
-	775,	// LANG_ESTONIAN   26
-	875		// LANG_TURKISH	   27
+	866,  	// LANGUAGE_UKRAINIAN  8
+	866,  	// LANGUAGE_SERBIAN    9
+	852,  	// LANGUAGE_CROATIAN   10
+	852,  	// LANGUAGE_POLISH     11
+	865,  	// LANGUAGE_DANISH     12
+	850,  	// LANGUAGE_PORTUGUESE 13
+	850,  	// LANGUAGE_DUTCH      14
+	850,  	// LANGUAGE_DIGITS		   15
+	866,  	// LANGUAGE_UZBEK      16
+	866,  	// LANGUAGE_KAZAKH        17
+	866,  	// LANGUAGE_KAZ_ENG    18
+	852,	// LANGUAGE_CZECH	   19	// 05.09.2000 E.
+	852,	// LANGUAGE_ROMANIAN	   20
+	852,	// LANGUAGE_HUNGARIAN	   21
+	866,    // LANGUAGE_BULGARIAN	   22
+	852,	// LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.
+	775,	// LANGUAGE_LATVIAN	   24
+	775,	// LANGUAGE_LITHUANIAN 25
+	775,	// LANGUAGE_ESTONIAN   26
+	875		// LANGUAGE_TURKISH	   27
 };
 
 static long cp_ansi[LANG_TOTAL]={
-	1252,	// LANG_ENGLISH    0
-	1252,	// LANG_GERMAN     1
-	1252,  	// LANG_FRENCH     2
-	1251,  	// LANG_RUSSIAN    3
-	1252,  	// LANG_SWEDISH    4
-	1252,  	// LANG_SPANISH    5
-	1252,  	// LANG_ITALIAN    6
+	1252,	// LANGUAGE_ENGLISH    0
+	1252,	// LANGUAGE_GERMAN     1
+	1252,  	// LANGUAGE_FRENCH     2
+	1251,  	// LANGUAGE_RUSSIAN    3
+	1252,  	// LANGUAGE_SWEDISH    4
+	1252,  	// LANGUAGE_SPANISH    5
+	1252,  	// LANGUAGE_ITALIAN    6
 	1251, 	// LANG_RUS/ENG    7
-	1251,  	// LANG_UKRAINIAN  8
-	1251,  	// LANG_SERBIAN    9
-	1250,  	// LANG_CROATIAN   10
-	1250,  	// LANG_POLISH     11
-	1252,  	// LANG_DANISH     12
-	1252,  	// LANG_PORTUGUESE 13
-	1252,  	// LANG_DUTCH      14
-	1251,  	// LANG_DIG		   15
-	1251,  	// LANG_UZBEK      16
-	1251,  	// LANG_KAZ        17
-	1251,  	// LANG_KAZ_ENG    18
-	1250,	// LANG_CZECH	   19	// 05.09.2000 E.P.
-	1250,	// LANG_ROMAN	   20
-	1250,	// LANG_HUNGAR	   21
-	1251,	// LANG_BULGAR	   22
-	1250,	// LANG_SLOVENIAN  23	// 25.05.2001 E.P.
-	1257,	// LANG_LATVIAN	   24
-	1257,	// LANG_LITHUANIAN 25
-	1257,	// LANG_ESTONIAN   26
-	1254	// LANG_TURKISH	   27
+	1251,  	// LANGUAGE_UKRAINIAN  8
+	1251,  	// LANGUAGE_SERBIAN    9
+	1250,  	// LANGUAGE_CROATIAN   10
+	1250,  	// LANGUAGE_POLISH     11
+	1252,  	// LANGUAGE_DANISH     12
+	1252,  	// LANGUAGE_PORTUGUESE 13
+	1252,  	// LANGUAGE_DUTCH      14
+	1251,  	// LANGUAGE_DIGITS		   15
+	1251,  	// LANGUAGE_UZBEK      16
+	1251,  	// LANGUAGE_KAZAKH        17
+	1251,  	// LANGUAGE_KAZ_ENG    18
+	1250,	// LANGUAGE_CZECH	   19	// 05.09.2000 E.P.
+	1250,	// LANGUAGE_ROMANIAN	   20
+	1250,	// LANGUAGE_HUNGARIAN	   21
+	1251,	// LANGUAGE_BULGARIAN	   22
+	1250,	// LANGUAGE_SLOVENIAN  23	// 25.05.2001 E.P.
+	1257,	// LANGUAGE_LATVIAN	   24
+	1257,	// LANGUAGE_LITHUANIAN 25
+	1257,	// LANGUAGE_ESTONIAN   26
+	1254	// LANGUAGE_TURKISH	   27
 };
 
 	if(gActiveCode == ROUT_CODE_ASCII)

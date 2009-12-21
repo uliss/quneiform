@@ -285,12 +285,12 @@ Bool SetLanguage(long language) {
 		}
 	}
 
-	ASSERT(LANG_UZBEK==16);
+	ASSERT(LANGUAGE_UZBEK==16);
 
 	gLanguage = language;
 
-	langUzbek = (gLanguage == LANG_UZBEK);
-	langKaz = (gLanguage == LANG_KAZ || gLanguage == LANG_KAZ_ENG);
+	langUzbek = (gLanguage == LANGUAGE_UZBEK);
+	langKaz = (gLanguage == LANGUAGE_KAZAKH || gLanguage == LANGUAGE_KAZ_ENG);
 
 	if (!UpdateActiveAlphabet())
 		return FALSE;

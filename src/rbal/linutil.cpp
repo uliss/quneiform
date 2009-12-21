@@ -153,7 +153,7 @@ int16_t is_hungar_special(uchar let)
 
 int16_t is_lower(uchar ch)
 {
-    if (language == LANG_RUSSIAN)
+    if (language == LANGUAGE_RUSSIAN)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
@@ -184,7 +184,7 @@ int16_t is_lower(uchar ch)
 
 int16_t is_upper(uchar ch)
 {
-    if (language == LANG_RUSSIAN)
+    if (language == LANGUAGE_RUSSIAN)
         switch (fEdCode) {
             case ED_ASCII:
             case ED_MAC: // for ASCII and Macintosh
@@ -247,7 +247,7 @@ int16_t twin(uchar ch)
     if (!isletter(ch))
         return 0;
 
-    if (language == LANG_RUSSIAN) {
+    if (language == LANGUAGE_RUSSIAN) {
         if (memchr(non_twin, ch, sizeof non_twin))
             return 0;
 
@@ -255,7 +255,7 @@ int16_t twin(uchar ch)
             return 1;
     }
 
-    if (language != LANG_RUSSIAN && memchr(lat_twins, ch, sizeof lat_twins))
+    if (language != LANGUAGE_RUSSIAN && memchr(lat_twins, ch, sizeof lat_twins))
         return 1;
 
     return 0;
@@ -267,7 +267,7 @@ uchar to_upper(uchar c)
     if (c >= (uchar) 'a' && c <= (uchar) 'z')
         return c - (uchar) 'a' + (uchar) 'A';
 
-    if (language == LANG_RUSSIAN)
+    if (language == LANGUAGE_RUSSIAN)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
@@ -304,7 +304,7 @@ uchar to_lower(uchar c)
     if (c >= (uchar) 'A' && c <= (uchar) 'Z')
         return c - (uchar) 'A' + (uchar) 'a';
 
-    if (language == LANG_RUSSIAN)
+    if (language == LANGUAGE_RUSSIAN)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
@@ -1229,7 +1229,7 @@ void tell_for_b3(int16_t hist_array[])
     uint32_t NDisp, ON3;
     stable_b3 = FALSE;
 
-    if (language != LANG_RUSSIAN)
+    if (language != LANGUAGE_RUSSIAN)
         return;
 
     if (Ns3 < 5)

@@ -101,7 +101,7 @@ int16_t check_numb_2_9 (uchar c)
  if (is_upper(c))
         return TRUE;
 
- if( language == LANG_RUSSIAN && langSer ){
+ if( language == LANGUAGE_RUSSIAN && langSer ){
     switch( c )
     {
        case SERB_HH:     return TRUE;
@@ -112,7 +112,7 @@ int16_t check_numb_2_9 (uchar c)
        case SERB_J :     return TRUE;
     }
  }
- if( language == LANG_CROATIAN ){
+ if( language == LANGUAGE_CROATIAN ){
     switch( c )
 		{
        case CROAT_D :     return TRUE;
@@ -127,7 +127,7 @@ int16_t check_numb_2_9 (uchar c)
        case CROAT_cr:     return FALSE;
 		}
 	 }
- if( language == LANG_POLISH ){
+ if( language == LANGUAGE_POLISH ){
     switch( c )
     {
        case POLISH_SS  :     return TRUE;
@@ -152,7 +152,7 @@ int16_t check_numb_2_9 (uchar c)
   }
 
  // 05.09.2000 E.P.
- if (language == LANG_CZECH)
+ if (language == LANGUAGE_CZECH)
 	{
 	if (
 		c == AA_right_accent  ||
@@ -194,7 +194,7 @@ int16_t check_numb_2_9 (uchar c)
 	}
 
  // 05.09.2000 E.P.
- if (language == LANG_ROMAN)
+ if (language == LANGUAGE_ROMANIAN)
 	{
 	if (
 		c == AA_semicircle			||
@@ -216,7 +216,7 @@ int16_t check_numb_2_9 (uchar c)
 	}
 
  // 05.09.2000 E.P.
- if (language == LANG_HUNGAR)
+ if (language == LANGUAGE_HUNGARIAN)
 	{
 	if (
 		c == AA_right_accent ||
@@ -239,7 +239,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_SLOVENIAN)
+ if (language == LANGUAGE_SLOVENIAN)
 	{
 	if (
 		c == CC_inv_roof	  ||
@@ -256,7 +256,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_LATVIAN)
+ if (language == LANGUAGE_LATVIAN)
 	{
 	if (
 		c == AA_macron			||
@@ -291,7 +291,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_LITHUANIAN)
+ if (language == LANGUAGE_LITHUANIAN)
 	{
 	if (
 		c == AA_bottom_accent	||
@@ -322,7 +322,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_ESTONIAN)
+ if (language == LANGUAGE_ESTONIAN)
 	{
 	if (
 		c == AA_2dot_accent		||
@@ -347,7 +347,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_TURKISH)
+ if (language == LANGUAGE_TURKISH)
 	{
 	if (
 		c == AA_roof_accent				||
@@ -378,7 +378,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if ( language != LANG_ENGLISH && language != LANG_RUSSIAN &&
+ if ( language != LANGUAGE_ENGLISH && language != LANGUAGE_RUSSIAN &&
 		! is_cen_language(language) &&		// 07.09.2000 E.P.
 		! is_baltic_language(language) &&	// 09.07.2001 E.P.
 		! is_turkish_language(language)		// 21.05.2002 E.P.
@@ -412,7 +412,7 @@ int16_t check_numb_2_9 (uchar c)
     }
  }
 
- if( language==LANG_RUSSIAN && langUkr ){
+ if( language==LANGUAGE_RUSSIAN && langUkr ){
   switch(c)
     {
     case UKR_E  : return TRUE;
@@ -433,7 +433,7 @@ int16_t check_numb_2_9 (uchar c)
 
  if (is_lower(c)) return TRUE;
 
- if( language == LANG_RUSSIAN && langSer ){
+ if( language == LANGUAGE_RUSSIAN && langSer ){
     switch( c )
     {
        case SERB_hh:     return TRUE;
@@ -445,7 +445,7 @@ int16_t check_numb_2_9 (uchar c)
     }
  }
 
- if( language == LANG_CROATIAN )
+ if( language == LANGUAGE_CROATIAN )
 	{
     switch( c )
 		{
@@ -462,7 +462,7 @@ int16_t check_numb_2_9 (uchar c)
 		}
 	}	// 25.05.2001 E.P.
 
- if( language == LANG_POLISH ){
+ if( language == LANGUAGE_POLISH ){
     switch( c )
     {
        case POLISH_SS  :     return FALSE;
@@ -487,7 +487,7 @@ int16_t check_numb_2_9 (uchar c)
    }
 
  // 05.09.2000 E.P.
- if (language == LANG_CZECH)
+ if (language == LANGUAGE_CZECH)
 	{
 	if (
 		c == AA_right_accent  ||
@@ -529,7 +529,7 @@ int16_t check_numb_2_9 (uchar c)
 	}
 
  // 05.09.2000 E.P.
- if (language == LANG_ROMAN)
+ if (language == LANGUAGE_ROMANIAN)
 	{
 	if (
 		c == AA_semicircle			||
@@ -551,7 +551,7 @@ int16_t check_numb_2_9 (uchar c)
 	}
 
  // 05.09.2000 E.P.
- if (language == LANG_HUNGAR)
+ if (language == LANGUAGE_HUNGARIAN)
 	{
 	if (
 		c == AA_right_accent ||
@@ -574,7 +574,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return TRUE;
 	}
 
- if (language == LANG_SLOVENIAN)
+ if (language == LANGUAGE_SLOVENIAN)
 	{
 	if (
 		c == CC_inv_roof	  ||
@@ -591,7 +591,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return TRUE;
 	}
 
- if (language == LANG_LATVIAN)
+ if (language == LANGUAGE_LATVIAN)
 	{
 	if (
 		c == a_macron			||
@@ -626,7 +626,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_LITHUANIAN)
+ if (language == LANGUAGE_LITHUANIAN)
 	{
 	if (
 		c == a_bottom_accent	||
@@ -657,7 +657,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_ESTONIAN)
+ if (language == LANGUAGE_ESTONIAN)
 	{
 	if (
 		c == a_2dot_accent		||
@@ -682,7 +682,7 @@ int16_t check_numb_2_9 (uchar c)
 	   return FALSE;
 	}
 
- if (language == LANG_TURKISH)
+ if (language == LANGUAGE_TURKISH)
 	{
 	if (
 		c == a_roof_accent				||
@@ -721,7 +721,7 @@ int16_t check_numb_2_9 (uchar c)
 // if ((c >= ligas_beg)&&(c <= ligas_end)) return TRUE;    // ligatures B1-BF
  if (is_liga(c)) return TRUE;  // 05.09.2000 E.P.
 
- if ( language != LANG_ENGLISH && language != LANG_RUSSIAN &&
+ if ( language != LANGUAGE_ENGLISH && language != LANGUAGE_RUSSIAN &&
 		! is_cen_language(language) &&	// 07.09.2000 E.P.
 		! is_baltic_language(language) &&	// 07.09.2001 E.P.
 		! is_turkish_language(language)		// 20.05.2002 E.P.
@@ -756,7 +756,7 @@ int16_t check_numb_2_9 (uchar c)
     }
  }
 
-if( language==LANG_RUSSIAN && langUkr ){
+if( language==LANGUAGE_RUSSIAN && langUkr ){
   switch(c)
     {
     case UKR_e  : return TRUE;
@@ -893,8 +893,8 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 
 // if ((c >= ligas_beg)&&(c <= ligas_end)) return 1;    // ligatures B1-BF
 
- if ( language != LANG_ENGLISH &&
-      !(language == LANG_RUSSIAN && langSer) &&
+ if ( language != LANGUAGE_ENGLISH &&
+      !(language == LANGUAGE_RUSSIAN && langSer) &&
 	  ! is_cen_language(language) &&		// 07.09.2000 E.P.
 	  ! is_baltic_language(language) &&		// 09.07.2001 E.P.
 	  ! is_turkish_language(language) &&	// 21.05.2002 E.P.
@@ -902,44 +902,44 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 	)
     return 1;
 
-  if ( language == LANG_CROATIAN &&
+  if ( language == LANGUAGE_CROATIAN &&
       (check_foreign_language_ligature_slavic( c )) )
     return 1;
 
-  if ( language == LANG_POLISH && is_polish_special (c))  // 22.10.97
+  if ( language == LANGUAGE_POLISH && is_polish_special (c))  // 22.10.97
     return 1;
 
   // 05.09.2000 E.P.
-  if ( language == LANG_CZECH && is_czech_special (c))
+  if ( language == LANGUAGE_CZECH && is_czech_special (c))
     return 1;
 
   // 05.09.2000 E.P.
-  if ( language == LANG_ROMAN && is_roman_special (c))
+  if ( language == LANGUAGE_ROMANIAN && is_roman_special (c))
     return 1;
 
   // 05.09.2000 E.P.
-  if ( language == LANG_HUNGAR && is_hungar_special (c))
+  if ( language == LANGUAGE_HUNGARIAN && is_hungar_special (c))
     return 1;
 
-  if( language == LANG_RUSSIAN && langSer &&
+  if( language == LANGUAGE_RUSSIAN && langSer &&
       is_serbian_special( c ) )
     return 1;
 
   // 25.05.2001 E.P.
-  if ( language == LANG_SLOVENIAN && is_slovenian_special (c))
+  if ( language == LANGUAGE_SLOVENIAN && is_slovenian_special (c))
     return 1;
 
   // 09.07.2001 E.P.
-  if ( language == LANG_LATVIAN && is_latvian_special (c))
+  if ( language == LANGUAGE_LATVIAN && is_latvian_special (c))
     return 1;
 
-  if ( language == LANG_LITHUANIAN && is_lithuanian_special (c))
+  if ( language == LANGUAGE_LITHUANIAN && is_lithuanian_special (c))
     return 1;
 
-  if ( language == LANG_ESTONIAN && is_estonian_special (c))
+  if ( language == LANGUAGE_ESTONIAN && is_estonian_special (c))
     return 1;
 
-  if ( language == LANG_TURKISH && is_turkish_special (c))
+  if ( language == LANGUAGE_TURKISH && is_turkish_special (c))
     return 1;
 
  return 0;
@@ -961,7 +961,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
  if (c == c_bottom_accent)     return 1;
  if (c == ss_deaf_sound)       return 1;
 
- if ( language == LANG_POLISH ){
+ if ( language == LANGUAGE_POLISH ){
     if (c == POLISH_s    )     return 1;
     if (c == POLISH_zd   )     return 1;
     if (c == POLISH_zr   )     return 1;
@@ -970,12 +970,12 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
     if (c == POLISH_n    )     return 1;
  }
 
- if ( language == LANG_CROATIAN ){
+ if ( language == LANGUAGE_CROATIAN ){
     if (c == CROAT_d    )     return 1;
  }
 
  // 05.09.2000 E.P.
- if (language == LANG_CZECH)
+ if (language == LANGUAGE_CZECH)
 	{
 	if (
 		c == c_inv_roof		||
@@ -990,7 +990,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 	}
 
  // 05.09.2000 E.P.
- if (language == LANG_ROMAN)
+ if (language == LANGUAGE_ROMANIAN)
 	{
 	if (
 		c == s_bottom_accent_latin	||
@@ -1000,7 +1000,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 	}
 
  // 25.05.2001 E.P.
- if (language == LANG_SLOVENIAN)
+ if (language == LANGUAGE_SLOVENIAN)
 	{
 	if (
 		c == c_inv_roof			||
@@ -1011,7 +1011,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 	}
 
  // 07.09.2001 E.P.
- if (language == LANG_LATVIAN)
+ if (language == LANGUAGE_LATVIAN)
 	 {
 	 if (
 		 c == c_inv_roof		||
@@ -1027,7 +1027,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 
 	 }
 
- if (language == LANG_LITHUANIAN)
+ if (language == LANGUAGE_LITHUANIAN)
 	 {
 	 if (
 		 c == c_inv_roof		  ||
@@ -1040,7 +1040,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 
 	 }
 
- if (language == LANG_ESTONIAN)
+ if (language == LANGUAGE_ESTONIAN)
 	 {
 	 if (
 		 c == s_inv_roof_baltic	||
@@ -1050,7 +1050,7 @@ int16_t check_foreign_language_ligature_slavic(uchar c)
 	   return 1;
 	 }
 
- if (language == LANG_TURKISH)
+ if (language == LANGUAGE_TURKISH)
 	 {
 	 if (
 		 c == c_bottom_accent	||
@@ -1117,12 +1117,12 @@ int16_t nv;
      //  obvious decision
    {
 #ifndef UFA
-  if( language!=LANG_RUSSIAN )
+  if( language!=LANGUAGE_RUSSIAN )
     cell_bonus(C, &(C->vers[nv]), 2);
 #else
-   if( language!=LANG_RUSSIAN )
+   if( language!=LANGUAGE_RUSSIAN )
     cell_bonus(C, &(C->vers[nv]), 2);
-   else if( language==LANG_RUSSIAN )
+   else if( language==LANGUAGE_RUSSIAN )
    {
    if( get_nvers(C,'9')<0 && get_nvers(C,'6')<0 && get_nvers(C,'8')<0  )
     cell_bonus(C, &(C->vers[nv]), 2);
@@ -1139,7 +1139,7 @@ int16_t nv;
    }
   nv = get_nvers(C, '/');
   if ( nv == -1 ) continue;
-  if( language == LANG_RUSSIAN && langSer  && nv &&
+  if( language == LANGUAGE_RUSSIAN && langSer  && nv &&
       C->nvers && C->vers[0].let==SERB_j )
       continue;
   inc_or_dec_slash(C, nv);
@@ -1201,7 +1201,7 @@ int16_t return_code, nv;
 
     if ( !(C->next->flg&c_f_punct && C->next->vers[0].let=='.') )
     {
-      if( language != LANG_LITHUANIAN || C->vers[0].let != i_bottom_accent ) // Nick 4.09.2001
+      if( language != LANGUAGE_LITHUANIAN || C->vers[0].let != i_bottom_accent ) // Nick 4.09.2001
           LiliI(C);
       return_code = CONTINUE_ACTION;
       goto ECP_Ret;

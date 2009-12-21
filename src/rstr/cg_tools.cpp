@@ -384,7 +384,7 @@ static int16_t discr_vers(cell *B1, int16_t mon, char all_vers) {
 	if (B1->nvers == 0)
 		return 0;
 	for (v = B1->vers; ((c = v->let) != 0) && (v->prob != 0); v++)
-		if (language == LANG_RUSSIAN || accent_tab[c] == 0 || all_vers) {
+		if (language == LANGUAGE_RUSSIAN || accent_tab[c] == 0 || all_vers) {
 			chg++;
 			if (v->prob > mon)
 				v->prob -= mon;
@@ -425,7 +425,7 @@ void adjust_3x5(Bool prerecog) {
 					mark_own_dust(B);
 			} else // !pass4_in
 			{
-				if (language != LANG_RUSSIAN && B->nvers == 0 && (B->env
+				if (language != LANGUAGE_RUSSIAN && B->nvers == 0 && (B->env
 						&& (B->env->nl == 1) || 3* B ->w <= B->h)) {
 					stick_center_study(B, NULL, 1); // AL, IF : 94.01.07
 					det_snap(B, "bring sticks");
@@ -433,12 +433,12 @@ void adjust_3x5(Bool prerecog) {
 				if (let(B) && B->vers[0].prob < trs2) //ненадежные - как плохие
 					set_bad(B);
 				full_recog(B, NULL, (int16_t) (-((int16_t) trs2)), trs2);
-				if (let(B) && language != LANG_RUSSIAN || B->nvers && memchr(
+				if (let(B) && language != LANGUAGE_RUSSIAN || B->nvers && memchr(
 						"мнпцы", B->vers[0].let, 5)
 						&& !is_russian_baltic_conflict(B->vers[0].let) // 17.07.2001 E.P.
 				)
 					if (dust_monus = up_dust_mon(B))
-						if (language != LANG_RUSSIAN) {
+						if (language != LANGUAGE_RUSSIAN) {
 							if (discr_vers(B, dust_monus, 0) < trs2)
 								set_bad(B);
 							det_snap(B, "upper dust");

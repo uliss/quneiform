@@ -231,7 +231,7 @@ static int16_t run_page() /* run one page */
     obj_nmb = ed_conv(&SPQ.d_state, voc_array, real_voc_no);
 #ifdef  RUS_ENG_LANG
 
-    if (!multy_language || language != LANG_RUSSIAN)
+    if (!multy_language || language != LANGUAGE_RUSSIAN)
 #endif
         //Set up spelling flag
         *find_byte_flag() |= FIR_CHECKED;
@@ -340,7 +340,7 @@ int16_t ed_conv(struct dict_state * dict, user_voc voc_array[], int16_t voc_no)
         //if (obj_number >= sperc)  sperc = progress_set_percent (obj_number);
         genobj(&obj); /* set object init state via its positions    */
 
-        if (multy_language && language == LANG_RUSSIAN)
+        if (multy_language && language == LANGUAGE_RUSSIAN)
             if ((obj.type & (T_CAP | T_LOW)) == 0)
                 continue;
 

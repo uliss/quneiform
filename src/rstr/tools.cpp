@@ -1064,7 +1064,7 @@ int16_t recog_cell(cell *c) {
 	{
 		c->nvers = c->vers[0].let = c->vers[0].prob = 0;
 	} // kill events
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		r_criteria(c, NULL);
 	return second_recog(c);
 }
@@ -1169,7 +1169,7 @@ int16_t stick_w_4() {
 	s_ans('!');
 	if ((answ & 0xC0) == 0x80)
 		s_ans('1');
-	if (language == LANG_RUSSIAN) {
+	if (language == LANGUAGE_RUSSIAN) {
 		s_ans('|');
 		goto ret;
 	}
@@ -1180,7 +1180,7 @@ int16_t stick_w_4() {
 	if ((answ & 0x30) == 0x20)
 		s_ans('t');
 
-	if (language == LANG_POLISH)
+	if (language == LANGUAGE_POLISH)
 		if ((answ & 0x300) == 0x300)
 			s_ans(POLISH_l);
 

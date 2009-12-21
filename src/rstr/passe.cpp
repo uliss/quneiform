@@ -120,10 +120,10 @@ extern int16_t line_number; // number of line in ed_file
 Bool short_spell(uchar *wrd, uchar language, uchar nextlet) {
 	Bool short_word_solid;
 	switch (language) {
-	case LANG_RUSSIAN:
+	case LANGUAGE_RUSSIAN:
 		short_word_solid = russian_word_all(wrd, language, nextlet);
 		break;
-	case LANG_ENGLISH:
+	case LANGUAGE_ENGLISH:
 		short_word_solid = english_word_all(wrd, language);
 		break;
 	default:
@@ -136,10 +136,10 @@ Bool short_spell(uchar *wrd, uchar language, uchar nextlet) {
 Bool short_spell_re(uchar *wrd, uchar language) {
 	Bool short_word_solid;
 	switch (language) {
-	case LANG_RUSSIAN:
+	case LANGUAGE_RUSSIAN:
 		short_word_solid = russian_word(wrd);
 		break;
-	case LANG_ENGLISH:
+	case LANGUAGE_ENGLISH:
 		short_word_solid = english_word(wrd);
 		break;
 	default:
@@ -291,7 +291,7 @@ void set_spell_solid(void) {
 						t = del_cell(t);
 
 				}
-				if (language == LANG_RUSSIAN && u > 2 && d == 1 && cd) {
+				if (language == LANGUAGE_RUSSIAN && u > 2 && d == 1 && cd) {
 					if (!strchr("абе\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
 						cd->vers[0].let = to_upper(cd->vers[0].let);
 					}
@@ -628,7 +628,7 @@ Bool _spell(pchar s, uchar lang) {
 
 	for (pw = w; *s; s++) {
 		ss = *s;
-		if (lang == LANG_RUSSIAN) {
+		if (lang == LANGUAGE_RUSSIAN) {
 			//                ..  ..
 			// recode russian E   e
 			if (ss == r_e_2dot)
@@ -649,7 +649,7 @@ Bool _spell(pchar s, uchar lang) {
 	}
 	if (strlen(w) < 4)
 		return 0;
-	if (lang == LANG_ENGLISH && multy_language)
+	if (lang == LANGUAGE_ENGLISH && multy_language)
 		ret = text_findstat_aux(w);
 	else
 		ret = text_findstat(w);
@@ -662,7 +662,7 @@ Bool _spell_agressive(pchar s, uchar lang) {
 	uchar ss;
 	int16_t ret;
 
-	if (lang != LANG_RUSSIAN)
+	if (lang != LANGUAGE_RUSSIAN)
 		return FALSE;
 
 	for (pw = w; *s; s++) {
@@ -843,7 +843,7 @@ uchar english_cell_recognize(cell *cc) {
 	if (!(cc->flg & (c_f_let | c_f_bad)))
 		return 0;
 
-	language = LANG_ENGLISH;
+	language = LANGUAGE_ENGLISH;
 	short_recog_cell(cc);
 
 	if (cc->nvers == 0 && (ccflg & (c_f_let | c_f_bad))) {
@@ -865,7 +865,7 @@ uchar english_cell_recognize(cell *cc) {
 	cc->flg = ccflg;
 	criteria(cc);
 
-	language = LANG_RUSSIAN;
+	language = LANGUAGE_RUSSIAN;
 	levcut(cc, 1);
 
 	return (cc->vers[0].prob > GOOD_PROB) || (cc->vers[0].prob > prob
@@ -981,7 +981,7 @@ Bool russian_word_all(uchar *wrd, uchar language, uchar nextlet) {
 	int16_t i, ii, iv;
 	uchar ww[MAX_LEN_WORD], *w = &ww[0], c;
 
-	if (language != LANG_RUSSIAN)
+	if (language != LANGUAGE_RUSSIAN)
 		return FALSE;
 	*w = 0;
 	for (ii = i = 0; i < MAX_LEN_WORD - 1 && wrd[i] != '\0'; i++)
@@ -1033,7 +1033,7 @@ Bool english_word(uchar *wrd) {
 Bool english_word_all(uchar *wrd, uchar language) {
 	int16_t i, ii, iv;
 	uchar w[MAX_LEN_WORD];
-	if (language != LANG_ENGLISH)
+	if (language != LANGUAGE_ENGLISH)
 		return FALSE;
 	for (ii = i = 0; wrd[i] != '\0' && i < MAX_LEN_WORD - 1; i++)
 		if (!memchr(punct_letters, wrd[i], sizeof(punct_letters)))
@@ -1069,7 +1069,7 @@ Bool mixed_eng_rus_word(cell *b, cell *e) {
 	uchar wrd[MAX_LEN_WORD];
 
 	for (c = b; c != e; c = c->next)
-		if (c->language != LANG_RUSSIAN)
+		if (c->language != LANGUAGE_RUSSIAN)
 			break; // another language
 	if (c == e)
 		return FALSE; // all cell haved actual language
@@ -1098,7 +1098,7 @@ Bool mixed_rus_eng_word(cell *b, cell *e) {
 	uchar wrd[MAX_LEN_WORD];
 
 	for (c = b; c != e; c = c->next)
-		if (c->language != LANG_ENGLISH)
+		if (c->language != LANGUAGE_ENGLISH)
 			break; // another language
 	if (c == e)
 		return FALSE; // all cell haved actual language
@@ -1134,7 +1134,7 @@ Bool eng_word_to_rus_word(cell *b, cell *e) {
 			ch = *(rus_two_lang_letters + pp);
 			c->vers[0].let = ch;
 			c->vers[1].let = c->vers[1].prob = 0;
-			c->language = LANG_RUSSIAN;
+			c->language = LANGUAGE_RUSSIAN;
 			//      if( c->pos_inc&erect_old )  rot=1;
 			c->nvers = 1;
 		}
@@ -1157,7 +1157,7 @@ Bool rus_word_to_eng_word(cell *b, cell *e) {
 			ch = *(eng_two_lang_letters1 + pp);
 			c->vers[0].let = ch;
 			c->vers[1].let = c->vers[1].prob = 0;
-			c->language = LANG_ENGLISH;
+			c->language = LANGUAGE_ENGLISH;
 			//      if( c->pos_inc&erect_old )  rot=1;
 			c->nvers = 1;
 		}

@@ -66,7 +66,7 @@
 #include "dpuma.h"
 #include "dsnap.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 //--------------------------GLOBAL VARIABLES------------------------
 int16_t minrow, bbs1, bbs2, bbs3, bbs4, Nb1, Nb2, Nb3;

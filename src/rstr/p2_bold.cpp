@@ -173,7 +173,7 @@ static int32_t LetDigSymbol(int i) // letter or digit
                 i >= 'A' && i <= 'Z' ||
                 i >= 'a' && i <= 'z' )
                 return 2;
-        if( language == LANG_RUSSIAN || language == LANG_ENGLISH)
+        if( language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH)
         {
                 if(             i >= 128 && i < 176  ||    // ascii A-п
                         i >= 224 //&& i < 240      //       р-я  & Italic!
@@ -197,7 +197,7 @@ static int BigSymbol(int i)
       )
           return 2;
 
-        if( language == LANG_RUSSIAN || language == LANG_ENGLISH)
+        if( language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH)
         {
                 if( i==0xe4 )
                         return 3;
@@ -382,7 +382,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
                  bestWidth=k;
   }
 
-  if( language == LANG_RUSSIAN &&
+  if( language == LANGUAGE_RUSSIAN &&
           commonThick &&
           commonThick->height > 0 &&
           bestHeight != commonThick->height &&
@@ -525,7 +525,7 @@ static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
  }
 
  if(bestHeight <= 0 ||
-    nLet <= 1 &&  language == LANG_RUSSIAN ||
+    nLet <= 1 &&  language == LANGUAGE_RUSSIAN ||
     lineThick->height > 0 &&
     (abs(lineThick->height - bestHeight) < 2 )
    )
@@ -1359,7 +1359,7 @@ int p2_SetBoldLine(CSTR_line line)
            if(corRet==1) nLitLet++;
            if(attr.w*2 < attr.h && !strchr(Palki,rv.Alt[0].Code) &&
 				rv.Alt[0].Code != liga_i  && // 08.09.2000 E.P.
-				!(language == LANG_TURKISH &&  // 30.05.2002 E.P.
+				!(language == LANGUAGE_TURKISH &&  // 30.05.2002 E.P.
 					(rv.Alt[0].Code==i_sans_accent||rv.Alt[0].Code==II_dot_accent)
 				 )
 

@@ -255,7 +255,7 @@ void make_all_glues() {
 #ifdef UFA
 	glue_all_dusts();
 #endif
-	if (language == LANG_RUSSIAN)
+	if (language == LANGUAGE_RUSSIAN)
 		glue_III();
 	if (percgot) // a % was got at glue (bad to dust)
 		perc();
@@ -341,12 +341,12 @@ static void glue_let_dust() {
 		p1l = p1 = BC->vers[0].prob;
 		if ((p1 > 140) && (memchr("ij?!", c1, 4) || c1 == invers_exm || c1
 				== invers_qm
-				|| (accent_tab[c1] /*&& language != LANG_RUSSIAN*/))) // russian don't have accents
+				|| (accent_tab[c1] /*&& language != LANGUAGE_RUSSIAN*/))) // russian don't have accents
 			continue;
 
 		if (decidust(BC))
 			p1 = discrid(BC, MONdust);
-		if (p1 > TRSG1 && !(language == LANG_RUSSIAN && memchr("£ƒ÷", c1, 3))) { // allow glue with good '¨' '£' 'u'
+		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("£ƒ÷", c1, 3))) { // allow glue with good '¨' '£' 'u'
 			BC->flg &= ~c_f_bad;
 			BC->flg |= c_f_let;
 			continue;
@@ -587,7 +587,7 @@ static void glue_let_bad() {
 			EC = BC->nextl;
 			if (!EC)
 				break; //. Oleg : 23mar00
-			if (language == LANG_RUSSIAN) {/* Valdemar patch some special cases */
+			if (language == LANGUAGE_RUSSIAN) {/* Valdemar patch some special cases */
 				if (((c2 == '>' && c3 == '>') || (c2 == '<' && c3 == '<'))
 						&& BC->vers[0].prob > 200 && EC->vers[0].prob > 200)
 					continue; // stay till punctuation
@@ -608,7 +608,7 @@ static void glue_let_bad() {
 				/* bad 'ì' try to paste ë */
 			}
 			if (memchr("lI1/J)!", c2, 7) || // stick character ?
-					c2 == liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+					c2 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(c2 == i_sans_accent || c2 == II_dot_accent) || c2
 					== liga_exm)
 				if (BC->cg_flag & c_cg_cutr) // cut at right side
@@ -618,7 +618,7 @@ static void glue_let_bad() {
 						goto asif2bad;
 					}
 			if (memchr("lI1/J)!", c3, 7) || // stick character ?
-					c3 == liga_i || language == LANG_TURKISH && // 30.05.2002 E.P.
+					c3 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(c3 == i_sans_accent || c3 == II_dot_accent) || c3
 					== liga_exm)
 				if (EC->cg_flag & c_cg_cutl) // cut at left  side
@@ -743,7 +743,7 @@ static void glue_let_bad() {
 		}
 		/* Valdemar 12.11.93
 		 There is none-serific ë that lay so far */
-		if (language == LANG_RUSSIAN) {
+		if (language == LANGUAGE_RUSSIAN) {
 			if (BC->stick_inc == NO_INCLINE) // inc don't counted
 				stick_center_study(BC, NULL, 1);
 			if (EC->stick_inc == NO_INCLINE)
@@ -875,7 +875,7 @@ static void glue_let_bad() {
 		}
 		fingb:
 		/* cursiv 'ë' confuse with '¬' let's promote him */
-		if (language == LANG_RUSSIAN && rus_iee)
+		if (language == LANGUAGE_RUSSIAN && rus_iee)
 			if (rus_iee == 1)
 				promote(1, BC, 'ë', 60);
 			else if (rus_iee == 2)
@@ -917,7 +917,7 @@ static void glue_let_bad() {
 			if ((i > 220) && ((i + i) > (p1 + p2)))
 				goto accel;
 		}
-		if (language == LANG_RUSSIAN && BC->vers[0].prob > 230 && c2
+		if (language == LANGUAGE_RUSSIAN && BC->vers[0].prob > 230 && c2
 				== (uchar) '¯' && c3 == (uchar) 'ø' && cw == (uchar) 'õ')
 			goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
 		if (((BC->recsource & c_rs_ev) == 0) || (i < 220)
@@ -974,8 +974,8 @@ static void glue_let_bad() {
 		continue;
 	}
 	// russian have a special pass to paste 'ë'
-	if ((flb && language != LANG_RUSSIAN) || (flb == 2 && language
-			== LANG_RUSSIAN))
+	if ((flb && language != LANGUAGE_RUSSIAN) || (flb == 2 && language
+			== LANGUAGE_RUSSIAN))
 		return;
 	flb++; // glue backward two bad cells
 	goto passfb;

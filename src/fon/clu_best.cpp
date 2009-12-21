@@ -782,7 +782,7 @@ static void AnalyzeMetki(int numCluster, InfoCluster *infoC, uchar *metkaGood,
 
         // Nick 29.06.2002  - if very bad
         if (metkaGood[j] < POROG_BAD_LINGVO)
-            // for LANG_TURKISH
+            // for LANGUAGE_TURKISH
         {
             metkaGood[j] = 0;
             continue;

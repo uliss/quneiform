@@ -855,7 +855,7 @@ void rpstr_set_spell_flag(CSTR_rast b, CSTR_rast e, uchar flg_spell, uchar flg) 
 
 Bool32 rpstr_txt_spell(char * s, uchar lang) {
 	int32_t Check = 0;
-	if (lang == LANG_ENGLISH && multy_language) { // second dict
+	if (lang == LANGUAGE_ENGLISH && multy_language) { // second dict
 		if (!RLING_CheckSecWord((pchar) s, &Check)) {
 			sp_err = RLING_GetReturnString(RLING_GetReturnCode());
 			return FALSE;
@@ -962,12 +962,12 @@ Bool32 rpstr_get_solid(CSTR_rast rus, CSTR_rast ruse) {
 int32_t size_short_language(uchar language) {
 	int32_t s;
 	switch (language) {
-	case LANG_GERMAN:
+	case LANGUAGE_GERMAN:
 		s = 2;
 		break;
-	case LANG_RUSSIAN:
-	case LANG_ENGLISH:
-	case LANG_RUSENG:
+	case LANGUAGE_RUSSIAN:
+	case LANGUAGE_ENGLISH:
+	case LANGUAGE_RUS_ENG:
 	default:
 		s = 3;
 		break;
@@ -978,12 +978,12 @@ int32_t size_short_language(uchar language) {
 int32_t size_short_language_aux(uchar language) {
 	int32_t s;
 	switch (language) {
-	case LANG_GERMAN:
+	case LANGUAGE_GERMAN:
 		s = 3;
 		break;
-	case LANG_RUSSIAN:
-	case LANG_ENGLISH:
-	case LANG_RUSENG:
+	case LANGUAGE_RUSSIAN:
+	case LANGUAGE_ENGLISH:
+	case LANGUAGE_RUS_ENG:
 	default:
 		s = 3;
 		break;
@@ -991,34 +991,34 @@ int32_t size_short_language_aux(uchar language) {
 	return s;
 }
 
-static uchar CodePages[LANG_TOTAL] = { ANSI_CHARSET, // LANG_ENGLISH		0
-		ANSI_CHARSET, // LANG_GERMAN		1
-		ANSI_CHARSET, // LANG_FRENCH		2
-		RUSSIAN_CHARSET, // LANG_RUSSIAN		3
-		ANSI_CHARSET, // LANG_SWEDISH		4
-		ANSI_CHARSET, // LANG_SPANISH		5
-		ANSI_CHARSET, // LANG_ITALIAN		6
-		RUSSIAN_CHARSET, // LANG_RUSENG		7
-		RUSSIAN_CHARSET, // LANG_UKRAINIAN	8
-		RUSSIAN_CHARSET, // LANG_SERBIAN		9
-		EASTEUROPE_CHARSET, // LANG_CROATIAN		10
-		EASTEUROPE_CHARSET, // LANG_POLISH		11
-		ANSI_CHARSET, // LANG_DANISH		12
-		ANSI_CHARSET, // LANG_PORTUGUESE	13
-		ANSI_CHARSET, // LANG_DUTCH		14
-		ANSI_CHARSET, // LANG_DIG			15
-		RUSSIAN_CHARSET, // LANG_UZBEK		16
-		RUSSIAN_CHARSET, // LANG_KAZ			17
-		RUSSIAN_CHARSET, // LANG_KAZ_ENG		18
-		EASTEUROPE_CHARSET, // LANG_CZECH		19
-		EASTEUROPE_CHARSET, // LANG_ROMAN		20
-		EASTEUROPE_CHARSET, // LANG_HUNGAR		21
-		RUSSIAN_CHARSET, // LANG_BULGAR		22
-		EASTEUROPE_CHARSET, // LANG_SLOVENIAN    23
-		BALTIC_CHARSET, // LANG_LATVIAN	    24
-		BALTIC_CHARSET, // LANG_LITHUANIAN   25
-		BALTIC_CHARSET, // LANG_ESTONIAN	    26
-		TURKISH_CHARSET // LANG_TURKISH		27
+static uchar CodePages[LANG_TOTAL] = { ANSI_CHARSET, // LANGUAGE_ENGLISH		0
+		ANSI_CHARSET, // LANGUAGE_GERMAN		1
+		ANSI_CHARSET, // LANGUAGE_FRENCH		2
+		RUSSIAN_CHARSET, // LANGUAGE_RUSSIAN		3
+		ANSI_CHARSET, // LANGUAGE_SWEDISH		4
+		ANSI_CHARSET, // LANGUAGE_SPANISH		5
+		ANSI_CHARSET, // LANGUAGE_ITALIAN		6
+		RUSSIAN_CHARSET, // LANGUAGE_RUS_ENG		7
+		RUSSIAN_CHARSET, // LANGUAGE_UKRAINIAN	8
+		RUSSIAN_CHARSET, // LANGUAGE_SERBIAN		9
+		EASTEUROPE_CHARSET, // LANGUAGE_CROATIAN		10
+		EASTEUROPE_CHARSET, // LANGUAGE_POLISH		11
+		ANSI_CHARSET, // LANGUAGE_DANISH		12
+		ANSI_CHARSET, // LANGUAGE_PORTUGUESE	13
+		ANSI_CHARSET, // LANGUAGE_DUTCH		14
+		ANSI_CHARSET, // LANGUAGE_DIGITS			15
+		RUSSIAN_CHARSET, // LANGUAGE_UZBEK		16
+		RUSSIAN_CHARSET, // LANGUAGE_KAZAKH			17
+		RUSSIAN_CHARSET, // LANGUAGE_KAZ_ENG		18
+		EASTEUROPE_CHARSET, // LANGUAGE_CZECH		19
+		EASTEUROPE_CHARSET, // LANGUAGE_ROMANIAN		20
+		EASTEUROPE_CHARSET, // LANGUAGE_HUNGARIAN		21
+		RUSSIAN_CHARSET, // LANGUAGE_BULGARIAN		22
+		EASTEUROPE_CHARSET, // LANGUAGE_SLOVENIAN    23
+		BALTIC_CHARSET, // LANGUAGE_LATVIAN	    24
+		BALTIC_CHARSET, // LANGUAGE_LITHUANIAN   25
+		BALTIC_CHARSET, // LANGUAGE_ESTONIAN	    26
+		TURKISH_CHARSET // LANGUAGE_TURKISH		27
 		};
 
 static int Lang_Console(char *text, uchar lang) {
@@ -1227,7 +1227,7 @@ Bool32 rpstr_double_word(CSTR_rast beg, CSTR_rast end, uchar lang) {
 	UniVersions u;
 	char *arr1, *arr2, *p;
 
-	if (lang == LANG_RUSSIAN) {
+	if (lang == LANGUAGE_RUSSIAN) {
 		arr1 = double_rus;
 		arr2 = double_eng;
 	} else {
@@ -1255,14 +1255,14 @@ void rpstr_correct_ruseng(CSTR_rast beg, CSTR_rast end, uchar lang) {
 	char *arr1, *arr2, *p;
 	uchar lang1, charset = RUSSIAN_CHARSET;
 
-	if (lang == LANG_RUSSIAN) {
+	if (lang == LANGUAGE_RUSSIAN) {
 		arr1 = double_rus;
 		arr2 = double_eng;
-		lang1 = LANG_ENGLISH;
+		lang1 = LANGUAGE_ENGLISH;
 	} else {
 		arr2 = double_rus;
 		arr1 = double_eng;
-		lang1 = LANG_RUSSIAN;
+		lang1 = LANGUAGE_RUSSIAN;
 	}
 
 	for (r = beg; r && r != end; r = CSTR_GetNext(r)) {
@@ -1543,8 +1543,8 @@ Bool32 is_cursive(CSTR_rast eng) {
 Bool32 is_first_capital(CSTR_rast eng) {
 	UniVersions u;
 
-	if (language != LANG_ENGLISH && language != LANG_RUSSIAN && language
-			!= LANG_RUSENG)
+	if (language != LANGUAGE_ENGLISH && language != LANGUAGE_RUSSIAN && language
+			!= LANGUAGE_RUS_ENG)
 		return FALSE;
 	CSTR_GetCollectionUni(eng, &u);
 	if (!u.lnAltCnt || !rpstr_is_upper(u.Alt[0].Code[0]))
@@ -1683,7 +1683,7 @@ Bool32 rpstr_correct_spell(CSTR_line ln, CSTR_rast *addbeg, CSTR_rast *addend,
 					continue;
 				}
 				// анализ двучзычных частей
-				if (lattr.language == LANG_RUSENG && language1 != language) {
+				if (lattr.language == LANGUAGE_RUS_ENG && language1 != language) {
 					Bool32 pd = rpstr_double_word(prevbeg, prevend, language1);
 					Bool32 d = rpstr_double_word(eng, enge, language);
 					rpstr_cstr2word(prevbeg, prevend, third_wrd);
@@ -2232,7 +2232,7 @@ static int32_t rpstr_test_spell_alter(CSTR_rast be, CSTR_rast en, int32_t nlim,
 
 		// окончания активнее для русских ! Nick 03.08.2001
 		CSTR_GetAttr(c, &attr);
-		if (attr.language == LANG_ENGLISH)
+		if (attr.language == LANGUAGE_ENGLISH)
 			wasEnglish = TRUE;
 
 		if (rpstr_is_upper(vers.Alt[0].Code[0]))

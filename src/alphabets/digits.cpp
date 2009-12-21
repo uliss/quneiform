@@ -27,7 +27,7 @@ Alphabet * create()
     return new DigitsAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_DIG, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_DIGITS, create);
 }
 
 namespace CIF
@@ -43,7 +43,7 @@ DigitsAlphabet::DigitsAlphabet()
 
 language_t DigitsAlphabet::language() const
 {
-    return LANG_DIG;
+    return LANGUAGE_DIGITS;
 }
 
 }

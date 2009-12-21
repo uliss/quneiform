@@ -184,22 +184,22 @@ int16_t try_cut_top_accent(cell *C1, B_LINES *my_bases, int16_t flag)
  let=C1->vers[0].let;
  prob=C1->vers[0].prob;
 
- if (language==LANG_ENGLISH ||
+ if (language==LANGUAGE_ENGLISH ||
      memchr("DIJL17flt",let,9) && C1->vers[0].prob>=PROBOK &&
 
 	 // Попытка отрезать акцент от f ради i_right_accent. 08.09.2000 E.P.
 	 !(let=='f' &&
-		(language==LANG_CZECH || language==LANG_HUNGAR)
+		(language==LANGUAGE_CZECH || language==LANGUAGE_HUNGARIAN)
 	  ) &&
 
 	 // Попытка отрезать roof_accent от I. 13.09.2000 E.P.
-	 !(let=='I' && language==LANG_ROMAN) &&
+	 !(let=='I' && language==LANGUAGE_ROMANIAN) &&
 
 	 // Попытка отрезать macron от I. 16.07.2001 E.P.
-	 !(let=='I' && language==LANG_LATVIAN) &&
+	 !(let=='I' && language==LANGUAGE_LATVIAN) &&
 
 	 // Попытка отрезать точку от I1. 30.05.2002 E.P.
-	 !(memchr("I1",let,2) && language==LANG_TURKISH)
+	 !(memchr("I1",let,2) && language==LANGUAGE_TURKISH)
 	)
 	return 0;
 
@@ -417,9 +417,9 @@ int16_t try_cut_top_accent(cell *C1, B_LINES *my_bases, int16_t flag)
     ret_ans = C1->vers[0].prob;
 
     if ( (accent_tab[chr] & ~(ACC_DOT|ACC_SUPERUP) ) == 0 &&  // 31.08.2000 E.P.
-        !(language==LANG_POLISH && (chr==z_dot_accent||chr==ZZ_dot_accent)) &&	  // 13.10.97 E.P.
-        !(language==LANG_LITHUANIAN && (chr==e_dot_accent||chr==EE_dot_accent))	&&  // 13.08.2001 E.P.
-        !(language==LANG_TURKISH && chr==II_dot_accent)	  // 13.08.2001 E.P.
+        !(language==LANGUAGE_POLISH && (chr==z_dot_accent||chr==ZZ_dot_accent)) &&	  // 13.10.97 E.P.
+        !(language==LANGUAGE_LITHUANIAN && (chr==e_dot_accent||chr==EE_dot_accent))	&&  // 13.08.2001 E.P.
+        !(language==LANGUAGE_TURKISH && chr==II_dot_accent)	  // 13.08.2001 E.P.
        )
      ret_ans=0;                        //  (don't count dot and superups)
     }
@@ -517,12 +517,12 @@ int16_t try_cut_bot_accent(cell *C1, B_LINES *my_bases, int16_t flag)
  let=C1->vers[0].let;
  prob=C1->vers[0].prob;
 
- if (language!=LANG_FRENCH		&&
-	 language!=LANG_POLISH		&&
-	 language!=LANG_ROMAN		&&	// 08.09.2000 E.P.
-	 language!=LANG_LATVIAN		&&	// 10.07.2001 E.P.
-	 language!=LANG_LITHUANIAN	&&
-	 language!=LANG_TURKISH			// 30.05.2002 E.P.
+ if (language!=LANGUAGE_FRENCH		&&
+	 language!=LANGUAGE_POLISH		&&
+	 language!=LANGUAGE_ROMANIAN		&&	// 08.09.2000 E.P.
+	 language!=LANGUAGE_LATVIAN		&&	// 10.07.2001 E.P.
+	 language!=LANGUAGE_LITHUANIAN	&&
+	 language!=LANGUAGE_TURKISH			// 30.05.2002 E.P.
 		||
      memchr("fjQy",let,4) && C1->vers[0].prob>=PROBOK
     )
@@ -556,10 +556,10 @@ int16_t try_cut_bot_accent(cell *C1, B_LINES *my_bases, int16_t flag)
      return 0;
 
    // too thin
-   if ( language!=LANG_LATVIAN	  &&	// Для l_bottom_accent	10.07.2001 E.P.
-	    language!=LANG_LITHUANIAN &&	// Для Ii_bottom_accent 10.07.2001 E.P.
-	    language!=LANG_TURKISH &&		// Для II_dot_accent 30.05.2002 E.P.
-	    mh  > cw * 2 + (language==LANG_ROMAN? 2*cw:0)
+   if ( language!=LANGUAGE_LATVIAN	  &&	// Для l_bottom_accent	10.07.2001 E.P.
+	    language!=LANGUAGE_LITHUANIAN &&	// Для Ii_bottom_accent 10.07.2001 E.P.
+	    language!=LANGUAGE_TURKISH &&		// Для II_dot_accent 30.05.2002 E.P.
+	    mh  > cw * 2 + (language==LANGUAGE_ROMANIAN? 2*cw:0)
 	  )
      return 0;
  }

@@ -28,7 +28,7 @@ Alphabet * create()
     return new SwedishAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANG_SWEDISH, create);
+const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_SWEDISH, create);
 }
 
 namespace CIF
@@ -46,7 +46,7 @@ SwedishAlphabet::SwedishAlphabet()
 
 language_t SwedishAlphabet::language() const
 {
-    return LANG_SWEDISH;
+    return LANGUAGE_SWEDISH;
 }
 
 }

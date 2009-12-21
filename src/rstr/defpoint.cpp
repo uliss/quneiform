@@ -173,7 +173,7 @@ int16_t Alik_define_cut_points(pchar raster_frag, struct own_cut *ans,
 			Alik_snap_show_raster(raster_frag,SourceRaster,"raster mode",dy,dx,
 					product,product_two,penalty);
 #endif
-			if (language == LANG_RUSSIAN)
+			if (language == LANGUAGE_RUSSIAN)
 				Alik_find_brus(raster_frag, SourceRaster, adr_ras_two,
 						(int16_t) (bl_dw - bl_up), dy, dx, product,
 						product_two, penalty, cut_points, CountCut,
@@ -205,15 +205,15 @@ int16_t Alik_define_cut_points(pchar raster_frag, struct own_cut *ans,
 				Alik_cut_d(trace + dx, cut_points, product, dx, dy, bl_up,
 						bl_dw, (pchar) penalty);
 				Alik_defis(trace, cut_points, dx, dy, bl_up, bl_dw, penalty);
-				if (language == LANG_ENGLISH)
+				if (language == LANGUAGE_ENGLISH)
 					Alik_cut_l(cut_points, trace, dx, bl_dw, penalty);
 			}
 
-			if (language == LANG_RUSSIAN)
+			if (language == LANGUAGE_RUSSIAN)
 				Alik_cut_y(raster_frag, SourceRaster, adr_ras_two, dy, dx,
 						cut_points, IntBuf, row, product, product_two, penalty,
 						CountCut);
-			if (language == LANG_RUSSIAN)
+			if (language == LANGUAGE_RUSSIAN)
 				Alik_rus_bad_c(raster_frag, SourceRaster, dy, dx, product,
 						product_two, penalty, cut_points, CountCut,
 						UpBlackPoint);
@@ -223,7 +223,7 @@ int16_t Alik_define_cut_points(pchar raster_frag, struct own_cut *ans,
 			if (abs((row + dy) - (minrow + bbs3)) > 3)
 				Alik_del_p_cut(adrw, cut_points, dx, dy, nshort, (char) (bl_dw
 						- bl_up - 3));
-			if (language == LANG_RUSSIAN)
+			if (language == LANGUAGE_RUSSIAN)
 				Alik_Check_Rus_D(raster_frag, SourceRaster, dy, dx, cut_points,
 						IntBuf, row, product, product_two, penalty, CountCut);
 			Alik_del_equal(cut_points);
