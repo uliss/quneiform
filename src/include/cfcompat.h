@@ -80,13 +80,12 @@ CFCOMPAT_FUNC Bool WritePrivateProfileString(const char * AppName, const char * 
 CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * AppName, const char * KeyName,
         uint defaultValue, const char * FileName);
 CFCOMPAT_FUNC Bool GetComputerName(char* buffer, size_t * size);
+CFCOMPAT_FUNC Bool CreateDirectory(const char * dir);
 
 #define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))
 #define GetBValue(rgb) ((uchar) ((rgb) >> 16))
 #define GetRValue(rgb) ((uchar) (rgb))
 #endif
-
-CFCOMPAT_FUNC Bool CreateDirectory(const char * dir);
 
 CFCOMPAT_FUNC int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
         const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr, int cbMultiByte,

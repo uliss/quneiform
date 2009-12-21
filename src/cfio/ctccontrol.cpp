@@ -70,6 +70,8 @@
 #ifndef _MSC_VER
 #include <unistd.h>
 #endif
+
+#include <cstdlib>
 #include "ctccontrol.h"
 #include "cfcompat.h"
 void SetReturnCode_cfio(uint16_t rc);
@@ -520,7 +522,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag)
                 CTCMemoryHeader * Memory = MemoryList.GetItem(hMemory);
 
                 if (Memory) {
-                    hNewMemory = GlobalReAlloc(hMemory, wNewSize);
+                    hNewMemory = realloc(hMemory, wNewSize);
                     Memory->SetHandle(hNewMemory);
                     Memory->SetSize(wNewSize);
                 }
