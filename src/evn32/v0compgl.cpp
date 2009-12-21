@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 #include "struct.h"
-//#include "func.h"
 #include "v1comp.h"
 
 //      Common variables

@@ -66,6 +66,14 @@
 
 #include <string.h>
 
+#ifdef WIN32
+#include <direct.h>
+#else
+#include <sys/stat.h>
+#include <sys/types.h>
+#define mkdir(a) mkdir(a, 0755)
+#endif
+
 #include "rout_own.h"
 #include "cfcompat.h"
 
@@ -84,272 +92,274 @@ static long rowspan = 0, colspan = 0;
 static Bool hocrmode = FALSE; // If true, print hOCR tags to output.
 
 //********************************************************************
-Bool MakeHTML() {
-	/* Формат HTML.
+Bool MakeHTML()
+{
+    /* Формат HTML.
 
-	 Включаются таблицы.
-	 Концы строк сохраняются, если gPreserveLineBreaks = TRUE.
-	 */
-	sFontStyle = 0; // Стиль шрифта
-	hocrmode = FALSE;
+     Включаются таблицы.
+     Концы строк сохраняются, если gPreserveLineBreaks = TRUE.
+     */
+    sFontStyle = 0; // Стиль шрифта
+    hocrmode = FALSE;
 
-	return BrowsePage(Static_MakeHTML, FALSE, // wantSkipTableCells
-			FALSE); // wantSkipParagraphs
+    return BrowsePage(Static_MakeHTML, FALSE, // wantSkipTableCells
+            FALSE); // wantSkipParagraphs
 
 }
 //********************************************************************
-Bool MakeHOCR() {
-	sFontStyle = 0;
-	hocrmode = TRUE;
-	return BrowsePage(Static_MakeHTML, FALSE, FALSE);
+Bool MakeHOCR()
+{
+    sFontStyle = 0;
+    hocrmode = TRUE;
+    return BrowsePage(Static_MakeHTML, FALSE, FALSE);
 }
 //********************************************************************
 Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
-) {
-	char buf[256] = "";
-	edRect r;
-	// В конце вызывается WordControl
+)
+{
+    char buf[256] = "";
+    edRect r;
+    // В конце вызывается WordControl
 
-	switch (reason) {
-	case BROWSE_CHAR:
-		// Символ
-		// Установить язык
-	{
-		long lang = CED_GetCharFontLang(hObject);
-		if (lang != gLanguage)
-			SetLanguage(lang);
-	}
+    switch (reason) {
+    case BROWSE_CHAR:
+        // Символ
+        // Установить язык
+    {
+        long lang = CED_GetCharFontLang(hObject);
+        if (lang != gLanguage)
+            SetLanguage(lang);
+    }
 
-		// Стиль шрифта
-		FontStyle(CED_GetCharFontAttribs(hObject));
+        // Стиль шрифта
+        FontStyle(CED_GetCharFontAttribs(hObject));
 
-		r = CED_GetCharLayout(hObject);
-		// Записать символ
-		if (r.left != -1 && hocrmode) {
-			sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left, r.top,
-					r.right, r.bottom);
-			PUT_STRING(buf);
-		}
+        r = CED_GetCharLayout(hObject);
+        // Записать символ
+        if (r.left != -1 && hocrmode) {
+            sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left, r.top, r.right, r.bottom);
+            PUT_STRING(buf);
+        }
 
-		ONE_CHAR(hObject)
-		;
-		if (r.left != -1 && hocrmode)
-			PUT_STRING("</span>")
-		;
+        ONE_CHAR(hObject)
+        ;
+        if (r.left != -1 && hocrmode)
+            PUT_STRING("</span>")
+        ;
 
-		break;
+        break;
 
-	case BROWSE_LINE_END:
-		// Конец строки текста
-		if (gPreserveLineBreaks || gEdLineHardBreak)
-			PUT_STRING("<br>")
-		;
-		break;
+    case BROWSE_LINE_END:
+        // Конец строки текста
+        if (gPreserveLineBreaks || gEdLineHardBreak)
+            PUT_STRING("<br>")
+        ;
+        break;
 
-	case BROWSE_PARAGRAPH_START:
-		// Начало абзаца
-		FontStyle(0);
-		BeginParagraph(hObject);
-		break;
+    case BROWSE_PARAGRAPH_START:
+        // Начало абзаца
+        FontStyle(0);
+        BeginParagraph(hObject);
+        break;
 
-	case BROWSE_PARAGRAPH_END:
-		// Конец абзаца
-		FontStyle(0);
-		PUT_STRING("</p>")
-		;
-		break;
+    case BROWSE_PARAGRAPH_END:
+        // Конец абзаца
+        FontStyle(0);
+        PUT_STRING("</p>")
+        ;
+        break;
 
-	case BROWSE_PAGE_START:
-		// Start of page.
-		FontStyle(0);
-		PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n")
-		;
-		PUT_STRING("<html>\n<head>\n    <title></title>\n")
-		;
-		if (gActiveCode == ROUT_CODE_UTF8)
-			PUT_STRING("    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n")
-		;
-		PUT_STRING("</head>\n<body>\n")
-		;
+    case BROWSE_PAGE_START:
+        // Start of page.
+        FontStyle(0);
+        PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n")
+        ;
+        PUT_STRING("<html>\n<head>\n    <title></title>\n")
+        ;
+        if (gActiveCode == ROUT_CODE_UTF8)
+            PUT_STRING("    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n")
+        ;
+        PUT_STRING("</head>\n<body>\n")
+        ;
 
-		break;
+        break;
 
-	case BROWSE_PAGE_END:
-		// Конец страницы
-		PUT_STRING("</body>\n</html>\n")
-		;
-		break;
+    case BROWSE_PAGE_END:
+        // Конец страницы
+        PUT_STRING("</body>\n</html>\n")
+        ;
+        break;
 
-	case BROWSE_TABLE_START:
-		// Начало таблицы
-		FontStyle(0);
-		PUT_STRING("<table border>")
-		;
-		break;
+    case BROWSE_TABLE_START:
+        // Начало таблицы
+        FontStyle(0);
+        PUT_STRING("<table border>")
+        ;
+        break;
 
-	case BROWSE_TABLE_END:
-		// Конец таблицы
-		FontStyle(0);
-		PUT_STRING("</table>")
-		;
-		break;
+    case BROWSE_TABLE_END:
+        // Конец таблицы
+        FontStyle(0);
+        PUT_STRING("</table>")
+        ;
+        break;
 
-	case BROWSE_ROW_START:
-		// Начало строки таблицы
-		PUT_STRING("<tr>")
-		;
-		break;
+    case BROWSE_ROW_START:
+        // Начало строки таблицы
+        PUT_STRING("<tr>")
+        ;
+        break;
 
-	case BROWSE_CELL_START:
-		// Начало ячейки таблицы
-		CellStart();
-		break;
+    case BROWSE_CELL_START:
+        // Начало ячейки таблицы
+        CellStart();
+        break;
 
-	case BROWSE_PICTURE:
-		// Картинка
-		Picture();
-		break;
+    case BROWSE_PICTURE:
+        // Картинка
+        Picture();
+        break;
 
-	}
+    }
 
-	// Слежение за словами и строками
-	WORDS_CONTROL(reason);
+    // Слежение за словами и строками
+    WORDS_CONTROL(reason);
 
-	// Устранение избыточных тегов
-	OptimizeTags();
+    // Устранение избыточных тегов
+    OptimizeTags();
 
-	return TRUE; // Продолжить просмотр
+    return TRUE; // Продолжить просмотр
 }
 //********************************************************************
-static Bool FontStyle(ulong newStyle) {
+static Bool FontStyle(ulong newStyle)
+{
 
-	if ((newStyle & FONT_BOLD) && (!(sFontStyle & FONT_BOLD) || (sFontStyle
-			& FONT_LIGHT))) {
-		PUT_STRING("<b>");
-	}
+    if ((newStyle & FONT_BOLD) && (!(sFontStyle & FONT_BOLD) || (sFontStyle & FONT_LIGHT))) {
+        PUT_STRING("<b>");
+    }
 
-	else if ((sFontStyle & FONT_BOLD) && (!(newStyle & FONT_BOLD) || (newStyle
-			& FONT_LIGHT))) {
-		PUT_STRING("</b>");
-	}
+    else if ((sFontStyle & FONT_BOLD) && (!(newStyle & FONT_BOLD) || (newStyle & FONT_LIGHT))) {
+        PUT_STRING("</b>");
+    }
 
-	if ((newStyle & FONT_ITALIC) && (!(sFontStyle & FONT_ITALIC))) {
-		PUT_STRING("<i>");
-	}
+    if ((newStyle & FONT_ITALIC) && (!(sFontStyle & FONT_ITALIC))) {
+        PUT_STRING("<i>");
+    }
 
-	else if ((sFontStyle & FONT_ITALIC) && (!(newStyle & FONT_ITALIC))) {
-		PUT_STRING("</i>");
-	}
+    else if ((sFontStyle & FONT_ITALIC) && (!(newStyle & FONT_ITALIC))) {
+        PUT_STRING("</i>");
+    }
 
-	if ((newStyle & FONT_UNDERLINE) && !(sFontStyle & FONT_UNDERLINE)) {
-		PUT_STRING("<u>");
-	}
+    if ((newStyle & FONT_UNDERLINE) && !(sFontStyle & FONT_UNDERLINE)) {
+        PUT_STRING("<u>");
+    }
 
-	else if ((sFontStyle & FONT_UNDERLINE) && !(newStyle & FONT_UNDERLINE)) {
-		PUT_STRING("</u>");
-	}
+    else if ((sFontStyle & FONT_UNDERLINE) && !(newStyle & FONT_UNDERLINE)) {
+        PUT_STRING("</u>");
+    }
 
-	// Запомнить шрифт
-	sFontStyle = newStyle;
-	return TRUE;
+    // Запомнить шрифт
+    sFontStyle = newStyle;
+    return TRUE;
 }
 //********************************************************************
-static Bool BeginParagraph(Handle hObject) {
-	const char *p = NULL;
-	char buf[80] = "";
-	edBox b = CED_GetLayout(hObject);
-	ulong alignment = CED_GetAlignment(hObject);
+static Bool BeginParagraph(Handle hObject)
+{
+    const char *p = NULL;
+    char buf[80] = "";
+    edBox b = CED_GetLayout(hObject);
+    ulong alignment = CED_GetAlignment(hObject);
 
-	switch (alignment & ALIGN_MASK) {
-	case ALIGN_CENTER:
-		p = "center";
-		break;
+    switch (alignment & ALIGN_MASK) {
+    case ALIGN_CENTER:
+        p = "center";
+        break;
 
-	case (ALIGN_LEFT | ALIGN_RIGHT):
-		p = "justify";
-		break;
+    case (ALIGN_LEFT | ALIGN_RIGHT):
+        p = "justify";
+        break;
 
-	case ALIGN_LEFT:
-	default:
-		// "left" by default
-		;
-	}
+    case ALIGN_LEFT:
+    default:
+        // "left" by default
+        ;
+    }
 
-	PUT_STRING("<p");
-	if (p) {
-		sprintf(buf, " align=\"%s\"", p);
-		PUT_STRING(buf);
-	}
+    PUT_STRING("<p");
+    if (p) {
+        sprintf(buf, " align=\"%s\"", p);
+        PUT_STRING(buf);
+    }
 
-	if (b.x != -1 && hocrmode) {
-		sprintf(buf, " title=\"bbox %d %d %d %d\"", b.x, b.y, b.x + b.w, b.y
-				+ b.h);
-		PUT_STRING(buf);
-	}
-	PUT_STRING(">");
+    if (b.x != -1 && hocrmode) {
+        sprintf(buf, " title=\"bbox %d %d %d %d\"", b.x, b.y, b.x + b.w, b.y + b.h);
+        PUT_STRING(buf);
+    }
+    PUT_STRING(">");
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
-static Bool CellStart() {
-	// Ячейка таблицы
-	char buf[80] = "";
+static Bool CellStart()
+{
+    // Ячейка таблицы
+    char buf[80] = "";
 
-	// Вычислить размер ячейки
-	CalcCellSpan();
+    // Вычислить размер ячейки
+    CalcCellSpan();
 
-	if (rowspan == 1 && colspan == 1)
-		strcpy(buf, "<td>");
+    if (rowspan == 1 && colspan == 1)
+        strcpy(buf, "<td>");
 
-	else if (rowspan > 1 && colspan == 1)
-		sprintf(buf, "<td rowspan=\"%ld\">", rowspan);
+    else if (rowspan > 1 && colspan == 1)
+        sprintf(buf, "<td rowspan=\"%ld\">", rowspan);
 
-	else if (rowspan == 1 && colspan > 1)
-		sprintf(buf, "<td colspan=\"%ld\">", colspan);
+    else if (rowspan == 1 && colspan > 1)
+        sprintf(buf, "<td colspan=\"%ld\">", colspan);
 
-	else
-		// ( rowspan > 1 && colspan > 1 )
-		sprintf(buf, "<td rowspan=\"%ld\" colspan=\"%ld\">", rowspan, colspan);
+    else
+        // ( rowspan > 1 && colspan > 1 )
+        sprintf(buf, "<td rowspan=\"%ld\" colspan=\"%ld\">", rowspan, colspan);
 
-	PUT_STRING(buf);
-	return TRUE;
+    PUT_STRING(buf);
+    return TRUE;
 }
 //********************************************************************
-static Bool CalcCellSpan() {
-	// Вычислить размер ячейки
-	long row, col;
+static Bool CalcCellSpan()
+{
+    // Вычислить размер ячейки
+    long row, col;
 
-	rowspan = 0;
-	colspan = 0;
+    rowspan = 0;
+    colspan = 0;
 
-	// Просмотр вниз от текущей ячейки
-	row = gIndexTableRow;
-	col = gIndexTableCol;
+    // Просмотр вниз от текущей ячейки
+    row = gIndexTableRow;
+    col = gIndexTableCol;
 
-	while (row < gTableRows && gIndexTableCell == gLogicalCells[row
-			* gTableCols + col]) {
-		rowspan++;
-		row++;
-	}
+    while (row < gTableRows && gIndexTableCell == gLogicalCells[row * gTableCols + col]) {
+        rowspan++;
+        row++;
+    }
 
-	// Просмотр вправо от текущей ячейки
-	row = gIndexTableRow;
-	col = gIndexTableCol;
+    // Просмотр вправо от текущей ячейки
+    row = gIndexTableRow;
+    col = gIndexTableCol;
 
-	while (col < gTableCols && gIndexTableCell == gLogicalCells[row
-			* gTableCols + col]) {
-		colspan++;
-		col++;
-	}
+    while (col < gTableCols && gIndexTableCell == gLogicalCells[row * gTableCols + col]) {
+        colspan++;
+        col++;
+    }
 
-	ASSERT(rowspan>0 && colspan>0);
-	return TRUE;
+    ASSERT(rowspan>0 && colspan>0);
+    return TRUE;
 }
 //********************************************************************
-static Bool OptimizeTags() {
-	// Устранение избыточных тегов
-	long l1 = 0, l2 = 0;
-	char *p;
+static Bool OptimizeTags()
+{
+    // Устранение избыточных тегов
+    long l1 = 0, l2 = 0;
+    char *p;
 
 #define SUBST(a,b) {\
 		l1 = strlen(a);\
@@ -362,90 +372,91 @@ static Bool OptimizeTags() {
 			}\
 		}
 
-	SUBST("<td><p>","<td>");
-	SUBST("</p><td>","<td>");
-	SUBST("</p></table>","</table>");
-	SUBST("<p></p>","");
-	SUBST("<br></p>","</p>");
+    SUBST("<td><p>","<td>");
+    SUBST("</p><td>","<td>");
+    SUBST("</p></table>","</table>");
+    SUBST("<p></p>","");
+    SUBST("<br></p>","</p>");
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
-static Bool Picture() {
-	/* Картинка.
+static Bool Picture()
+{
+    /* Картинка.
 
-	 gPictureNumber - img number 1
-	 gPictureData   - DIB address, wiith header
-	 gPictureLength - DIB length, with header
+     gPictureNumber - img number 1
+     gPictureData   - DIB address, wiith header
+     gPictureLength - DIB length, with header
 
-	 1. Создать подпапку для картинок "<page>_files"
-	 2. Записать картинку в BMP-файл <номер>.bmp.
-	 3. Вставить тег "img" со ссылкой на файл картинки.
-	 */
-	char buf[256] = "";
-	char absPicFileName[256] = "";
-	char relPicFileName[256] = "";
-	char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT];
+     1. Создать подпапку для картинок "<page>_files"
+     2. Записать картинку в BMP-файл <номер>.bmp.
+     3. Вставить тег "img" со ссылкой на файл картинки.
+     */
+    char buf[256] = "";
+    char absPicFileName[256] = "";
+    char relPicFileName[256] = "";
+    char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT];
 
-	// create folder for images gPageFilesFolder.
-	if (!CreatePageFilesFolder())
-		return FALSE;
+    // create folder for images gPageFilesFolder.
+    if (!CreatePageFilesFolder())
+        return FALSE;
 
-	// create file name
-	split_path(gPageName, dir, name, ext);
+    // create file name
+    split_path(gPageName, dir, name, ext);
 
-	// write picture to bmp file
-	if (dir[0])
-		sprintf(absPicFileName, "%s/%s/%ld.bmp", dir, gPageFilesFolder,
-				gPictureNumber);
-	else
-		sprintf(absPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
+    // write picture to bmp file
+    if (dir[0])
+        sprintf(absPicFileName, "%s/%s/%ld.bmp", dir, gPageFilesFolder, gPictureNumber);
+    else
+        sprintf(absPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
 
-	sprintf(relPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
+    sprintf(relPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
 
-	if (!WritePictureToBMP_File(gPictureData, gPictureLength, absPicFileName))
-		return FALSE;
+    if (!WritePictureToBMP_File(gPictureData, gPictureLength, absPicFileName))
+        return FALSE;
 
-	// write img html tag.
-	sprintf(buf, "<img src=\"%s\" "
-		"width=\"%ld\" height=\"%ld\" "
-		"alt=\"%s\">", relPicFileName, gPictureGoal.cx * 72L / 1440L,
-			gPictureGoal.cy * 72L / 1440L, relPicFileName);
+    // write img html tag.
+    sprintf(buf, "<img src=\"%s\" "
+        "width=\"%ld\" height=\"%ld\" "
+        "alt=\"%s\">", relPicFileName, gPictureGoal.cx * 72L / 1440L,
+            gPictureGoal.cy * 72L / 1440L, relPicFileName);
 
-	PUT_STRING(buf);
-	return TRUE;
+    PUT_STRING(buf);
+    return TRUE;
 }
 //********************************************************************
 
 /**
  * Create a subdirectory to hold image files for html document.
  */
-static Bool CreatePageFilesFolder() {
-	// Создать подпапку для картинок gPageFilesFolder.
-	char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT], path[PATH_MAX];
+static Bool CreatePageFilesFolder()
+{
+    // Создать подпапку для картинок gPageFilesFolder.
+    char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT], path[PATH_MAX];
 
-	// Задано ли имя страницы?
-	if (!gPageName[0])
-		return FALSE;
+    // Задано ли имя страницы?
+    if (!gPageName[0])
+        return FALSE;
 
-	// Изготовить имя подпапки
-	split_path(gPageName, dir, name, ext);
-	memset(gPageFilesFolder, 0, sizeof(gPageFilesFolder));
-	sprintf(gPageFilesFolder, "%s_files", name);
+    // Изготовить имя подпапки
+    split_path(gPageName, dir, name, ext);
+    memset(gPageFilesFolder, 0, sizeof(gPageFilesFolder));
+    sprintf(gPageFilesFolder, "%s_files", name);
 
-	// Создать подпапку
-	if (dir[0])
-		sprintf(path, "%s/%s", dir, gPageFilesFolder);
-	else
-		sprintf(path, "%s", gPageFilesFolder);
-	if (CreateDirectory(&path[0]) == FALSE) {
-		uint32_t err = GetLastError();
-		if (err != ERROR_ALREADY_EXISTS) {
-			DEBUG_PRINT("CreatePageFilesFolder error = %d", err);
-			return FALSE;
-		}
-	}
+    // Создать подпапку
+    if (dir[0])
+        sprintf(path, "%s/%s", dir, gPageFilesFolder);
+    else
+        sprintf(path, "%s", gPageFilesFolder);
+    if (mkdir(&path[0]) != 0) {
+        uint32_t err = GetLastError();
+        if (err != ERROR_ALREADY_EXISTS) {
+            DEBUG_PRINT("CreatePageFilesFolder error = %d", err);
+            return FALSE;
+        }
+    }
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************

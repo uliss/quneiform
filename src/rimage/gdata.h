@@ -81,7 +81,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-EXTERN HWND             hAppWnd;
 #define BUFSZ   0x4000
 
 EXTERN uchar         * BufZone; // [BUFSZ];

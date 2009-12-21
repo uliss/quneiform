@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "rout_own.h"
 #include "dbf.h"
+#include "minmax.h"
 
 static Bool TableDBF_Finish(long reason);
 static Bool MakeDbfHeader();

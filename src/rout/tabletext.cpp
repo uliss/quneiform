@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #include "rout_own.h"
+#include "minmax.h"
 
 static Bool Static_TableText_Prepare(Handle hObject, long reason);
 static Bool LineEnd();

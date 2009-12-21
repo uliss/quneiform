@@ -58,10 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <setjmp.h>
 #include <stdio.h>
 #include "globus.h"
-#include "struct.h"
-#include "v1comp.h"
-
-BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t width);
+#include "loc/locdefs.h"
 
 //      Memory service
 #define MAX_BOX_NUMB            100*4

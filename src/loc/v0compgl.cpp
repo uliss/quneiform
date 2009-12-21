@@ -54,15 +54,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 #include "cttypes.h"
-#include "struct.h"
-//#include "func.h"
-#include "v1comp.h"
+#include "locdefs.h"
 
 //      Common variables
-
-
 //      Internal functions
 static void make_seg_line (uchar* raster, int16_t width);
 
@@ -71,7 +66,7 @@ static BWSS *bp, *bpe;
 static uchar extrcomp_flag;
 #define SEG_DELIM -0x7000
 
-BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int16_t height, int16_t width)
+BWSS *locomp_seglist(uchar* raster, BWSS *bwsp, BWSS *bwe, int height, int width)
 {
     bwsp->b = 0;
     bwsp->w = SEG_DELIM;

@@ -308,7 +308,7 @@ Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag) {
 }
 
 Handle MyReAlloc(Handle hMem, uint32_t dwSize, uint32_t dwFlag) {
-	return GlobalReAlloc(hMem, dwSize);
+	return realloc(hMem, dwSize);
 }
 
 Handle MyLock(Handle hMem) {

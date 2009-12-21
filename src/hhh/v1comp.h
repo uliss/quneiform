@@ -54,6 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef V1COMP_H_
+#define V1COMP_H_
+
+#include "compat_defs.h"
+#include "struct.h"
+
 //
 //  шшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшшш
 //  шш                                                              шш
@@ -71,6 +77,7 @@
 //
 //===========================================================================
 //
+
 struct bw_segment {
     int16_t b;
     int16_t w;
@@ -126,3 +133,6 @@ struct main_memory_str {
 };
 
 #define NET_COMPONENT 10
+
+#endif
+

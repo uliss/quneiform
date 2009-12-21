@@ -59,12 +59,9 @@
 
 #include "struct.h"
 #include "v1comp.h"
+#include "loc/locdefs.h"
 
-BWSS * locomp_seglist(uchar * raster, BWSS *bwsp, BWSS * bwe, int height,
-                      int width);
-
-MN * c_locomp(uchar* raster, int bw, int h, int upper, int left);
-//      Memory service
+// Memory service
 
 static const int MAX_BOX_NUMB = 100 * 4;
 static const int MAX_INT_NUMB = 32 * 4;
@@ -94,7 +91,6 @@ uchar* segment_pool = (uchar *) lines;
 static jmp_buf locomp_err;
 
 //      Internal functions
-
 static void locomp_begin();
 static void analize();
 static void simple_cont();
