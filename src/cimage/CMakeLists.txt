@@ -13,6 +13,6 @@ dll.cpp
 
 set_property(TARGET cimage PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
 
-target_link_libraries(cimage cfio rdib)
+target_link_libraries(cimage cfio rdib common)
 
 install_dll(cimage)
