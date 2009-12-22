@@ -7,8 +7,6 @@ h
 hh
 hhh
 hdebug
-hrk
-hrkint
 hrstr
 usage
 )
