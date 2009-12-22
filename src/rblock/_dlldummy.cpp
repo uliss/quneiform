@@ -1861,7 +1861,7 @@ static void ScreenOutput (const char *pTitle,
     for (;;) {
         if (bNeedUpdateScreen) {
             (*pProcUpdate) (xCurrentLeft, yCurrentTop, nCurrentScaling);
-            LT_GraphicsTitle (pTitle);
+//            LT_GraphicsTitle (pTitle);
         }
 
         do {

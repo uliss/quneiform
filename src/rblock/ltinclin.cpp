@@ -78,7 +78,7 @@
 #include "cpage/cpage.h" // Rom
 #include "cttypes.h" // Piter
 
-extern int16_t nIncline;
+int16_t nIncline;
 
 int *pnHeightesCounter;
 int nHeightesAllocated;

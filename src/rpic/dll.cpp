@@ -58,7 +58,6 @@
 //
 // ============================================================================
 
-/*# include <windows.h>*/
 #include "compat_defs.h"
 
 # include "mainpic.h"
@@ -66,8 +65,6 @@
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
 
 /////////////////////////////////////////////////////////////////////////////////
 RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage)

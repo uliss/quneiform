@@ -65,7 +65,7 @@ using namespace CIF;
 #define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 
 extern jmp_buf fatal_error_exit; // For error handling
-extern int16_t nStrings;
+int16_t nStrings;
 extern uint16_t run_options;
 
 extern Handle hShowString;

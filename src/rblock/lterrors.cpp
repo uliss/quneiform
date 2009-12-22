@@ -84,7 +84,7 @@
 # include "glalloc.h"
 # include "dpuma.h"
 
-extern jmp_buf fatal_error_exit;
+jmp_buf fatal_error_exit;
 
 void FreeAllData(void)
 {
