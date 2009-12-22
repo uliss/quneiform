@@ -71,7 +71,7 @@
 #include "puma/pumadef.h"
 #include "cline/cline.h"
 
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 extern int move;
 extern Handle OrtMove;
