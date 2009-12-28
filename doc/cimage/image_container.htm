@@ -1,0 +1,2004 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1251">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<title>КОНТЕЙНЕР ИЗОБРАЖЕНИЯ</title>
+<style>
+
+</style>
+</head>
+
+<body lang=EN-US style='tab-interval:36.0pt;text-justify-trim:punctuation'>
+
+<div class=Section1>
+
+<p><b><span lang=RU style='font-size:14.0pt;font-family:
+"Arial CYR";mso-font-kerning:14.0pt;mso-ansi-language:RU'>КОНТЕЙНЕР
+ИЗОБРАЖЕНИЯ. </span></b><span style='font-size:14.0pt;font-family:Arial;
+mso-font-kerning:14.0pt'>CIMAGE</span><span lang=RU style='font-size:14.0pt;
+font-family:Arial;mso-font-kerning:14.0pt;mso-ansi-language:RU'>.</span><span
+style='font-size:14.0pt;font-family:Arial;mso-font-kerning:14.0pt'>DLL</span><span
+lang=RU style='font-size:14.0pt;font-family:Arial;mso-font-kerning:14.0pt;
+mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:double windowtext 3.0pt;padding:10.0pt 0cm 0cm 0cm'>
+
+<p><b><i><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Цель создания<o:p></o:p></span></i></b></p>
+
+</div>
+
+<p class=MsoNormal style='text-align:justify;text-indent:36.0pt;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Цель создания
+контейнера изображений заключается в хранении, обеспечении функций доступа и
+модификации распознаваемого изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify;text-indent:36.0pt;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Исходное
+изображение может модифицироваться в процессе распознавания (например</span><span
+lang=RU style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>после бинаризации или снятия
+линий).</span><span lang=RU style='mso-ansi-language:RU'> </span><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Таким образом</span><span
+lang=RU style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>может образовываться набор
+изображений. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify;text-indent:36.0pt;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Основная идея
+использования данного контейнера заключается в том, что весь набор изображений
+может быть сохранен в данном контейнере. При необходимости можно обращаться к
+любой версии исходного изображения.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:double windowtext 3.0pt;padding:10.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:0cm;mso-pagination:none;page-break-after:avoid;mso-layout-grid-align:
+none;text-autospace:none;border:none;mso-border-top-alt:double windowtext 3.0pt;
+padding:0cm;mso-padding-alt:10.0pt 0cm 0cm 0cm'><b><i><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Общие сведения.<o:p></o:p></span></i></b></p>
+
+</div>
+
+<p class=MsoNormal style='text-align:justify;text-indent:36.0pt;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Изображение
+идентифицируется своим именем - строкой длинной в 256 символов.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify;text-indent:36.0pt;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Контейнер может
+хранить изображения: черно-белое (1 бит на пиксел), </span>DIB<span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>и растровые поля.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:double windowtext 3.0pt;padding:10.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:0cm;mso-pagination:none;page-break-after:avoid;mso-layout-grid-align:
+none;text-autospace:none;border:none;mso-border-top-alt:double windowtext 3.0pt;
+padding:0cm;mso-padding-alt:10.0pt 0cm 0cm 0cm'><b><i><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Реализуемые функции:<o:p></o:p></span></i></b></p>
+
+</div>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l3 level1 lfo1;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Начать работу с библиотекой.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>BOOL</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'> </span></b><i><span style='font-family:Arial'>PASCAL</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'>
+</span></b><b><span style='font-family:Arial'>CIMAGE_Init</span></b><i><span
+style='font-family:Arial'>(Word16</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'> </span></b><b><span
+style='font-family:Arial'>wHightCode</span></b><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'>, </span></b><i><span
+style='font-family:Arial'>HANDLE</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'> </span></b><b><span
+style='font-family:Arial'>hStorage</span></b><i><span style='font-family:Arial'>)</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:70.9pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16</span></i><span lang=RU
+style='mso-ansi-language:RU'> </span><b><span lang=RU style='font-family:Arial;
+mso-ansi-language:RU'>wHightCode</span></b><span lang=RU style='mso-ansi-language:
+RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>старшие два байта кода возврата<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>HANDLE</span></i><span lang=RU
+style='mso-ansi-language:RU'> </span><b><span lang=RU style='font-family:Arial;
+mso-ansi-language:RU'>hStorage</span></b><span lang=RU style='mso-ansi-language:
+RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>дескриптор текущего хранилища.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l15 level1 lfo2;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Завершить работу с библиотекой.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>BOOL PASCAL</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>     </span></span></b><b><span
+style='font-family:Arial'>CIMAGE_Done</span></b><i><span style='font-family:
+Arial'>(</span></i><b><span style='font-family:Arial'>void</span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l0 level1 lfo3;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Получить код ошибки.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Word32 PASCAL</span></i><b><span style='font-size:10.0pt;font-family:
+"Lucida Console";mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>   </span></span></b><b><span
+style='font-family:Arial'>CIMAGE_GetErrorCode</span></b><i><span
+style='font-family:Arial'>(</span></i><b><span style='font-family:Arial'>void</span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - код ошибки. Ноль - ошибок нет.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l12 level1 lfo4;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Получить строку описания ошибки.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>PChar PASCAL</span></i><b><span style='font-size:10.0pt;font-family:
+"Lucida Console";mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>     </span></span></b><b><span
+style='font-family:Arial'>CIMAGE_GetErrorString</span></b><i><span
+style='font-family:Arial'>(Word32</span></i><b><span style='font-family:Arial'>
+dwError</span></b><i><span style='font-family:Arial'>)</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:70.9pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Word32</span></i><span style='font-family:Arial'> <b>dwError</b></span>
+- <span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>код</span><span lang=RU style='font-family:"Times New Roman CYR"'> </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>ошибки</span><span
+style='font-family:"Times New Roman CYR"'>.</span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l5 level1 lfo5;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Получить указатель экспортируемой функции или данные.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL</span></i><b><span style='font-size:10.0pt;font-family:
+"Lucida Console";mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>    </span></span></b><b><span
+style='font-family:Arial'>CIMAGE_GetExportData</span></b><i><span
+style='font-family:Arial'>(<br>
+</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>Word32</span></i><b><span style='font-family:Arial'>
+dwType</span></b><i><span style='font-family:Arial'>,<br>
+</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>void *</span></i><b><span style='font-family:Arial'>
+pData<span style='mso-tab-count:1'>         </span></span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>dwType</b></span><b><span
+lang=RU style='mso-ansi-language:RU'> </span></b><span lang=RU
+style='mso-ansi-language:RU'>- </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>число, номер экспортируемой функции или данных.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>void<b> *</b></span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>pData</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на экспортируемую функцию
+или данные.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>если опции установлены, </span><b><span lang=RU
+style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;mso-ansi-language:
+RU'>FALSE</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>если
+опции ошибочны или функция не реализована.</span><span lang=RU
+style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Вызов </span><b><span lang=RU style='font-family:Arial;
+mso-ansi-language:RU'>CIMAGE_GetErrorCode</span></b><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>()</span></i><span lang=RU
+style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>может принимать значения:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;mso-ansi-language:
+RU'>NO_ERROR</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>ошибок
+нет<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;mso-ansi-language:
+RU'>FUNCTION_NOT_IMPLEMENT</span></b><span lang=RU style='mso-ansi-language:
+RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>функция не реализована</span><span lang=RU
+style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l10 level1 lfo6;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Передать указатель импортируемой функции или данные.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL</span></i><b><span style='font-size:10.0pt;font-family:
+"Lucida Console";mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>    </span></span></b><b><span
+style='font-family:Arial'>CIMAGE_SetImportData</span></b><i><span
+style='font-family:Arial'>(</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><br>
+<span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>Word32</span></i><b><span style='font-family:Arial'>
+dwType</span></b><i><span style='font-family:Arial'>,</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><br>
+<span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>void *</span></i><b><span style='font-family:Arial'>
+pData</span></b><i><span style='font-family:Arial'>)</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>dwType</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>число, номер импортируемой функции
+или данных.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>void<b> *</b></span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>pData</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на импортируемую функцию
+или данные.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое</span><span
+lang=RU style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>значение </span><b><span lang=RU
+style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;mso-ansi-language:
+RU'>TRUE</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>если
+опции установлены, </span><b><span lang=RU style='font-size:10.0pt;font-family:
+Arial;mso-font-kerning:10.0pt;mso-ansi-language:RU'>FALSE</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>если опции ошибочны или функция не
+реализована. Вызов</span><b><span lang=RU style='mso-ansi-language:RU'> </span></b><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>CIMAGE_GetErrorCode</span></b><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>()</span></i><span
+lang=RU style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>может принимать значения:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><b><span
+lang=RU style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;
+mso-ansi-language:RU'>NO_ERROR</span></b><span lang=RU style='mso-ansi-language:
+RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>ошибок нет<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><b><span
+lang=RU style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;
+mso-ansi-language:RU'>FUNCTION_NOT_IMPLEMENT</span></b><span lang=RU
+style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>функция не реализована<o:p></o:p></span></p>
+
+<div style='border:none;border-top:double windowtext 3.0pt;padding:10.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:0cm;mso-pagination:none;page-break-after:avoid;mso-layout-grid-align:
+none;text-autospace:none;border:none;mso-border-top-alt:double windowtext 3.0pt;
+padding:0cm;mso-padding-alt:10.0pt 0cm 0cm 0cm'><b><i><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Описание функций.</span></i></b><b><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'><o:p></o:p></span></i></b></p>
+
+</div>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
+3.0pt;margin-left:42.55pt;mso-pagination:none;page-break-after:avoid;
+mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Хранение изображения и
+доступ к нему.<o:p></o:p></span></b></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l9 level1 lfo7;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>VII.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Сохранить черно-белое изображение<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>            </span></span></b><b><span
+style='font-family:Arial'>WriteCallbackImage</span></b><i><span
+style='font-family:Arial'>(<br>
+<span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>IMAGECALLBACK</span></i><b><span
+style='font-family:Arial'> cbk<span style='mso-tab-count:1'>   </span></span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>IMAGECALLBACK</span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>cbk</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>структура с указателями на тигриные
+callback функции. </span><span lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef<span style='mso-tab-count:1'>          </span>CIMAGEBOOL16<span
+style='mso-tab-count:1'>     </span><span style='mso-tab-count:1'>           </span>(*PCIMAGE_Callback_ImageOpen)(PCIMAGE_ImageInfo);<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef<span style='mso-tab-count:1'>          </span>CIMAGEWORD<span
+style='mso-tab-count:2'>                  </span><span style='mso-tab-count:
+1'>           </span>(*PCIMAGE_Callback_ImageRead)(PChar, CIMAGEWORD);<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef<span style='mso-tab-count:1'>          </span>CIMAGEBOOL16<span
+style='mso-tab-count:1'>     </span>(*PCIMAGE_Callback_ImageClose)(void);<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef struct<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>PCIMAGE_Callback_ImageOpen<span
+style='mso-tab-count:1'> </span></span></i><b><span style='font-family:Arial'>CIMAGE_ImageOpen</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>PCIMAGE_Callback_ImageRead<span
+style='mso-tab-count:1'> </span></span></i><b><span style='font-family:Arial'>CIMAGE_ImageRead</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>PCIMAGE_Callback_ImageClose<span
+style='mso-tab-count:1'> </span></span></i><b><span style='font-family:Arial'>CIMAGE_ImageClose</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>CIMAGEIMAGECALLBACK, * PCIMAGEIMAGECALLBACK;</span></i></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'>PCIMAGE_ImageInfo</span></b> - <span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>тип</span><span style='font-family:"Times New Roman CYR"'>
+- </span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>указатель</span><span lang=RU style='font-family:"Times New Roman CYR"'> </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>на</span><span
+lang=RU style='font-family:"Times New Roman CYR"'> </span><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>структуру</span><span
+style='font-family:"Times New Roman CYR"'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef struct<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wImageHeight</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wImageWidth</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wImageByteWidth</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wImageDisplacement</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wResolutionX</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wResolutionY</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word8<span
+style='mso-tab-count:2'>           </span></span></i><b><span style='font-family:
+Arial'>bFotoMetrics</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word8<span
+style='mso-tab-count:2'>           </span></span></i><b><span style='font-family:
+Arial'>bUnused</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wAddX</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style='mso-tab-count:1'>         </span></span></i><b><span style='font-family:
+Arial'>wAddY</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>CIMAGE_ImageInfo, *PCIMAGE_ImageInfo,
+**PPCIMAGE_ImageInfo;</span></i><b><span style='font-size:10.0pt;font-family:
+"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes"> </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Возвращаемое значение - </span><b><span lang=RU
+style='font-size:10.0pt;font-family:Arial;mso-font-kerning:10.0pt;mso-ansi-language:
+RU'>TRUE</span></b><span lang=RU style='mso-ansi-language:RU'>, </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>в случае
+успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l6 level1 lfo8;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Прочитать черно-белое изображение. <o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:1'>            </span></span></b><b><span
+style='font-family:Arial'>GetCallbackImage</span></b><i><span style='font-family:
+Arial'>(<br>
+</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>PChar</span></i><b><span style='font-family:Arial'>
+lpName</span></b><i><span style='font-family:Arial'>,<br>
+</span></i><b><span style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial'><span style='mso-tab-count:2'>                        </span></span></b><i><span
+style='font-family:Arial'>IMAGECALLBACK</span></i><b><span style='font-family:
+Arial'> * cbk<span style='mso-tab-count:1'>           </span></span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>IMAGECALLBACK</span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> * <b>cbk</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>структура с указателями на тигриные
+</span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;mso-font-kerning:
+10.0pt;mso-ansi-language:RU'>callback</span></b><span lang=RU style='mso-ansi-language:
+RU'> </span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>функции. </span><span lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l16 level1 lfo9;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+style='font-family:"Times New Roman CYR"'>I.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Загрузить</span></b><b><span lang=RU style='font-family:
+"Times New Roman CYR"'> </span></b><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>изображение</span></b><b><span style='font-family:"Times New Roman CYR"'>.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL<span style='mso-tab-count:1'>        </span></span></i><b><span
+style='font-family:Arial'>WriteDIB</span></b><i><span style='font-family:Arial'>(<br>
+<span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>HANDLE</span></i><b><span
+style='font-family:Arial'> lpDIB,<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><span style='mso-tab-count:2'>                                                </span></span></b><i><span
+style='font-family:Arial'>Word</span></i><i><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>32</span></i><b><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'> </span></b><b><span style='font-family:Arial'>wCopy</span></b><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'><span style='mso-tab-count:
+1'>    </span></span></b><i><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>)</span></i><b><span lang=RU style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial;mso-ansi-language:RU'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>HANDLE</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpDIB</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на DIB.</span><span
+lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>wCopy</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>флаг копирования для занесения в
+контейнер: если </span><b><span lang=RU style='font-size:10.0pt;font-family:
+Arial;mso-font-kerning:10.0pt;mso-ansi-language:RU'>0</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>то в контейнер заносится </span>DIB<span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>скопированный с переданного по </span><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>HANDLE</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpDIB</b></span><span
+lang=RU style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>в противном случае заносится сам </span>DIB<span
+lang=RU style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>переданный по </span><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>HANDLE</span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>lpDIB</b></span><span
+lang=RU style='mso-ansi-language:RU'>. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l11 level1 lfo10;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+style='font-family:"Times New Roman CYR"'>I.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Извлечь</span></b><b><span lang=RU style='font-family:
+"Times New Roman CYR"'> </span></b><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>изображение</span></b><b><span style='font-family:"Times New Roman CYR"'>.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL<span style='mso-tab-count:1'>        </span></span></i><b><span
+style='font-family:Arial'>ReadDIB</span></b><i><span style='font-family:Arial'>(<br>
+<span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>HANDLE
+*</span></i><b><span style='font-family:Arial'> lpDIB,<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><span style='mso-tab-count:2'>                                                </span></span></b><i><span
+style='font-family:Arial'>Word</span></i><i><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>32</span></i><b><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'> </span></b><b><span style='font-family:Arial'>wCopy</span></b><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'><span style='mso-tab-count:
+1'>    </span></span></b><i><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>)</span></i><b><span lang=RU style='font-size:10.0pt;font-family:"Lucida Console";
+mso-bidi-font-family:Arial;mso-ansi-language:RU'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>HANDLE<b> *</b></span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>lpDIB</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на DIB.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>wCopy</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>флаг копирования для считывания из
+контейнера: если </span><b><span lang=RU style='font-size:10.0pt;font-family:
+Arial;mso-font-kerning:10.0pt;mso-ansi-language:RU'>0</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>то из контейнера передается </span>DIB<span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>скопированный с хранящегося, в противном случае
+передается сам </span>DIB<span lang=RU style='mso-ansi-language:RU'>, </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>хранящийся
+в контейнере.</span><span lang=RU style='mso-ansi-language:RU'> <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l7 level1 lfo11;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Передать часть изображения.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL<span style='mso-tab-count:1'>        </span></span></i><b><span
+style='font-family:Arial'>GetData</span></b><i><span style='font-family:Arial'>(<br>
+<span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>PCIMAGE_InfoDataInGet
+</span></i><b><span style='font-family:Arial'><span style="mso-spacerun:
+yes"> </span>lpIn</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>PCIMAGE_InfoDataOutGet</span></i><b><span
+style='font-family:Arial'> lpOut</span></b><i><span style='font-family:Arial'>)</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.</span><span lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGE_InfoDataInGet </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>lpIn</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на структуру с
+информацией о части изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef struct CIMAGEInfoDataInGet<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwX</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwY</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwWidth</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwHeight</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word16
+</span></i><b><span style='font-family:Arial'>wByteWidth</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word8<span
+style="mso-spacerun: yes">  </span></span></i><b><span style='font-family:Arial'>Reserved</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'>           </span>Word8<span
+style="mso-spacerun: yes">  </span></span></i><b><span style='font-family:Arial'>MaskFlag</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>CIMAGE_InfoDataInGet, * PCIMAGE_InfoDataInGet;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwX</span></b><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>, Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwY</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>координаты левого верхнего угла <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwWidth</span></b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>,<i> Word32 </i><b>dwHeight
+</b></span><span lang=RU style='mso-ansi-language:RU'>- </span><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>размеры
+запрашиваемого прямоугольника</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>wByteWidth</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>длина строки отводимой в буфере для
+передачи строки части изображения в байтах.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word8<span style="mso-spacerun:
+yes">  </span></span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>MaskFlag</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>флаг
+битовой маски. Если нужно получить не прямоугольное изображение, тогда флаг (не
+равен 0) будет указывать на то, что используется битовая маска, задающая, какие
+точки из заданного прямоугольника должны быть взяты из изображения. Если весь
+прямоугольник, тогда равен 0. Битовая маска находится непосредственно за
+структурой. Размер маски определяется</span><span lang=RU style='mso-ansi-language:
+RU'> </span>x<b><span lang=RU style='mso-ansi-language:RU'>.</span></b><span
+lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGE_InfoDataOutGet</span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>lpOut</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на структуру с получаемой
+частью изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef struct CIMAGEInfoDataOutGet<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word32<span
+style="mso-spacerun: yes">   </span></span></i><b><span style='font-family:
+Arial'>dwWidth</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word32<span
+style="mso-spacerun: yes">   </span></span></i><b><span style='font-family:
+Arial'>dwHeight</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16<span
+style="mso-spacerun: yes">   </span></span></i><b><span style='font-family:
+Arial'>wByteWidth</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word16<span
+style="mso-spacerun: yes">   </span></span></i><b><span style='font-family:
+Arial'>byBit</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>PWord8<span
+style="mso-spacerun: yes">   </span></span></i><b><span style='font-family:
+Arial'>lpData</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>CIMAGE_InfoDataOutGet, *PCIMAGE_InfoDataOutGet,
+**PPCIMAGE_InfoDataOutGet;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16<span style="mso-spacerun:
+yes">   </span></span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>byBit</span></b><i><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'> </span></i><span lang=RU style='mso-ansi-language:RU'>- </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>число
+бит на точку </span><span lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32<span style="mso-spacerun:
+yes">   </span></span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>dwWidth,</span></b><span lang=RU style='mso-ansi-language:RU'> </span><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>Word32<span
+style="mso-spacerun: yes">   </span></span></i><b><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>dwHeight</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>размеры передаваемой части
+изображения</span><span lang=RU style='mso-ansi-language:RU'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>wByteWidth</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>длина строки отводимой в буфере для
+передачи строки части изображения в байтах.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PWord8<span style="mso-spacerun:
+yes">   </span></span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>lpData</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>указатель
+на буфер, куда будет копироваться часть изображения. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l8 level1 lfo12;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Заменить часть изображения.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL<span style='mso-tab-count:1'>        </span></span></i><b><span
+style='font-family:Arial'>ReplaceData</span></b><i><span style='font-family:
+Arial'>(<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:2'>                                                </span>PCIMAGE_InfoDataInReplace
+</span></i><b><span style='font-family:Arial'>lpIn</span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGE_InfoDataInReplace<b> </b></span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>lpIn</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на структуру с заменяемой
+частью изображения.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>typedef struct CIMAGEInfoDataInReplace<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>                      </span>Word16
+</span></i><b><span style='font-family:Arial'>byBit</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word32 </span></i><b><span
+style='font-family:Arial'>dwX</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word32 </span></i><b><span
+style='font-family:Arial'>dwY</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word32 </span></i><b><span
+style='font-family:Arial'>dwWidth</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word32 </span></i><b><span
+style='font-family:Arial'>dwHeight</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word16 </span></i><b><span
+style='font-family:Arial'>wByteWidth</span></b><i><span style='font-family:
+Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>PWord8 </span></i><b><span
+style='font-family:Arial'>lpData</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word8<span
+style='mso-tab-count:1'> </span> </span></i><b><span style='font-family:Arial'>Reserved</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word16 </span></i><b><span
+style='font-family:Arial'>wReserved</span></b><i><span style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:1'>           </span>Word8<span
+style='mso-tab-count:1'> </span> </span></i><b><span style='font-family:Arial'>MaskFlag</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-.55pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'>CIMAGE_InfoDataInReplace, *
+PCIMAGE_InfoDataInReplace;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>byBit</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>число бит на точку<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwX, </span></b><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwY</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>координаты левого верхнего угла <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>dwWidth,</span></b><span
+lang=RU style='mso-ansi-language:RU'> </span><i><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>Word32 </span></i><b><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>dwHeight </span></b><span
+lang=RU style='mso-ansi-language:RU'>- </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>размеры прямоугольника<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word16 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>wByteWidth</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>длина строки отводимой в буфере для
+передачи строки части изображения в байтах.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PWord8 </span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>lpData</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на буфер, в котором
+находиться заменяемая часть изображения.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word8<span style='mso-tab-count:
+1'> </span> </span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>MaskFlag</span></b><span lang=RU style='mso-ansi-language:RU'> - </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>указатель
+на битовую маску</span><span lang=RU style='mso-ansi-language:RU'>, </span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>указывающую
+на то, какие точки из заданного прямоугольника должны быть взяты из
+изображения. Если весь прямоугольник, тогда<span style="mso-spacerun: yes"> 
+</span>равен </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>0</span></b><span lang=RU
+style='mso-ansi-language:RU'>. </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Если нет </span><span lang=RU style='mso-ansi-language:
+RU'>(</span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>тогда не равен </span><b><span lang=RU style='font-size:10.0pt;font-family:
+Arial;mso-font-kerning:10.0pt;mso-ansi-language:RU'>0</span></b><span lang=RU
+style='mso-ansi-language:RU'>), </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>то маска находится непосредственно за структурой.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+36.0pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l13 level1 lfo13;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Получить информацию об изображении.<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32 PASCAL<span style='mso-tab-count:1'>        </span></span></i><b><span
+style='font-family:Arial'>GetImageInfo</span></b><i><span style='font-family:
+Arial'>(<br>
+<span style='mso-tab-count:2'>                                                </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName</span></b><i><span style='font-family:Arial'>,<br>
+<span style='mso-tab-count:2'>                                                </span>PCIMAGEBITMAPINFOHEADER</span></i><b><span
+style='font-family:Arial'> lpBIH</span></b><i><span style='font-family:Arial'>)</span></i><b><span
+style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя данных.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGEBITMAPINFOHEADER</span></i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> <b>lpBIH</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на структуру с
+информацией об изображении (члены структуры идентичны членам стандартной
+структуры заголовка </span>DIB<span lang=RU style='mso-ansi-language:RU'> - </span><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>BITMAPINFOHEADER</span></i><span
+lang=RU style='mso-ansi-language:RU'>).<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'><span style='mso-tab-count:
+1'> </span></span></i><i><span style='font-family:Arial'>typedef struct
+tagCIMAGEBITMAPINFOHEADER<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'> </span>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>biSize</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Int32
+</span></i><b><span style='font-family:Arial'>biWidth</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Int32
+</span></i><b><span style='font-family:Arial'>biHeight</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word16
+</span></i><b><span style='font-family:Arial'>biPlanes</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word16
+</span></i><b><span style='font-family:Arial'>biBitCount</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>biCompression</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>biSizeImage</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Int32
+</span></i><b><span style='font-family:Arial'>biXPelsPerMeter</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Int32
+</span></i><b><span style='font-family:Arial'>biYPelsPerMeter</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>biClrUsed</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>biClrImportant</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'> </span>}
+CIMAGEBITMAPINFOHEADER, *PCIMAGEBITMAPINFOHEADER;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l17 level1 lfo14;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='mso-ansi-language:RU'>I.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Освободить память, выделенную под </span>DIB</b><b><span
+lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32<span style='mso-tab-count:1'>                       </span></span></i><b><span
+style='font-family:Arial'>FreeCopedDIB</span></b><i><span style='font-family:
+Arial'> (<br>
+<span style='mso-tab-count:2'>                                                </span>Handle
+</span></i><b><span style='font-family:Arial'>lpDIB</span></b><i><span
+style='font-family:Arial'>)</span></i><b><span style='font-size:10.0pt;
+font-family:"Lucida Console";mso-bidi-font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Handle<b> </b></span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>lpDIB</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на </span>DIB<span
+lang=RU style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>полученный от функции </span><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>ReadDIB</span></b><span
+lang=RU style='mso-ansi-language:RU'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l4 level1 lfo15;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>I.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><![endif]><b><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>Удалить изображение<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Bool32<span style='mso-tab-count:
+1'>                       </span></span></i><b><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>DeleteImage</span></b><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>(PChar</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpName</span></b><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>)</span></i><b><span
+lang=RU style='font-size:10.0pt;font-family:"Lucida Console";mso-bidi-font-family:
+Arial;mso-ansi-language:RU'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'> <b>lpName</b></span><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на строку. Строка должна
+содержать имя изображения.</span><span lang=RU style='mso-ansi-language:RU'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l14 level1 lfo16;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>XVI.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></b><![endif]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Удалить
+все изображения<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Bool32<span style='mso-tab-count:
+1'>                       </span></span></i><b><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>Reset</span></b><i><span lang=RU style='font-family:
+Arial;mso-ansi-language:RU'>(void)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Вызов функции
+приводит к удалению всех изображений из контейнера. Копии </span>DIB<span
+style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>полученные от функции </span><b><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>ReadDIB</span></b><span lang=RU
+style='mso-ansi-language:RU'> </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>удалены не будут.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l1 level1 lfo17;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>XVI.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></b><![endif]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Добавить
+область закрытую на чтение<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32<span style='mso-tab-count:1'>                       </span></span></i><b><span
+style='font-family:Arial'>AddReadCloseRects</span></b><i><span
+style='font-family:Arial'>(<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName,</span></b><i><span style='font-family:Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>Word32</span></i><b><span
+style='font-family:Arial'> wNumberRects,</span></b><i><span style='font-family:
+Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PCIMAGE_Rect</span></i><b><span
+style='font-family:Arial'> lpRects<span style="mso-spacerun: yes">     </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">      </span></span></b><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Данная функция
+добавляет к изображению область, закрытую для доступа (далее маску). При
+получении картинки из контейнера, вместо изображения, находящегося под маской,
+будет выдаваться фон (подразумевается самый светлый пиксел). Маска задается
+прямоугольниками.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpName</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Имя картинки</span><span lang=RU
+style='mso-ansi-language:RU'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> wNumberRects</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Колличество порямоугольников,
+описывающих маску.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGE_Rect</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpRects</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на массив структур
+прямоугольников. Размер массива определяется параметром </span><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>wNumberRects</span></b><b><span
+lang=RU style='font-family:"Arial CYR";mso-ansi-language:RU'>. </span></b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Структура
+имеет следующий вид:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'><span style='mso-tab-count:
+1'> </span></span></i><i><span style='font-family:Arial'>typedef struct
+tagCIMAGERECT<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'> </span>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwX</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwY</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwWidth</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:2'>           </span>Word32
+</span></i><b><span style='font-family:Arial'>dwHeight</span></b><i><span
+style='font-family:Arial'>;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:37.1pt;text-align:justify;text-indent:
+-1.1pt;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-family:Arial'><span style='mso-tab-count:1'> </span>} CIMAGE_Rect,
+*PCIMAGRect, **PPCIMAGE_Rect;<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><u><span
+style='font-family:Arial'>NOTE</span></u></b><span lang=RU style='mso-ansi-language:
+RU'>! </span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>Маска накладывается на изображение не во всех случаях. Это относиться к
+получению картинки из контейнера без копирования (см. описание </span><b><span
+style='font-family:Arial'>ReadDIB</span></b><span lang=RU style='mso-ansi-language:
+RU'>).<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.</span><span lang=RU style='mso-ansi-language:
+RU'><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l2 level1 lfo18;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>XVI.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></b><![endif]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Удалить
+область закрытую на чтение<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32<span style='mso-tab-count:1'>                       </span></span></i><b><span
+style='font-family:Arial'>RemoveReadCloseRects</span></b><i><span
+style='font-family:Arial'>(<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName,</span></b><i><span style='font-family:Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>Word32</span></i><b><span
+style='font-family:Arial'> wNumberRects,</span></b><i><span style='font-family:
+Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PCIMAGE_Rect</span></i><b><span
+style='font-family:Arial'> lpRects<span style="mso-spacerun: yes">     </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">      </span></span></b><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Данная функция
+снимает с изображения область, закрытую для доступа (далее маску). При
+получении картинки из контейнера, вместо изображения, находящегося под маской,
+будет выдаваться фон (подразумевается самый светлый пиксел). Маска задается
+прямоугольниками.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpName</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Имя картинки</span><span lang=RU
+style='mso-ansi-language:RU'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>Word32</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> wNumberRects</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Колличество порямоугольников,
+описывающих маску.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PCIMAGE_Rect</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpRects</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>указатель на массив структур
+прямоугольников. Размер массива определяется параметром </span><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'>wNumberRects</span></b><b><span
+lang=RU style='font-family:"Arial CYR";mso-ansi-language:RU'>. </span></b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Структура
+имеет следующий вид:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><u><span
+style='font-family:Arial'>NOTE</span></u></b><span lang=RU style='mso-ansi-language:
+RU'>! </span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>Пример использования функций для наложения масок.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Исходное
+изображение </span>NxM<span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-size:
+10.0pt;font-family:Arial'><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:71.35pt;
+ height:96.85pt' o:ole="">
+ <v:imagedata src="image_container/image001.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=95 height=129
+src="image_container/image002.jpg" v:shapes="_x0000_i1025"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1000564891">
+ </o:OLEObject>
+</xml><![endif]--></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Чтобы наложить
+на него маску такого вида:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1026" type="#_x0000_t75" style='width:91pt;height:114.55pt' o:ole="">
+ <v:imagedata src="image_container/image003.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=121 height=153
+src="image_container/image004.jpg" v:shapes="_x0000_i1026"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1000564893">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>нужно<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>1) наложить
+маску на все изображение:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'>AddReadCloseRects(Name,1,Rect) </span></b><span style='font-family:"Times New Roman CYR"'>,</span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>где</span><b><span
+lang=RU style='font-family:"Arial CYR"'> </span></b><b><span style='font-family:
+Arial'>Rect[0]={0,0,N,M}<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><img width=111 height=129
+src="image_container/image006.jpg" v:shapes="_x0000_i1027"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1000564895">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>1) Снять часть
+маски:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'>RemoveReadCloseRects(Name,2,Rect) <o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-family:
+"Times New Roman CYR"'>,</span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>где</span><b><span lang=RU style='font-family:"Arial CYR"'>
+</span></b><b><span style='font-family:Arial'>Rect[0]={n1,m1,nn1,mm1}</span></b><b><span
+style='font-family:"Arial CYR"'> </span></b><b><span style='font-family:Arial'>Rect[1]={n2,m2,nn2,mm2}<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1028" type="#_x0000_t75" style='width:83.15pt;height:108.65pt'
+ o:ole="">
+ <v:imagedata src="image_container/image007.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=111 height=145
+src="image_container/image008.jpg" v:shapes="_x0000_i1028"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1000564896">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-family:
+"Times New Roman CYR"'>1) </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>добавить</span><span lang=RU style='font-family:"Times New Roman CYR"'>
+</span><span lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:
+RU'>маску</span><span style='font-family:"Times New Roman CYR"'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'>AddReadCloseRects(Name,</span></b><b><span style='font-family:"Arial CYR"'>2</span></b><b><span
+style='font-family:Arial'>,Rect)<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-family:
+"Times New Roman CYR"'>,</span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>где</span><b><span lang=RU style='font-family:"Arial CYR"'>
+</span></b><b><span style='font-family:Arial'>Rect[0]={k1,l1,kk1,ll1}</span></b><b><span
+style='font-family:"Arial CYR"'> </span></b><b><span style='font-family:Arial'>Rect[1]={k2,l2,kk2,ll2}<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-size:
+10.0pt;font-family:Arial'><!--[if gte vml 1]><v:shape id="_x0000_i1029" type="#_x0000_t75"
+ style='width:68.75pt;height:108.65pt' o:ole="">
+ <v:imagedata src="image_container/image009.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=91 height=145
+src="image_container/image010.jpg" v:shapes="_x0000_i1029"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1029"
+  DrawAspect="Content" ObjectID="_1000564898">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-family:"Arial CYR";mso-ansi-language:RU'>Полученная маска:</span></b><b><span
+style='font-family:Arial'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><b><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span style='font-size:
+10.0pt;font-family:Arial'><!--[if gte vml 1]><v:shape id="_x0000_i1030" type="#_x0000_t75"
+ style='width:78.55pt;height:106.05pt' o:ole="">
+ <v:imagedata src="image_container/image011.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=104 height=141
+src="image_container/image012.jpg" v:shapes="_x0000_i1030"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1030"
+  DrawAspect="Content" ObjectID="_1000564900">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></p>
+
+<div style='border:none;border-top:solid windowtext 1.0pt;padding:12.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal style='margin-top:48.0pt;margin-right:0cm;margin-bottom:
+24.0pt;margin-left:36.0pt;text-indent:-36.0pt;mso-pagination:none;page-break-after:
+avoid;mso-list:l2 level1 lfo18;tab-stops:36.0pt;mso-layout-grid-align:none;
+text-autospace:none;border:none;mso-border-top-alt:solid windowtext 1.0pt;
+padding:0cm;mso-padding-alt:12.0pt 0cm 0cm 0cm'><![if !supportLists]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>XVII.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></b><![endif]><b><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Удалить
+область закрытую на чтение<o:p></o:p></span></b></p>
+
+</div>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool32<span style='mso-tab-count:1'>                       </span></span></i><b><span
+style='font-family:Arial'>EnableMask</span></b><i><span style='font-family:
+Arial'>(<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PChar</span></i><b><span
+style='font-family:Arial'> lpName,</span></b><i><span style='font-family:Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>PChar</span></i><b><span
+style='font-family:Arial'> lpType,</span></b><i><span style='font-family:Arial'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">       </span>Bool32</span></i><b><span
+style='font-family:Arial'> bEnable<span style="mso-spacerun: yes">     </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-pagination:none;tab-stops:4.0cm 155.95pt 212.65pt;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-family:
+Arial'><span style='mso-tab-count:4'>                                                                  </span><span
+style="mso-spacerun: yes">      </span></span></b><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Данная функция
+снимает с изображения область, закрытую для доступа (далее маску). При
+получении картинки из контейнера, вместо изображения, находящегося под маской,
+будет выдаваться фон (подразумевается самый светлый пиксел). Маска задается
+прямоугольниками.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span lang=RU
+style='font-family:Arial;mso-ansi-language:RU'>PChar</span></i><b><span
+lang=RU style='font-family:Arial;mso-ansi-language:RU'> lpName</span></b><span
+lang=RU style='mso-ansi-language:RU'> - </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Имя картинки</span><span lang=RU
+style='mso-ansi-language:RU'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>PChar</span></i><b><span style='font-family:Arial;mso-ansi-language:
+RU'> </span></b><b><span style='font-family:Arial'>lpType</span></b><span
+lang=RU style='mso-ansi-language:RU'> – </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>Тип маски. Принимаемые значения – “</span><span
+style='font-family:"Times New Roman CYR"'>w</span><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>” – маска по
+записи или “</span><span style='font-family:"Times New Roman CYR"'>r</span><span
+lang=RU style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>” –
+маска по чтению.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:72.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><i><span style='font-family:
+Arial'>Bool</span></i><i><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'>32</span></i><b><span lang=RU style='font-family:Arial;mso-ansi-language:
+RU'> </span></b><b><span style='font-family:Arial'>bEnable</span></b><span
+lang=RU style='mso-ansi-language:RU'> – </span><span lang=RU style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'>переменная, блокирующая маску. </span><span
+style='font-family:"Times New Roman CYR"'>TRUE</span><span style='font-family:
+"Times New Roman CYR";mso-ansi-language:RU'> <span lang=RU>– маска применяется,
+</span></span><span style='font-family:"Times New Roman CYR"'>FALSE</span><span
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'> <span lang=RU>–
+игнорируется.<o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'><span lang=RU
+style='font-family:"Times New Roman CYR";mso-ansi-language:RU'>Возвращаемое
+значение - </span><b><span lang=RU style='font-size:10.0pt;font-family:Arial;
+mso-font-kerning:10.0pt;mso-ansi-language:RU'>TRUE</span></b><span lang=RU
+style='mso-ansi-language:RU'>, </span><span lang=RU style='font-family:"Times New Roman CYR";
+mso-ansi-language:RU'>в случае успеха.<b><o:p></o:p></b></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1065 @@
+                Описание ED-формата. Написана 2.11.98 Боженовым Артемом.
+                (C) Cognitive Tech
+
+Ed-формат употребляется при передаче результатов распознавания от ядра
+к конвертерам, которые производят фрагментацию и прочие необходимые
+преобразования текста (как то отписывание в виде txt, rtf и прочих форматах)
+
+В файле может храниться только одна распознанная страница. Ее номер хранится в 
+заголовке файла (см. sheet_disk_descr.sheet_numb).
+
+Файл, как не трудно догадаться, имеет расширение ed. 
+
+Он состоит из набора блоков, каждый из которых начинается с тэга
+(кода данных), за которым следует соответстующая ему структура.
+Код данных являтся первым байтом данной структуры (поле
+code), т.е. не дублируется 2 раза. Все тэги должны иметь код, не
+превосходящий 0x1f. Список тэгов приведен в прил.1
+
+Далее везде имется в виду, что BYTE это 1 беззнаковый байт, а WORD это 
+2 беззнаковых байта.
+
+Все упоминающиеся смещения указываются в пикселях(кажется).
+
+Под текущей версией подразумевется вариант, используемый в cuneiform96-97
+
+Сейчас будет список тэгов и пояснения:
+
+			З А Г О Л О В О К
+
+                код SS_SHEET_DESCR - заголовок файла
+
+Самый первый байт файла.
+
+Файл должен(?) начинаться со структуры
+
+struct sheet_disk_descr
+ {
+ Word8 code;                  //=0x0A
+ Int8 quant_fragm;
+ Word16 sheet_numb;
+ Word16 descr_lth;
+ Word8 byte_flag;
+ Word16 resolution;
+ Word16  incline;
+ Word16 version; 
+ Int8 tabl[11];
+ };
+где 
+quant_fragm - число фрагментов в листе. ВСЕГДА должен присутствовать хотя 
+	      бы 1 фрагмент.
+sheet_numb  - номер листа (либо с нуля, либо 0 - номер листа отсутствует(?))
+descr_lth   - длина описателя листа, включая описатели фрагментов,
+              расположенные следом.
+resolution  - разрешение tiff'а в dpi
+incline     - разворот картинки. Вычисляется по формуле 
+              incline=(xideal-xreal)/yreal*2048=(yreal-yideal)/xreal*2048
+tabl[13]    - зарезервировано    
+
+Далее один за одним идут описатели фрагментов (всего quant_fragm штук), каждый
+из которых начинается с 
+
+                код SS_FRAGMENT - описатель нового фрагмента
+
+!!!!Заметим, что ВНЕ заголовка код SS_FRAGMENT означает _СОВСЕМ_ДРУГОЕ_!!!
+    (см. ниже) и в текущей версии не используется
+
+!!!Также заметим, что в текущей версии эта структура не используется. Т.е.
+создается один фиктивный фрагмент для совместимости, а данные по реальным
+фрагментам хранятся при помощи SS_TEXT_REF(см.)
+
+Структура содержит информацию по фрагментам. Номер фрагмента соответствует 
+положению этой структуры в файле.
+
+struct fragm_disk_descr
+ {
+ Word8 code;                           //=0x0B
+ Word16 row;                           // coordinates of left upper
+ Word16 col;                           // angle of fragment's frame
+ Word16 height;                        // height of fragment
+ Word16 w_width;                       // Q.w_width of fragment
+ Int8 type;
+ Word8 kegl;                           // kegl for following fragm
+ Word8 font;                            // font ~~~~~~~~~~~~~~~~~~
+ Word8 language;                       /* language for fragment*/
+ Word8 type_underl;                    // type specifications of font
+ };                                   //     for additional information
+                                      //     look at underline
+
+  row          - строка     (координаты верхнего левого
+  col          - столбец     угла рамки фрагмента )
+  height       - высота     (рамки
+  w_width      - ширина      фрагмента)
+  type         - тип        (0-текстовый,1-графический)
+		 Также может принимать следующие значения:
+                 #define FD_TYPE_TEXT 0
+                 #define FD_TYPE_PICT 1
+                 #define FD_TYPE_TABLE 2
+                 #define FD_TYPE_EMPTY 3
+
+  kegl         - кегль
+  font         - фонт
+  language     - язык фрагмента
+  type_underl  - тип подчеркивания   (смотри спецификации типа в
+                                     спецсимволе SS_UNDERLINE - Подчеркивание)
+
+
+
+!!!  В соответствии с текущей версией ed файла далее идет блок описателей 
+!!!  фрагментов, реализованный на базе тэга SS_TEXT_REF(см). Заголовок
+!!!  оканчивается тэгом SS_TEXT_REF с полем type =SSR_FRAG_END(см).
+
+
+Далее идет собственно файл.
+
+			Т Е Л О   Ф А Й Л А
+
+                код SS_BITMAP_REF - информация о привязке
+
+Структура хранит информацию по привязке о идущем ЗА НЕЙ (в файле) символе
+(или другом подобном элементе, таком как HalfSpace - см. ниже)
+
+Если между двумя такими структурами не встречается ни одного объекта, к которому
+можно было бы применить информацию, содержащуюся в структуре (чего в принципе
+быть не должно), то содержимое первой структуры игнорируется. Обратно, если
+после этой структуры идет более одного такого объекта( символа и.т.п.), то
+информация из структуры применяется к ним всем.
+
+struct bit_map_ref
+ {
+ Word8 code;                 //  == SS_BITMAP_REF
+ Word8 pos;
+ Word16 row;                  //  Reference box
+ Word16 col;
+ Word16 width;
+ Word16 height;
+ };
+
+row,col      - коотрдинаты левого верхнего угла объекта, 
+width,height - высота и ширина.
+
+                SS_TEXT_REF - описатель текста
+		(SS_REMARK)
+
+struct text_ref
+ {                                     // 0 - letter
+ Word8 code;                            // 1 -
+ Word8 type;                            // 2 - word
+ Word16 object;                           // 3 - string
+ };
+
+code = 0x01
+В текущей версии поле type сообщает о том, что лежит в поле object. 
+Блок используется как альтернатива старой
+системе форматирования текста и гибче ее. Список значений type - Прил.4.
+
+Сведения по значению поля type и object:
+
+        	Серия о фрагменте
+
+Используется как альтернатива SS_FRAGMENT из заголовка. Блоки со значением
+type=SSR_FRAG_... должны встречаться только в заголовке файла. Вся информация,
+заключенная между стуктурами с type=SSR_FRAG_TYPE считается относяйщейся к 
+одному фрагменту. Данные должны лежать в порядке, соответствующем появлению
+строк с атрибутом SSR_LINE_FN в теле файла. Т.о. писать эти блоки в 
+файл надо по следующему алгоритму:
+
+while(текущий фрагмент < общего числа фрагментов)
+{ 
+  SSR_FRAG_TYPE, 
+  SSR_FRAG_N,X,W,Y,H,BASE(если есть такая иформация есть),
+  if(тип фрагмента == TAB_BEG) 
+  {
+     SSR_FRAG_PNUM, 
+     for(i=0;i<числа колонок;i++)
+     {
+         SSR_FRAG_COLXW с x координтой i-й колонки,
+	 SSR_FRAG_COLXW с шириной i-й колонки
+     },
+  }
+  if(тип фрагмента == MCOL_BEG)
+  {
+     SSR_FRAG_PNUM
+  }
+  текущий фрагмент++,
+}
+SSR_FRAG_END,
+текущий фрагмент=0,
+while(текущий фрагмент < общего числа фрагментов)
+{
+  if(текущий фрагмент центрирован относительно другого фрагмента)
+  {
+    SSR_FRAG_SN,
+    SSR_FRAG_REL
+  }
+  текущий фрагмент++,
+}
+SSR_SHEET_TYPE
+
+
+Теперь подробнее:
+
+SSR_FRAG_TYPE - тип фрагмента. Возможные типы - в прил.5. Описания будут.
+		object - собственно тип
+	TP_ONE_LINE      0x0001
+	TP_LEFT_ALLIGN   0x0002
+	TP_RIGHT_ALLIGN  0x0004
+	TP_CENTER        0x0008
+	TP_POS_INDENT    0x0010
+	TP_NEG_INDENT    0x0020
+	TP_BULLET        0x0040
+	TP_POESY         0x0080
+	TP_LN_SPACE      0x0100
+	TP_NOT_RECOG     0x0200
+	TP_BORDER        0x0400
+	TP_BRACKET       0x8000
+	TP_MCOL_BEG      (TP_BRACKET|0x1000)- начало многоколоночной секции
+	TP_NEW_COL       (TP_BRACKET|0x2000)- начало новой колонки внутри многоколоночной секции
+	TP_MCOL_END      (TP_BRACKET|0x3000)- конец многоколоночноой секции 
+	TP_TAB_BEG       (TP_BRACKET|0x4000)
+	TP_NEW_ROW       (TP_BRACKET|0x5000)
+	TP_DEL           (TP_NOT_RECOG|TP_BORDER)
+	TP_FICT_FR_FLAGS (TP_BORDER|TP_BRACKET)
+
+FICT_FR_FLAGS - фрагменты, у которых object&FICT_FR_FLAGS!=0 являются
+фиктивными, т.е. не присутствуют в теле файла в виде SS_FRAGMENT, а служат лишь
+для указания форматирования текста.
+
+
+SSR_FRAG_N - номер фрагмента, данный пользователем на этапе сегментации(?)
+	     object - собственно номер
+
+SSR_FRAG_X -         горизонтальное расположение фрагмента в tiff'е	
+SSR_FRAG_W -         object - соотв. левый край и ширина фрагмента
+
+SSR_FRAG_Y -         вертикальное расположение фрагмента в tiff'е
+SSR_FRAG_H -         object - соотв. верхний край и высота фрагмента
+
+SSR_FRAG_BASE - Regular margin from 'x'
+
+SSR_FRAG_PNUM - если тип фрагмента TAB_BEG или MCOL_BEG, то object - количество 
+                соответственно ячеек/колонок.
+
+SSR_FRAG_COLXW - гориз.расположение столбцов таблицы. Структуры должны
+		 идти парами в первой object - x координата, во второй
+		 object - ширина. Такие стурктуры дожны 
+		 идти в блоке, имеющим тип TAB_BEG
+
+SSR_FRAG_SN    - object: номер фрагмента, данный ему распознавалкой(т.е. 
+                 порядковый номер в файле	 
+SSR_FRAG_REL   - object: for centered fragment - number given automatically 
+                 of centered parent
+
+SSR_FRAG_END - завершает описатели фрагментов. object - количество описанных
+	       фрагментов.
+
+		Серия о строке
+
+Блоки из этой серии лежат независимо от тэга SS_LINE_BEG. И как бы образуют
+заголовок строки. Пишутся по алгоритму:
+
+if(строка фиктивная)
+{
+   SSR_LINE_FICT
+   конец
+}
+SSR_LINE_FN,
+SSR_LINE_TYPE,
+SSR_LINE_NUMBER(это не обязательно),
+if (начало абзаца)
+{
+   SSR_LINE_PARAGRAPH
+   SSR_LINE_INDENT
+}
+if (строка составная)
+   SSR_LINE_NPIECES
+if (начало абзатца с маркером)
+{
+   SSR_LINE_PARAGRAPH
+   SSR_LINE_INDENT
+}
+SSR_LINE_X,
+SSR_LINE_W,
+SSR_LINE_BASELINE,
+SSR_LINE_HEIGHT
+
+
+Теперь подробнее:
+
+SSR_LINE_FN - object: порядковый номер фрагмента, которому принадлежит строка
+
+SSR_LINE_PARAGRAPH - Строка является началом нового абзатца. Object принимает 
+                     значения:
+      #define ORD_LN   0
+      #define NEW_PAR  0x1        // new paragraph
+      #define BUL_PAR  0x2        // paragraph with bullet
+                     Если строка - не начало обзатца, то этот тэг можно не ставить
+
+SSR_LINE_TYPE - object: тип строки
+
+	                   0x0         for deleted line
+      #define DL_HUGE_XW   0x1      // XW changed due to huge letter
+      #define DL_HUGE      0x2      // Huge letter
+      #define DL_ASSEMBLY  0x4      // Line assembled from pieces
+      #define DL_SINGLE    0x8      // Single-letter line
+
+SSR_LINE_BULIND - object - размер отступа для маркера (буллита)(если есть)
+
+SSR_LINE_INDENT - object - размер отступа начала обзатца(если есть)
+
+SSR_LINE_X -    Горизонтальная позиция в tiff'е
+SSR_LINE_W -    object - соотв. левый край и ширина строки
+
+SSR_LINE_BASELINE - 3d baseline position (ideal)
+
+SSR_LINE_HEIGHT - Height beetween 2nd and 3rd baselines
+
+SSR_LINE_NPIECES - идет в сломаной строке(когда тип строки - DL_ASSEMBLY). 
+		   object - Number of original pieces within line - 1 
+
+SSR_LINE_FICT - означает, что строка - фиктивная (не должна учитываться)
+                object - игнорируется
+
+
+Также type может принимать следующие значения:
+
+SSR_LINE_NUMBER         и тогда object - это порядковый номер строки в файле
+                        (хотя зачем он нужен - непонятно: его и так можно 
+                         вычислить)
+SSR_WORD_BOLD           и тогда object - это density of word
+SSR_SHEET_TYPE          и тогда object - 0 или 1 в зависимости от ExistSheets 
+
+
+		Серия о поломатой строке
+
+Эти тэги встречаются в середина строки и означают изменение величин,
+заданных тэгами SSR_LINE_...(см.)
+
+type=SSR_BROKEN_X
+означает скачек в x координате строки. object игнорируется. 
+Эквивалентен SS_LINE_BEG
+
+type=SSR_BROKEN_W
+object игнорируется. Означает игнорирование начала строки?
+
+type=SSR_BROKEN_BASELINE
+скачек в бейслайне, который есть 3d baseline position (ideal). object - 
+новый baseline
+
+type=SSR_BROKEN_HEIGHT
+скачек в высоте строки, которая есть Height beetween 2nd and 3rd baselines.
+object - новая высота
+
+                код SS_FRAGMENT - начало нового фрагмента
+
+!!!В текущей версии не применяется. Информация о принадлежности строки фрагменту
+   находится в SS_TEXT_REF type=SSR_LINE_FN;
+!!!
+
+Обозначает начало нового фрагмента. Данные по фрагменту находятся в 
+соответствующем описателе в заголовке файла.
+Также обозначает начало новой строки
+(см. SS_LINE_BEG: fragm_disk.depth==line_beg.base_line)
+Т.о. не следует после SS_FRAGMENT ставить SS_LINE_BEG.
+
+struct fragm_disk
+ {
+ Word8 code;                  //=0x0B
+ Word8 fragm_numb;
+ Word16 depth;
+ };
+     fragm_numb - номер начинающегося фрагмента(от нуля)
+     depth      - смещение  основания текущей строки от верхней
+	          границы фрагмента.
+
+
+                код SS_LANGUAGE - язык распознавания
+
+этот тэг игнорируется?? Это необходимо в связи с несовершенностью
+редатора, который не умеет его правильно обрабатывать. Например после
+редактирования английского символа он превратился в русский. ТЭГ языка
+сохраняется при этом английский. Это приводит к ошибке при конвертировании
+TIGERа.
+
+struct EdTagLanguage  
+{
+    Word8 code; 		// 0x0f
+    Word8 language;
+};
+language - код языка (см. прил.2)
+
+                код SS_EXTENTION - начало расширенного блока
+
+этот тэг был введен для расширения формата ed и дабавления ему гибкости.
+За ним идет содержательная структура. 
+
+struct edExtention
+{
+        Word8 code;   /* always 0x1C */
+        Word16 Ecode;  /* New extention code */
+        Word16 length; /* Length in bytes */
+};
+
+   Ecode  - содержит один из расширенных кодов( см. ниже), описывающий 
+            содержательную структуру. 
+   length - размер этой структуры, _ВКЛЮЧАЯ_ размер структуры edExtention.
+		
+                код SS_LINE_BEG -  новая строка
+
+!!!В текущей версии поля height и base_line не используются. Эти и другие 
+   параметры строки описывется при помощи структуры SS_TEXT_REF
+!!!
+
+Обозначает начало новой строки символов. Есть мнение, что height не 
+используется, т.к. эта структура очень похожа на fragm_disk(см. SS_FRAGMENT)
+
+Строка считается принадлежащей последнему встретившемуся фрагменту.
+
+struct line_beg
+ {
+ Word8 code;			//0x0D
+ Word8 height;
+ Word16 base_line;                         // displacement for current
+ };                                     //     line to upper frame of fragment
+                                //  i.e.Vertical offset from the fragm. start
+
+ height    - зарезервировано(?). По другим данным это
+	     высота строки, которая есть Height beetween 2nd and 3rd baselines
+ base_line - смещение (смещение текущей линии относительно
+		       верхней границы фрагмента)
+
+                код SS_FONT_KEGL - информация о шрифте
+
+Информация о шрифте идущего ЗА НЕЙ (в файле) символа
+(или другого подобного элемента, такого как HalfSpace - см. ниже)
+
+Для него верно все то же, что и для CC_BITMAPREF
+
+struct font_kegl                       //  1 - serific
+ {                                     //  2 - gelvetic
+ Word8 code;                            //  4 - bold
+ Word8 new_kegl;                        //  8 - light
+ Word16 new_font;                        // 16 - italic
+ };                          	       // 32 - straight                                    
+				       // 64 - underlined
+
+code     = 0x02
+new_kegl - новый кегль
+new_font - новый фонт(В столбик перечислены возможные варианты, возможны комбинации)
+
+                код SS_POS_HALF_SPACE - положительный полупробел
+			(добавление промежутка)
+
+Вставляет в текущую строку символ SS_POS_HALF_SPACE
+(?)В ранних версиях код 0x1f означал SS_NEG_HALF_SPACE, 
+а 0x1e - SS_POS_HALF_SPACE
+
+struct pos_half_space
+ {
+ Word8 code;              		//0x1f
+ Word8 authenticity_degree;
+ };
+
+authenticity_degree - степень достоверности, т.е. вероятность правильного 
+                      распознавания символа
+                     ( 0<=authenticity_degree<=255 )
+
+                SS_NEG_HALF_SPACE - Отрицательный полупробел
+
+(?)В ранних версиях код 0x1f означал SS_NEG_HALF_SPACE, 
+а 0x1e - SS_POS_HALF_SPACE
+
+struct neg_half_space
+ {
+ Word8 code;                             //0x1e
+ Word8 authenticity_degree;
+ };
+
+authenticity_degree - степень достоверности
+
+                SS_TABUL - символ табуляции
+
+Вставляет символ табуляции в текущую строку после текущего символа
+
+struct tabul
+ {
+ Word8 code;				//0x08
+ Word8 numb_in_tab_tabul;                // number of position in
+ };                                     //         table of tabulation
+
+numb_in_tab_tabul - номер позиции в таблице табуляций(см.SS_TABL_TABUL)
+
+                SS_KEGL - Кегль
+
+struct kegl
+ {
+ Word8 code;           //0x03
+ Word8 new_kegl;
+ };
+
+new_kegl - новый кегль
+
+                SS_SHIFT - сдвиг
+
+struct shift
+ {
+ Word8 code;                 //0x04
+ Word8 kegl;
+ Word16 clearance;                         // value of lift or descent
+ };                                     // lift positive
+                                        // descent negative
+
+kegl      - кегль
+clearance - смещение  (значение подъема или спуска относительно
+	    базовой строки,подъем выражается положительной
+	    величиной,спуск-отрицательной)
+                
+		SS_RETR_LEVEL - Востановить уровень
+
+struct retrieve_level
+ {
+ Word8 code;		//0x05
+ Word8 kegl;
+ };
+
+kegl - кегль
+
+                SS_UNDERLINE - Подчеркивание
+
+struct underline
+ {                                     // 0 - thin straight
+ Word8 code;                           // 1- half thick straight
+ Word8 type;                           // 2- thick straight
+ };                                    // 3- thin cursive
+                                       // 4- half thick cursive
+                                       // 5- thick cursive
+                                       // 6- beg of underline
+                                       // 7- end of underline
+
+code = 0x06
+type - тип (0-тонкий прямой,1-полужирный прямой, 2- жирный прямой,
+	   3-тонкий курсив,4-полужирный курсив,5-жирный курсив,
+	   6-начало подчеркивания,7-конец подчеркивания)
+
+
+                SS_DENS_PRINT - Плотность печати
+
+struct dens_print
+ {
+ Word8 code;                             //0x07
+ Word8 dens_atr;                         // attribute of print's
+ };                                     //                 density
+
+dens_atr - атрибут плотности печати
+
+                SS_TABL_TABUL - Таблица табуляции
+
+struct tabl_tabul
+ {
+ Word8 code;			//0x09
+ Word8 lth;                              // scale of arow
+ Word16 arow_pos[1] ;
+ };
+
+lth         - длина массива
+arow_pos[1] - первый элемент массива
+
+                SS_STEP_BACK - Абзацный отступ
+
+!!!В текущей версии не применяется. Вместо него использутся SS_TEXT_REF
+   c type=SSR_LINE_INDENT
+
+struct step_back
+ {                                   	//0x0c
+ Word8 code;
+ Word8 Step_back;                        // value of backstep
+ };
+
+m_step_back - отступ
+
+                SS_POSITION - Позиция
+
+!!!В текущей версии не применяется. Вместо него использутся SS_TEXT_REF
+   c type=SSR_LINE_X
+
+struct position
+ {
+ Word8 code;                             //0x0E
+ Word8 store;
+ Word16 pos;                               // position in line for
+ };                                     //     left frame of  fragm
+
+store - запас
+pos   - позиция         (позиция в линии относительно левой границы
+			 фрагмента)
+
+
+                SS_TABL_CONFORM_SIZES - Таблица соответствия размеров
+
+struct table_conform_sizes
+ {
+ Word8 code;			//0x10
+ Word8 store;
+ Int8 tab_val_A [9*2];                   // table of sizes of letter A
+ };                                      //     for kegles from 4 to 12
+
+store           - запас
+tab_val_A [9*2] - таблица [9x2](Элементы таблицы-значения размеров большой 
+                  буквы А для кеглей 4-12 включительно.Длина элемента 1-байт.)
+
+
+                SS_GROUP_WORDS - Группа слов
+
+struct group_words
+ {
+ Word8 code;			//0x11
+ Word8 gr_wd_type;                        // 0 - beg of group
+ };                                       // 1 - cur. word of group
+                                          // 2 - end
+                                          // 3 - partition between groups
+
+gr_wd_type - тип   (тип:0-начало группы,
+			1-текущее слово группы,
+			2-конец группы,
+			3-разделение между группами.)
+
+                SS_GROUP_SYMBOLS - группа символов
+
+struct group_symbols
+ {
+ Word8 code;			//0x12
+ Word8 gr_sb_type;
+ };
+
+gr_sb_type - тип   (тип:0-начало группы,
+			1-текущее слово группы,
+			2-конец группы,
+			3-разделение между группами.)
+
+                SS_BORDER
+
+struct border
+    {
+    Word8 code;          // 0x16 SS_BORDER
+    Word8 type;          // 1 - left
+#define b_vert 1        // 2 - right
+#define b_hor  4        // 4 - top
+			// 8 - bottom
+    Word16  length;        // Length of border in pixels
+    Word16  x,y;           // Coordinates of line begin
+    };
+
+                SS_TABLE_HEADER
+
+struct table_header
+    {
+    Word8    code;       // 0x17 SS_TABLE_HEADER
+    Word8    cols;       // Number of columns
+    Word16     lth;        // Total length of record
+    Word16     nfrag[1];    // List of fragments in header of table
+    };
+
+                SS_LIST_OF_FRAGMENTS
+
+struct list_of_fragments
+    {
+    Word8    code;       // 0x18 SS_LIST_OF_FRAGMENTS
+    Word8    cols;       // Number of columns
+    Word16     lth;        // Total length of record
+    Word16     nfrag[1];   // List of fragments in table
+    };
+
+                SS_AKSANT - Ударение
+
+struct aksant
+ {
+ Word8 code1;			//0x1D
+ Word8 code;
+ };
+ code1 - символ(?)
+ code  - символ
+
+
+Если мы наткнулись на неописанный выше тэг, и его значение меньше, чем 0x20,
+то значит кто-то расширил ed формат( чего делать не следовало), и
+все что нам остается - выйти с сообщением о невозможности причитать
+конец файла.
+
+Если же неописанный выше тэг имеет значение, большее или равное
+0x20(код пробела), то это не тэг, а код распознанного символа. 
+
+Символ считается принадлежащим последней встретившейся строке.
+
+!!! Появлению самого превого символа на странице должен предшествовать блок,
+означающий начало строки (SS_FRAGMENT либо SS_LINE_BEG)!!! 
+Если такого блока не было, то символ следует
+игнорировать(?).
+
+  Символ - это,последовательность пар: альтернативный полиграфический
+символ, его вероятность.Символ и вероятность занимают по одному байту.
+Ноль в младшем бите вероятности служит признаком конца последова-
+тельности. Символ,обладающий наибольшей вероятностью в пределах
+заданной последовательности, до правки оператором стоит первым.
+
+Теперь то же, но моими словами. В файле хранится
+не более 8(?) различных вариантов распознавания этого сивола, т.е.
+не более 8 подряд идущих структур
+
+struct letter
+{
+    Word8    bType;          //  ASCII code.  >= ' '.
+    Word8    bAttrib;          
+};
+
+bType   - распознанная буква
+bAttrib - достоверность распознавания
+
+Если поле bAttrib содержит 1 в младшем бите(т.е.bAttrib&1==1), то это не
+последняя альтернатива - следует считать еще одну такую же структуру. Иначе-
+последняя, далее идет новый блок. Если мы сделаем (bAttrib & 254), то получим
+достоверность определения соответствующей буквы. По идее среди всевозможных
+вариантов надо выбрать тот, у которого эта достоверность максимальна.
+
+
+		Р А С Ш И Р Е Н Н Ы Й   ED
+
+
+(см.SS_EXTENTION)
+Каждый блок из этой группы представляет собой структуру, начинающюяся
+с edExtention, где содержится информация о том, что же тут собственно лежит.
+Поле edExtention.Ecode может принимать одно из значений. Эти значения разбиты на 
+логические группы:
+
+ 0x0000 - 0x00FF special code 
+ 0x0100 - 0x01FF table description 
+ 0x0200 - 0x02FF picture description 
+ 0x0300 - 0xEFFF Your code please...
+
+ 0xF000 - 0xFFFF temporary code for debugging ( ! Not used in release version !)
+
+#define ITS_EDEXT_SPECIAL(a)   (a>=0x0000 && a<0x0100)
+#define ITS_EDEXT_TABLE(a)     (a>=0x0100 && a<0x0200)
+#define ITS_EDEXT_PICTURE(a)   (a>=0x0200 && a<0x0300)
+
+Эти макросы помогут в работе с кодом расширения.
+
+ ITS_EDEXT_SPECIAL(Ecode) коды из этого диапозона зарезервированы для
+дальнейшего использования.
+
+ ITS_EDEXT_TABLE(Ecode) коды из этого диапозона описывают таблицы.
+
+ ITS_EDEXT_PICTURE(Ecode) коды из этого диапозона описывают картинки.
+
+ Коды 0x0300 - 0xEFFF можно использовать по Вашему усмотрению. Сообщите нам о
+том какой диапозон Вы намерены использовать, чтобы не пересекаться.
+
+ Коды 0xF000 - 0xFFFF резервируются для отладочных целей. Не используйте их в
+окончательных вариантах версий.
+
+Теперь конкретные значения:
+		EDEXT_VERSION - версия
+
+		EDEXT_TABLE_START - описатель таблицы
+
+Этот код инициализирует работу с таблицей. Он указывает на структуру описания
+таблицы.
+
+typedef struct sTable
+{
+ EDEXT 	  head;
+ Int32      Sh;           // число горизонтальных линий
+ Int32      Sv;           // число вертикальных линий
+ Int32      angle;        // угол наклона таблицы в 1/1024 радиана
+ Int32      VerCount;     // число вертикальных линий подлежащих удалению
+                        // средствами программы распознавания
+ Int32 ShiftX;            // смещение верхнего левого угла таблицы от
+ Int32 ShiftY;            // того же угла изображения
+} edTable;
+
+		EDEXT_TABLE_VER
+Этот код указывает на массив чисел - X координаты вертикальных линий.
+Число чисел Sv в структуре sTable. Тип INT.
+
+		EDEXT_TABLE_HOR         
+Этот код указывает на массив чисел - Y координаты горизонтальных
+линий.  Число чисел Sh в структуре sTable. Тип INT.
+
+		EDEXT_TABLE_TAB         
+Этот код указывает на массив чисел определяющих матрицу описания таблицы.
+Каждый элемент матрицы есть число - пользовательский номер фрагмента
+(user_num), который расположен в этой таблице. Если соседние ячейки матрицы
+имеют одинаковый номер, тогда эти ячейки матрицы определяют одну ячейку
+таблицы. Число чисел в структуре определяется как (Sh-1)*(Sv-1).  Тип INT.
+
+		EDEXT_TABLE_VERLINE     
+Этот код указывает на массив чисел - X,Y координаты вертикальных линий
+подлежащих удалению.  Число чисел равно VertCount*2. Тип INT.
+
+		EDEXT_CTP	 	
+Этот код указывает на структуру ctp_hdr. Этот код инициализирует работу с
+картинками. (смотри CTP.H)
+ struct ctp_hdr {
+        #define SIGNA   "CT Picture"
+        BYTE Signatura[10];
+        };
+Эта структура лежит в самом начале ctp файла
+
+
+		EDEXT_PICTURE - описатель картинки
+
+предваряет структуру
+
+struct ctp_pic_hdr {
+Word32	pic_size;	// in bytes
+Word16	x_off;		// in pixels
+Word16	y_off;		// in pixels
+Word16	w;		// in pixels
+Word16	h;		// in pixels
+Word16	resolution;
+Word16	bpl;		// bytes per line. Only if native format
+Word8    bitpix;
+Word8	type;
+Word8    PicName[32];
+};
+
+где type может принимать значения
+
+#define ctp_BW          0
+#define ctp_greytone    1
+#define ctp_color	2
+#define ctp_2xx		10 // compressed
+#define ctp_4xx		11 // contured
+#define ctp_native      64 /* if type less this const
+			      It one of native formats */
+#define ctp_tiff        65
+#define ctp_gif         66
+#define ctp_pcx         67
+#define ctp_bmp         68
+#define ctp_wmf		69
+#define ctp_jpeg	70
+
+ Эта структура описывает конкретную картинку. Все элементы этой структуры,
+кроме PicName носят справочный характер. В элементе PicName указано имя
+файла, где хранится картинка.  Сейчас (10.10.96) предпологается , что она
+раcположена в поддиректории, где лежит ED, одноименной имени ED файла .
+
+Эта структура лежит в ctp файле сразу после ctp_hdr
+
+
+		Сводная табличка расширенных кодов
+
+#define EDEXT_VERSION		0x0000
+
+#define EDEXT_TABLE_START 	0x0100 // edTable struct
+#define EDEXT_TABLE_VER         0x0101 // array horiz. coord of vert lines (x0,x1,...)
+#define EDEXT_TABLE_HOR         0x0102 // array vert. coord of horiz. lines (y0,y1,...)
+#define EDEXT_TABLE_TAB         0x0103 // array ID of items
+#define EDEXT_TABLE_VERLINE     0x0104 // array not delete vert lines (x00,y00,x01,y01,...)
+
+#define EDEXT_CTP	 	0x0200 // filename of CTP file
+#define EDEXT_PICTURE           0x0201 // struct of <edPicture>
+
+
+
+Прил.1
+Список тэгов
+
+#define SS_BITMAP_REF 		0x00
+#define SS_TEXT_REF 		0x01
+#define SS_REMARK SS_TEXT_REF
+#define SS_FONT_KEGL 		0x02
+#define SS_KEGL 		0x03
+#define SS_SHIFT 		0x04
+#define SS_RETR_LEVEL 		0x05
+#define SS_UNDERLINE 		0x06
+#define SS_DENS_PRINT 		0x07
+#define SS_TABUL 		0x08
+#define SS_TABL_TABUL 		0x09
+#define SS_SHEET_DESCR 		0x0a
+#define SS_FRAGMENT 		0x0b
+#define SS_STEP_BACK 		0x0c
+#define SS_LINE_BEG 		0x0d
+#define SS_POSITION 		0x0e
+#define SS_LANGUAGE 		0x0f
+#define SS_TABL_CONFORM_SIZES 	0x10
+#define SS_GROUP_WORDS 		0x11
+#define SS_GROUP_SYMBOLS 	0x12
+#define SS_PARAGRAPH     	0x15
+#define SS_BORDER        	0x16
+#define SS_TABLE_HEADER  	0x17
+#define SS_LIST_OF_FRAGMENTS 	0x18
+#define SS_AKSANT 		0x1d
+#define SS_NEG_HALF_SPACE 	0x1e
+#define SS_POS_HALF_SPACE 	0x1f
+
+Прил.2
+Список кодов языков для структуры EDCC_LANGUAGE
+
+LANG_ENGLISH    ангоийский
+LANG_GERMAN     немецкий
+LANG_FRENCH     французский
+LANG_RUSSIAN    русский
+LANG_SWEDISH    шведский
+LANG_SPANISH    испанский
+LANG_ITALIAN    итальянский
+LANG_RUSENG     рус&англ
+LANG_UKRAINIAN  ураинский
+LANG_SERBIAN    сербский
+LANG_CROATIAN   хорватский
+LANG_DANISH     датский
+LANG_PORTUGUESE португальский
+LANG_DUTCH      голландский
+
+#define LANG_ENGLISH 0
+#define LANG_GERMAN  1
+#define LANG_FRENCH  2
+#define LANG_RUSSIAN 3
+#define LANG_SWEDISH 4
+#define LANG_SPANISH 5
+#define LANG_ITALIAN 6
+#define LANG_RUSENG  7
+#define LANG_UKRAINIAN  8
+#define LANG_SERBIAN    9
+#define LANG_CROATIAN  10
+#define LANG_DANISH     11
+#define LANG_PORTUGUESE 12
+#define LANG_DUTCH      13
+
+Прил.3
+Размеры стандартных блоков
+
+Если размер больше или равен 0x40, то значит, что настоящий размер хранится в
+самой структуре, по смещению, равному: (значение в таблице & 0xf).
+Длина этого размера - 2 байта,если значение в таблице >=0x80 и
+1 байт в противном случае.
+
+static unsigned char ed_table[]=
+    {
+    sizeof (struct bit_map_ref),        /* 0  SS_BITMAP_REF         */
+    sizeof (struct text_ref),           /* 1  SS_TEXT_REF           */
+    sizeof (struct font_kegl),          /* 2  SS_FONT_KEGL          */
+    sizeof (struct kegl),               /* 3  SS_KEGL               */
+    sizeof (struct shift),              /* 4  SS_SHIFT              */
+    sizeof (struct retrieve_level),     /* 5  SS_RETR_LEVEL         */
+    sizeof (struct underline),          /* 6  SS_UNDERLINE          */
+    sizeof (struct dens_print),         /* 7  SS_DENS_PRINT         */
+    sizeof (struct tabul),              /* 8  SS_TABUL              */
+    0x41,                               /* 9  SS_TABL_TABUL         */
+    0x84,                               /* 0A SS_SHEET_DESCR        */
+    sizeof (struct fragm_disk),         /* 0B SS_FRAGMENT           */
+    sizeof (struct step_back),          /* 0C SS_STEP_BACK          */
+    sizeof (struct line_beg),           /* 0D SS_LINE_BEG           */
+    sizeof (struct position),           /* 0E SS_POSITION           */
+    sizeof(struct EdTagLanguage),       /* 0F SS_LANGUAGE           */
+    sizeof (struct table_conform_sizes),/* 10 SS_TABL_CONFORM_SIZES */
+    sizeof (struct group_words),        /* 11 SS_GROUP_WORDS        */
+    sizeof (struct group_symbols),      /* 12 SS_GROUP_SYMBOLS      */
+    0,                                  /* 13 Unused code           */
+    0,                                  /* 14 Unused code           */
+    2,                                  /* 15 ASCII symbol 'Start Paragraph'      */
+    sizeof (struct border),             /* 16 SS_BORDER             */
+    0x82,                               /* 17 SS_TABLE_HEADER       */
+    0x82,                               /* 18 SS_LIST_OF FRAGMENTS  */
+    0,                                  /* 19 Unused code           */
+    0,                                  /* 1A Unused code           */
+    0,                                  /* 1B Unused code           */
+    0x83,                               /* 1C Special code of Extention ED */
+    sizeof (struct aksant),             /* 1D SS_AKSANT             */
+    sizeof (struct neg_half_space),     /* 1E SS_NEG_HALF_SPACE     */
+    sizeof (struct pos_half_space)      /* 1F SS_POS_HALF_SPACE     */
+    };
+
+		Таблица кодов для спецсимволов.
+-----------------------------------------------------------------------------
+идентифицирующий код | длина в байтах|        название
+---------------------|---------------|-----------------------------------------
+0x00		     |     6         | ссылка на графический образ
+0x01		     |     4         | ссылка на текст
+0x02		     |     4         | фонт и кегль
+0x03                 |     2         | кегль
+0x04		     |     4         | сдвиг
+0x05		     |     2         | востановить уровень
+0x06		     |     2         | подчеркивание
+0x07  		     |     2         | плотность печати
+0x08                 |     2         | табуляция
+0x09		     |     ?         | таблица табуляции
+0x0a		     |     ?         | описатель листа
+0x0b		     |     14        | описатель фрагмента
+				       (Встречаются только в заголовке
+				       следом за описателем листа)
+0x0b                 |     4         | начало фрагмента
+0x0с                 |     2         | отступ
+0x0d		     |     4         | начало линии
+0x0e		     |     4         | позиция
+0x10		     |     18        | таблица соответсвия размеров
+0x11		     |     2         | группа слов
+0x12		     |     2         | группа символов
+0x1d		     |     2         | ударение
+0x1e		     |     2         | положительный полупробел
+0x1f		     |     2         | отрицательный полупробел
+-------------------------------------------------------------------------------
+
+Прил.4 Коды описателей типа для SS_TEXT_REF(SS_REMARK)
+
+#define SSR_HUGE		0    /* Internal remark about huge letter */
+
+/* Seria within broken line: first - BROKEN_X, last - BROKEN_W  */
+#define SSR_BROKEN_BASELINE	1
+#define SSR_BROKEN_HEIGHT	2
+#define SSR_BROKEN_X		3
+#define SSR_BROKEN_W		4
+
+/* Seria about line: first - LINE_FN, other - optional  */
+#define SSR_LINE_FN		5
+#define SSR_LINE_PARAGRAPH	6
+#define SSR_LINE_TYPE		7
+#define SSR_LINE_INDENT		8
+#define SSR_LINE_NPIECES        9
+#define SSR_LINE_FICT		16
+#define SSR_LINE_BULIND		23
+#define SSR_LINE_X		24
+#define SSR_LINE_W		25
+#define SSR_LINE_BASELINE	26
+#define SSR_LINE_HEIGHT		27
+
+/* Seria about fragment: first - FRAG_TYPE      */
+#define SSR_FRAG_TYPE		10
+#define SSR_FRAG_BASE		11
+#define SSR_FRAG_X		12
+#define SSR_FRAG_W		13
+#define SSR_FRAG_N		14
+#define SSR_FRAG_SN		17
+#define SSR_FRAG_REL		18
+#define SSR_FRAG_Y   		19
+#define SSR_FRAG_H		20
+#define SSR_FRAG_PNUM		21
+#define SSR_FRAG_COLXW		28
+
+#define SSR_FRAG_END		15	/* end of fragments list  */
+
+/* Misceleneaus  */
+
+#define SSR_LINE_NUMBER		22	/* Internal line number  */
+#define SSR_WORD_BOLD           32      /* density of word */
+#define SSR_SHEET_TYPE          33      /* type of sheet */
+
+Прил.5 
+#define ONE_LINE      0x0001
+#define LEFT_ALLIGN   0x0002
+#define RIGHT_ALLIGN  0x0004
+#define CENTER        0x0008
+#define POS_INDENT    0x0010
+#define NEG_INDENT    0x0020
+#define BULLET        0x0040
+#define POESY         0x0080
+#define LN_SPACE      0x0100
+#define NOT_RECOG     0x0200
+#define BORDER        0x0400
+#define BRACKET       0x8000
+#define MCOL_BEG      (BRACKET|0x1000)
+#define NEW_COL       (BRACKET|0x2000)
+#define MCOL_END      (BRACKET|0x3000)
+#define TAB_BEG       (BRACKET|0x4000)
+#define NEW_ROW       (BRACKET|0x5000)
+#define DEL           (NOT_RECOG|BORDER)
+#define FICT_FR_FLAGS (BORDER|BRACKET)

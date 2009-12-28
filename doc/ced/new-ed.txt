@@ -1,0 +1,795 @@
+                Описание ED-формата вер.2000. Написана 16.9.99 Боженовым Артемом.
+                (C) Cognitive Tech
+			З А Г О Л О В О К
+
+                код SS_SHEET_DESCR - заголовок файла
+
+Самый первый байт файла.
+
+Файл должен начинаться со структуры
+
+struct sheet_disk_descr
+ {
+ Word8 code;                  //=0x0A
+ Int8 quant_fragm;
+ Word16 sheet_numb;
+ Word16 descr_lth;
+ Word8 byte_flag;
+ Word16 resolution;
+ Word16  incline;
+ Word16 version; 
+ Int8 tabl[11];
+ };
+где 
+quant_fragm = 1 число фрагментов в листе. ВСЕГДА должен присутствует 1 фрагмент.
+sheet_numb  - номер листа в пачке с нуля 
+descr_lth   - длина описателя листа, включая описатели фрагментов,
+              расположенные следом. т.е. sizeof(sheet_disk_descr)+sizeof(fragm_disk_descr)
+resolutionX  - разрешение по X tiff'а в dpi. Должен совпадать с resolutionX в EDEXT_TIFF_DESC(см)
+incline     - разворот картинки. Вычисляется по формуле 
+              incline=(xideal-xreal)/yreal*2048=(yreal-yideal)/xreal*2048
+version     - версия формата = 2000
+tabl[11]    - зарезервировано    
+
+Далее идет фиктивный описатель фрагмента, который начинается с 
+
+                код SS_FRAGMENT - описатель нового фрагмента
+
+!!!!Заметим, что ВНЕ заголовка код SS_FRAGMENT означает _СОВСЕМ_ДРУГОЕ_!!!
+    (см. ниже) и в текущей версии не используется
+
+!!!Также заметим, что в текущей версии эта структура не используется. Т.е.
+создается один фиктивный фрагмент для совместимости, а данные по реальным
+фрагментам хранятся при помощи SS_TEXT_REF(см.)
+
+Структура содержит информацию по фрагментам. Номер фрагмента соответствует 
+положению этой структуры в файле.
+
+struct fragm_disk_descr
+ {
+ Word8 code;                           //=0x0B
+ Word16 row;                           // coordinates of left upper
+ Word16 col;                           // angle of fragment's frame
+ Word16 height;                        // height of fragment
+ Word16 w_width;                       // Q.w_width of fragment
+ Int8 type;
+ Word8 kegl;                           // kegl for following fragm
+ Word8 font;                            // font ~~~~~~~~~~~~~~~~~~
+ Word8 language;                       /* language for fragment*/
+ Word8 type_underl;                    // type specifications of font
+ };                                   //     for additional information
+                                      //     look at underline
+
+все поля заполняются 0
+
+Далее идет расширенный тег с описателем версии файла: EDEXT_VERSION(см)
+Далее идет расширенный тег с описателем таблицы шрифтов: EDEXT_FONTS(см)
+Далее идет расширенный тег с описателем таблицы цветов: EDEXT_COLORS(см)(пока не реализовано) - и не будет! (6.02.01)
+Далее идет расширенный тег с описателем таблицы стилей: EDEXT_STYLES(см)(пока не реализовано)
+Далее идет расширенный тег с описателем размеров страницы: EDEXT_BORDERS(см)
+Далее идет расширенный тег с описателем исходного tiff'a: EDEXT_TIFF_DESC(см)
+Далее, ЕСЛИ ТЕКСТ СОДЕРЖИТ КАРТИНКИ, идет расширенный тег с описателем 
+						таблицы картикок, встречающихся в тексте: EDEXT_PICS(см)
+
+Далее идет описатель структуры файла
+
+                SS_TEXT_REF - описатель текста
+		(SS_REMARK)
+
+struct text_ref
+ {                                     
+ Word8 code;                            
+ Word8 type;                            
+ Word16 object;                          
+ };
+
+code = 0x01
+
+
+В текущей версии поле type сообщает о том, что лежит в поле object, и не 
+совпадает с ранними версиями. Блок используется как альтернатива старой
+системе форматирования текста и гибче ее. Список значений type - Прил.4.
+
+
+Сведения по значению поля type и object:
+
+        	Серия о фрагменте
+
+Используется как альтернатива SS_FRAGMENT из заголовка. Блоки со значением
+type=SSR_FRAG_... должны встречаться только в заголовке файла. Вся информация,
+заключенная между стуктурами с type=SSR_FRAG_TYPE считается относяйщейся к 
+одному фрагменту. Данные должны лежать в порядке, соответствующем появлению
+строк с атрибутом SSR_LINE_FN в теле файла. Под фрагментом в тек. версии понимается
+абзац. Наряду с абзацами тут присутствует информация по их группировке в разделы,
+колонки и секции. Фрагменты, описывающие эту группировку имеют установленным бит TP_BRACKET в 
+типе.
+Т.о. писать эти блоки в 
+файл надо по следующему алгоритму:
+
+while(текущий фрагмент < общего числа фрагментов)
+{ 
+  SSR_FRAG_TYPE, 
+  if(тип фрагмента == LEFT/RIGHT/CENTER_ALIIGN) 
+     EDEXT_PARAGRAPH
+	 EDEXT_TABINFO(нереализовано)
+     EDEXT_PARABORDERS(нереализовано)
+     EDEXT_PARABULLET(нереализовано)
+  if(тип фрагмента == TAB_BEG) 
+//  {
+//     SSR_FRAG_PNUM, 
+  //   for(i=0;i<числа колонок;i++)
+    // {
+      //   SSR_FRAG_COLXW с x координтой i-й колонки,
+	// SSR_FRAG_COLXW с шириной i-й колонки
+//     },
+//  }
+  if(тип фрагмента == MCOL_BEG)
+  {
+     EDEXT_SECTION
+     SSR_FRAG_PNUM
+  }
+  текущий фрагмент++,
+}
+SSR_FRAG_END,
+SSR_SHEET_TYPE
+
+
+Теперь подробнее:
+
+SSR_FRAG_TYPE - тип фрагмента. Возможные типы - в прил.5. Описания будут.
+		object - собственно тип
+	TP_ONE_LINE      0x0001
+	TP_LEFT_ALLIGN   0x0002
+	TP_RIGHT_ALLIGN  0x0004
+	TP_CENTER        0x0008
+	TP_POS_INDENT    0x0010
+	TP_NEG_INDENT    0x0020
+	TP_BULLET        0x0040
+	TP_POESY         0x0080
+	TP_LN_SPACE      0x0100
+	TP_NOT_RECOG     0x0200
+	TP_BORDER        0x0400
+	TP_BRACKET       0x8000
+	TP_MCOL_BEG      (TP_BRACKET|0x1000)- начало многоколоночной секции
+	TP_NEW_COL       (TP_BRACKET|0x2000)- начало новой колонки внутри многоколоночной секции
+	TP_MCOL_END      (TP_BRACKET|0x3000)- конец многоколоночноой секции 
+	TP_TAB_BEG       (TP_BRACKET|0x4000)
+	TP_NEW_ROW       (TP_BRACKET|0x5000)
+	TP_DEL           (TP_NOT_RECOG|TP_BORDER)
+	TP_FICT_FR_FLAGS (TP_BORDER|TP_BRACKET)
+
+FICT_FR_FLAGS - фрагменты, у которых object&FICT_FR_FLAGS!=0 являются
+фиктивными, т.е. их номера не присутствуют в теле файла в виде SS_FRAGMENT, а служат лишь
+для указания форматирования текста.
+
+Каждый раздел начинается с расширенного тэга EDEXT_SECTION (см), описывающий параметры раздела.
+За ним идет фрагмент с типом TP_MCOL_BEG(см). Далее для 
+совменстимости(надеюсь) идет фрагмент с типом SSR_FRAG_PNUM - число колонок. Завершается 
+раздел фрагментом с типом TP_MCOL_END. Если раздел многоколончатый, то каждая новая
+колонка начинается тегом TP_NEW_COL. 
+
+Каждый фрейм начинается фрагментом с типом TP_FRAME_BEG(см) и после него идет расширенный тег
+EDEXT_FRAME(см), описывающий параметры фрейма. Заканчивается фрейм фрагментом с типом TP_FRAME_END.
+
+Каждая таблица начинается фрагментом с типом TP_NEW_TAB_BEG. Далее TP_NEW_ROW_BEG.
+Сразу за ним - расширенный тэг EDEXT_TABLE_ROW, описывающий строку таблицы.
+Эта же пара тэгов идет в начале каждой строки таблицы. После каждой ячейки в строке идет
+фрагмент типа TP_NEW_CELL_BEG, после последней в строке - снова TP_NEW_CELL_BEG и фрагмент 
+типа TP_NEW_ROW_BEG. Таблица завершается фрагментом с типом TP_NEW_TAB_END.
+
+Каждый обычный фрагмент(который абзац) имеет тип, определяющий его выравнивание
+(TP_LEFT_ALLIGN,TP_RIGHT_ALLIGN,TP_LEFT_ALLIGN&TP_RIGHT_ALLIGN,TP_CENTER).
+Далее идет расширенный тэг EDEXT_PARAGRAPH (см), описывающий все остальные параметры абзаца.
+Далее может идти расширенный тэг EDEXT_PARAGRAPH_TBL (см), описывающий позиции табуляции в абзаце.
+
+
+Подробное описание типов:
+	TP_ONE_LINE      
+    TP_POS_INDENT    
+	TP_NEG_INDENT    
+	TP_BULLET         - не используется
+	TP_POESY         
+	TP_LN_SPACE      
+	TP_NOT_RECOG     
+	TP_BORDER        
+
+
+Следующие типы означают начало абзаца:
+TP_LEFT_ALLIGN - выравниваение по левому краю
+TP_RIGHT_ALLIGN - выравнивание по правому краю
+TP_LEFT_ALLIGN&TP_RIGHT_ALLIGN - выравнивание по ширине
+TP_CENTER - выравнивание по центру
+
+SSR_FRAG_PNUM - если тип фрагмента TAB_BEG или MCOL_BEG, то object - количество 
+                соответственно ячеек/колонок.
+
+SSR_FRAG_COLXW - гориз.расположение столбцов таблицы. Структуры должны
+		 идти парами в первой object - x координата, во второй
+		 object - ширина. Такие стурктуры дожны 
+		 идти в блоке, имеющим тип TAB_BEG
+
+
+SSR_FRAG_END - завершает описатели фрагментов. object - количество описанных
+	       фрагментов.
+
+Также type может принимать следующие значения:
+SSR_SHEET_TYPE          и тогда object - 0 или 1 в зависимости от ExistSheets 
+
+Все остальные типы не используются (кроме "серии" о строке - см в описании тела файла)
+
+
+Далее идет собственно файл.
+
+			Т Е Л О   Ф А Й Л А
+
+                SS_TEXT_REF - описатель текста
+		(SS_REMARK)
+
+		Бывшая Серия о строке
+
+На данный момент серия состоит из одного единственного тэга SSR_LINE_FN :
+
+SSR_LINE_FN - object: порядковый номер фрагмента, которому принадлежит строка
+(номер, которым фрагмент описывается в заголовке, считая все фиктивные блоки.
+Фрагмент, номер которого стоит в данном теге, должен иметь тип L/R/C_ALIGN - см заголовок файла)
+Тэг означает начало новой строки.
+Данный тег должен присутствовать перед каждой строкой. Строки идут в порядке возрастания
+номера фрагмента (т.е. сначала все строки 1 го фрагмента, потом - 2го и т.д.(учитывая, что
+1й и 2й фрагмент - не фиктивные))
+
+                код SS_BITMAP_REF - информация о привязке
+
+Структура хранит информацию по привязке о идущем ЗА НЕЙ (в файле) символе
+
+Если между двумя такими структурами не встречается ни одного объекта, к которому
+можно было бы применить информацию, содержащуюся в структуре (чего в принципе
+быть не должно), то содержимое первой структуры игнорируется. Обратно, если
+после этой структуры идет более одного такого объекта( символа и.т.п.), то
+информация из структуры применяется к ним всем.
+
+struct bit_map_ref
+ {
+ Word8 code;                 //  == SS_BITMAP_REF
+ Word8 pos;
+ Word16 row;                  //  Reference box
+ Word16 col;
+ Word16 width;
+ Word16 height;
+ };
+
+row,col      - коотрдинаты левого верхнего угла объекта, 
+width,height - высота и ширина. Всё измеряется в точках на исходном tiff'е
+
+                код SS_LANGUAGE - язык распознавания
+
+struct EdTagLanguage  
+{
+    Word8 code; 		// 0x0f
+    Word8 language;
+};
+language - код языка (см. прил.2)
+
+                код SS_EXTENTION - начало расширенного блока
+
+этот тэг был введен для расширения формата ed и дабавления ему гибкости.
+За ним идет содержательная структура. 
+
+struct edExtention
+{
+        Word8 code;   /* always 0x1C */
+        Word16 Ecode;  /* New extention code */
+        Word16 length; /* Length in bytes */
+};
+
+   Ecode  - содержит один из расширенных кодов( см. ниже), описывающий 
+            содержательную структуру. 
+			!!!!Если старший бит Ecode =1, то поле length имеет длину DWORD!!!!!!
+
+   length - размер этой структуры, _ВКЛЮЧАЯ_ размер структуры edExtention.
+
+                код SS_LINE_BEG -  новая строка
+Встречается сразу после строки(непосредственно перед описателем следующей). Означает,что
+завершившаяся строка должна быть отделена от следующей строки
+(т.е. эквивалентно символу жесткого разрыва строки)
+
+struct line_beg
+ {
+ Word8 code;			//0x0D
+ Word8 height;
+ Word16 base_line;                         // displacement for current
+ };                                     //     line to upper frame of fragment
+
+height - высота символов в строке по умолчанию. Используется для определения высоты символа
+		"новый абзац" при пустом абзаце
+base_line - 0 - отделять строку
+			1 - не отделять ее
+
+                код SS_FONT_KEGL - информация о шрифте
+
+Информация о шрифте идущего ЗА НЕЙ (в файле) символа
+(или другого подобного элемента, такого как HalfSpace - см. ниже)
+
+Для него верно все то же, что и для CC_BITMAPREF
+
+struct font_kegl                       //  
+ {                                     //  
+ Word8 code;                            //  4 - bold
+ Word8 new_kegl;                        //  8 - light
+ Word16 new_font;                        // 16 - italic
+ };	  			                       // 32 - straight
+                                       // 64 - underlined
+
+code     = 0x02
+kegl - новый кегль
+font - номер шрифта из таблицы шрифтов, описанной в заголовке
+effects- В столбик перечислены возможные варианты, возможны комбинации
+                SS_TABUL - символ табуляции
+
+Вставляет символ табуляции в текущую строку после текущего символа
+
+struct tabul
+ {
+ Word8 code;				//0x08
+ Word8 numb_in_tab_tabul;                // number of position in
+ };                                     //         table of tabulation
+
+numb_in_tab_tabul - не используется
+
+                SS_SHIFT - сдвиг
+
+struct shift
+ {
+ Word8 code;                 //0x04
+ Word8 kegl;
+ Word16 clearance;                         // value of lift or descent
+ };                                     // lift positive
+                                        // descent negative
+
+kegl      - кегль
+clearance - смещение  (значение подъема или спуска относительно
+	    базовой строки,подъем выражается положительной
+	    величиной,спуск-отрицательной)
+
+		SS_RETR_LEVEL - Востановить уровень
+
+struct retrieve_level
+ {
+ Word8 code;		//0x05
+ Word8 kegl;
+ };
+
+kegl - кегль
+
+Остальные тэги вроде не используются
+Если же неописанный выше тэг имеет значение, большее или равное
+0x20(код пробела), то это не тэг, а код распознанного символа. 
+
+Символ считается принадлежащим последней встретившейся строке.
+
+!!! Появлению самого превого символа на странице должен предшествовать блок,
+означающий начало строки (SS_FRAGMENT либо SS_LINE_BEG)!!! 
+Если такого блока не было, то символ следует
+игнорировать(?).
+
+  Символ - это,последовательность пар: альтернативный полиграфический
+символ, его вероятность.Символ и вероятность занимают по одному байту.
+Ноль в младшем бите вероятности служит признаком конца последова-
+тельности. Символ,обладающий наибольшей вероятностью в пределах
+заданной последовательности, до правки оператором стоит первым.
+
+Теперь то же, но моими словами. В файле хранится
+не более 8(?) различных вариантов распознавания этого сивола, т.е.
+не более 8 подряд идущих структур
+
+struct letter
+{
+    Word8    bType;          //  ASCII code.  >= ' '.
+    Word8    bAttrib;          
+};
+
+bType   - распознанная буква
+bAttrib - достоверность распознавания
+
+Если поле bAttrib содержит 1 в младшем бите(т.е.bAttrib&1==1), то это не
+последняя альтернатива - следует считать еще одну такую же структуру. Иначе-
+последняя, далее идет новый блок. Если мы сделаем (bAttrib & 254), то получим
+достоверность определения соответствующей буквы. По идее среди всевозможных
+вариантов надо выбрать тот, у которого эта достоверность максимальна.
+
+                		Р А С Ш И Р Е Н Н Ы Й   ED
+
+
+(см.SS_EXTENTION)
+Каждый блок из этой группы представляет собой структуру, начинающюяся
+с edExtention, где содержится информация о том, что же тут собственно лежит.
+Поле edExtention.Ecode может принимать одно из значений. Эти значения разбиты на 
+логические группы:
+
+ 0x0000 - 0x00FF special code 
+ 0x0100 - 0x01FF table description 
+ 0x0200 - 0x02FF picture description 
+ 0x0300 - 0x03ff text formatting description
+ 0x0400 - 0xEFFF Your code please...
+
+ 0xF000 - 0xFFFF temporary code for debugging ( ! Not used in release version !)
+
+#define ITS_EDEXT_SPECIAL(a)   (a>=0x0000 && a<0x0100)
+#define ITS_EDEXT_TABLE(a)     (a>=0x0100 && a<0x0200)
+#define ITS_EDEXT_PICTURE(a)   (a>=0x0200 && a<0x0300)
+#define ITS_EDEXT_TEXT(a)      (a>=0x0300 && a<0x0400)
+
+Эти макросы помогут в работе с кодом расширения.
+
+ ITS_EDEXT_SPECIAL(Ecode) коды из этого диапозона зарезервированы для
+дальнейшего использования.
+
+ ITS_EDEXT_TABLE(Ecode) коды из этого диапозона описывают таблицы.
+
+ ITS_EDEXT_PICTURE(Ecode) коды из этого диапозона описывают картинки.
+
+ ITS_EDEXT_TEXT(Ecode) коды из этого диапозона описывают форматирование текста.
+
+ Коды 0x0400 - 0xEFFF можно использовать по Вашему усмотрению. Сообщите нам о
+том какой диапозон Вы намерены использовать, чтобы не пересекаться.
+
+ Коды 0xF000 - 0xFFFF резервируются для отладочных целей. Не используйте их в
+окончательных вариантах версий.
+
+Теперь конкретные значения:
+
+		EDEXT_VERSION - версия
+
+                EDEXT_FONTS - таблица шрифтов
+
+предваряет таблицу шрифтов. В ed файле все использующиеся шрифты выбираются по номеру, 
+который соответствует номеру, указанному в таблице шрифтов. Таблица шрифтов состоит из
+набора идущих друг за другом структур fontDiscr. 
+
+struct fontDiscr
+{
+	WORD size;
+    BYTE fontNumber;
+    BYTE fontPitchAndFamily;
+    BYTE fontCharset;
+}
+
+size - размер структуры - необходим, если будет необходимо расширить структуру.
+     т.о. чтобы прочитать следующую структуру, надо сдвинуться относительно начала текущей на
+     size байт
+
+fontNumber - номер шрифта, под которым он будет фигурировать фнутри файла
+
+fontPitchAndFamily - ширина и семейство шрифта
+  младшие 4 бита означают ширину шрифта и могут быть:
+	DEFAULT_PITCH 
+	FIXED_PITCH    -моноширинный шрифт
+	VARIABLE_PITCH -шрифт с переменной шириной
+  старшие 4 бита - семейство
+	FF_DECORATIVE Novelty fonts. Old English is an example. 
+	FF_DONTCARE Don't care or don't know. 
+	FF_MODERN Fonts with constant stroke width, with or without serifs. Pica, Elite, and Courier NewR are examples. 
+	FF_ROMAN Fonts with variable stroke width and with serifs. MSR Serif is an example. 
+	FF_SCRIPT Fonts designed to look like handwriting. Script and Cursive are examples. 
+	FF_SWISS Fonts with variable stroke width and without serifs. MS Sans Serif is an example. 
+  константы определены в wingdi.h, используются в вызове CreateFont
+fontCharset - набор символов в шрифте
+  ANSI_CHARSET
+  BALTIC_CHARSET
+  CHINESEBIG5_CHARSET
+  DEFAULT_CHARSET
+  EASTEUROPE_CHARSET
+  GB2312_CHARSET
+  GREEK_CHARSET
+  HANGUL_CHARSET
+  MAC_CHARSET
+  OEM_CHARSET
+  RUSSIAN_CHARSET
+  SHIFTJIS_CHARSET
+  SYMBOL_CHARSET
+  TURKISH_CHARSET 
+  константы определены в wingdi.h, используются в вызове CreateFont
+
+					EDEXT_BORDERS  - описатель размеров бумаги
+описывает размеры листа в текстовом редакторе
+struct pageDescr
+{
+	DWORD paperw;
+	DWORD paperh;
+	DWORD margl; 
+	DWORD margr; 
+	DWORD margt; 
+	DWORD margb; 
+	BYTE  resizeToFit;
+	BYTE  recogLang;
+}
+	paperw -  Paper width in twips (the default is 12,240). 
+	paperh -  Paper height in twips (the default is 15,840). 
+	margl  -  Left margin in twips (the default is 1800). 
+	margr  -  Right margin in twips (the default is 1800). 
+	margt  -  Top margin in twips (the default is 1440). 
+	margb  -  Bottom margin in twips (the default is 1440). 
+	resizeToFit	- 1, если верикальный размер страницы должен быть увеличен так,	чтобы 
+					 вместить весь файл на одну страницу
+			    - 0 - размер страницы жестко задан
+            
+					EDEXT_TIFF_DESC  - описатель исходного изображения
+предваряет описатель исходного изображения
+struct originalImageDesc
+{
+	WORD resolutionX;
+	WORD resolutionY;
+	WORD inclune;
+    WORD pageNum;
+    DWORD width;
+    DWORD height;
+	BYTE unrecogSymbol;
+}
+resolutionX
+resolutionY  - разрешение в dpi
+inclune - наклон листа, вычисляется по формуле
+              incline=(xideal-xreal)/yreal*2048=(yreal-yideal)/xreal*2048
+          (проще говоря тангенс угла наклона*2048)
+pageNum - номер страницы в файле(для многостраничных tiff'ов)
+width
+height - размеры изображения в точках
+unrecogSymbol - буква, обозначающая нераспознанный символ ('~')
+
+						EDEXT_PICS - описатель картинок, встречающихся в тексте
+
+предваряет таблицу картинок. В ed файле все использующиеся картинки выбираются по номеру, 
+который соответствует номеру, указанному в таблице картинок. Таблица картинок состоит из
+набора идущих друг за другом структур pictDiscr. 
+typedef struct pictEntry
+{
+	WORD pictNumber;
+	EDSIZE pictSize;
+	EDSIZE pictGoal;
+	BYTE pictAlign;
+	BYTE type;
+	DWORD len;
+	void* data;
+}PICTENTRY;
+
+	pictNumber - 	номер картинки, под которым она будет фигурировать фнутри файла
+	pictSize -	размер картинки в точках
+	pictGoal - 	желаемый размер картинки на экране в твипах
+	pictAlign - 	расположение текста, идущего за картинкой:
+		ALIGN_BOT                    // align picture bottom to base line
+		ALIGN_MIDDLE                 // center picture vertically to baseline
+		ALIGN_TOP                    // align picture top to base line
+	type - 		тип картинки:
+			1 - DIB
+	len - 		длина картинки в байтах
+	data - 		указатель на собственно картинку.
+
+
+						EDEXT_SECTION - описание параметров раздела
+
+!!ВНИМАНИЕ!!! В структуре могут отсутствовать насколонко последних членов. Реально
+наличиствующие члены определяются полем length структуры ED_EXTENTION,которое не обязано совпадать
+с размером sizeof(edExtention)+sizeof(paraParams). Также в дальнейшем в структуре могут появиться
+дополнительные поля
+struct sectParams1
+{
+    DWORD topMargin;
+    DWORD bottomMargin;
+    DWORD leftMargin;
+    DWORD rightMargin;
+	BYTE columns;
+	BYTE numSnakeCols;
+    DWORD colInterval;
+};
+
+topMargin;   
+bottomMargin; - отступы от края бумаги в твипах
+leftMargin;  
+rightMargin; 
+columns - количество колонок в разделе, равное числу последующих колонок 
+numSnakeCols - 	количество колонок на странице, по которым будет "извиваться" текст.
+			Может быть не равно кол-ву созданных колонок.
+colInterval - интервал между колонками, если все колонки имеют одинаковую ширину;!Если колонка
+             0, если колонки имеют разную ширину.                                ! одна
+										 ! - игнорируется
+
+struct sectParams2
+{
+	BYTE sectionBreak;
+    DWORD width;
+    DWORD height;
+	BYTE orientation;
+	DWORD headerY;
+	DWORD footerY;
+	BYTE lineBetCol;
+};
+
+sectionBreak - способ разрыва раздела
+               0 - раздел начинается на текущей странице
+               1 - раздел начинается на следующей странице
+width
+height - размеры бумаги в твипах. Ширина - всегда размер слева на право, независимо от orientation
+orientation - ориентация листа: 0 - книжная(портрет), 1 - альбоимная (ландшафт)
+headerY - Header is N twips from the top of the page (the default is 720).    Положение колонтитулов
+footerY - Footer is N twips from the bottom of the page (the default is 720). 
+lineBetCol - рисовать линию между колонками
+
+					EDEXT_PARAGRAPH - свойтства абзаца
+
+!!ВНИМАНИЕ!!! В структуре могут отсутствовать насколонко последних членов. Реально
+наличиствующие члены определяются полем length структуры ED_EXTENTION,которое не обязано совпадать
+с размером sizeof(edExtention)+sizeof(paraParams). Также в дальнейшем в структуре могут появиться
+дополнительные поля
+
+struct paraParams
+{
+	DWORD firstIndent;
+	DWORD leftIndent;
+    DWORD rightIndent;
+    BYTE  alignment;
+	WORD  userNum;
+	WORD  color;
+	WORD  shading;
+    DWORD spaceBefore;
+    DWORD spaceAfter;
+    DWORD spaceBetweenLines;
+	BYTE  spcBtwLnsMult;
+	BYTE  keep;
+	BYTE leftBrdrType;                //добавлен 28.03.00
+	DWORD leftBrdrWidth;              //добавлен 28.03.00
+	BYTE rightBrdrType;               //добавлен 28.03.00
+	DWORD rightBrdrWidth;             //добавлен 28.03.00
+	BYTE topBrdrType;                 //добавлен 28.03.00
+	DWORD topBrdrWidth;               //добавлен 28.03.00
+	BYTE bottomBrdrType;              //добавлен 28.03.00
+	DWORD bottomBrdrWidth;            //добавлен 28.03.00
+	BYTE brdrBtw;                     //добавлен 28.03.00
+}
+firstIndent - отступ первой строки
+leftIndent - левый отступ  			всё в твипах
+rightIndent - правый отступ
+alignment - выравнивание. Значения TP_LEFT_ALLIGN,TP_RIGHT_ALLIGN,TP_CENTER,
+         TP_LEFT_ALLIGN&TP_RIGHT_ALLIGN(см. описатели фрагментов в самом начале)
+userNum - присвоенный пользователем номер фрагмента, в котором находился абзац при фрагментации
+color - номер цвета текущего абзаца из colorTable
+shading - the shading of the paragraph in hundredths of a percent(50%=5000)
+		100% - весь фон цвета color, 5% - фон белый с редкими вкраплениями цвета
+spaceBefore - отступ перед абзацем
+spaceAfter - отступ после абзаца
+spaceBetweenLines - расстояние между строками
+        If 0 is used, the line spacing is automatically determined by the tallest character 
+        in the line; if N is a positive value, this size is used only if it is taller than 
+        the tallest character (otherwise, the tallest character is used); if N is a negative 
+        value, the absolute value of N is used, even if it is shorter than the tallest character.
+spcBtwLnsMult - Line spacing multiple. Indicates that the current line spacing is 
+    a multiple of "Single" line spacing. 
+	Если там 0 - "At Least" or "Exactly" line spacing.
+	Если там 1 - Multiple line spacing, relative to "Single."
+    Другими словами - если тут 0,то межстрочный интервал измеряется в твипах, указанных в spaceBetweenLines,
+	если тут 1 - то интервал меряется в разах - это отношение spaceBetweenLines к 240
+      (к примеру двойной интервал - 480)
+
+
+keep - 0й бит - если 1 - не разрывать абзац(переносить целиком на следующую страницу)
+       1й бит - если 1 - не отрывать от следующего абзаца(т.е. последняя строка данного абзаца
+                         всегда на той же странице, что и следующий абзац)
+
+leftBrdrType	- информация о границах абзаца.
+leftBrdrWidth	...BrdrType - тип соотв. границы:
+rightBrdrType	0 - нет границы, 1 - граница одинарной толщины и т.д. см. ED_BRDR_...
+rightBrdrWidth	...BrdrWidth - толщина в твипах pen'а, которым рисуют границу.
+topBrdrType	    Не должна превышать 75.
+topBrdrWidth
+bottomBrdrType
+bottomBrdrWidth
+
+brdrBtw - рисовать ли отдельные рамки вокруг абзацев с одинаковыми границами
+
+					EDEXT_FRAME - параметры frame (рамки, фрейма)
+struct frameParam
+{
+	BYTE position;	
+    DWORD posx;
+    DWORD posy;
+    DWORD absw;
+    DWORD absh;
+	DWORD borderSpace;
+	DWORD dxfrtextx;
+	DWORD dxfrtexty;
+	BYTE flag;		//Добавлен 6.04.00
+}
+position - Позиция фрейма на экране. Младшие 4 бита - позиция по y:
+           0 - относительно верхнего края листа
+           1 - относительно края верхней границы листа
+           2 - относительно левого верхнего края следующего обычного абзаца
+			старшие 4 бита - позиция по x:
+           0 - относительно левого края листа
+		   1 - относительно левой границы листа
+posx - 
+posy - положение фрейма в твипах относительно того, что указано в position
+absw - ширина фрейма в твипах
+absh - высота в твипах, если положительная - то это мин. высота, если отрицательная - точная,
+       если 0 - то высота ровно по содержимому
+		N is the height of the frame in twips. A positive number indicates the minimum 
+		height of the frame and a negative number indicates the exact height of the 
+		frame. A value of zero indicates that the height of the frame adjusts to the 
+		contents of the frame. This is the default for frames where no height is given.
+borderSpace - Space in twips between borders and the paragraph
+dxfrtextx - is the horizontal distance in twips from text on both sides of the frame.
+dxfrtexty - is the vertical distance in twips from text on both sides of the frame.
+flag - Если там установлен ED_DROPCAP, то фрейм является буквицей
+
+					EDEXT_TABLE_ROW - параметры строки таблицы
+
+struct rowParam
+{
+	DWORD left; 
+	DWORD rowHeight;
+	BYTE leftBrdrType;
+	DWORD leftBrdrWidth;
+	BYTE rightBrdrType;
+	DWORD rightBrdrWidth;
+	BYTE topBrdrType;
+	DWORD topBrdrWidth; 
+	BYTE bottomBrdrType;
+	DWORD bottomBrdrWidth;
+	DWORD gaph;
+	BYTE position; 
+	BYTE header;
+};
+	left - 		Position of the leftmost edge of the table with respect to the left edge of its 				
+				column. Т.е. расстояние в твипах от края колонки до самой левой ячейки
+ 				таблицы. Если position!=TP_LEFT_ALLIGN - игнорируется.
+	rowHeight - 	высота строки в твипах:0 - если по высоте содержимого, >0 - если 				
+					минимальная,<0 - если точная. Т.е. Height of a table row in twips. When 0,
+	 				the height is sufficient for all the text in the line; when positive, the height is 				
+					guaranteed to be at least the specified height; when negative, the absolute value 				
+					of the height is used, regardless of the height of the text in the line.
+	leftBrdrType	- информация о границах ячеек в строке.
+	leftBrdrWidth	...BrdrType - тип соотв. границы:
+	rightBrdrType	0 - нет границы, 1 - граница одинарной толщины и т.д. см. ED_BRDR_...
+	rightBrdrWidth	...BrdrWidth - толщина в твипах pen'а, которым рисуют границу.
+	topBrdrType	    Не должна превышать 75.
+	topBrdrWidth
+	bottomBrdrType
+	bottomBrdrWidth
+	gaph -		половина горизонтального расстояния между ячейками в строке,
+			т.е. расстояние от края абзаца до верт. разделяющей линии в твипах.
+			Т.е.  Half the space between the cells of a table row in twips.
+	position - 	горизонтальное положение строки относительно границ колонки
+			т.е. Left-justifies, Right-justifies or Centers a table row with respect to its
+ 				containing column.
+			Значения:
+			TP_LEFT_ALLIGN - выравниваение по левому краю
+			TP_RIGHT_ALLIGN - выравнивание по правому краю
+			TP_CENTER - выравнивание по центру
+	header - 		если строка находится в загловке таблицы. Заголовок появляется на 				каждой новой странице, куда распространяется таблица. Т.е. 
+			Table row header. This row should appear at the top of every page the current 				table appears on.
+
+					EDEXT_TABLE_CELL - параметры ячейки таблицы
+struct cellParam
+{
+	DWORD cellX;
+	BYTE merging;
+	BYTE vertTextAlign;
+	BYTE leftBrdrType;
+	DWORD leftBrdrWidth;
+	BYTE rightBrdrType;
+	DWORD rightBrdrWidth;
+	BYTE topBrdrType;
+	DWORD topBrdrWidth;
+	BYTE bottomBrdrType;
+	DWORD bottomBrdrWidth;
+	EDBOX layout;
+	WORD shading;
+	WORD color;
+	BYTE flag;		//Добавлен 12.05.00
+};
+flag - Если там установлен ED_TDIR_UP или ED_TDIR_DOWN, то текст расположен соответствено во вертикали вверх или вниз
+
+
+					EDEXT_CHAR - параметры символа
+struct charParams
+{
+	DWORD fontNumber;
+	DWORD foregroundColor;	//был word_foregr+word_backgr изменил 6.02.01
+	DWORD backgroundColor;  //Добавлен 6.02.01
+};
