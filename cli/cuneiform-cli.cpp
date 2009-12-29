@@ -78,12 +78,12 @@
 #include <cstdlib>
 #include <cstring>
 #include <getopt.h>
-#include <Magick++.h>
-#include <boost/scoped_array.hpp>
+#include <fstream>
 #include "config.h"
 
 #include "puma/puma.h"
 #include "common/cifconfig.h"
+#include "rdib/imageloaderfactory.h"
 
 using namespace std;
 
@@ -91,9 +91,9 @@ static const char * program_name = "";
 
 struct langlist
 {
-    language_t code;
-    const char *name;
-    const char *fullname;
+        language_t code;
+        const char *name;
+        const char *fullname;
 };
 
 /* Language codes according to ISO 639-2.
@@ -132,9 +132,9 @@ static const langlist langs[] = {
 
 struct formatlist
 {
-    puma_format_t code;
-    const char * name;
-    const char * descr;
+        puma_format_t code;
+        const char * name;
+        const char * descr;
 };
 
 static const formatlist formats[] = {
@@ -149,7 +149,8 @@ static const formatlist formats[] = {
     { PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes" },
     { (puma_format_t) -1, NULL, NULL } };
 
-static string supported_languages() {
+static string supported_languages()
+{
     ostringstream os;
     os << "Supported languages:\n";
     for (const langlist *l = langs; l->code >= 0; l++)
@@ -157,7 +158,8 @@ static string supported_languages() {
     return os.str();
 }
 
-static string supported_formats() {
+static string supported_formats()
+{
     ostringstream os;
     os << "Supported formats:\n";
     for (const formatlist * f = formats; f->code >= 0; f++)
@@ -165,7 +167,8 @@ static string supported_formats() {
     return os.str();
 }
 
-static string usage() {
+static string usage()
+{
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os << ""
@@ -196,7 +199,8 @@ static string usage() {
     return os.str();
 }
 
-static puma_format_t output_format(const std::string& format) {
+static puma_format_t output_format(const std::string& format)
+{
     for (int i = 0; formats[i].code >= 0; i++) {
         if (format == formats[i].name)
             return formats[i].code;
@@ -204,7 +208,8 @@ static puma_format_t output_format(const std::string& format) {
     return (puma_format_t) -1;
 }
 
-static language_t recognize_language(const std::string& language) {
+static language_t recognize_language(const std::string& language)
+{
     for (const langlist *l = langs; l->code >= 0; l++) {
         if (language == l->name)
             return l->code;
@@ -212,7 +217,8 @@ static language_t recognize_language(const std::string& language) {
     return (language_t) -1;
 }
 
-static string default_output_name(puma_format_t format) {
+static string default_output_name(puma_format_t format)
+{
     string result = "cuneiform-out.";
     switch (format) {
     case PUMA_TOHOCR:
@@ -240,41 +246,8 @@ static string default_output_name(puma_format_t format) {
     return result;
 }
 
-/**
- * Read file and return it as a BMP DIB entity. On failure write an error
- * and return NULL. Caller delete[]'s the returned result.
- */
-static char* read_file(const char *fname) {
-    using namespace Magick;
-    Blob blob;
-    size_t data_size;
-    char *dib;
-    try {
-        Image image(fname);
-        switch (image.type()) {
-        case BilevelType:
-        case TrueColorType:
-            break;
-        default:
-            image.type(TrueColorType);
-        }
-        if (CIF::Config::instance().debugHigh())
-            image.verbose(true);
-        // Write to BLOB in BMP format
-        image.magick("DIB");
-        image.write(&blob);
-    }
-    catch (Exception &error_) {
-        cerr << error_.what() << "\n";
-        return NULL;
-    }
-    data_size = blob.length();
-    dib = new char[data_size];
-    memcpy(dib, blob.data(), data_size);
-    return dib;
-}
-
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     program_name = argv[0];
     std::string dictionaries;
     char unrecognized_char = 0;
@@ -420,8 +393,9 @@ int main(int argc, char **argv) {
             Config::instance().setDebugDump(true);
         }
 
-        boost::scoped_array<char> dib(read_file(infilename.c_str()));
-        if (!dib)
+        Image * image = ImageLoaderFactory::instance().load(infilename);
+        std::auto_ptr<Image> image_ptr(image);
+        if (!image)
             return EXIT_FAILURE;
 
         Puma::instance().setOptionLanguage(langcode);
@@ -441,7 +415,7 @@ int main(int argc, char **argv) {
 
         if (unrecognized_char)
             opt.setUnrecognizedChar(unrecognized_char);
-        if(preserve_line_breaks)
+        if (preserve_line_breaks)
             opt.setPreserveLineBreaks(true);
 
         //  opt.useBold(true);
@@ -458,7 +432,7 @@ int main(int argc, char **argv) {
 
         //  Puma::instance().setOptionTables(puma_table_t mode);
 
-        Puma::instance().open(dib.get());
+        Puma::instance().open(image->data());
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();

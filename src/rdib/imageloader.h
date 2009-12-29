@@ -16,49 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HELPER_H_
-#define HELPER_H_
+#ifndef IMAGELOADER_H_
+#define IMAGELOADER_H_
 
 #include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include <iostream>
+
+#include "common/exception.h"
 
 namespace CIF
 {
 
-inline std::string getFileExt(const std::string& filename)
+class Image;
+
+class ImageLoader
 {
-    return filename.substr(filename.rfind('.') + 1);
+    public:
+        ImageLoader();
+        virtual ~ImageLoader();
+
+        bool isValidImageSize(size_t size) const;
+        virtual Image* load(const std::string& filename) = 0;
+        void setMaxImageSize(size_t size);
+        static size_t streamSize(std::istream& stream);
+
+        typedef RuntimeExceptionImpl<ImageLoader> Exception;
+    private:
+        size_t max_image_size_;
+};
+
 }
 
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
-{
-    return filename.substr(0, filename.rfind('.')) + new_ext;
-}
-
-inline std::string removeFileExt(const std::string& filename)
-{
-    return filename.substr(0, filename.rfind('.'));
-}
-
-template<class T>
-std::string toString(const T& t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
-}
-
-inline void toUpper(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
-}
-
-#endif /* HELPER_H_ */
+#endif /* IMAGELOADER_H_ */

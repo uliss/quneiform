@@ -16,49 +16,39 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HELPER_H_
-#define HELPER_H_
+#ifndef IMAGE_H_
+#define IMAGE_H_
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include <boost/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace CIF
 {
 
-inline std::string getFileExt(const std::string& filename)
+class Image: public boost::noncopyable
 {
-    return filename.substr(filename.rfind('.') + 1);
+    public:
+        enum allocator_t
+        {
+            AllocatorMalloc,
+            AllocatorNew
+        };
+
+        Image(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
+        virtual ~Image();
+        char * data();
+        void setData(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
+        size_t size() const;
+    private:
+        void clear();
+    private:
+        char * data_;
+        size_t size_;
+        allocator_t allocator_;
+};
+
+typedef boost::shared_ptr<Image> ImagePtr;
+
 }
 
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
-{
-    return filename.substr(0, filename.rfind('.')) + new_ext;
-}
-
-inline std::string removeFileExt(const std::string& filename)
-{
-    return filename.substr(0, filename.rfind('.'));
-}
-
-template<class T>
-std::string toString(const T& t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
-}
-
-inline void toUpper(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
-}
-
-#endif /* HELPER_H_ */
+#endif /* IMAGE_H_ */

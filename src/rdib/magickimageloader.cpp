@@ -16,49 +16,62 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HELPER_H_
-#define HELPER_H_
+#include <Magick++.h>
+#include <cstring>
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include "magickimageloader.h"
+#include "imageloaderfactory.h"
+#include "common/cifconfig.h"
+
+namespace
+{
+
+CIF::ImageLoader * create()
+{
+    return new CIF::MagickImageLoader;
+}
+
+bool bmp = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_UNKNOWN, -1000, create);
+}
 
 namespace CIF
 {
 
-inline std::string getFileExt(const std::string& filename)
+MagickImageLoader::MagickImageLoader()
 {
-    return filename.substr(filename.rfind('.') + 1);
 }
 
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
+MagickImageLoader::~MagickImageLoader()
 {
-    return filename.substr(0, filename.rfind('.')) + new_ext;
 }
 
-inline std::string removeFileExt(const std::string& filename)
+Image* MagickImageLoader::load(const std::string& fname)
 {
-    return filename.substr(0, filename.rfind('.'));
+    Magick::Blob blob;
+    try {
+        Magick::Image image(fname);
+        switch (image.type()) {
+        case Magick::BilevelType:
+        case Magick::TrueColorType:
+            break;
+        default:
+            image.type(Magick::TrueColorType);
+        }
+        if (CIF::Config::instance().debugHigh())
+            image.verbose(true);
+        // Write to BLOB in BMP format
+        image.magick("DIB");
+        image.write(&blob);
+    }
+    catch (Magick::Exception &error_) {
+        std::cerr << error_.what() << "\n";
+        return NULL;
+    }
+
+    char * new_data = new char[blob.length()];
+    memcpy(new_data, blob.data(), blob.length());
+    Image * ret = new Image(new_data, blob.length(), Image::AllocatorNew);
+    return ret;
 }
 
-template<class T>
-std::string toString(const T& t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
 }
-
-inline void toUpper(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
-}
-
-#endif /* HELPER_H_ */

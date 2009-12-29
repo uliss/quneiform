@@ -16,49 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HELPER_H_
-#define HELPER_H_
-
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include "imageloader.h"
 
 namespace CIF
 {
 
-inline std::string getFileExt(const std::string& filename)
+ImageLoader::ImageLoader() :
+    max_image_size_(1024 * 1024 * 40)
 {
-    return filename.substr(filename.rfind('.') + 1);
 }
 
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
+ImageLoader::~ImageLoader()
 {
-    return filename.substr(0, filename.rfind('.')) + new_ext;
 }
 
-inline std::string removeFileExt(const std::string& filename)
+bool ImageLoader::isValidImageSize(size_t size) const
 {
-    return filename.substr(0, filename.rfind('.'));
+    return size < max_image_size_;
 }
 
-template<class T>
-std::string toString(const T& t)
+void ImageLoader::setMaxImageSize(size_t size)
 {
-    std::ostringstream os;
-    os << t;
-    return os.str();
+    max_image_size_ = size;
 }
 
-inline void toUpper(std::string& str)
+size_t ImageLoader::streamSize(std::istream& is)
 {
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+    size_t prev_pos = is.tellg();
+    is.seekg(0, std::ios::end);
+    size_t ret = is.tellg();
+    is.seekg(prev_pos);
+    return ret;
 }
 
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 }
-}
-
-#endif /* HELPER_H_ */

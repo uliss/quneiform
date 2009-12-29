@@ -16,49 +16,51 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HELPER_H_
-#define HELPER_H_
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include "image.h"
 
 namespace CIF
 {
 
-inline std::string getFileExt(const std::string& filename)
+Image::Image(char * src, size_t size, allocator_t allocator) :
+    data_(src), size_(size), allocator_(allocator)
 {
-    return filename.substr(filename.rfind('.') + 1);
 }
 
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
+Image::~Image()
 {
-    return filename.substr(0, filename.rfind('.')) + new_ext;
+    clear();
 }
 
-inline std::string removeFileExt(const std::string& filename)
+void Image::clear()
 {
-    return filename.substr(0, filename.rfind('.'));
+    if (allocator_ == AllocatorMalloc)
+        free(data_);
+    else
+        delete[] data_;
+    data_ = NULL;
+    size_ = 0;
 }
 
-template<class T>
-std::string toString(const T& t)
+char * Image::data()
 {
-    std::ostringstream os;
-    os << t;
-    return os.str();
+    return data_;
 }
 
-inline void toUpper(std::string& str)
+size_t Image::size() const
 {
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+    return size_;
 }
 
-inline void toLower(std::string& str)
+void Image::setData(char * src, size_t size, allocator_t allocator)
 {
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
+    clear();
+    allocator_ = allocator;
+    data_ = src;
+    size_ = size;
 }
 
-#endif /* HELPER_H_ */
+}
