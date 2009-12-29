@@ -1,6 +1,7 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
- *   serge.poltavski@gmail.com                                             *
+ *   Copyright (C) 2009 by Serge Poltavsky, serge.poltavski@gmail.com      *
+ *   based on  exactImage library                                          *
+ *   Copyright (C) 2006 - 2009 René Rebe, ExactCODE GmbH Germany           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
