@@ -22,26 +22,14 @@
 
 #include "imageloaderfactory.h"
 #include "imageloader.h"
-#include "common/helper.h"
 #include "common/debug.h"
+#include "imageformatdetector.h"
 
 namespace CIF
 {
 
 ImageLoaderFactory::ImageLoaderFactory()
 {
-    format_map_.insert(FormatMap::value_type("bmp", FORMAT_BMP));
-    format_map_.insert(FormatMap::value_type("gif", FORMAT_GIF));
-    format_map_.insert(FormatMap::value_type("jpg", FORMAT_JPEG));
-    format_map_.insert(FormatMap::value_type("jpeg", FORMAT_JPEG));
-    format_map_.insert(FormatMap::value_type("png", FORMAT_PNG));
-    format_map_.insert(FormatMap::value_type("pnm", FORMAT_PNM));
-    format_map_.insert(FormatMap::value_type("pbm", FORMAT_PNM));
-    format_map_.insert(FormatMap::value_type("pgm", FORMAT_PNM));
-    format_map_.insert(FormatMap::value_type("ppm", FORMAT_PNM));
-    format_map_.insert(FormatMap::value_type("tiff", FORMAT_TIFF));
-    format_map_.insert(FormatMap::value_type("tif", FORMAT_TIFF));
-    format_map_.insert(FormatMap::value_type("xpm", FORMAT_XPM));
 }
 
 ImageLoaderFactory& ImageLoaderFactory::instance()
@@ -52,16 +40,14 @@ ImageLoaderFactory& ImageLoaderFactory::instance()
 
 Image * ImageLoaderFactory::load(const std::string& filename)
 {
-    image_format_t format = detectFormat(filename);
+    image_format_t format = ImageFormatDetector::instance().detect(filename);
     return loader(format).load(filename);
 }
 
-image_format_t ImageLoaderFactory::detectFormat(const std::string& filename)
+Image * ImageLoaderFactory::load(std::istream& stream)
 {
-    std::string ext = getFileExt(filename);
-    toLower(ext);
-    FormatMap::iterator it = format_map_.find(ext);
-    return (it == format_map_.end()) ? FORMAT_UNKNOWN : it->second;
+    image_format_t format = ImageFormatDetector::instance().detect(stream);
+    return loader(format).load(stream);
 }
 
 ImageLoader& ImageLoaderFactory::loader(image_format_t format)

@@ -15,51 +15,13 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+#include "testbmp.h"
+#include <rdib/bmpimageloader.h>
 
-#ifndef HELPER_H_
-#define HELPER_H_
+CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
+using namespace CIF;
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
-
-namespace CIF
+void TestBmpLoader::testInit()
 {
 
-inline std::string getFileExt(const std::string& filename)
-{
-    size_t dot_position = filename.rfind('.');
-    return (dot_position == std::string::npos) ? std::string() : filename.substr(dot_position + 1);
 }
-
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
-{
-    return filename.substr(0, filename.rfind('.')) + new_ext;
-}
-
-inline std::string removeFileExt(const std::string& filename)
-{
-    return filename.substr(0, filename.rfind('.'));
-}
-
-template<class T>
-std::string toString(const T& t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
-}
-
-inline void toUpper(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
-}
-
-#endif /* HELPER_H_ */

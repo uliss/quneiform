@@ -20,7 +20,9 @@
 #define IMAGELOADERFACTORY_H_
 
 #include <string>
+#include <iostream>
 #include <map>
+#include <boost/noncopyable.hpp>
 
 #include "imageloader.h"
 #include "image.h"
@@ -29,24 +31,22 @@
 namespace CIF
 {
 
-class ImageLoaderFactory
+class ImageLoaderFactory : boost::noncopyable
 {
     public:
         static ImageLoaderFactory& instance();
     public:
         typedef ImageLoader * (*loaderCreate)();
         Image * load(const std::string& filename);
+        Image * load(std::istream& stream);
         ImageLoader& loader(image_format_t format);
         bool registerCreator(image_format_t format, int gravity, loaderCreate creator);
     private:
         typedef std::pair<int, loaderCreate> LoaderEntry;
         typedef std::multimap<image_format_t, LoaderEntry> LoaderMap;
         LoaderMap loader_map_;
-        typedef std::map<std::string, image_format_t> FormatMap;
-        FormatMap format_map_;
     private:
         ImageLoaderFactory();
-        image_format_t detectFormat(const std::string& filename);
 };
 
 }

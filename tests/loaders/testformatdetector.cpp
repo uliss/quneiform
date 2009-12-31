@@ -15,51 +15,19 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+#include "testformatdetector.h"
+#include <rdib/imageformatdetector.h>
+CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 
-#ifndef HELPER_H_
-#define HELPER_H_
+using namespace CIF;
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
-
-namespace CIF
+void TestFormatDetector::testInit()
 {
-
-inline std::string getFileExt(const std::string& filename)
-{
-    size_t dot_position = filename.rfind('.');
-    return (dot_position == std::string::npos) ? std::string() : filename.substr(dot_position + 1);
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bmp"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.BMP"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bMp"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect(".bmp"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("bmp"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test.bmpbmp"));
+    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test."));
 }
-
-inline std::string replaceFileExt(const std::string& filename, const std::string& new_ext)
-{
-    return filename.substr(0, filename.rfind('.')) + new_ext;
-}
-
-inline std::string removeFileExt(const std::string& filename)
-{
-    return filename.substr(0, filename.rfind('.'));
-}
-
-template<class T>
-std::string toString(const T& t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
-}
-
-inline void toUpper(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
-inline void toLower(std::string& str)
-{
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-}
-}
-
-#endif /* HELPER_H_ */

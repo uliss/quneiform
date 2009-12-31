@@ -19,6 +19,7 @@
 #ifndef BMPIMAGELOADER_H_
 #define BMPIMAGELOADER_H_
 
+#include "cttypes.h"
 #include "imageloader.h"
 #include "image.h"
 #include "rdib/bmp.h"
@@ -32,6 +33,7 @@ class BmpImageLoader: public ImageLoader
         BmpImageLoader();
         ~BmpImageLoader();
         Image* load(const std::string& fname);
+        Image* load(std::istream& stream);
     private:
         void allocateColorTable();
         void convertColorSpace();

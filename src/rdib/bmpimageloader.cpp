@@ -75,6 +75,13 @@ void BmpImageLoader::allocateColorTable()
 Image* BmpImageLoader::load(const std::string& fname)
 {
     std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
+    if (!stream)
+        throw Exception("Can't open file: " + fname);
+    return load(stream);
+}
+
+Image* BmpImageLoader::load(std::istream& stream)
+{
     if (!stream.good())
         throw ImageLoader::Exception("Invalid input stream given");
 
@@ -86,7 +93,7 @@ Image* BmpImageLoader::load(const std::string& fname)
 
     readData(stream);
 
-    return new Image(data_, data_size_, Image::AllocatorMalloc);
+    return new Image(data_, data_size_, Image::AllocatorNew);
 }
 
 void BmpImageLoader::convertColorSpace()
@@ -338,9 +345,9 @@ void BmpImageLoader::readData(std::istream& stream)
     case BMPC_RGB:
         readUncompressedData(stream);
         break;
-//    case BMPC_BITFIELDS:
-//        // we unpack bitfields to plain RGB
-//        bps = 8;
+        //    case BMPC_BITFIELDS:
+        //        // we unpack bitfields to plain RGB
+        //        bps = 8;
     default:
         throw Exception("Unknown compression method");
     }

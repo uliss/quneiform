@@ -10,8 +10,6 @@ include_directories(
 ../src/usage
 )
 
-add_definitions(-DUSE_MAGICK)
-
 add_executable(cuneiform cuneiform-cli.cpp)
-target_link_libraries(cuneiform puma ${cli_ext_libs} ${DL_LIB})
+target_link_libraries(cuneiform puma ${DL_LIB})
 install_exe(cuneiform)

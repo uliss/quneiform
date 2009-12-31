@@ -37,6 +37,7 @@ class ImageLoader
 
         bool isValidImageSize(size_t size) const;
         virtual Image* load(const std::string& filename) = 0;
+        virtual Image* load(std::istream& stream) = 0;
         void setMaxImageSize(size_t size);
         static size_t streamSize(std::istream& stream);
 

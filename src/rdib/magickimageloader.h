@@ -22,6 +22,12 @@
 #include "imageloader.h"
 #include "image.h"
 
+namespace Magick
+{
+class Image;
+class Blob;
+}
+
 namespace CIF
 {
 
@@ -38,6 +44,10 @@ class MagickImageLoader: public ImageLoader
          * @throw ImageLoader::Exception on errors
          */
         Image* load(const std::string& filename);
+
+        Image* load(std::istream& stream);
+    private:
+        Image * load(Magick::Image * image, Magick::Blob * blob);
 };
 
 }

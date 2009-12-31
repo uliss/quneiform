@@ -18,6 +18,7 @@
 
 #include <Magick++.h>
 #include <cstring>
+#include <boost/scoped_array.hpp>
 
 #include "magickimageloader.h"
 #include "imageloaderfactory.h"
@@ -45,33 +46,58 @@ MagickImageLoader::~MagickImageLoader()
 {
 }
 
-Image* MagickImageLoader::load(const std::string& fname)
+Image * MagickImageLoader::load(Magick::Image * image, Magick::Blob * blob)
 {
+    assert(image);
+    assert(blob);
+
+    switch (image->type()) {
+    case Magick::BilevelType:
+    case Magick::TrueColorType:
+        break;
+    default:
+        image->type(Magick::TrueColorType);
+    }
+    if (CIF::Config::instance().debugHigh())
+        image->verbose(true);
+    // Write to BLOB in BMP format
+    image->magick("DIB");
+    image->write(blob);
+
+    char * new_data = new char[blob->length()];
+    memcpy(new_data, blob->data(), blob->length());
+    Image * ret = new Image(new_data, blob->length(), Image::AllocatorNew);
+    return ret;
+}
+
+Image* MagickImageLoader::load(std::istream& stream)
+{
+    size_t stream_size = streamSize(stream);
+    boost::scoped_array<char> tmp(new char[stream_size]);
     Magick::Blob blob;
+    blob.updateNoCopy(tmp.get(), stream_size);
     try {
-        Magick::Image image(fname);
-        switch (image.type()) {
-        case Magick::BilevelType:
-        case Magick::TrueColorType:
-            break;
-        default:
-            image.type(Magick::TrueColorType);
-        }
-        if (CIF::Config::instance().debugHigh())
-            image.verbose(true);
-        // Write to BLOB in BMP format
-        image.magick("DIB");
-        image.write(&blob);
+        Magick::Image image(blob);
+        return load(&image, &blob);
     }
     catch (Magick::Exception &error_) {
         std::cerr << error_.what() << "\n";
         return NULL;
     }
-
-    char * new_data = new char[blob.length()];
-    memcpy(new_data, blob.data(), blob.length());
-    Image * ret = new Image(new_data, blob.length(), Image::AllocatorNew);
-    return ret;
 }
 
+Image* MagickImageLoader::load(const std::string& fname)
+{
+    Magick::Blob blob;
+    try {
+        Magick::Image image(fname);
+        return load(&image, &blob);
+    }
+    catch (Magick::Exception &error_) {
+        std::cerr << error_.what() << "\n";
+        return NULL;
+    }
+    }
+
 }
+

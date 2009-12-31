@@ -30,14 +30,15 @@ if(MSVC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996")
     endif()
 endif()
-
+ 
+if(NOT NO_IMAGE_MAGICK)
 find_package(ImageMagick COMPONENTS Magick++)
 if(ImageMagick_Magick++_FOUND)
     include_directories(${ImageMagick_Magick++_INCLUDE_DIR})
     message(STATUS "ImageMagick++ found at ${ImageMagick_Magick++_INCLUDE_DIR}.")
-    set(cli_ext_libs ${ImageMagick_Magick++_LIBRARY})
-else()
-    message(FATAL_ERROR "ImageMagick++ required")
+    message(STATUS "ImageMagick++ library is ${ImageMagick_Magick++_LIBRARY}.")    
+    set(USE_IMAGE_MAGICK TRUE)
+endif()
 endif()
 
 find_package(Iconv)
@@ -54,11 +55,6 @@ endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/include/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src/include)
-
-# Libdl is needed only on Apple and Linux (that I know of).
-if(NOT WIN32 AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-    find_library(DL_LIB dl)
-endif()
 
 # Emulate Windows DLL symbol resolve order.
 if(UNIX AND NOT APPLE)
