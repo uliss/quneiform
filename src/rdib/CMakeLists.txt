@@ -6,7 +6,7 @@ if(USE_IMAGE_MAGICK)
     message(STATUS "ImageMagick loader will be build")
 endif()
 
-add_library(rdib ${LIBTYPE} 
+add_library(rdib ${NEWLIBTYPE} 
 ctdib.cpp
 image.cpp
 imageformatdetector.cpp

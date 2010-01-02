@@ -136,7 +136,10 @@ bool BmpImageLoader::isValidBmpBitCount()
 
 void BmpImageLoader::readBmpMagick(std::istream& stream)
 {
-    stream.read((char*) &file_header_.bType, 2);
+    stream.read((char*) &file_header_.bType, sizeof(file_header_.bType));
+    if(stream.fail())
+        throw Exception("BmpImageLoader::Invalid stream given: can't read bmp magick.");
+
     if (file_header_.bType[0] != 'B' || file_header_.bType[1] != 'M') {
         stream.seekg(0);
         throw ImageLoader::Exception("Not a BMP file");
@@ -147,6 +150,8 @@ void BmpImageLoader::readBmpFileHeader(std::istream& stream)
 {
     stream.seekg(10);
     stream.read((char*) &file_header_.iOffBits, 4);
+    if(stream.fail())
+            throw Exception("BmpImageLoader::Invalid stream given: can't read header.");
     // fix the iSize, in early BMP file this is pure garbage
     file_header_.iSize = (uint32_t) streamSize(stream);
 }

@@ -1,4 +1,4 @@
-add_library(puma ${LIBTYPE}
+add_library(puma ${NEWLIBTYPE}
 ${SNP_SRC}
 pumaimpl.cpp
 )

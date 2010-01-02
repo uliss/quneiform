@@ -24,4 +24,11 @@ using namespace CIF;
 void TestBmpLoader::testInit()
 {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
+    Image * image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
+    delete image;
+    std::ifstream is;
+    CPPUNIT_ASSERT_THROW(loader->load(is), CIF::ImageLoader::Exception);
+    std::stringstream s1;
+    s1 << "BM";
+    CPPUNIT_ASSERT_THROW(loader->load(s1), CIF::ImageLoader::Exception);
 }
