@@ -22,6 +22,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <vector>
 #include <boost/noncopyable.hpp>
 
 #include "imageformats.h"
@@ -35,6 +36,7 @@ class ImageFormatDetector: public boost::noncopyable
         static ImageFormatDetector& instance();
         image_format_t detect(const std::string& filename) const;
         image_format_t detect(std::istream& stream) const;
+        std::vector<std::string> knownExtensions() const;
     private:
         ImageFormatDetector();
     private:

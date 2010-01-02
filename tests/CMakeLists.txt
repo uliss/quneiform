@@ -25,6 +25,8 @@ common/testpoint.cpp
 common/testrect.cpp
 )
 
+add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/loaders/")
+
 add_executable(test_loaders
 loaders/test_loaders.cpp
 loaders/testformatdetector.cpp

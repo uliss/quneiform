@@ -16,8 +16,10 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cassert>
 #include "imageformatdetector.h"
 #include "common/helper.h"
+#include "common/debug.h"
 
 namespace CIF
 {
@@ -39,9 +41,9 @@ ImageFormatDetector::ImageFormatDetector()
 
     magick_format_map_.insert(MagickMap::value_type("BM", FORMAT_BMP));
     magick_format_map_.insert(MagickMap::value_type("GIF", FORMAT_GIF));
-    magick_format_map_.insert(MagickMap::value_type("\0xFF\0xD8", FORMAT_JPEG));
-    magick_format_map_.insert(FormatMap::value_type("\0x89PNG", FORMAT_PNG));
-    magick_format_map_.insert(FormatMap::value_type("ll", FORMAT_TIFF));
+    magick_format_map_.insert(MagickMap::value_type("\xFF\xD8", FORMAT_JPEG));
+    magick_format_map_.insert(FormatMap::value_type("\x89PNG", FORMAT_PNG));
+    magick_format_map_.insert(FormatMap::value_type("II", FORMAT_TIFF));
     magick_format_map_.insert(FormatMap::value_type("MM", FORMAT_TIFF));
     magick_format_map_.insert(FormatMap::value_type("P1", FORMAT_PNM));
     magick_format_map_.insert(FormatMap::value_type("P2", FORMAT_PNM));
@@ -68,15 +70,32 @@ image_format_t ImageFormatDetector::detect(const std::string& filename) const
 
 image_format_t ImageFormatDetector::detect(std::istream& stream) const
 {
-    static const int MAGICK_SIZE = 10;
+    if (!stream.good()) {
+        Debug() << "Bad stream given\n";
+        return FORMAT_UNKNOWN;
+    }
+
+    static const unsigned int MAGICK_SIZE = 15;
     char buffer[MAGICK_SIZE];
     stream.read(buffer, MAGICK_SIZE);
+    std::string bit_of_magick;
     for (MagickMap::const_iterator it = magick_format_map_.begin(), end = magick_format_map_.end(); it
             != end; ++it) {
-        if(it->first.compare(0, it->first.size(), buffer) == 0)
+        assert(it->first.size() < MAGICK_SIZE);
+        if (it->first.compare(0, it->first.size(), buffer, it->first.size()) == 0)
             return it->second;
     }
     return FORMAT_UNKNOWN;
+}
+
+std::vector<std::string> ImageFormatDetector::knownExtensions() const
+{
+    std::vector<std::string> ret;
+    ret.reserve(extension_format_map_.size());
+    FormatMap::const_iterator it = extension_format_map_.begin(), end = extension_format_map_.end();
+    for(; it != end; ++it)
+        ret.push_back(it->first);
+    return ret;
 }
 
 }

@@ -23,5 +23,5 @@ using namespace CIF;
 
 void TestBmpLoader::testInit()
 {
-
+    std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
 }

@@ -24,10 +24,12 @@
 class TestFormatDetector: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestFormatDetector);
-    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testDetectByFilename);
+    CPPUNIT_TEST(testDetectByContent);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testInit();
+    void testDetectByFilename();
+    void testDetectByContent();
 };
 
 #endif /* TESTFORMATDETECTOR_H_ */
