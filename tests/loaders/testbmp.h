@@ -25,9 +25,11 @@ class TestBmpLoader: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestBmpLoader);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testMagick);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testMagick();
 };
 
 #endif /* TESTBMP_H_ */

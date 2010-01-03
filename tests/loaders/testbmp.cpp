@@ -17,7 +17,6 @@
  ***************************************************************************/
 #include "testbmp.h"
 #include <rdib/bmpimageloader.h>
-
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
 using namespace CIF;
 
@@ -26,9 +25,16 @@ void TestBmpLoader::testInit()
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
     Image * image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
     delete image;
-    std::ifstream is;
+}
+
+void TestBmpLoader::testMagick()
+{
+    std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
+    //    test empty
+    std::stringstream is;
     CPPUNIT_ASSERT_THROW(loader->load(is), CIF::ImageLoader::Exception);
-    std::stringstream s1;
-    s1 << "BM";
-    CPPUNIT_ASSERT_THROW(loader->load(s1), CIF::ImageLoader::Exception);
+    is.clear();
+    //    test wrong magick
+    is << "GB";
+    CPPUNIT_ASSERT_THROW(loader->load(is), CIF::ImageLoader::Exception);
 }

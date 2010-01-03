@@ -137,7 +137,7 @@ bool BmpImageLoader::isValidBmpBitCount()
 void BmpImageLoader::readBmpMagick(std::istream& stream)
 {
     stream.read((char*) &file_header_.bType, sizeof(file_header_.bType));
-    if(stream.fail())
+    if (stream.fail())
         throw Exception("BmpImageLoader::Invalid stream given: can't read bmp magick.");
 
     if (file_header_.bType[0] != 'B' || file_header_.bType[1] != 'M') {
@@ -150,8 +150,8 @@ void BmpImageLoader::readBmpFileHeader(std::istream& stream)
 {
     stream.seekg(10);
     stream.read((char*) &file_header_.iOffBits, 4);
-    if(stream.fail())
-            throw Exception("BmpImageLoader::Invalid stream given: can't read header.");
+    if (stream.fail())
+        throw Exception("BmpImageLoader::Invalid stream given: can't read header.");
     // fix the iSize, in early BMP file this is pure garbage
     file_header_.iSize = (uint32_t) streamSize(stream);
 }
@@ -160,6 +160,8 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
 {
     stream.seekg(BFH_SIZE);
     stream.read((char*) &info_header_.iSize, 4);
+    if (stream.fail())
+        throw Exception("BmpImageLoader::Invalid stream given: can't read info header.");
 
     n_clr_elems = 3;
 
@@ -365,6 +367,8 @@ void BmpImageLoader::readUncompressedData(std::istream& stream)
     data_ = new char[data_size_];
     stream.seekg(sizeof(BMPFileHeader));
     stream.read(data_, data_size_);
+    if(stream.fail())
+        throw Exception("BmpImageLoader:: error while read image data");
 }
 
 bool BmpImageLoader::read(std::istream& stream)
