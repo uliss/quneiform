@@ -61,13 +61,18 @@
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
-uchar work_raster[2048* 32 ], work_raster_1[2048*32];
-int32_t sz_work_raster = sizeof(work_raster), sz_work_raster_1 =
-                             sizeof(work_raster_1);
-struct main_memory_str Q;
+uchar work_raster[2048 * 32], work_raster_1[2048 * 32];
+int32_t sz_work_raster = sizeof(work_raster), sz_work_raster_1 = sizeof(work_raster_1);
+static main_memory_str g_Q;
+
+main_memory_str& Q()
+{
+    return g_Q;
+}
+
 version * start_rec, *rec_ptr;
 uchar lpool_lth;
-uchar lpool[6000* 10 ];
+uchar lpool[6000 * 10];
 
 uchar records_change;
 uchar evfulln;

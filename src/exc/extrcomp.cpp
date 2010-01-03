@@ -170,8 +170,6 @@ static Bool init_dump_file(void);
 static Bool write_dump(void * pool, int32_t size);
 static Bool extrcomp_setup_memory(void);
 
-//========== Import data
-extern struct main_memory_str Q;
 extern ExtComponent wcomp;
 extern uint16_t lpool_lth;
 extern uchar lpool[];
@@ -209,7 +207,7 @@ Bool32 ExtrcompInit(void)
     FNCCOM_MakeLP MLP = (FNCCOM_MakeLP) REXCMakeLP;
     int32_t ccom_vers, vers = REXC_VERSION_CODE;
 
-    if (Q.boxstart) {
+    if (Q().boxstart) {
         ExtrcompDone();
     }
 
@@ -230,10 +228,10 @@ Bool32 ExtrcompInit(void)
 
 void ExtrcompDone(void)
 {
-    if (Q.boxstart)
-        free(Q.boxstart);
+    if (Q().boxstart)
+        free(Q().boxstart);
 
-    Q.boxstart = NULL;
+    Q().boxstart = NULL;
 
     if (ExControl & Ex_EvnRecog)
         EVNDone();
@@ -249,7 +247,7 @@ int32_t Extracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead t
 {
     int rc;
 
-    if (!Q.boxstart) {
+    if (!Q().boxstart) {
         ExtrcompInit();
     }
 
@@ -261,10 +259,10 @@ int32_t Extracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead t
 
         if (rc == ExRc_NotEnoughMemory && box_number == BOX_NUMBER) {
             box_number *= 4;
-            free(Q.boxstart);
-            Q.boxstart = static_cast<BOX*> (malloc(box_number * BOXSIZE));
+            free(Q().boxstart);
+            Q().boxstart = static_cast<BOX*> (malloc(box_number * BOXSIZE));
 
-            if (Q.boxstart == NULL)
+            if (Q().boxstart == NULL)
                 return ExRc_MemAllocFail;
 
             if (!(ExControl & Ex_NoContainer))
@@ -803,7 +801,7 @@ Bool extrcomp_setup_memory(void)
     if ((mem = malloc(box_number * BOXSIZE)) == NULL)
         error_exit(ERR_comp, 13);
 
-    Q.boxstart = (BOX*) mem;
+    Q().boxstart = (BOX*) mem;
     cache_end = cache + CACHESIZE;
     reset_cache();
     return TRUE;
@@ -1164,14 +1162,11 @@ char* REXC_GetReturnString(uint32_t dwError)
 
 Bool32 REXC_Init(uint16_t wHeightCode, Handle hStorage)
 {
-    if (Q.boxstart) {
-        //wLowRC = REXC_ERR_USE;
-        //return FALSE;
+    if (Q().boxstart) {
         ExtrcompDone();
     }
 
     wHeightRC = wHeightCode;
-    //-exc_ori_init();
     NumContainer = 0;
     return ExtrcompInit();
 }

@@ -79,8 +79,8 @@
 //
 
 struct bw_segment {
-    int16_t b;
-    int16_t w;
+    int16_t b;//black
+    int16_t w;//white
     BOX * box;
 };
 

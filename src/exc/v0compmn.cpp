@@ -60,6 +60,7 @@
 #include "struct.h"
 #include "v1comp.h"
 #include "msgerr.h"
+#include "excdefs.h"
 
 extern uchar fax1x2;
 extern int32_t box_number;
@@ -75,7 +76,6 @@ extern int16_t image_height; // lines in file number
 extern int16_t image_lth; // bytes per line
 extern uchar image_black; // mask for black pixels adding
 extern uchar image_white; // mask for wite pixels adding
-extern struct main_memory_str Q;
 
 void analise();
 BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width);
@@ -86,7 +86,6 @@ int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 // TGCV static int32_t progress_next;
 
 //--------------------- Internal functions
-static void enough_memory();
 static void initdsect();
 static void allocboxes();
 static void begin();
@@ -105,21 +104,19 @@ void extrcomp()
     // TGCV sweeper_ini();
     // TGCV progress_next = progress_set_step (image_height + 1);
     initdsect();
-    //enough_memory();
     allocboxes();
     // TGCV save_comp_ini();
     double_fax = fax1x2;
     begin();
 
     if (double_fax) {
-    fax_loop:
-        Q.lineno++;
+        fax_loop: Q().lineno++;
 
         if (!readline())
             goto lastline;
 
         analise();
-        Q.lineno++;
+        Q().lineno++;
 
         if (!readline()) {
             fax_double();
@@ -131,21 +128,19 @@ void extrcomp()
             error_exit(ERR_comp, 14); // not a fax image
 
         analise();
-        // TGCV    if (Q.lineno >= progress_next)
-        progress_set_percent(Q.lineno);
+        // TGCV    if (Q().lineno >= progress_next)
+        progress_set_percent(Q().lineno);
         goto fax_loop;
     }
 
-main_loop:
-    Q.lineno++;
+    main_loop: Q().lineno++;
 
     if (readline()) {
         analise();
         goto main_loop;
     }
 
-lastline:
-    exchangelines();
+    lastline: exchangelines();
     emptyline();
     analise();
 }
@@ -154,18 +149,18 @@ static void initdsect()
 {
     MN *p;
     int16_t i;
-    memset(Q.mnstart, 0, sizeof(MN) * SEG_MAX_NUM);
-    memset(Q.line1start, 0, sizeof(BWS) * SEG_MAX_NUM);
-    memset(Q.line2start, 0, sizeof(BWS) * SEG_MAX_NUM);
-    Q.lineno = 0;
-    p = Q.mainalloc = Q.mnstart;
+    memset(Q().mnstart, 0, sizeof(MN) * SEG_MAX_NUM);
+    memset(Q().line1start, 0, sizeof(BWS) * SEG_MAX_NUM);
+    memset(Q().line2start, 0, sizeof(BWS) * SEG_MAX_NUM);
+    Q().lineno = 0;
+    p = Q().mainalloc = Q().mnstart;
 
     for (i = 0; i < SEG_MAX_NUM - 1; p++, i++)
         p->mnfirstbox = (BOX *) (p + 1);
 
     p->mnfirstbox = NULL;
-    Q.oldline = Q.line1start;
-    Q.newline = Q.line2start;
+    Q().oldline = Q().line1start;
+    Q().newline = Q().line2start;
 }
 
 static void allocboxes()
@@ -173,8 +168,8 @@ static void allocboxes()
     BOX *b;
     int32_t i;
 
-    for (b = Q.boxalloc = Q.boxstart, i = 0; i < box_number - 1; i++, b
-            = (BOX *) ((uchar*) b + BOXSIZE))
+    for (b = Q().boxalloc = Q().boxstart, i = 0; i < box_number - 1; i++, b = (BOX *) ((uchar*) b
+            + BOXSIZE))
         b->boxnext = (BOX *) ((uchar*) b + BOXSIZE);
 
     b->boxnext = NULL;
@@ -182,58 +177,57 @@ static void allocboxes()
 
 static void begin()
 {
-    Q.dcodeptr = Q.scan_buffer;
-    Q.dcodeend = Q.dcodeptr + image_lth;
+    Q().dcodeptr = Q().scan_buffer;
+    Q().dcodeend = Q().dcodeptr + image_lth;
     emptyline();
 }
 
 static void emptyline()
 {
-    Q.newline->b = 0;
-    Q.newline->w = -0x7000;
+    Q().newline->b = 0;
+    Q().newline->w = -0x7000;
 }
 
 static void exchangelines()
 {
     BWS *p;
-    p = Q.oldline;
-    Q.oldline = Q.newline;
-    Q.newline = p;
+    p = Q().oldline;
+    Q().oldline = Q().newline;
+    Q().newline = p;
 }
 
 static uint16_t readline()
 {
     uchar* p;
     int16_t i;
-    p = Q.dcodeptr + image_lth;
-after_read:
+    p = Q().dcodeptr + image_lth;
+    after_read:
 
-    if (p + image_lth > Q.dcodeend)
+    if (p + image_lth > Q().dcodeend)
         goto rd_source;
 
-    Q.dcodeptr = p;
+    Q().dcodeptr = p;
     exchangelines();
     p += image_disp_byte;
     *p &= image_disp_mask;
     *(p + image_disp_end - 1) &= image_black;
-    extrcomp_seglist(p, Q.newline, Q.newline + SEG_MAX_NUM, image_disp_end);
+    extrcomp_seglist(p, Q().newline, Q().newline + SEG_MAX_NUM, image_disp_end);
     return 1;
-rd_source:
-    i = source_read(Q.scan_buffer, p, Q.dcodeend);
+    rd_source: i = source_read(Q().scan_buffer, p, Q().dcodeend);
 
     if (i <= 0)
         return 0;
 
-    Q.dcodeend = Q.dcodeend - p + i + Q.scan_buffer;
-    p = Q.scan_buffer;
+    Q().dcodeend = Q().dcodeend - p + i + Q().scan_buffer;
+    p = Q().scan_buffer;
     goto after_read;
 }
 
 static int16_t fax_test()
 {
     BWS * old, *new_;
-    old = Q.oldline;
-    new_ = Q.newline;
+    old = Q().oldline;
+    new_ = Q().newline;
 
     while (1) {
         if ((old->b != new_->b) || (old->w != new_->w))
@@ -251,8 +245,8 @@ static void fax_double()
 {
     BWS * old, *new_;
     exchangelines();
-    old = Q.oldline;
-    new_ = Q.newline;
+    old = Q().oldline;
+    new_ = Q().newline;
 
     while (1) {
         new_->b = old->b;
