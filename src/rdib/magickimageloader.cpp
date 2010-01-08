@@ -32,7 +32,15 @@ CIF::ImageLoader * create()
     return new CIF::MagickImageLoader;
 }
 
-bool bmp = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_UNKNOWN, -1000, create);
+bool unkwnown = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_UNKNOWN, 100,
+        create);
+bool bmp = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_BMP, 100, create);
+bool gif = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_GIF, 100, create);
+bool jpg = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_JPEG, 100, create);
+bool pnm = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_PNM, 100, create);
+bool png = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_PNG, 100, create);
+bool tif = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_TIFF, 100, create);
+bool xpm = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_XPM, 100, create);
 }
 
 namespace CIF
@@ -97,7 +105,7 @@ Image* MagickImageLoader::load(const std::string& fname)
         std::cerr << error_.what() << "\n";
         return NULL;
     }
-    }
+}
 
 }
 
