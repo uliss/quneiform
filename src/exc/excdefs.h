@@ -79,14 +79,14 @@ typedef struct tagExtComponent
         ///////////////////////////////////////////////////////////////
         uchar rw; // raster width in bytes  == (w+7)/8
         uchar type; // recognition type
-#define ch_perfect    1     // perfect type defined
-#define ch_letter     2     // letter type
-#define ch_dust       4     // dust type
-#define ch_punct      8     // punctuation
-#define ch_stick     16     // vertical bar component
-#define ch_great     32     // great component
-#define ch_merge     64     // merged components
-#define ch_notltr   128     // not letter or punctuation
+#define REXC_ch_perfect    1     // perfect type defined
+#define REXC_ch_letter     2     // letter type
+#define REXC_ch_dust       4     // dust type
+#define REXC_ch_punct      8     // punctuation
+#define REXC_ch_stick     16     // vertical bar component
+#define REXC_ch_great     32     // great component
+#define REXC_ch_merge     64     // merged components
+#define REXC_ch_notltr   128     // not letter or punctuation
         uchar cs; // recognition case (see bellow)        *
         uchar pidx; // proportional index (ref.)            *
         int16_t nvers; // number of alternative versions, 0 - none !!

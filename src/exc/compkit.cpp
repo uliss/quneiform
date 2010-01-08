@@ -58,6 +58,7 @@
 #include "globus.h"
 #include "struct.h"
 #include "excdefs.h"
+#include "comp.h"
 
 Bool16 boxes_account();
 

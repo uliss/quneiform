@@ -58,6 +58,7 @@
 #include "struct.h"
 #include "v1comp.h"
 #include "version.h"
+#include "comp.h"
 
 //      Common variables
 // Oleg

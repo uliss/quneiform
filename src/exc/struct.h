@@ -141,46 +141,6 @@ struct box_interval {
 }; //      to the previous
 typedef struct box_interval BOXINT;
 
-//-------------------- component in kit --------------------------
-
-struct comp_struc {
-    uint16_t size; // size of component in paragraphs >=3
-    int16_t upper; // upper boundary of component
-    int16_t left; // left boundary of component
-    int16_t h; // height of component
-    // 8
-    int16_t w; // width of component
-    uchar rw; // raster width in bytes
-    uchar type; // recognition type
-#define ch_perfect    1     // perfect type defined
-#define ch_letter     2     // letter type
-#define ch_dust       4     // dust type
-#define ch_punct      8     // punctuation
-#define ch_stick     16     // vertical bar component
-#define ch_great     32     // great component
-#define ch_merge     64     // merged components
-#define ch_notltr   128     // not letter or punctuation
-    uchar cs; // recognition case (see bellow)
-    uchar pidx; // proportional index (ref.)
-    int16_t nvers; // number of alternative versions
-    // 16
-    int16_t records; // recognition records offset
-    int16_t lines; // ptr to line representation
-    int16_t nl; // number of lines
-    uchar begs; // number of free begins
-    uchar ends; // number of free ends
-    // 24
-    uchar reasno; // proportional criteria messages
-    uchar large; // large type
-    uchar scale; // scale of the component
-    uchar begends; // sum of original begs + ends
-    int32_t dens; // sum of black pixels
-    // 32
-    //struct comp_struc * next;
-    // 36
-};
-typedef struct comp_struc c_comp;
-
 struct dust_comp_struc {
     uint16_t size; // =1
     int16_t upper;

@@ -61,6 +61,7 @@
 #include "ligas.h"
 #include "v1comp.h"
 #include "version.h"
+#include "comp.h"
 #include "status.h"     // 06.09.00 E.P.
 #include "lang_def.h"   // 06.09.00 E.P.
 //  Internal working fields

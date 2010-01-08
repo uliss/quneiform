@@ -59,6 +59,7 @@
 #include "struct.h"
 #include "recdefs.h"
 #include "version.h"
+#include "comp.h"
 extern uchar lpool[];
 extern uint16_t lpool_lth;
 

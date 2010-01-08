@@ -59,6 +59,7 @@
 
 #include "struct.h"
 #include "version.h"
+#include "comp.h"
 
 #define MAX_CELLS_IN_LIST    8
 

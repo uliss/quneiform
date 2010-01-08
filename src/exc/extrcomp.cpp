@@ -572,7 +572,7 @@ uint16_t push_comp_to_container(ExtComponent * g)
         curr_comp->scale = g->scale;
         curr_comp->type = g->type;
 
-        if (g->type == ch_great && !vers.lnAltCnt) // non dust
+        if (g->type == REXC_ch_great && !vers.lnAltCnt) // non dust
             curr_comp->type = CCOM_CH_GREAT;
 
         curr_comp->cs = g->cs;
@@ -1878,7 +1878,7 @@ static Bool store_MN(MN *locmn, int16_t upper, int16_t left, int16_t w, int16_t 
 
     MN_to_line(locmn);
     wcomp.scale = scale_2;
-    wcomp.type = ch_great;
+    wcomp.type = REXC_ch_great;
     // restore old sizes
     wcomp.upper = upper;
     wcomp.left = left;
