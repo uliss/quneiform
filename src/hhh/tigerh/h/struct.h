@@ -94,28 +94,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define err_pncell(c)      //((c))->next =((c))->prev =(cell*)(0xffff0000)
 #define err_pnnextcell(c)  //((c))->next =             (cell*)(0xffff0000)
 #define err_pnprevcell(c)  //((c))->prev =             (cell*)(0xffff0000)
-// AK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//#define err_pnlet(c)  ((c))->nextl=((c))->prevl=(cell*)(0xffff0000);
-///////////////////////////////////////////////////////////////////////AK
-// AL 900318
-//-------------------- conectivity component ---------------------
-
-struct MN {
-    void *mnfirstbox;      // address of the first box
-    int16_t mncounter;         // (was int16_t) number of living lines in the component
-#define mnfree  mnfirstbox  // reference to next free main number
-    int16_t mnupper;           // upper bound of component
-    int16_t mnlower;           // lower bound of component
-    int16_t mnboxcnt;          // number of boxes in component
-#define usual_box_count 20  // heuristic of number of lines in a letter
-#define great_box_count 200 // heuristic for number of boxes in a picture
-    uchar mnlines;                  // number of lines in the component
-    uchar mnbegs;              // number of free line begins
-    uchar mnends;                   // number of free line ends
-    uchar mnflag;                  // flag byte for main number
-#define mnpicture 1     // component is a picture
-    MN *mnnext;   // address of next dead component
-};
 
 struct ldescr_struct {
     int16_t y;     // y coord. of the first interval

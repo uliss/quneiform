@@ -62,6 +62,7 @@
 #include "exc/excdefs.h"
 #include "recdefs.h"
 #include "memfunc.h"
+#include "mn.h"
 
 #ifdef __LOC__
 #define LOC_FUNC  FUN_EXPO__

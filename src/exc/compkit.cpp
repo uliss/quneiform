@@ -61,6 +61,7 @@
 #include "comp.h"
 #include "box.h"
 #include "version.h"
+#include "mn.h"
 
 Bool16 boxes_account();
 
@@ -93,8 +94,8 @@ Bool16 boxes_account()
     BOX *bp;
     int16_t left, right, n;
     memset(&wcomp, 0, sizeof(wcomp));
-    mn = static_cast<MN*> (main_number_ptr);
-    bp = static_cast<BOX*> (mn->mnfirstbox);
+    mn = main_number_ptr;
+    bp = mn->mnfirstbox;
     left = bp->boxleft;
     right = bp->boxright;
     boxchain = bp;

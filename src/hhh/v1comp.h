@@ -58,6 +58,7 @@
 #define V1COMP_H_
 
 #include "compat_defs.h"
+#include "mn.h"
 #include "struct.h"
 
 //

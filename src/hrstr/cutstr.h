@@ -61,6 +61,7 @@
 #include "version.h"
 #include "comp.h"
 #include "cell.h"
+#include "mn.h"
 
 #define MAX_CELLS_IN_LIST    8
 

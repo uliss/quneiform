@@ -62,6 +62,7 @@
 #include "recdefs.h"
 #include "memfunc.h"
 #include "ccom/ccomdefs.h"
+#include "mn.h"
 
 #ifdef __EVN__
 #define EVN_FUNC  FUN_EXPO__

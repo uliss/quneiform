@@ -123,25 +123,7 @@ typedef struct eltab {
     uint16_t bnd; // the bound of the typeface
     uint16_t vect[15]; // the vector of the letter
 } elmBOX;
-///////////////////////////////////////////////////////////////////////////////////
-struct mn_struc {
-    void *mnfirstbox; // address of the first box
-    int16_t mncounter; // (was int16_t) number of living lines in the component
-#define mnfree  mnfirstbox  // reference to next free main number
-    int16_t mnupper; // upper bound of component
-    int16_t mnlower; // lower bound of component
-    int16_t mnboxcnt; // number of boxes in component
-#define usual_box_count 20  // heuristic of number of lines in a letter
-#define great_box_count 200 // heuristic for number of boxes in a picture
-    uchar mnlines; // number of lines in the component
-    uchar mnbegs; // number of free line begins
-    uchar mnends; // number of free line ends
-    uchar mnflag; // flag byte for main number
-#define mnpicture 1     // component is a picture
-    struct mn_struc *mnnext; // address of next dead component
-};
-typedef struct mn_struc MN;
-/////////////////////////////////////////////////////////////////////////////////////
+
 struct _Root;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
