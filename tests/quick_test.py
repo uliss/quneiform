@@ -46,9 +46,10 @@ for key, v in sorted(DATA.iteritems()):
         continue
         #sys.exit(1)
     elif retcode < 0:
-        tests_passed = tests_passed + 1
         sys.exit(1)
         
+    tests_passed = tests_passed + 1
+
     if os.path.getsize(OUTPUT) == 0:
         print "%s failed. not output" % v
         sys.exit(1)
