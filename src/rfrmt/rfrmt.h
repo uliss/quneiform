@@ -57,27 +57,28 @@
 #define __RFRMT_H
 #include "globus.h"
 #ifdef __RFRMT__
-#define RFRMT_FUNC  FUN_EXPO
+#define RFRMT_FUNC  FUN_EXPO__
 #else
-#define RFRMT_FUNC  FUN_IMPO
+#define RFRMT_FUNC  FUN_IMPO__
 #endif
-#pragma pack (push,8)
+
 #define RFRMT_MAXNAME 260
-RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode, Handle hStorage);
-RFRMT_FUNC(Bool32) RFRMT_Done();
-RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode();
-RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError);
-RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData);
-RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData);
+RFRMT_FUNC Bool32 RFRMT_Init(uint16_t wHeightCode, Handle hStorage);
+RFRMT_FUNC Bool32 RFRMT_Done();
+RFRMT_FUNC uint32_t RFRMT_GetReturnCode();
+RFRMT_FUNC char * RFRMT_GetReturnString(uint32_t dwError);
+RFRMT_FUNC Bool32 RFRMT_GetExportData(uint32_t dwType, void * pData);
+RFRMT_FUNC Bool32 RFRMT_SetImportData(uint32_t dwType, const void * pData);
 
 namespace CIF
 {
 class FormatOptions;
 }
 
-void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
+RFRMT_FUNC void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
 
-typedef enum {
+typedef enum
+{
     RFRMT_FNRFRMT_Formatter = 1,
     RFRMT_FNRFRMT_SaveRtf,
     RFRMT_Bool32_Bold,
@@ -90,11 +91,8 @@ typedef enum {
     RFRMT_Word8_UnRecogSymbol,
     RFRMT_Word32_Language
 } RFRMT_EXPORT_ENTRIES;
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c; RFRMT_FUNC(a) b c;
-DEC_FUN(Bool32, RFRMT_Formatter, (const char * InputFileName , Handle* PtrEdTree))
-DEC_FUN(Bool32, RFRMT_SaveRtf, (const char * OutputFileName, uint32_t code))
-#undef DEC_FUN
 
-#pragma pack (pop)
+RFRMT_FUNC Bool32 RFRMT_Formatter(const char * InputFileName, Handle* PtrEdTree);
+RFRMT_FUNC Bool32 RFRMT_SaveRtf(const char * OutputFileName, uint32_t code);
 
 #endif

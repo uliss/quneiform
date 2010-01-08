@@ -8,6 +8,8 @@ ugol.cpp
 ../usage/puma_comm.cpp
 ../usage/un_buff.cpp
 )
+
+set_property(TARGET smetric PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
 target_link_libraries(smetric cfcompat)

@@ -10,6 +10,8 @@ vl_data.cpp
 vl_rule.cpp
 vl_snap.cpp
 )
+
+set_property(TARGET rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
 target_link_libraries(rverline

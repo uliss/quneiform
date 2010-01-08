@@ -5,6 +5,8 @@ findlostlines.cpp
 newline.cpp
 rline.cpp
 )
+
+set_property(TARGET rline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
 
 target_link_libraries(rline

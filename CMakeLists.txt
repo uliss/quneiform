@@ -58,7 +58,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/src/include)
 
 # Emulate Windows DLL symbol resolve order.
 if(UNIX AND NOT APPLE)
-  set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-Bsymbolic")
+ # set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-Bsymbolic")
 endif()
 
 if(MINGW)

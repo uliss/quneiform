@@ -10,6 +10,8 @@ polypic.cpp
 rectpic.cpp
 rpic.cpp
 )
+
+set_property(TARGET rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
 target_link_libraries(rpic cpage ccom rstr)

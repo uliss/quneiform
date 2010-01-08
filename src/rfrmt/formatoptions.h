@@ -25,11 +25,12 @@
 
 #include "puma/pumadef.h"
 #include "lang_def.h"
+#include "rfrmt.h"
 
 namespace CIF
 {
 
-class FormatOptions
+class RFRMT_FUNC FormatOptions
 {
     public:
         FormatOptions();
@@ -69,7 +70,7 @@ class FormatOptions
         language_t language_;
 };
 
-std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
+RFRMT_FUNC std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 
 }
 

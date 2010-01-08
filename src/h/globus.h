@@ -86,38 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       FUN_IMPO( void  ) FAR PASCAL SomeFunc2();
 */
 
-#if      defined( __BORLANDC__ )    /* Borland C++ 3.1 **************/
-#if( __BORLANDC__ < 400)
-#define CLA_IMPO    _huge
-#define CLA_EXPO    _export
-#define FUN_IMPO__
-#define __FUN_IMPO
-#define FUN_EXPO__
-#define __FUN_EXPO            _export
-#ifndef PASCAL
-#define PASCAL _pascal
-#endif
-#ifndef CDECL
-#define CDECL      _cdecl
-#endif
-#elif (__BORLANDC__ >=400)   /* BC 4.0 and higher (32-bit) */
-#ifdef DEBUG_HDRS
-#pragma message( "Globus.h: make settings for BC 4.0 or later")
-#endif
-#define CLA_IMPO    _import
-#define CLA_EXPO    _export
-#define FUN_IMPO__
-#define __FUN_IMPO  _import
-#define FUN_EXPO__
-#define __FUN_EXPO  _export
-#ifndef PASCAL
-#define PASCAL _pascal
-#ifdef DEBUG_HDRS
-#pragma message( "PASCAL->pascal")
-#endif
-#endif
-#endif
-#elif    defined( _MSC_VER )        /* Microsoft C/C++ compilers ******/
+#if  defined( _MSC_VER )        /* Microsoft C/C++ compilers ******/
 #if  _MSC_VER > 800    /* MSVC 2.0 and later */
 #ifdef DEBUG_HDRS
 #pragma message( "Globus.h: make settings for MSVC 2.0 or later")
@@ -151,7 +120,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CDECL      __cdecl
 #endif
 #endif
-#elif    defined( __GNUC_MINOR__ ) && defined(HAVE_GCCVISIBILITY) /* GNU Compiler Suite ******/
+#elif __GNUC__ >= 4 /* GNU Compiler Suite ******/
 #define CLA_IMPO
 #define CLA_EXPO __attribute__ ((visibility("default")))
 #define FUN_IMPO__

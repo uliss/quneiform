@@ -69,10 +69,11 @@
 #include <string>
 #include "lang_def.h"
 #include "cttypes.h"
+#include "globus.h"
 
 namespace CIF
 {
-class RMarker
+class CLA_EXPO RMarker
 {
     public:
         RMarker();
@@ -131,6 +132,6 @@ enum
 };
 
 const int PUMAMaxNumLines = 2000;
-Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+FUN_EXPO__ Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 
 #endif
