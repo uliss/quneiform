@@ -68,6 +68,7 @@
 #include "stick.h"
 #include "rstr_string.h"
 #include "lnhead.h"
+#include "baseline.h"
 
 extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 *let_sans_acc, *let_lindef3, *accent_tab;

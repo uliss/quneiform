@@ -70,6 +70,7 @@
 #include "stick.h"
 #include "rstr_string.h"
 #include "lnhead.h"
+#include "baseline.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
 #include "common/point.h"

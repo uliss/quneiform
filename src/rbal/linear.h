@@ -74,12 +74,6 @@ typedef struct bas_ln_type {
     CSTR_rast c1, c2, cf1, cf2;
 } bas_ln;
 
-struct baseline_struct {
-    int16_t b0, b1, b2, b3, b4, bm, ps; // four base lines, middle line, point size
-    int16_t n1, n2, n3, n4;
-};
-typedef struct baseline_struct B_LINES;
-
 //
 #define c_df_round  16
 #define c_df_twins  32      // has a twin

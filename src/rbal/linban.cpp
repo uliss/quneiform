@@ -64,6 +64,7 @@ static const bool MULTI = true;
 #define  LIN_MAIN
 #include "linear.h"
 #include "ligas.h"
+#include "baseline.h"
 
 #include "linutil.h"
 #include "tuner.h"

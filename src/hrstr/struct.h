@@ -107,14 +107,6 @@ struct large_int_s {
 };
 typedef struct large_int_s large_interval;
 
-//----------------------- base lines --------------------------
-
-struct baseline_struct {
-    int16_t b0, b1, b2, b3, b4, bm, ps; // four base lines, middle line, point size
-    int16_t n1, n2, n3, n4;
-};
-typedef struct baseline_struct B_LINES;
-
 //------------------------- rules -----------------------------
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_
