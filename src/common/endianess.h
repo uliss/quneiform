@@ -43,7 +43,6 @@
 #ifdef __FreeBSD__
 #include <sys/endian.h>
 #include <sys/types.h>
-#include <machine/bswap.h>
 #define bswap_16 bswap16
 #define bswap_32 bswap32
 #define bswap_64 bswap64
