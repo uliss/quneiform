@@ -44,6 +44,7 @@ class ImageLoaderFactory : boost::noncopyable
     private:
         typedef std::pair<int, loaderCreate> LoaderEntry;
         typedef std::multimap<image_format_t, LoaderEntry> LoaderMap;
+        ImageLoader& unknownLoader();
         LoaderMap loader_map_;
     private:
         ImageLoaderFactory();

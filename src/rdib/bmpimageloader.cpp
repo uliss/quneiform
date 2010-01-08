@@ -367,7 +367,7 @@ void BmpImageLoader::readUncompressedData(std::istream& stream)
     data_ = new char[data_size_];
     stream.seekg(sizeof(BMPFileHeader));
     stream.read(data_, data_size_);
-    if(stream.fail())
+    if (stream.fail())
         throw Exception("BmpImageLoader:: error while read image data");
 }
 

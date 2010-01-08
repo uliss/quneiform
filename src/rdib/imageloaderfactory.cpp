@@ -52,15 +52,14 @@ Image * ImageLoaderFactory::load(std::istream& stream)
 
 ImageLoader& ImageLoaderFactory::loader(image_format_t format)
 {
-    LoaderMap::iterator it = loader_map_.find(format);
-    if (it == loader_map_.end()) {
-        if (format != FORMAT_UNKNOWN) {
-            Debug() << "ImageLoaderFactory: loader not registered for format: " << format
-                    << ", trying default...\n";
-            return loader(FORMAT_UNKNOWN);
-        }
-        else
-            throw std::runtime_error("No loader registered for this format");
+    if (loader_map_.find(format) == loader_map_.end()) {
+        if (format == FORMAT_UNKNOWN)
+            throw std::runtime_error("ImageLoaderFactory:: no default loader registered");
+
+        Debug() << "ImageLoaderFactory: loader not registered for format: " << format
+                << ", trying default...\n";
+
+        return unknownLoader();
     }
 
     std::pair<LoaderMap::iterator, LoaderMap::iterator> loaders = loader_map_.equal_range(format);
@@ -81,6 +80,11 @@ bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loa
 {
     loader_map_.insert(LoaderMap::value_type(format, std::make_pair(gravity, creator)));
     return true;
+}
+
+ImageLoader& ImageLoaderFactory::unknownLoader()
+{
+    return loader(FORMAT_UNKNOWN);
 }
 
 }
