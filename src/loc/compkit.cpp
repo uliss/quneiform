@@ -61,6 +61,7 @@
 #include "version.h"
 #include "comp.h"
 #include "box.h"
+#include "lnhead.h"
 
 Bool16 boxes_account();
 

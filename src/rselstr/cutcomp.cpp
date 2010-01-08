@@ -68,10 +68,8 @@
 
 using namespace CIF;
 
-#ifndef WIN32
 #define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 typedef uint32_t COLORREF;
-#endif
 
 int inf_cut_h = 15;
 int sup_cut_h;

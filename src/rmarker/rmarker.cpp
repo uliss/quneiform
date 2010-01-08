@@ -72,8 +72,6 @@
 #include "rline/rline.h"
 #include "cfio/cfio.h"
 
-#include "compat_defs.h"
-
 namespace CIF
 {
 RMarker::RMarker() :

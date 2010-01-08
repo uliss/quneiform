@@ -122,19 +122,6 @@ struct file_comp_struct {
 };
 typedef struct file_comp_struct file_comp;
 
-//      line header
-struct ln_head {
-    int16_t lth; // length of one line representation
-    int16_t h; // height of line
-    int16_t row; // relative row of line start
-    uint16_t flg; // flags of free beg and free end
-#define l_fbeg          0x20
-#define l_fend          0x80
-#define l_cbeg          0x02
-#define l_cend          0x08
-};
-typedef struct ln_head lnhead;
-
 //      one interval
 struct interval {
     uchar l; // length of interval
@@ -154,11 +141,6 @@ typedef struct { // == ExcBox from ExcDefs.h
     uint16_t flag; // some logical info
     int32_t user; // working var for user
 } gcomp;
-
-struct version { // versions with probabilities
-    uchar let; // character
-    uchar prob; // probability
-};
 
 struct rule_struct {
     CIF::Point16 beg, end;

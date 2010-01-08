@@ -16,29 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RSTR_STRING_H_
-#define RSTR_STRING_H_
+#ifndef LNHEAD_H_
+#define LNHEAD_H_
 
 #include "cttypes.h"
-#include "comp.h"
 
-//------------------- string of letters ------------------------
-
-struct str
+enum lnhead_flag_t
 {
-        int16_t row; // upper of line
-        int16_t col; // left of line
-        int16_t lower; // lower of line
-        int16_t right; // right of line
-        uint16_t dust; // end of letter ptrs
-        uint16_t end; // end of dust ptrs
-        uint16_t lth;
-        uint16_t first;
-        uint16_t last;
-        uint16_t scale; // scale of the string
-        int16_t fragment; // fragment of the string
-        uchar language; // language of the string
-        c_comp *ccomp[1]; // array of ptrs to components
+    l_fbeg = 0x20,
+    l_fend = 0x80,
+    l_cbeg = 0x02,
+    l_cend = 0x08
 };
 
-#endif /* RSTR_STRING_H_ */
+//-------------------- line representation ----------------------
+
+//      At the beginning of line representation - word of total length -
+//      not use it, simply skip
+//      At end of each line zero byte as mark of line end
+//      After last line zero word
+
+//      line header
+struct ln_head
+{
+        int16_t lth; // length of one line representation
+        // ==head+intervals size in bytes
+        int16_t h; // height of line == count of intervals
+        int16_t row; // relative row of line start
+        // (offset in pixels from top bound of comp, 0 based)
+        uint16_t flg; // flags of free beg and free end
+};
+typedef struct ln_head lnhead;
+
+#endif /* LNHEAD_H_ */

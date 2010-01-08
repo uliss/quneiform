@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CUTHDR_H_
 
 #include "embbox.h"
+#include "lnhead.h"
 
 #define prot_size 2
 

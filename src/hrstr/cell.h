@@ -19,7 +19,7 @@
 #ifndef CELL_H_
 #define CELL_H_
 
-#include "cfcompat.h"
+#include "cttypes.h"
 #include "comp.h"
 #include "stick.h"
 

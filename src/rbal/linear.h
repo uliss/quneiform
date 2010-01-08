@@ -246,12 +246,6 @@ extern Bool (*snap_activity_rbal)(uchar a);
 #define RASTER_MAX_WIDTH                128
 #define SMALL_SIZE                        8
 
-// from struct.h
-#define l_fbeg          0x20
-#define l_fend          0x80
-#define l_cbeg          0x02
-#define l_cend          0x08
-
 #define PROPMAX   25
 
 // added

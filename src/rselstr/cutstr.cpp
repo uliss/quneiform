@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include<math.h>
-#include<time.h>
+#include <math.h>
+#include <time.h>
 #include "rselstr.h"
 #include "roots.h"
 #include "layout.h"
@@ -70,10 +70,8 @@
 
 using namespace CIF;
 
-#ifndef WIN32
 #define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 typedef uint32_t COLORREF;
-#endif
 
 #define TYPE_NormalZone		CPAGE_GetInternalType("TYPE_NormalZone")
 #define TYPE_NormalRazrezZone		CPAGE_GetInternalType("TYPE_NormalRazrezZone")

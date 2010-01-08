@@ -60,6 +60,7 @@
 #include <stdlib.h>
 #include "recdefs.h"
 #include "lang_def.h"
+#include "lnhead.h"
 
 #include "minmax.h"
 

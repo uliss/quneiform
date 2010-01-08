@@ -67,6 +67,7 @@ static const bool MULTI = true;
 
 #include "linutil.h"
 #include "tuner.h"
+#include "lnhead.h"
 
 #include "wrgb.h" //IGOR
 #include "statsearchbl.h" //IGOR

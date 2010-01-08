@@ -60,6 +60,7 @@
 #include "excdefs.h"
 #include "comp.h"
 #include "box.h"
+#include "version.h"
 
 Bool16 boxes_account();
 

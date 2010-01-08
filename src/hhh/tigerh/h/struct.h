@@ -147,26 +147,6 @@ struct file_comp_struct {
 };
 typedef struct file_comp_struct file_comp;
 
-//-------------------- line representation ----------------------
-
-//  At the beginning of line representation - word of total length -
-//  not use it, simply skip
-//  At end of each line zero byte as mark of line end
-//  After last line zero word
-
-//  line header
-struct ln_head {
-    int16_t lth;   // length of one line representation
-    int16_t h;     // height of line
-    int16_t row;   // relative row of line start
-    uchar flg; // flags of free beg and free end
-#define l_fbeg      0x20
-#define l_fend      0x80
-#define l_cbeg          0x02
-#define l_cend          0x08
-};
-typedef struct ln_head lnhead;
-
 //  one interval
 struct int_s {
     uchar l;   // length of interval

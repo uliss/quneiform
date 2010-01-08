@@ -19,7 +19,7 @@
 #ifndef BOX_H_
 #define BOX_H_
 
-#include "cfcompat.h"
+#include "cttypes.h"
 
 struct MN;
 

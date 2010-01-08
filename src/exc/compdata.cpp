@@ -58,6 +58,7 @@
 #include "struct.h"
 #include "v1comp.h"
 #include "comp.h"
+#include "version.h"
 
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;

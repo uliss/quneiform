@@ -19,7 +19,7 @@
 #ifndef COMP_H_
 #define COMP_H_
 
-#include "cfcompat.h"
+#include "cttypes.h"
 
 //-------------------- component in kit --------------------------
 

@@ -67,6 +67,7 @@
 #include "globus.h"
 #include "struct.h"
 #include "box.h"
+#include "version.h"
 #include "v1comp.h"
 #include "globus.h"
 #include "imgaccs.h"

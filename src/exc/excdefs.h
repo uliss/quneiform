@@ -58,6 +58,7 @@
 #define __EXCSTRUC_H
 
 #include "cttypes.h"
+#include "lnhead.h"
 
 struct main_memory_str;
 main_memory_str& Q();
@@ -127,27 +128,7 @@ typedef struct tagExtCompDust
         uchar raster[8];
 } ExtCompDust;
 
-// lnhead in H\struct.h OLD TIGER
-//-------------------- line representation ----------------------
-//      At the beginning of line representation - word of total length -
-//      not use it, simply skip
-//      At end of each line zero byte as mark of line end
-//      After last line zero word
-
-//      line header
-typedef struct tagExtLnHead
-{
-        int16_t lth; // length of one line representation,
-        // ==head+intervals size in bytes
-        int16_t h; // height of line == count of intervals
-        int16_t row; // relative row of line start
-        // (offset in pixels from top bound of comp, 0 based)
-        uint16_t flg; // flags of free beg and free end
-#define l_fbeg          0x20
-#define l_fend          0x80
-#define l_cbeg          0x02
-#define l_cend          0x08
-} ExtLnHead;
+typedef ln_head ExtLnHead;
 
 // interval in H\struct.h OLD TIGER
 //      one interval
