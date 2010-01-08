@@ -58,6 +58,7 @@
 #include "globus.h"
 #include "struct.h"
 #include "v1comp.h"
+#include "box.h"
 #include "msgerr.h"
 #include "excdefs.h"
 

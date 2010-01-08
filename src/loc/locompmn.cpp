@@ -57,6 +57,7 @@
 #include <setjmp.h>
 #include <stdlib.h>
 #include "locdefs.h"
+#include "box.h"
 
 //      Memory service
 #define MAX_BOX_NUMB            100*2

@@ -64,17 +64,18 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
-# include "c_memory.h"
-# include "layout.h"
-# include "struct.h"
-# include "msgerr.h"
+#include "c_memory.h"
+#include "layout.h"
+#include "struct.h"
+#include "box.h"
+#include "msgerr.h"
 
-# include "dpuma.h"
+#include "dpuma.h"
 #include "minmax.h"
 #include "compat_defs.h"
 

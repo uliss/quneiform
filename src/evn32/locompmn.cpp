@@ -59,6 +59,7 @@
 
 #include "struct.h"
 #include "v1comp.h"
+#include "box.h"
 #include "loc/locdefs.h"
 
 // Memory service

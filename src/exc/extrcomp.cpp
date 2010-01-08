@@ -62,13 +62,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-//#include "compat_defs.h"
-
 #include <string.h>
 
 #include "globus.h"
 #include "struct.h"
+#include "box.h"
 #include "v1comp.h"
 #include "globus.h"
 #include "imgaccs.h"

@@ -92,54 +92,12 @@ struct MN {
     MN * mnnext; // address of next dead component
 };
 
-//------------------- The box has a header ----------------------
-
-struct BOX {
-    BOX * boxnext; // chain address (zero if no next box)
-    MN * boxmain; // component main number pointer
-    uint16_t boxptr; // ptr to the empty place in the box
-    int16_t boxleft; // left boundary for line envelope
-    int16_t boxright; // right boundary for line envelope
-    int16_t boxey; // row of line end+1 ( if line ends within
-    //    box)
-    int16_t boxel; // length of the last segment (if line ends
-    //    within box)
-    int16_t boxex; // coordinate of last segment end (if line
-    //    ends within box)
-    uchar boxflag; // byte for box attributes flags
-    uchar boxwf; // working flag (for picture compress)
-    uint16_t boxresw; // reserved word (for *4 arround)
-};
-
-// Values of boxflag:
-
-#define BOXMARK         1       // flag for temporary box marking
-#define BOXPICTURE      2       // the picture box - only header in the box is true
-#define BOXFREEBEG      0x30    // line start type mask
-#define BOXFREEEND      0xc0    // line end type mask
-//      The 'boxfreebeg' and 'boxfreeend' bites has following meaning:
-//      '11' - free begin/end of line
-//      '01' - not free begin/end
-//      '00' - no information about begin/end in this box
-#define BOXBEG          0x10    // line start not free
-#define BOXEND          0x40    // line end not free
-// BOX size
-
-#define BOXHLTH (sizeof(BOX))   // the box header length
-#define BOXSIZE (BOXHLTH+32*4)  // the length of box
-#define BOXBOUNDARY (BOXSIZE-6) // the boundary control
 struct ldescr_struct {
     int16_t y; // y coord. of the first interval
     int16_t l; // first interval length
     int16_t x; // x coord. of the end of the first interval
 };
 typedef struct ldescr_struct LNSTRT;
-
-struct box_interval {
-    int16_t l; // length of interval
-    int16_t d; // displacement of the end of the current interval relative
-}; //      to the previous
-typedef struct box_interval BOXINT;
 
 struct dust_comp_struc {
     uint16_t size; // =1

@@ -166,23 +166,5 @@ struct _Root {
     int16_t nUserNum;
     void *pComp;
 };
-////////////////////////////////////////////////////////////////////////////////////
-struct box_struct {
-    struct box_struct *boxnext; // chain address (zero if no next box)
-    MN * boxmain; // component main number pointer
-    uint16_t boxptr; // ptr to the empty place in the box
-    int16_t boxleft; // left boundary for line envelope
-    int16_t boxright; // right boundary for line envelope
-    int16_t boxey; // row of line end+1 ( if line ends within
-    //    box)
-    int16_t boxel; // length of the last segment (if line ends
-    //    within box)
-    int16_t boxex; // coordinate of last segment end (if line
-    //    ends within box)
-    uchar boxflag; // byte for box attributes flags
-    uchar boxwf; // working flag (for picture compress)
-    uint16_t boxresw; // reserved word (for *4 arround)
-};
-typedef struct box_struct BOX;
 
 #endif  //#ifndef __TIGER_EMULATION_H__

@@ -57,6 +57,7 @@
 #include <string.h>
 #include "struct.h"
 #include "func.h"
+#include "box.h"
 
 Bool boxes_account();
 
