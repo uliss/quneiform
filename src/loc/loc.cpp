@@ -64,6 +64,7 @@
 #include "loc.h"
 #include "struct.h"
 #include "cfcompat.h"
+#include "version.h"
 
 //-------------- FROM DIF.DLL
 static int evn_error_code = ER_LOC_NO_ERROR;

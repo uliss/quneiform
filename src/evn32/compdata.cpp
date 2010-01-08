@@ -57,6 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "struct.h"
 #include "v1comp.h"
+#include "version.h"
 
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;

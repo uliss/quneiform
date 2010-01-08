@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define H_struct_h
 
 #include "tuner.h"
+#include "version.h"
 
 #ifdef  HUGE_IMAGE
 #define WORLD_MAX_HEIGHT        10000
@@ -229,15 +230,6 @@ struct file_comp_struct {
 };
 typedef struct file_comp_struct file_comp;
 
-//----------------------- cell ----------------------------------
-
-#define VERS_IN_CELL 16 // Vald. 06-04-94
-
-struct vers_struct {    // versions with probabilities
-    uchar let;    // character
-    uchar prob;   // probability
-};
-typedef struct vers_struct version;
 //----------------------- stick -------------------------------
 
 struct stick_struct {

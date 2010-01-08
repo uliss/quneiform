@@ -57,6 +57,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "struct.h"
+#include "version.h"
 
 Bool16 boxes_account();
 

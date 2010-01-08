@@ -65,6 +65,7 @@
 #include "evn.h"
 #include "dif/dif.h"
 #include "struct.h"
+#include "version.h"
 #include "cfcompat.h"
 
 #ifdef WIN32

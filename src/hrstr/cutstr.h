@@ -58,6 +58,7 @@
 #define CUTSTR_H_
 
 #include "struct.h"
+#include "version.h"
 
 #define MAX_CELLS_IN_LIST    8
 

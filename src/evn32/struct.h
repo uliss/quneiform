@@ -161,15 +161,6 @@ struct comp_struc {
 };
 typedef struct comp_struc c_comp;
 
-//----------------------- cell ----------------------------------
-
-#define VERS_IN_CELL 16 // Vald. 06-04-94
-struct vers_struct { // versions with probabilities
-    uchar let; // character
-    uchar prob; // probability
-};
-typedef struct vers_struct version;
-
 //-------------------- line representation ----------------------
 
 //  At the beginning of line representation - word of total length -

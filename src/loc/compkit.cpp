@@ -58,6 +58,7 @@
 #include <cstring>
 
 #include "struct.h"
+#include "version.h"
 
 Bool16 boxes_account();
 
