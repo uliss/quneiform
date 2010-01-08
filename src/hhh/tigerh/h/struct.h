@@ -180,25 +180,6 @@ struct large_int_s {
 };
 typedef struct large_int_s large_interval;
 
-//------------------- string of letters ------------------------
-
-struct str_struc {
-    int16_t row;             // upper of line
-    int16_t col;             // left of line
-    int16_t lower;           // lower of line
-    int16_t right;           // right of line
-    uint16_t dust;           // end of letter ptrs
-    uint16_t end;            // end of dust ptrs
-    uint16_t lth;
-    uint16_t first;
-    uint16_t last;
-    uint16_t scale;        // scale of the string
-    int16_t fragment;      // fragment of the string
-    uchar language;         // language of the string
-    c_comp *c__comp[1];       // array of ptrs to components
-};
-typedef struct str_struc str;
-
 //----------------------- base lines --------------------------
 
 struct baseline_struct {

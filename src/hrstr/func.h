@@ -68,6 +68,7 @@
 #include "struct.h"
 #include "extract.h"
 #include "stick.h"
+#include "rstr_string.h"
 #include "cstr/cstr.h"
 #include "alphabet.h"
 #include "common/point.h"
