@@ -93,6 +93,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef D_STICK_TYPES
 #define D_STICK_TYPES
+
+struct stick_struct {
+    char x, y, l, w, top, bot;
+    int16_t incl;
+};
+typedef struct stick_struct STICK;
+
 /*----------------------------------------------------------------------*/
 typedef struct {
     int16_t row,  /* row in c_comp */
