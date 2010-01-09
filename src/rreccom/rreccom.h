@@ -84,7 +84,6 @@ typedef struct tagRRecComControl
 } RRecComControl;
 
 RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
-RRECCOM_FUNC(char*) RRECCOM_GetReturnString(uint32_t dwError);
 RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage);
 RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
 RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData);
