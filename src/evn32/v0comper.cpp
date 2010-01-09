@@ -65,6 +65,7 @@
 #include "box.h"
 #include "status.h"     // 06.09.00 E.P.
 #include "lang_def.h"   // 06.09.00 E.P.
+#include "minmax.h"
 //  Internal working fields
 struct ev_vari {
     uchar ln; // line number

@@ -68,6 +68,7 @@
 #include "version.h"
 #include "comp.h"
 #include "cfcompat.h"
+#include "minmax.h"
 
 #ifdef WIN32
 static const char * NAME = ".\\bin\\hnd1rus.dat";
