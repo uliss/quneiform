@@ -65,6 +65,7 @@ static const bool MULTI = true;
 #include "linear.h"
 #include "ligas.h"
 #include "baseline.h"
+#include "struct.h"
 
 #include "linutil.h"
 #include "tuner.h"

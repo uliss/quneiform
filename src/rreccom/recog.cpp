@@ -69,6 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 #include "r35/r35.h"
 #include "exc/excdefs.h"
+#include "struct.h"
 #include "compat_defs.h"
 /*********************************************************************************************/
 const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;

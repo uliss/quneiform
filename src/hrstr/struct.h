@@ -61,7 +61,7 @@
 #include "cttypes.h"
 #include "version.h"
 #include "comp.h"
-#include "evn32/evndefs.h"
+#include "common/point.h"
 
 #ifdef  HUGE_IMAGE
 const int WORLD_MAX_HEIGHT = 10000;
@@ -75,10 +75,11 @@ const int WORLD_MAX_RESOLUTION = 800;
 const int WORLD_MIN_RESOLUTION = 50;
 #endif
 
-#define LPOOL_SIZE                  8000
-#define RASTER_MAX_HEIGHT               63
-#define RASTER_MAX_WIDTH                128
-#define SMALL_SIZE                          8
+const int LPOOL_SIZE = 8000;
+const int RASTER_MAX_HEIGHT = 63;
+const int RASTER_MAX_WIDTH = 128;
+const int SMALL_SIZE = 8;
+
 // AK! Atention!!!!//////////////////////////////////////////////////////
 //  имеет смысл при необходимости отловить глюки так как падает при попытке
 //  принять dust за letter
@@ -129,12 +130,6 @@ struct frame_struct
 };
 typedef struct frame_struct FRAME;
 
-//------------------------- rules -----------------------------
-//AK:  without collision when snap.dll creating
-//#ifndef _SNAP_
-
-#include "compat_defs.h"
-
 struct rule_struct
 {
         CIF::Point16 beg, end;
@@ -146,19 +141,6 @@ struct rule_struct
 #define FRM_LN   4
 };
 typedef struct rule_struct STRLN;
-
-//#endif
-
-#define FDSIZE    1024  // Full number of fragments
-#define TO_FDF(i) ((i)<FDSIZE ? (i):0)
-
-struct FragmentDescriptor
-{
-        int16_t user_num; // Number of USER
-        uchar language; // Language of fragments
-        uchar reserv;
-};
-typedef struct FragmentDescriptor FragDesc;
 
 #include "cutstr.h"
 #include "embbox.h"

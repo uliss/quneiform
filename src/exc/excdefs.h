@@ -233,9 +233,6 @@ typedef struct tagREXC_RGBQUAD
 } REXC_RGBQUAD;
 
 #define MAX_NUM_CUTPN 2048
-//Andrey: это потом надо будет убрать, аналог есть в tigerh\h\struct.h
-#define RASTER_MAX_HEIGHT   63
-#define RASTER_MAX_WIDTH    128
 #pragma pack(pop)
 
 #endif // __EXCSTRUC_H

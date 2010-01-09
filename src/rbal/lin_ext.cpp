@@ -62,6 +62,7 @@
 #include "cstr/cstr.h"
 #include "linear.h"
 #include "ligas.h"
+#include "struct.h"
 
 #include "bal.h"
 #include "minmax.h"

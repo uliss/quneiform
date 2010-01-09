@@ -62,6 +62,7 @@
 #include "tuner.h"
 #include "linear.h"
 #include "linutil.h"
+#include "struct.h"
 #include "ligas.h"      // Pit 10-10-94 03:56pm
 /*============= Func prototypes ==================*/
 

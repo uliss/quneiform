@@ -63,6 +63,7 @@
 #include "ligas.h"
 #include "linutil.h"
 #include "tuner.h"
+#include "struct.h"
 
 int16_t sMALL_SIZE = SMALL_SIZE; //NB 3.4.95
 

@@ -235,11 +235,6 @@ extern void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 extern Bool (*snap_show_text_rbal)(const uchar *txt);
 extern Bool (*snap_activity_rbal)(uchar a);
 
-// from struct.h
-#define RASTER_MAX_HEIGHT                63
-#define RASTER_MAX_WIDTH                128
-#define SMALL_SIZE                        8
-
 #define PROPMAX   25
 
 // added
