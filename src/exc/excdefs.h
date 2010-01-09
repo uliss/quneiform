@@ -130,18 +130,6 @@ typedef struct tagExtCompDust
 
 typedef ln_head ExtLnHead;
 
-// interval in H\struct.h OLD TIGER
-//      one interval
-typedef struct tagExtInterval
-{
-        uchar l; // length of interval
-        uchar e; // end of interval from left bound of comp in pixels
-        // so, start == e-l, relatively to left bound of comp
-        //beg = inter->e - inter->l;
-        //end = inter->e - 1;
-
-} ExtInterval;
-
 ////////////////////////////////////////////////////////////////
 // pool:
 // 1. if    Ex_ExtraComp pool has following structure:
