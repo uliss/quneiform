@@ -96,30 +96,17 @@ static int32_t DIB_Hei, DIB_Wid, DIB_HRes, DIB_VRes, DIB_TCol, DIB_TRow, DIB_BW,
 static Bool32 EnableTemplate = FALSE;
 static uchar mask_l[] = { 255, 127, 63, 31, 15, 7, 3, 1 };
 static uchar mask_r[] = { 128, 192, 224, 240, 248, 252, 254, 255 };
-static FNREXC_ProgressStart fnProgressStart_exc = NULL;
-static FNREXC_ProgressStep fnProgressStep_exc = NULL;
-static FNREXC_ProgressFinish fnProgressFinish_exc = NULL;
 //=========== Progress Monitor
 static uint32_t progress_vol = 0, progress_rel = 0;
 void progress_start(uint32_t volume)
 {
     progress_vol = volume;
-
-    if (fnProgressStart_exc)
-        fnProgressStart_exc();
-
-    return;
 }
 
 void progress_stop(void)
 {
     progress_vol = 0;
     progress_rel = 0;
-
-    if (fnProgressFinish_exc)
-        fnProgressFinish_exc();
-
-    return;
 }
 
 uint32_t progress_set_percent(uint32_t step)
@@ -130,10 +117,6 @@ uint32_t progress_set_percent(uint32_t step)
         return step;
 
     progress_rel = rel;
-
-    if (fnProgressStep_exc)
-        fnProgressStep_exc(rel);
-
     return step;
 }
 //------------------ Image attributes ---------------------
@@ -243,7 +226,7 @@ void ExtrcompDone(void)
 }
 
 int32_t Extracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead tir,
-                  Tiger_ProcComp tipc)
+        Tiger_ProcComp tipc)
 {
     int rc;
 
@@ -325,39 +308,39 @@ int32_t Extracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead t
 }
 
 Bool32 REXCExtracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead tir,
-                     Tiger_ProcComp tipc)
+        Tiger_ProcComp tipc)
 {
     int32_t ret;
     ret = Extracomp(ExCW, tio, tic, tir, tipc);
 
     switch (ret) {
-        case ExRc_OK:
-            wLowRC = REXC_ERR_NO;
-            return TRUE;
-        case ExRc_InternalError:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
-        case ExRc_MemAllocFail:
-            wLowRC = REXC_ERR_NOMEMORY;
-            break;
-        case ExRc_DumpOpenFail:
-            wLowRC = REXC_ERR_DUMPOPEN;
-            break;
-        case ExRc_DumpWriteFail:
-            wLowRC = REXC_ERR_DUMPWRITE;
-            break;
-        case ExRc_ErrorInCallback:
-            wLowRC = REXC_ERR_CALLBACK;
-            break;
-        case ExRc_IncorrectParam:
-            wLowRC = REXC_ERR_PARAM;
-            break;
-        case ExRc_NotEnoughMemory:
-            wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-            break;
-        default:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
+    case ExRc_OK:
+        wLowRC = REXC_ERR_NO;
+        return TRUE;
+    case ExRc_InternalError:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
+    case ExRc_MemAllocFail:
+        wLowRC = REXC_ERR_NOMEMORY;
+        break;
+    case ExRc_DumpOpenFail:
+        wLowRC = REXC_ERR_DUMPOPEN;
+        break;
+    case ExRc_DumpWriteFail:
+        wLowRC = REXC_ERR_DUMPWRITE;
+        break;
+    case ExRc_ErrorInCallback:
+        wLowRC = REXC_ERR_CALLBACK;
+        break;
+    case ExRc_IncorrectParam:
+        wLowRC = REXC_ERR_PARAM;
+        break;
+    case ExRc_NotEnoughMemory:
+        wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
+        break;
+    default:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
     }
 
     return FALSE;
@@ -462,7 +445,7 @@ int16_t EXC_DIBReadReverse(uchar *lpImage, uint16_t wMaxSize)
         for (; len < wMaxSize && curr_line < DIB_TRow + DIB_THei; len += d, lpImage += d, curr_line++) {
             memset(lpImage, DIB_FM ? 0xff : 0, d);
             memcpy(&lpImage[DIB_TCol / 8], &rasterDIB4[(DIB_Hei - curr_line - 1) * DIB_BW
-                                                       + (DIB_TCol / 8)], dd);
+                    + (DIB_TCol / 8)], dd);
 
             if (DIB_FM) {
                 lpImage[DIB_TCol / 8] &= mask_l[DIB_TCol & 7];
@@ -550,11 +533,11 @@ uint16_t push_comp_to_container(ExtComponent * g)
         if (g->scale) {
             ublock[0].code = CCOM_UB_DENSITY;
             ublock[0].size = 4;
-            ublock[0].data = (uchar*) & g->dens;
+            ublock[0].data = (uchar*) &g->dens;
             ublock[0].next_block = &ublock[1];
             ublock[1].code = CCOM_UB_BEGENDS;
             ublock[1].size = 1;
-            ublock[1].data = (uchar*) & g->begends;
+            ublock[1].data = (uchar*) &g->begends;
             ublock[1].next_block = 0;
         }
 
@@ -562,13 +545,13 @@ uint16_t push_comp_to_container(ExtComponent * g)
             ublock[1].next_block = &ublock[2];
             ublock[2].code = CCOM_UB_MERGEFRAME;
             ublock[2].size = sizeof(merge_frame);
-            ublock[2].data = (uchar*) & merge_frame;
+            ublock[2].data = (uchar*) &merge_frame;
             ublock[2].next_block = 0;
         }
 
         CCOM_Store(curr_comp, 0, lth, lpool, g->nl, g->begs, g->ends, &vers, g->scale
-                   ? ublock
-                   : NULL);
+                ? ublock
+                : NULL);
         curr_comp->scale = g->scale;
         curr_comp->type = g->type;
 
@@ -596,8 +579,8 @@ Bool AcceptComps(void * pool, uint32_t size)
 }
 
 Bool32 REXCExtra(ExcControl ExCW, uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder, int32_t Wid,
-                 int32_t Hei, int32_t HRes, int32_t VRes, int32_t TemplCol, int32_t TemplRow,
-                 int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr)
+        int32_t Hei, int32_t HRes, int32_t VRes, int32_t TemplCol, int32_t TemplRow,
+        int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr)
 
 {
     int32_t ret;
@@ -670,41 +653,41 @@ Bool32 REXCExtra(ExcControl ExCW, uchar *lpRaster, int32_t BWid, Bool32 ReverseO
     }
 
     switch (ret) {
-        case ExRc_OK:
-            wLowRC = REXC_ERR_NO;
+    case ExRc_OK:
+        wLowRC = REXC_ERR_NO;
 
-            if (!(ExControl & Ex_NoContainer)) {
-                if (!CCOM_GetFirst(NumContainer, NULL) || !CCOM_GetContainerVolume(NumContainer)) {
-                    wLowRC = REXC_ERR_NOCOMP;
-                    //break;
-                }
+        if (!(ExControl & Ex_NoContainer)) {
+            if (!CCOM_GetFirst(NumContainer, NULL) || !CCOM_GetContainerVolume(NumContainer)) {
+                wLowRC = REXC_ERR_NOCOMP;
+                //break;
             }
+        }
 
-            return TRUE;
-        case ExRc_InternalError:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
-        case ExRc_MemAllocFail:
-            wLowRC = REXC_ERR_NOMEMORY;
-            break;
-        case ExRc_DumpOpenFail:
-            wLowRC = REXC_ERR_DUMPOPEN;
-            break;
-        case ExRc_DumpWriteFail:
-            wLowRC = REXC_ERR_DUMPWRITE;
-            break;
-        case ExRc_ErrorInCallback:
-            wLowRC = REXC_ERR_CALLBACK;
-            break;
-        case ExRc_IncorrectParam:
-            wLowRC = REXC_ERR_PARAM;
-            break;
-        case ExRc_NotEnoughMemory:
-            wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-            break;
-        default:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
+        return TRUE;
+    case ExRc_InternalError:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
+    case ExRc_MemAllocFail:
+        wLowRC = REXC_ERR_NOMEMORY;
+        break;
+    case ExRc_DumpOpenFail:
+        wLowRC = REXC_ERR_DUMPOPEN;
+        break;
+    case ExRc_DumpWriteFail:
+        wLowRC = REXC_ERR_DUMPWRITE;
+        break;
+    case ExRc_ErrorInCallback:
+        wLowRC = REXC_ERR_CALLBACK;
+        break;
+    case ExRc_IncorrectParam:
+        wLowRC = REXC_ERR_PARAM;
+        break;
+    case ExRc_NotEnoughMemory:
+        wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
+        break;
+    default:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
     }
 
     return FALSE;
@@ -731,48 +714,48 @@ Bool32 REXCExtracomp3CB(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImage
         ret = Extracomp(ExCW, tio, tic, tir, AcceptBoxes);
 
     switch (ret) {
-        case ExRc_OK:
-            wLowRC = REXC_ERR_NO;
+    case ExRc_OK:
+        wLowRC = REXC_ERR_NO;
 
-            if (!(ExControl & Ex_NoContainer)) {
-                if (!CCOM_GetFirst(NumContainer, NULL) || !CCOM_GetContainerVolume(NumContainer)) {
-                    wLowRC = REXC_ERR_NOCOMP;
-                    break;
-                }
+        if (!(ExControl & Ex_NoContainer)) {
+            if (!CCOM_GetFirst(NumContainer, NULL) || !CCOM_GetContainerVolume(NumContainer)) {
+                wLowRC = REXC_ERR_NOCOMP;
+                break;
             }
+        }
 
-            return TRUE;
-        case ExRc_InternalError:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
-        case ExRc_MemAllocFail:
-            wLowRC = REXC_ERR_NOMEMORY;
-            break;
-        case ExRc_DumpOpenFail:
-            wLowRC = REXC_ERR_DUMPOPEN;
-            break;
-        case ExRc_DumpWriteFail:
-            wLowRC = REXC_ERR_DUMPWRITE;
-            break;
-        case ExRc_ErrorInCallback:
-            wLowRC = REXC_ERR_CALLBACK;
-            break;
-        case ExRc_IncorrectParam:
-            wLowRC = REXC_ERR_PARAM;
-            break;
-        case ExRc_NotEnoughMemory:
-            wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-            break;
-        default:
-            wLowRC = REXC_ERR_INTERNAL;
-            break;
+        return TRUE;
+    case ExRc_InternalError:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
+    case ExRc_MemAllocFail:
+        wLowRC = REXC_ERR_NOMEMORY;
+        break;
+    case ExRc_DumpOpenFail:
+        wLowRC = REXC_ERR_DUMPOPEN;
+        break;
+    case ExRc_DumpWriteFail:
+        wLowRC = REXC_ERR_DUMPWRITE;
+        break;
+    case ExRc_ErrorInCallback:
+        wLowRC = REXC_ERR_CALLBACK;
+        break;
+    case ExRc_IncorrectParam:
+        wLowRC = REXC_ERR_PARAM;
+        break;
+    case ExRc_NotEnoughMemory:
+        wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
+        break;
+    default:
+        wLowRC = REXC_ERR_INTERNAL;
+        break;
     }
 
     return FALSE;
 }
 
 Bool32 REXCExtraDIB(ExcControl ExCW, uchar *lp_DIB, int32_t TemplCol, int32_t TemplRow,
-                    int32_t TemplWid, int32_t TemplHei)
+        int32_t TemplWid, int32_t TemplHei)
 
 {
     REXC_DIB *lpDIB = (REXC_DIB *) lp_DIB;
@@ -784,9 +767,9 @@ Bool32 REXCExtraDIB(ExcControl ExCW, uchar *lp_DIB, int32_t TemplCol, int32_t Te
         foto_metric = FALSE;
 
     return REXCExtra(ExCW, (uchar*) (lpDIB) + sizeof(REXC_DIB) + 2 * sizeof(REXC_RGBQUAD),
-                     ((((lpDIB->biWidth + 7) / 8) + 3) / 4) * 4, 1, lpDIB->biWidth, lpDIB->biHeight,
-                     lpDIB->biXPelsPerMeter, lpDIB->biYPelsPerMeter, TemplCol, TemplRow, TemplWid, TemplHei,
-                     foto_metric);
+            ((((lpDIB->biWidth + 7) / 8) + 3) / 4) * 4, 1, lpDIB->biWidth, lpDIB->biHeight,
+            lpDIB->biXPelsPerMeter, lpDIB->biYPelsPerMeter, TemplCol, TemplRow, TemplWid, TemplHei,
+            foto_metric);
 }
 
 Handle REXCGetContainer(void)
@@ -953,8 +936,7 @@ void save_component(ExtComponent *c, version *vs, version *ve, uchar* lp, uint16
     if (!(ExControl & Ex_NoContainer))
         push_comp_to_container((ExtComponent *) pool);
 
-proc:
-    ;
+    proc: ;
 
     if (ExControl & Ex_NoContainer)
         process_comp(pool, p - pool);
@@ -1107,27 +1089,17 @@ Bool32 REXC_GetInvertion(uchar *inv)
 
 Bool32 REXC_SetImportData(uint32_t dwType, void * pData)
 {
-#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
-#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
+#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break;
+#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break;
     wLowRC = REXC_ERR_NO;
 
     switch (dwType) {
-            CASE_DATA(REXC_Word8_Matrix , uchar, matrix)
-            ;
-            CASE_DATA(REXC_Word8_Fax1x2 , uchar, fax1x2)
-            ;
-            CASE_DATA(REXC_Word16_ActualResolution, uint16_t, actual_resolution)
-            ;
-            CASE_PDATA(REXC_ProgressStart, FNREXC_ProgressStart, fnProgressStart_exc)
-            ;
-            CASE_PDATA(REXC_ProgressStep, FNREXC_ProgressStep, fnProgressStep_exc)
-            ;
-            CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish, fnProgressFinish_exc)
-            ;
-            //    CASE_PDATA(REXC_OcrPath,    uchar*, lnOcrPath);
-        default:
-            wLowRC = REXC_ERR_NOTIMPLEMENT;
-            return FALSE;
+    CASE_DATA(REXC_Word8_Matrix , uchar, matrix)
+    CASE_DATA(REXC_Word8_Fax1x2 , uchar, fax1x2)
+    CASE_DATA(REXC_Word16_ActualResolution, uint16_t, actual_resolution)
+    default:
+        wLowRC = REXC_ERR_NOTIMPLEMENT;
+        return FALSE;
     }
 
 #undef CASE_DATA
@@ -1180,22 +1152,24 @@ void REXC_Done(void)
 }
 //////////// process large comps
 
-struct cut_pnt {
-    int16_t xl;
-    int16_t xr;
-    int16_t est;
-    int16_t ref;
+struct cut_pnt
+{
+        int16_t xl;
+        int16_t xr;
+        int16_t est;
+        int16_t ref;
 };
 
 typedef struct cut_pnt CP;
 #define MAX_NUM_CUTPN 2048
-struct big_merge_struct {
-    int16_t vh[2 * RASTER_MAX_HEIGHT + 2];
-    char eh[MAX_NUM_CUTPN];
-    char sh[MAX_NUM_CUTPN];
-    uint16_t np;
-    int16_t min_est;
-    CP cp[MAX_NUM_CUTPN];
+struct big_merge_struct
+{
+        int16_t vh[2 * RASTER_MAX_HEIGHT + 2];
+        char eh[MAX_NUM_CUTPN];
+        char sh[MAX_NUM_CUTPN];
+        uint16_t np;
+        int16_t min_est;
+        CP cp[MAX_NUM_CUTPN];
 };
 
 typedef struct big_merge_struct BM;
@@ -1261,8 +1235,7 @@ static void frame_hist(MN *mn)
         }
 
         iv = (BOXINT *) (ls + 1);
-    next_box:
-        ;
+        next_box: ;
 
         while (j--) {
             end += iv->d;
@@ -1325,8 +1298,7 @@ static Bool16 frame_check()
     }
 
     return TRUE;
-reject:
-    ;
+    reject: ;
     return FALSE;
 }
 
@@ -1356,7 +1328,7 @@ static Bool32 frame_cut_points()
         nstart = nw - 1;
 
         while ((nw < wcomp.w) && ((W.sh[nw] > W.eh[nw]) && ((W.sh[nw] == W.eh[nw - 1])
-                                                            || ((W.sh[nw] + 4 <= W.sh[nw - 1]) && (W.sh[nw] - 1 == W.eh[nw - 1])))))
+                || ((W.sh[nw] + 4 <= W.sh[nw - 1]) && (W.sh[nw] - 1 == W.eh[nw - 1])))))
             nw++;
 
         if (nw > MAX_NUM_CUTPN)
@@ -1383,8 +1355,7 @@ static Bool32 frame_cut_points()
         }
 
         //      Found a flat part
-    flat_part:
-        ndown = nw - 1;
+        flat_part: ndown = nw - 1;
 
         if (ndown == nstart) {
             ncp = nw;
@@ -1419,12 +1390,11 @@ static Bool32 frame_cut_points()
         }
 
         //      Found a way up - conical increase
-    way_up:
-        ;
+        way_up: ;
         nups = nw;
 
         while ((nw < wcomp.w) && (W.sh[nw] > W.eh[nw - 1]) && ((W.sh[nw] == W.eh[nw]) || ((W.sh[nw]
-                                                               - 1 == W.eh[nw]) && (W.sh[nw] + 4 <= W.sh[nw + 1]))))
+                - 1 == W.eh[nw]) && (W.sh[nw] + 4 <= W.sh[nw + 1]))))
             nw++;
 
         if (nw > MAX_NUM_CUTPN)
@@ -1445,7 +1415,7 @@ static Bool32 frame_cut_points()
             continue;
 
         if ((nups - ndown == 3) && ((W.sh[ndown - 1] - W.eh[ndown] <= 3) || (W.sh[nups + 1]
-                                                                             - W.eh[ndown] <= 3)))
+                - W.eh[ndown] <= 3)))
             continue;
 
         if ((W.sh[nstart] - W.eh[ndown] <= 2) || (W.sh[nupe] - W.eh[ndown] <= 2))
@@ -1466,28 +1436,27 @@ static Bool32 frame_cut_points()
         W.cp[nw].xr = nups;
         //      Estimate point
         W.cp[nw].est = add_est + wcomp.h + wcomp.h - W.sh[nstart] - W.sh[nupe] + W.eh[ndown]
-                       + ((nupe - nstart < 10) ? 10 - nupe + nstart : 0);
+                + ((nupe - nstart < 10) ? 10 - nupe + nstart : 0);
 
         switch (nups - ndown) {
-            case 1:
-                break;
-            case 2:
-                W.cp[nw].est += (W.cp[nw].est - add_est + 4) >> 3;
-                break;
-            case 3:
-                W.cp[nw].est += (W.cp[nw].est - add_est + 2) >> 2;
-                break;
+        case 1:
+            break;
+        case 2:
+            W.cp[nw].est += (W.cp[nw].est - add_est + 4) >> 3;
+            break;
+        case 3:
+            W.cp[nw].est += (W.cp[nw].est - add_est + 2) >> 2;
+            break;
         }
 
-    setpoint:
+        setpoint:
 
         if (W.min_est > W.cp[nw].est)
             W.min_est = W.cp[nw].est;
 
         continue;
         //      Forcing cut point
-    force_cut:
-        nups = (nw + ndown + 1) / 2;
+        force_cut: nups = (nw + ndown + 1) / 2;
         nw = W.np++;
         W.cp[nw].xl = W.cp[nw].xr = nups;
         W.cp[nw].est = add_est * 10;
@@ -1578,7 +1547,7 @@ uchar* frame_cut_MN(int16_t from, int16_t to)
         frame_put(p, x = lp->x, lp->l, col, to);
         cnt = (bp->boxptr - sizeof(BOX) - sizeof(LNSTRT)) / sizeof(BOXINT);
         ip = (BOXINT *) (lp + 1);
-    box_cont:
+        box_cont:
 
         while (cnt--) {
             frame_put(p += bw, x += ip->d, ip->l, col, to);
@@ -1635,7 +1604,7 @@ static void frame_put(uchar* p, int16_t x, int16_t l, int16_t from, int16_t to)
 }
 
 static Bool16 exclude_one_piece(int16_t xl, int16_t xr, int16_t x0, int16_t y0, int16_t xmax,
-                                int16_t h)
+        int16_t h)
 {
 #ifdef _USE_LOC_
     MN * wm;
@@ -1710,16 +1679,15 @@ static int32_t frame_cut(MN *mn)
 void picture_process(MN *mn)
 {
     if ((mn->mnflag & mnpicture) || (ExControl & Ex_DisableCut) || (wcomp.h < comp_max_h && wcomp.w
-                                                                    > 2 * comp_max_w)) // fotograph ?
+            > 2 * comp_max_w)) // fotograph ?
     { // old loop of Vald
-    tech_pict:
-        tech_picture(mn);
+        tech_pict: tech_picture(mn);
         save_picture_scale(mn);
         return;
     }
 
     if (wcomp.h < comp_max_h)
-        // if not scalable component
+    // if not scalable component
     {
         frame_cut_MN_set(mn);
 
@@ -1736,7 +1704,7 @@ void picture_process(MN *mn)
     return;
 }
 
-static void save_prot(void)   // protocol for exernal viewer
+static void save_prot(void) // protocol for exernal viewer
 {
     uchar* p;
     int16_t l;
@@ -1795,7 +1763,7 @@ static void WriteOneInterval(int h, int b, int e, int bw, int scale)
 
 // compress MN to work_raster
 static Bool16 scaleMN2work_raster(MN *mn, int16_t upper, int16_t left, int16_t w, int16_t h,
-                                  int scale_2)
+        int scale_2)
 {
     BOX *pBox;
     int nBox;
@@ -2012,7 +1980,7 @@ int32_t sizeMN(MN *mn)
 
 // store long MN intervals to container
 static Bool16 longMN2container(MN *mn, int16_t upper, int16_t left, int16_t w, int16_t h,
-                               int scale_2)
+        int scale_2)
 {
     BOX *pBox;
     int nBox;
@@ -2086,7 +2054,7 @@ static Bool16 longMN2container(MN *mn, int16_t upper, int16_t left, int16_t w, i
     {
         CCOM_USER_BLOCK ublock;
         ublock.code = CCOM_UB_SIZELINEREP;
-        ublock.data = (uchar*) & size;
+        ublock.data = (uchar*) &size;
         ublock.size = 4;
         CCOM_SetUserBlock(cmp, &ublock);
     }
@@ -2284,7 +2252,7 @@ Bool16 save_picture_scale(MN *mn)
     }
 
     else if ((wcomp.w >= comp_max_w || wcomp.h >= comp_max_h) && (ExControl & Ex_PictureLarge)
-             && mn) {
+            && mn) {
         longMN2container(mn, sv_upper, sv_left, sv_w, sv_h, 0);
     }
 
