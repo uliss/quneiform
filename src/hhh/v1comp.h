@@ -77,17 +77,8 @@
 //  Components extraction definition module
 //
 //===========================================================================
-//
 
-struct BOX;
-struct bw_segment {
-    int16_t b;//black
-    int16_t w;//white
-    BOX * box;
-};
-
-typedef struct bw_segment BWS;
-typedef struct bw_segment BWSS;
+#include "bwsegment.h"
 //
 //      Memory organisation
 //

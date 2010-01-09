@@ -2,6 +2,7 @@ add_library(evn32 ${LIBTYPE}
 compdata.cpp
 compkit.cpp
 evn.cpp
+linepool.cpp
 locompmn.cpp
 rastror.cpp
 v0compan.cpp

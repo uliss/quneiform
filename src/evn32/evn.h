@@ -63,6 +63,7 @@
 #include "memfunc.h"
 #include "ccom/ccomdefs.h"
 #include "mn.h"
+#include "bwsegment.h"
 
 #ifdef __EVN__
 #define EVN_FUNC  FUN_EXPO__
@@ -99,7 +100,7 @@ EVN_FUNC int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn,
                                  uchar *evn_rot, int32_t font);
 EVN_FUNC int32_t
 EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res);
-EVN_FUNC uchar* EVN_GetSegmentPool(void);
+EVN_FUNC BWS* EVN_GetSegmentPool();
 EVN_FUNC Bool32 EVNInitLanguage(const char *tabevn1, const char *tabevn2,
                                 uchar lang);
 EVN_FUNC Bool32 EVNSetLanguage(uchar lang);

@@ -68,7 +68,6 @@
 #include "ligas.h"
 #include "linutil.h"
 #include "tuner.h"
-extern uchar *EVN_GetSegmentPool(void);
 #include "tm.h"  //NB 4.4.95
 #include "diffrb.h"
 #include "p2libr.h"
@@ -197,7 +196,7 @@ extern uchar broken_ii; // two sticks flag for rus discr
 extern uchar work_raster[];
 extern uchar work_raster_1[];
 extern int16_t iFont;
-/*extern*/uchar *segment_pool;
+uchar *segment_pool;
 
 /*========= Global data ===================*/
 
@@ -345,7 +344,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 	}
 	abris_reset();
 	mn = c_locomp(_rst.raster, (int16_t) ((_rst.w + 7) >> 3), _rst.h, 0, 0);
-	segment_pool = EVN_GetSegmentPool();
+	segment_pool = (uchar*) EVN_GetSegmentPool();
 	make_white_hist(segment_pool, _rst.h);
 	dens = internal_filling((segment_t*) segment_pool, _rst.h, _rst.w);
 
@@ -819,7 +818,7 @@ int16_t chkquocks2(cell * c, puchar rstr, int16_t h, int16_t w, int16_t d) {
 	char buf[200], tmp[200];
 	mn = c_locomp(rstr, (int16_t) ((w + 7) >> 3), h, 0, 0);
 	if (mn) {
-		segment_pool = EVN_GetSegmentPool();
+		segment_pool = (uchar*) EVN_GetSegmentPool();
 		abris_online = TRUE;
 		calc_abris(segment_pool, h);
 	} else

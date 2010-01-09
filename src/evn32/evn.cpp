@@ -67,6 +67,7 @@
 #include "struct.h"
 #include "version.h"
 #include "comp.h"
+#include "linepool.h"
 #include "cfcompat.h"
 #include "minmax.h"
 
@@ -101,8 +102,7 @@ extern uchar evline[], evline1[];
 extern MN * c_locomp(uchar* raster, int bw, int h, int upper, int left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp,
-                                               uint16_t lth);
+extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp, uint16_t lth);
 
 static int32_t GetFileLength(int32_t handle)
 {
@@ -272,8 +272,8 @@ Bool32 EVNInit()
 
 Bool32 EVNInitLanguage(const char *tabevn1, const char *tabevn2, uchar lang)
 {
-    if (evn_active_prn && language != lang && (strcmp(load_tab1, tabevn1)
-                                               || strcmp(load_tab2, tabevn2))) { // close for new language
+    if (evn_active_prn && language != lang && (strcmp(load_tab1, tabevn1) || strcmp(load_tab2,
+            tabevn2))) { // close for new language
         evn_active_prn = 0;
         evn_close_prn();
     }
@@ -315,7 +315,7 @@ int16_t EVNGetErr(void)
 }
 
 Bool32 EVNSetAlphabet(char char_tbl_put_to[] // char table[0-255]
-                     )
+)
 {
     memcpy(alphabet, char_tbl_put_to, 256);
     return TRUE;
@@ -328,8 +328,7 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res)
     ev_num_ln = 0;
     evn_error_code = ER_EVN_NO_ERROR;
     res->lnAltCnt = 0; // 08.09.2000 E.P.
-    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth),
-                  rRaster->lnPixHeight, 0, 0);
+    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth), rRaster->lnPixHeight, 0, 0);
 
     if (mn != NULL && mn->mnnext == NULL) {
         MN_to_line(mn);
@@ -343,7 +342,7 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res)
     nvers = recog_letter(); // to recognize
 
     for (nvers1 = 0, i = 0; i < nvers; i++)
-        if (alphabet[(uchar)(start_rec + i)->let])
+        if (alphabet[(uchar) (start_rec + i)->let])
             nvers1++;
 
     if (!nvers) {
@@ -358,7 +357,8 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res)
         if (alphabet[(uchar) start_rec->let]) {
             res->Alt[ii].Code = (uchar) start_rec->let;
             res->Alt[ii].CodeExt = 0;
-            res->Alt[ii].Prob = 126 + ((ev_num_ln > 4 * 16 ) + (ev_rt_num_ln > 4) + (nvers1 == 1)) * 43 ;
+            res->Alt[ii].Prob = 126 + ((ev_num_ln > 4 * 16) + (ev_rt_num_ln > 4) + (nvers1 == 1))
+                    * 43;
             res->Alt[ii].Method = REC_METHOD_EVN;
             ii++;
         }
@@ -389,8 +389,7 @@ int32_t EVNGetNumComp(RecRaster *rRaster)
     int32_t i;
     MN *mn = NULL;
     evn_error_code = ER_EVN_NO_ERROR;
-    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth),
-                  rRaster->lnPixHeight, 0, 0);
+    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth), rRaster->lnPixHeight, 0, 0);
 
     if (!mn)
         return 0;
@@ -410,8 +409,7 @@ uchar * EVNMakeLine(RecRaster *rRaster, int32_t parm)
     MN *mn = NULL;
     uchar *lp, *lpin, *lpend = (uchar*) (evn_multy_lpool + 6000);
     uint16_t len, lall;
-    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth),
-                  rRaster->lnPixHeight, 0, 0);
+    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth), rRaster->lnPixHeight, 0, 0);
 
     if (parm == 1) {
         if (mn != NULL && mn->mnnext == NULL) {
@@ -477,7 +475,7 @@ uchar * EVNMakeLine(RecRaster *rRaster, int32_t parm)
 
     else if (parm == 2) {
         if (mn != NULL) {
-            lp = (uchar*) & evn_multy_lpool[2];
+            lp = (uchar*) &evn_multy_lpool[2];
             lall = 0;
 
             do {
@@ -516,13 +514,11 @@ uchar * EVNMakeLine(RecRaster *rRaster, int32_t parm)
     return lp;
 }
 
-int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot,
-                        int32_t font)
+int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot, int32_t font)
 {
     uchar four[6], c;
     MN *mn = NULL;
-    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth),
-                  rRaster->lnPixHeight, 0, 0);
+    mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth), rRaster->lnPixHeight, 0, 0);
 
     if (mn != NULL && mn->mnnext == NULL) {
         MN_to_line(mn);
@@ -532,15 +528,15 @@ int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot,
         return -1;
 
     switch (font) {
-        case 0:
-            events_tree_rt = events_tree_rth;
-            events_tree = events_treeh;
-            break;
-        default:
-        case 1:
-            events_tree_rt = events_tree_rtp;
-            events_tree = events_treep;
-            break;
+    case 0:
+        events_tree_rt = events_tree_rth;
+        events_tree = events_treeh;
+        break;
+    default:
+    case 1:
+        events_tree_rt = events_tree_rtp;
+        events_tree = events_treep;
+        break;
     }
 
     enable_save_stat = TRUE;
@@ -587,7 +583,7 @@ int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot,
     int i, nvers1;
 
     for (nvers1 = 0, i = 0; i < nvers; i++)
-        if (alphabet[(uchar)(start_rec + i)->let])
+        if (alphabet[(uchar) (start_rec + i)->let])
             nvers1++;
 
     return nvers1;
@@ -622,17 +618,13 @@ int32_t EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res)
     return ii;
 }
 
-MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-                 int16_t left)
+MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
 {
-    MN *m;
     left = MAX(0, left);
-    m = c_locomp(raster, bw, h, upper, left);
-    return m;
+    return c_locomp(raster, bw, h, upper, left);
 }
 
-extern uchar* segment_pool;
-uchar* EVN_GetSegmentPool(void)
+BWS * EVN_GetSegmentPool()
 {
-    return segment_pool;
+    return CIF::EVN_LinePool::instance().begin();
 }

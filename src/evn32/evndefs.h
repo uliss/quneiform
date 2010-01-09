@@ -60,12 +60,6 @@
 #include "recdefs.h"
 #include "leo/leodefs.h"
 
-//-------------------- lines buffer -------------------------------
-
-struct tagLPOOL {
-    uint16_t lpool_lth;
-    uchar *lpool;
-};
-typedef struct tagLPOOL LPOOL;
+const int LINE_POOL_LENGTH = 512 * 4;
 
 #endif

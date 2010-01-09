@@ -57,17 +57,18 @@
 #include <setjmp.h>
 #include <cstdlib>
 
+#include "evndefs.h"
 #include "struct.h"
 #include "v1comp.h"
 #include "ldescr.h"
 #include "box.h"
+#include "linepool.h"
 #include "loc/locdefs.h"
 
 // Memory service
 
 static const int MAX_BOX_NUMB = 100 * 4;
 static const int MAX_INT_NUMB = 32 * 4;
-static const int LINE_POOL_LENGTH = 512 * 4;
 
 static BOX * boxalloc;
 static BOX * boxallocend;
@@ -79,15 +80,9 @@ static int16_t ol, nl;
 static int16_t rast_lc;
 static int16_t lineno;
 
-static BWSS lines[LINE_POOL_LENGTH + 9];
 static uchar boxes[BOXSIZE * MAX_BOX_NUMB];
 static MN main_numbers[MAX_INT_NUMB];
 
-// Oleg : 18-08-1994 : link DIFFRV.C
-// Vald: 10-03-96 07:18pm set it const
-uchar* segment_pool = (uchar *) lines;
-
-#define end_line_pool  (lines + LINE_POOL_LENGTH)
 #define box_alloc(bp) bp = boxalloc; boxalloc = (BOX *)((uchar*)boxalloc + BOXSIZE)
 
 static jmp_buf locomp_err;
@@ -101,6 +96,8 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
+using namespace CIF;
+
 MN * c_locomp(uchar* raster, int bw, int h, int upper, int left)
 {
     int32_t h1 = h + 1;
@@ -110,7 +107,8 @@ MN * c_locomp(uchar* raster, int bw, int h, int upper, int left)
     if (setjmp(locomp_err))
         return NULL;
 
-    segm_repr_end = locomp_seglist(raster, lines, end_line_pool, h, bw);
+    segm_repr_end = locomp_seglist(raster, EVN_LinePool::instance().begin(),
+            EVN_LinePool::instance().end(), h, bw);
     locomp_begin();
 
     do {
@@ -131,14 +129,15 @@ static void locomp_begin()
     segm_repr_end->b = 0;
     (segm_repr_end++)->w = -0x7000;
 
-    if (segm_repr_end >= end_line_pool)
+    if (segm_repr_end >= EVN_LinePool::instance().end())
         longjmp(locomp_err, 3);
 
     for (i = 0, mn = mainalloc = main_numbers; i < MAX_INT_NUMB - 1; i++, mn++)
         mn->mnnext = mn + 1;
 
     mn->mnnext = NULL;
-    np = (op = lines) + 1;
+    op = EVN_LinePool::instance().begin();
+    np = op + 1;
     boxalloc = (BOX *) boxes; // Vald 06-15-96 07:06pm corr old Talalay error
     boxallocend = (BOX *) (boxes + MAX_BOX_NUMB * BOXSIZE);
 }
@@ -159,7 +158,7 @@ static void analize()
     if (nl < 0)
         goto restoldline_b;
 
-gencase:
+    gencase:
 
     if (ol != nl) {
         if (ol > nl)
@@ -172,7 +171,7 @@ gencase:
     ol += op->b;
     nl += np->b;
     simple_cont();
-intersect_step:
+    intersect_step:
 
     if (ol != nl) {
         if (ol > nl)
@@ -193,8 +192,7 @@ intersect_step:
         goto gencase;
 
     goto restnewline_b;
-nextoldsegm:
-    ol += (op++)->w;
+    nextoldsegm: ol += (op++)->w;
 
     if (ol < 0)
         goto restnewline;
@@ -205,8 +203,7 @@ nextoldsegm:
     ol += op->b;
     merge_line();
     goto intersect_step;
-nextnewsegm:
-    nl += (np++)->w;
+    nextnewsegm: nl += (np++)->w;
 
     if (nl < 0)
         goto restoldline;
@@ -216,26 +213,21 @@ nextnewsegm:
 
     new_line_cont();
     goto intersect_step;
-linedies:
-    dead_line();
-old_segm_step:
-    ol += (op++)->w;
+    linedies: dead_line();
+    old_segm_step: ol += (op++)->w;
 
     if (ol > 0)
         goto gencase;
 
     goto restnewline_b;
-newcomp:
-    new_line();
-new_segm_step:
-    nl += (np++)->w;
+    newcomp: new_line();
+    new_segm_step: nl += (np++)->w;
 
     if (nl > 0)
         goto gencase;
 
     goto restoldline_b;
-actold:
-    ol += op->b;
+    actold: ol += op->b;
 
     if (nl > ol)
         goto linedies;
@@ -243,8 +235,7 @@ actold:
     nl += np->b;
     simple_cont();
     goto intersect_step;
-actnew:
-    nl += np->b;
+    actnew: nl += np->b;
 
     if (ol > nl)
         goto newcomp;
@@ -252,31 +243,27 @@ actnew:
     ol += op->b;
     simple_cont();
     goto intersect_step;
-restnewline_b:
+    restnewline_b:
 
     if (nl < 0)
         return;
 
-restnewline_1:
-    nl += np->b;
+    restnewline_1: nl += np->b;
     new_line();
-restnewline:
-    nl += (np++)->w;
+    restnewline: nl += (np++)->w;
 
     if (nl > 0)
         goto restnewline_1;
 
     return;
-restoldline_b:
+    restoldline_b:
 
     if (ol < 0)
         return;
 
-restoldline_1:
-    ol += op->b;
+    restoldline_1: ol += op->b;
     dead_line();
-restoldline:
-    ol += (op++)->w;
+    restoldline: ol += (op++)->w;
 
     if (ol > 0)
         goto restoldline_1;
@@ -296,8 +283,7 @@ static void simple_cont()
         goto fullbox;
 
     bp->boxptr += sizeof(*ip);
-resume:
-    np->box = bp;
+    resume: np->box = bp;
     ip->l = np->b;
     ip->d = nl - ol;
 
@@ -308,8 +294,7 @@ resume:
         bp->boxleft = nl - ip->l;
 
     return;
-fullbox:
-    ip->l = -1;
+    fullbox: ip->l = -1;
     box_alloc(bpw);
 
     if (boxalloc == boxallocend)
