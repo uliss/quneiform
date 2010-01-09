@@ -59,6 +59,7 @@
 #include "struct.h"
 #include "v1comp.h"
 #include "box.h"
+#include "ldescr.h"
 
 #define Ecom struct main_memory_str
 

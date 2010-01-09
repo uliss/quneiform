@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 #include "loc/locdefs.h"
 #include "box.h"
+#include "ldescr.h"
 
 //      Memory service
 #define MAX_BOX_NUMB            100*4

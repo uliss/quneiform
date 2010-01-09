@@ -59,6 +59,7 @@
 
 #include "struct.h"
 #include "v1comp.h"
+#include "ldescr.h"
 #include "box.h"
 #include "loc/locdefs.h"
 

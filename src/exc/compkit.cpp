@@ -64,6 +64,7 @@
 #include "box.h"
 #include "version.h"
 #include "mn.h"
+#include "ldescr.h"
 
 Bool16 boxes_account();
 

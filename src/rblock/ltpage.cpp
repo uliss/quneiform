@@ -73,6 +73,7 @@
 #include "layout.h"
 #include "struct.h"
 #include "box.h"
+#include "ldescr.h"
 #include "msgerr.h"
 
 #include "dpuma.h"

@@ -64,13 +64,15 @@
 #include "evn32/evndefs.h"
 
 #ifdef  HUGE_IMAGE
-#define WORLD_MAX_HEIGHT            10000
-#define WORLD_MAX_WIDTH             10000    //7000
-#define WORLD_MAX_RESOLUTION    800
+const int WORLD_MAX_HEIGHT = 10000;
+const int WORLD_MAX_WIDTH = 10000; //7000
+const int WORLD_MAX_RESOLUTION = 800;
+const int WORLD_MIN_RESOLUTION = 50;
 #else
-#define WORLD_MAX_HEIGHT            4096  // ordinary image
-#define WORLD_MAX_WIDTH             4096
-#define WORLD_MAX_RESOLUTION    400
+const int WORLD_MAX_HEIGHT = 4096; // ordinary image
+const int WORLD_MAX_WIDTH = 4096;
+const int WORLD_MAX_RESOLUTION = 800;
+const int WORLD_MIN_RESOLUTION = 50;
 #endif
 
 #define LPOOL_SIZE                  8000
@@ -86,24 +88,58 @@
 #define err_pncell(c)      ((c))->next =((c))->prev =(cell*)(0xffff0000)//
 #define err_pnnextcell(c)  ((c))->next =             (cell*)(0xffff0000)//
 #define err_pnprevcell(c)  ((c))->prev =             (cell*)(0xffff0000)//
-
-struct ldescr_struct {
-    int16_t y; // y coord. of the first interval
-    int16_t l; // first interval length
-    int16_t x; // x coord. of the end of the first interval
+struct dust_comp_struc
+{
+        uint16_t size; // =1
+        int16_t upper;
+        int16_t left;
+        uchar h; // >0
+        uchar w; // >0
+        uchar raster[8];
 };
-typedef struct ldescr_struct LNSTRT;
+typedef struct dust_comp_struc dust_comp;
+
+struct file_comp_struct
+{
+        uint16_t size; // =1
+        int16_t upper;
+        int16_t left;
+        uchar h; // =0
+        uchar w; // =0
+        uint32_t offset;
+        uint16_t lth;
+        uchar scale;
+        uchar reserv;
+};
+typedef struct file_comp_struct file_comp;
+
+typedef struct
+{ // == ExcBox from ExcDefs.h
+        int16_t row; // real row of comp
+        int16_t col; // real column of  comp
+        int16_t h; // height of  comp
+        int16_t w; // width of  comp
+        uint16_t flag; // some logical info
+        int32_t user; // working var for user
+} gcomp;
+
+struct frame_struct
+{
+        CIF::Point16 topleft, topright, botleft, botright;
+};
+typedef struct frame_struct FRAME;
 
 //------------------------- rules -----------------------------
 //AK:  without collision when snap.dll creating
-#ifndef _SNAP_
+//#ifndef _SNAP_
 
 #include "compat_defs.h"
 
-struct rule_struct {
-    CIF::Point16 beg, end;
-    uchar width;
-    uchar type;
+struct rule_struct
+{
+        CIF::Point16 beg, end;
+        uchar width;
+        uchar type;
 #define VERT_LN  0
 #define HOR_LN   1
 #define UNDRLN   2
@@ -111,7 +147,18 @@ struct rule_struct {
 };
 typedef struct rule_struct STRLN;
 
-#endif
+//#endif
+
+#define FDSIZE    1024  // Full number of fragments
+#define TO_FDF(i) ((i)<FDSIZE ? (i):0)
+
+struct FragmentDescriptor
+{
+        int16_t user_num; // Number of USER
+        uchar language; // Language of fragments
+        uchar reserv;
+};
+typedef struct FragmentDescriptor FragDesc;
 
 #include "cutstr.h"
 #include "embbox.h"

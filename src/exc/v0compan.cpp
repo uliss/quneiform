@@ -61,6 +61,7 @@
 #include "box.h"
 #include "msgerr.h"
 #include "excdefs.h"
+#include "ldescr.h"
 
 extern uchar double_fax;
 extern BOX *boxchain, *dl_last_in_chain;

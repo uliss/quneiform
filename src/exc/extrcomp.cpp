@@ -75,6 +75,7 @@
 #include "ccom/ccom.h"
 #include "tuner.h"
 #include "cpage/cpage.h"
+#include "ldescr.h"
 
 #include "exc.h"
 #include "evn32/evn.h"

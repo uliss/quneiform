@@ -61,6 +61,7 @@
 #include "comp.h"
 #include "box.h"
 #include "lnhead.h"
+#include "ldescr.h"
 #include "mn.h"
 #include "common/interval.h"
 

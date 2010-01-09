@@ -59,6 +59,7 @@
 #include "func.h"
 #include "box.h"
 #include "common/interval.h"
+#include "ldescr.h"
 
 Bool boxes_account();
 
