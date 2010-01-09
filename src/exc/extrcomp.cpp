@@ -1131,7 +1131,6 @@ void REXC_Done(void)
     ExtrcompDone();
     language = -1;
     NumContainer = 0;
-    return;
 }
 //////////// process large comps
 

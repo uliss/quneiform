@@ -38,6 +38,7 @@ namespace CIF
 {
 
 class RMarker;
+class ComponentExtractor;
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
@@ -118,6 +119,7 @@ class PumaImpl
     private:
         std::auto_ptr<CTIControl> cimage_;
         std::auto_ptr<RMarker> rmarker_;
+        std::auto_ptr<ComponentExtractor> comp_extractor_;
         BitmapInfoHeader info_;
         Rect rect_template_;
         bool do_spell_corretion_;

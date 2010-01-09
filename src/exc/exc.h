@@ -62,6 +62,7 @@
 #include "excdefs.h"
 #include "recdefs.h"
 #include "ccom/ccomdefs.h"
+#include "componentextractor.h"
 
 #ifdef __EXC__
 #define EXC_FUNC  FUN_EXPO
@@ -88,18 +89,19 @@ enum REXCParametrs
     REXC_Word8_Fax1x2,
     REXC_Word16_ActualResolution
 };
-EXC_FUNC(Bool32) ExtrcompInit(void);
+
+Bool32 ExtrcompInit(void);
 // Start initialization. TRUE if OK
 // Can new call after closing the library without ExtrcompDone
-EXC_FUNC(void) ExtrcompDone(void);
+void ExtrcompDone(void);
 // Closing of the library.
-EXC_FUNC(uint32_t) REXC_GetReturnCode(void);
-EXC_FUNC(Bool32) REXC_Init(uint16_t wHeightCode, Handle hStorage);
-EXC_FUNC(void) REXC_Done(void);
-EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData);
 // REXC_FNEXTRACOMP    найти компоненты с помощью коллбэков
-EXC_FUNC(int32_t) Extracomp(ExcControl Control, TImageOpen tio, TImageClose tic, TImageRead tir,
+int32_t Extracomp(ExcControl Control, TImageOpen tio, TImageClose tic, TImageRead tir,
         Tiger_ProcComp tipc);
+EXC_FUNC(uint32_t) REXC_GetReturnCode(void);
+Bool32 REXC_Init(uint16_t wHeightCode, Handle hStorage);
+void REXC_Done(void);
+EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData);
 // REXC_FNEXTRA        найти компоненты в растре
 EXC_FUNC(Bool32) REXCExtra(ExcControl Control, uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder,
         int32_t Wid, int32_t Hei, int32_t HRes, int32_t VRes, int32_t TemplCol, int32_t TemplRow,

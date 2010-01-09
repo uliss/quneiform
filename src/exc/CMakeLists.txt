@@ -1,6 +1,7 @@
 add_library(exc ${LIBTYPE}
 compdata.cpp
 compkit.cpp
+componentextractor.cpp
 extrcomp.cpp
 locompmn.cpp
 matrix.cpp

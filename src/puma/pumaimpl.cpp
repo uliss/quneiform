@@ -435,7 +435,6 @@ void PumaImpl::modulesDone()
     RIMAGE_Done();
     RFRMT_Done();
     RSL_Done();
-    REXC_Done();
     RLINE_Done();
     RBLOCK_Done();
     RSELSTR_Done();
@@ -479,11 +478,9 @@ void PumaImpl::modulesInit()
         if (!CSTR_Init(PUMA_MODULE_CSTR, ghStorage))
             throw PumaException("CSTR_Init failed.");
 
-        // RECOGNITIONS
-        if (!REXC_Init(PUMA_MODULE_REXC, NULL)) // инициализация библиотеки поиска компонент
-            throw PumaException("REXC_Init failed.");
+        // инициализация библиотеки поиска компонент
+        comp_extractor_.reset(new ComponentExtractor);
 
-        //  REXC_SetImportData(REXC_OcrPath, GetModulePath());
         if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
             throw PumaException("RLINE_Init failed.");
 
