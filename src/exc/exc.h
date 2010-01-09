@@ -84,21 +84,9 @@ typedef Bool (* Tiger_ProcComp)(void * pool, uint32_t size);
 
 enum REXCParametrs
 {
-    REXC_FNEXTRACOMP,
-    REXC_FNEXTRA,
-    REXC_FNEXTRADIB,
-    REXC_FNGETCONTAINER,
-    REXC_FNGETLENEREP,
-    REXC_FNVERSION,
     REXC_Word8_Matrix,
     REXC_Word8_Fax1x2,
-    REXC_Word16_ActualResolution,
-    REXC_ProgressStart,
-    REXC_ProgressStep,
-    REXC_ProgressFinish,
-    REXC_FNMN2CCOM,
-    REXC_FNGETINVERTION,
-    REXC_FNEXTRACOMP3CB
+    REXC_Word16_ActualResolution
 };
 EXC_FUNC(Bool32) ExtrcompInit(void);
 // Start initialization. TRUE if OK
