@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include "struct.h"
 #include "func.h"
+#include "common/interval.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

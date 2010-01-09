@@ -60,6 +60,7 @@
 #include "abris.h"
 #include "lang.h"
 #include "status.h"
+#include "common/interval.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

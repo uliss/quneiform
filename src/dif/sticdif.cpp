@@ -54,13 +54,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstring>
+#include <cstdlib>
 #include "stick.h"
 #include "inc_tab.h"
-#include <string.h>
-#include <stdlib.h>
 #include "recdefs.h"
 #include "lang_def.h"
 #include "lnhead.h"
+#include "common/interval.h"
 
 #include "minmax.h"
 

@@ -65,6 +65,7 @@
 #include <string.h>
 #include <assert.h>
 
+#include "common/interval.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"

@@ -54,12 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
+#include <cstring>
 #include "struct.h"
 #include "v1comp.h"
 #include "version.h"
 #include "comp.h"
 #include "lnhead.h"
+#include "common/interval.h"
 
 //      Common variables
 // Oleg

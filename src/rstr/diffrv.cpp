@@ -63,6 +63,7 @@
 #include "struct.h"
 #include "lang_def.h"
 #include "func.h"
+#include "common/interval.h"
 
 #include "ligas.h"
 #include "linutil.h"

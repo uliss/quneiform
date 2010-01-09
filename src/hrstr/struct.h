@@ -94,19 +94,6 @@ struct ldescr_struct {
 };
 typedef struct ldescr_struct LNSTRT;
 
-//      one interval
-struct int_s {
-    uchar l; // length of interval
-    uchar e; // end of interval coordinates
-};
-typedef struct int_s interval;
-
-struct large_int_s {
-    uint16_t l; // length of interval
-    uint16_t e; // end of interval coordinates
-};
-typedef struct large_int_s large_interval;
-
 //------------------------- rules -----------------------------
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_

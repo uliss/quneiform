@@ -54,10 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <string.h>
+#include <cstring>
 #include "struct.h"
 #include "func.h"
 #include "box.h"
+#include "common/interval.h"
 
 Bool boxes_account();
 

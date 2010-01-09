@@ -64,6 +64,7 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "common/interval.h"
 #include "std/std.h"
 #include "globus.h"
 #include "imgaccs.h"

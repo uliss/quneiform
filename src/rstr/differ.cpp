@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
+#include "common/interval.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

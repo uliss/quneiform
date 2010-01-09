@@ -61,6 +61,7 @@
 /********************************************************************/
 #include <string.h>
 
+#include "common/interval.h"
 #include "evn32/evn.h"
 #include "struct.h"
 #include "cuthdr.h"

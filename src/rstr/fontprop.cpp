@@ -59,6 +59,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
+#include "common/interval.h"
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"

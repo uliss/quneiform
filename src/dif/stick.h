@@ -149,12 +149,6 @@ typedef struct {
 
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )
 
-struct int_s {
-    uchar l; // length of interval
-    uchar e; // end of interval coordinates
-};
-typedef struct int_s interval;
-
 #define DIS_CENTER_FLAG(U,i,width,inc,t1,t2)             \
   { int16_t t,dist=1;                                  \
     t = U->mount[i];                                 \

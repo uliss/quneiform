@@ -55,8 +55,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define ABRIS_TOOLS_MODULE
+#include <cstring>
 #include "abris.h"
-#include <string.h>
+#include "common/interval.h"
 #define  MLTPLR 64
 
 static uchar pen_over_b2[8]={ 0,0,20,80,120,200,220,240 };

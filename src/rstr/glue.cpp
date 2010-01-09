@@ -58,6 +58,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "common/interval.h"
 #include "evn32/evn.h"
 #include "struct.h"
 #include "cuthdr.h"
@@ -68,8 +69,8 @@
 static int16_t n1, n2;
 static int16_t h1, h2, h10, h20;
 static int16_t y1_, y2;
-struct int_s *int1;
-struct int_s *int2;
+interval *int1;
+interval *int2;
 static lnhead *lp1;
 static lnhead *lp2;
 static int pass;
@@ -222,8 +223,8 @@ static void comptorast(c_comp *cp1) {
 
 static void glueline() {
 	int16_t a, b, A, B, wa, wb, wA, wB;
-	struct int_s *wint1;
-	struct int_s *wint2;
+	interval *wint1;
+	interval *wint2;
 
 	n1 = lp1->h - 1;
 	h10 = h1 = lp1->row + c1ur - rastur;
@@ -236,8 +237,8 @@ static void glueline() {
 	fgl2 = 0;
 
 	gs1l = gs2l = 0; // nothing in latch
-	int1 = (struct int_s *) (lp1 + 1); // ptr to first interval in line
-	int2 = (struct int_s *) (lp2 + 1); // ptr to 2nd   interval in line
+	int1 = (interval *) (lp1 + 1); // ptr to first interval in line
+	int2 = (interval *) (lp2 + 1); // ptr to 2nd   interval in line
 	compl_:
 	//if ((y1_ == n1) && (y2 == n2))
 	//  goto end;

@@ -68,6 +68,7 @@
 #include "dmconst.h"
 #include "func.h"
 #include "ligas.h"
+#include "common/interval.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

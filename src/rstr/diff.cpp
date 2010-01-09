@@ -70,7 +70,8 @@
 #include "lang.h"
 #include "func.h"
 #include "ukr.h"
-#include"linutil.h"
+#include "linutil.h"
+#include "common/interval.h"
 
 #include "compat_defs.h"
 #include "minmax.h"

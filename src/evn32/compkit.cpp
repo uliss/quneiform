@@ -62,6 +62,7 @@
 #include "box.h"
 #include "lnhead.h"
 #include "mn.h"
+#include "common/interval.h"
 
 Bool16 boxes_account();
 

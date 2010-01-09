@@ -65,6 +65,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "common/interval.h"
 #include "struct.h"
 #include "status.h"
 #include "cuthdr.h"

@@ -57,6 +57,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "common/interval.h"
 #include "struct.h"
 #include "version.h"
 #include "comp.h"

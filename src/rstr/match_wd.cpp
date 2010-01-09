@@ -58,6 +58,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "common/interval.h"
 #include "struct.h"
 #include "ligas.h"
 #include "func.h"
@@ -353,24 +354,7 @@ Weight match_cell_word(cell *wb, cell *we, uchar *word, MatchWordPar *param) {
 
 	return match(word);
 }
-/*
- static uchar *make_alphabet(uchar *word)
- {
- static uchar alphabet[257];
- uchar *a=alphabet,*w;
 
- *a=0;
- do
- {
- int32_t let=256;
- for (w=word; *w; w++)
- if (*w>*a && *w<let)  let=*w;
- *(++a)=(uchar)(let & 0xFF);
- }
- while (*a);
- return alphabet+1;
- }
- */
 static void make_alphabet(uchar *word) {
 	uchar *w, *l;
 

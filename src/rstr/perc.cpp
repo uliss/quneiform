@@ -109,6 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <assert.h>
 
+#include "common/interval.h"
 #include "struct.h"
 #include "func.h"
 #include "ligas.h"
