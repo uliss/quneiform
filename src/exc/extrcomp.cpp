@@ -1115,23 +1115,6 @@ uint32_t REXC_GetReturnCode(void)
     return (wHeightRC << 16) | (wLowRC - REXC_ERR_MIN);
 }
 
-char* REXC_GetReturnString(uint32_t dwError)
-{
-    uint16_t rc = (uint16_t) ((dwError & 0xFFFF));
-    static char szBuffer[512];
-
-    if (dwError >> 16 != wHeightRC)
-        wLowRC = REXC_ERR_NOTIMPLEMENT;
-
-    if (rc > 0 && rc <= REXC_ERR_MAX - REXC_ERR_MIN)
-        strcpy((char *) szBuffer, REXC_error_name[rc]);
-
-    else
-        return NULL;
-
-    return szBuffer;
-}
-
 Bool32 REXC_Init(uint16_t wHeightCode, Handle hStorage)
 {
     if (Q().boxstart) {
