@@ -55,6 +55,8 @@
  */
 
 #include <string.h>
+
+#include "common/interval.h"
 #include "globus.h"
 #include "struct.h"
 #include "excdefs.h"

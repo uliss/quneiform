@@ -102,17 +102,6 @@ struct file_comp_struct {
 };
 typedef struct file_comp_struct file_comp;
 
-//      one interval
-struct interval {
-    uchar l; // length of interval
-    uchar e; // end of interval coordinates
-};
-
-struct large_interval {
-    uint16_t l; // length of interval
-    uint16_t e; // end of interval coordinates
-};
-
 typedef struct { // == ExcBox from ExcDefs.h
     int16_t row; // real row of comp
     int16_t col; // real column of  comp
