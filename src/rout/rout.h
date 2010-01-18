@@ -69,8 +69,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __ROUT_H
 #define __ROUT_H
 
+#include <string>
 #include "globus.h"
 #include "puma/pumadef.h"
+#include "common/rect.h"
 
 #ifdef __ROUT__
 #define ROUT_FUNC  FUN_EXPO
@@ -146,6 +148,8 @@ ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
 ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);
 ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData);
 ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData);
+ROUT_FUNC(void) ROUT_SetInputImageName(const std::string& fname);
+ROUT_FUNC(void) ROUT_SetInputBBox(const CIF::Rect& bbox);
 //*****************************************************************
 // Экспорт
 typedef enum {

@@ -39,6 +39,7 @@ namespace CIF
 
 class RMarker;
 class ComponentExtractor;
+class Image;
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
@@ -57,7 +58,7 @@ class PumaImpl
 
         void close();
         FormatOptions formatOptions() const;
-        void open(char * dib);
+        void open(Image * img);
         Rect pageTemplate() const;
         void recognize();
         void save(const std::string& outputFilename, int format) const;

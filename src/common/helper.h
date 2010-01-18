@@ -27,6 +27,8 @@
 namespace CIF
 {
 
+std::string escapeHtmlSpecialChars(const std::string& path);
+
 inline std::string getFileExt(const std::string& filename)
 {
     size_t dot_position = filename.rfind('.');

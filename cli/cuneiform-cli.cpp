@@ -394,9 +394,9 @@ int main(int argc, char **argv)
         }
 
         Image * image = ImageLoaderFactory::instance().load(infilename);
-        std::auto_ptr<Image> image_ptr(image);
         if (!image)
             return EXIT_FAILURE;
+        std::auto_ptr<Image> image_ptr(image);
 
         Puma::instance().setOptionLanguage(langcode);
         Puma::instance().setOptionOneColumn(do_singlecolumn);
@@ -432,7 +432,7 @@ int main(int argc, char **argv)
 
         //  Puma::instance().setOptionTables(puma_table_t mode);
 
-        Puma::instance().open(image->data());
+        Puma::instance().open(image);
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();

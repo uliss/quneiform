@@ -41,7 +41,9 @@ ImageLoaderFactory& ImageLoaderFactory::instance()
 Image * ImageLoaderFactory::load(const std::string& filename)
 {
     image_format_t format = ImageFormatDetector::instance().detect(filename);
-    return loader(format).load(filename);
+    Image * ret = loader(format).load(filename);
+    ret->setFileName(filename);
+    return ret;
 }
 
 Image * ImageLoaderFactory::load(std::istream& stream)

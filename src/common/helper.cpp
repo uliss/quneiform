@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,39 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TOSTRING_H_
-#define TOSTRING_H_
-
-#include <iostream>
-#include <sstream>
-#include "point.h"
-#include "rect.h"
+#include "helper.h"
 
 namespace CIF
 {
 
-template<class T>
-std::ostream& operator<<(std::ostream& os, const PointImpl<T>& point)
+std::string escapeHtmlSpecialChars(const std::string& path)
 {
-    os << "Point(" << point.x() << "," << point.y() << ")";
-    return os;
+    // uliss TODO!!!
+    std::string ret;
+    ret.reserve(path.size());
+    for(std::string::const_iterator it = path.begin(), end = path.end(); it != end; ++it) {
+        switch(*it) {
+        case '"':
+            ret.append("&quot;");
+            break;
+        case '\'':
+            ret.append("&apos;");
+            break;
+        case '<':
+            ret.append("&lt;");
+            break;
+        case '&':
+            ret.append("&amp;");
+            break;
+        default:
+            ret.append(1, *it);
+        }
+    }
+    return ret;
 }
 
-template<class T>
-std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect)
-{
-    os << "Rect(" << rect.pt0() << ", " << rect.pt1() << ")" << " width:" << rect.width() << "; height:" << rect.height();
-    return os;
 }
 
-template<class T>
-std::string toBBox(const RectImpl<T>& rect)
-{
-    std::ostringstream os;
-    os << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom();
-    return os.str();
-}
-
-}
-
-#endif /* TOSTRING_H_ */

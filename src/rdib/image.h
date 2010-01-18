@@ -21,6 +21,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace CIF
 {
@@ -37,7 +38,9 @@ class Image: public boost::noncopyable
         Image(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
         virtual ~Image();
         char * data();
+        std::string fileName() const;
         void setData(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
+        void setFileName(const std::string& fname);
         size_t size() const;
     private:
         void clear();
@@ -45,6 +48,7 @@ class Image: public boost::noncopyable
         char * data_;
         size_t size_;
         allocator_t allocator_;
+        std::string fname_;
 };
 
 typedef boost::shared_ptr<Image> ImagePtr;

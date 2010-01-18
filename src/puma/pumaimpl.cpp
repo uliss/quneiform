@@ -40,6 +40,7 @@
 #include "cpage/cpage.h"
 #include "dpuma.h"
 #include "exc/exc.h"
+#include "rdib/image.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
 #include "rfrmt/rfrmt.h"
@@ -89,8 +90,8 @@ static double portion_of_rus_letters(CSTR_line lin_ruseng)
         CSTR_GetCollectionUni(rast, &uv);
 
         if (attr.flg & (CSTR_f_let)) {
-            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100 && !strchr(
-                    "0123456789/%", uv.Alt[0].Code[0]))
+            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100
+                    && !strchr("0123456789/%", uv.Alt[0].Code[0]))
                 nRus++;
 
             nAll++;
@@ -135,12 +136,12 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false), language_(LANGUAGE_RUS_ENG),
-            layout_filename_("layout.bin"), pictures_(PUMA_PICTURE_ALL),
-            tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(
-                    NULL), cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL), rc_line_(
-                    TRUE), kill_vsl_components_(TRUE), need_clean_line_(FALSE), recog_name_(NULL),
-            special_project_(SPEC_PRJ_NO)
+            one_column_(false), dot_matrix_(false), auto_rotate_(false),
+            language_(LANGUAGE_RUS_ENG), layout_filename_("layout.bin"),
+            pictures_(PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
+                    NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
+                    NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
+            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO)
 {
     format_options_.setLanguage(language_);
     modulesInit();
@@ -541,16 +542,17 @@ void PumaImpl::modulesInit()
     }
 }
 
-void PumaImpl::open(char * dib)
+void PumaImpl::open(Image * img)
 {
+    assert(img && img->data());
     if (Config::instance().debug())
         Debug() << "Puma open\n";
-    assert(dib);
+    input_filename_ = img->fileName();
     preOpenInitialize();
-    input_dib_ = dib;
+    input_dib_ = img->data();
 
     // write image
-    if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, dib, 1))
+    if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, input_dib_, 1))
         throw PumaException("PumaImpl::open can't write DIB");
 
     postOpenInitialize();
@@ -745,8 +747,6 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber)
 
 void PumaImpl::postOpenInitialize()
 {
-    input_filename_ = "none.bin";
-
     getImageInfo(PUMA_IMAGE_USER);
     rect_template_.set(Point(), info_.biWidth, info_.biHeight);
 }
@@ -1050,6 +1050,8 @@ void PumaImpl::save(const std::string& filename, int Format) const
     ExporterFactory::instance().setPage(ed_page_);
     ExporterFactory::instance().setFormatOptions(format_options_);
     Exporter * exp = ExporterFactory::instance().make(Format);
+    exp->setInputImagePath(input_filename_);
+    exp->setInputImageBBox(rect_template_);
     exp->exportTo(filename);
     delete exp;
 }
@@ -1057,7 +1059,7 @@ void PumaImpl::save(const std::string& filename, int Format) const
 void PumaImpl::saveCSTR(int pass)
 {
     ostringstream os;
-    os << removeFileExt(input_filename_) << "_" << pass << ".cst";
+    os << "cuneiform_pass_" << pass << ".cst";
     CSTR_SaveCont(os.str().c_str());
 }
 

@@ -6,6 +6,7 @@ endif()
 
 add_library(common ${LIBTYPE}
 cifconfig.cpp
+helper.cpp
 iconv.cpp
 )
 

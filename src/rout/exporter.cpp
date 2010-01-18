@@ -23,27 +23,32 @@
 
 using namespace std;
 
-namespace CIF {
+namespace CIF
+{
 
-Exporter::Exporter() {
+Exporter::Exporter()
+{
     autoDetectOutputEncoding();
 }
 
 Exporter::Exporter(const FormatOptions& opts) :
-    format_options_(opts) {
+    format_options_(opts)
+{
     autoDetectOutputEncoding();
 }
 
-Exporter::~Exporter() {
+Exporter::~Exporter()
+{
 }
 
-void Exporter::autoDetectOutputEncoding() {
+void Exporter::autoDetectOutputEncoding()
+{
     char * lc = ::getenv("LC_ALL");
     std::string locale;
-	if(!lc)
+    if (!lc)
         lc = ::getenv("LANG");
-	if(lc)
-	    locale = lc;
+    if (lc)
+        locale = lc;
     if (locale.empty()) {
         output_encoding_ = "UTF-8";
         return;
@@ -57,13 +62,15 @@ void Exporter::autoDetectOutputEncoding() {
     output_encoding_ = locale.substr(dot_pos + 1);
 }
 
-bool Exporter::encodeNeeded() const {
+bool Exporter::encodeNeeded() const
+{
     if (output_encoding_.empty() || input_encoding_.empty())
         return false;
     return output_encoding_ == input_encoding_ ? false : true;
 }
 
-void Exporter::exportTo(const std::string& filename) {
+void Exporter::exportTo(const std::string& filename)
+{
     ofstream f;
     f.open(filename.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
     if (!f)
@@ -71,30 +78,58 @@ void Exporter::exportTo(const std::string& filename) {
     exportTo(f);
 }
 
-void Exporter::exportTo(std::ostream& os) {
+void Exporter::exportTo(std::ostream& os)
+{
     doExport(os);
 }
 
-FormatOptions Exporter::formatOptions() const {
+FormatOptions Exporter::formatOptions() const
+{
     return format_options_;
 }
 
-std::string Exporter::inputEncoding() const {
+std::string Exporter::inputEncoding() const
+{
     return input_encoding_;
 }
 
-void Exporter::setFormatOptions(const FormatOptions& opts) {
+std::string Exporter::inputImagePath() const
+{
+    return input_image_name_;
+}
+
+CIF::Rect Exporter::inputImageBBox() const
+{
+    return input_image_bbox_;
+}
+
+void Exporter::setFormatOptions(const FormatOptions& opts)
+{
     format_options_ = opts;
 }
 
-std::string Exporter::outputEncoding() const {
+std::string Exporter::outputEncoding() const
+{
     return output_encoding_;
 }
 
-void Exporter::setInputEncoding(const std::string& enc) {
+void Exporter::setInputEncoding(const std::string& enc)
+{
     input_encoding_ = enc;
 }
-void Exporter::setOutputEncoding(const std::string& enc) {
+
+void Exporter::setInputImagePath(const std::string& fname)
+{
+    input_image_name_ = fname;
+}
+
+void Exporter::setInputImageBBox(const CIF::Rect& bbox)
+{
+    input_image_bbox_ = bbox;
+}
+
+void Exporter::setOutputEncoding(const std::string& enc)
+{
     output_encoding_ = enc;
 }
 

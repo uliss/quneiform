@@ -65,6 +65,7 @@
 //********************************************************************
 
 #include <string.h>
+#include <sstream>
 
 #ifdef WIN32
 #include <direct.h>
@@ -76,6 +77,8 @@
 
 #include "rout_own.h"
 #include "cfcompat.h"
+#include "common/tostring.h" // for toBBox
+#include "common/helper.h"
 
 static Bool Static_MakeHTML(Handle hObject, long reason);
 
@@ -169,25 +172,37 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         ;
         break;
 
-    case BROWSE_PAGE_START:
+    case BROWSE_PAGE_START: {
         // Start of page.
         FontStyle(0);
-        PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n")
-        ;
-        PUT_STRING("<html>\n<head>\n    <title></title>\n")
-        ;
+        PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n");
+        PUT_STRING("<html>\n<head>\n    <title></title>\n");
         if (gActiveCode == ROUT_CODE_UTF8)
-            PUT_STRING("    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n")
-        ;
-        PUT_STRING("</head>\n<body>\n")
-        ;
+            PUT_STRING("    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n");
+        PUT_STRING("</head>\n<body>\n");
+
+        //        if (hocrmode) {
+        // FIXME now supportes only one page
+        // TODO make page numbers support
+        std::ostringstream ocr_page;
+        ocr_page << "<div class=\"ocr_page\" id=\"page_1\" image=\"";
+        ocr_page << CIF::escapeHtmlSpecialChars(gInputPageName) << "\" bbox=\"" << CIF::toBBox(
+                gInputBBox) << "\">\n";
+        PUT_STRING(ocr_page.str().c_str());
+        //        }
 
         break;
+    }
 
     case BROWSE_PAGE_END:
+        if (hocrmode) {
+            PUT_STRING("</div>\n");
+        }
+
         // Конец страницы
         PUT_STRING("</body>\n</html>\n")
         ;
+
         break;
 
     case BROWSE_TABLE_START:

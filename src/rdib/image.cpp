@@ -50,9 +50,9 @@ char * Image::data()
     return data_;
 }
 
-size_t Image::size() const
+std::string Image::fileName() const
 {
-    return size_;
+    return fname_;
 }
 
 void Image::setData(char * src, size_t size, allocator_t allocator)
@@ -61,6 +61,16 @@ void Image::setData(char * src, size_t size, allocator_t allocator)
     allocator_ = allocator;
     data_ = src;
     size_ = size;
+}
+
+void Image::setFileName(const std::string& fname)
+{
+    fname_ = fname;
+}
+
+size_t Image::size() const
+{
+    return size_;
 }
 
 }

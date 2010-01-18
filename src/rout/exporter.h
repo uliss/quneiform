@@ -24,6 +24,7 @@
 #include <stdexcept>
 
 #include "rfrmt/formatoptions.h"
+#include "common/rect.h"
 
 namespace CIF {
 
@@ -41,9 +42,13 @@ public:
     void exportTo(std::ostream& os);
     FormatOptions formatOptions() const;
     std::string inputEncoding() const;
+    std::string inputImagePath() const;
+    CIF::Rect inputImageBBox() const;
     std::string outputEncoding() const;
     void setFormatOptions(const FormatOptions& opts);
     void setInputEncoding(const std::string& enc);
+    void setInputImagePath(const std::string& fname);
+    void setInputImageBBox(const CIF::Rect& bbox);
     void setOutputEncoding(const std::string& enc);
 private:
     virtual void doExport(std::ostream& os) = 0;
@@ -51,6 +56,8 @@ private:
     FormatOptions format_options_;
     std::string input_encoding_;
     std::string output_encoding_;
+    std::string input_image_name_;
+    Rect input_image_bbox_;
 };
 
 }

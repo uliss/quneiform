@@ -87,430 +87,457 @@
 #include "compat_defs.h"
 
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode,Handle hStorage)
+ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode, Handle hStorage)
 {
-	//	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
+    //	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
 
-	gwHighRC_rout = wHighCode;
-	ghStorage_rout = hStorage;
-	gwLowRC_rout = 0;
+    gwHighRC_rout = wHighCode;
+    ghStorage_rout = hStorage;
+    gwLowRC_rout = 0;
 
-	// Собственный кусок памяти на одну страницу
-	gOwnMemory = MyAlloc(gOwnMemorySize,0);
-	if ( !gOwnMemory )
-	NO_MEMORY;
+    // Собственный кусок памяти на одну страницу
+    gOwnMemory = MyAlloc(gOwnMemorySize, 0);
+    if (!gOwnMemory)
+        NO_MEMORY;
 
-	return ROUT_GetReturnCode()==0? TRUE:FALSE;
+    return ROUT_GetReturnCode() == 0 ? TRUE : FALSE;
 }
 //********************************************************************
 ROUT_FUNC(Bool32) ROUT_Done()
 {
-	//	DEBUG_PRINT("ROUT_Done");
-	ROUT_UnloadEd();
+    //	DEBUG_PRINT("ROUT_Done");
+    ROUT_UnloadEd();
 
-	if (gOwnMemory)
-	MyFree(gOwnMemory);
-	gOwnMemory = NULL;
+    if (gOwnMemory)
+        MyFree(gOwnMemory);
+    gOwnMemory = NULL;
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
 ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
 {
-	// Возвращает 0 если нет ошибки
-	// Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
-	uint32_t rc = 0;
-	if(gwLowRC_rout)
-	rc = (uint32_t)(gwHighRC_rout<<16)|(gwLowRC_rout - IDS_ERR_NO);
+    // Возвращает 0 если нет ошибки
+    // Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
+    uint32_t rc = 0;
+    if (gwLowRC_rout)
+        rc = (uint32_t) (gwHighRC_rout << 16) | (gwLowRC_rout - IDS_ERR_NO);
 
-	return rc;
+    return rc;
 }
 
-char * ROUT_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != gwHighRC_rout)
-		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
-	return NULL;
+char * ROUT_GetReturnString(uint32_t dwError)
+{
+    if (dwError >> 16 != gwHighRC_rout)
+        gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
+    return NULL;
 }
 //********************************************************************
 ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
 {
-	// Экспорт моих функций
-	Bool32 rc = TRUE;
+    // Экспорт моих функций
+    Bool32 rc = TRUE;
 
-	gwLowRC_rout = 0;
+    gwLowRC_rout = 0;
 
-	//#define CASE_FUNCTION(a) case ROUT_FN##a: *(FN##a *)pData = a; break
+    //#define CASE_FUNCTION(a) case ROUT_FN##a: *(FN##a *)pData = a; break
 
-	switch(dwType)
-	{
+    switch (dwType) {
 
-		case ROUT_LONG_TableTextOptions:
-		*(long*) pData = gTableTextOptions;
-		break;
+    case ROUT_LONG_TableTextOptions:
+        *(long*) pData = gTableTextOptions;
+        break;
 
-		case ROUT_HANDLE_PageHandle:
-		*(Handle*) pData = gPageHandle;
-		break;
+    case ROUT_HANDLE_PageHandle:
+        *(Handle*) pData = gPageHandle;
+        break;
 
-		default:
-		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
+    default:
+        gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
+        rc = FALSE;
+    }
 
-	//#undef CASE_FUNCTION
+    //#undef CASE_FUNCTION
 
-	return rc;
+    return rc;
 }
+
+
+void ROUT_SetInputImageName(const std::string& fname)
+{
+    gInputPageName = fname;
+}
+
+void ROUT_SetInputBBox(const CIF::Rect& bbox)
+{
+    gInputBBox = bbox;
+}
+
 //********************************************************************
 ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 {
-	// Импорт моих опций
+    // Импорт моих опций
 
 #define CASE_FUNCTION(a) case ROUT_FN##a: a=(FN##a)pData; break
-	Bool rc = TRUE;
+    Bool rc = TRUE;
 
-	switch(dwType)
-	{
-		// Страница в контейнере CED
-		case ROUT_HANDLE_PageHandle:
-		gPageHandle = (Handle)pData;
-		break;
+    switch (dwType) {
+    // Страница в контейнере CED
+    case ROUT_HANDLE_PageHandle:
+        gPageHandle = (Handle) pData;
+        break;
 
-		// Язык
-		case ROUT_LONG_Language:
-		SetLanguage ((long)pData);
-		break;
+        // Язык
+    case ROUT_LONG_Language:
+        SetLanguage((long) pData);
+        break;
 
-		// Формат
-		case ROUT_LONG_Format:
-		SetFormat((long)pData);
-		break;
+        // Формат
+    case ROUT_LONG_Format:
+        SetFormat((long) pData);
+        break;
 
-		// Выходная кодировка
-		case ROUT_LONG_Code:
-		SetActiveCode ((long)pData);
-		break;
+        // Выходная кодировка
+    case ROUT_LONG_Code:
+        SetActiveCode((long) pData);
+        break;
 
-		// Сохранение концов строк
-		case ROUT_BOOL_PreserveLineBreaks:
-		gPreserveLineBreaks = (pData!=0);
-		break;
+        // Сохранение концов строк
+    case ROUT_BOOL_PreserveLineBreaks:
+        gPreserveLineBreaks = (pData != 0);
+        break;
 
-		// Нераспознанный символ
-		case ROUT_PCHAR_BAD_CHAR:
-		gBadChar = *(char*) pData;
-		break;
+        // Нераспознанный символ
+    case ROUT_PCHAR_BAD_CHAR:
+        gBadChar = *(char*) pData;
+        break;
 
-		// Количество подстановок из REC6.DAT
-		case ROUT_LONG_CountTigerToUserCharSet:
-		gCountTigerToUserCharSet = (long) pData;
-		break;
+        // Количество подстановок из REC6.DAT
+    case ROUT_LONG_CountTigerToUserCharSet:
+        gCountTigerToUserCharSet = (long) pData;
+        break;
 
-		// Массив подстановок [3][128] (Tiger/Windows/DOS)
-		case ROUT_PPBYTE_TigerToUserCharSet:
-		gTigerToUserCharSet = (uchar**) pData;
-		break;
+        // Массив подстановок [3][128] (Tiger/Windows/DOS)
+    case ROUT_PPBYTE_TigerToUserCharSet:
+        gTigerToUserCharSet = (uchar**) pData;
+        break;
 
-		// Максимальное количество строк текста в одной таблице
-		case ROUT_LONG_MaxTextLinesInOneTable:
-		gMaxTextLinesInOneTable = (long) pData;
-		break;
+        // Максимальное количество строк текста в одной таблице
+    case ROUT_LONG_MaxTextLinesInOneTable:
+        gMaxTextLinesInOneTable = (long) pData;
+        break;
 
-		// Интервал между ячейками таблицы по вертикали
-		case ROUT_ULONG_TableTextIntervalBetweenCellsYY:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
-			gTableTextIntervalBetweenCellsYY = (ulong) pData;
-		}
-		break;
+        // Интервал между ячейками таблицы по вертикали
+    case ROUT_ULONG_TableTextIntervalBetweenCellsYY: {
+        ulong ul = (ulong) pData;
+        if (ul > 100) {
+            WRONG_ARGUMENT;
+            break;
+        }
+        else
+            gTableTextIntervalBetweenCellsYY = (ulong) pData;
+    }
+        break;
 
-		// Интервал между ячейками таблицы по горизонтали
-		case ROUT_ULONG_TableTextIntervalBetweenCellsXX:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
-			gTableTextIntervalBetweenCellsXX = (ulong) pData;
-		}
-		break;
+        // Интервал между ячейками таблицы по горизонтали
+    case ROUT_ULONG_TableTextIntervalBetweenCellsXX: {
+        ulong ul = (ulong) pData;
+        if (ul > 100) {
+            WRONG_ARGUMENT;
+            break;
+        }
+        else
+            gTableTextIntervalBetweenCellsXX = (ulong) pData;
+    }
+        break;
 
-		// Смещение таблицы от начала строки
-		case ROUT_ULONG_TableTextLeftIndent:
-		{
-			ulong ul = (ulong) pData;
-			if (ul > 100)
-			{
-				WRONG_ARGUMENT;
-				break;
-			}
-			else
-			gTableTextLeftIndent = ul;
-		}
-		break;
+        // Смещение таблицы от начала строки
+    case ROUT_ULONG_TableTextLeftIndent: {
+        ulong ul = (ulong) pData;
+        if (ul > 100) {
+            WRONG_ARGUMENT;
+            break;
+        }
+        else
+            gTableTextLeftIndent = ul;
+    }
+        break;
 
-		// Имя страницы без расширения .tif или .fed
-		case ROUT_PCHAR_PageName:
-		memset(gPageName,0,sizeof(gPageName));
-		if (pData)
-		{
-			if ( strlen((char*)pData)
-					+ 20 // Запас для суффиксов и расширения
-					>= sizeof(gPageName)
-			)
-			WRONG_ARGUMENT;
-			else
-			strcpy (gPageName, (char*)pData);
-		}
+        // Имя страницы без расширения .tif или .fed
+    case ROUT_PCHAR_PageName:
+        memset(gPageName, 0, sizeof(gPageName));
+        if (pData) {
+            if (strlen((char*) pData) + 20 // Запас для суффиксов и расширения
+                    >= sizeof(gPageName))
+                WRONG_ARGUMENT;
+            else
+                strcpy(gPageName, (char*) pData);
+        }
 
-		break;
+        break;
 
-		// Список разделителей:
-		case ROUT_PCHAR_TableTextSeparators:
-		SetTableTextSeparators((char*)pData);
-		break;
+        // Список разделителей:
+    case ROUT_PCHAR_TableTextSeparators:
+        SetTableTextSeparators((char*) pData);
+        break;
 
-		// Опции табличного текста (экспорт-импорт выполняются
-		// по одинаковому номеру, см. enum ROUT_EXPORT_ENTRIES)
-		case ROUT_LONG_TableTextOptions:
-		gTableTextOptions = (long) pData;
-		break;
+        // Опции табличного текста (экспорт-импорт выполняются
+        // по одинаковому номеру, см. enum ROUT_EXPORT_ENTRIES)
+    case ROUT_LONG_TableTextOptions:
+        gTableTextOptions = (long) pData;
+        break;
 
-		default:
-		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
+    default:
+        gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
+        rc = FALSE;
+    }
 #undef CASE_FUNCTION
-	return rc;
+    return rc;
 }
 
-void SetReturnCode_rout(uint16_t rc) {
-	gwLowRC_rout = rc;
+void SetReturnCode_rout(uint16_t rc)
+{
+    gwLowRC_rout = rc;
 }
 
-uint16_t GetReturnCode_rout() {
-	return gwLowRC_rout;
+uint16_t GetReturnCode_rout()
+{
+    return gwLowRC_rout;
 }
 
 // Далее идут мои переходники для CFIO.
 //
-Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag) {
-	return GlobalAlloc(dwFlag, dwSize);
+Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag)
+{
+    return GlobalAlloc(dwFlag, dwSize);
 }
 
-Handle MyReAlloc(Handle hMem, uint32_t dwSize, uint32_t dwFlag) {
-	return realloc(hMem, dwSize);
+Handle MyReAlloc(Handle hMem, uint32_t dwSize, uint32_t dwFlag)
+{
+    return realloc(hMem, dwSize);
 }
 
-Handle MyLock(Handle hMem) {
-	return GlobalLock(hMem);
+Handle MyLock(Handle hMem)
+{
+    return GlobalLock(hMem);
 }
 
-Bool32 MyUnlock(Handle hMem) {
-	return GlobalUnlock(hMem);
+Bool32 MyUnlock(Handle hMem)
+{
+    return GlobalUnlock(hMem);
 }
 
-Bool32 MyFree(Handle hMem) {
-	GlobalFree(hMem);
-	return TRUE;
+Bool32 MyFree(Handle hMem)
+{
+    GlobalFree(hMem);
+    return TRUE;
 }
 
-void MyDebugPrint(const char *format, ...) {
-	// Отладочная печать. См. макру DEBUG_PRINT.
+void MyDebugPrint(const char *format, ...)
+{
+    // Отладочная печать. См. макру DEBUG_PRINT.
 
 #ifdef _DEBUG
 
-	char buf[4096] = {0};
-	va_list marker;
+    char buf[4096] = {0};
+    va_list marker;
 
-	va_start( marker, format ); // Initialize variable arguments.
-	vsprintf(buf,format,marker);
-	va_end( marker ); // Reset variable arguments
+    va_start( marker, format ); // Initialize variable arguments.
+    vsprintf(buf,format,marker);
+    va_end( marker ); // Reset variable arguments
 
-	_CrtDbgReport( _CRT_WARN,
-			gFile,
-			gLine,
-			"ROUT.DLL",
-			"\n%s\n",
-			buf);
+    _CrtDbgReport( _CRT_WARN,
+            gFile,
+            gLine,
+            "ROUT.DLL",
+            "\n%s\n",
+            buf);
 
 #endif
 }
 //********************************************************************
-void ClearError() {
-	gwLowRC_rout = 0;
+void ClearError()
+{
+    gwLowRC_rout = 0;
 }
 //********************************************************************
-void NotImplemented(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("NotImplemented");
+void NotImplemented(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("NotImplemented");
 
-	gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
+    gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 }
 //********************************************************************
-void WrongArgument(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("WrongArgument");
+void WrongArgument(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("WrongArgument");
 
-	gwLowRC_rout = IDS_ERR_WRONG_ARGUMENT;
+    gwLowRC_rout = IDS_ERR_WRONG_ARGUMENT;
 }
 //********************************************************************
-void NoMemory(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("NoMemory");
+void NoMemory(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("NoMemory");
 
-	gwLowRC_rout = IDS_ERR_NO_MEMORY;
+    gwLowRC_rout = IDS_ERR_NO_MEMORY;
 }
 //********************************************************************
-void ErrOpenFile(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrOpenFile");
+void ErrOpenFile(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrOpenFile");
 
-	gwLowRC_rout = IDS_ERR_OPEN_FILE;
+    gwLowRC_rout = IDS_ERR_OPEN_FILE;
 }
 //********************************************************************
-void ErrWritingToFile(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrWritingToFile");
+void ErrWritingToFile(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrWritingToFile");
 
-	gwLowRC_rout = IDS_ERR_WRITING_TO_FILE;
+    gwLowRC_rout = IDS_ERR_WRITING_TO_FILE;
 }
 //********************************************************************
-void ErrCloseFile(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrCloseFile");
+void ErrCloseFile(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrCloseFile");
 
-	gwLowRC_rout = IDS_ERR_CLOSE_FILE;
+    gwLowRC_rout = IDS_ERR_CLOSE_FILE;
 }
 //********************************************************************
-void ErrCreateDirectory(char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrCreateDirectory");
+void ErrCreateDirectory(char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrCreateDirectory");
 
-	gwLowRC_rout = IDS_ERR_CREATE_DIRECTORY;
+    gwLowRC_rout = IDS_ERR_CREATE_DIRECTORY;
 }
 //********************************************************************
-void ErrPageNotLoaded(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrPageNotLoaded");
+void ErrPageNotLoaded(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrPageNotLoaded");
 
-	gwLowRC_rout = IDS_ERR_PAGE_NOT_LOADED;
+    gwLowRC_rout = IDS_ERR_PAGE_NOT_LOADED;
 }
 //********************************************************************
-void ErrObjectNotFound(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrObjectNotFound");
+void ErrObjectNotFound(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrObjectNotFound");
 
-	gwLowRC_rout = IDS_ERR_OBJECT_NOT_FOUND;
+    gwLowRC_rout = IDS_ERR_OBJECT_NOT_FOUND;
 }
 //********************************************************************
-void ErrPossibleLossOfData(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrPossibleLossOfData");
+void ErrPossibleLossOfData(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrPossibleLossOfData");
 
-	gwLowRC_rout = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
+    gwLowRC_rout = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
 }
 //********************************************************************
-void ErrPictureData(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrPictureData");
+void ErrPictureData(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrPictureData");
 
-	gwLowRC_rout = IDS_ERR_PICTURE_DATA;
+    gwLowRC_rout = IDS_ERR_PICTURE_DATA;
 }
 //********************************************************************
-void ErrLoadAlphabet(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrLoadAlphabet");
+void ErrLoadAlphabet(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrLoadAlphabet");
 
-	gwLowRC_rout = IDS_ERR_LOAD_ALPHABET;
+    gwLowRC_rout = IDS_ERR_LOAD_ALPHABET;
 }
 //********************************************************************
-void ErrLoadRec6List(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrLoadRec6List");
+void ErrLoadRec6List(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrLoadRec6List");
 
-	gwLowRC_rout = IDS_ERR_LOAD_REC6LIST;
+    gwLowRC_rout = IDS_ERR_LOAD_REC6LIST;
 }
 //********************************************************************
-void ErrUpdateActiveAlphabet(const char *file, long line) {
-	gFile = file;
-	gLine = line;
-	MyDebugPrint("ErrUpdateActiveAlphabet");
+void ErrUpdateActiveAlphabet(const char *file, long line)
+{
+    gFile = file;
+    gLine = line;
+    MyDebugPrint("ErrUpdateActiveAlphabet");
 
-	gwLowRC_rout = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
+    gwLowRC_rout = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
 }
 //********************************************************************
-Bool InitMemory(Byte *memStart, long sizeMem) {
-	// Отвести страховочные бамперы в начале
-	// и в конце отведенной области памяти
-	//
-	// Если передана нулевая память, то это значит, то
-	// нужно повторно использовать ту же память.
+Bool InitMemory(Byte *memStart, long sizeMem)
+{
+    // Отвести страховочные бамперы в начале
+    // и в конце отведенной области памяти
+    //
+    // Если передана нулевая память, то это значит, то
+    // нужно повторно использовать ту же память.
 
-	if (!memStart) {
-		// Reuse memory
-		memStart = gMemStart;
-		sizeMem = gMemEnd - gMemStart + gBumperSize;
-	}
+    if (!memStart) {
+        // Reuse memory
+        memStart = gMemStart;
+        sizeMem = gMemEnd - gMemStart + gBumperSize;
+    }
 
-	else if (sizeMem < gBumperSize) {
-		NO_MEMORY;
-		return FALSE;
-	}
+    else if (sizeMem < gBumperSize) {
+        NO_MEMORY;
+        return FALSE;
+    }
 
-	// Всю память обнулить, это важно.
-	memset(memStart, 0, sizeMem);
+    // Всю память обнулить, это важно.
+    memset(memStart, 0, sizeMem);
 
-	// Отвести область данных
-	gMemStart = memStart;
-	gMemEnd = gMemStart + sizeMem - gBumperSize;
-	gMemCur = gMemStart;
+    // Отвести область данных
+    gMemStart = memStart;
+    gMemEnd = gMemStart + sizeMem - gBumperSize;
+    gMemCur = gMemStart;
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
-Bool SetTableTextSeparators(char* s) {
-	// Список разделителей табличного текста:
+Bool SetTableTextSeparators(char* s)
+{
+    // Список разделителей табличного текста:
 
-	if (!s || strlen(s) >= sizeof(gTableTextSeparators)) {
-		WRONG_ARGUMENT;
-		return FALSE;
-	}
+    if (!s || strlen(s) >= sizeof(gTableTextSeparators)) {
+        WRONG_ARGUMENT;
+        return FALSE;
+    }
 
-	memset(gTableTextSeparators, 0, sizeof(gTableTextSeparators));
-	strcpy(gTableTextSeparators, s);
+    memset(gTableTextSeparators, 0, sizeof(gTableTextSeparators));
+    strcpy(gTableTextSeparators, s);
 
-	// Заменить пробелы на нули, а t на табуляцию
-	for (long n = 0; n < sizeof(gTableTextSeparators) - 1; n++) {
-		char *p = &gTableTextSeparators[n];
-		if (*p == ' ')
-			*p = 0;
-		else if (*p == 't')
-			*p = '\t';
-	}
+    // Заменить пробелы на нули, а t на табуляцию
+    for (long n = 0; n < sizeof(gTableTextSeparators) - 1; n++) {
+        char *p = &gTableTextSeparators[n];
+        if (*p == ' ')
+            *p = 0;
+        else if (*p == 't')
+            *p = '\t';
+    }
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
