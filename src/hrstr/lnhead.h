@@ -23,10 +23,10 @@
 
 enum lnhead_flag_t
 {
-    l_fbeg = 0x20,
-    l_fend = 0x80,
-    l_cbeg = 0x02,
-    l_cend = 0x08
+    LNHEAD_FREE_BEGIN = 0x20,
+    LNHEAD_FREE_END = 0x80,
+    LNHEAD_CBEGIN = 0x02,
+    LNHEAD_CEND = 0x08
 };
 
 //-------------------- line representation ----------------------

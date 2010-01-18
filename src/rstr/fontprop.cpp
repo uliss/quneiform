@@ -606,7 +606,7 @@ static void serif(cell *c) {
 	for (n1 = n2 = 0, line = (lnhead *) ((pchar)(c->env) + c->env->lines
 			+ sizeof(int16_t)); line->lth > 0; line = (lnhead *) ((pchar) line
 			+ line->lth)) {
-		if (tabserif[let] & LSER && line->flg & l_fend && (h = line->h) >= 5
+		if (tabserif[let] & LSER && line->flg & LNHEAD_FREE_END && (h = line->h) >= 5
 				&& h >= H / 4 && line->row + h + 2 >= H && !(c->font & c_fp_it
 				&& memchr("BLb", let, 3))) {
 			i1 = (interval *) ((pchar) line + sizeof(lnhead)) + (h - 3);
@@ -621,7 +621,7 @@ static void serif(cell *c) {
 					&& abs(b1 - b2) <= 1)
 				n2++;
 		}
-		if (tabserif[let] & HSER && line->flg & l_fbeg && (h = line->h) >= 5
+		if (tabserif[let] & HSER && line->flg & LNHEAD_FREE_BEGIN && (h = line->h) >= 5
 				&& h >= H / 4 && line->row <= 2 && !(c->font & c_fp_it && let
 				== 'q')) {
 			i1 = (interval *) ((pchar) line + sizeof(lnhead));

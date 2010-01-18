@@ -246,8 +246,8 @@ static void pimples_deleting_one_line(lnhead *line, int16_t cw, int16_t ch,
 	num_row = line->row;
 	inter = (interval *) ((pchar) line + sizeof(lnhead));
 	for (; h; h--, inter++, i++, num_row++)
-		if ((i == 0 && (line->flg & l_fbeg))
-				|| (h == 1 && (line->flg & l_fend))) {
+		if ((i == 0 && (line->flg & LNHEAD_FREE_BEGIN))
+				|| (h == 1 && (line->flg & LNHEAD_FREE_END))) {
 			if (inter->l > 2)
 				continue;
 			switch (inter->l) {

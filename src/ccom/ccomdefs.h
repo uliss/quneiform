@@ -58,6 +58,7 @@
 #define H_ccomdef_h
 
 #include "recdefs.h"
+#include "lnhead.h"
 #include "common/interval.h"
 
 #pragma pack (push,8)
@@ -122,26 +123,8 @@ struct CCOM_comp
         // 32
 };
 
-//-------------------- linear (interval) representation ----------------------
-
-//  At the beginning of line representation - word of total length -
-//  not use it, simply skip
-//  At end of each line zero byte as mark of line end
-//  After last line zero word
-
-//  line header
-typedef struct _lnhead
-{
-        int16_t lth; // length of one line representation
-        int16_t h; // height of line
-        int16_t row; // relative row of line start
-        uint16_t flg; // flags of free beg and free end
-#define CCOM_l_fbeg     0x20
-#define CCOM_l_fend     0x80
-#define CCOM_l_cbeg     0x02
-#define CCOM_l_cend     0x08
-} CCOM_lnhead;
-typedef struct _lnhead CCOM_linerep; // alias
+typedef lnhead CCOM_lnhead;
+typedef lnhead CCOM_linerep; // alias
 
 typedef CIF::IntervalImpl<unsigned char> CCOM_interval;
 typedef CIF::IntervalImpl<uint16_t> CCOM_interval16;

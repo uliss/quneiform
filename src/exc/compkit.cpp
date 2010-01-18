@@ -517,7 +517,7 @@ int16_t read_dust_comp(dust_comp *cp, uchar *p)
     uchar b;
     lp = (lnhead *) p;
     lp->row = 0;
-    lp->flg = l_fbeg + l_fend;
+    lp->flg = LNHEAD_FREE_BEGIN + LNHEAD_FREE_END;
     n = lp->h = cp->h;
     lp->lth = lth = sizeof(lnhead) + (n + 1) * sizeof(interval);
     ip = (interval *) (lp + 1);

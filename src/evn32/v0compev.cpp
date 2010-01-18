@@ -200,14 +200,14 @@ static void ev_vector_cnt()
 
         if (lp->h == 1) {
             // One point lines
-            if (lp->flg & (l_fbeg + l_fend)) {
+            if (lp->flg & (LNHEAD_FREE_BEGIN + LNHEAD_FREE_END)) {
                 evline[0]--;
                 evfulln--;
 
-                if (lp->flg & l_fend)
+                if (lp->flg & LNHEAD_FREE_END)
                     evline[2]--;
 
-                if (lp->flg & l_fbeg)
+                if (lp->flg & LNHEAD_FREE_BEGIN)
                     evline[1]--;
 
                 lp = (lnhead *) ((uchar*) lp + lp->lth);
@@ -224,7 +224,7 @@ static void ev_vector_cnt()
 
         // Two points line
         if (lp->h == 2) {
-            if (lp->flg & l_fbeg)
+            if (lp->flg & LNHEAD_FREE_BEGIN)
                 goto by_beg;
 
             else {
@@ -240,7 +240,7 @@ static void ev_vector_cnt()
         vp->ln++;
         upper_row(lp->row);
 
-        if (lp->flg & l_fbeg)
+        if (lp->flg & LNHEAD_FREE_BEGIN)
             upper_col((uint16_t) (ip->e - (ip->l + 1) / 2));
 
         else
@@ -249,7 +249,7 @@ static void ev_vector_cnt()
         lower_row((uint16_t) (lp->row + lp->h));
         ip += lp->h;
 
-        if (lp->flg & l_fend)
+        if (lp->flg & LNHEAD_FREE_END)
             lower_col((uint16_t) ((ip - 1)->e - ((ip - 1)->l + 1) / 2));
 
         else
@@ -452,7 +452,7 @@ static uint16_t net_comp_count()
     uint16_t s = 0;
 
     while (p->lth) {
-        if ((p->h != 1) || ((p->flg & (l_fbeg + l_fend)) == 0))
+        if ((p->h != 1) || ((p->flg & (LNHEAD_FREE_BEGIN + LNHEAD_FREE_END)) == 0))
             s++;
 
         p = (lnhead *) ((uchar*) p + p->lth);

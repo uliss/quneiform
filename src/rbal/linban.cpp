@@ -809,7 +809,7 @@ void add_hist(CSTR_rast a, int16_t flg, uchar *begs)
         //Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
         Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 
-        if (!(Lp1->flg & l_fbeg))
+        if (!(Lp1->flg & LNHEAD_FREE_BEGIN))
             continue;
 
         hbeg = Lp1->row;
@@ -881,7 +881,7 @@ void hist_bot(int16_t x1, int16_t x2)
         for (lc1 = 0; lc1 < Lc1; lc1++, Lp1 = Lp2) {
             Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 
-            if (!(Lp1->flg & l_fend))
+            if (!(Lp1->flg & LNHEAD_FREE_END))
                 continue; // free ends only
 
             hend = Lp1->row + Lp1->h;
@@ -964,7 +964,7 @@ void hist_top(int16_t x1, int16_t x2)
             int16_t th, ih;
             Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 
-            if (!(Lp1->flg & l_fbeg))
+            if (!(Lp1->flg & LNHEAD_FREE_BEGIN))
                 continue; // take free begs only
 
             hbeg = Lp1->row;
@@ -1522,7 +1522,7 @@ void hist_max(CSTR_rast a)
         // next line
         Lp2 = (CCOM_lnhead *) ((char *) Lp1 + Lp1->lth); // next line
 
-        if (!(Lp1->flg & l_fbeg))
+        if (!(Lp1->flg & LNHEAD_FREE_BEGIN))
             continue;
 
         hbeg = Lp1->row;

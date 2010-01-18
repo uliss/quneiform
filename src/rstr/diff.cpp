@@ -328,7 +328,7 @@ static int16_t long_line_c(cell *c) {
 
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
-		if (line->flg & l_fbeg && line->flg & l_fend) {
+		if (line->flg & LNHEAD_FREE_BEGIN && line->flg & LNHEAD_FREE_END) {
 			if (line->h < c->h / 2)
 				return 0;
 			i = (interval *) ((pchar) line + sizeof(lnhead)) + (line->h - 4);
@@ -390,7 +390,7 @@ static int16_t short_lines(cell *c) {
 			flg = line->flg;
 			row = line->row;
 			intval = (interval *) ((pchar) line + sizeof(lnhead));
-			if (h == 2 && flg & l_fend) {
+			if (h == 2 && flg & LNHEAD_FREE_END) {
 				intval++;
 				row++;
 			}
@@ -398,8 +398,8 @@ static int16_t short_lines(cell *c) {
 			col = intval->e - w;
 			if (3* (c ->w)/4<=col+w/2 && w>=c->h/8)
 			{
-				if (flg&l_fbeg && 4*row<c->h) a|=1;
-				if (flg&l_fend && 4*(c->h-row)<c->h) a|=2;
+				if (flg&LNHEAD_FREE_BEGIN && 4*row<c->h) a|=1;
+				if (flg&LNHEAD_FREE_END && 4*(c->h-row)<c->h) a|=2;
 			}
 		}
 		return a;
@@ -496,7 +496,7 @@ cell *dot_ri(cell *c) {
 
  for (H=c->h,line=(lnhead *)((pchar)(c->env)+c->env->lines+sizeof(int16_t));
  (l=line->lth)>0; line=(lnhead *)((pchar)line+l) )
- if (line->flg&l_fend && (h=line->h)>=3*H/4 && line->row+h+2>=H)
+ if (line->flg&LNHEAD_FREE_END && (h=line->h)>=3*H/4 && line->row+h+2>=H)
  {
  i1=(interval *)((pchar)line+sizeof(lnhead))+(h-2);
  if ((b1=(e1=i1->e)-i1->l)<(c->w)/2) break;
@@ -1055,7 +1055,7 @@ static int16_t long_lines_rt(cell *c) {
 	for (m1 = m2 = 1000, ln1 = line = (lnhead *) ((pchar)(c->env)
 			+ c->env->lines + sizeof(int16_t)); (l = line->lth) > 0; line
 			= (lnhead *) ((pchar) line + l))
-		if (line->flg & l_fbeg && line->h >= 2) {
+		if (line->flg & LNHEAD_FREE_BEGIN && line->h >= 2) {
 			if (line->row < m1) {
 				m2 = m1;
 				ln2 = ln1;
@@ -1108,7 +1108,7 @@ static int16_t long_lines_ff(cell *c) {
 	for (m1 = m2 = 1000, ln1 = line = (lnhead *) ((pchar)(c->env)
 			+ c->env->lines + sizeof(int16_t)); (l = line->lth) > 0; line
 			= (lnhead *) ((pchar) line + l))
-		if (line->flg & l_fbeg && line->h >= 2) {
+		if (line->flg & LNHEAD_FREE_BEGIN && line->h >= 2) {
 			if (line->row < m1) {
 				m2 = m1;
 				ln2 = ln1;
@@ -1194,7 +1194,7 @@ static int16_t upper_right_line(cell *c) {
 		}
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
 			= line->lth) > 0; line = (lnhead *) ((pchar) line + l))
-		if (line->h <= (c->h) / 4 && line->flg & l_fbeg && line->row <= c->h
+		if (line->h <= (c->h) / 4 && line->flg & LNHEAD_FREE_BEGIN && line->row <= c->h
 				/ 4) {
 			intval = (interval *) ((pchar) line + sizeof(lnhead));
 			for (max = 0, min = c->w, i = line->h; i; i--, intval++) {

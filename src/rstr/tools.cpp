@@ -714,9 +714,9 @@ c_comp *compose_comp(int16_t n, c_comp **c) {
 				ln->row += du;
 				lth = ln->lth;
 				if (!j)
-					ln->flg |= l_cbeg;
+					ln->flg |= LNHEAD_CBEGIN;
 				if (j == nl - 1)
-					ln->flg |= l_cend;
+					ln->flg |= LNHEAD_CEND;
 				for (intv = (interval *) ((puchar) ln + sizeof(lnhead)); intv->l; intv++)
 					intv->e += dl;
 			}

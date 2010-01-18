@@ -321,10 +321,10 @@ Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uch
             for (size = 2, ln = (CCOM_lnhead*) ((uchar*) lines + 2), free_beg = free_end = 0, nl
                     = 0; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
                                                                                   + ln->lth)) {
-                if (ln->flg & CCOM_l_fbeg)
+                if (ln->flg & LNHEAD_FREE_BEGIN)
                     free_beg++;
 
-                if (ln->flg & CCOM_l_fend)
+                if (ln->flg & LNHEAD_FREE_END)
                     free_end++;
 
                 size += ln->lth;
@@ -433,10 +433,10 @@ Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uchar *l
             for (size = 2, ln = (CCOM_lnhead*) ((uchar*) lines + 2), free_beg = free_end = 0, nl
                     = 0; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
                                                                                   + ln->lth)) {
-                if (ln->flg & CCOM_l_fbeg)
+                if (ln->flg & LNHEAD_FREE_BEGIN)
                     free_beg++;
 
-                if (ln->flg & CCOM_l_fend)
+                if (ln->flg & LNHEAD_FREE_END)
                     free_end++;
 
                 size += ln->lth;

@@ -196,7 +196,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 			if ((hl = Lp1->h) <= 3)
 				goto nextl1; // ignore short lines
 			hm = Lp1->row + rowd;
-			if ((Lp1->flg & l_fend) && (2 * (hm + Lp1->h) <= WC->h))
+			if ((Lp1->flg & LNHEAD_FREE_END) && (2 * (hm + Lp1->h) <= WC->h))
 				goto nextl1;
 			// ignore free end line ending in upper half of the cell
 			rp = &at_roof[hm];
@@ -309,7 +309,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 				hw1 = Lp1->row + rowd;
 				hw2 = hw1 + Lp1->h - 1;
 				// ignore free end line ending in upper half of the cell
-				if (((Lp1->flg & l_fend) == 0) || (2 * (hw2) > WC->h)) {
+				if (((Lp1->flg & LNHEAD_FREE_END) == 0) || (2 * (hw2) > WC->h)) {
 					if ((hw1 <= h1) && (hw2 >= h2)) // interesting line (leg) obtained
 					{
 						if (hw1 > hhmin)
@@ -366,7 +366,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 			n1 = Lp1->h - 1;
 			h1 = Lp1->row + rowd;
 			h2 = h1 + n1;
-			if ((Lp1->flg & (l_fbeg | l_fend)) == 0) {
+			if ((Lp1->flg & (LNHEAD_FREE_BEGIN | LNHEAD_FREE_END)) == 0) {
 				if (n1 < 4)
 					fl_shln = 1; // short nonfree line obtained
 				else {
@@ -408,7 +408,7 @@ void atlant(cell *AA, s_glue *GL, int16_t flag, int16_t flag_m)
 			} // if interesting line
 			else if (fl_short) {
 				int16_t cleg;
-				try_short: if ((Lp1->flg & (l_fbeg | l_fend)) != 0)
+				try_short: if ((Lp1->flg & (LNHEAD_FREE_BEGIN | LNHEAD_FREE_END)) != 0)
 					goto skip; // non_free begs and ends of interest
 				if ((h1 >= hh2) || (h2 < hh1))
 					goto skip; // leg not in studied zone
