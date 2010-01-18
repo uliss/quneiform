@@ -98,7 +98,7 @@ using namespace CIF;
 
 int HFILE_ERROR;
 
-Bool CreateDirectory(const char * dir)
+Bool CreateDirectory(const char * dir, void*)
 {
     if (!mkdir(dir, 0755))
         return TRUE;

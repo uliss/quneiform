@@ -80,7 +80,7 @@ CFCOMPAT_FUNC Bool WritePrivateProfileString(const char * AppName, const char * 
 CFCOMPAT_FUNC uint GetPrivateProfileInt(const char * AppName, const char * KeyName,
         uint defaultValue, const char * FileName);
 CFCOMPAT_FUNC Bool GetComputerName(char* buffer, size_t * size);
-CFCOMPAT_FUNC Bool CreateDirectory(const char * dir);
+CFCOMPAT_FUNC Bool CreateDirectory(const char * dir, void* = 0);
 CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
 
 #define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))

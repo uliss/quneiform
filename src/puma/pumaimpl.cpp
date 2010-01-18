@@ -1050,8 +1050,6 @@ void PumaImpl::save(const std::string& filename, int Format) const
     ExporterFactory::instance().setPage(ed_page_);
     ExporterFactory::instance().setFormatOptions(format_options_);
     Exporter * exp = ExporterFactory::instance().make(Format);
-    exp->setInputImagePath(input_filename_);
-    exp->setInputImageBBox(rect_template_);
     exp->exportTo(filename);
     delete exp;
 }

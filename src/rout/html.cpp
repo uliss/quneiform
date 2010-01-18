@@ -55,20 +55,14 @@
  */
 
 #include <string.h>
+#include <string>
 #include <sstream>
-
-#ifdef WIN32
-#include <direct.h>
-#else
-#include <sys/stat.h>
-#include <sys/types.h>
-#define mkdir(a) mkdir(a, 0755)
-#endif
+#include <vector>
 
 #include "rout_own.h"
-#include "cfcompat.h"
-#include "common/tostring.h" // for toBBox
-#include "common/helper.h"
+#include "compat_defs.h"
+
+using namespace std;
 
 static Bool Static_MakeHTML(Handle hObject, long reason);
 
@@ -107,45 +101,177 @@ Bool MakeHOCR()
     return BrowsePage(Static_MakeHTML, FALSE, FALSE);
 }
 
+/*!
+ \brief \~english Put stream bufer into buffer for OCR results.
+ \~russian Поместить содержимое строкового потока в буфер
+ результатов распознавания.
+ */
+static Bool strm2buf(const ostringstream& outStrm)
+{
+    unsigned long sizeMem = outStrm.str().size();
+    // проверим достаточность памяти
+    CHECK_MEMORY(sizeMem + 10);
+
+    ::memcpy(gMemCur, outStrm.str().c_str(), sizeMem);
+    gMemCur += sizeMem;
+
+    return TRUE;
+}
+
+/*!
+ \brief \~english Put info about hOCR text line into buffer for OCR results.
+ \~russian Поместить текстовую строку hOCR в буфер результатов распознавания.
+ */
+static Bool writeHocrLineStartTag(Byte* pLineStart, const edRect& rcLine, const unsigned int iLine)
+{
+    ASSERT(pLineStart);
+    ostringstream outStrm;
+    outStrm << "<span class='ocr_line' id='line_" << iLine << "' " << "title=\"bbox "
+            << rcLine.left << " " << rcLine.top << " " << rcLine.right << " " << rcLine.bottom
+            << "\">";
+    outStrm.write(reinterpret_cast<const char*> (pLineStart), gMemCur - pLineStart);
+
+    unsigned long sizeMem = outStrm.str().size();
+    // проверим достаточность памяти
+    CHECK_MEMORY(sizeMem + 10);
+
+    ::memcpy(pLineStart, outStrm.str().c_str(), sizeMem);
+    gMemCur = pLineStart + sizeMem;
+
+    return TRUE;
+}
+
+static bool isGoodCharRect(const edRect& rc)
+{
+    bool goodCharRect = true;
+    goodCharRect = goodCharRect && (rc.left != -1);
+    goodCharRect = goodCharRect && (rc.left != 65535);
+    goodCharRect = goodCharRect && (rc.right != 65535);
+    goodCharRect = goodCharRect && (rc.top != 65535);
+    goodCharRect = goodCharRect && (rc.bottom != 65535);
+    return goodCharRect;
+}
+
+// decided to use CHECK_MEMORY macro in case it becomes a function which does more things than check if gMemCur+a>gMemEnd
+// as a consequence, this function assures that allocated memory in gMemCur is enough.
+static Bool writeHocrCharBBoxesInfo(const std::vector<edRect> &charBboxes, const unsigned int iLine)
+{
+    ostringstream outStrm;
+    outStrm << "<span class='ocr_cinfo' title=\"x_bboxes ";
+
+    for (unsigned int i = 0; i < charBboxes.size(); i++) {
+        outStrm << charBboxes[i].left << " " << charBboxes[i].top << " " << charBboxes[i].right
+                << " " << charBboxes[i].bottom << " ";
+    }
+
+    outStrm << "\"></span>";
+
+    unsigned long sizeMem = outStrm.str().size();
+
+    // (check memory assures gMemCur can store and has 10 bytes extra).
+    // the comment below was copied from writeHocrLine
+    // проверим достаточность памяти
+    CHECK_MEMORY(sizeMem + 10);
+
+    ::memcpy(gMemCur, outStrm.str().c_str(), sizeMem);
+    gMemCur += sizeMem;
+
+    return TRUE;
+}
+
 Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
 )
 {
-    char buf[256] = "";
-    edRect r;
+    static char buf[256] = { 0 };
+    //! \~russian прямоугольник символа
+    edRect r = { 0 };
+
+    static unsigned int iPage(1);
+    //! \~russian прямоугольник строки
+    //! \~english rectangle state variable, for the current line, is expanded per incoming char.
+    static edRect rcLine = { 0 };
+    //! \~russian прямоугольник строки
+    //! \~english true if last none-space character was in line (i.e had a valid bbox).
+    static bool isInLine(false);
+    //! \~russian номер текущей строки
+    //! \~english state flag for current line nr.
+    static unsigned int iLine(1);
+    //! \~russian позиция начала строки в текстовом буфере вывода
+    static Byte* pLineStart = 0;
+    //! \~english is the ptr to the location that gMemCur pointed to when reason was BROWSE_LINE_START
+
+    static std::vector<edRect> currentLineCharBBoxes;
+    currentLineCharBBoxes.reserve(200);
+
     // В конце вызывается WordControl
 
     switch (reason) {
-    case BROWSE_CHAR:
-        // Символ
-        // Установить язык
+    case BROWSE_CHAR: // Символ
     {
+        // Установить язык
         long lang = CED_GetCharFontLang(hObject);
         if (lang != gLanguage)
             SetLanguage(lang);
-    }
-
         // Стиль шрифта
         FontStyle(CED_GetCharFontAttribs(hObject));
 
         r = CED_GetCharLayout(hObject);
+        currentLineCharBBoxes.push_back(r);
+
         // Записать символ
-        if (r.left != -1 && hocrmode) {
-            sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left, r.top, r.right, r.bottom);
-            PUT_STRING(buf);
+        if (isGoodCharRect(r) && hocrmode) {
+            if (0 == isInLine)
+            // начнем определение границ строки
+            {
+                if (isGoodCharRect(r)) {
+                    rcLine = r;
+                    isInLine = true;
+                }
+            }
+            else {
+                if (isGoodCharRect(r)) {
+                    rcLine.left = min(rcLine.left, r.left);
+                    rcLine.top = min(rcLine.top, r.top);
+                    rcLine.right = max(rcLine.right, r.right);
+                    rcLine.bottom = max(rcLine.bottom, r.bottom);
+                }
+                else {
+                }
+            }
         }
+        ONE_CHAR(hObject);
 
-        ONE_CHAR(hObject)
-        ;
-        if (r.left != -1 && hocrmode)
-            PUT_STRING("</span>")
-        ;
-
+        break;
+    }
+    case BROWSE_LINE_START:
+        // Начало строки текста
+        pLineStart = gMemCur;
+        ::memset(&rcLine, 0, sizeof(rcLine));
         break;
 
     case BROWSE_LINE_END:
         // Конец строки текста
-        if (gPreserveLineBreaks || gEdLineHardBreak)
-            PUT_STRING("<br>")
+        if (hocrmode)
+            writeHocrLineStartTag(pLineStart, rcLine, iLine);
+        FontStyle(0);
+
+        // write character bounding boxes info
+        if (currentLineCharBBoxes.size())
+            if (hocrmode)
+                writeHocrCharBBoxesInfo(currentLineCharBBoxes, iLine);
+        currentLineCharBBoxes.resize(0);
+
+        isInLine = false;
+        if (gPreserveLineBreaks || gEdLineHardBreak) {
+            PUT_STRING("<br>");
+        }
+
+        iLine++;
+        // close HocrLine tag
+        PUT_STRING("</span>")
+        ;
+
+        NEW_LINE
         ;
         break;
 
@@ -160,39 +286,49 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         FontStyle(0);
         PUT_STRING("</p>")
         ;
+        NEW_LINE
+        ;
         break;
 
-    case BROWSE_PAGE_START: {
+    case BROWSE_PAGE_START:
         // Start of page.
         FontStyle(0);
-        PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n");
-        PUT_STRING("<html>\n<head>\n    <title></title>\n");
-        if (gActiveCode == ROUT_CODE_UTF8)
-            PUT_STRING("    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n");
-        PUT_STRING("</head>\n<body>\n");
-
-        //        if (hocrmode) {
-        // FIXME now supportes only one page
-        // TODO make page numbers support
-        std::ostringstream ocr_page;
-        ocr_page << "<div class=\"ocr_page\" id=\"page_1\" image=\"";
-        ocr_page << CIF::escapeHtmlSpecialChars(gInputPageName) << "\" bbox=\"" << CIF::toBBox(
-                gInputBBox) << "\">\n";
-        PUT_STRING(ocr_page.str().c_str());
-        //        }
-
+        {
+            ostringstream outStrm;
+            outStrm << "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 "
+                "Transitional//EN\""
+                " \"http://www.w3.org/TR/html4/loose.dtd\">" << endl;
+            outStrm << "<html><head><title></title>" << endl;
+            if (gActiveCode == ROUT_CODE_UTF8) {
+                outStrm << "<meta http-equiv=\"Content-Type\""
+                    " content=\"text/html;charset=utf-8\" >" << endl;
+            }
+            outStrm << "<meta name='ocr-system' content='openocr'>" << endl;
+            outStrm << "</head>" << endl << "<body>";
+            strm2buf(outStrm);
+        }
+        {
+            ostringstream outStrm;
+            EDSIZE sizeImage(CED_GetPageImageSize(hObject));
+            const char* pImageName = CED_GetPageImageName(hObject);
+            assert(pImageName);
+            //пример <div class='ocr_page' title='image "page-000.pbm"; bbox 0 0 4306 6064'>
+            outStrm << "<div class='ocr_page' id='page_" << iPage << "' ";
+            outStrm << "title='image \"" << pImageName << "\"; bbox 0 0 " << sizeImage.cx << " "
+                    << sizeImage.cy << "'>" << endl;
+            strm2buf(outStrm);
+            ++iPage;
+        }
         break;
-    }
 
     case BROWSE_PAGE_END:
-        if (hocrmode) {
-            PUT_STRING("</div>\n");
-        }
-
         // Конец страницы
-        PUT_STRING("</body>\n</html>\n")
+        PUT_STRING("</div>")
         ;
-
+        // Конец документа
+        PUT_STRING("</body></html>\n")
+        ;
+        iLine = 1;
         break;
 
     case BROWSE_TABLE_START:
@@ -292,7 +428,7 @@ static Bool BeginParagraph(Handle hObject)
 
     PUT_STRING("<p");
     if (p) {
-        sprintf(buf, " align=\"%s\"", p);
+        sprintf(buf, " align=%s", p);
         PUT_STRING(buf);
     }
 
@@ -317,14 +453,14 @@ static Bool CellStart()
         strcpy(buf, "<td>");
 
     else if (rowspan > 1 && colspan == 1)
-        sprintf(buf, "<td rowspan=\"%ld\">", rowspan);
+        sprintf(buf, "<td rowspan=%d>", rowspan);
 
     else if (rowspan == 1 && colspan > 1)
-        sprintf(buf, "<td colspan=\"%ld\">", colspan);
+        sprintf(buf, "<td colspan=%d>", colspan);
 
     else
         // ( rowspan > 1 && colspan > 1 )
-        sprintf(buf, "<td rowspan=\"%ld\" colspan=\"%ld\">", rowspan, colspan);
+        sprintf(buf, "<td rowspan=%d colspan=%d>", rowspan, colspan);
 
     PUT_STRING(buf);
     return TRUE;
@@ -401,7 +537,7 @@ static Bool Picture()
     char buf[256] = "";
     char absPicFileName[256] = "";
     char relPicFileName[256] = "";
-    char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT];
+    char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT];
 
     // create folder for images gPageFilesFolder.
     if (!CreatePageFilesFolder())
@@ -412,18 +548,18 @@ static Bool Picture()
 
     // write picture to bmp file
     if (dir[0])
-        sprintf(absPicFileName, "%s/%s/%ld.bmp", dir, gPageFilesFolder, gPictureNumber);
+        sprintf(absPicFileName, "%s/%s/%d.bmp", dir, gPageFilesFolder, gPictureNumber);
     else
-        sprintf(absPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
+        sprintf(absPicFileName, "%s/%d.bmp", gPageFilesFolder, gPictureNumber);
 
-    sprintf(relPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
+    sprintf(relPicFileName, "%s/%d.bmp", gPageFilesFolder, gPictureNumber);
 
     if (!WritePictureToBMP_File(gPictureData, gPictureLength, absPicFileName))
         return FALSE;
 
     // write img html tag.
-    sprintf(buf, "<img src=\"%s\" "
-        "width=\"%ld\" height=\"%ld\" "
+    sprintf(buf, "<img src=%s "
+        "width=%d height=%d "
         "alt=\"%s\">", relPicFileName, gPictureGoal.cx * 72L / 1440L,
             gPictureGoal.cy * 72L / 1440L, relPicFileName);
 
@@ -437,7 +573,7 @@ static Bool Picture()
 static Bool CreatePageFilesFolder()
 {
     // Создать подпапку для картинок gPageFilesFolder.
-    char dir[PATH_MAX], name[PATH_MAX], ext[_MAX_EXT], path[PATH_MAX];
+    char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT], path[_MAX_PATH];
 
     // Задано ли имя страницы?
     if (!gPageName[0])
@@ -453,7 +589,7 @@ static Bool CreatePageFilesFolder()
         sprintf(path, "%s/%s", dir, gPageFilesFolder);
     else
         sprintf(path, "%s", gPageFilesFolder);
-    if (mkdir(&path[0]) != 0) {
+    if (CreateDirectory(&path[0], 0) == FALSE) {
         uint32_t err = GetLastError();
         if (err != ERROR_ALREADY_EXISTS) {
             DEBUG_PRINT("CreatePageFilesFolder error = %d", err);
@@ -463,4 +599,3 @@ static Bool CreatePageFilesFolder()
 
     return TRUE;
 }
-

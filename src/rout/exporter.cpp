@@ -93,16 +93,6 @@ std::string Exporter::inputEncoding() const
     return input_encoding_;
 }
 
-std::string Exporter::inputImagePath() const
-{
-    return input_image_name_;
-}
-
-CIF::Rect Exporter::inputImageBBox() const
-{
-    return input_image_bbox_;
-}
-
 void Exporter::setFormatOptions(const FormatOptions& opts)
 {
     format_options_ = opts;
@@ -116,16 +106,6 @@ std::string Exporter::outputEncoding() const
 void Exporter::setInputEncoding(const std::string& enc)
 {
     input_encoding_ = enc;
-}
-
-void Exporter::setInputImagePath(const std::string& fname)
-{
-    input_image_name_ = fname;
-}
-
-void Exporter::setInputImageBBox(const CIF::Rect& bbox)
-{
-    input_image_bbox_ = bbox;
 }
 
 void Exporter::setOutputEncoding(const std::string& enc)

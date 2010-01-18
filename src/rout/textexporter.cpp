@@ -58,9 +58,6 @@ void TextExporter::exportTo(const std::string& filename)
             (void*) &unrecog))
         throw Exception("ROUT_SetImportData failed");
 
-    ROUT_SetInputBBox(inputImageBBox());
-    ROUT_SetInputImageName(inputImagePath());
-
     // Количество объектов
     long countObjects = ROUT_CountObjects();
     if (countObjects == -1)

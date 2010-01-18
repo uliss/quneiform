@@ -68,8 +68,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <limits.h>
-#include <string>
-#include "common/rect.h"
 
 #include "cfcompat.h"
 
@@ -188,10 +186,6 @@ EXTERN char gEOL[4] VAL2(0x0d, 0x0a);
 #else
 EXTERN char gEOL[4] VAL2(0x0a, 0x00);
 #endif
-
-// name of input image
-EXTERN std::string gInputPageName;
-EXTERN CIF::Rect gInputBBox;
 
 // Имя страницы без расширения .tif или .fed;
 // может включать или не включать путь

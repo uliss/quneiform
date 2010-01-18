@@ -54,17 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Rout_DLL.cpp
-
-//********************************************************************
-// Rout_DLL.CPP - стандартные точки входа в ROUT.DLL,
-//				  межмодульные связи
-//				  и отладочные функции
-//
-// This file creation date: 18.05.99
-// By Eugene Pliskin pliskin@cs.isa.ac.ru
-//********************************************************************
-
 #define __ROUT_DLL__	// Только в этом модуле, перед rout_own.h
 #include "rout_own.h"
 
@@ -86,7 +75,6 @@
 #include <stdarg.h>
 #include "compat_defs.h"
 
-//********************************************************************
 ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode, Handle hStorage)
 {
     //	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
@@ -102,7 +90,7 @@ ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode, Handle hStorage)
 
     return ROUT_GetReturnCode() == 0 ? TRUE : FALSE;
 }
-//********************************************************************
+
 ROUT_FUNC(Bool32) ROUT_Done()
 {
     //	DEBUG_PRINT("ROUT_Done");
@@ -114,7 +102,7 @@ ROUT_FUNC(Bool32) ROUT_Done()
 
     return TRUE;
 }
-//********************************************************************
+
 ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
 {
     // Возвращает 0 если нет ошибки
@@ -132,7 +120,7 @@ char * ROUT_GetReturnString(uint32_t dwError)
         gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
     return NULL;
 }
-//********************************************************************
+
 ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
 {
     // Экспорт моих функций
@@ -162,18 +150,16 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
     return rc;
 }
 
-
 void ROUT_SetInputImageName(const std::string& fname)
 {
-    gInputPageName = fname;
+    //    gInputPageName = fname;
 }
 
 void ROUT_SetInputBBox(const CIF::Rect& bbox)
 {
-    gInputBBox = bbox;
+    //    gInputBBox = bbox;
 }
 
-//********************************************************************
 ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 {
     // Импорт моих опций
@@ -355,12 +341,12 @@ void MyDebugPrint(const char *format, ...)
 
 #endif
 }
-//********************************************************************
+
 void ClearError()
 {
     gwLowRC_rout = 0;
 }
-//********************************************************************
+
 void NotImplemented(const char *file, long line)
 {
     gFile = file;
@@ -369,7 +355,7 @@ void NotImplemented(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 }
-//********************************************************************
+
 void WrongArgument(const char *file, long line)
 {
     gFile = file;
@@ -378,7 +364,7 @@ void WrongArgument(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_WRONG_ARGUMENT;
 }
-//********************************************************************
+
 void NoMemory(const char *file, long line)
 {
     gFile = file;
@@ -387,7 +373,7 @@ void NoMemory(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_NO_MEMORY;
 }
-//********************************************************************
+
 void ErrOpenFile(const char *file, long line)
 {
     gFile = file;
@@ -396,7 +382,7 @@ void ErrOpenFile(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_OPEN_FILE;
 }
-//********************************************************************
+
 void ErrWritingToFile(const char *file, long line)
 {
     gFile = file;
@@ -405,7 +391,7 @@ void ErrWritingToFile(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_WRITING_TO_FILE;
 }
-//********************************************************************
+
 void ErrCloseFile(const char *file, long line)
 {
     gFile = file;
@@ -414,7 +400,7 @@ void ErrCloseFile(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_CLOSE_FILE;
 }
-//********************************************************************
+
 void ErrCreateDirectory(char *file, long line)
 {
     gFile = file;
@@ -423,7 +409,7 @@ void ErrCreateDirectory(char *file, long line)
 
     gwLowRC_rout = IDS_ERR_CREATE_DIRECTORY;
 }
-//********************************************************************
+
 void ErrPageNotLoaded(const char *file, long line)
 {
     gFile = file;
@@ -432,7 +418,7 @@ void ErrPageNotLoaded(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_PAGE_NOT_LOADED;
 }
-//********************************************************************
+
 void ErrObjectNotFound(const char *file, long line)
 {
     gFile = file;
@@ -441,7 +427,7 @@ void ErrObjectNotFound(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_OBJECT_NOT_FOUND;
 }
-//********************************************************************
+
 void ErrPossibleLossOfData(const char *file, long line)
 {
     gFile = file;
@@ -450,7 +436,7 @@ void ErrPossibleLossOfData(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
 }
-//********************************************************************
+
 void ErrPictureData(const char *file, long line)
 {
     gFile = file;
@@ -459,7 +445,7 @@ void ErrPictureData(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_PICTURE_DATA;
 }
-//********************************************************************
+
 void ErrLoadAlphabet(const char *file, long line)
 {
     gFile = file;
@@ -468,7 +454,7 @@ void ErrLoadAlphabet(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_LOAD_ALPHABET;
 }
-//********************************************************************
+
 void ErrLoadRec6List(const char *file, long line)
 {
     gFile = file;
@@ -477,7 +463,7 @@ void ErrLoadRec6List(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_LOAD_REC6LIST;
 }
-//********************************************************************
+
 void ErrUpdateActiveAlphabet(const char *file, long line)
 {
     gFile = file;
@@ -486,7 +472,7 @@ void ErrUpdateActiveAlphabet(const char *file, long line)
 
     gwLowRC_rout = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
 }
-//********************************************************************
+
 Bool InitMemory(Byte *memStart, long sizeMem)
 {
     // Отвести страховочные бамперы в начале
@@ -516,7 +502,7 @@ Bool InitMemory(Byte *memStart, long sizeMem)
 
     return TRUE;
 }
-//********************************************************************
+
 Bool SetTableTextSeparators(char* s)
 {
     // Список разделителей табличного текста:
@@ -540,4 +526,4 @@ Bool SetTableTextSeparators(char* s)
 
     return TRUE;
 }
-//********************************************************************
+

@@ -133,12 +133,7 @@
 #define                CFIO_MAKEPATH                    make_path
 #define                CFIO_MAKEFULLPATH                _fullpath
 
-#ifdef WIN32
 #define                CFIO_MAKEFOLDER(a)               CreateDirectory(a, NULL)
-#else
-#define                CFIO_MAKEFOLDER(a)               CreateDirectory(a)      //_mkdir(a) //
-#endif
-
 #define                CFIO_DELETEFOLDER                RemoveDirectory         //_rmdir          //
 //                                                 CreateFolder
 //     local flags

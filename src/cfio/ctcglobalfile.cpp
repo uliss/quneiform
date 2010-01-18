@@ -420,7 +420,7 @@ bool GlobalFile::ProvideFileFolder(const std::string& FileName)
     if (Out[0] == 0x0)
         return true;
 
-    CFIO_MAKEFOLDER(Out);
+    CFIO_MAKEFOLDER(Out, 0);
     CFIO_MAKEPATH(Out, Folder, File, Extension);
     return true;
 }
