@@ -150,14 +150,14 @@ void ComponentRecognizer::recognizeComponent(CCOM_comp* pcomp)
             for (int i = 0; i < nvers; i++) {
                 pcomp->vers->Alt[vers_beg + i].Code = evn_res[2 * i];
                 pcomp->vers->Alt[vers_beg + i].Prob = evn_res[2 * i + 1];
-                pcomp->vers->Alt[vers_beg + i].Method = 13;
+                pcomp->vers->Alt[vers_beg + i].Method = REC_METHOD_NCU;
             } // network collection
 
         else
             for (int i = 0; i < nvers; i++) {
                 pcomp->vers->Alt[vers_beg + i].Code = evn_res[i];
                 pcomp->vers->Alt[vers_beg + i].Prob = 255;
-                pcomp->vers->Alt[vers_beg + i].Method = 5;
+                pcomp->vers->Alt[vers_beg + i].Method = REC_METHOD_EVN;
             } // event collection
     }
 }
