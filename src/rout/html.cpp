@@ -61,6 +61,7 @@
 
 #include "rout_own.h"
 #include "compat_defs.h"
+#include "common/helper.h" // for CIF::escapeHtmlSpecialChars
 
 using namespace std;
 
@@ -126,7 +127,7 @@ static Bool writeHocrLineStartTag(Byte* pLineStart, const edRect& rcLine, const 
 {
     ASSERT(pLineStart);
     ostringstream outStrm;
-    outStrm << "<span class='ocr_line' id='line_" << iLine << "' " << "title=\"bbox "
+    outStrm << "<span class=\"ocr_line\" id=\"line_" << iLine << "\" " << "title=\"bbox "
             << rcLine.left << " " << rcLine.top << " " << rcLine.right << " " << rcLine.bottom
             << "\">";
     outStrm.write(reinterpret_cast<const char*> (pLineStart), gMemCur - pLineStart);
@@ -154,10 +155,10 @@ static bool isGoodCharRect(const edRect& rc)
 
 // decided to use CHECK_MEMORY macro in case it becomes a function which does more things than check if gMemCur+a>gMemEnd
 // as a consequence, this function assures that allocated memory in gMemCur is enough.
-static Bool writeHocrCharBBoxesInfo(const std::vector<edRect> &charBboxes, const unsigned int iLine)
+static Bool writeHocrCharBBoxesInfo(const std::vector<edRect> &charBboxes)
 {
     ostringstream outStrm;
-    outStrm << "<span class='ocr_cinfo' title=\"x_bboxes ";
+    outStrm << "<span class=\"ocr_cinfo\" title=\"x_bboxes ";
 
     for (unsigned int i = 0; i < charBboxes.size(); i++) {
         outStrm << charBboxes[i].left << " " << charBboxes[i].top << " " << charBboxes[i].right
@@ -182,7 +183,6 @@ static Bool writeHocrCharBBoxesInfo(const std::vector<edRect> &charBboxes, const
 Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
 )
 {
-    static char buf[256] = { 0 };
     //! \~russian прямоугольник символа
     edRect r = { 0 };
 
@@ -258,7 +258,7 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         // write character bounding boxes info
         if (currentLineCharBBoxes.size())
             if (hocrmode)
-                writeHocrCharBBoxesInfo(currentLineCharBBoxes, iLine);
+                writeHocrCharBBoxesInfo(currentLineCharBBoxes);
         currentLineCharBBoxes.resize(0);
 
         isInLine = false;
@@ -269,10 +269,8 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         iLine++;
         // close HocrLine tag
         PUT_STRING("</span>")
-        ;
 
         NEW_LINE
-        ;
         break;
 
     case BROWSE_PARAGRAPH_START:
@@ -285,9 +283,7 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         // Конец абзаца
         FontStyle(0);
         PUT_STRING("</p>")
-        ;
         NEW_LINE
-        ;
         break;
 
     case BROWSE_PAGE_START:
@@ -303,7 +299,7 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
                 outStrm << "<meta http-equiv=\"Content-Type\""
                     " content=\"text/html;charset=utf-8\" >" << endl;
             }
-            outStrm << "<meta name='ocr-system' content='openocr'>" << endl;
+            outStrm << "<meta name=\"ocr-system\" content=\"openocr\">" << endl;
             outStrm << "</head>" << endl << "<body>";
             strm2buf(outStrm);
         }
@@ -313,9 +309,9 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
             const char* pImageName = CED_GetPageImageName(hObject);
             assert(pImageName);
             //пример <div class='ocr_page' title='image "page-000.pbm"; bbox 0 0 4306 6064'>
-            outStrm << "<div class='ocr_page' id='page_" << iPage << "' ";
-            outStrm << "title='image \"" << pImageName << "\"; bbox 0 0 " << sizeImage.cx << " "
-                    << sizeImage.cy << "'>" << endl;
+            outStrm << "<div class=\"ocr_page\" id=\"page_" << iPage << "\" ";
+            outStrm << "title=\"image '" << CIF::escapeHtmlSpecialChars(pImageName) << "'; bbox 0 0 " << sizeImage.cx << " "
+                    << sizeImage.cy << "\">" << endl;
             strm2buf(outStrm);
             ++iPage;
         }
@@ -428,7 +424,7 @@ static Bool BeginParagraph(Handle hObject)
 
     PUT_STRING("<p");
     if (p) {
-        sprintf(buf, " align=%s", p);
+        sprintf(buf, " align=\"%s\"", p);
         PUT_STRING(buf);
     }
 
@@ -453,14 +449,14 @@ static Bool CellStart()
         strcpy(buf, "<td>");
 
     else if (rowspan > 1 && colspan == 1)
-        sprintf(buf, "<td rowspan=%d>", rowspan);
+        sprintf(buf, "<td rowspan=\"%ld\">", rowspan);
 
     else if (rowspan == 1 && colspan > 1)
-        sprintf(buf, "<td colspan=%d>", colspan);
+        sprintf(buf, "<td colspan=\"%ld\">", colspan);
 
     else
         // ( rowspan > 1 && colspan > 1 )
-        sprintf(buf, "<td rowspan=%d colspan=%d>", rowspan, colspan);
+        sprintf(buf, "<td rowspan=\"%ld\" colspan=\"%ld\">", rowspan, colspan);
 
     PUT_STRING(buf);
     return TRUE;
@@ -548,18 +544,18 @@ static Bool Picture()
 
     // write picture to bmp file
     if (dir[0])
-        sprintf(absPicFileName, "%s/%s/%d.bmp", dir, gPageFilesFolder, gPictureNumber);
+        sprintf(absPicFileName, "%s/%s/%ld.bmp", dir, gPageFilesFolder, gPictureNumber);
     else
-        sprintf(absPicFileName, "%s/%d.bmp", gPageFilesFolder, gPictureNumber);
+        sprintf(absPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
 
-    sprintf(relPicFileName, "%s/%d.bmp", gPageFilesFolder, gPictureNumber);
+    sprintf(relPicFileName, "%s/%ld.bmp", gPageFilesFolder, gPictureNumber);
 
     if (!WritePictureToBMP_File(gPictureData, gPictureLength, absPicFileName))
         return FALSE;
 
     // write img html tag.
-    sprintf(buf, "<img src=%s "
-        "width=%d height=%d "
+    sprintf(buf, "<img src=\"%s\" "
+        "width=\"%ld\" height=\"%ld\" "
         "alt=\"%s\">", relPicFileName, gPictureGoal.cx * 72L / 1440L,
             gPictureGoal.cy * 72L / 1440L, relPicFileName);
 
