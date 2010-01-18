@@ -1,9 +1,9 @@
-add_library(puma ${NEWLIBTYPE}
+add_library(cuneiform ${NEWLIBTYPE}
 ${SNP_SRC}
 pumaimpl.cpp
 )
 
-target_link_libraries(puma
+target_link_libraries(cuneiform
 common
 ced
 cfio
@@ -27,7 +27,7 @@ rpstr
 )
 
 if(LIBTYPE STREQUAL STATIC)
-    target_link_libraries(puma cifdebug)
+    target_link_libraries(cuneiform cifdebug)
 endif()
 
-library_hook(puma)
+library_hook(cuneiform)
