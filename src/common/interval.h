@@ -27,7 +27,8 @@ namespace CIF
 template<class T> class IntervalImpl
 {
     public:
-        T l, e;
+        T l;// length of interval
+        T e; // end of interval coordinates
 };
 
 }
