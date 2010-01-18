@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 2.6.2)
 
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+if(WIN32)
+  set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+endif()
 
 SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -fno-inline -Wall -Wextra -fvisibility=default -Wconversion")
 
