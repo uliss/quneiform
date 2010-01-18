@@ -82,17 +82,9 @@ typedef struct tagRRecComControl
         uint16_t MinCompHei; // =""= by width
         uint16_t MaxScale; // if scaling > => use long intervals
 } RRecComControl;
-
 RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
-RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage);
-RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
-RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData);
-RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
-
 // RRECCOM_FNRECOG   опознать компоненты
-RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
-// RRECCOM_FNREX_ISLANGUAGE существует ли язык
-RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language);
+//RRECCOM_FUNC(Bool32) RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
 
 // error codes (moved 30.07.01 from "exc\src\resource.h")
 #define RRECCOM_ERR_MIN                2048

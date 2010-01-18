@@ -80,6 +80,7 @@
 #include "markdataoper.h"
 #include "un_err.h"
 #include "specprj.h"
+#include "rreccom/componentrecognizer.h"
 
 // модули
 #include "ccom/ccom.h"
@@ -341,15 +342,19 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
 			rc = FALSE;
 		}
 
-		RRecComControl rec_control;
-		memset(&rec_control, 0, sizeof(RRecComControl));
-		rec_control.flags = RECOG_EVN;
+//		RRecComControl rec_control;
+//		memset(&rec_control, 0, sizeof(RRecComControl));
+//		rec_control.flags = RECOG_EVN;
 
-		if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, GetModulePath(),
-				(uchar) Image->gnLanguage)) {
-			SetReturnCode_rstuff(RRECCOM_GetReturnCode());
-			rc = FALSE;
-		}
+		CIF::ComponentRecognizer recognizer;
+//		recognizer.setOcrPath(".");
+		recognizer.recognize(*(Image->phCCOM), Image->gnLanguage);
+
+//		if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, GetModulePath(),
+//				(uchar) Image->gnLanguage)) {
+//			SetReturnCode_rstuff(RRECCOM_GetReturnCode());
+//			rc = FALSE;
+//		}
 	}
 	if (rc)
 		SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);

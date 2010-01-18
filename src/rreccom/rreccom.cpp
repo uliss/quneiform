@@ -62,23 +62,6 @@
 
 static uint16_t gwHeightRC = 0;
 uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
-uchar* lnOcrPath = NULL;
-
-RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData)
-{
-#define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break;
-    gwLowRC_rrec = RRECCOM_ERR_NO;
-    switch (dwType) {
-    CASE_PDATA(RRECCOM_OcrPath, uchar*, lnOcrPath)
-    default:
-        gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
-        return FALSE;
-    }
-#undef CASE_PDATA
-
-    return TRUE;
-
-}
 
 RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void)
 {
@@ -86,21 +69,5 @@ RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void)
         return 0;
 
     return (gwHeightRC << 16) | (gwLowRC_rrec - RRECCOM_ERR_MIN);
-}
-
-RRECCOM_FUNC(Bool32) RRECCOM_Init(uint16_t wHeightCode, Handle hStorage)
-{
-
-    gwHeightRC = wHeightCode;
-
-    if (!gwHeightRC)
-        return FALSE;
-
-    return TRUE;
-}
-
-RRECCOM_FUNC(Bool32) RRECCOM_Done(void)
-{
-    return TRUE;
 }
 

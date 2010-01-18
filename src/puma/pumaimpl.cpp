@@ -48,7 +48,6 @@
 #include "rmarker/rmarker.h"
 #include "rpic/rpic.h"
 #include "rpstr/rpstr.h"
-#include "rreccom/rreccom.h"
 #include "rselstr/rselstr.h"
 #include "rshelllines/rsl.h"
 #include "rstr/rstr.h"
@@ -445,7 +444,6 @@ void PumaImpl::modulesDone()
     CLINE_Done();
     RPSTR_Done();
     RSTUFF_Done();
-    RRECCOM_Done();
 #ifdef _USE_RVERLINE_
     RVERLINE_Done();
 #endif //_USE_RVERLINE_
@@ -483,11 +481,6 @@ void PumaImpl::modulesInit()
 
         if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
             throw PumaException("RLINE_Init failed.");
-
-        if (!RRECCOM_Init(PUMA_MODULE_RRECCOM, ghStorage))
-            throw PumaException("RRECCOM_Init failed.");
-
-        RRECCOM_SetImportData(RRECCOM_OcrPath, modulePath());
 
         if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
             throw PumaException("RSL_Init failed.");
