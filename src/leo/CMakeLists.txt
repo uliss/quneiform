@@ -23,4 +23,4 @@ r3532
 std32
 )
 
-install_dll(leo32)
+library_hook(leo32)

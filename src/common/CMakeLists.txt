@@ -12,4 +12,4 @@ iconv.cpp
 
 target_link_libraries(common ${ICONV_LIBRARIES})
 
-install_dll(common)
+library_hook(common) 

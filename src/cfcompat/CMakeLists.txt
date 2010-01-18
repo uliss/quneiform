@@ -4,4 +4,4 @@ add_library(cfcompat ${LIBTYPE}
 
 set_property(TARGET cfcompat PROPERTY COMPILE_DEFINITIONS __CFCOMPAT__)
 
-install_dll(cfcompat)
+library_hook(cfcompat)

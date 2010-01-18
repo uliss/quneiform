@@ -7,4 +7,4 @@ set_property(TARGET rcorrkegl PROPERTY COMPILE_DEFINITIONS __RCORRKEGL__)
 
 target_link_libraries(rcorrkegl cstr cpage)
 
-install_dll(rcorrkegl)
+library_hook(rcorrkegl)

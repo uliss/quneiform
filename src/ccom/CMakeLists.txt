@@ -4,4 +4,4 @@ add_library(ccom ${LIBTYPE}
 ccom.cpp
 ccom_loc.cpp)
 
-install_dll(ccom)
+library_hook(ccom)

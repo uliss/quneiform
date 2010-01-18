@@ -14,4 +14,4 @@ set_property(TARGET smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
 target_link_libraries(smetric cfcompat)
 
-install_dll(smetric)
+library_hook(smetric)

@@ -11,4 +11,4 @@ set_property(TARGET cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
 
 target_link_libraries(cline cfcompat)
 
-install_dll(cline)
+library_hook(cline)

@@ -15,4 +15,4 @@ rstr
 std32
 )
 
-install_dll(rpstr)
+library_hook(rpstr)

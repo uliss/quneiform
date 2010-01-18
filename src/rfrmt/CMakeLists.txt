@@ -32,4 +32,4 @@ cline
 cstr
 )
 
-install_dll(rfrmt)
+library_hook(rfrmt)

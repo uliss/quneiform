@@ -23,4 +23,4 @@ set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
 target_link_libraries(rout ced cfio rfrmt)
 
-install_dll(rout)
+library_hook(rout)

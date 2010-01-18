@@ -109,4 +109,4 @@ std32
 leo32
 )
 
-install_dll(rstr)
+library_hook(rstr)

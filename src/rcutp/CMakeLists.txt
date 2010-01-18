@@ -10,4 +10,4 @@ set_property(TARGET rcutp PROPERTY COMPILE_DEFINITIONS __RCUTP__)
 
 target_link_libraries(rcutp ccom cfcompat)
 
-install_dll(rcutp)
+library_hook(rcutp)

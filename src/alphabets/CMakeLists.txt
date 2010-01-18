@@ -33,4 +33,4 @@ ukrainian.cpp
 uzbek.cpp
 )
 
-install_dll(alphabets)
+library_hook(alphabets)

@@ -10,4 +10,4 @@ ctcglobalheader.cpp
 
 target_link_libraries(cfio cfcompat)
 
-install_dll(cfio)
+library_hook(cfio)

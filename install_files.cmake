@@ -10,7 +10,9 @@ else()
     set(LIBDIR "lib")
 endif()
 
-macro(install_dll name)
+macro(library_hook name)
+  set_target_properties(${name} PROPERTIES VERSION
+  "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
   install(
     TARGETS "${name}"
     ARCHIVE DESTINATION ${LIBDIR}

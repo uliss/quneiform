@@ -30,4 +30,4 @@ if(LIBTYPE STREQUAL STATIC)
     target_link_libraries(puma cifdebug)
 endif()
 
-install_dll(puma)
+library_hook(puma)

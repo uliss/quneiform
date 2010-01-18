@@ -21,4 +21,4 @@ cline
 ccom
 )
 
-install_dll(rverline)
+library_hook(rverline)

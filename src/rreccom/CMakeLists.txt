@@ -9,4 +9,4 @@ set_property(TARGET rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
 
 target_link_libraries(rreccom ccom evn32 cfcompat)
 
-install_dll(rreccom)
+library_hook(rreccom)

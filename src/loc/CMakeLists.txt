@@ -11,4 +11,4 @@ set_property(TARGET loc32 PROPERTY COMPILE_DEFINITIONS __LOC__)
 
 target_link_libraries(loc32 cfcompat)
 
-install_dll(loc32)
+library_hook(loc32)

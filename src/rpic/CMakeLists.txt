@@ -16,4 +16,4 @@ set_property(TARGET rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
 target_link_libraries(rpic cpage ccom rstr)
 
-install_dll(rpic)
+library_hook(rpic)

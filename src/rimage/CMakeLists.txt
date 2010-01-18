@@ -21,4 +21,4 @@ cimage
 rdib
 )
 
-install_dll(rimage)
+library_hook(rimage)

@@ -20,4 +20,4 @@ set_property(TARGET std32 PROPERTY COMPILE_DEFINITIONS __STD__)
 
 target_link_libraries(std32 cfcompat)
 
-install_dll(std32)
+library_hook(std32)

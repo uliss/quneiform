@@ -12,4 +12,4 @@ wrapper.cpp
 
 target_link_libraries(ced cfio cfcompat)
 
-install_dll(ced)
+library_hook(ced)

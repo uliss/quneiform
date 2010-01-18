@@ -16,4 +16,4 @@ lns32
 rshelllines
 )
 
-install_dll(rline)
+library_hook(rline)

@@ -9,4 +9,4 @@ set_property(TARGET pass2 PROPERTY COMPILE_DEFINITIONS __P2__)
 
 target_link_libraries(pass2 cstr fon32 std32)
 
-install_dll(pass2)
+library_hook(pass2)

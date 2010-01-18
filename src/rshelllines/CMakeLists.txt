@@ -11,4 +11,4 @@ cpage
 rverline
 )
 
-install_dll(rshelllines)
+library_hook(rshelllines)

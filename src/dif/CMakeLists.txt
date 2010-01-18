@@ -8,4 +8,4 @@ stictool.cpp
 )
 set_property(TARGET dif32 PROPERTY COMPILE_DEFINITIONS __DIF__)
 
-install_dll(dif32)
+library_hook(dif32)

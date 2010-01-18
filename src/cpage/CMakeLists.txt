@@ -19,4 +19,4 @@ set_property(TARGET cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
 target_link_libraries(cpage cfcompat)
 
-install_dll(cpage)
+library_hook(cpage)

@@ -35,4 +35,4 @@ set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
 target_link_libraries(rlings cstr cfcompat)
 
-install_dll(rlings)
+library_hook(rlings)
