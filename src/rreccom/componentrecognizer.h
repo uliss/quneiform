@@ -24,8 +24,7 @@
 #include "globus.h"
 #include "common/exception.h"
 
-struct _CCOM_comp;
-typedef struct _CCOM_comp CCOM_comp;
+struct CCOM_comp;
 
 namespace CIF
 {

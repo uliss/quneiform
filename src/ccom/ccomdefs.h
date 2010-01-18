@@ -77,7 +77,7 @@ typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 #define CCOM_UB_SIZELINEREP 5
 //-------------------- component in kit --------------------------
 
-struct _CCOM_comp {
+struct CCOM_comp {
     int16_t upper; // upper boundary of component
     int16_t left; // left boundary of component
     int16_t h; // height of component
@@ -113,11 +113,10 @@ struct _CCOM_comp {
     CCOM_USER_BLOCK * user_block; // user information
     // 24
 #define CCOM_USER_NO    0
-    struct _CCOM_comp * next_comp; // goto next comp from the global list
+    CCOM_comp * next_comp; // goto next comp from the global list
     RecVersions *vers; // recognition collection
     // 32
 };
-typedef struct _CCOM_comp CCOM_comp;
 
 //-------------------- linear (interval) representation ----------------------
 
@@ -150,14 +149,14 @@ typedef struct _interval16 {
     uint16_t e; // end of interval coordinates
 } CCOM_interval16;
 
-typedef struct _CCOM_cont {
+struct CCOM_cont {
     CCOM_comp * first;
     CCOM_comp * last;
-    struct _CCOM_cont * next;
-    struct _CCOM_cont * prev;
+    CCOM_cont * next;
+     CCOM_cont * prev;
     int32_t nall, nsmall[8];
     Bool16 kill_dust_mode, language, style_new;
-} CCOM_cont;
+};
 
 typedef void* CCOM_handle;
 #pragma pack (pop)
