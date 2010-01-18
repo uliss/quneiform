@@ -54,16 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// HTML.cpp
-
-//********************************************************************
-//
-// HTML.cpp - формат HTML
-//
-// This file creation date: 27.05.99
-// By Eugene Pliskin pliskin@cs.isa.ac.ru
-//********************************************************************
-
 #include <string.h>
 #include <sstream>
 
@@ -94,7 +84,7 @@ static ulong sFontStyle = 0; // Стиль шрифта
 static long rowspan = 0, colspan = 0;
 static Bool hocrmode = FALSE; // If true, print hOCR tags to output.
 
-//********************************************************************
+
 Bool MakeHTML()
 {
     /* Формат HTML.
@@ -109,14 +99,14 @@ Bool MakeHTML()
             FALSE); // wantSkipParagraphs
 
 }
-//********************************************************************
+
 Bool MakeHOCR()
 {
     sFontStyle = 0;
     hocrmode = TRUE;
     return BrowsePage(Static_MakeHTML, FALSE, FALSE);
 }
-//********************************************************************
+
 Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
 )
 {
@@ -245,7 +235,7 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
 
     return TRUE; // Продолжить просмотр
 }
-//********************************************************************
+
 static Bool FontStyle(ulong newStyle)
 {
 
@@ -277,7 +267,7 @@ static Bool FontStyle(ulong newStyle)
     sFontStyle = newStyle;
     return TRUE;
 }
-//********************************************************************
+
 static Bool BeginParagraph(Handle hObject)
 {
     const char *p = NULL;
@@ -314,7 +304,7 @@ static Bool BeginParagraph(Handle hObject)
 
     return TRUE;
 }
-//********************************************************************
+
 static Bool CellStart()
 {
     // Ячейка таблицы
@@ -339,7 +329,7 @@ static Bool CellStart()
     PUT_STRING(buf);
     return TRUE;
 }
-//********************************************************************
+
 static Bool CalcCellSpan()
 {
     // Вычислить размер ячейки
@@ -369,7 +359,7 @@ static Bool CalcCellSpan()
     ASSERT(rowspan>0 && colspan>0);
     return TRUE;
 }
-//********************************************************************
+
 static Bool OptimizeTags()
 {
     // Устранение избыточных тегов
@@ -395,7 +385,7 @@ static Bool OptimizeTags()
 
     return TRUE;
 }
-//********************************************************************
+
 static Bool Picture()
 {
     /* Картинка.
@@ -440,7 +430,6 @@ static Bool Picture()
     PUT_STRING(buf);
     return TRUE;
 }
-//********************************************************************
 
 /**
  * Create a subdirectory to hold image files for html document.
@@ -474,4 +463,4 @@ static Bool CreatePageFilesFolder()
 
     return TRUE;
 }
-//********************************************************************
+
