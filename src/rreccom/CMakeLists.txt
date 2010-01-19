@@ -1,7 +1,6 @@
 add_library(cuneiform-rreccom ${LIBTYPE}
 alphabet.cpp
 componentrecognizer.cpp
-rreccom.cpp
 )
 
 set_property(TARGET cuneiform-rreccom PROPERTY COMPILE_FLAGS "-fvisibility=hidden")

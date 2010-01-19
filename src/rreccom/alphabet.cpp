@@ -56,7 +56,7 @@
 
 #include <string.h>
 #include "cttypes.h"
-#include "lang.h"
+#include "lang_def.h"
 #include "ligas.h"
 #include "evn/evn.h"
 
