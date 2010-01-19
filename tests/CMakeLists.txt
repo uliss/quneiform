@@ -33,7 +33,7 @@ loaders/testformatdetector.cpp
 loaders/testbmp.cpp
 )
 
-target_link_libraries(test_alphabets alphabets ${CPPUNIT_LIBRARIES})
+target_link_libraries(test_alphabets cuneiform-alphabets ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_common ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_loaders rdib ${CPPUNIT_LIBRARIES})
 

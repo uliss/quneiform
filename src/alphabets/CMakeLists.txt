@@ -1,4 +1,4 @@
-add_library(alphabets ${LIBTYPE}
+add_library(cuneiform-alphabets ${LIBTYPE}
 alphabetfactory.cpp
 alphabet.cpp
 baltic.cpp
@@ -33,4 +33,4 @@ ukrainian.cpp
 uzbek.cpp
 )
 
-library_hook(alphabets)
+library_hook(cuneiform-alphabets)
