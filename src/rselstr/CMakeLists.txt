@@ -49,7 +49,7 @@ target_link_libraries(rselstr
     cuneiform-exc  
     cuneiform-cline
     cuneiform-cstr
-    rcutp
+    cuneiform-rcutp
 )
 
 library_hook(rselstr)

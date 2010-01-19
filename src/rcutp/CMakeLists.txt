@@ -1,4 +1,4 @@
-add_library(rcutp ${LIBTYPE}
+add_library(cuneiform-rcutp ${LIBTYPE}
 ${SNP_SRC}
 rcut_4rselstr.cpp
 rcutp_call.cpp
@@ -6,8 +6,10 @@ rcutp_func.cpp
 rcutp_main.cpp
 rcutp_mainfunc.cpp
 )
-set_property(TARGET rcutp PROPERTY COMPILE_DEFINITIONS __RCUTP__)
+set_property(TARGET cuneiform-rcutp PROPERTY COMPILE_DEFINITIONS __RCUTP__)
 
-target_link_libraries(rcutp cuneiform-ccom cuneiform-compat)
+target_link_libraries(cuneiform-rcutp 
+    cuneiform-ccom 
+    cuneiform-compat)
 
-library_hook(rcutp)
+library_hook(cuneiform-rcutp)
