@@ -104,7 +104,7 @@ target_link_libraries(rstr
     cuneiform-rbal
     cuneiform-rcutp
     cuneiform-rling
-    rsadd
+    cuneiform-rsadd
     std32
     cuneiform-leo
 )
