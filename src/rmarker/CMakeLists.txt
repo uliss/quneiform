@@ -1,4 +1,4 @@
-add_library(rmarker ${LIBTYPE}
+add_library(cuneiform-rmarker ${LIBTYPE}
 ${SNP_SRC}
 dll.cpp
 rmarker.cpp
@@ -13,10 +13,10 @@ shortverticallinesfilter.cpp
 ../usage/un_buff.cpp
 )
 
-set_property(TARGET rmarker PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
+set_property(TARGET cuneiform-rmarker PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
-target_link_libraries(rmarker
+target_link_libraries(cuneiform-rmarker
     cuneiform-cfio
     cuneiform-cimage
     cuneiform-cpage
@@ -27,4 +27,4 @@ target_link_libraries(rmarker
     rselstr
 )
 
-library_hook(rmarker)
+library_hook(cuneiform-rmarker)
