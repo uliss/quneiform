@@ -20,7 +20,7 @@ target_link_libraries(cuneiform
     rselstr
     rshelllines
     rstuff
-    exc
+    cuneiform-exc
     rreccom
     rpstr
 )

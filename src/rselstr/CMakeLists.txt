@@ -46,7 +46,7 @@ target_link_libraries(rselstr
     cuneiform-cpage
     loc32
     rimage
-    exc  
+    cuneiform-exc  
     cuneiform-cline
     cuneiform-cstr
     rcutp

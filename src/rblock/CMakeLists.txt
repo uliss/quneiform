@@ -53,7 +53,7 @@ set_property(TARGET rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 target_link_libraries(rblock 
     cuneiform-cpage 
     loc32 
-    exc 
+    cuneiform-exc 
     cuneiform-cstr 
     cuneiform-cline 
     rstr 

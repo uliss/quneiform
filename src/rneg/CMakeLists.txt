@@ -15,7 +15,7 @@ target_link_libraries(rneg
     rdib
     rimage
     rselstr
-    exc
+    cuneiform-exc
     rstr
 )
 

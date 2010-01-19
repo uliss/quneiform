@@ -33,7 +33,7 @@ target_link_libraries(rstuff
     rline
     smetric
     rreccom
-    exc
+    cuneiform-exc
 )
 
 library_hook(rstuff)
