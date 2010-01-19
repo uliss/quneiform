@@ -62,7 +62,7 @@
 #include "linear.h"
 #include "ligas.h"
 #include "leo/leodefs.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 
 //////
 extern int16_t prop_l_delta, prop_r_delta;

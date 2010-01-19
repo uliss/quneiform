@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdlib.h>
 
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "struct.h"
 #include "func.h"
 #include "cut_glue.h"

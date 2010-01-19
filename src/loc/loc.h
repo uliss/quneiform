@@ -58,7 +58,7 @@
 #define __LOC_H
 
 #include "globus.h"
-#include "evn32/evndefs.h"
+#include "evn/evndefs.h"
 #include "exc/excdefs.h"
 #include "recdefs.h"
 #include "memfunc.h"

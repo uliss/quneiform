@@ -28,7 +28,7 @@ add_subdirectory(rpstr)
 add_subdirectory(cline)
 add_subdirectory(fon)
 add_subdirectory(leo)
-add_subdirectory(evn32)
+add_subdirectory(evn)
 add_subdirectory(cpage)
 add_subdirectory(cimage)
 add_subdirectory(cfio)
@@ -68,7 +68,7 @@ add_subdirectory(rcorrkegl)
 add_subdirectory(compat)
 
 set(RPSTR_LIBS rpstr rstr rling mmx32 pass2 rbal cline leo32 cpu32 r3532 rlings rsadd
-fon32 msk32 std32 evn32 cstr ctb32 dif32 rcutp cuneiform-ccom)
+fon32 msk32 std32 cuneiform-evn cstr ctb32 dif32 rcutp cuneiform-ccom)
 
 set(PUMA_LIBS 
     puma 

@@ -83,7 +83,7 @@
 #include "lang.h"
 #include "ccom/ccom.h"
 #include "leo/leo.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "std/std.h"
 #include "rsadd/rsadd.h"
 #include "cuthdr.h"

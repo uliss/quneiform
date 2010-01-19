@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include	"func.h"
 # include	"struct.h"
 #include    "ccom/ccom.h"
-#include	"evn32/evn.h"
+#include	"evn/evn.h"
 #include	"newfunc.h"
 #include	"new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH

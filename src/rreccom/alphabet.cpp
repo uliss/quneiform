@@ -58,7 +58,7 @@
 #include "cttypes.h"
 #include "lang.h"
 #include "ligas.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 
 #include "cfcompat.h"
 

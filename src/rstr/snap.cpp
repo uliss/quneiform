@@ -61,7 +61,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "func.h"
 #include "struct.h"
 #include "status.h"

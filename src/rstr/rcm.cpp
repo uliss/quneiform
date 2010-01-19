@@ -69,7 +69,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "charsets.h"
 #include "leo/leo.h"
 #include "fon/fon.h"

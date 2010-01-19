@@ -70,7 +70,7 @@
 # include   "func.h"
 # include   "struct.h"
 #include    "ccom/ccom.h"
-#include    "evn32/evn.h"
+#include    "evn/evn.h"
 #include    "newfunc.h"
 #include "minmax.h"
 

@@ -72,7 +72,7 @@
 #include <string.h>
 
 #include "common/interval.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"

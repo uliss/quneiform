@@ -58,7 +58,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "struct.h"
 #include "cuthdr.h"
 #include "dmconst.h"

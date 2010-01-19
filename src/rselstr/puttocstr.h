@@ -68,7 +68,7 @@
 #include "cstr/cstr.h"
 #include "exc/exc.h"
 #include "rimage/criimage.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 
 /*----------------------------------------------------------------------------*/
 

@@ -21,7 +21,7 @@
 #include <cstring>
 #include "componentrecognizer.h"
 #include "rreccom.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "ccom/ccom.h"
 #include "struct.h"
 

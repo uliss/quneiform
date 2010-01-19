@@ -68,7 +68,7 @@
 #include "alphaset.h"
 #include "leo_func.h"
 #include "r35/r35.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "dif/dif.h"
 #include "ctb/ctb.h"
 #include "fon/fon.h"

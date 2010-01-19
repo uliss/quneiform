@@ -78,7 +78,7 @@
 #include "ldescr.h"
 
 #include "exc.h"
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "loc/loc.h"
 #include "excdefs.h"
 #include "minmax.h"

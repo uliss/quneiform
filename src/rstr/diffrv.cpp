@@ -58,7 +58,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "evn32/evn.h"
+#include "evn/evn.h"
 #include "discrim.h"
 #include "struct.h"
 #include "lang_def.h"
