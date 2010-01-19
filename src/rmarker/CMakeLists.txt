@@ -22,7 +22,7 @@ target_link_libraries(cuneiform-rmarker
     cuneiform-cpage
     cuneiform-rblock
     cuneiform-rline
-    rneg
+    cuneiform-rneg
     rpic
     rselstr
 )

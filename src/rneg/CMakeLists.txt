@@ -1,4 +1,4 @@
-add_library(rneg ${LIBTYPE}
+add_library(cuneiform-rneg ${LIBTYPE}
 ${SNP_SRC}
 negatestcell.cpp
 negdefs.cpp
@@ -7,9 +7,9 @@ recnegmain.cpp
 rnegbase.cpp
 searchneg.cpp
 )
-set_property(TARGET rneg PROPERTY COMPILE_DEFINITIONS __RNEG__)
+set_property(TARGET cuneiform-rneg PROPERTY COMPILE_DEFINITIONS __RNEG__)
 
-target_link_libraries(rneg
+target_link_libraries(cuneiform-rneg
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rdib
@@ -19,4 +19,4 @@ target_link_libraries(rneg
     rstr
 )
 
-library_hook(rneg)
+library_hook(cuneiform-rneg)
