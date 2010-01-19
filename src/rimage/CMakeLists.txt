@@ -17,7 +17,7 @@ set_property(TARGET rimage PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
 
 target_link_libraries(rimage
     cuneiform-cimage
-    rdib
+    cuneiform-rdib
 )
 
 library_hook(rimage)

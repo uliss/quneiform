@@ -35,7 +35,7 @@ loaders/testbmp.cpp
 
 target_link_libraries(test_alphabets cuneiform-alphabets ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_common ${CPPUNIT_LIBRARIES})
-target_link_libraries(test_loaders rdib ${CPPUNIT_LIBRARIES})
+target_link_libraries(test_loaders cuneiform-rdib ${CPPUNIT_LIBRARIES})
 
 ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
 ADD_TEST(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
