@@ -54,7 +54,7 @@ target_link_libraries(rblock
     cuneiform-cpage 
     loc32 
     exc 
-    cstr 
+    cuneiform-cstr 
     cuneiform-cline 
     rstr 
     evn32

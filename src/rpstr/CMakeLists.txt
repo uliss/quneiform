@@ -8,11 +8,11 @@ vertstr.cpp)
 set_property(TARGET rpstr PROPERTY COMPILE_DEFINITIONS __RPSTR__)
 
 target_link_libraries(rpstr
-ccom
-cstr
-rling
-rstr
-std32
+    cuneiform-ccom
+    cuneiform-cstr
+    rling
+    rstr
+    std32
 )
 
 library_hook(rpstr)

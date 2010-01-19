@@ -17,6 +17,8 @@ utilctb.cpp
 )
 set_property(TARGET fon32 PROPERTY COMPILE_DEFINITIONS __FON__)
 
-target_link_libraries(fon32 cstr ctb32)
+target_link_libraries(fon32 
+    cuneiform-cstr 
+    ctb32)
 
 library_hook(fon32)

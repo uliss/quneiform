@@ -40,6 +40,6 @@ sources/udictuti.cpp
 set_property(TARGET rling PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rling PROPERTY COMPILE_DEFINITIONS __RLING__)
 
-target_link_libraries(rling cstr rlings)
+target_link_libraries(rling cuneiform-cstr rlings)
 
 library_hook(rling)

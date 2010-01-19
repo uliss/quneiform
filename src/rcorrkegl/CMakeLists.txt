@@ -6,7 +6,7 @@ rcorrkegl.cpp
 set_property(TARGET rcorrkegl PROPERTY COMPILE_DEFINITIONS __RCORRKEGL__)
 
 target_link_libraries(rcorrkegl 
-    cstr 
+    cuneiform-cstr 
     cuneiform-cpage)
 
 library_hook(rcorrkegl)

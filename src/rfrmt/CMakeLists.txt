@@ -29,7 +29,7 @@ target_link_libraries(rfrmt
     rdib
     rimage
     cuneiform-cline
-    cstr
+    cuneiform-cstr
 )
 
 library_hook(rfrmt)

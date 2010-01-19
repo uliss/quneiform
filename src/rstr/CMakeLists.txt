@@ -92,21 +92,21 @@ set_property(TARGET rstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
 target_link_libraries(rstr
-ccom
-cuneiform-cline
-cstr
-ctb32
-evn32
-fon32
-mmx32
-msk32
-pass2
-rbal
-rcutp
-rling
-rsadd
-std32
-leo32
+    cuneiform-ccom
+    cuneiform-cline
+    cuneiform-cstr
+    ctb32
+    evn32
+    fon32
+    mmx32
+    msk32
+    pass2
+    rbal
+    rcutp
+    rling
+    rsadd
+    std32
+    leo32
 )
 
 library_hook(rstr)
