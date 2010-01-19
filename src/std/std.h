@@ -113,9 +113,6 @@ typedef struct tagStdMemInfo {
 STD_FUNC( void ) stdGetMemInfo(StdMemInfo* pMemInf);
 // debug purpose function - if _DEBUG not defined, returned values are 0
 
-STD_FUNC( void* ) stdMemcpy(void* dest, void* src, int32_t copy_count);
-// in 32-bit - falls to memcpy,
-// in 16-bit - takes care about 64k segments bounds
 STD_FUNC( int32_t ) stdOpen(const char *filename, int32_t oflag, int32_t pmode = DEFAULT_ZERO);
 STD_FUNC( int32_t ) stdTell(int32_t handle);
 STD_FUNC( int32_t ) stdSeek(int32_t handle, int32_t offset, int32_t origin);

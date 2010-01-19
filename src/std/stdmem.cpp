@@ -159,14 +159,3 @@ STD_FUNC( void  ) stdFreeX( void** pptr )
       *pptr = NULL;
    };
 }
-
-STD_FUNC( void* ) stdMemcpy( void* dest , void* src , int32_t copy_count )
-{
-
-#ifdef _DEBUG
-   assert(dest);
-   assert(src);
-#endif
-
-   return memcpy(dest, src, copy_count);
-}
