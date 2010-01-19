@@ -20,7 +20,7 @@ target_link_libraries(cuneiform-leo
     cuneiform-fon
     cuneiform-msk
     cuneiform-r35
-    std32
+    cuneiform-std
 )
 
 library_hook(cuneiform-leo)

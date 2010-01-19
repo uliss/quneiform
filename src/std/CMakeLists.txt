@@ -1,4 +1,4 @@
-add_library(std32 ${LIBTYPE}
+add_library(cuneiform-std ${LIBTYPE}
 std.cpp
 stdassrt.cpp
 stdbits.cpp
@@ -15,9 +15,9 @@ stdsort.cpp
 stdwapi.cpp
 )
 
-set_property(TARGET std32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET std32 PROPERTY COMPILE_DEFINITIONS __STD__)
+set_property(TARGET cuneiform-std PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-std PROPERTY COMPILE_DEFINITIONS __STD__)
 
-target_link_libraries(std32 cuneiform-compat)
+target_link_libraries(cuneiform-std cuneiform-compat)
 
-library_hook(std32)
+library_hook(cuneiform-std)

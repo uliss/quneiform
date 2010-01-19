@@ -12,7 +12,7 @@ target_link_libraries(cuneiform-rpstr
     cuneiform-cstr
     cuneiform-rling
     cuneiform-rstr
-    std32
+    cuneiform-std
 )
 
 library_hook(cuneiform-rpstr)

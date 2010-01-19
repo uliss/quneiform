@@ -31,7 +31,7 @@ target_link_libraries(cuneiform-rstuff
     cuneiform-rdib
     cuneiform-rimage
     cuneiform-rline
-    smetric
+    cuneiform-smetric
     cuneiform-rreccom
     cuneiform-exc
 )

@@ -26,7 +26,7 @@ set_property(TARGET cuneiform-lns PROPERTY COMPILE_DEFINITIONS __LNS__)
 
 target_link_libraries(cuneiform-lns 
     cuneiform-cline 
-    std32 
+    cuneiform-std 
     cuneiform-compat)
 
 library_hook(cuneiform-lns)

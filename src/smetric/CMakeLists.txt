@@ -1,4 +1,4 @@
-add_library(smetric ${LIBTYPE}
+add_library(cuneiform-smetric ${LIBTYPE}
 ${SNP_SRC}
 skewmain.cpp
 sm_kern.cpp
@@ -9,9 +9,9 @@ ugol.cpp
 ../usage/un_buff.cpp
 )
 
-set_property(TARGET smetric PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
+set_property(TARGET cuneiform-smetric PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
-target_link_libraries(smetric cuneiform-compat)
+target_link_libraries(cuneiform-smetric cuneiform-compat)
 
-library_hook(smetric)
+library_hook(cuneiform-smetric)

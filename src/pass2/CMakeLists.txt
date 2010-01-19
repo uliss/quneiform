@@ -10,6 +10,6 @@ set_property(TARGET cuneiform-pass2 PROPERTY COMPILE_DEFINITIONS __P2__)
 target_link_libraries(cuneiform-pass2 
     cuneiform-cstr 
     cuneiform-fon 
-    std32)
+    cuneiform-std)
 
 library_hook(cuneiform-pass2)
