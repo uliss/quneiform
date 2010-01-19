@@ -3,11 +3,6 @@ include_directories(
 ../src/h
 ../src/include
 ../src/hhh
-../src/hdebug
-../src/hrk
-../src/hrkint
-../src/hrstr
-../src/usage
 )
 
 add_executable(cuneiform-cli cuneiform-cli.cpp)

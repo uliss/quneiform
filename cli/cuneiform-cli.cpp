@@ -81,9 +81,7 @@
 #include <fstream>
 #include "config.h"
 
-#include "puma/puma.h"
-#include "common/cifconfig.h"
-#include "rdib/imageloaderfactory.h"
+#include "cuneiform.h"
 
 using namespace std;
 

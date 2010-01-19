@@ -73,4 +73,6 @@ set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rshelllines rfrmt rselstr rblock rout rverline rimage exc ced cpage
 cimage loc32 rdib cfio)
 
+install(FILES cuneiform.h DESTINATION include)
+
 
