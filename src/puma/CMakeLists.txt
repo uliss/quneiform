@@ -21,7 +21,7 @@ target_link_libraries(cuneiform
     rshelllines
     rstuff
     cuneiform-exc
-    rreccom
+    cuneiform-rreccom
     cuneiform-rpstr
 )
 

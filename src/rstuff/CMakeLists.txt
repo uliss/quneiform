@@ -32,7 +32,7 @@ target_link_libraries(rstuff
     cuneiform-rimage
     cuneiform-rline
     smetric
-    rreccom
+    cuneiform-rreccom
     cuneiform-exc
 )
 
