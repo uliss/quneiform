@@ -1,11 +1,11 @@
-add_library(r3532 ${LIBTYPE}
+add_library(cuneiform-r35 ${LIBTYPE}
 r35.cpp)
 
-set_property(TARGET r3532 PROPERTY COMPILE_DEFINITIONS __R35__)
+set_property(TARGET cuneiform-r35 PROPERTY COMPILE_DEFINITIONS __R35__)
 
-target_link_libraries(r3532 
+target_link_libraries(cuneiform-r35 
     cuneiform-mmx 
     std32 
     cuneiform-compat)
 
-library_hook(r3532)
+library_hook(cuneiform-r35)

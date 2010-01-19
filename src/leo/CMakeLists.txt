@@ -19,7 +19,7 @@ target_link_libraries(cuneiform-leo
     cuneiform-evn
     cuneiform-fon
     cuneiform-msk
-    r3532
+    cuneiform-r35
     std32
 )
 
