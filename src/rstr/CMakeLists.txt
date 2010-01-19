@@ -96,7 +96,7 @@ target_link_libraries(rstr
     cuneiform-cline
     cuneiform-cstr
     cuneiform-ctb
-    evn32
+    cuneiform-evn
     fon32
     mmx32
     msk32

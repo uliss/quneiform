@@ -57,7 +57,7 @@ target_link_libraries(rblock
     cuneiform-cstr 
     cuneiform-cline 
     rstr 
-    evn32
+    cuneiform-evn
 )
 
 library_hook(rblock)

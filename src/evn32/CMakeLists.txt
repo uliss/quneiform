@@ -1,4 +1,4 @@
-add_library(evn32 ${LIBTYPE}
+add_library(cuneiform-evn ${LIBTYPE}
 compdata.cpp
 compkit.cpp
 evn.cpp
@@ -12,11 +12,11 @@ v0compgl.cpp
 v0comprq.cpp
 )
 
-set_property(TARGET evn32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET evn32 PROPERTY COMPILE_DEFINITIONS __EVN__)
+set_property(TARGET cuneiform-evn PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-evn PROPERTY COMPILE_DEFINITIONS __EVN__)
 
-target_link_libraries(evn32 
+target_link_libraries(cuneiform-evn 
     cuneiform-dif 
-    cuneiform-compat)
+    cuneiform-compat) 
 
-library_hook(evn32)
+library_hook(cuneiform-evn)
