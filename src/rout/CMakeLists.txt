@@ -21,6 +21,9 @@ words.cpp
 
 set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
-target_link_libraries(rout ced cfio rfrmt)
+target_link_libraries(rout 
+    cuneiform-ced 
+    cfio 
+    rfrmt)
 
 library_hook(rout)

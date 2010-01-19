@@ -1,6 +1,6 @@
 add_definitions(-D__CED__)
 
-add_library(ced ${LIBTYPE}
+add_library(cuneiform-ced ${LIBTYPE}
 ced.cpp
 ced_func.cpp
 ced_func_old.cpp
@@ -10,6 +10,6 @@ dll.cpp
 wrapper.cpp
 )
 
-target_link_libraries(ced cfio cfcompat)
+target_link_libraries(cuneiform-ced cfio cfcompat)
 
-library_hook(ced)
+library_hook(cuneiform-ced)

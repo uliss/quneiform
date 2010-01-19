@@ -4,26 +4,26 @@ pumaimpl.cpp
 )
 
 target_link_libraries(cuneiform
-common
-ced
-cfio
-cimage
-cline
-cpage
-rblock
-rcorrkegl
-rfrmt
-rimage
-rline
-rmarker
-rout
-rpic
-rselstr
-rshelllines
-rstuff
-exc
-rreccom
-rpstr
+    common
+    cuneiform-ced
+    cfio
+    cimage
+    cline
+    cpage
+    rblock
+    rcorrkegl
+    rfrmt
+    rimage
+    rline
+    rmarker
+    rout
+    rpic
+    rselstr
+    rshelllines
+    rstuff
+    exc
+    rreccom
+    rpstr
 )
 
 if(LIBTYPE STREQUAL STATIC)
