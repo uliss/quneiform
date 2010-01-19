@@ -42,14 +42,14 @@ set_property(TARGET rselstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 
 target_link_libraries(rselstr
-cuneiform-cimage
-cpage
-loc32
-rimage
-exc  
-cuneiform-cline
-cstr
-rcutp
+    cuneiform-cimage
+    cuneiform-cpage
+    loc32
+    rimage
+    exc  
+    cuneiform-cline
+    cstr
+    rcutp
 )
 
 library_hook(rselstr)

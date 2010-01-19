@@ -1,4 +1,4 @@
-add_library(cpage ${LIBTYPE}
+add_library(cuneiform-cpage ${LIBTYPE}
 backup.cpp
 block.cpp
 compress.cpp
@@ -15,8 +15,8 @@ picture.cpp
 table.cpp
 tableclass.cpp
 )
-set_property(TARGET cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
+set_property(TARGET cuneiform-cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
-target_link_libraries(cpage cuneiform-compat)
+target_link_libraries(cuneiform-cpage cuneiform-compat)
 
-library_hook(cpage)
+library_hook(cuneiform-cpage)

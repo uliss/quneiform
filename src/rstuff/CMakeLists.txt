@@ -26,14 +26,14 @@ set_property(TARGET rstuff PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
 
 target_link_libraries(rstuff
-cuneiform-cimage
-cpage
-rdib
-rimage
-rline
-smetric
-rreccom
-exc
+    cuneiform-cimage
+    cuneiform-cpage
+    rdib
+    rimage
+    rline
+    smetric
+    rreccom
+    exc
 )
 
 library_hook(rstuff)

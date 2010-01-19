@@ -15,10 +15,10 @@ set_property(TARGET rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
 target_link_libraries(rverline
-cuneiform-cimage
-cpage
-cuneiform-cline
-cuneiform-ccom
+    cuneiform-cimage
+    cuneiform-cpage
+    cuneiform-cline
+    cuneiform-ccom
 )
 
 library_hook(rverline)

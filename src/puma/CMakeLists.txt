@@ -8,7 +8,7 @@ target_link_libraries(cuneiform
     cuneiform-ced
     cuneiform-cimage
     cuneiform-cline
-    cpage
+    cuneiform-cpage
     rblock
     rcorrkegl
     rfrmt

@@ -17,14 +17,14 @@ set_property(TARGET rmarker PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
 target_link_libraries(rmarker
-cuneiform-cfio
-cuneiform-cimage
-cpage
-rblock
-rline
-rneg
-rpic
-rselstr
+    cuneiform-cfio
+    cuneiform-cimage
+    cuneiform-cpage
+    rblock
+    rline
+    rneg
+    rpic
+    rselstr
 )
 
 library_hook(rmarker)

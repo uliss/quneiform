@@ -1,9 +1,9 @@
 add_definitions(-D__CPU__)
 
-add_library(cpu32 ${LIBTYPE}
+add_library(cuneiform-cpu ${LIBTYPE}
 cpu.cpp
 )
 
-set_property(TARGET cpu32 PROPERTY COMPILE_DEFINITIONS __CPU__)
+set_property(TARGET cuneiform-cpu PROPERTY COMPILE_DEFINITIONS __CPU__)
 
-library_hook(cpu32)
+library_hook(cuneiform-cpu)

@@ -13,14 +13,14 @@ leo_stic.cpp
 set_property(TARGET leo32 PROPERTY COMPILE_DEFINITIONS __LEO__)
 
 target_link_libraries(leo32
-cpu32
-ctb32
-dif32
-evn32
-fon32
-msk32
-r3532
-std32
+    cuneiform-cpu
+    ctb32    
+    dif32
+    evn32
+    fon32
+    msk32
+    r3532
+    std32
 )
 
 library_hook(leo32)
