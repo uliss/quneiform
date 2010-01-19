@@ -18,6 +18,6 @@ stdwapi.cpp
 set_property(TARGET std32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET std32 PROPERTY COMPILE_DEFINITIONS __STD__)
 
-target_link_libraries(std32 cfcompat)
+target_link_libraries(std32 cuneiform-cfcompat)
 
 library_hook(std32)

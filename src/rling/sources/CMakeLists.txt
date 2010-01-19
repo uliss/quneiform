@@ -33,6 +33,6 @@ udictuti.cpp
 set_property(TARGET rlings PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
-target_link_libraries(rlings cstr cfcompat)
+target_link_libraries(rlings cstr cuneiform-cfcompat)
 
 library_hook(rlings)

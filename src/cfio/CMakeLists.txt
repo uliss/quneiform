@@ -8,6 +8,6 @@ dll_main.cpp
 ctcglobalheader.cpp
 )
 
-target_link_libraries(cfio cfcompat)
+target_link_libraries(cfio cuneiform-cfcompat)
 
 library_hook(cfio)

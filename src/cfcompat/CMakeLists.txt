@@ -1,7 +1,7 @@
-add_library(cfcompat ${LIBTYPE} 
+add_library(cuneiform-cfcompat ${LIBTYPE} 
 	cfcompat.cpp
 )
 
-set_property(TARGET cfcompat PROPERTY COMPILE_DEFINITIONS __CFCOMPAT__)
+set_property(TARGET cuneiform-cfcompat PROPERTY COMPILE_DEFINITIONS __CFCOMPAT__)
 
-library_hook(cfcompat)
+library_hook(cuneiform-cfcompat)

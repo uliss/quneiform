@@ -9,6 +9,6 @@ lcline.cpp
 
 set_property(TARGET cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
 
-target_link_libraries(cline cfcompat)
+target_link_libraries(cline cuneiform-cfcompat)
 
 library_hook(cline)

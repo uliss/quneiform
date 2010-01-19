@@ -10,6 +10,6 @@ dll.cpp
 wrapper.cpp
 )
 
-target_link_libraries(cuneiform-ced cfio cfcompat)
+target_link_libraries(cuneiform-ced cfio cuneiform-cfcompat)
 
 library_hook(cuneiform-ced)

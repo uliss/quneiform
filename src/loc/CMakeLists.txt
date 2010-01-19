@@ -9,6 +9,6 @@ v0compgl.cpp
 set_property(TARGET loc32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")        
 set_property(TARGET loc32 PROPERTY COMPILE_DEFINITIONS __LOC__)
 
-target_link_libraries(loc32 cfcompat)
+target_link_libraries(loc32 cuneiform-cfcompat)
 
 library_hook(loc32)

@@ -12,6 +12,6 @@ ugol.cpp
 set_property(TARGET smetric PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
-target_link_libraries(smetric cfcompat)
+target_link_libraries(smetric cuneiform-cfcompat)
 
 library_hook(smetric)

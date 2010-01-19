@@ -24,6 +24,6 @@ tgreader.cpp
 )
 set_property(TARGET lns32 PROPERTY COMPILE_DEFINITIONS __LNS__)
 
-target_link_libraries(lns32 cline std32 cfcompat)
+target_link_libraries(lns32 cline std32 cuneiform-cfcompat)
 
 library_hook(lns32)

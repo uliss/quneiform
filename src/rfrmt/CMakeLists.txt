@@ -21,15 +21,15 @@ set_property(TARGET rfrmt PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(rfrmt
-cfcompat
-common
-cuneiform-ced
-cimage
-cpage
-rdib
-rimage
-cline
-cstr
+    cuneiform-cfcompat
+    common
+    cuneiform-ced
+    cimage
+    cpage
+    rdib
+    rimage
+    cline
+    cstr
 )
 
 library_hook(rfrmt)
