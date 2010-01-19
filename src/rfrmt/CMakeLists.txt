@@ -27,7 +27,7 @@ target_link_libraries(cuneiform-rfrmt
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rdib
-    rimage
+    cuneiform-rimage
     cuneiform-cline
     cuneiform-cstr
 )

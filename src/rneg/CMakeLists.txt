@@ -13,7 +13,7 @@ target_link_libraries(rneg
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rdib
-    rimage
+    cuneiform-rimage
     rselstr
     cuneiform-exc
     rstr

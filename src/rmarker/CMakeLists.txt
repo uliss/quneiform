@@ -21,7 +21,7 @@ target_link_libraries(rmarker
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rblock
-    rline
+    cuneiform-rline
     rneg
     rpic
     rselstr

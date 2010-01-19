@@ -29,8 +29,8 @@ target_link_libraries(rstuff
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rdib
-    rimage
-    rline
+    cuneiform-rimage
+    cuneiform-rline
     smetric
     rreccom
     cuneiform-exc

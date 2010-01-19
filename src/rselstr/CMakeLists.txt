@@ -45,7 +45,7 @@ target_link_libraries(rselstr
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-loc
-    rimage
+    cuneiform-rimage
     cuneiform-exc  
     cuneiform-cline
     cuneiform-cstr

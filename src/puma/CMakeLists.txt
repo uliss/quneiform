@@ -12,8 +12,8 @@ target_link_libraries(cuneiform
     cuneiform-rblock
     cuneiform-rcorrkegl
     cuneiform-rfrmt
-    rimage
-    rline
+    cuneiform-rimage
+    cuneiform-rline
     rmarker
     rout
     rpic
