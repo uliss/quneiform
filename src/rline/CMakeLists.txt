@@ -13,7 +13,7 @@ target_link_libraries(cuneiform-rline
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-lns
-    rshelllines
+    cuneiform-rsl
 )
 
 library_hook(cuneiform-rline)

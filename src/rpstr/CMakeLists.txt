@@ -11,7 +11,7 @@ target_link_libraries(cuneiform-rpstr
     cuneiform-ccom
     cuneiform-cstr
     cuneiform-rling
-    rstr
+    cuneiform-rstr
     std32
 )
 

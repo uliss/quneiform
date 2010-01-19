@@ -55,7 +55,7 @@ target_link_libraries(cuneiform-rblock
     cuneiform-exc 
     cuneiform-cstr 
     cuneiform-cline 
-    rstr 
+    cuneiform-rstr 
     cuneiform-evn
 )
 

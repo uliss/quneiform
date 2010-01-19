@@ -16,7 +16,7 @@ target_link_libraries(cuneiform-rneg
     cuneiform-rimage
     cuneiform-rselstr
     cuneiform-exc
-    rstr
+    cuneiform-rstr
 )
 
 library_hook(cuneiform-rneg)

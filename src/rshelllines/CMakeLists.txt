@@ -1,13 +1,13 @@
-add_library(rshelllines ${LIBTYPE}
+add_library(cuneiform-rsl ${LIBTYPE}
 ${SNP_SRC}
 rshelllines.cpp
 )
-set_property(TARGET rshelllines PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS__)
+set_property(TARGET cuneiform-rsl PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS__)
 
-target_link_libraries(rshelllines
+target_link_libraries(cuneiform-rsl
     cuneiform-cimage
     cuneiform-cpage
     rverline
 )
 
-library_hook(rshelllines)
+library_hook(cuneiform-rsl)

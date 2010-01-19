@@ -18,7 +18,7 @@ target_link_libraries(cuneiform
     cuneiform-rout
     cuneiform-rpic
     cuneiform-rselstr
-    rshelllines
+    cuneiform-rsl
     rstuff
     cuneiform-exc
     cuneiform-rreccom

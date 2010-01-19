@@ -1,6 +1,6 @@
 add_definitions(-DDPUMA_SNAP)
 
-add_library(rstr ${LIBTYPE}
+add_library(cuneiform-rstr ${LIBTYPE}
 ${SNP_SRC}
 abris.cpp
 abrtools.cpp
@@ -88,10 +88,10 @@ tm.cpp
 tools.cpp
 ukr.cpp)
 
-set_property(TARGET rstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
+set_property(TARGET cuneiform-rstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
-target_link_libraries(rstr
+target_link_libraries(cuneiform-rstr
     cuneiform-ccom
     cuneiform-cline
     cuneiform-cstr
@@ -109,4 +109,4 @@ target_link_libraries(rstr
     cuneiform-leo
 )
 
-library_hook(rstr)
+library_hook(cuneiform-rstr)
