@@ -7,7 +7,7 @@ set_property(TARGET cuneiform-rsl PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXP
 target_link_libraries(cuneiform-rsl
     cuneiform-cimage
     cuneiform-cpage
-    rverline
+    cuneiform-rverline
 )
 
 library_hook(cuneiform-rsl)

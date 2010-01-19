@@ -19,7 +19,7 @@ target_link_libraries(cuneiform
     cuneiform-rpic
     cuneiform-rselstr
     cuneiform-rsl
-    rstuff
+    cuneiform-rstuff
     cuneiform-exc
     cuneiform-rreccom
     cuneiform-rpstr

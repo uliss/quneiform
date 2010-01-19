@@ -1,4 +1,4 @@
-add_library(rverline ${LIBTYPE}
+add_library(cuneiform-rverline ${LIBTYPE}
 ${SNP_SRC}
 amu_geom.cpp
 by_image.cpp
@@ -11,14 +11,14 @@ vl_rule.cpp
 vl_snap.cpp
 )
 
-set_property(TARGET rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
+set_property(TARGET cuneiform-rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
-target_link_libraries(rverline
+target_link_libraries(cuneiform-rverline
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-cline
     cuneiform-ccom
 )
 
-library_hook(rverline)
+library_hook(cuneiform-rverline)

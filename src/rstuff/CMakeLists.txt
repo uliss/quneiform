@@ -1,4 +1,4 @@
-add_library(rstuff ${LIBTYPE}
+add_library(cuneiform-rstuff ${LIBTYPE}
 ${SNP_SRC}
 aboutlines.aboutlin.cpp
 aboutlines.buffer.cpp
@@ -22,10 +22,10 @@ rstuff.cpp
 ../usage/un_buff.cpp
 )
 
-set_property(TARGET rstuff PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
+set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
 
-target_link_libraries(rstuff
+target_link_libraries(cuneiform-rstuff
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rdib
@@ -36,4 +36,4 @@ target_link_libraries(rstuff
     cuneiform-exc
 )
 
-library_hook(rstuff)
+library_hook(cuneiform-rstuff)
