@@ -104,7 +104,7 @@ LNS_FUNC TImageAccess* LnsGetSweepedImage(LinesTotalInfo* lti);
 LNS_FUNC Err16 LnsGetError();
 LNS_FUNC void LnsPageFinish();
 
-// set-get options from lns32.ini (located at the same place as .exe)
+// set-get options from lns.ini (located at the same place as .exe)
 LNS_FUNC void LnsSetSection(char* szSection); // 63 chars max
 LNS_FUNC uint32_t LnsGetProfileInt(const char* szKey, int nDefault);
 LNS_FUNC uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,

@@ -75,7 +75,7 @@
 #include "rstr/rstr.h"
 #include "rstuff/rstuff.h"
 #include "rverline/rverline.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "shortverticallinesfilter.h"
 #include "resource.h"
 #include "mymem.h"

@@ -65,7 +65,7 @@
 #include <stdio.h>
 #include <string.h>
 /*  interface our-other  */
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "cpage/cpage.h"
 #include "puma/pumadef.h"
 #include "cline/cline.h"

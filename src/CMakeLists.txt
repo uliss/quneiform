@@ -57,7 +57,7 @@ add_subdirectory(rblock)
 add_subdirectory(rselstr)
 add_subdirectory(rfrmt)
 add_subdirectory(rshelllines)
-add_subdirectory(lns32)
+add_subdirectory(lns)
 add_subdirectory(rreccom)
 add_subdirectory(smetric)
 add_subdirectory(rneg)
@@ -77,7 +77,7 @@ set(PUMA_LIBS
     rneg 
     smetric 
     rreccom
-    lns32 
+    cuneiform-lns 
     rshelllines 
     rfrmt 
     rselstr 
@@ -85,13 +85,13 @@ set(PUMA_LIBS
     rout 
     rverline 
     rimage 
-    exc 
+    cuneiform-exc 
     cuneiform-ced 
-    cpage
-    cimage 
+    cuneiform-cpage
+    cuneiform-cimage 
     loc32 
     rdib 
-    cfio
+    cuneiform-cfio
 )
 
 install(FILES cuneiform.h DESTINATION include)

@@ -73,7 +73,7 @@
 #include "rsglobaldata.h"
 #include "rsmemory.h"
 #include "puma/pumadef.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "un_buff.h"
 #include "line_vp_util.h"
 #include "line_vp_2_am.h"

@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface our  */
 #include "skew1024.h"
 /*  interface our-other  */
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 # include "ccom/ccom.h"
 #include "puma/pumadef.h"
 /*  interface our-my     */

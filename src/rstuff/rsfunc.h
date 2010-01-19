@@ -72,7 +72,7 @@
 #include "rsdefines.h"
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "linedefs.h"
 
 //////////////////////////

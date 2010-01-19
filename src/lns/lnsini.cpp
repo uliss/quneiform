@@ -91,7 +91,7 @@ uint32_t LnsGetProfileInt(const char* szKey, int nDefault)
 {
     if (szIniFileName[0] == 0) {
         GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
-        ChangNameEx(szIniFileName, "lns32.ini");
+        ChangNameEx(szIniFileName, "lns.ini");
     }
 
     return GetPrivateProfileInt(szSection, szKey, nDefault, szIniFileName);
@@ -102,7 +102,7 @@ uint32_t LnsGetProfileString(char* szKey, char* szResult, int nResult,
 {
     if (szIniFileName[0] == 0) {
         GetModuleFileName(NULL, szIniFileName, sizeof(szIniFileName));
-        ChangNameEx(szIniFileName, "lns32.ini");
+        ChangNameEx(szIniFileName, "lns.ini");
     }
 
     static char szDef[4] = { 0 };

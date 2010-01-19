@@ -64,7 +64,7 @@
 
 #include "cfcompat.h"
 #include "linedefs.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "cpage/cpage.h"
 #include "cimage/ctiimage.h"
 

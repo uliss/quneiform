@@ -64,7 +64,7 @@
 #include "rline.h"
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
-#include "lns32/lns.h"
+#include "lns/lns.h"
 #include "dpuma.h"
 #include "linedefs.h"
 #include "rshelllines/rshelllinescom.h"

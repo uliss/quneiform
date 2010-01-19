@@ -64,7 +64,7 @@
 #include <stdio.h>
 #include <math.h>
 /*  interface our-other  */
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 /*  interface my         */
 #include "un_err.h"
 #include "line_vp_2_am.h" //own functions

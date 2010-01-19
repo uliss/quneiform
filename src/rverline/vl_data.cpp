@@ -64,7 +64,7 @@
 #include <stdio.h>
 /*  interface our-other  */
 #include "cpage/cpage.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 #include "rline/rline.h"
 #include "ccom/ccom.h"
 #include "cimage/ctiimage.h"

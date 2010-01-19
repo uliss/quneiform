@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
 #include "rsdefines.h"
-#include "lns32/lnsdefs.h"
+#include "lns/lnsdefs.h"
 
 // predefined
 #ifdef __RSTUFF_CPP__
