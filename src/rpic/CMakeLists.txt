@@ -2,7 +2,7 @@ include_directories(BEFORE
 ../hhh/tigerh/h
 )
 
-add_library(rpic ${LIBTYPE}
+add_library(cuneiform-rpic ${LIBTYPE}
 ${SNP_SRC}
 debug.cpp
 dll.cpp
@@ -11,12 +11,12 @@ rectpic.cpp
 rpic.cpp
 )
 
-set_property(TARGET rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
+set_property(TARGET cuneiform-rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
-target_link_libraries(rpic 
+target_link_libraries(cuneiform-rpic 
     cuneiform-cpage 
     cuneiform-ccom 
     rstr)
 
-library_hook(rpic)
+library_hook(cuneiform-rpic)

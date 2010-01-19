@@ -1,6 +1,6 @@
 include_directories(${ICONV_INCLUDE_DIR})
 
-add_library(rout ${LIBTYPE}
+add_library(cuneiform-rout ${LIBTYPE}
 browse.cpp
 codetables.cpp
 exporter.cpp
@@ -19,10 +19,10 @@ text.cpp
 words.cpp
 )
 
-set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
+set_property(TARGET cuneiform-rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
-target_link_libraries(rout 
+target_link_libraries(cuneiform-rout 
     cuneiform-ced 
     cuneiform-rfrmt)
 
-library_hook(rout)
+library_hook(cuneiform-rout)
