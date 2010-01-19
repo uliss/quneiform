@@ -1,4 +1,4 @@
-add_library(loc32 ${LIBTYPE}
+add_library(cuneiform-loc ${LIBTYPE}
 compdata.cpp
 compkit.cpp
 loc.cpp
@@ -6,9 +6,9 @@ locompmn.cpp
 v0compgl.cpp
 )        
 
-set_property(TARGET loc32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")        
-set_property(TARGET loc32 PROPERTY COMPILE_DEFINITIONS __LOC__)
+set_property(TARGET cuneiform-loc PROPERTY COMPILE_FLAGS "-fvisibility=hidden")        
+set_property(TARGET cuneiform-loc PROPERTY COMPILE_DEFINITIONS __LOC__)
 
-target_link_libraries(loc32 cuneiform-compat)
+target_link_libraries(cuneiform-loc cuneiform-compat)
 
-library_hook(loc32)
+library_hook(cuneiform-loc)

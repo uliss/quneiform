@@ -14,7 +14,7 @@ set_property(TARGET cuneiform-exc PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET cuneiform-exc PROPERTY COMPILE_DEFINITIONS __EXC__)
 
 target_link_libraries(cuneiform-exc 
-    loc32 
+    cuneiform-loc 
     cuneiform-ccom 
     cuneiform-evn)
 

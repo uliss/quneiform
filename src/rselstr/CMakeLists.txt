@@ -44,7 +44,7 @@ set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 target_link_libraries(rselstr
     cuneiform-cimage
     cuneiform-cpage
-    loc32
+    cuneiform-loc
     rimage
     cuneiform-exc  
     cuneiform-cline

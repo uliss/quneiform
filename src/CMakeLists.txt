@@ -89,7 +89,7 @@ set(PUMA_LIBS
     cuneiform-ced 
     cuneiform-cpage
     cuneiform-cimage 
-    loc32 
+    cuneiform-loc
     rdib 
     cuneiform-cfio
 )
