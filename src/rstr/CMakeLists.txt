@@ -99,7 +99,7 @@ target_link_libraries(rstr
     cuneiform-evn
     cuneiform-fon
     cuneiform-mmx
-    msk32
+    cuneiform-msk
     pass2
     rbal
     rcutp
