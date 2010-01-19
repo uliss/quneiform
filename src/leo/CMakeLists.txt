@@ -15,7 +15,7 @@ set_property(TARGET leo32 PROPERTY COMPILE_DEFINITIONS __LEO__)
 target_link_libraries(leo32
     cuneiform-cpu
     cuneiform-ctb    
-    dif32
+    cuneiform-dif
     evn32
     fon32
     msk32

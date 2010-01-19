@@ -15,6 +15,8 @@ v0comprq.cpp
 set_property(TARGET evn32 PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET evn32 PROPERTY COMPILE_DEFINITIONS __EVN__)
 
-target_link_libraries(evn32 dif32 cuneiform-compat)
+target_link_libraries(evn32 
+    cuneiform-dif 
+    cuneiform-compat)
 
 library_hook(evn32)
