@@ -1,4 +1,4 @@
-add_library(ctb32 ${LIBTYPE}
+add_library(cuneiform-ctb ${LIBTYPE}
 ctb_aln.cpp
 ctb_cnvm.cpp
 ctb_gray.cpp
@@ -8,8 +8,8 @@ ctb_prot.cpp
 ctb_recr.cpp
 ctb_tool.cpp
 )
-set_property(TARGET ctb32 PROPERTY COMPILE_DEFINITIONS __CTB__)
+set_property(TARGET cuneiform-ctb PROPERTY COMPILE_DEFINITIONS __CTB__)
 
-target_link_libraries(ctb32 cuneiform-compat)
+target_link_libraries(cuneiform-ctb cuneiform-compat)
 
-library_hook(ctb32)
+library_hook(cuneiform-ctb)

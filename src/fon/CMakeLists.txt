@@ -19,6 +19,6 @@ set_property(TARGET fon32 PROPERTY COMPILE_DEFINITIONS __FON__)
 
 target_link_libraries(fon32 
     cuneiform-cstr 
-    ctb32)
+    cuneiform-ctb)
 
 library_hook(fon32)
