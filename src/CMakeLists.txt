@@ -65,7 +65,7 @@ add_subdirectory(rpic)
 add_subdirectory(rstuff)
 add_subdirectory(rmarker)
 add_subdirectory(rcorrkegl)
-add_subdirectory(cfcompat)
+add_subdirectory(compat)
 
 set(RPSTR_LIBS rpstr rstr rling mmx32 pass2 rbal cline leo32 cpu32 r3532 rlings rsadd
 fon32 msk32 std32 evn32 cstr ctb32 dif32 rcutp cuneiform-ccom)
