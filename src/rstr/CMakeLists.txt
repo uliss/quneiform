@@ -93,7 +93,7 @@ set_property(TARGET rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
 target_link_libraries(rstr
 ccom
-cline
+cuneiform-cline
 cstr
 ctb32
 evn32

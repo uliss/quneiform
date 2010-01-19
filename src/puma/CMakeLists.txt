@@ -7,7 +7,7 @@ target_link_libraries(cuneiform
     common
     cuneiform-ced
     cuneiform-cimage
-    cline
+    cuneiform-cline
     cpage
     rblock
     rcorrkegl

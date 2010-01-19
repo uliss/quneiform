@@ -28,7 +28,7 @@ target_link_libraries(rfrmt
     cpage
     rdib
     rimage
-    cline
+    cuneiform-cline
     cstr
 )
 

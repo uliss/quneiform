@@ -17,7 +17,7 @@ set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 target_link_libraries(rverline
 cuneiform-cimage
 cpage
-cline
+cuneiform-cline
 cuneiform-ccom
 )
 

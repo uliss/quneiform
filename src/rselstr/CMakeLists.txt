@@ -47,7 +47,7 @@ cpage
 loc32
 rimage
 exc  
-cline
+cuneiform-cline
 cstr
 rcutp
 )
