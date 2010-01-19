@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-#include "cfio/cfio.h"
+#include "cfio.h"
 #include "resource.h"
 #include "ctcbaseclasses.h"
 #include "ctcglobalheader.h"

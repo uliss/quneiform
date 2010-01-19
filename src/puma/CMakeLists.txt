@@ -6,7 +6,6 @@ pumaimpl.cpp
 target_link_libraries(cuneiform
     common
     cuneiform-ced
-    cfio
     cimage
     cline
     cpage

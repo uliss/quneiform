@@ -163,59 +163,7 @@ uint16_t GetReturnCode_cfio()
 {
     return wLowRC;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-#define CASE_FUNCTION(a)    case CFIO_FN##a:    *(FNCFIO##a *)pData = CFIO_##a; break
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_GetExportData(uint32_t dwType, void * pData)
-{
-    Bool32 rc = TRUE;
-    SetReturnCode_cfio(IDS_CFIO_ERR_NO);
-    wLowRC = 0;
 
-    switch (dwType) {
-        case CFIO_PCHAR_TEMPORARY_FOLDER:
-            rc = Control_ctc->GetFolder(CFIO_TEMP_FOLDER, (char *)pData);
-            break;
-        case CFIO_PCHAR_STORAGE_FOLDER:
-            rc = Control_ctc->GetFolder(CFIO_FILE_FOLDER, (char *)pData);
-            break;
-        case CFIO_PCHAR_FILE_FOLDER:
-            rc = Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, (char *)pData);
-            break;
-            CASE_FUNCTION(OpenStorage);
-            CASE_FUNCTION(CloseStorage);
-            CASE_FUNCTION(DeleteStorage);
-            CASE_FUNCTION(WriteFileToStorage);
-            CASE_FUNCTION(ReadFileFromStorage);
-            CASE_FUNCTION(OpenFreeFile);
-            CASE_FUNCTION(CloseFreeFile);
-            CASE_FUNCTION(WriteToFile);
-            CASE_FUNCTION(ReadFromFile);
-            CASE_FUNCTION(SeekFilePointer);
-            CASE_FUNCTION(TellFilePointer);
-            CASE_FUNCTION(FlushFile);
-            CASE_FUNCTION(AllocMemory);
-            CASE_FUNCTION(DAllocMemory);
-            CASE_FUNCTION(ReAllocMemory);
-            CASE_FUNCTION(FreeMemory);
-            CASE_FUNCTION(LockMemory);
-            CASE_FUNCTION(UnlockMemory);
-            CASE_FUNCTION(WriteMemoryToFile);
-            CASE_FUNCTION(ReadMemoryFromFile);
-            CASE_FUNCTION(WriteMemoryToStorage);
-            CASE_FUNCTION(ReadMemoryFromStorage);
-        default:
-            *(char **)pData = NULL;
-            wLowRC = IDS_ERR_NOTIMPLEMENT;
-            rc = FALSE;
-    }
-
-    return rc;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
 CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData)
 {
     uint32_t      Folder;

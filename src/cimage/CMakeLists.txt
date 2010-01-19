@@ -13,6 +13,6 @@ dll.cpp
 
 set_property(TARGET cimage PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
 
-target_link_libraries(cimage cfio rdib common)
+target_link_libraries(cimage rdib common cuneiform-cfio)
 
 library_hook(cimage)

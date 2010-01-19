@@ -17,7 +17,7 @@ set_property(TARGET rmarker PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
 target_link_libraries(rmarker
-cfio
+cuneiform-cfio
 cimage
 cpage
 rblock

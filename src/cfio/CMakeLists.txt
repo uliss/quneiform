@@ -1,4 +1,4 @@
-add_library(cfio ${LIBTYPE}
+add_library(cuneiform-cfio ${LIBTYPE}
 ctcbase.cpp
 ctccontrol.cpp
 ctcfile.cpp
@@ -8,6 +8,6 @@ dll_main.cpp
 ctcglobalheader.cpp
 )
 
-target_link_libraries(cfio cuneiform-compat)
+target_link_libraries(cuneiform-cfio cuneiform-compat)
 
-library_hook(cfio)
+library_hook(cuneiform-cfio)
