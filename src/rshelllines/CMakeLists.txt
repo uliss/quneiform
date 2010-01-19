@@ -5,7 +5,7 @@ rshelllines.cpp
 set_property(TARGET rshelllines PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS__)
 
 target_link_libraries(rshelllines
-cimage
+cuneiform-cimage
 cpage
 rverline
 )

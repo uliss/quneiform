@@ -18,7 +18,7 @@ set_property(TARGET rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
 target_link_libraries(rmarker
 cuneiform-cfio
-cimage
+cuneiform-cimage
 cpage
 rblock
 rline

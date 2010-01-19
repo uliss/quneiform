@@ -42,7 +42,7 @@ set_property(TARGET rselstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 
 target_link_libraries(rselstr
-cimage
+cuneiform-cimage
 cpage
 loc32
 rimage

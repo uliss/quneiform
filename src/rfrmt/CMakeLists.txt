@@ -24,7 +24,7 @@ target_link_libraries(rfrmt
     cuneiform-compat
     common
     cuneiform-ced
-    cimage
+    cuneiform-cimage
     cpage
     rdib
     rimage

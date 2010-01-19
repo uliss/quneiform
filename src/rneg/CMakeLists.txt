@@ -10,7 +10,7 @@ searchneg.cpp
 set_property(TARGET rneg PROPERTY COMPILE_DEFINITIONS __RNEG__)
 
 target_link_libraries(rneg
-cimage
+cuneiform-cimage
 cpage
 rdib
 rimage

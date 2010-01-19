@@ -16,8 +16,8 @@ rprogressor.cpp
 set_property(TARGET rimage PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
 
 target_link_libraries(rimage
-cimage
-rdib
+    cuneiform-cimage
+    rdib
 )
 
 library_hook(rimage)

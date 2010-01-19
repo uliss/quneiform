@@ -1,4 +1,4 @@
-add_library(cimage ${LIBTYPE}
+add_library(cuneiform-cimage ${LIBTYPE}
 ${SNP_SRC}
 cticontrol.cpp
 ctiimage.cpp
@@ -11,8 +11,8 @@ ctimemory.cpp
 dll.cpp
 )
 
-set_property(TARGET cimage PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
+set_property(TARGET cuneiform-cimage PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
 
-target_link_libraries(cimage rdib common cuneiform-cfio)
+target_link_libraries(cuneiform-cimage rdib common cuneiform-cfio)
 
-library_hook(cimage)
+library_hook(cuneiform-cimage)
