@@ -14,7 +14,7 @@ target_link_libraries(cuneiform-rneg
     cuneiform-cpage
     cuneiform-rdib
     cuneiform-rimage
-    rselstr
+    cuneiform-rselstr
     cuneiform-exc
     rstr
 )

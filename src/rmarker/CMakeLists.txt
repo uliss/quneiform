@@ -24,7 +24,7 @@ target_link_libraries(cuneiform-rmarker
     cuneiform-rline
     cuneiform-rneg
     cuneiform-rpic
-    rselstr
+    cuneiform-rselstr
 )
 
 library_hook(cuneiform-rmarker)

@@ -3,7 +3,7 @@ include_directories(BEFORE
 ../hhh/tigerh/
 )
 
-add_library(rselstr ${LIBTYPE}
+add_library(cuneiform-rselstr ${LIBTYPE}
 ${SNP_SRC}
 _adaptive.cpp
 _dlldummy.cpp
@@ -38,10 +38,10 @@ sevbreak.cpp
 testforvertical.cpp
 )
 
-set_property(TARGET rselstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
+set_property(TARGET cuneiform-rselstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 
-target_link_libraries(rselstr
+target_link_libraries(cuneiform-rselstr
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-loc
@@ -52,4 +52,4 @@ target_link_libraries(rselstr
     cuneiform-rcutp
 )
 
-library_hook(rselstr)
+library_hook(cuneiform-rselstr)
