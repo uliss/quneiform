@@ -10,7 +10,7 @@ target_link_libraries(cuneiform
     cuneiform-cline
     cuneiform-cpage
     cuneiform-rblock
-    rcorrkegl
+    cuneiform-rcorrkegl
     rfrmt
     rimage
     rline
