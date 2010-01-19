@@ -16,6 +16,6 @@ ${loaders}
 )
 
 set_property(TARGET rdib PROPERTY COMPILE_DEFINITIONS __RDIB__)
-target_link_libraries(rdib common ${loaders_libs})
+target_link_libraries(rdib cuneiform-common ${loaders_libs})
 
 library_hook(rdib)

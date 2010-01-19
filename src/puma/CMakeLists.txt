@@ -4,7 +4,7 @@ pumaimpl.cpp
 )
 
 target_link_libraries(cuneiform
-    common
+    cuneiform-common
     cuneiform-ced
     cuneiform-cimage
     cuneiform-cline

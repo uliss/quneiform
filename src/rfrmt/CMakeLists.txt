@@ -22,7 +22,7 @@ set_property(TARGET rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(rfrmt
     cuneiform-compat
-    common
+    cuneiform-common
     cuneiform-ced
     cuneiform-cimage
     cpage
