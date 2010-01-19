@@ -230,12 +230,6 @@ DEC_FUNC(Bool32, DPUMA_LockImage, (Handle wnd, Bool32 bLock))
 DEC_FUNC(void, DPUMA_RegistryHelp, (Handle owner, const char * lpName, Bool32 bAppend))
 DEC_FUNC(Bool32, DPUMA_SaveFile, (void * lpDIB, char * lpFileName, uint32_t nFormat))
 
-// Image Gear constants
-enum puma_save_t {
-    PUMA_SAVE_BMP_UNCOMP = 2, PUMA_SAVE_TIF_UNCOMP = 40, PUMA_SAVE_TIF_G4 = 40
-    | (4L << 16)
-};
-
 DEC_FUNC(void, DPUMA_ProgressStart , ( void ))
 DEC_FUNC(void, DPUMA_ProgressFinish , ( void ))
 DEC_FUNC(Bool32, DPUMA_ProgressStep , (uint32_t step, const char * name, uint32_t percent))
