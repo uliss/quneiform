@@ -57,7 +57,6 @@
 #include <string.h>
 
 #include "rreccom.h"
-#include "resource.h"
 #include "compat_defs.h"
 
 static uint16_t gwHeightRC = 0;
