@@ -65,6 +65,7 @@
 
 using namespace CIF;
 Bool32 NPFArbitr(CCOM_comp*, CCOM_comp*, Bool32);
+Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 int NPFGetBD(void);
 #define NEGA   1<<14
 #define VERTICA 1<<13

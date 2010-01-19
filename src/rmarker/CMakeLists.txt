@@ -20,7 +20,7 @@ target_link_libraries(rmarker
     cuneiform-cfio
     cuneiform-cimage
     cuneiform-cpage
-    rblock
+    cuneiform-rblock
     rline
     rneg
     rpic

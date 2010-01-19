@@ -89,14 +89,13 @@ Handle hNotUseAntonCross = NULL;
 //Handle hUseCLine = NULL;
 Handle hSetTrivAverHeight = NULL;//George, 12.11.01 (dd.mm.yy)
 
-
+extern int MA_DebugLevel;
 uint32_t ZagolovokBreakingCoeff = 3;
 //////////////////////////////////
 void InitDebug()
 {
     layout = 0;
 //Beg of Almi Corr
-//  LDPUMA_Registry(&hDebugLayout,SNAP_ROOT_LAYOUT,NULL);
     LDPUMA_Registry(&hDebugLayout, SNAP_LAYOUT_LAYOUT, NULL);
 //End of Almi 05.12.00; не вполне правильно, но и так сойдёт; (не прав был Лёха)
     LDPUMA_RegVariable(hDebugLayout, "Установить уровень отладки.", &layout, "unsigned char");
@@ -104,21 +103,6 @@ void InitDebug()
 отладки от 1 до 4", TRUE);
     LDPUMA_RegVariable(hDebugLayout, "Коэффициент для выделения заголовков * 2.",
                        &ZagolovokBreakingCoeff, "unsigned int");
-    //LDPUMA_RegistryHelp(hDebugLayout,"rrrrrrrrrrrrr",TRUE);
-    /*
-    LDPUMA_Registry(&hDebugCancelGreatComp,"Отменить большие компоненты",hDebugLayout);
-    LDPUMA_RegistryHelp(hDebugCancelGreatComp,"Большие компоненты не будут передаваться \
-    фрагментатору.",FALSE);
-
-    LDPUMA_Registry(&hDebugCancelPicturesAndTables,"Отменить картинки и таблицы",hDebugLayout);
-    LDPUMA_RegistryHelp(hDebugCancelPicturesAndTables,"Пропустить работу с \
-    картинками и таблиблицами",FALSE);
-
-
-    LDPUMA_Registry(&hShowAlgoritm,"Работа алгоритма",hDebugLayout);
-    LDPUMA_RegistryHelp(hShowAlgoritm,"Показать детально работу фрагментатора. \
-    Сама эта кнопка не несет информации",FALSE);
-    */
     LDPUMA_Registry(&hAlgoritmWork, "Работа алгоритма", hDebugLayout);
     LDPUMA_RegistryHelp(hAlgoritmWork, "Управление работой фрагментатора.", FALSE);
     LDPUMA_Registry(&hNotWholeLine, "Отменить разрезание блока по неполной линиии.", hAlgoritmWork);
@@ -144,10 +128,6 @@ void InitDebug()
     LDPUMA_Registry(&hInclineCalculating, "Вычисление угла наклона", hDebugLayout);
     LDPUMA_RegistryHelp(hInclineCalculating, "Показывает процесс вычисления угла \
 наклона страницы", FALSE);
-    /*
-    LDPUMA_Registry(&hBlocksAfterFirstExtraction,"Блоки после первого выделения",hShowAlgoritm);
-    LDPUMA_RegistryHelp(hBlocksAfterFirstExtraction,"Пропустить работу",FALSE);
-    */
     LDPUMA_Registry(&hBlocksBreaking, "Разбиение", hDebugLayout);
     LDPUMA_RegistryHelp(hBlocksBreaking, "Показывает процесс разбиения блоков", FALSE);
     LDPUMA_Registry(&hBlocksGlueing, "Склейка", hDebugLayout);
@@ -160,20 +140,6 @@ void InitDebug()
     LDPUMA_Registry(&hSecondDustAbsorbtion, "Второй этап добавления дустов", hDebugLayout);
     LDPUMA_RegistryHelp(hSecondDustAbsorbtion, "Показывает блоки после второго этапа \
 удаления дустов", FALSE);
-    /*
-        LDPUMA_Registry(&hDebugStrings,SNAP_ROOT_STRINGS,NULL);
-        LDPUMA_RegVariable(hDebugStrings,"Установить уровень отладки.",&layout,"unsigned char");
-        LDPUMA_RegistryHelp(hDebugStrings,"В переменных можно установить значение уровня \
-    отладки от 5 до 8",TRUE);
-
-        LDPUMA_Registry(&hShowString,"Показать выделенные строки",hDebugStrings);
-        LDPUMA_RegistryHelp(hShowString,"Строки будут выделяться прямоугольниками.",FALSE);
-
-        LDPUMA_Registry(&hShowCells,"Показать выделенные ячейки с компонентами",hDebugStrings);
-        LDPUMA_RegistryHelp(hShowCells,"Будут подсвечиваться ячейка и входящие \
-    в нее компоненты.",FALSE);
-    */
-//  LDPUMA_Registry(&hUseCLine,"Работа с контейнером линий",NULL);
 #define REGVAR(a)   LDPUMA_RegVariable(hDebugLayout,#a,&a,"short int")
 # ifdef LT_DEBUG
     LDPUMA_RegVariable(hDebugLayout, "LT_DebugGraphicsLevel", &LT_DebugGraphicsLevel, "int");

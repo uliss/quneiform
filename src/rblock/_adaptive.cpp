@@ -71,6 +71,8 @@
 
 extern int16_t nIncline;
 
+Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
+
 PROOT root_file = NULL;
 uint16_t run_options = 0;
 

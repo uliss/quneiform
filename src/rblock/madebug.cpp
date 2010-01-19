@@ -69,13 +69,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-//  # include <conio.h>
 # include <stdio.h>
 # include <stdlib.h>
 
 # include "c_memory.h"
 # include "lterrors.h"
 # include "madebug.h"
+#include "cfcompat.h"
 # ifdef PC_TYPE
 # ifdef MA_DEBUG
 # undef malloc

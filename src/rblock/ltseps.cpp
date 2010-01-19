@@ -73,9 +73,6 @@
 # include "my_mem.h"
 # include "cline/cline.h"
 
-//#include "lns.h"
-//#include "rline.h"
-
 #include "dpuma.h"
 #include "minmax.h"
 
@@ -294,7 +291,7 @@ void SeparatorsGet(void)
         return;
 
     nSeps = nf + nl;
-    pSeps = malloc(nSeps * sizeof(SEPARATOR));
+    pSeps = (SEPARATOR*)malloc(nSeps * sizeof(SEPARATOR));
 
     if (pSeps == NULL)
         ErrorNoEnoughMemory("in LTSEPS.C,SeparatorsGet,part 1");
@@ -302,10 +299,10 @@ void SeparatorsGet(void)
     for (i = 0, j = 0; i < nf; i++, j++) {
         pSeps[j].Type = SEP_RECT;
         pSeps[j].uFlags = SEPF_NULL;
-        pSeps[j].xBegin = frames[i].topleft.col;
-        pSeps[j].yBegin = frames[i].topleft.row;
-        pSeps[j].xEnd = frames[i].botright.col;
-        pSeps[j].yEnd = frames[i].botright.row;
+        pSeps[j].xBegin = frames[i].topleft.x();
+        pSeps[j].yBegin = frames[i].topleft.y();
+        pSeps[j].xEnd = frames[i].botright.x();
+        pSeps[j].yEnd = frames[i].botright.y();
         pSeps[j].nWidth = 1;
     }
 
@@ -323,14 +320,14 @@ void SeparatorsGet(void)
             pSeps[j].Type = SEP_NULL;
 
         pSeps[j].uFlags = lines[i].type & FRM_LN ? SEPF_IS_PART : SEPF_NULL;
-        pSeps[j].xBegin = lines[i].beg.col;
-        pSeps[j].yBegin = lines[i].beg.row;
-        pSeps[j].xEnd = lines[i].end.col;
-        pSeps[j].yEnd = lines[i].end.row;
+        pSeps[j].xBegin = lines[i].beg.x();
+        pSeps[j].yBegin = lines[i].beg.y();
+        pSeps[j].xEnd = lines[i].end.x();
+        pSeps[j].yEnd = lines[i].end.y();
         pSeps[j].nWidth = lines[i].width;
     }
 
-    q_sort((char *) pSeps, nSeps, sizeof(SEPARATOR), SepComp); //AK 04.03.97
+    q_sort((char *) pSeps, nSeps, sizeof(SEPARATOR), (int (*)(const void*, const void*)) SepComp); //AK 04.03.97
 }
 # endif
 

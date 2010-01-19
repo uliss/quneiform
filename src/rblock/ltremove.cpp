@@ -64,7 +64,8 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdlib.h>
+#include <cstdlib>
+#include <cstring>
 
 # include "layout.h"
 # include "my_mem.h"

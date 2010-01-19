@@ -67,33 +67,6 @@ add_subdirectory(rmarker)
 add_subdirectory(rcorrkegl)
 add_subdirectory(compat)
 
-set(PUMA_LIBS 
-    puma 
-    rcorrkegl 
-    rmarker 
-    rstuff 
-    rpic 
-    rline 
-    rneg 
-    smetric 
-    rreccom
-    cuneiform-lns 
-    rshelllines 
-    rfrmt 
-    rselstr 
-    rblock 
-    rout 
-    rverline 
-    rimage 
-    cuneiform-exc 
-    cuneiform-ced 
-    cuneiform-cpage
-    cuneiform-cimage 
-    cuneiform-loc
-    rdib 
-    cuneiform-cfio
-)
-
 install(FILES cuneiform.h DESTINATION include)
 
 

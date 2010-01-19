@@ -77,6 +77,10 @@
 
 # include "dpuma.h"
 
+void AllocationsAccountingClose();
+void AllocationsAccountingOpen();
+extern int MA_DebugLevel;
+
 //#define LT_DUMP 1
 //#pragma message(__FILE__"(34): здесь закомментировать '#define LT_DUMP 1'")
 

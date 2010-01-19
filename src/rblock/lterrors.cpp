@@ -86,6 +86,8 @@
 
 jmp_buf fatal_error_exit;
 
+void AllocationsAccountingClose();
+
 void FreeAllData(void)
 {
     SE_FreeAllData();
@@ -189,7 +191,7 @@ int SetupMemoryLayout()
 
     if (lout_memory == NULL) {
         //        if((lout_memory=malloc(SizeBuffer))==NULL) return 1;
-        if ((lout_memory = TigerAllocateMemory(SizeBuffer)) == NULL) return 1;
+        if ((lout_memory = (char*) TigerAllocateMemory(SizeBuffer)) == NULL) return 1;
     }
 
     Block = (Memory *)lout_memory;

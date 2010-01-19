@@ -1,8 +1,7 @@
-include_directories(BEFORE 
-../hhh/tigerh
+include_directories(BEFORE ../hhh/tigerh
 ../hhh/tigerh/h)
 
-add_library(rblock ${LIBTYPE}
+add_library(cuneiform-rblock ${LIBTYPE}
 ${SNP_SRC}
 _adaptive.cpp
 _debug.cpp
@@ -47,10 +46,10 @@ sestring.cpp
 sevbreak.cpp
 )
 
-set_property(TARGET rblock PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
+set_property(TARGET cuneiform-rblock PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 
-target_link_libraries(rblock 
+target_link_libraries(cuneiform-rblock 
     cuneiform-cpage 
     cuneiform-loc 
     cuneiform-exc 
@@ -60,4 +59,4 @@ target_link_libraries(rblock
     cuneiform-evn
 )
 
-library_hook(rblock)
+library_hook(cuneiform-rblock)
