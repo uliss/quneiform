@@ -22,7 +22,7 @@ target_link_libraries(cuneiform
     rstuff
     cuneiform-exc
     rreccom
-    rpstr
+    cuneiform-rpstr
 )
 
 if(LIBTYPE STREQUAL STATIC)
