@@ -8,6 +8,6 @@ rcutp_mainfunc.cpp
 )
 set_property(TARGET rcutp PROPERTY COMPILE_DEFINITIONS __RCUTP__)
 
-target_link_libraries(rcutp ccom cfcompat)
+target_link_libraries(rcutp cuneiform-ccom cfcompat)
 
 library_hook(rcutp)

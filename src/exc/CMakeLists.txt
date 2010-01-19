@@ -13,6 +13,6 @@ v0compmn.cpp
 set_property(TARGET exc PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET exc PROPERTY COMPILE_DEFINITIONS __EXC__)
 
-target_link_libraries(exc loc32 ccom evn32)
+target_link_libraries(exc loc32 cuneiform-ccom evn32)
 
 library_hook(exc)

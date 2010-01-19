@@ -18,7 +18,7 @@ target_link_libraries(rverline
 cimage
 cpage
 cline
-ccom
+cuneiform-ccom
 )
 
 library_hook(rverline)

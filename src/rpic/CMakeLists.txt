@@ -14,6 +14,6 @@ rpic.cpp
 set_property(TARGET rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
 set_property(TARGET rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
-target_link_libraries(rpic cpage ccom rstr)
+target_link_libraries(rpic cpage cuneiform-ccom rstr)
 
 library_hook(rpic)
