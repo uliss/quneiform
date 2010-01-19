@@ -3,6 +3,9 @@ r35.cpp)
 
 set_property(TARGET r3532 PROPERTY COMPILE_DEFINITIONS __R35__)
 
-target_link_libraries(r3532 mmx32 std32 cuneiform-compat)
+target_link_libraries(r3532 
+    cuneiform-mmx 
+    std32 
+    cuneiform-compat)
 
 library_hook(r3532)

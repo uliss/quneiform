@@ -1,4 +1,4 @@
-add_library(mmx32 ${LIBTYPE}
+add_library(cuneiform-mmx ${LIBTYPE}
 mmx_gra.cpp
 mmx_ind.cpp
 mmx_net.cpp
@@ -6,6 +6,6 @@ mmx_r35.cpp
 mmxmain.cpp
 )
 
-set_property(TARGET mmx32 PROPERTY COMPILE_DEFINITIONS __MMX__)
+set_property(TARGET cuneiform-mmx PROPERTY COMPILE_DEFINITIONS __MMX__)
 
-library_hook(mmx32)
+library_hook(cuneiform-mmx)
