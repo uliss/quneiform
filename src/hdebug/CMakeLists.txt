@@ -1,5 +1,5 @@
 add_definitions(-DDPUMA_SNAP)
 
-add_library(cifdebug ${LIBTYPE}
+add_library(cuneiform-dbg ${LIBTYPE}
     __snp.cpp
 )

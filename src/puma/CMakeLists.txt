@@ -26,7 +26,7 @@ target_link_libraries(cuneiform
 )
 
 if(LIBTYPE STREQUAL STATIC)
-    target_link_libraries(cuneiform cifdebug)
+    target_link_libraries(cuneiform cuneiform-dbg)
 endif()
 
 library_hook(cuneiform)

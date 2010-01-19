@@ -106,7 +106,7 @@ target_link_libraries(rstr
     rling
     rsadd
     std32
-    leo32
+    cuneiform-leo
 )
 
 library_hook(rstr)
