@@ -70,7 +70,6 @@
 #include "rneg/rneg.h"
 #include "rselstr/rselstr.h"
 #include "rline/rline.h"
-#include "cfio/cfio.h"
 
 namespace CIF
 {
@@ -144,10 +143,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     Bool32 rc = TRUE;
     gSVLBuffer.VLinefBufferA = NULL;
     gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
-            MAF_GALL_GPTR, "puma", "SVL step I lines info pool");
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory(sizeof(LinesTotalInfo),
-            MAF_GALL_GPTR, "puma", "SVL step II lines info pool");
+    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
+    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
 
     rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
 
@@ -188,8 +185,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     }
 
     ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
-    CFIO_FreeMemory(gSVLBuffer.LineInfoA);
-    CFIO_FreeMemory(gSVLBuffer.LineInfoB);
+    free(gSVLBuffer.LineInfoA);
+    free(gSVLBuffer.LineInfoB);
 
     // blocks
     if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {

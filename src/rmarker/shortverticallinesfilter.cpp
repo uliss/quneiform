@@ -71,7 +71,6 @@
 #include "markpage.h"
 #include "linedefs.h"
 #include "cline/cline.h"
-#include "cfio/cfio.h"
 
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
@@ -85,28 +84,20 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
     Bool32 bClear = FALSE;
 
     if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
-        gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
-        //gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-
+        gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
         if (gSVLBuffer.VLinefBufferA == NULL)
-            gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns
-                                       = (LineInfo *) CFIO_DAllocMemory((sizeof(LineInfo)
-                                                                         * PUMAMaxNumLines), MAF_GALL_GPTR, (pchar) "puma",
-                                                                        (pchar) "SVL step I lines pool");
+            gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
+                    sizeof(LineInfo), PUMAMaxNumLines);
 
         bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, Image);
         bClear = bRet == FALSE;
     }
 
     if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
-        gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
-        //gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-
+        gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
         if (gSVLBuffer.VLinefBufferB == NULL)
-            gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns
-                                       = (LineInfo *) CFIO_DAllocMemory((sizeof(LineInfo)
-                                                                         * PUMAMaxNumLines), MAF_GALL_GPTR, (pchar) "puma",
-                                                                        (pchar) "SVL step II lines pool");
+            gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
+                    sizeof(LineInfo), PUMAMaxNumLines);
 
         bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, Image);
 
@@ -120,16 +111,12 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
     }
 
     if (Step == PUMA_SVL_THRID_STEP) {
-        //myFree ( gSVLBuffer.HLinesBufferA );
-        //myFree ( gSVLBuffer.HLinesBufferB );
-        //myFree ( gSVLBuffer.VLinefBufferA );
-        //myFree ( gSVLBuffer.VLinefBufferB );
         if (gSVLBuffer.VLinefBufferA != NULL) {
-            CFIO_FreeMemory(gSVLBuffer.VLinefBufferA);
+            free(gSVLBuffer.VLinefBufferA);
         }
 
         if (gSVLBuffer.VLinefBufferB != NULL) {
-            CFIO_FreeMemory(gSVLBuffer.VLinefBufferB);
+            free(gSVLBuffer.VLinefBufferB);
         }
 
         gSVLBuffer.VLinefBufferA = NULL;
@@ -145,8 +132,7 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
-                                PRMPreProcessImage Image)
+Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
 {
     Bool32 bRet = TRUE;
     uint32_t nTagSize;
@@ -182,8 +168,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
                         LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
                         LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
                         LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10
-                                                         / 10;
+                        LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
                         LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
                         (LTInfo->Hor.Cnt)++;
                     }
@@ -196,8 +181,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
                         LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
                         LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
                         LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10
-                                                         / 10;
+                        LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
                         LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
                         (LTInfo->Ver.Cnt)++;
                     }
@@ -215,8 +199,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo,
     return bRet;
 }
 
-Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
-                 PRMPreProcessImage Image)
+Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
     Bool32 rc = TRUE;
     uint32_t LinesTotalA;
@@ -238,56 +221,52 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
     LinesTotalB = LtiB->Ver.Cnt;
 
     if ((bShowDebug || bShowStepDebug) && bShowDebugData) {
-        sprintf(str, "VSL: до поиска таблиц - %i, после - %i\n", LinesTotalA,
-                LinesTotalB);
+        sprintf(str, "VSL: до поиска таблиц - %i, после - %i\n", LinesTotalA, LinesTotalB);
         LDPUMA_Console(str);
     }
 
     for (uint32_t i = 0; i < LinesTotalB; i++) {
         if (LtiB->Ver.Lns[i].Flags != LtiA->Ver.Lns[i].Flags) {
-            if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue)
-                    && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
+            if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
                 if (SVLCount != 0 && bShowStepDebug)
                     LDPUMA_WaitUserInput(Image->hDebugSVLinesStep, NULL);
 
                 if (bShowDebug || bShowStepDebug) {
                     j
-                    = sprintf(
-                          str,
-                          "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x",
-                          LtiB->Ver.Lns[i].A.x(), LtiA->Ver.Lns[i].A.y(),
-                          LtiB->Ver.Lns[i].B.x(), LtiB->Ver.Lns[i].B.y(),
-                          LtiB->Ver.Lns[i].Thickness,
-                          LtiA->Ver.Lns[i].Flags,
-                          LtiB->Ver.Lns[i].Flags);
+                            = sprintf(
+                                    str,
+                                    "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x",
+                                    LtiB->Ver.Lns[i].A.x(), LtiA->Ver.Lns[i].A.y(),
+                                    LtiB->Ver.Lns[i].B.x(), LtiB->Ver.Lns[i].B.y(),
+                                    LtiB->Ver.Lns[i].Thickness, LtiA->Ver.Lns[i].Flags,
+                                    LtiB->Ver.Lns[i].Flags);
                     j += sprintf(str + j, " - удалить");
                     j += sprintf(str + j, "\n");
 
                     if (bShowDebugData)
                         LDPUMA_Console(str);
 
-                    LDPUMA_DrawLine(NULL, &LtiB->Ver.Lns[i].A,
-                                    &LtiB->Ver.Lns[i].B, 0/*LtiB->Skew1024*/, 0x00ff00,
-                                    LtiB->Ver.Lns[i].Thickness, 315);
-                    ZoomRect.top
-                    = LtiB->Ver.Lns[i].A.y() <= LtiB->Ver.Lns[i].B.y() ? LtiB->Ver.Lns[i].A.y()
-                      : LtiB->Ver.Lns[i].B.y();
-                    ZoomRect.bottom = LtiB->Ver.Lns[i].A.y()
-                                      > LtiB->Ver.Lns[i].B.y() ? LtiB->Ver.Lns[i].A.y()
-                                      : LtiB->Ver.Lns[i].B.y();
-                    ZoomRect.left = LtiB->Ver.Lns[i].A.x()
-                                    <= LtiB->Ver.Lns[i].B.x() ? LtiB->Ver.Lns[i].A.x()
-                                    : LtiB->Ver.Lns[i].B.x();
-                    ZoomRect.right = LtiB->Ver.Lns[i].A.x()
-                                     > LtiB->Ver.Lns[i].B.x() ? LtiB->Ver.Lns[i].A.x()
-                                     : LtiB->Ver.Lns[i].B.x();
-                    ZoomRect.bottom -= ((ZoomRect.top - ZoomRect.bottom) / 3)
-                                       >= ZoomRect.bottom ? ZoomRect.bottom
-                                       : ((ZoomRect.top - ZoomRect.bottom) / 3);
+                    LDPUMA_DrawLine(NULL, &LtiB->Ver.Lns[i].A, &LtiB->Ver.Lns[i].B,
+                            0/*LtiB->Skew1024*/, 0x00ff00, LtiB->Ver.Lns[i].Thickness, 315);
+                    ZoomRect.top = LtiB->Ver.Lns[i].A.y() <= LtiB->Ver.Lns[i].B.y()
+                            ? LtiB->Ver.Lns[i].A.y()
+                            : LtiB->Ver.Lns[i].B.y();
+                    ZoomRect.bottom = LtiB->Ver.Lns[i].A.y() > LtiB->Ver.Lns[i].B.y()
+                            ? LtiB->Ver.Lns[i].A.y()
+                            : LtiB->Ver.Lns[i].B.y();
+                    ZoomRect.left = LtiB->Ver.Lns[i].A.x() <= LtiB->Ver.Lns[i].B.x()
+                            ? LtiB->Ver.Lns[i].A.x()
+                            : LtiB->Ver.Lns[i].B.x();
+                    ZoomRect.right = LtiB->Ver.Lns[i].A.x() > LtiB->Ver.Lns[i].B.x()
+                            ? LtiB->Ver.Lns[i].A.x()
+                            : LtiB->Ver.Lns[i].B.x();
+                    ZoomRect.bottom -= ((ZoomRect.top - ZoomRect.bottom) / 3) >= ZoomRect.bottom
+                            ? ZoomRect.bottom
+                            : ((ZoomRect.top - ZoomRect.bottom) / 3);
                     ZoomRect.top += ((ZoomRect.top - ZoomRect.bottom) / 3);
-                    ZoomRect.left -= ((ZoomRect.right - ZoomRect.left) / 3)
-                                     >= ZoomRect.left ? ZoomRect.left : ((ZoomRect.right
-                                                                          - ZoomRect.left) / 3);
+                    ZoomRect.left -= ((ZoomRect.right - ZoomRect.left) / 3) >= ZoomRect.left
+                            ? ZoomRect.left
+                            : ((ZoomRect.right - ZoomRect.left) / 3);
                     ZoomRect.right += ((ZoomRect.right - ZoomRect.left) / 3);
 
                     if (bShowStepDebug)
@@ -310,9 +289,8 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB,
         }
 
         else {
-            LDPUMA_Console(
-                "VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",
-                SVLCount);
+            LDPUMA_Console("VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",
+                    SVLCount);
             LDPUMA_WaitUserInput(Image->hDebugSVLines, NULL);
             LDPUMA_DeleteLines(NULL, 315);
             LDPUMA_DeleteRects(NULL, 316);
@@ -376,11 +354,8 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
                 }
 
                 if (bShowDebug || bShowStepDebug) {
-                    j
-                    = sprintf(
-                          str,
-                          "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >",
-                          Rc.left, Rc.top, Rc.right, Rc.bottom);
+                    j = sprintf(str, "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >",
+                            Rc.left, Rc.top, Rc.right, Rc.bottom);
 
                     if (bDieComponent)
                         j += sprintf(str + j, " +dead+");
@@ -421,15 +396,13 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
     int32_t m3 = B->bottom >= B->top ? B->top : B->bottom;
     int32_t m4 = B->right >= B->left ? B->left : B->right;
 
-    if ((((B->top >= m1) && (B->top <= M1)) || ((B->bottom >= m1) && (B->bottom
-                                                                      <= M1))) && (((B->left >= m2) && (B->left <= M2)) || ((B->right
-                                                                                                                             >= m2) && (B->right <= M2)))) {
+    if ((((B->top >= m1) && (B->top <= M1)) || ((B->bottom >= m1) && (B->bottom <= M1)))
+            && (((B->left >= m2) && (B->left <= M2)) || ((B->right >= m2) && (B->right <= M2)))) {
         rc = TRUE;
     }
 
-    if ((((A->top >= m3) && (A->top <= M3)) || ((A->bottom >= m3) && (A->bottom
-                                                                      <= M3))) && (((A->left >= m4) && (A->left <= M4)) || ((A->right
-                                                                                                                             >= m4) && (A->right <= M4)))) {
+    if ((((A->top >= m3) && (A->top <= M3)) || ((A->bottom >= m3) && (A->bottom <= M3)))
+            && (((A->left >= m4) && (A->left <= M4)) || ((A->right >= m4) && (A->right <= M4)))) {
         rc = TRUE;
     }
 
@@ -440,9 +413,9 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 Bool32 CompIsGood(CCOM_comp * pcomp, int32_t Filter)
 {
     switch (Filter) {
-        case 0:
-            return TRUE;
-        default:
-            return FALSE;
+    case 0:
+        return TRUE;
+    default:
+        return FALSE;
     }
 }
