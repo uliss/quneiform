@@ -101,7 +101,7 @@ target_link_libraries(rstr
     cuneiform-mmx
     cuneiform-msk
     cuneiform-pass2
-    rbal
+    cuneiform-rbal
     rcutp
     rling
     rsadd
