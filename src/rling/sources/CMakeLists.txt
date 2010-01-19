@@ -1,6 +1,6 @@
 add_definitions(-DRLINGS_EXPORTS -DRLING_SECONDARY)
 
-add_library(rlings ${LIBTYPE}
+add_library(cuneiform-rlings ${LIBTYPE}
 crled.cpp
 crling.cpp
 crlmemory.cpp
@@ -30,9 +30,11 @@ spelspec.cpp
 udictini.cpp
 udictuti.cpp
 )
-set_property(TARGET rlings PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
+set_property(TARGET cuneiform-rlings PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
-target_link_libraries(rlings cuneiform-cstr cuneiform-compat)
+target_link_libraries(cuneiform-rlings 
+    cuneiform-cstr 
+    cuneiform-compat)
 
-library_hook(rlings)
+library_hook(cuneiform-rlings)

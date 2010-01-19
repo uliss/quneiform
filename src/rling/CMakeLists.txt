@@ -6,7 +6,7 @@ add_subdirectory(sources)
 
 add_definitions(-DRLING_EXPORTS)
 
-add_library(rling ${LIBTYPE}
+add_library(cuneiform-rling ${LIBTYPE}
 sources/crled.cpp
 sources/crling.cpp
 sources/crlmemory.cpp
@@ -37,9 +37,9 @@ sources/udictini.cpp
 sources/udictuti.cpp
 )
 
-set_property(TARGET rling PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-set_property(TARGET rling PROPERTY COMPILE_DEFINITIONS __RLING__)
+set_property(TARGET cuneiform-rling PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+set_property(TARGET cuneiform-rling PROPERTY COMPILE_DEFINITIONS __RLING__)
 
-target_link_libraries(rling cuneiform-cstr rlings)
+target_link_libraries(cuneiform-rling cuneiform-cstr cuneiform-rlings)
 
-library_hook(rling)
+library_hook(cuneiform-rling)

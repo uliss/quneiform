@@ -10,7 +10,7 @@ set_property(TARGET rpstr PROPERTY COMPILE_DEFINITIONS __RPSTR__)
 target_link_libraries(rpstr
     cuneiform-ccom
     cuneiform-cstr
-    rling
+    cuneiform-rling
     rstr
     std32
 )
