@@ -16,8 +16,8 @@ target_link_libraries(leo32
     cuneiform-cpu
     cuneiform-ctb    
     cuneiform-dif
-    evn32
-    fon32
+    cuneiform-evn
+    cuneiform-fon
     msk32
     r3532
     std32

@@ -1,4 +1,4 @@
-add_library(fon32 ${LIBTYPE}
+add_library(cuneiform-fon ${LIBTYPE}
 clu_best.cpp
 clu_div.cpp
 clu_lang.cpp
@@ -15,10 +15,10 @@ p2_mem.cpp
 p2_thick.cpp
 utilctb.cpp
 )
-set_property(TARGET fon32 PROPERTY COMPILE_DEFINITIONS __FON__)
+set_property(TARGET cuneiform-fon PROPERTY COMPILE_DEFINITIONS __FON__)
 
-target_link_libraries(fon32 
+target_link_libraries(cuneiform-fon 
     cuneiform-cstr 
     cuneiform-ctb)
 
-library_hook(fon32)
+library_hook(cuneiform-fon)
