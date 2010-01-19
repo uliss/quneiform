@@ -23,6 +23,6 @@ set_property(TARGET rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
 target_link_libraries(rout 
     cuneiform-ced 
-    rfrmt)
+    cuneiform-rfrmt)
 
 library_hook(rout)
