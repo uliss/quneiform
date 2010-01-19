@@ -12,7 +12,7 @@ set_property(TARGET rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
 target_link_libraries(rline
     cuneiform-cimage
     cuneiform-cpage
-    lns32
+    cuneiform-lns
     rshelllines
 )
 

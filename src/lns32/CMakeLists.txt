@@ -1,6 +1,6 @@
 add_definitions(-DDPUMA_SNAP) # See warning below.
 
-add_library(lns32 ${LIBTYPE}
+add_library(cuneiform-lns ${LIBTYPE}
 ${SNP_SRC} # WARNING: not here in original VS solution.
 bit_data.cpp
 extrlns.cpp
@@ -22,8 +22,11 @@ smooth.cpp
 sweeper.cpp
 tgreader.cpp
 )
-set_property(TARGET lns32 PROPERTY COMPILE_DEFINITIONS __LNS__)
+set_property(TARGET cuneiform-lns PROPERTY COMPILE_DEFINITIONS __LNS__)
 
-target_link_libraries(lns32 cuneiform-cline std32 cuneiform-compat)
+target_link_libraries(cuneiform-lns 
+    cuneiform-cline 
+    std32 
+    cuneiform-compat)
 
-library_hook(lns32)
+library_hook(cuneiform-lns)
