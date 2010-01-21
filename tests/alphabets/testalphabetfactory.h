@@ -26,10 +26,12 @@ class TestAlphabetFactory: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestAlphabetFactory);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSupportedLanguages);
+    CPPUNIT_TEST(testIsLanguageRegistered);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSupportedLanguages();
+    void testIsLanguageRegistered();
 };
 
 #endif /* TESTALPHABETFACTORY_H_ */

@@ -61,6 +61,11 @@ bool AlphabetFactory::isLanguageData(language_t language)
     return true;
 }
 
+bool AlphabetFactory::isLanguageRegistered(language_t language)
+{
+    return alpha_map_.find(language) != alpha_map_.end();
+}
+
 AlphabetPtr AlphabetFactory::make(language_t language)
 {
     AlphabetMap::iterator it = alpha_map_.find(language);
@@ -88,7 +93,7 @@ bool AlphabetFactory::registerCreator(language_t language, alphabetCreate creato
 LanguageList AlphabetFactory::supportedLanguages()
 {
     LanguageList ret;
-    for(AlphabetMap::iterator it = alpha_map_.begin(), end = alpha_map_.end(); it != end; ++it)
+    for (AlphabetMap::iterator it = alpha_map_.begin(), end = alpha_map_.end(); it != end; ++it)
         ret.push_back(it->first);
     return ret;
 }

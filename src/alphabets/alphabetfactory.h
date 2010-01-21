@@ -44,14 +44,21 @@ class AlphabetFactory
          * @return pair of language data alphabet table
          * @throw AlphabetException if can't find data
          */
-        AlphabetTables alphabetTables(language_t lang);
+        AlphabetTables alphabetTables(language_t language);
 
         /**
          * Checks if data files for given language exists
          * @param lang
          * @return true if datas file for given language exists
          */
-        bool isLanguageData(language_t lang);
+        bool isLanguageData(language_t language);
+
+        /**
+         * Checks if given language is registered
+         * @param language type
+         * @return true if language is registered
+         */
+        bool isLanguageRegistered(language_t language);
 
         /**
          * Returns pointer to alphabet by given language type

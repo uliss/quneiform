@@ -85,3 +85,9 @@ void TestAlphabetFactory::testSupportedLanguages()
     CPPUNIT_ASSERT(lst.size() > 0);
 }
 
+void TestAlphabetFactory::testIsLanguageRegistered()
+{
+    CPPUNIT_ASSERT(AlphabetFactory::instance().isLanguageRegistered(LANGUAGE_ENGLISH));
+    CPPUNIT_ASSERT(!AlphabetFactory::instance().isLanguageRegistered((language_t) (LANG_TOTAL + 100)));
+}
+
