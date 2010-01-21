@@ -19,14 +19,12 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <cstring>
+#include <memory>
 #include "componentrecognizer.h"
+#include "alphabets/alphabetfactory.h"
 #include "evn/evn.h"
 #include "ccom/ccom.h"
 #include "struct.h"
-
-extern Bool16 rec_is_language(uchar);
-extern Bool16 rec_set_alpha(uchar, uchar*);
-extern Bool16 rec_load_tables(uchar);
 
 namespace CIF
 {
@@ -50,27 +48,33 @@ ComponentRecognizer::ComponentRecognizer() :
     max_comp_height_(0), max_comp_width_(0), min_comp_height_(0), min_comp_width_(0), max_scale_(
             DEFAULT_SCALE), ocr_path_(".")
 {
+    memset(alphabet_, 0, sizeof(alphabet_));
 }
 
 ComponentRecognizer::~ComponentRecognizer()
 {
 }
 
-void ComponentRecognizer::alphabetInit(int language)
+void ComponentRecognizer::alphabetInit(language_t language)
 {
-    if (chdir(ocr_path_.c_str()) != 0)
-        throw Exception("Can't chdir to: " + ocr_path_);
+    if (!AlphabetFactory::instance().isLanguageData(language))
+        throw Exception("[ComponentRecognizer::alphabetInit] No alphabet tables found", language);
 
-    if (!rec_is_language(language))
-        throw Exception("No language found", language);
+    AlphabetPtr alph = AlphabetFactory::instance().make(language);
+    assert(alph->size() <= sizeof(alphabet_));
+    alph->exportToTable(alphabet_);
 
-    if (!rec_set_alpha(language, alphabet_))
-        throw Exception("Can't set alphabet");
+    EVNSetAlphabet(alphabet_);
+    loadAlphabetTables(language);
+}
 
-    EVNSetAlphabet((char*) alphabet_);
+void ComponentRecognizer::loadAlphabetTables(language_t language)
+{
+    AlphabetFactory::AlphabetTables alphabet_tbl = AlphabetFactory::instance().alphabetTables(
+            language);
 
-    if (!rec_load_tables(language))
-        throw Exception("Can't load alphabet tables");
+    if (!EVNInitLanguage(alphabet_tbl.first.c_str(), alphabet_tbl.second.c_str(), language))
+        throw Exception("[ComponentRecognizer::loadAlphabetTables] EVNInitLanguage failed");
 }
 
 uint ComponentRecognizer::maxComponentHeight() const
@@ -95,7 +99,7 @@ std::string ComponentRecognizer::ocrPath() const
 
 void ComponentRecognizer::recognize(Handle ccom, int language)
 {
-    alphabetInit(language);
+    alphabetInit((language_t) language);
     recognizeComponents(ccom);
 }
 
@@ -131,8 +135,8 @@ void ComponentRecognizer::recognizeComponent(CCOM_comp* pcomp)
 
     if (nvers) {
         if (!pcomp->vers) {
-            pcomp->vers = (RecVersions*) malloc(sizeof(RecVersions));
-            memset(pcomp->vers, 0, sizeof(RecVersions));
+            pcomp->vers = static_cast<RecVersions*> (calloc(1, sizeof(RecVersions)));
+            assert(pcomp->vers);
         }
 
         if (pcomp->cs == 255)

@@ -20,6 +20,7 @@
 #define COMPONENTRECOGNIZER_H_
 
 #include <string>
+#include "lang_def.h"
 #include "cttypes.h"
 #include "globus.h"
 #include "common/exception.h"
@@ -53,9 +54,10 @@ class CLA_EXPO ComponentRecognizer
         uint min_comp_width_;
         uint max_scale_;
         std::string ocr_path_;
-        uchar alphabet_[ALPHABET_SIZE];
+        char alphabet_[ALPHABET_SIZE];
     private:
-        void alphabetInit(int language);
+        void alphabetInit(language_t language);
+        void loadAlphabetTables(language_t language);
         uint maxComponentHeight() const;
         uint maxScale() const;
         uint maxComponentWidth() const;

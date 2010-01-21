@@ -27,7 +27,9 @@ Alphabet * create()
     return new UzbekAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_UZBEK, create);
+//const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_UZBEK, create);
+//const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_UZBEK,
+//        AlphabetFactory::AlphabetTables("rec1uzb.dat", "rec2uzb.dat"));
 }
 
 namespace CIF

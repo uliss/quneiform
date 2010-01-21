@@ -25,7 +25,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestAlphabetFactory);
 using namespace CIF;
 using namespace std;
 
-void TestAlphabetFactory::testInit() {
+void TestAlphabetFactory::testInit()
+{
     AlphabetFactory * a1, *a2;
     a1 = &AlphabetFactory::instance();
     a2 = &AlphabetFactory::instance();
@@ -49,9 +50,9 @@ void TestAlphabetFactory::testInit() {
         LANGUAGE_PORTUGUESE,
         LANGUAGE_DUTCH,
         LANGUAGE_DIGITS,
-        LANGUAGE_UZBEK,
-        LANGUAGE_KAZAKH,
-        LANGUAGE_KAZ_ENG,
+        //        LANGUAGE_UZBEK,
+        //        LANGUAGE_KAZAKH,
+        //        LANGUAGE_KAZ_ENG,
         LANGUAGE_CZECH,
         LANGUAGE_ROMANIAN,
         LANGUAGE_HUNGARIAN,
@@ -62,15 +63,25 @@ void TestAlphabetFactory::testInit() {
         LANGUAGE_ESTONIAN,
         LANGUAGE_TURKISH };
 
-    std::list<Alphabet*> alph;
+    std::list<AlphabetPtr> alph;
 
     for (unsigned int i = 0; i < sizeof(langs) / sizeof(langs[0]); i++) {
-        Alphabet * a = AlphabetFactory::instance().make(langs[i]);
+        AlphabetPtr a = AlphabetFactory::instance().make(langs[i]);
         CPPUNIT_ASSERT_EQUAL(a->language(), langs[i]);
         alph.push_back(a);
     }
 
-    for(std::list<Alphabet*>::iterator it = alph.begin(); it != alph.end(); ++it)
-        delete *it;
+    CPPUNIT_ASSERT_THROW(AlphabetFactory::instance().alphabetTables(LANG_TOTAL), AlphabetException);
+
+    for (std::list<AlphabetPtr>::iterator it = alph.begin(); it != alph.end(); ++it) {
+        //        cerr << dec << (*it)->language() << endl;
+        CPPUNIT_ASSERT(AlphabetFactory::instance().isLanguageData((*it)->language()));
+    }
+}
+
+void TestAlphabetFactory::testSupportedLanguages()
+{
+    LanguageList lst = AlphabetFactory::instance().supportedLanguages();
+    CPPUNIT_ASSERT(lst.size() > 0);
 }
 

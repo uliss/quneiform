@@ -20,39 +20,77 @@
 #include <iostream>
 
 #include "alphabetfactory.h"
+#include "cfcompat.h"
 
 namespace CIF
 {
-
-AlphabetFactory * AlphabetFactory::instance_ = 0;
 
 AlphabetFactory::AlphabetFactory()
 {
 }
 
-AlphabetFactory& AlphabetFactory::instance()
+AlphabetFactory::AlphabetTables AlphabetFactory::alphabetTables(language_t lang)
 {
-    if (!instance_) {
-        instance_ = new AlphabetFactory;
-    }
+    AlphabetTablesMap::iterator it = alphabet_tables_map_.find(lang);
+    if (it == alphabet_tables_map_.end())
+        throw AlphabetException("[AlphabetFactory::alphabetTables] no alphabet tables found", lang);
 
-    return *instance_;
+    return it->second;
 }
 
-Alphabet * AlphabetFactory::make(language_t language)
+AlphabetFactory& AlphabetFactory::instance()
+{
+    static AlphabetFactory instance_;
+    return instance_;
+}
+
+bool AlphabetFactory::isLanguageData(language_t language)
+{
+    try {
+        AlphabetTables entry = alphabetTables(language);
+
+        if (data_file_exists(entry.first.c_str()) == -1)
+            return false;
+        if (data_file_exists(entry.second.c_str()) == -1)
+            return false;
+    }
+    catch (AlphabetException&) {
+        return false;
+    }
+
+    return true;
+}
+
+AlphabetPtr AlphabetFactory::make(language_t language)
 {
     AlphabetMap::iterator it = alpha_map_.find(language);
 
     if (alpha_map_.end() == it)
-        throw AlphabetException("Unregistered language type", language);
+        throw AlphabetException("[AlphabetFactory::make] Unregistered language type", language);
 
-    return it->second();
+    AlphabetPtr ret(it->second());
+    assert(ret.get());
+    return ret;
+}
+
+bool AlphabetFactory::registerAlphabetTables(language_t lang, const AlphabetTables& tables)
+{
+    alphabet_tables_map_.insert(AlphabetTablesMap::value_type(lang, tables));
+    return true;
 }
 
 bool AlphabetFactory::registerCreator(language_t language, alphabetCreate creator)
 {
     alpha_map_.insert(AlphabetMap::value_type(language, creator));
     return true;
+}
+
+LanguageList AlphabetFactory::supportedLanguages()
+{
+    LanguageList ret;
+    for(AlphabetMap::iterator it = alpha_map_.begin(), end = alpha_map_.end(); it != end; ++it)
+        ret.push_back(it->first);
+    return ret;
 }
 
 }

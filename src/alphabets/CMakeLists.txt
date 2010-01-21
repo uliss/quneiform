@@ -34,3 +34,5 @@ uzbek.cpp
 )
 
 library_hook(cuneiform-alphabets)
+
+target_link_libraries(cuneiform-alphabets cuneiform-compat)

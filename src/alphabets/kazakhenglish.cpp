@@ -28,6 +28,8 @@ Alphabet * create()
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_KAZ_ENG, create);
+const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_KAZ_ENG,
+        AlphabetFactory::AlphabetTables("rec1kaz.dat", "rec2kaz.dat"));
 }
 
 namespace CIF

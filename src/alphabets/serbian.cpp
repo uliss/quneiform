@@ -29,6 +29,8 @@ Alphabet * create()
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_SERBIAN, create);
+const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_SERBIAN,
+        AlphabetFactory::AlphabetTables("rec1rus.dat", "rec2rus.dat"));
 }
 
 namespace CIF

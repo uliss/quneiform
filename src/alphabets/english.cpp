@@ -28,6 +28,8 @@ Alphabet * create()
 }
 
 const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_ENGLISH, create);
+const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_ENGLISH,
+        AlphabetFactory::AlphabetTables("rec1.dat", "rec2.dat"));
 }
 
 /*
@@ -55,12 +57,12 @@ namespace CIF
 {
 
 EnglishAlphabet::EnglishAlphabet() :
-        DigitsAlphabet()
+    DigitsAlphabet()
 {
     // digits initialized in parent class
     //    uliss: why '+' is missing???
     static const char * latin =
-        "!#$%&()-./:;<=>?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}";
+            "!#$%&()-./:;<=>?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}";
 
     for (const char * c = latin; *c; c++)
         addSymbol(*c);
