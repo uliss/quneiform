@@ -8,6 +8,7 @@ add_library(cuneiform-common ${LIBTYPE}
 cifconfig.cpp
 helper.cpp
 iconv.cpp
+language.cpp
 )
 
 target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})

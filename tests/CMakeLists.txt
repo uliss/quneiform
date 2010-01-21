@@ -21,6 +21,7 @@ alphabets/testalphabetfactory.cpp
 
 add_executable(test_common
 common/test_common.cpp
+common/testlanguage.cpp
 common/testpoint.cpp
 common/testrect.cpp
 )
@@ -34,7 +35,7 @@ loaders/testbmp.cpp
 )
 
 target_link_libraries(test_alphabets cuneiform-alphabets ${CPPUNIT_LIBRARIES})
-target_link_libraries(test_common ${CPPUNIT_LIBRARIES})
+target_link_libraries(test_common cuneiform-common ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_loaders cuneiform-rdib ${CPPUNIT_LIBRARIES})
 
 ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
