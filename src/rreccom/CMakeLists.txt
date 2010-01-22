@@ -6,6 +6,7 @@ set_property(TARGET cuneiform-rreccom PROPERTY COMPILE_FLAGS "-fvisibility=hidde
 set_property(TARGET cuneiform-rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
 
 target_link_libraries(cuneiform-rreccom 
+    cuneiform-common
     cuneiform-ccom 
     cuneiform-evn
     cuneiform-alphabets

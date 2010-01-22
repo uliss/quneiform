@@ -37,7 +37,7 @@ class CLA_EXPO ComponentRecognizer
         ~ComponentRecognizer();
 
         std::string ocrPath() const;
-        void recognize(Handle ccom, int language);
+        void recognize(Handle ccom, language_t language);
         void setMaxComponentHeight(uint height);
         void setMaxComponentWidth(uint width);
         void setMinComponentHeight(uint height);

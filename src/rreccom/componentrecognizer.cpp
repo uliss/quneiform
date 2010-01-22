@@ -22,6 +22,7 @@
 #include <memory>
 #include "componentrecognizer.h"
 #include "alphabets/alphabetfactory.h"
+#include "common/language.h"
 #include "evn/evn.h"
 #include "ccom/ccom.h"
 #include "struct.h"
@@ -58,14 +59,15 @@ ComponentRecognizer::~ComponentRecognizer()
 void ComponentRecognizer::alphabetInit(language_t language)
 {
     if (!AlphabetFactory::instance().isLanguageData(language))
-        throw Exception("[ComponentRecognizer::alphabetInit] No alphabet tables found", language);
+        throw Exception(
+                "[ComponentRecognizer::alphabetInit] No alphabet tables found for language: "
+                        + Language(language).isoName(), language);
 
     AlphabetPtr alph = AlphabetFactory::instance().make(language);
     assert(alph->size() <= sizeof(alphabet_));
     alph->exportToTable(alphabet_);
 
     EVNSetAlphabet(alphabet_);
-    loadAlphabetTables(language);
 }
 
 void ComponentRecognizer::loadAlphabetTables(language_t language)
@@ -97,9 +99,10 @@ std::string ComponentRecognizer::ocrPath() const
     return ocr_path_;
 }
 
-void ComponentRecognizer::recognize(Handle ccom, int language)
+void ComponentRecognizer::recognize(Handle ccom, language_t language)
 {
-    alphabetInit((language_t) language);
+    alphabetInit(language);
+    loadAlphabetTables(language);
     recognizeComponents(ccom);
 }
 
