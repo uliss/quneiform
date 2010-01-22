@@ -77,7 +77,7 @@
 #define CCOM_FUNC  FUN_IMPO__
 #endif
 
-CCOM_FUNC Bool32 CCOM_Init(uint16_t wHeightCode, Handle hStorage);
+CCOM_FUNC Bool32 CCOM_Init(uint16_t wHeightCode);
 CCOM_FUNC void CCOM_Done(void);
 CCOM_FUNC uint32_t CCOM_GetReturnCode(void);
 CCOM_FUNC char* CCOM_GetReturnString(uint32_t dwError);

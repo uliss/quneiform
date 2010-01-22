@@ -78,7 +78,7 @@ static Bool32 (*my_MakeLP)(RecRaster *rRaster, uchar *lp, int16_t *lp_size, int1
 /////////////////////
 // common functions
 /////////////////////
-Bool32 CCOM_Init(uint16_t wHeightCode, Handle /*hStorage*/)
+Bool32 CCOM_Init(uint16_t wHeightCode)
 {
     if (ccom_init)
         return TRUE;

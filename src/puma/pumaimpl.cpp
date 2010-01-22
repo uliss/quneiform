@@ -468,7 +468,7 @@ void PumaImpl::modulesInit()
 
         //  нужна инициализация контейнера CCOM перед
         //  вызовом поиска компонент
-        if (!CCOM_Init(PUMA_MODULE_CCOM, NULL))
+        if (!CCOM_Init(PUMA_MODULE_CCOM))
             throw PumaException("CCOM_Init failed.");
 
         if (!CPAGE_Init(PUMA_MODULE_CPAGE, ghStorage))
