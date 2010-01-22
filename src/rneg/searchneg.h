@@ -122,7 +122,6 @@ Bool IfNegIn(NegList*, int, int, int, int, int);
 void DeleteRotateMas(uchar**, int16_t**, int16_t**, uchar**, int**);
 void NegInvert(uchar*, Rect16);
 void DelIn(Handle, NegList**, int&);
-int absolut(int);
 double NegBlack(uchar*, Rect16);
 void PostRotate(NegList* now, int skew);
 

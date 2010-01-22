@@ -105,7 +105,7 @@ Bool GetMasP(Handle, Rect16, uchar**);
 Bool GetMasP(Rect16*, uchar**);
 Bool NegGetRaster(Handle, Rect16, RecRaster*, Bool);
 void InitRc(Rect16*, int, CCOM_comp *);
-void PrintFrameComp(Handle, Rect16*, int);
+void PrintFrameComp(Rect16*, int);
 Handle GetNegCCOM(Handle, Rect16*, int);
 void NegRecog(Handle, NegList**, int&, int);
 void NegInvert(RecRaster*, Rect16);
