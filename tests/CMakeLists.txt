@@ -38,6 +38,8 @@ target_link_libraries(test_alphabets cuneiform-alphabets ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_common cuneiform-common ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_loaders cuneiform-rdib ${CPPUNIT_LIBRARIES})
 
+add_subdirectory(rreccom)
+
 ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
 ADD_TEST(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
 ADD_TEST(Loaders ${EXECUTABLE_OUTPUT_PATH}/test_loaders)
