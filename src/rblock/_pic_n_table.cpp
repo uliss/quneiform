@@ -73,11 +73,10 @@ Bool32 MyFiltrateOr(int32_t upper, int32_t left, int32_t w, int32_t h)
 
 void DeleteRoot(ROOT * lpRoot)
 {
-    int32_t nn;
-    nn = (lpRoot - pRoots) / sizeof(ROOT);
+    int32_t nn = (lpRoot - pRoots) / sizeof(ROOT);
     nn = nRoots - nn - 100;
     nn = (pRoots + nRoots) - lpRoot - 1;
-    memcpy(lpRoot, lpRoot + 1, nn * sizeof(ROOT));
+    memmove(lpRoot, lpRoot + 1, nn * sizeof(ROOT));
     nRoots--;
 }
 Bool32 DeleteRootsFromTables(void)

@@ -146,7 +146,7 @@ int16_t MakeIdeal(welet *wel, int16_t porog)
         rr1 = rr + sdvigy * WR_MAX_WIDTH + sdvigx;
 
         for (i = 0; i < newsy; i++, rr += WR_MAX_WIDTH, rr1 += WR_MAX_WIDTH)
-            memcpy(rr, rr1, newsx);
+            memmove(rr, rr1, newsx);
     }
 
     else if (sdvigy == 0 && sdvigx < 0) { // move right
