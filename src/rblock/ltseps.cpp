@@ -104,19 +104,12 @@ void SeparatorsGet (void)
 {
 #define ABS1 10
 #define ABS2 40
-    //int nl;
     PAGEINFO pInfo;
-    //  LineInfo              lInfo;
-    //  LinesTotalInfo        lti;
-    //  Handle                pBlock;
     Handle pPage;
-    //  uint32_t                  HorType;
-    //  uint32_t                  VerType;
     uint32_t ResolutionCoeff;
     uint32_t i, j;
     Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
     Handle hBlock;
-    //  Point16 p_start, p_end;
     uint32_t key;
     uint32_t color;
     int32_t nPics;
@@ -131,13 +124,13 @@ void SeparatorsGet (void)
     hline = CLINE_GetFirstLine(HCLINE);
 
     if (!hline)
-        return;
+    return;
 
     while (hline) {
         CPDLine cpdata = CLINE_GetLineData(hline);
 
         if (!cpdata)
-            hline = CLINE_GetNextLine(hline);
+        hline = CLINE_GetNextLine(hline);
 
         else {
             nSeps++;
@@ -147,12 +140,14 @@ void SeparatorsGet (void)
             pSeps [nSeps-1].xEnd = cpdata->Line.End_X;
             pSeps [nSeps-1].yEnd = cpdata->Line.End_Y;
             pSeps [nSeps-1].nWidth = cpdata->Line.Wid10 / 10;
+            pSeps [nSeps-1].Type = SEP_NULL;
+            pSeps [nSeps-1].uFlags = 0;
 
             if (cpdata->Dir == LD_Horiz)
-                pSeps [nSeps-1].Type = SEP_HORZ;
+            pSeps [nSeps-1].Type = SEP_HORZ;
 
             else
-                pSeps [nSeps-1].Type = SEP_VERT;
+            pSeps [nSeps-1].Type = SEP_VERT;
 
             hline = CLINE_GetNextLine(hline);
         }
@@ -188,8 +183,8 @@ void SeparatorsGet (void)
             hBlock = CPAGE_GetBlockNext(hPage, hBlock, TYPE_IMAGE)) {
         if (nPics % PICS_QUANTUM == 0) {
             pPics = static_cast<POLY_*>(realloc (pPics,
-                                                 (size_t) ((nPics / PICS_QUANTUM + 1)
-                                                           * PICS_QUANTUM * sizeof (POLY_))));
+                            (size_t) ((nPics / PICS_QUANTUM + 1)
+                                    * PICS_QUANTUM * sizeof (POLY_))));
         }
 
         CPAGE_GetBlockData(hPage, hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
@@ -290,7 +285,7 @@ void SeparatorsGet(void)
         return;
 
     nSeps = nf + nl;
-    pSeps = (SEPARATOR*)malloc(nSeps * sizeof(SEPARATOR));
+    pSeps = (SEPARATOR*) malloc(nSeps * sizeof(SEPARATOR));
 
     if (pSeps == NULL)
         ErrorNoEnoughMemory("in LTSEPS.C,SeparatorsGet,part 1");
@@ -326,7 +321,7 @@ void SeparatorsGet(void)
         pSeps[j].nWidth = lines[i].width;
     }
 
-    q_sort((char *) pSeps, nSeps, sizeof(SEPARATOR), (int (*)(const void*, const void*)) SepComp); //AK 04.03.97
+    q_sort((char *) pSeps, nSeps, sizeof(SEPARATOR), (int(*)(const void*, const void*)) SepComp); //AK 04.03.97
 }
 # endif
 
@@ -339,17 +334,17 @@ void BlocksAddVirtualSeparatorsBlocks(void)
             continue;
 
         switch (pSeps[i].Type) {
-            case SEP_HORZ:
-                BlockType = BLOCK_HORZ_SEPARATOR;
-                break;
-            case SEP_VERT:
-                BlockType = BLOCK_VERT_SEPARATOR;
-                break;
-            case SEP_RECT:
-                BlockType = BLOCK_RECT_SEPARATOR;
-                break;
-            default:
-                continue;
+        case SEP_HORZ:
+            BlockType = BLOCK_HORZ_SEPARATOR;
+            break;
+        case SEP_VERT:
+            BlockType = BLOCK_VERT_SEPARATOR;
+            break;
+        case SEP_RECT:
+            BlockType = BLOCK_RECT_SEPARATOR;
+            break;
+        default:
+            continue;
         }
 
         BLOCK * p = BlocksAddDescriptor();
