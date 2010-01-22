@@ -47,7 +47,7 @@ const int DEFAULT_SCALE = 5;
 
 ComponentRecognizer::ComponentRecognizer() :
     max_comp_height_(0), max_comp_width_(0), min_comp_height_(0), min_comp_width_(0), max_scale_(
-            DEFAULT_SCALE), ocr_path_(".")
+            DEFAULT_SCALE)
 {
     memset(alphabet_, 0, sizeof(alphabet_));
 }
@@ -92,11 +92,6 @@ uint ComponentRecognizer::maxComponentWidth() const
 uint ComponentRecognizer::maxScale() const
 {
     return (max_scale_ > 0) ? max_scale_ : DEFAULT_SCALE;
-}
-
-std::string ComponentRecognizer::ocrPath() const
-{
-    return ocr_path_;
 }
 
 void ComponentRecognizer::recognize(Handle ccom, language_t language)
@@ -202,11 +197,6 @@ void ComponentRecognizer::setMinComponentWidth(uint width)
 void ComponentRecognizer::setMaxScale(uint scale)
 {
     max_scale_ = scale;
-}
-
-void ComponentRecognizer::setOcrPath(const std::string& ocrPath)
-{
-    ocr_path_ = ocrPath;
 }
 
 }

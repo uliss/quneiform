@@ -16,9 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testcomponentrecognizer.h"
+#include "rreccom/componentrecognizer.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestComponentRecognizer);
+using namespace CIF;
 
 void TestComponentRecognizer::testInit()
 {
-
+    ComponentRecognizer r;
+    CPPUNIT_ASSERT_THROW(r.recognize(0, LANG_TOTAL), ComponentRecognizer::Exception);
+    r.recognize(0, LANGUAGE_ENGLISH);
 }

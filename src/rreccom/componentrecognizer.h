@@ -19,7 +19,6 @@
 #ifndef COMPONENTRECOGNIZER_H_
 #define COMPONENTRECOGNIZER_H_
 
-#include <string>
 #include "lang_def.h"
 #include "cttypes.h"
 #include "globus.h"
@@ -36,7 +35,6 @@ class CLA_EXPO ComponentRecognizer
         ComponentRecognizer();
         ~ComponentRecognizer();
 
-        std::string ocrPath() const;
         void recognize(Handle ccom, language_t language);
         void setMaxComponentHeight(uint height);
         void setMaxComponentWidth(uint width);
@@ -44,7 +42,6 @@ class CLA_EXPO ComponentRecognizer
         void setMinComponentWidth(uint width);
         // if scaling > 0 => use long intervals
         void setMaxScale(uint scale);
-        void setOcrPath(const std::string& ocrPath);
         typedef RuntimeExceptionImpl<ComponentRecognizer> Exception;
         static const int ALPHABET_SIZE = 256;
     private:
@@ -53,7 +50,6 @@ class CLA_EXPO ComponentRecognizer
         uint min_comp_height_;
         uint min_comp_width_;
         uint max_scale_;
-        std::string ocr_path_;
         char alphabet_[ALPHABET_SIZE];
     private:
         void alphabetInit(language_t language);
