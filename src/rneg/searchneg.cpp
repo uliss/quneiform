@@ -564,17 +564,17 @@ void NormNeg(Handle hCPage, NegList* now, NegList** proot, int& nRc)
     register uchar bytep;
     register int count_black;
     int topp, lp;
-    double proc;
-    int stop;
-    register uchar* p;
-    register uchar* pend;
-    uchar* pbeg;
+    double proc = 0;
+    int stop = 0;
+    register uchar* p = 0;
+    register uchar* pend = 0;
+    uchar* pbeg = 0;
+    uchar Data[1000] = { 0 };
 
     if ((now->neg).rot.pmasp) {
         pmasp = (now->neg).rot.pmasp;
     }
     else {
-        uchar Data[1000];
         memset(Data, 0, sizeof(Data));
         pmasp = Data;
 
