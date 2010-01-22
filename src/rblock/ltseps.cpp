@@ -283,8 +283,7 @@ static int SepComp(const SEPARATOR *p, const SEPARATOR *q) //AK 04.03.97
 
 void SeparatorsGet(void)
 {
-    int i;
-    int j;
+    int j = 0;
     SeparatorsFreeData();
 
     if (nl == 0)
@@ -296,7 +295,7 @@ void SeparatorsGet(void)
     if (pSeps == NULL)
         ErrorNoEnoughMemory("in LTSEPS.C,SeparatorsGet,part 1");
 
-    for (i = 0, j = 0; i < nf; i++, j++) {
+    for (int i = 0, j = 0; i < nf; i++, j++) {
         pSeps[j].Type = SEP_RECT;
         pSeps[j].uFlags = SEPF_NULL;
         pSeps[j].xBegin = frames[i].topleft.x();
@@ -306,7 +305,7 @@ void SeparatorsGet(void)
         pSeps[j].nWidth = 1;
     }
 
-    for (i = 0; i < nl; i++, j++) {
+    for (int i = 0; i < nl; i++, j++) {
         if (lines[i].type & UNDRLN)
             pSeps[j].Type = SEP_NULL;
 
@@ -333,11 +332,9 @@ void SeparatorsGet(void)
 
 void BlocksAddVirtualSeparatorsBlocks(void)
 {
-    BLOCK *p;
-    int i;
-    int BlockType;
+    int BlockType = 0;
 
-    for (i = 0; i < nSeps; i++) {
+    for (int i = 0; i < nSeps; i++) {
         if (pSeps[i].uFlags & SEPF_IS_PART)
             continue;
 
@@ -355,13 +352,13 @@ void BlocksAddVirtualSeparatorsBlocks(void)
                 continue;
         }
 
-        p = BlocksAddDescriptor();
-        p -> nNumber = ++nNextBlockNumber;
-        p -> Type = BlockType;
-        p -> Rect.xLeft = pSeps[i].xBegin;
-        p -> Rect.yTop = pSeps[i].yBegin;
-        p -> Rect.xRight = pSeps[i].xEnd;
-        p -> Rect.yBottom = pSeps[i].yEnd;
+        BLOCK * p = BlocksAddDescriptor();
+        p->nNumber = ++nNextBlockNumber;
+        p->Type = BlockType;
+        p->Rect.xLeft = pSeps[i].xBegin;
+        p->Rect.yTop = pSeps[i].yBegin;
+        p->Rect.xRight = pSeps[i].xEnd;
+        p->Rect.yBottom = pSeps[i].yEnd;
     }
 }
 
