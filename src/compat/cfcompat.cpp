@@ -131,11 +131,6 @@ void GlobalFree(void *f)
     free(f);
 }
 
-void * GlobalReAlloc(void * ptr, size_t size)
-{
-    return realloc(ptr, size); // Should init to zero on uFlags & GMEM_ZEROINIT.
-}
-
 int GetTempFileName(const char * /*lpPathName*/,
                     const char * /*lpPrefixString*/, uint /*uUnique*/, char* /*lpTempFileName*/)
 {
@@ -195,13 +190,6 @@ uint GetPrivateProfileInt(const char * /*lpAppName*/,
                           const char * /*lpKeyName*/, uint defaultValue, const char * /*lpFileName*/)
 {
     return defaultValue;
-}
-
-int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
-                        const wchar_t *lpWideCharStr, int cchWideChar, char* lpMultiByteStr,
-                        int cbMultiByte, const char * lpDefaultChar, pBool lpUsedDefaultChar)
-{
-    return 0;
 }
 
 long _filelength(int fd)
@@ -345,13 +333,6 @@ Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
                int nBottomRect)
 {
     return 0;
-}
-
-/* String to uppercase. */
-
-char* _strupr(char*s)
-{
-    return s;
 }
 
 #else /* WIN32 */
