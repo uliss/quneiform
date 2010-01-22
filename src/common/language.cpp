@@ -73,16 +73,44 @@ Language::Language(language_t language) :
 {
 }
 
+std::string Language::isoCode(language_t language)
+{
+    LanguageMap::iterator it = lang_map.find(language);
+    return it != lang_map.end() ? it->second.first : "???";
+}
+
 std::string Language::isoCode() const
 {
-    LanguageMap::iterator it = lang_map.find(language_);
-    return it != lang_map.end() ? it->second.first : "???";
+    return isoCode(language_);
 }
 
 std::string Language::isoName() const
 {
-    LanguageMap::iterator it = lang_map.find(language_);
+    return isoName(language_);
+}
+
+std::string Language::isoName(language_t language)
+{
+    LanguageMap::iterator it = lang_map.find(language);
     return it != lang_map.end() ? it->second.second : "Unknown";
+}
+
+language_t Language::languageByCode(const std::string& code)
+{
+    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
+        if (it->second.first == code)
+            return it->first;
+    }
+    return (language_t) -1;
+}
+
+language_t Language::languageByName(const std::string& name)
+{
+    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
+        if (it->second.second == name)
+            return it->first;
+    }
+    return (language_t) -1;
 }
 
 LanguageMap Language::languages()

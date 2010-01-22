@@ -27,9 +27,9 @@ Alphabet * create()
     return new KazakhAlphabet;
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_KAZAKH, create);
-const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_KAZAKH,
-        AlphabetFactory::AlphabetTables("rec1kaz.dat", "rec2kaz.dat"));
+//const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_KAZAKH, create);
+//const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_KAZAKH,
+//        AlphabetFactory::AlphabetTables("rec1kaz.dat", "rec2kaz.dat"));
 }
 
 namespace CIF

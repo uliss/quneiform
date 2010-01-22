@@ -20,7 +20,9 @@
 #define CUNEIFORM_H_
 
 #include "puma/puma.h"
+#include "alphabets/alphabetfactory.h"
 #include "common/cifconfig.h"
+#include "common/language.h"
 #include "rdib/imageloaderfactory.h"
 
 #endif /* CUNEIFORM_H_ */

@@ -39,6 +39,10 @@ class Language
         std::string isoName() const;
     public:
         static LanguageMap languages();
+        static language_t languageByCode(const std::string& code);
+        static language_t languageByName(const std::string& name);
+        static std::string isoCode(language_t language);
+        static std::string isoName(language_t language);
     private:
         language_t language_;
 };

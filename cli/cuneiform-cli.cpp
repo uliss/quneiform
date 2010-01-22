@@ -84,49 +84,9 @@
 #include "cuneiform.h"
 
 using namespace std;
+using namespace CIF;
 
 static const char * program_name = "";
-
-struct langlist
-{
-        language_t code;
-        const char *name;
-        const char *fullname;
-};
-
-/* Language codes according to ISO 639-2.
- */
-static const langlist langs[] = {
-//
-    { LANGUAGE_ENGLISH, "eng", "English" },
-    { LANGUAGE_GERMAN, "ger", "German" },
-    { LANGUAGE_FRENCH, "fra", "French" },
-    { LANGUAGE_RUSSIAN, "rus", "Russian" },
-    { LANGUAGE_SWEDISH, "swe", "Swedish" },
-    { LANGUAGE_SPANISH, "spa", "Spanish" },
-    { LANGUAGE_ITALIAN, "ita", "Italian" },
-    { LANGUAGE_RUS_ENG, "ruseng", "Russian-English" },
-    { LANGUAGE_UKRAINIAN, "ukr", "Ukrainian" },
-    { LANGUAGE_SERBIAN, "srp", "Serbian" },
-    { LANGUAGE_CROATIAN, "hrv", "Croatian" },
-    { LANGUAGE_POLISH, "pol", "Polish" },
-    { LANGUAGE_DANISH, "dan", "Danish" },
-    { LANGUAGE_PORTUGUESE, "por", "Portuguese" },
-    { LANGUAGE_DUTCH, "dut", "Dutch" },
-    { LANGUAGE_DIGITS, "dig", "Digits" }, // This probably means "recognize digits only".
-    //        {LANGUAGE_UZBEK,     "uzb"}, // These don't seem to have data files. Thus they are disabled.
-    //        {LANGUAGE_KAZAKH,       "kaz"},
-    //        {LANGUAGE_KAZ_ENG,   "kazeng"},
-    { LANGUAGE_CZECH, "cze", "Czech" },
-    { LANGUAGE_ROMANIAN, "rum", "Roman" },
-    { LANGUAGE_HUNGARIAN, "hun", "Hungarian" },
-    { LANGUAGE_BULGARIAN, "bul", "Bulgarian" },
-    { LANGUAGE_SLOVENIAN, "slo", "Slovenian" },
-    { LANGUAGE_LATVIAN, "lav", "Latvian" },
-    { LANGUAGE_LITHUANIAN, "lit", "Lithuanian" },
-    { LANGUAGE_ESTONIAN, "est", "Estonian" },
-    { LANGUAGE_TURKISH, "tur", "Turkish" },
-    { (language_t) -1, NULL, NULL } };
 
 struct formatlist
 {
@@ -149,10 +109,17 @@ static const formatlist formats[] = {
 
 static string supported_languages()
 {
+    typedef std::map<std::string, std::string> LMap;
+    LMap sorted_langs;
+    LanguageList langs = AlphabetFactory::instance().supportedLanguages();
+    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
+        sorted_langs[Language::isoName(*it)] = Language::isoCode(*it);
+
     ostringstream os;
     os << "Supported languages:\n";
-    for (const langlist *l = langs; l->code >= 0; l++)
-        os << "    " << left << setw(12) << l->name << " " << l->fullname << "\n";
+    for (LMap::iterator it = sorted_langs.begin(), end = sorted_langs.end(); it != end; ++it)
+        os << "    " << left << setw(12) << it->second << " " << it->first << "\n";
+
     return os.str();
 }
 
@@ -204,15 +171,6 @@ static puma_format_t output_format(const std::string& format)
             return formats[i].code;
     }
     return (puma_format_t) -1;
-}
-
-static language_t recognize_language(const std::string& language)
-{
-    for (const langlist *l = langs; l->code >= 0; l++) {
-        if (language == l->name)
-            return l->code;
-    }
-    return (language_t) -1;
 }
 
 static string default_output_name(puma_format_t format)
@@ -314,9 +272,9 @@ int main(int argc, char **argv)
                 cout << supported_languages();
                 return EXIT_SUCCESS;
             }
-            language_t lang = recognize_language(optarg);
+            language_t lang = Language::languageByCode(optarg);
             if (lang == -1) {
-                cerr << "Unknown language: " << optarg;
+                cerr << "Unknown language: " << optarg << "\n";
                 cerr << supported_languages();
                 return EXIT_FAILURE;
             }
