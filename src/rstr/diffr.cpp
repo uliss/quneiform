@@ -2207,8 +2207,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
 {
-	uchar n[256], hist[256];
-	int16_t ua[256], da[256];
+	uchar n[256] = {0}, hist[256] = {0};
+	int16_t ua[256] = {0}, da[256] = {0};
 	int16_t i, n2 = dy - 2 * (dy >> 2), n4, mean, fine;
 	int16_t incr, decr, old, neue, equ;
 	int16_t l = beg2 - end1 - 1, l_real, t, jump, rmin, rmax;

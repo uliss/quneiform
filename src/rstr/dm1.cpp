@@ -1513,7 +1513,7 @@ void make_all_cuts()
     char n1, n2, nc;
     uchar left_dust_allowed, left_dust_seen, fldust, svcg, fljust;
     int16_t av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
-    uchar c0, c1, c3, *rp1, *rp2, already_cut;
+    uchar c0 = 0, c1 = 0, c3 = 0, *rp1 = 0, *rp2 = 0, already_cut = 0;
     uchar acc_p;
     uint16_t fo1, fo2, fo3, sp0;
     int16_t p0, p1, p2, p3;
