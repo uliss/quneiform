@@ -74,8 +74,8 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
         }
     }
     assert(loader_ptr != loader_map_.end());
-    ImageLoader * ret = loader_ptr->second.second();
-    return *ret;
+    loaders_list_.push_back(ImageLoaderPtr(loader_ptr->second.second()));
+    return *loaders_list_.back().get();
 }
 
 bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loaderCreate creator)

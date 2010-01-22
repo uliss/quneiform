@@ -63,7 +63,7 @@
 namespace CIF
 {
 class PumaImpl;
-typedef Singleton<PumaImpl, CreateUsingNewSmartPtr> Puma;
+typedef Singleton<PumaImpl, CreateUsingStatic> Puma;
 }
 
 #endif

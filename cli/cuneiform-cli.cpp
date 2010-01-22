@@ -334,7 +334,6 @@ int main(int argc, char **argv)
     if (outfilename.empty())
         outfilename = default_output_name(outputformat);
 
-    using namespace CIF;
     try {
         if (do_verbose == 1) {
             Config::instance().setDebug(true);

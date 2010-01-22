@@ -70,7 +70,7 @@
 class CTIControl;
 namespace CIF
 {
-typedef Singleton<CTIControl> CImage;
+typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 
 enum {

@@ -22,6 +22,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <vector>
 #include <boost/noncopyable.hpp>
 
 #include "imageloader.h"
@@ -46,6 +47,9 @@ class ImageLoaderFactory : boost::noncopyable
         typedef std::multimap<image_format_t, LoaderEntry> LoaderMap;
         ImageLoader& unknownLoader();
         LoaderMap loader_map_;
+        typedef boost::shared_ptr<ImageLoader> ImageLoaderPtr;
+        typedef std::vector<ImageLoaderPtr> ImageLoadersList;
+        ImageLoadersList loaders_list_;
     private:
         ImageLoaderFactory();
 };
