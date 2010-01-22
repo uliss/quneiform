@@ -120,7 +120,7 @@ extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
 static void LayoutFromCPAGE(Handle hCPAGE, Handle hCCOM);
-int IsInPoly(Point16 a, void * pPoly);
+int IsInPoly(const CIF::Point16& a, POLY_* pPoly);
 Bool dphShowString;
 
 void RotatePageToIdeal(void);

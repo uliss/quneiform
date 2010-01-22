@@ -67,6 +67,7 @@
 #include "dpuma.h"
 #include "polyblock.h"
 #include "rcutp/rcutp.h"
+#include "minmax.h"
 
 using namespace CIF;
 
@@ -122,12 +123,60 @@ Bool IfEqv(Rect16 r1, Rect16 r2);
 Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
 void DelBlockMas(POLY_* masp);
 Bool InitBlockMas(POLY_** ppRc, int len);
-int IsInPoly(Point16 a, void * pPoly);
+int IsInPoly(const CIF::Point16& a, POLY_* pPoly);
 Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
 
 void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
+}
+
+
+int IsInPoly(const CIF::Point16& a, POLY_* pPoly)
+{
+    int y, ind;
+    int Count = 0;
+    POLY_ *p = pPoly;
+    int n = p->com.count;
+
+    for (int i = 0; i < n; i++) {
+        int j = (i + 1) % n;
+
+        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
+            continue;
+
+        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
+            continue;
+
+        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
+            continue;
+
+        y = p->com.Vertex[i].y();
+        ind = i;
+
+        if (p->com.Vertex[j].y() > y) {
+            y = p->com.Vertex[j].y();
+            ind = j;
+        }
+
+        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
+            Count++;
+
+        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
+            continue;
+
+        else {
+            double t = ((double) (a.y() - p->com.Vertex[i].y()) / ((double) (p->com.Vertex[j].y()
+                    - (double) p->com.Vertex[i].y())));
+
+            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
+                    * ((double) p->com.Vertex[j].x() - (double) p->com.Vertex[i].x())
+                    >= (double) a.x())
+                Count++;
+        }
+    }
+
+    return Count & 1;
 }
 
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
