@@ -34,7 +34,7 @@ if(MSVC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996")
     endif()
 endif()
- 
+
 if(NOT NO_IMAGE_MAGICK)
 find_package(ImageMagick COMPONENTS Magick++)
 if(ImageMagick_Magick++_FOUND)
