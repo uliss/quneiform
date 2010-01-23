@@ -30,9 +30,9 @@
 #undef max
 #endif
 
-#include <stdint.h>
 #include <limits>
 #include <cassert>
+#include "cttypes.h"
 
 namespace CIF
 {

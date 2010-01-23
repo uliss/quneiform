@@ -76,7 +76,7 @@
 #include <errno.h>
 #include <time.h>
 
-typedef int (* _CRT_ALLOC_HOOK)(int, void *, int, int, long, const char *, int);
+typedef int (* _CRT_ALLOC_HOOK)(int, void *, size_t, int, long, const unsigned char *, int);
 
 #ifndef WIN32
 
