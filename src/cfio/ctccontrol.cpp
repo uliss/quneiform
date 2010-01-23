@@ -1267,7 +1267,6 @@ Handle CTCControl::OpenNewStorage(char* lpName, uint32_t Flag)
     return NULL;
 }
 
-extern int RemoveDirectory(const char *d);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Закрываем хранилище (если сборка не проводилась), иначе только файлы
 Bool32 CTCControl::CloseStorageFile(Handle Storage, uint32_t Flag)

@@ -68,15 +68,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #define __CFIO__
-//#define CFIO_USE_WIN32_API
 #include "ctccontrol.h"
-//#undef CFIO_USE_WIN32_API
-
 #include "compat_defs.h"
 
-//////////////////////////////////////////////////////////////////GLOBAL
+//GLOBAL
 void SetReturnCode_cfio(uint16_t rc);
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
+//GLOBAL VARIABLES
 static uint16_t            wHeightRC =                         0;
 static uint16_t            wLowRC =                            0;
 static Handle            hInst =                             NULL;
@@ -84,9 +81,7 @@ CTCControl *      Control_ctc =                           NULL;
 static int32_t             InitCount =                         0;
 static Bool32            InitDone =                          FALSE;
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode, Handle hStorage)
+Bool32 CFIO_Init(uint16_t wHeightCode, Handle hStorage)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -103,9 +98,8 @@ CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode, Handle hStorage)
     SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_Done()
+
+Bool32 CFIO_Done()
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -128,43 +122,29 @@ CFIO_FUNC(Bool32) CFIO_Done()
 
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_GetReturnCode()
+
+uint32_t CFIO_GetReturnCode()
 {
     return (wHeightRC << 16) | (wLowRC - IDS_ERR_MIN);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError)
+
+char * CFIO_GetReturnString(uint32_t dwError)
 {
-//  uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_MIN;
-//  static char szBuffer[512];
-//
-//  if( dwError >> 16 != wHeightRC)
-//      wLowRC = IDS_ERR_NOTIMPLEMENT;
-//
-//  if( rc > IDS_ERR_MIN && rc < IDS_ERR_MAX )
-//      LoadString((HINSTANCE)hInst,rc,(char *)szBuffer,sizeof(szBuffer));
-//  else
     return NULL;
-//  return szBuffer;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void SetReturnCode_cfio(uint16_t rc)
 {
     if ( rc == IDS_CFIO_ERR_NO || wLowRC == IDS_CFIO_ERR_NO )
         wLowRC = rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint16_t GetReturnCode_cfio()
 {
     return wLowRC;
 }
 
-CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData)
+Bool32 CFIO_SetImportData(uint32_t dwType, void * pData)
 {
     uint32_t      Folder;
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
@@ -187,9 +167,8 @@ CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData)
 
     return Control_ctc->SetFolder(Folder, (char *)pData);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_OpenStorage(pchar lpName, uint32_t dwTypes)
+
+Handle CFIO_OpenStorage(pchar lpName, uint32_t dwTypes)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -206,9 +185,8 @@ CFIO_FUNC(Handle) CFIO_OpenStorage(pchar lpName, uint32_t dwTypes)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, uint32_t  dwFlag)
+
+Bool32 CFIO_CloseStorage(Handle  hStorage, uint32_t  dwFlag)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -225,9 +203,8 @@ CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, uint32_t  dwFlag)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_DeleteStorage (pchar lpName)
+
+Bool32 CFIO_DeleteStorage (pchar lpName)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -244,9 +221,8 @@ CFIO_FUNC(Bool32) CFIO_DeleteStorage (pchar lpName)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, pchar lpNameInStorage)
+
+uint32_t CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, pchar lpNameInStorage)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -263,9 +239,8 @@ CFIO_FUNC(uint32_t) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, pcha
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, pchar lpName)
+
+Handle CFIO_ReadFileFromStorage (Handle hStorage, pchar lpName)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -282,9 +257,8 @@ CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, pchar lpName)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, const char * lpName, uint32_t dwFlag)
+
+Handle CFIO_OpenFreeFile(Handle hStorage, const char * lpName, uint32_t dwFlag)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -301,9 +275,8 @@ CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, const char * lpName, uint32
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag)
+
+Bool32 CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -320,9 +293,8 @@ CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_WriteToFile (Handle hFile, pchar lpData, uint32_t dwSize)
+
+uint32_t CFIO_WriteToFile (Handle hFile, pchar lpData, uint32_t dwSize)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -339,9 +311,8 @@ CFIO_FUNC(uint32_t) CFIO_WriteToFile (Handle hFile, pchar lpData, uint32_t dwSiz
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_ReadFromFile (Handle hFile, pchar lpData, uint32_t dwSize)
+
+uint32_t CFIO_ReadFromFile (Handle hFile, pchar lpData, uint32_t dwSize)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -358,9 +329,8 @@ CFIO_FUNC(uint32_t) CFIO_ReadFromFile (Handle hFile, pchar lpData, uint32_t dwSi
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_SeekFilePointer (Handle hFile, uint32_t dwBytes, uint32_t dwFrom)
+
+uint32_t CFIO_SeekFilePointer (Handle hFile, uint32_t dwBytes, uint32_t dwFrom)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -377,9 +347,8 @@ CFIO_FUNC(uint32_t) CFIO_SeekFilePointer (Handle hFile, uint32_t dwBytes, uint32
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_TellFilePointer (Handle hFile)
+
+uint32_t CFIO_TellFilePointer (Handle hFile)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -396,9 +365,8 @@ CFIO_FUNC(uint32_t) CFIO_TellFilePointer (Handle hFile)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_FlushFile(Handle hFile)
+
+Bool32 CFIO_FlushFile(Handle hFile)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -415,9 +383,8 @@ CFIO_FUNC(Bool32) CFIO_FlushFile(Handle hFile)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_AllocMemory (uint32_t dwSize, uint32_t dwFlag)
+
+Handle CFIO_AllocMemory (uint32_t dwSize, uint32_t dwFlag)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -434,9 +401,8 @@ CFIO_FUNC(Handle) CFIO_AllocMemory (uint32_t dwSize, uint32_t dwFlag)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, const char* cOwner, const char* Comment)
+
+Handle CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, const char* cOwner, const char* Comment)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -453,9 +419,8 @@ CFIO_FUNC(Handle) CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, const cha
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, uint32_t dwSize, uint32_t dwFlag)
+
+Handle CFIO_ReAllocMemory (Handle hMemory, uint32_t dwSize, uint32_t dwFlag)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -472,9 +437,8 @@ CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, uint32_t dwSize, uint32_t 
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_FreeMemory(Handle hMem)
+
+Bool32 CFIO_FreeMemory(Handle hMem)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -491,9 +455,8 @@ CFIO_FUNC(Bool32) CFIO_FreeMemory(Handle hMem)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Handle) CFIO_LockMemory(Handle hMem)
+
+Handle CFIO_LockMemory(Handle hMem)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -510,9 +473,8 @@ CFIO_FUNC(Handle) CFIO_LockMemory(Handle hMem)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(Bool32) CFIO_UnlockMemory(Handle hMem)
+
+Bool32 CFIO_UnlockMemory(Handle hMem)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -529,9 +491,8 @@ CFIO_FUNC(Bool32) CFIO_UnlockMemory(Handle hMem)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_WriteMemoryToFile(Handle hMem, pchar lpName)
+
+uint32_t CFIO_WriteMemoryToFile(Handle hMem, pchar lpName)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -548,9 +509,8 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToFile(Handle hMem, pchar lpName)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromFile(const char * lpName, Handle * phMem)
+
+uint32_t CFIO_ReadMemoryFromFile(const char * lpName, Handle * phMem)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -567,9 +527,8 @@ CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromFile(const char * lpName, Handle * phMem)
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, pchar lpName)
+
+uint32_t CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, pchar lpName)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -586,9 +545,8 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, pcha
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromStorage(Handle hStorage, pchar lpName, Handle * phMem)
+
+uint32_t CFIO_ReadMemoryFromStorage(Handle hStorage, pchar lpName, Handle * phMem)
 {
     SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -605,5 +563,3 @@ CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromStorage(Handle hStorage, pchar lpName, Ha
         return FALSE;
     }
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file
