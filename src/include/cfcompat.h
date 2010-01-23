@@ -62,6 +62,7 @@ CFCOMPAT_FUNC int GetTempFileName(const char * lpPathName, const char * lpPrefix
         uint uUnique, char * lpTempFileName);
 CFCOMPAT_FUNC size_t GetTempPath(size_t BufferLength, char * buffer);
 CFCOMPAT_FUNC long _msize(void *memblock);
+int RemoveDirectory(const char *d);
 
 CFCOMPAT_FUNC int _findclose(long handle);
 CFCOMPAT_FUNC long _findfirst(const char *filespec, struct _finddata_t *fileinfo);

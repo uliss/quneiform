@@ -137,7 +137,6 @@ static FNDPUMA_DestroyHistogramm fDestroyHistogramm = NULL;
 static FNDPUMA_GetWindowHandle fGetWindowHandle = NULL;
 static FNDPUMA_GetPrevSkipOwner fGetPrevSkipOwner = NULL;
 static FNDPUMA_AllocHook fAllocHook = NULL;
-static _CRT_ALLOC_HOOK PrevAllocHook = NULL;
 static FNDPUMA_ConsoleClear fConsoleClear = NULL;
 static FNDPUMA_ConsoleGetCurLine fConsoleGetCurLine = NULL;
 static FNDPUMA_SetFileName fSetFileName = NULL;
@@ -146,29 +145,6 @@ static FNDPUMA_FClose fFClose = NULL;
 static FNDPUMA_FPuts fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
-
-static int __DPUMA__AllocHook__(int allocType, void *userData, size_t size, int blockType,
-                                long requestNumber, const char *filename, int lineNumber)
-{
-    uint32_t prevSize = 0;
-    int rc = PrevAllocHook(allocType, userData, size, blockType, requestNumber, (const unsigned char*)filename,
-                           lineNumber);
-
-    if (fAllocHook && rc > 0) { // Если rc меньше нуля, тогда мы уже работали
-#ifdef _DEBUG
-
-        if (userData)
-            prevSize = _msize_dbg(userData, blockType);
-
-#endif
-
-        if (LDPUMA_IsActive())
-            rc = fAllocHook(allocType, userData, size, prevSize, blockType, requestNumber,
-                            (puchar) filename, lineNumber);
-    }
-
-    return rc;
-}
 
 Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
 {
@@ -1070,7 +1046,7 @@ void __SnpIterParent( SnpTreeNode* node, Bool activate )
     ;
 }
 #else
-int SnpLog(const char * message, ...)
+int SnpLog(const char *, ...)
 {
     return 0;
 }
