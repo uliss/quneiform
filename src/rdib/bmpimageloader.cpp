@@ -324,7 +324,7 @@ void BmpImageLoader::readCompressedData(std::istream& stream)
     free(comprbuf);
     data_size_ = info_header_.iSize + uncompr_size;
     data_ = (char *) malloc(data_size_);
-    uint8_t * data = data + info_header_.iSize;
+    char * data = data_ + info_header_.iSize;
     if (!data_) {
         std::cerr << "Can't allocate space for final uncompressed scanline buffer\n";
         if (clr_tbl)

@@ -54,13 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*#include <crtdbg.h>*/
 #include "lcline.h"
-
 
 CLINE_handle GetHandle(void* lp);
 void* GetLP(CLINE_handle handle);
-Bool32 CopyData(const void* from, void* to, int size);
+Bool CopyData(const void* from, void* to, int size);
 Bool IfExistContainer(CHLine* pelem);
 Bool IfExistLine(CLine* pelem);
 Bool IfExistEvent(CEvent* pelem);

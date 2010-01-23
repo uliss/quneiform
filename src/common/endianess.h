@@ -38,7 +38,7 @@
 #define LOWLEVEL__ENDIANESS_HH__
 
 #include <sys/types.h>
-#include <inttypes.h>
+#include "cttypes.h"
 
 #ifdef __FreeBSD__
 #include <sys/endian.h>
@@ -57,6 +57,9 @@
 #elif __linux__
 #include <endian.h>
 #include <byteswap.h>
+#elif _MSC_VER
+#define bswap_32(x) ((((x) >> 24) & 0xFF) | (((x) >> 8) & 0xFF00) | (((x) << 8) & 0xFF0000) | (((x) << 24) & 0xFF000000))
+#define bswap_16(x) ((x) >> 8 | (x) << 8)
 #endif
 
 namespace Exact

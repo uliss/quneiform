@@ -220,14 +220,6 @@ Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
             rc = Init(wHightCode, hStorage);
 
             if (rc) {
-#ifdef _DEBUG
-                // На случай, если вызывается не один раз.
-                _CRT_ALLOC_HOOK pHook = _CrtSetAllocHook(__DPUMA__AllocHook__);
-
-                if (__DPUMA__AllocHook__ != pHook)
-                    PrevAllocHook = pHook;
-
-#endif
                 fCreateWindow("Main", NULL);
                 LDPUMA_Registry(&hWriteFile, "Выполнять отладочную запись в файл.", NULL);
                 LDPUMA_RegistryHelp(hWriteFile, "Разрешает отладочную запись функциями DPUMA.",
@@ -242,14 +234,6 @@ Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
 Bool32 LDPUMA_Done()
 {
     Bool32 rc = FALSE;
-#ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN, NULL, __LINE__, __FILE__,
-                   "LDPUMA_Done()\n");
-
-    if (PrevAllocHook)
-        _CrtSetAllocHook(PrevAllocHook);
-
-#endif
 
     if (Done)
         rc = Done();

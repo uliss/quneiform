@@ -106,7 +106,7 @@ void * CIMAGELock(void * mem)
 
     if (pMem == NULL && mem != NULL)
         return mem;
-
+	return mem;
 #endif
 }
 

@@ -63,6 +63,8 @@
 #include <stdint.h>
 #else
 #include <boost/cstdint.hpp>
+typedef boost::int8_t int8_t;
+typedef boost::uint8_t uint8_t;
 typedef boost::int16_t int16_t;
 typedef boost::uint16_t uint16_t;
 typedef boost::int32_t int32_t;
@@ -70,6 +72,17 @@ typedef boost::uint32_t uint32_t;
 typedef boost::int64_t int64_t;
 typedef boost::uint64_t uint64_t;
 #endif
+
+#if defined _MSC_VER
+#define PACKED_STRUCT_PROLOGUE __pragma(pack(push, 1))
+#define PACKED_STRUCT_EPILOGUE __pragma(pack(pop))
+#elif defined  __GNUC__
+#define PACKED_STRUCT_PROLOGUE	
+#define PACKED_STRUCT_EPILOGUE __attribute__((packed))
+//#elif ...
+//...
+#endif
+
 
 /*** _SETTYPES() ***/
 #undef _SETTYPES

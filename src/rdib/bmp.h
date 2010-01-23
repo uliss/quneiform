@@ -103,7 +103,8 @@ struct BMPCIEXYZTriple /* This structure contains the x, y, and z */
         BMPCIEXYZ iCIEBlue;
 };
 
-typedef struct
+PACKED_STRUCT_PROLOGUE
+struct BMPFileHeader
 {
         char bType[2]; /* Signature "BM" */
         EndianessConverter<uint32_t, LittleEndianTraits> iSize; /* Size in bytes of the bitmap file. Should
@@ -113,12 +114,13 @@ typedef struct
         uint16_t iReserved1; /* Reserved, set as 0 */
         uint16_t iReserved2; /* Reserved, set as 0 */
         EndianessConverter<uint32_t, LittleEndianTraits> iOffBits; /* Offset of the image from file start in bytes */
-}__attribute__((packed)) BMPFileHeader;
+} PACKED_STRUCT_EPILOGUE;
 
 /* File header size in bytes: */
 const int BFH_SIZE = 14;
 
-typedef struct
+PACKED_STRUCT_PROLOGUE
+struct BMPInfoHeader
 {
         EndianessConverter<uint32_t, LittleEndianTraits> iSize;
         /* Size of BMPInfoHeader structure in bytes.
@@ -176,7 +178,7 @@ typedef struct
          * in 16^16 format. */
         EndianessConverter<int32_t, LittleEndianTraits> iGammaGreen; /* Toned response curve for green. */
         EndianessConverter<int32_t, LittleEndianTraits> iGammaBlue; /* Toned response curve for blue. */
-}__attribute__((packed)) BMPInfoHeader;
+} PACKED_STRUCT_EPILOGUE;
 
 /*
  * Info header size in bytes:
