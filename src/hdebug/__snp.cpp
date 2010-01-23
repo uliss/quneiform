@@ -151,7 +151,7 @@ static int __DPUMA__AllocHook__(int allocType, void *userData, size_t size, int 
                                 long requestNumber, const char *filename, int lineNumber)
 {
     uint32_t prevSize = 0;
-    int rc = PrevAllocHook(allocType, userData, size, blockType, requestNumber, filename,
+    int rc = PrevAllocHook(allocType, userData, size, blockType, requestNumber, (const unsigned char*)filename,
                            lineNumber);
 
     if (fAllocHook && rc > 0) { // Если rc меньше нуля, тогда мы уже работали
