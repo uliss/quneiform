@@ -7,7 +7,9 @@ if(WIN32)
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 endif()
 
-SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -fno-inline -Wall -Wextra -fvisibility=default -Wconversion")
+if(UNIX)
+  set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -fno-inline -Wall -Wextra -fvisibility=default -Wconversion")
+endif()
 
 add_definitions("-D_USE_RVERLINE_")
 
@@ -43,16 +45,13 @@ if(ImageMagick_Magick++_FOUND)
 endif()
 endif()
 
-find_package(Iconv)
-if(NOT ICONV_FOUND)
-    message(FATAL_ERROR "No Iconv package found")
-endif(NOT ICONV_FOUND)
+find_package(Iconv REQUIRED)
 
 find_package(Boost 1.35)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 else()
-   message(FATAL_ERROR "Boost library required")
+    message(FATAL_ERROR "Boost library required")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/include/config.h)
