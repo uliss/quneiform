@@ -22,7 +22,10 @@ rstuff.cpp
 ../usage/un_buff.cpp
 )
 
-set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+endif()
+
 set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
 
 target_link_libraries(cuneiform-rstuff

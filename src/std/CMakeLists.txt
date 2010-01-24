@@ -15,7 +15,10 @@ stdsort.cpp
 stdwapi.cpp
 )
 
-set_property(TARGET cuneiform-std PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-std PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+endif()
+
 set_property(TARGET cuneiform-std PROPERTY COMPILE_DEFINITIONS __STD__)
 
 target_link_libraries(cuneiform-std cuneiform-compat)

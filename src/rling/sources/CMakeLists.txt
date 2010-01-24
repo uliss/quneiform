@@ -30,7 +30,10 @@ spelspec.cpp
 udictini.cpp
 udictuti.cpp
 )
-set_property(TARGET cuneiform-rlings PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-rlings PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+endif()
+
 set_property(TARGET cuneiform-rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
 target_link_libraries(cuneiform-rlings 

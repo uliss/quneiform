@@ -11,7 +11,10 @@ rectpic.cpp
 rpic.cpp
 )
 
-set_property(TARGET cuneiform-rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-rpic PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+endif()
+
 set_property(TARGET cuneiform-rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
 target_link_libraries(cuneiform-rpic 

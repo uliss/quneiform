@@ -11,7 +11,10 @@ vl_rule.cpp
 vl_snap.cpp
 )
 
-set_property(TARGET cuneiform-rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-rverline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+endif()
+
 set_property(TARGET cuneiform-rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
 target_link_libraries(cuneiform-rverline

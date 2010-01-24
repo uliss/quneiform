@@ -17,7 +17,10 @@ util_lst.cpp
 util_spl.cpp
 )
 
-set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_FLAGS "-fvisibility=hidden") 
+if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
+  set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_FLAGS "-fvisibility=hidden") 
+endif()
+  
 set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(cuneiform-rfrmt
