@@ -61,7 +61,7 @@
 #include <cstring>
 #include <cctype>
 #include <sys/stat.h>
-#include <unistd.h>
+#include "compat/filefunc.h"
 
 #include "ctb.h"
 #define MAXPATH 256

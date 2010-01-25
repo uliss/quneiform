@@ -93,7 +93,7 @@ CTB_FUNC Bool32 CTB_write_mark(CTB_handle *hnd, int32_t num, uchar *ima,
                                uchar *data, Bool32 mark);
 CTB_FUNC Bool32 CTB_insert(CTB_handle *hnd, int32_t num, uchar *ima,
                            uchar *data);
-CTB_FUNC Bool32 CTB_delete(CTB_handle *hnd, int32_t num);
+CTB_FUNC Bool32 CTB_delete(CTB_handle *hnd, int num);
 CTB_FUNC Bool32 CTB_kill(CTB_handle *hnd, int32_t num);
 CTB_FUNC Bool32 CTB_mark(CTB_handle *hnd, int32_t num);
 CTB_FUNC Bool32 CTB_write_data(CTB_handle *hnd, int32_t num, uchar *data);

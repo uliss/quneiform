@@ -97,6 +97,10 @@ CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *l
 CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 #endif
 
+#ifdef WIN32 
+CFCOMPAT_FUNC char* mkdtemp(char *tmpl);
+#endif
+
 CFCOMPAT_FUNC int open_data_file(const char *basename, int mode);
 CFCOMPAT_FUNC int data_file_exists(const char *basename);
 CFCOMPAT_FUNC void split_path(const char *fname, char *file_path, char *basename, char *ext);

@@ -62,11 +62,10 @@
 
 #include <cstdio>
 #include <cstring>
-#include <sys/stat.h>
 #include <cstdlib>
 #include <cctype>
-#include <unistd.h>
 
+#include "compat/filefunc.h"
 #include "ctb.h"
 #include "cfcompat.h"
 #define MAXPATH 256
@@ -142,7 +141,6 @@ void CTB_done(void)
 }
 
 #ifdef WIN32
-extern char* mkdtemp(char*);
 
 static char* get_tmp_pattern()
 {
@@ -168,7 +166,7 @@ static void free_tmp_pattern(char* /*dummy*/)
 }
 #endif
 
-int32_t CTB_gettmpdirname(void)
+bool CTB_gettmpdirname(void)
 {
     char* tmp = get_tmp_pattern();
     ctb_tmp_dir = static_cast<char*> (malloc(strlen(tmp) + 1));
@@ -176,11 +174,7 @@ int32_t CTB_gettmpdirname(void)
     ctb_tmp_dir = mkdtemp(ctb_tmp_dir);
     free_tmp_pattern(tmp);
 
-    if (!ctb_tmp_dir)
-        return 1;
-
-    else
-        return 0;
+    return (!ctb_tmp_dir) ? true : false;
 }
 
 int32_t CTB_get_error(void)
@@ -1059,10 +1053,10 @@ Bool32 CTB_mark(CTB_handle *hnd, int32_t num)
 }
 
 // delete image num //
-Bool32 CTB_delete(CTB_handle *hnd, int32_t num)
+Bool32 CTB_delete(CTB_handle *hnd, int num)
 {
     uchar buffer[8];
-    int16_t i, n = hnd->num - 1;
+    int32_t n = hnd->num - 1;
     ctb_err_code = CTB_ERR_NONE;
 
     if (hnd == NULL) {
@@ -1075,7 +1069,7 @@ Bool32 CTB_delete(CTB_handle *hnd, int32_t num)
         return FALSE;
     }
 
-    for (i = (int16_t) num; i < n; i++) {
+    for (int i = num; i < n; i++) {
         if (fseek(hnd->ndx, (i + 1) * 8, SEEK_SET)) {
             ctb_err_code = CTB_ERR_SEEK;
             return FALSE;

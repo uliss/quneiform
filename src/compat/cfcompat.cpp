@@ -337,12 +337,13 @@ Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
 
 #else /* WIN32 */
 
-#include<io.h>
-#include<direct.h>
-#include"cfcompat.h"
-#include "cttypes.h"
+#include <io.h>
+#include <direct.h>
 #include <windows.h>
 #include <malloc.h>
+
+#include "cfcompat.h"
+#include "cttypes.h"
 
 static HMODULE thismod;
 
