@@ -22,6 +22,7 @@
 #include "lang_def.h"
 #include <string>
 #include <map>
+#include <list>
 #include <iostream>
 
 namespace CIF
@@ -29,6 +30,7 @@ namespace CIF
 
 typedef std::pair<std::string, std::string> LanguageCodeName;
 typedef std::map<language_t, LanguageCodeName> LanguageMap;
+typedef std::list<language_t> LanguageList;
 
 class Language
 {
@@ -37,14 +39,25 @@ class Language
         language_t get() const;
         std::string isoCode() const;
         std::string isoName() const;
+        bool isValid() const;
+
+        enum sort_t {
+            SORT_NONE,
+            SORT_BY_CODE,
+            SORT_BY_NAME
+        };
     public:
-        static LanguageMap languages();
-        static language_t languageByCode(const std::string& code);
-        static language_t languageByName(const std::string& name);
+        static Language byCode(const std::string& code);
+        static Language byName(const std::string& name);
+        static LanguageList languages(sort_t sort = SORT_NONE);
         static std::string isoCode(language_t language);
         static std::string isoName(language_t language);
+        static void sortByCode(LanguageList& lst);
+        static void sortByName(LanguageList& lst);
     private:
         language_t language_;
+    private:
+        static LanguageList languagesAll();
 };
 
 inline language_t Language::get() const {

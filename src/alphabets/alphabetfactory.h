@@ -20,8 +20,8 @@
 #define ALPHABETFACTORY_H_
 
 #include <map>
-#include <list>
 #include <boost/shared_ptr.hpp>
+#include "common/language.h"
 #include "alphabet.h"
 #include "lang_def.h"
 
@@ -29,7 +29,6 @@ namespace CIF
 {
 
 typedef boost::shared_ptr<Alphabet> AlphabetPtr;
-typedef std::list<language_t> LanguageList;
 
 class AlphabetFactory
 {

@@ -89,33 +89,75 @@ std::string Language::isoName() const
     return isoName(language_);
 }
 
+bool Language::isValid() const
+{
+	return (language_ < 0 || language_ >= LANG_TOTAL) ? false : true;
+}
+
 std::string Language::isoName(language_t language)
 {
     LanguageMap::iterator it = lang_map.find(language);
     return it != lang_map.end() ? it->second.second : "Unknown";
 }
 
-language_t Language::languageByCode(const std::string& code)
+Language Language::byCode(const std::string& code)
 {
     for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
         if (it->second.first == code)
-            return it->first;
+            return Language(it->first);
     }
-    return (language_t) -1;
+    return Language(LANGUAGE_UNKNOWN);
 }
 
-language_t Language::languageByName(const std::string& name)
+Language Language::byName(const std::string& name)
 {
-    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
+	for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
         if (it->second.second == name)
-            return it->first;
+            return Language(it->first);
     }
-    return (language_t) -1;
+    return Language(LANGUAGE_UNKNOWN);
 }
 
-LanguageMap Language::languages()
+LanguageList Language::languages(sort_t sort_mode)
 {
-    return lang_map;
+	LanguageList ret = languagesAll();
+    switch(sort_mode) {
+    case SORT_BY_CODE:
+    	sortByCode(ret);
+    case SORT_BY_NAME:
+    	sortByName(ret);
+    default:
+    	break;
+    }
+    return ret;
+}
+
+LanguageList Language::languagesAll()
+{
+	LanguageList ret;
+	for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it)
+		ret.push_back(it->first);
+	return ret;
+}
+
+inline bool cmpByCode(language_t one, language_t two)
+{
+	return lang_map[one].first.compare(lang_map[two].first) < 0;
+}
+
+void Language::sortByCode(LanguageList& lst)
+{
+	lst.sort(cmpByCode);
+}
+
+inline bool cmpByName(language_t one, language_t two)
+{
+	return lang_map[one].second.compare(lang_map[two].second) < 0;
+}
+
+void Language::sortByName(LanguageList& lst)
+{
+	lst.sort(cmpByName);
 }
 
 std::ostream& operator<<(std::ostream& os, const Language& language)

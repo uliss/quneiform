@@ -109,16 +109,14 @@ static const formatlist formats[] = {
 
 static string supported_languages()
 {
-    typedef std::map<std::string, std::string> LMap;
-    LMap sorted_langs;
-    LanguageList langs = AlphabetFactory::instance().supportedLanguages();
-    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-        sorted_langs[Language::isoName(*it)] = Language::isoCode(*it);
+	ostringstream os;
+	os << "Supported languages:\n";
 
-    ostringstream os;
-    os << "Supported languages:\n";
-    for (LMap::iterator it = sorted_langs.begin(), end = sorted_langs.end(); it != end; ++it)
-        os << "    " << left << setw(12) << it->second << " " << it->first << "\n";
+    LanguageList langs = AlphabetFactory::instance().supportedLanguages();
+    Language::sortByName(langs);
+    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
+    	os << "    " << left << setw(12)
+		   << Language::isoCode(*it) << " " << Language::isoName(*it) << "\n";
 
     return os.str();
 }
@@ -272,13 +270,13 @@ int main(int argc, char **argv)
                 cout << supported_languages();
                 return EXIT_SUCCESS;
             }
-            language_t lang = Language::languageByCode(optarg);
-            if (lang == -1) {
+            Language lang = Language::byCode(optarg);
+            if (!lang.isValid()) {
                 cerr << "Unknown language: " << optarg << "\n";
                 cerr << supported_languages();
                 return EXIT_FAILURE;
             }
-            langcode = lang;
+            langcode = lang.get();
         }
             break;
         case 'o':
