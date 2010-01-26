@@ -106,7 +106,7 @@ class PumaImpl
         void recognizeCorrection();
         void recognizePass1();
         void recognizePass2();
-        void recognizeSetup(int lang);
+        void recognizeSetup();
         void recognizeSpecial();
         void rotate(void * dib, Point * p);
         void saveCSTR(int pass);

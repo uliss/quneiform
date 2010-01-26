@@ -57,14 +57,19 @@
 #ifndef __RSTRDEFS_H
 #define __RSTRDEFS_H
 
+#include "lang_def.h"
+
 #pragma pack(1)
 
 #define RSTR_VERSION_CODE   1
-typedef struct tagRSTR_Options {
+struct RSTR_Options {
+	RSTR_Options() : language(LANGUAGE_ENGLISH), Alphabet(0), StyleRecog(0),
+			EnableCut(0), StyleCursive(0), StyleFont(0), StyleContext(0),
+			EnableLearn(0), pageSkew2048(0) {
+	}
+
     char szAlphaString[256];
-    //FrhFieldSetup *setup;    // old fields
-    //                          char     szAlphaString[256]
-    uchar language;
+    language_t language;
     uchar * Alphabet; // 256 indicators
     uchar StyleRecog; // printing, handprinting
     uchar EnableCut; // only glue if 0
@@ -76,7 +81,7 @@ typedef struct tagRSTR_Options {
 
     uchar EnableLearn; //
     int32_t pageSkew2048;
-} RSTR_Options;
+};
 
 #pragma pack()
 

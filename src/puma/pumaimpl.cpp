@@ -625,7 +625,7 @@ void PumaImpl::pass2special()
         }
 
         language_ = LANGUAGE_ENGLISH;
-        recognizeSetup(language_);
+        recognizeSetup();
         recognizePass1();
     }
 }
@@ -784,7 +784,7 @@ void PumaImpl::recognize()
 
     // распознаем строки
     CSTR_SortFragm(0);
-    recognizeSetup(language_);
+    recognizeSetup();
     CSTR_SortFragm(0);
     CSTR_line ln;
     CSTR_attr attr;
@@ -930,7 +930,7 @@ void PumaImpl::recognizePass2()
         throw PumaException("RSTR_EndPage failed");
 }
 
-void PumaImpl::recognizeSetup(int language)
+void PumaImpl::recognizeSetup()
 {
     // распознавание строк
     PAGEINFO info;
@@ -938,7 +938,7 @@ void PumaImpl::recognizeSetup(int language)
     RSTR_Options opt;
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
-    opt.language = language;
+    opt.language = language_;
     global_buf_len = 0; // OLEG fot Consistent
 
     if (!RSTR_NewPage(nResolutionY, cpage_))
@@ -969,7 +969,7 @@ void PumaImpl::recognizeSetup(int language)
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
     {
-        uchar w8 = (uchar) language;
+        uchar w8 = (uchar) language_;
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
