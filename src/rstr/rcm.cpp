@@ -1873,21 +1873,19 @@ Bool32 Reload_lang_vocs_aux(uchar language) {
 }
 
 Bool32 RSTR_SetOptions(RSTR_Options *opt) {
-	char *p;
-	int i;
 	Bool32 ret = TRUE;
 	uchar slanguage;
 	static uchar old_language = -1;
 
 	if (opt->language) {
-		p = opt->szAlphaString;
-		for (i = 0; i < 256; i++)
+		char * p = opt->szAlphaString;
+		for (int i = 0; i < 256; i++)
 			if (alphabet[i])
 				*p++ = (char) i;
 		*p = 0;
 	} else if (opt->Alphabet) {
-		p = opt->szAlphaString;
-		for (i = 0; i < 256; i++)
+		char * p = opt->szAlphaString;
+		for (int i = 0; i < 256; i++)
 			if (opt->Alphabet[i])
 				*p++ = (char) i;
 		*p = 0;
