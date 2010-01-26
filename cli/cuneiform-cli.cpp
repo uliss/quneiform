@@ -271,7 +271,6 @@ int main(int argc, char **argv)
                 return EXIT_SUCCESS;
             }
             Language lang = Language::byCode(optarg);
-            cerr << lang.get() << "\n";
             if (!lang.isValid()) {
                 cerr << "Unknown language: " << optarg << "\n";
                 cerr << supported_languages();
