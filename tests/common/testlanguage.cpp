@@ -135,3 +135,46 @@ void TestLanguage::testIsoNames()
     CPPUNIT_ASSERT(l.isoCode() == "???");
     CPPUNIT_ASSERT(l.isoName() == "Unknown");
 }
+
+void TestLanguage::testNamesSort()
+{
+    LanguageList lst;
+
+    lst.push_back(LANGUAGE_CROATIAN);
+    lst.push_back(LANGUAGE_DUTCH);
+    lst.push_back(LANGUAGE_RUSSIAN);
+    lst.push_back(LANGUAGE_UKRAINIAN);
+
+    Language::sortByName(lst);
+    LanguageList::iterator it = lst.begin();
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_CROATIAN);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_DUTCH);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_RUSSIAN);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_UKRAINIAN);
+
+    Language::sortByCode(lst);
+    it = lst.begin();
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_DUTCH);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_CROATIAN);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_RUSSIAN);
+    it++;
+    CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_UKRAINIAN);
+}
+
+void TestLanguage::testIsValid()
+{
+    for(language_t lang = LANGUAGE_ENGLISH; lang < LANG_TOTAL; lang = (language_t) (lang + 1)) {
+        Language l(lang);
+        CPPUNIT_ASSERT(l.isValid());
+    }
+
+    Language l(LANGUAGE_UNKNOWN);
+    CPPUNIT_ASSERT(!l.isValid());
+    l = Language(LANG_TOTAL);
+    CPPUNIT_ASSERT(!l.isValid());
+}
