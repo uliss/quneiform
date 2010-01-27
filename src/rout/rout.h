@@ -85,14 +85,14 @@ typedef struct
 // Список форматов
 typedef enum
 {
-    ROUT_FMT_Text = CIF::PUMA_TOTEXT,// 2 - Plain text
-    ROUT_FMT_SmartText = CIF::PUMA_TOSMARTTEXT, // 4 - Formatted text
-    ROUT_FMT_TableText = CIF::PUMA_TOTABLETXT, // 0x100 - Table text
-    ROUT_FMT_CSV = CIF::PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
-    ROUT_FMT_DBF = CIF::PUMA_TOTABLEDBF, // 0x400 - Table DBF
-    ROUT_FMT_WKS = CIF::PUMA_TOTABLEWKS, // 0x1000 - Table WKS (Lotus)
-    ROUT_FMT_HTML = CIF::PUMA_TOHTML, // 0x2000 - HTML
-    ROUT_FMT_HOCR = CIF::PUMA_TOHOCR,
+    ROUT_FMT_Text = CIF::FORMAT_TEXT,// 2 - Plain text
+    ROUT_FMT_SmartText = CIF::FORMAT_SMARTTEXT, // 4 - Formatted text
+    ROUT_FMT_TableText = CIF::FORMAT_TABLETXT, // 0x100 - Table text
+    ROUT_FMT_CSV = CIF::FORMAT_TABLECSV, // 0x200 - Table CSV (comma separated)
+    ROUT_FMT_DBF = CIF::FORMAT_TABLEDBF, // 0x400 - Table DBF
+    ROUT_FMT_WKS = CIF::FORMAT_TABLEWKS, // 0x1000 - Table WKS (Lotus)
+    ROUT_FMT_HTML = CIF::FORMAT_HTML, // 0x2000 - HTML
+    ROUT_FMT_HOCR = CIF::FORMAT_HOCR,
 
     ROUT_FMT_COUNT = 7, // Количество форматов
     ROUT_FMT_MAX = 0x2000

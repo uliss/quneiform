@@ -49,21 +49,21 @@ void ExporterFactoryImpl::setPage(Handle page)
 Exporter * ExporterFactoryImpl::make(int format)
 {
     switch (format) {
-    case PUMA_DEBUG_TOTEXT:
+    case FORMAT_DEBUG:
         return new DebugExporter(format_options_);
         break;
-    case PUMA_TORTF:
+    case FORMAT_RTF:
         return new RtfExporter(page_);
         break;
-    case PUMA_TOEDNATIVE:
+    case FORMAT_EDNATIVE:
         return new EdExporter(page_);
         break;
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-    case PUMA_TOTABLEDBF:
-    case PUMA_TOHTML:
-    case PUMA_TOHOCR:
+    case FORMAT_TEXT:
+    case FORMAT_SMARTTEXT:
+    case FORMAT_TABLETXT:
+    case FORMAT_TABLEDBF:
+    case FORMAT_HTML:
+    case FORMAT_HOCR:
         return new TextExporter(page_, format, format_options_);
         break;
     default:

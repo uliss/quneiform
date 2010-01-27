@@ -24,19 +24,19 @@ using namespace CIF;
 
 void TestOutputFormat::testInit()
 {
-    OutputFormat fmt(PUMA_TOEDNATIVE);
-    CPPUNIT_ASSERT_EQUAL(fmt.get(), PUMA_TOEDNATIVE);
+    OutputFormat fmt(FORMAT_EDNATIVE);
+    CPPUNIT_ASSERT_EQUAL(fmt.get(), FORMAT_EDNATIVE);
     CPPUNIT_ASSERT(fmt.extension() == "ed");
     CPPUNIT_ASSERT(fmt.name() == "native");
     CPPUNIT_ASSERT(fmt.description() == "Cuneiform 2000 format");
 
     OutputFormatList lst = OutputFormat::formats();
     CPPUNIT_ASSERT(!lst.empty());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TOEDNATIVE) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TOHTML) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TORTF) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TOHOCR) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TOTEXT) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_TOSMARTTEXT) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), PUMA_DEBUG_TOTEXT) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_EDNATIVE) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_HTML) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_RTF) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_HOCR) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_TEXT) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_SMARTTEXT) != lst.end());
+    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_DEBUG) != lst.end());
 }

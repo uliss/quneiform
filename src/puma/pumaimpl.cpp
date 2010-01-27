@@ -303,7 +303,7 @@ void PumaImpl::formatResult()
         RFRMT_SetFormatOptions(format_options_);
         RFRMT_SaveRtf(fname.c_str(), 8);
         // fname = input_filename_ + "_tmp_.fed";
-        // save(fname.c_str(), PUMA_TOEDNATIVE);
+        // save(fname.c_str(), FORMAT_EDNATIVE);
     }
 }
 

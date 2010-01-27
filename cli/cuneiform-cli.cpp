@@ -190,7 +190,7 @@ int main(int argc, char **argv)
         { NULL, 0, NULL, 0 } };
 
     string outfilename, infilename, monospace, serif, sansserif;
-    format_t outputformat = PUMA_TOTEXT;
+    format_t outputformat = FORMAT_TEXT;
     language_t langcode = LANGUAGE_ENGLISH;
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {

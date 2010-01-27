@@ -56,13 +56,13 @@ namespace
 
 bool initOutputFormatData()
 {
-    addFormat(PUMA_TOTEXT, "text", "plain text", "txt");
-    addFormat(PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs", "txt");
-    addFormat(PUMA_TOHTML, "html", "HTML format", "html");
-    addFormat(PUMA_TOHOCR, "hocr", "hOCR HTML format", "html");
-    addFormat(PUMA_TORTF, "rtf", "RTF format", "rtf");
-    addFormat(PUMA_TOEDNATIVE, "native", "Cuneiform 2000 format", "ed");
-    addFormat(PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes", "txt");
+    addFormat(FORMAT_TEXT, "text", "plain text", "txt");
+    addFormat(FORMAT_SMARTTEXT, "smarttext", "plain text with TeX paragraphs", "txt");
+    addFormat(FORMAT_HTML, "html", "HTML format", "html");
+    addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
+    addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
+    addFormat(FORMAT_EDNATIVE, "native", "Cuneiform 2000 format", "ed");
+    addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
     return true;
 }
 
@@ -82,7 +82,7 @@ OutputFormat OutputFormat::byName(const std::string& name)
             return OutputFormat(it->first);
         ++it;
     }
-    return OutputFormat(PUMA_TONONE);
+    return OutputFormat(FORMAT_NONE);
 }
 
 std::string OutputFormat::description(format_t format)
