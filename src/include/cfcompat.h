@@ -35,6 +35,7 @@
 
 #ifdef WIN32
 #include <windows.h>
+#include <io.h>
 #endif
 
 #include "globus.h"

@@ -36,7 +36,7 @@ ImageLoaderFactory::ImageLoaderFactory()
 void ImageLoaderFactory::checkImageExists(const std::string& filename)
 {
     if (_access(filename.c_str(), 0) != 0)
-        throw ImageLoader::Exception("ImageLoaderFactory: given image file not exists: " + filename);
+        throw ImageLoader::Exception("ImageLoaderFactory: file not exists: " + filename);
 }
 
 ImageLoaderFactory& ImageLoaderFactory::instance()
