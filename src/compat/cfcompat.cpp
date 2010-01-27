@@ -131,8 +131,8 @@ void GlobalFree(void *f)
     free(f);
 }
 
-int GetTempFileName(const char * /*lpPathName*/,
-                    const char * /*lpPrefixString*/, uint /*uUnique*/, char* /*lpTempFileName*/)
+int GetTempFileName(const char * /*lpPathName*/, const char * /*lpPrefixString*/, uint /*uUnique*/,
+        char* /*lpTempFileName*/)
 {
     return -1;
 }
@@ -151,9 +151,8 @@ uint32_t GetModuleFileName(HMODULE/* hModule*/, char* lpFilename, size_t /*size*
 }
 
 Handle CreateFile(const char * /*lpFileName*/, uint32_t /*dwDesiredAccess*/,
-                  uint32_t /*dwShareMode*/, void* /*lpSecurityAttributes*/,
-                  uint32_t /*dwCreationDisposition*/, uint32_t /*dwFlagsAndAttributes*/,
-                  Handle /*hTemplateFile*/)
+        uint32_t /*dwShareMode*/, void* /*lpSecurityAttributes*/,
+        uint32_t /*dwCreationDisposition*/, uint32_t /*dwFlagsAndAttributes*/, Handle /*hTemplateFile*/)
 {
     return 0;
 }
@@ -173,21 +172,20 @@ Bool GetComputerName(char * buf, size_t * size)
     return TRUE;
 }
 
-Bool WritePrivateProfileString(const char * /*lpAppName*/,
-                               const char * /*lpKeyName*/, const char * /*lpString*/, const char * /*lpFileName*/)
+Bool WritePrivateProfileString(const char * /*lpAppName*/, const char * /*lpKeyName*/,
+        const char * /*lpString*/, const char * /*lpFileName*/)
 {
     return 0;
 }
 
-uint GetPrivateProfileString(const char * /*lpAppName*/,
-                             const char * /*lpKeyName*/, const char * /*lpDefault*/,
-                             char* /*lpReturnedString*/, size_t /*nSize*/, const char * /*lpFileName*/)
+uint GetPrivateProfileString(const char * /*lpAppName*/, const char * /*lpKeyName*/,
+        const char * /*lpDefault*/, char* /*lpReturnedString*/, size_t /*nSize*/, const char * /*lpFileName*/)
 {
     return 0;
 }
 
-uint GetPrivateProfileInt(const char * /*lpAppName*/,
-                          const char * /*lpKeyName*/, uint defaultValue, const char * /*lpFileName*/)
+uint GetPrivateProfileInt(const char * /*lpAppName*/, const char * /*lpKeyName*/,
+        uint defaultValue, const char * /*lpFileName*/)
 {
     return defaultValue;
 }
@@ -232,12 +230,11 @@ void strlwr(char *foo)
 
 int wsprintf(char* lpOut, const char * lpFmt, ...)
 {
-    char buffer[256];
-    int ret;
     va_list args;
     va_start (args, lpFmt);
-    ret = vsprintf(lpOut, lpFmt, args);
+    int ret = vsprintf(lpOut, lpFmt, args);
 
+    char buffer[256];
     if (ret < 0)
         perror(buffer);
 
@@ -290,9 +287,8 @@ Bool PtInRect(const RECT *lprc, const CIF::Point16& pt)
 
 Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
 {
-    if (lprcSrc1->left > lprcSrc2->right || lprcSrc1->right < lprcSrc2->left
-            || lprcSrc1->top > lprcSrc2->bottom || lprcSrc1->bottom
-            < lprcSrc2->top)
+    if (lprcSrc1->left > lprcSrc2->right || lprcSrc1->right < lprcSrc2->left || lprcSrc1->top
+            > lprcSrc2->bottom || lprcSrc1->bottom < lprcSrc2->top)
         return FALSE;
 
     return TRUE;
@@ -300,8 +296,7 @@ Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
 
 Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
 {
-    if (lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top
-            - lprcSrc1->bottom == 0) {
+    if (lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top - lprcSrc1->bottom == 0) {
         lprcDst->left = lprcSrc2->left;
         lprcDst->right = lprcSrc2->right;
         lprcDst->top = lprcSrc2->top;
@@ -309,8 +304,7 @@ Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
         return TRUE;
     }
 
-    if (lprcSrc2->left - lprcSrc2->right == 0 || lprcSrc2->top
-            - lprcSrc2->bottom == 0) {
+    if (lprcSrc2->left - lprcSrc2->right == 0 || lprcSrc2->top - lprcSrc2->bottom == 0) {
         lprcDst->left = lprcSrc1->left;
         lprcDst->right = lprcSrc1->right;
         lprcDst->top = lprcSrc1->top;
@@ -318,19 +312,14 @@ Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
         return TRUE;
     }
 
-    lprcDst->left = lprcSrc1->left < lprcSrc2->left ? lprcSrc1->left
-                    : lprcSrc2->left;
-    lprcDst->right = lprcSrc1->right > lprcSrc2->right ? lprcSrc1->right
-                     : lprcSrc2->right;
-    lprcDst->top = lprcSrc1->top < lprcSrc2->top ? lprcSrc1->top
-                   : lprcSrc2->top;
-    lprcDst->bottom = lprcSrc1->bottom > lprcSrc2->bottom ? lprcSrc1->bottom
-                      : lprcSrc2->bottom;
+    lprcDst->left = lprcSrc1->left < lprcSrc2->left ? lprcSrc1->left : lprcSrc2->left;
+    lprcDst->right = lprcSrc1->right > lprcSrc2->right ? lprcSrc1->right : lprcSrc2->right;
+    lprcDst->top = lprcSrc1->top < lprcSrc2->top ? lprcSrc1->top : lprcSrc2->top;
+    lprcDst->bottom = lprcSrc1->bottom > lprcSrc2->bottom ? lprcSrc1->bottom : lprcSrc2->bottom;
     return 0;
 }
 
-Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
-               int nBottomRect)
+Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect)
 {
     return 0;
 }
@@ -356,7 +345,7 @@ Bool WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, pvoid lpvReserved)
 char* mkdtemp(char *tmpl)
 {
     static const char charset[] =
-        "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     static const unsigned int charset_len = sizeof(charset) - 1;
     const int len = strlen (tmpl);
     char* x_tail = tmpl + len - 6;
@@ -365,10 +354,10 @@ char* mkdtemp(char *tmpl)
     unsigned int cnt = 0;
 
     if (len < 6)
-        return NULL;
+    return NULL;
 
     if (memcmp(x_tail, "XXXXXX", 6))
-        return NULL;
+    return NULL;
 
     QueryPerformanceCounter(&rand_seed);
 
@@ -382,10 +371,10 @@ char* mkdtemp(char *tmpl)
         }
 
         if (CreateDirectory (tmpl, NULL))
-            return tmpl;
+        return tmpl;
 
         if (ERROR_ALREADY_EXISTS != GetLastError())
-            return NULL;
+        return NULL;
 
         value += 65537;
         ++cnt;
@@ -430,8 +419,7 @@ static void get_install_path(char *path)
  *
  */
 
-static void build_name_estimates(const char *base_name, char *env_name,
-                                 char *prefix_name)
+static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name)
 {
     const char *env_prefix;
     const char *varname = "CF_DATADIR";
@@ -465,9 +453,8 @@ int open_data_file(const char *basename, int mode)
 {
     char ename[1024];
     char pname[1024];
-    int i;
     build_name_estimates(basename, ename, pname);
-    i = open(ename, mode);
+    int i = open(ename, mode);
 
     if (i != -1)
         return i;
@@ -494,13 +481,9 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
 {
     int last_path = -1;
     int suff = -1;
-    size_t l = strlen(fname);
-    int path_end, base_start, base_end, ext_start;
-    size_t i;
-    file_path[0] = '\0';
-    basename[0] = '\0';
 
-    for (i = 0; i < l; i++) {
+    const size_t l = strlen(fname);
+    for (size_t i = 0; i < l; i++) {
         if (fname[i] == '.')
             suff = i;
 
@@ -508,8 +491,8 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
             last_path = i;
     }
 
-    path_end = 0;
-    base_start = 0;
+    int path_end = 0;
+    int base_start = 0;
 
     if (last_path == 0) { // File in root.
         path_end = 1;
@@ -521,6 +504,8 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
         base_start = last_path + 1;
     }
 
+    int base_end, ext_start;
+
     if (suff > last_path) {
         ext_start = suff + 1;
         base_end = suff;
@@ -530,6 +515,8 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
         base_end = ext_start = l;
     }
 
+    file_path[0] = '\0';
+    basename[0] = '\0';
     memcpy(file_path, fname, path_end);
     file_path[path_end] = '\0';
     memcpy(basename, fname + base_start, base_end - base_start);
@@ -538,8 +525,7 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
     ext[l - ext_start] = '\0';
 }
 
-void make_path(char *opath, const char *dir, const char *basename,
-               const char *ext)
+void make_path(char *opath, const char *dir, const char *basename, const char *ext)
 {
     const char dirsep = '/';
     const char *dirseps = "/";
@@ -570,11 +556,9 @@ void make_path(char *opath, const char *dir, const char *basename,
 void winpath_to_internal(char *p)
 {
 #if WIN32
-    int i;
-
-    for (i = 0; p[i] != '\0'; i++) {
+    for (int i = 0; p[i] != '\0'; i++) {
         if (p[i] == '\\')
-            p[i] = '/';
+        p[i] = '/';
     }
 
 #endif
@@ -601,8 +585,7 @@ CFCOMPAT_FUNC FILE* create_temp_file(void)
 {
     char temppath[BUFSIZE];
     char tempfname[BUFSIZE];
-    uint32_t retval;
-    retval = GetTempPath(BUFSIZE, temppath);
+    uint32_t retval = GetTempPath(BUFSIZE, temppath);
 
     if (retval >= BUFSIZE || retval == 0)
         return NULL;
@@ -618,10 +601,9 @@ CFCOMPAT_FUNC FILE* create_temp_file(void)
 FILE* create_temp_file(void)
 {
     FILE *tmp_file;
-    int tmp_fd;
     char* pattrn = static_cast<char*> (malloc(100));
     strcpy(pattrn, "/tmp/CF.XXXXXX");
-    tmp_fd = mkstemp(pattrn);
+    int tmp_fd = mkstemp(pattrn);
     /* unlink file immediatly, it gets unlinked when file descriptor is closed */
     unlink(pattrn);
     free(pattrn);
@@ -645,8 +627,7 @@ std::string InstallPath()
     return INSTALL_DATADIR;
 }
 
-std::string MakePath(const std::string& dir, const std::string& basename,
-                     const std::string& ext)
+std::string MakePath(const std::string& dir, const std::string& basename, const std::string& ext)
 {
     const char DIRSEP = '/';
     std::string r(dir);
