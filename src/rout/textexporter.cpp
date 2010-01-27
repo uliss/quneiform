@@ -49,9 +49,13 @@ void TextExporter::exportTo(const std::string& filename)
         *(str) = '\0';
 
     Bool line_breaks = formatOptions().preserveLineBreaks();
+    if (line_breaks) {
+        if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, &line_breaks))
+            throw Exception("ROUT_SetImportData failed");
+    }
+
     char unrecog = formatOptions().unrecognizedChar();
-    if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, (void*) line_breaks)
-            || !ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
+    if (!ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
             ROUT_HANDLE_PageHandle, page_)
             || !ROUT_SetImportData(ROUT_LONG_Format, (void*) format_) || !ROUT_SetImportData(
             ROUT_LONG_Code, (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,

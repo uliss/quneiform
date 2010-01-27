@@ -30,6 +30,7 @@
 #include "common/debug.h"
 #include "common/helper.h"
 #include "common/tostring.h"
+#include "common/language.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
 #include "ced/ced.h"
@@ -685,8 +686,8 @@ void PumaImpl::printRecognizeOptions()
             << do_spell_corretion_ << "\n" << setw(25) << "  Fax:   " << fax100_ << "\n"
             << setw(25) << "  Single column layout: " << one_column_ << "\n" << setw(25)
             << "  Dot matix: " << dot_matrix_ << "\n" << setw(25) << "  Autorotate: "
-            << auto_rotate_ << "\n" << setw(25) << "  Language: " << language_ << "\n" << setw(10)
-            << "  Page: " << rect_template_ << "\n" << "  " << format_options_
+            << auto_rotate_ << "\n" << setw(25) << "  Language: " << Language(language_)
+            << "\n" << setw(10) << "  Page: " << rect_template_ << "\n" << "  " << format_options_
             << "##################################################################\n";
 }
 
