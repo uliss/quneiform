@@ -82,23 +82,6 @@ typedef struct
         char name[64];
 } ROUT_ITEM;
 
-// Список форматов
-typedef enum
-{
-    ROUT_FMT_Text = CIF::FORMAT_TEXT,// 2 - Plain text
-    ROUT_FMT_SmartText = CIF::FORMAT_SMARTTEXT, // 4 - Formatted text
-    ROUT_FMT_TableText = CIF::FORMAT_TABLETXT, // 0x100 - Table text
-    ROUT_FMT_CSV = CIF::FORMAT_TABLECSV, // 0x200 - Table CSV (comma separated)
-    ROUT_FMT_DBF = CIF::FORMAT_TABLEDBF, // 0x400 - Table DBF
-    ROUT_FMT_WKS = CIF::FORMAT_TABLEWKS, // 0x1000 - Table WKS (Lotus)
-    ROUT_FMT_HTML = CIF::FORMAT_HTML, // 0x2000 - HTML
-    ROUT_FMT_HOCR = CIF::FORMAT_HOCR,
-
-    ROUT_FMT_COUNT = 7, // Количество форматов
-    ROUT_FMT_MAX = 0x2000
-// Максимальный формат
-} ROUT_FMT;
-
 // Список кодировок
 typedef enum
 {
@@ -125,7 +108,7 @@ typedef enum
 // Опции табличного текста
 typedef enum
 {
-    // 1 - включить таблицы в текст страницы в формате ROUT_FMT_Text
+    // 1 - включить таблицы в текст страницы в формате FORMAT_TEXT
     ROUT_TABLE_TEXT_INCLUDED = 1,
 
     // 2 - выравнивание колонок
@@ -172,21 +155,6 @@ DEC_FUN(Bool32, ROUT_LoadEd,
 
 // Выгрузка ED-файла
 DEC_FUN(Bool32, ROUT_UnloadEd, (void));
-
-// Получение списка поддерживаемых форматов
-// Возвращает количество форматов или (-1) при ошибке
-DEC_FUN(long, ROUT_ListFormats,
-        (puchar buf, // Адрес буфера для списка ROUT_ITEM
-                uint32_t sizeBuf // Длина буфера
-        ));
-
-// Получение списка возможных форматов сохранения
-// для текущей загруженной страницы.
-// Возвращает количество форматов или (-1) при ошибке
-DEC_FUN(long, ROUT_ListAvailableFormats,
-        (puchar buf, // Адрес буфера для списка ROUT_ITEM
-                uint32_t sizeBuf // Длина буфера
-        ));
 
 // Получение списка кодировок для данного формата
 // Возвращает количество кодировок или -1 при ошибке

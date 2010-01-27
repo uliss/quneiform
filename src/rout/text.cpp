@@ -63,6 +63,8 @@
 
 #include "rout_own.h"
 #include "ligas.h"	// Теперь в HHH 01.09.2000 E.P.
+using namespace CIF;
+
 static Bool Static_MakeText(Handle hObject, long reason);
 static Bool TableStub();
 static Bool IncludeTable();
@@ -103,7 +105,7 @@ Bool Static_MakeText(Handle hObject, long reason // См. enum BROWSE_REASON
 
 	case BROWSE_LINE_END:
 		// Конец строки
-		if (0 || gFormat == ROUT_FMT_SmartText || (gPreserveLineBreaks
+		if (0 || gFormat == FORMAT_SMARTTEXT || (gPreserveLineBreaks
 				|| gEdLineHardBreak))
 			NEW_LINE
 		;
@@ -183,7 +185,7 @@ Bool OneChar(Handle charHandle) {
 	// Пробелы, вставленные для выравнивания SmartText,
 	// имеют оценку 253; их следует пропускать
 	// для всех остальных форматов
-	if (c1 == ' ' && alt->probability == 253 && gFormat != ROUT_FMT_SmartText)
+	if (c1 == ' ' && alt->probability == 253 && gFormat != FORMAT_SMARTTEXT)
 		return TRUE;
 
 	// Специальные случаи перекодировки
@@ -206,13 +208,13 @@ Bool OneChar(Handle charHandle) {
 		//  long dash -> double hyphen
 		// except SmartText и HTML
 		// 29.02.2000
-		if (gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR || gActiveCode
+		if (gFormat == FORMAT_HTML || gFormat == FORMAT_HOCR || gActiveCode
 				== ROUT_CODE_UTF8) {
 			// there is long dash in html and unicode
 			c2 = c1;
 		} else {
 			c2 = '-';
-			if (gFormat != ROUT_FMT_SmartText)
+			if (gFormat != FORMAT_SMARTTEXT)
 				*gMemCur++ = '-';
 		}
 		break;
@@ -220,7 +222,7 @@ Bool OneChar(Handle charHandle) {
 		// Угловые скобки в HTML заменяются на круглые
 	case '<':
 	case '>':
-		if (gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
+		if (gFormat == FORMAT_HTML || gFormat == FORMAT_HOCR) {
 			*gMemCur++ = '&';
 			*gMemCur++ = (c1 == '<' ? 'l' : 'g');
 			*gMemCur++ = 't';
@@ -230,7 +232,7 @@ Bool OneChar(Handle charHandle) {
 		break;
 
 	case '&':
-		if (gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
+		if (gFormat == FORMAT_HTML || gFormat == FORMAT_HOCR) {
 			*gMemCur++ = '&';
 			*gMemCur++ = 'a';
 			*gMemCur++ = 'm';
@@ -244,7 +246,7 @@ Bool OneChar(Handle charHandle) {
 	case oe_deaf_sound:
 		if (FALSE == (gLanguage == LANGUAGE_RUSSIAN || langKaz || // 18.08.98 E.P.
 				gLanguage == LANGUAGE_FRENCH && gActiveCode == ROUT_CODE_ANSI)
-				|| gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
+				|| gFormat == FORMAT_HTML || gFormat == FORMAT_HOCR) {
 			*gMemCur++ = 'o';
 			c2 = 'e';
 		}
@@ -253,7 +255,7 @@ Bool OneChar(Handle charHandle) {
 	case OE_cap_deaf_sound:
 		if (FALSE == (gLanguage == LANGUAGE_RUSSIAN || langKaz || // 18.08.98 E.P.
 				gLanguage == LANGUAGE_FRENCH && gActiveCode == ROUT_CODE_ANSI)
-				|| gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
+				|| gFormat == FORMAT_HTML || gFormat == FORMAT_HOCR) {
 			*gMemCur++ = 'O';
 			c2 = 'E';
 		}

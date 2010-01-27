@@ -69,6 +69,8 @@
 
 #include "rout_own.h"
 
+using namespace CIF;
+
 static Bool Static_GetTargetObject(Handle hObject, long reason);
 static Bool Static_GetFirstTable(Handle hObject, long reason);
 static Bool GetWorkMem();
@@ -177,8 +179,8 @@ Bool32 ROUT_SaveObject(uint32_t objIndex, // Индекс объекта нач�
 	}
 
 	// Дополнение в конец файла
-	if (append && (gFormat == ROUT_FMT_Text || gFormat == ROUT_FMT_SmartText
-			|| gFormat == ROUT_FMT_TableText || 0)) {
+	if (append && (gFormat == FORMAT_TEXT || gFormat == FORMAT_SMARTTEXT
+			|| gFormat == FORMAT_TABLETXT || 0)) {
 		pos = fseek(f, 0, SEEK_END);
 		if (pos > 0) {
 			// Вставить пустую строку
@@ -234,29 +236,29 @@ Bool32 ROUT_GetObject(uint32_t objIndex, // Индекс объекта начи
 	INIT_MEMORY(lpMem,*sizeMem);
 
 	switch (gFormat) {
-	case ROUT_FMT_Text:
-	case ROUT_FMT_SmartText:
+	case FORMAT_TEXT:
+	case FORMAT_SMARTTEXT:
 		MakeText();
 		break;
 
-	case ROUT_FMT_HOCR:
+	case FORMAT_HOCR:
 		MakeHOCR();
 		break;
 
-	case ROUT_FMT_HTML:
+	case FORMAT_HTML:
 		MakeHTML();
 		break;
 
-	case ROUT_FMT_TableText:
+	case FORMAT_TABLETXT:
 		MakeTableText();
 		break;
 
-	case ROUT_FMT_DBF:
+	case FORMAT_TABLEDBF:
 		MakeTableDBF();
 		break;
 
-	case ROUT_FMT_CSV:
-	case ROUT_FMT_WKS:
+	case FORMAT_TABLECSV:
+	case FORMAT_TABLEWKS:
 
 	default:
 		NOT_IMPLEMENTED;
@@ -304,10 +306,10 @@ Bool SetLanguage(long language) {
 Bool SetFormat(long format) {
 	// Настройка на формат
 
-	if (format == ROUT_FMT_Text || format == ROUT_FMT_SmartText || format
-			== ROUT_FMT_TableText || format == ROUT_FMT_CSV || format
-			== ROUT_FMT_DBF || format == ROUT_FMT_WKS || format
-			== ROUT_FMT_HTML || format == ROUT_FMT_HOCR || 0) {
+	if (format == FORMAT_TEXT || format == FORMAT_SMARTTEXT || format
+			== FORMAT_TABLETXT || format == FORMAT_TABLECSV || format
+			== FORMAT_TABLEDBF || format == FORMAT_TABLEWKS || format
+			== FORMAT_HTML || format == FORMAT_HOCR || 0) {
 		gFormat = format;
 		return TRUE;
 	}
@@ -329,38 +331,7 @@ Bool SetActiveCode(long code) {
 	UpdateActiveCodeTable();
 	return TRUE;
 }
-//********************************************************************
-long ROUT_ListFormats(puchar buf, ulong sizeBuf) {
-	// Получение списка поддерживаемых форматов
-	// Возвращает количество форматов или -1 при ошибке
-	long count = 0;
-	ROUT_ITEM *p = (ROUT_ITEM*) buf;
 
-	ClearError();
-
-	memset(buf, 0, sizeBuf);
-	if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM)) {
-		NO_MEMORY;
-		return -1;
-	}
-
-#define ITEM(a) {\
-    p->code = ROUT_FMT_##a;\
-              p++; count++;\
-          }
-
-	ITEM (Text);
-	//ITEM (SmartText);
-	ITEM (TableText);
-	//ITEM (CSV);
-	ITEM (DBF);
-	//ITEM (WKS);
-	ITEM (HTML);
-
-#undef ITEM
-
-	return count;
-}
 //********************************************************************
 long ROUT_ListCodes(puchar buf, ulong sizeBuf) {
 	// Получение списка кодировок для данного формата
@@ -382,9 +353,9 @@ long ROUT_ListCodes(puchar buf, ulong sizeBuf) {
           }
 
 	switch (gFormat) {
-	case ROUT_FMT_Text:
-	case ROUT_FMT_SmartText:
-	case ROUT_FMT_TableText:
+	case FORMAT_TEXT:
+	case FORMAT_SMARTTEXT:
+	case FORMAT_TABLETXT:
 		ITEM(ASCII)
 		;
 		ITEM(ANSI)
@@ -395,21 +366,21 @@ long ROUT_ListCodes(puchar buf, ulong sizeBuf) {
 		;
 		break;
 
-	case ROUT_FMT_CSV:
-	case ROUT_FMT_WKS:
+	case FORMAT_TABLECSV:
+	case FORMAT_TABLEWKS:
 		ITEM(ANSI)
 		;
 		break;
 
-	case ROUT_FMT_DBF:
+	case FORMAT_TABLEDBF:
 		ITEM(ASCII)
 		;
 		ITEM(ANSI)
 		;
 		break;
 
-	case ROUT_FMT_HTML:
-	case ROUT_FMT_HOCR:
+	case FORMAT_HTML:
+	case FORMAT_HOCR:
 		ITEM(ANSI)
 		;
 		ITEM(KOI8R)
@@ -470,17 +441,17 @@ long ROUT_CountObjects() {
 	ClearError();
 
 	switch (gFormat) {
-	case ROUT_FMT_Text:
-	case ROUT_FMT_SmartText:
-	case ROUT_FMT_HTML:
-	case ROUT_FMT_HOCR:
+	case FORMAT_TEXT:
+	case FORMAT_SMARTTEXT:
+	case FORMAT_HTML:
+	case FORMAT_HOCR:
 		return 1;
 		break;
 
-	case ROUT_FMT_TableText:
-	case ROUT_FMT_CSV:
-	case ROUT_FMT_WKS:
-	case ROUT_FMT_DBF:
+	case FORMAT_TABLETXT:
+	case FORMAT_TABLECSV:
+	case FORMAT_TABLEWKS:
+	case FORMAT_TABLEDBF:
 		// Просмотреть страницу и вернуть
 		// количество таблиц
 		gTargetObjectIndex = LONG_MAX;
@@ -511,18 +482,18 @@ Bool Static_GetTargetObject(Handle hObject, long reason // См. enum BROWSE_REA
 		countObjectsFound = 0;
 
 	switch (gFormat) {
-	case ROUT_FMT_Text:
-	case ROUT_FMT_SmartText:
-	case ROUT_FMT_HTML:
-	case ROUT_FMT_HOCR:
+	case FORMAT_TEXT:
+	case FORMAT_SMARTTEXT:
+	case FORMAT_HTML:
+	case FORMAT_HOCR:
 		gTargetObjectHandle = gPageHandle;
 		return FALSE; // Закончить поиск
 		break;
 
-	case ROUT_FMT_TableText:
-	case ROUT_FMT_CSV:
-	case ROUT_FMT_WKS:
-	case ROUT_FMT_DBF:
+	case FORMAT_TABLETXT:
+	case FORMAT_TABLECSV:
+	case FORMAT_TABLEWKS:
+	case FORMAT_TABLEDBF:
 		if (reason == BROWSE_TABLE_START) {
 			gTargetObjectHandle = hObject;
 
@@ -605,37 +576,37 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 	static char name[PATH_MAX] = "";
 
 	switch (gFormat) {
-	case ROUT_FMT_Text:
+	case FORMAT_TEXT:
 		//strcpy(suffix,"");
 		strcpy(ext, ".txt");
 		break;
-	case ROUT_FMT_SmartText:
+	case FORMAT_SMARTTEXT:
 		strcpy(suffix, "_s");
 		strcpy(ext, ".txt");
 		break;
 
-	case ROUT_FMT_TableText:
+	case FORMAT_TABLETXT:
 		strcpy(suffix, "_b");
 		strcpy(ext, ".txt");
 		break;
 
-	case ROUT_FMT_CSV:
+	case FORMAT_TABLECSV:
 		//strcpy(suffix,"");
 		strcpy(ext, ".csv");
 		break;
 
-	case ROUT_FMT_DBF:
+	case FORMAT_TABLEDBF:
 		//strcpy(suffix,"");
 		strcpy(ext, ".dbf");
 		break;
 
-	case ROUT_FMT_WKS:
+	case FORMAT_TABLEWKS:
 		//strcpy(suffix,"");
 		strcpy(ext, ".wks");
 		break;
 
-	case ROUT_FMT_HTML:
-	case ROUT_FMT_HOCR:
+	case FORMAT_HTML:
+	case FORMAT_HOCR:
 		//strcpy(suffix,"");
 		strcpy(ext, ".htm");
 		break;
@@ -648,8 +619,8 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 
 	switch (gActiveCode) {
 	case ROUT_CODE_ASCII:
-		if (gFormat != ROUT_FMT_Text && gFormat != ROUT_FMT_SmartText
-				&& gFormat != ROUT_FMT_TableText && gFormat != ROUT_FMT_DBF) {
+		if (gFormat != FORMAT_TEXT && gFormat != FORMAT_SMARTTEXT
+				&& gFormat != FORMAT_TABLETXT && gFormat != FORMAT_TABLEDBF) {
 			NOT_IMPLEMENTED;
 			return NULL;
 		}
@@ -662,9 +633,9 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 		break;
 
 	case ROUT_CODE_KOI8R:
-		if (gFormat != ROUT_FMT_Text && gFormat != ROUT_FMT_SmartText
-				&& gFormat != ROUT_FMT_TableText && gFormat != ROUT_FMT_DBF
-				&& gFormat != ROUT_FMT_HTML && gFormat != ROUT_FMT_HOCR) {
+		if (gFormat != FORMAT_TEXT && gFormat != FORMAT_SMARTTEXT
+				&& gFormat != FORMAT_TABLETXT && gFormat != FORMAT_TABLEDBF
+				&& gFormat != FORMAT_HTML && gFormat != FORMAT_HOCR) {
 			NOT_IMPLEMENTED;
 			return NULL;
 		}
@@ -673,9 +644,9 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 		break;
 
 	case ROUT_CODE_ISO:
-		if (gFormat != ROUT_FMT_Text && gFormat != ROUT_FMT_SmartText
-				&& gFormat != ROUT_FMT_TableText && gFormat != ROUT_FMT_DBF
-				&& gFormat != ROUT_FMT_HTML && gFormat != ROUT_FMT_HOCR) {
+		if (gFormat != FORMAT_TEXT && gFormat != FORMAT_SMARTTEXT
+				&& gFormat != FORMAT_TABLETXT && gFormat != FORMAT_TABLEDBF
+				&& gFormat != FORMAT_HTML && gFormat != FORMAT_HOCR) {
 			NOT_IMPLEMENTED;
 			return NULL;
 		}
@@ -684,8 +655,8 @@ char *ROUT_GetDefaultObjectName(uint32_t objIndex) {
 		break;
 
 	case ROUT_CODE_UTF8:
-		if (gFormat != ROUT_FMT_Text && gFormat != ROUT_FMT_SmartText
-				&& gFormat != ROUT_FMT_TableText && gFormat != ROUT_FMT_HTML) {
+		if (gFormat != FORMAT_TEXT && gFormat != FORMAT_SMARTTEXT
+				&& gFormat != FORMAT_TABLETXT && gFormat != FORMAT_HTML) {
 			NOT_IMPLEMENTED;
 			return NULL;
 		}
@@ -937,57 +908,7 @@ static Bool UpdateActiveAlphabet() {
 
 	return TRUE;
 }
-//********************************************************************
-long ROUT_ListAvailableFormats(puchar buf, ulong sizeBuf) {
-	/*
-	 Получение списка возможных форматов сохранения
-	 для текущей загруженной страницы.
-	 Возвращает количество форматов или -1 при ошибке
 
-	 Табличные форматы включаются при наличии таблиц на странице.
-	 Если страница не загружена, то
-	 устанавливается ошибка PAGE_NOT_LOADED
-	 */
-
-	long count = 0;
-	ROUT_ITEM *p = (ROUT_ITEM*) buf;
-
-	ClearError();
-
-	memset(buf, 0, sizeBuf);
-	if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM)) {
-		NO_MEMORY;
-		return -1;
-	}
-
-	if (!gPageHandle) {
-		PAGE_NOT_LOADED;
-		return -1;
-	}
-
-	// Наличие таблиц на странице
-	Bool haveTables = HaveTablesOnPage();
-
-#define ITEM(a) {\
-    p->code = ROUT_FMT_##a;\
-              p++; count++;\
-          }
-
-	ITEM (Text);
-	//ITEM (SmartText);
-	if (haveTables) {
-		ITEM (TableText);
-		//ITEM (CSV);
-		ITEM (DBF);
-		//ITEM (WKS);
-	}
-	ITEM (HTML);
-
-#undef ITEM
-
-	return count;
-}
-//********************************************************************
 Bool Static_GetFirstTable(Handle hObject, long reason // См. enum BROWSE_REASON
 ) {
 	// Поиск первой таблицы на странице.

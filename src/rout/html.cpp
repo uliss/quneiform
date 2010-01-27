@@ -62,7 +62,6 @@
 #include "rout_own.h"
 #include "compat_defs.h"
 #include "common/helper.h" // for CIF::escapeHtmlSpecialChars
-
 using namespace std;
 
 static Bool Static_MakeHTML(Handle hObject, long reason);
@@ -267,8 +266,10 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
         }
 
         iLine++;
-        // close HocrLine tag
-        PUT_STRING("</span>")
+
+        if (hocrmode) { // close HocrLine tag
+            PUT_STRING("</span>")
+        }
 
         NEW_LINE
         break;
@@ -310,8 +311,8 @@ Bool Static_MakeHTML(Handle hObject, long reason // См. enum BROWSE_REASON
             assert(pImageName);
             //пример <div class='ocr_page' title='image "page-000.pbm"; bbox 0 0 4306 6064'>
             outStrm << "<div class=\"ocr_page\" id=\"page_" << iPage << "\" ";
-            outStrm << "title=\"image '" << CIF::escapeHtmlSpecialChars(pImageName) << "'; bbox 0 0 " << sizeImage.cx << " "
-                    << sizeImage.cy << "\">" << endl;
+            outStrm << "title=\"image '" << CIF::escapeHtmlSpecialChars(pImageName)
+                    << "'; bbox 0 0 " << sizeImage.cx << " " << sizeImage.cy << "\">" << endl;
             strm2buf(outStrm);
             ++iPage;
         }
