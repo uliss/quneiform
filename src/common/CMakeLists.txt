@@ -4,7 +4,7 @@ if(ICONV_SECOND_ARGUMENT_IS_CONST)
    add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
 endif()
 
-add_library(cuneiform-common ${NEWLIBTYPE}
+add_library(cuneiform-common ${LIBTYPE}
 cifconfig.cpp
 helper.cpp
 iconv.cpp
