@@ -24,6 +24,7 @@ common/test_common.cpp
 common/testlanguage.cpp
 common/testpoint.cpp
 common/testrect.cpp
+common/testoutputformat.cpp
 )
 
 add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/loaders/")

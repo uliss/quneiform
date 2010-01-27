@@ -9,6 +9,7 @@ cifconfig.cpp
 helper.cpp
 iconv.cpp
 language.cpp
+outputformat.cpp
 )
 
 target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
