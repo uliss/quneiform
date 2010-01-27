@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 
-CMD = "../Debug/cuneiform -l %s -o %s -f text '../images/lang.diftest/%s.bmp'"
+CMD = "./cuneiform -l %s -o %s -f text '../images/lang.diftest/%s.bmp'"
 DATA = {'bul' : 'Bulgarian',
         'hrv' : 'Croatian',
         'cze' : 'Czech',

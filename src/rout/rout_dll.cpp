@@ -75,9 +75,8 @@
 #include <stdarg.h>
 #include "compat_defs.h"
 
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode, Handle hStorage)
+Bool32 ROUT_Init(uint16_t wHighCode, Handle hStorage)
 {
-    //	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
 
     gwHighRC_rout = wHighCode;
     ghStorage_rout = hStorage;
@@ -91,9 +90,8 @@ ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode, Handle hStorage)
     return ROUT_GetReturnCode() == 0 ? TRUE : FALSE;
 }
 
-ROUT_FUNC(Bool32) ROUT_Done()
+Bool32 ROUT_Done()
 {
-    //	DEBUG_PRINT("ROUT_Done");
     ROUT_UnloadEd();
 
     if (gOwnMemory)
@@ -103,7 +101,7 @@ ROUT_FUNC(Bool32) ROUT_Done()
     return TRUE;
 }
 
-ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
+uint32_t ROUT_GetReturnCode()
 {
     // Возвращает 0 если нет ошибки
     // Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
@@ -121,14 +119,12 @@ char * ROUT_GetReturnString(uint32_t dwError)
     return NULL;
 }
 
-ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
+Bool32 ROUT_GetExportData(uint32_t dwType, void * pData)
 {
     // Экспорт моих функций
     Bool32 rc = TRUE;
 
     gwLowRC_rout = 0;
-
-    //#define CASE_FUNCTION(a) case ROUT_FN##a: *(FN##a *)pData = a; break
 
     switch (dwType) {
 
@@ -145,8 +141,6 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
         rc = FALSE;
     }
 
-    //#undef CASE_FUNCTION
-
     return rc;
 }
 
@@ -160,7 +154,7 @@ void ROUT_SetInputBBox(const CIF::Rect& bbox)
     //    gInputBBox = bbox;
 }
 
-ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
+Bool32 ROUT_SetImportData(uint32_t dwType, void * pData)
 {
     // Импорт моих опций
 
@@ -168,112 +162,112 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
     Bool rc = TRUE;
 
     switch (dwType) {
-    // Страница в контейнере CED
-    case ROUT_HANDLE_PageHandle:
+        // Страница в контейнере CED
+        case ROUT_HANDLE_PageHandle:
         gPageHandle = (Handle) pData;
         break;
 
         // Язык
-    case ROUT_LONG_Language:
+        case ROUT_LONG_Language:
         SetLanguage((long) pData);
         break;
 
         // Формат
-    case ROUT_LONG_Format:
+        case ROUT_LONG_Format:
         SetFormat((long) pData);
         break;
 
         // Выходная кодировка
-    case ROUT_LONG_Code:
+        case ROUT_LONG_Code:
         SetActiveCode((long) pData);
         break;
 
         // Сохранение концов строк
-    case ROUT_BOOL_PreserveLineBreaks:
+        case ROUT_BOOL_PreserveLineBreaks:
         gPreserveLineBreaks = (pData != 0);
         break;
 
         // Нераспознанный символ
-    case ROUT_PCHAR_BAD_CHAR:
+        case ROUT_PCHAR_BAD_CHAR:
         gBadChar = *(char*) pData;
         break;
 
         // Количество подстановок из REC6.DAT
-    case ROUT_LONG_CountTigerToUserCharSet:
+        case ROUT_LONG_CountTigerToUserCharSet:
         gCountTigerToUserCharSet = (long) pData;
         break;
 
         // Массив подстановок [3][128] (Tiger/Windows/DOS)
-    case ROUT_PPBYTE_TigerToUserCharSet:
+        case ROUT_PPBYTE_TigerToUserCharSet:
         gTigerToUserCharSet = (uchar**) pData;
         break;
 
         // Максимальное количество строк текста в одной таблице
-    case ROUT_LONG_MaxTextLinesInOneTable:
+        case ROUT_LONG_MaxTextLinesInOneTable:
         gMaxTextLinesInOneTable = (long) pData;
         break;
 
         // Интервал между ячейками таблицы по вертикали
-    case ROUT_ULONG_TableTextIntervalBetweenCellsYY: {
-        ulong ul = (ulong) pData;
-        if (ul > 100) {
-            WRONG_ARGUMENT;
-            break;
-        }
-        else
+        case ROUT_ULONG_TableTextIntervalBetweenCellsYY: {
+            ulong ul = (ulong) pData;
+            if (ul > 100) {
+                WRONG_ARGUMENT;
+                break;
+            }
+            else
             gTableTextIntervalBetweenCellsYY = (ulong) pData;
-    }
+        }
         break;
 
         // Интервал между ячейками таблицы по горизонтали
-    case ROUT_ULONG_TableTextIntervalBetweenCellsXX: {
-        ulong ul = (ulong) pData;
-        if (ul > 100) {
-            WRONG_ARGUMENT;
-            break;
-        }
-        else
+        case ROUT_ULONG_TableTextIntervalBetweenCellsXX: {
+            ulong ul = (ulong) pData;
+            if (ul > 100) {
+                WRONG_ARGUMENT;
+                break;
+            }
+            else
             gTableTextIntervalBetweenCellsXX = (ulong) pData;
-    }
+        }
         break;
 
         // Смещение таблицы от начала строки
-    case ROUT_ULONG_TableTextLeftIndent: {
-        ulong ul = (ulong) pData;
-        if (ul > 100) {
-            WRONG_ARGUMENT;
-            break;
-        }
-        else
+        case ROUT_ULONG_TableTextLeftIndent: {
+            ulong ul = (ulong) pData;
+            if (ul > 100) {
+                WRONG_ARGUMENT;
+                break;
+            }
+            else
             gTableTextLeftIndent = ul;
-    }
+        }
         break;
 
         // Имя страницы без расширения .tif или .fed
-    case ROUT_PCHAR_PageName:
+        case ROUT_PCHAR_PageName:
         memset(gPageName, 0, sizeof(gPageName));
         if (pData) {
             if (strlen((char*) pData) + 20 // Запас для суффиксов и расширения
                     >= sizeof(gPageName))
-                WRONG_ARGUMENT;
+            WRONG_ARGUMENT;
             else
-                strcpy(gPageName, (char*) pData);
+            strcpy(gPageName, (char*) pData);
         }
 
         break;
 
         // Список разделителей:
-    case ROUT_PCHAR_TableTextSeparators:
+        case ROUT_PCHAR_TableTextSeparators:
         SetTableTextSeparators((char*) pData);
         break;
 
         // Опции табличного текста (экспорт-импорт выполняются
         // по одинаковому номеру, см. enum ROUT_EXPORT_ENTRIES)
-    case ROUT_LONG_TableTextOptions:
+        case ROUT_LONG_TableTextOptions:
         gTableTextOptions = (long) pData;
         break;
 
-    default:
+        default:
         gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
         rc = FALSE;
     }

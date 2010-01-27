@@ -63,9 +63,9 @@
 #include "common/outputformat.h"
 
 #ifdef __ROUT__
-#define ROUT_FUNC  FUN_EXPO
+#define ROUT_FUNC  FUN_EXPO__
 #else
-#define ROUT_FUNC  FUN_IMPO
+#define ROUT_FUNC  FUN_IMPO__
 #endif
 
 #pragma pack (push,8)
@@ -116,12 +116,12 @@ typedef enum
 
 } ROUT_TABLE_TEXT_OPTIONS;
 // Точки входа в DLL имени Петра Хлебутина.
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode, Handle hStorage);
-ROUT_FUNC(Bool32) ROUT_Done();
-ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
-ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);
-ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData);
-ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData);
+ROUT_FUNC Bool32 ROUT_Init(uint16_t wHeightCode, Handle hStorage);
+ROUT_FUNC Bool32 ROUT_Done();
+ROUT_FUNC uint32_t ROUT_GetReturnCode();
+ROUT_FUNC char * ROUT_GetReturnString(uint32_t dwError);
+ROUT_FUNC Bool32 ROUT_GetExportData(uint32_t dwType, void * pData);
+ROUT_FUNC Bool32 ROUT_SetImportData(uint32_t dwType, void * pData);
 
 // Экспорт
 typedef enum
@@ -132,89 +132,106 @@ typedef enum
     ROUT_LONG_TableTextOptions = 100
 
 } ROUT_EXPORT_ENTRIES;
-#define DEC_FUN(a,b,c) ROUT_FUNC(a) b c
-// Импорт алфавита, загруженного из REC6.DAT в SPELABC.C.
-// Гласные буквы отмечаются знаком "^", согласные любым отличным символом
-// Например для английского vowels = "^bcd^fgh^^klmn^pqrst^v^x^z"
-DEC_FUN(Bool32, ROUT_SetAlphabet, (
-                uint32_t sizeAlphabet,// Количество букв
-                char *upper, // Прописные буквы ( ровно sizeAlphabet )
-                char *lower, // Строчные буквы  ( ровно sizeAlphabet )
-                char *vowels // Гласные буквы   ( ровно sizeAlphabet )
-        ));
-// Функция для загрузки списка таблиц из файла rec6all.dat
-DEC_FUN(Bool32, ROUT_LoadRec6List, (
-                const char *rec6AllFilename
-        ));
-// Загрузка ED-файла
-DEC_FUN(Bool32, ROUT_LoadEd,
-        // Параметры как в CED_ReadFormattedEd:
-        (char *lpEdFile, // Имя файла или адрес в памяти
-                Bool32 readFromFile, // TRUE, если задано имя файла
-                uint32_t bufLen)); // Длина (только при readFromFile=FALSE)
 
-// Выгрузка ED-файла
-DEC_FUN(Bool32, ROUT_UnloadEd, (void));
+/**
+ * Импорт алфавита, загруженного из REC6.DAT в SPELABC.C
+ * Гласные буквы отмечаются знаком "^", согласные любым отличным символом
+ * Например для английского vowels = "^bcd^fgh^^klmn^pqrst^v^x^z"
+ * @param sizeAlphabet  Количество букв
+ * @param upper Прописные буквы ( ровно sizeAlphabet )
+ * @param lower Строчные буквы  ( ровно sizeAlphabet )
+ * @param vowels Гласные буквы   ( ровно sizeAlphabet )
+ */
+ROUT_FUNC Bool32 ROUT_SetAlphabet(uint32_t sizeAlphabet, char *upper, char *lower, char *vowels);
 
-// Получение списка кодировок для данного формата
-// Возвращает количество кодировок или -1 при ошибке
-DEC_FUN(long, ROUT_ListCodes,
-        (puchar buf, // Адрес буфера для списка ROUT_ITEM
-                uint32_t sizeBuf // Длина буфера
-        ));
-// Перекодировать один байт по кодовой таблице
-DEC_FUN(Byte, ROUT_Byte, (Byte c));
-// Перекодировать блок памяти по кодовой таблице
-DEC_FUN(Bool32, ROUT_Block, (
-                Byte *lpMem, // Адрес блока памяти
-                long sizeMem // Длина блока памяти
-        ));
+/**
+ * Функция для загрузки списка таблиц из файла rec6all.dat
+ */
+ROUT_FUNC Bool32 ROUT_LoadRec6List(const char *rec6AllFilename);
 
-// Сосчитать количество объектов на странице.
-// Предварительно рекомендуется загрузить страницу (ROUT_LoadEd)
-// и установить формат выдачи (ROUT_LONG_Format).
-//
-// Для табличных форматов выдает количество таблиц на странице,
-// а для не-табличных форматов выдает всегда 1.
-//
-// Выдает -1, если страница не загружена или при другой ошибке.
-//
-DEC_FUN(long, ROUT_CountObjects, ());
-// Конвертирование в один формат на заданной памяти
-DEC_FUN(Bool32, ROUT_GetObject,
-        (
-                uint32_t objIndex, // Индекс объекта начиная от 1
-                Byte *lpMem, // Адрес блока памяти ( 0 - старая память)
-                long *sizeMem // Длина блока памяти ( 0 - старая память)
-        ));
-// Конвертирование в один формат и запись в файл
-DEC_FUN(Bool32, ROUT_SaveObject,
-        (
-                uint32_t objIndex, // Индекс объекта начиная от 1
-                const char *path, // Путь до выходного файла
-                Bool32 append // Дополнение в конец файла
-        ));
+/**
+ * Загрузка ED-файла
+ * Параметры как в CED_ReadFormattedEd:
+ * @param lpEdFile Имя файла или адрес в памяти
+ * @param readFromFile - TRUE, если задано имя файла
+ * @param bufLen - Длина (только при readFromFile = FALSE)
+ */
+ROUT_FUNC Bool32 ROUT_LoadEd(char *lpEdFile, Bool32 readFromFile, uint32_t bufLen);
 
-//  Сформировать имя выходного файла из имени страницы,
-//  для установленной комбинации формат-кодировка и для
-//  заданного индекса объекта. Например:
-//      PageName_w.txt - текст в кодировке ANSI
-//      PageName_a.txt - текст в кодировке ASCII
-//      PageName_k.txt - текст в кодировке KOI8-R
-//      PageName_i.txt - текст в кодировке ISO
-//      PageName_b_w.txt - табличный текст в кодировке ANSI
-//      PageName_b_w2.txt - вторая таблица на странице
-//      и т.д.
-DEC_FUN(char *, ROUT_GetDefaultObjectName,
-        (
-                uint32_t objIndex // Индекс объекта начиная от 1
-        ));
-// Гадкая функция для определения длины объекта
-DEC_FUN(uint32_t, ROUT_GetObjectSize, (
-                uint32_t objIndex // Индекс объекта начиная от 1
-        ));
+/**
+ * Выгрузка ED-файла
+ */
+ROUT_FUNC Bool32 ROUT_UnloadEd(void);
 
-#undef DEC_FUN
+/**
+ * Получение списка кодировок для данного формата
+ * Возвращает количество кодировок или -1 при ошибке
+ * @param buf Адрес буфера для списка ROUT_ITEM
+ * @param sizeBuf Длина буфера
+ */
+
+ROUT_FUNC long ROUT_ListCodes(puchar buf, uint32_t sizeBuf);
+
+/**
+ * Перекодировать один байт по кодовой таблице
+ */
+ROUT_FUNC Byte ROUT_Byte(Byte c);
+
+/**
+ * Перекодировать блок памяти по кодовой таблице
+ * @param lpMem Адрес блока памяти
+ * @param sizeMem Длина блока памяти
+ */
+ROUT_FUNC Bool32 ROUT_Block(Byte *lpMem, long sizeMem);
+
+/**
+ * Сосчитать количество объектов на странице.
+ * Предварительно рекомендуется загрузить страницу (ROUT_LoadEd)
+ * и установить формат выдачи (ROUT_LONG_Format).
+ *
+ * Для табличных форматов выдает количество таблиц на странице,
+ * а для не-табличных форматов выдает всегда 1.
+ *
+ * Выдает -1, если страница не загружена или при другой ошибке.
+ */
+ROUT_FUNC long ROUT_CountObjects();
+
+/**
+ * Конвертирование в один формат на заданной памяти
+ * @param objIndex Индекс объекта начиная от 1
+ * @param lpMem Адрес блока памяти ( 0 - старая память)
+ * @param sizeMem Длина блока памяти ( 0 - старая память)
+ */
+ROUT_FUNC Bool32 ROUT_GetObject(uint32_t objIndex, Byte *lpMem, long *sizeMem);
+
+/**
+ * Конвертирование в один формат и запись в файл
+ * @param objIndex Индекс объекта начиная от 1
+ * @param path Путь до выходного файла
+ * @param append Дополнение в конец файла
+ */
+ROUT_FUNC Bool32 ROUT_SaveObject(uint32_t objIndex, const char *path, Bool32 append);
+
+/**
+ * Сформировать имя выходного файла из имени страницы,
+ * для установленной комбинации формат-кодировка и для
+ * заданного индекса объекта. Например:
+ *      PageName_w.txt - текст в кодировке ANSI
+ *      PageName_a.txt - текст в кодировке ASCII
+ *      PageName_k.txt - текст в кодировке KOI8-R
+ *      PageName_i.txt - текст в кодировке ISO
+ *      PageName_b_w.txt - табличный текст в кодировке ANSI
+ *      PageName_b_w2.txt - вторая таблица на странице
+ *      и т.д.
+ * @param objIndex Индекс объекта начиная от 1
+ */
+ROUT_FUNC char * ROUT_GetDefaultObjectName(uint32_t objIndex);
+
+/**
+ * Гадкая функция для определения длины объекта
+ * @param objIndex Индекс объекта начиная от 1
+ */
+ROUT_FUNC uint32_t ROUT_GetObjectSize(uint32_t objIndex);
 
 // Импорт
 typedef enum
