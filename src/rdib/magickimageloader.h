@@ -43,11 +43,11 @@ class MagickImageLoader: public ImageLoader
          * @note caller have to delete return pointer
          * @throw ImageLoader::Exception on errors
          */
-        Image* load(const std::string& filename);
+        ImagePtr load(const std::string& filename);
 
-        Image* load(std::istream& stream);
+        ImagePtr load(std::istream& stream);
     private:
-        Image * load(Magick::Image * image, Magick::Blob * blob);
+        ImagePtr load(Magick::Image * image, Magick::Blob * blob);
 };
 
 }

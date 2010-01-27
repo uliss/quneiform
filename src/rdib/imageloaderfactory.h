@@ -38,8 +38,8 @@ class ImageLoaderFactory : boost::noncopyable
         static ImageLoaderFactory& instance();
     public:
         typedef ImageLoader * (*loaderCreate)();
-        Image * load(const std::string& filename);
-        Image * load(std::istream& stream);
+        ImagePtr load(const std::string& filename);
+        ImagePtr load(std::istream& stream);
         ImageLoader& loader(image_format_t format);
         bool registerCreator(image_format_t format, int gravity, loaderCreate creator);
     private:
@@ -52,6 +52,7 @@ class ImageLoaderFactory : boost::noncopyable
         ImageLoadersList loaders_list_;
     private:
         ImageLoaderFactory();
+        void checkImageExists(const std::string& filename);
 };
 
 }

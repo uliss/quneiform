@@ -54,7 +54,7 @@ MagickImageLoader::~MagickImageLoader()
 {
 }
 
-Image * MagickImageLoader::load(Magick::Image * image, Magick::Blob * blob)
+ImagePtr MagickImageLoader::load(Magick::Image * image, Magick::Blob * blob)
 {
     assert(image);
     assert(blob);
@@ -74,11 +74,10 @@ Image * MagickImageLoader::load(Magick::Image * image, Magick::Blob * blob)
 
     char * new_data = new char[blob->length()];
     memcpy(new_data, blob->data(), blob->length());
-    Image * ret = new Image(new_data, blob->length(), Image::AllocatorNew);
-    return ret;
+    return ImagePtr(new Image(new_data, blob->length(), Image::AllocatorNew));
 }
 
-Image* MagickImageLoader::load(std::istream& stream)
+ImagePtr MagickImageLoader::load(std::istream& stream)
 {
     size_t stream_size = streamSize(stream);
     boost::scoped_array<char> tmp(new char[stream_size]);
@@ -88,22 +87,22 @@ Image* MagickImageLoader::load(std::istream& stream)
         Magick::Image image(blob);
         return load(&image, &blob);
     }
-    catch (Magick::Exception &error_) {
-        std::cerr << error_.what() << "\n";
-        return NULL;
+    catch (Magick::Exception &e) {
+        std::cerr << e.what() << "\n";
+        throw Exception("MagickImageLoader::load faild");
     }
 }
 
-Image* MagickImageLoader::load(const std::string& fname)
+ImagePtr MagickImageLoader::load(const std::string& fname)
 {
     Magick::Blob blob;
     try {
         Magick::Image image(fname);
         return load(&image, &blob);
     }
-    catch (Magick::Exception &error_) {
-        std::cerr << error_.what() << "\n";
-        return NULL;
+    catch (Magick::Exception &e) {
+        std::cerr << e.what() << "\n";
+        throw Exception("MagickImageLoader::load faild");
     }
 }
 

@@ -17,6 +17,7 @@ ${loaders}
 
 set_property(TARGET cuneiform-rdib PROPERTY COMPILE_DEFINITIONS __RDIB__)
 target_link_libraries(cuneiform-rdib 
+    cuneiform-compat
     cuneiform-common 
     ${loaders_libs})
 

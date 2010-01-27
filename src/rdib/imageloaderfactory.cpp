@@ -24,6 +24,7 @@
 #include "imageloader.h"
 #include "common/debug.h"
 #include "imageformatdetector.h"
+#include "cfcompat.h"
 
 namespace CIF
 {
@@ -32,21 +33,29 @@ ImageLoaderFactory::ImageLoaderFactory()
 {
 }
 
+void ImageLoaderFactory::checkImageExists(const std::string& filename)
+{
+    if (_access(filename.c_str(), 0) != 0)
+        throw ImageLoader::Exception("ImageLoaderFactory: given image file not exists: " + filename);
+}
+
 ImageLoaderFactory& ImageLoaderFactory::instance()
 {
     static ImageLoaderFactory factory;
     return factory;
 }
 
-Image * ImageLoaderFactory::load(const std::string& filename)
+ImagePtr ImageLoaderFactory::load(const std::string& filename)
 {
+    checkImageExists(filename);
     image_format_t format = ImageFormatDetector::instance().detect(filename);
-    Image * ret = loader(format).load(filename);
+    ImagePtr ret(loader(format).load(filename));
+    assert(ret.get());
     ret->setFileName(filename);
     return ret;
 }
 
-Image * ImageLoaderFactory::load(std::istream& stream)
+ImagePtr ImageLoaderFactory::load(std::istream& stream)
 {
     image_format_t format = ImageFormatDetector::instance().detect(stream);
     return loader(format).load(stream);

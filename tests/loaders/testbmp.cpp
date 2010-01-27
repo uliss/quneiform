@@ -23,8 +23,8 @@ using namespace CIF;
 void TestBmpLoader::testInit()
 {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
-    Image * image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
-    delete image;
+    ImagePtr image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
+    CPPUNIT_ASSERT_THROW(loader->load(LOADER_TEST_IMAGE_DIR + std::string("test_not_exists.bmp")), ImageLoader::Exception);
 }
 
 void TestBmpLoader::testMagick()

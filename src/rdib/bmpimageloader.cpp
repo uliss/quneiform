@@ -72,7 +72,7 @@ void BmpImageLoader::allocateColorTable()
      n_clr_elems, clr_tbl_size); */
 }
 
-Image* BmpImageLoader::load(const std::string& fname)
+ImagePtr BmpImageLoader::load(const std::string& fname)
 {
     std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
     if (!stream)
@@ -80,7 +80,7 @@ Image* BmpImageLoader::load(const std::string& fname)
     return load(stream);
 }
 
-Image* BmpImageLoader::load(std::istream& stream)
+ImagePtr BmpImageLoader::load(std::istream& stream)
 {
     if (!stream.good())
         throw ImageLoader::Exception("Invalid input stream given");
@@ -93,7 +93,7 @@ Image* BmpImageLoader::load(std::istream& stream)
 
     readData(stream);
 
-    return new Image(data_, data_size_, Image::AllocatorNew);
+    return ImagePtr(new Image(data_, data_size_, Image::AllocatorNew));
 }
 
 void BmpImageLoader::convertColorSpace()

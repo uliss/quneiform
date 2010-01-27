@@ -23,6 +23,7 @@
 #include <iostream>
 
 #include "common/exception.h"
+#include "rdib/image.h"
 
 namespace CIF
 {
@@ -36,8 +37,8 @@ class ImageLoader
         virtual ~ImageLoader();
 
         bool isValidImageSize(size_t size) const;
-        virtual Image* load(const std::string& filename) = 0;
-        virtual Image* load(std::istream& stream) = 0;
+        virtual ImagePtr load(const std::string& filename) = 0;
+        virtual ImagePtr load(std::istream& stream) = 0;
         void setMaxImageSize(size_t size);
         static size_t streamSize(std::istream& stream);
 
