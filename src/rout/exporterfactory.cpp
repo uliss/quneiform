@@ -22,25 +22,32 @@
 #include "edexporter.h"
 #include "textexporter.h"
 #include "puma/pumadef.h"
+#include "common/outputformat.h"
 
-namespace CIF {
+namespace CIF
+{
 
 ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL) {
+    page_(NULL)
+{
 }
 
-ExporterFactoryImpl::~ExporterFactoryImpl() {
+ExporterFactoryImpl::~ExporterFactoryImpl()
+{
 }
 
-void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
+void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts)
+{
     format_options_ = opts;
 }
 
-void ExporterFactoryImpl::setPage(Handle page) {
+void ExporterFactoryImpl::setPage(Handle page)
+{
     page_ = page;
 }
 
-Exporter * ExporterFactoryImpl::make(int format) {
+Exporter * ExporterFactoryImpl::make(int format)
+{
     switch (format) {
     case PUMA_DEBUG_TOTEXT:
         return new DebugExporter(format_options_);

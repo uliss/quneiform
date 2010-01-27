@@ -88,35 +88,16 @@ using namespace CIF;
 
 static const char * program_name = "";
 
-struct formatlist
-{
-        puma_format_t code;
-        const char * name;
-        const char * descr;
-};
-
-static const formatlist formats[] = {
-// Does not work.    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
-    { PUMA_TOHTML, "html", "HTML format" },
-    { PUMA_TOHOCR, "hocr", "hOCR HTML format" },
-    { PUMA_TOEDNATIVE, "native", "Cuneiform 2000 format" },
-    { PUMA_TORTF, "rtf", "RTF format" },
-    { PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs" },
-    { PUMA_TOTEXT, "text", "plain text" },
-    // Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
-    { PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes" },
-    { (puma_format_t) -1, NULL, NULL } };
-
 static string supported_languages()
 {
-	ostringstream os;
-	os << "Supported languages:\n";
+    ostringstream os;
+    os << "Supported languages:\n";
 
     LanguageList langs = AlphabetFactory::instance().supportedLanguages();
     Language::sortByName(langs);
     for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-    	os << "    " << left << setw(12)
-		   << Language::isoCode(*it) << " " << Language::isoName(*it) << "\n";
+        os << "    " << left << setw(12) << Language::isoCode(*it) << " " << Language::isoName(*it)
+                << "\n";
 
     return os.str();
 }
@@ -125,8 +106,10 @@ static string supported_formats()
 {
     ostringstream os;
     os << "Supported formats:\n";
-    for (const formatlist * f = formats; f->code >= 0; f++)
-        os << "    " << left << setw(12) << f->name << " " << f->descr << "\n";
+    OutputFormatList formats = OutputFormat::formats();
+    for (OutputFormatList::iterator it = formats.begin(), end = formats.end(); it != end; ++it)
+        os << "    " << left << setw(12) << OutputFormat::name(*it) << " "
+                << OutputFormat::description(*it) << "\n";
     return os.str();
 }
 
@@ -162,42 +145,12 @@ static string usage()
     return os.str();
 }
 
-static puma_format_t output_format(const std::string& format)
+static string default_output_name(format_t format)
 {
-    for (int i = 0; formats[i].code >= 0; i++) {
-        if (format == formats[i].name)
-            return formats[i].code;
-    }
-    return (puma_format_t) -1;
-}
-
-static string default_output_name(puma_format_t format)
-{
-    string result = "cuneiform-out.";
-    switch (format) {
-    case PUMA_TOHOCR:
-    case PUMA_TOHTML:
-        result += "html";
-        break;
-    case PUMA_TORTF:
-        result += "rtf";
-        break;
-    case PUMA_TOTEXT:
-    case PUMA_TOSMARTTEXT:
-    case PUMA_TOTABLETXT:
-        result += "txt";
-        break;
-    case PUMA_TOEDNATIVE:
-        result += "cf";
-        break;
-    case PUMA_TOTABLEDBF:
-        result += "dbf";
-        break;
-    default:
-        result += "buginprogram";
-        break;
-    }
-    return result;
+    string extension = OutputFormat::extension(format);
+    if (extension.empty())
+        throw std::runtime_error("Invalid format");
+    return "cuneiform-out." + extension;
 }
 
 int main(int argc, char **argv)
@@ -237,7 +190,7 @@ int main(int argc, char **argv)
         { NULL, 0, NULL, 0 } };
 
     string outfilename, infilename, monospace, serif, sansserif;
-    puma_format_t outputformat = PUMA_TOTEXT;
+    format_t outputformat = PUMA_TOTEXT;
     language_t langcode = LANGUAGE_ENGLISH;
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
@@ -251,13 +204,13 @@ int main(int argc, char **argv)
                 return EXIT_SUCCESS;
             }
 
-            puma_format_t format = output_format(optarg);
-            if (format == -1) {
+            OutputFormat format = OutputFormat::byName(optarg);
+            if (!format.isValid()) {
                 cerr << "Unknown output format: " << optarg;
                 cerr << supported_formats();
                 return EXIT_FAILURE;
             }
-            outputformat = format;
+            outputformat = format.get();
 
         }
             break;

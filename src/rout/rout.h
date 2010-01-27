@@ -59,8 +59,8 @@
 
 #include <string>
 #include "globus.h"
-#include "puma/pumadef.h"
 #include "common/rect.h"
+#include "common/outputformat.h"
 
 #ifdef __ROUT__
 #define ROUT_FUNC  FUN_EXPO
@@ -85,14 +85,14 @@ typedef struct
 // Список форматов
 typedef enum
 {
-    ROUT_FMT_Text = PUMA_TOTEXT,// 2 - Plain text
-    ROUT_FMT_SmartText = PUMA_TOSMARTTEXT, // 4 - Formatted text
-    ROUT_FMT_TableText = PUMA_TOTABLETXT, // 0x100 - Table text
-    ROUT_FMT_CSV = PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
-    ROUT_FMT_DBF = PUMA_TOTABLEDBF, // 0x400 - Table DBF
-    ROUT_FMT_WKS = PUMA_TOTABLEWKS, // 0x1000 - Table WKS (Lotus)
-    ROUT_FMT_HTML = PUMA_TOHTML, // 0x2000 - HTML
-    ROUT_FMT_HOCR = PUMA_TOHOCR,
+    ROUT_FMT_Text = CIF::PUMA_TOTEXT,// 2 - Plain text
+    ROUT_FMT_SmartText = CIF::PUMA_TOSMARTTEXT, // 4 - Formatted text
+    ROUT_FMT_TableText = CIF::PUMA_TOTABLETXT, // 0x100 - Table text
+    ROUT_FMT_CSV = CIF::PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
+    ROUT_FMT_DBF = CIF::PUMA_TOTABLEDBF, // 0x400 - Table DBF
+    ROUT_FMT_WKS = CIF::PUMA_TOTABLEWKS, // 0x1000 - Table WKS (Lotus)
+    ROUT_FMT_HTML = CIF::PUMA_TOHTML, // 0x2000 - HTML
+    ROUT_FMT_HOCR = CIF::PUMA_TOHOCR,
 
     ROUT_FMT_COUNT = 7, // Количество форматов
     ROUT_FMT_MAX = 0x2000

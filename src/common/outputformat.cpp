@@ -29,7 +29,7 @@ struct OutputFormatEntry
         std::string ext;
 };
 
-typedef std::map<puma_format_t, OutputFormatEntry> OutputFormatMap;
+typedef std::map<format_t, OutputFormatEntry> OutputFormatMap;
 
 OutputFormatMap& formatInfo()
 {
@@ -43,7 +43,7 @@ OutputFormatList& formatList()
     return lst;
 }
 
-static inline void addFormat(puma_format_t format, const std::string& name,
+static inline void addFormat(format_t format, const std::string& name,
         const std::string& description, const std::string& extension)
 {
     OutputFormatEntry entry = { name, description, extension };
@@ -56,12 +56,12 @@ namespace
 
 bool initOutputFormatData()
 {
-    addFormat(PUMA_TOEDNATIVE, "native", "Cuneiform 2000 format", "ed");
     addFormat(PUMA_TOTEXT, "text", "plain text", "txt");
     addFormat(PUMA_TOSMARTTEXT, "smarttext", "plain text with TeX paragraphs", "txt");
-    addFormat(PUMA_TORTF, "rtf", "RTF format", "rtf");
     addFormat(PUMA_TOHTML, "html", "HTML format", "html");
     addFormat(PUMA_TOHOCR, "hocr", "hOCR HTML format", "html");
+    addFormat(PUMA_TORTF, "rtf", "RTF format", "rtf");
+    addFormat(PUMA_TOEDNATIVE, "native", "Cuneiform 2000 format", "ed");
     addFormat(PUMA_DEBUG_TOTEXT, "textdebug", "for debugging purposes", "txt");
     return true;
 }
@@ -69,16 +69,23 @@ bool initOutputFormatData()
 const bool init = initOutputFormatData();
 }
 
-OutputFormat::OutputFormat(puma_format_t format) :
+OutputFormat::OutputFormat(format_t format) :
     format_(format)
 {
 }
 
-OutputFormat::~OutputFormat()
+OutputFormat OutputFormat::byName(const std::string& name)
 {
+    OutputFormatMap::iterator it = formatInfo().begin(), end = formatInfo().end();
+    while (it != end) {
+        if (it->second.name == name)
+            return OutputFormat(it->first);
+        ++it;
+    }
+    return OutputFormat(PUMA_TONONE);
 }
 
-std::string OutputFormat::description(puma_format_t format)
+std::string OutputFormat::description(format_t format)
 {
     OutputFormatMap::iterator it = formatInfo().find(format);
     return (it != formatInfo().end()) ? it->second.descr : "";
@@ -89,7 +96,7 @@ std::string OutputFormat::description() const
     return description(format_);
 }
 
-std::string OutputFormat::extension(puma_format_t format)
+std::string OutputFormat::extension(format_t format)
 {
     OutputFormatMap::iterator it = formatInfo().find(format);
     return (it != formatInfo().end()) ? it->second.ext : "";
@@ -105,7 +112,12 @@ OutputFormatList OutputFormat::formats()
     return formatList();
 }
 
-std::string OutputFormat::name(puma_format_t format)
+bool OutputFormat::isValid() const
+{
+    return (0 < format_) ? true : false;
+}
+
+std::string OutputFormat::name(format_t format)
 {
     OutputFormatMap::iterator it = formatInfo().find(format);
     return (it != formatInfo().end()) ? it->second.name : "";
@@ -115,6 +127,5 @@ std::string OutputFormat::name() const
 {
     return name(format_);
 }
-
 
 }

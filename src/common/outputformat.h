@@ -26,28 +26,46 @@
 namespace CIF
 {
 
-typedef std::list<puma_format_t> OutputFormatList;
+enum format_t
+{
+    PUMA_TONONE = -1,
+    PUMA_TOEDNATIVE = 0,
+    PUMA_TOTEXT = 0x02,
+    PUMA_TOSMARTTEXT = 0x04,
+    PUMA_TORTF = 0x08,
+    PUMA_TOTABLETXT = 0x0100,
+    PUMA_TOTABLECSV = 0x0200,
+    PUMA_TOTABLEDBF = 0x0400,
+    PUMA_TOTABLEODBC = 0x0800,
+    PUMA_TOTABLEWKS = 0x1000,
+    PUMA_TOHTML = 0x2000,
+    PUMA_TOHOCR = 0x4000,
+    PUMA_DEBUG_TOTEXT = 0x8000
+};
+
+typedef std::list<format_t> OutputFormatList;
 
 class OutputFormat
 {
     public:
-        OutputFormat(puma_format_t format);
-        ~OutputFormat();
+        OutputFormat(format_t format);
 
         std::string description() const;
         std::string extension() const;
-        puma_format_t get() const;
+        format_t get() const;
+        bool isValid() const;
         std::string name() const;
     public:
-        static std::string description(puma_format_t format);
-        static std::string extension(puma_format_t format);
+        static OutputFormat byName(const std::string& name);
+        static std::string description(format_t format);
+        static std::string extension(format_t format);
         static OutputFormatList formats();
-        static std::string name(puma_format_t format);
+        static std::string name(format_t format);
     private:
-        puma_format_t format_;
+        format_t format_;
 };
 
-inline puma_format_t OutputFormat::get() const
+inline format_t OutputFormat::get() const
 {
     return format_;
 }
