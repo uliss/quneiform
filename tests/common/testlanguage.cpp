@@ -178,3 +178,23 @@ void TestLanguage::testIsValid()
     l = Language(LANG_TOTAL);
     CPPUNIT_ASSERT(!l.isValid());
 }
+
+void TestLanguage::testByCode()
+{
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byCode("eng").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byCode("ruseng").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byCode("?????").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byCode("dig").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byCode("ger").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byCode("dut").get());
+}
+
+void TestLanguage::testByName()
+{
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byName("English").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byName("Russian-English").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byName("?????").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byName("Digits").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byName("German").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byName("Dutch").get());
+}

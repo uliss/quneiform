@@ -28,12 +28,16 @@ class TestLanguage : public CppUnit::TestFixture
     CPPUNIT_TEST(testIsoNames);
     CPPUNIT_TEST(testNamesSort);
     CPPUNIT_TEST(testIsValid);
+    CPPUNIT_TEST(testByCode);
+    CPPUNIT_TEST(testByName);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
         void testIsoNames();
         void testNamesSort();
         void testIsValid();
+        void testByCode();
+        void testByName();
 };
 
 #endif /* TESTLANGUAGE_H_ */
