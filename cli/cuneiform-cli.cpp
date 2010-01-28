@@ -54,7 +54,7 @@
  */
 
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2009, 2010 by Serge Poltavsky                           *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -223,8 +223,12 @@ int main(int argc, char **argv)
                 cout << supported_languages();
                 return EXIT_SUCCESS;
             }
+
             Language lang = Language::byCode(optarg);
-            if (!lang.isValid()) {
+            if (!lang.isValid())
+                lang = Language::byName(optarg);
+
+            if (!lang.isValid()){
                 cerr << "Unknown language: " << optarg << "\n";
                 cerr << supported_languages();
                 return EXIT_FAILURE;
