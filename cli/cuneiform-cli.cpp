@@ -153,6 +153,47 @@ static string default_output_name(format_t format)
     return "cuneiform-out." + extension;
 }
 
+static language_t process_lang_options(const char *optarg)
+{
+    if (strcmp(optarg, "help") == 0) {
+        cout << supported_languages();
+        exit(EXIT_SUCCESS);
+    }
+
+    Language lang = Language::byCode(optarg);
+    // second try get language by name
+    if (!lang.isValid()) {
+        lang = Language::byName(optarg);
+    }
+
+    if (lang.isValid()) {
+        return lang.get();
+    }
+    else {
+        cerr << "Unknown language: " << optarg << "\n";
+        cerr << supported_languages();
+        exit(EXIT_FAILURE);
+    }
+}
+
+static format_t process_format_options(const char * optarg)
+{
+    if (strcmp(optarg, "help") == 0) {
+        cout << supported_formats();
+        exit(EXIT_SUCCESS);
+    }
+
+    OutputFormat format = OutputFormat::byName(optarg);
+    if (format.isValid()) {
+        return format.get();
+    }
+    else {
+        cerr << "Unknown output format: " << optarg << "\n";
+        cerr << supported_formats();
+        exit(EXIT_FAILURE);
+    }
+}
+
 int main(int argc, char **argv)
 {
     program_name = argv[0];
@@ -198,43 +239,15 @@ int main(int argc, char **argv)
         case 'd':
             dictionaries = optarg;
             break;
-        case 'f': {
-            if (strcmp(optarg, "help") == 0) {
-                cout << supported_formats();
-                return EXIT_SUCCESS;
-            }
-
-            OutputFormat format = OutputFormat::byName(optarg);
-            if (!format.isValid()) {
-                cerr << "Unknown output format: " << optarg;
-                cerr << supported_formats();
-                return EXIT_FAILURE;
-            }
-            outputformat = format.get();
-
-        }
+        case 'f':
+            outputformat = process_format_options(optarg);
             break;
         case 'h':
             cout << usage();
             return EXIT_SUCCESS;
             break;
-        case 'l': {
-            if (strcmp(optarg, "help") == 0) {
-                cout << supported_languages();
-                return EXIT_SUCCESS;
-            }
-
-            Language lang = Language::byCode(optarg);
-            if (!lang.isValid())
-                lang = Language::byName(optarg);
-
-            if (!lang.isValid()){
-                cerr << "Unknown language: " << optarg << "\n";
-                cerr << supported_languages();
-                return EXIT_FAILURE;
-            }
-            langcode = lang.get();
-        }
+        case 'l':
+            langcode = process_lang_options(optarg);
             break;
         case 'o':
             outfilename = optarg;
