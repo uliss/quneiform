@@ -2,7 +2,6 @@ include_directories(../src)
 include_directories(../src/hhh)
 include_directories(../src/h)
 include_directories(../src/include)
-include_directories(../src/hrk)
 
 find_package(CppUnit)
 if(CPPUNIT_FOUND)

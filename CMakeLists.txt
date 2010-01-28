@@ -71,6 +71,7 @@ add_subdirectory(src)
 add_subdirectory(cli)
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
+   ENABLE_TESTING()
    add_subdirectory(tests)
 endif()
 
