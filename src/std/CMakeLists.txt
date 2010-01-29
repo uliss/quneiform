@@ -9,7 +9,6 @@ stdini.cpp
 stdleo.cpp
 stdprt.cpp
 stdsort.cpp
-stdwapi.cpp
 )
 
 if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)

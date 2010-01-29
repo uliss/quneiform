@@ -130,8 +130,6 @@ STD_FUNC( int32_t ) stdCmpFileTime(const char * lpFileName1, const char * lpFile
                                   );
 STD_FUNC( Bool32 ) stdNetPathFromLocal(char* pszNetPath, int32_t nNetPathSize,
                                        const char* pszLocalPath); //return network path from local path for mapped drives
-
-STD_FUNC(const char*) stdGetComputerName();
 #define STD_CMPFILETIME_LESS                      -1
 #define STD_CMPFILETIME_EQUAL                    0
 #define STD_CMPFILETIME_MORE                      1
