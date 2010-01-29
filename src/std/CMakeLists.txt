@@ -1,6 +1,5 @@
 add_library(cuneiform-std ${LIBTYPE}
 std.cpp
-stdassrt.cpp
 stdbits.cpp
 stdconsl.cpp
 stderror.cpp
