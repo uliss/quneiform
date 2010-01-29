@@ -754,6 +754,7 @@ void PumaImpl::postOpenInitialize()
 
 void PumaImpl::recognize()
 {
+    assert(cpage_);
     // Проверим: выделены ли фрагменты.
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
         layout();

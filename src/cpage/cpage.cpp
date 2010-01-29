@@ -344,6 +344,9 @@ uint32_t CPAGE_GetCountPage()
 
 uint32_t CPAGE_GetCountBlock(Handle page)
 {
+    if(!page)
+        return 0;
+
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
     uint32_t rc = PAGE_H(page).Block.GetCount();
