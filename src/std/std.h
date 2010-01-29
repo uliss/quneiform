@@ -73,7 +73,6 @@ STD_FUNC( void ) StdUnload();
 
 // CONSOLE()
 STD_FUNC( int ) stdConsole(const char* str, ...); // с переводом строки
-STD_FUNC( int ) stdConsole_(const char* str, ...); // без перевода строки
 typedef int (*FTConsole)(const char* str, ...);
 STD_FUNC( void ) stdSetConsoleHandler(FTConsole handler);
 STD_FUNC( void ) stdSetConsoleFile(char * file);

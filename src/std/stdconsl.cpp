@@ -113,42 +113,6 @@ STD_FUNC( int ) stdConsole(const char* str, ...)
     return count;
 } // stdConsole()
 
-STD_FUNC( int ) stdConsole_(const char* str, ...) // без перевода строки
-{
-    if (str == NULL)
-        return 0;
-    int count = 0;
-
-    char strbuf[4096]; // string to be put
-    strbuf[0] = 0;
-    va_list list;
-    va_start(list, str );
-    count = vsprintf(strbuf, str, list);
-    va_end( list );
-    if (_ConsoleHandler != NULL)
-        return (*_ConsoleHandler)(strbuf);
-    char* res_str = strbuf;
-
-#if defined( WIN32 )
-    {
-        if (res_str[0]!='\n')
-        OutputDebugString("\n"); // cover MSVC Bug
-        OutputDebugString(res_str);
-    }
-#endif
-
-    if (_ConsoleFileName[0] != 0) { // drop message to file
-        FILE *ff;
-        ff = fopen(_ConsoleFileName, "a");
-        if (ff) {
-            strcat(res_str, "\n");
-            fprintf(ff, res_str);
-            fclose(ff);
-        }
-    }
-    return count;
-} // stdConsole()
-
 STD_FUNC(void) stdSetOutputFile(FILE *theFile)
 {
     gStdOutputFile = theFile;
