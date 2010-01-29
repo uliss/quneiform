@@ -102,16 +102,6 @@ STD_FUNC( void ) stdFreeX(void** pptr);
 // smart version of free: checks *ptr,
 // if it not NULL calls stdFree, then set *pptr to = NULL
 
-typedef struct tagStdMemInfo {
-    int32_t nMallocCnt;
-    int32_t nFreeCnt;
-    int32_t nReallocCnt;
-    char reserved[244];
-} StdMemInfo;
-
-STD_FUNC( void ) stdGetMemInfo(StdMemInfo* pMemInf);
-// debug purpose function - if _DEBUG not defined, returned values are 0
-
 STD_FUNC( int32_t ) stdOpen(const char *filename, int32_t oflag, int32_t pmode = DEFAULT_ZERO);
 STD_FUNC( int32_t ) stdTell(int32_t handle);
 STD_FUNC( int32_t ) stdSeek(int32_t handle, int32_t offset, int32_t origin);
@@ -185,13 +175,6 @@ STD_FUNC( void ) stdGoToHomeDirectory(void);
 STD_FUNC( int32_t ) stdMessageBox(const char * szMessageText, const char * szMessageTitle,
                                   int32_t nFlags = DEFAULT_ZERO //defined in windows.h or wmb.h
                                  ); //return value: defined in windows.h or wmb.h
-
-//MessageBox function with no repeate checkbox
-//all params as in stdMessageBox function except key
-STD_FUNC( int32_t ) stdRptMessageBox(const char * szMessageText, const char * szMessageTitle,
-                                     int32_t nFlagsDEFAULT_ZERO, //defined in windows.h or wmb.h
-                                     const char * szKeyDEFAULT_NULL //if ommited then key is szMessageText
-                                    ); //return value: defined in windows.h or wmb.h
 
 STD_FUNC( uchar ) stdAnsiToAscii(uchar Code); // WIN => DOS
 STD_FUNC( uchar ) stdAsciiToAnsi(uchar Code); // DOS => WIN
