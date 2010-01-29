@@ -63,23 +63,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XPOOL_H
 #define __XPOOL_H
 
-#ifndef __STD_H
 #include "std/std.h"
-#endif
-
-#ifndef __XFILE_H
 #include "xfile.h"
-#endif
-
-#ifndef __XMACROS_H
 #include "xmacros.h"
-#endif
-
-#ifndef __SWABYTES_H
 #include "swabytes.h"
-#endif
 
 #include <cstring>
+#include <cstdlib>
 
 class XPool
 {
@@ -134,7 +124,7 @@ class XPool
                 Destroy();
 
                 if (size > 0)
-                    Data = stdMalloc(size);
+                    Data = malloc(size);
 
                 Volume = size;
             }
@@ -144,14 +134,14 @@ class XPool
 
         void     Destroy(void) {
             if (Data != NULL)
-                stdFree(Data);
+                free(Data);
 
             Data = NULL;
             Volume = 0;
         }
 
         Bool     Realloc( int32_t new_size ) {
-            void* p = stdRealloc( Data, new_size, Volume );
+            void* p = realloc(Data, new_size);
 
             if (new_size && p == NULL) // failure
                 RETFALSE;
