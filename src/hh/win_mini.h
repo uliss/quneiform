@@ -105,14 +105,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if ( _MSC_VER >= 800 )
 #pragma warning(disable:4001)
 #endif
-/*#include <excpt.h>*/
 #include <stdarg.h>
 #endif /* RC_INVOKED */
-
-/*#include <windef.h>
-#include <winbase.h>*/
-//#include <wingdi.h>
-//#include <winuser.h>
 
 #ifndef RC_INVOKED
 #if ( _MSC_VER >= 800 )

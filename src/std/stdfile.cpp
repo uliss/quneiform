@@ -54,17 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "internal.h"
-
-#ifdef _MSC_VER
-#include<io.h>
-#else
-#include <unistd.h>
-#endif
 #include <sys/stat.h>
-
-#include "std.h"
 #include <fcntl.h>
+#include "compat/filefunc.h"
+#include "internal.h"
+#include "std.h"
 #include "xpath.h"
 #include "xfindfil.h"
 #ifdef WIN32
