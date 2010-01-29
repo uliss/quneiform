@@ -66,16 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XFILE_H
 #define __XFILE_H
 
-#if _MSC_VER
-#include <io.h>
-#else
-#include <unistd.h>
-#endif
 #include <fcntl.h>
 #include <assert.h>
 #include <sys/stat.h>
 #include "globus.h"
-
+#include "compat/filefunc.h"
 #include "std/std.h"
 
 #ifdef WIN32
@@ -107,35 +102,35 @@ class XFile
             hnd = -1;
             mode = XF_UNDEFINED;
             err = ER_NONE;
-        };
+        }
     public:
         // status
         Bool  operator !() const  {
             return !IsReady();
-        };
+        }
         Bool  IsReady(void) const {
             return hnd != -1;
-        };
+        }
         Err16 GetError() const    {
             return err;
-        };
+        }
 
         // construction & initialization
         XFile(void) {
             Zero();
-        };
+        }
         XFile(char* name, XFileOpenMode _mode) {
             Zero();
             Open( name, _mode );
-        };
+        }
         XFile( XFile & xf ) {
             if (xf.hnd != -1) {
                 assert(0);
-            };
-        }; // no copy for opened files!
+            }
+        } // no copy for opened files!
         ~XFile(void) {
             Close();
-        };
+        }
 
 #if _MSC_VER
         int32_t  Commit(void) {
@@ -144,7 +139,7 @@ class XFile
 #else
         int32_t  Commit(void) {
             return (hnd != -1) ? fsync(hnd) : -1;
-        };
+        }
 #endif
         Bool32 Open(char* name, XFileOpenMode mode_) {
             assert(hnd == -1);
@@ -154,75 +149,75 @@ class XFile
             if (hnd == -1) {
                 err = ER_CANTOPEN;
                 return FALSE;
-            };
+            }
 
             return TRUE;
-        };
+        }
 
         Bool  Close(void) {
             if (hnd != -1) {
                 int n = stdClose(hnd);
                 hnd = -1;
                 return n == 0;
-            };
+            }
 
             return TRUE;
-        };
+        }
 
         Bool  Read( void* p, int32_t size ) {
             int32_t nr = nRead(p, size);
             return nr >= 0 && size == nr;
-        };
+        }
 
         Bool  Write( void* p, int32_t size ) {
             int32_t nw = nWrite(p, size);
             return nw >= 0 && size == nw;
-        };
+        }
 
         int32_t nRead( void* p, int32_t size ) {
             if (size == 0) {
                 return 0;
-            };
+            }
 
             if (hnd  == -1) {
                 err = ER_NOTREADY;
                 return -1;
-            };
+            }
 
             return stdRead(hnd, p, size);   // char* - for Mac's
-        };
+        }
 
         int32_t nWrite( void* p, int32_t size ) {
             if (size == 0) {
                 return 0;
-            };
+            }
 
             if (hnd  == -1) {
                 err = ER_NOTREADY;
                 return -1;
-            };
+            }
 
             return stdWrite(hnd, p, size);  // char* - for Mac's
-        };
+        }
 
         int32_t Tell(void) {
             return stdTell(hnd);
-        };
+        }
 
         int32_t nSeek( int32_t offset, int32_t set = SEEK_SET ) {
             return stdSeek(hnd, offset, set);
-        };
+        }
 
         Bool32 Seek( int32_t offset ) { // set from start to pos, true - success
             if (hnd == -1 || offset < 0)
                 return FALSE;
 
             return nSeek(offset, SEEK_SET) == offset;
-        };
+        }
 
         int32_t GetLength( void ) {
             return stdFileLength(hnd);
-        };
+        }
 };
 
 /*** "Omnitag" reading/writing functions *************/
