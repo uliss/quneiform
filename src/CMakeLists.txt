@@ -67,6 +67,18 @@ add_subdirectory(rmarker)
 add_subdirectory(rcorrkegl)
 add_subdirectory(compat)
 
-install(FILES cuneiform.h DESTINATION include)
+install(FILES 
+    h/globus.h
+    h/lang_def.h
+    h/specprj.h
+    h/cttypes.h
+    h/err16.h
+    cuneiform.h 
+    include/cfcompat.h 
+    include/compat_defs.h
+    include/minmax.h
+    include/filestuff.h
+    ${CMAKE_BINARY_DIR}/src/include/config.h
+    DESTINATION include/${CF_HEADER_INSTALL})
 
 

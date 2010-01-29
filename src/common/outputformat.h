@@ -21,7 +21,6 @@
 
 #include <string>
 #include <list>
-#include "puma/pumadef.h"
 
 namespace CIF
 {

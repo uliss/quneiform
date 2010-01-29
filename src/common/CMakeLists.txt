@@ -12,6 +12,20 @@ language.cpp
 outputformat.cpp
 )
 
+set(COMMON_HEADER_INSTALL "common")
+install(FILES 
+    language.h
+    exception.h
+    rect.h
+    point.h
+    size.h
+    singleton.h
+    outputformat.h
+    cifconfig.h
+    memorybuffer.h 
+    DESTINATION include/${CF_HEADER_INSTALL}/${COMMON_HEADER_INSTALL})
+
+
 target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
 
 library_hook(cuneiform-common) 

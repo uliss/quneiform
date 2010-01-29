@@ -19,3 +19,5 @@ target_link_libraries(cuneiform-cimage
     cuneiform-cfio)
 
 library_hook(cuneiform-cimage)
+
+install(FILES imageinfo.h DESTINATION include/${CF_HEADER_INSTALL}/cimage)

@@ -61,6 +61,7 @@
 #include "globus.h"
 #include "common/rect.h"
 #include "common/outputformat.h"
+#include "puma/pumadef.h"
 
 #ifdef __ROUT__
 #define ROUT_FUNC  FUN_EXPO__

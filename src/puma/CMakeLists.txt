@@ -1,5 +1,4 @@
-add_library(cuneiform ${NEWLIBTYPE}
-${SNP_SRC}
+add_library(cuneiform ${LIBTYPE}
 pumaimpl.cpp
 )
 
@@ -30,3 +29,6 @@ if(LIBTYPE STREQUAL STATIC)
 endif()
 
 library_hook(cuneiform)
+
+set(PUMA_HEADER_INSTALL "puma")
+install(FILES puma.h pumadef.h pumaimpl.h DESTINATION include/${CF_HEADER_INSTALL}/${PUMA_HEADER_INSTALL})
