@@ -200,14 +200,6 @@ STD_FUNC( int32_t ) stdGetProfileInt(const char* szIniFileName, const char* szSe
                                      const char* szKey, int32_t nFlags = STD_SETPROF_DIR_PROJECT, int32_t nValDefault = 0);
 STD_FUNC( Bool32 ) stdSetProfileInt(int32_t nValue, const char* szIniFileName,
                                     const char* szSection, const char* szKey, int32_t nFlags = STD_SETPROF_DIR_PROJECT);
-// property bag DLL can use prop bags for info exchange
-STD_FUNC(Bool32) stdSetProperty(const char* pKey, const char* pValue);
-STD_FUNC(const char*) stdGetProperty(const char* pKey);
-//standard key prefixes :
-//SK-System Key
-//AK-Application Key
-//EK-sEssion Key
-//look for standard keys in "StdPropK.h
 
 #ifndef NO_STDBITS
 STD_FUNC(int) stdBits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals // pointer to intervals buffer,

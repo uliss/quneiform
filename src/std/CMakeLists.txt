@@ -8,7 +8,6 @@ stdfile.cpp
 stdiface.cpp
 stdini.cpp
 stdleo.cpp
-stdprop.cpp
 stdprt.cpp
 stdsort.cpp
 stdwapi.cpp

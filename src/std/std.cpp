@@ -59,12 +59,10 @@
 
 #include "stdiface.h"
 #include "std.h"
-#include "stdprop.h"
 #include "_prt.h"
 
 Bool32 StdLoad(void) {
     XPath path_name;
-    CreatePropMap();
     path_name.GetModuleFileName();
     path_name.SetExt("ini");
     Bool32 nRes = InitRptMap(path_name.buf);
@@ -75,5 +73,4 @@ Bool32 StdLoad(void) {
 void StdUnload() {
     FreeRptMap();
     PrtUnload();
-    FreePropMap();
 }
