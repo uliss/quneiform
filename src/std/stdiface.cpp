@@ -63,7 +63,6 @@
 #include "internal.h"
 #include "wmb.h"
 #include "std.h"
-#include "resource.h"
 #include "cfcompat.h"
 
 using namespace std;
