@@ -78,16 +78,6 @@ STD_FUNC( void ) stdSetConsoleHandler(FTConsole handler);
 STD_FUNC( void ) stdSetConsoleFile(char * file);
 STD_FUNC( void ) stdSetOutputFile(FILE* hfile);
 
-#if (defined( PPS_WIN ) || defined( WIN32 ))
-#ifndef CONSOLE_MESSAGE
-#define CONSOLE_MESSAGE     "Windows Console Message"
-#endif
-#ifndef CONSOLE_WNDCLASS
-#define CONSOLE_WNDCLASS    "ConsoleWindow"
-#endif
-#endif
-
-////////////////////////////////////
 // assert() redefinition
 #ifndef STD_NO_ASSERT_REDEFINITION
 STD_FUNC( void ) stdAssert(const char * cond, const char *__file, int __line);
