@@ -63,18 +63,7 @@
 FILE *gStdOutputFile = 0;
 
 static FTConsole _ConsoleHandler = NULL;
-STD_FUNC( void ) stdSetConsoleHandler(FTConsole handler)
-{
-    _ConsoleHandler = handler;
-}
-
 static char _ConsoleFileName[256] = { 0 };
-STD_FUNC( void ) stdSetConsoleFile(char * file_name)
-{
-    _ConsoleFileName[0] = 0;
-    if (file_name)
-        strcpy(_ConsoleFileName, file_name);
-}
 
 STD_FUNC( int ) stdConsole(const char* str, ...)
 {
@@ -111,9 +100,4 @@ STD_FUNC( int ) stdConsole(const char* str, ...)
         }
     }
     return count;
-} // stdConsole()
-
-STD_FUNC(void) stdSetOutputFile(FILE *theFile)
-{
-    gStdOutputFile = theFile;
 }
