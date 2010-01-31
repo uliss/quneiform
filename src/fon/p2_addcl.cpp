@@ -74,7 +74,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -83,6 +82,7 @@
 #include <time.h>
 #endif
 
+#include "compat/filefunc.h"
 #include "fon.h"
 #include "sfont.h"
 #include "minmax.h"

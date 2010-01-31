@@ -80,7 +80,6 @@
 #include "fon.h"
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -92,6 +91,7 @@
 #include "sfont.h"
 #include "ctb/ctb.h"
 
+#include "compat/filefunc.h"
 #include "compat_defs.h"
 #include "minmax.h"
 
