@@ -1,15 +1,19 @@
-include_directories(${ICONV_INCLUDE_DIR})
-
-if(ICONV_SECOND_ARGUMENT_IS_CONST)
-   add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
+if(USE_ICONV)
+    include_directories(${ICONV_INCLUDE_DIR})
+    set(iconv_local "iconv.cpp")
+else()
+    set(iconv_local "")
+    if(ICONV_SECOND_ARGUMENT_IS_CONST)
+        add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
+    endif()
 endif()
 
 add_library(cuneiform-common ${LIBTYPE}
-cifconfig.cpp
-helper.cpp
-iconv.cpp
-language.cpp
-outputformat.cpp
+    cifconfig.cpp
+    helper.cpp
+    language.cpp
+    outputformat.cpp
+    ${iconv_local}
 )
 
 set(COMMON_HEADER_INSTALL "common")
@@ -25,7 +29,8 @@ install(FILES
     memorybuffer.h 
     DESTINATION include/${CF_HEADER_INSTALL}/${COMMON_HEADER_INSTALL})
 
-
-target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
+if(USE_ICONV)
+    target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
+endif()
 
 library_hook(cuneiform-common) 

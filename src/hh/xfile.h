@@ -73,6 +73,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat/filefunc.h"
 #include "std/std.h"
 
+#ifdef WIN32
+#include<windows.h>
+#define sleep(a) Sleep(1000*a)
+#define fsync(a)
+#endif
+
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif

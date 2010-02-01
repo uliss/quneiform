@@ -3,6 +3,7 @@
 
 #cmakedefine USE_MAGICK
 #cmakedefine HAVE_STDINT_H
+#cmakedefine USE_ICONV
 
 #define CF_VERSION "@CF_VERSION@"
 

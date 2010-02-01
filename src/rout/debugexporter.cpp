@@ -18,7 +18,10 @@
 
 #include "debugexporter.h"
 #include "cstr/cstr.h"
+
+#ifdef USE_ICONV
 #include "common/iconv_local.h"
+#endif
 
 namespace CIF
 {
@@ -36,8 +39,11 @@ DebugExporter::~DebugExporter()
 
 void DebugExporter::doExport(std::ostream& os)
 {
+#ifdef USE_ICONV
     Iconv converter(inputEncoding(), outputEncoding());
     bool do_encode = encodeNeeded();
+#endif
+
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1);
         if (!lin_out)
@@ -47,10 +53,15 @@ void DebugExporter::doExport(std::ostream& os)
         char unrec[2] = { 0, 0 };
         unrec[0] = (char) formatOptions().unrecognizedChar();
 
-        if (do_encode)
+#ifdef USE_ICONV
+        if (do_encode) {
             os << converter.convert(CSTR_LineToTxt(lin_out, unrec));
+        }
         else
+#endif
+        {
             os << CSTR_LineToTxt(lin_out, unrec);
+        }
         if (formatOptions().preserveLineBreaks())
             os << "\n";
     }

@@ -46,7 +46,10 @@ if(ImageMagick_Magick++_FOUND)
 endif()
 endif()
 
-find_package(Iconv REQUIRED)
+find_package(Iconv)
+if(ICONV_FOUND)
+    set(USE_ICONV TRUE)
+endif()
 
 find_package(Boost 1.35)
 if(Boost_FOUND)

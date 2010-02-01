@@ -1,4 +1,6 @@
-include_directories(${ICONV_INCLUDE_DIR})
+if(USE_ICONV)
+    include_directories(${ICONV_INCLUDE_DIR})
+endif()
 
 add_library(cuneiform-rout ${LIBTYPE}
 browse.cpp
