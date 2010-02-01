@@ -38,13 +38,16 @@ class BmpImageLoader: public ImageLoader
         void allocateColorTable();
         void convertColorSpace();
         bool isValidBmpBitCount();
-        bool read(std::istream& os);
+        bool read(std::istream& stream);
         void readBmpMagick(std::istream& stream);
         void readBmpFileHeader(std::istream& stream);
         void readBmpInfoHeader(std::istream& stream);
+        void readBmpInfoHeaderVersion(std::istream& stream);
         void readColorTable(std::istream& stream);
         void readCompressedData(std::istream& stream);
         void readData(std::istream& stream);
+        void readInfoHeaderModern(std::istream& stream);
+        void readInfoHeaderOs2v1(std::istream& stream);
         void readUncompressedData(std::istream& stream);
         int stride() const
         {

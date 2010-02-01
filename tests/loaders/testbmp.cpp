@@ -80,12 +80,12 @@ void TestBmpLoader::testReadBmpHeader() {
     }
 }
 
-void TestBmpLoader::testReadBmpInfoHeader() {
+void TestBmpLoader::testReadBmpInfoHeaderVersion() {
     std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
     // test empty
     {
         std::stringstream is;
-        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeader(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), CIF::ImageLoader::Exception);
     }
 
     // test wrong BMP version
@@ -95,16 +95,7 @@ void TestBmpLoader::testReadBmpInfoHeader() {
         is.write(data, 14);
         uint32_t sz = BIH_WIN4SIZE + 1;
         is.write((char*) &sz, sizeof(sz));
-        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeader(is), CIF::ImageLoader::Exception);
-    }
-
-    {
-        std::stringstream is;
-        char data[14] = { 0 };
-        is.write(data, 14);
-        uint32_t sz = BIH_WIN4SIZE;
-        is.write((char*) &sz, sizeof(sz));
-        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeader(is), ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), CIF::ImageLoader::Exception);
     }
 
     // test version 3
@@ -114,8 +105,7 @@ void TestBmpLoader::testReadBmpInfoHeader() {
         is.write(data, BFH_SIZE);
         const uint32_t sz = BIH_WIN4SIZE;
         is.write((char*) &sz, sizeof(sz));
-        is.write(data, 100);
-        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeader(is));
+        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeaderVersion(is));
         CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN4);
     }
 
@@ -126,8 +116,7 @@ void TestBmpLoader::testReadBmpInfoHeader() {
         is.write(data, BFH_SIZE);
         const uint32_t sz = BIH_VER4SIZE;
         is.write((char*) &sz, sizeof(sz));
-        is.write(data, 100);
-        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeader(is));
+        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeaderVersion(is));
         CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN5);
     }
 
@@ -138,9 +127,22 @@ void TestBmpLoader::testReadBmpInfoHeader() {
         is.write(data, BFH_SIZE);
         const uint32_t sz = BIH_VER5SIZE;
         is.write((char*) &sz, sizeof(sz));
-        is.write(data, 100);
-        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeader(is));
+        CPPUNIT_ASSERT_NO_THROW(loader->readBmpInfoHeaderVersion(is));
         CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN5);
     }
+}
+
+void TestBmpLoader::testReadInfoHeaderModern() {
+    std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
+    //    test empty
+    std::stringstream is;
+    CPPUNIT_ASSERT_THROW(loader->readInfoHeaderModern(is), ImageLoader::Exception);
+}
+
+void TestBmpLoader::testReadInfoHeaderOs2v1() {
+    std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
+    //    test empty
+    std::stringstream is;
+    CPPUNIT_ASSERT_THROW(loader->readInfoHeaderOs2v1(is), ImageLoader::Exception);
 }
 

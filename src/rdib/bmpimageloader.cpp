@@ -148,8 +148,8 @@ void BmpImageLoader::readBmpMagick(std::istream& stream)
 
 void BmpImageLoader::readBmpFileHeader(std::istream& stream)
 {
-    stream.seekg(10);
-    stream.read((char*) &file_header_.iOffBits, 4);
+    stream.seekg(10); // (BFH_SIZE - 4)
+    stream.read((char*) &file_header_.iOffBits, 4); // sizeof(uint32_t)
     if (stream.fail())
         throw Exception("BmpImageLoader::Invalid stream given: can't read header.");
     // fix the iSize, in early BMP file this is pure garbage
@@ -158,73 +158,54 @@ void BmpImageLoader::readBmpFileHeader(std::istream& stream)
 
 void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
 {
+    readBmpInfoHeaderVersion(stream);
+
+    switch(bmp_type) {
+    case BMPT_WIN4:
+    case BMPT_WIN5:
+    case BMPT_OS22:
+        readInfoHeaderModern(stream);
+        break;
+    case BMPT_OS21:
+        readInfoHeaderOs2v1(stream);
+        break;
+    default:
+        // it should never happen
+        assert(false);
+    }
+}
+
+void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
+{
     stream.seekg(BFH_SIZE);
     stream.read((char*) &info_header_.iSize, 4);
     if (stream.fail())
         throw Exception("BmpImageLoader::Invalid stream given: can't read info header.");
 
-    n_clr_elems = 3;
-
     switch (info_header_.iSize) {
     case BIH_WIN4SIZE:
         bmp_type = BMPT_WIN4;
         n_clr_elems = 4;
-        Debug() << "Windows V3\n";
         break;
     case BIH_OS21SIZE:
         bmp_type = BMPT_OS21;
-        Debug() << "OS/2 V1\n";
+        n_clr_elems = 3;
         break;
     case BIH_OS22SIZE:
     case 16:
         bmp_type = BMPT_OS22;
-        Debug() << "OS/2 V2\n";
+        n_clr_elems = 3;
         break;
     case BIH_VER4SIZE:
         bmp_type = BMPT_WIN5;
         n_clr_elems = 4;
-        Debug() << "Windows V4\n";
         break;
     case BIH_VER5SIZE:
         bmp_type = BMPT_WIN5;
         n_clr_elems = 4;
-        Debug() << "Windows V5\n";
         break;
     default:
         throw Exception("Unknown BMP version", info_header_.iSize);
-    }
-
-    if (bmp_type == BMPT_WIN4 || bmp_type == BMPT_WIN5 || bmp_type == BMPT_OS22) {
-        stream.read((char*) &info_header_.iWidth, 4);
-        stream.read((char*) &info_header_.iHeight, 4);
-        stream.read((char*) &info_header_.iPlanes, 2);
-        stream.read((char*) &info_header_.iBitCount, 2);
-        stream.read((char*) &info_header_.iCompression, 4);
-        stream.read((char*) &info_header_.iSizeImage, 4);
-        stream.read((char*) &info_header_.iXPelsPerMeter, 4);
-        stream.read((char*) &info_header_.iYPelsPerMeter, 4);
-        stream.read((char*) &info_header_.iClrUsed, 4);
-        stream.read((char*) &info_header_.iClrImportant, 4);
-        stream.read((char*) &info_header_.iRedMask, 4);
-        stream.read((char*) &info_header_.iGreenMask, 4);
-        stream.read((char*) &info_header_.iBlueMask, 4);
-        stream.read((char*) &info_header_.iAlphaMask, 4);
-        if (stream.fail())
-            throw Exception("BmpImageLoader::readBmpInfoHeader: error while reading stream");
-    }
-
-    if (bmp_type == BMPT_OS21) {
-        int16_t iShort;
-
-        stream.read((char*) &iShort, 2);
-        info_header_.iWidth = iShort;
-        stream.read((char*) &iShort, 2);
-        info_header_.iHeight = iShort;
-        stream.read((char*) &iShort, 2);
-        info_header_.iPlanes = iShort;
-        stream.read((char*) &iShort, 2);
-        info_header_.iBitCount = iShort;
-        info_header_.iCompression = BMPC_RGB;
     }
 }
 
@@ -360,6 +341,45 @@ void BmpImageLoader::readData(std::istream& stream)
     default:
         throw Exception("Unknown compression method");
     }
+}
+
+void BmpImageLoader::readInfoHeaderModern(std::istream& stream)
+{
+    stream.seekg(BFH_SIZE + 4);
+    stream.read((char*) &info_header_.iWidth, 4);
+    stream.read((char*) &info_header_.iHeight, 4);
+    stream.read((char*) &info_header_.iPlanes, 2);
+    stream.read((char*) &info_header_.iBitCount, 2);
+    stream.read((char*) &info_header_.iCompression, 4);
+    stream.read((char*) &info_header_.iSizeImage, 4);
+    stream.read((char*) &info_header_.iXPelsPerMeter, 4);
+    stream.read((char*) &info_header_.iYPelsPerMeter, 4);
+    stream.read((char*) &info_header_.iClrUsed, 4);
+    stream.read((char*) &info_header_.iClrImportant, 4);
+    stream.read((char*) &info_header_.iRedMask, 4);
+    stream.read((char*) &info_header_.iGreenMask, 4);
+    stream.read((char*) &info_header_.iBlueMask, 4);
+    stream.read((char*) &info_header_.iAlphaMask, 4);
+    if (stream.fail())
+        throw Exception("BmpImageLoader::readInfoHeaderModern: error while reading stream");
+}
+
+void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream)
+{
+    int16_t iShort;
+
+    stream.read((char*) &iShort, 2);
+    info_header_.iWidth = iShort;
+    stream.read((char*) &iShort, 2);
+    info_header_.iHeight = iShort;
+    stream.read((char*) &iShort, 2);
+    info_header_.iPlanes = iShort;
+    stream.read((char*) &iShort, 2);
+    info_header_.iBitCount = iShort;
+
+    if(stream.fail())
+        throw Exception("BmpImageLoader::readInfoHeaderOs2v1: error while reading stream");
+    info_header_.iCompression = BMPC_RGB;
 }
 
 void BmpImageLoader::readUncompressedData(std::istream& stream)

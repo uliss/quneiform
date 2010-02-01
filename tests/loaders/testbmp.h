@@ -27,13 +27,17 @@ class TestBmpLoader: public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testMagick);
     CPPUNIT_TEST(testReadBmpHeader);
-    CPPUNIT_TEST(testReadBmpInfoHeader);
+    CPPUNIT_TEST(testReadBmpInfoHeaderVersion);
+    CPPUNIT_TEST(testReadInfoHeaderOs2v1);
+    CPPUNIT_TEST(testReadInfoHeaderModern);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testMagick();
     void testReadBmpHeader();
-    void testReadBmpInfoHeader();
+    void testReadBmpInfoHeaderVersion();
+    void testReadInfoHeaderModern();
+    void testReadInfoHeaderOs2v1();
 };
 
 #endif /* TESTBMP_H_ */
