@@ -225,7 +225,7 @@ FONCheckItself(uchar let, int32_t num, int16_t col, int16_t row);
 ////////////////////
 // функции для разрезания
 FON_FUNC int32_t FONRecogCharBound(RecRaster *recRast, RecVersions *collection,
-                                   int32_t *recBounds);
+                                   int *recBounds);
 FON_FUNC int32_t FONRecogKley(RecRaster *recRast, RecVersions *collection);
 // snap for RecogKley  (unglue)
 FON_FUNC int32_t FONShowSnap(void);

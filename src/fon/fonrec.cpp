@@ -54,7 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <unistd.h>
+#include "compat/filefunc.h"
 
 // если кластер маленький (< POROG_WEIGHT)
 // или с плохой оценкой ( < POROG_PROB )
@@ -1393,14 +1393,13 @@ static int DiskriminatorTest(void)
 //  recBounds  - massiv REC_MAX_VERS*recRast->lnPixHeight;
 //
 int32_t FONRecogCharBound(RecRaster *recRast, RecVersions *collection,
-                          int32_t *recBounds)
+                          int *recBounds)
 {
     int16_t RecogCluBound(uchar *rast, int16_t xbyte, int16_t xbit,
                           int16_t yyrow, uchar *names, uchar *probs, int16_t maxNames,
                           welet *wl, int numWel, int *bounds, int countRazmaz);
     int xbit = recRast->lnPixWidth;
     int bytesx = ((xbit + 63) / 64) * 8;
-    int ret;
     uchar names[REC_MAX_VERS];
     uchar probs[REC_MAX_VERS];
     memset(collection, 0, sizeof(RecVersions));
@@ -1408,7 +1407,7 @@ int32_t FONRecogCharBound(RecRaster *recRast, RecVersions *collection,
     if (recRast->lnPixHeight > WR_MAX_HEIGHT - 2 || xbit > WR_MAX_WIDTH - 2)
         return 0;
 
-    ret
+    int ret
     = RecogCluBound(recRast->Raster, (int16_t) bytesx, (int16_t) xbit,
                     (int16_t) recRast->lnPixHeight, names, probs,
                     (int16_t) REC_MAX_VERS, fonbase.start, fonbase.inBase,
