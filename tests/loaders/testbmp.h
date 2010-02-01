@@ -30,6 +30,8 @@ class TestBmpLoader: public CppUnit::TestFixture
     CPPUNIT_TEST(testReadBmpInfoHeaderVersion);
     CPPUNIT_TEST(testReadInfoHeaderOs2v1);
     CPPUNIT_TEST(testReadInfoHeaderModern);
+    CPPUNIT_TEST(testValidBitDepth);
+    CPPUNIT_TEST(testLoad);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -38,6 +40,8 @@ public:
     void testReadBmpInfoHeaderVersion();
     void testReadInfoHeaderModern();
     void testReadInfoHeaderOs2v1();
+    void testValidBitDepth();
+    void testLoad();
 };
 
 #endif /* TESTBMP_H_ */

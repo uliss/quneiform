@@ -26,22 +26,15 @@ common/testrect.cpp
 common/testoutputformat.cpp
 )
 
-add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/loaders/")
-
-add_executable(test_loaders
-loaders/test_loaders.cpp
-loaders/testformatdetector.cpp
-loaders/testbmp.cpp
-)
-
 target_link_libraries(test_alphabets cuneiform-alphabets ${CPPUNIT_LIBRARIES})
 target_link_libraries(test_common cuneiform-common ${CPPUNIT_LIBRARIES})
-target_link_libraries(test_loaders cuneiform-rdib ${CPPUNIT_LIBRARIES})
 
+add_subdirectory(loaders)
 add_subdirectory(rreccom)
 
 ADD_TEST(Alphabets ${EXECUTABLE_OUTPUT_PATH}/test_alphabets)
 ADD_TEST(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
 ADD_TEST(Loaders ${EXECUTABLE_OUTPUT_PATH}/test_loaders)
+ADD_TEST(RReccom ${EXECUTABLE_OUTPUT_PATH}/test_rreccom)
 
 

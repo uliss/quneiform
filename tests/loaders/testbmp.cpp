@@ -146,3 +146,32 @@ void TestBmpLoader::testReadInfoHeaderOs2v1() {
     CPPUNIT_ASSERT_THROW(loader->readInfoHeaderOs2v1(is), ImageLoader::Exception);
 }
 
+void TestBmpLoader::testValidBitDepth() {
+    std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
+    loader->info_header_.iBitCount = (short) 0;
+    CPPUNIT_ASSERT(!loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 1;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 4;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 8;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 16;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 24;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 32;
+    CPPUNIT_ASSERT(loader->isValidBmpBitCount());
+    loader->info_header_.iBitCount = (short) 33;
+    CPPUNIT_ASSERT(!loader->isValidBmpBitCount());
+}
+
+void TestBmpLoader::testLoad() {
+    std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
+    std::string file = LOADER_TEST_IMAGE_DIR + std::string("bmp_rgb_uncompressed_24bit.bmp");
+    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    CPPUNIT_ASSERT(loader->info_header_.iBitCount == 24);
+    CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN4);
+    CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
+}
+
