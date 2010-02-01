@@ -87,9 +87,6 @@ STD_FUNC( Bool32 ) stdCheckDirectory(const char* name, Bool32 bCreateIfNone);
 // checks directory for existance;
 // if bCreateIfNone==TRUE - creates if not found
 // returns TRUE if directory exists or successfully created
-STD_FUNC( Bool32 ) stdDeleteDirectory(const char * lpDirName);
-STD_FUNC( Bool32 ) stdMoveDirectory(const char * lpDirNameDst, const char * lpDirNameSrc);
-STD_FUNC( Bool32 ) stdCopyDirectory(const char * lpDirNameDst, const char * lpDirNameSrc);
 STD_FUNC( uint32_t ) stdGetCurrentDirectory(uint32_t nBufferLength, // size, in characters, of directory buffer
         char * lpBuffer // address of buffer for current directory
         ); // Win32 ::GetCurrentDirectory() analog
