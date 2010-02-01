@@ -142,7 +142,7 @@ void BmpImageLoader::readBmpMagick(std::istream& stream)
 
     if (file_header_.bType[0] != 'B' || file_header_.bType[1] != 'M') {
         stream.seekg(0);
-        throw ImageLoader::Exception("Not a BMP file");
+        throw Exception("Not a BMP file");
     }
 }
 
@@ -180,18 +180,18 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
         bmp_type = BMPT_OS22;
         Debug() << "OS/2 V2\n";
         break;
-    case 108:
+    case BIH_VER4SIZE:
         bmp_type = BMPT_WIN5;
         n_clr_elems = 4;
         Debug() << "Windows V4\n";
         break;
-    case 124:
+    case BIH_VER5SIZE:
         bmp_type = BMPT_WIN5;
         n_clr_elems = 4;
         Debug() << "Windows V5\n";
         break;
     default:
-        throw Exception("Unknown BMP version");
+        throw Exception("Unknown BMP version", info_header_.iSize);
     }
 
     if (bmp_type == BMPT_WIN4 || bmp_type == BMPT_WIN5 || bmp_type == BMPT_OS22) {
@@ -209,6 +209,8 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
         stream.read((char*) &info_header_.iGreenMask, 4);
         stream.read((char*) &info_header_.iBlueMask, 4);
         stream.read((char*) &info_header_.iAlphaMask, 4);
+        if (stream.fail())
+            throw Exception("BmpImageLoader::readBmpInfoHeader: error while reading stream");
     }
 
     if (bmp_type == BMPT_OS21) {

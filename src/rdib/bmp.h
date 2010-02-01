@@ -46,9 +46,9 @@ enum BMPType
 /*
  * Bitmap file consists of a BMPFileHeader structure followed by a
  * BMPInfoHeader structure. An array of BMPColorEntry structures (also called
- * a colour table) follows the bitmap information header structure. The colour
- * table is followed by a second array of indexes into the colour table (the
- * actual bitmap data). Data may be comressed, for 4-bpp and 8-bpp used RLE
+ * a color table) follows the bitmap information header structure. The color
+ * table is followed by a second array of indexes into the color table (the
+ * actual bitmap data). Data may be compressed, for 4-bpp and 8-bpp used RLE
  * compression.
  *
  * +---------------------+
@@ -125,7 +125,7 @@ struct BMPInfoHeader
         EndianessConverter<uint32_t, LittleEndianTraits> iSize;
         /* Size of BMPInfoHeader structure in bytes.
          * Should be used to determine start of the
-         * colour table */
+         * color table */
         EndianessConverter<int32_t, LittleEndianTraits> iWidth; /* Image width */
         EndianessConverter<int32_t, LittleEndianTraits> iHeight;
         /* Image height. If positive, image has bottom
@@ -137,20 +137,20 @@ struct BMPInfoHeader
          * JPEG or PNG format. */
         EndianessConverter<uint32_t, LittleEndianTraits> iCompression; /* Compression method */
         EndianessConverter<uint32_t, LittleEndianTraits> iSizeImage;
-        /* Size of uncomressed image in bytes. May
+        /* Size of uncompressed image in bytes. May
          * be 0 for BMPC_RGB bitmaps. If iCompression
          * is BI_JPEG or BI_PNG, iSizeImage indicates
          * the size of the JPEG or PNG image buffer. */
         EndianessConverter<int32_t, LittleEndianTraits> iXPelsPerMeter; /* X resolution, pixels per meter (0 if not used) */
         EndianessConverter<int32_t, LittleEndianTraits> iYPelsPerMeter; /* Y resolution, pixels per meter (0 if not used) */
         EndianessConverter<uint32_t, LittleEndianTraits> iClrUsed;
-        /* Size of colour table. If 0, iBitCount should
+        /* Size of color table. If 0, iBitCount should
          * be used to calculate this value
          * (1<<iBitCount). This value should be
          * unsigned for proper shifting. */
         EndianessConverter<int32_t, LittleEndianTraits> iClrImportant;
-        /* Number of important colours. If 0, all
-         * colours are required */
+        /* Number of important colors. If 0, all
+         * colors are required */
 
         /*
          * Fields above should be used for bitmaps, compatible with Windows NT 3.51
@@ -158,13 +158,13 @@ struct BMPInfoHeader
          */
 
         EndianessConverter<int32_t, LittleEndianTraits> iRedMask;
-        /* Colour mask that specifies the red component
+        /* Color mask that specifies the red component
          * of each pixel, valid only if iCompression
          * is set to BI_BITFIELDS. */
         EndianessConverter<int32_t, LittleEndianTraits> iGreenMask; /* The same for green component */
         EndianessConverter<int32_t, LittleEndianTraits> iBlueMask; /* The same for blue component */
         EndianessConverter<int32_t, LittleEndianTraits> iAlphaMask;
-        /* Colour mask that specifies the alpha
+        /* Color mask that specifies the alpha
          * component of each pixel. */
         EndianessConverter<uint32_t, LittleEndianTraits> iCSType; /* Colour space of the DIB. */
         BMPCIEXYZTriple sEndpoints;
@@ -187,6 +187,9 @@ static const unsigned int BIH_WIN4SIZE = 40; /* for BMPT_WIN4 */
 static const unsigned int BIH_WIN5SIZE = 57; /* for BMPT_WIN5 */
 static const unsigned int BIH_OS21SIZE = 12; /* for BMPT_OS21 */
 static const unsigned int BIH_OS22SIZE = 64; /* for BMPT_OS22 */
+static const unsigned int BIH_VER3SIZE = 40;
+static const unsigned int BIH_VER4SIZE = 108;
+static const unsigned int BIH_VER5SIZE = 124;
 
 /*
  * We will use plain byte array instead of this structure, but declaration
