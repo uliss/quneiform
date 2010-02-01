@@ -69,7 +69,7 @@ enum BMPComprMethod
     BMPC_RGB = 0L, /* Uncompressed */
     BMPC_RLE8 = 1L, /* RLE for 8 bpp images */
     BMPC_RLE4 = 2L, /* RLE for 4 bpp images */
-    BMPC_BITFIELDS = 3L, /* Bitmap is not compressed and the colour table
+    BMPC_BITFIELDS = 3L, /* Bitmap is not compressed and the color table
      * consists of three DWORD color masks that specify
      * the red, green, and blue components of each
      * pixel. This is valid when used with
@@ -166,7 +166,7 @@ struct BMPInfoHeader
         EndianessConverter<int32_t, LittleEndianTraits> iAlphaMask;
         /* Color mask that specifies the alpha
          * component of each pixel. */
-        EndianessConverter<uint32_t, LittleEndianTraits> iCSType; /* Colour space of the DIB. */
+        EndianessConverter<uint32_t, LittleEndianTraits> iCSType; /* Color space of the DIB. */
         BMPCIEXYZTriple sEndpoints;
         /* This member is ignored unless the iCSType
          * member specifies BMPLT_CALIBRATED_RGB. */
@@ -184,7 +184,7 @@ struct BMPInfoHeader
  * Info header size in bytes:
  */
 static const unsigned int BIH_WIN4SIZE = 40; /* for BMPT_WIN4 */
-static const unsigned int BIH_WIN5SIZE = 57; /* for BMPT_WIN5 */
+static const unsigned int BIH_WIN5SIZE = 56; /* for BMPT_WIN5 */
 static const unsigned int BIH_OS21SIZE = 12; /* for BMPT_OS21 */
 static const unsigned int BIH_OS22SIZE = 64; /* for BMPT_OS22 */
 static const unsigned int BIH_VER3SIZE = 40;

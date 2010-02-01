@@ -24,6 +24,7 @@
 #include "bmpimageloader.h"
 #include "imageloaderfactory.h"
 #include "common/debug.h"
+#include "common/helper.h"
 
 namespace
 {
@@ -173,6 +174,10 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
         // it should never happen
         assert(false);
     }
+
+    if(info_header_.iPlanes != 1)
+        throw Exception("BmpImageLoader::readBmpInfoHeader: wrong number of planes: " + toString(info_header_.iPlanes));
+
 }
 
 void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
@@ -197,15 +202,13 @@ void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
         n_clr_elems = 3;
         break;
     case BIH_VER4SIZE:
-        bmp_type = BMPT_WIN5;
-        n_clr_elems = 4;
-        break;
     case BIH_VER5SIZE:
+    case BIH_WIN5SIZE:
         bmp_type = BMPT_WIN5;
         n_clr_elems = 4;
         break;
     default:
-        throw Exception("Unknown BMP version", info_header_.iSize);
+        throw Exception("Unknown BMP version. Invalid header size: " + toString(info_header_.iSize));
     }
 }
 
@@ -335,11 +338,21 @@ void BmpImageLoader::readData(std::istream& stream)
     case BMPC_RGB:
         readUncompressedData(stream);
         break;
-        //    case BMPC_BITFIELDS:
-        //        // we unpack bitfields to plain RGB
-        //        bps = 8;
+    case BMPC_BITFIELDS:
+//    {
+//        if(info_header_.iBitCount != 16 && info_header_.iBitCount != 32)
+//            throw Exception("BmpImageLoader::readData: wrong bit count for bitfield image type: "
+//                        + toString(info_header_.iBitCount));
+//        // FIXME uliss handling of 16 bit image needed
+//        bps = 8;
+//        readUncompressedData(stream);
+//        BMPInfoHeader * i_header = (BMPInfoHeader*)data_;
+//        i_header->iBitCount = 24;
+//        i_header->iCompression = BMPC_RGB;
+//    }
+//        break;
     default:
-        throw Exception("Unknown compression method");
+        throw Exception("Unknown compression method: " + toString(info_header_.iCompression));
     }
 }
 

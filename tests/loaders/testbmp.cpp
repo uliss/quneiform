@@ -169,10 +169,18 @@ void TestBmpLoader::testValidBitDepth() {
 void TestBmpLoader::testLoad() {
     std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
     std::string path = LOADER_TEST_IMAGE_DIR;
+    /*
+     * test uncompressed
+     */
+    // 24bit
     std::string file = path + "bmp_rgb_uncompressed_24bit.bmp";
     CPPUNIT_ASSERT_NO_THROW(loader->load(file));
     CPPUNIT_ASSERT(loader->info_header_.iBitCount == 24);
     CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN4);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
+
+    // 32-bit
+    // file = path + "bmp_rgb_uncompressed_32bit.bmp";
+    // CPPUNIT_ASSERT_NO_THROW(loader->load(file));
 }
 
