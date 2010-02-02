@@ -1,6 +1,6 @@
 add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 
-if(USE_MAGICK)
+if(USE_IMAGE_MAGICK)
     set(magicklib ${ImageMagick_Magick++_LIBRARY})
     set(testmagick "testmagick.cpp")
 else()
