@@ -1913,7 +1913,6 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 		set_MMX_addr();
 	else
 		set_all_addr();
-	CIF::Debug() << "Ocr path: " << lnOcrPath << "\n";
 	chdir((char*) lnOcrPath);
 	multy_language = FALSE;
 	slanguage = language;
