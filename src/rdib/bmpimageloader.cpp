@@ -49,6 +49,12 @@ int last_bit_set(int v)
     return 0;
 }
 
+static inline void checkStream(std::istream& stream, const std::string& message = "BmpImageLoader: Stream read error")
+{
+    if(stream.fail())
+        throw ImageLoader::Exception(message);
+}
+
 BmpImageLoader::BmpImageLoader() :
     clr_tbl_size(0), clr_tbl(NULL)
 {
@@ -83,9 +89,7 @@ ImagePtr BmpImageLoader::load(const std::string& fname)
 
 ImagePtr BmpImageLoader::load(std::istream& stream)
 {
-    if (!stream.good())
-        throw ImageLoader::Exception("Invalid input stream given");
-
+    checkStream(stream);
     readBmpMagick(stream);
     readBmpFileHeader(stream);
     readBmpInfoHeader(stream);
@@ -138,8 +142,7 @@ bool BmpImageLoader::isValidBmpBitCount()
 void BmpImageLoader::readBmpMagick(std::istream& stream)
 {
     stream.read((char*) &file_header_.bType, sizeof(file_header_.bType));
-    if (stream.fail())
-        throw Exception("BmpImageLoader::Invalid stream given: can't read bmp magick.");
+    checkStream(stream, "BmpImageLoader: can't read bmp magick");
 
     if (file_header_.bType[0] != 'B' || file_header_.bType[1] != 'M') {
         stream.seekg(0);
@@ -151,8 +154,7 @@ void BmpImageLoader::readBmpFileHeader(std::istream& stream)
 {
     stream.seekg(10); // (BFH_SIZE - 4)
     stream.read((char*) &file_header_.iOffBits, 4); // sizeof(uint32_t)
-    if (stream.fail())
-        throw Exception("BmpImageLoader::Invalid stream given: can't read header.");
+    checkStream(stream, "BmpImageLoader: can't read header");
     // fix the iSize, in early BMP file this is pure garbage
     file_header_.iSize = (uint32_t) streamSize(stream);
 }
@@ -184,8 +186,7 @@ void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
 {
     stream.seekg(BFH_SIZE);
     stream.read((char*) &info_header_.iSize, 4);
-    if (stream.fail())
-        throw Exception("BmpImageLoader::Invalid stream given: can't read info header.");
+    checkStream(stream, "BmpImageLoader: can't read info header");
 
     switch (info_header_.iSize) {
     case BIH_WIN4SIZE:
@@ -373,8 +374,8 @@ void BmpImageLoader::readInfoHeaderModern(std::istream& stream)
     stream.read((char*) &info_header_.iGreenMask, 4);
     stream.read((char*) &info_header_.iBlueMask, 4);
     stream.read((char*) &info_header_.iAlphaMask, 4);
-    if (stream.fail())
-        throw Exception("BmpImageLoader::readInfoHeaderModern: error while reading stream");
+
+    checkStream(stream, "BmpImageLoader::readInfoHeaderModern: stream read error");
 }
 
 void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream)
@@ -390,8 +391,7 @@ void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream)
     stream.read((char*) &iShort, 2);
     info_header_.iBitCount = iShort;
 
-    if(stream.fail())
-        throw Exception("BmpImageLoader::readInfoHeaderOs2v1: error while reading stream");
+    checkStream(stream, "BmpImageLoader::readInfoHeaderOs2v1: stream read error");
     info_header_.iCompression = BMPC_RGB;
 }
 
