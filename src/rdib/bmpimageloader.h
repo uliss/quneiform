@@ -37,8 +37,15 @@ class BmpImageLoader: public ImageLoader
     private:
         void allocateColorTable();
         void convertColorSpace();
+        uint imageBitCount() const;
+        uint imageBitsPerStride() const;
+        uint imageHeight() const;
+        uint imageRowStride() const;
+        uint imageStridePerPixel() const;
+        uint imageWidth() const;
         bool isValidBmpBitCount();
         bool read(std::istream& stream);
+        void readBitFieldData(std::istream& is);
         void readBmpMagick(std::istream& stream);
         void readBmpFileHeader(std::istream& stream);
         void readBmpInfoHeader(std::istream& stream);
@@ -49,24 +56,33 @@ class BmpImageLoader: public ImageLoader
         void readInfoHeaderModern(std::istream& stream);
         void readInfoHeaderOs2v1(std::istream& stream);
         void readUncompressedData(std::istream& stream);
-        int stride() const
-        {
-            return (w * spp * bps + 7) / 8;
-        }
+        uint stride() const;
     private:
         BMPFileHeader file_header_;
         BMPInfoHeader info_header_;
         BMPType bmp_type;
         uint32_t n_clr_elems;
-        uint bps;
-        uint spp;
         uint32_t clr_tbl_size;
         uint8_t * clr_tbl;
-        uint w;
-        uint h;
         char * data_;
         int data_size_;
 };
+
+inline uint BmpImageLoader::imageBitCount() const {
+    return info_header_.iBitCount;
+}
+
+inline uint BmpImageLoader::imageHeight() const {
+    return abs(info_header_.iHeight);
+}
+
+inline uint BmpImageLoader::imageWidth() const {
+    return info_header_.iWidth;
+}
+
+inline uint BmpImageLoader::stride() const {
+    return (imageWidth() * imageStridePerPixel() * imageBitsPerStride() + 7) / 8;
+}
 
 }
 

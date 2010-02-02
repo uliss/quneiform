@@ -25,11 +25,11 @@
 #include "imageloaderfactory.h"
 #include "common/debug.h"
 #include "common/helper.h"
+#include "common/cifconfig.h"
 
 namespace
 {
-CIF::ImageLoader * create()
-{
+CIF::ImageLoader * create() {
     return new CIF::BmpImageLoader;
 }
 
@@ -40,8 +40,7 @@ bool registered = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMA
 namespace CIF
 {
 
-int last_bit_set(int v)
-{
+int last_bit_set(int v) {
     for (uint i = sizeof(int) * 8 - 1; i > 0; --i) {
         if (v & (1L << i))
             return i;
@@ -49,46 +48,40 @@ int last_bit_set(int v)
     return 0;
 }
 
-static inline void checkStream(std::istream& stream, const std::string& message = "BmpImageLoader: Stream read error")
-{
-    if(stream.fail())
+static inline void checkStream(std::istream& stream, const std::string& message =
+        "BmpImageLoader: Stream read error") {
+    if (stream.fail())
         throw ImageLoader::Exception(message);
 }
 
 BmpImageLoader::BmpImageLoader() :
-    clr_tbl_size(0), clr_tbl(NULL)
-{
+    clr_tbl_size(0), clr_tbl(NULL) {
 }
 
-BmpImageLoader::~BmpImageLoader()
-{
+BmpImageLoader::~BmpImageLoader() {
 }
 
-void BmpImageLoader::allocateColorTable()
-{
+void BmpImageLoader::allocateColorTable() {
     /* Allocate memory for colour table and read it. */
     if (info_header_.iClrUsed)
-        clr_tbl_size = ((uint32_t) (1 << bps) < info_header_.iClrUsed)
-                ? 1 << bps
-                : info_header_.iClrUsed;
+        clr_tbl_size = ((uint32_t) (1 << imageBitsPerStride()) < info_header_.iClrUsed) ? (1
+                << imageBitsPerStride()) : info_header_.iClrUsed;
     else
-        clr_tbl_size = 1 << bps;
+        clr_tbl_size = 1 << imageBitsPerStride();
     clr_tbl = (uint8_t *) new char[n_clr_elems * clr_tbl_size];
 
     /*printf ("n_clr_elems: %d, clr_tbl_size: %d\n",
      n_clr_elems, clr_tbl_size); */
 }
 
-ImagePtr BmpImageLoader::load(const std::string& fname)
-{
+ImagePtr BmpImageLoader::load(const std::string& fname) {
     std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
     if (!stream)
         throw Exception("Can't open file: " + fname);
     return load(stream);
 }
 
-ImagePtr BmpImageLoader::load(std::istream& stream)
-{
+ImagePtr BmpImageLoader::load(std::istream& stream) {
     checkStream(stream);
     readBmpMagick(stream);
     readBmpFileHeader(stream);
@@ -96,13 +89,24 @@ ImagePtr BmpImageLoader::load(std::istream& stream)
     if (!isValidBmpBitCount())
         throw ImageLoader::Exception("Unsupported image bit-depth.");
 
+    if (Config::instance().debugHigh()) {
+        Debug() << "BmpImageLoader: \n" << "\twidth: " << imageWidth()
+                << "; height:  " << imageHeight() << std::endl;
+        Debug() << "\tbitcount: " << imageBitCount() << ", stride: " << stride()
+                << ", row stride: " << imageRowStride() << std::endl;
+
+        Debug() << std::hex << "\tred mask: " << info_header_.iRedMask << ", green mask: "
+                << info_header_.iGreenMask << ", blue mask: " << info_header_.iBlueMask << std::dec
+                << std::endl;
+    }
+
     readData(stream);
 
     return ImagePtr(new Image(data_, data_size_, Image::AllocatorNew));
 }
 
-void BmpImageLoader::convertColorSpace()
-{
+void BmpImageLoader::convertColorSpace() {
+    const uint bps = imageBitsPerStride();
     uint16_t* rmap = new uint16_t[1 << bps];
     uint16_t* gmap = new uint16_t[1 << bps];
     uint16_t* bmap = new uint16_t[1 << bps];
@@ -123,8 +127,20 @@ void BmpImageLoader::convertColorSpace()
     clr_tbl = NULL;
 }
 
-bool BmpImageLoader::isValidBmpBitCount()
-{
+uint BmpImageLoader::imageBitsPerStride() const {
+    // we unpack bitfields to plain RGB
+    return (imageBitCount() < 16) ? imageBitCount() : 8;
+}
+
+uint BmpImageLoader::imageRowStride() const {
+    return (((imageWidth() * imageBitCount() + 7) / 8 + 3) / 4) * 4;
+}
+
+uint BmpImageLoader::imageStridePerPixel() const {
+    return (imageBitCount() < 16) ? 1 : 3;
+}
+
+bool BmpImageLoader::isValidBmpBitCount() {
     switch (info_header_.iBitCount) {
     case 1:
     case 4:
@@ -134,13 +150,75 @@ bool BmpImageLoader::isValidBmpBitCount()
     case 32:
         return true;
     default:
-        Debug() << "BMPCodec:: Cannot read " << info_header_.iBitCount << " bit files.\n";
+        Debug() << "BmpImageLoader: Cannot read " << info_header_.iBitCount << " bit files.\n";
         return false;
     }
 }
 
-void BmpImageLoader::readBmpMagick(std::istream& stream)
-{
+void BmpImageLoader::readBitFieldData(std::istream& stream) {
+    const uint image_height = imageHeight();
+    const uint row_stride = imageRowStride();
+
+    const int r_shift = last_bit_set(info_header_.iRedMask) - 7;
+    const int g_shift = last_bit_set(info_header_.iGreenMask) - 7;
+    const int b_shift = last_bit_set(info_header_.iBlueMask) - 7;
+
+    const int header_offset = BIH_VER3SIZE;
+    data_size_ = stride() * image_height + header_offset;
+    data_ = new char[data_size_];
+    uint8_t* data = (uint8_t*) data_ + header_offset;
+    uint8_t* row_data = new uint8_t[row_stride];
+
+    for (size_t row = 0, max_row = image_height; row < max_row; ++row) {
+        std::istream::pos_type offset = file_header_.iOffBits + row * row_stride;
+        stream.seekg(offset);
+
+        if (stream.tellg() != offset) {
+            Debug() << "scanline " << row << " Seek error: " << stream.tellg() << " vs " << offset
+                    << std::endl;
+        }
+
+        if (stream.read((char*) row_data, row_stride) < 0) {
+            Debug() << "scanline " << row << ": Read error\n";
+        }
+
+        // convert to RGB
+        uint8_t* rgb_ptr = data + stride() * (info_header_.iHeight < 0 ? row : image_height - row
+                - 1);
+
+        //        if (info_hdr.iCompression == BMPC_BITFIELDS) {
+        uint8_t* bf_ptr = row_data;
+
+        for (uint i = 0; i < imageWidth(); ++i, rgb_ptr += 3) {
+            int val = 0;
+            for (int bits = 0; bits < imageBitCount(); bits += 8)
+                val |= (*bf_ptr++) << bits;
+
+            if (r_shift > 0)
+                rgb_ptr[0] = (val & info_header_.iRedMask) >> r_shift;
+            else
+                rgb_ptr[0] = (val & info_header_.iRedMask) << -r_shift;
+            if (g_shift > 0)
+                rgb_ptr[1] = (val & info_header_.iGreenMask) >> g_shift;
+            else
+                rgb_ptr[1] = (val & info_header_.iGreenMask) << -g_shift;
+            if (b_shift > 0)
+                rgb_ptr[2] = (val & info_header_.iBlueMask) >> b_shift;
+            else
+                rgb_ptr[2] = (val & info_header_.iBlueMask) << -b_shift;
+        }
+    }
+    //    }
+    delete[] row_data;
+
+    info_header_.iBitCount = 24;
+    info_header_.iSize = header_offset;
+    info_header_.iCompression = BMPC_RGB;
+    info_header_.iSizeImage = 0;
+    memcpy(data_, &info_header_, header_offset);
+}
+
+void BmpImageLoader::readBmpMagick(std::istream& stream) {
     stream.read((char*) &file_header_.bType, sizeof(file_header_.bType));
     checkStream(stream, "BmpImageLoader: can't read bmp magick");
 
@@ -150,8 +228,7 @@ void BmpImageLoader::readBmpMagick(std::istream& stream)
     }
 }
 
-void BmpImageLoader::readBmpFileHeader(std::istream& stream)
-{
+void BmpImageLoader::readBmpFileHeader(std::istream& stream) {
     stream.seekg(10); // (BFH_SIZE - 4)
     stream.read((char*) &file_header_.iOffBits, 4); // sizeof(uint32_t)
     checkStream(stream, "BmpImageLoader: can't read header");
@@ -159,11 +236,10 @@ void BmpImageLoader::readBmpFileHeader(std::istream& stream)
     file_header_.iSize = (uint32_t) streamSize(stream);
 }
 
-void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
-{
+void BmpImageLoader::readBmpInfoHeader(std::istream& stream) {
     readBmpInfoHeaderVersion(stream);
 
-    switch(bmp_type) {
+    switch (bmp_type) {
     case BMPT_WIN4:
     case BMPT_WIN5:
     case BMPT_OS22:
@@ -177,13 +253,13 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream)
         assert(false);
     }
 
-    if(info_header_.iPlanes != 1)
-        throw Exception("BmpImageLoader::readBmpInfoHeader: wrong number of planes: " + toString(info_header_.iPlanes));
+    if (info_header_.iPlanes != 1)
+        throw Exception("BmpImageLoader::readBmpInfoHeader: wrong number of planes: " + toString(
+                info_header_.iPlanes));
 
 }
 
-void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
-{
+void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream) {
     stream.seekg(BFH_SIZE);
     stream.read((char*) &info_header_.iSize, 4);
     checkStream(stream, "BmpImageLoader: can't read info header");
@@ -213,16 +289,14 @@ void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream)
     }
 }
 
-void BmpImageLoader::readColorTable(std::istream& stream)
-{
+void BmpImageLoader::readColorTable(std::istream& stream) {
     allocateColorTable();
 
     stream.seekg(BFH_SIZE + info_header_.iSize);
     stream.read((char*) clr_tbl, n_clr_elems * clr_tbl_size);
 }
 
-void BmpImageLoader::readCompressedData(std::istream& stream)
-{
+void BmpImageLoader::readCompressedData(std::istream& stream) {
     uint32_t i, j, k, runlength, x;
     uint32_t compr_size, uncompr_size;
     uint8_t *comprbuf;
@@ -232,7 +306,7 @@ void BmpImageLoader::readCompressedData(std::istream& stream)
     //    << " compressed\n";
 
     compr_size = file_header_.iSize - file_header_.iOffBits;
-    uncompr_size = w * h;
+    uncompr_size = imageWidth() * imageHeight();
 
     comprbuf = (uint8_t *) malloc(compr_size);
     if (!comprbuf) {
@@ -256,7 +330,7 @@ void BmpImageLoader::readCompressedData(std::istream& stream)
     while (j < uncompr_size && i < compr_size) {
         if (comprbuf[i]) {
             runlength = comprbuf[i++];
-            for (k = 0; runlength > 0 && j < uncompr_size && i < compr_size && x < (uint32_t) w; ++k, ++x) {
+            for (k = 0; runlength > 0 && j < uncompr_size && i < compr_size && x < imageWidth(); ++k, ++x) {
                 if (info_header_.iBitCount == 8)
                     uncomprbuf[j++] = comprbuf[i];
                 else {
@@ -268,26 +342,22 @@ void BmpImageLoader::readCompressedData(std::istream& stream)
                 runlength--;
             }
             i++;
-        }
-        else {
+        } else {
             i++;
             if (comprbuf[i] == 0) { /* Next scanline */
                 i++;
                 x = 0;
                 ;
-            }
-            else if (comprbuf[i] == 1) /* End of image */
+            } else if (comprbuf[i] == 1) /* End of image */
                 break;
             else if (comprbuf[i] == 2) { /* Move to... */
                 i++;
                 if (i < compr_size - 1) {
-                    j += comprbuf[i] + comprbuf[i + 1] * w;
+                    j += comprbuf[i] + comprbuf[i + 1] * imageWidth();
                     i += 2;
-                }
-                else
+                } else
                     break;
-            }
-            else { /* Absolute mode */
+            } else { /* Absolute mode */
                 runlength = comprbuf[i++];
                 for (k = 0; k < runlength && j < uncompr_size && i < compr_size; k++, x++) {
                     if (info_header_.iBitCount == 8)
@@ -320,45 +390,39 @@ void BmpImageLoader::readCompressedData(std::istream& stream)
     }
 
     // TODO: suboptimal, later improve the above to yield the corrent orientation natively
-    for (size_t row = 0; row < (uint32_t) h; ++row) {
-        memcpy(data + row * w, uncomprbuf + (h - 1 - row) * w, w);
+    for (size_t row = 0; row < imageHeight(); ++row) {
+        memcpy(data + row * imageWidth(), uncomprbuf + (imageHeight() - 1 - row) * imageWidth(),
+                imageWidth());
         //        rearrangePixels(data + row * w, w, info_header_.iBitCount);
     }
 
     free(uncomprbuf);
-    bps = 8;
+    //    bps = 8;
 }
 
-void BmpImageLoader::readData(std::istream& stream)
-{
+void BmpImageLoader::readData(std::istream& stream) {
     switch (info_header_.iCompression) {
-    //    case BMPC_RLE4:
-    //    case BMPC_RLE8:
-    //        readCompressedData(stream);
-    //        break;
+    case BMPC_RLE4:
+    case BMPC_RLE8:
+        //        readCompressedData(stream);
+        throw Exception("BmpImageLoader: RLE compression is not supported");
+        break;
     case BMPC_RGB:
         readUncompressedData(stream);
         break;
     case BMPC_BITFIELDS:
-//    {
-//        if(info_header_.iBitCount != 16 && info_header_.iBitCount != 32)
-//            throw Exception("BmpImageLoader::readData: wrong bit count for bitfield image type: "
-//                        + toString(info_header_.iBitCount));
-//        // FIXME uliss handling of 16 bit image needed
-//        bps = 8;
-//        readUncompressedData(stream);
-//        BMPInfoHeader * i_header = (BMPInfoHeader*)data_;
-//        i_header->iBitCount = 24;
-//        i_header->iCompression = BMPC_RGB;
-//    }
-//        break;
+        readBitFieldData(stream);
+        break;
+    case BMPC_JPEG:
+        throw Exception("BmpImageLoader: JPEG compression is not supported");
+    case BMPC_PNG:
+        throw Exception("BmpImageLoader: PNG compression is not supported");
     default:
         throw Exception("Unknown compression method: " + toString(info_header_.iCompression));
     }
 }
 
-void BmpImageLoader::readInfoHeaderModern(std::istream& stream)
-{
+void BmpImageLoader::readInfoHeaderModern(std::istream& stream) {
     stream.seekg(BFH_SIZE + 4);
     stream.read((char*) &info_header_.iWidth, 4);
     stream.read((char*) &info_header_.iHeight, 4);
@@ -378,8 +442,7 @@ void BmpImageLoader::readInfoHeaderModern(std::istream& stream)
     checkStream(stream, "BmpImageLoader::readInfoHeaderModern: stream read error");
 }
 
-void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream)
-{
+void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream) {
     int16_t iShort;
 
     stream.read((char*) &iShort, 2);
@@ -395,8 +458,7 @@ void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream)
     info_header_.iCompression = BMPC_RGB;
 }
 
-void BmpImageLoader::readUncompressedData(std::istream& stream)
-{
+void BmpImageLoader::readUncompressedData(std::istream& stream) {
     data_size_ = streamSize(stream) - sizeof(BMPFileHeader);
     assert(data_size_ > 0);
     data_ = new char[data_size_];
@@ -406,8 +468,7 @@ void BmpImageLoader::readUncompressedData(std::istream& stream)
         throw Exception("BmpImageLoader:: error while read image data");
 }
 
-bool BmpImageLoader::read(std::istream& stream)
-{
+bool BmpImageLoader::read(std::istream& stream) {
     if (!stream.good())
         throw ImageLoader::Exception("Invalid input stream given");
 
@@ -417,31 +478,8 @@ bool BmpImageLoader::read(std::istream& stream)
     if (!isValidBmpBitCount())
         throw ImageLoader::Exception("Unsupported image bit-depth.");
 
-    switch (info_header_.iBitCount) {
-    case 1:
-    case 2:
-    case 4:
-    case 8:
-        spp = 1;
-        bps = info_header_.iBitCount;
-
-        readColorTable(stream);
-        break;
-    case 16:
-    case 24:
-        spp = 3;
-        bps = info_header_.iBitCount / spp;
-        break;
-    case 32:
-        spp = 3;
-        bps = 8;
-        break;
-    default:
-        break;
-    }
-
     // detect old style bitmask images
-    if (info_header_.iCompression == BMPC_RGB && info_header_.iBitCount == 16) {
+    if (info_header_.iCompression == BMPC_RGB && imageBitCount() == 16) {
         //std::cerr << "implicit non-RGB image\n";
         info_header_.iCompression = BMPC_BITFIELDS;
         info_header_.iBlueMask = 0x1f;
@@ -452,7 +490,7 @@ bool BmpImageLoader::read(std::istream& stream)
     readData(stream);
 
     // no color table anyway or RGB* ?
-    if (clr_tbl && spp < 3)
+    if (clr_tbl && imageStridePerPixel() < 3)
         convertColorSpace();
 
     return true;

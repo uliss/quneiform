@@ -175,12 +175,22 @@ void TestBmpLoader::testLoad() {
     // 24bit
     std::string file = path + "bmp_rgb_uncompressed_24bit.bmp";
     CPPUNIT_ASSERT_NO_THROW(loader->load(file));
-    CPPUNIT_ASSERT(loader->info_header_.iBitCount == 24);
+    CPPUNIT_ASSERT(loader->imageBitCount() == 24);
     CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN4);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
 
     // 32-bit
-    // file = path + "bmp_rgb_uncompressed_32bit.bmp";
-    // CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    file = path + "bmp_rgb_uncompressed_32bit.bmp";
+    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    // make sure that image converted to 24-bit RGB
+    CPPUNIT_ASSERT(loader->imageBitCount() == 24);
+    CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
+
+    // 16-bit
+    file = path + "bmp_rgb_uncompressed_16bit.bmp";
+    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    // make sure that image converted to 24-bit RGB
+    CPPUNIT_ASSERT(loader->imageBitCount() == 24);
+    CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
 }
 
