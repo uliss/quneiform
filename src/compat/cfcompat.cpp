@@ -92,6 +92,8 @@ using namespace CIF;
 #elif defined(__FreeBSD__)
 #include <malloc_np.h>
 
+#elif defined(__NetBSD__)
+
 #else
 #include <malloc.h>
 #endif
