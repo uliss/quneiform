@@ -33,7 +33,6 @@ ltseps.cpp
 ltsmart.cpp
 lttrees.cpp
 ltwstrip.cpp
-madebug.cpp
 msgerr.cpp
 qsort.cpp
 scalar.cpp

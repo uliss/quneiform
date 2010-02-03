@@ -64,21 +64,19 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <string.h>
-# include <time.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
-# include "iolib.h"
-# include "layout.h"
-# include "extract.h"
-# include "kernel.h"
-# include "status.h"
+#include "iolib.h"
+#include "layout.h"
+#include "extract.h"
+#include "kernel.h"
+#include "status.h"
 #include "lterrors.h"
 
-# include "dpuma.h"
+#include "dpuma.h"
 
-void AllocationsAccountingClose();
-void AllocationsAccountingOpen();
 extern int MA_DebugLevel;
 
 //#define LT_DUMP 1

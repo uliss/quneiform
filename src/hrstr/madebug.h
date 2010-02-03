@@ -68,33 +68,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# ifndef __MADEBUG_H_INCLUDE
-# define __MADEBUG_H_INCLUDE
+#ifndef __MADEBUG_H_INCLUDE
+#define __MADEBUG_H_INCLUDE
 
-# include "c_memory.h"
-# include "ltconfig.h"
-/*
-# ifdef MA_DEBUG
-#    define malloc(s)     my_malloc  (s,    __FILE__, __LINE__)
-#    define realloc(p, s) my_realloc (p, s, __FILE__, __LINE__)
-#    define calloc(n, s)  my_calloc  (n, s, __FILE__, __LINE__)
-#    define free(p)       my_free    (p,    __FILE__, __LINE__)
+#include "c_memory.h"
+#include "ltconfig.h"
 
-void *my_calloc (size_t n, size_t size,   char *pFilename, int nLine);
-void my_free (void *ptr,                  char *pFilename, int nLine);
-void *my_malloc (size_t size,             char *pFilename, int nLine);
-void *my_realloc (void *ptr, size_t size, char *pFilename, int nLine);
-
-# define MAX_HEAP_CHECKINGS  512
-
-void AllocationsAccountingOpen (void);
-void AllocationsAccountingClose (void);
-
-extern int MA_DebugLevel;
-# endif
-*/
 void HeapCheck (char *pFilename, int nLine);
 void HeapDump (char *pFilename, int nLine, char *pListFilename);
 
-# define HCHECK() (HeapCheck (__FILE__, __LINE__))
-# endif
+#define HCHECK() (HeapCheck (__FILE__, __LINE__))
+#endif
