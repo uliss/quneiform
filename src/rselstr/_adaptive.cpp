@@ -109,18 +109,6 @@ void DebugFree(void * p) {
 	free(p);
 }
 
-void * TigerAllocateMemory(uint32_t size) {
-	return DebugMalloc(size);
-}
-
-void TigerFreeMemory(void * mem) {
-	DebugFree(mem);
-}
-
-void * TigerReallocateMemory(void * mem, uint32_t size) {
-	return DebugRealloc(mem, size);
-}
-
 extern uchar work_raster[], work_raster_1[];
 extern uint16_t lpool_lth;
 extern uchar lpool[];

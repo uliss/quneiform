@@ -81,19 +81,17 @@
 # include "extract.h"
 
 # include "my_mem.h"
-# include "glalloc.h"
 # include "dpuma.h"
 
 jmp_buf fatal_error_exit;
 
 void AllocationsAccountingClose();
 
-void FreeAllData(void)
-{
+void FreeAllData(void) {
     SE_FreeAllData();
     LT_FreeAllData();
 # ifdef MA_DEBUG
-    AllocationsAccountingClose ();
+    AllocationsAccountingClose();
 # endif
 }
 
@@ -157,12 +155,13 @@ extern FILE * FileError; // 䠩� ��� ᮮ�饭��
 char * TemporaleString[80]; // �६����� ��ப� ��� ᮮ�饭��
 #endif
 
-struct MemAllocate {
+struct MemAllocate
+{
 #define MEMFREE         0x00   // ������ ᢮�����
 #define MEMMALLOC       0x01   // ������ �⢥���� �� malloc
 #define MEMEND          0x04   // ��� ��᫥����� �����
-    char id; // ����⥫� ����� �.���
-    long size; // ࠧ��� �����
+        char id; // ����⥫� ����� �.���
+        long size; // ࠧ��� �����
 };
 typedef struct MemAllocate Memory;
 
@@ -180,21 +179,21 @@ void PrintBlocks()
 
     for (Block = (Memory *)lout_memory; Block->id != MEMEND;
             Block = (Memory *)((char *)Block + Block->size + sizeof(Memory)))
-        fprintf(FileError, "\n%i %li", Block->id, Block->size);
+    fprintf(FileError, "\n%i %li", Block->id, Block->size);
 }
 #endif
 
-int SetupMemoryLayout()
-{
+int SetupMemoryLayout() {
 #ifdef ONE_BLOCK
     Memory * Block;
 
     if (lout_memory == NULL) {
-        //        if((lout_memory=malloc(SizeBuffer))==NULL) return 1;
-        if ((lout_memory = (char*) TigerAllocateMemory(SizeBuffer)) == NULL) return 1;
+        if ((lout_memory = malloc(SizeBuffer)) == NULL)
+            return 1;
+
     }
 
-    Block = (Memory *)lout_memory;
+    Block = (Memory *) lout_memory;
     Block->id = MEMEND;
     Block->size = SizeBuffer - sizeof(Memory); // �ᥣ� ����� � ����稨
     SizeAllocate = 0; // �᫮ ࠧ��饭��� ����
@@ -203,18 +202,14 @@ int SetupMemoryLayout()
     return 0;
 }
 
-void ClearLayoutMemory()
-{
-    if (lout_memory)
-        //  { free(lout_memory); lout_memory=NULL;}
-    {
-        TigerFreeMemory(lout_memory);
+void ClearLayoutMemory() {
+    if (lout_memory) {
+        free(lout_memory);
         lout_memory = NULL;
     }
 }
 
-static void JoinEmptyBlocks()
-{
+static void JoinEmptyBlocks() {
     //long     sizeblock;
     Memory * Block;
     Memory * NextBlock;
@@ -223,13 +218,12 @@ static void JoinEmptyBlocks()
         ErrorInternal("Malloc:��� �� ���!");
 
     // ���㯭���� ������ ������
-    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
-            = (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
+    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block = (Memory *) ((char *) Block
+            + Block->size + sizeof(Memory))) {
         NextBlock = (Memory *) ((char *) Block + Block->size + sizeof(Memory));
-    toNextBlock:
+        toNextBlock:
 
-        if (Block->id == MEMFREE && (NextBlock->id == MEMFREE
-                                     || NextBlock->id == MEMEND)) {
+        if (Block->id == MEMFREE && (NextBlock->id == MEMFREE || NextBlock->id == MEMEND)) {
             Block->id = NextBlock->id;
             Block->size += NextBlock->size + sizeof(Memory);
 
@@ -238,15 +232,13 @@ static void JoinEmptyBlocks()
                 break;
             }
 
-            NextBlock = (Memory *) ((char *) NextBlock + NextBlock->size
-                                    + sizeof(Memory));
+            NextBlock = (Memory *) ((char *) NextBlock + NextBlock->size + sizeof(Memory));
             goto toNextBlock;
         }
     }
 }
 
-void * DebugMalloc(size_t size)
-{
+void * DebugMalloc(size_t size) {
     void * memvoid;
     int idblock;
     long sizeblock;
@@ -262,9 +254,8 @@ void * DebugMalloc(size_t size)
     JoinEmptyBlocks();
 
     // ���� ᢮������� ����
-    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
-                                                           + SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
-                                                                                              + Block->size)) {
+    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
+            = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
         idblock = Block->id;
         sizeblock = Block->size;
         NextBlock = Block;
@@ -295,7 +286,7 @@ void * DebugMalloc(size_t size)
 
     ErrorNoEnoughMemory("���� �� ���᪥ ᢮������� ����...");
     return NULL;
-YES:
+    YES:
 #ifdef DebugFile
     SizeAllocate += size;
 
@@ -310,16 +301,15 @@ YES:
     return memvoid;
 }
 // ���� 㦥 ࠧ��饭���� �����
-Memory * FindMem(void * blk)
-{
+Memory * FindMem(void * blk) {
     Memory * Block;
 
-    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block
-            = (Memory *) ((char *) Block + Block->size + sizeof(Memory))) {
+    for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block = (Memory *) ((char *) Block
+            + Block->size + sizeof(Memory))) {
 #ifdef DebugFile
 
         if ((char *)Block > (lout_memory + SizeBuffer))
-            ErrorInternal("\n���� ����� �� ���᪥ �����...");
+        ErrorInternal("\n���� ����� �� ���᪥ �����...");
 
 #endif
 
@@ -327,7 +317,7 @@ Memory * FindMem(void * blk)
 #ifdef DebugFile
 
             if (Block->id == MEMFREE)
-                fprintf(FileError, "\n������ �᢮�������� ����...");
+            fprintf(FileError, "\n������ �᢮�������� ����...");
 
 #endif
             return Block;
@@ -337,8 +327,7 @@ Memory * FindMem(void * blk)
     return NULL;
 }
 
-void DebugFree(void * blk)
-{
+void DebugFree(void * blk) {
     Memory * Block;
 
     if (lout_memory == NULL)
@@ -367,8 +356,7 @@ void DebugFree(void * blk)
 #endif
 }
 
-void * DebugRealloc(void * old_blk, size_t size)
-{
+void * DebugRealloc(void * old_blk, size_t size) {
     void * new_blk;
     Memory * Block;
 
@@ -420,8 +408,7 @@ void * DebugRealloc(void * old_blk, size_t size)
     return new_blk;
 }
 
-void ErrorEmptyPage(void)
-{
+void ErrorEmptyPage(void) {
     FreeAllData();
 #ifdef DebugFile
     fprintf(FileError, "\nPage is empty");
@@ -430,14 +417,12 @@ void ErrorEmptyPage(void)
     error_exit(ERR_comp, ERROR_EMPTY);
 }
 
-void ErrorFile(void)
-{
+void ErrorFile(void) {
     FreeAllData();
     error_exit(ERR_comp, ERROR_FILE);
 }
 
-long GetMaxSizeFreeMem()
-{
+long GetMaxSizeFreeMem() {
     int idblock;
     long sizeblock;
     long MaxSizeBlock;
@@ -450,14 +435,12 @@ long GetMaxSizeFreeMem()
     MaxSizeBlock = 0L;
 
     // ���� ᢮������� ����
-    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory
-                                                           + SizeBuffer); Block = (Memory *) ((char *) Block + sizeof(Memory)
-                                                                                              + Block->size)) {
+    for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
+            = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
         idblock = Block->id;
         sizeblock = Block->size;
 
-        if ((idblock == MEMEND || idblock == MEMFREE) && sizeblock
-                > MaxSizeBlock)
+        if ((idblock == MEMEND || idblock == MEMFREE) && sizeblock > MaxSizeBlock)
             MaxSizeBlock = sizeblock;
     }// for ...
 
