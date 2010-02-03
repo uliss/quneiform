@@ -568,8 +568,6 @@ void LayoutSetup(void);
 void load_vocs(void);
 
 // module msgerr
-void error_exit(int16_t group, int16_t element);
-void error_exit_asm(int16_t element);
 void clear_error_status(void);
 
 // module testsnap

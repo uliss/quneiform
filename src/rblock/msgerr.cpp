@@ -291,11 +291,6 @@ void error_exit_str(int16_t group, int16_t element, pchar s)
     longjmp(fatal_error_exit, element);
 }
 
-void error_exit_asm(int16_t element)
-{
-    error_exit(ERR_comp, element);
-}
-
 //  External manipulation with error status
 pchar get_message(uint16_t code)
 {
