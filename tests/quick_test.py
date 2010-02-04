@@ -32,6 +32,8 @@ OUTPUT = "tmp.txt"
 CMD += " 2>/dev/null"
 
 os.environ['CF_DATADIR'] = "../datafiles"
+tests_passed = 0
+tests_failed = 0
 
 for key, v in sorted(DATA.iteritems()):
     cmd = CMD % (key, OUTPUT, v.lower())
@@ -39,8 +41,12 @@ for key, v in sorted(DATA.iteritems()):
     retcode = subprocess.call(cmd, shell=True)
     if retcode > 0:
         print "%s failed" % v
-        sys.exit(1)
+	tests_failed = tests_failed + 1
+        print cmd
+        continue
+        #sys.exit(1)
     elif retcode < 0:
+        tests_passed = tests_passed + 1
         sys.exit(1)
         
     if os.path.getsize(OUTPUT) == 0:
@@ -50,7 +56,10 @@ for key, v in sorted(DATA.iteritems()):
     if retcode == 0:
         print "%-15s Ok" % v
         
+print "Tests passed: %d, failed: %d\n" % (tests_passed, tests_failed)
+
 os.unlink(OUTPUT)    
        
-    
+if tests_failed > 0:
+    sys.exit(1)
 
