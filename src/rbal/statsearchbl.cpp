@@ -67,6 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #elif defined(__FreeBSD__)
 #include <malloc_np.h>
 
+#elif defined(__NetBSD__)
+#define malloc_usable_size(a) 0
+
 #elif defined(WIN32)
 #include <malloc.h>
 #define malloc_usable_size(a) _msize(a)

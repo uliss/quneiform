@@ -17,6 +17,7 @@
  ***************************************************************************/
 #include "testformatdetector.h"
 #include <rdib/imageformatdetector.h>
+#include <fstream>
 #include <sstream>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 

@@ -93,6 +93,9 @@ using namespace CIF;
 #include <malloc_np.h>
 
 #elif defined(__NetBSD__)
+// it's a temporary hack, but it seems that this function
+// this function unused only in several methods
+#define malloc_usable_size(a) 0
 
 #else
 #include <malloc.h>

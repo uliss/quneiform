@@ -75,11 +75,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# ifndef __STRINGS_H_INCLUDE
-# define __STRINGS_H_INCLUDE
+#ifndef __STRINGS_H_INCLUDE
+#define __STRINGS_H_INCLUDE
 
-# include "ltconfig.h"
-# include "c_types.h"
+#include "ltconfig.h"
+#include "c_types.h"
+#include "cttypes.h"
 
 struct _String;
 typedef struct _String STRING;

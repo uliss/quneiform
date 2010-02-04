@@ -56,14 +56,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <setjmp.h>
 
-# include "dpuma.h"
+#include "layout.h"
+#include "extract.h"
+#include "dpuma.h"
 #include "dsnap.h"
-# include "rselstr.h"
-# include "resource.h"
-# include "newfunc.h"
-# include "kernel.h"
-# include "puma/pumadef.h"
-# include "lhstr.h"
+#include "rselstr.h"
+#include "resource.h"
+#include "newfunc.h"
+#include "kernel.h"
+#include "puma/pumadef.h"
+#include "lhstr.h"
 
 #include "compat_defs.h"
 

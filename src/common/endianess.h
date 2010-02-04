@@ -46,6 +46,11 @@
 #define bswap_16 bswap16
 #define bswap_32 bswap32
 #define bswap_64 bswap64
+#elif __NetBSD__
+#include <sys/endian.h>
+#define bswap_16 bswap16
+#define bswap_32 bswap32
+#define bswap_64 bswap64
 #elif __APPLE__
 #include <libkern/OSByteOrder.h>
 #define bswap_16 OSSwapConstInt16
@@ -92,7 +97,18 @@ class BigEndianTraits: public EndianTraits
         static const bool IsBigendian = true;
 };
 
-#if defined __BIG_ENDIAN__ || defined _BIG_ENDIAN
+#ifdef __BYTE_ORDER
+#if __BYTE_ORDER == __BIG_ENDIAN__
+#define CUNEIFORM_BIG_ENDIAN
+#else
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#else
+Error: unknown byte order!
+#endif
+#endif
+#endif
+
+#ifdef CUNEIFORM_BIG_ENDIAN
 typedef BigEndianTraits NativeEndianTraits;
 #else
 typedef LittleEndianTraits NativeEndianTraits;
