@@ -133,7 +133,7 @@ CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
 }
 
 //Put non-recognized codes to the corresponding field of extData
-void ExtDataProc(uchar* /*_ptr*/, uint /*lth*/)
+void ExtDataProc(uchar* /*_ptr*/, uint32_t /*lth*/)
 {
 }
 

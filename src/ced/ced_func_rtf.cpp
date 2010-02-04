@@ -66,6 +66,7 @@
 #include "resource.h"
 #include "cfcompat.h"
 #include "cfio/cfio.h"
+#include "compat/cfstring.h"
 
 #define MAX_LEN 500
 #define MAX_RTF_COLORS     200

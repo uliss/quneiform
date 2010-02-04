@@ -58,6 +58,7 @@
 //Created 7.12.98 by Bozhenov Artem,(c) CT inc.
 #include <cstring>
 #include <cstdlib>
+#include <iostream>
 
 #include "ced_struct.h"
 #include "cedint.h"
@@ -638,7 +639,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect,
 {
     if (hObject->type != COLUMN_BEGIN) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt of frame creation outside of table", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt of frame creation outside of table";
 #endif
         return 0;
     }
@@ -647,7 +648,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect,
 #ifdef _DEBUG
 
     if (colde == 0) {
-        MessageBox(0, "Attempt of frame creation in ordinary paragraph\n(not in column)", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt of frame creation in ordinary paragraph\n(not in column)";
         return 0;
     }
 
@@ -705,7 +706,7 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 {
     if (hObject->type == TAB_BEGIN || hObject->type == TAB_CELL_BEGIN) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt of table creation in a table", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt of table creation in a table";
 #endif
         return 0;
     }
@@ -714,7 +715,7 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 
     if (colde == 0) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt of table creation in ordinary paragraph\n(not in column or frame)", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt of table creation in ordinary paragraph\n(not in column or frame)";
 #endif
         return 0;
     }
@@ -773,7 +774,7 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable, int left,
 {
     if (hTable->type != TAB_BEGIN) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt to create table row outside of table", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt to create table row outside of table";
 #endif
         return 0;
     }
@@ -781,7 +782,7 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable, int left,
 #ifdef _DEBUG
 
     if (!hTable->descriptor) {
-        MessageBox(0, "Attempt to create table row in ordinary paragraph\n(not in table)", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt to create table row in ordinary paragraph\n(not in table)";
         return 0;
     }
 
@@ -870,7 +871,7 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX,
 {
     if (hRow->type != TAB_ROW_BEGIN) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt to create cell of table outside of table's row", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt to create cell of table outside of table's row";
 #endif
         return 0;
     }
@@ -916,7 +917,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align,
     if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN
             && hObject->type != COLUMN_BEGIN) {
 #ifdef _DEBUG
-        MessageBox(0, "Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell";
 #endif
         return 0;
     }
@@ -925,7 +926,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align,
 #ifdef _DEBUG
 
     if (!colde) {
-        MessageBox(0, "Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)", "CED error", MB_OK);
+        std::cerr << "CED error: Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)";
         return 0;
     }
 

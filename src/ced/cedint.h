@@ -69,6 +69,7 @@
 #include "ced.h"
 #include "ced_struct.h"
 #include "compat_defs.h"
+#include "compat/filefunc.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data
 void SetReturnCode_ced(uint32_t rc);//set error code

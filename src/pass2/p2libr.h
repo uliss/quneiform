@@ -62,7 +62,7 @@
 // p2_tools.c
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver);
 void p2_FillTxt(CSTR_line c, char *intxt, Bool ansi);
-int32_t p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
+int p2_TextProb(CSTR_line cc, CSTR_rast first, CSTR_rast last, char *intxt,
                     int maxTxt);
 uchar p2_to_upperASCII(uchar c);
 uchar p2_to_lowerASCII(uchar c);
