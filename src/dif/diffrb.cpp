@@ -94,7 +94,8 @@ uchar beg2, end1; /* начало 2-ой, конец 1-ой ног  */
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
-int16_t dnri_hook, broken_ii = 0;
+int16_t dnri_hook;
+int broken_ii = 0;
 uchar broken_flag = 0;
 
 /* LeftDistance - расстояние до первого слева бита          */

@@ -81,7 +81,7 @@ Bool32 digit_mode = FALSE, dif_adding_mode;
 uchar language;
 int32_t dif_typ_of_font = 0;
 
-extern int16_t broken_ii;
+extern int broken_ii;
 extern uchar broken_flag;
 uchar cutl_flag, cutr_flag;
 
@@ -94,7 +94,7 @@ void DIFSetFont(int32_t typ_of_font)
 Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II, Bool32 cut_left,
                Bool32 cut_right)
 {
-    broken_ii = (int16_t) (broken_II != 0);
+    broken_ii = (int) (broken_II != 0);
     broken_flag = (uchar) broken;
     cutl_flag = (uchar)(cut_left != 0);
     cutr_flag = (uchar)(cut_right != 0);
