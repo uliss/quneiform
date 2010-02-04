@@ -286,8 +286,6 @@ int32_t FONShowSnap(void)
 int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam,
                                 LPARAM lparam)
 {
-    PAINTSTRUCT ps;
-
     switch (msg) {
         case WM_DESTROY:
             //FONEndSnap();

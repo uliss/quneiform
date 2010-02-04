@@ -61,9 +61,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
 
+#include "compat/filefunc.h"
 #include "globus.h"
 #include "struct.h"
 #include "box.h"

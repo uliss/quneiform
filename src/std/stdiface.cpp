@@ -64,6 +64,7 @@
 #include "wmb.h"
 #include "std.h"
 #include "cfcompat.h"
+#include "compat/filefunc.h"
 
 using namespace std;
 

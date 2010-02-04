@@ -65,6 +65,8 @@
 
 #ifndef WIN32
 #include "filestuff.h"
+#else
+#include "compat/filefunc.h"
 #endif
 
 class XPath: public XText<PATH_MAX>

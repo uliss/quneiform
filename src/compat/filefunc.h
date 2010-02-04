@@ -24,11 +24,11 @@
 
 #ifndef _MSC_VER
 #include <unistd.h>
+#include <limits.h>
 #else
 #include <io.h>
 #include <direct.h>
-
-
+static const unsigned int PATH_MAX = 259;
 #endif
 
 #endif /* FILEFUNC_H_ */

@@ -228,9 +228,9 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Den
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 {
-# ifndef max
-#    define     MAX(a,b)             ( (a) > (b) ? (a) : (b) )
-# endif
+#ifndef MAX
+#define     MAX(a,b)             ( (a) > (b) ? (a) : (b) )
+#endif
     Bool32 Ret = TRUE;
     uint32_t Line;
     uint32_t wBitLenght = cDIBIn->GetPixelSize();
