@@ -98,7 +98,7 @@ std::string Iconv::convert(const std::string& src)
 size_t Iconv::convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft)
 {
     return ::iconv(iconv_, 
-#if !defined(ICONV_SECOND_ARGUMENT_IS_CONST) && !defined(__NetBSD__)
+#if !defined(ICONV_SECOND_ARGUMENT_IS_CONST)
                   (char**)
 #endif
 		   inbuf, inbytesleft, outbuf, outbytesleft);
