@@ -296,13 +296,12 @@ lnhead *c_boxln(MN *mn)
     return (lnhead *) lpool;
 }
 
-int16_t MN_to_line(MN * mn)
+void MN_to_line(MN * mn)
 {
     main_number_ptr = mn;
     boxes_account();
     boxes_to_line();
     wcomp.type = 0;
-    return 0;
 }
 
 //void save_component(c_comp *,version *,version *,uchar*,uint16_t);

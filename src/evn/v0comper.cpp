@@ -86,8 +86,8 @@ extern uchar lpool[];
 extern uchar* events_tree_rt;
 extern uchar evline[], evline1[];
 extern VAR evvars[64], *evendvar;
-extern uchar evrow_b1, evrow_b2, evrow_b3, evrow_b4;
-extern uchar evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
+extern uint16_t evrow_b1, evrow_b2, evrow_b3, evrow_b4;
+extern uint16_t evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
 extern uchar* seek_responce;
 extern MN *main_number_ptr;
 extern BOX *boxchain, *dl_last_in_chain;
@@ -97,7 +97,7 @@ static uchar ev;
 static VAR * vp;
 
 Bool16 boxes_account();
-extern void make_raster(void);
+extern uchar* make_raster(void);
 extern void c_rastror(uchar *, uchar *, uint, uint);
 extern MN *c_locomp(uchar *, int, int, int, int);
 
@@ -115,7 +115,7 @@ void ev_lang_filter();
 static int16_t is_english(uchar ch);
 
 extern uchar ev_rt_num_ln;
-int16_t events_recog_rt()
+uint16_t events_recog_rt()
 {
     MN *mn;
     int16_t n, k;

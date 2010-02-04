@@ -60,8 +60,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <sys/stat.h>
-#include <unistd.h>
 
+#include "compat/filefunc.h"
 #include "evn.h"
 #include "dif/dif.h"
 #include "struct.h"
@@ -83,7 +83,6 @@ static const char * NAMEP = "rec1r&e.dat";
 static const char * NAME_RTP = "rec2r&e.dat";
 #endif
 //-------------- FROM DIF.DLL
-extern Bool32 DIF_SetLanguage(uchar lang);
 static int evn_error_code = ER_EVN_NO_ERROR;
 static char load_tab1[256], load_tab2[256];
 char alphabet[256];
@@ -102,7 +101,7 @@ extern uchar evline[], evline1[];
 extern MN * c_locomp(uchar* raster, int bw, int h, int upper, int left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp, uint16_t lth);
+extern int32_t recog_letter_lp(CCOM_comp *ec, uchar *lp, uint16_t lth);
 
 static int32_t GetFileLength(int32_t handle)
 {

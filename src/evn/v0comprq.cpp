@@ -343,13 +343,13 @@ static void setvers(uchar* p)
     wcomp.nvers = (rec_ptr = v) - start_rec;
 }
 
-uint32_t recog_letter()
+int32_t recog_letter()
 {
     recog_one();
     return wcomp.nvers;
 }
 
-uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,
+int32_t recog_letter_lp(CCOM_comp *ec, uchar * lp,
                                          uint16_t lth)
 {
     memset(&wcomp, 0, sizeof(wcomp));
