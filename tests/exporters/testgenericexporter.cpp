@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testgenericexporter.h"
+#include <fstream>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #define private public
 #include <rout/genericexporter.h>
