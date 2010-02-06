@@ -54,27 +54,26 @@ MagickImageLoader::~MagickImageLoader()
 {
 }
 
-ImagePtr MagickImageLoader::load(Magick::Image * image, Magick::Blob * blob)
+ImagePtr MagickImageLoader::load(Magick::Image& image, Magick::Blob& blob)
 {
-    assert(image);
-    assert(blob);
-
-    switch (image->type()) {
+    switch (image.type()) {
     case Magick::BilevelType:
     case Magick::TrueColorType:
         break;
     default:
-        image->type(Magick::TrueColorType);
+        image.type(Magick::TrueColorType);
     }
-    if (CIF::Config::instance().debugHigh())
-        image->verbose(true);
-    // Write to BLOB in BMP format
-    image->magick("DIB");
-    image->write(blob);
 
-    char * new_data = new char[blob->length()];
-    memcpy(new_data, blob->data(), blob->length());
-    return ImagePtr(new Image(new_data, blob->length(), Image::AllocatorNew));
+    if (CIF::Config::instance().debugHigh())
+        image.verbose(true);
+    // Write to BLOB in BMP format
+
+    image.magick("DIB");
+    image.write(&blob);
+
+    char * new_data = new char[blob.length()];
+    memcpy(new_data, blob.data(), blob.length());
+    return ImagePtr(new Image(new_data, blob.length(), Image::AllocatorNew));
 }
 
 ImagePtr MagickImageLoader::load(std::istream& stream)
@@ -91,7 +90,7 @@ ImagePtr MagickImageLoader::load(std::istream& stream)
     blob.updateNoCopy(tmp.get(), static_cast<size_t>(stream_size));
     try {
         Magick::Image image(blob);
-        return load(&image, &blob);
+        return load(image, blob);
     }
     catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";
@@ -104,7 +103,7 @@ ImagePtr MagickImageLoader::load(const std::string& fname)
     Magick::Blob blob;
     try {
         Magick::Image image(fname);
-        return load(&image, &blob);
+        return load(image, blob);
     }
     catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";

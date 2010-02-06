@@ -47,7 +47,7 @@ class MagickImageLoader: public ImageLoader
 
         ImagePtr load(std::istream& stream);
     private:
-        ImagePtr load(Magick::Image * image, Magick::Blob * blob);
+        ImagePtr load(Magick::Image& image, Magick::Blob& blob);
 };
 
 }
