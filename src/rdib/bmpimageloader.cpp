@@ -20,6 +20,7 @@
 #include <boost/scoped_array.hpp>
 #include <cstring>
 #include <fstream>
+#include <iomanip>
 
 #include "bmpimageloader.h"
 #include "imageloaderfactory.h"
@@ -95,7 +96,7 @@ ImagePtr BmpImageLoader::load(std::istream& stream) {
         Debug() << "\tbitcount: " << imageBitCount() << ", stride: " << stride()
                 << ", row stride: " << imageRowStride() << std::endl;
 
-        Debug() << std::hex << "\tred mask: " << info_header_.iRedMask << ", green mask: "
+        Debug() << "\tred mask: " << std::hex << info_header_.iRedMask << ", green mask: "
                 << info_header_.iGreenMask << ", blue mask: " << info_header_.iBlueMask << std::dec
                 << std::endl;
     }
