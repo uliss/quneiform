@@ -66,8 +66,8 @@ ImagePtr MagickImageLoader::load(Magick::Image& image, Magick::Blob& blob)
 
     if (CIF::Config::instance().debugHigh())
         image.verbose(true);
-    // Write to BLOB in BMP format
 
+    // Write to BLOB in BMP format
     image.magick("DIB");
     image.write(&blob);
 
@@ -94,7 +94,7 @@ ImagePtr MagickImageLoader::load(std::istream& stream)
     }
     catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";
-        throw Exception("MagickImageLoader::load faild");
+        throw Exception("MagickImageLoader::load failed");
     }
 }
 
