@@ -40,7 +40,11 @@ class ImageLoader
         virtual ImagePtr load(const std::string& filename) = 0;
         virtual ImagePtr load(std::istream& stream) = 0;
         void setMaxImageSize(size_t size);
-        static size_t streamSize(std::istream& stream);
+
+        /**
+         * Returns size of stream or 0 if stream error occurs
+         */
+        static std::ios::streampos streamSize(std::istream& stream);
 
         typedef RuntimeExceptionImpl<ImageLoader> Exception;
     private:

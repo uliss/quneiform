@@ -27,8 +27,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 
 using namespace CIF;
 
-void TestFormatDetector::testDetectByFilename()
-{
+void TestFormatDetector::testDetectByFilename() {
     CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bmp"));
     CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.BMP"));
     CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bMp"));
@@ -51,8 +50,7 @@ void TestFormatDetector::testDetectByFilename()
     CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tif"));
 }
 
-void TestFormatDetector::testDetectByContent()
-{
+void TestFormatDetector::testDetectByContent() {
     std::stringstream stream;
     stream << "GIFsssstegggggggggg";
     CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_GIF, ImageFormatDetector::instance().detect(stream));
@@ -69,5 +67,4 @@ void TestFormatDetector::testDetectByContent()
         image_format_t fmt = ImageFormatDetector::instance().detect(is);
         CPPUNIT_ASSERT(fmt != FORMAT_UNKNOWN);
     }
-
 }

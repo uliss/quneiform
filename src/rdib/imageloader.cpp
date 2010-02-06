@@ -40,12 +40,22 @@ void ImageLoader::setMaxImageSize(size_t size)
     max_image_size_ = size;
 }
 
-size_t ImageLoader::streamSize(std::istream& is)
+std::ios::streampos ImageLoader::streamSize(std::istream& is)
 {
-    size_t prev_pos = is.tellg();
+    std::ios::streampos prev_pos = is.tellg();
+    // -1 returned in case of error
+    if(prev_pos < 0)
+        return 0;
     is.seekg(0, std::ios::end);
-    size_t ret = is.tellg();
+    // exception thrown or failbit flag set
+    if(is.fail())
+        return 0;
+    std::ios::streampos ret = is.tellg();
+    if(ret < 0)
+        return 0;
     is.seekg(prev_pos);
+    if(is.fail())
+        return 0;
     return ret;
 }
 

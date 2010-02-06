@@ -36,5 +36,13 @@ void TestMagickLoader::testLoad() {
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pbm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pgm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.ppm"));
+    // throw
+    CPPUNIT_ASSERT_THROW(loader->load("not-exists"), ImageLoader::Exception);
+    std::ifstream is_empty;
+    CPPUNIT_ASSERT_THROW(loader->load(is_empty), ImageLoader::Exception);
+    std::ifstream is_bad;
+    int tmp;
+    is_bad >> tmp;
+    CPPUNIT_ASSERT_THROW(loader->load(is_bad), ImageLoader::Exception);
 
 }
