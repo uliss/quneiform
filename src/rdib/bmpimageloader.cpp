@@ -460,7 +460,7 @@ void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream) {
 }
 
 void BmpImageLoader::readUncompressedData(std::istream& stream) {
-    data_size_ = streamSize(stream) - sizeof(BMPFileHeader);
+    data_size_ = (long) streamSize(stream) - sizeof(BMPFileHeader);
     assert(data_size_ > 0);
     data_ = new char[data_size_];
     stream.seekg(sizeof(BMPFileHeader));
