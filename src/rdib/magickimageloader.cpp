@@ -81,7 +81,7 @@ ImagePtr MagickImageLoader::load(std::istream& stream)
     if(stream.fail())
         throw Exception("MagickImageLoader::load invalid stream given");
 
-    std::ios::streampos stream_size = streamSize(stream);
+    std::streampos stream_size = streamSize(stream);
     if(stream_size < 1)
         throw Exception("MagickImageLoader::load empty stream given");
 
