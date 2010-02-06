@@ -92,7 +92,7 @@ using namespace CIF;
 #elif defined(__FreeBSD__)
 #include <malloc_np.h>
 
-#elif defined(__NetBSD__)
+#elif defined(__NetBSD__) || defined(__OpenBSD__)
 // FIXME uliss
 // it's a temporary hack, but it seems that
 // this function used only in several methods
