@@ -44,7 +44,7 @@ class ImageLoader
         /**
          * Returns size of stream or 0 if stream error occurs
          */
-        static std::ios::streampos streamSize(std::istream& stream);
+        static std::streampos streamSize(std::istream& stream);
 
         typedef RuntimeExceptionImpl<ImageLoader> Exception;
     private:

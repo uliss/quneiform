@@ -40,7 +40,7 @@ void ImageLoader::setMaxImageSize(size_t size)
     max_image_size_ = size;
 }
 
-std::ios::streampos ImageLoader::streamSize(std::istream& is)
+std::streampos ImageLoader::streamSize(std::istream& is)
 {
     std::ios::streampos prev_pos = is.tellg();
     // -1 returned in case of error
