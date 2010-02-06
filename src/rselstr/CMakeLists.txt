@@ -38,9 +38,7 @@ sevbreak.cpp
 testforvertical.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rselstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rselstr)
 
 set_property(TARGET cuneiform-rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 

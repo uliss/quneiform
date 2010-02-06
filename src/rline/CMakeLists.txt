@@ -6,9 +6,7 @@ newline.cpp
 rline.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rline PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rline)
 
 set_property(TARGET cuneiform-rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
 

@@ -45,9 +45,7 @@ sestring.cpp
 sevbreak.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rblock PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rblock)
 
 set_property(TARGET cuneiform-rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 

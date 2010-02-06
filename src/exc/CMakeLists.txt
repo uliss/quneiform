@@ -10,9 +10,7 @@ v0compgl.cpp
 v0compmn.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-exc PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-exc)
 
 set_property(TARGET cuneiform-exc PROPERTY COMPILE_DEFINITIONS __EXC__)
 

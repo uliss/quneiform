@@ -12,9 +12,8 @@ v0compgl.cpp
 v0comprq.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-evn PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif() 
+cif_visibility_hidden(cuneiform-evn)
+
 set_property(TARGET cuneiform-evn PROPERTY COMPILE_DEFINITIONS __EVN__)
 
 target_link_libraries(cuneiform-evn 

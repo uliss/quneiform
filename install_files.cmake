@@ -27,3 +27,11 @@ macro(install_exe name)
     RUNTIME DESTINATION bin
   )
 endmacro()
+
+include(CheckCXXCompilerFlag)
+macro(cif_visibility_hidden name)
+  CHECK_CXX_COMPILER_FLAG(-fvisibility=hidden HAVE_GCC_VISIBILITY)
+  if(HAVE_GCC_VISIBILITY)
+      set_property(TARGET ${name} PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+  endif() 
+endmacro()

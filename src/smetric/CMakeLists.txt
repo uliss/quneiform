@@ -9,9 +9,8 @@ ugol.cpp
 ../usage/un_buff.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-smetric PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-smetric)
+
 set_property(TARGET cuneiform-smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
 target_link_libraries(cuneiform-smetric cuneiform-compat)

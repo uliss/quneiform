@@ -37,9 +37,7 @@ sources/udictini.cpp
 sources/udictuti.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rling PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rling)
 
 set_property(TARGET cuneiform-rling PROPERTY COMPILE_DEFINITIONS __RLING__)
 

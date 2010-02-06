@@ -88,9 +88,8 @@ tm.cpp
 tools.cpp
 ukr.cpp)
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rstr PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rstr)
+
 set_property(TARGET cuneiform-rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
 target_link_libraries(cuneiform-rstr

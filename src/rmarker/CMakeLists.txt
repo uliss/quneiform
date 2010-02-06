@@ -13,9 +13,7 @@ shortverticallinesfilter.cpp
 ../usage/un_buff.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-rmarker PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-rmarker)
 
 set_property(TARGET cuneiform-rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 

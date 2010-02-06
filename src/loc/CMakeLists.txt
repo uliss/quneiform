@@ -6,9 +6,7 @@ locompmn.cpp
 v0compgl.cpp
 )        
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-loc PROPERTY COMPILE_FLAGS "-fvisibility=hidden")  
-endif()
+cif_visibility_hidden(cuneiform-loc)
   
 set_property(TARGET cuneiform-loc PROPERTY COMPILE_DEFINITIONS __LOC__)
 

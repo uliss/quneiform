@@ -11,9 +11,7 @@ stdprt.cpp
 stdsort.cpp
 )
 
-if(${CMAKE_COMPILER_IS_GNUCXX} AND NOT MINGW)
-  set_property(TARGET cuneiform-std PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-endif()
+cif_visibility_hidden(cuneiform-std)
 
 set_property(TARGET cuneiform-std PROPERTY COMPILE_DEFINITIONS __STD__)
 
