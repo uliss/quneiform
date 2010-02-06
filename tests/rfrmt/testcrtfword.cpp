@@ -35,22 +35,25 @@ void TestCRtfWord::testInit() {
     CPPUNIT_ASSERT(!wd.isSpelled());
     CPPUNIT_ASSERT(wd.realFontSize() == 0);
     CPPUNIT_ASSERT(wd.probability() == 0);
-    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
+    const std::string s_empty;
+    CPPUNIT_ASSERT_EQUAL(s_empty, wd.toString());
 }
 
 void TestCRtfWord::testCharBRect() {
     CRtfWord wd;
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.charsBRect());
+    const Rect r_empty;
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.charsBRect());
     wd.addChar(new CRtfChar);
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.charsBRect());
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.charsBRect());
     Rect brect(Point(1, 2), Point(11, 12));
     wd.firstChar()->setIdealRect(brect);
     // only real rectangle is counted
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.charsBRect());
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.charsBRect());
     wd.firstChar()->setRealRect(brect);
     CPPUNIT_ASSERT_EQUAL(brect, wd.charsBRect());
     wd.addChar(new CRtfChar);
-    CPPUNIT_ASSERT_EQUAL(Rect(Point(), Point(11, 12)), wd.charsBRect());
+    const Point pt_empty;
+    CPPUNIT_ASSERT_EQUAL(Rect(pt_empty, Point(11, 12)), wd.charsBRect());
 }
 
 void TestCRtfWord::testCalcBRect() {
@@ -61,12 +64,13 @@ void TestCRtfWord::testCalcBRect() {
     CPPUNIT_ASSERT(wd.lastChar());
     CPPUNIT_ASSERT(wd.charAt(0));
 
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.bRect());
+    Rect r_empty;
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.bRect());
     Rect brect(Point(1, 2), Point(11, 12));
     wd.firstChar()->setIdealRect(brect);
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.bRect());
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.bRect());
     wd.firstChar()->setIdealRect(brect);
-    CPPUNIT_ASSERT_EQUAL(Rect(), wd.bRect());
+    CPPUNIT_ASSERT_EQUAL(r_empty, wd.bRect());
 
     CPPUNIT_ASSERT_THROW(wd.calcBRect(), std::runtime_error);
 }
@@ -140,13 +144,14 @@ void TestCRtfWord::testClearChars() {
 
 void TestCRtfWord::testToString() {
     CRtfWord wd;
-    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
+    const std::string s_empty;
+    CPPUNIT_ASSERT_EQUAL(s_empty, wd.toString());
     wd.addChar(new CRtfChar('a', Letter::LOWEST_PROBABILITY));
     CPPUNIT_ASSERT_EQUAL(std::string("a"), wd.toString());
     wd.addChar(new CRtfChar('b', Letter::LOWEST_PROBABILITY));
     CPPUNIT_ASSERT_EQUAL(std::string("ab"), wd.toString());
     wd.clearChars();
-    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
+    CPPUNIT_ASSERT_EQUAL(s_empty, wd.toString());
 }
 
 void TestCRtfWord::testStartsWith() {

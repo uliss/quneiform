@@ -120,11 +120,14 @@ void TestRect::testUnite() {
     // intersects
     r2.set(Point(20, 30), Point(50, 60));
     CPPUNIT_ASSERT(r2.intersects(r1));
-    CPPUNIT_ASSERT_EQUAL(Rect(Point(), Point(50, 60)), r1.united(r2));
+    Point pt;
+    Rect r_u1(pt, Point(50, 60));
+    CPPUNIT_ASSERT_EQUAL(r_u1, r1.united(r2));
     // non intersects
     r2.set(Point(100, 100), Point(300, 300));
     CPPUNIT_ASSERT(!r2.intersects(r1));
-    CPPUNIT_ASSERT_EQUAL(Rect(Point(), Point(300, 300)), r2.united(r1));
+
+    CPPUNIT_ASSERT_EQUAL(Rect(pt, Point(300, 300)), r2.united(r1));
 }
 
 void TestRect::testNormalize() {

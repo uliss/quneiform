@@ -107,6 +107,6 @@ void TestPoint::testSerialize() {
 
     CPPUNIT_ASSERT_EQUAL(pt, new_point);
 
-}
 #endif
+}
 

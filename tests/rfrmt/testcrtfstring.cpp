@@ -42,9 +42,10 @@ void TestCRtfString::testClearWords() {
 
 void TestCRtfString::testToString() {
     CRtfString str;
-    CPPUNIT_ASSERT_EQUAL(std::string(), str.toString());
+    std::string str_empty;
+    CPPUNIT_ASSERT_EQUAL(str_empty, str.toString());
     str.addWord(new CRtfWord);
-    CPPUNIT_ASSERT_EQUAL(std::string(), str.toString());
+    CPPUNIT_ASSERT_EQUAL(str_empty, str.toString());
     str.firstWord()->addChar(new CRtfChar('a', 100));
     str.firstWord()->addChar(new CRtfChar('b', 100));
     CPPUNIT_ASSERT_EQUAL(std::string("ab"), str.toString());
